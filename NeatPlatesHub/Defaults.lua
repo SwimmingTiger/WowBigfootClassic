@@ -151,7 +151,7 @@ NeatPlatesHubDefaults = {
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 1,
+	HighlightTargetMode = 3,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
