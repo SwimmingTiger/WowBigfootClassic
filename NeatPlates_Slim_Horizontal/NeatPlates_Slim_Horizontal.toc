@@ -1,0 +1,7 @@
+## Interface: 11302
+## Title: Neat Plates: Slim Horizontal
+## Author: Dotfix
+## Version: 2.2
+## Dependencies: NeatPlates, NeatPlatesHub
+
+NeatPlates_Slim_Horizontal.lua

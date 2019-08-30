@@ -1,0 +1,12 @@
+lightweight tag 92cbddf8a1fd75cae21ba3219f87dd0840b0099b 1.13.2.3-Classic
+Author:	Luxocracy <luxor355@gmail.com>
+Date:	Wed Aug 21 14:18:31 2019 +0200
+
+commit 92cbddf8a1fd75cae21ba3219f87dd0840b0099b
+Author: Luxocracy <luxor355@gmail.com>
+Date:   Wed Aug 21 14:18:31 2019 +0200
+
+    Moved spelltext back to original position for some themes
+    
+    - Moved spelltext back to original position for some themes, if duration text isn't enabled.
+
