@@ -1,0 +1,26 @@
+﻿## Interface: 11302
+## Title: <DCT> SpellAlert
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 法术预警模块
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 法術預警模組
+## Notes: |cffbc8f8fProvide spell alert for DCT.|r
+## Notes-zhCN: |cff00ff00dct_spellAlert|r|n|cffbc8f8f为战斗指示器提供法术预警功能。|r
+## Notes-zhTW: |cff00ff00dct_spellAlert|r|n|cffbc8f8f為戰鬥指示器提供法術預警功能。|r
+## Author: Dennie
+## Dependencies: dct
+## X-Revision: BigFoot
+## SavedVariables: DCTSA_CONFIG
+## SavedVariablesPerCharacter: DCTSA_PERCONFIG
+## LoadOnDemand: 1
+
+default_config.lua
+loc_sa.lua
+
+locals\cn_loc_sa.lua
+locals\cn_pre_set.lua
+locals\tw_loc_sa.lua
+locals\tw_pre_set.lua
+
+dct_sa.lua
+options_sa.lua
+options_sa.xml
+

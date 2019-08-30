@@ -1,0 +1,14 @@
+﻿## Interface: 11302
+## Title: [BF] Cooldown
+## Title-zhCN: [大脚]冷却增强
+## Title-zhTW: [大腳]冷卻增強
+## Notes: |cffbc8f8fCooldown watcher developed by 178.|r
+## Notes-zhCN: |cff00ff00BFCooldown|r|n|cffbc8f8f在图标上显示倒计时及提供冷却到时提示。|r
+## Notes-zhTW: |cff00ff00BFCooldown|r|n|cffbc8f8f在圖標上顯示倒計時及提供冷卻到時提示。|r
+## Author: Terry
+## SavedVariablesPerCharacter: BFCooldownDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+BFCooldown.xml

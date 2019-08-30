@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] PlayerLink
+## Title-zhCN: [大脚]链接增强
+## Title-zhTW: [大腳]鏈接增強
+## Notes: |cffbc8f8fImprove the function of player link.|r
+## Notes-zhCN: |cff00ff00PlayerLink|r|n|cffbc8f8f增强聊天窗口的玩家的链接功能。|r
+## Notes-zhTW: |cff00ff00PlayerLink|r|n|cffbc8f8f增強聊天窗口的玩家的鏈接功能。|r
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+PlayerLink.xml

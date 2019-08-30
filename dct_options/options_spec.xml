@@ -1,0 +1,350 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTSpecOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>	
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_SpecTitle" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="TOPLEFT">	
+							<Offset>
+								<AbsDimension x="5" y="-290"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>		
+					<FontHeight>
+						<AbsValue val="14"/>
+					</FontHeight>					
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$ParentSpecBuffListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opspec_SpecBuffListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentBuffListDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_DELETE">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="470" y="-20" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_DeleteClick(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentBuffListEdit" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSpecBuffListDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="25" y="-30" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$ParentBuffListAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentBuffListEdit" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="145" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_AddClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentBuffFadeListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-110"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opspec_BuffFadeListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentBuffFadeDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_DELETE">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="470" y="-110" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_BuffFadeDeleteClick(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentBuffFadeEdit" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentBuffFadeListDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="25" y="-30" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$ParentBuffFadeAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentBuffFadeEdit" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="145" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_BuffFadeAddClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentSpellSuccessListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-200"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opspec_SpellSuccessListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentSpellSuccessDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_DELETE">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="470" y="-200" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_SpellSuccessDeleteClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentSpellSuccessEdit" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSpellSuccessListDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="25" y="-30" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$ParentSpellSuccessAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSpellSuccessEdit" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="145" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_SpellSuccessAddClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentSpellFailedListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-290"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opspec_SpellFailedListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentSpellFailedDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_DELETE">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="470" y="-290" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_SpellFailedDeleteClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentSpellFailedEdit" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSpellFailedListDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="25" y="-30" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$ParentSpellFailedAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSpellFailedEdit" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="145" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_SpellFailedAddClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentCoolDownListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-380"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opspec_CoolDownListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentCoolDownDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_DELETE">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="470" y="-380" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_CoolDownDeleteClick()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentCoolDownEdit" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="130" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentCoolDownListDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="25" y="-30" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$ParentCoolDownAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSPEC_ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentCoolDownEdit" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="145" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opspec_CoolDownAddClick()
+					</OnClick>
+				</Scripts>
+			</Button>		
+			
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCT_OptionsRegisterButton(DCT_SPEC_OPTION,DCTSpecOption,nil,2,535,85);
+				DCT_OptionsRegisterButtonExBG(DCT_SPEC_OPTION,0,-90,535,85, 0,-180,535,85, 0,-270,535,85, 0,-360,535,85);
+			</OnLoad>
+                        <OnShow function="DCT_Opspec_OnShow" />
+			<OnHide>
+				
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

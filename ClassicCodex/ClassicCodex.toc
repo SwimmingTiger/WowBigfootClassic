@@ -1,0 +1,51 @@
+## Interface: 11302
+## Title: ClassicCodex
+## Title-zhCN: [大脚][集]任务助手
+## TItle-zhTW: [大腳][集]任務助手
+## Notes: ClassicCodex
+## Notes-zhCN: |cff00ff00ClassicCodex|r
+## Notes-zhTW: |cff00ff00ClassicCodex|r
+## Author: Pgarneau, Shagu
+## Version: 1.2.1
+## SavedVariablesPerCharacter: CodexConfig, CodexHistory, CodexBrowserFavorites, CodexColors
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+# database index
+db\init.lua
+db\items.lua
+db\units.lua
+db\objects.lua
+db\refloot.lua
+db\quests.lua
+db\meta.lua
+
+# database enUS
+db\enUS\items.lua
+db\enUS\units.lua
+db\enUS\objects.lua
+db\enUS\quests.lua
+db\enUS\zones.lua
+db\enUS\professions.lua
+
+# database zhCN
+db\zhCN\items.lua
+db\zhCN\units.lua
+db\zhCN\objects.lua
+db\zhCN\quests.lua
+db\zhCN\zones.lua
+db\zhCN\professions.lua
+
+# libs
+lib\HereBeDragons\HereBeDragons-2.0.lua
+lib\HereBeDragons\HereBeDragons-Pins-2.0.lua
+
+# main
+command.lua
+config.lua
+core.lua
+database.lua
+map.lua
+quest.lua
+ui.lua
+browser.lua

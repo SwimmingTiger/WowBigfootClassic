@@ -1,0 +1,206 @@
+﻿## Interface: 11302
+## X-Min-Interface: 11302
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Party-Classic|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruppe-Classic|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mazmorras (Clásico)|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf05인던전-오리지널|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-傳統|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍首领(经典旧世)|r
+## Author: MysticalOS
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMPartyClassic_AllSavedVars
+## SavedVariablesPerCharacter: DBMPartyClassic_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: PARTY
+## X-DBM-Mod-Category: Classic
+## X-DBM-Mod-Has-Single-Format: 1
+## X-DBM-Mod-SubCategoriesID: 48,230,229|Lower,229|Upper,36,429,90,349,389,129,47,189,289,33,34,329,109,70,43,209
+## X-DBM-Mod-Name: Party-Classic
+## X-DBM-Mod-Name-deDE: Gruppe (Classic)
+## X-DBM-Mod-Name-esES: Mazmorras (Clásico)
+## X-DBM-Mod-Name-koKR: 5인 던전(오리지널)
+## X-DBM-Mod-Name-zhTW: 隊伍首領 (傳統)
+## X-DBM-Mod-Name-zhCN: 队伍首领(经典旧世)
+## X-DBM-Mod-Sort: 15
+## X-DBM-Mod-MapID: 48,230,229,36,429,90,349,389,129,47,189,289,33,34,329,109,70,43,209
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.de.lua
+localization.kr.lua
+localization.tw.lua
+localization.es.lua
+localization.cn.lua
+
+BlackfathomDeeps\GhamooRa.lua
+BlackfathomDeeps\LadySerevess.lua
+BlackfathomDeeps\Gelihast.lua
+BlackfathomDeeps\TwilightLordKelris.lua
+BlackfathomDeeps\OldSerrakis.lua
+BlackfathomDeeps\Akumai.lua
+
+BlackrockDepths\Gerstahn.lua
+BlackrockDepths\LordRoccor.lua
+BlackrockDepths\HoundmasterGrebmar.lua
+BlackrockDepths\RingofLaw.lua
+BlackrockDepths\PyromancerLoregrain.lua
+BlackrockDepths\LordIncendius.lua
+BlackrockDepths\WardenStilgiss.lua
+BlackrockDepths\FineousDarkvire.lua
+BlackrockDepths\BaelGar.lua
+BlackrockDepths\GeneralAngerforge.lua
+BlackrockDepths\GolemLordArgelmach.lua
+BlackrockDepths\HurleyBlackbreath.lua
+BlackrockDepths\Phalanx.lua
+BlackrockDepths\PluggerSpazzring.lua
+BlackrockDepths\AmbassadorFlamelash.lua
+BlackrockDepths\TheSeven.lua
+BlackrockDepths\Magmus.lua
+BlackrockDepths\EmperorDagranThaurissan.lua
+
+LowerBlackrockSpire\HighlordOmokk.lua
+LowerBlackrockSpire\ShadowHunterVoshgajin.lua
+LowerBlackrockSpire\WarMasterVoone.lua
+LowerBlackrockSpire\MotherSmolderweb.lua
+LowerBlackrockSpire\UrokDoomhowl.lua
+LowerBlackrockSpire\QuartermasterZigris.lua
+LowerBlackrockSpire\Halycon.lua
+LowerBlackrockSpire\Gizrul.lua
+LowerBlackrockSpire\OverlordWyrmthalak.lua
+
+Deadmines\RhahkZor.lua
+Deadmines\MinerJohnson.lua
+Deadmines\SneedsShredder.lua
+Deadmines\Gilnid.lua
+Deadmines\MrSmite.lua
+Deadmines\CaptainGreenskin.lua
+Deadmines\EdwinVanCleef.lua
+Deadmines\Cookie.lua
+
+DireMaul\ZevrimThornhoof.lua
+DireMaul\Hydrospawn.lua
+DireMaul\Lethtendris.lua
+DireMaul\Alzzin.lua
+DireMaul\TendrisWarpwood.lua
+DireMaul\IllyannaRavensoak.lua
+DireMaul\MagisterKelendris.lua
+DireMaul\Immolthar.lua
+DireMaul\PrinceTortheldrin.lua
+DireMaul\GuardMoldar.lua
+DireMaul\StomperKreeg.lua
+DireMaul\GuardFengus.lua
+DireMaul\GuardSlipkik.lua
+DireMaul\CaptainKromcrush.lua
+DireMaul\ChoRush.lua
+DireMaul\KingGordok.lua
+
+Gnomeregan\Grubbis.lua
+Gnomeregan\ViscousFallout.lua
+Gnomeregan\Electrocutioner6000.lua
+Gnomeregan\CrowdPummeler.lua
+Gnomeregan\MekgineerThermaplugg.lua
+
+Maraudon\Noxxion.lua
+Maraudon\Razorlash.lua
+Maraudon\TinkererGizlock.lua
+Maraudon\LordVyletongue.lua
+Maraudon\CelebrastheCursed.lua
+Maraudon\Landslide.lua
+Maraudon\Rotgrip.lua
+Maraudon\PrincessTheradras.lua
+
+RagefireChasm\Oggleflint.lua
+RagefireChasm\Taragaman.lua
+RagefireChasm\Jergosh.lua
+RagefireChasm\Bazzalan.lua
+
+RazorfenDowns\Tutenkash.lua
+RazorfenDowns\MordreshFireEye.lua
+RazorfenDowns\Glutton.lua
+RazorfenDowns\Ragglesnout.lua
+RazorfenDowns\AmnennartheColdbringer.lua
+RazorfenDowns\PlaguemawtheRotting.lua
+
+RazorfenKraul\Roogug.lua
+RazorfenKraul\AggemThorncurse.lua
+RazorfenKraul\DeathSpeakerJargba.lua
+RazorfenKraul\OverlordRamtusk.lua
+RazorfenKraul\AgathelostheRaging.lua
+RazorfenKraul\BlindHunter.lua
+RazorfenKraul\EarthcallerHalmgar.lua
+RazorfenKraul\CharlgaRazorflank.lua
+
+ScarletMonastery\InterrogatorVishas.lua
+ScarletMonastery\BloodmageThalnos.lua
+ScarletMonastery\HoundmasterLoksey.lua
+ScarletMonastery\ArcanistDoan.lua
+ScarletMonastery\Herod.lua
+ScarletMonastery\Mograine_and_Whitemane.lua
+ScarletMonastery\HighInquisitorFairbanks.lua
+
+Shadowfangkeep\Rethilgore.lua
+Shadowfangkeep\RazorclawtheButcher.lua
+Shadowfangkeep\BaronSilverlaine.lua
+Shadowfangkeep\CommanderSpringvale.lua
+Shadowfangkeep\OdotheBlindwatcher.lua
+Shadowfangkeep\DeathswornCaptain.lua
+Shadowfangkeep\FenrustheDevourer.lua
+Shadowfangkeep\WolfMasterNandos.lua
+Shadowfangkeep\ArchmageArugal.lua
+
+StormwindStockaid\Targorr.lua
+StormwindStockaid\KamDeepfury.lua
+StormwindStockaid\Hamhock.lua
+StormwindStockaid\BazilThredd.lua
+StormwindStockaid\DextrenWard.lua
+StormwindStockaid\BruegalIronknuckle.lua
+
+Stratholme\HearthsingerForresten.lua
+Stratholme\TimmytheCruel.lua
+Stratholme\CommanderMalor.lua
+Stratholme\WilleyHopebreaker.lua
+Stratholme\InstructorGalford.lua
+Stratholme\Balnazzar.lua
+Stratholme\TheUnforgiven.lua
+Stratholme\BaronessAnastari.lua
+Stratholme\Narubenkan.lua
+Stratholme\MalekithePallid.lua
+Stratholme\MagistrateBarthilas.lua
+Stratholme\RamsteintheGorger.lua
+Stratholme\LordAuriusRivendare.lua
+
+SunkenTemple\AvatarofHakkar.lua
+SunkenTemple\JammalantheProphet.lua
+SunkenTemple\Dreamscythe.lua
+SunkenTemple\Weaver.lua
+SunkenTemple\Morphaz.lua
+SunkenTemple\Hazzas.lua
+SunkenTemple\ShadeofEranikus.lua
+
+Uldaman\Revelosh.lua
+Uldaman\TheLostDwarves.lua
+Uldaman\Ironaya.lua
+Uldaman\ObsidianSentinel.lua
+Uldaman\AncientStoneKeeper.lua
+Uldaman\GalgannFirehammer.lua
+Uldaman\Grimlok.lua
+Uldaman\Archaedas.lua
+
+WailingCaverns\LadyAnacondra.lua
+WailingCaverns\LordPythas.lua
+WailingCaverns\LordCobrahn.lua
+WailingCaverns\Kresh.lua
+WailingCaverns\Skum.lua
+WailingCaverns\LordSerpentis.lua
+WailingCaverns\VerantheEverliving.lua
+WailingCaverns\MutanustheDevourer.lua
+WailingCaverns\DeviateFaerieDragon.lua
+
+ZulFarrak\Gahzrilla.lua
+ZulFarrak\Antusul.lua
+ZulFarrak\ThekatheMartyr.lua
+ZulFarrak\WitchDoctorZumrah.lua
+ZulFarrak\HydromancerVelrath.lua
+ZulFarrak\Nekrum_Sezzziz.lua
+ZulFarrak\ChiefUkorzSandscalp.lua

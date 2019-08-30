@@ -1,0 +1,14 @@
+## Interface: 11302
+## Title: BaudAuction
+## Title-zhCN: [大脚][集]拍卖增强
+## Title-zhTW: [大腳][集]拍賣增強
+## Notes: |cffbc8f8fModifies Blizzard's auction house display so it can display and sort multiple pages of items at once.|r
+## Notes-zhCN: |cff00ff00BaudAuction|r|n|cffbc8f8f增强拍卖行显示界面，在一页中显示全部拍卖品。|r
+## Notes-zhTW: |cff00ff00BaudAuction|r
+## Author: Baudzilla
+## LoadWith: Blizzard_AuctionUI
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+BaudAuction.xml

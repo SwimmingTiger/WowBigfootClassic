@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] RepairHelper
+## Title-zhCN: [大脚]修理助手
+## Title-zhTW: [大腳]修理助手
+## Notes: |cffbc8f8fAuto repair cracked equipment when you visit merchant.|r
+## Notes-zhCN: |cff00ff00RepairHelper|r|n|cffbc8f8f访问可修理的商人时自动帮助你修理破损的装备。|r
+## Notes-zhTW: |cff00ff00RepairHelper|r|n|cffbc8f8f訪問可修理的商人時自動幫助你修理破損的裝備。|r
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+RepairHelper.lua

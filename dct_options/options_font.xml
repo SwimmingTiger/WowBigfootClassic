@@ -1,0 +1,184 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	
+	<Frame name="DCTFontFrameS" inherits="DCT_OptionFrameBoxTemplate" virtual="true">		
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="LEFT" relitiveTo="$parent">	
+							<Offset>
+								<AbsDimension x="3" y="0"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>	
+					<FontSize>
+						<AbsValue val="12"/>
+					</FontSize>					
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self.bgColor = {0,0,0};
+			</OnLoad>			
+		</Scripts>
+	</Frame>
+	
+	<Frame name="DCTFontFrame" virtual="true">
+		<Size>
+			<AbsDimension x="480" y="25"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Path" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="LEFT" relitiveTo="$parent">	
+							<Offset>
+								<AbsDimension x="140" y="0"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>	
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString name="$parent_Label" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="LEFT" relitiveTo="$parent">	
+							<Offset>
+								<AbsDimension x="-30" y="0"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>	
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>		
+			<Frame name="$parentN" inherits="DCTFontFrameS">
+				<Size>
+					<AbsDimension x="120" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relitiveTo="$parent">	
+						<Offset>
+							<AbsDimension x="15" y="0"/>
+						</Offset>
+					</Anchor>						
+				</Anchors>	
+			</Frame>	
+			<Frame name="$parentP" inherits="DCTFontFrameS">
+				<Size>
+					<AbsDimension x="280" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relitiveTo="$parent">	
+						<Offset>
+							<AbsDimension x="170" y="0"/>
+						</Offset>
+					</Anchor>						
+				</Anchors>	
+			</Frame>	
+		</Frames>
+		<Scripts>
+                    <OnMouseDown function="DCT_Opfont_Frame_OnMouseDown" />
+			<OnEnter>
+				local objname = self:GetName()
+				local c = string.len(objname)
+				local key = tonumber(string.sub(objname,23,c))
+				if key > 3 then
+					getglobal(self:GetName().."P"):SetBackdropColor(0.4, 0.4, 0.9);
+					getglobal(self:GetName().."N"):SetBackdropColor(0.4, 0.4, 0.9);
+				end
+			</OnEnter>
+			<OnLeave>
+				local objname = self:GetName()
+				local c = string.len(objname)
+				local key = tonumber(string.sub(objname,23,c))
+				getglobal(self:GetName().."P"):SetBackdropColor(DCT_Opfont_ColorList[key][1], DCT_Opfont_ColorList[key][2], DCT_Opfont_ColorList[key][3]);
+				getglobal(self:GetName().."N"):SetBackdropColor(DCT_Opfont_ColorList[key][1], DCT_Opfont_ColorList[key][2], DCT_Opfont_ColorList[key][3]);
+			</OnLeave>
+		</Scripts>
+	</Frame>
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTFontOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>	
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_EditTitle" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="TOPLEFT">	
+							<Offset>
+								<AbsDimension x="15" y="-380"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>		
+					<FontHeight>
+						<AbsValue val="14"/>
+					</FontHeight>					
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentFontFrame1" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame2" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame3" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame4" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame5" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame6" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame7" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame8" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame9" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame10" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame11" inherits="DCTFontFrame"/>
+			<Frame name="$parentFontFrame12" inherits="DCTFontFrame"/>
+
+			<EditBox name="$parentEditN" inherits="DCTEditBoxTemplate">
+				<Size>
+					<AbsDimension x="120" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-420" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<EditBox name="$parentEditP" inherits="DCTEditBoxTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="160" y="-420" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCT_OptionsRegisterButton(DCT_FONT_OPTION,DCTFontOption,nil,6);
+			</OnLoad>
+                        <OnShow function="DCT_Opfont_OnShow" />
+			<OnHide>
+				
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,14 @@
+﻿## Interface: 11302
+## Title: [BF] CastingBar
+## Title-zhCN: [大脚]大脚施法条
+## Title-zhTW: [大腳]大腳施法條
+## Notes: |cffbc8f8fEnhance the default casting bar.|r
+## Notes-zhCN: |cff00ff00BFCastingBar|r|n|cffbc8f8f增强施法条，显示施法时间，延迟以及技能名称。|r 
+## Notes-zhTW: |cff00ff00BFCastingBar|r|n|cffbc8f8f增強施法條，顯示施法時間，延遲以及技能名稱。|r 
+## Author: Terry
+## SavedVariable:BFCBConfig
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+BFCastingBar.lua

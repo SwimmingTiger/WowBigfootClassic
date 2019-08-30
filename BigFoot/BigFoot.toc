@@ -1,0 +1,86 @@
+﻿## Interface: 11302
+## Title: BigFoot Base Library
+## Title-zhCN: [大脚] |cff0055FF基本库|r
+## Title-zhTW: [大腳] |cff0055FF基本庫|r
+## Notes: |cffbc8f8fThe base library of BigFoot. Do not disable this mod please.|r
+## Notes-zhCN: |cff00ff00BigFoot|r|n|cffbc8f8f这是大脚的基本运行库，大部分插件都依赖于该基本库。|r|cffb70000请不要禁用该插件。|r
+## Notes-zhTW: |cff00ff00BigFoot|r|n|cffbc8f8f這是大腳的基本運行庫，大部份插件都依賴于該基本庫。|r|cffb70000請不要禁用該插件。|r
+## SavedVariables: BigFoot_Config, BigFoot_Error,MBBDB,BF_Gloable,BF_LogonInfo,ModelChangeVariable
+## SavedVariablesPerCharacter: BF_Frames_Config, BigFoot_Character, BigFoot_SysTemSetTab
+## X-Revision: BigFoot
+
+Library\BigFootLibrary.lua
+Library\BigFootUtils.lua
+Library\BigFootDS.lua
+Library\BigFootHook.lua
+Library\BigFootInfo.lua
+Library\BigFootGUI.xml
+Library\BigFootGUI.lua
+Library\BigFootEvent.lua
+Library\BigFootScale.lua
+Library\BDropDown\BDropDownMenu.xml
+Library\BigFootMath.lua
+Library\BigFootLocal.lua
+Library\BigFootSecureHook.lua
+Library\BigFootRaidersDate.lua
+
+AceLibs\modules.xml
+
+UI\ModManagement.xml
+UI\Widgets.xml
+UI\BigFoot_SmallMod.lua
+
+BigFoot.xml
+#NewBigFoot.xml
+BigFootReader.xml
+BigFootVersion.lua
+version.en.lua
+version.tw.lua
+version.cn.lua
+BigFootBook.lua
+BigFootError.xml
+
+Mods\embed.xml
+
+Util\BagManagement.lua
+Util\ActionBar.lua
+Util\Validation.lua
+Util\ScanQuestLog.lua
+Util\Patch.lua
+Util\Cvar.lua
+
+Config\BagManagement.lua
+Config\ActionBar.lua
+Config\DKP.lua
+Config\BagIntegration.lua
+Config\BuffMaster.lua
+Config\ChatEnhance.lua
+Config\BFTooltip.lua
+Config\SpellTimer.lua
+Config\ClassMod.lua
+Config\RaidToolkit.lua
+Config\MerInspect.lua
+Config\MobInfo.lua
+Config\ActionButton.lua
+Config\AutoEquip.lua
+Config\TrinketMenu.lua
+Config\PartyMod.lua
+Config\ItemInfo.lua
+Config\ArenaMod.lua
+Config\CombatIndicator.lua
+Config\BUnitFrame.lua
+Config\BigFootGadget.lua
+Config\InfoBox.lua
+Config\MapToolkit.lua
+Config\SpellMonitor.lua
+Config\SellHelper.lua
+Config\RepairHelper.lua
+Config\QuestEnhance.lua
+Config\MountEnhance.lua
+Config\TradeHelper.lua
+Config\SystemSet.lua
+Config\MarkAssistant.lua
+Config\DayEvent.lua
+Config\PorEnhance.lua
+
+#SetCVar("scriptErrors",1)

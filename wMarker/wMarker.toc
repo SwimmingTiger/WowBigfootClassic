@@ -1,0 +1,21 @@
+## Interface: 11302
+## Title: |cffe1a500w|cff69ccf0Marker
+## Title-zhCN: [大脚][集]标记助手
+## Title-zhTW: [大腳][集]標記助手
+## Notes: I'm going to to get my engineers to invent a combustible lemon that burns your house down!
+## Notes-zhCN: |cff00ff00wMarker|r|n|cffbc8f8f标记和世界标记助手。|r
+## Notes-zhTW: |cff00ff00wMarker|r|n|cffbc8f8f標記和世界標記助手。|r
+## Author: Waky
+## Version: 2.5.5
+## SavedVariablesPerCharacter: wMarkerDB, wFlaresDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+Localization\enUS.lua
+Localization\zhCN.lua
+Localization\zhTW.lua
+
+wMarker.lua
+config.lua
+Bindings.xml

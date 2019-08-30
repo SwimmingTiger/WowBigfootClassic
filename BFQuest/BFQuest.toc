@@ -1,0 +1,13 @@
+## Interface: 11302
+## Title: [BF] BFQuest
+## Title-zhCN: [大脚]任务增强
+## Title-zhTW: [大腳]任務增強
+## Notes: |cffbc8f8fProvide quest-related enhancements.|r
+## Notes-zhCN: |cff00ff00BFQuest|r|n|cffbc8f8f提供任务相关的增强设置。|r
+## Notes-zhTW: |cff00ff00BFQuest|r|n|cffbc8f8f提供任務相關的增強設置。|r
+## SavedVariables: TeamNotice_Comment
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+BFQuest.lua

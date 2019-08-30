@@ -1,0 +1,222 @@
+<Ui>
+	<Texture name="_FilterButtonUp-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+		<Size x="64" y="26"/>
+		<TexCoords left="0.00000000" right="1.00000000" top="0.00195313" bottom="0.05273438"/>
+	</Texture>
+
+	<Texture name="_FilterButtonDown-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+		<Size x="64" y="26"/>
+		<TexCoords left="0.00000000" right="1.00000000" top="0.05664063" bottom="0.10742188"/>
+	</Texture>
+
+	<Texture name="UI-EJ-FilterButtonHighlight" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+			<Size x="80" y="26"/>
+			<TexCoords left="0.72656250" right="0.77734375" top="0.06738281" bottom="0.09277344"/>
+	</Texture>
+
+	<Texture name="_FilterButtonHighlight-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+			<Size x="76" y="26"/>
+			<TexCoords left="0.00000000" right="1.00000000" top="0.11132813" bottom="0.16210938"/>
+	</Texture>
+
+	<Texture name="UI-EJ-FilterButtonDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="26" y="26"/>
+		<TexCoords left="0.63476563" right="0.68554688" top="0.06738281" bottom="0.09277344"/>
+	</Texture>
+
+	<Texture name="UI-EJ-FilterButtonUp" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="26" y="26"/>
+		<TexCoords left="0.90039063" right="0.95117188" top="0.04980469" bottom="0.07519531"/>
+	</Texture>
+
+	<Button name="OfflineRaiders" frameStrata="LOW" toplevel="true" hidden="true" text = "BUTTON_TEXT">
+		<Size>
+			<AbsDimension x="80" y="26"/>
+		</Size>
+		<NormalTexture inherits="_FilterButtonUp-Mid">
+		</NormalTexture>
+		<PushedTexture inherits="_FilterButtonDown-Mid">
+		</PushedTexture>
+		<HighlightTexture inherits="_FilterButtonHighlight-Mid">
+		</HighlightTexture>
+		<NormalFont style="GameFontNormalSmall"/>
+		<ButtonText>
+			<Size x="76" y="12"/>
+			<Anchors>
+				<Anchor point="CENTER" x="0" y="0"/>
+			</Anchors>
+			<Color r="0.973" g="0.902" b="0.581"/>
+		</ButtonText>
+		<Scripts>
+			<OnClick>
+				toggleRaidersFrame(self,button)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="RaidersShowFrame"  parentKey="classFilter" hidden="true" enableMouse="true">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo ="OfflineRaiders" relativePoint="BOTTOMRIGHT" x="135" y="-231"/>
+		</Anchors>
+		<Size>
+			<AbsDimension x="250" y="164"/>
+		</Size>
+		<Frames>
+			<Button name="OfflineRaidersSent" toplevel="true" text = "BF_SENT_TEXT" alpha = "0.7">
+				<Anchors>
+					<Anchor point="BOTTOM" x="0"  y="10"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="180" y="36"/>
+				</Size>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentUpLeft" inherits="UI-EJ-FilterButtonUp" parentKey="upLeft">
+							<Size x="18" y="36"/>
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentUpRIGHT" inherits="UI-EJ-FilterButtonUp" parentKey="upRight">
+							<Size x="18" y="36"/>
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+
+						<Texture name="$parentDownLeft" inherits="UI-EJ-FilterButtonDown" parentKey="downLeft" hidden="true">
+							<Size x="18" y="36"/>
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentDownRIGHT" inherits="UI-EJ-FilterButtonDown" parentKey="downRight" hidden="true">
+							<Size x="18" y="36"/>
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<Layer level="HIGHLIGHT">
+						<Texture name="$parentUpLeft" inherits="UI-EJ-FilterButtonHighlight" parentKey="highLeft">
+							<Size x="20" y="36"/>
+							<Anchors>
+								<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+						<Texture name="$parentUpRIGHT" inherits="UI-EJ-FilterButtonHighlight" parentKey="highRight">
+							<Size x="20" y="36"/>
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<NormalTexture inherits="_FilterButtonUp-Mid">
+					<Size x="64" y="36"/>
+				</NormalTexture>
+				<PushedTexture inherits="_FilterButtonDown-Mid">
+					<Size x="64" y="36"/>
+				</PushedTexture>
+				<HighlightTexture inherits="_FilterButtonHighlight-Mid">
+					<Size x="65" y="36"/>
+				</HighlightTexture>
+				<NormalFont style="GameFontNormalSmall"/>
+					<Size x="64" y="26"/>
+				<ButtonText>
+					<Size x="76" y="15"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+					<Color r="0.9" g="0.8" b="0.4"/>
+				</ButtonText>
+				<Scripts>
+					<OnLoad>
+						local l, t, _, b, r = self.upLeft:GetTexCoord();
+						self.upLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+						l, t, _, b, r = self.upRight:GetTexCoord();
+						self.upRight:SetTexCoord(l + (r-l)/2, r, t, b);
+
+
+						l, t, _, b, r = self.downLeft:GetTexCoord();
+						self.downLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+						l, t, _, b, r = self.downRight:GetTexCoord();
+						self.downRight:SetTexCoord(l + (r-l)/2, r, t, b);
+
+
+						l, t, _, b, r = self.highLeft:GetTexCoord();
+						self.highLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+						l, t, _, b, r = self.highRight:GetTexCoord();
+						self.highRight:SetTexCoord(l + (r-l)/2, r, t, b);
+					</OnLoad>
+					<OnClick>
+						toggleOfflineRaidersSent(self,button)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<!--
+			<Button name="OfflineRaidersSent" inherits="GameMenuButtonTemplate" toplevel="true" text = "BF_SENT_TEXT">
+				<Anchors>
+					<Anchor point="BOTTOM" x="0"  y="10"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="130" y="36"/>
+				</Size>
+				<NormalFont style="GameFontNormalSmall"/>
+				<ButtonText>
+					<Size x="76" y="12"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</ButtonText>
+				<Scripts>
+					<OnClick>
+						toggleOfflineRaidersSent(self,button)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="OfflineRaidersClose" inherits="GameMenuButtonTemplate" toplevel="true" text = "CLOSE">
+				<Anchors>
+					<Anchor point="BOTTOM" x="50"  y="10"/>
+				</Anchors>
+				<Size>
+					<AbsDimension x="90" y="26"/>
+				</Size>
+				<NormalFont style="GameFontNormalSmall"/>
+				<ButtonText>
+					<Size x="76" y="12"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</ButtonText>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide()
+					</OnClick>
+				</Scripts>
+			</Button>
+			-->
+		</Frames>
+		<Backdrop bgFile="Interface\AchievementFrame\UI-Achievement-Parchment-Horizontal" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" >
+			<EdgeSize>
+				<AbsValue val="20"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Frame>
+
+	<Button name="RaidersCloseButton" inherits="UIPanelCloseButton">
+		<Scripts>
+			<OnClick>
+				self:GetParent():Hide();
+			</OnClick>
+		</Scripts>
+	</Button>
+
+</Ui>

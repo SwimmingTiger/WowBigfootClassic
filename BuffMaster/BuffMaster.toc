@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] BuffMaster
+## Title-zhCN: [大脚]增益魔法大师
+## Title-zhTW: [大腳]增益魔法大師
+## Notes: |cffbc8f8fProvide extra information of buff such as showing time of buff, etc.|r
+## Notes-zhCN: |cff00ff00BuffMaster|r|n|cffbc8f8f提供对增益魔法的额外支持如显示增益魔法的时间剩余等。|r
+## Notes-zhTW: |cff00ff00BuffMaster|r|n|cffbc8f8f提供對增益魔法的額外支持如顯示增益魔法的時間剩余等。|r
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand:1
+
+BuffMaster.lua

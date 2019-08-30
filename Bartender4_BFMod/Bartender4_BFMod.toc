@@ -1,0 +1,19 @@
+## Interface: 11302
+## Title: Bartender4_BFMod
+## Title-zhCN: [大脚]界面调整扩展增强
+## Title-zhTW: [大腳]界面調整擴展增強
+## Notes: |cffbc8f8fAn interface adjustment addon based on Bartender4.|r
+## Notes-zhCN: |cff00ff00Bartender4_BFMod|r|n|cffbc8f8fBartender4的扩展插件,|r|cffb70000如果要自动加载Bartender4,请不要禁用此插件。|r
+## Notes-zhTW: |cff00ff00Bartender4_BFMod|r|n|cffbc8f8fBartender4的擴展插件,|r|cffb70000如果要自動加載Bartender4,請不要禁用此插件。|r
+## Dependencies: Bartender4
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+locale\locale_bf.lua
+
+BF_Modules.lua
+BF_UI.lua
+Options\BF_UI.lua
+Options\BF_presets.lua
+BF_AddMod.lua
+bf_infobox.xml

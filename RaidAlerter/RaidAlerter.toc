@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: RaidAlerter
+## Title-zhCN: [大脚][集]团队报警系统
+## Title-zhTW: [大腳][集]團隊報警系統
+## Notes: |cffbc8f8fProvide special alerts of dungeons and raids.|r
+## Notes-zhCN: |cff00ff00RaidAlerter|r|n|cffbc8f8f提供团队及5人副本队伍的各种特色警报。发送团队警报需要团长L或者助理A权限，小队报警则无需权限。|r
+## Notes-zhTW: |cff00ff00RaidAlerter|r|n|cffbc8f8f提供團隊及5人副本隊伍的各種特色警報。發送團隊警報需要團長L或者助理A權限，小隊報警則無需權限。|r
+## Author: SLore,Maintain by xuewu
+## Version: 5.3.1
+## SavedVariables: RaidAlerter_SET,RaidAlerter_SET_AttackFramePosition
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+RaidAlerter.xml

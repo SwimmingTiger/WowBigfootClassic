@@ -1,0 +1,18 @@
+﻿## Interface: 11302
+## Title: [BF] Hunter Assist
+## Title-zhCN: [大脚]猎人助手
+## Title-zhTW: [大腳]獵人助手
+## Notes: |cffbc8f8fProvide series of mods for hunter including aim assistant and feeding helper.|r
+## Notes-zhCN: |cff00ff00HunterAssist|r                                             |cffbc8f8f提供一系列猎人专用功能,包括瞄准射击计时器和一键喂养宝宝的功能。|r
+## Notes-zhTW: |cff00ff00HunterAssist|r                                             |cffbc8f8f提供一系列獵人專用功能,包括瞄準射擊計時器和一鍵餵養寶寶的功能。|r
+## Author: 独孤傲雪, 炽火,Terry@bf
+## Version: 1000
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+## SavedVariables: zFeeder
+
+localization.lua
+HunterAssist.xml
+zFeeder\zFeeder.xml
+Bindings.xml

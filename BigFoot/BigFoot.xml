@@ -1,0 +1,65 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="BigFoot.lua"/>
+	<Script file="BigFootAnim.lua"/>
+
+	<Frame name="BigFootMiniButtonDropDown" inherits="BDropDownMenuTemplate" id="1" hidden="true" parent="UIParent">
+		<Scripts>
+			<OnLoad>
+				BigFootMiniButtonDropDown_OnLoad(self);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<Button name="BigFootMenuButtonOptions" inherits="GameMenuButtonTemplate" parent="GameMenuFrame">
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="TOP">
+				<Offset>
+					<AbsDimension x="0" y="-37"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnShow>
+				self:SetText(BF_NAME);
+			</OnShow>
+			<OnClick>
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
+				if BFNew_GetNewFrameState and BFNew_GetNewFrameState()  then
+					if not BigfootNewMainFrame:IsShown() then
+						ShowUIPanel(BigfootNewMainFrame);
+					end
+				else
+					if not ModManagementFrame:IsShown() then
+						ShowUIPanel(ModManagementFrame)
+					end
+				end
+				self:GetParent():Hide()
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="BigFootFrame" parent="UIParent" hidden="false">
+		<Size>
+			<AbsDimension x="1" y="1"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativeTo="UIParent" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				BigFoot_OnInit(self);
+			</OnLoad>
+			<OnEvent>
+				BigFoot_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+	</Frame>
+
+	<GameTooltip name="BigFootTenTonHammerTooltip" frameStrata="TOOLTIP" hidden="false" parent="UIParent" inherits="GameTooltipTemplate"/>
+	<GameTooltip name="BigFootTenTonHammerTooltip2" frameStrata="TOOLTIP" hidden="false" parent="UIParent" inherits="GameTooltipTemplate"/>
+</Ui>

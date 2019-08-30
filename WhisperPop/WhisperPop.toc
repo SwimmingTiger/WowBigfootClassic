@@ -1,0 +1,23 @@
+﻿## Interface: 11302
+## Title: WhisperPop
+## Title-zhCN: [大脚][集]密语管理
+## Title-zhTW: [大腳][集]密語管理
+## Notes: |cffbc8f8fSecret language reminding addons.|r
+## Notes-zhCN: |cff00ff00WhisperPop|r|n|cffbc8f8f记录并提示玩家密语聊天信息。|r
+## Notes-zhTW: |cff00ff00WhisperPop|r|n|cffbc8f8f記錄并提示玩家密語聊天信息。|r
+## Author: Abin
+## Version: 3.1
+## SavedVariables: WhisperPopDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+Localization.lua
+
+VirtualScrollList-1.0.lua
+
+WhisperPop.lua
+MainFrame.lua
+MessageFrame.lua
+OptionFrame.lua
+WhisperPop.xml

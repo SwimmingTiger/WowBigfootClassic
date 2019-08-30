@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: [BF] Terry UnitFrame
+## Title-zhCN: [大脚]头像增强
+## Title-zhTW: [大腳]頭像增強
+## Notes: |cffbc8f8fModification around system unit frames.|r
+## Notes-zhCN: |cff00ff00TUnitFrame|r|n|cffbc8f8f修改系统提供的队友，目标，焦点以及玩家框体。|r
+## Notes-zhTW: |cff00ff00TUnitFrame|r|n|cffbc8f8f修改系統提供的隊友，目標，焦點以及玩家框體。|r
+## Author: Terry
+## SavedVariables: TUF_Config,BUnitFrame_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+TUnitFrame.xml
+BUnitFrame.xml

@@ -1,0 +1,665 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="localization.lua"/>
+	<Script file="MonkeyQuestLogFrame.lua"/>
+	<Script file="MonkeyQuestLogSyntax.lua"/>
+
+	<Button name="MkQL_QuestItemTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="41" y="41"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIconTexture">
+					<Size>
+						<AbsDimension x="39" y="39"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString name="$parentCount" inherits="NumberFontNormal" justifyH="RIGHT">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentIconTexture">
+							<Offset>
+								<AbsDimension x="-4" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self.hasItem = 1;
+			</OnLoad>
+			<OnEnter>
+				if ( self:GetAlpha() > 0 ) then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					
+					-- Remember the currently selected quest log entry, just to play nice
+					local tmpQuestLogSelection = GetQuestLogSelection();
+					
+					SelectQuestLogEntry(MkQL_global_iCurrQuest);
+					
+					if ( self.rewardType == "item" ) then
+						GameTooltip:SetQuestLogItem(self.type, self:GetID());
+					elseif ( self.rewardType == "spell" ) then
+						GameTooltip:SetQuestLogRewardSpell();
+					end
+					
+					-- Restore the current quest log selection
+					SelectQuestLogEntry(tmpQuestLogSelection);
+				end
+				CursorUpdate(self);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+				ResetCursor();
+			</OnLeave>
+			<OnUpdate>
+				CursorOnUpdate(self, elapsed);
+			</OnUpdate>
+			<OnClick>
+				MkQL_RewardItem_OnClick(self, button);
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="MkQL_Main_Frame" parent="UIParent" movable="true" resizable="true" frameStrata="LOW" toplevel="true" hidden="true">
+		<Size>
+			<AbsDimension x="256" y="512"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="256" y="-256"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		
+		<Backdrop bgFile="Interface\AddOns\MonkeyLibrary\Textures\BackDrop.tga" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+		
+		<Frames>
+			<Button name="MkQL_Title_Btn">
+				<Size>
+					<AbsDimension x="128" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="16" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<FontString name="MkQL_Title_Txt" inherits="MonkeyQuestTitleFont" justifyH="LEFT">
+							<Anchors>
+								<Anchor point="TOPLEFT">
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>
+						--MonkeyQuest_OnEnter();
+						--MonkeyQuestTitle_OnEnter();
+					</OnEnter>
+					<OnLeave>
+						--MonkeyQuest_OnLeave();
+						--GameTooltip:Hide();
+					</OnLeave>
+					<OnMouseDown>
+						MkQL_OnMouseDown(self, button);
+					</OnMouseDown>
+					<OnMouseUp>
+						MkQL_OnMouseUp(self, button);
+					</OnMouseUp>
+				</Scripts>
+			</Button>
+
+			<Button name="MkQL_Close_Btn">
+				<Size>
+					<AbsDimension x="28" y="28"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-4" y="-4"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						--MonkeyQuest_OnEnter();
+						--MonkeyQuestCloseButton_OnEnter();
+					</OnEnter>
+					<OnLeave>
+						--MonkeyQuest_OnLeave();
+						--GameTooltip:Hide();
+					</OnLeave>
+					<OnClick>
+						MkQL_CloseButton_OnClick();
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\AddOns\MonkeyLibrary\Textures\CloseButton-Up.tga"/>
+				<PushedTexture file="Interface\AddOns\MonkeyLibrary\Textures\CloseButton-Down.tga"/>
+				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+			</Button>
+			
+			<ScrollFrame name="MkQL_ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="256" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MkQL_Title_Btn" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-16"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="RIGHT" relativeTo="MkQL_Main_Frame" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="-30" y="0"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMLEFT" relativeTo="MkQL_Main_Frame" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="16" y="48"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+
+				<ScrollChild>
+					<Frame name="MkQL_ScrollChild">
+						<Size>
+							<AbsDimension x="256" y="1024"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" />
+							<Anchor point="TOPRIGHT" />
+						</Anchors>
+
+						<Frames>
+							<Button name="MkQL_QuestTitle_Btn">
+								<Size>
+									<AbsDimension x="128" y="24"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_ScrollChild" relativePoint="TOPLEFT">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_QuestTitle_Txt" inherits="MonkeyQuestTitleFont" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnEnter>
+										--MonkeyQuest_OnEnter();
+										--MonkeyQuestTitle_OnEnter();
+									</OnEnter>
+									<OnLeave>
+										--MonkeyQuest_OnLeave();
+										--GameTooltip:Hide();
+									</OnLeave>
+									<OnMouseDown>
+										MkQL_OnMouseDown(self, button);
+									</OnMouseDown>
+									<OnMouseUp>
+										MkQL_OnMouseUp(self, button);
+									</OnMouseUp>
+								</Scripts>
+							</Button>
+		
+							<Button name="MkQL_Overview_Btn">
+								<Size>
+									<AbsDimension x="32" y="32"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_QuestTitle_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-4"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_Overview_Txt" inherits="MonkeyQuestFontWide" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnEnter>
+										--MonkeyQuest_OnEnter();
+										--MonkeyQuestTitle_OnEnter();
+									</OnEnter>
+									<OnLeave>
+										--MonkeyQuest_OnLeave();
+										--GameTooltip:Hide();
+									</OnLeave>
+									<OnMouseDown>
+										--MonkeyQuest_OnMouseDown(self, button);
+									</OnMouseDown>
+									<OnMouseUp>
+										--MonkeyQuest_OnMouseUp(self, button);
+									</OnMouseUp>
+								</Scripts>
+				
+							</Button>
+				
+							<Button name="MkQL_Desc_Btn">
+								<Size>
+									<AbsDimension x="128" y="24"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_Overview_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-16"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="0" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_Desc_Txt" inherits="MonkeyQuestTitleFont" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+				
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnEnter>
+										--MonkeyQuest_OnEnter();
+										--MonkeyQuestTitle_OnEnter();
+									</OnEnter>
+									<OnLeave>
+										--MonkeyQuest_OnLeave();
+										--GameTooltip:Hide();
+									</OnLeave>
+									<OnMouseDown>
+										--MonkeyQuest_OnMouseDown(self, button);
+									</OnMouseDown>
+									<OnMouseUp>
+										--MonkeyQuest_OnMouseUp(self, button);
+									</OnMouseUp>
+								</Scripts>
+				
+							</Button>
+				
+							<Button name="MkQL_DescBody_Btn">
+								<Size>
+									<AbsDimension x="128" y="256"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_Desc_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-4"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="-16" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_DescBody_Txt" inherits="MonkeyQuestFontWide" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+				
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnEnter>
+										--MonkeyQuest_OnEnter();
+										--MonkeyQuestTitle_OnEnter();
+									</OnEnter>
+									<OnLeave>
+										--MonkeyQuest_OnLeave();
+										--GameTooltip:Hide();
+									</OnLeave>
+									<OnMouseDown>
+										--MonkeyQuest_OnMouseDown(self, button);
+									</OnMouseDown>
+									<OnMouseUp>
+										--MonkeyQuest_OnMouseUp(self, button);
+									</OnMouseUp>
+								</Scripts>
+				
+							</Button>
+							
+							<Button name="MkQL_Rewards_Btn">
+								<Size>
+									<AbsDimension x="128" y="24"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_DescBody_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-16"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="-16" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_Rewards_Txt" inherits="MonkeyQuestTitleFont" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+				
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+							</Button>
+							
+							<Button name="MkQL_RewardsChoose_Btn">
+								<Size>
+									<AbsDimension x="128" y="256"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_Rewards_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-4"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="-16" y="-4"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_RewardsChoose_Txt" inherits="MonkeyQuestFontWide" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+							</Button>
+				
+							<Button name="MkQL_RewardsReceive_Btn">
+								<Size>
+									<AbsDimension x="128" y="256"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardsChoose_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-6"/>
+										</Offset>
+									</Anchor>
+									<Anchor point="RIGHT" relativeTo="MkQL_ScrollChild" relativePoint="RIGHT">
+										<Offset>
+											<AbsDimension x="-16" y="-4"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<FontString name="MkQL_RewardsReceive_Txt" inherits="MonkeyQuestFontWide" justifyH="LEFT">
+											<Anchors>
+												<Anchor point="TOPLEFT">
+												</Anchor>
+											</Anchors>
+										</FontString>
+									</Layer>
+								</Layers>
+							</Button>
+				
+							<Button name="MkQL_RewardItem1_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardsReceive_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-4"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem2_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem1_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem3_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem2_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem4_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem3_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem5_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem4_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem6_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem1_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem7_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem6_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem8_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem7_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem9_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem8_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Button name="MkQL_RewardItem10_Btn" inherits="MkQL_QuestItemTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem9_Btn" relativePoint="TOPRIGHT">
+										<Offset>
+											<AbsDimension x="4" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+							</Button>
+							<Frame name="MkQL_RewardMoney_Frame" inherits="MoneyFrameTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT" relativeTo="MkQL_RewardItem1_Btn" relativePoint="BOTTOMLEFT">
+										<Offset>
+											<AbsDimension x="0" y="-6"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										MkQL_Money_Frame_OnLoad(self);
+									</OnLoad>
+								</Scripts>
+							</Frame>
+						</Frames>
+					</Frame>
+				</ScrollChild>
+			</ScrollFrame>
+			
+			<Button name="MkQL_AbandonQuest_Btn" inherits="GameMenuButtonTemplate" text="MkQL_ABANDON_TXT">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="16" y="16" />
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativeTo="MkQL_Main_Frame" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="-4" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MkQL_AbandonQuest_Btn_OnMouseClick(self, button);
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="MkQL_ShareQuest_Btn" inherits="GameMenuButtonTemplate" text="MkQL_SHARE_TXT">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-32" y="16" />
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMLEFT" relativeTo="MkQL_Main_Frame" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="4" y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MkQL_ShareQuest_Btn_OnMouseClick(self, button);
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="MkQL_Resizer_Btn">
+				<Size>
+					<AbsDimension x="16" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="MkQL_Main_Frame" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnMouseDown>
+						MkQL_Resizer_Btn_OnMouseDown(self, button);
+					</OnMouseDown>
+					<OnMouseUp>
+						MkQL_Resizer_Btn_OnMouseUp(self, button);
+					</OnMouseUp>
+				</Scripts>
+				<NormalTexture file="Interface\AddOns\MonkeyLibrary\Textures\ResizeButton.tga"/>
+				<HighlightTexture alphaMode="ADD" file="Interface\AddOns\MonkeyLibrary\Textures\ResizeButton-Highlight.tga"/>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				MkQL_OnLoad(self);
+				tinsert(UISpecialFrames,self:GetName());
+			</OnLoad>
+			<OnUpdate>
+				MkQL_OnUpdate(self, elapsed);
+			</OnUpdate>
+			<OnEvent>
+				MkQL_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnMouseDown>
+				MkQL_OnMouseDown(self, button);
+			</OnMouseDown>
+			<OnMouseUp>
+				MkQL_OnMouseUp(self, button);
+			</OnMouseUp>
+			<OnEnter>
+				--MonkeyQuest_OnEnter();
+			</OnEnter>
+			<OnLeave>
+				--MonkeyQuest_OnLeave();
+			</OnLeave>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,16 @@
+﻿## Interface: 11302
+## Title: [BF] BFTooltip
+## Title-zhCN: [大脚]鼠标提示增强
+## Title-zhTW: [大腳]滑鼠提示增強
+## Notes: |cffbc8f8fEnhance the info tip, including showing guild of target, etc.|r
+## Notes-zhCN: |cff00ff00BFTooltip|r|n|cffbc8f8f增强鼠标提示信息显示，比如显示目标公会和目标等。|r
+## Notes-zhTW: |cff00ff00BFTooltip|r|n|cffbc8f8f增強滑鼠提示資訊顯示，比如顯示目標公會和目標等。|r
+## SavedVariables: BFTT_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+LibInspect.lua
+
+BFTooltip.lua
+config.lua

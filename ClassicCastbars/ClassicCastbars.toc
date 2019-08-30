@@ -1,0 +1,15 @@
+## Interface: 11302
+## Title: ClassicCastbars
+## Notes: Adds castbars to the Target frame and Nameplates.
+## SavedVariables: ClassicCastbarsDB
+## Author: Wardz
+## Version: v1.0.0-next.6
+## X-Curse-Project-ID: 322865
+## X-WoWI-ID: 24925
+## X-Revision: BigFoot
+
+core/PoolManager.lua
+core/AnchorManager.lua
+core/Data.lua
+ClassicCastbars.lua
+core/Frames.lua

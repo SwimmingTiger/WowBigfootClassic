@@ -1,0 +1,16 @@
+## Interface: 11302
+## Title: CoolLine
+## Title-zhCN: [大脚][集]流线型冷却
+## TItle-zhTW: [大腳][集]流線型冷卻
+## Notes: |cffbc8f8fShows cooldowns on a single bar.|r
+## Notes-zhCN: |cff00ff00CoolLine|r|n|cffbc8f8f在一个有时间刻度的计时条上显示冷却中的法术。|r
+## Notes-zhTW: |cff00ff00CoolLine|r|n|cffbc8f8f在一個有時間刻度的計時條上顯示冷卻中的法術。|r
+## Author: TotalPackage
+## Version: 8.0.002
+## SavedVariables: CoolLineDB
+## SavedVariablesPerCharacter: CoolLineCharDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+core.lua

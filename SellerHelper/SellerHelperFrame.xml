@@ -1,0 +1,1078 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="SellerHelper.lua"/>
+	<Script file="AutoRecharge.lua"/>
+
+	<GameTooltip name="SellerHelperTooltip" parent="UIParent" frameStrata="TOOLTIP" inherits="GameTooltipTemplate">
+		<Scripts>
+			<OnLoad>
+				self:SetOwner(UIParent, "ANCHOR_NONE");
+			</OnLoad>
+		</Scripts>
+	</GameTooltip>
+	<!-- 添加按鍵模板 -->
+	<Button name="SellerHelperAutoBuyAddItemButtonTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="18" y="18"/>
+		</Size>
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT">
+				<Offset>
+					<AbsDimension x="115" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT");
+				GameTooltip:SetText(SellerHelper_AUTOBUY_ADD_TEXT);
+			</OnEnter>
+			<OnClick>
+				SellHelper_AddButton_OnClick(self);
+			</OnClick>
+			<OnLeave function="GameTooltip_Hide"/>
+		</Scripts>
+		<NormalTexture file="Interface\GuildBankFrame\UI-GuildBankFrame-NewTab" setAllPoints="true"/>
+		<PushedTexture file="Interface\GuildBankFrame\UI-GuildBankFrame-NewTab" setAllPoints="true"/>
+		<HighlightTexture file="Interface\Buttons\CancelButton-Highlight" setAllPoints="true" alphaMode="ADD"/>
+	</Button>
+	<!-- 物品基本模板 -->
+	<Button name="ItemTemplate" hidden="false" virtual="true">
+		<Size>
+			<AbsDimension x="280" y="35"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="10" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="34" y="2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.078125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="40" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.75" right="0.828125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="10" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.078125" right="0.75" top="0" bottom="1.0"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<!-- 物品名称 -->
+				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="125" y="33"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="43" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- 物品图标 -->
+			<Button name="$parentItem">
+				<Size>
+					<AbsDimension x="32" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BORDER">
+						<Texture name="$parentIconTexture"/>
+						<FontString name="$parentCount" inherits="NumberFontNormal" justifyH="RIGHT">
+							<Anchors>
+								<Anchor point="BOTTOMRIGHT">
+									<Offset>
+										<AbsDimension x="-2" y="2"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnEnter>
+						SellerHelperItem_OnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						SellerHelperItem_OnLeave();
+					</OnLeave>
+					<OnClick>
+						SellerHelperItem_OnClick(self);
+					</OnClick>
+				</Scripts>
+				<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+					<Size>
+						<AbsDimension x="60" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</NormalTexture>
+				<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+				<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+			</Button>
+		</Frames>
+		<!-- 高亮条 -->
+		<HighlightTexture name="$parentHighlight" file="Interface\HelpFrame\HelpFrameButton-Highlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="245" y="35"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="33" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<TexCoords left="0" right="1.0" top="0" bottom="0.578125"/>
+		</HighlightTexture>
+	</Button>
+	<!-- 选择数量框体 -->
+	<Frame name="AutoRechargeSpinBoxTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="95" y="28"/>
+		</Size>
+		<Frames>
+			<!-- 减小数量按钮 -->
+			<Button name="$parentPrev">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:RegisterForClicks("LeftButtonUp" ,"RightButtonUp");
+					</OnLoad>
+					<OnClick>
+						MerchantSpinBoxPrev_OnClick(self);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
+				<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
+				<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Disabled"/>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+			</Button>
+			<!-- 增加数量按钮 -->
+			<Button name="$parentNext">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:RegisterForClicks("LeftButtonUp" ,"RightButtonUp");
+					</OnLoad>
+					<OnClick>
+						MerchantSpinBoxNext_OnClick(self);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+				<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+				<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+			</Button>
+			<!-- 编辑数量框 -->
+			<EditBox name="$parentCount" inherits="InputBoxTemplate" autoFocus="false" >
+				<Size>
+					<AbsDimension x="40" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentPrev" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:SetNumeric(true)
+						self:Show()
+					</OnLoad>
+					<OnEditFocusLost>
+						AR_EditBox_OnEditFocusLost(self);
+					</OnEditFocusLost>
+					<OnTabPressed>
+						MerchantSpinBoxEditBox_OnTabPressed(self);
+					</OnTabPressed>
+				</Scripts>
+			</EditBox>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				MerchantSpinBox_OnShow(self);
+			</OnShow>
+		</Scripts>
+	</Frame>
+	<!-- 售卖助手物品模板 -->
+	<Button name="SellerHelperItemTemplate" inherits="ItemTemplate" virtual="true" hidden="true">
+		<Frames>
+			<!-- 显示物品价格 -->
+			<Frame name="$parentMoney" inherits="SmallMoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="10" y="3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						SmallMoneyFrame_OnLoad(self);
+						MoneyFrame_SetType(self, "STATIC");
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnClick>
+				SellerItemButton_OnClick(self);
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Button name="SellerHelperNotSellItemTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="280" y="35"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="10" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.078125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="40" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.75" right="0.828125" top="0" bottom="1.0"/>
+				</Texture>
+				<Texture file="Interface\AuctionFrame\UI-AuctionItemNameFrame">
+					<Size>
+						<AbsDimension x="10" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.078125" right="0.75" top="0" bottom="1.0"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<!-- 物品名称 -->
+				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="280" y="33"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<!-- 高亮条 -->
+		<HighlightTexture name="$parentHighlight" file="Interface\HelpFrame\HelpFrameButton-Highlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="280" y="35"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<TexCoords left="0" right="1.0" top="0" bottom="0.578125"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnClick>
+				NotSellerItemButton_OnClick(self);
+			</OnClick>
+			<OnReceiveDrag>
+				NotSellerItemButton_OnClick(self);
+			</OnReceiveDrag>
+		</Scripts>
+	</Button>
+	<!-- 自动购买助手物品模板 -->
+	<Button name="AutoRechargeItemTemplate" inherits="ItemTemplate" virtual="true" hidden="true">
+		<Frames>
+			<!-- 删除自动购买物品按钮 -->
+			<Button name="$parentDelteButton">
+				<Size>
+					<AbsDimension x="35" y="35"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="150" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<HitRectInsets>
+					<AbsInset left="9" right="7" top="-7" bottom="10"/>
+				</HitRectInsets>
+				<Scripts>
+					<OnClick>
+						AR_CancelBuy(self);
+					</OnClick>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip:SetText(AUTOSELL_AUTOBUY_DELETE_TEXT);
+					</OnEnter>
+					<OnLeave function="GameTooltip_Hide"/>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\CancelButton-Up"/>
+				<PushedTexture file="Interface\Buttons\CancelButton-Down"/>
+				<HighlightTexture file="Interface\Buttons\CancelButton-Highlight" alphaMode="ADD"/>
+			</Button>
+			<Frame name="$parentSpinBox" inherits="AutoRechargeSpinBoxTemplate">
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-5" y="2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel(self:GetFrameLevel() + 4);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnClick>
+				AR_ItemButton_OnClick(self)
+			</OnClick>
+		</Scripts>
+	</Button>
+	<!-- 折叠标签模板 -->
+	<Button name="SellerHelperLabelTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="285" y="35"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				if (self.isExpanded) then
+					SellerHelper_CollapseHeader(self.itemIndex);
+				else
+					SellerHelper_ExpandHeader(self.itemIndex);
+				end
+				SellerHelper_Update();
+			</OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-MinusButton-UP">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="3" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<HighlightTexture name="$parentHighlight" file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="3" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+		<ButtonText name="$parentNormalText" inherits="GameFontNormal" justifyH="LEFT">
+			<Size>
+				<AbsDimension x="275" y="12"/>
+			</Size>
+			<Anchors>
+				<Anchor point="LEFT">
+					<Offset>
+						<AbsDimension x="20" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontNormalLeft"/>
+		<HighlightFont style="GameFontHighlightLeft"/>
+		<DisabledFont style="GameFontHighlightLeft"/>
+	</Button>
+	<!-- 滚动条模板 -->
+	<ScrollFrame name="ScrollFrame" inherits="FauxScrollFrameTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="296" y="330"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-67" y="-75"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentScrollBarTexture" file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+					<Size>
+						<AbsDimension x="30" y="128"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-2" y="4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.46875" top="0.0" bottom="1.0"/>
+				</Texture>
+				<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+					<Size>
+						<AbsDimension x="30" y="100"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP" relativePoint="BOTTOM" relativeTo="$parentScrollBarTexture">
+							<Offset>
+								<AbsDimension x="0" y="5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.46875" top="0.5" bottom="1.0"/>
+				</Texture>
+				<Texture file="Interface\ClassTrainerFrame\UI-ClassTrainer-ScrollBar">
+					<Size>
+						<AbsDimension x="30" y="128"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.53125" right="1.0" top="0.0" bottom="1.0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnVerticalScroll>
+				SellerHelper_OnScroll(self, offset);
+			</OnVerticalScroll>
+		</Scripts>
+	</ScrollFrame>
+	<!-- 标签模板 -->
+	<Button name="SellerHelperTabTemplate" inherits="CharacterFrameTabButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				self:SetFrameLevel(self:GetFrameLevel() + 4);
+			</OnLoad>
+			<OnClick>
+				SellerHelperParentFrameTab_OnClick(self, button);
+			</OnClick>
+			<OnShow>
+				PanelTemplates_TabResize(self, 0);
+			</OnShow>
+		</Scripts>
+	</Button>
+	<!-- 主面板框体 -->
+	<Frame name="SellerHelperParentFrame" enableMouse="true" parent="MerchantFrame">
+		<Size>
+			<AbsDimension x="384" y="512"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="MerchantFrame">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\SkillFrame-BotLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\SkillFrame-BotRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentPortrait">
+					<Size>
+						<AbsDimension x="57" y="57"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="11" y="-8"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<!-- 框体标题 -->
+				<FontString name="$parentNameText" inherits="GameFontNormal" text="交易助手">
+					<Size>
+						<AbsDimension x="300" y="50"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP"/>
+					</Anchors>
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- 右上角的关闭小按钮 -->
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-44" y="-26"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+                        SellerHelperParentFrame:Hide();
+                    </OnLoad>
+				</Scripts>
+			</Button>
+			<!-- 关闭按钮 -->
+			<Button name="$parentCancelButton" inherits="UIPanelButtonTemplate" text="CLOSE">
+				<Size>
+					<AbsDimension x="80" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="305" y="-422"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+						HideUIPanel(CharacterFrame);
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- 自动售卖框体 -->
+			<Frame name="SellerHelperFrame" hidden="true">
+				<Size>
+					<AbsDimension x="384" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- 自动售卖框体说明 -->
+						<FontString name="$parentHelpText" inherits="GameFontNormalSmall" justifyH="LEFT" text="SELLER_HELPER_HELP_TEXT">
+							<Size>
+								<AbsDimension x="180" y="48"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="45" y="-30"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="0.0" g="0.68" b="0.94"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<!-- 全部物品类型的折叠开关 -->
+				<Frames>
+					<Frame name="$parentExpandButtonFrame">
+						<Size>
+							<AbsDimension x="70" y="32"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset>
+									<AbsDimension x="70" y="-49"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="$parentExpandTabLeft" file="Interface\QuestFrame\UI-QuestLogSortTab-Left">
+									<Size>
+										<AbsDimension x="8" y="32"/>
+									</Size>
+									<Anchors>
+										<Anchor point="TOPLEFT">
+											<Offset>
+												<AbsDimension x="0" y="6"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
+								<Texture name="$parentExpandTabMiddle" file="Interface\QuestFrame\UI-QuestLogSortTab-Middle">
+									<Size>
+										<AbsDimension x="54" y="32"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentExpandTabLeft" relativePoint="RIGHT">
+											<Offset>
+												<AbsDimension x="0" y="0"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
+								<Texture name="$parentExpandTabRight" file="Interface\QuestFrame\UI-QuestLogSortTab-Right">
+									<Size>
+										<AbsDimension x="8" y="32"/>
+									</Size>
+									<Anchors>
+										<Anchor point="LEFT" relativeTo="$parentExpandTabMiddle" relativePoint="RIGHT"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+						</Layers>
+						<Frames>
+							<!-- 全部物品类型的折叠开关 -->
+							<Button name="SellerHelperFrameExpandFrame" hidden="false" inherits="SellerHelperLabelTemplate" text="ALL">
+								<Size>
+									<AbsDimension x="40" y="22"/>
+								</Size>
+								<Anchors>
+									<Anchor point="LEFT" relativePoint="LEFT">
+										<Offset>
+											<AbsDimension x="5" y="-3"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										self.itemIndex = 0;
+										self.isExpanded = 1;
+									</OnLoad>
+								</Scripts>
+							</Button>
+						</Frames>
+					</Frame>
+					<ScrollFrame name="$parentScrollFrame" inherits="ScrollFrame"/>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						SellerHelperFrame_OnShow();
+					</OnShow>
+					<OnLoad>
+						SellerHelperFrame_OnLoad(self);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- 自动购买框体 -->
+			<Frame name="AutoRechargeFrame" hidden="true">
+				<Size>
+					<AbsDimension x="384" y="512"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- 自动购买框体说明 -->
+						<FontString name="$parentHelpText2" inherits="GameFontNormalSmall" justifyH="LEFT" text="AUTO_RECHARGE_HELP_TEXT">
+							<Size>
+								<AbsDimension x="180" y="48"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="0" y="-30"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="0.0" g="0.68" b="0.94"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<ScrollFrame name="$parentScrollFrame" inherits="ScrollFrame"/>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						PlaySound(SOUNDKIT.IG_BACKPACK_OPEN);
+						SetPortraitTexture(SellerHelperParentFramePortrait, "player");
+						AR_UpdatePanel()
+					</OnShow>
+					<OnLoad>
+						AR_Frame_OnLoad(self)
+					</OnLoad>
+				</Scripts>
+			</Frame>
+			<!-- 下方标签1 -->
+			<Button name="$parentTab1" inherits="SellerHelperTabTemplate" id="1" text="SELLER_HELPER_TITLE">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="11" y="42"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<!-- 下方标签2 -->
+			<Button name="$parentTab2" inherits="SellerHelperTabTemplate" id="2" text="AUTO_RECHARGE_TITLE">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="-12" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:SetFrameLevel(self:GetFrameLevel() + 1);
+				SellerHelperParentFrame_OnLoad(self);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	<!-- 设置框体 -->
+	<Frame name="SellerHelperSetFrame" enableMouse="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="384" y="512"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="UIParent" x="400" y="-140"/>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\SkillFrame-BotLeft">
+					<Size>
+						<AbsDimension x="256" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\SkillFrame-BotRight">
+					<Size>
+						<AbsDimension x="128" y="256"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="2" y="-1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentPortrait">
+					<Size>
+						<AbsDimension x="60" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="9" y="-6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<!-- 框体标题 -->
+				<FontString name="$parentNameText" inherits="GameFontNormal" text="不出售列表设置">
+					<Size>
+						<AbsDimension x="300" y="50"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP"/>
+					</Anchors>
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<!-- 右上角的关闭小按钮 -->
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-44" y="-26"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+                        SellerHelperSetFrame:Hide();
+                    </OnLoad>
+				</Scripts>
+			</Button>
+			<!-- 关闭按钮 -->
+			<Button name="$parentCancelButton" inherits="UIPanelButtonTemplate" text="CLOSE">
+				<Size>
+					<AbsDimension x="80" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="305" y="-422"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+						HideUIPanel(CharacterFrame);
+					</OnClick>
+				</Scripts>
+			</Button>
+			<!-- 不售卖框体 -->
+			<Frame name="$parentSetFrame" hidden="false">
+				<Size>
+					<AbsDimension x="384" y="412"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="-80" />
+				</Anchors>
+				<Layers>
+					<Layer level="ARTWORK">
+						<!-- 自动售卖框体说明 -->
+						<FontString name="$parentHelpText" inherits="GameFontNormalSmall" justifyH="LEFT" text="SELLER_HELPER_SET_HELP_TEXT">
+							<Size>
+								<AbsDimension x="270" y="0"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOP">
+									<Offset>
+										<AbsDimension x="20" y="40"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="0.0" g="0.68" b="0.94"/>
+						</FontString>
+					</Layer>
+				</Layers>
+				<!-- 全部物品类型的折叠开关 -->
+				<Frames>
+					<ScrollFrame name="$parentScrollFrame" inherits="ScrollFrame">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+								<Offset>
+									<AbsDimension x="-67" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnVerticalScroll>
+								NotSellerHelper_OnScroll(self, offset);
+							</OnVerticalScroll>
+						</Scripts>
+					</ScrollFrame>
+				</Frames>
+				<Scripts>
+					<OnShow>
+						NotSellerHelperFrame_OnShow();
+					</OnShow>
+					<OnLoad>
+						SellerHelperSetFrameSetFrame_OnLoad(self);
+					</OnLoad>
+					<OnMouseDown>
+						NotSellerItemButton_OnClick(self);
+					</OnMouseDown>
+					<OnReceiveDrag>
+						NotSellerItemButton_OnClick(self);
+					</OnReceiveDrag>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:SetFrameLevel(self:GetFrameLevel() + 1);
+				SellerHelperSetFrame_OnLoad(self);
+			</OnLoad>
+			<OnMouseDown>
+	        	SellerHelperSetFrame_OnMouseDown(self,button);
+	      	</OnMouseDown>
+	      	<OnMouseUp>
+	        	SellerHelperSetFrame_OnMouseUp(self,button);
+	      	</OnMouseUp>
+
+			<!--<OnKeyDown>
+				if key =="ESCAPE" then
+					self:Hide()
+				end
+			</OnKeyDown> -->
+		</Scripts>
+	</Frame>
+	<!-- 调用框体的按钮 -->
+	<Button name="SellHelperShowFrameButton" inherits="UIPanelButtonTemplate" parent="MerchantFrame" hidden="false" text="SELLER_HELPER_SHOW_TEXT">
+		<Size>
+			<AbsDimension x="100" y="24"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-180" y="-30"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				SellHelper_Button_OnClick(self);
+			</OnClick>
+		</Scripts>
+	</Button>
+</Ui>

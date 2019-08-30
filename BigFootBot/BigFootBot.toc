@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] BigFootBot
+## Title-zhCN: [大脚]信息收集
+## Title-zhTW: [大腳]信息收集
+## Notes: |cffbc8f8fAllow user to collect data in game and upload to server to share with other players.|r
+## Notes-zhCN: |cff00ff00BigFootBot|r|n|cffbc8f8f允许用户收集游戏中的数据并上传到服务器上与他人共享。|r
+## Notes-zhTW: |cff00ff00BigFootBot|r|n|cffbc8f8f允許用戶收集遊戲中的數據並上傳到服務器上與他人共享。|r
+## SavedVariables: ItemSourceDB, ObjectLocationDB, CreatureLocationDB, CreatureDB, QuestDB, QuestCompleteDB, QuestEventDB, SkillSourceDB, BigFootBot_Version, BigFootBot_Info, PlayersDB,UtilDB,NPCMarkCollectionDB,BigFootBot_collectData,SpamChatDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+BigFootBot.xml

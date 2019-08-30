@@ -1,0 +1,381 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="BigFootError.lua"/>
+
+	<Frame name="BigFootErrorFrame" toplevel="true" frameStrata="DIALOG" hidden="true">
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Size>
+			<AbsDimension x="500" y="370"/>
+		</Size>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="2" right="2" top="2" bottom="2"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentHeader" inherits="ChatFontNormal" outline="THICK" text="">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="20"/>
+					</FontHeight>
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="BFE_FileHeader" inherits="ChatFontNormal" outline="THICK" text="BFE_PREFIX_FILE">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="15" y="-50"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="16"/>
+					</FontHeight>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="BFE_File" inherits="ChatFontNormal" outline="THICK" justifyH="LEFT" justifyV="TOP" nonspacewrap="true">
+					<Size>
+						<AbsDimension x="450" y="40"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="80" y="-50"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="16"/>
+					</FontHeight>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="BFE_LineHeader" inherits="ChatFontNormal" outline="THICK" text="BFE_PREFIX_LINE">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="15" y="-80"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="16"/>
+					</FontHeight>
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="BFE_Line" inherits="ChatFontNormal" outline="THICK" >
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="90" y="-80"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="16"/>
+					</FontHeight>
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="BFE_Desc" inherits="GameFontNormal" outline="THICK" justifyH="LEFT" justifyV="TOP" nonspacewrap="false">
+					<Size>
+						<AbsDimension x="450" y="120"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="15" y="-105"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="18"/>
+					</FontHeight>
+					<Color r="1.0" g="0" b="0"/>
+				</FontString>
+				<FontString name="BFE_Note" inherits="ChatFontNormal" outline="THIN" justifyH="LEFT" justifyV="TOP" Text="BFE_NOTE">
+					<Size>
+						<AbsDimension x="450" y="120"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="15" y="-160"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<FontHeight>
+						<AbsValue val="12"/>
+					</FontHeight>
+					<Color r="0.8" g="0.8" b="0.8"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<ScrollFrame name="BFE_ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="410" y="85"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="24" y="-221"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<ScrollChild>
+					<EditBox name="CallStackText" multiLine="true" letters="65535" autoFocus="true">
+						<Size>
+							<AbsDimension x="450" y="85"/>
+						</Size>
+						<Scripts>
+							<OnTextChanged>
+								self:SetText(self.total .. "\nThe version of interface is: " .. BIGFOOT_VERSION .. ".\nCALLSTACK==>\n" .. self.callstack);
+								self:HighlightText();
+							</OnTextChanged>
+							<OnEscapePressed>
+								BigFootErrorFrame:Hide();
+							</OnEscapePressed>
+						</Scripts>
+						<FontString inherits="GameFontHighlightSmall"/>
+					</EditBox>
+				</ScrollChild>
+			</ScrollFrame>
+			<Frame name="BFE_CallStackBackground">
+				<Size>
+					<AbsDimension x="450" y="105"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-210"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="5" right="5" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Scripts>
+					<OnLoad>
+						self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
+						self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+            <Button name="$parentCloseButton" inherits="GameMenuButtonTemplate" text="CLOSE">
+				<Size>
+					<AbsDimension x="80" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension y="16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+					</OnClick>
+					<OnEnter>
+						BigFootErrorFrame_ButtonOnEnter(self,BFE_CLOSE_TITLE,BFE_CLOSE_COMMENT);
+					</OnEnter>
+					<OnLeave>
+						BigFootErrorFrame_ButtonOnLeave(self);
+					</OnLeave>
+				</Scripts>
+			</Button>
+            <Button name="$parentDisableButton" inherits="GameMenuButtonTemplate" text="BFE_DISABLE">
+				<Size>
+					<AbsDimension x="120" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentCloseButton" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="10" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						BigFootError_OnDisableButtonClicked(self);
+					</OnClick>
+					<OnEnter>
+						BigFootErrorFrame_ButtonOnEnter(self,BFE_DISABLE_TITLE,BFE_DISABLE_COMMENT);
+					</OnEnter>
+					<OnLeave>
+						BigFootErrorFrame_ButtonOnLeave(self);
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				BigFootErrorFrame_OnLoad(self);
+			</OnLoad>
+			<OnShow>
+				BFE_File:SetText(self.file);
+				BFE_Line:SetText(self.line);
+				BFE_Desc:SetText(self.desc);
+				BigFootError_CheckButtons(self);
+				CallStackText.total = self.total;
+				CallStackText.callstack = self.callstack;
+				CallStackText:SetText(self.total .. "\nThe version of interface is: " .. BIGFOOT_VERSION .. ".\nCALLSTACK==>\n" .. self.callstack);
+				if (CallStackText:IsVisible()) then
+					CallStackText:HighlightText();
+				end
+			</OnShow>
+			<OnHide>
+				BigFootErrorFrame_OnHide(self);
+			</OnHide>
+			<OnEvent>
+				BigFootErrorFrame_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+	</Frame>
+	<Button name="BigFootErrorTipFrame" hidden="true"  movable="true">
+		<Anchors>
+			<Anchor point="BOTTOMRIGHT" relativeto= "UIParent" relativepoint = "BOTTOMRIGHT" >
+				<Offset>
+					<AbsDimension x="-70" y="30"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Size>
+			<AbsDimension x="150" y="100"/>
+		</Size>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="2" right="2" top="2" bottom="2"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentTitleHead"  inherits="GameTooltipTextSmall" outline="THICK" text="BFE_TIP_HEADER">
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					
+					<Color r="1.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="$parentFileHead"  inherits="GameTooltipTextSmall" outline="THICK" text="BFE_PREFIX_FILE">
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeto= "$parentTitleHead" relativepoint = "BOTTOPLEFT" >
+							<Offset>
+								<AbsDimension x="-30" y="-20"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="$parentFileInfo"  inherits="GameTooltipTextSmall" parentkey="filename" outline="THICK"  text="">
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeto= "$parentFileHead" relativepoint = "TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="$parentLineNumHead"  inherits="GameTooltipTextSmall" outline="THICK" text="BFE_PREFIX_LINE">
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeto= "$parentFileHead" relativepoint = "BOTTOMLEFT" >
+							<Offset>
+								<AbsDimension x="0" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="$parentLineNumInfo"  inherits="GameTooltipTextSmall" parentkey = "linenum" outline="THICK" text="">
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeto= "$parentLineNumHead" relativepoint = "TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0.0" g="1.0" b="1.0"/>
+				</FontString>
+				<FontString name="$parentClickTip"  inherits="SystemFont_Small" outline="THICK" text="BFE_TIP_CLICK">
+					<Color r="1.0" g="0.9294" b="0.7607"/>
+					<FontHeight val="2"/>
+					<Anchors>
+						<Anchor point="BOTTOM">
+							<Offset>
+								<AbsDimension x="0" y="15"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton");
+				BigFootErrorTipFrameOnLoad(self)
+			</OnLoad>
+			<OnMouseDown>
+	        	BFETip_OnMouseDown(self,button);
+	      	</OnMouseDown>
+	      	<OnMouseUp>
+	        	BFETip_OnMouseUp(self,button);
+	      	</OnMouseUp>
+			<OnClick>
+				BigFootErrorTipFrameOnClick()
+			</OnClick>
+			<OnShow>
+				BFETipOnShow:Play()
+				BigFootErrorTipFrameOnShow(self)
+			</OnShow>
+		</Scripts>
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="2" y="2"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Button>
+</Ui>

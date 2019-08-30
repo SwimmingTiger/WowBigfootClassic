@@ -1,0 +1,37 @@
+﻿## Interface: 11302
+## Title: <DCT> Options
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 菜单模块
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 功能表模組
+## Notes: |cffbc8f8fProvide graphical interface for DCT.|r 
+## Notes-zhCN: |cff00ff00dct_options|r|n|cffbc8f8f为战斗指示器提供图形化设置界面。|r 
+## Notes-zhTW: |cff00ff00dct_options|r|n|cffbc8f8f為戰鬥指示器提供圖形化設置介面。|r 
+## Author: Dennie
+## Dependencies: dct
+## X-Revision: BigFoot
+## SavedVariables: DCTOP_SAVE
+## LoadOnDemand: 1
+
+pre_set.lua
+config_options.lua
+
+locals\cn_pre_set.lua
+locals\cn_loc_options.lua
+locals\tw_pre_set.lua
+locals\tw_loc_options.lua
+
+options.lua
+options.xml
+options_ex.lua
+options_ex.xml
+options_ani.lua
+options_ani.xml
+options_font.lua
+options_font.xml
+options_save.lua
+options_save.xml
+options_misc.lua
+options_misc.xml
+options_spec.lua
+options_spec.xml
+options_spec2.lua
+options_spec2.xml

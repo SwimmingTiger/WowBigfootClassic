@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: Omen3
+## Title-zhCN: [大脚][集]仇恨统计
+## Title-zhTW: [大腳][集]仇恨統計
+## Notes: |cffbc8f8fA lightweight, flexible, multi-target threat meter.|r
+## Notes-zhCN: |cff00ff00Omen|r|n|cffbc8f8f一个灵活的，多目标的，低资源占用的威胁值计量器。|r
+## Notes-zhTW: |cff00ff00Omen|r|n|cffbc8f8f一個輕量級、有彈性、可監視多個目標的仇恨統計插件。|r
+## Author: Xinhuan
+## Version: 3.2.2
+## SavedVariables: Omen3DB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1

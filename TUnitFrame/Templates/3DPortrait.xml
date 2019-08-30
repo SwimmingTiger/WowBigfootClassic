@@ -1,0 +1,80 @@
+ <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Script file="3DPortrait.lua"/>
+	<Frame name="TUF_3DPortraitFrameTemplate" virtual="true" hidden="true">
+		<Size>
+			<AbsDimension x="58" y="58"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<AbsDimension x="20" y="-20"/>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame>
+				<Size>
+					<AbsDimension x="58" y="58"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<AbsDimension x="0" y="0"/>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Frame name="$parentBorder">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<AbsDimension x="0" y="0"/>
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="58" y="58"/>
+						</Size>
+						<Layers>
+							<Layer level="ARTWORK">
+								<Texture file="Interface\AddOns\TUnitFrame\Media\3dborder">
+									<Size>
+										<AbsDimension x="58" y="58"/>
+									</Size>
+									<TexCoords left="0.0" right="0.90625" top="0.0" bottom="0.90625"/>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+				</Frames>
+			</Frame>
+			<PlayerModel name="$parentModel" hidden="false">
+				<Size>
+					<AbsDimension x="49" y="49"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture>
+							<Size>
+								<AbsDimension x="49" y="49"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+							</Anchors>
+							<Color r="0" g="0" b="0" a="1.0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						TUF3DPortrait_OnLoad(self);
+					</OnLoad>
+					<OnEvent>
+						TUF3DPortrait_OnEvent(self, event, ...);
+					</OnEvent>
+					<OnUpdate>
+						TUF3DPortrait_OnUpdate(self, elapsed);
+					</OnUpdate> 
+				</Scripts>
+			</PlayerModel>
+		</Frames>
+	</Frame>
+	
+</Ui>

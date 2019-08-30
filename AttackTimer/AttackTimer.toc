@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: [BF] AttackTimer
+## Title-zhCN: [大脚]攻击计时
+## Title-zhTW: [大腳]攻擊計時
+## Notes: |cffbc8f8fDisplays a progress bar for your attack speed.|r
+## Notes-zhCN: |cff00ff00AttackTimer|r|n|cffbc8f8f提供一个显示你的近战双手武器攻击间隔时间的施法条。|r
+## Notes-zhTW: |cff00ff00AttackTimer|r|n|cffbc8f8f提供一個顯示你的近戰雙手武器攻擊間隔時間的施法條。|r
+## Author: 独孤傲雪
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+AttackTimer.xml

@@ -1,0 +1,83 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="CombatIndicator.lua"/>
+	<Frame name="CombatIndicatorTextTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="48" y="48"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" hidden="false" inherits="NumberFontNormalHuge" text="COMPLETE">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>   
+	<Frame name="CombatIndicatorFrame" toplevel="true" enableMouse="false" parent="UIParent">
+		<Size>
+			<AbsDimension x="48" y="48"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame name="CombatIndicator1" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="1">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+			<Frame name="CombatIndicator2" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="2">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+			<Frame name="CombatIndicator3" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="3">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+			<Frame name="CombatIndicator4" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="4">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+			<Frame name="CombatIndicator5" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="5">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+			<Frame name="CombatIndicator6" inherits="CombatIndicatorTextTemplate" frameStrata="MEDIUM" id="6">
+				<Anchor point="CENTER" relativeTo="CombatIndicatorFrame" relativePoint="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				CombatIndicatorFrame_OnLoad(self);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

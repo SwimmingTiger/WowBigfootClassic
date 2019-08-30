@@ -1,0 +1,397 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+	<Button name="MYSLOT_SchemeTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="270" y="30"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="260" y="27"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="30" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHighlight" file="Interface\HelpFrame\HelpFrameButton-Highlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="255" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="5" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+			<TexCoords left="0" right="1.0" top="0" bottom="0.578125"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnClick>
+				MYSLOT_Scheme_OnClick(self);
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="MYSLOT_ReportFrame" toplevel="true" movable="true" parent="UIParent" enableMouse="true" hidden="true" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="550" y="500"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="8" right="8" top="10" bottom="10"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="256" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentHeaderText" inherits="GameFontNormal" text="MySlot_TitleText">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentHeaderTexture">
+							<Offset>
+								<AbsDimension x="0" y="-12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<ScrollFrame name="MYSLOT_ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="500" y="430"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<ScrollChild>
+					<Frame name="MYSLOT_ScrollFrame_Child" enableMouse="true">
+						<Size>
+							<AbsDimension x="500" y="430"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT"/>
+						</Anchors>
+						<Frames>
+							<EditBox name="MYSLOT_ReportFrame_EditBox"  letters="99999999" multiLine="true" autoFocus="false">
+								<Size>
+									<AbsDimension x="480" y="400"/>
+								</Size>
+								<Anchors>
+									<Anchor point="TOPLEFT">
+										<Offset>
+											<AbsDimension x="10" y="0"/>
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnTextChanged>
+										if self:GetText() == "" then
+											self.change = false;
+										end
+										if not self.change and self:GetText()~= "" then
+											self.text = self:GetText();
+											if string.len(self.text) >99 then
+												self.change = true;
+											end
+										end
+										if self:GetText()~= "" then
+											self:SetText(self.text);
+										end
+										self:HighlightText()
+										-- ScrollingEdit_OnTextChanged(self,MYSLOT_ScrollFrame);
+									</OnTextChanged>
+									<OnCursorChanged>
+										ScrollingEdit_OnCursorChanged(self,x, y-10,w,h);
+									</OnCursorChanged>
+									<OnEscapePressed>
+										self:ClearFocus();
+									</OnEscapePressed>
+								</Scripts>
+								<FontString inherits="GameTooltipTextSmall"/>
+							</EditBox>
+						</Frames>
+					</Frame>
+				</ScrollChild>
+			</ScrollFrame>
+			<Button name="$parentLoadButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_LoadText">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-180" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MYSLOT_LoadButton_OnClick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentImportButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_ImportText">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-95" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MySlot_Import()
+					</OnClick>
+					<OnUpdate>
+						MySlot_Check_Status_Update(self);
+					</OnUpdate>
+				</Scripts>
+			</Button>
+			<Button name="$parentGetButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_GetText">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-10" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MYSLOT_ReportFrame_EditBox:SetText("")
+						BigFoot_DelayCall(MySlot_Export,0.1)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentSaveButton" hidden="false" inherits="GameMenuButtonTemplate" text="SAVE">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="75" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						StaticPopup_Show("MySlot_SAVE_SET");
+					</OnClick>
+					<OnUpdate>
+						MySlot_Check_Status_Update(self);
+					</OnUpdate>
+				</Scripts>
+			</Button>
+			<Button name="$parentCloseButton" hidden="false" inherits="GameMenuButtonTemplate" text="CLOSE">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="160" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MYSLOT_ReportFrame:Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+	            self:RegisterForDrag("LeftButton");
+				MYSLOT_ReportFrame_OnLoad();
+            </OnLoad>
+			<OnMouseDown>
+	        	MYSLOT_ReportFrame_OnMouseDown(self, button);
+	      	</OnMouseDown>
+	      	<OnMouseUp>
+	        	MYSLOT_ReportFrame_OnMouseUp(self, button);
+	      	</OnMouseUp>
+			<OnShow>
+				MySlot_Check_Status();
+				MYSLOT_ReportFrame_EditBox:SetFocus();
+			</OnShow>
+			<OnHide>
+				MYSLOT_ReportFrame_EditBox:SetText("")
+				MYSLOT_LoadFrame:Hide();
+			</OnHide>
+		</Scripts>
+	</Frame>
+
+	<Frame name="MYSLOT_LoadFrame" toplevel="true" parent="UIParent" enableMouse="true" hidden="true" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="300" y="200"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="MYSLOT_ReportFrame" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="-5" y="-105"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="20"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="20"/>
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="246" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="13"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentHeaderText" inherits="GameFontNormal" text="MySlot_Load_Scheme">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentHeaderTexture">
+							<Offset>
+								<AbsDimension x="0" y="-11"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate">
+				<Size>
+					<AbsDimension x="300" y="133"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-32" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+				</Layers>
+				<Scripts>
+					<OnVerticalScroll>
+						MYSLOT_LoadFrame_OnScroll(self, offset);
+					</OnVerticalScroll>
+				</Scripts>
+			</ScrollFrame>
+			<Button name="$parentLoadSchemeButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_LoadSchemeText">
+				<Size>
+					<AbsDimension x="70" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-90" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MySlot_LoadScheme_Onclick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentDelButton" hidden="false" inherits="GameMenuButtonTemplate" text="DELETE">
+				<Size>
+					<AbsDimension x="70" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-10" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MySlot_Del_Onclick();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentCloseButton" hidden="false" inherits="GameMenuButtonTemplate" text="CANCEL">
+				<Size>
+					<AbsDimension x="70" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="70" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MYSLOT_LoadFrame:Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				MYSLOT_LoadFrame_OnLoad(self)
+            </OnLoad>
+			<OnShow>
+				MYSLOT_LoadFrame_Update();
+				if not self.selectedSname then
+					MYSLOT_LoadFrameDelButton:Disable();
+					MYSLOT_LoadFrameLoadSchemeButton:Disable();
+				end
+			</OnShow>
+		</Scripts>
+	</Frame>
+
+</Ui>

@@ -1,0 +1,111 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<Frame name="TUF_InfoPanePlayerTemplate" hidden="true" virtual="true" parent="PlayerFrame">
+		<Size>
+			<AbsDimension x="99" y="48"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="221" y="-20"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background"  tile="true">
+			<TileSize>
+				<AbsValue val="8"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\AddOns\TUnitFrame\Media\portrait">
+					<Size>
+						<AbsDimension x="99" y="48"/>
+					</Size>
+					<TexCoords left="0.0" right="0.35546875" top="0" bottom="0.75"/>
+				</Texture>
+				<FontString name="$parentHealthText" font="Fonts\FRIZQT__.TTF" text="8888/8888">
+					<Color r="0.0" g="1.0" b="0.0"/>
+					<FontHeight>
+						<AbsValue val="10"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="1" y="12"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentHealthPercentText" font="Fonts\FRIZQT__.TTF" text="100%">
+					<Color r="0.0" g="1.0" b="0.0"/>
+					<FontHeight>
+						<AbsValue val="10"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="1" y="-3"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentManaText" font="Fonts\FRIZQT__.TTF" text="8888/8888">
+					<Color r="1.0" g="1.0" b="1.0"/>
+					<FontHeight>
+						<AbsValue val="10"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="1" y="-14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Frame name="TUF_InfoPanePartyTemplate" frameStrata="LOW" hidden="true" virtual="true">
+		<Size>
+			<AbsDimension x="86" y="24"/>
+		</Size>
+		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background"  tile="true">
+			<TileSize>
+				<AbsValue val="8"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="3" right="5" top="3" bottom="4"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\AddOns\TUnitFrame\Media\portrait">
+					<Size>
+						<AbsDimension x="86" y="24"/>
+					</Size>
+					<TexCoords left="0.42578125" right="0.76171875" top="0.0" bottom="0.375"/>
+				</Texture>
+				<FontString name="$parentHealthText" font="Fonts\FRIZQT__.TTF" text="8888/8888">
+					<Color r="0.0" g="1.0" b="0.0"/>
+					<FontHeight>
+						<AbsValue val="10"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="1" y="2"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Script file="InfoPane.lua"/>
+</Ui>

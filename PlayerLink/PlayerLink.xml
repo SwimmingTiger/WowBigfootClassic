@@ -1,0 +1,77 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="PlayerLink.lua"/>
+
+	<Button name="PlayerLinkButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="100" y="16"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentHighlight" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD" setAllPoints="true" hidden="true"/>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnShow>
+				if (self.onshow) then
+					self.onshow(self.arg1, self.arg2);
+				end
+
+				if (self.macro) then
+					self:SetAttribute("macrotext", format(self.macro, self.arg1));
+				end
+			</OnShow>
+			<OnHide>
+				self:Enable();
+			</OnHide>
+			<PostClick>
+				if (self.func) then
+					self.func(button, self.arg1, self.arg2, self.arg3);
+					PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON);
+				end
+				PlayerLink_Hide();
+				HideDropDownMenu(1);
+			</PostClick>
+			<OnEnter>
+				getglobal(self:GetName().."Highlight"):Show();
+				if ( self.tooltipTitle ) then
+					GameTooltip_AddNewbieTip(self, self.tooltipTitle, 1.0, 1.0, 1.0, self.tooltipText, 1);
+				end
+				PlayerLink_StopCount();
+			</OnEnter>
+			<OnLeave>
+				getglobal(self:GetName().."Highlight"):Hide();
+				GameTooltip:Hide();
+				PlayerLink_StartCount();
+			</OnLeave>
+		</Scripts>
+		<ButtonText name="$parentNormalText"/>
+		<NormalFont inherits="GameFontHighlightSmall" justifyH="LEFT"/>
+		<HighlightFont inherits="GameFontHighlightSmall" justifyH="LEFT"/>
+		<DisabledFont inherits="GameFontDisableSmall" justifyH="LEFT"/>
+	</Button>
+
+	<Button name="PlayerLinkList" hidden="true" frameStrata="FULLSCREEN_DIALOG" topLevel="true" enableMouse="true" parent="UIParent">
+		<Frames>
+			<Frame name="$parentMenuBackdrop" setAllPoints="true">
+				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="16"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="16"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="5" right="5" top="5" bottom="5"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Scripts>
+					<OnLoad>
+						self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, 	TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
+						self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+		</Frames>
+	</Button>
+</Ui>

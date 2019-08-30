@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] Bubble Chat
+## Title-zhCN: [大脚]组队聊天泡泡
+## Title-zhTW: [大腳]組隊聊天泡泡
+## Notes: |cffbc8f8fChat Messages will be shown nearby portraits with form of bubble.|r                                             Runtime: |cff00ff00Low|r                                             Memory: |cff00ff00Low|r
+## Notes-zhCN: |cff00ff00BubbleChat|r                                             |cffbc8f8f当你组队时允许聊天信息以泡泡的方式显示在队友头像旁边。|r                                             运行时间占用率：|cff00ff00低|r                                             内存占用率：|cff00ff00低|r
+## Notes-zhTW: |cff00ff00BubbleChat|r                                             |cffbc8f8f當你組隊時允許聊天信息以泡泡的方式顯示在隊友頭像旁邊。|r                                             運行時間占用率：|cff00ff00低|r                                             記憶体佔用率：|cff00ff00低|r
+## Dependencies: BigFoot
+## LoadOnDemand: 1
+## X-Revision: BigFoot
+
+BubbleChat.xml

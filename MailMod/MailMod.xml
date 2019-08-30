@@ -1,0 +1,219 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="MailMod.lua"/>
+
+	<CheckButton name="MailBoxItemCBTemplate" hidden="true" virtual="true" inherits="InterfaceOptionsCheckButtonTemplate">
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="1" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				MailMod_SetSelected(self);
+			</OnClick>
+		</Scripts>
+	</CheckButton>
+
+	<CheckButton name="MailBoxItem1CB" id="1" hidden="false" parent="MailItem1" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem2CB" id="2" hidden="false" parent="MailItem2" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem3CB" id="3" hidden="false" parent="MailItem3" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem4CB" id="4" hidden="false" parent="MailItem4" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem5CB" id="5" hidden="false" parent="MailItem5" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem6CB" id="6" hidden="false" parent="MailItem6" inherits="MailBoxItemCBTemplate"/>
+	<CheckButton name="MailBoxItem7CB" id="7" hidden="false" parent="MailItem7" inherits="MailBoxItemCBTemplate"/>
+
+	<Button name="MailMod_InboxOpenSelected" parent="InboxFrame" inherits="UIPanelButtonTemplate" text="MAILMOD_OPEN_SELECT">
+		<Size>
+			<AbsDimension x="114" y="26"/>
+		</Size>
+		<Anchors>
+			<Anchor relativePoint="TOP" point="RIGHT">
+				<Offset>
+					<AbsDimension x="-17" y="-40"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				MailMod_OpenSelected();
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Button name="MailMod_InboxOpenAll" parent="InboxFrame" inherits="UIPanelButtonTemplate" text="MAILMOD_OPEN_ALL">
+		<Size>
+			<AbsDimension x="114" y="26"/>
+		</Size>
+		<Anchors>
+			<Anchor relativePoint="TOP" point="LEFT">
+				<Offset>
+					<AbsDimension x="-9" y="-40"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				StaticPopup_Show("OPEN_ALL_MAILS");
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<CheckButton name="MailMod_InboxDisplayMessagesCB" hidden="false" parent="InboxFrame" inherits="InterfaceOptionsCheckButtonTemplate">
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="MailMod_InboxOpenAll">
+				<Offset>
+					<AbsDimension x="4" y="-2"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip:SetText(MAILMOD_DISPLAY_PROCESS);
+				GameTooltip:Show();
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				MailMod_DisplayMessagesCB_OnClick(self, button);
+			</OnClick>
+		</Scripts>
+	</CheckButton>
+
+	<Frame name="MailModList_DropDownMenu" parent="SendMailNameEditBox">
+        <Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+        <Anchors>
+            <Anchor point="RIGHT" relativeTo="SendMailNameEditBox" relativePoint="RIGHT">
+                <Offset>
+					<AbsDimension x="0" y="1"/>
+				</Offset>
+            </Anchor>
+        </Anchors>
+        <Frames>
+            <Button name="$parentButton">
+                <Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+                <Anchors>
+                    <Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="15" y="0"/>
+						</Offset>
+					</Anchor>
+                </Anchors>
+                <NormalTexture name="$parentNormalTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
+                    <Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+                    <Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+                </NormalTexture>
+                <HighlightTexture alphaMode="ADD" name="$parentHighlightTexture" file="Interface\Buttons\UI-Common-MouseHilight">
+                    <Size> <AbsDimension x="24" y="24"/> </Size>
+                    <Anchors> <Anchor point="RIGHT"/> </Anchors>
+                </HighlightTexture>
+                <PushedTexture name="$parentPushedTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
+                    <Size> <AbsDimension x="24" y="24"/> </Size>
+                    <Anchors> <Anchor point="RIGHT"/> </Anchors>
+                </PushedTexture>
+                <Scripts>
+					<OnClick>
+						BToggleDropDownMenu(1, nil, self:GetParent());
+					</OnClick>
+                    <OnShow>
+						MailModList_DropDown_OnShown(self);
+					</OnShow>
+                    <OnEnter>
+                       MailModList_ButtonOnEnter(self);
+                    </OnEnter>
+                    <OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnHide>
+				CloseDropDownMenus();
+			</OnHide>
+        </Scripts>
+    </Frame>
+
+	<Button name="AddPlayerNameButton" parent="SendMailNameEditBox" hidden="true">
+		<Size>
+			<AbsDimension x="18" y="18"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="MailModList_DropDownMenu" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="15" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+		<Layer level="OVERLAY">
+			<Texture name= "$parentTexture" file = "Interface\AddOns\MailMod\add" setAllPoints="true">
+			</Texture>
+		</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				AddPlayerNameButton_OnEnter(self)
+			</OnEnter>
+			<OnClick>
+				AddPlayerNameButton_OnClick();
+			</OnClick>
+			<OnLeave function="GameTooltip_Hide"/>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" setAllPoints="true" alphaMode="ADD"/>
+	</Button>
+
+	<Button name="SubtractPlayerNameButton" parent="SendMailNameEditBox" hidden="true">
+		<Size>
+			<AbsDimension x="18" y="18"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="MailModList_DropDownMenu" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="15" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+		<Layer level="OVERLAY">
+			<Texture name= "$parentTexture" file = "Interface\AddOns\MailMod\subtract" setAllPoints="true">
+			</Texture>
+		</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				SubtractPlayerNameButton_OnEnter(self)
+			</OnEnter>
+			<OnClick>
+				SubtractPlayerNameButton_OnClick();
+			</OnClick>
+			<OnLeave function="GameTooltip_Hide"/>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" setAllPoints="true" alphaMode="ADD"/>
+	</Button>
+</Ui>

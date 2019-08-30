@@ -1,0 +1,125 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="AutoEquip.lua"/>
+	<GameTooltip name="AutoEquipTooltip" frameStrata="TOOLTIP" hidden="false" inherits="GameTooltipTemplate">
+		<Scripts>
+			<OnLoad>
+				self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
+				self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
+				self:SetOwner(UIParent, "ANCHOR_NONE");
+			</OnLoad>
+		</Scripts>
+	</GameTooltip>
+	<CheckButton name="AutoEquipSetButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="19" y="18"/>
+		</Size>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+			</OnLoad>
+			<OnEnter>
+				AutoEquipSetButton_OnEnter(self, self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				AutoEquipSetButton_OnClick(self, self:GetID(), 1, button);
+			</OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\AddOns\AutoEquip\AutoEquip">
+			<Size>
+				<AbsDimension x="19" y="18"/>
+			</Size>
+		</NormalTexture>
+		<PushedTexture file="Interface\AddOns\AutoEquip\AutoEquip">
+			<Size>
+				<AbsDimension x="19" y="18"/>
+			</Size>
+		</PushedTexture>
+		<CheckedTexture file="Interface\AddOns\AutoEquip\AutoEquipC" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="19" y="18"/>
+			</Size>
+		</CheckedTexture>
+		<HighlightTexture file="Interface\AddOns\AutoEquip\AutoEquipH" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="19" y="18"/>
+			</Size>
+		</HighlightTexture>
+	</CheckButton>
+	<Button name="AutoEquipFrame" frameStrata="MEDIUM" enableMouse="true" parent="PlayerFrame" clampedToScreen="true">
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentBackground" file="Interface\AddOns\AutoEquip\AutoEquip"/>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="AutoEquipSaveButton">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="6" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnter>
+						AutoEquipSaveButton_OnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+					<OnClick>
+						AutoEquipSaveButton_OnClick(self, button);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\AddOns\AutoEquip\AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.59375" right="0.6640625" top="0.6484375" bottom="0.78125"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\AutoEquip\AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.59375" right="0.6640625" top="0.7890625" bottom="0.921875"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\AutoEquip\AutoEquipSH" alphaMode="ADD"/>
+			</Button>
+			<CheckButton name="AutoEquipSetButton1" inherits="AutoEquipSetButtonTemplate" id="1"/>
+			<CheckButton name="AutoEquipSetButton2" inherits="AutoEquipSetButtonTemplate" id="2"/>
+			<CheckButton name="AutoEquipSetButton3" inherits="AutoEquipSetButtonTemplate" id="3"/>
+			<CheckButton name="AutoEquipSetButton4" inherits="AutoEquipSetButtonTemplate" id="4"/>
+			<CheckButton name="AutoEquipSetButton5" inherits="AutoEquipSetButtonTemplate" id="5"/>
+			<CheckButton name="AutoEquipSetButton6" inherits="AutoEquipSetButtonTemplate" id="6"/>
+			<CheckButton name="AutoEquipSetButton7" inherits="AutoEquipSetButtonTemplate" id="7"/>
+			<CheckButton name="AutoEquipSetButton8" inherits="AutoEquipSetButtonTemplate" id="8"/>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				AutoEquipFrame_OnLoad(self);
+			</OnLoad>
+			<OnMouseDown>
+				AutoEquipFrame_OnMouseDown(self, button);
+			</OnMouseDown>
+			<OnMouseUp>
+				AutoEquipFrame_OnMouseUp(self, button);
+			</OnMouseUp>
+			<OnEnter>
+				AutoEquipFrame_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				AutoEquipFrame_OnLeave(self);
+			</OnLeave>
+			<OnEvent>
+				AutoEquipFrame_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+	</Button>
+</Ui>

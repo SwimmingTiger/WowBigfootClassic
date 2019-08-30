@@ -1,0 +1,349 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	
+	<Button name="DCTFrameBox" frameStrata="HIGH" hidden="true" inherits="DCT_OptionFrameBoxTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="60" y="60"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" />
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">			
+				<FontString name="$parent_Title1" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="BOTTOM" relitiveTo="$parent" relativePoint="CENTER"/>							
+					</Anchors>							
+					<FontHeight>
+						<AbsValue val="14"/>
+					</FontHeight>
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+				<FontString name="$parent_Title2" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="TOP" relitiveTo="$parent" relativePoint="CENTER"/>					
+					</Anchors>							
+					<FontHeight>
+						<AbsValue val="14"/>
+					</FontHeight>
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+			</Layer>					
+		</Layers>
+		<Scripts>
+                    <OnMouseDown function="DCTFrameBoxMouseDown" />
+		</Scripts>
+	</Button>
+
+	<Button name="DCTUIDropDownMenuTemplate2" inherits="UIDropDownMenuTemplate" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentLabel" inherits="GameFontNormalSmall">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="15" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>			
+	</Button>
+	
+	<Slider name="DCTAniSliderTemplate" frameStrata="MEDIUM" inherits="DCTSliderIncludeEditBoxTemplate" virtual="true">
+		<Scripts>
+			<OnEnter>
+				if ( self.tooltipText ) then
+					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnLoad>				
+				self.OnValueChangedFunc = DCT_Opani_SliderValueChange
+			</OnLoad>
+		</Scripts>
+	</Slider>
+	
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTAniOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>	
+		<Frames>		
+		    <Button name="$ParentFrameDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="60" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_FrameDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentFontEnDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="60" y="-85"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_FontEnDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentFontChDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$ParentFontEnDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_FontChDDC_OnShow" />
+				</Scripts>
+			</Button>			
+			
+			<Button name="$ParentFontEffDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$ParentFontChDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-25"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_FontEffDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentAnchorDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$ParentFontEffDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-230"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_AnchorDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Slider name="$ParentSlider_fSizeEn" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentFontEffDDC" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="-55" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			<Slider name="$ParentSlider_fSizeCh" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_fSizeEn" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			<Slider name="$ParentSlider_angle" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_fSizeCh" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			<Slider name="$ParentSlider_alpha" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_angle" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			<Slider name="$ParentSlider_speed" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_fSizeEn" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="155" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			<Slider name="$ParentSlider_x" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_speed" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				</Slider>
+			<Slider name="$ParentSlider_y" inherits="DCTAniSliderTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$ParentSlider_x" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+			</Slider>
+			
+			<Button name="$ParentAniTypeDDC" inherits="DCTUIDropDownMenuTemplate">				
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="320" y="-75"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opani_AniTypeDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			
+			<Button name="$Parentparam1DDC" hidden="true" inherits="DCTUIDropDownMenuTemplate2">				
+				<Scripts>
+                                    <OnShow function="DCT_Opani_param1DDC_OnShow" />
+				</Scripts>
+			</Button>
+			<Button name="$Parentparam2DDC" hidden="true" inherits="DCTUIDropDownMenuTemplate2">				
+				<Scripts>
+                                    <OnShow function="DCT_Opani_param2DDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Slider name="$ParentSlider_param1" inherits="DCTAniSliderTemplate"/>
+			<Slider name="$ParentSlider_param2" inherits="DCTAniSliderTemplate"/>
+			<Slider name="$ParentSlider_param3" inherits="DCTAniSliderTemplate"/>
+			<Slider name="$ParentSlider_param4" inherits="DCTAniSliderTemplate"/>
+			<Slider name="$ParentSlider_param5" inherits="DCTAniSliderTemplate"/>
+			<Slider name="$ParentSlider_param6" inherits="DCTAniSliderTemplate"/>
+			
+			<Button name="$ParentFrameBox1" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox2" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox3" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox4" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox5" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox6" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox7" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox8" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox9" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox10" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox11" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox12" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox13" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox14" inherits="DCTFrameBox"/>
+			<Button name="$ParentFrameBox15" inherits="DCTFrameBox"/>
+			
+			<Button name="$ParentAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPANI_ADDFRAME">
+				<Size>
+					<AbsDimension x="70" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="240" y="-10" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opani_AddFrame(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPANI_DELETEFRAME">
+				<Size>
+					<AbsDimension x="70" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="320" y="-10" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opani_DeleteFrame(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentPreView" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPANI_PREVIEW">
+				<Size>
+					<AbsDimension x="50" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="440" y="-75" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opani_PreView(self, DCT_Opani_CurFrameID)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentBatFont" inherits="OptionsButtonTemplate" text="DCT_TEXT_OPANI_BATFONT">
+				<Size>
+					<AbsDimension x="200" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-55"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+					<OnClick>
+						DCT_Opani_BatFont(self)
+					</OnClick>
+					<OnShow>
+						self:SetWidth(200)
+					</OnShow>
+				</Scripts>
+			</Button>	
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCT_OptionsRegisterButton(DCT_FRAME_OPTION,DCTAniOption,nil,5,500,45)
+				DCT_OptionsRegisterButtonExBG(DCT_FRAME_OPTION,0,-50,315,420, 325,-50,175,420)
+			</OnLoad>
+			<OnShow>
+				DCT_Opani_OnShow(self)
+			</OnShow>
+			<OnHide>
+				
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

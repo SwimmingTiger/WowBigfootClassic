@@ -1,0 +1,25 @@
+<!-- edited with XMLSPY v5 rel. 2 U (http://www.xmlspy.com) by Sam Lantinga (Blizzard Entertainment) -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="BigFootBot.lua"/>
+	<GameTooltip name="BigFootBotTooltip" parent="UIParent" hidden="false" frameStrata="TOOLTIP" inherits="GameTooltipTemplate">
+		<Scripts>
+			<OnLoad>
+				self:SetOwner(UIParent, "ANCHOR_NONE");
+			</OnLoad>
+		</Scripts>
+	</GameTooltip>
+	<Frame name="BigFootBotFrame">
+		<Scripts>
+			<OnLoad>
+				BigFootBot_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				BigFootBot_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnUpdate>
+				BigFootBot_OnUpdate(self, elapsed);
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,98 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Script file="ExpBar.lua"/>
+	<StatusBar name="TUF_ExpBar" inherits="TextStatusBar" parent="PlayerFrame" hidden="true">
+		<Size>
+			<AbsDimension x="126" y="6"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="102" y="-68"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture name="$parentExhaustionLevelFillBar">
+					<Size>
+						<AbsDimension x="0" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="1.0" g="1.0" b="1.0" a="1.0"/>
+				</Texture>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture>
+					<Color r="0.0" g="0.0" b="0.0" a="0.5"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentArtFrame">
+				<Size>
+					<AbsDimension x="126" y="12"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="-1" y="3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture file="Interface\AddOns\TUnitFrame\Media\portrait">
+							<Size>
+								<AbsDimension x="126" y="12"/>
+							</Size>
+							<TexCoords left="0.0" right="0.546875" top="0.765625" bottom="0.953125"/>
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<FontString name="$parentText" inherits="GameFontNormal" outline="THIN">
+							<Color r="1.0" g="1.0" b="1.0"/>
+							<FontHeight>
+								<AbsValue val="13"/>
+							</FontHeight>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="1" y="1"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+		<BarColor r="0.0" g="0.58" b="0.434"/>
+		<Scripts>
+			<OnLoad>
+				TUF_ExpBar_OnLoad(self)
+			</OnLoad>
+		</Scripts>
+	</StatusBar>
+	
+	<Button name="TUF_ExhaustionTick" parent="TUF_ExpBar" hidden="false" frameStrata="DIALOG">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT">
+				<Offset>
+					<AbsDimension x="0" y="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<NormalTexture name="$parentNormal" file="Interface\MainMenuBar\UI-ExhaustionTickNormal"/>
+		<HighlightTexture name="$parentHighlight" file="Interface\MainMenuBar\UI-ExhaustionTickHighlight" alphaMode="ADD"/>
+	</Button>
+</Ui>

@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: [BF] BigFootBar
+## Title-zhCN: [大脚]大脚动作条增强
+## Title-zhTW: [大腳]大腳動作條增強
+## Notes: |cffbc8f8fEasy to customize up to 10 action bars.|r
+## Notes-zhCN: |cff00ff00BigFootBar|r|n|cffbc8f8f拓展及自定义动作条配置。|r
+## Notes-zhTW: |cff00ff00BigFootBar|r|n|cffbc8f8f拓展及自定義動作條配置。|r
+## SavedVariablesPerCharacter: BigFootBar_Info
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Bindings.lua
+BigFootBar.xml

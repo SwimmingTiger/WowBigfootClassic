@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: [BF] SellHelper
+## Title-zhCN: [大脚]售卖助手
+## Title-zhTW: [大腳]售賣助手
+## Notes: |cffbc8f8fAllow you to sell item easily.|r
+## Notes-zhCN: |cff00ff00SellerHelper|r|n|cffbc8f8f让你方便的出售物品，并可以设置自动要出售的物品。|r
+## Notes-zhTW: |cff00ff00SellerHelper|r|n|cffbc8f8f讓你方便的出售物品，並可以設置自動要出售的物品。|r
+## SavedVariablesPerCharacter: AutoRechargeSetting,AR_ItemInfo,SellerHelper_AutoSellList,SellerHelper_NotSellList
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+SellerHelperFrame.xml

@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: BlizzMove
+## Title-zhCN: [大脚][集]窗体移动
+## Title-zhTW: [大腳][集]窗體移動
+## Notes: |cffbc8f8fMove those blizzard windows.|r
+## Notes-zhCN: |cff00ff00BlizzMove|r|n|cffbc8f8f移动系统各种默认窗体。|r
+## Notes-zhTW: |cff00ff00BlizzMove|r|n|cffbc8f8f移動系統各種默認窗體。|r
+## Author: yess
+## Version: v1.2.2
+## SavedVariablesPerCharacter: BlizzMoveDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Blizzmove.lua
+

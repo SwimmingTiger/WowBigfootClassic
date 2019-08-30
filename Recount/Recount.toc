@@ -1,0 +1,53 @@
+﻿## Interface: 11302
+## Title: Recount
+## Title-zhCN: [大脚][集]伤害统计
+## Title-zhTW: [大腳][集]傷害統計
+## Notes: |cffbc8f8fRecords Damage and Healing for Graph Based Display.|r
+## Notes-zhCN: |cff00ff00Recount|r|n|cffbc8f8f图形化显示的伤害/治疗统计插件。|r
+## Notes-zhTW: |cff00ff00Recount|r|n|cffbc8f8f圖形化顯示的傷害/治療統計插件。|r
+## Author: Cryect, ported to 2.4 by Elsia, maintained by Resike from 5.4
+## Version: v1.13.2b
+## SavedVariables: RecountDB
+## SavedVariablesPerCharacter: RecountPerCharDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+Libs\LibDropDown-1.0\LibDropdown-1.0.lua
+Libs\LibGraph-2.0\LibGraph-2.0.lua
+
+locales\Recount-enUS.lua
+locales\Recount-zhTW.lua
+locales\Recount-zhCN.lua
+
+Recount.lua
+
+Fonts.lua
+colors.lua
+Widgets.lua
+WindowOrder.lua
+
+Fights.lua
+Recount_Modes.lua
+TrackerModules\TrackerModule_Dispels.lua
+TrackerModules\TrackerModule_Interrupts.lua
+TrackerModules\TrackerModule_Resurrection.lua
+TrackerModules\TrackerModule_CCBreakers.lua
+TrackerModules\TrackerModule_PowerGains.lua
+Tracker.lua
+roster.lua
+LazySync.lua
+deletion.lua
+zonefilters.lua
+debug.lua
+
+GUI_Main.lua
+GUI_Detail.lua
+GUI_DeathGraph.lua
+GUI_Graph.lua
+GUI_Reset.lua
+GUI_Report.lua
+GUI_Config.lua
+GUI_Realtime.lua
+
+BFRecount.lua

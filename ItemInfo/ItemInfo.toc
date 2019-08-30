@@ -1,0 +1,17 @@
+﻿## Interface: 11302
+## Title: [BF] Item Info
+## Title-zhCN: [大脚]物品信息
+## Title-zhTW: [大腳]物品資訊
+## Notes: |cffbc8f8fItem Inventory Chart.|r
+## Notes-zhCN: |cff00ff00ItemInfo|r|n|cffbc8f8f提供一些辅助拍卖的功能, 并显示物品的各类价格。|r
+## Notes-zhTW: |cff00ff00ItemInfo|r|n|cffbc8f8f提供一些輔助拍賣的功能, 並顯示物品的各類價格。|r
+## Author: 独孤傲雪
+## SavedVariables: ItemInfo_Config,AlreadyKnownSettings
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+ItemInfo.xml
+ItemInfo.lua
+
+AlreadyKnown.lua

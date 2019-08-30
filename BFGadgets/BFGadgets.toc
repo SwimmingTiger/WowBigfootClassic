@@ -1,0 +1,18 @@
+## Interface: 11302
+## Title: [BF] BFGadgets
+## Title-zhCN: [大脚]小功能
+## Title-zhTW: [大腳]小功能
+## Notes: |cffbc8f8fProvides some extra gadgets to help user, such as coord, etc.|r
+## Notes-zhCN: |cff00ff00BFGadgets|r|n|cffbc8f8f提供一些额外的小功能以方便用户，例如坐标等。|r
+## Notes-zhTW: |cff00ff00BFGadgets|r|n|cffbc8f8f提供一些額外的小功能以方便使用者，例如座標等。|r
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+coord.lua
+
+ItemLinkLevel.lua

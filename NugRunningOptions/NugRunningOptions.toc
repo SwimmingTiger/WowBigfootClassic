@@ -1,0 +1,9 @@
+## Interface: 11302
+## Title: NugRunningOptions
+## Notes: Options for NugRunning
+## Author: d87
+## RequiredDeps: NugRunning
+## LoadOnDemand: 1
+## X-Revision: BigFoot
+
+..\NugRunning\Options\includes.xml

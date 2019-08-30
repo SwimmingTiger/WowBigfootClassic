@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: [BF] CombatIndicator
+## Title-zhCN: [大脚]战斗指示器
+## Title-zhTW: [大腳]戰鬥指示器
+## Notes: |cffbc8f8fShow damage in screen when you are in combat.|r
+## Notes-zhCN: |cff00ff00CombatIndicator|r|n|cffbc8f8f当你进行战斗时会在身边跳出你所受伤害的数字。|r
+## Notes-zhTW: |cff00ff00CombatIndicator|r|n|cffbc8f8f當你進行戰鬥時會在身邊跳出你所受傷害的數字。|r
+## SavedVariables: CombatIndicator_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+CombatIndicator.xml

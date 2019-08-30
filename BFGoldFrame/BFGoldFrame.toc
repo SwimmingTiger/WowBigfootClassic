@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: [BF] GoldFrame
+## Title-zhCN: [大脚]金钱提示
+## Title-zhTW: [大腳]金錢提示
+## Notes: |cffbc8f8f A simple frame for your gold changes.|r
+## Notes-zhCN: |cff00ff00BFGoldFrame|r|n|cffbc8f8f提供一个监视金币变化的框体。|r
+## Notes-zhTW: |cff00ff00BFGoldFrame|r|n|cffbc8f8f提供一個監視金幣變化的框體。|r
+## Author: Terry
+## SavedVariablesPerCharacter: BFGold_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+frame.xml
+BFGoldFrame.lua

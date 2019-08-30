@@ -1,0 +1,21 @@
+## Interface: 11302
+## Title: NugRunning
+## Notes: Spelltimers
+## Author: d87
+## SavedVariablesPerCharacter: NRunDB_Char
+## SavedVariables: NRunDB_Global, NugRunningConfigCustom
+## Version: 1.13.11
+## X-WoWI-ID: 24936
+## X-Revision: BigFoot
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibSharedMedia-3.0\lib.xml
+
+helpers.lua
+classic.config.lua
+NugRunning.lua
+frame.lua
+special.lua
+totems.lua
+nameplates.lua

@@ -1,0 +1,14 @@
+﻿## Interface: 11302
+## Title: [BF] QuickCompare
+## Title-zhCN: [大脚]快速比较
+## Title-zhTW: [大腳]快速比較
+## Notes: |cffbc8f8fAuot compare with equipment when mouse is hover on item.|r
+## Notes-zhCN: |cff00ff00QuickCompare|r|n|cffbc8f8f自动同角色成就以及装备进行比较。|r
+## Notes-zhTW: |cff00ff00QuickCompare|r|n|cffbc8f8f自動同角色成就以及裝備進行比較。|r
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+QuickCompare.lua
+QuickCompare.xml
+

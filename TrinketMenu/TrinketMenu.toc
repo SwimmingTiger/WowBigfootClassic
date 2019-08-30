@@ -1,0 +1,24 @@
+﻿## Interface: 11302
+## Title: TrinketMenu
+## Title-zhCN: [大脚][集]饰品管理
+## Title-zhTW: [大腳][集]飾品管理
+## Notes: |cffbc8f8fAddOn to manage trinkets.|r
+## Notes-zhCN: |cff00ff00TrinketMenu|r|n|cffbc8f8f方便地管理饰品。|r
+## Notes-zhTW: |cff00ff00TrinketMenu|r|n|cffbc8f8f方便地管理飾品。|r
+## Author: Gello
+## SavedVariables: TrinketMenuOptions
+## SavedVariablesPerCharacter: TrinketMenuPerOptions, TrinketMenuQueue
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+TrinketMenu.lua
+TrinketMenu.xml
+TrinketMenuOpt.lua
+TrinketMenuOpt.xml
+TrinketMenuQueue.lua
+TrinketMenuQueue.xml
+
+localization.lua
+
+TrinketMenuConfig.lua

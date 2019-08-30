@@ -1,0 +1,13 @@
+﻿## Interface: 11302
+## Title: [BF] Party Assist
+## Title-zhCN: [大脚]组队施法
+## Title-zhTW: [大腳]組隊施法
+## Notes: |cffbc8f8fHelp player to cast spell on party member.|r
+## Notes-zhCN: |cff00ff00PartyAssist|r                                             |cffbc8f8f在队友头像边提供快捷施法的按钮。|r
+## Notes-zhTW: |cff00ff00PartyAssist|r                                             |cffbc8f8f在隊友頭像邊提供快捷施法的按鈕。|r
+## SavedVariablesPerCharacter: PartyAssist_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+PartyAssist.xml

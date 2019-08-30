@@ -1,0 +1,23 @@
+﻿## Interface: 11302
+## Title: <DCT> Damage
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 伤害模块
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 傷害模組
+## Notes: |cffbc8f8fShow damage texts you attacking for DCT.|r
+## Notes-zhCN: |cff00ff00dct_damage|r|n|cffbc8f8f为战斗指示器提供你对怪物伤害的显示功能。|r
+## Notes-zhTW: |cff00ff00dct_damage|r|n|cffbc8f8f為戰鬥指示器提供你對怪物傷害的顯示功能。|r
+## Author: Dennie
+## Dependencies: dct
+## X-Revision: BigFoot
+## SavedVariables: DCTD_CONFIG
+## SavedVariablesPerCharacter: DCTD_PERCONFIG
+## LoadOnDemand: 1
+
+dctd_default.lua
+loc_dctd.lua
+
+locals\cn_loc_dctd.lua
+
+dctd.lua
+dctd_options.lua
+dctd_options.xml
+

@@ -1,0 +1,13 @@
+## Interface: 11302
+## Title: EventAlertMod
+## Title-zhCN: [大脚][集]技能触发
+## Title-zhTW: [大腳][集]技能觸發
+## Notes: |cffbc8f8fConvenient to set any spell you want to monitor.|r
+## Notes-zhCN: |cff00ff00EventAlertMod|r|n|cffbc8f8f方便快捷的设置你想监视的任何法术。|r
+## Notes-zhTW: |cff00ff00EventAlertMod|r|n|cffbc8f8f方便快捷的設置你想監視的任何法術。|r
+## Author: 死鬥
+## Version: 8.0.1
+## SavedVariables: EA_Config, EA_Position, EA_Items, EA_AltItems, EA_TarItems, EA_ScdItems, EA_GrpItems, EA_Pos
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1

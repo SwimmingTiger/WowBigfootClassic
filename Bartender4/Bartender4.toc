@@ -1,0 +1,76 @@
+## Interface: 11302
+## Title: Bartender4
+## Title-zhCN: [大脚][集]界面调整
+## Title-zhTW: [大腳][集]界面調整
+## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
+## Notes-zhCN: |cff00ff00Bartender4|r
+## Notes-zhTW: |cff00ff00Bartender4|r
+## Version: 4.8.4
+## Author: Nevcairiel
+## X-Email: h.leppkes at gmail dot com
+## X-Category: Action Bars
+## X-Website: http://www.wowace.com/addons/bartender4/
+## X-License: All rights reserved.
+## SavedVariables: Bartender4DB
+## Dependencies: Bigfoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+lib\LibKeyBound-1.0\lib.xml
+lib\LibButtonGlow-1.0\LibButtonGlow-1.0.lua
+lib\LibActionButton-1.0\LibActionButton-1.0.lua
+lib\SimpleSticky.lua
+
+locale\locale.xml
+
+## Core ##
+Bartender4.lua
+
+## Prototypes ##
+Bar.lua
+ButtonBar.lua
+StateBar.lua
+ActionBar.lua
+
+## Buttons ##
+PetButton.lua
+
+## Modules ##
+ActionBars.lua
+BagBar.lua
+PetBar.lua
+StanceBar.lua
+MicroMenu.lua
+VehicleBar.lua
+BlizzardArt.lua
+ExtraActionBar.lua
+ZoneAbilityBar.lua
+StatusTrackingBar.lua
+
+## Classic-only ##
+XPBarClassic.lua
+
+## Options ##
+Options\AceGUIWidget-NumberEditBox.lua
+
+Options\Options.lua
+Options\Bar.lua
+Options\ButtonBar.lua
+Options\StateBar.lua
+
+Options\ActionBar.lua
+Options\BagBar.lua
+Options\MicroMenu.lua
+Options\PetBar.lua
+Options\StanceBar.lua
+Options\VehicleBar.lua
+Options\BlizzardArt.lua
+Options\ExtraActionBar.lua
+Options\ZoneAbilityBar.lua
+Options\StatusTrackingBar.lua
+
+## Classic-only ##
+Options\XPBarClassic.lua
+
+## Presets -- needs to be the last ##
+Options\Presets.lua

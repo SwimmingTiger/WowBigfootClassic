@@ -1,0 +1,28 @@
+local L = LibStub("AceLocale-3.0"):NewLocale("MBB","zhCN")
+if not L then return end
+L["Minimap ButtonBag"] = "小地图按键包"
+L["Enable Tooltip"] = "开启鼠标提示"
+L["BigFoot Mini map"] = "大脚设置"
+L["Left click to open mini panel"] = "左键单击按钮打开设置。"
+L["Right click to show dropdown menu"] = "右键单击按钮打开额外功能。"
+L["Attach to Minimap"] = "依附于小地图"
+L["Options"] = "配置"
+L["Enable"] = "启用MBB"
+L["Enable Mouse Over"] = "启用鼠标滑过";
+L["Keep Icon Size"] = "保持图标原有大小"
+
+L["sec"] = "秒"
+L["Collapse Timeout:"] = "自动收缩时间:"
+L["Expand to:"] = "展开方向:"
+L["Left"] = "左"
+L["Top"] = "上"
+L["Right"] = "右"
+L["Bottom"] = "下"
+L["Max. Buttons/Line:"] = "每行按键数:"
+L["(0=infinity)"] = "(0=无限制)"
+L["Alt. Expand to:"] = "扩展展开方向:"
+L["Type \"/mbb <cmd>\" where <cmd> is one of the following:"] = "  格式 \"/mbb <cmd>\" <cmd> 是下列参数之一:"
+L["  |c00ffffffbuttons|r: Shows a list of all frames in the MBB bar"] = "  |c00ffffffbuttons|r: 显示MBB收集的小地图按键列表"
+L["  |c00ffffffreset position|r: resets the position of the MBB minimap button"] = "  |c00ffffffreset position|r: 重置MBB小地图按键位置"
+L["  |c00ffffffreset all|r: resets all options"] = "  |c00ffffffreset all|r: 重置为缺省配置"
+L["No errors found!"] ="未发现错误!"

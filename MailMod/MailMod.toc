@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: [BF] MailMod
+## Title-zhCN: [大脚]邮件助手
+## Title-zhTW: [大腳]郵件助手
+## Notes: |cffbc8f8fAllows you to mass open multiple mails.|r
+## Notes-zhCN: |cff00ff00MailMod|r|n|cffbc8f8f使你能够批量收取信件。|r
+## Notes-zhTW: |cff00ff00MailMod|r|n|cffbc8f8f使你能夠批量收取信件。|r
+## Author: Mod By Terry@BF
+## SavedVariables: MailMod_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+MailMod.xml
+

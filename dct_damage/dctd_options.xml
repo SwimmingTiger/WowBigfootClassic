@@ -1,0 +1,42 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTDOption" hidden="true" frameStrata="MEDIUM">
+		<Size>
+			<AbsDimension x="490" y="390"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+			</Layer>
+		</Layers>
+		<Frames>
+
+		</Frames>
+		<Scripts>
+			<OnEvent>
+				DCTDOption_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCTD_OnLoad(self)
+			</OnLoad>
+			<OnShow>
+				DCTDOption_OnShow(self)
+			</OnShow>
+			<OnHide>
+
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

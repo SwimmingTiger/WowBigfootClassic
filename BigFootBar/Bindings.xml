@@ -1,0 +1,362 @@
+<Bindings>
+	<Binding name="CLICK BigFootBarFrame1ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR1" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton2:LeftButton" runOnUp="true" category="ADDONS">	
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame1ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame2ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR2" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton6:LeftButton" runOnUp="true" category="ADDONS">	
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton7:LeftButton" runOnUp="true" category="ADDONS">	
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame2ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame3ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR3" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame3ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame4ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR4" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton5:LeftButton" runOnUp="true" category="ADDONS">
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame4ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame5ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR5" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame5ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame6ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR6" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame6ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame7ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR7" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame7ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame8ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR8" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame8ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame9ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR9" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame9ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+	<Binding name="CLICK BigFootBarFrame10ActionButton1:LeftButton" runOnUp="true" header="BIGFOOTBAR10" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton2:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton3:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton4:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton5:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton6:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton7:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton8:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton9:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton10:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton11:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>
+	<Binding name="CLICK BigFootBarFrame10ActionButton12:LeftButton" runOnUp="true" category="ADDONS">		
+		-- NULL_FUNCTION();
+	</Binding>	
+</Bindings>

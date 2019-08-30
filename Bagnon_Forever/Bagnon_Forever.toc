@@ -1,0 +1,17 @@
+﻿## Interface: 11302
+## Title: Bagnon_Forever
+## Title-zhCN: [大脚][集]背包物品信息
+## Title-zhTW: [大腳][集]背包物品信息
+## Notes: |cffbc8f8fThe preservation and tips and bank account role of items in the backpack information.|r
+## Notes-zhCN: |cff00ff00Bagnon_Forever|r|n|cffbc8f8f保存及提示账号下所有角色背包与银行内物品的信息。|r
+## Notes-zhTW: |cff00ff00Bagnon_Forever|r|n|cffbc8f8f儲存及提示帳號下所有角色背包和銀行內物品的資訊。|r
+## Author: Tuller
+## Version: 1.1.1
+## SavedVariables: BagnonForeverDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+db.lua
+
+localization.lua
+tooltips.lua

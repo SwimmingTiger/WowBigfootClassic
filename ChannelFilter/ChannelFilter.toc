@@ -1,0 +1,12 @@
+﻿## Interface: 11302
+## Title: [BF] ChannelFilter
+## Title-zhCN: [大脚]聊天优化
+## Title-zhTW: [大腳]聊天優化
+## Notes: |cffbc8f8fHide chat messages with some specific words.|r
+## Notes-zhCN: |cff00ff00ChannelFilter|r|n|cffbc8f8f针对等级,关键词进行屏蔽或显示。|r
+## Notes-zhTW: |cff00ff00ChannelFilter|r|n|cffbc8f8f針對等級,關鍵詞進行屏蔽或顯示。|r
+## SavedVariables: ChannelFilter_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+ChannelFilter.xml

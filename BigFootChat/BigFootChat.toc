@@ -1,0 +1,19 @@
+﻿## Interface: 11302
+## Title: [BF] BigFootChat
+## Title-zhCN: [大脚]聊天增强条
+## Title-zhTW: [大腳]聊天增強條
+## Notes: |cffbc8f8fA Chat enhance addon developed by 178.|r
+## Notes-zhCN: |cff00ff00BigFootChat|r|n|cffbc8f8f178自主研发的聊天增强插件。|r
+## Notes-zhTW: |cff00ff00BigFootChat|r|n|cffbc8f8f178自主研發的聊天增強插件。|r
+## Author: Terry
+## SavedVariables: BFCDB,BFCSystemCacheDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+locale\locale.en.lua
+locale\locale.cn.lua
+locale\locale.tw.lua
+
+frame.xml
+offline.xml

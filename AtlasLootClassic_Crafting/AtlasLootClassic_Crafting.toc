@@ -1,0 +1,35 @@
+## Interface: 11302
+## Author: Lag
+## Version: v1.1.7-beta1
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+## Title: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-deDE: AtlasLootClassic |cFF0099FF[Berufe]|r
+## Title-esES: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-esMX: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-frFR: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-itIT: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-koKR: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-ptBR: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-ruRU: AtlasLootClassic |cFF0099FF[Профессии]|r
+## Title-zhCN: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-zhTW: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Notes: AtlasLoot loot tables of Crafting Items
+## Notes-deDE: AtlasLoot loot tables of Crafting Items
+## Notes-esES: AtlasLoot loot tables of Crafting Items
+## Notes-esMX: AtlasLoot loot tables of Crafting Items
+## Notes-frFR: AtlasLoot loot tables of Crafting Items
+## Notes-itIT: AtlasLoot loot tables of Crafting Items
+## Notes-koKR: AtlasLoot loot tables of Crafting Items
+## Notes-ptBR: AtlasLoot loot tables of Crafting Items
+## Notes-ruRU: Таблицы лута AtlasLoot для профессии
+## Notes-zhCN: AtlasLoot专业制作物品列表
+## Notes-zhTW: AtlasLoot loot tables of Crafting Items
+## X-Category: Map
+## X-License: GPL v2
+## X-AtlasLootClassic-LootModule: 1
+## X-Revision: BigFoot
+
+Locales\Locales.xml
+
+data.lua

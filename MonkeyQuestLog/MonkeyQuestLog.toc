@@ -1,0 +1,10 @@
+﻿## Interface: 11302
+## Title: MonkeyQuestLog
+## Notes: Replacement Quest Log.
+## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-任務日誌
+## Notes-zhTW: MonkeyQuestLog |n顯示任務內容說明，取代遊戲內建的任務日誌。|n|cffffd200使用方法：|r左鍵點擊清單中的任務顯示任務內容說明。
+## Author: Trentin, Jim-Bim, DaMaGepy
+## SavedVariables: mkql_Saved
+## Dependencies: MonkeyLibrary, MonkeyQuest
+## X-Revision: BigFoot
+MonkeyQuestLogFrame.xml
