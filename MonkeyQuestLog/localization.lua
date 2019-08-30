@@ -30,3 +30,17 @@ MkQL_SHARE_TXT							= "分享任務"
 MkQL_ABANDON_TXT						= "放棄任務"
 
 end
+
+if (GetLocale() == "zhCN") then
+    MONKEYQUESTLOG_TITLE					= "MQ 任务日志"
+    MONKEYQUESTLOG_DESCRIPTION				= "显示完整任务说明"
+    MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " 已加载"
+    
+    MONKEYQUESTLOG_DESC_HEADER				= "描述"
+    MONKEYQUESTLOG_REWARDS_HEADER			= "奖励"
+    MkQL_REWARDSCHOOSE_TXT					= "你可以从这些奖励物品中选择一件:"
+    MkQL_REWARDSRECEIVE_TXT					= "你将得到:"
+    MkQL_SHARE_TXT							= "分享任务"
+    MkQL_ABANDON_TXT						= "放弃任务"
+    
+end
