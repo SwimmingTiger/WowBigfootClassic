@@ -3,7 +3,7 @@ if (GetLocale() == "zhCN") then
 	BIGFOOT_VERSION_FONT1 = "Fonts\\ARHei.TTF";
 	BIGFOOT_VERSION_FONT2 = "Fonts\\ARHei.TTF";
 	BIGFOOT_VERSION_FONT3 = "Fonts\\ARHei.TTF";
-	BIGFOOT_VERSION_FONT4 = "Fonts\ARKai_T.TTF";
+	BIGFOOT_VERSION_FONT4 = "Fonts\\ARKai_T.TTF";
 elseif (GetLocale() == "zhTW") then
 	BIGFOOT_VERSION_FONT1 = "Fonts\\bHEI01B.TTF";
 	BIGFOOT_VERSION_FONT2 = "Fonts\\bHEI01B.TTF";
