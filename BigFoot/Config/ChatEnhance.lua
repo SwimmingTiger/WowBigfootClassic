@@ -6,6 +6,9 @@ function ChatEnhanceConfigFunc()
 		BFC_ENABLE_TEXT = "启用大脚聊天快捷条";
 		BFC_ENABLE_TEXT_TOOLTIP= "添加聊天快捷条，如使用大脚表情，快捷频道切换等";
 
+		ENABLE_CLASS_COLOR = "显示玩家职业颜色";
+		ENABLE_CLASS_COLOR_TOOLTIP= "启用聊天窗口内角色名称的职业颜色";
+
 		WP_ENABLE_TEXT = "启用密语管理";
 		WP_ENABLE_TEXT_TOOLTIP= "记录并提示玩家密语聊天信息";
 
@@ -25,6 +28,9 @@ function ChatEnhanceConfigFunc()
 		BFC_ENABLE_TEXT = "啟用大腳聊天快捷條"
 		BFC_ENABLE_TEXT_TOOLTIP= "添加聊天快捷條，如使用大腳表情，快捷頻道切換等"
 
+		ENABLE_CLASS_COLOR = "顯示玩家職業顔色";
+		ENABLE_CLASS_COLOR_TOOLTIP= "啓用聊天窗口内角色名稱的職業顔色";
+
 		WP_ENABLE_TEXT = "啟用密語管理";
 		WP_ENABLE_TEXT_TOOLTIP= "記錄并提示玩家密語聊天信息";
 
@@ -42,6 +48,10 @@ function ChatEnhanceConfigFunc()
 		CHAT_ENHANCEMENT_TITLE = "Chat Enhancement";
 		SCROLL_CHATFRAME_TEXT = "Allow using mouse wheel to scroll chat window";
 		BFC_ENABLE_TEXT = "Enable BigFootChat"
+		
+		ENABLE_CLASS_COLOR = "Enable Class Color";
+		ENABLE_CLASS_COLOR_TOOLTIP= "Enable class color of character names in the chat window";
+
 		WP_ENABLE_TEXT = "Enable WhisperPop";
 		PLAYER_LINK_ENABLE_TEXT = "Enhance player linke in chat window";
 		BFC_CONFIG="Config BFC"
@@ -232,6 +242,21 @@ function ChatEnhanceConfigFunc()
 			1
 		);
 	end
+
+	ModManagement_RegisterCheckBox(
+		"ChatEnhancement",
+		ENABLE_CLASS_COLOR,
+		ENABLE_CLASS_COLOR_TOOLTIP,
+		"EnableClassColor",
+		1,
+		function(arg1)
+			if (arg1 == 1) then
+				SetCVar("chatClassColorOverride", 0);
+			else
+				SetCVar("chatClassColorOverride", 1);
+			end
+		end
+	);
 end
 
 BigFoot_AddCollector(ChatEnhanceConfigFunc)
