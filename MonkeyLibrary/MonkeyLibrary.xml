@@ -13,19 +13,19 @@
 		</Shadow>
 	</FontString>
 
-	<FontString name="MonkeyQuestFont" inherits="MonkeyQuestMasterFont" font="Fonts\bLEI00D.TTF" virtual="true">
+	<FontString name="MonkeyQuestFont" inherits="MonkeyQuestMasterFont" font="Fonts\ARHei.TTF" virtual="true">
 		<FontHeight>
 			<AbsValue val="14"/>
 		</FontHeight>
 	</FontString>
 
-	<FontString name="MonkeyQuestFontWide" inherits="MonkeyQuestMasterFont" font="Fonts\bLEI00D.TTF" virtual="true">
+	<FontString name="MonkeyQuestFontWide" inherits="MonkeyQuestMasterFont" font="Fonts\ARHei.TTF" virtual="true">
 		<FontHeight>
 			<AbsValue val="14"/>
 		</FontHeight>
 	</FontString>
 
-	<FontString name="MonkeyQuestTitleFont" inherits="MonkeyQuestMasterFont" font="Fonts\bKAI00M.TTF" virtual="true">
+	<FontString name="MonkeyQuestTitleFont" inherits="MonkeyQuestMasterFont" font="Fonts\ARKai_T.TTF" virtual="true">
 		<FontHeight>
 			<AbsValue val="18"/>
 		</FontHeight>
