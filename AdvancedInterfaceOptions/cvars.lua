@@ -150,7 +150,7 @@ addon.hiddenOptions = {
 	["nameplatePersonalHideDelaySeconds"] = { prettyName = "", description = "The delay to wait before hiding the personal nameplate", type = "boolean" },
 	["ShowNamePlateLoseAggroFlash"] = { prettyName = nil, description = "When enabled, if you are a tank role and lose aggro, the nameplate with briefly flash.", type = "boolean" },
 	["ShowClassColorInNameplate"] = { prettyName = SHOW_CLASS_COLOR_IN_V_KEY, description = OPTION_TOOLTIP_SHOW_CLASS_COLOR_IN_V_KEY, type = "boolean" },
-	["ShowClassColorInFriendlyNameplate"] = { prettyName = "Class color friendly nameplates", description = "Class color for friendly nameplates", type = "boolean" },
+	["ShowClassColorInFriendlyNameplate"] = { prettyName = "职业颜色友好的姓名板", description = "避免NPC/怪物姓名板的颜色与玩家职业颜色冲突", type = "boolean" },
 
 	["nameplateTargetRadialPosition"] = { prettyName = nil, description = "When target is off screen, position its nameplate radially around sides and bottom", type = "number"},
 	["nameplateOccludedAlphaMult"] = { prettyName = nil, description = "Alpha multiplier of nameplates for occluded targets", type = "number"},
@@ -288,7 +288,7 @@ addon.hiddenOptions = {
 	["deselectOnClick"] = { prettyName = nil, description = OPTION_TOOLTIP_GAMEFIELD_DESELECT, type = "boolean" },
 	["autoQuestProgress"] = { prettyName = nil, description = OPTION_TOOLTIP_AUTO_QUEST_PROGRESS, type = "boolean" },
     ["UberTooltips"] = { prettyName = USE_UBERTOOLTIPS, description = OPTION_TOOLTIP_USE_UBERTOOLTIPS, type = "boolean" },
-    ["chatClassColorOverride"] = { prettyName = "Disable Class Colors", description = "Disables Class Colors in Chat", type = "boolean" },
+    ["chatClassColorOverride"] = { prettyName = "禁用职业颜色", description = "禁用聊天窗口内角色名称的职业颜色", type = "boolean" },
 	-- Sound
 	["Sound_EnableAllSound"] = { prettyName = ENABLE_SOUND, description = OPTION_TOOLTIP_ENABLE_SOUND, type = "boolean" },
 	["Sound_EnableDSPEffects"] = { prettyName = ENABLE_DSP_EFFECTS, description = OPTION_TOOLTIP_ENABLE_DSP_EFFECTS, type = "boolean" },
