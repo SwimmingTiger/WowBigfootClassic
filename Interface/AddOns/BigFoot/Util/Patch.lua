@@ -69,9 +69,10 @@ end
 
 do
 	-- 设置一些常用的cvar
+	SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
 	SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
-	SetCVar("instantQuestText", "1")					--鼠标位置打开拾取
-	SetCVar("alwaysCompareItems", "0")					--聊天职业颜色
-	SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友放姓名版职业颜色
-	SetCVar("ShowClassColorInNameplate", "1")			--显示敌放姓名版职业颜色
+	SetCVar("instantQuestText", "1")					--立即显示任务文本
+	SetCVar("alwaysCompareItems", "0")					--总是显示物品比较窗体
+	SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
+	SetCVar("ShowClassColorInNameplate", "1")			--显示敌方姓名版职业颜色
 end
