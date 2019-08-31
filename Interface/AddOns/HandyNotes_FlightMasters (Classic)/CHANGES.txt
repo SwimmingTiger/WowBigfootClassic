@@ -1,0 +1,10 @@
+------------------------------------------------------------------------
+r7 | Caliaha | 2019-08-31 16:41:22 +0000 (Sat, 31 Aug 2019) | 2 lines
+Changed paths:
+   M /trunk/HandyNotes_FlightMasters (Classic).toc
+   M /trunk/locales/enUS.lua
+
+Added localization for new entries
+
+------------------------------------------------------------------------
+

@@ -1,0 +1,30 @@
+------------------------------------------------------------------------
+r318 | nevcairiel | 2019-08-30 13:22:22 +0000 (Fri, 30 Aug 2019) | 1 line
+Changed paths:
+   M /trunk/HandyNotes.toc
+
+Update TOC for 8.2
+------------------------------------------------------------------------
+r317 | nevcairiel | 2019-05-26 13:55:59 +0000 (Sun, 26 May 2019) | 1 line
+Changed paths:
+   A /trunk/.editorconfig
+   A /trunk/.luacheckrc
+   M /trunk/HandyNotes.lua
+   M /trunk/HandyNotes_EditFrame.lua
+   M /trunk/HandyNotes_HandyNotes.lua
+
+Cleanup code, add editorconfig and luacheck
+------------------------------------------------------------------------
+r316 | nevcairiel | 2019-05-26 13:39:27 +0000 (Sun, 26 May 2019) | 1 line
+Changed paths:
+   M /trunk/HandyNotes_EditFrame.lua
+
+Fix Edit Frame framelevel on a fully maximized map
+------------------------------------------------------------------------
+r315 | nevcairiel | 2019-05-26 13:39:05 +0000 (Sun, 26 May 2019) | 1 line
+Changed paths:
+   M /trunk/HandyNotes.lua
+
+Basic WoW Classic support
+------------------------------------------------------------------------
+
