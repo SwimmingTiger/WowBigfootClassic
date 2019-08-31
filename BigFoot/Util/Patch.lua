@@ -69,7 +69,6 @@ end
 
 do
 	-- 设置一些常用的cvar
-	SetCVar("autoLootDefault", "1")						--自动拾取
 	SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
 	SetCVar("instantQuestText", "1")					--鼠标位置打开拾取
 	SetCVar("alwaysCompareItems", "0")					--聊天职业颜色
