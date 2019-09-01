@@ -6,7 +6,7 @@ DefaultCodexConfig = {
     ["autoAccept"] = false, -- Auto-accept quests
     ["autoTurnin"] = false, -- Auto-turnin quests
     ["nameplateIcon"] = false, -- Show quest icon above nameplates
-    ["allQuestGivers"] = false, -- Show available quest givers
+    ["allQuestGivers"] = true, -- Show available quest givers
     ["currentQuestGivers"] = true, -- Show current quest giver nodes
     ["showLowLevel"] = false, -- Show low level quest giver nodes
     ["showHighLevel"] = true, -- Show level+3 quest giver nodes
@@ -201,7 +201,7 @@ function createConfigPanel(parent)
     end)
     config.nameplateIconCheckbox:SetPoint("TOPLEFT", 10, -105)
 
-    config.allQuestGiversCheckbox = checkboxFactory(config, "显示所有任务NPC", "选中后，所有会给任务的NPC都会显示在地图上", function(self)
+    config.allQuestGiversCheckbox = checkboxFactory(config, "显示所有可接任务", "选中后，在地图和小地图上显示可接任务的图标", function(self)
         CodexConfig.allQuestGivers = self:GetChecked()
         CodexQuest:ResetAll()
     end)
