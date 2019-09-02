@@ -598,7 +598,7 @@ do
 					--Definitely not most efficient way of doing it. Refactor later
 					--All ranges aer tested and compared against UnitDistanceSquared.
 					--Worgsaw has a tooltip of 6 but doesn't factor in hitboxes/etc. It doesn't return false until UnitDistanceSquared of 8. bandages 18 even though spell range is 15, etc. Acorn actually is 5 in both though
-					if CheckInteractDistance("target", 3) then range = 10
+					if CheckInteractDistance(uId, 3) then range = 10
 					elseif CheckInteractDistance(uId, 2) then range = 11
 					elseif IsItemInRange(14530, uId) then range = 18--Heavy Runecloth Bandage. (despite popular sites saying it's 15 yards, it's actually 18 yards verified by UnitDistanceSquared
 					elseif CheckInteractDistance(uId, 1) then range = 30

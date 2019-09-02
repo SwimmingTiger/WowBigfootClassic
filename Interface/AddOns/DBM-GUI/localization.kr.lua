@@ -18,7 +18,7 @@ L.TabCategory_MOP	 		= "판다리아의 안개"
 L.TabCategory_CATA	 		= "대격변"
 L.TabCategory_WOTLK 		= "리치 왕의 분노"
 L.TabCategory_BC 			= "불타는 성전"
-L.TabCategory_OTHER			= "기타 보스 모드"
+L.TabCategory_OTHER			= "기타 모드"
 
 L.BossModLoaded 			= "%s 통계"
 L.BossModLoad_now 			= [[보스 모드가 로딩되지 않았습니다.
@@ -292,7 +292,6 @@ L.Area_PullTimer			= "풀링, 휴식, 전투, 사용자 지정 바 필터 설정
 L.DontShowPTNoID			= "같은 지역에 없는 사용자가 보낸 풀링 타이머 차단"
 L.DontShowPT				= "풀링/휴식 타이머 표시 안함"
 L.DontShowPTText			= "풀링/휴식 알림 텍스트 표시 안함"
-L.DontShowPTCountdownText	= "풀링 초읽기 숫자 표시 안함"
 L.DontPlayPTCountdown		= "풀링/휴식/전투/사용자 지정 초읽기 전구간 음성 재생 안함"
 L.PT_Threshold				= "휴식/전투/사용자 지정 타이머 초읽기 음성 재생 안함: %d초 까지"
 

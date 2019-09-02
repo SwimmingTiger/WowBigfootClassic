@@ -84,8 +84,8 @@ StyleDefault.castbar = {
 	texture =					 ArtworkPath.."Slim_Bar",
 	backdrop =					 ArtworkPath.."Slim_Bar_Backdrop",
 	height = 6,
-	width = 100,
-	x = 0,
+	width = 94,
+	x = 3,
 	y = VerticalAdjustment - CastBarOffset,
 	orientation = "HORIZONTAL",
 }
@@ -352,7 +352,7 @@ local ThemeName = "Slim Horizontal"
 
 
 ---------------------------------------------
--- Neat Plates Hub Integration
+-- NeatPlates Hub Integration
 ---------------------------------------------
 
 NeatPlatesThemeList[ThemeName] = Theme

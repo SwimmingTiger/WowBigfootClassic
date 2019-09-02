@@ -101,6 +101,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "죽어라, 침입자들아!",
+	AddsYell			= "Rise, my soldiers! Rise and fight once more!",
 	Adds				= "summons forth Skeletal Warriors!",
 	AddsTwo				= "raises more skeletons!"
 })

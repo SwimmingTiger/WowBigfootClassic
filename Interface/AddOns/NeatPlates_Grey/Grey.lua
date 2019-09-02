@@ -1,5 +1,5 @@
 -----------------------------------------------------
--- Neat Plates Grey
+-- NeatPlates Grey
 -----------------------------------------------------
 local Theme = {}
 local CopyTable = NeatPlatesUtility.copyTable
@@ -181,10 +181,10 @@ StyleDefault.castbar = {
 	texture =					defaultArtPath.."\\Statusbar",
 	backdrop = 				EmptyTexture,
 	--backdrop = 				defaultArtPath.."\\Statusbar",
-	height = 10,
+	height = 12,
 	width = 99,
 	x = 0,
-	y = -9+castBar_verticalOffset+nameplate_verticalOffset,
+	y = -8+castBar_verticalOffset+nameplate_verticalOffset,
 	anchor = "CENTER",
 	orientation = "HORIZONTAL",
 }
@@ -355,7 +355,7 @@ Theme.WidgetConfig = WidgetConfig
 local ThemeName = "Grey"
 
 ---------------------------------------------
--- Neat Plates Hub Integration
+-- NeatPlates Hub Integration
 ---------------------------------------------
 
 NeatPlatesThemeList[ThemeName] = Theme

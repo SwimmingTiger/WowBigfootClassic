@@ -1,4 +1,4 @@
--- Neat Plates - SMILE! :-D
+-- NeatPlates - SMILE! :-D
 
 ---------------------------------------------------------------------------------------------------------------------
 -- Variables and References
@@ -182,7 +182,7 @@ do
 
 				if plate.UpdateCastbar then -- Check if spell is being cast
 					local unitGUID = UnitGUID(unit.unitid)
-					if unitGUID and SpellCastCache[unitGUID] then OnStartCasting(plate, unitGUID, false)
+					if unitGUID and SpellCastCache[unitGUID] and not SpellCastCache[unitGUID].finished then OnStartCasting(plate, unitGUID, false)
 					else OnStopCasting(plate) end
 					plate.UpdateCastbar = false
 				end
@@ -214,7 +214,7 @@ do
 	-- ApplyPlateExtesion
 	function OnNewNameplate(plate, plateid)
 
-    -- Neat Plates Frame
+    -- NeatPlates Frame
     --------------------------------
     local bars, regions = {}, {}
 		local carrier
@@ -294,7 +294,7 @@ do
 		visual.durationtext:SetFontObject("NeatPlatesFontNormal")
 		visual.customtext:SetFontObject("NeatPlatesFontSmall")
 
-		-- Neat Plates Frame References
+		-- NeatPlates Frame References
 		extended.regions = regions
 		extended.bars = bars
 		extended.visual = visual
@@ -627,7 +627,7 @@ do
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
 		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue) or "HOSTILE"
 
-		if RealMobHealth then 
+		if RealMobHealth and RealMobHealth.GetUnitHealth then 
 			unit.health, unit.healthmax = RealMobHealth.GetUnitHealth(unitid)
 		else
 			unit.health = UnitHealth(unitid) or 0
@@ -874,14 +874,19 @@ do
 		if not extended:IsShown() then return end
 
 		local castBar = extended.visual.castbar
-		local unitType = strsplit("-", guid)
+		local unitType,_,_,_,_,creatureID = strsplit("-", guid)
 		local spell = SpellCastCache[guid]
 		local startTime, endTime
+		local spellEntry
 
-		if isTradeSkill or not spell then return end
-		if NeatPlatesSpellDB[unitType][spell.name] and NeatPlatesSpellDB[unitType][spell.name].castTime then
-			startTime = NeatPlatesSpellDB[unitType][spell.name].startTime
-			endTime = NeatPlatesSpellDB[unitType][spell.name].startTime + NeatPlatesSpellDB[unitType][spell.name].castTime
+		if not spell or not unitType then return end -- Return if neccessary info is missing
+
+		if creatureID then spellEntry = NeatPlatesSpellDB[unitType][spell.name][creatureID]
+		else spellEntry = NeatPlatesSpellDB[unitType][spell.name] end
+
+		if spellEntry.castTime then
+			startTime = spell.startTime
+			endTime = spell.startTime + spellEntry.castTime
 
 			castBar:SetScript("OnUpdate", OnUpdateCastBarForward)
 		end
@@ -897,8 +902,7 @@ do
 
 		visual.spelltext:SetText(spell.name)
 		visual.durationtext:SetText("")
-		--visual.spellicon:SetTexture(texture)
-		visual.spellicon:Hide()
+		visual.spellicon:SetTexture(NeatPlatesSpellDB.texture[spell.name] or 136243) -- 136243 (Default to Engineering Cog)
 		castBar:SetMinMaxValues(startTime or 0, endTime or 0)
 
 		local r, g, b, a = 1, 1, 0, 1
@@ -1088,6 +1092,8 @@ do
 	----------------------------------------
 	function CoreEvents:PLAYER_ENTERING_WORLD()
 		NeatPlatesCore:SetScript("OnUpdate", OnUpdate);
+		--if not NeatPlatesSpellDB.texture then NeatPlates.BuildTextureDB() end
+		NeatPlates.BuildTextureDB() -- Temporarily force a rebuild on login as this is a work in progress
 	end
 
 	function CoreEvents:UNIT_NAME_UPDATE(...)
@@ -1212,7 +1218,15 @@ do
 		local _,event,_,sourceGUID,sourceName,sourceFlags,_,destGUID,destName,_,_,spellID,spellName,spellSchool = CombatLogGetCurrentEventInfo()
 		spellID = select(7, GetSpellInfo(spellName)) or ""
 		local plate = nil
-		local unitType = strsplit("-", sourceGUID)
+		local unitType,_,_,_,_,creatureID = strsplit("-", sourceGUID)
+		local spellBlacklist = {
+			[select(1, GetSpellInfo(75))] = true, -- Auto Shot
+			[select(1, GetSpellInfo(5019))] = true, -- Shoot
+			[select(1, GetSpellInfo(2480))] = true, -- Shoot Bow
+			[select(1, GetSpellInfo(7918))] = true, -- Shoot Gun
+			[select(1, GetSpellInfo(7919))] = true, -- Shoot Crossbow
+			[select(1, GetSpellInfo(2764))] = true, -- Throw
+		}
 
 		-- Spell Interrupts
 		if ShowIntCast then
@@ -1237,46 +1251,47 @@ do
 		end
 
 		-- Spellcasts (Classic)
-		if ShowCastBars and (spellSchool and spellSchool > 1) and (spellName and type(spellName) == "string") then
+		if ShowCastBars and unitType and (spellName and type(spellName) == "string") and not spellBlacklist[spellName] then
 			local currentTime = GetTime() * 1000
+			local spellEntry
 			plate = PlatesByGUID[sourceGUID]
 			NeatPlatesSpellDB[unitType] = NeatPlatesSpellDB[unitType] or {}
 			NeatPlatesSpellDB[unitType][spellName] = NeatPlatesSpellDB[unitType][spellName] or {}
+			if creatureID then
+				NeatPlatesSpellDB[unitType][spellName][creatureID] = NeatPlatesSpellDB[unitType][spellName][creatureID] or {}
+				spellEntry = NeatPlatesSpellDB[unitType][spellName][creatureID]
+			else
+				spellEntry = NeatPlatesSpellDB[unitType][spellName]
+			end
 
 			if event == "SPELL_CAST_START" then
-				-- Add/Update spell to SpellDB
-				NeatPlatesSpellDB[unitType][spellName] = {
-					startTime = currentTime,
-					endTime = NeatPlatesSpellDB[unitType][spellName].endTime or 0,
-					castTime = NeatPlatesSpellDB[unitType][spellName].castTime or nil,
-				}
+				-- Change database to new structure
 
 				-- Add Spell to Spell Cast Cache
 				SpellCastCache[sourceGUID] = SpellCastCache[sourceGUID] or {}
 				SpellCastCache[sourceGUID].name = spellName
 				SpellCastCache[sourceGUID].school = spellSchool
-				
+				SpellCastCache[sourceGUID].startTime = currentTime
+				SpellCastCache[sourceGUID].finished = false
+
 				-- Timeout spell incase we don't catch the SUCCESS or FAILED event.(Times out after recorded casttime + 1 seconds, or 12 seconds if the spell is unknown)
 				-- The FAILED event doesn't seem to trigger properly in the current beta test.
 				local timeout = 12
-				if NeatPlatesSpellDB[unitType][spellName].castTime then timeout = (NeatPlatesSpellDB[unitType][spellName].castTime+1000)/1000 end -- If we have a recorded cast time, use that as timeout base
+				if spellEntry.castTime then timeout = (spellEntry.castTime+1000)/1000 end -- If we have a recorded cast time, use that as timeout base
 				if SpellCastCache[sourceGUID].spellTimeout then SpellCastCache[sourceGUID].spellTimeout:Cancel() end	-- Cancel the old spell timeout if it exists
 
 				SpellCastCache[sourceGUID].spellTimeout = C_Timer.NewTimer(timeout, function()
 					local plate = PlatesByGUID[sourceGUID]
-					SpellCastCache[sourceGUID] = nil
+					if SpellCastCache[sourceGUID].startTime == currentTime then SpellCastCache[sourceGUID].finished = true end -- Make sure we are on the same cast
 					if plate then OnStopCasting(plate) end
 				end)
 
 				if plate then OnStartCasting(plate, sourceGUID, false) end
 			elseif (event == "SPELL_CAST_SUCCESS" or event == "SPELL_CAST_FAILED") then
 				-- Update SpellDB with castTime
-				if event == "SPELL_CAST_SUCCESS" and NeatPlatesSpellDB[unitType][spellName].startTime then 
-					NeatPlatesSpellDB[unitType][spellName] = {
-						startTime = NeatPlatesSpellDB[unitType][spellName].startTime or 0,
-						endTime = currentTime or 0,
-						castTime = currentTime-NeatPlatesSpellDB[unitType][spellName].startTime,
-					}
+				if event == "SPELL_CAST_SUCCESS" and SpellCastCache[sourceGUID] and SpellCastCache[sourceGUID].startTime then
+					local castTime = currentTime-SpellCastCache[sourceGUID].startTime -- Cast Time
+					if castTime > 0 then spellEntry.castTime = castTime end
 				end
 
 				-- Clear Cast Cache
@@ -1288,7 +1303,8 @@ do
 			end
 
 			-- Remove empty entries as they only take up space
-			if not NeatPlatesSpellDB[unitType][spellName].startTime then NeatPlatesSpellDB[unitType][spellName] = nil end
+			if not NeatPlatesSpellDB[unitType][spellName] then NeatPlatesSpellDB[unitType][spellName] = nil
+			elseif creatureID and not NeatPlatesSpellDB[unitType][spellName][creatureID] then NeatPlatesSpellDB[unitType][spellName][creatureID] = nil end
 		end
 	end
 
@@ -1488,6 +1504,18 @@ local function OnResetWidgets(plate)
 
 	plate.UpdateMe = true
 end
+
+-- Build classic texture DB
+local function BuildTextureDB()
+	NeatPlatesSpellDB.texture = {}
+	for i = 1, 100000 do
+		local spellName,_,icon = GetSpellInfo(i)
+		-- 136235(Default Placeholder Icon)
+		if spellName and (not NeatPlatesSpellDB.texture[spellName] and icon ~= 136235) then NeatPlatesSpellDB.texture[spellName] = icon end
+	end
+end
+
+NeatPlates.BuildTextureDB = BuildTextureDB
 
 --------------------------------------------------------------------------------------------------------------
 -- External Commands: Allows widgets and themes to request updates to the plates.

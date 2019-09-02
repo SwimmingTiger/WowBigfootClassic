@@ -236,7 +236,6 @@ L.DontShowPTNoID			= "Bloquer les chronos de pull envoyés depuis une zone diff�
 L.DontShowPT				= "Ne pas afficher la barre de pull"
 L.DontShowPTText			= "Ne pas afficher le texte d'annonce du chrono de pull"
 L.DontPlayPTCountdown		= "Ne pas jouer le son du compte à rebours du chrono de pull"
-L.DontShowPTCountdownText	= "Ne pas afficher le texte du compte à rebours du chrono de pull"
 L.PT_Threshold				= "Ne pas afficher le texte du compte à rebours s'il reste plus de: %d sec."
 
 L.Panel_HideBlizzard		= "Masquer Blizzard"
@@ -254,7 +253,6 @@ L.Always					= "Toujours"
 L.Panel_ExtraFeatures		= "Fonctionnalités supplémentaires"
 --
 L.Area_ChatAlerts			= "Options des alertes dans le chat"
-L.RoleSpecAlert				= "Afficher une alerte lorsque votre spé ne correspond pas à votre choix de loot en rejoignant un raid"
 L.CheckGear					= "Affiche un message d'alerte pendant les pull quand votre ilvl équipé est beaucoup plus bas que votre ilvl global (40+)"
 L.WorldBossAlert			= "Afficher une alerte lorsqu'un World Boss a probablement été engagé sur votre royaume par votre guilde ou des amis (érronée si info reçue de CRZed)"
 --

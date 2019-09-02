@@ -1,5 +1,5 @@
 -------------------------------------------------------------------------------
--- Neat Plates: BlizzardPlates 1.5b (7.1) - Dic/01/2016
+-- NeatPlates: BlizzardPlates 1.5b (7.1) - Dic/01/2016
 -------------------------------------------------------------------------------
 
 local path = "Interface\\Addons\\NeatPlates_BlizzardPlates\\media\\"
@@ -115,7 +115,7 @@ StyleDefault.castborder = {
 	texture =					path.."Nameplate-CastBar",
 	width = 128,
 	height = 32,
-	x = -16,
+	x = 0,
 	y = vert,
 	show = true,
 }
@@ -124,7 +124,7 @@ StyleDefault.castnostop = {
 	texture = 					path.."Nameplate-CastBar-Shield",
 	width = 128,
 	height = 32,
-	x = -16,
+	x = 0,
 	y = vert,
 	show = true,
 }
@@ -159,7 +159,7 @@ StyleDefault.castbar = {
 	backdrop = 					EMPTY_TEXTURE,
 	height = 10,
 	width = 104,
-	x = -9, 
+	x = 9, 
 	y = vert,
 	show = true,
 }
@@ -175,7 +175,7 @@ StyleDefault.spellicon = {
 StyleDefault.spelltext = {
 	typeface =					font,
 	size = 7,
-	x = -6,
+	x = 5,
 	y = vert+2,
 	width = 140,
 	align = "CENTER",
@@ -184,7 +184,7 @@ StyleDefault.spelltext = {
 	flags = "NONE",
 	show = true,
 	durationtext = {
-		x = 15,
+		x = 30,
 		align = "LEFT",
 	},
 }
@@ -192,7 +192,7 @@ StyleDefault.spelltext = {
 StyleDefault.durationtext = {
 	typeface =					font,
 	size = 7,
-	x = -9,
+	x = 7,
 	y = vert+2,
 	width = 122,
 	align = "RIGHT",
@@ -323,7 +323,7 @@ Theme.WidgetConfig = WidgetConfig
 local ThemeName = "Blizzard"
 
 ---------------------------------------------
--- Neat Plates Hub Integration
+-- NeatPlates Hub Integration
 ---------------------------------------------
 NeatPlatesThemeList[ThemeName] = Theme
 NeatPlatesHubFunctions.ApplyHubFunctions(Theme)

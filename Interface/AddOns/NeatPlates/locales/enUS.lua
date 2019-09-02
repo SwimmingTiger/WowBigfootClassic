@@ -53,7 +53,7 @@ L["Clickable Height of Nameplates"] = true
 L["Nameplate Motion & Visibility"] = true
 L["Reset Configuration"] = true
 	-- Reset Messages
-	L["%yellow%Resetting %orange%Neat Plates%yellow% Theme Selection to Default"] = true
+	L["%yellow%Resetting %orange%NeatPlates%yellow% Theme Selection to Default"] = true
 	L["%yellow%Holding down %blue%Shift %yellow%while clicking %red%Reset Configuration %yellow%will clear your saved settings, AND reload the user interface."] = true
 
 ------------------------------
@@ -532,6 +532,7 @@ L["Clear Spell Database"] = true
 L["Cleared Spell Database of entries."] = true
 L["Color Cast Bars by School"] = true
 L["Spell School Colors"] = true
+L["Physical"] = true
 L["Holy"] = true
 L["Fire"] = true
 L["Nature"] = true

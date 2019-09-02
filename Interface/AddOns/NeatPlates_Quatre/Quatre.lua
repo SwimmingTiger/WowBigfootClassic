@@ -113,7 +113,7 @@ StyleDefault.threatborder = {
 StyleDefault.castbar = {
 	texture =					path.."Statusbar",
 	backdrop = 				EmptyTexture,
-	height = 8,
+	height = 10,
 	width = 99,
 	x = 0,
 	y = 15+castbarVertical,
@@ -361,7 +361,7 @@ Theme.WidgetConfig = WidgetConfig
 local ThemeName = "Quatre"
 
 ---------------------------------------------
--- Neat Plates Hub Integration
+-- NeatPlates Hub Integration
 ---------------------------------------------
 NeatPlatesThemeList[ThemeName] = Theme
 NeatPlatesHubFunctions.ApplyHubFunctions(Theme)
