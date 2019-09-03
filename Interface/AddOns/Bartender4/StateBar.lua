@@ -174,7 +174,7 @@ function StateBar:UpdateStates(returnOnly)
 			if not stateconfig.stance[playerclass] then stateconfig.stance[playerclass] = {} end
 			for i,v in pairs(stancemap) do
 				local state = self:GetStanceState(v)
-				if state and state ~= 0 and v.index and (v.spec == nil ) then
+				if state and state ~= 0 and v.index and (v.spec == nil or v.spec == GetSpecialization()) then
 					-- hack for druid prowl, since its no real "stance", but we want to handle it anyway
 					if playerclass == "DRUID" then
 						if v.id == "cat" then

@@ -227,7 +227,7 @@ local function BuildBlizzardProfile()
 		config = Bartender4.db:GetNamespace("MicroMenu").profile
 		config.position.scale = 1.0
 		config.padding = -2
-		SetBarLocation( config, "BOTTOM", 33, 62)
+		SetBarLocation( config, "BOTTOM", 33, 42)
 
 		if PresetsMod.showXPBar then
 			config = Bartender4.db:GetNamespace("XPBar").profile
@@ -276,7 +276,7 @@ local function BuildBlizzardProfile()
 end
 
 function PresetsMod:ResetProfile(type)
-	if not type then type = PresetsMod.defaultType or "BLIZZARD" end	--bf@178.com
+	if not type then type = PresetsMod.defaultType end
 	Bartender4.db:ResetProfile()
 	if type == "BLIZZARD" then
 		BuildBlizzardProfile()

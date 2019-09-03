@@ -94,7 +94,7 @@ local function generateOptions()
 								width = "full",
 								get = getFunc,
 								set = function(info, value)
-									if UnitHasVehicleUI("player") or UnitInVehicle("player") then	--bf@178.com
+									if UnitHasVehicleUI("player") then
 										Bartender4:Print(L["You have to exit the vehicle in order to be able to change the Vehicle UI settings."])
 										return
 									end

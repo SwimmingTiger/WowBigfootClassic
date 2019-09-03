@@ -1,25 +1,49 @@
 ## Interface: 11302
+
 ## Title: Bartender4
 ## Title-zhCN: [大脚][集]界面调整
 ## Title-zhTW: [大腳][集]界面調整
-## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
-## Notes-zhCN: |cff00ff00Bartender4|r
-## Notes-zhTW: |cff00ff00Bartender4|r
-## Version: 4.8.4
+## Notes: Simple and Advanced combined - Bartender4 ActionBar AddOn
+
+## Version: 4.8.5
+
 ## Author: Nevcairiel
 ## X-Email: h.leppkes at gmail dot com
+
 ## X-Category: Action Bars
 ## X-Website: http://www.wowace.com/addons/bartender4/
 ## X-License: All rights reserved.
+## X-Curse-Project-ID: 13501
+## X-WoWI-ID: 11190
+
 ## SavedVariables: Bartender4DB
 ## Dependencies: Bigfoot
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
+## OptionalDeps: Ace3, Masque, LibButtonGlow-1.0, LibActionButton-1.0, LibKeyBound-1.0, LibDBIcon-1.0, LibWindow-1.1, LibDualSpec-1.0
 
-lib\LibKeyBound-1.0\lib.xml
-lib\LibButtonGlow-1.0\LibButtonGlow-1.0.lua
-lib\LibActionButton-1.0\LibActionButton-1.0.lua
-lib\SimpleSticky.lua
+libs\LibStub\LibStub.lua
+libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+
+libs\LibDataBroker-1.1.lua
+
+libs\AceAddon-3.0\AceAddon-3.0.xml
+libs\AceDB-3.0\AceDB-3.0.xml
+libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
+libs\AceEvent-3.0\AceEvent-3.0.xml
+libs\AceConsole-3.0\AceConsole-3.0.xml
+libs\AceHook-3.0\AceHook-3.0.xml
+libs\AceLocale-3.0\AceLocale-3.0.xml
+libs\AceGUI-3.0\AceGUI-3.0.xml
+libs\AceConfig-3.0\AceConfig-3.0.xml
+
+libs\LibKeyBound-1.0\lib.xml
+libs\LibButtonGlow-1.0\LibButtonGlow-1.0.lua
+libs\LibActionButton-1.0\LibActionButton-1.0.lua
+libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+libs\LibWindow-1.1\LibWindow-1.1.lua
+
+libs\SimpleSticky.lua
 
 locale\locale.xml
 

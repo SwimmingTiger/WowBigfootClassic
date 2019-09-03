@@ -126,7 +126,6 @@ end
 
 -- Applys the config in the current profile to all active Bars
 function BT4ActionBars:ApplyConfig()
-	if not self.db then return end	--bf@178.com
 	for i=1,10 do
 		local config = self.db.profile.actionbars[i]
 		-- make sure the bar has its current config object if it exists already
@@ -172,7 +171,7 @@ end
 
 -- Creates a new bar object based on the id and the specified config
 function BT4ActionBars:Create(id, config)
-	local id = tostring(id)
+	id = tostring(id)
 	local bar = setmetatable(Bartender4.StateBar:Create(id, config, (L["Bar %s"]):format(id)), ActionBar_MT)
 	bar.module = self
 
