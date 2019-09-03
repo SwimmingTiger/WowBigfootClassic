@@ -1,0 +1,63 @@
+Real Mob Health - API Documentation
+by SDPhantom
+https://www.wowinterface.com/forums/member.php?u=34145
+===============================================================================
+
+Event System:
+	RealMobHealth.RegisterAddOnEvent(event,func)
+	RealMobHealth.UnregisterAddOnEvent(event,func)
+		Registers/Unregisters a function for a custom AddOn event
+		Note: Function may be omitted or nil if called within the registered function to reference itself.
+
+	Events:
+		OPTIONS_UPDATE(event,option,value) - Option variable has changed
+			Note: option and value are nil when initially loaded
+
+		BLACKLIST_ADDED(event,creatureID) - Creature added to blacklist
+		OVERRIDE_ADDED(event,creatureKey,maxHealth) - Creature health override added
+
+		HEALTH_UPDATE(event,creatureKey,maxHealth) - Health data for creature has changed
+			Note: creatureKey and maxHealth are nil if more than one creature was affected
+			If maxHealth is nil and creatureKey present, creature data was removed
+		HEALTHCACHE_UPDATE(event,cacheSize) - Cache size changed
+		PEERCACHE_UPDATE(event,cacheSize) - Cache size changed
+
+Blacklist/Overrides:
+	RealMobHealth.BlacklistCreatureID(creatureID)
+		Adds creatureID to blacklist
+
+	RealMobHealth.AddHealthOverride(creatureKey,health)
+		Adds override for creatureKey
+
+	RealMobHealth.IsBlacklistedCreatureID(creatureID)
+	RealMobHealth.IsBlacklistedCreatureKey(creatureKey)
+	RealMobHealth.IsBlacklistedGUID(GUID)
+	RealMobHealth.IsBlacklistedUnit(unit)
+		Checks if specified creature is blacklisted
+
+Creature Identification:
+	RealMobHealth.IsMobGUID(GUID)
+	RealMobHealth.IsUnitMob(unit)
+		Checks if specified creature is a trackable mob
+
+	RealMobHealth.GetUnitCreatureKey(unit)
+		Generates creatureKey from unit (nil if not a mob or level too high)
+
+	RealMobHealth.GetCreatureIDFromGUID(GUID)
+	RealMobHealth.GetCreatureIDFromKey(creatureKey)
+	RealMobHealth.GetUnitCreatureID(unit)
+		Gets creatureID from data or unit (nil if not a mob)
+
+Health Data:
+	RealMobHealth.GetUnitHealth(unit)
+		Gets current and max health for unit
+		Extra returns are booleans that signal if current and max health respectively are estimates
+		Note: Extra returns are both nil if not enough data present and reverting to UnitHealth() and UnitMaxHealth()
+			This function ignores peer data if the EnablePeerCache option is set to false
+
+	RealMobHealth.UnitHasHealthData(unit)
+		Checks if unit has health data (ignores peer data)
+
+	RealMobHealth.DeleteUnitHealthData(unit)
+	RealMobHealth.WipeHealthData()
+		Deletes unit/all health data
