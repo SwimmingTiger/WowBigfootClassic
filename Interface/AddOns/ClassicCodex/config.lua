@@ -13,7 +13,7 @@ DefaultCodexConfig = {
     ["showFestival"] = false, -- Show event quest giver nodes
     ["colorBySpawn"] = true,
     ["questMarkerSize"] = 15,
-    ["spawnMarkerSize"] = 10,
+    ["spawnMarkerSize"] = 15,
 }
 
 function textFactory(parent, value, size)
