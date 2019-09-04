@@ -68,11 +68,25 @@ do
 end
 
 do
-	-- 设置一些常用的cvar
-	SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
-	SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
-	SetCVar("instantQuestText", "1")					--立即显示任务文本
-	SetCVar("alwaysCompareItems", "0")					--总是显示物品比较窗体
-	SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
-	SetCVar("ShowClassColorInNameplate", "1")			--显示敌方姓名版职业颜色
+	local LoaderFrame = CreateFrame("FRAME")
+	LoaderFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	local function LoaderEvents(frame, event, arg1)
+			local patchVersion = '2019-09-05-04'
+			if (BF_Frames_Config['UtilsPatchVersion'] ~= patchVersion) then
+
+				-- 设置一些常用的cvar
+				SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
+				SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
+				SetCVar("instantQuestText", "1")					--立即显示任务文本
+				SetCVar("nameplateMaxDistance", "6e1")              --扩大姓名板显示范围到60码
+				SetCVar("ShowClassColorInNameplate", "1")			--显示姓名版职业颜色
+				SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
+				SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
+
+				BF_Frames_Config['UtilsPatchVersion'] = patchVersion
+
+				print("大脚插件个人整合包：初始化完成")
+			end
+	end
+	LoaderFrame:SetScript("OnEvent", LoaderEvents)
 end
