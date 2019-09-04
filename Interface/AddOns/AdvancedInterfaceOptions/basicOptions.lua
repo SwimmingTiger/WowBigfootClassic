@@ -232,6 +232,14 @@ local function sliderSetCVar(self, value, userInput)
 		addon:SetCVar(self.cvar, value)
 	end
 end
+local function sliderSetCVarExponent(self, value, userInput)
+	if userInput then -- only record value if user manually changed it
+		-- Convert values to scientific notation to escape some range checks
+		value = tostring(value)
+		value = string.sub(value, 1, -2) .. 'e1'
+		addon:SetCVar(self.cvar, value)
+	end
+end
 
 local function sliderDisable(self)
 	self.text:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
@@ -842,7 +850,7 @@ SubText_NP:SetPoint('TOPLEFT', Title_NP, 'BOTTOMLEFT', 0, -8)
 SubText_NP:SetPoint('RIGHT', -32, 0)
 SubText_NP:SetText('These options allow you to modify Nameplate Options.')
 
-local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 10, 100)
+local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 10, 100, 10, nil, sliderSetCVarExponent)
 nameplateDistance:SetPoint('TOPLEFT', SubText_NP, 'BOTTOMLEFT', 0, -20)
 
 local nameplateAtBase = newCheckbox(AIO_NP, 'nameplateOtherAtBase')
@@ -853,14 +861,17 @@ nameplateAtBase:SetScript('OnClick', function(self)
 	self:SetValue(checked and 2 or 0)
 end)
 
+local nameplateColor = newCheckbox(AIO_NP, 'ShowClassColorInNameplate')
+nameplateColor:SetPoint("TOPLEFT", nameplateAtBase, "BOTTOMLEFT", 0, -8)
+
 local nameplateColorFriendly = newCheckbox(AIO_NP, 'ShowClassColorInFriendlyNameplate')
-nameplateColorFriendly:SetPoint("TOPLEFT", nameplateAtBase, "BOTTOMLEFT", 0, -8)
+nameplateColorFriendly:SetPoint("TOPLEFT", nameplateColor, "BOTTOMLEFT", 0, -8)
 
 -- Combat section
 local AIO_C = CreateFrame('Frame', nil, InterfaceOptionsFramePanelContainer)
 AIO_C:Hide()
 AIO_C:SetAllPoints()
-AIO_C.name = "Combat"
+AIO_C.name = "Combat & Loot"
 AIO_C.parent = addonName
 
 local Title_C = AIO_C:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
@@ -876,7 +887,7 @@ SubText_C:SetJustifyV('TOP')
 SubText_C:SetJustifyH('LEFT')
 SubText_C:SetPoint('TOPLEFT', Title_C, 'BOTTOMLEFT', 0, -8)
 SubText_C:SetPoint('RIGHT', -32, 0)
-SubText_C:SetText('These options allow you to modify Combat Options.')
+SubText_C:SetText('These options allow you to modify Combat or Loot Options.')
 
 local stopAutoAttack = newCheckbox(AIO_C, 'stopAutoAttackOnTargetChange')
 stopAutoAttack:SetPoint("TOPLEFT", SubText_C, "BOTTOMLEFT", 0, -8)
@@ -888,10 +899,16 @@ local castOnKeyDown = newCheckbox(AIO_C, 'ActionButtonUseKeyDown')
 castOnKeyDown:SetPoint("TOPLEFT", attackOnAssist, "BOTTOMLEFT", 0, -4)
 
 local spellStartRecovery = newSlider(AIO_C, 'SpellQueueWindow', 0, 400)
-spellStartRecovery:SetPoint('TOPLEFT', castOnKeyDown, 'BOTTOMLEFT', 24, -12)
+spellStartRecovery:SetPoint('TOPLEFT', castOnKeyDown, 'BOTTOMLEFT', 24, -24)
 spellStartRecovery.minMaxValues = {spellStartRecovery:GetMinMaxValues()}
 spellStartRecovery.minText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[1], MILLISECONDS_ABBR)
 spellStartRecovery.maxText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[2], MILLISECONDS_ABBR)
+
+local autoLootRate = newSlider(AIO_C, 'autoLootRate', 0, 400)
+autoLootRate:SetPoint('TOPLEFT', spellStartRecovery, 'BOTTOMLEFT', 0, -48)
+autoLootRate.minMaxValues = {autoLootRate:GetMinMaxValues()}
+autoLootRate.minText:SetFormattedText("%d %s", autoLootRate.minMaxValues[1], MILLISECONDS_ABBR)
+autoLootRate.maxText:SetFormattedText("%d %s", autoLootRate.minMaxValues[2], MILLISECONDS_ABBR)
 
 -- Hook up options to addon panel
 InterfaceOptions_AddCategory(AIO, addonName)
