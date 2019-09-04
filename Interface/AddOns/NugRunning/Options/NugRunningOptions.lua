@@ -93,7 +93,7 @@ function NugRunningGUI.CreateNewTimerForm(self)
 	end
 
 	local newspell = AceGUI:Create("Button")
-	newspell:SetText("New Spell")
+	newspell:SetText("新法术")
 	newspell:SetFullWidth(true)
 	newspell:SetCallback("OnClick", function(self, event)
 		self.parent:ShowNewTimer("spells")
@@ -102,7 +102,7 @@ function NugRunningGUI.CreateNewTimerForm(self)
     Form.controls.newspell = newspell
 
 	local newcooldown = AceGUI:Create("Button")
-	newcooldown:SetText("New Cooldown")
+	newcooldown:SetText("新冷却")
 	newcooldown:SetFullWidth(true)
 	newcooldown:SetCallback("OnClick", function(self, event)
 		self.parent:ShowNewTimer("cooldowns")
@@ -111,7 +111,7 @@ function NugRunningGUI.CreateNewTimerForm(self)
 	Form.controls.newcooldown = newcooldown
 
 	local newitemcooldown = AceGUI:Create("Button")
-	newitemcooldown:SetText("New Item Cooldown")
+	newitemcooldown:SetText("新物品冷却")
 	newitemcooldown:SetFullWidth(true)
 	newitemcooldown:SetCallback("OnClick", function(self, event)
 		self.parent:ShowNewTimer("itemcooldowns")
@@ -120,7 +120,7 @@ function NugRunningGUI.CreateNewTimerForm(self)
     Form.controls.newitemcooldown = newitemcooldown
 
 	local newcast = AceGUI:Create("Button")
-	newcast:SetText("New Cast")
+	newcast:SetText("新施法")
 	newcast:SetFullWidth(true)
 	newcast:SetCallback("OnClick", function(self, event)
 		self.parent:ShowNewTimer("casts")
@@ -129,7 +129,7 @@ function NugRunningGUI.CreateNewTimerForm(self)
 	Form.controls.newcast = newcast
 
 	local newevent = AceGUI:Create("Button")
-	newevent:SetText("New Event Timer")
+	newevent:SetText("新时间计时器")
 	newevent:SetFullWidth(true)
 	newevent:SetCallback("OnClick", function(self, event)
 		self.parent:ShowNewTimer("event_timers")
@@ -170,7 +170,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local save = AceGUI:Create("Button")
-	save:SetText("Save")
+	save:SetText("保存")
 	save:SetRelativeWidth(0.5)
 	save:SetCallback("OnClick", function(self, event)
 		local p = self.parent
@@ -301,7 +301,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	Form:AddChild(save)
 
 	local delete = AceGUI:Create("Button")
-	delete:SetText("Delete")
+	delete:SetText("删除")
 	save:SetRelativeWidth(0.45)
 	delete:SetCallback("OnClick", function(self, event)
 		local p = self.parent
@@ -341,7 +341,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	Form:AddChild(spellID)
 
 	local disabled = AceGUI:Create("CheckBox")
-	disabled:SetLabel("Disabled")
+	disabled:SetLabel("禁用")
 	disabled:SetRelativeWidth(0.4)
 	disabled:SetCallback("OnValueChanged", function(self, event, value)
         if value == false then value = nil end
@@ -353,7 +353,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	Form:AddChild(disabled)
 
 	local short = AceGUI:Create("EditBox")
-	short:SetLabel("Short Name")
+	short:SetLabel("简短名")
 	-- short:SetFullWidth(true)
 	short:SetRelativeWidth(0.29)
 	short:SetCallback("OnEnterPressed", function(self, event, value)
@@ -370,7 +370,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(short, "Shortened label, overrides full name")
 
 	local name = AceGUI:Create("EditBox")
-	name:SetLabel("Name")
+	name:SetLabel("名字")
 	-- name:SetFullWidth(true)
 	name:SetRelativeWidth(0.5)
 	name:SetCallback("OnEnterPressed", function(self, event, value)
@@ -382,7 +382,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(name, "Custom timer label.\nLeave blank to hide.")
 
 	local duration = AceGUI:Create("EditBox")
-	duration:SetLabel("Duration")
+	duration:SetLabel("持续时间")
 	duration:SetDisabled(true)
 	duration:SetRelativeWidth(0.19)
     duration:DisableButton(true)
@@ -400,7 +400,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(duration, "Duration to fallback to when it can't be retrieved from unit (very rare)")
 
 	local fixedlen = AceGUI:Create("EditBox")
-	fixedlen:SetLabel("|cff00ff00Fixed Duration|r")
+	fixedlen:SetLabel("|cff00ff00固定持续时间|r")
 	fixedlen:SetRelativeWidth(0.2)
     fixedlen:DisableButton(true)
 	fixedlen:SetCallback("OnTextChanged", function(self, event, value)
@@ -418,7 +418,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local prio = AceGUI:Create("EditBox")
-	prio:SetLabel("|cff55ff55Priority|r")
+	prio:SetLabel("|cff55ff55优先级|r")
 	-- prio:SetFullWidth(true)
 	prio:SetRelativeWidth(0.15)
     prio:DisableButton(true)
@@ -437,7 +437,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(prio, "Positive or negative numeric value.\nDefault priority is 0.\nTimers with equal priority sorted by remaining time.")
 
 	local group = AceGUI:Create("Dropdown")
-	group:SetLabel("Group")
+	group:SetLabel("组")
 
     local groupList = {
         default = "Default"
@@ -474,7 +474,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(group, "Assign to timer group")
 
 	local scale = AceGUI:Create("Slider")
-	scale:SetLabel("Scale")
+	scale:SetLabel("大小")
 	scale:SetSliderValues(0.3, 2, 0.05)
 	scale:SetRelativeWidth(0.30)
 	scale:SetCallback("OnValueChanged", function(self, event, value)
@@ -491,7 +491,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(scale, "Vertical timer scale")
 
 	local scale_until = AceGUI:Create("EditBox")
-	scale_until:SetLabel("Minimize Until")
+	scale_until:SetLabel("最小单位")
 	scale_until:SetRelativeWidth(0.22)
     scale_until:DisableButton(true)
 	scale_until:SetCallback("OnTextChanged", function(self, event, value)
@@ -508,7 +508,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(scale_until, "Minimize until duration is less than X")
 
 	local color = AceGUI:Create("ColorPicker")
-	color:SetLabel("Color")
+	color:SetLabel("颜色")
 	color:SetRelativeWidth(0.20)
 	color:SetHasAlpha(false)
 	color:SetCallback("OnValueConfirmed", function(self, event, r,g,b,a)
@@ -518,7 +518,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	Form:AddChild(color)
 
 	local color2 = AceGUI:Create("ColorPicker")
-	color2:SetLabel("End Color")
+	color2:SetLabel("结束颜色")
 	color2:SetRelativeWidth(0.20)
 	color2:SetHasAlpha(false)
 	color2:SetCallback("OnValueConfirmed", function(self, event, r,g,b,a)
@@ -540,7 +540,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(c2r, "Remove End Color")
 
 	local arrow = AceGUI:Create("ColorPicker")
-	arrow:SetLabel("Highlight")
+	arrow:SetLabel("高亮")
 	arrow:SetRelativeWidth(0.20)
 	arrow:SetHasAlpha(false)
 	arrow:SetCallback("OnValueConfirmed", function(self, event, r,g,b,a)
@@ -562,7 +562,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(ar, "Remove Highlight Color")
 
     local hide_until = AceGUI:Create("EditBox")
-    hide_until:SetLabel("Hide Until")
+    hide_until:SetLabel("隐藏直到")
     hide_until:SetRelativeWidth(0.14)
     hide_until:DisableButton(true)
     hide_until:SetCallback("OnTextChanged", function(self, event, value)
@@ -581,7 +581,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local ghost = AceGUI:Create("EditBox")
-    ghost:SetLabel("Ghost")
+    ghost:SetLabel("幽灵")
     ghost:SetRelativeWidth(0.17)
     ghost:DisableButton(true)
     ghost:SetCallback("OnTextChanged", function(self, event, value)
@@ -599,7 +599,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(ghost, "Timer remains for X seconds after expiring")
 
 	local preghost = AceGUI:Create("CheckBox")
-	preghost:SetLabel("PreGhost")
+	preghost:SetLabel("预幽灵")
 	preghost:SetRelativeWidth(0.24)
 	preghost:SetCallback("OnValueChanged", function(self, event, value)
 		self.parent.opts["preghost"] = value
@@ -609,7 +609,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(preghost, "Create empty bar when switching to target without existing timer")
 
 	local shine = AceGUI:Create("CheckBox")
-	shine:SetLabel("Shine")
+	shine:SetLabel("闪耀")
 	shine:SetRelativeWidth(0.20)
 	shine:SetCallback("OnValueChanged", function(self, event, value)
 		self.parent.opts["shine"] = value
@@ -632,7 +632,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local maxtimers = AceGUI:Create("EditBox")
-	maxtimers:SetLabel("Max Timers")
+	maxtimers:SetLabel("最大计时器")
 	maxtimers:SetRelativeWidth(0.25)
     maxtimers:DisableButton(true)
 	maxtimers:SetCallback("OnTextChanged", function(self, event, value)
@@ -654,7 +654,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local singleTarget = AceGUI:Create("CheckBox")
-	singleTarget:SetLabel("Single-Target")
+	singleTarget:SetLabel("单一目标")
 	singleTarget:SetRelativeWidth(0.3)
 	singleTarget:SetCallback("OnValueChanged", function(self, event, value)
 		self.parent.opts["singleTarget"] = value
@@ -670,7 +670,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(singleTarget, "Timer is only displayed if it's on the current target or you have no other target.\nUsed to prevent spam.")
 
 	local multiTarget = AceGUI:Create("CheckBox")
-	multiTarget:SetLabel("Multi-Target")
+	multiTarget:SetLabel("多目标")
 	multiTarget:SetRelativeWidth(0.3)
 	multiTarget:SetCallback("OnValueChanged", function(self, event, value)
 		self.parent.opts["multiTarget"] = value
@@ -687,7 +687,7 @@ function NugRunningGUI.CreateCommonForm(self)
 
 
 	local affiliation = AceGUI:Create("Dropdown")
-	affiliation:SetLabel("Affiliation")
+	affiliation:SetLabel("附属")
 	affiliation:SetList({
 		[COMBATLOG_OBJECT_AFFILIATION_MINE] = "Player",
 		[COMBATLOG_OBJECT_AFFILIATION_PARTY_OR_RAID] = "Raid",
@@ -703,7 +703,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(affiliation, "Limit events to self/raid/everyone")
 
 	local nameplates = AceGUI:Create("CheckBox")
-	nameplates:SetLabel("Show on Nameplates")
+	nameplates:SetLabel("显示在姓名板")
 	nameplates:SetRelativeWidth(0.56)
 	nameplates:SetCallback("OnValueChanged", function(self, event, value)
 		self.parent.opts["nameplates"] = value
@@ -745,7 +745,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(overlay_start, "Overlay marks time intervals.\nSpecial values:\ngcd\ntick")
 
 	local overlay_end = AceGUI:Create("EditBox")
-	overlay_end:SetLabel("Overlay End")
+	overlay_end:SetLabel("覆盖")
 	overlay_end:SetRelativeWidth(0.20)
     -- overlay_end:DisableButton(true)
 	overlay_end:SetCallback("OnEnterPressed", function(self, event, value)
@@ -812,7 +812,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	----------------------------------
 
 	local useStackcolor = AceGUI:Create("CheckBox")
-	useStackcolor:SetLabel("Color By Stack")
+	useStackcolor:SetLabel("按堆叠显示颜色")
 	useStackcolor:SetRelativeWidth(0.3)
 	useStackcolor:SetCallback("OnValueChanged", function(self, event, value)
 		if value == false then
@@ -864,7 +864,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	----------------------------------
 
 	local tick = AceGUI:Create("EditBox")
-	tick:SetLabel("Tick")
+	tick:SetLabel("刻度")
 	tick:SetRelativeWidth(0.15)
     tick:DisableButton(true)
 	tick:SetCallback("OnTextChanged", function(self, event, value)
@@ -883,7 +883,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(tick, "Tick length.\nLeave empty to disable ticks.\nMutually exclusive with recast mark.")
 
 	local recast_mark = AceGUI:Create("EditBox")
-	recast_mark:SetLabel("Recast Mark")
+	recast_mark:SetLabel("重铸标记")
 	recast_mark:SetRelativeWidth(0.18)
     recast_mark:DisableButton(true)
 	recast_mark:SetCallback("OnTextChanged", function(self, event, value)
@@ -913,7 +913,7 @@ function NugRunningGUI.CreateCommonForm(self)
     end
 
     local effect = AceGUI:Create("Dropdown")
-    effect:SetLabel("3D Effect")
+    effect:SetLabel("3D效果")
     effect:SetList(effectsList, effectsOrder)
     effect:SetRelativeWidth(0.32)
     effect:SetCallback("OnValueChanged", function(self, event, value)
@@ -924,7 +924,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(effect, "Show 3D effect near timer")
 
     local ghosteffect = AceGUI:Create("Dropdown")
-    ghosteffect:SetLabel("Ghost 3D Effect")
+    ghosteffect:SetLabel("幽灵3D效果")
     ghosteffect:SetList(effectsList, effectsOrder)
     ghosteffect:SetRelativeWidth(0.32)
     ghosteffect:SetCallback("OnValueChanged", function(self, event, value)
@@ -935,7 +935,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	AddTooltip(ghosteffect, "Effect during ghost phase")
 
 	local glowtime = AceGUI:Create("EditBox")
-	glowtime:SetLabel("Glow At")
+	glowtime:SetLabel("发光")
 	glowtime:SetRelativeWidth(0.15)
     glowtime:DisableButton(true)
 	glowtime:SetCallback("OnTextChanged", function(self, event, value)
@@ -952,7 +952,7 @@ function NugRunningGUI.CreateCommonForm(self)
     AddTooltip(glowtime, "Time when timer starts glowing")
 
 	local glow2time = AceGUI:Create("EditBox")
-	glow2time:SetLabel("Spin At")
+	glow2time:SetLabel("旋转")
 	glow2time:SetRelativeWidth(0.15)
     glow2time:DisableButton(true)
 	glow2time:SetCallback("OnTextChanged", function(self, event, value)
@@ -969,7 +969,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	AddTooltip(glow2time, "Time when highlight starts spinning.\n(Requires highlight color enabled)")
 
 	local effecttime = AceGUI:Create("EditBox")
-	effecttime:SetLabel("Effect At")
+	effecttime:SetLabel("效果")
 	effecttime:SetRelativeWidth(0.20)
     effecttime:DisableButton(true)
 	effecttime:SetCallback("OnTextChanged", function(self, event, value)
@@ -986,7 +986,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	AddTooltip(effecttime, "Time when 3D effect starts being shown")
 
 	local clones = AceGUI:Create("EditBox")
-	clones:SetLabel("Additional Spell IDs")
+	clones:SetLabel("其他法术ID")
 	clones:SetRelativeWidth(0.9)
 	clones:SetCallback("OnEnterPressed", function(self, event, value)
 		local cloneList = {}
@@ -1005,7 +1005,7 @@ function NugRunningGUI.CreateCommonForm(self)
 	AddTooltip(clones, "Spell ID list of clones / spell ranks" )
 
 	local event = AceGUI:Create("EditBox")
-	event:SetLabel("Combat Log Event")
+	event:SetLabel("战斗日志事件")
 	event:SetRelativeWidth(0.9)
 	event:SetCallback("OnEnterPressed", function(self, event, value)
 		if value == "" then
@@ -1138,13 +1138,13 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
 
 	if id and not NugRunningConfig[category][id] then
 		controls.delete:SetDisabled(false)
-		controls.delete:SetText("Delete")
+		controls.delete:SetText("删除")
 	elseif NugRunningConfigCustom[class] and  NugRunningConfigCustom[class][category] and NugRunningConfigCustom[class][category][id] then
 		controls.delete:SetDisabled(false)
-		controls.delete:SetText("Restore")
+		controls.delete:SetText("还原")
 	else
 		controls.delete:SetDisabled(true)
-		controls.delete:SetText("Restore")
+		controls.delete:SetText("还原")
 	end
 
 
@@ -1188,9 +1188,9 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
 	end
 
 	if category == "itemcooldowns" then
-		controls.spellID:SetLabel("Item ID")
+		controls.spellID:SetLabel("物品 ID")
 	else
-		controls.spellID:SetLabel("Spell ID")
+		controls.spellID:SetLabel("法术 ID")
 	end
 
 end
@@ -1211,7 +1211,7 @@ function NugRunningGUI.Create(self, name, parent )
 
 	local Frame = AceGUI:Create("BlizOptionsGroup")
 	Frame:SetName(name, parent)
-	Frame:SetTitle("NugRunning Spell List")
+	Frame:SetTitle("NugRunning 法术列表")
 	Frame:SetLayout("Fill")
 	-- Frame:SetHeight(500)
 	-- Frame:SetWidth(700)
@@ -1347,12 +1347,12 @@ function NugRunningGUI.Create(self, name, parent )
 		local t = {
 			{
 				value = "GLOBAL",
-				text = "Global",
+				text = "全局",
 				icon = "Interface\\Icons\\spell_holy_resurrection",
 				children = {
 					{
 						value = "spells",
-						text = "Spells",
+						text = "法术",
 						icon = "Interface\\Icons\\spell_shadow_manaburn",
 						children = NugRunningGUI:GenerateCategoryTree(true, "spells")
 					},
@@ -1378,31 +1378,31 @@ function NugRunningGUI.Create(self, name, parent )
 				children = {
 					{
 						value = "spells",
-						text = "Spells",
+						text = "法术",
 						icon = "Interface\\Icons\\spell_shadow_manaburn",
 						children = NugRunningGUI:GenerateCategoryTree(false,"spells")
 					},
 					{
 						value = "cooldowns",
-						text = "Cooldowns",
+						text = "冷却",
 						icon = "Interface\\Icons\\spell_nature_astralrecal",
 						children = NugRunningGUI:GenerateCategoryTree(false,"cooldowns")
 					},
 					{
 						value = "itemcooldowns",
-						text = "Item Cooldowns",
+						text = "物品冷却",
 						icon = 135882,
 						children = NugRunningGUI:GenerateCategoryTree(false,"itemcooldowns")
 					},
 					{
 						value = "casts",
-						text = "Casts",
+						text = "施法",
 						icon = 135951,
 						children = NugRunningGUI:GenerateCategoryTree(false,"casts")
 					},
 					{
 						value = "event_timers",
-						text = "Events",
+						text = "事件",
 						icon = 132096,
 						children = NugRunningGUI:GenerateCategoryTree(false, "event_timers")
 					}
@@ -1457,7 +1457,7 @@ end
 local function MakeGeneralOptions()
     local opt = {
         type = 'group',
-        name = "NugRunning Settings",
+        name = "NugRunning 设置",
         order = 1,
         args = {
             -- charspec = {
@@ -1476,12 +1476,12 @@ local function MakeGeneralOptions()
             -- },
             anchors = {
                 type = "group",
-                name = "Anchors",
+                name = "锚点",
                 guiInline = true,
                 order = 1,
                 args = {
                     unlock = {
-                        name = "Unlock",
+                        name = "解锁",
                         type = "execute",
                         -- width = "half",
                         desc = "Unlock anchor for dragging",
@@ -1489,7 +1489,7 @@ local function MakeGeneralOptions()
                         order = 1,
                     },
                     lock = {
-                        name = "Lock",
+                        name = "锁定",
                         type = "execute",
                         -- width = "half",
                         desc = "Lock anchor",
@@ -1497,7 +1497,7 @@ local function MakeGeneralOptions()
                         order = 2,
                     },
                     reset = {
-                        name = "Reset",
+                        name = "重置",
                         type = "execute",
                         desc = "Reset anchor",
                         func = function() NugRunning.Commands.reset() end,
@@ -1513,7 +1513,7 @@ local function MakeGeneralOptions()
                 args = {
 					texture = {
 						type = "select",
-						name = "Texture",
+						name = "材质",
 						order = 0.5,
 						desc = "Set the statusbar texture.",
 						get = function(info) return NugRunning.db.textureName end,
@@ -1525,7 +1525,7 @@ local function MakeGeneralOptions()
 						dialogControl = "LSM30_Statusbar",
 					},
                     width = {
-                        name = "Width",
+                        name = "宽度",
                         type = "range",
                         get = function(info) return NugRunning.db.width end,
                         set = function(info, v)
@@ -1540,7 +1540,7 @@ local function MakeGeneralOptions()
                         order = 1,
                     },
                     height = {
-                        name = "Height",
+                        name = "高度",
                         type = "range",
                         get = function(info) return NugRunning.db.height end,
                         set = function(info, v)
@@ -1555,7 +1555,7 @@ local function MakeGeneralOptions()
                         order = 2,
                     },
                     growth = {
-                        name = "Growth Direction",
+                        name = "生长方向",
                         type = 'select',
                         order = 3,
                         values = {
@@ -1576,13 +1576,13 @@ local function MakeGeneralOptions()
             },
             nameplate_sizeSettings = {
                 type = "group",
-                name = "Nameplate Bars",
+                name = "姓名板条",
                 guiInline = true,
                 order = 3,
                 args = {
 					texture = {
 						type = "select",
-						name = "Texture",
+						name = "材质",
 						order = 0.5,
 						desc = "Set the statusbar texture.",
 						get = function(info) return NugRunning.db.nptextureName end,
@@ -1594,7 +1594,7 @@ local function MakeGeneralOptions()
 						dialogControl = "LSM30_Statusbar",
 					},
                     width = {
-                        name = "Nameplate Width",
+                        name = "姓名板宽度",
                         type = "range",
                         get = function(info) return NugRunning.db.np_width end,
                         set = function(info, v)
@@ -1607,7 +1607,7 @@ local function MakeGeneralOptions()
                         order = 1,
                     },
                     height = {
-                        name = "Nameplate Height",
+                        name = "姓名板高度",
                         type = "range",
                         get = function(info) return NugRunning.db.np_height end,
                         set = function(info, v)
@@ -1620,7 +1620,7 @@ local function MakeGeneralOptions()
                         order = 2,
                     },
                     xoffset = {
-                        name = "Nameplate X Offset",
+                        name = "姓名板X位置",
                         type = "range",
                         get = function(info) return NugRunning.db.np_xoffset end,
                         set = function(info, v)
@@ -1633,7 +1633,7 @@ local function MakeGeneralOptions()
                         order = 3,
                     },
                     yoffset = {
-                        name = "Nameplate Y Offset",
+                        name = "姓名板Y位置",
                         type = "range",
                         get = function(info) return NugRunning.db.np_yoffset end,
                         set = function(info, v)
@@ -1649,13 +1649,13 @@ local function MakeGeneralOptions()
 			},
 			fonts = {
                 type = "group",
-                name = "Fonts",
+                name = "字体",
                 guiInline = true,
                 order = 6,
                 args = {
                     namefont = {
 						type = "select",
-						name = "Name Font",
+						name = "名字字体",
 						order = 1,
 						get = function(info) return NugRunning.db.nameFont.font end,
 						set = function(info, value)
@@ -1666,7 +1666,7 @@ local function MakeGeneralOptions()
 						dialogControl = "LSM30_Font",
 					},
 					nameSize = {
-                        name = "Name Size",
+                        name = "名字大小",
                         type = "range",
                         get = function(info) return NugRunning.db.nameFont.size end,
                         set = function(info, v)
@@ -1679,7 +1679,7 @@ local function MakeGeneralOptions()
                         order = 2,
 					},
 					nameAlpha = {
-                        name = "Name Alpha",
+                        name = "名字透明度",
                         type = "range",
 						get = function(info) return NugRunning.db.nameFont.alpha end,
 						set = function(info, v)
@@ -1694,7 +1694,7 @@ local function MakeGeneralOptions()
 
 					timefont = {
 						type = "select",
-						name = "Time Font",
+						name = "时间字体",
 						order = 4,
 						get = function(info) return NugRunning.db.timeFont.font end,
 						set = function(info, value)
@@ -1705,7 +1705,7 @@ local function MakeGeneralOptions()
 						dialogControl = "LSM30_Font",
 					},
 					timeSize = {
-                        name = "Time Size",
+                        name = "时间大小",
                         type = "range",
                         get = function(info) return NugRunning.db.timeFont.size end,
                         set = function(info, v)
@@ -1718,7 +1718,7 @@ local function MakeGeneralOptions()
                         order = 5,
 					},
 					timeAlpha = {
-                        name = "Time Alpha",
+                        name = "事件透明度",
                         type = "range",
 						get = function(info) return NugRunning.db.timeFont.alpha end,
 						set = function(info, v)
@@ -1733,7 +1733,7 @@ local function MakeGeneralOptions()
 
 					stackfont = {
 						type = "select",
-						name = "Stack Font",
+						name = "堆叠字体",
 						order = 7,
 						get = function(info) return NugRunning.db.stackFont.font end,
 						set = function(info, value)
@@ -1744,7 +1744,7 @@ local function MakeGeneralOptions()
 						dialogControl = "LSM30_Font",
 					},
 					stackSize = {
-                        name = "Stack Size",
+                        name = "堆叠大小e",
                         type = "range",
                         get = function(info) return NugRunning.db.stackFont.size end,
                         set = function(info, v)
@@ -1757,7 +1757,7 @@ local function MakeGeneralOptions()
                         order = 8,
 					},
 					stackAlpha = {
-                        name = "Stack Alpha",
+                        name = "堆叠透明度",
                         type = "range",
 						get = function(info) return NugRunning.db.stackFont.alpha end,
 						set = function(info, v)
@@ -1773,13 +1773,13 @@ local function MakeGeneralOptions()
 			},
             timerOptions = {
                 type = "group",
-                name = "Timers",
+                name = "计时器",
                 guiInline = true,
-                order = 1.2,
+                order = 4,
                 args = {
 
                     spellText = {
-                        name = "Show Spell Names",
+                        name = "显示法术名",
                         type = "toggle",
                         desc = "Display spell name on timers",
                         get = function(info) return NugRunning.db.spellTextEnabled end,
@@ -1787,7 +1787,7 @@ local function MakeGeneralOptions()
                         order = 1,
                     },
                     localNames = {
-                        name = "Localized Spell Names",
+                        name = "本地化法术名",
                         type = "toggle",
                         desc = "Ignore custom names and always show native spell names",
                         get = function(info) return NugRunning.db.localNames end,
@@ -1795,15 +1795,15 @@ local function MakeGeneralOptions()
                         order = 2,
                     },
                     misses = {
-                        name = "Misses",
+                        name = "Miss",
                         type = "toggle",
-                        desc = "Show short notification when spell is resisted/missed",
+                        desc = "当法术抵抗/Miss时显示简短通知",
                         get = function(info) return NugRunning.db.missesEnabled end,
                         set = function(info, v) NugRunning.db.missesEnabled = not NugRunning.db.missesEnabled end,
                         order = 3,
                     },
                     nameplates = {
-                        name = "Nameplate Timers",
+                        name = "姓名板计时器",
                         type = "toggle",
                         desc = "Mirror flagged spell timers on nameplates",
                         confirm = true,
@@ -1816,14 +1816,14 @@ local function MakeGeneralOptions()
                         order = 4,
                     },
 					cooldowns = {
-                        name = "Cooldowns",
+                        name = "冷却",
                         type = "toggle",
                         get = function(info) return NugRunning.db.cooldownsEnabled end,
                         set = function(info, v) NugRunning.Commands.cooldowns() end,
                         order = 6,
                     },
                     totems = {
-                        name = "Totems",
+                        name = "图腾",
                         type = "toggle",
                         desc = "Display timers for totems (or other similar summons)",
                         get = function(info) return NugRunning.db.totems end,
@@ -1845,7 +1845,7 @@ local function MakeGeneralOptions()
                 },
             },
             debug = {
-                name = "Toggle Combat Log Data",
+                name = "战斗日志数据切换",
                 type = "execute",
                 width = "double",
                 desc = "Print occurring combat log events in chat",
