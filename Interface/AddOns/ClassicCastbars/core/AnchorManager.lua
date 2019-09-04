@@ -5,7 +5,8 @@ namespace.AnchorManager = AnchorManager
 local anchors = {
     target = {
         "SUFUnittarget",
-        "XPerl_TargetportraitFrame",
+        "XPerl_Target",
+        "Perl_Target_Frame",
         "ElvUF_Target",
         "oUF_TukuiTarget",
         "btargetUnitFrame",
@@ -19,6 +20,7 @@ local anchors = {
         "oUF_AftermathhTarget",
         "LUFUnittarget",
         "oUF_LumenTarget",
+        "TukuiTargetFrame",
         "TargetFrame", -- Blizzard frame should always be last
     },
 }

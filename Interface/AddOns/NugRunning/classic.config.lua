@@ -374,7 +374,7 @@ Spell({ 22842, 22895, 22896 }, { name = "Frenzied Regeneration", duration = 10, 
 Spell( 19675, { name = "Feral Charge", duration = 4, color = colors.DBROWN, shine = true })
 
 Spell( 16922, { name = "Starfire Stun", duration = 3, shine = true, color = colors.RED })
-Spell({ 9005, 9823, 9827 }, { name = "Pounce", priority = -20, color = colors.RED,
+Spell({ 9005, 9823, 9827 }, { name = "Pounce", _skipunitaura = true, priority = -20, color = colors.RED,
     duration = function(timer)
         local brutal_impact = Talent(16940, 16941)*0.5
         return 2+brutal_impact

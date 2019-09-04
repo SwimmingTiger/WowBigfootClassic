@@ -1775,7 +1775,7 @@ local function MakeGeneralOptions()
                 type = "group",
                 name = "Timers",
                 guiInline = true,
-                order = 4,
+                order = 1.2,
                 args = {
 
                     spellText = {
@@ -1829,6 +1829,18 @@ local function MakeGeneralOptions()
                         get = function(info) return NugRunning.db.totems end,
                         set = function(info, v) NugRunning.db.totems = not NugRunning.db.totems end,
                         order = 7,
+					},
+					swapTargets = {
+                        name = "Fixed Target Group",
+                        type = "toggle",
+                        desc = "Switch between target indicator or fixed position",
+                        get = function(info) return NugRunning.db.swapTarget end,
+						set = function(info, v)
+							NugRunning.db.swapTarget = not NugRunning.db.swapTarget
+							NugRunning:SetupArrange()
+                            NugRunning:ArrangeTimers()
+						end,
+                        order = 8,
                     },
                 },
             },

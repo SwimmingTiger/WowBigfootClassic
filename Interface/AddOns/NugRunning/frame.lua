@@ -440,7 +440,7 @@ NugRunning.ConstructTimerBar = function(width, height)
     f:SetHeight(height)
 
     f:SetBackdrop(backdrop)
-	f:SetBackdropColor(0, 0, 0, 0.7)
+    f:SetBackdropColor(0, 0, 0, 0.7)
 
     local ic = CreateFrame("Frame",nil,f)
     ic:SetPoint("TOPLEFT",f,"TOPLEFT", 0, 0)
@@ -484,7 +484,7 @@ NugRunning.ConstructTimerBar = function(width, height)
     bar.spark = spark
 
     f.bar = bar
-    
+
     bar.NormalSetValue = bar.SetValue
     bar.SparkSetValue = SparkSetValue
 
@@ -606,6 +606,12 @@ NugRunning.ConstructTimerBar = function(width, height)
     pmf:SetFrameLevel(0)
     pmf:SetPoint("CENTER", ic, "LEFT", 0,0)
     pmf:SetSize(height*4, height*4)
+
+    -- local ebg = pmf:CreateTexture(nil, "BACKGROUND")
+    -- ebg:SetTexture("Interface\\AddOns\\NugRunning\\effect_bg.tga")
+    -- ebg:SetPoint("RIGHT", f, "LEFT", -2, 0)
+    -- ebg:SetVertexColor(0,0,0, 0.7)
+    -- ebg:SetSize(height*1, height*1.5)
 
     pmf.model_scale = 1
     pmf.ox = 0

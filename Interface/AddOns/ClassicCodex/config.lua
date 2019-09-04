@@ -2,7 +2,7 @@ CodexConfig = {}
 CodexColors = {}
 
 DefaultCodexConfig = {
-    ["trackingMethod"] = 1, -- 1: All Quests; 2: Tracked Quests; 3: Manual; 4: Hide
+    ["trackingMethod"] = 2, -- 1: All Quests; 2: Tracked Quests; 3: Manual; 4: Hide
     ["autoAccept"] = false, -- Auto-accept quests
     ["autoTurnin"] = false, -- Auto-turnin quests
     ["nameplateIcon"] = false, -- Show quest icon above nameplates

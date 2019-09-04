@@ -32,7 +32,6 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         end
     elseif event == "PLAYER_LEVEL_UP" or event == "PLAYER_ENTERING_WORLD" or event == "SKILL_LINES_CHANGED" then
         CodexQuest.updateQuestGivers = true
-
     elseif (event == "GOSSIP_SHOW") then
         if not CodexConfig.autoAccept or IsControlKeyDown() then
             return
@@ -65,6 +64,13 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         -- end
 
     elseif (event == "QUEST_DETAIL") then
+		if not CCTip then
+			CCTip = QuestNpcNameFrame:CreateFontString("CCTip", "ARTWORK", "GameFontHighlight")
+			CCTip:SetWidth(288)
+			CCTip:SetHeight(55)
+			CCTip:SetText("任务助手：打开任务日志(L)\nshift+左键追踪显示任务提示");
+			CCTip:SetPoint("TOPLEFT", QuestFrame, "TOPLEFT", 55, -30);
+		end
         if not CodexConfig.autoAccept or IsControlKeyDown() then
             return
         end

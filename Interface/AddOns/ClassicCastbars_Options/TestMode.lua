@@ -6,7 +6,6 @@ ClassicCastbars_TestMode = TestMode -- global ref for use in both addons
 
 local dummySpellData = {
     spellName = GetSpellInfo(118),
-    spellRank = GetSpellSubtext(118), -- TODO: if this is still async in Classic we should use ContinueOnSpellLoad() here
     icon = GetSpellTexture(118),
     maxValue = 10,
     timeStart = GetTime(),
@@ -60,8 +59,10 @@ function TestMode:ToggleCastbarMovable(unitID)
 
     if self.isTesting[unitID] then
         self:SetCastbarImmovable(unitID)
-        self:UnregisterEvent("PLAYER_TARGET_CHANGED")
         self.isTesting[unitID] = false
+        if unitID == "nameplate-testmode" then
+            self:UnregisterEvent("PLAYER_TARGET_CHANGED")
+        end
     else
         self:SetCastbarMovable(unitID)
         self.isTesting[unitID] = true

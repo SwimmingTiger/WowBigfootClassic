@@ -5,6 +5,9 @@ local PoolManager = namespace.PoolManager
 local addon = namespace.addon
 local activeFrames = addon.activeFrames
 local gsub = _G.string.gsub
+local unpack = _G.unpack
+local min = _G.math.min
+local UnitExists = _G.UnitExists
 
 function addon:GetCastbarFrame(unitID)
     -- PoolManager:DebugInfo()
@@ -18,24 +21,17 @@ function addon:GetCastbarFrame(unitID)
 end
 
 function addon:SetTargetCastbarPosition(castbar, parentFrame)
-    if not self.db.target.autoPosition then
-        -- Auto position is turned off, set pos from user cfg instead
-        local pos = self.db.target.position
-        castbar:SetPoint(pos[1], parentFrame, pos[2], pos[3])
-        return
-    end
-
-    -- Set position based on aura amount & targetframe type
     local auraRows = parentFrame.auraRows or 0
-    if parentFrame.haveToT or parentFrame.haveElite then
+
+    if parentFrame.haveToT or parentFrame.haveElite or UnitExists("targettarget") then
         if parentFrame.buffsOnTop or auraRows <= 1 then
             castbar:SetPoint("CENTER", parentFrame, -18, -75)
         else
-            castbar:SetPoint("CENTER", parentFrame, -18, -100)
+            castbar:SetPoint("CENTER", parentFrame, -18, min(-75, -50 * (auraRows - 0.4)))
         end
     else
         if not parentFrame.buffsOnTop and auraRows > 0 then
-            castbar:SetPoint("CENTER", parentFrame, -18, -100)
+            castbar:SetPoint("CENTER", parentFrame, -18, min(-75, -50 * (auraRows - 0.4)))
         else
             castbar:SetPoint("CENTER", parentFrame, -18, -50)
         end
@@ -44,11 +40,7 @@ end
 
 function addon:SetCastbarIconAndText(castbar, cast, db)
     local spellName = cast.spellName
-    if db.showSpellRank and cast.spellRank then
-        spellName = spellName .. " (" .. cast.spellRank .. ")"
-    end
 
-    -- Update text + icon if it has changed
     if castbar.Text:GetText() ~= spellName then
         castbar.Icon:SetTexture(cast.icon)
         castbar.Text:SetText(spellName)
@@ -73,20 +65,15 @@ function addon:SetCastbarStyle(castbar, cast, db)
         castbar.Spark:SetAlpha(1)
     end
 
-    if db.simpleStyle then
-        castbar.Border:SetAlpha(0)
-        if castbar.BorderFrame then
-            castbar.BorderFrame:SetAlpha(0)
-        end
-        castbar.Icon:SetSize(db.height, db.height)
-        castbar.Icon:SetPoint("LEFT", castbar, -db.height, 0)
+    if db.hideIconBorder then
         castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-        return
+    else
+        castbar.Icon:SetTexCoord(0, 1, 0, 1)
     end
 
     castbar.Icon:SetSize(db.iconSize, db.iconSize)
     castbar.Icon:SetPoint("LEFT", castbar, db.iconPositionX - db.iconSize, db.iconPositionY)
-    castbar.Icon:SetTexCoord(0, 1, 0, 1)
+    castbar.Border:SetVertexColor(unpack(db.borderColor))
 
     if db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border-Small" then -- default border
         castbar.Border:SetAlpha(1)
@@ -145,6 +132,10 @@ function addon:SetCastbarFonts(castbar, cast, db)
         castbar.Text:SetFont(db.castFont, db.castFontSize)
         castbar.Timer:SetFont(db.castFont, db.castFontSize)
     end
+
+    local c = db.textColor
+    castbar.Text:SetTextColor(c[1], c[2], c[3], c[4])
+    castbar.Timer:SetTextColor(c[1], c[2], c[3], c[4])
 end
 
 function addon:DisplayCastbar(castbar, unitID)
@@ -164,16 +155,15 @@ function addon:DisplayCastbar(castbar, unitID)
     castbar:SetAlpha(1)
 
     if cast.isChanneled then
-        castbar:SetStatusBarColor(0, 1, 0)
+        castbar:SetStatusBarColor(unpack(db.statusColorChannel))
     else
-        castbar:SetStatusBarColor(1, 0.7, 0)
+        castbar:SetStatusBarColor(unpack(db.statusColor))
     end
 
-    if unitID == "target" then
+    if unitID == "target" and self.db.target.autoPosition then
         self:SetTargetCastbarPosition(castbar, parentFrame)
     else
-        local pos = db.position
-        castbar:SetPoint(pos[1], parentFrame, pos[2], pos[3])
+        castbar:SetPoint(db.position[1], parentFrame, db.position[2], db.position[3])
     end
 
     -- Note: since frames are recycled and we also allow having different styles

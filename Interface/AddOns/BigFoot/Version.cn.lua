@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "6"
+local minor = "7"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,13 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/09/04 (1.13.2.7)")
+	BigFootChangelog_ar("大脚插件","修改部分整合插件的默认配置。")
+	BigFootChangelog_ar("界面调整","升级至最新版本(4.8.5)。")
+	BigFootChangelog_ar("掉落查询","升级至最新版本(1.1.8)。")
+	BigFootChangelog_ar("首领报警","升级至最新版本(1.13.5)。")
+
 
 	BigFootChangelog_at("2019/08/30 (1.13.2.6)")
 	BigFootChangelog_ar("大脚插件","添加副本掉落查询(AtlasLootClassic)。")
@@ -43,4 +50,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "6"
+BF_VERSION_CHECKSUM = "7"

@@ -85,11 +85,8 @@ local SpellMixin = _G.Spell
 helpers.spellNameToID = {}
 
 helpers.AddSpellNameRecognition = function(lastRankID)
-    local spellObj = SpellMixin:CreateFromSpellID(lastRankID)
-    spellObj:ContinueOnSpellLoad(function()
-        local spellName = spellObj:GetSpellName()
-        helpers.spellNameToID[spellName] = lastRankID
-    end)
+    local spellName = GetSpellInfo(lastRankID)
+    helpers.spellNameToID[spellName] = lastRankID
 end
 
 helpers.Spell = function(id, opts)

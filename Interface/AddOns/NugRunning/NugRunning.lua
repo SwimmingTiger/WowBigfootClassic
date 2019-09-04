@@ -398,6 +398,8 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
         end
     end
 
+    NugRunning.targetIndicator = NugRunning:CreateTargetIndicator()
+
     NugRunning:SetupArrange()
 
     for i=1,MAX_TIMERS do
@@ -427,16 +429,6 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
 		self:SetScript('OnShow', nil)
 		LoadAddOn('NugRunningOptions')
 	end)
-	
-	if not NRunDB_Global.bfcheck then
-		BigFoot_DelayCall(function()
-			for name, anchor in pairs(NugRunning.anchors) do
-				anchor:Show()
-			end
-			NugRunning:Unlock()
-			NRunDB_Global.bfcheck = true
-		end,2)
-	end
 end
 
 function NugRunning.PLAYER_LOGOUT(self, event)
@@ -686,6 +678,12 @@ local function GetSpellCooldownCharges(spellID)
 end
 
 local gcdDuration = 1.5
+local wandUserMinDuration
+local _, class = UnitClass("player")
+if class == "WARLOCK" or class == "MAGE" or class == "PRIEST" then
+    wandUserMinDuration = 3
+end
+
 local function CheckCooldown(spellID, opts, startTime, duration, enabled, charges, maxCharges, isItem)
     local cdType = isItem and "ITEMCOOLDOWN" or "COOLDOWN"
     local timer
@@ -709,7 +707,7 @@ local function CheckCooldown(spellID, opts, startTime, duration, enabled, charge
             end
         else
                 if not active[timer] or timer.isGhost then
-                    local mdur = opts.minduration
+                    local mdur = opts.minduration or wandUserMinDuration
                     local time_remains = (duration + startTime) - GetTime()
                     local mrem = opts.hide_until
                     local isKnown = true
@@ -1005,7 +1003,7 @@ function NugRunning.RefreshTimer(self,srcGUID,dstGUID,dstName,dstFlags, spellID,
 
     local timer = gettimer(active, opts or spellID,dstGUID,timerType)
     if not timer then
-        return self:ActivateTimer(srcGUID, dstGUID or multiTargetGUID, dstName, dstFlags, spellID, spellName, opts, timerType)
+        return self:ActivateTimer(srcGUID, dstGUID or multiTargetGUID, dstName, dstFlags, spellID, spellName, opts, timerType, override)
     end
     if (timerType == "COOLDOWN" or timerType == "ITEMCOOLDOWN") and not timer.isGhost then return timer end
     -- if timer.isGhost then
@@ -1426,6 +1424,14 @@ function NugRunning.TimerFunc(self,time)
     if timer_onupdate then timer_onupdate(self) end
 end
 
+function NugRunning:CreateTargetIndicator()
+    local targetIndicator = NugRunning:CreateTexture(nil, "ARTWORK", nil, 3)
+    targetIndicator:SetTexture("Interface\\BUTTONS\\WHITE8X8")
+    targetIndicator:SetWidth(5)
+    targetIndicator:SetVertexColor(1, 0.5, 1, 0.8)
+    return targetIndicator
+end
+
 function NugRunning.GhostExpire(self)
     self:SetScript("OnUpdate", NugRunning.TimerFunc)
     self.expiredGhost = true
@@ -1535,20 +1541,24 @@ end
 ------------------------------
 do
     local xOffset = 0
-    local yOffset = 1
+    local yOffset = 4
     local point
     local to
     local ySign
     local doswap
     local anchors
     local dbanchors
+    local targetIndicator
+    local growthDirection
     function NugRunning.SetupArrange(self)
         point = ( NRunDB.growth == "down" and "TOPLEFT" ) or "BOTTOMLEFT"
         to = ( NRunDB.growth == "down" and "BOTTOMLEFT" ) or "TOPLEFT"
         ySign = ( NRunDB.growth == "down" and -1 ) or 1
+        growthDirection = NRunDB.growth
         doswap = NRunDB.swapTarget
         anchors = NugRunning.anchors
         dbanchors = NRunDB.anchors
+        targetIndicator = NugRunning.targetIndicator
     end
     -- local playerTimers = {}
     -- local targetTimers = {}
@@ -1572,6 +1582,7 @@ do
         table_wipe(guid_groups)
         local playerTimers = groups.player
         local targetTimers = groups.target
+        local targetIndicatorUpdated
 
         local targetGUID = UnitGUID("target")
         for timer in pairs(active) do
@@ -1621,6 +1632,19 @@ do
                             prev = timer
                             gap = 0
                         end
+
+                        if not doswap and guid == targetGUID then
+                            local lastTimer = group_timers[1]
+                            local firstTimer = group_timers[#group_timers]
+                            if growthDirection == "down" then
+                                firstTimer, lastTimer = lastTimer, firstTimer
+                            end
+                            targetIndicatorUpdated = true
+                            targetIndicator:Show()
+                            targetIndicator:SetPoint("TOPRIGHT", firstTimer, "TOPLEFT", -10, 0)
+                            targetIndicator:SetPoint("BOTTOMRIGHT", lastTimer, "BOTTOMLEFT", -10, 0)
+                        end
+
                         gap = gopts.gap
                     end
                     break -- offtargets should always be the last group for anchor
@@ -1636,6 +1660,9 @@ do
                     end
                     end
                     gap = prev and gopts.gap or 0
+                end
+                if not doswap and not targetIndicatorUpdated then
+                    targetIndicator:Hide()
                 end
             end
         end
@@ -1691,7 +1718,7 @@ function NugRunning:PreGhost()
                         local opts = timer.opts
                         local overlay = opts.overlay
                         local rm = opts.recast_mark or (overlay and type(overlay[2]) == "number" and overlay[2])
-                        if rm then
+                        if rm and not timer.timeless then
                             local endTime = timer.endTime
                             local beforeEnd = endTime - GetTime()
 
@@ -1806,7 +1833,7 @@ function NugRunning.Unlock(self)
 
     for timer in pairs(free) do
         i = i+1
-        if i < 9 then break end
+        if i > 9 then break end
         local fakeopts = {}
         timer.opts = fakeopts
         timer.startTime = GetTime();
@@ -1822,7 +1849,7 @@ function NugRunning.Unlock(self)
         timer.effect:Hide()
         timer:Show()
         local point, to
-        local xOffset, yOffset, ySign = 0, 1, 1
+        local xOffset, yOffset, ySign = 0, 4, 1
         if NRunDB.growth == "down" then
             point = "TOPLEFT"
             to = "BOTTOMLEFT"
@@ -2370,12 +2397,15 @@ do
                 end
             end
             for timer in pairs(active) do
+                local opts = timer.opts
                 if  timer.dstGUID == unitGUID and
                     timer.srcGUID == playerGUID and
-                    not present_spells[timer.opts] and
+                    not present_spells[opts] and
                     (timer.timerType == "BUFF" or timer.timerType == "DEBUFF")
                 then
-                    free[timer] = true
+                    if not opts._skipunitaura then
+                        free[timer] = true
+                    end
                     NugRunning:ArrangeTimers()
                 end
             end
