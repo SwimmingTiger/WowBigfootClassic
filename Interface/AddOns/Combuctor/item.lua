@@ -201,7 +201,8 @@ function Item:Update()
 		SetItemButtonNormalTextureVertexColor(self, 1.0, 1.0, 1.0);
 	end
 
-	self:UpdateBorder(quality,nil, questId, isActive)
+	-- self:UpdateBorder(quality,nil, questId, isActive)
+	self:UpdateBorder(quality,nil, nil, nil)
 	self:UpdateCooldown()
 
 	if GameTooltip:IsOwned(self) then
