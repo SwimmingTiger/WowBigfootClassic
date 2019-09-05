@@ -280,7 +280,7 @@ function CodexQuest:AddQuestLogIntegration()
     CodexQuest.buttonShow = CodexQuest.buttonShow or CreateFrame("Button", "CodexQuestShow", dockFrame, "UIPanelButtonTemplate")
     CodexQuest.buttonShow:SetWidth(70)
     CodexQuest.buttonShow:SetHeight(20)
-    CodexQuest.buttonShow:SetText("Show")
+    CodexQuest.buttonShow:SetText("显示")
     CodexQuest.buttonShow:SetPoint("TOP", dockTitle, "TOP", -110, 0)
     CodexQuest.buttonShow:SetScript("OnClick", function()
         -- CodexQuest:ResetAll()
@@ -300,7 +300,7 @@ function CodexQuest:AddQuestLogIntegration()
     CodexQuest.buttonHide = CodexQuest.buttonHide or CreateFrame("Button", "CodexQuestHide", dockFrame, "UIPanelButtonTemplate")
     CodexQuest.buttonHide:SetWidth(70)
     CodexQuest.buttonHide:SetHeight(20)
-    CodexQuest.buttonHide:SetText("Hide")
+    CodexQuest.buttonHide:SetText("隐藏")
     CodexQuest.buttonHide:SetPoint("TOP", dockTitle, "TOP", -37, 0)
     CodexQuest.buttonHide:SetScript("OnClick", function()
         local questIndex = GetQuestLogSelection()
@@ -324,7 +324,7 @@ function CodexQuest:AddQuestLogIntegration()
     CodexQuest.buttonReset = CodexQuest.buttonReset or CreateFrame("Button", "CodexQuestReset", dockFrame, "UIPanelButtonTemplate")
     CodexQuest.buttonReset:SetWidth(70)
     CodexQuest.buttonReset:SetHeight(20)
-    CodexQuest.buttonReset:SetText("Reset")
+    CodexQuest.buttonReset:SetText("重置")
     CodexQuest.buttonReset:SetPoint("TOP", dockTitle, "TOP", 37, 0)
     CodexQuest.buttonReset:SetScript("OnClick", function()
         CodexQuest:ResetAll()
@@ -346,7 +346,7 @@ function CodexQuest:AddWorldMapIntegration()
     function CodexQuest.mapButton:updateMenu()
         local function CreateEntries()
             local info = {}
-            info.text = "All Quests"
+            info.text = "显示所有已接任务"
             info.checked = false
             info.func = function(self)
                 UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, self:GetID(), 0)
@@ -356,7 +356,7 @@ function CodexQuest:AddWorldMapIntegration()
             UIDropDownMenu_AddButton(info)
 
             local info = {}
-            info.text = "Tracked Quests"
+            info.text = "显示追踪的任务"
             info.checked = false
             info.func = function(self)
                 UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, self:GetID(), 0)
@@ -366,7 +366,7 @@ function CodexQuest:AddWorldMapIntegration()
             UIDropDownMenu_AddButton(info)
 
             local info = {}
-            info.text = "Manual Selection"
+            info.text = "显示手动选择的任务"
             info.checked = false
             info.func = function(self)
                 UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, self:GetID(), 0)
@@ -376,7 +376,7 @@ function CodexQuest:AddWorldMapIntegration()
             UIDropDownMenu_AddButton(info)
 
             local info = {}
-            info.text = "Hide Quests"
+            info.text = "不显示任务"
             info.checked = false
             info.func = function(self)
                 UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, self:GetID(), 0)
