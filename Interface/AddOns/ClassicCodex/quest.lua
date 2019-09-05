@@ -32,9 +32,10 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         end
     elseif event == "PLAYER_LEVEL_UP" or event == "PLAYER_ENTERING_WORLD" or event == "SKILL_LINES_CHANGED" then
         CodexQuest.updateQuestGivers = true
+
     elseif (event == "GOSSIP_SHOW") then
         if not CodexConfig.autoAccept or IsControlKeyDown() then
-            return
+            return 
         end
 
         local activeQuests = {GetGossipActiveQuests()}
@@ -64,13 +65,6 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         -- end
 
     elseif (event == "QUEST_DETAIL") then
-		if not CCTip then
-			CCTip = QuestNpcNameFrame:CreateFontString("CCTip", "ARTWORK", "GameFontHighlight")
-			CCTip:SetWidth(288)
-			CCTip:SetHeight(55)
-			CCTip:SetText("任务助手：打开任务日志(L)\nshift+左键追踪显示任务提示");
-			CCTip:SetPoint("TOPLEFT", QuestFrame, "TOPLEFT", 55, -30);
-		end
         if not CodexConfig.autoAccept or IsControlKeyDown() then
             return
         end
@@ -83,7 +77,7 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         end
 
         CompleteQuest()
-
+        
     elseif (event == "QUEST_COMPLETE") then
         if not CodexConfig.autoTurnin or IsControlKeyDown() then
             return
@@ -102,7 +96,7 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         local lastAvailableQuest = 0
         local activeQuestCount = GetNumActiveQuests()
         local lastActiveQuest = 0
-
+        
         if activeQuestCount > 0 then
             for index = 1, activeQuestCount do
                 for questLogId = 1, 40 do
@@ -135,7 +129,7 @@ end)
 
 CodexQuest:SetScript("OnUpdate", function()
     if (CodexQuest.tick or 0.1) > GetTime() then return else CodexQuest.tick = GetTime() + 0.1 end
-
+    
     if CodexQuest.updateQuestLog == true then
         CodexQuest:UpdateQuestLog()
         CodexQuest.updateQuestLog = false
@@ -232,11 +226,6 @@ function CodexQuest:UpdateQuestLog()
                 break
             end
         end
-
-		if complete then
-			CodexMap:DeleteNode("CODEX", title)
-            CodexMap:UpdateNodes()
-		end
     end
 
     -- quest add events
