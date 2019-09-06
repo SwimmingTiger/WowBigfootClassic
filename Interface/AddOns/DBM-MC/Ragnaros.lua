@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190810001130")
+mod:SetRevision("20190904054816")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -15,30 +15,33 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
---TODO, def needs some special warnings, add spawn stuff, etc
+--[[
+ability.id = 20566 and type = "cast" or target.id = 12143 and type = "death"
+--]]
 local warnWrathRag		= mod:NewSpellAnnounce(20566, 3)
-local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", 2)
-local warnEmerge		= mod:NewAnnounce("WarnEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", 2)
+local WarnAddsLeft		= mod:NewAnnounce("WarnAddsLeft", 2, 8985)
+local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
+local warnEmerge		= mod:NewAnnounce("WarnEmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
-local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2)--25-30
+local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2)--25-31.6
 local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
 local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerCombatStart	= mod:NewCombatTimer(73)
 
-mod.vb.addDied = 0
+mod.vb.addLeft = 8
 
 function mod:OnCombatStart(delay)
-	self.vb.addDied = 0
-	timerSubmerge:Start(-delay)
-	timerWrathRag:Start(27-delay)
+	self.vb.addLeft = 8
+	timerWrathRag:Start(26.7-delay)
+	timerSubmerge:Start(180-delay)
 end
 
 local function emerged(self)
-	timerEmerge:Cancel()
+	timerEmerge:Stop()
 	warnEmerge:Show()
-	timerSubmerge:Start()
---	timerWrathRag:Start()--need to find out what it is first.
-	self.vb.addDied = 0
+	timerWrathRag:Start(26.7)--need to find out what it is first.
+	timerSubmerge:Start(180)
+	self.vb.addLeft = 8
 end
 
 do
@@ -64,11 +67,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:OnSync(msg)
+	if not self:IsInCombat() then return end
 	if msg == "Submerge" then
 		self:Unschedule(emerged)
-		timerWrathRag:Cancel()
+		timerWrathRag:Stop()
 		warnSubmerge:Show()
-		timerEmerge:Start()
+		timerEmerge:Start(90)
 		self:Schedule(90, emerged, self)
 	end
 end
@@ -76,10 +80,12 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 12143 then--Son of Flame
-		self.vb.addDied = self.vb.addDied + 1
-		if self.vb.addDied == 8 then--After all 8 die he emerges immediately
+		self.vb.addLeft = self.vb.addLeft - 1
+		if self.vb.addLeft == 0 then--After all 8 die he emerges immediately
 			self:Unschedule(emerged)
 			emerged(self)
+		elseif self.vb.addLeft < 4 then
+			WarnAddsLeft(self.vb.addLeft)
 		end
 	end
 end

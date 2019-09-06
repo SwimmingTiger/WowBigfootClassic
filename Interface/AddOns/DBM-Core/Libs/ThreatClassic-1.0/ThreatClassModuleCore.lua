@@ -1,5 +1,5 @@
 local MAJOR_VERSION = "ThreatClassic-1.0"
-local MINOR_VERSION = 3
+local MINOR_VERSION = 4
 
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
 
@@ -753,13 +753,42 @@ local rockbiterEnchants = {
 }
 
 function prototype:equipChanged(units)
-	if (units and not units.player) or ThreatLib.inCombat() then
+	if (units and not units.player) then
 		return
 	end
+
+	local _, _, _, mainHandEnchantID, _, _, _, offHandEnchantId = GetWeaponEnchantInfo()
+	local mainSpeed, offSpeed = UnitAttackSpeed("player")
+	if mainHandEnchantID then
+		for k, v in pairs(rockbiterEnchants) do
+			if mainHandEnchantID == k then
+				self.rockbiterMHVal = v and (v * mainSpeed) or 0
+				break
+			elseif offHandEnchantId ~= k then
+				self.rockbiterOHVal = 0
+			end
+		end
+	else
+		self.rockbiterMHVal = 0
+	end
+	if offHandEnchantId then
+		for k, v in pairs(rockbiterEnchants) do
+			if offHandEnchantId == k then
+				self.rockbiterOHVal = v and (v * offSpeed) or 0
+				break
+			elseif offHandEnchantId ~= k then
+				self.rockbiterOHVal = 0
+			end
+		end
+	else
+		self.rockbiterOHVal = 0
+	end
+
+	if ThreatLib.inCombat() then return end -- only check weapons above if in combat
+
 	for k in pairs(self.itemSetsWorn) do
 		self.itemSetsWorn[k] = nil
 	end
-	--self.totalThreatMods = nil
 
 	self.enchantMods = 1
 
@@ -775,23 +804,6 @@ function prototype:equipChanged(units)
 
 	if tonumber(enchant) == 2613 then
 		self.enchantMods = self.enchantMods + 0.02
-	end
-
-	local hasMainHandEnchant, _, _, mainHandEnchantID, hasOffHandEnchant, _, _, offHandEnchantId = GetWeaponEnchantInfo()
-	local mainSpeed, offSpeed = UnitAttackSpeed("player")
-	if not hasMainHandEnchant then
-		for k, v in pairs(rockbiterEnchants) do
-			if not hasMainHandEnchant and mainHandEnchantID == k then
-				self.rockbiterMHVal = v and (v * mainSpeed) or 0
-			end
-		end
-	end
-	if hasOffHandEnchant then
-		for k, v in pairs(rockbiterEnchants) do
-			if hasOffHandEnchant and offHandEnchantId == k then
-				self.rockbiterOHVal = v and (v * offSpeed) or 0
-			end
-		end
 	end
 
 	-- tonumber here to speed up with possible future trinkets

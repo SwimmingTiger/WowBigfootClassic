@@ -1,6 +1,6 @@
 --[[-----------------------------------------------------------------------------
 Name: ThreatClassic-1.0
-Revision: $Revision: 1 $
+Revision: $Revision: 3 $
 Author(s): Es (EsreverWoW)
 Website: https://github.com/EsreverWoW/LibThreatClassic
 Documentation: https://github.com/EsreverWoW/LibThreatClassic/wiki
@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 -------------------------------------------------------------------------------]]
 
 local MAJOR_VERSION = "ThreatClassic-1.0"
-local MINOR_VERSION = 3
+local MINOR_VERSION = 4
 
 if MINOR_VERSION > _G.ThreatLib_MINOR_VERSION then _G.ThreatLib_MINOR_VERSION = MINOR_VERSION end
 

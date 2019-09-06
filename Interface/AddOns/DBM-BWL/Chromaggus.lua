@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190819025921")
+mod:SetRevision("20190901045350")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 23155 23169 23153 23154 23170 23128 23537",
 --	"SPELL_AURA_REFRESH",
 	"SPELL_AURA_REMOVED 23128",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH mouseover target"
 )
 
 local warnBreath		= mod:NewAnnounce("WarnBreath", 2, 23316)

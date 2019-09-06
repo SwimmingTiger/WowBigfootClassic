@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190819025921")
+mod:SetRevision("20190901045350")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 22539 22686",
 	"SPELL_AURA_APPLIED 22687 22667",
 	"SPELL_AURA_REMOVED 22687 22667",
-	"UNIT_HEALTH boss1",
+	"UNIT_HEALTH mouseover target",
 	"CHAT_MSG_MONSTER_YELL"
 )
 

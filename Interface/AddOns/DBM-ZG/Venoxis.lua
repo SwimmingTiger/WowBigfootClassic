@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 23861",
 	"SPELL_AURA_APPLIED 23895 23860 23865",
 	"SPELL_AURA_REMOVED 23895 23860",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH mouseover target"
 )
 
 local warnSerpent		= mod:NewTargetNoFilterAnnounce(23865, 2)

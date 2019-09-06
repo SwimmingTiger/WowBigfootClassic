@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190819212906")
+mod:SetRevision("20190901045350")
 mod:SetCreatureID(15509)
 mod:SetEncounterID(714)
 mod:SetModelID(15739)
@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 26050",
 	"SPELL_AURA_REMOVED 26180 26053 26050",
 	"SPELL_CAST_SUCCESS 26053",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH mouseover target"
 )
 
 local warnSting			= mod:NewTargetNoFilterAnnounce(26180, 2, nil, "RemovePoison")

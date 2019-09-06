@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190819212906")
+mod:SetRevision("20190901045350")
 mod:SetCreatureID(15517)
 mod:SetEncounterID(716)
 mod:SetModelID(15509)
@@ -11,7 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 26615",
 	"SPELL_CAST_START 26102 26103",
 	"SPELL_SUMMON 26058",
-	"UNIT_HEALTH boss1"
+	"UNIT_HEALTH mouseover target"
 )
 
 local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
@@ -81,7 +81,7 @@ do
 end
 
 function mod:UNIT_HEALTH(uId)
-	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.23 and self:GetUnitCreatureId(uId) == 15517 and not self.vb.prewarn_Berserk then
+	if self:GetUnitCreatureId(uId) == 15517 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.23 and not self.vb.prewarn_Berserk then
 		self.vb.prewarn_Berserk = true
 		warnBerserkSoon:Show()
 	end

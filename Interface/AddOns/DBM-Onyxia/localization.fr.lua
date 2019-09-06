@@ -26,6 +26,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
+	Breath = "prend une grande inspiration",
 	YellP2 = "exercice dénué de sens",
 	YellP3 = "semble que vous ayez besoin"
 }

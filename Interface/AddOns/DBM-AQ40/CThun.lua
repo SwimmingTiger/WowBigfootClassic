@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190522225149")
+mod:SetRevision("20190904054816")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:RegisterCombat("combat")
@@ -23,10 +23,10 @@ local specWarnWeakened		= mod:NewSpecialWarning("SpecWarnWeakened", nil, nil, ni
 
 local timerDarkGlareCD		= mod:NewNextTimer(86, 26029)
 local timerDarkGlare		= mod:NewBuffActiveTimer(39, 26029)
-local timerEyeTentacle		= mod:NewTimer(45, "TimerEyeTentacle")
---local timerGiantEyeTentacle	= mod:NewTimer(60, "TimerGiantEyeTentacle")
---local timerClawTentacle		= mod:NewTimer(11, "TimerClawTentacle")
---local timerGiantClawTentacle = mod:NewTimer(60, "TimerGiantClawTentacle")
+local timerEyeTentacle		= mod:NewTimer(45, "TimerEyeTentacle", nil, nil, nil, 1)
+--local timerGiantEyeTentacle	= mod:NewTimer(60, "TimerGiantEyeTentacle", nil, nil, nil, 1)
+--local timerClawTentacle		= mod:NewTimer(11, "TimerClawTentacle", nil, nil, nil, 1)
+--local timerGiantClawTentacle = mod:NewTimer(60, "TimerGiantClawTentacle", nil, nil, nil, 1)
 local timerWeakened			= mod:NewTimer(45, "TimerWeakened")
 
 mod:AddBoolOption("RangeFrame", true)

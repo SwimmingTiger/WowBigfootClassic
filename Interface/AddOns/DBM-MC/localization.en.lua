@@ -80,6 +80,12 @@ L = DBM:GetModLocalization("Majordomo")
 L:SetGeneralLocalization{
 	name = "Majordomo Executus"
 }
+L:SetTimerLocalization{
+	timerShieldCD		= "Next Shield"
+}
+L:SetOptionLocalization{
+	timerShieldCD		= "Show timer for next Damage/Reflect Shield"
+}
 
 ----------------
 --  Ragnaros  --
@@ -91,7 +97,8 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnSubmerge		= "Submerge",
-	WarnEmerge			= "Emerge"
+	WarnEmerge			= "Emerge",
+	WarnAddsLeft		= "%d Son(s) Remaining"
 }
 L:SetTimerLocalization{
 	TimerSubmerge		= "Submerge",
@@ -101,7 +108,8 @@ L:SetOptionLocalization{
 	WarnSubmerge		= "Show warning for submerge",
 	TimerSubmerge		= "Show timer for submerge",
 	WarnEmerge			= "Show warning for emerge",
-	TimerEmerge			= "Show timer for emerge"
+	TimerEmerge			= "Show timer for emerge",
+	WarnAddsLeft		= "Show warning for remaining Sons of Flame"
 }
 L:SetMiscLocalization{
 	Submerge	= "COME FORTH, MY SERVANTS! DEFEND YOUR MASTER!",
