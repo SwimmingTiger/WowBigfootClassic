@@ -64,6 +64,8 @@ local function printWrongVersion()
 end
 
 local function checkVersion(message)
+	-- 禁用大脚版本检查
+	--[[
 	if not BigFoot_Config["BIGFOOT_VERSION_NEW"] then
 		BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
 	elseif sameLocale(BigFoot_Config["BIGFOOT_VERSION_NEW"],BIGFOOT_VERSION) and larger(BIGFOOT_VERSION,BigFoot_Config["BIGFOOT_VERSION_NEW"]) then
@@ -72,6 +74,7 @@ local function checkVersion(message)
 	if(sameLocale(BigFoot_Config["BIGFOOT_VERSION_NEW"],message) and larger(message,BigFoot_Config["BIGFOOT_VERSION_NEW"])) then
 		BigFoot_Config["BIGFOOT_VERSION_NEW"] = message;
 	end
+	]]
 end
 
 local function isValid(message)
