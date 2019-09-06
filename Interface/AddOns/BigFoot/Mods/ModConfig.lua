@@ -3,6 +3,7 @@ local L = BLocal("ModConfig")
 local masque_t;
 
 if GetLocale()=='zhCN' then
+	L["Recount"] = "伤害统计"
 	L["Skada"] = "战斗统计"
 	L["DBM"] = "首领报警"
 	L["Grid"] = "团队框架"
@@ -20,6 +21,7 @@ if GetLocale()=='zhCN' then
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
 elseif GetLocale()=='zhTW' then
+	L["Recount"] = "傷害統計"
 	L["Skada"] = "戰鬥統計"
 	L["DBM"] = "首領報警"
 	L["Grid"] = "團隊框架"
@@ -413,6 +415,11 @@ end
 
 local function __AddBottomFrames()
 	local check;
+
+	if IsConfigurableAddOn("Recount") then
+		check = __CreateCheckBox(L["Recount"], "RaidToolkit","EnableRecount2",nil,"Recount")
+		M:AddBottomButton(check)
+	end
 
 	if IsConfigurableAddOn("Skada") then
 		check = __CreateCheckBox(L["Skada"], "RaidToolkit","EnableSkada",nil,"Skada")

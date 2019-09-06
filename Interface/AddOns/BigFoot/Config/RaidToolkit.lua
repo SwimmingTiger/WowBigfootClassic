@@ -171,6 +171,10 @@ function RaidToolkitConfigFunc()
 								loadRecount();
 							end
 						end
+					else
+						if (not BigFoot_IsAddOnLoaded("Skada")) then
+							loadRecount();
+						end
 					end
 				else
 					if (BigFoot_IsAddOnLoadedFromBigFoot("Recount")) then
