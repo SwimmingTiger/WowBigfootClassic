@@ -14,7 +14,7 @@ local item_listing = require 'aux.gui.item_listing'
 local al = require 'aux.gui.auction_listing'
 local gui = require 'aux.gui'
 
-local tab = aux.tab '卖'
+local tab = aux.tab '出售'
 
 local settings_schema = {'tuple', '#', {duration='number'}, {start_price='number'}, {buyout_price='number'}, {hidden='boolean'}}
 

@@ -40,7 +40,7 @@ function M.find(auction_record, status_bar, on_abort, on_failure, on_success)
         queries = queries,
         on_scan_start = function()
             status_bar:update_status(0, 0)
-            status_bar:set_text('Searching auction...')
+            status_bar:set_text('搜索拍卖...')
         end,
         on_start_query = function(query_index)
             status_bar:update_status((query_index - 1) / #queries, 0)

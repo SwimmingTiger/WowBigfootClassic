@@ -3,7 +3,7 @@ select(2, ...) 'aux.gui'
 local T = require 'T'
 local aux = require 'aux'
 
-M.font = [[Fonts\FRIZQT__.TTF]]
+M.font = [[Fonts\ARHei.TTF]]
 
 M.font_size = aux.immutable-{
 	small = 13,
@@ -72,7 +72,7 @@ M.font_size = aux.immutable-{
 --			for i = 1, UIDROPDOWNMENU_MAXBUTTONS do
 --				local button = _G['DropDownList1Button' .. i]
 --				local text = button:GetFontString()
---				text:SetFont([[Fonts\FRIZQT__.ttf]], 10)
+--				text:SetFont([[Fonts\ARHei.ttf]], 10)
 --				text:SetShadowOffset(1, -1)
 --				local highlight = _G['DropDownList1Button' .. i .. 'Highlight']
 --				highlight:SetAllPoints()

@@ -197,7 +197,7 @@ do
     btn:SetPoint('TOPLEFT', search_results_button, 'TOPRIGHT', 5, 0)
     btn:SetWidth(243)
     btn:SetHeight(22)
-    btn:SetText('保存的搜索')
+    btn:SetText('最近搜索')
     btn:SetScript('OnClick', function() set_subtab(SAVED) end)
     saved_searches_button = btn
 end
@@ -206,7 +206,7 @@ do
     btn:SetPoint('TOPLEFT', saved_searches_button, 'TOPRIGHT', 5, 0)
     btn:SetWidth(243)
     btn:SetHeight(22)
-    btn:SetText('过滤器生成器')
+    btn:SetText('搜索条件')
     btn:SetScript('OnClick', function() set_subtab(FILTER) end)
     new_filter_button = btn
 end
@@ -479,7 +479,7 @@ do
     scroll_frame:EnableMouseWheel(true)
     scroll_frame:SetScript('OnMouseWheel', function(self, arg1)
 	    local child = self:GetScrollChild()
-	    child:SetFont('p', [[Fonts\ARIALN.TTF]], aux.bounded(gui.font_size.small, gui.font_size.large, select(2, child:GetFont()) + arg1 * 2))
+	    child:SetFont('p', [[Fonts\ARHei.TTF]], aux.bounded(gui.font_size.small, gui.font_size.large, select(2, child:GetFont()) + arg1 * 2))
 	    update_filter_display()
     end)
     scroll_frame:RegisterForDrag('LeftButton')
@@ -504,7 +504,7 @@ do
     gui.set_content_style(scroll_frame, -2, -2, -2, -2)
     local scroll_child = CreateFrame('SimpleHTML', nil, scroll_frame)
     scroll_frame:SetScrollChild(scroll_child)
-    scroll_child:SetFont('p', [[Fonts\FRIZQT__.TTF]], gui.font_size.large)
+    scroll_child:SetFont('p', [[Fonts\ARHei.TTF]], gui.font_size.large)
     scroll_child:SetTextColor('p', aux.color.label.enabled())
     scroll_child:SetWidth(1)
     scroll_child:SetHeight(1)

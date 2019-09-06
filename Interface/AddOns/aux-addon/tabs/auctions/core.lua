@@ -5,7 +5,7 @@ local aux = require 'aux'
 local scan_util = require 'aux.util.scan'
 local scan = require 'aux.core.scan'
 
-local tab = aux.tab '我卖的'
+local tab = aux.tab '拍卖中'
 
 auction_records = T.acquire()
 
