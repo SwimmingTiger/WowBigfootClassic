@@ -5,6 +5,7 @@
 -- 本文件是用来修正一些来自WoW本身Interface的问题
 -------------------------------------------------------
 
+--[[
 do
 	-- 屏蔽界面失效的提醒
 	UIParent:UnregisterEvent("ADDON_ACTION_BLOCKED");
@@ -66,7 +67,9 @@ do
 		StaticPopup_Show("BF_ADDON_ACTION_FORBIDDEN", FORBIDDEN_ADDON);
 	end)
 end
+]]
 
+-- 设置一些常用的cvar
 do
 	local LoaderFrame = CreateFrame("FRAME")
 	LoaderFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -74,7 +77,6 @@ do
 			local patchVersion = '2019-09-05-04'
 			if (BF_Frames_Config['UtilsPatchVersion'] ~= patchVersion) then
 
-				-- 设置一些常用的cvar
 				SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
 				SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
 				SetCVar("instantQuestText", "1")					--立即显示任务文本
