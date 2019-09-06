@@ -17,6 +17,9 @@ if GetLocale()=='zhCN' then
 	L["OldTab"] ="旧版Tab"
 	L["MeetingStone"]="集合石"
 	L["Masque"] ="动作条美化"
+	L["aux-addon"] ="AUX拍卖"
+	L["aux-addon-enabled"] ="AUX拍卖插件已打开，点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
+	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -35,8 +38,17 @@ elseif GetLocale()=='zhTW' then
 	L["OldTab"] ="舊版Tab"
 	L["MeetingStone"]="集合石"
 	L["Masque"] ="動作條美化"
+	L["aux-addon"] ="AUX拍賣"
+	L["aux-addon-enabled"] ="AUX拍賣插件已打開，點擊拍賣行界面上的“暴雪UI”進入原版拍賣行界面。"
+	L["ActionNeedReloadUI"] ="該設置將在下次外掛程式載入時生效。"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
+
+else
+
+	L["aux-addon"] ="AUX Addon"
+	L["aux-addon-enabled"] ="The AUX Addon has been enabled, click on the \"Blizzard UI\" on the AUX auction UI to enter the original auction UI."
+	L["ActionNeedReloadUI"] ="This setting will be available next time."
 
 end
 
@@ -351,6 +363,32 @@ local function __CreateOldTabCheckBox()
 	return check
 end
 
+local function __CreateEnableAUXAddonCheckBox()
+	local check = CreateFrame("CheckButton","MBBBottomPanel"..nextCheckIndex,UIParent,"OptionsSmallCheckButtonTemplate")
+	check:SetFrameLevel(8)
+	check:SetHeight(20)
+	check:SetWidth(20)
+	check:SetHitRectInsets(0, -60, 0,0)
+	_G[check:GetName().."Text"]:SetFontObject("NumberFont_Shadow_Med");
+	_G[check:GetName().."Text"]:SetTextHeight(12)
+	_G[check:GetName().."Text"]:SetText(L["aux-addon"])
+	check:SetScript("OnShow",function()
+		check:SetChecked(BigFoot_GetModVariable("SingleAddons", "aux-addon") == 1)
+	end) 
+	check:SetScript("OnClick",function()
+		BigFoot_SetModVariable("SingleAddons", "aux-addon", check:GetChecked() and 1 or 0);
+		BigFoot_RequestReloadUI(function() BigFoot_Print(L["ActionNeedReloadUI"]); end);
+	end)
+	
+	if (BigFoot_GetModVariable("SingleAddons", "aux-addon") == 1) and (not BigFoot_IsAddOnLoaded("aux-addon")) then
+		BigFoot_LoadAddOn("aux-addon");
+		BigFoot_Print(L["aux-addon-enabled"]);
+	end
+
+	nextCheckIndex = nextCheckIndex + 1
+	return check
+end
+
 local function __CreateBigFootButtons()
 	local bfButton = BLibrary("BFButton", M.panel, 80, 28);
 	local logButton = BLibrary("BFButton", M.panel, 80, 28);
@@ -473,6 +511,11 @@ local function __AddBottomFrames()
 
 	if pcall(GetCVarDefault, "targetnearestuseold") then
 	    check = __CreateOldTabCheckBox()
+		M:AddBottomButton(check)
+	end
+
+	do
+		check = __CreateEnableAUXAddonCheckBox()
 		M:AddBottomButton(check)
 	end
 end

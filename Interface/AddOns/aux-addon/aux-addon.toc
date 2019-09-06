@@ -3,6 +3,8 @@
 ## Title: aux
 ## Notes: Auction House replacement
 ## SavedVariables: aux
+## Dependencies: BigFoot
+## LoadOnDemand: 1
 
 libs\package.lua
 libs\T.lua
