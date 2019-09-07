@@ -64,8 +64,6 @@ local function printWrongVersion()
 end
 
 local function checkVersion(message)
-	-- 禁用大脚版本检查
-	--[[
 	if not BigFoot_Config["BIGFOOT_VERSION_NEW"] then
 		BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
 	elseif sameLocale(BigFoot_Config["BIGFOOT_VERSION_NEW"],BIGFOOT_VERSION) and larger(BIGFOOT_VERSION,BigFoot_Config["BIGFOOT_VERSION_NEW"]) then
@@ -74,7 +72,6 @@ local function checkVersion(message)
 	if(sameLocale(BigFoot_Config["BIGFOOT_VERSION_NEW"],message) and larger(message,BigFoot_Config["BIGFOOT_VERSION_NEW"])) then
 		BigFoot_Config["BIGFOOT_VERSION_NEW"] = message;
 	end
-	]]
 end
 
 local function isValid(message)
@@ -92,7 +89,8 @@ local function isValid(message)
 	return false
 end
 
-e:RegisterEvent("PLAYER_LOGIN");
+-- 老虎会游泳：禁用大脚版本检查
+--e:RegisterEvent("PLAYER_LOGIN");
 
 function e:PLAYER_LOGIN()
 	if not isValid(BF_VERSION_CHECKSUM.."|"..BIGFOOT_VERSION) then
