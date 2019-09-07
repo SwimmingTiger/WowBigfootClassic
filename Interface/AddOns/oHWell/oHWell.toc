@@ -1,0 +1,9 @@
+## Interface: 11302
+## Title: oHWell
+## Title-zhCN: 自动下马
+## Notes: Dismount, cancel form, stand up
+## Notes-zhCN: 自动下马、自动站立、添加取消变形宏（/cancelform）
+## Version: C1.0
+## Author: EK
+
+oHWell.lua
