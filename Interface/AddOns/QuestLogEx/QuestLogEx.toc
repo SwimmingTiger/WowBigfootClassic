@@ -1,6 +1,8 @@
 ## Interface: 11302
 ## Title: QuestLog Extended
+## Title-zhCN: 双栏任务日志
 ## Notes: QuestLog Extended
+## Notes-zhCN: 显示双栏任务日志（类似正式服）
 ## Author: Ian
 ## Version: 1.2
 ## OptionalDeps: Ace3

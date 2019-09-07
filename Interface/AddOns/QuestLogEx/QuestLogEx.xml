@@ -1329,6 +1329,57 @@
           </OnClick>
         </Scripts>
       </Button>
+      <Button name="QuestLogExDetailResetButton" inherits="UIPanelButtonTemplate" text="重置">
+        <Size>
+          <AbsDimension x="80" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExDetailExitButton" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="0" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            CodexQuest:ResetAll();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="QuestLogExDetailHideButton" inherits="UIPanelButtonTemplate" text="隐藏">
+        <Size>
+          <AbsDimension x="80" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExDetailResetButton" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="0" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            CodexQuest:HideCurrentQuest();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="QuestLogExDetailShowButton" inherits="UIPanelButtonTemplate" text="显示">
+        <Size>
+          <AbsDimension x="80" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExDetailHideButton" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="0" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            CodexQuest:ShowCurrentQuest();
+          </OnClick>
+        </Scripts>
+      </Button>
     </Frames>
   </Frame>
 </Ui>
