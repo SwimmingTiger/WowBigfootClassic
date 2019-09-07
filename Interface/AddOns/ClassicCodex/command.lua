@@ -15,6 +15,8 @@ SlashCmdList["CODEX"] = function(input, editBox)
         print("|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - Show related objects on the map")
         print("|cff33ffcc/codex|cffffffff clean |cffcccccc - Clean map")
         print("|cff33ffcc/codex|cffffffff reset |cffcccccc - Reset map")
+        print("|cff33ffcc/codex|cffffffff showquest |cffcccccc - Show current selected quest on map")
+        print("|cff33ffcc/codex|cffffffff hidequest |cffcccccc - Hide current selected quest from map")
         print("|cff33ffcc ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r")
         return
     end
@@ -93,6 +95,16 @@ SlashCmdList["CODEX"] = function(input, editBox)
 
     if arg1 == "reset" then
         CodexQuest:ResetAll()
+        return
+    end
+
+    if arg1 == "showquest" then
+        CodexQuest:ShowCurrentQuest()
+        return
+    end
+
+    if arg1 == "hidequest" then
+        CodexQuest:HideCurrentQuest()
         return
     end
 

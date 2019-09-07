@@ -270,6 +270,30 @@ function CodexQuest:ResetAll()
     CodexMap.UpdateNodes()
 end
 
+function CodexQuest:ShowCurrentQuest()
+    -- CodexQuest:ResetAll()
+    local questIndex = GetQuestLogSelection()
+    local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
+    if header then return end
+
+    local ids = CodexQuest.questLog[title].ids
+    local maps, meta = {}, {["addon"] = "CODEX", ["questLogId"] = questIndex}
+    for _, id in pairs(ids) do
+        maps = CodexDatabase:SearchQuestById(id, meta, maps)
+    end
+
+    CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
+end
+
+function CodexQuest:HideCurrentQuest()
+    local questIndex = GetQuestLogSelection()
+    local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
+    if header then return end
+
+    CodexMap:DeleteNode("CODEX", title)
+    CodexMap:UpdateNodes()
+end
+
 function CodexQuest:AddQuestLogIntegration()
     local dockFrame = QuestLogDetailScrollChildFrame
     local dockTitle = QuestLogDescriptionTitle
@@ -283,18 +307,7 @@ function CodexQuest:AddQuestLogIntegration()
     CodexQuest.buttonShow:SetText("显示")
     CodexQuest.buttonShow:SetPoint("TOP", dockTitle, "TOP", -110, 0)
     CodexQuest.buttonShow:SetScript("OnClick", function()
-        -- CodexQuest:ResetAll()
-        local questIndex = GetQuestLogSelection()
-        local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
-        if header then return end
-
-        local ids = CodexQuest.questLog[title].ids
-        local maps, meta = {}, {["addon"] = "CODEX", ["questLogId"] = questIndex}
-        for _, id in pairs(ids) do
-            maps = CodexDatabase:SearchQuestById(id, meta, maps)
-        end
-
-        CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
+        CodexQuest:ShowCurrentQuest()
     end)
 
     CodexQuest.buttonHide = CodexQuest.buttonHide or CreateFrame("Button", "CodexQuestHide", dockFrame, "UIPanelButtonTemplate")
@@ -303,12 +316,7 @@ function CodexQuest:AddQuestLogIntegration()
     CodexQuest.buttonHide:SetText("隐藏")
     CodexQuest.buttonHide:SetPoint("TOP", dockTitle, "TOP", -37, 0)
     CodexQuest.buttonHide:SetScript("OnClick", function()
-        local questIndex = GetQuestLogSelection()
-        local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
-        if header then return end
-
-        CodexMap:DeleteNode("CODEX", title)
-        CodexMap:UpdateNodes()
+        CodexQuest:HideCurrentQuest()
     end)
 
     -- CodexQuest.buttonClean = CodexQuest.buttonClean or CreateFrame("Button", "CodexQuestClean", dockFrame, "UIPanelButtonTemplate")
