@@ -164,7 +164,8 @@ end
 function Atr_EventHandler(self, event, ...)
   -- Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
 
-  if (event == "VARIABLES_LOADED")      then  Atr_OnLoad();             end;
+  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他插件
+  if (event == --[["VARIABLES_LOADED"]] "ADDON_LOADED")      then  Atr_OnLoad();             end;
   if (event == "ADDON_LOADED")        then  Atr_OnAddonLoaded(...);       end;
   if (event == "AUCTION_ITEM_LIST_UPDATE")  then  Atr_OnAuctionUpdate(...);       end;
   if (event == "AUCTION_OWNED_LIST_UPDATE") then  Atr_OnAuctionOwnedUpdate();     end;
@@ -177,7 +178,7 @@ function Atr_EventHandler(self, event, ...)
   if (event == "AUCTION_HOUSE_CLOSED")    then  Atr_OnAuctionHouseClosed();     end;
   if (event == "NEW_AUCTION_UPDATE")      then  Atr_OnNewAuctionUpdate();       end;
   if (event == "CHAT_MSG_ADDON")        then  Atr_OnChatMsgAddon(...);      end;
-  if (event == "PLAYER_ENTERING_WORLD")   then  Atr_OnPlayerEnteringWorld();    end;
+  if (event == --[["PLAYER_ENTERING_WORLD"]] "ADDON_LOADED")   then  Atr_OnPlayerEnteringWorld();    end;
 
   if (event == "UNIT_SPELLCAST_SENT")     then  Atr_OnSpellCastSent(...);     end;
   if (event == "UNIT_SPELLCAST_SUCCEEDED")  then  Atr_OnSpellCastSucess(...);     end;

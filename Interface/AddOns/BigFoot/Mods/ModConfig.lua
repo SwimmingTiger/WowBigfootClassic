@@ -17,6 +17,7 @@ if GetLocale()=='zhCN' then
 	L["OldTab"] ="旧版Tab"
 	L["MeetingStone"]="集合石"
 	L["Masque"] ="动作条美化"
+	L["Auctionator"] ="拍卖大师"
 	L["aux-addon"] ="AUX拍卖"
 	L["aux-addon-enabled"] ="AUX拍卖插件已打开，点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
 	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
@@ -38,6 +39,7 @@ elseif GetLocale()=='zhTW' then
 	L["OldTab"] ="舊版Tab"
 	L["MeetingStone"]="集合石"
 	L["Masque"] ="動作條美化"
+	L["Auctionator"] ="拍賣大師"
 	L["aux-addon"] ="AUX拍賣"
 	L["aux-addon-enabled"] ="AUX拍賣插件已打開，點擊拍賣行界面上的“暴雪UI”進入原版拍賣行界面。"
 	L["ActionNeedReloadUI"] ="該設置將在下次外掛程式載入時生效。"
@@ -46,6 +48,7 @@ elseif GetLocale()=='zhTW' then
 
 else
 
+	L["Auctionator"] ="Auctionator"
 	L["aux-addon"] ="AUX Addon"
 	L["aux-addon-enabled"] ="The AUX Addon has been enabled, click on the \"Blizzard UI\" on the AUX auction UI to enter the original auction UI."
 	L["ActionNeedReloadUI"] ="This setting will be available next time."
@@ -363,7 +366,7 @@ local function __CreateOldTabCheckBox()
 	return check
 end
 
-local function __CreateEnableAUXAddonCheckBox()
+local function __CreateEnableAddonCheckBox(addonName, enabledTip, enableByDefault)
 	local check = CreateFrame("CheckButton","MBBBottomPanel"..nextCheckIndex,UIParent,"OptionsSmallCheckButtonTemplate")
 	check:SetFrameLevel(8)
 	check:SetHeight(20)
@@ -371,18 +374,24 @@ local function __CreateEnableAUXAddonCheckBox()
 	check:SetHitRectInsets(0, -60, 0,0)
 	_G[check:GetName().."Text"]:SetFontObject("NumberFont_Shadow_Med");
 	_G[check:GetName().."Text"]:SetTextHeight(12)
-	_G[check:GetName().."Text"]:SetText(L["aux-addon"])
+	_G[check:GetName().."Text"]:SetText(L[addonName])
 	check:SetScript("OnShow",function()
-		check:SetChecked(BigFoot_GetModVariable("SingleAddons", "aux-addon") == 1)
+		check:SetChecked(BigFoot_GetModVariable("SingleAddons", addonName) == 1)
 	end) 
 	check:SetScript("OnClick",function()
-		BigFoot_SetModVariable("SingleAddons", "aux-addon", check:GetChecked() and 1 or 0);
+		BigFoot_SetModVariable("SingleAddons", addonName, check:GetChecked() and 1 or 0);
 		BigFoot_RequestReloadUI(function() BigFoot_Print(L["ActionNeedReloadUI"]); end);
 	end)
+
+	if enableByDefault and (BigFoot_GetModVariable("SingleAddons", addonName) == nil) then
+		BigFoot_SetModVariable("SingleAddons", addonName, 1);
+	end
 	
-	if (BigFoot_GetModVariable("SingleAddons", "aux-addon") == 1) and (not BigFoot_IsAddOnLoaded("aux-addon")) then
-		BigFoot_LoadAddOn("aux-addon");
-		BigFoot_Print(L["aux-addon-enabled"]);
+	if (BigFoot_GetModVariable("SingleAddons", addonName) == 1) and (not BigFoot_IsAddOnLoaded(addonName)) then
+		BigFoot_LoadAddOn(addonName);
+		if enabledTip ~= nil then
+			BigFoot_Print(enabledTip);
+		end
 	end
 
 	nextCheckIndex = nextCheckIndex + 1
@@ -515,7 +524,9 @@ local function __AddBottomFrames()
 	end
 
 	do
-		check = __CreateEnableAUXAddonCheckBox()
+		check = __CreateEnableAddonCheckBox("Auctionator", nil, true)
+		M:AddBottomButton(check)
+		check = __CreateEnableAddonCheckBox("aux-addon", L['aux-addon-enabled'], false)
 		M:AddBottomButton(check)
 	end
 end
