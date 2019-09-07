@@ -1,0 +1,14 @@
+## Interface: 11302
+## Title: QuestLog Extended
+## Notes: QuestLog Extended
+## Author: Ian
+## Version: 1.2
+## OptionalDeps: Ace3
+## SavedVariables: QuestLogExDB
+## Dependencies: Bigfoot
+
+## X-Embeds: Ace3
+
+core.lua
+db.lua
+QuestLogEx.xml

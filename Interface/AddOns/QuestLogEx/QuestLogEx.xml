@@ -1,0 +1,1334 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+  <Script file="QuestLogEx.lua"/>
+  
+  <Frame name="QuestLogExFrame" toplevel="true" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+    <Size>
+      <AbsDimension x="384" y="512"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOPLEFT">
+        <Offset>
+          <AbsDimension x="0" y="-104"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <HitRectInsets>
+      <AbsInset left="8" right="0" top="8" bottom="0"/>
+    </HitRectInsets>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString name="QuestLogDummyText" inherits="GameFontNormal" hidden="true">
+          <Size>
+            <AbsDimension x="0" y="13"/>
+          </Size>
+        </FontString>
+        <Texture file="Interface\QuestFrame\UI-QuestLog-BookIcon">
+          <Size>
+            <AbsDimension x="64" y="64"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="4" y="-4"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_TopLeft">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+        <Texture name="QuestLogExTopRightNormal" file="Interface\Addons\QuestLogEx\Images\EQL3_TopSwitchOff">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+        <Texture name="QuestLogExTopRightExtended" file="Interface\Addons\QuestLogEx\Images\EQL3_TopSwitchOn" hidden="true">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_BottomLeft">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMLEFT"/>
+          </Anchors>
+        </Texture>
+        <Texture name="QuestLogExBottomRightNormal" file="Interface\Addons\QuestLogEx\Images\EQL3_BottomSwitchOff">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+        <Texture name="QuestLogExBottomRightExtended" file="Interface\Addons\QuestLogEx\Images\EQL3_BottomSwitchOn" hidden="true">
+          <Size>
+            <AbsDimension x="128" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+        <FontString name="QuestLogExTitleText" inherits="GameFontHighlight" text="QUEST_LOG" parentKey="Text">
+          <Size>
+            <AbsDimension x="300" y="14"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOP" relativeTo="QuestLogExFrame" relativePoint="TOP">
+              <Offset>
+                <AbsDimension x="0" y="-15"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+      <Layer level="OVERLAY">
+        <Texture name="QuestLogExCountRight" file="Interface\Common\Common-Input-Border">
+          <Size>
+            <AbsDimension x="8" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT">
+              <Offset>
+                <AbsDimension x="-47" y="-41"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+          <TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+        </Texture>
+        <Texture name="QuestLogExCountMiddle" file="Interface\Common\Common-Input-Border">
+          <Size>
+            <AbsDimension x="100" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="RIGHT" relativeTo="QuestLogExCountRight" relativePoint="LEFT"/>
+          </Anchors>
+          <TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+        </Texture>
+        <Texture name="QuestLogExCountLeft" file="Interface\Common\Common-Input-Border">
+          <Size>
+            <AbsDimension x="8" y="20"/>
+          </Size>
+          <Anchors>
+            <Anchor point="RIGHT" relativeTo="QuestLogExCountMiddle" relativePoint="LEFT"/>
+          </Anchors>
+          <TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+        </Texture>
+        <FontString name="QuestLogExQuestCount" inherits="GameFontNormalSmall">
+          <Anchors>
+            <Anchor point="RIGHT" relativeTo="QuestLogExCountRight">
+              <Offset>
+                <AbsDimension x="-6" y="0"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Frame name="QuestLogExExpandButtonFrame">
+        <Size>
+          <AbsDimension x="54" y="32"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="70" y="-48"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Frames>
+          <Button name="QuestLogExCollapseAllButton" hidden="false" inherits="QuestLogTitleButtonTemplate" text="ALL">
+            <Size>
+              <AbsDimension x="40" y="22"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="-2"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <Texture name="QuestLogExExpandTabLeft" file="Interface\QuestFrame\UI-QuestLogSortTab-Left">
+                  <Size>
+                    <AbsDimension x="8" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="-6" y="8"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture name="QuestLogExExpandTabMiddle" file="Interface\QuestFrame\UI-QuestLogSortTab-Middle">
+                  <Size>
+                    <AbsDimension x="38" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="LEFT" relativeTo="QuestLogExExpandTabLeft" relativePoint="RIGHT">
+                      <Offset>
+                        <AbsDimension x="0" y="0"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </Texture>
+                <Texture file="Interface\QuestFrame\UI-QuestLogSortTab-Right">
+                  <Size>
+                    <AbsDimension x="8" y="32"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="LEFT" relativeTo="QuestLogExExpandTabMiddle" relativePoint="RIGHT"/>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnLoad>
+                self.isHeader = true;
+                QuestLogCollapseAllButtonNormalText:SetWidth(0);
+                QuestLogExpandTabMiddle:SetWidth(self:GetTextWidth() + 24);
+              </OnLoad>
+              <OnClick>
+                QuestLogCollapseAllButton_OnClick(self);
+              </OnClick>
+            </Scripts>
+          </Button>
+        </Frames>
+      </Frame>
+      <Frame name="QuestLogExTrack" enableMouse="true">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="QuestLogExExpandButtonFrame" relativePoint="RIGHT">
+            <Offset>
+              <AbsDimension x="5" y="10"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <HitRectInsets>
+          <AbsInset left="0" right="-80" top="0" bottom="0"/>
+        </HitRectInsets>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString name="QuestLogExTrackTitle" inherits="GameFontHighlightSmall" text="TRACK_QUEST">
+              <Anchors>
+                <Anchor point="LEFT" relativePoint="RIGHT">
+                  <Offset>
+                    <AbsDimension x="0" y="0"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+            <Texture file="Interface\Buttons\UI-RadioButton">
+              <TexCoords left="0" right="0.25" top="0" bottom="1"/>
+            </Texture>
+            <Texture name="QuestLogExTrackTracking" file="Interface\Buttons\UI-RadioButton">
+              <TexCoords left="0.25" right="0.5" top="0" bottom="1"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnLoad>
+            QuestLogTrackTracking:SetVertexColor(1.0, 0, 0);
+          </OnLoad>
+          <OnEnter>
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+            GameTooltip:SetText(QUEST_WATCH_TOOLTIP, nil,nil, nil, nil, 1);
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide();
+          </OnLeave>
+        </Scripts>
+      </Frame>
+      <Frame name="EmptyQuestLogExFrame" hidden="true">
+        <Size>
+          <AbsDimension x="768" y="512"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="19" y="-73"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture file="Interface\QuestFrame\UI-QuestLog-Empty-TopLeft">
+              <Size>
+                <AbsDimension x="256" y="256"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPLEFT"/>
+              </Anchors>
+            </Texture>
+            <Texture file="Interface\QuestFrame\UI-QuestLog-Empty-TopRight">
+              <Size>
+                <AbsDimension x="64" y="256"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOPRIGHT">
+                  <Offset>
+                    <AbsDimension x="-64" y="0"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </Texture>
+            <Texture file="Interface\QuestFrame\UI-QuestLog-Empty-BotLeft">
+              <Size>
+                <AbsDimension x="256" y="128"/>
+              </Size>
+              <Anchors>
+                <Anchor point="BOTTOMLEFT">
+                  <Offset>
+                    <AbsDimension x="0" y="128"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </Texture>
+            <Texture file="Interface\QuestFrame\UI-QuestLog-Empty-BotRight">
+              <Size>
+                <AbsDimension x="64" y="128"/>
+              </Size>
+              <Anchors>
+                <Anchor point="BOTTOMRIGHT">
+                  <Offset>
+                    <AbsDimension x="-64" y="128"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </Texture>
+            <FontString name="QuestLogExNoQuestsText" inherits="GameFontHighlight" text="QUESTLOG_NO_QUESTS_TEXT">
+              <Size>
+                <AbsDimension x="200" y="16"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOP" relativeTo="QuestLogExTitleText">
+                  <Offset>
+                    <AbsDimension x="-20" y="-90"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Button name="QuestLogExFrameCloseButton" inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="QuestLogExFrame" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="-28" y="-8"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExFrameMaximizeButton" inherits="UIPanelCloseButton">
+        <Size>
+          <AbsDimensions x="32" y="32" />
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExFrameCloseButton" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="10" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            QuestLogEx:Maximize();
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\Addons\QuestLogEx\Images\MaximizeButton-Up"/>
+        <PushedTexture file="Interface\Addons\QuestLogEx\Images\MaximizeButton-Down"/>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
+      </Button>
+      <Button name="QuestLogExFrameAbandonButton" inherits="UIPanelButtonTemplate" text="ABANDON_QUEST">
+        <Size>
+          <AbsDimension x="125" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeTo="QuestLogExFrame" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="18" y="5"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            SetAbandonQuest();
+            local items = GetAbandonQuestItems();
+            if ( items ) then
+            StaticPopup_Hide("ABANDON_QUEST");
+            StaticPopup_Show("ABANDON_QUEST_WITH_ITEMS", GetAbandonQuestName(), items);
+            else
+            StaticPopup_Hide("ABANDON_QUEST_WITH_ITEMS");
+            StaticPopup_Show("ABANDON_QUEST", GetAbandonQuestName());
+            end
+          </OnClick>
+          <OnEnter>
+            GameTooltip_AddNewbieTip(self, ABANDON_QUEST, 1.0, 1.0, 1.0, NEWBIE_TOOLTIP_ABANDONQUEST, 1);
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide();
+          </OnLeave>
+        </Scripts>
+      </Button>
+      <Button name="QuestLogExFramePushQuestButton" inherits="UIPanelButtonTemplate" text="SHARE_QUEST">
+        <Size>
+          <AbsDimension x="123" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="QuestLogExFrameAbandonButton" relativePoint="RIGHT">
+            <Offset>
+              <AbsDimension x="0" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            QuestLogPushQuest();
+          </OnClick>
+          <OnEnter>
+            GameTooltip_AddNewbieTip(self, SHARE_QUEST, 1.0, 1.0, 1.0, NEWBIE_TOOLTIP_SHAREQUEST, 1);
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide();
+          </OnLeave>
+        </Scripts>
+      </Button>
+      <Button name="QuestLogExFrameExitButton" inherits="UIPanelButtonTemplate" text="EXIT">
+        <Size>
+          <AbsDimension x="79" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="LEFT" relativeTo="QuestLogExFramePushQuestButton" relativePoint="RIGHT">
+            <Offset>
+              <AbsDimension x="-1" y="0"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            HideUIPanel(QuestLogExFrame);
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame name="QuestLogExHighlightFrame" hidden="true">
+        <Size>
+          <AbsDimension x="293" y="16"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture name="QuestLogExSkillHighlight" file="Interface\QuestFrame\UI-QuestLogTitleHighlight" alphaMode="ADD"/>
+          </Layer>
+        </Layers>
+      </Frame>
+      <Button name="QuestLogExTitle1" inherits="QuestLogTitleButtonTemplate" id="1" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExFrame">
+            <Offset>
+              <AbsDimension x="19" y="-75"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle2" inherits="QuestLogTitleButtonTemplate" id="2" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle1" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle3" inherits="QuestLogTitleButtonTemplate" id="3" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle2" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle4" inherits="QuestLogTitleButtonTemplate" id="4" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle3" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle5" inherits="QuestLogTitleButtonTemplate" id="5" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle4" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle6" inherits="QuestLogTitleButtonTemplate" id="6" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle5" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle7" inherits="QuestLogTitleButtonTemplate" id="7" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle6" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle8" inherits="QuestLogTitleButtonTemplate" id="8" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle7" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle9" inherits="QuestLogTitleButtonTemplate" id="9" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle8" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle10" inherits="QuestLogTitleButtonTemplate" id="10" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle9" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle11" inherits="QuestLogTitleButtonTemplate" id="11" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle10" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle12" inherits="QuestLogTitleButtonTemplate" id="12" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle11" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle13" inherits="QuestLogTitleButtonTemplate" id="13" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle12" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle14" inherits="QuestLogTitleButtonTemplate" id="14" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle13" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle15" inherits="QuestLogTitleButtonTemplate" id="15" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle14" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle16" inherits="QuestLogTitleButtonTemplate" id="16" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle15" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle17" inherits="QuestLogTitleButtonTemplate" id="17" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle16" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle18" inherits="QuestLogTitleButtonTemplate" id="18" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle17" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle19" inherits="QuestLogTitleButtonTemplate" id="19" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle18" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle20" inherits="QuestLogTitleButtonTemplate" id="20" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle19" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle21" inherits="QuestLogTitleButtonTemplate" id="21" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle20" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle22" inherits="QuestLogTitleButtonTemplate" id="22" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle21" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle23" inherits="QuestLogTitleButtonTemplate" id="23" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle22" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle24" inherits="QuestLogTitleButtonTemplate" id="24" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle23" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle25" inherits="QuestLogTitleButtonTemplate" id="25" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle24" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle26" inherits="QuestLogTitleButtonTemplate" id="26" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle25" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <Button name="QuestLogExTitle27" inherits="QuestLogTitleButtonTemplate" id="27" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExTitle26" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="1"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+      </Button>
+      <ScrollFrame name="QuestLogExListScrollFrame" inherits="FauxScrollFrameTemplate">
+        <Size>
+          <AbsDimension x="300" y="411"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExFrame">
+            <Offset>
+              <AbsDimension x="20" y="-74"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnVerticalScroll>
+            FauxScrollFrame_OnVerticalScroll(self, offset, QUESTLOG_QUEST_HEIGHT, QuestLog_Update);
+          </OnVerticalScroll>
+        </Scripts>
+      </ScrollFrame>
+    </Frames>
+    <Scripts>
+      <OnEvent>
+        QuestLog_OnEvent(self, event, ...);
+      </OnEvent>
+      <OnLoad>
+        tinsert(UISpecialFrames, self:GetName());
+        QuestLog_OnLoad(self)
+      </OnLoad>
+      <OnShow function="QuestLog_OnShow"/>
+      <OnHide function="QuestLog_OnHide"/>
+      <OnUpdate function="QuestLog_OnUpdate"/>
+      <OnMouseWheel>
+        return;
+      </OnMouseWheel>
+    </Scripts>
+  </Frame>
+  <Frame name="QuestWatchFrame" toplevel="true" parent="UIParent" hidden="false">
+    <Size>
+      <AbsDimension x="280" y="20"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOPRIGHT" relativeTo="MinimapCluster" relativePoint="BOTTOMRIGHT">
+        <Offset>
+          <AbsDimension x="0" y="10"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString name="QuestWatchQuestName" inherits="GameFontNormal" justifyH="LEFT">
+          <Size>
+            <AbsDimension x="0" y="13"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine1" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchQuestName" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine2" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine1" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine3" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine2" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine4" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine3" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine5" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine4" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine6" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine5" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine7" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine6" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine8" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine7" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine9" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine8" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine10" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine9" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine11" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine10" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine12" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine11" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine13" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine12" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine14" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine13" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine15" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine14" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine16" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine15" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine17" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine16" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine18" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine17" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine19" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine18" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine20" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine19" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine21" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine20" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine22" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine21" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine23" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine22" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine24" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine23" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine25" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine24" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine26" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine25" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine27" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine26" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine28" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine27" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine29" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine28" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString name="QuestWatchLine30" inherits="QuestWatchFontTemplate">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="QuestWatchLine29" relativePoint="BOTTOMLEFT"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnUpdate function="AutoQuestWatch_OnUpdate"/>
+    </Scripts>
+  </Frame>
+  <Frame name="QuestLogExFrameDescription" toplevel="false" enableMouse="true" movable="false" parent="QuestLogExFrame" hidden="true">
+    <Size>
+      <AbsDimension x="320" y="512"/>
+    </Size>
+    <Anchors>
+      <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+        <Offset>
+          <AbsDimension x="0" y="0"/>
+        </Offset>
+      </Anchor>
+    </Anchors>
+    <HitRectInsets>
+      <AbsInset left="0" right="24" top="8" bottom="0"/>
+    </HitRectInsets>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_TopMiddle">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_TopRight">
+          <Size>
+            <AbsDimension x="64" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT"/>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_BottomMiddle">
+          <Size>
+            <AbsDimension x="256" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMLEFT"/>
+          </Anchors>
+        </Texture>
+        <Texture file="Interface\Addons\QuestLogEx\Images\EQL3_BottomRight">
+          <Size>
+            <AbsDimension x="64" y="256"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="QuestLogExDetailCloseButton" inherits="UIPanelCloseButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="QuestLogExFrameDescription" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="-20" y="-8"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            QuestLogEx:ToggleQuestLog()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="QuestLogExDetailMinimizeButton" inherits="UIPanelCloseButton" hidden="true">
+        <Size>
+          <AbsDimensions x="32" y="32" />
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExDetailCloseButton" relativePoint="LEFT">
+            <Offset>
+              <AbsDimension x="10" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            QuestLogEx:Minimize();
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\Addons\QuestLogEx\Images\RestoreButton-Up"/>
+        <PushedTexture file="Interface\Addons\QuestLogEx\Images\RestoreButton-Down"/>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
+      </Button>
+      <ScrollFrame name="QuestLogExDetailScrollFrame" inherits="UIPanelScrollFrameTemplate">
+        <Size>
+          <AbsDimension x="300" y="413"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="QuestLogExListScrollFrame" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="30" y="2"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <ScrollChild>
+          <Frame name="QuestLogExDetailScrollChildFrame">
+            <Size>
+              <AbsDimension x="300" y="413"/>
+            </Size>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <FontString name="QuestLogExQuestTitle" inherits="QuestTitleFont" justifyH="LEFT" text="Quest title">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT">
+                      <Offset>
+                        <AbsDimension x="5" y="-10"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjectivesText" inherits="QuestFont" justifyH="LEFT">
+                  <Size>
+                    <AbsDimension x="275" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExQuestTitle" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-5"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExTimerText" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjectivesText" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-10"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective1" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExTimerText" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-10"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective2" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective1" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective3" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective2" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective4" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective3" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective5" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective4" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective6" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective5" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective7" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective6" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective8" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective7" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective9" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective8" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExObjective10" inherits="QuestFontNormalSmall" justifyH="LEFT" hidden="true">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective9" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExRequiredMoneyText" inherits="QuestFontNormalSmall" text="REQUIRED_MONEY">
+                  <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExDescriptionTitle" inherits="QuestTitleFont" justifyH="LEFT" text="QUEST_DESCRIPTION">
+                  <Size>
+                    <AbsDimension x="285" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExObjective10" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-10"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExQuestDescription" inherits="QuestFont" justifyH="LEFT">
+                  <Size>
+                    <AbsDimension x="270" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExDescriptionTitle" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-5"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExRewardTitleText" inherits="QuestTitleFont" text="QUEST_REWARDS" justifyH="LEFT">
+                  <Size>
+                    <AbsDimension x="300" y="18"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExQuestDescription" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-15"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExItemChooseText" inherits="QuestFont" text="REWARD_CHOICES" hidden="true" justifyH="LEFT">
+                  <Size>
+                    <AbsDimension x="295" y="0"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="QuestLogExRewardTitleText" relativePoint="BOTTOMLEFT">
+                      <Offset>
+                        <AbsDimension x="0" y="-5"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                </FontString>
+                <FontString name="QuestLogExItemReceiveText" inherits="QuestFont" text="Reward receive text" hidden="true" justifyH="LEFT">
+                  <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Frames>
+              <Button name="QuestLogExItem1" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem2" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem3" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem4" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem5" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem6" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem7" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem8" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem9" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Button name="QuestLogExItem10" inherits="QuestLogRewardItemTemplate" hidden="true">
+                <Anchors>
+                  <Anchor point="TOPLEFT"/>
+                </Anchors>
+              </Button>
+              <Frame name="QuestLogExMoneyFrame" inherits="MoneyFrameTemplate">
+                <Anchors>
+                  <Anchor point="LEFT" relativeTo="QuestLogExItemReceiveText" relativePoint="RIGHT">
+                    <Offset>
+                      <AbsDimension x="15" y="0"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Scripts>
+                  <OnLoad function="QuestMoneyFrame_OnLoad" />
+                </Scripts>
+              </Frame>
+              <Frame name="QuestLogExRequiredMoneyFrame" inherits="MoneyFrameTemplate">
+                <Anchors>
+                  <Anchor point="LEFT" relativeTo="QuestLogExRequiredMoneyText" relativePoint="RIGHT">
+                    <Offset>
+                      <AbsDimension x="10" y="0"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Scripts>
+                  <OnLoad>
+                    SmallMoneyFrame_OnLoad(self);
+                    MoneyFrame_SetType(self, "STATIC");
+                  </OnLoad>
+                </Scripts>
+              </Frame>
+              <Frame name="QuestLogExSpacerFrame">
+                <Size>
+                  <AbsDimension x="5" y="25"/>
+                </Size>
+                <Anchors>
+                  <Anchor point="TOP">
+                    <Offset>
+                      <AbsDimension x="0" y="0"/>
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+              </Frame>
+            </Frames>
+          </Frame>
+        </ScrollChild>
+      </ScrollFrame>
+      <Button name="QuestLogExDetailExitButton" inherits="UIPanelButtonTemplate" text="EXIT">
+        <Size>
+          <AbsDimension x="80" y="21"/>
+        </Size>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="QuestLogExFrameDescription" relativePoint="BOTTOMRIGHT">
+            <Offset>
+              <AbsDimension x="-30" y="15"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            HideUIPanel(QuestLogExFrame);
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>
