@@ -9,6 +9,7 @@ local point = {"CENTER", UIParent, "CENTER", 120, -50}
 -- Core --
 ----------
 
+--[[
 local button = CreateFrame("Button", "form", UIParent, "SecureActionButtonTemplate")
 	--button:SetPoint("CENTER", UIParent, "CENTER", 120, -50)
 	button:SetPoint(unpack(point))
@@ -39,7 +40,7 @@ local button = CreateFrame("Button", "form", UIParent, "SecureActionButtonTempla
 	button:SetPushedTexture(ptex)
 	
 	button:Hide()
-	
+
 local fb = CreateFrame("Frame")
 function fb:OnEvent(event)
 	if btn ~= true then return end
@@ -56,6 +57,7 @@ end
 fb:RegisterEvent("PLAYER_ENTERING_WORLD")
 fb:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 fb:SetScript("OnEvent", fb.OnEvent)
+]]
 
 local f = CreateFrame("Frame")
 function f:OnEvent(event, key, state)
