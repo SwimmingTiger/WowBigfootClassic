@@ -86,6 +86,7 @@ do
 			SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
 
 			BF_Frames_Config['UtilsPatchVersion'] = patchVersion
+			frame:UnregisterEvent("PLAYER_LOGIN")
 
 			print("大脚插件个人整合包：初始化完成")
 		end

@@ -91,6 +91,17 @@ function RaidToolkitConfigFunc()
 	RAIDALERT_ENABLE_TEXT = OPEN..(RaString.Name or "")..RaString.colorText;
 
 	local function loadRecount()
+		-- 运行 "/recount show" 命令以显示Recount框体
+		local LoaderFrame = CreateFrame("FRAME")
+		LoaderFrame:RegisterEvent("ADDON_LOADED")
+		local function LoaderEvents(frame, event, arg1)
+			if arg1 == "Recount" then
+				SlashCmdList["ACECONSOLE_RECOUNT"]("show")
+				frame:UnregisterEvent("ADDON_LOADED")
+			end
+		end
+		LoaderFrame:SetScript("OnEvent", LoaderEvents)
+
 		if (not BigFoot_IsAddOnLoaded("Recount")) then
 			BigFoot_LoadAddOn("Recount");
 		end
