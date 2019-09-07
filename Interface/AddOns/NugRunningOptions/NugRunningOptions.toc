@@ -6,4 +6,4 @@
 ## LoadOnDemand: 1
 ## X-Revision: BigFoot
 
-..\NugRunning\Options\includes.xml
+..\NugRunning\Options\NugRunningOptions.lua

@@ -8,4 +8,5 @@
 ## OptionalDeps: MonkeyQuest, MonkeySpeed, MonkeyClock, myAddOns
 ## SavedVariables: MonkeyBuddyConfig
 ## X-Revision: BigFoot
+
 MonkeyBuddy.xml

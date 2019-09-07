@@ -4,25 +4,9 @@
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-deDE: AtlasLootClassic |cFF0099FF[Fraktionen]|r
-## Title-esES: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-esMX: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-frFR: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-itIT: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-koKR: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-ptBR: AtlasLootClassic |cFF0099FF[Factions]|r
-## Title-ruRU: AtlasLootClassic |cFF0099FF[Фракции]|r
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[Factions]|r
 ## Title-zhTW: AtlasLootClassic |cFF0099FF[Factions]|r
 ## Notes: AtlasLoot loot tables from Factions
-## Notes-deDE: AtlasLoot loot tables from Factions
-## Notes-esES: AtlasLoot loot tables from Factions
-## Notes-esMX: AtlasLoot loot tables from Factions
-## Notes-frFR: AtlasLoot loot tables from Factions
-## Notes-itIT: AtlasLoot loot tables from Factions
-## Notes-koKR: AtlasLoot loot tables from Factions
-## Notes-ptBR: AtlasLoot loot tables from Factions
-## Notes-ruRU: Таблицы лута AtlasLoot фракции
 ## Notes-zhCN: AtlasLoot 阵营掉落列表
 ## Notes-zhTW: AtlasLoot loot tables from Factions
 ## X-Category: Map

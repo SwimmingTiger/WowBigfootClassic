@@ -8,4 +8,5 @@
 ## SavedVariables: mkql_Saved
 ## Dependencies: MonkeyLibrary, MonkeyQuest
 ## X-Revision: BigFoot
+
 MonkeyQuestLogFrame.xml

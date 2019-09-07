@@ -4,25 +4,9 @@
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-deDE: AtlasLootClassic |cFF0099FF[Instanzen and Raids]|r
-## Title-esES: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-esMX: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-frFR: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-itIT: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-koKR: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-ptBR: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
-## Title-ruRU: AtlasLootClassic |cFF0099FF[Подземелья и Рейды]|r
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
 ## Title-zhTW: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
 ## Notes: AtlasLoot loot tables from Dungeons and Raids
-## Notes-deDE: AtlasLoot loot tables from Dungeons and Raids
-## Notes-esES: AtlasLoot loot tables from Dungeons and Raids
-## Notes-esMX: AtlasLoot loot tables from Dungeons and Raids
-## Notes-frFR: AtlasLoot loot tables from Dungeons and Raids
-## Notes-itIT: AtlasLoot loot tables from Dungeons and Raids
-## Notes-koKR: AtlasLoot loot tables from Dungeons and Raids
-## Notes-ptBR: AtlasLoot loot tables from Dungeons and Raids
-## Notes-ruRU: Таблицы добычи AtlasLoot от Подземелий и Рейдов
 ## Notes-zhCN: AtlasLoot 地下城&团队副本掉落列表
 ## Notes-zhTW: AtlasLoot loot tables from Dungeons and Raids
 ## X-Category: Map

@@ -42,7 +42,6 @@ function ChatEnhanceConfigFunc()
 		CHAT_ENHANCEMENT_TITLE = "Chat Enhancement";
 		SCROLL_CHATFRAME_TEXT = "Allow using mouse wheel to scroll chat window";
 		BFC_ENABLE_TEXT = "Enable BigFootChat"
-
 		WP_ENABLE_TEXT = "Enable WhisperPop";
 		PLAYER_LINK_ENABLE_TEXT = "Enhance player linke in chat window";
 		BFC_CONFIG="Config BFC"

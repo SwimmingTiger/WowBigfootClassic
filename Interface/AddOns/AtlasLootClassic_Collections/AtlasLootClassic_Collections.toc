@@ -4,25 +4,9 @@
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-deDE: AtlasLootClassic |cFF0099FF[Sammlungen]|r
-## Title-esES: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-esMX: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-frFR: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-itIT: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-koKR: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-ptBR: AtlasLootClassic |cFF0099FF[Collections]|r
-## Title-ruRU: AtlasLootClassic |cFF0099FF[Коллекции]|r
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[Collections]|r
 ## Title-zhTW: AtlasLootClassic |cFF0099FF[Collections]|r
 ## Notes: AtlasLoot loot tables from Collections
-## Notes-deDE: AtlasLoot loot tables from Collections
-## Notes-esES: AtlasLoot loot tables from Collections
-## Notes-esMX: AtlasLoot loot tables from Collections
-## Notes-frFR: AtlasLoot loot tables from Collections
-## Notes-itIT: AtlasLoot loot tables from Collections
-## Notes-koKR: AtlasLoot loot tables from Collections
-## Notes-ptBR: AtlasLoot loot tables from Collections
-## Notes-ruRU: Таблицы лута AtlasLoot из коллекций
 ## Notes-zhCN: AtlasLoot loot tables from Collections
 ## Notes-zhTW: AtlasLoot loot tables from Collections
 ## X-Category: Map

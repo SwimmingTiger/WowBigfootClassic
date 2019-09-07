@@ -1,10 +1,6 @@
 ﻿## Interface: 11302
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruins of Ahn'Qiraj|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruinen von Ahn'Qiraj|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Ruinas de Ahn'Qiraj|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Руины Ан'Киража|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0안퀴라즈 폐허|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉廢墟|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -17,13 +13,12 @@
 ## X-DBM-Mod-MapID: 509
 ## X-DBM-Mod-Sort: 10
 ## X-DBM-Mod-MinCoreRevision: 12473
+## X-Revision: BigFoot
+
 localization.en.lua
-localization.de.lua
-localization.es.lua
-localization.ru.lua
-localization.kr.lua
 localization.tw.lua
 localization.cn.lua
+
 Kurinnaxx.lua
 Rajaxx.lua
 Moam.lua

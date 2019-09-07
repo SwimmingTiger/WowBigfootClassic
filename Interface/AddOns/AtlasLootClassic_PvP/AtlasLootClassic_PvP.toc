@@ -4,25 +4,9 @@
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-deDE: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-esES: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-esMX: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-frFR: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-itIT: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-koKR: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-ptBR: AtlasLootClassic |cFF0099FF[PvP]|r
-## Title-ruRU: AtlasLootClassic |cFF0099FF[PvP]|r
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[PvP]|r
 ## Title-zhTW: AtlasLootClassic |cFF0099FF[PvP]|r
 ## Notes: AtlasLoot loot tables from PvP
-## Notes-deDE: PvP Modul
-## Notes-esES: AtlasLoot loot tables from PvP
-## Notes-esMX: AtlasLoot loot tables from PvP
-## Notes-frFR: AtlasLoot loot tables from PvP
-## Notes-itIT: AtlasLoot loot tables from PvP
-## Notes-koKR: AtlasLoot loot tables from PvP
-## Notes-ptBR: AtlasLoot loot tables from PvP
-## Notes-ruRU: Таблицы добычи AtlasLoot с PvP
 ## Notes-zhCN: AtlasLoot  PvP掉落列表
 ## Notes-zhTW: AtlasLoot loot tables from PvP
 ## X-Category: Map
