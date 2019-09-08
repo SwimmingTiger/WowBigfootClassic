@@ -19,6 +19,8 @@ if GetLocale()=='zhCN' then
 	L["Masque"] ="动作条美化"
 	L["Auctionator"] ="拍卖大师"
 	L["aux-addon"] ="AUX拍卖"
+	L["MonkeyQuestList"] ="任务列表"
+	L["MonkeyQuestList-tooltip"] ="右击重置任务列表位置"
 	L["aux-addon-enabled"] ="AUX拍卖插件已打开，点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
 	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
 
@@ -41,6 +43,8 @@ elseif GetLocale()=='zhTW' then
 	L["Masque"] ="動作條美化"
 	L["Auctionator"] ="拍賣大師"
 	L["aux-addon"] ="AUX拍賣"
+	L["MonkeyQuestList"] ="任務列表"
+	L["MonkeyQuestList-tooltip"] ="右擊重置任務列表位置"
 	L["aux-addon-enabled"] ="AUX拍賣插件已打開，點擊拍賣行界面上的“暴雪UI”進入原版拍賣行界面。"
 	L["ActionNeedReloadUI"] ="該設置將在下次外掛程式載入時生效。"
 
@@ -50,6 +54,8 @@ else
 
 	L["Auctionator"] ="Auctionator"
 	L["aux-addon"] ="AUX Addon"
+	L["MonkeyQuestList"] ="Quest List"
+	L["MonkeyQuestList-tooltip"] ="Right click to reset list's position"
 	L["aux-addon-enabled"] ="The AUX Addon has been enabled, click on the \"Blizzard UI\" on the AUX auction UI to enter the original auction UI."
 	L["ActionNeedReloadUI"] ="This setting will be available next time."
 
@@ -398,6 +404,65 @@ local function __CreateEnableAddonCheckBox(addonName, enabledTip, enableByDefaul
 	return check
 end
 
+local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck, onUncheck, onRightClick)
+	local check = CreateFrame("CheckButton","MBBBottomPanel"..nextCheckIndex,UIParent,"OptionsSmallCheckButtonTemplate")
+	check:SetFrameLevel(8)
+	check:SetHeight(20)
+	check:SetWidth(20)
+	check:SetHitRectInsets(0, -60, 0,0)
+	_G[check:GetName().."Text"]:SetFontObject("NumberFont_Shadow_Med");
+	_G[check:GetName().."Text"]:SetTextHeight(12)
+	_G[check:GetName().."Text"]:SetText(L[varName])
+	check:SetScript("OnShow",function()
+		check:SetChecked(BigFoot_GetModVariable("CustomCheckBox", varName) == 1)
+	end)
+
+	if onRightClick ~= nil then
+		check:SetScript("OnMouseUp",function(self, button)
+			if button == "RightButton" then
+				onRightClick()
+				return
+			end
+		end)
+	end
+
+	if toolTip ~= nil then
+		check:SetScript("OnEnter",function(self)
+			BFMBB_Tooltip:SetOwner(self)
+			BFMBB_Tooltip:AddLine(toolTip,NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b,1)
+			local x,y = BFMBB_Tooltip:GetSize();
+			BFMBB_Tooltip:SetAnchorType("ANCHOR_LEFT",x,0)
+			BFMBB_Tooltip:SetScale(0.7)
+			BFMBB_Tooltip:Show()
+		end)
+		check:SetScript("OnLeave",function()
+			BFMBB_Tooltip:Hide()
+		end)
+	end
+
+	check:SetScript("OnClick",function(self, button, donw)
+		BigFoot_SetModVariable("CustomCheckBox", varName, check:GetChecked() and 1 or 0);
+		if check:GetChecked() then
+			onCheck()
+		else
+			onUncheck()
+		end
+	end)
+
+	if enableByDefault and (BigFoot_GetModVariable("CustomCheckBox", varName) == nil) then
+		BigFoot_SetModVariable("CustomCheckBox", varName, 1);
+	end
+	
+	if (BigFoot_GetModVariable("CustomCheckBox", varName) == 1) then
+		onCheck()
+	else
+		onUncheck()
+	end
+
+	nextCheckIndex = nextCheckIndex + 1
+	return check
+end
+
 local function __CreateBigFootButtons()
 	local bfButton = BLibrary("BFButton", M.panel, 80, 28);
 	local logButton = BLibrary("BFButton", M.panel, 80, 28);
@@ -523,10 +588,26 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	do
+	local function isAddonLoadable(addonName)
+		_, _, _, _, loadable, _, _ = GetAddOnInfo(addonName)
+		return loadable == 'DEMAND_LOADED'
+	end
+
+	if isAddonLoadable('Auctionator') then
 		check = __CreateEnableAddonCheckBox("Auctionator", nil, true)
 		M:AddBottomButton(check)
+	end
+
+	if isAddonLoadable('aux-addon') then
 		check = __CreateEnableAddonCheckBox("aux-addon", L['aux-addon-enabled'], false)
+		M:AddBottomButton(check)
+	end
+
+	if MonkeyQuestSlash_CmdOpen ~= nil then
+		check = __CreateCustomCheckBox("MonkeyQuestList", L["MonkeyQuestList-tooltip"], true,
+			function() MonkeyQuestSlash_CmdOpen(true) end,
+			function() MonkeyQuestSlash_CmdOpen(false) end,
+			function() MonkeyQuestSlash_CmdReset() end)
 		M:AddBottomButton(check)
 	end
 end
