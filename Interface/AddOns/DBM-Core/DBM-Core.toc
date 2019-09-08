@@ -12,7 +12,6 @@
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
 ## Version: 1.13.6
-## X-Revision: BigFoot
 
 Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua

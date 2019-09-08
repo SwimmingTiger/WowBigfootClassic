@@ -9,7 +9,6 @@
 ## SavedVariables: DBT_AllPersistentOptions
 ## X-Website: http://www.deadlybossmods.com
 ## Dependencies: BigFoot
-## X-Revision: BigFoot
 
 DBT-Template.xml
 DBT.lua
