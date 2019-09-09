@@ -947,6 +947,18 @@
             <Anchor point="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
+        <FontString name="QuestLogExDescriptionTitleText" inherits="GameFontHighlight" text="(请通过左侧标题栏拖动)" parentKey="Text">
+          <Size>
+            <AbsDimension x="300" y="14"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOP" relativeTo="QuestLogExFrameDescription" relativePoint="TOP">
+              <Offset>
+                <AbsDimension x="0" y="-15"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
     <Frames>
