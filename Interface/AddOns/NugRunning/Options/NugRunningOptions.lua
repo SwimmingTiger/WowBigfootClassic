@@ -215,6 +215,7 @@ function NugRunningGUI.CreateCommonForm(self)
             clean(opts, default_opts, "short", false)
 			clean(opts, default_opts, "ghost", false)
 			clean(opts, default_opts, "preghost", false)
+			clean(opts, default_opts, "timeless", false)
             clean(opts, default_opts, "singleTarget", false)
             clean(opts, default_opts, "multiTarget", false)
             clean(opts, default_opts, "scale", 1)
@@ -1083,6 +1084,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
 	controls.maxtimers:SetText(opts.maxtimers)
 	controls.singleTarget:SetValue(opts.singleTarget)
 	controls.multiTarget:SetValue(opts.multiTarget)
+	controls.timeless:SetValue(opts.timeless)
 
 	controls.color:SetColor(fillAlpha(opts.color or {0.8, 0.1, 0.7} ))
 	controls.color2:SetColor(fillAlpha(opts.color2 or {1,1,1,0} ))
@@ -1157,6 +1159,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
 		controls.nameplates:SetDisabled(false)
 		controls.hide_until:SetDisabled(true)
 		controls.clones:SetDisabled(false)
+		controls.timeless:SetDisabled(false)
 	else
 		controls.duration:SetDisabled(true)
 		controls.maxtimers:SetDisabled(true)
@@ -1166,6 +1169,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
 		controls.nameplates:SetDisabled(true)
 		controls.hide_until:SetDisabled(false)
 		controls.clones:SetDisabled(true)
+		controls.timeless:SetDisabled(true)
 	end
 
 	if category == "event_timers" then
@@ -1775,7 +1779,7 @@ local function MakeGeneralOptions()
                 type = "group",
                 name = "计时器",
                 guiInline = true,
-                order = 4,
+                order = 1.2,
                 args = {
 
                     spellText = {

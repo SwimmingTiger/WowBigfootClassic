@@ -194,15 +194,18 @@ function Bartender4:HideBlizzard()
 	end
 
 	if MainMenuExpBar then
-		-- 老虎会游泳：注释以修复无法显示经验条和声望条的问题
-		--MainMenuExpBar:Hide()
+		MainMenuExpBar:Hide()
 		MainMenuExpBar:SetParent(UIHider)
 	end
 
 	if ReputationWatchBar then
-		-- 老虎会游泳：注释以修复无法显示经验条和声望条的问题
-		--ReputationWatchBar:Hide()
+		ReputationWatchBar:Hide()
 		ReputationWatchBar:SetParent(UIHider)
+	end
+
+	if MainMenuBarMaxLevelBar then
+		MainMenuBarMaxLevelBar:Hide()
+		MainMenuBarMaxLevelBar:SetParent(UIHider)
 	end
 
 	self:RegisterPetBattleDriver()

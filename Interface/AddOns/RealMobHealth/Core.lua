@@ -11,6 +11,12 @@ AddOn.API=AddOn.API or {};
 AddOn.Options=AddOn.Options or {};
 _G[Name]=AddOn.API;--	API Global
 
+--------------------------
+--[[	Versioning	]]
+--------------------------
+AddOn.API.APIVersion=GetAddOnMetadata(Name,"X-APIVersion");
+AddOn.API.APIVersionMajor,AddOn.API.APIVersionMinor=(function(major,minor) return tonumber(major),tonumber(minor); end)(AddOn.API.APIVersion:match("^(%d+)%.(%d+)"));
+
 ----------------------------------
 --[[	Options Defaults	]]
 ----------------------------------

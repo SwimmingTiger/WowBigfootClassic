@@ -11,7 +11,7 @@
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.6
+## Version: 1.13.7
 
 Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua

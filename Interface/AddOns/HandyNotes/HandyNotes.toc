@@ -1,43 +1,25 @@
 ## Interface: 11302
 ## Title: HandyNotes
+## Title-zhCN: [大脚][集]地图标记
+## Title-zhTW: [大腳][集]地圖標記
 ## Notes: Handy notes for your maps
-## Notes-frFR: Notes pratiques pour vos cartes.
+## Notes-zhCN: |cff00ff00HandyNotes|r|n|cffbc8f8f使用Alt+鼠标右键快速标记|r
+## Notes-zhTW: |cff00ff00HandyNotes|r
 ## Author: Xinhuan
 ## Version: v1.5.6
-## DefaultState: enabled
 ## X-Category: Map
 ## X-eMail: xinhuan @ gmail DOT com
 ## OptionalDeps: Ace3, TomTom, HereBeDragons
-
-## LoadManagers: AddonLoader
-## X-LoadOn-Always: delayed
-
 ## SavedVariables: HandyNotesDB, HandyNotes_HandyNotesDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
 
-# Library files
-#@no-lib-strip@
-Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-Libs\AceAddon-3.0\AceAddon-3.0.xml
-Libs\AceEvent-3.0\AceEvent-3.0.xml
-Libs\AceDB-3.0\AceDB-3.0.xml
-Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
-Libs\AceLocale-3.0\AceLocale-3.0.xml
-Libs\AceGUI-3.0\AceGUI-3.0.xml
-Libs\AceConsole-3.0\AceConsole-3.0.xml
-Libs\AceConfig-3.0\AceConfig-3.0.xml
-Libs\HereBeDragons\HereBeDragons-2.0.lua
-Libs\HereBeDragons\HereBeDragons-Pins-2.0.lua
-Libs\HereBeDragons\HereBeDragons-Migrate.lua
-#@end-no-lib-strip@
+HereBeDragons\HereBeDragons-2.0.lua
+HereBeDragons\HereBeDragons-Pins-2.0.lua
+HereBeDragons\HereBeDragons-Migrate.lua
 
 # Locale files
 Locales\Locale-enUS.lua
-Locales\Locale-deDE.lua
-Locales\Locale-esES.lua
-Locales\Locale-frFR.lua
-Locales\Locale-koKR.lua
-Locales\Locale-ruRU.lua
 Locales\Locale-zhCN.lua
 Locales\Locale-zhTW.lua
 

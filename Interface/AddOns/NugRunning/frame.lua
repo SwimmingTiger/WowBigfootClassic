@@ -506,7 +506,6 @@ NugRunning.ConstructTimerBar = function(width, height)
     f.spellText:SetJustifyH("CENTER")
     f.spellText:SetAlpha(nameAlpha or 1)
     f.spellText:SetPoint("LEFT", f.bar, "LEFT",6,0)
-    f.spellText.SetName = SpellTextUpdate
 
     local overlay = f.bar:CreateTexture(nil, "ARTWORK", nil, 3)
     overlay:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")

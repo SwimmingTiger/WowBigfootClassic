@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ArcanistDoan", "DBM-Party-Classic", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190901174309")
+mod:SetRevision("20190908214359")
 mod:SetCreatureID(6487)
 --mod:SetEncounterID(585)
 
@@ -28,7 +28,7 @@ function mod:OnCombatStart(delay)
 end
 
 do
-	local Detonation = DBM:GetSpellInfo(9435)
+	local Detonation, ArcaneExplosion, Silence, Polymorph = DBM:GetSpellInfo(9435), DBM:GetSpellInfo(9433), DBM:GetSpellInfo(8988), DBM:GetSpellInfo(13323)
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 9435 then
 		if args.spellName == Detonation then
@@ -41,10 +41,7 @@ do
 			timerSilenceCD:Start()
 		end
 	end
-end
 
-do
-	local ArcaneExplosion, Silence, Polymorph = DBM:GetSpellInfo(9433), DBM:GetSpellInfo(8988), DBM:GetSpellInfo(13323)
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 9433 then
 		if args.spellName == ArcaneExplosion and args:IsSrcTypeHostile() then

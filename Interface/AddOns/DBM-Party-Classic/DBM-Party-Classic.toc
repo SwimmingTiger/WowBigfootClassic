@@ -1,6 +1,6 @@
 ﻿## Interface: 11302
 ## X-Min-Interface: 11302
-## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Party-Classic|r
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Dungeons (Classic)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-傳統|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍首领(经典旧世)|r
 ## Author: MysticalOS
@@ -13,7 +13,7 @@
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-Mod-SubCategoriesID: 48,230,229|Lower,229|Upper,36,429,90,349,389,129,47,189,289,33,34,329,109,70,43,209
-## X-DBM-Mod-Name: Party-Classic
+## X-DBM-Mod-Name: Dungeons (Classic)
 ## X-DBM-Mod-Name-zhTW: 隊伍首領 (傳統)
 ## X-DBM-Mod-Name-zhCN: 队伍首领(经典旧世)
 ## X-DBM-Mod-Sort: 15

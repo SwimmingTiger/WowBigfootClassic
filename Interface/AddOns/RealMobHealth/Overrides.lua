@@ -32,10 +32,14 @@ local function AddHealthOverride(creaturekey,maxhealth)
 	AddOn_FireAddOnEvent("HEALTH_UPDATE",creaturekey,maxhealth);
 end
 
+local function HasHealthOverride(creaturekey) return HealthOverrides[creaturekey] and true or false; end
+
 AddOn.HealthOverrides=HealthOverrides;
 AddOn.AddHealthOverride=AddHealthOverride;
+AddOn.HasHealthOverride=HasHealthOverride;
 
 ------------------------------------------
 --[[	External API Registration	]]
 ------------------------------------------
 AddOn.API.AddHealthOverride=AddHealthOverride;
+AddOn.API.HasHealthOverride=HasHealthOverride;

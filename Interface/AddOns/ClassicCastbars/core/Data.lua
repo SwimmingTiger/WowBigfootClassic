@@ -1048,6 +1048,7 @@ local castSpellIDs = {
     28738, -- Summon Speedy
     3657, -- Summon Spell Guard
     11548, -- Summon Spider God
+    3652, -- Summon Spirit of Old
     10712, -- Summon Spotted Rabbit
     15067, -- Summon Sprite Darter Hatchling
     712, -- Summon Succubus
@@ -1343,32 +1344,28 @@ namespace.castTimeIncreases = {
 }
 
 -- Spells that have cast time reduced by talents.
--- Value here is not the actual cast time, but instead how
--- many seconds a talent reduces the cast time. We reduct
--- the cast time in the CLEU event for player guids so we don't
--- reduce cast time for a NPC spell with the exact same name.
 namespace.castTimeTalentDecreases = {
-    [GetSpellInfo(403)] = 1,        -- Lightning Bolt
-    [GetSpellInfo(421)] = 1,        -- Chain Lightning
-    [GetSpellInfo(6353)] = 2,       -- Soul Fire
-    [GetSpellInfo(116)] = 0.5,      -- Frostbolt
-    [GetSpellInfo(133)] = 0.5,      -- Fireball
-    [GetSpellInfo(686)] = 0.5,      -- Shadow Bolt
-    [GetSpellInfo(348)] = 0.5,      -- Immolate
-    [GetSpellInfo(331)] = 0.5,      -- Healing Wave
-    [GetSpellInfo(585)] = 0.5,      -- Smite
-    [GetSpellInfo(14914)] = 0.5,    -- Holy Fire
-    [GetSpellInfo(2054)] = 0.5,     -- Heal
-    [GetSpellInfo(25314)] = 0.5,    -- Greater Heal
-    [GetSpellInfo(8129)] = 0.5,     -- Mana Burn
-    [GetSpellInfo(5176)] = 0.5,     -- Wrath
-    [GetSpellInfo(2912)] = 0.5,     -- Starfire
-    [GetSpellInfo(5185)] = 0.5,     -- Healing Touch
-    [GetSpellInfo(2645)] = 2,       -- Ghost Wolf
-    [GetSpellInfo(691)] = 4,        -- Summon Felhunter
-    [GetSpellInfo(688)] = 4,        -- Summon Imp
-    [GetSpellInfo(697)] = 4,        -- Summon Voidwalker
-    [GetSpellInfo(712)] = 4,        -- Summon Succubus
+    [GetSpellInfo(403)] = 2000,      -- Lightning Bolt
+    [GetSpellInfo(421)] = 1500,      -- Chain Lightning
+    [GetSpellInfo(6353)] = 4000,     -- Soul Fire
+    [GetSpellInfo(116)] = 2500,      -- Frostbolt
+    [GetSpellInfo(133)] = 3000,      -- Fireball
+    [GetSpellInfo(686)] = 2500,      -- Shadow Bolt
+    [GetSpellInfo(348)] = 1500,      -- Immolate
+    [GetSpellInfo(331)] = 2500,      -- Healing Wave
+    [GetSpellInfo(585)] = 2000,      -- Smite
+    [GetSpellInfo(14914)] = 3000,    -- Holy Fire
+    [GetSpellInfo(2054)] = 2500,     -- Heal
+    [GetSpellInfo(25314)] = 2500,    -- Greater Heal
+    [GetSpellInfo(8129)] = 2500,     -- Mana Burn
+    [GetSpellInfo(5176)] = 1500,     -- Wrath
+    [GetSpellInfo(2912)] = 3000,     -- Starfire
+    [GetSpellInfo(5185)] = 3000,     -- Healing Touch
+    [GetSpellInfo(2645)] = 1000,     -- Ghost Wolf
+    [GetSpellInfo(691)] = 6000,      -- Summon Felhunter
+    [GetSpellInfo(688)] = 6000,      -- Summon Imp
+    [GetSpellInfo(697)] = 6000,      -- Summon Voidwalker
+    [GetSpellInfo(712)] = 6000,      -- Summon Succubus
 }
 
 -- List of crowd controls.
@@ -1446,7 +1443,7 @@ namespace.crowdControls = {
 
 -- Addon Savedvariables
 namespace.defaultConfig = {
-    version = "8", -- settings version
+    version = "9", -- settings version
     pushbackDetect = true,
     locale = GetLocale(),
 
@@ -1470,6 +1467,8 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorChannel = { 0, 1, 0, 1 },
         textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
     },
 
     target = {
@@ -1492,5 +1491,7 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorChannel = { 0, 1, 0, 1 },
         textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
     },
 }

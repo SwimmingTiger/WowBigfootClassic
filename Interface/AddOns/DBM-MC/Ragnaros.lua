@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190904054816")
+mod:SetRevision("20190905050248")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -19,7 +19,6 @@ mod:RegisterEventsInCombat(
 ability.id = 20566 and type = "cast" or target.id = 12143 and type = "death"
 --]]
 local warnWrathRag		= mod:NewSpellAnnounce(20566, 3)
-local WarnAddsLeft		= mod:NewAnnounce("WarnAddsLeft", 2, 8985)
 local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnEmerge		= mod:NewAnnounce("WarnEmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
@@ -29,8 +28,10 @@ local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Cor
 local timerCombatStart	= mod:NewCombatTimer(73)
 
 mod.vb.addLeft = 8
+local addsGuidCheck = {}
 
 function mod:OnCombatStart(delay)
+	table.wipe(addsGuidCheck)
 	self.vb.addLeft = 8
 	timerWrathRag:Start(26.7-delay)
 	timerSubmerge:Start(180-delay)
@@ -41,6 +42,7 @@ local function emerged(self)
 	warnEmerge:Show()
 	timerWrathRag:Start(26.7)--need to find out what it is first.
 	timerSubmerge:Start(180)
+	table.wipe(addsGuidCheck)
 	self.vb.addLeft = 8
 end
 
@@ -51,6 +53,23 @@ do
 		if args.spellName == Wrath then
 			warnWrathRag:Show()
 			timerWrathRag:Start()
+		end
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local guid = args.destGUID
+	local cid = self:GetCIDFromGUID(guid)
+	if cid == 12143 then--Son of Flame
+		self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
+		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
+		if not addsGuidCheck[guid] then
+			addsGuidCheck[guid] = true
+			self.vb.addLeft = self.vb.addLeft - 1
+			if self.vb.addLeft == 0 then--After all 8 die he emerges immediately
+				self:Unschedule(emerged)
+				emerged(self)
+			end
 		end
 	end
 end
@@ -66,7 +85,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg)
+function mod:OnSync(msg, guid)
 	if not self:IsInCombat() then return end
 	if msg == "Submerge" then
 		self:Unschedule(emerged)
@@ -74,18 +93,13 @@ function mod:OnSync(msg)
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
 		self:Schedule(90, emerged, self)
-	end
-end
-
-function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 12143 then--Son of Flame
+	elseif msg == "AddDied" and guid and not addsGuidCheck[guid] then
+		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
+		addsGuidCheck[guid] = true
 		self.vb.addLeft = self.vb.addLeft - 1
 		if self.vb.addLeft == 0 then--After all 8 die he emerges immediately
 			self:Unschedule(emerged)
 			emerged(self)
-		elseif self.vb.addLeft < 4 then
-			WarnAddsLeft(self.vb.addLeft)
 		end
 	end
 end

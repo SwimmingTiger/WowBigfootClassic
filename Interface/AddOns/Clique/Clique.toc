@@ -1,0 +1,31 @@
+﻿## Interface: 11302
+## Title: Clique
+## Title-zhCN: [大脚][集]一键施法
+## Title-zhTW: [大腳][集]一鍵施法
+## Notes: |cffbc8f8fSimply powerful click-casting interface.|r
+## Notes-zhCN: |cff00ff00Clique|r|n|cffbc8f8f简单而强大的点击施法工具。|r
+## Notes-zhTW: |cff00ff00Clique|r|n|cffbc8f8f簡單而強大的點擊施法工具。|r
+## Author: Cladhaire
+## Version: v1.0.3-classic
+## SavedVariables: CliqueDB, CliqueDB3
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+AddonCore.lua
+
+Localization.enUS.lua
+Localization.zhCN.lua
+Localization.zhTW.lua
+
+libs\tekKonfigAboutPanel.lua
+
+DatabaseDefaults.lua
+ClickCastTemplate.xml
+Clique.xml
+Clique.lua
+Utils.lua
+BindConfig.lua
+OptionsPanel.lua
+FrameOptionsPanel.lua
+BlizzardFrames.lua

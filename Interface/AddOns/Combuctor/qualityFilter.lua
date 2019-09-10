@@ -20,11 +20,11 @@ function FilterButton:Create(parent, quality)
 		bg:SetWidth(SIZE/2)
 		bg:SetHeight(SIZE/2)
 		bg:SetPoint('CENTER')
-		bg:SetTexture(GetItemQualityColor(quality))
+		bg:SetColorTexture(GetItemQualityColor(quality))
 		button.bg = bg
 
 	end
-	-- -- button:SetHighlightTexture("Interface\Buttons\CancelButton-Square")
+	-- button:SetHighlightTexture("Interface\Buttons\CancelButton-Square")
 	return button
 end
 
@@ -84,8 +84,8 @@ function QualityFilter:New(parent)
 	local f = self:Bind(CreateFrame('Frame', nil, parent))
 
 	local prev
-	for quality = -1, 7 do
-		if quality~=6 then --传家宝7 6为神器 神器不常有而传家宝常有。
+	for quality = -1, 5 do
+		-- if quality~=6 then --传家宝7 6为神器 神器不常有而传家宝常有。
 		local button = FilterButton:Create(f, quality)
 		if prev then
 			button:SetPoint('LEFT', prev, 'RIGHT', 1, 0)
@@ -93,7 +93,7 @@ function QualityFilter:New(parent)
 			button:SetPoint('LEFT')
 		end
 		prev = button
-		end
+		-- end
 	end
 
 	f:SetWidth(SIZE * 6)

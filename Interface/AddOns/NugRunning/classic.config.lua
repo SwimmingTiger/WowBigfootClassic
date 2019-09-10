@@ -503,7 +503,7 @@ Spell({ 9484, 9485, 10955 }, { name = "Shackle Undead", glowtime = 5, nameplates
 }) -- varies
 Spell( 10060, { name = "Power Infusion", duration = 15, group = "buffs", color = colors.TEAL2 })
 -- make charged to 20?
-Spell({ 588, 602, 1006, 7128, 10951, 10952 }, { name = "Inner Fire", duration = 600, priority = -100, color = colors.GOLD, scale = 0.7 })
+Spell({ 588, 602, 1006, 7128, 10951, 10952 }, { name = "Inner Fire", duration = 600, ghost = true, charged = true, maxcharge = 20, priority = -100, color = colors.GOLD, scale = 0.7 })
 Spell({ 17, 592, 600, 3747, 6065, 6066, 10898, 10899, 10900, 10901 }, { name = "Power Word: Shield", short = "Shield", shinerefresh = true, duration = 30, color = colors.LRED })
 Spell( 552 , { name = "Abolish Disease", tick = 5, tickshine = true, overlay = {"tick", "end"}, duration = 20, scale = 0.5, color = colors.BROWN })
 
@@ -666,6 +666,17 @@ Cooldown( 23881, { name = "Bloodthirst", priority = 10, short = "", fixedlen = 6
 
 -- Make Charges?
 Spell({ 7386, 7405, 8380, 11596, 11597 }, { name = "Sunder Armor", duration = 30, color = colors.DBROWN })
+EventTimer({ event = "SPELL_CAST_SUCCESS", spellID = 11597, name = "SunderArmor5StackRefresh",
+    action = function(active, srcGUID, dstGUID, spellID, damage )
+        local timer = NugRunning.gettimer(active, GetSpellInfo(spellID), dstGUID, "DEBUFF")
+        if timer then
+            local now = GetTime()
+            timer:SetTime(now, now + 30, timer.fixedoffset)
+        end
+    end
+})
+
+
 Spell( 12809 ,{ name = "Concussion Blow", color = colors.TEAL2, shine = true, duration = 5 })
 Spell( 12292 ,{ name = "Sweeping Strikes", group = "buffs", shine = true, priority = -100503, color = colors.LRED, duration = 20, scale = 0.8 })
 Spell({ 12880, 14201, 14202, 14203, 14204 }, { name = "Enrage", color = colors.PURPLE4, shine = true, shinerefresh = true, scale = 1, group = "buffs", priority = -3, duration = 12 })

@@ -4,4 +4,6 @@
 	<Include file="MBB\MBB.xml"/>
 	<!-- <Include file="ModelChange.xml"/> -->
 	<Script file="ModConfig.lua"/>
+	<Script file="oHWell.lua"/>
+	<Script file="ClassicSpellActivations.lua"/>
 </Ui>

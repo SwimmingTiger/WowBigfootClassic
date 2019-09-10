@@ -13,7 +13,6 @@ local mapToContinent = { }
 local nodes = { }
 local minimap = { } -- For nodes that need precise minimap locations but would look wrong on zone or continent maps
 local alterName = { }
-local coordToDungeon = { } -- Maybe try to get rid of this
 
 if (DEBUG) then
 	HNDL_NODES = nodes
@@ -22,27 +21,27 @@ if (DEBUG) then
 end
 
 local DUNGEON_DATA = {
-	[L["Ruins of Ahn'Qiraj"]] = {
-		minimumLevel = 60,
-	},
-	[L["Temple of Ahn'Qiraj"]] = {
-		minimumLevel = 60,
-	},
 	[L["Blackfathom Deeps"]] = {
 		minimumLevel = 10,
-		meetingStone = '24-32',
+		meetingStone = '22-32',
+		recommendedLevelRange = '22-32',
 	},
 	[L["Blackrock Depths"]] = {
 		minimumLevel = 40,
 		meetingStone = '52-60',
+		recommendedLevelRange = '48-60',
 	},
 	[L["Blackrock Spire"]] = {
 		minimumLevel = 45,
 		meetingStone = '55-60',
 	},
+	[L["Blackwing Lair"]] = {
+		recommendedLevelRange = '60',
+	},
 	[L["Deadmines"]] = {
 		minimumLevel = 10,
 		meetingStone = '17-26',
+		recommendedLevelRange = '15-25',
 	},
 	[L["Dire Maul"]] = {
 		minimumLevel = 45,
@@ -50,19 +49,48 @@ local DUNGEON_DATA = {
 	[L["Gnomeregan"]] = {
 		minimumLevel = 15,
 		meetingStone = '29-38',
+		recommendedLevelRange = '24-34',
 	},
 	[L["Maraudon"]] = {
 		minimumLevel = 30,
+		recommendedLevelRange = '45-52',
+	},
+	[L["Molten Core"]] = {
+		recommendedLevelRange = '60',
+	},
+	[L["Ragefire Chasm"]] = {
+		recommendedLevelRange = '13-18',
 	},
 	[L["Razorfen Downs"]] = {
 		minimumLevel = 35,
+		recommendedLevelRange = '37-47',
 	},
 	[L["Razorfen Kraul"]] = {
 		minimumLevel = 25,
+		recommendedLevelRange = '32-42',
+	},
+	[L["Ruins of Ahn'Qiraj"]] = {
+		minimumLevel = 60,
+	},
+	[L["Scarlet Monastery"]] = {
+		recommendedLevelRange = '26-45',
+	},
+	[L["Scholomance"]] = {
+		recommendedLevelRange = '55-60',
+	},
+	[L["Shadowfang Keep"]] = {
+		recommendedLevelRange = '22-30',
+	},
+	[L["Stratholme"]] = {
+		recommendedLevelRange = '55-60',
+	},
+	[L["Temple of Ahn'Qiraj"]] = {
+		minimumLevel = 60,
 	},
 	[L["The Stockade"]] = {
 		minimumLevel = 15,
 		meetingStone = '24-32',
+		recommendedLevelRange = '22-32',
 	},
 	[L["The Temple of Atal'hakkar"]] = {
 		minimumLevel = 35,
@@ -72,11 +100,19 @@ local DUNGEON_DATA = {
 		minimumLevel = 30,
 		meetingStone = '41-51',
 	},
+	[L["Blackrock Spire"]] = {
+		recommendedLevelRange = '55-60',
+	},
+	[L["Wailing Caverns"]] = {
+		recommendedLevelRange = '17-27',
+	},
 	[L["Zul'Farrak"]] = {
 		minimumLevel = 39,
+		recommendedLevelRange = '44-54',
 	},
 	[L["Zul'Gurub"]] = {
 		minimumLevel = 50,
+		recommendedLevelRange = '60',
 	},
 }
 
@@ -84,16 +120,11 @@ local pluginHandler = { }
 function pluginHandler:OnEnter(uiMapId, coord)
     local nodeData = nil
 	
-    --if (not nodes[mapFile][coord]) then return end
-	if (coordToDungeon[coord]) then
-		nodeData = coordToDungeon[coord]
+	if (minimap[uiMapId] and minimap[uiMapId][coord]) then
+	 nodeData = minimap[uiMapId][coord]
 	end
-	
-	if (minimap[mapFile] and minimap[mapFile][coord]) then
-	 nodeData = minimap[mapFile][coord]
-	end
-	if (nodes[mapFile] and nodes[mapFile][coord]) then
-	 nodeData = nodes[mapFile][coord]
+	if (nodes[uiMapId] and nodes[uiMapId][coord]) then
+	 nodeData = nodes[uiMapId][coord]
 	end
 	
 	if (not nodeData) then return end
@@ -110,8 +141,14 @@ function pluginHandler:OnEnter(uiMapId, coord)
 	local instances = { strsplit("\n", nodeData.name) }
 
 	for i, v in pairs(instances) do
-		if (DUNGEON_DATA[v] and DUNGEON_DATA[v].minimumLevel) then
-			tooltip:AddLine(v .. '     [' .. DUNGEON_DATA[v].minimumLevel .. ']')
+		if DUNGEON_DATA[v]then
+			if DUNGEON_DATA[v].recommendedLevelRange then
+				tooltip:AddLine(v .. '     [' .. DUNGEON_DATA[v].recommendedLevelRange .. ']')
+			elseif DUNGEON_DATA[v].meetingStone then
+				tooltip:AddLine(v .. '     [' .. DUNGEON_DATA[v].meetingStone .. ']')
+			elseif DUNGEON_DATA[v].minimumLevel then
+				tooltip:AddLine(v .. '     [' .. DUNGEON_DATA[v].minimumLevel .. ']')
+			end
 		else
 			tooltip:AddLine(v, nil, nil, nil, false)
 		end
@@ -155,9 +192,6 @@ do
 		local state, value = next(data, prestate)
 
 		if value then
-			if (not coordToDungeon[state]) then
-				coordToDungeon[state] = value
-			end
 			local icon, alpha
 			if (value.type == "Dungeon") then
 				icon = iconDungeon
@@ -196,9 +230,6 @@ do
 			if data then -- Only if there is data for this zone
 				state, value = next(data, prestate)
 				while state do -- Have we reached the end of this zone?
-					if (not coordToDungeon[state]) then
-						coordToDungeon[state] = value
-					end
 					local icon, alpha
 
 					if (value.type == "Dungeon") then
@@ -320,7 +351,7 @@ Addon:RegisterEvent("PLAYER_LOGIN")
 Addon:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
 
 local function updateStuff()
-	HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations")
+	HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic")
 end
 
 function Addon:PLAYER_ENTERING_WORLD()
@@ -333,10 +364,10 @@ end
 function Addon:PLAYER_LOGIN()
  local options = {
  type = "group",
- name = "DungeonLocations",
+ name = "DungeonLocations_Classic",
  desc = "Locations of dungeon and raid entrances.",
  get = function(info) return db[info[#info]] end,
- set = function(info, v) db[info[#info]] = v HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations") end,
+ set = function(info, v) db[info[#info]] = v HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic") end,
  args = {
   desc = {
    name = L["These settings control the look and feel of the icon."],
@@ -394,7 +425,7 @@ function Addon:PLAYER_LOGIN()
    desc = L["Show dungeon locations on the map"],
    order = 24.1,
    get = function() return db.show["Dungeon"] end,
-   set = function(info, v) db.show["Dungeon"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations") end,
+   set = function(info, v) db.show["Dungeon"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic") end,
   },
   showRaids = {
    type = "toggle",
@@ -402,7 +433,7 @@ function Addon:PLAYER_LOGIN()
    desc = L["Show raid locations on the map"],
    order = 24.2,
    get = function() return db.show["Raid"] end,
-   set = function(info, v) db.show["Raid"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations") end,
+   set = function(info, v) db.show["Raid"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic") end,
   },
   showMixed = {
    type = "toggle",
@@ -410,7 +441,7 @@ function Addon:PLAYER_LOGIN()
    desc = L["Show mixed (dungeons + raids) locations on the map"],
    order = 24.2,
    get = function() return db.show["Mixed"] end,
-   set = function(info, v) db.show["Mixed"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations") end,
+   set = function(info, v) db.show["Mixed"] = v self:FullUpdate() HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic") end,
   },
   lockoutheader = {
    type = "header",
@@ -452,7 +483,7 @@ function Addon:PLAYER_LOGIN()
 }
 
 
- HandyNotes:RegisterPluginDB("DungeonLocations", pluginHandler, options)
+ HandyNotes:RegisterPluginDB("DungeonLocations_Classic", pluginHandler, options)
  self.db = LibStub("AceDB-3.0"):New("HandyNotes_DungeonLocationsClassicDB", defaults, true)
  db = self.db.profile
  
@@ -482,17 +513,6 @@ function Addon:PopulateTable()
 	table.wipe(nodes)
 	table.wipe(minimap)
 
---[[nodes[327] = { -- AhnQirajTheFallenKingdom
- [59001430] = {
-  id = 743,
-  type = "Raid",
-  hideOnContinent = true
- }, -- Ruins of Ahn'Qiraj Silithus 36509410, World 42308650
- [46800750] = { id = 744,
-  type = "Raid",
-  hideOnContinent = true
- }, -- Temple of Ahn'Qiraj Silithus 24308730, World 40908570
-}]]--
 nodes[1440] = { -- Ashenvale
  [14001310] = {
   name = L["Blackfathom Deeps"],

@@ -7,6 +7,7 @@ local activeFrames = addon.activeFrames
 local gsub = _G.string.gsub
 local unpack = _G.unpack
 local min = _G.math.min
+local max = _G.math.max
 local UnitExists = _G.UnitExists
 
 function addon:GetCastbarFrame(unitID)
@@ -27,11 +28,11 @@ function addon:SetTargetCastbarPosition(castbar, parentFrame)
         if parentFrame.buffsOnTop or auraRows <= 1 then
             castbar:SetPoint("CENTER", parentFrame, -18, -75)
         else
-            castbar:SetPoint("CENTER", parentFrame, -18, min(-75, -50 * (auraRows - 0.4)))
+            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -37.5 * auraRows), -150))
         end
     else
         if not parentFrame.buffsOnTop and auraRows > 0 then
-            castbar:SetPoint("CENTER", parentFrame, -18, min(-75, -50 * (auraRows - 0.4)))
+            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -37.5 * auraRows), -150))
         else
             castbar:SetPoint("CENTER", parentFrame, -18, -50)
         end
@@ -71,6 +72,7 @@ function addon:SetCastbarStyle(castbar, cast, db)
         castbar.Icon:SetTexCoord(0, 1, 0, 1)
     end
 
+    castbar.Spark:SetHeight(db.height * 2.1)
     castbar.Icon:SetSize(db.iconSize, db.iconSize)
     castbar.Icon:SetPoint("LEFT", castbar, db.iconPositionX - db.iconSize, db.iconPositionY)
     castbar.Border:SetVertexColor(unpack(db.borderColor))
@@ -136,6 +138,7 @@ function addon:SetCastbarFonts(castbar, cast, db)
     local c = db.textColor
     castbar.Text:SetTextColor(c[1], c[2], c[3], c[4])
     castbar.Timer:SetTextColor(c[1], c[2], c[3], c[4])
+    castbar.Text:SetPoint("CENTER", db.textPositionX, db.textPositionY)
 end
 
 function addon:DisplayCastbar(castbar, unitID)

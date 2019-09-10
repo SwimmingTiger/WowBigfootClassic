@@ -1,0 +1,36 @@
+## Interface: 11302
+## Title: Decursive
+## Title-zhCN: [大脚][集]一键驱散
+## Title-zhTW: [大腳][集]一鍵驅散
+## Notes: |cffbc8f8fAfflictions display and cleaning for solo, group and raid with advanced filtering and priority system.|r
+## Notes-zhCN: |cff00ff00Decursive|r|n|cffbc8f8f当单独、小队和团队时清除有害状态，并可使用高级过滤和优先等级系统。|r
+## Notes-zhTW: |cff00ff00Decursive|r|n|cffbc8f8f當單獨、小隊和團隊時清除有害狀態，並可使用高級過濾和優先等級系統。|r
+## SavedVariables: DecursiveDB
+## Version: 2.7.6.4-beta_3
+## Author: John Wellesz
+## X-eMail: Decursive@2072productions.com
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+Dcr_DIAG.lua
+Dcr_DIAG.xml
+
+Localization\load.xml
+
+DCR_init.lua
+Dcr_LDB.lua
+Dcr_utils.lua
+Dcr_opt.lua
+Dcr_Events.lua
+Dcr_Raid.lua
+Decursive.lua
+Decursive.xml
+Dcr_lists.lua
+Dcr_lists.xml
+Dcr_DebuffsFrame.lua
+Dcr_DebuffsFrame.xml
+Dcr_LiveList.lua
+Dcr_LiveList.xml
+
+Bigfoot.lua

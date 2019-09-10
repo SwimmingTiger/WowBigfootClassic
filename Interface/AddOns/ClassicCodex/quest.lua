@@ -65,6 +65,13 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         -- end
 
     elseif (event == "QUEST_DETAIL") then
+		if not CCTip then
+			CCTip = QuestNpcNameFrame:CreateFontString("CCTip", "ARTWORK", "GameFontHighlight")
+			CCTip:SetWidth(288)
+			CCTip:SetHeight(55)
+			CCTip:SetText("任务助手：打开任务日志(L)\nshift+左键追踪显示任务提示");
+			CCTip:SetPoint("TOPLEFT", QuestFrame, "TOPLEFT", 55, -30);
+		end
         if not CodexConfig.autoAccept or IsControlKeyDown() then
             return
         end
@@ -213,7 +220,7 @@ function CodexQuest:UpdateQuestLog()
                 local state = watched and "trck" or ""
                 for i=1, objectives do
                     local text, _,  done = GetQuestLogLeaderBoard(i, questLogId)
-                    local _, _, obj, objNum, objNeeded = strfind(text, "(.*):%s*([%d]+)%s*/%s*([%d]+)")
+                    local _, _, obj, objNum, objNeeded = strfind(text, "(.*)：%s*([%d]+)%s*/%s*([%d]+)")
                     if obj then
                         state = state .. i .. (((objNum + 0 >= objNeeded + 0) or done) and "done" or "todo")
                     end
@@ -225,6 +232,11 @@ function CodexQuest:UpdateQuestLog()
             if found >= numQuests then
                 break
             end
+        end
+
+		if complete then
+			CodexMap:DeleteNode("CODEX", title)
+            CodexMap:UpdateNodes()
         end
     end
 
@@ -402,10 +414,8 @@ function CodexQuest:AddWorldMapIntegration()
     end
 end
 
-
-
-
 function CodexQuest:CheckNamePlate()
+	if IsInInstance() then return end
     local something = WorldFrame:GetNumChildren()
     local index = 1
     local plateList = {}

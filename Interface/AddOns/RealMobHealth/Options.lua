@@ -7,6 +7,7 @@
 --[[	Namespace	]]
 --------------------------
 local Name,AddOn=...;
+AddOn.API=AddOn.API or {};
 local Title=select(2,GetAddOnInfo(Name)):gsub("%s*v?[%d%.]+$","");
 local Version=GetAddOnMetadata(Name,"Version");
 local Author=GetAddOnMetadata(Name,"Author");
@@ -20,7 +21,8 @@ RealMobHealth_Options=AddOn.Options;
 --------------------------
 --[[	Local Variables	]]
 --------------------------
-local Defaults,Options;
+local Defaults,Options;--	Defaults are added by other modules and applied when ADDON_LOADED fires
+local OptionsOverride={};--	Forced values set by other addons
 
 ----------------------------------
 --[[	Local References	]]
@@ -30,15 +32,21 @@ local AddOn_FireAddOnEvent=AddOn.FireAddOnEvent;
 --------------------------
 --[[	Event Scripts	]]
 --------------------------
+local function FireOptionsUpdateEvent(option,val)
+	if not option then AddOn_FireAddOnEvent("OPTIONS_UPDATE");
+	elseif val==nil then AddOn_FireAddOnEvent("OPTIONS_UPDATE",option,OptionsOverride[option]);
+	else AddOn_FireAddOnEvent("OPTIONS_UPDATE",option,val); end
+end
+
 AddOn.RegisterGameEvent("ADDON_LOADED",function(event,name)
 	if name==Name then
 		Defaults,Options=AddOn.Options,RealMobHealth_Options;
-		AddOn.Options=Options;
+		AddOn.Options=setmetatable(OptionsOverride,{__index=Options});
 
 --		Trim/Fill Options
 		for key,val in pairs(Defaults) do if Options[key]==nil then Options[key]=val; end end
 		for key,val in pairs(Options) do if Defaults[key]==nil then Options[key]=nil; end end
-		AddOn_FireAddOnEvent("OPTIONS_UPDATE");
+		FireOptionsUpdateEvent();
 
 		AddOn.UnregisterGameEvent(event);
 	end
@@ -75,7 +83,7 @@ local CreateOptionsButton; do--	function(parent,key,<anchor>)
 	local function OnClick(self)
 		local val=self:GetChecked();
 		Options[self.Key]=val;
-		AddOn_FireAddOnEvent("OPTIONS_UPDATE",self.Key,val);
+		FireOptionsUpdateEvent(self.Key);--	Fire with overridden value if set instead of the stored one
 	end
 
 	local function OnEnter(self)
@@ -84,6 +92,7 @@ local CreateOptionsButton; do--	function(parent,key,<anchor>)
 		if self.Description then
 			for line in self.Description:gmatch("[^\r\n]+") do GameTooltip:AddLine(line,1,1,1); end
 		end
+		if rawget(OptionsOverride,self.Key)~=nil then GameTooltip:AddLine(AddOn.Localization.Options_SetByAddOn,1,1,1); end
 		GameTooltip:Show();
 	end
 
@@ -111,10 +120,11 @@ local CreateOptionsButton; do--	function(parent,key,<anchor>)
 	end
 end
 
-CreateOptionsButton(Panel,"ShowTooltipText","TOPLEFT",32,-48);
-CreateOptionsButton(Panel,"ShowStatusBarTextAdditions","TOPLEFT",32,-72);
-CreateOptionsButton(Panel,"ModifyHealthBarText","TOPLEFT",32,-96);
-CreateOptionsButton(Panel,"ShowNamePlateHealthText","TOPLEFT",32,-120);
+CreateOptionsButton(Panel,"ShowStatusBarTextAdditions","TOPLEFT",32,-48);
+CreateOptionsButton(Panel,"ModifyHealthBarText","TOPLEFT",32,-72);
+CreateOptionsButton(Panel,"ShowTooltipText","TOPLEFT",32,-96);
+CreateOptionsButton(Panel,"ShowTooltipHealthText","TOPLEFT",32,-120);
+CreateOptionsButton(Panel,"ShowNamePlateHealthText","TOPLEFT",32,-144);
 
 ----------------------------------
 --[[	Cache Sub-Panels	]]
@@ -230,3 +240,19 @@ end
 function Panel.refresh()
 	for key,button in pairs(OptionsButtons) do button:SetChecked(Options[key]); end
 end
+
+--------------------------
+--[[	API Functions	]]
+--------------------------
+local function OverrideOption(option,val)
+	local current=Options[option];--	Note: Options values cannot be nil
+	if current~=nil and (val==nil or type(val)==type(current)) then--	Type check, allow nil to clear override
+		OptionsOverride[option]=val;
+		FireOptionsUpdateEvent(option,val);--	Fire with value, nil causes the function to lookup the stored value and send that
+	end
+end
+
+----------------------------------
+--[[	API Registration	]]
+----------------------------------
+AddOn.API.OverrideOption=OverrideOption;--	This is an external-only function, other modules may extend this to offer changing a group of options

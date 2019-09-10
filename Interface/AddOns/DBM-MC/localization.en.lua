@@ -97,8 +97,7 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnSubmerge		= "Submerge",
-	WarnEmerge			= "Emerge",
-	WarnAddsLeft		= "%d Son(s) Remaining"
+	WarnEmerge			= "Emerge"
 }
 L:SetTimerLocalization{
 	TimerSubmerge		= "Submerge",
@@ -108,8 +107,7 @@ L:SetOptionLocalization{
 	WarnSubmerge		= "Show warning for submerge",
 	TimerSubmerge		= "Show timer for submerge",
 	WarnEmerge			= "Show warning for emerge",
-	TimerEmerge			= "Show timer for emerge",
-	WarnAddsLeft		= "Show warning for remaining Sons of Flame"
+	TimerEmerge			= "Show timer for emerge"
 }
 L:SetMiscLocalization{
 	Submerge	= "COME FORTH, MY SERVANTS! DEFEND YOUR MASTER!",
