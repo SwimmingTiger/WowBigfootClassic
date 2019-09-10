@@ -69,7 +69,7 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
 			CCTip = QuestNpcNameFrame:CreateFontString("CCTip", "ARTWORK", "GameFontHighlight")
 			CCTip:SetWidth(288)
 			CCTip:SetHeight(55)
-			CCTip:SetText("任务助手：打开任务日志(L)\nshift+左键追踪显示任务提示");
+			CCTip:SetText("任务助手：打开世界地图(M)\n右上角下拉框可开关任务提示");
 			CCTip:SetPoint("TOPLEFT", QuestFrame, "TOPLEFT", 55, -30);
 		end
         if not CodexConfig.autoAccept or IsControlKeyDown() then
