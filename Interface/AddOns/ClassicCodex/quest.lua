@@ -235,7 +235,7 @@ function CodexQuest:UpdateQuestLog()
         end
 
 		if complete then
-			CodexMap:DeleteNode("CODEX", title)
+			--CodexMap:DeleteNode("CODEX", title)
             CodexMap:UpdateNodes()
         end
     end
