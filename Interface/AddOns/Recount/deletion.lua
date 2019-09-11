@@ -168,10 +168,10 @@ function Recount:InitPartyBasedDeletion()
 	Recount.inGroup = false
 	Recount.inRaid = false
 
-	if (not IsInRaid() and GetNumPartyMembers() > 0) or WOW_RETAIL and IsInScenarioGroup() then
+	if (not IsInRaid() and GetNumPartyMembers() > 0) or (WOW_RETAIL and IsInScenarioGroup()) then
 		Recount.inGroup = true
 	end
-	if IsInRaid() and GetNumRaidMembers() > 0 and not WOW_RETAIL and IsInScenarioGroup() then
+	if (IsInRaid() and GetNumRaidMembers() > 0) and not (WOW_RETAIL and IsInScenarioGroup()) then
 		Recount.inRaid = true
 	end
 
