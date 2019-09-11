@@ -542,7 +542,8 @@ local function RefreshView(i, key, caption)
       CodexBrowser.tabs[key].list.warn:Hide()
     end
   
-    CodexBrowser.tabs[key].button:SetText(caption .. " " .. "|cffaaaaaa(" .. (i >= searchLimit and "*" or i) .. ")")
+    local L = {Units = "单位", Objects = "对象", Items = "物品", Quests = "任务"}
+    CodexBrowser.tabs[key].button:SetText(L[caption] .. " " .. "|cffaaaaaa(" .. (i >= searchLimit and "*" or i) .. ")")
     for j=i+1, table.getn(CodexBrowser.tabs[key].buttons) do
         if CodexBrowser.tabs[key].buttons[j] then
             CodexBrowser.tabs[key].buttons[j]:Hide()
