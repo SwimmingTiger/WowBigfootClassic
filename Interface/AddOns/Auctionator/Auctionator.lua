@@ -165,7 +165,7 @@ function Atr_EventHandler(self, event, ...)
   -- Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
 
   -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他插件
-  if (event == --[["VARIABLES_LOADED"]] "ADDON_LOADED")      then  Atr_OnLoad();             end;
+  if (event == --[["VARIABLES_LOADED"]] "ADDON_LOADED") and ... == "Auctionator"      then  Atr_OnLoad();             end;
   if (event == "ADDON_LOADED")        then  Atr_OnAddonLoaded(...);       end;
   if (event == "AUCTION_ITEM_LIST_UPDATE")  then  Atr_OnAuctionUpdate(...);       end;
   if (event == "AUCTION_OWNED_LIST_UPDATE") then  Atr_OnAuctionOwnedUpdate();     end;

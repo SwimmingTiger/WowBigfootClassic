@@ -32,8 +32,10 @@ do
 			end
 		--按需加载，不再收到该事件。与ADDON_LOADED合并
 		--elseif event == 'PLAYER_LOGIN' then
-			for _, f in ipairs(handlers2) do f(arg1, ...) end
-			print('已加载 - 输入 /aux')
+			if arg1 == 'aux-addon' then
+				for _, f in ipairs(handlers2) do f(arg1, ...) end
+				print('已加载 - 输入 /aux')
+			end
 		else
 			_M[event](arg1, ...)
 		end
