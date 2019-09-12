@@ -146,7 +146,7 @@ CodexQuest:SetScript("OnUpdate", function()
     end
     
     if CodexQuest.updateQuestGivers == true then
-        if CodexConfig.allQuestGivers then
+        if CodexConfig.allQuestGivers and CodexConfig.trackingMethod ~= 4 then
             local meta = {["addon"] = "CODEX"}
             CodexDatabase:SearchQuests(meta)
             CodexQuest.updateNodes = true
