@@ -549,7 +549,7 @@ local defaults = {
 		continentAlpha = 1,
 		continent = true,
 		tomtom = true,
-		undiscovered = true,
+		undiscovered = false,
 	},
 	char = {
 		learned = {
