@@ -9,6 +9,8 @@ local unpack = _G.unpack
 local min = _G.math.min
 local max = _G.math.max
 local UnitExists = _G.UnitExists
+local UIFrameFadeOut = _G.UIFrameFadeOut
+local UIFrameFadeRemoveFrame = _G.UIFrameFadeRemoveFrame
 
 function addon:GetCastbarFrame(unitID)
     -- PoolManager:DebugInfo()
@@ -125,6 +127,7 @@ function addon:SetLSMBorders(castbar, cast, db)
         })
         castbar.BorderFrame.currentTexture = db.castBorder
     end
+    castbar.BorderFrame:SetBackdropBorderColor(unpack(db.borderColor))
 end
 
 function addon:SetCastbarFonts(castbar, cast, db)
@@ -148,6 +151,12 @@ function addon:DisplayCastbar(castbar, unitID)
     local db = self.db[gsub(unitID, "%d", "")] -- nameplate1 -> nameplate
     if unitID == "nameplate-testmode" then
         db = self.db.nameplate
+    end
+
+    if castbar.fadeInfo then
+        -- need to remove frame if it's currently fading so alpha doesn't get changed after re-displaying castbar
+        UIFrameFadeRemoveFrame(castbar)
+        castbar.fadeInfo.finishedFunc = nil
     end
 
     local cast = castbar._data
@@ -176,4 +185,19 @@ function addon:DisplayCastbar(castbar, unitID)
     self:SetCastbarFonts(castbar, cast, db)
     self:SetCastbarIconAndText(castbar, cast, db)
     castbar:Show()
+end
+
+function addon:HideCastbar(castbar, noFadeOut)
+    local isInterrupted = castbar._data and castbar._data.isInterrupted
+
+    if not noFadeOut then
+        if isInterrupted then
+            castbar.Text:SetText(_G.INTERRUPTED)
+            castbar:SetStatusBarColor(castbar.failedCastColor:GetRGB())
+        end
+
+        UIFrameFadeOut(castbar, isInterrupted and 1.5 or 0.2, 1, 0)
+    else
+        castbar:Hide()
+    end
 end

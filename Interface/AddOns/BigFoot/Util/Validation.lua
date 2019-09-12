@@ -37,11 +37,11 @@ local function larger(a,b)
 	local adt = {}
 	local bdt = {}
 	local ad,bd
-	for ad in a:gmatch("%d+")  do
-		tinsert(adt,ad)
+	for ad in a:gmatch("%d+") do
+		tinsert(adt,tonumber(ad))
 	end
-	for bd in b:gmatch("%d+")  do
-		tinsert(bdt,bd)
+	for bd in b:gmatch("%d+") do
+		tinsert(bdt,tonumber(bd))
 	end
 
 	for i = 1,4 do

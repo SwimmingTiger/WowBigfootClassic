@@ -101,24 +101,13 @@ function RaidToolkitConfigFunc()
 			end
 		end
 		LoaderFrame:SetScript("OnEvent", LoaderEvents)
-
+		
 		if (not BigFoot_IsAddOnLoaded("Recount")) then
 			BigFoot_LoadAddOn("Recount");
-		end
-		if (not BigFoot_IsAddOnLoaded("RecountFailBot")) then
-			BigFoot_LoadAddOn("RecountFailBot");
-		end
-		if (not BigFoot_IsAddOnLoaded("RecountGuessedAbsorbs")) then
-			BigFoot_LoadAddOn("RecountGuessedAbsorbs");
-		end
-		if (not BigFoot_IsAddOnLoaded("RecountThreat")) then
-			BigFoot_LoadAddOn("RecountThreat");
-		end
-		if (not BigFoot_IsAddOnLoaded("RecountDeathTrack")) then
-			BigFoot_LoadAddOn("RecountDeathTrack");
-		end
-		if (not BigFoot_IsAddOnLoaded("RecountHealAndGuessedAbsorbs")) then
-			BigFoot_LoadAddOn("RecountHealAndGuessedAbsorbs");
+			--老虎会游泳：这种方法可能会失败，比如在Recount加载很慢的情况下
+			--[[BigFoot_DelayCall(function ()
+				SlashCmdList["ACECONSOLE_RECOUNT"]("show")
+			end,0.1)]]
 		end
 	end
 

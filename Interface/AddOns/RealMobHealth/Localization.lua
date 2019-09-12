@@ -1,4 +1,4 @@
---[[	RealMobHealth Localization Module
+﻿--[[	RealMobHealth Localization Module
 	by SDPhantom
 	https://www.wowinterface.com/forums/member.php?u=34145	]]
 ------------------------------------------------------------------
@@ -42,6 +42,45 @@ local Localization={
 		UITweaksTooltip_HealthRecorded="Recorded Health Data";
 		UITweaksTooltip_HealthOverride="Health Data Overridden";
 		UITweaksTooltip_NoData="Missing Health Data";
+
+--		Numbers
+		NumberGroupingScale=3;--	Controls scale of FIRST_NUMBER_CAP and SECOND_NUMBER_CAP
+	};
+	deDE={--	Translation by Figlmueller
+--		Commands
+		Command_NoUnitData="Einheit nicht gefunden.";
+		Command_DeletedUnitFormat="%2$s(%1$s) gel�scht";--	format(CreatureKey,UnitName)
+		Command_HealthWiped="Gesundheitspunkte gel�scht.";
+
+--		Options Panel
+		Options_DynamicList={--	Button Text,Tooltip Title,Description
+--					Tooltip Title=false to use Button Text
+			ShowStatusBarTextAdditions={"Text im Fenster der Zielauswahl anzeigen",false,"Erstellt einen Text innerhalb der Statusleisten der Zielauswahl."};
+			ModifyHealthBarText={"Gesundheitspunkte des Einheitenfensters anpassen",false,"Zeigt errechnete Gesundheitspunkte f�r Mobs in normalen Einheitenfenstern."};
+			ShowTooltipText={"Feedback-Tooltip anzeigen",false,"Zeigt an, ob die Gesundheitspunkte eines Mobs im Health-Cache vorhanden sind."};
+			ShowTooltipHealthText={"Gesundheitspunkte-Tooltip anzeigen",false,"Zeigt die Gesundheitspunkte in der Statusleiste der Spieletooltips an."};
+			ShowNamePlateHealthText={"Gesundheitspunkte auf Namensplaketten anzeigen",false,"Gesundheitspunkte links von Namensplaketten anzeigen."};
+
+			EnablePeerCache={"Aktivieren","Peer-Cache aktivieren","Ausw�hlen um Gesundheitspunkte-Daten von anderen Spielern zu empfangen.\n|cffffff00Hinweis: Dieses Addon wird dennoch Anfragen anderer Spieler beantworten sowie Broadcasts an Spieler schicken.|r"};
+		};
+		Options_SetByAddOn="|cffff0000Diese Option wurde von einem anderen Addon �berschrieben.|r";
+
+--		Options Cache Panels
+		Options_HealthCachePanel={"Health-Cache","Speichert Gesundheitspunkte-Daten von begegneten Mobs."};
+		Options_PeerCachePanel={"Peer-Cache","Speichert Gesundheitspunkte-Daten, welche von anderen Spielern gemeldet wurden."};
+		Options_CacheSizeLabel="Cache-Gr��e:";
+
+--		Options Clear Cache Buttons
+		Options_ClearCacheButtonText="Cache leeren";
+		Options_ClearHealthCacheTTText="Health-Cache leeren";
+		Options_ClearPeerCacheTTText="Peer-Cache leeren";
+		Options_ClearCacheWarning="|cffff0000Achtung! Alle Daten in diesem Cache gehen endg�ltig verloren.|r";
+
+--		UITweaks Tooltip Lines
+		UITweaksTooltip_Blacklisted="Ignorierter Mob";
+		UITweaksTooltip_HealthRecorded="Gesundheitspunkte-Daten vorhanden";
+		UITweaksTooltip_HealthOverride="Gesundheitspunkte-Daten �berschrieben";
+		UITweaksTooltip_NoData="Fehlende Gesundheitspunkte-Daten";
 	};
 	frFR={--	Traduction by Pgmbru
 --		Commandes
@@ -78,6 +117,44 @@ local Localization={
 		UITweaksTooltip_HealthOverride="Données de santé annulées";
 		UITweaksTooltip_NoData="Données de santé manquantes";
 	};
+	koKR={--	Translation by chkid
+--		Commands
+		Command_NoUnitData="유닛을 찾을 수 없습니다.";
+		Command_DeletedUnitFormat="삭제: %2$s(%1$s)";--	format(CreatureKey,UnitName)
+		Command_HealthWiped="생명력 데이터가 삭제되었습니다.";
+
+--		Options Panel
+		Options_DynamicList={--	Buttom Text, Tooltip Title, Description
+--					Tooltip Title = false to use Button Text
+			ShowStatusBarTextAdditions={"대상 창에 글자 표시",false,"대상 창에 생명력 정보를 표시합니다."};
+			ModifyHealthBarText={"유닛프레임에 생명력 표시",false,"유닛프레임에 실제 생명력을 표시합니다."};
+			ShowTooltipText={"툴팁 정보 표시",false,"생명력 정보에 저장되어 있는지 여부를 툴팁에 표시합니다."};
+			ShowTooltipHealthText={"툴팁에 생명력 표시",false,"게임툴팁의 상태바에 생명력을 표시합니다."};
+			ShowNamePlateHealthText={"이름표에 생명력 표시",false,"이름표의 왼쪽부분에 생명력을 표시합니다."};
+
+			EnablePeerCache={"Enable","Enable Peer Cache","Toggles receiving health data from others.\n|cffffff00Note: This addon will still answer queries and broadcast health updates.|r"};
+		};
+
+--		Options Cache Panels
+		Options_HealthCachePanel={"생명력 정보","확인된 생명력 정보를 저장합니다."};
+		Options_PeerCachePanel={"주변 정보","주변의 캐릭터에서 확인된 생명력 정보를 저장합니다."};
+		Options_CacheSizeLabel="저장 갯수:";
+
+--		Options Clear Cache Buttons
+		Options_ClearCacheButtonText="데이터 초기화";
+		Options_ClearHealthCacheTTText="데이터를 초기화 합니다.";
+		Options_ClearPeerCacheTTText="주변 데이터 초기화";
+		Options_ClearCacheWarning="|cffff0000경고! 모든 데이터를 삭제하며, 복원할 수 없습니다.|r";
+
+--		UITweaks Tooltip Lines
+		UITweaksTooltip_Blacklisted="블랙리스트된 몹";
+		UITweaksTooltip_HealthRecorded="생명력 데이터 저장됨";
+		UITweaksTooltip_HealthOverride="생명력 데이터 중단됨";
+		UITweaksTooltip_NoData="생명력 데이터 없음";
+
+--		Numbers
+		NumberGroupingScale=4;--	Controls scale of FIRST_NUMBER_CAP and SECOND_NUMBER_CAP
+	};
 	zhCN={--	Translation by HopeASD
 		Command_NoUnitData="单位未找到";
 		Command_DeletedUnitFormat="已删除 %2$s(%1$s)";--	format(CreatureKey,UnitName)
@@ -112,6 +189,9 @@ local Localization={
 		UITweaksTooltip_HealthRecorded="生命值数据 已记录";
 		UITweaksTooltip_HealthOverride="生命值数据 被覆盖";
 		UITweaksTooltip_NoData="生命值数据 不存在";
+
+--		Numbers
+		NumberGroupingScale=4;--	Controls scale of FIRST_NUMBER_CAP and SECOND_NUMBER_CAP
 	};
 	zhTW={--	Translation by EKE00372
 --		Commands
@@ -148,12 +228,19 @@ local Localization={
 		UITweaksTooltip_HealthRecorded="已取得真實血量";
 		UITweaksTooltip_HealthOverride="血量數值被覆寫";
 		UITweaksTooltip_NoData="尚未取得真實血量";
+
+--		Numbers
+		NumberGroupingScale=4;--	Controls scale of FIRST_NUMBER_CAP and SECOND_NUMBER_CAP
 	};
 };
 
 ----------------------------------
 --[[	Localization Loader	]]--	Nothing to localize below this line
 ----------------------------------
+local LocalizationMeta={__index=Localization.enUS};
 local DynamicOptionsMeta={__index=Localization.enUS.Options_DynamicList};
-for locale,tbl in pairs(Localization) do if locale~="enUS" then setmetatable(tbl.Options_DynamicList,DynamicOptionsMeta); end end
+for locale,tbl in pairs(Localization) do if locale~="enUS" then
+	setmetatable(tbl,LocalizationMeta);
+	if rawget(tbl,"Options_DynamicList") then setmetatable(tbl.Options_DynamicList,DynamicOptionsMeta); end
+end end
 select(2,...).Localization=setmetatable(Localization,{__index=function(t,k) return t.enUS; end})[GetLocale()];

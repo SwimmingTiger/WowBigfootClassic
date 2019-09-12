@@ -8,7 +8,7 @@
 WhisperPop = {}
 WhisperPop.version = GetAddOnMetadata("WhisperPop", "Version") or "3.0"
 WhisperPop.IGNORED_MESSAGES = { "<DBM>", "<BWS>", "<BigWigs>", "<BIGWIGS>", "<集合石插件>","<大脚团队提示>", "LVBM" } -- Add your ignore tags
-WhisperPop.db = { sound = 1, time = 1, help = 1 }
+WhisperPop.db = { sound = 1, time = 1, help = 1, keep = 1 }
 WhisperPop.newNames = {}
 
 function WhisperPop:IsIgnoredMessage(text)

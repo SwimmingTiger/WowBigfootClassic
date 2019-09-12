@@ -133,7 +133,6 @@ frame:SetScript("OnEvent", function(self, event,...)
 	elseif event == "ADDON_LOADED" and select(1,...) == "WhisperPop" then
 		if type(WhisperPopDB) ~= "table" then
 			WhisperPopDB = WhisperPop.db
-			WhisperPop.db.keep = true
 		else
 			WhisperPop.db = WhisperPopDB
 		end

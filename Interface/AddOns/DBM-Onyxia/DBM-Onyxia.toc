@@ -15,6 +15,7 @@
 ## X-DBM-Mod-Sort: 14
 ## X-DBM-Mod-MapID: 249
 ## X-DBM-Mod-MinCoreRevision: 12473
+## X-Revision: BigFoot
 
 localization.en.lua
 localization.tw.lua

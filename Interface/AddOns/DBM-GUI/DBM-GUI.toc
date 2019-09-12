@@ -10,6 +10,7 @@
 ## LoadOnDemand: 1
 ## Author: Nitram and Tandanu
 ## URL: http://www.deadlybossmods.com
+## X-Revision: BigFoot
 
 localization.en.lua
 localization.cn.lua

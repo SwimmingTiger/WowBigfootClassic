@@ -187,7 +187,7 @@ function Item:Update()
 	local player, bag, slot = self:GetSlotInfo()
 	local link, count, texture, quality, locked, readable, cached = InvData:GetItemInfo(bag, slot, player)
 	local bagFamily = select(2, GetContainerNumFreeSlots(bag));
-	-- local _, questId, isActive = GetContainerItemQuestInfo(bag, slot);
+	local _, questId, isActive = GetContainerItemQuestInfo and GetContainerItemQuestInfo(bag, slot);
 	self.readable = readable
 	self.cached = cached
 	self.hasItem = texture and link
@@ -201,8 +201,7 @@ function Item:Update()
 		SetItemButtonNormalTextureVertexColor(self, 1.0, 1.0, 1.0);
 	end
 
-	-- self:UpdateBorder(quality,nil, questId, isActive)
-	self:UpdateBorder(quality,nil, nil, nil)
+	self:UpdateBorder(quality, nil, questId, isActive)
 	self:UpdateCooldown()
 
 	if GameTooltip:IsOwned(self) then

@@ -39,15 +39,16 @@ local unpack=unpack;
 --[[	Helper Functions	]]
 ----------------------------------
 local NumberCaps={FIRST_NUMBER_CAP,SECOND_NUMBER_CAP};
+local AddOn_Localization_NumberGroupingScale=AddOn.Localization.NumberGroupingScale;
 local function AbbreviateNumber(val)--	Abbreviates large numbers
 	local exp=math_max(0,math_floor(math_log10(math_abs(val))));--	Calculate exponent of 10 and clamp to zero
-	if exp<3 then return tostring(math_floor(val)); end--	Less than 1k, return as-is
+	if exp<AddOn_Localization_NumberGroupingScale then return tostring(math_floor(val)); end--	Less than 1k, return as-is
 
-	local factor=math_floor(exp/3);--	Exponent factor of 1k
-	local precision=math_max(0,2-exp%3);--	Dynamic precision based on how many digits we have (Returns numbers like 100k, 10.0k, and 1.00k)
+	local factor=math_floor(exp/AddOn_Localization_NumberGroupingScale);--	Exponent factor of 1k
+	local precision=math_max(0,(AddOn_Localization_NumberGroupingScale-1)-exp%AddOn_Localization_NumberGroupingScale);--	Dynamic precision based on how many digits we have (Returns numbers like 100k, 10.0k, and 1.00k)
 
 --	Fallback to scientific notation if we run out of units
-	return ((val<0 and "-" or "").."%0."..precision.."f%s"):format(val/1000^factor,NumberCaps[factor] or "e"..(factor*3));
+	return ((val<0 and "-" or "").."%0."..precision.."f%s"):format(val/(10^AddOn_Localization_NumberGroupingScale)^factor,NumberCaps[factor] or "e"..(factor*AddOn_Localization_NumberGroupingScale));
 end
 
 --------------------------------------------------

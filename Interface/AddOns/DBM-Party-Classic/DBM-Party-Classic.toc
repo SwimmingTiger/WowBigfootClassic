@@ -18,6 +18,7 @@
 ## X-DBM-Mod-Name-zhCN: 队伍首领(经典旧世)
 ## X-DBM-Mod-Sort: 15
 ## X-DBM-Mod-MapID: 48,230,229,36,429,90,349,389,129,47,189,289,33,34,329,109,70,43,209
+## X-Revision: BigFoot
 
 localization.en.lua
 localization.tw.lua

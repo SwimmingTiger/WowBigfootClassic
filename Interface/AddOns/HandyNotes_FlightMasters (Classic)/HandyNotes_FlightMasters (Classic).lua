@@ -2,9 +2,10 @@ local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_FlightMasters (Classic)")
 
-local iconDefault = "Interface\\Addons\\HandyNotes_FlightMasters (Classic)\\flightmaster.tga"
+local iconDefault = "Interface\\MINIMAP\\TRACKING\\FlightMaster"
+local iconUndiscovered = "Interface\\Addons\\HandyNotes_FlightMasters (Classic)\\flightmaster_undiscovered.tga"
 
-local db
+local db, learned
 local _, class, faction
 local nodes = { }
 nodes[1413] = {
@@ -13,7 +14,7 @@ nodes[1413] = {
 		npcName = L["Omusa Thunderhorn"],
 		faction = "Horde",
 	},
-	[51403020] = {
+	[51503030] = {
 		name = L["Crossroads, The Barrens"],
 		npcName = L["Devrak"],
 		faction = "Horde",
@@ -26,7 +27,7 @@ nodes[1413] = {
 }
 nodes[1417] = { -- Arathi Highlands
 	[45804620] = {
-		name = L["Refuge Point, Arathi"],
+		name = L["Refuge Pointe, Arathi"],
 		npcName = L["Cedrik Prose"],
 		faction = "Alliance",
 	},
@@ -38,7 +39,7 @@ nodes[1417] = { -- Arathi Highlands
 }
 nodes[1418] = {
 	[04404500] = {
-		name = L["Badlands"],
+		name = L["Kargath, Badlands"],
 		npcName = L["Gorrik"],
 		faction = "Horde",
 	},
@@ -55,6 +56,13 @@ nodes[1421] = { -- Silverpine Forest
 		name = L["The Sepulcher, Silverpine Forest"],
 		npcName = L["Karos Razok"],
 		faction = "Horde",
+	},
+}
+nodes[1422] = { -- Western Plaguelands
+	[43008520] = {
+		name = L["Chillwind Camp, Western Plaguelands"],
+		npcName = L["Bibilfaz Featherwhistle"],
+		faction = "Alliance",
 	},
 }
 nodes[1423] = { -- Eastern Plaguelands
@@ -87,13 +95,18 @@ nodes[1425] = {
 		npcName = L["Guthrum Thunderfist"],
 		faction = "Alliance",
 	},
-	[77007900] = {
+	[81608180] = {
 		name = L["Revantusk Village, The Hinterlands"],
-		npcName = nil, -- FIXME
+		npcName = L["Gorkas"],
 		faction = "Horde",
 	},
 }
 nodes[1427] = {
+	[34803080] = {
+		name = L["Thorium Point, Searing Gorge"],
+		npcName = L["Grisha"],
+		faction = "Horde",
+	},
 	[37803060] = {
 		name = L["Thorium Point, Searing Gorge"],
 		npcName = L["Lanie Reed"],
@@ -102,12 +115,12 @@ nodes[1427] = {
 }
 nodes[1428] = {
 	[65602420] = {
-		name = L["Burning Steppes"],
+		name = L["Flame Crest, Burning Steppes"],
 		npcName = L["Vahgruk"],
 		faction = "Horde",
 	},
 	[84406820] = {
-		name = L["Burning Steppes"],
+		name = L["Morgan's Vigil, Burning Steppes"],
 		npcName = L["Borgus Stoutarm"],
 		faction = "Alliance",
 	},
@@ -187,7 +200,7 @@ nodes[1439] = {
 }
 nodes[1440] = {
 	[12203380] = {
-		name = L["Zoram'Gar Outpost, Ashenvale"],
+		name = L["Zoram'gar Outpost, Ashenvale"],
 		npcName = L["Andruk"],
 		faction = "Horde",
 	},
@@ -235,7 +248,7 @@ nodes[1443] = {
 }
 nodes[1444] = {
 	[30204320] = {
-		name = L["Feathermoon Stronghold, Feralas"],
+		name = L["Feathermoon, Feralas"],
 		npcName = L["Fyldren Moonfeather"],
 		faction = "Alliance",
 	},
@@ -251,6 +264,11 @@ nodes[1444] = {
 	},
 }
 nodes[1445] = {
+	[35603180] = {
+		name = L["Brackenwall Village, Dustwallow Marsh"],
+		npcName = L["Shardi"],
+		faction = "Horde",
+	},
 	[67405120] = {
 		name = L["Theramore, Dustwallow Marsh"],
 		npcName = L["Baldruc"],
@@ -270,6 +288,11 @@ nodes[1446] = {
 	},
 }
 nodes[1447] = {
+	[11807740] = {
+		name = L["Talrendis Point, Azshara"],
+		npcName = L["Jarrodenus"],
+		faction = "Alliance",
+	},
 	[22004960] = {
 		name = L["Valormok, Azshara"],
 		npcName = L["Kroum"],
@@ -278,12 +301,12 @@ nodes[1447] = {
 }
 nodes[1448] = {
 	[34405380] = {
-		name = L["Felwood"],
+		name = L["Bloodvenom Post, Felwood"],
 		npcName = L["Brakkar"],
 		faction = "Horde",
 	},
 	[62602420] = {
-		name = L["Felwood"],
+		name = L["Talonbranch Glade, Felwood"],
 		npcName = L["Mishellena"],
 		faction = "Alliance",
 	},
@@ -308,7 +331,7 @@ nodes[1450] = {
 		classes = { DRUID = true },
 	},
 	[44404540] = {
-		name = L["Thunderbluff Flight Master"],
+		name = L["Thunder Bluff Flight Master"],
 		npcName = L["Bunthen Plainswind"],
 		faction = "Horde",
 		classes = { DRUID = true },
@@ -321,12 +344,12 @@ nodes[1450] = {
 }
 nodes[1451] = {
 	[48803660] = {
-		name = L["Silithus"],
+		name = L["Cenarion Hold, Silithus"],
 		npcName = L["Runk Windtamer"],
 		faction = "Horde",
 	},
 	[50603440] = {
-		name = L["Silithus"],
+		name = L["Cenarion Hold, Silithus"],
 		npcName = L["Cloud Skydancer"],
 		faction = "Alliance",
 	},
@@ -401,9 +424,9 @@ function pluginHandler:OnEnter(uiMapId, coord)
 	end
 
     if (not nodeData.name) then return end
-	tooltip:AddLine(nodeData.name, 1, 1, 1, 1, 1, 1)
+	tooltip:AddLine(nodeData.name)
 	if (nodeData.npcName) then
-		tooltip:AddLine(nodeData.npcName, 1, 1, 1, 1, 1, 1)
+		tooltip:AddLine(nodeData.npcName, 0, 0.6, 0.1)
 	end
 	tooltip:Show()
 end
@@ -428,7 +451,12 @@ do
 		while(state) do
 			if value then
 				if (value.faction == faction or value.faction == "Neutral")  and (not value.classes or value.classes[class]) then
-					return state, nil, iconDefault, db.zoneScale, db.zoneAlpha
+					local icon = iconDefault
+					-- I don't have a check for if the druids have "unlocked" their flight masters so just consider them discovered
+					if db.undiscovered and not (value.classes and value.classes[class]) then
+						icon = learned[value.name] and iconDefault or iconUndiscovered
+					end
+					return state, nil, icon, db.zoneScale, db.zoneAlpha
 				end
 			end
 			state, value = next(data, state)
@@ -438,24 +466,22 @@ do
 	end
 
 
-	-- This is a funky custom iterator we use to iterate over every zone's nodes
-	-- in a given continent + the continent itself
 	local function iterCont(t, prestate)
 		if not t then return end
 		if not db.continent then return end
 		local zone = t.C[t.Z]
-		-- I'm using the continent map to store more precise minimap nodes; hopefully it doesn't cause problems
 		local data = nodes[zone]
 		local state, value
 		while zone do
 			if data then -- Only if there is data for this zone
 				state, value = next(data, prestate)
 				while state do -- Have we reached the end of this zone?
-					local icon = iconDefault
-					local alpha = db.continentAlpha
-
 					if (value.faction == faction or value.faction == "Neutral") and (not value.hideOnContinent or zone == t.contId)   and (not value.classes or value.classes[class]) then -- Show on continent?
-						return state, zone, icon, db.continentScale, alpha
+						local icon = iconDefault
+						if db.undiscovered and not (value.classes and value.classes[class]) then
+							icon = learned[value.name] and iconDefault or iconUndiscovered
+						end
+						return state, zone, icon, db.continentScale, db.continentAlpha
 					end
 					state, value = next(data, state) -- Get next data
 				end
@@ -480,8 +506,6 @@ do
 			tbl.Z = next(C)
 			tbl.contId = uiMapId
 
-				tbl.data = nodes[uiMapId]
-			--end
 			return iterCont, tbl, nil
 		else -- It is a zone
 			if (nodes[uiMapId] == nil) then return iter end -- Throws error if I don't do this
@@ -498,17 +522,10 @@ end
 
 local waypoints = {}
 local function setWaypoint(mapFile, coord)
-	local node = nodes[mapFile][coord]
-
-	local waypoint = nodes[dungeon]
-	if waypoint and TomTom:IsValidWaypoint(waypoint) then
-		return
-	end
-
+	if not TomTom then return end
 	local x, y = HandyNotes:getXY(coord)
-	--print(x, y)
-	waypoints[dungeon] = TomTom:AddWaypoint(mapFile, x, y, {
-		title = node.name,
+	TomTom:AddWaypoint(mapFile, x, y, {
+		title = nodes[mapFile][coord].name,
 		persistent = nil,
 		minimap = true,
 		world = true
@@ -525,14 +542,20 @@ function pluginHandler:OnClick(button, pressed, mapFile, coord)
 end
 
 local defaults = {
- profile = {
-  zoneScale = 1,
-  zoneAlpha = 1,
-  continentScale = 1,
-  continentAlpha = 1,
-  continent = true,
-  tomtom = true,
- },
+	profile = {
+		zoneScale = 1,
+		zoneAlpha = 1,
+		continentScale = 1,
+		continentAlpha = 1,
+		continent = true,
+		tomtom = true,
+		undiscovered = true,
+	},
+	char = {
+		learned = {
+			['*'] = false,
+		}
+	},
 }
 
 local Addon = CreateFrame("Frame")
@@ -546,6 +569,13 @@ end
 function Addon:PLAYER_ENTERING_WORLD()
 	faction = UnitFactionGroup("player")
 	_, class = UnitClass("player")
+	updateStuff()
+end
+
+function Addon:TAXIMAP_OPENED()
+	for i = 1, NumTaxiNodes() do
+		self.db.char.learned[TaxiNodeName(i)] = true
+	end
 	updateStuff()
 end
 
@@ -602,13 +632,20 @@ function Addon:PLAYER_LOGIN()
    desc = L["Allow right click to create waypoints with TomTom"],
    order = 2,
   },
+  undiscovered = {
+	type = "toggle",
+	name = L["Show Undiscovered"],
+	desc = L["Use a different icon for undiscovered flightmasters"],
+	order = 2.1,
+  },
  },
 }
-
 
  HandyNotes:RegisterPluginDB("FlightMasters", pluginHandler, options)
  self.db = LibStub("AceDB-3.0"):New("HandyNotes_FlightMastersClassicDB", defaults, true)
  db = self.db.profile
+ learned = self.db.char.learned
  
  Addon:RegisterEvent("PLAYER_ENTERING_WORLD")
+ Addon:RegisterEvent("TAXIMAP_OPENED")
 end
