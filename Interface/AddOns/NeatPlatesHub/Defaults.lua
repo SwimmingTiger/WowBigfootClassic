@@ -156,7 +156,7 @@ NeatPlatesHubDefaults = {
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 1,
+	HighlightTargetMode = 3,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -213,7 +213,7 @@ NeatPlatesHubDefaults = {
 	ColorSchoolShadow = {r = 0.5, g = 0.5, b = 1},
 	ColorSchoolArcane = {r = 1, g = 0.5, b = 1},
 	ColorCastBySchool = true,
-	SpellCastEnableFriendly = false,
+	SpellCastEnableFriendly = true,
 	IntCastEnable = true,
 	IntCastWhoEnable = true,
 
