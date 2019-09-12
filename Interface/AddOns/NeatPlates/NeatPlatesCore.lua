@@ -23,6 +23,8 @@ local GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local SetNamePlateFriendlySize = C_NamePlate.SetNamePlateFriendlySize
 local SetNamePlateEnemySize = C_NamePlate.SetNamePlateEnemySize
 local RaidClassColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
+local UnitThreatSituation = NeatPlatesUtility.UnitThreatSituation
+local UnitDetailedThreatSituation = NeatPlatesUtility.UnitDetailedThreatSituation
 
 -- Internal Data
 local Plates, PlatesVisible, PlatesFading, GUID = {}, {}, {}, {}	            -- Plate Lists
@@ -582,6 +584,7 @@ do
 		unit.isRare = RareReference[classification]
 		unit.isMini = classification == "minus"
 		--unit.isPet = UnitIsOtherPlayersPet(unitid)
+		unit.isPet = ("Pet" == strsplit("-", UnitGUID(unitid)))
 
 		if UnitIsPlayer(unitid) then
 			_, unit.class = UnitClass(unitid)
@@ -635,8 +638,7 @@ do
 		end
 		
 
-		--unit.threatValue = UnitThreatSituation("player", unitid) or 0
-		unit.threatValue = 0 -- Disabled until I figure out how threat is handled in Classic
+		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
 		unit.isInCombat = UnitAffectingCombat(unitid)
 
@@ -1094,6 +1096,7 @@ do
 		NeatPlatesCore:SetScript("OnUpdate", OnUpdate);
 		--if not NeatPlatesSpellDB.texture then NeatPlates.BuildTextureDB() end
 		NeatPlates.BuildTextureDB() -- Temporarily force a rebuild on login as this is a work in progress
+		NeatPlates.CleanSpellDB() -- Remove empty table entries from the Spell DB
 	end
 
 	function CoreEvents:UNIT_NAME_UPDATE(...)
@@ -1303,8 +1306,8 @@ do
 			end
 
 			-- Remove empty entries as they only take up space
-			if not NeatPlatesSpellDB[unitType][spellName] then NeatPlatesSpellDB[unitType][spellName] = nil
-			elseif creatureID and not NeatPlatesSpellDB[unitType][spellName][creatureID] then NeatPlatesSpellDB[unitType][spellName][creatureID] = nil end
+			--if not next(NeatPlatesSpellDB[unitType][spellName]) then NeatPlatesSpellDB[unitType][spellName] = nil
+			--elseif creatureID and not next(NeatPlatesSpellDB[unitType][spellName][creatureID]) then NeatPlatesSpellDB[unitType][spellName][creatureID] = nil end
 		end
 	end
 
@@ -1315,6 +1318,7 @@ do
 	CoreEvents.UNIT_SPELLCAST_CHANNEL_UPDATE = UnitSpellcastMidway
 
 	CoreEvents.UNIT_LEVEL = UnitConditionChanged
+	--CoreEvents.UNIT_THREAT_SITUATION_UPDATE = UnitConditionChanged
 	CoreEvents.UNIT_FACTION = UnitConditionChanged
 
 	CoreEvents.RAID_TARGET_UPDATE = WorldConditionChanged
@@ -1505,6 +1509,23 @@ local function OnResetWidgets(plate)
 	plate.UpdateMe = true
 end
 
+-- Cleanup Spell DB
+local function CleanSpellDB()
+	local checkTable
+	checkTable = function(t)
+		for k,v in pairs(t) do
+			if type(v) == "table" then
+				if next(v) then
+					checkTable(v)
+				else
+					t[k] = nil
+				end
+			end
+		end
+	end
+	checkTable(NeatPlatesSpellDB)
+end
+
 -- Build classic texture DB
 local function BuildTextureDB()
 	NeatPlatesSpellDB.texture = {}
@@ -1516,6 +1537,7 @@ local function BuildTextureDB()
 end
 
 NeatPlates.BuildTextureDB = BuildTextureDB
+NeatPlates.CleanSpellDB = CleanSpellDB
 
 --------------------------------------------------------------------------------------------------------------
 -- External Commands: Allows widgets and themes to request updates to the plates.

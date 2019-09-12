@@ -6,6 +6,23 @@ NeatPlatesUtility = {}
 local _
 local L = LibStub("AceLocale-3.0"):GetLocale("NeatPlates")
 
+-- Classic Threat Stuff
+local ThreatLib = LibStub:GetLibrary("ThreatClassic-1.0")
+
+NeatPlatesUtility.UnitThreatSituation = function (unit, mob)
+    return ThreatLib:UnitThreatSituation (unit, mob)
+end
+
+NeatPlatesUtility.UnitDetailedThreatSituation = function (unit, mob)
+    return ThreatLib:UnitDetailedThreatSituation (unit, mob)
+end
+
+NeatPlatesUtility.RequestActiveOnSolo = function(value)
+	ThreatLib:RequestActiveOnSolo(value)
+end
+local UnitThreatSituation = NeatPlatesUtility.UnitThreatSituation
+local UnitDetailedThreatSituation = NeatPlatesUtility.UnitDetailedThreatSituation
+
 local copytable         -- Allows self-reference
 copytable = function(original)
 	local duplicate = {}
@@ -19,7 +36,10 @@ end
 
 NeatPlatesUtility.IsFriend = function(...) end
 --NeatPlatesUtility.IsHealer =
-NeatPlatesUtility.IsGuildmate = function(...) end
+--NeatPlatesUtility.IsGuildmate = function(...) end
+--NeatPlatesUtility.IsPartyMember = function(...) end
+NeatPlatesUtility.IsGuildmate = UnitIsInMyGuild
+NeatPlatesUtility.IsPartyMember = function(unitid) return UnitInParty(unitid) or UnitInRaid(unitid) end
 
 local function RaidMemberCount()
 	if UnitInRaid("player") then
@@ -585,7 +605,7 @@ end
 --	return slider
 --end
 
-local function CreateSliderFrame(self, reference, parent, label, val, minval, maxval, step, mode, width)
+local function CreateSliderFrame(self, reference, parent, label, val, minval, maxval, step, mode, width, infinite)
 	local value, multiplier, minimum, maximum, current
 	local slider = CreateFrame("Slider", reference, parent, 'OptionsSliderTemplate')
 	local EditBox = CreateFrame("EditBox", reference, slider)
@@ -607,7 +627,10 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 	slider.High = _G[reference.."High"]
 	slider.Label:SetText(label or "")
 
-	slider:SetScript("OnMouseUp", function(self) if self.Callback then self:Callback() end end)
+	slider:SetScript("OnMouseUp", function(self)
+		slider:updateValues()
+		if self.Callback then self:Callback() end
+	end)
 
 	-- Value
 	--slider.Value = slider:CreateFontString(nil, 'ARTWORK', 'GameFontWhite')
@@ -624,6 +647,8 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 
 	EditBox:SetScript("OnEnterPressed", function(self, val)
 		if slider.isActual then val = self:GetNumber() else val = self:GetNumber()/100 end
+		print(val)
+		slider:updateValues(val)
 		slider:SetValue(val)
 		self:ClearFocus()
 
@@ -638,7 +663,7 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 
 	if slider.isActual then
 		local multiplier = 1
-		if step < 1 and step >= .1 then multiplier = 10 elseif step < .1 then multiplier = 100 end
+		if step < 1 and step >= 0.1 then multiplier = 10 elseif step < 0.1 then multiplier = 100 end
 		slider.ceil = function(v) return ceil(v*multiplier-.5)/multiplier end
 		minimum = minval or 0
 		maximum = maxval or 1
@@ -655,10 +680,18 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 	slider.Value:SetText(current)
 	slider.Value:SetCursorPosition(0)
 	slider:SetScript("OnValueChanged", function()
+		local value = slider.ceil(slider:GetValue())
 		local ext = "%"
 		if slider.isActual then ext = "" end
-		slider.Value:SetText(tostring(slider.ceil(slider:GetValue())..ext))
+		slider.Value:SetText(tostring(value..ext))
 	end)
+
+	slider.updateValues = function(self, val)
+		local value = val or self.ceil(self:GetValue(self))
+		if infinite then
+			NeatPlatesHubRapidPanel.SetSliderMechanics(self, value, minimum+value, maximum+value, step)
+		end
+	end
 
 	--slider.tooltipText = "Slider"
 	return slider

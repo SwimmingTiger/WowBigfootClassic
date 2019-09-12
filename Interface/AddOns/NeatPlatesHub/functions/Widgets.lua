@@ -7,7 +7,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("NeatPlates")
 -- Widget Helpers
 local WidgetLib = NeatPlatesWidgets
 
---local CreateThreatLineWidget = WidgetLib.CreateThreatLineWidget
+local CreateThreatLineWidget = WidgetLib.CreateThreatLineWidget
 local CreateAuraWidget = WidgetLib.CreateAuraWidget
 local CreateClassWidget = WidgetLib.CreateClassWidget
 local CreateRangeWidget = WidgetLib.CreateRangeWidget
@@ -15,7 +15,7 @@ local CreateComboPointWidget = WidgetLib.CreateComboPointWidget
 local CreateTotemIconWidget = WidgetLib.CreateTotemIconWidget
 --local CreateAbsorbWidget = WidgetLib.CreateAbsorbWidget
 --local CreateQuestWidget = WidgetLib.CreateQuestWidget
---local CreateThreatPercentageWidget = WidgetLib.CreateThreatPercentageWidget
+local CreateThreatPercentageWidget = WidgetLib.CreateThreatPercentageWidget
 
 NeatPlatesHubDefaults.WidgetRangeMode = 1
 NeatPlatesHubMenus.RangeModes = {
@@ -68,7 +68,7 @@ NeatPlatesHubMenus.BorderTypes = {
 				{ text = L["Glow"],  },
 			}
 
-NeatPlatesHubDefaults.HighlightTargetMode = 3
+NeatPlatesHubDefaults.HighlightTargetMode = 1
 NeatPlatesHubDefaults.HighlightFocustMode = 1
 NeatPlatesHubDefaults.HighlightMouseoverMode = 1
 NeatPlatesHubMenus.HighlightTypes = {
@@ -199,6 +199,9 @@ local DebuffPrefixModes = {
 local function SmartFilterMode(aura)
 	local ShowThisAura = false
 	local AuraPriority = 20
+
+	-- Show All Auras
+	if LocalVars.WidgetAllAuras then ShowThisAura = true end
 
 	-- My own Buffs and Debuffs
 	if (aura.caster == "player" or aura.caster == "pet") and aura.baseduration and aura.baseduration < 150 then
@@ -352,16 +355,16 @@ local function OnInitializeWidgets(extended, configTable)
 	local EnableAuraWidget = LocalVars.WidgetDebuff
 	--local EnableAbsorbWidget = LocalVars.WidgetAbsorbIndicator
 	--local EnableQuestWidget = LocalVars.WidgetQuestIcon
-	--local EnableThreatPercentageWidget = LocalVars.WidgetThreatPercentage
+	local EnableThreatPercentageWidget = LocalVars.WidgetThreatPercentage
 	local EnableRangeWidget = LocalVars.WidgetRangeIndicator
 
 	InitWidget( "ClassWidgetHub", extended, configTable.ClassIcon, CreateClassWidget, EnableClassWidget)
 	InitWidget( "TotemWidgetHub", extended, configTable.TotemIcon, CreateTotemIconWidget, EnableTotemWidget)
 	InitWidget( "ComboWidgetHub", extended, configTable.ComboWidget, CreateComboPointWidget, EnableComboWidget)
-	--InitWidget( "ThreatWidgetHub", extended, configTable.ThreatLineWidget, CreateThreatLineWidget, EnableThreatWidget)
+	InitWidget( "ThreatWidgetHub", extended, configTable.ThreatLineWidget, CreateThreatLineWidget, EnableThreatWidget)
 	--InitWidget( "AbsorbWidgetHub", extended, configTable.AbsorbWidget, CreateAbsorbWidget, EnableAbsorbWidget)
 	--InitWidget( "QuestWidgetHub", extended, configTable.QuestWidget, CreateQuestWidget, EnableQuestWidget)
-	--InitWidget( "ThreatPercentageWidgetHub", extended, configTable.ThreatPercentageWidget, CreateThreatPercentageWidget, EnableThreatPercentageWidget)
+	InitWidget( "ThreatPercentageWidgetHub", extended, configTable.ThreatPercentageWidget, CreateThreatPercentageWidget, EnableThreatPercentageWidget)
 	InitWidget( "RangeWidgetHub", extended, configTable.RangeWidget, CreateRangeWidget, EnableRangeWidget)
 
 	if EnableComboWidget and configTable.DebuffWidgetPlus then
@@ -390,8 +393,8 @@ local function OnContextUpdateDelegate(extended, unit)
 	--if LocalVars.WidgetAbsorbIndicator and widgets.AbsorbWidgetHub then
 	--	widgets.AbsorbWidgetHub:UpdateContext(unit) end
 
-	--if LocalVars.WidgetThreatPercentage and widgets.ThreatPercentageWidgetHub then
-	--	widgets.ThreatPercentageWidgetHub:UpdateContext(unit) end
+	if LocalVars.WidgetThreatPercentage and widgets.ThreatPercentageWidgetHub then
+		widgets.ThreatPercentageWidgetHub:UpdateContext(unit) end
 
 	if LocalVars.WidgetRangeIndicator and widgets.RangeWidgetHub then
 		widgets.RangeWidgetHub:UpdateContext(unit) end
@@ -442,6 +445,10 @@ local function OnVariableChange(vars)
 
 	if LocalVars.WidgetComboPoints then
 		NeatPlatesWidgets.SetComboPointsWidgetOptions(LocalVars)
+	end
+
+	if (LocalVars.ClassEnemyIcon or LocalVars.ClassPartyIcon) then
+		NeatPlatesWidgets.SetClassWidgetOptions(LocalVars)
 	end
 
 	if LocalVars.WidgetPandemic then

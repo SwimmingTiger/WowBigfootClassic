@@ -86,6 +86,8 @@ L["Friendly Health Bars"] = true
 	-- Healthbar Options
 	L["All NPCs"] = true
 	L["Exclude Instances"] = true
+	L["Exclude Minions"] = true
+	L["Exclude Totems"] = true
 	L["Elite Units"] = true
 	L["Players"] = true
 	L["Active/Damaged Units"] = true
@@ -170,9 +172,11 @@ L["Friendly Headline Subtext"] = true
 -- Buffs & Debuffs
 ------------------------------
 L["Buffs & Debuffs"] = true
+L["Aura Widget"] = true
 
 L["Enable Aura Widget"] = true
 	-- Aura Widget Options
+	L["Include All Auras"] = true
 	L["Include My Debuffs"] = true
 	L["Include My Buffs"] = true
 	L["Enable Pandemic Highlighting"] = true
@@ -184,6 +188,7 @@ L["Enable Aura Widget"] = true
 
 L["Space Between buffs & debuffs"] = true
 L["Aura Scale"] = true
+L["Aura Offsets"] = true
 L["Amount of Emphasized Auras"] = true
 L["Additional Auras"] = true
 L["Emphasized Auras"] = true
@@ -298,6 +303,7 @@ L["Text Color"] = true
 	L["Hostile NPC"] = true
 	L["Hostile Player"] = true
 	L["Guild Member"] = true
+	L["Party Member"] = true
 	L["Elite"] = true
 	L["Boss"] = true
 
@@ -330,6 +336,7 @@ L["Threat Mode"] = true
 	L["DPS/Healer"] = true
 
 L["Enable Warning Glow"] = true
+L["Enable Threat while Solo"] = true
 
 L["Threat Colors"] = true
 	L["Warning"] = true
@@ -423,6 +430,8 @@ L["Show Target Highlight"] = true
 L["Show Elite Icon"] = true
 L["Show Enemy Class Art"] = true
 L["Show Friendly Class Art"] = true
+L["Class Icon"] = true
+L["Class Icon Scale Options"] = true
 L["Show Totem Art"] = true
 L["Show Quest Icon on Units"] = true
 L["Show Personal Resource on Target"] = true
@@ -501,6 +510,7 @@ L["CVars could not applied due to combat"] = true
 
 -- Profile Panel
 L["Makes the Nameplates non-interactable"] = true
+L["Display all auras that have been applied regardless of source or duration."] = true
 L["Display Debuffs that have been applied by you"] = true
 L["Display Buffs that have been applied by you"] = true
 L["Highlight auras when they have less than 30% of their original duration remaining"] = true

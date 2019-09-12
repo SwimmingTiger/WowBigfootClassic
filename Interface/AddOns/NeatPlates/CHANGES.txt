@@ -1,0 +1,14 @@
+lightweight tag 4e52ab1bb3c4f9a4f9a09dde70a5cab9d6251c66 1.13.2.19
+Author:	Luxocracy <luxor355@gmail.com>
+Date:	Wed Sep 11 13:38:01 2019 +0200
+
+commit 4e52ab1bb3c4f9a4f9a09dde70a5cab9d6251c66
+Author: Luxocracy <luxor355@gmail.com>
+Date:   Wed Sep 11 13:38:01 2019 +0200
+
+    Changes and additions to scaling options
+    
+    - Added scaling options to Class Icon Widget
+    - Scaling option offsets are no longer limited to -100/100 and now scale infinitely
+    - Fixed a bug with scaling options not always showing the proper items
+

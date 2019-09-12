@@ -30,6 +30,7 @@ local GetFriendlyThreat = NeatPlatesUtility.GetFriendlyThreat
 local IsFriend = NeatPlatesUtility.IsFriend
 local IsHealer = NeatPlatesUtility.IsHealer
 local IsGuildmate = NeatPlatesUtility.IsGuildmate
+local IsPartyMember = NeatPlatesUtility.IsPartyMember
 local HexToRGB = NeatPlatesUtility.HexToRGB
 
 local IsOffTanked = NeatPlatesHubFunctions.IsOffTanked
@@ -72,11 +73,11 @@ local function ThreatExceptions(unit, isTank, noSafeColor)
 	}
 
 	-- Classic temporary fix, if enemy unit is in combat & the player is either in a party or has a pet.
-	local showClassicThreat = (UnitAffectingCombat(unit.unitid) and (UnitInParty("player") or UnitExists("pet")))
+	local playerIsTarget = unit.fixate or UnitIsUnit(unit.unitid.."target", "player")
+	local showClassicThreat = (unit.isInCombat and playerIsTarget and (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")))
 
 	-- Special case dealing with mobs from Reaping affix and units that fixate
 	if showClassicThreat or souls[unitGUID] or unit.fixate then
-		local playerIsTarget = unit.fixate or UnitIsUnit(unit.unitid.."target", "player")
 		if (playerIsTarget and isTank) or (not playerIsTarget and not isTank) then
 				return noSafeColor or LocalVars.ColorThreatSafe
 		else
@@ -98,9 +99,10 @@ unit.threatValue
 --]]
 
 local function ColorFunctionByReaction(unit)
-	if unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
-		if IsGuildmate(unit.name) then return LocalVars.ColorGuildMember
-		elseif IsFriend(unit.name) then return LocalVars.ColorGuildMember end
+	if unit.unitid and unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
+		if IsGuildmate(unit.unitid) then return LocalVars.ColorGuildMember
+		elseif IsFriend(unit.unitid) then return LocalVars.ColorGuildMember 
+		elseif IsPartyMember(unit.unitid) then return LocalVars.ColorPartyMember end
 	end
 
 	return ReactionColors[unit.reaction][unit.type]
@@ -171,7 +173,7 @@ local function ColorFunctionByThreat(unit)
 
 	if classColor then
 		return classColor
-	elseif InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
+	elseif InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and unit.isInCombat then
 		local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
 		local threatException = ThreatExceptions(unit, isTank)
 
@@ -391,7 +393,7 @@ end
 
 -- Warning Glow (Auto Detect)
 local function WarningBorderFunctionByThreat(unit)
-	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
+	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and unit.isInCombat then
 		local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
 		local threatException = ThreatExceptions(unit, isTank, true)
 
@@ -461,8 +463,11 @@ end
 
 -- By Reaction
 local function NameColorByReaction(unit)
-	if IsGuildmate(unit.name) then return LocalVars.TextColorGuildMember
-	elseif IsFriend(unit.name) then return LocalVars.TextColorGuildMember end
+	if unit.unitid then
+		if IsGuildmate(unit.unitid) then return LocalVars.TextColorGuildMember
+		elseif IsFriend(unit.unitid) then return LocalVars.TextColorGuildMember
+		elseif IsPartyMember(unit.unitid) then return LocalVars.TextColorPartyMember end
+	end
 
 	return NameReactionColors[unit.reaction][unit.type]
 end
@@ -544,7 +549,7 @@ end
 
 local function NameColorByThreat(unit)
 	if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return NameReactionColors[unit.reaction][unit.type]
-	elseif InCombatLockdown() then return ColorFunctionByThreat(unit)
+	elseif InCombatLockdown() and unit.isInCombat then return ColorFunctionByThreat(unit)
 	else return RaidClassColors[unit.class or ""] or NameReactionColors[unit.reaction][unit.type] end
 end
 
