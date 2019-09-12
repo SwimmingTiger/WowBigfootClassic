@@ -165,7 +165,8 @@ function CodexMap:ShowMapId(map)
 		for worldMapId, mapId in pairs(CodexMap.zones) do
 			if worldMapId == map then
 				WorldMapFrame:SetMapID(mapId)
-				CodexMap:UpdateNodes()
+				-- The previous CodexMap:UpdateNodes() call has rendered all the required markers, so there is no need to redraw
+				--CodexMap:UpdateNodes()
 				return true
 			end
 		end
@@ -643,6 +644,7 @@ function CodexMap:UpdateNodes()
 
 end
 
+-- Since UpdateNodes draws markers for all maps, it is no longer necessary to redraw when changing zones.
 --[[
 CodexMap:RegisterEvent("ZONE_CHANGED")
 CodexMap:RegisterEvent("ZONE_CHANGED_NEW_AREA")

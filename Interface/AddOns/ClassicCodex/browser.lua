@@ -182,7 +182,8 @@ local function ResultButtonClick(self)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         else
             local maps = CodexDatabase:SearchUnitById(self.id, meta)
-            CodexMap:UpdateNodes()
+            -- CodexMap:ShowMapId() will call CodexMap:UpdateNodes().
+            --CodexMap:UpdateNodes()
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         end
     elseif self.btype == "objects" then
@@ -191,7 +192,8 @@ local function ResultButtonClick(self)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         else
             local maps = CodexDatabase:SearchObjectById(self.id, meta)
-            CodexMap:UpdateNodes()
+            -- CodexMap:ShowMapId() will call CodexMap:UpdateNodes().
+            --CodexMap:UpdateNodes()
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         end
     end
@@ -234,7 +236,8 @@ local function ResultButtonClickSpecial(self)
     elseif self.buttonType == "V" then
         maps = CodexDatabase:SearchVendorByItemName(param, meta)
     end
-    CodexMap:UpdateNodes()
+    -- CodexMap:ShowMapId() will call CodexMap:UpdateNodes().
+    --CodexMap:UpdateNodes()
     CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
 end
 

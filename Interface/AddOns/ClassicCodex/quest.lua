@@ -1,17 +1,19 @@
 CodexQuest = CreateFrame("Frame")
 
 CodexQuest.queue = {}
-CodexQuest.queueEmptied = false
 CodexQuest.abandon = ""
 CodexQuest.questLog = {}
 CodexQuest.questLogTemp = {}
+CodexQuest.updateNodes = false
 
 CodexQuest:RegisterEvent("QUEST_WATCH_UPDATE")
 CodexQuest:RegisterEvent("QUEST_LOG_UPDATE")
 CodexQuest:RegisterEvent("QUEST_FINISHED")
 CodexQuest:RegisterEvent("PLAYER_LEVEL_UP")
 CodexQuest:RegisterEvent("PLAYER_ENTERING_WORLD")
-CodexQuest:RegisterEvent("SKILL_LINES_CHANGED")
+-- This event is triggered frequently when the player level is low. But it usually does not change the state of quests.
+-- To avoid performance issues, it is no longer registered.
+--CodexQuest:RegisterEvent("SKILL_LINES_CHANGED")
 CodexQuest:RegisterEvent("QUEST_DETAIL")
 CodexQuest:RegisterEvent("QUEST_PROGRESS")
 CodexQuest:RegisterEvent("QUEST_COMPLETE")
@@ -19,6 +21,7 @@ CodexQuest:RegisterEvent("QUEST_GREETING")
 CodexQuest:RegisterEvent("QUEST_REMOVED")
 CodexQuest:RegisterEvent("GOSSIP_SHOW")
 CodexQuest:RegisterEvent("NAME_PLATE_UNIT_ADDED")
+-- There is no handler for it. In order to avoid triggering the redrawing operation in the else branch, it is no longer registered.
 --CodexQuest:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
 CodexQuest:RegisterEvent("ADDON_LOADED")
 CodexQuest:SetScript("OnEvent", function(self, event, ...)
@@ -30,7 +33,7 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         else
             return
         end
-    elseif event == "PLAYER_LEVEL_UP" or event == "PLAYER_ENTERING_WORLD" or event == "SKILL_LINES_CHANGED" then
+    elseif event == "PLAYER_LEVEL_UP" or event == "PLAYER_ENTERING_WORLD" --[[or event == "SKILL_LINES_CHANGED"]] then
         CodexQuest.updateQuestGivers = true
 
     elseif (event == "GOSSIP_SHOW") then
@@ -141,53 +144,19 @@ CodexQuest:SetScript("OnUpdate", function()
         CodexQuest:UpdateQuestLog()
         CodexQuest.updateQuestLog = false
     end
-
+    
     if CodexQuest.updateQuestGivers == true then
-        if CodexConfig.trackingMethod == 4 then return end
         if CodexConfig.allQuestGivers then
             local meta = {["addon"] = "CODEX"}
             CodexDatabase:SearchQuests(meta)
-            CodexMap:UpdateNodes()
-            CodexQuest.updateQuestGivers = false
+            CodexQuest.updateNodes = true
         end
+        CodexQuest.updateQuestGivers = false
     end
 
-    if CodexConfig.trackingMethod == 4 then return end
-    if table.getn(CodexQuest.queue) == 0 and not CodexQuest.queueEmptied then
-        return
-    elseif table.getn(CodexQuest.queue) == 0 and CodexQuest.queueEmptied then
-        CodexQuest.queueEmptied = false
+    if CodexQuest.updateNodes == true then
         CodexMap:UpdateNodes()
-
-        return
-    end
-
-    -- process queue
-    local match = false
-    for id, entry in pairs(CodexQuest.queue) do
-        match = true
-
-        if CodexConfig.trackingMethod ~= 3 and (CodexConfig.trackingMethod ~= 2 or IsQuestWatched(entry[3])) then
-            CodexMap:DeleteNode("CODEX", entry[1])
-            local meta = {["addon"] = "CODEX", ["questLogId"] = entry[3]}
-            for _, id in pairs(entry[2]) do
-                CodexDatabase:SearchQuestById(id, meta)
-            end
-        end
-
-        CodexQuest.queue[id] = nil
-
-        if table.getn(CodexQuest.queue) == 0 then
-            CodexQuest.queueEmptied = true
-        end
-
-        return
-    end
-
-    -- trigger questgiver update
-    if match == false then
-        CodexQuest.updateQuestGivers = true
-        CodexQuest.queue = {}
+        CodexQuest.updateNodes = false
     end
 end)
 
@@ -233,11 +202,6 @@ function CodexQuest:UpdateQuestLog()
                 break
             end
         end
-
-		if complete then
-			--CodexMap:DeleteNode("CODEX", title)
-            CodexMap:UpdateNodes()
-        end
     end
 
     -- quest add events
@@ -253,7 +217,7 @@ function CodexQuest:UpdateQuestLog()
     for title, data in pairs(CodexQuest.questLog) do
         if not CodexQuest.questLogTemp[title] then
             CodexMap:DeleteNode("CODEX", title)
-            CodexMap:UpdateNodes()
+            CodexQuest.updateNodes = true
 
             for _, questId in pairs(CodexQuest.questLog[title].ids) do
                 -- Add to history
@@ -271,6 +235,22 @@ function CodexQuest:UpdateQuestLog()
 
     -- set new questlog
     CodexQuest.questLog = CodexQuest.questLogTemp
+
+    -- process queue
+    if CodexConfig.trackingMethod ~= 4  and table.getn(CodexQuest.queue) > 0 then
+        for id, entry in pairs(CodexQuest.queue) do
+            if CodexConfig.trackingMethod ~= 3 and (CodexConfig.trackingMethod ~= 2 or IsQuestWatched(entry[3])) then
+                CodexMap:DeleteNode("CODEX", entry[1])
+                local meta = {["addon"] = "CODEX", ["questLogId"] = entry[3]}
+                for _, id in pairs(entry[2]) do
+                    CodexDatabase:SearchQuestById(id, meta)
+                end
+                CodexQuest.updateNodes = true
+            end
+        end
+
+        CodexQuest.queue = {}
+    end
 end
 
 -- Force reset
@@ -279,11 +259,10 @@ function CodexQuest:ResetAll()
     CodexQuest.questLog = {}
     CodexQuest.updateQuestLog = true
     CodexQuest.updateQuestGivers = true
-    CodexMap.UpdateNodes()
+    CodexQuest.updateNodes = true
 end
 
 function CodexQuest:ShowCurrentQuest()
-    -- CodexQuest:ResetAll()
     local questIndex = GetQuestLogSelection()
     local title, _, _, header, _, complete = GetQuestLogTitle(questIndex)
     if header then return end
@@ -366,7 +345,7 @@ function CodexQuest:AddWorldMapIntegration()
     function CodexQuest.mapButton:updateMenu()
         local function CreateEntries()
             local info = {}
-            info.text = "显示所有已接任务"
+            info.text = "显示所有任务"
             info.checked = false
             info.func = function(self)
                 UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, self:GetID(), 0)
