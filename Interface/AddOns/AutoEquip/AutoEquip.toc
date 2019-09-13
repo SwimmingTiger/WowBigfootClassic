@@ -10,3 +10,4 @@
 ## X-Revision: BigFoot
 ## SavedVariables: AutoEquip_Config
 
+AutoEquip.xml
