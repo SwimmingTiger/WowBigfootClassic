@@ -187,15 +187,16 @@ end
 function CodexMap:ShowTooltip(meta, tooltip)
 	local catch = nil
 	local tooltip = tooltip or GameTooltip
+	local quests = CodexDB.quests.loc
 
 	-- Add quest data
 	if meta["quest"] then
 		-- scan all quest entries for matches
-		for questId = 1, GetNumQuestLogEntries() do
-			local title, _, _, _, _, complete = GetQuestLogTitle(questId)
+		for questIndex = 1, GetNumQuestLogEntries() do
+			local _, _, _, header, _, complete, _, questId = GetQuestLogTitle(questIndex)
 
-			if meta["quest"] == title then
-				local objectives = GetNumQuestLeaderBoards(questId)
+			if not header and quests[questId] and meta["quest"] == quests[questId].T then
+				local objectives = GetNumQuestLeaderBoards(questIndex)
 				catch = true
 
 				local symbol = (complete or objectives == 0) and "|cff555555[|cffffcc00?|cff555555]|r " or "|cff555555[|cffffcc00!|cff555555]|r "
@@ -204,7 +205,7 @@ function CodexMap:ShowTooltip(meta, tooltip)
 				local foundObjective = nil
 				if objectives then
 					for i = 1, objectives do
-						local text, type, complete = GetQuestLogLeaderBoard(i, questId)
+						local text, type, complete = GetQuestLogLeaderBoard(i, questIndex)
 
 						if type == "monster" then
 							-- kill

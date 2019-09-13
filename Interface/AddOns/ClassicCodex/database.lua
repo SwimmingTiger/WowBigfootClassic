@@ -580,15 +580,17 @@ function CodexDatabase:SearchQuests(meta, maps)
 
     local currentQuests = {}
     for id=1, GetNumQuestLogEntries() do
-        local title = GetQuestLogTitle(id)
-        currentQuests[title] = true
+        local _, _, _, header, _, _, _, questId = GetQuestLogTitle(id)
+        if not header then
+            currentQuests[questId] = true
+        end
     end
 
     for id in pairs(quests) do
         minLevel = quests[id]["min"] or quests[id]["lvl"] or playerLevel
         maxLevel = quests[id]["lvl"] or quests[id]["min"] or playerLevel
 
-        if CodexDB.quests.loc[id] and currentQuests[CodexDB.quests.loc[id].T] then
+        if CodexDB.quests.loc[id] and currentQuests[id] then
             -- hide active quest
         elseif completedQuests[id] then
             -- hide completed quests
@@ -702,9 +704,11 @@ function CodexDatabase:FormatQuestText(text)
     return string.gsub(text, "($[Gg])(.+):(.+);", "%"..UnitSex("player"))
 end
 
+-- Deprecated: Since Blizzard's GetQuestLogTitle() returns the quest ID directly, no longer need to guess
 -- Try to guess the quest ID based on the questlog ID
 -- automatically runs a deep scan if no result was found.
 -- Returns possible quest ID
+--[[
 function CodexDatabase:GetQuestIds(questId, deep)
     local oldId = GetQuestLogSelection()
     SelectQuestLogEntry(questId)
@@ -755,6 +759,7 @@ function CodexDatabase:GetQuestIds(questId, deep)
 
     return results[best] or (not deep and CodexDatabase:GetQuestIds(questId, 1) or {})
 end
+]]
 
 -- browser search related defaults and value
 CodexDatabase.lastSearchQuery = ""
