@@ -1313,7 +1313,7 @@ local function InspectUnit_KeepNotifying(unit)
 end
 hooksecurefunc("InspectUnit", InspectUnit_KeepNotifying)
 local function GetInspectItemLevel(guid, data, age)
-    if ((not guid) or (data and type(data.items) ~= "table")) then return end
+    if (not guid) or (type(data) ~= "table") or (type(data.items) ~= "table") then return end
     local numItems = 0
     local itemsTotal = 0
     local iLv16, iLv17
@@ -1355,7 +1355,7 @@ end
 LibInspect:AddHook("BFToolTip", "items",
                    function(...) GetInspectItemLevel(...) end)
 local function GetInspectTalentInfo(guid, data, age)
-    if ((not guid) or (data and type(data.talents) ~= "table")) then return end
+    if (not guid) or (type(data) ~= "table") or (type(data.talents) ~= "table") then return end
     local spec = data.talents.name
     if (spec) then
         if not InspectInfo[guid] then
