@@ -7,7 +7,7 @@
 ## Notes-zhTW: |cff00ff00ClassicCodex|r
 ## Author: Pgarneau, Shagu
 ## Version: 1.2.1
-## SavedVariablesPerCharacter: CodexConfig, CodexHistory, CodexBrowserFavorites, CodexColors
+## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

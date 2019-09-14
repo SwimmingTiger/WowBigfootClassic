@@ -1,5 +1,5 @@
 Codex = {}
-CodexHistory = {}
+CodexHiddenQuests = {}
 
 function Codex:strsplit(delimiter, data)
     if not data then return nil end

@@ -1,10 +1,8 @@
 CodexQuest = CreateFrame("Frame")
 
 CodexQuest.queue = {}
-CodexQuest.abandon = ""
 CodexQuest.questLog = {}
 CodexQuest.questLogTemp = {}
-CodexQuest.questNameMap = {}
 CodexQuest.updateNodes = false
 
 CodexQuest:RegisterEvent("QUEST_WATCH_UPDATE")
@@ -163,7 +161,6 @@ end)
 
 function CodexQuest:UpdateQuestLog()
     CodexQuest.questLogTemp = {}
-    CodexQuest.questNameMap = {}
 
     local _, numQuests = GetNumQuestLogEntries()
     local found = 0
@@ -171,17 +168,12 @@ function CodexQuest:UpdateQuestLog()
 
     -- iterate over all quests
     for questLogId = 1, 40 do
-        local blzTitle, _, _, header, _, complete, _, questId = GetQuestLogTitle(questLogId)
+        local _, _, _, header, _, complete, _, questId = GetQuestLogTitle(questLogId)
         local objectives = GetNumQuestLeaderBoards(questLogId)
         local watched = IsQuestWatched(questLogId)
 
         if not header and quests[questId] then
             local title = quests[questId].T
-            -- Save the mapping of the title from Blizzard and from the ClassicCodex database.
-            -- With the game updating, the names of the two may be inconsistent.
-            if blzTitle ~= title then
-                CodexQuest.questNameMap[blzTitle] = title
-            end
 
             -- add new quest to the quest log
             if not CodexQuest.questLog[title] then
@@ -227,17 +219,6 @@ function CodexQuest:UpdateQuestLog()
         if not CodexQuest.questLogTemp[title] then
             CodexMap:DeleteNode("CODEX", title)
             CodexQuest.updateNodes = true
-
-            for _, questId in pairs(CodexQuest.questLog[title].ids) do
-                -- Add to history
-                if title == CodexQuest.abandon then
-                    CodexHistory[questId] = nil
-                else
-                    CodexHistory[questId] = true
-                end
-            end
-
-            CodexQuest.abandon = ""
             CodexQuest.updateQuestGivers = true
         end
     end
@@ -463,15 +444,4 @@ AddQuestWatch = function(questIndex)
     CodexQuest.updateQuestGivers = true
 
     return re
-end
-
-local CodexHookAbandonQuest = AbandonQuest
-AbandonQuest = function()
-    CodexQuest.abandon = GetAbandonQuestName()
-    -- The quest title from the Blizzard API may be inconsistent with the ClassicCodex database.
-    -- Convert to the title in the database to avoid subsequent errors.
-    if CodexQuest.questNameMap[CodexQuest.abandon] then
-        CodexQuest.abandon = CodexQuest.questNameMap[CodexQuest.abandon]
-    end
-    CodexHookAbandonQuest()
 end

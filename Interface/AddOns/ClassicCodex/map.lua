@@ -493,9 +493,9 @@ function CodexMap:UpdateNode(frame, node)
 
 	frame:SetScript("OnClick", function(self)
 		if IsShiftKeyDown() and self.questId and self.texture and self.layer < 5 then
-			-- mark questnode as done
+			-- player hides the quest
 			CodexMap:DeleteNode(self.node[self.title].addon, self.title)
-			CodexHistory[self.questId] = true
+			CodexHiddenQuests[self.questId] = true
 			CodexMap:UpdateNodes()
 		elseif IsShiftKeyDown() then
 			CodexMap:DeleteNode(self.node[self.title].addon, self.title)

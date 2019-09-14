@@ -593,10 +593,10 @@ function CodexDatabase:SearchQuests(meta, maps)
         if CodexDB.quests.loc[id] and currentQuests[id] then
             -- hide active quest
         elseif completedQuests[id] then
+            -- hide quests hidden by the player
+        elseif CodexHiddenQuests[id] then
             -- hide completed quests
-        elseif CodexHistory[id] then
-            -- hide completed quests
-        elseif quests[id]["pre"] and not CodexHistory[quests[id]["pre"]] then
+        elseif quests[id]["pre"] and not completedQuests[quests[id]["pre"]] then
             -- hide missing pre-quest
         elseif quests[id]["race"] and not (bit.band(quests[id]["race"], playerRace) == playerRace) then
             -- hide non-available quests for your race
