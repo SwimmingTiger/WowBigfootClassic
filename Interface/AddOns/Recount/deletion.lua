@@ -135,7 +135,7 @@ function Recount:PartyMembersChanged()
 		Recount.inGroup = false
 	end
 
-	if IsInRaid() and not IsInScenarioGroup() then
+	if IsInRaid() and not (WOW_RETAIL and IsInScenarioGroup()) then
 		change = change or not Recount.inRaid
 		Recount.inRaid = true
 	else
@@ -143,7 +143,7 @@ function Recount:PartyMembersChanged()
 		Recount.inRaid = false
 	end
 
-	if IsInRaid() and IsInScenarioGroup() then
+	if IsInRaid() and (WOW_RETAIL and IsInScenarioGroup()) then
 		change = change or not Recount.inScenario
 		Recount.inScenario = true
 	else
