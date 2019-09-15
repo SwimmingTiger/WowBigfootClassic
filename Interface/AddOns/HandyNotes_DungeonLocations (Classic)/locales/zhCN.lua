@@ -2,6 +2,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_DungeonLocations (Class
 if not L then return end
 
 L = L or {}
+L['DungeonLocations_Classic'] = "副本标记"
 L["Allow right click to create waypoints with TomTom"] = "允许使用右键建立 TomTom 的引导箭头"
 L["Blackfathom Deeps"] = "黑暗深渊"
 L["Blackrock Depths"] = "黑石深渊"

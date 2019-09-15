@@ -51,6 +51,7 @@ local ignored = {
 	["ZGVMarker"]=true,
 	["QuestPointerPOI"] = true,
 	["LibDBIcon10_bfModelChange"] = true,
+	["LibDBIcon10_HandyNotes_NPCs"] = true,
 }
 
 local options = {

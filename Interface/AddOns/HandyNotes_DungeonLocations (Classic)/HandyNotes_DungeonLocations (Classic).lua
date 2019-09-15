@@ -364,7 +364,7 @@ end
 function Addon:PLAYER_LOGIN()
  local options = {
  type = "group",
- name = "DungeonLocations_Classic",
+ name = L["DungeonLocations_Classic"],
  desc = "Locations of dungeon and raid entrances.",
  get = function(info) return db[info[#info]] end,
  set = function(info, v) db[info[#info]] = v HandyNotes:SendMessage("HandyNotes_NotifyUpdate", "DungeonLocations_Classic") end,

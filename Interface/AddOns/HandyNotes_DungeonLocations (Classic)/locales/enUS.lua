@@ -1,6 +1,7 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_DungeonLocations (Classic)", "enUS", true)
 
 L = L or {}
+L['DungeonLocations_Classic'] = true
 L["Allow right click to create waypoints with TomTom"] = true
 L["Blackfathom Deeps"] = true
 L["Blackrock Depths"] = true
