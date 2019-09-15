@@ -1,3 +1,4 @@
+local ChatFrameEditBox = ChatFrameEditBox or ChatFrame1EditBox
 local PlayerLink_3b370ebf3ed541e39961bc311976be8c = function() end
 PlayerLinkPopupButtons = {}
 if (GetLocale() == "zhCN") then
