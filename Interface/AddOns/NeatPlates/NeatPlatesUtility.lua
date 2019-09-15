@@ -208,6 +208,7 @@ TooltipScanner:SetOwner( WorldFrame, "ANCHOR_NONE" );
 local UnitSubtitles = {}
 local function GetUnitSubtitle(unit)
 	local unitid = unit.unitid
+	local colorblindMode = GetCVar("colorblindMode") == "1" -- Color blind mode seems to shift this down one row.
 
 	-- Bypass caching while in an instance
 	--if inInstance or (not UnitExists(unitid)) then return end
@@ -233,7 +234,12 @@ local function GetUnitSubtitle(unit)
 
 
 		-- Tooltip Format Priority:  Faction, Description, Level
-		local toolTipText = TooltipTextLeft2:GetText() or "UNKNOWN"
+		local toolTipText
+		if colorblindMode then 
+			toolTipText = TooltipTextLeft3:GetText() or "UNKNOWN"
+		else
+			toolTipText = TooltipTextLeft2:GetText() or "UNKNOWN"
+		end
 
 		if string.match(toolTipText, UNIT_LEVEL_TEMPLATE) then
 			subTitle = ""
@@ -619,6 +625,7 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 	slider:SetValueStep(step or .1)
 	slider:SetValue(val or .5)
 	slider:SetOrientation("HORIZONTAL")
+	slider:SetObeyStepOnDrag(true)
 	slider:Enable()
 	-- Labels
 	slider.Label = slider:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
@@ -1118,6 +1125,17 @@ PanelHelpers.EnableFreePositioning = EnableFreePositioning
 
 
 
+-- Custom target frame
+local function CreateTargetFrame()
+	local frame = CreateFrame("Frame", "NeatPlatesTarget", WorldFrame)
+	NeatPlatesTarget:Show()
+	NeatPlatesTarget:SetPoint("CENTER", UIParent, "CENTER", 0, 300)
+	NeatPlatesTarget:SetWidth(200)
+	NeatPlatesTarget:SetHeight(200)
+	return frame
+end
+
+NeatPlatesUtility.CreateTargetFrame = CreateTargetFrame
 
 ----------------------
 -- Call In() - Registers a callback, which hides the specified frame in X seconds

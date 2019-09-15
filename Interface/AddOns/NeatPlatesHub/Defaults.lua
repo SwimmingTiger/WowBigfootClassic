@@ -151,12 +151,13 @@ NeatPlatesHubDefaults = {
 	ThreatMode = 1,
 	ThreatGlowEnable = true,
 	ThreatSoloEnable = false,
+	SafeColorSolo = false,
 	ColorShowPartyAggro = false,
 	ColorPartyAggroBar = false,
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 3,
+	HighlightTargetMode = 1,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -213,7 +214,7 @@ NeatPlatesHubDefaults = {
 	ColorSchoolShadow = {r = 0.5, g = 0.5, b = 1},
 	ColorSchoolArcane = {r = 1, g = 0.5, b = 1},
 	ColorCastBySchool = true,
-	SpellCastEnableFriendly = true,
+	SpellCastEnableFriendly = false,
 	IntCastEnable = true,
 	IntCastWhoEnable = true,
 
@@ -312,5 +313,6 @@ NeatPlatesHubDefaults = {
 	FocusAsTarget = false,
 	AltShortening = (LOCALE_zhCN or LOCALE_zhTW) or false,
 	FrameBarWidth = 1,
+	CastBarWidth = 1,
 	--AdvancedHealthTextList = [[return unit.health]],
 }

@@ -24,6 +24,7 @@ local RGBToHex = NeatPlatesUtility.RGBToHex
 local NO_AUTOMATION = L["No Automation"]
 local DURING_COMBAT = L["Show during Combat, Hide when Combat ends"]
 local OUT_OF_COMBAT = L["Hide when Combat starts, Show when Combat ends"]
+local NOT_IN_INSTANCE = L["Hide in instances, Show outside of instances"]
 
 -- Localized fonts
 if (LOCALE_koKR) then
@@ -88,6 +89,7 @@ NeatPlatesOptions = {
 
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
+	EmulatedTargetPlate = false,
 	DisableCastBars = false,
 	ForceBlizzardFont = false,
 	HealthFrequent = true,
@@ -108,6 +110,7 @@ local AutomationDropdownItems = {
 					{ text = NO_AUTOMATION, value = NO_AUTOMATION } ,
 					{ text = DURING_COMBAT, value = DURING_COMBAT } ,
 					{ text = OUT_OF_COMBAT, value = OUT_OF_COMBAT } ,
+					{ text = NOT_IN_INSTANCE, value = NOT_IN_INSTANCE } ,
 					}
 
 local OutlineStyleItems = {
@@ -182,14 +185,23 @@ local function ValidateProfileName(name, callback)
 end
 
 local function SetNameplateVisibility(cvar, mode, combat)
-	if mode == DURING_COMBAT then
+	if mode == DURING_COMBAT and combat ~= nil then
 		if combat then
 			SetCVar(cvar, 1)
 		else
 			SetCVar(cvar, 0)
 		end
-	elseif mode == OUT_OF_COMBAT then
+	elseif mode == OUT_OF_COMBAT and combat ~= nil then
 		if combat then
+			SetCVar(cvar, 0)
+		else
+			SetCVar(cvar, 1)
+		end
+	elseif mode == NOT_IN_INSTANCE then
+		local inInstance, instanceType = IsInInstance()
+		inInstance = instanceType == "party" or instanceType == "raid"
+
+		if inInstance then
 			SetCVar(cvar, 0)
 		else
 			SetCVar(cvar, 1)
@@ -221,6 +233,7 @@ local function ApplyAutomationSettings()
 	SetCastBars(not NeatPlatesOptions.DisableCastBars)
 	NeatPlates.OverrideFonts( NeatPlatesOptions.ForceBlizzardFont)
 	NeatPlates:SetHealthUpdateMethod(NeatPlatesOptions.HealthFrequent)
+	NeatPlates:ToggleEmulatedTargetPlate(NeatPlatesOptions.EmulatedTargetPlate)
 
 	if NeatPlatesOptions._EnableMiniButton then
 		NeatPlatesUtility:CreateMinimapButton()
@@ -307,6 +320,7 @@ local function GetPanelValues(panel)
 
 	NeatPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	NeatPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
+	NeatPlatesOptions.EmulatedTargetPlate = panel.EmulatedTargetPlate:GetChecked()
 	NeatPlatesOptions.DisableCastBars = panel.DisableCastBars:GetChecked()
 	NeatPlatesOptions.ForceBlizzardFont = panel.ForceBlizzardFont:GetChecked()
 	NeatPlatesOptions.HealthFrequent = panel.HealthFrequent:GetChecked()
@@ -329,6 +343,7 @@ local function SetPanelValues(panel)
 
 	panel.FirstSpecDropdown:SetValue(NeatPlatesOptions.FirstSpecProfile)
 
+	panel.EmulatedTargetPlate:SetChecked(NeatPlatesOptions.EmulatedTargetPlate)
 	panel.DisableCastBars:SetChecked(NeatPlatesOptions.DisableCastBars)
 	panel.ForceBlizzardFont:SetChecked(NeatPlatesOptions.ForceBlizzardFont)
 	panel.HealthFrequent:SetChecked(NeatPlatesOptions.HealthFrequent)
@@ -346,7 +361,7 @@ local function SetPanelValues(panel)
 	-- CVars
 	panel.NameplateTargetClamp:SetChecked((function() if GetCVar("nameplateTargetRadialPosition") == "1" then return true else return false end end)())
 	panel.NameplateStacking:SetChecked((function() if GetCVar("nameplateMotion") == "1" then return true else return false end end)())
-	--panel.NameplateMaxDistance:SetValue(GetCVar("nameplateMaxDistance"))
+	--panel.NameplateMaxDistance:SetValue(string.gsub(GetCVar("nameplateMaxDistance"), "e1", "0"))
 	panel.NameplateOverlapH:SetValue(GetCVar("nameplateOverlapH"))
 	panel.NameplateOverlapV:SetValue(GetCVar("nameplateOverlapV"))
 end
@@ -656,9 +671,15 @@ local function BuildInterfacePanel(panel)
 	panel.OtherOptionsLabel:SetPoint("TOPLEFT", panel.GlobalAuraEditBox, "BOTTOMLEFT", 0, -20)
 	panel.OtherOptionsLabel:SetTextColor(255/255, 105/255, 6/255)
 
+	-- Emulated Target Plate
+	panel.EmulatedTargetPlate = PanelHelpers:CreateCheckButton("NeatPlatesOptions_EmulatedTargetPlate", panel, L["Emulate Target Nameplate"].."*")
+	panel.EmulatedTargetPlate:SetPoint("TOPLEFT", panel.OtherOptionsLabel, "BOTTOMLEFT", 0, -8)
+	panel.EmulatedTargetPlate:SetScript("OnClick", function(self) NeatPlates:ToggleEmulatedTargetPlate(self:GetChecked()) end)
+	panel.EmulatedTargetPlate.tooltipText = L["This feature is highly experimental, use on your own risk"]
+
 	-- Cast Bars
 	panel.DisableCastBars = PanelHelpers:CreateCheckButton("NeatPlatesOptions_DisableCastBars", panel, L["Disable Cast Bars"])
-	panel.DisableCastBars:SetPoint("TOPLEFT", panel.OtherOptionsLabel, "BOTTOMLEFT", 0, -8)
+	panel.DisableCastBars:SetPoint("TOPLEFT", panel.EmulatedTargetPlate, "TOPLEFT", 0, -25)
 	panel.DisableCastBars:SetScript("OnClick", function(self) SetCastBars(not self:GetChecked()) end)
 
 	-- ForceBlizzardFont
@@ -706,9 +727,10 @@ local function BuildInterfacePanel(panel)
 	panel.NameplateStacking:SetPoint("TOPLEFT", panel.NameplateTargetClamp, "TOPLEFT", 0, -25)
 	panel.NameplateStacking:SetScript("OnClick", function(self) SetCVarValue(self, "nameplateMotion", true) end)
 
-	--panel.NameplateMaxDistance = PanelHelpers:CreateSliderFrame("NeatPlatesOptions_NameplateMaxDistance", panel, L["Nameplate Max Distance"], 60, 10, 100, 1, "ACTUAL", 250)
+	--panel.NameplateMaxDistance = PanelHelpers:CreateSliderFrame("NeatPlatesOptions_NameplateMaxDistance", panel, L["Nameplate Max Distance"], 20, 10, 100, 10, "ACTUAL", 250)
 	--panel.NameplateMaxDistance:SetPoint("TOPLEFT", panel.NameplateStacking, "TOPLEFT", 10, -50)
-	--panel.NameplateMaxDistance.Callback = function(self) SetCVarValue(self, "nameplateMaxDistance") end
+	----panel.NameplateMaxDistance.Callback = function(self) SetCVarValue(self, "nameplateMaxDistance") end
+	--panel.NameplateMaxDistance.Callback = function(self) local val = self:GetValue(); SetCVar("nameplateMaxDistance", tostring((val-val%10)/10).."e1") end
 
 	panel.NameplateOverlapH = PanelHelpers:CreateSliderFrame("NeatPlatesOptions_NameplateOverlapH", panel, L["Nameplate Horizontal Overlap"], 0, 0, 10, .1, "ACTUAL", 170)
 	panel.NameplateOverlapH:SetPoint("TOPLEFT", panel.NameplateStacking, "TOPLEFT", 10, -50)
@@ -861,6 +883,10 @@ function panelevents:PLAYER_ENTERING_WORLD()
 	ApplyPanelSettings()
 	ApplyAutomationSettings()
 	NeatPlatesHubFunctions.ApplyRequiredCVars(NeatPlatesOptions)
+
+	-- Nameplate automation in case of instance
+	SetNameplateVisibility("nameplateShowEnemies", NeatPlatesOptions.EnemyAutomation)
+	SetNameplateVisibility("nameplateShowFriends", NeatPlatesOptions.FriendlyAutomation)
 end
 
 function panelevents:PLAYER_REGEN_ENABLED()

@@ -6,6 +6,7 @@
 local addonName, NeatPlatesInternal = ...
 local L = LibStub("AceLocale-3.0"):GetLocale("NeatPlates")
 local NeatPlatesCore = CreateFrame("Frame", nil, WorldFrame)
+local NeatPlatesTarget
 local FrequentHealthUpdate = true
 local GetPetOwner = NeatPlatesUtility.GetPetOwner
 NeatPlates = {}
@@ -30,7 +31,7 @@ local UnitDetailedThreatSituation = NeatPlatesUtility.UnitDetailedThreatSituatio
 local Plates, PlatesVisible, PlatesFading, GUID = {}, {}, {}, {}	            -- Plate Lists
 local PlatesByUnit = {}
 local PlatesByGUID = {}
-local nameplate, extended, bars, regions, visual, carrier, plateid			    	-- Temp/Local References
+local nameplate, extended, bars, regions, visual, carrier			    						-- Temp/Local References
 local unit, unitcache, style, stylename, unitchanged, threatborder				    -- Temp/Local References
 local numChildren = -1                                                        -- Cache the current number of plates
 local activetheme = {}                                                        -- Table Placeholder
@@ -95,6 +96,34 @@ local UpdateUnitIdentity
 local OnUpdate
 local OnNewNameplate
 local ForEachPlate
+
+-- Show Custom NeatPlates target frame
+local ShowEmulatedTargetPlate = false
+
+local function IsEmulatedFrame(guid)
+	if NeatPlatesTarget and NeatPlatesTarget.unitGUID == guid then return NeatPlatesTarget else return end
+end
+
+local function toggleNeatPlatesTarget(show, ...)
+	if not ShowEmulatedTargetPlate then return end
+	local friendlyPlates, enemyPlates = GetCVar("nameplateShowFriends") == "0" and UnitIsFriend("player", "target"), GetCVar("nameplateShowEnemies") == "0" and UnitIsEnemy("player", "target")
+
+	-- Create a new target frame if needed
+	if not NeatPlatesTarget then
+		NeatPlatesTarget = NeatPlatesUtility:CreateTargetFrame()
+		OnNewNameplate(NeatPlatesTarget)
+	end
+
+	local _,_,_,x,y = ...
+	local target = UnitExists("target")
+
+	if not show or friendlyPlates or enemyPlates then OnHideNameplate(NeatPlatesTarget, "target"); return end
+	if target then
+		OnShowNameplate(NeatPlatesTarget, "target")
+		if not x then x, y = GetCursorPosition() end
+		NeatPlatesTarget:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y+20)
+	end
+end
 
 -- UpdateNameplateSize
 local function UpdateNameplateSize(plate, show, cWidth, cHeight)
@@ -180,7 +209,8 @@ do
 				plate.UpdateMe = false
 				plate.UpdateHealth = false
 
-				plate:GetChildren():Hide()
+				local children = plate:GetChildren()
+				if children then children:Hide() end
 
 				if plate.UpdateCastbar then -- Check if spell is being cast
 					local unitGUID = UnitGUID(unit.unitid)
@@ -214,7 +244,7 @@ do
 	local topFrameLevel = 0
 
 	-- ApplyPlateExtesion
-	function OnNewNameplate(plate, plateid)
+	function OnNewNameplate(plate, unitid)
 
     -- NeatPlates Frame
     --------------------------------
@@ -280,6 +310,7 @@ do
 		widgetParent:SetFrameStrata("BACKGROUND")
 
 		widgetParent:SetFrameLevel(textFrame:GetFrameLevel() - 1)
+		castbar:SetFrameLevel(widgetParent:GetFrameLevel() + 1)
 
 		topFrameLevel = topFrameLevel + 20
 		extended.defaultLevel = topFrameLevel
@@ -404,13 +435,13 @@ do
 
 		PlatesVisible[plate] = unitid
 		PlatesByUnit[unitid] = plate
-		if unitGUID then PlatesByGUID[unitGUID] = plate end
+		if unitGUID and unitid ~= "target" then PlatesByGUID[unitGUID] = plate end
 
 		unit.frame = extended
 		unit.alpha = 0
 		unit.isTarget = false
 		unit.isMouseover = false
-		unit.unitid = plateid
+		unit.unitid = unitid
 		extended.unitcache = ClearIndices(extended.unitcache)
 		extended.stylename = ""
 		extended.Active = true
@@ -459,7 +490,7 @@ do
 
 		PlatesVisible[plate] = nil
 		PlatesByUnit[unitid] = nil
-		if unitGUID then PlatesByGUID[unitGUID] = nil end
+		if unitGUID and unitid ~= "target" then PlatesByGUID[unitGUID] = nil end
 
 		visual.castbar:Hide()
 		visual.castbar:SetScript("OnUpdate", nil)
@@ -1121,6 +1152,9 @@ do
 		if plate and not UnitIsUnit("player", unitid) then
 			local children = plate:GetChildren()
 			if children then children:Hide() end --Avoids errors incase the plate has no children
+
+			if NeatPlatesTarget and unitid and UnitGUID(unitid) == NeatPlatesTarget.unitGUID then toggleNeatPlatesTarget(false) end
+
 	 		OnShowNameplate(plate, unitid)
 	 	end
 	end
@@ -1129,11 +1163,23 @@ do
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
 
+		if NeatPlatesTarget and plate.extended.unit.guid == NeatPlatesTarget.unitGUID then toggleNeatPlatesTarget(true, plate:GetPoint()) end
+
 		OnHideNameplate(plate, unitid)
 	end
 
 	function CoreEvents:PLAYER_TARGET_CHANGED()
+		local unitAlive = UnitIsDead("target") == false;
+		local guid = UnitGUID("target")
 		HasTarget = UnitExists("target") == true;
+		-- Create a new target frame if needed
+		if not NeatPlatesTarget then
+			NeatPlatesTarget = NeatPlatesUtility:CreateTargetFrame()
+			OnNewNameplate(NeatPlatesTarget)
+		end
+		-- Show Target frame, if other frame doesn't exist and nisn't dead
+		if HasTarget and NeatPlatesTarget then NeatPlatesTarget.unitGUID = guid end
+		toggleNeatPlatesTarget(HasTarget and unitAlive and not PlatesByGUID[guid])
 		SetUpdateAll()
 	end
 
@@ -1237,7 +1283,7 @@ do
 				-- With "SPELL_AURA_APPLIED" we are looking for stuns etc. that were applied.
 				-- As the "SPELL_INTERRUPT" event doesn't get logged for those types of interrupts, but does trigger a "UNIT_SPELLCAST_INTERRUPTED" event.
 				-- "SPELL_CAST_FAILED" is for when the unit themselves interrupt the cast.
-				plate = PlatesByGUID[destGUID]
+				plate = PlatesByGUID[destGUID] or IsEmulatedFrame(destGUID)
 
 				if plate then
 					if (event == "SPELL_AURA_APPLIED" or event == "SPELL_CAST_FAILED") and (not plate.extended.unit.interrupted or plate.extended.unit.interruptLogged) then return end
@@ -1257,7 +1303,7 @@ do
 		if ShowCastBars and unitType and (spellName and type(spellName) == "string") and not spellBlacklist[spellName] then
 			local currentTime = GetTime() * 1000
 			local spellEntry
-			plate = PlatesByGUID[sourceGUID]
+			plate = PlatesByGUID[sourceGUID] or IsEmulatedFrame(sourceGUID)
 			NeatPlatesSpellDB[unitType] = NeatPlatesSpellDB[unitType] or {}
 			NeatPlatesSpellDB[unitType][spellName] = NeatPlatesSpellDB[unitType][spellName] or {}
 			if creatureID then
@@ -1284,7 +1330,7 @@ do
 				if SpellCastCache[sourceGUID].spellTimeout then SpellCastCache[sourceGUID].spellTimeout:Cancel() end	-- Cancel the old spell timeout if it exists
 
 				SpellCastCache[sourceGUID].spellTimeout = C_Timer.NewTimer(timeout, function()
-					local plate = PlatesByGUID[sourceGUID]
+					local plate = PlatesByGUID[sourceGUID] or IsEmulatedFrame(sourceGUID)
 					if SpellCastCache[sourceGUID].startTime == currentTime then SpellCastCache[sourceGUID].finished = true end -- Make sure we are on the same cast
 					if plate then OnStopCasting(plate) end
 				end)
@@ -1546,6 +1592,7 @@ NeatPlates.CleanSpellDB = CleanSpellDB
 function NeatPlates:DisableCastBars() ShowCastBars = false end
 function NeatPlates:EnableCastBars() ShowCastBars = true end
 function NeatPlates.ColorCastBars(enable) ColorCastBars = enable end
+function NeatPlates:ToggleEmulatedTargetPlate(show) if not show then toggleNeatPlatesTarget(false) end; ShowEmulatedTargetPlate = show end
 
 function NeatPlates:ToggleInterruptedCastbars(showIntCast, showIntWhoCast) ShowIntCast = showIntCast; ShowIntWhoCast = showIntWhoCast end
 function NeatPlates:SetHealthUpdateMethod(useFrequent) FrequentHealthUpdate = useFrequent end

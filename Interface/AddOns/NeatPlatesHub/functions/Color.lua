@@ -34,6 +34,7 @@ local IsPartyMember = NeatPlatesUtility.IsPartyMember
 local HexToRGB = NeatPlatesUtility.HexToRGB
 
 local IsOffTanked = NeatPlatesHubFunctions.IsOffTanked
+local ThreatExceptions = NeatPlatesHubFunctions.ThreatExceptions
 local IsTankingAuraActive = NeatPlatesWidgets.IsPlayerTank
 local InCombatLockdown = InCombatLockdown
 local StyleDelegate = NeatPlatesHubFunctions.SetStyleNamed
@@ -63,28 +64,6 @@ local function ColorFunctionBlack()
 	return HubData.Colors.Black
 end
 
-local function ThreatExceptions(unit, isTank, noSafeColor)
-	local unitGUID = select(6, strsplit("-", UnitGUID(unit.unitid)))
-	-- Mobs from Reaping affix
-	local souls = {
-		["148893"] = true,
-		["148894"] = true,
-		["148716"] = true,
-	}
-
-	-- Classic temporary fix, if enemy unit is in combat & the player is either in a party or has a pet.
-	local playerIsTarget = unit.fixate or UnitIsUnit(unit.unitid.."target", "player")
-	local showClassicThreat = (unit.isInCombat and playerIsTarget and (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")))
-
-	-- Special case dealing with mobs from Reaping affix and units that fixate
-	if showClassicThreat or souls[unitGUID] or unit.fixate then
-		if (playerIsTarget and isTank) or (not playerIsTarget and not isTank) then
-				return noSafeColor or LocalVars.ColorThreatSafe
-		else
-			return LocalVars.ColorThreatWarning
-		end
-	end
-end
 
 --[[
 unit.threatValue
@@ -127,33 +106,30 @@ end
 3 - Unit is mobUnit's primary target, and no other unit has 100% or higher raw threat (default UI shows red indicator)
 --]]
 
-local function ColorFunctionDamage(unit)
-
-	if IsOffTanked(unit) then return LocalVars.ColorAttackingOtherTank end
+local function ColorFunctionDamage(unit, glow)
+	if IsOffTanked(unit) and not glow then return LocalVars.ColorAttackingOtherTank end
 
 	if unit.threatValue > 1 then return LocalVars.ColorThreatWarning				-- When player is unit's target		-- Warning
 	elseif unit.threatValue == 1 then return LocalVars.ColorThreatTransition											-- Transition
 	else return LocalVars.ColorThreatSafe end																	-- Safe
 end
 
-local function ColorFunctionRawTank(unit)
-
-
+local function ColorFunctionRawTank(unit, glow)
 	if unit.threatValue > 2 then
 		return LocalVars.ColorThreatWarning							-- When player is solid target, ie. Safe
 	else
-		if IsOffTanked(unit) then return LocalVars.ColorAttackingOtherTank		-- When unit is tanked by another
+		if IsOffTanked(unit) and not glow then return LocalVars.ColorAttackingOtherTank		-- When unit is tanked by another
 
 		elseif unit.threatValue == 2 then return LocalVars.ColorThreatTransition				-- Transition
 		else return LocalVars.ColorThreatSafe end										-- Warning
 	end
 end
 
-local function ColorFunctionTankSwapColors(unit)
+local function ColorFunctionTankSwapColors(unit, glow)
 	if unit.threatValue > 2 then
 		return LocalVars.ColorThreatSafe				-- When player is solid target		-- ColorThreatSafe = Safe Color... which means that a Tank would want it to be Safe
 	else
-		if IsOffTanked(unit) then return LocalVars.ColorAttackingOtherTank			-- When unit is tanked by another
+		if IsOffTanked(unit) and not glow then return LocalVars.ColorAttackingOtherTank			-- When unit is tanked by another
 		elseif unit.threatValue == 2 then return LocalVars.ColorThreatTransition					-- Transition
 		else return LocalVars.ColorThreatWarning end												-- Warning
 	end
@@ -173,7 +149,8 @@ local function ColorFunctionByThreat(unit)
 
 	if classColor then
 		return classColor
-	elseif InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and unit.isInCombat then
+	elseif (LocalVars.SafeColorSolo and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) and not (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet"))) then return LocalVars.ColorThreatSafe
+	elseif (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")) and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
 		local threatException = ThreatExceptions(unit, isTank)
 
@@ -393,7 +370,7 @@ end
 
 -- Warning Glow (Auto Detect)
 local function WarningBorderFunctionByThreat(unit)
-	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and unit.isInCombat then
+	if (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")) and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
 		local threatException = ThreatExceptions(unit, isTank, true)
 
@@ -408,10 +385,10 @@ local function WarningBorderFunctionByThreat(unit)
 		if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return end
 
 		if isTank then
-				if not unit.isInCombat or IsOffTanked(unit) then return
+				if (not unit.isInCombat and not UnitIsUnit(unit.unitid.."target", "player")) or IsOffTanked(unit) then return
 				elseif unit.threatValue == 2 then return LocalVars.ColorThreatTransition
 				elseif unit.threatValue < 2 then return LocalVars.ColorThreatWarning	end
-		elseif unit.threatValue > 0 then return ColorFunctionDamage(unit) end
+		elseif unit.threatValue > 0 then return ColorFunctionDamage(unit, true) end
 	else
 		-- Add healer tracking
 		return WarningBorderFunctionByEnemyHealer(unit)
@@ -549,7 +526,7 @@ end
 
 local function NameColorByThreat(unit)
 	if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return NameReactionColors[unit.reaction][unit.type]
-	elseif InCombatLockdown() and unit.isInCombat then return ColorFunctionByThreat(unit)
+	elseif InCombatLockdown() and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then return ColorFunctionByThreat(unit)
 	else return RaidClassColors[unit.class or ""] or NameReactionColors[unit.reaction][unit.type] end
 end
 

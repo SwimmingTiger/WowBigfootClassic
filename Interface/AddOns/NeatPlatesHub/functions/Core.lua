@@ -71,6 +71,32 @@ local function IsOffTanked(unit)
 	end
 end
 
+local function ThreatExceptions(unit, isTank, noSafeColor)
+	if not unit or not unit.unitid then return end
+	local unitGUID = UnitGUID(unit.unitid)
+	if not unitGUID then return end
+	unitGUID = select(6, strsplit("-", unitGUID))
+	-- Mobs from Reaping affix
+	local souls = {
+		["148893"] = true,
+		["148894"] = true,
+		["148716"] = true,
+	}
+
+	-- Classic temporary fix, if enemy unit is in combat & the player is either in a party or has a pet.
+	local playerIsTarget = unit.fixate or UnitIsUnit(unit.unitid.."target", "player")
+	local showClassicThreat = (unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and playerIsTarget and (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")))
+
+	-- Special case dealing with mobs from Reaping affix and units that fixate
+	if showClassicThreat or souls[unitGUID] or unit.fixate then
+		if (playerIsTarget and isTank) or (not playerIsTarget and not isTank) then
+				return noSafeColor or LocalVars.ColorThreatSafe
+		else
+			return LocalVars.ColorThreatWarning
+		end
+	end
+end
+
 
 -- General
 local function DummyFunction() return end
@@ -232,13 +258,24 @@ local function ApplyCustomBarSize(style, defaults)
 
 	if defaults then
 		-- Alter Widths
-		style.threatborder.width = defaults.threatborder.width * (LocalVars.FrameBarWidth or 1)
-		style.healthborder.width = defaults.healthborder.width * (LocalVars.FrameBarWidth or 1)
-		style.healthbar.width = defaults.healthbar.width * (LocalVars.FrameBarWidth or 1)
-		style.frame.width = defaults.frame.width * (LocalVars.FrameBarWidth or 1)
-		style.customtext.width = defaults.customtext.width * (LocalVars.FrameBarWidth or 1)
+		-- Healthbar
+		local Healthbar = {"threatborder", "healthborder", "healthbar", "frame", "customtext", "level", "name"}
+		for k,v in pairs(Healthbar) do
+			if defaults[v].width then style[v].width = defaults[v].width * (LocalVars.FrameBarWidth or 1) end
+			if defaults[v].x then style[v].x = defaults[v].x * (LocalVars.FrameBarWidth or 1) end
+		end
+
+		
+		-- Castbar
+		local Castbar = {"castborder", "castnostop", "castbar", "spellicon", "spelltext", "durationtext"}
+		for k,v in pairs(Castbar) do
+			if defaults[v].width then style[v].width = defaults[v].width * (LocalVars.CastBarWidth or 1) end
+			if defaults[v].x then style[v].x = defaults[v].x * (LocalVars.CastBarWidth or 1) end
+		end
+
+		-- Things we don't want to apply width to
 		style.eliteicon.x = defaults.eliteicon.x * (LocalVars.FrameBarWidth or 1)
-		style.level.x = defaults.level.x * (LocalVars.FrameBarWidth or 1)
+		if style.eliteicon.width > 64 then style.eliteicon.width = defaults.eliteicon.width * (LocalVars.FrameBarWidth or 1) end
 		
 	
 		-- Defined elsewhere so they need to be handled differently
@@ -459,6 +496,7 @@ end
 -- Function List
 ---------------------------------------------
 NeatPlatesHubFunctions.IsOffTanked = IsOffTanked
+NeatPlatesHubFunctions.ThreatExceptions = ThreatExceptions
 NeatPlatesHubFunctions.UseVariables = UseVariables
 NeatPlatesHubFunctions.EnableWatchers = EnableWatchers
 NeatPlatesHubFunctions.ApplyHubFunctions = ApplyHubFunctions

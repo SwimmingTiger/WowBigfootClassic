@@ -11,6 +11,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("NeatPlates")
 local InCombatLockdown = InCombatLockdown
 local GetFriendlyThreat = NeatPlatesUtility.GetFriendlyThreat
 local IsOffTanked = NeatPlatesHubFunctions.IsOffTanked
+local ThreatExceptions = NeatPlatesHubFunctions.ThreatExceptions
 local IsTankingAuraActive = NeatPlatesWidgets.IsPlayerTank
 local IsHealer = NeatPlatesUtility.IsHealer
 local UnitFilter = NeatPlatesHubFunctions.UnitFilter
@@ -40,7 +41,7 @@ end
 
 -- By Threat (High) DPS Mode
 local function ScaleFunctionByThreatHigh(unit)
-	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.isInCombat then
+	if (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")) and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		if unit.type == "NPC" and unit.threatValue > 1 and unit.health > 2 then return LocalVars.ScaleSpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
 		if GetFriendlyThreat(unit.unitid) then return LocalVars.ScaleSpotlight end
@@ -49,7 +50,7 @@ end
 
 -- By Threat (Low) Tank Mode
 local function ScaleFunctionByThreatLow(unit)
-	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.isInCombat then
+	if (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")) and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		if IsOffTanked(unit) then return end
 		if unit.type == "NPC" and unit.health > 2 and unit.threatValue < 2 then return LocalVars.ScaleSpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
@@ -97,9 +98,18 @@ end
 -- By Threat (Auto Detect)
 local function ScaleFunctionByThreat(unit)
 	if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return ScaleFunctionByThreatHigh(unit) end
+	local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
+	local threatException = ThreatExceptions(unit, isTank, true)
 
-	if (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
-		or LocalVars.ThreatWarningMode == "Tank" then
+	if threatException then
+		if threatException == true then
+			return
+		else
+			return LocalVars.ScaleSpotlight
+		end
+	end
+
+	if isTank then
 			return ScaleFunctionByThreatLow(unit)	-- tank mode
 	else return ScaleFunctionByThreatHigh(unit) end
 
@@ -140,7 +150,7 @@ local function ScaleDelegate(...)
 	--if LocalVars.UnitSpotlightScaleEnable and LocalVars.UnitSpotlightLookup[unit.name] then
 	--	return LocalVars.UnitSpotlightScale
 	--end
-	if not unit then return LocalVars.ScaleStandard end
+	if not unit or not unit.unitid then return LocalVars.ScaleStandard end
 
 	-- Filter
 	if (LocalVars.FilterScaleLock or (not (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)))) and UnitFilter(unit) then
@@ -154,7 +164,7 @@ local function ScaleDelegate(...)
 	elseif (LocalVars.ScaleMouseoverSpotlight and unit.isMouseover) then scale = LocalVars.ScaleSpotlight
 	elseif LocalVars.ScaleIgnoreNonEliteUnits and (not unit.isElite) then
 	elseif LocalVars.ScaleIgnoreNeutralUnits and unit.reaction == "NEUTRAL" then
-	elseif LocalVars.ScaleIgnoreInactive and not ( (unit.health < unit.healthmax) or (unit.isInCombat or unit.threatValue > 0) or (unit.isCasting == true) ) then
+	elseif LocalVars.ScaleIgnoreInactive and not ( (unit.health < unit.healthmax) or (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player") or unit.threatValue > 0) or (unit.isCasting == true) ) then
 	elseif LocalVars.ScaleCastingSpotlight and unit.reaction == "HOSTILE" and unit.isCasting then scale = LocalVars.ScaleSpotlight
 	--elseif LocalVars.ScaleMiniMobs and unit.isMini then
 	--	scale = MiniMobScale

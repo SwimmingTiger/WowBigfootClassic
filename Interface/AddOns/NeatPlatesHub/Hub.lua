@@ -431,10 +431,11 @@ local function BuildHubPanel(panel)
 	panel.ThreatWarningMode =  CreateQuickDropdown(objectName.."ThreatWarningMode", L["Threat Mode"]..':', ThreatWarningModes, 1, AlignmentColumn, panel.ThreatLabel, 0, 2)
 	panel.ThreatGlowEnable = CreateQuickCheckbutton(objectName.."ThreatGlowEnable", L["Enable Warning Glow"], AlignmentColumn, panel.ThreatWarningMode,0)
 	panel.ThreatSoloEnable = CreateQuickCheckbutton(objectName.."ThreatSoloEnable", L["Enable Threat while Solo"], AlignmentColumn, panel.ThreatGlowEnable,0)
+	panel.SafeColorSolo = CreateQuickCheckbutton(objectName.."SafeColorSolo", L["Use Safe Color while Solo"], AlignmentColumn, panel.ThreatSoloEnable,0)
 
 	--panel.ColorThreatColorLabels = CreateQuickItemLabel(nil, L["Threat Colors"]..':', AlignmentColumn, panel.ThreatGlowEnable, 0, 2)
 
-	panel.WidgetThreatIndicator, F = CreateQuickCheckbutton(objectName.."WidgetThreatIndicator", L["Show Tug-o-Threat Indicator"], AlignmentColumn, panel.ThreatSoloEnable, 0, 0)
+	panel.WidgetThreatIndicator, F = CreateQuickCheckbutton(objectName.."WidgetThreatIndicator", L["Show Tug-o-Threat Indicator"], AlignmentColumn, panel.SafeColorSolo, 0, 0)
 	--panel.WidgetThreatPercentage, F = CreateQuickCheckbutton(objectName.."WidgetThreatPercentage", L["Show Threat Percentage"], AlignmentColumn, panel.WidgetThreatIndicator, 0, 2)
 
 	--[[
@@ -581,6 +582,7 @@ local function BuildHubPanel(panel)
 	panel.AdvancedEnableUnitCache, F = CreateQuickCheckbutton(objectName.."AdvancedEnableUnitCache", L["Enable Title Caching"], AlignmentColumn, F)
 	panel.FrameVerticalPosition, F = CreateQuickSlider(objectName.."FrameVerticalPosition", L["Vertical Position of Artwork: (May cause targeting problems)"], nil, nil, AlignmentColumn, F, 0, 4)
 	panel.FrameBarWidth, F = CreateQuickSlider(objectName.."FrameBarWidth", L["Health Bar Width (%)"], nil, nil, AlignmentColumn, F, 0, 4)
+	panel.CastBarWidth, F = CreateQuickSlider(objectName.."CastBarWidth", L["Cast Bar Width (%)"], nil, nil, AlignmentColumn, F, 0, 4)
 
 	--panel.AdvancedCustomCodeLabel = CreateQuickItemLabel(nil, "Custom Theme Code:", AlignmentColumn, panel.FrameVerticalPosition, 0, 4)
 	--panel.AdvancedCustomCodeTextbox = CreateQuickEditbox(objectName.."AdvancedCustomCodeTextbox", nil, nil, AlignmentColumn, panel.AdvancedHealthTextLabel, 8)
@@ -634,6 +636,7 @@ local function BuildHubPanel(panel)
 
 	SetSliderMechanics(panel.FrameVerticalPosition, .5, 0, 1, .02)
 	SetSliderMechanics(panel.FrameBarWidth, 1, .3, 1.7, .02)
+	SetSliderMechanics(panel.CastBarWidth, 1, .3, 1.7, .02)
 
 	SetSliderMechanics(panel.HighHealthThreshold, .7, .01, 1, .01)
 	SetSliderMechanics(panel.LowHealthThreshold, .3, .01, 1, .01)
@@ -834,7 +837,11 @@ HubHandler:SetScript("OnEvent", function(...)
 	local TPCHubEnabled = GetAddOnEnableState(player, "TidyPlatesContinuedHub") ~= 0
 
 	-- Determine which client we are on (Retail or Classic)
-	if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE then VersionWarning() end
+	if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE then
+		VersionWarning()
+		HubHandler:UnregisterEvent("ADDON_LOADED")
+		return
+	end
 
 	if addon == "NeatPlatesHub" and (not TPCEnabled or not TPCHubEnabled) then
 		LoadProfiles(NeatPlatesHubSettings.profiles)
