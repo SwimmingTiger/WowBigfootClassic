@@ -581,8 +581,12 @@ function CodexDatabase:SearchQuests(meta, maps)
     local currentQuests = {}
     for id=1, GetNumQuestLogEntries() do
         local _, _, _, header, _, _, _, questId = GetQuestLogTitle(id)
-        if not header then
-            currentQuests[questId] = true
+        if (not header) and CodexDB.quests.loc[questId] then
+            -- Some quests have the same title, the same ends, but with different starts and different quest ids.
+            -- They are mutually exclusive in game. Use title-based matching to filter out these quests.
+            -- Also, the title returned by the Wow API is not used because the quest title in the database may not match the real title.
+            local title = CodexDB.quests.loc[questId].T
+            currentQuests[title] = true
         end
     end
 
@@ -590,7 +594,7 @@ function CodexDatabase:SearchQuests(meta, maps)
         minLevel = quests[id]["min"] or quests[id]["lvl"] or playerLevel
         maxLevel = quests[id]["lvl"] or quests[id]["min"] or playerLevel
 
-        if CodexDB.quests.loc[id] and currentQuests[id] then
+        if CodexDB.quests.loc[id] and currentQuests[CodexDB.quests.loc[id].T] then
             -- hide active quest
         elseif completedQuests[id] then
             -- hide quests hidden by the player
