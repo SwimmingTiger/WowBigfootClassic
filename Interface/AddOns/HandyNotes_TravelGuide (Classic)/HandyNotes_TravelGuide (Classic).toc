@@ -19,6 +19,7 @@
 
 Locale\enUS.lua
 Locale\zhCN.lua
+Locale\zhTW.lua
 Core\Constants.lua
 Core\Handler.lua
 Core\Config.lua
