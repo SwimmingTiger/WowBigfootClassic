@@ -1,14 +1,14 @@
 ## Interface: 11302
 ## Author: Lag
-## Version: v1.1.8-beta
+## Version: v1.1.11
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Crafting]|r
 ## Title-zhCN: AtlasLootClassic |cFF0099FF[Crafting]|r
-## Title-zhTW: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF0099FF[專業製作]|r
 ## Notes: AtlasLoot loot tables of Crafting Items
 ## Notes-zhCN: AtlasLoot专业制作物品列表
-## Notes-zhTW: AtlasLoot loot tables of Crafting Items
+## Notes-zhTW: 專業技能物品資料庫。
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-AtlasLootClassic-LootModule: 1

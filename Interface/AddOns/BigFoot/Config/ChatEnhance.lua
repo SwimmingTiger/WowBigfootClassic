@@ -116,7 +116,7 @@ function ChatEnhanceConfigFunc()
 			PLAYER_LINK_ENABLE_TEXT,
 			PLAYER_LINK_ENABLE_TEXT_TOOLTIP,
 			"EnablePlayerLink",
-			0,
+			1,
 			function(arg1)
 				if (arg1 == 1) then
 					if (not BigFoot_IsAddOnLoaded("PlayerLink")) then
@@ -225,7 +225,7 @@ function ChatEnhanceConfigFunc()
 				if BigFoot_IsAddOnLoaded("BigFootChat")  then
 					BigFootChat:ShowOptions()
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

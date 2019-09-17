@@ -175,7 +175,7 @@ function BagIntegrationConfigFunc()
 				if BigFoot_IsAddOnLoaded("Combuctor")  then
 					Combuctor:ShowOptions()
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

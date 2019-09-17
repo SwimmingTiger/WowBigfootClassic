@@ -120,7 +120,7 @@ function BigFootGadgetConfigFunc()
 			function()
 				if (BigFoot_IsAddOnLoadedFromBigFoot("MySlot")) then
 					MYSLOT_ReportFrame:Show();
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

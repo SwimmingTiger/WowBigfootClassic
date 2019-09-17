@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Majordomo", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190904055140")
+mod:SetRevision("20190911042406")
 mod:SetCreatureID(12018, 11663, 11664)
 mod:SetEncounterID(671)
 mod:SetModelID(12029)
@@ -16,9 +16,10 @@ mod:RegisterEventsInCombat(
 (ability.id = 20619 or ability.id = 21075 or ability.id = 20534) and type = "cast"
 --]]
 local warnTeleport			= mod:NewTargetNoFilterAnnounce(20534)
+local warnDamageShield		= mod:NewSpellAnnounce(21075, 2)
 
 local specWarnMagicReflect	= mod:NewSpecialWarningReflect(20619, "CasterDps", nil, 2, 1, 2)
-local specWarnDamageShield	= mod:NewSpecialWarningReflect(21075, "Melee", nil, nil, 1, 2)
+local specWarnDamageShield	= mod:NewSpecialWarningReflect(21075, false, nil, 2, 1, 2)
 
 local timerMagicReflect		= mod:NewBuffActiveTimer(10, 20619, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON)
 local timerDamageShield		= mod:NewBuffActiveTimer(10, 21075, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON)
@@ -43,9 +44,11 @@ do
 			timerShieldCD:Start()
 		--elseif spellId == 21075 then
 		elseif spellName == MeleeReflect then
-			if self:IsDifficulty("event40") or not self:IsTrivial(75) then--Not a threat to high level melee
+			if self.Options.SpecWarn21075reflect and (self:IsDifficulty("event40") or not self:IsTrivial(75)) then--Not a threat to high level melee
 				specWarnDamageShield:Show(BOSS)
 				specWarnDamageShield:Play("stopattack")
+			else
+				warnDamageShield:Show()
 			end
 			timerDamageShield:Start()
 			timerShieldCD:Start()

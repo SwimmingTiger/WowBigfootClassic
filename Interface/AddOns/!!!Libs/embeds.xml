@@ -1,0 +1,60 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="LibStub\LibStub.lua"/>
+
+	<Script file="Ace2\AceLibrary.lua"/><!-- GDKP TUnitFrame -->
+	<Script file="Ace2\AceOO-2.0.lua"/><!-- GDKP TUnitFrame -->
+
+	<Script file="Ace3\CallbackHandler-1.0\CallbackHandler-1.0.lua"/>
+
+	<Include file="!BugGrabber\load.xml"/>
+
+	<Script file="Ace3\AceAddon-3.0\AceAddon-3.0.lua"/>
+	<Script file="Ace3\AceEvent-3.0\AceEvent-3.0.lua"/>
+	<Script file="Ace3\AceTimer-3.0\AceTimer-3.0.lua"/>
+	<Script file="Ace3\AceBucket-3.0\AceBucket-3.0.lua"/><!-- Archy MeetingStone -->
+	<Script file="Ace3\AceHook-3.0\AceHook-3.0.lua"/>
+	<Script file="Ace3\AceDB-3.0\AceDB-3.0.lua"/>
+	<Script file="Ace3\AceDBOptions-3.0\AceDBOptions-3.0.lua"/>
+	<Script file="Ace3\AceLocale-3.0\AceLocale-3.0.lua"/>
+	<Script file="Ace3\AceConsole-3.0\AceConsole-3.0.lua"/>
+	<Include file="Ace3\AceGUI-3.0\AceGUI-3.0.xml"/>
+	<Include file="Ace3\AceConfig-3.0\AceConfig-3.0.xml"/>
+	<Include file="Ace3\AceComm-3.0\AceComm-3.0.xml"/>
+	<!-- <Script file="Ace3\AceTab-3.0\AceTab-3.0.lua"/> -->
+	<Script file="Ace3\AceSerializer-3.0\AceSerializer-3.0.lua"/>
+	<Script file="Ace3\Ace3.lua"/>
+
+	<!-- <Include file="UTF8\lib.xml"/> -->
+	<Script file="LibSharedMedia-3.0\LibSharedMedia-3.0.lua"/><!-- Archy,BFCastingBar,AceGUI-3.0-SharedMediaWidgets,LibSink-2.0,CoolLine,DBM-GUI,Gladius,GladiatorlosSA,Grid,Omen,oRA3,RangeDisplay,Recount,sct,sctd,sctd_options,Skada,TotemTimers -->
+	<Include file="AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
+	<Include file="AceGUI-3.0-Spell-EditBox\AceGUI-3.0-Spell-EditBox.xml"/>
+	<Script file="LibSink-2.0\LibSink-2.0.lua"/><!-- Archy,Omen,ErrorFilter -->
+	<!-- <Script file="LibBabble-3.0\LibBabble-3.0.lua"/> -->
+	<!-- <Script file="LibBabble-Class-3.0\LibBabble-Class-3.0.lua"/> -->
+	<!-- <Script file="LibBabble-Zone-3.0\LibBabble-Zone-3.0.lua"/> -->
+	<!-- <Script file="LibBabble-Boss-3.0\LibBabble-Boss-3.0.lua"/> -->
+	<Script file="LibDataBroker-1.1\LibDataBroker-1.1.lua"/><!-- Archy,Bartender4,LibDBIcon-1.0,BigFoot,Decursive,GDKP,Grid,MiDKP,Omen,RangeDisplay,Recount,Skada,YssBossLoot -->
+	<Script file="LibWindow-1.1\LibWindow-1.1.lua"/><!-- Bartender4,Mapster,Skada -->
+	<Script file="LibDBIcon-1.0\LibDBIcon-1.0.lua"/><!-- Archy,Bartender4,BigFoot,Decursive,GDKP,Grid,Omen,Recount,Skada,YssBossLoot -->
+	<Script file="LibDualSpec-1.0\LibDualSpec-1.0.lua" /><!-- Grid,RangeDisplay,RangeDisplay_Options,RatingBuster -->
+	<Script file="LibQTip-1.0\LibQTip-1.0.lua" /><!-- Archy,Decursive -->
+	<Script file="LibBossIDs-1.0\LibBossIDs-1.0.lua" /><!-- Recount,Skada -->
+	<Script file="LibChatAnims\LibChatAnims.lua"/><!-- 聊天框污染修复 -->
+
+	<!-- <Script file="wyLib\Env\Env.lua" /> -->
+	<!-- <Include file="wyLib\LibClass-2.0\LibClass-2.0.xml" /> -->
+	<!-- <Include file="wyLib\LibInvoke-1.0\LibInvoke-1.0.xml" /> -->
+	<!-- <Include file="wyLib\LibModule-1.0\LibModule-1.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEaseBase64-1.0\NetEaseBase64-1.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEaseBroadMiddleware-2.0\NetEaseBroadMiddleware-2.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEaseSocketMiddleware-2.0\NetEaseSocketMiddleware-2.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEaseSocket-2.0\NetEaseSocket-2.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEasePinyin-1.0\NetEasePinyin-1.0.xml" /> -->
+	<!-- <Include file="wyLib\NetEaseGUI-2.0\NetEaseGUI-2.0.xml" /> -->
+	<!-- <Script file="wyLib\crc32\crc32.lua" /> -->
+
+	<Script>
+		LoadAddOn("BigFoot")
+	</Script>
+</Ui>

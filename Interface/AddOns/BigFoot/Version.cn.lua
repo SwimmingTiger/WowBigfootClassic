@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "12"
+local minor = "13"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -9,10 +9,20 @@ end
 
 BigFootChangelog_ah();
 
+	BigFootChangelog_at("2019/09/17 (1.13.2.13)")
+	BigFootChangelog_ar("大脚插件","修改基础库结构，现在整合库为单独插件。")
+	BigFootChangelog_ar("大脚插件","修复部分已知问题(感谢NGA网友-hu60)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+	BigFootChangelog_ar("大脚插件","添加距离显示(RangeDisplay)。")
+	BigFootChangelog_ar("大脚插件","添加天赋模拟器(alaTalentEmu)。")
+	BigFootChangelog_ar("大脚插件","添加地图NPC提示(HandyNotes_NPCs)。")
+	BigFootChangelog_ar("大脚插件","添加飞艇提示(HandyNotes_TravelGuide)。")
+
+
 	BigFootChangelog_at("2019/09/12 (1.13.2.12)")
 	BigFootChangelog_ar("任务助手","尝试修复卡顿问题(感谢NGA网友-hu60)。")
 	BigFootChangelog_ar("真实血量","升级至最新版本(2.10)。")
-	BigFootChangelog_ar("施法条提示","升级至最新版本(1.0.5)。")
+	BigFootChangelog_ar("目标施法提示","升级至最新版本(1.0.5)。")
 
 
 	BigFootChangelog_at("2019/09/11 (1.13.2.11)")
@@ -76,4 +86,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "51"
+BF_VERSION_CHECKSUM = "50"

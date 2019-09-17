@@ -3,10 +3,12 @@ if not HandyNotes then return end
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_DungeonLocations (Classic)")
 
 local iconDefault = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\dungeon.tga"
-local iconDungeon = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\dungeon.tga"
-local iconRaid = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\raid.tga"
-local iconMixed = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\merged.tga"
-local iconGray = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\gray.tga"
+local icons = { }
+
+icons["Dungeon"] = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\dungeon.tga"
+icons["Raid"] = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\raid.tga"
+icons["Mixed"] = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\merged.tga"
+icons["Gray"] = "Interface\\Addons\\HandyNotes_DungeonLocations (Classic)\\gray.tga"
 
 local db
 local mapToContinent = { }
@@ -191,26 +193,14 @@ do
 
 		local state, value = next(data, prestate)
 
-		if value then
-			local icon, alpha
-			if (value.type == "Dungeon") then
-				icon = iconDungeon
-			elseif (value.type == "Raid") then
-				icon = iconRaid
-			elseif (value.type == "Mixed") then
-				icon = iconMixed
-			else
-				icon = iconDefault
-			end
-			
-			
-			alpha = db.zoneAlpha
-			
+		if value then	
 			--print('Minimap', t.minimapUpdate, legionInstancesDiscovered[value.id])
 --			if t.minimapUpdate then
-			 return state, nil, icon, db.zoneScale, alpha
-	--		end
-			--state, value = next(data, state)
+			--print(value.type, db.show[value.type])
+			if db.show[value.type] then
+			 return state, nil, icons[value.type], db.zoneScale, db.zoneAlpha
+			end
+			state, value = next(data, state)
 		end
 		wipe(t)
 		tablepool[t] = true
@@ -230,23 +220,14 @@ do
 			if data then -- Only if there is data for this zone
 				state, value = next(data, prestate)
 				while state do -- Have we reached the end of this zone?
-					local icon, alpha
 
-					if (value.type == "Dungeon") then
-						icon = iconDungeon
-					elseif (value.type == "Raid") then
-						icon = iconRaid
-					elseif (value.type == "Mixed") then
-						icon = iconMixed
-					else
-						icon = iconDefault
-					end
 					if value.name == nil then print (value.id) end
 					local instances = { strsplit("\n", value.name) }
-					alpha = db.continentAlpha
-
-					if not value.hideOnContinent or zone == t.contId then -- Show on continent?
-						return state, zone, icon, db.continentScale, alpha
+					--alpha = db.continentAlpha
+					--print(db.continent, value.hideOnContinent, db.show[value.type], zone == t.contId)
+					--  or zone == t.contId I forgot what this was for so I'm taking it out
+					if not value.hideOnContinent and db.continent and db.show[value.type] then -- Show on continent?
+						return state, zone, icons[value.type], db.continentScale, db.continentAlpha
 					end
 					state, value = next(data, state) -- Get next data
 				end

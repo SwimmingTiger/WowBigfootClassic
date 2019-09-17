@@ -7,8 +7,18 @@ NugRunning:SetScript("OnEvent", function(self, event, ...)
     return self[event](self, event, ...)
 end)
 
+local L = setmetatable({}, {
+    __index = function(t, k)
+        -- print(string.format('L["%s"] = ""',k:gsub("\n","\\n")));
+        return k
+    end,
+    __call = function(t,k) return t[k] end,
+})
+helpers.L = L
+NugRunning.L = L
+
 --- Compatibility with Classic
-local isClassic = select(4,GetBuildInfo()) <= 19999
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 local UnitSpellHaste = isClassic and function() return 0 end or _G.UnitSpellHaste
 local GetSpecialization = isClassic and function() return nil end or _G.GetSpecialization
 
@@ -125,15 +135,22 @@ NugRunning.timers = alltimers
 NugRunning.gettimer = gettimer
 NugRunning.helpers = helpers
 
+local defaultFont = "ClearFont"
+local defaultShowLocalNames = false
+do
+    local locale = GetLocale()
+    if locale == "zhTW" or locale == "zhCN" or locale == "koKR" then
+        defaultFont = LibStub("LibSharedMedia-3.0").DefaultMedia["font"]
+        defaultShowLocalNames = true
+        -- "預設" - zhTW
+        -- "默认" - zhCN
+        -- "기본 글꼴" - koKR
+    end
+end
+
 local defaults = {
     anchors = {
         main = {
-            groups = {
-                { name = "player", gap = 10, alpha = 1 },
-                { name = "target", gap = 10, alpha = 1},
-                { name = "buffs", gap = 25, alpha = 1},
-                { name = "offtargets", gap = 6, alpha = .7},
-            },
             point = "CENTER",
             parent = "UIParent",
             to = "CENTER",
@@ -141,15 +158,19 @@ local defaults = {
             y = 99,
         },
         secondary = {
-            groups = {
-                { name = "procs", gap = 10, alpha = .8},
-            },
             point = "CENTER",
             parent = "UIParent",
             to = "CENTER",
             x = -200,
             y = 0,
         },
+    },
+    groups = {
+        player = { order = 1, name = "player", gap = 10, alpha = 1, anchor = "main" },
+        target = { order = 2, name = "target", gap = 10, alpha = 1, anchor = "main"},
+        buffs = { order = 3, name = "buffs", gap = 25, alpha = 1, anchor = "main"},
+        offtargets = { order = 4, name = "offtargets", gap = 6, alpha = .7, anchor = "main"},
+        procs = { order = 1, name = "procs", gap = 10, alpha = .8, anchor = "secondary"},
     },
     growth = "up",
     width = 150,
@@ -164,18 +185,18 @@ local defaults = {
     spellTextEnabled = true,
     shortTextEnabled = true,
     swapTarget = true,
-    localNames = true,
+    localNames = defaultShowLocalNames,
     totems = true,
     leaveGhost = false,
-    nameplates = false,
+    nameplates = true,
     preghost = true,
     dotpower = true,
     dotticks = true,
     textureName = "Aluminium",
     nptextureName = "Aluminium",
-    nameFont = { font = "默认", size = 10, alpha = 0.5 },
-    timeFont = { font = "默认", size = 8, alpha = 1 },
-    stackFont = { font = "默认", size = 12 },
+    nameFont = { font = defaultFont, size = 10, alpha = 0.5 },
+    timeFont = { font = defaultFont, size = 8, alpha = 1 },
+    stackFont = { font = defaultFont, size = 12 },
 }
 
 local function SetupDefaults(t, defaults)
@@ -265,18 +286,6 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
     end
     NugRunning.db = NRunDB
 
-    --migration
-    if not NRunDB.anchors then
-        NRunDB.anchors = {}
-        if NRunDB.anchor then
-            NRunDB.anchors.main = NRunDB.anchor
-            NRunDB.anchor = nil
-        end
-        if NRunDB.anchor2 then
-            NRunDB.anchors.secondary = NRunDB.anchor2
-            NRunDB.anchor2 = nil
-        end
-    end
     SetupDefaults(NRunDB, defaults)
 
     leaveGhost = NRunDB.leaveGhost
@@ -296,12 +305,9 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
     local classConfig = NugRunningConfigCustom[class]
     MergeTable(NugRunningConfigMerged, classConfig)
 
+    NugRunning.spellNameToID = helpers.spellNameToID
     -- filling spellNameToID for user-added spells
-    if classConfig and classConfig.spells then
-        for spellID in pairs(classConfig.spells) do
-            helpers.AddSpellNameRecognition(spellID)
-        end
-    end
+    NugRunning:UpdateSpellNameToIDTable()
 
     config = NugRunningConfigMerged
     spells = config.spells
@@ -390,12 +396,8 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
 
     NugRunning.anchors = {}
     for name, opts in pairs(NRunDB.anchors) do
-        if not opts.groups then
-            NRunDB.anchors[name] = nil
-        else
-            local anchor = NugRunning:CreateAnchor(name, opts)
-            NugRunning.anchors[name] = anchor
-        end
+        local anchor = NugRunning:CreateAnchor(name, opts)
+        NugRunning.anchors[name] = anchor
     end
 
     NugRunning.targetIndicator = NugRunning:CreateTargetIndicator()
@@ -863,6 +865,7 @@ function NugRunning.ActivateTimer(self,srcGUID,dstGUID,dstName,dstFlags, spellID
     if multiTargetGUID then timer.targets[multiTargetGUID] = true end
     timer.spellID = spellID
     timer.spellName = spellName
+    timer.comboPoints = helpers.GetCP()
     timer.timerType = timerType
     if opts.isItem then
         timer:SetIcon(select(5,GetItemInfoInstant(spellID)))
@@ -1052,6 +1055,7 @@ function NugRunning.RefreshTimer(self,srcGUID,dstGUID,dstName,dstFlags, spellID,
         timer:SetCount(amount)
     end
     timer.count = amount
+    timer.comboPoints = helpers.GetCP()
 
     if not ignore_applied_dose then
         if opts.tick and NRunDB.dotticks then
@@ -1213,6 +1217,8 @@ function NugRunning:UpdateTimerToSpellID(timer, newSpellID)
     -- local oldSpellID = timer.spellID
     timer.spellID = newSpellID
 
+    local dstGUID = timer.dstGUID
+
     local newDuration = NugRunning.SetDefaultDuration(0, opts, timer)
     local mul = getDRMul(dstGUID, newSpellID)
 
@@ -1220,7 +1226,35 @@ function NugRunning:UpdateTimerToSpellID(timer, newSpellID)
 
     if newDuration then
         local startTime = timer.startTime
-        timer:SetTime(startTIme, startTime + newDuration, timer.fixedoffset)
+        timer:SetTime(startTime, startTime + newDuration, timer.fixedoffset)
+    end
+end
+
+do
+    local spellNameBasedCategories = { "spells", "event_timers" }
+    function NugRunning:UpdateSpellNameToIDTable()
+        local mergedConfig = NugRunningConfigMerged
+        local visited = {}
+
+        for _, catName in ipairs(spellNameBasedCategories) do
+            local category = mergedConfig[catName]
+            if category then
+                for spellID, opts in pairs(category) do
+                    if not visited[opts] then
+                        local lastRankID
+                        local clones = opts.clones
+                        if clones then
+                            lastRankID = clones[#clones]
+                        else
+                            lastRankID = spellID
+                        end
+                        helpers.AddSpellNameRecognition(lastRankID)
+
+                        visited[opts] = true
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -1524,15 +1558,60 @@ do
     local dbanchors
     local targetIndicator
     local growthDirection
+
+    local sortedTimerGroups -- table from which arrange function works, generated in setup
+
+    local group_sortfunc = function(a,b)
+        local ao = a.order or 0
+        local bo = b.order or 0
+        return ao < bo
+    end
+
+    local fixOfftargets = function(groups)
+        local offtargetsIndex
+        for i=1, #groups do
+            if groups[i].name == "offtargets" then
+                offtargetsIndex = i
+                break
+            end
+        end
+        if offtargetsIndex and offtargetsIndex ~= #groups then -- if offtarget group isn't last
+            local g = table.remove(groups, offtargetsIndex) -- make it last
+            table.insert(groups, g)
+        end
+    end
+    function NugRunning:MakeSortedGroupsTable()
+        local sorted = {}
+        local dbgroups = NRunDB.groups -- group settings
+        for name, group in pairs(dbgroups) do
+            local groupAnchor = group.anchor
+            if anchors[groupAnchor] then -- if such anchor created
+                if not sorted[groupAnchor] then
+                    sorted[groupAnchor] = {}
+                end
+                table.insert(sorted[groupAnchor], group)
+            end
+        end
+
+        for name, groups in pairs(sorted) do
+            table.sort(groups, group_sortfunc)
+            fixOfftargets(groups)
+        end
+        return sorted
+    end
+
     function NugRunning.SetupArrange(self)
         point = ( NRunDB.growth == "down" and "TOPLEFT" ) or "BOTTOMLEFT"
         to = ( NRunDB.growth == "down" and "BOTTOMLEFT" ) or "TOPLEFT"
         ySign = ( NRunDB.growth == "down" and -1 ) or 1
         growthDirection = NRunDB.growth
         doswap = NRunDB.swapTarget
-        anchors = NugRunning.anchors
-        dbanchors = NRunDB.anchors
+        anchors = NugRunning.anchors -- frames
+        dbanchors = NRunDB.anchors -- settings
+
         targetIndicator = NugRunning.targetIndicator
+
+        sortedTimerGroups = NugRunning:MakeSortedGroupsTable()
     end
     -- local playerTimers = {}
     -- local targetTimers = {}
@@ -1564,8 +1643,8 @@ do
             if custom_group then
                 groups[custom_group] = groups[custom_group] or {}
                 table.insert(groups[custom_group],timer)
-            elseif doswap and timer.dstGUID == targetGUID then table.insert(targetTimers,timer)
             elseif timer.dstGUID == playerGUID then table.insert(playerTimers,timer)
+            elseif doswap and timer.dstGUID == targetGUID then table.insert(targetTimers,timer)
             elseif timer.dstGUID == nil then
                 if timer.timerType == "BUFF" then
                     table.insert(playerTimers,timer)
@@ -1585,15 +1664,15 @@ do
             table.sort(tbl,sortfunc)
         end
 
-        for name, anchor in pairs(NugRunning.anchors) do
-            local aopts = dbanchors[name].groups
+        for name, anchorGroups in pairs(sortedTimerGroups) do
+            local anchorFrame = anchors[name]
             local growth = dbanchors[name].growth or NRunDB.growth
             point = ( growth == "down" and "TOPLEFT" ) or "BOTTOMLEFT"
             to = ( growth == "down" and "BOTTOMLEFT" ) or "TOPLEFT"
             ySign = ( growth == "down" and -1 ) or 1
             local prev
             local gap = 0
-            for _, gopts in pairs(aopts) do
+            for _, gopts in pairs(anchorGroups) do
                 local gname = gopts.name
                 local alpha = gopts.alpha
                 if gname == "offtargets" then
@@ -1601,7 +1680,7 @@ do
                         for i,timer in ipairs(group_timers) do
                             local noswap_alpha = guid == targetGUID and 1 or alpha
                             timer:SetAlpha(noswap_alpha)
-                            timer:SetPoint(point, prev or anchor, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
+                            timer:SetPoint(point, prev or anchorFrame, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
                             if timer.onupdate then timer:onupdate() end
                             prev = timer
                             gap = 0
@@ -1627,7 +1706,7 @@ do
                     if group_timers then
                     for i,timer in ipairs(group_timers) do
                         timer:SetAlpha(alpha)
-                        timer:SetPoint(point, prev or anchor, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
+                        timer:SetPoint(point, prev or anchorFrame, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
                         if timer.onupdate then timer:onupdate()end
                         prev = timer
                         gap = 0
@@ -1859,37 +1938,9 @@ local protectedAnchors = {
     secondary = true,
 }
 
-local findGroup = function(groupName)
-    for anchorName, opts in pairs(NRunDB.anchors) do
-        if opts.groups then
-            for i, g in ipairs(opts.groups) do
-                if g.name == groupName then
-                    return anchorName, i
-                end
-            end
-        end
-    end
-end
-
 local function Colorize(hexColor, text)
     return "|cff" .. tostring(hexColor or 'ffffff') .. tostring(text) .. "|r"
 end
-
-local fixOfftargets = function(groups)
-    local offtargetsIndex
-    for i=1, #groups do
-        if groups[i].name == "offtargets" then
-            offtargetsIndex = i
-            break
-        end
-    end
-    if offtargetsIndex and offtargetsIndex ~= #groups then -- if offtarget group isn't last
-        print("NRun: offtargets groups should always be the last!")
-        local g = table.remove(groups, offtargetsIndex) -- make it last
-        table.insert(groups, g)
-    end
-end
-
 
 local ParseOpts = function(str)
     local t = {}
@@ -2027,19 +2078,21 @@ NugRunning.Commands = {
 
     ["listgroups"] = function(v)
         print("|cffffaaaaNugRunning Groups:|r")
-        for anchor, opts in pairs(NRunDB.anchors) do
-            local hdr = string.format("Anchor: |cff33ff33%s|r", anchor)
+        local sortedGroups = NugRunning:MakeSortedGroupsTable()
+        for anchorName, opts in pairs(NRunDB.anchors) do
+            local hdr = string.format("Anchor: |cff33ff33%s|r", anchorName)
             if opts.growth then
                 hdr = hdr .. string.format(" : growth=%s", opts.growth)
             end
             print(hdr)
 
-            if opts.groups then
-                for i, g in ipairs(opts.groups) do
+            local groups = sortedGroups[anchorName]
+            if groups then
+                for i, g in ipairs(groups) do
                     local color = "ffffff"
                     if protectedGroups[g.name] then color = "888888" end
 
-                    print(string.format("    <%d> %s : gap=%d alpha=%.2f",i, Colorize(color,g.name), g.gap, g.alpha))
+                    print(string.format("    <%d> %s : gap=%d alpha=%.2f order=%d",i, Colorize(color,g.name), g.gap, g.alpha, g.order))
                 end
             end
         end
@@ -2074,6 +2127,9 @@ NugRunning.Commands = {
 
             NRunDB.anchors[name] = nil
             NugRunning.anchors[name]:Hide()
+
+            NugRunning:SetupArrange()
+            NugRunning:ArrangeTimers()
         end
     end,
 
@@ -2081,20 +2137,21 @@ NugRunning.Commands = {
         local p = ParseOpts(v)
         local anchor = p.anchor
         local group = p.group
+        local orderSpecified = p.order
 
-        if findGroup(group) then
-            print(string.format("Group '%s' already exists", group))
-            return
+        if group and NRunDB.groups[group] then
+            return print(string.format("Group '%s' already exists", group))
+        end
+        if not anchor then
+            return print("Group's anchor not specified")
+        end
+        if not NRunDB.anchors[anchor] then
+            return print(string.format("Anchor '%s' doesn't exists", anchor))
         end
 
-        if anchor and group then
-            if NRunDB.anchors[anchor] then
-                local anchorGroups = NRunDB.anchors[anchor].groups
-                table.insert(anchorGroups, { name = group, gap = 10, alpha = 1})
-
-                fixOfftargets(anchorGroups)
-            end
-        end
+        NRunDB.groups[group] = { name = group, gap = 10, alpha = 1, anchor = anchor, order = orderSpecified or 5 }
+        NugRunning:SetupArrange()
+        NugRunning:ArrangeTimers()
     end,
 
     ["deletegroup"] = function(v)
@@ -2106,33 +2163,35 @@ NugRunning.Commands = {
                 return
             end
 
-            local anchor, index = findGroup(group)
-            table.remove(NRunDB.anchors[anchor].groups, index)
+            NRunDB.groups[group] = nil
+            NugRunning:SetupArrange()
+            NugRunning:ArrangeTimers()
         end
     end,
 
     ["groupset"] = function(v)
         local p = ParseOpts(v)
         if p.group then
-            local group = p.group
-            local anchor, groupIndex = findGroup(group)
-            if not groupIndex then
-                print(string.format("Group '%s' doesn't exist", group))
+            local groupName = p.group
+            local groupOpts = NRunDB.groups[groupName]
+            if not groupOpts then
+                return print(string.format("Group '%s' doesn't exist", groupName))
             end
 
-            local groups = NRunDB.anchors[anchor].groups
-            local groupOpts = groups[groupIndex]
+            local newAnchor = p.anchor
+            if newAnchor then
+                if not NugRunning.anchors[newAnchor] then
+                    return print(string.format("Anchor '%s' doesn't exists", newAnchor))
+                end
+            end
+
             groupOpts.gap = tonumber(p.gap) or groupOpts.gap
             groupOpts.alpha = tonumber(p.alpha) or groupOpts.alpha
+            groupOpts.order = tonumber(p.order) or groupOpts.order
+            groupOpts.anchor = newAnchor or groupOpts.anchor
 
-            if tonumber(p.order) then
-
-                local newIndex = tonumber(p.order)
-                local g = table.remove(groups, groupIndex)
-                table.insert(groups, newIndex, g)
-
-                fixOfftargets(groups)
-            end
+            NugRunning:SetupArrange()
+            NugRunning:ArrangeTimers()
         else
             print("missing 'group' parameter")
         end
@@ -2142,7 +2201,7 @@ NugRunning.Commands = {
         local p = ParseOpts(v)
         local aname = p.anchor
         local anchor = NRunDB.anchors[aname]
-        if not anchor then print(string.format("Anchor '%s' doesn't exist", aname)) end
+        if not anchor then return print(string.format("Anchor '%s' doesn't exist", aname)) end
         anchor.growth = p.growth or anchor.growth
         if p.growth == "nil" then anchor.growth = nil end
         anchor.point = p.point or anchor.point
@@ -2218,24 +2277,22 @@ function NugRunning.SlashCmd(msg)
         |cff00ff00/nrun clear|r
         |cff00ff00/nrun debug|r
         |cff00ff00/nrun charspec|r : enable character specific settings
-        |cff00ff00/nrun misses|r : toggle showing misses (immunes, resists)
+        |cff00ff00/nrun misses|r : toggle misses (immunes, resists)
         |cff00ff00/nrun cooldowns|r : toggle showing cooldowns
-        |cff00ff00/nrun targettext|r : toggle taget name text on bars
         |cff00ff00/nrun spelltext|r : toggle spell text on bars
         |cff00ff00/nrun shorttext|r : toggle using short names
-        |cff00ff00/nrun swaptarget|r : static order of target debuffs
-        |cff00ff00/nrun totems|r : static order of target debuffs
-        |cff00ff00/nrun nameplates|r : turn on nameplates
-        |cff00ff00/nrun dotticks|r : turn off dot ticks
+        |cff00ff00/nrun nameplates|r : toggle nameplate timers
         |cff00ff00/nrun localnames|r: toggle localized spell names
-        |cff00ff00/nrun leaveghost|r: don't hide target/player ghosts in combat
         |cff00ff00/nrun set|r width=150 height=20 growth=up/down
+
         |cff00ff00/nrun createanchor|r anchor=anchorName
         |cff00ff00/nrun deleteanchor|r anchor=anchorName
-        |cff00ff00/nrun creategroup|r anchor=anchorName group=groupName
+        |cff00ff00/nrun anchorset|r anchor=anchorName growth=<up/down>
+
+        |cff00ff00/nrun creategroup|r group=groupName anchor=anchorName
         |cff00ff00/nrun deletegroup|r group=groupName
-        |cff00ff00/nrun groupset|r group=groupName gap=10 alpha=0.9 order=1
-        |cff00ff00/nrun anchorset|r growth=<up/down>
+        |cff00ff00/nrun listgroups|r
+        |cff00ff00/nrun groupset|r group=groupName [gap=10 alpha=0.9 order=1 anchor=anchorName]
         ]]
     )end
     if NugRunning.Commands[k] then
@@ -2267,19 +2324,18 @@ function NugRunning:CreateAnchor(name, opts)
         NRunDB.anchors[name] = { point = "CENTER", parent ="UIParent", to = "CENTER", x = 0, y = 0}
     end
     f.db_tbl = NRunDB.anchors[name]
-    f.opts = opts.groups
     f:SetScript("OnMouseDown",function(self)
         self:StartMoving()
     end)
     f:SetScript("OnMouseUp",function(self)
-            local opts = self.db_tbl
+            local pos = self.db_tbl
             self:StopMovingOrSizing();
             local point,_,to,x,y = self:GetPoint(1)
-            opts.point = point
-            opts.parent = "UIParent"
-            opts.to = to
-            opts.x = x
-            opts.y = y
+            pos.point = point
+            pos.parent = "UIParent"
+            pos.to = to
+            pos.x = x
+            pos.y = y
     end)
 
     local pos = f.db_tbl

@@ -1,19 +1,20 @@
 ﻿## Interface: 11302
 ## Author: Lag
-## Version: v1.1.8-beta
+## Version: v1.1.11
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
-## Title-zhCN: AtlasLoot Classic |cFF22B14C[Core]|r
-## Title-zhTW: AtlasLoot Classic |cFF22B14C[Core]|r
+## Title-zhCN: AtlasLoot经典版 |cFF22B14C[主程序]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[主程式]|r
 ## Notes-zhCN: 显示首领可能的掉落物品
-## Notes-zhTW: Shows the possible loot from the bosses
+## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等資訊。
 ## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
 ## X-WoWI-ID: 25185
+## Dependencies: !!!Libs
 ## X-Revision: BigFoot
 
 embeds.xml
@@ -76,4 +77,3 @@ GUI\SoundFrame.lua
 Addons\Addons.lua
 Addons\Favourites.lua
 Addons\Favourites_GUI.lua
-#Addons\Reagents.lua

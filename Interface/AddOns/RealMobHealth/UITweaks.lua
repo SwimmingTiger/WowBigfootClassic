@@ -17,7 +17,7 @@ AddOn.Options.ShowStatusBarTextAdditions=true;
 AddOn.Options.ModifyHealthBarText=true;
 AddOn.Options.ShowTooltipText=true;
 AddOn.Options.ShowTooltipHealthText=true;
-AddOn.Options.ShowNamePlateHealthText=true;
+AddOn.Options.ShowNamePlateHealthText=false;
 
 ----------------------------------
 --[[	Local References	]]

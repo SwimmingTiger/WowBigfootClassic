@@ -111,7 +111,7 @@ function SystemSetConfigFunc()
 			function()
 				if (BigFoot_IsAddOnLoadedFromBigFoot("ErrorFilter")) then
 					ErrorFilter:ShowConfig()
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

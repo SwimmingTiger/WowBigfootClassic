@@ -80,6 +80,7 @@ local GetBestMapForUnit = C_Map.GetBestMapForUnit
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
+
 local BLIP_TEX_COORDS = {
 	["WARRIOR"]		 = { 0, 0.125, 0, 0.25 },
 	["PALADIN"]		 = { 0.125, 0.25, 0, 0.25 },
@@ -403,12 +404,6 @@ function createTextFrame()
 			ToggleDropDownMenu(1, nil, dropdownFrame, "cursor", 5, -10)
 		end
 	end)
-	if DBM.Options.UseRetailShamanColor then
-		RAID_CLASS_COLORS["SHAMAN"].colorStr = "ff006fdc"
-		RAID_CLASS_COLORS["SHAMAN"].b = 0.86666476726532
-		RAID_CLASS_COLORS["SHAMAN"].g = 0.4392147064209
-		RAID_CLASS_COLORS["SHAMAN"].r = 0
-	end
 	return textFrame
 end
 

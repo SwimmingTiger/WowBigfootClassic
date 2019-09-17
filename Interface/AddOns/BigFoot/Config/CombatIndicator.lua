@@ -209,7 +209,7 @@ function CombatIndicatorConfigFunc()
 				if (BigFoot_IsAddOnLoaded("dct") and BigFoot_HasAddon("dct_options")) then
 					DCT_showMenu();
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

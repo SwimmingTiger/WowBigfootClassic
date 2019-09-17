@@ -477,7 +477,7 @@ function AutoEquip_224246a2aec3ecad61ed8d03e82f9cb2(
             end
         end
     end
-    --PlaySound("igChatEmoteButton")
+    PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
     local str = string.format(AUTOEQUIP_TEXT_SAVED,
                               AutoEquip_ff1b4022732c44ba86eae6bf2228a25a)
     BigFoot_Report("info", str)
@@ -623,16 +623,13 @@ function AutoEquip_0d9e9d16dd825202c8f78ba876a30e23(
     local __index
     local AutoEquip_e46c9df016d4d42a70331a12ead6ab3d
     local AutoEquip_3f50417fb16be9b1078eb68d24fa9c26
-    for AutoEquip_96ec47e10d09a5d0491fe767488c7fab = 0, NUM_CONTAINER_FRAMES, 1 do
-        local AutoEquip_cd22593b29eeb9f89a267571a4185875 =
-            GetBagName(AutoEquip_96ec47e10d09a5d0491fe767488c7fab)
+    for AutoEquip_96ec47e10d09a5d0491fe767488c7fab = 0, NUM_CONTAINER_FRAMES do
         local bag_obj = getglobal("CharacterBag" ..
                                       (AutoEquip_96ec47e10d09a5d0491fe767488c7fab -
                                           1) .. "Slot")
-        if (bag_obj) then
-            local bag_type = GetBagName(AutoEquip_96ec47e10d09a5d0491fe767488c7fab)
-            if (bag_type == AUTOEQUIP_QUIVER or bag_type == AUTOEQUIP_AMMO or
-                bag_type == AUTOEQUIP_SOUL_BAG) then
+        if bag_obj then
+            local slots, bag_type = GetContainerNumFreeSlots(bag_obj:GetID())
+            if (bag_type ~= 0) then
                 AutoEquip_e46c9df016d4d42a70331a12ead6ab3d = 1
             else
                 AutoEquip_e46c9df016d4d42a70331a12ead6ab3d = nil
@@ -981,7 +978,7 @@ function AutoEquipSetButton_OnClick(self, __index,
                     AutoEquip_edde6b9defd14002a775b763b5f565e3(1, __index)
                     local str = string.format(AUTOEQUIP_TEXT_SWITCH, __index)
                     BigFoot_Report("info", str)
-                    --PlaySound("igChatEmoteButton")
+                    PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
                 end
                 return
             end

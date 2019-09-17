@@ -74,9 +74,6 @@ L.Button_InfoFrame			= "Show/hide info frame"
 L.Button_TestBars			= "Start test bars"
 L.Button_ResetInfoRange		= "Reset Info/Range frames"
 
-L.ClassicOptions			= "Classic Options"
-L.UseRetailShamanColor		= "Override WoW Classic Shaman class color with retail one (GLOBALLY)"
-
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "Raid Warnings"
 L.RaidWarning_Header		= "Raid Warning Options"
@@ -224,7 +221,7 @@ L.SpecialWarnSound5			= "Set default sound for special warnings with notes conta
 
 -- Tab: Spoken Alerts Frame
 L.Panel_SpokenAlerts		= "Spoken Alerts"
-L.Area_VoiceSelection		= "Voice Selections (scroll selection menus with mouse wheel)"
+L.Area_VoiceSelection		= "Voice Selections"
 L.CountdownVoice			= "Set primary voice for count sounds"
 L.CountdownVoice2			= "Set secondary voice for count sounds"
 L.CountdownVoice3			= "Set tertiary voice for count sounds"

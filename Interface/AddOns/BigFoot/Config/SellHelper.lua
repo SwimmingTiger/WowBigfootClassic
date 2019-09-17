@@ -116,7 +116,7 @@ function SellHelperConfigFunc()
 			"SellerHelper",
 			SellerHelperNotSellSet,
 			function ()
-				ModManagementFrame:Hide();
+				HideUIPanel(ModManagementFrame);
 				SellerHelperSetFrame:Show()
 				SellerHelperSetFrame:SetFrameLevel(MerchantFrame:GetFrameLevel())
 				-- MerchantFrame SetFrameLevel

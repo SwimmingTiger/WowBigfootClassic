@@ -63,7 +63,7 @@ function TrinketMenuConfigFunc()
 			TRINKET_MENU_SETTINGS_TEXT,
 			function ()
 				if (BigFoot_IsAddOnLoaded("TrinketMenu")) then
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 					TrinketMenu.ToggleFrame(TrinketMenu_OptFrame);
 				end
 			end,

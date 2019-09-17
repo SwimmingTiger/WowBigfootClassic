@@ -1,4 +1,6 @@
+-- 老虎会游泳：修复复制玩家名称后无法显示操作提示的问题
 local ChatFrameEditBox = ChatFrameEditBox or ChatFrame1EditBox
+
 local PlayerLink_3b370ebf3ed541e39961bc311976be8c = function() end
 PlayerLinkPopupButtons = {}
 if (GetLocale() == "zhCN") then

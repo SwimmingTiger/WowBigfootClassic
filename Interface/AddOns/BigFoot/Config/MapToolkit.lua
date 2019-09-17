@@ -68,7 +68,7 @@ function MapToolkitConfigFunc()
 			ENABLE_RANGEDISPLAY_TEXT,
 			ENABLE_RANGEDISPLAY_TEXT_TOOLTIP,
 			"EnableRangeDisplay",
-			nil,
+			1,
 			function (__arg)
 				if (__arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("RangeDisplay")) then

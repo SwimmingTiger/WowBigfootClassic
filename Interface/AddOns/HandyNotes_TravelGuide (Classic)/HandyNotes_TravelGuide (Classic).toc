@@ -10,17 +10,18 @@
 # ## Notes-deDE: Zeigt die Positionen von Schiffen und Zeppelinen auf der Worldmap und der Minimap an.
 #@end-debug@
 ## Author: Dathwada
-## Version: v2.1.0
+## Version: v2.1.2
 ## RequiredDeps: HandyNotes
 ## DefaultState: enabled
-## SavedVariables: HandyNotes_TravelGuideDB
-## X-Date: 2019-09-01
+## SavedVariables: HandyNotes_TravelGuideClassicDB
+## X-Date: 2019-09-15
 ## X-Category: Map
+## X-Revision: BigFoot
 
-Locale\enUS.lua
-Locale\zhCN.lua
-Locale\zhTW.lua
+Locale\Locales.xml
+
 Core\Constants.lua
 Core\Handler.lua
 Core\Config.lua
+
 Data\DB.lua

@@ -96,7 +96,8 @@ helpers.Interrupt = Interrupt
 if select(4,GetBuildInfo()) > 19999 then return end
 
 -- RACIALS
-Spell( 23234 ,{ name = "Blood Fury", global = true, duration = 15, scale = 0.75, group = "buffs" })
+-- Spell( 23234 ,{ name = "Blood Fury", global = true, duration = 15, scale = 0.75, group = "buffs" })
+EventTimer({ spellID = 23234, event = "SPELL_CAST_SUCCESS", name = "Blood Fury", duration = 15, scale = 0.75, group = "buffs" })
 Spell( 20594 ,{ name = "Stoneform", global = true, duration = 8, shine = true, group = "buffs" })
 Spell( 20549 ,{ name = "War Stomp", global = true, duration = 2, multiTarget = true, color = colors.DRED })
 Spell( 7744 ,{ name = "Will of the Forsaken", global = true, duration = 5, group = "buffs", color = colors.PURPLE5 })
@@ -527,6 +528,37 @@ Spell( 15269 ,{ name = "Blackout", duration = 3, shine = true, color = colors.PU
 Spell( 15286 ,{ name = "Vampiric Embrace", duration = 60, priority = 5, shinerefresh = true, ghost = true, ghosteffect = "GOUGE", color = colors.PURPLE4 })
 Spell( 14751 ,{ name = "Inner Focus", shine = true, duration = 15, group = "buffs", priority = -12, timeless = true, scale = 0.7, color = colors.WOO2DARK })
 
+Spell( 15258 ,{ name = "Shadow Weaving", color = colors.PURPLE3, scale = 0.75, priority = -10, ghost = 2, duration = 15 })
+EventTimer({ event = "SPELL_PERIODIC_DAMAGE", spellID = 10894, name = "SWPRefresh",
+    action = function(active, srcGUID, dstGUID, spellID, damage )
+        local timer = NugRunning.gettimer(active, GetSpellInfo(15258), dstGUID, "DEBUFF")
+        if timer then
+            local now = GetTime()
+            timer:SetTime(now, now + 15, timer.fixedoffset)
+        end
+    end
+})
+
+EventTimer({ event = "SPELL_DAMAGE", spellID = 10947, name = "MBRefresh",
+    action = function(active, srcGUID, dstGUID, spellID, damage )
+        local timer = NugRunning.gettimer(active, GetSpellInfo(15258), dstGUID, "DEBUFF")
+        if timer then
+            local now = GetTime()
+            timer:SetTime(now, now + 15, timer.fixedoffset)
+        end
+    end
+})
+
+EventTimer({ event = "SPELL_PERIODIC_DAMAGE", spellID = 18807, name = "MFRefresh",
+    action = function(active, srcGUID, dstGUID, spellID, damage )
+        local timer = NugRunning.gettimer(active, GetSpellInfo(15258), dstGUID, "DEBUFF")
+        if timer then
+            local now = GetTime()
+            timer:SetTime(now, now + 15, timer.fixedoffset)
+        end
+    end
+})
+
 end
 
 if class == "ROGUE" then
@@ -559,16 +591,21 @@ Spell({ 703, 8631, 8632, 8633, 11289, 11290 }, { name = "Garrote", color = color
 Spell({ 408, 8643 }, { name = "Kidney Shot", shine = true, color = colors.LRED,
     duration = function(timer)
         local duration = timer.spellID == 8643 and 1 or 0 -- if Rank 2, add 1s
-        return duration + GetCP()
+        local comboPoints = timer.comboPoints
+        return duration + comboPoints
     end,
 }) -- varies
 Spell({ 1943, 8639, 8640, 11273, 11274, 11275 }, { name = "Rupture", tick = 2, tickshine = true, overlay = {"tick", "end"}, shine = true, color = colors.RED,
-    duration = function() return (6 + GetCP()*2) end,
+    duration = function(timer)
+        local comboPoints = timer.comboPoints
+        return (6 + comboPoints*2)
+    end,
 }) -- varies
 Spell({ 5171, 6774 }, { name = "Slice and Dice", shinerefresh = true, color = colors.PURPLE,
     duration = function(timer)
+        local comboPoints = timer.comboPoints
         local mul = 1 + 0.15*Talent(14165, 14166, 14167)
-        return (6 + GetCP()*3)*mul
+        return (6 + comboPoints*3)*mul
     end
 }) -- varies
 

@@ -72,7 +72,6 @@ function BFTooltipConfigFucn()
 			{[3]=true}
 
 		);
-		-- 老虎会游泳：新版鼠标提示会导致物品详情框体闪烁，所以注释掉
 		--[[if not IsAddOnLoaded("FreebTip") then
 			ModManagement_RegisterCheckBox(
 				"BFTT",

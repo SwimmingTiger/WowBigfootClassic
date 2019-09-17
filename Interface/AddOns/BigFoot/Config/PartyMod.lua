@@ -201,7 +201,7 @@ function PartyModConfigFunc()
 					end
 					StaticPopup_Show("TEAMNOTICE_PARTY_COMMENT");
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end,
 				nil,
 				1
@@ -235,7 +235,7 @@ function PartyModConfigFunc()
 					end
 					StaticPopup_Show("TEAMNOTICE_SET_COMMENT");
 					PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end,
 				nil,
 				1

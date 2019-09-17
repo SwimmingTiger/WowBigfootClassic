@@ -1,6 +1,6 @@
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1486 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1491 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -143,7 +143,7 @@ function Recount:PartyMembersChanged()
 		Recount.inRaid = false
 	end
 
-	if IsInRaid() and (WOW_RETAIL and IsInScenarioGroup()) then
+	if WOW_RETAIL and IsInRaid() and IsInScenarioGroup() then
 		change = change or not Recount.inScenario
 		Recount.inScenario = true
 	else
@@ -171,7 +171,7 @@ function Recount:InitPartyBasedDeletion()
 	if (not IsInRaid() and GetNumPartyMembers() > 0) or (WOW_RETAIL and IsInScenarioGroup()) then
 		Recount.inGroup = true
 	end
-	if (IsInRaid() and GetNumRaidMembers() > 0) and not (WOW_RETAIL and IsInScenarioGroup()) then
+	if IsInRaid() and GetNumRaidMembers() > 0 and not (WOW_RETAIL and IsInScenarioGroup()) then
 		Recount.inRaid = true
 	end
 

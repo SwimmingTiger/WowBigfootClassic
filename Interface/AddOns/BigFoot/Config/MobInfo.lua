@@ -189,4 +189,4 @@ function MobInfoConfigFunc()
 	end
 end
 
--- BigFoot_AddCollector(MobInfoConfigFunc)
+BigFoot_AddCollector(MobInfoConfigFunc)

@@ -112,7 +112,7 @@ function MarkAssistantConifgFunc()
 				if (BigFoot_IsAddOnLoadedFromBigFoot("wMarker")) then
 					InterfaceOptionsFrame_OpenToCategory("wMarker");
 					InterfaceOptionsFrame_OpenToCategory("wMarker");
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

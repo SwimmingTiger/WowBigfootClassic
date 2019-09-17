@@ -52,9 +52,9 @@
 		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
 	 	<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
 		<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
-		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>		
+		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
 	</CheckButton>
-	
+
 	<CheckButton name="DBMOptionsCheckButtonTemplate" virtual="true" inherits="DBMOptionsBaseCheckButtonTemplate">
 		<Layers>
 			<Layer level="ARTWORK">
@@ -166,63 +166,6 @@
 			</Anchors>
 		</HighlightTexture>
 	</Button>
-
-	<Slider name="DBM_GUI_PanelScrollBarTemplate" virtual="true">
-		<Size>
-			<AbsDimension x="16" y="0"/>
-		</Size>
-		<Frames>
-			<Button name="$parentScrollUpButton" inherits="UIPanelScrollUpButtonTemplate">
-				<Anchors>
-					<Anchor point="BOTTOM" relativePoint="TOP"/>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						local parent = self:GetParent();
-						parent:SetValue(parent:GetValue() - (parent:GetHeight() / 2));
-						PlaySound(1115);
-					</OnClick>
-				</Scripts>
-			</Button>
-			<Button name="$parentScrollDownButton" inherits="UIPanelScrollDownButtonTemplate">
-				<Anchors>
-					<Anchor point="TOP" relativePoint="BOTTOM"/>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						local parent = self:GetParent();
-						parent:SetValue(parent:GetValue() + (parent:GetHeight() / 2));
-						PlaySound(1115);
-					</OnClick>
-				</Scripts>
-			</Button>
-		</Frames>
-		<Scripts>
-			<OnValueChanged>
-				if DBM_GUI_DropDown then
-					DBM_GUI_DropDown:HideMenu()
-				end
-				self:GetParent():SetVerticalScroll(value);
-
-				if value == select(1, self:GetMinMaxValues()) then
-					_G[self:GetName().."ScrollUpButton"]:Disable()
-				else
-					_G[self:GetName().."ScrollUpButton"]:Enable()
-				end
-				if value == select(2, self:GetMinMaxValues()) then
-					_G[self:GetName().."ScrollDownButton"]:Disable()
-				else
-					_G[self:GetName().."ScrollDownButton"]:Enable()
-				end
-			</OnValueChanged>
-		</Scripts>
-		<ThumbTexture name="$parentThumbTexture" inherits="UIPanelScrollBarButton" file="Interface\Buttons\UI-ScrollBar-Knob">
-			<Size>
-				<AbsDimension x="16" y="24"/>
-			</Size>
-			<TexCoords left="0.25" right="0.75" top="0.125" bottom="0.875"/>
-		</ThumbTexture>
-	</Slider>
 
 	<Frame name="DBM_GUI_OptionsFrameListTemplate" virtual="true">
 		<Layers>
@@ -340,7 +283,7 @@
 						_G[self:GetName().."ScrollBarScrollDownButton"]:Disable()
 
 						local scrollbar = _G[self:GetName().."ScrollBar"]
-						scrollbar:SetMinMaxValues(0, 0)
+						scrollbar:SetMinMaxValues(0, 11)
 						scrollbar:SetValue(0)
 						self.offset = 0
 					</OnLoad>

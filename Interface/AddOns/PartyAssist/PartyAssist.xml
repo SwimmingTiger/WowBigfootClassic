@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Script file="PartyAssist.lua"/>
-	
+
 	<Frame name="PartyAssistMainFrame">
 		<Scripts>
 			<OnLoad>
@@ -15,7 +15,8 @@
 			</OnUpdate>
 		</Scripts>
 	</Frame>
-	<Button name="PartyAssistButtonTemplate" inherits="SecureActionButtonTemplate" virtual="true">		
+
+	<Button name="PartyAssistButtonTemplate" inherits="SecureActionButtonTemplate" virtual="true">
 		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background">
 			<Color r="0" g="0" b="0" a="0.5"/>
 		</Backdrop>
@@ -71,7 +72,7 @@
 			<PreClick>
 				PartyAssistButton_OnPreClick(self, button);
 			</PreClick>
-			<OnEvent>				
+			<OnEvent>
 				PartyAssistButton_OnEvent(self, event, ...);
 			</OnEvent>
 			<OnEnter>

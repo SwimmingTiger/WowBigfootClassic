@@ -1,0 +1,13 @@
+## Interface: 11302
+## Title: alaTalentEmu
+## Title-zhCN: [大脚][集]天赋模拟器
+## Title-zhTW: [大腳][集]天賦模擬器
+## Notes: |cff00ff00alaTalentEmu|r
+## SavedVariables: alaTalentEmuSV
+## Author: alex
+## Version: 113r.190903
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+alaTalentEmu.xml
+

@@ -124,6 +124,16 @@ local function getCurrentFont()
     local myfont = (font * 1.5) * h / 768
     return font
 end
+local function IsBFChannelSysMessage(text)
+    if text:find(L["BigFootChannel"]) then
+        if text:find(L["JoinChannel1"]) then return true end
+        if text:find(L["LeaveChannel"]) then return true end
+        if text:find(L["ModifyChannel"]) then return true end
+        if text:find(L["OwnChannel"]) then return true end
+        if text:find(L["PasswordChange"]) then return true end
+        if text:find(L["Banned"]) then return true end
+    end
+end
 function BFC_Print(...)
     local str = ...
     SELECTED_CHAT_FRAME:AddMessage("|cff00adef[" .. L["BFChat"] .. "]|r" .. str)
@@ -165,6 +175,21 @@ function BFChatAddOn:ReverseParseText(text, font)
         end
     end
     return text
+end
+local function checkResetPassword(text)
+    if text:find(L["BigFootChannel"]) and text:find(L["OwnChannel"]) and
+        text:find((UnitName("player"))) then
+        SetChannelPassword(BFChatAddOn.nextChannel or L["BigFootChannel"], "")
+    end
+end
+local function getNextChannel(channelName)
+    local i = 1
+    local cur
+    if channelName:find(L["BigFootChannel"]) then
+        cur = channelName:match("%d")
+        if cur then i = tonumber(cur) + 1 end
+        return L["BigFootChannel"] .. i
+    end
 end
 local function getBFChannelNum(channelNum)
     local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
@@ -350,6 +375,10 @@ end
 local speaker, messageText
 local function S_AddMessage(self, text, r, g, b, id, ...)
     if text then
+        if IsBFChannelSysMessage(text) then
+            checkResetPassword(text)
+            return
+        end
         if S_GetChannel(text) then
             if db.mute then return end
             speaker = S_GetSpeaker(text)
@@ -548,7 +577,9 @@ function BFChatAddOn:OnInitialize()
     self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
     self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
     self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
-    SlashCmdList["CHAT_PASSWORD"] = nil
+    self:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE")
+    self:RegisterEvent("CHANNEL_UI_UPDATE")
+    self:RegisterEvent("CHANNEL_PASSWORD_REQUEST")
     db = self.db.profile
     self:SetupOptions()
     generateIconMap()
@@ -639,6 +670,35 @@ function BFChatAddOn:IsDisplayChannelOwner()
         if channelName:find(L["BigFootChannel"]) then return false end
     end
     return self.hooks['IsDisplayChannelOwner']()
+end
+local isBanned
+function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE(...)
+    local _, message, _, _, _, _, _, _, _, channelName = ...
+    if message == "BANNED" and channelName:find(L["BigFootChannel"]) then
+        isBanned = true
+        self.nextChannel = getNextChannel(channelName)
+        joinChannelFunc(self.nextChannel)
+    end
+end
+function BFChatAddOn:CHANNEL_UI_UPDATE(...)
+    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
+    for k, v in pairs(ChannelList) do
+        if mod(k, 3) == 2 then
+            if v:find(L["BigFootChannel"]) then return end
+        end
+    end
+    if not isBanned then joinChannelFunc(L["BigFootChannel"]) end
+end
+function BFChatAddOn:CHANNEL_PASSWORD_REQUEST(...)
+    local _, channelName = ...
+    if channelName:find(L["BigFootChannel"]) then
+        self.nextChannel = getNextChannel(channelName)
+        joinChannelFunc(self.nextChannel)
+    else
+        local dialog = StaticPopup_Show("CHAT_CHANNEL_PASSWORD", channelName)
+        if (dialog) then dialog.data = channelName end
+        return
+    end
 end
 function BFChatAddOn:FCF_FadeInChatFrame(chatFrame)
     BFChannelMuteButton:Show()

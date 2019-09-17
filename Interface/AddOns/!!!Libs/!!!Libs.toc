@@ -1,0 +1,10 @@
+﻿## Interface: 11302
+## Title: !!!Libs
+## Title-zhCN: [大脚]  |cff0055FF整合库|r
+## Title-zhTW: [大腳]  |cff0055FF整合庫|r
+## Notes: |cff00ff00!!!Libs|r
+## Notes-zhCN: |cff00ff00!!!Libs|r|n|cffbc8f8f大部分插件都依赖于该整合库。|r|cffb70000请不要禁用该插件。|r
+## Notes-zhTW: |cff00ff00!!!Libs|r|n|cffbc8f8f大部份插件都依賴于該整合庫。|r|cffb70000請不要禁用該插件。|r
+## X-Revision: BigFoot
+
+embeds.xml

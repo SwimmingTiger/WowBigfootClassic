@@ -361,7 +361,7 @@
 				<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
 				<Scripts>
 					<OnClick>
-						self:GetParent():Hide();
+						HideUIPanel(ModManagementFrame);
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -408,7 +408,7 @@
 				</Anchors>
 				<Scripts>
 					<OnClick>
-						ModManagementFrame:Hide();
+						HideUIPanel(ModManagementFrame);
 						BigFootReader_ShowBook(BF_CHANGELOG_TEXT);
 					</OnClick>
 				</Scripts>
@@ -428,7 +428,7 @@
 				<Scripts>
 					<OnClick>
 						ShowUIPanel(AddonList);
-						ModManagementFrame:Hide();
+						HideUIPanel(ModManagementFrame);
 					</OnClick>
 				</Scripts>
 			</Button>

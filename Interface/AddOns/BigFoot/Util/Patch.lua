@@ -5,9 +5,8 @@
 -- 本文件是用来修正一些来自WoW本身Interface的问题
 -------------------------------------------------------
 
---[[
+-- 屏蔽界面失效的提醒
 do
-	-- 屏蔽界面失效的提醒
 	UIParent:UnregisterEvent("ADDON_ACTION_BLOCKED");
 	_G["ChatFrameEditBox"] = _G["ChatFrame1EditBox"]
 end
@@ -67,7 +66,6 @@ do
 		StaticPopup_Show("BF_ADDON_ACTION_FORBIDDEN", FORBIDDEN_ADDON);
 	end)
 end
-]]
 
 -- 设置一些常用的cvar
 do
@@ -93,3 +91,9 @@ do
 	end
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
 end
+
+-- 背包显示剩余格子数量(同步正式服设置)
+hooksecurefunc("MainMenuBarBackpackButton_UpdateFreeSlots", function(...)
+	MainMenuBarBackpackButtonCount:SetText(string.format("(%s)", MainMenuBarBackpackButton.freeSlots));
+end)
+

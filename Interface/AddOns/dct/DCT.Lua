@@ -1207,18 +1207,6 @@ function DCT_Format(str,colorEx)
 					end
 				end
 			elseif param == "sn" then
-				--[[老虎会游泳：对以下错误的缓解（注意问题没有解决，只是隐藏了。相关功能可能依然不正常）：
-Interface\AddOns\dct\DCT.lua:1214: attempt to concatenate global 'dct_spellName' (a boolean value)
-The version of interface is: zhCN1.13.2.9.
-CALLSTACK==>
-Interface\AddOns\dct\DCT.lua:1214: in function `DCT_Format'
-Interface\AddOns\dct\DCT.lua:584: in function <Interface\AddOns\dct\DCT.lua:573>
-(tail call): ?
-Interface\AddOns\dct_spellAlert\dct_sa.lua:287: in function `DCTSA_ProcCombatUnfiltered'
-Interface\AddOns\dct\DCT.lua:866: in function `DCT_BattleLogAnalysis'
-Interface\AddOns\dct\DCT.lua:809: in function `func'
-[string "*:OnEvent"]:4: in function <[string "*:OnEvent"]:1>
-				TODO: 找到该问题发生的原因并进行修复。]]
 				if dct_spellName and type(dct_spellName)=='string' then
 					if dct_ssc_spell and DCT_SPELLSCHOOL_TRAN[dct_spellSchool] then
 						out = out..DCT_SpellSchoolColor(dct_spellSchool,dct_spellName)

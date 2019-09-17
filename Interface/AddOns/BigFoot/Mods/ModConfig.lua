@@ -477,9 +477,9 @@ local function __CreateBigFootButtons()
 			end
 		else
 			if not ModManagementFrame:IsShown() then
-				ModManagementFrame:Show();
+				ShowUIPanel(ModManagementFrame);
 			else
-				ModManagementFrame:Hide();
+				HideUIPanel(ModManagementFrame);
 			end
 		end
 	end

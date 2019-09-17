@@ -96,7 +96,7 @@ function PorEnhanceConfigFunc()
 					local EasyFrames = LibStub("AceAddon-3.0"):GetAddon("EasyFrames");
 					InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.Profiles)
 					InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.EasyFrames)
-					ModManagementFrame:Hide();
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,

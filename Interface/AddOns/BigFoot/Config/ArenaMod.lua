@@ -87,7 +87,7 @@ function ArenaModConfigFunc()
 					if BigFoot_IsAddOnLoaded("Gladius")  then
 						OpenGladius();
 						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION);
-						ModManagementFrame:Hide();
+						HideUIPanel(ModManagementFrame);
 					end
 				end,
 				nil,
@@ -124,7 +124,7 @@ function ArenaModConfigFunc()
 				function ()
 					if BigFoot_IsAddOnLoaded("GladiatorlosSA")  then
 						GladiatorlosSA:ShowConfig();
-						ModManagementFrame:Hide();
+						HideUIPanel(ModManagementFrame);
 					end
 				end,
 				nil,

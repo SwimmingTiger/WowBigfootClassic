@@ -707,7 +707,7 @@ nodes[1434] = {
 	[29007545] = {
 		name = L["Brikk Keencraft"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Master Blacksmith"],
 		faction = "Alliance",
 	},
@@ -1362,7 +1362,7 @@ nodes[1453] = {
 	[56801640] = {
 		name = L["Dane Lindgren"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Alliance",
 	},
@@ -1585,7 +1585,7 @@ nodes[1453] = {
 	[56801645] = {
 		name = L["Therum Deepforge"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Alliance",
 	},
@@ -2280,7 +2280,7 @@ nodes[1454] = {
 	[79602340] = {
 		name = L["Snarl"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Horde",
 	},
@@ -2419,7 +2419,7 @@ nodes[1454] = {
 	[82202300] = {
 		name = L["Saru Steelfury"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Artisan Blacksmith"],
 		faction = "Horde",
 	},
@@ -2631,7 +2631,7 @@ nodes[1454] = {
 	[80602340] = {
 		name = L["Ug'thok"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Horde",
 	},
@@ -3093,7 +3093,7 @@ nodes[1455] = {
 	[52004180] = {
 		name = L["Bengus Deepforge"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Artisan Blacksmith"],
 		faction = "Alliance",
 	},
@@ -3393,14 +3393,14 @@ nodes[1455] = {
 	[52004240] = {
 		name = L["Rotgath Stonebeard"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Alliance",
 	},
 	[51804220] = {
 		name = L["Groum Stonebeard"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Alliance",
 	},
@@ -3788,7 +3788,7 @@ nodes[1456] = {
 	[39605520] = {
 		name = L["Karn Stonehoof"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Horde",
 	},
@@ -4061,7 +4061,7 @@ nodes[1456] = {
 	[39205620] = {
 		name = L["Thrag Stonehoof"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Horde",
 	},
@@ -5182,7 +5182,7 @@ nodes[1458] = {
 	[61002980] = {
 		name = L["James Van Brunt"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Horde",
 	},
@@ -5196,7 +5196,7 @@ nodes[1458] = {
 	[60002860] = {
 		name = L["Basil Frye"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Horde",
 	},
@@ -5632,7 +5632,7 @@ nodes[1413] = {
 	[51202880] = {
 		name = L["Traugh"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Horde",
 	},
@@ -16683,7 +16683,7 @@ nodes[1431] = {
 	[74004840] = {
 		name = L["Clarise Gnarltree"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Expert Blacksmith"],
 		faction = "Alliance",
 	},
@@ -18211,7 +18211,7 @@ nodes[1421] = {
 	[43204100] = {
 		name = L["Guillaume Sorouy"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Horde",
 	},
@@ -18237,7 +18237,7 @@ nodes[1421] = {
 	[62206420] = {
 		name = L["Dalaran Brewmaster"],
 		category = "vendors",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[33001780] = {
 		name = L["Killian Sanatha"],
@@ -24599,7 +24599,7 @@ nodes[1411] = {
 	[52004060] = {
 		name = L["Dwukk"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Horde",
 	},
@@ -25584,7 +25584,7 @@ nodes[1426] = {
 	[45205205] = {
 		name = L["Tognus Flintfire"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Alliance",
 	},
@@ -27989,7 +27989,7 @@ nodes[1429] = {
 	[41606565] = {
 		name = L["Smith Argus"],
 		category = "primaryProfession",
-		profession = "Blacksmith",
+		profession = "Blacksmithing",
 		description = L["Journeyman Blacksmith"],
 		faction = "Alliance",
 	},
