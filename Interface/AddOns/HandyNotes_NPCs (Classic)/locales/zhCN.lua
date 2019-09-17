@@ -4,6 +4,8 @@ if not L then return end
 L = L or {}
 L["NPCs"] = "镇民/飞行点"
 L["Show Rares"] = "稀有精英"
+L["Always Show on Continent"] = "始终在大陆地图上显示飞行点"
+L["Show flightmasters on continent even if you disabled \"Show on Continent\"."] = "即使关闭了“大陆级别地图标记”也在大陆地图上显示飞行点"
 
 L["Aayndia Floralwind"] = "艾蒂安·花丛之风"
 L["Abe Winters"] = "亚伯·温特斯"

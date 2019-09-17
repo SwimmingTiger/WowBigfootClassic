@@ -145,7 +145,7 @@ do
 
 	local function iterCont(t, prestate)
 		if not t then return end
-		if not db.continent then return end
+		if not db.continent and not db.alwaysShowFlightmastersOnContinent then return end
 		local zone = t.C[t.Z]
 		local data = nodes[zone]
 		local state, value
@@ -154,6 +154,7 @@ do
 				state, value = next(data, prestate)
 				while state do -- Have we reached the end of this zone?
 					if db.show then
+					if db.continent or (db.alwaysShowFlightmastersOnContinent and value.category == "flightmasters") then
 					if (value.faction == faction or value.faction == "Neutral") and (not value.hideOnContinent or zone == t.contId) then -- Show on continent?
 					if not (value.category == "flightmasters") or db.showFlightMasters and (not value.classes or value.classes[class]) then
 					if not (value.category == "guildmasters") or db.showGuildMasters then
@@ -176,6 +177,7 @@ do
 						end
 						--if (icon == iconDefault) then print(value.subcategory, value.category) end
 						return state, zone, icon, db.continentScale, db.continentAlpha
+					end
 					end
 					end
 					end
@@ -257,7 +259,7 @@ local defaults = {
 		zoneAlpha = 1,
 		continentScale = 1,
 		continentAlpha = 1,
-		continent = true,
+		continent = false,
 		tomtom = true,
 		showInnkeepers = false,
 		showMailboxes = false,
@@ -275,6 +277,7 @@ local defaults = {
 		showRares = false,
 		showFlightMasters = true,
 		undiscoveredFlightmasters = false,
+		alwaysShowFlightmastersOnContinent = true,
 		show = true, -- Controls visibility of all nodes
 		mapButton = false,
 		minimapButton = { -- for LibDBIcon
@@ -455,6 +458,12 @@ function Addon:PLAYER_LOGIN()
   undiscoveredFlightmasters = {
 	name = L["Show Undiscovered"],
 	desc = L["Use a different icon for undiscovered flightmasters"],
+	type = "toggle",
+	order = 3.92
+  },
+  alwaysShowFlightmastersOnContinent = {
+	name = L["Always Show on Continent"],
+	desc = L["Show flightmasters on continent even if you disabled \"Show on Continent\"."],
 	type = "toggle",
 	order = 3.92
   },
@@ -647,6 +656,7 @@ function HandyNotes_NPCsDropDownMenu(frame, level, menuList)
 			flightmasters = {
 				showFlightMasters = L["Show Flight Masters"],
 				undiscoveredFlightmasters = L["Show Undiscovered"],
+				alwaysShowFlightmastersOnContinent = L["Always Show on Continent"],
 			},
 		}
 		for k, v in pairs(options[menuList]) do

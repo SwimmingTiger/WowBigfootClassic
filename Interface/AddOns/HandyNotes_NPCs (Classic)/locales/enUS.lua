@@ -2,6 +2,9 @@ local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_NPCs (Classic)", "enUS"
 
 L = L or {}
 L["NPCs"] = true
+L["Always Show on Continent"] = true
+L["Show flightmasters on continent even if you disabled \"Show on Continent\"."] = true
+
 L["Aayndia Floralwind"] = true
 L["Abe Winters"] = true
 L["Abigail Sawyer"] = true
