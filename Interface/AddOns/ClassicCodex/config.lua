@@ -25,6 +25,18 @@ function textFactory(parent, value, size)
     return text
 end
 
+function buttonFactory(parent, name, description, onClick)
+    local button = CreateFrame("Button", name, parent, "UIPanelButtonTemplate")
+    button:SetHeight(25)
+    button:SetWidth(400)
+    button:SetText(name)
+    button.tooltipText = description
+    button:SetScript("OnClick", function(self)
+        onClick(self)
+    end)
+    return button
+end
+
 function checkboxFactory(parent, name, description, onClick)
     local checkbox = CreateFrame("CheckButton", name, parent, "ChatConfigCheckButtonTemplate")
     getglobal(checkbox:GetName() .. "Text"):SetText(name)
@@ -248,6 +260,18 @@ function createConfigPanel(parent)
         CodexMap:UpdateNodes()
     end)
     config.spawnMarkerSizeSlider:SetPoint("TOPLEFT", 325, -400)
+
+    config.showAllHiddenQuests = buttonFactory(config, "显示所有手动隐藏的任务", "显示所有通过Shift+点击隐藏的任务\n按住Shift并点击小地图或世界地图上的任务图标可以隐藏任务", function(self)
+        local size = Codex:tablelen(CodexHiddenQuests)
+        CodexHiddenQuests = {}
+        CodexQuest:ResetAll()
+        if size < 1 then
+            print('ClassicCodex: 您没有手动隐藏过任何任务，按住Shift并点击小地图或世界地图上的任务图标可以隐藏任务')
+        else
+            print('ClassicCodex: '..tostring(size)..'个隐藏任务已重新显示')
+        end
+    end)
+    config.showAllHiddenQuests:SetPoint("TOPLEFT", 15, -460)
 
     -- Marker Colors
     -- config.markerColorsTitle = textFactory(config, "Map Marker Colors", 20)
