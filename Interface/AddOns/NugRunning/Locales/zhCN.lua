@@ -5,7 +5,7 @@ if not L then return end
 L = L or {}
 L["3D Effect"] = "3D效果"
 L["Additional Spell IDs"] = "其他法术ID"
-L["Affiliation"] = "附属"
+L["Affiliation"] = "附着于"
 L["Anchors"] = "锚点"
 L["Assign to timer group"] = "分配到计时器组"
 L["Calculate pandemic overlay from duration"] = "根据持续时间计算感染的覆盖情况"
@@ -56,7 +56,7 @@ L["Mirror flagged spell timers on nameplates"] = "镜像部分特定的法术计
 L[ [=[Mirror timer on nameplates.
 May need /reload to enable nameplate functionality.]=] ] = "镜像计时条到姓名板。可能需要执行 /reload 命令来启用姓名板功能。"
 L["Misses"] = "Miss"
-L["Multi-Target"] = "多目标"
+L["Multi-Target"] = "合并多目标"
 L["Name"] = "名字"
 L["Name Alpha"] = "名字透明度"
 L["Name Font"] = "名字字体"
@@ -78,7 +78,7 @@ L["On Refresh"] = "刷新闪光"
 L["Overlay End"] = "覆盖结束"
 L["Overlay length is reduced by haste."] = "覆盖时长因急速而减少"
 L[ [=[Overlay marks time intervals.
-Special values:]=] ] = "覆盖标记的时间间隔。特殊值："
+Special values:]=] ] = "覆盖标记的时间范围。特殊值："
 L["Overlay Start"] = "覆盖开始"
 L["Pandemic"] = "感染"
 L["Place mark on a timer, that will shine when passed through"] = "放置标记到计时器，穿过时将闪光"
