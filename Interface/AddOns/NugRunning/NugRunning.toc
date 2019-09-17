@@ -9,6 +9,8 @@
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
+Locales/zhCN.lua
+
 helpers.lua
 classic.config.lua
 NugRunning.lua

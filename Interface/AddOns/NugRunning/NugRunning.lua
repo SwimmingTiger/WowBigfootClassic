@@ -7,7 +7,7 @@ NugRunning:SetScript("OnEvent", function(self, event, ...)
     return self[event](self, event, ...)
 end)
 
-local L = setmetatable({}, {
+local L = setmetatable(LibStub("AceLocale-3.0"):GetLocale("NugRunning", false), {
     __index = function(t, k)
         -- print(string.format('L["%s"] = ""',k:gsub("\n","\\n")));
         return k
