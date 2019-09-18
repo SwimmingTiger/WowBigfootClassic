@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<!-- Init -->
+	<Script file="core\init.lua"/>
+
+	<!-- Libraries -->
+	<Include file="lib\LibSharedMedia-3.0\lib.xml"/>
+	<Include file="lib\AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
+	<Include file="lib\ThreatClassic-1.0\lib.xml"/>
+
+	<!-- Locales -->
+	<Script file="locale\enUS.lua"/>
+	<Script file="locale\zhCN.lua"/>
+	<Script file="locale\zhTW.lua"/>
+
+	<!-- Core -->
+	<Script file="core\config.lua"/>
+	<Script file="core\core.lua"/>
+</Ui>

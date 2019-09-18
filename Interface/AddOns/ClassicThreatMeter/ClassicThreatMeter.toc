@@ -1,0 +1,21 @@
+## Interface: 11302
+## Title: ClassicThreatMeter
+## Notes: Simple threat meter for WoW Classic.
+## Author: Es (EsreverWoW)
+## X-Curse-Project-ID: 336512
+## X-WoWI-ID: 25165
+## Version: 1.07
+## SavedVariables: CTM_Options
+
+## Dependencies: BigFoot
+## LoadOnDemand: 1
+
+## OptionalDeps: LibStub, CallbackHandler-1.0, AceAddon-3.0, AceEvent-3.0, AceTimer-3.0, AceBucket-3.0, AceGUI-3.0, AceConfig-3.0, AceComm-3.0, AceSerializer-3.0, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, ThreatClassic-1.0
+## X-Embeds: LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, ThreatClassic-1.0
+
+## X-Category: Combat
+
+## X-License: MIT
+## X-Website: https://github.com/EsreverWoW/ClassicThreatMeter
+
+ClassicThreatMeter.xml
