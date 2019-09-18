@@ -1,15 +1,10 @@
-lightweight tag 9e730d06f9ed7c31709cb160f5cc657cbaa47c91 1.13.2.28
+lightweight tag 71f92f8904d7498d2076d0af1f262970ad1bd05e 1.13.2.32
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Tue Sep 17 14:14:31 2019 +0200
+Date:	Wed Sep 18 08:56:28 2019 +0200
 
-commit 9e730d06f9ed7c31709cb160f5cc657cbaa47c91
+commit 71f92f8904d7498d2076d0af1f262970ad1bd05e
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Tue Sep 17 14:14:31 2019 +0200
+Date:   Wed Sep 18 08:56:28 2019 +0200
 
-    Updated Threat lib & Locale
-    
-    - Updated Threat Lib
-    - Updated Locale
-    - Fixed some errors that would occur
-    - Supplemented 'LibClassicDurations' with the old method that was used for durations as some are missing from the lib or breaks occasionally.
+    Update NeatPlates.toc
 
