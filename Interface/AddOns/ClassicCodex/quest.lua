@@ -190,9 +190,12 @@ function CodexQuest:UpdateQuestLog()
                 local state = watched and "trck" or ""
                 for i=1, objectives do
                     local text, _,  done = GetQuestLogLeaderBoard(i, questLogId)
-                    local _, _, obj, objNum, objNeeded = strfind(text, "(.*)：%s*([%d]+)%s*/%s*([%d]+)")
-                    if obj then
-                        state = state .. i .. (((objNum + 0 >= objNeeded + 0) or done) and "done" or "todo")
+                    -- sometimes you got nil and nil, just like the quest 1149 (Test of Faith)
+                    if text then
+                        local _, _, obj, objNum, objNeeded = strfind(text, "(.*)：%s*([%d]+)%s*/%s*([%d]+)")
+                        if obj then
+                            state = state .. i .. (((objNum + 0 >= objNeeded + 0) or done) and "done" or "todo")
+                        end
                     end
                 end
                 CodexQuest.questLogTemp[title].state = state
