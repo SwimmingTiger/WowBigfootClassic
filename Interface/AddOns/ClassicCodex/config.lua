@@ -1,3 +1,5 @@
+local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
+
 CodexConfig = {}
 CodexColors = {}
 
@@ -19,7 +21,10 @@ DefaultCodexConfig = {
 
 function textFactory(parent, value, size)
     local text = parent:CreateFontString(nil, "ARTWORK")
-    text:SetFont("Fonts/ARKai_T.ttf", size)
+    -- Different languages require different fonts, and 
+    -- using inappropriate fonts will result in text not displaying correctly.
+    -- So the choice of font needs to be localized.
+    text:SetFont(L["CONFIG_TEXT_FONT"], size)
     text:SetJustifyV("CENTER")
     text:SetJustifyH("CENTER")
     text:SetText(value)
@@ -203,85 +208,86 @@ function createConfigPanel(parent)
     config.titleText:SetTextColor(1, 0.9, 0, 1)
     
     -- Auto-Accept Quests
-    config.autoAcceptQuestsCheckbox = checkboxFactory(config, "自动接任务", "开启/关闭自动接任务", function(self)
+    config.autoAcceptQuestsCheckbox = checkboxFactory(config, L["Auto-Accept Quests"], L["Toggle auto-accepting quests"], function(self)
         CodexConfig.autoAccept = self:GetChecked()
     end)
     config.autoAcceptQuestsCheckbox:SetPoint("TOPLEFT", 10, -35)
 
     -- Auto-Turnin Quests
-    config.autoTurninQuestsCheckbox = checkboxFactory(config, "自动交任务", "开启/关闭自动交任务", function(self)
+    config.autoTurninQuestsCheckbox = checkboxFactory(config, L["Auto-Turnin Quests"], L["Toggle auto-turning in quests"], function(self)
         CodexConfig.autoTurnin = self:GetChecked()
     end)
     config.autoTurninQuestsCheckbox:SetPoint("TOPLEFT", 10, -70)
 
     -- Quest Icon on Nameplate
-    config.nameplateIconCheckbox = checkboxFactory(config, "姓名板任务图标", "在任务怪姓名板上方显示任务感叹号", function(self)
+    config.nameplateIconCheckbox = checkboxFactory(config, L["Nameplate Quest Icon"], L["Toggle quest icon on top of enemy nameplates"], function(self)
         CodexConfig.nameplateIcon = self:GetChecked()
     end)
     config.nameplateIconCheckbox:SetPoint("TOPLEFT", 10, -105)
 
-    config.allQuestGiversCheckbox = checkboxFactory(config, "显示所有可接任务", "选中后，在地图和小地图上显示可接任务的图标", function(self)
+    config.allQuestGiversCheckbox = checkboxFactory(config, L["All Questgivers"], L["If selected, this will display all questgivers on the map"], function(self)
         CodexConfig.allQuestGivers = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.allQuestGiversCheckbox:SetPoint("TOPLEFT", 10, -140)
 
-    config.currentQuestGiversCheckbox = checkboxFactory(config, "显示当前任务NPC", "选中后，可交付当前任务的NPC或物体会显示在地图上", function(self)
+    config.currentQuestGiversCheckbox = checkboxFactory(config, L["Current Questgivers"], L["If selected, current quest-ender npcs/objects will be displayed on the map for active quests"], function(self)
         CodexConfig.currentQuestGivers = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.currentQuestGiversCheckbox:SetPoint("TOPLEFT", 10, -175)
 
-    config.showLowLevelCheckbox = checkboxFactory(config, "显示低等级任务", "选中后，地图上的低等级任务(比玩家等级低10级)不再被隐藏", function(self)
+    config.showLowLevelCheckbox = checkboxFactory(config, L["Show Low-level Quests"], L["If selected, low-level quests will be hidden on the map"], function(self)
         CodexConfig.showLowLevel = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.showLowLevelCheckbox:SetPoint("TOPLEFT", 10, -210)
 
-    config.showHighLevelCheckbox = checkboxFactory(config, "显示高等级任务", "选中后，可接等级比玩家等级高3级的任务也会显示在地图上", function(self)
+    config.showHighLevelCheckbox = checkboxFactory(config, L["Show High-level Quests"], L["If selected, quests with a level requirement of your level + 3 will be shown on the map"], function(self)
         CodexConfig.showHighLevel = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.showHighLevelCheckbox:SetPoint("TOPLEFT", 10, -245)
 
-    config.showFestivalCheckbox = checkboxFactory(config, "显示节日任务", "选中后，节日相关任务会被显示在地图上", function(self)
+    config.showFestivalCheckbox = checkboxFactory(config, L["Show Festival Quests"], L["If selected, quests related to WoW festive seasons will be displayed on the map"], function(self)
         CodexConfig.showFestival = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.showFestivalCheckbox:SetPoint("TOPLEFT", 10, -280)
 
-    config.colorBySpawnCheckbox = checkboxFactory(config, "按任务怪类型标记颜色", "选中后，不同任务怪的地图标记颜色不同。如果未选中，则一个任务的所有任务怪都是同一个颜色。", function(self)
+    config.colorBySpawnCheckbox = checkboxFactory(config, L["Color By Spawn"], L["If selected, markers' colors will be set per spawn type or per quest if not selected"], function(self)
         CodexConfig.colorBySpawn = self:GetChecked()
         CodexQuest:ResetAll()
     end)
     config.colorBySpawnCheckbox:SetPoint("TOPLEFT", 10, -315)
 
-    config.questMarkerSizeSlider = sliderFactory(config, "questMarkerSize", "任务标记大小", 10, 25, 1, function(self)
+    config.questMarkerSizeSlider = sliderFactory(config, "questMarkerSize", L["Quest Marker Size"], 10, 25, 1, function(self)
         CodexConfig.questMarkerSize = tonumber(self:GetValue())
         CodexMap:UpdateNodes()
     end)
     config.questMarkerSizeSlider:SetPoint("TOPLEFT", 45, -400)
 
-    config.spawnMarkerSizeSlider = sliderFactory(config, "spawnMarkerSize", "怪物标记大小", 6, 20, 1, function(self)
+    config.spawnMarkerSizeSlider = sliderFactory(config, "spawnMarkerSize", L["Spawn Marker Size"], 6, 20, 1, function(self)
         CodexConfig.spawnMarkerSize = tonumber(self:GetValue())
         CodexMap:UpdateNodes()
     end)
     config.spawnMarkerSizeSlider:SetPoint("TOPLEFT", 325, -400)
 
-    config.minimumDropChanceSlider = sliderFactory(config, "minimumDropChance", "隐藏掉落概率低于(%)的物品", 0, 100, 1, function(self)
+    config.minimumDropChanceSlider = sliderFactory(config, "minimumDropChance", L["Hide items with a drop probability less than (%)"], 0, 100, 1, function(self)
         CodexConfig.minimumDropChance = tonumber(self:GetValue())
         CodexQuest:ResetAll()
     end, 424)
     config.minimumDropChanceSlider:SetPoint("TOPLEFT", 45, -460)
 
-    config.showAllHiddenQuests = buttonFactory(config, "显示所有手动隐藏的任务", "显示所有通过Shift+点击隐藏的任务\n按住Shift并点击小地图或世界地图上的任务图标可以隐藏任务", function(self)
+    config.showAllHiddenQuests = buttonFactory(config, L["Show All Quests You Manually Hide"], L["Show all the quests you have hidden by shift + click."].."\n"..
+                                                       L["Hide a quest by holding the shift key and clicking on the quest icon on the minimap or world map."], function(self)
         local size = Codex:tablelen(CodexHiddenQuests)
         CodexHiddenQuests = {}
         CodexQuest:ResetAll()
         if size < 1 then
-            print('ClassicCodex: 您没有手动隐藏过任何任务，按住Shift并点击小地图或世界地图上的任务图标可以隐藏任务')
+            print(L["ClassicCodex: You have no manually hidden quests. You can hold the shift key and click on the quest icon on the minimap or world map to hide it."])
         else
-            print('ClassicCodex: '..tostring(size)..'个隐藏任务已重新显示')
+            print(string.format(L["ClassicCodex: %d hidden quests will be able to show again."], size))
         end
     end)
     config.showAllHiddenQuests:SetPoint("TOPLEFT", 15, -505)
@@ -298,7 +304,7 @@ function createConfigPanel(parent)
     -- config.restoreColorsButton:SetHighlightTexture("Interface/Buttons/UI-Panel-Button-Highlight")
     -- config.restoreColorsButton:SetPushedTexture("Interface/Buttons/UI-Panel-Button-Down")
     -- local font = config.restoreColorsButton:CreateFontString()
-    -- font:SetFont("Fonts/ARKai_T.TTF", 12)
+    -- font:SetFont("Fonts/FRIZQT__.TTF", 12)
     -- font:SetPoint("TOPLEFT", config.restoreColorsButton, "TOPLEFT", 10, -6)
     -- font:SetText("Restore Defaults")
     -- config.restoreColorsButton:SetFontString(font)

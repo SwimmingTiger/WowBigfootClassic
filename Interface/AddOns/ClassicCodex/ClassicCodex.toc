@@ -1,4 +1,6 @@
 ## Interface: 11302
+## X-Min-Interface: 11302
+
 ## Title: ClassicCodex
 ## Title-zhCN: [大脚][集]任务助手
 ## TItle-zhTW: [大腳][集]任務助手
@@ -6,7 +8,7 @@
 ## Notes-zhCN: |cff00ff00ClassicCodex|r
 ## Notes-zhTW: |cff00ff00ClassicCodex|r
 ## Author: Pgarneau, Shagu
-## Version: 1.2.1
+## Version: 1.2.2
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
@@ -47,6 +49,11 @@ db\zhTW\professions.lua
 # libs
 lib\HereBeDragons\HereBeDragons-2.0.lua
 lib\HereBeDragons\HereBeDragons-Pins-2.0.lua
+
+# locales
+locale\enUS.lua
+locale\zhCN.lua
+locale\zhTW.lua
 
 # main
 command.lua

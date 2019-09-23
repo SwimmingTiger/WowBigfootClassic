@@ -1,3 +1,5 @@
+local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
+
 if not CodexUI then
     CodexUI = {
       ["api"] = {},
@@ -12,7 +14,10 @@ if not CodexUI then
         edgeFile = "Interface\\Buttons\\WHITE8x8", edgeSize = 1,
         insets = {left = 0, right = 0, top = 0, bottom = 0},
       },
-      ["defaultFont"] = "Fonts\\ARHei.TTF",
+      -- Different languages require different fonts, and 
+      -- using inappropriate fonts will result in text not displaying correctly.
+      -- So the choice of font needs to be localized.
+      ["defaultFont"] = L["DEFAULT_FONT"],
      }
   
     CodexUIConfig = {
