@@ -331,7 +331,7 @@ local defaults = {
 			hide = false,
 		},
 		button = {
-			x = -40,
+			x = 40,
 			y = -30,
 		},
 	},
@@ -553,7 +553,7 @@ function Addon:PLAYER_LOGIN()
 	desc = L["Places button back in default position"],
 	type = "execute",
 	order = 10,
-	func = function() db.button.x = -40 db.button.y = -30 self.button:ClearAllPoints() self.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", db.button.x, db.button.y)end,
+	func = function() db.button.x = 40 db.button.y = -30 self.button:ClearAllPoints() self.button:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", db.button.x, db.button.y)end,
   },
  },
 }
@@ -572,7 +572,7 @@ function Addon:PLAYER_LOGIN()
  button:SetScript("OnDragStop", function(self, button) Addon:DragStop(self, button) end)
  button:SetSize(50, 30)
  button:SetText("NPCs")
- button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", db.button.x, db.button.y)
+ button:SetPoint("TOPLEFT", WorldMapFrame, "TOPLEFT", db.button.x, db.button.y)
  button:SetFrameStrata("FULLSCREEN_DIALOG")
  self.button = button
  if db.mapButton then
