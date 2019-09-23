@@ -1,8 +1,7 @@
-local AceLocal = LibStub("AceLocale-3.0")
-local L = AceLocal:NewLocale("NugRunning", "zhCN") or AceLocal:NewLocale("NugRunning", "zhTW")
-if not L then return end
+local L = NugRunning.L
 
-L = L or {}
+if GetLocale() ~= "zhCN" and GetLocale() ~= "zhTW" then return end
+
 L["3D Effect"] = "3D效果"
 L["Additional Spell IDs"] = "其他法术ID"
 L["Affiliation"] = "附着于"

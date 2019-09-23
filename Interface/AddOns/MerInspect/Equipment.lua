@@ -3,7 +3,7 @@ local M = MerInspect;
 
 function M:ScanUnitEquipment(unit, class, race, level)
 	local link, txt, r, g, b;
-	for i = 1, 19 do
+	for i = INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED do
 		link = GetInventoryItemLink(unit, i);
 		if link then
 			self.tooltip:SetOwner(UIParent, "ANCHOR_NONE");

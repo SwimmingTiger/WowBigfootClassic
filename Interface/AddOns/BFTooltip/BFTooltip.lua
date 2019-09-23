@@ -1,9 +1,6 @@
 local _G = _G
-local hooksecurefunc, select, UnitBuff, UnitDebuff, UnitAura,
-      GetGlyphSocketInfo, tonumber, strfind = hooksecurefunc, select, UnitBuff,
-                                              UnitDebuff, UnitAura,
-                                              GetGlyphSocketInfo, tonumber,
-                                              strfind
+local hooksecurefunc, select, tonumber, strfind = hooksecurefunc, select,
+                                                  tonumber, strfind
 local BFTooltip_d21ea2df7d42b70936e5762719760d32 =
     BLibrary:CreateInstance("BHook")
 local BFTooltip_6c391f92e72d1c9b7434bca8947c5e2c = BLibrary("BSecureHook")
@@ -404,7 +401,7 @@ local function BFTooltip_6b595d544c5c02ea5184b48c2201a3f7(self,
         if GameTooltip.classIcon then GameTooltip.classIcon:Hide() end
     end
     local BFTooltip_4cc93bff338b768a7287a88ed52e8a5b
-    for BFTooltip_e914904fab9d05d3f54d52bfc31a0f3f = 1, BFTooltip_36d63a69975fd08a36e2e6d5025c94df, 1 do
+    for BFTooltip_e914904fab9d05d3f54d52bfc31a0f3f = 1, BFTooltip_36d63a69975fd08a36e2e6d5025c94df do
         local BFTooltip_e6955c64cf39bdb23dc86de1a9ec2117 =
             getglobal("GameTooltipTextLeft" ..
                           BFTooltip_e914904fab9d05d3f54d52bfc31a0f3f):GetText()
@@ -414,172 +411,165 @@ local function BFTooltip_6b595d544c5c02ea5184b48c2201a3f7(self,
                     BFTooltip_e914904fab9d05d3f54d52bfc31a0f3f
                 break
             end
-        else
-            break
         end
     end
-    if (not BFTooltip_4cc93bff338b768a7287a88ed52e8a5b) then
-        return
+    local leveltxt, levelcolor
+    local BFTooltip_0db5ab7591386d733b59a51d951e85d0 =
+        UnitLevel(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
+    if (BFTooltip_0db5ab7591386d733b59a51d951e85d0 and
+        BFTooltip_0db5ab7591386d733b59a51d951e85d0 >= 1) then
+        leveltxt = LEVEL .. " " .. BFTooltip_0db5ab7591386d733b59a51d951e85d0
     else
-        local leveltxt, levelcolor
-        local BFTooltip_0db5ab7591386d733b59a51d951e85d0 =
-            UnitLevel(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
-        if (BFTooltip_0db5ab7591386d733b59a51d951e85d0 and
-            BFTooltip_0db5ab7591386d733b59a51d951e85d0 >= 1) then
-            leveltxt = LEVEL .. " " ..
-                           BFTooltip_0db5ab7591386d733b59a51d951e85d0
+        leveltxt = LEVEL .. "??"
+    end
+    local BFTooltip_0bc2e111f929b46941314ba27b772be5 = UnitLevel("player")
+    if (UnitFactionGroup(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ~=
+        UnitFactionGroup("player")) then
+        if ((BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
+            BFTooltip_0bc2e111f929b46941314ba27b772be5 >= 5) or
+            BFTooltip_0db5ab7591386d733b59a51d951e85d0 == -1) then
+            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[1]
+        elseif (BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
+            BFTooltip_0bc2e111f929b46941314ba27b772be5 >= 3) then
+            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[2]
+        elseif (BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
+            BFTooltip_0bc2e111f929b46941314ba27b772be5 >= -2) then
+            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[3]
+        elseif (BFTooltip_0bc2e111f929b46941314ba27b772be5 -
+            BFTooltip_0db5ab7591386d733b59a51d951e85d0 <= GetQuestGreenRange()) then
+            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[4]
         else
-            leveltxt = LEVEL .. "??"
+            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[5]
         end
-        local BFTooltip_0bc2e111f929b46941314ba27b772be5 = UnitLevel("player")
-        if (UnitFactionGroup(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ~=
-            UnitFactionGroup("player")) then
-            if ((BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
-                BFTooltip_0bc2e111f929b46941314ba27b772be5 >= 5) or
-                BFTooltip_0db5ab7591386d733b59a51d951e85d0 == -1) then
-                levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[1]
-            elseif (BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
-                BFTooltip_0bc2e111f929b46941314ba27b772be5 >= 3) then
-                levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[2]
-            elseif (BFTooltip_0db5ab7591386d733b59a51d951e85d0 -
-                BFTooltip_0bc2e111f929b46941314ba27b772be5 >= -2) then
-                levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[3]
-            elseif (BFTooltip_0bc2e111f929b46941314ba27b772be5 -
-                BFTooltip_0db5ab7591386d733b59a51d951e85d0 <=
-                GetQuestGreenRange()) then
-                levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[4]
+    else
+        levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[6]
+    end
+    local BFTooltip_9f316a3eb2ba092b53bb884a899e56c5,
+          BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 = "|cffffffff"
+    local BFTooltip_9fc1a99638e222362f76a2986addc9f8,
+          BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a,
+          BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d
+    if (UnitRace(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) and
+        UnitIsPlayer(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
+        BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
+            UnitRace(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
+    elseif (UnitPlayerControlled(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
+        BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
+            UnitCreatureFamily(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
+    else
+        BFTooltip_9fc1a99638e222362f76a2986addc9f8 =
+            UnitIsFriend(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c, "player") and
+                UnitReaction(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c,
+                             "player")
+        if BFTooltip_9fc1a99638e222362f76a2986addc9f8 then
+            if BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 2 then
+                BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
+                    BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[1]
+            elseif BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 3 then
+                BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
+                    BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[2]
+            elseif BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 4 then
+                BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
+                    BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[3]
             else
-                levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[5]
+                BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
+                    BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[4]
             end
-        else
-            levelcolor = BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[6]
+            BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d =
+                BFTooltip_662ca10dea06cc70b2070def0e0dadfa[BFTooltip_9fc1a99638e222362f76a2986addc9f8]
         end
-        local BFTooltip_9f316a3eb2ba092b53bb884a899e56c5,
-              BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 = "|cffffffff"
-        local BFTooltip_9fc1a99638e222362f76a2986addc9f8,
-              BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a,
-              BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d
-        if (UnitRace(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) and
-            UnitIsPlayer(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
-            BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
-                UnitRace(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
-        elseif (UnitPlayerControlled(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
-            BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
-                UnitCreatureFamily(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
-        else
-            BFTooltip_9fc1a99638e222362f76a2986addc9f8 =
-                UnitIsFriend(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c,
-                             "player") and
-                    UnitReaction(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c,
-                                 "player")
-            if BFTooltip_9fc1a99638e222362f76a2986addc9f8 then
-                if BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 2 then
-                    BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
-                        BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[1]
-                elseif BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 3 then
-                    BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
-                        BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[2]
-                elseif BFTooltip_9fc1a99638e222362f76a2986addc9f8 <= 4 then
-                    BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
-                        BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[3]
-                else
-                    BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a =
-                        BFTooltip_7dfad32b68d1cb2bfbd8b776c7c0f5bc[4]
-                end
-                BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d =
-                    BFTooltip_662ca10dea06cc70b2070def0e0dadfa[BFTooltip_9fc1a99638e222362f76a2986addc9f8]
-            end
-            BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
-                UnitCreatureType(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
-        end
-        if (BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 == nil) then
-            BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 = ""
-        else
-            BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
-                (BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 .. " ")
-        end
-        local BFTooltip_7a2bc46364cf858bda368b0cc2cebced = "|cffffffff"
-        if (UnitIsPlayer(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
-            BFTooltip_7a2bc46364cf858bda368b0cc2cebced =
-                BFTooltip_b60cfe76c79aefbdff480476189e6666 and
-                    BFTooltip_3b4c6e8428fd1b418187eeddfb50851b[BFTooltip_b60cfe76c79aefbdff480476189e6666] or
-                    BFTooltip_3b4c6e8428fd1b418187eeddfb50851b["DEFAULT"]
-        else
-            BFTooltip_c17d5b6cb27b5e698389952984895bd7 = " "
-        end
-        if BFTooltip_c17d5b6cb27b5e698389952984895bd7 then
-            local BFTooltip_7208554a9f4262c89b2f8e16f4943abb,
-                  BFTooltip_92c450fe21210367e78dad9a0af8ae2f = "", "|cffffffff"
-            if (UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) and
-                UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ~=
-                "normal" and
-                UnitHealth(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) > 0) then
-                if (UnitClassification(
-                    BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) == "elite" or
-                    UnitClassification(
-                        BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
-                    "worldboss" or
-                    UnitClassification(
-                        BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) == "rare" or
-                    UnitClassification(
-                        BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
-                    "rareelite") then
-                    BFTooltip_7208554a9f4262c89b2f8e16f4943abb =
-                        ("(" ..
-                            BFTooltip_74859e1ca060dcaf910e42c2ec790c32[UnitClassification(
-                                BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)] ..
-                            ")")
-                    BFTooltip_92c450fe21210367e78dad9a0af8ae2f =
-                        BFTooltip_0287b1fb03d1295056e85a0f995b5dba[UnitClassification(
-                            BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)]
-                else
-                    BFTooltip_7208554a9f4262c89b2f8e16f4943abb =
-                        ("(" ..
-                            UnitClassification(
-                                BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ..
-                            ")")
-                end
-            end
-            local BFTooltip_2126e07dc437dce20510697ffb774e31,
-                  BFTooltip_d6c89e6ffa522271a53472720a0be6c1 = "", "|cffffffff"
-            if (UnitHealth(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) <= 0) then
-                BFTooltip_2126e07dc437dce20510697ffb774e31 =
-                    BFTooltip_f2a8d52cb3b8454fce64eb2c12287307
-                BFTooltip_d6c89e6ffa522271a53472720a0be6c1 =
-                    BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+        BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
+            UnitCreatureType(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)
+    end
+    if (BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 == nil) then
+        BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 = ""
+    else
+        BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 =
+            (BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 .. " ")
+    end
+    local BFTooltip_7a2bc46364cf858bda368b0cc2cebced = "|cffffffff"
+    if (UnitIsPlayer(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)) then
+        BFTooltip_7a2bc46364cf858bda368b0cc2cebced =
+            BFTooltip_b60cfe76c79aefbdff480476189e6666 and
+                BFTooltip_3b4c6e8428fd1b418187eeddfb50851b[BFTooltip_b60cfe76c79aefbdff480476189e6666] or
+                BFTooltip_3b4c6e8428fd1b418187eeddfb50851b["DEFAULT"]
+    else
+        BFTooltip_c17d5b6cb27b5e698389952984895bd7 = " "
+    end
+    if BFTooltip_c17d5b6cb27b5e698389952984895bd7 then
+        local BFTooltip_7208554a9f4262c89b2f8e16f4943abb,
+              BFTooltip_92c450fe21210367e78dad9a0af8ae2f = "", "|cffffffff"
+        if (UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) and
+            UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ~=
+            "normal" and UnitHealth(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) >
+            0) then
+            if (UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
+                "elite" or
+                UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
+                "worldboss" or
+                UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
+                "rare" or
+                UnitClassification(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) ==
+                "rareelite") then
+                BFTooltip_7208554a9f4262c89b2f8e16f4943abb =
+                    ("(" ..
+                        BFTooltip_74859e1ca060dcaf910e42c2ec790c32[UnitClassification(
+                            BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)] .. ")")
                 BFTooltip_92c450fe21210367e78dad9a0af8ae2f =
-                    BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
-                BFTooltip_9f316a3eb2ba092b53bb884a899e56c5 =
-                    BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
-                levelcolor = BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+                    BFTooltip_0287b1fb03d1295056e85a0f995b5dba[UnitClassification(
+                        BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c)]
+            else
+                BFTooltip_7208554a9f4262c89b2f8e16f4943abb =
+                    ("(" ..
+                        UnitClassification(
+                            BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) .. ")")
             end
-            local BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf =
-                levelcolor .. leveltxt .. "|r" ..
-                    BFTooltip_9f316a3eb2ba092b53bb884a899e56c5 .. " " ..
-                    BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 .. "|r" ..
-                    BFTooltip_7a2bc46364cf858bda368b0cc2cebced ..
-                    BFTooltip_c17d5b6cb27b5e698389952984895bd7 .. "|r" ..
-                    BFTooltip_92c450fe21210367e78dad9a0af8ae2f ..
-                    BFTooltip_7208554a9f4262c89b2f8e16f4943abb .. "|r" ..
-                    BFTooltip_d6c89e6ffa522271a53472720a0be6c1 ..
-                    BFTooltip_2126e07dc437dce20510697ffb774e31 .. "|r"
-            if BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a and
-                BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d then
-                BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf =
-                    BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf .. "(" ..
-                        BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a ..
-                        BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d .. "|r)"
-            end
+        end
+        local BFTooltip_2126e07dc437dce20510697ffb774e31,
+              BFTooltip_d6c89e6ffa522271a53472720a0be6c1 = "", "|cffffffff"
+        if (UnitHealth(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c) <= 0) then
+            BFTooltip_2126e07dc437dce20510697ffb774e31 =
+                BFTooltip_f2a8d52cb3b8454fce64eb2c12287307
+            BFTooltip_d6c89e6ffa522271a53472720a0be6c1 =
+                BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+            BFTooltip_92c450fe21210367e78dad9a0af8ae2f =
+                BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+            BFTooltip_9f316a3eb2ba092b53bb884a899e56c5 =
+                BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+            levelcolor = BFTooltip_adc9d1f00fa6bd4940e624b4c5235840
+        end
+        local BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf =
+            levelcolor .. leveltxt .. "|r" ..
+                BFTooltip_9f316a3eb2ba092b53bb884a899e56c5 .. " " ..
+                BFTooltip_0edd4fa5d04bbdf4a6174772a777b9c9 .. "|r" ..
+                BFTooltip_7a2bc46364cf858bda368b0cc2cebced ..
+                BFTooltip_c17d5b6cb27b5e698389952984895bd7 .. "|r" ..
+                BFTooltip_92c450fe21210367e78dad9a0af8ae2f ..
+                BFTooltip_7208554a9f4262c89b2f8e16f4943abb .. "|r" ..
+                BFTooltip_d6c89e6ffa522271a53472720a0be6c1 ..
+                BFTooltip_2126e07dc437dce20510697ffb774e31 .. "|r"
+        if BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a and
+            BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d then
+            BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf =
+                BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf .. "(" ..
+                    BFTooltip_c8c12a7dbfd0b1a3c6e55e22ecc2596a ..
+                    BFTooltip_05f00dfbbbbbdea5397f8a69924d1f4d .. "|r)"
+        end
+        if BFTooltip_4cc93bff338b768a7287a88ed52e8a5b then
             getglobal("GameTooltipTextLeft" ..
                           BFTooltip_4cc93bff338b768a7287a88ed52e8a5b):SetText(
                 BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf)
+        else
+            if GameTooltipTextLeft3:GetText() then
+                GameTooltipTextLeft3:SetText(
+                    BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf)
+            else
+                GameTooltip:AddLine(BFTooltip_b61b82ed9a8a82dfaaeed47bb2b6eadf)
+            end
         end
     end
     local BFTooltip_3d39b031dc893292234b1e56c970798c,
           BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5 = "", "|cffffffff"
-    local BFTooltip_22cdddcd52a04378a48d727a55ae0566 =
-        getglobal("GameTooltipTextLeft" ..
-                      BFTooltip_36d63a69975fd08a36e2e6d5025c94df):GetText()
     if (UnitIsVisible(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c .. "target") and
         BFTT_Config["TOT"] == 1) then
         BFTooltip_3d39b031dc893292234b1e56c970798c =
@@ -593,56 +583,34 @@ local function BFTooltip_6b595d544c5c02ea5184b48c2201a3f7(self,
                     BFTooltip_3b4c6e8428fd1b418187eeddfb50851b[BFTooltip_b60cfe76c79aefbdff480476189e6666]
         end
     end
-    if (BFTooltip_22cdddcd52a04378a48d727a55ae0566 == "PvP") then
-        if (BFTT_Config["TOT"] == 1 and
-            UnitIsVisible(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c .. "target") and
-            BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5) then
-            if (UnitIsUnit(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c ..
-                               "target", "player")) then
-                getglobal("GameTooltipTextLeft" ..
-                              BFTooltip_36d63a69975fd08a36e2e6d5025c94df):SetText(
+    if (BFTT_Config["TOT"] == 1 and
+        UnitIsVisible(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c .. "target")) then
+        if (UnitIsUnit(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c .. "target",
+                       "player")) then
+            if GameTooltipTextLeft5:GetText() then
+                GameTooltipTextLeft5:SetText(
                     BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
                         BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
                         BFTooltip_ad5a531d1bf71036cd3ca155666b4c35)
             else
-                getglobal("GameTooltipTextLeft" ..
-                              BFTooltip_36d63a69975fd08a36e2e6d5025c94df):SetText(
+                GameTooltip:AddLine(
+                    BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
+                        BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
+                        BFTooltip_ad5a531d1bf71036cd3ca155666b4c35)
+            end
+        else
+            if GameTooltipTextLeft5:GetText() then
+                GameTooltipTextLeft5:SetText(
                     BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
                         BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
                         BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5 ..
                         BFTooltip_3d39b031dc893292234b1e56c970798c .. "|r")
-            end
-        end
-    else
-        if (BFTT_Config["TOT"] == 1 and
-            UnitIsVisible(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c .. "target")) then
-            if (UnitIsUnit(BFTooltip_fd724fd3c5e25aaf3b4226e1dae5257c ..
-                               "target", "player")) then
-                if GameTooltipTextLeft5:GetText() then
-                    GameTooltipTextLeft5:SetText(
-                        BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
-                            BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
-                            BFTooltip_ad5a531d1bf71036cd3ca155666b4c35)
-                else
-                    GameTooltip:AddLine(
-                        BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
-                            BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
-                            BFTooltip_ad5a531d1bf71036cd3ca155666b4c35)
-                end
             else
-                if GameTooltipTextLeft5:GetText() then
-                    GameTooltipTextLeft5:SetText(
-                        BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
-                            BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
-                            BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5 ..
-                            BFTooltip_3d39b031dc893292234b1e56c970798c .. "|r")
-                else
-                    GameTooltip:AddLine(
-                        BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
-                            BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
-                            BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5 ..
-                            BFTooltip_3d39b031dc893292234b1e56c970798c .. "|r")
-                end
+                GameTooltip:AddLine(
+                    BFTooltip_6e397a8792a702ef576ac7368d5eaf88 ..
+                        BFTooltip_843a1e5002d398bc3baccfb6f1ab3613 .. "|r" ..
+                        BFTooltip_ae3cefbd9c0af91ce6b58264802f08a5 ..
+                        BFTooltip_3d39b031dc893292234b1e56c970798c .. "|r")
             end
         end
     end
@@ -1267,9 +1235,6 @@ BFTooltip_f1917fe48c4934b7873476da9e2bd3c1:SetScript("OnUpdate",
         LibInspect:RequestData("items", unit)
     elseif BFTT_Config["TooltipType"] == 1 and
         (BFTT_Config["Talent"] == 1 or BFTT_Config["ItemLevel"] == 1) then
-        ShowLevelAndTalent_Old(nil, nil)
-        local unit = GetCurrUnit()
-        LibInspect:RequestData("items", unit)
     end
     self.update = 0
 end)
@@ -1295,7 +1260,7 @@ local function KeepNotify(unit)
         if unit == UIDROPDOWNMENU_INIT_MENU.unit and InspectFrame and
             InspectFrame:IsShown() then
             local haveEquipment = false
-            for i = 1, 17 do
+            for i = INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED do
                 if GetInventoryItemLink(unit, i) then
                     haveEquipment = true
                     break
@@ -1313,7 +1278,8 @@ local function InspectUnit_KeepNotifying(unit)
 end
 hooksecurefunc("InspectUnit", InspectUnit_KeepNotifying)
 local function GetInspectItemLevel(guid, data, age)
-    if (not guid) or (type(data) ~= "table") or (type(data.items) ~= "table") then return end
+    if ((not guid) or (data and type(data.items) ~= "table")) then return end
+    if type(data) ~= "table" then return end
     local numItems = 0
     local itemsTotal = 0
     local iLv16, iLv17
@@ -1355,7 +1321,8 @@ end
 LibInspect:AddHook("BFToolTip", "items",
                    function(...) GetInspectItemLevel(...) end)
 local function GetInspectTalentInfo(guid, data, age)
-    if (not guid) or (type(data) ~= "table") or (type(data.talents) ~= "table") then return end
+    if ((not guid) or (data and type(data.talents) ~= "table")) then return end
+    if type(data) ~= "table" then return end
     local spec = data.talents.name
     if (spec) then
         if not InspectInfo[guid] then
@@ -1380,10 +1347,7 @@ local function OnTooltipSetUnit(_tooltip)
         end
     elseif BFTT_Config["TooltipType"] == 1 then
         local unit = GetCurrUnit()
-        BFTooltip_6b595d544c5c02ea5184b48c2201a3f7(_, unit)
-        if not InspectFrame or (InspectFrame and not InspectFrame:IsShown()) then
-            LibInspect:RequestData("items", unit)
-        end
+        BFTooltip_6b595d544c5c02ea5184b48c2201a3f7(_tooltip, unit)
     end
 end
 local function BFTooltip_c26bb4c4b37e799f1819a6f53957dcaa()

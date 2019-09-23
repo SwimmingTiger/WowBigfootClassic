@@ -12,5 +12,5 @@
 
 LibInspect.lua
 
+Config.lua
 BFTooltip.lua
-config.lua

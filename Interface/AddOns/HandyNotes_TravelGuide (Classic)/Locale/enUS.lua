@@ -1,7 +1,7 @@
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("HandyNotes_TravelGuide (Classic)", "enUS", true);
 
-
+-- https://www.curseforge.com/members/dathwada
 if L then
 --config.options
 L["HandyNotes: TravelGuide (Classic)"] = true
@@ -28,8 +28,8 @@ L["Show the Deeprun Tram locations in Stormwind and Ironforge."] = true
 
 --Plugin_config
 L["AddOn Settings"] = true
-L["Query from server"] = true
-L["Send query request to server to lookup localized name. May be a little bit slower for the first time lookup but would be very fast once the name is found and cached."] = true
+-- L["Query from server"] = true
+-- L["Send query request to server to lookup localized name. May be a little bit slower for the first time lookup but would be very fast once the name is found and cached."] = true
 L["Reset hidden nodes"] = true
 L["Show all nodes that you manually hid by right-clicking on them and choosing \"hide\"."] = true
 

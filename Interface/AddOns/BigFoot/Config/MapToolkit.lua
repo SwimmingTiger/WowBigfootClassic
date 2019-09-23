@@ -53,7 +53,7 @@ function MapToolkitConfigFunc()
 	if IsConfigurableAddOn("MapPlus") or IsConfigurableAddOn("BigFootMark") or IsConfigurableAddOn("Archy")  or IsConfigurableAddOn("SexyMap") or IsConfigurableAddOn("RangeDisplay") or IsConfigurableAddOn("Mapster") or IsConfigurableAddOn("WorldFlightMap") then
 		ModManagement_RegisterMod(
 			"MapToolkit",
-			"Interface\\Icons\\INV_Misc_Toy_06",
+			"Interface\\Icons\\trade_engineering",
 			MOD_MAP_TOOLKIT,
 			nil,
 			nil,
@@ -68,7 +68,7 @@ function MapToolkitConfigFunc()
 			ENABLE_RANGEDISPLAY_TEXT,
 			ENABLE_RANGEDISPLAY_TEXT_TOOLTIP,
 			"EnableRangeDisplay",
-			1,
+			0,
 			function (__arg)
 				if (__arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("RangeDisplay")) then

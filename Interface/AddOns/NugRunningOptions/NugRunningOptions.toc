@@ -6,4 +6,5 @@
 ## LoadOnDemand: 1
 ## X-Revision: BigFoot
 
+..\NugRunning\Locales\zhCN.lua
 ..\NugRunning\Options\NugRunningOptions.lua

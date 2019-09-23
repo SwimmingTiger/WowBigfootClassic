@@ -70,8 +70,6 @@
 						</Anchor>
 					</Anchors>
 				</FontString>
-				
-				
 			</Layer>
 		</Layers>
 		<Frames>
@@ -130,7 +128,6 @@
 						self:GetParent():StartMoving();
 					</OnMouseDown>
 					<OnMouseUp>
-						
 						self:GetParent():StopMovingOrSizing();
 						local currentX,currentY = self:GetCenter()
 						if 0.3>abs(currentX-self.centerX) and 0.3>abs(currentY-self.centerY ) then
@@ -140,13 +137,11 @@
 							else
 								expandFrame(self)
 							end
-						end			
+						end
 					</OnMouseUp>
 				</Scripts>
 			</Button>
-			
 		</Frames>
-		
 		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
                 <TileSize>
                         <AbsValue val="32"/>
@@ -163,18 +158,14 @@
 				<Animation startDelay="0.1" duration="0.2" maxFramerate="180">
 					<Scripts>
 						<OnLoad>
-
 							self.regionParent = self:GetRegionParent();
-							
 						</OnLoad>
 						<OnPlay>
 							UpdateMoney()
 							self.miny = 40;
 							self.maxy = 120;
-							self.minx = self.regionParent.minx 
-							self.maxx = self.regionParent.maxx 
-							
-
+							self.minx = self.regionParent.minx
+							self.maxx = self.regionParent.maxx
 						</OnPlay>
 						<OnUpdate>
 							local sizex = self.minx + (self.maxx - self.minx)*self:GetProgress();
@@ -185,7 +176,6 @@
 							BFGoldFrameDisableMask:SetHeight(sizey);
 						</OnUpdate>
 						<OnFinished>
-	
 								ShowGoldPanel()
 								BFGoldFrameDisableMask.status = 'expanded'
 						</OnFinished>
@@ -196,13 +186,8 @@
 				<Animation  startDelay="0.1" duration="0.2" maxFramerate="180">
 					<Scripts>
 						<OnLoad>
-
 							self.regionParent = self:GetRegionParent();
-
-		
-
 						</OnLoad>
-						
 						<OnUpdate>
 							local sizex = self.maxx - (self.maxx - self.minx)*self:GetProgress();
 							local sizey = self.maxy - (self.maxy - self.miny)*self:GetProgress();
@@ -215,34 +200,28 @@
 							HideGoldPanel()
 							self.miny = 40;
 							self.maxy = 120;
-							self.minx = self.regionParent.minx 
-							self.maxx = self.regionParent.maxx 
+							self.minx = self.regionParent.minx
+							self.maxx = self.regionParent.maxx
 						</OnPlay>
 						<OnFinished>
 							BFGoldFrameDisableMask.status = 'collapsed'
-		
 						</OnFinished>
 					</Scripts>
 				</Animation>
 			</AnimationGroup>
 		</Animations>
-	<Scripts>
-		<OnLoad>
-			self:SetPoint("CENTER", UIParent, "CENTER", 100, -80);	
-			self:SetClampedToScreen( true );	
-			RegisterForSaveFrame(self);
-		</OnLoad>
-		<OnShow>
-			
-		</OnShow>
-		
-		<OnMouseDown>
-			self:StartMoving();
-		</OnMouseDown>
-		<OnMouseUp>
-			self:StopMovingOrSizing();
-		</OnMouseUp>
-	</Scripts>
+		<Scripts>
+			<OnLoad>
+				self:SetPoint("CENTER", UIParent, "CENTER", 100, -80);
+				self:SetClampedToScreen( true );
+				RegisterForSaveFrame(self);
+			</OnLoad>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
 	</Frame>
-
 </Ui>

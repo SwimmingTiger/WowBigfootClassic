@@ -1,8 +1,8 @@
 ## Interface: 11302
 ## Title: HandyNotes_NPCs (Classic)
-## Version: 1.12
+## Version: 1.14
 ## Notes: Shows locations of various old world npcs
-## Author: Revel of Pagel
+## Author: Revel of Pagle
 ## RequiredDeps: HandyNotes
 ## SavedVariables: HandyNotes_NPCsClassicDB
 ## X-Revision: BigFoot
@@ -12,4 +12,7 @@ libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
 locales\Locales.xml
 
 data.lua
+vendorData.lua
+itemData.lua
+search.lua
 HandyNotes_NPCs (Classic).lua

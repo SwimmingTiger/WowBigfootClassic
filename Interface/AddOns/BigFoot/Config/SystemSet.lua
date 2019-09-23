@@ -6,27 +6,34 @@ function SystemSetConfigFunc()
 		BF_SYSTEM_LASTER_LOAD="进入世界之后开始载入插件"
 		BF_SYSTEM_LASTER_LOAD_TOOLTIP ="选中之后，会在玩家进入世界之后载入插件"
 
+		BF_oHwell_DoEmote_stand = "自动站立"
+		BF_oHwell_Dismount = "自动下马"
+
 		ErrorFilter_Text="开启红色信息过滤"
 		ErrorFilter_TOOLTIP ="过滤显示界面中上方部分的系统红字提示，可以自行设置想要屏蔽的信息"
 
 		ErrorFilter_Set ="设置"
-
 	elseif (GetLocale() == "zhTW") then
 		BF_SYSTEM_LASTER_TITLE ={"大腳主設置","!!!",3}
 
 		BF_SYSTEM_LASTER_LOAD="進入世界之後開始載入插件"
 		BF_SYSTEM_LASTER_LOAD_TOOLTIP="選中之後，會在玩家進入世界之後載入插件"
 
+		BF_oHwell_DoEmote_stand = "自動站立"
+		BF_oHwell_Dismount = "自動下馬"
+
 		ErrorFilter_Text="開啟红色信息过滤"
 		ErrorFilter_TOOLTIP ="過濾顯示介面中上方部份的系統紅字提示，可以自行設置想要屏蔽的信息"
 
 		ErrorFilter_Set ="設置"
-
 	else
 		BF_SYSTEM_LASTER_TITLE ={"Bigfoot System Set","!!!"}
 
 		BF_SYSTEM_LASTER_LOAD="load Addon after player inter word"
 		BF_SYSTEM_LASTER_LOAD_TOOLTIP ="load Addon after player inter word"
+
+		BF_oHwell_DoEmote_stand = "Auto DoEmote_stand"
+		BF_oHwell_Dismount = "Auto Dismount"
 
 		ErrorFilter_Text="Enable ErrorFilter"
 		ErrorFilter_TOOLTIP ="Filters the errors dislayed in the UIErrorsFrame"
@@ -51,18 +58,64 @@ function SystemSetConfigFunc()
 		"EnableLoadLater",
 		0,
 		function (__arg)
-			if __arg ==1 then
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =0;
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 0;
 			else
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =1;
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 1;
 			end
 		end,
 		nil,
 		function(__arg)
-			if __arg ==1 then
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =0;
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 0;
 			else
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =1;
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 1;
+			end
+		end
+	);
+
+	ModManagement_RegisterCheckBox(
+		"BF_System",
+		BF_oHwell_DoEmote_stand,
+		nil,
+		"Enable_oHwell_DoEmote",
+		1,
+		function (__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.DoEmote_stand = true;
+			else
+				BigFoot_SysTemSetTab.DoEmote_stand = false;
+			end
+		end,
+		nil,
+		function(__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.DoEmote_stand = true;
+			else
+				BigFoot_SysTemSetTab.DoEmote_stand = false;
+			end
+		end
+	);
+
+	ModManagement_RegisterCheckBox(
+		"BF_System",
+		BF_oHwell_Dismount,
+		nil,
+		"Enable_oHwell_Dismount",
+		1,
+		function (__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.Dismount = true;
+			else
+				BigFoot_SysTemSetTab.Dismount = false;
+			end
+		end,
+		nil,
+		function(__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.Dismount = true;
+			else
+				BigFoot_SysTemSetTab.Dismount = false;
 			end
 		end
 	);

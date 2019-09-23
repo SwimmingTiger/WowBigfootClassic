@@ -23,7 +23,7 @@ function SpellMonitorConfigFunc()
 	if IsConfigurableAddOn("EventAlertMod") then
 		ModManagement_RegisterMod(
 			"SpellMonitor",
-			"Interface\\Icons\\ability_shaman_watershield",
+			"Interface\\Icons\\trade_engineering",
 			SPELL_MONITOR,
 			"",
 			nil,

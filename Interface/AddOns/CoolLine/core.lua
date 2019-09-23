@@ -542,7 +542,7 @@ do  -- scans equipments and bags for item cooldowns
 	---------------------------------------
 	function CoolLine:BAG_UPDATE_COOLDOWN()
 	---------------------------------------
-		for i = 1, (db.hideinv and 0) or 18 do
+		for i = 1, (db.hideinv and 0) or INVSLOT_LAST_EQUIPPED do
 			local start, duration, enable = GetInventoryItemCooldown("player", i)
 			if enable == 1 then
 				local name = GetItemInfo(GetInventoryItemLink("player", i))

@@ -4,12 +4,10 @@
 ## Author: d87
 ## SavedVariablesPerCharacter: NRunDB_Char
 ## SavedVariables: NRunDB_Global, NugRunningConfigCustom
-## Version: 1.13.21
+## Version: 1.13.24
 ## X-WoWI-ID: 24936
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-
-Locales/zhCN.lua
 
 helpers.lua
 classic.config.lua

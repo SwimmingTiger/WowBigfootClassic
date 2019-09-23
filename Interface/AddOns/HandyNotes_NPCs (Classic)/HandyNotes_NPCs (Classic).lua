@@ -1,20 +1,24 @@
-local name, nodes = ...
+local name, data = ...
 
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 if not HandyNotes then return end
+local Search = LibStub("AceAddon-3.0"):GetAddon("HandyNotes_NPCs", true)
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_NPCs (Classic)")
+local LibQTip = LibStub('LibQTip-1.0')
 local iconDefault = "Interface\\MINIMAP\\TRACKING\\FlightMaster"
+
+local nodes = data["nodes"]
 
 local icons = {
 	flightmasters = "Interface\\MINIMAP\\TRACKING\\FlightMaster",
 	flightmastersUndiscovered = "Interface\\Addons\\HandyNotes_NPCs (Classic)\\flightmaster_undiscovered.tga",
 	auctioneers = "Interface\\MINIMAP\\TRACKING\\Auctioneer",
 	bankers = "Interface\\MINIMAP\\TRACKING\\Banker",
-	guildmasters = "Interface\\MINIMAP\\TRACKING\\POIArrow", -- FIX ME
+	guildmasters = "Interface\\MINIMAP\\TRACKING\\POIArrow", -- TODO: Find a better icon
 	innkeepers = "Interface\\MINIMAP\\TRACKING\\Innkeeper",
 	mailboxes = "Interface\\MINIMAP\\TRACKING\\Mailbox",
 	repair = "Interface\\MINIMAP\\TRACKING\\Repair",
-	spirithealers = "Interface\\MINIMAP\\TRACKING\\Focus", -- FIX ME
+	spirithealers = "Interface\\MINIMAP\\TRACKING\\Focus", -- TODO: Find a better icon
 	stablemasters = "Interface\\MINIMAP\\TRACKING\\StableMaster",
 	trainers = "Interface\\MINIMAP\\TRACKING\\Profession",
 	vendors = "Interface\\MINIMAP\\TRACKING\\Food",
@@ -25,21 +29,33 @@ local icons = {
 	primaryProfession = "Interface\\MINIMAP\\TRACKING\\Profession", -- Just in case I want seperate icons later
 	secondaryProfession = "Interface\\MINIMAP\\TRACKING\\Profession", -- Same
 	rares = "Interface\\MINIMAP\\Minimap_skull_normal",
+	alchemy = "Interface\\ICONS\\Trade_Alchemy",
+	blacksmithing = "Interface\\ICONS\\Trade_BlackSmithing",
+	cooking = "Interface\\ICONS\\inv_misc_food_15",
+	enchanting = "Interface\\ICONS\\Trade_Engraving",
+	engineering = "Interface\\ICONS\\Trade_Engineering",
+	first_aid = "Interface\\ICONS\\spell_holy_sealofsacrifice",
+	fishing = "Interface\\ICONS\\Trade_Fishing",
+	herbalism = "Interface\\ICONS\\Trade_Herbalism",
+	leatherworking = "Interface\\ICONS\\Trade_LeatherWorking",
+	mining = "Interface\\ICONS\\Trade_Mining",
+	skinning = "Interface\\ICONS\\inv_misc_pelt_wolf_01",
+	tailoring = "Interface\\ICONS\\Trade_Tailoring",
 }
 
 local PROFESSIONS = { }
-PROFESSIONS[L["Alchemy"]] = true
-PROFESSIONS[L["Blacksmithing"]] = true
-PROFESSIONS[L["Enchanting"]] = true
-PROFESSIONS[L["Engineering"]] = true
-PROFESSIONS[L["Leatherworking"]] = true
-PROFESSIONS[L["Tailoring"]] = true
-PROFESSIONS[L["Herbalism"]] = true
-PROFESSIONS[L["Mining"]] = true
-PROFESSIONS[L["Skinning"]] = true
-PROFESSIONS[L["Cooking"]] = true
-PROFESSIONS[L["First Aid"]] = true
-PROFESSIONS[L["Fishing"]] = true
+PROFESSIONS[L["Alchemy"]] = "Alchemy"
+PROFESSIONS[L["Blacksmithing"]] = "Blacksmithing"
+PROFESSIONS[L["Enchanting"]] = "Enchanting"
+PROFESSIONS[L["Engineering"]] = "Engineering"
+PROFESSIONS[L["Leatherworking"]] = "Leatherworking"
+PROFESSIONS[L["Tailoring"]] = "Tailoring"
+PROFESSIONS[L["Herbalism"]] = "Herbalism"
+PROFESSIONS[L["Mining"]] = "Mining"
+PROFESSIONS[L["Skinning"]] = "Skinning"
+PROFESSIONS[L["Cooking"]] = "Cooking"
+PROFESSIONS[L["First Aid"]] = "First Aid"
+PROFESSIONS[L["Fishing"]] = "Fishing"
 
 local db, learned
 local _, class, faction
@@ -47,34 +63,55 @@ local professions = { }
 
 local pluginHandler = { }
 function pluginHandler:OnEnter(uiMapId, coord)
-    local nodeData = nil
-	-- GET RID OF THIS JUNK
-    --if (not nodes[mapFile][coord]) then return end
-	if (nodes[uiMapId] and nodes[uiMapId][coord]) then
-	 nodeData = nodes[uiMapId][coord]
-	end
-	
-	if (not nodeData) then
-		--print('No node data for', uiMapId, coord)
+	local nodeData = nodes[uiMapId][coord]
+	--(nodeData.category == "vendors" or nodeData.category == "repair")
+	if db.showVendorData and nodeData["npcID"] and data["vendors"][nodeData["npcID"]] then
+		local tooltip = LibQTip:Acquire("HandyNotes_NPCs", 2, "LEFT", "RIGHT")
+		self.tooltip = tooltip
+		lineNumber = 1
+		tooltip:AddHeader(nodeData.name)
+		tooltip:SetLineTextColor(1, 0, 0.6, 0.1)
+		tooltip:AddSeparator()
+		lineNumber = lineNumber + 2
+		if data["vendors"][nodeData["npcID"]] then
+			for item in data["vendors"][nodeData["npcID"]]:gmatch("([^,]+)") do
+				item = tonumber(item)
+				if data["items"][item] then
+					local icon = 'Interface\\ICONS\\' .. data["items"][item].icon
+					local itemColor = ITEM_QUALITY_COLORS[data["items"][item].quality]
+					-- TODO Add default icon and color just in case we don't have them
+					tooltip:AddLine("|T".. icon ..":0|t" .. data["items"][item].name, GetCoinTextureString(data["items"][item].buyPrice))
+					tooltip:SetCellTextColor(lineNumber, 1, itemColor.r, itemColor.g, itemColor.b)
+					lineNumber = lineNumber + 1
+				end
+			end
+		end
+		tooltip:SmartAnchorTo(self)
+		tooltip:Show()
+	else
+		local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+		if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
+			tooltip:SetOwner(self, "ANCHOR_LEFT")
+		else
+			tooltip:SetOwner(self, "ANCHOR_RIGHT")
+		end
+
+		if (not nodeData.name) then return end
+		tooltip:AddLine(nodeData.name)
+		if (nodeData.description) then
+			tooltip:AddLine(nodeData.description, 0, 0.6, 0.1)
+		end
+		tooltip:Show()
 		return
 	end
-	
-	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
-	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
-		tooltip:SetOwner(self, "ANCHOR_LEFT")
-	else
-		tooltip:SetOwner(self, "ANCHOR_RIGHT")
-	end
-
-    if (not nodeData.name) then return end
-	tooltip:AddLine(nodeData.name)
-	if (nodeData.description) then
-		tooltip:AddLine(nodeData.description, 0, 0.6, 0.1)
-	end
-	tooltip:Show()
 end
 
 function pluginHandler:OnLeave(mapFile, coord)
+	if self.tooltip then
+		LibQTip:Release(self.tooltip)
+		self.tooltip = nil
+		return
+	end
 	if self:GetParent() == WorldMapButton then
 		WorldMapTooltip:Hide()
 	else
@@ -101,7 +138,7 @@ do
 				if not (value.category == "rares") or db.showRares then
 				if not (value.subcategory == "weaponmaster") or db.showWeaponMasters then
 				if not (value.category == "spirithealers") or db.showSpiritHealers then
-				if not (value.category == "vendors") or ((db.showReagentVendors and value.subcategory == "reagentvendor") or (db.showPoisonVendors and value.subcategory == "poisonvendor") or (db.showMisc and value.subcategory == nil)) then
+				if not (value.category == "vendors") or ((db.showReagentVendors and value.subcategory == "reagentvendor") or (db.showPoisonVendors and value.subcategory == "poisonvendor") or (db.showMisc)) then
 				if not (value.category == "repair") or db.showRepair then
 				if not (value.category == "auctioneers") or db.showAuctioneers then
 				if not (value.category == "bankers") or db.showBankers then
@@ -113,6 +150,10 @@ do
 				if not value.profession or ((db.showProfessions == "ALL") or (db.showProfessions == "MINE" and professions[value.profession])) then
 
 					local icon = icons[value.subcategory] or icons[value.category] or iconDefault
+					if value.category == "vendors" and not db.vendorsUseProfessionIcons then
+						icon = icons[value.category]
+					end
+						
 					if value.category == "flightmasters" and db.undiscoveredFlightmasters and not (value.classes and value.classes[class]) then
 						icon = learned[value.fpName] and icons[value.category] or icons["flightmastersUndiscovered"]
 					end
@@ -247,6 +288,10 @@ end
 function pluginHandler:OnClick(button, pressed, mapFile, coord)
 	if (not pressed) then return end
  --print(button, pressed, mapFile, coord)
+	if (button == "MiddleButton" and Search and nodes[mapFile][coord].npcID) then
+		Search:DumpVendorItems(nodes[mapFile][coord].npcID, nodes[mapFile][coord].name)
+		Search:ShowWindow(true)
+	end
 	if (button == "RightButton" and db.tomtom and TomTom) then
 		setWaypoint(mapFile, coord)
 		return
@@ -261,6 +306,8 @@ local defaults = {
 		continentAlpha = 1,
 		continent = false,
 		tomtom = true,
+		showVendorData = false,
+		vendorsUseProfessionIcons = false,
 		showInnkeepers = false,
 		showMailboxes = false,
 		showBankers = false,
@@ -276,10 +323,10 @@ local defaults = {
 		showPoisonVendors = false,
 		showRares = false,
 		showFlightMasters = true,
-		undiscoveredFlightmasters = false,
 		alwaysShowFlightmastersOnContinent = true,
+		undiscoveredFlightmasters = true,
 		show = true, -- Controls visibility of all nodes
-		mapButton = false,
+		mapButton = true,
 		minimapButton = { -- for LibDBIcon
 			hide = false,
 		},
@@ -306,6 +353,7 @@ end
 
 function Addon:PLAYER_ENTERING_WORLD()
 	faction = UnitFactionGroup("player")
+	data["faction"] = faction
 	_, class = UnitClass("player")
 	updateStuff()
 end
@@ -334,6 +382,12 @@ function Addon:PLAYER_LOGIN()
 	type = "header",
 	name = L["These settings control the look and feel of the icon."],
 	order = 1.1,
+  },
+  vendorsUseProfessionIcons = {
+	type = "toggle",
+	name = L["Vendor Profession Icon"],
+	desc = L["Use profession icons for specialty vendors"],
+	order = 1.11,
   },
   zoneScale = {
    type = "range",
@@ -380,6 +434,12 @@ function Addon:PLAYER_LOGIN()
    name = L["Enable TomTom integration"],
    desc = L["Allow right click to create waypoints with TomTom"],
    order = 1.1,
+  },
+  showVendorData = {
+	type = "toggle",
+	name = L["Advanced Vendor Tooltip"],
+	desc = L["Show items sold by vendor in tooltip"],
+	order = 1.101,
   },
   showHeader = {
 	type = "header",
@@ -448,24 +508,24 @@ function Addon:PLAYER_LOGIN()
   showFlightMastersHeader = {
 	name = L["Flight Masters"],
 	type = "header",
-	order = 3.9
+	order = 3.9,
   },
   showFlightMasters = {
 	name = L["Show Flight Masters"],
 	type = "toggle",
-	order = 3.91
+	order = 3.91,
   },
   undiscoveredFlightmasters = {
 	name = L["Show Undiscovered"],
 	desc = L["Use a different icon for undiscovered flightmasters"],
 	type = "toggle",
-	order = 3.92
+	order = 3.92,
   },
   alwaysShowFlightmastersOnContinent = {
 	name = L["Always Show on Continent"],
 	desc = L["Show flightmasters on continent even if you disabled \"Show on Continent\"."],
 	type = "toggle",
-	order = 3.92
+	order = 3.93,
   },
   showVendorsHeader = {
 	name = L["Show Vendors"],
@@ -476,7 +536,7 @@ function Addon:PLAYER_LOGIN()
 	name = L["Misc. Vendors"],
 	type = "toggle",
 	desc= L["Catch-all for uncategorized vendors"],
-	order = 4.1
+	order = 4.1,
   },
   showReagentVendors = {
 	name = L["Reagent Vendors"],
@@ -521,10 +581,10 @@ else
 	button:Hide()
 end
  
- local dropDownMenu = L_Create_UIDropDownMenu("HandyNotes_NPCsDropDownMenu", button)
- L_UIDropDownMenu_Initialize(dropDownMenu, HandyNotes_NPCsDropDownMenu, "MENU")
- button:SetScript("OnClick", function() L_ToggleDropDownMenu(1, nil, dropDownMenu, "cursor", 3, -3) end)
- button:SetScript("OnHide", function() L_CloseDropDownMenus() end)
+	local dropDownMenu = L_Create_UIDropDownMenu("HandyNotes_NPCsDropDownMenu", button)
+	L_UIDropDownMenu_Initialize(dropDownMenu, HandyNotes_NPCsDropDownMenu, "MENU")
+	button:SetScript("OnClick", function() L_ToggleDropDownMenu(1, nil, dropDownMenu, "cursor", 3, -3) end)
+	button:SetScript("OnHide", function() L_CloseDropDownMenus() end)
  
 	self.LDB = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("HandyNotes_NPCs", {
 		type = "launcher",
@@ -534,14 +594,18 @@ end
 		if (button == "LeftButton") then
 			L_ToggleDropDownMenu(1, nil, dropDownMenu, "cursor", 3, -3)
 		elseif (button == "RightButton") then
+			if data["searchWindow"] then
+				local w = data["searchWindow"]
+				if w:IsVisible() then w:Hide() else w:Show() end
+			end
 		end
 	end,
 	})
 	self.minimapButton = LibStub("LibDBIcon-1.0")
 	self.minimapButton:Register("HandyNotes_NPCs", self.LDB, db.minimapButton)
- 
- Addon:RegisterEvent("PLAYER_ENTERING_WORLD")
- Addon:UnregisterEvent("PLAYER_LOGIN") -- Probably Not Needed
+
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+	self:UnregisterEvent("PLAYER_LOGIN") -- Probably Not Needed
 end
 
 function Addon:SKILL_LINES_CHANGED()
@@ -549,8 +613,8 @@ function Addon:SKILL_LINES_CHANGED()
 	for i = 1, GetNumSkillLines() do
 		local skillName = GetSkillLineInfo(i)
 		if PROFESSIONS[skillName] then
-			--print('Added', skillName)
-			professions[skillName] = true
+			--print('Added', skillName, 'as', PROFESSIONS[skillName])
+			professions[PROFESSIONS[skillName]] = true
 		end
 	end
 	updateStuff()

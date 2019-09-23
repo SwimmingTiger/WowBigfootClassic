@@ -7,7 +7,7 @@ NugRunning:SetScript("OnEvent", function(self, event, ...)
     return self[event](self, event, ...)
 end)
 
-local L = setmetatable(LibStub("AceLocale-3.0"):GetLocale("NugRunning", false), {
+local L = setmetatable({}, {
     __index = function(t, k)
         -- print(string.format('L["%s"] = ""',k:gsub("\n","\\n")));
         return k
@@ -126,6 +126,7 @@ local COMBATLOG_OBJECT_AFFILIATION_MASK = COMBATLOG_OBJECT_AFFILIATION_MASK
 local AFFILIATION_MINE = COMBATLOG_OBJECT_AFFILIATION_MINE
 local AFFILIATION_PARTY_OR_RAID = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY
 local AFFILIATION_OUTSIDER = COMBATLOG_OBJECT_AFFILIATION_OUTSIDER
+local COMBATLOG_HOSTILE_PLAYER = COMBATLOG_OBJECT_CONTROL_PLAYER + COMBATLOG_OBJECT_REACTION_HOSTILE
 
 local lastCastSpellID
 
@@ -188,7 +189,7 @@ local defaults = {
     localNames = defaultShowLocalNames,
     totems = true,
     leaveGhost = false,
-    nameplates = false,
+    nameplates = true,
     preghost = true,
     dotpower = true,
     dotticks = true,
@@ -1165,8 +1166,9 @@ end
 
 function NugRunning.SetDefaultDuration(dstFlags, opts, timer )
     if opts.pvpduration
-        and bit.band(dstFlags, COMBATLOG_FILTER_HOSTILE_PLAYERS) == COMBATLOG_FILTER_HOSTILE_PLAYERS
-        then return opts.pvpduration
+        and bit_band(dstFlags, COMBATLOG_HOSTILE_PLAYER) == COMBATLOG_HOSTILE_PLAYER
+    then
+        return opts.pvpduration
     end
     return ((type(opts.duration) == "function" and opts.duration(timer, opts)) or opts.duration)
 end
@@ -2253,7 +2255,9 @@ NugRunning.Commands = {
                 dstGUID, dstName, dstFlags, dstFlags2,
                 spellID, spellName, spellSchool, auraType, amount = CombatLogGetCurrentEventInfo()
                 local isSrcPlayer = (bit_band(srcFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) == COMBATLOG_OBJECT_AFFILIATION_MINE)
-                if isSrcPlayer then print (spellID, spellName, eventType, srcFlags, srcGUID,"->",dstGUID, amount) end
+                if isSrcPlayer then
+                    print ("ID:", spellID, string.format("|cffff8800%s|r",spellName), eventType, srcFlags, srcGUID,"|cff00ff00==>|r", dstGUID, dstFlags, amount)
+                end
             end)
         end
         if not NugRunning.debug.enabled then
@@ -2319,6 +2323,11 @@ function NugRunning:CreateAnchor(name, opts)
     t:SetTexCoord(0.25,0.49,0,1)
     t:SetVertexColor(1, 0, 0)
     t:SetAllPoints(f)
+
+    local label = f:CreateFontString(nil,"ARTWORK")
+    label:SetFontObject("GameFontNormal")
+    label:SetText("DRAG ->")
+    label:SetPoint("RIGHT", f, "LEFT", 0,0)
 
     if not NRunDB.anchors[name] then
         NRunDB.anchors[name] = { point = "CENTER", parent ="UIParent", to = "CENTER", x = 0, y = 0}

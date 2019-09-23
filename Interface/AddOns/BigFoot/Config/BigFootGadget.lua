@@ -83,12 +83,11 @@ function BigFootGadgetConfigFunc()
 		SCREEN_MARK_PHOTO_MODE="Hold shift key to taking pure screenshot"
 
 		BIGFOOTGADGET_OLD_TAB="OldTab"
-
 	end
 
 	ModManagement_RegisterMod(
 		"BigFootGadget",
-		"Interface\\Icons\\INV_Gizmo_HardenedAdamantiteTube",
+		"Interface\\Icons\\trade_engineering",
 		BIGFOOTGADGET_TITLE,
 		"",
 		nil,

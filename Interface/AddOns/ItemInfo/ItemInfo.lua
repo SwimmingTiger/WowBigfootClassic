@@ -461,6 +461,11 @@ local function ItemInfo_a445b92afd50dd0eb5fc856b59495961(self, event, ...)
             GetAuctionSellItemInfo()
         II_LAST_ITEM_AUCTIONED = ItemInfo_8983c60d66c8593ec7165ea9dbedb584
         if not ItemInfo_8983c60d66c8593ec7165ea9dbedb584 then return end
+        if PriceDropDown and not PriceDropDown:IsShown() then
+            PriceDropDown:ClearAllPoints()
+            PriceDropDown:SetPoint("TOP", StartPriceCopper, "BOTTOM", -20, 0)
+            PriceDropDown:Show()
+        end
         if ItemInfo_Config.auctionPrice[ItemInfo_8983c60d66c8593ec7165ea9dbedb584] then
             local ItemInfo_8e6c2aaeb6b11f026ff5cb0a29aebe68 =
                 ItemInfo_Config.auctionPrice[ItemInfo_8983c60d66c8593ec7165ea9dbedb584]

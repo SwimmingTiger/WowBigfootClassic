@@ -66,9 +66,13 @@ fb:SetScript("OnEvent", fb.OnEvent)
 local f = CreateFrame("Frame")
 function f:OnEvent(event, key, state)
 	if state == SPELL_FAILED_NOT_STANDING then
-		DoEmote("stand")
+		if BigFoot_SysTemSetTab.DoEmote_stand then
+			DoEmote("stand")
+		end
 	elseif state == SPELL_FAILED_NOT_MOUNTED or state == ERR_ATTACK_MOUNTED then
-		Dismount()	
+		if BigFoot_SysTemSetTab.Dismount then
+			Dismount()
+		end
 	end
 end
 

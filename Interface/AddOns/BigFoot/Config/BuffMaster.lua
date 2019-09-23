@@ -55,13 +55,12 @@ function BuffMasterConfigFunc()
 	if IsConfigurableAddOn("TUnitFrame") or IsConfigurableAddOn("BuffMaster") or IsConfigurableAddOn("BFCooldown") then
 		ModManagement_RegisterMod(
 			"BuffMaster",
-			"Interface\\Icons\\ability_hunter_displacement",
+			"Interface\\Icons\\trade_engineering",
 			BM_ACTION_BUTTON_TITLE,
 			"",
 			nil,
 			nil,
 			{[3]=true}
-
 		);
 	end
 
