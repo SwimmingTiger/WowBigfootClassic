@@ -292,7 +292,12 @@ function CodexDatabase:SearchItemById(id, meta, maps, allowedTypes)
     meta["itemId"] = id
     meta["item"] = CodexDB.items.loc[id]
 
-    local minimumDropChance = 0 -- This could be configured in the future
+    -- Apply filtering only to entries from the quest log.
+    -- Allows all markers to be displayed from the browser.
+    local minimumDropChance = 0
+    if meta["questLogId"] ~= nil then
+        minimumDropChance = CodexConfig.minimumDropChance
+    end
 
     -- Search Unit drops
     if items[id]["U"] and ((not allowedTypes) or allowedTypes["U"]) then
