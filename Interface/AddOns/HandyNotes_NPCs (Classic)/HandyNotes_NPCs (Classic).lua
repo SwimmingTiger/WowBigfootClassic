@@ -101,6 +101,14 @@ function pluginHandler:OnEnter(uiMapId, coord)
 		if (nodeData.description) then
 			tooltip:AddLine(nodeData.description, 0, 0.6, 0.1)
 		end
+		if nodeData.subcategory == "weaponmaster" then
+			if nodeData.npcID and data["weaponmasters"][nodeData.npcID] then
+				for skill in data["weaponmasters"][nodeData.npcID]:gmatch("([^,]+)") do
+					skill = tonumber(skill)
+					tooltip:AddLine(data["weaponskills"][skill].name)
+				end
+			end
+		end
 		tooltip:Show()
 		return
 	end
@@ -138,8 +146,8 @@ do
 				if not (value.category == "rares") or db.showRares then
 				if not (value.subcategory == "weaponmaster") or db.showWeaponMasters then
 				if not (value.category == "spirithealers") or db.showSpiritHealers then
-				if not (value.category == "vendors") or ((db.showReagentVendors and value.subcategory == "reagentvendor") or (db.showPoisonVendors and value.subcategory == "poisonvendor") or (db.showMisc)) then
-				if not (value.category == "repair") or db.showRepair then
+				if not (value.category == "vendors") or ((db.showAmmoVendors and (value.subcategories and value.subcategories['ammo'])) or (db.showReagentVendors and (value.subcategory == "reagentvendor" or value.subcategory == "reagentpoisonvendor")) or (db.showPoisonVendors and (value.subcategory == "poisonvendor" or value.subcategory == "reagentpoisonvendor")) or (db.showMisc)) then
+				if not (value.category == "repair") or ((db.showAmmoVendors and (value.subcategories and value.subcategories['ammo'])) or db.showRepair) then
 				if not (value.category == "auctioneers") or db.showAuctioneers then
 				if not (value.category == "bankers") or db.showBankers then
 				if not (value.category == "innkeepers") or db.showInnkeepers then
@@ -148,10 +156,14 @@ do
 				if not (value.category == "trainers" and value.description == "Pet Trainer") or class == "HUNTER" or db.showClassTrainers == "ALL" then -- Hide pet trainers for non-hunters
 				if not (value.category == "trainers" and value.subcategory == "classTrainer") or ((db.showClassTrainers == "ALL") or (db.showClassTrainers == "MINE" and value.classes and value.classes[class])) then
 				if not value.profession or ((db.showProfessions == "ALL") or (db.showProfessions == "MINE" and professions[value.profession])) then
-
+					-- TODO merge subcategory and subcategories
 					local icon = icons[value.subcategory] or icons[value.category] or iconDefault
 					if value.category == "vendors" and not db.vendorsUseProfessionIcons then
 						icon = icons[value.category]
+					end
+					
+					if db.showAmmoVendors and value.subcategories and value.subcategories['ammo'] then
+						icon = icons['ammovendor']
 					end
 						
 					if value.category == "flightmasters" and db.undiscoveredFlightmasters and not (value.classes and value.classes[class]) then
@@ -202,8 +214,8 @@ do
 					if not (value.category == "rares") or db.showRares then
 					if not (value.subcategory == "weaponmaster") or db.showWeaponMasters then
 					if not (value.category == "spirithealers") or db.showSpiritHealers then
-					if not (value.category == "vendors") or ((db.showReagentVendors and value.subcategory == "reagentvendor") or (db.showPoisonVendors and value.subcategory == "poisonvendor") or (db.showMisc and value.subcategory == nil)) then
-					if not (value.category == "repair") or db.showRepair then
+					if not (value.category == "vendors") or ((db.showAmmoVendors and (value.subcategories and value.subcategories['ammo'])) or (db.showReagentVendors and value.subcategory == "reagentvendor") or (db.showPoisonVendors and value.subcategory == "poisonvendor") or (db.showMisc and value.subcategory == nil)) then
+					if not (value.category == "repair") or ((db.showAmmoVendors and (value.subcategories and value.subcategories['ammo'])) or db.showRepair) then
 					if not (value.category == "auctioneers") or db.showAuctioneers then
 					if not (value.category == "bankers") or db.showBankers then
 					if not (value.category == "innkeepers") or db.showInnkeepers then
@@ -215,6 +227,9 @@ do
 						local icon = icons[value.subcategory] or icons[value.category] or iconDefault
 						if value.category == "flightmasters" and db.undiscoveredFlightmasters and not (value.classes and value.classes[class]) then
 							icon = learned[value.fpName] and icons[value.category] or icons["flightmastersUndiscovered"]
+						end
+						if db.showAmmoVendors and value.subcategories and value.subcategories['ammo'] then
+							icon = icons['ammovendor']
 						end
 						--if (icon == iconDefault) then print(value.subcategory, value.category) end
 						return state, zone, icon, db.continentScale, db.continentAlpha
@@ -355,6 +370,7 @@ function Addon:PLAYER_ENTERING_WORLD()
 	faction = UnitFactionGroup("player")
 	data["faction"] = faction
 	_, class = UnitClass("player")
+	data["class"] = class
 	updateStuff()
 end
 
@@ -548,6 +564,11 @@ function Addon:PLAYER_LOGIN()
 	type = "toggle",
 	order = 4.3,
   },
+   showAmmoVendors = {
+	name = L["Ammo Vendors"],
+	type = "toggle",
+	order = 4.35,
+  },
   resetMapButton = {
 	name = L["Reset Map Button"],
 	desc = L["Places button back in default position"],
@@ -616,6 +637,11 @@ function Addon:SKILL_LINES_CHANGED()
 			--print('Added', skillName, 'as', PROFESSIONS[skillName])
 			professions[PROFESSIONS[skillName]] = true
 		end
+		--[[for k, v in pairs(data["weaponskills"]) do Weapon skills learned have slightly different name, for instance one-handed maces to maces
+			if v.name == skillName then
+				data.weaponSkillLearned[k] = true
+			end
+		end--]]
 	end
 	updateStuff()
 end
@@ -716,6 +742,7 @@ function HandyNotes_NPCsDropDownMenu(frame, level, menuList)
 				showMisc = L["Misc. Vendors"],
 				showReagentVendors = L["Reagent Vendors"],
 				showPoisonVendors = L["Poison Vendors"],
+				showAmmoVendors = L["Ammo Vendors"],
 			},
 			flightmasters = {
 				showFlightMasters = L["Show Flight Masters"],

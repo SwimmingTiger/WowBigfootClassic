@@ -1,5 +1,6 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 	<Script file="HunterAssist.lua"/>
+
 	<Frame name="HunterAssistCasteBarMove" movable="true" enableMouse="true" parent="UIParent" hidden="true">
 	   	<Size>
 			<AbsDimension x="215" y="33"/>
@@ -56,7 +57,7 @@
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
 					<Color r="0" g="0" b="0" a="0.5"/>
-				</Texture>		
+				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
 				<FontString name="$parentTextLeft" inherits="GameFontHighlight" text="AIMED">
@@ -121,7 +122,7 @@
 		</Layers>
 		<Scripts>
 			<OnLoad>
-				HunterAssistCasteBar_OnLoad(self);			
+				HunterAssistCasteBar_OnLoad(self);
 			</OnLoad>
 			<OnUpdate>
 				HunterAssistCasteBar_OnUpdate(self);

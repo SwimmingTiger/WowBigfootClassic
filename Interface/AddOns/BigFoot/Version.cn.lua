@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "15"
+local minor = "17"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,20 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/09/26 (1.13.2.17)")
+	BigFootChangelog_ar("大脚插件","修复好友列表增强的一个问题。")
+	BigFootChangelog_ar("天赋模拟","升级至最新版本。")
+	BigFootChangelog_ar("界面调整","升级至最新版本。")
+	BigFootChangelog_ar("地图增强","升级至最新版本。")
+	BigFootChangelog_ar("目标施法条","升级至最新版本。")
+
+
+	BigFootChangelog_at("2019/09/24 (1.13.2.16)")
+	BigFootChangelog_ar("大脚设置","添加触发类技能动作条高亮开关。")
+	BigFootChangelog_ar("职业助手","恢复猎人助手及部分功能。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/09/20 (1.13.2.15)")
 	BigFootChangelog_ar("大脚设置","添加自动下马开关。")
@@ -96,4 +110,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "52"
+BF_VERSION_CHECKSUM = "54"

@@ -430,7 +430,7 @@ local castSpellIDs = {
     3595, -- Frost Oil
     17460, -- Frost Ram
     25178, -- Frost Weakness
-    10180, -- Frostbolt
+    10181, -- Frostbolt
     8398, -- Frostbolt Volley
     16992, -- Frostguard
     6957, -- Frostmane Strength
@@ -1446,7 +1446,7 @@ namespace.crowdControls = {
 
 -- Addon Savedvariables
 namespace.defaultConfig = {
-    version = "10", -- settings version
+    version = "12", -- settings version
     pushbackDetect = true,
     movementDetect = true,
     locale = GetLocale(),
@@ -1473,6 +1473,8 @@ namespace.defaultConfig = {
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
     },
 
     target = {
@@ -1497,5 +1499,59 @@ namespace.defaultConfig = {
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
+    },
+
+    party = {
+        enabled = false,
+        width = 120,
+        height = 12,
+        iconSize = 16,
+        showCastInfoOnly = false,
+        showTimer = false,
+        autoPosition = false,
+        castFont = _G.STANDARD_TEXT_FONT,
+        castFontSize = 9,
+        castStatusBar = "Interface\\TargetingFrame\\UI-StatusBar",
+        castBorder = "Interface\\CastingBar\\UI-CastingBar-Border",
+        hideIconBorder = false,
+        position = { "CENTER", 141, 6 },
+        iconPositionX = -5,
+        iconPositionY = 0,
+        borderColor = { 1, 1, 1, 1 },
+        statusColor = { 1, 0.7, 0, 1 },
+        statusColorChannel = { 0, 1, 0, 1 },
+        textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
+    },
+
+    player = {
+        enabled = false,
+        width = 190,
+        height = 19,
+        iconSize = 16,
+        showCastInfoOnly = false,
+        showTimer = false,
+        autoPosition = true,
+        castFont = _G.STANDARD_TEXT_FONT,
+        castFontSize = 12,
+        castStatusBar = "Interface\\TargetingFrame\\UI-StatusBar",
+        castBorder = "Interface\\CastingBar\\UI-CastingBar-Border",
+        hideIconBorder = false,
+        position = { "CENTER", -18, -87 },
+        iconPositionX = -5,
+        iconPositionY = 0,
+        borderColor = { 1, 1, 1, 1 },
+        statusColor = { 1, 0.7, 0, 1 },
+        statusColorChannel = { 0, 1, 0, 1 },
+        textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
     },
 }

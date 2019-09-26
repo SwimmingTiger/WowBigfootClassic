@@ -7,7 +7,7 @@
 ## Notes-zhTW: |cff00ff00Mapster|r|n|cffbc8f8f簡單實用的地圖增強。|r
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
-## Version: 1.8.4
+## Version: 1.8.5
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

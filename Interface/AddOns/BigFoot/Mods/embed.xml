@@ -5,5 +5,6 @@
 	<!-- <Include file="ModelChange.xml"/> -->
 	<Script file="ModConfig.lua"/>
 	<Script file="oHWell.lua"/>
+	<Script file="iColor.lua"/>
 	<Script file="ClassicSpellActivations.lua"/>
 </Ui>

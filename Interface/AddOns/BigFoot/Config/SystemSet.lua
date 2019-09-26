@@ -8,6 +8,7 @@ function SystemSetConfigFunc()
 
 		BF_oHwell_DoEmote_stand = "自动站立"
 		BF_oHwell_Dismount = "自动下马"
+		BF_ClassicSpellActivations = "开启动作条高亮"
 
 		ErrorFilter_Text="开启红色信息过滤"
 		ErrorFilter_TOOLTIP ="过滤显示界面中上方部分的系统红字提示，可以自行设置想要屏蔽的信息"
@@ -21,6 +22,7 @@ function SystemSetConfigFunc()
 
 		BF_oHwell_DoEmote_stand = "自動站立"
 		BF_oHwell_Dismount = "自動下馬"
+		BF_ClassicSpellActivations = "開啟動作條高亮"
 
 		ErrorFilter_Text="開啟红色信息过滤"
 		ErrorFilter_TOOLTIP ="過濾顯示介面中上方部份的系統紅字提示，可以自行設置想要屏蔽的信息"
@@ -34,6 +36,7 @@ function SystemSetConfigFunc()
 
 		BF_oHwell_DoEmote_stand = "Auto DoEmote_stand"
 		BF_oHwell_Dismount = "Auto Dismount"
+		BF_ClassicSpellActivations = "Enable ClassicSpellActivations"
 
 		ErrorFilter_Text="Enable ErrorFilter"
 		ErrorFilter_TOOLTIP ="Filters the errors dislayed in the UIErrorsFrame"
@@ -116,6 +119,29 @@ function SystemSetConfigFunc()
 				BigFoot_SysTemSetTab.Dismount = true;
 			else
 				BigFoot_SysTemSetTab.Dismount = false;
+			end
+		end
+	);
+
+	ModManagement_RegisterCheckBox(
+		"BF_System",
+		BF_ClassicSpellActivations,
+		nil,
+		"BF_ClassicSpellActivations",
+		1,
+		function (__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.SpellActivations = true;
+			else
+				BigFoot_SysTemSetTab.SpellActivations = false;
+			end
+		end,
+		nil,
+		function(__arg)
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.SpellActivations = true;
+			else
+				BigFoot_SysTemSetTab.SpellActivations = false;
 			end
 		end
 	);

@@ -5,6 +5,7 @@
 -- 描述: 提供一系列猎人的辅助功能
 -- 版权所有: 艾泽拉斯国家地理
 --===================================================
+local _
 HunterAssist = BLibrary("BEvent");
 HunterAssist.H = BLibrary("BHook");
 local __H = HunterAssist;
@@ -22,12 +23,11 @@ end
 ---------------------
 -- 自动射击进度条
 ---------------------
-local __HunterAssist_CastBar_AutoShot = nil;
 function HunterAssistCasteBar_OnLoad(self)
 	RegisterForSaveFrame(self);
 
 	self:SetMinMaxValues(0, 1);
-	self:SetValue(1);	
+	self:SetValue(1);
 end
 
 local function __HunterAssistCasteBar_FlashBar()
@@ -48,24 +48,26 @@ local function __HunterAssistCasteBar_FlashBar()
 end
 
 local function __HunterAssistCasteBar_Cast(__spell)
-	local __min, __max = GetTime();
-	
-	if (__spell and __spell == HUNTERASSIST_AUTO or __spell == HUNTERASSIST_AIMED) then
-		__max = __min + UnitRangedDamage("player");	
-		HunterAssistCasteBar:SetStatusBarColor(1.0, 0.7, 0.0);		
-		HunterAssistCasteBar:SetMinMaxValues(__min, __max);	
-		HunterAssistCasteBar:SetValue(__min);	
+	if (__spell and __spell == 75) then
+		local __min, __max = GetTime();
+		local spellName = GetSpellInfo(__spell)
+		__max = __min + UnitRangedDamage("player");
+		HunterAssistCasteBar:SetStatusBarColor(1.0, 0.7, 0.0);
+		HunterAssistCasteBar:SetMinMaxValues(__min, __max);
+		HunterAssistCasteBar:SetValue(__min);
 		HunterAssistCasteBar:SetAlpha(1.0);
 		HunterAssistCasteBar.__casting = 1;
 		HunterAssistCasteBar.__fadeOut = nil;
-		HunterAssistCasteBarTextLeft:SetText(HUNTERASSIST_AUTO);
+		HunterAssistCasteBarTextLeft:SetText(spellName);
 		HunterAssistCasteBarSpark:Show();
-		HunterAssistCasteBar:Show();
+		if not HunterAssistCasteBar:IsShown() then
+			HunterAssistCasteBar:Show();
+		end
 	end
 end
-	   	   
-function __H:STOP_AUTOREPEAT_SPELL()	
-	__HunterAssistCasteBar_FlashBar();	
+
+function __H:STOP_AUTOREPEAT_SPELL()
+	__HunterAssistCasteBar_FlashBar();
 end
 
 function __H:PLAYER_LOGIN()
@@ -74,12 +76,6 @@ end
 
 function __H:PLAYER_ENTERING_WORLD()
 	self:STOP_AUTOREPEAT_SPELL();
-end
-
-function __H:UNIT_SPELLCAST_SUCCEEDED(unit, spell)
-	if (unit == "player") then
-		__HunterAssistCasteBar_Cast(spell);
-	end
 end
 
 function HunterAssistCasteBar_OnUpdate(self)
@@ -118,19 +114,19 @@ function HunterAssistCasteBar_OnUpdate(self)
 			self:Hide();
 		end
 	end
-end	
+end
 
 function HunterAssistBar_Toggle(__switch)
-	if (__switch) then	
+	if (__switch) then
 		__H:RegisterEvent("STOP_AUTOREPEAT_SPELL");
 		__H:RegisterEvent("PLAYER_REGEN_DISABLED");
 		__H:RegisterEvent("PLAYER_REGEN_ENABLED");
-		__H:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");	
+		__H:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
 		__H:RegisterEvent("PLAYER_LOGIN");
 		__H:RegisterEvent("PLAYER_ENTERING_WORLD");
 		HunterAssist_Enabled = true;
 	else
-		__H:UnregisterEvent("STOP_AUTOREPEAT_SPELL");				
+		__H:UnregisterEvent("STOP_AUTOREPEAT_SPELL");
 		__H:UnregisterEvent("PLAYER_LOGIN");
 		__H:UnregisterEvent("PLAYER_ENTERING_WORLD");
 		__HunterAssistCasteBar_FlashBar();
@@ -145,10 +141,10 @@ function HunterAssistCasteBar_AjustPosition()
 		HunterAssistCasteBar:Hide()
 	else
 		HunterAssistCasteBarMove:Show()
-		HunterAssistCasteBar:Show()			
+		HunterAssistCasteBar:Show()
 		HunterAssistCasteBar:SetAlpha(1)
 		HideUIPanel(ModManagementFrame);
-	end	
+	end
 end
 
 -------------------
@@ -179,35 +175,34 @@ end
 function __H:AntiDaze(guid)
 	local buffID = self:IsBuffActive(HUNTERASSIST_ASPECT_ASPECT_PACK);
 	if (guid == UnitGUID("player")) then
-		buffID = self:IsBuffActive(HUNTERASSIST_ASPECT_CHEETAH);		
-	end		
+		buffID = self:IsBuffActive(HUNTERASSIST_ASPECT_CHEETAH);
+	end
 	if (buffID and type(buffID) == "number" and buffID >= 0) then
 		CancelUnitBuff("player", buffID);
-	end	
-end
-
-function HunterAssistDaze_Toggle(__switch)
-	if (__switch) then		
-		__H:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "SPELL_AURA_APPLIED");
-		__H:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "SPELL_AURA_APPLIED_DOSE");
-	else	
-		__H:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "SPELL_AURA_APPLIED");
-		__H:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "SPELL_AURA_APPLIED_DOSE");
 	end
 end
 
-function __H:SPELL_AURA_APPLIED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
-	if (UnitIsA(destFlags, groupmate)) then
-		local spellName, spellSchool, auraType, amount = select(2, ...);
-		
-		if (auraType == "DEBUFF" and spellName == HUNTERASSIST_ASPECT_DAZED) then
-			self:AntiDaze(destGUID);
+function HunterAssistDaze_Toggle(__switch)
+	if (__switch) then
+		__H:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+	else
+		__H:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+	end
+end
+
+function __H:COMBAT_LOG_EVENT_UNFILTERED(...)
+	local timestamp, subevent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags,_,spellName, spellSchool, auraType = CombatLogGetCurrentEventInfo()
+	if subevent == "SPELL_AURA_APPLIED" or subevent == "SPELL_AURA_APPLIED_DOSE" then
+		if (UnitIsA(destFlags, groupmate)) then
+			if (auraType == "DEBUFF" and spellName == HUNTERASSIST_ASPECT_DAZED) then
+				self:AntiDaze(destGUID);
+			end
 		end
 	end
 end
 
-function __H:SPELL_AURA_APPLIED_DOSE(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
-	self:SPELL_AURA_APPLIED(timestamp, event, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...);
+function __H:SPELL_AURA_APPLIED_DOSE( ...)
+	self:SPELL_AURA_APPLIED( ...);
 end
 
 -------------------
@@ -224,12 +219,12 @@ local creature = {
 	[HUNTERASSIST_GIANT] = "Giant";
 	[HUNTERASSIST_ELEMENTAL] = "Elemental";
 	[HUNTERASSIST_DEMON] = "Demon";
-	[HUNTERASSIST_DRAGONKIN] = "Dragonkin";	
+	[HUNTERASSIST_DRAGONKIN] = "Dragonkin";
 };
 local ignor_tracking_buff = {
-	["player"] = {5384, 13481}, 
+	["player"] = {5384, 13481},
 	["target"] = {13481}
-}; 
+};
 
 function __H:UpdateTrackTalent()
 	track_talent=true
@@ -243,39 +238,37 @@ function __H:UpdateTrackTalent()
 end
 
 function __H:UpdateTrackingID()
-	for id=1, GetNumTrackingTypes() do
-		local name, texture, active, category = GetTrackingInfo(id);
-		if ( name == GetSpellInfo(1494) ) then			
-			tracking["Beast"] = id;		
-		elseif ( name == GetSpellInfo(19883) )then
-			tracking["Humanoid"] = id;
-		elseif ( name == GetSpellInfo(19884) ) then 
-			tracking["Undead"] = id;
-		elseif ( name == GetSpellInfo(19882) ) then
-			tracking["Giant"] = id;
-		elseif ( name == GetSpellInfo(19880) ) then 
-			tracking["Elemental"] = id;
-		elseif ( name == GetSpellInfo(19878) ) then 
-			tracking["Demon"] = id;
-		elseif ( name == GetSpellInfo(19879) ) then
-			tracking["Dragonkin"] = id;
-		end
-	end
+	-- for id = 1, GetNumTrackingTypes() do
+		-- local name, texture, active, category = GetTrackingInfo(id);
+		-- if ( name == GetSpellInfo(1494) ) then
+			-- tracking["Beast"] = id;
+		-- elseif ( name == GetSpellInfo(19883) )then
+			-- tracking["Humanoid"] = id;
+		-- elseif ( name == GetSpellInfo(19884) ) then
+			-- tracking["Undead"] = id;
+		-- elseif ( name == GetSpellInfo(19882) ) then
+			-- tracking["Giant"] = id;
+		-- elseif ( name == GetSpellInfo(19880) ) then
+			-- tracking["Elemental"] = id;
+		-- elseif ( name == GetSpellInfo(19878) ) then
+			-- tracking["Demon"] = id;
+		-- elseif ( name == GetSpellInfo(19879) ) then
+			-- tracking["Dragonkin"] = id;
+		-- end
+	-- end
 end
 
 function __H:GetCurTrackingID()
-	for id=1, GetNumTrackingTypes() do
-		local name, texture, active, category = GetTrackingInfo(id);
-		if (active) then
-			return id;
-		end
-	end
+	-- local textureID = GetTrackingTexture();
+	-- if textureID then
+		-- return textureID;
+	-- end
 	return false;
 end
 
 function __H:CanTracking()
 	local spellName = GetSpellInfo(19883);
-	local start, duration, enabled = GetSpellCooldown(spellName);	
+	local start, duration, enabled = GetSpellCooldown(spellName);
 	if (duration == 0) then
 		return true;
 	else
@@ -294,36 +287,36 @@ function __H:CastTracking()
 
 	local creatureType = UnitCreatureType("target");
 	local trackingID = 0;
-	if (creatureType and creature[creatureType]) then		
-		if (UnitCanAttack("player", "target") and not UnitIsDeadOrGhost("target")) then			
-			trackingID = tracking[creature[creatureType]] or 0;			
+	if (creatureType and creature[creatureType]) then
+		if (UnitCanAttack("player", "target") and not UnitIsDeadOrGhost("target")) then
+			trackingID = tracking[creature[creatureType]] or 0;
 		end
 	end
 
-	if (trackingID > 0 and self:GetCurTrackingID() ~= trackingID) then	
+	if (trackingID > 0 and self:GetCurTrackingID() ~= trackingID) then
 		if (not self:UnitHasIgnoreBuff() and self:CanTracking()) then
 			SetTracking(trackingID);
 		else
 			BigFoot_DelayCall(delayTracking, 1.5, trackingID);	-- GCD
-		end		
+		end
 	end
 end
 
 function __H:OnSkillChange()
-	self:UpdateTrackingID();
+	-- self:UpdateTrackingID();
 end
 
 function __H:OnTalentChange()
 	self:UpdateTrackTalent();
 end
 
-function __H:PLAYER_REGEN_DISABLED()	
+function __H:PLAYER_REGEN_DISABLED()
 	if HunterAssistCasteBarMove:IsVisible() then
 		HunterAssistCasteBarMove:Hide();
 	end
-	
+
 	orig_tracking_id = self:GetCurTrackingID();
-	if (enable_tracking) then
+	if enable_tracking then
 		self:CastTracking();
 	end
 
@@ -332,11 +325,11 @@ end
 function __H:UnitHasIgnoreBuff()
 	local spellName, debuffName;
 	local i = 1;
-	if (ignor_tracking_buff.player) then	
+	if (ignor_tracking_buff.player) then
 		local buffName = UnitAura("player", i,"HELPFUL");
-		while (buffName) do			
+		while (buffName) do
 			for k, v in pairs(ignor_tracking_buff.player) do
-				spellName = GetSpellInfo(v);				
+				spellName = GetSpellInfo(v);
 				if (buffName == spellName) then
 					return true;
 				end
@@ -345,18 +338,18 @@ function __H:UnitHasIgnoreBuff()
 			buffName = UnitAura("player", i,"HELPFUL");
 		end
 	end
-	if (ignor_tracking_buff.target) then	
+	if (ignor_tracking_buff.target) then
 		i = 1;
 		debuffName = UnitAura("target", i, "HARMFUL|PLAYER");
-		while (debuffName) do			
+		while (debuffName) do
 			for k, v in ipairs(ignor_tracking_buff.target) do
 				spellName = GetSpellInfo(v);
 				if (debuffName == spellName) then
 					return true;
 				end
 			end
-			i = i +1;			
-			debuffName = UnitAura("target", i, "HARMFUL|PLAYER");			
+			i = i +1;
+			debuffName = UnitAura("target", i, "HARMFUL|PLAYER");
 		end
 	end
 	return false;
@@ -378,28 +371,27 @@ function __H:PLAYER_REGEN_ENABLED()
 	HunterAssist_ReTracking();
 end
 
-
 function HunterAssistTracking_Toogle(switch)
-	__H:UpdateTrackingID();
+	-- __H:UpdateTrackingID();
 	__H:UpdateTrackTalent();
 	if (switch) then
 		enable_tracking = true;
-		__H:RegisterEvent("CHAT_MSG_SKILL", "OnSkillChange");
+		-- __H:RegisterEvent("CHAT_MSG_SKILL", "OnSkillChange");
 		__H:RegisterEvent("CHARACTER_POINTS_CHANGED",  "OnTalentChange");
 		__H:RegisterEvent("PLAYER_REGEN_DISABLED");
 		__H:RegisterEvent("PLAYER_REGEN_ENABLED");
 	else
 		enable_tracking = false;
-		__H:UnregisterEvent("CHAT_MSG_SKILL");	
-		__H:UnregisterEvent("CHARACTER_POINTS_CHANGED");	
+		__H:UnregisterEvent("CHAT_MSG_SKILL");
+		__H:UnregisterEvent("CHARACTER_POINTS_CHANGED");
 	end
 end
 
-function HunterAssist_Toggle(__switch)	
-	HunterAssistBar_Toggle(__switch);	
-	HunterAssistDaze_Toggle(__switch);
-	HunterAssistTracking_Toogle(__switch);		
-end
+-- function HunterAssist_Toggle(__switch)
+	-- HunterAssistBar_Toggle(__switch);
+	-- HunterAssistDaze_Toggle(__switch);
+	-- HunterAssistTracking_Toogle(__switch);
+-- end
 -------------------
 -- AspectBar - 守护动作条
 -------------------
@@ -412,7 +404,7 @@ local aspectSpellName = {
 	"豹群守护",		-- 豹群守护
 	"野兽守护",		-- 野兽守护
 	"野性守护",		-- 野性守护
-	"蝰蛇守护",		-- 蝰蛇守护		
+	"蝰蛇守护",		-- 蝰蛇守护
 };
 local aspectInfo = {};
 local aspectNum = 0;
@@ -420,17 +412,17 @@ local aspectButtons= {};
 
 --check whether the player knows spell, passed by name
 function __H:IsSpellLearned(spellName)
+	if not spellName then return end
 	print("check spell learned")
-	local i, val = 1, nil;
+	local i = 1;
 	local spell = GetSpellInfo(i, BOOKTYPE_SPELL);
-	while (spell) do
+	while spell do
 		if (spellName == spell) then
-			val = i
+			return i
 		end
 		i = i + 1
 		spell = GetSpellInfo(i, BOOKTYPE_SPELL);
 	end
-	return val
 end
 
 function __H:UpdateAspectInfo()
@@ -459,17 +451,16 @@ function __H:CreateAspectBar()
 	end
 
 	local button;
-	for i=1, NUM_SHAPESHIFT_SLOTS, 1 do
-		button = CreateFrame("CheckButton", "HuterAssistAspectButton" .. i, ShapeshiftBarFrame, "SecureActionButtonTemplate, ActionButtonTemplate");
+	for i=1, NUM_STANCE_SLOTS, 1 do
+		button = CreateFrame("CheckButton", "HuterAssistAspectButton" .. i, StanceBarFrame, "SecureActionButtonTemplate, ActionButtonTemplate");
 		button:SetHeight(30);
 		button:SetWidth(30);
 		button:RegisterForClicks("AnyUp");
-		button:SetPoint("CENTER", _G["ShapeshiftButton" .. i], "CENTER", 0, 0);
+		button:SetPoint("CENTER", _G["StanceButton" .. i], "CENTER", 0, 0);
 		button:SetNormalTexture(nil);
-		button:SetAttribute("type", "spell");		
-		local ssb = _G["ShapeshiftButton" .. i];
-		_G["OldShapshiftButton" .. i] = ssb ;
-		_G["ShapeshiftButton" .. i] = button;			-- 隐藏ShapshiftButton
+		button:SetAttribute("type", "spell");
+		local ssb = _G["StanceButton" .. i];
+		_G["StanceButton" .. i] = button;			-- 隐藏ShapshiftButton
 		button:SetFrameLevel(ssb:GetFrameLevel() + 2);
 		button:SetScript("OnEnter", function(this)
 			if ( GetCVar("UberTooltips") == "1" ) then
@@ -479,7 +470,7 @@ function __H:CreateAspectBar()
 			end
 			local bookID = aspectInfo[i]["bookID"];
 			if bookID then
-				GameTooltip:SetSpell( bookID, BOOKTYPE_SPELL);
+				GameTooltip:SetSpellBookItem( bookID, BOOKTYPE_SPELL);
 				GameTooltip:Show();
 			end
 		end);
@@ -492,28 +483,28 @@ function __H:CreateAspectBar()
 
 		tinsert(aspectButtons,button)
 
-		button:Hide(); 
+		button:Hide();
 		ssb:Hide();
 	end
-	hooksecurefunc("UIParent_ManageFramePositions", function()	
+	hooksecurefunc("UIParent_ManageFramePositions", function()
 		BigFoot_DelayCall(function()
 			PetActionBar_UpdatePositionValues();
 			PetActionBarFrame.slideTimer=nil;
 			PetActionBarFrame:ClearAllPoints();
-			PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", PETACTIONBAR_XPOS, PETACTIONBAR_YPOS); 
+			PetActionBarFrame:SetPoint("TOPLEFT", PetActionBarFrame:GetParent(), "BOTTOMLEFT", PETACTIONBAR_XPOS, PETACTIONBAR_YPOS);
 		end,
 		0.5
 		)
 	end);
-	
-	ShapeshiftBarFrame:SetScript("OnShow",function()
+
+	StanceBarFrame:SetScript("OnShow",function()
 		BFSecureCall("UIParent_ManageFramePositions")
 	end)
-	ShapeshiftBarFrame:SetScript("OnHide",function()
+	StanceBarFrame:SetScript("OnHide",function()
 		BFSecureCall("UIParent_ManageFramePositions")
 	end)
-	
-	ShapeshiftBarFrame:Show()
+
+	StanceBarFrame:Show()
 end
 
 local function HunterAssist_GetNumShapeshiftForms(origfunc)
@@ -523,7 +514,7 @@ local function HunterAssist_GetNumShapeshiftForms(origfunc)
 	return num;
 end
 
-function __H:GetInfoFromID(buttonID)	
+function __H:GetInfoFromID(buttonID)
 	print("get info from id")
 	if (aspectInfo[buttonID]) then
 		return aspectInfo[buttonID].spellIcon, aspectInfo[buttonID].spellName;
@@ -537,14 +528,13 @@ function __H:IsBuffActive(name)
 
 	local i = 1;
 	local buffName = UnitBuff("player", i);
-	while (buffName) do
+	while buffName do
 		if (buffName == name) then
 			return i;
 		end
 		i = i + 1;
 		buffName = UnitBuff("player", i);
 	end
-	return false;
 end
 
 local function HunterAssist_GetShapeshiftFormInfo(buttonId)
@@ -552,7 +542,7 @@ local function HunterAssist_GetShapeshiftFormInfo(buttonId)
 
 	local texture, name, isActive, isCastable;
 	texture, name = __H:GetInfoFromID(buttonId);
-	if (name) then
+	if name then
 		isActive = __H:IsBuffActive(name);
 		isCastable = true;
 	end
@@ -563,9 +553,9 @@ local function HunterAssist_GetShapeshiftForm(origfunc, var)
 	print("check if getshapshiftform ")
 
 	local texture, name, isActive, isCastable;
-	for i=1, NUM_SHAPESHIFT_SLOTS, 1 do
+	for i=1, NUM_STANCE_SLOTS, 1 do
 		texture, name, isActive, isCastable = HunterAssist_GetShapeshiftFormInfo(i);
-		if (isActive) then
+		if isActive then
 			return i;
 		end
 	end
@@ -573,56 +563,51 @@ end
 
 function HunterAssist_GetShapeshiftFormCooldown(buttonId)
 	print("get shapshift form cooldown")
-	local texture, name = __H:GetInfoFromID(buttonId);	
+	local texture, name = __H:GetInfoFromID(buttonId);
 	return GetSpellCooldown(name);
 end
 
 function __H:AspectButtonUpdateActive()
 	print("get aspect button active")
-	local numForms = GetNumShapeshiftForms();	
+	local numForms = GetNumShapeshiftForms();
 	local isActive
 	for i=1, numForms do
-		button = aspectButtons[i];		
-		_,_, isActive,_ = HunterAssist_GetShapeshiftFormInfo(i);		
-			
-		if ( isActive ) then
+		button = aspectButtons[i];
+		_,_, isActive,_ = HunterAssist_GetShapeshiftFormInfo(i);
+		if isActive then
 			button:SetChecked(true);
 		else
 			button:SetChecked(false);
 		end
-
 	end
 end
 
 function __H:AspectButtonUpdate()
 	print("aspect button update")
-	local numForms = GetNumShapeshiftForms();	
+	local numForms = GetNumShapeshiftForms();
 	local texture, name, isActive, isCastable;
 	local button, icon, cooldown, ssb;
 	local start, duration, enable;
-	ShapeshiftBar_Update();
-	for i=1, NUM_SHAPESHIFT_SLOTS do
-		button = aspectButtons[i];		
+	StanceBar_Update();
+	for i = 1, NUM_STANCE_SLOTS do
+		button = aspectButtons[i];
 		icon = button.icon;
 		if ( i <= numForms ) then
-			texture, name, isActive, isCastable = HunterAssist_GetShapeshiftFormInfo(i);		
+			texture, name, isActive, isCastable = HunterAssist_GetShapeshiftFormInfo(i);
 			icon:SetTexture(texture);
-			
-			
-	--		self:UpdateAspectCooldown();
 
-			if ( isCastable ) then
+			if isCastable then
 				icon:SetVertexColor(1.0, 1.0, 1.0);
 			else
 				icon:SetVertexColor(0.4, 0.4, 0.4);
 			end
-			
+
 			button:SetAttribute("spell", name);
 			button:SetNormalTexture(nil);
-			button:Show(); 
+			button:Show();
 		else
 			button:Hide();
-		end	
+		end
 	end
 end
 
@@ -636,16 +621,15 @@ function __H:UpdateAspectCooldown()
 		start, duration, enable = HunterAssist_GetShapeshiftFormCooldown(i);
 		if (cooldown and start and duration) then
 			CooldownFrame_SetTimer(cooldown, start, duration, enable);
-		end		
+		end
 	end
 end
 
 function __H:UNIT_AURA(unit)
 	print("unit aura update")
-
 	if (unit == "player") then
 		self:AspectButtonUpdateActive();
-	end	
+	end
 end
 
 function __H:LEARNED_SPELL_IN_TAB()
@@ -671,16 +655,16 @@ function __H:UPDATE_BINDINGS()
 	print("update bindings")
 
 	local numForms = GetNumShapeshiftForms();
-	ClearOverrideBindings(ShapeshiftBarFrame);
+	ClearOverrideBindings(StanceBarFrame);
 	for i = 1, numForms do
 		local button = getglobal("HuterAssistAspectButton"..i);
-		local key1, key2 = GetBindingKey("SHAPESHIFTBUTTON"..i);		
+		local key1, key2 = GetBindingKey("StanceButton"..i);
 		if (key1) then
-			SetOverrideBindingClick(ShapeshiftBarFrame, true, key1, "HuterAssistAspectButton"..i);
+			SetOverrideBindingClick(StanceBarFrame, true, key1, "HuterAssistAspectButton"..i);
 		end
 		if (key2) then
-			SetOverrideBindingClick(ShapeshiftBarFrame, true, key2, "HuterAssistAspectButton"..i);
-		end	
+			SetOverrideBindingClick(StanceBarFrame, true, key2, "HuterAssistAspectButton"..i);
+		end
 	end
 end
 
@@ -699,20 +683,20 @@ end
 local function HunterAssistAspect_Event(switch)
 	print("aspect register event")
 	if (switch) then
-		__H:RegisterEvent("UNIT_AURA");		
+		__H:RegisterEvent("UNIT_AURA");
 		__H:RegisterEvent("LEARNED_SPELL_IN_TAB");
 		__H:RegisterEvent("ACTIONBAR_UPDATE_USABLE");
 		__H:RegisterEvent("UPDATE_BINDINGS");
 		__H:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN");
 
-		
+
 	else
 		__H:UnregisterEvent("UNIT_AURA");
 		__H:UnregisterEvent("LEARNED_SPELL_IN_TAB");
 		__H:UnregisterEvent("ACTIONBAR_UPDATE_USABLE");
 		__H:UnregisterEvent("UPDATE_BINDINGS");
 		__H:UnregisterEvent("ACTIONBAR_UPDATE_COOLDOWN");
-	end		
+	end
 end
 
 function HunterAssistAspect_Toggle(switch)
@@ -722,40 +706,39 @@ function HunterAssistAspect_Toggle(switch)
 	HunterAssistAspect_Hook(switch);
 
 	HunterAssistAspect_Event(switch);
-	__H:AspectButtonUpdate();	
+	__H:AspectButtonUpdate();
 end
 
 -------------------
 -- 误导提示
 -------------------
-local misDirect = GetSpellInfo(34477);
+local misDirect = 34477;
 local misDirectPlayer;
 local enablemisDirect = false;
 function __H:Yell(msg)
 	SendChatMessage(msg, "yell");
 end
 
-function __H:UNIT_SPELLCAST_SENT(unit, spell, _, player)	
-	if (unit == "player" and spell == misDirect ) then
-		misDirectPlayer = player;
-	end	
+function __H:UNIT_SPELLCAST_SENT(unit, target, castGUID, spellID)
+	-- if (unit == "player" and spellID == misDirect ) then
+		-- misDirectPlayer = target;
+	-- end
 end
 
-function __H:UNIT_SPELLCAST_SUCCEEDED(unit, spell)
+function __H:UNIT_SPELLCAST_SUCCEEDED(unit, castGUID, spellID)
 	if (HunterAssist_Enabled and unit == "player") then
-		__HunterAssistCasteBar_Cast(spell);
+		__HunterAssistCasteBar_Cast(spellID);
 	end
-	if (enablemisDirect) then
+	if enablemisDirect then
 		if (unit == "player" and spell == misDirect and IsInInstance()) then
 			self:Yell(string.gsub(MISDIRECT_PATTERN, "$player", misDirectPlayer));
-		end	
-	end	
+		end
+	end
 end
 
-function HunterAssistMisdirect_Toggle(switch)	
+function HunterAssistMisdirect_Toggle(switch)
 	if (switch) then
 		__H:RegisterEvent("UNIT_SPELLCAST_SENT");
-		__H:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");	
 		enablemisDirect = true;
 	else
 		__H:UnregisterEvent("UNIT_SPELLCAST_SENT");
@@ -767,7 +750,7 @@ end
 -- 距离提示
 -------------------
 distanceSpell = {
-	[1] = 2974,		-- 摔绊(5码)			
+	[1] = 2974,		-- 摔绊(5码)
 	[2] = 19503,	-- 驱散射击(15码)
 	[3] = 2764,		-- 投掷(30码)
 	[4] = 75,		-- 自动射击(35码 - 41码)
@@ -777,7 +760,7 @@ spellDistance = {};
 
 function __H:UpdateDistanceSpell()
 	for k, v in ipairs(distanceSpell) do
-		local name, _, _, _, _, _, _, _, maxRange = GetSpellInfo(v);
+		local name, _, _, _, _, maxRange = GetSpellInfo(v);
 		spellDistance[v] = {maxRange, name};
 	end
 end
@@ -790,53 +773,53 @@ function __H:GetDistanceText()
 	local texVal, minDis, maxDis = nil, 0, 100;
 	local out = false;
 	if (UnitExists("target")) then
-		if (UnitCanAttack("player", "target")) then			
-			-- 摔绊 5 码			
+		if (UnitCanAttack("player", "target")) then
+			-- 摔绊 5 码
 			if (spellDistance[2974][2] and IsSpellInRange(spellDistance[2974][2],"target") == 1) then	-- book id
 				maxDis = 5;
 				minDis = 0;
 			-- 决斗 9.9 码
-			elseif (CheckInteractDistance("target", 3) == 1) then				-- duel 9.9 yards				
-				maxDis = 9.9;				
+			elseif (CheckInteractDistance("target", 3) == 1) then				-- duel 9.9 yards
+				maxDis = 9.9;
 				minDis = 5;
 			-- 交易 11.11 码
-			elseif (CheckInteractDistance("target", 2) == 1) then		-- trade 11.11 yards				
-				maxDis = 11.11;				
-				minDis = 9.9; 
+			elseif (CheckInteractDistance("target", 2) == 1) then		-- trade 11.11 yards
+				maxDis = 11.11;
+				minDis = 9.9;
 			-- 驱散射击 15 码
 			elseif (spellDistance[19503][2] and IsSpellInRange(spellDistance[19503][2], "target") == 1) then	-- book id
 				maxDis = spellDistance[19503][1];
-				minDis = 11.11;				
+				minDis = 11.11;
 			-- 投掷 30 码
 			elseif (spellDistance[2764][2] and IsSpellInRange(spellDistance[2764][2], "target") == 1) then	-- book id
 				maxDis = spellDistance[2764][1];
 				if (spellDistance[19503][2]) then
 					minDis = spellDistance[19503][1];
 				elseif (CheckInteractDistance("target", 2) ~= 1) then
-					minDis = 11.11;					
-				end				
+					minDis = 11.11;
+				end
 			-- 自动射击 35 码
 			elseif (spellDistance[75][2] and IsSpellInRange(spellDistance[75][2], "target") == 1) then	-- book id
 				maxDis = spellDistance[75][1];
 				minDis = spellDistance[2764][1];
 			else
-				texVal = HUNTERASSIST_OOR;			
-			end				
-			
+				texVal = HUNTERASSIST_OOR;
+			end
+
 			if (not texVal) then
-				texVal = string.format("%sm - %sm", tostring(minDis), tostring(maxDis));	
+				texVal = string.format("%sm - %sm", tostring(minDis), tostring(maxDis));
 			end
 			HunterAssistDistanceFrame:SetAlpha(1.0);
 		else
-			texVal = HUNTERASSIST_FRIEND; 
+			texVal = HUNTERASSIST_FRIEND;
 			HunterAssistDistanceFrame:SetAlpha(0.5);
 		end
 	else
-		texVal = HUNTERASSIST_NO_TARGET; 
+		texVal = HUNTERASSIST_NO_TARGET;
 		HunterAssistDistanceFrame:SetAlpha(0.5);
 	end
-	 
-	 return texVal, minDis, maxDis;
+
+	return texVal, minDis, maxDis;
 end
 
 function __H:CreateDistanceFrame()
@@ -846,22 +829,22 @@ function __H:CreateDistanceFrame()
 	frame:SetWidth(125); frame:SetHeight(20);
 	frame:SetMovable(true);
 	frame:SetPoint("TOP", "UIParent", "BOTTOM", 0,  237);
-	frame:SetClampedToScreen(true);	
+	frame:SetClampedToScreen(true);
 	frame.bar = frame:CreateTexture("HunterAssistDistanceFrameBarTexture", "BACKGROUND");
 	frame.bar:SetWidth(119); frame.bar:SetHeight(14);
-	frame.bar:SetPoint("CENTER", frame, "CENTER", 0, 0);	
+	frame.bar:SetPoint("CENTER", frame, "CENTER", 0, 0);
 	frame.bar:SetTexture("Interface\\TargetingFrame\\UI-StatusBar");
-	frame.bar:SetVertexColor(1, 0.85, 0);	
+	frame.bar:SetVertexColor(1, 0.85, 0);
 	frame.bar.border = frame:CreateTexture("HunterAssistDistanceFrameBarBorder", "ARTWORK");
 	frame.bar.border:SetTexture("Interface\\Tooltips\\UI-StatusBar-Border");
-	frame.bar.border:SetAllPoints(frame);	
+	frame.bar.border:SetAllPoints(frame);
 	frame.bar.tex = frame:CreateFontString("HunterAssistDistanceFrameBarText", "OVERLAY", "GameFontHighlight");
 	frame:SetWidth(125); frame:SetHeight(20);
 	frame.bar.tex:SetPoint("CENTER", frame, "CENTER", 0 , 1);
 	frame.bar.tex:SetJustifyH("CENTER");
-	frame.bar.tex:SetJustifyV("CENTER");		
-	
-	frame:SetScript("OnMouseDown", function(self, button)		
+	frame.bar.tex:SetJustifyV("CENTER");
+
+	frame:SetScript("OnMouseDown", function(self, button)
 		if (IsShiftKeyDown() and button == "LeftButton") then
 			self:StartMoving();
 			self.ismoving = true;
@@ -873,7 +856,7 @@ function __H:CreateDistanceFrame()
 			self.ismoving = false;
 		end
 	end);
-	frame:SetScript("OnEnter", function(self)		
+	frame:SetScript("OnEnter", function(self)
 		GameTooltip_SetDefaultAnchor(GameTooltip, self);
 		GameTooltip:SetText(HUNTERASSIST_NAME);
 		GameTooltip:AddLine(HUNTERASSIST_RANGE_TOOLTIP);
@@ -886,25 +869,27 @@ function __H:CreateDistanceFrame()
 	self.dFrame = frame;
 end
 
-function __H:SetDistanceBarText(tex, dis)	
+function __H:SetDistanceBarText(tex, dis)
 	local r, g, b = 0, 0, 0;
 	if(dis >= 46) then
 		b=1;
-	elseif(dis >= 35) then	
-		g=1;	
+	elseif(dis >= 35) then
+		g=1;
 	elseif(dis >= 25) then
-		r=1;	g=1;		
+		r=1;
+		g=1;
 	elseif(dis >= 5) then
-		r=1;	g=0.5;	
+		r=1;
+		g=0.5;
 	else
-		r=1;	
+		r=1;
 	end
 	__H.dFrame.bar.tex:SetText(tostring(tex));
 	__H.dFrame.bar:SetVertexColor(r, g, b);
 end
 
 function __H:PLAYER_TARGET_CHANGED()
-	self:UpdateDistanceSpell();	
+	self:UpdateDistanceSpell();
 end
 
 function HunterAssistDistance_Toggle(switch)
@@ -920,5 +905,5 @@ function HunterAssistDistance_Toggle(switch)
 		__H:UnregisterEvent("PLAYER_TARGET_CHANGED");
 		HunterAssistDistanceFrame:SetScript("OnUpdate", function() end);
 		HunterAssistDistanceFrame:Hide();
-	end	
+	end
 end

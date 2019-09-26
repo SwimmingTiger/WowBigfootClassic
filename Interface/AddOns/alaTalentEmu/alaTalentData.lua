@@ -581,8 +581,8 @@ NS._classTalent =
 	mage =
 	{
 		81,		--Arcane,奥术
-		61,		--Frost,冰霜
 		41,		--Fire,火焰
+		61,		--Frost,冰霜
 	},
 	paladin =
 	{

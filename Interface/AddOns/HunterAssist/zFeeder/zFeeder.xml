@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Script file="zFeeder.lua"/>
+
 	<Button name="zFeederButton" inherits="ItemButtonTemplate, SecureActionButtonTemplate" parent="PetFrame" clampedToScreen="true" enableMouse="true" movable="true" hidden="true">
 		<Size>
 			<AbsDimension x="24" y="24"/>
@@ -9,7 +10,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<Anchor Point="LEFT" relativeTo="PetFrameHappiness" relativePoint="RIGHT">
 				<Offset x="4" y="0"/>
 			</Anchor>
-		</Anchors>		
+		</Anchors>
 		<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
 			<Size>
 				<AbsDimension x="39" y="39"/>

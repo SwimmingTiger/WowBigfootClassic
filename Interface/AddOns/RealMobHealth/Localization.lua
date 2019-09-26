@@ -82,7 +82,7 @@ local Localization={
 		UITweaksTooltip_HealthOverride="Health Data Overridden";
 		UITweaksTooltip_NoData="No hay datos de Salud";
 	};
-	deDE={--	Translation by Dathwada
+	deDE={--	Translation by Figlmueller (Revised by Dathwada)
 --		Commands
 		Command_NoUnitData="keine Einheit gefunden.";
 		Command_DeletedUnitFormat="%2$s(%1$s) gelöscht";-- format(CreatureKey,UnitName)
@@ -190,6 +190,42 @@ local Localization={
 
 --		Numbers
 		NumberGroupingScale=4;--	Controls scale of FIRST_NUMBER_CAP and SECOND_NUMBER_CAP
+	};
+	ruRU={--	Translation by vAlshebnik
+--		Commands
+		Command_NoUnitData="Юнит не найден";
+		Command_DeletedUnitFormat="Удален юнит %2$s(%1$s)";--	format(CreatureKey,UnitName)
+		Command_HealthWiped="Данные здоровья удалены.";
+ 
+--		Options Panel
+		Options_DynamicList={--	Button Text,Tooltip Title,Description
+--				Tooltip Title=false to use Button Text
+			ShowStatusBarTextAdditions={"Показывать текст на рамке цели",false,"Создает текст для полоски здоровья на рамке цели."};
+			ModifyHealthBarText={"Изменять здоровье на рамке цели",false,"Показывает реальные значения здоровья на рамке цели."};
+			ShowTooltipText={"Показывать состояние в подсказке",false,"Показывает, есть ли здоровье моба в кэше здоровья."};
+			ShowTooltipHealthText={"Показывать здоровье в подсказке",false,"Показывает здоровье цели на полоске здоровья в подсказке."};
+			ShowNamePlateHealthText={"Показывать здоровье на шкале здоровья",false,"Показывает текущее здоровье цели на левой стороне шкалы здоровья."};
+
+			EnablePeerCache={"Включить","Включить Кэш Пиров","Вкл/Выкл получение информации о здоровье мобов от других игроков.\n|cffffff00Примечание: Этот аддон все равно будет передавать новые данные о здоровье мобов другим игрокам.|r"};
+		};
+		Options_SetByAddOn="|cffff0000Эта опция была перезаписана другим аддоном.|r";
+ 
+--		Options Cache Panels
+		Options_HealthCachePanel={"Кэш Здоровья","Хранит информацию о здоровье известных вам мобов."};
+		Options_PeerCachePanel={"Кэш Пиров","Хранит информацию о здоровье, сообщенную другими игроками."};
+		Options_CacheSizeLabel="Размер кэша:";
+
+--		Options Clear Cache Buttons
+		Options_ClearCacheButtonText="Очистить Кэш";
+		Options_ClearHealthCacheTTText="Очистить Кэш Здоровья";
+		Options_ClearPeerCacheTTText="Очистить Кэш Пиров";
+		Options_ClearCacheWarning="|cffff0000Внимание! Все данные в этом кэше будут потеряны навсегда.|r";
+
+--		UITweaks Tooltip Lines
+		UITweaksTooltip_Blacklisted="Моб в черном списке";
+		UITweaksTooltip_HealthRecorded="Записаны данные здоровья";
+		UITweaksTooltip_HealthOverride="Данные о здоровье перезаписаны";
+		UITweaksTooltip_NoData="Нет данных о здоровье";
 	};
 	zhCN={--	Translation by HopeASD
 		Command_NoUnitData="单位未找到";

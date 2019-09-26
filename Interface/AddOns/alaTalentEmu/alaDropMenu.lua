@@ -49,6 +49,7 @@ local frameToMenu = {  };
 --------------------------------------------------
 local function CreateMenu()
 	menu = CreateFrame("Button", nil, UIParent);
+	menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	menu:SetClampedToScreen(true);
 	menu:Hide();
 	menu:SetBackdrop(dropMenuBackdrop);
@@ -126,9 +127,9 @@ local function GetMenu(parent, anchor)
 end
 local function dropMenuButtonOnClick(self, button)
 	if self.handler then
-		self.handler(unpack(self.para));
+		self.handler(button, unpack(self.para));
 	else
-		self:GetParent().handler(unpack(self.para));
+		self:GetParent().handler(button, unpack(self.para));
 	end
 	self:GetParent():Hide();
 end
@@ -140,12 +141,13 @@ local function dropMenuButtonOnLeave(self)
 	P.isCountingDown = true;
 	P.countingDownTimer = COUNTING_DOWN_TIMER_PERIOD;
 end
-local function closeMenu_Handler(self)
+local function closeMenu_Handler(button, self)
 	self:Hide();
 end
 
 local function CreateMenuButton(menu, x, y)
 	local button = CreateFrame("Button", nil, menu);
+	--button:SetFrameStrata("FULLSCREEN_DIALOG");
 	button:SetHeight(dropMenuButtonHeight);
 	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
 	--button:SetPushedTexture("Interface\\Buttons\\UI-StopButton");

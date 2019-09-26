@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod(469, "DBM-Party-Classic", 18, 239)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190812041847")
+mod:SetRevision("20190922230856")
 mod:SetCreatureID(7228)
 mod:SetEncounterID(549)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_SUCCESS 8374 110762 11876"
+	"SPELL_CAST_SUCCESS 8374 11876"
 )
 
 local warningArcingSmash			= mod:NewSpellAnnounce(8374, 2)

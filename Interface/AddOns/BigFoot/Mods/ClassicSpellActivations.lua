@@ -6,6 +6,7 @@ local addonName, ns = ...
 local f = CreateFrame("Frame", nil) --, UIParent)
 
 f:SetScript("OnEvent", function(self, event, ...)
+	if not BigFoot_SysTemSetTab.SpellActivations then return end
 	return self[event](self, event, ...)
 end)
 
@@ -259,6 +260,7 @@ end
 function f:FanoutEvent(event, ...)
     for frame, _ in pairs(registeredFrames) do
         local eventHandler = frame:GetScript("OnEvent")
+		if not BigFoot_SysTemSetTab.SpellActivations then return end
         eventHandler(frame, event, ...)
     end
 end

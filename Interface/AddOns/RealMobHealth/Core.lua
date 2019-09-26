@@ -45,6 +45,7 @@ local EnablePeerCache=AddOn.Options.EnablePeerCache;--	This is referenced often,
 
 --	For filtering AddOn channel echos
 local PlayerName,PlayerFullName;
+local PlayerGUID=UnitGUID("player");
 
 local DamageSyncThreshold=0.02--	Switch to speculative mode if damage gets this far out of sync (As percent)
 local ResetDetectionStartDelay=1;--	How long from first damage event when reset detection starts
@@ -54,6 +55,11 @@ local PurgeTimerInterval=10;--	Time between unit purge checks
 local DeathTimeout=300--	How long from death when CreatureKey can be acquired
 local DamageTimeout=120--	How long to wait between CLEs
 local TargetTimeout=60--	How long to keep CreatureKeys when no damage taken
+
+local UnitHealthNormalizedMax=100;--	Used to blacklist AURA_UPDATEs that don't actually change the max health
+local HealthDetectionAuras={--	List of auras that expose mob health
+	[1462]=true;--	Beast Lore
+};
 
 ----------------------------------
 --[[	Local References	]]
@@ -89,7 +95,7 @@ local UnitName=UnitName;
 local function GetHealthCacheCount() local sum=0; for _ in next,HealthCache do sum=sum+1; end return sum; end
 local function GetPeerCacheCount() local sum=0; for _ in next,PeerCache do sum=sum+1; end return sum; end
 
-local function QueryCreatureHealth(creaturekey)
+local function QueryCreatureHealth(creaturekey)--	Sends health query to peers
 --	Filter disabled, blacklist, and throttle
 	if not EnablePeerCache or not creaturekey or AddOn_IsBlacklistedCreatureKey(creaturekey) or LastHealthQuery[creaturekey] then return; end
 
@@ -100,9 +106,10 @@ end
 --------------------------
 --[[	Event Helpers	]]
 --------------------------
-local function StoreMaxHealth(creaturekey,maxhealth)
+local function StoreMaxHealth(creaturekey,maxhealth,overwrite)
 	if creaturekey and maxhealth and maxhealth>0 then
-		if maxhealth>(HealthCache[creaturekey] or 0) then
+		local storedhealth=HealthCache[creaturekey];
+		if maxhealth>(storedhealth or 0) or (overwrite and maxhealth~=storedhealth) then
 			HealthCache[creaturekey]=maxhealth;--	Store health
 			if PeerCache[creaturekey] then
 				PeerCache[creaturekey]=nil;--	Delete peer data
@@ -115,6 +122,26 @@ local function StoreMaxHealth(creaturekey,maxhealth)
 	end
 end
 
+local function ProcessAuras(unit)
+if not UnitIsUnit(unit,"target") then return; end
+	local creaturekey=AddOn_GetUnitCreatureKey(unit);-- Can return nil for invalid units
+	if not creaturekey or AddOn_IsBlacklistedCreatureKey(creaturekey) then return; end--	Don't process if invalid or blacklisted
+
+	local i=1;
+	repeat
+		local _,_,_,_,_,_,_,_,_,spellid=UnitDebuff(unit,i,"PLAYER");
+		if spellid and HealthDetectionAuras[spellid] then
+			local maxhealth=UnitHealthMax(unit);
+			if maxhealth~=UnitHealthNormalizedMax then
+				StoreMaxHealth(creaturekey,maxhealth,true);
+				print(unit,i,name,spellid,UnitHealthMax(unit));
+			end
+			return;--	Done here
+		end
+		i=i+1;
+	until not spellid
+end
+
 local function ProcessUnit(unit)--	Called when we're aware of a new/updated unit
 	local guid=UnitGUID(unit);
 	local data=guid and UnitCache[guid];
@@ -122,6 +149,8 @@ local function ProcessUnit(unit)--	Called when we're aware of a new/updated unit
 		if data then UnitCache[guid]=nil; end--	If we have data, get rid of it
 		return;
 	end
+
+	ProcessAuras(unit);--	Run this too before we check to send a query
 
 	local creaturekey=AddOn_GetUnitCreatureKey(unit);-- Can return nil for invalid units
 	if creaturekey and not (AddOn_HealthOverrides[creaturekey] or HealthCache[creaturekey] or PeerCache[creaturekey]) then
@@ -156,13 +185,15 @@ local function ProcessCLE(...)
 
 --	Capture relevant args
 	local guid,damage,over;
-	if prefix=="SWING" then			_,_,_,_,_,_,_,guid,_,_,_,damage,over=...;
-	elseif prefix=="ENVIRONMENTAL" then	_,_,_,_,_,_,_,guid,_,_,_,_,damage,over=...;
-	elseif prefix=="RANGE" then		_,_,_,_,_,_,_,guid,_,_,_,_,_,_,damage,over=...;
-	elseif prefix=="SPELL" then		_,_,_,_,_,_,_,guid,_,_,_,_,_,_,damage,over=...;
-	elseif event=="UNIT_DIED" or event=="UNIT_DESTROYED" or event=="UNIT_DISSIPATES" then
+	if event=="UNIT_DIED" or event=="UNIT_DESTROYED" or event=="UNIT_DISSIPATES" then
 		_,_,_,_,_,_,_,guid=...;
 		suffix,damage,over="DAMAGE",0,0;--	Unit dead, zero damage and flag overkill
+	elseif suffix=="DAMAGE" or suffix=="HEAL" then
+		if prefix=="SWING" then			_,_,_,_,_,_,_,guid,_,_,_,damage,over=...;
+		elseif prefix=="ENVIRONMENTAL" then	_,_,_,_,_,_,_,guid,_,_,_,_,damage,over=...;
+		elseif prefix=="RANGE" then		_,_,_,_,_,_,_,guid,_,_,_,_,_,_,damage,over=...;
+		elseif prefix=="SPELL" then		_,_,_,_,_,_,_,guid,_,_,_,_,_,_,damage,over=...;
+		end
 	end
 
 	local now=GetTime();
@@ -221,6 +252,9 @@ AddOn.RegisterGameEvent("UPDATE_MOUSEOVER_UNIT",function() ProcessUnit("mouseove
 AddOn.RegisterGameEvent("PLAYER_TARGET_CHANGED",function() ProcessUnit("target"); ProcessUnit("targettarget"); end);
 AddOn.RegisterGameEvent("UNIT_TARGET",function(_,unit) ProcessUnit(unit.."target"); end);
 AddOn.RegisterGameEvent("UNIT_HEALTH",function(_,unit) ProcessUnit(unit); end);--	Mob reset detection
+
+--	Aura Updates
+AddOn.RegisterGameEvent("UNIT_AURA",function(_,unit) return ProcessAuras(unit); end);
 
 --	CombatLog events
 AddOn.RegisterGameEvent("COMBAT_LOG_EVENT_UNFILTERED",function() return ProcessCLE(CombatLogGetCurrentEventInfo()); end);

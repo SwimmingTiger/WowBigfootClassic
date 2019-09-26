@@ -46,7 +46,7 @@ function addon:CheckCastModifier(unitID, unitGUID)
 
         local slowPercentage = castTimeIncreases[name]
         if slowPercentage then
-            return self:SetCastDelay(unitGUID, 60, nil, true)
+            return self:SetCastDelay(unitGUID, slowPercentage, nil, true)
         end
     end
 end
@@ -83,10 +83,10 @@ function addon:StartAllCasts(unitGUID)
     end
 end
 
-function addon:StopAllCasts(unitGUID)
+function addon:StopAllCasts(unitGUID, noFadeOut)
     for unitID, guid in pairs(activeGUIDs) do
         if guid == unitGUID then
-            self:StopCast(unitID)
+            self:StopCast(unitID, noFadeOut)
         end
     end
 end
@@ -112,17 +112,20 @@ function addon:StoreCast(unitGUID, spellName, iconTexturePath, castTime, isPlaye
     cast.pushbackValue = nil
     cast.showCastInfoOnly = nil
     cast.isInterrupted = nil
+    cast.isCastComplete = nil
 
     self:StartAllCasts(unitGUID)
 end
 
 -- Delete cast data for unit, and stop any active castbars
-function addon:DeleteCast(unitGUID, isInterrupted, skipDeleteCache)
+function addon:DeleteCast(unitGUID, isInterrupted, skipDeleteCache, isCastComplete, noFadeOut)
     if not unitGUID then return end
 
-    if activeTimers[unitGUID] then
-        activeTimers[unitGUID].isInterrupted = isInterrupted -- just so we can avoid passing it as an arg for every function call
-        self:StopAllCasts(unitGUID)
+    local cast = activeTimers[unitGUID]
+    if cast then
+        cast.isInterrupted = isInterrupted -- just so we can avoid passing it as an arg for every function call
+        cast.isCastComplete = isCastComplete
+        self:StopAllCasts(unitGUID, noFadeOut)
         activeTimers[unitGUID] = nil
     end
 
@@ -138,7 +141,7 @@ end
 function addon:SetCastDelay(unitGUID, percentageAmount, auraFaded, skipStore)
     if not self.db.pushbackDetect then return end
     local cast = activeTimers[unitGUID]
-    if not cast then return end
+    if not cast or cast.isChanneled then return end
 
     --if cast.prevCurrTimeModValue then print("stored total:", #cast.prevCurrTimeModValue) end
 
@@ -243,6 +246,16 @@ function addon:ToggleUnitEvents(shouldReset)
         self:UnregisterEvent("NAME_PLATE_UNIT_REMOVED")
     end
 
+    if self.db.party.enabled then
+        self:RegisterEvent("GROUP_ROSTER_UPDATE")
+        self:RegisterEvent("GROUP_JOINED")
+        self:RegisterEvent("GROUP_LEFT")
+    else
+        self:UnregisterEvent("GROUP_ROSTER_UPDATE")
+        self:UnregisterEvent("GROUP_JOINED")
+        self:UnregisterEvent("GROUP_LEFT")
+    end
+
     if shouldReset then
         self:PLAYER_ENTERING_WORLD() -- reset all data
     end
@@ -256,6 +269,10 @@ function addon:PLAYER_ENTERING_WORLD(isInitialLogin)
     wipe(activeTimers)
     wipe(activeFrames)
     PoolManager:GetFramePool():ReleaseAll() -- also wipes castbar._data
+
+    if self.db.party.enabled and IsInGroup() then
+        self:GROUP_ROSTER_UPDATE()
+    end
 end
 
 function addon:ZONE_CHANGED_NEW_AREA()
@@ -282,6 +299,10 @@ end
 function addon:PLAYER_LOGIN()
     ClassicCastbarsDB = ClassicCastbarsDB or {}
 
+    if ClassicCastbarsDB.version == "11" then
+        ClassicCastbarsDB.party.position = nil
+    end
+
     -- Copy any settings from defaults if they don't exist in current profile
     self.db = CopyDefaults(namespace.defaultConfig, ClassicCastbarsDB)
     self.db.version = namespace.defaultConfig.version
@@ -297,6 +318,10 @@ function addon:PLAYER_LOGIN()
     if not IsAddOnLoaded("ClassicCastbars_Options") then
         self.defaultConfig = nil
         namespace.defaultConfig = nil
+    end
+
+    if self.db.player.enabled then
+        self:SkinPlayerCastbar()
     end
 
     self.PLAYER_GUID = UnitGUID("player")
@@ -361,6 +386,25 @@ function addon:NAME_PLATE_UNIT_REMOVED(namePlateUnitToken)
         activeFrames[namePlateUnitToken] = nil
     end
 end
+
+function addon:GROUP_ROSTER_UPDATE()
+    for i = 1, 5 do
+        local unitID = "party"..i
+        activeGUIDs[unitID] = UnitGUID(unitID) or nil
+
+        if activeGUIDs[unitID] then
+            self:StopCast(unitID, true)
+        else
+            local castbar = activeFrames[unitID]
+            if castbar then
+                PoolManager:ReleaseFrame(castbar)
+                activeFrames[unitID] = nil
+            end
+        end
+    end
+end
+addon.GROUP_LEFT = addon.GROUP_ROSTER_UPDATE
+addon.GROUP_JOINED = addon.GROUP_ROSTER_UPDATE
 
 local channeledSpells = namespace.channeledSpells
 local castTimeTalentDecreases = namespace.castTimeTalentDecreases
@@ -443,7 +487,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         -- Note: It's still possible to get a memory leak here since OnUpdate is only ran for active/shown frames, but adding extra
         -- timer checks just to save a few kb extra memory in extremly rare situations is not really worth the performance hit.
         -- All data is cleared on loading screens anyways.
-        return self:DeleteCast(srcGUID)
+        return self:DeleteCast(srcGUID, nil, nil, true)
     elseif eventType == "SPELL_AURA_APPLIED" then
         if castTimeIncreases[spellName] then
             -- Aura that slows casting speed was applied
@@ -456,7 +500,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         -- Channeled spells has no SPELL_CAST_* event for channel stop,
         -- so check if aura is gone instead since most (all?) channels has an aura effect.
         if channeledSpells[spellName] and srcGUID == dstGUID then
-            return self:DeleteCast(srcGUID)
+            return self:DeleteCast(srcGUID, nil, nil, true)
         elseif castTimeIncreases[spellName] then
             -- Aura that slows casting speed was removed.
             return self:SetCastDelay(dstGUID, castTimeIncreases[spellName], true)
@@ -533,7 +577,7 @@ addon:SetScript("OnUpdate", function(self, elapsed)
                 end
             else
                 -- Delete cast incase stop event wasn't detected in CLEU
-                self:DeleteCast(cast.unitGUID, false, true)
+                self:DeleteCast(cast.unitGUID, false, true, false, true)
             end
         end
     end

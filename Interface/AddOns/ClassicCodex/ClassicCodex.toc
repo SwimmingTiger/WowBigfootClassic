@@ -1,6 +1,4 @@
 ## Interface: 11302
-## X-Min-Interface: 11302
-
 ## Title: ClassicCodex
 ## Title-zhCN: [大脚][集]任务助手
 ## TItle-zhTW: [大腳][集]任務助手

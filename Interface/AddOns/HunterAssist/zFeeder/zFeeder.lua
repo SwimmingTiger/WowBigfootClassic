@@ -1,5 +1,5 @@
 
-zFeeder = {Link = nil, Texture = nil, Count = nil, Item = "",}
+zFeeder = zFeeder or {Link = nil, Texture = nil, Count = nil, Item = "",}
 
 if (GetLocale() == "zhCN") then
 	ZFEEDER_MOVE_TOOLTIP = "按住Shift可拖动框体\nShift+右键重置鼠标位置";
@@ -13,16 +13,14 @@ end
 --	locals
 --------------------------------------------
 local __inCombat = false;
-local __needCheck = false;
-local __zLastTime = false;
 local __isMoving = nil;
 local __zFeedHooked = false;
 local __zWarningPoint = 2;
 local __zHappinessMap = { [PET_HAPPINESS1] = 2, [PET_HAPPINESS2] = 3 };
 
 -- Get item id from link
-function __zfParseItemLink(__link)
-	if (__link) then
+local function __zfParseItemLink(__link)
+	if __link then
 		for id in string.gmatch(__link, "|%x+|Hitem:(%d+):") do
 			return tonumber(id)
 		end
@@ -31,7 +29,7 @@ end
 
 -- buff effect
 local function zHasFeedEffect()
-	local i = 1;	
+	local i = 1;
 	local __name, __rank, __texture, __count, __debuffType, __duration, __expirationTime = UnitAura("pet", i);
 	while (__texture and __duration and __expirationTime and __duration > 0) do
 		local __timeLeft = __expirationTime - GetTime();
@@ -75,7 +73,7 @@ local function __zUpdateCount(__button)
 		zFeeder.Count = GetItemCount(zFeeder.Link);
 		SetItemButtonCount(__button, zFeeder.Count);
 		if(zFeeder.Count and zFeeder.Count == 0) then
-			zFeederButtonIconTexture:SetVertexColor(1.0, 0.1, 0.1);		
+			zFeederButtonIconTexture:SetVertexColor(1.0, 0.1, 0.1);
 		else
 			zFeederButtonIconTexture:SetVertexColor(1.0, 1.0, 1.0);
 		end
@@ -88,24 +86,23 @@ local __ZFeed_Eventer = BLibrary("BEvent");
 
 __ZFeed_Eventer:Init{
 	name = "HunterAssist",
-	func = function()		
+	func = function()
 		__zUpdateTexture(getglobal("zFeederButton"));
 		__zUpdateCount(getglobal("zFeederButton"));
 		getglobal("zFeederButton"):SetAttribute("unit", "pet");
-		getglobal("zFeederButton"):SetAttribute("type", "target");		
+		getglobal("zFeederButton"):SetAttribute("type", "target");
 	end
 };
 
 function ZFeed_Toggle(__switch)
 	if (__switch) then
-		__ZFeed_Eventer:RegisterEvent("PLAYER_REGEN_ENABLED");
 		__ZFeed_Eventer:RegisterEvent("BAG_UPDATE");
 		if (not __zFeedHooked) then
 			hooksecurefunc("PetFrame_SetHappiness", __zNew_PetFrame_SetHappiness);
-		end		
+			__zFeedHooked = true;
+		end
 		getglobal("zFeederButton"):Show();
 	else
-		__ZFeed_Eventer:UnregisterEvent("PLAYER_REGEN_ENABLED");
 		__ZFeed_Eventer:UnregisterEvent("BAG_UPDATE");
 		getglobal("zFeederButton"):Hide();
 	end
@@ -116,20 +113,14 @@ function ZFeed_CHappiness(happiness)
 	__zWarningPoint = __zHappinessMap[happiness] or 2;
 end
 
-function zfOnLoad(self)	
+function zfOnLoad(self)
 	self:RegisterForDrag("LeftButton", "RightButton");
 	self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 	self.time = 0;
 end
 
-function __ZFeed_Eventer.PLAYER_REGEN_ENABLED()
-	--if (__needCheck) then
-	--	PetFrame_SetHappiness();
-	--end
-end
-
 function __ZFeed_Eventer.BAG_UPDATE()
-	__zUpdateCount(getglobal("zFeederButton"));	
+	__zUpdateCount(getglobal("zFeederButton"));
 end
 
 function zfOnEnter(self)
@@ -150,40 +141,40 @@ function zfOnLeave(self)
 	GameTooltip:Hide();
 end
 
-function zfPreClick(self, button)	
+function zfPreClick(self, button)
 	if (InCombatLockdown()) then	-- 战斗状态下不能动作
 		return;
-	end	
+	end
 
-	if (CursorHasItem()) then		
+	if (CursorHasItem()) then
 		local _, __itemName, __itemLink = GetCursorInfo();
-		local __itemTexture = select(10, GetItemInfo(__itemLink));		
+		local __itemTexture = select(10, GetItemInfo(__itemLink));
 		if (__itemName and __itemLink and __itemTexture) then
 			zFeeder.Item = __itemName;
 			zFeeder.Link = __itemLink;
-			zFeeder.Texture = __itemTexture;			
+			zFeeder.Texture = __itemTexture;
 			__zUpdateTexture(self);
 		end
 		GameTooltip:Hide();
 		ClearCursor();
 		__zUpdateCount(self);
 	else
-		if (IsShiftKeyDown() and arg1 == "RightButton") then
+		if (IsShiftKeyDown() and button == "RightButton") then
 			zFeederButton:ClearAllPoints();
 			zFeederButton:SetPoint("LEFT", "PetFrameHappiness", "RIGHT", 4, 0);
 		elseif (zFeeder.Link) then
 			local __bag, __slot = __GetItemIndex(zFeeder.Link);
 			local hasEffect = zHasFeedEffect();
 			if (__bag and __slot and not hasEffect) then
-				PickupContainerItem(__bag, __slot);			
+				PickupContainerItem(__bag, __slot);
 			end
 		end
-	end	
+	end
 end
 
 function zfOnDragStart(self)
 	GameTooltip:Hide();
-	if (IsShiftKeyDown()) then		
+	if (IsShiftKeyDown()) then
 		self:StartMoving();
 		__isMoving = true;
 		return;
@@ -191,7 +182,7 @@ function zfOnDragStart(self)
 	zFeeder.Link = nil;
 	zFeeder.Count = nil;
 	zFeeder.Texture = nil;
-	zFeeder.Item = "";	
+	zFeeder.Item = "";
 	SetItemButtonCount(self, 0);
 	SetItemButtonTexture(self, nil);
 end
@@ -217,21 +208,16 @@ function zfOnUpdate(self, elapsed)
 			UnitFrameManaBar_Update(PetFrameManaBar:GetParent());
 			self.feeding = false;
 		end
-		
+
 		self.time = 0;
 	end
 end
 --------------------------------------
 --	Override
 --------------------------------------
-function __zNew_PetFrame_SetHappiness(...)	
+function __zNew_PetFrame_SetHappiness(...)
 	local __happiness = GetPetHappiness();
-	if (__happiness and __happiness < __zWarningPoint) then	
-		if ( not __zLastTime or (GetTime() - __zLastTime) > 1000 ) then
-			__zLastTime = GetTime();
-			UIErrorsFrame:AddMessage(ZF_HUNGER, 1.0, 1.0, 0.0, 1.0, UIERRORS_HOLD_TIME);
-		end
-	else
+	if (__happiness and __happiness < __zWarningPoint) then
+		UIErrorsFrame:AddMessage(ZF_HUNGER, 1, 1, 0);
 	end
-	__needCheck = false;
 end

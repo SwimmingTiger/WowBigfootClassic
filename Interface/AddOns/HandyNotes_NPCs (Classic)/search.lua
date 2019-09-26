@@ -9,6 +9,7 @@ local LINE_HEIGHT = 20
 local lastSearchedItem = nil
 local frames = { }
 local list = { }
+local skillsWeCanLearn = { }
 
 local function update(self)
 	local numItems = #list
@@ -25,7 +26,6 @@ local function update(self)
 			frame:Hide()
 		else
 			local entry = list[lineplusoffset]
-
 			if entry.type == "item" then
 				lastSearchedItem = nil
 				local item = data["items"][entry.itemID]
@@ -39,8 +39,8 @@ local function update(self)
 				frame:SetScript("OnEnter", function(self) Search:TooltipShow(self, entry.itemID) end)
 				frame:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 			end
-			if entry.type == "npc" then
-				lastSearchedItem = entry.itemID
+			if entry.type == "npc" or entry.type == "weaponmaster" then
+				lastSearchedItem = entry.type == "npc" and entry.itemID or nil
 				local distanceText = ''
 				local zoneName = HBD:GetLocalizedMap(entry.zone)
 				frame.ltext:SetText(entry.name)
@@ -55,6 +55,27 @@ local function update(self)
 				end
 				frame.rtext:SetText(distanceText)
 				frame:SetScript("OnEnter", nil)
+				if entry.type == "weaponmaster" then
+					frame:SetScript("OnEnter", function(self)
+						local tooltip = GameTooltip
+						if ( frame:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
+							tooltip:SetOwner(frame, "ANCHOR_LEFT")
+						else
+							tooltip:SetOwner(frame, "ANCHOR_RIGHT")
+						end
+						tooltip:AddLine(L["Teaches"])
+						for skill in data["weaponmasters"][entry.npcID]:gmatch("([^,]+)") do
+								skill = tonumber(skill)
+								if skillsWeCanLearn[skill] then
+									tooltip:AddLine(data["weaponskills"][skill].name, 0, 0.6, 0.1)
+								else
+									tooltip:AddLine(data["weaponskills"][skill].name, 0.6, 0, 0.1)
+								end
+						end
+						tooltip:Show()
+						return
+					end)
+				end
 				frame:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 				frame:SetScript("OnMouseDown", function(self, button)
 								if button == "LeftButton" then
@@ -91,6 +112,14 @@ function Search:OnInitialize()
 	window:EnableMouse(true)
 	window:SetScript("OnMouseDown", function(self, button) if (button == "RightButton" and lastSearchedItem) then Search:SearchNPCs(lastSearchedItem) end end)
 	window:SetScript("OnLeave", function() GameTooltip:Hide() end)
+	window.lastUpdate = 0
+	window.updateInterval = 2
+	window:SetScript("OnUpdate", function(self, elapsed)
+									self.lastUpdate = self.lastUpdate + elapsed
+									if (self.lastUpdate < self.updateInterval) then return end
+									self.lastUpdate = 0
+									Search:UpdateListNPCDistances()
+								end)
 	window.header = CreateFrame("Frame", nil, window)
 	window.header:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8x8"})
 	window.header:SetPoint("TOP", window, 0, -4)
@@ -186,6 +215,12 @@ function Search:OnInitialize()
 	window.zoneButton:SetText('Z')
 	window.zoneButton:SetPoint("TOPLEFT", window, "BOTTOMLEFT", 0, -2)
 	window.zoneButton:SetScript("OnClick", function() self:FindNeareastNPCs(nil, "zone") end)
+	
+	window.wmButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
+	window.wmButton:SetSize(36, 26)
+	window.wmButton:SetText('WM')
+	window.wmButton:SetPoint("LEFT", window.zoneButton, "RIGHT", 10, 0)
+	window.wmButton:SetScript("OnClick", function() self:DumpWeaponMasters() end)
 
 	self:RegisterChatCommand("npcs", "SlashCommand")
 	self.window = window
@@ -200,6 +235,11 @@ function Search:SlashCommand(input)
 	local command, nextposition = self:GetArgs(input,1,1)
 	if command == "zone" then
 		self:FindNeareastNPCs(nil, "zone")
+		return
+	end
+	
+	if command == "wm" then
+		self:DumpWeaponMasters()
 		return
 	end
 	self:ShowWindow()
@@ -222,7 +262,7 @@ function Search:SearchNPCs()
 			table.insert(list, { itemID = k, type = "item" })
 		end
 	end
-	self:UpdateHeader("Item", "Cost")
+	self:UpdateHeader(L["Item"], L["Cost"])
 	update(self.window.f)
 end
 
@@ -263,7 +303,7 @@ function Search:FindNeareastNPCs(itemID, type)
 	end
 
 	table.sort(list, function(a,b) return a.distance < b.distance or a.distance == b.distance and a.name < b.name end)
-	self:UpdateHeader("NPC", "Distance")
+	self:UpdateHeader(L["NPC"], L["Distance"])
 	update(self.window.f)
 end
 
@@ -312,4 +352,63 @@ function Search:SetWaypoint(mapFile, coord, title)
 		minimap = true,
 		world = true
 	})
+end
+
+function Search:DumpWeaponMasters()
+	--print(data.class)
+	table.wipe(list)
+	local playerX, playerY, playerMapID = HBD:GetPlayerZonePosition()
+	for k, v in pairs(data["weaponskills"]) do
+		if v.classes[data.class] then
+			skillsWeCanLearn[k] = true
+		end
+	end
+	local npcsThatCanTeachUs = { }
+	for zone, coords in pairs(data["nodes"]) do
+		for coord, npc in pairs(data["nodes"][zone]) do
+			if npc.npcID and data["weaponmasters"][npc.npcID] then
+				local added = false
+				for skill in data["weaponmasters"][npc.npcID]:gmatch("([^,]+)") do
+				skill = tonumber(skill)
+					if (npc.faction == "Neutral" or npc.faction == data.faction) and skillsWeCanLearn[skill] and not added then
+						local npcX, npcY = HandyNotes:getXY(coord)
+						distance = HBD:GetZoneDistance(playerMapID, playerX, playerY, zone, npcX, npcY)
+						if distance == nil then
+							distance = 10000000 -- Just some unreasonably large value for sorting
+						end
+						table.insert(list, { name = npc.name, npcID = npc.npcID, type = "weaponmaster", distance = Round(distance), zone = zone, coord = coord })
+						added = true
+					end
+				end
+			end
+		end
+	end
+	table.sort(list, function(a,b) return a.distance < b.distance or a.distance == b.distance and a.name < b.name end)
+	self:UpdateHeader(L["Weapon Masters"], nil)
+	update(self.window.f)
+end
+
+function Search:GetNPCDistanceFromPlayer(zone, coord)
+	local playerX, playerY, playerMapID = HBD:GetPlayerZonePosition()
+	local npcX, npcY = HandyNotes:getXY(coord)
+	distance = HBD:GetZoneDistance(playerMapID, playerX, playerY, zone, npcX, npcY)
+	if distance == nil then
+		distance = 10000000 -- Just some unreasonably large value for sorting
+	end
+	
+	return Round(distance)
+end
+
+function Search:UpdateListNPCDistances()
+	local needsSort = false
+	for k, v in pairs(list) do
+		if v.type == "npc" or v.type == "weaponmaster" then
+			v.distance = self:GetNPCDistanceFromPlayer(v.zone, v.coord)
+			needsSort = true
+		end
+	end
+	if needsSort then
+		table.sort(list, function(a,b) return a.distance < b.distance or a.distance == b.distance and a.name < b.name end)
+	end
+	update(self.window.f)
 end

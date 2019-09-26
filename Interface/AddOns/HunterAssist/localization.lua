@@ -1,7 +1,7 @@
+
 if (GetLocale() == "zhCN") then
 	HUNTERASSIST_NAME = "猎人助手";
 	HUNTERASSIST_AIMED = "瞄准射击";
-	HUNTERASSIST_AUTO = "自动射击";
 	HUNTERASSIST_CAST_BREAK = "被打断";
 	HUNTERASSIST_ASPECT_CHEETAH = "猎豹守护";
 	HUNTERASSIST_ASPECT_ASPECT_PACK = "豹群守护";
@@ -39,7 +39,6 @@ if (GetLocale() == "zhCN") then
 elseif (GetLocale() == "zhTW") then
 	HUNTERASSIST_NAME = "獵人助手";
 	HUNTERASSIST_AIMED = "瞄準射擊";
-	HUNTERASSIST_AUTO = "自動射擊";
 	HUNTERASSIST_CAST_BREAK = "被打斷";
 	HUNTERASSIST_ASPECT_CHEETAH = "獵豹守護";
 	HUNTERASSIST_ASPECT_ASPECT_PACK = "豹群守護";
@@ -77,7 +76,6 @@ elseif (GetLocale() == "zhTW") then
 else
 	HUNTERASSIST_NAME = "Hunter Assist";
 	HUNTERASSIST_AIMED = "Aimed Shot";
-	HUNTERASSIST_AUTO = "Auto Shot";
 	HUNTERASSIST_CAST_BREAK = "Break";
 	HUNTERASSIST_ASPECT_CHEETAH = "Aspect of the Cheetah";
 	HUNTERASSIST_ASPECT_ASPECT_PACK = "Aspect of the Pack";
