@@ -1,9 +1,8 @@
-local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
-local L = AceLocale:NewLocale("HandyNotes_TravelGuide (Classic)", "zhTW");
+local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_TravelGuide (Classic)", "zhTW", false)
+
 if not L then return end
-
+--simplified chinese translation by swimstiger https://www.curseforge.com/members/swimstiger
 if L then
-
 --config.options
 L["HandyNotes: TravelGuide (Classic)"] = "HandyNotes: 船和飞艇"
 L["Icon settings"] = "图标设置"
@@ -25,12 +24,12 @@ L["Show the Horde Zeppelin locations."] = "显示部落方飞艇的位置"
 L["Note"] = "备注"
 L["Show the node's additional notes when it's available."] = "在鼠标提示中显示备注信息"
 L["Deeprun Tram"] = "矿道地铁"
-L["Show the Deeprun Tram locations in Stormwind and Ironforge."] = "显示暴风城到铁炉堡的矿道地铁"
+L["Show the Deeprun Tram locations in Stormwind and Ironforge."] = "显示暴风城到铁炉堡的矿道地铁入口位置"
 
 --Plugin_config
 L["AddOn Settings"] = "插件设置"
-L["Query from server"] = "向服务器查询"
-L["Send query request to server to lookup localized name. May be a little bit slower for the first time lookup but would be very fast once the name is found and cached."] = "向服务器查询标记名称的本地化版本。首次查询时可能比较慢，一但查到了名称并进行了缓存，以后就很快了。"
+-- L["Query from server"] = "向服务器查询"
+-- L["Send query request to server to lookup localized name. May be a little bit slower for the first time lookup but would be very fast once the name is found and cached."] = "向服务器查询标记名称的本地化版本。首次查询时可能比较慢，一但查到了名称并进行了缓存，以后就很快了。"
 L["Reset hidden nodes"] = "重置隐藏的标记"
 L["Show all nodes that you manually hid by right-clicking on them and choosing \"hide\"."] = "重新显示所有你右击并选择“隐藏”的标记"
 
@@ -59,7 +58,7 @@ L["Deeprun Tram to Ironforge"] = "去铁炉堡的矿道地铁"
 
 L["Kalimdor"] = "卡利姆多"
 L["Kalimdor, Durotar"] = "卡利姆多，杜隆塔尔"
-L["Zeppelin to Orgrimmar"] = "去奥格瑞玛的船"
+L["Zeppelin to Orgrimmar"] = "去奥格瑞玛的飞艇"
 
 L["Kalimdor, Teldrassil"] = "卡利姆多，泰达希尔"
 L["Boat to Darnassus"] = "去达纳苏斯的船"
