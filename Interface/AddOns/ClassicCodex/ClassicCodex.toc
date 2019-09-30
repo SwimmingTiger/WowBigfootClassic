@@ -20,6 +20,9 @@ db\refloot.lua
 db\quests.lua
 db\meta.lua
 
+# database patches
+db-patches\quests-patch.lua
+
 # database enUS
 db\enUS\items.lua
 db\enUS\units.lua

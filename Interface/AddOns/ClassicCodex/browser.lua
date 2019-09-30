@@ -138,6 +138,11 @@ local function ResultButtonUpdate(self)
     self.refreshCount = self.refreshCount + 1
 
     if not self.itemColor then
+        -- Prevent item comparison window popup when item info loading
+        if CodexBrowser.alwaysCompareItems then
+            SetCVar('alwaysCompareItems', '0')
+        end
+
         GameTooltip:SetHyperlink("item:" .. self.id .. ":0:0:0")
         GameTooltip:Hide()
 
@@ -151,12 +156,22 @@ local function ResultButtonUpdate(self)
     end
 
     if self.itemColor then
-        self.text:SetText(self.itemColor .. "|Hitem:" .. self.id .. ":0:0:0|h[" .. self.name .. "]|h|r")
+        local idStr = self.searchMode == 2 and string.format('|cff006a72#%d|r ', self.id) or ''
+        self.text:SetText(idStr .. self.itemColor .. "|Hitem:" .. self.id .. ":0:0:0|h[" .. self.name .. "]|h|r")
         self.text:SetWidth(self.text:GetStringWidth())
     end
 
     if self.refreshCount > 10 or self.itemColor then
         self:SetScript("OnUpdate", nil)
+        -- Chain loading to reduce stuttering
+        if self.parent[self.index + 1] then
+            self.parent[self.index + 1]:SetScript("OnUpdate", ResultButtonUpdate)
+        end
+        
+        -- Item info loaded, restoring the CVar changed before
+        if CodexBrowser.alwaysCompareItems then
+            SetCVar('alwaysCompareItems', '1')
+        end
     end
 end
 
@@ -203,6 +218,16 @@ end
 
 local function ResultButtonClickFav(self)
     local parent = self:GetParent()
+
+    -- Remove the quest from the manual hidden list
+    if parent.searchMode == 4 then
+        CodexHiddenQuests[parent.id] = nil
+        self.icon:SetVertexColor(1, 1, 1, 0.1)
+        parent:Hide()
+        CodexQuest.updateQuestGivers = true
+        return
+    end
+
     if CodexBrowserFavorites[parent.btype][parent.id] then
         CodexBrowserFavorites[parent.btype][parent.id] = nil
         self.icon:SetVertexColor(1, 1, 1, 0.1)
@@ -383,20 +408,22 @@ local function ResultButtonReload(self)
     end
 
     -- activate fav buttons if needed
-    if CodexBrowserFavorites and CodexBrowserFavorites[self.btype] and CodexBrowserFavorites[self.btype][self.id] then
+    if (self.searchMode == 4) or (CodexBrowserFavorites and CodexBrowserFavorites[self.btype] and CodexBrowserFavorites[self.btype][self.id]) then
         self.fav.icon:SetVertexColor(1, 1, 1, 1)
     else
         self.fav.icon:SetVertexColor(1, 1, 1, 0.1)
     end
 
+    local idStr = self.searchMode == 2 and string.format('|cff006a72#%d|r ', self.id) or ''
+
     -- actions by search type
     if self.btype == "quests" then
         self.name = CodexDB[self.btype]["loc"][self.id]["T"]
-        self.text:SetText("|cffffcc00|Hquest:0:0:0:0|h[" .. self.name .. "]|h|r")
+        self.text:SetText(idStr .. "|cffffcc00|Hquest:0:0:0:0|h[" .. self.name .. "]|h|r")
     elseif self.btype == "units" or self.btype == "objects" then
         local level = CodexDB[self.btype]["data"][self.id] and CodexDB[self.btype]["data"][self.id]["lvl"] or ""
         if level and level ~= "" then level = " (" .. level .. ")" end
-        self.text:SetText(self.name .. "|cffaaaaaa" .. level)
+        self.text:SetText(idStr .. self.name .. "|cffaaaaaa" .. level)
 
         if CodexDB[self.btype]["data"][self.id] and CodexDB[self.btype]["data"][self.id]["coords"] then
             self.text:SetTextColor(1, 1, 1)
@@ -412,10 +439,13 @@ local function ResultButtonReload(self)
             end
         end
 
-        self.text:SetText("|cffff5555[?] |cffffffff" .. self.name)
+        self.text:SetText(idStr .. "|cffff5555[?] |cffffffff" .. self.name)
 
         self.refreshCount = 0
-        self:SetScript("OnUpdate", ResultButtonUpdate)
+        -- Chain loading to reduce stuttering
+        if self.index == 1 then
+            self:SetScript("OnUpdate", ResultButtonUpdate)
+        end
     end
     
     self.text:SetWidth(self.text:GetStringWidth())
@@ -605,7 +635,9 @@ end)
 CodexBrowserIcon:SetScript("OnClick", function()
     if CodexBrowser:IsShown() then
         CodexBrowser:Hide()
+        CodexBrowser:RestoreCVars()
     else
+        CodexBrowser:SaveCVars()
         CodexBrowser:Show()
     end
 end)
@@ -685,6 +717,23 @@ CodexBrowser:SetScript("OnUpdate", function(self)
   end
 end)
 
+function CodexBrowser:SaveCVars()
+    -- Save some CVars to restore after the search is complete
+    self.alwaysCompareItems = GetCVar('alwaysCompareItems') == '1'
+end
+
+function CodexBrowser:RestoreCVars()
+    -- Restore CVars
+    if self.alwaysCompareItems then
+        SetCVar('alwaysCompareItems', '1')
+    end
+end
+
+function CodexBrowser:OpenView(viewName)
+    SelectView(self.tabs[viewName])
+    self:Show()
+end
+
 CodexUI.api.CreateBackdrop(CodexBrowser, nil, true, 0.75)
 table.insert(UISpecialFrames, "CodexBrowser")
 
@@ -707,6 +756,7 @@ CodexBrowser.close.texture:SetVertexColor(1,.25,.25,1)
 CodexUI.api.SkinButton(CodexBrowser.close, 1, .5, .5)
 CodexBrowser.close:SetScript("OnClick", function(self)
     self:GetParent():Hide()
+    self:GetParent():RestoreCVars()
 end)
 
 CodexBrowser.clean = CreateFrame("Button", "CodexBrowserClean", CodexBrowser)
@@ -756,7 +806,10 @@ CodexBrowser.input:SetScript("OnTextChanged", function(self)
   for _, caption in pairs({"Units","Objects","Items","Quests"}) do
     local searchType = strlower(caption)
 
-    local data = strlen(text) >= 3 and CodexDatabase:GetIdByName(text, searchType, true) or CodexBrowserFavorites[searchType]
+    local data, count, searchMode = CodexDatabase:BrowserSearch(text, searchType, searchLimit)
+    if count == -1 then
+        data = CodexBrowserFavorites[searchType]
+    end
 
     local i = 0
     if data then
@@ -767,6 +820,9 @@ CodexBrowser.input:SetScript("OnTextChanged", function(self)
         CodexBrowser.tabs[searchType].buttons[i] = CodexBrowser.tabs[searchType].buttons[i] or ResultButtonCreate(i, searchType)
         CodexBrowser.tabs[searchType].buttons[i].id = id
         CodexBrowser.tabs[searchType].buttons[i].name = text
+        CodexBrowser.tabs[searchType].buttons[i].searchMode = searchMode
+        CodexBrowser.tabs[searchType].buttons[i].index = i
+        CodexBrowser.tabs[searchType].buttons[i].parent = CodexBrowser.tabs[searchType].buttons
         CodexBrowser.tabs[searchType].buttons[i]:Reload()
         end
     end
@@ -776,4 +832,3 @@ CodexBrowser.input:SetScript("OnTextChanged", function(self)
 end)
 
 CodexUI.api.CreateBackdrop(CodexBrowser.input, nil, true)
-
