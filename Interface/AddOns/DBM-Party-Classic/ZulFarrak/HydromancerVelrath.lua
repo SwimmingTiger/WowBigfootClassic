@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HydromancerVelrath", "DBM-Party-Classic", 20)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190819214022")
+mod:SetRevision("20190824201836")
 mod:SetCreatureID(7795)
 mod:SetEncounterID(593)
 

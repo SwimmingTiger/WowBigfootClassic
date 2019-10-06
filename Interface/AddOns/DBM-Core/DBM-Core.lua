@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20190924043406"),
-	DisplayVersion = "1.13.12", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 9, 23) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20190926232658"),
+	DisplayVersion = "1.13.13", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 9, 26) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -155,7 +155,7 @@ DBM.DefaultOptions = {
 	ShowDefeatMessage = true,
 	ShowGuildMessages = true,
 	AutoRespond = true,
-	StatusEnabled = true,
+	EnableWBSharing = false,
 	WhisperStats = false,
 	DisableStatusWhisper = false,
 	DisableGuildStatus = false,
@@ -524,7 +524,7 @@ end
 
 local function checkForSafeSender(sender, checkFriends, checkGuild, filterRaid)
 	if checkFriends then
-		--Check if it's a bnet friend sending a non bnet whisper
+		--Check Battle.net friends
 		local _, numBNetOnline = BNGetNumFriends()
 		for i = 1, numBNetOnline do
 			local presenceID, _, _, _, _, _, _, isOnline = BNGetFriendInfo(i)
@@ -533,6 +533,15 @@ local function checkForSafeSender(sender, checkFriends, checkGuild, filterRaid)
 				local _, toonName, client = BNGetFriendGameAccountInfo(friendIndex, i)
 				if toonName and client == BNET_CLIENT_WOW then--Check if toon name exists and if client is wow. If yes to both, we found right client
 					if toonName == sender then--Now simply see if this is sender
+						if filterRaid and DBM:GetRaidUnitId(toonName) then--Person is in raid group and filter raid enabled
+							return false--just set sender as unsafe
+						else
+							return true
+						end
+					end
+				else
+					--Check if it's a bnet friend sending a bnet whisper who's not in game
+					if presenceID == sender then
 						return true
 					end
 				end
@@ -5670,26 +5679,28 @@ do
 				if IsInGuild() then
 					SendAddonMessage("D4C", "WBE\t"..modId.."\t"..playerRealm.."\t"..startHp.."\t8\t"..name, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
 				end
-				local _, numBNetOnline = BNGetNumFriends()
-				for i = 1, numBNetOnline do
-					local sameRealm = false
-					local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
-					if isOnline and client == BNET_CLIENT_WOW then
-						local _, _, _, userRealm = BNGetGameAccountInfo(presenceID)
-						if connectedServers then
-							for i = 1, #connectedServers do
-								if userRealm == connectedServers[i] then
+				if self.Options.EnableWBSharing then
+					local _, numBNetOnline = BNGetNumFriends()
+					for i = 1, numBNetOnline do
+						local sameRealm = false
+						local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+						if isOnline and client == BNET_CLIENT_WOW then
+							local _, _, _, userRealm = BNGetGameAccountInfo(presenceID)
+							if connectedServers then
+								for i = 1, #connectedServers do
+									if userRealm == connectedServers[i] then
+										sameRealm = true
+										break
+									end
+								end
+							else
+								if userRealm == playerRealm then
 									sameRealm = true
-									break
 								end
 							end
-						else
-							if userRealm == playerRealm then
-								sameRealm = true
+							if sameRealm then
+								BNSendGameData(presenceID, "D4C", "WBE\t"..modId.."\t"..userRealm.."\t"..startHp.."\t8\t"..name)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
 							end
-						end
-						if sameRealm then
-							BNSendGameData(presenceID, "D4C", "WBE\t"..modId.."\t"..userRealm.."\t"..startHp.."\t8\t"..name)--Just send users realm for pull, so we can eliminate connectedServers checks on sync handler
 						end
 					end
 				end
@@ -5873,26 +5884,28 @@ do
 					if IsInGuild() then
 						SendAddonMessage("D4C", "WBD\t"..modId.."\t"..playerRealm.."\t8\t"..name, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
 					end
-					local _, numBNetOnline = BNGetNumFriends()
-					for i = 1, numBNetOnline do
-						local sameRealm = false
-						local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
-						if isOnline and client == BNET_CLIENT_WOW then
-							local _, _, _, userRealm = BNGetGameAccountInfo(presenceID)
-							if connectedServers then
-								for i = 1, #connectedServers do
-									if userRealm == connectedServers[i] then
+					if self.Options.EnableWBSharing then
+						local _, numBNetOnline = BNGetNumFriends()
+						for i = 1, numBNetOnline do
+							local sameRealm = false
+							local presenceID, _, _, _, _, _, client, isOnline = BNGetFriendInfo(i)
+							if isOnline and client == BNET_CLIENT_WOW then
+								local _, _, _, userRealm = BNGetGameAccountInfo(presenceID)
+								if connectedServers then
+									for i = 1, #connectedServers do
+										if userRealm == connectedServers[i] then
+											sameRealm = true
+											break
+										end
+									end
+								else
+									if userRealm == playerRealm then
 										sameRealm = true
-										break
 									end
 								end
-							else
-								if userRealm == playerRealm then
-									sameRealm = true
+								if sameRealm then
+									BNSendGameData(presenceID, "D4C", "WBD\t"..modId.."\t"..userRealm.."\t8\t"..name)
 								end
-							end
-							if sameRealm then
-								BNSendGameData(presenceID, "D4C", "WBD\t"..modId.."\t"..userRealm.."\t8\t"..name)
 							end
 						end
 					end
@@ -6492,9 +6505,9 @@ do
 
 	-- sender is a presenceId for real id messages, a character name otherwise
 	local function onWhisper(msg, sender, isRealIdMessage)
-		if statusWhisperDisabled then return end--RL has disabled status whispers for entire raid.
+		if statusWhisperDisabled or not DBM.Options.AutoRespond then return end--RL has disabled status whispers for entire raid or you have it disabled
 		if not checkForSafeSender(sender, true, true, true) then return end--Automatically reject all whisper functions from non friends, non guildies, or people in group with us
-		if msg == "status" and #inCombat > 0 and DBM.Options.StatusEnabled then
+		if msg == "status" and #inCombat > 0 then
 			if not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 				savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
 			end
@@ -6513,7 +6526,7 @@ do
 				hpText = hpText.." ("..BOSSES_KILLED:format(bossesKilled, mod.numBoss)..")"
 			end
 			sendWhisper(sender, chatPrefix..DBM_CORE_STATUS_WHISPER:format(difficultyText..(mod.combatInfo.name or ""), hpText, IsInInstance() and getNumRealAlivePlayers() or getNumAlivePlayers(), DBM:GetNumRealGroupMembers()))
-		elseif #inCombat > 0 and DBM.Options.AutoRespond then
+		elseif #inCombat > 0 then
 			if not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 				savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
 			end
@@ -8775,6 +8788,10 @@ do
 	end
 
 	function yellPrototype:Yell(...)
+		if not IsInInstance() then--as of 8.2.5, forbidden in outdoor world
+			DBM:Debug("WARNING: A mod is still trying to call chat SAY/YELL messages outdoors, FIXME")
+			return
+		end
 		if DBM.Options.DontSendYells then return end
 		if not self.option or self.mod.Options[self.option] then
 			if self.yellType == "combo" then
@@ -8788,6 +8805,10 @@ do
 
 	--Force override to use say message, even when object defines "YELL"
 	function yellPrototype:Say(...)
+		if not IsInInstance() then--as of 8.2.5, forbidden in outdoor world
+			DBM:Debug("WARNING: A mod is still trying to call chat SAY/YELL messages outdoors, FIXME")
+			return
+		end
 		if DBM.Options.DontSendYells then return end
 		if not self.option or self.mod.Options[self.option] then
 			SendChatMessage(pformat(self.text, ...), "SAY")

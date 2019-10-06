@@ -43,7 +43,7 @@
 --
 
 
-local revision =(string.sub("20190914182719", 1, -5))
+local revision =(string.sub("20190926004350", 1, -5))
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -1443,10 +1443,10 @@ local function CreateOptionsMenu()
 		generalMessagesArea:CreateCheckButton(L.ShowGuildMessages, true, nil, "ShowGuildMessages")
 		local generalWhispersArea = generalWarningPanel:CreateArea(L.WhisperMessages, nil, 135, true)
 		generalWhispersArea:CreateCheckButton(L.AutoRespond, true, nil, "AutoRespond")
-		generalWhispersArea:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		generalWhispersArea:CreateCheckButton(L.WhisperStats, true, nil, "WhisperStats")
 		generalWhispersArea:CreateCheckButton(L.DisableStatusWhisper, true, nil, "DisableStatusWhisper")
 		generalWhispersArea:CreateCheckButton(L.DisableGuildStatus, true, nil, "DisableGuildStatus")
+		generalWhispersArea:CreateCheckButton(L.EnableWBSharing, true, nil, "EnableWBSharing")
 		generalCoreArea:AutoSetDimension()
 		generalMessagesArea:AutoSetDimension()
 		generalWhispersArea:AutoSetDimension()
