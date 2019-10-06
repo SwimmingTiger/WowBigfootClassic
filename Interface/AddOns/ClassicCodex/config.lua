@@ -5,17 +5,17 @@ CodexColors = {}
 
 DefaultCodexConfig = {
     ["trackingMethod"] = 1, -- 1: All Quests; 2: Tracked Quests; 3: Manual; 4: Hide
-    ["autoAccept"] = false, -- Auto-accept quests
-    ["autoTurnin"] = false, -- Auto-turnin quests
-    ["nameplateIcon"] = false, -- Show quest icon above nameplates
+    ["autoAccept"] = true, -- Auto-accept quests
+    ["autoTurnin"] = true, -- Auto-turnin quests
+    ["nameplateIcon"] = true, -- Show quest icon above nameplates
     ["allQuestGivers"] = true, -- Show available quest givers
     ["currentQuestGivers"] = true, -- Show current quest giver nodes
     ["showLowLevel"] = false, -- Show low level quest giver nodes
     ["showHighLevel"] = true, -- Show level+3 quest giver nodes
-    ["showFestival"] = false, -- Show event quest giver nodes
+    ["showFestival"] = true, -- Show event quest giver nodes
     ["colorBySpawn"] = true,
-    ["questMarkerSize"] = 15,
-    ["spawnMarkerSize"] = 15,
+    ["questMarkerSize"] = 14,
+    ["spawnMarkerSize"] = 10,
     ["minimumDropChance"] = 2, -- (%) Hide markers with a drop probability less than this value
 }
 
@@ -173,6 +173,7 @@ function UpdateConfigPanel(configPanel)
     configPanel.showHighLevelCheckbox:SetChecked(CodexConfig.showHighLevel)
     configPanel.showFestivalCheckbox:SetChecked(CodexConfig.showFestival)
     configPanel.colorBySpawnCheckbox:SetChecked(CodexConfig.colorBySpawn)
+    configPanel.alwaysShowIdCheckbox:SetChecked(CodexConfig.alwaysShowId)
 
     configPanel.questMarkerSizeSlider:SetValue(CodexConfig.questMarkerSize)
     configPanel.questMarkerSizeSlider.editBox:SetCursorPosition(0)
@@ -261,6 +262,12 @@ function createConfigPanel(parent)
     end)
     config.colorBySpawnCheckbox:SetPoint("TOPLEFT", 10, -315)
 
+    config.alwaysShowIdCheckbox = checkboxFactory(config, L["Always Show ID In Browser"], L["If selected, the item/object/unit/quest ID will be displayed when you searching something in ClassicCodex Browser."], function(self)
+        CodexConfig.alwaysShowId = self:GetChecked()
+        CodexBrowser.input:Search()
+    end)
+    config.alwaysShowIdCheckbox:SetPoint("TOPLEFT", 250, -35)
+
     config.questMarkerSizeSlider = sliderFactory(config, "questMarkerSize", L["Quest Marker Size"], 10, 25, 1, function(self)
         CodexConfig.questMarkerSize = tonumber(self:GetValue())
         CodexMap:UpdateNodes()
@@ -294,7 +301,7 @@ function createConfigPanel(parent)
         end
     end)
     config.listCompletedQuests:SetPoint("TOPLEFT", 280, -485)
-
+    
     config.showAllHiddenQuests = buttonFactory(400, config, L["Show All Quests You Manually Hide Again"], L["Show all the quests you have hidden by shift + click."].."\n"..
                                                        L["Hide a quest by holding the shift key and clicking on the quest icon on the minimap or world map."], function(self)
         local size = Codex:tablelen(CodexHiddenQuests)

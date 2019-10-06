@@ -156,7 +156,7 @@ local function ResultButtonUpdate(self)
     end
 
     if self.itemColor then
-        local idStr = self.searchMode == 2 and string.format('|cff006a72#%d|r ', self.id) or ''
+        local idStr = (self.searchMode == 2 or CodexConfig.alwaysShowId) and string.format('|cff006a72#%d|r ', self.id) or ''
         self.text:SetText(idStr .. self.itemColor .. "|Hitem:" .. self.id .. ":0:0:0|h[" .. self.name .. "]|h|r")
         self.text:SetWidth(self.text:GetStringWidth())
     end
@@ -414,7 +414,7 @@ local function ResultButtonReload(self)
         self.fav.icon:SetVertexColor(1, 1, 1, 0.1)
     end
 
-    local idStr = self.searchMode == 2 and string.format('|cff006a72#%d|r ', self.id) or ''
+    local idStr = (self.searchMode == 2 or CodexConfig.alwaysShowId) and string.format('|cff006a72#%d|r ', self.id) or ''
 
     -- actions by search type
     if self.btype == "quests" then
@@ -799,36 +799,39 @@ CodexBrowser.input:SetScript("OnEditFocusLost", function(self)
 end)
 
 -- This script updates all the search tabs when the search text changes
+function CodexBrowser.input:Search()
+    local text = self:GetText()
+    if (text == L["Search"]) then text = "" end
+  
+    for _, caption in pairs({"Units","Objects","Items","Quests"}) do
+      local searchType = strlower(caption)
+  
+      local data, count, searchMode = CodexDatabase:BrowserSearch(text, searchType, searchLimit)
+      if count == -1 then
+          data = CodexBrowserFavorites[searchType]
+      end
+  
+      local i = 0
+      if data then
+          for id, text in pairs(data) do
+          i = i + 1
+  
+          if i >= searchLimit then break end
+          CodexBrowser.tabs[searchType].buttons[i] = CodexBrowser.tabs[searchType].buttons[i] or ResultButtonCreate(i, searchType)
+          CodexBrowser.tabs[searchType].buttons[i].id = id
+          CodexBrowser.tabs[searchType].buttons[i].name = text
+          CodexBrowser.tabs[searchType].buttons[i].searchMode = searchMode
+          CodexBrowser.tabs[searchType].buttons[i].index = i
+          CodexBrowser.tabs[searchType].buttons[i].parent = CodexBrowser.tabs[searchType].buttons
+          CodexBrowser.tabs[searchType].buttons[i]:Reload()
+          end
+      end
+  
+      RefreshView(i, searchType, caption)
+    end
+end
 CodexBrowser.input:SetScript("OnTextChanged", function(self)
-  local text = self:GetText()
-  if (text == L["Search"]) then text = "" end
-
-  for _, caption in pairs({"Units","Objects","Items","Quests"}) do
-    local searchType = strlower(caption)
-
-    local data, count, searchMode = CodexDatabase:BrowserSearch(text, searchType, searchLimit)
-    if count == -1 then
-        data = CodexBrowserFavorites[searchType]
-    end
-
-    local i = 0
-    if data then
-        for id, text in pairs(data) do
-        i = i + 1
-
-        if i >= searchLimit then break end
-        CodexBrowser.tabs[searchType].buttons[i] = CodexBrowser.tabs[searchType].buttons[i] or ResultButtonCreate(i, searchType)
-        CodexBrowser.tabs[searchType].buttons[i].id = id
-        CodexBrowser.tabs[searchType].buttons[i].name = text
-        CodexBrowser.tabs[searchType].buttons[i].searchMode = searchMode
-        CodexBrowser.tabs[searchType].buttons[i].index = i
-        CodexBrowser.tabs[searchType].buttons[i].parent = CodexBrowser.tabs[searchType].buttons
-        CodexBrowser.tabs[searchType].buttons[i]:Reload()
-        end
-    end
-
-    RefreshView(i, searchType, caption)
-  end
+    self:Search()
 end)
 
 CodexUI.api.CreateBackdrop(CodexBrowser.input, nil, true)

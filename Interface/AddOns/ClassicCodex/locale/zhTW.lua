@@ -74,6 +74,8 @@ L["ClassicCodex: You have no manually hidden quests. You can hold the shift key 
 L["ClassicCodex: %d hidden quests will be able to show again."] = "ClassicCodex: %d個隱藏任務已重新顯示"
 L["List Manually Hidden Quests"] = "列出手動隱藏的任務"
 L["List Completed Quests"] = "列出完成的任務"
+L["Always Show ID In Browser"] = "在查詢結果中顯示ID"
+L["If selected, the item/object/unit/quest ID will be displayed when you searching something in ClassicCodex Browser."] = "選中後，“ClassicCodex全能數據庫”查詢窗口將顯示物品/對象/單位/任務的ID。"
 
 -- map.lua
 L["Buy"] = "購買"
