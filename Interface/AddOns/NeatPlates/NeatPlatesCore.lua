@@ -245,16 +245,22 @@ local function UpdateNameplateSize(plate, show, cWidth, cHeight)
 	}
 
 	if not InCombatLockdown() then
+		if IsInInstance() then 
+			local zeroBasedScale = tonumber(GetCVar("NamePlateVerticalScale")) - 1.0;
+			local horizontalScale = tonumber(GetCVar("NamePlateHorizontalScale"));
+			SetNamePlateFriendlySize(128 * horizontalScale, 45 * Lerp(1.0, 1.25, zeroBasedScale))  -- Reset to blizzard nameplate default to avoid issues if we are not allowed to modify the nameplate
+		else SetNamePlateFriendlySize(hitbox.width * scaleStandard, hitbox.height * scaleStandard) end -- Clickable area of the nameplate
 		SetNamePlateEnemySize(hitbox.width * scaleStandard, hitbox.height * scaleStandard) -- Clickable area of the nameplate
-		SetNamePlateFriendlySize(hitbox.width * scaleStandard, hitbox.height * scaleStandard) -- Clickable area of the nameplate
 	end
 
-	plate.carrier:SetPoint("CENTER", plate, "CENTER", hitbox.x, hitbox.y)	-- Offset
-	plate.extended.visual.hitbox:SetPoint("CENTER", plate)
-	plate.extended.visual.hitbox:SetWidth(hitbox.width)
-	plate.extended.visual.hitbox:SetHeight(hitbox.height)
+	if plate then 
+		plate.carrier:SetPoint("CENTER", plate, "CENTER", hitbox.x, hitbox.y)	-- Offset
+		plate.extended.visual.hitbox:SetPoint("CENTER", plate)
+		plate.extended.visual.hitbox:SetWidth(hitbox.width)
+		plate.extended.visual.hitbox:SetHeight(hitbox.height)
 
-	if show then plate.extended.visual.hitbox:Show() else plate.extended.visual.hitbox:Hide() end
+		if show then plate.extended.visual.hitbox:Show() else plate.extended.visual.hitbox:Hide() end
+	end
 end
 
 -- UpdateReferences
@@ -759,6 +765,7 @@ do
 
 	-- UpdateUnitCondition: High volatility data
 	function UpdateUnitCondition(plate, unitid)
+		local health, healthmax
 		UpdateReferences(plate)
 
 		unit.level = UnitLevel(unitid)
@@ -770,11 +777,12 @@ do
 		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue) or "HOSTILE"
 
 		if RealMobHealth and RealMobHealth.GetUnitHealth then 
-			unit.health, unit.healthmax = RealMobHealth.GetUnitHealth(unitid)
-		else
-			unit.health = UnitHealth(unitid) or 0
-			unit.healthmax = UnitHealthMax(unitid) or 1
+			 health, healthmax = RealMobHealth.GetUnitHealth(unitid)
 		end
+
+		-- Ensure we have some unit health data if RealMobHealth doesn't return it
+		unit.health = health or UnitHealth(unitid) or 0
+		unit.healthmax = healthmax or UnitHealthMax(unitid) or 1
 		
 
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
@@ -1278,10 +1286,10 @@ do
 		OnHideNameplate(plate, unitid)
 	end
 
-	function CoreEvents:PLAYER_TARGET_CHANGED()
-		local unitAlive = UnitIsDead("target") == false;
+	local function UpdateCustomTarget()
+		local unitAlive = UnitIsDead("target") == false
 		local guid = UnitGUID("target")
-		HasTarget = UnitExists("target") == true;
+		HasTarget = (UnitExists("target") == true and not UnitIsUnit("target", "player"))
 		-- Create a new target frame if needed
 		if not NeatPlatesTarget then
 			NeatPlatesTarget = NeatPlatesUtility:CreateTargetFrame()
@@ -1291,6 +1299,10 @@ do
 		if HasTarget and NeatPlatesTarget then NeatPlatesTarget.unitGUID = guid end
 		toggleNeatPlatesTarget(HasTarget and unitAlive and not PlatesByGUID[guid])
 		SetUpdateAll()
+	end
+
+	function CoreEvents:PLAYER_TARGET_CHANGED()
+		UpdateCustomTarget()
 	end
 
 	function CoreEvents:UNIT_HEALTH(...)
@@ -1377,6 +1389,7 @@ do
 		local _,event,_,sourceGUID,sourceName,sourceFlags,_,destGUID,destName,_,_,spellID,spellName,spellSchool = CombatLogGetCurrentEventInfo()
 		--spellID = select(7, GetSpellInfo(spellName)) or ""
 		local plate = nil
+		local ownerGUID
 		local unitType,_,_,_,_,creatureID = ParseGUID(sourceGUID)
 
 		-- Spell Interrupts
@@ -1393,16 +1406,16 @@ do
 
 					-- If a pet interrupted, we need to change the source from the pet to the owner
 					if unitType == "Pet" then
-							sourceGUID, sourceName = GetPetOwner(sourceName)
+							ownerGUID, sourceName = GetPetOwner(sourceName)
 					end
 
 					plate.extended.unit.interruptLogged = true
-					OnInterruptedCast(plate, sourceGUID, sourceName, destGUID)
+					OnInterruptedCast(plate, ownerGUID or sourceGUID, sourceName, destGUID)
 				end
 
 				-- Set spell cast cache to finished
-				if SpellCastCache[sourceGUID] and (event ~= "SPELL_AURA_APPLIED" or spellCCList[spellName]) then
-					SpellCastCache[sourceGUID].finished = true
+				if SpellCastCache[destGUID] and (event ~= "SPELL_AURA_APPLIED" or spellCCList[spellName]) then
+					SpellCastCache[destGUID].finished = true
 				end
 			end
 		end
@@ -1725,9 +1738,12 @@ function NeatPlates:EnableCastBars() ShowCastBars = true end
 function NeatPlates.ColorCastBars(enable) ColorCastBars = enable end
 function NeatPlates:ToggleEmulatedTargetPlate(show) if not show then toggleNeatPlatesTarget(false) end; ShowEmulatedTargetPlate = show end
 
-function NeatPlates:ToggleInterruptedCastbars(showIntCast, showIntWhoCast) ShowIntCast = showIntCast; ShowIntWhoCast = showIntWhoCast end
 function NeatPlates:SetHealthUpdateMethod(useFrequent) FrequentHealthUpdate = useFrequent end
-function NeatPlates:ToggleServerIndicator(showIndicator) ShowServerIndicator = showIndicator end
+function NeatPlates:SetCoreVariables(LocalVars)
+	ShowIntCast = LocalVars.IntCastEnable
+	ShowIntWhoCast = LocalVars.IntCastWhoEnable
+	ShowServerIndicator = LocalVars.TextShowServerIndicator
+end
 
 function NeatPlates:ShowNameplateSize(show, width, height) ForEachPlate(function(plate) UpdateNameplateSize(plate, show, width, height) end) end
 
@@ -1740,6 +1756,15 @@ function NeatPlates:RequestUpdate(plate) if plate then SetUpdateMe(plate) else S
 function NeatPlates:ActivateTheme(theme) if theme and type(theme) == 'table' then NeatPlates.ActiveThemeTable, activetheme = theme, theme; ResetPlates = true; end end
 function NeatPlates.OverrideFonts(enable) OverrideFonts = enable; end
 function NeatPlates.OverrideOutline(enable) OverrideOutline = enable; end
+
+function NeatPlates.UpdateNameplateSize() UpdateNameplateSize() end
+
+function NeatPlates.THREAT_UPDATE(...)
+	local guid = select(3, ...)
+	local plate = PlatesByGUID[guid]
+
+	if plate then OnHealthUpdate(plate) end
+end
 
 -- Old and needing deleting - Just here to avoid errors
 function NeatPlates:EnableFadeIn() EnableFadeIn = true; end

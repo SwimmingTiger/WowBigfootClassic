@@ -40,6 +40,7 @@ StyleDefault.skullicon = {
 
 StyleDefault.castborder = {
 	texture =					path.."CastStop",
+	noicon =					path.."CastStop-noicon",
 	width = 128,
 	height = 64,
 	x = -11,
@@ -49,6 +50,7 @@ StyleDefault.castborder = {
 
 StyleDefault.castnostop = {
 	texture = 					path.."CastNoStop",
+	noicon = 					path.."CastNoStop-noicon",
 	width = 128,
 	height = 64,
 	x = -11,
@@ -298,6 +300,7 @@ StyleTextOnly.customtext.size = 13
 StyleTextOnly.customtext.width = 500
 StyleTextOnly.customtext.x = -6
 StyleTextOnly.customtext.y = 0
+StyleTextOnly.customtext.width = 500
 StyleTextOnly.level.show = false
 StyleTextOnly.castbar.y = -28
 StyleTextOnly.castbar.x = -6

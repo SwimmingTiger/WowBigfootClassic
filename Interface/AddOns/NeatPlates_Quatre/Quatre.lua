@@ -321,6 +321,7 @@ StyleTextOnly.eliteicon.texture = EmptyTexture
 StyleTextOnly.customtext.align = "CENTER"
 StyleTextOnly.customtext.size = fontsize - 2
 StyleTextOnly.customtext.y = VerticalAdjustment + 16
+StyleTextOnly.customtext.width = 500
 StyleTextOnly.level.show = false
 StyleTextOnly.skullicon.show = false
 StyleTextOnly.eliteicon.show = false
@@ -347,7 +348,6 @@ WidgetConfig.TotemIcon = { anchor = "RIGHT" , x = 23 ,y = VerticalAdjustment + 1
 WidgetConfig.ThreatLineWidget = { anchor =  "TOP", x = 0 ,y = VerticalAdjustment + 20 }	-- y = 20
 WidgetConfig.ThreatWheelWidget = { anchor =  "CENTER", x = 33 ,y = VerticalAdjustment + 27 } -- "CENTER", plate, 30, 18
 WidgetConfig.ComboWidget = { anchor = "TOP" , x = 0 ,y = VerticalAdjustment + 0 }
-WidgetConfig.RangeWidget = { anchor = "CENTER" , x = 0 ,y = VerticalAdjustment + 12 }
 WidgetConfig.DebuffWidget = { anchor = "BOTTOM", anchorRel = "TOP", x = 0 ,y = VerticalAdjustment + 10 }
 WidgetConfig.AbsorbWidget =	{ anchor="LEFT", x = 1, y = 4, w = 98, h = 8.5 }
 WidgetConfig.QuestWidget = { anchor = "LEFT" , x = -12,y = VerticalAdjustment + 16 }

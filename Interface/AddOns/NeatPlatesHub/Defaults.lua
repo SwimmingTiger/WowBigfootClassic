@@ -106,6 +106,8 @@ NeatPlatesHubDefaults = {
 	OpacityFilterNonElite = false,			-- OpacityHideNonElites = false,
 	OpacityFilterEnemyNPC = false,
 	OpacityFilterPlayers = false,
+	OpacityFilterPartyMembers = false,
+	OpacityFilterNonPartyMembers = false,
 	OpacityFilterFriendlyNPC = false,
 	OpacityFilterInactive = false,
 	OpacityFilterMini = false,
@@ -130,6 +132,7 @@ NeatPlatesHubDefaults = {
 	-- Text
 	---------------------------------------
 	TextShowLevel = false,
+	TextStatusForceShadow = false,
 	TextUseBlizzardFont = false,
 	TextHealthTextMode = 1,
 	TextShowOnlyOnTargets = false,
@@ -157,7 +160,7 @@ NeatPlatesHubDefaults = {
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 3,
+	HighlightTargetMode = 1,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -214,9 +217,10 @@ NeatPlatesHubDefaults = {
 	ColorSchoolShadow = {r = 0.5, g = 0.5, b = 1},
 	ColorSchoolArcane = {r = 1, g = 0.5, b = 1},
 	ColorCastBySchool = true,
-	SpellCastEnableFriendly = true,
+	SpellCastEnableFriendly = false,
 	IntCastEnable = true,
 	IntCastWhoEnable = true,
+	SpellIconEnable = true,
 
 	-- Status Text
 	---------------------------------------
@@ -249,7 +253,7 @@ NeatPlatesHubDefaults = {
 	WidgetComboPoints = true,
 	WidgetComboPointsStyle = 1,
 	WidgetComboPointsScaleOptions = {x = 1, y = 1, offset = {x = 0, y = 0}},
-	WidgetThreatIndicator = false,
+	WidgetThreatIndicator = true,
 	WidgetRangeIndicator = false,
 	WidgetRangeScale = false,
 	WidgetRangeMode = 1,

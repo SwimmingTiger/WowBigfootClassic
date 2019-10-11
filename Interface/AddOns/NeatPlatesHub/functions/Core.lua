@@ -39,6 +39,7 @@ local InstanceStatus = NeatPlatesUtility.InstanceStatus
 
 local LastErrorMessage = 0
 
+local EMPTY_TEXTURE = "Interface\\Addons\\NeatPlates\\Media\\Empty"
 
 -- Combat
 local IsEnemyTanked = NeatPlatesWidgets.IsEnemyTanked
@@ -258,14 +259,19 @@ local function ApplyCustomBarSize(style, defaults)
 
 	if defaults then
 		-- Alter Widths
+		-- Main Frame
+		local frameMod = math.max((LocalVars.FrameBarWidth or 1), (LocalVars.CastBarWidth or 1))
+
+		if defaults.frame.width then style.frame.width = defaults.frame.width * frameMod end
+		if defaults.frame.x then style.frame.x = defaults.frame.x * frameMod end
+
 		-- Healthbar
-		local Healthbar = {"threatborder", "healthborder", "healthbar", "frame", "customtext", "level", "name"}
+		local Healthbar = {"threatborder", "healthborder", "healthbar", "customtext", "level", "name"}
 		for k,v in pairs(Healthbar) do
 			if defaults[v].width then style[v].width = defaults[v].width * (LocalVars.FrameBarWidth or 1) end
 			if defaults[v].x then style[v].x = defaults[v].x * (LocalVars.FrameBarWidth or 1) end
 		end
 
-		
 		-- Castbar
 		local Castbar = {"castborder", "castnostop", "castbar", "spellicon", "spelltext", "durationtext"}
 		for k,v in pairs(Castbar) do
@@ -282,6 +288,22 @@ local function ApplyCustomBarSize(style, defaults)
 		style.target.width = style.target.width * (LocalVars.FrameBarWidth or 1)
 		style.focus.width = style.focus.width * (LocalVars.FrameBarWidth or 1)
 		style.mouseover.width = style.mouseover.width * (LocalVars.FrameBarWidth or 1)
+
+		-- Spelltext offset when durationtext is enabled
+		if style.spelltext and style.spelltext.durationtext then
+			local ref
+			if LocalVars.CastbarDurationMode ~= "None" then
+				ref = style.spelltext.durationtext	-- Override values
+			else
+				ref = defaults.spelltext -- Original values
+			end
+			for k,v in pairs(ref) do
+				if k == "width" or k == "x" then
+					v = v * (LocalVars.CastBarWidth or 1)
+				end
+				style.spelltext[k] = v
+			end
+		end
 	end
 end
 
@@ -325,24 +347,22 @@ local function ApplyStyleCustomization(style, defaults)
 	style.focus.show = (LocalVars.HighlightFocusMode > 2)
 	style.mouseover.show = (LocalVars.HighlightMouseoverMode > 2)
 	style.eliteicon.show = (LocalVars.WidgetEliteIndicator == true)
+	style.spellicon.show = (defaults.spellicon.show and LocalVars.SpellIconEnable)
+	style.customtext.shadow = LocalVars.TextStatusForceShadow or defaults.customtext.shadow
 	--style.rangeindicator.show = (LocalVars.WidgetRangeIndicator == true)
+
+	if not style.spellicon.show and style.castborder.noicon ~= EMPTY_TEXTURE and style.castnostop.noicon ~= EMPTY_TEXTURE then
+		style.castborder.texture = defaults.castborder.noicon
+		style.castnostop.texture = defaults.castnostop.noicon
+	else
+		style.castborder.texture = defaults.castborder.texture
+		style.castnostop.texture = defaults.castnostop.texture
+	end
+	
 
 	style.target.color = LocalVars.ColorTarget
 	style.focus.color = LocalVars.ColorFocus
 	style.mouseover.color = LocalVars.ColorMouseover
-
-	-- Spelltext offset when durationtext is enabled
-	if style.spelltext and style.spelltext.durationtext then
-		local ref
-		if LocalVars.CastbarDurationMode ~= "None" then
-			ref = style.spelltext.durationtext	-- Override values
-		else
-			ref = defaults.spelltext -- Original values
-		end
-		for k,v in pairs(ref) do
-			style.spelltext[k] = v
-		end
-	end
 
  	ApplyCustomBarSize(style, defaults)
 	ApplyFontCustomization(style, defaults)
@@ -396,8 +416,7 @@ local function ApplyProfileSettings(theme, source, ...)
 	NeatPlatesWidgets.SetEmphasizedSlots(math.ceil(LocalVars.EmphasizedSlots))
 
 	-- There might be a better way to handle these settings, but this works for now.
-	NeatPlates:ToggleInterruptedCastbars(LocalVars.IntCastEnable, LocalVars.IntCastWhoEnable)	-- Toggle Interrupt Castbar
-	--NeatPlates:ToggleServerIndicator(LocalVars.TextShowServerIndicator)	-- Toggle Server Indicator
+	NeatPlates:SetCoreVariables(LocalVars)
 
 	-- Toggle Threat lib activation for solo play
 	NeatPlatesUtility.RequestActiveOnSolo(LocalVars.ThreatSoloEnable)
@@ -407,6 +426,8 @@ local function ApplyProfileSettings(theme, source, ...)
 		C_NamePlate.SetNamePlateFriendlyClickThrough(LocalVars.StyleFriendlyBarsClickThrough or false)
 		C_NamePlate.SetNamePlateEnemyClickThrough(LocalVars.StyleEnemyBarsClickThrough or false)
 	end
+
+	NeatPlates.UpdateNameplateSize() -- Set/Update nameplate size
 
 	NeatPlates:ForceUpdate()
 	RaidClassColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS

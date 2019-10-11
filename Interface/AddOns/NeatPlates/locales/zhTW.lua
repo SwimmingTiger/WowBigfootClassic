@@ -75,7 +75,6 @@ L["CUSTOM_COLOR_CONDITION_TIP"] = [=[|cffCCCCCC顏色為16進位碼(#) 後面加
 - 單位名稱
 - 增益/減益名稱/法術ID
 - 血量門檻
-
 (例如: #A300FF 古翰幼體)
 |cffff9320優先順序為上到下]=]
 L["CVars could not applied due to combat"] = "戰鬥中無法套用 CVar 遊戲參數"
@@ -127,7 +126,9 @@ L["Filter Inactive"] = "過濾不在戰鬥中的"
 L["Filter Mini-Mobs"] = "過濾小小怪"
 L["Filter Neutral Units"] = "過濾中立單位"
 L["Filter Non-Elite"] = "過濾非精英怪"
+L["Filter Non-Party/Raid Members"] = "過濾非隊伍/團隊成員"
 L["Filter Non-Titled Friendly NPC"] = "過濾沒有頭銜的友方 NPC"
+L["Filter Party/Raid Members"] = "過濾隊伍/團隊成員"
 L["Filter Players"] = "過濾玩家"
 L["Filtered Unit Opacity"] = "被過濾單位的不透明度"
 L["Filtered Unit Scale"] = "被過濾單位的縮放大小"
@@ -140,6 +141,7 @@ L["Force Headline on Mini-Mobs"] = "小小怪只顯示名字"
 L["Force Headline on Neutral Units"] = "中立單位只顯示名字"
 L["Force Headline while Out-of-Combat"] = "非戰鬥中只顯示名字"
 L["Force Multi-Lingual Font (Requires /reload)"] = "永遠使用多國語言字體 (需要重新載入介面)"
+L["Force Shadow on Status Text"] = "狀態文字強制開啟陰影"
 L["Fourth Spec"] = "第四專精"
 L["Friendly Bar Color"] = "友方血條顏色"
 L["Friendly Headline Color"] = "友方名字顏色"
@@ -192,7 +194,6 @@ L["Import Settings from TidyPlatesContinued."] = "從舊版 Tidy 血條 (TidyPla
 L["Import TPC Settings"] = "匯入舊版設定"
 L["IMPORT_PROMPT_TEXT"] = [=[你似乎同時載入 Neat 血條和舊版 Tidy 血條 (TidyPlatesContinued)。
 是否要將此角色的舊版 Tidy 血條設定匯入到 Neat 血條中?
-
 (一旦匯入完成後便會停用舊版 Tidy 血條並且重新載入介面。
 你將會需要重新幫專精選擇設定檔，抱歉造成不便...)]=]
 L["Include All Auras"] = "包含所有光環"
@@ -304,6 +305,7 @@ L["Show Level"] = "顯示等級"
 L["Show on"] = "顯示於"
 L["Show Personal Resource on Target"] = "在目標血條上顯示個人資源"
 L["Show Quest Icon on Units"] = "顯示任務圖示"
+L["Show Spell Icon"] = "顯示法術圖示"
 L["Show Status Text on Active/Damaged Units"] = "戰鬥中/受攻擊單位顯示狀態文字"
 L["Show Status Text on Target & Mouseover"] = "選取目標 & 滑鼠指向單位顯示狀態文字"
 L["Show Target Highlight"] = "顯著標示選取目標"
@@ -329,10 +331,14 @@ L["Tank"] = "坦克"
 L["Tapped Unit"] = "無效單位"
 L["Target Highlighting"] = "當前目標顯著標示"
 L["Target Of"] = "目標屬於誰"
+L["Target Of (Class Colored)"] = "目標屬於誰 (職業顏色)"
 L["Target Only"] = "只有選取目標"
 L["Target Unit"] = "選取目標單位"
 L["Text Color"] = "文字顏色"
 L["The amount of Emphasized auras that can be displayed at once"] = "同時能夠顯示出來的強調光環最多數量"
+L[ [=[The amount of empty aura slots between Buffs & Debuffs.
+Max value means they never share a row]=] ] = [=[增益 & 減益之間的空光環個數。
+最大數值表示兩者永遠不會在同一個橫列。]=]
 L[ [=[The amount of empty aura slots between Buffs & Debuffs.
 Max value means they never share a row]=] ] = [=[增益 & 減益之間的空光環個數。
 最大數值表示兩者永遠不會在同一個橫列。]=]
@@ -375,3 +381,4 @@ L["White"] = "白色"
 L["Wide"] = "較寬"
 L["You need to specify a 'Profile Name'."] = "請輸入 '設定檔名稱'。"
 L["Your 'Out of Range' distance"] = "你的 '超出範圍' 距離"
+

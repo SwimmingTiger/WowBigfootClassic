@@ -137,12 +137,14 @@ L["Friendly Status Text"] = true
 	L["Health Deficit"] = true
 	L["Health Total & Percent"] = true
 	L["Target Of"] = true
+	L["Target Of (Class Colored)"] = true
 	L["Level"] = true
 	L["Level and Approx Health"] = true
 	L["Arena ID"] = true
 	L["Arena ID, Health, and Power"] = true
 
 L["Show Level"] = true
+L["Force Shadow on Status Text"] = true
 L["Show Different Server Indicator (*)"] = true
 L["Show Status Text on Target & Mouseover"] = true
 L["Show Status Text on Active/Damaged Units"] = true
@@ -287,6 +289,8 @@ L["Filter Friendly NPC"] = true
 L["Filter Non-Titled Friendly NPC"] = true
 
 L["Filter Players"] = true
+L["Filter Party/Raid Members"] = true
+L["Filter Non-Party/Raid Members"] = true
 L["Filter Inactive"] = true
 L["Filter Mini-Mobs"] = true
 
@@ -392,6 +396,7 @@ L["Castbar Duration Style"] = true
 	L["Time Remaining"] = true
 	L["Time Elapsed"] = true
 	L["Time Elapsed/Cast Time"] = true
+L["Show Spell Icon"] = true
 L["Show Friendly Cast Bars"] = true
 L["Show Interrupted Cast Bar"] = true
 L["Show who Interrupted Cast"] = true
