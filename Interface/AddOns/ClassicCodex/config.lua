@@ -5,17 +5,17 @@ CodexColors = {}
 
 DefaultCodexConfig = {
     ["trackingMethod"] = 1, -- 1: All Quests; 2: Tracked Quests; 3: Manual; 4: Hide
-    ["autoAccept"] = true, -- Auto-accept quests
-    ["autoTurnin"] = true, -- Auto-turnin quests
-    ["nameplateIcon"] = true, -- Show quest icon above nameplates
+    ["autoAccept"] = false, -- Auto-accept quests
+    ["autoTurnin"] = false, -- Auto-turnin quests
+    ["nameplateIcon"] = false, -- Show quest icon above nameplates
     ["allQuestGivers"] = true, -- Show available quest givers
     ["currentQuestGivers"] = true, -- Show current quest giver nodes
     ["showLowLevel"] = false, -- Show low level quest giver nodes
     ["showHighLevel"] = true, -- Show level+3 quest giver nodes
-    ["showFestival"] = true, -- Show event quest giver nodes
+    ["showFestival"] = false, -- Show event quest giver nodes
     ["colorBySpawn"] = true,
-    ["questMarkerSize"] = 14,
-    ["spawnMarkerSize"] = 10,
+    ["questMarkerSize"] = 15,
+    ["spawnMarkerSize"] = 15,
     ["minimumDropChance"] = 2, -- (%) Hide markers with a drop probability less than this value
 }
 
