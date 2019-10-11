@@ -100,11 +100,7 @@ function TestMode:SetCastbarMovable(unitID, parent)
     local castbar = ClassicCastbars:GetCastbarFrame(unitID)
     castbar:EnableMouse(true)
     castbar:SetMovable(true)
-
-    if unitID ~= "nameplate" then
-        -- restricted frames can't be clamped
-        castbar:SetClampedToScreen(true)
-    end
+    castbar:SetClampedToScreen(true)
 
     castbar.tooltip = castbar.tooltip or castbar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
     castbar.tooltip:SetPoint("TOP", castbar, 0, 15)
@@ -133,10 +129,18 @@ function TestMode:SetCastbarMovable(unitID, parent)
         parentFrame:Show()
     end
 
-    castbar:ClearAllPoints() -- needed here to work with restricted frames
     if unitID == "player" then
-        castbar:Show()
+        castbar.Text:SetText(dummySpellData.spellName)
+        castbar.Icon:SetTexture(dummySpellData.icon)
+        castbar.Flash:SetAlpha(0)
+        castbar.casting = nil
+		castbar.channeling = nil
+		castbar.holdTime = 0
+        castbar.fadeOut = nil
+        castbar.flash = nil
+        castbar:SetStatusBarColor(castbar.startCastColor:GetRGB())
         castbar:SetAlpha(1)
+        castbar:Show()
     else
         ClassicCastbars:DisplayCastbar(castbar, unitID)
     end
@@ -151,6 +155,7 @@ function TestMode:SetCastbarImmovable(unitID)
     castbar.parent = nil
     castbar.isTesting = nil
     castbar:EnableMouse(false)
+    castbar.holdTime = 0
 
     if unitID == "party-testmode" then
         local parentFrame = castbar.parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)

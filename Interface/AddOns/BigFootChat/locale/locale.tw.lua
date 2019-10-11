@@ -15,6 +15,7 @@ L["Enable Class Color"]="顯示職業顏色"
 L["Enable Level"]="顯示級別"
 L["Please Do Not Talk Too Fast"]="請不要過快發言。"
 L["Please Do Not Send Same Message In 5s"]=" 5秒內請不要再次發送重複內容。"
+L["Please Do Not Send Same Message In 10s"]=" 10秒內請不要再次發送重複內容。"
 L["Kindly Reminder"]={"【大脚温馨提示】：新版魔獸大腳現已支持台服，仍在使用老闆客戶端的用戶請前往http://bigfoot.178.com/下載使用。",}
 L["RollDice"] = "擲骰子"
 L["Report"] = "個人屬性通報"

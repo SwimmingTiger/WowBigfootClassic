@@ -178,6 +178,9 @@ t[12233] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Mystery Stew"],
+	learnedAt = 175,
 }
 t[12240] = {
 	name = L["Recipe: Heavy Kodo Stew"],
@@ -186,6 +189,9 @@ t[12240] = {
 	buyPrice = 7000,
 	sellPrice = 1750,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Heavy Kodo Stew"],
+	learnedAt = 200,
 }
 t[2524] = {
 	name = L["Truncheon"],
@@ -242,6 +248,9 @@ t[10858] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Solid Iron Maul"],
+	learnedAt = 155,
 }
 t[2320] = {
 	name = L["Coarse Thread"],
@@ -482,6 +491,9 @@ t[7114] = {
 	buyPrice = 1000,
 	sellPrice = 250,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Azure Silk Gloves"],
+	learnedAt = 145,
 }
 t[8343] = {
 	name = L["Heavy Silken Thread"],
@@ -506,6 +518,9 @@ t[12232] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Carrion Surprise"],
+	learnedAt = 175,
 }
 t[4540] = {
 	name = L["Tough Hunk of Bread"],
@@ -802,6 +817,9 @@ t[6369] = {
 	buyPrice = 2200,
 	sellPrice = 550,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Rockscale Cod"],
+	learnedAt = 175,
 }
 t[16072] = {
 	name = L["Expert Cookbook"],
@@ -810,6 +828,9 @@ t[16072] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Cooking"],
+	learnedAt = 125,
 }
 t[17062] = {
 	name = L["Recipe: Mithril Head Trout"],
@@ -818,6 +839,9 @@ t[17062] = {
 	buyPrice = 2200,
 	sellPrice = 550,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Mithril Headed Trout"],
+	learnedAt = 175,
 }
 t[21099] = {
 	name = L["Recipe: Smoked Sagefish"],
@@ -826,6 +850,9 @@ t[21099] = {
 	buyPrice = 500,
 	sellPrice = 125,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Smoked Sagefish"],
+	learnedAt = 80,
 }
 t[21219] = {
 	name = L["Recipe: Sagefish Delight"],
@@ -834,6 +861,9 @@ t[21219] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Sagefish Delight"],
+	learnedAt = 175,
 }
 t[2522] = {
 	name = L["Crescent Axe"],
@@ -898,6 +928,9 @@ t[3735] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Hot Lion Chops"],
+	learnedAt = 125,
 }
 t[3827] = {
 	name = L["Mana Potion"],
@@ -914,6 +947,9 @@ t[5489] = {
 	buyPrice = 1200,
 	sellPrice = 300,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Lean Venison"],
+	learnedAt = 110,
 }
 t[12228] = {
 	name = L["Recipe: Roast Raptor"],
@@ -922,6 +958,9 @@ t[12228] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Roast Raptor"],
+	learnedAt = 175,
 }
 t[12231] = {
 	name = L["Recipe: Jungle Stew"],
@@ -930,6 +969,9 @@ t[12231] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Jungle Stew"],
+	learnedAt = 175,
 }
 t[1477] = {
 	name = L["Scroll of Agility II"],
@@ -970,6 +1012,9 @@ t[3734] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Big Bear Steak"],
+	learnedAt = 110,
 }
 t[4421] = {
 	name = L["Scroll of Protection III"],
@@ -994,6 +1039,9 @@ t[4609] = {
 	buyPrice = 1000,
 	sellPrice = 250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Barbecued Buzzard Wing"],
+	learnedAt = 175,
 }
 t[12227] = {
 	name = L["Recipe: Lean Wolf Steak"],
@@ -1002,6 +1050,9 @@ t[12227] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Lean Wolf Steak"],
+	learnedAt = 125,
 }
 t[12229] = {
 	name = L["Recipe: Hot Wolf Ribs"],
@@ -1010,6 +1061,9 @@ t[12229] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Hot Wolf Ribs"],
+	learnedAt = 175,
 }
 t[12239] = {
 	name = L["Recipe: Dragonbreath Chili"],
@@ -1018,6 +1072,9 @@ t[12239] = {
 	buyPrice = 7000,
 	sellPrice = 1750,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Dragonbreath Chili"],
+	learnedAt = 200,
 }
 t[2507] = {
 	name = L["Laminated Recurve Bow"],
@@ -1450,6 +1507,9 @@ t[11039] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Minor Agility"],
+	learnedAt = 110,
 }
 t[11101] = {
 	name = L["Formula: Enchant Bracer - Lesser Strength"],
@@ -1458,6 +1518,9 @@ t[11101] = {
 	buyPrice = 2500,
 	sellPrice = 625,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Lesser Strength"],
+	learnedAt = 140,
 }
 t[929] = {
 	name = L["Healing Potion"],
@@ -1482,6 +1545,9 @@ t[6054] = {
 	buyPrice = 900,
 	sellPrice = 225,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Shadow Protection Potion"],
+	learnedAt = 135,
 }
 t[18256] = {
 	name = L["Imbued Vial"],
@@ -1506,6 +1572,9 @@ t[5973] = {
 	buyPrice = 650,
 	sellPrice = 162,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Barbaric Leggings"],
+	learnedAt = 170,
 }
 t[6260] = {
 	name = L["Blue Dye"],
@@ -2090,6 +2159,9 @@ t[20075] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Heavy Crocolisk Stew"],
+	learnedAt = 150,
 }
 t[12251] = {
 	name = L["Big Stick"],
@@ -2266,6 +2338,9 @@ t[5789] = {
 	buyPrice = 2800,
 	sellPrice = 700,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Murloc Scale Bracers"],
+	learnedAt = 190,
 }
 t[22250] = {
 	name = L["Herb Pouch"],
@@ -2282,6 +2357,9 @@ t[4355] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Icy Cloak"],
+	learnedAt = 200,
 }
 t[954] = {
 	name = L["Scroll of Strength"],
@@ -2322,6 +2400,9 @@ t[16084] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["First Aid"],
+	teaches = L["First Aid"],
+	learnedAt = 125,
 }
 t[16112] = {
 	name = L["Manual: Heavy Silk Bandage"],
@@ -2330,6 +2411,9 @@ t[16112] = {
 	buyPrice = 2200,
 	sellPrice = 550,
 	reqLevel = 0,
+	profession = L["First Aid"],
+	teaches = L["Heavy Silk Bandage"],
+	learnedAt = 180,
 }
 t[16113] = {
 	name = L["Manual: Mageweave Bandage"],
@@ -2338,6 +2422,9 @@ t[16113] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["First Aid"],
+	teaches = L["Mageweave Bandage"],
+	learnedAt = 210,
 }
 t[785] = {
 	name = L["Mageroyal"],
@@ -2394,6 +2481,9 @@ t[6055] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Fire Protection Potion"],
+	learnedAt = 165,
 }
 t[4827] = {
 	name = L["Wizard's Belt"],
@@ -2450,6 +2540,9 @@ t[7561] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Goblin Jumper Cables"],
+	learnedAt = 165,
 }
 t[11304] = {
 	name = L["Fine Longbow"],
@@ -2466,6 +2559,9 @@ t[6068] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Shadow Oil"],
+	learnedAt = 165,
 }
 t[7228] = {
 	name = L["Tigule and Foror's Strawberry Ice Cream"],
@@ -2554,6 +2650,9 @@ t[7560] = {
 	buyPrice = 1200,
 	sellPrice = 300,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Gnomish Universal Remote"],
+	learnedAt = 125,
 }
 t[10647] = {
 	name = L["Engineer's Ink"],
@@ -2578,6 +2677,9 @@ t[13309] = {
 	buyPrice = 1000,
 	sellPrice = 250,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Lovingly Crafted Boomstick"],
+	learnedAt = 120,
 }
 t[2509] = {
 	name = L["Ornate Blunderbuss"],
@@ -2610,6 +2712,9 @@ t[6047] = {
 	buyPrice = 4400,
 	sellPrice = 1100,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Coif"],
+	learnedAt = 190,
 }
 t[18567] = {
 	name = L["Elemental Flux"],
@@ -2626,6 +2731,9 @@ t[6057] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Nature Protection Potion"],
+	learnedAt = 190,
 }
 t[9303] = {
 	name = L["Recipe: Philosopher's Stone"],
@@ -2634,6 +2742,9 @@ t[9303] = {
 	buyPrice = 8000,
 	sellPrice = 2000,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Philosophers' Stone"],
+	learnedAt = 225,
 }
 t[9304] = {
 	name = L["Recipe: Transmute Iron to Gold"],
@@ -2642,6 +2753,9 @@ t[9304] = {
 	buyPrice = 8000,
 	sellPrice = 2000,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Iron to Gold"],
+	learnedAt = 225,
 }
 t[9305] = {
 	name = L["Recipe: Transmute Mithril to Truesilver"],
@@ -2650,6 +2764,9 @@ t[9305] = {
 	buyPrice = 8000,
 	sellPrice = 2000,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Mithril to Truesilver"],
+	learnedAt = 225,
 }
 t[12958] = {
 	name = L["Recipe: Transmute Arcanite"],
@@ -2658,6 +2775,9 @@ t[12958] = {
 	buyPrice = 50000,
 	sellPrice = 12500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Arcanite"],
+	learnedAt = 275,
 }
 t[7088] = {
 	name = L["Pattern: Crimson Silk Robe"],
@@ -2666,6 +2786,9 @@ t[7088] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Crimson Silk Robe"],
+	learnedAt = 205,
 }
 t[21358] = {
 	name = L["Pattern: Soul Pouch"],
@@ -2674,6 +2797,9 @@ t[21358] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Soul Pouch"],
+	learnedAt = 260,
 }
 t[8529] = {
 	name = L["Noggenfogger Elixir"],
@@ -2690,6 +2816,9 @@ t[18046] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Tender Wolf Steak"],
+	learnedAt = 225,
 }
 t[2423] = {
 	name = L["Brigandine Vest"],
@@ -2834,6 +2963,9 @@ t[18650] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["EZ-Thro Dynamite II"],
+	learnedAt = 200,
 }
 t[13939] = {
 	name = L["Recipe: Spotted Yellowtail"],
@@ -2842,6 +2974,9 @@ t[13939] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Spotted Yellowtail"],
+	learnedAt = 225,
 }
 t[13942] = {
 	name = L["Recipe: Grilled Squid"],
@@ -2850,6 +2985,9 @@ t[13942] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Grilled Squid"],
+	learnedAt = 240,
 }
 t[13945] = {
 	name = L["Recipe: Nightfin Soup"],
@@ -2858,6 +2996,9 @@ t[13945] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Nightfin Soup"],
+	learnedAt = 250,
 }
 t[13946] = {
 	name = L["Recipe: Poached Sunscale Salmon"],
@@ -2866,6 +3007,9 @@ t[13946] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Poached Sunscale Salmon"],
+	learnedAt = 250,
 }
 t[16767] = {
 	name = L["Recipe: Undermine Clam Chowder"],
@@ -2874,6 +3018,9 @@ t[16767] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Undermine Clam Chowder"],
+	learnedAt = 225,
 }
 t[7089] = {
 	name = L["Pattern: Azure Silk Cloak"],
@@ -2882,6 +3029,9 @@ t[7089] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Azure Silk Cloak"],
+	learnedAt = 175,
 }
 t[10684] = {
 	name = L["Colossal Parachute"],
@@ -2906,6 +3056,9 @@ t[7451] = {
 	buyPrice = 2800,
 	sellPrice = 700,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Green Whelp Bracers"],
+	learnedAt = 190,
 }
 t[8385] = {
 	name = L["Pattern: Turtle Scale Gloves"],
@@ -2914,6 +3067,9 @@ t[8385] = {
 	buyPrice = 3500,
 	sellPrice = 875,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Turtle Scale Gloves"],
+	learnedAt = 205,
 }
 t[15734] = {
 	name = L["Pattern: Living Shoulders"],
@@ -2922,6 +3078,9 @@ t[15734] = {
 	buyPrice = 14000,
 	sellPrice = 3500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Living Shoulders"],
+	learnedAt = 270,
 }
 t[8409] = {
 	name = L["Pattern: Nightscape Shoulders"],
@@ -2930,6 +3089,9 @@ t[8409] = {
 	buyPrice = 4000,
 	sellPrice = 1000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Nightscape Shoulders"],
+	learnedAt = 210,
 }
 t[11020] = {
 	name = L["Evergreen Pouch"],
@@ -2954,6 +3116,9 @@ t[13947] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Lobster Stew"],
+	learnedAt = 275,
 }
 t[13948] = {
 	name = L["Recipe: Mightfish Steak"],
@@ -2962,6 +3127,9 @@ t[13948] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Mightfish Steak"],
+	learnedAt = 275,
 }
 t[13949] = {
 	name = L["Recipe: Baked Salmon"],
@@ -2970,6 +3138,9 @@ t[13949] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Baked Salmon"],
+	learnedAt = 275,
 }
 t[3928] = {
 	name = L["Superior Healing Potion"],
@@ -2994,6 +3165,9 @@ t[9302] = {
 	buyPrice = 9000,
 	sellPrice = 2250,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Ghost Dye"],
+	learnedAt = 245,
 }
 t[2429] = {
 	name = L["Russet Vest"],
@@ -3194,6 +3368,9 @@ t[19027] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Snake Burst Firework"],
+	learnedAt = 250,
 }
 t[851] = {
 	name = L["Cutlass"],
@@ -3306,6 +3483,9 @@ t[5486] = {
 	buyPrice = 440,
 	sellPrice = 110,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Strider Stew"],
+	learnedAt = 50,
 }
 t[5488] = {
 	name = L["Recipe: Crispy Lizard Tail"],
@@ -3314,6 +3494,9 @@ t[5488] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Crispy Lizard Tail"],
+	learnedAt = 100,
 }
 t[847] = {
 	name = L["Chainmail Armor"],
@@ -3370,6 +3553,9 @@ t[5772] = {
 	buyPrice = 500,
 	sellPrice = 125,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Red Woolen Bag"],
+	learnedAt = 115,
 }
 t[6270] = {
 	name = L["Pattern: Blue Linen Vest"],
@@ -3378,6 +3564,9 @@ t[6270] = {
 	buyPrice = 200,
 	sellPrice = 50,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Blue Linen Vest"],
+	learnedAt = 55,
 }
 t[6272] = {
 	name = L["Pattern: Blue Linen Robe"],
@@ -3386,6 +3575,9 @@ t[6272] = {
 	buyPrice = 300,
 	sellPrice = 75,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Blue Linen Robe"],
+	learnedAt = 70,
 }
 t[3428] = {
 	name = L["Common Gray Shirt"],
@@ -3482,6 +3674,9 @@ t[6053] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Holy Protection Potion"],
+	learnedAt = 100,
 }
 t[2024] = {
 	name = L["Espadon"],
@@ -3706,6 +3901,9 @@ t[18648] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Green Firework"],
+	learnedAt = 150,
 }
 t[6330] = {
 	name = L["Recipe: Bristle Whisker Catfish"],
@@ -3714,6 +3912,9 @@ t[6330] = {
 	buyPrice = 1200,
 	sellPrice = 300,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Bristle Whisker Catfish"],
+	learnedAt = 100,
 }
 t[6368] = {
 	name = L["Recipe: Rainbow Fin Albacore"],
@@ -3722,6 +3923,9 @@ t[6368] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Rainbow Fin Albacore"],
+	learnedAt = 50,
 }
 t[5640] = {
 	name = L["Recipe: Rage Potion"],
@@ -3730,6 +3934,9 @@ t[5640] = {
 	buyPrice = 100,
 	sellPrice = 25,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Rage Potion"],
+	learnedAt = 60,
 }
 t[6275] = {
 	name = L["Pattern: Greater Adept's Robe"],
@@ -3738,6 +3945,9 @@ t[6275] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Greater Adept's Robe"],
+	learnedAt = 115,
 }
 t[858] = {
 	name = L["Lesser Healing Potion"],
@@ -3794,6 +4004,9 @@ t[6274] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Blue Overalls"],
+	learnedAt = 100,
 }
 t[16110] = {
 	name = L["Recipe: Monster Omelet"],
@@ -3802,6 +4015,9 @@ t[16110] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Monster Omelet"],
+	learnedAt = 225,
 }
 t[2528] = {
 	name = L["Falchion"],
@@ -3866,6 +4082,9 @@ t[14469] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Robe"],
+	learnedAt = 260,
 }
 t[14472] = {
 	name = L["Pattern: Runecloth Cloak"],
@@ -3874,6 +4093,9 @@ t[14472] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Cloak"],
+	learnedAt = 265,
 }
 t[14488] = {
 	name = L["Pattern: Runecloth Boots"],
@@ -3882,6 +4104,9 @@ t[14488] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Boots"],
+	learnedAt = 280,
 }
 t[14483] = {
 	name = L["Pattern: Felcloth Pants"],
@@ -3890,6 +4115,9 @@ t[14483] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Pants"],
+	learnedAt = 275,
 }
 t[16224] = {
 	name = L["Formula: Enchant Cloak - Superior Defense"],
@@ -3898,6 +4126,9 @@ t[16224] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Superior Defense"],
+	learnedAt = 285,
 }
 t[16243] = {
 	name = L["Formula: Runed Arcanite Rod"],
@@ -3906,6 +4137,9 @@ t[16243] = {
 	buyPrice = 22000,
 	sellPrice = 5500,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Runed Arcanite Rod"],
+	learnedAt = 290,
 }
 t[2470] = {
 	name = L["Reinforced Leather Vest"],
@@ -4002,6 +4236,9 @@ t[16046] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Masterwork Target Dummy"],
+	learnedAt = 275,
 }
 t[16047] = {
 	name = L["Schematic: Thorium Tube"],
@@ -4010,6 +4247,9 @@ t[16047] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Thorium Tube"],
+	learnedAt = 275,
 }
 t[16050] = {
 	name = L["Schematic: Delicate Arcanite Converter"],
@@ -4018,6 +4258,9 @@ t[16050] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Delicate Arcanite Converter"],
+	learnedAt = 285,
 }
 t[18652] = {
 	name = L["Schematic: Gyrofreeze Ice Reflector"],
@@ -4026,6 +4269,9 @@ t[18652] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Gyrofreeze Ice Reflector"],
+	learnedAt = 260,
 }
 t[18656] = {
 	name = L["Schematic: Powerful Seaforium Charge"],
@@ -4034,6 +4280,9 @@ t[18656] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Powerful Seaforium Charge"],
+	learnedAt = 275,
 }
 t[13480] = {
 	name = L["Recipe: Major Healing Potion"],
@@ -4042,6 +4291,9 @@ t[13480] = {
 	buyPrice = 15000,
 	sellPrice = 3750,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Major Healing Potion"],
+	learnedAt = 275,
 }
 t[14468] = {
 	name = L["Pattern: Runecloth Bag"],
@@ -4050,6 +4302,9 @@ t[14468] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Bag"],
+	learnedAt = 260,
 }
 t[14481] = {
 	name = L["Pattern: Runecloth Gloves"],
@@ -4058,6 +4313,9 @@ t[14481] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Gloves"],
+	learnedAt = 275,
 }
 t[14526] = {
 	name = L["Pattern: Mooncloth"],
@@ -4066,6 +4324,9 @@ t[14526] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth"],
+	learnedAt = 250,
 }
 t[15740] = {
 	name = L["Pattern: Frostsaber Boots"],
@@ -4074,6 +4335,9 @@ t[15740] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Frostsaber Boots"],
+	learnedAt = 275,
 }
 t[16221] = {
 	name = L["Formula: Enchant Chest - Major Health"],
@@ -4082,6 +4346,9 @@ t[16221] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Chest - Major Health"],
+	learnedAt = 275,
 }
 t[5786] = {
 	name = L["Pattern: Murloc Scale Belt"],
@@ -4090,6 +4357,9 @@ t[5786] = {
 	buyPrice = 550,
 	sellPrice = 137,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Murloc Scale Belt"],
+	learnedAt = 90,
 }
 t[5787] = {
 	name = L["Pattern: Murloc Scale Breastplate"],
@@ -4098,6 +4368,9 @@ t[5787] = {
 	buyPrice = 600,
 	sellPrice = 150,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Murloc Scale Breastplate"],
+	learnedAt = 95,
 }
 t[1202] = {
 	name = L["Wall Shield"],
@@ -4122,6 +4395,9 @@ t[5771] = {
 	buyPrice = 200,
 	sellPrice = 50,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Red Linen Bag"],
+	learnedAt = 70,
 }
 t[5485] = {
 	name = L["Recipe: Fillet of Frenzy"],
@@ -4130,6 +4406,9 @@ t[5485] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Fillet of Frenzy"],
+	learnedAt = 50,
 }
 t[5528] = {
 	name = L["Recipe: Clam Chowder"],
@@ -4138,6 +4417,9 @@ t[5528] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Clam Chowder"],
+	learnedAt = 90,
 }
 t[15758] = {
 	name = L["Pattern: Devilsaur Gauntlets"],
@@ -4146,6 +4428,9 @@ t[15758] = {
 	buyPrice = 22000,
 	sellPrice = 5500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Devilsaur Gauntlets"],
+	learnedAt = 290,
 }
 t[15724] = {
 	name = L["Pattern: Heavy Scorpid Bracers"],
@@ -4154,6 +4439,9 @@ t[15724] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Bracers"],
+	learnedAt = 255,
 }
 t[15762] = {
 	name = L["Pattern: Heavy Scorpid Helm"],
@@ -4162,6 +4450,9 @@ t[15762] = {
 	buyPrice = 25000,
 	sellPrice = 6250,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Helm"],
+	learnedAt = 295,
 }
 t[1194] = {
 	name = L["Bastard Sword"],
@@ -4618,6 +4909,9 @@ t[5483] = {
 	buyPrice = 140,
 	sellPrice = 35,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Scorpid Surprise"],
+	learnedAt = 20,
 }
 t[6326] = {
 	name = L["Recipe: Slitherskin Mackerel"],
@@ -4626,6 +4920,9 @@ t[6326] = {
 	buyPrice = 40,
 	sellPrice = 10,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Slitherskin Mackerel"],
+	learnedAt = 1,
 }
 t[16302] = {
 	name = L["Grimoire of Firebolt (Rank 2)"],
@@ -5250,6 +5547,9 @@ t[6325] = {
 	buyPrice = 40,
 	sellPrice = 10,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Brilliant Smallfish"],
+	learnedAt = 1,
 }
 t[6328] = {
 	name = L["Recipe: Longjaw Mud Snapper"],
@@ -5258,6 +5558,9 @@ t[6328] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Longjaw Mud Snapper"],
+	learnedAt = 50,
 }
 t[2510] = {
 	name = L["Solid Blunderbuss"],
@@ -5274,6 +5577,9 @@ t[5484] = {
 	buyPrice = 240,
 	sellPrice = 60,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Roasted Kodo Meat"],
+	learnedAt = 35,
 }
 t[15277] = {
 	name = L["Gray Kodo"],
@@ -5322,6 +5628,9 @@ t[12164] = {
 	buyPrice = 4400,
 	sellPrice = 1100,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Massive Iron Axe"],
+	learnedAt = 185,
 }
 t[3682] = {
 	name = L["Recipe: Curiously Tasty Omelet"],
@@ -5330,6 +5639,9 @@ t[3682] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Curiously Tasty Omelet"],
+	learnedAt = 130,
 }
 t[16111] = {
 	name = L["Recipe: Spiced Chili Crab"],
@@ -5338,6 +5650,9 @@ t[16111] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Spiced Chili Crab"],
+	learnedAt = 225,
 }
 t[12163] = {
 	name = L["Plans: Moonsteel Broadsword"],
@@ -5346,6 +5661,9 @@ t[12163] = {
 	buyPrice = 4400,
 	sellPrice = 1100,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Moonsteel Broadsword"],
+	learnedAt = 180,
 }
 t[12252] = {
 	name = L["Staff of Protection"],
@@ -5386,6 +5704,9 @@ t[10728] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Black Swashbuckler's Shirt"],
+	learnedAt = 200,
 }
 t[6039] = {
 	name = L["Recipe: Giant Clam Scorcho"],
@@ -5394,6 +5715,9 @@ t[6039] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Giant Clam Scorcho"],
+	learnedAt = 175,
 }
 t[13940] = {
 	name = L["Recipe: Cooked Glossy Mightfish"],
@@ -5402,6 +5726,9 @@ t[13940] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Cooked Glossy Mightfish"],
+	learnedAt = 225,
 }
 t[13941] = {
 	name = L["Recipe: Filet of Redgill"],
@@ -5410,6 +5737,9 @@ t[13941] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Filet of Redgill"],
+	learnedAt = 225,
 }
 t[13943] = {
 	name = L["Recipe: Hot Smoked Bass"],
@@ -5418,6 +5748,9 @@ t[13943] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Hot Smoked Bass"],
+	learnedAt = 240,
 }
 t[7087] = {
 	name = L["Pattern: Crimson Silk Cloak"],
@@ -5426,6 +5759,9 @@ t[7087] = {
 	buyPrice = 1200,
 	sellPrice = 300,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Crimson Silk Cloak"],
+	learnedAt = 180,
 }
 t[14630] = {
 	name = L["Pattern: Enchanter's Cowl"],
@@ -5434,6 +5770,9 @@ t[14630] = {
 	buyPrice = 1000,
 	sellPrice = 250,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Enchanter's Cowl"],
+	learnedAt = 165,
 }
 t[10318] = {
 	name = L["Pattern: Admiral's Hat"],
@@ -5442,6 +5781,9 @@ t[10318] = {
 	buyPrice = 7000,
 	sellPrice = 1750,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Admiral's Hat"],
+	learnedAt = 240,
 }
 t[13310] = {
 	name = L["Schematic: Accurate Scope"],
@@ -5450,6 +5792,9 @@ t[13310] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Accurate Scope"],
+	learnedAt = 180,
 }
 t[18651] = {
 	name = L["Schematic: Truesilver Transformer"],
@@ -5458,6 +5803,9 @@ t[18651] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Truesilver Transformer"],
+	learnedAt = 260,
 }
 t[13311] = {
 	name = L["Schematic: Mechanical Dragonling"],
@@ -5466,6 +5814,9 @@ t[13311] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Mechanical Dragonling"],
+	learnedAt = 200,
 }
 t[14635] = {
 	name = L["Pattern: Gem-studded Leather Belt"],
@@ -5474,6 +5825,9 @@ t[14635] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Gem-studded Leather Belt"],
+	learnedAt = 185,
 }
 t[18239] = {
 	name = L["Pattern: Shadowskin Gloves"],
@@ -5482,6 +5836,9 @@ t[18239] = {
 	buyPrice = 3500,
 	sellPrice = 875,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Shadowskin Gloves"],
+	learnedAt = 200,
 }
 t[2593] = {
 	name = L["Flask of Stormwind Tawny"],
@@ -5554,6 +5911,9 @@ t[12162] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Hardened Iron Shortsword"],
+	learnedAt = 160,
 }
 t[12257] = {
 	name = L["Heavy Notched Belt"],
@@ -5570,6 +5930,9 @@ t[5788] = {
 	buyPrice = 650,
 	sellPrice = 162,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Thick Murloc Armor"],
+	learnedAt = 170,
 }
 t[6056] = {
 	name = L["Recipe: Frost Protection Potion"],
@@ -5578,6 +5941,9 @@ t[6056] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Frost Protection Potion"],
+	learnedAt = 190,
 }
 t[7337] = {
 	name = L["The Rock"],
@@ -5634,6 +6000,9 @@ t[10602] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Deadly Scope"],
+	learnedAt = 210,
 }
 t[10609] = {
 	name = L["Schematic: Mithril Mechanical Dragonling"],
@@ -5642,6 +6011,9 @@ t[10609] = {
 	buyPrice = 4000,
 	sellPrice = 1000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Mithril Mechanical Dragonling"],
+	learnedAt = 250,
 }
 t[2686] = {
 	name = L["Thunder Ale"],
@@ -5666,6 +6038,9 @@ t[7995] = {
 	buyPrice = 6000,
 	sellPrice = 1500,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Mithril Scale Bracers"],
+	learnedAt = 215,
 }
 t[15735] = {
 	name = L["Pattern: Ironfeather Shoulders"],
@@ -5674,6 +6049,9 @@ t[15735] = {
 	buyPrice = 14000,
 	sellPrice = 3500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Ironfeather Shoulders"],
+	learnedAt = 270,
 }
 t[13288] = {
 	name = L["Pattern: Raptor Hide Belt"],
@@ -5682,6 +6060,9 @@ t[13288] = {
 	buyPrice = 2500,
 	sellPrice = 625,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Raptor Hide Belt"],
+	learnedAt = 165,
 }
 t[13287] = {
 	name = L["Pattern: Raptor Hide Harness"],
@@ -5690,6 +6071,9 @@ t[13287] = {
 	buyPrice = 2500,
 	sellPrice = 625,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Raptor Hide Harness"],
+	learnedAt = 165,
 }
 t[11163] = {
 	name = L["Formula: Enchant Bracer - Lesser Deflection"],
@@ -5698,6 +6082,9 @@ t[11163] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Lesser Deflection"],
+	learnedAt = 170,
 }
 t[17349] = {
 	name = L["Superior Healing Draught"],
@@ -6010,6 +6397,9 @@ t[6401] = {
 	buyPrice = 1100,
 	sellPrice = 275,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Dark Silk Shirt"],
+	learnedAt = 155,
 }
 t[7613] = {
 	name = L["Pattern: Green Leather Armor"],
@@ -6018,6 +6408,9 @@ t[7613] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Green Leather Armor"],
+	learnedAt = 155,
 }
 t[6377] = {
 	name = L["Formula: Enchant Boots - Minor Agility"],
@@ -6026,6 +6419,9 @@ t[6377] = {
 	buyPrice = 1000,
 	sellPrice = 250,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Minor Agility"],
+	learnedAt = 125,
 }
 t[7362] = {
 	name = L["Pattern: Earthen Leather Shoulders"],
@@ -6034,6 +6430,9 @@ t[7362] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Earthen Leather Shoulders"],
+	learnedAt = 135,
 }
 t[12247] = {
 	name = L["Broad Bladed Knife"],
@@ -6058,6 +6457,9 @@ t[14627] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Bright Yellow Shirt"],
+	learnedAt = 135,
 }
 t[12255] = {
 	name = L["Pale Leggings"],
@@ -6082,6 +6484,9 @@ t[11223] = {
 	buyPrice = 5800,
 	sellPrice = 1450,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Deflection"],
+	learnedAt = 235,
 }
 t[9300] = {
 	name = L["Recipe: Elixir of Demonslaying"],
@@ -6090,6 +6495,9 @@ t[9300] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Demonslaying"],
+	learnedAt = 250,
 }
 t[15726] = {
 	name = L["Pattern: Green Dragonscale Breastplate"],
@@ -6098,6 +6506,9 @@ t[15726] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Green Dragonscale Breastplate"],
+	learnedAt = 260,
 }
 t[16368] = {
 	name = L["Grimoire of Lash of Pain (Rank 2)"],
@@ -6282,6 +6693,9 @@ t[7290] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Red Whelp Gloves"],
+	learnedAt = 120,
 }
 t[14639] = {
 	name = L["Schematic: Minor Recombobulator"],
@@ -6290,6 +6704,9 @@ t[14639] = {
 	buyPrice = 1500,
 	sellPrice = 375,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Minor Recombobulator"],
+	learnedAt = 140,
 }
 t[4378] = {
 	name = L["Heavy Dynamite"],
@@ -6306,6 +6723,9 @@ t[20576] = {
 	buyPrice = 1400,
 	sellPrice = 350,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Black Whelp Tunic"],
+	learnedAt = 100,
 }
 t[7289] = {
 	name = L["Pattern: Black Whelp Cloak"],
@@ -6314,6 +6734,9 @@ t[7289] = {
 	buyPrice = 650,
 	sellPrice = 162,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Black Whelp Cloak"],
+	learnedAt = 100,
 }
 t[6892] = {
 	name = L["Recipe: Smoked Bear Meat"],
@@ -6322,6 +6745,9 @@ t[6892] = {
 	buyPrice = 250,
 	sellPrice = 62,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Smoked Bear Meat"],
+	learnedAt = 40,
 }
 t[6329] = {
 	name = L["Recipe: Loch Frenzy Delight"],
@@ -6330,6 +6756,9 @@ t[6329] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Loch Frenzy Delight"],
+	learnedAt = 50,
 }
 t[12226] = {
 	name = L["Recipe: Crispy Bat Wing"],
@@ -6338,6 +6767,9 @@ t[12226] = {
 	buyPrice = 25,
 	sellPrice = 6,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Crispy Bat Wing"],
+	learnedAt = 1,
 }
 t[13331] = {
 	name = L["Red Skeletal Horse"],
@@ -6386,6 +6818,9 @@ t[13482] = {
 	buyPrice = 15000,
 	sellPrice = 0,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Air to Fire"],
+	learnedAt = 275,
 }
 t[13724] = {
 	name = L["Enriched Manna Biscuit"],
@@ -6426,6 +6861,9 @@ t[15725] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Gauntlets"],
+	learnedAt = 260,
 }
 t[15741] = {
 	name = L["Pattern: Stormshroud Pants"],
@@ -6434,6 +6872,9 @@ t[15741] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Stormshroud Pants"],
+	learnedAt = 275,
 }
 t[14634] = {
 	name = L["Recipe: Frost Oil"],
@@ -6442,6 +6883,9 @@ t[14634] = {
 	buyPrice = 2500,
 	sellPrice = 625,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Frost Oil"],
+	learnedAt = 200,
 }
 t[13308] = {
 	name = L["Schematic: Ice Deflector"],
@@ -6450,6 +6894,9 @@ t[13308] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Ice Deflector"],
+	learnedAt = 155,
 }
 t[7742] = {
 	name = L["Schematic: Gnomish Cloaking Device"],
@@ -6458,6 +6905,9 @@ t[7742] = {
 	buyPrice = 2400,
 	sellPrice = 600,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Gnomish Cloaking Device"],
+	learnedAt = 200,
 }
 t[18160] = {
 	name = L["Recipe: Thistle Tea"],
@@ -6466,6 +6916,9 @@ t[18160] = {
 	buyPrice = 200,
 	sellPrice = 50,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Thistle Tea"],
+	learnedAt = 60,
 }
 t[11109] = {
 	name = L["Special Chicken Feed"],
@@ -6482,6 +6935,9 @@ t[8030] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Ebon Shiv"],
+	learnedAt = 255,
 }
 t[12703] = {
 	name = L["Plans: Storm Gauntlets"],
@@ -6490,6 +6946,9 @@ t[12703] = {
 	buyPrice = 40000,
 	sellPrice = 10000,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Storm Gauntlets"],
+	learnedAt = 295,
 }
 t[12819] = {
 	name = L["Plans: Ornate Thorium Handaxe"],
@@ -6498,6 +6957,9 @@ t[12819] = {
 	buyPrice = 16000,
 	sellPrice = 4000,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Thorium Handaxe"],
+	learnedAt = 275,
 }
 t[12823] = {
 	name = L["Plans: Huge Thorium Battleaxe"],
@@ -6506,6 +6968,9 @@ t[12823] = {
 	buyPrice = 20000,
 	sellPrice = 5000,
 	reqLevel = 0,
+	profession = L["Blacksmithing"],
+	teaches = L["Huge Thorium Battleaxe"],
+	learnedAt = 280,
 }
 t[13485] = {
 	name = L["Recipe: Transmute Water to Air"],
@@ -6514,6 +6979,9 @@ t[13485] = {
 	buyPrice = 15000,
 	sellPrice = 0,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Water to Air"],
+	learnedAt = 275,
 }
 t[13501] = {
 	name = L["Recipe: Major Mana Potion"],
@@ -6522,6 +6990,9 @@ t[13501] = {
 	buyPrice = 30000,
 	sellPrice = 7500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Major Mana Potion"],
+	learnedAt = 295,
 }
 t[6342] = {
 	name = L["Formula: Enchant Chest - Minor Mana"],
@@ -6530,6 +7001,9 @@ t[6342] = {
 	buyPrice = 300,
 	sellPrice = 75,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Chest - Minor Mana"],
+	learnedAt = 20,
 }
 t[6346] = {
 	name = L["Formula: Enchant Chest - Lesser Mana"],
@@ -6538,6 +7012,9 @@ t[6346] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Chest - Lesser Mana"],
+	learnedAt = 80,
 }
 t[10938] = {
 	name = L["Lesser Magic Essence"],
@@ -6570,6 +7047,9 @@ t[22307] = {
 	buyPrice = 6000,
 	sellPrice = 1500,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Enchanted Mageweave Pouch"],
+	learnedAt = 225,
 }
 t[6349] = {
 	name = L["Formula: Enchant 2H Weapon - Lesser Intellect"],
@@ -6578,6 +7058,9 @@ t[6349] = {
 	buyPrice = 500,
 	sellPrice = 125,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Lesser Intellect"],
+	learnedAt = 100,
 }
 t[5864] = {
 	name = L["Gray Ram"],
@@ -6786,6 +7269,9 @@ t[15756] = {
 	buyPrice = 22000,
 	sellPrice = 5500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Headband"],
+	learnedAt = 290,
 }
 t[1941] = {
 	name = L["Cask of Merlot"],
@@ -6802,6 +7288,9 @@ t[728] = {
 	buyPrice = 200,
 	sellPrice = 50,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Westfall Stew"],
+	learnedAt = 75,
 }
 t[2697] = {
 	name = L["Recipe: Goretusk Liver Pie"],
@@ -6810,6 +7299,9 @@ t[2697] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Goretusk Liver Pie"],
+	learnedAt = 50,
 }
 t[2698] = {
 	name = L["Recipe: Cooked Crab Claw"],
@@ -6818,6 +7310,9 @@ t[2698] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Cooked Crab Claw"],
+	learnedAt = 85,
 }
 t[2699] = {
 	name = L["Recipe: Redridge Goulash"],
@@ -6826,6 +7321,9 @@ t[2699] = {
 	buyPrice = 800,
 	sellPrice = 200,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Redridge Goulash"],
+	learnedAt = 100,
 }
 t[2700] = {
 	name = L["Recipe: Succulent Pork Ribs"],
@@ -6834,6 +7332,9 @@ t[2700] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Succulent Pork Ribs"],
+	learnedAt = 110,
 }
 t[2701] = {
 	name = L["Recipe: Seasoned Wolf Kabob"],
@@ -6842,6 +7343,9 @@ t[2701] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Seasoned Wolf Kabob"],
+	learnedAt = 100,
 }
 t[2889] = {
 	name = L["Recipe: Beer Basted Boar Ribs"],
@@ -6850,6 +7354,9 @@ t[2889] = {
 	buyPrice = 240,
 	sellPrice = 60,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Beer Basted Boar Ribs"],
+	learnedAt = 25,
 }
 t[3678] = {
 	name = L["Recipe: Crocolisk Steak"],
@@ -6858,6 +7365,9 @@ t[3678] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Crocolisk Steak"],
+	learnedAt = 80,
 }
 t[3679] = {
 	name = L["Recipe: Blood Sausage"],
@@ -6866,6 +7376,9 @@ t[3679] = {
 	buyPrice = 400,
 	sellPrice = 100,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Blood Sausage"],
+	learnedAt = 60,
 }
 t[3680] = {
 	name = L["Recipe: Murloc Fin Soup"],
@@ -6874,6 +7387,9 @@ t[3680] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Murloc Fin Soup"],
+	learnedAt = 90,
 }
 t[3681] = {
 	name = L["Recipe: Crocolisk Gumbo"],
@@ -6882,6 +7398,9 @@ t[3681] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Crocolisk Gumbo"],
+	learnedAt = 120,
 }
 t[3683] = {
 	name = L["Recipe: Gooey Spider Cake"],
@@ -6890,6 +7409,9 @@ t[3683] = {
 	buyPrice = 1600,
 	sellPrice = 400,
 	reqLevel = 0,
+	profession = L["Cooking"],
+	teaches = L["Gooey Spider Cake"],
+	learnedAt = 110,
 }
 t[2101] = {
 	name = L["Light Quiver"],
@@ -7042,6 +7564,9 @@ t[18649] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Blue Firework"],
+	learnedAt = 150,
 }
 t[2612] = {
 	name = L["Plain Robe"],
@@ -7170,6 +7695,9 @@ t[9301] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Shadow Power"],
+	learnedAt = 250,
 }
 t[4499] = {
 	name = L["Huge Brown Sack"],
@@ -7186,6 +7714,9 @@ t[10325] = {
 	buyPrice = 10000,
 	sellPrice = 2500,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["White Wedding Dress"],
+	learnedAt = 250,
 }
 t[5976] = {
 	name = L["Guild Tabard"],
@@ -7402,6 +7933,9 @@ t[5643] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Great Rage Potion"],
+	learnedAt = 175,
 }
 t[5642] = {
 	name = L["Recipe: Free Action Potion"],
@@ -7410,6 +7944,9 @@ t[5642] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Free Action Potion"],
+	learnedAt = 150,
 }
 t[13478] = {
 	name = L["Recipe: Elixir of Superior Defense"],
@@ -7418,6 +7955,9 @@ t[13478] = {
 	buyPrice = 13000,
 	sellPrice = 3250,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Superior Defense"],
+	learnedAt = 265,
 }
 t[6523] = {
 	name = L["Buckled Harness"],
@@ -7554,6 +8094,9 @@ t[10314] = {
 	buyPrice = 4000,
 	sellPrice = 1000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Lavender Mageweave Shirt"],
+	learnedAt = 230,
 }
 t[10317] = {
 	name = L["Pattern: Pink Mageweave Shirt"],
@@ -7562,6 +8105,9 @@ t[10317] = {
 	buyPrice = 4000,
 	sellPrice = 1000,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Pink Mageweave Shirt"],
+	learnedAt = 235,
 }
 t[18731] = {
 	name = L["Pattern: Heavy Leather Ball"],
@@ -7570,6 +8116,9 @@ t[18731] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Leather Ball"],
+	learnedAt = 150,
 }
 t[16041] = {
 	name = L["Schematic: Thorium Grenade"],
@@ -7578,6 +8127,9 @@ t[16041] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Thorium Grenade"],
+	learnedAt = 260,
 }
 t[16042] = {
 	name = L["Schematic: Thorium Widget"],
@@ -7586,6 +8138,9 @@ t[16042] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Thorium Widget"],
+	learnedAt = 260,
 }
 t[18647] = {
 	name = L["Schematic: Red Firework"],
@@ -7594,6 +8149,9 @@ t[18647] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Red Firework"],
+	learnedAt = 150,
 }
 t[10360] = {
 	name = L["Black Kingsnake"],
@@ -7770,6 +8328,9 @@ t[10321] = {
 	buyPrice = 4500,
 	sellPrice = 1125,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Tuxedo Shirt"],
+	learnedAt = 240,
 }
 t[10323] = {
 	name = L["Pattern: Tuxedo Pants"],
@@ -7778,6 +8339,9 @@ t[10323] = {
 	buyPrice = 4500,
 	sellPrice = 1125,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Tuxedo Pants"],
+	learnedAt = 245,
 }
 t[10326] = {
 	name = L["Pattern: Tuxedo Jacket"],
@@ -7786,6 +8350,9 @@ t[10326] = {
 	buyPrice = 5000,
 	sellPrice = 1250,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Tuxedo Jacket"],
+	learnedAt = 250,
 }
 t[10311] = {
 	name = L["Pattern: Orange Martial Shirt"],
@@ -7794,6 +8361,9 @@ t[10311] = {
 	buyPrice = 3000,
 	sellPrice = 750,
 	reqLevel = 0,
+	profession = L["Tailoring"],
+	teaches = L["Orange Martial Shirt"],
+	learnedAt = 220,
 }
 t[10394] = {
 	name = L["Prairie Dog Whistle"],
@@ -7810,6 +8380,9 @@ t[18949] = {
 	buyPrice = 2000,
 	sellPrice = 500,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Barbaric Bracers"],
+	learnedAt = 155,
 }
 t[13477] = {
 	name = L["Recipe: Superior Mana Potion"],
@@ -7818,6 +8391,9 @@ t[13477] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Alchemy"],
+	teaches = L["Superior Mana Potion"],
+	learnedAt = 260,
 }
 t[16217] = {
 	name = L["Formula: Enchant Shield - Greater Stamina"],
@@ -7826,6 +8402,9 @@ t[16217] = {
 	buyPrice = 12000,
 	sellPrice = 3000,
 	reqLevel = 0,
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Greater Stamina"],
+	learnedAt = 265,
 }
 t[8629] = {
 	name = L["Reins of the Striped Nightsaber"],
@@ -7906,6 +8485,9 @@ t[7361] = {
 	buyPrice = 1800,
 	sellPrice = 450,
 	reqLevel = 0,
+	profession = L["Leatherworking"],
+	teaches = L["Herbalist's Gloves"],
+	learnedAt = 135,
 }
 t[10607] = {
 	name = L["Schematic: Deepdive Helmet"],
@@ -7914,4 +8496,3739 @@ t[10607] = {
 	buyPrice = 3600,
 	sellPrice = 900,
 	reqLevel = 0,
+	profession = L["Engineering"],
+	teaches = L["Deepdive Helmet"],
+	learnedAt = 230,
+}
+t[5773] = {
+	name = L["Pattern: Robes of Arcana"],
+	profession = L["Tailoring"],
+	teaches = L["Robes of Arcana"],
+	learnedAt = 150,
+}
+t[14513] = {
+	name = L["Pattern: Robe of the Archmage"],
+	profession = L["Tailoring"],
+	teaches = L["Robe of the Archmage"],
+	learnedAt = 300,
+}
+t[14499] = {
+	name = L["Pattern: Mooncloth Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Bag"],
+	learnedAt = 300,
+}
+t[14510] = {
+	name = L["Pattern: Bottomless Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Bottomless Bag"],
+	learnedAt = 300,
+}
+t[14493] = {
+	name = L["Pattern: Robe of Winter Night"],
+	profession = L["Tailoring"],
+	teaches = L["Robe of Winter Night"],
+	learnedAt = 285,
+}
+t[14512] = {
+	name = L["Pattern: Truefaith Vestments"],
+	profession = L["Tailoring"],
+	teaches = L["Truefaith Vestments"],
+	learnedAt = 300,
+}
+t[14514] = {
+	name = L["Pattern: Robe of the Void"],
+	profession = L["Tailoring"],
+	teaches = L["Robe of the Void"],
+	learnedAt = 300,
+}
+t[10463] = {
+	name = L["Pattern: Shadoweave Mask"],
+	profession = L["Tailoring"],
+	teaches = L["Shadoweave Mask"],
+	learnedAt = 245,
+}
+t[14511] = {
+	name = L["Pattern: Gloves of Spell Mastery"],
+	profession = L["Tailoring"],
+	teaches = L["Gloves of Spell Mastery"],
+	learnedAt = 300,
+}
+t[14508] = {
+	name = L["Pattern: Felcloth Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Shoulders"],
+	learnedAt = 300,
+}
+t[22310] = {
+	name = L["Pattern: Cenarion Herb Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Cenarion Herb Bag"],
+	learnedAt = 275,
+}
+t[22308] = {
+	name = L["Pattern: Enchanted Runecloth Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Enchanted Runecloth Bag"],
+	learnedAt = 275,
+}
+t[21369] = {
+	name = L["Pattern: Felcloth Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Bag"],
+	learnedAt = 285,
+}
+t[4351] = {
+	name = L["Pattern: Shadow Hood"],
+	profession = L["Tailoring"],
+	teaches = L["Shadow Hood"],
+	learnedAt = 170,
+}
+t[18414] = {
+	name = L["Pattern: Belt of the Archmage"],
+	profession = L["Tailoring"],
+	teaches = L["Belt of the Archmage"],
+	learnedAt = 300,
+}
+t[14473] = {
+	name = L["Pattern: Ghostweave Belt"],
+	profession = L["Tailoring"],
+	teaches = L["Ghostweave Belt"],
+	learnedAt = 265,
+}
+t[18415] = {
+	name = L["Pattern: Felcloth Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Gloves"],
+	learnedAt = 300,
+}
+t[10301] = {
+	name = L["Pattern: White Bandit Mask"],
+	profession = L["Tailoring"],
+	teaches = L["White Bandit Mask"],
+	learnedAt = 215,
+}
+t[14496] = {
+	name = L["Pattern: Felcloth Hood"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Hood"],
+	learnedAt = 290,
+}
+t[4354] = {
+	name = L["Pattern: Rich Purple Silk Shirt"],
+	profession = L["Tailoring"],
+	teaches = L["Rich Purple Silk Shirt"],
+	learnedAt = 185,
+}
+t[21371] = {
+	name = L["Pattern: Core Felcloth Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Core Felcloth Bag"],
+	learnedAt = 300,
+}
+t[18418] = {
+	name = L["Pattern: Cloak of Warding"],
+	profession = L["Tailoring"],
+	teaches = L["Cloak of Warding"],
+	learnedAt = 300,
+}
+t[10302] = {
+	name = L["Pattern: Red Mageweave Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Red Mageweave Pants"],
+	learnedAt = 215,
+}
+t[4356] = {
+	name = L["Pattern: Star Belt"],
+	profession = L["Tailoring"],
+	teaches = L["Star Belt"],
+	learnedAt = 200,
+}
+t[18487] = {
+	name = L["Pattern: Mooncloth Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Robe"],
+	learnedAt = 300,
+}
+t[14482] = {
+	name = L["Pattern: Cindercloth Cloak"],
+	profession = L["Tailoring"],
+	teaches = L["Cindercloth Cloak"],
+	learnedAt = 275,
+}
+t[7085] = {
+	name = L["Pattern: Azure Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Azure Shoulders"],
+	learnedAt = 190,
+}
+t[14506] = {
+	name = L["Pattern: Felcloth Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Robe"],
+	learnedAt = 300,
+}
+t[4353] = {
+	name = L["Pattern: Spider Belt"],
+	profession = L["Tailoring"],
+	teaches = L["Spider Belt"],
+	learnedAt = 180,
+}
+t[5775] = {
+	name = L["Pattern: Black Silk Pack"],
+	profession = L["Tailoring"],
+	teaches = L["Black Silk Pack"],
+	learnedAt = 185,
+}
+t[19215] = {
+	name = L["Pattern: Wisdom of the Timbermaw"],
+	profession = L["Tailoring"],
+	teaches = L["Wisdom of the Timbermaw"],
+	learnedAt = 290,
+}
+t[22309] = {
+	name = L["Pattern: Big Bag of Enchantment"],
+	profession = L["Tailoring"],
+	teaches = L["Big Bag of Enchantment"],
+	learnedAt = 300,
+}
+t[18265] = {
+	name = L["Pattern: Flarecore Wraps"],
+	profession = L["Tailoring"],
+	teaches = L["Flarecore Wraps"],
+	learnedAt = 300,
+}
+t[19764] = {
+	name = L["Pattern: Bloodvine Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Bloodvine Vest"],
+	learnedAt = 300,
+}
+t[19220] = {
+	name = L["Pattern: Flarecore Leggings"],
+	profession = L["Tailoring"],
+	teaches = L["Flarecore Leggings"],
+	learnedAt = 300,
+}
+t[19219] = {
+	name = L["Pattern: Flarecore Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Flarecore Robe"],
+	learnedAt = 300,
+}
+t[14489] = {
+	name = L["Pattern: Frostweave Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Frostweave Pants"],
+	learnedAt = 280,
+}
+t[14504] = {
+	name = L["Pattern: Runecloth Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Shoulders"],
+	learnedAt = 300,
+}
+t[14466] = {
+	name = L["Pattern: Frostweave Tunic"],
+	profession = L["Tailoring"],
+	teaches = L["Frostweave Tunic"],
+	learnedAt = 255,
+}
+t[7091] = {
+	name = L["Pattern: Truefaith Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Truefaith Gloves"],
+	learnedAt = 150,
+}
+t[22312] = {
+	name = L["Pattern: Satchel of Cenarius"],
+	profession = L["Tailoring"],
+	teaches = L["Satchel of Cenarius"],
+	learnedAt = 300,
+}
+t[14474] = {
+	name = L["Pattern: Frostweave Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Frostweave Gloves"],
+	learnedAt = 265,
+}
+t[14484] = {
+	name = L["Pattern: Brightcloth Cloak"],
+	profession = L["Tailoring"],
+	teaches = L["Brightcloth Cloak"],
+	learnedAt = 275,
+}
+t[14498] = {
+	name = L["Pattern: Runecloth Headband"],
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Headband"],
+	learnedAt = 295,
+}
+t[7092] = {
+	name = L["Pattern: Hands of Darkness"],
+	profession = L["Tailoring"],
+	teaches = L["Hands of Darkness"],
+	learnedAt = 145,
+}
+t[14491] = {
+	name = L["Pattern: Runecloth Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Pants"],
+	learnedAt = 285,
+}
+t[17018] = {
+	name = L["Pattern: Flarecore Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Flarecore Gloves"],
+	learnedAt = 300,
+}
+t[10312] = {
+	name = L["Pattern: Red Mageweave Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Red Mageweave Gloves"],
+	learnedAt = 225,
+}
+t[19766] = {
+	name = L["Pattern: Bloodvine Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Bloodvine Boots"],
+	learnedAt = 300,
+}
+t[4292] = {
+	name = L["Pattern: Green Woolen Bag"],
+	profession = L["Tailoring"],
+	teaches = L["Green Woolen Bag"],
+	learnedAt = 95,
+}
+t[19765] = {
+	name = L["Pattern: Bloodvine Leggings"],
+	profession = L["Tailoring"],
+	teaches = L["Bloodvine Leggings"],
+	learnedAt = 300,
+}
+t[14486] = {
+	name = L["Pattern: Cloak of Fire"],
+	profession = L["Tailoring"],
+	teaches = L["Cloak of Fire"],
+	learnedAt = 275,
+}
+t[14501] = {
+	name = L["Pattern: Mooncloth Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Vest"],
+	learnedAt = 300,
+}
+t[2601] = {
+	name = L["Pattern: Gray Woolen Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Gray Woolen Robe"],
+	learnedAt = 105,
+}
+t[19218] = {
+	name = L["Pattern: Mantle of the Timbermaw"],
+	profession = L["Tailoring"],
+	teaches = L["Mantle of the Timbermaw"],
+	learnedAt = 300,
+}
+t[14492] = {
+	name = L["Pattern: Felcloth Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Felcloth Boots"],
+	learnedAt = 285,
+}
+t[22687] = {
+	name = L["Pattern: Glacial Wrists"],
+	profession = L["Tailoring"],
+	teaches = L["Glacial Wrists"],
+	learnedAt = 300,
+}
+t[14509] = {
+	name = L["Pattern: Mooncloth Circlet"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Circlet"],
+	learnedAt = 300,
+}
+t[4349] = {
+	name = L["Pattern: Phoenix Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Phoenix Pants"],
+	learnedAt = 125,
+}
+t[17017] = {
+	name = L["Pattern: Flarecore Mantle"],
+	profession = L["Tailoring"],
+	teaches = L["Flarecore Mantle"],
+	learnedAt = 300,
+}
+t[14497] = {
+	name = L["Pattern: Mooncloth Leggings"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Leggings"],
+	learnedAt = 290,
+}
+t[14467] = {
+	name = L["Pattern: Frostweave Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Frostweave Robe"],
+	learnedAt = 255,
+}
+t[14470] = {
+	name = L["Pattern: Runecloth Tunic"],
+	profession = L["Tailoring"],
+	teaches = L["Runecloth Tunic"],
+	learnedAt = 260,
+}
+t[7084] = {
+	name = L["Pattern: Crimson Silk Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Crimson Silk Shoulders"],
+	learnedAt = 190,
+}
+t[14490] = {
+	name = L["Pattern: Cindercloth Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Cindercloth Pants"],
+	learnedAt = 280,
+}
+t[10320] = {
+	name = L["Pattern: Red Mageweave Headband"],
+	profession = L["Tailoring"],
+	teaches = L["Red Mageweave Headband"],
+	learnedAt = 240,
+}
+t[14507] = {
+	name = L["Pattern: Mooncloth Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Shoulders"],
+	learnedAt = 300,
+}
+t[5774] = {
+	name = L["Pattern: Green Silk Pack"],
+	profession = L["Tailoring"],
+	teaches = L["Green Silk Pack"],
+	learnedAt = 175,
+}
+t[4352] = {
+	name = L["Pattern: Boots of the Enchanter"],
+	profession = L["Tailoring"],
+	teaches = L["Boots of the Enchanter"],
+	learnedAt = 175,
+}
+t[2598] = {
+	name = L["Pattern: Red Linen Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Red Linen Robe"],
+	learnedAt = 40,
+}
+t[7090] = {
+	name = L["Pattern: Green Silk Armor"],
+	profession = L["Tailoring"],
+	teaches = L["Green Silk Armor"],
+	learnedAt = 165,
+}
+t[14471] = {
+	name = L["Pattern: Cindercloth Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Cindercloth Vest"],
+	learnedAt = 260,
+}
+t[14477] = {
+	name = L["Pattern: Ghostweave Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Ghostweave Gloves"],
+	learnedAt = 270,
+}
+t[4348] = {
+	name = L["Pattern: Phoenix Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Phoenix Gloves"],
+	learnedAt = 125,
+}
+t[10315] = {
+	name = L["Pattern: Red Mageweave Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Red Mageweave Shoulders"],
+	learnedAt = 235,
+}
+t[6390] = {
+	name = L["Pattern: Stylish Blue Shirt"],
+	profession = L["Tailoring"],
+	teaches = L["Stylish Blue Shirt"],
+	learnedAt = 120,
+}
+t[18417] = {
+	name = L["Pattern: Mooncloth Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Mooncloth Gloves"],
+	learnedAt = 300,
+}
+t[14480] = {
+	name = L["Pattern: Ghostweave Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Ghostweave Vest"],
+	learnedAt = 275,
+}
+t[19216] = {
+	name = L["Pattern: Argent Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Argent Boots"],
+	learnedAt = 290,
+}
+t[10300] = {
+	name = L["Pattern: Red Mageweave Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Red Mageweave Vest"],
+	learnedAt = 215,
+}
+t[14505] = {
+	name = L["Pattern: Wizardweave Turban"],
+	profession = L["Tailoring"],
+	teaches = L["Wizardweave Turban"],
+	learnedAt = 300,
+}
+t[14478] = {
+	name = L["Pattern: Brightcloth Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Brightcloth Robe"],
+	learnedAt = 270,
+}
+t[14495] = {
+	name = L["Pattern: Ghostweave Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Ghostweave Pants"],
+	learnedAt = 290,
+}
+t[14485] = {
+	name = L["Pattern: Wizardweave Leggings"],
+	profession = L["Tailoring"],
+	teaches = L["Wizardweave Leggings"],
+	learnedAt = 275,
+}
+t[14479] = {
+	name = L["Pattern: Brightcloth Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Brightcloth Gloves"],
+	learnedAt = 270,
+}
+t[22685] = {
+	name = L["Pattern: Glacial Cloak"],
+	profession = L["Tailoring"],
+	teaches = L["Glacial Cloak"],
+	learnedAt = 300,
+}
+t[14476] = {
+	name = L["Pattern: Cindercloth Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Cindercloth Gloves"],
+	learnedAt = 270,
+}
+t[6271] = {
+	name = L["Pattern: Red Linen Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Red Linen Vest"],
+	learnedAt = 55,
+}
+t[4347] = {
+	name = L["Pattern: Reinforced Woolen Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Reinforced Woolen Shoulders"],
+	learnedAt = 120,
+}
+t[19217] = {
+	name = L["Pattern: Argent Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Argent Shoulders"],
+	learnedAt = 300,
+}
+t[4346] = {
+	name = L["Pattern: Heavy Woolen Cloak"],
+	profession = L["Tailoring"],
+	teaches = L["Heavy Woolen Cloak"],
+	learnedAt = 100,
+}
+t[22686] = {
+	name = L["Pattern: Glacial Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Glacial Vest"],
+	learnedAt = 300,
+}
+t[6391] = {
+	name = L["Pattern: Stylish Green Shirt"],
+	profession = L["Tailoring"],
+	teaches = L["Stylish Green Shirt"],
+	learnedAt = 120,
+}
+t[4345] = {
+	name = L["Pattern: Red Woolen Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Red Woolen Boots"],
+	learnedAt = 95,
+}
+t[14500] = {
+	name = L["Pattern: Wizardweave Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Wizardweave Robe"],
+	learnedAt = 300,
+}
+t[7093] = {
+	name = L["Pattern: Boots of Darkness"],
+	profession = L["Tailoring"],
+	teaches = L["Boots of Darkness"],
+	learnedAt = 140,
+}
+t[22684] = {
+	name = L["Pattern: Glacial Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Glacial Gloves"],
+	learnedAt = 300,
+}
+t[7086] = {
+	name = L["Pattern: Earthen Silk Belt"],
+	profession = L["Tailoring"],
+	teaches = L["Earthen Silk Belt"],
+	learnedAt = 195,
+}
+t[21722] = {
+	name = L["Pattern: Festival Dress"],
+	profession = L["Tailoring"],
+	teaches = L["Festive Red Dress"],
+	learnedAt = 250,
+}
+t[10316] = {
+	name = L["Pattern: Colorful Kilt"],
+	profession = L["Tailoring"],
+	teaches = L["Colorful Kilt"],
+	learnedAt = 120,
+}
+t[14494] = {
+	name = L["Pattern: Brightcloth Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Brightcloth Pants"],
+	learnedAt = 290,
+}
+t[10313] = {
+	name = L["Pattern: Stormcloth Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Vest"],
+	learnedAt = 225,
+}
+t[20547] = {
+	name = L["Pattern: Runed Stygian Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Runed Stygian Boots"],
+	learnedAt = 300,
+}
+t[22773] = {
+	name = L["Pattern: Sylvan Crown"],
+	profession = L["Tailoring"],
+	teaches = L["Sylvan Crown"],
+	learnedAt = 300,
+}
+t[18416] = {
+	name = L["Pattern: Inferno Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Inferno Gloves"],
+	learnedAt = 300,
+}
+t[4350] = {
+	name = L["Pattern: Spider Silk Slippers"],
+	profession = L["Tailoring"],
+	teaches = L["Spider Silk Slippers"],
+	learnedAt = 140,
+}
+t[21723] = {
+	name = L["Pattern: Festival Suit"],
+	profession = L["Tailoring"],
+	teaches = L["Festive Red Pant Suit"],
+	learnedAt = 250,
+}
+t[20546] = {
+	name = L["Pattern: Runed Stygian Leggings"],
+	profession = L["Tailoring"],
+	teaches = L["Runed Stygian Leggings"],
+	learnedAt = 300,
+}
+t[17724] = {
+	name = L["Pattern: Green Holiday Shirt"],
+	profession = L["Tailoring"],
+	teaches = L["Green Holiday Shirt"],
+	learnedAt = 190,
+}
+t[22695] = {
+	name = L["Pattern: Polar Bracers"],
+	profession = L["Tailoring"],
+	teaches = L["Polar Bracers"],
+	learnedAt = 300,
+}
+t[10322] = {
+	name = L["Pattern: Stormcloth Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Shoulders"],
+	learnedAt = 245,
+}
+t[6273] = {
+	name = L["Pattern: Green Woolen Robe"],
+	profession = L["Tailoring"],
+	teaches = L["Green Woolen Robe"],
+	learnedAt = 90,
+}
+t[20548] = {
+	name = L["Pattern: Runed Stygian Belt"],
+	profession = L["Tailoring"],
+	teaches = L["Runed Stygian Belt"],
+	learnedAt = 300,
+}
+t[22683] = {
+	name = L["Pattern: Gaea's Embrace"],
+	profession = L["Tailoring"],
+	teaches = L["Gaea's Embrace"],
+	learnedAt = 300,
+}
+t[22772] = {
+	name = L["Pattern: Sylvan Shoulders"],
+	profession = L["Tailoring"],
+	teaches = L["Sylvan Shoulders"],
+	learnedAt = 300,
+}
+t[22698] = {
+	name = L["Pattern: Icy Scale Bracers"],
+	profession = L["Tailoring"],
+	teaches = L["Icy Scale Bracers"],
+	learnedAt = 300,
+}
+t[10304] = {
+	name = L["Pattern: Stormcloth Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Gloves"],
+	learnedAt = 220,
+}
+t[22694] = {
+	name = L["Pattern: Polar Gloves"],
+	profession = L["Tailoring"],
+	teaches = L["Polar Gloves"],
+	learnedAt = 300,
+}
+t[22697] = {
+	name = L["Pattern: Icy Scale Gauntlets"],
+	profession = L["Tailoring"],
+	teaches = L["Icy Scale Gauntlets"],
+	learnedAt = 300,
+}
+t[10303] = {
+	name = L["Pattern: Stormcloth Pants"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Pants"],
+	learnedAt = 220,
+}
+t[22774] = {
+	name = L["Pattern: Sylvan Vest"],
+	profession = L["Tailoring"],
+	teaches = L["Sylvan Vest"],
+	learnedAt = 300,
+}
+t[10319] = {
+	name = L["Pattern: Stormcloth Headband"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Headband"],
+	learnedAt = 240,
+}
+t[10324] = {
+	name = L["Pattern: Stormcloth Boots"],
+	profession = L["Tailoring"],
+	teaches = L["Stormcloth Boots"],
+	learnedAt = 250,
+}
+t[16252] = {
+	name = L["Formula: Enchant Weapon - Crusader"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Crusader"],
+	learnedAt = 300,
+}
+t[11207] = {
+	name = L["Formula: Enchant Weapon - Fiery Weapon"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Fiery Weapon"],
+	learnedAt = 265,
+}
+t[16253] = {
+	name = L["Formula: Enchant Chest - Greater Stats"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Chest - Greater Stats"],
+	learnedAt = 300,
+}
+t[11226] = {
+	name = L["Formula: Enchant Gloves - Riding Skill"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Riding Skill"],
+	learnedAt = 250,
+}
+t[18259] = {
+	name = L["Formula: Enchant Weapon - Spell Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Spell Power"],
+	learnedAt = 300,
+}
+t[16214] = {
+	name = L["Formula: Enchant Bracer - Greater Intellect"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Greater Intellect"],
+	learnedAt = 255,
+}
+t[18260] = {
+	name = L["Formula: Enchant Weapon - Healing Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Healing Power"],
+	learnedAt = 300,
+}
+t[19445] = {
+	name = L["Formula: Enchant Weapon - Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Agility"],
+	learnedAt = 290,
+}
+t[16216] = {
+	name = L["Formula: Enchant Cloak - Greater Resistance"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Greater Resistance"],
+	learnedAt = 265,
+}
+t[16246] = {
+	name = L["Formula: Enchant Bracer - Superior Strength"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Superior Strength"],
+	learnedAt = 295,
+}
+t[16219] = {
+	name = L["Formula: Enchant Gloves - Greater Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Greater Agility"],
+	learnedAt = 270,
+}
+t[11225] = {
+	name = L["Formula: Enchant Bracer - Greater Stamina"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Greater Stamina"],
+	learnedAt = 245,
+}
+t[17725] = {
+	name = L["Formula: Enchant Weapon - Winter's Might"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Winter's Might"],
+	learnedAt = 190,
+}
+t[16218] = {
+	name = L["Formula: Enchant Bracer - Superior Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Superior Spirit"],
+	learnedAt = 270,
+}
+t[20754] = {
+	name = L["Formula: Lesser Mana Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Lesser Mana Oil"],
+	learnedAt = 250,
+}
+t[11164] = {
+	name = L["Formula: Enchant Weapon - Lesser Beastslayer"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Lesser Beastslayer"],
+	learnedAt = 175,
+}
+t[19449] = {
+	name = L["Formula: Enchant Weapon - Mighty Intellect"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Mighty Intellect"],
+	learnedAt = 300,
+}
+t[16223] = {
+	name = L["Formula: Enchant Weapon - Icy Chill"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Icy Chill"],
+	learnedAt = 285,
+}
+t[16254] = {
+	name = L["Formula: Enchant Weapon - Lifestealing"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Lifestealing"],
+	learnedAt = 300,
+}
+t[22392] = {
+	name = L["Formula: Enchant 2H Weapon - Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Agility"],
+	learnedAt = 290,
+}
+t[11203] = {
+	name = L["Formula: Enchant Gloves - Advanced Mining"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Advanced Mining"],
+	learnedAt = 215,
+}
+t[16215] = {
+	name = L["Formula: Enchant Boots - Greater Stamina"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Greater Stamina"],
+	learnedAt = 260,
+}
+t[11166] = {
+	name = L["Formula: Enchant Gloves - Skinning"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Skinning"],
+	learnedAt = 200,
+}
+t[16245] = {
+	name = L["Formula: Enchant Boots - Greater Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Greater Agility"],
+	learnedAt = 295,
+}
+t[16242] = {
+	name = L["Formula: Enchant Chest - Major Mana"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Chest - Major Mana"],
+	learnedAt = 290,
+}
+t[16251] = {
+	name = L["Formula: Enchant Bracer - Superior Stamina"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Superior Stamina"],
+	learnedAt = 300,
+}
+t[11208] = {
+	name = L["Formula: Enchant Weapon - Demonslaying"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Demonslaying"],
+	learnedAt = 230,
+}
+t[16250] = {
+	name = L["Formula: Enchant Weapon - Superior Striking"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Superior Striking"],
+	learnedAt = 300,
+}
+t[16249] = {
+	name = L["Formula: Enchant 2H Weapon - Major Intellect"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Major Intellect"],
+	learnedAt = 300,
+}
+t[11206] = {
+	name = L["Formula: Enchant Cloak - Lesser Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Lesser Agility"],
+	learnedAt = 225,
+}
+t[11813] = {
+	name = L["Formula: Smoking Heart of the Mountain"],
+	profession = L["Enchanting"],
+	teaches = L["Smoking Heart of the Mountain"],
+	learnedAt = 265,
+}
+t[20758] = {
+	name = L["Formula: Minor Wizard Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Minor Wizard Oil"],
+	learnedAt = 45,
+}
+t[11205] = {
+	name = L["Formula: Enchant Gloves - Advanced Herbalism"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Advanced Herbalism"],
+	learnedAt = 225,
+}
+t[11152] = {
+	name = L["Formula: Enchant Gloves - Fishing"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Fishing"],
+	learnedAt = 145,
+}
+t[20753] = {
+	name = L["Formula: Lesser Wizard Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Lesser Wizard Oil"],
+	learnedAt = 200,
+}
+t[16244] = {
+	name = L["Formula: Enchant Gloves - Greater Strength"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Greater Strength"],
+	learnedAt = 295,
+}
+t[20755] = {
+	name = L["Formula: Wizard Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Wizard Oil"],
+	learnedAt = 275,
+}
+t[6348] = {
+	name = L["Formula: Enchant Weapon - Minor Beastslayer"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Minor Beastslayer"],
+	learnedAt = 90,
+}
+t[20756] = {
+	name = L["Formula: Brilliant Wizard Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Brilliant Wizard Oil"],
+	learnedAt = 300,
+}
+t[19444] = {
+	name = L["Formula: Enchant Weapon - Strength"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Strength"],
+	learnedAt = 290,
+}
+t[19446] = {
+	name = L["Formula: Enchant Bracer - Mana Regeneration"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Mana Regeneration"],
+	learnedAt = 290,
+}
+t[20732] = {
+	name = L["Formula: Enchant Cloak - Greater Fire Resistance"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Greater Fire Resistance"],
+	learnedAt = 300,
+}
+t[19447] = {
+	name = L["Formula: Enchant Bracer - Healing"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Healing Power"],
+	learnedAt = 300,
+}
+t[19448] = {
+	name = L["Formula: Enchant Weapon - Mighty Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Mighty Spirit"],
+	learnedAt = 300,
+}
+t[20757] = {
+	name = L["Formula: Brilliant Mana Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Brilliant Mana Oil"],
+	learnedAt = 300,
+}
+t[20752] = {
+	name = L["Formula: Minor Mana Oil"],
+	profession = L["Enchanting"],
+	teaches = L["Minor Mana Oil"],
+	learnedAt = 150,
+}
+t[20731] = {
+	name = L["Formula: Enchant Gloves - Superior Agility"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Superior Agility"],
+	learnedAt = 300,
+}
+t[11168] = {
+	name = L["Formula: Enchant Shield - Lesser Block"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Lesser Block"],
+	learnedAt = 195,
+}
+t[16248] = {
+	name = L["Formula: Enchant Weapon - Unholy"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Unholy Weapon"],
+	learnedAt = 295,
+}
+t[16220] = {
+	name = L["Formula: Enchant Boots - Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Spirit"],
+	learnedAt = 275,
+}
+t[16247] = {
+	name = L["Formula: Enchant 2H Weapon - Superior Impact"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Superior Impact"],
+	learnedAt = 295,
+}
+t[20726] = {
+	name = L["Formula: Enchant Gloves - Threat"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Threat"],
+	learnedAt = 300,
+}
+t[11150] = {
+	name = L["Formula: Enchant Gloves - Mining"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Mining"],
+	learnedAt = 145,
+}
+t[20730] = {
+	name = L["Formula: Enchant Gloves - Healing Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Healing Power"],
+	learnedAt = 300,
+}
+t[20728] = {
+	name = L["Formula: Enchant Gloves - Frost Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Frost Power"],
+	learnedAt = 300,
+}
+t[11204] = {
+	name = L["Formula: Enchant Bracer - Greater Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Greater Spirit"],
+	learnedAt = 220,
+}
+t[20727] = {
+	name = L["Formula: Enchant Gloves - Shadow Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Shadow Power"],
+	learnedAt = 300,
+}
+t[16255] = {
+	name = L["Formula: Enchant 2H Weapon - Major Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Major Spirit"],
+	learnedAt = 300,
+}
+t[11165] = {
+	name = L["Formula: Enchant Weapon - Lesser Elemental Slayer"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Weapon - Lesser Elemental Slayer"],
+	learnedAt = 175,
+}
+t[20735] = {
+	name = L["Formula: Enchant Cloak - Subtlety"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Subtlety"],
+	learnedAt = 300,
+}
+t[11202] = {
+	name = L["Formula: Enchant Shield - Stamina"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Stamina"],
+	learnedAt = 210,
+}
+t[11038] = {
+	name = L["Formula: Enchant 2H Weapon - Lesser Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant 2H Weapon - Lesser Spirit"],
+	learnedAt = 110,
+}
+t[20734] = {
+	name = L["Formula: Enchant Cloak - Stealth"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Stealth"],
+	learnedAt = 300,
+}
+t[11224] = {
+	name = L["Formula: Enchant Shield - Frost Resistance"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Frost Resistance"],
+	learnedAt = 235,
+}
+t[16222] = {
+	name = L["Formula: Enchant Shield - Superior Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Superior Spirit"],
+	learnedAt = 280,
+}
+t[6375] = {
+	name = L["Formula: Enchant Bracer - Lesser Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Lesser Spirit"],
+	learnedAt = 120,
+}
+t[11098] = {
+	name = L["Formula: Enchant Cloak - Lesser Shadow Resistance"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Lesser Shadow Resistance"],
+	learnedAt = 135,
+}
+t[11167] = {
+	name = L["Formula: Enchant Boots - Lesser Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Lesser Spirit"],
+	learnedAt = 190,
+}
+t[6347] = {
+	name = L["Formula: Enchant Bracer - Minor Strength"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Minor Strength"],
+	learnedAt = 80,
+}
+t[11081] = {
+	name = L["Formula: Enchant Shield - Lesser Protection"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Shield - Lesser Protection"],
+	learnedAt = 115,
+}
+t[6344] = {
+	name = L["Formula: Enchant Bracer - Minor Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Bracer - Minor Spirit"],
+	learnedAt = 60,
+}
+t[20736] = {
+	name = L["Formula: Enchant Cloak - Dodge"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Dodge"],
+	learnedAt = 300,
+}
+t[11151] = {
+	name = L["Formula: Enchant Gloves - Herbalism"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Herbalism"],
+	learnedAt = 145,
+}
+t[20729] = {
+	name = L["Formula: Enchant Gloves - Fire Power"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Gloves - Fire Power"],
+	learnedAt = 300,
+}
+t[20733] = {
+	name = L["Formula: Enchant Cloak - Greater Nature Resistance"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Greater Nature Resistance"],
+	learnedAt = 300,
+}
+t[6376] = {
+	name = L["Formula: Enchant Boots - Minor Stamina"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Boots - Minor Stamina"],
+	learnedAt = 125,
+}
+t[6222] = {
+	name = L["Formula: Imbue Chest - Minor Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["None"],
+	learnedAt = 60,
+}
+t[6343] = {
+	name = L["Formula: Imbue Chest - Spirit"],
+	profession = L["Enchanting"],
+	teaches = L["None"],
+	learnedAt = 60,
+}
+t[6345] = {
+	name = L["Formula: Imbue Cloak - Protection"],
+	profession = L["Enchanting"],
+	teaches = L["Enchant Cloak - Minor Protection"],
+	learnedAt = 90,
+}
+t[2555] = {
+	name = L["Recipe: Swiftness Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Swiftness Potion"],
+	learnedAt = 60,
+}
+t[13494] = {
+	name = L["Recipe: Greater Fire Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Fire Protection Potion"],
+	learnedAt = 290,
+}
+t[13499] = {
+	name = L["Recipe: Greater Shadow Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Shadow Protection Potion"],
+	learnedAt = 290,
+}
+t[13491] = {
+	name = L["Recipe: Elixir of the Mongoose"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of the Mongoose"],
+	learnedAt = 280,
+}
+t[3395] = {
+	name = L["Recipe: Limited Invulnerability Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Limited Invulnerability Potion"],
+	learnedAt = 250,
+}
+t[13493] = {
+	name = L["Recipe: Greater Arcane Elixir"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Arcane Elixir"],
+	learnedAt = 285,
+}
+t[2553] = {
+	name = L["Recipe: Elixir of Minor Agility"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Minor Agility"],
+	learnedAt = 50,
+}
+t[10644] = {
+	name = L["Recipe: Goblin Rocket Fuel"],
+	profession = L["Alchemy"],
+	teaches = L["Goblin Rocket Fuel"],
+	learnedAt = 210,
+}
+t[9294] = {
+	name = L["Recipe: Wildvine Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Wildvine Potion"],
+	learnedAt = 225,
+}
+t[20761] = {
+	name = L["Recipe: Transmute Elemental Fire"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Elemental Fire"],
+	learnedAt = 300,
+}
+t[13479] = {
+	name = L["Recipe: Elixir of the Sages"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of the Sages"],
+	learnedAt = 270,
+}
+t[13521] = {
+	name = L["Recipe: Flask of Supreme Power"],
+	profession = L["Alchemy"],
+	teaches = L["Flask of Supreme Power"],
+	learnedAt = 300,
+}
+t[13476] = {
+	name = L["Recipe: Mighty Rage Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Mighty Rage Potion"],
+	learnedAt = 255,
+}
+t[13519] = {
+	name = L["Recipe: Flask of the Titans"],
+	profession = L["Alchemy"],
+	teaches = L["Flask of the Titans"],
+	learnedAt = 300,
+}
+t[13486] = {
+	name = L["Recipe: Transmute Undeath to Water"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Undeath to Water"],
+	learnedAt = 275,
+}
+t[9298] = {
+	name = L["Recipe: Elixir of Giants"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Giants"],
+	learnedAt = 245,
+}
+t[13481] = {
+	name = L["Recipe: Elixir of Brute Force"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Brute Force"],
+	learnedAt = 275,
+}
+t[13490] = {
+	name = L["Recipe: Greater Stoneshield Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Stoneshield Potion"],
+	learnedAt = 280,
+}
+t[13520] = {
+	name = L["Recipe: Flask of Distilled Wisdom"],
+	profession = L["Alchemy"],
+	teaches = L["Flask of Distilled Wisdom"],
+	learnedAt = 300,
+}
+t[3831] = {
+	name = L["Recipe: Mighty Troll's Blood Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Mighty Troll's Blood Potion"],
+	learnedAt = 180,
+}
+t[6663] = {
+	name = L["Recipe: Elixir of Giant Growth"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Giant Growth"],
+	learnedAt = 90,
+}
+t[3396] = {
+	name = L["Recipe: Elixir of Lesser Agility"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Lesser Agility"],
+	learnedAt = 140,
+}
+t[20011] = {
+	name = L["Recipe: Mageblood Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Mageblood Potion"],
+	learnedAt = 275,
+}
+t[9296] = {
+	name = L["Recipe: Gift of Arthas"],
+	profession = L["Alchemy"],
+	teaches = L["Gift of Arthas"],
+	learnedAt = 240,
+}
+t[13517] = {
+	name = L["Recipe: Alchemists' Stone"],
+	profession = L["Alchemy"],
+	teaches = L["Alchemist's Stone"],
+	learnedAt = 300,
+}
+t[9295] = {
+	name = L["Recipe: Invisibility Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Invisibility Potion"],
+	learnedAt = 235,
+}
+t[17709] = {
+	name = L["Recipe: Elixir of Frost Power"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Frost Power"],
+	learnedAt = 190,
+}
+t[9293] = {
+	name = L["Recipe: Magic Resistance Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Magic Resistance Potion"],
+	learnedAt = 210,
+}
+t[6211] = {
+	name = L["Recipe: Elixir of Ogre's Strength"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Ogre's Strength"],
+	learnedAt = 150,
+}
+t[20013] = {
+	name = L["Recipe: Living Action Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Living Action Potion"],
+	learnedAt = 285,
+}
+t[13497] = {
+	name = L["Recipe: Greater Arcane Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Arcane Protection Potion"],
+	learnedAt = 290,
+}
+t[13483] = {
+	name = L["Recipe: Transmute Fire to Earth"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Fire to Earth"],
+	learnedAt = 275,
+}
+t[21547] = {
+	name = L["Recipe: Elixir of Greater Firepower"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Greater Firepower"],
+	learnedAt = 250,
+}
+t[13496] = {
+	name = L["Recipe: Greater Nature Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Nature Protection Potion"],
+	learnedAt = 290,
+}
+t[3394] = {
+	name = L["Recipe: Elixir of Poison Resistance"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Poison Resistance"],
+	learnedAt = 120,
+}
+t[9297] = {
+	name = L["Recipe: Elixir of Dream Vision"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Dream Vision"],
+	learnedAt = 240,
+}
+t[13484] = {
+	name = L["Recipe: Transmute Earth to Water"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Earth to Water"],
+	learnedAt = 275,
+}
+t[13488] = {
+	name = L["Recipe: Transmute Life to Earth"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Life to Earth"],
+	learnedAt = 275,
+}
+t[3830] = {
+	name = L["Recipe: Elixir of Fortitude"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Fortitude"],
+	learnedAt = 175,
+}
+t[4624] = {
+	name = L["Recipe: Lesser Stoneshield Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Lesser Stoneshield Potion"],
+	learnedAt = 215,
+}
+t[18257] = {
+	name = L["Recipe: Major Rejuvenation Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Major Rejuvenation Potion"],
+	learnedAt = 300,
+}
+t[13487] = {
+	name = L["Recipe: Transmute Water to Undeath"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Water to Undeath"],
+	learnedAt = 275,
+}
+t[20014] = {
+	name = L["Recipe: Major Troll's Blood Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Major Troll's Blood Potion"],
+	learnedAt = 290,
+}
+t[13495] = {
+	name = L["Recipe: Greater Frost Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Frost Protection Potion"],
+	learnedAt = 290,
+}
+t[13492] = {
+	name = L["Recipe: Purification Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Purification Potion"],
+	learnedAt = 285,
+}
+t[3393] = {
+	name = L["Recipe: Minor Magic Resistance Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Minor Magic Resistance Potion"],
+	learnedAt = 110,
+}
+t[13489] = {
+	name = L["Recipe: Transmute Earth to Life"],
+	profession = L["Alchemy"],
+	teaches = L["Transmute: Earth to Life"],
+	learnedAt = 275,
+}
+t[13522] = {
+	name = L["Recipe: Flask of Chromatic Resistance"],
+	profession = L["Alchemy"],
+	teaches = L["Flask of Chromatic Resistance"],
+	learnedAt = 300,
+}
+t[3832] = {
+	name = L["Recipe: Elixir of Detect Lesser Invisibility"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Detect Lesser Invisibility"],
+	learnedAt = 195,
+}
+t[13518] = {
+	name = L["Recipe: Flask of Petrification"],
+	profession = L["Alchemy"],
+	teaches = L["Flask of Petrification"],
+	learnedAt = 300,
+}
+t[4597] = {
+	name = L["Recipe: Discolored Healing Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Discolored Healing Potion"],
+	learnedAt = 50,
+}
+t[20012] = {
+	name = L["Recipe: Greater Dreamless Sleep"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Dreamless Sleep Potion"],
+	learnedAt = 275,
+}
+t[5641] = {
+	name = L["Recipe: Cowardly Flight Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Cowardly Flight Potion"],
+	learnedAt = 125,
+}
+t[2556] = {
+	name = L["Recipe: Elixir of Tongues"],
+	profession = L["Alchemy"],
+	teaches = L["Elixir of Tongues (NYI)"],
+	learnedAt = 70,
+}
+t[13500] = {
+	name = L["Recipe: Greater Holy Protection Potion"],
+	profession = L["Alchemy"],
+	teaches = L["Greater Holy Protection Potion"],
+	learnedAt = 290,
+}
+t[12717] = {
+	name = L["Plans: Lionheart Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Lionheart Helm"],
+	learnedAt = 300,
+}
+t[7989] = {
+	name = L["Plans: Mithril Spurs"],
+	profession = L["Blacksmithing"],
+	teaches = L["Mithril Spurs"],
+	learnedAt = 235,
+}
+t[6046] = {
+	name = L["Plans: Steel Weapon Chain"],
+	profession = L["Blacksmithing"],
+	teaches = L["Steel Weapon Chain"],
+	learnedAt = 190,
+}
+t[12838] = {
+	name = L["Plans: Arcanite Reaper"],
+	profession = L["Blacksmithing"],
+	teaches = L["Arcanite Reaper"],
+	learnedAt = 300,
+}
+t[19212] = {
+	name = L["Plans: Nightfall"],
+	profession = L["Blacksmithing"],
+	teaches = L["Nightfall"],
+	learnedAt = 300,
+}
+t[7976] = {
+	name = L["Plans: Mithril Shield Spike"],
+	profession = L["Blacksmithing"],
+	teaches = L["Mithril Shield Spike"],
+	learnedAt = 215,
+}
+t[18592] = {
+	name = L["Plans: Sulfuron Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Sulfuron Hammer"],
+	learnedAt = 300,
+}
+t[10713] = {
+	name = L["Plans: Inlaid Mithril Cylinder"],
+	profession = L["Blacksmithing"],
+	teaches = L["Inlaid Mithril Cylinder"],
+	learnedAt = 200,
+}
+t[12711] = {
+	name = L["Plans: Whitesoul Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Whitesoul Helm"],
+	learnedAt = 300,
+}
+t[12690] = {
+	name = L["Plans: Imperial Plate Bracers"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Bracers"],
+	learnedAt = 270,
+}
+t[22388] = {
+	name = L["Plans: Titanic Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Titanic Leggings"],
+	learnedAt = 300,
+}
+t[7987] = {
+	name = L["Plans: Ornate Mithril Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Helm"],
+	learnedAt = 245,
+}
+t[12692] = {
+	name = L["Plans: Thorium Shield Spike"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Shield Spike"],
+	learnedAt = 275,
+}
+t[17060] = {
+	name = L["Plans: Dark Iron Destroyer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Destroyer"],
+	learnedAt = 300,
+}
+t[6045] = {
+	name = L["Plans: Iron Counterweight"],
+	profession = L["Blacksmithing"],
+	teaches = L["Iron Counterweight"],
+	learnedAt = 165,
+}
+t[12698] = {
+	name = L["Plans: Dawnbringer Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dawnbringer Shoulders"],
+	learnedAt = 290,
+}
+t[2882] = {
+	name = L["Plans: Silvered Bronze Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Silvered Bronze Shoulders"],
+	learnedAt = 125,
+}
+t[12835] = {
+	name = L["Plans: Annihilator"],
+	profession = L["Blacksmithing"],
+	teaches = L["Annihilator"],
+	learnedAt = 300,
+}
+t[6044] = {
+	name = L["Plans: Iron Shield Spike"],
+	profession = L["Blacksmithing"],
+	teaches = L["Iron Shield Spike"],
+	learnedAt = 150,
+}
+t[12684] = {
+	name = L["Plans: Thorium Bracers"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Bracers"],
+	learnedAt = 255,
+}
+t[11610] = {
+	name = L["Plans: Dark Iron Pulverizer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Pulverizer"],
+	learnedAt = 265,
+}
+t[12839] = {
+	name = L["Plans: Heartseeker"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heartseeker"],
+	learnedAt = 300,
+}
+t[19211] = {
+	name = L["Plans: Blackguard"],
+	profession = L["Blacksmithing"],
+	teaches = L["Blackguard"],
+	learnedAt = 300,
+}
+t[18264] = {
+	name = L["Plans: Elemental Sharpening Stone"],
+	profession = L["Blacksmithing"],
+	teaches = L["Elemental Sharpening Stone"],
+	learnedAt = 300,
+}
+t[8029] = {
+	name = L["Plans: Wicked Mithril Blade"],
+	profession = L["Blacksmithing"],
+	teaches = L["Wicked Mithril Blade"],
+	learnedAt = 225,
+}
+t[2881] = {
+	name = L["Plans: Runed Copper Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runed Copper Breastplate"],
+	learnedAt = 80,
+}
+t[7986] = {
+	name = L["Plans: Ornate Mithril Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Breastplate"],
+	learnedAt = 240,
+}
+t[22389] = {
+	name = L["Plans: Sageblade"],
+	profession = L["Blacksmithing"],
+	teaches = L["Sageblade"],
+	learnedAt = 300,
+}
+t[19206] = {
+	name = L["Plans: Dark Iron Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Helm"],
+	learnedAt = 300,
+}
+t[12720] = {
+	name = L["Plans: Stronghold Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Stronghold Gauntlets"],
+	learnedAt = 300,
+}
+t[22390] = {
+	name = L["Plans: Persuader"],
+	profession = L["Blacksmithing"],
+	teaches = L["Persuader"],
+	learnedAt = 300,
+}
+t[17051] = {
+	name = L["Plans: Dark Iron Bracers"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Bracers"],
+	learnedAt = 295,
+}
+t[7988] = {
+	name = L["Plans: Ornate Mithril Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Boots"],
+	learnedAt = 245,
+}
+t[12828] = {
+	name = L["Plans: Volcanic Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Volcanic Hammer"],
+	learnedAt = 290,
+}
+t[12821] = {
+	name = L["Plans: Dawn's Edge"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dawn's Edge"],
+	learnedAt = 275,
+}
+t[3866] = {
+	name = L["Plans: Jade Serpentblade"],
+	profession = L["Blacksmithing"],
+	teaches = L["Jade Serpentblade"],
+	learnedAt = 175,
+}
+t[3868] = {
+	name = L["Plans: Frost Tiger Blade"],
+	profession = L["Blacksmithing"],
+	teaches = L["Frost Tiger Blade"],
+	learnedAt = 200,
+}
+t[7978] = {
+	name = L["Plans: Barbaric Iron Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Barbaric Iron Shoulders"],
+	learnedAt = 160,
+}
+t[12836] = {
+	name = L["Plans: Frostguard"],
+	profession = L["Blacksmithing"],
+	teaches = L["Frostguard"],
+	learnedAt = 300,
+}
+t[3610] = {
+	name = L["Plans: Gemmed Copper Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Gemmed Copper Gauntlets"],
+	learnedAt = 60,
+}
+t[3871] = {
+	name = L["Plans: Golden Scale Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Shoulders"],
+	learnedAt = 175,
+}
+t[17706] = {
+	name = L["Plans: Edge of Winter"],
+	profession = L["Blacksmithing"],
+	teaches = L["Edge of Winter"],
+	learnedAt = 190,
+}
+t[12833] = {
+	name = L["Plans: Hammer of the Titans"],
+	profession = L["Blacksmithing"],
+	teaches = L["Hammer of the Titans"],
+	learnedAt = 300,
+}
+t[3611] = {
+	name = L["Plans: Green Iron Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Green Iron Boots"],
+	learnedAt = 145,
+}
+t[11615] = {
+	name = L["Plans: Dark Iron Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Shoulders"],
+	learnedAt = 280,
+}
+t[19210] = {
+	name = L["Plans: Ebon Hand"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ebon Hand"],
+	learnedAt = 300,
+}
+t[3870] = {
+	name = L["Plans: Green Iron Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Green Iron Shoulders"],
+	learnedAt = 160,
+}
+t[11612] = {
+	name = L["Plans: Dark Iron Plate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Plate"],
+	learnedAt = 285,
+}
+t[12727] = {
+	name = L["Plans: Enchanted Thorium Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Enchanted Thorium Breastplate"],
+	learnedAt = 300,
+}
+t[12683] = {
+	name = L["Plans: Thorium Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Belt"],
+	learnedAt = 250,
+}
+t[12725] = {
+	name = L["Plans: Enchanted Thorium Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Enchanted Thorium Helm"],
+	learnedAt = 300,
+}
+t[12696] = {
+	name = L["Plans: Demon Forged Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Demon Forged Breastplate"],
+	learnedAt = 285,
+}
+t[12726] = {
+	name = L["Plans: Enchanted Thorium Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Enchanted Thorium Leggings"],
+	learnedAt = 300,
+}
+t[19209] = {
+	name = L["Plans: Blackfury"],
+	profession = L["Blacksmithing"],
+	teaches = L["Blackfury"],
+	learnedAt = 300,
+}
+t[7983] = {
+	name = L["Plans: Ornate Mithril Pants"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Pants"],
+	learnedAt = 220,
+}
+t[17059] = {
+	name = L["Plans: Dark Iron Reaver"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Reaver"],
+	learnedAt = 300,
+}
+t[7975] = {
+	name = L["Plans: Heavy Mithril Pants"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heavy Mithril Pants"],
+	learnedAt = 210,
+}
+t[12700] = {
+	name = L["Plans: Imperial Plate Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Boots"],
+	learnedAt = 295,
+}
+t[17052] = {
+	name = L["Plans: Dark Iron Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Leggings"],
+	learnedAt = 300,
+}
+t[20040] = {
+	name = L["Plans: Dark Iron Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Boots"],
+	learnedAt = 300,
+}
+t[3609] = {
+	name = L["Plans: Copper Chain Vest"],
+	profession = L["Blacksmithing"],
+	teaches = L["Copper Chain Vest"],
+	learnedAt = 35,
+}
+t[12834] = {
+	name = L["Plans: Arcanite Champion"],
+	profession = L["Blacksmithing"],
+	teaches = L["Arcanite Champion"],
+	learnedAt = 300,
+}
+t[12728] = {
+	name = L["Plans: Invulnerable Mail"],
+	profession = L["Blacksmithing"],
+	teaches = L["Invulnerable Mail"],
+	learnedAt = 300,
+}
+t[19208] = {
+	name = L["Plans: Black Amnesty"],
+	profession = L["Blacksmithing"],
+	teaches = L["Black Amnesty"],
+	learnedAt = 300,
+}
+t[2883] = {
+	name = L["Plans: Deadly Bronze Poniard"],
+	profession = L["Blacksmithing"],
+	teaches = L["Deadly Bronze Poniard"],
+	learnedAt = 125,
+}
+t[7980] = {
+	name = L["Plans: Barbaric Iron Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Barbaric Iron Helm"],
+	learnedAt = 175,
+}
+t[6735] = {
+	name = L["Plans: Ironforge Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironforge Breastplate"],
+	learnedAt = 100,
+}
+t[5543] = {
+	name = L["Plans: Iridescent Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Iridescent Hammer"],
+	learnedAt = 140,
+}
+t[5578] = {
+	name = L["Plans: Silvered Bronze Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Silvered Bronze Breastplate"],
+	learnedAt = 130,
+}
+t[3875] = {
+	name = L["Plans: Golden Scale Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Boots"],
+	learnedAt = 200,
+}
+t[10424] = {
+	name = L["Plans: Silvered Bronze Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Silvered Bronze Leggings"],
+	learnedAt = 155,
+}
+t[11611] = {
+	name = L["Plans: Dark Iron Sunderer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Sunderer"],
+	learnedAt = 275,
+}
+t[12685] = {
+	name = L["Plans: Radiant Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Belt"],
+	learnedAt = 260,
+}
+t[22219] = {
+	name = L["Plans: Jagged Obsidian Shield"],
+	profession = L["Blacksmithing"],
+	teaches = L["Jagged Obsidian Shield"],
+	learnedAt = 300,
+}
+t[19207] = {
+	name = L["Plans: Dark Iron Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Gauntlets"],
+	learnedAt = 300,
+}
+t[12691] = {
+	name = L["Plans: Wildthorn Mail"],
+	profession = L["Blacksmithing"],
+	teaches = L["Wildthorn Mail"],
+	learnedAt = 270,
+}
+t[7984] = {
+	name = L["Plans: Ornate Mithril Gloves"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Gloves"],
+	learnedAt = 220,
+}
+t[17053] = {
+	name = L["Plans: Fiery Chain Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Fiery Chain Shoulders"],
+	learnedAt = 300,
+}
+t[7985] = {
+	name = L["Plans: Ornate Mithril Shoulder"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ornate Mithril Shoulders"],
+	learnedAt = 225,
+}
+t[12837] = {
+	name = L["Plans: Masterwork Stormhammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Masterwork Stormhammer"],
+	learnedAt = 300,
+}
+t[11614] = {
+	name = L["Plans: Dark Iron Mail"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dark Iron Mail"],
+	learnedAt = 270,
+}
+t[12688] = {
+	name = L["Plans: Imperial Plate Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Belt"],
+	learnedAt = 265,
+}
+t[12693] = {
+	name = L["Plans: Thorium Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Boots"],
+	learnedAt = 280,
+}
+t[3612] = {
+	name = L["Plans: Green Iron Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Green Iron Gauntlets"],
+	learnedAt = 150,
+}
+t[8028] = {
+	name = L["Plans: Runed Mithril Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runed Mithril Hammer"],
+	learnedAt = 245,
+}
+t[3867] = {
+	name = L["Plans: Golden Iron Destroyer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Iron Destroyer"],
+	learnedAt = 170,
+}
+t[3608] = {
+	name = L["Plans: Mighty Iron Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Mighty Iron Hammer"],
+	learnedAt = 145,
+}
+t[12830] = {
+	name = L["Plans: Corruption"],
+	profession = L["Blacksmithing"],
+	teaches = L["Corruption"],
+	learnedAt = 290,
+}
+t[7993] = {
+	name = L["Plans: Dazzling Mithril Rapier"],
+	profession = L["Blacksmithing"],
+	teaches = L["Dazzling Mithril Rapier"],
+	learnedAt = 240,
+}
+t[12687] = {
+	name = L["Plans: Imperial Plate Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Shoulders"],
+	learnedAt = 265,
+}
+t[19202] = {
+	name = L["Plans: Heavy Timbermaw Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heavy Timbermaw Belt"],
+	learnedAt = 290,
+}
+t[19204] = {
+	name = L["Plans: Heavy Timbermaw Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heavy Timbermaw Boots"],
+	learnedAt = 300,
+}
+t[19203] = {
+	name = L["Plans: Girdle of the Dawn"],
+	profession = L["Blacksmithing"],
+	teaches = L["Girdle of the Dawn"],
+	learnedAt = 290,
+}
+t[17049] = {
+	name = L["Plans: Fiery Chain Girdle"],
+	profession = L["Blacksmithing"],
+	teaches = L["Fiery Chain Girdle"],
+	learnedAt = 295,
+}
+t[12694] = {
+	name = L["Plans: Thorium Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Helm"],
+	learnedAt = 280,
+}
+t[3869] = {
+	name = L["Plans: Shadow Crescent Axe"],
+	profession = L["Blacksmithing"],
+	teaches = L["Shadow Crescent Axe"],
+	learnedAt = 200,
+}
+t[12689] = {
+	name = L["Plans: Radiant Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Breastplate"],
+	learnedAt = 270,
+}
+t[7990] = {
+	name = L["Plans: Heavy Mithril Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heavy Mithril Helm"],
+	learnedAt = 245,
+}
+t[7979] = {
+	name = L["Plans: Barbaric Iron Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Barbaric Iron Breastplate"],
+	learnedAt = 160,
+}
+t[12682] = {
+	name = L["Plans: Thorium Armor"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Armor"],
+	learnedAt = 250,
+}
+t[9367] = {
+	name = L["Plans: Golden Scale Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Gauntlets"],
+	learnedAt = 205,
+}
+t[12705] = {
+	name = L["Plans: Imperial Plate Chest"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Chest"],
+	learnedAt = 300,
+}
+t[12825] = {
+	name = L["Plans: Blazing Rapier"],
+	profession = L["Blacksmithing"],
+	teaches = L["Blazing Rapier"],
+	learnedAt = 280,
+}
+t[12701] = {
+	name = L["Plans: Imperial Plate Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Helm"],
+	learnedAt = 295,
+}
+t[12261] = {
+	name = L["Plans: Searing Golden Blade"],
+	profession = L["Blacksmithing"],
+	teaches = L["Searing Golden Blade"],
+	learnedAt = 190,
+}
+t[12817] = {
+	name = L["Plans: Bleakwood Hew"],
+	profession = L["Blacksmithing"],
+	teaches = L["Bleakwood Hew"],
+	learnedAt = 270,
+}
+t[7991] = {
+	name = L["Plans: Mithril Scale Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Mithril Scale Shoulders"],
+	learnedAt = 235,
+}
+t[5577] = {
+	name = L["Plans: Rough Bronze Bracers"],
+	profession = L["Blacksmithing"],
+	teaches = L["Rough Bronze Bracers"],
+	learnedAt = 100,
+}
+t[22221] = {
+	name = L["Plans: Obsidian Mail Tunic"],
+	profession = L["Blacksmithing"],
+	teaches = L["Obsidian Mail Tunic"],
+	learnedAt = 300,
+}
+t[7992] = {
+	name = L["Plans: Blue Glittering Axe"],
+	profession = L["Blacksmithing"],
+	teaches = L["Blue Glittering Axe"],
+	learnedAt = 220,
+}
+t[12715] = {
+	name = L["Plans: Imperial Plate Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Imperial Plate Leggings"],
+	learnedAt = 300,
+}
+t[3872] = {
+	name = L["Plans: Golden Scale Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Leggings"],
+	learnedAt = 170,
+}
+t[19205] = {
+	name = L["Plans: Gloves of the Dawn"],
+	profession = L["Blacksmithing"],
+	teaches = L["Gloves of the Dawn"],
+	learnedAt = 300,
+}
+t[6734] = {
+	name = L["Plans: Ironforge Chain"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironforge Chain"],
+	learnedAt = 70,
+}
+t[12699] = {
+	name = L["Plans: Fiery Plate Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Fiery Plate Gauntlets"],
+	learnedAt = 290,
+}
+t[7981] = {
+	name = L["Plans: Barbaric Iron Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Barbaric Iron Boots"],
+	learnedAt = 180,
+}
+t[19779] = {
+	name = L["Plans: Darksoul Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darksoul Breastplate"],
+	learnedAt = 300,
+}
+t[20555] = {
+	name = L["Plans: Darkrune Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darkrune Helm"],
+	learnedAt = 300,
+}
+t[12704] = {
+	name = L["Plans: Thorium Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Leggings"],
+	learnedAt = 300,
+}
+t[3873] = {
+	name = L["Plans: Golden Scale Cuirass"],
+	profession = L["Blacksmithing"],
+	teaches = L["Golden Scale Cuirass"],
+	learnedAt = 195,
+}
+t[22703] = {
+	name = L["Plans: Icebane Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Icebane Breastplate"],
+	learnedAt = 300,
+}
+t[19776] = {
+	name = L["Plans: Bloodsoul Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Bloodsoul Breastplate"],
+	learnedAt = 300,
+}
+t[19780] = {
+	name = L["Plans: Darksoul Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darksoul Leggings"],
+	learnedAt = 300,
+}
+t[3874] = {
+	name = L["Plans: Polished Steel Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Polished Steel Boots"],
+	learnedAt = 185,
+}
+t[22220] = {
+	name = L["Plans: Black Grasp of the Destroyer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Black Grasp of the Destroyer"],
+	learnedAt = 300,
+}
+t[19781] = {
+	name = L["Plans: Darksoul Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darksoul Shoulders"],
+	learnedAt = 300,
+}
+t[6736] = {
+	name = L["Plans: Ironforge Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironforge Gauntlets"],
+	learnedAt = 140,
+}
+t[12824] = {
+	name = L["Plans: Enchanted Battlehammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Enchanted Battlehammer"],
+	learnedAt = 280,
+}
+t[12713] = {
+	name = L["Plans: Radiant Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Leggings"],
+	learnedAt = 300,
+}
+t[22705] = {
+	name = L["Plans: Icebane Bracers"],
+	profession = L["Blacksmithing"],
+	teaches = L["Icebane Bracers"],
+	learnedAt = 300,
+}
+t[12697] = {
+	name = L["Plans: Radiant Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Boots"],
+	learnedAt = 290,
+}
+t[12816] = {
+	name = L["Plans: Thorium Greatsword"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thorium Greatsword"],
+	learnedAt = 260,
+}
+t[19777] = {
+	name = L["Plans: Bloodsoul Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Bloodsoul Shoulders"],
+	learnedAt = 300,
+}
+t[12827] = {
+	name = L["Plans: Serenity"],
+	profession = L["Blacksmithing"],
+	teaches = L["Serenity"],
+	learnedAt = 285,
+}
+t[22222] = {
+	name = L["Plans: Thick Obsidian Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Thick Obsidian Breastplate"],
+	learnedAt = 300,
+}
+t[7982] = {
+	name = L["Plans: Barbaric Iron Gloves"],
+	profession = L["Blacksmithing"],
+	teaches = L["Barbaric Iron Gloves"],
+	learnedAt = 185,
+}
+t[12716] = {
+	name = L["Plans: Helm of the Great Chief"],
+	profession = L["Blacksmithing"],
+	teaches = L["Helm of the Great Chief"],
+	learnedAt = 300,
+}
+t[12832] = {
+	name = L["Plans: Darkspear"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darkspear"],
+	learnedAt = 300,
+}
+t[20553] = {
+	name = L["Plans: Darkrune Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darkrune Gauntlets"],
+	learnedAt = 300,
+}
+t[12831] = {
+	name = L["Plans: Blood Talon"],
+	profession = L["Blacksmithing"],
+	teaches = L["Blood Talon"],
+	learnedAt = 300,
+}
+t[7994] = {
+	name = L["Plans: Orcish War Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Orcish War Leggings"],
+	learnedAt = 230,
+}
+t[12707] = {
+	name = L["Plans: Runic Plate Boots"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runic Plate Boots"],
+	learnedAt = 300,
+}
+t[12719] = {
+	name = L["Plans: Runic Plate Leggings"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runic Plate Leggings"],
+	learnedAt = 300,
+}
+t[12714] = {
+	name = L["Plans: Runic Plate Helm"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runic Plate Helm"],
+	learnedAt = 300,
+}
+t[12695] = {
+	name = L["Plans: Radiant Gloves"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Gloves"],
+	learnedAt = 285,
+}
+t[20554] = {
+	name = L["Plans: Darkrune Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Darkrune Breastplate"],
+	learnedAt = 300,
+}
+t[22704] = {
+	name = L["Plans: Icebane Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Icebane Gauntlets"],
+	learnedAt = 300,
+}
+t[19778] = {
+	name = L["Plans: Bloodsoul Gauntlets"],
+	profession = L["Blacksmithing"],
+	teaches = L["Bloodsoul Gauntlets"],
+	learnedAt = 300,
+}
+t[12718] = {
+	name = L["Plans: Runic Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runic Breastplate"],
+	learnedAt = 300,
+}
+t[12706] = {
+	name = L["Plans: Runic Plate Shoulders"],
+	profession = L["Blacksmithing"],
+	teaches = L["Runic Plate Shoulders"],
+	learnedAt = 300,
+}
+t[22768] = {
+	name = L["Plans: Ironvine Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironvine Belt"],
+	learnedAt = 300,
+}
+t[12702] = {
+	name = L["Plans: Radiant Circlet"],
+	profession = L["Blacksmithing"],
+	teaches = L["Radiant Circlet"],
+	learnedAt = 295,
+}
+t[22214] = {
+	name = L["Plans: Light Obsidian Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Light Obsidian Belt"],
+	learnedAt = 300,
+}
+t[22767] = {
+	name = L["Plans: Ironvine Gloves"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironvine Gloves"],
+	learnedAt = 300,
+}
+t[12826] = {
+	name = L["Plans: Rune Edge"],
+	profession = L["Blacksmithing"],
+	teaches = L["Rune Edge"],
+	learnedAt = 285,
+}
+t[12818] = {
+	name = L["Plans: Inlaid Thorium Hammer"],
+	profession = L["Blacksmithing"],
+	teaches = L["Inlaid Thorium Hammer"],
+	learnedAt = 270,
+}
+t[22766] = {
+	name = L["Plans: Ironvine Breastplate"],
+	profession = L["Blacksmithing"],
+	teaches = L["Ironvine Breastplate"],
+	learnedAt = 300,
+}
+t[22209] = {
+	name = L["Plans: Heavy Obsidian Belt"],
+	profession = L["Blacksmithing"],
+	teaches = L["Heavy Obsidian Belt"],
+	learnedAt = 300,
+}
+t[7977] = {
+	name = L["Plans: Mithril Scale Gloves"],
+	profession = L["Blacksmithing"],
+	teaches = L["Mithril Scale Gloves"],
+	learnedAt = 220,
+}
+t[18653] = {
+	name = L["Schematic: Goblin Jumper Cables XL"],
+	profession = L["Engineering"],
+	teaches = L["Goblin Jumper Cables XL"],
+	learnedAt = 265,
+}
+t[16051] = {
+	name = L["Schematic: Thorium Shells"],
+	profession = L["Engineering"],
+	teaches = L["Thorium Shells"],
+	learnedAt = 285,
+}
+t[10608] = {
+	name = L["Schematic: Sniper Scope"],
+	profession = L["Engineering"],
+	teaches = L["Sniper Scope"],
+	learnedAt = 240,
+}
+t[18290] = {
+	name = L["Schematic: Biznicks 247x128 Accurascope"],
+	profession = L["Engineering"],
+	teaches = L["Biznicks 247x128 Accurascope"],
+	learnedAt = 300,
+}
+t[4413] = {
+	name = L["Schematic: Discombobulator Ray"],
+	profession = L["Engineering"],
+	teaches = L["Discombobulator Ray"],
+	learnedAt = 160,
+}
+t[18235] = {
+	name = L["Schematic: Field Repair Bot 74A"],
+	profession = L["Engineering"],
+	teaches = L["Field Repair Bot 74A"],
+	learnedAt = 300,
+}
+t[4417] = {
+	name = L["Schematic: Large Seaforium Charge"],
+	profession = L["Engineering"],
+	teaches = L["Large Seaforium Charge"],
+	learnedAt = 200,
+}
+t[18291] = {
+	name = L["Schematic: Force Reactive Disk"],
+	profession = L["Engineering"],
+	teaches = L["Force Reactive Disk"],
+	learnedAt = 300,
+}
+t[10606] = {
+	name = L["Schematic: Parachute Cloak"],
+	profession = L["Engineering"],
+	teaches = L["Parachute Cloak"],
+	learnedAt = 225,
+}
+t[18657] = {
+	name = L["Schematic: Hyper-Radiant Flame Reflector"],
+	profession = L["Engineering"],
+	teaches = L["Hyper-Radiant Flame Reflector"],
+	learnedAt = 290,
+}
+t[16054] = {
+	name = L["Schematic: Arcanite Dragonling"],
+	profession = L["Engineering"],
+	teaches = L["Arcanite Dragonling"],
+	learnedAt = 300,
+}
+t[18658] = {
+	name = L["Schematic: Ultra-Flash Shadow Reflector"],
+	profession = L["Engineering"],
+	teaches = L["Ultra-Flash Shadow Reflector"],
+	learnedAt = 300,
+}
+t[4412] = {
+	name = L["Schematic: Moonsight Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Moonsight Rifle"],
+	learnedAt = 145,
+}
+t[10605] = {
+	name = L["Schematic: Spellpower Goggles Xtreme"],
+	profession = L["Engineering"],
+	teaches = L["Spellpower Goggles Xtreme"],
+	learnedAt = 225,
+}
+t[16056] = {
+	name = L["Schematic: Flawless Arcanite Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Flawless Arcanite Rifle"],
+	learnedAt = 300,
+}
+t[18292] = {
+	name = L["Schematic: Core Marksman Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Core Marksman Rifle"],
+	learnedAt = 300,
+}
+t[4408] = {
+	name = L["Schematic: Mechanical Squirrel"],
+	profession = L["Engineering"],
+	teaches = L["Mechanical Squirrel"],
+	learnedAt = 75,
+}
+t[11827] = {
+	name = L["Schematic: Lil' Smoky"],
+	profession = L["Engineering"],
+	teaches = L["Lil' Smoky"],
+	learnedAt = 205,
+}
+t[4410] = {
+	name = L["Schematic: Shadow Goggles"],
+	profession = L["Engineering"],
+	teaches = L["Shadow Goggles"],
+	learnedAt = 120,
+}
+t[16055] = {
+	name = L["Schematic: Arcane Bomb"],
+	profession = L["Engineering"],
+	teaches = L["Arcane Bomb"],
+	learnedAt = 300,
+}
+t[18661] = {
+	name = L["Schematic: World Enlarger"],
+	profession = L["Engineering"],
+	teaches = L["World Enlarger"],
+	learnedAt = 260,
+}
+t[10604] = {
+	name = L["Schematic: Mithril Heavy-bore Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Mithril Heavy-bore Rifle"],
+	learnedAt = 220,
+}
+t[4415] = {
+	name = L["Schematic: Craftsman's Monocle"],
+	profession = L["Engineering"],
+	teaches = L["Craftsman's Monocle"],
+	learnedAt = 185,
+}
+t[4416] = {
+	name = L["Schematic: Goblin Land Mine"],
+	profession = L["Engineering"],
+	teaches = L["Goblin Land Mine"],
+	learnedAt = 195,
+}
+t[4409] = {
+	name = L["Schematic: Small Seaforium Charge"],
+	profession = L["Engineering"],
+	teaches = L["Small Seaforium Charge"],
+	learnedAt = 100,
+}
+t[6672] = {
+	name = L["Schematic: Flash Bomb"],
+	profession = L["Engineering"],
+	teaches = L["Flash Bomb"],
+	learnedAt = 185,
+}
+t[6716] = {
+	name = L["Schematic: EZ-Thro Dynamite"],
+	profession = L["Engineering"],
+	teaches = L["EZ-Thro Dynamite"],
+	learnedAt = 100,
+}
+t[4411] = {
+	name = L["Schematic: Flame Deflector"],
+	profession = L["Engineering"],
+	teaches = L["Flame Deflector"],
+	learnedAt = 125,
+}
+t[7192] = {
+	name = L["Schematic: Goblin Rocket Boots"],
+	profession = L["Engineering"],
+	teaches = L["Goblin Rocket Boots"],
+	learnedAt = 130,
+}
+t[16045] = {
+	name = L["Schematic: Spellpower Goggles Xtreme Plus"],
+	profession = L["Engineering"],
+	teaches = L["Spellpower Goggles Xtreme Plus"],
+	learnedAt = 270,
+}
+t[10601] = {
+	name = L["Schematic: Bright-Eye Goggles"],
+	profession = L["Engineering"],
+	teaches = L["Bright-Eye Goggles"],
+	learnedAt = 175,
+}
+t[16048] = {
+	name = L["Schematic: Dark Iron Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Dark Iron Rifle"],
+	learnedAt = 275,
+}
+t[20001] = {
+	name = L["Schematic: Bloodvine Lens"],
+	profession = L["Engineering"],
+	teaches = L["Bloodvine Lens"],
+	learnedAt = 300,
+}
+t[16043] = {
+	name = L["Schematic: Thorium Rifle"],
+	profession = L["Engineering"],
+	teaches = L["Thorium Rifle"],
+	learnedAt = 260,
+}
+t[10603] = {
+	name = L["Schematic: Catseye Ultra Goggles"],
+	profession = L["Engineering"],
+	teaches = L["Catseye Ultra Goggles"],
+	learnedAt = 220,
+}
+t[18655] = {
+	name = L["Schematic: Major Recombobulator"],
+	profession = L["Engineering"],
+	teaches = L["Major Recombobulator"],
+	learnedAt = 275,
+}
+t[11828] = {
+	name = L["Schematic: Pet Bombling"],
+	profession = L["Engineering"],
+	teaches = L["Pet Bombling"],
+	learnedAt = 205,
+}
+t[16044] = {
+	name = L["Schematic: Lifelike Mechanical Toad"],
+	profession = L["Engineering"],
+	teaches = L["Lifelike Mechanical Toad"],
+	learnedAt = 265,
+}
+t[4414] = {
+	name = L["Schematic: Portable Bronze Mortar"],
+	profession = L["Engineering"],
+	teaches = L["Portable Bronze Mortar"],
+	learnedAt = 165,
+}
+t[16049] = {
+	name = L["Schematic: Dark Iron Bomb"],
+	profession = L["Engineering"],
+	teaches = L["Dark Iron Bomb"],
+	learnedAt = 285,
+}
+t[20000] = {
+	name = L["Schematic: Bloodvine Goggles"],
+	profession = L["Engineering"],
+	teaches = L["Bloodvine Goggles"],
+	learnedAt = 300,
+}
+t[18654] = {
+	name = L["Schematic: Gnomish Alarm-O-Bot"],
+	profession = L["Engineering"],
+	teaches = L["Alarm-O-Bot"],
+	learnedAt = 265,
+}
+t[16052] = {
+	name = L["Schematic: Voice Amplification Modulator"],
+	profession = L["Engineering"],
+	teaches = L["Voice Amplification Modulator"],
+	learnedAt = 290,
+}
+t[17720] = {
+	name = L["Schematic: Snowmaster 9000"],
+	profession = L["Engineering"],
+	teaches = L["SnowMaster 9000"],
+	learnedAt = 190,
+}
+t[22729] = {
+	name = L["Schematic: Steam Tonk Controller"],
+	profession = L["Engineering"],
+	teaches = L["Steam Tonk Controller"],
+	learnedAt = 275,
+}
+t[16053] = {
+	name = L["Schematic: Master Engineer's Goggles"],
+	profession = L["Engineering"],
+	teaches = L["Master Engineer's Goggles"],
+	learnedAt = 290,
+}
+t[21730] = {
+	name = L["Schematic: Blue Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Blue Rocket Cluster"],
+	learnedAt = 225,
+}
+t[21726] = {
+	name = L["Schematic: Small Red Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Small Red Rocket"],
+	learnedAt = 125,
+}
+t[21727] = {
+	name = L["Schematic: Large Blue Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Large Blue Rocket"],
+	learnedAt = 175,
+}
+t[21731] = {
+	name = L["Schematic: Green Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Green Rocket Cluster"],
+	learnedAt = 225,
+}
+t[21732] = {
+	name = L["Schematic: Red Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Red Rocket Cluster"],
+	learnedAt = 225,
+}
+t[21724] = {
+	name = L["Schematic: Small Blue Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Small Blue Rocket"],
+	learnedAt = 125,
+}
+t[21737] = {
+	name = L["Schematic: Cluster Launcher"],
+	profession = L["Engineering"],
+	teaches = L["Firework Cluster Launcher"],
+	learnedAt = 275,
+}
+t[21733] = {
+	name = L["Schematic: Large Blue Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Large Blue Rocket Cluster"],
+	learnedAt = 275,
+}
+t[21729] = {
+	name = L["Schematic: Large Red Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Large Red Rocket"],
+	learnedAt = 175,
+}
+t[21725] = {
+	name = L["Schematic: Small Green Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Small Green Rocket"],
+	learnedAt = 125,
+}
+t[21738] = {
+	name = L["Schematic: Firework Launcher"],
+	profession = L["Engineering"],
+	teaches = L["Firework Launcher"],
+	learnedAt = 225,
+}
+t[21728] = {
+	name = L["Schematic: Large Green Rocket"],
+	profession = L["Engineering"],
+	teaches = L["Large Green Rocket"],
+	learnedAt = 175,
+}
+t[21735] = {
+	name = L["Schematic: Large Red Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Large Red Rocket Cluster"],
+	learnedAt = 275,
+}
+t[21734] = {
+	name = L["Schematic: Large Green Rocket Cluster"],
+	profession = L["Engineering"],
+	teaches = L["Large Green Rocket Cluster"],
+	learnedAt = 275,
+}
+t[16085] = {
+	name = L["Artisan First Aid - Heal Thyself"],
+	profession = L["First Aid"],
+	teaches = L["First Aid"],
+	learnedAt = 200,
+}
+t[6454] = {
+	name = L["Manual: Strong Anti-Venom"],
+	profession = L["First Aid"],
+	teaches = L["Strong Anti-Venom"],
+	learnedAt = 130,
+}
+t[19442] = {
+	name = L["Formula: Powerful Anti-Venom"],
+	profession = L["First Aid"],
+	teaches = L["Powerful Anti-Venom"],
+	learnedAt = 300,
+}
+t[8547] = {
+	name = L["Formula: Powerful Smelling Salts"],
+	profession = L["First Aid"],
+	teaches = L["Powerful Smelling Salts"],
+	learnedAt = 250,
+}
+t[23689] = {
+	name = L["Manual: Crystal Infused Bandage"],
+	profession = L["First Aid"],
+	teaches = L["Crystal Infused Bandage"],
+	learnedAt = 300,
+}
+t[15772] = {
+	name = L["Pattern: Devilsaur Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Devilsaur Leggings"],
+	learnedAt = 300,
+}
+t[15744] = {
+	name = L["Pattern: Wicked Leather Headband"],
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Headband"],
+	learnedAt = 280,
+}
+t[15728] = {
+	name = L["Pattern: Wicked Leather Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Bracers"],
+	learnedAt = 265,
+}
+t[18518] = {
+	name = L["Pattern: Hide of the Wild"],
+	profession = L["Leatherworking"],
+	teaches = L["Hide of the Wild"],
+	learnedAt = 300,
+}
+t[17025] = {
+	name = L["Pattern: Black Dragonscale Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Black Dragonscale Boots"],
+	learnedAt = 300,
+}
+t[4293] = {
+	name = L["Pattern: Hillman's Leather Vest"],
+	profession = L["Leatherworking"],
+	teaches = L["Hillman's Leather Vest"],
+	learnedAt = 100,
+}
+t[6476] = {
+	name = L["Pattern: Deviate Scale Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Deviate Scale Belt"],
+	learnedAt = 115,
+}
+t[15753] = {
+	name = L["Pattern: Stormshroud Armor"],
+	profession = L["Leatherworking"],
+	teaches = L["Stormshroud Armor"],
+	learnedAt = 285,
+}
+t[20253] = {
+	name = L["Pattern: Warbear Harness"],
+	profession = L["Leatherworking"],
+	teaches = L["Warbear Harness"],
+	learnedAt = 275,
+}
+t[19332] = {
+	name = L["Pattern: Corehound Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Corehound Belt"],
+	learnedAt = 300,
+}
+t[15770] = {
+	name = L["Pattern: Black Dragonscale Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Black Dragonscale Shoulders"],
+	learnedAt = 300,
+}
+t[15759] = {
+	name = L["Pattern: Black Dragonscale Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Black Dragonscale Breastplate"],
+	learnedAt = 290,
+}
+t[15760] = {
+	name = L["Pattern: Ironfeather Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Ironfeather Breastplate"],
+	learnedAt = 290,
+}
+t[18515] = {
+	name = L["Pattern: Mongoose Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Mongoose Boots"],
+	learnedAt = 300,
+}
+t[8395] = {
+	name = L["Pattern: Tough Scorpid Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Breastplate"],
+	learnedAt = 220,
+}
+t[15781] = {
+	name = L["Pattern: Black Dragonscale Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Black Dragonscale Leggings"],
+	learnedAt = 300,
+}
+t[15764] = {
+	name = L["Pattern: Stormshroud Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Stormshroud Shoulders"],
+	learnedAt = 295,
+}
+t[8404] = {
+	name = L["Pattern: Wild Leather Vest"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Vest"],
+	learnedAt = 225,
+}
+t[18519] = {
+	name = L["Pattern: Shifting Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Shifting Cloak"],
+	learnedAt = 300,
+}
+t[4296] = {
+	name = L["Pattern: Dark Leather Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Dark Leather Shoulders"],
+	learnedAt = 140,
+}
+t[15752] = {
+	name = L["Pattern: Living Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Living Leggings"],
+	learnedAt = 285,
+}
+t[7452] = {
+	name = L["Pattern: Dusky Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Dusky Boots"],
+	learnedAt = 200,
+}
+t[21548] = {
+	name = L["Pattern: Stormshroud Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Stormshroud Gloves"],
+	learnedAt = 300,
+}
+t[5083] = {
+	name = L["Pattern: Kodo Hide Bag"],
+	profession = L["Leatherworking"],
+	teaches = L["Kodo Hide Bag"],
+	learnedAt = 40,
+}
+t[8398] = {
+	name = L["Pattern: Tough Scorpid Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Gloves"],
+	learnedAt = 225,
+}
+t[15769] = {
+	name = L["Pattern: Onyxia Scale Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Onyxia Scale Cloak"],
+	learnedAt = 300,
+}
+t[4300] = {
+	name = L["Pattern: Guardian Leather Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Guardian Leather Bracers"],
+	learnedAt = 195,
+}
+t[7449] = {
+	name = L["Pattern: Dusky Leather Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Dusky Leather Leggings"],
+	learnedAt = 165,
+}
+t[7450] = {
+	name = L["Pattern: Green Whelp Armor"],
+	profession = L["Leatherworking"],
+	teaches = L["Green Whelp Armor"],
+	learnedAt = 175,
+}
+t[8405] = {
+	name = L["Pattern: Wild Leather Helmet"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Helmet"],
+	learnedAt = 225,
+}
+t[4301] = {
+	name = L["Pattern: Barbaric Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Barbaric Belt"],
+	learnedAt = 200,
+}
+t[15763] = {
+	name = L["Pattern: Blue Dragonscale Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Blue Dragonscale Shoulders"],
+	learnedAt = 295,
+}
+t[7453] = {
+	name = L["Pattern: Swift Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Swift Boots"],
+	learnedAt = 200,
+}
+t[20254] = {
+	name = L["Pattern: Warbear Woolies"],
+	profession = L["Leatherworking"],
+	teaches = L["Warbear Woolies"],
+	learnedAt = 285,
+}
+t[18517] = {
+	name = L["Pattern: Chromatic Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Chromatic Cloak"],
+	learnedAt = 300,
+}
+t[15733] = {
+	name = L["Pattern: Green Dragonscale Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Green Dragonscale Leggings"],
+	learnedAt = 270,
+}
+t[7363] = {
+	name = L["Pattern: Pilferer's Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Pilferer's Gloves"],
+	learnedAt = 140,
+}
+t[17022] = {
+	name = L["Pattern: Corehound Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Corehound Boots"],
+	learnedAt = 295,
+}
+t[5972] = {
+	name = L["Pattern: Fine Leather Pants"],
+	profession = L["Leatherworking"],
+	teaches = L["Fine Leather Pants"],
+	learnedAt = 105,
+}
+t[15757] = {
+	name = L["Pattern: Wicked Leather Pants"],
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Pants"],
+	learnedAt = 290,
+}
+t[17023] = {
+	name = L["Pattern: Molten Helm"],
+	profession = L["Leatherworking"],
+	teaches = L["Molten Helm"],
+	learnedAt = 300,
+}
+t[15742] = {
+	name = L["Pattern: Warbear Harness"],
+	profession = L["Leatherworking"],
+	teaches = L["Warbear Harness"],
+	learnedAt = 275,
+}
+t[15751] = {
+	name = L["Pattern: Blue Dragonscale Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Blue Dragonscale Breastplate"],
+	learnedAt = 285,
+}
+t[19331] = {
+	name = L["Pattern: Chromatic Gauntlets"],
+	profession = L["Leatherworking"],
+	teaches = L["Chromatic Gauntlets"],
+	learnedAt = 300,
+}
+t[15730] = {
+	name = L["Pattern: Red Dragonscale Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Red Dragonscale Breastplate"],
+	learnedAt = 300,
+}
+t[19333] = {
+	name = L["Pattern: Molten Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Molten Belt"],
+	learnedAt = 300,
+}
+t[8384] = {
+	name = L["Pattern: Comfortable Leather Hat"],
+	profession = L["Leatherworking"],
+	teaches = L["Comfortable Leather Hat"],
+	learnedAt = 200,
+}
+t[8388] = {
+	name = L["Pattern: Nightscape Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Nightscape Cloak"],
+	learnedAt = 230,
+}
+t[7360] = {
+	name = L["Pattern: Dark Leather Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Dark Leather Gloves"],
+	learnedAt = 120,
+}
+t[2408] = {
+	name = L["Pattern: Fine Leather Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Fine Leather Gloves"],
+	learnedAt = 75,
+}
+t[4298] = {
+	name = L["Pattern: Guardian Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Guardian Belt"],
+	learnedAt = 170,
+}
+t[8387] = {
+	name = L["Pattern: Big Voodoo Mask"],
+	profession = L["Leatherworking"],
+	teaches = L["Big Voodoo Mask"],
+	learnedAt = 220,
+}
+t[8406] = {
+	name = L["Pattern: Wild Leather Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Boots"],
+	learnedAt = 245,
+}
+t[2409] = {
+	name = L["Pattern: Dark Leather Tunic"],
+	profession = L["Leatherworking"],
+	teaches = L["Dark Leather Tunic"],
+	learnedAt = 100,
+}
+t[8402] = {
+	name = L["Pattern: Tough Scorpid Helm"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Helm"],
+	learnedAt = 250,
+}
+t[8403] = {
+	name = L["Pattern: Wild Leather Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Shoulders"],
+	learnedAt = 220,
+}
+t[15773] = {
+	name = L["Pattern: Wicked Leather Armor"],
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Armor"],
+	learnedAt = 300,
+}
+t[15768] = {
+	name = L["Pattern: Wicked Leather Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Wicked Leather Belt"],
+	learnedAt = 300,
+}
+t[15771] = {
+	name = L["Pattern: Living Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Living Breastplate"],
+	learnedAt = 300,
+}
+t[19330] = {
+	name = L["Pattern: Lava Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Lava Belt"],
+	learnedAt = 300,
+}
+t[5974] = {
+	name = L["Pattern: Guardian Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Guardian Cloak"],
+	learnedAt = 185,
+}
+t[20382] = {
+	name = L["Pattern: Dreamscale Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Dreamscale Breastplate"],
+	learnedAt = 300,
+}
+t[19329] = {
+	name = L["Pattern: Golden Mantle of the Dawn"],
+	profession = L["Leatherworking"],
+	teaches = L["Golden Mantle of the Dawn"],
+	learnedAt = 300,
+}
+t[15775] = {
+	name = L["Pattern: Volcanic Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Volcanic Shoulders"],
+	learnedAt = 300,
+}
+t[15732] = {
+	name = L["Pattern: Volcanic Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Volcanic Leggings"],
+	learnedAt = 270,
+}
+t[8400] = {
+	name = L["Pattern: Tough Scorpid Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Shoulders"],
+	learnedAt = 240,
+}
+t[8401] = {
+	name = L["Pattern: Tough Scorpid Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Leggings"],
+	learnedAt = 245,
+}
+t[15754] = {
+	name = L["Pattern: Warbear Woolies"],
+	profession = L["Leatherworking"],
+	teaches = L["Warbear Woolies"],
+	learnedAt = 285,
+}
+t[4297] = {
+	name = L["Pattern: Barbaric Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Barbaric Gloves"],
+	learnedAt = 150,
+}
+t[18252] = {
+	name = L["Pattern: Core Armor Kit"],
+	profession = L["Leatherworking"],
+	teaches = L["Core Armor Kit"],
+	learnedAt = 300,
+}
+t[8408] = {
+	name = L["Pattern: Wild Leather Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Cloak"],
+	learnedAt = 250,
+}
+t[8386] = {
+	name = L["Pattern: Big Voodoo Robe"],
+	profession = L["Leatherworking"],
+	teaches = L["Big Voodoo Robe"],
+	learnedAt = 215,
+}
+t[2406] = {
+	name = L["Pattern: Fine Leather Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Fine Leather Boots"],
+	learnedAt = 90,
+}
+t[8399] = {
+	name = L["Pattern: Tough Scorpid Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Boots"],
+	learnedAt = 235,
+}
+t[6474] = {
+	name = L["Pattern: Deviate Scale Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Deviate Scale Cloak"],
+	learnedAt = 90,
+}
+t[7288] = {
+	name = L["Pattern: Rugged Leather Pants"],
+	profession = L["Leatherworking"],
+	teaches = L["Rugged Leather Pants"],
+	learnedAt = 35,
+}
+t[15749] = {
+	name = L["Pattern: Volcanic Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Volcanic Breastplate"],
+	learnedAt = 285,
+}
+t[8407] = {
+	name = L["Pattern: Wild Leather Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Wild Leather Leggings"],
+	learnedAt = 250,
+}
+t[18516] = {
+	name = L["Pattern: Swift Flight Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Swift Flight Bracers"],
+	learnedAt = 300,
+}
+t[6475] = {
+	name = L["Pattern: Deviate Scale Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Deviate Scale Gloves"],
+	learnedAt = 105,
+}
+t[6710] = {
+	name = L["Pattern: Moonglow Vest"],
+	profession = L["Leatherworking"],
+	teaches = L["Moonglow Vest"],
+	learnedAt = 90,
+}
+t[8390] = {
+	name = L["Pattern: Big Voodoo Cloak"],
+	profession = L["Leatherworking"],
+	teaches = L["Big Voodoo Cloak"],
+	learnedAt = 240,
+}
+t[15729] = {
+	name = L["Pattern: Chimeric Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Chimeric Gloves"],
+	learnedAt = 265,
+}
+t[4299] = {
+	name = L["Pattern: Guardian Armor"],
+	profession = L["Leatherworking"],
+	teaches = L["Guardian Armor"],
+	learnedAt = 175,
+}
+t[15779] = {
+	name = L["Pattern: Frostsaber Tunic"],
+	profession = L["Leatherworking"],
+	teaches = L["Frostsaber Tunic"],
+	learnedAt = 300,
+}
+t[19769] = {
+	name = L["Pattern: Primal Batskin Jerkin"],
+	profession = L["Leatherworking"],
+	teaches = L["Primal Batskin Jerkin"],
+	learnedAt = 300,
+}
+t[2407] = {
+	name = L["Pattern: White Leather Jerkin"],
+	profession = L["Leatherworking"],
+	teaches = L["White Leather Jerkin"],
+	learnedAt = 60,
+}
+t[19326] = {
+	name = L["Pattern: Might of the Timbermaw"],
+	profession = L["Leatherworking"],
+	teaches = L["Might of the Timbermaw"],
+	learnedAt = 290,
+}
+t[19327] = {
+	name = L["Pattern: Timbermaw Brawlers"],
+	profession = L["Leatherworking"],
+	teaches = L["Timbermaw Brawlers"],
+	learnedAt = 300,
+}
+t[17722] = {
+	name = L["Pattern: Gloves of the Greatfather"],
+	profession = L["Leatherworking"],
+	teaches = L["Gloves of the Greatfather"],
+	learnedAt = 190,
+}
+t[15746] = {
+	name = L["Pattern: Chimeric Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Chimeric Leggings"],
+	learnedAt = 280,
+}
+t[15731] = {
+	name = L["Pattern: Runic Leather Gauntlets"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Gauntlets"],
+	learnedAt = 270,
+}
+t[15747] = {
+	name = L["Pattern: Frostsaber Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Frostsaber Leggings"],
+	learnedAt = 285,
+}
+t[8397] = {
+	name = L["Pattern: Tough Scorpid Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Tough Scorpid Bracers"],
+	learnedAt = 220,
+}
+t[7364] = {
+	name = L["Pattern: Heavy Earthen Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Earthen Gloves"],
+	learnedAt = 145,
+}
+t[19328] = {
+	name = L["Pattern: Dawn Treaders"],
+	profession = L["Leatherworking"],
+	teaches = L["Dawn Treaders"],
+	learnedAt = 290,
+}
+t[4294] = {
+	name = L["Pattern: Hillman's Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Hillman's Belt"],
+	learnedAt = 120,
+}
+t[8389] = {
+	name = L["Pattern: Big Voodoo Pants"],
+	profession = L["Leatherworking"],
+	teaches = L["Big Voodoo Pants"],
+	learnedAt = 240,
+}
+t[15745] = {
+	name = L["Pattern: Runic Leather Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Belt"],
+	learnedAt = 280,
+}
+t[15737] = {
+	name = L["Pattern: Chimeric Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Chimeric Boots"],
+	learnedAt = 275,
+}
+t[15761] = {
+	name = L["Pattern: Frostsaber Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Frostsaber Gloves"],
+	learnedAt = 295,
+}
+t[19771] = {
+	name = L["Pattern: Primal Batskin Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Primal Batskin Bracers"],
+	learnedAt = 300,
+}
+t[20508] = {
+	name = L["Pattern: Spitfire Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Spitfire Breastplate"],
+	learnedAt = 300,
+}
+t[15755] = {
+	name = L["Pattern: Chimeric Vest"],
+	profession = L["Leatherworking"],
+	teaches = L["Chimeric Vest"],
+	learnedAt = 290,
+}
+t[20506] = {
+	name = L["Pattern: Spitfire Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Spitfire Bracers"],
+	learnedAt = 300,
+}
+t[15743] = {
+	name = L["Pattern: Heavy Scorpid Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Belt"],
+	learnedAt = 280,
+}
+t[15739] = {
+	name = L["Pattern: Runic Leather Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Bracers"],
+	learnedAt = 275,
+}
+t[19770] = {
+	name = L["Pattern: Primal Batskin Gloves"],
+	profession = L["Leatherworking"],
+	teaches = L["Primal Batskin Gloves"],
+	learnedAt = 300,
+}
+t[15727] = {
+	name = L["Pattern: Heavy Scorpid Vest"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Vest"],
+	learnedAt = 265,
+}
+t[15748] = {
+	name = L["Pattern: Heavy Scorpid Leggings"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Leggings"],
+	learnedAt = 285,
+}
+t[22692] = {
+	name = L["Pattern: Polar Tunic"],
+	profession = L["Leatherworking"],
+	teaches = L["Polar Tunic"],
+	learnedAt = 300,
+}
+t[19772] = {
+	name = L["Pattern: Blood Tiger Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Blood Tiger Breastplate"],
+	learnedAt = 300,
+}
+t[20511] = {
+	name = L["Pattern: Sandstalker Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Sandstalker Breastplate"],
+	learnedAt = 300,
+}
+t[22696] = {
+	name = L["Pattern: Icy Scale Breastplate"],
+	profession = L["Leatherworking"],
+	teaches = L["Icy Scale Breastplate"],
+	learnedAt = 300,
+}
+t[20507] = {
+	name = L["Pattern: Spitfire Gauntlets"],
+	profession = L["Leatherworking"],
+	teaches = L["Spitfire Gauntlets"],
+	learnedAt = 300,
+}
+t[15774] = {
+	name = L["Pattern: Heavy Scorpid Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Shoulders"],
+	learnedAt = 300,
+}
+t[4295] = {
+	name = L["Pattern: Double-stitched Leather Gloves OLD"],
+	profession = L["Leatherworking"],
+	teaches = L["Guardian Cloak"],
+	learnedAt = 125,
+}
+t[20509] = {
+	name = L["Pattern: Sandstalker Bracers"],
+	profession = L["Leatherworking"],
+	teaches = L["Sandstalker Bracers"],
+	learnedAt = 300,
+}
+t[19773] = {
+	name = L["Pattern: Blood Tiger Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Blood Tiger Shoulders"],
+	learnedAt = 300,
+}
+t[15765] = {
+	name = L["Pattern: Runic Leather Pants"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Pants"],
+	learnedAt = 300,
+}
+t[15738] = {
+	name = L["Pattern: Heavy Scorpid Gauntlets"],
+	profession = L["Leatherworking"],
+	teaches = L["Heavy Scorpid Gauntlets"],
+	learnedAt = 275,
+}
+t[18514] = {
+	name = L["Pattern: Girdle of Insight"],
+	profession = L["Leatherworking"],
+	teaches = L["Girdle of Insight"],
+	learnedAt = 300,
+}
+t[22769] = {
+	name = L["Pattern: Bramblewood Belt"],
+	profession = L["Leatherworking"],
+	teaches = L["Bramblewood Belt"],
+	learnedAt = 300,
+}
+t[15776] = {
+	name = L["Pattern: Runic Leather Armor"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Armor"],
+	learnedAt = 300,
+}
+t[20510] = {
+	name = L["Pattern: Sandstalker Gauntlets"],
+	profession = L["Leatherworking"],
+	teaches = L["Sandstalker Gauntlets"],
+	learnedAt = 300,
+}
+t[15777] = {
+	name = L["Pattern: Runic Leather Shoulders"],
+	profession = L["Leatherworking"],
+	teaches = L["Runic Leather Shoulders"],
+	learnedAt = 300,
+}
+t[22771] = {
+	name = L["Pattern: Bramblewood Helm"],
+	profession = L["Leatherworking"],
+	teaches = L["Bramblewood Helm"],
+	learnedAt = 300,
+}
+t[22770] = {
+	name = L["Pattern: Bramblewood Boots"],
+	profession = L["Leatherworking"],
+	teaches = L["Bramblewood Boots"],
+	learnedAt = 300,
+}
+t[6661] = {
+	name = L["Recipe: Savory Deviate Delight"],
+	profession = L["Cooking"],
+	teaches = L["Savory Deviate Delight"],
+	learnedAt = 85,
+}
+t[3737] = {
+	name = L["Recipe: Soothing Turtle Bisque"],
+	profession = L["Cooking"],
+	teaches = L["Soothing Turtle Bisque"],
+	learnedAt = 175,
+}
+t[5482] = {
+	name = L["Recipe: Kaldorei Spider Kabob"],
+	profession = L["Cooking"],
+	teaches = L["Kaldorei Spider Kabob"],
+	learnedAt = 10,
+}
+t[21025] = {
+	name = L["Recipe: Dirge's Kickin' Chimaerok Chops"],
+	profession = L["Cooking"],
+	teaches = L["Dirge's Kickin' Chimaerok Chops"],
+	learnedAt = 300,
+}
+t[16073] = {
+	name = L["Artisan Cookbook"],
+	profession = L["Cooking"],
+	teaches = L["Cooking"],
+	learnedAt = 200,
+}
+t[3736] = {
+	name = L["Recipe: Tasty Lion Steak"],
+	profession = L["Cooking"],
+	teaches = L["Tasty Lion Steak"],
+	learnedAt = 150,
+}
+t[18267] = {
+	name = L["Recipe: Runn Tum Tuber Surprise"],
+	profession = L["Cooking"],
+	teaches = L["Runn Tum Tuber Surprise"],
+	learnedAt = 275,
+}
+t[7678] = {
+	name = L["Recipe: Thistle Tea"],
+	profession = L["Cooking"],
+	teaches = L["Thistle Tea"],
+	learnedAt = 60,
+}
+t[5487] = {
+	name = L["Recipe: Dig Rat Stew"],
+	profession = L["Cooking"],
+	teaches = L["Dig Rat Stew"],
+	learnedAt = 90,
+}
+t[23690] = {
+	name = L["Recipe: Crystal Flake Throat Lozenge"],
+	profession = L["Cooking"],
+	teaches = L["Crystal Flake Throat Lozenge"],
+	learnedAt = 300,
+}
+t[6891] = {
+	name = L["Recipe: Herb Baked Egg"],
+	profession = L["Cooking"],
+	teaches = L["Herb Baked Egg"],
+	learnedAt = 1,
+}
+t[17200] = {
+	name = L["Recipe: Gingerbread Cookie"],
+	profession = L["Cooking"],
+	teaches = L["Gingerbread Cookie"],
+	learnedAt = 1,
+}
+t[17201] = {
+	name = L["Recipe: Egg Nog"],
+	profession = L["Cooking"],
+	teaches = L["Egg Nog"],
+	learnedAt = 35,
 }

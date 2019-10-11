@@ -1,3 +1,4 @@
+local _
 local BFChatAddOn = LibStub('AceAddon-3.0'):NewAddon('BigFootChat',
                                                      'AceEvent-3.0',
                                                      'AceConsole-3.0',
@@ -6,10 +7,13 @@ local BFChatAddOn = LibStub('AceAddon-3.0'):NewAddon('BigFootChat',
 local L = LibStub('AceLocale-3.0'):GetLocale('BigFootChat')
 local BFC_IconTableMap = {}
 local BFC_ReverseIconTableMap = {}
-local BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 = 10
+local BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 = 20
+local BFChat_f639e5038297ec75bfd38fdb4b2558f1 = 9
+local BFChat_dbdde83a439bb31260dbabf2dc24e7fc = 5
 local BFC_TextIndex = 0
 local db
 local event
+local tinsert, tconcat, tremove = table.insert, table.concat, table.remove
 local defaults = {
     profile = {
         enabletimestamp = false,
@@ -222,62 +226,45 @@ local function S_GetChannel(text)
         end
     end
 end
+local message, a
 local function S_GetMessage(text)
-    local message = nil
-    local a, b = string.find(text, "|h：")
-    if b then message = string.sub(text, b + 1) end
+    message = nil
+    _, a = string.find(text, "|h：")
+    if a then message = string.sub(text, a + 1) end
     message = message and message:gsub("|cf.*|h|r", "") or message
     message = message and message:gsub("%p", "") or message
     message = message and message:gsub("%s", "") or message
     return message
 end
+local b, e, f
 local function S_GetSpeaker(text)
-    local Speaker = nil
-    local a, b, c, d = string.find(text, "Hplayer:")
+    _, b = string.find(text, "Hplayer:")
     if b then
-        local e = string.find(text, ":", b + 1)
+        e = string.find(text, ":", b + 1)
         if e then
-            local f = string.sub(text, b + 1, e - 1)
-            if f then Speaker = f end
+            f = string.sub(text, b + 1, e - 1)
+            if f then return f end
         end
     end
-    return Speaker
 end
-local currentTime, isReturn
+local currentTime, t_speaker, isReturn
 local SpeakerTab = {}
 local function IsOldSpeak(speaker, messageText)
-    currentTime = GetTime()
+    currentTime = time()
     if not SpeakerTab[speaker] then
         SpeakerTab[speaker] = {}
-        SpeakerTab[speaker][1] = currentTime
+        t_speaker = SpeakerTab[speaker]
+        SpeakerTab[speaker].timestamp = currentTime
         SpeakerTab[speaker].lastText = messageText
     else
-        if SpeakerTab[speaker][#SpeakerTab[speaker]] == currentTime then
-            return
-        end
         isReturn = false
-        if #SpeakerTab[speaker] >= 3 then
-            if currentTime - SpeakerTab[speaker][1] >=
-                BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 then
-                if (SpeakerTab[speaker].lastText == messageText) and
-                    (currentTime - SpeakerTab[speaker][3] < 5) then
-                    isReturn = true
-                end
-                SpeakerTab[speaker][1] = SpeakerTab[speaker][2]
-                SpeakerTab[speaker][2] = SpeakerTab[speaker][3]
-                SpeakerTab[speaker][3] = currentTime
-                SpeakerTab[speaker].lastText = messageText
-            else
-                isReturn = true
-            end
+        if (SpeakerTab[speaker].lastText == messageText) and
+            (currentTime - SpeakerTab[speaker].timestamp <
+                BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8) then
+            isReturn = true
         else
-            SpeakerTab[speaker][#SpeakerTab[speaker] + 1] = currentTime
-            if (SpeakerTab[speaker].lastText == messageText) and
-                (currentTime - SpeakerTab[speaker][#SpeakerTab[speaker] - 1] < 5) then
-                isReturn = true
-            else
-                SpeakerTab[speaker].lastText = messageText
-            end
+            SpeakerTab[speaker].timestamp = currentTime
+            SpeakerTab[speaker].lastText = messageText
         end
         if isReturn then return true end
     end
@@ -306,7 +293,7 @@ local function addToBanTable(t)
         for _, oword in pairs(BanWordTable) do
             for _, word in pairs(t) do
                 tempWord = oword .. word
-                table.insert(newBanWordTable, tempWord)
+                tinsert(newBanWordTable, tempWord)
             end
         end
         BanWordTable = newBanWordTable
@@ -320,11 +307,11 @@ local function splitWord(word)
     if word:find("&") then
         while word:find("&") do
             begin, ends = word:find("&")
-            table.insert(tempTable, word:sub(1, begin - 1))
+            tinsert(tempTable, word:sub(1, begin - 1))
             word = word:sub(ends + 1)
         end
     end
-    table.insert(tempTable, word)
+    tinsert(tempTable, word)
     addToBanTable(tempTable)
 end
 local function findBandWord(word, index)
@@ -341,7 +328,7 @@ local function findBandWord(word, index)
         local tempTable = {word}
         addToBanTable(tempTable)
     end
-    table.insert(Ban_Table, BanWordTable)
+    tinsert(Ban_Table, BanWordTable)
     BanWordTable = {}
 end
 local function madeBanWords()
@@ -349,9 +336,7 @@ local function madeBanWords()
     if #Ban_Table > 0 then
         for _, v in pairs(Ban_Table) do
             if v then
-                for _, j in pairs(v) do
-                    table.insert(Ban_WordTable, j)
-                end
+                for _, j in pairs(v) do tinsert(Ban_WordTable, j) end
             end
         end
     end
@@ -600,7 +585,7 @@ local function BFChat_8789b1a0b4da92efd2a9bb111a773e4c(editbox, name, val)
         end
     end
 end
-local isReturns
+local currentTimes, isReturns
 local SpeakTab = {}
 function BFChatAddOn:EnableOldStyleReply()
     hooksecurefunc("ChatEdit_SendText", function(editBox, ...)
@@ -614,31 +599,32 @@ function BFChatAddOn:EnableOldStyleReply()
     SendChatMessage = function(text, type, language, chanelId, ...)
         if type == "CHANNEL" and text and text ~= "" and tonumber(chanelId) ==
             getBigFootChannel() then
-            local currentTimes = time()
+            currentTimes = time()
             isReturns = false
             if #SpeakTab >= 3 then
                 if currentTimes - SpeakTab[1] >=
                     BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 then
                     if (SpeakTab.lastText == text) and
-                        (currentTimes - SpeakTab[3] < 5) then
+                        (currentTimes - SpeakTab[3] <
+                            BFChat_f639e5038297ec75bfd38fdb4b2558f1) then
                         isReturns = true
-                        BFC_Print(L["Please Do Not Send Same Message In 5s"])
+                        BFC_Print(L["Please Do Not Send Same Message In 10s"])
                     end
-                    SpeakTab[1] = SpeakTab[2]
-                    SpeakTab[2] = SpeakTab[3]
-                    SpeakTab[3] = currentTimes
+                    tremove(SpeakTab, 1)
+                    tinsert(SpeakTab, currentTimes)
                     SpeakTab.lastText = text
                 else
                     isReturns = true
                     BFC_Print(L["Please Do Not Talk Too Fast"])
                 end
             else
-                SpeakTab[#SpeakTab + 1] = currentTimes
                 if (SpeakTab.lastText == text) and
-                    (currentTimes - SpeakTab[#SpeakTab - 1] < 5) then
+                    (currentTimes - SpeakTab[#SpeakTab] <
+                        BFChat_f639e5038297ec75bfd38fdb4b2558f1) then
                     isReturns = true
-                    BFC_Print(L["Please Do Not Send Same Message In 5s"])
+                    BFC_Print(L["Please Do Not Send Same Message In 10s"])
                 else
+                    tinsert(SpeakTab, currentTimes)
                     SpeakTab.lastText = text
                 end
             end
@@ -824,5 +810,5 @@ end
 local f = CreateFrame 'Frame'
 local reflash = 1080
 local kId = 1
---SELECTED_CHAT_FRAME:AddMessage(L["Kindly Reminder"][kId], 1.0, 0.82, 0.0)
+-- SELECTED_CHAT_FRAME:AddMessage(L["Kindly Reminder"][kId], 1.0, 0.82, 0.0)
 _G.BigFootChat = BFChatAddOn

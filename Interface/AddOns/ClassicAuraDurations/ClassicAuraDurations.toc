@@ -1,0 +1,12 @@
+## Interface: 11302
+## Title: ClassicAuraDurations
+## Author: d87
+## SavedVariables: ClassicAuraDurationsDB
+## X-WoWI-ID: 25006
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Libs\LibAuraTypes\LibAuraTypes.lua
+Libs\LibSpellLocks\LibSpellLocks.lua
+
+code.lua

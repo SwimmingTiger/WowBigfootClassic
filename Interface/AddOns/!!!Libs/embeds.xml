@@ -41,6 +41,7 @@
 	<Script file="LibQTip-1.0\LibQTip-1.0.lua" /><!-- Archy,Decursive -->
 	<Script file="LibBossIDs-1.0\LibBossIDs-1.0.lua" /><!-- Recount,Skada -->
 	<Script file="LibChatAnims\LibChatAnims.lua"/><!-- 聊天框污染修复 -->
+	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
 
 	<!-- <Script file="wyLib\Env\Env.lua" /> -->
 	<!-- <Include file="wyLib\LibClass-2.0\LibClass-2.0.xml" /> -->

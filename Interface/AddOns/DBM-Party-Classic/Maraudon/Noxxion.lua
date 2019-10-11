@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(423, "DBM-Party-Classic", 8, 232)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190824201836")
+mod:SetRevision("20191001141144")
 mod:SetCreatureID(13282)
 mod:SetEncounterID(422)
 
@@ -19,7 +19,8 @@ local timerSpawnsCD					= mod:NewAITimer(180, 21707, nil, nil, nil, 1, nil, DBM_
 local timerUppercutCD				= mod:NewAITimer(180, 10966, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
 
 function mod:OnCombatStart(delay)
-	timerUppercutCD:Start(1-delay)
+	timerSpawnsCD:Start(1-delay)--6
+	timerUppercutCD:Start(1-delay)--18
 end
 
 do

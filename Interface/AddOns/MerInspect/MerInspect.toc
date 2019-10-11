@@ -1,14 +1,30 @@
-﻿## Interface: 11302
-## Title: [BF] MerInspect
-## Title-zhCN: [大脚]装备属性统计
-## Title-zhTW: [大腳]裝備屬性統計
+## Interface: 11302
+## Title: MerInspect
+## Title-zhCN: [大脚][集]装备属性统计
+## Title-zhTW: [大腳][集]裝備屬性統計
 ## Notes: |cffbc8f8fCalculate stat points of equipments, talents and buffs then make a statistics.|r
-## Notes-zhCN: |cff00ff00MerInspect|r                                             |cffbc8f8f统计装备、天赋以及BUFF等的属性加成值。|r
-## Notes-zhTW: |cff00ff00MerInspect|r                                             |cffbc8f8f統計裝備、天賦以及BUFF等的屬性加成值。|r
-## Author: Mermaid 
-## Version: 2.2.0
+## Notes-zhCN: |cff00ff00MerInspect|r|n|cffbc8f8f统计装备、天赋以及BUFF等的属性加成值。|r
+## Notes-zhTW: |cff00ff00MerInspect|r|n|cffbc8f8f統計裝備、天賦以及BUFF等的屬性加成值。|r
+## Author: M(Mermaid)
+## Version: 1.0.2
+## SavedVariables: MerInspectDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
+
+libs\lib.xml
+
+locales\locales.xml
+
+templates\templates.xml
+
+Options.lua
+ItemSlot.lua
+ItemBorder.lua
+InspectCore.lua
+InspectUnit.lua
+InspectUnitGemAndEnchant.lua
+InspectUnitSpecialization.lua
+InspectUnitStats.lua
 
 core.lua
 frame.lua

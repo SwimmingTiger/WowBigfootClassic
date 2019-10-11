@@ -40,10 +40,18 @@ Options.config.args.atlasloot = {
 		showLvlRange = {
 			order = 3,
 			type = "toggle",
-			width = "full",
+			--width = "full",
 			name = AL["Show level range if aviable."],
 			get = function(info) return AtlasLoot.db.showLvlRange end,
 			set = function(info, value) AtlasLoot.db.showLvlRange = value AtlasLoot.GUI.OnLevelRangeRefresh() end,
+		},
+		enableBossLevel = {
+			order = 3.5,
+			type = "toggle",
+			--width = "full",
+			name = AL["Show boss level if aviable."],
+			get = function(info) return AtlasLoot.db.enableBossLevel end,
+			set = function(info, value) AtlasLoot.db.enableBossLevel = value AtlasLoot.GUI.OnLevelRangeRefresh() end,
 		},
 		showMinEnterLvl = {
 			order = 4,
@@ -65,6 +73,21 @@ Options.config.args.atlasloot = {
 			type = "toggle",
 			hidden = AtlasLoot.Button:GetWoWHeadLocale() and false or true,
 			name = AL["Use english WoWHead."],
+		},
+		enableAutoSelect = {
+			order = 7,
+			type = "toggle",
+			width = "full",
+			name = AL["Enable auto selection of instances if available."],
+			desc = AL["Select instance loottable on open."],
+			set = function(info, value) AtlasLoot.db.enableAutoSelect = value AtlasLoot.Data.AutoSelect:RefreshOptions() end,
+		},
+		enableAutoSelectBoss = {
+			order = 8,
+			type = "toggle",
+			width = "full",
+			disabled = function() return not AtlasLoot.db.enableAutoSelect end,
+			name = AL["Enable auto selection of bosses if available."],
 		},
 		headerSetting = {
 			order = 10,

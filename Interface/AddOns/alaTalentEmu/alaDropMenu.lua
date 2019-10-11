@@ -45,6 +45,7 @@ local frameToMenu = {  };
 										handler		(function)optional
 										para		(table)for parameter
 										text		(string)
+										info		(string)
 ]]
 --------------------------------------------------
 local function CreateMenu()

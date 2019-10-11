@@ -44,22 +44,7 @@ ItemDB.mt = {
 		contentList[t.__atlaslootdata.addonName][t.__atlaslootdata.contentCount] = k
 		contentList[t.__atlaslootdata.addonName][k] = t.__atlaslootdata.contentCount
 		v.__atlaslootdata = t.__atlaslootdata
-		--[=[
-		if v and v.items and #v.items > 0 then
-			local t = v.items
-			local npcID
-			for i = 1, #t do
-				npcID = t[i].npcId
-				if type(npcID) == "table" then
-					for j = 1, #npcID do
-						ItemDB.NpcList[npcID[j]] = v.__atlaslootdata.addonName..":"..k..":"..i
-					end
-				elseif npcID then
-					ItemDB.NpcList[npcID] = v.__atlaslootdata.addonName..":"..k..":"..i
-				end
-			end
-		end
-		]=]--
+		AtlasLoot.Data.AutoSelect:AddInstanceTable(t.__atlaslootdata.addonName, k, v)
 		rawset(t, k, v)
 	end
 }
@@ -419,6 +404,7 @@ local SpecialMobList = {
 	elite = format(ATLAS_TEXTURE, "nameplates-icon-elite-gold"),
 	quest = format(ATLAS_TEXTURE, "QuestNormal"),
 	questTurnIn = format(ATLAS_TEXTURE, "QuestTurnin"),
+	boss = format(PATH_TEXTURE, "Interface\\TargetingFrame\\UI-TargetingFrame-Skull"),
 }
 
 --- Get the content Type
@@ -479,12 +465,20 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 			addEnd = addEnd.." "..format(CONTENT_PHASE_FORMAT, index.ContentPhase)
 		end
 		if IsMapsModuleAviable() and index.AtlasMapBossID then
-			addStart = "|cffffffff"..index.AtlasMapBossID..")|r "
+			addStart = addStart.."|cffffffff"..index.AtlasMapBossID..")|r "
+		end
+		if AtlasLoot.db.enableBossLevel and index.Level then
+			if type(index.Level) == "table" then
+				addStart = addStart.."|cff808080<"..index.Level[1].." - "..index.Level[2]..">|r "
+			elseif index.Level == 999 then
+				addStart = addStart..SpecialMobList.boss
+			else
+				addStart = addStart.."|cff808080<"..(index.Level == 999 and SpecialMobList.boss or index.Level)..">|r "
+			end
 		end
 		if index.specialType and SpecialMobList[index.specialType] then
 			addStart = addStart..SpecialMobList[index.specialType]
 		end
-
 	end
 	if index.name then
 		return addStart..index.name..addEnd

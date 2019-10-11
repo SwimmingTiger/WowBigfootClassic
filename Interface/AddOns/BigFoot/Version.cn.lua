@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "17"
+local minor = "20"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,22 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/10/10 (1.13.2.20)")
+	BigFootChangelog_ar("地图标记","升级至最新版本。")
+	BigFootChangelog_ar("副本掉落","升级至最新版本。")
+	BigFootChangelog_ar("法术计时","升级至最新版本。")
+
+
+	BigFootChangelog_at("2019/10/08 (1.13.2.19)")
+	BigFootChangelog_ar("目标信息","现在可以单独显示额外百分比提示。")
+	BigFootChangelog_ar("玩家链接","修复一个已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2019/09/29 (1.13.2.18)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/09/26 (1.13.2.17)")
 	BigFootChangelog_ar("大脚插件","修复好友列表增强的一个问题。")
@@ -110,4 +126,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "54"
+BF_VERSION_CHECKSUM = "50"

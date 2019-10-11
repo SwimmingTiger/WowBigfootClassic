@@ -51,7 +51,7 @@ function AddOn.ArgumentCheck(funcname,level,checktype,...)
 				local wanted;
 				if checklen==1 then wanted=checktype[1];--	Single entry
 				elseif checklen==2 then wanted=table_concat(checktype," or ");--	Two entries
-				else wanted=string_format("%s, or %s",table_concat(checktype,", ",1,checklen-1),checktype1[checklen]); end--	More entries
+				else wanted=string_format("%s, or %s",table_concat(checktype,", ",1,checklen-1),checktype[checklen]); end--	More entries
 
 --				Iterate and try to match any in list
 				local pass=false;

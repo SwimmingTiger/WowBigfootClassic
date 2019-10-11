@@ -78,6 +78,7 @@ function addon:SetCastbarStyle(castbar, cast, db)
     end
 
     castbar.Spark:SetHeight(db.height * 2.1)
+    castbar.Icon:SetShown(db.showIcon)
     castbar.Icon:SetSize(db.iconSize, db.iconSize)
     castbar.Icon:SetPoint("LEFT", castbar, db.iconPositionX - db.iconSize, db.iconPositionY)
     castbar.Border:SetVertexColor(unpack(db.borderColor))
@@ -229,38 +230,71 @@ function addon:HideCastbar(castbar, noFadeOut)
     UIFrameFadeOut(castbar, cast and cast.isInterrupted and 1.5 or 0.2, 1, 0)
 end
 
--- TODO: gotta be able to reset aswell
+local CastingBarFrameManagedPosTable
+-- TODO: reset to default skin on mode disabled without having to reloadui
 function addon:SkinPlayerCastbar()
     local db = self.db.player
+    if not db.enabled then return end
 
     if not CastingBarFrame.Timer then
-        -- TODO: implement me
         CastingBarFrame.Timer = CastingBarFrame:CreateFontString(nil, "OVERLAY")
         CastingBarFrame.Timer:SetTextColor(1, 1, 1)
         CastingBarFrame.Timer:SetFontObject("SystemFont_Shadow_Small")
         CastingBarFrame.Timer:SetPoint("RIGHT", CastingBarFrame, -6, 0)
+        CastingBarFrame:HookScript("OnUpdate", function(frame)
+            if db.enabled and db.showTimer then
+                if not frame.channeling then
+                    frame.Timer:SetFormattedText("%.1f", frame.casting and (frame.maxValue - frame.value) or 0)
+                else
+                    frame.Timer:SetFormattedText("%.1f", frame.fadeOut and 0 or frame.value)
+                end
+            end
+        end)
+    end
+    CastingBarFrame.Timer:SetShown(db.showTimer)
+
+    if db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border" or db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border-Small" then
+        CastingBarFrame.Flash:SetSize(db.width + 61, db.height + 51)
+        CastingBarFrame.Flash:SetPoint("TOP", 0, 26)
+    else
+        CastingBarFrame.Flash:SetSize(0.01, 0.01) -- hide it using size, SetAlpha() or Hide() wont work without messing with blizz code
     end
 
     CastingBarFrame_SetStartCastColor(CastingBarFrame, unpack(db.statusColor))
 	CastingBarFrame_SetStartChannelColor(CastingBarFrame, unpack(db.statusColorChannel))
-	--[[CastingBarFrame_SetFinishedCastColor(CastingBarFrame, 0.0, 1.0, 0.0)
-	CastingBarFrame_SetNonInterruptibleCastColor(CastingBarFrame, 0.7, 0.7, 0.7)
-	CastingBarFrame_SetFailedCastColor(CastingBarFrame, 1.0, 0.0, 0.0)]]
+	--CastingBarFrame_SetFinishedCastColor(CastingBarFrame, unpack(db.statusColor))
+	--CastingBarFrame_SetNonInterruptibleCastColor(CastingBarFrame, 0.7, 0.7, 0.7)
+    --CastingBarFrame_SetFailedCastColor(CastingBarFrame, 1.0, 0.0, 0.0)
+    if CastingBarFrame.isTesting then
+        CastingBarFrame:SetStatusBarColor(CastingBarFrame.startCastColor:GetRGB())
+    end
 
     CastingBarFrame.Text:ClearAllPoints()
     CastingBarFrame.Text:SetPoint("CENTER")
     CastingBarFrame.Icon:ClearAllPoints()
-    CastingBarFrame.Icon:Show()
+    CastingBarFrame.Icon:SetShown(db.showIcon)
 
+    if not CastingBarFrame.Background then
+        for k, v in pairs({ CastingBarFrame:GetRegions() }) do
+            if v.GetTexture and v:GetTexture() and strfind(v:GetTexture(), "Color-") then
+                CastingBarFrame.Background = v
+                break
+            end
+        end
+    end
+    CastingBarFrame.Background:SetColorTexture(unpack(db.statusBackgroundColor))
+
+    CastingBarFrame:ClearAllPoints()
     if not db.autoPosition then
         local pos = db.position
+        CastingBarFrame:SetAttribute("ignoreFramePositionManager", true)
+        CastingBarFrameManagedPosTable = UIPARENT_MANAGED_FRAME_POSITIONS.CastingBarFrame
+        UIPARENT_MANAGED_FRAME_POSITIONS.CastingBarFrame = nil
         CastingBarFrame:SetPoint(pos[1], UIParent, pos[2], pos[3])
-        CastingBarFrame.OldSetPoint = CastingBarFrame.SetPoint
-        CastingBarFrame.SetPoint = function() end
     else
-        if CastingBarFrame.OldSetPoint then
-            CastingBarFrame.SetPoint = CastingBarFrame.OldSetPoint
-        end
+        CastingBarFrame:SetAttribute("ignoreFramePositionManager", false)
+        UIPARENT_MANAGED_FRAME_POSITIONS.CastingBarFrame = CastingBarFrameManagedPosTable
+        CastingBarFrame:SetPoint("BOTTOM", UIParent, 0, 150)
     end
 
     self:SetCastbarStyle(CastingBarFrame, nil, db)

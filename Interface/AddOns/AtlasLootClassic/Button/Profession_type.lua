@@ -14,6 +14,7 @@ local GetTradeskillLink = AtlasLoot.TooltipScan.GetTradeskillLink
 local ProfClickHandler = nil
 
 local PROF_COLOR = "|cffffff00"
+local WHITE_TEXT = "|cffffffff%s|r"
 local ITEM_COLORS = {}
 
 AtlasLoot.ClickHandler:Add(
@@ -82,7 +83,7 @@ function Prof.OnEnter(button)
 	tooltip:SetOwner(button, "ANCHOR_RIGHT", -(button:GetWidth() * 0.5), 5)
 	tooltip:SetSpellByID(button.SpellID)
 	if AtlasLoot.db.showIDsInTT then
-		tooltip:AddDoubleLine("SpellID:", button.SpellID)
+		tooltip:AddDoubleLine("SpellID:", format(WHITE_TEXT, button.SpellID))
 	end
 	tooltip:Show()
 end
@@ -91,13 +92,17 @@ function Prof.OnLeave(button)
 	GetAlTooltip():Hide()
 end
 
+local PROF_STRING = "|cffffffff|Henchant:%d|h[%s]|h|r"
 function Prof.OnMouseAction(button, mouseButton)
 	if not mouseButton then return end
 	mouseButton = ProfClickHandler:Get(mouseButton)
 	if mouseButton == "ChatLink" then
 		if button.ItemID then
 			local itemInfo, itemLink = GetItemInfo(button.ItemID)
-			AtlasLoot.Button:AddChatLink(itemLink, "item", button.ItemID)
+			AtlasLoot.Button:AddChatLink(itemLink)
+		elseif button.SpellID then
+			local spellName = GetSpellInfo(button.SpellID)
+			AtlasLoot.Button:AddChatLink(string.format(PROF_STRING, button.SpellID, spellName))
 		end
 	elseif mouseButton == "WoWHeadLink" then
 		AtlasLoot.Button:OpenWoWHeadLink(button, "spell", button.SpellID)

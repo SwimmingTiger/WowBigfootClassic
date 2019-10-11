@@ -11,7 +11,7 @@ local FilterSize	= 20
 local RampUp		= 5
 local RampDown		= 10
 
-Recount.Version = tonumber(string.sub("$Revision: 1486 $", 12, -3))
+Recount.Version = tonumber(string.sub("$Revision: 1514 $", 12, -3))
 
 local _G = _G
 local abs = abs
@@ -1838,7 +1838,7 @@ function Recount:OnEnable()
 end
 
 function Recount:PetBattleUpdate()
-	if Recount.db.profile.HidePetBattle and C_PetBattles.IsInBattle() and Recount.MainWindow:IsShown() then
+	if Recount.db.profile.HidePetBattle and WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and C_PetBattles.IsInBattle() and Recount.MainWindow:IsShown() then
 		Recount.MainWindow:Hide()
 
 		Recount.MainWindow.wasHidden = true

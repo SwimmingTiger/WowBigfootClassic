@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(381, "DBM-Party-Classic", 2, 228)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190824201836")
+mod:SetRevision("20190813032603")
 mod:SetCreatureID(9502)
 mod:SetEncounterID(239)
 

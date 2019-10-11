@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190905050248")
+mod:SetRevision("20191007034823")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -22,7 +22,7 @@ local warnWrathRag		= mod:NewSpellAnnounce(20566, 3)
 local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnEmerge		= mod:NewAnnounce("WarnEmerge", 2, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
 
-local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2)--25-31.6
+local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2, nil, DBM_CORE_IMPORTANT_ICON, nil, mod:IsMelee() and 1, 4)--25-31.6
 local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6)
 local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
 local timerCombatStart	= mod:NewCombatTimer(73)
@@ -30,11 +30,22 @@ local timerCombatStart	= mod:NewCombatTimer(73)
 mod.vb.addLeft = 8
 local addsGuidCheck = {}
 
+mod:AddRangeFrameOption("10", nil, "-Melee")
+
 function mod:OnCombatStart(delay)
 	table.wipe(addsGuidCheck)
 	self.vb.addLeft = 8
 	timerWrathRag:Start(26.7-delay)
 	timerSubmerge:Start(180-delay)
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Show(10)
+	end
+end
+
+function mod:OnCombatEnd()
+	if self.Options.RangeFrame then
+		DBM.RangeCheck:Hide()
+	end
 end
 
 local function emerged(self)

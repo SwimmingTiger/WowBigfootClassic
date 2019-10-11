@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(428, "DBM-Party-Classic", 8, 232)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190824201836")
+mod:SetRevision("20191001141144")
 mod:SetCreatureID(12225)
 mod:SetEncounterID(425)
 
@@ -19,18 +19,11 @@ local warningCorruptForces			= mod:NewSpellAnnounce(21968, 2, nil, false)
 
 local specWarnWrath					= mod:NewSpecialWarningInterrupt(21807, "HasInterrupt", nil, nil, 1, 2)
 
-local timerWrathCD					= mod:NewAITimer(180, 21807, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
-
-function mod:OnCombatStart(delay)
-	timerWrathCD:Start(1-delay)
-end
-
 do
 	local Wrath = DBM:GetSpellInfo(21807)
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 21807 then
 		if args.spellName == Wrath and args:IsSrcTypeHostile() then
-			timerWrathCD:Start()
 			if self:CheckInterruptFilter(args.sourceGUID, false, true) then
 				specWarnWrath:Show(args.sourceName)
 				specWarnWrath:Play("kickcast")

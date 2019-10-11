@@ -1,4 +1,4 @@
--- HandyNotes
+﻿-- HandyNotes
 -- enUS and enGB Localization file
 
 local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes", "enUS", true)

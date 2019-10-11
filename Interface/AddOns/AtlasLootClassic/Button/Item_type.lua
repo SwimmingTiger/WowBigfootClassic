@@ -12,6 +12,7 @@ local Profession = AtlasLoot.Data.Profession
 local Sets = AtlasLoot.Data.Sets
 local Mount = AtlasLoot.Data.Mount
 local ContentPhase = AtlasLoot.Data.ContentPhase
+local Droprate = AtlasLoot.Data.Droprate
 local ItemFrame, Favourites
 
 -- lua
@@ -32,6 +33,7 @@ local GetItemString = AtlasLoot.ItemString.Create
 local ITEM_COLORS = {}
 local DUMMY_ITEM_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local SET_ITEM = "|cff00ff00"..AL["Set item"]..":|r "
+local WHITE_TEXT = "|cffffffff%s|r"
 
 local itemIsOnEnter, buttonOnEnter = nil, nil
 
@@ -106,7 +108,7 @@ function Item.OnSet(button, second)
 				button.ItemString = GetItemString(button.ItemID)
 			end
 		end
-		button.Droprate = button.__atlaslootinfo.Droprate
+		button.Droprate = Droprate:GetData(button.__atlaslootinfo.npcID, button.ItemID)-- button.__atlaslootinfo.Droprate
 
 		Item.Refresh(button)
 	end
@@ -204,16 +206,17 @@ function Item.OnEnter(button, owner)
 	if button.ItemString then
 		tooltip:SetHyperlink(button.ItemString)
 	else
-		tooltip:SetItemByID(button.ItemID)
+		--tooltip:SetItemByID(button.ItemID)
+		tooltip:SetHyperlink("item:"..button.ItemID)
 	end
-	if button.Droprate and db.showDropRate then
-		tooltip:AddDoubleLine(AL["Droprate:"], button.Droprate.."%")
+	if button.Droprate then
+		tooltip:AddDoubleLine(AL["Droprate:"], format(WHITE_TEXT, button.Droprate.."%"))
 	end
 	if AtlasLoot.db.showIDsInTT then
-		tooltip:AddDoubleLine("ItemID:", button.ItemID or 0)
+		tooltip:AddDoubleLine("ItemID:", format(WHITE_TEXT, button.ItemID or 0))
 	end
 	if AtlasLoot.db.ContentPhase.enableTT and ContentPhase:GetForItemID(button.ItemID) then
-		tooltip:AddDoubleLine(AL["Content phase:"], ContentPhase:GetForItemID(button.ItemID))
+		tooltip:AddDoubleLine(AL["Content phase:"], format(WHITE_TEXT, ContentPhase:GetForItemID(button.ItemID)))
 	end
 	if button.ItemID == 12784 then tooltip:AddLine("Arcanite Reaper Hoooooo!") end
 	tooltip:Show()
@@ -306,12 +309,14 @@ function Item.Refresh(button)
 	end
 	--elseif Recipe.IsRecipe(itemID) then
 	if AtlasLoot.db.ContentPhase.enableOnItems then
-		local phaseT = Recipe.IsRecipe(itemID) and Recipe.GetPhaseTextureForItemID(itemID) or ContentPhase:GetPhaseTextureForItemID(itemID)
+		local phaseT = ContentPhase:GetPhaseTextureForItemID(itemID)
 		if phaseT then
 			button.phaseIndicator:SetTexture(phaseT)
 			button.phaseIndicator:Show()
 		end
 	end
+	-- Set tt so the text gets loaded
+	AtlasLootScanTooltip:SetItemByID(itemID)
 	return true
 end
 

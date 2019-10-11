@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00RangeDisplay|r
 ## Notes-zhTW: |cff00ff00RangeDisplay|r
 ## Author: mitch0
-## Version: v4.9.0
+## Version: v4.9.2
 ## SavedVariables: RangeDisplayDB3
 ## OptionalDeps: LibStub, CallbackHandler-1.0, LibRangeCheck-2.0, Ace3, LibSharedMedia-3.0, LibDualSpec-1.0
 ## Dependencies: BigFoot

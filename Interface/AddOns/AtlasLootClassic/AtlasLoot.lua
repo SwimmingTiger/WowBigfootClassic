@@ -10,6 +10,7 @@ local wipe = wipe
 
 -- wow
 local CreateFrame = CreateFrame
+local UnitPosition = UnitPosition
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
@@ -56,6 +57,8 @@ function AtlasLoot:OnProfileChanged()
 	AtlasLoot.ClickHandler:OnProfileChanged()
 	AtlasLoot.Addons:OnProfileChanged()
 	AtlasLoot.GUI:ForceUpdate()
+
+	AtlasLoot.Data.AutoSelect:RefreshOptions()
 end
 
 function AtlasLoot:OnInitialize()
@@ -82,4 +85,22 @@ function AtlasLoot:AddInitFunc(func, module)
 	module = module or "AtlasLootClassic"
 	if not AtlasLoot.Init[module] then AtlasLoot.Init[module] = {} end
 	AtlasLoot.Init[module][#AtlasLoot.Init[module]+1] = func
+end
+
+-- #############################
+-- ClassColors
+-- #############################
+local CLASS_COLOR_FORMAT = "|c%s%s|r"
+local CLASS_NAMES_WITH_COLORS
+
+function AtlasLoot:GetColoredClassNames()
+	if not CLASS_NAMES_WITH_COLORS then
+		CLASS_NAMES_WITH_COLORS = {}
+		for k,v in pairs(RAID_CLASS_COLORS) do
+			if v.colorStr then
+				CLASS_NAMES_WITH_COLORS[k] = format(CLASS_COLOR_FORMAT,  v.colorStr, AtlasLoot.IngameLocales[k] or k)
+			end
+		end
+	end
+	return CLASS_NAMES_WITH_COLORS
 end

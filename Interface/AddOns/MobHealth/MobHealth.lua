@@ -74,7 +74,7 @@ function MobHealth_Display()
 	local __percent = math.floor(__health*100/__healthMax);
 	__healthText = __percent .. "%";
 	--显示百分比数值
-	if (MobHealth_ShowHealthPercent and MobHealth_ShowHealth) then
+	if MobHealth_ShowHealthPercent then
 		__healthPercOb:SetText(__healthText)
 		__healthPercFrame:Show()
 		-- TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-30,-22)
@@ -82,10 +82,6 @@ function MobHealth_Display()
 	else
 		-- TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-50,-22)
 		__healthPercFrame:Hide()
-		if MobHealth_ShowHealthPercent then
-			__healthOb:SetText(__healthText)
-			__healthOb:Show()
-		end
 	end
 end
 

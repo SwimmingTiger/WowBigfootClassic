@@ -94,17 +94,30 @@ local function UpdateFrames(noPageUpdate)
 	end
 
 	-- SOUNDS
-	if moduleData[dataID].items[bossID].npcId and SoundData:GetNpcData(moduleData[dataID].items[bossID].npcId) then
-		GUI.SoundFrame.npcId = moduleData[dataID].items[bossID].npcId
+	if moduleData[dataID].items[bossID].npcID and SoundData:GetNpcData(moduleData[dataID].items[bossID].npcID) then
+		GUI.SoundFrame.npcID = moduleData[dataID].items[bossID].npcID
 		contentFrame.soundsButton:Show()
 	else
-		GUI.SoundFrame.npcId = nil
+		GUI.SoundFrame.npcID = nil
 		contentFrame.soundsButton:Hide()
 		if contentFrame.shownFrame == GUI.SoundFrame.frame then
 			contentFrame.shownFrame = nil
 			if GUI.SoundFrame.frame then
 				GUI.SoundFrame.frame:Hide()
 			end
+		end
+	end
+
+	-- npcID
+	local usedNpcID = moduleData[dataID].items[bossID].npcID
+	if not usedNpcID then
+		usedNpcID = moduleData[dataID].items[bossID].ObjectID
+	end
+	if usedNpcID then
+		if type(moduleData[dataID].items[bossID].npcID) == "table" then
+			GUI.ItemFrame.npcID = usedNpcID[1]
+		else
+			GUI.ItemFrame.npcID = usedNpcID
 		end
 	end
 
@@ -209,8 +222,18 @@ local function FrameOnShow(self)
 		self.moduleSelect:SetSelected(db.selected[1])
 	end
 	FIRST_SHOW = false
-	if (AtlasLoot.db.GUI.autoselect) then
-		--AtlasLoot:AutoSelect()
+	if (AtlasLoot.db.enableAutoSelect) then
+		local module, instance, boss = AtlasLoot.Data.AutoSelect:GetCurrrentPlayerData()
+		if module ~= db.selected[1] then
+			self.moduleSelect:SetSelected(module)
+		end
+		if instance ~= db.selected[2] then
+			self.subCatSelect:SetSelected(instance)
+		end
+		if AtlasLoot.db.enableAutoSelectBoss and boss and boss ~= db.selected[3] then
+			self.boss:SetSelected(boss)
+		end
+		UpdateFrames()
 	end
 end
 

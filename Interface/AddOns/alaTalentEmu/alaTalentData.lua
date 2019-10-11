@@ -15,6 +15,79 @@ local ADDON, NS = ...;
 	local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo( tabIndex[1-3] , talentIndex[1,MAX_NUM_TALENTS] );
 
 ]]
+
+NS._indexToClass =
+{
+	"druid",
+	"hunter",
+	"mage",
+	"paladin",
+	"priest",
+	"rogue",
+	"shaman",
+	"warlock",
+	"warrior",
+};
+
+NS._classTalent =
+{
+	druid =
+	{
+		283,	--Balance,平衡
+		281,	--Feral,野性战斗
+		282,	--Restoration,恢复
+	},
+	hunter =
+	{
+		361,	--BeastMastery,野兽控制
+		363,	--Marksmanship,射击
+		362,	--Survival,生存
+	},
+	mage =
+	{
+		81,		--Arcane,奥术
+		41,		--Fire,火焰
+		61,		--Frost,冰霜
+	},
+	paladin =
+	{
+		382,	--Holy,神圣
+		383,	--Protection,防护
+		381,	--Combat,惩戒
+	},
+	priest =
+	{
+		201,	--Discipline,戒律
+		202,	--Holy,神圣
+		203,	--Shadow,暗影
+	},
+	rogue =
+	{
+		182,	--Assassination,刺杀
+		181,	--Combat,战斗
+		183,	--Subtlety,敏锐
+	},
+	shaman =
+	{
+		261,	--Elemental,元素
+		263,	--Enhancement,增强
+		262,	--Restoration,恢复
+	},
+	warlock =
+	{
+		302,	--Curses,痛苦
+		303,	--Summoning,恶魔学识
+		301,	--Destruction,毁灭
+	},
+	warrior =
+	{
+		161,	--Arms,武器
+		164,	--Fury,狂怒
+		163,	--Protection,防护
+	},
+
+};
+
 	--1-----2----3---4---------5--------6-------7------8--------9--------10-------11-------12-------13--------14----------15---------------16--------------17------------------18-------
 	--tier, col, id, maxPoint, reqTier, reqCol, reqId, r1Spell, r2Spell, r3Spell, r4Spell, r5Spell, texture, [icon index, req index in db, req icon index, req by index in db, req by icon index](calculated after addon loaded)
 	--1-----2----3---4---------5--------6-------7------8---------9--------10-----------11---------------12
@@ -562,78 +635,6 @@ NS._DB =
 			{ 6, 1, 1430, 1,   4,   1, 1431, { 20925,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_holy_blessingofprotection", },
 		},
 	},
-};
-
-NS._classTalent =
-{
-	druid =
-	{
-		283,	--Balance,平衡
-		281,	--Feral,野性战斗
-		282,	--Restoration,恢复
-	},
-	hunter =
-	{
-		361,	--BeastMastery,野兽控制
-		363,	--Marksmanship,射击
-		362,	--Survival,生存
-	},
-	mage =
-	{
-		81,		--Arcane,奥术
-		41,		--Fire,火焰
-		61,		--Frost,冰霜
-	},
-	paladin =
-	{
-		382,	--Holy,神圣
-		383,	--Protection,防护
-		381,	--Combat,惩戒
-	},
-	priest =
-	{
-		201,	--Discipline,戒律
-		202,	--Holy,神圣
-		203,	--Shadow,暗影
-	},
-	rogue =
-	{
-		182,	--Assassination,刺杀
-		181,	--Combat,战斗
-		183,	--Subtlety,敏锐
-	},
-	shaman =
-	{
-		261,	--Elemental,元素
-		263,	--Enhancement,增强
-		262,	--Restoration,恢复
-	},
-	warlock =
-	{
-		302,	--Curses,痛苦
-		303,	--Summoning,恶魔学识
-		301,	--Destruction,毁灭
-	},
-	warrior =
-	{
-		161,	--Arms,武器
-		164,	--Fury,狂怒
-		163,	--Protection,防护
-	},
-
-};
-
-NS._indexToClass = 
-{
-	"druid",
-	"hunter",
-	"mage",
-	"paladin",
-	"priest",
-	"rogue",
-	"shaman",
-	"warlock",
-	"warrior",
 };
 
 NS._classToIndex = {  };

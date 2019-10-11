@@ -119,6 +119,8 @@ function M:CreateMainFrame()
 	frame.title:SetText(self.loc.base)
 end
 
+M:RegisterEvent("UNIT_INVENTORY_CHANGED");
+	
 function MerInspect_Toggle(switch)
 	if (switch) then
 		M.Config.MerInspectEnable = true;

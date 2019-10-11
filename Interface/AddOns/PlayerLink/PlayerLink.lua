@@ -1,6 +1,3 @@
--- 老虎会游泳：修复复制玩家名称后无法显示操作提示的问题
-local ChatFrameEditBox = ChatFrameEditBox or ChatFrame1EditBox
-
 local PlayerLink_3b370ebf3ed541e39961bc311976be8c = function() end
 PlayerLinkPopupButtons = {}
 if (GetLocale() == "zhCN") then
@@ -481,6 +478,37 @@ function PlayerLinkPopupButtons.IGNORE.func(arg1,
                                             PlayerLink_8983c60d66c8593ec7165ea9dbedb584)
     C_FriendList.AddOrDelIgnore(PlayerLink_8983c60d66c8593ec7165ea9dbedb584)
 end
+local function UnitPopup_GetGUID(menu)
+    if menu.guid then
+        return menu.guid
+    elseif menu.unit then
+        return UnitGUID(menu.unit)
+    elseif type(menu.userData) == "table" and menu.userData.guid then
+        return menu.userData.guid
+    end
+end
+local function UnitPopup_TryCreatePlayerLocation(menu, guid)
+    if menu.battlefieldScoreIndex then
+        return PlayerLocation:CreateFromBattlefieldScoreIndex(
+                   menu.battlefieldScoreIndex)
+    elseif menu.communityClubID and menu.communityStreamID and
+        menu.communityEpoch and menu.communityPosition then
+        return PlayerLocation:CreateFromCommunityChatData(menu.communityClubID,
+                                                          menu.communityStreamID,
+                                                          menu.communityEpoch,
+                                                          menu.communityPosition)
+    elseif menu.communityClubID and not menu.communityStreamID then
+        return PlayerLocation:CreateFromCommunityInvitation(
+                   menu.communityClubID, guid)
+    elseif C_ChatInfo.IsValidChatLine(menu.lineID) then
+        return PlayerLocation:CreateFromChatLineID(menu.lineID)
+    elseif menu.unit then
+        return PlayerLocation:CreateFromUnit(menu.unit)
+    elseif guid then
+        return PlayerLocation:CreateFromGUID(guid)
+    end
+    return nil
+end
 function PlayerLinkPopupButtons.COMPLAIN.func(arg1,
                                               PlayerLink_8983c60d66c8593ec7165ea9dbedb584,
                                               PlayerLink_ad6677e70fc056ed190a0f8febb76e72)
@@ -488,15 +516,17 @@ function PlayerLinkPopupButtons.COMPLAIN.func(arg1,
     local unit = dropdownFrame.unit
     local name = dropdownFrame.name
     local server = dropdownFrame.server
-    local fullname = name
-    if (server and ((not unit and GetNormalizedRealmName() ~= server) or
-        (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
+    local fullname = dropdownFrame.chatTarget
+    if (not fullname and server and
+        ((not unit and GetNormalizedRealmName() ~= server) or
+            (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
         fullname = name .. "-" .. server
     end
-    dropdownFrame.playerLocation = PlayerLocation:CreateFromChatLineID(
-                                       dropdownFrame.lineID)
+    local guid = UnitPopup_GetGUID(dropdownFrame)
+    local playerLocation =
+        UnitPopup_TryCreatePlayerLocation(dropdownFrame, guid)
     PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_SPAM, fullname,
-                                     dropdownFrame.playerLocation)
+                                     playerLocation)
 end
 function PlayerLinkPopupButtons.COMPLAIN_LANGUAGE.func(arg1,
                                                        PlayerLink_8983c60d66c8593ec7165ea9dbedb584,
@@ -505,15 +535,17 @@ function PlayerLinkPopupButtons.COMPLAIN_LANGUAGE.func(arg1,
     local unit = dropdownFrame.unit
     local name = dropdownFrame.name
     local server = dropdownFrame.server
-    local fullname = name
-    if (server and ((not unit and GetNormalizedRealmName() ~= server) or
-        (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
+    local fullname = dropdownFrame.chatTarget
+    if (not fullname and server and
+        ((not unit and GetNormalizedRealmName() ~= server) or
+            (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
         fullname = name .. "-" .. server
     end
-    dropdownFrame.playerLocation = PlayerLocation:CreateFromChatLineID(
-                                       dropdownFrame.lineID)
+    local guid = UnitPopup_GetGUID(dropdownFrame)
+    local playerLocation =
+        UnitPopup_TryCreatePlayerLocation(dropdownFrame, guid)
     PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_LANGUAGE, fullname,
-                                     dropdownFrame.playerLocation)
+                                     playerLocation)
 end
 function PlayerLinkPopupButtons.COMPLAIN_NAME.func(arg1,
                                                    PlayerLink_8983c60d66c8593ec7165ea9dbedb584,
@@ -523,15 +555,17 @@ function PlayerLinkPopupButtons.COMPLAIN_NAME.func(arg1,
     local unit = dropdownFrame.unit
     local name = dropdownFrame.name
     local server = dropdownFrame.server
-    local fullname = name
-    if (server and ((not unit and GetNormalizedRealmName() ~= server) or
-        (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
+    local fullname = dropdownFrame.chatTarget
+    if (not fullname and server and
+        ((not unit and GetNormalizedRealmName() ~= server) or
+            (unit and UnitRealmRelationship(unit) ~= LE_REALM_RELATION_SAME))) then
         fullname = name .. "-" .. server
     end
-    dropdownFrame.playerLocation = PlayerLocation:CreateFromChatLineID(
-                                       dropdownFrame.lineID)
+    local guid = UnitPopup_GetGUID(dropdownFrame)
+    local playerLocation =
+        UnitPopup_TryCreatePlayerLocation(dropdownFrame, guid)
     PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_BAD_PLAYER_NAME,
-                                     fullname, dropdownFrame.playerLocation)
+                                     fullname, playerLocation)
 end
 function PlayerLinkPopupButtons.COMPLAIN_CHEATING.func(arg1,
                                                        PlayerLink_8983c60d66c8593ec7165ea9dbedb584,

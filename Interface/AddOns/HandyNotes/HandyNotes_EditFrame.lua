@@ -1,4 +1,4 @@
----------------------------------------------------------
+﻿---------------------------------------------------------
 -- Module declaration
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 local HN = HandyNotes:GetModule("HandyNotes")

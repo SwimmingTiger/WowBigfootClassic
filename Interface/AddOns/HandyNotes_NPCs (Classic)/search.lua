@@ -1,6 +1,7 @@
 local name, data = ...
 
-local Search = LibStub("AceAddon-3.0"):NewAddon("HandyNotes_NPCs", "AceConsole-3.0")
+local Main = LibStub("AceAddon-3.0"):GetAddon("HandyNotes_NPCs (Classic)")
+local Search = Main:NewModule("Search", "AceConsole-3.0")
 local HBD = LibStub("HereBeDragons-2.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_NPCs (Classic)")
 
@@ -210,7 +211,7 @@ function Search:OnInitialize()
 	window.closeButton:SetPoint("LEFT", window.editbox, "RIGHT", 10, 0)
 	window.closeButton:SetScript("OnClick", function(self) window:Hide() end)
 	
-	window.zoneButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
+	window.zoneButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate") -- TODO Make a generator for all these buttons
 	window.zoneButton:SetSize(26, 26)
 	window.zoneButton:SetText('Z')
 	window.zoneButton:SetPoint("TOPLEFT", window, "BOTTOMLEFT", 0, -2)
@@ -221,8 +222,14 @@ function Search:OnInitialize()
 	window.wmButton:SetText('WM')
 	window.wmButton:SetPoint("LEFT", window.zoneButton, "RIGHT", 10, 0)
 	window.wmButton:SetScript("OnClick", function() self:DumpWeaponMasters() end)
+	
+	window.recipeButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
+	window.recipeButton:SetSize(36, 26)
+	window.recipeButton:SetText('R')
+	window.recipeButton:SetPoint("LEFT", window.wmButton, "RIGHT", 10, 0)
+	window.recipeButton:SetScript("OnClick", function() self:DumpRecipesForZone() end)
 
-	self:RegisterChatCommand("npcs", "SlashCommand")
+	self:RegisterChatCommand("npcs", "SlashCommand") -- Maybe move this into the main file
 	self.window = window
 	window:Hide()
 	tinsert(UISpecialFrames, window:GetName()) -- Makes Search Window closable with the escape key
@@ -242,6 +249,16 @@ function Search:SlashCommand(input)
 		self:DumpWeaponMasters()
 		return
 	end
+	
+	if command == "recipes" then
+		self:DumpRecipesForZone()
+		return
+	end
+	
+	if command == "options" then
+		Main:GetModule("Options"):ShowOptions()
+		return
+	end
 	self:ShowWindow()
 end
 
@@ -258,7 +275,7 @@ function Search:SearchNPCs()
 	table.wipe(list)
 	
 	for k,v in pairs(data["items"]) do
-		if string.find(v.name:lower(), text:lower(), 1, true) then
+		if v.icon and string.find(v.name:lower(), text:lower(), 1, true) then -- Items added for altrecipes.lua may not be buyable, filter them out
 			table.insert(list, { itemID = k, type = "item" })
 		end
 	end
@@ -352,6 +369,33 @@ function Search:SetWaypoint(mapFile, coord, title)
 		minimap = true,
 		world = true
 	})
+end
+
+function Search:DumpRecipesForZone(zone)
+	if not zone then
+		zone = (select(3, HBD:GetPlayerZonePosition()))
+	end
+	if not data["nodes"][zone] then return end
+	table.wipe(list)
+	local recipes = { }
+	for coord, npc in pairs(data["nodes"][zone]) do
+		if npc.npcID and data["vendors"][npc.npcID] then
+			for item in data["vendors"][npc.npcID]:gmatch("([^,]+)") do
+				item = tonumber(item)
+				if data["items"][item] and data["items"][item].teaches then -- This is a recipe
+					if not recipes[item] then
+						recipes[item] = true
+					end
+				end
+			end
+		end
+	end
+	
+	for k, v in pairs(recipes) do
+		table.insert(list, { itemID = k, type = "item" })
+	end
+	self:UpdateHeader(L["Recipes"], L["Cost"]) -- Maybe replace cost with vendor name and distance
+	update(self.window.f)
 end
 
 function Search:DumpWeaponMasters()

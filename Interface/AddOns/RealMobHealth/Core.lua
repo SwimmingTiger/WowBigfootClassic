@@ -134,7 +134,6 @@ if not UnitIsUnit(unit,"target") then return; end
 			local maxhealth=UnitHealthMax(unit);
 			if maxhealth~=UnitHealthNormalizedMax then
 				StoreMaxHealth(creaturekey,maxhealth,true);
-				print(unit,i,name,spellid,UnitHealthMax(unit));
 			end
 			return;--	Done here
 		end
