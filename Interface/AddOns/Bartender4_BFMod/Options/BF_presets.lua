@@ -1,4 +1,4 @@
---[[¸²¸ÇÔ­ÓĞµÄÄ¬ÈÏÅäÖÃº¯Êı]]
+--[[è¦†ç›–åŸæœ‰çš„é»˜è®¤é…ç½®å‡½æ•°]]
 local PresetsMod = Bartender4:GetModule("Presets")
 local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 local _pagePresets =
@@ -320,7 +320,7 @@ local function BuildSingleProfile()
 
 	config = Bartender4.db:GetNamespace("PetBar").profile
 	SetBarLocation( config, "BOTTOM", -164, 164 + dy )
-		--Ôö¼ÓunitframesµÄÅäÖÃ
+		--å¢åŠ unitframesçš„é…ç½®
 
 end
 
@@ -391,7 +391,7 @@ local function BuildDoubleProfile()
 	else
 		SetBarLocation( config, "BOTTOM", -460, 135 + dy )
 	end
-		--Ôö¼ÓunitframesµÄÅäÖÃ
+		--å¢åŠ unitframesçš„é…ç½®
 
 end
 
@@ -475,7 +475,7 @@ local function BuildBlizzardProfile()
 		SetBarLocation( config, "BOTTOM", -460, 135 + dy )
 	end
 
-	--Ôö¼ÓunitframesµÄÅäÖÃ
+	--å¢åŠ unitframesçš„é…ç½®
 	config = Bartender4.db:GetNamespace("UnitFrames").profile
 	SetBarLocation( config.unitframes.PlayerFrame, "TOPLEFT", 129, -66 )
 	SetBarLocation( config.unitframes.TargetFrame, "TOPLEFT", 440, -66 )

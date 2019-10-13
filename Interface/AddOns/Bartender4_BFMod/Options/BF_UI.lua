@@ -1,7 +1,7 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 local Bar = Bartender4.Bar.prototype
 
---todo: Ôö¼ÓunitframeµÄÅäÖÃÃæ°å
+--todo: å¢åŠ unitframeçš„é…ç½®é¢æ¿
 
 local UnitFrames = Bartender4:GetModule("UnitFrames")
 

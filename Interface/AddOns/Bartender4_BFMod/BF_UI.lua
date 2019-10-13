@@ -54,7 +54,7 @@ local ufdefault ={
 		},
 		padding =10,
 	}, Bartender4.UnitBar.defaults),
-	-------ÎªÊ²Ã´¶ÓÎé1-4 µÄÄ¬ÈÏÉèÖÃÎªfalse£¬ÏÖÔÚ¸ÄÎªÄ¬ÈÏ¼ÓÔØ---------------------------------
+	-------ä¸ºä»€ä¹ˆé˜Ÿä¼1-4 çš„é»˜è®¤è®¾ç½®ä¸ºfalseï¼Œç°åœ¨æ”¹ä¸ºé»˜è®¤åŠ è½½---------------------------------
 	["PartyMemberFrame1"] = Bartender4:Merge({
 		enabled = true,
 		paddding =3,
@@ -193,7 +193,7 @@ function UnitFrames:OnEnable()
 			-- frame.bar:Show()
 		-- end
 	-- end)
-	-------------ÕâÀïÎª¼ÓÔØÒÆ¶¯´°ÌåµÄµØ·½¡£±êÊ¾Ò»ÏÂ---------------------
+	-------------è¿™é‡Œä¸ºåŠ è½½ç§»åŠ¨çª—ä½“çš„åœ°æ–¹ã€‚æ ‡ç¤ºä¸€ä¸‹---------------------
 	for i,frame in ipairs(self.frames) do
 		--TODO: enabled?
 		local config = self.db.profile.unitframes[frame:GetName()]
