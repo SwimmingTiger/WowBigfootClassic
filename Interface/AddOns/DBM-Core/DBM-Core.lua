@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20191007035227"),
-	DisplayVersion = "1.13.14", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 10, 6) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20191010225744"),
+	DisplayVersion = "1.13.15", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 10, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -261,7 +261,7 @@ DBM.DefaultOptions = {
 	DontPlayCountdowns = false,
 	DontSendYells = false,
 	BlockNoteShare = false,
-	DontShowReminders = true,		-- bf@178.com
+	DontShowReminders = false,
 	DontShowPT2 = false,
 	DontPlayPTCountdown = false,
 	DontShowPTText = false,
@@ -1491,6 +1491,7 @@ do
 				"UPDATE_BATTLEFIELD_STATUS",
 				"PLAY_MOVIE",
 				"CINEMATIC_START",
+				"CINEMATIC_STOP",
 				"PLAYER_LEVEL_CHANGED",
 				"CHARACTER_POINTS_CHANGED",
 				"PARTY_INVITE_REQUEST",
@@ -6882,6 +6883,7 @@ do
 
 	function DBM:CINEMATIC_START()
 		self:Debug("CINEMATIC_START fired", 2)
+		DBMHudMap:SupressCanvas()
 		local isInstance, instanceType = IsInInstance()
 		if not isInstance or self.Options.MovieFilter2 == "Never" or DBM.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
 		local currentMapID = C_Map.GetBestMapForUnit("player")
@@ -6892,6 +6894,10 @@ do
 		else
 			self.Options.MoviesSeen[currentMapID] = true
 		end
+	end
+	function DBM:CINEMATIC_STOP()
+		self:Debug("CINEMATIC_STOP fired", 2)
+		DBMHudMap:UnSupressCanvas()
 	end
 end
 
@@ -7942,6 +7948,7 @@ do
 			--if UnitGroupRolesAssigned(uId) == "HEALER" then
 			--	return true
 			--end
+			print("bossModPrototype:IsHealer should not be called in classic, report this message")
 			return false
 		end
 		if not currentSpecID then
@@ -10156,7 +10163,7 @@ do
 			DBM:Debug("|cffff0000OptionVersion hack depricated, remove it from: |r"..spellId)
 			return
 		end
-		if type(colorType) == "number" and colorType > 6 then
+		if type(colorType) == "number" and colorType > 7 then
 			DBM:Debug("|cffff0000texture is in the colorType arg for: |r"..spellId)
 		end
 		--Use option optionName for optionVersion as well, no reason to split.

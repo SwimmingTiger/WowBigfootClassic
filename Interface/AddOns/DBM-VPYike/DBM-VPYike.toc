@@ -14,5 +14,4 @@
 ## X-DBM-Voice-ShortName: Yike
 ## X-DBM-Voice-Version: 8
 ## X-DBM-Voice-HasCount: 1
-## X-Revision: BigFoot
 
