@@ -1258,12 +1258,12 @@ L:SetGeneralLocalization{
 }
 
 -----------------------------
---  Veran the Everliving  --
+--  Verdan the Everliving  --
 -----------------------------
 L = DBM:GetModLocalization(480)
 
 L:SetGeneralLocalization{
-	name 		= "Veran the Everliving"
+	name 		= "Verdan the Everliving"
 }
 
 -----------------------------

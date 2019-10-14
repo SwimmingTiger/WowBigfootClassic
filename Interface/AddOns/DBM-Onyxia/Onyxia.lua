@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190923181320")
+mod:SetRevision("20191011025919")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
 mod:SetZone()
@@ -116,7 +116,7 @@ do
 		elseif spellName == wingBuffet and args:IsSrcTypeHostile() then
 			warnWingBuffet:Show()
 		elseif spellName == fireball and args:IsSrcTypeHostile() then
-			self:BossTargetScanner(args.sourceGUID, "FireballTarget", 0.15, 12)
+			self:BossTargetScanner(args.sourceGUID, "FireballTarget", 0.3, 6)
 		end
 	end
 end
