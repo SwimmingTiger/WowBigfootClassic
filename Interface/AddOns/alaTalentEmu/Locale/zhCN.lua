@@ -14,6 +14,8 @@ BINDING_NAME_ALARAIDTOOL_QUERY = "查看目标天赋";
 L.Locale = "zhCN";
 
 L.Emu = "模拟器";
+L.OK = "确定";
+L.Cancel = "取消";
 L.curTabPointsLabel = "点数";
 L.curPointsTotal = "总点数";
 L.curPointsRemaining = "剩余";
@@ -27,11 +29,13 @@ L.resetAllButton = "重置所有天赋";
 L.resetToSetButton = "重置到初始状态";
 L.readOnlyButton = "\124cff00ff00左键\124r切换禁止编辑\n\124cff00ff00右键\124r设置窗口风格";
 L.closeButton = "关闭窗口";
+L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
 L.inspectTargetButton = "观察目标天赋";
 L.applyTalentsButton = "应用当前天赋模拟";
+L.applyTalentsButton_Notify = "确定应用当前天赋？";
 L.importButton = "导入字符串";
-L.exportButton = "导出字符串";
-L.saveButton = "左键点击保存天赋设置\n右键点击加载已保存的天赋\nShift左键删除天赋";
+L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右键\124r导出到\124cffff0000wowhead/nfu\124r网页链接";
+L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右键\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
 L.TalentFrameCallButton = "打开ala天赋模拟器";
 L.TalentFrameCallButtonFontString = "模拟器";
 L.curRank = "当前等级";
@@ -64,6 +68,7 @@ L.DATA = {
 	shaman = "傻馒",
 	warlock = "术士",
 	warrior = "屌丝战",
+
 	[283] = "平衡",
 	[281] = "野性战斗",
 	[282] = "恢复",
@@ -91,6 +96,12 @@ L.DATA = {
 	[161] = "武器",
 	[164] = "狂怒",
 	[163] = "防护",
+
+	H = "\124cff00ff00治疗\124r",
+	D = "\124cffff0000输出\124r",
+	T = "\124cffafafff坦克\124r",
+	P = "\124cffff0000PVP\124r",
+	E = "\124cffffff00PVE\124r",
 
 };
 

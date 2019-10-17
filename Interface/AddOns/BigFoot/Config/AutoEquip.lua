@@ -50,7 +50,7 @@ function AutoEquipConfigFunc()
 
 	end
 
-	if (IsConfigurableAddOn("AutoEquip") or IsConfigurableAddOn("AutoTabard") or IsConfigurableAddOn("UnrealEquip") ) then
+	if (IsConfigurableAddOn("Ex_AutoEquip") or IsConfigurableAddOn("AutoTabard") or IsConfigurableAddOn("UnrealEquip") ) then
 		ModManagement_RegisterMod(
 			"AutoEquip",
 			"Interface\\Icons\\INV_Gizmo_04",
@@ -62,7 +62,7 @@ function AutoEquipConfigFunc()
 			true,
 			"214"
 		);
-		if IsConfigurableAddOn("AutoEquip") then
+		if IsConfigurableAddOn("Ex_AutoEquip") then
 			ModManagement_RegisterCheckBox(
 				"AutoEquip",
 				AUTOEQUIP_ENABLE,
@@ -71,62 +71,62 @@ function AutoEquipConfigFunc()
 				0,
 				function (__arg)
 					if (__arg == 1) then
-						if (not BigFoot_IsAddOnLoaded("AutoEquip")) then
-							BigFoot_LoadAddOn("AutoEquip");
+						if (not BigFoot_IsAddOnLoaded("Ex_AutoEquip")) then
+							BigFoot_LoadAddOn("Ex_AutoEquip");
 						end
 
-						if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+						if (BigFoot_IsAddOnLoaded("Ex_AutoEquip")) then
 							AutoEquip_Toggle(true);
 						end
 					else
-						if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+						if (BigFoot_IsAddOnLoaded("Ex_AutoEquip")) then
 							AutoEquip_Toggle(false);
 						end
 					end
 				end
 			);
 
-			ModManagement_RegisterCheckBox(
-				"AutoEquip",
-				AUTOEQUIP_ENABLE_RAID_ADVANCED_MODE,
-				AUTOEQUIP_ENABLE_RAID_ADVANCED_MODE_TOOLTIP,
-				"EnableAdvancedMode",
-				0,
-				function (__arg)
-					if (BigFoot_IsAddOnLoaded("AutoEquip")) then
-						if (__arg == 1) then
-							AutoEquip_ToggleMode("advance");
-						else
-							AutoEquip_ToggleMode("normal");
-						end
-					end
-				end,
-				1
-			);
+			-- ModManagement_RegisterCheckBox(
+				-- "AutoEquip",
+				-- AUTOEQUIP_ENABLE_RAID_ADVANCED_MODE,
+				-- AUTOEQUIP_ENABLE_RAID_ADVANCED_MODE_TOOLTIP,
+				-- "EnableAdvancedMode",
+				-- 0,
+				-- function (__arg)
+					-- if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+						-- if (__arg == 1) then
+							-- AutoEquip_ToggleMode("advance");
+						-- else
+							-- AutoEquip_ToggleMode("normal");
+						-- end
+					-- end
+				-- end,
+				-- 1
+			-- );
 
-			ModManagement_RegisterCheckBox(
-				"AutoEquip",
-				AUTOEQUIP_ENABLE_RAID_AUTOHIDE,
-				AUTOEQUIP_ENABLE_RAID_AUTOHIDE_TOOLTIP,
-				"EnableAutoHide",
-				0,
-				function (__arg)
-					if (BigFoot_IsAddOnLoaded("AutoEquip")) then
-						if (__arg == 1) then
-							AutoEquip_EnableAutoHide(true);
-						else
-							AutoEquip_EnableAutoHide(false);
-						end
-					end
-				end,
-				1
-			);
+			-- ModManagement_RegisterCheckBox(
+				-- "AutoEquip",
+				-- AUTOEQUIP_ENABLE_RAID_AUTOHIDE,
+				-- AUTOEQUIP_ENABLE_RAID_AUTOHIDE_TOOLTIP,
+				-- "EnableAutoHide",
+				-- 0,
+				-- function (__arg)
+					-- if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+						-- if (__arg == 1) then
+							-- AutoEquip_EnableAutoHide(true);
+						-- else
+							-- AutoEquip_EnableAutoHide(false);
+						-- end
+					-- end
+				-- end,
+				-- 1
+			-- );
 
 			ModManagement_RegisterButton(
 				"AutoEquip",
 				AUTOEQUIP_KEY_BINDING,
 				function ()
-					if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+					if (BigFoot_IsAddOnLoaded("Ex_AutoEquip")) then
 						AutoEquip_KeyBinding();
 					end
 				end,

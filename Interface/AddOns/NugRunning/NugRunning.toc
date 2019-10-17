@@ -4,7 +4,7 @@
 ## Author: d87
 ## SavedVariablesPerCharacter: NRunDB_Char
 ## SavedVariables: NRunDB_Global, NugRunningConfigCustom
-## Version: 1.13.27
+## Version: 1.13.28
 ## X-WoWI-ID: 24936
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot

@@ -14,6 +14,8 @@ BINDING_NAME_ALARAIDTOOL_QUERY = "Inspect talents of target. (The target player 
 L.Locale = "enUS";
 
 L.Emu = "Emulator";
+L.OK = "OK";
+L.Cancel = "Cancel";
 L.curTabPointsLabel = "Points";
 L.curPointsTotal = "Total";
 L.curPointsRemaining = "Remaining";
@@ -25,13 +27,15 @@ L.labelPointsChanged = "(\124cffff0000Modified\124r)";
 L.resetButton = "Reset tanlents in current tab";
 L.resetAllButton = "Reset all talents";
 L.resetToSetButton = "Reset to initial state";
-L.readOnlyButton = "\124cff00ff00Left Key\124rSwitch Editable\n\124cff00ff00Right Key\124rSet win style";
+L.readOnlyButton = "\124cff00ff00Left click\124r to switch Editable\n\124cff00ff00Right click\124r to set win style";
 L.closeButton = "Close this win";
+L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to import build-in talents\n    (Copied from \124cffff0000wowhead\124r).";
 L.inspectTargetButton = "Inspect target's talents.";
 L.applyTalentsButton = "Apply this talents emulation.";
+L.applyTalentsButton_Notify = "Do u want to apply these talents?";
 L.importButton = "Import string.";
-L.exportButton = "Export string.";
-L.saveButton = "Left Click to save talents set.\nRight Click to load saved talents set.\nShift & Left Click to del";
+L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu\124r url";
+L.saveButton = "\124cff00ff00Left click\124r to save talents set.\n\124cff00ff00Right click\124r to load saved talents set.\n\124cff00ff00Shift & Left click\124r to del";
 L.TalentFrameCallButton = "Open ala talent emulator.";
 L.TalentFrameCallButtonFontString = "Emulator";
 L.curRank = "Current Rank";
@@ -50,7 +54,7 @@ L.inspectButtonOnUnitFrame_Disable = "Disable inspect button.";
 L.insepctALTKEY = "Holding alt to show the inspect button";
 L.insepctCTRLKEY = "Holding ctrl to show the inspect button";
 L.insepctSHIFTKEY = "Holding shift to show the inspect button";
-L.DBIcon_Text = "\124cff00ff00Left Key\124rCreate a emulator\n\124cff00ff00Right Key\124rSet win style";
+L.DBIcon_Text = "\124cff00ff00Left click\124r to create a emulator\n\124cff00ff00Right click\124r to set win style";
 
 L.DATA = {
 	talent = "talent",
@@ -92,6 +96,12 @@ L.DATA = {
 	[161] = "Arms",
 	[164] = "Fury",
 	[163] = "Protection",
+
+	H = "\124cff00ff00Healer\124r",
+	D = "\124cffff0000DPS\124r",
+	T = "\124cffafafffTANK\124r",
+	P = "\124cffff0000PVP\124r",
+	E = "\124cffffff00PVE\124r",
 
 };
 

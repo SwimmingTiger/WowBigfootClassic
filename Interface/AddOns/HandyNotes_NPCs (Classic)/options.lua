@@ -166,6 +166,11 @@ function Addon:OnInitialize()
 						name = L["Show Weapon Masters"],
 						order = 3.7,
 					},
+					showMountTrainers = {
+						type = "toggle",
+						name = L["Show Mount Trainers"],
+						order = 3.71,
+					},
 					showRares = {
 						type = "toggle",
 						name = L["Show Rares"],

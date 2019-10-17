@@ -27,6 +27,8 @@ L["CASTBAR_TEXTURE_FONT"] = "施法条纹理"
 L["DEFAULT"] = "默认"
 L["FONT_SIZE"] = "字体大小"
 L["FONT_SIZE_TOOLTIP"] = "为法术名称和计时器文字选择字体大小."
+L["FRAME_LEVEL"] = "框体层级"
+L["FRAME_LEVEL_DESC"] = "更改框体层级来在另一个框体上面或者下面放置施法条"
 L["GENERAL"] = "通用设置"
 L["HEIGHT"] = "施法条高度"
 L["HEIGHT_TOOLTIP"] = "设置施法条高度."
@@ -41,12 +43,15 @@ L["LSM_TEXTURE_NOTE"] = [=[
 L["MOVEMENT_DETECT"] = "移动取消施法条"
 L["MOVEMENT_DETECT_TOOLTIP"] = "开启此选项后，单位移动会取消施法条。高延迟下游戏建议关闭此选项，因为有时会出现错误地取消卡顿玩家施法条的情况。"
 L["NAMEPLATE"] = "姓名板"
+L["PARTY"] = "小队"
+L["PLAYER"] = "玩家"
 L["POSXY_TOOLTIP"] = "调整XY坐标偏移量以移动框体"
 L["PUSHBACK"] = "侦测施法延迟"
 L["PUSHBACK_TOOLTIP"] = [=[为施法时受到攻击以及减益效果 (例如: 语言诅咒) 而造成的延迟启用侦测功能.
 
 注意: 由于特定法术和天赋可能会忽略延迟, 故侦测到的延迟不完全准确, 仅供参考.
 ]=]
+L["REQUIRES_RESTART"] = "关闭施法条模组需要重载界面, 点击应用来重载界面"
 L["RESET_ALL"] = "重置所有设置"
 L["SHOW_CAST_INFO_ONLY"] = "仅显示施法信息"
 L["SHOW_CAST_INFO_ONLY_TOOLTIP"] = [=[启用将隐藏施法计时器, 但是仍然会显示施法信息.
@@ -54,6 +59,7 @@ L["SHOW_CAST_INFO_ONLY_TOOLTIP"] = [=[启用将隐藏施法计时器, 但是仍�
 如果您仅想显示施法名称而不是整个施法条, 则需要将施法条高度设置为 '0', 並且将边框设置为 '无'.]=]
 L["SHOW_TIMER"] = "显示计时器文字"
 L["SHOW_TIMER_TOOLTIP"] = "为当前的施法显示倒计时."
+L["STATUS_BG_COLOR"] = "选择背景颜色"
 L["STATUS_CHANNEL_COLOR"] = "引导指示器填充颜色"
 L["STATUS_COLOR"] = "施法指示器填充颜色"
 L["TARGET"] = "目标"

@@ -44,6 +44,7 @@ local icons = {
 	mining = "Interface\\ICONS\\Trade_Mining",
 	skinning = "Interface\\ICONS\\inv_misc_pelt_wolf_01",
 	tailoring = "Interface\\ICONS\\Trade_Tailoring",
+	mountTrainer = "Interface\\MINIMAP\\TRACKING\\Profession",
 }
 
 local PROFESSIONS = { }
@@ -104,7 +105,7 @@ function pluginHandler:OnEnter(uiMapId, coord)
 		if (nodeData.description) then
 			tooltip:AddLine(nodeData.description, 0, 0.6, 0.1)
 		end
-		if nodeData.subcategory == "weaponmaster" then
+		if nodeData.subcategories and nodeData.subcategories["weaponmaster"] then
 			if nodeData.npcID and data["weaponmasters"][nodeData.npcID] then
 				for skill in data["weaponmasters"][nodeData.npcID]:gmatch("([^,]+)") do
 					skill = tonumber(skill)
@@ -150,7 +151,7 @@ do
 				if not (value.category == "flightmasters") or db.showFlightMasters and (not value.classes or value.classes[class]) then
 				if not (value.category == "guildmasters") or db.showGuildMasters then
 				if not (value.category == "rares") or db.showRares then
-				if not (value.subcatogories and value.subcategories["weaponmaster"]) or db.showWeaponMasters then
+				if not (value.category == "trainers" and value.subcategories and value.subcategories["weaponmaster"]) or db.showWeaponMasters then
 				if not (value.category == "spirithealers") or db.showSpiritHealers then
 				if not (value.category == "vendors") or ((db.showAmmoVendors and (value.vendors and value.vendors['ammo'])) or (db.showReagentVendors and (value.subcategories and value.subcategories["reagent"])) or (db.showPoisonVendors and (value.subcategories and value.subcategories["poison"])) or (db.showMisc)) then
 				if not (value.category == "repair") or ((db.showAmmoVendors and (value.vendors and value.vendors['ammo'])) or db.showRepair) then
@@ -158,8 +159,9 @@ do
 				if not (value.category == "bankers") or db.showBankers then
 				if not (value.category == "innkeepers") or db.showInnkeepers then
 				if not (value.category == "mailboxes") or db.showMailboxes then
+				if not (value.category == "mountTrainer") or db.showMountTrainers then
 				if not (value.category == "stablemasters") or class == "HUNTER" then -- Hide stablemasters for non-hunters
-				if not (value.category == "trainers" and value.description == "Pet Trainer") or class == "HUNTER" or db.showClassTrainers == "ALL" then -- Hide pet trainers for non-hunters
+				if not (value.category == "trainers" and value.description == L["Pet Trainer"]) or class == "HUNTER" or db.showClassTrainers == "ALL" then -- Hide pet trainers for non-hunters
 				if not (value.category == "trainers" and value.subcategories and value.subcategories["classTrainer"]) or ((db.showClassTrainers == "ALL") or (db.showClassTrainers == "MINE" and value.classes and value.classes[class])) then
 				if not (value.category == "primaryProfession" or value.category == "secondaryProfession") or ((db.showProfessions == "ALL") or (db.showProfessions == "MINE" and professions[value.profession])) then
 					-- TODO merge subcategory and subcategories
@@ -211,6 +213,7 @@ do
 				end
 				end
 				end
+				end
 			end
 			state, value = next(data, state)
 		end
@@ -238,7 +241,7 @@ do
 					if not (value.category == "flightmasters") or db.showFlightMasters and (not value.classes or value.classes[class]) then
 					if not (value.category == "guildmasters") or db.showGuildMasters then
 					if not (value.category == "rares") or db.showRares then
-					if not (value.subcategory == "weaponmaster") or db.showWeaponMasters then
+					if not (value.subcategories and value.subcategories["weaponmaster"]) or db.showWeaponMasters then
 					if not (value.category == "spirithealers") or db.showSpiritHealers then
 					if not (value.category == "vendors") or ((db.showAmmoVendors and (value.vendors and value.vendors['ammo'])) or (db.showReagentVendors and (value.subcategories and value.subcategories["reagent"])) or (db.showPoisonVendors and (value.subcategories and value.subcategories["poison"])) or (db.showMisc)) then
 					if not (value.category == "repair") or ((db.showAmmoVendors and (value.vendors and value.vendors['ammo'])) or db.showRepair) then
@@ -246,9 +249,10 @@ do
 					if not (value.category == "bankers") or db.showBankers then
 					if not (value.category == "innkeepers") or db.showInnkeepers then
 					if not (value.category == "mailboxes") or db.showMailboxes then
+					if not (value.category == "mountTrainer") or db.showMountTrainers then
 					if not (value.category == "stablemasters") or class == "HUNTER" then -- Hide stablemasters for non-hunters
-					if not (value.category == "trainers" and value.description == "Pet Trainer") or class == "HUNTER" or db.showClassTrainers == "ALL" then -- Hide pet trainers for non-hunters
-					if not (value.category == "trainers" and value.subcategory == "classTrainer") or ((db.showClassTrainers == "ALL") or (db.showClassTrainers == "MINE" and value.classes and value.classes[class])) then
+					if not (value.category == "trainers" and value.description == L["Pet Trainer"]) or class == "HUNTER" or db.showClassTrainers == "ALL" then -- Hide pet trainers for non-hunters
+					if not (value.category == "trainers" and value.subcategories and value.subcategories["classTrainer"]) or ((db.showClassTrainers == "ALL") or (db.showClassTrainers == "MINE" and value.classes and value.classes[class])) then
 					if not (value.category == "primaryProfession" or value.category == "secondaryProfession") or ((db.showProfessions == "ALL") or (db.showProfessions == "MINE" and professions[value.profession])) then
 						
 					local icon = icons[value.category] or iconDefault
@@ -277,6 +281,7 @@ do
 							icon = learned[value.fpName] and icons[value.category] or icons["flightmastersUndiscovered"]
 						end
 						return state, zone, icon, db.continentScale, db.continentAlpha
+					end
 					end
 					end
 					end
@@ -382,6 +387,7 @@ local defaults = {
 		showWeaponMasters = true,
 		showProfessions = "NONE",
 		showClassTrainers = "MINE",
+		showMountTrainers = true,
 		showMisc = false,
 		showReagentVendors = false,
 		showPoisonVendors = false,
@@ -567,6 +573,11 @@ function Addon:PLAYER_LOGIN()
 	name = L["Show Weapon Masters"],
 	order = 3.7,
   },
+  showMountTrainers = {
+	type = "toggle",
+	name = L["Show Mount Trainers"],
+	order = 3.71,
+  },
   showRares = {
 	type = "toggle",
 	name = L["Show Rares"],
@@ -741,6 +752,7 @@ function HandyNotes_NPCsDropDownMenu(frame, level, menuList)
 			showAuctioneers = L["Show Auctioneers"],
 			showInnkeepers = L["Show Innkeepers"],
 			showGuildMasters = L["Show Guildmasters"],
+			showMountTrainers = L["Show Mount Trainers"],
 			showRares = L["Show Rares"],
 		}
 

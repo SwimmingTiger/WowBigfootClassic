@@ -39,7 +39,7 @@ local PRICE_EXTRA_ITTYPE = data:AddExtraItemTableType("Price")
 local SET_EXTRA_ITTYPE = data:AddExtraItemTableType("Set")
 
 local SET_CONTENT = data:AddContentType(AL["Sets"], ATLASLOOT_PVP_COLOR)
-local WORLD_BOSS_CONTENT = data:AddContentType(AL["World Bosses"], ATLASLOOT_WORLD_BOSS_COLOR)
+--local WORLD_BOSS_CONTENT = data:AddContentType(AL["World Bosses"], ATLASLOOT_WORLD_BOSS_COLOR)
 local COLLECTIONS_CONTENT = data:AddContentType(AL["Collections"], ATLASLOOT_COLLECTIONS_COLOR)
 local WORLD_EVENT_CONTENT = data:AddContentType(AL["World Events"], ATLASLOOT_SEASONALEVENTS_COLOR)
 
@@ -308,6 +308,7 @@ data["MiscSets"] = {
 	},
 }
 
+--[[
 data["Azuregos"] = {
 	name = AL["Azuregos"],
 	AtlasMapFile = "Azuregos",
@@ -499,6 +500,7 @@ data["DragonsOfNightmare"] = {
 		},
 	},
 }
+]]--
 
 data["WorldEpics"] = {
 	name = AL["World Epics"],
@@ -697,6 +699,54 @@ data["Tabards"] = {
 				{ 3, 19505 }, -- Warsong Battle Tabard
 				{ 4, 20131 }, -- Battle Tabard of the Defilers
 				{ 5, 19031 }, -- Frostwolf Battle Tabard
+			},
+		},
+	},
+}
+
+data["Legendarys"] = {
+	name = AL["Legendarys"],
+	ContentType = COLLECTIONS_CONTENT,
+	LoadDifficulty = LOAD_DIFF,
+	TableType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = AL["Legendarys"],
+			[NORMAL_ITTYPE] = {
+				{ 1,  19019 }, -- Thunderfury, Blessed Blade of the Windseeker
+
+				{ 3,  22631 }, -- Atiesh, Greatstaff of the Guardian / Priest
+				{ 4,  22589 }, -- Atiesh, Greatstaff of the Guardian / Mage
+				{ 5,  22630 }, -- Atiesh, Greatstaff of the Guardian / Warlock
+				{ 6,  22632 }, -- Atiesh, Greatstaff of the Guardian / Druid
+
+				{ 16,  17182 }, -- Sulfuras, Hand of Ragnaros
+
+				{ 18,  21176 }, -- Black Qiraji Resonating Crystal
+			},
+		},
+		{
+			name = ALIL["Quest Item"],
+			[NORMAL_ITTYPE] = {
+				{ 1,  19018 }, -- Dormant Wind Kissed Blade
+				{ 2,  19017 }, -- Essence of the Firelord
+				{ 3,  19016 }, -- Vessel of Rebirth
+				{ 4,  18564 }, -- Bindings of the Windseeker / Right
+				{ 5,  18563 }, -- Bindings of the Windseeker / Left
+				{ 7,  17204 }, -- Eye of Sulfuras
+				{ 9,  17771 }, -- Elementium Bar
+				{ 16,  22736 }, -- Andonisus, Reaper of Souls
+				{ 17,  22737 }, -- Atiesh, Greatstaff of the Guardian
+				{ 18,  22733 }, -- Staff Head of Atiesh
+				{ 19,  22734 }, -- Base of Atiesh
+				{ 20,  22727 }, -- Frame of Atiesh
+				{ 21,  22726 }, -- Splinter of Atiesh
+			},
+		},
+		{
+			name = AL["Unobtainable"],
+			[NORMAL_ITTYPE] = {
+				{ 1,  20221 }, -- Foror's Fabled Steed
 			},
 		},
 	},

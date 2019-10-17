@@ -1,0 +1,52 @@
+## Interface: 11302
+## Title: TotemTimers
+## Title-zhCN: [大脚][集]萨满图腾助手
+## Title-zhTW: [大腳][集]薩滿圖騰助手
+## Notes: |cff00ff00TotemTimers|r
+## Author:  Xianghar
+## Version: 1.06
+## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
+## OptionalDeps: cyCircled, Masque, !ClassColors, rActionButtonStyler
+## LoadManagers: AddonLoader
+## X-LoadOn-Class: Shaman
+## X-Curse-Project-ID: 339602
+## X-WoWI-ID: 25223
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+embeds.xml
+
+TotemData.lua
+
+localization\localization.lua
+localization\localization.cn.lua
+localization\localization.tw.lua
+
+Animation.lua
+Bindings.lua
+XiTimers.lua
+XiTimers.xml
+ToolTips.lua
+TotemSets.xml
+TotemSets.lua
+TTActionBars.lua
+DefaultSettings.lua
+Settings.lua
+Spells.lua
+SetupTimers.lua
+SetupTrackers.lua
+TotemTimers.xml
+TotemTimers.lua
+Warnings.lua
+
+GUI\localization.lua
+GUI\localization.tw.lua
+GUI\localization.cn.lua
+
+GUI\General.lua
+GUI\Timers.lua
+GUI\Trackers.lua
+GUI\Messages.lua
+GUI\Totems.lua
+GUI\Profiles.lua
+

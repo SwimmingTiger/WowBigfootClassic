@@ -3393,7 +3393,8 @@ nodes[1454] = {
 	},
 	[69201300] = {
 		name = L["Kildar"],
-		category = "trainers",
+		npcID = 4752,
+		category = "mountTrainer",
 		description = L["Wolf Riding Instructor"],
 		faction = "Horde",
 	},
@@ -3497,7 +3498,8 @@ nodes[1454] = {
 	},
 	[80202320] = {
 		name = L["Shayis Steelfury"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "blacksmithing",
 		description = L["Armor Crafter"],
 		faction = "Horde",
 	},
@@ -3549,7 +3551,8 @@ nodes[1454] = {
 	},
 	[79602360] = {
 		name = L["Borgosh Corebender"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "blacksmithing",
 		description = L["Weaponsmith"],
 		faction = "Horde",
 	},
@@ -4311,7 +4314,8 @@ nodes[1455] = {
 	},
 	[50204260] = {
 		name = L["Grumnus Steelshaper"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "blacksmithing",
 		description = L["Armor Crafter"],
 		faction = "Alliance",
 	},
@@ -4470,7 +4474,8 @@ nodes[1455] = {
 	},
 	[49804500] = {
 		name = L["Ironus Coldsteel"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "blacksmithing",
 		description = L["Special Weapon Crafter"],
 		faction = "Alliance",
 	},
@@ -5892,7 +5897,8 @@ nodes[1457] = {
 	},
 	[38601600] = {
 		name = L["Jartsam"],
-		category = "trainers",
+		npcID = 4753,
+		category = "mountTrainer",
 		description = L["Nightsaber Riding Instructor"],
 		faction = "Alliance",
 	},
@@ -12278,7 +12284,8 @@ nodes[1448] = {
 	},
 	[65600280] = {
 		name = L["Meilosh"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "tailoring",
 		faction = "Neutral",
 	},
 	[62202560] = {
@@ -13959,7 +13966,8 @@ nodes[1444] = {
 	},
 	[89404640] = {
 		name = L["Caryssia Moonhunter"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "Leatherworking",
 		description = L["Tribal Leatherworking Trainer"],
 		faction = "Alliance",
 	},
@@ -23679,7 +23687,8 @@ nodes[1427] = {
 	},
 	[63607580] = {
 		name = L["Sarah Tanner"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "Leatherworking",
 		description = L["Master Elemental Leatherworker"],
 		faction = "Alliance",
 	},
@@ -25644,7 +25653,8 @@ nodes[1417] = {
 	},
 	[28204500] = {
 		name = L["Brumn Winterhoof"],
-		category = "trainers",
+		category = "primaryProfession",
+		profession = "Leatherworking",
 		description = L["Master Elemental Leatherworker"],
 		faction = "Horde",
 	},
@@ -35819,7 +35829,8 @@ nodes[1412] = {
 	},
 	[47605840] = {
 		name = L["Kar Stormsinger"],
-		category = "trainers",
+		npcID = 3690,
+		category = "mountTrainer",
 		description = L["Kodo Riding Instructor"],
 		faction = "Horde",
 	},
@@ -37877,7 +37888,8 @@ nodes[1411] = {
 	},
 	[55207540] = {
 		name = L["Xar'Ti"],
-		category = "trainers",
+		npcID = 7953,
+		category = "mountTrainer",
 		description = L["Raptor Riding Trainer"],
 		faction = "Horde",
 	},
@@ -39145,7 +39157,8 @@ nodes[1426] = {
 	},
 	[63805020] = {
 		name = L["Ultham Ironhorn"],
-		category = "trainers",
+		npcID = 4772,
+		category = "mountTrainer",
 		description = L["Ram Riding Instructor"],
 		faction = "Alliance",
 	},
@@ -39170,7 +39183,8 @@ nodes[1426] = {
 	},
 	[49204800] = {
 		name = L["Binjy Featherwhistle"],
-		category = "trainers",
+		npcID = 7954,
+		category = "mountTrainer",
 		description = L["Mechanostrider Pilot"],
 		faction = "Alliance",
 	},
@@ -40359,7 +40373,8 @@ nodes[1420] = {
 	},
 	[60005240] = {
 		name = L["Velma Warnam"],
-		category = "trainers",
+		npcID = 4773,
+		category = "mountTrainer",
 		description = L["Undead Horse Riding Instructor"],
 		faction = "Horde",
 	},
@@ -42440,7 +42455,8 @@ nodes[1429] = {
 	},
 	[84206480] = {
 		name = L["Randal Hunter"],
-		category = "trainers",
+		npcID = 4732,
+		category = "mountTrainer",
 		description = L["Horse Riding Instructor"],
 		faction = "Alliance",
 	},

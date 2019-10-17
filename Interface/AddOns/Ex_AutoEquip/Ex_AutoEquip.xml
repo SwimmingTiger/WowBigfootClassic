@@ -1,0 +1,259 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+
+	<Script file="localization.lua"/>
+	<Script file="localization.cn.lua"/>
+	<Script file="localization.tw.lua"/>
+
+	<Script file="Ex_AutoEquip.lua"/>
+
+	<CheckButton name="ExAE_SetButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="19" y="18"/>
+		</Size>
+		<Scripts>
+			<OnEnter>
+				ExAE_SetButton_OnEnter(self, self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				ExAE_SetButton_OnClick(self:GetID());
+			</OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\PetPaperDollFrame\UI-PetHappiness"/>
+	</CheckButton>
+
+	<Button name="ExAE_Frame" frameStrata="MEDIUM" enableMouse="true" parent="PlayerFrame" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="128" y="24"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="PlayerFrame" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="102" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentTexture" file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="128" y="24"/>
+					</Size>
+					<TexCoords left="0.0" right="0.9675" top="0.0" bottom="0.359375"/>
+				</Texture>
+			</Layer>
+		</Layers>
+
+		<Frames>
+			<Button name="$parentSaveButton">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="6" y="-2"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+					</OnLoad>
+					<OnEnter>
+						ExAE_SaveButton_OnEnter(self);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+					<OnClick>
+						ExAE_SaveButton_OnClick(self, button);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0" right="0.140625" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0" right="0.140625" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipSH" alphaMode="ADD"/>
+			</Button>
+
+			<CheckButton name="$parentSetButton1" inherits="ExAE_SetButtonTemplate" id="1">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSaveButton" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.171875" right="0.3125" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.171875" right="0.3125" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<CheckedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipC" alphaMode="ADD"/>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipH" alphaMode="ADD"/>
+			</CheckButton>
+
+			<CheckButton name="$parentSetButton2" inherits="ExAE_SetButtonTemplate" id="2">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSetButton1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.34375" right="0.484375" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.34375" right="0.484375" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipH" alphaMode="ADD"/>
+				<CheckedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipC" alphaMode="ADD"/>
+			</CheckButton>
+
+			<CheckButton name="$parentSetButton3" inherits="ExAE_SetButtonTemplate" id="3">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSetButton2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.515625" right="0.65625" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.515625" right="0.65625" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipH" alphaMode="ADD"/>
+				<CheckedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipC" alphaMode="ADD"/>
+			</CheckButton>
+
+			<CheckButton name="$parentSetButton4" inherits="ExAE_SetButtonTemplate" id="4">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSetButton3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.6875" right="0.828125" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.6875" right="0.828125" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipH" alphaMode="ADD"/>
+				<CheckedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipC" alphaMode="ADD"/>
+			</CheckButton>
+
+			<CheckButton name="$parentNakedButton" inherits="ExAE_SetButtonTemplate" id="5">
+				<Size>
+					<AbsDimension x="19" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentSetButton4" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+		<Scripts>
+			<OnEnter>
+				ExAE_NakedButton_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				ExAE_NakedButton_OnClick(self);
+			</OnClick>
+		</Scripts>
+				<NormalTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.859375" right="1" top="0.375" bottom="0.640625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquip">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.859375" right="1" top="0.671875" bottom="0.9375"/>
+				</PushedTexture>
+				<HighlightTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipH" alphaMode="ADD"/>
+				<CheckedTexture file="Interface\AddOns\Ex_AutoEquip\Ex_AutoEquipC" alphaMode="ADD"/>
+			</CheckButton>
+
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				ExAE_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				ExAE_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnMouseUp>
+				ExAE_MouseUp(self)
+			</OnMouseUp>
+			<OnMouseDown>
+				ExAE_MouseDown(self, button)
+			</OnMouseDown>
+			<OnHide>
+				ExAE_OnHide(self)
+			</OnHide>
+		</Scripts>
+	</Button>
+</Ui>

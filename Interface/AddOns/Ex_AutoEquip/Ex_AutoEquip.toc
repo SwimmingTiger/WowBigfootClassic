@@ -1,0 +1,15 @@
+﻿## Interface: 11302
+## Title: Enigma Auto Equip
+## Title-zhCN: [大脚][集]装备管理
+## Title-zhTW: [大腳][集]裝備管理
+## Notes: |cffbc8f8fConvenient implementation of equipment management settings.|r
+## Notes-zhCN: |cff00ff00Ex_AutoEquip|r|n|cffbc8f8f方便快捷的实现装备管理设置。|r
+## Notes-zhTW: |cff00ff00Ex_AutoEquip|r|n|cffbc8f8f方便快捷的實現裝備管理設置。|r
+## Author: Enigma @ http://luodan.com
+## SavedVariablesPerCharacter: ExAE_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Ex_AutoEquip.xml
+
+Ex_Naked.xml

@@ -1,9 +1,7 @@
 local _
-local BFChatAddOn = LibStub('AceAddon-3.0'):NewAddon('BigFootChat',
-                                                     'AceEvent-3.0',
-                                                     'AceConsole-3.0',
-                                                     'AceHook-3.0',
-                                                     "AceTimer-3.0")
+BFChatAddOn = LibStub('AceAddon-3.0'):NewAddon('BigFootChat', 'AceEvent-3.0',
+                                               'AceConsole-3.0', 'AceHook-3.0',
+                                               "AceTimer-3.0")
 local L = LibStub('AceLocale-3.0'):GetLocale('BigFootChat')
 local BFC_IconTableMap = {}
 local BFC_ReverseIconTableMap = {}
@@ -129,6 +127,7 @@ local function getCurrentFont()
     return font
 end
 local function IsBFChannelSysMessage(text)
+    if text:find(CHAT_INVALID_NAME_NOTICE) then return true end
     if text:find(L["BigFootChannel"]) then
         if text:find(L["JoinChannel1"]) then return true end
         if text:find(L["LeaveChannel"]) then return true end
@@ -187,7 +186,7 @@ local function checkResetPassword(text)
     end
 end
 local function getNextChannel(channelName)
-    local i = 1
+    local i = 2
     local cur
     if channelName:find(L["BigFootChannel"]) then
         cur = channelName:match("%d")
@@ -562,6 +561,7 @@ function BFChatAddOn:OnInitialize()
     self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
     self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
     self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
+    self:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE_USER")
     self:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE")
     self:RegisterEvent("CHANNEL_UI_UPDATE")
     self:RegisterEvent("CHANNEL_PASSWORD_REQUEST")
@@ -658,14 +658,26 @@ function BFChatAddOn:IsDisplayChannelOwner()
     return self.hooks['IsDisplayChannelOwner']()
 end
 local isBanned
-function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE(...)
+local function planB(...)
     local _, message, _, _, _, _, _, _, _, channelName = ...
-    if message == "BANNED" and channelName:find(L["BigFootChannel"]) then
+    if (message == "BANNED" or message == "INVALID_NAME") and
+        channelName:find(L["BigFootChannel"]) then
         isBanned = true
-        self.nextChannel = getNextChannel(channelName)
-        joinChannelFunc(self.nextChannel)
+        BFChatAddOn.nextChannel = getNextChannel(channelName)
+        joinChannelFunc(BFChatAddOn.nextChannel)
+        local info = ChatTypeInfo["CHANNEL"]
+        if message == "BANNED" then
+        elseif message == "INVALID_NAME" then
+            DEFAULT_CHAT_FRAME:AddMessage(
+                channelName .. L["BFC Plan B"] .. BFChatAddOn.nextChannel,
+                info.r, info.g, info.b, info.id)
+        end
     end
 end
+function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE_USER(...) --[[ local _,message,_,_,_,_,_,_,_,channelName = ... if message == "BANNED" and channelName:find(L["BigFootChannel"]) then isBanned = true; self.nextChannel = getNextChannel(channelName) joinChannelFunc(self.nextChannel) end ]] planB(
+    ...) end
+function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE(...) --[[ local _,message,_,_,_,_,_,_,_,channelName = ... if message == "INVALID_NAME" and channelName:find(L["BigFootChannel"]) then isBanned = true; self.nextChannel = getNextChannel(channelName) joinChannelFunc(self.nextChannel) end ]] planB(
+    ...) end
 function BFChatAddOn:CHANNEL_UI_UPDATE(...)
     local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
     for k, v in pairs(ChannelList) do
@@ -714,7 +726,7 @@ function BFChatAddOn:OnEnable()
     self:EnableOldStyleReply()
     BFChannel_RefreshMuteButton()
     UIParent_ManageFramePositions()
-    BigFoot_DelayCall(BFChatAddOn.ReSetBigfootChannelSet, 12)
+    BigFoot_DelayCall(BFChatAddOn.ReSetBigfootChannelSet, 9)
 end
 function BFChatAddOn:ReSetBigfootChannelSet()
     joinChannelFunc(L["BigFootChannel"])

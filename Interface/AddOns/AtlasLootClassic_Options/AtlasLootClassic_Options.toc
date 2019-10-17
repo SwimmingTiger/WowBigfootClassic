@@ -1,6 +1,6 @@
 ﻿## Interface: 11302
 ## Author: Lag
-## Version: v1.2.3
+## Version: v1.3.1
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLoot Classic |cFF22B14C[Options]|r
@@ -11,7 +11,6 @@
 ## Notes-zhTW: 副本戰利品查詢的選項設定。
 ## X-Category: Map
 ## X-License: GPL v2
-## X-AtlasLoot-LootModule: 0
 ## X-Revision: BigFoot
 
 Locales\constants.cn.lua

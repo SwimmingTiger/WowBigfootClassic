@@ -50,7 +50,7 @@ function MerInspectConfigFunc()
 		QUICK_COMPARE_ENABLE = "Enable Quick Compare";
 	end
 
-	if (IsConfigurableAddOn("AutoEquip") or IsConfigurableAddOn("QuickCompare") or IsConfigurableAddOn("GearStatsSummary") or IsConfigurableAddOn("ReforgeLite")) then
+	if (IsConfigurableAddOn("QuickCompare") or IsConfigurableAddOn("GearStatsSummary") or IsConfigurableAddOn("ReforgeLite")) then
 		ModManagement_RegisterMod(
 			"InfoStat",
 			"Interface\\Icons\\INV_Jewelry_Necklace_22",
@@ -61,7 +61,7 @@ function MerInspectConfigFunc()
 			{[3]=true,[5]=true}
 		);
 
-		if (IsConfigurableAddOn("AutoEquip") ) then
+		-- if (IsConfigurableAddOn("AutoEquip") ) then
 			-- ModManagement_RegisterCheckBox(
 				-- "InfoStat",
 				-- MOD_INFO_COMPARISON_STAT_COMPARE,
@@ -85,27 +85,27 @@ function MerInspectConfigFunc()
 				-- end
 			-- );
 
-			ModManagement_RegisterCheckBox(
-				"InfoStat",
-				MDO_INFO_ENABLE_DURABILITY,
-				MDO_INFO_ENABLE_DURABILITY_TOOLTIP,
-				"DisplayDurability",
-				1,
-				function (arg)
-					if ( arg == 1 ) then
-						if (not BigFoot_IsAddOnLoaded("AutoEquip")) then
-							BigFoot_LoadAddOn("AutoEquip");
-						end
-						if (BigFoot_IsAddOnLoaded("AutoEquip")) then
-							MerInspect_ToogleD(true);
-						end
-					else
-						if (BigFoot_IsAddOnLoaded("AutoEquip")) then
-							MerInspect_ToogleD(false);
-						end
-					end
-				end
-			);
+			-- ModManagement_RegisterCheckBox(
+				-- "InfoStat",
+				-- MDO_INFO_ENABLE_DURABILITY,
+				-- MDO_INFO_ENABLE_DURABILITY_TOOLTIP,
+				-- "DisplayDurability",
+				-- 1,
+				-- function (arg)
+					-- if ( arg == 1 ) then
+						-- if (not BigFoot_IsAddOnLoaded("AutoEquip")) then
+							-- BigFoot_LoadAddOn("AutoEquip");
+						-- end
+						-- if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+							-- MerInspect_ToogleD(true);
+						-- end
+					-- else
+						-- if (BigFoot_IsAddOnLoaded("AutoEquip")) then
+							-- MerInspect_ToogleD(false);
+						-- end
+					-- end
+				-- end
+			-- );
 
 			-- ModManagement_RegisterCheckBox(
 				-- "InfoStat",
@@ -126,7 +126,7 @@ function MerInspectConfigFunc()
 				-- end,
 				-- 1
 			-- );
-		end
+		-- end
 
 		if (IsConfigurableAddOn("QuickCompare")) then
 			ModManagement_RegisterCheckBox(

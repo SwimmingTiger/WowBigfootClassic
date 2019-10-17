@@ -14,10 +14,6 @@
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
-HereBeDragons\HereBeDragons-2.0.lua
-HereBeDragons\HereBeDragons-Pins-2.0.lua
-HereBeDragons\HereBeDragons-Migrate.lua
-
 # Locale files
 Locales\Locale-enUS.lua
 Locales\Locale-zhCN.lua

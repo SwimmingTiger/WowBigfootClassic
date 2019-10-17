@@ -1,0 +1,67 @@
+<Bindings>
+	<Binding name="TOTEMTIMERSEARTH" description="Drop active earth totem" header="TOTEMTIMERSHEADER">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSAIR" description="Drop active air totem">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFIRE" description="Drop active fire totem">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATER" description="Drop active water totem">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHMENU" description="Open earth totem menu">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSAIRMENU" description="Open air totem menu">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFIREMENU" description="Open fire totem menu">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATERMENU" description="Open water totem menu">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLIGHTNINGSHIELD" description="Lightning Shie">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSTOTEMICCALL">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATERSHIELD"> --[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDLEFT">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDRIGHT">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDMIDDLE">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWEAPONBUFF1">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWEAPONBUFF2">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHOCK">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFLAMESHOCK">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFROSTSHOCK">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN1">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN2">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN3">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN4">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN5">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN6">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN7">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN8">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN9">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN10">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN1">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN2">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN3">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN4">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN5">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN6">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN7">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN8">--[[dummy]]</Binding>	
+    <Binding name="TOTEMTIMERSSET1">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET2">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET3">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET4">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET5">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET6">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET7">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET8">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST11">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST12">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST13">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST14">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST15">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST21">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST22">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST23">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST24">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST25">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST31">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST32">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST33">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST34">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST35">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST41">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST42">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST43">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST44">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST45">--[[dummy]]</Binding>
+</Bindings>

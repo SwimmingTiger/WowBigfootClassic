@@ -40,7 +40,7 @@ local function update(self)
 				frame:SetScript("OnEnter", function(self) Search:TooltipShow(self, entry.itemID) end)
 				frame:SetScript("OnLeave", function(self) GameTooltip:Hide() end)
 			end
-			if entry.type == "npc" or entry.type == "weaponmaster" then
+			if entry.type == "npc" or entry.type == "weaponmaster" or entry.type == "mountTrainer" then
 				lastSearchedItem = entry.type == "npc" and entry.itemID or nil
 				local distanceText = ''
 				local zoneName = HBD:GetLocalizedMap(entry.zone)
@@ -56,6 +56,20 @@ local function update(self)
 				end
 				frame.rtext:SetText(distanceText)
 				frame:SetScript("OnEnter", nil)
+				if entry.type == "mountTrainer" then
+					frame:SetScript("OnEnter", function(self)
+						local tooltip = GameTooltip
+						if ( frame:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
+							tooltip:SetOwner(frame, "ANCHOR_LEFT")
+						else
+							tooltip:SetOwner(frame, "ANCHOR_RIGHT")
+						end
+						tooltip:AddLine(entry.name)
+						tooltip:AddLine(entry.desc, 0, 0.6, 0.1)
+						tooltip:Show()
+						return
+					end)
+				end
 				if entry.type == "weaponmaster" then
 					frame:SetScript("OnEnter", function(self)
 						local tooltip = GameTooltip
@@ -220,14 +234,20 @@ function Search:OnInitialize()
 	window.wmButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
 	window.wmButton:SetSize(36, 26)
 	window.wmButton:SetText('WM')
-	window.wmButton:SetPoint("LEFT", window.zoneButton, "RIGHT", 10, 0)
+	window.wmButton:SetPoint("LEFT", window.zoneButton, "RIGHT", 6, 0)
 	window.wmButton:SetScript("OnClick", function() self:DumpWeaponMasters() end)
 	
 	window.recipeButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
 	window.recipeButton:SetSize(36, 26)
 	window.recipeButton:SetText('R')
-	window.recipeButton:SetPoint("LEFT", window.wmButton, "RIGHT", 10, 0)
+	window.recipeButton:SetPoint("LEFT", window.wmButton, "RIGHT", 6, 0)
 	window.recipeButton:SetScript("OnClick", function() self:DumpRecipesForZone() end)
+	
+	window.mtButton = CreateFrame("Button", nil, window, "UIPanelButtonTemplate")
+	window.mtButton:SetSize(36, 26)
+	window.mtButton:SetText('MT')
+	window.mtButton:SetPoint("LEFT", window.recipeButton, "RIGHT", 6, 0)
+	window.mtButton:SetScript("OnClick", function() self:DumpMountTrainers() end)
 
 	self:RegisterChatCommand("npcs", "SlashCommand") -- Maybe move this into the main file
 	self.window = window
@@ -407,7 +427,6 @@ function Search:DumpWeaponMasters()
 			skillsWeCanLearn[k] = true
 		end
 	end
-	local npcsThatCanTeachUs = { }
 	for zone, coords in pairs(data["nodes"]) do
 		for coord, npc in pairs(data["nodes"][zone]) do
 			if npc.npcID and data["weaponmasters"][npc.npcID] then
@@ -428,7 +447,28 @@ function Search:DumpWeaponMasters()
 		end
 	end
 	table.sort(list, function(a,b) return a.distance < b.distance or a.distance == b.distance and a.name < b.name end)
-	self:UpdateHeader(L["Weapon Masters"], nil)
+	self:UpdateHeader(L["Weapon Masters"], L["Distance"])
+	update(self.window.f)
+end
+
+function Search:DumpMountTrainers()
+	table.wipe(list)
+	local playerX, playerY, playerMapID = HBD:GetPlayerZonePosition()
+
+	for zone, coords in pairs(data["nodes"]) do
+		for coord, npc in pairs(data["nodes"][zone]) do
+			if npc.category == "mountTrainer" and npc.npcID and (npc.faction == "Neutral" or npc.faction == data.faction) then
+				local npcX, npcY = HandyNotes:getXY(coord)
+				distance = HBD:GetZoneDistance(playerMapID, playerX, playerY, zone, npcX, npcY)
+				if distance == nil then
+					distance = 10000000 -- Just some unreasonably large value for sorting
+				end
+				table.insert(list, { name = npc.name, npcID = npc.npcID, type = "mountTrainer", desc = npc.description, distance = Round(distance), zone = zone, coord = coord })
+			end
+		end
+	end
+	table.sort(list, function(a,b) return a.distance < b.distance or a.distance == b.distance and a.name < b.name end)
+	self:UpdateHeader(L["Mount Trainers"], L["Distance"])
 	update(self.window.f)
 end
 

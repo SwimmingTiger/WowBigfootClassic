@@ -47,10 +47,6 @@ db\zhTW\quests.lua
 db\zhTW\zones.lua
 db\zhTW\professions.lua
 
-# libs
-lib\HereBeDragons\HereBeDragons-2.0.lua
-lib\HereBeDragons\HereBeDragons-Pins-2.0.lua
-
 # locales
 locale\enUS.lua
 locale\zhCN.lua

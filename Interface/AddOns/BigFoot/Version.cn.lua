@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "20"
+local minor = "22"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,17 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/10/17 (1.13.2.22)")
+	BigFootChangelog_ar("聊天增强","修复一个已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2019/10/15 (1.13.2.21)")
+	BigFootChangelog_ar("一键换装","替换使用整合版(Ex_AutoEquip)。")
+	BigFootChangelog_ar("大脚插件","添加萨满图腾助手(TotemTimers)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/10/10 (1.13.2.20)")
 	BigFootChangelog_ar("地图标记","升级至最新版本。")
@@ -126,4 +137,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "50"
+BF_VERSION_CHECKSUM = "48"

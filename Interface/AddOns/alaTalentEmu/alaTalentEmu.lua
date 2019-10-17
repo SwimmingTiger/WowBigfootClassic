@@ -8,6 +8,9 @@ local L = NS.L;
 if not L then return;end
 ----------------------------------------------------------------------------------------------------
 local math, table, string, pairs, type, select, tonumber, tostring, unpack = math, table, string, pairs, type, select, tonumber, tostring, unpack;
+local min, max, ceil, floor = min, max, ceil, floor;
+local tinsert, tremove = tinsert, tremove;
+local strfind, gsub, strmatch, strsub, strupper, strlower = strfind, gsub, strmatch, strsub, strupper, strlower;
 local _G = _G;
 local _ = nil;
 ----------------------------------------------------------------------------------------------------
@@ -42,6 +45,7 @@ local NAME = "alaTalentEmu";
 local ADDON_PREFIX = "ATEADD";
 local ARTWORK_PATH = "Interface\\Addons\\alaTalentEmu\\ARTWORK\\";
 NS.ARTWORK_PATH = ARTWORK_PATH;
+local LOCALE = GetLocale();
 --------------------------------------------------
 local MAX_NUM_TIER = 7;
 local MAX_NUM_COL = 4;
@@ -147,7 +151,7 @@ local setting =
 	INSPECT_WAIT_TIME = 10,
 	TOOLTIP_UPDATE_DELAY = 0.02,
 
-	ORIG_SCALE = 1.25,
+	ORIG_SCALE = 1.35,
 };
 setting.talentFrameXSizeSingle = setting.talentIconSize * MAX_NUM_COL + setting.talentIconXGap * (MAX_NUM_COL - 1) + setting.talentIconXToBorder * 2;
 setting.talentFrameXSizeTriple = setting.talentFrameXSizeSingle * 3;
@@ -196,7 +200,7 @@ local TEXTURE_SET =
 	TALENT_RESET_HIGHLIGHT_COORD = { 12 / 128, 118 / 128, 12 / 128, 118 / 128, },
 
 	LOCK = ARTWORK_PATH .. "minimap_shield_elite",
-	LOCK_LOCKED_COLOR = { 0.5, 0.5, 0.5, 0.75, },
+	LOCK_LOCKED_COLOR = { 0.75, 0.75, 0.75, 1.0, },
 	LOCK_UNLOCKED_COLOR = { 1.0, 1.0, 1.0, 1.0 },
 	CLOSE = ARTWORK_PATH .. "indicator-red",
 	CLOSE_COORD = { 4 / 32, 28 / 32, 3 / 32, 28 / 32, },
@@ -345,6 +349,125 @@ local emu = {
 	playerClass_Lower = string.lower(select(2, UnitClass('player'))),
 };
 
+
+local _DB = NS._DB;
+local _indexToClass = NS._indexToClass;
+local _classToIndex = NS._classToIndex;
+local _classTalent = NS._classTalent;
+local _talentTabIcon = NS._talentTabIcon;
+local _BG = NS._BG;
+local _preset_talent = NS._preset_talent;
+local _PRESET = {  };
+
+
+local extern = { export = {  }, import = {  }, };
+function extern.import.wowhead(url)
+	--[[
+		https://classic.wowhead.com/talent-calc/embed/warrior/05004-055001-55250110500001051
+		https://classic.wowhead.com/talent-calc/warrior/05004-055001-55250110500001051
+			"^.*classic%.wowhead%.com/talent%-calc.*/([^/]+)/(%d.+)$"
+	]]
+	local _, _, class, data = string.find(url, "classic%.wowhead%.com/talent%-calc.*/([^/]+)/([0-9%-]+)");
+	if class and data then
+		class = string.lower(class);
+		local DB = _DB[class];
+		local classTalent = _classTalent[class];
+		if DB and classTalent then
+			--(%d*)[%-]*(%d*)[%-]*(%d*)
+			local _, _, d1, d2, d3 = string.find(data, "(%d*)[%-]?(%d*)[%-]?(%d*)");
+			if d1 and d2 and d3 then
+				if d1 == "" and d2 == "" and d3 == "" then
+					return class, "", 60;
+				elseif d2 == "" and d3 == "" then
+					return d1;
+				else
+					local l1 = #DB[classTalent[1]];
+					if l1 > string.len(d1) then
+						data = d1 .. string.rep("0", l1 - string.len(d1));
+					else
+						data = d1;
+					end
+					local l2  = #DB[classTalent[2]];
+					if l2 > string.len(d2) then
+						data = data .. d2 .. string.rep("0", l2 - string.len(d2)) .. d3;
+					else
+						data = data .. d2 .. d3;
+					end
+					return class, data, 60;
+				end
+			end
+		end
+	end
+	return nil;
+end
+function extern.import.nfu(url)
+	--http://www.nfuwow.com/talents/60/warrior/tal/1331511131241111111100000000000000040000000000000000
+	--           nfuwow%.com/talents/60/([^/]+)/tal/(%d+)
+	local _, _, class, data = string.find(url, "nfuwow%.com/talents/60/([^/]+)/tal/(%d+)");
+	if class and data then
+		class = string.lower(class);
+		if _DB[class] then
+			return class, data, 60;
+		end
+	end
+	return nil;
+end
+function extern.export.wowhead(mainFrame)
+	local talentFrames = mainFrame.talentFrames;
+	local DB = _DB[mainFrame.class];
+	local classTalent = _classTalent[mainFrame.class];
+	local data = "";
+	for i = 3, 1, -1 do
+		local talentSet = talentFrames[i].talentSet;
+		local topPos = 0;
+		for i = #DB[classTalent[i]], 1, -1 do
+			if talentSet[i] > 0 then
+				topPos = i;
+				break;
+			end
+		end
+		if topPos > 0 then
+			for i = topPos, 1, -1 do
+				data = talentSet[i] .. data;
+			end
+		end
+		if i > 1 and data ~= "" then
+			data = "-" .. data;
+		end
+	end
+	local LOC = "";
+	if LOCALE == "zhCN" or LOCALE == "zhTW" then
+		LOC = "cn.";
+	elseif LOCALE == "deDE" then
+		LOC = "de.";
+	elseif LOCALE == "esES" then
+		LOC = "es.";
+	elseif LOCALE == "frFR" then
+		LOC = "fr.";
+	elseif LOCALE == "itIT" then
+		LOC = "it.";
+	elseif LOCALE == "ptBR" then
+		LOC = "pt.";
+	elseif LOCALE == "ruRU" then
+		LOC = "ru.";
+	elseif LOCALE == "koKR" then
+		LOC = "ko.";
+	end
+	return LOC .. "classic.wowhead.com/talent-calc/" .. string.lower(mainFrame.class) .. "/" .. data;
+end
+function extern.export.nfu(mainFrame)
+	local talentFrames = mainFrame.talentFrames;
+	local DB = _DB[mainFrame.class];
+	local classTalent = _classTalent[mainFrame.class];
+	local data = "";
+	for i = 1, 3 do
+		local talentSet = talentFrames[i].talentSet;
+		for i = 1, #DB[classTalent[i]] do
+			data = data .. talentSet[i];
+		end
+	end
+	return "www.nfuwow.com/talents/60/" .. string.lower(mainFrame.class) .. "/tal/" .. data;
+end
 
 function emu.winMan_GetWin(winId)
 	local mainFrames = emu.mainFrames;
@@ -527,15 +650,8 @@ function emu.processApplyTalents(mainFrame)
 	emu.UpdateApplying(mainFrame);
 	emu.applyingSpecIndex = 1;
 	emu.applyingTalentIndex = 1;
-	emu.applyTicker = C_Timer.NewTicker(0.5, emu.tickerApplyTalents);
+	emu.applyTicker = C_Timer.NewTicker(0.1, emu.tickerApplyTalents);
 end
-
-
-local _DB = NS._DB;
-local _indexToClass = NS._indexToClass;
-local _classToIndex = NS._classToIndex;
-local _classTalent = NS._classTalent;
-local _talentTabIcon = NS._talentTabIcon;
 
 
 function emu.GetPontsReqLevel(numPoints)
@@ -578,6 +694,12 @@ function emu.EmuCore_InitCodeTable()
 	end
 end
 function emu.EmuCore_Decoder(code, useCodeLevel)
+	for media, func in pairs(extern.import) do
+		local class, data, level = func(code);
+		if class then
+			return class, data, level;
+		end
+	end
 	local data = "";
 	local revCodeTable = emu.revCodeTable;
 	local classIndex = revCodeTable[string.sub(code, 1, 1)];
@@ -829,16 +951,41 @@ function emu.EmuCore_Encoder(class, data, level)
 	end
 end
 
-function emu.EmuSub_GenerateTitle(mainFrame)
-	local talentFrames = mainFrame.talentFrames;
-	local class = mainFrame.class;
-	local talentRef = _classTalent[class];
-	local title = L.DATA[class] .. "-";
-	for specIndex = 1, 3 do
-		local talentSet = talentFrames[specIndex].talentSet;
-		title = title .. L.DATA[talentRef[specIndex]] .. talentSet.total;
+function emu.EmuSub_GenerateTitle(data, class)
+	if type(data) == "table" then	--mainFrame
+		local talentFrames = data.talentFrames;
+		local class = data.class;
+		local talentRef = _classTalent[class];
+		local classColorTable = RAID_CLASS_COLORS[string.upper(class)];
+		--local title = L.DATA[class] .. "-";
+		local title = string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255) .. L.DATA[class] .. "\124r-";
+		for specIndex = 1, 3 do
+			local talentSet = talentFrames[specIndex].talentSet;
+			title = title .. L.DATA[talentRef[specIndex]] .. string.format("%2d", talentSet.total);
+		end
+		return title;
+	elseif type(data) == "string" and type(class) == "string" and _DB[class] then
+		local DB = _DB[class];
+		local talentRef = _classTalent[class];
+		local pos = 1;
+		local len =string.len(data);
+		local classColorTable = RAID_CLASS_COLORS[string.upper(class)];
+		--local title = L.DATA[class] .. "-";
+		local title = string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255) .. L.DATA[class] .. "\124r-";
+		for specIndex = 1, 3 do
+			local total = 0;
+			for j = 1, #DB[talentRef[specIndex]] do
+				if pos > len then
+					break;
+				end
+				local sub = string.sub(data, pos, pos);
+				total = total + tonumber(sub);
+				pos = pos + 1;
+			end
+			title = title .. L.DATA[talentRef[specIndex]] .. string.format("%2d", total);
+		end
+		return title;
 	end
-	return title;
 end
 function emu.EmuSub_GetRemainingPoints(talentFrames, totalAvailablePoints)
 	local usedTalents = 0;
@@ -977,7 +1124,7 @@ function emu.EmuSub_HasRemainingPoints(mainFrame)
 		end
 	end
 end
-function emu.EmuSub_SetReqArrowTexCoord(arrow, branch, coordFamily, enabled)
+function emu.EmuSub_SetReqArrowTexCoord(arrow, branch, branch2, coordFamily, enabled)
 	if coordFamily == 11 then
 		if enabled then
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[4][1], TEXTURE_SET.ARROW_COORD[4][2], TEXTURE_SET.ARROW_COORD[4][3], TEXTURE_SET.ARROW_COORD[4][4]);
@@ -994,7 +1141,7 @@ function emu.EmuSub_SetReqArrowTexCoord(arrow, branch, coordFamily, enabled)
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[3][2], TEXTURE_SET.ARROW_COORD[3][1], TEXTURE_SET.ARROW_COORD[3][3], TEXTURE_SET.ARROW_COORD[3][4]);
 			branch:SetTexCoord(TEXTURE_SET.BRANCH_COORD[3][1], TEXTURE_SET.BRANCH_COORD[3][2], TEXTURE_SET.BRANCH_COORD[3][3], TEXTURE_SET.BRANCH_COORD[3][4]);
 		end
-	elseif coordFamily == 21 then
+	elseif coordFamily == 21 or coordFamily == 31 then
 		if enabled then
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[2][1], TEXTURE_SET.ARROW_COORD[2][2], TEXTURE_SET.ARROW_COORD[2][3], TEXTURE_SET.ARROW_COORD[2][4]);
 			branch:SetTexCoord(TEXTURE_SET.BRANCH_COORD[2][1], TEXTURE_SET.BRANCH_COORD[2][2], TEXTURE_SET.BRANCH_COORD[2][3], TEXTURE_SET.BRANCH_COORD[2][4]);
@@ -1002,13 +1149,20 @@ function emu.EmuSub_SetReqArrowTexCoord(arrow, branch, coordFamily, enabled)
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[1][1], TEXTURE_SET.ARROW_COORD[1][2], TEXTURE_SET.ARROW_COORD[1][3], TEXTURE_SET.ARROW_COORD[1][4]);
 			branch:SetTexCoord(TEXTURE_SET.BRANCH_COORD[1][1], TEXTURE_SET.BRANCH_COORD[1][2], TEXTURE_SET.BRANCH_COORD[1][3], TEXTURE_SET.BRANCH_COORD[1][4]);
 		end
-	elseif coordFamily == 22 then
+	elseif coordFamily == 22 or coordFamily == 32 then
 		if enabled then
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[2][1], TEXTURE_SET.ARROW_COORD[2][2], TEXTURE_SET.ARROW_COORD[2][3], TEXTURE_SET.ARROW_COORD[2][4]);
 			branch:SetTexCoord(TEXTURE_SET.BRANCH_COORD[2][1], TEXTURE_SET.BRANCH_COORD[2][2], TEXTURE_SET.BRANCH_COORD[2][3], TEXTURE_SET.BRANCH_COORD[2][4]);
 		else
 			arrow:SetTexCoord(TEXTURE_SET.ARROW_COORD[1][1], TEXTURE_SET.ARROW_COORD[1][2], TEXTURE_SET.ARROW_COORD[1][3], TEXTURE_SET.ARROW_COORD[1][4]);
 			branch:SetTexCoord(TEXTURE_SET.BRANCH_COORD[1][1], TEXTURE_SET.BRANCH_COORD[1][2], TEXTURE_SET.BRANCH_COORD[1][3], TEXTURE_SET.BRANCH_COORD[1][4]);
+		end
+	end
+	if coordFamily == 31 or coordFamily == 32 then
+		if enabled then
+			branch2:SetTexCoord(TEXTURE_SET.BRANCH_COORD[4][1], TEXTURE_SET.BRANCH_COORD[4][2], TEXTURE_SET.BRANCH_COORD[4][3], TEXTURE_SET.BRANCH_COORD[4][4]);
+		else
+			branch2:SetTexCoord(TEXTURE_SET.BRANCH_COORD[3][1], TEXTURE_SET.BRANCH_COORD[3][2], TEXTURE_SET.BRANCH_COORD[3][3], TEXTURE_SET.BRANCH_COORD[3][4]);
 		end
 	end
 end
@@ -1023,43 +1177,69 @@ function emu.EmuSub_UpdateLabelText(mainFrame)
 	objects.curPointsReqLevel:SetText(emu.GetPontsReqLevel(mainFrame.totalUsedPoints));
 	objects.curPointsRemaining:SetText(emu.GetLevelAvailableLevel(mainFrame.level) - mainFrame.totalUsedPoints);
 end
-function emu.EmuSub_SetReqArrow(arrow, branch, verticalDist, horizontalDist, enabled, icon, reqIcon)
+function emu.EmuSub_SetReqArrow(arrow, branch, branch2, verticalDist, horizontalDist, enabled, icon, reqIcon)
 	local coordFamily = nil;
 	if verticalDist == 0 then		--horizontal
 		if horizontalDist > 0 then
 			arrow:SetPoint("CENTER", icon, "LEFT", - setting.talentDepArrowXSize / 6, 0);
 			branch:SetSize(setting.talentIconSize * (horizontalDist - 1) + setting.talentIconXGap * horizontalDist, setting.talentDepBranchWidth);
-			branch:SetPoint("RIGHT", arrow, "CENTER");
 			branch:SetPoint("LEFT", reqIcon, "RIGHT");
+			branch:SetPoint("RIGHT", arrow, "CENTER");
 			coordFamily = 11;
 		elseif horizontalDist < 0 then
 			horizontalDist = - horizontalDist;
 			arrow:SetPoint("CENTER", icon, "RIGHT", setting.talentDepArrowXSize / 6, 0);
 			branch:SetSize(setting.talentIconSize * (horizontalDist - 1) + setting.talentIconXGap * horizontalDist, setting.talentDepBranchWidth);
-			branch:SetPoint("LEFT", arrow, "CENTER");
 			branch:SetPoint("RIGHT", reqIcon, "LEFT");
+			branch:SetPoint("LEFT", arrow, "CENTER");
 			coordFamily = 12;
 		end
+		branch2:Hide();
 	elseif horizontalDist == 0 then	--vertical
 		if verticalDist > 0 then
 			arrow:SetPoint("CENTER", icon, "TOP", 0, setting.talentDepArrowYSize / 6);
 			branch:SetSize(setting.talentDepBranchWidth, setting.talentIconSize * (verticalDist - 1) + setting.talentIconYGap * verticalDist);
-			branch:SetPoint("BOTTOM", arrow, "CENTER");
 			branch:SetPoint("TOP", reqIcon, "BOTTOM");
+			branch:SetPoint("BOTTOM", arrow, "CENTER");
 			coordFamily = 21;
 		elseif verticalDist < 0 then
 			verticalDist = - verticalDist;
 			arrow:SetPoint("CENTER", icon, "BOTTOM", 0, - setting.talentDepArrowYSize / 6);
 			branch:SetSize(setting.talentDepBranchWidth, setting.talentIconSize * (verticalDist - 1) + setting.talentIconYGap * verticalDist);
-			branch:SetPoint("TOP", arrow, "CENTER");
 			branch:SetPoint("BOTTOM", reqIcon, "TOP");
+			branch:SetPoint("TOP", arrow, "CENTER");
 			coordFamily = 22;
 		end
+		branch2:Hide();
+	else	--TODO 
+		if verticalDist > 0 then
+			arrow:SetPoint("CENTER", icon, "TOP", 0, setting.talentDepArrowYSize / 6);
+			branch:SetSize(setting.talentDepBranchWidth, setting.talentIconSize * (verticalDist - 1) + setting.talentIconYGap * verticalDist + setting.talentIconSize * 0.5);
+			--branch:SetPoint("TOP", reqIcon, "CENTER");
+			branch:SetPoint("BOTTOM", arrow, "CENTER");
+			coordFamily = 31;
+		elseif verticalDist < 0 then
+			verticalDist = - verticalDist;
+			arrow:SetPoint("CENTER", icon, "BOTTOM", 0, - setting.talentDepArrowYSize / 6);
+			branch:SetSize(setting.talentDepBranchWidth, setting.talentIconSize * (verticalDist - 1) + setting.talentIconYGap * verticalDist + setting.talentIconSize * 0.5);
+			--branch:SetPoint("BOTTOM", reqIcon, "CENTER");
+			branch:SetPoint("TOP", arrow, "CENTER");
+			coordFamily = 32;
+		end
+		branch2:SetSize(setting.talentIconSize * (horizontalDist - 1) + setting.talentIconXGap * horizontalDist + setting.talentIconSize * 0.5, setting.talentDepBranchWidth);
+		if horizontalDist > 0 then
+			branch2:SetPoint("LEFT", reqIcon, "RIGHT");
+			branch2:SetPoint("RIGHT", branch, "RIGHT");
+		else
+			branch2:SetPoint("RIGHT", reqIcon, "LEFT");
+			branch2:SetPoint("LEFT", branch, "LEFT");
+		end
+		branch2:Show();
 	end
 	arrow:Show();
 	branch:Show();
 	arrow.coordFamily = coordFamily;
-	emu.EmuSub_SetReqArrowTexCoord(arrow, branch, coordFamily, enabled);
+	emu.EmuSub_SetReqArrowTexCoord(arrow, branch, branch2, coordFamily, enabled);
 end
 function emu.CreateReqArrow(talentFrame)
 	local arrow = talentFrame:CreateTexture(nil, "OVERLAY");
@@ -1069,7 +1249,12 @@ function emu.CreateReqArrow(talentFrame)
 	local branch = talentFrame:CreateTexture(nil, "ARTWORK");
 	branch:SetTexture(TEXTURE_SET.BRANCH);
 
+	local branch2 = talentFrame:CreateTexture(nil, "ARTWORK");
+	branch2:SetTexture(TEXTURE_SET.BRANCH);
+	branch2:Hide();
+
 	arrow.branch = branch;
+	arrow.branch2 = branch2;
 
 	return arrow;
 end
@@ -1296,7 +1481,7 @@ function emu.EmuCore_Reset(mainFrame)
 		end
 
 		local reqArrows = talentFrame.reqArrows;
-		for i = 1, reqArrows.used do
+		for i = 1, #reqArrows do
 			reqArrows[i]:Hide();
 			reqArrows[i].branch:Hide();
 			reqArrows[i]:ClearAllPoints();
@@ -1393,6 +1578,7 @@ function emu.EmuCore_SetClass(mainFrame, class)
 			specButton:SetNormalTexture(TEXTURE_SET.UNK);
 			specButton:SetPushedTexture(TEXTURE_SET.UNK);
 		end
+		talentFrame.BG:SetTexture(_BG[specId]);
 		if db then
 			for dbIndex = 1, #db do
 				local data = db[dbIndex];
@@ -1415,7 +1601,7 @@ function emu.EmuCore_SetClass(mainFrame, class)
 
 				if data[11] then
 					local arrow = emu.EmuSub_GetReqArrow(talentFrame);
-					emu.EmuSub_SetReqArrow(arrow, arrow.branch, data[1] - data[5], data[2] - data[6], false, icon, talentIcons[db[data[11]][10]]);
+					emu.EmuSub_SetReqArrow(arrow, arrow.branch, arrow.branch2, data[1] - data[5], data[2] - data[6], false, icon, talentIcons[db[data[11]][10]]);
 					table.insert(talentFrame.reqByArrowSet[data[11]], arrow);
 				end
 
@@ -1511,7 +1697,7 @@ function emu.EmuCore_ChangePoint(self, numPoints)
 			end
 			local arrow = talentFrame.reqByArrowSet[dbIndex];
 			for i = 1, #arrow do
-				emu.EmuSub_SetReqArrowTexCoord(arrow[i], arrow[i].branch, arrow[i].coordFamily, true);
+				emu.EmuSub_SetReqArrowTexCoord(arrow[i], arrow[i].branch, arrow[i].branch2, arrow[i].coordFamily, true);
 			end
 		end
 	elseif talentSet[dbIndex] + numPoints <= 0 then
@@ -1538,7 +1724,7 @@ function emu.EmuCore_ChangePoint(self, numPoints)
 		end
 		local arrow = talentFrame.reqByArrowSet[dbIndex];
 		for i = 1, #arrow do
-			emu.EmuSub_SetReqArrowTexCoord(arrow[i], arrow[i].branch, arrow[i].coordFamily, false);
+			emu.EmuSub_SetReqArrowTexCoord(arrow[i], arrow[i].branch, arrow[i].branch2, arrow[i].coordFamily, false);
 		end
 	end
 
@@ -1657,7 +1843,6 @@ function emu.Emu_Sub(self, numPoints)
 	emu.EmuCore_ChangePoint(self, - numPoints);
 end
 function emu.Emu_Set(mainFrame, class, data, level, readOnly, name)
-	emu.EmuCore_SetLevel(mainFrame, level);
 	emu.EmuCore_Reset(mainFrame);
 	if not emu.EmuCore_SetClass(mainFrame, class) then
 		mainFrame:Hide();
@@ -1804,7 +1989,9 @@ function emu.Emu_ApplyTalents(mainFrame)
 		return;
 	end
 	if emu.playerClass_Lower == string.lower(mainFrame.class) then
-		TalentFrame_Update();
+		if TalentFrame_Update then
+			TalentFrame_Update();
+		end
 		if emu.GetPontsReqLevel(mainFrame.totalUsedPoints) > UnitLevel('player') then
 			_error_("CANNOT APPLY : NEED MORE TALENT POINTS.")
 			return;
@@ -2029,10 +2216,10 @@ function emu.CreateTooltipFrame(mainFrame)
 	fontString1h:SetText("")
 	fontString2h:SetText("")
 
-	fontString1f1:SetTextColor(0.0, 1.0, 1.0, 1.0);
-	fontString1f2:SetTextColor(0.0, 1.0, 1.0, 1.0);
-	fontString2f1:SetTextColor(0.0, 1.0, 1.0, 1.0);
-	fontString2f2:SetTextColor(0.0, 1.0, 1.0, 1.0);
+	fontString1f1:SetTextColor(0.25, 0.5, 1.0, 1.0);
+	fontString1f2:SetTextColor(0.25, 0.5, 1.0, 1.0);
+	fontString2f1:SetTextColor(0.25, 0.5, 1.0, 1.0);
+	fontString2f2:SetTextColor(0.25, 0.5, 1.0, 1.0);
 
 	fontString1f1:SetText("id");
 	fontString2f1:SetText("id");
@@ -2242,6 +2429,18 @@ function emu.CreateTalentFrames(mainFrame)
 
 		talentFrame.vSep = vSep;
 
+		local BG = talentFrame:CreateTexture(nil, "BORDER");
+		BG:SetAllPoints(true);
+		BG:SetAlpha(0.6);
+		local ratio = setting.talentFrameXSizeSingle / setting.talentFrameYSize;
+		if ratio > 1.0 then
+			BG:SetTexCoord(0.0, 1.0, (1.0 - ratio) * 0.5, (1.0 + ratio) * 0.5);
+		elseif ratio < 1.0 then
+			BG:SetTexCoord((1.0 - ratio) * 0.5, (1.0 + ratio) * 0.5, 0.0, 1.0);
+		end
+
+		talentFrame.BG = BG;
+
 		talentFrame.talentIcons = emu.CreateTalentIcons(talentFrame);
 
 		local resetButtonBg = talentFrame:CreateTexture(nil, "ARTWORK");
@@ -2300,15 +2499,34 @@ end
 local function specButton_OnClick(self)
 	emu.Emu_ChangeTab_Style2(self:GetParent(), self.id);
 end
-local function classButton_OnClick(self)
-	local mainFrame = self:GetParent();
-	if mainFrame.class ~= self.class then
-		emu.EmuCore_Reset(mainFrame);
-		emu.EmuCore_SetClass(mainFrame, self.class);
-		local objects = mainFrame.objects;
-		objects.curClassIndicator:Show();
-		objects.curClassIndicator:ClearAllPoints();
-		objects.curClassIndicator:SetPoint("CENTER", mainFrame.classButtons[_classToIndex[mainFrame.class]]);
+local function classButton_OnClick(self, button)
+	if button == "LeftButton" then
+		local mainFrame = self:GetParent();
+		if mainFrame.class ~= self.class then
+			emu.EmuCore_Reset(mainFrame);
+			emu.EmuCore_SetClass(mainFrame, self.class);
+			local objects = mainFrame.objects;
+			objects.curClassIndicator:Show();
+			objects.curClassIndicator:ClearAllPoints();
+			objects.curClassIndicator:SetPoint("CENTER", mainFrame.classButtons[_classToIndex[mainFrame.class]]);
+		end
+	elseif button == "RightButton" then
+		local preset = _PRESET[self.class];
+		if preset and #preset > 0 then
+			local menu = {
+				handler = function(button, code)
+					emu.Emu_Set(self:GetParent(), self.class, code, 60, false);
+				end;
+				elements = {  },
+			};
+			for i = 1, #preset do
+				tinsert(menu.elements, {
+					para = { preset[i].code, },
+					text = preset[i].title,
+				})
+			end
+			ALADROP(self, "TOPRIGHT", menu);
+		end
 	end
 end
 local function resetToEmu_OnClick(self)
@@ -2333,9 +2551,21 @@ local function inspectTargetButton_OnClick(self)
 		end
 	end
 end
+StaticPopupDialogs["alaTalentEmu_apply"] = {
+	text = L.applyTalentsButton_Notify,
+	button1 = L.OK,
+	button2 = L.Cancel,
+	OnShow = function(self) end,
+	OnAccept = function(self) end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 1,
+};
 local function applyTalentsButton_OnClick(self)
 	if UnitLevel('player') >= 10 then
-		emu.Emu_ApplyTalents(self:GetParent());
+		StaticPopupDialogs["alaTalentEmu_apply"].OnAccept = function() emu.Emu_ApplyTalents(self:GetParent()); end;
+		StaticPopup_Show("alaTalentEmu_apply");
 	end
 end
 local function importButton_OnClick(self)
@@ -2347,23 +2577,50 @@ local function importButton_OnClick(self)
 		editBox:SetPoint("LEFT", self, "RIGHT", setting.editBoxYSize + 4, 0);
 		editBox:SetText("");
 		editBox:Show();
+		editBox:SetFocus();
+		editBox.OKButton:ClearAllPoints();
+		editBox.OKButton:SetPoint("LEFT", self, "RIGHT", 4, 0);
 		--editBox.OKButton:Show();
 		editBox.parent = self;
 		editBox.type = "import";
 	end
 end
-local function exportButton_OnClick(self)
+local function exportButton_OnClick(self, button)
 	local editBox = self:GetParent().objects.editBox;
 	if editBox:IsShown() and editBox.parent == self then
 		editBox:Hide();
 	else
 		editBox:ClearAllPoints();
 		editBox:SetPoint("LEFT", self, "RIGHT", 4, 0);
-		editBox:SetText(emu.EmuCore_Encoder(self:GetParent()));
-		editBox:Show();
+		editBox.OKButton:ClearAllPoints();
+		editBox.OKButton:SetPoint("LEFT", editBox, "RIGHT", 0, 0);
 		--editBox.OKButton:Hide();
 		editBox.parent = self;
-		editBox.type = "export";
+		if button == "LeftButton" then
+			editBox:SetText(emu.EmuCore_Encoder(self:GetParent()));
+			editBox:Show();
+			editBox:SetFocus();
+			editBox:HighlightText();
+			editBox.type = "export";
+		elseif button == "RightButton" then
+			local menu = {
+				handler = function(button, code)
+					editBox:SetText(code);
+					editBox:Show();
+					editBox:SetFocus();
+					editBox:HighlightText();
+					editBox.type = 'export';
+				end;
+				elements = {  },
+			};
+			for key, func in pairs(extern.export) do
+				tinsert(menu.elements, {
+					para = { func(self:GetParent()), },
+					text = key,
+				});
+			end
+			ALADROP(self, "TOPRIGHT", menu);
+		end
 	end
 end
 local function saveButton_OnClick(self, button)
@@ -2377,6 +2634,8 @@ local function saveButton_OnClick(self, button)
 			editBox:SetPoint("LEFT", self, "RIGHT", 4, 0);
 			editBox:SetText(emu.EmuSub_GenerateTitle(mainFrame));
 			editBox:Show();
+			editBox.OKButton:ClearAllPoints();
+			editBox.OKButton:SetPoint("LEFT", editBox, "RIGHT", 0, 0);
 			--editBox.OKButton:Hide();
 			editBox.parent = self;
 			editBox.type = "save";
@@ -2763,6 +3022,7 @@ function emu.CreateMainFrameSubObject(mainFrame)
 		importButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 		importButton:SetPoint("BOTTOM", applyTalentsButton, "TOP", 0, setting.tabButtonGap);
 		importButton:Show();
+		importButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 		importButton:SetScript("OnClick", importButton_OnClick);
 		importButton:SetScript("OnEnter", Info_OnEnter);
 		importButton:SetScript("OnLeave", Info_OnLeave);
@@ -2779,6 +3039,7 @@ function emu.CreateMainFrameSubObject(mainFrame)
 		exportButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 		exportButton:SetPoint("BOTTOM", importButton, "TOP", 0, setting.tabButtonGap);
 		exportButton:Show();
+		exportButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 		exportButton:SetScript("OnClick", exportButton_OnClick);
 		exportButton:SetScript("OnEnter", Info_OnEnter);
 		exportButton:SetScript("OnLeave", Info_OnLeave);
@@ -2807,13 +3068,13 @@ function emu.CreateMainFrameSubObject(mainFrame)
 		editBox:SetFontObject(GameFontHighlightSmall);
 		editBox:SetAutoFocus(false);
 		editBox:SetJustifyH("LEFT");
-		editBox:Show();
+		editBox:Hide();
 		editBox:EnableMouse(true);
 		editBox:SetScript("OnEnterPressed", editBox_OnEnterPressed);
 		editBox:SetScript("OnEscapePressed", function(self) self:SetText(""); self:ClearFocus(); self:Hide(); end);
 		editBox:SetScript("OnShow", function(self) self.type = nil; self.charChanged = nil; end);
 		editBox:SetScript("OnHide", function(self) self.type = nil; self.charChanged = nil; end);
-		editBox:SetScript("OnChar", function(self) self.charChanged = true; print("OnChar"); end);
+		editBox:SetScript("OnChar", function(self) self.charChanged = true; end);
 		local texture = editBox:CreateTexture(nil, "ARTWORK");
 		texture:SetPoint("TOPLEFT");
 		texture:SetPoint("BOTTOMRIGHT");
@@ -2864,13 +3125,14 @@ function emu.CreateMainFrameSubObject(mainFrame)
 			--classButton:GetHighlightTexture():SetPoint("CENTER");
 			classButton:SetPoint("TOPLEFT", mainFrame, "TOPRIGHT", 4, - (setting.tabButtonSize + setting.tabButtonGap) * (index - 1) - setting.mainFrameHeaderYSize);
 			classButton:Show();
+			classButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 			classButton:SetScript("OnClick", classButton_OnClick);
 			classButton:SetScript("OnEnter", Info_OnEnter);
 			classButton:SetScript("OnLeave", Info_OnLeave);
 			classButton.id = index;
 			classButton.class = class;
 			local classColorTable = RAID_CLASS_COLORS[string.upper(class)];
-			classButton.information = string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255) .. L.DATA[class] .. "\124r";
+			classButton.information = string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255) .. L.DATA[class] .. "\124r" .. L.classTabButton;
 			classButtons[index] = classButton;
 		end
 		mainFrame.classButtons = classButtons;
@@ -3039,6 +3301,24 @@ function emu.DB_PreProc(_DB)
 					end
 					if not data[11] then
 						_log_("DB_PreProc", 1, "req of ", data[1], data[2], data[5], data[6], "missing");
+					end
+				end
+			end
+		end
+	end
+	--
+	for class, C in pairs(_preset_talent) do
+		_PRESET[class] = {  };
+		for role, R in pairs(C) do
+			for scene, S in pairs(R) do
+				for _, url in pairs(S) do
+					local _, code = emu.EmuCore_Decoder(url);
+					if code then
+						local title = emu.EmuSub_GenerateTitle(code, class) or "";
+						tinsert(_PRESET[class], {
+							title = title .. " - " .. L.DATA[role] .. " - " .. L.DATA[scene];
+							code = code;
+						});
 					end
 				end
 			end
@@ -3438,11 +3718,10 @@ end
 --/run ATEMU.ImportCode("4Mv8i:sdWw7gm7R4JMw0");
 
 ----------------------------------------------------------------------------------------------------Popup Menu
-local locale = GetLocale();
-if locale == "zhCN" then
+if LOCALE == "zhCN" then
     UnitPopupButtons["EMU_INSPECT"] = { text = "查询天赋", };
     UnitPopupButtons["BN_EMU_INSPECT"] = { text = "查询天赋", nested = 1, };
-elseif locale == "zhTW" then
+elseif LOCALE == "zhTW" then
     UnitPopupButtons["EMU_INSPECT"] = { text = "查詢天賦", };
     UnitPopupButtons["BN_EMU_INSPECT"] = { text = "查詢天賦", nested = 1, };
 else

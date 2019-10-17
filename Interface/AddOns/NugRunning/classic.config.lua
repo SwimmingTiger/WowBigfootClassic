@@ -804,14 +804,15 @@ local SILENCE = "SILENCE"
 local INCAP = "INCAP"
 local STUN = "STUN"
 local HORROR = "HORROR"
-local OPENER_STUN = "OPENER_STUN"
+-- local OPENER_STUN = "OPENER_STUN"
 local RANDOM_STUN = "RANDOM_STUN"
 local RANDOM_ROOT = "RANDOM_ROOT"
 local FROST_SHOCK = "FROST_SHOCK"
 local ROOT = "ROOT"
+local KIDNEY_SHOT = "KIDNEY_SHOT"
 
 helpers.DR_TypesPVE = {
-    [OPENER_STUN] = true,
+    [KIDNEY_SHOT] = true,
     [STUN] = true,
 }
 
@@ -829,6 +830,9 @@ helpers.DR_CategoryBySpellID = {
     [5484] = FEAR, -- Howl of Terror 2 ranks
     [17928] = FEAR,
     [6358] = FEAR, -- Seduction
+    [1090] = INCAP, -- Magic Dust
+    [13327] = INCAP, -- Goblin Rocket Helm, Reckless Charge
+    [5134] = FEAR, -- Flash Bomb
 
     -- [24259] = SILENCE, -- Spell Lock
 
@@ -858,8 +862,8 @@ helpers.DR_CategoryBySpellID = {
     [24132] = INCAP,
     [24133] = INCAP,
 
-    -- [19503] = NONE, -- Scatter Shot
-    [19229] = RANDOM_ROOT, -- Improved Wing Clip Root
+    [19503] = INCAP, -- Scatter Shot
+    -- [19229] = RANDOM_ROOT, -- Improved Wing Clip Root
 
     [19306] = ROOT, -- Counterattack
 
@@ -926,7 +930,7 @@ helpers.DR_CategoryBySpellID = {
 
 
     -- [18425] = SILENCE, -- Imp Kick
-    [1833] = OPENER_STUN, -- Cheap Shot
+    [1833] = STUN, -- Cheap Shot
     -- Blind wasn't on Fear until some time in 3.0, and before that it was with Cyclone,
     -- and in classic probably with itself
     -- [2094] = FEAR, -- Blind
@@ -941,14 +945,14 @@ helpers.DR_CategoryBySpellID = {
     [11285] = INCAP,
     [11286] = INCAP,
 
-    [408] = STUN, -- Kidney Shot 2 ranks
-    [8643] = STUN,
+    [408] = KIDNEY_SHOT, -- Kidney Shot 2 ranks
+    [8643] = KIDNEY_SHOT,
 
     [5530] = RANDOM_STUN, -- Mace Spec Stun, shared by both Rogue and Warrior
 
 
     -- [18498] = SILENCE, -- Imp Shield Bash Silence
-    [23694] = RANDOM_ROOT, -- Improved Hamstring Root
+    -- [23694] = RANDOM_ROOT, -- Improved Hamstring Root
 
     -- Disarm wasn't on DR until 2.3.0
     -- [676] = "DISARM", -- Disarm
