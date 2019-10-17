@@ -2,7 +2,7 @@ local CTM, C, L, _ = unpack(select(2, ...))
 if CTM.locale ~= "zhCN" then return end
 
 -----------------------------
---	zhCN client
+--	zhCN client (by Qcat of 60Addons)
 -----------------------------
 -- main frame
 L.gui_threat			= "仇恨"
@@ -35,14 +35,14 @@ L.general_minimap		= "小地图按钮."
 L.general_ignorePets	= "忽略玩家宠物的仇恨."
 
 L.visibility			= "可见性"
-L.visibility_hideOOC	= "当脱战时隐藏框架."
+L.visibility_hideOOC	= "当脱战时隐藏框架"
 L.visibility_hideSolo	= "当不在队伍中隐藏框架"
 L.visibility_hideInPvP	= "在战场中隐藏框架"
 
 L.nameplates			= "姓名版"
 L.nameplates_enable		= "启用仇恨着色 (仅暴雪默认姓名版)."
 L.nameplates_invert		= "颠倒仇恨着色 (便于坦克)."
-L.nameplate_colors		= "仇恨颜色"
+L.nameplates_colors		= "仇恨颜色"
 
 L.color					= "颜色"
 L.color_good			= "低"

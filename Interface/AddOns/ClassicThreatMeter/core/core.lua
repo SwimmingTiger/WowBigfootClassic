@@ -910,7 +910,7 @@ CTM.configTable = {
 				},
 				threatColors = {
 					order = 12,
-					name = L.nameplate_colors,
+					name = L.nameplates_colors,
 					type = "group",
 					inline = true,
 					get = function(info)

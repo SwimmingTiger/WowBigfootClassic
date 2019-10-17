@@ -1,8 +1,8 @@
-# ClassicThreatMeter (Experimental) [!["Open Issues"](https://img.shields.io/github/issues-raw/EsreverWoW/ClassicThreatMeter.svg)](https://github.com/EsreverWoW/ClassicThreatMeter/issues) 
+# ClassicThreatMeter [!["Open Issues"](https://img.shields.io/github/issues-raw/EsreverWoW/ClassicThreatMeter.svg)](https://github.com/EsreverWoW/ClassicThreatMeter/issues) 
 ClassicThreatMeter is a threat meter for WoW Classic that attempts to provide reasonably accurate estimates of your group's relative threat values against enemy NPCs by recording pertinent data from the combat log and making calculations from that data.
 
-**Note:**
- - This has yet to be fully tested in Classic. Please forgive any bugs that may arise on launch day and allow me some time to fix them. If you happen to notice any, please check the [issue tracker](https://github.com/EsreverWoW/ClassicThreatMeter/issues) and report them there if someone hasn't yet already. Thanks!
+**Bugs:**
+ - Please forgive any bugs that may arise. If you happen to notice any, please check the [issue tracker](https://github.com/EsreverWoW/ClassicThreatMeter/issues) and report them there if someone hasn't yet already. Thanks!
 
 # Download
  - [CurseForge](https://www.curseforge.com/wow/addons/classicthreatmeter)
