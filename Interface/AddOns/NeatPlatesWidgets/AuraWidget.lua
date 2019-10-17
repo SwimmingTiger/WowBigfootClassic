@@ -178,6 +178,7 @@ end
 local AuraEvents = {
 	--["UNIT_TARGET"] = EventUnitTarget,
 	["UNIT_AURA"] = EventUnitAura,
+	["NAME_PLATE_UNIT_REMOVED"] = function(unitid) if unitid then AuraCache[unitid] = nil end end, -- Clear the AuraCache for the unitid
 	--["COMBAT_LOG_EVENT_UNFILTERED"]  = EventCombatLog,
 }
 
@@ -213,34 +214,11 @@ end
 
 local function UpdateAuraHighlighting(frame, aura)
 		local r, g, b, a = aura.r, aura.g, aura.b, aura.a
-		local glowType = aura.type
-		local expiration = aura.expiration-GetTime()
-		local pandemicThreshold = aura.duration and aura.expiration and aura.effect == "HARMFUL" and aura.duration > 0 and expiration <= aura.baseduration*0.3
-		local removeGlow = true
-	-- Pandemic and other Hightlighting
-		if (aura.effect == "HELPFUL" and ButtonGlowEnabled[aura.type]) or (PandemicEnabled and pandemicThreshold and ButtonGlowEnabled["Pandemic"]) then
-			removeGlow = false
-			frame.BorderHighlight:Hide()
-			frame.Border:Hide()
-			ButtonGlow.ShowOverlayGlow(frame)
-			frame.__LBGoverlay:SetFrameLevel(frame:GetFrameLevel() or 65)
-		elseif PandemicEnabled and pandemicThreshold then
-			frame.BorderHighlight:SetVertexColor(PandemicColor.r,PandemicColor.g,PandemicColor.b,PandemicColor.a)
-			frame.BorderHighlight:Show()
-			frame.Border:Hide()
-		elseif r then
+		if r then
 			frame.BorderHighlight:SetVertexColor(r, g or 1, b or 1, a or 1)
 			frame.BorderHighlight:Show()
 			frame.Border:Hide()
 		else frame.BorderHighlight:Hide(); frame.Border:Show() end
-
-		-- Remove ButtonGlow if appropriate
-		if frame.__LBGoverlay and removeGlow then ButtonGlow.HideOverlayGlow(frame) end
-
-		if frame.PandemicTimer then frame.PandemicTimer:Cancel() end
-		if PandemicEnabled and not pandemicThreshold and aura.duration > 0 then
-			frame.PandemicTimer = C_Timer.NewTimer(math.max(expiration-aura.baseduration*0.3, 0), function() UpdateAuraHighlighting(frame, aura) end)	-- Not sure how heavy doing it this way is, however, since this method still uses 'C_Timer.After' it should be fine.
-		end
 end
 
 local function UpdateIcon(frame, aura)
@@ -833,21 +811,21 @@ local function SetAuraOptions(LocalVars)
 	ScaleOptions = LocalVars.WidgetAuraScaleOptions
 end
 
-local function SetPandemic(enabled, color)
-	PandemicEnabled = enabled
-	PandemicColor = color
-end
+--local function SetPandemic(enabled, color)
+--	PandemicEnabled = enabled
+--	PandemicColor = color
+--end
 
-local function SetBorderTypes(pandemic, magic, enrage)
-	if pandemic == 2 then pandemic = true else pandemic = false end
-	if magic == 2 then magic = true else magic = false end
-	if enrage == 2 then enrage = true else enrage = false end
-	ButtonGlowEnabled = {
-		["Pandemic"] = pandemic,
-		["Magic"] = magic,
-		[""] = enrage,
-	}
-end
+--local function SetBorderTypes(pandemic, magic, enrage)
+--	if pandemic == 2 then pandemic = true else pandemic = false end
+--	if magic == 2 then magic = true else magic = false end
+--	if enrage == 2 then enrage = true else enrage = false end
+--	ButtonGlowEnabled = {
+--		["Pandemic"] = pandemic,
+--		["Magic"] = magic,
+--		[""] = enrage,
+--	}
+--end
 
 local function SetSpacerSlots(amount)
 	SpacerSlots = math.min(amount, DebuffColumns-1)
@@ -856,7 +834,6 @@ end
 local function SetEmphasizedSlots(amount)
 	MaxEmphasizedAuras = math.min(amount, DebuffColumns-1)
 end
-
 
 -----------------------------------------------------
 -- External
@@ -872,8 +849,8 @@ NeatPlatesWidgets.SetAuraFilter = SetAuraFilter
 NeatPlatesWidgets.SetEmphasizedAuraFilter = SetEmphasizedAuraFilter
 NeatPlatesWidgets.SetAuraOptions = SetAuraOptions
 
-NeatPlatesWidgets.SetPandemic = SetPandemic
-NeatPlatesWidgets.SetBorderTypes = SetBorderTypes
+--NeatPlatesWidgets.SetPandemic = SetPandemic
+--NeatPlatesWidgets.SetBorderTypes = SetBorderTypes
 NeatPlatesWidgets.SetSpacerSlots = SetSpacerSlots
 NeatPlatesWidgets.SetEmphasizedSlots = SetEmphasizedSlots
 
