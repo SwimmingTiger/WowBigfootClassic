@@ -23,7 +23,6 @@
 
 Libs\LibLatency\LibLatency.xml
 Libs\LibDurability\LibDurability.xml
-Libs\ThreatClassic-1.0\lib.xml
 
 localization.en.lua
 localization.cn.lua

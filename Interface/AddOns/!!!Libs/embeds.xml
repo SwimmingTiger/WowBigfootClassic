@@ -40,6 +40,7 @@
 	<Script file="HereBeDragons\HereBeDragons-Pins-2.0.lua" /><!-- ClassicCodex,HandyNotes,TotemTimers -->
 	<Script file="HereBeDragons\HereBeDragons-Migrate.lua" /><!-- HandyNotes -->
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
+	<Include file="ThreatClassic-1.0\lib.xml"/>
 
 	<Script>
 		LoadAddOn("BigFoot")

@@ -5,7 +5,6 @@
 	<!-- Libraries -->
 	<Include file="lib\LibSharedMedia-3.0\lib.xml"/>
 	<Include file="lib\AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
-	<Include file="lib\ThreatClassic-1.0\lib.xml"/>
 
 	<!-- Locales -->
 	<Script file="locale\enUS.lua"/>
