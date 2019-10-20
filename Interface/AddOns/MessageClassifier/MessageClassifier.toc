@@ -5,6 +5,5 @@
 ## Author: SwimmingTiger (NGA: hu60)
 ## SavedVariables: MessageClassifierConfig
 ## Notes: MessageClassifier
-## Dependencies: Bigfoot
 
 MessageClassifier.xml
