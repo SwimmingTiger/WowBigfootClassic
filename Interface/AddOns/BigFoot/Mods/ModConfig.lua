@@ -24,6 +24,8 @@ if GetLocale()=='zhCN' then
 	L["aux-addon-enabled"] ="AUX拍卖插件已打开，点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
 	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
 	L["ClassicThreatMeter"] ="仇恨统计"
+	L["MessageClassifier"] ="消息去重"
+	L["MessageClassifier-tooltip"] ="不显示公共频道/世界频道中重复的消息"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -49,6 +51,8 @@ elseif GetLocale()=='zhTW' then
 	L["aux-addon-enabled"] ="AUX拍賣插件已打開，點擊拍賣行界面上的“暴雪UI”進入原版拍賣行界面。"
 	L["ActionNeedReloadUI"] ="該設置將在下次外掛程式載入時生效。"
 	L["ClassicThreatMeter"] ="仇恨統計"
+	L["MessageClassifier"] ="消息去重"
+	L["MessageClassifier-tooltip"] ="不顯示公共頻道/世界頻道中重複的消息"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -61,6 +65,8 @@ else
 	L["aux-addon-enabled"] ="The AUX Addon has been enabled, click on the \"Blizzard UI\" on the AUX auction UI to enter the original auction UI."
 	L["ActionNeedReloadUI"] ="This setting will be available next time."
 	L["ClassicThreatMeter"] ="ClassicThreatMeter"
+	L["MessageClassifier"] ="Message Deduplication"
+	L["MessageClassifier-tooltip"] ="Do not display duplicate messages in public channel/world channels"
 
 end
 
@@ -615,6 +621,13 @@ local function __AddBottomFrames()
 			function() MonkeyQuestSlash_CmdOpen(true) end,
 			function() MonkeyQuestSlash_CmdOpen(false) end,
 			function() MonkeyQuestSlash_CmdReset() end)
+		M:AddBottomButton(check)
+	end
+
+	if MessageClassifier and MessageClassifier.Enable and MessageClassifier.Disable then
+		check = __CreateCustomCheckBox("MessageClassifier", L["MessageClassifier-tooltip"], true,
+			function() MessageClassifier.Enable() end,
+			function() MessageClassifier.Disable() end)
 		M:AddBottomButton(check)
 	end
 

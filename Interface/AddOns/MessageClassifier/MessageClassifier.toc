@@ -1,0 +1,10 @@
+﻿## Interface: 11302
+## Title: Message Deduplication
+## Title-zhCN: 聊天消息去重
+## Title-zhTW: 聊天消息去重
+## Author: SwimmingTiger (NGA: hu60)
+## SavedVariables: MessageClassifierConfig
+## Notes: MessageClassifier
+## Dependencies: Bigfoot
+
+MessageClassifier.xml
