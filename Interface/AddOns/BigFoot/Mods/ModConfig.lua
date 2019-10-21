@@ -25,7 +25,7 @@ if GetLocale()=='zhCN' then
 	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
 	L["ClassicThreatMeter"] ="仇恨统计"
 	L["MessageClassifier"] ="消息去重"
-	L["MessageClassifier-tooltip"] ="不显示公共频道/世界频道中重复的消息"
+	L["MessageClassifier-tooltip"] ="不显示公共频道/世界频道中重复的消息\n右击重置过滤器(允许重复消息再次显示)"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -52,7 +52,7 @@ elseif GetLocale()=='zhTW' then
 	L["ActionNeedReloadUI"] ="該設置將在下次外掛程式載入時生效。"
 	L["ClassicThreatMeter"] ="仇恨統計"
 	L["MessageClassifier"] ="消息去重"
-	L["MessageClassifier-tooltip"] ="不顯示公共頻道/世界頻道中重複的消息"
+	L["MessageClassifier-tooltip"] ="不顯示公共頻道/世界頻道中重複的消息\n右擊重置過濾器(允許重復消息再次顯示)"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -64,9 +64,9 @@ else
 	L["MonkeyQuestList-tooltip"] ="Right click to reset list's position"
 	L["aux-addon-enabled"] ="The AUX Addon has been enabled, click on the \"Blizzard UI\" on the AUX auction UI to enter the original auction UI."
 	L["ActionNeedReloadUI"] ="This setting will be available next time."
-	L["ClassicThreatMeter"] ="ClassicThreatMeter"
-	L["MessageClassifier"] ="Message Deduplication"
-	L["MessageClassifier-tooltip"] ="Do not display duplicate messages in public channel/world channels"
+	L["ClassicThreatMeter"] ="ThreatMeter"
+	L["MessageClassifier"] ="MsgDeDup"
+	L["MessageClassifier-tooltip"] ="Do not display duplicate messages in public channel/world channels.\n\nRight click to reset the filter (allow duplicate messages to be displayed again)."
 
 end
 
@@ -432,7 +432,11 @@ local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck
 	_G[check:GetName().."Text"]:SetTextHeight(12)
 	_G[check:GetName().."Text"]:SetText(L[varName])
 	check:SetScript("OnShow",function()
-		check:SetChecked(BigFoot_GetModVariable("CustomCheckBox", varName) == 1)
+		if type(enableByDefault) == "function" then
+			check:SetChecked(enableByDefault())
+		else
+			check:SetChecked(BigFoot_GetModVariable("CustomCheckBox", varName) == 1)
+		end
 	end)
 
 	if onRightClick ~= nil then
@@ -459,7 +463,10 @@ local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck
 	end
 
 	check:SetScript("OnClick",function(self, button, donw)
-		BigFoot_SetModVariable("CustomCheckBox", varName, check:GetChecked() and 1 or 0);
+		if type(enableByDefault) ~= "function" then
+			BigFoot_SetModVariable("CustomCheckBox", varName, check:GetChecked() and 1 or 0);
+		end
+		
 		if check:GetChecked() then
 			onCheck()
 		else
@@ -467,14 +474,16 @@ local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck
 		end
 	end)
 
-	if enableByDefault and (BigFoot_GetModVariable("CustomCheckBox", varName) == nil) then
-		BigFoot_SetModVariable("CustomCheckBox", varName, 1);
-	end
-	
-	if (BigFoot_GetModVariable("CustomCheckBox", varName) == 1) then
-		onCheck()
-	else
-		onUncheck()
+	if type(enableByDefault) ~= "function" then
+		if enableByDefault and (BigFoot_GetModVariable("CustomCheckBox", varName) == nil) then
+			BigFoot_SetModVariable("CustomCheckBox", varName, 1);
+		end
+		
+		if (BigFoot_GetModVariable("CustomCheckBox", varName) == 1) then
+			onCheck()
+		else
+			onUncheck()
+		end
 	end
 
 	nextCheckIndex = nextCheckIndex + 1
@@ -625,9 +634,11 @@ local function __AddBottomFrames()
 	end
 
 	if MessageClassifier and MessageClassifier.Enable and MessageClassifier.Disable then
-		check = __CreateCustomCheckBox("MessageClassifier", L["MessageClassifier-tooltip"], true,
-			function() MessageClassifier.Enable() end,
-			function() MessageClassifier.Disable() end)
+		check = __CreateCustomCheckBox("MessageClassifier", L["MessageClassifier-tooltip"],
+			function() return MessageClassifierConfig.enabled end,
+			function() MessageClassifier.Toggle(true) end,
+			function() MessageClassifier.Toggle(false) end,
+			function() MessageClassifier.Reset() end)
 		M:AddBottomButton(check)
 	end
 

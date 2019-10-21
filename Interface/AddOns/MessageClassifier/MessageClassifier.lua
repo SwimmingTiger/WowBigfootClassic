@@ -4,20 +4,21 @@ if GetLocale()=='zhCN' then
 	L["ENABLE_TIPS"] = "公共频道/世界频道消息去重：已启用，可用 /msgdd 命令进行开关。"
 	L["ENABLE_TIPS_WITH_BIGFOOT"] = "公共频道/世界频道消息去重：已启用，可在小地图大脚按键包中关闭"
 	L["DISABLE_TIPS"] = "公共频道/世界频道消息去重：已停用"
+	L["RESET_TIPS"] = "公共频道/世界频道消息去重：过滤器已重置"
 
 elseif GetLocale()=='zhTW' then
 	L["ENABLE_TIPS"] = "公共頻道/世界頻道消息去重：已啓用，可用 /msgdd 命令進行開關。"
 	L["ENABLE_TIPS_WITH_BIGFOOT"] = "公共頻道/世界頻道消息去重：已啓用，可在小地圖大腳按鍵包中關閉"
 	L["DISABLE_TIPS"] = "公共頻道/世界頻道消息去重：已停用"
+	L["RESET_TIPS"] = "公共頻道/世界頻道消息去重：過濾器已重置"
 
 else
 	L["ENABLE_TIPS"] = "Public channel/World channel message deduplication: Enabled. You can toggle it with command /msgdd"
 	L["ENABLE_TIPS_WITH_BIGFOOT"] ="Public channel/World channel message deduplication: Enabled. You can turn it off in the minimap BigFoot button package."
 	L["DISABLE_TIPS"] ="Public channel/World channel message deduplication: Disabled"
+	L["RESET_TIPS"] = "Public channel/World channel message deduplication: Filter has been reset"
 end
 
-
-MessageClassifierConfig = {}
 
 local messageGUIDIndexs = {}
 local messageFrameGUIDs = {}
@@ -39,7 +40,7 @@ local function StringHash(text)
 end
 
 function MessageClassifier.chatFilter(frame, event, msg, authorWithServer, unknown1, channelTitle, author, unknown2, unknown3, unknown4, channelName, unknown5, index, playerGUID, ...)
-    local guid = playerGUID..'-'..StringHash(msg)
+    local guid = playerGUID..'-'..msg:len()..'-'..StringHash(msg)
     if messageFrameGUIDs[frame] == nil then
         messageFrameGUIDs[frame] = {}
     end
@@ -52,16 +53,21 @@ function MessageClassifier.chatFilter(frame, event, msg, authorWithServer, unkno
     end]]
 
     -- Pass the message sent by the player self.
-    if playerGUID == UnitGUID("player") then
+    if MessageClassifierConfig.passPlayerSelf and playerGUID == UnitGUID("player") then
         return false
     end
 
     -- per message per frame
-    if messageFrameGUIDs[frame][guid] then
+    local msgTime = true
+    if MessageClassifierConfig.minDupInterval ~= 0 then
+        local t = GetTime()
+        msgTime = t - (t % MessageClassifierConfig.minDupInterval)
+    end
+    if messageFrameGUIDs[frame][guid] == msgTime then
         return true
     end
     
-    messageFrameGUIDs[frame][guid] = true
+    messageFrameGUIDs[frame][guid] = msgTime
     return false
 end
 
@@ -75,8 +81,6 @@ function MessageClassifier.addMessage(frame, event, msg, authorWithServer, unkno
 end
 
 function MessageClassifier.Enable()
-    MessageClassifierConfig.enabled = true
-
     if not MessageClassifier.enabled then
         ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", MessageClassifier.chatFilter)
         --ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", MessageClassifier.chatFilter)
@@ -88,8 +92,6 @@ function MessageClassifier.Enable()
 end
 
 function MessageClassifier.Disable()
-    MessageClassifierConfig.enabled = false
-
     if MessageClassifier.enabled then
         ChatFrame_RemoveMessageEventFilter("CHAT_MSG_CHANNEL", MessageClassifier.chatFilter)
         --ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SAY", MessageClassifier.chatFilter)
@@ -100,25 +102,33 @@ function MessageClassifier.Disable()
     end
 end
 
-function MessageClassifier:OnEvent(event, key, state)
-    SLASH_MSGDD1 = "/msgdd"
-    SlashCmdList["MSGDD"] = function(...)
-        if MessageClassifier.enabled then
-            MessageClassifier.Disable()
-        else
-            MessageClassifier.Enable()
-        end
-    end
-
-    if BLocal and BLocal("ModConfig") and BLocal("ModConfig")['MessageClassifier'] then
-        L["ENABLE_TIPS"] = L["ENABLE_TIPS_WITH_BIGFOOT"]
-    end
-
-    if MessageClassifierConfig.enabled == false then
+function MessageClassifier.Toggle(enabled)
+    MessageClassifierConfig.enabled = enabled
+    if enabled == false then
         MessageClassifier.Disable()
     else
         MessageClassifier.Enable()
     end
+    MessageClassifierConfigFrame:update()
+end
+
+function MessageClassifier.Reset()
+    messageGUIDIndexs = {}
+    messageFrameGUIDs = {}
+    print(L["RESET_TIPS"])
+end
+
+function MessageClassifier:OnEvent(event, key, state)
+    SLASH_MSGDD1 = "/msgdd"
+    SlashCmdList["MSGDD"] = function(...)
+        MessageClassifier.Toggle(not MessageClassifier.enabled)
+    end
+
+    if BLocal and BLocal("ModConfig") and BLocal("ModConfig")['MessageClassifier-tooltip'] ~= 'MessageClassifier-tooltip' then
+        L["ENABLE_TIPS"] = L["ENABLE_TIPS_WITH_BIGFOOT"]
+    end
+
+    MessageClassifier.Toggle(MessageClassifierConfig.enabled)
     
 	MessageClassifier:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end

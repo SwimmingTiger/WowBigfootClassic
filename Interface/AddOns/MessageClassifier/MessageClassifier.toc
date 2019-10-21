@@ -6,4 +6,5 @@
 ## SavedVariables: MessageClassifierConfig
 ## Notes: MessageClassifier
 
-MessageClassifier.xml
+Options.lua
+MessageClassifier.lua
