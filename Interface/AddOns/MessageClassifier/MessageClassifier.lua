@@ -51,6 +51,11 @@ function MessageClassifier.chatFilter(frame, event, msg, authorWithServer, unkno
         messageGUIDIndexs[guid] = index
     end]]
 
+    -- Pass the message sent by the player self.
+    if playerGUID == UnitGUID("player") then
+        return false
+    end
+
     -- per message per frame
     if messageFrameGUIDs[frame][guid] then
         return true
