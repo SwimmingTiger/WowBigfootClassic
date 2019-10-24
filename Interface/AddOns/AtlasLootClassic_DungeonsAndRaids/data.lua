@@ -3005,7 +3005,7 @@ data["BlackrockDepths"] = {
 }
 
 data["LowerBlackrockSpire"] = {
-	name = AL["Lower "] .. C_Map.GetAreaInfo(1583),
+	name = AL["Lower Blackrock Spire"],
 	MapID = 1583,
 	InstanceID = 229,
 	SubAreaIDs = { 26683, 26718, 26711, 26713, 26686, 32528, 26688 },
@@ -3020,7 +3020,8 @@ data["LowerBlackrockSpire"] = {
 			npcID = 10263,
 			Level = {56, 57},
 			DisplayIDs = {{5047}},
-			AtlasMapBossID = "1'",
+			AtlasMapBossID = 1,
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  13181 }, -- Demonskin Gloves
 				{ 2,  13182 }, -- Phase Blade
@@ -3073,6 +3074,7 @@ data["LowerBlackrockSpire"] = {
 			Level = {57, 58},
 			DisplayIDs = {{11578}},
 			AtlasMapBossID = 6,
+			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  13282 }, -- Ogreseer Tower Boots
 				{ 2,  13283 }, -- Magus Ring
@@ -3163,7 +3165,6 @@ data["LowerBlackrockSpire"] = {
 			Level = 60,
 			DisplayIDs = {{11583}},
 			AtlasMapBossID = 15,
-			specialType = "rare",
 			[NORMAL_DIFF] = {
 				{ 1,  16670 }, -- Boots of Elements
 				{ 3,  13258 }, -- Slaghide Gauntlets
@@ -3294,7 +3295,7 @@ data["LowerBlackrockSpire"] = {
 }
 
 data["UpperBlackrockSpire"] = {
-	name = AL["Upper "] .. C_Map.GetAreaInfo(1583),
+	name = AL["Upper Blackrock Spire"],
 	MapID = 1583,
 	InstanceID = 229,
 	SubAreaIDs = { 26670, 26668, 26684, 26662, 26642, 26683, 15492, 26666, 26715 },
@@ -3511,7 +3512,7 @@ data["UpperBlackrockSpire"] = {
 }
 
 data["DireMaulEast"] = {
-	name = C_Map.GetAreaInfo(2557) .." ".. AL["East"],
+	name = AL["Dire Maul East"],
 	MapID = 2557,
 	InstanceID = 429,
 	SubAreaIDs = { 34776, 33730 },
@@ -3524,6 +3525,7 @@ data["DireMaulEast"] = {
 		{ -- DMEPusillin
 			name = AL["Pusillin"],
 			npcID = 14354,
+			Level = 57,
 			DisplayIDs = {{7552}},
 			AtlasMapBossID = "1-2",
 			[NORMAL_DIFF] = {
@@ -3534,6 +3536,7 @@ data["DireMaulEast"] = {
 		{ -- DMEZevrimThornhoof
 			name = AL["Zevrim Thornhoof"],
 			npcID = 11490,
+			Level = 57,
 			DisplayIDs = {{11335}},
 			AtlasMapBossID = 3,
 			[NORMAL_DIFF] = {
@@ -3547,6 +3550,7 @@ data["DireMaulEast"] = {
 		{ -- DMEHydro
 			name = AL["Hydrospawn"],
 			npcID = 13280,
+			Level = 57,
 			DisplayIDs = {{5489}},
 			AtlasMapBossID = 3,
 			[NORMAL_DIFF] = {
@@ -3561,6 +3565,7 @@ data["DireMaulEast"] = {
 		{ -- DMELethtendris
 			name = AL["Lethtendris"],
 			npcID = 14327,
+			Level = 57,
 			DisplayIDs = {{14378}},
 			AtlasMapBossID = 3,
 			[NORMAL_DIFF] = {
@@ -3573,6 +3578,7 @@ data["DireMaulEast"] = {
 		{ -- DMEAlzzin
 			name = AL["Alzzin the Wildshaper"],
 			npcID = 11492,
+			Level = 58,
 			DisplayIDs = {{14416}},
 			AtlasMapBossID = 5,
 			SubAreaID = 33730,
@@ -3626,10 +3632,10 @@ data["DireMaulEast"] = {
 }
 
 data["DireMaulWest"] = {
-	name = C_Map.GetAreaInfo(2557) .." ".. AL["West"],
+	name = AL["Dire Maul West"],
 	MapID = 2557,
 	InstanceID = 429,
-	SubAreaIDs = { 33748, 33749, 33750 },
+	SubAreaIDs = { 33748, 33749, 33750, 33710 },
 	AtlasMapID = "DireMaul",
 	AtlasMapFile = {"DireMaulWest", "DireMaulEnt"},
 	ContentType = DUNGEON_CONTENT,
@@ -3639,6 +3645,7 @@ data["DireMaulWest"] = {
 		{ -- DMWTendrisWarpwood
 			name = AL["Tendris Warpwood"],
 			npcID = 11489,
+			Level = 60,
 			DisplayIDs = {{14383}},
 			AtlasMapBossID = 2,
 			SubAreaID = 33748,
@@ -3652,6 +3659,7 @@ data["DireMaulWest"] = {
 		{ -- DMWIllyannaRavenoak
 			name = AL["Illyanna Ravenoak"],
 			npcID = 11488,
+			Level = 60,
 			DisplayIDs = {{11270}},
 			SubAreaID = 33749,
 			AtlasMapBossID = 3,
@@ -3665,6 +3673,7 @@ data["DireMaulWest"] = {
 		{ -- DMWMagisterKalendris
 			name = AL["Magister Kalendris"],
 			npcID = 11487,
+			Level = 60,
 			DisplayIDs = {{14384}},
 			AtlasMapBossID = 4,
 			SubAreaID = 33749,
@@ -3681,6 +3690,7 @@ data["DireMaulWest"] = {
 		{ -- DMWTsuzee
 			name = AL["Tsu'zee"],
 			npcID = 11467,
+			Level = 60,
 			DisplayIDs = {{11250}},
 			specialType = "rare",
 			AtlasMapBossID = 5,
@@ -3694,6 +3704,7 @@ data["DireMaulWest"] = {
 		{ -- DMWImmolthar
 			name = AL["Immol'thar"],
 			npcID = 11496,
+			Level = 61,
 			DisplayIDs = {{14173}},
 			AtlasMapBossID = 6,
 			SubAreaID = 33750,
@@ -3713,6 +3724,7 @@ data["DireMaulWest"] = {
 		{ -- DMWPrinceTortheldrin
 			name = AL["Prince Tortheldrin"],
 			npcID = 11486,
+			Level = 61,
 			DisplayIDs = {{11256}},
 			AtlasMapBossID = 7,
 			[NORMAL_DIFF] = {
@@ -3771,7 +3783,7 @@ data["DireMaulWest"] = {
 }
 
 data["DireMaulNorth"] = {
-	name = C_Map.GetAreaInfo(2557) .." ".. AL["North"],
+	name = AL["Dire Maul North"],
 	MapID = 2557,
 	InstanceID = 429,
 	SubAreaIDs = { 33774, 33775 },
@@ -3784,6 +3796,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNGuardMoldar
 			name = AL["Guard Mol'dar"],
 			npcID = 14326,
+			Level = 59,
 			DisplayIDs = {{11561}},
 			AtlasMapBossID = 1,
 			[NORMAL_DIFF] = {
@@ -3807,6 +3820,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNStomperKreeg
 			name = AL["Stomper Kreeg"],
 			npcID = 14322,
+			Level = 59,
 			DisplayIDs = {{11545}},
 			AtlasMapBossID = 2,
 			[NORMAL_DIFF] = {
@@ -3822,6 +3836,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNGuardFengus
 			name = AL["Guard Fengus"],
 			npcID = 14321,
+			Level = 59,
 			DisplayIDs = {{11561}},
 			AtlasMapBossID = 3,
 			[NORMAL_DIFF] = {
@@ -3840,9 +3855,10 @@ data["DireMaulNorth"] = {
 		},
 		{ -- DMNGuardSlipkik
 			name = AL["Guard Slip'kik"],
-			AtlasMapBossID = 4,
 			npcID = 14323,
+			Level = 59,
 			DisplayIDs = {{11561}},
+			AtlasMapBossID = 4,
 			[NORMAL_DIFF] = {
 				{ 1,  18494 }, -- Denwatcher's Shoulders
 				{ 2,  18493 }, -- Bulky Iron Spaulders
@@ -3883,6 +3899,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNCaptainKromcrush
 			name = AL["Captain Kromcrush"],
 			npcID = 14325,
+			Level = 61,
 			DisplayIDs = {{11564}},
 			AtlasMapBossID = 5,
 			[NORMAL_DIFF] = {
@@ -3895,6 +3912,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNChoRush
 			name = AL["Cho'Rush the Observer"],
 			npcID = 14324,
+			Level = 60,
 			DisplayIDs = {{11537}},
 			AtlasMapBossID = 6,
 			[NORMAL_DIFF] = {
@@ -3907,6 +3925,7 @@ data["DireMaulNorth"] = {
 		{ -- DMNKingGordok
 			name = AL["King Gordok"],
 			npcID = 11501,
+			Level = 62,
 			DisplayIDs = {{11583}},
 			AtlasMapBossID = 6,
 			[NORMAL_DIFF] = {
@@ -5264,7 +5283,6 @@ data["MoltenCore"] = {
 				{ 24, 17077 }, -- Crimson Shocker
 				{ 25, 18878 }, -- Sorcerous Dagger
 				{ 26, 17074 }, -- Shadowstrike
-				{ 27, 17223 }, -- Thunderstrike
 			},
 		},
 		{ -- MCMajordomo

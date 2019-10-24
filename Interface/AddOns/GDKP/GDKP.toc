@@ -1,0 +1,14 @@
+﻿## Interface: 11302
+## Title: [BF] GDKP
+## Title-zhCN: [大脚]金团助手
+## Title-zhTW: [大腳]金團助手
+## Notes: |cffbc8f8fGDKP Assistant addon developed by 178.|r
+## Notes-zhCN: |cff00ff00GDKP|r|n|cffbc8f8f178自主研发的金团辅助插件，为玩家提供便捷的收入统计。|r
+## Notes-zhTW: |cff00ff00GDKP|r|n|cffbc8f8f178自主研發的金團輔助插件，為玩家提供便捷的收入統計。|r
+## Author: Terry
+## SavedVariables: GDKP_DB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+frame.xml

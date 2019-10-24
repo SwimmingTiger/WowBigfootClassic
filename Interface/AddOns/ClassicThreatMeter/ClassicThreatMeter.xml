@@ -2,10 +2,6 @@
 	<!-- Init -->
 	<Script file="core\init.lua"/>
 
-	<!-- Libraries -->
-	<Include file="lib\LibSharedMedia-3.0\lib.xml"/>
-	<Include file="lib\AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
-
 	<!-- Locales -->
 	<Script file="locale\enUS.lua"/>
 	<Script file="locale\zhCN.lua"/>

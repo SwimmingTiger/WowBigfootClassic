@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "22"
+local minor = "23"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,13 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/10/22 (1.13.2.23)")
+	BigFootChangelog_ar("大脚插件","恢复金团助手(GDKP)。")
+	BigFootChangelog_ar("大脚插件","添加仇恨统计(ClassicThreatMeter)。")
+	BigFootChangelog_ar("大脚插件","添加人物详细属性(CharacterStatsClassic)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/10/17 (1.13.2.22)")
 	BigFootChangelog_ar("聊天增强","修复一个已知问题。")
@@ -137,4 +144,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "48"
+BF_VERSION_CHECKSUM = "49"

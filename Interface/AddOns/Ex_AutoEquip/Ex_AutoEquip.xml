@@ -25,7 +25,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 		<NormalTexture file="Interface\PetPaperDollFrame\UI-PetHappiness"/>
 	</CheckButton>
 
-	<Button name="ExAE_Frame" frameStrata="MEDIUM" enableMouse="true" parent="PlayerFrame" clampedToScreen="true">
+	<Frame name="ExAE_Frame" frameStrata="MEDIUM" toplevel="true" parent="UIParent" movable="true" enableMouse="true" clampedToScreen="true">
 		<Size>
 			<AbsDimension x="128" y="24"/>
 		</Size>
@@ -255,5 +255,5 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 				ExAE_OnHide(self)
 			</OnHide>
 		</Scripts>
-	</Button>
+	</Frame>
 </Ui>

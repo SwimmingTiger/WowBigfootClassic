@@ -117,7 +117,7 @@ L.AutoRespond 				= "Auto-respond to whispers while fighting"
 L.WhisperStats 				= "Include kill/wipe stats in whisper responses"
 L.DisableStatusWhisper 		= "Disable status whispers for the entire group (requires Group Leader). Applies only to raids"
 L.DisableGuildStatus 		= "Disable progression messages from being sent to guild for entire group (requires Group Leader)."
-L.EnableWBSharing 			= "Share when you pull/defeat a world boss with your battle.net friends that are on same realm. (This information will always be shared with your guild)"
+L.EnableWBSharing 			= "Share when you pull/defeat a world boss or activate a world buff with your battle.net friends that are on same realm. (This information will always be shared with your guild)"
 
 -- Tab: Barsetup
 L.BarSetup					= "Bar Setup"
@@ -316,6 +316,7 @@ L.Panel_ExtraFeatures		= "Extra Features"
 --
 L.Area_ChatAlerts			= "Text Alert Options"
 L.WorldBossAlert			= "Show alert message when world bosses might have been engaged on your realm by guildies or friends"
+L.WorldBuffAlert			= "Show alert message and timer when world buff RP has been started on your realm"
 --
 L.Area_SoundAlerts			= "Sound/Flash Alert Options"
 L.LFDEnhance				= "Play ready check sound and flash application icon for role checks &amp; BG proposals in Master or Dialog audio channel (I.E. sounds work even if SFX are off and are generally louder)"

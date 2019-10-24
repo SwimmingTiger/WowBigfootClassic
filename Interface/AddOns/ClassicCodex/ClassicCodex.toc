@@ -2,9 +2,7 @@
 ## Title: ClassicCodex
 ## Title-zhCN: [大脚][集]任务助手
 ## TItle-zhTW: [大腳][集]任務助手
-## Notes: ClassicCodex
-## Notes-zhCN: |cff00ff00ClassicCodex|r
-## Notes-zhTW: |cff00ff00ClassicCodex|r
+## Notes: |cff00ff00ClassicCodex|r
 ## Author: Pgarneau, Shagu
 ## Version: 1.2.2
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors

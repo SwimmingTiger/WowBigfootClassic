@@ -406,7 +406,7 @@ M:Init{
 			CreateBorder("Inspect", s);
 		end
 		M.moneyFrame = CreateFrame("Frame", "MerRepairMoneyFrame", PaperDollFrame, "SmallMoneyFrameTemplate");
-		M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 1);
+		M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 11);
 
 		M.moneyFrame:SetScript("OnShow", function(self)
 			MoneyFrame_SetType(self,"STATIC");

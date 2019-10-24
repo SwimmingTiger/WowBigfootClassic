@@ -93,6 +93,7 @@ DBM_CORE_SOUNDKIT_MIGRATION			= "One or more of your warning/special warning sou
 
 DBM_CORE_WORLDBOSS_ENGAGED			= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 DBM_CORE_WORLDBOSS_DEFEATED			= "%s was possibly defeated on your realm (Sent by %s)."
+DBM_CORE_WORLDBUFF_STARTED			= "%s buff has started on your realm for % faction (Sent by %s)."
 
 DBM_CORE_TIMER_FORMAT_SECS			= "%.2f |4second:seconds;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d |4minute:minutes;"
@@ -636,3 +637,13 @@ DBM_LDB_CAT_OTHER		= "Other Boss Mods"
 
 DBM_LDB_CAT_GENERAL		= "General"
 DBM_LDB_ENABLE_BOSS_MOD	= "Enable boss mod"
+
+--Localizers, do not copy entire table, follow same guidelines as other tables, overwrite each entry with DBM_CORE_WORLD_BUFF_TRIGGERS.hordeOny = "stuff" for example.
+DBM_CORE_WORLD_BUFFS = {
+	hordeOny		= "People of the Horde, citizens of Orgrimmar, come, gather round and celebrate a hero of the Horde",
+	allianceOny		= "Citizens and allies of Stormwind, on this day, history has been made.",
+	hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar",
+	allianceNef		= "Citizens of the Alliance, the Lord of Blackrock is slain!",
+	zgHeart			= "Now, only one step remains to rid us of the Soulflayer's threat",
+	rendHead		= "The false Warchief, Rend Blackhand, has fallen!"
+}
