@@ -7,7 +7,8 @@ function M.print(...)
 end
 
 local event_frame = CreateFrame'Frame'
-for _, event in pairs{'ADDON_LOADED', 'PLAYER_LOGIN', 'AUCTION_HOUSE_SHOW', 'AUCTION_HOUSE_CLOSED'} do
+-- 老虎会游泳：适应按需加载，删除'PLAYER_LOGIN'事件
+for _, event in pairs{'ADDON_LOADED', 'AUCTION_HOUSE_SHOW', 'AUCTION_HOUSE_CLOSED'} do
 	event_frame:RegisterEvent(event)
 end
 
@@ -29,13 +30,13 @@ do
 		if event == 'ADDON_LOADED' then
             if arg1 == 'aux-addon' then
                 for _, f in ipairs(handlers) do f(arg1, ...) end
+                -- 老虎会游泳：适应按需加载，把'PLAYER_LOGIN'事件的代码移到这里
+                for _, f in ipairs(handlers2) do f(arg1, ...) end
+                sort(account_data.auctionable_items, function(a, b) return strlen(a) < strlen(b) or (strlen(a) == strlen(b) and a < b) end)
+                print('已载入 - 输入 /aux')
             elseif arg1 == 'Blizzard_AuctionUI' then
                 for _, f in ipairs(handlers3) do f(arg1, ...) end
             end
-		elseif event == 'PLAYER_LOGIN' then
-			for _, f in ipairs(handlers2) do f(arg1, ...) end
-            sort(account_data.auctionable_items, function(a, b) return strlen(a) < strlen(b) or (strlen(a) == strlen(b) and a < b) end)
-            print('已载入 - 输入 /aux')
 		else
 			_M[event](arg1, ...)
 		end
