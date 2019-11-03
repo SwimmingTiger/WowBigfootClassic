@@ -1,179 +1,134 @@
-local L = {}
-
-if GetLocale()=='zhCN' then
-	L["CONFIG_TEXT_FONT"] = "Fonts/ARKai_T.ttf"
-    L["CONFIG_PAGE_TITLE"] = "聊天消息去重"
-    L["OPTION_ENABLED"] = "启用重复消息过滤"
-    L["OPTION_ENABLED_TOOLTIP"] = "不显示公共频道/世界频道中重复的消息"
-    L["OPTION_PASS_PLAYER_SELF"] = "不过滤自己发送的消息"
-    L["OPTION_PASS_PLAYER_SELF_TOOLTIP"] = "不过滤玩家自己发送的消息（备注：即使不选中该选项，重复消息也会被发出去，只是不会在聊天窗口显示）"
-    L["OPTION_MIN_DUP_INTERVAL"] = "允许重复消息出现的最短间隔秒数，设为0始终禁止重复消息"
-    L["OPTION_RESET"] = "重置过滤器"
-    L["OPTION_RESET_TOOLTIP"] = "清除重复消息记录，允许重复消息再次显示"
-
-elseif GetLocale()=='zhTW' then
-	L["CONFIG_TEXT_FONT"] = "Fonts/bKAI00M.ttf"
-	L["CONFIG_PAGE_TITLE"] = "聊天消息去重"
-    L["OPTION_ENABLED"] = "啓用重複消息過濾"
-    L["OPTION_ENABLED_TOOLTIP"] = "不顯示公共頻道/世界頻道中重複的消息"
-    L["OPTION_PASS_PLAYER_SELF"] = "不過濾自己發送的消息"
-    L["OPTION_PASS_PLAYER_SELF_TOOLTIP"] = "不過濾玩家自己發送的消息（備註：即使不選中該選項，重復消息也會被發出去，只是不會在聊天窗口顯示）"
-    L["OPTION_MIN_DUP_INTERVAL"] = "允許重復消息出現的最短間隔秒數，設為0始終禁止重複消息"
-    L["OPTION_RESET"] = "重置過濾器"
-    L["OPTION_RESET_TOOLTIP"] = "清除重復消息記錄，允許重復消息再次顯示"
-
-else
-	L["CONFIG_TEXT_FONT"] = "Fonts/FRIZQT__.ttf"
-	L["CONFIG_PAGE_TITLE"] = "Message Deduplication"
-    L["OPTION_ENABLED"] = "Enable duplicate message filter"
-    L["OPTION_ENABLED_TOOLTIP"] = "Do not display duplicate messages in public channel/world channels"
-    L["OPTION_PASS_PLAYER_SELF"] = "Do not filter messages sent by yourself"
-    L["OPTION_PASS_PLAYER_SELF_TOOLTIP"] = "Do not filter the messages sent by the player self (Note: even if this option is not enabled, the duplicate message will be sent, but will not be displayed in the chat window)"
-    L["OPTION_MIN_DUP_INTERVAL"] = "Min seconds for duplicate messages appear, 0 to always hide"
-    L["OPTION_RESET"] = "Reset filter"
-    L["OPTION_RESET_TOOLTIP"] = "Clear duplicate message records, allowing duplicate messages to be displayed again"
-end
-
+local ADDON_NAME = ...
+local L = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME)
+local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 MessageClassifierConfig = {}
 
+--[[
+-- Fields and values of classificationRules:
+{
+    logic = "and"
+            "or"
+            Default: "or"
+    conditions = {
+        field: "author",
+               "channel"
+               "content"
+        operator: "equal"
+                  "not equal"
+                  "contain"
+                  "not contain"
+                  "match"
+                  "not match"
+                  "unconditional"
+        value: <string>
+               <regular expression>
+               Example: "molten"
+                        " AA "
+                        "15g"
+                        "%bAA%b"
+                        "%d+g%b"
+        
+        caseSensitive: true
+                       false
+                       Default: false
+    }
+    class: <string>,
+            Available variables: {author}
+                                 {channel},
+            Example: "RAID"
+                     "Sell"
+                     "Quest"
+                     "The Molten Core"
+                     "By Author/{author}"
+                     "By Channel/{channel}"
+    
+    hideFromChatWindow: true
+                        false
+                        Default: false
+    
+    enabled: true
+             false
+             Default: true
+}, ...
+]]
+MessageClassifierDefaultRules = MessageClassifierDefaultRules or {}
+
 local defaultConfig = {
     ["enabled"] = true,
-    ["passPlayerSelf"] = true,
     ["minDupInterval"] = 0,
+    ["classificationRules"] = {},
+    ["enabledDefaultRules"] = {},
 }
 
+local classPathLocales = {
+    ["{author}"] = string.format("{%s}", L["author"]),
+    ["{channel}"] = string.format("{%s}", L["channel"]),
+}
 
-local function textFactory(parent, value, size)
-    local text = parent:CreateFontString(nil, "ARTWORK")
-    -- Different languages require different fonts, and 
-    -- using inappropriate fonts will result in text not displaying correctly.
-    -- So the choice of font needs to be localized.
-    text:SetFont(L["CONFIG_TEXT_FONT"], size)
-    text:SetJustifyV("CENTER")
-    text:SetJustifyH("CENTER")
-    text:SetText(value)
+local function localizeClassPath(class)
+    for k,v in pairs(classPathLocales) do
+        class = class:gsub(k, v)
+    end
+    return class
+end
+
+local function localizeClassPathWithColor(class)
+    class = class:gsub('/', '|cffdb800a/|r')
+    for k,v in pairs(classPathLocales) do
+        class = class:gsub(k, string.format("|cffc586c0%s|r", v))
+    end
+    return class
+end
+
+local function delocalizeClassPath(class)
+    for k,v in pairs(classPathLocales) do
+        class = class:gsub(v, k)
+    end
+    return class
+end
+
+local function ruleToText(ruleSet)
+    local text = string.format("%s: %s", L["OPTION_CLASS"], localizeClassPathWithColor(ruleSet.class))
+    if #ruleSet.conditions > 1 then
+        local logicOr = ruleSet.logic ~= "and"
+        text = text..string.format("\n%s: |cffc586c0%s|r", L["OPTION_CONDITIONS"], logicOr and L["OPTION_RULE_LOGIC_OR"] or L["OPTION_RULE_LOGIC_AND"])
+    else
+        text = text..string.format("\n%s:", L["OPTION_CONDITIONS"])
+    end
+    for _, rule in ipairs(ruleSet.conditions) do
+        if rule.operator == "unconditional" then
+            text = text..string.format("\n|cff569cd6%s|r", L["unconditional"])
+            break
+        end
+        text = text..string.format("\n    |cffdcdcaa%s|r |cff569cd6%s|r |cffce9178%s|r", L[rule.field], L[rule.operator], rule.value)
+        if rule.caseSensitive then
+            text = text..string.format(" (%s)", L["OPTION_COND_CASESENSITIVE"])
+        end
+    end
     return text
 end
 
-local function buttonFactory(width, parent, name, description, onClick)
-    local button = CreateFrame("Button", name, parent, "UIPanelButtonTemplate")
-    button:SetHeight(25)
-    button:SetWidth(width)
-    button:SetText(name)
-    button.tooltipText = description
-    button:SetScript("OnClick", function(self)
-        onClick(self)
-    end)
-    return button
-end
-
-local function checkboxFactory(parent, name, description, onClick)
-    local checkbox = CreateFrame("CheckButton", name, parent, "ChatConfigCheckButtonTemplate")
-    getglobal(checkbox:GetName() .. "Text"):SetText(name)
-    checkbox.tooltip = description
-    checkbox:SetScript("OnClick", function(self)
-        onClick(self)
-    end)
-    checkbox:SetScale(1.1)
-    return checkbox
-end
-
-local function editBoxFactory(parent, name, width, height, onEnter)
-    local editBox = CreateFrame("EditBox", nil, parent)
-    editBox.title_text = textFactory(editBox, name, 12)
-    editBox.title_text:SetPoint("TOP", 0, 12)
-    editBox:SetBackdrop({
-        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-        tile = true,
-        tileSize = 26,
-        edgeSize = 16,
-        insets = { left = 4, right = 4, top = 4, bottom = 4}
-    })
-    editBox:SetBackdropColor(0,0,0,1)
-    editBox:SetSize(width, height)
-    editBox:SetMultiLine(false)
-    editBox:SetAutoFocus(false)
-    editBox:SetMaxLetters(6)
-    editBox:SetJustifyH("CENTER")
-	editBox:SetJustifyV("CENTER")
-    editBox:SetFontObject(GameFontNormal)
-    editBox:SetScript("OnEnterPressed", function(self)
-        onEnter(self)
-        self:ClearFocus()
-    end)
-    editBox:SetScript("OnEscapePressed", function(self)
-        self:ClearFocus()
-    end)
-    return editBox
-end
-
-local function sliderFactory(parent, name, title, minVal, maxVal, valStep, func, sliderWidth)
-    local slider = CreateFrame("Slider", name, parent, "OptionsSliderTemplate")
-    local editBox = CreateFrame("EditBox", "$parentEditBox", slider, "InputBoxTemplate")
-    slider:SetMinMaxValues(minVal, maxVal)
-    slider:SetValueStep(valStep)
-    slider.text = _G[name .. "Text"]
-    slider.text:SetText(title)
-    slider.textLow = _G[name .. "Low"]
-    slider.textHigh = _G[name .. "High"]
-    slider.textLow:SetText(floor(minVal))
-    slider.textHigh:SetText(floor(maxVal))
-    slider.textLow:SetTextColor(0.8,0.8,0.8)
-    slider.textHigh:SetTextColor(0.8,0.8,0.8)
-    if sliderWidth ~= nil then
-        slider:SetWidth(sliderWidth)
+local function deepCopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepCopy(orig_key)] = deepCopy(orig_value)
+        end
+        setmetatable(copy, deepCopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
     end
-    slider:SetObeyStepOnDrag(true)
-    editBox:SetSize(45,30)
-    editBox:ClearAllPoints()
-    editBox:SetPoint("LEFT", slider, "RIGHT", 15, 0)
-    editBox:SetText(slider:GetValue())
-    editBox:SetAutoFocus(false)
-    slider:SetScript("OnValueChanged", function(self)
-        editBox:SetText(tostring(self:GetValue()))
-        func(self)
-    end)
-    editBox:SetScript("OnTextChanged", function(self)
-        local val = self:GetText()
-        if tonumber(val) then
-            self:GetParent():SetValue(val)
-        end
-    end)
-    editBox:SetScript("OnEnterPressed", function(self)
-        local val = self:GetText()
-        if tonumber(val) then
-            self:GetParent():SetValue(val)
-            self:ClearFocus()
-        end
-    end)
-    slider.editBox = editBox
-    return slider
+    return copy
 end
 
-local function colorPickerFactory(parent, name, r, g, b, text, onClick)
-    local colorPicker = CreateFrame("Button", name, parent)
-    colorPicker:SetSize(15, 15)
-    colorPicker.normal = colorPicker:CreateTexture(nil, "BACKGROUND")
-    colorPicker.normal:SetColorTexture(1, 1, 1, 1)
-    colorPicker.normal:SetPoint("TOPLEFT", -1, 1)
-    colorPicker.normal:SetPoint("BOTTOMRIGHT", 1, -1)
-    colorPicker.r = r
-    colorPicker.g = g
-    colorPicker.b = b
-    colorPicker.foreground = colorPicker:CreateTexture(nil, "OVERLAY")
-    colorPicker.foreground:SetColorTexture(colorPicker.r, colorPicker.g, colorPicker.b, 1)
-    colorPicker.foreground:SetAllPoints()
-    colorPicker:SetNormalTexture(colorPicker.normal)
-    colorPicker:SetScript("OnClick", onClick)
-    colorPicker.text = textFactory(colorPicker, text, 12)
-    colorPicker.text:SetPoint("LEFT", 20, 0)
-    
-    return colorPicker
-end
+MessageClassifierConfigFrame = CreateFrame("Frame", "MessageClassifierConfigFrame", UIParent)
+MessageClassifierConfigFrame.ruleEditCache = {}
 
-local function loadConfig()
+function MessageClassifierConfigFrame:loadConfig()
     if not MessageClassifierConfig then MessageClassifierConfig = {} end
 
     for key, val in pairs(defaultConfig) do
@@ -181,107 +136,659 @@ local function loadConfig()
             MessageClassifierConfig[key] = val
         end
     end
+
+    self.configTable = {
+        type = "group",
+        name = L["CONFIG_PAGE_TITLE"],
+        args = {
+            enabled = {
+                order = 1,
+                type = "toggle",
+                width = "full",
+                name = L["OPTION_ENABLED"], 
+                desc = L["OPTION_ENABLED_TOOLTIP"],
+                get = function(info)
+                    return MessageClassifierConfig.enabled
+                end,
+                set = function(info, val)
+                    MessageClassifier.Toggle(val)
+                end
+            },
+            minDupInterval = {
+                order = 2,
+                type = "range",
+                width = 3,
+                name = L["OPTION_MIN_DUP_INTERVAL"],
+                min = 0,
+                max = 86400,
+                softMin = 0,
+                softMax = 3600,
+                bigStep = 10,
+                get = function(info)
+                    return MessageClassifierConfig.minDupInterval
+                end,
+                set = function(info, val)
+                    MessageClassifierConfig.minDupInterval = val
+                end
+            },
+            reset = {
+                order = 3,
+                type = "execute",
+                name = L["OPTION_RESET"],
+                desc = L["OPTION_RESET_TOOLTIP"],
+                func = function(info)
+                    MessageClassifier.Reset()
+                end
+            },
+            openBrowser = {
+                order = 4,
+                type = "execute",
+                name = L["OPTION_OPEN_MESSAGE_BROWSER"],
+                func = function(info)
+                    MessageClassifierBrowser:Show()
+                end
+            },
+            ruleSetsTitle = {
+                order = 5,
+                type = "header",
+                name = L["OPTION_RULE_SETS_TITLE"],
+            },
+            ruleSets = {
+                order = 10,
+                type = "group",
+                inline = true,
+                name = L["OPTION_RULE_SETS"],
+                args = {
+                    actionBar = {
+                        order = 0, -- at the top
+                        type = "group",
+                        inline = true,
+                        name = "",
+                        args = {
+                            enabledAll = {
+                                order = 1,
+                                type = "toggle",
+                                name = L["OPTION_SELECT_ALL"],
+                                width = 0.5,
+                                get = function(info)
+                                    local ruleSets = MessageClassifierConfig.classificationRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        if rule.enabled == false then
+                                            return false
+                                        end
+                                    end
+                                    return true                                    
+                                end,
+                                set = function(info, val)
+                                    local ruleSets = MessageClassifierConfig.classificationRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        rule.enabled = val
+                                    end
+                                    MessageClassifierBrowser:updateAllMessages()
+                                end,
+                            },
+                            hideFromChatWindowAll = {
+                                order = 2,
+                                type = "toggle",
+                                name = L["OPTION_SELECT_ALL"],
+                                width = 1.5,
+                                get = function(info)
+                                    local ruleSets = MessageClassifierConfig.classificationRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        if rule.hideFromChatWindow ~= true then
+                                            return false
+                                        end
+                                    end
+                                    return true                                    
+                                end,
+                                set = function(info, val)
+                                    local ruleSets = MessageClassifierConfig.classificationRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        rule.hideFromChatWindow = val
+                                    end
+                                    MessageClassifierBrowser:updateAllMessages()
+                                end,
+                            },
+                            bottomLine = {
+                                order = 99,
+                                type = "header",
+                                name = "",
+                            },
+                        }
+                    },
+                    addRuleSet = {
+                        order = 999999, -- at the end
+                        type = "execute",
+                        name = L["OPTION_ADD"],
+                        func = function(info)
+                            MessageClassifierConfigFrame:addRuleSet()
+                        end
+                    },
+                },
+            },
+            defaultRuleSets = {
+                order = 20,
+                type = "group",
+                inline = true,
+                name = L["OPTION_DEFAULT_RULE_SETS"],
+                args = {
+                    actionBar = {
+                        order = 0, -- at the top
+                        type = "group",
+                        inline = true,
+                        name = "",
+                        args = {
+                            enabledAll = {
+                                order = 1,
+                                type = "toggle",
+                                name = L["OPTION_SELECT_ALL"],
+                                width = 0.5,
+                                get = function(info)
+                                    local ruleSets = MessageClassifierDefaultRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        if MessageClassifierConfig.enabledDefaultRules[rule.id] == false then
+                                            return false
+                                        end
+                                    end
+                                    return true                                    
+                                end,
+                                set = function(info, val)
+                                    local ruleSets = MessageClassifierDefaultRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        MessageClassifierConfig.enabledDefaultRules[rule.id] = val
+                                    end
+                                    MessageClassifierBrowser:updateAllMessages()
+                                end,
+                            },
+                            hideFromChatWindowAll = {
+                                order = 2,
+                                type = "toggle",
+                                name = L["OPTION_SELECT_ALL"],
+                                width = 1.5,
+                                get = function(info)
+                                    local ruleSets = MessageClassifierDefaultRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        if rule.hideFromChatWindow ~= true then
+                                            return false
+                                        end
+                                    end
+                                    return true                                    
+                                end,
+                                set = function(info, val)
+                                    local ruleSets = MessageClassifierDefaultRules
+                                    for _, rule in ipairs(ruleSets) do
+                                        rule.hideFromChatWindow = val
+                                    end
+                                    MessageClassifierBrowser:updateAllMessages()
+                                end,
+                            },
+                            bottomLine = {
+                                order = 99,
+                                type = "header",
+                                name = "",
+                            },
+                        }
+                    },
+                },
+            }
+        }
+    }
+
+    for k,v in pairs(MessageClassifierConfig.classificationRules) do
+        self:addRuleSetToView(k, v)
+    end
+
+    for k,v in pairs(MessageClassifierDefaultRules) do
+        self:addDefaultRuleSetToView(k, v)
+    end
+
+
+    self.registeredOptionsTable = AceConfigRegistry:RegisterOptionsTable(ADDON_NAME, self.configTable)
+    self.blizOptions = AceConfigDialog:AddToBlizOptions(ADDON_NAME, L["CONFIG_PAGE_TITLE"])
 end
 
-local function updateConfigPanel(configPanel)
-    configPanel.enabledCheckbox:SetChecked(MessageClassifierConfig.enabled)
-    configPanel.passPlayerSelfCheckbox:SetChecked(MessageClassifierConfig.passPlayerSelf)
-    configPanel.minDupIntervalSlider:SetValue(MessageClassifierConfig.minDupInterval)
-    configPanel.minDupIntervalSlider.editBox:SetCursorPosition(0)
+function MessageClassifierConfigFrame:updateRuleSetView()
+    self.configTable.args.ruleSets.args = {
+        actionBar = self.configTable.args.ruleSets.args.actionBar,
+        addRuleSet = self.configTable.args.ruleSets.args.addRuleSet,
+    }
+    for k,v in pairs(MessageClassifierConfig.classificationRules) do
+        self:addRuleSetToView(k, v)
+    end
+    MessageClassifierBrowser:updateAllMessages()
 end
 
-local function createConfigPanel(parent)
-    local config = CreateFrame("Frame", nil, parent)
+function MessageClassifierConfigFrame:updateDefaultRuleSetView()
+    self.configTable.args.defaultRuleSets.args = {}
+    for k,v in pairs(MessageClassifierDefaultRules) do
+        self:addDefaultRuleSetToView(k, v)
+    end
+end
 
-    -- Title
-    config.titleText = textFactory(config, L["CONFIG_PAGE_TITLE"], 20)
-    config.titleText:SetPoint("TOPLEFT", 0, 0)
-    config.titleText:SetTextColor(1, 0.9, 0, 1)
+function MessageClassifierConfigFrame:addRuleSet()
+    local index = #MessageClassifierConfig.classificationRules + 1
+    MessageClassifierConfig.classificationRules[index] = {
+        conditions = {
+            {
+                operator = "contain",
+                field = "content",
+                value = "xxx",
+            },
+        },
+        class = "xxx/{author}",
+        tmp = true,
+        enabled = false,
+    }
+    self:editRuleSet(index)
+    --AceConfigRegistry:NotifyChange(ADDON_NAME)
+end
+
+function MessageClassifierConfigFrame:removeRuleSet(index)
+    table.remove(MessageClassifierConfig.classificationRules, index)
+
+    self.configTable.args.ruleSets.args = {
+        actionBar = self.configTable.args.ruleSets.args.actionBar,
+        addRuleSet = self.configTable.args.ruleSets.args.addRuleSet,
+    }
+    for k,v in pairs(MessageClassifierConfig.classificationRules) do
+        self:addRuleSetToView(k, v)
+    end
+    MessageClassifierBrowser:updateAllMessages()
+    --AceConfigRegistry:NotifyChange(ADDON_NAME)
+end
+
+function MessageClassifierConfigFrame:addRuleSetToView(index, ruleSet)
+    local group = self.configTable.args.ruleSets
+    local option = {
+        type = "group",
+        inline = true,
+        order = index,
+        name = "",
+        args = {
+            enabled = {
+                order = 1,
+                type = "toggle",
+                name = L["OPTION_ENABLE"],
+                width = 0.5,
+                get = function(info)
+                    return ruleSet.enabled ~= false
+                end,
+                set = function(info, val)
+                    ruleSet.enabled = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            hideFromChatWindow = {
+                order = 2,
+                type = "toggle",
+                name = L["OPTION_HIDE_FROM_CHAT_WINDOW"],
+                width = 1.5,
+                get = function(info)
+                    return ruleSet.hideFromChatWindow == true
+                end,
+                set = function(info, val)
+                    ruleSet.hideFromChatWindow = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            editRuleSet = {
+                order = 3,
+                type = "execute",
+                name = L["OPTION_EDIT"],
+                width = 0.5,
+                func = function(info)
+                    MessageClassifierConfigFrame:editRuleSet(index)
+                end
+            },
+            removeRuleSet = {
+                order = 4,
+                type = "execute",
+                name = L["OPTION_REMOVE"],
+                width = 0.5,
+                func = function(info)
+                    MessageClassifierConfigFrame:removeRuleSet(index)
+                end
+            },
+            conditions = {
+                order = 11,
+                type = "description",
+                name = ruleToText(ruleSet),
+                width = "full",
+            },
+            bottomLine = {
+                order = 99,
+                type = "header",
+                name = "",
+            },
+        }
+    }
+    group.args[tostring(index)] = option
+end
+
+function MessageClassifierConfigFrame:editRuleSet(index)
+    local group = self.configTable.args.ruleSets
+    local ruleSet = MessageClassifierConfig.classificationRules[index]
+
+    if self.ruleEditCache[index] == nil then
+        self.ruleEditCache[index] = deepCopy(ruleSet)
+    end
+
+    local cache = self.ruleEditCache[index]
+    if cache.tmp then
+        cache.enabled = nil
+    end
+
+    local option = {
+        type = "group",
+        inline = true,
+        order = index,
+        name = "",
+        args = {
+            enabled = {
+                order = 1,
+                type = "toggle",
+                name = L["OPTION_ENABLE"],
+                width = 0.5,
+                get = function(info)
+                    return cache.enabled ~= false
+                end,
+                set = function(info, val)
+                    cache.enabled = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            hideFromChatWindow = {
+                order = 2,
+                type = "toggle",
+                name = L["OPTION_HIDE_FROM_CHAT_WINDOW"],
+                width = 1.5,
+                get = function(info)
+                    return cache.hideFromChatWindow == true
+                end,
+                set = function(info, val)
+                    cache.hideFromChatWindow = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            saveRuleSet = {
+                order = 3,
+                type = "execute",
+                name = L["OPTION_SAVE"],
+                width = 0.5,
+                func = function(info)
+                    MessageClassifierConfigFrame:saveRuleSet(index)
+                end
+            },
+            cancelEditRuleSet = {
+                order = 3,
+                type = "execute",
+                name = L["OPTION_CANCEL"],
+                width = 0.5,
+                func = function(info)
+                    MessageClassifierConfigFrame:cancelEditRuleSet(index)
+                end
+            },
+            class = {
+                order = 11,
+                type = "input",
+                name = L["OPTION_CLASS_EDIT_TITLE"],
+                width = "full",
+                get = function(info)
+                    return localizeClassPath(cache.class)
+                end,
+                set = function(info, val)
+                    cache.class = delocalizeClassPath(val)
+                end,
+            },
+            conditions = {
+                order = 21,
+                type = "group",
+                inline = true,
+                name = L["OPTION_CONDITIONS"],
+                args = {
+                    actionBar = {
+                        order = 999999, -- at the end
+                        type = "group",
+                        inline = true,
+                        name = "",
+                        args = {
+                            addCondition = {
+                                order = 1,
+                                type = "execute",
+                                name = L["OPTION_ADD"],
+                                width = 0.5,
+                                func = function(info)
+                                    MessageClassifierConfigFrame:addCondition(index)
+                                end
+                            },
+                            logic = {
+                                order = 2,
+                                type = "select",
+                                width = 2,
+                                name = L["OPTION_CONDITION_LOGIC"],
+                                values = {
+                                    ["or"] = L["OPTION_RULE_LOGIC_OR"],
+                                    ["and"] = L["OPTION_RULE_LOGIC_AND"],
+                                },
+                                get = function(info)
+                                    return cache.logic == "and" and "and" or "or"
+                                end,
+                                set = function(info, val)
+                                    cache.logic = val
+                                end
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    for conditionIndex, condition in ipairs(cache.conditions) do
+        self:addConditionToView(index, conditionIndex, condition, option.args.conditions)
+    end
     
-    -- enabled
-    config.enabledCheckbox = checkboxFactory(config, L["OPTION_ENABLED"], L["OPTION_ENABLED_TOOLTIP"], function(self)
-        MessageClassifier.Toggle(self:GetChecked())
-    end)
-    config.enabledCheckbox:SetPoint("TOPLEFT", 10, -35)
-
-    --pass player self
-    config.passPlayerSelfCheckbox = checkboxFactory(config, L["OPTION_PASS_PLAYER_SELF"], L["OPTION_PASS_PLAYER_SELF_TOOLTIP"], function(self)
-        MessageClassifierConfig.passPlayerSelf = self:GetChecked()
-    end)
-    config.passPlayerSelfCheckbox:SetPoint("TOPLEFT", 10, -70)
-
-    -- min dup interval
-    config.minDupIntervalSlider = sliderFactory(config, "minDupInterval", L["OPTION_MIN_DUP_INTERVAL"], 0, 3600, 1, function(self)
-        MessageClassifierConfig.minDupInterval = tonumber(self:GetValue())
-    end, 424)
-    config.minDupIntervalSlider:SetPoint("TOPLEFT", 10, -135)
-
-    config.resetButton = buttonFactory(250, config, L["OPTION_RESET"], L["OPTION_RESET_TOOLTIP"], function(self)
-        MessageClassifier.Reset()
-    end)
-    config.resetButton:SetPoint("TOPLEFT", 10, -180)
-    
-    return config
+    group.args[tostring(index)] = option
 end
 
-MessageClassifierConfigFrame = CreateFrame("Frame", "MessageClassifierConfigFrame", UIParent)
+function MessageClassifierConfigFrame:addCondition(ruleSetIndex)
+    local group = self.configTable.args.ruleSets.args[tostring(ruleSetIndex)].args.conditions
+    local conditions = self.ruleEditCache[ruleSetIndex].conditions
+    local index = #conditions + 1
+
+    conditions[index] = {
+        operator = "contain",
+        field = "content",
+        value = "xxx",
+    }
+
+    self:addConditionToView(ruleSetIndex, index, conditions[index], group)
+end
+
+function MessageClassifierConfigFrame:removeCondition(ruleSetIndex, index)
+    local group = self.configTable.args.ruleSets.args[tostring(ruleSetIndex)].args.conditions
+    local conditions = self.ruleEditCache[ruleSetIndex].conditions
+    
+    table.remove(conditions, index)
+
+    local actionBar = group.args.actionBar
+    group.args = {
+        actionBar = actionBar
+    }
+
+    for i, v in ipairs(conditions) do
+        self:addConditionToView(ruleSetIndex, i, v, group)
+    end
+end
+
+function MessageClassifierConfigFrame:addConditionToView(ruleSetIndex, index, condition, group)
+    local option = {
+        type = "group",
+        inline = true,
+        order = index,
+        name = "",
+        args = {
+            actionBar = {
+                order = 1,
+                type = "group",
+                inline = true,
+                name = "",
+                args = {
+                    caseSensitive = {
+                        order = 1,
+                        type = "toggle",
+                        name = L["OPTION_COND_CASESENSITIVE"],
+                        get = function(info)
+                            return condition.caseSensitive == true
+                        end,
+                        set = function(info, val)
+                            condition.caseSensitive = val
+                        end,
+                    },
+                    removeCondition = {
+                        order = 2,
+                        type = "execute",
+                        name = L["OPTION_REMOVE"],
+                        width = 0.5,
+                        func = function(info)
+                            MessageClassifierConfigFrame:removeCondition(ruleSetIndex, index)
+                        end
+                    },
+                }
+            },
+            field = {
+                order = 11,
+                type = "select",
+                width = 0.7,
+                name = L["OPTION_CONDITION_FIELD"],
+                values = {
+                    ["author"] = L["author"],
+                    ["channel"] = L["channel"],
+                    ["content"] = L["content"],
+                },
+                get = function(info)
+                    return condition.field
+                end,
+                set = function(info, val)
+                    condition.field = val
+                end
+            },
+            operator = {
+                order = 12,
+                type = "select",
+                width = 0.8,
+                name = L["OPTION_CONDITION_OPERATOR"],
+                values = {
+                    ["unconditional"] = L["unconditional"],
+                    ["equal"] = L["equal"],
+                    ["not equal"] = L["not equal"],
+                    ["contain"] = L["contain"],
+                    ["not contain"] = L["not contain"],
+                    ["match"] = L["match"],
+                    ["not match"] = L["not match"],
+                },
+                get = function(info)
+                    return condition.operator
+                end,
+                set = function(info, val)
+                    condition.operator = val
+                end
+            },
+            value = {
+                order = 13,
+                type = "input",
+                width = 1.67,
+                name = L["OPTION_CONDITION_VALUE"],
+                get = function(info)
+                    return condition.value
+                end,
+                set = function(info, val)
+                    condition.value = val
+                end
+            },
+            bottomLine = {
+                order = 99,
+                type = "header",
+                name = "",
+            },
+        }
+    }
+    group.args[tostring(index)] = option
+end
+
+function MessageClassifierConfigFrame:cancelEditRuleSet(index)
+    local tmp = self.ruleEditCache[index].tmp
+    self.ruleEditCache[index] = nil
+    if tmp then
+       self:removeRuleSet(index) 
+    else
+        self:addRuleSetToView(index, MessageClassifierConfig.classificationRules[index])
+    end
+end
+
+function MessageClassifierConfigFrame:saveRuleSet(index)
+    if self.ruleEditCache[index].tmp then
+        self.ruleEditCache[index].tmp = nil
+    end
+    MessageClassifierConfig.classificationRules[index] = self.ruleEditCache[index]
+    self.ruleEditCache[index] = nil
+    self:addRuleSetToView(index, MessageClassifierConfig.classificationRules[index])
+    MessageClassifierBrowser:updateAllMessages()
+end
+
+function MessageClassifierConfigFrame:addDefaultRuleSetToView(index, ruleSet)
+    local group = self.configTable.args.defaultRuleSets
+    local option = {
+        type = "group",
+        inline = true,
+        order = index,
+        name = "",
+        args = {
+            enabled = {
+                order = 1,
+                type = "toggle",
+                name = L["OPTION_ENABLE"],
+                width = 0.5,
+                get = function(info)
+                    return MessageClassifierConfig.enabledDefaultRules[ruleSet.id] ~= false
+                end,
+                set = function(info, val)
+                    MessageClassifierConfig.enabledDefaultRules[ruleSet.id] = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            hideFromChatWindow = {
+                order = 2,
+                type = "toggle",
+                name = L["OPTION_HIDE_FROM_CHAT_WINDOW"],
+                width = 1.5,
+                get = function(info)
+                    return ruleSet.hideFromChatWindow == true
+                end,
+                set = function(info, val)
+                    ruleSet.hideFromChatWindow = val
+                    MessageClassifierBrowser:updateAllMessages()
+                end,
+            },
+            conditions = {
+                order = 11,
+                type = "description",
+                name = ruleToText(ruleSet),
+            },
+            bottomLine = {
+                order = 99,
+                type = "header",
+                name = "",
+            },
+        }
+    }
+    group.args[tostring(index)] = option
+end
+
 MessageClassifierConfigFrame:RegisterEvent("ADDON_LOADED")
-MessageClassifierConfigFrame.name = L["CONFIG_PAGE_TITLE"]
-MessageClassifierConfigFrame.default = defaultConfig
-InterfaceOptions_AddCategory(MessageClassifierConfigFrame)
-
-local scrollFrame = CreateFrame("ScrollFrame", nil, MessageClassifierConfigFrame)
-scrollFrame:SetPoint('TOPLEFT', 5, -5)
-scrollFrame:SetPoint('BOTTOMRIGHT', -5, 5)
-scrollFrame:EnableMouseWheel(true)
-scrollFrame:SetScript('OnMouseWheel', function(self, direction)
-    if direction == 1 then
-        scrollValue = math.max(self:GetVerticalScroll() - 50, 1)
-        self:SetVerticalScroll(scrollValue)
-        self:GetParent().scrollBar:SetValue(scrollValue) 
-    elseif direction == -1 then
-        scrollValue = math.min(self:GetVerticalScroll() + 50, 250)
-        self:SetVerticalScroll(scrollValue)
-        self:GetParent().scrollBar:SetValue(scrollValue)
-    end
-end)
-MessageClassifierConfigFrame.scrollFrame = scrollFrame
-
-local scrollBar = CreateFrame("Slider", nil, scrollFrame, "UIPanelScrollBarTemplate")
-scrollBar:SetPoint("TOPLEFT", MessageClassifierConfigFrame, "TOPRIGHT", -20, -20) 
-scrollBar:SetPoint("BOTTOMLEFT", MessageClassifierConfigFrame, "BOTTOMRIGHT", -20, 20) 
-scrollBar:SetMinMaxValues(1, 250) 
-scrollBar:SetValueStep(1) 
-scrollBar.scrollStep = 1 
-scrollBar:SetValue(0) 
-scrollBar:SetWidth(16) 
-scrollBar:SetScript("OnValueChanged", function (self, value)
-    self:GetParent():SetVerticalScroll(value) 
-end)
-
-local scrollBackground = scrollBar:CreateTexture(nil, "BACKGROUND") 
-scrollBackground:SetAllPoints(scrollBar) 
-scrollBackground:SetColorTexture(0, 0, 0, 0.6) 
-MessageClassifierConfigFrame.scrollBar = scrollBar
-
-local content = CreateFrame("Frame", nil, scrollFrame)
-content:SetSize(1, 1)
-scrollFrame.content = content
-scrollFrame:SetScrollChild(content)
-
-function MessageClassifierConfigFrame:update()
-    updateConfigPanel(content.panel)
-end
-
 MessageClassifierConfigFrame:SetScript("OnEvent", function(self, event, arg1)
-    if event == "ADDON_LOADED" and arg1 == "MessageClassifier" then
-        loadConfig()
-
-        -- Add main panel
-        content.panel = createConfigPanel(content)
-        content.panel:SetPoint("TOPLEFT", 10, -10)
-        content.panel:SetSize(1, 1)
-        
-        self:update()
+    if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
+        self:loadConfig()
     end
+    self:UnregisterEvent("ADDON_LOADED")
 end)
