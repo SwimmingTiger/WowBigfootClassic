@@ -1,6 +1,6 @@
 ## Interface: 11302
 ## Title: HandyNotes_NPCs (Classic)
-## Version: 1.18
+## Version: 1.21
 ## Notes: Shows locations of various old world npcs
 ## Author: Revel of Pagle
 ## RequiredDeps: HandyNotes

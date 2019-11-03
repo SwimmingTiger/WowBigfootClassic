@@ -35,6 +35,7 @@ L["HEIGHT_TOOLTIP"] = "设置施法条高度."
 L["ICON_HIDE_BORDER"] = "隐藏图标边框"
 L["ICON_POS_X"] = "图标位置 X"
 L["ICON_POS_Y"] = "图标位置 Y"
+L["ICON_SHOW"] = "显示法术图标"
 L["ICON_SIZE"] = "图标大小"
 L["ICON_SIZE_TOOLTIP"] = "为施法条图标设置大小."
 L["LSM_TEXTURE_NOTE"] = [=[

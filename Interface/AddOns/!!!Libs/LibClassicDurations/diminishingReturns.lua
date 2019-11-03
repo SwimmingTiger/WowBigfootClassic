@@ -1,7 +1,7 @@
 local lib = LibStub("LibClassicDurations", true)
 if not lib then return end
 
-local Type, Version = "DRTable", 7
+local Type, Version = "DRTable", 8
 if lib:GetDataVersion(Type) >= Version then return end
 
 local FEAR = "FEAR"

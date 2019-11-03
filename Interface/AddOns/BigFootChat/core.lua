@@ -7,7 +7,6 @@ local BFC_IconTableMap = {}
 local BFC_ReverseIconTableMap = {}
 local BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 = 20
 local BFChat_f639e5038297ec75bfd38fdb4b2558f1 = 9
-local BFChat_dbdde83a439bb31260dbabf2dc24e7fc = 5
 local BFC_TextIndex = 0
 local db
 local event

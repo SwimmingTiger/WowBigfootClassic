@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00Decursive|r|n|cffbc8f8f当单独、小队和团队时清除有害状态，并可使用高级过滤和优先等级系统。|r
 ## Notes-zhTW: |cff00ff00Decursive|r|n|cffbc8f8f當單獨、小隊和團隊時清除有害狀態，並可使用高級過濾和優先等級系統。|r
 ## SavedVariables: DecursiveDB
-## Version: 2.7.6.4
+## Version: 2.7.6.5
 ## Author: John Wellesz
 ## X-eMail: Decursive@2072productions.com
 ## Dependencies: BigFoot

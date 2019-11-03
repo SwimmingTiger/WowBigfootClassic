@@ -1,6 +1,6 @@
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1491 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1516 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -188,6 +188,7 @@ end
 
 function Recount:ReleasePartyBasedDeletion()
 	if Recount.db.profile.DeleteJoinGroup == false and Recount.db.profile.DeleteJoinRaid == false then
+		Recount.events:UnregisterEvent("GROUP_ROSTER_UPDATE")
 		--Recount:UnregisterEvent("PARTY_MEMBERS_CHANGED")
 		--Recount:UnregisterEvent("RAID_ROSTER_UPDATE")
 	end

@@ -8500,6 +8500,118 @@ t[10607] = {
 	teaches = L["Deepdive Helmet"],
 	learnedAt = 230,
 }
+t[16768] = {
+	name = L["Furbolg Medicine Pouch"],
+	quality = 2,
+	icon = "inv_misc_bag_11",
+	buyPrice = 150000,
+	sellPrice = 37500,
+	reqLevel = 0,
+}
+t[16769] = {
+	name = L["Furbolg Medicine Totem"],
+	quality = 2,
+	icon = "inv_mace_11",
+	buyPrice = 133081,
+	sellPrice = 26616,
+	reqLevel = 47,
+}
+t[18687] = {
+	name = L["Xorothian Stardust"],
+	quality = 1,
+	icon = "inv_misc_dust_02",
+	buyPrice = 1500000,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[8626] = {
+	name = L["Blue Sparkler"],
+	quality = 1,
+	icon = "inv_wand_05",
+	buyPrice = 1000,
+	sellPrice = 250,
+	reqLevel = 0,
+}
+t[8624] = {
+	name = L["Red Sparkler"],
+	quality = 1,
+	icon = "inv_wand_06",
+	buyPrice = 1000,
+	sellPrice = 250,
+	reqLevel = 0,
+}
+t[8625] = {
+	name = L["White Sparkler"],
+	quality = 1,
+	icon = "inv_wand_07",
+	buyPrice = 1000,
+	sellPrice = 250,
+	reqLevel = 0,
+}
+t[9317] = {
+	name = L["Red, White and Blue Firework"],
+	quality = 1,
+	icon = "spell_holy_mindvision",
+	buyPrice = 100,
+	sellPrice = 25,
+	reqLevel = 0,
+}
+t[18629] = {
+	name = L["Black Lodestone"],
+	quality = 1,
+	icon = "inv_misc_gem_pearl_01",
+	buyPrice = 500000,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[18663] = {
+	name = L["J'eevee's Jar"],
+	quality = 1,
+	icon = "inv_misc_urn_01",
+	buyPrice = 1500000,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[18670] = {
+	name = L["Xorothian Glyphs"],
+	quality = 1,
+	icon = "inv_scroll_01",
+	buyPrice = 500000,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[18802] = {
+	name = L["Shadowy Potion"],
+	quality = 1,
+	icon = "inv_potion_27",
+	buyPrice = 60000,
+	sellPrice = 5000,
+	reqLevel = 0,
+}
+t[18632] = {
+	name = L["Moonbrook Riot Taffy"],
+	quality = 1,
+	icon = "inv_misc_food_30",
+	buyPrice = 1000,
+	sellPrice = 50,
+	reqLevel = 25,
+}
+t[18635] = {
+	name = L["Bellara's Nutterbar"],
+	quality = 1,
+	icon = "inv_misc_food_27",
+	buyPrice = 2000,
+	sellPrice = 100,
+	reqLevel = 35,
+}
+t[18633] = {
+	name = L["Styleen's Sour Suckerpop"],
+	quality = 1,
+	icon = "inv_misc_food_26",
+	buyPrice = 125,
+	sellPrice = 6,
+	reqLevel = 5,
+}
 t[5773] = {
 	name = L["Pattern: Robes of Arcana"],
 	profession = L["Tailoring"],

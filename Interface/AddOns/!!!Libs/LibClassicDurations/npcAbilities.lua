@@ -1,7 +1,7 @@
 local lib = LibStub and LibStub("LibClassicDurations", true)
 if not lib then return end
 
-local Type, Version = "NPCSpellTable", 2
+local Type, Version = "NPCSpellTable", 3
 if lib:GetDataVersion(Type) >= Version then return end
 
 lib.npc_spells = {

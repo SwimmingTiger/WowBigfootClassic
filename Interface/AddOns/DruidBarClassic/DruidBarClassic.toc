@@ -1,0 +1,15 @@
+## Interface: 11302
+## Title: Druid Bar Classic
+## Title-zhCN: [大脚][集]德鲁伊法力监视
+## Title-zhTW: [大腳][集]德魯伊法力監視
+## Notes: Shows mana in bear/cat form.
+## Notes-zhCN: |cff00ff00DruidBarClassic|r
+## Notes-zhTW: |cff00ff00DruidBarClassic|r
+## Current Author: Tek (port to WoW Classic Beta)
+## Original Authors: SkaDemon (GUI: DiabloHu)
+## SavedVariables: DruidBarKey
+## Version: 0.7.2
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+DruidBar.xml

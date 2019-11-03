@@ -1,0 +1,215 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="DruidBar.lua"/>
+	<Script file="Options.lua"/>
+	<Script file="localization.lua"/>
+
+	<Include file="Options.xml"/>
+
+	<GameTooltip name="DBarSpellCatch" frameStrata="TOOLTIP" inherits="GameTooltipTemplate"/>
+
+	<Frame name="DruidBarFrame" hidden="true" frameStrata="BACKGROUND" enableMouse="true" movable="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="170" y="18"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+		<Layers>
+			<!-- Level OVERLAY so frame is over all other items -->
+			<Layer level="OVERLAY">
+				<Texture name="DruidBarBorder" file="Interface\Tooltips\UI-StatusBar-Border"/>
+			</Layer>
+
+			<Layer level="BACKGROUND">
+				<Texture name="DruidBarManaBackground">
+					<Size>
+						<AbsDimension x="164" y="12"/>
+					</Size>
+
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="$Parent" relativePoint="CENTER"/>
+					</Anchors>
+					<Color r="0" b="0" g="0" a="0.5"/>
+				</Texture>
+			</Layer>
+
+			<Layer level="OVERLAY">
+				<FontString name="DruidBarTextLeft" inherits="GameFontNormalSmall" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$Parent" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="DruidBarTextCenter" inherits="GameFontNormalSmall" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="$Parent" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+
+				<FontString name="DruidBarTextRight" inherits="GameFontNormalSmall" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT" relativeTo="$Parent" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<TitleRegion setAllPoints="true"/>
+
+		<Frames>
+			<StatusBar name="DruidBarMana" movable="true" inherits="TextStatusBar">
+				<Size>
+					<AbsDimension x="165" y="12"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$Parent" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+
+				<Layers>
+				</Layers>
+
+				<BarTexture name="$parentTex" file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="1" g="1" b="1"/>
+
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel("1");
+					</OnLoad>
+					<OnMouseDown>
+						if button == "LeftButton" and not self.isMoving then
+						self:GetParent():StartMoving();
+						self.isMoving = true;
+						end
+					</OnMouseDown>
+					<OnMouseUp>
+						if button == "LeftButton" and self.isMoving then
+						self:GetParent():StopMovingOrSizing();
+						self.isMoving = false;
+						end
+					</OnMouseUp>
+					<OnHide>
+						if self.isMoving then
+						self:GetParent():StopMovingOrSizing();
+						self.isMoving = false;
+						end
+					</OnHide>
+				</Scripts>
+			</StatusBar>
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+		</Scripts>
+	</Frame>
+
+	<Frame name="DruidBarUpdateFrame">
+		<Scripts>
+			<OnLoad>DruidBar_OnLoad();</OnLoad>
+			<OnEvent>DruidBar_OnEvent(self, event, ...);</OnEvent>
+			<OnUpdate function="DruidBar_OnUpdate" />
+		</Scripts>
+	</Frame>
+
+	<Button name="DruidBarDontMove" frameStrata="TOOLTIP" toplevel="true" parent="DruidBarFrame" enableMouse="false" movable="false" hidden="true">
+		<Size>
+			<AbsDimension x="170" y="18"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+
+	<Frame name="DruidBarReplaceText" frameStrata="LOW" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+		<Size>
+			<AbsDimension x="120" y="10"/>
+		</Size>
+
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="PlayerFrame" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="116" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+		<Layers>
+			<Layer level="FOREGROUND">
+				<FontString name="DEnergyText" inherits="GameFontNormalSmall" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="PlayerFrameManaBar" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+
+				<FontString name="DEnergyText1" inherits="TextStatusBarText" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="PlayerFrameManaBar" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+
+				<FontString name="DManaText" inherits="GameFontNormalSmall" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="DruidBarMana" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+
+				<FontString name="DManaText1" inherits="TextStatusBarText" wraponspaces="true">
+					<Size>
+						<AbsDimension x="0" y="60"/>
+					</Size>
+
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="DruidBarMana" relativePoint="CENTER"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>

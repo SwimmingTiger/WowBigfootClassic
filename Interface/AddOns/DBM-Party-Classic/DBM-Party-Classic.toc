@@ -60,6 +60,14 @@ LowerBlackrockSpire\Halycon.lua
 LowerBlackrockSpire\Gizrul.lua
 LowerBlackrockSpire\OverlordWyrmthalak.lua
 
+UpperBlackrockSpire\PyroguardEmberseer.lua
+UpperBlackrockSpire\SolakarFlamewreath.lua
+UpperBlackrockSpire\GoralukAnvilcrack.lua
+UpperBlackrockSpire\JedRunewatcher.lua
+UpperBlackrockSpire\WarchiefRendBlackhand.lua
+UpperBlackrockSpire\TheBeast.lua
+UpperBlackrockSpire\GeneralDrakkisath.lua
+
 Deadmines\RhahkZor.lua
 Deadmines\MinerJohnson.lua
 Deadmines\SneedsShredder.lua
