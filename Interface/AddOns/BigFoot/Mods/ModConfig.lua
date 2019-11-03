@@ -26,6 +26,7 @@ if GetLocale()=='zhCN' then
 	L["ClassicThreatMeter"] ="仇恨统计"
 	L["MessageClassifier"] ="消息去重"
 	L["MessageClassifier-tooltip"] ="不显示公共频道/世界频道中重复的消息\n右击重置过滤器(允许重复消息再次显示)"
+	L["Personal Resource Display"] ="个人资源"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -53,6 +54,7 @@ elseif GetLocale()=='zhTW' then
 	L["ClassicThreatMeter"] ="仇恨統計"
 	L["MessageClassifier"] ="消息去重"
 	L["MessageClassifier-tooltip"] ="不顯示公共頻道/世界頻道中重複的消息\n右擊重置過濾器(允許重復消息再次顯示)"
+	L["Personal Resource Display"] ="個人資源"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -67,6 +69,7 @@ else
 	L["ClassicThreatMeter"] ="ThreatMeter"
 	L["MessageClassifier"] ="MsgDeDup"
 	L["MessageClassifier-tooltip"] ="Do not display duplicate messages in public channel/world channels.\n\nRight click to reset the filter (allow duplicate messages to be displayed again)."
+	L["Personal Resource Display"] ="PersonalRes"
 
 end
 
@@ -649,6 +652,11 @@ local function __AddBottomFrames()
 
 	if isAddonLoadable('aux-addon') then
 		check = __CreateEnableAddonCheckBox("aux-addon", L['aux-addon-enabled'], false)
+		M:AddBottomButton(check)
+	end
+
+	if isAddonLoadable('Personal Resource Display') then
+		check = __CreateEnableAddonCheckBox("Personal Resource Display", nil, false, true)
 		M:AddBottomButton(check)
 	end
 end
