@@ -15,7 +15,7 @@ StaticPopupDialogs.AUX_SEARCH_TABLE_FULL = {
 
 RESULTS, SAVED, FILTER = aux.enum(3)
 
-function aux.handle.LOAD()
+function aux.event.AUX_LOADED()
 	set_subtab(SAVED)
 end
 
@@ -41,7 +41,6 @@ function tab.USE_ITEM(item_id)
 end
 
 function set_subtab(tab)
-	CloseDropDownMenus()
     search_results_button:UnlockHighlight()
     saved_searches_button:UnlockHighlight()
     new_filter_button:UnlockHighlight()
@@ -77,9 +76,4 @@ function add_filter(filter_string)
     set_filter(old_filter_string .. filter_string)
 end
 
-function blizzard_page_index(str)
-    if tonumber(str) then
-        return max(0, tonumber(str) - 1)
-    end
-end
 

@@ -1,6 +1,5 @@
 select(2, ...) 'aux.util.filter'
 
-local T = require 'T'
 local aux = require 'aux'
 local info = require 'aux.util.info'
 local money = require 'aux.util.money'
@@ -14,7 +13,7 @@ function default_filter(str)
         validator = function()
             return function(auction_record)
                 return aux.any(auction_record.tooltip, function(entry)
-                    return strfind(strlower(entry.left_text or ''), str, 1, true) or strfind(strlower(entry.right_text or ''), str, 1, true)
+                    return strfind(strlower(entry), str, 1, true)
                 end)
             end
         end,
@@ -22,7 +21,6 @@ function default_filter(str)
 end
 
 M.filters = {
-
     ['utilizable'] = {
         input_type = '',
         validator = function()
@@ -49,7 +47,7 @@ M.filters = {
     },
 
     ['left'] = {
-        input_type = T.list('30m', '2h', '8h', '24h'),
+        input_type = {'30m', '2h', '8h', '24h'},
         validator = function(index)
             return function(auction_record)
                 return auction_record.duration == index
@@ -58,7 +56,7 @@ M.filters = {
     },
 
     ['rarity'] = {
-        input_type = T.list('poor', 'common', 'uncommon', 'rare', 'epic'),
+        input_type = {'poor', 'common', 'uncommon', 'rare', 'epic'},
         validator = function(index)
             return function(auction_record)
                 return auction_record.quality == index - 1
@@ -144,7 +142,8 @@ M.filters = {
         input_type = 'money',
         validator = function(amount)
             return function(auction_record)
-                local disenchant_value = disenchant.value(auction_record.slot, auction_record.quality, auction_record.level)
+                local item_info = info.item(auction_record.item_id)
+                local disenchant_value = item_info and disenchant.value(item_info.slot, item_info.quality, item_info.level)
                 return disenchant_value and disenchant_value - auction_record.bid_price >= amount
             end
         end
@@ -154,7 +153,8 @@ M.filters = {
         input_type = 'money',
         validator = function(amount)
             return function(auction_record)
-                local disenchant_value = disenchant.value(auction_record.slot, auction_record.quality, auction_record.level)
+                local item_info = info.item(auction_record.item_id)
+                local disenchant_value = item_info and disenchant.value(item_info.slot, item_info.quality, item_info.level)
                 return auction_record.buyout_price > 0 and disenchant_value and disenchant_value - auction_record.buyout_price >= amount
             end
         end
@@ -191,12 +191,12 @@ M.filters = {
 }
 
 function operator(str)
-    local operator = str == 'not' and T.list('operator', 'not', 1)
-    for name in pairs(T.temp-T.set('and', 'or')) do
+    local operator = str == 'not' and {'operator', 'not', 1}
+    for name in aux.iter('and', 'or') do
 	    local arity = select(3, strfind(str, '^' .. name .. '(%d*)$'))
 	    if arity then
 		    arity = tonumber(arity)
-		    operator = not (arity and arity < 2) and T.list('operator', name, arity)
+		    operator = not (arity and arity < 2) and {'operator', name, arity}
 	    end
     end
     return operator or nil
@@ -213,40 +213,39 @@ do
 			local number = tonumber(select(3, strfind(str, '^(%d+)$')) or nil)
 			if number then
 				if number >= 1 and number <= 60 then
-					for _, key in ipairs(T.temp-T.list('min_level', 'max_level')) do
+					for _, key in ipairs{'min_level', 'max_level'} do
 						if not self[key] then
-							self[key] = T.list(str, number)
-							return T.list('blizzard', key, str, number)
+							self[key] = {str, number}
+							return {'blizzard', key, str, number}
 						end
 					end
 				end
 			end
-			for _, parser in pairs(T.temp-T.list(
-				T.temp-T.list('class', info.category_index),
-				T.temp-T.list('subclass', function(...) return info.subcategory_index(aux.index(self.class, 2) or 0, ...) end),
-				T.temp-T.list('slot', function(...) return info.subsubcategory_index(aux.index(self.class, 2) == 2 and 2 or 0, aux.index(self.subclass, 2) or 0, ...) end),
-				T.temp-T.list('quality', info.item_quality_index)
-			)) do
+			for _, parser in pairs{
+				{'class', info.category_index},
+				{'subclass', function(...) return info.subcategory_index(aux.index(self.class, 2) or 0, ...) end},
+				{'slot', function(...) return info.subsubcategory_index(aux.index(self.class, 2) == 2 and 2 or 0, aux.index(self.subclass, 2) or 0, ...) end},
+				{'quality', info.item_quality_index}
+            } do
 				if not self[parser[1]] then
 					local index, label = parser[2](str)
 					if index then
-						self[parser[1]] = T.list(label, index)
-						return T.list('blizzard', parser[1], label, index)
+						self[parser[1]] = {label, index}
+						return {'blizzard', parser[1], label, index}
 					end
 				end
             end
 			if not self[str] and (str == 'usable' or str == 'exact' and self.name and aux.size(self) == 1) then
-				self[str] = T.list(str, 1)
-				return T.list('blizzard', str, str, 1)
-			elseif i == 1 and strlen(str) <= 63 then
+				self[str] = {str, 1}
+				return {'blizzard', str, str, 1}
+            elseif i == 1 then
 				self.name = unquote(str)
-				return T.list('blizzard', 'name', unquote(str), str)
---				return nil, 'The name filter must not be longer than 63 characters' TODO
+				return {'blizzard', 'name', unquote(str), str}
 			end
 		end,
 	}
 	function blizzard_filter_parser()
-	    return setmetatable(T.acquire(), mt)
+	    return setmetatable({}, mt)
 	end
 end
 
@@ -265,10 +264,10 @@ function parse_parameter(input_type, str)
 end
 
 function M.parse_filter_string(str)
-    local filter, post_filter = T.acquire(), T.acquire()
+    local filter, post_filter = {}, {}
     local blizzard_filter_parser = blizzard_filter_parser()
 
-    local parts = str and aux.map(aux.split(str, '/'), function(part) return strlower(aux.trim(part)) end) or T.acquire()
+    local parts = str and aux.map(aux.split(str, '/'), function(part) return strlower(aux.trim(part)) end) or {}
 
     local i = 1
     while parts[i] do
@@ -288,10 +287,10 @@ function M.parse_filter_string(str)
                         return nil, 'Invalid input for ' .. parts[i] .. '. Expecting: ' .. input_type
                     end
                 end
-                tinsert(post_filter, T.list('filter', parts[i], parts[i + 1]))
+                tinsert(post_filter, {'filter', parts[i], parts[i + 1]})
                 i = i + 1
             else
-                tinsert(post_filter, T.list('filter', parts[i]))
+                tinsert(post_filter, {'filter', parts[i]})
             end
             tinsert(filter, post_filter[#post_filter])
         else
@@ -299,7 +298,7 @@ function M.parse_filter_string(str)
 	        if part then
 		        tinsert(filter, part)
 	        elseif parts[i] ~= '' then
-		        tinsert(post_filter, T.list('filter', 'tooltip', parts[i]))
+		        tinsert(post_filter, {'filter', 'tooltip', parts[i]})
 		        tinsert(filter, post_filter[#post_filter])
 	        else
 	            return nil, 'Empty modifier'
@@ -308,14 +307,14 @@ function M.parse_filter_string(str)
         i = i + 1
     end
 
-    return T.map('components', filter, 'blizzard', blizzard_filter_parser(), 'post', post_filter)
+    return { components = filter, blizzard = blizzard_filter_parser(), post = post_filter }
 end
 
 function M.query(filter_string)
     local filter, error, suggestions = parse_filter_string(filter_string)
 
     if not filter then
-        return nil, suggestions or T.acquire(), error
+        return nil, suggestions or {}, error
     end
 
     local polish_notation_counter = 0
@@ -329,7 +328,7 @@ function M.query(filter_string)
     end
 
     if polish_notation_counter > 0 then
-        local suggestions = T.acquire()
+        local suggestions = {}
         for key in ipairs(filters) do
             tinsert(suggestions, strlower(key))
         end
@@ -348,7 +347,7 @@ end
 
 function M.queries(filter_string)
     local parts = aux.split(filter_string, ';')
-    local queries = T.acquire()
+    local queries = {}
     for _, str in ipairs(parts) do
         local query, _, error = query(str)
         if not query then
@@ -361,13 +360,18 @@ function M.queries(filter_string)
 end
 
 function suggestions(filter)
-    local suggestions = T.acquire()
+    local suggestions = {}
 
     if filter.blizzard.name and aux.size(filter.blizzard) == 1 then tinsert(suggestions, 'exact') end
 
-    tinsert(suggestions, 'and'); tinsert(suggestions, 'or'); tinsert(suggestions, 'not'); tinsert(suggestions, 'tooltip')
+    tinsert(suggestions, 'and')
+    tinsert(suggestions, 'or')
+    tinsert(suggestions, 'not')
+    tinsert(suggestions, 'tooltip')
 
-    for key in ipairs(filters) do tinsert(suggestions, key) end
+    for key in pairs(filters) do
+        tinsert(suggestions, key)
+    end
 
     -- classes
     if not filter.blizzard.class then
@@ -379,14 +383,14 @@ function suggestions(filter)
     if filter.blizzard.class and (filter.blizzard.class[2] or 0) > 0 then
         -- subclasses
         if not filter.blizzard.subclass then
-            for _, subcategory in ipairs(AuctionCategories[filter.blizzard.class[2]].subCategories or T.empty) do
+            for _, subcategory in ipairs(AuctionCategories[filter.blizzard.class[2]].subCategories or empty) do
                 tinsert(suggestions, subcategory.name)
             end
         end
 
         -- slots
         if filter.blizzard.subclass and (filter.blizzard.subclass[2] or 0) > 0 and not filter.blizzard.slot then -- TODO retail is it still possible to query for slot without subclass?
-            for _, subsubcategory in ipairs(AuctionCategories[filter.blizzard.class[2]].subCategories[filter.blizzard.subclass[2]].subCategories or T.empty) do
+            for _, subsubcategory in ipairs(AuctionCategories[filter.blizzard.class[2]].subCategories[filter.blizzard.subclass[2]].subCategories or empty) do
                 tinsert(suggestions, subsubcategory.name)
             end
         end
@@ -483,7 +487,7 @@ end
 
 function blizzard_query(filter)
     local filters = filter.blizzard
-    local query = T.map('name', filters.name, 'exact', aux.index(filters.exact, 2))
+    local query = {name = filters.name, exact = aux.index(filters.exact, 2)}
     local item_id = filters.name and info.item_id(filters.name)
     local item_info = item_id and info.item(item_id)
     if filters.exact and item_info then
@@ -498,7 +502,7 @@ function blizzard_query(filter)
         query.slot = slot_index
         query.quality = item_info.quality
     else
-	    for key in pairs(T.set('min_level', 'max_level', 'class', 'subclass', 'slot', 'usable', 'quality')) do
+	    for key in aux.iter('min_level', 'max_level', 'class', 'subclass', 'slot', 'usable', 'quality') do
             query[key] = aux.index(filters[key], 2)
 	    end
     end
@@ -506,7 +510,7 @@ function blizzard_query(filter)
 end
 
 function validator(filter)
-    local validators = T.acquire()
+    local validators = {}
     for i, component in pairs(filter.post) do
 	    local type, name, param = unpack(component)
         if type == 'filter' then
@@ -518,11 +522,11 @@ function validator(filter)
         if filter.blizzard.exact and (not item_info_without_suffix or strlower(item_info_without_suffix.name) ~= filter.blizzard.name) then
             return false
         end
-        local stack = T.temp-T.acquire()
+        local stack = {}
         for i = #filter.post, 1, -1 do
             local type, name, param = unpack(filter.post[i])
             if type == 'operator' then
-                local args = T.temp-T.acquire()
+                local args = {}
                 while (not param or param > 0) and #stack > 0 do
                     tinsert(args, tremove(stack))
                     param = param and param - 1
@@ -544,12 +548,12 @@ end
 
 function M.query_builder()
     local filter
-    return T.map(
-		'append', function(part)
+    return {
+		append = function(part)
             filter = not filter and part or filter .. '/' .. part
         end,
-		'get', function()
+		get = function()
             return filter or ''
         end
-    )
+    }
 end

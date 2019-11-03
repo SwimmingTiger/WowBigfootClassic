@@ -1,6 +1,5 @@
 select(2, ...) 'aux.gui.auction_listing'
 
-local T = require 'T'
 local aux = require 'aux'
 local info = require 'aux.util.info'
 local sort_util = require 'aux.util.sort'
@@ -9,16 +8,16 @@ local history = require 'aux.core.history'
 local gui = require 'aux.gui'
 local tooltip = require 'aux.core.tooltip'
 
-local price_per_unit = false
+price_per_unit, percentage_for_bid = false, false
 
 local HEAD_HEIGHT = 27
 local HEAD_SPACE = 2
 
 local TIME_LEFT_STRINGS = {
-	aux.color.red'30分', -- Short
-	aux.color.orange'2小时', -- Medium
-	aux.color.yellow'8小时', -- Long
-	aux.color.blue'24小时', -- Very Long
+    aux.color.red'30M', -- Short
+    aux.color.orange'2H', -- Medium
+    aux.color.yellow'8H', -- Long
+    aux.color.blue'24H', -- Very Long
 }
 
 function item_column_init(rt, cell)
@@ -61,6 +60,16 @@ function item_column_fill(cell, record, _, _, _, indented)
 		cell.text:SetAlpha(1)
 	end
 	cell.text:SetText(gsub(record.link, '[%[%]]', ''))
+end
+
+function status_code(record)
+    if record.sale_status == 1 then
+        return 1
+    elseif not record.high_bidder then
+        return 2
+    else
+        return 3
+    end
 end
 
 M.search_columns = {
@@ -152,10 +161,10 @@ M.search_columns = {
         end,
     },
     {
-        title = {'一口价\n(每件)', '竞拍\n(每组)'},
+        title = {'竞拍\n(每件)', '竞拍\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
             local price_color
             if record.high_bidder then
@@ -203,7 +212,7 @@ M.search_columns = {
         title = {'一口价\n(每件)', '一口价\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
             local price = price_per_unit and ceil(record.unit_buyout_price) or record.buyout_price
             cell.text:SetText(price > 0 and money.to_string(price, true) or '---')
@@ -218,12 +227,13 @@ M.search_columns = {
         end,
     },
     {
-        title = '% 对比\n价格',
+        title = {'% 价格\n对比(竞标)', '% 价格\n对比'},
         width = .08,
         align = 'CENTER',
+        toggle = 'percentage_for_bid',
         fill = function(cell, record)
-            local pct, bidPct = record_percentage(record)
-            cell.text:SetText((pct or bidPct) and gui.percentage_historical(pct or bidPct, not pct) or '?')
+            local primary, secondary = record_percentage(record)
+            cell.text:SetText((primary or secondary) and gui.percentage_historical(primary or secondary, not primary) or '?')
         end,
         cmp = function(record_a, record_b, desc)
             local pct_a = record_percentage(record_a) or (desc and -math.huge or math.huge)
@@ -282,10 +292,18 @@ M.auctions_columns = {
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
-            cell.text:SetText(record.aux_quantity)
+            cell.text:SetText(record.aux_quantity > 0 and record.aux_quantity or '?')
         end,
         cmp = function(record_a, record_b, desc)
-            return sort_util.compare(record_a.aux_quantity, record_b.aux_quantity, desc)
+            if record_a.sale_status == 1 and record_b.sale_status == 1 then
+                return sort_util.EQ
+            elseif record_a.sale_status == 1 then
+                return sort_util.GT
+            elseif record_b.sale_status == 1 then
+                return sort_util.LT
+            else
+                return sort_util.compare(record_a.aux_quantity, record_b.aux_quantity, desc)
+            end
         end,
     },
     {
@@ -293,18 +311,34 @@ M.auctions_columns = {
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
-            cell.text:SetText(TIME_LEFT_STRINGS[record.duration or 0] or '?')
+            if record.sale_status == 1 then
+                cell.text:SetText('?')
+            else
+                cell.text:SetText(TIME_LEFT_STRINGS[record.duration or 0] or '?')
+            end
         end,
         cmp = function(record_a, record_b, desc)
-            return sort_util.compare(record_a.duration, record_b.duration, desc)
+            if record_a.sale_status == 1 and record_b.sale_status == 1 then
+                return sort_util.EQ
+            elseif record_a.sale_status == 1 then
+                return sort_util.GT
+            elseif record_b.sale_status == 1 then
+                return sort_util.LT
+            else
+                return sort_util.compare(record_a.duration, record_b.duration, desc)
+            end
         end,
     },
     {
         title = {'竞拍\n(每件)', '竞拍\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
+            if record.sale_status == 1 and price_per_unit then
+                cell.text:SetText('?')
+                return
+            end
             local price
             if record.high_bidder then
                 price = price_per_unit and ceil(record.high_bid / record.aux_quantity) or record.high_bid
@@ -314,6 +348,15 @@ M.auctions_columns = {
             cell.text:SetText(money.to_string(price, true))
         end,
         cmp = function(record_a, record_b, desc)
+            if price_per_unit then
+                if record_a.sale_status == 1 and record_b.sale_status == 1 then
+                    return sort_util.EQ
+                elseif record_a.sale_status == 1 then
+                    return sort_util.GT
+                elseif record_b.sale_status == 1 then
+                    return sort_util.LT
+                end
+            end
             local price_a
             if record_a.high_bidder then
                 price_a = price_per_unit and record_a.high_bid / record_a.aux_quantity or record_a.high_bid
@@ -321,7 +364,9 @@ M.auctions_columns = {
                 price_a = price_per_unit and record_a.start_price / record_b.aux_quantity or record_a.start_price
             end
             local price_b
-            if record_b.high_bidder then
+            if record_b.sale_status == 1 and price_per_unit then
+                price_b = math.huge
+            elseif record_b.high_bidder then
                 price_b = price_per_unit and record_b.high_bid / record_b.aux_quantity or record_b.high_bid
             else
                 price_b = price_per_unit and record_b.start_price / record_b.aux_quantity or record_b.start_price
@@ -333,12 +378,26 @@ M.auctions_columns = {
         title = {'一口价\n(每件)', '一口价\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
+            if record.sale_status == 1 and price_per_unit then
+                cell.text:SetText('?')
+                return
+            end
             local price = price_per_unit and ceil(record.unit_buyout_price) or record.buyout_price
             cell.text:SetText(price > 0 and money.to_string(price, true) or '---')
         end,
         cmp = function(record_a, record_b, desc)
+            if price_per_unit then
+                if record_a.sale_status == 1 and record_b.sale_status == 1 then
+                    return sort_util.EQ
+                elseif record_a.sale_status == 1 then
+                    return sort_util.GT
+                elseif record_b.sale_status == 1 then
+                    return sort_util.LT
+                end
+            end
+
             local price_a = price_per_unit and record_a.unit_buyout_price or record_a.buyout_price
             local price_b = price_per_unit and record_b.unit_buyout_price or record_b.buyout_price
             price_a = price_a > 0 and price_a or (desc and -math.huge or math.huge)
@@ -348,14 +407,25 @@ M.auctions_columns = {
         end,
     },
     {
-        title = '最高出价者',
+        title = '状态',
         width = .21,
         align = 'CENTER',
         fill = function(cell, record)
-            cell.text:SetText(record.high_bidder or aux.color.red '无竞拍')
+            local text
+            if not record.high_bidder then
+                text = aux.color.red'无竞拍'
+            elseif record.sale_status == 1 then
+                text = aux.color.blue'出售: ' .. record.high_bidder
+            else
+                text = aux.color.green'竞拍: ' .. record.high_bidder
+            end
+            cell.text:SetText(text)
         end,
         cmp = function(record_a, record_b, desc)
-            if not record_a.high_bidder and not record_b.high_bidder then
+            local status_order = sort_util.compare(status_code(record_a), status_code(record_b), desc)
+            if status_order ~= sort_util.EQ then
+                return status_order
+            elseif not record_a.high_bidder and not record_b.high_bidder then
                 return sort_util.EQ
             elseif not record_a.high_bidder then
                 return sort_util.GT
@@ -444,7 +514,7 @@ M.bids_columns = {
         title = {'竞拍\n(每件)', '竞拍\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
             local price
             if record.high_bidder then
@@ -474,7 +544,7 @@ M.bids_columns = {
         title = {'一口价\n(每件)', '一口价\n(每组)'},
         width = .125,
         align = 'RIGHT',
-        isPrice = true,
+        toggle = 'price_per_unit',
         fill = function(cell, record)
             local price = price_per_unit and ceil(record.unit_buyout_price) or record.buyout_price
             cell.text:SetText(price > 0 and money.to_string(price, true) or '---')
@@ -497,7 +567,7 @@ M.bids_columns = {
             if record.high_bidder then
                 status = aux.color.yellow'最高出价者'
             else
-                status = aux.color.red'竞价更高'
+                status = aux.color.red'Outbid'
             end
             cell.text:SetText(status)
         end,
@@ -512,8 +582,9 @@ function record_percentage(record)
 
     local historical_value = history.value(record.item_key) or 0
     if historical_value > 0 then
-        if record.unit_buyout_price > 0 then
-            return aux.round(100 * record.unit_buyout_price / historical_value)
+        if record.unit_buyout_price > 0 or percentage_for_bid then
+            local unit_price = percentage_for_bid and record.unit_bid_price or record.unit_buyout_price
+            return aux.round(100 * unit_price / historical_value)
         end
         return nil, aux.round(100 * record.unit_bid_price / historical_value)
     end
@@ -543,11 +614,12 @@ local methods = {
     OnHeadColumnClick = function(self, button)
         local rt = self.rt
 
-        if button == 'RightButton' and rt.headCells[self.columnIndex].info.isPrice then
-            price_per_unit = not price_per_unit
+        local toggle = rt.headCells[self.columnIndex].info.toggle
+        if button == 'RightButton' and toggle then
+            _M[toggle] = not _M[toggle]
             for _, cell in pairs(rt.headCells) do
-                if cell.info.isPrice then
-                    cell:SetText(cell.info.title[price_per_unit and 1 or 2])
+                if cell.info.toggle == toggle then
+                    cell:SetText(cell.info.title[_M[toggle] and 1 or 2])
                 end
             end
             rt:SetSort()
@@ -567,7 +639,7 @@ local methods = {
         if row.record then
 	        GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
             GameTooltip:SetHyperlink(row.record.link)
-            info.set_shopping_tooltip(row.record.slot)
+            GameTooltip_ShowCompareItem()
         end
     end,
 
@@ -577,14 +649,17 @@ local methods = {
 
     OnEnter = function(self)
         local rt = self.rt
-        if rt.expanded[self.expandKey] then
-            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-            GameTooltip:AddLine('双击可折叠此物品并仅显示最便宜的拍卖', 1, 1, 1, true)
-            GameTooltip:Show()
-        elseif self.expandable then
-            GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
-            GameTooltip:AddLine('双击可展开此物品并显示所有拍卖', 1, 1, 1, true)
-            GameTooltip:Show()
+
+        if not rt.rowInfo.single_item then
+            if rt.expanded[self.expandKey] then
+                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                GameTooltip:AddLine('双击可折叠此物品', 1, 1, 1, true)
+                GameTooltip:Show()
+            elseif self.expandable then
+                GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+                GameTooltip:AddLine('双击可展开此物品', 1, 1, 1, true)
+                GameTooltip:Show()
+            end
         end
 
         self.highlight:Show()
@@ -601,9 +676,11 @@ local methods = {
         if IsControlKeyDown() or IsShiftKeyDown() then
             HandleModifiedItemClick(self.record.link)
         else
-            local selection = self.rt:GetSelection()
-            if not selection or selection.record ~= self.record then
-                self.rt:SetSelectedRecord(self.record)
+            if button == 'LeftButton' then
+                local selection = self.rt:GetSelection()
+                if not selection or selection.record ~= self.record then
+                    self.rt:SetSelectedRecord(self.record)
+                end
             end
 	        do (self.rt.handlers.OnClick or pass)(self, button) end
         end
@@ -622,23 +699,14 @@ local methods = {
     end,
 
     UpdateRowInfo = function(self)
-	    for _, v in ipairs(self.rowInfo) do
-		    if type(v) == 'table' then
-			    for _, child in pairs(v.children) do
-				    T.release(child)
-			    end
-			    T.release(v.children)
-			    T.release(v)
-		    end
-	    end
-        T.wipe(self.rowInfo)
+        aux.wipe(self.rowInfo)
         self.rowInfo.numDisplayRows = 0
         self.isSorted = nil
         self:SetSelectedRecord(nil, true)
 
 	    local records = self.records
 
-	    local single_item = aux.all(records, function(record) return record.item_key == records[1].item_key end)
+        self.rowInfo.single_item = aux.all(records, function(record) return record.item_key == records[1].item_key end)
 
         sort(records, function(a, b) return a.search_signature < b.search_signature or a.search_signature == b.search_signature and tostring(a) < tostring(b) end)
 
@@ -648,15 +716,15 @@ local methods = {
             if prevRecord and record.search_signature == prevRecord.search_signature then
                 -- it's an identical auction to the previous row so increment the number of auctions
                 self.rowInfo[#self.rowInfo].children[#self.rowInfo[#self.rowInfo].children].count = self.rowInfo[#self.rowInfo].children[#self.rowInfo[#self.rowInfo].children].count + 1
-            elseif not single_item and prevRecord and record.item_key == prevRecord.item_key then
+            elseif not self.rowInfo.single_item and prevRecord and record.item_key == prevRecord.item_key then
                 -- it's the same base item as the previous row so insert a new auction
-                tinsert(self.rowInfo[#self.rowInfo].children, T.map('count', 1, 'record', record))
+                tinsert(self.rowInfo[#self.rowInfo].children, { count = 1, record = record })
                 if self.expanded[self.rowInfo[#self.rowInfo].expandKey] then
                     self.rowInfo.numDisplayRows = self.rowInfo.numDisplayRows + 1
                 end
             else
                 -- it's a different base item from the previous row
-                tinsert(self.rowInfo, T.map('item_key', record.item_key, 'expandKey', record.item_key, 'children', T.list(T.map('count', 1, 'record', record))))
+                tinsert(self.rowInfo, { item_key = record.item_key, expandKey = record.item_key, children = {{ count = 1, record = record }} })
                 self.rowInfo.numDisplayRows = self.rowInfo.numDisplayRows + 1
             end
         end
@@ -793,7 +861,7 @@ local methods = {
     end,
 
     Reset = function(self)
-        T.wipe(self.expanded)
+        aux.wipe(self.expanded)
         self:UpdateRowInfo()
         self:UpdateRows()
         self:SetSelectedRecord()
@@ -896,8 +964,8 @@ function M.new(parent, rows, columns)
 
     rt:SetScript('OnShow', function(self)
         for _, cell in pairs(self.headCells) do
-            if cell.info.isPrice then
-                cell:SetText(cell.info.title[price_per_unit and 1 or 2])
+            if cell.info.toggle then
+                cell:SetText(cell.info.title[_M[cell.info.toggle] and 1 or 2])
             end
         end
     end)
@@ -949,7 +1017,7 @@ function M.new(parent, rows, columns)
         text:SetFont(gui.font, 12)
         text:SetTextColor(aux.color.label.enabled())
         cell:SetFontString(text)
-        if not column.isPrice then cell:SetText(column.title or '') end -- TODO
+        if not column.toggle then cell:SetText(column.title or '') end -- TODO
         text:SetAllPoints()
 
         local tex = cell:CreateTexture()

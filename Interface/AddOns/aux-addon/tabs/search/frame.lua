@@ -1,6 +1,5 @@
 select(2, ...) 'aux.tabs.search'
 
-local T = require 'T'
 local aux = require 'aux'
 local info = require 'aux.util.info'
 local completion = require 'aux.util.completion'
@@ -10,7 +9,7 @@ local gui = require 'aux.gui'
 local listing = require 'aux.gui.listing'
 local auction_listing = require 'aux.gui.auction_listing'
 
-local FILTER_SPACING = 28.5
+local FILTER_SPACING = 27
 
 frame = CreateFrame('Frame', nil, aux.frame)
 frame:SetAllPoints()
@@ -25,6 +24,11 @@ frame.results:SetAllPoints(aux.frame.content)
 
 frame.saved = CreateFrame('Frame', nil, frame)
 frame.saved:SetAllPoints(aux.frame.content)
+frame.saved:SetScript('OnUpdate', function()
+    if not IsAltKeyDown() then
+        dragged_search = nil
+    end
+end)
 
 frame.saved.favorite = gui.panel(frame.saved)
 frame.saved.favorite:SetWidth(393)
@@ -58,69 +62,10 @@ do
 	local btn = gui.button(frame, gui.font_size.small)
 	btn:SetHeight(25)
 	btn:SetWidth(60)
-	btn:SetText(aux.color.label.enabled'范围:')
-	btn:SetScript('OnClick', function()
-		update_real_time(true)
+    btn:SetScript('OnClick', function(self)
+        update_mode(mode == NORMAL_MODE and FRESH_MODE or NORMAL_MODE)
 	end)
-	range_button = btn
-end
-do
-	local btn = gui.button(frame, gui.font_size.small)
-	btn:SetHeight(25)
-	btn:SetWidth(60)
-	btn:Hide()
-	btn:SetText(aux.color.label.enabled'实时')
-	btn:SetScript('OnClick', function()
-		update_real_time(false)
-	end)
-	real_time_button = btn
-end
-do
-	local function change(self)
-		local page = tonumber(self:GetText())
-		local valid_input = page and tostring(max(1, page)) or ''
-		if self:GetText() ~= valid_input then
-            self:SetText(valid_input)
-		end
-	end
-	do
-		local editbox = gui.editbox(range_button)
-		editbox:SetPoint('LEFT', range_button, 'RIGHT', 4, 0)
-		editbox:SetWidth(40)
-		editbox:SetHeight(25)
-		editbox:SetAlignment('CENTER')
-		editbox:SetNumeric(true)
-		editbox:SetScript('OnTabPressed', function()
-            if not IsShiftKeyDown() then
-                last_page_input:SetFocus()
-            end
-        end)
-		editbox.enter = execute
-		editbox.change = change
-		local label = gui.label(editbox, gui.font_size.medium)
-		label:SetPoint('LEFT', editbox, 'RIGHT', 0, 0)
-		label:SetTextColor(aux.color.label.enabled())
-		label:SetText('-')
-		first_page_input = editbox
-	end
-	do
-		local editbox = gui.editbox(range_button)
-		editbox:SetPoint('LEFT', first_page_input, 'RIGHT', 5.8, 0)
-		editbox:SetWidth(40)
-		editbox:SetHeight(25)
-		editbox:SetAlignment('CENTER')
-		editbox:SetNumeric(true)
-		editbox:SetScript('OnTabPressed', function()
-            if IsShiftKeyDown() then
-                first_page_input:SetFocus()
-            else
-                search_box:SetFocus()
-            end
-        end)
-		editbox.enter = execute
-		editbox.change = change
-		last_page_input = editbox
-	end
+    mode_button = btn
 end
 do
     local btn = gui.button(frame)
@@ -142,7 +87,7 @@ do
     btn:SetPoint('TOPRIGHT', -5, -8)
     btn:SetText('暂停')
     btn:SetScript('OnClick', function()
-        scan.abort(search_scan_id)
+        scan.abort()
     end)
     stop_button = btn
 end
@@ -159,7 +104,7 @@ do
 end
 do
 	local editbox = gui.editbox(frame)
-	editbox:EnableMouse(true)
+    editbox:SetPoint('LEFT', mode_button, 'RIGHT', 4, 0)
 	editbox.formatter = function(str)
 		local queries = filter_util.queries(str)
 		return queries and aux.join(aux.map(aux.copy(queries), function(query) return query.prettified end), ';') or aux.color.red(str)
@@ -171,13 +116,19 @@ do
         self:complete()
 	end
 	editbox:SetScript('OnTabPressed', function(self)
-        if IsShiftKeyDown() then
-            last_page_input:SetFocus()
-        else
-            self:HighlightText(0, 0)
-        end
+        self:HighlightText(0, 0) -- TODO more edit features, shift backspace or something
 	end)
 	editbox.enter = execute
+    local function search_cursor_item()
+        local type, item_id = GetCursorInfo()
+        if type == 'item' then
+            set_filter(strlower(info.item(item_id).name) .. '/exact')
+            execute(nil, false)
+            ClearCursor()
+        end
+    end
+    editbox:HookScript('OnReceiveDrag', search_cursor_item)
+    editbox:HookScript('OnMouseDown', search_cursor_item)
 	search_box = editbox
 end
 do
@@ -206,21 +157,14 @@ do
     btn:SetPoint('TOPLEFT', saved_searches_button, 'TOPRIGHT', 5, 0)
     btn:SetWidth(243)
     btn:SetHeight(22)
-    btn:SetText('搜索条件')
+    btn:SetText('过滤条件')
     btn:SetScript('OnClick', function() set_subtab(FILTER) end)
     new_filter_button = btn
 end
 do
-    local frame = CreateFrame('Frame', nil, frame)
-    frame:SetWidth(265)
-    frame:SetHeight(25)
-    frame:SetPoint('TOPLEFT', aux.frame.content, 'BOTTOMLEFT', 0, -6)
-    status_bar_frame = frame
-end
-do
     local btn = gui.button(frame.results)
-    btn:SetPoint('TOPLEFT', status_bar_frame, 'TOPRIGHT', 5, 0)
-    btn:SetText('竞拍')
+    btn:SetPoint('LEFT', aux.status_bar, 'RIGHT', 5, 0)
+    btn:SetText('竞标')
     btn:Disable()
     bid_button = btn
 end
@@ -242,7 +186,7 @@ do
 end
 do
     local btn = gui.button(frame.saved)
-    btn:SetPoint('TOPLEFT', status_bar_frame, 'TOPRIGHT', 5, 0)
+    btn:SetPoint('LEFT', aux.status_bar, 'RIGHT', 5, 0)
     btn:SetText('收藏夹')
     btn:SetScript('OnClick', function()
         add_favorite(search_box:GetText())
@@ -250,7 +194,7 @@ do
 end
 do
     local btn1 = gui.button(frame.filter)
-    btn1:SetPoint('TOPLEFT', status_bar_frame, 'TOPRIGHT', 5, 0)
+    btn1:SetPoint('LEFT', aux.status_bar, 'RIGHT', 5, 0)
     btn1:SetText('搜索')
     btn1:SetScript('OnClick', function()
 	    export_filter_string()
@@ -278,16 +222,14 @@ do
         end
     end
     editbox:SetScript('OnTabPressed', function()
-	    if blizzard_query.exact then
-		    return
-	    end
-        if IsShiftKeyDown() then
-            max_level_input:SetFocus()
-        else
-            min_level_input:SetFocus()
+        if not IsShiftKeyDown() then
+            if blizzard_query.exact then
+                filter_dropdown:SetFocus()
+            else
+                min_level_input:SetFocus()
+            end
         end
     end)
-    editbox.change = update_form
     editbox.enter = function() editbox:ClearFocus() end
     local label = gui.label(editbox, gui.font_size.small)
     label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -2, 1)
@@ -297,10 +239,10 @@ end
 do
     local checkbox = gui.checkbox(frame.filter)
     checkbox:SetPoint('TOPLEFT', name_input, 'TOPRIGHT', 16, 0)
-    checkbox:SetScript('OnClick', update_form)
+    checkbox:SetScript('OnClick', exact_update)
     local label = gui.label(checkbox, gui.font_size.small)
     label:SetPoint('BOTTOMLEFT', checkbox, 'TOPLEFT', -2, 1)
-    label:SetText('精确')
+    label:SetText('精准')
     exact_checkbox = checkbox
 end
 do
@@ -322,7 +264,6 @@ do
 	    if tostring(valid_level) ~= self:GetText() then
             self:SetText(valid_level or '')
 	    end
-	    update_form()
     end
     local label = gui.label(editbox, gui.font_size.small)
     label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -2, 1)
@@ -339,7 +280,7 @@ do
         if IsShiftKeyDown() then
             min_level_input:SetFocus()
         else
-            name_input:SetFocus()
+            class_dropdown:SetFocus()
         end
     end)
     editbox.enter = function() editbox:ClearFocus() end
@@ -348,7 +289,6 @@ do
 	    if tostring(valid_level) ~= self:GetText() then
             self:SetText(valid_level or '')
 	    end
-	    update_form()
     end
     local label = gui.label(editbox, gui.font_size.medium)
     label:SetPoint('RIGHT', editbox, 'LEFT', -3, 0)
@@ -358,92 +298,99 @@ end
 do
     local checkbox = gui.checkbox(frame.filter)
     checkbox:SetPoint('TOPLEFT', max_level_input, 'TOPRIGHT', 16, 0)
-    checkbox:SetScript('OnClick', update_form)
     local label = gui.label(checkbox, gui.font_size.small)
     label:SetPoint('BOTTOMLEFT', checkbox, 'TOPLEFT', -2, 1)
-    label:SetText('可用')
+    label:SetText('可用的')
     usable_checkbox = checkbox
 end
 do
     local dropdown = gui.dropdown(frame.filter)
-    class_dropdown = dropdown
-    dropdown:SetPoint('TOPLEFT', min_level_input, 'BOTTOMLEFT', 0, 5 - FILTER_SPACING)
+    dropdown.selection_change = function() class_selection_change() end
+    dropdown:SetPoint('TOPLEFT', min_level_input, 'BOTTOMLEFT', 0, -FILTER_SPACING)
     dropdown:SetWidth(300)
+    dropdown:SetScript('OnTabPressed', function()
+        if IsShiftKeyDown() then
+            max_level_input:SetFocus()
+        else
+            subclass_dropdown:SetFocus()
+        end
+    end)
     local label = gui.label(dropdown, gui.font_size.small)
-    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, -3)
+    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, 1)
     label:SetText('物品类别')
-    UIDropDownMenu_Initialize(dropdown, initialize_class_dropdown)
-    dropdown:SetScript('OnShow', function(self)
-        UIDropDownMenu_Initialize(self, initialize_class_dropdown)
-    end)
+    class_dropdown = dropdown
 end
 do
     local dropdown = gui.dropdown(frame.filter)
-    subclass_dropdown = dropdown
-    dropdown:SetPoint('TOPLEFT', class_dropdown, 'BOTTOMLEFT', 0, 10 - FILTER_SPACING)
+    dropdown.selection_change = function() subclass_selection_change() end
+    dropdown:SetPoint('TOPLEFT', class_dropdown, 'BOTTOMLEFT', 0, -FILTER_SPACING)
     dropdown:SetWidth(300)
+    dropdown:SetScript('OnTabPressed', function()
+        if IsShiftKeyDown() then
+            class_dropdown:SetFocus()
+        else
+            slot_dropdown:SetFocus()
+        end
+    end)
     local label = gui.label(dropdown, gui.font_size.small)
-    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, -3)
+    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, 1)
     label:SetText('物品子类')
-    UIDropDownMenu_Initialize(dropdown, initialize_subclass_dropdown)
-    dropdown:SetScript('OnShow', function(self)
-        UIDropDownMenu_Initialize(self, initialize_subclass_dropdown)
-    end)
+    subclass_dropdown = dropdown
 end
 do
     local dropdown = gui.dropdown(frame.filter)
+    dropdown:SetPoint('TOPLEFT', subclass_dropdown, 'BOTTOMLEFT', 0, -FILTER_SPACING)
+    dropdown:SetWidth(300)
+    dropdown:SetScript('OnTabPressed', function()
+        if IsShiftKeyDown() then
+            subclass_dropdown:SetFocus()
+        else
+            quality_dropdown:SetFocus()
+        end
+    end)
+    local label = gui.label(dropdown, gui.font_size.small)
+    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, 1)
+    label:SetText('物品部位')
     slot_dropdown = dropdown
-    dropdown:SetPoint('TOPLEFT', subclass_dropdown, 'BOTTOMLEFT', 0, 10 - FILTER_SPACING)
-    dropdown:SetWidth(300)
-    local label = gui.label(dropdown, gui.font_size.small)
-    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, -3)
-    label:SetText('物品槽')
-    UIDropDownMenu_Initialize(dropdown, initialize_slot_dropdown)
-    dropdown:SetScript('OnShow', function(self)
-        UIDropDownMenu_Initialize(self, initialize_slot_dropdown)
-    end)
 end
 do
     local dropdown = gui.dropdown(frame.filter)
-    quality_dropdown = dropdown
-    dropdown:SetPoint('TOPLEFT', slot_dropdown, 'BOTTOMLEFT', 0, 10 - FILTER_SPACING)
+    dropdown:SetPoint('TOPLEFT', slot_dropdown, 'BOTTOMLEFT', 0, -FILTER_SPACING)
     dropdown:SetWidth(300)
-    local label = gui.label(dropdown, gui.font_size.small)
-    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, -3)
-    label:SetText('最低品质')
-    UIDropDownMenu_Initialize(dropdown, initialize_quality_dropdown)
-    dropdown:SetScript('OnShow', function(self)
-        UIDropDownMenu_Initialize(self, initialize_quality_dropdown)
+    dropdown:SetScript('OnTabPressed', function()
+        if IsShiftKeyDown() then
+            slot_dropdown:SetFocus()
+        else
+            filter_dropdown:SetFocus()
+        end
     end)
+    local label = gui.label(dropdown, gui.font_size.small)
+    label:SetPoint('BOTTOMLEFT', dropdown, 'TOPLEFT', -2, 1)
+    label:SetText('最低品质')
+    quality_dropdown = dropdown
 end
 gui.vertical_line(frame.filter, 332)
 do
-    local dropdown = gui.dropdown(frame.filter)
-    dropdown:SetPoint('TOPRIGHT', -174.5, -10)
-    dropdown:SetWidth(150)
-    UIDropDownMenu_Initialize(dropdown, initialize_filter_dropdown)
-    dropdown:SetScript('OnShow', function(self)
-        UIDropDownMenu_Initialize(self, initialize_filter_dropdown)
-    end)
-    _G[dropdown:GetName() .. 'Text']:Hide()
-    local label = gui.label(dropdown, gui.font_size.medium)
-    label:SetPoint('RIGHT', dropdown, 'LEFT', -15, 0)
-    label:SetText('部件')
-    filter_dropdown = dropdown
-end
-do
-	local input = gui.editbox(frame.filter)
-	input:SetPoint('CENTER', filter_dropdown, 'CENTER', 0, 0)
+	local input = gui.dropdown(frame.filter)
+    input:SetPoint('TOPRIGHT', -205, -10)
 	input:SetWidth(150)
-	input:SetScript('OnTabPressed', function() filter_parameter_input:SetFocus() end)
-	input.complete = completion.complete(function() return T.temp-T.list('and', 'or', 'not', unpack(aux.keys(filter_util.filters))) end)
-	input.char = function(self) self:complete() end
+    input:SetScript('OnTabPressed', function()
+        if IsShiftKeyDown() then
+            if blizzard_query.exact then
+                name_input:SetFocus()
+            else
+                quality_dropdown:SetFocus()
+            end
+        else
+            filter_parameter_input:SetFocus()
+        end
+    end)
 	input.change = function(self)
 		local text = self:GetText()
 		if filter_util.filters[text] and filter_util.filters[text].input_type ~= '' then
 			local _, _, suggestions = filter_util.parse_filter_string(text .. '/')
 			filter_parameter_input:SetNumeric(filter_util.filters[text].input_type == 'number')
-			filter_parameter_input.complete = completion.complete(function() return suggestions or T.empty end)
+			filter_parameter_input.complete = completion.complete(function() return suggestions or empty end)
 			filter_parameter_input:Show()
 		else
 			filter_parameter_input:Hide()
@@ -455,15 +402,21 @@ do
 		else
 			add_form_component()
 		end
-	end
-	filter_input = input
+    end
+    input:SetOptions({'and', 'or', 'not', unpack(aux.keys(filter_util.filters))})
+    local label = gui.label(input, gui.font_size.medium)
+    label:SetPoint('RIGHT', input, 'LEFT', -8, 0)
+    label:SetText('部件')
+	filter_dropdown = input
 end
 do
     local input = gui.editbox(frame.filter)
     input:SetPoint('LEFT', filter_dropdown, 'RIGHT', 10, 0)
     input:SetWidth(150)
     input:SetScript('OnTabPressed', function()
-	    filter_input:SetFocus()
+        if IsShiftKeyDown() then
+            filter_dropdown:SetFocus()
+        end
     end)
     input.char = function(self) self:complete() end
     input.enter = add_form_component
@@ -471,15 +424,22 @@ do
     filter_parameter_input = input
 end
 do
+    local button = gui.button(frame.filter)
+    button:SetPoint('LEFT', filter_parameter_input, 'RIGHT', 10, 0)
+    button:SetWidth(button:GetHeight())
+    button:SetText('+')
+    button:SetScript('OnClick', add_form_component)
+end
+do
     local scroll_frame = CreateFrame('ScrollFrame', nil, frame.filter)
     scroll_frame:SetWidth(395)
     scroll_frame:SetHeight(270)
-    scroll_frame:SetPoint('TOPLEFT', 348.5, -50)
+    scroll_frame:SetPoint('TOPLEFT', 348.5, -47)
     scroll_frame:EnableMouse(true)
     scroll_frame:EnableMouseWheel(true)
     scroll_frame:SetScript('OnMouseWheel', function(self, arg1)
 	    local child = self:GetScrollChild()
-	    child:SetFont('p', [[Fonts\ARHei.TTF]], aux.bounded(gui.font_size.small, gui.font_size.large, select(2, child:GetFont()) + arg1 * 2))
+	    child:SetFont('p', [[Fonts\ARIALN.TTF]], aux.bounded(gui.font_size.small, gui.font_size.large, select(2, child:GetFont()) + arg1 * 2))
 	    update_filter_display()
     end)
     scroll_frame:RegisterForDrag('LeftButton')
@@ -504,7 +464,7 @@ do
     gui.set_content_style(scroll_frame, -2, -2, -2, -2)
     local scroll_child = CreateFrame('SimpleHTML', nil, scroll_frame)
     scroll_frame:SetScrollChild(scroll_child)
-    scroll_child:SetFont('p', [[Fonts\ARHei.TTF]], gui.font_size.large)
+    scroll_child:SetFont('p', [[Fonts\ARIALN.TTF]], gui.font_size.large)
     scroll_child:SetTextColor('p', aux.color.label.enabled())
     scroll_child:SetWidth(1)
     scroll_child:SetHeight(1)
@@ -513,17 +473,11 @@ do
     filter_display = scroll_child
 end
 
-status_bars = {}
 tables = {}
 for _ = 1, 5 do
-    local status_bar = gui.status_bar(frame)
-    status_bar:SetAllPoints(status_bar_frame)
-    status_bar:Hide()
-    tinsert(status_bars, status_bar)
-
     local table = auction_listing.new(frame.results, 16, auction_listing.search_columns)
     table:SetHandler('OnClick', function(row, button)
-	    if IsAltKeyDown() then
+        if IsAltKeyDown() and aux.account_data.action_shortcuts then
 		    if current_search().table:GetSelection().record == row.record then
 			    if button == 'LeftButton' then
 	                buyout_button:Click()
@@ -532,7 +486,6 @@ for _ = 1, 5 do
 			    end
 		    end
 	    elseif button == 'RightButton' then
-	        aux.set_tab(1)
 		    set_filter(strlower(info.item(row.record.item_id).name) .. '/exact')
 		    execute(nil, false)
 	    end
@@ -551,9 +504,9 @@ favorite_searches_listing = listing.new(frame.saved.favorite)
 favorite_searches_listing:SetColInfo{{name='状态', width=.07, align='CENTER'}, {name='收藏夹搜索', width=.93}}
 
 recent_searches_listing = listing.new(frame.saved.recent)
-recent_searches_listing:SetColInfo{{name='最近查询', width=1}}
+recent_searches_listing:SetColInfo{{name='最新搜索', width=1}}
 
-for listing in pairs(T.temp-T.set(favorite_searches_listing, recent_searches_listing)) do
+for listing in aux.iter(favorite_searches_listing, recent_searches_listing) do
 	for k, v in pairs(handlers) do
 		listing:SetHandler(k, v)
 	end

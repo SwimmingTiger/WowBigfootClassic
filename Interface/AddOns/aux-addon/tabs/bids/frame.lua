@@ -20,7 +20,7 @@ listing = auction_listing.new(frame.listing, 20, auction_listing.bids_columns)
 listing:SetSort(1, 2, 3, 4, 5, 6, 7, 8)
 listing:Reset()
 listing:SetHandler('OnClick', function(row, button)
-	if IsAltKeyDown() then
+	if IsAltKeyDown() and aux.account_data.action_shortcuts then
 		if listing:GetSelection().record == row.record then
 			if button == 'LeftButton' then
 				buyout_button:Click()
@@ -34,24 +34,13 @@ listing:SetHandler('OnClick', function(row, button)
 		search_tab.execute(nil, false)
 	end
 end)
-listing:SetHandler('OnSelectionChanged', function(rt, datum)
-    if not datum then return end
-    find_auction(datum.record)
-end)
 
 do
-	status_bar = gui.status_bar(frame)
-    status_bar:SetWidth(265)
-    status_bar:SetHeight(25)
-    status_bar:SetPoint('TOPLEFT', aux.frame.content, 'BOTTOMLEFT', 0, -6)
-    status_bar:update_status(1, 0)
-    status_bar:set_text('')
-end
-do
     local btn = gui.button(frame)
-    btn:SetPoint('TOPLEFT', status_bar, 'TOPRIGHT', 5, 0)
+    btn:SetPoint('LEFT', aux.status_bar, 'RIGHT', 5, 0)
     btn:SetText('竞拍')
     btn:Disable()
+    btn:SetScript('OnClick', function() place_bid() end)
     bid_button = btn
 end
 do
@@ -59,13 +48,6 @@ do
     btn:SetPoint('TOPLEFT', bid_button, 'TOPRIGHT', 5, 0)
     btn:SetText('一口价')
     btn:Disable()
+    btn:SetScript('OnClick', function() place_bid(true) end)
     buyout_button = btn
-end
-do
-    local btn = gui.button(frame)
-    btn:SetPoint('TOPLEFT', buyout_button, 'TOPRIGHT', 5, 0)
-    btn:SetText('刷新')
-    btn:SetScript('OnClick', function()
-        scan_auctions()
-    end)
 end

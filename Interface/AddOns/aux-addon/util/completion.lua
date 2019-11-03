@@ -1,6 +1,5 @@
 select(2, ...) 'aux.util.completion'
 
-local aux = require 'aux'
 local filter_util = require 'aux.util.filter'
 
 function M.complete_filter(self)
@@ -36,7 +35,7 @@ function M.complete(candidates)
 		local t = candidates()
 		for i = 1, #t do
 			if strsub(strupper(t[i]), 1, strlen(text)) == strupper(text) then
-				self:SetText(strlower(t[i]))
+				self:SetText(t[i])
 				self:HighlightText(strlen(text), -1)
 				return
 			end

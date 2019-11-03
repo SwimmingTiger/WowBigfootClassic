@@ -1,13 +1,11 @@
 ## Interface: 11302
 ## Author: shirsig
 ## Title: aux
+## Version: 0.8.1
 ## Notes: Auction House replacement
 ## SavedVariables: aux
-## Dependencies: BigFoot
-## LoadOnDemand: 1
 
 libs\package.lua
-libs\T.lua
 
 aux-addon.lua
 util.lua
@@ -27,7 +25,6 @@ util\completion.lua
 core\slash.lua
 core\scan.lua
 util\scan.lua
-core\stack.lua
 core\tooltip.lua
 core\shortcut.lua
 
@@ -53,5 +50,3 @@ tabs\bids\frame.lua
 core\crafting.lua
 
 
-
-## Q-CAT-Version: 2

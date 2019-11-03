@@ -1,6 +1,5 @@
 select(2, ...) 'aux.core.history'
 
-local T = require 'T'
 local aux = require 'aux'
 
 local persistence = require 'aux.util.persistence'
@@ -9,7 +8,7 @@ local history_schema = {'tuple', '#', {next_push='number'}, {daily_min_buyout='n
 
 local value_cache = {}
 
-function aux.handle.LOAD2()
+function aux.event.PLAYER_LOGIN()
 	data = aux.faction_data.history
 end
 
@@ -26,7 +25,7 @@ do
 end
 
 function new_record()
-	return T.temp-T.map('next_push', get_next_push(), 'data_points', T.acquire())
+	return { next_push = get_next_push(), data_points = {} }
 end
 
 function read_record(item_key)
@@ -41,7 +40,6 @@ end
 function write_record(item_key, record)
 	data[item_key] = persistence.write(history_schema, record)
 	if value_cache[item_key] then
-		T.release(value_cache[item_key])
 		value_cache[item_key] = nil
 	end
 end
@@ -64,11 +62,11 @@ function M.value(item_key)
 		local item_record, value
 		item_record = read_record(item_key)
 		if #item_record.data_points > 0 then
-			local total_weight, weighted_values = 0, T.temp-T.acquire()
+			local total_weight, weighted_values = 0, {}
 			for _, data_point in pairs(item_record.data_points) do
 				local weight = .99 ^ aux.round((item_record.data_points[1].time - data_point.time) / (60 * 60 * 24))
 				total_weight = total_weight + weight
-				tinsert(weighted_values, T.map('value', data_point.value, 'weight', weight))
+				tinsert(weighted_values, { value = data_point.value, weight = weight })
 			end
 			for _, weighted_value in pairs(weighted_values) do
 				weighted_value.weight = weighted_value.weight / total_weight
@@ -77,7 +75,7 @@ function M.value(item_key)
 		else
 			value = item_record.daily_min_buyout
 		end
-		value_cache[item_key] = T.map('value', value, 'next_push', item_record.next_push)
+		value_cache[item_key] = { value = value, next_push = item_record.next_push }
 	end
 	return value_cache[item_key].value
 end
@@ -99,9 +97,8 @@ end
 
 function push_record(item_record)
 	if item_record.daily_min_buyout then
-		tinsert(item_record.data_points, 1, T.map('value', item_record.daily_min_buyout, 'time', item_record.next_push))
+		tinsert(item_record.data_points, 1, { value = item_record.daily_min_buyout, time = item_record.next_push })
 		while #item_record.data_points > 11 do
-			T.release(item_record.data_points[#item_record.data_points])
 			tremove(item_record.data_points)
 		end
 	end

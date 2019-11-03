@@ -1,14 +1,56 @@
 select(2, ...) 'aux'
 
-local T = require 'T'
-
-M.immutable = setmetatable(T.acquire(), {
+M.immutable = setmetatable({}, {
 	__metatable = false,
 	__newindex = pass,
 	__sub = function(_, t)
-		return setmetatable(T.acquire(), T.map('__metatable', false, '__newindex', pass, '__index', t))
+		return setmetatable({}, { __metatable = false, __newindex = pass, __index = t })
 	end
 })
+
+function M.pluralize(text)
+    local text = gsub(text, '(-?%d+)(.-)|4([^;]-);', function(number_string, gap, number_forms)
+        local singular, dual, plural
+        _, _, singular, dual, plural = strfind(number_forms, '(.+):(.+):(.+)');
+        if not singular then
+            _, _, singular, plural = strfind(number_forms, '(.+):(.+)')
+        end
+        local i = abs(tonumber(number_string))
+        local number_form
+        if i == 1 then
+            number_form = singular
+        elseif i == 2 then
+            number_form = dual or plural
+        else
+            number_form = plural
+        end
+        return number_string .. gap .. number_form
+    end)
+    return text
+end
+
+function M.wipe(t)
+    setmetatable(t, nil)
+    for k in pairs(t) do
+        t[k] = nil
+    end
+end
+
+function M.set(...)
+    local t = {}
+    for i = 1, select('#', ...) do
+        t[select(i, ...)] = true
+    end
+    return t
+end
+
+function M.iter(...)
+    local t = {}
+    for i = 1, select('#', ...) do
+        t[select(i, ...)] = true
+    end
+    return pairs(t)
+end
 
 function M.assign(t1, t2)
     for k, v in pairs(t2) do
@@ -37,7 +79,7 @@ function M.modified()
 end
 
 function M.copy(t)
-	local copy = T.acquire()
+	local copy = {}
 	for k, v in pairs(t) do
 		copy[k] = v
 	end
@@ -61,7 +103,7 @@ function M.key(t, value)
 end
 
 function M.keys(t)
-	local keys = T.acquire()
+	local keys = {}
 	for k in pairs(t) do
 		tinsert(keys, k)
 	end
@@ -69,7 +111,7 @@ function M.keys(t)
 end
 
 function M.values(t)
-	local values = T.acquire()
+	local values = {}
 	for _, v in pairs(t) do
 		tinsert(values, v)
 	end
@@ -128,7 +170,7 @@ function M.trim(str)
 end
 
 function M.split(str, separator)
-	local parts = T.acquire()
+	local parts = {}
 	while true do
 		local start_index = strfind(str, separator, 1, true)
 		if start_index then
@@ -144,7 +186,7 @@ function M.split(str, separator)
 end
 
 function M.tokenize(str)
-	local tokens = T.acquire()
+	local tokens = {}
 	for token in string.gmatch(str, '%S+') do tinsert(tokens, token) end
 	return tokens
 end

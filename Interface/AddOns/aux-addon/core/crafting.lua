@@ -1,17 +1,16 @@
 select(2, ...) 'aux.core.crafting'
 
-local T = require 'T'
 local aux = require 'aux'
 local info = require 'aux.util.info'
 local money = require 'aux.util.money'
 local history = require 'aux.core.history'
 local search_tab = require 'aux.tabs.search'
 
-function aux.handle.LOAD()
+function aux.event.AUX_LOADED()
     if not aux.account_data.crafting_cost then
         return
     end
-    aux.event_listener('ADDON_LOADED', function(_, addon_name)
+    aux.event_listener('ADDON_LOADED', function(addon_name)
         if addon_name == 'Blizzard_CraftUI' then
             craft_ui_loaded()
         elseif addon_name == 'Blizzard_TradeSkillUI' then
@@ -40,7 +39,7 @@ do
     end
     function craft_ui_loaded()
         aux.hook('CraftFrame_SetSelection', function(...)
-            local ret = T.temp-T.list(aux.orig.CraftFrame_SetSelection(...))
+            local ret = {aux.orig.CraftFrame_SetSelection(...)}
             local id = GetCraftSelectionIndex()
             local total_cost = 0
             for i = 1, GetCraftNumReagents(id) do
@@ -69,7 +68,7 @@ do
     end
     function trade_skill_ui_loaded()
         aux.hook('TradeSkillFrame_SetSelection', function(...)
-            local ret = T.temp-T.list(aux.orig.TradeSkillFrame_SetSelection(...))
+            local ret = {aux.orig.TradeSkillFrame_SetSelection(...)}
             local id = GetTradeSkillSelectionIndex()
             local total_cost = 0
             for i = 1, GetTradeSkillNumReagents(id) do
