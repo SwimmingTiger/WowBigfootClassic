@@ -25,23 +25,17 @@ local L = LibStub("AceLocale-3.0"):GetLocale(...)
 MessageClassifierDefaultRules = {
     {
         id = 1,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_BY_AUTHOR"]:format("{author}")
     },
     {
         id = 2,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_BY_CHANNEL"]:format("{channel}")
     },
     {
         id = 3,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_ALL_MESSAGES"]
     }
 }

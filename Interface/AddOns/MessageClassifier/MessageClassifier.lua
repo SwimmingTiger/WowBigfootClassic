@@ -19,7 +19,7 @@ local function StringHash(text)
     return mod(counter, 4294967291); -- 2^32 - 5: Prime (and different from the prime in the loop)
 end
 
-function MessageClassifier.chatFilter(frame, event, msg, authorWithServer, unknown1, channelTitle, author, unknown2, unknown3, channelID, channelName, unknown5, index, playerGUID, ...)
+function MessageClassifier.chatFilter(frame, event, msg, authorFullName, unknown1, channelTitle, author, unknown2, unknown3, channelID, channelName, unknown5, index, playerGUID, ...)
     local guid = playerGUID..'-'..msg:len()..'-'..StringHash(msg)
     if messageFrameGUIDs[frame] == nil then
         messageFrameGUIDs[frame] = {}
@@ -28,7 +28,7 @@ function MessageClassifier.chatFilter(frame, event, msg, authorWithServer, unkno
     -- per message
     if messageGUIDIndexs[guid] ~= index then
         local guidInt = StringHash(guid)
-        MessageClassifierBrowser:addMessage(msg, authorWithServer, author, channelID, channelName, playerGUID, guid, guidInt)
+        MessageClassifierBrowser:addMessage(msg, authorFullName, author, channelID, channelName, playerGUID, guid, guidInt)
         messageGUIDIndexs[guid] = index
     end
 

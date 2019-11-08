@@ -24,8 +24,8 @@ L["RESET_TIPS"] = "公共频道/世界频道消息去重：过滤器已重置"
 
 -- Options
 L["CONFIG_PAGE_TITLE"] = "聊天消息分类去重"
-L["OPTION_ENABLED"] = "启用重复消息过滤"
-L["OPTION_ENABLED_TOOLTIP"] = "不显示公共频道/世界频道中重复的消息"
+L["OPTION_ENABLED"] = "启用消息分类和重复消息过滤"
+L["OPTION_ENABLED_TOOLTIP"] = "不显示公共频道/世界频道中重复的消息，并将消息分类收集到消息浏览器中"
 L["OPTION_MIN_DUP_INTERVAL"] = "允许重复消息出现的最短间隔秒数，设为0始终禁止重复消息"
 L["OPTION_RESET"] = "重置过滤器"
 L["OPTION_RESET_TOOLTIP"] = "清除重复消息记录，允许重复消息再次显示"
@@ -38,14 +38,15 @@ L["OPTION_CANCEL"] = "取消"
 L["OPTION_REMOVE"] = "移除"
 L["OPTION_RULE_SETS"] = "自定义规则"
 L["OPTION_DEFAULT_RULE_SETS"] = "默认规则"
-L["OPTION_CONDITIONS"] = "条件"
+L["OPTION_CONDITIONS"] = "如果"
 L["OPTION_CONDITION_LOGIC"] = "逻辑关系"
 L["OPTION_RULE_LOGIC_OR"] = "其中一个条件成立"
 L["OPTION_RULE_LOGIC_AND"] = "全部条件同时成立"
 L["OPTION_HIDE_FROM_CHAT_WINDOW"] = "不在聊天窗口显示"
 L["OPTION_ENABLE"] = "启用"
-L["OPTION_CLASS"] = "分类"
-L["OPTION_CLASS_EDIT_TITLE"] = "分类 (可用变量: |cffc586c0{作者}|r 和 |cffc586c0{频道}|r)"
+L["OPTION_CLASS"] = "就加入以下分类"
+L["OPTION_CLASS_NO_CONDITIONS"] = "总是加入以下分类"
+L["OPTION_CLASS_EDIT_TITLE"] = "就加入以下分类 (可用变量: |cffc586c0{作者}|r 和 |cffc586c0{频道}|r)"
 L["OPTION_CONDITION_FIELD"] = "字段"
 L["OPTION_CONDITION_OPERATOR"] = "操作"
 L["OPTION_CONDITION_VALUE"] = "值"
@@ -59,7 +60,6 @@ L["channel"] = "频道"
 L["content"] = "内容"
 
 -- Rule Operators
-L["unconditional"] = "无条件"
 L["equal"] = "等于"
 L["not equal"] = "不等于"
 L["contain"] = "包含"
@@ -104,23 +104,17 @@ local L = LibStub("AceLocale-3.0"):GetLocale(...)
 MessageClassifierDefaultRules = {
     {
         id = 1,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_BY_AUTHOR"]:format("{author}")
     },
     {
         id = 2,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_BY_CHANNEL"]:format("{channel}")
     },
     {
         id = 3,
-        conditions = {
-            { operator = "unconditional" },
-        },
+        conditions = {},
         class = L["BROWSER_CLASSIFIED_ALL_MESSAGES"]
     },
     {
@@ -252,6 +246,17 @@ MessageClassifierDefaultRules = {
             }, -- [2]
         },
     }, -- [9]
+    {
+        id = 3105,
+        ["class"] = "副本/黑暗深渊/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "黑暗",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            }, -- [1]
+        },
+    }, -- [10]
     {
         id = 3005,
         ["class"] = "副本/监狱/{author}",
@@ -558,15 +563,15 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "contain",
             }, -- [1]
             {
-                ["value"] = "MM",
-                ["operator"] = "contain",
-                ["field"] = "content",
-            }, -- [2]
-            {
                 ["value"] = "巢穴",
                 ["operator"] = "contain",
                 ["field"] = "content",
             }, -- [3]
+            {
+                ["value"] = "龙妹",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            }, -- [1]
         },
     }, -- [31]
 }

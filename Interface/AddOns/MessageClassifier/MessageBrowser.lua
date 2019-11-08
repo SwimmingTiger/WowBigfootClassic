@@ -135,7 +135,7 @@ local function shortChannelName(channel)
 end
 
 local function formatMsg(msg)
-    local text = string.format("|cffffa900%s|r |Hchannel:channel:%d|h[%s]|h [|Hplayer:%s:-1|h%s|h] %s", date("%H:%M:%S", msg.updateTime), msg.channelID, shortChannelName(msg.channel), msg.authorWithServer, msg.author, msg.content)
+    local text = string.format("|cffffa900%s|r |Hchannel:channel:%d|h[%s]|h [|Hplayer:%s:-1|h%s|h] %s", date("%H:%M:%S", msg.updateTime), msg.channelID, shortChannelName(msg.channel), msg.authorFullName, msg.author, msg.content)
     if msg.count > 1 then
         text = getColoredCount(msg.count)..text
     end
@@ -193,19 +193,26 @@ function MessageClassifierBrowser:sortMessageView(view)
     end
 end
 
-function MessageClassifierBrowser:addMessage(content, authorWithServer, author, channelID, channelName, authorGUID, guid, guidInt)
+function MessageClassifierBrowser:addMessage(content, authorFullName, author, channelID, channelName, authorGUID, guid, guidInt)
     self.allMessages = self.allMessages + 1
     if not self.messages[guid] then
-        if authorWithServer ~= author .. '-' .. GetRealmName() then
-            -- From the other realm, add the suffix
-            author = authorWithServer
+        local realmPrefix = '-'..GetRealmName()
+        -- Same as the player's realm, remove the suffix.
+        -- We need this on Wow retail.
+        if author:sub(-realmPrefix:len(), -1) == realmPrefix then
+            author = author:sub(1, -realmPrefix:len() - 1)
         end
+        -- Same as the player's realm, remove the suffix.
+        if authorFullName:sub(-realmPrefix:len(), -1) == realmPrefix then
+            authorFullName = authorFullName:sub(1, -realmPrefix:len() - 1)
+        end
+
         local updateTime = GetTime() + self.baseTime
         self.messages[guid] = {
             guid = guid,
             authorGUID = authorGUID,
             author = getColoredName(author, authorGUID),
-            authorWithServer = authorWithServer,
+            authorFullName = authorFullName,
             content = content,
             channel = channelName,
             channelID = channelID,
@@ -317,49 +324,50 @@ function MessageClassifierBrowser:ruleMatch(msg, rule)
 
     local logicOr = rule.logic ~= "and"
     local match = false
-    for _, expression in ipairs(rule.conditions) do
-        if expression.operator == "unconditional" then
-            match = true
-            break
-        end
-        
-        local operator = expression.operator
-        local field = msg[expression.field or ""] or ""
-        local value = expression.value or ""
+    if #rule.conditions == 0 then
+        match = true
+    else
+        for _, expression in ipairs(rule.conditions) do
+            local operator = expression.operator
+            local field = msg[expression.field or ""] or ""
+            local value = expression.value or ""
 
-        if not expression.caseSensitive then
-            field = field:lower()
-            if operator ~= "match" and operator ~= "not match" then
-                value = value:lower()
+            if not expression.caseSensitive then
+                field = field:lower()
+                if operator ~= "match" and operator ~= "not match" then
+                    value = value:lower()
+                end
             end
-        end
 
-        if operator == "equal" then
-            match = field == value
-        elseif operator == "not equal" then
-            match = field ~= value
-        elseif operator == "contain" then
-            match = field:find(value) ~= nil
-        elseif operator == "not contain" then
-            match = field:find(value) == nil
-        elseif operator == "match" then
-            match = field:match(value) ~= nil
-        elseif operator == "not match" then
-            match = field:match(value) == nil
-        end
-
-        if logicOr then
-            if match then
-                break
+            if operator == "equal" then
+                match = field == value
+            elseif operator == "not equal" then
+                match = field ~= value
+            elseif operator == "contain" then
+                match = field:find(value) ~= nil
+            elseif operator == "not contain" then
+                match = field:find(value) == nil
+            elseif operator == "match" then
+                match = field:match(value) ~= nil
+            elseif operator == "not match" then
+                match = field:match(value) == nil
             end
-        else
-            if not match then
-                break
+
+            if logicOr then
+                if match then
+                    break
+                end
+            else
+                if not match then
+                    break
+                end
             end
         end
     end
 
-    if match and rule.hideFromChatWindow then
+    if match and (rule.id ~= nil
+                    and MessageClassifierConfig.defRulHideFromChatWindow[rule.id] == true
+                    or rule.hideFromChatWindow == true) then
         self.hideFromChatWindow[msg.guid] = true
     end
 
@@ -389,19 +397,21 @@ function MessageClassifierBrowser:updateStatusBar()
 end
 
 function MessageClassifierBrowser:updateMsgView()
-    local function getAllMessages(tree, result)
+    local function getAllMessages(tree, result, uniqueMap)
         for i=1, #tree do
             local item = tree[i]
-            if item.msg then
+            if item.msg and not uniqueMap[item.msg.guid] then
                 result[#result + 1] = item
+                uniqueMap[item.msg.guid] = true
             end
             if item.children then
-                getAllMessages(item.children, result)
+                getAllMessages(item.children, result, uniqueMap)
             end
         end
     end
     local allMessages = {}
-    getAllMessages(self.msgViewContent.children, allMessages)
+    local uniqueMap = {}
+    getAllMessages(self.msgViewContent.children, allMessages, uniqueMap)
     table.sort(allMessages, msgComp)
 
     self.msgView:Clear()

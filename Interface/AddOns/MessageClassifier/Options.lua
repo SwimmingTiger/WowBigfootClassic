@@ -8,32 +8,37 @@ MessageClassifierConfig = {}
 --[[
 -- Fields and values of classificationRules:
 {
+    id = <integer> -- Only for default rules. Don't change it once assigned.
+    
     logic = "and"
             "or"
             Default: "or"
-    conditions = {
-        field: "author",
-               "channel"
-               "content"
-        operator: "equal"
-                  "not equal"
-                  "contain"
-                  "not contain"
-                  "match"
-                  "not match"
-                  "unconditional"
-        value: <string>
-               <regular expression>
-               Example: "molten"
-                        " AA "
-                        "15g"
-                        "%bAA%b"
-                        "%d+g%b"
-        
-        caseSensitive: true
-                       false
-                       Default: false
+
+    conditions = { -- Matches any message if conditions is an empty array
+        {
+            field: "author",
+                "channel"
+                "content"
+            operator: "equal"
+                    "not equal"
+                    "contain"
+                    "not contain"
+                    "match"
+                    "not match"
+            value: <string>
+                <regular expression>
+                Example: "molten"
+                            " AA "
+                            "15g"
+                            "%bAA%b"
+                            "%d+g%b"
+            
+            caseSensitive: true
+                        false
+                        Default: false
+        }, ...
     }
+
     class: <string>,
             Available variables: {author}
                                  {channel},
@@ -60,6 +65,7 @@ local defaultConfig = {
     ["minDupInterval"] = 0,
     ["classificationRules"] = {},
     ["enabledDefaultRules"] = {},
+    ["defRulHideFromChatWindow"] = {},
 }
 
 local classPathLocales = {
@@ -90,22 +96,31 @@ local function delocalizeClassPath(class)
 end
 
 local function ruleToText(ruleSet)
-    local text = string.format("%s: %s", L["OPTION_CLASS"], localizeClassPathWithColor(ruleSet.class))
-    if #ruleSet.conditions > 1 then
-        local logicOr = ruleSet.logic ~= "and"
-        text = text..string.format("\n%s: |cffc586c0%s|r", L["OPTION_CONDITIONS"], logicOr and L["OPTION_RULE_LOGIC_OR"] or L["OPTION_RULE_LOGIC_AND"])
+    local text = ""
+    if #ruleSet.conditions == 0 then
+        text = text..string.format("%s:\n    %s", L["OPTION_CLASS_NO_CONDITIONS"], localizeClassPathWithColor(ruleSet.class))
     else
-        text = text..string.format("\n%s:", L["OPTION_CONDITIONS"])
-    end
-    for _, rule in ipairs(ruleSet.conditions) do
-        if rule.operator == "unconditional" then
-            text = text..string.format("\n|cff569cd6%s|r", L["unconditional"])
-            break
+        if #ruleSet.conditions == 1 then
+            text = text..string.format("%s", L["OPTION_CONDITIONS"])
+
+            local rule = ruleSet.conditions[1]
+            text = text..string.format(" |cffdcdcaa%s|r |cff569cd6%s|r |cffce9178%s|r", L[rule.field], L[rule.operator], rule.value)
+            if rule.caseSensitive then
+                text = text..string.format(" (%s)", L["OPTION_COND_CASESENSITIVE"])
+            end
+        else
+            local logicOr = ruleSet.logic ~= "and"
+            text = text..string.format("%s |cffc586c0%s|r:", L["OPTION_CONDITIONS"], logicOr and L["OPTION_RULE_LOGIC_OR"] or L["OPTION_RULE_LOGIC_AND"])
+
+            for _, rule in ipairs(ruleSet.conditions) do
+                text = text..string.format("\n    |cffdcdcaa%s|r |cff569cd6%s|r |cffce9178%s|r", L[rule.field], L[rule.operator], rule.value)
+                if rule.caseSensitive then
+                    text = text..string.format(" (%s)", L["OPTION_COND_CASESENSITIVE"])
+                end
+            end
         end
-        text = text..string.format("\n    |cffdcdcaa%s|r |cff569cd6%s|r |cffce9178%s|r", L[rule.field], L[rule.operator], rule.value)
-        if rule.caseSensitive then
-            text = text..string.format(" (%s)", L["OPTION_COND_CASESENSITIVE"])
-        end
+
+        text = text..string.format("\n\n%s:\n    %s", L["OPTION_CLASS"], localizeClassPathWithColor(ruleSet.class))
     end
     return text
 end
@@ -308,7 +323,7 @@ function MessageClassifierConfigFrame:loadConfig()
                                 get = function(info)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        if rule.hideFromChatWindow ~= true then
+                                        if MessageClassifierConfig.defRulHideFromChatWindow[rule.id] ~= true then
                                             return false
                                         end
                                     end
@@ -317,7 +332,7 @@ function MessageClassifierConfigFrame:loadConfig()
                                 set = function(info, val)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        rule.hideFromChatWindow = val
+                                        MessageClassifierConfig.defRulHideFromChatWindow[rule.id] = val
                                     end
                                     MessageClassifierBrowser:updateAllMessages()
                                 end,
@@ -528,23 +543,27 @@ function MessageClassifierConfigFrame:editRuleSet(index)
                     MessageClassifierConfigFrame:cancelEditRuleSet(index)
                 end
             },
-            class = {
-                order = 11,
-                type = "input",
-                name = L["OPTION_CLASS_EDIT_TITLE"],
-                width = "full",
+            logic = {
+                order = 10,
+                type = "select",
+                width = 2,
+                name = L["OPTION_CONDITIONS"],
+                values = {
+                    ["or"] = L["OPTION_RULE_LOGIC_OR"],
+                    ["and"] = L["OPTION_RULE_LOGIC_AND"],
+                },
                 get = function(info)
-                    return localizeClassPath(cache.class)
+                    return cache.logic == "and" and "and" or "or"
                 end,
                 set = function(info, val)
-                    cache.class = delocalizeClassPath(val)
-                end,
+                    cache.logic = val
+                end
             },
             conditions = {
-                order = 21,
+                order = 11,
                 type = "group",
                 inline = true,
-                name = L["OPTION_CONDITIONS"],
+                name = "",
                 args = {
                     actionBar = {
                         order = 999999, -- at the end
@@ -561,26 +580,27 @@ function MessageClassifierConfigFrame:editRuleSet(index)
                                     MessageClassifierConfigFrame:addCondition(index)
                                 end
                             },
-                            logic = {
-                                order = 2,
-                                type = "select",
-                                width = 2,
-                                name = L["OPTION_CONDITION_LOGIC"],
-                                values = {
-                                    ["or"] = L["OPTION_RULE_LOGIC_OR"],
-                                    ["and"] = L["OPTION_RULE_LOGIC_AND"],
-                                },
-                                get = function(info)
-                                    return cache.logic == "and" and "and" or "or"
-                                end,
-                                set = function(info, val)
-                                    cache.logic = val
-                                end
-                            },
                         }
                     }
                 }
-            }
+            },
+            class = {
+                order = 21,
+                type = "input",
+                name = L["OPTION_CLASS_EDIT_TITLE"],
+                width = "full",
+                get = function(info)
+                    return localizeClassPath(cache.class)
+                end,
+                set = function(info, val)
+                    cache.class = delocalizeClassPath(val)
+                end,
+            },
+            bottomLine = {
+                order = 99,
+                type = "header",
+                name = "",
+            },
         }
     }
 
@@ -628,8 +648,57 @@ function MessageClassifierConfigFrame:addConditionToView(ruleSetIndex, index, co
         order = index,
         name = "",
         args = {
+            field = {
+                order = 11,
+                type = "select",
+                width = 0.7,
+                name = "",
+                values = {
+                    ["author"] = L["author"],
+                    ["channel"] = L["channel"],
+                    ["content"] = L["content"],
+                },
+                get = function(info)
+                    return condition.field
+                end,
+                set = function(info, val)
+                    condition.field = val
+                end
+            },
+            operator = {
+                order = 12,
+                type = "select",
+                width = 0.8,
+                name = "",
+                values = {
+                    ["equal"] = L["equal"],
+                    ["not equal"] = L["not equal"],
+                    ["contain"] = L["contain"],
+                    ["not contain"] = L["not contain"],
+                    ["match"] = L["match"],
+                    ["not match"] = L["not match"],
+                },
+                get = function(info)
+                    return condition.operator
+                end,
+                set = function(info, val)
+                    condition.operator = val
+                end
+            },
+            value = {
+                order = 13,
+                type = "input",
+                width = 1.67,
+                name = "",
+                get = function(info)
+                    return condition.value
+                end,
+                set = function(info, val)
+                    condition.value = val
+                end
+            },
             actionBar = {
-                order = 1,
+                order = 30,
                 type = "group",
                 inline = true,
                 name = "",
@@ -655,56 +724,6 @@ function MessageClassifierConfigFrame:addConditionToView(ruleSetIndex, index, co
                         end
                     },
                 }
-            },
-            field = {
-                order = 11,
-                type = "select",
-                width = 0.7,
-                name = L["OPTION_CONDITION_FIELD"],
-                values = {
-                    ["author"] = L["author"],
-                    ["channel"] = L["channel"],
-                    ["content"] = L["content"],
-                },
-                get = function(info)
-                    return condition.field
-                end,
-                set = function(info, val)
-                    condition.field = val
-                end
-            },
-            operator = {
-                order = 12,
-                type = "select",
-                width = 0.8,
-                name = L["OPTION_CONDITION_OPERATOR"],
-                values = {
-                    ["unconditional"] = L["unconditional"],
-                    ["equal"] = L["equal"],
-                    ["not equal"] = L["not equal"],
-                    ["contain"] = L["contain"],
-                    ["not contain"] = L["not contain"],
-                    ["match"] = L["match"],
-                    ["not match"] = L["not match"],
-                },
-                get = function(info)
-                    return condition.operator
-                end,
-                set = function(info, val)
-                    condition.operator = val
-                end
-            },
-            value = {
-                order = 13,
-                type = "input",
-                width = 1.67,
-                name = L["OPTION_CONDITION_VALUE"],
-                get = function(info)
-                    return condition.value
-                end,
-                set = function(info, val)
-                    condition.value = val
-                end
             },
             bottomLine = {
                 order = 99,
@@ -763,10 +782,10 @@ function MessageClassifierConfigFrame:addDefaultRuleSetToView(index, ruleSet)
                 name = L["OPTION_HIDE_FROM_CHAT_WINDOW"],
                 width = 1.5,
                 get = function(info)
-                    return ruleSet.hideFromChatWindow == true
+                    return MessageClassifierConfig.defRulHideFromChatWindow[ruleSet.id] == true
                 end,
                 set = function(info, val)
-                    ruleSet.hideFromChatWindow = val
+                    MessageClassifierConfig.defRulHideFromChatWindow[ruleSet.id] = val
                     MessageClassifierBrowser:updateAllMessages()
                 end,
             },
