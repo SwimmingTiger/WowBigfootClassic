@@ -118,6 +118,13 @@ function InfoBoxConfigFunc()
 		INFOBOX_ENABLE_TITLE_TOOLTIP = "当鼠标移动到屏幕顶端弹出界面调整主菜单，通过该菜单你可以调整你所需要的界面";
 		BT4_CONFIG_PANEL = "配置界面调整";
 
+		BT4_MOVE_BUFF_BAR = "通过界面调整拖动Buff栏";
+		BT4_MOVE_BUFF_BAR_TOOLTIP = "开启后“目标的目标”功能将出现问题，在战斗中不能正确更新，请谨慎选择";
+
+		BT4_MOVE_UINT_FRAME = "通过界面调整拖动单位框体";
+		BT4_MOVE_UINT_FRAME_TOOLTIP = "开启后玩家、目标、小队成员框体将可在界面解锁时拖动。\n但其实不需要开启该功能，直接在框体上右击解锁即可拖动。\n注意：开启该功能后，一键换装可能无法正常点击，并且框体位置将由界面调整接管，只有在界面调整里拖动的位置可以保存。";
+
+
 		BLIZZMOVE_ENABLE_TITLE = "开启窗体移动";
 		BLIZZMOVE_ENABLE_TITLE_TOOLTIP = "任意拖动任意窗体，并通过Ctrl+滚轮对当前窗体进行缩放。";
 
@@ -138,6 +145,12 @@ function InfoBoxConfigFunc()
 		INFOBOX_ENABLE_TITLE_TOOLTIP = "當鼠標移動到屏幕頂端彈出介面調整菜單，通過該菜單你可以調整你所需要的介面";
 		BT4_CONFIG_PANEL = "配置介面調整";
 
+		BT4_MOVE_BUFF_BAR = "通過界面調整拖動Buff欄";
+		BT4_MOVE_BUFF_BAR_TOOLTIP = "開啟後“目標的目標”功能將出現問題，在戰鬥中不能正確更新，請謹慎選擇";
+
+		BT4_MOVE_UINT_FRAME = "通過界面調整拖動單位框體";
+		BT4_MOVE_UINT_FRAME_TOOLTIP = "開啟後玩家、目標、小隊成員框體將可在界面解鎖時拖動。\n但其實不需要開啟該功能，直接在框體上右擊解鎖即可拖動。\n註意：開啟該功能後，一鍵換裝可能無法正常點擊，並且框體位置將由界面調整接管，只有在界面調整裡拖動的位置可以保存。";
+
 		BLIZZMOVE_ENABLE_TITLE = "開啟窗體移動";
 		BLIZZMOVE_ENABLE_TITLE_TOOLTIP = "任意拖動任意窗體，並通過Ctrl+滾輪對當前窗體進行縮放。";
 
@@ -155,6 +168,12 @@ function InfoBoxConfigFunc()
 		MOD_INFOBOX_TITLE = "InfoBox";
 		INFOBOX_ENABLE_TITLE = "Enable InfoBox";
 		BT4_CONFIG_PANEL = "Config Infobox";
+
+		BT4_MOVE_BUFF_BAR = "Allow BT4 to move the buff/debuff bar";
+		BT4_MOVE_BUFF_BAR_TOOLTIP = "After enabling this feature, the \"Target of Target\" cannot be updated correctly during the battle. Please choose carefully";
+
+		BT4_MOVE_UINT_FRAME = "Allow BT4 to move unit frames";
+		BT4_MOVE_UINT_FRAME_TOOLTIP = "After enabling, the player, target, and party member frames will be able to move when the interface is unlocked via BT4.\nHowever, you don't need to enable this feature, you can right-click on the frame and unlock it to move.\nNote: Once the feature is enabled, the frame of AutoEquip may not be able to click, and the position of the frame will be taken over by BT4, so only the position moved via BT4 can be saved.";
 
 		BLIZZMOVE_ENABLE_TITLE = "Enable BlizzMove";
 		BFGOLDFRAME_ENABLE_TITLE = "Enable GoldFrame"
@@ -275,8 +294,6 @@ function InfoBoxConfigFunc()
 					-- BigFoot_LoadChatFrames()
 				end
 			end
-
-
 		);
 
 		ModManagement_RegisterButton(
@@ -289,6 +306,47 @@ function InfoBoxConfigFunc()
 			end,
 			nil,
 			1
+		);
+
+		-- 增加Buff栏和单位框体移动功能的开关
+		-- Buff栏移动有副作用，会导致“目标的目标”在战斗中不能更新
+		-- 单位框体移动则没有必要启用，因为暴雪已允许用户解锁并移动框体。并且开启该功能会导致用户(不通过BT4)直接拖动框体位置后不能保存
+		Bartender4Features = Bartender4Features or {};
+
+		ModManagement_RegisterCheckBox(
+			"InfoBox",
+			BT4_MOVE_BUFF_BAR,
+			BT4_MOVE_BUFF_BAR_TOOLTIP,
+			"EnableBT4MoveBuffBar",
+			0,
+			function (__arg)
+				Bartender4Features.moveBuffBar = (__arg == 1)
+				if IsAddOnLoaded("Bartender4_BFMod") then
+					BigFoot_RequestReloadUI();
+				end
+			end,
+			nil,
+			function (__arg)
+				Bartender4Features.moveBuffBar = (__arg == 1)
+			end
+		);
+
+		ModManagement_RegisterCheckBox(
+			"InfoBox",
+			BT4_MOVE_UINT_FRAME,
+			BT4_MOVE_UINT_FRAME_TOOLTIP,
+			"EnableBT4MoveUintFrame",
+			0,
+			function (__arg)
+				Bartender4Features.moveUintFrame = (__arg == 1)
+				if IsAddOnLoaded("Bartender4_BFMod") then
+					BigFoot_RequestReloadUI();
+				end
+			end,
+			nil,
+			function (__arg)
+				Bartender4Features.moveUintFrame = (__arg == 1)
+			end
 		);
 	end
 

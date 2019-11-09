@@ -8,6 +8,9 @@ local UnitFrames = Bartender4:NewModule("UnitFrames","AceEvent-3.0")
 local UnitBar,UnitBar_MT
 local _G = _G
 
+-- 用于启用/禁用拖动Buff栏/单位框体的功能
+Bartender4Features = {}
+
 -- fetch upvalues
 local Bar = Bartender4.Bar.prototype
 
@@ -137,15 +140,15 @@ local defaults = {
 }
 
 UnitFrames.frames= {
-	PlayerFrame,
-	TargetFrame,
+	-- PlayerFrame,
+	-- TargetFrame,
 	-- FocusFrame,
-	BuffFrame,
+	-- BuffFrame,
 	MinimapCluster,
-	PartyMemberFrame1,
-	PartyMemberFrame2,
-	PartyMemberFrame3,
-	PartyMemberFrame4,
+	-- PartyMemberFrame1,
+	-- PartyMemberFrame2,
+	-- PartyMemberFrame3,
+	-- PartyMemberFrame4,
 	-- WatchFrame,
 	CastingBarFrame
 }
@@ -186,6 +189,22 @@ end
 -- end
 
 function UnitFrames:OnEnable()
+	-- Buff栏移动有副作用，会导致“目标的目标”在战斗中不能更新
+	if Bartender4Features and Bartender4Features.moveBuffBar then
+		table.insert(self.frames, BuffFrame)
+	end
+
+	-- 单位框体移动则没有必要启用，因为暴雪已允许用户解锁并移动框体。并且开启该功能会导致用户(不通过BT4)直接拖动框体位置后不能保存
+	-- 此外，启用玩家框体移动还会导致一键换装按钮无法点击
+	if Bartender4Features and Bartender4Features.moveUintFrame then
+		table.insert(self.frames, PlayerFrame)
+		table.insert(self.frames, TargetFrame)
+		table.insert(self.frames, PartyMemberFrame1)
+		table.insert(self.frames, PartyMemberFrame2)
+		table.insert(self.frames, PartyMemberFrame3)
+		table.insert(self.frames, PartyMemberFrame4)
+	end
+
 	self.vehicle_frame = self.vehicle_frame or CreateFrame("Frame")
 	-- self.vehicle_frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 	-- self.vehicle_frame:SetScript("OnEvent",function()

@@ -8,6 +8,7 @@
 ## Dependencies: Bartender4
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
+## SavedVariables: Bartender4Features
 
 locale\locale_bf.lua
 
