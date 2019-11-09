@@ -53,6 +53,7 @@ local ignored = {
 	["LibDBIcon10_bfModelChange"] = true,
 	["LibDBIcon10_HandyNotes_NPCs"] = true,
 	["QuestieFrame"] = true,
+	["MessageClassifierBrowserIcon"] = true,
 }
 
 local options = {

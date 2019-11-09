@@ -589,7 +589,7 @@ function MessageClassifierBrowser.icon:CreateView()
     self:SetHeight(31)
     self:SetFrameLevel(9)
     self:SetHighlightTexture('Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight')
-    self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
+    self:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -20, -38)
     
     self.overlay = self:CreateTexture(nil, 'OVERLAY')
     self.overlay:SetWidth(53)
