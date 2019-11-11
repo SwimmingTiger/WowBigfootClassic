@@ -124,30 +124,30 @@ MessageClassifierDefaultRules = {
                 ["value"] = "sell",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "buy",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [2]
+            },
         },
-    }, -- [2]
+    },
     {
         id = 1003,
         ["conditions"] = {
             {
-                ["value"] = " air",
-                ["operator"] = "contain",
+                ["value"] = "%f[%a]air",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [1]
+            },
             {
-                ["value"] = "plane",
-                ["operator"] = "contain",
+                ["value"] = "plane%f[%A]",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
         ["class"] = "Airplane/{author}",
-    }, -- [3]
+    },
     {
         id = 2001,
         ["class"] = "Instance/Dungeon/{author}",
@@ -156,9 +156,9 @@ MessageClassifierDefaultRules = {
                 ["value"] = "dungeon",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [4]
+    },
     {
         id = 2001,
         ["class"] = "Instance/Raid/{author}",
@@ -167,9 +167,9 @@ MessageClassifierDefaultRules = {
                 ["value"] = "raid",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [4]
+    },
     {
         id = 2002,
         ["class"] = "Quest/{author}",
@@ -178,9 +178,9 @@ MessageClassifierDefaultRules = {
                 ["value"] = "quest",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [5]
+    },
     {
         id = 3001,
         ["conditions"] = {
@@ -188,106 +188,106 @@ MessageClassifierDefaultRules = {
                 ["value"] = "ragefire",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [1]
+            },
             {
-                ["value"] = " rfc ",
-                ["operator"] = "contain",
+                ["value"] = "%f[%a]rfc%f[%A]",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
         ["class"] = "Instance/Ragefire Chasm/{author}",
-    }, -- [6]
+    },
     {
         id = 3002,
         ["class"] = "Instance/Wailing Caverns/{author}",
         ["conditions"] = {
             {
-                ["value"] = " wc ",
+                ["value"] = "%f[%a]wc%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [7]
+    },
     {
         id = 3003,
         ["class"] = "Instance/The Deadmines/{author}",
         ["conditions"] = {
             {
-                ["value"] = " vc ",
-                ["operator"] = "contain",
+                ["value"] = "%f[%a]vc%f[%A]",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [2]
+            },
             {
                 ["value"] = "deadmines",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [3]
+            },
             {
                 ["value"] = "todesminen",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [4]
+            },
         },
-    }, -- [8]
+    },
     {
         id = 3103,
         ["class"] = "Instance/The Deadmines/{author}",
         ["conditions"] = {
             {
-                ["value"] = " dm ",
+                ["value"] = "%f[%a]dm%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " dm e",
-                ["operator"] = "not contain",
+                ["value"] = "%f[%a]dm%s+e",
+                ["operator"] = "not match",
                 ["field"] = "content",
-            }, -- [2]
+            },
             {
-                ["value"] = " dm w",
-                ["operator"] = "not contain",
+                ["value"] = "%f[%a]dm%s+w",
+                ["operator"] = "not match",
                 ["field"] = "content",
-            }, -- [3]
+            },
             {
-                ["value"] = " dm n",
-                ["operator"] = "not contain",
+                ["value"] = "%f[%a]dm%s+n",
+                ["operator"] = "not match",
                 ["field"] = "content",
-            }, -- [4]
+            },
         },
         ["logic"] = "and",
-    }, -- [8]
+    },
     {
         id = 3004,
         ["class"] = "Instance/Shadowfang Keep/{author}",
         ["conditions"] = {
             {
-                ["value"] = " sfk ",
-                ["operator"] = "contain",
+                ["value"] = "%f[%a]sfk%f[%A]",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [1]
+            },
             {
                 ["value"] = "shadowfang",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [2]
+            },
             {
-                ["value"] = " bsf ",
+                ["value"] = "%f[%a]bsf%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [3]
+                ["operator"] = "match",
+            },
         },
-    }, -- [9]
+    },
     {
         id = 3105,
         ["class"] = "Instance/Blackfathom Deeps/{author}",
         ["conditions"] = {
             {
-                ["value"] = " bfd ",
+                ["value"] = "%f[%a]bfd%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [10]
+    },
     {
         id = 3005,
         ["class"] = "Instance/The Stockades/{author}",
@@ -296,19 +296,19 @@ MessageClassifierDefaultRules = {
                 ["value"] = "stockades",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "stocks",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [2]
+            },
             {
                 ["value"] = "verlies",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [3]
+            },
         },
-    }, -- [10]
+    },
     {
         id = 3006,
         ["class"] = "Instance/Gnomeregan/{author}",
@@ -317,25 +317,25 @@ MessageClassifierDefaultRules = {
                 ["value"] = "gnome",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [11]
+    },
     {
         id = 3007,
         ["class"] = "Instance/Razorfen Kraul/{author}",
         ["conditions"] = {
             {
-                ["value"] = " rfk ",
+                ["value"] = "%f[%a]rfk%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "kraul",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
-    }, -- [12]
+    },
     {
         id = 3008,
         ["class"] = "Instance/The Scarlet Monastery/{author}",
@@ -344,204 +344,204 @@ MessageClassifierDefaultRules = {
                 ["value"] = "scarlet",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "monastery",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [13]
+    },
     {
         id = 3009,
         ["class"] = "Instance/The Scarlet Monastery: Graveyard/{author}",
         ["conditions"] = {
             {
-                ["value"] = " sm ",
+                ["value"] = "%f[%a]sm%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " gy ",
+                ["value"] = "%f[%a]gy%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "friedhof",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [14]
+    },
     {
         id = 3010,
         ["class"] = "Instance/The Scarlet Monastery: Library/{author}",
         ["conditions"] = {
             {
-                ["value"] = " lib ",
+                ["value"] = "%f[%a]lib%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "library",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "bücherrei",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [15]
+    },
     {
         id = 3011,
         ["class"] = "Instance/The Scarlet Monastery: Armory/{author}",
         ["conditions"] = {
             {
-                ["value"] = " arm ",
+                ["value"] = "%f[%a]arm%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "armory",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "waffenkammer",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
-                ["value"] = " wk ",
+                ["value"] = "%f[%a]wk%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [16]
+    },
     {
         id = 3012,
         ["class"] = "Instance/The Scarlet Monastery: Cathedral/{author}",
         ["conditions"] = {
             {
-                ["value"] = " cath ",
+                ["value"] = "%f[%a]cath%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "cathedral",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "kathe",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
                 ["value"] = "kathedrale",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [17]
+    },
     {
         id = 3013,
         ["class"] = "Instance/Razorfen Downs/{author}",
         ["conditions"] = {
             {
-                ["value"] = " rfd ",
+                ["value"] = "%f[%a]rfd%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [18]
+    },
     {
         id = 3014,
         ["class"] = "Instance/Uldaman/{author}",
         ["conditions"] = {
             {
-                ["value"] = " ulda ",
+                ["value"] = "%f[%a]ulda%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "uldaman",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
-    }, -- [19]
+    },
     {
         id = 3015,
         ["class"] = "Instance/Zul'Farak/{author}",
         ["conditions"] = {
             {
-                ["value"] = " zf ",
+                ["value"] = "%f[%a]zf%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " zul",
-                ["operator"] = "contain",
+                ["value"] = "%f[%a]zul",
+                ["operator"] = "match",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
-    }, -- [20]
+    },
     {
         id = 3016,
         ["class"] = "Instance/Maraudon/{author}",
         ["conditions"] = {
             {
-                ["value"] = " mara",
+                ["value"] = "%f[%a]mara",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "maraudon",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
-    }, -- [21]
+    },
     {
         id = 3017,
         ["class"] = "Instance/Temple of Atal'Hakkar/{author}",
         ["conditions"] = {
             {
-                ["value"] = " st ",
+                ["value"] = "%f[%a]st%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " toa ",
+                ["value"] = "%f[%a]toa%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " atal",
+                ["value"] = "%f[%a]atal",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
-                ["value"] = " temple",
+                ["value"] = "%f[%a]temple",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [22]
+    },
     {
         id = 3018,
         ["class"] = "Instance/Blackrock Depths/{author}",
         ["conditions"] = {
             {
-                ["value"] = " brd ",
+                ["value"] = "%f[%a]brd%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [23]
+    },
     {
         id = 3019,
         ["class"] = "Instance/Blackrock Spire/{author}",
@@ -550,57 +550,57 @@ MessageClassifierDefaultRules = {
                 ["value"] = "blackrock",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
             {
-                ["value"] = "brs ",
+                ["value"] = "brs%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [24]
+    },
     {
         id = 3020,
         ["class"] = "Instance/Lower Blackrock Spire/{author}",
         ["conditions"] = {
             {
-                ["value"] = " lbrs ",
+                ["value"] = "%f[%a]lbrs%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [25]
+    },
     {
         id = 3021,
         ["class"] = "Instance/Upper Blackrock Spire/{author}",
         ["conditions"] = {
             {
-                ["value"] = " ubrs ",
+                ["value"] = "%f[%a]ubrs%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [26]
+    },
     {
         id = 3022,
         ["class"] = "Instance/Dire Maul/{author}",
         ["conditions"] = {
             {
-                ["value"] = " dm e",
+                ["value"] = "%f[%a]dm%s+e",
+                ["operator"] = "match",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+            },
             {
-                ["value"] = " dm w",
+                ["value"] = "%f[%a]dm%s+w",
+                ["operator"] = "match",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+            },
             {
-                ["value"] = " dm n",
+                ["value"] = "%f[%a]dm%s+n",
+                ["operator"] = "match",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [27]
+    },
     {
         id = 3023,
         ["class"] = "Instance/Stratholme/{author}",
@@ -609,9 +609,9 @@ MessageClassifierDefaultRules = {
                 ["value"] = "strat",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [28]
+    },
     {
         id = 3024,
         ["class"] = "Instance/Scholomance/{author}",
@@ -620,34 +620,34 @@ MessageClassifierDefaultRules = {
                 ["value"] = "scholo",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            }, -- [1]
+            },
         },
-    }, -- [29]
+    },
     {
         id = 3025,
         ["class"] = "Instance/Molten Core/{author}",
         ["conditions"] = {
             {
-                ["value"] = "mc",
+                ["value"] = "%f[%a]mc%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
         },
-    }, -- [30]
+    },
     {
         id = 3026,
         ["class"] = "Instance/Onyxia's Lair/{author}",
         ["conditions"] = {
             {
-                ["value"] = " ony ",
+                ["value"] = "%f[%a]ony%f[%A]",
                 ["field"] = "content",
-                ["operator"] = "contain",
-            }, -- [1]
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "onyxia",
                 ["operator"] = "contain",
                 ["field"] = "content",
-            }, -- [2]
+            },
         },
-    }, -- [31]
+    },
 }

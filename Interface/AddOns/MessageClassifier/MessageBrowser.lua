@@ -328,8 +328,12 @@ function MessageClassifierBrowser:ruleMatch(msg, rule)
         match = true
     else
         for _, expression in ipairs(rule.conditions) do
+            local fieldKey = expression.field or ""
+            -- ["author"] contains the color code, so use ["authorFullName"]
+            if fieldKey == "author" then fieldKey = "authorFullName" end
+
             local operator = expression.operator
-            local field = msg[expression.field or ""] or ""
+            local field = msg[fieldKey] or ""
             local value = expression.value or ""
 
             if not expression.caseSensitive then
@@ -365,9 +369,9 @@ function MessageClassifierBrowser:ruleMatch(msg, rule)
         end
     end
 
-    if match and (rule.id ~= nil
-                    and MessageClassifierConfig.defRulHideFromChatWindow[rule.id] == true
-                    or rule.hideFromChatWindow == true) then
+    if match and ((rule.id ~= nil and
+                     MessageClassifierConfig.defRulHideFromChatWindow[rule.id] == true)
+                   or rule.hideFromChatWindow == true) then
         self.hideFromChatWindow[msg.guid] = true
     end
 
