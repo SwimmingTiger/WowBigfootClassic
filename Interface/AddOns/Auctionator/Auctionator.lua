@@ -4473,9 +4473,9 @@ function Atr_Duration_Initialize(self)
 	
 	-- DaMaGepy fix
   --Atr_Dropdown_AddPick (self, AUCTION_DURATION_ONE, 1, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "2 Hours", 1, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "8 Hours", 2, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "24 Hours", 3, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "2小时", 1, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "8小时", 2, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "24小时", 3, Atr_Duration_OnClick);
 
 end
 
