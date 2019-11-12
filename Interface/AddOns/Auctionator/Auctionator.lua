@@ -155,7 +155,8 @@ function Atr_RegisterEvents(self)
 
   self:RegisterEvent("NEW_AUCTION_UPDATE");
   self:RegisterEvent("CHAT_MSG_ADDON");
-  self:RegisterEvent("PLAYER_ENTERING_WORLD");
+  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他事件
+  --self:RegisterEvent("PLAYER_ENTERING_WORLD");
 
 end
 
@@ -164,7 +165,7 @@ end
 function Atr_EventHandler(self, event, ...)
   -- Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
 
-  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他插件
+  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他事件
   if (event == --[["VARIABLES_LOADED"]] "ADDON_LOADED") and ... == "Auctionator"      then  Atr_OnLoad();             end;
   if (event == "ADDON_LOADED")        then  Atr_OnAddonLoaded(...);       end;
   if (event == "AUCTION_ITEM_LIST_UPDATE")  then  Atr_OnAuctionUpdate(...);       end;
