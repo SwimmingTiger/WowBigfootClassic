@@ -74,8 +74,15 @@ L["ClassicCodex: You have no manually hidden quests. You can hold the shift key 
 L["ClassicCodex: %d hidden quests will be able to show again."] = "ClassicCodex: %d個隱藏任務已重新顯示"
 L["List Manually Hidden Quests"] = "列出手動隱藏的任務"
 L["List Completed Quests"] = "列出完成的任務"
-L["Always Show ID In Browser"] = "在查詢結果中顯示ID"
-L["If selected, the item/object/unit/quest ID will be displayed when you searching something in ClassicCodex Browser."] = "選中後，“ClassicCodex全能數據庫”查詢窗口將顯示物品/對象/單位/任務的ID。"
+L["Show ID in Codex Browser"] = "在查詢結果中顯示ID"
+L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."] = "選中後，“ClassicCodex全能數據庫”查詢窗口將顯示物品/對象/單位/任務的ID。"
+L["Show Minimap Button"] = "顯示小地圖按鈕"
+L["Show a button on the edge of the minimap, click to open Codex browser"] = "在小地圖邊緣顯示一個按鈕，點擊可打開 ClassicCodex 全能數據庫"
+L["Show Markers on Continent"] = "在大陸地圖上顯示圖標"
+L["Show markers at the top level of the world map"] = "在世界地圖的頂層顯示圖標"
+L["Boss Marker Size"] = "BOSS標記大小"
+L["Display a larger icon for the boss or a single target to help you find it"] = "增大BOSS等單個目標的圖標以便能找到"
+L["Open Codex Browser"] = "打開 ClassicCodex 全能數據庫"
 
 -- map.lua
 L["Buy"] = "購買"

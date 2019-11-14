@@ -74,8 +74,15 @@ L["ClassicCodex: You have no manually hidden quests. You can hold the shift key 
 L["ClassicCodex: %d hidden quests will be able to show again."] = true
 L["List Manually Hidden Quests"] = true
 L["List Completed Quests"] = true
-L["Always Show ID In Browser"] = true
-L["If selected, the item/object/unit/quest ID will be displayed when you searching something in ClassicCodex Browser."] = true
+L["Show ID in Codex Browser"] = true
+L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."] = true
+L["Show Minimap Button"] = true
+L["Show a button on the edge of the minimap, click to open Codex browser"] = true
+L["Show Markers on Continent"] = true
+L["Show markers at the top level of the world map"] = true
+L["Boss Marker Size"] = true
+L["Display a larger icon for the boss or a single target to help you find it"] = true
+L["Open Codex Browser"] = true
 
 -- map.lua
 L["Buy"] = true

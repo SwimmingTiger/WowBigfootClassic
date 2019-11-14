@@ -280,6 +280,12 @@ function CodexDatabase:SearchUnitById(id, meta, maps)
 
     local maps = maps or {}
 
+    local coordsNum = {}
+    for _, data in pairs(units[id]["coords"]) do
+        local _, _, zone = unpack(data)
+        coordsNum[zone] = coordsNum[zone] and (coordsNum[zone] + 1) or 1
+    end
+
     for _, data in pairs(units[id]["coords"]) do
         local x, y, zone, respawn = unpack(data)
 
@@ -296,6 +302,7 @@ function CodexDatabase:SearchUnitById(id, meta, maps)
             meta["level"] = units[id]["lvl"] or UNKNOWN
             meta["spawnType"] = "Unit"
             meta["respawn"] = respawn > 0 and SecondsToTime(respawn)
+            meta["coordsNum"] = coordsNum[zone]
 
             maps[zone] = maps[zone] and maps[zone] + 1 or 1
             CodexMap:AddNode(meta)
@@ -322,6 +329,12 @@ function CodexDatabase:SearchObjectById(id, meta, maps)
 
     local maps = maps or {}
 
+    local coordsNum = {}
+    for _, data in pairs(objects[id]["coords"]) do
+        local _, _, zone = unpack(data)
+        coordsNum[zone] = coordsNum[zone] and (coordsNum[zone] + 1) or 1
+    end
+
     for _, data in pairs(objects[id]["coords"]) do
         local x, y, zone, respawn = unpack(data)
 
@@ -338,6 +351,7 @@ function CodexDatabase:SearchObjectById(id, meta, maps)
             meta["level"] = nil
             meta["spawnType"] = "Object"
             meta["respawn"] = respawn and SecondsToTime(respawn)
+            meta["coordsNum"] = coordsNum[zone]
 
             maps[zone] = maps[zone] and maps[zone] + 1 or 1
             CodexMap:AddNode(meta)
@@ -702,9 +716,9 @@ function CodexDatabase:SearchQuests(meta, maps)
         if CodexDB.quests.loc[id] and currentQuests[CodexDB.quests.loc[id].T] then
             -- hide active quest
         elseif completedQuests[id] then
-            -- hide quests hidden by the player
-        elseif CodexHiddenQuests[id] then
             -- hide completed quests
+        elseif CodexHiddenQuests[id] then
+            -- hide quests hidden by the player
         elseif quests[id]["pre"] and not oneOfCompleted(quests[id]["pre"]) then
             -- hide missing pre-quest
             -- Need to complete one of these quests to pick up the quest

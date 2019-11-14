@@ -3,8 +3,8 @@
 ## Title-zhCN: [大脚][集]任务助手
 ## TItle-zhTW: [大腳][集]任務助手
 ## Notes: |cff00ff00ClassicCodex|r
-## Author: Pgarneau, Shagu
-## Version: 1.2.2
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: 1.3.1
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
