@@ -20,6 +20,7 @@ local function StringHash(text)
 end
 
 function MessageClassifier.chatFilter(frame, event, msg, authorFullName, unknown1, channelTitle, author, unknown2, unknown3, channelID, channelName, unknown5, index, playerGUID, ...)
+    if not playerGUID then return false end
     local guid = playerGUID..'-'..msg:len()..'-'..StringHash(msg)
     if messageFrameGUIDs[frame] == nil then
         messageFrameGUIDs[frame] = {}
