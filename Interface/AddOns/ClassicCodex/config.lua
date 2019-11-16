@@ -1,6 +1,7 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
+local AceConfigCmd = LibStub("AceConfigCmd-3.0")
 
 CodexConfig = {}
 CodexColors = {}
@@ -11,7 +12,9 @@ DefaultCodexConfig = {
     ["autoTurnin"] = false, -- Auto-turnin quests
     ["nameplateIcon"] = false, -- Show quest icon above nameplates
     ["minimapButton"] = true, -- Show button of codex browser on the edge of the minimap
-    ["continentIcon"] = false, -- Show quest markers on continent map
+    ["continentIcon"] = false, -- Show quest markers on continent map (top two levels of the world map)
+    ["zoneMapIcon"] = true, -- Show quest markers on zone map (the third and subsequent levels of the world map)
+    ["miniMapIcon"] = true, -- Show quest markers on mini map
     ["allQuestGivers"] = true, -- Show available quest givers
     ["currentQuestGivers"] = true, -- Show current quest giver nodes
     ["alwaysShowId"] = false, -- Display unit/object/item/quest id in non-id search results
@@ -46,6 +49,7 @@ function CodexConfigFrame:LoadConfig()
         type = "group",
         name = "ClassicCodex",
         args = {
+            ---------------------------------------- column 1 ----------------------------------------
             autoAccept = {
                 order = 101, -- row: 1, column: 1
                 type = "toggle",
@@ -57,20 +61,6 @@ function CodexConfigFrame:LoadConfig()
                 end,
                 set = function(info, val)
                     CodexConfig.autoAccept = val
-                end
-            },
-            alwaysShowId = {
-                order = 102, -- row: 1, column: 2
-                type = "toggle",
-                width = 1.5, -- make two checkboxes on the same line
-                name = L["Show ID in Codex Browser"],
-                desc = L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."],
-                get = function(info)
-                    return CodexConfig.alwaysShowId
-                end,
-                set = function(info, val)
-                    CodexConfig.alwaysShowId = val
-                    CodexBrowser.input:Search()
                 end
             },
             autoTurnin = {
@@ -86,20 +76,6 @@ function CodexConfigFrame:LoadConfig()
                     CodexConfig.autoTurnin = val
                 end
             },
-            minimapButton = {
-                order = 202, -- row: 2, column: 2
-                type = "toggle",
-                width = 1.5, -- make two checkboxes on the same line
-                name = L["Show Minimap Button"],
-                desc = L["Show a button on the edge of the minimap, click to open Codex browser"],
-                get = function(info)
-                    return CodexConfig.minimapButton
-                end,
-                set = function(info, val)
-                    CodexConfig.minimapButton = val
-                    CodexConfigFrame:UpdateMinimapButton()
-                end
-            },
             nameplateIcon = {
                 order = 301,
                 type = "toggle",
@@ -113,24 +89,10 @@ function CodexConfigFrame:LoadConfig()
                     CodexConfig.nameplateIcon = val
                 end
             },
-            continentIcon = {
-                order = 302,
+            allQuestGivers = {
+                order = 401,
                 type = "toggle",
                 width = 1.5,
-                name = L["Show Markers on Continent"],
-                desc = L["Show markers at the top level of the world map"],
-                get = function(info)
-                    return CodexConfig.continentIcon
-                end,
-                set = function(info, val)
-                    CodexConfig.continentIcon = val
-                    CodexMap:UpdateNodes()
-                end
-            },
-            allQuestGivers = {
-                order = 401, -- row: 4, column: 1
-                type = "toggle",
-                width = 3, -- make the next checkbox in a new line
                 name = L["All Questgivers"],
                 desc = L["If selected, this will display all questgivers on the map"],
                 get = function(info)
@@ -142,9 +104,9 @@ function CodexConfigFrame:LoadConfig()
                 end
             },
             currentQuestGivers = {
-                order = 501, -- row: 5, column: 1
-                type = "toggle", -- make the next checkbox in a new line
-                width = 3,
+                order = 501,
+                type = "toggle",
+                width = 1.5,
                 name = L["Current Questgivers"],
                 desc = L["If selected, current quest-ender npcs/objects will be displayed on the map for active quests"],
                 get = function(info)
@@ -157,7 +119,7 @@ function CodexConfigFrame:LoadConfig()
             },
             showLowLevel = {
                 order = 601,
-                type = "toggle",
+                type = "toggle", -- make the next checkbox in a new line
                 width = 3,
                 name = L["Show Low-level Quests"],
                 desc = L["If selected, low-level quests will be hidden on the map"],
@@ -172,7 +134,7 @@ function CodexConfigFrame:LoadConfig()
             showHighLevel = {
                 order = 701,
                 type = "toggle",
-                width = 3,
+                width = 3, -- make the next checkbox in a new line
                 name = L["Show High-level Quests"],
                 desc = L["If selected, quests with a level requirement of your level + 3 will be shown on the map"],
                 get = function(info)
@@ -211,6 +173,85 @@ function CodexConfigFrame:LoadConfig()
                     CodexQuest:ResetAll()
                 end
             },
+            
+            ---------------------------------------- column 2 ----------------------------------------
+            alwaysShowId = {
+                order = 102, -- row: 1, column: 2
+                type = "toggle",
+                width = 1.5, -- make two checkboxes on the same line
+                name = L["Show ID in Codex Browser"],
+                desc = L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."],
+                get = function(info)
+                    return CodexConfig.alwaysShowId
+                end,
+                set = function(info, val)
+                    CodexConfig.alwaysShowId = val
+                    CodexBrowser.input:Search()
+                end
+            },
+            minimapButton = {
+                order = 202, -- row: 2, column: 2
+                type = "toggle",
+                width = 1.5, -- make two checkboxes on the same line
+                name = L["Show Minimap Button"],
+                desc = L["Show a button on the edge of the minimap, click to open Codex browser"],
+                get = function(info)
+                    return CodexConfig.minimapButton
+                end,
+                set = function(info, val)
+                    CodexConfig.minimapButton = val
+                    CodexConfigFrame:UpdateMinimapButton()
+                end
+            },
+            continentIcon = {
+                order = 302,
+                type = "toggle",
+                width = 1.5,
+                name = L["Show Markers on Continent Maps"],
+                desc = L["Show markers on the top two levels of the world map"],
+                get = function(info)
+                    return CodexConfig.continentIcon
+                end,
+                set = function(info, val)
+                    CodexConfig.continentIcon = val
+                    if CodexConfig.continentIcon and not CodexConfig.zoneMapIcon then
+                        CodexConfig.zoneMapIcon = true
+                    end
+                    CodexMap:UpdateNodes()
+                end
+            },
+            zoneMapIcon = {
+                order = 402,
+                type = "toggle",
+                width = 1.5,
+                name = L["Show Markers on Zone Maps"],
+                desc = L["Show markers on the third and subsequent levels of the world map"],
+                get = function(info)
+                    return CodexConfig.zoneMapIcon
+                end,
+                set = function(info, val)
+                    CodexConfig.zoneMapIcon = val
+                    if not CodexConfig.zoneMapIcon and CodexConfig.continentIcon then
+                        CodexConfig.continentIcon = false
+                    end
+                    CodexMap:UpdateNodes()
+                end
+            },
+            miniMapIcon = {
+                order = 502,
+                type = "toggle",
+                width = 1.5,
+                name = L["Show Markers on the Minimap"],
+                get = function(info)
+                    return CodexConfig.miniMapIcon
+                end,
+                set = function(info, val)
+                    CodexConfig.miniMapIcon = val
+                    CodexMap:UpdateNodes()
+                end
+            },
+
+            ---------------------------------------- sliders ----------------------------------------
             questMarkerSize = {
                 order = 1001,
                 type = "range",
@@ -285,6 +326,8 @@ function CodexConfigFrame:LoadConfig()
                     CodexQuest:ResetAll()
                 end
             },
+
+            ---------------------------------------- buttons ----------------------------------------
             listHiddenQuests = {
                 order = 1201,
                 type = "execute",
@@ -343,6 +386,7 @@ function CodexConfigFrame:LoadConfig()
 
     self.registeredOptionsTable = AceConfigRegistry:RegisterOptionsTable("ClassicCodex", self.configTable)
     self.blizOptions = AceConfigDialog:AddToBlizOptions("ClassicCodex", "ClassicCodex")
+    self.cmdOptions = AceConfigCmd:CreateChatCommand("codexcfg", "ClassicCodex")
 end
 
 function CodexConfigFrame:UpdateMinimapButton()

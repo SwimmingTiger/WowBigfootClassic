@@ -15,9 +15,12 @@ SlashCmdList["CODEX"] = function(input, editBox)
         print(L["|cff33ffcc/codex|cffffffff quest <questName> |cffcccccc - Show specific quest giver"])
         print(L["|cff33ffcc/codex|cffffffff quests |cffcccccc - Show all quests on the map"])
         print(L["|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - Show related objects on the map"])
+        print(L["|cff33ffcc    ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"])
         print(L["|cff33ffcc/codex|cffffffff clean |cffcccccc - Clean map"])
         print(L["|cff33ffcc/codex|cffffffff reset |cffcccccc - Reset map"])
-        print(L["|cff33ffcc ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"])
+        print(L["|cff33ffcc/codexcfg|cffcccccc - Show options"])
+        print(L["|cff33ffcc/codexcfg|cffffffff <optionName>|cffcccccc - Toggle option"])
+        print(L["|cff33ffcc/codexcfg|cffffffff <optionName> <value>|cffcccccc - Set option"])
         return
     end
 

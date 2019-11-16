@@ -42,7 +42,10 @@ L["|cff33ffcc/codex|cffffffff quests |cffcccccc - Show all quests on the map"] =
 L["|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - Show related objects on the map"] = "|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - 在地图上显示相关目标、对象"
 L["|cff33ffcc/codex|cffffffff clean |cffcccccc - Clean map"] = "|cff33ffcc/codex|cffffffff clean |cffcccccc - 清理地图"
 L["|cff33ffcc/codex|cffffffff reset |cffcccccc - Reset map"] = "|cff33ffcc/codex|cffffffff reset |cffcccccc - 重置地图"
-L["|cff33ffcc ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"] = "|cff33ffcc ->|cffffffff 可用关系:  |cff33ffccchests|r - 宝箱, |cff33ffccherbs|r - 草药, |cff33ffccmines|r - 矿物"
+L["|cff33ffcc    ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"] = "|cff33ffcc ->|cffffffff 可用关系:  |cff33ffccchests|r - 宝箱, |cff33ffccherbs|r - 草药, |cff33ffccmines|r - 矿物"
+L["|cff33ffcc/codexcfg|cffcccccc - Show options"] = "|cff33ffcc/codexcfg|cffcccccc - 列出选项"
+L["|cff33ffcc/codexcfg|cffffffff <optionName>|cffcccccc - Toggle option"] = "|cff33ffcc/codexcfg|cffffffff <optionName>|cffcccccc - 开关/触发选项"
+L["|cff33ffcc/codexcfg|cffffffff <optionName> <value>|cffcccccc - Set option"] = "|cff33ffcc/codexcfg|cffffffff <optionName> <value>|cffcccccc - 设置选项"
 
 -- config.lua
 L["CONFIG_TEXT_FONT"] = "Fonts/ARKai_T.ttf"
@@ -78,11 +81,14 @@ L["Show ID in Codex Browser"] = "在查询结果中显示ID"
 L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."] = "选中后，“ClassicCodex全能数据库”查询窗口将显示物品/对象/单位/任务的ID。"
 L["Show Minimap Button"] = "显示小地图按钮"
 L["Show a button on the edge of the minimap, click to open Codex browser"] = "在小地图边缘显示一个按钮，点击可打开 ClassicCodex 全能数据库"
-L["Show Markers on Continent"] = "在大陆地图上显示图标"
-L["Show markers at the top level of the world map"] = "在世界地图的顶层显示图标"
+L["Show Markers on Continent Maps"] = "在大陆地图上显示图标"
+L["Show markers on the top two levels of the world map"] = "在世界地图的顶层和次顶层显示图标"
 L["Boss Marker Size"] = "BOSS标记大小"
 L["Display a larger icon for the boss or a single target to help you find it"] = "增大BOSS等单个目标的图标以便能找到"
 L["Open Codex Browser"] = "打开 ClassicCodex 全能数据库"
+L["Show Markers on Zone Maps"] = "在区域地图上显示图标"
+L["Show markers on the third and subsequent levels of the world map"] = "在世界地图的第三层和后续层级上显示图标"
+L["Show Markers on the Minimap"] = "在小地图上显示图标"
 
 -- map.lua
 L["Buy"] = "购买"

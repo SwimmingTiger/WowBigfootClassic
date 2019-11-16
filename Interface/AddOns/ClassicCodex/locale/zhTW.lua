@@ -42,7 +42,7 @@ L["|cff33ffcc/codex|cffffffff quests |cffcccccc - Show all quests on the map"] =
 L["|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - Show related objects on the map"] = "|cff33ffcc/codex|cffffffff meta <relation> [min, [max]] |cffcccccc - 在地圖上顯示相關目標、對象"
 L["|cff33ffcc/codex|cffffffff clean |cffcccccc - Clean map"] = "|cff33ffcc/codex|cffffffff clean |cffcccccc - 清理地圖"
 L["|cff33ffcc/codex|cffffffff reset |cffcccccc - Reset map"] = "|cff33ffcc/codex|cffffffff reset |cffcccccc - 重置地圖"
-L["|cff33ffcc ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"] = "|cff33ffcc ->|cffffffff 可用關系:  |cff33ffccchests|r - 寶箱, |cff33ffccherbs|r - 草藥, |cff33ffccmines|r - 礦物"
+L["|cff33ffcc    ->|cffffffff Available relations:  |cff33ffccchests|r, |cff33ffccherbs|r, |cff33ffccmines|r"] = "|cff33ffcc ->|cffffffff 可用關系:  |cff33ffccchests|r - 寶箱, |cff33ffccherbs|r - 草藥, |cff33ffccmines|r - 礦物"
 
 -- config.lua
 L["CONFIG_TEXT_FONT"] = "Fonts/bKAI00M.ttf"
@@ -78,11 +78,17 @@ L["Show ID in Codex Browser"] = "在查詢結果中顯示ID"
 L["If selected, the item/object/unit/quest ID will be displayed when you searching something in Codex browser."] = "選中後，“ClassicCodex全能數據庫”查詢窗口將顯示物品/對象/單位/任務的ID。"
 L["Show Minimap Button"] = "顯示小地圖按鈕"
 L["Show a button on the edge of the minimap, click to open Codex browser"] = "在小地圖邊緣顯示一個按鈕，點擊可打開 ClassicCodex 全能數據庫"
-L["Show Markers on Continent"] = "在大陸地圖上顯示圖標"
-L["Show markers at the top level of the world map"] = "在世界地圖的頂層顯示圖標"
+L["Show Markers on Continent Maps"] = "在大陸地圖上顯示圖標"
+L["Show markers on the top two levels of the world map"] = "在世界地圖的頂層顯示圖標"
 L["Boss Marker Size"] = "BOSS標記大小"
 L["Display a larger icon for the boss or a single target to help you find it"] = "增大BOSS等單個目標的圖標以便能找到"
 L["Open Codex Browser"] = "打開 ClassicCodex 全能數據庫"
+L["Show Markers on Zone Maps"] = "在區域地圖上顯示圖標"
+L["Show markers on the third and subsequent levels of the world map"] = "在世界地圖的第三層和後續層級上顯示圖標"
+L["Show Markers on the Minimap"] = "在小地圖上顯示圖標"
+L["|cff33ffcc/codexcfg|cffcccccc - Show options"] = "|cff33ffcc/codexcfg|cffcccccc - 列出選項"
+L["|cff33ffcc/codexcfg|cffffffff <optionName>|cffcccccc - Toggle option"] = "|cff33ffcc/codexcfg|cffffffff <optionName>|cffcccccc - 開關/觸發選項"
+L["|cff33ffcc/codexcfg|cffffffff <optionName> <value>|cffcccccc - Set option"] = "|cff33ffcc/codexcfg|cffffffff <optionName> <value>|cffcccccc - 設置選項"
 
 -- map.lua
 L["Buy"] = "購買"

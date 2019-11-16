@@ -611,6 +611,13 @@ function CodexMap:UpdateNodes()
 	CodexMap.HBDP:RemoveAllWorldMapIcons("Map")
 	CodexMap.HBDP:RemoveAllMinimapIcons("Map")
 
+	local worldMapLevel = nil
+	if CodexConfig.continentIcon then 
+		worldMapLevel = HBD_PINS_WORLDMAP_SHOW_WORLD
+	elseif CodexConfig.zoneMapIcon then
+		worldMapLevel = HBD_PINS_WORLDMAP_SHOW_PARENT
+	end
+
 	-- refresh all nodes
 	for addon in pairs(CodexMap.nodes) do
 		for mapId in pairs(CodexMap.nodes[addon]) do
@@ -629,8 +636,12 @@ function CodexMap:UpdateNodes()
 					x = x / 100
 					y = y / 100
 				
-					CodexMap.HBDP:AddWorldMapIconMap("Map", CodexMap.markers[i], worldMapId, x, y, CodexConfig.continentIcon and HBD_PINS_WORLDMAP_SHOW_WORLD or HBD_PINS_WORLDMAP_SHOW_PARENT)
-					CodexMap.HBDP:AddMinimapIconMap("Map", CodexMap.minimapMarkers[i], worldMapId, x, y, true, false)
+					if worldMapLevel then
+						CodexMap.HBDP:AddWorldMapIconMap("Map", CodexMap.markers[i], worldMapId, x, y, worldMapLevel)
+					end
+					if CodexConfig.miniMapIcon then
+						CodexMap.HBDP:AddMinimapIconMap("Map", CodexMap.minimapMarkers[i], worldMapId, x, y, true, false)
+					end
 
 					i = i + 1
 				end
