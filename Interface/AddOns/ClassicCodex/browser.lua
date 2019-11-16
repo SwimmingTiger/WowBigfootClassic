@@ -1,6 +1,6 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
 
-CodexBrowserFavorites = {["units"] = {}, ["objets"] = {}, ["items"] = {}, ["quests"] = {}}
+CodexBrowserFavorites = {["units"] = {}, ["objects"] = {}, ["items"] = {}, ["quests"] = {}}
 
 local tooltipLimit = 5
 local searchLimit = 512
@@ -226,6 +226,10 @@ local function ResultButtonClickFav(self)
         parent:Hide()
         CodexQuest.updateQuestGivers = true
         return
+    end
+
+    if not CodexBrowserFavorites[parent.btype] then
+        CodexBrowserFavorites[parent.btype] = {}
     end
 
     if CodexBrowserFavorites[parent.btype][parent.id] then

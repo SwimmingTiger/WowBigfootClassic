@@ -87,6 +87,7 @@ function CodexConfigFrame:LoadConfig()
                 end,
                 set = function(info, val)
                     CodexConfig.nameplateIcon = val
+                    CodexQuest:UpdateAllNameplates()
                 end
             },
             allQuestGivers = {

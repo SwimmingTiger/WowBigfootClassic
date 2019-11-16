@@ -447,7 +447,11 @@ function CodexQuest:UpdateAllNameplates()
         local unitID = "nameplate" .. i
         -- Notice: nameplate IDs are not continuous, don't use break
         if UnitExists(unitID) then
-            CodexQuest:UpdateNameplate(unitID)
+            if CodexConfig.nameplateIcon then
+                CodexQuest:UpdateNameplate(unitID)
+            else
+                CodexQuest:HideNameplate(unitID)
+            end
         end
     end
 end
