@@ -15,7 +15,7 @@ MessageClassifierBrowser.msgViewContent = {}
 MessageClassifierBrowser.hideFromChatWindow = {}
 MessageClassifierBrowser.baseTime = time() - GetTime()
 MessageClassifierBrowser.updateInterval = 1
-MessageClassifierBrowser.pauseUpdate = false
+MessageClassifierBrowser.pauseUpdate = true
 MessageClassifierBrowser.searchText = ""
 
 local function deepCompare(t1,t2,ignore_mt)
@@ -159,18 +159,16 @@ end
 
 local lastSortTime = GetTime()
 local function sortAndRefreshViews()
+    if MessageClassifierBrowser.pauseUpdate then return end
+
     local now = GetTime()
     if now - lastSortTime < MessageClassifierBrowser.updateInterval then return end
     lastSortTime = now
 
-    -- Prevent stuttering when the user clicks on a node of the tree
-    if MessageClassifierBrowser.pauseUpdate then
-        MessageClassifierBrowser.pauseUpdate = false
-    end
-
     if tableLen(MessageClassifierBrowser.sortViewQueue) > 0 then
         for _,v in pairs(MessageClassifierBrowser.sortViewQueue) do
-            table.sort(v, msgComp)
+            -- Not sort to avoid stuttering
+            --table.sort(v, msgComp)
             if v == MessageClassifierBrowser.msgViewContent.children then
                 MessageClassifierBrowser:updateMsgView()
             end
@@ -379,7 +377,6 @@ function MessageClassifierBrowser:ruleMatch(msg, rule)
 end
 
 function MessageClassifierBrowser:updateAllMessages()
-    self.pauseUpdate = true
     self.messageTree = {}
     self.messageTreeIndex = {}
     self.messageViewIndex = {}
@@ -435,6 +432,18 @@ function MessageClassifierBrowser:CreateView()
     self:SetTitle(L["BROWSER_TITLE"])
     self:updateStatusBar()
     self:SetLayout("Flow")
+    
+    -- Refresh views only when the message browser is visible
+    self._Show = self.Show
+    self._Hide = self.Hide
+    self.Show = function(self, ...)
+        self.pauseUpdate = false
+        self._Show(self, ...)
+    end
+    self.Hide = function(self, ...)
+        self._Hide(self, ...)
+        self.pauseUpdate = true
+    end
 
     self.searchEdit = AceGUI:Create("EditBox")
     self.searchEdit:SetRelativeWidth(0.8)
@@ -460,8 +469,6 @@ function MessageClassifierBrowser:CreateView()
     self.msgTreeView.parent = self
     self.msgTreeView:SetCallback("OnGroupSelected", function(self, event, group)
         local parent = self.parent
-        -- Prevent stuttering when the user clicks on a node of the tree
-        parent.pauseUpdate = true
 
         local path = group:gsub(string.char(1), '/')
         while path ~= '' and not parent.messageTreeIndex[path] do
