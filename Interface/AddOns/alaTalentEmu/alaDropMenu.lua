@@ -3,8 +3,19 @@
 --]]--
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
+----------------------------------------------------------------------------------------------------upvalue LUA
+local math, table, string, bit = math, table, string, bit;
+local type = type;
+local assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset =
+		assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset;
+local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom =
+		abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
+local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
+		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
+local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall =  strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
+local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
+local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
 ----------------------------------------------------------------------------------------------------
-local math, table, string, pairs, type, select, tonumber, tostring, unpack = math, table, string, pairs, type, select, tonumber, tostring, unpack;
 local _G = _G;
 local _ = nil;
 ----------------------------------------------------------------------------------------------------
@@ -34,7 +45,7 @@ local dropMenuButtonHeight = 20;
 local dropMenuButtonInterval = 0;
 local dropMenuButtonTopBottomInterval = 2;
 --------------------------------------------------
-local menus = { total = 0, used = 0, };
+local menus = { total = 0, used = 0, prev = nil, };
 local frameToMenu = {  };
 --------------------------------------------------
 --local showMenu;
@@ -45,7 +56,7 @@ local frameToMenu = {  };
 										handler		(function)optional
 										para		(table)for parameter
 										text		(string)
-										info		(string)
+										--info		(string)
 ]]
 --------------------------------------------------
 local function CreateMenu()
@@ -89,8 +100,19 @@ local function CreateMenu()
 					break;
 				end
 			end
+			if self == menus.prev then
+				menus.prev = nil;
+			end
 		end
 	);
+	menu:SetScript("OnShow", function(self)
+		if menus.prev ~= self then
+			if menus.prev then
+				menus.prev:Hide();
+			end
+			menus.prev = self;
+		end
+	end);
 	menu.buttons = {  };
 
 	return menu;
@@ -217,7 +239,7 @@ local function showMenu(parent, anchor, data)
 	button.handler = closeMenu_Handler;
 	button.para = { menu, };
 	button:Show();
-	button.text:SetText("Close");
+	button.text:SetText("close");
 	local w = button.text:GetWidth();
 	if w > width then
 		width = w;

@@ -12,11 +12,11 @@
 # ## Notes-zhCN: 在世界地图和小地图上显示船和飞艇的位置
 #@end-debug@
 ## Author: Dathwada
-## Version: v2.1.5b
+## Version: v2.1.6
 ## RequiredDeps: HandyNotes
 ## DefaultState: enabled
 ## SavedVariables: HandyNotes_TravelGuideClassicDB
-## X-Date: 2019-10-13
+## X-Date: 2019-11-19
 ## X-Category: Map
 ## X-Revision: BigFoot
 

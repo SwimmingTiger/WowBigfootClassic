@@ -1,10 +1,10 @@
 ﻿## Interface: 11302
 ## Author: Lag
-## Version: v1.3.2
+## Version: v1.3.4
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLoot Classic |cFF22B14C[Options]|r
-## Title-zhCN: AtlasLoot Classic |cFF22B14C[Options]|r
+## Title-zhCN: AtlasLoot经典版 |cFF22B14C[选项]|r
 ## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[設定選項]|r
 ## Notes: AtlasLoot options module
 ## Notes-zhCN: AtlasLoo t选项模块

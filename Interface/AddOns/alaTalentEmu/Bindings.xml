@@ -1,5 +1,5 @@
 <Bindings>
-   <Binding name = "ALARAIDTOOL_NEWWINDOW" category = "ADDONS" description = "Toggle" header = "alaTalentEmu" >
+   <Binding name = "ALARAIDTOOL_NEWWINDOW" category = "ADDONS" description = "Toggle" header = "ALATALENTEMU_HEADER" >
       ATEMU.Create();
    </Binding>
    <Binding name = "ALARAIDTOOL_QUERY" category = "ADDONS" >

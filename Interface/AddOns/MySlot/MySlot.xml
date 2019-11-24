@@ -43,7 +43,7 @@
 
 	<Frame name="MYSLOT_ReportFrame" toplevel="true" movable="true" parent="UIParent" enableMouse="true" hidden="true" clampedToScreen="true">
 		<Size>
-			<AbsDimension x="550" y="500"/>
+			<AbsDimension x="650" y="600"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
@@ -73,7 +73,7 @@
 						</Anchor>
 					</Anchors>
 				</Texture>
-				<FontString name="$parentHeaderText" inherits="GameFontNormal" text="MySlot_TitleText">
+				<FontString name="$parentHeaderText" inherits="GameFontNormalLarge" text="MySlot">
 					<Anchors>
 						<Anchor point="TOP" relativeTo="$parentHeaderTexture">
 							<Offset>
@@ -87,7 +87,7 @@
 		<Frames>
 			<ScrollFrame name="MYSLOT_ScrollFrame" inherits="UIPanelScrollFrameTemplate">
 				<Size>
-					<AbsDimension x="500" y="430"/>
+					<AbsDimension x="600" y="500"/>
 				</Size>
 				<Anchors>
 					<Anchor point="TOPLEFT">
@@ -99,15 +99,15 @@
 				<ScrollChild>
 					<Frame name="MYSLOT_ScrollFrame_Child" enableMouse="true">
 						<Size>
-							<AbsDimension x="500" y="430"/>
+							<AbsDimension x="600" y="500"/>
 						</Size>
 						<Anchors>
 							<Anchor point="TOPLEFT"/>
 						</Anchors>
 						<Frames>
-							<EditBox name="MYSLOT_ReportFrame_EditBox"  letters="99999999" multiLine="true" autoFocus="false">
+							<EditBox name="MYSLOT_ReportFrame_EditBox" letters="99999999" multiLine="true" autoFocus="false">
 								<Size>
-									<AbsDimension x="480" y="400"/>
+									<AbsDimension x="580" y="480"/>
 								</Size>
 								<Anchors>
 									<Anchor point="TOPLEFT">
@@ -139,6 +139,9 @@
 									<OnEscapePressed>
 										self:ClearFocus();
 									</OnEscapePressed>
+									<OnMouseUp>
+										self:HighlightText();
+									</OnMouseUp>
 								</Scripts>
 								<FontString inherits="GameTooltipTextSmall"/>
 							</EditBox>
@@ -161,26 +164,6 @@
 					<OnClick>
 						MYSLOT_LoadButton_OnClick();
 					</OnClick>
-				</Scripts>
-			</Button>
-			<Button name="$parentImportButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_ImportText">
-				<Size>
-					<AbsDimension x="75" y="25"/>
-				</Size>
-				<Anchors>
-					<Anchor point="BOTTOM" >
-						<Offset>
-							<AbsDimension x="-95" y="13"/>
-						</Offset>
-					</Anchor>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						MySlot_Import()
-					</OnClick>
-					<OnUpdate>
-						MySlot_Check_Status_Update(self);
-					</OnUpdate>
 				</Scripts>
 			</Button>
 			<Button name="$parentGetButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_GetText">
@@ -238,6 +221,44 @@
 					</OnClick>
 				</Scripts>
 			</Button>
+			<Button name="$parentImportButton" hidden="false" inherits="GameMenuButtonTemplate" text="MySlot_ImportText">
+				<Size>
+					<AbsDimension x="75" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOM" >
+						<Offset>
+							<AbsDimension x="-95" y="13"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						MySlot_Import()
+					</OnClick>
+					<OnUpdate>
+						MySlot_Check_Status_Update(self);
+					</OnUpdate>
+				</Scripts>
+			</Button>
+			<CheckButton name="$parentForceImport" inherits="OptionsCheckButtonTemplate" checked="false">
+				<Anchors>
+					<Anchor point="BOTTOM" x="-230" y="13"/>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:SetText(MySlot_ForceImport)
+						self.tooltip = MySlot_SkipCRC32
+					</OnLoad>
+					<OnEnter>
+						GameTooltip:SetOwner(self, "ANCHOR_TOP");
+						GameTooltip:SetText(self.tooltip, nil, nil, nil, nil, true);
+						GameTooltip:Show();
+					</OnEnter>
+					<OnClick> </OnClick>
+					<OnLeave function="GameTooltip_Hide"/>
+				</Scripts>
+			</CheckButton>
 		</Frames>
 		<Scripts>
 			<OnLoad>

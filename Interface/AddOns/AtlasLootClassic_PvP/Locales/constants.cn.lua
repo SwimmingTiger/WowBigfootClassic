@@ -6,4 +6,3 @@ if not AL then return end
 -- PvP
 AL["Battlegrounds"] = "战场"
 AL["Class Sets"] = "职业套装"
-AL["Insignia"] = "徽章"

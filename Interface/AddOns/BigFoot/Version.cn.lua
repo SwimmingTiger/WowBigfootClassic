@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.2."
-local minor = "24"
+local minor = "25"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,10 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/11/21 (1.13.2.25)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/11/02 (1.13.2.24)")
 	BigFootChangelog_ar("大脚插件","添加德鲁伊法力监视(ClassicThreatMeter)。")
@@ -149,4 +153,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "54"
+BF_VERSION_CHECKSUM = "55"

@@ -6,6 +6,10 @@ local function DebugBreakPrint()
     print("ERROR");
 end
 
+local CSC_ScanTooltip = CreateFrame("GameTooltip", "CSC_ScanTooltip", nil, "GameTooltipTemplate");
+CSC_ScanTooltip:SetOwner(WorldFrame, "ANCHOR_NONE");
+local CSC_ScanTooltipPrefix = "CSC_ScanTooltip";
+
 -- GENERAL UTIL FUNCTIONS --
 local function CSC_GetAppropriateDamage(unit, category)
 	if category == PLAYERSTAT_MELEE_COMBAT then
@@ -445,6 +449,36 @@ function CSC_PaperDollFrame_SetHitChance(statFrame, unit)
 	statFrame:Show();
 end
 
+local function CSC_GetHitFromBiznicksAccurascope(unit)
+	CSC_ScanTooltip:ClearLines();
+
+	local hitFromScope = 0;
+	local rangedIndex = 18;
+
+	local hasItem = CSC_ScanTooltip:SetInventoryItem(unit, rangedIndex);
+	if hasItem then
+		local maxLines = CSC_ScanTooltip:NumLines();
+		for line=1, maxLines do
+			local leftText = getglobal(CSC_ScanTooltipPrefix.."TextLeft"..line);
+			if leftText:GetText() then
+				local valueTxt = string.match(leftText:GetText(), "+%d+%% "..CSC_HIT_BIZNICKS_TXT);
+				if valueTxt then
+					valueTxt = string.match(valueTxt, "%d+");
+					if valueTxt then
+						local numValue = tonumber(valueTxt);
+						if numValue then
+							hitFromScope = numValue;
+							break;
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return hitFromScope;
+end
+
 function CSC_PaperDollFrame_SetRangedHitChance(statFrame, unit)
 	
 	if not IsRangedWeapon() then
@@ -457,6 +491,11 @@ function CSC_PaperDollFrame_SetRangedHitChance(statFrame, unit)
 	
 	if not hitChance then
 		hitChance = 0;
+	end
+
+	local hitFromScope = CSC_GetHitFromBiznicksAccurascope(unit);
+	if (hitFromScope > 0) then
+		hitChance = hitChance + hitFromScope;
 	end
 
 	local hitChanceText = hitChance;
@@ -604,50 +643,52 @@ function CSC_PaperDollFrame_SetParry(statFrame, unit)
 	statFrame:Show();
 end
 
-local function CSC_PaperDollFrame_GetArmorReduction(armor, attackerLevel)
-	return C_PaperDollInfo.GetArmorEffectiveness(armor, attackerLevel) * 100;
-end
+local function CSC_GetBlockValue(unit)
+	CSC_ScanTooltip:ClearLines();
 
-local function CSC_PaperDollFrame_GetArmorReductionAgainstTarget(armor)
-	local armorEffectiveness = C_PaperDollInfo.GetArmorEffectivenessAgainstTarget(armor);
-	if ( armorEffectiveness ) then
-		return armorEffectiveness * 100;
+	local blockFromShield = 0;
+	local offHandIndex = 17;
+
+	local hasItem = CSC_ScanTooltip:SetInventoryItem(unit, offHandIndex);
+	if hasItem then
+		local maxLines = CSC_ScanTooltip:NumLines();
+		for line=1, maxLines do
+			local leftText = getglobal(CSC_ScanTooltipPrefix.."TextLeft"..line);
+			if leftText:GetText() then
+				local valueTxt = string.match(leftText:GetText(), "%d+ "..ITEM_MOD_BLOCK_RATING_SHORT);
+				if valueTxt then
+					valueTxt = string.match(valueTxt, "%d+");
+					if valueTxt then
+						local numValue = tonumber(valueTxt);
+						if numValue then
+							blockFromShield = numValue;
+							break;
+						end
+					end
+				end
+			end
+		end
 	end
+
+	local strStatIndex = 1;
+	local strength = select(2, UnitStat(unit, strStatIndex));
+	local blockValue = blockFromShield + (strength / 20);
+
+	return blockValue;
 end
 
 function CSC_PaperDollFrame_SetBlock(statFrame, unit)
-	local chance = GetBlockChance();
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, chance, true, chance);
-	statFrame.tooltip = format(PAPERDOLLFRAME_TOOLTIP_FORMAT, BLOCK_CHANCE).." "..string.format("%.2F", chance).."%";
+
+	statFrame:SetScript("OnEnter", CSC_CharacterBlock_OnEnter)
+	statFrame:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
 	
-	--[[
-	local shieldBlockArmor = GetShieldBlock();
-	local blockArmorReduction = CSC_PaperDollFrame_GetArmorReduction(shieldBlockArmor, UnitEffectiveLevel(unit));
-	local blockArmorReductionAgainstTarget = CSC_PaperDollFrame_GetArmorReductionAgainstTarget(shieldBlockArmor);
+	local blockChance = GetBlockChance();
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, blockChance, true, blockChance);
 
-	statFrame.tooltip2 = CR_BLOCK_TOOLTIP:format(blockArmorReduction);
-	if (blockArmorReductionAgainstTarget) then
-		--statFrame.tooltip3 = format(STAT_BLOCK_TARGET_TOOLTIP, blockArmorReductionAgainstTarget);
-	else
-		statFrame.tooltip3 = nil;
-	end
-	--]]
-
-	statFrame:Show();
-end
-
-function CSC_PaperDollFrame_SetStagger(statFrame, unit)
-	local stagger, staggerAgainstTarget = C_PaperDollInfo.GetStaggerPercentage(unit);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_STAGGER, stagger, true, stagger);
-
-	statFrame.tooltip = format(PAPERDOLLFRAME_TOOLTIP_FORMAT, STAGGER).." "..string.format("%.2F%%",stagger);
-	statFrame.tooltip2 = format(STAT_STAGGER_TOOLTIP, stagger);
-	if (staggerAgainstTarget) then
-		statFrame.tooltip3 = format(STAT_STAGGER_TARGET_TOOLTIP, staggerAgainstTarget);
-	else
-		statFrame.tooltip3 = nil;
-	end
-
+	statFrame.blockChance = string.format("%.2F", blockChance).."%";
+	statFrame.blockValue = CSC_GetBlockValue(unit);
 	statFrame:Show();
 end
 
@@ -773,6 +814,14 @@ function CSC_CharacterManaRegenFrame_OnEnter(self)
 	GameTooltip:AddLine(" "); -- Blank line.
 	GameTooltip:AddDoubleLine(MANA_REGEN.." (While Casting):", self.mp5Casting);
 	GameTooltip:AddDoubleLine(MANA_REGEN.." (While Not Casting):", self.mp5NotCasting);
+	GameTooltip:Show();
+end
+
+function CSC_CharacterBlock_OnEnter(self)
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+	GameTooltip:SetText(" ", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+	GameTooltip:AddDoubleLine(BLOCK_CHANCE..": ", self.blockChance);
+	GameTooltip:AddDoubleLine(ITEM_MOD_BLOCK_VALUE_SHORT..": ", self.blockValue);
 	GameTooltip:Show();
 end
 -- OnEnter Tooltip functions END

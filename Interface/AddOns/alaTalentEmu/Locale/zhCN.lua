@@ -10,17 +10,21 @@ if GetLocale() ~= "zhCN" then return;end
 
 BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "新建模拟器";
 BINDING_NAME_ALARAIDTOOL_QUERY = "查看目标天赋";
+BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>天赋模拟器";
 
 L.Locale = "zhCN";
 
 L.Emu = "模拟器";
 L.OK = "确定";
 L.Cancel = "取消";
+L.Search = "搜索";
+L.Hide = "隐藏";
 L.curTabPointsLabel = "点数";
 L.curPointsTotal = "总点数";
 L.curPointsRemaining = "剩余";
 L.curPointsUsed = "已用";
 L.curPointsReqLevel = "等级";
+
 L.readOnly = "\124cffff0000只读\124r";
 L.notReadOnly = "\124cff00ff00可编辑\124r";
 L.labelPointsChanged = "(\124cffff0000修改\124r)";
@@ -29,18 +33,26 @@ L.resetAllButton = "重置所有天赋";
 L.resetToSetButton = "重置到初始状态";
 L.readOnlyButton = "\124cff00ff00左键\124r切换禁止编辑\n\124cff00ff00右键\124r设置窗口风格";
 L.closeButton = "关闭窗口";
+
 L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
 L.inspectTargetButton = "观察目标天赋";
+L.spellTabButton = "技能列表窗口";
+L.spellAvailable = "\124cff00ff00技能可用\124r";
+L.spellNotAvailable = "\124cffff0000技能不可用\124r";
+L.showAllSpell = "显示所有等级";
 L.applyTalentsButton = "应用当前天赋模拟";
 L.applyTalentsButton_Notify = "确定应用当前天赋？";
-L.importButton = "导入字符串";
+L.importButton = "导入字符串或wowhead/nfu链接";
 L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右键\124r导出到\124cffff0000wowhead/nfu\124r网页链接";
 L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右键\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
+L.equipmentButton = "打开装备查看";
+
 L.TalentFrameCallButton = "打开ala天赋模拟器";
 L.TalentFrameCallButtonFontString = "模拟器";
 L.curRank = "当前等级";
 L.nextRank = "下一等级";
 L.maxRank = "最高等级";
+
 L.SetSingleFrame_True = "设置为单窗口显示";
 L.SetSingleFrame_False = "设置为多窗口显示";
 L.SetStyleAllTo1_ThisWin = "设置本窗口为三列显示所有天赋树";
@@ -54,7 +66,10 @@ L.inspectButtonOnUnitFrame_Disable = "关闭观察按钮";
 L.insepctALTKEY = "按住ALT键显示观察按钮";
 L.insepctCTRLKEY = "按住CTRL键显示观察按钮";
 L.insepctSHIFTKEY = "按住SHIFT键显示观察按钮";
+
 L.DBIcon_Text = "\124cff00ff00左键\124r新建模拟器\n\124cff00ff00右键\124r设置窗口风格";
+L.spellTabGTTSpellLevel = "技能等级: ";
+L.spellTabGTTReqLevel = "需要等级: ";
 
 L.DATA = {
 	talent = "天赋",
@@ -105,6 +120,13 @@ L.DATA = {
 
 };
 
+L.RACE = "种族";
+L.HUMAN = "人类";
+L.DWARF = "矮人";
+L["HUMAN|DWARF"] = "人类|矮人";
+L.NIGHTELF = "暗夜精灵";
+L.SCOURGE = "亡灵";
+L.TROLL = "巨魔";
 
 
 

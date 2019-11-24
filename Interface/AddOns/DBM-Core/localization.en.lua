@@ -93,7 +93,7 @@ DBM_CORE_SOUNDKIT_MIGRATION			= "One or more of your warning/special warning sou
 
 DBM_CORE_WORLDBOSS_ENGAGED			= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 DBM_CORE_WORLDBOSS_DEFEATED			= "%s was possibly defeated on your realm (Sent by %s)."
-DBM_CORE_WORLDBUFF_STARTED			= "%s buff has started on your realm for % faction (Sent by %s)."
+DBM_CORE_WORLDBUFF_STARTED			= "%s buff has started on your realm for %s faction (Sent by %s)."
 
 DBM_CORE_TIMER_FORMAT_SECS			= "%.2f |4second:seconds;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d |4minute:minutes;"
@@ -153,8 +153,8 @@ DBM_CORE_UPDATEREMINDER_HEADER			= "Your version of Deadly Boss Mods is out-of-d
 DBM_CORE_UPDATEREMINDER_HEADER_ALPHA	= "Your ALPHA version of Deadly Boss Mods is out-of-date.\n You are at least %s test versions behind. It is recommended that DBM users that choose ALPHA versions run the latest ALPHA. Otherwise, they should run latest RELEASE version. Out of date ALPHAs have a stricter version check because they are development versions of DBM."
 DBM_CORE_UPDATEREMINDER_FOOTER			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
---DBM_CORE_UPDATEREMINDER_DISABLE		= "WARNING: Due to your Deadly Boss Mods being too out of date it has been force disabled and cannot be used until updated. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow raid members."
-DBM_CORE_UPDATEREMINDER_NODISABLE		= "WARNING: Your Deadly Boss Mods install is very out of date. While you may have disabled update notification, this message starts to appear after a certain threshold and cannot be disabled. Updating is HIGHLY recommended."
+DBM_CORE_UPDATEREMINDER_DISABLE			= "WARNING: Due to your Deadly Boss Mods being too out of date it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
+--DBM_CORE_UPDATEREMINDER_NODISABLE		= "WARNING: Your Deadly Boss Mods install is very out of date. While you may have disabled update notification, this message starts to appear after a certain threshold and cannot be disabled. Updating is HIGHLY recommended."
 DBM_CORE_UPDATEREMINDER_HOTFIX			= "DBM version you are on has known issues during this boss encounter that are corrected if you update to latest release"
 DBM_CORE_UPDATEREMINDER_HOTFIX_ALPHA	= "DBM version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
 DBM_CORE_UPDATEREMINDER_MAJORPATCH		= "WARNING: Do to your Deadly Boss Mods being out of date, DBM has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from deadlybossmods.com or curse as soon as possible."

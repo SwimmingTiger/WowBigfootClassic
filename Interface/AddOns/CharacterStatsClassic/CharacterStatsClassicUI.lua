@@ -171,41 +171,16 @@ function UIConfig:SetupDropdown()
     UIDropDownMenu_JustifyText(CSC_UIFrame.CharacterStatsPanel.rightStatsDropDown, "LEFT");
 end
 
--- Extend the functionality of the default CharacterFrameTab
-function ToggleCharacter(tab, onlyShow)
-    if ( tab == "PaperDollFrame") then
+-- Hook a custom function in order to extend the functionality of the default ToggleCharacter function
+local function CSC_ToggleCharacterPostHook(tab, onlyShow)
+    if (tab == "PaperDollFrame") then
         CSC_UIFrame.CharacterStatsPanel:Show();
         CSC_UIFrame:UpdateStats();
     else
         CSC_UIFrame.CharacterStatsPanel:Hide();
     end
-
-	if ( tab == "PetPaperDollFrame" and not HasPetUI() and not PetPaperDollFrame:IsVisible() ) then
-		return;
-	end
-	if ( tab == "HonorFrame" and not HonorSystemEnabled() and not HonorFrame:IsVisible() ) then
-		return;
-	end
-	local subFrame = _G[tab];
-	if ( subFrame ) then
-		if (not subFrame.hidden) then
-			PanelTemplates_SetTab(CharacterFrame, subFrame:GetID());
-			if ( CharacterFrame:IsShown() ) then
-				if ( subFrame:IsShown() ) then
-					if ( not onlyShow ) then
-						HideUIPanel(CharacterFrame);
-					end
-				else
-					PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB);
-					CharacterFrame_ShowSubFrame(tab);
-				end
-			else
-				CharacterFrame_ShowSubFrame(tab);
-				ShowUIPanel(CharacterFrame);
-			end
-		end
-    end
 end
+hooksecurefunc("ToggleCharacter", CSC_ToggleCharacterPostHook);
 
 -- Serializing the DB
 local dbLoader = CreateFrame("Frame");

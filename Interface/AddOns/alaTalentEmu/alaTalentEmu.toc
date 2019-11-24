@@ -5,7 +5,7 @@
 ## Notes: |cff00ff00alaTalentEmu|r
 ## SavedVariables: alaTalentEmuSV
 ## Author: alex
-## Version: 113r.191016
+## Version: 113r.191106
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

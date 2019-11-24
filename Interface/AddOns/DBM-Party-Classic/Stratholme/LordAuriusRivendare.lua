@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(456, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190830003653")
+mod:SetRevision("20190903044501")
 mod:SetCreatureID(10440)--10440 Baron Rivendare, 45412 Lord Aurius Rivendare, 11197/mindless-skeleton
 mod:SetEncounterID(484)
 

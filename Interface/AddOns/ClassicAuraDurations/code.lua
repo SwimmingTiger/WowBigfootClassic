@@ -40,9 +40,11 @@ end
 
 local defaults = {
     portraitIcon = true,
+    playerPortraitIcon = true,
     enemyBuffs = false,
     hookTargetFrame = true,
     verbosePortraitIcon = false,
+    largePersonalDebuffs = false,
 }
 
 -- Redefining blizzard consts
@@ -62,7 +64,9 @@ local PLAYER_UNITS = {
 	player = true,
 	pet = true,
 };
-local function ShouldAuraBeLarge(caster)
+
+
+local function ShouldAuraBeLargePersonalDebuffs(caster)
     if not caster then
 		return false;
 	end
@@ -74,18 +78,22 @@ local function ShouldAuraBeLarge(caster)
 	end
 end
 
+local function ShouldAuraBeLargeAlways(caster)
+    return true
+end
+
+local ShouldAuraBeLarge = ShouldAuraBeLargeAlways
 
 
 
-
-local UpdatePortraitIcon = function(unit, maxPrio, maxPrioIndex, maxPrioFilter)
-    local auraCD = TargetFrame.CADPortraitFrame
+local UpdatePortraitIcon = function(frame, unit, maxPrio, maxPrioIndex, maxPrioFilter, targetType)
+    local auraCD = frame.CADPortraitFrame
     local originalPortrait = auraCD.originalPortrait
 
     local isLocked = LibSpellLocks:GetSpellLockInfo(unit)
 
     local CUTOFF_AURA_TYPE = db.verbosePortraitIcon and "SPEED_BOOST" or "SILENCE"
-    local PRIO_SILENCE = LibAuraTypes.GetDebuffTypePriority(CUTOFF_AURA_TYPE)
+    local PRIO_SILENCE = LibAuraTypes.GetAuraTypePriority(CUTOFF_AURA_TYPE, targetType)
     if isLocked and PRIO_SILENCE > maxPrio then
         maxPrio = PRIO_SILENCE
         maxPrioIndex = -1
@@ -118,20 +126,22 @@ f.SimpleTargetFrameHook = function(self)
     local numBuffs = 0;
     -- local playerIsTarget = UnitIsUnit(PlayerFrame.unit, self.unit);
     local selfName = self:GetName();
+    local unit = self.unit
+    local targetType = UnitIsFriend(unit, "player") and "ALLY" or "ENEMY"
     --[[ PORTRAIT AURA ]]
     local maxPrio = 0
     local maxPrioFilter
     local maxPrioIndex = 1
 
     for i = 1, MAX_TARGET_BUFFS do
-        local buffName, icon, count, debuffType, duration, expirationTime, caster, canStealOrPurge, _ , spellId, _, _, casterIsPlayer, nameplateShowAll = UnitBuff(self.unit, i, nil);
+        local buffName, icon, count, debuffType, duration, expirationTime, caster, canStealOrPurge, _ , spellId, _, _, casterIsPlayer, nameplateShowAll = UnitBuff(unit, i, nil);
         if (buffName) then
             frameName = selfName.."Buff"..(i);
             frame = _G[frameName];
 
             -- Handle cooldowns
             frameCooldown = _G[frameName.."Cooldown"];
-            local durationNew, expirationTimeNew = LibClassicDurations:GetAuraDurationByUnit(self.unit, spellId, caster)
+            local durationNew, expirationTimeNew = LibClassicDurations:GetAuraDurationByUnit(unit, spellId, caster)
             if duration == 0 and durationNew then
                 duration = durationNew
                 expirationTime = expirationTimeNew
@@ -140,7 +150,7 @@ f.SimpleTargetFrameHook = function(self)
 
             --[[ PORTRAIT AURA ]]
             if db.portraitIcon then
-                local rootSpellID, spellType, prio = LibAuraTypes.GetDebuffInfo(spellId)
+                local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, targetType)
                 if prio and prio > maxPrio then
                     maxPrio = prio
                     maxPrioIndex = i
@@ -159,7 +169,7 @@ f.SimpleTargetFrameHook = function(self)
 
     local maxDebuffs = self.maxDebuffs or MAX_TARGET_DEBUFFS;
     while ( frameNum <= maxDebuffs and index <= maxDebuffs ) do
-        local debuffName, icon, count, debuffType, duration, expirationTime, caster, _, _, spellId, _, _, casterIsPlayer, nameplateShowAll = UnitDebuff(self.unit, index, "INCLUDE_NAME_PLATE_ONLY");
+        local debuffName, icon, count, debuffType, duration, expirationTime, caster, _, _, spellId, _, _, casterIsPlayer, nameplateShowAll = UnitDebuff(unit, index, "INCLUDE_NAME_PLATE_ONLY");
         if ( debuffName ) then
             if ( TargetFrame_ShouldShowDebuffs(self.unit, caster, nameplateShowAll, casterIsPlayer) ) then
                 frameName = selfName.."Debuff"..frameNum;
@@ -178,7 +188,7 @@ f.SimpleTargetFrameHook = function(self)
 
                 --[[ PORTRAIT AURA ]]
                 if db.portraitIcon then
-                    local rootSpellID, spellType, prio = LibAuraTypes.GetDebuffInfo(spellId)
+                    local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, targetType)
                     if prio and prio > maxPrio then
                         maxPrio = prio
                         maxPrioIndex = index
@@ -194,7 +204,7 @@ f.SimpleTargetFrameHook = function(self)
 
     --[[ PORTRAIT AURA ]]
     if db.portraitIcon then
-        UpdatePortraitIcon(self.unit, maxPrio, maxPrioIndex, maxPrioFilter)
+        UpdatePortraitIcon(TargetFrame, self.unit, maxPrio, maxPrioIndex, maxPrioFilter, targetType)
     end
 end
 
@@ -225,25 +235,36 @@ function f.PLAYER_LOGIN(self, event)
         end
     end)
 
-    local originalPortrait = _G["TargetFramePortrait"];
+    ShouldAuraBeLarge = db.largePersonalDebuffs and ShouldAuraBeLargePersonalDebuffs or ShouldAuraBeLargeAlways
 
-    local auraCD = CreateFrame("Cooldown", "ClassicAuraDurationsPortraitAura", TargetFrame, "CooldownFrameTemplate")
-    auraCD:SetFrameStrata("LOW")
-    auraCD:SetFrameLevel(1)
-    auraCD:SetDrawEdge(false);
-    -- auraCD:SetHideCountdownNumbers(true);
-    auraCD:SetReverse(true)
-    auraCD:SetSwipeTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
-    auraCD:SetAllPoints(originalPortrait)
-    TargetFrame.CADPortraitFrame = auraCD
-    auraCD.originalPortrait = originalPortrait
+    local makePortraitOverlay = function(frame, portraitGlobalName)
+        local originalPortrait = _G[portraitGlobalName];
 
-    local auraIconTexture = auraCD:CreateTexture(nil, "BORDER", nil, 2)
-    auraIconTexture:SetAllPoints(originalPortrait)
-    -- auraIconTexture:Hide()
-    -- SetPortraitToTexture(auraIconTexture, 136039)
-    auraCD.texture = auraIconTexture
-    auraCD:Hide()
+        local auraCD = CreateFrame("Cooldown", "CAD"..portraitGlobalName, frame, "CooldownFrameTemplate")
+        auraCD:SetParent(frame)
+        auraCD:SetFrameStrata("LOW")
+        if frame == PlayerFrame then
+            auraCD:SetFrameLevel(2)
+        else
+            auraCD:SetFrameLevel(1)
+        end
+        auraCD:SetDrawEdge(false);
+        -- auraCD:SetHideCountdownNumbers(true);
+        auraCD:SetReverse(true)
+        auraCD:SetSwipeTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
+        auraCD:SetAllPoints(originalPortrait)
+        frame.CADPortraitFrame = auraCD
+        auraCD.originalPortrait = originalPortrait
+
+        local auraIconTexture = auraCD:CreateTexture(nil, "BORDER", nil, 2)
+        auraIconTexture:SetAllPoints(originalPortrait)
+        -- auraIconTexture:Hide()
+        -- SetPortraitToTexture(auraIconTexture, 136039)
+        auraCD.texture = auraIconTexture
+        auraCD:Hide()
+    end
+    makePortraitOverlay(TargetFrame, "TargetFramePortrait")
+    makePortraitOverlay(PlayerFrame, "PlayerPortrait")
 
     if db.hookTargetFrame then
         if db.enemyBuffs then
@@ -294,6 +315,8 @@ function f.PLAYER_LOGIN(self, event)
             CooldownFrame_Clear(debuffFrame.cooldown);
         end
     end)
+
+    self:RegisterUnitEvent("UNIT_AURA", "player") -- for player portrait icon
 
     --[[
     -- fuck this, PartyDebuffFrameTemplate doesn't create PartyMemberFrame1Debuff1Cooldown, even on live
@@ -350,7 +373,40 @@ function f.PLAYER_LOGIN(self, event)
         end)
 end
 
+function f:UNIT_AURA(event, unit)
+    if unit == "player" then
+        local maxPrio = 0
+        local maxPrioFilter
+        local maxPrioIndex = 1
+        if db.playerPortraitIcon then
+            for index=1,100 do --debuffs
+                local name, icon, count, debuffType, duration, expirationTime, caster, _, _, spellId, _, _, casterIsPlayer, nameplateShowAll = UnitAura(unit, index, "HARMFUL");
+                if not name then break end
 
+                local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, "ALLY")
+                if prio and prio > maxPrio then
+                    maxPrio = prio
+                    maxPrioIndex = index
+                    maxPrioFilter = "HARMFUL"
+                end
+            end
+
+            for index=1,100 do --buffs
+                local name, icon, count, debuffType, duration, expirationTime, caster, _, _, spellId, _, _, casterIsPlayer, nameplateShowAll = UnitAura(unit, index, "HELPFUL");
+                if not name then break end
+
+                local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, "ALLY")
+                if prio and prio > maxPrio then
+                    maxPrio = prio
+                    maxPrioIndex = index
+                    maxPrioFilter = "HELPFUL"
+                end
+            end
+
+            UpdatePortraitIcon(PlayerFrame, unit, maxPrio, maxPrioIndex, maxPrioFilter, "ALLY")
+        end
+    end
+end
 
 local function MakeCheckbox(name, parent)
     local cb = CreateFrame("CheckButton", name, parent, "UICheckButtonTemplate")
@@ -391,6 +447,9 @@ function f:CreateGUI(name, parent)
         self.content.portraitIcon:SetChecked(db.portraitIcon)
         self.content.hookTargetFrame:SetChecked(db.hookTargetFrame)
         self.content.verbosePortraitIcon:SetChecked(db.verbosePortraitIcon)
+        self.content.playerPortraitIcon:SetChecked(db.playerPortraitIcon)
+        self.content.largePersonalDebuffs:SetChecked(db.largePersonalDebuffs)
+        self.content.largePersonalDebuffs:UpdateDisabled()
     end)
     -- frame:SetScript("OnHide", function(self) print("onHide") end)
 
@@ -428,6 +487,7 @@ function f:CreateGUI(name, parent)
     content.enemyBuffs = ebt
     ebt:SetScript("OnClick",function(self,button)
         f.Commands.enemybuffs()
+        self.content.largePersonalDebuffs:UpdateDisabled()
     end)
     AddTooltip(ebt, [=[As opposed to only adding cooldown swipes, completely duplicates default aura handling.
 This allows to display large personal debuffs and some enemy buffs.
@@ -452,6 +512,34 @@ May cause 'Script ran too long errors'
     end)
     AddTooltip(vpi, "Lowers the threshold of effects for portrait display. Will include slows and anything remotely important")
 
+    local ppi = MakeCheckbox(nil, content)
+    ppi.label:SetText("Player Portrait Icon")
+    ppi:SetPoint("TOPLEFT", 10, -180)
+    content.playerPortraitIcon = ppi
+    ppi:SetScript("OnClick",function(self,button)
+        f.Commands.playericon()
+    end)
+    AddTooltip(ppi, "Show icon on Player Frame")
+
+    local lpd = MakeCheckbox(nil, content)
+    lpd.label:SetText("Large Personal Debuffs")
+    lpd:SetPoint("TOPLEFT", 10, -210)
+    content.largePersonalDebuffs = lpd
+    lpd:SetScript("OnClick",function(self,button)
+        f.Commands.largepersonal()
+    end)
+    lpd.UpdateDisabled = function(self)
+        if not db.enemyBuffs then
+            self:Disable()
+            self.label:SetTextColor(0.5, 0.5, 0.5)
+        else
+            self:Enable()
+            self.label:SetTextColor(1,1,1)
+        end
+    end
+    AddTooltip(lpd, "Auras that aren't casted by player will be smaller. Lower OmniCC size threshold to still see numeric display on them.")
+    ebt.content = content
+
     return frame
 end
 
@@ -460,8 +548,15 @@ f.Commands = {
     ["portraiticon"] = function(v)
         db.portraitIcon = not db.portraitIcon
     end,
+    ["playericon"] = function(v)
+        db.playerPortraitIcon = not db.playerPortraitIcon
+    end,
     ["verboseicon"] = function(v)
         db.verbosePortraitIcon = not db.verbosePortraitIcon
+    end,
+    ["largepersonal"] = function(v)
+        db.largePersonalDebuffs = not db.largePersonalDebuffs
+        ShouldAuraBeLarge = db.largePersonalDebuffs and ShouldAuraBeLargePersonalDebuffs or ShouldAuraBeLargeAlways
     end,
     ["enemybuffs"] = function(v)
         db.enemyBuffs = not db.enemyBuffs
@@ -503,6 +598,7 @@ f.EnemyBuffsTargetFrameHook = function(self)
 
 
     local unit = self.unit
+    local targetType = UnitIsFriend(unit, "player") and "ALLY" or "ENEMY"
     --[[ PORTRAIT AURA ]]
     local maxPrio = 0
     local maxPrioFilter
@@ -548,7 +644,7 @@ f.EnemyBuffsTargetFrameHook = function(self)
 
                 --[[ PORTRAIT AURA ]]
                 if db.portraitIcon then
-                    local rootSpellID, spellType, prio = LibAuraTypes.GetDebuffInfo(spellId)
+                    local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, targetType)
                     if prio and prio > maxPrio then
                         maxPrio = prio
                         maxPrioIndex = i
@@ -566,7 +662,7 @@ f.EnemyBuffsTargetFrameHook = function(self)
 
                 -- set the buff to be big if the buff is cast by the player or his pet
                 numBuffs = numBuffs + 1;
-                largeBuffList[numBuffs] = ShouldAuraBeLarge(caster);
+                largeBuffList[numBuffs] = true--ShouldAuraBeLarge(caster);
 
                 frame:ClearAllPoints();
                 frame:Show();
@@ -632,7 +728,7 @@ f.EnemyBuffsTargetFrameHook = function(self)
 
                     --[[ PORTRAIT AURA ]]
                     if db.portraitIcon then
-                        local rootSpellID, spellType, prio = LibAuraTypes.GetDebuffInfo(spellId)
+                        local prio, spellType = LibAuraTypes.GetAuraInfo(spellId, targetType)
                         if prio and prio > maxPrio then
                             maxPrio = prio
                             maxPrioIndex = index
@@ -699,6 +795,6 @@ f.EnemyBuffsTargetFrameHook = function(self)
 
     --[[ PORTRAIT AURA ]]
     if db.portraitIcon then
-        UpdatePortraitIcon(self.unit, maxPrio, maxPrioIndex, maxPrioFilter)
+        UpdatePortraitIcon(TargetFrame, self.unit, maxPrio, maxPrioIndex, maxPrioFilter, targetType)
     end
 end

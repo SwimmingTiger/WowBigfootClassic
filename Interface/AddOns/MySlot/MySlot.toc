@@ -3,35 +3,23 @@
 ## Title-zhCN: [大脚][集]按键设置保存
 ## Title-zhTW: [大腳][集]按鍵設置保存
 ## Notes: |cffbc8f8fMyslot is for transferring settings between accounts. Feedback farmer1992@gmail.com|r
-## Notes-zhCN: |cff00ff00MySlot|r|n|cffbc8f8f记忆、恢复、保存、载入您的按键设置。|r
-## Notes-zhTW: |cff00ff00MySlot|r|n|cffbc8f8f記憶、恢復、保存、載入您的按鍵設置。|r
-## Author: tg123,Enhance By Ever@BF
-## Version: classic-5.2.6-alpha
+## Notes-zhCN: |cff00ff00MySlot|r|n|cffbc8f8f Myslot可以帮助你在账号之间共享配置。反馈：farmer1992@gmail.com|r
+## Notes-zhTW: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以跨帳號綁定技能與按鍵設置。反饋通道：farmer1992@gmail.com|r
+## Author: Boshi Lian
+## Version: v5.3.0-classic
 ## SavedVariables: MySlot_SavedDb
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
+## LoadOnDemand: 1
 
 libs\base64.lua
 libs\crc32.lua
+libs\lua-pb\lua-pb.xml
 
-libs\lua-pb\pb\fakerequire.lua
-libs\lua-pb\pb\utils.lua
-libs\lua-pb\pb\handlers.lua
-libs\lua-pb\pb\standard\buffer.lua
-libs\lua-pb\pb\standard\unknown.lua
-libs\lua-pb\pb\standard\repeated.lua
-
-libs\lua-pb\pb\standard\dump.lua
-libs\lua-pb\pb\standard\message.lua
-
-libs\lua-pb\pb\standard\pack.lua
-libs\lua-pb\pb\standard\unpack.lua
-libs\lua-pb\pb\standard.lua
-
-libs\lua-pb\pb-wow.lua
+protobuf\Myslot.lua
 
 locales.lua
 keys.lua
-PbMySlot.lua
 MySlot.lua
 MySlot.xml
+gui.lua

@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20191029160018"),
-	DisplayVersion = "1.13.18", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 10, 29) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20191119153631"),
+	DisplayVersion = "1.13.20", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 11, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -173,7 +173,8 @@ DBM.DefaultOptions = {
 	--FilterSelfHud = true,
 	AutologBosses = false,
 	AdvancedAutologBosses = false,
-	LogOnlyRaidBosses = false,
+	RecordOnlyBosses = false,
+	LogOnlyNonTrivial = true,
 	UseSoundChannel = "Master",
 	LFDEnhance = true,
 	WorldBossNearAlert = false,
@@ -616,6 +617,7 @@ end
 
 --Sync Object specifically for world boss and world buff sync messages that have different rules than standard syncs
 local function SendWorldSync(self, prefix, msg, noBNet)
+	DBM:Debug("SendWorldSync running for "..prefix)
 	if IsInRaid() then
 		SendAddonMessage("D4C", prefix.."\t"..msg, "RAID")
 	elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
@@ -3809,6 +3811,14 @@ do
 				DBM.RangeCheck:Hide(true)
 			end
 		end
+		-- Auto Logging for entire zone if record only bosses is off
+		if not DBM.Options.RecordOnlyBosses then
+			if LastInstanceType == "raid" or LastInstanceType == "party" then
+				self:StartLogging(0, nil)
+			else
+				self:StopLogging()
+			end
+		end
 	end
 	--Faster and more accurate loading for instances, but useless outside of them
 	function DBM:LOADING_SCREEN_DISABLED()
@@ -3975,7 +3985,7 @@ end
 
 do
 	local function checkForActualPull()
-		if #inCombat == 0 then
+		if DBM.Options.RecordOnlyBosses and #inCombat == 0 then
 			DBM:StopLogging()
 		end
 	end
@@ -4163,7 +4173,9 @@ do
 				dummyMod.text:Schedule(timer, DBM_CORE_ANNOUNCE_PULL_NOW)
 			end
 		end
-		DBM:StartLogging(timer, checkForActualPull)
+		if DBM.Options.RecordOnlyBosses then
+			DBM:StartLogging(timer, checkForActualPull)
+		end
 		--[[if DBM.Options.CheckGear then
 			local bagilvl, equippedilvl = GetAverageItemLevel()
 			local difference = bagilvl - equippedilvl
@@ -4299,10 +4311,8 @@ do
 					end
 					--Find min revision.
 					updateNotificationDisplayed = 2
-					if not DBM.Options.DontShowReminders then
-						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
-						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
-					end
+					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
+					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
 					showConstantReminder = 1
 				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if revision grossly out of date even if not major patch.
@@ -4311,7 +4321,8 @@ do
 						if revDifference > 100000000 then--Approx 1 month old 20190416172622
 							if updateNotificationDisplayed < 3 then
 								updateNotificationDisplayed = 3
-								AddMsg(DBM, DBM_CORE_UPDATEREMINDER_NODISABLE)
+								AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
+								DBM:Disable(true)
 							end
 						end
 					--Disable if out of date and it's a major patch.
@@ -4553,10 +4564,12 @@ do
 		end
 
 		syncHandlers["WBA"] = function(sender, bossName, faction, buffName, time)
+			DBM:Debug("WBA sync recieved")
 			--if not ver or not (ver == "8") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
-			if DBM.Options.WorldBuffAlert and not IsEncounterInProgress() then
+			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
+				DBM:Debug("WBA sync processing")
 				local factionText = faction == "Alliance" and FACTION_ALLIANCE or faction == "Horde" and FACTION_HORDE or DBM_CORE_BOTH
 				DBM:AddMsg(DBM_CORE_WORLDBUFF_STARTED:format(buffName, factionText, sender))
 				local timer = tonumber(time)
@@ -4572,7 +4585,7 @@ do
 			if not ver or not (ver == "8") then return end--Ignore old versions
 			if lastBossEngage[modId..realm] and (GetTime() - lastBossEngage[modId..realm] < 30) then return end
 			lastBossEngage[modId..realm] = GetTime()
-			if realm == playerRealm and DBM.Options.WorldBossAlert and not IsEncounterInProgress() then
+			if realm == playerRealm and DBM.Options.WorldBossAlert and #inCombat == 0 then
 				local _, toonName = BNGetGameAccountInfo(sender)
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
 				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
@@ -4584,7 +4597,7 @@ do
 			if not ver or not (ver == "8") then return end--Ignore old versions
 			if lastBossDefeat[modId..realm] and (GetTime() - lastBossDefeat[modId..realm] < 30) then return end
 			lastBossDefeat[modId..realm] = GetTime()
-			if realm == playerRealm and DBM.Options.WorldBossAlert and not IsEncounterInProgress() then
+			if realm == playerRealm and DBM.Options.WorldBossAlert and #inCombat == 0 then
 				local _, toonName = BNGetGameAccountInfo(sender)
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
 				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
@@ -4593,10 +4606,12 @@ do
 		end
 
 		whisperSyncHandlers["WBA"] = function(sender, bossName, faction, buffName, time)
+			DBM:Debug("WBA sync recieved")
 			--if not ver or not (ver == "8") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
-			if DBM.Options.WorldBuffAlert and not IsEncounterInProgress() then
+			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
+				DBM:Debug("WBA sync processing")
 				local factionText = faction == "Alliance" and FACTION_ALLIANCE or faction == "Horde" and FACTION_HORDE or DBM_CORE_BOTH
 				DBM:AddMsg(DBM_CORE_WORLDBUFF_STARTED:format(buffName, factionText, sender))
 				local timer = tonumber(time)
@@ -5427,22 +5442,27 @@ do
 			local targetName = target or "nil"
 			self:Debug("CHAT_MSG_MONSTER_YELL from "..npc.." while looking at "..targetName, 2)
 		end
-		if not IsInInstance() and self.Options.WorldBuffEvents then
+		if not IsInInstance() then
 			if msg:find(DBM_CORE_WORLD_BUFFS.hordeOny) then
 				local spellName = DBM:GetSpellInfo(22888)
 				SendWorldSync(self, "WBA", "Onyxia\tHorde\t"..spellName.."\t15")
+				DBM:Debug("DBM_CORE_WORLD_BUFFS.hordeOny detected")
 			elseif msg:find(DBM_CORE_WORLD_BUFFS.allianceOny) then
 				local spellName = DBM:GetSpellInfo(22888)
-				SendWorldSync(self, "WBA", "Onyxia\tAlliance\t"..spellName.."\t17")
+				SendWorldSync(self, "WBA", "Onyxia\tAlliance\t"..spellName.."\t15")
+				DBM:Debug("DBM_CORE_WORLD_BUFFS.allianceOny detected")
 			elseif msg:find(DBM_CORE_WORLD_BUFFS.hordeNef) then
 				local spellName = DBM:GetSpellInfo(22888)
 				SendWorldSync(self, "WBA", "Nefarian\tHorde\t"..spellName.."\t17")
+				DBM:Debug("DBM_CORE_WORLD_BUFFS.hordeNef detected")
 			elseif msg:find(DBM_CORE_WORLD_BUFFS.allianceNef) then
 				local spellName = DBM:GetSpellInfo(22888)
 				SendWorldSync(self, "WBA", "Nefarian\tAlliance\t"..spellName.."\t17")
+				DBM:Debug("DBM_CORE_WORLD_BUFFS.allianceNef detected")
 			elseif msg:find(DBM_CORE_WORLD_BUFFS.rendHead) then
 				local spellName = DBM:GetSpellInfo(16609)
 				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t"..spellName.."\t59", true)
+				DBM:Debug("DBM_CORE_WORLD_BUFFS.rendHead detected")
 			end
 		end
 		return onMonsterMessage(self, "yell", msg)
@@ -5479,7 +5499,7 @@ do
 	end
 
 	function DBM:CHAT_MSG_MONSTER_SAY(msg)
-		if not IsInInstance() and self.Options.WorldBuffEvents then
+		if not IsInInstance() then
 			if msg:find(DBM_CORE_WORLD_BUFFS.zgHeart) then
 				local spellName = DBM:GetSpellInfo(24425)
 				SendWorldSync(self, "WBA", "Zandalar\tBoth\t"..spellName.."\t12")
@@ -5683,7 +5703,9 @@ do
 			end
 			--process global options
 			self:HideBlizzardEvents(1)
-			self:StartLogging(0, nil)
+			if self.Options.RecordOnlyBosses then
+				self:StartLogging(0, nil)
+			end
 			if self.Options.HideObjectivesFrame and not InCombatLockdown() then
 				if QuestWatchFrame:IsVisible() then
 					--ObjectiveTrackerFrame:Hide()
@@ -5999,7 +6021,9 @@ do
 			if #inCombat == 0 then--prevent error if you pulled multiple boss. (Earth, Wind and Fire)
 				statusWhisperDisabled = false
 				statusGuildDisabled = false
-				self:Schedule(10, self.StopLogging, self)--small delay to catch kill/died combatlog events
+				if self.Options.RecordOnlyBosses then
+					self:Schedule(10, self.StopLogging, self)--small delay to catch kill/died combatlog events
+				end
 				self:HideBlizzardEvents(0)
 				self:Unschedule(checkBossHealth)
 				self:Unschedule(checkCustomBossHealth)
@@ -6082,8 +6106,8 @@ do
 
 	function DBM:StartLogging(timer, checkFunc)
 		self:Unschedule(DBM.StopLogging)
-		if self.Options.LogOnlyRaidBosses and not IsInRaid() then return end
-		if self.Options.AutologBosses then--Start logging here to catch pre pots.
+		if self.Options.LogOnlyNonTrivial and not IsInRaid() then return end
+		if self.Options.AutologBosses then
 			if not LoggingCombat() then
 				autoLog = true
 				self:AddMsg("|cffffff00"..COMBATLOGENABLED.."|r")
@@ -6147,7 +6171,7 @@ end
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = GetInstanceInfo()
 	if difficulty == 0 or (difficulty == 1 and instanceType == "none") then--draenor field returns 1, causing world boss mod bug.
-		return "worldboss", RAID_INFO_WORLD_BOSS.." - ", difficulty, instanceGroupSize, keystoneLevel
+		return "worldboss", RAID_INFO_WORLD_BOSS.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 1 then--5 man Normal Dungeon
 		return "normal5", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 2 then--5 man Heroic Dungeon
@@ -6163,7 +6187,7 @@ function DBM:GetCurrentInstanceDifficulty()
 	elseif difficulty == 7 then--Legacy 25 man LFR (ie pre WoD zones)
 		return "lfr25", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 8 then--Dungeon, Mythic+ (Challenge modes in mists and wod)
-		--local keystoneLevel = C_ChallengeMode.GetActiveKeystoneInfo() or 0
+		local keystoneLevel = C_ChallengeMode and C_ChallengeMode.GetActiveKeystoneInfo() or 0
 		return "challenge5", PLAYER_DIFFICULTY6.."+ ("..keystoneLevel..") - ", difficulty, instanceGroupSize
 	elseif difficulty == 9 then--Legacy 40 man raids, no longer returned as index 3 (normal 10man raids)
 		return "normal40", difficultyName.." - ",difficulty, instanceGroupSize

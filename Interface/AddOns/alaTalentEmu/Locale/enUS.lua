@@ -10,17 +10,21 @@ if L.Locale ~= nil and L.Locale ~= "" then return;end
 
 BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "Create a emulator.";
 BINDING_NAME_ALARAIDTOOL_QUERY = "Inspect talents of target. (The target player need to install this addon).";
+BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>";
 
 L.Locale = "enUS";
 
 L.Emu = "Emulator";
 L.OK = "OK";
 L.Cancel = "Cancel";
+L.Search = "Search";
+L.Hide = "Hide";
 L.curTabPointsLabel = "Points";
 L.curPointsTotal = "Total";
 L.curPointsRemaining = "Remaining";
 L.curPointsUsed = "Spent";
 L.curPointsReqLevel = "Lv";
+
 L.readOnly = "\124cffff0000ReadOnly\124r";
 L.notReadOnly = "\124cff00ff00Editable\124r";
 L.labelPointsChanged = "(\124cffff0000Modified\124r)";
@@ -29,13 +33,20 @@ L.resetAllButton = "Reset all talents";
 L.resetToSetButton = "Reset to initial state";
 L.readOnlyButton = "\124cff00ff00Left click\124r to switch Editable\n\124cff00ff00Right click\124r to set win style";
 L.closeButton = "Close this win";
+
 L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to import build-in talents\n    (Copied from \124cffff0000wowhead\124r).";
 L.inspectTargetButton = "Inspect target's talents.";
+L.spellTabButton = "Spell List Window";
+L.spellAvailable = "\124cff00ff00Available\124r";
+L.spellNotAvailable = "\124cffff0000Not Available\124r";
+L.showAllSpell = "Show all ranks";
 L.applyTalentsButton = "Apply this talents emulation.";
 L.applyTalentsButton_Notify = "Do u want to apply these talents?";
-L.importButton = "Import string.";
+L.importButton = "Import string or wowhead/nfu url.";
 L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu\124r url";
 L.saveButton = "\124cff00ff00Left click\124r to save talents set.\n\124cff00ff00Right click\124r to load saved talents set.\n\124cff00ff00Shift & Left click\124r to del";
+L.equipmentButton = "Watch equipment";
+
 L.TalentFrameCallButton = "Open ala talent emulator.";
 L.TalentFrameCallButtonFontString = "Emulator";
 L.curRank = "Current Rank";
@@ -54,7 +65,10 @@ L.inspectButtonOnUnitFrame_Disable = "Disable inspect button.";
 L.insepctALTKEY = "Holding alt to show the inspect button";
 L.insepctCTRLKEY = "Holding ctrl to show the inspect button";
 L.insepctSHIFTKEY = "Holding shift to show the inspect button";
+
 L.DBIcon_Text = "\124cff00ff00Left click\124r to create a emulator\n\124cff00ff00Right click\124r to set win style";
+L.spellTabGTTSpellLevel = "Spell level: ";
+L.spellTabGTTReqLevel = "Level: ";
 
 L.DATA = {
 	talent = "talent",
@@ -105,6 +119,13 @@ L.DATA = {
 
 };
 
+L.RACE = "RACE";
+L.HUMAN = "HUMAN";
+L.DWARF = "DWARF";
+L["HUMAN|DWARF"] = "HUMAN|DWARF";
+L.NIGHTELF = "NIGHTELF";
+L.SCOURGE = "SCOURGE";
+L.TROLL = "TROLL";
 
 
 

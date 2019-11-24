@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Azuregos", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190830003653")
+mod:SetRevision("20191119153018")
 mod:SetCreatureID(6109)--121820 TW ID, 6109 classic ID
 --mod:SetModelID(17887)
 mod:SetZone()
@@ -9,19 +9,19 @@ mod:SetZone()
 mod:RegisterCombat("combat_yell", L.Pull)
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 21147"
---	"SPELL_CAST_SUCCESS"
+	"SPELL_CAST_START 21099",
+	"SPELL_CAST_SUCCESS 22067 21147"
 )
 
---TODO, needs valid spellIds for Classic
---local warningFrostBreath		= mod:NewSpellAnnounce(243789, 3)
+local warningFrostBreath		= mod:NewSpellAnnounce(21099, 3)
 
 local specWarnArcaneVacuum		= mod:NewSpecialWarningSpell(21147, nil, nil, nil, 2, 5)
---local specWarnReflection		= mod:NewSpecialWarningSpell(243835, "SpellCaster", nil, nil, 1, 2)--Change to CasterDps after next core release
+local specWarnReflection		= mod:NewSpecialWarningSpell(22067, "CasterDps", nil, nil, 1, 2)
 
---local timerReflectionCD			= mod:NewCDTimer(15.7, 243835, nil, "SpellCaster", nil, 5, nil, DBM_CORE_DAMAGER_ICON)--15.7-30
---local timerFrostBreathCD		= mod:NewCDTimer(5, 243789, nil, nil, nil, 3)--8.5-20.1
---local timerArcaneVacuumCD		= mod:NewCDTimer(19.8, 243784, nil, nil, nil, 2)
+--Timers too variable, if the max is more than double the min time, a timer for min time is more misleading than helpful
+--local timerReflectionCD		= mod:NewCDTimer(15.7, 22067, nil, "CasterDps", nil, 5, nil, DBM_CORE_DAMAGER_ICON)--15.7-33
+--local timerFrostBreathCD		= mod:NewCDTimer(10, 21099, nil, nil, nil, 3)--10-40 (lovely)
+--local timerArcaneVacuumCD		= mod:NewCDTimer(16, 21147, nil, nil, nil, 2)--16-35
 
 --mod:AddReadyCheckOption(48620, false)
 
@@ -34,27 +34,28 @@ function mod:OnCombatStart(delay, yellTriggered)
 end
 
 do
-	local ArcaneVacuum = DBM:GetSpellInfo(21147)
+	local FrostBreath = DBM:GetSpellInfo(21099)
 	function mod:SPELL_CAST_START(args)
-		--if args.spellId == 21147  and self:AntiSpam(5, 1) then
-		if args.spellName == ArcaneVacuum  and self:AntiSpam(5, 1) then
-			specWarnArcaneVacuum:Show()
-			specWarnArcaneVacuum:Play("teleyou")
-			--timerArcaneVacuumCD:Start()
-		--elseif args.spellId == 243789 and self:AntiSpam(3, 2) then
-			--warningFrostBreath:Show()
+		if args.spellName == FrostBreath and self:AntiSpam(3, 2) then
+			warningFrostBreath:Show()
 			--timerFrostBreathCD:Start()
 		end
 	end
 end
 
---[[
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 243784 then
-		specWarnReflection:Show()
-		specWarnReflection:Play("stilldanger")
-		--pull:176.7, 31.3, 23.1, 20.8, 30.6, 26.2, 25.5, 15.7, 33.1, 30.1
-		timerReflectionCD:Start()
+do
+	local Reflection, ArcaneVacuum = DBM:GetSpellInfo(22067), DBM:GetSpellInfo(21147)
+	function mod:SPELL_CAST_SUCCESS(args)
+		if args.spellName == Reflection then
+			specWarnReflection:Show()
+			specWarnReflection:Play("stilldanger")
+			--pull:176.7, 31.3, 23.1, 20.8, 30.6, 26.2, 25.5, 15.7, 33.1, 30.1
+			--timerReflectionCD:Start()
+		--elseif args.spellId == 21147  and self:AntiSpam(5, 1) then
+		elseif args.spellName == ArcaneVacuum  and self:AntiSpam(5, 1) then
+			specWarnArcaneVacuum:Show()
+			specWarnArcaneVacuum:Play("teleyou")
+			--timerArcaneVacuumCD:Start()
+		end
 	end
 end
---]]
