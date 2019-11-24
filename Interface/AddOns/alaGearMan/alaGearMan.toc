@@ -17,6 +17,6 @@
 alaGearMan.xml
 
 
-## Title-zhCN: |cff880303[有爱]|r alaGearMan 装备界面增强
+## Title-zhCN: |cff880303[有爱]|r alaGearMan 一键换装
 ## X-Vendor: NetEase
 ## X-163UI-Version: 20191024172635

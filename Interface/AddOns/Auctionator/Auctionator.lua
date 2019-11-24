@@ -36,8 +36,7 @@ AUCTIONATOR_OPEN_FIRST    = 0;  -- obsolete - just needed for migration
 AUCTIONATOR_OPEN_BUY    = 0;  -- obsolete - just needed for migration
 
 local SELL_TAB    = 1;
-local MORE_TAB    = 2;
-local BUY_TAB     = 3;
+local BUY_TAB     = 2;
 
 
 -- saved variables - amounts to undercut
@@ -99,7 +98,7 @@ local gHlistNeedsUpdate = false;
 local gAtr_SellTriggeredByAuctionator = false;
 
 local gSellPane;
-local gMorePane;
+-- local gMorePane;
 local gActivePane;
 local gShopPane;
 
@@ -1151,7 +1150,6 @@ function Atr_Init()
 
   gShopPane = Atr_AddSellTab (ZT("Buy"),      BUY_TAB);
   gSellPane = Atr_AddSellTab (ZT("Sell"),     SELL_TAB);
-  gMorePane = Atr_AddSellTab (ZT("More").."...",  MORE_TAB);
 
   Atr_AddMainPanel ();
 
@@ -1313,11 +1311,9 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 
     if (index == Atr_FindTabIndex(SELL_TAB))  then gCurrentPane = gSellPane; end;
     if (index == Atr_FindTabIndex(BUY_TAB))   then gCurrentPane = gShopPane; end;
-    if (index == Atr_FindTabIndex(MORE_TAB))  then gCurrentPane = gMorePane; end;
 
     if (index == Atr_FindTabIndex(SELL_TAB))  then AuctionatorTitle:SetText ("Auctionator - "..ZT("Sell"));     end;
     if (index == Atr_FindTabIndex(BUY_TAB))   then AuctionatorTitle:SetText ("Auctionator - "..ZT("Buy"));      end;
-    if (index == Atr_FindTabIndex(MORE_TAB))  then AuctionatorTitle:SetText ("Auctionator - "..ZT("More").."...");  end;
 
     Atr_ClearHlist();
     Atr_SellControls:Hide();
@@ -1350,15 +1346,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
         gSellPane:ClearSearch ();
       end
     end
-
-
-    if (index == Atr_FindTabIndex(MORE_TAB)) then
-      FauxScrollFrame_SetOffset (Atr_Hlist_ScrollFrame, gCurrentPane.hlistScrollOffset);
-      Atr_DisplayHlist();
-      Atr_ActiveItems_Text:Show();
-      Atr_CheckActiveButton:Show();
-    end
-
 
     if (index == Atr_FindTabIndex(BUY_TAB)) then
       Atr_Search_Box:Show();
@@ -1438,12 +1425,6 @@ function Atr_IsModeBuy ()
 end
 
 -----------------------------------------
-
-function Atr_IsModeActiveAuctions ()
-  -- Auctionator.Debug.Message( 'Atr_IsModeActiveAuctions' )
-
-  return (Atr_IsTabSelected(MORE_TAB));
-end
 
 -----------------------------------------
 
@@ -1700,10 +1681,6 @@ function Atr_OnAuctionOwnedUpdate ()
 
   gItemPostingInProgress = false;
 
-  if (Atr_IsModeActiveAuctions()) then
-    gHlistNeedsUpdate = true;
-  end
-
   if (not Atr_IsTabSelected()) then
     Atr_ClearScanCache();   -- if not our tab, we have no idea what happened so must flush all caches
     return;
@@ -1929,23 +1906,36 @@ function Atr_OnAuctionUpdate (...)
     Atr_FullScanBeginAnalyzePhase()   -- handle in idle loop to slow down
     return
   end
+  if gAtr_FullScanState == ATR_FS_ANALYZING then
+    return;
+  end
+  if gAtr_FullScanState == ATR_FS_UPDATING_DB then
+    return;
+  end
+  if gAtr_FullScanState == ATR_FS_CLEANING_UP then
+    return;
+  end
 
   if (gAtr_FullScanState == ATR_FS_SLOW_QUERY_SENT) then
     Atr_FullScanBeginAnalyzePhase()
     Atr_FullScanAnalyze()           -- handle here since it's just one page
     return
   end
-
-  if (not Atr_IsTabSelected()) then
-    Atr_ClearScanCache()    -- if not our tab, we have no idea what happened so must flush all caches
+  if gAtr_FullScanState == ATR_FS_SLOW_QUERY_NEEDED then
     return;
-  end;
+  end
+
+  -- if (not Atr_IsTabSelected()) then
+  --   Atr_ClearScanCache()    -- if not our tab, we have no idea what happened so must flush all caches
+  --   return;
+  -- end;
 
   if (Atr_Buy_OnAuctionUpdate()) then
     return
   end
 
-  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
+  -- if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
+    gCurrentPane = gCurrentPane or gShopPane;
 
     gCurrentPane.activeSearch:CapturePageInfo();
 
@@ -1960,7 +1950,7 @@ function Atr_OnAuctionUpdate (...)
         Atr_OnSearchComplete ();
       end
     end
-  end
+  -- end
 
 end
 
@@ -2004,10 +1994,6 @@ function Atr_OnSearchComplete()
 
     Atr_UpdateRecommendation(true);
   else
-    if (Atr_IsModeActiveAuctions()) then
-      Atr_DisplayHlist();
-    end
-
     Atr_FindBestCurrentAuction ();
   end
 
@@ -2695,7 +2681,6 @@ function Atr_OnAuctionHouseShow()
 
   if (AUCTIONATOR_DEFTAB == 1) then   Atr_SelectPane (SELL_TAB);  end
   if (AUCTIONATOR_DEFTAB == 2) then   Atr_SelectPane (BUY_TAB); end
-  if (AUCTIONATOR_DEFTAB == 3) then   Atr_SelectPane (MORE_TAB);  end
 
   Atr_ResetDuration();
 
@@ -2720,7 +2705,7 @@ function Atr_OnAuctionHouseClosed()
 
   gSellPane:ClearSearch();
   gShopPane:ClearSearch();
-  gMorePane:ClearSearch();
+  -- gMorePane:ClearSearch();
 
 end
 
@@ -3002,11 +2987,6 @@ function Atr_UpdateUI ()
   end
 
   -- update the hlist if needed
-
-  if (gHlistNeedsUpdate and Atr_IsModeActiveAuctions()) then
-    gHlistNeedsUpdate = false;
-    Atr_DisplayHlist();
-  end
 
   if (Atr_IsTabSelected(SELL_TAB)) then
     Atr_UpdateUI_SellPane (needsUpdate);
@@ -3291,11 +3271,6 @@ function Atr_HEntryOnClick(self)
   local entryIndex = line:GetID();
   local itemName = gHistoryItemList[entryIndex].name;
   local itemLink = gHistoryItemList[entryIndex].link;
-
-  if (IsAltKeyDown() and Atr_IsModeActiveAuctions()) then
-    Atr_Cancel_Undercuts_OnClick (itemName)
-    return;
-  end
 
   gCurrentPane.UINeedsUpdate = true;
 
@@ -4545,7 +4520,7 @@ function Atr_IsTabSelected(whichTab)
   end
 
   if (not whichTab) then
-    return (Atr_IsTabSelected(SELL_TAB) or Atr_IsTabSelected(MORE_TAB) or Atr_IsTabSelected(BUY_TAB));
+    return (Atr_IsTabSelected(SELL_TAB) or Atr_IsTabSelected(BUY_TAB));
   end
 
   return (PanelTemplates_GetSelectedTab (AuctionFrame) == Atr_FindTabIndex(whichTab));
@@ -4556,7 +4531,7 @@ end
 function Atr_IsAuctionatorTab (tabIndex)
   Auctionator.Debug.Message( 'Atr_IsAuctionatorTab', tabIndex )
 
-  if (tabIndex == Atr_FindTabIndex(SELL_TAB) or tabIndex == Atr_FindTabIndex(MORE_TAB) or tabIndex == Atr_FindTabIndex(BUY_TAB) ) then
+  if (tabIndex == Atr_FindTabIndex(SELL_TAB) or tabIndex == Atr_FindTabIndex(BUY_TAB) ) then
 
     return true;
 

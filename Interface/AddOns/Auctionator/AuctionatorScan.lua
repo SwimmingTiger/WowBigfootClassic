@@ -13,7 +13,7 @@ local BIGNUM = 999999999999;
 
 gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});   -- never ever change
 
-local gNumNilItemLinks
+local gNumNilItemLinks = 0
 
 -----------------------------------------
 

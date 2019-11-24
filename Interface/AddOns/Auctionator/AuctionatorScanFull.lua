@@ -95,7 +95,8 @@ function Atr_FullScanStart()
         ITEM_QUALITY_COLORS[-1] = {r=0, b=0, g=0}
       end
 
-      QueryAuctionItems( "", nil, nil, 0, nil, nil, true, false, nil )
+      -- QueryAuctionItems( "", nil, nil, 0, nil, nil, true, false, nil )  -- ALA
+      QueryAuctionItems("", nil, nil, 0, 0, 0, true)  -- ALA
     end
 
   end
@@ -246,6 +247,15 @@ function Atr_FullScanAnalyze()
       local name, texture, count, quality, canUse, level, huh, minBid,
         minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName,
         owner, ownerFullName, saleStatus = GetAuctionItemInfo( "list", x )
+      
+      if name == nil then  -- ALA
+        local link = GetAuctionItemLink("list", x)  -- ALA
+        if link then  -- ALA
+          local _  -- ALA
+          _, _, name = strfind(link, "%[(.+)%]")  -- ALA
+          name = name or GetItemInfo(link);  -- ALA
+        end  -- ALA
+      end  -- ALA
 
       gNumScanned = gNumScanned + 1
 
