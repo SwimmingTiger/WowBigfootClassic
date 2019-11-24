@@ -53,6 +53,14 @@ NeatPlatesHubMenus.DebuffStyles = {
 				{ text = L["Compact (May require UI reload to take effect)"],  } ,
 			}
 
+NeatPlatesHubDefaults.WidgetDebuffFilter = 2 -- Show Mine by default
+NeatPlatesHubDefaults.WidgetBuffFilter = 1 -- Show None by default
+NeatPlatesHubMenus.PrimaryAuraFilters = {
+				{ text = L["Show None"],  } ,
+				{ text = L["Show Mine"],  } ,
+				{ text = L["Show All"],  } ,
+			}
+
 NeatPlatesHubDefaults.WidgetComboPointsStyle = 2
 NeatPlatesHubMenus.ComboPointsStyles = {
 				{ text = L["Blizzlike"],  } ,
@@ -68,7 +76,7 @@ NeatPlatesHubMenus.BorderTypes = {
 				{ text = L["Glow"],  },
 			}
 
-NeatPlatesHubDefaults.HighlightTargetMode = 3
+NeatPlatesHubDefaults.HighlightTargetMode = 1
 NeatPlatesHubDefaults.HighlightFocustMode = 1
 NeatPlatesHubDefaults.HighlightMouseoverMode = 1
 NeatPlatesHubMenus.HighlightTypes = {
@@ -200,14 +208,14 @@ local function SmartFilterMode(aura)
 	local ShowThisAura = false
 	local AuraPriority = 20
 
-	-- Show All Auras
-	if LocalVars.WidgetAllAuras then ShowThisAura = true end
+	-- Show All Buffs and Debuffs
+	if (LocalVars.WidgetBuffFilter == 3 and aura.effect == "HELPFUL") or (LocalVars.WidgetDebuffFilter == 3 and aura.effect == "HARMFUL") then
+		ShowThisAura = true
+	end
 
 	-- My own Buffs and Debuffs
 	if (aura.caster == "player" or aura.caster == "pet") and aura.baseduration and aura.baseduration < 150 then
-		if LocalVars.WidgetMyBuff and aura.effect == "HELPFUL" then
-			ShowThisAura = true
-		elseif LocalVars.WidgetMyDebuff and aura.effect == "HARMFUL" then
+		if (LocalVars.WidgetBuffFilter == 2 and aura.effect == "HELPFUL") or (LocalVars.WidgetDebuffFilter == 2 and aura.effect == "HARMFUL") then
 			ShowThisAura = true
 		end
 	end
@@ -332,9 +340,13 @@ local function InitWidget( widgetName, extended, config, createFunction, enabled
 			extended.widgets[widgetName] = widget
 		end
 
-		widget:ClearAllPoints()
-		widget:SetPoint(config.anchor or "TOP", extended, config.anchorRel or config.anchor or "TOP", config.x or 0, config.y or 0)
-
+		if widget.SetCustomPoint then
+			widget:SetCustomPoint(config.anchor or "TOP", extended, config.anchorRel or config.anchor or "TOP", config.x or 0, config.y or 0)
+		else
+			widget:ClearAllPoints()
+			widget:SetPoint(config.anchor or "TOP", extended, config.anchorRel or config.anchor or "TOP", config.x or 0, config.y or 0)
+		end
+		
 	elseif widget and widget.Hide then
 		widget:Hide()
 	end

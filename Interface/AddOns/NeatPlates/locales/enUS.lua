@@ -23,10 +23,17 @@ L["Automation"] = true
 L["Enemy Nameplates"] = true
 L["Friendly Nameplates"] = true
 	-- Automation Dropdown
+	L["Combat"] = true
+	L["World"] = true
+	L["Dungeon"] = true
+	L["Raid"] = true
+	L["Battleground"] = true
+	L["Arena"] = true
+	L["Scenario"] = true
+	-- Tooltip
+	L["Show"] = true
+	L["Hide"] = true
 	L["No Automation"] = true
-	L["Show during Combat, Hide when Combat ends"] = true
-	L["Hide when Combat starts, Show when Combat ends"] = true
-	L["Hide in instances, Show outside of instances"] = true
 
 L["General Aura Filters"] = true
 
@@ -128,6 +135,7 @@ L["Friendly Status Text"] = true
 	-- StatusText Dropdown
 	L["None"] = true
 	L["Percent Health"] = true
+	L["Percent Health (Colored)"] = true
 	L["Exact Health"] = true
 	L["Approximate Health"] = true
 		L["SHORT_ONE_HUNDRED_MILLION"] = "E"
@@ -142,10 +150,13 @@ L["Friendly Status Text"] = true
 	L["Level and Approx Health"] = true
 	L["Arena ID"] = true
 	L["Arena ID, Health, and Power"] = true
+L["Enemy Subtext"] = true
+L["Friendly Subtext"] = true
 
 L["Show Level"] = true
 L["Force Shadow on Status Text"] = true
 L["Show Different Server Indicator (*)"] = true
+L["Show Subtext in Bar View"] = true
 L["Show Status Text on Target & Mouseover"] = true
 L["Show Status Text on Active/Damaged Units"] = true
 L["Use Custom Target Color"] = true
@@ -180,9 +191,14 @@ L["Aura Widget"] = true
 
 L["Enable Aura Widget"] = true
 	-- Aura Widget Options
-	L["Include All Auras"] = true
-	L["Include My Debuffs"] = true
-	L["Include My Buffs"] = true
+	--L["Include All Auras"] = true
+	--L["Include My Debuffs"] = true
+	--L["Include My Buffs"] = true
+	L["Debuff Filter"] = true
+	L["Buff Filter"] = true
+		L["Show None"] = true
+		L["Show Mine"] = true
+		L["Show All"] = true
 	L["Enable Pandemic Highlighting"] = true
 	L["Include Purgeable Buffs"] = true
 	L["Include Enrage Buffs"] = true
@@ -199,6 +215,7 @@ L["Emphasized Auras"] = true
 L["Emphasize Hides Normal Aura"] = true
 L["Hide Cooldown Spiral"] = true
 L["Hide Aura Duration"] = true
+L["Hide Aura Widget in Headline Mode"] = true
 L["Icon Style"] = true
 	-- Icon Style Dropdown
 	L["Wide"] = true
@@ -287,6 +304,7 @@ L["Filter Non-Elite"] = true
 L["Filter Enemy NPC"] = true
 L["Filter Friendly NPC"] = true
 L["Filter Non-Titled Friendly NPC"] = true
+L["Filter Low Level Units"] = true
 
 L["Filter Players"] = true
 L["Filter Party/Raid Members"] = true
@@ -541,11 +559,13 @@ L["Your 'Out of Range' distance"] = true
 L["Requires 'All NPCs' to be unchecked"] = true
 L["Helps ensure that everything is working as intended by enforcing certain CVars"] = true
 L["Display Scale Options"] = true
+L["Hides the aura widget when in 'Headline/Text-Only' mode"] = true
 
 
 
 -- Classic Specific
-
+L["Couldn't update the targets role."] = true
+L["Typing '/nptank', will toggle the role assignment of your target manually"] = true
 L["Clear Spell Database"] = true
 L["Cleared Spell Database of entries."] = true
 L["Color Cast Bars by School"] = true

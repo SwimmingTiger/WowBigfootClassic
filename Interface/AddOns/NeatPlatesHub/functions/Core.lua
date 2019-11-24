@@ -63,7 +63,7 @@ local function IsOffTanked(unit)
 			targetIsGuardian = guardians[targetGUID]
 		end
 		
-		local targetIsTank = UnitIsUnit(targetOf, "pet") or targetIsGuardian
+		local targetIsTank = UnitIsUnit(targetOf, "pet") or targetIsGuardian or IsEnemyTanked(unit)
 
 		--if LocalVars.EnableOffTankHighlight and IsEnemyTanked(unit) then
 		if LocalVars.EnableOffTankHighlight and targetIsTank then
@@ -228,11 +228,13 @@ local function ApplyFontCustomization(style, defaults)
 
 	if LocalVars.TextUseBlizzardFont then
 		style.name.typeface = STANDARD_TEXT_FONT
+		style.subtext.typeface = STANDARD_TEXT_FONT
 		style.level.typeface = STANDARD_TEXT_FONT
 		style.spelltext.typeface = STANDARD_TEXT_FONT
 		style.customtext.typeface = STANDARD_TEXT_FONT
 	else
 		style.name.typeface = defaults.name.typeface
+		style.subtext.typeface = defaults.subtext.typeface
 		style.level.typeface = defaults.level.typeface
 		style.spelltext.typeface = defaults.spelltext.typeface
 		style.customtext.typeface = defaults.customtext.typeface
@@ -241,18 +243,19 @@ local function ApplyFontCustomization(style, defaults)
 
 end
 
-local function ApplyScaleOptions(style, default, scale)
-	if not style then return style end
-	if style.width then style.width = default.width * (scale.x or 1) end
-	if style.height then style.height = default.height * (scale.y or 1) end
-	if style.x then style.x = default.x + (scale.offset.x or 0) end
-	if style.y then style.y = default.y + (scale.offset.y or 0) end
-	return style
+local function ApplyScaleOptions(widget, default, scale)
+	if not widget then return widget end
+	if widget.width then widget.width = default.width * (scale.x or 1) end
+	if widget.height then widget.height = default.height * (scale.y or 1) end
+	if widget.x then widget.x = default.x + (scale.offset.x or 0) end
+	if widget.y then widget.y = default.y + (scale.offset.y or 0) end
+
+	return widget
 end
 
-local function ApplyScaleOptionCustomization(style, defaults)
-	style.DebuffWidget = ApplyScaleOptions(style.DebuffWidget, defaults.DebuffWidget, LocalVars.WidgetAuraScaleOptions)
-	style.DebuffWidgetPlus = ApplyScaleOptions(style.DebuffWidgetPlus, defaults.DebuffWidgetPlus, LocalVars.WidgetAuraScaleOptions)
+local function ApplyScaleOptionCustomization(widget, defaults, style, styleDefault)
+	widget.DebuffWidget = ApplyScaleOptions(widget.DebuffWidget, defaults.DebuffWidget, LocalVars.WidgetAuraScaleOptions)
+	widget.DebuffWidgetPlus = ApplyScaleOptions(widget.DebuffWidgetPlus, defaults.DebuffWidgetPlus, LocalVars.WidgetAuraScaleOptions)
 end
 
 local function ApplyCustomBarSize(style, defaults)
@@ -266,7 +269,7 @@ local function ApplyCustomBarSize(style, defaults)
 		if defaults.frame.x then style.frame.x = defaults.frame.x * frameMod end
 
 		-- Healthbar
-		local Healthbar = {"threatborder", "healthborder", "healthbar", "customtext", "level", "name"}
+		local Healthbar = {"threatborder", "healthborder", "healthbar", "customtext", "level", "subtext", "name"}
 		for k,v in pairs(Healthbar) do
 			if defaults[v].width then style[v].width = defaults[v].width * (LocalVars.FrameBarWidth or 1) end
 			if defaults[v].x then style[v].x = defaults[v].x * (LocalVars.FrameBarWidth or 1) end
@@ -307,7 +310,7 @@ local function ApplyCustomBarSize(style, defaults)
 	end
 end
 
-local function ApplyStyleCustomization(style, defaults)
+local function ApplyStyleCustomization(style, defaults, widget, widgetDefaults)
 	if not style then return end
 	style.level.show = (LocalVars.TextShowLevel == true)
 
@@ -358,7 +361,7 @@ local function ApplyStyleCustomization(style, defaults)
 		style.castborder.texture = defaults.castborder.texture
 		style.castnostop.texture = defaults.castnostop.texture
 	end
-	
+
 
 	style.target.color = LocalVars.ColorTarget
 	style.focus.color = LocalVars.ColorFocus
@@ -409,7 +412,7 @@ local function ApplyProfileSettings(theme, source, ...)
 	EnableWatchers()
 	ApplyStyleCustomization(theme["Default"], theme["DefaultBackup"])
 	ApplyFontCustomization(theme["NameOnly"], theme["NameOnlyBackup"])
-	ApplyScaleOptionCustomization(theme["WidgetConfig"], theme["WidgetConfigBackup"])
+	ApplyScaleOptionCustomization(theme["WidgetConfig"], theme["WidgetConfigBackup"], theme["Default"], theme["DefaultBackup"])
 
 	-- Set Space Between Buffs & Debuffs
 	NeatPlatesWidgets.SetSpacerSlots(math.ceil(LocalVars.SpacerSlots))
@@ -488,7 +491,8 @@ local function ApplyHubFunctions(theme)
 	theme.OnContextUpdate = NeatPlatesHubFunctions.OnContextUpdate
 	theme.ShowConfigPanel = ShowNeatPlatesHubDamagePanel
 	theme.SetStyle = NeatPlatesHubFunctions.SetStyleBinary
-	theme.SetCustomText = NeatPlatesHubFunctions.SetCustomTextBinary
+	theme.SetCustomText = NeatPlatesHubFunctions.SetCustomText
+	theme.SetSubText = NeatPlatesHubFunctions.SetSubText
 	theme.SetCastbarDuration = NeatPlatesHubFunctions.SetCastbarDuration
 	theme.OnInitialize = OnInitialize		-- Need to provide widget positions
 	theme.OnActivateTheme = OnActivateTheme -- called by NeatPlates Core, Theme Loader

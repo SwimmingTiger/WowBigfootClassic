@@ -42,13 +42,13 @@ NeatPlatesHubDefaults = {
 	StyleHeadlineNeutral = false,
 	StyleHeadlineMiniMobs = false,
 
-	ColorEnemyBarMode =  1,
-	ColorEnemyNameMode = 1,
-	ColorEnemyStatusTextMode = 1,
+	--ColorEnemyBarMode =  1,
+	--ColorEnemyNameMode = 1,
+	--ColorEnemyStatusTextMode = 1,
 
-	ColorFriendlyBarMode =  1,
-	ColorFriendlyNameMode = 1,
-	ColorFriendlyStatusTextMode = 1,
+	--ColorFriendlyBarMode =  1,
+	--ColorFriendlyNameMode = 1,
+	--ColorFriendlyStatusTextMode = 1,
 
 	TextShowOnlyOnActive = false,
 
@@ -63,7 +63,7 @@ NeatPlatesHubDefaults = {
 	HeadlineEnemyColor = 4,
 	HeadlineFriendlyColor = 4,
 	HeadlineEnemySubtext = 3,
-
+	HeadlineFriendlySubtext = 1,
 
 	-- Opacity
 	---------------------------------------
@@ -112,6 +112,7 @@ NeatPlatesHubDefaults = {
 	OpacityFilterInactive = false,
 	OpacityFilterMini = false,
 	OpacityFilterUntitledFriendlyNPC = false,
+	OpacityFilterLowLevelUnits = false,
 
 	OpacityFilterList = "Fanged Pit Viper\nLiberated Karabor Prisoner",
 	OpacityFilterLookup = {},
@@ -160,7 +161,7 @@ NeatPlatesHubDefaults = {
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 3,
+	HighlightTargetMode = 1,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -217,7 +218,7 @@ NeatPlatesHubDefaults = {
 	ColorSchoolShadow = {r = 0.5, g = 0.5, b = 1},
 	ColorSchoolArcane = {r = 1, g = 0.5, b = 1},
 	ColorCastBySchool = true,
-	SpellCastEnableFriendly = true,
+	SpellCastEnableFriendly = false,
 	IntCastEnable = true,
 	IntCastWhoEnable = true,
 	SpellIconEnable = true,
@@ -253,7 +254,7 @@ NeatPlatesHubDefaults = {
 	WidgetComboPoints = true,
 	WidgetComboPointsStyle = 1,
 	WidgetComboPointsScaleOptions = {x = 1, y = 1, offset = {x = 0, y = 0}},
-	WidgetThreatIndicator = false,
+	WidgetThreatIndicator = true,
 	WidgetRangeIndicator = false,
 	WidgetRangeScale = false,
 	WidgetRangeMode = 1,
@@ -277,9 +278,9 @@ NeatPlatesHubDefaults = {
 	WidgetDebuff = true,
 	WidgetDebuffStyle = 1,
 	--WidgetAuraMode = 1,
-	WidgetAllAuras = false,
-	WidgetMyDebuff = true,
-	WidgetMyBuff = false,
+	--WidgetAllAuras = false,
+	--WidgetMyDebuff = true,
+	--WidgetMyBuff = false,
 	SpacerSlots = 1,
 	AuraScale = 1,
 	WidgetAuraScaleOptions = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -300,6 +301,7 @@ NeatPlatesHubDefaults = {
 	EmphasizedUnique = true,
 	HideCooldownSpiral = false,
 	HideAuraDuration = false,
+	HideAuraInHeadline = false,
 
 	-- Frame
 	---------------------------------------

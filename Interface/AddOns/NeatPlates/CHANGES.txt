@@ -1,13 +1,13 @@
-lightweight tag 0b14a596a4523b30f0bff08ec07edd55d00c79fe 1.13.2.39
+lightweight tag 35b615bc4ee82033902e44d7f818330732628d09 1.13.2.45
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Mon Oct 14 21:01:45 2019 +0200
+Date:	Sun Nov 24 12:03:03 2019 +0100
 
-commit 0b14a596a4523b30f0bff08ec07edd55d00c79fe
+commit 35b615bc4ee82033902e44d7f818330732628d09
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Mon Oct 14 21:00:02 2019 +0200
+Date:   Sun Nov 24 12:03:03 2019 +0100
 
-    Minor fixes
+    Added some more options
     
-    - AuraCache should now clear on nameplate destroyed events. (Not sure if this is the cause of some memory leaks but should help)
-    - Removed some debug code
+    - Added a new option to hide the aura widget if the nameplate is in 'Headline/Text-Only' mode
+    - Changed how the 'primary' aura filters work. (No longer separate check boxes, instead a dropdown each for buffs/debuffs.)
 

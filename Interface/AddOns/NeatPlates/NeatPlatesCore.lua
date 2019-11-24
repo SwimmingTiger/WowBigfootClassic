@@ -402,6 +402,7 @@ do
 		-- TextFrame
 		visual.customtext = textFrame:CreateFontString(nil, "OVERLAY")
 		visual.name  = textFrame:CreateFontString(nil, "OVERLAY")
+		visual.subtext = textFrame:CreateFontString(nil, "OVERLAY")
 		visual.level = textFrame:CreateFontString(nil, "OVERLAY")
 		-- Cast Bar Frame - Highest Frame
 		visual.castborder = castbar:CreateTexture(nil, "ARTWORK")
@@ -436,6 +437,7 @@ do
 
 		-- Default Fonts
 		visual.name:SetFontObject("NeatPlatesFontNormal")
+		visual.subtext:SetFontObject("NeatPlatesFontSmall")
 		visual.level:SetFontObject("NeatPlatesFontSmall")
 		visual.spelltext:SetFontObject("NeatPlatesFontNormal")
 		visual.durationtext:SetFontObject("NeatPlatesFontNormal")
@@ -487,6 +489,8 @@ do
 			UpdateStyle()
 			extended.stylename = stylename
 			unit.style = stylename
+
+			if(extended.widgets['AuraWidgetHub'] and unit.unitid) then extended.widgets['AuraWidgetHub']:UpdateContext(unit) end
 		end
 
 	end
@@ -773,6 +777,8 @@ do
 		local c = GetCreatureDifficultyColor(unit.level)
 		unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue = c.r, c.g, c.b
 
+		unit.isTrivial = (c.r == 0.5 and c.g == 0.5 and c.b == 0.5)
+
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
 		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue) or "HOSTILE"
 
@@ -850,6 +856,15 @@ do
 		if activetheme.SetNameColor then
 			visual.name:SetTextColor(activetheme.SetNameColor(unit))
 		else visual.name:SetTextColor(1,1,1,1) end
+
+		-- Subtext
+		if style.subtext.show then
+			if activetheme.SetSubText then
+				local text, r, g, b, a = activetheme.SetSubText(unit)
+				visual.subtext:SetText( text or "")
+				visual.subtext:SetTextColor(r or 1, g or 1, b or 1, a or 1)
+			else visual.subtext:SetText("") end
+		end
 	end
 
 
@@ -1554,10 +1569,10 @@ do
 	end
 
 	-- SetAnchorGroupObject
-	local function SetAnchorGroupObject(object, objectstyle, anchorTo)
+	local function SetAnchorGroupObject(object, objectstyle, anchorTo, offset)
 		if objectstyle and anchorTo then
-			SetObjectShape(object, objectstyle.width or 128, objectstyle.height or 16) --end
-			SetObjectAnchor(object, objectstyle.anchor or "CENTER", anchorTo, objectstyle.x or 0, objectstyle.y or 0)
+			SetObjectShape(object, objectstyle.width or 128, objectstyle.height or 16)
+			SetObjectAnchor(object, objectstyle.anchor or "CENTER", anchorTo, objectstyle.x or 0, (objectstyle.y or 0) + (offset or 0))
 		end
 	end
 
@@ -1584,10 +1599,10 @@ do
 
 
 	-- Style Groups
-	local fontgroup = {"name", "level", "spelltext", "durationtext", "customtext"}
+	local fontgroup = {"name", "subtext", "level", "spelltext", "durationtext", "customtext"}
 
 	local anchorgroup = {"healthborder", "threatborder", "castborder", "castnostop",
-						"name", "spelltext", "durationtext", "customtext", "level",
+						"name", "subtext", "spelltext", "durationtext", "customtext", "level",
 						"spellicon", "raidicon", "skullicon", "eliteicon", "target", "focus", "mouseover"}
 
 	local bargroup = {"castbar", "healthbar"}
@@ -1598,7 +1613,9 @@ do
 
 	-- UpdateStyle:
 	function UpdateStyle()
-		local index
+		local index, unitSubtext, unitPlateStyle
+		local useYOffset = (style.subtext.show and activetheme.SetSubText(unit) and NeatPlatesHubFunctions.SetStyleNamed(unit) == "Default")
+		if useYOffset then extended.widgets["AuraWidgetHub"]:UpdateOffset(0, style.subtext.yOffset) end 	-- Update AuraWidget position if 'subtext' is displayed
 
 		-- Frame
 		SetAnchorGroupObject(extended, style.frame, carrier)
@@ -1609,7 +1626,10 @@ do
 			local objectname = anchorgroup[index]
 			local object, objectstyle = visual[objectname], style[objectname]
 			if objectstyle and objectstyle.show then
-				SetAnchorGroupObject(object, objectstyle, extended)
+				local offset
+				if useYOffset and (objectname == "name" or objectname == "subtext") then offset = style.subtext.yOffset end -- Subtext offset
+
+				SetAnchorGroupObject(object, objectstyle, extended, offset)
 				visual[objectname]:Show()
 			else visual[objectname]:Hide() end
 		end
