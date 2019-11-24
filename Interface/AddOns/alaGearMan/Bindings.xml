@@ -1,0 +1,13 @@
+<Bindings>
+   <Binding name="ALAGEARMAN_QUICK_1" category="ADDONS" header="ALAGEARMAN_QUICK"/>
+   <Binding name="ALAGEARMAN_QUICK_2" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_3" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_4" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_5" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_6" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_7" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_8" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_9" category="ADDONS"/>
+   <Binding name="ALAGEARMAN_QUICK_X" category="ADDONS"/>
+
+</Bindings>
