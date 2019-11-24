@@ -170,6 +170,16 @@ function AutoEquipConfigFunc()
 				nil,
 				1
 			);
+
+			ModManagement_RegisterButton(
+				"AutoEquip",
+				AUTOEQUIP_KEY_BINDING,
+				function ()
+					BigFoot_ShowKeyBindingFrame("HEADER_ALAGEARMAN_QUICK");
+				end,
+				nil,
+				1
+			);
 		end
 
 		-- if IsConfigurableAddOn("AutoTabard") then
