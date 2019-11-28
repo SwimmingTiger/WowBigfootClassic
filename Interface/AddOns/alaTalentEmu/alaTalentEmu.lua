@@ -111,7 +111,7 @@ local curPhase = 2;
 			edgeSize = 2,
 			insets = { left = 0, right = 0, top = 0, bottom = 0, }
 		},
-		spellTabFrameBackdropColor = { 0.25, 0.25, 0.25, 1.0, },
+		spellTabFrameBackdropColor = { 0.25, 0.25, 0.25, 0.75, },
 		spellTabFrameBackdropBorderColor = { 0.0, 0.0, 0.0, 1.0, },
 		spellTabFrameButtonBackdrop = {
 			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -175,8 +175,10 @@ local curPhase = 2;
 		equipmentFrameXSize = 200;
 		equipmentFrameButtonSize = 24;
 		equipmentFrameButtonGap = 6;
+		equipmentFrameArmorWeaponGap = 16;
 		equipmentFrameButtonXToBorder = 8;
-		equipmentFrameButtonYToBorder = 8;
+		equipmentFrameButtonYToBorder = 16;
+		equipmentFrameIconTextGap = 4;
 
 		controlButtonSize = 15,
 		editBoxXSize = 240,
@@ -211,7 +213,7 @@ local curPhase = 2;
 	setting.mainFrameYSizeDefault_Style1 = setting.talentFrameYSize + setting.talentFrameYToBorder * 2 + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize;
 	setting.mainFrameXSizeDefault_Style2 = setting.talentFrameXSizeSingle + setting.talentFrameXToBorder * 2;
 	setting.mainFrameYSizeDefault_Style2 = setting.talentFrameYSize + setting.talentFrameYToBorder * 2 + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize_Style2;
-	setting.equipmentContainerYSize = setting.equipmentFrameButtonYToBorder + setting.equipmentFrameButtonSize * 10 + setting.equipmentFrameButtonGap * 11 + setting.equipmentFrameButtonYToBorder;
+	setting.equipmentContainerYSize = setting.equipmentFrameButtonYToBorder + setting.equipmentFrameButtonSize * 10 + setting.equipmentFrameButtonGap * 11 + setting.equipmentFrameArmorWeaponGap + setting.equipmentFrameButtonYToBorder;
 	local TEXTURE_SET =
 	{
 		LIBDBICON = "interface\\buttons\\ui-microbutton-talents-up",
@@ -2258,9 +2260,15 @@ do	-- internal sub
 								local _, _, id = strfind(item, "item:([%-0-9]+)");
 								id = tonumber(id);
 								if id and id > 0 then
-									local _, link = GetItemInfo(id);
-									link = gsub(link, "item[%-0-9:]+", item);
-									emu.queryCache[sender][slot] = link;
+									-- local _, link = GetItemInfo(id);
+									-- if link then
+									-- 	link = gsub(link, "item[%-0-9:]+", item);
+									-- 	emu.queryCache[sender][slot] = link;
+									-- else
+									-- 	_error_("emu", item, id, link);
+									-- end
+									GetItemInfo(id);
+									emu.queryCache[sender][slot] = item;
 								else
 									emu.queryCache[sender][slot] = nil;
 								end
@@ -2537,14 +2545,22 @@ do	-- external func
 			return;
 		end
 		local talentFrames = mainFrame.talentFrames;
-		local curTabButton = mainFrame.specButtons[tab];
+		local specButtons = mainFrame.specButtons;
 		if mainFrame.curTab ~= tab then
 			talentFrames[mainFrame.curTab]:Hide();
 			talentFrames[tab]:Show();
 			mainFrame.curTab = tab;
 			local curTabIndicator = mainFrame.objects.curTabIndicator;
 			curTabIndicator:ClearAllPoints();
-			curTabIndicator:SetPoint("CENTER", curTabButton);
+			curTabIndicator:SetPoint("CENTER", specButtons[tab]);
+			-- curTabIndicator:SetScale(1.5);
+			for i = 1, 3 do
+				if i == tab then
+					specButtons[i]:SetSize(setting.specTabButtonWidth * 1.28, setting.specTabButtonHeight * 1.28);
+				else
+					specButtons[i]:SetSize(setting.specTabButtonWidth * 0.86, setting.specTabButtonHeight * 0.86);
+				end
+			end
 		end
 	end
 	function emu.mainFrameSetStyle(mainFrame, style)
@@ -2665,18 +2681,30 @@ do	-- equipmentFrame
 			equipmentFrame:Show();
 		end
 	end
-	function emu.Emu_SetEquipment(icon, slot, link)
-		if link then
-			local _, _, quality, _, _, _, _, _, _, texture = GetItemInfo(link);
-			icon:SetNormalTexture(texture);
-			icon.glow:SetVertexColor(GetItemQualityColor(quality));
-			icon.glow:Show();
-			icon.name:SetText(gsub(gsub(link, "%[", ""), "%]", ""));
+	function emu.Emu_SetEquipment(icon, slot, item)
+		if item then
+			local name, link, quality, _, _, _, _, _, _, texture = GetItemInfo(item);
+			if link then
+				link = gsub(link, "item[%-0-9:]+", item);
+				icon:SetNormalTexture(texture);
+				local r, g, b, code = GetItemQualityColor(quality);
+				icon.glow:SetVertexColor(r, g, b);
+				icon.glow:Show();
+				icon.name:SetVertexColor(r, g, b);
+				icon.name:SetText(name);
+				icon.link = link;
+			else
+				icon:SetNormalTexture(TEXTURE_SET.EQUIPMENT_EMPTY[icon.slot]);
+				icon.glow:Hide();
+				icon.name:SetText("");
+				icon.link = nil;
+			end
 		else
 			icon:SetNormalTexture(TEXTURE_SET.EQUIPMENT_EMPTY[icon.slot]);
 			icon.glow:Hide();
+			icon.name:SetText("");
+			icon.link = nil;
 		end
-		icon.link = link;
 	end
 	function emu.Emu_SetEquipments(equipmentContainer, meta)
 		local slots = equipmentContainer.slots;
@@ -2738,12 +2766,12 @@ do	-- equipmentFrame
 		for i, index in pairs(L) do
 			local slot = slots[index];
 			slot:SetPoint("TOPLEFT", setting.equipmentFrameButtonXToBorder, - setting.equipmentFrameButtonYToBorder - (setting.equipmentFrameButtonSize + setting.equipmentFrameButtonGap) * (i - 1));
-			slot.name:SetPoint("TOPLEFT", slot, "TOPRIGHT");
+			slot.name:SetPoint("TOPLEFT", slot, "TOPRIGHT", setting.equipmentFrameIconTextGap, 0);
 		end
 		for i, index in pairs(R) do
 			local slot = slots[index];
 			slot:SetPoint("TOPRIGHT", - setting.equipmentFrameButtonXToBorder, - setting.equipmentFrameButtonYToBorder - (setting.equipmentFrameButtonSize + setting.equipmentFrameButtonGap) * (i - 1));
-			slot.name:SetPoint("BOTTOMRIGHT", slot, "BOTTOMLEFT");
+			slot.name:SetPoint("BOTTOMRIGHT", slot, "BOTTOMLEFT", - setting.equipmentFrameIconTextGap, 0);
 		end
 		for i, index in pairs(B) do
 			local slot = slots[index];
@@ -2751,9 +2779,9 @@ do	-- equipmentFrame
 				(fmod(i - 1 , 2) - 0.5) * (setting.equipmentFrameButtonSize + setting.equipmentFrameButtonGap), 
 				(2 - floor((i - 1) / 2)) * (setting.equipmentFrameButtonSize + setting.equipmentFrameButtonGap) - setting.equipmentFrameButtonGap);
 			if fmod(i - 1 , 2) == 0 then
-				slot.name:SetPoint("RIGHT", slot, "LEFT");
+				slot.name:SetPoint("RIGHT", slot, "LEFT", - setting.equipmentFrameIconTextGap, 0);
 			else
-				slot.name:SetPoint("LEFT", slot, "RIGHT");
+				slot.name:SetPoint("LEFT", slot, "RIGHT", setting.equipmentFrameIconTextGap, 0);
 			end
 		end
 		equipmentFrame.equipmentContainer = equipmentContainer;
@@ -2905,7 +2933,6 @@ do	-- spellTabFrame
 		spellTabFrame:SetScript("OnSizeChanged", function()
 			-- scroll:SetSize(spellTabFrame:GetWidth() - 20, spellTabFrame:GetHeight() - 20);
 		end);
-		scroll:SetNumValue(100);
 		spellTabFrame.list = {  };
 
 		local searchEdit = CreateFrame("EditBox", nil, spellTabFrame);
@@ -2930,6 +2957,12 @@ do	-- spellTabFrame
 		searchEditNote:SetPoint("LEFT", 4, 0);
 		searchEditNote:SetText(L.Search);
 		searchEditNote:Show();
+		local searchCancel = CreateFrame("Button", nil, searchEdit);
+		searchCancel:SetSize(16, 16);
+		searchCancel:SetPoint("RIGHT", searchEdit);
+		searchCancel:SetScript("OnClick", function(self) searchEdit:SetText(""); searchEdit:ClearFocus(); end);
+		searchCancel:Hide();
+		searchCancel:SetNormalTexture("interface\\petbattles\\deadpeticon")
 		local searchEditOK = CreateFrame("Button", nil, spellTabFrame);
 		searchEditOK:SetSize(32, 16);
 		searchEditOK:SetPoint("LEFT", searchEdit, "RIGHT", 4, 0);
@@ -2956,6 +2989,11 @@ do	-- spellTabFrame
 			emu.EmuSub_SpellTabUpdate(spellTabFrame, mainFrame.class, emu.GetPiontsReqLevel(mainFrame.totalUsedPoints));
 			if not searchEdit:HasFocus() and searchEdit:GetText() == "" then
 				searchEditNote:Show();
+			end
+			if searchEdit:GetText() == "" then
+				searchCancel:Hide();
+			else
+				searchCancel:Show();
 			end
 		end);
 		searchEdit:SetScript("OnEditFocusGained", function(self)
@@ -2991,7 +3029,7 @@ do	-- spellTabFrame
 
 		local close = CreateFrame("Button", nil, spellTabFrame);
 		close:SetSize(32, 16);
-		close:SetPoint("BOTTOMLEFT", 8, 2);
+		close:SetPoint("BOTTOMLEFT", 4, 4);
 		close:SetScript("OnClick", function(self) emu.Emu_ToggleSpellTab(spellTabFrame:GetParent()); end);
 		local closeTexture = close:CreateTexture(nil, "ARTWORK");
 		closeTexture:SetPoint("TOPLEFT");
@@ -3347,7 +3385,7 @@ do	-- mainFrame sub objects
 		emu.Emu_ToggleEquipmentFrame(self:GetParent());
 	end
 	local function specButton_OnClick(self)
-		emu.Emu_ChangeTab_Style2(self:GetParent(), self.id);
+		emu.Emu_ChangeTab_Style2(self:GetParent():GetParent(), self.id);
 	end
 	local function classButton_OnClick(self, button)
 		if button == "LeftButton" then
@@ -3791,9 +3829,13 @@ do	-- mainFrame sub objects
 			objects.curPointsReqLevelLabel = curPointsReqLevelLabel;
 			objects.curPointsReqLevel = curPointsReqLevel;
 
+			local specButtonsBar = CreateFrame("Frame", nil, mainFrame);
+			specButtonsBar:SetPoint("CENTER", mainFrame, "BOTTOM", 0, (setting.mainFrameFooterYSize + setting.mainFrameFooterYSize_Style2) * 0.5);
+			specButtonsBar:SetSize(setting.specTabButtonWidth * 3 + setting.specTabButtonGap * 2, setting.specTabButtonHeight);
+			mainFrame.specButtonsBar = specButtonsBar;
 			local specButtons = {  };
 			for specIndex = 1, 3 do
-				local specButton = CreateFrame("Button", nil, mainFrame);
+				local specButton = CreateFrame("Button", nil, specButtonsBar);
 				specButton:SetSize(setting.specTabButtonWidth, setting.specTabButtonHeight);
 				specButton:SetNormalTexture(TEXTURE_SET.UNK);
 				specButton:GetNormalTexture():SetTexCoord(setting.specTabButtonTexCoord[1], setting.specTabButtonTexCoord[2], setting.specTabButtonTexCoord[3], setting.specTabButtonTexCoord[4]);
@@ -3816,13 +3858,16 @@ do	-- mainFrame sub objects
 				specButton.title = title;
 				specButtons[specIndex] = specButton;
 			end
-			specButtons[2]:SetPoint("CENTER", mainFrame, "BOTTOM", 0, (setting.mainFrameFooterYSize + setting.mainFrameFooterYSize_Style2) * 0.5);
-			specButtons[1]:SetPoint("RIGHT", specButtons[2], "LEFT", - setting.specTabButtonGap, 0);
+			-- specButtons[2]:SetPoint("CENTER", mainFrame, "BOTTOM", 0, (setting.mainFrameFooterYSize + setting.mainFrameFooterYSize_Style2) * 0.5);
+			-- specButtons[1]:SetPoint("RIGHT", specButtons[2], "LEFT", - setting.specTabButtonGap, 0);
+			-- specButtons[3]:SetPoint("LEFT", specButtons[2], "RIGHT", setting.specTabButtonGap, 0);
+			specButtons[1]:SetPoint("LEFT", specButtonsBar, "LEFT", 0, 0);
+			specButtons[2]:SetPoint("LEFT", specButtons[1], "RIGHT", setting.specTabButtonGap, 0);
 			specButtons[3]:SetPoint("LEFT", specButtons[2], "RIGHT", setting.specTabButtonGap, 0);
 			mainFrame.specButtons = specButtons;
 
 			local curTabIndicator = mainFrame:CreateTexture(nil, "OVERLAY");
-			curTabIndicator:SetSize(setting.specTabButtonWidth + 4, setting.specTabButtonHeight + 4);
+			curTabIndicator:SetSize(setting.specTabButtonWidth * 1.28 + 4, setting.specTabButtonHeight * 1.28 + 4);
 			curTabIndicator:SetBlendMode("ADD");
 			curTabIndicator:SetTexture(TEXTURE_SET.SQUARE_HIGHLIGHT);
 			curTabIndicator:SetTexCoord(TEXTURE_SET.SPEC_INDICATOR_COORD[1], TEXTURE_SET.SPEC_INDICATOR_COORD[2], TEXTURE_SET.SPEC_INDICATOR_COORD[3], TEXTURE_SET.SPEC_INDICATOR_COORD[4]);
@@ -4064,9 +4109,10 @@ do	-- mainFrame
 		for _, obj in pairs(self.objects) do
 			obj:SetScale(self.talentFrameScale);
 		end
-		for _, obj in pairs(self.specButtons) do
-			obj:SetScale(self.talentFrameScale);
-		end
+		-- for _, obj in pairs(self.specButtons) do
+		-- 	obj:SetScale(self.talentFrameScale);
+		-- end
+		self.specButtonsBar:SetScale(self.talentFrameScale);
 		for _, obj in pairs(self.classButtons) do
 			obj:SetScale(self.talentFrameScale);
 		end
@@ -4453,31 +4499,7 @@ do	-- SLASH and _G
 	SLASH_ALATALENTEMU2 = "/alate";
 	SLASH_ALATALENTEMU3 = "/ate";
 	SLASH_ALATALENTEMU4 = "/emu";
-	local acceptedCommandSeq =
-	{
-		"\ ",
-		"\,",
-		--"\.",
-		"\;",
-		"\:",
-		"\-",
-		"\+",
-		"\_",
-		"\=",
-		"\/",
-		"\\",
-		"\"",
-		"\'",
-		"\|",
-
-		"\，",
-		"\。",
-		"\；",
-		"\：",
-		"\、",
-		"\’",
-		"\“",
-	};
+	local acceptedCommandSeq = { "\ ", "\,", "\;", "\:", "\-", "\+", "\_", "\=", "\/", "\\", "\"", "\'", "\|", "\，", "\。", "\；", "\：", "\、", "\’", "\“", };
 	SlashCmdList["ALATALENTEMU"] = function(msg)
 		for _, seq in pairs(acceptedCommandSeq) do
 			if strfind(msg, seq) then

@@ -288,7 +288,9 @@ end
 function TimerBar.Remains(self)
     return self.endTime - GetTime()
 end
-
+function TimerBar:GetVScale()
+    return self._scale
+end
 function TimerBar.VScale(self, scale)
     if scale == self._scale then return end
     if scale > 2 then scale = 2 end

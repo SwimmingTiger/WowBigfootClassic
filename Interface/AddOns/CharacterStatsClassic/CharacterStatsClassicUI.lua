@@ -24,7 +24,7 @@ local statsDropdownList = {
     PLAYERSTAT_DEFENSES
 }
 
-local NUM_STATS_TO_SHOW = 6;
+local NUM_STATS_TO_SHOW = 5;
 local LeftStatsTable = { }
 local RightStatsTable = { }
 

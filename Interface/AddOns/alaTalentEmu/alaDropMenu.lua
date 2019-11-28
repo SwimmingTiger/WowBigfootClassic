@@ -133,16 +133,21 @@ local function GetMenu(parent, anchor)
 	menu.parent = parent;
 	frameToMenu[parent] = menu;
 	menu:ClearAllPoints();
+	local cx, cy = GetCursorPosition();
+	local px, py = parent:GetCenter();
+	local s = parent:GetEffectiveScale();
+	local x = cx / s - px;
+	local y = cy / s - py;
 	if anchor == "TOPRIGHT" then
-		menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+		menu:SetPoint("BOTTOMLEFT", parent, "CENTER", x, y);
 	elseif anchor == "TOPLEFT" then
-		menu:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", 0, 0);
+		menu:SetPoint("BOTTOMRIGHT", parent, "CENTER", x, y);
 	elseif anchor == "BOTTOMRIGHT" then
-		menu:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", 0, 0);
+		menu:SetPoint("TOPLEFT", parent, "CENTER", x, y);
 	elseif anchor == "BOTTOMLEFT" then
-		menu:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", 0, 0);
+		menu:SetPoint("TOPRIGHT", parent, "CENTER", x, y);
 	else
-		menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+		menu:SetPoint("BOTTOMLEFT", parent, "CENTER", x, y);
 	end
 	menu.isCountingDown = true;
 	menu.countingDownTimer = COUNTING_DOWN_TIMER_PERIOD + 1.0;

@@ -1,11 +1,13 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190909044025")
+mod:SetRevision("20191122140416")
 mod:SetCreatureID(12056)
 mod:SetEncounterID(668)
 mod:SetModelID(12129)
 mod:SetUsedIcons(8)
+mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
+
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -46,19 +48,22 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 20475 then
 		if args.spellName == LivingBomb then
-			timerBomb:Start(args.destName)
-			if self.Options.SetIconOnBombTarget then
-				self:SetIcon(args.destName, 8)
-			end
-			if args:IsPlayer() then
-				specWarnBomb:Show()
-				specWarnBomb:Play("runout")
-				if self:IsDifficulty("event40") or not self:IsTrivial(75) then
-					yellBomb:Yell()
-					yellBombFades:Countdown(20475)
+			self:SendSync("Bomb", args.destName)
+			if self:AntiSpam(5, 1) then
+				timerBomb:Start(args.destName)
+				if self.Options.SetIconOnBombTarget then
+					self:SetIcon(args.destName, 8)
 				end
-			else
-				warnBomb:Show(args.destName)
+				if args:IsPlayer() then
+					specWarnBomb:Show()
+					specWarnBomb:Play("runout")
+					if self:IsDifficulty("event40") or not self:IsTrivial(75) then
+						yellBomb:Yell()
+						yellBombFades:Countdown(20475)
+					end
+				else
+					warnBomb:Show(args.destName)
+				end
 			end
 		end
 	end
@@ -99,6 +104,27 @@ do
 			timerArmageddon:Start()
 		elseif spellName == LivingBomb then
 			timerBombCD:Start()
+		end
+	end
+end
+
+--Ensures Bomb detection still works even if bomb target is > 50 yards away
+function mod:OnSync(msg, targetName)
+	if not self:IsInCombat() then return end
+	if msg == "Bomb" and targetName and self:AntiSpam(5, 1) then
+		timerBomb:Start(targetName)
+		if self.Options.SetIconOnBombTarget then
+			self:SetIcon(targetName, 8)
+		end
+		if targetName == UnitName("player") then
+			specWarnBomb:Show()
+			specWarnBomb:Play("runout")
+			if self:IsDifficulty("event40") or not self:IsTrivial(75) then
+				yellBomb:Yell()
+				yellBombFades:Countdown(20475)
+			end
+		else
+			warnBomb:Show(targetName)
 		end
 	end
 end

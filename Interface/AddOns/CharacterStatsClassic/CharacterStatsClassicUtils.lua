@@ -455,23 +455,12 @@ local function CSC_GetHitFromBiznicksAccurascope(unit)
 	local hitFromScope = 0;
 	local rangedIndex = 18;
 
-	local hasItem = CSC_ScanTooltip:SetInventoryItem(unit, rangedIndex);
-	if hasItem then
-		local maxLines = CSC_ScanTooltip:NumLines();
-		for line=1, maxLines do
-			local leftText = getglobal(CSC_ScanTooltipPrefix.."TextLeft"..line);
-			if leftText:GetText() then
-				local valueTxt = string.match(leftText:GetText(), "+%d+%% "..CSC_HIT_BIZNICKS_TXT);
-				if valueTxt then
-					valueTxt = string.match(valueTxt, "%d+");
-					if valueTxt then
-						local numValue = tonumber(valueTxt);
-						if numValue then
-							hitFromScope = numValue;
-							break;
-						end
-					end
-				end
+	local itemLink = GetInventoryItemLink(unit, rangedIndex);
+	if itemLink then
+		local itemId, enchantId = itemLink:match("item:(%d+):(%d*)");
+		if enchantId then
+			if tonumber(enchantId) == 2523 then
+				hitFromScope = hitFromScope + 3;
 			end
 		end
 	end

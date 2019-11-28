@@ -259,6 +259,7 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	local thumb = scrollBar:GetThumbTexture();
 	thumb:SetSize(18, 24);
 	thumb:SetTexCoord(0.20, 0.80, 0.125, 0.875);
+	thumb:SetColorTexture(0.05, 0.05, 0.05, 1.0);
 
 	scrollBar:SetScript("OnValueChanged", function(self, value)
 		value = value or scrollBar:GetValue();

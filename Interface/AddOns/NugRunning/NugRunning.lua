@@ -428,10 +428,10 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
 
 
     local f = CreateFrame('Frame', nil, InterfaceOptionsFrame)
-	f:SetScript('OnShow', function(self)
-		self:SetScript('OnShow', nil)
-		LoadAddOn('NugRunningOptions')
-	end)
+    f:SetScript('OnShow', function(self)
+        self:SetScript('OnShow', nil)
+        LoadAddOn('NugRunningOptions')
+    end)
 end
 
 function NugRunning.PLAYER_LOGOUT(self, event)
@@ -1402,15 +1402,17 @@ function NugRunning.TimerFunc(self,time)
 
     local scaleAnimLength = 1
     local su = opts.scale_until
-    if su and beforeEnd <= su and beforeEnd > su - (scaleAnimLength+0.04) then
+    if su and beforeEnd <= su then
         local os = opts.scale or 1
-        local ms = 0.4
-        local progress = 1 - ((beforeEnd - (su - scaleAnimLength))/ scaleAnimLength)
-        if progress > 0.98 then progress = 1 end
-        local pscale = ms + (os-ms)*progress
-        self:VScale(pscale)
-        self:SetTime(nil, nil, nil, progress)
-        if self._scale == os and not self.shine:IsPlaying() then self.shine:Play() end
+        if self:GetVScale() ~= os then
+            local ms = 0.4
+            local progress = 1 - ((beforeEnd - (su - scaleAnimLength))/ scaleAnimLength)
+            if progress > 0.98 then progress = 1 end
+            local pscale = ms + (os-ms)*progress
+            self:VScale(pscale)
+            self:SetTime(nil, nil, nil, progress)
+            if self._scale == os and not self.shine:IsPlaying() then self.shine:Play() end
+        end
     end
 
     local tickPeriod = self.tickPeriod
@@ -2130,6 +2132,7 @@ NugRunning.Commands = {
 
             NRunDB.anchors[name] = nil
             NugRunning.anchors[name]:Hide()
+            NugRunning.anchors[name] = nil
 
             NugRunning:SetupArrange()
             NugRunning:ArrangeTimers()

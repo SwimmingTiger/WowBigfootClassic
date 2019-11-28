@@ -1,10 +1,12 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191007040800")
+mod:SetRevision("20191122140416")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
+mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
+
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
@@ -62,8 +64,11 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 20566 then
 		if args.spellName == Wrath then
-			warnWrathRag:Show()
-			timerWrathRag:Start()
+			self:SendSync("WrathRag")
+			if self:AntiSpam(5, 1) then
+				warnWrathRag:Show()
+				timerWrathRag:Start()
+			end
 		end
 	end
 end
@@ -112,5 +117,8 @@ function mod:OnSync(msg, guid)
 			self:Unschedule(emerged)
 			emerged(self)
 		end
+	elseif msg == "WrathRag" and self:AntiSpam(5, 1) then
+		warnWrathRag:Show()
+		timerWrathRag:Start()
 	end
 end
