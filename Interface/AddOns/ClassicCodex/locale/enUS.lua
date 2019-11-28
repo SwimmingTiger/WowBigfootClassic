@@ -89,6 +89,8 @@ L["Open Codex Browser"] = true
 L["Show Markers on Zone Maps"] = true
 L["Show markers on the third and subsequent levels of the world map"] = true
 L["Show Markers on the Minimap"] = true
+L["Show Tracking Method Dropdown on the World Map"] = true
+L["Quest Tracking Method"] = true
 
 -- map.lua
 L["Buy"] = true

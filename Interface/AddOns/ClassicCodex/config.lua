@@ -26,6 +26,7 @@ DefaultCodexConfig = {
     ["spawnMarkerSize"] = 15,
     ["bossMarkerSize"] = 25, -- Display a larger icon for the boss or a single target to help you find it.
     ["minimumDropChance"] = 2, -- (%) Hide markers with a drop probability less than this value
+    ["showTrackingMethodDropdown"] = true, -- Show Tracking Method Dropdown on the World Map
 }
 
 CodexConfigFrame = CreateFrame("Frame", "CodexConfigFrame", UIParent)
@@ -121,7 +122,7 @@ function CodexConfigFrame:LoadConfig()
             showLowLevel = {
                 order = 601,
                 type = "toggle", -- make the next checkbox in a new line
-                width = 3,
+                width = 1.5,
                 name = L["Show Low-level Quests"],
                 desc = L["If selected, low-level quests will be hidden on the map"],
                 get = function(info)
@@ -135,7 +136,7 @@ function CodexConfigFrame:LoadConfig()
             showHighLevel = {
                 order = 701,
                 type = "toggle",
-                width = 3, -- make the next checkbox in a new line
+                width = 1.5, -- make the next checkbox in a new line
                 name = L["Show High-level Quests"],
                 desc = L["If selected, quests with a level requirement of your level + 3 will be shown on the map"],
                 get = function(info)
@@ -249,6 +250,42 @@ function CodexConfigFrame:LoadConfig()
                 set = function(info, val)
                     CodexConfig.miniMapIcon = val
                     CodexMap:UpdateNodes()
+                end
+            },
+            showTrackingMethodDropdown = {
+                order = 602,
+                type = "toggle",
+                width = 1.5,
+                name = L["Show Tracking Method Dropdown on the World Map"],
+                get = function(info)
+                    return CodexConfig.showTrackingMethodDropdown
+                end,
+                set = function(info, val)
+                    CodexConfig.showTrackingMethodDropdown = val
+                    if CodexConfig.showTrackingMethodDropdown then
+                        CodexQuest.mapButton:Show()
+                    else
+                        CodexQuest.mapButton:Hide()
+                    end
+                end
+            },
+            trackingMethod = {
+                order = 702,
+                type = "select",
+                width = 1.5,
+                name = L["Quest Tracking Method"],
+                values = {
+                    L["All Quests"],
+                    L["Tracked Quests"],
+                    L["Manual Selection"],
+                    L["Hide Quests"],
+                },
+                get = function(info)
+                    return CodexConfig.trackingMethod
+                end,
+                set = function(info, val)
+                    CodexConfig.trackingMethod = val
+                    CodexQuest:ResetAll()
                 end
             },
 

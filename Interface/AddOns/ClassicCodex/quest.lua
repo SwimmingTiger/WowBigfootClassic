@@ -392,6 +392,12 @@ function CodexQuest:AddWorldMapIntegration()
         UIDropDownMenu_JustifyText(CodexQuest.mapButton, "RIGHT")
         UIDropDownMenu_SetSelectedID(CodexQuest.mapButton, CodexQuest.mapButton.current)
     end
+
+    if CodexConfig.showTrackingMethodDropdown then
+        CodexQuest.mapButton:Show()
+    else
+        CodexQuest.mapButton:Hide()
+    end
 end
 
 function CodexQuest:UpdateNameplate(unitID)

@@ -89,6 +89,8 @@ L["Open Codex Browser"] = "打开 ClassicCodex 全能数据库"
 L["Show Markers on Zone Maps"] = "在区域地图上显示图标"
 L["Show markers on the third and subsequent levels of the world map"] = "在世界地图的第三层和后续层级上显示图标"
 L["Show Markers on the Minimap"] = "在小地图上显示图标"
+L["Show Tracking Method Dropdown on the World Map"] = "在世界地图上显示任务追踪方式下拉框"
+L["Quest Tracking Method"] = "任务追踪方式"
 
 -- map.lua
 L["Buy"] = "购买"
