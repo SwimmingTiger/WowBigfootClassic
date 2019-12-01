@@ -28,7 +28,7 @@ do
 	frame.content:SetPoint('TOPLEFT', 4, -80)
 	frame.content:SetPoint('BOTTOMRIGHT', -4, 35)
 	frame:Hide()
-    M.frame = frame
+	M.frame = frame
 
     -- 声音播放事件注册移动到 frame:Hide() 之后，否则按需加载时总会播放拍卖行关闭的声音
 	frame:SetScript('OnShow', function() PlaySound(SOUNDKIT.AUCTION_WINDOW_OPEN) end)
@@ -83,7 +83,18 @@ do
             self:SetBackdropColor(color.content.background())
         end
     end)
+    StaticPopupDialogs["AUX_ADDON_CANNOT_SCAN"] = {
+        text = "为了防止扫描时卡死，请先在小地图大脚按键包内取消勾选“拍卖大师”插件",
+        button1 = "我知道了",
+        showAlert = 1,
+        timeout = 0,
+        hideOnEscape = 1
+    }
     btn:SetScript('OnClick', function()
+        if IsAddOnLoaded("Auctionator") then
+            StaticPopup_Show("AUX_ADDON_CANNOT_SCAN")
+            return
+        end
         local total
         local count = 0
         scan.start{
