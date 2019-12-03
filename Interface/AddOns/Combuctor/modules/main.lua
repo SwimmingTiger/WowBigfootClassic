@@ -4,7 +4,7 @@
 --]]
 
 local ADDON, Addon = ...
-Addon.ItemScale = 1.6
+Addon.ItemScale = 1
 Addon.canSearch = true
 
 function Addon:OnEnable()
