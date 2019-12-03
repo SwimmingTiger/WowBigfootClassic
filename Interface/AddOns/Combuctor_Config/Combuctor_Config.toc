@@ -1,0 +1,8 @@
+## Interface: 80200
+## Title: Combuctor Config
+## Author: Tuller and Jaliborc (João Cardoso)
+## Notes: An options menu for Combuctor
+## Dependencies: Combuctor
+## LoadOnDemand: 1
+
+..\Combuctor\modules\config.xml

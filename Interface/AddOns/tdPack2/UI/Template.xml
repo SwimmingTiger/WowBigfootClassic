@@ -1,0 +1,126 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Button name="tdPack2RuleItemTemplate" movable="true" enableMouse="true" virtual="true">
+        <Size x="302" y="24" />
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Status" file="Interface\Buttons\UI-MinusButton-UP">
+                    <Size x="16" y="16" />
+                    <Anchors>
+                        <Anchor point="LEFT" x="5" y="0" />
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordWrap="false">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Status" relativePoint="RIGHT" x="2" y="0" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Rule" inherits="GameFontDisableSmall" justifyH="RIGHT" wordWrap="false">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5" y="0" />
+                        <Anchor point="RIGHT" x="-5" y="0" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <NormalTexture parentKey="NormalTexture" atlas="voicechat-channellist-row-background" alphaMode="ADD"/>
+        <HighlightTexture parentKey="HighlightTexture" atlas="voicechat-channellist-row-highlight" alphaMode="ADD"/>
+        <Scripts>
+            <OnLoad>
+                self:RegisterForDrag('LeftButton')
+            </OnLoad>
+        </Scripts>
+    </Button>
+    <ScrollFrame name="tdPack2ScrollFrameTemplate" inherits="HybridScrollFrameTemplate" virtual="true">
+        <Frames>
+            <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-14" />
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="13" />
+                </Anchors>
+            </Slider>
+        </Frames>
+    </ScrollFrame>
+    <Button name="tdPack2TabButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
+        <Size x="10" y="32"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="LeftDisabled" file="Interface\PaperDollInfoFrame\UI-Character-ActiveTab">
+                    <Size x="20" y="32"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="4"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.15625" top="0" bottom="1.0"/>
+                </Texture>
+                <Texture parentKey="MiddleDisabled" file="Interface\PaperDollInfoFrame\UI-Character-ActiveTab">
+                    <Size x="88" y="32"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.LeftDisabled" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.15625" right="0.84375" top="0" bottom="1.0"/>
+                </Texture>
+                <Texture parentKey="RightDisabled" file="Interface\PaperDollInfoFrame\UI-Character-ActiveTab">
+                    <Size x="20" y="32"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.MiddleDisabled" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.84375" right="1.0" top="0" bottom="1.0"/>
+                </Texture>
+                <Texture parentKey="Left" file="Interface\PaperDollInfoFrame\UI-Character-InActiveTab">
+                    <Size x="20" y="32"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="2"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.15625" top="0" bottom="1.0"/>
+                </Texture>
+                <Texture parentKey="Middle" file="Interface\PaperDollInfoFrame\UI-Character-InActiveTab">
+                    <Size x="88" y="32"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Left" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.15625" right="0.84375" top="0" bottom="1.0"/>
+                </Texture>
+                <Texture parentKey="Right" file="Interface\PaperDollInfoFrame\UI-Character-InActiveTab">
+                    <Size x="20" y="32"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Middle" relativePoint="RIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.84375" right="1.0" top="0" bottom="1.0"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                self.selectedTextY = 6;
+                self.deselectedTextY = 6;
+                self:SetFrameLevel(self:GetFrameLevel() + 4);
+                self:RegisterEvent("DISPLAY_SIZE_CHANGED");
+            </OnLoad>
+            <OnEvent>
+                if (self:IsVisible()) then
+                    PanelTemplates_TabResize(self, 0, nil, 36, self:GetParent().maxTabWidth or 88);
+                end
+            </OnEvent>
+            <OnShow>
+                PanelTemplates_TabResize(self, 0, nil, 36, self:GetParent().maxTabWidth or 88);
+            </OnShow>
+            <OnClick>
+                PanelTemplates_Tab_OnClick(self, self:GetParent())
+            </OnClick>
+        </Scripts>
+        <ButtonText parentKey="Text">
+            <Size x="0" y="10"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="2"/>
+            </Anchors>
+        </ButtonText>
+        <NormalFont style="GameFontNormalSmall"/>
+        <HighlightFont style="GameFontHighlightSmall"/>
+        <DisabledFont style="GameFontHighlightSmall"/>
+        <HighlightTexture parentKey="HighlightTexture" file="Interface\PaperDollInfoFrame\UI-Character-Tab-RealHighlight" alphaMode="ADD">
+            <Anchors>
+                <Anchor point="TOPLEFT" x="3" y="5"/>
+                <Anchor point="BOTTOMRIGHT" x="-3" y="0"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
+</Ui>

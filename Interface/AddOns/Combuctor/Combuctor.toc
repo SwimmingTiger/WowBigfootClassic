@@ -1,21 +1,9 @@
-﻿## Interface: 11302
+## Interface: 80200
 ## Title: Combuctor
-## Title-zhCN: [大脚][集]背包整合
-## Title-zhTW: [大腳][集]背包整合
-## Notes: |cffbc8f8fBag Integration and breakups.|r
-## Notes-zhCN: |cff00ff00Combuctor|r|n|cffbc8f8f背包整合与分类。|r
-## Notes-zhTW: |cff00ff00Combuctor|r|n|cffbc8f8f背包整合與分類。|r
-## Author: Tuller
-## Version: 603
-## SavedVariables: CombuctorDB4,BF_VoidStorageDB
-## Dependencies: BigFoot
-## X-Revision: BigFoot
+## Author: Tuller & Jaliborc (João Cardoso)
+## Notes: Single window displays for your inventory and bank
+## OptionalDeps: BagBrother, WoWUnit
+## SavedVariables: Combuctor_Sets
+## Version: 8.2.5
 
-load.xml
-
-Combuctor_Sets\sets.lua
-
-Combuctor_Config\panel.lua
-Combuctor_Config\general.lua
-
-PackUpInventory.lua
+modules\main.xml

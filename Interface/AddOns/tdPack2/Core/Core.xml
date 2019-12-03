@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Script file="Data.lua"/>
+    <Script file="Search.lua"/>
+    <Script file="Config.lua"/>
+    <Script file="ItemInfoCache.lua"/>
+    <Script file="Rule.lua"/>
+    <Script file="Pack.lua"/>
+    <Script file="Stacking.lua"/>
+    <Script file="Saving.lua"/>
+    <Script file="Sorting.lua"/>
+    <Script file="Command.lua"/>
+    <Script file="Compat.lua"/>
+</Ui>
