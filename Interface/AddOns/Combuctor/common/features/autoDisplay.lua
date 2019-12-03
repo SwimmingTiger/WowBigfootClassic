@@ -19,6 +19,8 @@ end
 
 function AutoDisplay:RegisterGameEvents()
 	-- 老虎会游泳：同步大脚设置
+	BigFoot_Config = BigFoot_Config or {}
+	BigFoot_Config.BagManagement = BigFoot_Config.BagManagement or {}
 	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnBank = Combuctor_Sets.displayBank and 1 or 0
 	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnTrading = Combuctor_Sets.displayTrade and 1 or 0
 
