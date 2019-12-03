@@ -104,25 +104,14 @@ bagFrame:SetScript("OnEvent",function(self,event)
 	end
 end)
 
-BF_bagFrameBenable = false;	-- for Combuctor
 function BagManage_BankOpenAll(flag)
-	if flag == 1 then
-		BF_bagFrameBenable =true
-		bagFrame:RegisterEvent("BANKFRAME_OPENED");
-		bagFrame:RegisterEvent("BANKFRAME_CLOSED");
-	else
-		BF_bagFrameBenable=false
-		bagFrame:UnregisterEvent("BANKFRAME_OPENED");
-		bagFrame:UnregisterEvent("BANKFRAME_CLOSED");
-	end
+	Combuctor_Sets = Combuctor_Sets or {}
+	Combuctor_Sets.displayBank = (flag == 1)
+	CombuctorAutoDisplay:RegisterGameEvents()
 end
 
 function BagManage_TradeOpenAll(flag)
-	if flag == 1 then
-		bagFrame:RegisterEvent("TRADE_SHOW");
-		bagFrame:RegisterEvent("TRADE_CLOSED");
-	else
-		bagFrame:UnregisterEvent("TRADE_SHOW");
-		bagFrame:UnregisterEvent("TRADE_CLOSED");
-	end
+	Combuctor_Sets = Combuctor_Sets or {}
+	Combuctor_Sets.displayTrade = (flag == 1)
+	CombuctorAutoDisplay:RegisterGameEvents()
 end

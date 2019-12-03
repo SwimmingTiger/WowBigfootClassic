@@ -18,6 +18,10 @@ end
 --[[ Game Events ]]--
 
 function AutoDisplay:RegisterGameEvents()
+	-- 老虎会游泳：同步大脚设置
+	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnBank = Combuctor_Sets.displayBank and 1 or 0
+	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnTrading = Combuctor_Sets.displayTrade and 1 or 0
+
 	self:UnregisterAllEvents()
 	self:UnregisterAllMessages()
 
@@ -191,3 +195,6 @@ end
 function AutoDisplay:Bag2Frame(bag)
 	return Addon:IsBankBag(bag) and 'bank' or 'inventory', bag
 end
+
+-- 老虎会游泳：暴露给大脚的全局变量
+CombuctorAutoDisplay = AutoDisplay
