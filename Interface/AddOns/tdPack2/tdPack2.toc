@@ -2,7 +2,7 @@
 ## Title: tdPack2
 ## Author: Dencer
 ## Version: 1.1.0
-## OptionalDeps: Bagnon, Combuctor, tdBag
+## Dependencies: Combuctor
 ## SavedVariables: TDDB_PACK2
 
 Load.xml
