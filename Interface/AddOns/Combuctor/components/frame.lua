@@ -66,9 +66,9 @@ function Frame:New(id)
 		end)
 	elseif id == "bank" then
 		f.extraButton:SetScript("OnClick", function()
-			if TDPack2SaveToBank then
+			if TDPack2Command and TDPack2Command.commands and TDPack2Command.commands.SAVE then
 				PlaySound(SOUNDKIT.UI_BAG_SORTING_01)
-				TDPack2SaveToBank()
+				TDPack2Command.commands.SAVE()
 			end
 		end)
 	end
