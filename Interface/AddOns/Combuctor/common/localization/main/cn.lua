@@ -74,3 +74,8 @@ L.TipCountBank = '银行：%d'
 L.TipCountVault = '虚空仓库：%d'
 L.TipCountGuild = '公会：%d'
 L.TipDelimiter = '|'
+
+--老虎会游泳：背包左上角的额外按钮
+L.inventoryExtraButton = '离线银行'
+L.bankExtraButton = '材料存放'
+L.ExtraButtonFontSize = 15

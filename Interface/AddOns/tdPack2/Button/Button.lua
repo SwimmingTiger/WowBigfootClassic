@@ -46,6 +46,14 @@ function ns.SetupButton(button, isBank)
     button:SetScript('OnEnter', OnEnter)
     button:SetScript('OnLeave', GameTooltip_Hide)
     button._tdpack2BagType = isBank and BAG_TYPE.BANK or BAG_TYPE.BAG
+
+    -- 老虎会游泳：暴露给外部的全局函数
+    if isBank then
+        TDPack2SaveToBank = function()
+            -- 存放材料到银行
+            Addon:RunCommand(button._tdpack2BagType, ns.GetClickToken('LeftButton', false, true, false))
+        end
+    end
 end
 
 function Addon:SetupButton(button, bagType)
