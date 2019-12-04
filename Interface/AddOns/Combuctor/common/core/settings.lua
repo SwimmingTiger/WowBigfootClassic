@@ -99,7 +99,7 @@ function Addon:StartupSettings()
 		global = SetDefaults({}, ProfileDefaults),
 		profiles = {},
 
-		resetPlayer = true,
+		resetPlayer = true, closeVendor = true,
 		displayBank = true, closeBank = true, displayAuction = true, displayGuild = true, displayMail = true, displayTrade = true, displayCraft = true, displayScrapping = true,
 		flashFind = true, tipCount = true, fading = true,
 
