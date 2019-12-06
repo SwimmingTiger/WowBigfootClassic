@@ -4,8 +4,8 @@
 ## Title-zhTW: [大腳][集]天賦模擬器
 ## Notes: |cff00ff00alaTalentEmu|r
 ## SavedVariables: alaTalentEmuSV
-## Author: alex
-## Version: 113r.191106
+## Author: |cff00ff00ALA|r @ |cffff0000163UI|r
+## Version: 113r.191204
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

@@ -40,6 +40,7 @@ local pushbackBlacklist = namespace.pushbackBlacklist
 local BARKSKIN = GetSpellInfo(22812)
 local FOCUSED_CASTING = GetSpellInfo(14743)
 local NATURES_GRACE = GetSpellInfo(16886)
+
 function addon:CheckCastModifier(unitID, cast)
     if not self.db.pushbackDetect or not cast then return end
     if cast.unitGUID == self.PLAYER_GUID then return end -- modifiers already taken into account with CastingInfo()
@@ -397,7 +398,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         if not spellID then return end
 
         local _, _, icon, castTime = GetSpellInfo(spellID)
-        if not castTime or castTime < 300 then return end
+        if not castTime then return end
 
         -- is player or player pet or mind controlled
         local isPlayer = bit_band(srcFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) > 0
@@ -430,14 +431,15 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         -- Note: using return here will make the next function (StoreCast) reuse the current stack frame which is slightly more performant
         return self:StoreCast(srcGUID, spellName, icon, castTime, isPlayer)
     elseif eventType == "SPELL_CAST_SUCCESS" then
-        local channelData = channeledSpells[spellName]
+        local channelCast = channeledSpells[spellName]
         local spellID = castedSpells[spellName]
-        if not channelData and not spellID then return end
+        if not channelCast and not spellID then return end
 
         local isPlayer = bit_band(srcFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) > 0
 
         -- Auto correct cast times for mobs
-        if not isPlayer and not channelData then
+        if not isPlayer and not channelCast then
+            if not strfind(srcGUID, "Player-") then -- incase player is mind controlled by NPC
             local cachedTime = npcCastTimeCache[srcName .. spellName]
             if not cachedTime then
                 local cast = activeTimers[srcGUID]
@@ -459,14 +461,15 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
                 end
             end
         end
+        end
 
         -- Channeled spells are started on SPELL_CAST_SUCCESS instead of stopped
         -- Also there's no castTime returned from GetSpellInfo for channeled spells so we need to get it from our own list
-        if channelData then
+        if channelCast then
             -- Arcane Missiles triggers this event for every tick so ignore after first tick has been detected
             if spellName == ARCANE_MISSILES and activeTimers[srcGUID] and activeTimers[srcGUID].spellName == ARCANE_MISSILES then return end
 
-            return self:StoreCast(srcGUID, spellName, GetSpellTexture(channelData[2]), channelData[1] * 1000, isPlayer, true)
+            return self:StoreCast(srcGUID, spellName, GetSpellTexture(spellID), channelCast, isPlayer, true)
         end
 
         -- non-channeled spell, finish it.
@@ -481,7 +484,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         end
     elseif eventType == "SPELL_AURA_REMOVED" then
         -- Channeled spells has no SPELL_CAST_* event for channel stop,
-        -- so check if aura is gone instead since most (all?) channels has an aura effect.
+        -- so check if aura is gone instead since most channels has an aura effect.
         if channeledSpells[spellName] and srcGUID == dstGUID then
             return self:DeleteCast(srcGUID, nil, nil, true)
         end

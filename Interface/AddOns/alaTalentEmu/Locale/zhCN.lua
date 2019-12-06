@@ -24,6 +24,8 @@ L.curPointsTotal = "总点数";
 L.curPointsRemaining = "剩余";
 L.curPointsUsed = "已用";
 L.curPointsReqLevel = "等级";
+L.message = "信息: ";
+L.me = "我";
 
 L.readOnly = "\124cffff0000只读\124r";
 L.notReadOnly = "\124cff00ff00可编辑\124r";
@@ -45,6 +47,7 @@ L.applyTalentsButton_Notify = "确定应用当前天赋？";
 L.importButton = "导入字符串或wowhead/nfu链接";
 L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右键\124r导出到\124cffff0000wowhead/nfu\124r网页链接";
 L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右键\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
+L.sendButton = "\124cff00ff00左键\124r点击发送天赋到聊天\n\124cff00ff00右键\124r点击查看最近聊天中的天赋";
 L.equipmentButton = "打开装备查看";
 
 L.TalentFrameCallButton = "打开ala天赋模拟器";
@@ -53,6 +56,8 @@ L.curRank = "当前等级";
 L.nextRank = "下一等级";
 L.maxRank = "最高等级";
 
+L.SetWinStyle_BLZ = "设置窗口为暴雪风格";
+L.SetWinStyle_ALA = "设置窗口为扁平化风格";
 L.SetSingleFrame_True = "设置为单窗口显示";
 L.SetSingleFrame_False = "设置为多窗口显示";
 L.SetStyleAllTo1_ThisWin = "设置本窗口为三列显示所有天赋树";

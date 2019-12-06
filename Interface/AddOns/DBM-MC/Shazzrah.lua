@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("Shazzrah", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191122140416")
+mod:SetRevision("20191130015807")
 mod:SetCreatureID(12264)
 mod:SetEncounterID(667)
 mod:SetModelID(13032)
-mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
+mod:SetHotfixNoticeRev(20191129000000)--2019, 11, 29
 
 mod:RegisterCombat("combat")
 
@@ -73,7 +73,7 @@ do
 			timerCounterSpellCD:Start()
 		--elseif args.spellId == 23138 then
 		elseif spellName == Gate then
-			self:SendSync("Teleport")
+			self:SendSync("Teleport", args.sourceName)
 			if self:AntiSpam(5, 1) then
 				specWarnGate:Show(args.sourceName)
 				specWarnGate:Play("tauntboss")
@@ -83,10 +83,10 @@ do
 	end
 end
 
-function mod:OnSync(msg, guid)
+function mod:OnSync(msg, targetName)
 	if not self:IsInCombat() then return end
-	if msg == "Teleport" and self:AntiSpam(5, 1) then
-		specWarnGate:Show(args.sourceName)
+	if msg == "Teleport" and targetName and self:AntiSpam(5, 1) then
+		specWarnGate:Show(targetName)
 		specWarnGate:Play("tauntboss")
 		timerGateCD:Start()
 	end

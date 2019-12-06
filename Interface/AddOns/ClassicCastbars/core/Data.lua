@@ -731,7 +731,6 @@ local castSpellIDs = {
     20051, -- Runed Arcanite Rod
     21403, -- Ryson's All Seeing Eye
     21425, -- Ryson's Eye in the Sky
-    1050, -- Sacrifice
     10459, -- Sacrifice Spinneret
     27832, -- Sageblade
     19566, -- Salt Shaker
@@ -1142,7 +1141,42 @@ local castSpellIDs = {
     24422, -- Zandalar Signet of Might
     24421, -- Zandalar Signet of Mojo
     24420, -- Zandalar Signet of Serenity
+    1050, -- Sacrifice (needs to be last for german clients, see issue #26)
     10181, -- Frostbolt (needs to be last for chinese clients, see issue #16)
+
+    -- Channeled casts in random order. These are used to retrieve spell icon later on (namespace.channeledSpells only stores spell name)
+    -- Commented out IDs are duplicates that also has a normal cast already listed above.
+    746, -- First Aid
+    13278, -- Gnomish Death Ray
+    20577, -- Cannibalize
+    10797, -- Starshards
+    16430, -- Soul Tap
+    27640, -- Baron Rivendare's Soul Drain
+    7290, -- Soul Siphon
+    24322, -- Blood Siphon
+    27177, -- Defile
+    17401, -- Hurricane
+    740, -- Tranquility
+    20687, -- Starfall
+    6197, -- Eagle Eye
+    --1002, -- Eyes of the Beast
+    --1510, -- Volley
+    136, -- Mend Pet
+    5143, -- Arcane Missiles
+    --10, -- Blizzard
+    12051, -- Evocation
+    15407, -- Mind Flay
+    2096, -- Mind Vision
+    --605, -- Mind Control
+    --126, -- Eye of Kilrogg
+    689, -- Drain Life
+    5138, -- Drain Mana
+    1120, -- Drain Soul
+    --5740, -- Rain of Fire
+    1949, -- Hellfire
+    755, -- Health Funnel
+    17854, -- Consume Shadows
+    --6358, -- Seduction Channel
 }
 
 local counter, cursor = 0, 1
@@ -1175,60 +1209,56 @@ end
 
 C_Timer.After(0.1, BuildSpellNameToSpellIDTable) -- run asap once the current call stack has executed
 
--- For channeled spells we need both the spell ID and cast time since
--- GetSpellInfo doesn't return any cast time for channeled casts.
--- value[1] is the cast time in seconds, value[2] is the spell ID used to retrive
--- spell icon later on.
--- TODO: merge with main spell table and just store the cast time here as value
+-- GetSpellInfo doesn't return any cast time for channeled casts
+-- so we need to store the cast time ourself
 namespace.channeledSpells = {
     -- MISC
-    [GetSpellInfo(746)] = { 8, 746 },         -- First Aid
-    [GetSpellInfo(13278)] = { 4, 13278 },     -- Gnomish Death Ray
-    [GetSpellInfo(20577)] = { 10, 20577 },    -- Cannibalize
-    [GetSpellInfo(10797)] = { 6, 10797 },     -- Starshards
-    [GetSpellInfo(16430)] = { 12, 16430 },    -- Soul Tap
-    [GetSpellInfo(24323)] = { 8, 24323 },     -- Blood Siphon
-    [GetSpellInfo(27640)] = { 3, 27640 },     -- Baron Rivendare's Soul Drain
-    [GetSpellInfo(7290)] = { 10, 7290 },      -- Soul Siphon
-    [GetSpellInfo(24322)] = { 8, 24322 },     -- Blood Siphon
-    [GetSpellInfo(27177)] = { 10, 27177 },    -- Defile
+    [GetSpellInfo(746)] = 8000,      -- First Aid
+    [GetSpellInfo(13278)] = 4000,    -- Gnomish Death Ray
+    [GetSpellInfo(20577)] = 10000,   -- Cannibalize
+    [GetSpellInfo(10797)] = 6000,    -- Starshards
+    [GetSpellInfo(16430)] = 12000,   -- Soul Tap
+    [GetSpellInfo(24323)] = 8000,    -- Blood Siphon
+    [GetSpellInfo(27640)] = 3000,    -- Baron Rivendare's Soul Drain
+    [GetSpellInfo(7290)] = 10000,    -- Soul Siphon
+    [GetSpellInfo(24322)] = 8000,    -- Blood Siphon
+    [GetSpellInfo(27177)] = 10000,   -- Defile
 
     -- DRUID
-    [GetSpellInfo(17401)] = { 10, 17401 },   -- Hurricane
-    [GetSpellInfo(740)] = { 10, 740 },       -- Tranquility
-    [GetSpellInfo(20687)] = { 10, 20687 },   -- Starfall
+    [GetSpellInfo(17401)] = 10000,   -- Hurricane
+    [GetSpellInfo(740)] = 10000,     -- Tranquility
+    [GetSpellInfo(20687)] = 10000,   -- Starfall
 
     -- HUNTER
-    [GetSpellInfo(6197)] = { 60, 6197 },      -- Eagle Eye
-    [GetSpellInfo(1002)] = { 60, 1002 },      -- Eyes of the Beast
-    [GetSpellInfo(1510)] = { 6, 1510 },       -- Volley
-    [GetSpellInfo(136)] = { 5, 136 },         -- Mend Pet
+    [GetSpellInfo(6197)] = 60000,     -- Eagle Eye
+    [GetSpellInfo(1002)] = 60000,     -- Eyes of the Beast
+    [GetSpellInfo(1510)] = 6000,      -- Volley
+    [GetSpellInfo(136)] = 5000,       -- Mend Pet
 
     -- MAGE
-    [GetSpellInfo(5143)] = { 5, 5143, },       -- Arcane Missiles
-    [GetSpellInfo(10)] = { 8, 10 },            -- Blizzard
-    [GetSpellInfo(12051)] = { 8, 12051 },      -- Evocation
+    [GetSpellInfo(5143)] = 5000,      -- Arcane Missiles
+    [GetSpellInfo(10)] = 8000,        -- Blizzard
+    [GetSpellInfo(12051)] = 8000,     -- Evocation
 
     -- PRIEST
-    [GetSpellInfo(15407)] = { 3, 15407 },     -- Mind Flay
-    [GetSpellInfo(2096)] = { 60, 2096 },      -- Mind Vision
-    [GetSpellInfo(605)] = { 3, 605 },         -- Mind Control
+    [GetSpellInfo(15407)] = 3000,     -- Mind Flay
+    [GetSpellInfo(2096)] = 60000,     -- Mind Vision
+    [GetSpellInfo(605)] = 3000,       -- Mind Control
 
     -- WARLOCK
-    [GetSpellInfo(126)] = { 45, 126 },        -- Eye of Kilrogg
-    [GetSpellInfo(689)] = { 5, 689 },         -- Drain Life
-    [GetSpellInfo(5138)] = { 5, 5138 },       -- Drain Mana
-    [GetSpellInfo(1120)] = { 15, 1120 },      -- Drain Soul
-    [GetSpellInfo(5740)] = { 8, 5740 },       -- Rain of Fire
-    [GetSpellInfo(1949)] = { 15, 1949 },      -- Hellfire
-    [GetSpellInfo(755)] = { 10, 755 },        -- Health Funnel
-    [GetSpellInfo(17854)] = { 10, 17854 },    -- Consume Shadows
-    [GetSpellInfo(6358)] = { 15, 6358 },      -- Seduction Channel
+    [GetSpellInfo(126)] = 45000,      -- Eye of Kilrogg
+    [GetSpellInfo(689)] = 5000,       -- Drain Life
+    [GetSpellInfo(5138)] = 5000,      -- Drain Mana
+    [GetSpellInfo(1120)] = 15000,     -- Drain Soul
+    [GetSpellInfo(5740)] = 8000,      -- Rain of Fire
+    [GetSpellInfo(1949)] = 15000,     -- Hellfire
+    [GetSpellInfo(755)] = 10000,      -- Health Funnel
+    [GetSpellInfo(17854)] = 10000,    -- Consume Shadows
+    [GetSpellInfo(6358)] = 15000,     -- Seduction Channel
 }
 
 -- List of abilities that increases cast time (reduces speed)
 -- Value here is the slow percentage.
--- TODO: check if these also affect Aimed Shot/Volley + bosses
 namespace.castTimeIncreases = {
     -- ITEMS
     [17331] = 10,   -- Fang of the Crystal Spider
@@ -1272,13 +1302,15 @@ namespace.castTimeIncreases = {
 }
 
 -- Store both spellID and spell name in this table since UnitAura returns spellIDs but combat log doesn't.
-for spellID, slowPercentage in pairs(namespace.castTimeIncreases) do
-    if GetSpellInfo(spellID) then
-    namespace.castTimeIncreases[GetSpellInfo(spellID)] = slowPercentage
-end
-end
+C_Timer.After(10, function()
+    for spellID, slowPercentage in pairs(namespace.castTimeIncreases) do
+        if GetSpellInfo(spellID) then
+            namespace.castTimeIncreases[GetSpellInfo(spellID)] = slowPercentage
+        end
+    end
+end)
 
--- Spells that have cast time reduced by talents.
+-- Spells that often have cast time reduced by talents.
 namespace.castTimeTalentDecreases = {
     [GetSpellInfo(403)] = 2000,      -- Lightning Bolt
     [GetSpellInfo(421)] = 1500,      -- Chain Lightning
@@ -1498,23 +1530,24 @@ namespace.crowdControls = {
 }
 
 -- Skip pushback calculation for these spells since they
--- have 70% chance to ignore pushback when talented
+-- have chance to ignore pushback when talented, or is always immune.
 namespace.pushbackBlacklist = {
-    [GetSpellInfo(1064)] = 1, -- Chain Heal
-    [GetSpellInfo(25357)] = 1, -- Healing Wave
-    [GetSpellInfo(8004)] = 1, -- Lesser Healing Wave
-    [GetSpellInfo(2061)] = 1, -- Flash Heal
-    [GetSpellInfo(2054)] = 1, -- Heal
-    [GetSpellInfo(2050)] = 1, -- Lesser Heal
-    [GetSpellInfo(596)] = 1, -- Prayer of Healing
-    [GetSpellInfo(2060)] = 1, -- Greater Heal
-    [GetSpellInfo(19750)] = 1, -- Flash of Light
-    [GetSpellInfo(635)] = 1, -- Holy Light
-    -- Druid heals are afaik many times not talented so ignoring these
+    [GetSpellInfo(1064)] = 1,       -- Chain Heal
+    [GetSpellInfo(25357)] = 1,      -- Healing Wave
+    [GetSpellInfo(8004)] = 1,       -- Lesser Healing Wave
+    [GetSpellInfo(2061)] = 1,       -- Flash Heal
+    [GetSpellInfo(2054)] = 1,       -- Heal
+    [GetSpellInfo(2050)] = 1,       -- Lesser Heal
+    [GetSpellInfo(596)] = 1,        -- Prayer of Healing
+    [GetSpellInfo(2060)] = 1,       -- Greater Heal
+    [GetSpellInfo(19750)] = 1,      -- Flash of Light
+    [GetSpellInfo(635)] = 1,        -- Holy Light
+    -- Druid heals are afaik many times not talented so ignoring them for now
 
     [GetSpellInfo(4068)] = 1,       -- Iron Grenade
     [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
-    [GetSpellInfo(13808)] = 1,      -- M73 Frag Grenade
+    [GetSpellInfo(13278)] = 1,      -- Gnomish Death Ray
+    [GetSpellInfo(20589)] = 1,      -- Escape Artist
 }
 
 -- Addon Savedvariables
@@ -1566,6 +1599,33 @@ namespace.defaultConfig = {
         castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
         hideIconBorder = false,
         position = { "CENTER", -18, -87 },
+        iconPositionX = -5,
+        iconPositionY = 0,
+        borderColor = { 1, 1, 1, 1 },
+        statusColor = { 1, 0.7, 0, 1 },
+        statusColorChannel = { 0, 1, 0, 1 },
+        textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
+    },
+
+    focus = {
+        enabled = false,
+        width = 150,
+        height = 15,
+        iconSize = 16,
+        showCastInfoOnly = false,
+        showTimer = false,
+        showIcon = true,
+        autoPosition = true,
+        castFont = _G.STANDARD_TEXT_FONT,
+        castFontSize = 10,
+        castStatusBar = "Interface\\TargetingFrame\\UI-StatusBar",
+        castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
+        hideIconBorder = false,
+        position = { "CENTER", -30, 90 },
         iconPositionX = -5,
         iconPositionY = 0,
         borderColor = { 1, 1, 1, 1 },

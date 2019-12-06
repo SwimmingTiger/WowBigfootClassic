@@ -1,10 +1,12 @@
 local mod	= DBM:NewMod("Magmadar", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190917042900")
+mod:SetRevision("20191205233110")
 mod:SetCreatureID(11982)
 mod:SetEncounterID(664)
 mod:SetModelID(10193)
+mod:SetHotfixNoticeRev(20191205000000)--2019, 12, 05
+
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -24,7 +26,6 @@ local warnConflagration	= mod:NewTargetNoFilterAnnounce(19428, 2, nil , false)
 local specWarnEnrage	= mod:NewSpecialWarningDispel(19451, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerPanicCD		= mod:NewCDTimer(30, 19408, nil, nil, nil, 2)--30-40
---local timerPanic		= mod:NewBuffActiveTimer(8, 19408, nil, nil, nil, 3)
 local timerEnrage		= mod:NewBuffActiveTimer(8, 19451, nil, nil, nil, 5, nil, DBM_CORE_ENRAGE_ICON)
 
 do
@@ -32,13 +33,16 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 19451 then
 		if args.spellName == Enrage and args:IsDestTypeHostile() then
-			if self.Options.SpecWarn19451dispel then
-				specWarnEnrage:Show(args.destName)
-				specWarnEnrage:Play("enrage")
-			else
-				warnEnrage:Show(args.destName)
+			self:SendSync("Enrage")
+			if self:AntiSpam(5, 1) then
+				if self.Options.SpecWarn19451dispel then
+					specWarnEnrage:Show(args.destName)
+					specWarnEnrage:Play("enrage")
+				else
+					warnEnrage:Show(args.destName)
+				end
+				timerEnrage:Start()
 			end
-			timerEnrage:Start()
 		elseif args.spellName == Conflagration and args:IsDestTypePlayer() then
 			warnConflagration:CombinedShow(0.5, args.destName)
 		end
@@ -47,7 +51,10 @@ do
 	function mod:SPELL_AURA_REMOVED(args)
 		--if args.spellId == 19451 then
 		if args.spellName == Enrage and args:IsDestTypeHostile() then
-			timerEnrage:Stop()
+			self:SendSync("EnrageStop")
+			if self:AntiSpam(5, 2) then
+				timerEnrage:Stop()
+			end
 		end
 	end
 end
@@ -57,9 +64,29 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 19408 then
 		if args.spellName == Panic then
-			warnPanic:Show()
-			--timerPanic:Start()
-			timerPanicCD:Start()
+			self:SendSync("Panic")
+			if self:AntiSpam(5, 3) then
+				warnPanic:Show()
+				timerPanicCD:Start()
+			end
 		end
+	end
+end
+
+function mod:OnSync(msg, targetName)
+	if not self:IsInCombat() then return end
+	if msg == "Enrage" and self:AntiSpam(5, 1) then
+		if self.Options.SpecWarn19451dispel then
+			specWarnEnrage:Show(L.name)
+			specWarnEnrage:Play("enrage")
+		else
+			warnEnrage:Show(L.name)
+		end
+		timerEnrage:Start()
+	elseif msg == "EnrageStop" and self:AntiSpam(5, 2) then
+		timerEnrage:Stop()
+	elseif msg == "Panic" and self:AntiSpam(5, 3) then
+		warnPanic:Show()
+		timerPanicCD:Start()
 	end
 end

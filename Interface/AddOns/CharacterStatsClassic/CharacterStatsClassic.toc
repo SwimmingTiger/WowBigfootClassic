@@ -4,17 +4,17 @@
 ## Title-zhTW: [大腳][集]人物詳細屬性
 ## Notes: |cff00ff00CharacterStatsClassic|r|n|cffbc8f8fAdvanced Character Stats|r
 ## Author: Peter Getov
-## Version: 2.6.1
+## Version: 2.7
 ## SavedVariables: CharacterStatsClassicDB
 ## SavedVariablesPerCharacter: CharacterStatsClassicCharacterDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
+Localization\Localization_en.lua
+Localization\Localization_cn.lua
+Localization\Localization_tw.lua
+
 CharacterStatsClassicUI.lua
 CharacterStatsClassicCore.lua
 CharacterStatsClassicUtils.lua
 ClassUtils.lua
-
-Localization\Localization_en.lua
-Localization\Localization_cn.lua
-Localization\Localization_tw.lua

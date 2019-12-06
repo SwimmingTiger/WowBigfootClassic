@@ -27,6 +27,7 @@ DefaultCodexConfig = {
     ["bossMarkerSize"] = 25, -- Display a larger icon for the boss or a single target to help you find it.
     ["minimumDropChance"] = 2, -- (%) Hide markers with a drop probability less than this value
     ["showTrackingMethodDropdown"] = true, -- Show Tracking Method Dropdown on the World Map
+    ["showUnitTooltip"] = true, -- Show quest name in mouseover tooltip of units
 }
 
 CodexConfigFrame = CreateFrame("Frame", "CodexConfigFrame", UIParent)
@@ -121,7 +122,7 @@ function CodexConfigFrame:LoadConfig()
             },
             showLowLevel = {
                 order = 601,
-                type = "toggle", -- make the next checkbox in a new line
+                type = "toggle",
                 width = 1.5,
                 name = L["Show Low-level Quests"],
                 desc = L["If selected, low-level quests will be hidden on the map"],
@@ -136,7 +137,7 @@ function CodexConfigFrame:LoadConfig()
             showHighLevel = {
                 order = 701,
                 type = "toggle",
-                width = 1.5, -- make the next checkbox in a new line
+                width = 1.5,
                 name = L["Show High-level Quests"],
                 desc = L["If selected, quests with a level requirement of your level + 3 will be shown on the map"],
                 get = function(info)
@@ -150,7 +151,7 @@ function CodexConfigFrame:LoadConfig()
             showFestival = {
                 order = 801,
                 type = "toggle",
-                width = 3,
+                width = 1.5,
                 name = L["Show Festival/PVP/Misc Quests"],
                 desc = L["If selected, quests related to WoW festive seasons or PVP or not available at the current stage will be displayed on the map"],
                 get = function(info)
@@ -164,7 +165,7 @@ function CodexConfigFrame:LoadConfig()
             colorBySpawn = {
                 order = 901,
                 type = "toggle",
-                width = 3,
+                width = 3, -- make the next checkbox in a new line
                 name = L["Color By Spawn"],
                 desc = L["If selected, markers' colors will be set per spawn type or per quest if not selected"],
                 get = function(info)
@@ -252,8 +253,21 @@ function CodexConfigFrame:LoadConfig()
                     CodexMap:UpdateNodes()
                 end
             },
-            showTrackingMethodDropdown = {
+            showUnitTooltip = {
                 order = 602,
+                type = "toggle",
+                width = 1.5,
+                name = L["Show Quest Name in Unit Tooltip"],
+                desc = L["Show quest name in mouseover tooltip of units"],
+                get = function(info)
+                    return CodexConfig.showUnitTooltip
+                end,
+                set = function(info, val)
+                    CodexConfig.showUnitTooltip = val
+                end
+            },
+            showTrackingMethodDropdown = {
+                order = 702,
                 type = "toggle",
                 width = 1.5,
                 name = L["Show Tracking Method Dropdown on the World Map"],
@@ -270,7 +284,7 @@ function CodexConfigFrame:LoadConfig()
                 end
             },
             trackingMethod = {
-                order = 702,
+                order = 802,
                 type = "select",
                 width = 1.5,
                 name = L["Quest Tracking Method"],

@@ -84,6 +84,7 @@ function str2rgb(text)
 end
 
 function showTooltip()
+	if not CodexConfig.showUnitTooltip then return end
 	local name = UnitName("mouseover")
 
 	if name and not UnitIsPlayer("mouseover") and CodexMap.tooltips[name] then
@@ -487,7 +488,17 @@ function CodexMap:UpdateNode(frame, node)
 	end
 
 	frame:SetScript("OnClick", function(self)
-		if IsShiftKeyDown() and self.questId and self.texture and self.layer < 5 then
+		if IsControlKeyDown() then
+			if TomTom and TomTom.AddWaypoint and TomTom.RemoveWaypoint then
+				local node = self.node[self.title]
+				if not node then return end
+
+				if CodexConfig._tom_waypoint then
+					TomTom:RemoveWaypoint(CodexConfig._tom_waypoint)
+				end
+				CodexConfig._tom_waypoint = TomTom:AddWaypoint(CodexMap.zones[node.zone], node.x/100, node.y/100,  {title = self.spawn, crazy = true})
+			end
+		elseif IsShiftKeyDown() and self.questId and self.texture and self.layer < 5 then
 			-- player hides the quest
 			CodexMap:DeleteNode(self.node[self.title].addon, self.title)
 			CodexHiddenQuests[self.questId] = true

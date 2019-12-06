@@ -6,7 +6,7 @@ local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 local LD = LibStub("LibDropdown-1.0")
 
-local revision = tonumber(string.sub("$Revision: 1486 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1520 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -220,6 +220,7 @@ function Recount:OpenBarDropDown(myframe)
 		side = "TOPRIGHT"
 		oside = "TOPLEFT"
 	end
+
 	barmenuframe:ClearAllPoints()
 	barmenuframe:SetPoint(oside, myframe, side, 0, 0)
 	--barmenuframe:SetFrameLevel(myframe:GetFrameLevel() + 9)
@@ -1555,6 +1556,7 @@ function Recount:OpenModeDropDown(myframe)
 		oside = "TOPLEFT"
 	end
 
+	modemenuframe:ClearAllPoints()
 	modemenuframe:SetPoint(oside, myframe, side, 0, 0)
 	--modemenuframe:SetFrameLevel(myframe:GetFrameLevel() + 9)
 end

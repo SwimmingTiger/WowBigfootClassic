@@ -1,6 +1,6 @@
 ﻿## Interface: 11302
 ## Author: Lag
-## Version: v1.3.4
+## Version: v1.4.1
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -50,6 +50,7 @@ Data\Mount.lua
 Data\ContentPhase.lua
 Data\Droprate.lua
 Data\AutoSelect.lua
+Data\Requirements.lua
 
 ItemDB\ItemDB.lua
 ItemDB\SoundData.lua

@@ -91,6 +91,8 @@ L["Show markers on the third and subsequent levels of the world map"] = "在世�
 L["Show Markers on the Minimap"] = "在小地图上显示图标"
 L["Show Tracking Method Dropdown on the World Map"] = "在世界地图上显示任务追踪方式下拉框"
 L["Quest Tracking Method"] = "任务追踪方式"
+L["Show Quest Name in Unit Tooltip"] = "在单位鼠标提示中显示任务名称"
+L["Show quest name in mouseover tooltip of units"] = "在任务目标的鼠标指向提示中显示任务名称"
 
 -- map.lua
 L["Buy"] = "购买"

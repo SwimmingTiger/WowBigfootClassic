@@ -4,9 +4,10 @@
 ## TItle-zhTW: [大腳][集]任務助手
 ## Notes: |cff00ff00ClassicCodex|r
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.3.4
+## Version: v1.3.6
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

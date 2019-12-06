@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20191122140416"),
-	DisplayVersion = "1.13.21", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 11, 22) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20191205233110"),
+	DisplayVersion = "1.13.23", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 12, 5) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -7294,6 +7294,8 @@ function bossModPrototype:IsValidWarning(sourceGUID, customunitID)
 		for uId in DBM:GetGroupMembers() do
 			local target = uId.."target"
 			if UnitExists(target) and UnitGUID(target) == sourceGUID and UnitAffectingCombat(target) then return true end
+			local targettwo = uId.."targettarget"
+			if UnitExists(targettwo) and UnitGUID(targettwo) == sourceGUID and UnitAffectingCombat(targettwo) then return true end
 		end
 	end
 	return false

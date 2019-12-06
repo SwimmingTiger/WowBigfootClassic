@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191122140416")
+mod:SetRevision("20191205233110")
 mod:SetCreatureID(12056)
 mod:SetEncounterID(668)
 mod:SetModelID(12129)
@@ -96,8 +96,11 @@ do
 			timerInfernoCD:Start()
 		--elseif spellId == 19659 then
 		elseif spellName == Ignite and args:IsSrcTypeHostile() then
-			warnIgnite:Show()
-			timerIgniteManaCD:Start()
+			self:SendSync("IgniteMana")
+			if self:AntiSpam(5, 2) then
+				warnIgnite:Show()
+				timerIgniteManaCD:Start()
+			end
 		--elseif spellId == 20478 then
 		elseif spellName == Armageddon then
 			warnArmageddon:Show()
@@ -126,5 +129,8 @@ function mod:OnSync(msg, targetName)
 		else
 			warnBomb:Show(targetName)
 		end
+	elseif msg == "IgniteMana" and self:AntiSpam(5, 2) then
+		warnIgnite:Show()
+		timerIgniteManaCD:Start()
 	end
 end

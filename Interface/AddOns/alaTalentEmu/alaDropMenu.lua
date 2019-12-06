@@ -32,14 +32,14 @@ alaDropMenu = {};
 local DropMenu = alaDropMenu;
 local NAME = "alaDropMenu";
 local dropMenuBackdrop = {
-	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+	bgFile = "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	tile = true,
 	tileSize = 2,
 	edgeSize = 2,
 	insets = { left = 2, right = 2, top = 2, bottom = 2 }
 };
-local dropMenuBackdropColor = { 0.25, 0.25, 0.25, 0.9 };
+local dropMenuBackdropColor = { 0.05, 0.05, 0.05, 1.0 };
 local COUNTING_DOWN_TIMER_PERIOD = 1.5;
 local dropMenuButtonHeight = 20;
 local dropMenuButtonInterval = 0;
@@ -203,12 +203,12 @@ local function CreateMenuButton(menu, x, y)
 	return button;
 end
 local function showMenu(parent, anchor, data)
-	if type(data) ~= "table" or (type(data) == "table" and (type(data.elements) ~= "table" or type(data.handler) ~= "function")) then
-		return;
-	end
 	if frameToMenu[parent] and frameToMenu[parent]:IsShown() then
 		frameToMenu[parent]:Hide();
 		frameToMenu[parent] = nil;
+		return;
+	end
+	if type(data) ~= "table" or (type(data) == "table" and (type(data.elements) ~= "table" or type(data.handler) ~= "function")) then
 		return;
 	end
 	local menu = GetMenu(parent, anchor);

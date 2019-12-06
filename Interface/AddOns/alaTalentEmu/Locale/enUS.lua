@@ -24,6 +24,8 @@ L.curPointsTotal = "Total";
 L.curPointsRemaining = "Remaining";
 L.curPointsUsed = "Spent";
 L.curPointsReqLevel = "Lv";
+L.message = "MSG: ";
+L.me = "Me";
 
 L.readOnly = "\124cffff0000ReadOnly\124r";
 L.notReadOnly = "\124cff00ff00Editable\124r";
@@ -45,6 +47,7 @@ L.applyTalentsButton_Notify = "Do u want to apply these talents?";
 L.importButton = "Import string or wowhead/nfu url.";
 L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu\124r url";
 L.saveButton = "\124cff00ff00Left click\124r to save talents set.\n\124cff00ff00Right click\124r to load saved talents set.\n\124cff00ff00Shift & Left click\124r to del";
+L.sendButton = "\124cff00ff00Left click\124r to send to chat message\n\124cff00ff00Right click\124r to show talents in recent chats";
 L.equipmentButton = "Watch equipment";
 
 L.TalentFrameCallButton = "Open ala talent emulator.";
@@ -52,6 +55,9 @@ L.TalentFrameCallButtonFontString = "Emulator";
 L.curRank = "Current Rank";
 L.nextRank = "Next Rank";
 L.maxRank = "Top Rank";
+
+L.SetWinStyle_BLZ = "Set to blz style";
+L.SetWinStyle_ALA = "Set to flat style";
 L.SetSingleFrame_True = "Single Window";
 L.SetSingleFrame_False = "Multiple Windows";
 L.SetStyleAllTo1_ThisWin = "Set this win to show all talent tree.";

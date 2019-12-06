@@ -5,6 +5,7 @@ core.UIConfig = {};
 
 -- Defaults
 local UISettingsGlobal = {
+    shouldAddWeaponSkillToHit = false;
 }
 
 local UISettingsCharacter = {
@@ -15,6 +16,7 @@ local UISettingsCharacter = {
 -- for easier referencing the core config
 local UIConfig = core.UIConfig;
 local CSC_UIFrame = core.UIConfig;
+local CSC_ConfigFrame = { };
 
 local statsDropdownList = {
     PLAYERSTAT_BASE_STATS,
@@ -110,6 +112,7 @@ function UIConfig:CreateMenu()
     CSC_UIFrame.CharacterStatsPanel:SetWidth(200);
 
     UIConfig:SetupDropdown();
+    UIConfig:SetupConfigInterface();
 
     UIConfig:InitializeStatsFrames(CSC_UIFrame.CharacterStatsPanel.leftStatsDropDown, CSC_UIFrame.CharacterStatsPanel.rightStatsDropDown);
     UIConfig:UpdateStats();
@@ -169,6 +172,32 @@ function UIConfig:SetupDropdown()
     UIDropDownMenu_SetSelectedID(CSC_UIFrame.CharacterStatsPanel.rightStatsDropDown, UISettingsCharacter.selectedRightStatsCategory);
     UIDropDownMenu_SetWidth(CSC_UIFrame.CharacterStatsPanel.rightStatsDropDown, 99);
     UIDropDownMenu_JustifyText(CSC_UIFrame.CharacterStatsPanel.rightStatsDropDown, "LEFT");
+end
+
+function UIConfig:SetupConfigInterface()
+
+    CSC_ConfigFrame = CreateFrame("Frame", "CSC_InterfaceOptionsPanel", UIParent);
+    CSC_ConfigFrame.name = "CharacterStatsClassic";
+    InterfaceOptions_AddCategory(CSC_ConfigFrame);
+
+    -- Title and font
+    CSC_ConfigFrame.title = CreateFrame("Frame", "CharacterStatsClassic", CSC_ConfigFrame);
+    CSC_ConfigFrame.title:SetPoint("TOPLEFT", CSC_ConfigFrame, "TOPLEFT", 10, -10);
+    CSC_ConfigFrame.title:SetWidth(300);
+    CSC_ConfigFrame.titleString = CSC_ConfigFrame.title:CreateFontString(nil, "OVERLAY", "GameFontNormal");
+    CSC_ConfigFrame.titleString:SetPoint("TOPLEFT", CSC_ConfigFrame, "TOPLEFT", 10, -10);
+    CSC_ConfigFrame.titleString:SetText('|cff00c0ffCharacterStatsClassic|r');
+    CSC_ConfigFrame.titleString:SetFont("Fonts\\FRIZQT__.tff", 20, "OUTLINE");
+
+    -- Checkboxes
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetPoint("TOPLEFT", 20, -30);
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit.text:SetText("Count Hit from Weapon Skill in Hit Chance. (Works only for melee weapons and level 60 players)");
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetChecked(UISettingsGlobal.shouldAddWeaponSkillToHit);
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetScript("OnClick", 
+    function()
+        UISettingsGlobal.shouldAddWeaponSkillToHit = not UISettingsGlobal.shouldAddWeaponSkillToHit;
+    end);
 end
 
 -- Hook a custom function in order to extend the functionality of the default ToggleCharacter function

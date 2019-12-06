@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gehennas", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190904200802")
+mod:SetRevision("20191205233110")
 mod:SetCreatureID(12259)--, 11661
 mod:SetEncounterID(665)
 mod:SetModelID(13030)
@@ -44,12 +44,18 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 19716 then
 		if args.spellName == Curse and args:IsSrcTypeHostile() then
-			timerCurse:Start()
-			warnCurse:Show()
+			self:SendSync("Curse")
+			if self:AntiSpam(5, 1) then
+				warnCurse:Show()
+				timerCurse:Start()
+			end
 		--elseif args.spellId == 19717 then
 		elseif args.spellName == RainofFire and args:IsSrcTypeHostile() then
-			warnRainFire:Show()
-			timerRoF:Start()
+			self:SendSync("RainofFire")
+			if self:AntiSpam(5, 2) then
+				warnRainFire:Show()
+				timerRoF:Start()
+			end
 		end
 	end
 end
@@ -74,4 +80,15 @@ do
 		end
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+end
+
+function mod:OnSync(msg, targetName)
+	if not self:IsInCombat() then return end
+	if msg == "Curse" and self:AntiSpam(5, 1) then
+		warnCurse:Show()
+		timerCurse:Start()
+	elseif msg == "RainofFire" and self:AntiSpam(5, 2) then
+		warnRainFire:Show()
+		timerRoF:Start()
+	end
 end

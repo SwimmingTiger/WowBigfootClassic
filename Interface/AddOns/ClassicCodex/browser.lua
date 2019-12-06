@@ -175,7 +175,7 @@ local function ResultButtonUpdate(self)
     end
 end
 
-local function ResultButtonClick(self)
+local function ResultButtonClick(self, arg1)
     local meta = {["addon"] = "CODEX"}
 
     if self.btype == "items" then
@@ -184,8 +184,10 @@ local function ResultButtonClick(self)
         SetItemRef(link, text, arg1)
     elseif self.btype == "quests" then
         if IsShiftKeyDown() then
-            ChatFrameEditBox:Show()
-            ChatFrameEditBox:Insert("|cffffff00|Hquest:" .. (self.id or 0) .. ":0:0:0|h[" .. self.name .. "]|h|r")
+            ChatFrame1EditBox:Show()
+            -- Task link cannot be sent to chat channel, send plain text instead.
+            --ChatFrame1EditBox:Insert("|cffffff00|Hquest:" .. (self.id or 0) .. ":0:0:0|h[" .. self.name .. "]|h|r")
+            ChatFrame1EditBox:Insert(self.name)
         elseif CodexBrowser.selectState then
             local maps = CodexDatabase:SearchQuestByName(self.name)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
@@ -194,7 +196,10 @@ local function ResultButtonClick(self)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         end
     elseif self.btype == "units" then
-        if CodexBrowser.selectState then
+        if IsShiftKeyDown() then
+            ChatFrame1EditBox:Show()
+            ChatFrame1EditBox:Insert(self.name)
+        elseif CodexBrowser.selectState then
             local maps = CodexDatabase:SearchUnitByName(self.name, meta)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         else
@@ -204,7 +209,10 @@ local function ResultButtonClick(self)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         end
     elseif self.btype == "objects" then
-        if CodexBrowser.selectState then
+        if IsShiftKeyDown() then
+            ChatFrame1EditBox:Show()
+            ChatFrame1EditBox:Insert(self.name)
+        elseif CodexBrowser.selectState then
             local maps = CodexDatabase:SearchObjectByName(self.name, meta)
             CodexMap:ShowMapId(CodexDatabase:GetBestMap(maps))
         else
