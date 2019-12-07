@@ -105,13 +105,11 @@ bagFrame:SetScript("OnEvent",function(self,event)
 end)
 
 function BagManage_BankOpenAll(flag)
-	Combuctor_Sets = Combuctor_Sets or {}
-	Combuctor_Sets.displayBank = (flag == 1)
+	CombuctorSettings.sets.displayBank = (flag == 1)
 	CombuctorAutoDisplay:RegisterGameEvents()
 end
 
 function BagManage_TradeOpenAll(flag)
-	Combuctor_Sets = Combuctor_Sets or {}
-	Combuctor_Sets.displayTrade = (flag == 1)
+	CombuctorSettings.sets.displayTrade = (flag == 1)
 	CombuctorAutoDisplay:RegisterGameEvents()
 end

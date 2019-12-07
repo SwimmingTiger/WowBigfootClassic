@@ -168,3 +168,6 @@ end
 function Addon:GetProfile(owner)
 	return self.sets.profiles[Cache:GetOwnerID(owner)] or self.sets.global
 end
+
+-- 老虎会游泳：暴露给大脚的全局变量
+CombuctorSettings = Addon
