@@ -92,4 +92,4 @@ L.GlowAlpha = '物品高亮亮度'
 
 -- rulesets
 L.RuleSettings = '物品规则'
-L.RuleSettingsDesc = '这项设置允许你选择按照类型显示和排列物品的规则'
+L.RuleSettingsDesc = "这项设置允许你选择按照类型显示和排列物品的规则\n\n注意：你勾选项目的顺序就是项目在背包右侧的排列顺序。\n如要调整顺序，请先全部取消勾选，然后再按需要的顺序勾选。"

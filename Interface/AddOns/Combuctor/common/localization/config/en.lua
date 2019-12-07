@@ -109,4 +109,4 @@ L.RefrigeColor = 'Refrigerator Color'
 
 -- rulesets
 L.RuleSettings = 'Item Rulesets'
-L.RuleSettingsDesc = 'These settings allow you to choose which item rulesets to display and in which order.'
+L.RuleSettingsDesc = "These settings allow you to choose which item rulesets to display and in which order.\n\nNote: The order you check the rulesets is the order in which rulesets are arranged on the right side of the bag.\nTo adjust the order, please first uncheck all and check in the order you want."

@@ -89,3 +89,7 @@ L.TackleColor = '工具箱顏色'
 L.RefrigeColor = '冰箱顏色'
 L.ReagentColor = '材料銀行顏色'
 L.GlowAlpha = '高亮亮度'
+
+-- rulesets
+L.RuleSettings = '物品規則'
+L.RuleSettingsDesc = "這項設置允許你選擇按照類型顯示和排列物品的規則\n\n注意：你勾選項目的順序就是項目在背包右側的排列順序。\n如要調整順序，請先全部取消勾選，然後再按需要的順序勾選。"

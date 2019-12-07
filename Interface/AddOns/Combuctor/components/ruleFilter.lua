@@ -38,7 +38,9 @@ function RuleFilter:Update()
 	end
 
 	for k = n, #self.buttons do
-		self.buttons[k]:Hide()
+		if self.buttons[k] then
+			self.buttons[k]:Hide()
+		end
 	end
 	self.numButtons = n
 end
@@ -74,5 +76,6 @@ end
 
 function BottomFilter:IsShowning(rule)
 	local parent = self:GetFrame().rule
+	if not parent then return false end
 	return rule.id == parent or rule.id:match('^' .. parent .. '/.+')
 end
