@@ -92,6 +92,12 @@ end
 --[[ Frame Events ]]--
 
 function Frame:OnSizeChanged()
+	-- 老虎会游泳：阻止窗体过小时缩放物品格子
+	if self.itemFrame then
+		self.itemFrame.parent = self
+		self.itemFrame.oldHeight = self.profile.height
+	end
+
 	self.profile.width = self:GetWidth()
 	self.profile.height = self:GetHeight()
 	self:UpdateItems()
