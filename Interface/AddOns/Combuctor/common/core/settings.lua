@@ -44,11 +44,20 @@ local FrameDefaults = {
 	spacing = 2,
 
 	brokerObject = ADDON .. 'Launcher',
-	hiddenRules = {contain = true},
+	hiddenRules = {
+		contain = true,
+		-- 老虎会游泳：隐藏底部的“交易”、“箭袋”、“灵魂碎片”等按钮
+		['all/souls'] = true,
+		['all/normal'] = true,
+		['all/trade'] = true,
+		['all/quiver'] = true,
+	},
 	hiddenBags = {},
 
 	rules = AsArray({
-		'all', 'all/normal', 'all/trade', 'all/reagent', 'all/keys', 'all/quiver',
+		'all',
+		-- 老虎会游泳：隐藏底部的“交易”、“箭袋”、“灵魂碎片”等按钮
+		--'all/normal', 'all/trade', 'all/reagent', 'all/keys', 'all/quiver',
 		'equip', 'equip/armor', 'equip/weapon', 'equip/trinket',
 		'use', 'use/consume', 'use/enhance',
 		'trade', 'trade/goods', 'trade/gem', 'trade/glyph', 'trade/recipe',
@@ -71,8 +80,8 @@ local ProfileDefaults = {
 		borderColor = {1, 1, 0, 1},
 		point = 'LEFT',
 		columns = 12,
-		width = 600,
-		height = 500,
+		width = 384,
+		height = 200,
 		x = 95
 	}, FrameDefaults),
 
