@@ -1,13 +1,13 @@
-lightweight tag 35b615bc4ee82033902e44d7f818330732628d09 1.13.2.45
+lightweight tag bc930ffe8b344ab0c7eab9c5c0560991d8378fb8 1.13.2.48
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sun Nov 24 12:03:03 2019 +0100
+Date:	Thu Dec 5 20:34:27 2019 +0100
 
-commit 35b615bc4ee82033902e44d7f818330732628d09
+commit bc930ffe8b344ab0c7eab9c5c0560991d8378fb8
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Nov 24 12:03:03 2019 +0100
+Date:   Thu Dec 5 20:33:34 2019 +0100
 
-    Added some more options
+    bug fixes & locale update
     
-    - Added a new option to hide the aura widget if the nameplate is in 'Headline/Text-Only' mode
-    - Changed how the 'primary' aura filters work. (No longer separate check boxes, instead a dropdown each for buffs/debuffs.)
+    - Potential fix for unit subtext getting stuck
+    - Locale update
 

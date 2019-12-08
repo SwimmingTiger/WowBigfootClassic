@@ -43,6 +43,7 @@ local ShowIntCast = true
 local ShowIntWhoCast = true
 local ColorCastBars = true
 local ShowServerIndicator = false
+local ShowUnitTitle = true
 local EMPTY_TEXTURE = "Interface\\Addons\\NeatPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local OverrideFonts = false
@@ -487,6 +488,7 @@ do
 
 		if style and (extended.stylename ~= stylename) then
 			UpdateStyle()
+			UpdateIndicator_Subtext()
 			extended.stylename = stylename
 			unit.style = stylename
 
@@ -849,8 +851,11 @@ do
 
 	-- UpdateIndicator_Name:
 	function UpdateIndicator_Name()
-		if ShowServerIndicator and unit.realm then visual.name:SetText(unit.name.." (*)") else visual.name:SetText(unit.name) end
-		--unit.pvpname
+		local unitname = unit.name
+		if ShowUnitTitle then  unitname = unit.pvpname or unit.name end
+		if ShowServerIndicator and unit.realm then unitname = unitname.." (*)" end
+
+		visual.name:SetText(unitname) -- Set name
 
 		-- Name Color
 		if activetheme.SetNameColor then
@@ -858,13 +863,17 @@ do
 		else visual.name:SetTextColor(1,1,1,1) end
 
 		-- Subtext
-		if style.subtext.show then
-			if activetheme.SetSubText then
+		UpdateIndicator_Subtext()
+	end
+
+	-- UpdateIndicator_Subtext:
+	function UpdateIndicator_Subtext()
+		-- Subtext
+		if style.subtext.show and activetheme.SetSubText then
 				local text, r, g, b, a = activetheme.SetSubText(unit)
 				visual.subtext:SetText( text or "")
 				visual.subtext:SetTextColor(r or 1, g or 1, b or 1, a or 1)
-			else visual.subtext:SetText("") end
-		end
+		else visual.subtext:SetText("") end
 	end
 
 
@@ -1763,6 +1772,7 @@ function NeatPlates:SetCoreVariables(LocalVars)
 	ShowIntCast = LocalVars.IntCastEnable
 	ShowIntWhoCast = LocalVars.IntCastWhoEnable
 	ShowServerIndicator = LocalVars.TextShowServerIndicator
+	ShowUnitTitle = LocalVars.TextShowUnitTitle
 end
 
 function NeatPlates:ShowNameplateSize(show, width, height) ForEachPlate(function(plate) UpdateNameplateSize(plate, show, width, height) end) end
