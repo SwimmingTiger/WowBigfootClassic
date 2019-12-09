@@ -1,0 +1,18 @@
+## Interface: 11302
+## Title: YaHT
+## Notes: Yet another Hunter Timer.
+## Version: 2.13.0
+## Author: Avi
+##
+## SavedVariables: YaHTdb
+## X-Category: Hunter
+## Dependencies: !!!Libs
+
+locales\enUS.lua
+locales\deDE.lua
+locales\zhCN.lua
+locales\zhTW.lua
+
+YaHT.lua
+defaults.lua
+options.lua
