@@ -1,0 +1,28 @@
+## Interface: 11302
+## Title: Raid Ledger
+## Title-koKR: 공격대 장부
+## Title-ruRU: Рейдовая книга
+## Title-zhCN: Raid Ledger 金团账本
+## Title-zhTW: 金團賬本
+## Notes: A ledger for GDKP/gold run raid. Feedback: farmer1992@gmail.com
+## Notes-koKR: 공격대의 골드 분배 시행에 대한 장부, 피드백: farmer1992@gmail.com
+## Notes-zhCN: 金团账本，帮你在金团中记账 反馈问题 farmer1992@gmail.com
+## Notes-zhTW: 金團賬本，幫你在金團中記賬 反饋問題 farmer1992@gmail.com
+## SavedVariablesPerCharacter: RaidLedgerDatabase
+## Author: Boshi Lian(farmer1992@gmail.com)
+## Version: v1.4.0
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+lib\lib-st\Core.lua
+lib\LibDeformat-3.0\LibDeformat-3.0.lua
+
+locales.lua
+utils.lua
+event.lua
+
+db.lua
+options.lua
+gui.lua
+
+cli.lua
