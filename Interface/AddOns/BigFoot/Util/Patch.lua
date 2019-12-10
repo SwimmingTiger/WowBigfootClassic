@@ -72,6 +72,8 @@ do
 	local LoaderFrame = CreateFrame("FRAME")
 	LoaderFrame:RegisterEvent("PLAYER_LOGIN")
 	local function LoaderEvents(frame, event, arg1)
+		frame:UnregisterEvent("PLAYER_LOGIN")
+
 		local patchVersion = '2019-09-05-04'
 		if (BF_Frames_Config['UtilsPatchVersion'] ~= patchVersion) then
 
@@ -84,9 +86,26 @@ do
 			SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
 
 			BF_Frames_Config['UtilsPatchVersion'] = patchVersion
-			frame:UnregisterEvent("PLAYER_LOGIN")
-
 			print("大脚插件个人整合包：初始化完成")
+		end
+
+		local patchVersion = '2019-12-11-06'
+		Combuctor_Sets = Combuctor_Sets or {}
+		if (Combuctor_Sets['CombuctorPatchVersion'] ~= patchVersion) then
+			Combuctor_Sets = {}
+			Combuctor_Sets['CombuctorPatchVersion'] = patchVersion
+
+			StaticPopupDialogs["RELOADUI_COMBUCTOR"] = {
+				text = "背包整合插件已更新，为了防止背包出错，需要重载界面。",
+				button1 = YES,
+				OnAccept = function()
+					ReloadUI()
+				end,
+				showAlert = 1,
+				timeout = 0,
+				hideOnEscape = false
+			}
+			BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_COMBUCTOR") end, 1)
 		end
 	end
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
