@@ -90,8 +90,7 @@ do
 		end
 
 		local patchVersion = '2019-12-11-06'
-		Combuctor_Sets = Combuctor_Sets or {}
-		if (Combuctor_Sets['CombuctorPatchVersion'] ~= patchVersion) then
+		if (type(Combuctor_Sets) == 'table' and Combuctor_Sets['CombuctorPatchVersion'] ~= patchVersion) then
 			Combuctor_Sets = {}
 			Combuctor_Sets['CombuctorPatchVersion'] = patchVersion
 
