@@ -129,19 +129,23 @@ TotemData = {
         element = EARTH_TOTEM_SLOT,
         noRangeCheck = true,
         warningPoint = 2,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.Stoneskin] = {
         element = EARTH_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.Stoneclaw] = {
         element = EARTH_TOTEM_SLOT,
         noRangeCheck = true,
         warningPoint = 2,
+		duration = 15,
     },
     [TotemTimers.SpellIDs.StrengthOfEarth] = {
         element = EARTH_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.EarthBind] = {
         element = EARTH_TOTEM_SLOT,
@@ -149,84 +153,103 @@ TotemData = {
         flashInterval = 3,
         flashDelay = 1,
         warningPoint = 5,
+		duration = 45,
     },
 	[TotemTimers.SpellIDs.Searing] = {
 		element = FIRE_TOTEM_SLOT,
         noRangeCheck = true,
         warningPoint = 5,
+		duration = 55,
 	},
     [TotemTimers.SpellIDs.FireNova] = {
         element = FIRE_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 4,
     },
 	[TotemTimers.SpellIDs.Magma] = {
 		element = FIRE_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 20,
 	},
     [TotemTimers.SpellIDs.FrostResistance] = {
         element = FIRE_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.Flametongue] = {
         element = FIRE_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.HealingStream] = {
 		element = WATER_TOTEM_SLOT,
         range = 1600,
 		warningPoint = 4,
+		duration = 60,
 	},
     [TotemTimers.SpellIDs.ManaTide] = {
         element = WATER_TOTEM_SLOT,
         warningPoint = 2,
+		duration = 12,
     },
     [TotemTimers.SpellIDs.PoisonCleansing] = {
         element = WATER_TOTEM_SLOT,
         noRangeCheck = true,
         flashInterval = 5,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.DiseaseCleansing] = {
         element = WATER_TOTEM_SLOT,
         noRangeCheck = true,
         flashInterval = 5,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.ManaSpring] = {
         element = WATER_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 60,
     },
     [TotemTimers.SpellIDs.FireResistance] = {
         element = WATER_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
 	[TotemTimers.SpellIDs.Grounding] = {
 		element = AIR_TOTEM_SLOT,
         partyOnly = true,
         range = 100,
 		warningPoint = 5,
+		duration = 45,
 	},
     [TotemTimers.SpellIDs.NatureResistance] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.Windfury] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.Sentry] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 600,
     },
     [TotemTimers.SpellIDs.Windwall] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.GraceOfAir] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
     [TotemTimers.SpellIDs.TranquilAir] = {
         element = AIR_TOTEM_SLOT,
         noRangeCheck = true,
+		duration = 120,
     },
 }
 
