@@ -108,6 +108,7 @@ function Addon:StartupSettings()
 		global = SetDefaults({}, ProfileDefaults),
 		profiles = {},
 
+		displayBlizzard = true, -- 老虎会游泳：为了正常显示钥匙链，开启该选项
 		resetPlayer = true, closeVendor = true,
 		displayBank = true, closeBank = true, displayAuction = true, displayGuild = true, displayMail = true, displayTrade = true, displayCraft = true, displayScrapping = true,
 		flashFind = true, tipCount = true, fading = true,

@@ -83,7 +83,8 @@ function ItemSlot:GetNextID()
 end
 
 function ItemSlot:Construct(id)
-    return CreateFrame('ItemButton', ADDON..self.Name..id, nil, 'ContainerFrameItemButtonTemplate')
+	-- 老虎会游泳：修复“displayBlizzard”启用后报错的问题
+    return CreateFrame(Addon.IsRetail and 'ItemButton' or 'Button', ADDON..self.Name..id, nil, 'ContainerFrameItemButtonTemplate')
 end
 
 function ItemSlot:GetBlizzard(id)

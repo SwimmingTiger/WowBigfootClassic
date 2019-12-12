@@ -87,5 +87,9 @@ function Addon:ShowBag(frame, bag)
 end
 
 function Addon:IsBagControlled(frame, bag)
+	-- 老虎会游泳：修复钥匙链无法显示的问题
+	if frame == 'inventory' and bag == -2 then
+		return false
+	end
 	return not Addon.sets.displayBlizzard or self:IsFrameEnabled(frame) and not self.profile[frame].hiddenBags[bag]
 end

@@ -89,7 +89,7 @@ do
 			print("大脚插件个人整合包：初始化完成")
 		end
 
-		local patchVersion = '2019-12-11-06'
+		local patchVersion = '2019-12-12-13'
 		if (type(Combuctor_Sets) == 'table' and Combuctor_Sets['CombuctorPatchVersion'] ~= patchVersion) then
 			Combuctor_Sets = {}
 			Combuctor_Sets['CombuctorPatchVersion'] = patchVersion
