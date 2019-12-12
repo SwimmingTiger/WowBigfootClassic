@@ -79,7 +79,7 @@ end
 
 function Bag:OnClick(button)
 	if button == 'RightButton' then
-		if not self:IsReagents() and not self:IsPurchasable() then
+		if not self:IsReagents() and not self:IsPurchasable() and ContainerFrame1FilterDropDown then
 			ContainerFrame1FilterDropDown:SetParent(self)
 			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 			ToggleDropDownMenu(1, nil, ContainerFrame1FilterDropDown, self, 0, 0)
