@@ -110,3 +110,7 @@ L.RefrigeColor = 'Refrigerator Color'
 -- rulesets
 L.RuleSettings = 'Item Rulesets'
 L.RuleSettingsDesc = "These settings allow you to choose which item rulesets to display and in which order.\n\nNote: The order you check the rulesets is the order in which rulesets are arranged on the right side of the bag.\nTo adjust the order, please first uncheck all and check in the order you want."
+
+--老虎会游泳：设置界面的“重置背包”按钮
+L.ResetCombuctor = 'Reset Combuctor'
+L.ResetCombuctorTooltip = "Restore all the settings of Combuctor and clean up the offline bank.\nThe offline bank will remain blank until the next visit to the bank.\nIf you find that Combuctor is abnormal, you can try to reset it."

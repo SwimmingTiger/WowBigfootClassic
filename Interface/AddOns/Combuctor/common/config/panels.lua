@@ -59,6 +59,16 @@ Addon.GeneralOptions = Addon.Options:NewPanel(nil, ADDON, L.GeneralDesc, functio
 			}
 		end
 	end)
+
+	local reset = self:CreateChild('Button')
+	reset:SetText(L.ResetCombuctor)
+	reset:SetTip(L.ResetCombuctor, L.ResetCombuctorTooltip)
+	reset:SetCall('OnClick', function()
+		Combuctor_Sets = {
+			CombuctorPatchVersion = type(Combuctor_Sets)=='table' and Combuctor_Sets.CombuctorPatchVersion or nil
+		}
+		ReloadUI()
+	end)
 end)
 
 Addon.FrameOptions = Addon.Options:NewPanel(ADDON, L.FrameSettings, L.FrameSettingsDesc, function(self)

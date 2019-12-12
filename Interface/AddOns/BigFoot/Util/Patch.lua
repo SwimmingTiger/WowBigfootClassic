@@ -90,9 +90,10 @@ do
 		end
 
 		local patchVersion = '2019-12-12-13'
-		if (type(Combuctor_Sets) == 'table' and Combuctor_Sets['CombuctorPatchVersion'] ~= patchVersion) then
-			Combuctor_Sets = {}
-			Combuctor_Sets['CombuctorPatchVersion'] = patchVersion
+		if (type(Combuctor_Sets) == 'table' and Combuctor_Sets.CombuctorPatchVersion ~= patchVersion) then
+			Combuctor_Sets = {
+				CombuctorPatchVersion = patchVersion
+			}
 
 			StaticPopupDialogs["RELOADUI_COMBUCTOR"] = {
 				text = "背包整合插件已更新，为了防止背包出错，需要重载界面。",
