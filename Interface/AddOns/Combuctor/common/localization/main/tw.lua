@@ -62,3 +62,6 @@ L.TipShowOptions = '<Shift-左鍵點擊>開啟設定選單。'
 L.inventoryExtraButton = '離線倉庫'
 L.bankExtraButton = '材料存放'
 L.ExtraButtonFontSize = 15
+
+--老虎会游泳：品质过滤器的鼠标提示
+L.ItemQualityTooltip = '再次點擊取消'

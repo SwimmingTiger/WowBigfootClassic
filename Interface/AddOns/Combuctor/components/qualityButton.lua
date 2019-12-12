@@ -4,6 +4,7 @@
 --]]
 
 local ADDON, Addon = ...
+local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 local QualityButton = Addon:NewClass('QualityButton', 'Checkbutton')
 QualityButton.SIZE = 18
 
@@ -48,6 +49,13 @@ function QualityButton:New(parent, quality, qualityColor)
 	return button
 end
 
+function QualityButton:UpdateTooltip()
+	local tooltip = _G['ITEM_QUALITY'..self.quality..'_DESC']
+	if self:IsSelected() then
+		tooltip = string.format("%s\n|cffffffff%s|r", tooltip, L.ItemQualityTooltip)
+	end
+	GameTooltip:SetText(tooltip, GetItemQualityColor(self.qualityColor))
+end
 
 --[[ Frame Events ]]--
 
@@ -67,11 +75,12 @@ function QualityButton:OnClick()
 
 	self:SendFrameSignal('QUALITY_CHANGED')
 	self:SendFrameSignal('FILTERS_CHANGED')
+	self:UpdateTooltip()
 end
 
 function QualityButton:OnEnter()
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-	GameTooltip:SetText(_G['ITEM_QUALITY'..self.quality..'_DESC'], GetItemQualityColor(self.qualityColor))
+	self:UpdateTooltip()
 	GameTooltip:Show()
 end
 

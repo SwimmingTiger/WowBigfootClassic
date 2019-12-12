@@ -79,3 +79,6 @@ L.TipDelimiter = '|'
 L.inventoryExtraButton = '离线银行'
 L.bankExtraButton = '材料存放'
 L.ExtraButtonFontSize = 15
+
+--老虎会游泳：品质过滤器的鼠标提示
+L.ItemQualityTooltip = '再次点击取消'
