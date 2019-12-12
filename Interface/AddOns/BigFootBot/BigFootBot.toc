@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] BigFootBot
 ## Title-zhCN: [大脚]信息收集
 ## Title-zhTW: [大腳]信息收集

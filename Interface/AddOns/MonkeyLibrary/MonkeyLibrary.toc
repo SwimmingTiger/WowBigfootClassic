@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: MonkeyLibrary
 ## Notes: Common files and functions for MonkeyMods.
 ## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-媒體庫

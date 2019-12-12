@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] BuffMaster
 ## Title-zhCN: [大脚]增益魔法大师
 ## Title-zhTW: [大腳]增益魔法大師

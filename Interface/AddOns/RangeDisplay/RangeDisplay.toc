@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: RangeDisplay
 ## Title-zhCN: [大脚][集]距离显示
 ## Title-zhTW: [大腳][集]距離顯示

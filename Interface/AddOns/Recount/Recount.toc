@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計

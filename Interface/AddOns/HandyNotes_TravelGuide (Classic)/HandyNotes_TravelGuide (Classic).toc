@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 #@non-debug@
 ## Title: HandyNotes: TravelGuide (Classic)
 ## Notes: Shows the boat and zeppelin locations on the World Map and the MiniMap.

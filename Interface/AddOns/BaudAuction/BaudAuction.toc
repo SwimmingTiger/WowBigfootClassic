@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: BaudAuction
 ## Title-zhCN: [大脚][集]拍卖增强
 ## Title-zhTW: [大腳][集]拍賣增強

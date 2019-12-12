@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] CastingBar
 ## Title-zhCN: [大脚]大脚施法条
 ## Title-zhTW: [大腳]大腳施法條

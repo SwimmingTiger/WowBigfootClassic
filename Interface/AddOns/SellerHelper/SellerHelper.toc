@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] SellHelper
 ## Title-zhCN: [大脚]售卖助手
 ## Title-zhTW: [大腳]售賣助手

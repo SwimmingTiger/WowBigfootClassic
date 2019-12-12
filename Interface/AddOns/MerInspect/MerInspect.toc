@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: MerInspect
 ## Title-zhCN: [大脚][集]装备属性统计
 ## Title-zhTW: [大腳][集]裝備屬性統計

@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: ClassicThreatMeter
 ## Title-zhCN: [大脚][集]仇恨统计
 ## Title-zhTW: [大腳][集]仇恨統計

@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: [BF] BFGadgets
 ## Title-zhCN: [大脚]小功能
 ## Title-zhTW: [大腳]小功能

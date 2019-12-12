@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] Bubble Chat
 ## Title-zhCN: [大脚]组队聊天泡泡
 ## Title-zhTW: [大腳]組隊聊天泡泡

@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] QuickCompare
 ## Title-zhCN: [大脚]快速比较
 ## Title-zhTW: [大腳]快速比較

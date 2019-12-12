@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] Party Assist
 ## Title-zhCN: [大脚]组队施法
 ## Title-zhTW: [大腳]組隊施法

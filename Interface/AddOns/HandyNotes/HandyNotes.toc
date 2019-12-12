@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: HandyNotes
 ## Title-zhCN: [大脚][集]地图标记
 ## Title-zhTW: [大腳][集]地圖標記

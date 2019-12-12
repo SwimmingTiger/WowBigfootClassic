@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: <DCT> Damage
 ## Title-zhCN: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 伤害模块
 ## Title-zhTW: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 傷害模組

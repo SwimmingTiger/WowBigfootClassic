@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: Combuctor Config
 ## Author: Tuller and Jaliborc (João Cardoso)
 ## Notes: An options menu for Combuctor

@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: alaTalentEmu
 ## Title-zhCN: [大脚][集]天赋模拟器
 ## Title-zhTW: [大腳][集]天賦模擬器

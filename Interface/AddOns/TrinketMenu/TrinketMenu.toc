@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: TrinketMenu
 ## Title-zhCN: [大脚][集]饰品管理
 ## Title-zhTW: [大腳][集]飾品管理

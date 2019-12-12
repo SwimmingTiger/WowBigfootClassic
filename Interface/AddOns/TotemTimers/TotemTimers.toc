@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: TotemTimers
 ## Title-zhCN: [大脚][集]萨满图腾助手
 ## Title-zhTW: [大腳][集]薩滿圖騰助手

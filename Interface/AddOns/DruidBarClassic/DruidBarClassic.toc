@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: Druid Bar Classic
 ## Title-zhCN: [大脚][集]德鲁伊法力监视
 ## Title-zhTW: [大腳][集]德魯伊法力監視

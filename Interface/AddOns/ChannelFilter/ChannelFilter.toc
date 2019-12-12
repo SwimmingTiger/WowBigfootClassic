@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] ChannelFilter
 ## Title-zhCN: [大脚]聊天优化
 ## Title-zhTW: [大腳]聊天優化

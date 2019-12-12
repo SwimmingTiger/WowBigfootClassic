@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] Item Info
 ## Title-zhCN: [大脚]物品信息
 ## Title-zhTW: [大腳]物品資訊

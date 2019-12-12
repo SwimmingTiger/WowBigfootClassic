@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: QuestLog Extended
 ## Title-zhCN: 双栏任务日志
 ## Notes: QuestLog Extended

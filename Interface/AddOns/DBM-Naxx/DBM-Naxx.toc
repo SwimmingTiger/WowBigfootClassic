@@ -1,5 +1,5 @@
-## Interface: 11302
-## X-Min-Interface: 11302
+## Interface: 11303
+## X-Min-Interface: 11303
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Naxxramas|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0納克薩瑪斯|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0纳克萨玛斯|r

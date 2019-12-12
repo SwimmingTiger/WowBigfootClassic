@@ -1,4 +1,4 @@
-﻿## Interface: 11302
+﻿## Interface: 11303
 ## Title: [BF] MailMod
 ## Title-zhCN: [大脚]邮件助手
 ## Title-zhTW: [大腳]郵件助手
