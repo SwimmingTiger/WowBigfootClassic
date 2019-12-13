@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190903223348")
+mod:SetRevision("20191206204159")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -11,12 +11,11 @@ mod:SetWipeTime(25)--guesswork
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 22539 22686",
 	"SPELL_AURA_APPLIED 22687 22667",
-	"SPELL_AURA_REMOVED 22687 22667",
 	"UNIT_HEALTH mouseover target",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnClassCall		= mod:NewAnnounce("WarnClassCall", 3, "Interface\\Icons\\Spell_Nature_WispSplode")
+local warnClassCall		= mod:NewAnnounce("WarnClassCall", 3, "136116")
 local warnPhase			= mod:NewPhaseChangeAnnounce()
 local warnPhase3Soon	= mod:NewPrePhaseAnnounce(3)
 local warnShadowFlame	= mod:NewCastAnnounce(22539, 2)
@@ -25,10 +24,8 @@ local warnFear			= mod:NewCastAnnounce(22686, 2)
 local specwarnMC		= mod:NewSpecialWarningTarget(22667, nil, nil, 2, 1, 2)
 local specwarnVeilShadow= mod:NewSpecialWarningDispel(22687, "RemoveCurse", nil, nil, 1, 2)
 
-local timerClassCall	= mod:NewTimer(30, "TimerClassCall", "Interface\\Icons\\Spell_Nature_WispSplode", nil, nil, 5)
+local timerClassCall	= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
 local timerFearNext		= mod:NewCDTimer(30, 22686, nil, nil, nil, 2)
-local timerVeilShadow	= mod:NewTargetTimer(6, 22687, nil, "RemoveCurse|Tank", 2, 3, nil, DBM_CORE_CURSE_ICON)
-local timerMC			= mod:NewTargetTimer(15, 22667, nil, nil, nil, 3)
 
 mod.vb.phase = 1
 
@@ -41,38 +38,40 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 22539 then
 		if args.spellName == ShadowFlame then
-			warnShadowFlame:Show()
+			self:SendSync("Shadowflame")
+			if self:AntiSpam(5, 1) then
+				warnShadowFlame:Show()
+			end
 		--elseif args.spellId == 22686 then
 		elseif args.spellName == BellowingRoar then
-			warnFear:Show()
-			timerFearNext:Start()
+			self:SendSync("Fear")
+			if self:AntiSpam(5, 2) then
+				warnFear:Show()
+				timerFearNext:Start()
+			end
 		end
 	end
 end
 
 do
-	local VielShadow, ShadowCommand = DBM:GetSpellInfo(22539), DBM:GetSpellInfo(22667)
+	local VielShadow, ShadowCommand = DBM:GetSpellInfo(22687), DBM:GetSpellInfo(22667)
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 22687 then
 		if args.spellName == VielShadow then
-			specwarnVeilShadow:Show(args.destName)
-			specwarnVeilShadow:Play("dispelnow")
-			timerVeilShadow:Start(args.destName)
+			self:SendSync("VielShadow", args.destName)
+			if self:AntiSpam(5, args.destName .. "1") then
+				if self:CheckDispelFilter() then
+					specwarnVeilShadow:Show(args.destName)
+					specwarnVeilShadow:Play("dispelnow")
+				end
+			end
 		--elseif args.spellId == 22667 then
 		elseif args.spellName == ShadowCommand then
-			specwarnMC:Show(args.destName)
-			specwarnMC:Play("findmc")
-			timerMC:Start(args.destName)
-		end
-	end
-
-	function mod:SPELL_AURA_REMOVED(args)
-		--if args.spellId == 22687 then
-		if args.spellName == VielShadow then
-			timerVeilShadow:Stop(args.destName)
-		--elseif args.spellId == 22667 then
-		elseif args.spellName == ShadowCommand then
-			timerMC:Stop(args.destName)
+			self:SendSync("MindControl", args.destName)
+			if self:AntiSpam(5, args.destName .. "2") then
+				specwarnMC:Show(args.destName)
+				specwarnMC:Play("findmc")
+			end
 		end
 	end
 end
@@ -115,10 +114,10 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:OnSync(msg, arg)
-	if msg == "ClassCall" then
+	if msg == "ClassCall" and arg then
 		warnClassCall:Show(arg)
 		timerClassCall:Start(arg)
-	elseif msg == "Phase" then
+	elseif msg == "Phase" and arg then
 		local phase = tonumber(arg) or 0
 		if phase == 2 then
 			self.vb.phase = 2
@@ -126,5 +125,18 @@ function mod:OnSync(msg, arg)
 			self.vb.phase = 3
 		end
 		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(arg))
+	elseif msg == "Shadowflame" and self:AntiSpam(5, 1) then
+		warnShadowFlame:Show()
+	elseif msg == "Fear" and self:AntiSpam(5, 2) then
+		warnFear:Show()
+		timerFearNext:Start()
+	elseif msg == "VielShadow" and arg and self:AntiSpam(5, arg .. "1") then
+		if self:CheckDispelFilter() then
+			specwarnVeilShadow:Show(arg)
+			specwarnVeilShadow:Play("dispelnow")
+		end
+	elseif msg == "MindControl" and arg and self:AntiSpam(5, arg .. "2") then
+		specwarnMC:Show(arg)
+		specwarnMC:Play("findmc")
 	end
 end

@@ -2299,12 +2299,12 @@ do	-- communication func
 		meta[3] = title;
 		tinsert(emu.recv_msg, meta);
 	end
-	local _ChatFrame_OnHyperlinkShow = ChatFrame_OnHyperlinkShow;
+	local _SetHyperlink = ItemRefTooltip.SetHyperlink;
 	function emu.EmuCore_Init_ADDON_MESSAGE()
 		if not RegisterAddonMessagePrefix(ADDON_PREFIX) then
 			_log_("Init", "RegisterAddonMessagePrefix", ADDON_PREFIX);
 		end
-		_G.ChatFrame_OnHyperlinkShow = function(frame, ref, link, button, ...)
+		ItemRefTooltip.SetHyperlink = function(frame, ref, ...)
 			local _, _, code, sender, GUID = strfind(ref, "^emu:(.+)#(.+)#(.+)");
 			if code then
 				local class, data, level = emu.EmuCore_Decoder(code);
@@ -2322,7 +2322,7 @@ do	-- communication func
 				end
 				return true;
 			else
-				return _ChatFrame_OnHyperlinkShow(frame, ref, link, button, ...)
+				return _SetHyperlink(frame, ref, ...)
 			end
 		end
 	end

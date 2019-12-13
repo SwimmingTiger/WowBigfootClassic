@@ -1,5 +1,5 @@
 ## Interface: 11303
-## X-Min-Interface: 11303
+## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFCore|r
 ## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
 ## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
@@ -13,7 +13,7 @@
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.23
+## Version: 1.13.24
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
 

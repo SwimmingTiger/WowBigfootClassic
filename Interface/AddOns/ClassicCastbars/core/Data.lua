@@ -208,9 +208,9 @@ local castSpellIDs = {
     21048, -- Curse of the Tribes
     5267, -- Dalaran Wizard Disguise
     27723, -- Dark Desire
-    19799, -- Dark Iron Bomb
+    19784, -- Dark Iron Bomb
     5268, -- Dark Iron Dwarf Disguise
-    16588, -- Dark Mending
+    19775, -- Dark Mending
     7106, -- Dark Restore
     3335, -- Dark Sludge
     16587, -- Dark Whispers
@@ -1141,7 +1141,8 @@ local castSpellIDs = {
     24422, -- Zandalar Signet of Might
     24421, -- Zandalar Signet of Mojo
     24420, -- Zandalar Signet of Serenity
-    1050, -- Sacrifice (needs to be last for german clients, see issue #26)
+    1050, -- Sacrific
+    22651, -- Sacrifice 2 (On German client this is named Opfern but other Sacrifice is named Opferung)
     10181, -- Frostbolt (needs to be last for chinese clients, see issue #16)
 
     -- Channeled casts in random order. These are used to retrieve spell icon later on (namespace.channeledSpells only stores spell name)
@@ -1548,6 +1549,153 @@ namespace.pushbackBlacklist = {
     [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
     [GetSpellInfo(13278)] = 1,      -- Gnomish Death Ray
     [GetSpellInfo(20589)] = 1,      -- Escape Artist
+    [GetSpellInfo(20549)] = 1,      -- War Stomp
+}
+
+-- Casts that should be stopped on damage received
+namespace.stopCastOnDamageList = {
+    [GetSpellInfo(8690)] = 1, -- Hearthstone
+    [GetSpellInfo(5784)] = 1, -- Summon Felsteed
+    [GetSpellInfo(23161)] = 1, -- Summon Dreadsteed
+    [GetSpellInfo(13819)] = 1, -- Summon Warhorse
+    [GetSpellInfo(23214)] = 1, -- Summon Charger
+    [GetSpellInfo(2006)] = 1, -- Resurrection
+    [GetSpellInfo(2008)] = 1, -- Ancestral Spirit
+    [GetSpellInfo(7328)] = 1, -- Redemption
+    [GetSpellInfo(22999)] = 1, -- Defibrillate
+    -- First Aid not included here since we track aura removed
+}
+
+namespace.unaffectedCastModsSpells = {
+    -- Player Spells
+    [11605] = 1, -- Slam
+    [6651] = 1, -- Instant Toxin
+    [1842] = 1, -- Disarm Trap
+    [6461] = 1, -- Pick Lock
+    [20904] = 1, -- Aimed Shot
+    [2641] = 1, -- Dismiss Pet
+    [2480] = 1, -- Shoot Bow
+    [7918] = 1, -- Shoot Gun
+    [20549] = 1, -- War Stomp
+    [20589] = 1, -- Escape Artist
+    [22027] = 1, -- Remove Insignia
+    [6510] = 1, -- Blinding Powder
+    [7355] = 1, -- Stuck
+
+    -- NPCs and Others
+    [2835] = 1, -- Deadly Poison
+    [3131] = 1, -- Frost Breath
+    [15664] = 1, -- Venom Spit
+    [7068] = 1, -- Veil of Shadow
+    [16247] = 1, -- Curse of Thorns
+    [14030] = 1, -- Hooked Net
+    [20716] = 1, -- Sand Breath
+    [8275] = 1, -- Poisoned Shot
+    [1980] = 1, -- Bombard
+    [3015] = 1, -- Bombard II
+    [1536] = 1, -- Longshot II
+    [3007] = 1, -- Longshot III
+    [1540] = 1, -- Volley
+    [3013] = 1, -- Volley II
+    [4164] = 1, -- Throw Rock
+    [4165] = 1, -- Throw Rock II
+    [3537] = 1, -- Minions of Malathrom
+    [5567] = 1, -- Miring Mud
+    [28352] = 1, -- Breath of Sargeras
+    [7106] = 1, -- Dark Restore
+    [4075] = 1, -- Large Seaforium Charge
+    [5106] = 1, -- Crystal Flash
+    [22979] = 1, -- Shadow Flame
+    [3611] = 1, -- Minion of Morganth
+    [27794] = 1, -- Cleave
+    [25247] = 1, -- Longsight
+    [5208] = 1, -- Poisoned Harpoon
+    [14532] = 1, -- Creeper Venom
+    [3132] = 1, -- Chilling Breath
+    [3650] = 1, -- Sling Mud
+    [3651] = 1, -- Shield of Reflection
+    [3143] = 1, -- Glacial Roar
+    [6296] = 1, -- Enchant: Fiery Blaze
+    [24194] = 1, -- Uther's Tribute
+    [7364] = 1, -- Light Torch
+    [12684] = 1, -- Kadrak's Flag
+    [7919] = 1, -- Shoot Crossbow
+    [6907] = 1, -- Diseased Slime
+    [3204] = 1, -- Sapper Explode
+    [26234] = 1, -- Submerge Visual
+    [26063] = 1, -- Ouro Submerge Visual
+    [6925] = 1, -- Gift of the Xavian
+    [7951] = 1, -- Toxic Spit
+    [24195] = 1, -- Grom's Tribute
+    [16554] = 1, -- Toxic Bolt
+    [15495] = 1, -- Explosive Shot
+    [6530] = 1, -- Sling Dirt
+    [26072] = 1, -- Dust Cloud
+    [5514] = 1, -- Darken Vision
+    [11016] = 1, -- Soul Bite
+    [21050] = 1, -- Melodious Rapture
+    [4520] = 1, -- Wide Sweep
+    [4526] = 1, -- Mass Dispell
+    [6576] = 1, -- Intimidating Growl
+    [20627] = 1, -- Lightning Breath
+    [25793] = 1, -- Demon Summoning Torch
+    [23254] = 1, -- Redeeming the Soul
+    [18711] = 1, -- Forging
+    [12198] = 1, -- Marksman Hit
+    [8153] = 1, -- Owl Form
+    [6626] = 1, -- Set NG-5 Charge (Blue)
+    [6630] = 1, -- Set NG-5 Charge (Red)
+    [30081] = 1, -- Retching Plague
+    [6656] = 1, -- Remote Detonate
+    [10254] = 1, -- Stone Dwarf Awaken Visual
+    [3359] = 1, -- Drink Potion
+    [17618] = 1, -- Summon Risen Lackey
+    [8286] = 1, -- Summon Boar Spirit
+    [17235] = 1, -- Raise Undead Scarab
+    [8386] = 1, -- Attacking
+    [28311] = 1, -- Slime Bolt
+    [1698] = 1, -- Shockwave
+    [23008] = 1, -- Powerful Seaforium Charge
+    [6951] = 1, -- Decayed Strength
+    [28732] = 1, -- Widow's Embrace
+    [28995] = 1, -- Stoneskin
+    [24706] = 1, -- Toss Stink Bomb
+    [6257] = 1, -- Torch Toss
+    [7359] = 1, -- Bright Campfire
+    [16590] = 1, -- Summon Zombie
+    [9612] = 1, -- Ink Spray
+    [3436] = 1, -- Wandering Plague
+    [9636] = 1, -- Summon Swamp Spirit
+    [17204] = 1, -- Summon Skeleton
+    [7896] = 1, -- Exploding Shot
+    [23392] = 1, -- Boulder
+    [7920] = 1, -- Mebok Smart Drink
+    [8682] = 1, -- Fake Shot
+    [28614] = 1, -- Pointy Spike
+    [8016] = 1, -- Spirit Decay
+    [26102] = 1, -- Sand Blast
+    [3477] = 1, -- Spirit Steal
+    [5395] = 1, -- Death Capsule
+    [5159] = 1, -- Melt Ore
+    [5403] = 1, -- Crash of Waves
+    [8256] = 1, -- Lethal Toxin
+    [6441] = 1, -- Explosive Shells
+    [10850] = 1, -- Powerful Smelling Salts
+    [3488] = 1, -- Felstrom Resurrection
+    [10346] = 1, -- Machine Gun
+    [12740] = 1, -- Summon Infernal Servant
+    [6469] = 1, -- Skeletal Miner Explode
+    [11397] = 1, -- Diseased Shot
+    [4950] = 1, -- Summon Helcular's Puppets
+    [8363] = 1, -- Parasite
+    [16531] = 1, -- Summon Frail Skeleton
+    [16072] = 1, -- Purify and Place Food
+    [20629] = 1, -- Corrosive Venom Spit
+    [28615] = 1, -- Spike Volley
+    [19566] = 1, -- Salt Shaker
+    [7901] = 1, -- Decayed Agility
+    [7054] = 1, -- Forsaken Skills
+    [24189] = 1, -- Force Punch
 }
 
 -- Addon Savedvariables
@@ -1599,33 +1747,6 @@ namespace.defaultConfig = {
         castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
         hideIconBorder = false,
         position = { "CENTER", -18, -87 },
-        iconPositionX = -5,
-        iconPositionY = 0,
-        borderColor = { 1, 1, 1, 1 },
-        statusColor = { 1, 0.7, 0, 1 },
-        statusColorChannel = { 0, 1, 0, 1 },
-        textColor = { 1, 1, 1, 1 },
-        textPositionX = 0,
-        textPositionY = 0,
-        frameLevel = 10,
-        statusBackgroundColor = { 0, 0, 0, 0.535 },
-    },
-
-    focus = {
-        enabled = false,
-        width = 150,
-        height = 15,
-        iconSize = 16,
-        showCastInfoOnly = false,
-        showTimer = false,
-        showIcon = true,
-        autoPosition = true,
-        castFont = _G.STANDARD_TEXT_FONT,
-        castFontSize = 10,
-        castStatusBar = "Interface\\TargetingFrame\\UI-StatusBar",
-        castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
-        hideIconBorder = false,
-        position = { "CENTER", -30, 90 },
         iconPositionX = -5,
         iconPositionY = 0,
         borderColor = { 1, 1, 1, 1 },

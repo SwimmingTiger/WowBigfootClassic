@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190903223348")
+mod:SetRevision("20191206204159")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -20,7 +20,7 @@ local warnRed			= mod:NewSpellAnnounce(23155, 2, nil, false)
 local warnGreen			= mod:NewSpellAnnounce(23169, 2, nil, false)
 local warnBlue			= mod:NewSpellAnnounce(23153, 2, nil, false)
 local warnBlack			= mod:NewSpellAnnounce(23154, 2, nil, false)
-local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank", 2)
+local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage", 3)
 local warnPhase2Soon	= mod:NewPrePhaseAnnounce(2, 1)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 
@@ -42,8 +42,11 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args:IsSpellID(23309, 23313, 23189, 23316, 23312) then
 		if args.spellName == Incinerate or args.spellName == CorrosiveAcid or args.spellName == FrostBurn or args.spellName == IgniteFlesh or args.spellName == TimeLaps then
-			warnBreath:Show(args.spellName)
-			timerBreathCD:Start(args.spellName)
+			self:SendSync("Breath", args.spellName)
+			if self:AntiSpam(5, 1) then
+				warnBreath:Show(args.spellName)
+				timerBreathCD:Start(args.spellName)
+			end
 		end
 	end
 end
@@ -53,16 +56,16 @@ do
 	local Frenzy, Enrage = DBM:GetSpellInfo(23128), DBM:GetSpellInfo(23537)
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 23155 and self:AntiSpam(3, 1) then
-		if args.spellName == BroodAffRed and self:AntiSpam(3, 1) then
+		if args.spellName == BroodAffRed and self:AntiSpam(3, 3) then
 			warnRed:Show()
 		--elseif args.spellId == 23169 and self:AntiSpam(3, 2) then
-		elseif args.spellName == BroodAffGreen and self:AntiSpam(3, 2) then
+		elseif args.spellName == BroodAffGreen and self:AntiSpam(3, 4) then
 			warnGreen:Show()
 		--elseif args.spellId == 23153 and self:AntiSpam(3, 3) then
-		elseif args.spellName == BroodAffBlue and self:AntiSpam(3, 3) then
+		elseif args.spellName == BroodAffBlue and self:AntiSpam(3, 5) then
 			warnBlue:Show()
 		--elseif args.spellId == 23154 and self:AntiSpam(3, 4) then
-		elseif args.spellName == BroodAffBlack and self:AntiSpam(3, 4) then
+		elseif args.spellName == BroodAffBlack and self:AntiSpam(3, 6) then
 			warnBlack:Show()
 		--elseif args.spellId == 23170 and args:IsPlayer() then
 		elseif args.spellName == BroodAffBronze and args:IsPlayer() then
@@ -70,12 +73,18 @@ do
 			specWarnBronze:Play("useitem")
 		--elseif args.spellId == 23128 then
 		elseif args.spellName == Frenzy and args:IsDestTypeHostile() then
-			warnFrenzy:Show()
-			timerFrenzy:Start()
+			self:SendSync("Frenzy")
+			if self:AntiSpam(5, 2) then
+				warnFrenzy:Show()
+				timerFrenzy:Start()
+			end
 		--elseif args.spellId == 23537 then
 		elseif args.spellName == Enrage and args:IsDestTypeHostile() then
-			self.vb.phase = 2
-			warnPhase2:Show()
+			self:SendSync("Phase2")
+			if self.vb.phase < 2 then
+				self.vb.phase = 2
+				warnPhase2:Show()
+			end
 		end
 	end
 	--Possibly needed hard to say.
@@ -93,5 +102,19 @@ function mod:UNIT_HEALTH(uId)
 	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.25 and self:GetUnitCreatureId(uId) == 14020 and self.vb.phase == 1 then
 		warnPhase2Soon:Show()
 		self.vb.phase = 1.5
+	end
+end
+
+function mod:OnSync(msg, Name)
+	if not self:IsInCombat() then return end
+	if msg == "Breath" and Name and self:AntiSpam(5, 1) then
+		warnBreath:Show(Name)
+		timerBreathCD:Start(Name)
+	elseif msg == "Frenzy" and self:AntiSpam(5, 2) then
+		warnFrenzy:Show()
+		timerFrenzy:Start()
+	elseif msg == "Phase2" and self.vb.phase < 2 then
+		self.vb.phase = 2
+		warnPhase2:Show()
 	end
 end

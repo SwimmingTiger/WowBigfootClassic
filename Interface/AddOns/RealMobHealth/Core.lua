@@ -79,6 +79,7 @@ local math_ceil=math.ceil;
 local math_max=math.max;
 local next=next;
 local pairs=pairs;
+local rawget=rawget;
 local string_format=string.format;
 local string_gsub=string.gsub;
 local string_match=string.match;
@@ -108,10 +109,10 @@ end
 --------------------------
 local function StoreMaxHealth(creaturekey,maxhealth,overwrite)
 	if creaturekey and maxhealth and maxhealth>0 then
-		local storedhealth=HealthCache[creaturekey];
+		local storedhealth=rawget(HealthCache,creaturekey);--	Isolate from metatable defaults
 		if maxhealth>(storedhealth or 0) or (overwrite and maxhealth~=storedhealth) then
 			HealthCache[creaturekey]=maxhealth;--	Store health
-			if PeerCache[creaturekey] then
+			if rawget(PeerCache,creaturekey) then--	Doesn't make sense to delete something that isn't there (supports metatable too)
 				PeerCache[creaturekey]=nil;--	Delete peer data
 				AddOn_FireAddOnEvent("PEERCACHE_UPDATE",GetPeerCacheCount());
 			end
@@ -242,7 +243,7 @@ AddOn.RegisterGameEvent("PLAYER_LOGIN",function()
 end);
 AddOn.RegisterGameEvent("PLAYER_LOGOUT",function()--	Cull blacklisted values
 	for creaturekey in next,HealthCache do if AddOn_IsBlacklistedCreatureKey(creaturekey) then HealthCache[creaturekey]=nil; end end
-	for creaturekey in next,PeerCache do if AddOn_IsBlacklistedCreatureKey(creaturekey) or HealthCache[creaturekey] then PeerCache[creaturekey]=nil; end end
+	for creaturekey in next,PeerCache do if AddOn_IsBlacklistedCreatureKey(creaturekey) or rawget(HealthCache,creaturekey) then PeerCache[creaturekey]=nil; end end
 end);
 
 --	Unit data collection
@@ -387,7 +388,7 @@ end
 
 local function DeleteUnitHealthData(unit)
 	local creaturekey=AddOn_GetUnitCreatureKey(unit);
-	if creaturekey and HealthCache[creaturekey] then
+	if creaturekey and rawget(HealthCache,creaturekey) then
 		HealthCache[creaturekey]=nil;--	Delete value
 
 --		Fire events
@@ -401,7 +402,7 @@ end
 
 local function UnitHasHealthData(unit)--	Peer data isn't trusted, so this function ignores it
 	local creaturekey=AddOn_GetUnitCreatureKey(unit);
-	return ((creaturekey and not AddOn_IsBlacklistedCreatureKey(creaturekey)) and (AddOn_HealthOverrides[creaturekey] or HealthCache[creaturekey])) and true or false;--	Cast to boolean
+	return ((creaturekey and not AddOn_IsBlacklistedCreatureKey(creaturekey)) and (AddOn_HealthOverrides[creaturekey] or rawget(HealthCache,creaturekey))) and true or false;--	Cast to boolean
 end
 
 local function WipeHealthData()

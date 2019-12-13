@@ -1,5 +1,5 @@
 ﻿## Interface: 11303
-## X-Min-Interface: 11303
+## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple of Ahn'Qiraj|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉神廟|r
 ## LoadOnDemand: 1

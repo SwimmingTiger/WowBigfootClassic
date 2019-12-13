@@ -35,11 +35,20 @@ local ChannelChecks={--	Channel availability functions
 	PARTY=IsInGroup;
 }
 
-local function SendMessage(pre,msg,channel,target) table_insert(MessageQueue,{pre,msg,string_upper(channel),target}); end
+local function SendMessage(pre,msg,channel,target)
+	channel=string_upper(channel);
+	for _,data in ipairs(MessageQueue) do
+		local d1,d2,d3,d4=unpack(data);
+		if d1==pre and d2==msg and d3==channel and (d4 and string_upper(d4))==(target and string_upper(target)) then return; end
+	end
+	table_insert(MessageQueue,{pre,msg,channel,target});
+end
+
 local function BroadcastMessage(pre,msg)--	Bloadcasts to all available group channels
 	if IsInGuild() then SendMessage(pre,msg,"GUILD"); end
 	if IsInRaid() then SendMessage(pre,msg,"RAID");
 	elseif IsInGroup() then SendMessage(pre,msg,"PARTY"); end
+	SendMessage(pre,msg,"YELL");--	New channel in 1.13.3
 end
 
 AddOn.SendMessage=SendMessage;

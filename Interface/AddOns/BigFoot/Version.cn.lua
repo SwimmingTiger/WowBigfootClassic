@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
-local main= "1.13.2."
-local minor = "27"
+local main= "1.13.3."
+local minor = "29"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,15 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2019/12/12 (1.13.3.29)")
+	BigFootChangelog_ar("大脚插件","版本号同步至游戏版本。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2019/12/09 (1.13.2.28)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2019/12/06 (1.13.2.27)")
 	BigFootChangelog_ar("大脚插件","添加控制技能提示插件(BigDebuffs)。")
@@ -162,4 +171,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "53"
+BF_VERSION_CHECKSUM = "58"

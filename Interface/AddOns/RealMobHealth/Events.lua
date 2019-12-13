@@ -130,7 +130,7 @@ local function FireAddOnEvent(event,...)
 
 	if #funclist>0 then
 --		AddOn events can cascade off each other, queueing them up and running them later prevents stack overflows
-		local tbl={n=select("#",...),event,...};
+		local tbl={n=select("#",...)+1,event,...};--	tbl.n is supposed to be table size for unpack() later (event plus all arg entries)
 		table_insert(AddOnEventQueue,tbl);
 	else AddOnEvents[event]=nil; end--	List empty, remove it
 end
@@ -185,7 +185,7 @@ EventFrame:SetScript("OnUpdate",function(self,elapsed)
 
 		local funclist=AddOnEvents[event];
 		if funclist then--	Need the function list
-			if #funclist>0 then PCallDispatch(funclist,unpack(tbl,1,tbl.n+1));--	PCall list
+			if #funclist>0 then PCallDispatch(funclist,unpack(tbl,1,tbl.n));--	PCall list
 			else AddOnEvents[event]=nil; end--	List empty, remove it
 		end
 	end

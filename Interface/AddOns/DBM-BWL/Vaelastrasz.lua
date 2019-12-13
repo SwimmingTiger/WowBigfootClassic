@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190903223348")
+mod:SetRevision("20191206204159")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -32,7 +32,10 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 23461 then
 		if args.spellName == FlameBreath then
-			warnBreath:Show()
+			self:SendSync("Breath")
+			if self:AntiSpam(5, 1) then
+				warnBreath:Show()
+			end
 		end
 	end
 end
@@ -42,13 +45,16 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
-			timerAdrenaline:Start(args.destName)
-			if args:IsPlayer() then
-				specWarnAdrenaline:Show()
-				specWarnAdrenaline:Play("targetyou")
-				yellAdrenaline:Yell()
-			else
-				warnAdrenaline:Show(args.destName)
+			self:SendSync("Adrenaline", args.destName)
+			if self:AntiSpam(5, args.destName) then
+				timerAdrenaline:Start(args.destName)
+				if args:IsPlayer() then
+					specWarnAdrenaline:Show()
+					specWarnAdrenaline:Play("targetyou")
+					yellAdrenaline:Yell()
+				else
+					warnAdrenaline:Show(args.destName)
+				end
 			end
 		end
 	end
@@ -56,6 +62,7 @@ do
 	function mod:SPELL_AURA_REMOVED(args)
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
+			self:SendSync("AdrenalineOver", args.destName)
 			timerAdrenaline:Stop(args.destName)
 		end
 	end
@@ -63,6 +70,20 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Event or msg:find(L.Event) then
+		self:SendSync("PullRP")
+	end
+end
+
+function mod:OnSync(msg, targetName)
+	if not self:IsInCombat() then return end
+	if msg == "PullRP" then
 		timerCombatStart:Start()
+	elseif msg == "Breath" and self:AntiSpam(5, 1) then
+		warnBreath:Show()
+	elseif msg == "Adrenaline" and targetName and self:AntiSpam(5, targetName) then
+		warnAdrenaline:Show(targetName)
+		timerAdrenaline:Start(targetName)
+	elseif msg == "AdrenalineOver" and targetName then
+		timerAdrenaline:Stop(targetName)
 	end
 end

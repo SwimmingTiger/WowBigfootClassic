@@ -9,9 +9,8 @@ local strfind = _G.string.find
 local unpack = _G.unpack
 local min = _G.math.min
 local max = _G.math.max
+local ceil = _G.math.ceil
 local UnitExists = _G.UnitExists
-local UIFrameFadeOut = _G.UIFrameFadeOut
-local UIFrameFadeRemoveFrame = _G.UIFrameFadeRemoveFrame
 
 function addon:GetCastbarFrame(unitID)
     -- PoolManager:DebugInfo()
@@ -87,6 +86,10 @@ function addon:SetCastbarStyle(castbar, cast, db)
     castbar.Icon:SetPoint("LEFT", castbar, db.iconPositionX - db.iconSize, db.iconPositionY)
     castbar.Border:SetVertexColor(unpack(db.borderColor))
 
+    castbar.Flash:ClearAllPoints()
+    castbar.Flash:SetPoint("TOPLEFT", ceil(-db.width / 6.25), db.height-1)
+    castbar.Flash:SetPoint("BOTTOMRIGHT", ceil(db.width / 6.25), -db.height-1)
+
     if db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border-Small" or db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border" then -- default border
         castbar.Border:SetAlpha(1)
         if castbar.BorderFrame then
@@ -95,9 +98,9 @@ function addon:SetCastbarStyle(castbar, cast, db)
         end
 
         -- Update border to match castbar size
-        local width, height = castbar:GetWidth() * 1.16, castbar:GetHeight() * 1.16
+        local width, height = ceil(castbar:GetWidth() * 1.16), ceil(castbar:GetHeight() * 1.16)
         castbar.Border:ClearAllPoints()
-        castbar.Border:SetPoint("TOPLEFT", width, height)
+        castbar.Border:SetPoint("TOPLEFT", width, height+1)
         castbar.Border:SetPoint("BOTTOMRIGHT", -width, -height)
     else
         -- Using border sat by LibSharedMedia
@@ -119,13 +122,14 @@ function addon:SetLSMBorders(castbar, cast, db)
     end
 
     -- Apply backdrop if it isn't already active
-    if castbar.BorderFrame.currentTexture ~= db.castBorder then
+    if castbar.BorderFrame.currentTexture ~= db.castBorder or castbar:GetHeight() ~= castbar.BorderFrame.currentHeight then
         castbar.BorderFrame:SetBackdrop({
             edgeFile = db.castBorder,
             tile = false, tileSize = 0,
             edgeSize = castbar:GetHeight(),
         })
         castbar.BorderFrame.currentTexture = db.castBorder
+        castbar.BorderFrame.currentHeight = castbar:GetHeight()
     end
 
     castbar.Border:SetAlpha(0) -- hide default border
@@ -170,7 +174,7 @@ function addon:DisplayCastbar(castbar, unitID)
 
     if castbar.fadeInfo then
         -- need to remove frame if it's currently fading so alpha doesn't get changed after re-displaying castbar
-        UIFrameFadeRemoveFrame(castbar)
+        namespace:UIFrameFadeRemoveFrame(castbar)
         castbar.fadeInfo.finishedFunc = nil
     end
 
@@ -237,12 +241,19 @@ function addon:HideCastbar(castbar, noFadeOut)
             end
         end
 
+        castbar.Spark:SetAlpha(0)
+        castbar:SetMinMaxValues(0, 1)
         if not cast.isChanneled then
             castbar:SetStatusBarColor(0, 1, 0)
+            castbar:SetValue(1)
+        else
+            castbar:SetValue(0)
         end
     end
 
-    UIFrameFadeOut(castbar, cast and cast.isInterrupted and 1.5 or 0.2, 1, 0)
+    if castbar:GetAlpha() > 0 then
+        namespace:UIFrameFadeOut(castbar, cast and cast.isInterrupted and 1.5 or 0.2, 1, 0)
+    end
 end
 
 function addon:SkinPlayerCastbar()
@@ -287,6 +298,7 @@ function addon:SkinPlayerCastbar()
         CastingBarFrame.Flash:SetSize(db.width + 61, db.height + 51)
         CastingBarFrame.Flash:SetPoint("TOP", 0, 26)
     else
+        -- TODO: no longer works?
         CastingBarFrame.Flash:SetSize(0.01, 0.01) -- hide it using size, SetAlpha() or Hide() wont work without messing with blizz code
     end
 

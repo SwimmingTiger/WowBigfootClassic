@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Broodlord", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190903223348")
+mod:SetRevision("20191206204159")
 mod:SetCreatureID(12017)
 mod:SetEncounterID(612)
 mod:SetModelID(14308)
@@ -29,10 +29,16 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 23331 then
 		if args.spellName == BlastWave and args:IsSrcTypeHostile() then
-			warnBlastWave:Show()
+			self:SendSync("BlastWave")
+			if self:AntiSpam(5, 1) then
+				warnBlastWave:Show()
+			end
 		--elseif args.spellId == 18670 then
 		elseif args.spellName == KnockAway then
-			warnKnockAway:Show()
+			self:SendSync("KnockAway")
+			if self:AntiSpam(5, 2) then
+				warnKnockAway:Show()
+			end
 		end
 	end
 end
@@ -52,5 +58,14 @@ do
 		if args.spellName == MortalStrike and args:IsDestTypePlayer() then
 			timerMortal:Stop(args.destName)
 		end
+	end
+end
+
+function mod:OnSync(msg, targetName)
+	if not self:IsInCombat() then return end
+	if msg == "BlastWave" and self:AntiSpam(5, 1) then
+		warnBlastWave:Show()
+	elseif msg == "KnockAway" and self:AntiSpam(5, 2) then
+		warnKnockAway:Show()
 	end
 end

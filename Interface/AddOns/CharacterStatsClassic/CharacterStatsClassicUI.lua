@@ -6,6 +6,7 @@ core.UIConfig = {};
 -- Defaults
 local UISettingsGlobal = {
     shouldAddWeaponSkillToHit = false;
+    useBlizzardBlockValue = false;
 }
 
 local UISettingsCharacter = {
@@ -197,6 +198,15 @@ function UIConfig:SetupConfigInterface()
     CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetScript("OnClick", 
     function()
         UISettingsGlobal.shouldAddWeaponSkillToHit = not UISettingsGlobal.shouldAddWeaponSkillToHit;
+    end);
+
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetPoint("TOPLEFT", 20, -55);
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue.text:SetText("Use alternative Block Value calculation (Blizzard function)");
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetChecked(UISettingsGlobal.useBlizzardBlockValue);
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetScript("OnClick", 
+    function()
+        UISettingsGlobal.useBlizzardBlockValue = not UISettingsGlobal.useBlizzardBlockValue;
     end);
 end
 

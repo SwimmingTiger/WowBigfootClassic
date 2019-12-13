@@ -120,24 +120,23 @@ hooksecurefunc("UnitFrameHealthBar_Update",function(self,unit)
 	end
 end);
 
---	Replace health text with our own values (We can secure hook, but if taint doesn't get too out of hand, this should have better performance)
-function TextStatusBar_UpdateTextString(self)--	Recreate Blizzard version with our modifications
+--	Replace health text with our own values
+hooksecurefunc("TextStatusBar_UpdateTextString",function(self)
 	local initsettings=InitStatusBarsOnUse[self];
 	if initsettings then
 		SetupStatusBarText(self,unpack(initsettings));
 		InitStatusBarsOnUse[self]=nil;
+		return TextStatusBar_UpdateTextString(self);--	Rerun function as a tail call (previous line should prevent infinite loops)
 	end
 
 	local text=self.TextString; if text then
 		local unit=HealthBarUnitOverrides[self] or self.unit;
-		local val,min,max;
-
 		if AddOn.Options.ModifyHealthBarText and HookedHealthBars[self] and unit and AddOn.IsUnitMob(unit) then--	Only modify HealthBars, can run on uninitialized ones
-			min,val,max=0,AddOn.GetUnitHealth(unit);
-		else val,min,max=self:GetValue(),self:GetMinMaxValues(); end
-		TextStatusBar_UpdateTextStringWithValues(self,text,val,min,max);--	This needs to call from global to let layout addons work
+			local min,val,max=0,AddOn.GetUnitHealth(unit);
+			TextStatusBar_UpdateTextStringWithValues(self,text,val,min,max);--	This needs to call from global to let layout addons work
+		end
 	end
-end
+end);
 
 --	Event registration
 AddOn.RegisterAddOnEvent("HEALTH_UPDATE",function(_,creaturekey)
