@@ -1,13 +1,25 @@
-local addon_name, addon = ...
+--[[
+-- A compatible implementation of GetTotemInfo() API for WoW Classic 1.13.3.
+-- The code from <https://git.neuromancy.net/projects/RM/repos/rotationmaster/browse/fake.lua?until=a0a2fc3bdfb5fa8199f14d66bd22666258f67aa4&untilPath=fake.lua>
+-- and edited / fixed by SwimmingTiger.
+]]
+local MAJOR = "LibTotemInfo-1.0"
+local MINOR = 1 -- Should be manually increased
+local LibStub = _G.LibStub
 
--- Everything below this line is a workaround for CLASSIC ONLY.
-if (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then return end
+assert(LibStub, MAJOR .. " requires LibStub")
+
+local lib, oldMinor = LibStub:NewLibrary(MAJOR, MINOR)
+
+if not lib then
+	return
+end -- No upgrade needed
 
 local TotemItems = {
-    EARTH_TOTEM_SLOT = 5175,
-    FIRE_TOTEM_SLOT = 5176,
-    WATER_TOTEM_SLOT = 5177,
-    AIR_TOTEM_SLOT = 5178,
+    [EARTH_TOTEM_SLOT] = 5175,
+    [FIRE_TOTEM_SLOT] = 5176,
+    [WATER_TOTEM_SLOT] = 5177,
+    [AIR_TOTEM_SLOT] = 5178,
 }
 
 local TotemSpells = {
@@ -141,7 +153,7 @@ end
 
 local ActiveTotems = {}
 
-function addon:HandleTotemSpell(id)
+function lib.HandleTotemSpell(id)
     local totem = SpellIDToTotem[id]
     if totem then
         ActiveTotems[TotemSpells[totem].element] = {
@@ -153,7 +165,7 @@ function addon:HandleTotemSpell(id)
     end
 end
 
-function addon:HandleTotemEvent(elem)
+function lib.HandleTotemEvent(elem)
     if ActiveTotems[elem] then
         if not ActiveTotems[elem].acknowledged then
             ActiveTotems[elem].acknowledged = true
@@ -163,9 +175,47 @@ function addon:HandleTotemEvent(elem)
     end
 end
 
-function GetTotemInfo(elem)
-    return (GetItemCount(TotemItems[elem]) and true or false),
-           (ActiveTotems[elem] and GetSpellInfo(ActiveTotems[elem].spellid) or ""),
-           (ActiveTotems[elem] and ActiveTotems[elem].cast or 0),
-           (ActiveTotems[elem] and ActiveTotems[elem].duration or 0)
+function lib.UNIT_SPELLCAST_SUCCEEDED(event, unit, castguid, spellid)
+    lib.HandleTotemSpell(spellid)
+end
+
+function lib.PLAYER_TOTEM_UPDATE(event, elem)
+    lib.HandleTotemEvent(elem)
+end
+
+lib.EventFrame = CreateFrame('Frame')
+lib.EventFrame:RegisterEvent('UNIT_SPELLCAST_SUCCEEDED')
+lib.EventFrame:RegisterEvent('PLAYER_TOTEM_UPDATE')
+
+lib.EventFrame:SetScript("OnEvent", function(_, event, ...)
+    if type(lib[event]) == 'function' then
+        lib[event](event, ...)
+    end
+end)
+
+-- haveTotem, totemName, startTime, duration, icon = GetTotemInfo(1 through 4).
+-- <https://wow.gamepedia.com/API_GetTotemInfo>
+function lib.GetTotemInfo(elem)
+    local haveTotem, totemName, startTime, duration, icon = false, "", 0, 0, 0
+    if (not TotemItems[elem]) then
+        return haveTotem, totemName, startTime, duration, icon
+    end
+
+    haveTotem = (GetItemCount(TotemItems[elem]) and true or false)
+    if haveTotem and ActiveTotems[elem] then
+        totemInfo = ActiveTotems[elem]
+        startTime = totemInfo.cast
+        duration = totemInfo.duration
+
+        totemName, _, icon = GetSpellInfo(totemInfo.spellid)
+        totemName = totemName or ""
+        icon = icon or 0
+    end
+
+    return haveTotem, totemName, startTime, duration, icon
+end
+
+-- Exposing GetTotemInfo() to other addons
+if type(GetTotemInfo) ~= 'function' then
+    GetTotemInfo = lib.GetTotemInfo
 end

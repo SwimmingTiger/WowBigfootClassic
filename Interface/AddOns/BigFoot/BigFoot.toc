@@ -47,7 +47,6 @@ Util\Validation.lua
 Util\ScanQuestLog.lua
 Util\Patch.lua
 Util\Cvar.lua
-Util\GetTotemInfo.lua
 
 Config\BagManagement.lua
 Config\ActionBar.lua

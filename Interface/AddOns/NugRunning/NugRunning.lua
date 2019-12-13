@@ -423,7 +423,7 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
     SLASH_NUGRUNNING2= "/nrun"
     SlashCmdList["NUGRUNNING"] = NugRunning.SlashCmd
 
-    -- if NRunDB.totems and NugRunning.InitTotems then NugRunning:InitTotems() end
+    if NRunDB.totems and NugRunning.InitTotems then NugRunning:InitTotems() end
     NugRunning.SetupSpecialTimers()
 
 
