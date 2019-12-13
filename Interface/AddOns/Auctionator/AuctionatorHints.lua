@@ -647,6 +647,29 @@ hooksecurefunc (GameTooltip, "SetSendMailItem",
   end
 );
 
+hooksecurefunc (GameTooltip, "SetTradeSkillItem",
+  function (tip, index, reagent)
+    local link = nil;
+    local _ = nil;
+    local num = 1;
+    if reagent then
+      link = GetTradeSkillReagentItemLink(index, reagent);
+      _, _, num = GetTradeSkillReagentInfo(index, reagent);
+    else
+      link = GetTradeSkillItemLink(index);
+    end
+    Atr_ShowTipWithPricing (tip, link, num);
+  end
+);
+
+hooksecurefunc (GameTooltip, "SetCraftItem",
+  function (tip, index, reagent)
+    local link = GetCraftReagentItemLink(index, reagent);
+    local _, _, num = GetCraftReagentInfo(index, reagent);
+    Atr_ShowTipWithPricing (tip, link, num);
+  end
+);
+
 hooksecurefunc (GameTooltip, "SetHyperlink",
   function (tip, itemstring, num)
     local name, link = GetItemInfo (itemstring);

@@ -71,4 +71,13 @@ U1RegisterAddon("Auctionator", {
         callback = function() return true end,
     },
 
+    {
+        var = 'trade_skill_price',
+        text = '商业技能窗口和附魔链接中显示成本价与成品价',
+        tip = '\124cff00ff00商业技能窗口和附魔链接中显示成本价与成品价\124r',
+        default = true,
+        callback = function(cfg, v, loading)
+            _163_trade_skill_price_toggle(v);
+        end
+    },
 });

@@ -112,7 +112,8 @@ function Atr_FullScanFrameIdle()
 
   if (gAtr_FullScanState == ATR_FS_NULL) then
 
-    gDoSlowScan = IsControlKeyDown()
+    gDoSlowScan = false -- IsControlKeyDown()
+    canQuery, gCanQueryAll = CanSendAuctionQuery();
 
     if (gDoSlowScan) then
       Atr_FullScanStartButton:SetText (ZT("Slow scan"));

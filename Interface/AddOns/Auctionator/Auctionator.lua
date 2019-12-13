@@ -1934,23 +1934,41 @@ function Atr_OnAuctionUpdate (...)
     return
   end
 
-  -- if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
-    gCurrentPane = gCurrentPane or gShopPane;
-
+  if gCurrentPane then
     gCurrentPane.activeSearch:CapturePageInfo();
+    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
+      -- gCurrentPane = gCurrentPane or gShopPane;
 
-    local isDup = gCurrentPane.activeSearch:CheckForDuplicatePage ();
 
-    if (not isDup) then
+      local isDup = gCurrentPane.activeSearch:CheckForDuplicatePage ();
 
-      local done = gCurrentPane.activeSearch:AnalyzeResultsPage();
+      if (not isDup) then
 
-      if (done) then
-        gCurrentPane.activeSearch:Finish();
-        Atr_OnSearchComplete ();
+        local done = gCurrentPane.activeSearch:AnalyzeResultsPage();
+
+        if (done) then
+          gCurrentPane.activeSearch:Finish();
+          Atr_OnSearchComplete ();
+        end
       end
     end
-  -- end
+  else
+    gShopPane.activeSearch:CapturePageInfo();
+      -- gCurrentPane = gCurrentPane or gShopPane;
+
+
+      local isDup = gShopPane.activeSearch:CheckForDuplicatePage ();
+
+      if (not isDup) then
+
+        local done = gShopPane.activeSearch:AnalyzeResultsPage();
+
+        if (done) then
+          gShopPane.activeSearch:Finish();
+          -- Atr_OnSearchComplete ();
+        end
+      end
+  end
 
 end
 
@@ -2062,7 +2080,7 @@ function Atr_SetMessage (msg)
 
   Atr_HideElems (recommendElements);
 
-  if (gCurrentPane.activeSearch.searchText) then
+  if (gCurrentPane and gCurrentPane.activeSearch.searchText) then
 
     Atr_ShowItemNameAndTexture (gCurrentPane.activeSearch.searchText);
 
