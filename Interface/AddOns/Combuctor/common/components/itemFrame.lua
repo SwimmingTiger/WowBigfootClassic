@@ -135,16 +135,6 @@ function ItemFrame:Layout()
 	local columns, scale = self:LayoutTraits()
 	local size = self:GetButtonSize()
 
-	-- 老虎会游泳：阻止窗体过小时缩放物品格子
-	if scale < profile.itemScale and self.parent then
-		local height = self.oldHeight
-		if height <= self.parent:GetHeight() then
-			height = self.parent:GetHeight() + 10
-		end
-		self.parent:SetHeight(height)
-		return false
-	end
-
 	local revBags, revSlots = profile.reverseBags, profile.reverseSlots
 	local x, y = 0,0
 

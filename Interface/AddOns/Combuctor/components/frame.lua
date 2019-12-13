@@ -84,7 +84,9 @@ function Frame:RegisterSignals()
 	self:RegisterSignal('SEARCH_CHANGED', 'UpdateSearch')
 	self:RegisterFrameSignal('PLAYER_CHANGED', 'UpdateTitle')
 	self:RegisterFrameSignal('BAG_FRAME_TOGGLED', 'UpdateItems')
-	self:RegisterFrameSignal('RULES_UPDATED', 'UpdateSize')
+	-- 老虎会游泳：物品栏更新后再改变背包大小
+	--self:RegisterFrameSignal('RULES_UPDATED', 'UpdateSize')
+	self:RegisterFrameSignal('ITEM_FRAME_RESIZED', 'UpdateSize')
 	self:Update()
 end
 
@@ -92,14 +94,23 @@ end
 --[[ Frame Events ]]--
 
 function Frame:OnSizeChanged()
-	-- 老虎会游泳：阻止窗体过小时缩放物品格子
-	if self.itemFrame then
-		self.itemFrame.parent = self
-		self.itemFrame.oldHeight = self.profile.height
+	if self.posX == nil or self.posY == nil then
+		return
 	end
 
-	self.profile.width = self:GetWidth()
-	self.profile.height = self:GetHeight()
+	local buttonSize = self:GetButtonScaleSize()
+
+	if abs(self.posX) > abs(self.posY) then
+		if abs(self.posX) >= buttonSize then
+			self.profile.columns = self.profile.columns + (self.posX > 0 and 1 or -1)
+			self.posX = 0
+		end
+	elseif abs(self.posY) > abs(self.posX) then
+		if abs(self.posY) >= buttonSize then
+			self.profile.columns = self.profile.columns + (self.posY > 0 and 1 or -1)
+			self.posY = 0
+		end
+	end
 	self:UpdateItems()
 end
 
@@ -117,7 +128,8 @@ function Frame:Update()
 	self:UpdateTitle()
 	self:UpdateAppearance()
 	self:UpdateSideFilter()
-	self:UpdateSize()
+	-- 老虎会游泳：此处不触发，物品栏更新后再改变背包大小
+	--self:UpdateSize()
 end
 
 function Frame:UpdateTitle()
@@ -135,13 +147,45 @@ function Frame:UpdateSideFilter()
 	end
 end
 
-function Frame:UpdateSize()
+function Frame:GetButtonScaleSize()
+	return self.itemFrame:GetButtonSize() * (self.itemFrame.scale or self.profile.itemScale or 1)
+end
+
+function Frame:GetMinHeightAndBorder()
+	local borderTopBottom = 96
+	local borderLeftRight = self.profile.showBags and 59 or 23
+
 	local bagsHeight =  self.bagFrame:GetHeight()
 	local rulesHeight = self.sideFilter.numButtons * 50 - (self.profile.reversedTabs and 10 or 50)
-	local minHeight = max(bagsHeight, rulesHeight) + 100
+	local minHeight = max(bagsHeight, rulesHeight) + borderTopBottom
 
-	self:SetHeight(max(self:GetHeight(), minHeight))
-	self:SetMinResize(300, minHeight)
+	return minHeight, borderTopBottom, borderLeftRight
+end
+
+-- 老虎会游泳：在物品栏更新后改变背包大小
+function Frame:UpdateSize()
+	local minHeight, borderTopBottom, borderLeftRight = self:GetMinHeightAndBorder()
+
+	local buttonSize = self:GetButtonScaleSize()
+	local minWidth = buttonSize * self.itemFrame.minColumns + borderLeftRight
+	self:SetMinResize(minWidth, minHeight)
+
+	self.posX = self.posX or 0
+	self.posY = self.posY or 0
+
+	self.posX = self.posX + (self:GetWidth() - self.profile.width)
+	self.posY = self.posY + (self.profile.height - self:GetHeight())
+
+	-- 防止事件重复触发
+	local OnSizeChanged = self.OnSizeChanged
+	self.OnSizeChanged = function(self)
+		self.OnSizeChanged = OnSizeChanged
+	end
+
+	minHeight = max(minHeight, self.itemFrame.numItems / self.itemFrame.columns * buttonSize + borderTopBottom)
+	self:SetSize(max(minWidth, self.itemFrame:GetWidth() + borderLeftRight), max(minHeight, self.itemFrame:GetHeight() + borderTopBottom))
+	self.profile.width = self:GetWidth()
+	self.profile.height = self:GetHeight()
 end
 
 function Frame:UpdateItems()
