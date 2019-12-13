@@ -35,7 +35,8 @@ function NugRunningGUI.GenerateCategoryTree(self, isGlobal, category)
     for spellID, opts in pairs(NugRunningConfigMerged[category]) do
         if not NugRunningConfigMerged.spellClones[spellID] or category == "event_timers" then
             if (isGlobal and opts.global) or (not isGlobal and not opts.global) and not opts._hidden then
-                local name = (opts.name == "" or not opts.name) and (GetSpellInfo(spellID) or "Unknown") or opts.name
+                -- local name = (opts.name == "" or not opts.name) and (GetSpellInfo(spellID) or "Unknown") or opts.name
+                local name = GetSpellInfo(spellID) or opts.name or "Unknown"
                 local custom_opts = custom[category] and custom[category][spellID]
                 local status
                 local order = 5
@@ -1829,14 +1830,6 @@ local function MakeGeneralOptions()
                         get = function(info) return NugRunning.db.cooldownsEnabled end,
                         set = function(info, v) NugRunning.Commands.cooldowns() end,
                         order = 6,
-                    },
-                    totems = {
-                        name = L"Totems",
-                        type = "toggle",
-                        desc = L"Display timers for totems (or other similar summons)",
-                        get = function(info) return NugRunning.db.totems end,
-                        set = function(info, v) NugRunning.db.totems = not NugRunning.db.totems end,
-                        order = 7,
                     },
                     swapTargets = {
                         name = L"Fixed Target Group"..newFeatureIcon,
