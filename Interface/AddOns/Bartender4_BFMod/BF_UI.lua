@@ -145,10 +145,10 @@ UnitFrames.frames= {
 	-- FocusFrame,
 	-- BuffFrame,
 	MinimapCluster,
-	-- PartyMemberFrame1,
-	-- PartyMemberFrame2,
-	-- PartyMemberFrame3,
-	-- PartyMemberFrame4,
+	PartyMemberFrame1,
+	PartyMemberFrame2,
+	PartyMemberFrame3,
+	PartyMemberFrame4,
 	-- WatchFrame,
 	CastingBarFrame
 }
@@ -199,10 +199,6 @@ function UnitFrames:OnEnable()
 	if Bartender4Features and Bartender4Features.moveUintFrame then
 		table.insert(self.frames, PlayerFrame)
 		table.insert(self.frames, TargetFrame)
-		table.insert(self.frames, PartyMemberFrame1)
-		table.insert(self.frames, PartyMemberFrame2)
-		table.insert(self.frames, PartyMemberFrame3)
-		table.insert(self.frames, PartyMemberFrame4)
 	end
 
 	self.vehicle_frame = self.vehicle_frame or CreateFrame("Frame")
