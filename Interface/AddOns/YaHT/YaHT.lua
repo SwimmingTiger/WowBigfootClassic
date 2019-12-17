@@ -383,7 +383,9 @@ end
 
 local frame = CreateFrame("Frame")
 
-frame:RegisterEvent("PLAYER_LOGIN")
+-- 老虎会游泳：适应按需加载
+--frame:RegisterEvent("PLAYER_LOGIN")
+frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 frame:RegisterEvent("UNIT_SPELLCAST_INTERRUPTED")
 frame:RegisterEvent("START_AUTOREPEAT_SPELL")
@@ -391,9 +393,14 @@ frame:RegisterEvent("STOP_AUTOREPEAT_SPELL")
 frame:RegisterEvent("UNIT_RANGEDDAMAGE")
 frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 frame:SetScript("OnEvent", function(self, event, ...)
-    if( event == "PLAYER_LOGIN" ) then
-        YaHT:OnInitialize()
-        self:UnregisterEvent("PLAYER_LOGIN")
+    -- 老虎会游泳：适应按需加载
+    --if( event == "PLAYER_LOGIN" ) then
+    if( event == "ADDON_LOADED" ) then
+        if( ... == "YaHT" ) then
+            YaHT:OnInitialize()
+            --self:UnregisterEvent("PLAYER_LOGIN")
+            self:UnregisterEvent("ADDON_LOADED")
+        end
     else
         YaHT[event](YaHT, ...)
     end

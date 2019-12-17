@@ -3,10 +3,14 @@ if select(2,UnitClass("player")) ~= "HUNTER" then return end
 function YaHT:LoadDefaults()
     self.defaults = {
         profile = {
-            lock = false,
+            lock = true,
             scale = 1,
             width = 300,
             height = 5,
+            point = "BOTTOM",
+            relativePoint = "BOTTOM",
+            x = 0,
+            y = 166,
             statusbar = "YaHT Bar",
             border = "None",
             font = "Myriad Condensed Web",
