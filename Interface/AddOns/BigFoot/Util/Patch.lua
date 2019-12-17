@@ -107,6 +107,13 @@ do
 			}
 			BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_COMBUCTOR") end, 1)
 		end
+
+		-- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
+		local patchVersion = '2019-12-17-22'
+		if (type(RealMobHealth_Options) == 'table' and RealMobHealth_Options.RealMobHealthPatchVersion ~= patchVersion) then
+			RealMobHealth_Options.EnablePeerCache = false
+			RealMobHealth_Options.RealMobHealthPatchVersion = patchVersion
+		end
 	end
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
 end

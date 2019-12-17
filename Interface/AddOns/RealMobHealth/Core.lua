@@ -20,7 +20,7 @@ AddOn.API.APIVersionMajor,AddOn.API.APIVersionMinor=(function(major,minor) retur
 ----------------------------------
 --[[	Options Defaults	]]
 ----------------------------------
-AddOn.Options.EnablePeerCache=true;
+AddOn.Options.EnablePeerCache=false;
 
 --------------------------
 --[[	External Tables	]]

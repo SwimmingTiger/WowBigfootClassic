@@ -75,6 +75,11 @@ end);
 
 AddOn.SetTimerInterval(MessageThrottle,function()
 	if #MessageQueue>0 then
+		if not AddOn.Options.EnablePeerCache then
+			MessageQueue = {}
+			return
+		end
+
 		local data=table_remove(MessageQueue,1);
 		local checkfunc=ChannelChecks[data[3]];
 		if not checkfunc or checkfunc() then
