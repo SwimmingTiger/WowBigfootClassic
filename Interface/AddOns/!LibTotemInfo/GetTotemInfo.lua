@@ -1,10 +1,10 @@
 --[[
 -- A compatible implementation of GetTotemInfo() API for WoW Classic 1.13.3.
 -- The code from <https://git.neuromancy.net/projects/RM/repos/rotationmaster/browse/fake.lua?until=a0a2fc3bdfb5fa8199f14d66bd22666258f67aa4&untilPath=fake.lua>
--- and edited / fixed by SwimmingTiger.
+-- by PreZ and edited / fixed by SwimmingTiger.
 ]]
 local MAJOR = "LibTotemInfo-1.0"
-local MINOR = 1 -- Should be manually increased
+local MINOR = 10001 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -193,7 +193,7 @@ lib.EventFrame:SetScript("OnEvent", function(_, event, ...)
     end
 end)
 
--- haveTotem, totemName, startTime, duration, icon = GetTotemInfo(1 through 4).
+-- haveTotem, totemName, startTime, duration, icon = GetTotemInfo(1 through 4)
 -- <https://wow.gamepedia.com/API_GetTotemInfo>
 function lib.GetTotemInfo(elem)
     local haveTotem, totemName, startTime, duration, icon = false, "", 0, 0, 0
@@ -201,7 +201,8 @@ function lib.GetTotemInfo(elem)
         return haveTotem, totemName, startTime, duration, icon
     end
 
-    haveTotem = (GetItemCount(TotemItems[elem]) and true or false)
+    local totemItem = GetItemCount(TotemItems[elem])
+    haveTotem = (totemItem and totemItem > 0) and true or false
     if haveTotem and ActiveTotems[elem] then
         totemInfo = ActiveTotems[elem]
         startTime = totemInfo.cast
@@ -218,4 +219,23 @@ end
 -- Exposing GetTotemInfo() to other addons
 if type(GetTotemInfo) ~= 'function' then
     GetTotemInfo = lib.GetTotemInfo
+end
+
+
+-- timeLeft = GetTotemTimeLeft(1 through 4)
+-- From: <https://github.com/SwimmingTiger/LibTotemInfo/issues/2>
+-- Author: Road-block
+function lib.GetTotemTimeLeft(elem)
+    local _, _, startTime, duration = lib.GetTotemInfo(elem)
+    local now = GetTime()
+    local expiration = startTime and duration and (startTime + duration)
+    if expiration and now < expiration then
+        return expiration - now
+    end
+    return 0
+end
+
+-- Exposing GetTotemTimeLeft() to other addons
+if type(GetTotemTimeLeft) ~= 'function' then
+    GetTotemTimeLeft = lib.GetTotemTimeLeft
 end
