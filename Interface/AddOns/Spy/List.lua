@@ -51,8 +51,19 @@ function Spy:RefreshCurrentList(player, source)
 
 	if Spy.db.profile.ResizeSpy then
 		Spy:AutomaticallyResize()
-	else if not InCombatLockdown() and Spy.MainWindow:GetHeight()< 34 then 
-		Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), 34) end	 			
+--	else if not InCombatLockdown() and Spy.MainWindow:GetHeight()< 34 then 
+--		Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), 34) end 
+--	end
+	else
+		if not Spy.db.profile.InvertSpy then 		
+			if not InCombatLockdown() and Spy.MainWindow:GetHeight()< 34 then
+				Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), 34)
+			end
+		else
+			if not InCombatLockdown() and Spy.MainWindow:GetHeight()< 34 then 
+				Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetBottom(), Spy.MainWindow:GetWidth(), 34)
+			end
+		end	
 	end
 	Spy:ManageBarsDisplayed()
 end

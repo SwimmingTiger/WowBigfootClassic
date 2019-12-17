@@ -504,9 +504,6 @@ function Spy:CreateMainWindow()
 		theFrame:SetResizable(true)
 		theFrame:SetMinResize(90, 34)
 		theFrame:SetMaxResize(300, 264)
-		
-		theFrame.SaveMainWindowPosition = Spy.SaveMainWindowPosition		
-		
 		theFrame:SetScript("OnSizeChanged",
 		function(self)
 			if (self.isResizing) then
@@ -531,7 +528,6 @@ function Spy:CreateMainWindow()
 				parent:StopMovingOrSizing();
 				parent.isMoving = false;
 				Spy:SaveMainWindowPosition()
---				parent:SaveMainWindowPosition()
 			end
 		end)
 		if not Spy.db.profile.InvertSpy then
@@ -557,7 +553,6 @@ function Spy:CreateMainWindow()
 				if self:GetParent().isResizing == true then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
---					self:GetParent():SaveMainWindowPosition()						
 					Spy:RefreshCurrentList();
 					self:GetParent().isResizing = false;
 				end
@@ -586,7 +581,6 @@ function Spy:CreateMainWindow()
 				if self:GetParent().isResizing == true then
 					self:GetParent():StopMovingOrSizing();
 					Spy:SaveMainWindowPosition();
---					self:GetParent():SaveMainWindowPosition()
 					Spy:RefreshCurrentList();
 					self:GetParent().isResizing = false;
 				end
@@ -751,7 +745,6 @@ function Spy:CreateMainWindow()
 			Spy:CreateRow(i)
 		end
 
---		theFrame.SavePosition = Spy.SaveMainWindowPosition
 		Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, 34)
 		Spy:SetupMainWindowButtons()
 		Spy:ResizeMainWindow()
@@ -850,9 +843,13 @@ function Spy:AutomaticallyResize()
 	local height = 35 + (detected * (Spy.db.profile.MainWindow.RowHeight + Spy.db.profile.MainWindow.RowSpacing))
 	Spy.MainWindow.CurRows = detected
 	if not Spy.db.profile.InvertSpy then 		
-		if not InCombatLockdown() then Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), height) end
+		if not InCombatLockdown() then 
+			Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), height)
+		end
 	else
-		if not InCombatLockdown() then Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetBottom(), Spy.MainWindow:GetWidth(), height) end
+		if not InCombatLockdown() then 
+			Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetBottom(), Spy.MainWindow:GetWidth(), height)
+		end
 	end	
 end
 
@@ -916,9 +913,7 @@ function Spy:MainWindowPrevMode()
 end
 
 function Spy:SaveMainWindowPosition()
---	local xOfs = Spy.MainWindow:GetLeft()
---	local yOfs = Spy.MainWindow:GetTop()	
-	local xOfs, yOfs = Spy.MainWindow:GetCenter() 
+--[[local xOfs, yOfs = Spy.MainWindow:GetCenter() 
 	local efs = Spy.MainWindow:GetEffectiveScale()
 	local uis = UIParent:GetScale()
 	xOfs = xOfs * efs - GetScreenWidth() * uis / 2
@@ -927,12 +922,21 @@ function Spy:SaveMainWindowPosition()
 	Spy.db.profile.MainWindow.Position.x = xOfs / uis
 	Spy.db.profile.MainWindow.Position.y = yOfs / uis
 	Spy.db.profile.MainWindow.Position.w = Spy.MainWindow:GetWidth()
-	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()
+	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()]]
+	Spy.db.profile.MainWindow.Position.x = Spy.MainWindow:GetLeft()
+	if not Spy.db.profile.InvertSpy then 
+		Spy.db.profile.MainWindow.Position.y = Spy.MainWindow:GetTop()
+    else 
+		Spy.db.profile.MainWindow.Position.y = Spy.MainWindow:GetBottom()
+    end
+	Spy.db.profile.MainWindow.Position.w = Spy.MainWindow:GetWidth()
+	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()	
+	local h = Spy.MainWindow:GetHeight()
 end
 
 function Spy:RestoreMainWindowPosition(x, y, width, height)
-    x = x * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
-    y = y * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
+--    x = x * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
+--    y = y * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
 	Spy.MainWindow:ClearAllPoints()
 	if not Spy.db.profile.InvertSpy then 	
 		Spy.MainWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x, y)
@@ -944,8 +948,7 @@ function Spy:RestoreMainWindowPosition(x, y, width, height)
 		row:SetWidth(width -4) 
 	end
 	Spy.MainWindow:SetHeight(height)
-	Spy:SaveMainWindowPosition()
---	Spy.MainWindow:SavePosition()
+--	Spy:SaveMainWindowPosition()
 end
 
 function Spy:ShowTooltip(self, show, id)

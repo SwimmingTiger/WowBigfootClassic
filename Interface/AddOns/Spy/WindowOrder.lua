@@ -97,3 +97,9 @@ function Spy:LockWindows(lock)
 		end
 	end
 end
+
+function Spy:ClampToScreen()
+	for k, v in pairs(AllWindows) do
+		v:SetClampedToScreen(Spy.db.profile.ClampToScreen)
+	end
+end
