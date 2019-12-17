@@ -111,6 +111,8 @@ do
         tinsert(BAGS[ns.BAG_TYPE.BANK], i + NUM_BAG_SLOTS)
     end
 
+    tinsert(BAGS[ns.BAG_TYPE.BAG], KEYRING_CONTAINER)
+
     for bagType, v in pairs(BAGS) do
         for _, bagId in pairs(v) do
             BAG_SETS[bagId] = bagType
@@ -144,6 +146,9 @@ function ns.GetItemFamily(itemId)
 end
 
 function ns.GetBagFamily(bag)
+    if bag == KEYRING_CONTAINER then
+        return 9
+    end
     return select(2, GetContainerNumFreeSlots(bag))
 end
 
