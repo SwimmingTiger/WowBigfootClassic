@@ -498,6 +498,13 @@ function Spy:CreateMainWindow()
 		function()
 			Spy.db.profile.MainWindowVis = false
 		end)
+
+		-- 老虎会游泳：修复在未启用Spy时依然弹出框体的问题
+		local oriShow = Spy.MainWindow.Show
+		Spy.MainWindow.Show = function(...)
+			if not Spy.db.profile.Enabled then return end
+			oriShow(...)
+		end
 	
 		local theFrame = Spy.MainWindow
 	
