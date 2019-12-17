@@ -75,7 +75,7 @@ do
 		frame:UnregisterEvent("PLAYER_LOGIN")
 
 		local patchVersion = '2019-09-05-04'
-		if (BF_Frames_Config['UtilsPatchVersion'] ~= patchVersion) then
+		if (BF_Frames_Config.UtilsPatchVersion ~= patchVersion) then
 
 			SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
 			SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
@@ -85,10 +85,11 @@ do
 			SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
 			SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
 
-			BF_Frames_Config['UtilsPatchVersion'] = patchVersion
+			BF_Frames_Config.UtilsPatchVersion = patchVersion
 			print("大脚插件个人整合包：初始化完成")
 		end
 
+		-- 重置背包插件以防出错
 		local patchVersion = '2019-12-12-13'
 		if (type(Combuctor_Sets) == 'table' and Combuctor_Sets.CombuctorPatchVersion ~= patchVersion) then
 			Combuctor_Sets = {
@@ -109,10 +110,10 @@ do
 		end
 
 		-- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
-		local patchVersion = '2019-12-17-22'
-		if (type(RealMobHealth_Options) == 'table' and RealMobHealth_Options.RealMobHealthPatchVersion ~= patchVersion) then
+		local patchVersion = '2019-12-17-23'
+		if (type(RealMobHealth_Options) == 'table' and BF_Frames_Config.RealMobHealthPatchVersion ~= patchVersion) then
 			RealMobHealth_Options.EnablePeerCache = false
-			RealMobHealth_Options.RealMobHealthPatchVersion = patchVersion
+			BF_Frames_Config.RealMobHealthPatchVersion = patchVersion
 		end
 	end
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
