@@ -1,4 +1,14 @@
-﻿
+﻿-- 使用 "ThreatClassic-1.0" 库提供的仇恨接口
+local ThreatLib = LibStub("ThreatClassic-1.0", true)
+
+local UnitThreatSituation = function (...)
+    return ThreatLib:UnitThreatSituation (...)
+end
+
+local UnitDetailedThreatSituation = function (...)
+    return ThreatLib:UnitDetailedThreatSituation (...)
+end
+
 -- provisional
 UnitGroupRolesAssigned = UnitGroupRolesAssigned or function() return "" end
 
@@ -1139,17 +1149,18 @@ function RaidAlerter_SET_FUNC_GTT_cpustop()
 end
 
 function RaidAlerter_SET_FUNC_ResetRAM(arg)
-	local OldRAM = gcinfo();
+	-- 老虎会游泳：禁用GC，避免卡顿
+	--local OldRAM = gcinfo();
 	RaidAlerter_ClearTimerDatas();
 	if arg=="reset" then
-		collectgarbage("collect");
-		RaidAlerter.AddMsg(string.format(RAL_TEXT_FUNC_46, RAL.ToRed(OldRAM-gcinfo())));
+		--collectgarbage("collect");
+		--RaidAlerter.AddMsg(string.format(RAL_TEXT_FUNC_46, RAL.ToRed(OldRAM-gcinfo())));
 	else
 --		UpdateAddOnMemoryUsage();
 		RaidAlerter_Check_RAM_CPU();
 		if GetAddOnMemoryUsage("RaidAlerter")>arg then
-			collectgarbage("collect");
-			RaidAlerter.AddMsg(string.format(RAL_TEXT_FUNC_46, RAL.ToRed(OldRAM-gcinfo())));
+			--collectgarbage("collect");
+			--RaidAlerter.AddMsg(string.format(RAL_TEXT_FUNC_46, RAL.ToRed(OldRAM-gcinfo())));
 		end
 	end
 end
@@ -4025,17 +4036,17 @@ function RaidAlerter_THREAT_UPDATE(unit)
 				local MYTARstate = 0;
 				local MYTARthreatValue = 0;
 				if UnitExists("target") then
-					-- _,MYTARstate,_,_,MYTARthreatValue = UnitDetailedThreatSituation("player", "target");
+					_,MYTARstate,_,_,MYTARthreatValue = UnitDetailedThreatSituation("player", "target");
 					if MYTARstate == nil then MYTARstate = 0;end
 					if MYTARthreatValue == nil then MYTARthreatValue = 0;end
 				end
 				if (state >= 2) and (MyLastThreatState < 2) then		--OT
 					RAL_THREAT_Info:AddMessage(RAL_TEXT_THREAT_INFO_01, 1, 0.1, 0.1);
---					if (MYTARstate >= 2) and (MYTARthreatValue > 50000) then
+					if (MYTARstate >= 2) and (MYTARthreatValue > 50000) then
 						if not ImTANK then
 							RAL.SOUND(1);
 						end
---					end
+					end
 					MyLastThreatState = 2;
 				elseif (state == 1) and (MyLastThreatState < 1) then		--高仇恨：快OT了（>100%）
 					RAL_THREAT_Info:AddMessage(RAL_TEXT_THREAT_INFO_04, 1, 0.1, 1);
@@ -4121,7 +4132,7 @@ function RaidAlerter_MemberThreatCheck(unit)
 				local Bossname = UnitName(unit);
 				if UnitInRaid("player") then
 					for i=1, GetNumGroupMembers() do
-						-- _,state,_,_,threatValue = UnitDetailedThreatSituation("raid"..i, unit);
+						_,state,_,_,threatValue = UnitDetailedThreatSituation("raid"..i, unit);
 						if (state ~= nil) and (threatValue ~= nil) then
 							if (state == 1) and (threatValue > 400000) then
 								if not RaidAlerter_TestIsMtList("raid"..i) then
@@ -4141,7 +4152,7 @@ function RaidAlerter_MemberThreatCheck(unit)
 						else
 							punit = "party"..i;
 						end
-						-- _,state,_,_,threatValue = UnitDetailedThreatSituation(punit, unit);
+						_,state,_,_,threatValue = UnitDetailedThreatSituation(punit, unit);
 						if (state ~= nil) and (threatValue ~= nil) then
 							if (state == 1) and (threatValue > 200000) then
 								if not RaidAlerter_TestIsMtList(punit) then
