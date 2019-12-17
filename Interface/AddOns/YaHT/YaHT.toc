@@ -1,4 +1,4 @@
-## Interface: 11302
+## Interface: 11303
 ## Title: YaHT
 ## Title-zhCN: YaHT 另一个猎人计时器
 ## Notes: Yet another Hunter Timer.
