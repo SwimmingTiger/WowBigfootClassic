@@ -115,6 +115,13 @@ do
 			RealMobHealth_Options.EnablePeerCache = false
 			BF_Frames_Config.RealMobHealthPatchVersion = patchVersion
 		end
+
+		-- 防止背包内物品意外保存到银行
+		local patchVersion = '2019-12-18-02'
+		if (TDPack2Command and TDPack2Command.db and TDPack2Command.db.profile and TDPack2Command.db.profile.TDPack2PatchVersion ~= patchVersion) then
+			TDPack2Command.db.profile.saving = false
+			TDPack2Command.db.profile.TDPack2PatchVersion = patchVersion
+		end
 	end
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
 end
