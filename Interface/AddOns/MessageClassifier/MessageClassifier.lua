@@ -21,6 +21,12 @@ end
 
 function MessageClassifier.chatFilter(frame, event, msg, authorFullName, unknown1, channelTitle, author, unknown2, unknown3, channelID, channelName, unknown5, index, playerGUID, ...)
     if not playerGUID then return false end
+
+    if event ~= "CHAT_MSG_CHANNEL" then
+        channelID = event:gsub('^CHAT_MSG_', '')
+        channelName = _G[event] or L[event] or event
+    end
+
     local guid = playerGUID..'-'..msg:len()..'-'..StringHash(msg)
     if messageFrameGUIDs[frame] == nil then
         messageFrameGUIDs[frame] = {}
@@ -59,7 +65,7 @@ function MessageClassifier.Enable()
     if not MessageClassifier.enabled then
         ChatFrame_AddMessageEventFilter("CHAT_MSG_CHANNEL", MessageClassifier.chatFilter)
         --ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", MessageClassifier.chatFilter)
-        --ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", MessageClassifier.chatFilter)
+        ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", MessageClassifier.chatFilter)
         --ChatFrame_AddMessageEventFilter("CHAT_MSG_WHISPER", MessageClassifier.chatFilter)
         print(L["ENABLE_TIPS"])
         MessageClassifier.enabled = true
@@ -70,7 +76,7 @@ function MessageClassifier.Disable()
     if MessageClassifier.enabled then
         ChatFrame_RemoveMessageEventFilter("CHAT_MSG_CHANNEL", MessageClassifier.chatFilter)
         --ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SAY", MessageClassifier.chatFilter)
-        --ChatFrame_RemoveMessageEventFilter("CHAT_MSG_YELL", MessageClassifier.chatFilter)
+        ChatFrame_RemoveMessageEventFilter("CHAT_MSG_YELL", MessageClassifier.chatFilter)
         --ChatFrame_RemoveMessageEventFilter("CHAT_MSG_WHISPER", MessageClassifier.chatFilter)
         print(L["DISABLE_TIPS"])
         MessageClassifier.enabled = false

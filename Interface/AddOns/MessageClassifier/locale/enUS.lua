@@ -95,6 +95,7 @@ L["CHAN_SHORTNAME_TRADE"] = true
 L["CHAN_SHORTNAME_LOCALDEFENSE"] = true
 L["CHAN_SHORTNAME_LFGCHANNEL"] = true
 L["CHAN_SHORTNAME_WORLDDEFENSE"] = true
+L["CHAT_MSG_YELL"] = _G["CHAT_MSG_YELL"]
 
 -------------------------------------------------------------
 

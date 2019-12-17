@@ -96,6 +96,7 @@ L["CHAN_SHORTNAME_TRADE"]="交"
 L["CHAN_SHORTNAME_LOCALDEFENSE"]="本"
 L["CHAN_SHORTNAME_LFGCHANNEL"]="寻"
 L["CHAN_SHORTNAME_WORLDDEFENSE"]="世"
+L["CHAT_MSG_YELL"]="喊"
 
 -------------------------------------------------------------
 

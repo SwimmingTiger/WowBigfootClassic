@@ -121,7 +121,8 @@ local CHANNEL_NAME_REPLACE = {
     [L["CHAN_FULLNAME_LFGCHANNEL"]] = L["CHAN_SHORTNAME_LFGCHANNEL"],
     [L["CHAN_FULLNAME_BIGFOOTCHANNEL"]] = L["CHAN_SHORTNAME_BIGFOOT"],
     [L["CHAN_FULLNAME_WHISPERTO"]] = L["CHAN_SHORTNAME_WHISPERTO"],
-    [L["CHAN_FULLNAME_WHISPERFROM"]] = L["CHAN_SHORTNAME_WHISPERFROM"]
+    [L["CHAN_FULLNAME_WHISPERFROM"]] = L["CHAN_SHORTNAME_WHISPERFROM"],
+    [_G["CHAT_MSG_YELL"]] = L["CHAT_MSG_YELL"],
 }
 
 local function shortChannelName(channel)
@@ -134,8 +135,19 @@ local function shortChannelName(channel)
     return channel
 end
 
+local function hexColor(info)
+    return format('ff%02x%02x%02x', info.r*255, info.g*255, info.b*255)
+end
+
+local function getChannelColor(channelID)
+    if type(channelID) == 'number' then
+        channelID = 'CHANNEL'..channelID
+    end
+    return ChatTypeInfo[channelID] or {r=0xff/255, g=0xc0/255, b=0xc0/255}
+end
+
 local function formatMsg(msg)
-    local text = string.format("|cffffa900%s|r |Hchannel:channel:%d|h[%s]|h [|Hplayer:%s:-1|h%s|h] %s", date("%H:%M:%S", msg.updateTime), msg.channelID, shortChannelName(msg.channel), msg.authorFullName, msg.author, msg.content)
+    local text = string.format("|cffffa900%s|r |Hchannel:channel:%s|h[%s]|h [|Hplayer:%s:-1|h%s|h] %s", date("%H:%M:%S", msg.updateTime), msg.channelID, shortChannelName(msg.channel), msg.authorFullName, msg.author, msg.content)
     if msg.count > 1 then
         text = getColoredCount(msg.count)..text
     end
@@ -422,7 +434,8 @@ function MessageClassifierBrowser:updateMsgView()
         local msg = allMessages[i].msg
         local content = formatMsg(msg)
         if self.searchText == "" or content:lower():find(self.searchText:lower()) ~= nil then
-            self.msgView:AddMessage(content, 0xff / 255, 0xc0 / 255, 0xc0 / 255)
+            local color = getChannelColor(msg.channelID)
+            self.msgView:AddMessage(content, color.r, color.g, color.b)
         end
     end
     self.msgScroll:updateScroll()
@@ -519,7 +532,21 @@ function MessageClassifierBrowser:CreateView()
             self.showItemTooltip = false
         end
     end
-    self.msgView:SetScript("OnHyperlinkClick", ChatFrame_OnHyperlinkShow)
+    local function sendMessageTo(sendType)
+        local editbox = ChatEdit_ChooseBoxForSend(SELECTED_CHAT_FRAME)
+        ChatEdit_ActivateChat(editbox)
+        editbox:SetText("/"..sendType.." ")
+    end
+    local linkHandle = {
+        ['channel:channel:YELL'] = function()
+            sendMessageTo('yell')
+        end
+    }
+    function self.msgView:clickHyperlink(link, ...)
+        local func = linkHandle[link] or ChatFrame_OnHyperlinkShow
+        func(self, link, ...)
+    end
+    self.msgView:SetScript("OnHyperlinkClick", self.msgView.clickHyperlink)
     self.msgView:SetScript("OnHyperlinkEnter", self.msgView.showHyperlink)
     self.msgView:SetScript("OnHyperlinkLeave", self.msgView.hideHyperlink)
 
