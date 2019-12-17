@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+    <Script file="SpyStats.lua" />
+    <Frame name="StatsDropDownMenu" inherits="UIDropDownMenuTemplate" hidden="true">
+        <Size />
+    </Frame>	
+    <FontString name="SpyStatsStringTemplate" font="GameFontHighlightSmall" justifyH="LEFT" nonspacewrap="false" virtual="true" />	
+    <FontString name="SpyStatsNameTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="TOPLEFT" />
+        </Anchors>
+        <Size x="100" y="15" />
+    </FontString>
+    <FontString name="SpyStatsLevelTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentName" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="33" y="15" />
+    </FontString>
+    <FontString name="SpyStatsClassTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentLevel" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="54" y="15" />		
+    </FontString>
+    <FontString name="SpyStatsGuildTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentClass" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="150" y="15" />
+    </FontString>
+    <FontString name="SpyStatsListTemplate" inherits="SpyStatsStringTemplate" justifyH="CENTER" virtual="true">	
+        <Anchors>
+            <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="30" y="15" />
+    </FontString> 
+    <FontString name="SpyStatsZoneTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+        <Anchor point="LEFT" relativeTo="$parentGuild" relativePoint="RIGHT"> 
+                <Offset x="350" y="0" />  
+            </Anchor>
+        </Anchors>
+        <Size x="250" y="15" />
+    </FontString>
+    <FontString name="SpyStatsTimeTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+        <Anchors>
+        <Anchor point="RIGHT" relativeTo="$parentList" relativePoint="LEFT">  
+                <Offset x="-8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="40" y="15" />
+    </FontString>	
+    <FontString name="SpyStatsWinsTemplate" inherits="SpyStatsStringTemplate" justifyH="CENTER" virtual="true">	
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentGuild" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="32" y="15" />
+    </FontString>
+    <FontString name="SpyStatsLosesTemplate" inherits="SpyStatsStringTemplate" justifyH="CENTER" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentWins" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="32" y="15" />
+    </FontString>
+    <FontString name="SpyStatsReasonTemplate" inherits="SpyStatsStringTemplate" virtual="true">
+	<Anchors>
+			<Anchor point="LEFT" relativeTo="$parentLoses" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="250" y="15" />
+    </FontString>
+   <Button name="SpyStatsPlayerHistoryButtonTemplate" virtual="true">
+        <Size x="0" y="15" />
+        <Frames>
+            <Frame setAllPoints="true">
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString name="$parentName" inherits="SpyStatsNameTemplate"></FontString>
+                        <FontString name="$parentLevel" inherits="SpyStatsLevelTemplate"></FontString>
+                        <FontString name="$parentClass" inherits="SpyStatsClassTemplate"></FontString>
+                        <FontString name="$parentGuild" inherits="SpyStatsGuildTemplate"></FontString>
+                        <FontString name="$parentWins" inherits="SpyStatsWinsTemplate"></FontString>
+                        <FontString name="$parentLoses" inherits="SpyStatsLosesTemplate"></FontString>
+                        <FontString name="$parentReason" inherits="SpyStatsReasonTemplate"></FontString>
+                        <FontString name="$parentZone" inherits="SpyStatsZoneTemplate"></FontString>	
+                        <FontString name="$parentList" inherits="SpyStatsListTemplate"></FontString>
+                        <FontString name="$parentTime" inherits="SpyStatsTimeTemplate"></FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnEnter>
+				Spy:ShowTooltip(self, true)	
+            </OnEnter>
+            <OnLeave>
+				Spy:ShowTooltip(self, false)
+            </OnLeave>
+            <OnMouseUp>
+<!--                Spy:ShowUnitDropDown(self, button)  DO NOT DELETE THIS  -->
+				Spy:ShowStatsDropDown(self, button)
+            </OnMouseUp>
+        </Scripts>
+        <HighlightTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" />
+    </Button> 
+    <Button name="SpyStatsSortButtonTemplate" virtual="true">
+        <ButtonText>
+            <Anchors>
+                <Anchor point="LEFT">
+                    <Offset>
+                        <AbsDimension x="0" y="0" />
+                    </Offset>
+                </Anchor>
+            </Anchors>
+        </ButtonText>
+        <NormalFont style="GameFontNormal" />		
+        <Scripts>
+            <OnClick>
+                SpyStats:SetSortColumn(self:GetName())				
+            </OnClick>
+        </Scripts>
+    </Button>
+    <Button name="SpyStatsPlayersNameSortTemplate" inherits="SpyStatsSortButtonTemplate" text="NAME" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" />
+        </Anchors>
+        <Size x="100" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsPlayersLevelSortTemplate" inherits="SpyStatsSortButtonTemplate" text="LEVEL_ABBR" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersNameSort" relativePoint="RIGHT">
+                <Offset x="10" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="33" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsPlayersClassSortTemplate" inherits="SpyStatsSortButtonTemplate" text="CLASS" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersLevelSort" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="54" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsPlayersGuildSortTemplate" inherits="SpyStatsSortButtonTemplate" text="GUILD" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersClassSort" relativePoint="RIGHT">
+                <Offset x="8" y="0" />  
+            </Anchor>
+        </Anchors>
+        <Size x="150" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsPlayersWinsSortTemplate" inherits="SpyStatsSortButtonTemplate" text="Won" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersGuildSort" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="30" y="15"></Size>
+        <ButtonText justifyH="CENTER" />
+    </Button>
+    <Button name="SpyStatsPlayersLosesSortTemplate" inherits="SpyStatsSortButtonTemplate" text="Lost" virtual="true">
+        <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersWinsSort" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="30" y="15"></Size>
+        <ButtonText justifyH="CENTER" />
+    </Button>
+    <Button name="SpyStatsPlayersReasonSortTemplate" inherits="SpyStatsSortButtonTemplate" text="Reason" virtual="true"> --> 
+	<Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsPlayersLosesSort" relativePoint="RIGHT">
+                <Offset x="8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="250" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsZoneSortTemplate" inherits="SpyStatsSortButtonTemplate" text="ZONE" virtual="true">
+        <Anchors>
+        <Anchor point="LEFT" relativeTo="SpyStatsPlayersGuildSort" relativePoint="RIGHT"> 
+                <Offset x="350" y="0" />  				
+            </Anchor>
+        </Anchors>
+        <Size x="250" y="15"></Size>		
+    </Button>
+    <Button name="SpyStatsListSortTemplate" inherits="SpyStatsSortButtonTemplate" text="L_LIST" virtual="true">
+	<Anchors>
+            <Anchor point="RIGHT">
+                <Offset x="-15" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="8" y="15"></Size>
+    </Button>
+    <Button name="SpyStatsTimeSortTemplate" inherits="SpyStatsSortButtonTemplate" text="L_TIME" virtual="true">
+        <Anchors>
+            <Anchor point="RIGHT" relativeTo="SpyStatsListSort" relativePoint="LEFT">  
+                <Offset x="-8" y="0" />
+            </Anchor>
+        </Anchors>
+        <Size x="40" y="15"></Size>
+    </Button>	
+    <Frame name="SpyStatsFrame" parent="UIParent" frameStrata="MEDIUM" movable="true" toplevel="true" enableMouse="true" hidden="true">
+        <Size x="1100" y="610" />		
+        <Anchors>
+            <Anchor point="CENTER" />
+        </Anchors>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">		
+            <EdgeSize>
+                <AbsValue val="32"></AbsValue>				
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="32" />
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="4" right="4" top="4" bottom="4" />
+            </BackgroundInsets>
+        </Backdrop>
+        <Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parent_Header" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="300" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="14"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parent_Title" font="GameFontNormal" Text="L_STATS">	
+					<Anchors>
+						<Anchor point="TOP">
+						</Anchor>
+					</Anchors>	
+                    <Color r="1" g="1" b="0" a="1" />					
+				</FontString>
+			</Layer>		
+            <Layer>
+                <FontString name="$parentFilterText" font="GameFontNormal" text="L_FILTER">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT">
+                            <Offset x="14" y="16" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1" />
+                </FontString>
+                <FontString name="$parentShowOnlyText" font="GameFontNormal" text="L_SHOWONLY">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT">
+                            <Offset x="260" y="16" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1" />
+                </FontString>
+                <FontString name="SpyStatsHonorKillsText" font="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT">
+                            <Offset x="640" y="16" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1" />
+                </FontString>
+                <FontString name="SpyStatsPvPDeathsText" font="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT">
+                            <Offset x="800" y="16" />
+                        </Anchor>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1" />
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame name="$parentIcon">
+                <Size x="80" y="80" />
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset x="-28" y="28" />
+                    </Anchor>
+                </Anchors>
+<!--               <Layers>
+                    <Layer level="OVERLAY">
+						<Texture file="Interface\Addons\Spy\Textures\IconBorder.tga">
+						</Texture>
+					</Layer>
+                    <Layer level="ARTWORK">
+                       <Texture file="Interface\Icons\Spell_hunter_focusingshot"> 
+                            <Size x="40" y="40" />
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset x="20" y="-19" />
+                                </Anchor>
+                            </Anchors>
+                            <TexCoords left=".1" right=".9" top=".1" bottom=".9" />
+                        </Texture>
+                    </Layer>
+                </Layers> -->
+            </Frame>
+            <Button name="$parentTopCloseButton" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset x="-8" y="-6" />						
+                    </Anchor>					
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                       self:SetFrameLevel(SpyStatsFrame:GetFrameLevel() + 1) 
+                    </OnLoad>
+                    <OnClick>
+                        SpyStats:Hide()
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Frame name="SpyStatsTabFrame">
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset x="12" y="-12" />						
+                    </Anchor>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset x="-12" y="34" />
+                    </Anchor>
+                </Anchors>
+                <Frames>
+                    <Button name="$parentTab1" inherits="OptionsFrameTabButtonTemplate" hidden="true" text="TUTORIAL_TITLE19"> 
+					<!-- button is hidden until more tabs are added -->
+                        <Anchors>
+                            <Anchor point="TOPLEFT">
+                                <Offset x="22" y="2" />
+                            </Anchor>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                PanelTemplates_TabResize(self, 0)
+                            </OnLoad>
+                            <OnClick>
+                                PanelTemplates_SetTab(self:GetParent(), 1)
+								SpyStats:UpdateView()
+                                SpyStats:Recalulate()
+<!--                                PlaySound("igCharacterInfoTab") Error in v7.3 -->
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                    <Button name="SpyStatsRefreshButton" inherits="OptionsButtonTemplate" text="REFRESH">
+                        <Anchors>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset x="-6" y="-23" />
+							</Anchor>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                self.timer = 0
+                            </OnLoad>
+                            <OnUpdate>
+                                SpyStats:OnRefreshButtonUpdate(self, elapsed)
+                            </OnUpdate>
+                            <OnClick>
+<!--                                PlaySound("igMainMenuOptionCheckBoxOn") Error in v7.3-->
+                                SpyStats:Recalulate()
+                            </OnClick>
+                        </Scripts>
+                    </Button> 
+                    <Frame name="$parentTabContentFrame">
+                        <Anchors>
+                            <Anchor point="TOPLEFT">
+                                <Offset x="0" y="-22" />
+                            </Anchor>
+                            <Anchor point="BOTTOMRIGHT"></Anchor>
+                        </Anchors>
+                        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+                            <EdgeSize>
+                                <AbsValue val="16"></AbsValue>
+                            </EdgeSize>
+                            <TileSize>
+                                <AbsValue val="32" />
+                            </TileSize>
+                            <BackgroundInsets>
+                                <AbsInset left="4" right="4" top="4" bottom="4" />
+                            </BackgroundInsets>
+                        </Backdrop>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetBackdropColor(0,0,0,.65)
+                            </OnLoad>
+                        </Scripts>
+                        <Frames>
+                            <ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT">
+                                        <Offset x="0" y="-24" />								
+                                    </Anchor>
+                                    <Anchor point="BOTTOMRIGHT">
+                                        <Offset x="-30" y="10" />
+                                    </Anchor>
+                                </Anchors>
+                                <Scripts>
+                                    <OnVerticalScroll>
+                                        FauxScrollFrame_OnVerticalScroll(self, offset, 15, SpyStats.Refresh)
+                                    </OnVerticalScroll>
+                                </Scripts>
+                            </ScrollFrame>
+                            <Frame name="SpyStatsPlayerHistoryFrame" setAllPoints="true">
+                                <Frames>
+                                    <Frame name="$parentHeaderFrame">
+                                        <Size x="0" y="18" />
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT">
+                                                <Offset x="8" y="-8" />
+                                            </Anchor>
+                                            <Anchor point="TOPRIGHT">
+                                                <Offset x="-38" y="-8" />
+                                            </Anchor>
+                                        </Anchors>
+                                        <Frames>
+                                            <Button name="SpyStatsPlayersNameSort" inherits="SpyStatsPlayersNameSortTemplate"/>
+                                            <Button name="SpyStatsPlayersLevelSort" inherits="SpyStatsPlayersLevelSortTemplate"/>
+                                            <Button name="SpyStatsPlayersClassSort" inherits="SpyStatsPlayersClassSortTemplate"/>
+                                            <Button name="SpyStatsPlayersGuildSort" inherits="SpyStatsPlayersGuildSortTemplate"/>
+                                            <Button name="SpyStatsPlayersWinsSort" inherits="SpyStatsPlayersWinsSortTemplate"/>
+                                            <Button name="SpyStatsPlayersLosesSort" inherits="SpyStatsPlayersLosesSortTemplate"/>
+                                            <Button name="SpyStatsPlayersReasonSort" inherits="SpyStatsPlayersReasonSortTemplate"/>
+                                            <Button name="SpyStatsListSort" inherits="SpyStatsListSortTemplate"/>								
+                                            <Button name="SpyStatsTimeSort" inherits="SpyStatsTimeSortTemplate"/>											
+                                            <Button name="SpyStatsZoneSort" inherits="SpyStatsZoneSortTemplate"/> 
+                                        </Frames>
+                                    </Frame>
+                                    <Frame name="$parentListFrame">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT">
+                                                <Offset x="0" y="-24" />
+                                            </Anchor>
+                                            <Anchor point="BOTTOMRIGHT">
+                                                <Offset x="-30" y="10" />
+                                            </Anchor>
+                                        </Anchors>
+                                        <Frames>
+                                            <Button name="$parentLine1" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT">
+                                                        <Offset x="8" y="0" />
+                                                    </Anchor>
+                                                    <Anchor point="TOPRIGHT">
+                                                        <Offset x="-8" y="0" />
+                                                    </Anchor>
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine2" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine1" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine3" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine2" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine4" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine3" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine5" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine4" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine6" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine5" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine7" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine6" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine8" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine7" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine9" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine8" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine10" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine9" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine11" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine10" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine12" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine11" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine13" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine12" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine14" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine13" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine15" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine14" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine16" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine15" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine17" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine16" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine18" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine17" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine19" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine18" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine20" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine19" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine21" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine20" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine22" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine21" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine23" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine22" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine24" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine23" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine25" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine24" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine26" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine25" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine27" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine26" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine28" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine27" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine29" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine28" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine30" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine29" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine31" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine30" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine32" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine31" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parentLine33" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine32" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>	
+                                            <Button name="$parentLine34" inherits="SpyStatsPlayerHistoryButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parentLine33" relativePoint="BOTTOMLEFT" />
+                                                    <Anchor point="RIGHT" relativeTo="$parentLine1" />
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+                        </Frames>
+                        <Scripts>
+                            <OnLoad>
+                                self:SetBackdropColor(0,0,0,.5)
+                                self:SetFrameLevel(self:GetParent():GetFrameLevel() - 1)
+                            </OnLoad>
+                        </Scripts>
+                    </Frame>
+                </Frames>
+                <Scripts>
+                    <OnLoad>
+                        PanelTemplates_SetNumTabs(self, 1) 
+                        PanelTemplates_SetTab(self, 1)
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+            <EditBox name="SpyStatsFilterBox" autoFocus="false" multiLine="false">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentFilterText" relativePoint="RIGHT" />
+                </Anchors>
+                <Size>
+                    <AbsDimension x="200" y="26" />
+                </Size>
+                <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+                    <EdgeSize>
+                        <AbsValue val="16"></AbsValue>
+                    </EdgeSize>
+                    <TileSize>
+                        <AbsValue val="32" />
+                    </TileSize>
+                    <BackgroundInsets>
+                        <AbsInset left="4" right="4" top="4" bottom="4" />
+                    </BackgroundInsets>
+                </Backdrop>
+                <Scripts>
+                    <OnLoad>
+                        self:SetBackdropColor(0,0,0,.65)
+                    </OnLoad>
+                    <OnEnterPressed>
+                        self:ClearFocus()
+                    </OnEnterPressed>
+                    <OnEscapePressed>
+                        self:ClearFocus()
+                    </OnEscapePressed>
+                    <OnTextChanged>
+                        SpyStats:Filter()
+                    </OnTextChanged>
+                </Scripts>
+                <FontString inherits="GameFontHighlight">
+                    <Size />
+                </FontString>
+                <TextInsets left="6" right="6" top="6" bottom="6" />
+            </EditBox>
+            <CheckButton name="SpyStatsKosCheckbox" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24" />
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentShowOnlyText" relativePoint="RIGHT">
+                        <Offset x="4" y="-2" />
+                    </Anchor>
+                </Anchors>
+                <HitRectInsets>
+                    <AbsInset left="0" right="0" top="0" bottom="0" />
+                </HitRectInsets>
+                <Scripts>
+                    <OnClick>
+<!--                        PlaySound("igMainMenuOptionCheckBoxOn") Error in v7.3 -->
+                        SpyStats:Filter()
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            <CheckButton name="SpyStatsWinsLosesCheckbox" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24" />
+                </Size>
+                <Anchors>
+            <Anchor point="LEFT" relativeTo="SpyStatsKosCheckboxText" relativePoint="RIGHT"> 				
+                        <Offset x="12" y="-1" />
+                    </Anchor>
+                </Anchors>
+                <HitRectInsets>
+                    <AbsInset left="0" right="0" top="0" bottom="0" />
+                </HitRectInsets>
+                <Scripts>
+                    <OnClick>
+<!--                        PlaySound("igMainMenuOptionCheckBoxOn") Error in v7.3 -->
+                        SpyStats:Filter()
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+            <CheckButton name="SpyStatsReasonCheckbox" inherits="OptionsCheckButtonTemplate">			
+                <Size>
+                    <AbsDimension x="24" y="24" />
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="SpyStatsWinsLosesCheckboxText" relativePoint="RIGHT">					
+                        <Offset x="12" y="-1" />
+                    </Anchor>
+                </Anchors>
+                <HitRectInsets>
+                    <AbsInset left="0" right="0" top="0" bottom="0" />
+                </HitRectInsets>
+                <Scripts>
+                    <OnClick>
+<!--                        PlaySound("igMainMenuOptionCheckBoxOn") Error in v7.3 -->
+                        SpyStats:Filter()
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                self:SetBackdropColor(0,0,0,.95)
+            </OnLoad>
+            <OnShow>
+<!--                PlaySound("igCharacterInfoTab") Error in v7.3 -->
+            </OnShow>
+            <OnHide>
+<!--                PlaySound("igMainMenuClose") Error in v7.3-->
+            </OnHide>
+            <OnMouseDown>
+                SpyStatsFrame:StartMoving()
+            </OnMouseDown>
+            <OnMouseUp>
+                SpyStatsFrame:StopMovingOrSizing()
+            </OnMouseUp>
+        </Scripts>
+    </Frame>
+</Ui>

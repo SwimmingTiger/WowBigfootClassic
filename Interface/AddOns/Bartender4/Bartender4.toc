@@ -5,7 +5,7 @@
 ## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
 ## Notes-zhCN: |cff00ff00Bartender4|r
 ## Notes-zhTW: |cff00ff00Bartender4|r
-## Version: 4.8.8
+## Version: 4.8.9
 ## Author: Nevcairiel
 ## X-Email: h.leppkes at gmail dot com
 ## X-Category: Action Bars
@@ -16,6 +16,7 @@
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
 
+lib\LibClassicSpellActionCount-1.0\LibClassicSpellActionCount-1.0.lua
 lib\LibKeyBound-1.0\lib.xml
 lib\LibButtonGlow-1.0\LibButtonGlow-1.0.lua
 lib\LibActionButton-1.0\LibActionButton-1.0.lua

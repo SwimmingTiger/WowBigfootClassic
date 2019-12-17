@@ -2228,7 +2228,7 @@ do	-- internal sub
 				if not s.talent or talentFrames[s.requireSpecIndex].talentSet[s.requireIndex] > 0 then
 					for i = 1, #s do
 						local v = s[i];
-						if not search or strfind(GetSpellInfo(v[2]), search) then
+						if not search or strfind(GetSpellInfo(v[2]), search) or strfind(tostring(v[2]), search) then
 							if v[1] <= level then
 								if showAll then
 									tinsert(list, v);
@@ -2300,30 +2300,30 @@ do	-- communication func
 		tinsert(emu.recv_msg, meta);
 	end
 	local _SetHyperlink = ItemRefTooltip.SetHyperlink;
+	ItemRefTooltip.SetHyperlink = function(frame, ref, ...)
+		local _, _, code, sender, GUID = strfind(ref, "^emu:(.+)#(.+)#(.+)");
+		if code then
+			local class, data, level = emu.EmuCore_Decoder(code);
+			if class and data and level then
+				local n, r =strsplit("-", sender);
+				if n and r == emu.realm then
+					sender = n;
+				end
+				local senderClass = select(2, GetPlayerInfoByGUID(GUID));
+				if senderClass then
+					local classColorTable = RAID_CLASS_COLORS[strupper(senderClass)];
+					sender = format("\124cff%.2x%.2x%.2x%s\124r", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255, sender);
+				end
+				emu.Emu_Create(nil, class, data, level, false, L.message .. sender);
+			end
+			return true;
+		else
+			return _SetHyperlink(frame, ref, ...)
+		end
+	end
 	function emu.EmuCore_Init_ADDON_MESSAGE()
 		if not RegisterAddonMessagePrefix(ADDON_PREFIX) then
 			_log_("Init", "RegisterAddonMessagePrefix", ADDON_PREFIX);
-		end
-		ItemRefTooltip.SetHyperlink = function(frame, ref, ...)
-			local _, _, code, sender, GUID = strfind(ref, "^emu:(.+)#(.+)#(.+)");
-			if code then
-				local class, data, level = emu.EmuCore_Decoder(code);
-				if class and data and level then
-					local n, r =strsplit("-", sender);
-					if n and r == emu.realm then
-						sender = n;
-					end
-					local senderClass = select(2, GetPlayerInfoByGUID(GUID));
-					if senderClass then
-						local classColorTable = RAID_CLASS_COLORS[strupper(senderClass)];
-						sender = format("\124cff%.2x%.2x%.2x%s\124r", classColorTable.r * 255, classColorTable.g * 255, classColorTable.b * 255, sender);
-					end
-					emu.Emu_Create(nil, class, data, level, false, L.message .. sender);
-				end
-				return true;
-			else
-				return _SetHyperlink(frame, ref, ...)
-			end
 		end
 	end
 	local chat_frame = {  };
@@ -2424,13 +2424,6 @@ do	-- communication func
 								local _, _, id = strfind(item, "item:([%-0-9]+)");
 								id = tonumber(id);
 								if id and id > 0 then
-									-- local _, link = GetItemInfo(id);
-									-- if link then
-									-- 	link = gsub(link, "item[%-0-9:]+", item);
-									-- 	emu.queryCache[sender][slot] = link;
-									-- else
-									-- 	_error_("emu", item, id, link);
-									-- end
 									GetItemInfo(id);
 									emu.queryCache[sender][slot] = item;
 								else
@@ -5269,11 +5262,11 @@ do	-- dev
 			meta = tonumber(meta);
 			if meta then
 				local msg = "";
-				local index = 20;
+				local index = #knownPacks - 1;
 				local magic = 2 ^ index;
 				while magic >= 1 do
 					if meta >= magic then
-						msg = msg .. " " .. (knownPacks[index + 1] or "");
+						msg = msg .. " " .. (knownPacks[index + 1] or "") .. index;
 						meta = meta - magic;
 					end
 					magic = magic / 2;

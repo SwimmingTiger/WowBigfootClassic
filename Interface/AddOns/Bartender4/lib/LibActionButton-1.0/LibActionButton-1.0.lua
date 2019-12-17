@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 75
+local MINOR_VERSION = 76
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -1530,6 +1530,18 @@ Action.GetSpellId              = function(self)
 	end
 end
 Action.GetLossOfControlCooldown = function(self) return GetActionLossOfControlCooldown(self._state_action) end
+
+-- Classic overrides for item count breakage
+if WoWClassic then
+	-- if the library is present, simply use it to override action counts
+	local LibClassicSpellActionCount = LibStub("LibClassicSpellActionCount-1.0", true)
+	if LibClassicSpellActionCount then
+		Action.GetCount = function(self) return LibClassicSpellActionCount:GetActionCount(self._state_action) end
+	else
+		-- if we don't have the library, only show count for items, like the default UI
+		Action.IsConsumableOrStackable = function(self) return IsItemAction(self._state_action) and (IsConsumableAction(self._state_action) or IsStackableAction(self._state_action)) end
+	end
+end
 
 -----------------------------------------------------------
 --- Spell Button

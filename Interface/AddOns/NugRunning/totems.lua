@@ -1,6 +1,8 @@
 -- if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 if not next(NugRunningConfig.totems) then return end
 
+local GetTotemInfo = LibStub("LibTotemInfo-1.0").GetTotemInfo
+
 NugRunning.InitTotems = function(self)
 
     local active = NugRunning.active

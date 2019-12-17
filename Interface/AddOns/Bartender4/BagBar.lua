@@ -17,13 +17,14 @@ local table_insert, table_remove = table.insert, table.remove
 
 local WoWClassic = select(4, GetBuildInfo()) < 20000
 
--- GLOBALS: UIParent, MainMenuBarBackpackButton, CharacterBag0Slot, CharacterBag1Slot, CharacterBag2Slot, CharacterBag3Slot
+-- GLOBALS: UIParent, MainMenuBarBackpackButton, CharacterBag0Slot, CharacterBag1Slot, CharacterBag2Slot, CharacterBag3Slot, KeyRingButton
 
 -- create prototype information
 local BagBar = setmetatable({}, {__index = ButtonBar})
 
 local defaults = { profile = Bartender4:Merge({
 	enabled = true,
+	keyring = true,
 	onebag = false,
 	visibility = {
 		possess = false,
@@ -83,18 +84,22 @@ function BagBar:FeedButtons()
 			btn:Hide()
 			btn:SetParent(UIParent)
 			btn:ClearSetPoint("CENTER")
-			if btn.MasqueButtonData then
-				local group = self.MasqueGroup
-				group:RemoveButton(btn)
+
+			if not WoWClassic or btn ~= KeyRingButton then
+				if btn.MasqueButtonData then
+					local group = self.MasqueGroup
+					group:RemoveButton(btn)
+				end
 			end
 		end
 	else
 		self.buttons = {}
 	end
 
-	-- 老虎会游泳：修复钥匙链无法显示
-	table_insert(self.buttons, KeyRingButton)
-	count = count + 1
+	if WoWClassic and self.config.keyring then
+		table_insert(self.buttons, KeyRingButton)
+		count = count + 1
+	end
 
 	if not self.config.onebag then
 		table_insert(self.buttons, CharacterBag3Slot)
@@ -109,20 +114,19 @@ function BagBar:FeedButtons()
 	for i,v in pairs(self.buttons) do
 		v:SetParent(self)
 		v:Show()
-		-- 老虎会游泳：修复钥匙链背景消失
-		if v ~= KeyRingButton then
+		if not WoWClassic or v ~= KeyRingButton then
 			v:SetNormalTexture("")
-		end
 
-		if Masque then
-			local group = self.MasqueGroup
-			if not v.MasqueButtonData then
-				v.MasqueButtonData = {
-					Button = v,
-					Icon = _G[v:GetName() .. "IconTexture"],
-				}
+			if Masque then
+				local group = self.MasqueGroup
+				if not v.MasqueButtonData then
+					v.MasqueButtonData = {
+						Button = v,
+						Icon = _G[v:GetName() .. "IconTexture"],
+					}
+				end
+				group:AddButton(v, v.MasqueButtonData)
 			end
-			group:AddButton(v, v.MasqueButtonData)
 		end
 
 		v.ClearSetPoint = clearSetPoint

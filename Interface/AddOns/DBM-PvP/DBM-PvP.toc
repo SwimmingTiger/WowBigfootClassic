@@ -1,0 +1,37 @@
+## Interface: 11303
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Author: Nitram/Tandanu/Arta
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMPvP_AllSavedVars
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: OTHER
+## X-DBM-Mod-Category: OTHER
+## X-DBM-Mod-No-Statistics: 1
+## X-DBM-Mod-Name: PvP
+## X-DBM-Mod-Name-zhTW: PvP
+## X-DBM-Mod-Name-zhCN: PvP
+## X-DBM-Mod-MapID: 30,489,529,559,562,566,572,617,618,628,726,727,761,968,980,998,1105,1134,1681,1803,2107,2118,2177,2197
+## X-DBM-Mod-Sort: 1500
+## X-Curse-Project-ID: 61882
+## Version: r76-8-g02319e9
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+PvPGeneral.lua
+
+Battlegrounds\Alterac.lua
+Battlegrounds\Arathi.lua
+Battlegrounds\Deepwind.lua
+Battlegrounds\EyeofTheStorm.lua
+Battlegrounds\Gilneas.lua
+Battlegrounds\IsleOfConquest.lua
+Battlegrounds\SilvershardMines.lua
+Battlegrounds\TempleOfKotmogu.lua
+Battlegrounds\TwinPeaks.lua
+Battlegrounds\Warsong.lua

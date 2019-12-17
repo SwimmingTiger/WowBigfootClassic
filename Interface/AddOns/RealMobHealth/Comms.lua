@@ -12,6 +12,7 @@ local Name,AddOn=...;
 --[[	Local References	]]
 ----------------------------------
 local C_ChatInfo_SendAddonMessage=C_ChatInfo.SendAddonMessage;
+local InActiveBattlefield=InActiveBattlefield;
 local IsInGroup=IsInGroup;
 local IsInGuild=IsInGuild;
 local IsInRaid=IsInRaid;
@@ -19,6 +20,9 @@ local string_upper=string.upper;
 local table_insert=table.insert;
 local table_remove=table.remove;
 local unpack=unpack;
+
+local LE_PARTY_CATEGORY_HOME=LE_PARTY_CATEGORY_HOME;
+local LE_PARTY_CATEGORY_INSTANCE=LE_PARTY_CATEGORY_INSTANCE;
 
 --------------------------
 --[[	Local Variables	]]
@@ -31,8 +35,10 @@ local MessageThrottle=0.1;
 ----------------------------------
 local ChannelChecks={--	Channel availability functions
 	GUILD=IsInGuild;
-	RAID=IsInRaid;
-	PARTY=IsInGroup;
+	BATTLEGROUND=InActiveBattlefield;
+	INSTANCE_CHAT=function() return IsInGroup(LE_PARTY_CATEGORY_INSTANCE); end;
+	PARTY=function() return IsInGroup(LE_PARTY_CATEGORY_HOME); end;
+	RAID=function() return IsInRaid(LE_PARTY_CATEGORY_HOME); end;
 }
 
 local function SendMessage(pre,msg,channel,target)
@@ -46,8 +52,10 @@ end
 
 local function BroadcastMessage(pre,msg)--	Bloadcasts to all available group channels
 	if IsInGuild() then SendMessage(pre,msg,"GUILD"); end
-	if IsInRaid() then SendMessage(pre,msg,"RAID");
-	elseif IsInGroup() then SendMessage(pre,msg,"PARTY"); end
+	if InActiveBattlefield() then SendMessage(pre,msg,"BATTLEGROUND"); end
+	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then SendMessage(pre,msg,"INSTANCE_CHAT"); end
+	if IsInRaid(LE_PARTY_CATEGORY_HOME) then SendMessage(pre,msg,"RAID");
+	elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then SendMessage(pre,msg,"PARTY"); end
 	SendMessage(pre,msg,"YELL");--	New channel in 1.13.3
 end
 
