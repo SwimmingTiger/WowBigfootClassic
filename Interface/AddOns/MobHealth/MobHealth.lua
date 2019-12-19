@@ -31,8 +31,15 @@ function MobHealth_Display()
 	__healthPercFrame = _G["MobHealthPercFrame"]
 	__healthPercBG = _G["MobHealthPercFrameBG"]
 
-	local __health = UnitHealth("target");
-	local __healthMax = UnitHealthMax("target");
+	local __health = 0
+	local __healthMax = 0
+
+	if RealMobHealth and RealMobHealth.GetUnitHealth then
+		__health, __healthMax = RealMobHealth.GetUnitHealth("target")
+	else
+		__health = UnitHealth("target")
+		__healthMax = UnitHealthMax("target")
+	end
 
 	local __mana = UnitPower("target");
 	local __manaMax = UnitPowerMax("target");
@@ -82,6 +89,13 @@ function MobHealth_Display()
 	else
 		-- TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-50,-22)
 		__healthPercFrame:Hide()
+	end
+
+	-- 隐藏游戏自带数值
+	TargetFrameHealthBar.TextString:SetAlpha(0);
+	TargetFrameManaBar.TextString:SetAlpha(0);
+	if TargetFrameTextureFrameDeadText then
+		TargetFrameTextureFrameDeadText:SetAlpha(0)
 	end
 end
 
