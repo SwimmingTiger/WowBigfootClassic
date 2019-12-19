@@ -1,0 +1,13 @@
+﻿## Interface: 11303
+## Title: [BF] MobHealth
+## Title-zhCN: [大脚]目标信息
+## Title-zhTW: [大腳]目標信息
+## Notes: |cffbc8f8fDisplays current and maximum health numbers for targeted mobs.|r
+## Notes-zhCN: |cff00ff00MobHealth|r|n|cffbc8f8f显示怪物的当前和最大血量。|r
+## Notes-zhTW: |cff00ff00MobHealth|r|n|cffbc8f8f顯示怪物的當前和最大血量。|r
+## SavedVariables: MobHealthDB, MobHealthConfig
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+MobHealth.xml

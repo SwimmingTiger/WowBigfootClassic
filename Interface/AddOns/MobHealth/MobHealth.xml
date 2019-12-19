@@ -1,0 +1,96 @@
+
+<!--
+	MobHealth: A database of estimated creature health values, with display
+		copyright 2004 by Telo
+	- Displays the estimated health value of your current target
+	- Continually updates its estimates for each creature's maximum health
+-->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="MobHealth.lua"/>
+	<Frame name= "MobHealthPercFrame" enableMouse="false" parent="TargetFrame" hidden="true">
+		<Size>
+			<AbsDimension x="55" y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+				<Offset x="7" y="-22"/>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentValue" inherits="TextStatusBarText"  text="100%" >
+					<FontHeight>
+						<AbsValue val="12"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset x="0" y="-4"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="$parentBG" file="Interface\TargetingFrame\UI-TargetingFrame-LevelBackground">
+					<Size>
+						<AbsDimension x="40" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset x="0" y="-1"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\TargetingFrame\NumericThreatBorder">
+					<TexCoords left="0" right="0.765625" top="0.0350" bottom="0.5625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Frame name="MobHealthFrame" toplevel="true" enableMouse="false" parent="TargetFrame">
+		<Size>
+			<AbsDimension x="128" y="32"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="MobHealthText" outline="NORMAL" font="Fonts\FRIZQT__.TTF" >
+					<FontHeight>
+						<AbsValue val="12"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="TargetFrameHealthBar">
+							<Offset><AbsDimension x="-2" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+					<Shadow>
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+						<Color r="0" g="0" b="0" a="0.3"/>
+					</Shadow>
+				</FontString>
+				<FontString name="MobManaText" outline="NORMAL" font="Fonts\FRIZQT__.TTF" >
+					<FontHeight>
+						<AbsValue val="12"/>
+					</FontHeight>
+					<Anchors>
+						<Anchor point="CENTER" relativeTo="TargetFrameManaBar">
+							<Offset><AbsDimension x="-2" y="0"/></Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+					<Shadow>
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+						<Color r="0" g="0" b="0" a="0.3"/>
+					</Shadow>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+</Ui>
