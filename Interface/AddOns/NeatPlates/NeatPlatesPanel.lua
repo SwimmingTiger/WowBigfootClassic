@@ -164,7 +164,7 @@ local function ValidateProfileName(name, callback)
 		  timeout = 0,
 		  whileDead = true,
 		  hideOnEscape = true,
-		  preferredIndex = 3,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
+		  preferredIndex = STATICPOPUP_NUMDIALOGS,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
 		}
 		StaticPopup_Show("NeatPlates_OverwriteProfile")
 	else
@@ -812,7 +812,7 @@ local function BuildInterfacePanel(panel)
 		  timeout = 0,
 		  whileDead = true,
 		  hideOnEscape = true,
-		  preferredIndex = 3,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
+		  preferredIndex = STATICPOPUP_NUMDIALOGS,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
 		}
 		StaticPopup_Show("NeatPlates_RemoveProfile")
 	end

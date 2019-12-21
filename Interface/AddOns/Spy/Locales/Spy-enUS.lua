@@ -398,6 +398,7 @@ StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
 		local reason = self.editBox:GetText()
 		Spy:SetKOSReason(self.playerName, "Enter your own reason...", reason)
 	end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 --++ Class descriptions

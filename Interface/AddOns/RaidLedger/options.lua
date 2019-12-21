@@ -389,4 +389,5 @@ StaticPopupDialogs["RAIDLEDGER_DEBIT_TEMPLATE_NAME"] = {
     end,
     OnShow = function()
     end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

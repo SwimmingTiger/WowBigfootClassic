@@ -25,7 +25,8 @@ StaticPopupDialogs["BF_TRADE_MONEY"] = {
 	end,
 	hasMoneyFrame = 1,
 	timeout = 0,
-	hideOnEscape = 1
+	hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 TradeFrameTradeButton:SetScript("OnClick",function()

@@ -16,6 +16,7 @@ StaticPopupDialogs["BFUPDATE"] = {
 	end,
 	showAlert = 1,
 	timeout = 9,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 local e = BLibrary("BEvent")

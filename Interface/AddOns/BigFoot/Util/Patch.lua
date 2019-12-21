@@ -56,7 +56,8 @@ do
 		timeout = 0,
 		exclusive = 1,
 		whileDead = 1,
-		hideOnEscape = 1
+		hideOnEscape = 1,
+		preferredIndex = STATICPOPUP_NUMDIALOGS,
 	};
 
 	local f = CreateFrame("Frame")
@@ -104,7 +105,8 @@ do
 				end,
 				showAlert = 1,
 				timeout = 0,
-				hideOnEscape = false
+				hideOnEscape = false,
+				preferredIndex = STATICPOPUP_NUMDIALOGS,
 			}
 			BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_COMBUCTOR") end, 1)
 		end

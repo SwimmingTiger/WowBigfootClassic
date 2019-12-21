@@ -163,4 +163,5 @@ StaticPopupDialogs["MYSLOT_MSGBOX"] = {
     whileDead = 1,
     hideOnEscape = 1,
     multiple = 0,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

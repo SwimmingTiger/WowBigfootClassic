@@ -202,7 +202,8 @@ StaticPopupDialogs["TRADE_LOG_CLEAR_HISTORY"] = {
 		TradeLog_KeepOnlyToday();
 	end,
 	timeout = 0,
-	hideOnEscape = 1
+	hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 function TradeLog_KeepOnlyToday()

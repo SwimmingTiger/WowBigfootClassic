@@ -336,6 +336,7 @@ StaticPopupDialogs["OPEN_ALL_MAILS"] = {
 	timeout = 0,
 	exclusive = 1,
 	hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 -- 确认删除联系人
@@ -356,6 +357,7 @@ StaticPopupDialogs["SubtractName_SET"] = {
 	showAlert = 1,
 	timeout = 0,
 	hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 -- 批量打开邮件

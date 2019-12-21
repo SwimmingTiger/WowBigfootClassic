@@ -11,6 +11,7 @@ StaticPopupDialogs.AUX_SEARCH_TABLE_FULL = {
     showAlert = 1,
     timeout = 0,
     hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 RESULTS, SAVED, FILTER = aux.enum(3)

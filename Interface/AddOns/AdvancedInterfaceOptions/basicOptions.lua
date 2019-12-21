@@ -516,7 +516,7 @@ StaticPopupDialogs['AIO_RESET_EVERYTHING'] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = 3,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 	showAlert = true,
 }
 

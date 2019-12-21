@@ -132,7 +132,8 @@ StaticPopupDialogs["MySlot_SAVE_SET"] = {
 	timeout = 0,
 	exclusive = 1,
 	whileDead = 1,
-	hideOnEscape = 1
+	hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 StaticPopupDialogs["MySlot_DELETE_SET"] = {
@@ -165,6 +166,7 @@ StaticPopupDialogs["MySlot_DELETE_SET"] = {
 	timeout = 0,
 	hideOnEscape = 1,
 	whileDead = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 function MySlot:GetMacroInfo(macroId)

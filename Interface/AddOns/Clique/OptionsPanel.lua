@@ -152,6 +152,7 @@ StaticPopupDialogs["CLIQUE_CONFIRM_PROFILE_DELETE"] = {
     hideOnEscape = 1,
     timeout = 0,
     whileDead = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
@@ -198,7 +199,8 @@ StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
 	EditBoxOnEscapePressed = function(self)
 		self:GetParent():Hide();
 		ClearCursor();
-	end
+	end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 local function getsorttbl()

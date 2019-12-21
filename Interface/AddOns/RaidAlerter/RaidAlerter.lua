@@ -1118,7 +1118,7 @@ function RaidAlerter_SET_FUNC_cameraMax(checked)
 	RaidAlerter_Option_MainFrame_Update();
 end
 
-StaticPopupDialogs["RaidAlerter_RELOADUI"] = {preferredIndex = 3,
+StaticPopupDialogs["RaidAlerter_RELOADUI"] = {
 	text = "|cFFFFDD00"..RaidAlerter_UINameEN..RaidAlerter_UIName.."|r\n\n"..RAL_TEXT_CPUMSG_1,
 	button1 = RAL_TEXT_CPUMSG_2,
 	button2 = RAL_TEXT_CPUMSG_3,
@@ -1128,6 +1128,7 @@ StaticPopupDialogs["RaidAlerter_RELOADUI"] = {preferredIndex = 3,
 	timeout = 0,
 	exclusive = 1,
 	hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 function RaidAlerter_SET_FUNC_GTT_cpustart()

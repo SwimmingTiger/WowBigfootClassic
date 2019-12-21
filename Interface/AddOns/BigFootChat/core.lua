@@ -96,7 +96,8 @@ StaticPopupDialogs["BFC_COPYTEXT"] = {
     EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
     timeout = 0,
     whileDead = 1,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 local function generateIconMap()
     for BFChat_63a9ce6f1eeac72ef41293b7d0303335,

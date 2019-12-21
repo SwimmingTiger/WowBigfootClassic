@@ -67,7 +67,7 @@ T._FatalError = function (TheError)
             whileDead = 1,
             hideOnEscape = 1,
             showAlert = 1,
-            preferredIndex = 3,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         };
     end
 
@@ -773,7 +773,7 @@ T._ShowNotice = function (notice)
             whileDead = 1,
             hideOnEscape = false,
             showAlert = 1,
-            preferredIndex = 3,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }; -- }}}
     end
 

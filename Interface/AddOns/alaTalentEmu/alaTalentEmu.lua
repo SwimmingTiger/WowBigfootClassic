@@ -3636,7 +3636,7 @@ do	-- mainFrame sub objects
 		timeout = 0,
 		whileDead = true,
 		hideOnEscape = true,
-		preferredIndex = 1,
+		preferredIndex = STATICPOPUP_NUMDIALOGS,
 	};
 	local function applyTalentsButton_OnClick(self)
 		if UnitLevel('player') >= 10 then

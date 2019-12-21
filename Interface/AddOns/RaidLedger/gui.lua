@@ -1028,6 +1028,7 @@ StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
     OnAccept = function()
         Database:NewLedger()
     end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
@@ -1038,4 +1039,5 @@ StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
     whileDead = 1,
     hideOnEscape = 1,
     multiple = 0,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
