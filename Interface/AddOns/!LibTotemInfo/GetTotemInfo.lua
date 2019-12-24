@@ -4,7 +4,7 @@
 -- by PreZ and edited / fixed by SwimmingTiger.
 ]]
 local MAJOR = "LibTotemInfo-1.0"
-local MINOR = 10002 -- Should be manually increased
+local MINOR = 10003 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -439,11 +439,15 @@ function lib.HandleTotemSpell(id)
     if totem then
         local name, _, icon = GetSpellInfo(id)
         name = name or ""
-        icon = icon or 0
-        local subtext = GetSpellSubtext(id)
+		icon = icon or 0
+
+		-- Some addons use spell names for matching. Attaching rank will cause the match to fail.
+		--[[
+		local subtext = GetSpellSubtext(id)
         if subtext and #subtext > 0 then
             name = name..' '..subtext
-        end
+		end
+		]]
 
         ActiveTotems[totem.element] = {
             spellid = id,
