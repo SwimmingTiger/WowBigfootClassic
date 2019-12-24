@@ -26,8 +26,14 @@ function Stacking:Constructor()
 end
 
 function Stacking:Prepare()
-    self:InitBag(Pack:GetBag(BAG_TYPE.BAG))
-    self:InitBag(Pack:GetBag(BAG_TYPE.BANK))
+    -- 老虎会游泳：当银行打开，背包和银行里存在相同物品时，修复背包内物品会意外跑到银行的问题
+    local save = Pack.opts.save and Pack.opts.save()
+    if Pack.opts.bag or save then
+        self:InitBag(Pack:GetBag(BAG_TYPE.BAG))
+    end
+    if Pack.opts.bank or save then
+        self:InitBag(Pack:GetBag(BAG_TYPE.BANK))
+    end
 end
 
 function Stacking:InitBag(bag)
