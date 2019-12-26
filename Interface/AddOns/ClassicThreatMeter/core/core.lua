@@ -605,15 +605,7 @@ end
 CTM.frame = CreateFrame("Frame", CTM.addonName.."BarFrame", UIParent)
 
 CTM.frame:RegisterEvent("PLAYER_LOGIN")
-CTM.frame:RegisterEvent("ADDON_LOADED") -- 老虎会游泳：修复按需加载的问题
 CTM.frame:SetScript("OnEvent", function(self, event, ...)
-	-- 老虎会游泳：模拟插件加载前的事件，修复按需加载造成的问题
-	if (event == "ADDON_LOADED") and (... == "ClassicThreatMeter") then
-		if CTM["PLAYER_LOGIN"] then CTM["PLAYER_LOGIN"](CTM, "PLAYER_LOGIN") end
-		if CTM["PLAYER_ENTERING_WORLD"] then CTM["PLAYER_ENTERING_WORLD"](CTM, "PLAYER_ENTERING_WORLD") end
-		CTM.frame:UnregisterEvent("ADDON_LOADED")
-	end
-
 	return CTM[event] and CTM[event](CTM, event, ...)
 end)
 

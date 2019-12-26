@@ -13,6 +13,5 @@
 ## X-Website: https://github.com/EsreverWoW/ClassicThreatMeter
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-## LoadOnDemand: 1
 
 ClassicThreatMeter.xml

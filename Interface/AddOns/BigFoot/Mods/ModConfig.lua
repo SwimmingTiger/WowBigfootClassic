@@ -573,8 +573,11 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	if isAddonLoadable('ClassicThreatMeter') then
-		check = __CreateEnableAddonCheckBox("ClassicThreatMeter", nil, false, true)
+	if ClassicThreatMeterBarFrame ~= nil then
+		check = __CreateCustomCheckBox("ClassicThreatMeter", nil, false,
+			function() ClassicThreatMeterBarFrame:Show() end,
+			function() ClassicThreatMeterBarFrame:Hide() end,
+			nil)
 		M:AddBottomButton(check)
 	end
 
