@@ -1,12 +1,13 @@
-lightweight tag 5821950dff5f91df2f88202d2837e8e64d54ecf9 1.13.2.49
+lightweight tag 9bbe22bacbe6063531b7dfb894faf18f52256119 1.13.3.2
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sun Dec 8 16:02:16 2019 +0100
+Date:	Fri Dec 20 20:21:31 2019 +0100
 
-commit 5821950dff5f91df2f88202d2837e8e64d54ecf9
+commit 9bbe22bacbe6063531b7dfb894faf18f52256119
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Dec 8 16:02:16 2019 +0100
+Date:   Fri Dec 20 20:20:23 2019 +0100
 
-    Removed 'Range Indicator'
+    Minor fix to combo point widget
     
-    - Removed the 'Range Indicator' option. As it wasn't working correctly anyways in Classic & was apparently causing issues with the trade window highlighting. Which is actually a blizzard issue with the events they use for the tradeframe but whatever...
+    - Minor fix to combo point widget
+    - Locale Update
 
