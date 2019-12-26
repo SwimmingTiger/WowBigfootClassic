@@ -13,7 +13,7 @@
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.24
+## Version: 1.13.25
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
 

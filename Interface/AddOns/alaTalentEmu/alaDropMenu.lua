@@ -41,7 +41,7 @@ local dropMenuBackdrop = {
 };
 local dropMenuBackdropColor = { 0.05, 0.05, 0.05, 1.0 };
 local COUNTING_DOWN_TIMER_PERIOD = 1.5;
-local dropMenuButtonHeight = 20;
+local dropMenuButtonHeight = 16;
 local dropMenuButtonInterval = 0;
 local dropMenuButtonTopBottomInterval = 2;
 --------------------------------------------------
@@ -179,7 +179,7 @@ local function CreateMenuButton(menu, x, y)
 	button:SetHeight(dropMenuButtonHeight);
 	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
 	--button:SetPushedTexture("Interface\\Buttons\\UI-StopButton");
-	button:SetHighlightTexture("Interface\TargetingFrame\UI-StatusBar");
+	button:SetHighlightTexture("Interface\\TargetingFrame\\UI-StatusBar");
 	button:GetHighlightTexture():SetVertexColor(0.5, 0.5, 0.0, 0.75);
 	button:SetPoint("TOP", menu, x, y);
 

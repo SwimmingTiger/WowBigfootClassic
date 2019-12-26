@@ -4,7 +4,7 @@
 ## Notes: A compatible implementation of GetTotemInfo() API for WoW Classic 1.13.3.
 ## Notes-zhCN: 为魔兽世界怀旧服1.13.3编写的GetTotemInfo()接口兼容层，可修复萨满图腾计时器不起作用的问题
 ## Author: PreZ, SwimmingTiger
-## Version: 1.0.3
+## Version: 1.0.4
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 

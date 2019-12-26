@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20191210204740"),
-	DisplayVersion = "1.13.24", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 12, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20191219144800"),
+	DisplayVersion = "1.13.25", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2019, 12, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -417,6 +417,7 @@ local AddMsg
 local delayedFunction
 local dataBroker
 local voiceSessionDisabled = false
+local handleSync
 
 local fakeBWVersion, fakeBWHash = 5, "793f905"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
@@ -594,7 +595,8 @@ local function sendSync(prefix, msg)
 		elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
 			SendAddonMessage("D4C", prefix .. "\t" .. msg, "PARTY")
 		else--for solo raid
-			SendAddonMessage("D4C", prefix .. "\t" .. msg, "WHISPER", playerName)
+			handleSync("WHISPER", playerName, strsplit("\t", msg))
+			--SendAddonMessage("D4C", prefix .. "\t" .. msg, "WHISPER", playerName)
 		end
 	end
 end
@@ -1452,7 +1454,7 @@ do
 						if loaded and insertFunction then
 							insertFunction()
 						else
-							DBM:Debug(addonName.." failed to load at time CountPack function ran", 2)
+							DBM:Debug(addonName.." failed to load at time CountPack function "..voiceGlobal.."ran", 2)
 						end
 					end
 				end
@@ -1466,7 +1468,7 @@ do
 						if loaded and insertFunction then
 							insertFunction()
 						else
-							DBM:Debug(addonName.." failed to load at time CountPack function ran", 2)
+							DBM:Debug(addonName.." failed to load at time VictoryPack function "..victoryGlobal.." ran", 2)
 						end
 					end
 				end
@@ -1480,7 +1482,7 @@ do
 						if loaded and insertFunction then
 							insertFunction()
 						else
-							DBM:Debug(addonName.." failed to load at time CountPack function ran", 2)
+							DBM:Debug(addonName.." failed to load at time DefeatPack function "..defeatGlobal.." ran", 2)
 						end
 					end
 				end
@@ -1494,7 +1496,7 @@ do
 						if loaded and insertFunction then
 							insertFunction()
 						else
-							DBM:Debug(addonName.." failed to load at time CountPack function ran", 2)
+							DBM:Debug(addonName.." failed to load at time MusicPack function "..musicGlobal.." ran", 2)
 						end
 					end
 				end
@@ -2054,7 +2056,7 @@ do
 		elseif cmd == "help" then
 			for i, v in ipairs(DBM_CORE_SLASHCMD_HELP) do DBM:AddMsg(v) end
 		elseif cmd:sub(1, 13) == "timer endloop" then
-			DBM:CreatePizzaTimer(time, "", nil, nil, nil, nil, true)
+			DBM:CreatePizzaTimer(time, "", nil, nil, nil, true)
 		elseif cmd:sub(1, 5) == "timer" then
 			local time, text = msg:match("^%w+ ([%d:]+) (.+)$")
 			if not (time and text) then
@@ -3706,13 +3708,15 @@ do
 	end
 end
 
-function DBM:UPDATE_BATTLEFIELD_STATUS()
+function DBM:UPDATE_BATTLEFIELD_STATUS(queueID)
 	for i = 1, 2 do
 		if GetBattlefieldStatus(i) == "confirm" then
 			if self.Options.ShowQueuePop and not self.Options.DontShowBossTimers then
 				queuedBattlefield[i] = select(2, GetBattlefieldStatus(i))
-				self.Bars:CreateBar(85, queuedBattlefield[i], 136106)	-- need to confirm the timer
-				fireEvent("DBM_TimerStart", "DBMBFSTimer", queuedBattlefield[i], 85, "136106", "extratimer", nil, 0)
+				local expiration = GetBattlefieldPortExpiration(queueID)
+				local timerIcon = UnitFactionGroup("player") == "Alliance" and 132486 or 132485
+				self.Bars:CreateBar(expiration or 85, queuedBattlefield[i], timerIcon)
+				fireEvent("DBM_TimerStart", "DBMBFSTimer", queuedBattlefield[i], expiration or 85, tostring(timerIcon), "extratimer", nil, 0)
 			end
 			if self.Options.LFDEnhance then
 				self:PlaySound(8960, true)--Because regular sound uses SFX channel which is too low of volume most of time
@@ -4828,9 +4832,10 @@ do
 
 	whisperSyncHandlers["RT"] = function(sender)
 		if UnitInBattleground("player") then
-			return
+			DBM:SendPVPTimers(sender)
+		else
+			DBM:SendTimers(sender)
 		end
-		DBM:SendTimers(sender)
 	end
 
 	whisperSyncHandlers["CI"] = function(sender, mod, time)
@@ -4858,7 +4863,7 @@ do
 		end
 	end
 
-	local function handleSync(channel, sender, prefix, ...)
+	handleSync = function(channel, sender, prefix, ...)
 		if not prefix then
 			return
 		end
@@ -6494,6 +6499,34 @@ do
 		self:SendCombatInfo(mod, target)
 		self:SendVariableInfo(mod, target)
 		self:SendTimerInfo(mod, target)
+	end
+	function DBM:SendPVPTimers(target)
+		self:Debug("SendPVPTimers requested by "..target, 2)
+		local spamForTarget = spamProtection[target] or 0
+		-- just try to clean up the table, that should keep the hash table at max. 4 entries or something :)
+		for k, v in pairs(spamProtection) do
+			if GetTime() - v >= 1 then
+				spamProtection[k] = nil
+			end
+		end
+		if GetTime() - spamForTarget < 1 then -- just to prevent players from flooding this on purpose
+			return
+		end
+		spamProtection[target] = GetTime()
+		local mod
+		--Acquire correct pvp mod for zone we are in
+		if LastInstanceMapID == 529 or LastInstanceMapID == 1681 or LastInstanceMapID == 2107 or LastInstanceMapID == 2177 then--Arathi
+			mod = self:GetModByName("z529")
+		elseif LastInstanceMapID == 30 or LastInstanceMapID == 2197 then--Alteract Valley
+			mod = self:GetModByName("z30")
+		elseif LastInstanceMapID == 566 or LastInstanceMapID == 968 then--Eye of the Storm
+			mod = self:GetModByName("z566")
+		else--Any other BG we can just use current MapID as mod ID
+			mod = self:GetModByName("z"..tostring(LastInstanceMapID))
+		end
+		if mod then
+			self:SendTimerInfo(mod, target)
+		end
 	end
 end
 

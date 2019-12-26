@@ -193,7 +193,7 @@ function UIConfig:SetupConfigInterface()
     -- Checkboxes
     CSC_ConfigFrame.chkBtnAddWeaponSkillToHit = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetPoint("TOPLEFT", 20, -30);
-    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit.text:SetText("Count Hit from Weapon Skill in Hit Chance. (Works only for melee weapons and level 60 players)");
+    CSC_ConfigFrame.chkBtnAddWeaponSkillToHit.text:SetText("Deduce Hit from Weapon Skill as if you are fighting a boss (lvl 63)");
     CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetChecked(UISettingsGlobal.shouldAddWeaponSkillToHit);
     CSC_ConfigFrame.chkBtnAddWeaponSkillToHit:SetScript("OnClick", 
     function()

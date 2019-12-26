@@ -6,6 +6,7 @@
 
     <script file = "alaDropMenu.lua" />
     <script file = "alaScrollList.lua" />
+    <script file = "alaPopup.lua" />
     <script file = "alaTalentData.lua" />
     <script file = "alaTalentEmu.lua" />
 </Ui>
