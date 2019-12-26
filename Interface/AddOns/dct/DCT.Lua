@@ -806,7 +806,7 @@ What I need to know is this. As you can see on the arg1 you've got DAMAGE, SPELL
 end
 
 function DCT_ProcCombatUnfiltered(self, gevent, ...)
-    DCT_BattleLogAnalysis(self, gevent, CombatLogGetCurrentEventInfo())
+	DCT_BattleLogAnalysis(self, gevent, CombatLogGetCurrentEventInfo())
 end
 
 function DCT_BattleLogAnalysis(self, gevent, timestamp, combatevent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2, ...)

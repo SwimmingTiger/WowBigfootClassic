@@ -1,11 +1,11 @@
-
 DCTSA_InitOk = false
 DCTSA_GDB = nil
 DCTSA_DB = nil
-
 local DCTSA_BUFFERMAX = 30
+
 local DCT_sa_caststartLogFlag = 0
-local DCT_sa_caststartLog = {
+local DCT_sa_caststartLog =
+{
 	{objp = nil},
 	{objp = nil},
 	{objp = nil},
@@ -76,6 +76,7 @@ function DCTSA_RefreshCaststartLog(text,color,spellId,sourceGUID)
 	end
 end
 
+
 function DCTSA_AddCastsuccessLog(objp,spellName,destGUID)
 	DCT_sa_castsuccessLogFlag = DCT_sa_castsuccessLogFlag + 1
 	if DCT_sa_castsuccessLogFlag > 5 then DCT_sa_castsuccessLogFlag = 1;end
@@ -102,6 +103,7 @@ function DCTSA_SearchCastsuccessLog(spellName,destGUID)
 			end
 		end
 	end
+	return nil
 end
 
 function DCTSA_Init()
@@ -142,13 +144,15 @@ function DCTSA_OnLoad(self)
 end
 
 function DCTSA_ProcCombatUnfiltered(gevent, timestamp, combatevent, hideCaster,  sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2, ...)
-	if not DCTSA_InitOk then return end
-	if DCTSA_DB["DCTSA_ENABLE"] == 0 then return end
-	if DCTSA_DB["DCTSA_ENABLE_ONCOMBAT"] == 1 and not dct_inCombat then return end
+	if not DCTSA_InitOk then return;end
 
+	if DCTSA_DB["DCTSA_ENABLE"] == 0 then return false;end
+
+	if DCTSA_DB["DCTSA_ENABLE_ONCOMBAT"] == 1 and not dct_inCombat then return;end
 	local isSourceEnemy = (bit.band(sourceFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE)
 	local isDestEnemy = (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE)
-	if not isDestEnemy and not isSourceEnemy then return end
+
+	if not isDestEnemy and not isSourceEnemy then return;end
 
 	local showType = nil
 	local showId = 1
@@ -161,14 +165,14 @@ function DCTSA_ProcCombatUnfiltered(gevent, timestamp, combatevent, hideCaster, 
 	if DCTSA_DB["DCTSA_ENABLE_ONPVP"] == 1 then
 		--local pvpType, isFFA, faction = GetZonePVPInfo()
 		local pvpType = select(1,GetZonePVPInfo())
-		if (--[[pvpType == "friendly" or]]pvpType == "sanctuary") then return end
+		if (--[[pvpType == "friendly" or]]pvpType == "sanctuary") then return;end
 	end
 
-	local dct_spellId, dct_spellName, dct_spellSchool
 	if combatevent == "SPELL_INTERRUPT" then
-		local dct_extraSpellID,dct_extraSpellName = select(4,...)
-		DCTSA_RefreshCaststartLog(INTERRUPTED,{0,1,0},dct_extraSpellID,destGUID)
-		return
+		dct_spellId = select(1,...)
+		dct_extraSpellID ,dct_extraSpellName,dct_extraSpellSchool = select(4,...)
+		DCTSA_RefreshCaststartLog(DCT_SA_INTERRUPT,{0,1,0},dct_extraSpellID,destGUID)
+		return false
 	end
 
 	if combatevent == "SPELL_CAST_START" then
@@ -285,10 +289,11 @@ function DCTSA_ProcCombatUnfiltered(gevent, timestamp, combatevent, hideCaster, 
 			end
 		end
 		local obj = DCT_AddText(showType,showId,false,DCTSA_DB)
-		if obj and needTimer then
+		
+		if obj and needTimer and dct_spellId ~= 0 then
 			obj.castStartTime = GetTime()
-			-- local name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellId or spellName or spellLink)
-			obj.castTime = (select(4,GetSpellInfo(dct_spellId)) or 0) / 1000
+			--name, rank, icon, cost, isFunnel, powerType, castTime, minRange, maxRange = GetSpellInfo(spellId or spellName or spellLink)
+			obj.castTime = select(4,GetSpellInfo(dct_spellId)) / 1000
 			obj.SpellId = dct_spellId
 			obj.sourceGUID = sourceGUID
 			--为obj增加一个计时的text
@@ -331,6 +336,7 @@ function DCTSA_ObjectCastTimeProc(obj)
 	end
 end
 
+
 --如果不存在则增加，如果存在则设置新值
 function DCTSA_BufferSet(saType,spellId,val)
 	if not DCTSA_GDB[saType].buffer[spellId] then
@@ -365,6 +371,7 @@ function DCTSA_BufferDelete(saType,spellId)
 		local ip = DCTSA_GDB[saType.."_SORT"].buffer
 		fp[spellId] = nil
 		local c = table.getn(ip)
+		local i
 		for i = 1,c do
 			if ip[i] == spellId then
 				table.remove(ip,i)
@@ -389,7 +396,6 @@ function DCTSA_FiltDelete(saType,spellId)
 		end
 	end
 end
-
 function DCTSA_FilterAddSmart(saType,spellId)
 	if DCTSA_FilterAdd(saType,spellId) then
 		if DCTSA_DB["DCTSA_FILTER_MODE"] == 1 then
@@ -433,7 +439,6 @@ function DCTSA_FilterMoveTofilt(saType,spellId)
 		DCTSA_FiltSet(saType,spellId,1)
 	end
 end
-
 function DCTSA_FilterMoveToBuffer(saType,spellId)
 	if not DCTSA_GDB[saType].filt[spellId] then
 		return
@@ -442,6 +447,8 @@ function DCTSA_FilterMoveToBuffer(saType,spellId)
 		DCTSA_BufferSet(saType,spellId,0)
 	end
 end
+
+
 
 --[[
 API GetSpellInfo

@@ -118,6 +118,14 @@ end
 function DCTD_SetFixes(prefixes,suffixes)
 	dctd_prefixes = prefixes
 	dctd_suffixes = suffixes
+	if dctd_prefixes == "DAMAGE" then
+		dctd_prefixes = "SPELL"
+		if dctd_suffixes == "SHIELD_MISSED" then
+			dctd_suffixes = "MISSED"
+		else
+			dctd_suffixes = "DAMAGE"
+		end
+	end
 end
 local DCT_PREFIXES = {
 		["SWING"] = 1,

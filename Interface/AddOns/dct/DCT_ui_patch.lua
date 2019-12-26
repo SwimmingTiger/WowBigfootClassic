@@ -1,6 +1,7 @@
-
 local GameTooltip_AddNewbieTip_org = GameTooltip_AddNewbieTip
 local UIDropDownMenu_SetWidth_org = UIDropDownMenu_SetWidth
+
+local version, build, date, tocversion = GetBuildInfo()
 
 function GetPlayerBuff(buffId, buffFilter)
 	local buffIndex, untilCancelled
