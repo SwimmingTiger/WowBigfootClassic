@@ -240,6 +240,10 @@ function RaidToolkitConfigFunc()
 
 	end
 
+	-- 老虎会游泳：这里的代码无法禁用DBM，因为DBM-VPYike未被设为按需加载，而DBM-Core是它的依赖项，所以DBM-Core总是会自动加载。
+	-- 此外，DBM注册了PLAYER_ENTERING_WORLD事件，如果不修改，无法安全转换为按需加载（某些功能可能会不正常）。
+	-- 所以，干脆放弃这部分代码得了。
+	--[[
 	if (IsConfigurableAddOn("DBM-Core")) then
 		ModManagement_RegisterCheckBox(
 			"RaidToolkit",
@@ -277,6 +281,7 @@ function RaidToolkitConfigFunc()
 
 		);
 	end
+	]]
 
 	if (IsConfigurableAddOn("Grid")) then
 		ModManagement_RegisterCheckBox(

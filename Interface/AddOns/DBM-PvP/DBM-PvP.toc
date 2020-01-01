@@ -17,7 +17,6 @@
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
 ## Version: r77
-## X-Revision: BigFoot
 
 localization.en.lua
 localization.cn.lua
