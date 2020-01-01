@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Dreamscythe", "DBM-Party-Classic", 17)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190904200802")
+mod:SetRevision("20190923181320")
 mod:SetCreatureID(5721)
 mod:SetEncounterID(486)
 

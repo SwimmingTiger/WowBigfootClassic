@@ -10,7 +10,7 @@
 ## X-DBM-Timer-Skin-Textures: Interface\AddOns\DBM-DefaultSkin\textures\default.tga
 ## X-DBM-Timer-Skin-Texture-Names: Default
 ## X-Revision: BigFoot
-## LoadOnDemand: 1
+## LoadOnDemand: 0
 
 Skin.lua
 TimerSkin.xml

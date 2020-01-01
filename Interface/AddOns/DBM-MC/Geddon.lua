@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191205233110")
+mod:SetRevision("20191220171107")
 mod:SetCreatureID(12056)
 mod:SetEncounterID(668)
 mod:SetModelID(12129)
@@ -11,7 +11,7 @@ mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 20475",
+	"SPELL_AURA_APPLIED 20475 19659",
 	"SPELL_AURA_REMOVED 20475",
 	"SPELL_CAST_SUCCESS 19695 19659 20478 20475"
 )
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 (ability.id = 19695 or ability.id = 19659 or ability.id = 20478) and type = "cast"
 --]]
 local warnInferno		= mod:NewSpellAnnounce(19695, 3)
-local warnIgnite		= mod:NewSpellAnnounce(19659, 2)
+--local warnIgnite		= mod:NewSpellAnnounce(19659, 2)
 local warnBomb			= mod:NewTargetNoFilterAnnounce(20475, 4)
 local warnArmageddon	= mod:NewSpellAnnounce(20478, 3)
 
@@ -28,6 +28,7 @@ local specWarnBomb		= mod:NewSpecialWarningYou(20475, nil, nil, nil, 3, 2)
 local yellBomb			= mod:NewYell(20475)
 local yellBombFades		= mod:NewShortFadesYell(20475)
 local specWarnInferno	= mod:NewSpecialWarningRun(19695, "Melee", nil, nil, 4, 2)
+local specWarnIgnite	= mod:NewSpecialWarningDispel(19659, "RemoveMagic", nil, nil, 1, 2)
 
 local timerInfernoCD	= mod:NewCDTimer(21, 19695, nil, nil, nil, 2)--21-27.9
 local timerInferno		= mod:NewBuffActiveTimer(8, 19695, nil, nil, nil, 2)
@@ -46,8 +47,9 @@ end
 do
 	local Inferno, Ignite, Armageddon, LivingBomb = DBM:GetSpellInfo(19695), DBM:GetSpellInfo(19659), DBM:GetSpellInfo(20478), DBM:GetSpellInfo(20475)
 	function mod:SPELL_AURA_APPLIED(args)
+		local spellName = args.spellName
 		--if args.spellId == 20475 then
-		if args.spellName == LivingBomb then
+		if spellName == LivingBomb then
 			self:SendSync("Bomb", args.destName)
 			if self:AntiSpam(5, 1) then
 				timerBomb:Start(args.destName)
@@ -65,6 +67,9 @@ do
 					warnBomb:Show(args.destName)
 				end
 			end
+		elseif spellName == Ignite and self:CheckDispelFilter() then
+			specWarnIgnite:CombinedShow(0.3, args.destName)
+			specWarnIgnite:ScheduleVoice(0.3, "helpdispel")
 		end
 	end
 
@@ -98,7 +103,7 @@ do
 		elseif spellName == Ignite and args:IsSrcTypeHostile() then
 			self:SendSync("IgniteMana")
 			if self:AntiSpam(5, 2) then
-				warnIgnite:Show()
+				--warnIgnite:Show()
 				timerIgniteManaCD:Start()
 			end
 		--elseif spellId == 20478 then
@@ -130,7 +135,7 @@ function mod:OnSync(msg, targetName)
 			warnBomb:Show(targetName)
 		end
 	elseif msg == "IgniteMana" and self:AntiSpam(5, 2) then
-		warnIgnite:Show()
+		--warnIgnite:Show()
 		timerIgniteManaCD:Start()
 	end
 end

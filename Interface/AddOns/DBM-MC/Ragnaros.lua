@@ -1,19 +1,22 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191122140416")
+mod:SetRevision("20191226214030")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
-mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
+mod:SetHotfixNoticeRev(20191226000000)--2019, 12, 26
+mod:SetMinSyncRevision(20191226000000)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
+	"SPELL_CAST_START 19774",
+	"SPELL_CAST_SUCCESS 20566 19773",
 	"CHAT_MSG_MONSTER_YELL"
 )
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_SUCCESS 20566",
+--	"SPELL_CAST_SUCCESS 20566 19773",
 	"UNIT_DIED"
 )
 
@@ -29,14 +32,14 @@ local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DB
 local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
 local timerCombatStart	= mod:NewCombatTimer(73)
 
-mod.vb.addLeft = 8
+mod.vb.addLeft = 0
 local addsGuidCheck = {}
 
 mod:AddRangeFrameOption("10", nil, "-Melee")
 
 function mod:OnCombatStart(delay)
 	table.wipe(addsGuidCheck)
-	self.vb.addLeft = 8
+	self.vb.addLeft = 0
 	timerWrathRag:Start(26.7-delay)
 	timerSubmerge:Start(180-delay)
 	if self.Options.RangeFrame then
@@ -55,12 +58,20 @@ local function emerged(self)
 	warnEmerge:Show()
 	timerWrathRag:Start(26.7)--need to find out what it is first.
 	timerSubmerge:Start(180)
-	table.wipe(addsGuidCheck)
-	self.vb.addLeft = 8
 end
 
 do
-	local Wrath = DBM:GetSpellInfo(20566)
+	local summonRag = DBM:GetSpellInfo(19774)
+	function mod:SPELL_CAST_START(args)
+		--if args.spellId == 20566 then
+		if args.spellName == summonRag and self:AntiSpam(5, 4) then
+			self:SendSync("SummonRag")
+		end
+	end
+end
+
+do
+	local Wrath, domoDeath = DBM:GetSpellInfo(20566), DBM:GetSpellInfo(19773)
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 20566 then
 		if args.spellName == Wrath then
@@ -69,6 +80,8 @@ do
 				warnWrathRag:Show()
 				timerWrathRag:Start()
 			end
+		elseif args.spellName == domoDeath then
+			self:SendSync("DomoDeath")
 		end
 	end
 end
@@ -93,11 +106,8 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Submerge then
 		self:SendSync("Submerge")
-	--Could also use this instead
-	--"<37.8 22:36:31> [CLEU] SPELL_CAST_START#false#Creature-0-3137-409-16929-54404-00007003D3#Majordomo Executus#2584#0##nil#-2147483648#-2147483648#19774#Summon Ragnaros#4", -- [1677]
-	--"<38.0 22:36:31> [CHAT_MSG_MONSTER_YELL] CHAT_MSG_MONSTER_YELL#Impudent whelps! You've rushed headlong to your own deaths! See now, the master stirs!\r\n#Majordomo Executus###Shiramura
-	elseif msg == L.Pull then
-		timerCombatStart:Start()
+	elseif msg == L.Pull and self:AntiSpam(5, 4) then
+		self:SendSync("SummonRag")
 	end
 end
 
@@ -109,6 +119,7 @@ function mod:OnSync(msg, guid)
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
 		self:Schedule(90, emerged, self)
+		self.vb.addLeft = self.vb.addLeft + 8
 	elseif msg == "AddDied" and guid and not addsGuidCheck[guid] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
 		addsGuidCheck[guid] = true
@@ -120,5 +131,15 @@ function mod:OnSync(msg, guid)
 	elseif msg == "WrathRag" and self:AntiSpam(5, 1) then
 		warnWrathRag:Show()
 		timerWrathRag:Start()
+	elseif msg == "SummonRag" and self:AntiSpam(5, 2) then
+		timerCombatStart:Start()
+	elseif msg == "DomoDeath" and self:AntiSpam(5, 3) then
+		--The timer between yell/summon start and ragnaros being attackable is variable, but time between domo death and him being attackable is not.
+		--As such, we start lowest timer of that variation on the RP start, but adjust timer if it's less than 10 seconds at time domo dies
+		local remaining = timerCombatStart:GetRemaining()
+		if remaining < 10 then
+			local adjust = 10 - remaining
+			timerCombatStart:AddTime(adjust)
+		end
 	end
 end
