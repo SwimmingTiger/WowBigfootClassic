@@ -1,0 +1,376 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+
+
+    <!-- ================================================
+         MAIN FRAME
+         =================================================-->
+    <Frame name="WebDKP_TimedAwardFrame" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+        </Scripts>
+        <Size>
+            <AbsDimension x="600" y="240"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+                    <Size>
+                        <AbsDimension x="300" y="64"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="20"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentTitle" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parentHeaderTexture">
+                            <Offset>
+                                <AbsDimension x="0" y="-14"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentText" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT">
+                            <Offset>
+                                <AbsDimension x="35" y="-60"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTimeLeft" inherits="GameFontRedLarge" text="">
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="-200"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+            <!-- How Much To Award -->
+            <EditBox name="$parentDkp" inherits="WebDKPEditBoxTemplate">
+                <Size>
+                    <AbsDimension x="130" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="110" y="-80"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-75" y="-8"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."Dkp"):SetAutoFocus( false );
+                    </OnLoad>
+                    <OnEscapePressed>
+                        getglobal(self:GetParent(self):GetName(self).."Dkp"):ClearFocus(self);
+                    </OnEscapePressed>
+                    <OnEnterPressed>
+                        getglobal(self:GetParent(self):GetName(self).."Dkp"):ClearFocus(self);
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        WebDKP_Options["TimedAwardDkp"] =
+                        getglobal(self:GetParent(self):GetName(self).."Dkp"):GetText(self);
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+            <!-- How many minutes to use in the timer -->
+            <EditBox name="$parentTime" inherits="WebDKPEditBoxTemplate">
+                <Size>
+                    <AbsDimension x="65" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentDkp" relativePoint="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="0" y="-5"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-75" y="-10"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                        <FontString name="$parentHint" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="80" y="-10"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."Time"):SetAutoFocus( false );
+                    </OnLoad>
+                    <OnEscapePressed>
+                        getglobal(self:GetParent(self):GetName(self).."Time"):ClearFocus(self);
+                    </OnEscapePressed>
+                    <OnEnterPressed>
+                        getglobal(self:GetParent(self):GetName(self).."Time"):ClearFocus(self);
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        WebDKP_Options["TimedAwardTotalTime"] =
+                        getglobal(self:GetParent(self):GetName(self).."Time"):GetText(self);
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+            <!-- Whether to repeat the award / timer after it expires -->
+            <CheckButton name="$parentLoopTimer" inherits="OptionsCheckButtonTemplate" checked="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentDkp">
+                        <Offset>
+                            <AbsDimension x="200" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-100" y="2"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Options_ToggleOption("TimedAwardRepeat");
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
+
+            <!-- reset the timer -->
+            <Button name="$parentResetButton" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP">
+                        <Offset>
+                            <AbsDimension x="0" y="-165"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="150" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_TimedAward_ResetTimer(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- start / stop the timer -->
+            <Button name="$parentStartStopButton" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentResetButton">
+                        <Offset>
+                            <AbsDimension x="-8" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="150" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_TimedAward_ToggleTimer(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+
+            <!-- show the mini timer window -->
+            <Button name="$parentMiniButton" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentResetButton">
+                        <Offset>
+                            <AbsDimension x="8" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="150" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_TimedAward_ToggleMiniTimer(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Close Button -->
+            <Button name="$parentCloseButton" hidden="false">
+                <Size>
+                    <AbsDimension x="42" y="42"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="-5" y="-5"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        HideUIPanel(self:GetParent(self));
+                    </OnClick>
+                    <OnLoad>
+                    </OnLoad>
+                </Scripts>
+                <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
+
+        </Frames>
+    </Frame>
+
+    <!-- ================================================
+         UPDATE / TIMER FRAME
+         =================================================-->
+    <Frame name="WebDKP_TimedAward_UpdateFrame" toplevel="true" parent="UIParent" hidden="true">
+        <Scripts>
+            <OnLoad>self.TimeSinceLastUpdate = 0</OnLoad>
+            <OnUpdate>WebDKP_TimedAward_OnUpdate(self, elapsed);</OnUpdate>
+        </Scripts>
+    </Frame>
+
+
+    <!-- ================================================
+         BID CONFIRM FRAME
+         =================================================-->
+    <Frame name="WebDKP_TimedAward_MiniFrame" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+        </Scripts>
+        <Size>
+            <AbsDimension x="110" y="40"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentTimeLeft" inherits="GameFontRedLarge">
+                    <Anchors>
+                        <Anchor point="LEFT">
+                            <Offset>
+                                <AbsDimension x="10" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+
+            <!-- Close Button -->
+            <Button name="$parentCloseButton" hidden="false">
+                <Size>
+                    <AbsDimension x="42" y="42"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="1" y="1"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        HideUIPanel(self:GetParent(self));
+                        WebDKP_Options["TimedAwardMiniTimer"] = 0;
+                    </OnClick>
+                </Scripts>
+                <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
+        </Frames>
+    </Frame>
+
+</Ui>

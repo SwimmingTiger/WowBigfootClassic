@@ -1,0 +1,41 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\..\FrameXML\UI.xsd">
+    <!-- ================================================
+           TEMPLATES
+           =================================================-->
+    <!-- Defines a button template for all the buttons in the player list. This is
+    defined here so that these parameters don't need to be redefined for each button -->
+    <!-- <Button name="WebDKP_LogTemplate" text="entry" virtual="true">
+        <Size>
+            <AbsDimension x="150" y="16"/>
+        </Size>
+    </Button> -->
+
+    <!-- Defines a template for the log headers -->
+    <Button name="WebDKP_LogTabTemplate" virtual="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentBackground">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                getglobal(self:GetName(self) .. "Background"):SetVertexColor(.7, .7, .7, 0.5);
+            </OnLoad>
+            <OnEnter>
+                getglobal(self:GetName(self) .. "Background"):SetVertexColor(0.5, 0.5, 0.5, 0.5);
+            </OnEnter>
+            <OnLeave>
+                getglobal(self:GetName(self) .. "Background"):SetVertexColor(.7, .7, .7, 0.5);
+            </OnLeave>
+        </Scripts>
+    </Button>
+
+</Ui>

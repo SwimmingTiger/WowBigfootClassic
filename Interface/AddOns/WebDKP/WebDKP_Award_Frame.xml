@@ -1,0 +1,89 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+
+
+    <Frame name="WebDKP_AwardFrameTemplate" toplevel="true" parent="UIParent" movable="true" hidden="true" virtual="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+        </Scripts>
+        <Size>
+            <AbsDimension x="425" y="125"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentTitle" inherits="GameFontNormal" parentKey="title">
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="-14"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+            <EditBox name="$parentCost" inherits="WebDKPEditBoxTemplate" parentKey="cost" autoFocus="false" numeric="true">
+                <Size>
+                    <AbsDimension x="70" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parentTitle" relativePoint="BOTTOM">
+                        <Offset>
+                            <AbsDimension x="0" y="-10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </EditBox>
+            <Button name="$parentYes" inherits="OptionsButtonTemplate" parentKey="yes">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="BOTTOM" relativeTo="$parentCost">
+                        <Offset>
+                            <AbsDimension x="-5" y="-10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="75" y="25"/>
+                </Size>
+            </Button>
+            <Button name="$parentNo" inherits="OptionsButtonTemplate" parentKey="no">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOM" relativeTo="$parentCost">
+                        <Offset>
+                            <AbsDimension x="5" y="-10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="75" y="25"/>
+                </Size>
+            </Button>
+        </Frames>
+    </Frame>
+
+</Ui>

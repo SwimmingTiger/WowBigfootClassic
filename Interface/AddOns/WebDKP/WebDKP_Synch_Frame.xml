@@ -1,0 +1,496 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+    <!-- Define a template for a user entry -->
+    <Frame name="WebDKP_DKPSynchLogLineTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="305" y="20"/>
+        </Size>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentBackground">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1" a="1"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString name="$parentName" inherits="ChatFontNormal" text="">
+                    <Anchors>
+                        <Anchor point="LEFT">
+                            <Offset>
+                                <AbsDimension x="0" y="0"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                getglobal(self:GetName(self) .. "Background"):SetVertexColor(0, 0, 0, 0);
+            </OnLoad>
+            <OnEnter>
+
+            </OnEnter>
+            <OnLeave>
+
+            </OnLeave>
+            <OnMouseDown>
+
+            </OnMouseDown>
+        </Scripts>
+    </Frame>
+
+
+    <!-- ================================================
+         MAIN FRAME
+         =================================================-->
+    <Frame name="WebDKP_SynchFrame" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+        </Scripts>
+        <Size>
+            <AbsDimension x="600" y="500"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+                    <Size>
+                        <AbsDimension x="450" y="64"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="20"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentTitle" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parentHeaderTexture">
+                            <Offset>
+                                <AbsDimension x="0" y="-14"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentText" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT">
+                            <Offset>
+                                <AbsDimension x="15" y="-20"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentTimeLeft" inherits="GameFontRedLarge" text="">
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="-160"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <!-- DKP Users TITLE -->
+                <FontString name="$parentUsers" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parentText">
+                            <Offset>
+                                <AbsDimension x="0" y="-150"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+
+
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+
+            <!-- DKP User COLUMN NAMES -->
+            <Button name="$parentName" inherits="WebDKP_LogTabTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentUsers">
+                        <Offset>
+                            <AbsDimension x="0" y="-30"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="400" y="24"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        PlaySound(856);
+                    </OnClick>
+                </Scripts>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="8" y="0"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Button>
+
+            <!-- Enable or Disable Synching -->
+            <CheckButton name="$parentEnableSynch" inherits="OptionsCheckButtonTemplate" checked="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="350" y="-40"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="LEFT">
+                                    <Offset>
+                                        <AbsDimension x="-335" y="0"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Options_ToggleOption("EnableSynch");
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
+
+            <!-- Synching Password to prevent someone from trying to fake a synch(shouldnt happen anyway since it should only run the code if synch is activated) -->
+            <EditBox name="$parentPassword" inherits="WebDKPEditBoxTemplate">
+                <Size>
+                    <AbsDimension x="130" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parentEnableSynch">
+                        <Offset>
+                            <AbsDimension x="-190" y="-45"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-85" y="-8"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."Password"):SetAutoFocus( false );
+                    </OnLoad>
+                    <OnEscapePressed>
+                        getglobal(self:GetParent(self):GetName(self).."Password"):ClearFocus(self);
+                    </OnEscapePressed>
+                    <OnEnterPressed>
+                        getglobal(self:GetParent(self):GetName(self).."Password"):ClearFocus(self);
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        WebDKP_Options["SynchPassword"] =
+                        getglobal(self:GetParent(self):GetName(self).."Password"):GetText(self);
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+
+            <!-- Player to Synch With -->
+            <EditBox name="$parentSynchFrom" inherits="WebDKPEditBoxTemplate">
+                <Size>
+                    <AbsDimension x="130" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parentEnableSynch">
+                        <Offset>
+                            <AbsDimension x="-190" y="-80"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-145" y="-8"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."SynchFrom"):SetAutoFocus( false );
+                    </OnLoad>
+                    <OnEscapePressed>
+                        getglobal(self:GetParent(self):GetName(self).."SynchFrom"):ClearFocus(self);
+                    </OnEscapePressed>
+                    <OnEnterPressed>
+                        getglobal(self:GetParent(self):GetName(self).."SynchFrom"):ClearFocus(self);
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        WebDKP_Options["SynchFrom"] =
+                        getglobal(self:GetParent(self):GetName(self).."SynchFrom"):GetText(self);
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+
+            <!-- Synchronize Just the DKP Table-->
+            <Button name="$parentSynchronize" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP">
+                        <Offset>
+                            <AbsDimension x="80" y="-125"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="100" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Start_Synch(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <!-- Synchronize The DKP Table & The Log-->
+            <Button name="$parentSynchAll" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOPRIGHT" relativeTo="$parentSynchronize">
+                        <Offset>
+                            <AbsDimension x="70" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="120" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Start_SynchAll(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Add Player to Backup List -->
+            <EditBox name="$parentAddSynchUser" inherits="WebDKPEditBoxTemplate">
+                <Size>
+                    <AbsDimension x="130" y="32"></AbsDimension>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parentSynchFrom">
+                        <Offset>
+                            <AbsDimension x="100" y="-210"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-235" y="-8"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."AddSynchUser"):SetAutoFocus( false );
+                    </OnLoad>
+                    <OnEscapePressed>
+                        getglobal(self:GetParent(self):GetName(self).."AddSynchUser"):ClearFocus(self);
+                    </OnEscapePressed>
+                    <OnEnterPressed>
+                        getglobal(self:GetParent(self):GetName(self).."AddSynchUser"):ClearFocus(self);
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        WebDKP_Options["AddSynchUser"] =
+                        getglobal(self:GetParent(self):GetName(self).."AddSynchUser"):GetText(self);
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+
+            <!-- Add -->
+            <Button name="$parentAddUser" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP">
+                        <Offset>
+                            <AbsDimension x="-100" y="-365"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="150" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Synch_AddName(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Delete -->
+            <Button name="$parentDelUser" inherits="OptionsButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOP" relativePoint="TOP">
+                        <Offset>
+                            <AbsDimension x="70" y="-365"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="150" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_Synch_DelName(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+
+            <!-- Close Button -->
+            <Button name="$parentCloseButton" hidden="false">
+                <Size>
+                    <AbsDimension x="42" y="42"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="-5" y="-5"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        HideUIPanel(self:GetParent(self));
+                    </OnClick>
+                </Scripts>
+                <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
+
+
+            <!-- DKP Backup User SCROLL FRAME -->
+            <ScrollFrame name="$parentBackupScrollFrame" inherits="FauxScrollFrameTemplate" hidden="false">
+                <Size>
+                    <AbsDimension x="400" y="100"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="14" y="-225"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnVerticalScroll>
+                        FauxScrollFrame_OnVerticalScroll(self, offset, 20, WebDKP_Synch_Update);
+                    </OnVerticalScroll>
+                    <OnShow>
+                        WebDKP_Synch_Update(self)
+                    </OnShow>
+                </Scripts>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture name="$parentBackground" setAllPoints="true">
+                            <Color r=".2" g=".2" b=".2" a="0.5"/>
+                        </Texture>
+                    </Layer>
+                </Layers>
+
+            </ScrollFrame>
+            <!-- DKP Users LINE ENTRIES -->
+            <Frame name="$parentLine1" inherits="WebDKP_DKPSynchLogLineTemplate" id="1">
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="20" y="-225"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentLine2" inherits="WebDKP_DKPSynchLogLineTemplate" id="2">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLine1"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentLine3" inherits="WebDKP_DKPSynchLogLineTemplate" id="3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLine2"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentLine4" inherits="WebDKP_DKPSynchLogLineTemplate" id="4">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLine3"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentLine5" inherits="WebDKP_DKPSynchLogLineTemplate" id="5">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLine4"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentLine6" inherits="WebDKP_DKPSynchLogLineTemplate" id="6">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentLine5"/>
+                </Anchors>
+            </Frame>
+
+
+        </Frames>
+    </Frame>
+
+</Ui>

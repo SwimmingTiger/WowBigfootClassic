@@ -1,0 +1,42 @@
+## Interface: 11303
+## Title: WebDKP
+## Title-zhCN: WebDKP |cFF0dea38团队DKP管理|r v13.7
+## Author: Zedd, Quartal, Xenosian, Agard, Zevious, 60addons, ALA
+## Version: n/a
+## Notes: An addon that allows you to easily record DKP and Attendance for guilds in game.
+## Notes-zhCN: 帮助团队管理DKP,并配有DKP管理网站 by 60addons[wowcat]
+## URL: http://www.webDKP.com, http://webdkp.wowcat.net
+## X-Category: Guild Raid
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: WebDKP_Log,WebDKP_DkpTable,WebDKP_Tables,WebDKP_Loot,WebDKP_Alts,WebDKP_WebOptions
+## SavedVariablesPerCharacter: WebDKP_Options, WebDKP_Synch_Users, WebDKP_Ignored_Items,WebDKP_RaidInfo,WebDKP_CharRaidInfo,WebDKP_Filters
+WebDKP_Sign.lua
+WebDKP_Common.lua
+Localization\localization.xml
+WebDKP_Common.xml
+WebDKP_WinTab.xml
+WebDKP_Frame.xml
+WebDKP_Bid_Frame.xml
+WebDKP_Award_Frame.xml
+WebDKP_Help_Frame.xml
+WebDKP_Options_Frame.xml
+WebDKP_TimedAward_Frame.xml
+WebDKP_Synch_Frame.xml
+WebDKP_LogFrame.xml
+WebDKP_RaidInfoFrame.xml
+WebDKP_CharRaidFrame.xml
+WebDKP.lua
+WhisperDKP.lua
+Utility.lua
+GroupFunctions.lua
+Announcments.lua
+Awards.lua
+AutoFill.lua
+Bidding.lua
+Help.lua
+Options.lua
+TimedAward.lua
+Synch.lua
+RaidAttendance.lua
+Standby.lua

@@ -1,0 +1,195 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+
+    <!-- ================================================
+         TEMPLATES
+         =================================================-->
+    <!-- Define a template for a bid row entry -->
+
+
+    <!-- ================================================
+         MAIN FRAME
+         =================================================-->
+    <Frame name="WebDKP_HelpFrame" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+        </Scripts>
+        <Size>
+            <AbsDimension x="450" y="500"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parentHeaderTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
+                    <Size>
+                        <AbsDimension x="300" y="64"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="20"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentTitle" inherits="GameFontNormal" text="WebDKP Help">
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parentHeaderTexture">
+                            <Offset>
+                                <AbsDimension x="0" y="-14"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+
+            <Frame name="WebDKP_Help_DropDown" inherits="UIDropDownMenuTemplate" id="1">
+
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="90" y="-25"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parentLabel" inherits="GameFontNormal" text="Help Topic:">
+                            <Anchors>
+                                <Anchor point="TOPLEFT">
+                                    <Offset>
+                                        <AbsDimension x="-75" y="-8"/>
+                                    </Offset>
+                                </Anchor>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        WebDKP_Help_DropDown_OnLoad(self);
+                    </OnLoad>
+                </Scripts>
+
+            </Frame>
+            <ScrollFrame name="WebDKP_Help_ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+                <Size>
+                    <AbsDimension x="296" y="257"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT">
+                        <Offset>
+                            <AbsDimension x="10" y="-60"/>
+                        </Offset>
+                    </Anchor>
+                    <Anchor point="BOTTOMRIGHT">
+                        <Offset>
+                            <AbsDimension x="-35" y="10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture>
+                            <Anchors>
+                                <Anchor point="TOPLEFT"/>
+                                <Anchor point="BOTTOMRIGHT"/>
+                            </Anchors>
+                            <Color r=".2" g=".2" b=".2" a="1"/>
+                        </Texture>
+                    </Layer>
+
+                </Layers>
+                <ScrollChild>
+
+                    <Frame name="WebDKP_Help_Frame_Text_Frame">
+                        <Size>
+                            <AbsDimension x="400" y="1400"/>
+                        </Size>
+                        <Anchors>
+                            <Anchor point="TOPLEFT">
+                            </Anchor>
+                            <Anchor point="BOTTOMRIGHT"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <FontString name="WebDKP_Help_Frame_Text" outline="THICK"
+                                            inherits="GameFontHighlightLarge" justifyH="LEFT" justifyV="TOP"
+                                            nonspacewrap="true"
+                                            text="|cFFFF0000Bidding Help |n================|r|n|nThis is a test">
+                                    <Shadow>
+                                        <offset>
+                                            <AbsDimension x="1" y="1"/>
+                                        </offset>
+                                        <color r="0" g="0" b="0"/>
+                                    </Shadow>
+                                    <!--<Size>
+                                      <AbsDimension x="276" y="0"/>
+                                    </Size> -->
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT">
+                                            <Offset>
+                                                <AbsDimension x="10" y="-10"/>
+                                            </Offset>
+                                        </Anchor>
+                                        <Anchor point="BOTTOMRIGHT"/>
+                                    </Anchors>
+                                </FontString>
+
+                            </Layer>
+
+                        </Layers>
+
+                    </Frame>
+                </ScrollChild>
+            </ScrollFrame>
+
+            <!-- Close Button -->
+            <Button name="$parentCloseButton" hidden="false">
+                <Size>
+                    <AbsDimension x="42" y="42"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="-5" y="-5"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        HideUIPanel(self:GetParent(self));
+                    </OnClick>
+                </Scripts>
+                <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down"/>
+                <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+            </Button>
+        </Frames>
+    </Frame>
+</Ui>

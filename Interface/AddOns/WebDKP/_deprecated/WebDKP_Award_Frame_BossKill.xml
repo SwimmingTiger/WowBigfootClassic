@@ -1,0 +1,97 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+
+
+    <!-- ================================================
+         MAIN FRAME
+         =================================================-->
+    <Frame name="WebDKP_AwardFrame_BossKill" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving(self);
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing(self);
+            </OnMouseUp>
+            <OnShow>
+                WebDKP_AwardFrame_BossKill_InitData(self);
+            </OnShow>
+        </Scripts>
+        <Size>
+            <AbsDimension x="425" y="125"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\TutorialFrame\TutorialFrameBackground"
+                  edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+
+        <!-- HEADER / ADDON TITLE-->
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentTitle" inherits="GameFontNormal"
+                            text="Kill XXXX for 10000 dkp?">
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="-14"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <!-- FRAMES (contains all gui elements -->
+        <Frames>
+            <EditBox name="$parentCost" inherits="WebDKPEditBoxTemplate" numeric="true">
+                <Size>
+                    <AbsDimension x="70" y="32"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOP" relativeTo="$parentTitle" relativePoint="BOTTOM">
+                        <Offset>
+                            <AbsDimension x="0" y="-10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        getglobal(self:GetParent(self):GetName(self).."Cost"):SetAutoFocus( false );
+                    </OnLoad>
+                </Scripts>
+            </EditBox>
+            <Button name="$parentYes" inherits="OptionsButtonTemplate" text="Yes">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="BOTTOM" relativeTo="$parentCost">
+                        <Offset>
+                            <AbsDimension x="40" y="-10"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="75" y="25"/>
+                </Size>
+                <Scripts>
+                    <OnClick>
+                        WebDKP_AwardFrame_BossKill:Hide(self);
+                        local reason = _G["WebDKP_AwardFrame_BossKill" .. "Title"]:GetText(),
+                        local killDkp = tonumber(_G["WebDKP_AwardFrame_BossKill" .. "Cost"]:GetText())
+                        WebDKP_AwardDKP_BossKill_Final(reason,reason)
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Frame>
+
+</Ui>

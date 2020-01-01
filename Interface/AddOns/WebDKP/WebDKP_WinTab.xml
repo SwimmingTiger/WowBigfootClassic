@@ -1,0 +1,112 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+    <Script file="WebDKP.lua"/>
+
+    <!-- Defines a template for a tab-->
+    <Button name="WebDKP_WinTabTemplate" inherits="CharacterFrameTabButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="200" y="32"/>
+        </Size>
+        <Scripts>
+            <OnClick>
+                WebDKP_WinTab_OnClick(self);
+            </OnClick>
+            <OnLoad>
+            </OnLoad>
+        </Scripts>
+    </Button>
+
+    <Frame name="WebDKP_WinTabFrame" toplevel="true" parent="UIParent" movable="true" hidden="true">
+        <!-- EVENT HANDLERS FOR THE MASTER FRAME -->
+        <Scripts>
+            <OnLoad>
+                WebDKP_WinTab_OnLoad(self);
+            </OnLoad>
+        </Scripts>
+        <Size>
+            <AbsDimension x="780" y="600"/>
+        </Size>
+        <Anchors>
+            <Anchor point="LEFT"/>
+        </Anchors>
+
+        <Frames>
+
+            <!-- Tab Button: WebDKP_Frame -->
+            <Button name="$parentTab1" inherits="WebDKP_WinTabTemplate" id="1" text="DKP">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="WebDKP_WinTabFrame">
+                        <Offset>
+                            <AbsDimension x="5" y="7"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <!-- Tab Button: WebDKP_BidFrame -->
+            <Button name="$parentTab2" inherits="WebDKP_WinTabTemplate" id="2" text="Bid">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <!-- Tab Button: WebDKP_TimedAwardFrame -->
+            <Button name="$parentTab3" inherits="WebDKP_WinTabTemplate" id="3" text="TimedAward">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab2" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            <!-- Tab Button: WebDKP_SynchFrame-->
+            <Button name="$parentTab4" inherits="WebDKP_WinTabTemplate" id="4" text="Synch">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab3" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+
+            <!-- Tab Button: WebDKP_LogFrame -->
+            <Button name="$parentTab5" inherits="WebDKP_WinTabTemplate" id="5" text="Log">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab4" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+
+            <!-- Tab Button: WebDKP_RaidInfoFrame -->
+            <Button name="$parentTab6" inherits="WebDKP_WinTabTemplate" id="6" text="Raid">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab5" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+            
+            <!-- Tab Button: WebDKP_CharRaidInfoFrame-->
+            <Button name="$parentTab7" inherits="WebDKP_WinTabTemplate" id="7" text="CharRaid">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentTab6" relativePoint="RIGHT">
+                        <Offset>
+                            <AbsDimension x="-16" y="0"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </Button>
+
+        </Frames>
+    </Frame>
+
+</Ui>
