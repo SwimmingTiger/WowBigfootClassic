@@ -15139,6 +15139,21 @@ CodexDB["quests"]["enUS"]={
 ["O"]="If you are interested in helping Sagorne Crestrider in Orgrimmar\'s Valley of Wisdom, bring him an Azerothian Diamond and a Pristine Black Diamond.",
 ["T"]="Material Assistance",
 },
+[7668]={
+["D"]="Death Knight Darkreaver lords over the Great Ossuary in the Scholomance.He threatens to twist the spirit realm to do his own bidding, and he must be stopped!This is where the scryer you helped make comes into play.$B$BUse the divination scryer in the heart of the Great Ossuary\'s basement to call forth Darkreaver\'s spirit minions.Defeat the spirits and the death knight himself will appear.$N, bring me his head!Only his demise will reverse the damage done to the spirit realm!",
+["O"]="Use the Divination Scryer in the heart of the Great Ossuary\'s basement in the Scholomance.Doing so will bring forth spirits you must fight.Defeating these spirits will summon forth Death Knight Darkreaver; defeat him.$B$BBring Darkreaver\'s Head to Sagorne Creststrider in the Valley of Wisdom, Orgrimmar.",
+["T"]="The Darkreaver Menace",
+},
+[7669]={
+["D"]="",
+["O"]="",
+["T"]="Again Into the Great Ossuary",
+},
+[7670]={
+["D"]="The time has come, $N, for you to learn about what it will take for you to acquire something you have no doubt waited on for some time... your charger.$B$BSpeak with Lord Grayson Shadowbreaker here in Stormwind\'s Cathedral District.It is he who will guide you not only though the legerdemain of a Paladin\'s most trusted mount, but the tasks before you to acquire one of your own.$B$BI wish you the best in this trial.For the Light, noble $G brother : sister;!",
+["O"]="Speak with Lord Grayson Shadowbreaker in Stormwind\'s Cathedral District.",
+["T"]="Lord Grayson Shadowbreaker",
+},
 [7671]={
 ["D"]="",
 ["O"]="",
