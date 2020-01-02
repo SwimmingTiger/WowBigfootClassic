@@ -5,6 +5,7 @@ local masque_t;
 if GetLocale()=='zhCN' then
 	L["Recount"] = "伤害统计"
 	L["Skada"] = "战斗统计"
+	L["Details"] = "战斗统计"
 	L["DBM"] = "首领报警"
 	L["Grid"] = "团队框架"
 	L["GDKP"] = "金团助手"
@@ -33,6 +34,7 @@ if GetLocale()=='zhCN' then
 elseif GetLocale()=='zhTW' then
 	L["Recount"] = "傷害統計"
 	L["Skada"] = "戰鬥統計"
+	L["Details"] = "戰鬥統計"
 	L["DBM"] = "首領報警"
 	L["Grid"] = "團隊框架"
 	L["GDKP"] = "金團助手"
@@ -60,6 +62,7 @@ elseif GetLocale()=='zhTW' then
 
 else
 
+	L["Details"] = "Details"
 	L["Auctionator"] ="Auctionator"
 	L["aux-addon"] ="AUX Addon"
 	L["MonkeyQuestList"] ="Quest List"
@@ -570,6 +573,26 @@ local function __AddBottomFrames()
 
 	if IsConfigurableAddOn("Skada") then
 		check = __CreateCheckBox(L["Skada"], "RaidToolkit","EnableSkada",nil,"Skada")
+		M:AddBottomButton(check)
+	end
+
+	local _, _, _, active, status = GetAddOnInfo('Details')
+	if status ~= 'MISSING' then
+		check = __CreateCustomCheckBox("Details", nil, active,
+			function()
+				local _, _, _, active, status = GetAddOnInfo('Details')
+				if not IsAddOnLoaded('Details') then
+					EnableAddOn('Details')
+					BigFoot_RequestReloadUI()
+				end
+			end,
+			function()
+				local _, _, _, active, status = GetAddOnInfo('Details')
+				if IsAddOnLoaded('Details') then
+					DisableAddOn('Details')
+					BigFoot_RequestReloadUI()
+				end
+			end)
 		M:AddBottomButton(check)
 	end
 
