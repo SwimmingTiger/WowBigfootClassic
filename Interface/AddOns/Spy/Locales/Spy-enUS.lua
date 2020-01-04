@@ -2,43 +2,46 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("Spy", "enUS", true)
 if not L then return end
 
--- Addon information
+-- Configuration
 L["Spy"] = "Spy"
 L["Version"] = "Version"
-L["VersionCheck"] = "|cffc41e3aWarning! The wrong version of Spy is installed. Remove this version and install Spy Classic."
-L["SpyEnabled"] = "|cff9933ffSpy addon enabled."
-L["SpyDisabled"] = "|cff9933ffSpy addon disabled. Type |cffffffff/spy enable|cff9933ff to enable."
-L["UpgradeAvailable"] = "|cff9933ffA new version of Spy is available. It can be downloaded from:\n|cffffffffhttps://www.curseforge.com/wow/addons/spy-classic"
-
--- Configuration frame name
 L["Spy Option"] = "Spy"
-
--- Configuration strings
 L["Profiles"] = "Profiles"
 
-L["GeneralSettings"] = "General Settings"
+-- Information
+L["About"] = "About"
 L["SpyDescription1"] = [[
-Spy is an addon that will alert you to the presence of nearby enemy players.
+Spy is an addon that will alert you to the presence of nearby enemy players. These are some of the main features.
 ]]
 L["SpyDescription2"] = [[
-
-|cffffd000Nearby list|cffffffff
+|cffffd000Nearby List|cffffffff
 Displays enemy players that have been detected nearby. Players are removed from the list if they have not been detected after a period of time.
 
-|cffffd000Last Hour list|cffffffff
+|cffffd000Last Hour List|cffffffff
 Displays all enemies that have been detected in the last hour.
 
-|cffffd000Ignore list|cffffffff
+|cffffd000Ignore List|cffffffff
 Players that are added to the Ignore list will not be reported by Spy. You can add and remove players to/from this list by using the button's drop down menu or by holding the Control key while clicking the button.
 
-|cffffd000Kill On Sight list|cffffffff
+|cffffd000Kill On Sight List|cffffffff
 Players on your Kill On Sight list cause an alarm to sound when detected. You can add and remove players to/from this list by using the button's drop down menu or by holding the Shift key while clicking the button.
 
 The drop down menu can also be used to set the reasons why you have added someone to the Kill On Sight list. If you want to enter a specific reason that is not in the list, then use the "Enter your own reason..." in the Other list.
 
+|cffffd000Statistics Window|cffffffff
+The Statistics Window contains a list of all enemy encounters which can be sorted by name, level, guild, wins, losses and the last time an enemy was detected. It also provides the ability to search for a specific enemy by name or guild and has filters to show only enemies that are marked as Kill on Sight, with a Win/Loss or entered Reasons.
+
+|cffffd000Kill On Sight Button|cffffffff
+If enabled, this button will be located on the enemy players target frame. Clicking on this button will add/remove the enemy target to/from the Kill On Sight list. Right clicking on the button will allow you to enter Kill on Sight reasons.
+
 |cffffd000Author: Slipjack|cffffffff
 ]]
 
+-- General Settings
+L["GeneralSettings"] = "General Settings"
+L["GeneralSettingsDescription"] = [[
+Options for when Spy is Enabled or Disabled.
+]] 
 L["EnableSpy"] = "Enable Spy"
 L["EnableSpyDescription"] = "Enables or disables Spy."
 L["EnabledInBattlegrounds"] = "Enable Spy in battlegrounds"
@@ -49,7 +52,20 @@ L["EnabledInWintergrasp"] = "Enable Spy in world combat zones"
 L["EnabledInWintergraspDescription"] = "Enables or disables Spy when you are in world combat zones such as Lake Wintergrasp in Northrend."
 L["DisableWhenPVPUnflagged"] = "Disable Spy when not flagged for PVP"
 L["DisableWhenPVPUnflaggedDescription"] = "Enables or disables Spy depending on your PVP status."
+L["DisabledInZones"] = "Disable Spy while in these locations"
+L["DisabledInZonesDescription"]	= "Select locations where Spy will be disabled"
+L["Booty Bay"] = "Booty Bay"
+L["Everlook"] = "Everlook"						
+L["Gadgetzan"] = "Gadgetzan"
+L["Ratchet"] = "Ratchet"
+L["The Salty Sailor Tavern"] = "The Salty Sailor Tavern"
+L["Shattrath City"] = "Shattrath City"
+L["Area 52"] = "Area 52"
+L["Dalaran"] = "Dalaran"
+L["Bogpaddle"] = "Bogpaddle"
+L["The Vindicaar"] = "The Vindicaar"
 
+-- Display
 L["DisplayOptions"] = "Display"
 L["DisplayOptionsDescription"] = [[
 Options for the Spy window and tooltips.
@@ -96,6 +112,7 @@ L["RowHeightDescription"] = "Select the Row Height for the Spy window."
 L["Texture"] = "Texture"
 L["TextureDescription"] = "Select a texture for the Spy Window"
 
+-- Alerts
 L["AlertOptions"] = "Alerts"
 L["AlertOptionsDescription"] = [[
 Options for alerts, announcements and warnings when enemy players are detected.
@@ -140,6 +157,7 @@ L["OnlySoundKoSDescription"] = "Set this to only play audio alerts when enemy pl
 L["StopAlertsOnTaxi"] = "Turn off alerts while on a flight path"
 L["StopAlertsOnTaxiDescription"] = "Stop all new alerts and warnings while on a flight path."
 
+-- Nearby List
 L["ListOptions"] = "Nearby List"
 L["ListOptionsDescription"] = [[
 Options on how enemy players are added and removed.
@@ -162,6 +180,7 @@ L["ShowNearbyListDescription"] = "Set this to display the Nearby list if it is n
 L["PrioritiseKoS"] = "Prioritise Kill On Sight enemy players in the Nearby list"
 L["PrioritiseKoSDescription"] = "Set this to always show Kill On Sight enemy players first in the Nearby list."
 
+-- Map
 L["MapOptions"] = "Map"
 L["MapOptionsDescription"] = [[
 Options for world map and minimap including icons and tooltips.
@@ -183,6 +202,7 @@ L["LimitSameZoneDescription"] = "Only displays detected enemies on the map if yo
 L["LimitSameContinent"] = "Same continent"
 L["LimitSameContinentDescription"] = "Only displays detected enemies on the map if you are on the same continent."
 
+-- Data Management
 L["DataOptions"] = "Data Management"
 L["DataOptionsDescription"] = [[
 Options on how Spy maintains and gathers data.
@@ -211,12 +231,15 @@ L["UseDataDescription"] = "Set this to use the data collected by other Spy users
 L["ShareKOSBetweenCharacters"] = "Share Kill On Sight players between your characters"
 L["ShareKOSBetweenCharactersDescription"] = "Set this to share the players you mark as Kill On Sight between other characters that you play on the same server and faction."
 
+-- Commands
 L["SlashCommand"] = "Slash Command"
 L["SpySlashDescription"] = "These buttons execute the same functions as the ones in the slash command /spy"
 L["Enable"] = "Enable"
 L["EnableDescription"] = "Enables Spy and shows the main window."
 L["Show"] = "Show"
 L["ShowDescription"] = "Shows the main window."
+L["Hide"] = "Hide"
+L["HideDescription"] = "Hides the main window."
 L["Reset"] = "Reset"
 L["ResetDescription"] = "Resets the position and appearance of the main window."
 L["ClearSlash"] = "Clear"
@@ -246,7 +269,11 @@ L["Reason"] = "Reason"
 L["HonorKills"] = "Honor Kills"
 L["PvPDeaths"] = "PvP Deaths"
 
--- Output messages
+-- Output Messages
+L["VersionCheck"] = "|cffc41e3aWarning! The wrong version of Spy is installed. Remove this version and install Spy Classic."
+L["SpyEnabled"] = "|cff9933ffSpy addon enabled."
+L["SpyDisabled"] = "|cff9933ffSpy addon disabled. Type |cffffffff/spy show|cff9933ff to enable."
+L["UpgradeAvailable"] = "|cff9933ffA new version of Spy is available. It can be downloaded from:\n|cffffffffhttps://www.curseforge.com/wow/addons/spy-classic"
 L["AlertStealthTitle"] = "Stealth player detected!"
 L["AlertKOSTitle"] = "Kill On Sight player detected!"
 L["AlertKOSGuildTitle"] = "Kill On Sight player guild detected!"

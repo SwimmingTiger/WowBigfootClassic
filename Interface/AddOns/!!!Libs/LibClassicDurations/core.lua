@@ -19,7 +19,7 @@ Usage example 1:
 --]================]
 if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then return end
 
-local MAJOR, MINOR = "LibClassicDurations", 41
+local MAJOR, MINOR = "LibClassicDurations", 44
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
 
@@ -44,8 +44,7 @@ local DRInfo = lib.DRInfo
 lib.buffCache = lib.buffCache or {}
 local buffCache = lib.buffCache
 
-lib.buffCacheValid = lib.buffCacheValid or {}
-local buffCacheValid = lib.buffCacheValid
+local buffCacheValid = {}
 
 lib.nameplateUnitMap = lib.nameplateUnitMap or {}
 local nameplateUnitMap = lib.nameplateUnitMap
@@ -67,6 +66,7 @@ local INFINITY = math.huge
 local PURGE_INTERVAL = 900
 local PURGE_THRESHOLD = 1800
 local UNKNOWN_AURA_DURATION = 3600 -- 60m
+local BUFF_CACHE_EXPIRATION_TIME = 40
 
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
 local UnitGUID = UnitGUID
@@ -633,7 +633,7 @@ local makeBuffInfo = function(spellID, applicationTable, dstGUID, srcGUID)
     end
     local now = GetTime()
     if expirationTime > now then
-        return { name, icon, 0, nil, duration, expirationTime, nil, nil, nil, spellID }
+        return { name, icon, 0, nil, duration, expirationTime, nil, nil, nil, spellID, false, false, false, false, 1 }
     end
 end
 
@@ -674,7 +674,7 @@ local function RegenerateBuffList(dstGUID)
     end
 
     buffCache[dstGUID] = buffs
-    buffCacheValid[dstGUID] = true
+    buffCacheValid[dstGUID] = GetTime() + BUFF_CACHE_EXPIRATION_TIME -- Expiration timestamp
 end
 
 local FillInDuration = function(unit, buffName, icon, count, debuffType, duration, expirationTime, caster, canStealOrPurge, nps, spellId, ...)
@@ -692,7 +692,8 @@ function lib.UnitAuraDirect(unit, index, filter)
     if enableEnemyBuffTracking and filter == "HELPFUL" and not UnitIsFriend("player", unit) and not UnitAura(unit, 1, filter) then
         local unitGUID = UnitGUID(unit)
         if not unitGUID then return end
-        if not buffCacheValid[unitGUID] then
+        local isValid = buffCacheValid[unitGUID]
+        if not isValid or isValid < GetTime() then
             RegenerateBuffList(unitGUID)
         end
 

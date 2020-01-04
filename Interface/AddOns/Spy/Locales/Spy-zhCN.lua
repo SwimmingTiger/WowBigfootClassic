@@ -2,26 +2,18 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Spy", "zhCN")
 if not L then return end
 -- TOC Note: "检测并提醒您附近有敌方玩家。"
  
--- Addon information
+-- Configuration
 L["Spy"] = "Spy 侦测敌方玩家"
 L["Version"] = "版本"
-L["VersionCheck"] = "|cffc41e3a警告！ 安装了错误的Spy版本。 删除此版本并安装Spy Classic。"
-L["SpyEnabled"] = "|cff9933ffSpy 侦测敌方玩家插件已启动。"
-L["SpyDisabled"] = "|cff9933ffSpy 侦测敌方玩家插件已关闭。 输入 |cffffffff/spy enable|cff9933ff 启动插件。"
-L["UpgradeAvailable"] = "|cff9933ff新版Spy 侦测敌方玩家 已有新的版本。 可以从这里下载新版本：\n|cffffffffhttps://www.curseforge.com/wow/addons/spy-classic"
- 
--- Configuration frame name
 L["Spy Option"] = "Spy 侦测敌方玩家"
- 
--- Configuration strings
 L["Profiles"] = "Profiles 配置文件"
  
-L["GeneralSettings"] = "一般配置"
+-- About
+L["About"] = "信息"
 L["SpyDescription1"] = [[
-Spy 侦测敌方玩家 插件可以提醒您附近有敌对玩家出现。
+Spy 侦测敌方玩家 插件可以提醒您附近有敌对玩家出现。这些是一些主要功能。
 ]]
 L["SpyDescription2"] = [[
- 
 |cffffd000附近列表|cffffffff
 附近列表会显示已经被侦测到的任何敌方玩家。 在非战斗状态下，点击列表姓名可快速选定目标。 如果在一定时间内未再次侦测到的玩家会被从列表中移除。
  
@@ -36,9 +28,20 @@ L["SpyDescription2"] = [[
  
 右键菜单也可以添加将某人加入此列表的原因。如果你希望添加不在列表中的说明，可以通过其他列表“自行输入原因...”。
   
-|cffffd000作者: Slipjack|cffffffff
- ]]
+|cffffd000Statistics Window|cffffffff
+The Statistics Window contains a list of all enemy encounters which can be sorted by name, level, guild, wins, losses and the last time an enemy was detected. It also provides the ability to search for a specific enemy by name or guild and has filters to show only enemies that are marked as Kill on Sight, with a Win/Loss or entered Reasons. 
 
+|cffffd000Kill On Sight Button|cffffffff
+If enabled, this button will be located on the enemy players target frame. Clicking on this button will add/remove the enemy target to/from the Kill On Sight list. Right clicking on the button will allow you to enter Kill on Sight reasons.
+  
+|cffffd000作者: Slipjack|cffffffff
+]]
+ 
+-- General Settings
+L["GeneralSettings"] = "一般配置"
+L["GeneralSettingsDescription"] = [[
+启用或禁用Spy时的选项。
+]] 
 L["EnableSpy"] = "开启Spy"
 L["EnableSpyDescription"] = "启用或禁用Spy。"
 L["EnabledInBattlegrounds"] = "战场中启用Spy"
@@ -49,7 +52,20 @@ L["EnabledInWintergrasp"] = "世界战斗区域中启用Spy"
 L["EnabledInWintergraspDescription"] = "在世界战斗区域中启用或禁用Spy，例如诺森德的冬握湖。"
 L["DisableWhenPVPUnflagged"] = "非PVP状态时禁用Spy"
 L["DisableWhenPVPUnflaggedDescription"] = "根据PVP状态启用或禁用Spy。"
+L["DisabledInZones"] = "在这些位置时禁用Spy"
+L["DisabledInZonesDescription"]	= "选择将禁用Spy的位置"
+L["Booty Bay"] = "藏宝海湾"
+L["Everlook"] = "永望镇"						
+L["Gadgetzan"] = "加基森"
+L["Ratchet"] = "棘齿城"
+L["The Salty Sailor Tavern"] = "水手之家旅店"
+L["Shattrath City"] = "沙塔斯城"
+L["Area 52"] = "52区"
+L["Dalaran"] = "达拉然"
+L["Bogpaddle"] = "沼桨镇"
+L["The Vindicaar"] = "维迪卡尔"
  
+-- Display
 L["DisplayOptions"] = "显示"
 L["DisplayOptionsDescription"] = [[
 Spy 窗口的选项和工具提示。
@@ -96,6 +112,7 @@ L["RowHeightDescription"] = "为Spy设置列高度。"
 L["Texture"] = "质地"
 L["TextureDescription"] = "选择Spy窗口的纹理"
  
+-- Alerts
 L["AlertOptions"] = "警告设置"
 L["AlertOptionsDescription"] = [[
 当检测到敌方玩家时的警报，公告和警告选项。
@@ -140,6 +157,7 @@ L["OnlySoundKoSDescription"] = "设置仅开启KOS列表中敌对玩家的声音
 L["StopAlertsOnTaxi"] = "在飞行路线上关闭警报"
 L["StopAlertsOnTaxiDescription"] = "在飛行路線上停止所有新的警報和警告."
  
+-- Nearby List
 L["ListOptions"] = "附近列表选项"
 L["ListOptionsDescription"] = [[
 关于如何添加和删除敌方玩家的选项。
@@ -162,6 +180,7 @@ L["ShowNearbyListDescription"] = "设置侦测到敌对玩家时显示附近列�
 L["PrioritiseKoS"] = "在附近列表中优先显示KOS列表中的敌对玩家"
 L["PrioritiseKoSDescription"] = "设置总在附近列表中优先显示KOS列表中的敌对玩家。"
  
+-- Map
 L["MapOptions"] = "小地图选项"
 L["MapOptionsDescription"] = [[
 世界地图和小地图的选项，包括图标和工具提示。
@@ -183,6 +202,7 @@ L["LimitSameZoneDescription"] = "只显示和自己在相同区域中的侦测�
 L["LimitSameContinent"] = "相同大陆"
 L["LimitSameContinentDescription"] = "只显示和自己在相同大陆中的侦测到的敌对玩家。"
  
+ -- Data Management
 L["DataOptions"] = "数据管理选项"
 L["DataOptionsDescription"] = [[
 关于 Spy 如何维护和收集数据的选项。
@@ -211,12 +231,15 @@ L["UseDataDescription"] = "使用队伍、团队或公会中的其他Spy用户�
 L["ShareKOSBetweenCharacters"] = "在您的角色中共享KOS敌对玩家列表"
 L["ShareKOSBetweenCharactersDescription"] = "设置在相同服务器和阵营的角色共享KOS敌对玩家列表。"
  
+ -- Commands
 L["SlashCommand"] = "聊天窗口命令"
 L["SpySlashDescription"] = "这些按钮会执行在聊天窗口中输入/spy 命令一样的功能。"
 L["Enable"] = "启用"
 L["EnableDescription"] = "启用Spy并显示窗口。"
 L["Show"] = "显示"
 L["ShowDescription"] = "显示Spy主窗口"
+L["Hide"] = "隐藏"
+L["HideDescription"] = "隐藏主窗口"
 L["Reset"] = "重置"
 L["ResetDescription"] = "恢复Spy窗口和外观默认设置"
 L["ClearSlash"] = "清除"
@@ -246,7 +269,11 @@ L["Reason"] = "原因"
 L["HonorKills"] = "荣誉击杀"
 L["PvPDeaths"] = "PvP 死亡"
  
--- Output messages
+-- Output Messages
+L["VersionCheck"] = "|cffc41e3a警告！ 安装了错误的Spy版本。 删除此版本并安装Spy Classic。"
+L["SpyEnabled"] = "|cff9933ffSpy 侦测敌方玩家插件已启动。"
+L["SpyDisabled"] = "|cff9933ffSpy 侦测敌方玩家插件已关闭。 输入 |cffffffff/spy show|cff9933ff 启动插件。"
+L["UpgradeAvailable"] = "|cff9933ff新版Spy 侦测敌方玩家 已有新的版本。 可以从这里下载新版本：\n|cffffffffhttps://www.curseforge.com/wow/addons/spy-classic"
 L["AlertStealthTitle"] = "侦测到潜行敌人！"
 L["AlertKOSTitle"] = "侦测到KOS敌对玩家！"
 L["AlertKOSGuildTitle"] = "侦测到KOS敌对公会！"

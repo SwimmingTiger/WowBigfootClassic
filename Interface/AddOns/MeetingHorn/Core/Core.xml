@@ -1,0 +1,7 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Activity.lua" />
+    <Script file="Applicant.lua" />
+    <Script file="Timer.lua" />
+    <Script file="LFG.lua" />
+</Ui>

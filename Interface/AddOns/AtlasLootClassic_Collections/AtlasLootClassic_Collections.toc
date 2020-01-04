@@ -1,6 +1,6 @@
 ﻿## Interface: 11303
 ## Author: Lag
-## Version: v1.4.3
+## Version: v1.4.4
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Collections]|r

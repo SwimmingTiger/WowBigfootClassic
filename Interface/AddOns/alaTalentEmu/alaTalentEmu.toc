@@ -5,7 +5,9 @@
 ## Notes: |cff00ff00alaTalentEmu|r
 ## SavedVariables: alaTalentEmuSV
 ## Author: |cff00ff00ALA|r @ |cffff0000163UI|r
-## Version: 113r.191220
+## Author-zhCN: |cff00ff00ALA|r @ |cffff0000网易有爱|r
+## Author-zhTW: |cff00ff00ALA|r @ |cffff0000网易有爱|r
+## Version: 113r.191223
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

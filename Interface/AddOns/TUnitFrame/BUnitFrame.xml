@@ -194,7 +194,7 @@
 					</Frame>
 				</Frames>
 			</Frame>
-			<Frame name="$parentShineFrame">
+			<Frame name="$parentShineFrame" hidden="true">
 				<Size>
 					<AbsDimension x="36" y="36"/>
 				</Size>

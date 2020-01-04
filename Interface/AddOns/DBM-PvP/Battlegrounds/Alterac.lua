@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("z30", "DBM-PvP")
 
 local pairs, ipairs, type, tonumber, select, math = pairs, ipairs, type, tonumber, select, math
 
-mod:SetRevision("20191218211922")
+mod:SetRevision("20191220163458")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:AddBoolOption("AutoTurnIn")
@@ -166,24 +166,24 @@ do
 		-- AV in classic
 		[1459] = {
 			["Alliance"] = {
-				-- [1] = 300,-- control mine ally
-				[3] = 300,-- capping gy ally
-				[8] = 300,-- capping tower ally
-				-- [10] = 300,-- control tower ally
-				-- [14] = 300,-- control gy ally
+				-- [1] = 304,-- control mine ally
+				[3] = 304,-- capping gy ally
+				[8] = 304,-- capping tower ally
+				-- [10] = 304,-- control tower ally
+				-- [14] = 304,-- control gy ally
 			},
 			["Horde"] = {
-				-- [2] = 300,-- control mine horde
-				-- [9] = 300,-- control tower horde
-				[11] = 300,-- capping tower horde
-				-- [12] = 300,-- control gy horde
-				[13] = 300,-- capping gy horde
+				-- [2] = 304,-- control mine horde
+				-- [9] = 304,-- control tower horde
+				[11] = 304,-- capping tower horde
+				-- [12] = 304,-- control gy horde
+				[13] = 304,-- capping gy horde
 			},
-			-- [0] = 300,-- control mine npc
-			-- [5] = 300,-- destroyed tower (ally & horde)
-			-- [4] = 300,-- ?
-			-- [6] = 300,-- ?
-			-- [7] = 300,-- ?
+			-- [0] = 304,-- control mine npc
+			-- [5] = 304,-- destroyed tower (ally & horde)
+			-- [4] = 304,-- ?
+			-- [6] = 304,-- ?
+			-- [7] = 304,-- ?
 		},
 		-- Korrak in retail
 		[1537] = {

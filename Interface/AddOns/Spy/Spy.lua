@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.0.19"
+Spy.Version = "1.0.20"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -44,9 +44,9 @@ Spy.options = {
 	name = L["Spy"],
 	type = "group",
 	args = {
-		General = {
-			name = L["GeneralSettings"],
-			desc = L["GeneralSettings"],
+		About = {
+			name = L["About"],
+			desc = L["About"],
 			type = "group",
 			order = 1,
 			args = {
@@ -55,8 +55,28 @@ Spy.options = {
 					type = "description",
 					order = 1,
 					fontSize = "medium",					
+				},	
+				intro2 = {
+					name = L["SpyDescription2"],
+					type = "description",
+					order = 6,
+					fontSize = "medium",
+				},				
+			}, 	
+		},
+		General = {
+			name = L["GeneralSettings"],
+			desc = L["GeneralSettings"],
+			type = "group",
+			order = 1,
+			args = {
+				intro = {
+					name = L["GeneralSettingsDescription"],
+					type = "description",
+					order = 1,
+					fontSize = "medium",					
 				},
-				Enabled = {
+--[[				Enabled = {
 					name = L["EnableSpy"],
 					desc = L["EnableSpyDescription"],
 					type = "toggle",
@@ -68,7 +88,7 @@ Spy.options = {
 					set = function(info, value)
 						Spy:EnableSpy(value, true)
 					end,
-				},
+				}, ]]--
 				EnabledInBattlegrounds = {
 					name = L["EnabledInBattlegrounds"],
 					desc = L["EnabledInBattlegroundsDescription"],
@@ -97,7 +117,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
-				EnabledInWintergrasp = {
+--[[				EnabledInWintergrasp = {
 					name = L["EnabledInWintergrasp"],
 					desc = L["EnabledInWintergraspDescription"],
 					type = "toggle",
@@ -110,7 +130,7 @@ Spy.options = {
 						Spy.db.profile.EnabledInWintergrasp = value
 						Spy:ZoneChangedEvent()
 					end,
-				},
+				}, ]]--
 				DisableWhenPVPUnflagged = {
 					name = L["DisableWhenPVPUnflagged"],
 					desc = L["DisableWhenPVPUnflaggedDescription"],
@@ -125,11 +145,29 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
-				intro2 = {
-					name = L["SpyDescription2"],
-					type = "description",
-					order = 6,
-					fontSize = "medium",
+				DisabledInZones = {
+					name = L["DisabledInZones"],
+					desc = L["DisabledInZonesDescription"],
+					type = "multiselect",
+					order = 6,					
+					get = function(info, key) 
+						return Spy.db.profile.FilteredZones[key] 
+					end,
+					set = function(info, key, value) 
+						Spy.db.profile.FilteredZones[key] = value 
+					end,
+					values = {
+						["Booty Bay"] = L["Booty Bay"],
+						["Everlook"] = L["Everlook"],						
+						["Gadgetzan"] = L["Gadgetzan"],
+						["Ratchet"] = L["Ratchet"],
+						["The Salty Sailor Tavern"] = L["The Salty Sailor Tavern"],
+--						["Shattrath City"] = L["Shattrath City"],
+--						["Area 52"] = L["Area 52"],
+--						["Dalaran"] = L["Dalaran"],
+--						["Bogpaddle"] = L["Bogpaddle"],
+--						["The Vindicaar"] = L["The Vindicaar"],
+					},
 				},
 			},
 		},
@@ -1070,7 +1108,7 @@ Spy.optionsSlash = {
 			order = 1,
 			cmdHidden = true,
 		},
-		enable = {
+--[[		enable = {
 			name = L["Enable"],
 			desc = L["EnableDescription"],
 			type = 'execute',
@@ -1079,17 +1117,28 @@ Spy.optionsSlash = {
 				Spy:EnableSpy(true, true)
 			end,
 			dialogHidden = true
-		},
+		}, ]]--
 		show = {
 			name = L["Show"],
 			desc = L["ShowDescription"],
 			type = 'execute',
 			order = 2,
 			func = function()
-				Spy.MainWindow:Show()
+				Spy:EnableSpy(true, true)
+--				Spy.MainWindow:Show()
 			end,
 			dialogHidden = true
 		},
+		hide = {
+			name = L["Hide"],
+			desc = L["HideDescription"],
+			type = 'execute',
+			order = 2,
+			func = function()
+				Spy:EnableSpy(false, true)				
+			end,
+			dialogHidden = true
+		},		
 		reset = {
 			name = L["Reset"],
 			desc = L["ResetDescription"],
@@ -1255,7 +1304,7 @@ local Default_Profile = {
 		ClampToScreen=true,		
 		Font="Friz Quadrata TT",
 		Scaling=1,
-		Enabled=false,
+		Enabled=true,
 		EnabledInBattlegrounds=true,
 		EnabledInArenas=true,
 		EnabledInWintergrasp=true,
@@ -1300,6 +1349,18 @@ local Default_Profile = {
 		ShareKOSBetweenCharacters=true,
 		AppendUnitNameCheck=false,
 		AppendUnitKoSCheck=false,
+		FilteredZones = {
+			["Booty Bay"] = false,
+			["Gadgetzan"] = false,
+			["Ratchet"] = false,
+			["Everlook"] = false,
+			["The Salty Sailor Tavern"] = false,
+--			["Shattrath City"] = false,
+--			["Area 52"] = false,
+--			["Dalaran"] = false,
+--			["Bogpaddle"] = false,			
+--			["The Vindicaar"] = false,
+		}
 	}
 }
 
@@ -1474,6 +1535,7 @@ function Spy:SetupOptions()
 
 	local ACD3 = LibStub("AceConfigDialog-3.0")
 	self.optionsFrames.Spy = ACD3:AddToBlizOptions("Spy", L["Spy Option"], nil, "General")
+	self.optionsFrames.About = ACD3:AddToBlizOptions("Spy", L["About"], L["Spy Option"], "About")
 	self.optionsFrames.DisplayOptions = ACD3:AddToBlizOptions("Spy", L["DisplayOptions"], L["Spy Option"], "DisplayOptions")
 	self.optionsFrames.AlertOptions = ACD3:AddToBlizOptions("Spy", L["AlertOptions"], L["Spy Option"], "AlertOptions")
 	self.optionsFrames.ListOptions = ACD3:AddToBlizOptions("Spy", L["ListOptions"], L["Spy Option"], "ListOptions")
@@ -1564,7 +1626,7 @@ function Spy:OnDisable()
 	Spy:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	Spy:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	Spy:UnregisterEvent("PLAYER_DEAD")
-	Spy:UnregisterEvent("CHAT_MSG_CHANNEL_NOTICE")	
+--	Spy:UnregisterEvent("CHAT_MSG_CHANNEL_NOTICE")	
 	Spy:UnregisterComm(Spy.Signature)
 	Spy.IsEnabled = false
 end
@@ -1687,8 +1749,8 @@ function Spy:ChannelNoticeEvent(_, chStatus, _, _, Channel)
 		if Spy.zName == "Dalaran" then
 			Spy.ChnlTime = time()
 			Spy.EnabledInZone = false
-		end	
-	end	
+		end
+	end
 end ]]--
 
 function Spy:PlayerEnteringWorldEvent()
@@ -1734,8 +1796,9 @@ function Spy:ZoneChanged()
 	Spy.InInstance = false
 	local pvpType = GetZonePVPInfo()
 	local subZone = GetSubZoneText()
-	
-	if pvpType == "sanctuary" or GetZoneText() == "" or subZone == "The Vindicaar" then --++ chg so Spy is not active in the Vindicaar 	
+	local InFilteredZone = Spy:InFilteredZone(subZone)
+--	if pvpType == "sanctuary" or GetZoneText() == "" or subZone == "The Vindicaar" then
+	if pvpType == "sanctuary" or zone == "" or InFilteredZone then
 		Spy.EnabledInZone = false
 	else
 		Spy.EnabledInZone = true
@@ -1765,6 +1828,18 @@ function Spy:ZoneChanged()
 	else
 		if not InCombatLockdown() then Spy.MainWindow:Hide() end
 	end
+end
+
+function Spy:InFilteredZone(subzone)
+	local InFilteredZone = false
+	for filteredZone, value in pairs(Spy.db.profile.FilteredZones) do
+		if subzone == filteredZone and value then			
+			InFilteredZone = true
+			break
+		end
+	end
+
+	return InFilteredZone
 end
 
 function Spy:PlayerTargetEvent()
@@ -1947,13 +2022,10 @@ timestamp, event, hideCaster, srcGUID, srcName, srcFlags, sourceRaidFlags, dstGU
 		-- updates win stats for pet kills
 		if (combatEvent[event] and srcName == petName) then		
 			if event == "SWING_DAMAGE" then
---				_, overkill = ...
 				if arg13 == nil then overkill = 0 else overkill = arg13 end
 			else
---				_, _, _, _, overkill = ...
 				if arg16 == nil then overkill = 0 else overkill = arg16 end
 			end
---			if arg16 == nil then overkill = 0 else overkill = arg16 end			
 			if (overkill > 1 and srcName == petName) and dstName then
 				local playerData = SpyPerCharDB.PlayerData[dstName]
 				if playerData then

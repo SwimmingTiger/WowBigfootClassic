@@ -366,14 +366,13 @@ local function __BUnitFrame_Create(name, parent, unit, __theme)
 	if (__frame) then
 		__frame.unit = unit;
 
-		__BUnitFrame_Update(__frame);
-
 		__frame:SetAttribute("unit", unit);
 		__frame:SetAttribute("target", unit);
 		__frame:SetAttribute("*type1", "target");
 
 		__frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0);
 
+		__BUnitFrame_Update(__frame);
 		RegisterUnitWatch(__frame, false);
 		__frame.watched = true;
 
@@ -623,8 +622,8 @@ function BUnitFrame_OnEvent(self, event, ...)
 
 	local __unit = ...;
 
-	if not self.unit then self.unit ="" end
-	if not __unit then __unit ="" end
+	if not __unit then __unit = "" end
+	if not self.unit then self.unit = "" end
 
 	-- 仅更新选择选定的unit
 	if (string.sub(event, 1, 4) == "UNIT" and not UnitIsUnit(__unit, self.unit)) then

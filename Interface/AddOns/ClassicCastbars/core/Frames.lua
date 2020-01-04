@@ -28,7 +28,7 @@ end
 function addon:SetTargetCastbarPosition(castbar, parentFrame)
     local auraRows = parentFrame.auraRows or 0
 
-    if parentFrame.haveToT or parentFrame.haveElite or UnitExists("targettarget") then
+    if parentFrame.haveToT or parentFrame.haveElite or UnitExists("targettarget") then -- TODO: test if works with custom unitframe
         if parentFrame.buffsOnTop or auraRows <= 1 then
             castbar:SetPoint("CENTER", parentFrame, -18, -75)
         else
@@ -172,11 +172,16 @@ function addon:DisplayCastbar(castbar, unitID)
         db = self.db.party
     end
 
-    if castbar.fadeInfo then
-        -- need to remove frame if it's currently fading so alpha doesn't get changed after re-displaying castbar
-        namespace:UIFrameFadeRemoveFrame(castbar)
-        castbar.fadeInfo.finishedFunc = nil
+    if not castbar.animationGroup then
+        castbar.animationGroup = castbar:CreateAnimationGroup()
+        castbar.animationGroup:SetToFinalAlpha(true)
+        castbar.fade = castbar.animationGroup:CreateAnimation("Alpha")
+        castbar.fade:SetOrder(1)
+        castbar.fade:SetFromAlpha(1)
+        castbar.fade:SetToAlpha(0)
+        castbar.fade:SetSmoothing("OUT")
     end
+    castbar.animationGroup:Stop()
 
     if not castbar.Background then
         castbar.Background = GetStatusBarBackgroundTexture(castbar)
@@ -251,8 +256,9 @@ function addon:HideCastbar(castbar, noFadeOut)
         end
     end
 
-    if castbar:GetAlpha() > 0 then
-        namespace:UIFrameFadeOut(castbar, cast and cast.isInterrupted and 1.5 or 0.2, 1, 0)
+    if castbar:GetAlpha() > 0 and castbar.fade then
+        castbar.fade:SetDuration(cast and cast.isInterrupted and 1.5 or 0.3)
+        castbar.animationGroup:Play()
     end
 end
 
@@ -295,11 +301,11 @@ function addon:SkinPlayerCastbar()
     end
 
     if db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border" or db.castBorder == "Interface\\CastingBar\\UI-CastingBar-Border-Small" then
+        CastingBarFrame.Flash:SetTexture("Interface\\CastingBar\\UI-CastingBar-Flash")
         CastingBarFrame.Flash:SetSize(db.width + 61, db.height + 51)
         CastingBarFrame.Flash:SetPoint("TOP", 0, 26)
     else
-        -- TODO: no longer works?
-        CastingBarFrame.Flash:SetSize(0.01, 0.01) -- hide it using size, SetAlpha() or Hide() wont work without messing with blizz code
+        CastingBarFrame.Flash:SetTexture(nil) -- hide it by deleting texture, SetAlpha() or Hide() wont work without messing with blizz code
     end
 
     CastingBarFrame_SetStartCastColor(CastingBarFrame, unpack(db.statusColor))

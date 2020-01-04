@@ -3,6 +3,23 @@
 --]]--
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
+_G.__ala_meta__ = _G.__ala_meta__ or {  };
+
+do
+	local _G = _G;
+	local env_meta = {  };
+	local function set_global(key, value)
+		rawset(env_meta, key, value);
+		print("emu assign global", key, value);
+		return value;
+	end
+	local env = setmetatable(env_meta, {
+			__index = _G,
+			__newindex = function(t, key, value) set_global(key, value); end,
+		}
+	);
+	setfenv(1, env);
+end
 
 local L = NS.L;
 if not L then return;end
@@ -506,6 +523,7 @@ local emu = {
 	queryCache = {  },	-- [GUID] = { [addon] = { data, time, }, }
 	recv_msg = {  };
 };
+_G.__ala_meta__.emu = emu;
 local extern = { export = {  }, import = {  }, addon = {  }, };
 
 do	-- extern media
@@ -2417,7 +2435,7 @@ do	-- communication func
 				local msg = "";
 				local n = 0;
 				for slot = 0, 19 do
-					msg = msg .. "#" .. slot .. "#" .. meta[slot];
+					msg = msg .. "+" .. slot .. "+" .. meta[slot];
 					n = n + 1;
 					if n >= 4 then
 						n = 0;
@@ -2491,7 +2509,7 @@ do	-- communication func
 					emu.queryCache[sender][0] = time();
 					-- wipe(emu.queryCache[sender]);
 					while true do
-						_, start, slot, item = strfind(code, "#(%d+)#(item:[%-0-9:]+)", start);
+						_, start, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", start);
 						if slot and item then
 							slot = tonumber(slot);
 							if slot and slot >= 0 and slot <= 19 then
@@ -3199,7 +3217,7 @@ do	-- spellTabFrame
 		end
 	end
 	function emu.CreateSpellTabFrame(mainFrame)
-		local spellTabFrame = CreateFrame("Frame", mainFrame:GetName() .. "SpellTab", mainFrame);
+		local spellTabFrame = CreateFrame("Frame", nil, mainFrame);	-- mainFrame:GetName() .. "SpellTab"
 		spellTabFrame:SetPoint("LEFT", mainFrame, "RIGHT", 0, 0);
 		spellTabFrame:SetWidth(setting.spellTabFrameWidth);
 		if config.win_style == 'ala' then
@@ -3437,7 +3455,7 @@ do	-- talentFrame
 		end
 	end
 	function emu.CreateTalentIcon(talentFrame, id)
-		local icon = CreateFrame("Button", talentFrame:GetName() .. "TalentIcon" .. id, talentFrame);
+		local icon = CreateFrame("Button", nil, talentFrame);	-- talentFrame:GetName() .. "TalentIcon" .. id
 		icon:SetSize(setting.talentIconSize, setting.talentIconSize);
 
 		icon:Hide();
@@ -3535,7 +3553,7 @@ do	-- talentFrame
 		local talentFrames = {  };
 
 		for specIndex = 1, 3 do
-			local talentFrame = CreateFrame("Frame", mainFrame:GetName() .. "TalentFrame" .. specIndex, mainFrame);
+			local talentFrame = CreateFrame("Frame", nil, mainFrame);	-- mainFrame:GetName() .. "TalentFrame" .. specIndex
 			talentFrame:SetSize(setting.talentFrameXSizeSingle, setting.talentFrameYSize);
 
 			talentFrame:Show();
@@ -4528,7 +4546,7 @@ do	-- mainFrame
 	local temp_id = 0;
 	function emu.CreateMainFrame()
 		temp_id = temp_id + 1;
-		local mainFrame = CreateFrame("Frame", NAME .. "MainFrame" .. temp_id, UIParent);
+		local mainFrame = CreateFrame("Frame", nil, UIParent);	-- NAME .. "MainFrame" .. temp_id
 		mainFrame.id = temp_id;
 
 		mainFrame:SetPoint("CENTER");
@@ -4858,7 +4876,7 @@ do	-- init
 				end
 				config = alaTalentEmuSV;
 			else
-				alaTalentEmuSV = config;
+				_G.alaTalentEmuSV = config;
 			end
 			emu.DB_PreProc(_talentDB);
 			emu.EmuCore_InitCodeTable();
@@ -4887,7 +4905,7 @@ do	-- init
 			emu.EmuCore_Init_ADDON_MESSAGE();
 			emu.tooltipFrame = emu.CreateTooltipFrame();
 
-			local _EventVehicle = CreateFrame("Frame", NAME .. "EventVehicle", UIParent);
+			local _EventVehicle = CreateFrame("Frame", nil, UIParent);	-- NAME .. "EventVehicle"
 			NS._EventVehicle = _EventVehicle;
 			_EventVehicle:RegisterEvent("CHAT_MSG_ADDON");
 			_EventVehicle:RegisterEvent("CHAT_MSG_ADDON_LOGGED");
@@ -5171,7 +5189,7 @@ do	-- button_on_unitFrame
 		if not unitFrameName or unitFrameName == "" then
 			unitFrameName = "UNK" .. temp_unkFrame_id;
 		end
-		local unitFrameButton = CreateFrame("Button", NAME .. unitFrameName .. "Button", UIParent);
+		local unitFrameButton = CreateFrame("Button", nil, UIParent);	-- NAME .. unitFrameName .. "Button"
 		unitFrameButton:SetSize(60, 60);
 		unitFrameButton:Show();
 		unitFrameButton:SetAlpha(0.0);
@@ -5226,8 +5244,8 @@ do	-- button_on_unitFrame
 
 	C_Timer.After(1.0, function() hookUnitFrame(TargetFrame); end);
 end
-----------------------------------------------------------------------------------------------------Tooltip
-do	-- tooltip
+----------------------------------------------------------------------------------------------------
+do	-- 
 	local Orig_TalentFrameTalent_OnClick = nil;
 	local function _TalentFrameTalent_OnClick(self, mouseButton)
 		if IsShiftKeyDown() then
@@ -5282,7 +5300,9 @@ do	-- tooltip
 	--GameTooltip:SetHyperlink("itemString" or "itemLink")
 	--GameTooltip:SetSpellBookItem(spellBookId, bookType)
 	--GameTooltip:SetSpellByID(spellId)
-
+end
+----------------------------------------------------------------------------------------------------Tooltip
+do	-- tooltip
 	local function func_HookGTT(self, spellId)
 		local eClass, class, specIndex, spec, id, row, col, rank = ATEMU.QueryInfoFromDB(spellId);
 		if eClass then
@@ -5387,7 +5407,7 @@ do	-- dev
 				local magic = 2 ^ index;
 				while magic >= 1 do
 					if meta >= magic then
-						info = info .. " " .. (knownPacks[index + 1] or "") .. " " .. index;
+						info = info .. " " .. (knownPacks[index + 1] or "???") .. "-" .. index;
 						meta = meta - magic;
 					end
 					magic = magic / 2;

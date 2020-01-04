@@ -5,7 +5,7 @@ local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20191216225502")
+mod:SetRevision("20191220153831")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
@@ -55,7 +55,7 @@ do
 
 	function mod:PLAYER_DEAD()
 		local _, instanceType = IsInInstance()
-		if instanceType == "pvp" and not C_DeathInfo.GetSelfResurrectOptions() and self.Options.AutoSpirit then
+		if instanceType == "pvp" and #C_DeathInfo.GetSelfResurrectOptions() == 0 and self.Options.AutoSpirit then
 			RepopMe()
 		end
 	end

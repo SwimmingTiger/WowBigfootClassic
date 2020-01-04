@@ -10,6 +10,7 @@
 ## SavedVariables: BigDebuffsDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
+## LoadOnDemand: 1
 
 Locales\Locales.xml
 

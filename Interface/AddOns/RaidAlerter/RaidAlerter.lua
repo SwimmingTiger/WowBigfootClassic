@@ -1,5 +1,5 @@
-﻿-- 使用 "ThreatClassic-1.0" 库提供的仇恨接口
-local ThreatLib = LibStub("ThreatClassic-1.0", true)
+﻿-- 使用 "LibThreatClassic2" 库提供的仇恨接口
+local ThreatLib = LibStub("LibThreatClassic2", true)
 
 local UnitThreatSituation = function (...)
     return ThreatLib:UnitThreatSituation (...)
