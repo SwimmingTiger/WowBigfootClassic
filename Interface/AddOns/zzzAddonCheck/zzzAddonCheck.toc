@@ -1,0 +1,8 @@
+## Interface: 11303
+## Title: 整合包插件完整性检测
+## Notes: 在整合包插件被破坏时给出提示
+## Version: 0.1
+## Author: SwimmingTiger
+## Dependencies: BigFoot
+
+main.lua
