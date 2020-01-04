@@ -203,7 +203,7 @@ function BuffMasterConfigFunc()
 			BFCD_COOLDOWN_SHOW_TARGET,
 			BFCD_COOLDOWN_SHOW_TARGET_TOOLTIP,
 			"ShowTargetCooldown2",
-			nil,
+			1,
 			function (arg)
 				if (not BigFoot_IsAddOnLoadedFromBigFoot("BFCooldown")) then
 					BigFoot_LoadAddOn("BFCooldown");
