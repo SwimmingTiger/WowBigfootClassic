@@ -596,17 +596,17 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	if ClassicThreatMeterBarFrame ~= nil then
-		local oriShow = ClassicThreatMeterBarFrame.Show
-		ClassicThreatMeterBarFrame.Show = function(...)
+	if ThreatClassic2BarFrame ~= nil then
+		local oriShow = ThreatClassic2BarFrame.Show
+		ThreatClassic2BarFrame.Show = function(...)
 			if BigFoot_GetModVariable("CustomCheckBox", "ClassicThreatMeter") ~= 1 then
 				return false
 			end
 			oriShow(...)
 		end
 		check = __CreateCustomCheckBox("ClassicThreatMeter", nil, false,
-			function() ClassicThreatMeterBarFrame:Show() end,
-			function() ClassicThreatMeterBarFrame:Hide() end,
+			function() ThreatClassic2BarFrame:Show() end,
+			function() ThreatClassic2BarFrame:Hide() end,
 			nil)
 		M:AddBottomButton(check)
 	end
