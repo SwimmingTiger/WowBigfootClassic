@@ -1,13 +1,12 @@
-lightweight tag 9bbe22bacbe6063531b7dfb894faf18f52256119 1.13.3.2
+lightweight tag 16c4ec51e5432c9a2ad64f46fd45c5df12f2ca49 1.13.3.6
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Fri Dec 20 20:21:31 2019 +0100
+Date:	Thu Jan 2 07:31:12 2020 +0100
 
-commit 9bbe22bacbe6063531b7dfb894faf18f52256119
+commit 16c4ec51e5432c9a2ad64f46fd45c5df12f2ca49
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Fri Dec 20 20:20:23 2019 +0100
+Date:   Thu Jan 2 07:31:12 2020 +0100
 
-    Minor fix to combo point widget
+    Switched to 'LibThreatClassic2'
     
-    - Minor fix to combo point widget
-    - Locale Update
+    - Switched to 'LibThreatClassic2' as the old one seems to be abandonded
 

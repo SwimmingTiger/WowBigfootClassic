@@ -45,6 +45,7 @@ local AuraWidth = 16.5
 local AuraScale = 1
 local AuraAlignment = "BOTTOMLEFT"
 local ScaleOptions = {x = 1, y = 1, offset = {x = 0, y = 0}}
+local PreciseAuraThreshold = 0
 
 local function DummyFunction() end
 
@@ -134,6 +135,11 @@ local function EventUnitAura(unitid)
 
 end
 
+-- Clear the AuraCache for the unitid
+local function ClearAuraCache(unitid)
+	if unitid then AuraCache[unitid] = nil end
+end
+
 ---- Combat logging for aura applications in Classic
 --local function EventCombatLog(...)
 --	local _,event,_,sourceGUID,sourceName,sourceFlags,_,destGUID,destName,_,_,spellID,spellName = CombatLogGetCurrentEventInfo()
@@ -169,8 +175,6 @@ end
 --	end
 --end
 
-
-
 -----------------------------------------------------
 -- Function Reference Lists
 -----------------------------------------------------
@@ -178,7 +182,7 @@ end
 local AuraEvents = {
 	--["UNIT_TARGET"] = EventUnitTarget,
 	["UNIT_AURA"] = EventUnitAura,
-	["NAME_PLATE_UNIT_REMOVED"] = function(unitid) if unitid then AuraCache[unitid] = nil end end, -- Clear the AuraCache for the unitid
+	["NAME_PLATE_UNIT_REMOVED"] = ClearAuraCache, 
 	--["COMBAT_LOG_EVENT_UNFILTERED"]  = EventCombatLog,
 }
 
@@ -206,7 +210,11 @@ local function UpdateWidgetTime(frame, expiration)
 		if timeleft > 60 then
 			frame.TimeLeft:SetText(floor(timeleft/60).."m")
 		else
-			frame.TimeLeft:SetText(floor(timeleft))
+			if timeleft < PreciseAuraThreshold then
+				frame.TimeLeft:SetText((("%%.%df"):format(1)):format(timeleft))
+			else
+				frame.TimeLeft:SetText(floor(timeleft))
+			end
 			--frame.TimeLeft:SetText(floor(timeleft*10)/10)
 		end
 	end
@@ -350,7 +358,7 @@ local function UpdateIconGrid(frame, unitid)
 				if emphasized then
 					aura.priority = ePriority or 10
 					--emphasizedAuras[aura.name], emphasizedAuras[tostring(aura.spellid)] = aura, aura
-					emphasizedAuras[tostring(aura.spellid)] = aura
+					emphasizedAuras[#emphasizedAuras+1] = aura
 				end
 			else
 				if auraFilter == "HARMFUL" then
@@ -464,6 +472,10 @@ local function UpdateIconGrid(frame, unitid)
 			AuraIconFrames[1]:SetPoint(AuraAlignment, offsetX, 0)
 		end
 
+		DisplayedRows = math.max(0, DisplayedRows)
+		EmphasizedAuraCount = math.max(1, EmphasizedAuraCount) -- Make sure we aren't setting 0 as this can detach the frame...
+
+		-- Set Height/Width of Aura Frames
 		frame:SetHeight(DisplayedRows*16 + (DisplayedRows-1)*8) -- Set Height of the parent for easier alignment of the Emphasized aura.
 		frame.emphasized:SetWidth(EmphasizedAuraCount * AuraWidth)
 end
@@ -724,7 +736,6 @@ end
 
 -- Create the Main Widget Body and Icon Array
 local function CreateAuraWidget(parent, style)
-
 	-- Create Base frame
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetWidth(128); frame:SetHeight(32); frame:Show()
@@ -754,32 +765,26 @@ local function CreateAuraWidget(parent, style)
 
 	-- Emphasized Functions
 	frame.emphasized.SetAura = function(frame, auras)
-		local shown = {}
+		local shown = 0
 		local ids = {}
+		local auraLimit = MaxEmphasizedAuras
 		sort(auras, AuraSortFunction)
 
-		for k, v in pairs(auras) do
-			if #shown < 3 then
-				table.insert(shown, auras[k])
-				ids[k] = true
-				UpdateIcon(frame.AuraIconFrames[#shown], auras[k])
-			end
-		end
 
+		for index = 1, #auras do
+			if index > auraLimit then break end
+			shown = shown+1
+			ids[tostring(auras[index].spellid)] = true
+			UpdateIcon(frame.AuraIconFrames[index], auras[index])
+		end
+		
 		-- Cleanup empty aura slots
-		for i=#shown+1, MaxEmphasizedAuras do
+		for i=shown+1, #frame.AuraIconFrames do
 			UpdateIcon(frame.AuraIconFrames[i])
 		end
 
 
-		return ids, #shown
-
-	--	for k, v in pairs(auras) do
-	--		if not name or v.priority < auras[name].priority then name = k end
-	--	end
-
-	--	UpdateIcon(frame.AuraIconFrames[1], auras[name])
-	--	return auras[name]
+		return ids, shown
 	end
 
 	return frame
@@ -835,6 +840,7 @@ local function SetAuraOptions(LocalVars)
 	AuraAlignment = Alignments[LocalVars.WidgetAuraAlignment]
 	ScaleOptions = LocalVars.WidgetAuraScaleOptions
 	HideInHeadlineMode = LocalVars.HideAuraInHeadline
+	PreciseAuraThreshold = LocalVars.PreciseAuraThreshold
 end
 
 --local function SetPandemic(enabled, color)

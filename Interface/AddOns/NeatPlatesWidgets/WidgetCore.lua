@@ -26,7 +26,7 @@ do
 
 	function NeatPlatesWidgets:HideIn(frame, expiration)
 		-- Register Frame
-		Framelist[ frame] = expiration
+		Framelist[frame] = expiration
 		-- Init Watchframe
 		if not WatcherframeActive then
 			Watcherframe:SetScript("OnUpdate", CheckFramelist)
@@ -41,7 +41,7 @@ end
 ----------------------
 
 do
-	local updateInterval = .5
+	local updateInterval = .1
 	local PolledHideIn
 	local Framelist = {}			-- Key = Frame, Value = Expiration Time
 	local Watcherframe = CreateFrame("Frame")
@@ -77,7 +77,6 @@ do
 	function PolledHideIn(frame, expiration, source)
 
 		if expiration == 0 then
-
 			if source ~= "UpdateIcon" then frame:Hide() end
 			Framelist[frame] = nil
 		else

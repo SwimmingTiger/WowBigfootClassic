@@ -219,6 +219,28 @@ local function UseVariables(profileName)
 	end
 end
 
+local function GetCustomizationOption(profile, category, option)
+	local ProfileVars = NeatPlatesHubSettings[profile]
+	if not category then return ProfileVars.Customization end
+	return ProfileVars.Customization[category][option]
+end
+
+local function SetCustomizationOption(profile, category, option, key, value)
+	local ProfileVars = NeatPlatesHubSettings[profile]
+	if type(category) == "table" then ProfileVars.Customization = CopyTable(category); return end
+	ProfileVars.Customization[category] = ProfileVars.Customization[category] or {}
+	if type(option) == "table" then ProfileVars.Customization[category] = CopyTable(option); return end
+	ProfileVars.Customization[category][option] = ProfileVars.Customization[category][option] or {}
+	if not key then ProfileVars.Customization[category][option] = {}; return end
+	if type(key) == "table" then
+		-- Loop over keys. (Because width/height is sometimes defined fully as 'width' or just the first character 'w')
+		for _,k in pairs(key) do
+			ProfileVars.Customization[category][option][k] = value
+		end
+	 else
+	 	ProfileVars.Customization[category][option][key] = value
+	 end
+end
 ---------------
 -- Apply customization
 ---------------
@@ -310,22 +332,28 @@ local function ApplyCustomBarSize(style, defaults)
 	end
 end
 
-local function ApplyStyleCustomization(style, defaults, widget, widgetDefaults)
-	if not style then return end
-	style.level.show = (LocalVars.TextShowLevel == true)
+local function ApplyThemeCustomization(theme)
+	local categories = {"Default", "NameOnly", "WidgetConfig"}
 
+	-- Restore theme to default settings
+	theme["Default"] = CopyTable(theme["DefaultBackup"])
+	theme["NameOnly"] = CopyTable(theme["NameOnlyBackup"])
+	theme["WidgetConfig"] = CopyTable(theme["WidgetConfigBackup"])
+
+	-- Highlighting customizations
 	local indicators = {
 		["target"] = {mode = LocalVars.HighlightTargetMode, scale = LocalVars.HighlightTargetScale},
 		["focus"] = {mode = LocalVars.HighlightFocusMode, scale = LocalVars.HighlightFocusScale},
 		["mouseover"] = {mode = LocalVars.HighlightMouseoverMode, scale = LocalVars.HighlightMouseoverScale}
 	}
 
+	local style = theme["Default"]
 	for k,object in pairs(indicators) do
 		style[k] = style[k] or {}
 		local mode = object.mode
-		local scale = object.scale
-		
-		if mode and scale then
+		--local scale = object.scale
+
+		if mode then
 			-- Set Indicator style, 1 = Disabled, 2 = Healthbar, 3 = Theme Default, 4 = Arrow Top, 5 = Arrow Sides, 6 = Arrow Right, 7 = Arrow Left
 			if mode == 3 then
 				style[k] = CopyTable(style.targetindicator)
@@ -339,13 +367,38 @@ local function ApplyStyleCustomization(style, defaults, widget, widgetDefaults)
 				style[k] = CopyTable(style.targetindicator_arrowleft)
 			end
 
-			style[k].height = style[k].height * scale.x
-			style[k].width = style[k].width * scale.y
-			style[k].x = style[k].x * scale.x + scale.offset.x
-			style[k].y = style[k].y * scale.y + scale.offset.y
+			--style[k].height = style[k].height * scale.x
+			--style[k].width = style[k].width * scale.y
+			--style[k].x = style[k].x * scale.x + scale.offset.x
+			--style[k].y = style[k].y * scale.y + scale.offset.y
 		end
 	end
 
+	-- Apply customized style to each category
+	for i,category in pairs(categories) do
+		local style = theme[category]
+		local modifications = LocalVars.Customization[category]
+
+		-- Apply the customized style
+		if modifications then
+			for k,v in pairs(modifications) do
+				if style[k] then
+					for k2,v2 in pairs(v) do
+						if type(style[k][k2]) == "number" then
+							style[k][k2] = style[k][k2] + v2
+						else
+							style[k][k2] = v2
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+local function ApplyStyleCustomization(style, defaults, widget, widgetDefaults)
+	if not style then return end
+	style.level.show = (LocalVars.TextShowLevel == true)
 	style.target.show = (LocalVars.HighlightTargetMode > 2)
 	style.focus.show = (LocalVars.HighlightFocusMode > 2)
 	style.mouseover.show = (LocalVars.HighlightMouseoverMode > 2)
@@ -410,6 +463,7 @@ local function ApplyProfileSettings(theme, source, ...)
 	NameReactionColors.NEUTRAL.NPC = LocalVars.TextColorNeutral
 
 	EnableWatchers()
+	ApplyThemeCustomization(theme)
 	ApplyStyleCustomization(theme["Default"], theme["DefaultBackup"])
 	ApplyFontCustomization(theme["NameOnly"], theme["NameOnlyBackup"])
 	ApplyScaleOptionCustomization(theme["WidgetConfig"], theme["WidgetConfigBackup"], theme["Default"], theme["DefaultBackup"])
@@ -445,7 +499,7 @@ end
 
 
 -- From Neon.lua...
-local LocalVars = NeatPlatesHubDamageVariables
+--local LocalVars = NeatPlatesHubDamageVariables
 
 local function OnInitialize(plate, theme)
 	if theme and theme.WidgetConfig then
@@ -464,6 +518,7 @@ end
 
 local function OnChangeProfile(theme, profile)
 	if profile then
+		if NeatPlatesCustomizationPanel then NeatPlatesCustomizationPanel:Hide() end -- Hide the theme customization frame. (Has to be done before we change the 'LocalVars' variable set)
 
 		UseVariables(profile)
 
@@ -497,6 +552,7 @@ local function ApplyHubFunctions(theme)
 	theme.OnInitialize = OnInitialize		-- Need to provide widget positions
 	theme.OnActivateTheme = OnActivateTheme -- called by NeatPlates Core, Theme Loader
 	theme.ApplyProfileSettings = ApplyProfileSettings
+	theme.ApplyThemeCustomization = ApplyThemeCustomization
 	theme.OnChangeProfile = OnChangeProfile
 
 	-- Make Backup Copies of the default settings of the theme styles
@@ -526,6 +582,8 @@ NeatPlatesHubFunctions.UseVariables = UseVariables
 NeatPlatesHubFunctions.EnableWatchers = EnableWatchers
 NeatPlatesHubFunctions.ApplyHubFunctions = ApplyHubFunctions
 NeatPlatesHubFunctions.ApplyRequiredCVars = ApplyRequiredCVars
+NeatPlatesHubFunctions.GetCustomizationOption = GetCustomizationOption
+NeatPlatesHubFunctions.SetCustomizationOption = SetCustomizationOption
 
 
 
