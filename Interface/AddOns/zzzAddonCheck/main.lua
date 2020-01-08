@@ -22,6 +22,11 @@ end
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
+    -- 禁用DBM的过期提示
+    if DBM and DBM.Options and not DBM.Options.DontShowReminders then
+        DBM.Options.DontShowReminders = true
+    end
+
     -- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
 	local patchVersion = '2019-12-17-23'
 	if (type(RealMobHealth_Options) == 'table' and BF_Frames_Config.RealMobHealthPatchVersion ~= patchVersion) then
