@@ -1,7 +1,3 @@
--- MainPanel.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/11/2019, 9:38:00 AM
 
 ---@type ns
 local ADDON_NAME, ns = ...
@@ -38,15 +34,17 @@ function MainPanel:Constructor()
     SetupTab(self.Browser, SEARCH)
     SetupTab(self.Manage, L['Manage'])
 
-    local GoodLeader = LibStub('AceAddon-3.0'):GetAddon('GoodLeader', true)
-    if GoodLeader then
-        local L = LibStub('AceLocale-3.0'):GetLocale('GoodLeader')
-        local frame = GoodLeader:GetClass('UI.GoodLeader'):New(self)
-        frame:ClearAllPoints()
-        frame:SetPoint('TOPLEFT', 4, -70)
-        frame:SetPoint('BOTTOMRIGHT', -6, 26)
-        SetupTab(frame, L.ADDON_NAME)
-    end
+    pcall(function()
+        local name = '\071\111\111\100\076\101\097\100\101\114'
+        local addon = LibStub('AceAddon-3.0'):GetAddon(name, true)
+        if addon then
+            local L = LibStub('AceLocale-3.0'):GetLocale(name)
+            local Frame = addon:GetClass('UI.' .. name):New(self)
+            Frame:SetPoint('TOPLEFT', 4, -70)
+            Frame:SetPoint('BOTTOMRIGHT', -6, 26)
+            SetupTab(Frame, L.ADDON_NAME)
+        end
+    end)
 
     SetupTab(self.Options, L['Options'])
 
@@ -61,11 +59,14 @@ function MainPanel:Constructor()
     self:RegisterForDrag('LeftButton')
     self:SetScript('OnDragStart', self.StartMoving)
     self:SetScript('OnDragStop', self.StopMovingOrSizing)
+    self:SetScript('OnShow', self.OnShow)
+    self:SetScript('OnHide', self.OnHide)
 
     ns.UI.Browser:Bind(self.Browser)
     ns.UI.Creator:Bind(self.Manage.Creator)
     ns.UI.Applicant:Bind(self.Manage.Applicant)
-    ns.UI.Options:Bind(self.Options)
+    ns.UI.Options:Bind(self.Options.Options)
+    ns.UI.Filters:Bind(self.Options.Filters)
 
     local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)
     FeedBack:SetPoint('TOPLEFT', 3, -22)
@@ -101,6 +102,14 @@ function MainPanel:Constructor()
     self:UpdateTabs()
     self:UpdateTabFrames()
     self:SetScript('OnClick', ns.FireHardWare)
+end
+
+function MainPanel:OnShow()
+    self:SendMessage('MEETINGHORN_SHOW')
+end
+
+function MainPanel:OnHide()
+    self:SendMessage('MEETINGHORN_HIDE')
 end
 
 function MainPanel:UpdateTabs()

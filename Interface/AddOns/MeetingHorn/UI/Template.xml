@@ -93,31 +93,37 @@
             </Layer>
             <Layer level="ARTWORK">
                 <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
-                    <Size x="135" />
+                    <Size x="145" />
                     <Anchors>
                         <Anchor point="LEFT" x="5" y="0" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Mode" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="50" />
+                    <Size x="60" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Name" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Leader" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="100" />
+                <FontString parentKey="Members" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                    <Size x="110" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Mode" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
+                <FontString parentKey="Leader" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                    <Size x="110" />
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" />
+                    </Anchors>
+                </FontString>
                 <FontString parentKey="Comment" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="190" />
+                    <Size x="400" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Leader" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="State" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="190" />
+                    <Size x="260" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Comment" relativePoint="RIGHT" />
                     </Anchors>
@@ -125,7 +131,8 @@
             </Layer>
         </Layers>
         <Frames>
-            <Button parentKey="Signup" inherits="UIPanelButtonTemplate" text="SIGN_UP">
+            <!-- <Button parentKey="Signup" inherits="UIPanelButtonTemplate" text="SIGN_UP"> -->
+            <Button parentKey="Signup" inherits="UIPanelButtonTemplate" text="WHISPER">
                 <Size x="60" y="22" />
                 <Anchors>
                     <Anchor point="LEFT" relativeKey="$parent.Comment" relativePoint="RIGHT" />
@@ -152,27 +159,33 @@
             </Layer>
             <Layer level="ARTWORK">
                 <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
-                    <Size x="125" />
+                    <Size x="150" />
                     <Anchors>
                         <Anchor point="LEFT" x="5" y="0" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Class" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="80" />
+                    <Size x="100" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Name" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Race" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="80" />
+                    <Size x="100" />
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Class" relativePoint="RIGHT" />
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Level" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                    <Size x="100" />
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Race" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="State" wordwrap="false" inherits="GameFontNormalSmallLeft">
                     <Size x="80" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Race" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Level" relativePoint="RIGHT" />
                         <Anchor point="RIGHT" />
                     </Anchors>
                 </FontString>
@@ -182,7 +195,7 @@
             <Button parentKey="Invite" inherits="UIPanelButtonTemplate" text="INVITE">
                 <Size x="60" y="22" />
                 <Anchors>
-                    <Anchor point="LEFT" relativeKey="$parent.Race" relativePoint="RIGHT" />
+                    <Anchor point="LEFT" relativeKey="$parent.Level" relativePoint="RIGHT" />
                 </Anchors>
                 <Scripts>
                     <OnClick>
@@ -217,7 +230,7 @@
         <DisabledFont style="GameFontDisable"/>
     </Button>
     <Button name="MeetingHornMainPanel" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate">
-        <Size x="588" y="424"/>
+        <Size x="818" y="424"/>
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture name="$parentBtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
@@ -285,14 +298,28 @@
                         </FontString>
                         <FontString parentKey="ModeLabel" inherits="GameFontNormalSmallLeft">
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" x="150" y="0" />
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" x="200" y="0" />
                             </Anchors>
                         </FontString>
                         <FontString parentKey="SearchLabel" inherits="GameFontNormalSmallLeft">
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" x="80" y="0" />
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" x="110" y="0" />
                             </Anchors>
                         </FontString>
+                        <FontString parentKey="Loading" inherits="GameFontNormalSmallLeft">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="10" y="-5" />
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="LoadingProgress" inherits="GameFontNormalSmallLeft">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.Loading" relativePoint="RIGHT" x="1" y="0" />
+                            </Anchors>
+                        </FontString>
+                        <Texture parentKey="Sorter" hidden="true" file="Interface\Buttons\ui-sortarrow">
+                            <Size x="8" y="8" />
+                            <TexCoords left="0" right="0.5" x="0" y="1" />
+                        </Texture>
                     </Layer>
                 </Layers>
                 <Frames>
@@ -325,51 +352,57 @@
                             </Layer>
                         </Layers>
                     </Frame>
-                    <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate">
-                        <Size x="135" y="24" />
+                    <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate" id="1">
+                        <Size x="145" y="24" />
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5" />
                         </Anchors>
                     </Button>
-                    <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate">
-                        <Size x="50" y="24" />
+                    <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate" id="2">
+                        <Size x="60" y="24" />
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT" />
                         </Anchors>
                     </Button>
-                    <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate">
-                        <Size x="100" y="24" />
+                    <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate" id="3">
+                        <Size x="110" y="24" />
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT" />
                         </Anchors>
                     </Button>
-                    <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate">
-                        <Size x="190" y="24" />
+                    <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate" id="4">
+                        <Size x="110" y="24" />
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT" />
                         </Anchors>
                     </Button>
-                    <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate">
-                        <Size x="150" y="24" />
+                    <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate" id="5">
+                        <Size x="290" y="24" />
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT" />
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="Header6" inherits="ColumnDisplayButtonTemplate" id="6">
+                        <Size x="150" y="24" />
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.Header5" relativePoint="RIGHT" />
                             <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ActivityList" relativePoint="TOPRIGHT" x="0" y="5" />
                         </Anchors>
                     </Button>
                     <Button parentKey="Activity">
-                        <Size x="140" y="24" />
+                        <Size x="190" y="24" />
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
                         </Anchors>
                     </Button>
                     <Button parentKey="Mode">
-                        <Size x="70" y="24" />
+                        <Size x="100" y="24" />
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
                         </Anchors>
                     </Button>
                     <EditBox parentKey="Input" inherits="SearchBoxTemplate">
-                        <Size x="130" y="22" />
+                        <Size x="180" y="22" />
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
                         </Anchors>
@@ -392,6 +425,12 @@
                             <Anchor point="LEFT" relativeKey="$parent.Quick2" relativePoint="RIGHT" x="5" y="0" />
                         </Anchors>
                     </Button>
+                    <Button parentKey="Refresh" inherits="UIPanelButtonTemplate" text="REFRESH">
+                        <Size x="60" y="22" />
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.Reset" relativePoint="RIGHT" x="5" y="0" />
+                        </Anchors>
+                    </Button>
                     <!-- <Button parentKey="JoinButton" inherits="MagicButtonTemplate">
                         <Size x="120" y="22" />
                         <Anchors>
@@ -407,7 +446,7 @@
                 </Anchors>
                 <Frames>
                     <Frame parentKey="Creator" inherits="InsetFrameTemplate">
-                        <Size x="180" />
+                        <Size x="220" />
                         <Anchors>
                             <Anchor point="TOPLEFT" />
                             <Anchor point="BOTTOMLEFT" />
@@ -502,27 +541,33 @@
                                 </Frames>
                             </ScrollFrame>
                             <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="125" y="24" />
+                                <Size x="150" y="24" />
                                 <Anchors>
                                     <Anchor point="BOTTOMLEFT" relativeKey="$parent.ApplicantList" relativePoint="TOPLEFT" x="2" y="5" />
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="80" y="24" />
+                                <Size x="100" y="24" />
                                 <Anchors>
                                     <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT" />
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="80" y="24" />
+                                <Size x="100" y="24" />
                                 <Anchors>
                                     <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT" />
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate">
-                                <Size y="24" />
+                                <Size x="100" y="24" />
                                 <Anchors>
                                     <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT" />
+                                </Anchors>
+                            </Button>
+                            <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate">
+                                <Size y="24" />
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT" />
                                     <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ApplicantList" relativePoint="TOPRIGHT" x="0" y="5" />
                                 </Anchors>
                             </Button>
@@ -530,11 +575,95 @@
                     </Frame>
                 </Frames>
             </Frame>
-            <Frame parentKey="Options" inherits="InsetFrameTemplate">
+            <Frame parentKey="Options">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-70" />
+                    <Anchor point="TOPLEFT" x="4" y="-80" />
                     <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
                 </Anchors>
+                <Frames>
+                    <Frame parentKey="Options" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0" />
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-3" y="0" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Title" inherits="GameFontNormal">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="Filters" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="0" y="0" />
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="3" y="0" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="FilterTitle" inherits="GameFontNormal">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <ScrollFrame parentKey="FilterList" inherits="HybridScrollFrameTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="5" y="-5" />
+                                    <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                                </Anchors>
+                                <Frames>
+                                    <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
+                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                        </Anchors>
+                                    </Slider>
+                                </Frames>
+                            </ScrollFrame>
+                            <Button parentKey="Add" inherits="UIPanelButtonTemplate" text="ADD">
+                                <Size x="60" y="22" />
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" x="0" y="-1" />
+                                </Anchors>
+                                <Scripts>
+                                    <OnClick>
+                                        local parent = self:GetParent()
+                                        parent.FilterList:Fire('OnItemAdd', parent)
+                                    </OnClick>
+                                </Scripts>
+                            </Button>
+                            <Button parentKey="Import" inherits="UIPanelButtonTemplate">
+                                <Size x="60" y="22" />
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Add" relativePoint="RIGHT" />
+                                </Anchors>
+                                <Scripts>
+                                    <OnClick>
+                                        local parent = self:GetParent()
+                                        parent.FilterList:Fire('OnItemImport', parent)
+                                    </OnClick>
+                                </Scripts>
+                            </Button>
+                            <Button parentKey="Export" inherits="UIPanelButtonTemplate">
+                                <Size x="60" y="22" />
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Import" relativePoint="RIGHT" />
+                                </Anchors>
+                                <Scripts>
+                                    <OnClick>
+                                        local parent = self:GetParent()
+                                        parent.FilterList:Fire('OnItemExport', parent)
+                                    </OnClick>
+                                </Scripts>
+                            </Button>
+                        </Frames>
+                    </Frame>
+                </Frames>
             </Frame>
         </Frames>
     </Button>
@@ -606,5 +735,66 @@
                 </Scripts>
             </Frame>
         </Frames>
+    </Button>
+    <Button name="MeetingHornOptionsFilterItemTemplate" virtual="true">
+        <Size y="24" />
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
+                    <Size x="200" />
+                    <Anchors>
+                        <Anchor point="LEFT" x="15" y="0" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="Delete">
+                <Size x="17" y="17" />
+                <Anchors>
+                    <Anchor point="RIGHT" x="-5" y="0" />
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture file="Interface\FriendsFrame\ClearBroadcastIcon" alpha="0.5" parentKey="texture">
+                            <Size>
+                                <AbsDimension x="17" y="17"/>
+                            </Size>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnEnter>
+                        self.texture:SetAlpha(1.0);
+                    </OnEnter>
+                    <OnLeave>
+                        self.texture:SetAlpha(0.5);
+                    </OnLeave>
+                    <OnMouseDown>
+                        if self:IsEnabled() then
+                            self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 1, -1);
+                        end
+                    </OnMouseDown>
+                    <OnMouseUp>
+                        self.texture:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0);
+                    </OnMouseUp>
+                    <OnClick>
+                        local parent = self:GetParent()
+                        parent.scrollFrame:Fire('OnItemDel', parent, parent.item)
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+        <HighlightTexture setAllPoints="true">
+            <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
+        </HighlightTexture>
     </Button>
 </Ui>

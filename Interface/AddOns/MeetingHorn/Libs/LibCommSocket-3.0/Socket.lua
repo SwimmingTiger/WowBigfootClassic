@@ -1,9 +1,5 @@
--- Socket.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/23/2019, 11:22:10 AM
 
-local MAJOR, MINOR = 'NetEaseSocket-3.0', 2
+local MAJOR, MINOR = 'LibCommSocket-3.0', 2
 
 ---@class NSSocket
 ---@field contexts table<string, NSSocketContext>
@@ -60,7 +56,7 @@ local SOCKET_NORMAL = 1
 local SOCKET_CONNECT = 2
 local SOCKET_READY = 3
 
-local SOCKET_BASE_CMD = {NETEASE_CONNECT_SUCCESS = true, NETEASE_CHANNEL_OWNER = true}
+local SOCKET_BASE_CMD = {COMMSOCKET_CONNECT_SUCCESS = true, COMMSOCKET_CHANNEL_OWNER = true}
 
 local NOT_FOUND_MATCH = ERR_CHAT_PLAYER_NOT_FOUND_S:format('(.+)')
 
@@ -92,7 +88,7 @@ function comm:PreServer(prefix, cmd, distribution, sender, ...)
     if distribution ~= 'WHISPER' then
         return
     end
-    if cmd == 'NETEASE_CONNECT_SUCCESS' then
+    if cmd == 'COMMSOCKET_CONNECT_SUCCESS' then
         local key = ...
         local ctx = getContextByPrefix(prefix)
         if ctx.connectKey and ctx.connectKey == key then
@@ -103,7 +99,7 @@ function comm:PreServer(prefix, cmd, distribution, sender, ...)
             ctx.target = Ambiguate(sender, 'none')
             servers[prefix]:Fire('SERVER_CONNECTED')
         end
-    elseif cmd == 'NETEASE_CHANNEL_OWNER' then
+    elseif cmd == 'COMMSOCKET_CHANNEL_OWNER' then
         if self:IsServer(prefix, sender) then
             SetChannelOwner(..., sender)
         end
@@ -160,7 +156,7 @@ function Lib:ConnectServer(target)
     ctx.rawTarget = target
     ctx.connectKey = tostring(random(0x100000, 0xFFFFFF))
     ctx.timer = C_Timer.NewTicker(30, function()
-        return self:SendServer('NETEASE_CONNECT', ctx.connectKey)
+        return self:SendServer('COMMSOCKET_CONNECT', ctx.connectKey)
     end)
 end
 

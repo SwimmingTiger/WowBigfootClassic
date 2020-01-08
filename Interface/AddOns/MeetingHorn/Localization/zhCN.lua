@@ -1,4 +1,3 @@
-
 ---@class MeetingHornLocale
 local L = LibStub('AceLocale-3.0'):NewLocale('MeetingHorn', 'zhCN')
 if not L then
@@ -21,6 +20,8 @@ L['Choice Mode...'] = '选择活动模式...'
 L['Create Activity'] = '创建活动'
 L['Close Activity'] = '解散活动'
 L['Update Activity'] = '更新活动'
+L['Members'] = '队伍人数'
+L['Whisper'] = '密语'
 
 L['Manage'] = '管理'
 L['Feedback'] = '用户反馈'
@@ -65,6 +66,7 @@ L['Create acitivty success.'] = '创建活动成功。'
 L['Activity closed.'] = '活动已解散。'
 L['There are no activity, please try searching.'] =
     '当前没有集结号活动，\n请尝试在上方搜索框中直接搜索关键字。'
+L['Receiving active data, please wait patiently'] = '正在接收活动数据，请耐心等待'
 
 L['Applicant Count'] = '申请人数'
 L['Application Count'] = '申请中活动'
@@ -75,13 +77,27 @@ L['Toggle MeetingHorn key binding'] = '打开/关闭集结号快捷键'
 L['按键已绑定到|cffffd100%s|r，你确定要覆盖吗？'] = true
 
 L['Options'] = '设置'
+L['启用关键字过滤'] = true
+L['关键字过滤'] = true
+L['导入'] = true
+L['导出'] = true
+L['导入关键字'] = true
+L['导出关键字'] = true
+L['请输入需要屏蔽的关键字'] = true
+L['正则?'] = true
+L['添加失败，关键字错误。'] = true
+L['添加失败，关键字“%s”已存在。'] = true
+L['添加成功，关键字“%s”已添加。'] = true
+L['删除失败，关键字错误。'] = true
+L['删除失败，关键字“%s”不存在。'] = true
+L['删除成功，关键字“%s”已删除。'] = true
 
 L['Show data broker'] = '显示悬浮窗'
 L['Hide activity in chat frame'] = '隐藏聊天窗口内的集结号活动'
 
 L['CHANNEL: Port'] = '传送频道'
 L['CHANNEL: Trade'] = '交易'
-L['CHANNEL: Group'] = '寻求组队'
+L['CHANNEL: Group'] = 'MeetingHorn'
 L['CHANNEL: Recruit'] = '公会招募'
 
 L['Wild PvP'] = '野外PvP'

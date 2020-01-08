@@ -1,7 +1,3 @@
--- DataBroker.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/13/2019, 4:46:01 PM
 
 ---@type ns
 local ns = select(2, ...)
@@ -89,8 +85,14 @@ function DataBroker:OnDataBrokerChanged(_, name, key, value, object)
 end
 
 function DataBroker:Update()
-    self.BrokerObject.text = format(TEXT_FORMAT, ns.LFG:GetCurrentActivity() and ns.LFG:GetApplicantCount() or
-                                        ns.LFG:GetApplicationCount(), ns.LFG:GetActivityCount())
+    local firstCount = ns.LFG:GetCurrentActivity() and ns.LFG:GetApplicantCount() or ns.LFG:GetApplicationCount()
+    local secondCount = ns.LFG:GetActivityCount()
+
+    if firstCount == 0 and secondCount == 0 then
+        self.BrokerObject.text = L.ADDON_NAME
+    else
+        self.BrokerObject.text = format(TEXT_FORMAT, firstCount, secondCount)
+    end
 end
 
 function DataBroker:StartFlash()

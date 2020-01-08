@@ -15,6 +15,8 @@ ADDONSELF.L = L
 local locale = GetLocale()
 
 if locale == 'enUs' then
+L["Auto focus on Quick Join Text box"] = true
+L["Auto Leave battle ground when game ends in"] = true
 L["BattleInfo"] = true
 L["BattleInfo Loaded"] = true
 L["Button may not work properly during combat"] = true
@@ -39,6 +41,10 @@ L["TITLE"] = "Battle Info"
 L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"
 
 elseif locale == 'deDE' then
+--[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
@@ -86,6 +92,10 @@ elseif locale == 'deDE' then
 
 elseif locale == 'esES' then
 --[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
+--[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo Loaded"] = "BattleInfo Loaded"--]] 
@@ -131,6 +141,10 @@ elseif locale == 'esES' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 
 elseif locale == 'esMX' then
+--[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
@@ -178,6 +192,10 @@ elseif locale == 'esMX' then
 
 elseif locale == 'frFR' then
 --[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
+--[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo Loaded"] = "BattleInfo Loaded"--]] 
@@ -223,6 +241,10 @@ elseif locale == 'frFR' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 
 elseif locale == 'itIT' then
+--[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
@@ -270,6 +292,10 @@ elseif locale == 'itIT' then
 
 elseif locale == 'koKR' then
 --[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
+--[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo Loaded"] = "BattleInfo Loaded"--]] 
@@ -315,6 +341,10 @@ elseif locale == 'koKR' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 
 elseif locale == 'ptBR' then
+--[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
@@ -362,6 +392,10 @@ elseif locale == 'ptBR' then
 
 elseif locale == 'ruRU' then
 --[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
+--[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo Loaded"] = "BattleInfo Loaded"--]] 
@@ -407,6 +441,8 @@ elseif locale == 'ruRU' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 
 elseif locale == 'zhCN' then
+L["Auto focus on Quick Join Text box"] = "快速加入文本框自动获得焦点"
+L["Auto Leave battle ground when game ends in"] = "战斗结束后自动退出战场时间："
 L["BattleInfo"] = "BattleInfo"
 L["BattleInfo Loaded"] = "BattleInfo 已经加载"
 L["Button may not work properly during combat"] = "战斗中按钮可能无法正确工作"
@@ -431,6 +467,10 @@ L["TITLE"] = "BattleInfo 战场助手"
 L["TOC_NOTES"] = "战场信息增强. 反馈: farmer1992@gmail.com"
 
 elseif locale == 'zhTW' then
+--[[Translation missing --]]
+--[[ L["Auto focus on Quick Join Text box"] = "Auto focus on Quick Join Text box"--]] 
+--[[Translation missing --]]
+--[[ L["Auto Leave battle ground when game ends in"] = "Auto Leave battle ground when game ends in"--]] 
 --[[Translation missing --]]
 --[[ L["BattleInfo"] = "BattleInfo"--]] 
 --[[Translation missing --]]

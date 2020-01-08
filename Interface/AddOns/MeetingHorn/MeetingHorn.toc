@@ -3,7 +3,7 @@
 ## Title-zhCN: 集结号
 ## Title-zhTW: 集結號
 ## Notes: |cff00ff00MeetingHorn|r
-## Version: 1.1.0
+## Version: 1.1.6
 ## SavedVariables: MEETINGHORN_DB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot

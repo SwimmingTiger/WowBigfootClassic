@@ -1,8 +1,3 @@
--- OptionsPanel.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 1/3/2020, 1:25:38 PM
-
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
@@ -40,7 +35,7 @@ function Options:Constructor()
 
     local options = {
         type = 'group',
-        name = L['Options'],
+        name = ' ',
         get = function(item)
             return self:GetOption(item[#item])
         end,
@@ -50,6 +45,7 @@ function Options:Constructor()
         args = { --
             databroker = toggle(L['Show data broker']),
             chatfilter = toggle(L['Hide activity in chat frame']),
+            activityfilter = toggle(L['启用关键字过滤']),
             key = {
                 type = 'keybinding',
                 name = L['Toggle MeetingHorn key binding'],
@@ -63,7 +59,7 @@ function Options:Constructor()
                         SetBinding(key, nil)
                     end
                     SetBinding(key, BINDING_KEY)
-                    SaveBindings(GetCurrentBindingSet())
+                    AttemptToSaveBindings(GetCurrentBindingSet())
                 end,
                 confirm = function(info, key)
                     local action = GetBindingAction(key)
@@ -77,9 +73,11 @@ function Options:Constructor()
     }
 
     local optionsGroup = createGroup(L['Options'], options)
-    optionsGroup.frame:SetPoint('TOP', 0, -10)
-    optionsGroup.frame:SetPoint('BOTTOM', 0, 10)
+    optionsGroup.frame:SetPoint('TOPLEFT', 10, 30)
+    optionsGroup.frame:SetPoint('BOTTOMRIGHT', -10, 10)
     optionsGroup.frame:SetWidth(400)
+
+    self.Title:SetText(L['Options'])
 end
 
 function Options:GetOption(key)

@@ -1,7 +1,3 @@
--- Api.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/11/2019, 9:43:40 AM
 
 ---@type ns
 local ADDON_NAME, ns = ...
@@ -11,6 +7,7 @@ local L = ns.L
 ---@field path string
 ---@field name string
 ---@field channel string
+---@field channels table<string, boolean>
 ---@field interval number
 ---@field timeout number
 ---@field members number
@@ -47,10 +44,25 @@ local BASE_INTERVAL = 50
 local BASE_TIMEOUT = 90
 
 local function category(path, name, channel, interval, timeout, inCity)
+    if not channel then
+        channel = {L['CHANNEL: Group'], '寻求组队'}
+    end
+
+    local channels = {}
+    if type(channel) == 'table' then
+        for i, v in ipairs(channel) do
+            channels[v] = true
+        end
+        channel = channel[1]
+    else
+        channels[channel] = true
+    end
+
     return {
         path = path,
         name = name,
-        channel = channel or L['CHANNEL: Group'],
+        channel = channel,
+        channels = channels,
         interval = interval or BASE_INTERVAL,
         timeout = timeout or BASE_TIMEOUT,
         inCity = inCity,
@@ -65,8 +77,8 @@ local CATEGORY_LIST = {
     category('Boss', L.CATEGORY_BOSS), --
     category('PvP', L.CATEGORY_PVP), --
     category('Recruit', L.CATEGORY_RECRUIT, L['CHANNEL: Recruit'], 150, 300, true), --
-    category('Port', L.CATEGORY_PORT, L['CHANNEL: Port'], 150, 300), --
-    category('Summon', L.CATEGORY_SUMMON, L['CHANNEL: Port'], 150, 300), --
+    category('Port', L.CATEGORY_PORT, L['CHANNEL: Group'], 150, 300), --
+    category('Summon', L.CATEGORY_SUMMON, L['CHANNEL: Group'], 150, 300), --
     category('Other', OTHER), --
     --[===[@debug@
     category('Debug', 'Debug', 'MeetingHornDebug'), --
@@ -369,6 +381,10 @@ local OUR_CHANNELS = {}
 
 for i, v in ipairs(CATEGORY_LIST) do
     OUR_CHANNELS[v.channel] = true
+
+    for k, v in pairs(v.channels) do
+        OUR_CHANNELS[k] = true
+    end
 end
 
 function ns.NameToId(name)
@@ -384,7 +400,14 @@ function ns.IdToMode(id)
 end
 
 function ns.IsOurChannel(name)
-    return OUR_CHANNELS[name]
+    if OUR_CHANNELS[name] then
+        return true
+    end
+    return OUR_CHANNELS[ns.Channel:GetUsChannelName(name)]
+end
+
+function ns.GetOurChannels()
+    return OUR_CHANNELS
 end
 
 ---@param id number
@@ -416,6 +439,11 @@ end
 
 function ns.IsGroupLeader()
     return not IsInGroup(LE_PARTY_CATEGORY_HOME) or UnitIsGroupLeader('player', LE_PARTY_CATEGORY_HOME)
+end
+
+function ns.GetNumGroupMembers()
+    local num = GetNumGroupMembers()
+    return num > 0 and num or 1
 end
 
 function ns.GetClassLocale(classFileName)
@@ -533,7 +561,10 @@ function ns.tRemoveIf(t, condition)
     return any
 end
 
-function ns.Message(msg)
+function ns.Message(msg, ...)
+    if select('#', ...) > 0 then
+        return SendSystemMessage(string.format(ns.ADDON_PREFIX .. msg, ...))
+    end
     return SendSystemMessage(ns.ADDON_PREFIX .. msg)
 end
 

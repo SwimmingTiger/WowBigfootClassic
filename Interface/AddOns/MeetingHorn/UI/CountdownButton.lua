@@ -1,7 +1,3 @@
--- CountdownButton.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 1/3/2020, 9:48:52 AM
 
 ---@type ns
 local ns = select(2, ...)

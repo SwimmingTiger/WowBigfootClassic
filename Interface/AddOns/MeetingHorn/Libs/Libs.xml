@@ -2,7 +2,7 @@
 ..\FrameXML\UI.xsd">
 
     <Include file="LibClass-2.0\LibClass-2.0.xml"/>
-    <Script file="NetEaseSocket-3.0\Socket.lua"/>
+    <Script file="LibCommSocket-3.0\Socket.lua"/>
     <Include file="tdGUI\Load.xml"/>
 
     <!-- <Include file="LibBase64-1.0\lib.xml"/>

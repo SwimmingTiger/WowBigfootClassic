@@ -1,13 +1,14 @@
 <Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <Include file="Template.xml" />
-    <Script file="ScrollFrame.lua" />
     <Script file="ListView.lua" />
     <Script file="CountdownButton.lua" />
+    <Script file="InputDialog.lua" />
     <Script file="MainPanel.lua" />
     <Script file="Browser.lua" />
     <Script file="Applicant.lua" />
     <Script file="Creator.lua" />
     <Script file="DataBroker.lua" />
     <Script file="Options.lua" />
+    <Script file="Filters.lua" />
 </Ui>

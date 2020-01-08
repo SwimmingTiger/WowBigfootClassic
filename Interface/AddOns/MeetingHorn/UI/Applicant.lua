@@ -1,8 +1,3 @@
--- Applicant.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/16/2019, 10:02:45 AM
-
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
@@ -12,17 +7,16 @@ local L = ns.L
 local Applicant = ns.Addon:NewClass('UI.Applicant', 'Frame')
 
 function Applicant:Constructor()
-    self.ApplicantList.scrollBar.doNotHide = true
-    self.ApplicantList.buttonHeight = 24
-
     self.Header1:SetText(CHARACTER)
     self.Header2:SetText(CLASS)
     self.Header3:SetText(RACE)
-    self.Header4:SetText(L['Operation'])
+    self.Header4:SetText(LEVEL)
+    self.Header5:SetText(L['Operation'])
     self.Header1:Disable()
     self.Header2:Disable()
     self.Header3:Disable()
     self.Header4:Disable()
+    self.Header5:Disable()
 
     ns.UI.ListView:Bind(self.ApplicantList)
 
@@ -50,6 +44,16 @@ function Applicant:Constructor()
         button.Name:SetTextColor(GetClassColor(item:GetClassFileName()))
         button.Class:SetTextColor(GetClassColor(item:GetClassFileName()))
 
+        local level = item:GetLevel()
+        if level then
+            local color = GetQuestDifficultyColor(item:GetLevel())
+            button.Level:SetText(item:GetLevel())
+            button.Level:SetTextColor(color.r, color.g, color.b)
+        else
+            button.Level:SetText('-')
+            button.Level:SetTextColor(1, 1, 1)
+        end
+
         button.Close:SetShown(not state)
         button.Invite:SetShown(not state)
         button.State:SetShown(state)
@@ -63,6 +67,9 @@ function Applicant:Constructor()
     end)
     self.ApplicantList:SetCallback('OnItemCloseClick', function(_, _, item)
         ns.LFG:RemoveApplicant(item)
+    end)
+    self.ApplicantList:SetCallback('OnItemRightClick', function(_, button, item)
+        self:OpenApplicantMenu(item, button)
     end)
 
     self:RegisterMessage('MEETINGHORN_APPLICANT_UPDATE', 'Update')
@@ -78,4 +85,22 @@ end
 function Applicant:Update()
     self.ApplicantList:SetItemList(ns.LFG:GetApplicants())
     self.ApplicantList:Refresh()
+end
+
+function Applicant:OpenApplicantMenu(applicant, button)
+    ns.GUI:ToggleMenu(button, self:CreateApplicantMenu(applicant), 'cursor')
+end
+
+function Applicant:CreateApplicantMenu(applicant)
+    return {
+        { --
+            text = format('|c%s%s|r', select(4, GetClassColor(applicant:GetClassFileName())), applicant:GetName()),
+            isTitle = true,
+        }, {
+            text = WHISPER,
+            func = function()
+                ChatFrame_SendTell(applicant:GetName())
+            end,
+        }, {text = CANCEL},
+    }
 end

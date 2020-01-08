@@ -1,7 +1,3 @@
--- LFG.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/11/2019, 11:15:30 AM
 
 local tinsert = table.insert
 local random = fastrandom or math.random
@@ -23,7 +19,7 @@ local AceSerializer = LibStub('AceSerializer-3.0')
 ---@field private lockCache table<string, number>
 ---@field private banCache table<string, number>
 ---@field private idle boolean
-local LFG = ns.Addon:NewModule('LFG', 'AceEvent-3.0', 'AceTimer-3.0', 'AceComm-3.0', 'NetEaseSocket-3.0')
+local LFG = ns.Addon:NewModule('LFG', 'AceEvent-3.0', 'AceTimer-3.0', 'AceComm-3.0', 'LibCommSocket-3.0')
 
 function LFG:OnEnable()
     self.cooldown = ns.Addon.db.profile.cache.cooldown
@@ -36,6 +32,20 @@ function LFG:OnEnable()
     self.banCache = {}
     self.bossCache = {}
     self.inCity = false
+    self.filters = setmetatable({}, {
+        __mode = 'k',
+        __index = function(t, k)
+            local result = false
+            for i, v in ipairs(ns.Addon.db.global.activity.filters) do
+                if strfind(k, v.text, 1, v.plainText) then
+                    result = true
+                    break
+                end
+            end
+            t[k] = result
+            return t[k]
+        end,
+    })
 
     self.activtyTimer = ns.Timer:New(function()
         return self:OnActivityTimer()
@@ -43,18 +53,23 @@ function LFG:OnEnable()
     self.sendTimer = ns.Timer:New(function()
         return self:OnSendTimer()
     end)
+    self.leaveTimer = ns.Timer:New(function()
+        return self:OnLeaveTimer()
+    end)
     self.idleTimer = ns.Timer:New(function()
         return self:OnIdleTimer()
     end)
     self.idleTimer:Start(5)
 
     self:RegisterEvent('CHAT_MSG_CHANNEL')
-    self:RegisterEvent('CHAT_MSG_WHISPER')
+    -- self:RegisterEvent('CHAT_MSG_WHISPER')
     self:RegisterEvent('CHAT_MSG_SYSTEM')
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
+    self:RegisterMessage('MEETINGHORN_SHOW')
+    self:RegisterMessage('MEETINGHORN_HIDE')
 
     self:ListenSocket('MEETINGHORN')
-    self:ConnectServer('S1' .. UnitFactionGroup('player'))
+    self:ConnectServer(UnitFactionGroup('player') == 'Alliance' and 'Zpqmxown' or 'Nwoxmqpz')
     self:RegisterSocket('JOIN', 'OnSocketJoin')
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
@@ -98,7 +113,6 @@ function LFG:OnEnable()
     end)
 
     C_Timer.After(5, function()
-        self:TouchCategory('Raid')
         self:ZONE_CHANGED_NEW_AREA()
     end)
 
@@ -143,7 +157,6 @@ function LFG:OnEnable()
 
     ChatConfigFrame:HookScript('OnShow', RefreshServerChannels)
     ChannelFrame:HookScript('OnShow', RefreshServerChannels)
-
 end
 
 function LFG:GetCurrentActivity()
@@ -155,23 +168,24 @@ function LFG:CreateActivity(activity, userInput)
     self.currentCache.name = activity:GetName()
     self.currentCache.mode = activity:GetMode()
     self.currentCache.comment = activity:GetComment()
-    self.current = activity
     self.activtyTimer:Start(self:GetCooldown())
-    self:SendMessage('MEETINGHORN_CURRENT_CREATED')
 
     if userInput then
         self:SendServer('SEI', activity:GetName(), activity:GetMode(), activity:GetComment())
     end
 
-    self:RecvActivity(activity:GetChannelName(), UnitGUID('player'), UnitName('player'), activity:ToProto())
+    self.current = self:RecvActivity(activity:GetChannelName(), UnitGUID('player'), UnitName('player'),
+                                     activity:ToProto())
+    self:SendMessage('MEETINGHORN_CURRENT_CREATED')
 end
 
 function LFG:CloseActivity()
-    wipe(self.applicants)
-    wipe(self.currentCache)
-    self.current = nil
+    self:RemoveActivity(self.current, true)
     self.activtyTimer:Stop()
     self.sendTimer:Stop()
+    self.current = nil
+    wipe(self.applicants)
+    wipe(self.currentCache)
     self:SendMessage('MEETINGHORN_CURRENT_CLOSED')
     self:SendMessage('MEETINGHORN_APPLICANT_UPDATE')
 end
@@ -280,32 +294,33 @@ function LFG:OnSocketJoin(cmd, unit, d, ...)
     self:AddApplicant(unit, ...)
 end
 
-function LFG:RecvActivity(channelName, guid, unitName, text)
+function LFG:RecvActivity(channelName, guid, unitName, text, lineId)
     local activity = self.activities[guid]
     if not activity then
-        activity = ns.Activity:FromProto(text, unitName, guid, channelName)
+        activity = ns.Activity:FromProto(text, unitName, guid, channelName, lineId)
         if activity then
             self:AddActivity(activity)
-            return true
+            return activity
         end
     else
-        if activity:Update(text, unitName, guid, channelName) then
+        if activity:Update(text, unitName, guid, channelName, lineId) then
             self:RemoveActivity(activity, true)
             self:AddActivity(activity)
-            return true
+            return activity
             -- else
             --     self:RemoveActivity(activity)
         end
     end
 end
 
-function LFG:RecvChat(channelName, guid, unitName, text)
+function LFG:RecvChat(channelName, guid, unitName, text, lineId)
     local activity = self.chats[guid]
     if not activity then
         activity = ns.Activity:New(0, nil, text)
         activity:SetLeader(unitName)
         activity:SetLeaderGUID(guid)
         activity:SetChannelName(channelName)
+        activity:SetLineId(lineId)
         activity:UpdateTick()
 
         tinsert(self.chats, 1, activity)
@@ -392,21 +407,23 @@ function LFG:SNEWVERSION(_, version, url, changelog)
     SendSystemMessage(format(L.SUMMARY_NEW_VERSION, L.ADDON_NAME, version, url))
 end
 
-function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, _, guid)
+function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, lineId, guid)
     local baseChannelName = channelName:match('^([^ -]+)')
     if baseChannelName then
         channelName = baseChannelName
     end
 
+    channelName = ns.Channel:GetUsChannelName(channelName) or channelName
+
     if ns.IsOurChannel(channelName) then
         -- if self:CheckUnit(guid) then
-        if not self:RecvActivity(channelName, guid, unitName, text) then
-            self:RecvChat(channelName, guid, unitName, text)
+        if not self:RecvActivity(channelName, guid, unitName, text, lineId) then
+            self:RecvChat(channelName, guid, unitName, text, lineId)
         end
         -- self:LockUnit(guid)
         -- end
     elseif ns.IsCompatChannel(channelName) then
-        self:RecvChat(channelName, guid, unitName, text)
+        self:RecvChat(channelName, guid, unitName, text, lineId)
     end
 end
 
@@ -432,7 +449,7 @@ function LFG:ZONE_CHANGED_NEW_AREA()
         self:SendMessage('MEETINGHORN_CITY_CHANGED')
     end
 
-    if not self.inCity and self.current then
+    if not self.inCity and self.current and self.current.data.category.inCity then
         self:CloseActivity()
     end
 end
@@ -492,6 +509,22 @@ function LFG:GROUP_ROSTER_UPDATE()
     end
     if applicantChanged then
         self:SendMessage('MEETINGHORN_APPLICANT_UPDATE')
+    end
+end
+
+function LFG:OnLeaveTimer()
+    self.leaveTimer:Stop()
+    ns.Channel:Leave(L['CHANNEL: Group'])
+end
+
+function LFG:MEETINGHORN_SHOW()
+    self:TouchCategory('Raid')
+    self.leaveTimer:Stop()
+end
+
+function LFG:MEETINGHORN_HIDE()
+    if not self.current then
+        self.leaveTimer:Start(60)
     end
 end
 
@@ -594,11 +627,21 @@ function LFG:TouchCategory(path)
         return
     end
     local channel = category.channel
-    local id = GetChannelName(channel)
-    if not id or id == 0 then
-        JoinTemporaryChannel(channel)
+    local id = ns.Channel:GetSendChannelId(channel)
+    if not id then
+        ns.Channel:Join(channel)
     end
 end
 
 function LFG:OnHardWare()
+end
+
+function LFG:ClearFilterCache()
+    wipe(self.filters)
+end
+
+function LFG:IsFilter(text)
+    if text then
+        return self.filters[text]
+    end
 end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(487, "DBM-Party-Classic", 20, 241)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190923181320")
+mod:SetRevision("20190927201854")
 mod:SetCreatureID(7796, 7275)--nekrum-gutchewer, shadowpriest-sezzziz
 --mod:SetEncounterID(598, 599)--Each boss has it's own encounter ID?
 

@@ -1,6 +1,7 @@
 local _, ADDONSELF = ...
 local L = ADDONSELF.L
 local RegEvent = ADDONSELF.regevent
+local RegisterKeyChangedCallback = ADDONSELF.RegisterKeyChangedCallback 
 
 RegEvent("BATTLEFIELDS_SHOW", function()
     BattlefieldFrameNameHeader:SetText(BATTLEFIELD_NAME .. " " .. TOTAL .. " " ..  GetNumBattlefields())
@@ -27,7 +28,11 @@ RegEvent("ADDON_LOADED", function()
         t:SetWidth(50)
         t:SetHeight(25)
         t:SetPoint("BOTTOMRIGHT", BattlefieldFrame, -50, 100)
-        t:SetAutoFocus(true)
+
+        RegisterKeyChangedCallback("focus_quickjoin", function(v)
+            t:SetAutoFocus(v)
+        end)
+
         t:SetMaxLetters(6)
         t:SetNumeric(true)
         t:SetScript("OnTextChanged", function()

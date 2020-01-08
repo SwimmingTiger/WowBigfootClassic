@@ -1,7 +1,3 @@
--- Timer.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/13/2019, 9:30:39 AM
 
 ---@type ns
 local ns = select(2, ...)

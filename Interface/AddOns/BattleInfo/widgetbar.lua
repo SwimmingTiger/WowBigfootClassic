@@ -23,7 +23,7 @@ local spirittime
 
 local function GetSpiritHealerText()
 	if spirittime then
-		local c = 30015
+		local c = 31515 -- magic :(
 		local x = mod(c - mod((( GetTime() - spirittime)) * 1000, c), c) / 1000 + 1
 		if x > 30 then
 			return L["Spirit healing ..."]
@@ -345,10 +345,6 @@ RegEvent("ADDON_LOADED", function()
 
         f.num = num
 
-
-        local classLoc = {}
-        FillLocalizedClassList(classLoc)
-
         local factionLoc = {}
         factionLoc[FACTION_ALLIANCE] = C_CreatureInfo.GetFactionInfo(1).name
         factionLoc[FACTION_HORDE] = C_CreatureInfo.GetFactionInfo(2).name
@@ -374,7 +370,7 @@ RegEvent("ADDON_LOADED", function()
 
             for c, n in pairs(stat.class) do
                 local color = GetClassColorObj(c)
-                tooltip:AddDoubleLine(color:WrapTextInColorCode(classLoc[c]), n)
+                tooltip:AddDoubleLine(color:WrapTextInColorCode(ADDONSELF.CLASS_LOC[c]), n)
             end
 
             tooltip:Show()
@@ -397,7 +393,7 @@ RegEvent("ADDON_LOADED", function()
             local text = factionLoc[faction]
 
             for c, n in pairs(stat.class) do
-                text = text .. " " .. classLoc[c] .. ":" .. n
+                text = text .. " " .. ADDONSELF.CLASS_LOC[c] .. ":" .. n
             end
 
             if stat.maxrealmc / stat.count  > 0.15 and stat.maxrealmc > 1 then
@@ -417,7 +413,11 @@ RegEvent("ADDON_LOADED", function()
             t:SetScript("OnEnter", function()
                 showTooltip(FACTION_ALLIANCE)
             end)
+            WorldStateScoreFrameTab2:HookScript("OnEnter", function()
+                showTooltip(FACTION_ALLIANCE)
+            end)
             t:SetScript("OnLeave", hideTooltip)
+            WorldStateScoreFrameTab2:HookScript("OnLeave", hideTooltip)            
             t:RegisterForDrag("LeftButton")
             t:SetScript("OnDragStart", dragStart)
             t:SetScript("OnDragStop", dragStop)
@@ -438,7 +438,11 @@ RegEvent("ADDON_LOADED", function()
             t:SetScript("OnEnter", function()
                 showTooltip(FACTION_HORDE)
             end)
+            WorldStateScoreFrameTab3:HookScript("OnEnter", function()
+                showTooltip(FACTION_HORDE)
+            end)
             t:SetScript("OnLeave", hideTooltip)
+            WorldStateScoreFrameTab3:HookScript("OnLeave", hideTooltip)               
             t:RegisterForDrag("LeftButton")
             t:SetScript("OnDragStart", dragStart)
             t:SetScript("OnDragStop", dragStop)
@@ -472,4 +476,22 @@ RegEvent("ADDON_LOADED", function()
     end
 
     UIWidgetTopCenterContainerFrame:HookScript("OnUpdate", OnUpdate)
+
+    local MAX_SCORE_BUTTONS = 22
+    hooksecurefunc("WorldStateScoreFrame_Update", function() 
+        for i = 1, MAX_SCORE_BUTTONS do
+            local scoreButton = _G["WorldStateScoreButton"..i]
+
+            if scoreButton.index then
+                local _, _, _, _, _, _, _, _, _, filename = GetBattlefieldScore(scoreButton.index)
+
+                local text = scoreButton.name.text:GetText()
+
+                if text then
+                    local color = GetClassColorObj(filename)
+                    scoreButton.name.text:SetText(color:WrapTextInColorCode(text))
+                end
+            end
+        end
+    end)
 end)

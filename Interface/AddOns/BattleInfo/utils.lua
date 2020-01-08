@@ -12,6 +12,10 @@ ADDONSELF.InBattleground = function()
     return UnitInBattleground("player")
 end
 
+
+ADDONSELF.CLASS_LOC = {}
+FillLocalizedClassList(ADDONSELF.CLASS_LOC)
+
 local BattleZoneHelper = {}
 ADDONSELF.BattleZoneHelper = BattleZoneHelper
 

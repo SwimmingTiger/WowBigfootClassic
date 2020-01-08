@@ -68,9 +68,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20191230172431"),
-	DisplayVersion = "1.13.26", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2019, 12, 30) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200103232253"),
+	DisplayVersion = "1.13.28", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 1, 3) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -149,7 +149,7 @@ DBM.DefaultOptions = {
 	WarningIconChat = true,
 	WarningAlphabetical = true,
 	StripServerName = true,
-	ShowAllVersions = true,
+	ShowAllVersions = false,					--bf@178.com
 	ShowPizzaMessage = true,
 	ShowEngageMessage = true,
 	ShowDefeatMessage = true,
@@ -262,7 +262,7 @@ DBM.DefaultOptions = {
 	DontPlayCountdowns = false,
 	DontSendYells = false,
 	BlockNoteShare = false,
-	DontShowReminders = false,
+	DontShowReminders = true,		-- bf@178.com
 	DontShowPT2 = false,
 	DontPlayPTCountdown = false,
 	DontShowPTText = false,
@@ -1984,7 +1984,7 @@ end
 do
 	local trackedHudMarkers = {}
 	local function Pull(timer)
-		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" or IsEncounterInProgress() then
+		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" or IsEncounterInProgress() or timer < 3 then
 			return DBM:AddMsg(DBM_ERROR_NO_PERMISSION)
 		end
 		local targetName = (UnitExists("target") and UnitIsEnemy("player", "target")) and UnitName("target") or nil--Filter non enemies in case player isn't targetting bos but another player/pet
@@ -4154,7 +4154,7 @@ do
 		end
 		if (lastMapID and tonumber(lastMapID) ~= LastInstanceMapID) or (not lastMapID and DBM.Options.DontShowPTNoID) then return end
 		timer = tonumber(timer or 0)
-		if timer > 60 then
+		if timer > 60 or timer < 3 then
 			return
 		end
 		if not dummyMod then

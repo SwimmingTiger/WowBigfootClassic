@@ -1,7 +1,3 @@
--- ListView.lua
--- @Author : DengSir (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 10/19/2018, 8:19:47 PM
 
 ---@type ns
 local ns = select(2, ...)
@@ -17,6 +13,8 @@ function ListView:Constructor()
     assert(self.scrollBar)
     assert(self.scrollChild)
 
+    self.buttonHeight = 1
+    self.scrollBar.doNotHide = true
     self.scrollBar:SetMinMaxValues(0, 1)
     self.scrollBar:SetValue(0)
 
@@ -69,6 +67,7 @@ end
 
 function ListView:SetItemTemplate(itemTemplate)
     self._itemTemplate = itemTemplate
+    self.buttonHeight = self:GetButton(1):GetHeight() + 2
 end
 
 function ListView:GetItemTemplate()

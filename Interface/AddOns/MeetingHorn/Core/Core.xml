@@ -4,4 +4,5 @@
     <Script file="Applicant.lua" />
     <Script file="Timer.lua" />
     <Script file="LFG.lua" />
+    <Script file="Channel.lua" />
 </Ui>

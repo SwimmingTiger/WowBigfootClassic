@@ -424,7 +424,7 @@ function CSC_PaperDollFrame_SetRangedAttackPower(statFrame, unit)
     local valueNum = max(0, base + posBuff + negBuff);
     CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_ATTACK_POWER, valueText, false, valueNum);
 	statFrame.tooltip = tooltipText;
-    statFrame.tooltip2 = format(RANGED_ATTACK_POWER_TOOLTIP, base/ATTACK_POWER_MAGIC_NUMBER);
+    statFrame.tooltip2 = format(RANGED_ATTACK_POWER_TOOLTIP, valueNum/ATTACK_POWER_MAGIC_NUMBER);
     statFrame:Show();
 end
 

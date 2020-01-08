@@ -4,7 +4,7 @@
 ## Title-zhTW: [大腳][集]人物詳細屬性
 ## Notes: |cff00ff00CharacterStatsClassic|r|n|cffbc8f8fAdvanced Character Stats|r
 ## Author: Peter Getov
-## Version: 2.8.1
+## Version: 2.9
 ## SavedVariables: CharacterStatsClassicDB
 ## SavedVariablesPerCharacter: CharacterStatsClassicCharacterDB
 ## Dependencies: BigFoot

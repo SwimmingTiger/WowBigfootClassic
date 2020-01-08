@@ -1,7 +1,3 @@
--- Addon.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/11/2019, 9:34:03 AM
 
 ---@class UI
 ---@field MainPanel MeetingHornUIMainPanel
@@ -20,6 +16,7 @@
 ---@field Activity MeetingHornActivity
 ---@field Applicant MeetingHornApplicant
 ---@field Timer MeetingHornTimer
+---@field Channel MeetingHornChannel
 local ns = select(2, ...)
 
 local L = LibStub('AceLocale-3.0'):GetLocale('MeetingHorn', true)
@@ -59,6 +56,12 @@ function Addon:OnInitialize()
             options = { --
                 databroker = true,
                 chatfilter = true,
+                activityfilter = true,
+            },
+        },
+        global = { --
+            activity = { --
+                filters = {},
             },
         },
     })
@@ -70,7 +73,7 @@ function Addon:OnInitialize()
 end
 
 function Addon:OnEnable()
-    local keys = {'databroker', 'chatfilter'}
+    local keys = {'databroker', 'chatfilter', 'activityfilter'}
     for _, key in ipairs(keys) do
         self:SendMessage('MEETINGHORN_OPTION_CHANGED_' .. key:upper(), self.db.profile.options[key])
     end

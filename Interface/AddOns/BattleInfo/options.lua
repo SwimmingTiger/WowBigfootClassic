@@ -89,8 +89,11 @@ RegEvent("PLAYER_LOGIN", function()
     end
 
     local base = -50
-    local nextpos = function()
-        base = base - 30
+    local nextpos = function(offset)
+        if not offset then
+            offset = 30
+        end
+        base = base - offset
         return base
     end
 
@@ -122,6 +125,41 @@ RegEvent("PLAYER_LOGIN", function()
     do
         local b = createCheckbox(L["Replace Hide Button with CTRL+Hide=Leave"], "replace_hide_battle", true)
         b:SetPoint("TOPLEFT", f, 15, nextpos())
+    end
+
+    do
+        local b = createCheckbox(L["Auto focus on Quick Join Text box"], "focus_quickjoin", true)
+        b:SetPoint("TOPLEFT", f, 15, nextpos())
+    end
+
+    do
+        local s = CreateFrame("Slider", f, f, "OptionsSliderTemplate")
+        s:SetOrientation('HORIZONTAL')
+        s:SetHeight(14)
+        s:SetWidth(160)
+        s:SetMinMaxValues(1, 120)
+        s:SetValueStep(1)
+        s.Low:SetText(SecondsToTime(1))
+        s.High:SetText(SecondsToTime(120))
+
+        local l = s:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        l:SetPoint("RIGHT", s, "LEFT", -20, 1)
+        l:SetText(L["Auto Leave battle ground when game ends in"])
+        
+        s:SetPoint("TOPLEFT", f, 40 + l:GetStringWidth(), nextpos(45))
+
+        local key = "auto_leave_bg_time"
+
+        s:SetScript("OnValueChanged", function(self, value)
+            s.Text:SetText(SecondsToTime(value))
+            SetConfig(key, value)
+        end)
+
+        RegisterKeyChangedCallback(key, function(v)
+            s:SetValue(v)
+        end)
+    
+        triggerCallback(key, GetConfigOrDefault(key, 3))
     end
 
     do

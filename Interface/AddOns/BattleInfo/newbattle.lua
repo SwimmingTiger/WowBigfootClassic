@@ -153,6 +153,26 @@ RegEvent("BATTLEFIELDS_SHOW", function()
     C_ChatInfo.SendAddonMessage("BATTLEINFO", "ELAPSE_WANTED", "GUILD")
 end)
 
+local DROP_MENU_LOC_ENTER = 2
+local DROP_MENU_LOC_LEAVE = 1
+
+local function SearchDropMenuLoc(showid, offset)
+    local queued = 0
+
+    for i = 1, MAX_BATTLEFIELD_QUEUES do
+        local status, mapName, instanceID = GetBattlefieldStatus(i)
+        local current = i == showid 
+
+        if current then
+            return i * 4 - offset - queued;
+        end
+
+        if status == "queued" then
+            queued = queued + 1
+        end
+    end    
+end
+
 RegEvent("ADDON_LOADED", function()
     C_ChatInfo.RegisterAddonMessagePrefix("BATTLEINFO")
 
@@ -167,27 +187,16 @@ RegEvent("ADDON_LOADED", function()
         t:SetAttribute("type", "macro") -- left click causes macro
         t:Hide()
 
-        t.updateMacro = function(showid)
-            local queued = 0
-
-            for i = 1, MAX_BATTLEFIELD_QUEUES do
-                local status, mapName, instanceID = GetBattlefieldStatus(i)
-                local current = i == showid 
-
-                if current then
-
-                    local loc = i * 4 - 2 - queued
-                    t:SetAttribute("macrotext", "/click MiniMapBattlefieldFrame RightButton" .. "\r\n" .. "/click DropDownList1Button" .. (loc)) -- text for macro on left click
-                    break
-                end
-
-                if status == "queued" then
-                    queued = queued + 1
-                end
+        t.updateMacro = function()
+            local loc = SearchDropMenuLoc(t.showid, DROP_MENU_LOC_ENTER)
+            if loc then
+                t:SetAttribute("macrotext", "/click MiniMapBattlefieldFrame RightButton" .. "\r\n" .. "/click [nocombat]DropDownList1Button" .. (loc)) -- text for macro on left click
             end
         end        
 
         t:SetScript("OnUpdate", function()
+            t.updateMacro()
+
             for i = 1, MAX_BATTLEFIELD_QUEUES do
                 local time = GetBattlefieldPortExpiration(i)
                 if time > 0 then
@@ -210,26 +219,12 @@ RegEvent("ADDON_LOADED", function()
         t:SetAttribute("type", "macro") -- left click causes macro
         t:Hide()
 
-        t.updateMacro = function(showid)
-            local queued = 0
-
-            for i = 1, MAX_BATTLEFIELD_QUEUES do
-                local status, mapName, instanceID = GetBattlefieldStatus(i)
-                local current = i == showid 
-
-                if current then
-
-                    local loc = i * 4 - 1 - queued
-                    t:SetAttribute("macrotext", "/click MiniMapBattlefieldFrame RightButton" .. "\r\n" .. "/click DropDownList1Button" .. (loc)) -- text for macro on left click
-                    break
-                end
-
-                if status == "queued" then
-                    queued = queued + 1
-                end
+        t.updateMacro = function()
+            local loc = SearchDropMenuLoc(t.showid, DROP_MENU_LOC_LEAVE)
+            if loc then
+                t:SetAttribute("macrotext", "/click MiniMapBattlefieldFrame RightButton" .. "\r\n" .. "/click [nocombat]DropDownList1Button" .. (loc)) -- text for macro on left click
             end
         end
-
 
         leavequeuebtn = t
     end
@@ -271,19 +266,23 @@ RegEvent("ADDON_LOADED", function()
         local tx = self.text:GetText()
         if InCombatLockdown() then
             ADDONSELF.Print(L["Button may not work properly during combat"])
+            return
         end
 
         if replaceEnter then
-            joinqueuebtn.updateMacro(data)
-            joinqueuebtn:Show()
+            joinqueuebtn.showid = data
             joinqueuebtn:SetAllPoints(self.button1)
+
+            joinqueuebtn:Show()
         end
 
         if replaceHide then
-            leavequeuebtn.updateMacro(data)
+            leavequeuebtn.showid = data
             leavequeuebtn:SetAllPoints(self.button2)
+
             if not self.button2.batteinfohooked then
                 self.button2:SetScript("OnUpdate", function()
+                    leavequeuebtn.updateMacro()
 
                     if IsControlKeyDown() then
                         leavequeuebtn:Show()

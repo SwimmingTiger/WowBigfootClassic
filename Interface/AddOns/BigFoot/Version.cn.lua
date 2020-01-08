@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.3."
-local minor = "34"
+local minor = "35"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,10 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2020/01/06 (1.13.3.35)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2020/01/03 (1.13.3.34)")
 	BigFootChangelog_ar("集结号","升级至最新版本(1.1.0)。")
@@ -197,4 +201,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "54"
+BF_VERSION_CHECKSUM = "55"

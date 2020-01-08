@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191226214030")
+mod:SetRevision("20200103232253")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
-mod:SetHotfixNoticeRev(20191226000000)--2019, 12, 26
-mod:SetMinSyncRevision(20191226000000)
+mod:SetHotfixNoticeRev(20200103000000)--2020, 01, 03
+mod:SetMinSyncRevision(20200103000000)
 
 mod:RegisterCombat("combat")
 
@@ -112,15 +112,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:OnSync(msg, guid)
-	if not self:IsInCombat() then return end
-	if msg == "Submerge" then
+	if msg == "SummonRag" and self:AntiSpam(5, 2) then
+		timerCombatStart:Start()
+	elseif msg == "Submerge" and self:IsInCombat() then
 		self:Unschedule(emerged)
 		timerWrathRag:Stop()
 		warnSubmerge:Show()
 		timerEmerge:Start(90)
 		self:Schedule(90, emerged, self)
 		self.vb.addLeft = self.vb.addLeft + 8
-	elseif msg == "AddDied" and guid and not addsGuidCheck[guid] then
+	elseif msg == "AddDied" and self:IsInCombat() and guid and not addsGuidCheck[guid] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
 		addsGuidCheck[guid] = true
 		self.vb.addLeft = self.vb.addLeft - 1
@@ -128,11 +129,9 @@ function mod:OnSync(msg, guid)
 			self:Unschedule(emerged)
 			emerged(self)
 		end
-	elseif msg == "WrathRag" and self:AntiSpam(5, 1) then
+	elseif msg == "WrathRag" and self:IsInCombat() and self:AntiSpam(5, 1) then
 		warnWrathRag:Show()
 		timerWrathRag:Start()
-	elseif msg == "SummonRag" and self:AntiSpam(5, 2) then
-		timerCombatStart:Start()
 	elseif msg == "DomoDeath" and self:AntiSpam(5, 3) then
 		--The timer between yell/summon start and ragnaros being attackable is variable, but time between domo death and him being attackable is not.
 		--As such, we start lowest timer of that variation on the RP start, but adjust timer if it's less than 10 seconds at time domo dies

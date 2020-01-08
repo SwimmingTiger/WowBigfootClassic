@@ -1,7 +1,3 @@
--- Applicant.lua
--- @Author : Dencer (tdaddon@163.com)
--- @Link   : https://dengsir.github.io
--- @Date   : 12/16/2019, 10:25:09 AM
 
 ---@type ns
 local ns = select(2, ...)
@@ -40,6 +36,10 @@ end
 
 function Applicant:GetRace()
     return self.race
+end
+
+function Applicant:GetLevel()
+    return self.level
 end
 
 function Applicant:Update(class, race, level)
