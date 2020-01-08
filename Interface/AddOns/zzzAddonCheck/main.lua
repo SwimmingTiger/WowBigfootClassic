@@ -27,6 +27,11 @@ local function LoaderEvents(frame, event, arg1)
         DBM.Options.DontShowReminders = true
     end
 
+    -- 禁止Details弹出天赋面板
+    if Details and not Details.disable_talent_feature then
+        Details.disable_talent_feature = true
+    end
+
     -- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
 	local patchVersion = '2019-12-17-23'
 	if (type(RealMobHealth_Options) == 'table' and BF_Frames_Config.RealMobHealthPatchVersion ~= patchVersion) then
