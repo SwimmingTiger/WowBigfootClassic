@@ -39,7 +39,7 @@ end
 
 function offlineRaidersFrame_OnLoade()
 	-- ShowButton = CreateFrame("Button",EncounterJournal)
-	-- normaltexture = ShowButton:CreateTexture("buttonNormaltexture","overlay","UI-EJ-ReturnToDefault")
+	-- normaltexture = ShowButton:CreateTexture("buttonNormaltexture","overlay","UI-BFC-ReturnToDefault")
 	OfflineRaiders:SetFrameLevel(13)
 	OfflineRaiders:SetParent("EncounterJournal")
 	OfflineRaiders:SetPoint("TOPRIGHT","EncounterJournalEncounterFrameInfoResetButton","TOPLEFT")
