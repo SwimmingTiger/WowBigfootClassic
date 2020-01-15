@@ -62,10 +62,10 @@ local joinChannelFunc = function(channel)
     local channelList = DEFAULT_CHAT_FRAME.channelList
     if #channelList < 10 then
         JoinTemporaryChannel(channel)
-        local i = 1
+        local i = 1;
         while (channelList[i]) do
             if not channelList[i]:find(channel) then
-                i = i + 1
+                i = i + 1;
             else
                 channelList[i] = channel
                 return
@@ -85,19 +85,19 @@ StaticPopupDialogs["BFC_COPYTEXT"] = {
     OnShow = function(self)
         if not BFChatAddOn.copyTextId then return end
         local temp = BFC_TextBuffer[tonumber(BFChatAddOn.copyTextId)]
-        self.editBox:SetText(temp or "")
+        self.editBox:SetText(temp or "");
         self.editBox:HighlightText(0)
     end,
-    OnHide = function(self) self.editBox:SetText("") end,
+    OnHide = function(self) self.editBox:SetText(""); end,
     EditBoxOnEnterPressed = function(self)
-        local parent = self:GetParent()
-        parent:Hide()
+        local parent = self:GetParent();
+        parent:Hide();
     end,
-    EditBoxOnEscapePressed = function(self) self:GetParent():Hide() end,
+    EditBoxOnEscapePressed = function(self) self:GetParent():Hide(); end,
     timeout = 0,
     whileDead = 1,
     hideOnEscape = 1
-}
+};
 local function generateIconMap()
     for BFChat_63a9ce6f1eeac72ef41293b7d0303335,
         BFChat_8d0644c92128c1ff68223fd74ba63b56 in pairs(BFC_IconTable) do
@@ -119,7 +119,7 @@ local function setpoint(point, relObj, relp, xoff, yoff)
     return {point, relObj:GetName(), relp, xoff, yoff}
 end
 local function getCurrentFont()
-    local h = GetScreenHeight()
+    local h = GetScreenHeight();
     local _, font = SELECTED_CHAT_FRAME:GetFont()
     font = ceil(font)
     local myfont = (font * 1.5) * h / 768
@@ -151,7 +151,7 @@ function BFChatAddOn:ParseLocalText(text)
     for tag in string.gmatch(text, "|T([^:]+):%d+|t") do
         if (BFC_ReverseIconTableMap[tag]) then
             text = string.gsub(text, "|T[^:]+:%d+|t",
-                               BFC_ReverseIconTableMap[tag], 1)
+                               BFC_ReverseIconTableMap[tag], 1);
             return text, true
         end
     end
@@ -163,7 +163,7 @@ function BFChatAddOn:ParseText(text, font)
         if (BFC_IconTableMap[tag]) then
             local fontSize = getCurrentFont()
             text = text:gsub(tag, "|T" .. BFC_IconTableMap[tag] .. ":" ..
-                                 fontSize .. "|t", 1)
+                                 fontSize .. "|t", 1);
             break
         end
     end
@@ -173,7 +173,7 @@ function BFChatAddOn:ReverseParseText(text, font)
     for tag in string.gmatch(text, "|T([^:]+):" .. font .. "|t") do
         if (BFC_ReverseIconTableMap[tag]) then
             text = string.gsub(text, "|T[^:]+:" .. font .. "|t",
-                               BFC_ReverseIconTableMap[tag], 1)
+                               BFC_ReverseIconTableMap[tag], 1);
         end
     end
     return text
@@ -194,31 +194,31 @@ local function getNextChannel(channelName)
     end
 end
 local function getBFChannelNum(channelNum)
-    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
+    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList());
     for k, v in pairs(ChannelList) do
         if mod(k, 3) == 2 then
             if v:find(L["BigFootChannel"]) and channelNum == ChannelList[k - 1] then
-                return true
+                return true;
             end
         end
     end
 end
-local ChannelNum
+local ChannelNum;
 local function S_GetChannel(text)
     if not text then return end
-    local a, b = string.find(text, "Hchannel:channel:")
+    local a, b = string.find(text, "Hchannel:channel:");
     if b then
-        local e = string.find(text, "|h", b + 1)
+        local e = string.find(text, "|h", b + 1);
         if e then
-            local f = string.sub(text, b + 1, e - 1)
+            local f = string.sub(text, b + 1, e - 1);
             f = tonumber(f)
             if f then
                 if ChannelNum and f == ChannelNum then
                     ChannelNum = f
-                    return true
+                    return true;
                 elseif getBFChannelNum(f) then
                     ChannelNum = f
-                    return true
+                    return true;
                 end
             end
         end
@@ -226,45 +226,45 @@ local function S_GetChannel(text)
 end
 local message, a
 local function S_GetMessage(text)
-    message = nil
-    _, a = string.find(text, "|h：")
-    if a then message = string.sub(text, a + 1) end
-    message = message and message:gsub("|cf.*|h|r", "") or message
-    message = message and message:gsub("%p", "") or message
-    message = message and message:gsub("%s", "") or message
-    return message
+    message = nil;
+    _, a = string.find(text, "|h：");
+    if a then message = string.sub(text, a + 1); end
+    message = message and message:gsub("|cf.*|h|r", "") or message;
+    message = message and message:gsub("%p", "") or message;
+    message = message and message:gsub("%s", "") or message;
+    return message;
 end
 local b, e, f
 local function S_GetSpeaker(text)
-    _, b = string.find(text, "Hplayer:")
+    _, b = string.find(text, "Hplayer:");
     if b then
-        e = string.find(text, ":", b + 1)
+        e = string.find(text, ":", b + 1);
         if e then
-            f = string.sub(text, b + 1, e - 1)
+            f = string.sub(text, b + 1, e - 1);
             if f then return f end
         end
     end
 end
-local currentTime, t_speaker, isReturn
-local SpeakerTab = {}
+local currentTime, t_speaker, isReturn;
+local SpeakerTab = {};
 local function IsOldSpeak(speaker, messageText)
-    currentTime = time()
+    currentTime = time();
     if not SpeakerTab[speaker] then
         SpeakerTab[speaker] = {}
         t_speaker = SpeakerTab[speaker]
-        SpeakerTab[speaker].timestamp = currentTime
-        SpeakerTab[speaker].lastText = messageText
+        SpeakerTab[speaker].timestamp = currentTime;
+        SpeakerTab[speaker].lastText = messageText;
     else
-        isReturn = false
+        isReturn = false;
         if (SpeakerTab[speaker].lastText == messageText) and
             (currentTime - SpeakerTab[speaker].timestamp <
                 BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8) then
-            isReturn = true
+            isReturn = true;
         else
-            SpeakerTab[speaker].timestamp = currentTime
-            SpeakerTab[speaker].lastText = messageText
+            SpeakerTab[speaker].timestamp = currentTime;
+            SpeakerTab[speaker].lastText = messageText;
         end
-        if isReturn then return true end
+        if isReturn then return true; end
     end
 end
 local Ban_Tables = {
@@ -295,13 +295,13 @@ local function addToBanTable(t)
         local tempWord
         for _, oword in pairs(BanWordTable) do
             for _, word in pairs(t) do
-                tempWord = oword .. word
-                tinsert(newBanWordTable, tempWord)
+                tempWord = oword .. word;
+                tinsert(newBanWordTable, tempWord);
             end
         end
         BanWordTable = newBanWordTable
     else
-        BanWordTable = t
+        BanWordTable = t;
     end
 end
 local function splitWord(word)
@@ -310,11 +310,11 @@ local function splitWord(word)
     if word:find("&") then
         while word:find("&") do
             begin, ends = word:find("&")
-            tinsert(tempTable, word:sub(1, begin - 1))
+            tinsert(tempTable, word:sub(1, begin - 1));
             word = word:sub(ends + 1)
         end
     end
-    tinsert(tempTable, word)
+    tinsert(tempTable, word);
     addToBanTable(tempTable)
 end
 local function findBandWord(word, index)
@@ -331,7 +331,7 @@ local function findBandWord(word, index)
         local tempTable = {word}
         addToBanTable(tempTable)
     end
-    tinsert(Ban_Table, BanWordTable)
+    tinsert(Ban_Table, BanWordTable);
     BanWordTable = {}
 end
 local function madeBanWords()
@@ -339,14 +339,16 @@ local function madeBanWords()
     if #Ban_Table > 0 then
         for _, v in pairs(Ban_Table) do
             if v then
-                for _, j in pairs(v) do tinsert(Ban_WordTable, j) end
+                for _, j in pairs(v) do
+                    tinsert(Ban_WordTable, j);
+                end
             end
         end
     end
 end
 local function IsBanMessage(text)
     for _, v in pairs(Ban_WordTable) do
-        if string.find(text:lower(), v:lower()) then return true end
+        if string.find(text:lower(), v:lower()) then return true; end
     end
     return
 end
@@ -355,12 +357,12 @@ local function IsOrderMessage(text)
     for k, v in pairs(Command) do
         if string.find(text, k) then
             print(k)
-            return true
+            return true;
         end
     end
     return
 end
-local speaker, messageText
+local speaker, messageText;
 local function S_AddMessage(self, text, r, g, b, id, ...)
     if text then
         if IsBFChannelSysMessage(text) then
@@ -369,8 +371,8 @@ local function S_AddMessage(self, text, r, g, b, id, ...)
         end
         if S_GetChannel(text) then
             if db.mute then return end
-            speaker = S_GetSpeaker(text)
-            messageText = S_GetMessage(text)
+            speaker = S_GetSpeaker(text);
+            messageText = S_GetMessage(text);
             if speaker and messageText then
                 if IsBanMessage(messageText) then return end
                 if IsOldSpeak(speaker, messageText) then return end
@@ -379,7 +381,7 @@ local function S_AddMessage(self, text, r, g, b, id, ...)
     end
     if event and events[event] then
         if (db.useshortname) then
-            local temp = nil
+            local temp = nil;
             if text then
                 if strsub(event, 1, 10) ~= "CHAT_MSG_S" then
                     for BFChat_63a9ce6f1eeac72ef41293b7d0303335,
@@ -405,8 +407,8 @@ local function S_AddMessage(self, text, r, g, b, id, ...)
                                            BFChat_8d0644c92128c1ff68223fd74ba63b56,
                                            1)
                         if temp ~= text then
-                            text = temp
-                            temp = nil
+                            text = temp;
+                            temp = nil;
                             break
                         end
                     end
@@ -418,7 +420,7 @@ local function S_AddMessage(self, text, r, g, b, id, ...)
             BFC_TextIndex = BFC_TextIndex + 1
         end
     end
-    if self.ORG_AddMessage then self:ORG_AddMessage(text, r, g, b, id, ...) end
+    if self.ORG_AddMessage then self:ORG_AddMessage(text, r, g, b, id, ...); end
 end
 local function BFC_ChatFrameHandler_Recover(self, _event, ...)
     event = _event
@@ -456,19 +458,19 @@ function BFChatAddOn:GetenglishClassName(Class)
         if L.Warrior == Class then englishName = "Warrior" end
         if L.DeathKnight == Class then englishName = "DeathKnight" end
     end
-    if englishName then englishName = strupper(englishName) end
-    return englishName
+    if englishName then englishName = strupper(englishName); end
+    return englishName;
 end
 function BFChatAddOn:FindFriendClassByName(name)
     local m_name = name
-    local totalBNet, numBNetOnline = BNGetNumFriends()
+    local totalBNet, numBNetOnline = BNGetNumFriends();
     local hasFocus, toonName, client, realmName, realmID, faction, race, class,
           guild, zoneName, level, gameText
     local presenceID, givenName, surname, toonName, toonID, client, isOnline,
           lastOnline, isAFK, isDND, broadcastText, noteText, isFriend,
           broadcastTime
-    local nameText
-    local playnumberGive
+    local nameText;
+    local playnumberGive;
     local playnumber
     string.gsub(m_name, ".-(%d+).-", function(number)
         if tonumber(number) and tonumber(number) ~= 0 then
@@ -477,7 +479,7 @@ function BFChatAddOn:FindFriendClassByName(name)
     end)
     for i = 1, totalBNet do
         presenceID, givenName, battleTag, isBattleTagPresence, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isRIDFriend, broadcastTime, canSoR =
-            BNGetFriendInfo(i)
+            BNGetFriendInfo(i);
         if presenceName and battleTag and toonName and toonID then
             nameText = format(BATTLENET_NAME_FORMAT, givenName, battleTag)
             string.gsub(nameText, ".-(%d+).-", function(number)
@@ -487,27 +489,27 @@ function BFChatAddOn:FindFriendClassByName(name)
             end)
             if playnumberGive == playnumber then
                 hasFocus, toonName, client, realmName, realmID, faction, race, class, guild, zoneName, level, gameText =
-                    BNGetGameAccountInfo(toonID)
+                    BNGetGameAccountInfo(toonID);
             else
             end
         end
     end
-    return class
+    return class;
 end
 function BFChatAddOn.GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6,
                                     arg7, arg8, arg9, arg10, arg11, arg12)
-    local chatType = strsub(event, 10)
-    if (strsub(chatType, 1, 7) == "WHISPER") then chatType = "WHISPER" end
+    local chatType = strsub(event, 10);
+    if (strsub(chatType, 1, 7) == "WHISPER") then chatType = "WHISPER"; end
     if (strsub(chatType, 1, 7) == "CHANNEL") then
-        chatType = "CHANNEL" .. arg8
+        chatType = "CHANNEL" .. arg8;
     end
-    local info = ChatTypeInfo[chatType]
+    local info = ChatTypeInfo[chatType];
     if event == "CHAT_MSG_BN_WHISPER_INFORM" or event == "CHAT_MSG_BN_WHISPER" then
         local Class = BFChatAddOn:FindFriendClassByName(arg2)
         local englishClass = BFChatAddOn:GetenglishClassName(Class)
         if englishClass then
-            local classColorTable = RAID_CLASS_COLORS[englishClass]
-            if (not classColorTable) then return arg2 end
+            local classColorTable = RAID_CLASS_COLORS[englishClass];
+            if (not classColorTable) then return arg2; end
             return string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255,
                                  classColorTable.g * 255,
                                  classColorTable.b * 255) .. arg2 .. "\124r"
@@ -517,17 +519,17 @@ function BFChatAddOn.GetColoredName(event, arg1, arg2, arg3, arg4, arg5, arg6,
         local localizedClass, englishClass, localizedRace, englishRace, sex =
             GetPlayerInfoByGUID(arg12)
         if (englishClass) then
-            local classColorTable = RAID_CLASS_COLORS[englishClass]
-            if (not classColorTable) then return arg2 end
+            local classColorTable = RAID_CLASS_COLORS[englishClass];
+            if (not classColorTable) then return arg2; end
             return string.format("\124cff%.2x%.2x%.2x", classColorTable.r * 255,
                                  classColorTable.g * 255,
                                  classColorTable.b * 255) .. arg2 .. "\124r"
         end
     end
-    return arg2
+    return arg2;
 end
 function BFChatAddOn:MaskSystemColoring(flag)
-    local m_ChatTypeInfo
+    local m_ChatTypeInfo;
     for k, v in pairs(getmetatable(ChatTypeInfo)) do
         if k == "__index" then m_ChatTypeInfo = v end
     end
@@ -584,74 +586,74 @@ local function BFChat_8789b1a0b4da92efd2a9bb111a773e4c(editbox, name, val)
     if name == "bfwhispermode" then
         if not editbox.bfChatType then editbox.bfChatType = "SAY" end
         if not val then
-            editbox:SetAttribute("chatType", editbox.bfChatType)
-            ChatEdit_UpdateHeader(editbox)
+            editbox:SetAttribute("chatType", editbox.bfChatType);
+            ChatEdit_UpdateHeader(editbox);
         end
     end
 end
 local currentTimes, isReturns
-local SpeakTab = {}
+local SpeakTab = {};
 function BFChatAddOn:EnableOldStyleReply()
     hooksecurefunc("ChatEdit_SendText", function(editBox, ...)
-        local type = editBox:GetAttribute("chatType")
-        local text = editBox:GetText()
+        local type = editBox:GetAttribute("chatType");
+        local text = editBox:GetText();
         if (text and type ~= "WHISPER" and type ~= "BN_WHISPER") then
-            editBox.bfChatType = type
+            editBox.bfChatType = type;
         end
-    end)
-    local SendChatMessage_Origin = SendChatMessage
+    end);
+    local SendChatMessage_Origin = SendChatMessage;
     SendChatMessage = function(text, type, language, chanelId, ...)
         if type == "CHANNEL" and text and text ~= "" and tonumber(chanelId) ==
             getBigFootChannel() then
-            currentTimes = time()
-            isReturns = false
+            currentTimes = time();
+            isReturns = false;
             if #SpeakTab >= 3 then
                 if currentTimes - SpeakTab[1] >=
                     BFChat_dd5fbfa5a6e2278bea0e15c976f3b6a8 then
                     if (SpeakTab.lastText == text) and
                         (currentTimes - SpeakTab[3] <
                             BFChat_f639e5038297ec75bfd38fdb4b2558f1) then
-                        isReturns = true
+                        isReturns = true;
                         BFC_Print(L["Please Do Not Send Same Message In 10s"])
                     end
                     tremove(SpeakTab, 1)
                     tinsert(SpeakTab, currentTimes)
                     SpeakTab.lastText = text
                 else
-                    isReturns = true
+                    isReturns = true;
                     BFC_Print(L["Please Do Not Talk Too Fast"])
                 end
             else
                 if (SpeakTab.lastText == text) and
                     (currentTimes - SpeakTab[#SpeakTab] <
                         BFChat_f639e5038297ec75bfd38fdb4b2558f1) then
-                    isReturns = true
+                    isReturns = true;
                     BFC_Print(L["Please Do Not Send Same Message In 10s"])
                 else
                     tinsert(SpeakTab, currentTimes)
                     SpeakTab.lastText = text
                 end
             end
-            if isReturns then return end
+            if isReturns then return; end
         end
         return SendChatMessage_Origin(text, type, language, chanelId, ...)
-    end
+    end;
     hooksecurefunc("ChatEdit_ClearChat", function(editBox)
         BFChat_3eca70aa558d6bc043280757ebe23e94(editBox)
-    end)
+    end);
     ChatFrame1EditBox:SetScript("OnAttributeChanged", function(...)
         if (db.enableOldChatFrameStyle) then
             BFChat_8789b1a0b4da92efd2a9bb111a773e4c(...)
         end
     end)
     hooksecurefunc("ChatFrame_ReplyTell", function(chatFrame)
-        local editBox = ChatEdit_ChooseBoxForSend(chatFrame)
+        local editBox = ChatEdit_ChooseBoxForSend(chatFrame);
         BFChat_84ad48e612a92b69c1b98d3185056f3c(editBox)
-    end)
+    end);
     hooksecurefunc("ChatFrame_ReplyTell2", function(chatFrame)
-        local editBox = ChatEdit_ChooseBoxForSend(chatFrame)
+        local editBox = ChatEdit_ChooseBoxForSend(chatFrame);
         BFChat_84ad48e612a92b69c1b98d3185056f3c(editBox)
-    end)
+    end);
 end
 function BFChatAddOn:IsDisplayChannelOwner()
     local selectIndex = GetSelectedDisplayChannel()
@@ -666,15 +668,15 @@ local function planB(...)
     local _, message, _, _, _, _, _, _, _, channelName = ...
     if (message == "BANNED" or message == "INVALID_NAME") and
         channelName:find(L["BigFootChannel"]) then
-        isBanned = true
+        isBanned = true;
         BFChatAddOn.nextChannel = getNextChannel(channelName)
         joinChannelFunc(BFChatAddOn.nextChannel)
-        local info = ChatTypeInfo["CHANNEL"]
+        local info = ChatTypeInfo["CHANNEL"];
         if message == "BANNED" then
         elseif message == "INVALID_NAME" then
             DEFAULT_CHAT_FRAME:AddMessage(
                 channelName .. L["BFC Plan B"] .. BFChatAddOn.nextChannel,
-                info.r, info.g, info.b, info.id)
+                info.r, info.g, info.b, info.id);
         end
     end
 end
@@ -683,10 +685,10 @@ function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE_USER(...) --[[ local _,message,_,_,
 function BFChatAddOn:CHAT_MSG_CHANNEL_NOTICE(...) --[[ local _,message,_,_,_,_,_,_,_,channelName = ... if message == "INVALID_NAME" and channelName:find(L["BigFootChannel"]) then isBanned = true; self.nextChannel = getNextChannel(channelName) joinChannelFunc(self.nextChannel) end ]] planB(
     ...) end
 function BFChatAddOn:CHANNEL_UI_UPDATE(...)
-    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
+    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList());
     for k, v in pairs(ChannelList) do
         if mod(k, 3) == 2 then
-            if v:find(L["BigFootChannel"]) then return end
+            if v:find(L["BigFootChannel"]) then return; end
         end
     end
     if not isBanned then joinChannelFunc(L["BigFootChannel"]) end
@@ -697,25 +699,25 @@ function BFChatAddOn:CHANNEL_PASSWORD_REQUEST(...)
         self.nextChannel = getNextChannel(channelName)
         joinChannelFunc(self.nextChannel)
     else
-        local dialog = StaticPopup_Show("CHAT_CHANNEL_PASSWORD", channelName)
-        if (dialog) then dialog.data = channelName end
-        return
+        local dialog = StaticPopup_Show("CHAT_CHANNEL_PASSWORD", channelName);
+        if (dialog) then dialog.data = channelName; end
+        return;
     end
 end
 function BFChatAddOn:FCF_FadeInChatFrame(chatFrame)
     BFChannelMuteButton:Show()
-    UIFrameFadeIn(BFChannelMuteButton, CHAT_FRAME_FADE_TIME, 0.5, 1)
+    UIFrameFadeIn(BFChannelMuteButton, CHAT_FRAME_FADE_TIME, 0.5, 1);
     if ChannelFilterMuteButton then
         ChannelFilterMuteButton:Show()
-        UIFrameFadeIn(ChannelFilterMuteButton, CHAT_FRAME_FADE_TIME, 0.5, 1)
+        UIFrameFadeIn(ChannelFilterMuteButton, CHAT_FRAME_FADE_TIME, 0.5, 1);
     end
 end
 function BFChatAddOn:FCF_FadeOutChatFrame(chatFrame)
     UIFrameFadeOut(BFChannelMuteButton, CHAT_FRAME_FADE_OUT_TIME,
-                   BFChannelMuteButton:GetAlpha(), 0)
+                   BFChannelMuteButton:GetAlpha(), 0);
     if ChannelFilterMuteButton then
         UIFrameFadeOut(ChannelFilterMuteButton, CHAT_FRAME_FADE_OUT_TIME,
-                       ChannelFilterMuteButton:GetAlpha(), 0)
+                       ChannelFilterMuteButton:GetAlpha(), 0);
     end
 end
 function BFChatAddOn:GetChannelListTab(...) return {...} end
@@ -734,7 +736,7 @@ function BFChatAddOn:OnEnable()
 end
 function BFChatAddOn:ReSetBigfootChannelSet()
     joinChannelFunc(L["BigFootChannel"])
-    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList())
+    local ChannelList = BFChatAddOn:GetChannelListTab(GetChannelList());
     for k, v in pairs(ChannelList) do
         if mod(k, 3) == 2 then
             if v == L["BigFootChannel"] then
@@ -783,21 +785,21 @@ end
 function ChangeSet()
     hooksecurefunc("UIParent_ManageFramePositions", function()
         if (DEFAULT_CHAT_FRAME:IsUserPlaced()) then
-            if (SIMPLE_CHAT ~= "1") then return end
+            if (SIMPLE_CHAT ~= "1") then return; end
         end
         if not BFChatAddOn:GetModule("CHATFRAME"):IsEnabled() then return end
-        local chatOffset = 85
+        local chatOffset = 85;
         if (GetNumShapeshiftForms() > 0 or HasPetUI() or PetHasActionBar()) then
             if (MultiBarBottomLeft:IsShown()) then
-                chatOffset = chatOffset + 55
+                chatOffset = chatOffset + 55;
             else
-                chatOffset = chatOffset + 15
+                chatOffset = chatOffset + 15;
             end
         elseif (MultiBarBottomLeft:IsShown()) then
-            chatOffset = chatOffset + 15
+            chatOffset = chatOffset + 15;
         end
         DEFAULT_CHAT_FRAME:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32,
-                                    chatOffset + 25)
+                                    chatOffset + 25);
     end)
     hooksecurefunc("ResetChatWindows",
                    function() DEFAULT_CHAT_FRAME:SetUserPlaced(false) end)
@@ -821,10 +823,10 @@ end
 function BFChatAddOn:BFChannelRaidersButton_OnClick()
     self.db.profile.enableRaidersButton =
         not self.db.profile.enableRaidersButton
-    createRaidersFrame()
+    createRaidersFrame();
 end
-local f = CreateFrame 'Frame'
-local reflash = 1080
-local kId = 1
--- SELECTED_CHAT_FRAME:AddMessage(L["Kindly Reminder"][kId], 1.0, 0.82, 0.0)
+local f = CreateFrame 'Frame';
+local reflash = 1080;
+local kId = 1;
+--SELECTED_CHAT_FRAME:AddMessage(L["Kindly Reminder"][kId], 1.0, 0.82, 0.0);
 _G.BigFootChat = BFChatAddOn

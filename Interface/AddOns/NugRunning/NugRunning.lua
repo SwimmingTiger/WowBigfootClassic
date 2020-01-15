@@ -181,6 +181,7 @@ local defaults = {
     np_xoffset = 0,
     np_yoffset = 7,
     cooldownsEnabled = true,
+    drEnabled = false,
     missesEnabled = true,
     targetTextEnabled = false,
     spellTextEnabled = true,
@@ -456,40 +457,46 @@ local function addDRLevel(dstGUID, category)
 
     local catTable = guidTable[category]
     if not catTable then
-        guidTable[category] = {}
+        guidTable[category] = { level = 0, expires = 0}
         catTable = guidTable[category]
     end
 
     local now = GetTime()
     local isExpired = (catTable.expires or 0) <= now
-    if isExpired then
-        catTable.level = 1
-        catTable.expires = now + DRResetTime
-    else
-        catTable.level = catTable.level + 1
+    local oldDRLevel = catTable.level or 0
+    if isExpired or oldDRLevel >= 3 then
+        catTable.level = 0
     end
+    catTable.level = catTable.level + 1
+    catTable.expires = now + DRResetTime
 end
-local function clearDRs(dstGUID)
-    DRInfo[dstGUID] = nil
+local function activeDRCategories(dstGUID)
+    local guidTable = DRInfo[dstGUID]
+    if not guidTable then return nil end
+    return guidTable
 end
-local function getDRMul(dstGUID, spellID)
-    local category = DR_CategoryBySpellID[spellID]
-    if not category then return 1 end
-
+local function getDRMulByCategory(dstGUID, category)
     local guidTable = DRInfo[dstGUID]
     if guidTable then
         local catTable = guidTable[category]
         if catTable then
             local now = GetTime()
-            local isExpired = (catTable.expires or 0) <= now
+            local expirationTime = catTable.expires
+            local DRLevel = catTable.level
+            local isExpired = (expirationTime or 0) <= now
             if isExpired then
                 return 1
             else
-                return DRMultipliers[catTable.level]
+                return DRMultipliers[DRLevel], DRLevel, expirationTime
             end
         end
     end
     return 1
+end
+local function getDRMul(dstGUID, spellID)
+    local category = DR_CategoryBySpellID[spellID]
+    if not category then return 1 end
+    return getDRMulByCategory(dstGUID, category)
 end
 
 local function CountDiminishingReturns(eventType, srcGUID, srcFlags, dstGUID, dstFlags, spellID, auraType)
@@ -521,14 +528,48 @@ local function CountDiminishingReturns(eventType, srcGUID, srcFlags, dstGUID, ds
             end
 
             addDRLevel(dstGUID, category)
-        end
-        if eventType == "UNIT_DIED" then
-            clearDRs(dstGUID)
+            NugRunning:OnDRStart(dstGUID, category)
         end
     end
 end
+local function ClearDiminishingReturns(dstGUID)
+    local categories = activeDRCategories(dstGUID)
+    if categories then
+        for category in pairs(categories) do
+            NugRunning:OnDRClear(dstGUID, category)
+        end
+    end
+    DRInfo[dstGUID] = nil
+end
 
+function NugRunning:OnDRStart(dstGUID, category)
+    if not NRunDB.drEnabled then return end
 
+    local playerGUID = UnitGUID("player")
+    local srcGUID = playerGUID
+    local dstName = "Enemy"
+    local dstFlags = nil
+    local DRopts = NugRunningConfig.DRopts[category]
+    if not DRopts then return end
+    local spellID = DRopts.id
+    local spellName = DRopts.name
+    local _, DRLevel, expirationTime = getDRMulByCategory(dstGUID, category)
+    local opts = DRopts
+    local timeLeft = expirationTime - GetTime()
+    NugRunning:ActivateTimer(srcGUID, dstGUID, dstName, dstFlags, spellID, spellName, opts, "DIMINISHING_RETURN", timeLeft)
+end
+
+function NugRunning:OnDRClear(dstGUID, category)
+    if not NRunDB.drEnabled then return end
+
+    local playerGUID = UnitGUID("player")
+    local srcGUID = playerGUID
+    local DRopts = NugRunningConfig.DRopts[category]
+    local spellID = DRopts.id
+    local spellName = DRopts.name
+    local opts = DRopts
+    self:DeactivateTimer(srcGUID, dstGUID, spellID, spellName, opts, "DIMINISHING_RETURN")
+end
 
 
 --------------------
@@ -611,6 +652,7 @@ function NugRunning.COMBAT_LOG_EVENT_UNFILTERED( self, event )
 
     if eventType == "UNIT_DIED" or eventType == "UNIT_DESTROYED" then
         self:DeactivateTimersOnDeath(dstGUID)
+        ClearDiminishingReturns(dstGUID)
     end
 end
 

@@ -5,33 +5,33 @@ local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Spy")
 local _
 
--- ******** Local UIFrameFlash function derived ;from Blizzard code ******** --
-local frameFlashManager = CreateFrame("FRAME");
- 
-local FLASHFRAMES = {};
-local UIFrameFlashTimers = {};
-local UIFrameFlashTimerRefCount = {};
+--++ Local FrameFlash functions derived from Blizzard code ++--
+local SpyFrameFlashManager = CreateFrame("FRAME");
+local SPYFADEFRAMES = {};
+local SPYFLASHFRAMES = {};
+local SpyFrameFlashTimers = {};
+local SpyFrameFlashTimerRefCount = {};
 
--- Function to see if a frame is already flashing  -- 
-local function UIFrameIsFlashing(frame)
-    for index, value in pairs(FLASHFRAMES) do
-        if ( value == frame ) then
-            return 1;
-        end
-    end
-    return nil;
+-- Fucntion to see if a frame is fading													  
+function SpyFrameIsFading(frame)
+	for index, value in pairs(SPYFADEFRAMES) do
+		if ( value == frame ) then
+			return 1;
+		end
+	end
+	return nil;
 end
 
--- Function to stop flashing ++
-local function UIFrameFlashStop(frame)
-    tDeleteItem(FLASHFRAMES, frame);
+-- Function to stop flashing --
+local function SpyFrameFlashStop(frame)
+    tDeleteItem(SPYFLASHFRAMES, frame);
     frame:SetAlpha(1.0);
     frame.flashTimer = nil;
     if (frame.syncId) then
-        UIFrameFlashTimerRefCount[frame.syncId] = UIFrameFlashTimerRefCount[frame.syncId]-1;
-        if (UIFrameFlashTimerRefCount[frame.syncId] == 0) then
-            UIFrameFlashTimers[frame.syncId] = nil;
-            UIFrameFlashTimerRefCount[frame.syncId] = nil;
+        SpyFrameFlashTimerRefCount[frame.syncId] = SpyFrameFlashTimerRefCount[frame.syncId]-1;
+        if (SpyFrameFlashTimerRefCount[frame.syncId] == 0) then
+            SpyFrameFlashTimers[frame.syncId] = nil;
+            SpyFrameFlashTimerRefCount[frame.syncId] = nil;
         end
         frame.syncId = nil;
     end
@@ -42,30 +42,27 @@ local function UIFrameFlashStop(frame)
     end
 end
 
--- Called every frame to update flashing frames  --
-local function UIFrameFlash_OnUpdate(self, elapsed)
+-- Call every frame to update flashing frames  --
+local function SpyFrameFlash_OnUpdate(self, elapsed)
     local frame;
-    local index = #FLASHFRAMES;
+    local index = #SPYFLASHFRAMES;
      
     -- Update timers for all synced frames
-    for syncId, timer in pairs(UIFrameFlashTimers) do
-        UIFrameFlashTimers[syncId] = timer + elapsed;
+    for syncId, timer in pairs(SpyFrameFlashTimers) do
+        SpyFrameFlashTimers[syncId] = timer + elapsed;
     end
      
-    while FLASHFRAMES[index] do
-        frame = FLASHFRAMES[index];
+    while SPYFLASHFRAMES[index] do
+        frame = SPYFLASHFRAMES[index];
         frame.flashTimer = frame.flashTimer + elapsed;
- 
         if ( (frame.flashTimer > frame.flashDuration) and frame.flashDuration ~= -1 ) then
-            UIFrameFlashStop(frame);
+            SpyFrameFlashStop(frame);
         else
             local flashTime = frame.flashTimer;
             local alpha;
-             
             if (frame.syncId) then
-                flashTime = UIFrameFlashTimers[frame.syncId];
+                flashTime = SpyFrameFlashTimers[frame.syncId];
             end
-             
             flashTime = flashTime%(frame.fadeInTime+frame.fadeOutTime+(frame.flashInHoldTime or 0)+(frame.flashOutHoldTime or 0));
             if (flashTime < frame.fadeInTime) then
                 alpha = flashTime/frame.fadeInTime;
@@ -76,43 +73,38 @@ local function UIFrameFlash_OnUpdate(self, elapsed)
             else
                 alpha = 0;
             end
-             
             frame:SetAlpha(alpha);
             frame:Show();
         end
-         
         -- Loop in reverse so that removing frames is safe
         index = index - 1;
     end
-     
-    if ( #FLASHFRAMES == 0 ) then
+    if ( #SPYFLASHFRAMES == 0 ) then
         self:SetScript("OnUpdate", nil);
     end
 end
- 
+
 -- Function to start a frame flashing
-local function UIFrameFlash(frame, fadeInTime, fadeOutTime, flashDuration, showWhenDone, flashInHoldTime, flashOutHoldTime, syncId)
+local function SpyFrameFlash(frame, fadeInTime, fadeOutTime, flashDuration, showWhenDone, flashInHoldTime, flashOutHoldTime, syncId)
     if ( frame ) then
         local index = 1;
         -- If frame is already set to flash then return
-        while FLASHFRAMES[index] do
-            if ( FLASHFRAMES[index] == frame ) then
+        while SPYFLASHFRAMES[index] do		
+            if ( SPYFLASHFRAMES[index] == frame ) then			
                 return;
             end
             index = index + 1;
         end
- 
         if (syncId) then
             frame.syncId = syncId;
-            if (UIFrameFlashTimers[syncId] == nil) then
-                UIFrameFlashTimers[syncId] = 0;
-                UIFrameFlashTimerRefCount[syncId] = 0;
+            if (SpyFrameFlashTimers[syncId] == nil) then			
+                SpyFrameFlashTimers[syncId] = 0;
+                SpyFrameFlashTimerRefCount[syncId] = 0;
             end
-            UIFrameFlashTimerRefCount[syncId] = UIFrameFlashTimerRefCount[syncId]+1;
+            SpyFrameFlashTimerRefCount[syncId] = SpyFrameFlashTimerRefCount[syncId]+1;			
         else
             frame.syncId = nil;
         end
-         
         -- Time it takes to fade in a flashing frame
         frame.fadeInTime = fadeInTime;
         -- Time it takes to fade out a flashing frame
@@ -128,12 +120,11 @@ local function UIFrameFlash(frame, fadeInTime, fadeOutTime, flashDuration, showW
         -- How long to hold the faded out state
         frame.flashOutHoldTime = flashOutHoldTime;
          
-        tinsert(FLASHFRAMES, frame);
+        tinsert(SPYFLASHFRAMES, frame);		
          
-        frameFlashManager:SetScript("OnUpdate", UIFrameFlash_OnUpdate);
+       SpyFrameFlashManager:SetScript("OnUpdate", SpyFrameFlash_OnUpdate);
     end
 end
--- ******** Local UIFrameFlash function from Blizzard code ******** --
 
 function Spy:SetFontSize(string, size)
 	local Font, Height, Flags = string:GetFont()
@@ -498,13 +489,6 @@ function Spy:CreateMainWindow()
 		function()
 			Spy.db.profile.MainWindowVis = false
 		end)
-
-		-- 老虎会游泳：修复在未启用Spy时依然弹出框体的问题
-		local oriShow = Spy.MainWindow.Show
-		Spy.MainWindow.Show = function(...)
-			if not Spy.db.profile.Enabled then return end
-			oriShow(...)
-		end
 	
 		local theFrame = Spy.MainWindow
 	
@@ -920,16 +904,6 @@ function Spy:MainWindowPrevMode()
 end
 
 function Spy:SaveMainWindowPosition()
---[[local xOfs, yOfs = Spy.MainWindow:GetCenter() 
-	local efs = Spy.MainWindow:GetEffectiveScale()
-	local uis = UIParent:GetScale()
-	xOfs = xOfs * efs - GetScreenWidth() * uis / 2
-	yOfs = yOfs * efs - GetScreenHeight() * uis / 2
-
-	Spy.db.profile.MainWindow.Position.x = xOfs / uis
-	Spy.db.profile.MainWindow.Position.y = yOfs / uis
-	Spy.db.profile.MainWindow.Position.w = Spy.MainWindow:GetWidth()
-	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()]]
 	Spy.db.profile.MainWindow.Position.x = Spy.MainWindow:GetLeft()
 	if not Spy.db.profile.InvertSpy then 
 		Spy.db.profile.MainWindow.Position.y = Spy.MainWindow:GetTop()
@@ -942,8 +916,6 @@ function Spy:SaveMainWindowPosition()
 end
 
 function Spy:RestoreMainWindowPosition(x, y, width, height)
---    x = x * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
---    y = y * UIParent:GetScale() / Spy.MainWindow:GetEffectiveScale()
 	Spy.MainWindow:ClearAllPoints()
 	if not Spy.db.profile.InvertSpy then 	
 		Spy.MainWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x, y)
@@ -955,7 +927,6 @@ function Spy:RestoreMainWindowPosition(x, y, width, height)
 		row:SetWidth(width -4) 
 	end
 	Spy.MainWindow:SetHeight(height)
---	Spy:SaveMainWindowPosition()
 end
 
 function Spy:ShowTooltip(self, show, id)
@@ -1087,7 +1058,7 @@ function Spy:ShowMapTooltip(icon, show)
 end
 
 function Spy:ShowAlert(type, name, source, location)
-	if not UIFrameIsFading(Spy.AlertWindow) then
+	if not SpyFrameIsFading(Spy.AlertWindow) then
 		Spy.AlertType = nil
 	end
 
@@ -1109,8 +1080,8 @@ function Spy:ShowAlert(type, name, source, location)
 			Spy.AlertWindow:SetWidth(Spy.AlertWindow.Title:GetStringWidth() + 52)
 		end
 
-		UIFrameFlashStop(Spy.AlertWindow)
-		UIFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
+		SpyFrameFlashStop(Spy.AlertWindow)
+		SpyFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
 		Spy.AlertType = type
 	elseif type == "kosguild" and Spy.AlertType ~= "kos" then
 		Spy.Colors:RegisterBorder("Alert", "KOS Guild Border", Spy.AlertWindow)
@@ -1129,8 +1100,8 @@ function Spy:ShowAlert(type, name, source, location)
 			Spy.AlertWindow:SetWidth(Spy.AlertWindow.Title:GetStringWidth() + 52)
 		end
 
-		UIFrameFlashStop(Spy.AlertWindow)
-		UIFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
+		SpyFrameFlashStop(Spy.AlertWindow)
+		SpyFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
 		Spy.AlertType = type
 	elseif type == "stealth" and Spy.AlertType ~= "kos" and Spy.AlertType ~= "kosguild" then
 		Spy.Colors:RegisterBorder("Alert", "Stealth Border", Spy.AlertWindow)
@@ -1149,8 +1120,8 @@ function Spy:ShowAlert(type, name, source, location)
 			Spy.AlertWindow:SetWidth(Spy.AlertWindow.Title:GetStringWidth() + 52)
 		end
 
-		UIFrameFlashStop(Spy.AlertWindow)
-		UIFrameFlash(Spy.AlertWindow, 0, 1, 5, false, 4, 0)
+		SpyFrameFlashStop(Spy.AlertWindow)
+		SpyFrameFlash(Spy.AlertWindow, 0, 1, 5, false, 4, 0)
 		Spy.AlertType = type
 	elseif type == "prowl" and Spy.AlertType ~= "kos" and Spy.AlertType ~= "kosguild" then
 		Spy.Colors:RegisterBorder("Alert", "Stealth Border", Spy.AlertWindow)
@@ -1169,8 +1140,8 @@ function Spy:ShowAlert(type, name, source, location)
 			Spy.AlertWindow:SetWidth(Spy.AlertWindow.Title:GetStringWidth() + 52)
 		end
 
-		UIFrameFlashStop(Spy.AlertWindow)
-		UIFrameFlash(Spy.AlertWindow, 0, 1, 5, false, 4, 0)
+		SpyFrameFlashStop(Spy.AlertWindow)
+		SpyFrameFlash(Spy.AlertWindow, 0, 1, 5, false, 4, 0)
 		Spy.AlertType = type		
 	elseif (type == "kosaway" or type == "kosguildaway") and Spy.AlertType ~= "kos" and Spy.AlertType ~= "kosguild" and Spy.AlertType ~= "stealth" then
 		local realmSeparator = strfind(source, "-")
@@ -1193,8 +1164,8 @@ function Spy:ShowAlert(type, name, source, location)
 			Spy.AlertWindow:SetWidth(Spy.AlertWindow.Title:GetStringWidth() + 52)
 		end
 
-		UIFrameFlashStop(Spy.AlertWindow)
-		UIFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
+		SpyFrameFlashStop(Spy.AlertWindow)
+		SpyFrameFlash(Spy.AlertWindow, 0, 1, 4, false, 3, 0)
 		Spy.AlertType = type
 	end
 	Spy.AlertWindow.Name:SetWidth(Spy.AlertWindow:GetWidth() - 52)

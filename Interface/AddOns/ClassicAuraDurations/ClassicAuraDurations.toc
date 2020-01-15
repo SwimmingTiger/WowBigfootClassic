@@ -3,6 +3,7 @@
 ## Author: d87
 ## SavedVariables: ClassicAuraDurationsDB
 ## X-WoWI-ID: 25006
+## X-Curse-Project-ID: 323806
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

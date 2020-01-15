@@ -267,7 +267,7 @@ function BFChatIconFrame:OnEnable()
     createIconFrame()
     createRollFrame()
     createReportFrame()
-    raidersFrame_Init()
+    raidersFrame_Init();
     self:Refresh()
 end
 function BFChatIconFrame:OnDisable()
@@ -286,34 +286,34 @@ function BFC_StartCount(frame)
         BFC_StartCount(frame:GetParent())
         return
     end
-    frame.showTimer = 1
-    frame.isCounting = 1
+    frame.showTimer = 1;
+    frame.isCounting = 1;
 end
 function BFC_StopCount(frame)
     if frame:GetParent() ~= UIParent then
         BFC_StopCount(frame:GetParent())
         return
     end
-    frame.isCounting = nil
+    frame.isCounting = nil;
 end
 function BFC_OnUpdate(self, elapsed)
     if (not self.showTimer or not self.isCounting) then
-        return
+        return;
     elseif (self.showTimer < 0) then
-        self:Hide()
-        self.showTimer = nil
-        self.isCounting = nil
+        self:Hide();
+        self.showTimer = nil;
+        self.isCounting = nil;
     else
-        self.showTimer = self.showTimer - elapsed
+        self.showTimer = self.showTimer - elapsed;
     end
 end
 function changeBGTexture(self, switch)
-    local texture = _G[self:GetName() .. "BG"]
+    local texture = _G[self:GetName() .. "BG"];
     if switch then
         texture:SetTexture(
-            "Interface\\AddOns\\BigFootChat\\icon\\text_push_frame")
+            "Interface\\AddOns\\BigFootChat\\icon\\text_push_frame");
     else
         texture:SetTexture(
-            "Interface\\AddOns\\BigFootChat\\icon\\text_nor_frame")
+            "Interface\\AddOns\\BigFootChat\\icon\\text_nor_frame");
     end
 end

@@ -151,9 +151,12 @@ local function CSC_GetSkillRankAndModifier(skillHeader, skillName)
 	return skillRank, skillModifier;
 end
 
-local function CSC_GetBonusHitFromWeaponSkill(unit)
+local function CSC_GetPlayerMissChances(unit, playerHit)
+	local hitChance = playerHit;
+	local missChanceVsNPC = 5; -- Level 60 npcs with 300 def
+	local missChanceVsBoss = 9;
+	local missChanceVsPlayer = 5; -- Level 60 player def is 300 base
 
-	local bonusHit = 0;
 	local mainHandItemId = 16;
 
 	local itemId = GetInventoryItemID(unit, mainHandItemId);
@@ -164,26 +167,35 @@ local function CSC_GetBonusHitFromWeaponSkill(unit)
 			if weaponString then
 				local skillRank, skillModifier = CSC_GetSkillRankAndModifier(CSC_WEAPON_SKILLS_HEADER, weaponString);
 				if skillRank and skillModifier then
-					local weaponSkillMin = 300;
-					local weaponSkillBorder = 305;
-					
 					-- Weapon skill from racials should be already in skillRank
 					local totalWeaponSkill = skillRank + skillModifier;
+					local bossDefense = 315; -- level 63
 					
-					if totalWeaponSkill >= weaponSkillMin and totalWeaponSkill <= weaponSkillBorder then
-						local hitMult = 0.44; -- 0.44% per skill point
-						bonusHit = (totalWeaponSkill - weaponSkillMin) * hitMult;
-					elseif totalWeaponSkill > weaponSkillBorder then
-						local hitMult = 0.14; -- 0.14% per skill point
-						local skillDiff = totalWeaponSkill - weaponSkillBorder;
-						bonusHit = skillDiff * hitMult + 2.2; -- 5*0.44
+					local playerBossDeltaSkill = bossDefense - totalWeaponSkill;
+					
+					if (playerBossDeltaSkill > 10) then
+						if (hitChance >= 1) then
+							hitChance = hitChance - 1;
+						end
+
+						missChanceVsBoss = 5 + (playerBossDeltaSkill * 0.2);
+					else
+						missChanceVsBoss = 5 + (playerBossDeltaSkill * 0.1);
 					end
 				end
 			end
 		end
 	end
 
-	return bonusHit;
+	local dwMissChanceVsNpc = math.max(0, (missChanceVsNPC*0.8 + 20) - hitChance);
+	local dwMissChanceVsBoss = math.max(0, (missChanceVsBoss*0.8 + 20) - hitChance);
+	local dwMissChanceVsPlayer = math.max(0, (missChanceVsPlayer*0.8 + 20) - hitChance);
+
+	missChanceVsNPC = math.max(0, missChanceVsNPC - hitChance);
+	missChanceVsBoss = math.max(0, missChanceVsBoss - hitChance);
+	missChanceVsPlayer = math.max(0, missChanceVsPlayer - hitChance);
+
+	return missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer;
 end
 -- GENERAL UTIL FUNCTIONS END --
 
@@ -513,21 +525,21 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetHitChance(statFrame, unit)
+	
+	statFrame:SetScript("OnEnter", CSC_CharacterHitChanceFrame_OnEnter)
+	statFrame:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
+	
 	local hitChance = GetHitModifier();
 	
 	if not hitChance then
 		hitChance = 0;
 	end
 
-	if CharacterStatsClassicDB.shouldAddWeaponSkillToHit then
-		local bonusHit = CSC_GetBonusHitFromWeaponSkill(unit);
-		hitChance = hitChance + bonusHit;
-	end
-
 	local hitChanceText = hitChance;
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_HIT_CHANCE, hitChanceText, true, hitChance);
-	statFrame.tooltip = STAT_HIT_CHANCE.." "..hitChanceText;
-	statFrame.tooltip2 = format(CR_HIT_MELEE_TOOLTIP, UnitLevel(unit), hitChance);
+	statFrame.hitChance = hitChance;
 	statFrame:Show();
 end
 
@@ -898,6 +910,23 @@ function CSC_CharacterBlock_OnEnter(self)
 	GameTooltip:SetText(" ", HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	GameTooltip:AddDoubleLine(BLOCK_CHANCE..": ", self.blockChance);
 	GameTooltip:AddDoubleLine(ITEM_MOD_BLOCK_VALUE_SHORT..": ", self.blockValue);
+	GameTooltip:Show();
+end
+
+function CSC_CharacterHitChanceFrame_OnEnter(self)
+	local hitChance = self.hitChance;
+
+	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances("player", hitChance);
+
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+	GameTooltip:SetText(STAT_HIT_CHANCE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+	GameTooltip:AddLine("Reduces your chance to miss.");
+
+	GameTooltip:AddLine(" "); -- Blank line.
+	GameTooltip:AddLine("Miss Chance vs.");
+	GameTooltip:AddDoubleLine(format("    Level 60 NPC: %.2F%%", missChanceVsNPC), format("(Dual wield: %.2F%%)", dwMissChanceVsNpc));
+	GameTooltip:AddDoubleLine(format("    Level 60 Player: %.2F%%", missChanceVsPlayer), format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer));
+	GameTooltip:AddDoubleLine(format("    Level 63 NPC/Boss: %.2F%%", missChanceVsBoss), format("(Dual wield: %.2F%%)", dwMissChanceVsBoss));
 	GameTooltip:Show();
 end
 -- OnEnter Tooltip functions END

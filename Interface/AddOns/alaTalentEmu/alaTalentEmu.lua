@@ -178,7 +178,7 @@ local curPhase = 2;
 			edgeSize = 12,
 			insets = { left = 4, right = 4, top = 4, bottom = 4, }
 		},
-		equipmentFrameBackdropColor_blz = { 0.0, 0.0, 0.0, 0.5, },
+		equipmentFrameBackdropColor_blz = { 0.25, 0.25, 0.25, 1.0, },
 		equipmentFrameBackdropBorderColor_blz = { 1.0, 1.0, 1.0, 1.0, },
 
 		mainFrameXSizeMin_Style1 = 250,
@@ -523,6 +523,8 @@ local emu = {
 	queryCache = {  },	-- [GUID] = { [addon] = { data, time, }, }
 	recv_msg = {  };
 };
+emu.playerFullName_Len = strlen(emu.playerFullName);
+
 _G.__ala_meta__.emu = emu;
 local extern = { export = {  }, import = {  }, addon = {  }, };
 
@@ -2404,8 +2406,11 @@ do	-- communication func
 			local n, realm =strsplit("-", sender);
 			if n and realm == emu.realm then
 				sender = n;
+			else
+				realm = nil;
 			end
-			realm = (r == nil or r == "") and emu.realm or realm;
+			n = nil;
+			-- realm = (realm == nil or r == "") and emu.realm or realm;
 			if control_code == ADDON_MSG_QUERY_TALENTS then
 				if channel == "INSTANCE_CHAT" then
 					local target = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
@@ -2420,8 +2425,8 @@ do	-- communication func
 						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack(), "WHISPER", sender);
 						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
 					elseif channel == "INSTANCE_CHAT" then
-						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack() .. "#" .. sender .. "-" .. realm, "INSTANCE_CHAT");
-						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender .. "-" .. realm, "INSTANCE_CHAT");
+						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack(), "INSTANCE_CHAT");
+						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
 					end
 				end
 			elseif control_code == ADDON_MSG_QUERY_EQUIPMENTS then
@@ -2442,7 +2447,7 @@ do	-- communication func
 						if channel == "WHISPER" then
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
 						elseif channel == "INSTANCE_CHAT" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. realm, "INSTANCE_CHAT");
+							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender, "INSTANCE_CHAT");
 						end
 						msg = "";
 					end
@@ -2454,21 +2459,15 @@ do	-- communication func
 					emu.queryCache[sender][0] = time();
 					local _1, _2 = strsplit("#", code);
 					emu.queryCache[sender].talent = _1;
-					if not _2 or _2 == emu.playerName or _2 == emu.playerFullName then
+					if not _2 or _2 == emu.playerName or _2 == emu.playerFullName or strsub(_2, 1, emu.playerFullName_Len) == emu.playerFullName then	-- OLDVERSION
 						code = _1;
 					else
 						return;
 					end
 					local class, data, level = emu.EmuCore_Decoder(code);
 					if class and data and level then
-						local n, r =strsplit("-", sender);
-						if n and r == emu.realm then
-							sender = n;
-						end
 						local readOnly = false;
-						if n == emu.playerName then
-							readOnly = false;
-						else
+						if sender ~= emu.playerName then
 							readOnly = true;
 						end
 						local specializedMainFrame = emu.specializedMainFrameInspect[sender];
@@ -2490,14 +2489,10 @@ do	-- communication func
 				if code and code ~= "" then
 					local _1, _2 = strsplit("#", code);
 					emu.queryCache[sender].talent = _1;
-					if not _2 or _2 == emu.playerName or _2 == emu.playerFullName then
+					if not _2 or _2 == emu.playerName or _2 == emu.playerFullName or strsub(_2, 1, emu.playerFullName_Len) == emu.playerFullName then	-- OLDVERSION
 						code = _1;
 					else
 						return;
-					end
-					local n, r =strsplit("-", sender);
-					if n and r == emu.realm then
-						sender = n;
 					end
 					-- #0#item:-1#1#item:123:::::#2#item:444:::::#3#item:-1
 					-- #(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)
@@ -2534,11 +2529,15 @@ do	-- communication func
 			elseif control_code == ADDON_MSG_REPLY_ADDON_PACK or control_code == ADDON_MSG_REPLY_ADDON_PACK_ then
 				emu.queryCache[sender] = emu.queryCache[sender] or {  };
 				emu.queryCache[sender][0] = time();
-				local meta = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
-				emu.queryCache[sender].pack = meta;
+				local code = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
+				local _1, _2 = strsplit("#", code);	-- OLD VERSION
+				if _2 then
+					code = _1;
+				end
+				emu.queryCache[sender].pack = code;
 				emu.EmuSub_SetPack(sender);
 				if config.inspect_pack then
-					emu.display_pack(meta);
+					-- emu.display_pack(code);
 				end
 			elseif control_code == ADDON_MSG_PUSH or control_code == ADDON_MSG_PUSH_RECV then
 				local msg = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
@@ -3175,7 +3174,7 @@ do	-- spellTabFrame
 	end
 	local function funcToCreateButton(parent, index, buttonHeight)
 		local button = CreateFrame("Button", nil, parent);
-		button:SetHeight(setting.spellTabFrameButtonHeight);
+		button:SetHeight(buttonHeight);
 		button:SetBackdrop(setting.spellTabFrameButtonBackdrop);
 		button:SetBackdropColor(unpack(setting.spellTabFrameButtonBackdropColor));
 		button:SetBackdropBorderColor(unpack(setting.spellTabFrameButtonBackdropBorderColor));
@@ -3185,7 +3184,7 @@ do	-- spellTabFrame
 	
 		local icon = button:CreateTexture(nil, "OVERLAY");
 		icon:SetTexture("Interface\\Icons\\inv_misc_questionmark");
-		icon:SetSize(setting.spellTabFrameButtonHeight - 4, setting.spellTabFrameButtonHeight - 4);
+		icon:SetSize(buttonHeight - 4, buttonHeight - 4);
 		icon:SetPoint("LEFT", 4, 0);
 		button.icon = icon;
 	

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200103232253")
+mod:SetRevision("20200110214945")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -30,8 +30,8 @@ local warnEmerge		= mod:NewAnnounce("WarnEmerge", 2, "Interface\\AddOns\\DBM-Cor
 local timerWrathRag		= mod:NewCDTimer(25, 20566, nil, nil, nil, 2, nil, DBM_CORE_IMPORTANT_ICON, nil, mod:IsMelee() and 1, 4)--25-31.6
 local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
 local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
-local timerCombatStart	= mod:NewCombatTimer(73)
-
+--local timerCombatStart	= mod:NewCombatTimer(73)
+local timerCombatStart	= mod:NewTimer(73, "timerCombatStart", "132349", nil, nil, nil, nil, nil, 1, 5)
 mod.vb.addLeft = 0
 local addsGuidCheck = {}
 

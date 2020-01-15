@@ -7,8 +7,8 @@ local RegisterKeyChangedCallback = ADDONSELF.RegisterKeyChangedCallback
 local elapseCache = {}
 
 local function GetElapseFromCache(nameOrId, instanceID)
-    if BattleZoneHelper.BGID_MAPNAME_MAP[nameOrId] then
-        nameOrId = BattleZoneHelper.BGID_MAPNAME_MAP[nameOrId]
+    if BattleZoneHelper.MAPNAME_BGID_MAP[nameOrId] then
+        nameOrId = BattleZoneHelper.MAPNAME_BGID_MAP[nameOrId]
     end
 
     local key = nameOrId .. "-" .. instanceID
@@ -181,7 +181,7 @@ RegEvent("ADDON_LOADED", function()
 
     local joinqueuebtn
     do
-        local t = CreateFrame("Button", nil, f, "UIPanelButtonTemplate, SecureActionButtonTemplate")
+        local t = CreateFrame("Button", nil, nil, "UIPanelButtonTemplate, SecureActionButtonTemplate")
         t:SetFrameStrata("TOOLTIP")
         t:SetText(ENTER_BATTLE)
         t:SetAttribute("type", "macro") -- left click causes macro
@@ -201,8 +201,8 @@ RegEvent("ADDON_LOADED", function()
                 local time = GetBattlefieldPortExpiration(i)
                 if time > 0 then
                     t:SetText(ENTER_BATTLE .. "(" .. GREEN_FONT_COLOR:WrapTextInColorCode(time) .. ")")
+                    return
                 end
-                return
             end
             t:SetText(ENTER_BATTLE .. "(" .. GREEN_FONT_COLOR:WrapTextInColorCode("?") .. ")")
         end)
@@ -213,7 +213,7 @@ RegEvent("ADDON_LOADED", function()
     -- HAHAHAHAHA 
     local leavequeuebtn
     do
-        local t = CreateFrame("Button", nil, f, "UIPanelButtonTemplate, SecureActionButtonTemplate")
+        local t = CreateFrame("Button", nil, nil, "UIPanelButtonTemplate, SecureActionButtonTemplate")
         t:SetFrameStrata("TOOLTIP")
         t:SetText(L["CTRL+Hide=Leave"])
         t:SetAttribute("type", "macro") -- left click causes macro

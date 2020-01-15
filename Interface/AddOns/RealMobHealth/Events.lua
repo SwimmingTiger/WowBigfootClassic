@@ -13,7 +13,9 @@ AddOn.API=AddOn.API or {};
 --[[	Local References	]]
 ----------------------------------
 local AddOn_ArgumentCheck=AddOn.ArgumentCheck;
+local C_Timer_After=C_Timer.After;
 local geterrorhandler=geterrorhandler;
+local GetTime=GetTime;
 local ipairs=ipairs;
 local pairs=pairs;
 local select=select;
@@ -28,6 +30,7 @@ local xpcall=xpcall;
 --------------------------
 --[[	Local Variables	]]
 --------------------------
+local TimerResolution=0.05;
 local EventFrame=CreateFrame("Frame");
 local GameEvents,AddOnEvents,Timers={},{},{};
 local AddOnEventQueue={};
@@ -139,7 +142,7 @@ local function SetTimerInterval(seconds,func)
 	if func==nil then func=GetCurrentDispatchedFunction(); end--	Default to currently dispatched function
 	AddOn_ArgumentCheck("SetTimerInterval",2,{"number","function"},seconds,func);
 	if Timers[func] then Timers[func][1]=seconds;--	Update timer
-	else Timers[func]={seconds,seconds}; end--	Create timer
+	else Timers[func]={seconds,GetTime()}; end--	Create timer
 end
 
 local function ClearTimer(func)
@@ -166,16 +169,15 @@ EventFrame:SetScript("OnEvent",function(self,event,...)
 	else GameEvents[event]=nil; self:UnregisterEvent(event); end--	List empty, remove and unregister
 end);
 
-EventFrame:SetScript("OnUpdate",function(self,elapsed)
+local function Timer_OnTick()
+	local now=GetTime();--	Current timestamp
+
 --	Process timers
 	for func,data in pairs(Timers) do
-		local interval,current=data[1],data[2];
-		current=current+elapsed;--	Add time
-
-		if current>interval then
-			data[2]=0;--	Reset time
+		if now-data[2]>=data[1] then--	Check if last timestamp has reached interval
+			data[2]=now;--	Set timestamp
 			PCallDispatch(func,current);--	PCall function
-		else data[2]=current; end--	Store time
+		end
 	end
 
 --	Process AddOn Events
@@ -189,7 +191,11 @@ EventFrame:SetScript("OnUpdate",function(self,elapsed)
 			else AddOnEvents[event]=nil; end--	List empty, remove it
 		end
 	end
-end);
+
+--	Register next run
+	C_Timer_After(TimerResolution,Timer_OnTick);
+end
+C_Timer_After(TimerResolution,Timer_OnTick);
 
 ------------------------------------------
 --[[	External API Registration	]]

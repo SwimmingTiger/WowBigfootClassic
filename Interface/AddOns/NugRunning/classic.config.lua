@@ -98,6 +98,7 @@ if select(4,GetBuildInfo()) > 19999 then return end
 -- RACIALS
 -- Spell( 23234 ,{ name = "Blood Fury", global = true, duration = 15, scale = 0.75, group = "buffs" })
 EventTimer({ spellID = 23234, event = "SPELL_CAST_SUCCESS", name = "Blood Fury", duration = 15, scale = 0.75, group = "buffs" })
+Spell( 26635 ,{ name = "Berserking", global = true, duration = 10 }) -- Berserking
 Spell( 20594 ,{ name = "Stoneform", global = true, duration = 8, shine = true, group = "buffs" })
 Spell( 20549 ,{ name = "War Stomp", global = true, duration = 2, multiTarget = true, color = colors.DRED })
 Spell( 7744 , { name = "Will of the Forsaken", global = true, duration = 5, group = "buffs", color = colors.PURPLE5 })
@@ -798,6 +799,20 @@ effects["BLOODBOIL"] = {
     x = -4, y = -8,
 }
 NugRunningConfig.effects = effects
+
+
+NugRunningConfig.DRopts = {
+    FEAR = { id = 1, showid = 8122, name = "Fear", priority = -999, scale = 0.5, color = colors.DPURPLE },
+    -- SILENCE = { id = 2, showid = 15487, name = "Silence", priority = -999, scale = 0.5, color = colors.DPURPLE2 },
+    INCAP = { id = 3, showid = 6770, name = "Incapacitation", priority = -999, scale = 0.5, color = colors.DBLUE },
+    STUN = { id = 4, showid = 7922, name = "Stun", priority = -999, scale = 0.5, color = colors.DRED },
+    -- HORROR = { id = 5, showid = 15487, name = "Horror", priority = -999, scale = 0.5, color = colors.DTEAL },
+    -- RANDOM_STUN = { id = 6, showid = 15487, name = "Random Stun", priority = -999, scale = 0.5, color = colors. },
+    -- RANDOM_ROOT = { id = 7, showid = 15487, name = "Random Root", priority = -999, scale = 0.5, color = colors. },
+    -- FROST_SHOCK = { id = 8, showid = 15487, name = "Frost Shock", priority = -999, scale = 0.5, color = colors.DTEAL },
+    ROOT = { id = 9, showid = 339, name = "Root", priority = -999, scale = 0.5, color = colors.DBROWN },
+    KIDNEY_SHOT = { id = 10, showid = 408, name = "Kidney Shot", priority = -999, scale = 0.5, color = colors.WOO2DARK },
+}
 
 local FEAR = "FEAR"
 local SILENCE = "SILENCE"

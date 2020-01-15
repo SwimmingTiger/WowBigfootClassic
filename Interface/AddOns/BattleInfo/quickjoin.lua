@@ -84,5 +84,15 @@ RegEvent("ADDON_LOADED", function()
     end
 
 
-
+    do
+        local b = CreateFrame("Button", nil, BattlefieldFrame, "GameMenuButtonTemplate")
+        b:SetWidth(120)
+        b:SetHeight(20)
+        b:SetPoint("BOTTOMLEFT", 25, 102)
+        b:SetText("BattleInfo " .. OPTIONS)
+        b:SetScript("OnClick", function()
+            InterfaceOptionsFrame_OpenToCategory(L["BattleInfo"])
+            InterfaceOptionsFrame_OpenToCategory(L["BattleInfo"])
+        end)
+    end
 end) 

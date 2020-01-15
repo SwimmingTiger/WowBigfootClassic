@@ -47,7 +47,7 @@
 					<Anchors>
 						<Anchor point="LEFT" relativeTo="$Parent" relativePoint="LEFT">
 							<Offset>
-								<AbsDimension x="5" y="0"/>
+								<AbsDimension x="7" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -102,35 +102,9 @@
 					<OnLoad>
 						self:SetFrameLevel("1");
 					</OnLoad>
-					<OnMouseDown>
-						if button == "LeftButton" and not self.isMoving then
-						self:GetParent():StartMoving();
-						self.isMoving = true;
-						end
-					</OnMouseDown>
-					<OnMouseUp>
-						if button == "LeftButton" and self.isMoving then
-						self:GetParent():StopMovingOrSizing();
-						self.isMoving = false;
-						end
-					</OnMouseUp>
-					<OnHide>
-						if self.isMoving then
-						self:GetParent():StopMovingOrSizing();
-						self.isMoving = false;
-						end
-					</OnHide>
 				</Scripts>
 			</StatusBar>
 		</Frames>
-
-		<Scripts>
-			<OnLoad>
-				self:RegisterForDrag("LeftButton");
-			</OnLoad>
-			<OnDragStart>self:StartMoving();</OnDragStart>
-			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
-		</Scripts>
 	</Frame>
 
 	<Frame name="DruidBarUpdateFrame">
@@ -141,21 +115,7 @@
 		</Scripts>
 	</Frame>
 
-	<Button name="DruidBarDontMove" frameStrata="TOOLTIP" toplevel="true" parent="DruidBarFrame" enableMouse="false" movable="false" hidden="true">
-		<Size>
-			<AbsDimension x="170" y="18"/>
-		</Size>
-
-		<Anchors>
-			<Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER">
-				<Offset>
-					<AbsDimension x="0" y="0"/>
-				</Offset>
-			</Anchor>
-		</Anchors>
-	</Button>
-
-	<Frame name="DruidBarReplaceText" frameStrata="LOW" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+	<Frame name="DruidBarReplaceText" frameStrata="LOW" enableMouse="true" movable="false" parent="UIParent" hidden="true">
 		<Size>
 			<AbsDimension x="120" y="10"/>
 		</Size>
@@ -170,43 +130,45 @@
 
 		<Layers>
 			<Layer level="FOREGROUND">
-				<FontString name="DEnergyText" inherits="GameFontNormalSmall" wraponspaces="true">
+				<FontString name="DBarTextLeft" inherits="GameFontNormalSmall" wraponspaces="true">
 					<Size>
 						<AbsDimension x="0" y="60"/>
 					</Size>
 
 					<Anchors>
-						<Anchor point="CENTER" relativeTo="PlayerFrameManaBar" relativePoint="CENTER"/>
+						<Anchor point="LEFT" relativeTo="$Parent" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="50" y="-4"/>
+							</Offset>
+						</Anchor>
 					</Anchors>
 				</FontString>
 
-				<FontString name="DEnergyText1" inherits="TextStatusBarText" wraponspaces="true">
+				<FontString name="DBarTextCenter" inherits="TextStatusBarText" wraponspaces="true">
 					<Size>
 						<AbsDimension x="0" y="60"/>
 					</Size>
 
 					<Anchors>
-						<Anchor point="CENTER" relativeTo="PlayerFrameManaBar" relativePoint="CENTER"/>
+						<Anchor point="CENTER" relativeTo="$Parent" relativePoint="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="-4"/>
+							</Offset>
+						</Anchor>
 					</Anchors>
 				</FontString>
 
-				<FontString name="DManaText" inherits="GameFontNormalSmall" wraponspaces="true">
+				<FontString name="DBarTextRight" inherits="GameFontNormalSmall" wraponspaces="true">
 					<Size>
 						<AbsDimension x="0" y="60"/>
 					</Size>
 
 					<Anchors>
-						<Anchor point="CENTER" relativeTo="DruidBarMana" relativePoint="CENTER"/>
-					</Anchors>
-				</FontString>
-
-				<FontString name="DManaText1" inherits="TextStatusBarText" wraponspaces="true">
-					<Size>
-						<AbsDimension x="0" y="60"/>
-					</Size>
-
-					<Anchors>
-						<Anchor point="CENTER" relativeTo="DruidBarMana" relativePoint="CENTER"/>
+						<Anchor point="RIGHT" relativeTo="$Parent" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="-10" y="-4"/>
+							</Offset>
+						</Anchor>
 					</Anchors>
 				</FontString>
 			</Layer>

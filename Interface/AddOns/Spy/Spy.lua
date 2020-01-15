@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.0.20"
+Spy.Version = "1.0.21"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -76,19 +76,6 @@ Spy.options = {
 					order = 1,
 					fontSize = "medium",					
 				},
---[[				Enabled = {
-					name = L["EnableSpy"],
-					desc = L["EnableSpyDescription"],
-					type = "toggle",
-					order = 2,
-					width = "full",
-					get = function(info)
-						return Spy.db.profile.Enabled
-					end,
-					set = function(info, value)
-						Spy:EnableSpy(value, true)
-					end,
-				}, ]]--
 				EnabledInBattlegrounds = {
 					name = L["EnabledInBattlegrounds"],
 					desc = L["EnabledInBattlegroundsDescription"],
@@ -565,18 +552,6 @@ Spy.options = {
 								Spy.db.profile.Announce = "Raid"
 							end,
 						},
---[[						LocalDefense = {
-							name = L["LocalDefense"],
-							desc = L["LocalDefenseDescription"],
-							type = "toggle",
-							order = 6,
-							get = function(info)
-								return Spy.db.profile.Announce == "LocalDefense"
-							end,
-							set = function(info, value)
-								Spy.db.profile.Announce = "LocalDefense"
-							end,
-						},]]--
 					},
 				},
 				OnlyAnnounceKoS = {
@@ -1108,16 +1083,6 @@ Spy.optionsSlash = {
 			order = 1,
 			cmdHidden = true,
 		},
---[[		enable = {
-			name = L["Enable"],
-			desc = L["EnableDescription"],
-			type = 'execute',
-			order = 2,
-			func = function()
-				Spy:EnableSpy(true, true)
-			end,
-			dialogHidden = true
-		}, ]]--
 		show = {
 			name = L["Show"],
 			desc = L["ShowDescription"],
@@ -1125,7 +1090,6 @@ Spy.optionsSlash = {
 			order = 2,
 			func = function()
 				Spy:EnableSpy(true, true)
---				Spy.MainWindow:Show()
 			end,
 			dialogHidden = true
 		},
@@ -1145,7 +1109,6 @@ Spy.optionsSlash = {
 			type = 'execute',
 			order = 3,
 			func = function()
---				Spy:ResetMainWindow()
 				Spy:ResetPositions()				
 			end,
 			dialogHidden = true
@@ -1387,7 +1350,7 @@ function Spy:CheckDatabase()
 	if SpyDB.removeKOSData == nil then SpyDB.removeKOSData = {} end
 	if SpyDB.removeKOSData[Spy.RealmName] == nil then SpyDB.removeKOSData[Spy.RealmName] = {} end
 	if SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] == nil then SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName] = {} end
-	if Spy.db.profile == nil then Spy.db.profile = Default_Profile.profile end
+--[[	if Spy.db.profile == nil then Spy.db.profile = Default_Profile.profile end
 	if Spy.db.profile.Colors == nil then Spy.db.profile.Colors = Default_Profile.profile.Colors end
 	if Spy.db.profile.Colors["Window"] == nil then Spy.db.profile.Colors["Window"] = Default_Profile.profile.Colors["Window"] end
 	if Spy.db.profile.Colors["Window"]["Title"] == nil then Spy.db.profile.Colors["Window"]["Title"] = Default_Profile.profile.Colors["Window"]["Title"] end
@@ -1507,7 +1470,7 @@ function Spy:CheckDatabase()
 	if Spy.db.profile.UseData == nil then Spy.db.profile.UseData = Default_Profile.profile.UseData end
 	if Spy.db.profile.ShareKOSBetweenCharacters == nil then Spy.db.profile.ShareKOSBetweenCharacters = Default_Profile.profile.ShareKOSBetweenCharacters end
 	if Spy.db.profile.AppendUnitNameCheck == nil then Spy.db.profile.AppendUnitNameCheck = Default_Profile.profile.AppendUnitNameCheck end
-	if Spy.db.profile.AppendUnitKoSCheck == nil then Spy.db.profile.AppendUnitKoSCheck = Default_Profile.profile.AppendUnitKoSCheck end	
+	if Spy.db.profile.AppendUnitKoSCheck == nil then Spy.db.profile.AppendUnitKoSCheck = Default_Profile.profile.AppendUnitKoSCheck end	]]--
 end
 
 function Spy:ResetProfile()
@@ -1517,6 +1480,8 @@ end
 
 function Spy:HandleProfileChanges()
 	Spy:CreateMainWindow()
+	Spy:RestoreMainWindowPosition(Spy.db.profile.MainWindow.Position.x, Spy.db.profile.MainWindow.Position.y, Spy.db.profile.MainWindow.Position.w, 34)	
+	Spy:ResizeMainWindow()
 	Spy:UpdateTimeoutSettings()
 	Spy:LockWindows(Spy.db.profile.Locked)
 	Spy:ClampToScreen(Spy.db.profile.ClampToScreen)	
@@ -1708,8 +1673,10 @@ function Spy:OnInitialize()
 	Spy.db = acedb:New("SpyDB", Default_Profile)
 	Spy:CheckDatabase()
 
-	self.db.RegisterCallback(self, "OnNewProfile", "ResetProfile")
-	self.db.RegisterCallback(self, "OnProfileReset", "ResetProfile")
+--	self.db.RegisterCallback(self, "OnNewProfile", "ResetProfile")
+	self.db.RegisterCallback(self, "OnNewProfile", "HandleProfileChanges")
+--	self.db.RegisterCallback(self, "OnProfileReset", "ResetProfile")
+	self.db.RegisterCallback(self, "OnProfileReset", "HandleProfileChanges")
 	self.db.RegisterCallback(self, "OnProfileChanged", "HandleProfileChanges")
 	self.db.RegisterCallback(self, "OnProfileCopied", "HandleProfileChanges")
 	self:SetupOptions()
@@ -1738,7 +1705,7 @@ function Spy:OnInitialize()
 	Spy:ClampToScreen(Spy.db.profile.ClampToScreen)	
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", Spy.FilterNotInParty)
 	Spy.WoWBuildInfo = select(4, GetBuildInfo())
-	if Spy.WoWBuildInfo > 20000 then 	
+	if Spy.WoWBuildInfo > 20000 then
 		DEFAULT_CHAT_FRAME:AddMessage(L["VersionCheck"])
 	end
 end
@@ -1930,6 +1897,7 @@ end
 
 function Spy:CombatLogEvent(info, timestamp, event, hideCaster, srcGUID, srcName, srcFlags, sourceRaidFlags, dstGUID, dstName, dstFlags, destRaidFlags, ...)
 timestamp, event, hideCaster, srcGUID, srcName, srcFlags, sourceRaidFlags, dstGUID, dstName, dstFlags, destRaidFlags, arg12, arg13, arg14, arg15, arg16 = CombatLogGetCurrentEventInfo()  -- P8.0 addded
+--print(CombatLogGetCurrentEventInfo())
 	if Spy.EnabledInZone then
 		
 		--PetKill code start

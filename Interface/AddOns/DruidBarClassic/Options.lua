@@ -2,45 +2,49 @@ function DRUIDBAROptions_OnLoad()
 	UIPanelWindows['DRUIDBAROptionsFrame'] = {area = 'center', pushable = 0};
 end
 
+-- Toggles the visibility of the DruidBar options frame
 function DRUIDBAROptionsFrame_Toggle()
 	if(DRUIDBAROptionsFrame:IsVisible()) then
 		DRUIDBAROptionsFrame:Hide();
 	else
-		DRUIDBAR_FrameSet();
 		DRUIDBAROptionsFrame:Show();
 	end
+	renderOptionsFrame();
 end
 
-function DRUIDBAROptions_CheckWidth(self)
+-- Updates options related to Width
+function DRUIDBAROptions_Width(self)
 	if ( DRUIDBAROptionsWidthEditBox:GetText() < "1" ) then
 		DRUIDBAROptionsWidthEditBox:SetText("170");
-		DruidBarKey.xvar = self:GetNumber();
-		DruidBarKey.tempW = DruidBarKey.xvar;
+		DruidBarKey.width = self:GetNumber();
+		DruidBarKey.tempW = DruidBarKey.width;
 	elseif( DRUIDBAROptionsWidthEditBox:GetText() > "9999" ) then
 		DRUIDBAROptionsWidthEditBox:SetText("9999");
-		DruidBarKey.xvar = self:GetNumber();
-		DruidBarKey.tempW = DruidBarKey.xvar;
+		DruidBarKey.width = self:GetNumber();
+		DruidBarKey.tempW = DruidBarKey.width;
 	else
-		DruidBarKey.xvar = self:GetNumber();
-		DruidBarKey.tempW = DruidBarKey.xvar;
+		DruidBarKey.width = self:GetNumber();
+		DruidBarKey.tempW = DruidBarKey.width;
 	end
 end
 
-function DRUIDBAROptions_CheckHeight(self)
+-- Updates options related to Height
+function DRUIDBAROptions_Height(self)
 	if ( DRUIDBAROptionsHeightEditBox:GetText() < "1" ) then
 		DRUIDBAROptionsHeightEditBox:SetText("18");
-		DruidBarKey.yvar = self:GetNumber();
-		DruidBarKey.tempH = DruidBarKey.yvar;
+		DruidBarKey.height = self:GetNumber();
+		DruidBarKey.tempH = DruidBarKey.height;
 	elseif( DRUIDBAROptionsHeightEditBox:GetText() > "999" ) then
 		DRUIDBAROptionsHeightEditBox:SetText("999");
-		DruidBarKey.yvar = self:GetNumber();
-		DruidBarKey.tempH = DruidBarKey.yvar;
+		DruidBarKey.height = self:GetNumber();
+		DruidBarKey.tempH = DruidBarKey.height;
 	else
-		DruidBarKey.yvar = self:GetNumber();
-		DruidBarKey.tempH = DruidBarKey.yvar;
+		DruidBarKey.height = self:GetNumber();
+		DruidBarKey.tempH = DruidBarKey.height;
 	end
 end
 
+-- Updates options related to Enabled state of addon
 function DRUIDBAROptions_Toggle()
 	if(DruidBarKey.Enabled) then
 		DruidBarKey.Enabled = false;
@@ -50,81 +54,89 @@ function DRUIDBAROptions_Toggle()
 		-- Incase no other event triggers the redraw, we do this now
 		if not DruidBarUpdateFrame:IsVisible() then DruidBarUpdateFrame:Show(); end
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
-function DRUIDBAROptions_Vis()
+-- Updates options related to Graphics
+function DRUIDBAROptions_Graphics()
 	if(DruidBarKey.Graphics) then
 		DruidBarKey.Graphics = false;
 	else
 		DruidBarKey.Graphics = true;
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
+-- Updates options related to Minimap Button
 function DRUIDBAROptions_Minimap()
 	if(DruidBarKey.Minimap) then
 		DruidBarKey.Minimap = false;
 	else
 		DruidBarKey.Minimap = true;
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
+-- Updates options related to Hid in Caster
 function DRUIDBAROptions_HideInCaster()
 	if(DruidBarKey.HideInCaster) then
 		DruidBarKey.HideInCaster = false;
 	else
 		DruidBarKey.HideInCaster = true;
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
-function DRUIDBAROptions_Full()
+-- Updates options related to
+function DRUIDBAROptions_HideWhenFull()
 	if(DruidBarKey.HideWhenFull) then
 		DruidBarKey.HideWhenFull = false;
 	else
 		DruidBarKey.HideWhenFull = true;
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
+-- Updates options related to display location where we replace the default manabar
 function DRUIDBAROptions_Replace()
 	DruidBarKey.Replace = true;
 	DruidBarKey.Player = false;
 	DruidBarKey.Custom = false;
 	DruidBarKey.Lock = true;
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
+-- Updates options related to display location where we attach to bottom of player frame
 function DRUIDBAROptions_Player()
 	DruidBarKey.Replace = false;
 	DruidBarKey.Player = true;
 	DruidBarKey.Custom = false;
 	--Assign value that default to match player frame
-	DruidBarKey.xvar = 125;
-	DruidBarKey.yvar = 18;
+	DruidBarKey.width = 125;
+	DruidBarKey.height = 18;
 	DruidBarKey.Lock = true;
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
+-- Updates options related to display location when bar is customaizable
 function DRUIDBAROptions_Custom()
 	DruidBarKey.Custom = true;
 	DruidBarKey.Replace = false;
 	DruidBarKey.Player = false;
 	DruidBarKey.Lock = false;
-	DruidBarKey.xvar = DruidBarKey.tempW;
-	DruidBarKey.yvar = DruidBarKey.tempH;
-	DRUIDBAR_FrameSet();
+	DruidBarKey.width = DruidBarKey.tempW;
+	DruidBarKey.height = DruidBarKey.tempH;
+	renderOptionsFrame();
 end
 
+-- Updates options related to locking bar in place
 function DRUIDBAROptions_Lock()
 	if(DruidBarKey.Lock) then
 		DruidBarKey.Lock = false;
 	else
 		DruidBarKey.Lock = true;
 	end
-	DRUIDBAR_FrameSet();
+	renderOptionsFrame();
 end
 
 function DRUIDBAROptions_Text_Initialize()
@@ -146,7 +158,7 @@ function DRUIDBAROptions_Text_OnShow()
 		UIDropDownMenu_SetSelectedID(DRUIDBAROptionsTextDropDown, 1);
 	elseif( DruidBarKey.Text == 1 ) then -- NEW
 		UIDropDownMenu_SetSelectedID(DRUIDBAROptionsTextDropDown, 2);
-	elseif( DruidBarKey.Text == nil ) then -- NO TEXT
+	elseif( DruidBarKey.Text == 2 ) then -- MOUSEOVER
 		UIDropDownMenu_SetSelectedID(DRUIDBAROptionsTextDropDown, 3);
 	end
 	UIDropDownMenu_SetWidth(DRUIDBAROptionsTextDropDown, 100);
@@ -161,7 +173,7 @@ function DRUIDBAROptions_Text_OnClick(self)
 	elseif(i == 2) then
 		DruidBarKey.Text = 1;
 	elseif(i == 3) then
-		DruidBarKey.Text = nil;
+		DruidBarKey.Text = 2;
 	end
 end
 
@@ -204,7 +216,7 @@ function DRUIDBAROptions_Percent_OnClick(self)
 	end
 end
 
-function DRUIDBAR_FrameSet()
+function renderOptionsFrame()
 	-- DruidBarKey is not set, get out
 	if not DruidBarKey then return end
 

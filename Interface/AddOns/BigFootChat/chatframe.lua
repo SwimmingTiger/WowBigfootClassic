@@ -67,8 +67,8 @@ do
     end
 end
 local function BigFoot_LocateKeyBinding(bindingName)
-    KeyBindingFrame_LoadUI()
-    local numBindings = GetNumBindings()
+    KeyBindingFrame_LoadUI();
+    local numBindings = GetNumBindings();
     local offset = 1
     for i = 1, numBindings do
         if bindingName == GetBinding(i, 1) then
@@ -77,7 +77,7 @@ local function BigFoot_LocateKeyBinding(bindingName)
         end
     end
     FauxScrollFrame_SetOffset(KeyBindingFrameScrollFrame, offset - 1)
-    ShowUIPanel(KeyBindingFrame)
+    ShowUIPanel(KeyBindingFrame);
     KeyBindingFrameScrollFrameScrollBar:SetValue(
         (offset - 1) * KEY_BINDING_HEIGHT)
 end
@@ -167,26 +167,26 @@ function getBigFootChannel()
     end
 end
 function BFC_SetChatType(_type)
-    local editBox = ChatEdit_ChooseBoxForSend(SELECTED_CHAT_FRAME)
+    local editBox = ChatEdit_ChooseBoxForSend(SELECTED_CHAT_FRAME);
     if _type then
         ChatEdit_HandleChatType(editBox, "", _type)
-        editBox:Show()
-        editBox:SetFocus()
-        editBox:SetText(_type)
+        editBox:Show();
+        editBox:SetFocus();
+        editBox:SetText(_type);
     else
         local bfChannel = getBigFootChannel()
         if bfChannel then
             bfChannel = "/" .. bfChannel .. " "
             ChatEdit_HandleChatType(editBox, "", bfChannel)
-            editBox:Show()
-            editBox:SetFocus()
-            editBox:SetText(bfChannel)
+            editBox:Show();
+            editBox:SetFocus();
+            editBox:SetText(bfChannel);
         end
     end
     ChatEdit_OnSpacePressed(editBox)
     if BFC_CurEB then
-        local ExistMSG = BFC_CurEB:GetText() or ""
-        if BFC_CurEB:IsShown() then BFC_CurEB:Insert(ExistMSG) end
+        local ExistMSG = BFC_CurEB:GetText() or "";
+        if BFC_CurEB:IsShown() then BFC_CurEB:Insert(ExistMSG); end
     end
 end
 local function createChatTab(BFChat_e6955c64cf39bdb23dc86de1a9ec2117,
@@ -246,15 +246,15 @@ local function BFChat_6a1df3ac0d785e473180af9abe6758ca()
     end
 end
 function BFChatFrame:Refresh() end
-function BFChatFrame:GetChannelListTab(...) return {...} end
+function BFChatFrame:GetChannelListTab(...) return {...}; end
 function BFChatFrame:AddNewChanel()
-    local CheckNumber = 9
+    local CheckNumber = 9;
     local chatTab
     for i = 10, 14 do
         chatTab = _G["BFCChatTab" .. i]
         if chatTab then chatTab:Hide() end
     end
-    local ChannelList = BFChatFrame:GetChannelListTab(GetChannelList())
+    local ChannelList = BFChatFrame:GetChannelListTab(GetChannelList());
     for k, v in pairs(ChannelList) do
         if mod(k, 3) == 1 and CheckNumber < 21 then
             if tonumber(v) and tonumber(v) > 5 then
@@ -266,7 +266,7 @@ function BFChatFrame:AddNewChanel()
             end
         end
     end
-    BFChatFrame_CheckNumber = CheckNumber
+    BFChatFrame_CheckNumber = CheckNumber;
 end
 function BFChatFrame:UpdataChanelList()
     BFChatFrame:AddNewChanel()
@@ -277,13 +277,13 @@ function BFChatFrame:UpdataChanelList()
     if BFChatFrame_CheckNumber then
         reportButton:SetPoint("LEFT", _G.BFCIconFrameRollButton, "RIGHT", 1, 0)
     end
-    local raidersButton = _G.BFCIconFrameRaidersButton
+    local raidersButton = _G.BFCIconFrameRaidersButton;
     if BFChatFrame_CheckNumber then
         raidersButton:SetPoint("LEFT", _G.BFCIconFrameReportButton, "RIGHT", 1,
                                0)
     end
 end
-local f = CreateFrame 'Frame'
+local f = CreateFrame 'Frame';
 f:RegisterEvent("CHANNEL_UI_UPDATE")
 f:SetScript("OnEvent",
             function(self, event, ...) BFChatFrame:UpdataChanelList() end)

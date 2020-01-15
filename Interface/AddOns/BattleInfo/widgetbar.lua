@@ -65,7 +65,7 @@ local function CreateAlteracStatus()
     end
 
     -- this is tricky, cause during login, poi is not available. retry later
-    if poiequal(10, 14) then
+    if poiequal(BattleZoneHelper.POI_ALLIANCE_TOWER, BattleZoneHelper.POI_ALLIANCE_GRAVEYARD) then
         return
     end
 
@@ -85,7 +85,7 @@ local function CreateAlteracStatus()
         t:SetHeight(16)
         t:SetTexture("Interface/Minimap/POIIcons")
         
-        local x1, x2, y1, y2 = GetPOITextureCoords(10) -- Alliance Tower
+        local x1, x2, y1, y2 = GetPOITextureCoords(BattleZoneHelper.POI_ALLIANCE_TOWER) -- Alliance Tower
         t:SetTexCoord(x1, x2, y1, y2)
 
         local l = av:CreateFontString(nil, "BACKGROUND", "GameFontNormalSmall")
@@ -101,7 +101,7 @@ local function CreateAlteracStatus()
         t:SetHeight(16)
         t:SetTexture("Interface/Minimap/POIIcons")
         
-        local x1, x2, y1, y2 = GetPOITextureCoords(14) -- Alliance Graveyard 
+        local x1, x2, y1, y2 = GetPOITextureCoords(BattleZoneHelper.POI_ALLIANCE_GRAVEYARD) -- Alliance Graveyard 
         t:SetTexCoord(x1, x2, y1, y2)
 
         local l = av:CreateFontString(nil, "BACKGROUND", "GameFontNormalSmall")
@@ -125,7 +125,7 @@ local function CreateAlteracStatus()
         t:SetHeight(16)
         t:SetTexture("Interface/Minimap/POIIcons")
         
-        local x1, x2, y1, y2 = GetPOITextureCoords(9) -- Horde Tower
+        local x1, x2, y1, y2 = GetPOITextureCoords(BattleZoneHelper.POI_HORDE_TOWER) -- Horde Tower
         t:SetTexCoord(x1, x2, y1, y2)
 
         local l = av:CreateFontString(nil, "BACKGROUND", "GameFontNormalSmall")
@@ -141,7 +141,7 @@ local function CreateAlteracStatus()
         t:SetHeight(16)
         t:SetTexture("Interface/Minimap/POIIcons")
         
-        local x1, x2, y1, y2 = GetPOITextureCoords(12) -- Horde Graveyard 
+        local x1, x2, y1, y2 = GetPOITextureCoords(BattleZoneHelper.POI_HORDE_GRAVEYARD) -- Horde Graveyard 
         t:SetTexCoord(x1, x2, y1, y2)
 
         local l = av:CreateFontString(nil, "BACKGROUND", "GameFontNormalSmall")
@@ -154,39 +154,13 @@ local function CreateAlteracStatus()
 end
 
 local function UpdateAlteracNumbers()
-
-    -- Alliance Tower 10
-    -- Alliance Graveyard 14
-    -- Horde Tower 9
-    -- Horde Graveyard 12
-    
     if not BattleZoneHelper:IsInAlterac() then
         return
     end
 
     CreateAlteracStatus()
 
-    local data = {}
-
-    local areaPOIs = C_AreaPoiInfo.GetAreaPOIForMap(BattleZoneHelper.MAPID_ALTERAC)
-    local textures = C_Map.GetMapArtLayerTextures(BattleZoneHelper.MAPID_ALTERAC, 1) -- 1 for layer id, should be a const value
-
-	for _, areaPoiID in ipairs(areaPOIs) do
-		local poiInfo = C_AreaPoiInfo.GetAreaPOIInfo(BattleZoneHelper.MAPID_ALTERAC, areaPoiID)
-        if poiInfo then
-            -- print(poiInfo.name)
-            -- print(poiInfo.description)
-            -- print(poiInfo.textureIndex)
-            local t = poiInfo.textureIndex
-
-            if not data[t] then
-                data[t] = 0
-            end
-
-            data[t] = data[t] + 1
-		end
-    end
-
+    local data = BattleZoneHelper:GetAlteracPOI()
     for _, l in pairs(f.av.nums) do
         l:SetText("0")
     end
@@ -251,16 +225,19 @@ RegEvent("UPDATE_BATTLEFIELD_SCORE", function()
         realm = {},
         maxrealm = "",
         maxrealmc = 0,
+        rank = 0,
     }
     stat[FACTION_HORDE] = {
         class = {},
         realm = {},
         maxrealm = "",
         maxrealmc = 0,
+        rank = 0,
     }
 
     for i = 1, 80 do
-        local playerName, _, _, _, _, faction, _, _, _, filename = GetBattlefieldScore(i)
+        local playerName, _, _, _, _, faction, rank, _, _, filename = GetBattlefieldScore(i)
+
         if filename then
             if not stat[faction].class[filename] then
                 stat[faction].class[filename] = 0
@@ -281,6 +258,8 @@ RegEvent("UPDATE_BATTLEFIELD_SCORE", function()
                 stat[faction].maxrealmc = stat[faction].realm[realm]
                 stat[faction].maxrealm  = realm
             end
+
+            stat[faction].rank = stat[faction].rank + rank
         end
     end
 
@@ -368,6 +347,13 @@ RegEvent("ADDON_LOADED", function()
                 tooltip:AddLine(" ")
             end
 
+            if stat.rank > 0 then
+                local rank = math.floor(stat.rank / stat.count)
+                local rankName, rankNumber = GetPVPRankInfo(rank, faction)
+                tooltip:AddDoubleLine(L["Avg Rank"], rankName .. " (R" .. rankNumber .. ")")
+                tooltip:AddLine(" ")
+            end
+
             for c, n in pairs(stat.class) do
                 local color = GetClassColorObj(c)
                 tooltip:AddDoubleLine(color:WrapTextInColorCode(ADDONSELF.CLASS_LOC[c]), n)
@@ -399,6 +385,12 @@ RegEvent("ADDON_LOADED", function()
             if stat.maxrealmc / stat.count  > 0.15 and stat.maxrealmc > 1 then
                 text = text .. " " .. stat.maxrealm .. ":" .. string.format("%d/%d", stat.maxrealmc, stat.count)
             end
+
+            if stat.rank > 0 then
+                local rank = math.floor(stat.rank / stat.count)
+                local rankName, rankNumber = GetPVPRankInfo(rank, faction)
+                text = text .. " " .. L["Avg Rank"] .. ":" .. rankName .. " (R" .. rankNumber .. ")"
+            end            
 
             SendChatMessage(text, "INSTANCE_CHAT")
         end
@@ -487,7 +479,7 @@ RegEvent("ADDON_LOADED", function()
 
                 local text = scoreButton.name.text:GetText()
 
-                if text then
+                if text and filename then
                     local color = GetClassColorObj(filename)
                     scoreButton.name.text:SetText(color:WrapTextInColorCode(text))
                 end

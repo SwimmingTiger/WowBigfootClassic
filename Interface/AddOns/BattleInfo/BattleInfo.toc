@@ -1,13 +1,13 @@
 ## Interface: 11303
 ## Title: Battle Info
 ## Title-zhCN: [大脚][集]战场助手
-## Title-zhTW: [大腳][集]戰場助手
+## Title-zhTW: [大腳][集]戰場資訊增強
 ## Notes: Enrich your battleground information. Feedback: farmer1992@gmail.com
 ## Notes-zhCN: |cff00ff00BattleInfo|r|n|cffbc8f8f战场信息增强. 反馈: farmer1992@gmail.com|r
-## Notes-zhTW: |cff00ff00BattleInfo|r
+## Notes-zhTW: |cff00ff00BattleInfo|r|n|cffbc8f8f提供更多實用的戰場資訊。問題與建議: farmer1992@gmail.com|r
 ## Author: Boshi Lian(farmer1992@gmail.com)
 ## Version: @project-version
-## SavedVariablesPerCharacter: BatteInfoSettings
+## SavedVariablesPerCharacter: BatteInfoSettings, BatteInfoStat
 ## X-Revision: BigFoot
 
 locales.lua
@@ -19,4 +19,6 @@ quickjoin.lua
 newbattle.lua
 widgetbar.lua
 auto.lua
+map.lua
+stat.lua
 cli.lua

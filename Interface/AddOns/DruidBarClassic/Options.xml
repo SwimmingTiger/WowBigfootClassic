@@ -143,7 +143,7 @@
 						getglobal(self:GetName().."Text"):SetText(DRUIDBAR_OPTIONS_Vis);
 					</OnLoad>
 					<OnClick>
-						DRUIDBAROptions_Vis();
+						DRUIDBAROptions_Graphics();
 					</OnClick>
 					<OnEnter>
 						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
@@ -216,7 +216,7 @@
 					</OnLoad>
 
 					<OnClick>
-						DRUIDBAROptions_Full();
+						DRUIDBAROptions_HideWhenFull();
 					</OnClick>
 				</Scripts>
 			</CheckButton>
@@ -386,7 +386,7 @@
 					</OnEscapePressed>
 
 					<OnTextChanged>
-						DRUIDBAROptions_CheckWidth(self);
+						DRUIDBAROptions_Width(self);
 					</OnTextChanged>
 				</Scripts>
 
@@ -439,7 +439,7 @@
 					</OnEscapePressed>
 
 					<OnTextChanged>
-						DRUIDBAROptions_CheckHeight(self);
+						DRUIDBAROptions_Height(self);
 					</OnTextChanged>
 				</Scripts>
 

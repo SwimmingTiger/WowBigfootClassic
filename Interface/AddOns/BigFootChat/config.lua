@@ -120,7 +120,7 @@ local function getOptions()
     end
     return options
 end
-function BFC:ShowOptions() LibStub("AceConfigDialog-3.0"):Open("BigFootChat") end
+function BFC:ShowOptions() LibStub("AceConfigDialog-3.0"):Open("BigFootChat"); end
 function BFC:SetupOptions()
     InterfaceOptionsFrame:SetFrameStrata("DIALOG")
     self.optionsFrames = {}

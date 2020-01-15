@@ -1070,7 +1070,3 @@ Spy.ListTypes = {
 	{L["Ignore"], Spy.ManageIgnoreList},
 	{L["KillOnSight"], Spy.ManageKillOnSightList},
 }
-
-Spy_AbilityList = {
-
-};

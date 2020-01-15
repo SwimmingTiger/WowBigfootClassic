@@ -2611,7 +2611,7 @@ end
 function RaidAlerter_CombatLogEvent(self, ...)
 	if RaidAlerter_SET.OnOff then
 		-- new add 增加 otherPara1,otherPara2
-		local timestamp, eventtype, _, srcGUID, srcName, srcFlags, tmpone, dstGUID, dstName, dstFlags, tmptwo, spellId, spellName, spellSchool, auraType, amount, otherPara1, otherPara2 = CombatLogGetCurrentEventInfo();
+		timestamp, eventtype, _, srcGUID, srcName, srcFlags, tmpone, dstGUID, dstName, dstFlags, tmptwo, spellId, spellName, spellSchool, auraType, amount, otherPara1, otherPara2 = CombatLogGetCurrentEventInfo();
 		local t1,t2;
 		-- t1 = RaidAlerter_NameToUnit(srcName);
 		-- t2 = RaidAlerter_NameToUnit(dstName)
