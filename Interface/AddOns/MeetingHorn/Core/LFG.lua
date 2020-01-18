@@ -108,6 +108,8 @@ function LFG:OnEnable()
             if id and modeId then
                 self:CreateActivity(ns.Activity:New(id, modeId, self.currentCache.comment))
             end
+        else
+            self:MEETINGHORN_HIDE()
         end
         self:ZONE_CHANGED_NEW_AREA()
     end)
@@ -203,7 +205,7 @@ function LFG:RemoveActivity(activity, noEvent)
     tDeleteItem(self.activities, activity)
     self.activities[activity:GetLeaderGUID()] = nil
     if not noEvent then
-        self:SendMessage('MEETINGHORN_ACTIVITY_UPDATE')
+        self:SendMessage('MEETINGHORN_ACTIVITY_REMOVED', activity)
     end
 end
 
@@ -300,6 +302,7 @@ function LFG:RecvActivity(channelName, guid, unitName, text, lineId)
         activity = ns.Activity:FromProto(text, unitName, guid, channelName, lineId)
         if activity then
             self:AddActivity(activity)
+            self:SendMessage('MEETINGHORN_ACTIVITY_ADDED')
             return activity
         end
     else
@@ -400,7 +403,7 @@ function LFG:Search(path, activityId, modeId, search)
 end
 
 function LFG:SERVER_CONNECTED()
-    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel())
+    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'))
 end
 
 function LFG:SNEWVERSION(_, version, url, changelog)
@@ -481,7 +484,7 @@ function LFG:GROUP_ROSTER_UPDATE()
     local activityChanged = false
 
     if self.current then
-        if not ns.IsGroupLeader() or GetNumGroupMembers(LE_PARTY_CATEGORY_HOME) >= self.current.data.members then
+        if not ns.IsGroupLeader() or ns.GetNumGroupMembers() >= self.current.data.members then
             self:CloseActivity()
         end
 

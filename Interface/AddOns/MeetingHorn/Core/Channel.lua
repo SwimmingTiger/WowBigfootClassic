@@ -36,6 +36,7 @@ function Channel:CHAT_MSG_CHANNEL_NOTICE(_, msg, _, _, _, _, _, _, _, realChanne
             self.joiningIndexs[channelName] = nil
             self.joining[channelName] = nil
             self:BindChannel(channelName, realChannelName)
+            self:SendMessage('MEETINGHORN_CHANNEL_READY')
         end
     elseif msg == 'YOU_LEFT' then
         local channelName = self:GetUsChannelName(realChannelName)

@@ -16,37 +16,12 @@ function MainPanel:Constructor()
     self.selectedTab = 1
     self.TitleText:SetText(L.ADDON_NAME .. ' ' .. ns.ADDON_VERSION)
 
-    local function UpdateTabs()
-        self:UpdateTabs()
-        self:UpdateTabFrames()
-    end
-
-    local tabIndex = 0
-    local function SetupTab(frame, text)
-        tabIndex = tabIndex + 1
-        local tab = self['Tab' .. tabIndex]
-        tab:SetText(text)
-        tab.frame = frame
-        tab:HookScript('OnClick', UpdateTabs)
-        tab:Show()
-    end
-
-    SetupTab(self.Browser, SEARCH)
-    SetupTab(self.Manage, L['Manage'])
-
-    pcall(function()
-        local name = '\071\111\111\100\076\101\097\100\101\114'
-        local addon = LibStub('AceAddon-3.0'):GetAddon(name, true)
-        if addon then
-            local L = LibStub('AceLocale-3.0'):GetLocale(name)
-            local Frame = addon:GetClass('UI.' .. name):New(self)
-            Frame:SetPoint('TOPLEFT', 4, -70)
-            Frame:SetPoint('BOTTOMRIGHT', -6, 26)
-            SetupTab(Frame, L.ADDON_NAME)
-        end
-    end)
-
-    SetupTab(self.Options, L['Options'])
+    self:SetupTabs({
+        {L['Search Activity'], self.Browser}, --
+        {L['Create Activity'], self.Manage}, --
+        {L['Help'], self.Help}, --
+        {L['Options'], self.Options}, --
+    })
 
     self.portrait:SetTexture([[Interface\AddOns\MeetingHorn\Media\Logo]])
 
@@ -62,11 +37,16 @@ function MainPanel:Constructor()
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
 
+    self.Help.Text:SetText(L.HELP_COMMENT)
+
     ns.UI.Browser:Bind(self.Browser)
     ns.UI.Creator:Bind(self.Manage.Creator)
-    ns.UI.Applicant:Bind(self.Manage.Applicant)
+    -- ns.UI.Applicant:Bind(self.Manage.Applicant)
     ns.UI.Options:Bind(self.Options.Options)
     ns.UI.Filters:Bind(self.Options.Filters)
+    ns.UI.Chat:Bind(self.Manage.Chat)
+
+    self.Manage.Applicant:Hide()
 
     local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)
     FeedBack:SetPoint('TOPLEFT', 3, -22)
@@ -102,6 +82,9 @@ function MainPanel:Constructor()
     self:UpdateTabs()
     self:UpdateTabFrames()
     self:SetScript('OnClick', ns.FireHardWare)
+
+    self:RegisterMessage('MEETINGHORN_CURRENT_CREATED')
+    self:RegisterMessage('MEETINGHORN_CURRENT_CLOSED')
 end
 
 function MainPanel:OnShow()
@@ -110,6 +93,16 @@ end
 
 function MainPanel:OnHide()
     self:SendMessage('MEETINGHORN_HIDE')
+end
+
+function MainPanel:MEETINGHORN_CURRENT_CREATED()
+    self.Tabs[2]:SetText(L['Manage Activity'])
+    PanelTemplates_UpdateTabs(self)
+end
+
+function MainPanel:MEETINGHORN_CURRENT_CLOSED()
+    self.Tabs[2]:SetText(L['Create Activity'])
+    PanelTemplates_UpdateTabs(self)
 end
 
 function MainPanel:UpdateTabs()
@@ -129,4 +122,28 @@ end
 function MainPanel:SetTab(n)
     PanelTemplates_SetTab(self, n)
     self:UpdateTabFrames()
+end
+
+function MainPanel:SetupTabs(tabs)
+    local function UpdateTabs()
+        self:UpdateTabs()
+        self:UpdateTabFrames()
+    end
+
+    local tabIndex = 0
+    for i, v in ipairs(tabs) do
+        tabIndex = tabIndex + 1
+        local tab = self.Tabs[i] or self:CreateTabButton(tabIndex)
+        tab:SetText(v[1])
+        tab.frame = v[2]
+        tab:HookScript('OnClick', UpdateTabs)
+        tab:Show()
+    end
+end
+
+function MainPanel:CreateTabButton(id)
+    local button = CreateFrame('Button', nil, self, 'MeetingHornTabButtonTemplate')
+    button:SetPoint('LEFT', self.Tabs[id - 1], 'RIGHT', -18, 0)
+    button:SetID(id)
+    return button
 end

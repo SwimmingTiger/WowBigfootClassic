@@ -32,15 +32,12 @@ function Browser:Constructor()
     self.Header5:Disable()
     self.Header6:Disable()
 
+    -- self.CreateButton:SetText(L['Create Activity'])
     self.ActivityLabel:SetText(L['Activity'])
     self.ModeLabel:SetText(L['Activity Mode'])
     self.SearchLabel:SetText(SEARCH .. L['(Include channel message)'])
-    self.Loading:SetText(L['Receiving active data, please wait patiently'])
-
-    ns.Timer:New(function()
-        self.index = ((self.index or 0) + 1) % 4
-        self.LoadingProgress:SetText(string.rep('.', self.index))
-    end):Start(1)
+    self.ProgressBar.Loading:SetText(L['Receiving active data, please wait patiently'])
+    self.ProgressBar:SetMinMaxValues(0, 1)
 
     ns.GUI:GetClass('Dropdown'):Bind(self.Activity)
     ns.GUI:GetClass('Dropdown'):Bind(self.Mode)
@@ -63,6 +60,7 @@ function Browser:Constructor()
 
     SetupQuickButton(self.Quick1, 1)
     SetupQuickButton(self.Quick2, 2)
+    SetupQuickButton(self.Quick3, 3)
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
     self.Activity:SetDefaultText(ALL)
@@ -88,7 +86,7 @@ function Browser:Constructor()
     self.ActivityList:SetCallback('OnItemFormatting', function(_, button, item)
         local inApplicant = item:GetCooldown() > 0
         local inActivity = ns.UnitInGroup(item:GetLeader()) or UnitIsUnit(item:GetLeader(), 'player')
-        local canSignup = not IsInGroup(LE_PARTY_CATEGORY_HOME) and not ns.LFG:GetCurrentActivity()
+        -- local canSignup = not IsInGroup(LE_PARTY_CATEGORY_HOME) and not ns.LFG:GetCurrentActivity()
         local state
         if inActivity then
             state = LFG_LIST_APP_INVITE_ACCEPTED
@@ -117,7 +115,7 @@ function Browser:Constructor()
 
         button.Signup:SetText(L['Whisper'])
         button.Signup:SetShown(item:IsActivity() and not state)
-        button.Signup:SetEnabled(canSignup)
+        -- button.Signup:SetEnabled(canSignup)
     end)
     ---@param item MeetingHornActivity
     self.ActivityList:SetCallback('OnItemSignupClick', function(_, button, item)
@@ -170,10 +168,44 @@ function Browser:Constructor()
 
     self.Refresh:SetScript('OnClick', Search)
 
-    self:SetScript('OnShow', self.Search)
+    -- self.CreateButton:SetScript('OnClick', function()
+    --     ns.Addon.MainPanel:SetTab(2)
+    -- end)
+
+    self.progressTimer = ns.Timer:New(function()
+        self:UpdateProgress()
+    end)
+
+    self:SetScript('OnShow', self.OnShow)
+    self:SetScript('OnHide', self.OnHide)
+    -- self:Show()
+end
+
+function Browser:OnShow()
+    self:RegisterMessage('MEETINGHORN_ACTIVITY_ADDED')
     self:RegisterMessage('MEETINGHORN_ACTIVITY_UPDATE')
+    self:RegisterMessage('MEETINGHORN_ACTIVITY_REMOVED')
     self:RegisterMessage('MEETINGHORN_ACTIVITY_FILTER_UPDATED', 'Search')
-    self:Show()
+    self:RegisterMessage('MEETINGHORN_CHANNEL_READY')
+    self:Search()
+    self:UpdateProgress()
+end
+
+function Browser:OnHide()
+    self:UnregisterAllMessages()
+end
+
+function Browser:UpdateProgress()
+    if not self.startTime or GetTime() - self.startTime > 50 then
+        self.ProgressBar:Hide()
+        self.progressTimer:Stop()
+    elseif self.ProgressBar:IsShown() then
+        self.ProgressBar:SetValue((GetTime() - self.startTime) / 50)
+    else
+        self.progressTimer:Start(1)
+        self.ProgressBar:Show()
+        self.ProgressBar:SetValue(0)
+    end
 end
 
 function Browser:OnClick(id)
@@ -224,6 +256,10 @@ function Browser:Sort()
 end
 
 function Browser:Search()
+    self.updateCount = 0
+    self.Refresh.SpellHighlightAnim:Stop()
+    self.Refresh.SpellHighlightTexture:Hide()
+
     local activityFilter = self.Activity:GetValue()
     local modeId = self.Mode:GetValue()
     local search = self.Input:GetText()
@@ -242,12 +278,39 @@ function Browser:Search()
     self.Empty.Text:SetShown(#result == 0)
 end
 
+function Browser:MEETINGHORN_ACTIVITY_ADDED()
+    if ns.Addon.MainPanel:IsMouseOver() then
+        self.updateCount = (self.updateCount or 0) + 1
+
+        if self.updateCount > 5 then
+            self.Refresh.SpellHighlightAnim:Play()
+            self.Refresh.SpellHighlightTexture:Show()
+        end
+    end
+end
+
 function Browser:MEETINGHORN_ACTIVITY_UPDATE()
     if ns.Addon.MainPanel:IsMouseOver() then
         self.ActivityList:Refresh()
     else
         self:Search()
     end
+end
+
+function Browser:MEETINGHORN_ACTIVITY_REMOVED(_, activity)
+    local list = self.ActivityList:GetItemList()
+    for i, v in ipairs(list) do
+        if v:GetLeaderGUID() == activity:GetLeaderGUID() then
+            table.remove(list, i)
+            break
+        end
+    end
+    self.ActivityList:Refresh()
+end
+
+function Browser:MEETINGHORN_CHANNEL_READY()
+    self.startTime = GetTime()
+    self:UpdateProgress()
 end
 
 function Browser:OpenActivityMenu(activity, button)
@@ -258,7 +321,7 @@ end
 
 function Browser:CreateActivityMenu(activity)
     return {
-        { --
+        {
             text = format('|c%s%s|r', select(4, GetClassColor(activity:GetLeaderClass())), activity:GetLeader()),
             isTitle = true,
         }, {
@@ -267,38 +330,40 @@ function Browser:CreateActivityMenu(activity)
                 ChatFrame_SendTell(activity:GetLeader())
             end,
         }, {
-            text = REPORT_PLAYER,
-            hasArrow = true,
-            menuTable = {
-                {
-                    text = REPORT_SPAMMING,
-                    func = function()
-                        PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_SPAM, activity:GetLeader(),
-                                                         activity:GetLeaderPlayerLocation())
-                        ns.GUI:CloseMenu()
-                    end,
-                }, {
-                    text = REPORT_BAD_LANGUAGE,
-                    func = function()
-                        PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_LANGUAGE, activity:GetLeader(),
-                                                         activity:GetLeaderPlayerLocation())
-                        ns.GUI:CloseMenu()
-                    end,
-                }, {
-                    text = REPORT_BAD_NAME,
-                    func = function()
-                        PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_BAD_PLAYER_NAME, activity:GetLeader(),
-                                                         activity:GetLeaderPlayerLocation())
-                        ns.GUI:CloseMenu()
-                    end,
-                }, {
-                    text = REPORT_CHEATING,
-                    func = function()
-                        HelpFrame_ShowReportCheatingDialog(activity:GetLeaderPlayerLocation())
-                        ns.GUI:CloseMenu()
-                    end,
-                },
-            },
-        }, {text = CANCEL},
+            text = C_FriendList.IsIgnored(activity:GetLeader()) and IGNORE_REMOVE or IGNORE,
+            func = function()
+                C_FriendList.AddOrDelIgnore(activity:GetLeader())
+                if not C_FriendList.IsIgnored(activity:GetLeader()) then
+                    ns.LFG:RemoveActivity(activity)
+                end
+            end,
+        }, {isSeparator = true}, {text = REPORT_PLAYER, isTitle = true}, {
+            text = REPORT_SPAMMING,
+            func = function()
+                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_SPAM, activity:GetLeader(),
+                                                 activity:GetLeaderPlayerLocation())
+                ns.GUI:CloseMenu()
+            end,
+        }, {
+            text = REPORT_BAD_LANGUAGE,
+            func = function()
+                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_LANGUAGE, activity:GetLeader(),
+                                                 activity:GetLeaderPlayerLocation())
+                ns.GUI:CloseMenu()
+            end,
+        }, {
+            text = REPORT_BAD_NAME,
+            func = function()
+                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_BAD_PLAYER_NAME, activity:GetLeader(),
+                                                 activity:GetLeaderPlayerLocation())
+                ns.GUI:CloseMenu()
+            end,
+        }, {
+            text = REPORT_CHEATING,
+            func = function()
+                HelpFrame_ShowReportCheatingDialog(activity:GetLeaderPlayerLocation())
+                ns.GUI:CloseMenu()
+            end,
+        }, {isSeparator = true}, {text = CANCEL},
     }
 end

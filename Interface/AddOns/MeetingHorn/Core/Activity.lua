@@ -247,8 +247,8 @@ function Activity:SetLeader(leader)
 end
 
 function Activity:SetComment(comment)
-    self.comment = comment
-    self.commentLower = comment:lower()
+    self.comment = ns.ParseRaidTag(comment)
+    self.commentLower = self.comment:lower()
 end
 
 function Activity:SetChannelName(channel)

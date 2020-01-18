@@ -7,6 +7,7 @@
     <Script file="MainPanel.lua" />
     <Script file="Browser.lua" />
     <Script file="Applicant.lua" />
+    <Script file="Chat.lua" />
     <Script file="Creator.lua" />
     <Script file="DataBroker.lua" />
     <Script file="Options.lua" />

@@ -18,12 +18,15 @@ L['Manage Activity'] = '管理活动'
 L['Choice Activity...'] = '选择活动类型...'
 L['Choice Mode...'] = '选择活动模式...'
 L['Create Activity'] = '创建活动'
+L['Search Activity'] = '查找活动'
 L['Close Activity'] = '解散活动'
 L['Update Activity'] = '更新活动'
 L['Members'] = '队伍人数'
 L['Whisper'] = '密语'
 
+L['Help'] = '帮助'
 L['Manage'] = '管理'
+L['Chat Record'] = '聊天记录'
 L['Feedback'] = '用户反馈'
 L['Feedback was submitted successfully.'] = '提交反馈成功。'
 L['Requires Level %s'] = '需要等级%s'
@@ -66,7 +69,7 @@ L['Create acitivty success.'] = '创建活动成功。'
 L['Activity closed.'] = '活动已解散。'
 L['There are no activity, please try searching.'] =
     '当前没有集结号活动，\n请尝试在上方搜索框中直接搜索关键字。'
-L['Receiving active data, please wait patiently'] = '正在接收活动数据，请耐心等待'
+L['Receiving active data, please wait patiently'] = '正在接收活动数据，请耐心等待 ...'
 
 L['Applicant Count'] = '申请人数'
 L['Application Count'] = '申请中活动'
@@ -84,7 +87,7 @@ L['导出'] = true
 L['导入关键字'] = true
 L['导出关键字'] = true
 L['请输入需要屏蔽的关键字'] = true
-L['正则?'] = true
+L['匹配?'] = true
 L['添加失败，关键字错误。'] = true
 L['添加失败，关键字“%s”已存在。'] = true
 L['添加成功，关键字“%s”已添加。'] = true
@@ -94,6 +97,12 @@ L['删除成功，关键字“%s”已删除。'] = true
 
 L['Show data broker'] = '显示悬浮窗'
 L['Hide activity in chat frame'] = '隐藏聊天窗口内的集结号活动'
+
+L.HELP_COMMENT = [[|cffffd100使用说明|r
+1. 集结号刚打开的时候是有短暂收集数据的时间，还请您耐心等待。
+2. 鼠标悬浮在插件上是只接受不刷新活动的，当你鼠标离开插件区域时活动将继续刷新。
+3. 如果遇到不喜欢看到的活动或者团长，您可以在设置中添加屏蔽功能，屏蔽功能支持Lua匹配模式。
+4. 在设置中可以添加或者隐藏集结号的悬浮窗，同样也可以设置快捷键快速调出集结号界面。]]
 
 L['CHANNEL: Port'] = '传送频道'
 L['CHANNEL: Trade'] = '交易'

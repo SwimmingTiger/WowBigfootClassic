@@ -35,7 +35,7 @@ _G.BINDING_NAME_MEETINGHORN_TOGGLE = L['Toggle MeetingHorn']
 _G.BINDING_HEADER_MEETINGHORN = L.ADDON_NAME
 
 local function chatFilter(_, _, msg)
-    if msg:find(ns.ADDON_TAG) then
+    if msg:find(ns.ADDON_TAG) or msg:find('@@$') then
         return true
     end
 end

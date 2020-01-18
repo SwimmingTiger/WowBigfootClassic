@@ -60,6 +60,7 @@ function DataBroker:Constructor()
 
     self:RegisterMessage('MEETINGHORN_APPLICANT_UPDATE', 'Update')
     self:RegisterMessage('MEETINGHORN_ACTIVITY_UPDATE', 'Update')
+    self:RegisterMessage('MEETINGHORN_ACTIVITY_REMOVED', 'Update')
     self:RegisterMessage('MEETINGHORN_NEW_APPLICANT')
     self:RegisterMessage('MEETINGHORN_OPTION_CHANGED_DATABROKER')
 end
@@ -69,7 +70,7 @@ function DataBroker:MEETINGHORN_OPTION_CHANGED_DATABROKER(_, shown)
 end
 
 function DataBroker:MEETINGHORN_NEW_APPLICANT()
-    if not ns.Addon.MainPanel.Manage:IsVisible() then
+    if not ns.Addon.MainPanel or not ns.Addon.MainPanel.Manage:IsVisible() then
         self:StartFlash()
     end
 end

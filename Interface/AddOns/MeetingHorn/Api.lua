@@ -442,7 +442,7 @@ function ns.IsGroupLeader()
 end
 
 function ns.GetNumGroupMembers()
-    local num = GetNumGroupMembers()
+    local num = GetNumGroupMembers(LE_PARTY_CATEGORY_HOME)
     return num > 0 and num or 1
 end
 
@@ -505,7 +505,7 @@ function ns.GetPlayerItemLevel()
         itemLevel = itemLevel + func(slot)
     end
     local count = IsNoRangeWeaponClass() and 16 or 17
-    return floor(itemLevel / count)
+    return floor(itemLevel / count * 10) / 10
 end
 
 function ns.GetRaidId(raidName)
@@ -570,4 +570,22 @@ end
 
 function ns.FireHardWare()
     return ns.LFG:OnHardWare()
+end
+
+-- function ns.ParseRaidTag(message)
+--     for tag in string.gmatch(message, '%b{}') do
+--         local term = strlower(string.gsub(tag, '[{}]', ''))
+--         if ICON_TAG_LIST[term] and ICON_LIST[ICON_TAG_LIST[term]] then
+--             message = string.gsub(message, tag, ICON_LIST[ICON_TAG_LIST[term]] .. '0|t')
+--         end
+--     end
+--     return message
+-- end
+
+local function replace(x)
+    return ''
+end
+
+function ns.ParseRaidTag(text)
+    return (text:gsub('{([^{]+)}', replace))
 end
