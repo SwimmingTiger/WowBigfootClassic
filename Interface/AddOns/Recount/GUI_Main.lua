@@ -6,7 +6,7 @@ local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 local LD = LibStub("LibDropdown-1.0")
 
-local revision = tonumber(string.sub("$Revision: 1520 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1528 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -1832,6 +1832,7 @@ function Recount:RestoreMainWindowPosition(x, y, width, height)
 	local f = Recount.MainWindow
 	local s = f:GetEffectiveScale() -- Elsia: Fixed position code, with inspiration from ckknight's handing in pitbull
 	local uis = UIParent:GetScale()
+	f:ClearAllPoints()
 	f:SetPoint("CENTER", UIParent, "CENTER", x * uis / s, y * uis / s)
 	f:SetWidth(width)
 	f:SetHeight(height)

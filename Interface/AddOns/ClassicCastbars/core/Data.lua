@@ -1562,7 +1562,6 @@ namespace.pushbackBlacklist = {
     [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
     [GetSpellInfo(13278)] = 1,      -- Gnomish Death Ray
     [GetSpellInfo(20589)] = 1,      -- Escape Artist
-    [GetSpellInfo(20549)] = 1,      -- War Stomp
 }
 
 -- Casts that should be stopped on damage received
@@ -1778,6 +1777,33 @@ namespace.defaultConfig = {
         castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
         hideIconBorder = false,
         position = { "CENTER", -18, -87 },
+        iconPositionX = -5,
+        iconPositionY = 0,
+        borderColor = { 1, 1, 1, 1 },
+        statusColor = { 1, 0.7, 0, 1 },
+        statusColorChannel = { 0, 1, 0, 1 },
+        textColor = { 1, 1, 1, 1 },
+        textPositionX = 0,
+        textPositionY = 0,
+        frameLevel = 10,
+        statusBackgroundColor = { 0, 0, 0, 0.535 },
+    },
+
+    focus = {
+        enabled = true,
+        width = 150,
+        height = 15,
+        iconSize = 16,
+        showCastInfoOnly = false,
+        showTimer = false,
+        showIcon = true,
+        autoPosition = false,
+        castFont = _G.STANDARD_TEXT_FONT,
+        castFontSize = 10,
+        castStatusBar = "Interface\\TargetingFrame\\UI-StatusBar",
+        castBorder = "Interface\\CastingBar\\UI-CastingBar-Border-Small",
+        hideIconBorder = false,
+        position = { "TOPLEFT", 275, -260 },
         iconPositionX = -5,
         iconPositionY = 0,
         borderColor = { 1, 1, 1, 1 },

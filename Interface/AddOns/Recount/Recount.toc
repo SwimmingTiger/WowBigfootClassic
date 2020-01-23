@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00Recount|r|n|cffbc8f8f图形化显示的伤害/治疗统计插件。|r
 ## Notes-zhTW: |cff00ff00Recount|r|n|cffbc8f8f圖形化顯示的傷害/治療統計插件。|r
 ## Author: Cryect, ported to 2.4 by Elsia, maintained by Resike from 5.4
-## Version: v1.13.3a
+## Version: v1.13.3b
 ## SavedVariables: RecountDB
 ## SavedVariablesPerCharacter: RecountPerCharDB
 ## Dependencies: BigFoot

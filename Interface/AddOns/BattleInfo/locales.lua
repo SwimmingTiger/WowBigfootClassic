@@ -32,6 +32,7 @@ L["Quick select"] = true
 L["Replace Enter Battle Button with count down"] = true
 L["Replace Hide Button with CTRL+Hide=Leave"] = true
 L["Reset score bar position"] = true
+L["Reset win rate statistics data"] = true
 L["Show Alterac Valley score bar created by BattleInfo"] = true
 L["Show Battleground time elapsed"] = true
 L["Show Spirit heal AE Timer"] = true
@@ -42,6 +43,7 @@ L["Spirit healing ..."] = true
 L["TITLE"] = "Battle Info"
 L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"
 L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = true
+L["Win rate"] = true
 
 elseif locale == 'deDE' then
 --[[Translation missing --]]
@@ -79,6 +81,8 @@ elseif locale == 'deDE' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -98,6 +102,8 @@ elseif locale == 'deDE' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'esES' then
 --[[Translation missing --]]
@@ -135,6 +141,8 @@ elseif locale == 'esES' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -154,6 +162,8 @@ elseif locale == 'esES' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'esMX' then
 --[[Translation missing --]]
@@ -191,6 +201,8 @@ elseif locale == 'esMX' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -210,6 +222,8 @@ elseif locale == 'esMX' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'frFR' then
 --[[Translation missing --]]
@@ -247,6 +261,8 @@ elseif locale == 'frFR' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -266,6 +282,8 @@ elseif locale == 'frFR' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'itIT' then
 --[[Translation missing --]]
@@ -303,6 +321,8 @@ elseif locale == 'itIT' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -322,6 +342,8 @@ elseif locale == 'itIT' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'koKR' then
 --[[Translation missing --]]
@@ -359,6 +381,8 @@ elseif locale == 'koKR' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -378,6 +402,8 @@ elseif locale == 'koKR' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'ptBR' then
 --[[Translation missing --]]
@@ -415,6 +441,8 @@ elseif locale == 'ptBR' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -434,6 +462,8 @@ elseif locale == 'ptBR' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'ruRU' then
 --[[Translation missing --]]
@@ -471,6 +501,8 @@ elseif locale == 'ruRU' then
 --[[Translation missing --]]
 --[[ L["Reset score bar position"] = "Reset score bar position"--]] 
 --[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
+--[[Translation missing --]]
 --[[ L["Show Alterac Valley score bar created by BattleInfo"] = "Show Alterac Valley score bar created by BattleInfo"--]] 
 --[[Translation missing --]]
 --[[ L["Show Battleground time elapsed"] = "Show Battleground time elapsed"--]] 
@@ -490,9 +522,11 @@ elseif locale == 'ruRU' then
 --[[ L["TOC_NOTES"] = "Enrich your battleground information. Feedback: farmer1992@gmail.com"--]] 
 --[[Translation missing --]]
 --[[ L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "Wait for Bunker/Tower to be destoryed, stop auto leaving"--]] 
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 elseif locale == 'zhCN' then
-L["Auto focus on Quick Join Text box"] = "快速加入文本框自动获得焦点"
+L["Auto focus on Quick Join Text box"] = "自动将键盘输入移动到快速加入文本框"
 L["Auto Leave battle ground when game ends in"] = "战斗结束后自动退出战场时间："
 L["Avg Rank"] = "平均军衔"
 L["Battle Mini Map unit color"] = "战场小地图显示职业颜色"
@@ -509,6 +543,7 @@ L["Quick select"] = "快速选择"
 L["Replace Enter Battle Button with count down"] = "将进入战场替换为带有倒计时的按钮"
 L["Replace Hide Button with CTRL+Hide=Leave"] = "将隐藏战场替换为CTRL+隐藏=退出"
 L["Reset score bar position"] = "重置比分栏位置"
+L["Reset win rate statistics data"] = "重置胜率统计"
 L["Show Alterac Valley score bar created by BattleInfo"] = "显示BattleInfo创建的 奥特兰克山谷 比分栏"
 L["Show Battleground time elapsed"] = "显示战场已用时间"
 L["Show Spirit heal AE Timer"] = "显示灵魂医者倒计时"
@@ -519,6 +554,7 @@ L["Spirit healing ..."] = "灵魂医者群体复活中..."
 L["TITLE"] = "BattleInfo 战场助手"
 L["TOC_NOTES"] = "战场信息增强. 反馈: farmer1992@gmail.com"
 L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "等待碉堡/哨塔被摧毁，停止自动离开"
+L["Win rate"] = "胜率"
 
 elseif locale == 'zhTW' then
 L["Auto focus on Quick Join Text box"] = "自動將焦點放在快速加入文字方塊"
@@ -538,6 +574,8 @@ L["Quick select"] = "快速選擇"
 L["Replace Enter Battle Button with count down"] = "使用倒數時間來取代進入戰場按鈕"
 L["Replace Hide Button with CTRL+Hide=Leave"] = "使用【CTRL+隱藏=離開】來取代隱藏按鈕"
 L["Reset score bar position"] = "重置分數列的位置"
+--[[Translation missing --]]
+--[[ L["Reset win rate statistics data"] = "Reset win rate statistics data"--]] 
 L["Show Alterac Valley score bar created by BattleInfo"] = "顯示戰場資訊增強建立的奧山分數列"
 L["Show Battleground time elapsed"] = "顯示戰場經過時間"
 L["Show Spirit heal AE Timer"] = "顯示靈魂治療 AE 計時"
@@ -548,5 +586,7 @@ L["Spirit healing ..."] = "靈魂治療中..."
 L["TITLE"] = "戰場資訊增強"
 L["TOC_NOTES"] = "提供更多實用的戰場資訊。問題與建議: farmer1992@gmail.com"
 L["Wait for Bunker/Tower to be destoryed, stop auto leaving"] = "等待堡壘/塔被摧毀，停止自動離開。"
+--[[Translation missing --]]
+--[[ L["Win rate"] = "Win rate"--]] 
 
 end

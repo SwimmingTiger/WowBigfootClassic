@@ -226,6 +226,18 @@ RegEvent("ADDON_LOADED", function()
             end
         end
 
+        t.updateframe = CreateFrame("Frame")
+        t.updateframe:SetScript("OnUpdate", function()
+            t.updateMacro()
+
+            if IsControlKeyDown() then
+                leavequeuebtn:Show()
+            else
+                leavequeuebtn:Hide()
+            end
+        end)
+        t.updateframe:Hide()
+
         leavequeuebtn = t
     end
 
@@ -234,6 +246,7 @@ RegEvent("ADDON_LOADED", function()
         joinqueuebtn:ClearAllPoints()
         leavequeuebtn:Hide()
         leavequeuebtn:ClearAllPoints()
+        leavequeuebtn.updateframe:Hide()
     end
 
 
@@ -272,26 +285,13 @@ RegEvent("ADDON_LOADED", function()
         if replaceEnter then
             joinqueuebtn.showid = data
             joinqueuebtn:SetAllPoints(self.button1)
-
             joinqueuebtn:Show()
         end
 
         if replaceHide then
             leavequeuebtn.showid = data
             leavequeuebtn:SetAllPoints(self.button2)
-
-            if not self.button2.batteinfohooked then
-                self.button2:SetScript("OnUpdate", function()
-                    leavequeuebtn.updateMacro()
-
-                    if IsControlKeyDown() then
-                        leavequeuebtn:Show()
-                    else
-                        leavequeuebtn:Hide()
-                    end
-                end)
-                self.button2.batteinfohooked = true
-            end
+            leavequeuebtn.updateframe:Show()
         end
 
         if string.find(tx, L["List Position"], 1, 1) or string.find(tx, L["New"], 1 , 1) then			

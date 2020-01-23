@@ -5,7 +5,7 @@ local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20191220153831")
+mod:SetRevision("20200118193210")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
@@ -179,11 +179,10 @@ local function HideBasesToWin()
 	end
 end
 
-local subscribedMapID = 0
-local objectives, resPerSec
-local objectivesStore = {}
+local subscribedMapID, numObjectives, objectivesStore = 0, {}
+local objectives
 
-function mod:SubscribeAssault(mapID, objects, rezPerSec)
+function mod:SubscribeAssault(mapID, objects)
 	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
 		if self.Options.ShowEstimatedPoints then
 			ShowEstimatedPoints()
@@ -210,9 +209,15 @@ function mod:SubscribeAssault(mapID, objects, rezPerSec)
 	)
 	subscribedMapID = mapID
 	objectives = objects
-	resPerSec = rezPerSec
 	objectivesStore = {}
+	numObjectives = 0
+	for _, _ in pairs(objects) do
+		numObjectives = numObjectives + 1
+	end
 end
+
+-- Debug
+local prevAScore, prevHScore = 0, 0
 
 function mod:UnsubscribeAssault()
 	HideEstimatedPoints()
@@ -220,6 +225,8 @@ function mod:UnsubscribeAssault()
 	self:UnregisterShortTermEvents()
 	self:Stop()
 	subscribedMapID = 0
+	-- Debug
+	prevAScore, prevHScore = 0, 0
 end
 
 local SetCVar, GetCVar = C_CVar and C_CVar.SetCVar or SetCVar, C_CVar and C_CVar.GetCVar or GetCVar
@@ -277,8 +284,24 @@ do
 	local GetTime, FACTION_HORDE, FACTION_ALLIANCE = GetTime, FACTION_HORDE, FACTION_ALLIANCE
 	-- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local winTimer = mod:NewTimer(30, "TimerWin", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485")
+	local resourcesPerSec = {
+		[3] = {1e-300, 1, 3, 30--[[Unknown]]}, -- Gilneas
+		[4] = {1e-300, 1--[[Unknown]], 2--[[Unknown]], 3--[[Unknown]], 4--[[Unknown]]}, -- TempleOfKotmogu
+		[5] = {1e-300, 2, 3, 4, 7, 10--[[Unknown]], 30--[[Unknown]]} -- Arathi/Deepwind
+	}
 
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
+		-- Start debug
+		if prevAScore ~= allianceScore then
+			DBM:Debug("Alliance: +" .. allianceScore - prevAScore .. " (" .. allianceBases .. ")")
+			prevAScore = allianceScore
+		end
+		if prevHScore ~= hordeScore then
+			DBM:Debug("Horde: +" .. hordeScore - prevHScore .. " (" .. hordeBases .. ")")
+			prevHScore = hordeScore
+		end
+		-- End debug
+		local resPerSec = resourcesPerSec[numObjectives]
 		local gameTime = GetTime()
 		local allyTime = math.min(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1])
 		local hordeTime = math.min(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1])
@@ -317,7 +340,7 @@ do
 				friendlyBases = allianceBases
 				enemyBases = hordeBases
 			else
-				friendlyLast =hordeScore
+				friendlyLast = hordeScore
 				enemyLast = allianceScore
 				friendlyBases = hordeBases
 				enemyBases = allianceBases
@@ -349,32 +372,31 @@ do
 	function mod:AREA_POIS_UPDATED(widget)
 		local allyBases, hordeBases = 0, 0
 		local widgetID = widget and widget.widgetID
-		if subscribedMapID ~= 0 and widgetID and widgetID == 1671 then
+		-- Standard battleground score predictor: 1671. Deepwind rework: 2074
+		if subscribedMapID ~= 0 and widgetID and (widgetID == 1671 or widgetID == 2074) then
 			local isAtlas = false
 			for _, areaPOIID in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(subscribedMapID)) do
 				local areaPOIInfo = C_AreaPoiInfo.GetAreaPOIInfo(subscribedMapID, areaPOIID)
 				local infoName, atlasName, infoTexture = areaPOIInfo.name, areaPOIInfo.atlasName, areaPOIInfo.textureIndex
 				if infoName then
-					local isAllyCapped, isHordeCapped, checkState
+					local isAllyCapping, isHordeCapping
 					if atlasName then
 						isAtlas = true
-						isAllyCapped = atlasName:find('leftIcon')
-						isHordeCapped = atlasName:find('rightIcon')
-						checkState = atlasName
+						isAllyCapping = atlasName:find('leftIcon')
+						isHordeCapping = atlasName:find('rightIcon')
 					elseif infoTexture then
 						local capStates = objectives[infoName]
 						if capStates then
-							isAllyCapped = infoTexture == capStates[1]
-							isHordeCapped = infoTexture == capStates[2]
-							checkState = infoTexture
+							isAllyCapping = infoTexture == capStates[1]
+							isHordeCapping = infoTexture == capStates[3]
 						end
 					end
-					if objectivesStore[infoName] ~= checkState then
+					if objectivesStore[infoName] ~= atlasName and atlasName or infoTexture then
 						capTimer:Stop(infoName)
 						objectivesStore[infoName] = checkState
-						if not ignoredAtlas[subscribedMapID] and (isAllyCapped or isHordeCapped) then
+						if not ignoredAtlas[subscribedMapID] and (isAllyCapping or isHordeCapping) then
 							capTimer:Start(nil, infoName)
-							if isAllyCapped then
+							if isAllyCapping then
 								capTimer:SetColor({r=0, g=0, b=1}, infoName)
 								capTimer:UpdateIcon("132486", infoName) -- Interface\\Icons\\INV_BannerPVP_02.blp
 							else
@@ -396,9 +418,9 @@ do
 			else
 				for k, v in pairs(objectivesStore) do
 					local obj = objectives[k]
-					if v == obj[1] then
+					if v == obj[2] then
 						allyBases = allyBases + 1
-					elseif v == obj[2] then
+					elseif v == obj[4] then
 						hordeBases = hordeBases + 1
 					end
 				end

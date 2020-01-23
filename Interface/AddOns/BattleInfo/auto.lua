@@ -12,7 +12,7 @@ end)
 
 local timetoleave = 0
 RegEvent("UPDATE_BATTLEFIELD_STATUS", function()
-    if GetBattlefieldWinner() then
+    if GetBattlefieldWinner() and timetoleave == 0 then
         timetoleave = time() + autoleavetime
     end
 end)

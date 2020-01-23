@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("z30", "DBM-PvP")
 
 local pairs, ipairs, type, tonumber, select, math = pairs, ipairs, type, tonumber, select, math
 
-mod:SetRevision("20191220163458")
+mod:SetRevision("20200118155712")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:AddBoolOption("AutoTurnIn")
@@ -21,6 +21,7 @@ do
 
 	function mod:OnInitialize()
 		if DBM:GetCurrentArea() == 30 or DBM:GetCurrentArea() == 2197 then--Regular AV (retail and classic), Korrak
+			-- mapID: 30 and 91 or 1537 -- Regular AV (retail and classic), Korrak
 			bgzone = true
 			uiMap = C_Map.GetBestMapForUnit("player")
 			self:RegisterShortTermEvents(

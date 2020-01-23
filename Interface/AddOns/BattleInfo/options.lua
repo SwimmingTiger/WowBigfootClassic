@@ -176,6 +176,18 @@ RegEvent("PLAYER_LOGIN", function()
         local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
         b:SetWidth(200)
         b:SetHeight(25)
+        b:SetPoint("BOTTOMLEFT", 15, 40)
+        b:SetText(L["Reset win rate statistics data"])
+        b:SetScript("OnClick", function()
+            BatteInfoStat = nil
+            C_UI.Reload()
+        end)
+    end
+
+    do
+        local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
+        b:SetWidth(200)
+        b:SetHeight(25)
         b:SetPoint("BOTTOMLEFT", 15, 10)
         b:SetText(L["Reset score bar position"])
         b:SetScript("OnClick", function()

@@ -1,0 +1,245 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="GoodLeaderRaidTemplate" virtual="true">
+        <Size x="90" y="62" />
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Image">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-3"/>
+                        <Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+                    </Anchors>
+                    <TexCoords left="0.05" right="0.63359375" top="0.05" bottom="0.6921875"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Mask" file="Interface\Tooltips\ui-tooltip-background">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="-2"/>
+                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-2" y="-32"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Name" inherits="GameFontHighlightSmallLeft">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="7" y="-7"/>
+                        <Anchor point="TOPRIGHT" x="-7" y="-7"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="CountLabel" inherits="GameFontHighlightSmallRight" text="VOICEMACRO_LABEL_CHARGE1">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Count" inherits="GameFontHighlightLarge" text="0">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.CountLabel" relativePoint="LEFT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="12"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="12"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+        <Scripts>
+            <OnLoad>
+                self:SetBackdropBorderColor(0.5,0.5,0.5)
+                self.Mask:SetBlendMode('ADD')
+                self.Mask:SetGradientAlpha('VERTICAL',0,0,0,0,1,1,1,0.8)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <Frame name="GoodLeaderTemplate" virtual="true">
+        <Frames>
+            <Frame parentKey="First" setAllPoints="true">
+                <Frames>
+                    <Frame parentKey="Header" inherits="InsetFrameTemplate">
+                        <Size y="160" />
+                        <Anchors>
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="TOPRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Name" inherits="GameFontNormalLarge" text="团长ID: 假牙">
+                                    <Anchors>
+                                        <Anchor point="TOP" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Button parentKey="Search">
+                                <Size x="140" y="64"/>
+                                <Anchors>
+                                    <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-30"/>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\GoodLeader\Media\btn_gl_search_normal">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </NormalTexture>
+                                <PushedTexture file="Interface\AddOns\GoodLeader\Media\btn_gl_search_pressed">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </PushedTexture>
+                                <HighlightTexture file="Interface\AddOns\GoodLeader\Media\btn_gl_search_hover" alphaMode="ADD">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </HighlightTexture>
+                                <DisabledTexture file="Interface\AddOns\GoodLeader\Media\btn_gl_search_disable">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </DisabledTexture>
+                                <ButtonText inherits="GameFontHighlightSmall" />
+                            </Button>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Footer" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Header" relativePoint="BOTTOMLEFT" />
+                            <Anchor point="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Text" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOP" x="96" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="Title" inherits="GameFontNormalLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPRIGHT" relativeKey="$parent.Text" relativePoint="TOPLEFT" x="-10" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                                <Texture file="Interface\CharacterFrame\temporaryportrait-male-bloodelf">
+                                    <Size x="40" y="40" />
+                                    <Anchors>
+                                        <Anchor point="TOPRIGHT" relativeKey="$parent.Title" relativePoint="TOPLEFT" x="-10" y="0"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Result" setAllPoints="true">
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Name" inherits="GameFontNormalLarge" text="团长ID: 假牙">
+                            <Anchors>
+                                <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="3"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Raids" inherits="InsetFrameTemplate">
+                        <Size y="160" />
+                        <Anchors>
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="TOPRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Title" inherits="GameFontNormalLeft" text="作为团长或者分配者的次数：|cff808080（暴雪通行证下所有角色）|r">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="20" y="-20" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame parentKey="Raid1" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Title" relativePoint="BOTTOMLEFT" x="0" y="-20" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid2" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid1" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid3" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid2" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid4" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid3" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid5" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid4" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid6" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid5" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid7" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid6" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Info" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Raids" relativePoint="BOTTOMLEFT" />
+                            <Anchor point="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="ItemLevel" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="20" y="-25" />
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="Guild" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevel" relativePoint="BOTTOMLEFT" x="0" y="-13" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+    <Frame name="GoodLeaderMainPanelTemplate" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate" virtual="true">
+        <Size x="588" y="424"/>
+        <Layers>
+            <Layer level="OVERLAY" textureSubLevel="1">
+                <Texture file="Interface\AddOns\GoodLeader\Media\TopLogo">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="30"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="TextBackground" atlas="AdventureMapLabel-Large">
+                    <Size x="227" y="40" />
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-25"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Title" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.TextBackground" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+</Ui>

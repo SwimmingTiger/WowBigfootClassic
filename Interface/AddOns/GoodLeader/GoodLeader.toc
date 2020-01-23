@@ -1,0 +1,11 @@
+## Interface: 11303
+## Title: GoodLeader
+## Title-zhCN: 好团长
+## Title-zhTW: 好團長
+## Notes: |cff00ff00GoodLeader|r
+## Author: NetEase
+## Version: 0.0.6
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Load.xml

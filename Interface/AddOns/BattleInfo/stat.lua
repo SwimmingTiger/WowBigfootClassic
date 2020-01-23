@@ -5,19 +5,18 @@ local BattleZoneHelper = ADDONSELF.BattleZoneHelper
 
 local f = CreateFrame("Frame", nil, HonorFrame)
 f:SetBackdrop({ 
-    bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-    edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+    bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
     tile = true,
     tileEdge = true,
     tileSize = 16,
-    edgeSize = 16,
+    edgeSize = 24,
     insets = { left = 4, right = 4, top = 4, bottom = 4 },    
 })
-f:SetWidth(200)
-f:SetHeight(180)
-f:SetBackdropColor(0, 0, 0)
+f:SetWidth(230)
+f:SetHeight(190)
+-- f:SetBackdropColor(0, 0, 0)
 f:SetPoint("TOPLEFT", HonorFrame, "TOPRIGHT" , -30, -15)
-f:Hide()
 
 local loc = 50
 local function nextloc()
@@ -30,19 +29,28 @@ local labels = {}
 local function DrawStat(bgid)
 
     local p = CreateFrame("Frame", nil, f)
+    p:SetBackdrop({ 
+        edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+        edgeSize = 16,
+    })    
     p:SetPoint("TOPLEFT", f, 15, -15 + nextloc())
     p:SetWidth(200)
-    p:SetHeight(50)
+    p:SetHeight(60)
 
-    do
-        local t = p:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-        t:SetText(BattleZoneHelper.BGID_MAPNAME_MAP[bgid])
-        t:SetPoint("TOPLEFT", p, 0, 0)
-    end
+    -- p:SetScript("OnMouseUp", function()
+    --     DEFAULT_CHAT_FRAME.editBox:SetText(DEFAULT_CHAT_FRAME.editBox:GetText() .. BattleZoneHelper.BGID_MAPNAME_MAP[bgid] .. " " .. labels[bgid]:GetText())
+    --     DEFAULT_CHAT_FRAME.editBox:Show()
+    -- end)
 
     do
         local t = p:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-        t:SetPoint("TOPLEFT", p, 0, -25)
+        t:SetText(BattleZoneHelper.BGID_MAPNAME_MAP[bgid])
+        t:SetPoint("TOPLEFT", p, 10, -10)
+    end
+
+    do
+        local t = p:CreateFontString(nil, "ARTWORK", "GameFontWhite")
+        t:SetPoint("TOPLEFT", p, 20, -30)
         labels[bgid] = t
     end
 end
@@ -56,9 +64,9 @@ local function UpdateStatLabels()
 
         local rate = ""
         if total > 0 then
-            rate = "= " .. (math.floor(win / total * 10000) / 100) .. "%"
+            rate = "= " .. NORMAL_FONT_COLOR:WrapTextInColorCode((math.floor(win / total * 10000) / 100) .. "%")
         end
-        l:SetText(L["Win rate"] .. ": " .. string.format("%s/%s %s", win, total, rate))
+        l:SetText(L["Win rate"] .. ": " .. string.format("%s/%s %s", GREEN_FONT_COLOR:WrapTextInColorCode(win), YELLOW_FONT_COLOR:WrapTextInColorCode(total), rate))
     end
 end
 
