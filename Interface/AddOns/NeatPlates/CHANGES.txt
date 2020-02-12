@@ -1,14 +1,12 @@
-lightweight tag 6ee6d7845122cd745aee12c839303fac72e32525 1.13.3.7
+lightweight tag 55e3ccb2df0d0fd2254cc1253a1e263d278c9713 1.13.3.12
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Tue Jan 14 22:24:22 2020 +0100
+Date:	Tue Feb 11 10:28:35 2020 +0100
 
-commit 6ee6d7845122cd745aee12c839303fac72e32525
+commit 55e3ccb2df0d0fd2254cc1253a1e263d278c9713
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Tue Jan 14 22:21:46 2020 +0100
+Date:   Tue Feb 11 10:28:35 2020 +0100
 
-    Minor Fixes
+    Toc bump
     
-    - Fixed some 'Theme Customization' options not working such as 'Level Indicator'
-    - Updated placeholder tooltips
-    - Potential fix for CVar sliders sometimes appearing empty.
+    - toc bump because curse if being weird as usual with pushing commits.....
 
