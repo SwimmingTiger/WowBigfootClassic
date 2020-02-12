@@ -9,12 +9,13 @@
 ## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision
+## LoadOnDemand: 0
+## DefaultState: enabled
 ## Author: Tandanu and Nitram and MysticalOS
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.30
-## LoadOnDemand: 0
+## Version: 1.13.33
 
 Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua

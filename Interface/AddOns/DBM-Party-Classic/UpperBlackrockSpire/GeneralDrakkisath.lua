@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralDrakkisath", "DBM-Party-Classic", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191022190015")
+mod:SetRevision("20191024184340")
 mod:SetCreatureID(10363)
 
 mod:RegisterCombat("combat")
