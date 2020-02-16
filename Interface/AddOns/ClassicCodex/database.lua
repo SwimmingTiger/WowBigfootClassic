@@ -127,7 +127,9 @@ function CodexDatabase:GetRaceMaskById(id, db)
     local raceMask = 0
 
     if db == "quests" then
-        raceMask = quests[id]["race"] or raceMask
+        if quests[id]["race"] ~= nil then
+            return quests[id]["race"]
+        end
 
         if quests[id]["start"] then
             local questStartRaceMask = 0
