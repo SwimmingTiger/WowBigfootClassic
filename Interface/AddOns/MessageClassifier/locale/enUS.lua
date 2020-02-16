@@ -651,4 +651,25 @@ MessageClassifierDefaultRules = {
             },
         },
     },
+    {
+        id = 3027,
+        ["class"] = "Instance/Blackwing Lair/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]bwl%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "blackwing",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "nefarian",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
 }
