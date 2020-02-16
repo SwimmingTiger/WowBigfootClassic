@@ -1,6 +1,6 @@
 local L = NugRunning.L
 
-if GetLocale() ~= "zhCN" and GetLocale() ~= "zhTW" then return end
+if GetLocale() ~= "zhCN" then return end
 
 L["3D Effect"] = "3D效果"
 L["Additional Spell IDs"] = "其他法术ID"

@@ -126,29 +126,6 @@ RegEvent("CHAT_MSG_ADDON", function(prefix, text, channel, sender)
 
 end)
 
-
-local battleList = {}
-local function UpdateBattleListCache()
-    local mapName = GetBattlegroundInfo()
-
-    if not mapName then
-        return
-    end
-
-    if not battleList[mapName] then
-        battleList[mapName] = {}
-    end
-    table.wipe(battleList[mapName])
-    
-    local n = GetNumBattlefields()
-    for i = 1, n  do
-        local instanceID = GetBattlefieldInstanceInfo(i)
-        battleList[mapName][tonumber(instanceID)] = { i = i , n = n }
-    end
-
-    UpdateInstanceButtonText()
-end
-
 RegEvent("BATTLEFIELDS_SHOW", function()
     C_ChatInfo.SendAddonMessage("BATTLEINFO", "ELAPSE_WANTED", "GUILD")
 end)
@@ -176,8 +153,7 @@ end
 RegEvent("ADDON_LOADED", function()
     C_ChatInfo.RegisterAddonMessagePrefix("BATTLEINFO")
 
-    hooksecurefunc("JoinBattlefield", UpdateBattleListCache)
-    hooksecurefunc("BattlefieldFrame_Update", UpdateBattleListCache)
+    hooksecurefunc("BattlefieldFrame_Update", UpdateInstanceButtonText)
 
     local joinqueuebtn
     do
@@ -294,42 +270,6 @@ RegEvent("ADDON_LOADED", function()
             leavequeuebtn.updateframe:Show()
         end
 
-        if string.find(tx, L["List Position"], 1, 1) or string.find(tx, L["New"], 1 , 1) then			
-            return
-        end    
-
-        for mapName, instanceIDs in pairs(battleList) do
-            local _, _ ,toJ = string.find(tx, ".+" .. mapName .. " (%d+).+")
-            toJ = tonumber(toJ)
-            if toJ then
-                if instanceIDs[toJ] then
-
-                    -- first half 0 - rate -> red (0)
-                    -- second half rate - 100% -> red(0) -> yellow (1)
-                    local rate = 0.45
-                    local pos = instanceIDs[toJ].i
-                    local total = instanceIDs[toJ].n
-
-                    local pos0 = math.max(pos - total * rate - 1, 0)
-
-                    local color = CreateColor(1.0, math.min(pos0 / (total * (1 - rate)), 1) , 0)
-                    local text = color:WrapTextInColorCode(L["List Position"] .. " " .. string.format("%d/%d", pos, total))
-
-                    local elp = GetElapseFromCache(mapName, toJ)
-                    if elp then
-                        text = RED_FONT_COLOR:WrapTextInColorCode(SecondsToTime(elp))
-                    end
-
-                    self.text:SetText(string.gsub(tx ,toJ , YELLOW_FONT_COLOR:WrapTextInColorCode(toJ) .. "(" .. text .. ")"))
-                else
-                    local text = GREEN_FONT_COLOR:WrapTextInColorCode(L["New"])
-                    self.text:SetText(string.gsub(tx ,toJ , YELLOW_FONT_COLOR:WrapTextInColorCode(toJ) .. "(" .. text .. ")"))
-
-                end
-                break
-            end
-        end
-        
     end
 
 end)

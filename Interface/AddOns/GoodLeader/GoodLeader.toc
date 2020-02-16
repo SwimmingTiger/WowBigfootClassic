@@ -4,7 +4,7 @@
 ## Title-zhTW: 好團長
 ## Notes: |cff00ff00GoodLeader|r
 ## Author: NetEase
-## Version: 0.0.6
+## Version: 0.0.7
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

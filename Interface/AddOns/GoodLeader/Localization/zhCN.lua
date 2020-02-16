@@ -1,4 +1,5 @@
 
+---@class L
 local L = LibStub('AceLocale-3.0'):NewLocale('GoodLeader', 'zhCN')
 if not L then
     return
@@ -6,6 +7,9 @@ end
 
 L.ADDON_NAME = '好团长'
 L.ADDON_TITLE = '好团长查询工具'
+
+L['Feedback'] = '用户反馈'
+L['Feedback was submitted successfully.'] = '提交反馈成功。'
 
 L.TIP_SUMMARY = [[1. 尽量和熟悉的团长一起游戏。
 2. 团长的个人信息越多，就越值得信任。

@@ -350,8 +350,10 @@ RegEvent("ADDON_LOADED", function()
             if stat.rank > 0 then
                 local rank = math.floor(stat.rank / stat.count)
                 local rankName, rankNumber = GetPVPRankInfo(rank, faction)
-                tooltip:AddDoubleLine(L["Avg Rank"], rankName .. " (R" .. rankNumber .. ")")
-                tooltip:AddLine(" ")
+                if rankNumber then
+                    tooltip:AddDoubleLine(L["Avg Rank"], rankName .. " (R" .. rankNumber .. ")")
+                    tooltip:AddLine(" ")
+                end
             end
 
             for c, n in pairs(stat.class) do
@@ -469,21 +471,34 @@ RegEvent("ADDON_LOADED", function()
 
     UIWidgetTopCenterContainerFrame:HookScript("OnUpdate", OnUpdate)
 
-    local MAX_SCORE_BUTTONS = 22
-    hooksecurefunc("WorldStateScoreFrame_Update", function() 
-        for i = 1, MAX_SCORE_BUTTONS do
-            local scoreButton = _G["WorldStateScoreButton"..i]
+    do
+        local MAX_SCORE_BUTTONS = 22
+        local color = true
 
-            if scoreButton.index then
-                local _, _, _, _, _, _, _, _, _, filename = GetBattlefieldScore(scoreButton.index)
+        RegisterKeyChangedCallback("wsp_unit_color", function(v)
+            color = v
+            pcall(WorldStateScoreFrame_Update)
+        end)   
+        
+        hooksecurefunc("WorldStateScoreFrame_Update", function() 
+            if not color then
+                return
+            end
 
-                local text = scoreButton.name.text:GetText()
+            for i = 1, MAX_SCORE_BUTTONS do
+                local scoreButton = _G["WorldStateScoreButton"..i]
 
-                if text and filename then
-                    local color = GetClassColorObj(filename)
-                    scoreButton.name.text:SetText(color:WrapTextInColorCode(text))
+                if scoreButton.index then
+                    local _, _, _, _, _, _, _, _, _, filename = GetBattlefieldScore(scoreButton.index)
+
+                    local text = scoreButton.name.text:GetText()
+
+                    if text and filename then
+                        local color = GetClassColorObj(filename)
+                        scoreButton.name.text:SetText(color:WrapTextInColorCode(text))
+                    end
                 end
             end
-        end
-    end)
+        end)
+    end
 end)

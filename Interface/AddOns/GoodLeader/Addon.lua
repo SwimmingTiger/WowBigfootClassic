@@ -1,8 +1,11 @@
 ---@class ns
+---@field L L
+---@field Addon GoodLeaderAddon
 local ns = select(2, ...)
 
 ns.UI = {}
 ns.L = LibStub('AceLocale-3.0'):GetLocale(...)
+ns.GUI = LibStub('tdGUI-1.0')
 
 local L = ns.L
 
@@ -18,7 +21,8 @@ local L = ns.L
 
 ---@class GoodLeaderAddon
 ---@field userCache table<string, GoodLeaderUserCache>
-local Addon = LibStub('AceAddon-3.0'):NewAddon('GoodLeader', 'AceEvent-3.0', 'LibClass-2.0', 'LibCommSocket-3.0')
+local Addon = LibStub('AceAddon-3.0'):NewAddon('GoodLeader', 'AceEvent-3.0', 'AceBucket-3.0', 'LibClass-2.0',
+                                               'LibCommSocket-3.0')
 ns.Addon = Addon
 
 function Addon:OnInitialize()
@@ -30,6 +34,7 @@ function Addon:OnInitialize()
     self:RegisterServer('SGL')
 
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
+    -- self:RegisterEvent('INSPECT_READY')
 end
 
 function Addon:OnEnable()
@@ -134,6 +139,36 @@ function Addon:GROUP_ROSTER_UPDATE()
     local user = self:GetUserCache(name)
     user.guild = guild
     user.guildCount = count
+end
+
+function Addon:INSPECT_READY(_, guid)
+    if not InspectFrame then
+        return
+    end
+    local unit = InspectFrame.unit
+    if not unit or UnitGUID(unit) ~= guid then
+        return
+    end
+
+    local itemLevel = ns.GetUnitItemLevel(unit)
+    if not itemLevel then
+        self.inspectBucket = self:RegisterBucketEvent('GET_ITEM_INFO_RECEIVED', 1)
+        self.inspectGuid = guid
+        return
+    end
+end
+
+function Addon:GET_ITEM_INFO_RECEIVED()
+    if not self.inspectGuid then
+        return
+    end
+
+    local guid = self.inspectGuid
+
+    self:UnregisterBucket(self.inspectBucket)
+    self.inspectBucket = nil
+    self.inspectGuid = nil
+    self:INSPECT_READY(nil, guid)
 end
 
 function Addon:Toggle()

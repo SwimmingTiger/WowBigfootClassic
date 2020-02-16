@@ -21,4 +21,30 @@ function MainPanel:Constructor()
     local GoodLeader = ns.UI.GoodLeaderFrame:New(self)
     GoodLeader:SetPoint('TOPLEFT', 4, -85)
     GoodLeader:SetPoint('BOTTOMRIGHT', -6, 26)
+
+    local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)
+    FeedBack:SetPoint('TOPLEFT', 3, -22)
+    FeedBack:SetPoint('BOTTOMRIGHT', -3, 3)
+    FeedBack:SetFrameLevel(self:GetFrameLevel() + 100)
+    FeedBack.EditBox:SetMaxLetters(128)
+
+    self.FeedBackButton:SetScript('OnClick', function()
+        self.FeedBack:Open({
+            text = L['Feedback'],
+            acceptText = SUBMIT,
+            editBox = true,
+            OnAccept = function(_, content)
+                ns.Addon:SendServer('SFEEDBACK', content, ns.ADDON_VERSION)
+                ns.Message(L['Feedback was submitted successfully.'])
+            end,
+        })
+    end)
+    self.FeedBackButton:SetScript('OnEnter', function(button)
+        GameTooltip:SetOwner(button, 'ANCHOR_TOPRIGHT')
+        GameTooltip:SetText(L['Feedback'])
+        GameTooltip:Show()
+    end)
+    self.FeedBackButton:SetScript('OnLeave', GameTooltip_Hide)
+
+    self.FeedBack = FeedBack
 end

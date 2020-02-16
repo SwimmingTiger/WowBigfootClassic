@@ -1,10 +1,12 @@
 ---@type ns
 local ADDON_NAME, ns = ...
+local L = ns.L
 
 ns.ADDON_VERSION = GetAddOnMetadata(ADDON_NAME, 'Version')
+ns.ADDON_PREFIX = format('|cff00ffff%s|r：', L.ADDON_NAME)
 
-local function GetSlotItemLevel(slot)
-    local id = GetInventoryItemID('player', slot)
+local function GetSlotItemLevel(unit, slot)
+    local id = GetInventoryItemID(unit, slot)
     if not id then
         return 0
     end
@@ -12,8 +14,8 @@ local function GetSlotItemLevel(slot)
     return itemLevel
 end
 
-local function IsNoRangeWeaponClass()
-    local class = select(2, UnitClass('player'))
+local function IsNoRangeWeaponClass(unit)
+    local class = select(2, UnitClass(unit))
     return class == 'PALADIN' or class == 'SHAMAN' or class == 'DRUID'
 end
 
@@ -32,8 +34,8 @@ local ITEMS = { --
     [13] = GetSlotItemLevel,
     [14] = GetSlotItemLevel,
     [15] = GetSlotItemLevel,
-    [16] = function(slot)
-        local id = GetInventoryItemID('player', slot)
+    [16] = function(unit, slot)
+        local id = GetInventoryItemID(unit, slot)
         if not id then
             return 0
         end
@@ -44,21 +46,29 @@ local ITEMS = { --
         return itemLevel
     end,
     [17] = GetSlotItemLevel,
-    [18] = function()
-        if IsNoRangeWeaponClass() then
+    [18] = function(unit, slot)
+        if IsNoRangeWeaponClass(unit) then
             return 0
         end
-        return GetSlotItemLevel(18)
+        return GetSlotItemLevel(unit, slot)
     end,
 }
 
 function ns.GetPlayerItemLevel()
+    return ns.GetUnitItemLevel('player')
+end
+
+function ns.GetUnitItemLevel(unit)
     local itemLevel = 0
     for slot, func in pairs(ITEMS) do
-        itemLevel = itemLevel + func(slot)
+        local level = func(unit, slot)
+        if not level then
+            return
+        end
+        itemLevel = itemLevel + level
     end
-    local count = IsNoRangeWeaponClass() and 16 or 17
-    return floor(itemLevel / count)
+    local count = IsNoRangeWeaponClass(unit) and 16 or 17
+    return floor(itemLevel / count * 10) / 10
 end
 
 local RAID_UNITS = {}
@@ -90,4 +100,11 @@ function ns.GetGroupLeader()
         end
     end
     return UnitName('player'), UnitGUID('player')
+end
+
+function ns.Message(msg, ...)
+    if select('#', ...) > 0 then
+        return SendSystemMessage(string.format(ns.ADDON_PREFIX .. msg, ...))
+    end
+    return SendSystemMessage(ns.ADDON_PREFIX .. msg)
 end

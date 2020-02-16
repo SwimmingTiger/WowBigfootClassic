@@ -128,7 +128,7 @@ RegEvent("PLAYER_LOGIN", function()
     end
 
     do
-        local b = createCheckbox(L["Auto focus on Quick Join Text box"], "focus_quickjoin", true)
+        local b = createCheckbox(L["Auto focus on Quick Join Text box"], "focus_quickjoin", false)
         b:SetPoint("TOPLEFT", f, 15, nextpos())
     end
 
@@ -169,6 +169,16 @@ RegEvent("PLAYER_LOGIN", function()
 
     do
         local b = createCheckbox(L["Battle Mini Map unit color"], "map_unit_color", true)
+        b:SetPoint("TOPLEFT", f, 15, nextpos())
+    end    
+
+    do
+        local b = createCheckbox(L["World State Score panel class color"], "wsp_unit_color", true)
+        b:SetPoint("TOPLEFT", f, 15, nextpos())
+    end    
+
+    do
+        local b = createCheckbox(L["Show statistics panel"], "stat_window", true)
         b:SetPoint("TOPLEFT", f, 15, nextpos())
     end    
 
