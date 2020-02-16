@@ -16,7 +16,6 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## X-Website: http://www.deadlybossmods.com
-## Dependencies: !!!Libs
 
 DBT-Template.xml
 DBT.lua

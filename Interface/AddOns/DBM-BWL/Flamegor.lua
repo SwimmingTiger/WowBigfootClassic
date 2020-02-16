@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191024184340")
+mod:SetRevision("20200213221943")
 mod:SetCreatureID(11981)
 mod:SetEncounterID(615)
 mod:SetModelID(6377)
@@ -12,15 +12,17 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 23342"
 )
 
-local warnWingBuffet	= mod:NewCastAnnounce(23339, 2)
-local warnShadowFlame	= mod:NewCastAnnounce(22539, 2)
-local warnFrenzy		= mod:NewSpellAnnounce(23342, 3, nil, "Tank", 2)
+--(ability.id = 23339 or ability.id = 22539) and type = "begincast"
+local warnWingBuffet		= mod:NewCastAnnounce(23339, 2)
+local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
+local warnFrenzy			= mod:NewSpellAnnounce(23342, 3, nil, "Tank", 2)
 
-local timerWingBuffet	= mod:NewNextTimer(31, 23339, nil, nil, nil, 2)
-local timerFrenzyNext 	= mod:NewNextTimer(10, 23342, nil, "Tank", 2, 5, nil, DBM_CORE_TANK_ICON)
+local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)
+--local timerShadowFlameCD	= mod:NewCDTimer(14, 22539)--14-21
+local timerFrenzyNext 		= mod:NewNextTimer(10, 23342, nil, "Tank", 2, 5, nil, DBM_CORE_TANK_ICON)
 
 function mod:OnCombatStart(delay)
-	timerWingBuffet:Start(-delay)
+	timerWingBuffet:Start(30-delay)
 end
 
 do

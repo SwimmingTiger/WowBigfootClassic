@@ -22,6 +22,12 @@
 ## X-DBM-Mod-MapID: 249
 ## X-DBM-Mod-MinCoreRevision: 12473
 localization.en.lua
+localization.de.lua
+localization.fr.lua
+localization.ru.lua
 localization.tw.lua
+localization.kr.lua
+localization.tw.lua
+localization.es.lua
 localization.cn.lua
 Onyxia.lua

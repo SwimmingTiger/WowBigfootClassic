@@ -69,9 +69,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200210161558"),
-	DisplayVersion = "1.13.33", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 2, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200214234841"),
+	DisplayVersion = "1.13.34", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 2, 14) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -424,7 +424,7 @@ local dataBroker
 local voiceSessionDisabled = false
 local handleSync
 
-local fakeBWVersion, fakeBWHash = 5, "793f905"
+local fakeBWVersion, fakeBWHash = 9, "4bfc8af"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -4406,12 +4406,12 @@ do
 	-- TODO: is there a good reason that version information is broadcasted and not unicasted?
 	syncHandlers["H"] = function(sender)
 		DBM:Unschedule(SendVersion)--Throttle so we don't needlessly send tons of comms during initial raid invites
-		DBM:Schedule(3, SendVersion)--Send version if 3 seconds have past since last "Hi" sync
+		DBM:Schedule(5, SendVersion)--Send version if 5 seconds have past since last "Hi" sync
 	end
 
 	syncHandlers["GH"] = function(sender)
 		DBM:Unschedule(SendVersion, true)--Throttle so we don't needlessly send tons of comms during initial raid invites
-		DBM:Schedule(3, SendVersion, true)--Send version if 3 seconds have past since last "Hi" sync
+		DBM:Schedule(10, SendVersion, true)--Send version if 10 seconds have past since last "Hi" sync
 	end
 
 	syncHandlers["BV"] = function(sender, version, hash)--Parsed from bigwigs V7+
@@ -11171,7 +11171,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200210161558" then
+	if not revision or revision == "20200214234841" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

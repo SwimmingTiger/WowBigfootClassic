@@ -18,11 +18,13 @@
 ## X-DBM-Mod-MapID: 531
 ## X-DBM-Mod-Sort: 9
 ## X-DBM-Mod-MinCoreRevision: 12473
-
 localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.ru.lua
+localization.kr.lua
 localization.tw.lua
 localization.cn.lua
-
 Skeram.lua
 ThreeBugs.lua
 Sartura.lua

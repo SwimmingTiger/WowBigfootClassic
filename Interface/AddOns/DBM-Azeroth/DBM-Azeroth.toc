@@ -27,11 +27,12 @@
 ## X-DBM-Mod-MapID: 0, 1
 ## X-DBM-Mod-LoadCID: 14889,14888,14887,14890,12397,6109
 ## X-DBM-Mod-MinCoreRevision: 12473
-
 localization.en.lua
+localization.de.lua
+localization.br.lua
+localization.kr.lua
 localization.tw.lua
 localization.cn.lua
-
 KazzakClassic.lua
 Azuregos.lua
 Taerar.lua

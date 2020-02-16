@@ -1,38 +1,29 @@
 local mod	= DBM:NewMod(372, "DBM-Party-Classic", 2, 228)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191024184340")
---mod:SetCreatureID(61408)
+mod:SetRevision("20200211013753")
+mod:SetCreatureID(9028, 9031, 9029, 9030, 9032, 9027)--Register combat with any of the 6
 mod:SetEncounterID(230)
+mod:SetBossHPInfoToHighest()
 
 mod:RegisterCombat("combat")
 
---[[
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START"
+	"UNIT_DIED"
 )
 
---TODO. This one is going to need accurate phase detection for stage 1 and stage 2 and on stage 2 SetCreatureID for the boss that you randomly get.
---local warningSoul	= mod:NewTargetAnnounce(32346, 2)
-
-local specWarnMaddeningCall			= mod:NewSpecialWarningInterrupt(86620, "HasInterrupt", nil, nil, 1, 2)
-
-local timerMaddeningCallCD			= mod:NewAITimer(180, 86620, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
-
 function mod:OnCombatStart(delay)
-	timerMaddeningCallCD:Start(1-delay)
+	self.vb.bossLeft = 1--Force set number of bosses we expect to kill to 1 on engage for wipe/boss statistics
+	self.numBoss = 1--^^
 end
 
-function mod:SPELL_CAST_START(args)
-	timerMaddeningCallCD:Start()
-	if args.spellId == 86620 and self:CheckInterruptFilter(args.sourceGUID, false, true) then
-		specWarnMaddeningCall:Show(args.sourceName)
-		specWarnMaddeningCall:Play("kickcast")
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	--Grizzle, Anub'shiah, Eviscerator, Ok'thor the Breaker, Hedrum the Creeper, Gorosh the Dervish
+	if cid == 9028 or cid == 9031 or cid == 9029 or cid == 9030 or cid == 9032 or cid == 9027 then
+		--self.vb.bossLeft = self.vb.bossLeft - 1
+		--if self.vb.bossLeft == 0 then
+			DBM:EndCombat(self)
+		--end
 	end
 end
-
-function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 32346 then
-		warningSoul:Show(args.destName)
-	end
-end--]]

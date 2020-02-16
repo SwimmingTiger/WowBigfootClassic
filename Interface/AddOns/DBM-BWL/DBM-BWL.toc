@@ -19,11 +19,13 @@
 ## X-DBM-Mod-MapID: 469
 ## X-DBM-Mod-Sort: 12
 ## X-DBM-Mod-MinCoreRevision: 12473
-
 localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.ru.lua
+localization.kr.lua
 localization.tw.lua
 localization.cn.lua
-
 Razorgore.lua
 Vaelastrasz.lua
 Broodlord.lua
