@@ -127,15 +127,8 @@ function Paladin:ClassInit()
 		self.AbilityHandlers[HolyHealIDs[i]] = healMod
 	end
 
-	-- Judgement
-	-- This is a maximum of like 10 TPS, do we really need it?
-	-- We'll track first-lands, but not worry about refreshes.
-	self.CastLandedHandlers[20271] = function(self, spellID, recipient)
-		self:AddTargetThreat(recipient, self:RighteousFury(57))
-	end
-
 	local holyShield = function(self, amt)
-		return self:RighteousFury(amt) * 1.2
+		return amt * 1.2
 	end
 	local holyShieldIDs = {20925, 20927, 20928}
 	for i = 1, #holyShieldIDs do
