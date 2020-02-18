@@ -1,0 +1,11 @@
+## Interface: 11303
+## Title: AutoInvite
+## Title-zhCN: 密语自动邀请进组
+## Notes: |cff00ff00AutoInvite|r
+## Author: Eulav
+## Version: 0.1
+## SavedVariablesPerCharacter: AutoInviteSettings
+
+AutoInvite.lua
+AutoInviteDefaults.lua
+AutoInviteOptions.lua

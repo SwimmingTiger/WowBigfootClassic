@@ -29,6 +29,9 @@ if GetLocale()=='zhCN' then
 	L["MessageClassifier-tooltip"] ="不显示公共频道/世界频道中重复的消息\n右击重置过滤器(允许重复消息再次显示)"
 	L["Personal Resource Display"] ="个人资源"
 	L["Spy"] = "Spy侦测"
+	L["AutoInvite"] = "密我进组"
+	L["AutoInvite-tooltip"] ="其他人密我即可自动邀请他们进组，左键启用，右键设置密我的内容。"
+	L["AutoInvite-message"] = "密我的内容"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -712,6 +715,38 @@ local function __AddBottomFrames()
 					DisableAddOn('Spy')
 					BigFoot_RequestReloadUI()
 				end
+			end)
+		M:AddBottomButton(check)
+	end
+
+	if type(SlashCmdList.AUTOINVITE) == 'function' then
+		check = __CreateCustomCheckBox("AutoInvite", L["AutoInvite-tooltip"], AutoInviteSettings.AutoInviteEnabled,
+			function()
+				SlashCmdList.AUTOINVITE("enable")
+				print(string.format("密语自动邀请进组已启用，其他人密我%s即可自动进组", AutoInviteSettings.AutoInviteKeyword or ""))
+			end,
+			function()
+				SlashCmdList.AUTOINVITE("disable")
+				print("密语自动邀请进组已关闭")
+			end,
+			function()
+				StaticPopupDialogs["AutoInvite_Input_Keywords"] = {
+					text = L["AutoInvite-message"],
+					button1 = OKAY,
+					button2 = CANCEL,
+					hasEditBox = 1,
+					whileDead = 1,
+					hideOnEscape = 1,
+					timeout = 0,
+					OnShow = function(self)
+						self.editBox:SetText(AutoInviteSettings and AutoInviteSettings.AutoInviteKeyword or "")
+					end,
+					OnAccept = function(self)
+						local keywords = self.editBox:GetText() or ""
+						SlashCmdList.AUTOINVITE("k "..keywords)
+					end
+				}
+				StaticPopup_Show("AutoInvite_Input_Keywords")
 			end)
 		M:AddBottomButton(check)
 	end
