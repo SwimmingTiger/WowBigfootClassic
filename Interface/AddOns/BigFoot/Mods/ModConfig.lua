@@ -62,6 +62,9 @@ elseif GetLocale()=='zhTW' then
 	L["MessageClassifier-tooltip"] ="不顯示公共頻道/世界頻道中重複的消息\n右擊重置過濾器(允許重復消息再次顯示)"
 	L["Personal Resource Display"] ="個人資源"
 	L["Spy"] = "Spy偵測"
+	L["AutoInvite"] = "密我進組"
+	L["AutoInvite-tooltip"] ="其他人密我即可自動邀請他們進組，左鍵啟用，右鍵設置密我的內容。"
+	L["AutoInvite-message"] = "密我的內容"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -79,6 +82,9 @@ else
 	L["MessageClassifier-tooltip"] ="Do not display duplicate messages in public channel/world channels.\n\nRight click to reset the filter (allow duplicate messages to be displayed again)."
 	L["Personal Resource Display"] ="PersonalRes"
 	L["Spy"] = "Spy"
+	L["AutoInvite"] = "AutoInvite"
+	L["AutoInvite-tooltip"] = "Others can be automatically invited to join my team if them whisper to me.\n\nLeft-click to enable, right-click to set the whisper keyword."
+	L["AutoInvite-message"] = "Whisper Keyword"
 
 end
 
