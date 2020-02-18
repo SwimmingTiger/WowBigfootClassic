@@ -591,6 +591,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
             {
+                ["value"] = "黑龙",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
                 ["value"] = "龙妹",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -602,14 +607,9 @@ MessageClassifierDefaultRules = {
         ["class"] = "副本/黑翼之巢/{author}",
         ["conditions"] = {
             {
-                ["value"] = "黑翼之巢",
+                ["value"] = "黑翼",
                 ["field"] = "content",
                 ["operator"] = "contain",
-            },
-            {
-                ["value"] = "黑龙",
-                ["operator"] = "contain",
-                ["field"] = "content",
             },
             {
                 ["value"] = "奈法",
