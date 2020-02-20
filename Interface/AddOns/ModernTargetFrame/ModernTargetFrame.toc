@@ -1,0 +1,7 @@
+## Interface: 11303
+## Title: Modern TargetFrame
+## Author: SDPhantom
+
+## Notes: Re-implements TargetFrame features found in modern WoW
+
+ModernTargetFrame.lua
