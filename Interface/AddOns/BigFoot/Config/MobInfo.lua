@@ -69,16 +69,19 @@ function MobInfoConfigFunc()
 			MOB_HEALTH_ENABLE_TEXT,
 			nil,
 			"MobHealthEnable",
-			1,
+			0,
 			function(arg)
 				if (arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("MobHealth")) then
 						BigFoot_LoadAddOn("MobHealth");
 					end
-				end
-
-				if (BigFoot_IsAddOnLoaded("MobHealth")) then
-					MobHealth_Toggle(arg);
+					if (BigFoot_IsAddOnLoaded("MobHealth")) then
+						MobHealth_Toggle(arg);
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("MobHealth")) then
+						BigFoot_RequestReloadUI()
+					end
 				end
 			end
 		);

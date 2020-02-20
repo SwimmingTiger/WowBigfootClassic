@@ -84,6 +84,8 @@ do
 			SetCVar("ShowClassColorInNameplate", "1")			--显示姓名版职业颜色
 			SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
 			SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
+			SetCVar("statusText", "1")				            --显示血量数值
+			SetCVar("statusTextDisplay", "NUMERIC")				--显示血量数值
 
 			BF_Frames_Config.UtilsPatchVersion = patchVersion
 			print("大脚插件个人整合包：初始化完成")
