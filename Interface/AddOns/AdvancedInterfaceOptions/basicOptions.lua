@@ -232,14 +232,6 @@ local function sliderSetCVar(self, value, userInput)
 		addon:SetCVar(self.cvar, value)
 	end
 end
-local function sliderSetCVarExponent(self, value, userInput)
-	if userInput then -- only record value if user manually changed it
-		-- Convert values to scientific notation to escape some range checks
-		value = tostring(value)
-		value = string.sub(value, 1, -2) .. 'e1'
-		addon:SetCVar(self.cvar, value)
-	end
-end
 
 local function sliderDisable(self)
 	self.text:SetTextColor(GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
@@ -367,7 +359,7 @@ subText:SetText('These options allow you to toggle various options that have bee
 local playerTitles = newCheckbox(AIO, 'UnitNamePlayerPVPTitle')
 local playerGuilds = newCheckbox(AIO, 'UnitNamePlayerGuild')
 local playerGuildTitles = newCheckbox(AIO, 'UnitNameGuildTitle')
-local fadeMap = newCheckbox(AIO, 'mapFade')
+local fadeMap = not IsClassic() and newCheckbox(AIO, 'mapFade')
 local secureToggle = newCheckbox(AIO, 'secureAbilityToggle')
 local luaErrors = newCheckbox(AIO, 'scriptErrors')
 local targetDebuffFilter = newCheckbox(AIO, 'noBuffDebuffFilterOnTarget')
@@ -444,14 +436,16 @@ actionCamModeDropdown.initialize = function(dropdown)
 end
 actionCamModeDropdown:HookScript("OnShow", actionCamModeDropdown.initialize)
 
-local cameraFactor = newSlider(AIO, 'cameraDistanceMaxZoomFactor', 1, 2.6, 0.1)
+local cameraFactor = newSlider(AIO, 'cameraDistanceMaxZoomFactor', 1, IsClassic() and 3.4 or 2.6, 0.1)
 cameraFactor:SetPoint('TOPLEFT', actionCamModeDropdown, 'BOTTOMLEFT', 20, -20)
 
 playerTitles:SetPoint("TOPLEFT", subText, "BOTTOMLEFT", 0, -8)
 playerGuilds:SetPoint("TOPLEFT", playerTitles, "BOTTOMLEFT", 0, -4)
 playerGuildTitles:SetPoint("TOPLEFT", playerGuilds, "BOTTOMLEFT", 0, -4)
+if not IsClassic() then
 fadeMap:SetPoint("TOPLEFT", playerGuildTitles, "BOTTOMLEFT", 0, -4)
-secureToggle:SetPoint("TOPLEFT", fadeMap, "BOTTOMLEFT", 0, -4)
+end
+secureToggle:SetPoint("TOPLEFT", IsClassic() and playerGuildTitles or fadeMap, "BOTTOMLEFT", 0, -4)
 luaErrors:SetPoint("TOPLEFT", secureToggle, "BOTTOMLEFT", 0, -4)
 targetDebuffFilter:SetPoint("TOPLEFT", luaErrors, "BOTTOMLEFT", 0, -4)
 
@@ -850,7 +844,7 @@ SubText_NP:SetPoint('TOPLEFT', Title_NP, 'BOTTOMLEFT', 0, -8)
 SubText_NP:SetPoint('RIGHT', -32, 0)
 SubText_NP:SetText('These options allow you to modify Nameplate Options.')
 
-local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 10, 100, 10, nil, sliderSetCVarExponent)
+local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 10, IsClassic() and 20 or 100)
 nameplateDistance:SetPoint('TOPLEFT', SubText_NP, 'BOTTOMLEFT', 0, -20)
 
 local nameplateAtBase = newCheckbox(AIO_NP, 'nameplateOtherAtBase')

@@ -2,6 +2,6 @@
 ## Title: FasterLooting
 ## Title-zhCN: 自动拾取加速
 ## Author: cannon
-## Notes: Auto loots all items without the delay currently in Classic
-## Version: 1.1.1
+## Notes: FasterLooting
+## Version: 1.1.2
 FasterLooting.lua
