@@ -1066,8 +1066,7 @@ L["Auto recording loot: In Raid Only"] = "自動拾取記錄: 僅團隊中"
 L["Auto recording loot: Off"] = "自動拾取記錄關閉"
 L["Auto recording loot: On"] = "自動拾取記錄開啟"
 L["Beneficiary"] = "獲取人"
---[[Translation missing --]]
---[[ L["Cannot find any debit entry in template, please check your template in options"] = "Cannot find any debit entry in template, please check your template in options"--]] 
+L["Cannot find any debit entry in template, please check your template in options"] = "無法在支出模板中找到任何內容, 請在選項中檢查模板內容"
 L["Clear"] = "清空"
 L["Close"] = "關閉"
 L["Close text export"] = "關閉文字模式"
@@ -1081,25 +1080,21 @@ L["Compensation: Repait Bot"] = "補助: 修理機器人"
 L["Compensation: Tank"] = "補助: 坦克"
 L["convert failed, text can be either item id or item name"] = "轉換失敗, 名稱可以是物品ID或物品名稱"
 L["Credit"] = "收入"
---[[Translation missing --]]
---[[ L["CTRL + Click to apply debit template"] = "CTRL + Click to apply debit template"--]] 
+L["CTRL + Click to apply debit template"] = "CTRL + 點擊應用支出模板"
 L["Debit"] = "支出"
---[[Translation missing --]]
---[[ L["Debit Template"] = "Debit Template"--]] 
+L["Debit Template"] = "支出模板"
 L["Entry"] = "條目"
 L["etc."] = "等..."
 L["Expense"] = "總支出"
 L["Export as text"] = "導出為文字"
 L["Feedback"] = "反饋"
 L["Gain per member"] = "每人收入"
---[[Translation missing --]]
---[[ L["Import from ledger"] = "Import from ledger"--]] 
+L["Import from ledger"] = "從賬本中提取"
 L["In Raid Only"] = "僅團隊中"
 L["Item added"] = "已添加物品"
 L["Last used"] = "上次使用"
 L["Member credit for subgroup"] = "小隊收入明細"
---[[Translation missing --]]
---[[ L["Name of Debit template"] = "Name of Debit template"--]] 
+L["Name of Debit template"] = "支出模板的標題"
 L["Net Profit"] = "淨收入"
 L["Other"] = "其他"
 L["Per Member"] = "平均每人"
@@ -1108,12 +1103,10 @@ L["Raid Ledger"] = "金團賬本"
 L["Remove all records?"] = "確定清空所有記錄？"
 L["Remove ALL SAME record?"] = "刪除全部相同紀錄？"
 L["Remove this record?"] = "確定刪除這條記錄？"
---[[Translation missing --]]
---[[ L["Rename"] = "Rename"--]] 
+L["Rename"] = "重命名"
 L["Report"] = "廣播"
 L["Revenue"] = "總收入"
---[[Translation missing --]]
---[[ L["Right click to choose channel"] = "Right click to choose channel"--]] 
+L["Right click to choose channel"] = "右鍵點擊選擇頻道"
 L["Right click to remove record"] = "右鍵點擊記錄刪除"
 L["Shift + item/name to add to record"] = "Shift + 人名/物品 自動添加到記錄"
 L["Shift + Right click to remove ALL SAME record"] = "Shift + 右鍵點擊 刪除全部相同記錄"

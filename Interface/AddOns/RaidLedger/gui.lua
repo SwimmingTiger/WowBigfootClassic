@@ -861,7 +861,7 @@ function GUI:Init()
 
                 EasyMenu(channelTypeMenu, menuFrame, "cursor", 0 , 0, "MENU");
             else
-                GenReport(Database:GetCurrentLedger()["items"], GUI:GetSplitNumber(), channel)
+                GenReport(Database:GetCurrentLedger()["items"], GUI:GetSplitNumber(), channel, IsControlKeyDown())
             end
         end)
 
@@ -869,7 +869,7 @@ function GUI:Init()
 
         b:SetScript("OnEnter", function()
             tooltip:SetOwner(b, "ANCHOR_RIGHT")
-            tooltip:SetText(L["Right click to choose channel"])
+            tooltip:SetText(L["Right click to choose channel"] .. "\r\n" .. L["CTRL + click for summary mode"])
             tooltip:Show()
         end)
 

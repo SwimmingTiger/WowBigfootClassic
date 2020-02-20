@@ -8,11 +8,23 @@ local f = CreateFrame("Frame", nil, UIParent)
 f.name = L["Raid Ledger"]
 InterfaceOptions_AddCategory(f)
 
+do
+    local t = f:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    t:SetText(L["Raid Ledger"])
+    t:SetPoint("TOPLEFT", f, 20, -15)
+end
+
+do
+    local t = f:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    t:SetText(L["Feedback"] .. "  farmer1992@gmail.com")
+    t:SetPoint("TOPLEFT", f, 20, -50)
+end
+
 RegEvent("ADDON_LOADED", function()
     -- dropbox filter
     do
         local t = CreateFrame("Frame", nil, f, "UIDropDownMenuTemplate")
-        t:SetPoint("TOPLEFT", f, 5, -30)
+        t:SetPoint("TOPLEFT", f, 5, -100)
 
         local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 20, 0)
@@ -51,7 +63,7 @@ RegEvent("ADDON_LOADED", function()
         local AUTOADDLOOT_TYPE_DISABLE = 2
 
         local t = CreateFrame("Frame", nil, f, "UIDropDownMenuTemplate")
-        t:SetPoint("TOPLEFT", f, 150, -30)
+        t:SetPoint("TOPLEFT", f, 150, -100)
 
         local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 20, 0)
@@ -94,7 +106,7 @@ RegEvent("ADDON_LOADED", function()
     local editDebitTemplate
     do
         local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-        t:SetPoint("TOPLEFT", f, 25, -110)
+        t:SetPoint("TOPLEFT", f, 25, -180)
         t:SetWidth(550)
         t:SetHeight(200)
         t:SetBackdrop({ 
@@ -132,7 +144,7 @@ RegEvent("ADDON_LOADED", function()
 
     do
         local t = CreateFrame("Frame", nil, f, "UIDropDownMenuTemplate")
-        t:SetPoint("TOPLEFT", f, 5, -80)
+        t:SetPoint("TOPLEFT", f, 5, -150)
 
         local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 20, 0)
@@ -196,6 +208,10 @@ RegEvent("ADDON_LOADED", function()
             local idx = self.value
             UIDropDownMenu_SetSelectedValue(t, idx)
             Database:SetConfig("debittemplateidx", idx)
+
+            local n = templates[idx] and templates[idx].name or ""
+            UIDropDownMenu_SetText(t, n)
+
             local v = templates[idx] and templates[idx].value or ""
             editDebitTemplate:SetText(v)
         end
@@ -310,6 +326,7 @@ RegEvent("ADDON_LOADED", function()
 
                 if #templates == 0 then
                     UIDropDownMenu_SetSelectedValue(t, nil)
+                    UIDropDownMenu_SetText(t, "")
                     editDebitTemplate:SetText("")
                 else
                     onclick({value = #templates})

@@ -193,7 +193,7 @@ ADDONSELF.genexport = function(items, n)
     return s
 end
 
-ADDONSELF.genreport = function(items, n, channel)
+ADDONSELF.genreport = function(items, n, channel, short)
     local lines = {}
     local grp = {}
 
@@ -311,6 +311,10 @@ ADDONSELF.genreport = function(items, n, channel)
                 table.insert(lines, "... " .. l["beneficiary"] .. " " .. item)
             end
         end
+    end
+
+    if short then
+        wipe(lines)
     end
 
     revenue = GetMoneyStringL(revenue)

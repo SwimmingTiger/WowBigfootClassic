@@ -1,82 +1,28 @@
-lightweight tag d94d726c09b69f975d4930e357ec2d8648626967 v1.4.0
+lightweight tag 3ab80152978b8422dbce543609b568c1f4416ef9 v1.4.2
 Author:	Boshi Lian <farmer1992@gmail.com>
-Date:	Sun Dec 8 07:06:13 2019 -0800
+Date:	Wed Jan 1 03:33:40 2020 -0800
 
-commit d94d726c09b69f975d4930e357ec2d8648626967
+commit 3ab80152978b8422dbce543609b568c1f4416ef9
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Sun Dec 8 07:06:13 2019 -0800
+Date:   Wed Jan 1 03:33:40 2020 -0800
 
-    better import / apply order
+    add summary mode
 
-commit 72106bb60ab96bb5a883cac216342a8640101bb5
+commit 7c6636c1d6fb90ace9c0166f1c177693f5607e23
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Sun Dec 8 06:41:32 2019 -0800
+Date:   Wed Jan 1 03:20:11 2020 -0800
 
-    first alpha version for debit template
+    add option header
 
-commit b87d734032ae7b675244c3f8eedfb1d19b079248
+commit 7062bce9378f5489d0af5f32de3ca20375056670
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Sun Dec 8 03:35:18 2019 -0800
+Date:   Wed Dec 18 08:32:21 2019 -0800
 
-    gui crud ready
+    better list vaule
 
-commit 1195ca25c6a08f2aad639395d7ca537b4415e97c
+commit 0aa400ddc15bd31835b33ef0cb9a8a3343fde32c
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 03:36:52 2019 -0800
+Date:   Mon Dec 16 12:58:01 2019 -0800
 
-    gui for debit template
-
-commit b39396a6b9a8befa15375055bed9f48c1a950c7f
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 02:41:43 2019 -0800
-
-    remove debug code
-
-commit 98742ddf77726819257186371f059eea5befb8c3
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 02:35:58 2019 -0800
-
-    fix scroll top not working
-
-commit 28b82b75abfc0dc8941385088eb642f9fad7490a
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 02:28:09 2019 -0800
-
-    shift to remove all same
-
-commit d07617af5cd448089bf56bec42f784b97118081a
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 01:42:40 2019 -0800
-
-    move autoaddloot to opt
-
-commit 36710c7f3f2906c8c8f01136a037dbd7a88796ca
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri Dec 6 01:22:03 2019 -0800
-
-    introduce options
-
-commit bfc69ea96069f6e59fca6c09ea56c1c723c4a6f5
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Thu Dec 5 16:25:23 2019 -0800
-
-    Update README-zhCN.md
-
-commit 48674d7ea10b468dfd7d96bd6155a1a3ff4e7eb5
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Thu Nov 21 17:15:22 2019 -0800
-
-    Update README-zhCN.md
-
-commit 20a0bae0b68f7bb5dea69f9c24243dec5847ad26
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Thu Nov 21 17:11:07 2019 -0800
-
-    move zhcn readme out readme
-
-commit 3de5de7e4ed55816fd9ed2ab5db7f69376d3043d
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Thu Nov 21 16:58:25 2019 -0800
-
-    Update README.md
+    Update .pkgmeta
 
