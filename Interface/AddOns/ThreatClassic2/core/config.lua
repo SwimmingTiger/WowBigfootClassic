@@ -59,17 +59,20 @@ TC2.defaultConfig.bar = {
 	descend				= true,									-- sort bars descending / ascending
 	height				= 18,									-- bar height
 	padding				= 1,									-- padding between bars
-	marker				= false,								-- mark your statusbar in red
 	texture				= defaultTexture,						-- texture file location
-	classColor			= true,									-- use class color
-	defaultColor		= {0.8, 0, 0.8, 1},						-- color to use when classColor is false
 	alpha				= 1,									-- statusbar alpha
 	colorMod			= 0,									-- color modifier
 }
 
+-- player bar custom color settings
+TC2.defaultConfig.playerBarCustomColor  = {
+	enabled 			= false,								-- enable custom color for player
+	color 				= {0.8, 0, 0, 1},						-- custom color for player
+}
+
 -- font settings
 TC2.defaultConfig.font = {
-	family				= defaultFont,							-- font file location
+	family 				= defaultFont,							-- font file location
 	size				= 12,									-- font size
 	style				= "OUTLINE",							-- font style
 	color				= {1, 1, 1, 1},							-- font color

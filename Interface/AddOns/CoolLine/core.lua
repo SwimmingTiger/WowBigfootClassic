@@ -2,9 +2,14 @@
 local _
 local CoolLine = CreateFrame("Frame", "CoolLine", UIParent)
 
+CoolLine.MainFrame = CoolLine
+
 CoolLine:SetScript("OnEvent", function(this, event, ...)
 	this[event](this, ...)
 end)
+
+local IS_WOW_8 = GetBuildInfo():match("^8")
+local IS_WOW_CLASSIC = GetBuildInfo():match("^1")
 
 local smed = LibStub("LibSharedMedia-3.0")
 
@@ -24,6 +29,9 @@ local frames, cooldowns, specialspells = { }, { }, { }
 CoolLine.spells, CoolLine.chargespells = spells, chargespells
 CoolLine.frames, CoolLine.cooldowns, CoolLine.specialspells = frames, cooldowns, specialspells
 
+local NO_RELOCATE = "NO_RELOCATE"
+CoolLine.NO_RELOCATE = NO_RELOCATE
+
 local SetValue, updatelook, createfs, ShowOptions, RuneCheck
 local function SetValueH(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "LEFT", v, 0)
@@ -40,6 +48,33 @@ end
 local function SetValueVR(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "BOTTOM", 0, db.h - v)
 end
+
+--------------------------------
+-- For 3rd party addons such as ElvUI
+function CoolLine:SetConfig(w, h, x, y, font, fontsize, inactivealpha, activealpha, statusbar, updateOption)
+--------------------------------
+	if db then
+		db.w             = w         or db.w
+		db.h             = h         or db.h
+		-- db.x             = x         or db.x
+		-- db.y             = y         or db.y
+		db.font          = font      or db.font
+		db.fontsize      = fontsize  or db.fontsize
+		db.statusbar     = statusbar or db.statusbar
+		db.activealpha   = activealpha or db.activealpha
+		db.inactivealpha = inactivealpha or db.inactivealpha
+	else
+		-- ?
+		print("CoolLine SetConfig called but no db loaded")
+	end
+	self.updatelook(updateOption)
+end
+
+function CoolLine:getConfig()
+	return db.w, db.h, db.x, db.y, db.font, db.fontsize, db.inactivealpha, db.activealpha, db.statusbar
+end
+
+
 
 CoolLine:RegisterEvent("ADDON_LOADED")
 
@@ -170,10 +205,14 @@ function CoolLine:ADDON_LOADED(a1)
 		SetValue(fs, offset, just)
 		return fs
 	end
-	updatelook = function()
+
+	updatelook = function(option)
 		self:SetWidth(db.w or 130)
 		self:SetHeight(db.h or 18)
-		self:SetPoint("CENTER", UIParent, "CENTER", db.x or 0, db.y or -240)
+
+		if option ~= NO_RELOCATE then
+			self:SetPoint("CENTER", UIParent, "CENTER", db.x or 0, db.y or -240)
+		end
 
 		self.bg = self.bg or self:CreateTexture(nil, "ARTWORK")
 		self.bg:SetTexture(smed:Fetch("statusbar", db.statusbar))
@@ -260,19 +299,23 @@ function CoolLine:PLAYER_LOGIN()
 	self.SPELL_UPDATE_CHARGES = self.SPELL_UPDATE_COOLDOWN
 	self:SPELL_UPDATE_COOLDOWN()
 
-	-- self:RegisterEvent("PET_BATTLE_OPENING_START")
-	-- self:RegisterEvent("PET_BATTLE_CLOSE")
-	-- self.PET_BATTLE_OPENING_START = self.Hide
-	-- self.PET_BATTLE_CLOSE = self.Show
-	-- if C_PetBattles.IsInBattle() then
-		-- self:Hide()
-	-- end
+	-- IF WOW RETAIL THEN
+	if not IS_WOW_CLASSIC then
+		self:RegisterEvent("PET_BATTLE_OPENING_START")
+		self:RegisterEvent("PET_BATTLE_CLOSE")
+		self.PET_BATTLE_OPENING_START = self.Hide
+		self.PET_BATTLE_CLOSE = self.Show
+		if C_PetBattles.IsInBattle() then
+			self:Hide()
+		end
 
-	-- self:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
-	-- if UnitHasVehicleUI("player") then
-		-- self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-		-- self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
-	-- end
+		self:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
+		if UnitHasVehicleUI("player") then
+			self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
+			self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
+		end
+	end
+	-- END WOW RETAIL
 
 	updatelook()
 	self:SetAlpha((#cooldowns == 0 and db.inactivealpha) or db.activealpha)
@@ -424,51 +467,92 @@ do  -- cache spells that have a cooldown
 		local lastID, spellName
 		local spellType, spellID
 		local sb = spells[btype]
-		local _, _, offset, numSpells = GetSpellTabInfo(2)
-		for i = 1, offset + numSpells do
-			spellName = GetSpellBookItemName(i, btype)
-			if not spellName then break end
-			spellType, spellID = GetSpellBookItemInfo(i, btype)
-			if spellID and spellType == "FLYOUT" then
-				local _, _, numSlots, isKnown = GetFlyoutInfo(spellID)
-				if isKnown then
-					for j = 1, numSlots do
-						local flyID, _, _, flyName = GetFlyoutSlotInfo(spellID, j)
-						lastID = flyID
-						if flyID then
-							local flyCD = GetSpellBaseCooldown(flyID)
-							if flyCD and flyCD > 2499 then
-								sb[flyID] = flyName -- specialspells[flyID] or flyName
+
+		if IS_WOW_8 then
+			local _, _, offset, numSpells = GetSpellTabInfo(2)
+			for i = 1, offset + numSpells do
+				spellName = GetSpellBookItemName(i, btype)
+				if not spellName then break end
+				spellType, spellID = GetSpellBookItemInfo(i, btype)
+				if spellID and spellType == "FLYOUT" then
+					local _, _, numSlots, isKnown = GetFlyoutInfo(spellID)
+					if isKnown then
+						for j = 1, numSlots do
+							local flyID, _, _, flyName = GetFlyoutSlotInfo(spellID, j)
+							lastID = flyID
+							if flyID then
+								local flyCD = GetSpellBaseCooldown(flyID)
+								if flyCD and flyCD > 2499 then
+									sb[flyID] = flyName -- specialspells[flyID] or flyName
+								end
+							end
+						end
+					end
+				elseif spellID and spellType == "SPELL" and spellID ~= lastID then
+					-- Base spell = slot ID + name from slot ID
+					-- Real spell = ID from slot name + name from slot name
+					-- For the purposes of CoolLine we only care about the real spell.
+					lastID = spellID
+					spellName, _, _, _, _, _, spellID = GetSpellInfo(spellName)
+					if spellID then
+						-- Special spells like warlock Cauterize Master can be in
+						-- a limbo state during loading. Just ignore them in that
+						-- case. The spellbook will update again momentarily and
+						-- they will correctly resolve then.
+						local _, maxCharges = GetSpellCharges(spellID)
+						if maxCharges and maxCharges > 0 then
+							chargespells[btype][spellID] = spellName
+						else
+							local cd = GetSpellBaseCooldown(spellID)
+							if cd and cd > 2499 then
+								sb[spellID] = spellName
+					--			if specialspells[spellName] then
+					--				sb[ specialspells[spellName] ] = spellName
+					--			end
 							end
 						end
 					end
 				end
-			elseif spellID and spellType == "SPELL" and spellID ~= lastID then
-				-- Base spell = slot ID + name from slot ID
-				-- Real spell = ID from slot name + name from slot name
-				-- For the purposes of CoolLine we only care about the real spell.
-				lastID = spellID
-				spellName, _, _, _, _, _, spellID = GetSpellInfo(spellName)
-				if spellID then
-					-- Special spells like warlock Cauterize Master can be in
-					-- a limbo state during loading. Just ignore them in that
-					-- case. The spellbook will update again momentarily and
-					-- they will correctly resolve then.
-					local _, maxCharges = GetSpellCharges(spellID)
-					if maxCharges and maxCharges > 0 then
-						chargespells[btype][spellID] = spellName
-					else
-						local cd = GetSpellBaseCooldown(spellID)
-						if cd and cd > 2499 then
-							sb[spellID] = spellName
-				--			if specialspells[spellName] then
-				--				sb[ specialspells[spellName] ] = spellName
-				--			end
+			end
+		elseif IS_WOW_CLASSIC then
+			local offsets, numTabs
+			numTabs = GetNumSpellTabs()
+			for i=1, numTabs do
+				local _, _, offset, numSpells = GetSpellTabInfo(i)
+				for j=1, offset + numSpells do
+					local spellName, spellRank, spellId = GetSpellBookItemName(j, btype)
+					if not spellName then break end
+					local spellType, spellID = GetSpellBookItemInfo(j, btype)
+					-- copy pasta of above retail code
+					if spellID and spellType == "SPELL" and spellID ~= lastID then
+						-- Base spell = slot ID + name from slot ID
+						-- Real spell = ID from slot name + name from slot name
+						-- For the purposes of CoolLine we only care about the real spell.
+						lastID = spellID
+						spellName, _, _, _, _, _, spellID = GetSpellInfo(spellName)
+						if spellID then
+							-- Special spells like warlock Cauterize Master can be in
+							-- a limbo state during loading. Just ignore them in that
+							-- case. The spellbook will update again momentarily and
+							-- they will correctly resolve then.
+							local _, maxCharges = GetSpellCharges(spellID)
+							if maxCharges and maxCharges > 0 then
+								chargespells[btype][spellID] = spellName
+							else
+								local cd = GetSpellBaseCooldown(spellID)
+								if cd and cd > 2499 then
+									sb[spellID] = spellName
+						--			if specialspells[spellName] then
+						--				sb[ specialspells[spellName] ] = spellName
+						--			end
+								end
+							end
 						end
 					end
 				end
 			end
 		end
+
 	end
 	----------------------------------
 	function CoolLine:SPELLS_CHANGED()
@@ -510,7 +594,7 @@ do  -- scans spellbook to update cooldowns, throttled since the event fires a lo
 			local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(id)
 			if cooldownStart and cooldownDuration and currentCharges < maxCharges and not block[name] then
 				local _, _, texture = GetSpellInfo(id)
-				NewCooldown(name, texture, cooldownStart + cooldownDuration, bookType == BOOKTYPE_SPELL)
+				NewCooldown(name, texture, cooldownStart + cooldownDuration, btype == BOOKTYPE_SPELL)
 			else
 				ClearCooldown(nil, name)
 			end
@@ -542,7 +626,7 @@ do  -- scans equipments and bags for item cooldowns
 	---------------------------------------
 	function CoolLine:BAG_UPDATE_COOLDOWN()
 	---------------------------------------
-		for i = 1, (db.hideinv and 0) or INVSLOT_LAST_EQUIPPED do
+		for i = 1, (db.hideinv and 0) or 18 do
 			local start, duration, enable = GetInventoryItemCooldown("player", i)
 			if enable == 1 then
 				local name = GetItemInfo(GetInventoryItemLink("player", i))
@@ -580,7 +664,12 @@ function CoolLine:PET_BAR_UPDATE_COOLDOWN()
 	for i = 1, 10 do
 		local start, duration, enable = GetPetActionCooldown(i)
 		if enable == 1 then
-			local name, texture = GetPetActionInfo(i)
+			local name, _, texture
+			if IS_WOW_8 then
+				name, texture = GetPetActionInfo(i)
+			else
+				name, _, texture = GetPetActionInfo(i)
+			end
 			if name then
 				if start > 0 and not block[name] then
 					if duration > 3 then
@@ -628,7 +717,7 @@ function CoolLine:UNIT_ENTERED_VEHICLE()
 ------------------------------------------
 	if not UnitHasVehicleUI("player") then return end
 	self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-	-- self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
+	self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
 	self:ACTIONBAR_UPDATE_COOLDOWN()
 end
 -----------------------------------------
@@ -645,10 +734,14 @@ end
 
 local failborder
 ----------------------------------------------------
-function CoolLine:UNIT_SPELLCAST_FAILED(unit, _, spellId)
+function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell, id8)
 ----------------------------------------------------
+	if IS_WOW_8 then
+		spell = GetSpellInfo(id8) -- TEMPORARY, need to switch to using spell IDs throughout
+	end
+
 	if #cooldowns == 0 then return end
-	local spell = GetSpellInfo(spellId)
+
 	for index, frame in pairs(cooldowns) do
 		if frame.name == spell then
 			if frame.endtime - GetTime() > 1 then

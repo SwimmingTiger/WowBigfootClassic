@@ -387,6 +387,52 @@ local function __BUnitFrame_SetPosition(__frame)
 	BFSecureCall(__frame.SetPoint,__frame,__frame.position[1], __frame.position[2], __frame.position[3], __frame.position[4], __frame.position[5]);
 end
 
+local function __BUnitFrame_UpdateDebuff(__frame)
+	local color;
+	local debuffCount;
+	local name, icon, count, debuffType, duration, timeLeft;
+	for __i = 1, 4 do
+		local button = __frame.debuff[__i];
+		local debuffBorder = getglobal(__frame.debuff[__i]:GetName().."Border");
+		local debuffIcon = getglobal(__frame.debuff[__i]:GetName().."Icon");
+		local debuffCount = getglobal(__frame.debuff[__i]:GetName().."Count");
+		local debuffCooldown = getglobal(__frame.debuff[__i]:GetName().."Cooldown");
+		name, icon, count, debuffType, duration, timeLeft = UnitDebuff(__frame.unit, __i);
+		if ( icon ) then
+			debuffIcon:SetTexture(icon);
+			if ( debuffType ) then
+				color = DebuffTypeColor[debuffType];
+			else
+				color = DebuffTypeColor["none"];
+			end
+			if ( count > 1 ) then
+				debuffCount:SetText(count);
+				debuffCount:Show();
+			else
+				debuffCount:Hide();
+			end
+
+			-- Handle cooldowns
+			if duration then
+				if ( duration > 0 ) then
+					debuffCooldown:Show();
+					startCooldownTime = GetTime()-(duration-timeLeft);
+					CooldownFrame_Set(debuffCooldown, startCooldownTime, duration, 1);
+				else
+					debuffCooldown:Hide();
+				end
+			else
+				debuffCooldown:Hide();
+			end
+
+			debuffBorder:SetVertexColor(color.r, color.g, color.b);
+			button:Show();
+		else
+			button:Hide();
+		end
+	end
+end
+
 function BUEventor:CVAR_UPDATE(...)
 	-- if sys conf changed to show target, show targetframe
 	local var,value = ...
@@ -571,24 +617,25 @@ function BUnitFrame_OnLoad(self)
 	self:RegisterEvent("UNIT_SPELLCAST_CHANNEL_UPDATE");
 	self:RegisterEvent("UNIT_SPELLCAST_DELAYED");
 
-	self.healthBar = getglobal(self:GetName().."HealthBar");
-	self.manaBar = getglobal(self:GetName().."ManaBar");
-	self.portrait = getglobal(self:GetName().."Portrait");
-	self.portraitBackground = getglobal(self:GetName().."PortraitBackground");
-	self.spellTexture = getglobal(self:GetName().."SpellTexture");
-	self.background = getglobal(self:GetName().."Background");
-	self.textureFrame = getglobal(self:GetName().."TextureFrame");
-	self.artwork = getglobal(self:GetName().."TextureFrameTexture");
-	self.raidIcon = getglobal(self:GetName().."TextureFrameRaidTargetIcon");
-	self.name = getglobal(self:GetName().."TextureFrameName");
-	self.deadText = getglobal(self:GetName().."TextureFrameDeadText");
-	self.shine = getglobal(self:GetName().."ShineFrame");
-	self.shineTexture = getglobal(self:GetName().."ShineFrameTexture");
+	local selfName = self:GetName()
+	self.healthBar = getglobal(selfName.."HealthBar");
+	self.manaBar = getglobal(selfName.."ManaBar");
+	self.portrait = getglobal(selfName.."Portrait");
+	self.portraitBackground = getglobal(selfName.."PortraitBackground");
+	self.spellTexture = getglobal(selfName.."SpellTexture");
+	self.background = getglobal(selfName.."Background");
+	self.textureFrame = getglobal(selfName.."TextureFrame");
+	self.artwork = getglobal(selfName.."TextureFrameTexture");
+	self.raidIcon = getglobal(selfName.."TextureFrameRaidTargetIcon");
+	self.name = getglobal(selfName.."TextureFrameName");
+	self.deadText = getglobal(selfName.."TextureFrameDeadText");
+	self.shine = getglobal(selfName.."ShineFrame");
+	self.shineTexture = getglobal(selfName.."ShineFrameTexture");
 	self.debuff = {};
-	self.debuff[1] = getglobal(self:GetName().."Debuff1");
-	self.debuff[2] = getglobal(self:GetName().."Debuff2");
-	self.debuff[3] = getglobal(self:GetName().."Debuff3");
-	self.debuff[4] = getglobal(self:GetName().."Debuff4");
+	self.debuff[1] = getglobal(selfName.."Debuff1");
+	self.debuff[2] = getglobal(selfName.."Debuff2");
+	self.debuff[3] = getglobal(selfName.."Debuff3");
+	self.debuff[4] = getglobal(selfName.."Debuff4");
 
 	self.spellTexture:Hide();
 
@@ -599,7 +646,7 @@ end
 function BUnitFrame_OnShow(self)
 	__BUnitFrame_Update(self);
 	if self.unit then
-		BUnitFrame_UpdateDebuff(self);
+		__BUnitFrame_UpdateDebuff(self);
 	end
 end
 
@@ -621,7 +668,6 @@ function BUnitFrame_OnEvent(self, event, ...)
 	end
 
 	local __unit = ...;
-
 	if not __unit then __unit = "" end
 	if not self.unit then self.unit = "" end
 
@@ -706,58 +752,13 @@ function BUnitFrame_OnEvent(self, event, ...)
 		self.casting = nil;
 	elseif (event == "UNIT_AURA") then
 		if (self.unit and UnitIsUnit(__unit, self.unit)) then
-			BUnitFrame_UpdateDebuff(self);
-		end
-	end
-end
-
-function BUnitFrame_UpdateDebuff(__frame)
-	local color;
-	local debuffCount;
-	local name, icon, count, debuffType, duration, timeLeft;
-	for __i = 1, 4, 1 do
-		local button = __frame.debuff[__i];
-		local debuffBorder = getglobal(__frame.debuff[__i]:GetName().."Border");
-		local debuffIcon = getglobal(__frame.debuff[__i]:GetName().."Icon");
-		local debuffCount = getglobal(__frame.debuff[__i]:GetName().."Count");
-		local debuffCooldown = getglobal(__frame.debuff[__i]:GetName().."Cooldown");
-		name, icon, count, debuffType, duration, timeLeft = UnitDebuff(__frame.unit, __i);
-		if ( icon ) then
-			debuffIcon:SetTexture(icon);
-			if ( debuffType ) then
-				color = DebuffTypeColor[debuffType];
-			else
-				color = DebuffTypeColor["none"];
-			end
-			if ( count > 1 ) then
-				debuffCount:SetText(count);
-				debuffCount:Show();
-			else
-				debuffCount:Hide();
-			end
-
-			-- Handle cooldowns
-			if ( duration  ) then
-				if ( duration > 0 ) then
-					debuffCooldown:Show();
-					startCooldownTime = GetTime()-(duration-timeLeft);
-					CooldownFrame_Set(debuffCooldown, startCooldownTime, duration, 1);
-				else
-					debuffCooldown:Hide();
-				end
-			else
-				debuffCooldown:Hide();
-			end
-
-			debuffBorder:SetVertexColor(color.r, color.g, color.b);
-			button:Show();
-		else
-			button:Hide();
+			__BUnitFrame_UpdateDebuff(self);
 		end
 	end
 end
 
 function BUnitFrame_OnUpdate(self, elapsed)
+	__BUnitFrame_Update(self);
 	if not self.startTime then
 		return;
 	end
@@ -770,9 +771,8 @@ function BUnitFrame_OnUpdate(self, elapsed)
 	if (self.last > __BUNITFRAME_UPDATE_INTERVAL) then
 		self.last = 0;
 
-		__BUnitFrame_Update(self);
 		if self.unit then
-			BUnitFrame_UpdateDebuff(self);
+			__BUnitFrame_UpdateDebuff(self);
 		end
 	end
 
