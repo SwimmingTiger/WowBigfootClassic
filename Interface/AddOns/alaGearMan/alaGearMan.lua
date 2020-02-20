@@ -280,6 +280,8 @@ local takeoffAll_order = {	-- by price
 	16, 17, 18, 1, 5, 7, 3, 6, 8, 10, 9, 2, 11, 12, 13, 14, 15,--[[ 4,]]--[[ 19,]]
 };
 local NAME = "alaGearMan";
+local SECURE_QUICK_NAME_PREFIX = "alaGearMan_SecureQuick";
+local MACRO_NAME_PREFIX = "alaGearMan";
 local VERSION = 191020.0;
 local NUM_GEAR_BINDING = 9;
 --------------------------------------------------
@@ -297,7 +299,7 @@ local PDF_COUNTING_TIME = 0.5;
 local PDF_UPDATE_TIME = 0.5;
 local num_button_per_line = 6;
 local buttonSize = 36;
-local texture_unk = "Interface\\Icons\\inv_misc_questionmark";
+local texture_unk = 134400;	--"Interface\\Icons\\inv_misc_questionmark";
 local texture_takeoff = "Interface\\paperdollinfoframe\\ui-gearmanager-leaveitem-opaque";
 local texture_ignore = "Interface\\paperdollinfoframe\\ui-gearmanager-undo";
 local texture_add = "interface\\paperdollinfoframe\\character-plus";
@@ -697,7 +699,13 @@ StaticPopupDialogs["alaGearMan_DelSet"] = {
 	button1 = L["OK"],
 	button2 = L["Cancel"],
 	OnShow = function(self) end,
-	OnAccept = function(self) func.delete_onclick(); end,
+	OnAccept = function(self)
+		func.delete_onclick();
+		self.which = nil;
+	end,
+	OnHide = function(self)
+		self.which = nil;
+	end,
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
@@ -713,6 +721,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	button:SetBackdropBorderColor(buttonBackdropBorderColor[1], buttonBackdropBorderColor[2], buttonBackdropBorderColor[3], buttonBackdropBorderColor[4]);
 	button:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar");
 	button:EnableMouse(true);
+	button:RegisterForDrag("LeftButton");
 	button:Show();
 
 	local icon = button:CreateTexture(nil, "OVERLAY");
@@ -869,6 +878,13 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 		GameTooltip:Show();
 	end);
 	button:SetScript("OnLeave", func.OnLeave_Info);
+	button:SetScript("OnDragStart", function(self)
+		local index = button:GetDataIndex();
+		local macro_name = MACRO_NAME_PREFIX .. index;
+		if GetMacroInfo(macro_name) then
+			PickupMacro(macro_name);
+		end
+	end);
 
 	button.id = index;
 
@@ -1200,7 +1216,7 @@ function func.initUI()
 		ui.quick:Hide();
 	end
 
-	do	--secure quick panel
+	do	--secure quick panel & macro
 		ui.secure = CreateFrame("frame", nil, UIParent);
 		ui.secure:SetPoint(unpack(alaGearManSV.quickPos));
 		ui.secure:EnableMouse(true);
@@ -1234,7 +1250,7 @@ function func.initUI()
 				secureButtons[index].id = index;
 				return secureButtons[index];
 			end
-			local button = CreateFrame("CheckButton", "alaGearMan_SecureQuick" .. index, ui.secure, "SecureActionButtonTemplate");
+			local button = CreateFrame("CheckButton", SECURE_QUICK_NAME_PREFIX .. index, ui.secure, "SecureActionButtonTemplate");
 			button:SetAttribute('type', 'macro');
 			-- button:SetAttribute('macrotext', '');
 			-- SecureHandler_OnLoad(button);
@@ -1395,6 +1411,14 @@ function func.initUI()
 			end
 			secureButtons.n = N;
 			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
+			for i = 1, #saved_sets do
+				local macro_name = MACRO_NAME_PREFIX .. i;
+				if GetMacroInfo(macro_name) then
+					EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. i);
+				else
+					CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. i);
+				end
+			end
 			for i = 1, N do
 				local button = secureButtons[i];
 				button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
@@ -1757,19 +1781,30 @@ function func.equipItem2(item1, item2, slot1, slot2)
 	local bindType2 = ID2 and select(14,GetItemInfo(ID2));
 	local not_checkBound1 = not (bindType1 == 2 or bindType1 == 3);
 	local not_checkBound2 = not (bindType2 == 2 or bindType2 == 3);
-	local equipped1 = (not item1) or (GetInventoryItemLink('player', slot1) == item1);
-	local equipped2 = (not item2) or (GetInventoryItemLink('player', slot2) == item2);
+	local link1 = GetInventoryItemLink('player', slot1);
+	local link2 = GetInventoryItemLink('player', slot2);
+	local id1 = GetInventoryItemID('player', slot1);
+	local id2 = GetInventoryItemID('player', slot2);
+	local equipped1 = (not item1) or (link1 == item1);
+	local equipped2 = (not item2) or (link2 == item2);
 	ClearCursor();
-	if GetInventoryItemID('player', slot1) == ID2 and GetInventoryItemID('player', slot1) ~= ID1 then
-		PickupInventoryItem(slot1);
-		EquipCursorItem(slot2);
-		equipped2 = true;
-		return;
+	if not equipped2 or not equipped1 then
+		if link1 == item2 and link1 ~= item1 then
+			PickupInventoryItem(slot1);
+			EquipCursorItem(slot2);
+			equipped2 = true;
+			link1, link2 = link2, link1;
+			equipped1 = (not item1) or (link1 == item1);
+		end
+		if not equipped1 and link2 == item1 and link2 ~= item2 then
+			PickupInventoryItem(slot2);
+			EquipCursorItem(slot1);
+			equipped1 = true;
+			link1, link2 = link2, link1;
+			equipped2 = (not item2) or (link2 == item2);
+		end
 	end
-	if GetInventoryItemID('player', slot2) == ID1 and GetInventoryItemID('player', slot2) ~= ID2 then
-		PickupInventoryItem(slot2);
-		EquipCursorItem(slot1);
-		equipped1 = true;
+	if equipped1 and equipped2 then
 		return;
 	end
 	for i = var.isBankOpened and -1 or 0, var.isBankOpened and 11 or 4 do
@@ -1778,8 +1813,7 @@ function func.equipItem2(item1, item2, slot1, slot2)
 				return;
 			end
 			local link = GetContainerItemLink(i, j);
-			local id = GetContainerItemID(i, j);
-			if not equipped1 and ((link and link == item1) or (id and id == ID1)) then
+			if not equipped1 and (link and link == item1) then
 				var.itemLoc:SetBagAndSlot(i, j);
 				if not_checkBound1 or C_Item.IsBound(var.itemLoc) then
 					-- tinsert(var.bagItemCache1, true);
@@ -1792,7 +1826,7 @@ function func.equipItem2(item1, item2, slot1, slot2)
 					tinsert(var.bagItemCache1, j);
 					-- tinsert(var.bagItemCache1, false);
 				end
-			elseif not equipped2 and ((link and link == item2) or (id and id == ID2)) then
+			elseif not equipped2 and (link and link == item2) then
 				var.itemLoc:SetBagAndSlot(i, j);
 				if not_checkBound2 or C_Item.IsBound(var.itemLoc) then
 					-- tinsert(var.bagItemCache1, true);
@@ -1809,6 +1843,60 @@ function func.equipItem2(item1, item2, slot1, slot2)
 		end
 	end
 	-- EquipItemByName(item, slot);
+	if not equipped2 or not equipped1 then
+		if id1 == ID2 and id1 ~= ID1 then
+			PickupInventoryItem(slot1);
+			EquipCursorItem(slot2);
+			equipped2 = true;
+			id1, id2 = id2, id1;
+			equipped1 = (not ID1) or (id1 == ID1);
+		end
+		if not equipped1 and id2 == ID1 and id2 ~= ID2 then
+			PickupInventoryItem(slot2);
+			EquipCursorItem(slot1);
+			equipped1 = true;
+			id1, id2 = id2, id1;
+			equipped2 = (not ID2) or (id2 == ID2);
+		end
+	end
+	if equipped1 and equipped2 then
+		return;
+	end
+	for i = var.isBankOpened and -1 or 0, var.isBankOpened and 11 or 4 do
+		for j = 1, GetContainerNumSlots(i) do
+			if equipped1 and equipped2 then
+				return;
+			end
+			local id = GetContainerItemID(i, j);
+			if not equipped1 and (id and id == ID1) then
+				var.itemLoc:SetBagAndSlot(i, j);
+				if not_checkBound1 or C_Item.IsBound(var.itemLoc) then
+					-- tinsert(var.bagItemCache1, true);
+					PickupContainerItem(i, j);
+					EquipCursorItem(slot1);
+					equipped1 = true;
+					-- return;
+				else
+					tinsert(var.bagItemCache1, i);
+					tinsert(var.bagItemCache1, j);
+					-- tinsert(var.bagItemCache1, false);
+				end
+			elseif not equipped2 and (id and id == ID2) then
+				var.itemLoc:SetBagAndSlot(i, j);
+				if not_checkBound2 or C_Item.IsBound(var.itemLoc) then
+					-- tinsert(var.bagItemCache1, true);
+					PickupContainerItem(i, j);
+					EquipCursorItem(slot2);
+					equipped2 = true;
+					-- return;
+				else
+					tinsert(var.bagItemCache2, i);
+					tinsert(var.bagItemCache2, j);
+					-- tinsert(var.bagItemCache1, false);
+				end
+			end
+		end
+	end
 	if not equipped1 and #var.bagItemCache1 > 0 then
 		PickupContainerItem(var.bagItemCache1[1], var.bagItemCache1[2]);
 		EquipCursorItem(slot1);
@@ -1829,8 +1917,25 @@ function func.equipItem(item, slot)
 	for i = var.isBankOpened and -1 or 0, var.isBankOpened and 11 or 4 do
 		for j = 1, GetContainerNumSlots(i) do
 			local link = GetContainerItemLink(i, j);
+			if link and link == item then
+				var.itemLoc:SetBagAndSlot(i, j);
+				if not_checkBound or C_Item.IsBound(var.itemLoc) then
+					-- tinsert(var.bagItemCache1, true);
+					PickupContainerItem(i, j);
+					EquipCursorItem(slot);
+					return;
+				else
+					tinsert(var.bagItemCache1, i);
+					tinsert(var.bagItemCache1, j);
+					-- tinsert(var.bagItemCache1, false);
+				end
+			end
+		end
+	end
+	for i = var.isBankOpened and -1 or 0, var.isBankOpened and 11 or 4 do
+		for j = 1, GetContainerNumSlots(i) do
 			local id = GetContainerItemID(i, j);
-			if (link and link == item) or (id and id == ID) then
+			if id and id == ID then
 				var.itemLoc:SetBagAndSlot(i, j);
 				if not_checkBound or C_Item.IsBound(var.itemLoc) then
 					-- tinsert(var.bagItemCache1, true);

@@ -61,7 +61,7 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	local ofsIndex = 0;
 	local numValue = -1;
 
-	local sbWidth = 20;
+	local sbWidth = 16;
 	local sfWidth = width - sbWidth;
 
 	scrollFrame:Show();
@@ -82,6 +82,13 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		--scrollBar:SetValue(mscrollBar:GetValue());
 		scrollChild:CreateScrollChildButtons();
 		scrollFrame:Update();
+	end
+	function scrollFrame:SetButtonHeight(height)
+		if buttonHeight == height then
+			return;
+		end
+		buttonHeight = height;
+		scrollFrame:OnSizeChanged();
 	end
 	-- scrollFrame._SetSize = scrollFrame.SetSize;
 	-- function scrollFrame:SetSize(...)
@@ -238,28 +245,28 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		left:SetWidth(2);
 		left:SetPoint("TOPLEFT");
 		left:SetPoint("BOTTOMLEFT");
-		left:SetColorTexture(0.0, 0.0, 0.0, 1.0);
+		left:SetColorTexture(0.15, 0.15, 0.15, 1.0);
 		local right = scrollBar:CreateTexture(nil, "ARTWORK");
 		right:SetWidth(2);
 		right:SetPoint("TOPRIGHT");
 		right:SetPoint("BOTTOMRIGHT");
-		right:SetColorTexture(0.0, 0.0, 0.0, 1.0);
+		right:SetColorTexture(0.15, 0.15, 0.15, 1.0);
 		local top = scrollBar:CreateTexture(nil, "ARTWORK");
 		top:SetHeight(2);
 		top:SetPoint("TOPLEFT");
 		top:SetPoint("TOPRIGHT");
-		top:SetColorTexture(0.0, 0.0, 0.0, 1.0);
+		top:SetColorTexture(0.15, 0.15, 0.15, 1.0);
 		local bot = scrollBar:CreateTexture(nil, "ARTWORK");
 		bot:SetHeight(2);
 		bot:SetPoint("BOTTOMLEFT");
 		bot:SetPoint("BOTTOMRIGHT");
-		bot:SetColorTexture(0.0, 0.0, 0.0, 1.0);
+		bot:SetColorTexture(0.15, 0.15, 0.15, 1.0);
 	end
 	scrollBar:SetThumbTexture("Interface\\Buttons\\UI-ScrollBar-Knob");
 	local thumb = scrollBar:GetThumbTexture();
-	thumb:SetSize(18, 24);
+	thumb:SetSize(sbWidth - 2, 24);
 	thumb:SetTexCoord(0.20, 0.80, 0.125, 0.875);
-	thumb:SetColorTexture(0.05, 0.05, 0.05, 1.0);
+	thumb:SetColorTexture(0.25, 0.25, 0.25, 1.0);
 
 	scrollBar:SetScript("OnValueChanged", function(self, value)
 		value = value or scrollBar:GetValue();
