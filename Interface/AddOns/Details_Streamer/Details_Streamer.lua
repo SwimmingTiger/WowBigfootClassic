@@ -2092,13 +2092,13 @@ function StreamOverlay:OnEvent (_, event, ...)
 						local icon = welcome_window:CreateTexture (nil, "overlay")
 						icon:SetTexture ([[Interface\MINIMAP\MOVIERECORDINGICON]])
 						local title = welcome_window:CreateFontString (nil, "overlay", "GameFontNormal")
-						title:SetText ("Details!: Streamer (plugin)")
+						title:SetText ("Details!: Streamer (主播插件)")
 						StreamOverlay:SetFontSize (title, 20)
 						
 						local text1 = welcome_window:CreateFontString (nil, "overlay", "GameFontNormal")
-						text1:SetText ("If you are a Streamer or Youtuber, you might want to take a look at the Details! Streamer plugin.")
+						text1:SetText ("如果你是主播或UP主，你可能会想了解 Details! Streamer 主播插件。")
 						local text2 = welcome_window:CreateFontString (nil, "overlay", "GameFontNormal")
-						text2:SetText ("Go to Options Panel -> Plugin Management and enable the Streamer plugin.")
+						text2:SetText ("前往“选项面板 -> 插件管理”启用 Details! Streamer 主播插件。")
 						
 						icon:SetPoint ("topleft", welcome_window, "topleft", 10, -60)
 						
