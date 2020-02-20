@@ -1,26 +1,29 @@
 local mod	= DBM:NewMod("Firemaw", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200213221943")
+mod:SetRevision("20200217192345")
 mod:SetCreatureID(11983)
 mod:SetEncounterID(613)
 mod:SetModelID(6377)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 23339 22539"
+	"SPELL_CAST_START 23339 22539",
+	"SPELL_AURA_APPLIED_DOSE 23341"
 )
 
---(ability.id = 23339 or ability.id = 22539) and type = "begincast"
+--(ability.id = 23339 or ability.id = 22539) and type = "begincast" or ability.id = 23341 and type = "cast"
 local warnWingBuffet		= mod:NewCastAnnounce(23339, 2)
 local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
---local warnFlameBuffet		= mod:NewSpellAnnounce(23341)
+local warnFlameBuffet		= mod:NewStackAnnounce(23341, 3)
 
 local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)--Verified on classic 31-36
---local timerShadowFlameCD	= mod:NewCDTimer(14, 22539)--14-21
+local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
 
 function mod:OnCombatStart(delay)
+	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(30-delay)
+	DBM:AddMsg("Flame Buffet doesn't have a timer because something that is spammed every 2 sec doesn't need a timer. Shadowflame timer off by default because 14-21sec variance.")
 end
 
 do
@@ -33,18 +36,20 @@ do
 		--elseif args.spellId == 22539 then
 		elseif args.spellName == ShadowFlame then
 			warnShadowFlame:Show()
-			--timerShadowFlameCD:Start()
+			timerShadowFlameCD:Start()
 		end
 	end
 end
 
---[[
 do
 	local FlameBuffet = DBM:GetSpellInfo(23341)
-	function mod:SPELL_CAST_SUCCESS(args)
+	function mod:SPELL_AURA_APPLIED_DOSE(args)
 		--if args.spellId == 23341 then
-		if args.spellName == FlameBuffet then
-			warnFlameBuffet:Show()
+		if args.spellName == FlameBuffet and args:IsPlayer() then
+			local amount = args.amount or 1
+			if (amount >= 4) and (amount % 2 == 0) then--Starting at 4, every even amount warn stack
+				warnFlameBuffet:Show(amount)
+			end
 		end
 	end
-end--]]
+end

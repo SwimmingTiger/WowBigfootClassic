@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("FenrustheDevourer", "DBM-Party-Classic", 14)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191115140050")
+mod:SetRevision("20191212165728")
 mod:SetCreatureID(4274)
 
 mod:RegisterCombat("combat")

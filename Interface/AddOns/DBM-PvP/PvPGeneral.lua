@@ -5,7 +5,7 @@ local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20200118193210")
+mod:SetRevision("20200213190516")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
@@ -17,7 +17,6 @@ mod:RegisterEvents(
 	"PLAYER_ENTERING_WORLD",
 	"PLAYER_DEAD",
 	"START_TIMER"
---	"UPDATE_BATTLEFIELD_STATUS"
 )
 
 do
@@ -95,33 +94,6 @@ do
 	end
 end
 
---[[
-do
-	local format, tostring = string.format, tostring
-	local GetBattlefieldStatus, GetBattlefieldPortExpiration, PVP_TEAMSIZE = GetBattlefieldStatus, GetBattlefieldPortExpiration, PVP_TEAMSIZE
-	-- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
-	local inviteTimer = mod:NewTimer(60, "TimerInvite", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485")
-
-	function mod:UPDATE_BATTLEFIELD_STATUS(queueID)
-		if self.Options.TimerInvite then
-			local status, mapName, _, _, _, teamSize = GetBattlefieldStatus(queueID)
-			if status == "confirm" then
-				if teamSize == "ARENASKIRMISH" then
-					mapName = L.ArenaInvite .. " " .. format(PVP_TEAMSIZE, tostring(teamSize), tostring(teamSize))
-				end
-				inviteTimer:Stop(mapName)
-				local expiration = GetBattlefieldPortExpiration(queueID)
-				if inviteTimer:GetTime(mapName) == 0 and expiration >= 3 then
-					inviteTimer:Start(expiration, mapName)
-				end
-			elseif status == "none" or status == "active" then
-				inviteTimer:Stop()
-			end
-		end
-	end
-end
---]]
-
 -- Utility functions
 local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText
 
@@ -179,8 +151,8 @@ local function HideBasesToWin()
 	end
 end
 
-local subscribedMapID, numObjectives, objectivesStore = 0, {}
-local objectives
+local subscribedMapID = 0
+local objectives, numObjectives, objectivesStore
 
 function mod:SubscribeAssault(mapID, objects)
 	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
@@ -291,17 +263,29 @@ do
 	}
 
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
+		local resPerSec = resourcesPerSec[numObjectives]
 		-- Start debug
-		if prevAScore ~= allianceScore then
+		if prevAScore == 0 then
+			prevAScore = allianceScore
+		end
+		if prevAScore ~= allianceScore and allianceScore < maxScore then
+			if (allianceScore - prevAScore) ~= resPerSec[allianceBases + 1] and DBM:AntiSpam(30, "PvPAWarn") then
+				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (A," .. (allianceScore - prevAScore) .. "," .. allianceBases .. "," .. resPerSec[allianceBases + 1]  .. ")")
+			end
 			DBM:Debug("Alliance: +" .. allianceScore - prevAScore .. " (" .. allianceBases .. ")")
 			prevAScore = allianceScore
 		end
-		if prevHScore ~= hordeScore then
+		if prevHScore == 0 then
+			prevHScore = hordeScore
+		end
+		if prevHScore ~= hordeScore and hordeScore < maxScore then
+			if (hordeScore - prevHScore) ~= resPerSec[hordeBases + 1] and DBM:AntiSpam(30, "PvPHWarn") then
+				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (H," .. (hordeScore - prevHScore) .. "," .. hordeBases .. "," .. resPerSec[hordeBases + 1]  .. ")")
+			end
 			DBM:Debug("Horde: +" .. hordeScore - prevHScore .. " (" .. hordeBases .. ")")
 			prevHScore = hordeScore
 		end
 		-- End debug
-		local resPerSec = resourcesPerSec[numObjectives]
 		local gameTime = GetTime()
 		local allyTime = math.min(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1])
 		local hordeTime = math.min(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1])
@@ -391,9 +375,9 @@ do
 							isHordeCapping = infoTexture == capStates[3]
 						end
 					end
-					if objectivesStore[infoName] ~= atlasName and atlasName or infoTexture then
+					if objectivesStore[infoName] ~= (atlasName and atlasName or infoTexture) then
 						capTimer:Stop(infoName)
-						objectivesStore[infoName] = checkState
+						objectivesStore[infoName] = (atlasName and atlasName or infoTexture)
 						if not ignoredAtlas[subscribedMapID] and (isAllyCapping or isHordeCapping) then
 							capTimer:Start(nil, infoName)
 							if isAllyCapping then

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CharlgaRazorflank", "DBM-Party-Classic", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191115140050")
+mod:SetRevision("20191212165728")
 mod:SetCreatureID(4421)
 --mod:SetEncounterID(1661)
 

@@ -10,7 +10,7 @@ DBM_CORE_LOAD_GUI_COMBAT			= "GUI cannot be initially loaded in combat. GUI will
 DBM_CORE_BAD_LOAD					= "DBM has detected your mod for this instance failed to fully load correctly because of combat. As soon as you are out of combat, please do /console reloadui as soon as possible."
 DBM_CORE_LOAD_MOD_VER_MISMATCH		= "%s could not be loaded because your DBM-Core does not meet requirements. An updated version is required"
 DBM_CORE_LOAD_MOD_EXP_MISMATCH		= "%s could not be loaded because it is designed for a WoW expansion that's not currently available. When expansion becomes available, this mod will automatically work."
-DBM_CORE_LOAD_MOD_TOC_MISMATCH		= "%s could not be loaded because it is designed for a WoW patch (%s) that's not currently available. When patch becomes available, this mod will automatically work."
+DBM_CORE_LOAD_MOD_TOC_MISMATCH		= "%s could not be loaded because it is not designed for Classic WoW. You likely installed a retail version of a module. Remove this module and use only addons designed for Classic World of Warcraft"
 DBM_CORE_LOAD_MOD_DISABLED			= "%s is installed but currently disabled. This mod will not be loaded unless you enable it."
 DBM_CORE_LOAD_MOD_DISABLED_PLURAL	= "%s are installed but currently disabled. These mods will not be loaded unless you enable them."
 

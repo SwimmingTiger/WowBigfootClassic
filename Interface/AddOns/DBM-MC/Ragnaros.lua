@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200207003205")
+mod:SetRevision("20200217192345")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
-mod:SetHotfixNoticeRev(20200206000000)--2020, 01, 06
-mod:SetMinSyncRevision(20200206000000)
+mod:SetHotfixNoticeRev(20200217000000)--2020, 02, 17
+mod:SetMinSyncRevision(20200217000000)
 
 mod:RegisterCombat("combat")
 
@@ -98,7 +98,7 @@ function mod:UNIT_DIED(args)
 		if not addsGuidCheck[guid] then
 			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
-			if self.vb.addLeft == 0 then--After all 8 die he emerges immediately
+			if not self.vb.ragnarosEmerged and self.vb.addLeft == 0 then--After all 8 die he emerges immediately
 				self:Unschedule(emerged)
 				emerged(self)
 			end

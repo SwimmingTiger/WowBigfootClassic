@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191220171107")
+mod:SetRevision("20200218181153")
 mod:SetCreatureID(12056)
 mod:SetEncounterID(668)
 mod:SetModelID(12129)
@@ -20,7 +20,6 @@ mod:RegisterEventsInCombat(
 (ability.id = 19695 or ability.id = 19659 or ability.id = 20478) and type = "cast"
 --]]
 local warnInferno		= mod:NewSpellAnnounce(19695, 3)
---local warnIgnite		= mod:NewSpellAnnounce(19659, 2)
 local warnBomb			= mod:NewTargetNoFilterAnnounce(20475, 4)
 local warnArmageddon	= mod:NewSpellAnnounce(20478, 3)
 
@@ -37,7 +36,7 @@ local timerBombCD		= mod:NewCDTimer(13.3, 20475, nil, nil, nil, 3)--13.3-18.3
 local timerBomb			= mod:NewTargetTimer(8, 20475, nil, nil, nil, 3)
 local timerArmageddon	= mod:NewCastTimer(8, 20478, nil, nil, nil, 2)
 
-mod:AddSetIconOption("SetIconOnBombTarget", 20475)
+mod:AddSetIconOption("SetIconOnBombTarget", 20475, false, false, {8})
 
 function mod:OnCombatStart(delay)
 	--timerIgniteManaCD:Start(7-delay)--7-19, too much variation for first

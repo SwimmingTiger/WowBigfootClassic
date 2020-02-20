@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gehennas", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191205233110")
+mod:SetRevision("20191212165728")
 mod:SetCreatureID(12259)--, 11661
 mod:SetEncounterID(665)
 mod:SetModelID(13030)

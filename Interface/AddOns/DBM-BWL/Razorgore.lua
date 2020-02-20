@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200214232222")
+mod:SetRevision("20200217192345")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
 mod:SetEncounterID(610)--BOSS_KILL is valid, but ENCOUNTER_END is not
 mod:DisableEEKillDetection()--So disable only EE
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
---(ability.id = 23040 or ability.id = 19873) and type = "cast"
+--ability.id = 22425 and type = "begincast" or (ability.id = 23040 or ability.id = 19873) and type = "cast"
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local warnFireballVolley	= mod:NewCastAnnounce(22425, 3)
 local warnConflagration		= mod:NewTargetNoFilterAnnounce(23023, 2)
@@ -37,6 +37,7 @@ function mod:OnCombatStart(delay)
 	timerAddsSpawn:Start()
 	self.vb.phase = 1
 	self.vb.eggsLeft = 30
+	DBM:AddMsg("Fireball Volley: 17.8-39.8 (Stage 2). Timers for this wouldn't be very helpful")
 end
 
 do
