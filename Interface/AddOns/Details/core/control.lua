@@ -817,7 +817,7 @@
 				--8.0.1 miss data isn't required at the moment, spells like akari's soul has been removed from the game
 				--_detalhes:CanSendMissData()
 				
-				if (_detalhes.data_sync and zoneType == "raid") then
+				if ((_detalhes.data_sync or true) and zoneType == "raid") then
 					_detalhes:SendRaidDataNonEqualizedSchedule()
 					_detalhes:EqualizeActorsSchedule (false)
 				end

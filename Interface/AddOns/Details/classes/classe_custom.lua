@@ -149,6 +149,7 @@
 		local total = 0
 		local top = 0
 		local amount = 0
+		local okey
 		
 		--> check if is a custom script
 		if (custom_object:IsScripted()) then
@@ -589,7 +590,11 @@
 				row.texto_direita:SetText (SelectedToKFunction (_, value) .. bars_brackets[1] .. percent .. bars_brackets[2])
 				
 			else
-				row.texto_direita:SetText (value .. bars_brackets[1] .. percent .. bars_brackets[2])
+				if (percent ~= "") then
+					row.texto_direita:SetText (value .. bars_brackets[1] .. percent .. bars_brackets[2])
+				else
+					row.texto_direita:SetText (value .. ")")
+				end
 			end
 		else
 			local formated_value = SelectedToKFunction (_, self.value)
@@ -597,6 +602,7 @@
 			if (UsingCustomRightText) then
 				row.texto_direita:SetText (_string_replace (instance.row_info.textR_custom_text, formated_value, "", percent, self, combat, instance, rightText))
 			else
+				rightText = rightText:gsub("%(%)", "")
 				row.texto_direita:SetText (rightText)
 			end
 		end
@@ -1915,7 +1921,7 @@
 			desc = Loc ["STRING_CUSTOM_MYSPELLS_DESC"],
 			source = false,
 			target = false,
-			script_version = 8,
+			script_version = 9,
 			script = [[
 				--get the parameters passed
 				local combat, instance_container, instance = ...
@@ -2173,6 +2179,12 @@
 				local percent = string.format ("%.1f", value/total*100)
 				return dps .. ", " .. percent
 			]],
+
+			total_script = [[local value, top, total, combat, instance = ...
+			local dps = _detalhes:ToK (floor (value) / combat:GetCombatTime())
+			local percent = string.format ("%.1f", value/total*100)
+
+			return math.floor (value) .. " (" .. dps .. ", " .. percent .. ""]]
 		}
 
 		local have = false
@@ -2434,49 +2446,58 @@
 			desc = "Show overall damage done on the fly.",
 			source = false,
 			target = false,
-			script_version = 5,
+			script_version = 6,
 			script = [[
 				--init:
 				local combat, instance_container, instance = ...
 				local total, top, amount = 0, 0, 0
-
+				
 				--get the overall combat
 				local OverallCombat = Details:GetCombat (-1)
 				--get the current combat
 				local CurrentCombat = Details:GetCombat (0)
-
+				
+				--check if the actor list of overall and current combat is valid
 				if (not OverallCombat.GetActorList or not CurrentCombat.GetActorList) then
-				    return 0, 0, 0
+					return 0, 0, 0
 				end
-
+				
 				--get the damage actor container for overall
 				local damage_container_overall = OverallCombat:GetActorList ( DETAILS_ATTRIBUTE_DAMAGE )
 				--get the damage actor container for current
 				local damage_container_current = CurrentCombat:GetActorList ( DETAILS_ATTRIBUTE_DAMAGE )
-
+				
+				--check if the results from getactorlist is a table and has more than 1 actor on it
+				if (type (damage_container_overall) ~= "table") then
+					return 0, 0, 0
+				end
+				
 				--do the loop:
 				for _, player in ipairs ( damage_container_overall ) do 
-				    --only player in group
-				    if (player:IsGroupPlayer()) then
-					instance_container:AddValue (player, player.total)
-				    end
-				end
-
-				if (Details.in_combat) then
-				    for _, player in ipairs ( damage_container_current ) do 
 					--only player in group
-					if (player:IsGroupPlayer()) then
-					    instance_container:AddValue (player, player.total)        
+					if (player and player:IsGroupPlayer()) then
+						instance_container:AddValue (player, player.total)
 					end
-				    end
 				end
-
+				
+				--does the player is in combat?
+				--if true need to add the data from the current fight as well
+				if (UnitAffectingCombat("player")) then
+					for _, player in ipairs ( damage_container_current ) do 
+						--only player in group
+						if (player and player:IsGroupPlayer()) then
+							instance_container:AddValue (player, player.total)        
+						end
+					end
+				end
+				
 				total, top =  instance_container:GetTotalAndHighestValue()
 				amount =  instance_container:GetNumActors()
-
+				
 				--return:
 				return total, top, amount
 			]],
+
 			tooltip = [[
 				--get the parameters passed
 				local actor, combat, instance = ...
@@ -2494,10 +2515,12 @@
 				
 				--overall
 				local player = OverallCombat [1]:GetActor (actor.nome)
-				local playerSpells = player:GetSpellList()
-				for spellID, spellTable in pairs (playerSpells) do
-					local spellName, _, spellIcon = Details.GetSpellInfoC  (spellID)
-					AllSpells [spellName] = spellTable.total
+				if (player) then
+					local playerSpells = player:GetSpellList()
+					for spellID, spellTable in pairs (playerSpells) do
+						local spellName, _, spellIcon = Details.GetSpellInfoC  (spellID)
+						AllSpells [spellName] = spellTable.total
+					end
 				end
 				
 				--current
@@ -2529,7 +2552,6 @@
 						GameCooltip:AddIcon (spellIcon, 1, 1, _detalhes.tooltip.line_height, _detalhes.tooltip.line_height)
 					end
 				end
-
 			]],
 			
 			total_script = [[
@@ -2537,23 +2559,23 @@
 
 				--get the time of overall combat
 				local OverallCombatTime = Details:GetCombat (-1):GetCombatTime()
-
+				
 				--get the time of current combat if the player is in combat
 				if (Details.in_combat) then
-				    local CurrentCombatTime = Details:GetCombat (0):GetCombatTime()
-				    OverallCombatTime = OverallCombatTime + CurrentCombatTime
+					local CurrentCombatTime = Details:GetCombat (0):GetCombatTime()
+					OverallCombatTime = OverallCombatTime + CurrentCombatTime
 				end
-
+				
 				--build the string
 				local ToK = Details:GetCurrentToKFunction()
 				local s = ToK (_, value / OverallCombatTime)
 				
 				if (instance.row_info.textR_show_data[3]) then
-				    s = ToK (_, value) .. " (" .. s .. ", "
+					s = ToK (_, value) .. " (" .. s .. ", "
 				else
-				    s = ToK (_, value) .. " (" .. s
+					s = ToK (_, value) .. " (" .. s
 				end
-
+				
 				return s
 			]],
 		}

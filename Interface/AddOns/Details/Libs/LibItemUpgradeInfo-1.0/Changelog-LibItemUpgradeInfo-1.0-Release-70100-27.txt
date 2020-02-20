@@ -1,0 +1,15 @@
+tag Release-70100-27
+668bcb5dce884661ecde0cc274683fcee6e3611c
+Alar of Runetotem <alar@aspide.it>
+2016-10-30 19:44:44 +0100
+
+Looks like now we need to anchor the tooltip in order to have it filled
+Also, GetIteminfo for artifact is returning the true itemlevel, while
+tooltip scanning was doubling the levels from relics
+
+I'll keep an eye on Blizzard moves
+
+--------------------
+
+Alar of Runetotem:
+	- Removed debug

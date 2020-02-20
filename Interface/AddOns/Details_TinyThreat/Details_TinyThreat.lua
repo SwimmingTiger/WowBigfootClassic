@@ -850,6 +850,85 @@ ThreatMeter.OpenOptionsPanel = function()
 	ThreatMeterOptionsWindow:Show()
 end
 
+local loadPlugin = function()
+
+			--> create widgets
+			CreatePluginFrames (data)
+
+			local MINIMAL_DETAILS_VERSION_REQUIRED = 1
+			
+			--> Install
+			local install, saveddata = _G._detalhes:InstallPlugin ("RAID", Loc ["STRING_PLUGIN_NAME"], "Interface\\CHATFRAME\\UI-ChatIcon-D3", ThreatMeter, "DETAILS_PLUGIN_TINY_THREAT", MINIMAL_DETAILS_VERSION_REQUIRED, "Details! Team", "v1.07")
+			if (type (install) == "table" and install.error) then
+				print (install.error)
+			end
+			
+			--> Register needed events
+			_G._detalhes:RegisterEvent (ThreatMeter, "COMBAT_PLAYER_ENTER")
+			_G._detalhes:RegisterEvent (ThreatMeter, "COMBAT_PLAYER_LEAVE")
+			_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_ENDRESIZE")
+			_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_SIZECHANGED")
+			_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_STARTSTRETCH")
+			_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_ENDSTRETCH")
+			_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_OPTIONS_MODIFIED")
+			
+			ThreatMeterFrame:RegisterEvent ("PLAYER_TARGET_CHANGED")
+			ThreatMeterFrame:RegisterEvent ("PLAYER_REGEN_DISABLED")
+			ThreatMeterFrame:RegisterEvent ("PLAYER_REGEN_ENABLED")
+
+			--> Saved data
+			ThreatMeter.saveddata = saveddata or {}
+			
+			ThreatMeter.saveddata.updatespeed = ThreatMeter.saveddata.updatespeed or 0.25
+			ThreatMeter.saveddata.animate = ThreatMeter.saveddata.animate or false
+			ThreatMeter.saveddata.showamount = ThreatMeter.saveddata.showamount or false
+			ThreatMeter.saveddata.useplayercolor = ThreatMeter.saveddata.useplayercolor or false
+			ThreatMeter.saveddata.playercolor = ThreatMeter.saveddata.playercolor or {1, 1, 1}
+			ThreatMeter.saveddata.useclasscolors = ThreatMeter.saveddata.useclasscolors or false
+
+			ThreatMeter.options = ThreatMeter.saveddata
+
+			ThreatMeter.saveddata.updatespeed = 0.20
+			--ThreatMeter.saveddata.animate = true
+			
+			--> Register slash commands
+			SLASH_DETAILS_TINYTHREAT1, SLASH_DETAILS_TINYTHREAT2 = "/tinythreat", "/tt"
+			
+			function SlashCmdList.DETAILS_TINYTHREAT (msg, editbox)
+			
+				local command, rest = msg:match("^(%S*)%s*(.-)$")
+				
+				if (command == Loc ["STRING_SLASH_ANIMATE"]) then
+				
+				elseif (command == Loc ["STRING_SLASH_SPEED"]) then
+				
+					if (rest) then
+						local speed = tonumber (rest)
+						if (speed) then
+							if (speed > 3) then
+								speed = 3
+							elseif (speed < 0.3) then
+								speed = 0.3
+							end
+							
+							ThreatMeter.saveddata.updatespeed = speed
+							ThreatMeter:Msg (Loc ["STRING_SLASH_SPEED_CHANGED"] .. speed)
+						else
+							ThreatMeter:Msg (Loc ["STRING_SLASH_SPEED_CURRENT"] .. ThreatMeter.saveddata.updatespeed)
+						end
+					end
+
+				elseif (command == Loc ["STRING_SLASH_AMOUNT"]) then
+				
+				else
+					ThreatMeter:Msg (Loc ["STRING_COMMAND_LIST"])
+					print ("|cffffaeae/tinythreat " .. Loc ["STRING_SLASH_SPEED"] .. "|r: " .. Loc ["STRING_SLASH_SPEED_DESC"])
+				
+				end
+			end
+			ThreatMeter.initialized = true
+end
+
 function ThreatMeter:OnEvent (_, event, ...)
 
 	if (event == "PLAYER_TARGET_CHANGED") then
@@ -865,89 +944,9 @@ function ThreatMeter:OnEvent (_, event, ...)
 		ThreatMeter.Actived = false
 		--print ("tiny theat: regen enabled")
 	
-	elseif (event == "ADDON_LOADED") then
-		local AddonName = select (1, ...)
-		if (AddonName == "Details_TinyThreat") then
-			
-			if (_G._detalhes) then
-
-				--> create widgets
-				CreatePluginFrames (data)
-
-				local MINIMAL_DETAILS_VERSION_REQUIRED = 1
-				
-				--> Install
-				local install, saveddata = _G._detalhes:InstallPlugin ("RAID", Loc ["STRING_PLUGIN_NAME"], "Interface\\CHATFRAME\\UI-ChatIcon-D3", ThreatMeter, "DETAILS_PLUGIN_TINY_THREAT", MINIMAL_DETAILS_VERSION_REQUIRED, "Details! Team", "v1.07")
-				if (type (install) == "table" and install.error) then
-					print (install.error)
-				end
-				
-				--> Register needed events
-				_G._detalhes:RegisterEvent (ThreatMeter, "COMBAT_PLAYER_ENTER")
-				_G._detalhes:RegisterEvent (ThreatMeter, "COMBAT_PLAYER_LEAVE")
-				_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_ENDRESIZE")
-				_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_SIZECHANGED")
-				_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_STARTSTRETCH")
-				_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_INSTANCE_ENDSTRETCH")
-				_G._detalhes:RegisterEvent (ThreatMeter, "DETAILS_OPTIONS_MODIFIED")
-				
-				ThreatMeterFrame:RegisterEvent ("PLAYER_TARGET_CHANGED")
-				ThreatMeterFrame:RegisterEvent ("PLAYER_REGEN_DISABLED")
-				ThreatMeterFrame:RegisterEvent ("PLAYER_REGEN_ENABLED")
-
-				--> Saved data
-				ThreatMeter.saveddata = saveddata or {}
-				
-				ThreatMeter.saveddata.updatespeed = ThreatMeter.saveddata.updatespeed or 0.25
-				ThreatMeter.saveddata.animate = ThreatMeter.saveddata.animate or false
-				ThreatMeter.saveddata.showamount = ThreatMeter.saveddata.showamount or false
-				ThreatMeter.saveddata.useplayercolor = ThreatMeter.saveddata.useplayercolor or false
-				ThreatMeter.saveddata.playercolor = ThreatMeter.saveddata.playercolor or {1, 1, 1}
-				ThreatMeter.saveddata.useclasscolors = ThreatMeter.saveddata.useclasscolors or false
-
-				ThreatMeter.options = ThreatMeter.saveddata
-
-				ThreatMeter.saveddata.updatespeed = 0.20
-				--ThreatMeter.saveddata.animate = true
-				
-				--> Register slash commands
-				SLASH_DETAILS_TINYTHREAT1, SLASH_DETAILS_TINYTHREAT2 = "/tinythreat", "/tt"
-				
-				function SlashCmdList.DETAILS_TINYTHREAT (msg, editbox)
-				
-					local command, rest = msg:match("^(%S*)%s*(.-)$")
-					
-					if (command == Loc ["STRING_SLASH_ANIMATE"]) then
-					
-					elseif (command == Loc ["STRING_SLASH_SPEED"]) then
-					
-						if (rest) then
-							local speed = tonumber (rest)
-							if (speed) then
-								if (speed > 3) then
-									speed = 3
-								elseif (speed < 0.3) then
-									speed = 0.3
-								end
-								
-								ThreatMeter.saveddata.updatespeed = speed
-								ThreatMeter:Msg (Loc ["STRING_SLASH_SPEED_CHANGED"] .. speed)
-							else
-								ThreatMeter:Msg (Loc ["STRING_SLASH_SPEED_CURRENT"] .. ThreatMeter.saveddata.updatespeed)
-							end
-						end
-
-					elseif (command == Loc ["STRING_SLASH_AMOUNT"]) then
-					
-					else
-						ThreatMeter:Msg (Loc ["STRING_COMMAND_LIST"])
-						print ("|cffffaeae/tinythreat " .. Loc ["STRING_SLASH_SPEED"] .. "|r: " .. Loc ["STRING_SLASH_SPEED_DESC"])
-					
-					end
-				end
-				ThreatMeter.initialized = true
-			end
+	elseif (event == "ADDON_LOADED") then --player_login
+		if (_G._detalhes) then
+			C_Timer.After(3, loadPlugin)
 		end
-
 	end
 end

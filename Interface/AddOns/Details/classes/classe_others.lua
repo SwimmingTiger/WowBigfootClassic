@@ -407,11 +407,11 @@ function atributo_misc:ReportSingleDeadLine (morte, instancia)
 				local elapsed = _cstr ("%.1f", evento [4] - time_of_death) .."s"
 				local spellname, _, spellicon = _GetSpellInfo (evento [2])
 				local spelllink
-				
+
 				if (evento [2] == 1) then
 					spelllink = GetSpellLink (6603)
-				elseif (evento [2] > 10) then
-					spelllink = GetSpellLink (evento [2])
+				--elseif (evento [2] > 10) then
+				--	spelllink = GetSpellLink (evento [2])
 				else
 					spelllink = spellname
 				end

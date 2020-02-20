@@ -1,0 +1,14 @@
+tag Release-60203-15
+993e106c2cd0f6fcc2356d1bd0aa26cefd73b323
+Alar of Daggerspine <alar@aspide.it>
+2015-12-30 11:12:35 +0100
+
+Fixes an error raised in sylevel, bagnon and possibly other addons which
+were passing to GetUpgradeID something that was not a well formed item
+string
+
+--------------------
+
+Alar of Daggerspine:
+	- GetUpgradeID was crashing when receiving something which was not a real item itemstring
+	Signed-off-by: Alar of Daggerspine <alar@aspide.it>
