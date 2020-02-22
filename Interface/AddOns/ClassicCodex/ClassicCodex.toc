@@ -4,7 +4,7 @@
 ## TItle-zhTW: [大腳][集]任務助手
 ## Notes: |cff00ff00ClassicCodex|r
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.3.7
+## Version: v1.3.9
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
@@ -21,8 +21,9 @@ db\quests.lua
 db\meta.lua
 
 # database patches
-db-patches\quests-patch.lua
-db-patches\units-patch.lua
+db-patches\quests-questie.lua
+db-patches\units-questie.lua
+db-patches\units-wowhead.lua
 db-patches\manual-patch.lua
 
 # database enUS

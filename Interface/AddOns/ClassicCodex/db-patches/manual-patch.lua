@@ -44,9 +44,23 @@ D[7670]={
   },
 }
 
+-- Add missing objects of quests
+D[1367].obj = {
+  U={4646,4647,4648,4649,4651,4652,4653,4661},
+}
+D[1368].obj = {
+  U={4638,4639,4640,4641,4642,4643,4644,4645},
+}
+
+-- Alliance-specific patches
 if select(4, GetAddOnInfo('MergeQuestieToCodexDB')) then return end
 local D = CodexDB.units.data
--- Chief Murgut <https://classic.wowhead.com/npc=12918/chief-murgut>
-D[12918].coords={
-  {56.4,63.6,331,0},
-}
+
+if UnitFactionGroup('player') == 'Alliance' then
+  D[13778].coords={
+    {48.5,58.3,2597,0}, --add
+    {50.2,65.3,2597,0}, --add
+    {49.3,84.4,2597,0}, --add
+    {48.3,84.3,2597,0}, --add
+  }
+end
