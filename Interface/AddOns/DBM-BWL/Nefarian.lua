@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200218092210")
+mod:SetRevision("20200221220711")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
 mod:RegisterCombat("combat_yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
-mod:SetWipeTime(25)--guesswork
+mod:SetWipeTime(50)--guesswork
 mod:SetHotfixNoticeRev(20200218000000)--2020, Feb, 18th
 mod:SetMinSyncRevision(20200218000000)--2020, Feb, 18th
 
@@ -31,7 +31,7 @@ local warnFear				= mod:NewCastAnnounce(22686, 2)
 local specwarnShadowCommand	= mod:NewSpecialWarningTarget(22667, nil, nil, 2, 1, 2)
 local specwarnVeilShadow	= mod:NewSpecialWarningDispel(22687, "RemoveCurse", nil, nil, 1, 2)
 
-local timerPhase			= mod:NewPhaseTimer(10)
+local timerPhase			= mod:NewPhaseTimer(15)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
 local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, false, 2, 2)--26-42.5
 
@@ -42,10 +42,12 @@ local addsGuidCheck = {}
 function mod:OnCombatStart(delay, yellTriggered)
 	table.wipe(addsGuidCheck)
 	DBM:AddMsg("Bellowing Roar: 26-42.5. Because of this, timer is now off by default (but you can still elect to use it)")
-	--if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
+	if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
 		self.vb.phase = 1
 		self.vb.addLeft = 20
-	--end
+	else--Blizz can't seem to figure out ENCOUNTER_START, so any pull not triggered by yell will be treated as if it's already phase 2
+		self.vb.phase = 2
+	end
 end
 
 do
@@ -152,7 +154,7 @@ function mod:OnSync(msg, arg)
 		local phase = tonumber(arg) or 0
 		if phase == 2 then
 			self.vb.phase = 2
-			timerPhase:Start(15)--15 til encounter start
+			timerPhase:Start(15)--15 til encounter start fires, not til actual land?
 			--timerFearNext:Start(46.6)
 		elseif phase == 3 then
 			self.vb.phase = 3
@@ -162,7 +164,7 @@ function mod:OnSync(msg, arg)
 	if not self:IsInCombat() then return end
 	if msg == "ClassCall" and arg then
 		warnClassCall:Show(LOCALIZED_CLASS_NAMES_MALE[arg])
-		timerClassCall:Start(30, arg)
+		timerClassCall:Start(30, LOCALIZED_CLASS_NAMES_MALE[arg])
 	elseif msg == "Shadowflame" and self:AntiSpam(8, 1) then
 		warnShadowFlame:Show()
 	elseif msg == "Fear" and self:AntiSpam(8, 2) then

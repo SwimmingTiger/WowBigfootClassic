@@ -95,7 +95,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Breath1		= "First Breath",
 	Breath2		= "Second Breath",
-	VulnEmote	= "flinches as its skin shimmers."
+	VulnEmote	= "%s flinches as its skin shimmers."
 }
 
 ----------------

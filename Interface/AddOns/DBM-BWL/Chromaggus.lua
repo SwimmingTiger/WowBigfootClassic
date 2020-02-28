@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200218151350")
+mod:SetRevision("20200221213526")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -36,6 +36,14 @@ local timerVuln			= mod:NewTimer(17, "TimerVulnCD", 4166)-- seen 16.94 - 25.53, 
 
 mod.vb.phase = 1
 local mydebuffs = 0
+local Incinerate, CorrosiveAcid, FrostBurn, IgniteFlesh, TimeLaps = DBM:GetSpellInfo(23309), DBM:GetSpellInfo(23313), DBM:GetSpellInfo(23189), DBM:GetSpellInfo(23315), DBM:GetSpellInfo(23312)
+local spellIcons = {
+	[Incinerate] = 23309,
+	[CorrosiveAcid] = 23313,
+	[FrostBurn] = 23189,
+	[IgniteFlesh] = 23315,
+	[TimeLaps] = 23312,
+}
 
 function mod:OnCombatStart(delay)
 	timerBreathCD:Start(30-delay, L.Breath1)
@@ -45,7 +53,6 @@ function mod:OnCombatStart(delay)
 end
 
 do
-	local Incinerate, CorrosiveAcid, FrostBurn, IgniteFlesh, TimeLaps = DBM:GetSpellInfo(23309), DBM:GetSpellInfo(23313), DBM:GetSpellInfo(23189), DBM:GetSpellInfo(23315), DBM:GetSpellInfo(23312)
 	function mod:SPELL_CAST_START(args)
 		--if args:IsSpellID(23309, 23313, 23189, 23315, 23312) then
 		if args.spellName == Incinerate or args.spellName == CorrosiveAcid or args.spellName == FrostBurn or args.spellName == IgniteFlesh or args.spellName == TimeLaps then
@@ -56,6 +63,7 @@ do
 				warnBreath:Show(args.spellName)
 				timerBreath:Start(2, args.spellName)
 				timerBreathCD:Start(60, args.spellName)
+				timerBreathCD:UpdateIcon(spellIcons[args.spellName])
 			end
 		end
 	end
@@ -183,6 +191,7 @@ function mod:OnSync(msg, Name)
 	if msg == "Breath" and Name and self:AntiSpam(15, 1) then
 		warnBreath:Show(Name)
 		timerBreathCD:Start(Name)
+		timerBreathCD:UpdateIcon(spellIcons[Name])
 	elseif msg == "Frenzy" and self:AntiSpam(15, 2) then
 		warnFrenzy:Show()
 		timerFrenzy:Start()

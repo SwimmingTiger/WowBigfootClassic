@@ -43,7 +43,7 @@
 --
 
 
-local revision =(string.sub("20200210161228", 1, -5))
+local revision =(string.sub("20200220045332", 1, -5))
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -1081,7 +1081,6 @@ do
 		else
 			TABLE = DBM_GUI_Bosses:GetVisibleTabs()
 		end
-		local element
 
 		for i, element in ipairs(displayedElements) do
 			displayedElements[i] = nil
@@ -1116,7 +1115,7 @@ do
 		end
 
 		for i = 1, #buttons do
-			element = displayedElements[i + offset]
+			local element = displayedElements[i + offset]
 			if ( not element ) then
 				DBM_GUI_OptionsFrame:HideButton(buttons[i])
 			else
@@ -4637,7 +4636,7 @@ do
 	local Categories = {}
 	local subTabId = 0
 	function DBM_GUI:UpdateModList()
-		for k, addon in ipairs(DBM.AddOns) do
+		for z, addon in ipairs(DBM.AddOns) do
 			if not Categories[addon.category] then
 				-- Create a Panel for "Wrath of the Lich King" "Burning Crusade" ...
 				local expLevel = GetExpansionLevel()
@@ -4760,27 +4759,27 @@ do
 			category = mod.optionCategories[catident]
 			if category then
 				local catpanel = panel:CreateArea(mod.localization.cats[catident], nil, nil, true)
-				local button, lastButton, addSpacer
+				local catbutton, lastButton, addSpacer
 				local hasDropdowns = 0
 				for _, v in ipairs(category) do
 					if v == DBM_OPTION_SPACER then
 						addSpacer = true
 					else
-						lastButton = button
+						lastButton = catbutton
 						if v.line then
-							button = catpanel:CreateLine(v.text)
+							catbutton = catpanel:CreateLine(v.text)
 						elseif type(mod.Options[v]) == "boolean" then
 							if mod.Options[v .. "TColor"] then
-								button = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v, nil, true)
+								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v, nil, true)
 							elseif mod.Options[v .. "SWSound"] then
-								button = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v)
+								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true, nil, nil, nil, mod, v)
 							else
-								button = catpanel:CreateCheckButton(mod.localization.options[v], true)
+								catbutton = catpanel:CreateCheckButton(mod.localization.options[v], true)
 							end
-							button:SetScript("OnShow", function(self)
+							catbutton:SetScript("OnShow", function(self)
 								self:SetChecked(mod.Options[v])
 							end)
-							button:SetScript("OnClick", function(self)
+							catbutton:SetScript("OnClick", function(self)
 								mod.Options[v] = not mod.Options[v]
 								if mod.optionFuncs and mod.optionFuncs[v] then
 									mod.optionFuncs[v]()
@@ -4788,32 +4787,32 @@ do
 							end)
 						elseif mod.buttons and mod.buttons[v] then
 							local but = mod.buttons[v]
-							button = catpanel:CreateButton(v, but.width, but.height, but.onClick, but.fontObject)
+							catbutton = catpanel:CreateButton(v, but.width, but.height, but.onClick, but.fontObject)
 						elseif mod.editboxes and mod.editboxes[v] then
 							local editBox = mod.editboxes[v]
-							button = catpanel:CreateEditBox(mod.localization.options[v], mod.Options[v], editBox.width, editBox.height)
-							button:SetScript("OnTextChanged", function(self)
+							catbutton = catpanel:CreateEditBox(mod.localization.options[v], mod.Options[v], editBox.width, editBox.height)
+							catbutton:SetScript("OnTextChanged", function(self)
 								if mod.optionFuncs and mod.optionFuncs[v] then
 									mod.optionFuncs[v]()
 								end
 							end)
 						elseif mod.sliders and mod.sliders[v] then
 							local slider = mod.sliders[v]
-							button = catpanel:CreateSlider(mod.localization.options[v], slider.minValue, slider.maxValue, slider.valueStep)
-							button:SetScript("OnShow", function(self)
+							catbutton = catpanel:CreateSlider(mod.localization.options[v], slider.minValue, slider.maxValue, slider.valueStep)
+							catbutton:SetScript("OnShow", function(self)
 								self:SetValue(mod.Options[v])
 							end)
-							button:HookScript("OnValueChanged", function(self)
+							catbutton:HookScript("OnValueChanged", function(self)
 								if mod.optionFuncs and mod.optionFuncs[v] then
 									mod.optionFuncs[v]()
 								end
 							end)
 						elseif mod.dropdowns and mod.dropdowns[v] then
 							local dropdownOptions = {}
-							for i, v in ipairs(mod.dropdowns[v]) do
-								dropdownOptions[#dropdownOptions + 1] = { text = mod.localization.options[v], value = v }
+							for i, val in ipairs(mod.dropdowns[v]) do
+								dropdownOptions[#dropdownOptions + 1] = { text = mod.localization.options[val], value = val }
 							end
-							button = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
+							catbutton = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
 								mod.Options[v] = value
 								if mod.optionFuncs and mod.optionFuncs[v] then
 									mod.optionFuncs[v]()
@@ -4821,11 +4820,11 @@ do
 							end, nil, 32)
 							if not addSpacer then
 								hasDropdowns = hasDropdowns + 7--Add 7 extra pixels per dropdown, because autodims is only reserving 25 per line, and dropdowns are 32
-								button:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
+								catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -10)
 							end
 						end
 						if addSpacer then
-							button:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
+							catbutton:SetPoint("TOPLEFT", lastButton, "BOTTOMLEFT", 0, -6)
 							addSpacer = false
 						end
 					end
