@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z566", "DBM-PvP")
 
-mod:SetRevision("20200118173505")
+mod:SetRevision("20200215161830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -14,10 +14,7 @@ do
 	function mod:OnInitialize()
 		if DBM:GetCurrentArea() == 566 or DBM:GetCurrentArea() == 968 then
 			local modz = DBM:GetModByName("PvPGeneral")
-			modz:SubscribeAssault(
-				DBM:GetCurrentArea() == 566 and 112 or 397,
-				{} -- This is empty, because we use atlas info
-			)
+			modz:SubscribeAssault(DBM:GetCurrentArea() == 566 and 112 or 397, 4)
 			modz:SubscribeFlags()
 		end
 	end

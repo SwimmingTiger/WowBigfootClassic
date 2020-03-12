@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z761", "DBM-PvP")
 
-mod:SetRevision("20200118194219")
+mod:SetRevision("20200215161830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -13,10 +13,7 @@ mod:RegisterEvents(
 do
 	function mod:OnInitialize()
 		if DBM:GetCurrentArea() == 761 then
-			DBM:GetModByName("PvPGeneral"):SubscribeAssault(
-				275,
-				{["Lighthouse"] = {9,11,12,13}, ["Mines"] = {17,18,19,20}, ["Waterworks"] = {27,28,29,30}}
-			)
+			DBM:GetModByName("PvPGeneral"):SubscribeAssault(275, 3)
 		end
 	end
 

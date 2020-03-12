@@ -5,7 +5,7 @@ else
 	mod	= DBM:NewMod("z2107", "DBM-PvP")
 end
 
-mod:SetRevision("20200118193210")
+mod:SetRevision("20200215161830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -17,17 +17,16 @@ do
 		local zoneID = DBM:GetCurrentArea()
 		if zoneID == 529 or zoneID == 1681 or zoneID == 2107 or zoneID == 2177 then--Classic Arathi, Winter, Remastered Retail, AI
 			local assaultID
-			if zoneID == 1681 then
+			if zoneID == 529 then
+				assaultID = 1461
+			elseif zoneID == 1681 then
 				assaultID = 837
-			elseif zoneID == 2107 or zoneID == 529 then--Assumed classic also uses assault 93, verify
+			elseif zoneID == 2107 then
 				assaultID = 93
 			elseif zoneID == 2177 then
 				assaultID = 1383
 			end
-			DBM:GetModByName("PvPGeneral"):SubscribeAssault(
-				assaultID,
-				{["Farm"] = {32,33,34,35}, ["Gold Mine"] = {17,18,19,20}, ["Lumber Mill"] = {22,23,24,25}, ["Stables"] = {37,38,39,40}, ["Blacksmith"] = {27,28,29,30}}
-			)
+			DBM:GetModByName("PvPGeneral"):SubscribeAssault(assaultID, 5)
 		end
 	end
 

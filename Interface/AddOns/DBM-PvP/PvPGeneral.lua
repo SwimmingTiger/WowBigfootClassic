@@ -1,11 +1,14 @@
+local addonName = "PvPGeneral"
 local mod	= DBM:NewMod("PvPGeneral", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
+
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
 local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20200213190516")
+mod:SetRevision("20200309130837")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
@@ -26,11 +29,7 @@ do
 	function mod:ZONE_CHANGED_NEW_AREA()
 		local _, instanceType = IsInInstance()
 		if instanceType == "pvp" or instanceType == "arena" then
-			if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
-				C_ChatInfo.SendAddonMessage("D4", "H", "INSTANCE_CHAT")
-			else
-				C_ChatInfo.SendAddonMessage("D4C", "H", "INSTANCE_CHAT")
-			end
+			C_ChatInfo.SendAddonMessage(isClassic and "D4C" or "D4", "H", "INSTANCE_CHAT")
 			self:Schedule(3, DBM.RequestTimers, DBM)
 			if not bgzone and self.Options.HideBossEmoteFrame then
 				DBM:HideBlizzardEvents(1, true)
@@ -152,9 +151,10 @@ local function HideBasesToWin()
 end
 
 local subscribedMapID = 0
-local objectives, numObjectives, objectivesStore
+local numObjectives, objectivesStore
 
-function mod:SubscribeAssault(mapID, objects)
+function mod:SubscribeAssault(mapID, objectsCount)
+	DBM:Debug(addonName.." SubscribeAssault "..tostring(mapID), 1)
 	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
 		if self.Options.ShowEstimatedPoints then
 			ShowEstimatedPoints()
@@ -180,12 +180,8 @@ function mod:SubscribeAssault(mapID, objects)
 		"UPDATE_UI_WIDGET"
 	)
 	subscribedMapID = mapID
-	objectives = objects
 	objectivesStore = {}
-	numObjectives = 0
-	for _, _ in pairs(objects) do
-		numObjectives = numObjectives + 1
-	end
+	numObjectives = objectsCount
 end
 
 -- Debug
@@ -230,8 +226,8 @@ do
 	local flagTimer			= mod:NewTimer(12, "TimerFlag", "132483") -- interface/icons/inv_banner_02.blp
 	local vulnerableTimer	= mod:NewNextTimer(60, 46392)
 
-	local function updateflagcarrier(_, arg1)
-		if arg1:match(L.ExprFlagCaptured) then
+	local function updateflagcarrier(_, msg)
+		if msg:match(L.ExprFlagCaptured) then
 			flagTimer:Start()
 			vulnerableTimer:Cancel()
 		end
@@ -246,19 +242,20 @@ do
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
-		if msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2) then
+		if msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2) then
 			vulnerableTimer:Start()
 		end
 	end
 end
 
 do
+	local type = type
 	local GetTime, FACTION_HORDE, FACTION_ALLIANCE = GetTime, FACTION_HORDE, FACTION_ALLIANCE
 	-- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local winTimer = mod:NewTimer(30, "TimerWin", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485")
 	local resourcesPerSec = {
-		[3] = {1e-300, 1, 3, 30--[[Unknown]]}, -- Gilneas
-		[4] = {1e-300, 1--[[Unknown]], 2--[[Unknown]], 3--[[Unknown]], 4--[[Unknown]]}, -- TempleOfKotmogu
+		[3] = {1e-300, 3, 5--[[Unknown]], 30--[[Unknown]]}, -- Gilneas
+		[4] = {1e-300, 2, 3, 5--[[Unknown]], 10--[[Unknown]]}, -- TempleOfKotmogu/EyeOfTheStorm
 		[5] = {1e-300, 2, 3, 4, 7, 10--[[Unknown]], 30--[[Unknown]]} -- Arathi/Deepwind
 	}
 
@@ -268,21 +265,23 @@ do
 		if prevAScore == 0 then
 			prevAScore = allianceScore
 		end
-		if prevAScore ~= allianceScore and allianceScore < maxScore then
+		--							Higher than max (when they win) OR larger than 50 (flag cap)
+		if prevAScore ~= allianceScore and allianceScore < maxScore and (allianceScore - prevAScore) < 50 then
 			if (allianceScore - prevAScore) ~= resPerSec[allianceBases + 1] and DBM:AntiSpam(30, "PvPAWarn") then
 				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (A," .. (allianceScore - prevAScore) .. "," .. allianceBases .. "," .. resPerSec[allianceBases + 1]  .. ")")
 			end
-			DBM:Debug("Alliance: +" .. allianceScore - prevAScore .. " (" .. allianceBases .. ")")
+			DBM:Debug("Alliance: +" .. allianceScore - prevAScore .. " (" .. allianceBases .. ")", 3)
 			prevAScore = allianceScore
 		end
 		if prevHScore == 0 then
 			prevHScore = hordeScore
 		end
-		if prevHScore ~= hordeScore and hordeScore < maxScore then
+		--							Higher than max (when they win) OR larger than 50 (flag cap)
+		if prevHScore ~= hordeScore and hordeScore < maxScore and (hordeScore - prevHScore) < 50 then
 			if (hordeScore - prevHScore) ~= resPerSec[hordeBases + 1] and DBM:AntiSpam(30, "PvPHWarn") then
 				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (H," .. (hordeScore - prevHScore) .. "," .. hordeBases .. "," .. resPerSec[hordeBases + 1]  .. ")")
 			end
-			DBM:Debug("Horde: +" .. hordeScore - prevHScore .. " (" .. hordeBases .. ")")
+			DBM:Debug("Horde: +" .. hordeScore - prevHScore .. " (" .. hordeBases .. ")", 3)
 			prevHScore = hordeScore
 		end
 		-- End debug
@@ -350,14 +349,103 @@ do
 
 	local pairs = pairs
 	local C_AreaPoiInfo, C_UIWidgetManager = C_AreaPoiInfo, C_UIWidgetManager
-	local ignoredAtlas = {[112] = true, [397] = true}
+	local ignoredAtlas = {
+		[112]   = true,
+		[397]   = true
+	}
+	local overrideTimers = {
+		-- retail av
+		[91]    = 243,
+		-- classic av
+		[1459]  = 304,
+		-- korrak
+		[1537]  = 243
+	}
+	local State = {
+		["ALLY_CONTESTED"]      = 1,
+		["ALLY_CONTROLLED"]     = 2,
+		["HORDE_CONTESTED"]     = 3,
+		["HORDE_CONTROLLED"]    = 4
+	}
+	local icons = {
+		-- Graveyard
+		[isClassic and 3 or 4]      = State.ALLY_CONTESTED,
+		[isClassic and 14 or 15]    = State.ALLY_CONTROLLED,
+		[isClassic and 13 or 14]    = State.HORDE_CONTESTED,
+		[isClassic and 12 or 13]    = State.HORDE_CONTROLLED,
+		-- Tower/Lighthouse
+		[isClassic and 8 or 9]      = State.ALLY_CONTESTED,
+		[isClassic and 10 or 11]    = State.ALLY_CONTROLLED,
+		[isClassic and 11 or 12]    = State.HORDE_CONTESTED,
+		[isClassic and 9 or 10]     = State.HORDE_CONTROLLED,
+		-- Mine/Quarry
+		[17]                        = State.ALLY_CONTESTED,
+		[18]                        = State.ALLY_CONTROLLED,
+		[19]                        = State.HORDE_CONTESTED,
+		[20]                        = State.HORDE_CONTROLLED,
+		-- Lumber
+		[22]                        = State.ALLY_CONTESTED,
+		[23]                        = State.ALLY_CONTROLLED,
+		[24]                        = State.HORDE_CONTESTED,
+		[25]                        = State.HORDE_CONTROLLED,
+		-- Blacksmith/Waterworks
+		[27]                        = State.ALLY_CONTESTED,
+		[28]                        = State.ALLY_CONTROLLED,
+		[29]                        = State.HORDE_CONTESTED,
+		[30]                        = State.HORDE_CONTROLLED,
+		-- Farm
+		[32]                        = State.ALLY_CONTESTED,
+		[33]                        = State.ALLY_CONTROLLED,
+		[34]                        = State.HORDE_CONTESTED,
+		[35]                        = State.HORDE_CONTROLLED,
+		-- Stables
+		[37]                        = State.ALLY_CONTESTED,
+		[38]                        = State.ALLY_CONTROLLED,
+		[39]                        = State.HORDE_CONTESTED,
+		[40]                        = State.HORDE_CONTROLLED,
+		-- Workshop
+		[137]                       = State.ALLY_CONTESTED,
+		[138]                       = State.ALLY_CONTROLLED,
+		[139]                       = State.HORDE_CONTESTED,
+		[140]                       = State.HORDE_CONTROLLED,
+		-- Hangar
+		[142]                       = State.ALLY_CONTESTED,
+		[143]                       = State.ALLY_CONTROLLED,
+		[144]                       = State.HORDE_CONTESTED,
+		[145]                       = State.HORDE_CONTROLLED,
+		-- Docks
+		[147]                       = State.ALLY_CONTESTED,
+		[148]                       = State.ALLY_CONTROLLED,
+		[149]                       = State.HORDE_CONTESTED,
+		[150]                       = State.HORDE_CONTROLLED,
+		-- Refinery
+		[152]                       = State.ALLY_CONTESTED,
+		[153]                       = State.ALLY_CONTROLLED,
+		[154]                       = State.HORDE_CONTESTED,
+		[155]                       = State.HORDE_CONTROLLED,
+		-- Market
+		[208]                       = State.ALLY_CONTESTED,
+		[205]                       = State.ALLY_CONTROLLED,
+		[209]                       = State.HORDE_CONTESTED,
+		[206]                       = State.HORDE_CONTROLLED,
+		-- Ruins
+		[213]                       = State.ALLY_CONTESTED,
+		[210]                       = State.ALLY_CONTROLLED,
+		[214]                       = State.HORDE_CONTESTED,
+		[211]                       = State.HORDE_CONTROLLED,
+		-- Shrine
+		[218]                       = State.ALLY_CONTESTED,
+		[215]                       = State.ALLY_CONTROLLED,
+		[219]                       = State.HORDE_CONTESTED,
+		[216]                       = State.HORDE_CONTROLLED
+	}
 	local capTimer = mod:NewTimer(60, "TimerCap", "136002") -- interface/icons/spell_misc_hellifrepvphonorholdfavor.blp
 
 	function mod:AREA_POIS_UPDATED(widget)
 		local allyBases, hordeBases = 0, 0
 		local widgetID = widget and widget.widgetID
-		-- Standard battleground score predictor: 1671. Deepwind rework: 2074
-		if subscribedMapID ~= 0 and widgetID and (widgetID == 1671 or widgetID == 2074) then
+		DBM:Debug(addonName.." AREA_POIS_UPDATED "..tostring(widgetID), 2)
+		if subscribedMapID ~= 0 then
 			local isAtlas = false
 			for _, areaPOIID in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(subscribedMapID)) do
 				local areaPOIInfo = C_AreaPoiInfo.GetAreaPOIInfo(subscribedMapID, areaPOIID)
@@ -369,17 +457,23 @@ do
 						isAllyCapping = atlasName:find('leftIcon')
 						isHordeCapping = atlasName:find('rightIcon')
 					elseif infoTexture then
-						local capStates = objectives[infoName]
-						if capStates then
-							isAllyCapping = infoTexture == capStates[1]
-							isHordeCapping = infoTexture == capStates[3]
-						end
+						isAllyCapping = icons[infoTexture] == State.ALLY_CONTESTED
+						isHordeCapping = icons[infoTexture] == State.HORDE_CONTESTED
 					end
+					DBM:Debug(addonName.." APU "..tostring(infoName)..", "..tostring(	isAllyCapping)..", "..tostring(isHordeCapping), 3)
 					if objectivesStore[infoName] ~= (atlasName and atlasName or infoTexture) then
 						capTimer:Stop(infoName)
 						objectivesStore[infoName] = (atlasName and atlasName or infoTexture)
 						if not ignoredAtlas[subscribedMapID] and (isAllyCapping or isHordeCapping) then
-							capTimer:Start(nil, infoName)
+							local timeLeft = (
+								-- GetAreaPOISecondsLeft doesn't work in retail?
+								-- Classic never got GetAreaPOISecondsLeft, it still uses GetAreaPOITimeLeft which retail deprecated
+								C_AreaPoiInfo.GetAreaPOISecondsLeft and C_AreaPoiInfo.GetAreaPOISecondsLeft(areaPOIID)
+								or C_AreaPoiInfo.GetAreaPOITimeLeft and C_AreaPoiInfo.GetAreaPOITimeLeft(areaPOIID) and C_AreaPoiInfo.GetAreaPOITimeLeft(areaPOIID) * 60
+								or overrideTimers[subscribedMapID]
+								or nil
+							)
+							capTimer:Start(timeLeft, infoName)
 							if isAllyCapping then
 								capTimer:SetColor({r=0, g=0, b=1}, infoName)
 								capTimer:UpdateIcon("132486", infoName) -- Interface\\Icons\\INV_BannerPVP_02.blp
@@ -391,25 +485,31 @@ do
 					end
 				end
 			end
-			if isAtlas then
-				for _, v in ipairs(objectivesStore) do
-					if v:find('leftIcon') then
-						allyBases = allyBases + 1
-					elseif v:find('rightIcon') then
-						hordeBases = hordeBases + 1
+			-- Standard battleground score predictor: 1671. Deepwind rework: 2074
+			if widgetID == 1671 or widgetID == 2074 then
+				if isAtlas then
+					for _, v in pairs(objectivesStore) do
+						if type(v) ~= "string" then
+							-- Do nothing
+						elseif v:find('leftIcon') then
+							allyBases = allyBases + 1
+						elseif v:find('rightIcon') then
+							hordeBases = hordeBases + 1
+						end
+					end
+				else
+					for _, v in pairs(objectivesStore) do
+						if icons[v] == State.ALLY_CONTROLLED then
+							allyBases = allyBases + 1
+						elseif icons[v] == State.HORDE_CONTROLLED then
+							hordeBases = hordeBases + 1
+						end
 					end
 				end
-			else
-				for k, v in pairs(objectivesStore) do
-					local obj = objectives[k]
-					if v == obj[2] then
-						allyBases = allyBases + 1
-					elseif v == obj[4] then
-						hordeBases = hordeBases + 1
-					end
-				end
+				local info = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(widgetID)
+				self:UpdateWinTimer(info.leftBarMax, info.leftBarValue, info.rightBarValue, allyBases, hordeBases)
 			end
-		elseif widgetID and widgetID == 1683 then
+		elseif widgetID == 1683 then -- TempleOfKotmogu
 			local widgetInfo = C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1683)
 			for _, v in pairs(widgetInfo.leftIcons) do
 				if v.iconState == 1 then
@@ -421,11 +521,7 @@ do
 					hordeBases = hordeBases + 1
 				end
 			end
-		else
-			return
-		end
-		local info = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(widgetID)
-		if info then
+			local info = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(1689)
 			self:UpdateWinTimer(info.leftBarMax, info.leftBarValue, info.rightBarValue, allyBases, hordeBases)
 		end
 	end

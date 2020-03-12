@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z998", "DBM-PvP")
 
-mod:SetRevision("20200118173505")
+mod:SetRevision("20200215161830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -13,10 +13,7 @@ mod:RegisterEvents(
 do
 	function mod:OnInitialize()
 		if DBM:GetCurrentArea() == 998 then
-			DBM:GetModByName("PvPGeneral"):SubscribeAssault(
-				0, -- We don't need an assault ID
-				{} -- This is empty because we don't use POIS
-			)
+			DBM:GetModByName("PvPGeneral"):SubscribeAssault(0, 4)
 		end
 	end
 

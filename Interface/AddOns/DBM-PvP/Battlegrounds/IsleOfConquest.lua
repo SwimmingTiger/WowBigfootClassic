@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z628", "DBM-PvP")
 
-mod:SetRevision("20200118194719")
+mod:SetRevision("20200215161830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
@@ -13,10 +13,7 @@ mod:RegisterEvents(
 do
 	function mod:OnInitialize()
 		if DBM:GetCurrentArea() == 628 then
-			DBM:GetModByName("PvPGeneral"):SubscribeAssault(
-				169,
-				{["Refinery"] = {152,153,154,155}, ["Quarry"] = {17,18,19,20}, ["Docks"] = {147,148,149,150}, ["Workshop"] = {137,138,139,140}, ["Hangar"] = {142,143,144,145}}
-			)
+			DBM:GetModByName("PvPGeneral"):SubscribeAssault(169, 5)
 			-- TODO: Add gate health
 			-- TODO: Add boss health
 		end
