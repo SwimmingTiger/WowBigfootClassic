@@ -1,19 +1,20 @@
-##Interface: 11304
+## Interface: 11304
 ## Title: YaHT
-## Title-zhCN: YaHT 另一个猎人计时器
 ## Notes: Yet another Hunter Timer.
-## Version: 2.13.0
 ## Author: Avi
 ##
+## Dependencies: !!!Libs
 ## SavedVariables: YaHTdb
+## OptionalDeps: Ace3
 ## X-Category: Hunter
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
 
 locales\enUS.lua
-locales\zhCN.lua
+locales\deDE.lua
 locales\zhTW.lua
+locales\zhCN.lua
 
 YaHT.lua
 defaults.lua
