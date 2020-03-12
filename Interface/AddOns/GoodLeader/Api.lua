@@ -5,6 +5,16 @@ local L = ns.L
 ns.ADDON_VERSION = GetAddOnMetadata(ADDON_NAME, 'Version')
 ns.ADDON_PREFIX = format('|cff00ffff%s|r：', L.ADDON_NAME)
 
+ns.RAID_LOGO = {
+    [C_Map.GetAreaInfo(2717)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Ragnaros]], -- 熔火之心
+    [C_Map.GetAreaInfo(2159)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Onyxia]], -- 奥妮克希亚的巢穴
+    [C_Map.GetAreaInfo(2677)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Nefarian]], -- 黑翼之巢
+    [C_Map.GetAreaInfo(3428)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-CThun]], -- 安其拉神殿
+    [C_Map.GetAreaInfo(3456)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-KelThuzad]], -- 纳克萨玛斯
+    [C_Map.GetAreaInfo(1977)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Avatar of Hakkar]], -- 祖尔格拉布
+    [C_Map.GetAreaInfo(3429)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Ossirian the Unscarred]], -- 安其拉废墟
+}
+
 local function GetSlotItemLevel(unit, slot)
     local id = GetInventoryItemID(unit, slot)
     if not id then
@@ -100,6 +110,10 @@ function ns.GetGroupLeader()
         end
     end
     return UnitName('player'), UnitGUID('player')
+end
+
+function ns.IsInGroup()
+    return IsInGroup(LE_PARTY_CATEGORY_HOME)
 end
 
 function ns.Message(msg, ...)

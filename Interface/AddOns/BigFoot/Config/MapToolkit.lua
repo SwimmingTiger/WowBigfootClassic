@@ -196,10 +196,6 @@ function MapToolkitConfigFunc()
 					if (not BigFoot_IsAddOnLoaded("SexyMap")) then
 						BigFoot_LoadAddOn("SexyMap");
 					end
-				else
-					if Minimap then
-						Minimap:SetMaskTexture([[Textures\MinimapMask]]);
-					end
 				end
 			end
 		);

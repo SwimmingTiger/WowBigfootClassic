@@ -4,4 +4,8 @@
     <Script file="MainPanel.lua" />
     <Script file="CountdownButton.lua" />
     <Script file="GoodLeader.lua" />
+    <Script file="TagLabel.lua" />
+    <Script file="TagsContainer.lua" />
+    <Script file="ScoreWidget.lua" />
+    <Script file="GradePanel.lua" />
 </Ui>

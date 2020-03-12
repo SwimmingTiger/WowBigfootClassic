@@ -6,9 +6,6 @@ function AutoEquipConfigFunc()
 		AUTOEQUIP_ENABLE = "开启一键换装";
 		AUTOEQUIP_ENABLE_TOOLTIP="在玩家头像上方显示一个快捷保存及换装的选项条"
 
-		ALAGEARMAN_ENABLE = "开启|cffc85353[网易有爱]|r 一键换装"
-		ALAGEARMAN_CONFIG="配置套装"
-
 		AUTOEQUIP_ENABLE_RAID_AUTOHIDE = "团队隐藏";
 		AUTOEQUIP_ENABLE_RAID_AUTOHIDE_TOOLTIP="当玩家在团队中时隐藏换装选项条"
 
@@ -28,9 +25,6 @@ function AutoEquipConfigFunc()
 
 		AUTOEQUIP_ENABLE = "開啟一鍵換裝";
 		AUTOEQUIP_ENABLE_TOOLTIP= "在玩家頭像上方顯示一個快捷保存及換裝的選項條";
-		
-		ALAGEARMAN_ENABLE = "開啟|cffc85353[網易有愛]|r 一鍵換裝"
-		ALAGEARMAN_CONFIG="配置套裝"
 
 		AUTOEQUIP_ENABLE_RAID_AUTOHIDE = "團隊隱藏";
 		AUTOEQUIP_ENABLE_RAID_AUTOHIDE_TOOLTIP= "當玩家在團隊中時隱藏換裝選項條";
@@ -53,13 +47,10 @@ function AutoEquipConfigFunc()
 		AUTOEQUIP_ENABLE_RAID_AUTOHIDE = "Hide UI when you are in raid";
 		AUTOEQUIP_ENABLE_RAID_ADVANCED_MODE = "Enahcned mode with 8 sets";
 		AUTOEQUIP_KEY_BINDING = "Key Binding";
-		
-		ALAGEARMAN_ENABLE = "Enable |cffc85353[NetEase]|r alaGearMan"
-		ALAGEARMAN_CONFIG="Config Suites"
 
 	end
 
-	if (IsConfigurableAddOn("Ex_AutoEquip") or IsConfigurableAddOn("AutoTabard") or IsConfigurableAddOn("UnrealEquip") or IsAddOnLoaded("alaGearMan") ) then
+	if (IsConfigurableAddOn("Ex_AutoEquip") or IsConfigurableAddOn("AutoTabard") or IsConfigurableAddOn("UnrealEquip") ) then
 		ModManagement_RegisterMod(
 			"AutoEquip",
 			"Interface\\Icons\\INV_Gizmo_04",
@@ -138,44 +129,6 @@ function AutoEquipConfigFunc()
 					if (BigFoot_IsAddOnLoaded("Ex_AutoEquip")) then
 						AutoEquip_KeyBinding();
 					end
-				end,
-				nil,
-				1
-			);
-		end
-
-		if IsAddOnLoaded("alaGearMan") then
-			ModManagement_RegisterCheckBox(
-				"AutoEquip",
-				ALAGEARMAN_ENABLE,
-				ALAGEARMAN_ENABLE,
-				"EnableAlaGearMan",
-				0,
-				function (__arg)
-					BigFoot_DelayCall(function()
-						AGM_FUNC.toggle_quick_panel(__arg == 1)
-					end, 0.1)
-				end
-			);
-
-			ModManagement_RegisterButton(
-				"AutoEquip",
-				ALAGEARMAN_CONFIG,
-				function ()
-					CharacterFrame:Show()
-					if AGM_FUNC.show_gear_win then
-						AGM_FUNC.show_gear_win()
-					end
-				end,
-				nil,
-				1
-			);
-
-			ModManagement_RegisterButton(
-				"AutoEquip",
-				AUTOEQUIP_KEY_BINDING,
-				function ()
-					BigFoot_ShowKeyBindingFrame("HEADER_ALAGEARMAN_QUICK");
 				end,
 				nil,
 				1

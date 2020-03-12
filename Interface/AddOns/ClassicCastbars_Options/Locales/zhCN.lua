@@ -41,8 +41,6 @@ L["ICON_SIZE_TOOLTIP"] = "为施法条图标设置大小."
 L["LSM_TEXTURE_NOTE"] = [=[
 
 备注: 如果您使用了第三方纹理/字体, 并且随后删除了它们, 那么为了确保插件能够正常工作, 您必须手动在此重置它们.]=]
-L["MOVEMENT_DETECT"] = "移动取消施法条"
-L["MOVEMENT_DETECT_TOOLTIP"] = "开启此选项后，单位移动会取消施法条。高延迟下游戏建议关闭此选项，因为有时会出现错误地取消卡顿玩家施法条的情况。"
 L["NAMEPLATE"] = "姓名板"
 L["PARTY"] = "小队"
 L["PLAYER"] = "玩家"

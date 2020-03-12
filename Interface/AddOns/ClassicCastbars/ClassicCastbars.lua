@@ -21,6 +21,7 @@ namespace.addon = addon
 ClassicCastbars = addon -- global ref for ClassicCastbars_Options
 
 -- upvalues for speed
+local gsub = _G.string.gsub
 local strfind = _G.string.find
 local pairs = _G.pairs
 local UnitGUID = _G.UnitGUID
@@ -55,22 +56,15 @@ function addon:CheckCastModifier(unitID, cast)
 
     -- Debuffs
     if not cast.isChanneled and not cast.hasCastSlowModified and not cast.skipCastSlowModifier then
-        local highestSlow = 0
-
         for i = 1, 16 do
             local _, _, _, _, _, _, _, _, _, spellID = UnitAura(unitID, i, "HARMFUL")
             if not spellID then break end -- no more debuffs
 
-            -- TODO: cast times reduced in multiplicative manner?
             local slow = castTimeIncreases[spellID]
-            if slow and slow > highestSlow then -- might be several slow debuffs
-                highestSlow = slow
+            if slow then -- note: multiple slows stack
+                cast.endTime = cast.timeStart + (cast.endTime - cast.timeStart) * ((slow / 100) + 1)
+                cast.hasCastSlowModified = true
             end
-        end
-
-        if highestSlow > 0 then
-            cast.endTime = cast.timeStart + (cast.endTime - cast.timeStart) * ((highestSlow / 100) + 1)
-            cast.hasCastSlowModified = true
         end
     end
 
@@ -92,15 +86,19 @@ function addon:CheckCastModifier(unitID, cast)
             end
             if not name then break end -- no more buffs
 
+            -- TODO: gotta check how speed is calculated when both Curse of Tongues and Berserking is applied
             if name == BARKSKIN and not cast.hasBarkskinModifier then
                 cast.endTime = cast.endTime + 1
                 cast.hasBarkskinModifier = true
             elseif name == NATURES_GRACE and not cast.hasNaturesGraceModifier and not cast.isChanneled then
                 cast.endTime = cast.endTime - 0.5
                 cast.hasNaturesGraceModifier = true
-            elseif (name == MIND_QUICKENING or name == BLINDING_LIGHT or name == BERSERKING) and not cast.hasSpeedModifier then
-                cast.endTime = cast.endTime - ((cast.endTime - cast.timeStart) * ((name == BERSERKING and 10 or 33) / 100))
+            elseif (name == MIND_QUICKENING or name == BLINDING_LIGHT) and not cast.hasSpeedModifier and not cast.isChanneled then
+                cast.endTime = cast.endTime - ((cast.endTime - cast.timeStart) * 33 / 100)
                 cast.hasSpeedModifier = true
+            elseif name == BERSERKING and not cast.hasBerserkingModifier and not cast.isChanneled then -- put this seperate as it can stack with other modifiers
+                cast.endTime = cast.endTime - ((cast.endTime - cast.timeStart) * 0.1)
+                cast.hasBerserkingModifier = true
             elseif name == FOCUSED_CASTING then
                 cast.hasFocusedCastingModifier = true
             end
@@ -125,7 +123,7 @@ function addon:StopCast(unitID, noFadeOut)
     if not castbar then return end
 
     if not castbar.isTesting then
-        self:HideCastbar(castbar, noFadeOut)
+        self:HideCastbar(castbar, unitID, noFadeOut)
     end
 
     castbar._data = nil
@@ -172,11 +170,12 @@ function addon:StoreCast(unitGUID, spellName, spellID, iconTexturePath, castTime
     cast.hasNaturesGraceModifier = nil
     cast.hasFocusedCastingModifier = nil
     cast.hasSpeedModifier = nil
+    cast.hasBerserkingModifier = nil
     cast.skipCastSlowModifier = nil
     cast.pushbackValue = nil
-    cast.showCastInfoOnly = nil
     cast.isInterrupted = nil
     cast.isCastComplete = nil
+    cast.isFailed = nil
 
     self:StartAllCasts(unitGUID)
 end
@@ -188,7 +187,7 @@ function addon:DeleteCast(unitGUID, isInterrupted, skipDeleteCache, isCastComple
     local cast = activeTimers[unitGUID]
     if cast then
         cast.isInterrupted = isInterrupted -- just so we can avoid passing it as an arg for every function call
-        cast.isCastComplete = isCastComplete
+        cast.isCastComplete = isCastComplete -- SPELL_CAST_SUCCESS detected
         self:StopAllCasts(unitGUID, noFadeOut)
         activeTimers[unitGUID] = nil
     end
@@ -262,12 +261,10 @@ function addon:ToggleUnitEvents(shouldReset)
         self:RegisterEvent("PLAYER_TARGET_CHANGED")
         if self.db.target.autoPosition then
             self:RegisterUnitEvent("UNIT_AURA", "target")
-            self:RegisterEvent("UNIT_TARGET")
         end
     else
         self:UnregisterEvent("PLAYER_TARGET_CHANGED")
         self:UnregisterEvent("UNIT_AURA")
-        self:UnregisterEvent("UNIT_TARGET")
     end
 
     if self.db.nameplate.enabled then
@@ -380,20 +377,6 @@ function addon:UNIT_AURA()
     end
 end
 
-function addon:UNIT_TARGET(unitID)
-    if not self.db.target.autoPosition then return end
-
-    -- reanchor castbar when target of target is cleared or shown
-    if unitID == "target" or unitID == "player" then
-        if activeFrames.target and activeGUIDs.target then
-            local parentFrame = self.AnchorManager:GetAnchor("target")
-            if parentFrame then
-                self:SetTargetCastbarPosition(activeFrames.target, parentFrame)
-            end
-        end
-    end
-end
-
 -- Bind unitIDs to unitGUIDs so we can efficiently get unitIDs in CLEU events
 function addon:PLAYER_TARGET_CHANGED()
     activeGUIDs.target = UnitGUID("target") or nil
@@ -450,7 +433,7 @@ local stopCastOnDamageList = namespace.stopCastOnDamageList
 local ARCANE_MISSILES = GetSpellInfo(5143)
 
 function addon:COMBAT_LOG_EVENT_UNFILTERED()
-    local _, eventType, _, srcGUID, srcName, srcFlags, _, dstGUID,  _, dstFlags, _, _, spellName = CombatLogGetCurrentEventInfo()
+    local _, eventType, _, srcGUID, srcName, srcFlags, _, dstGUID, _, dstFlags, _, _, spellName = CombatLogGetCurrentEventInfo()
 
     if eventType == "SPELL_CAST_START" then
         local spellID = castedSpells[spellName]
@@ -509,7 +492,7 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
                 local cachedTime = npcCastTimeCache[srcName .. spellName]
                 if not cachedTime then
                     local cast = activeTimers[srcGUID]
-                    if not cast or (cast and not cast.hasCastSlowModified and not cast.hasSpeedModifier) then
+                    if not cast or (cast and not cast.hasCastSlowModified and not cast.hasSpeedModifier and not cast.hasBerserkingModifier) then
                         local restoredStartTime = npcCastTimeCacheStart[srcGUID]
                         if restoredStartTime then
                             local castTime = (GetTime() - restoredStartTime) * 1000
@@ -542,8 +525,9 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         -- We also check the expiration timer in OnUpdate script just incase this event doesn't trigger when i.e unit is no longer in range.
         return self:DeleteCast(srcGUID, nil, nil, true)
     elseif eventType == "SPELL_AURA_APPLIED" then
-        if crowdControls[spellName] then
+        if crowdControls[spellName] and activeTimers[dstGUID] then
             -- Aura that interrupts cast was applied
+            activeTimers[dstGUID].isFailed = true
             return self:DeleteCast(dstGUID)
         elseif castTimeIncreases[spellName] and activeTimers[dstGUID] then
             -- Cast modifiers doesnt modify already active casts, only the next time the player casts
@@ -556,13 +540,22 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
             return self:DeleteCast(srcGUID, nil, nil, true)
         end
     elseif eventType == "SPELL_CAST_FAILED" then
-        if srcGUID == self.PLAYER_GUID then
-            -- Spamming cast keybinding triggers SPELL_CAST_FAILED so check if actually casting or not for the player
-            if not CastingInfo() then
-                return self:DeleteCast(srcGUID)
+        local cast = activeTimers[srcGUID]
+        if cast then
+            if srcGUID == self.PLAYER_GUID then
+                -- Spamming cast keybinding triggers SPELL_CAST_FAILED so check if actually casting or not for the player
+                if not CastingInfo() then
+                    if not cast.isChanneled then
+                        cast.isFailed = true
+                    end
+                    return self:DeleteCast(srcGUID, nil, nil, cast.isChanneled) -- note: channels shows finish anim on cast failed
+                end
+            else
+                if not cast.isChanneled then
+                    cast.isFailed = true
+                end
+                return self:DeleteCast(srcGUID, nil, nil, cast.isChanneled)
             end
-        else
-            return self:DeleteCast(srcGUID)
         end
     elseif eventType == "PARTY_KILL" or eventType == "UNIT_DIED" or eventType == "SPELL_INTERRUPT" then
         return self:DeleteCast(dstGUID, eventType == "SPELL_INTERRUPT")
@@ -570,7 +563,8 @@ function addon:COMBAT_LOG_EVENT_UNFILTERED()
         if bit_band(dstFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0 then -- is player, and not pet
             local cast = activeTimers[dstGUID]
             if cast then
-                if stopCastOnDamageList[cast.spellName] then
+                if stopCastOnDamageList[cast.spellName] and activeTimers[dstGUID] then
+                    activeTimers[dstGUID].isFailed = true
                     return self:DeleteCast(dstGUID)
                 end
 
@@ -587,27 +581,32 @@ addon:SetScript("OnUpdate", function(self, elapsed)
     local currTime = GetTime()
     local pushbackEnabled = self.db.pushbackDetect
 
-    if self.db.movementDetect then
-        refresh = refresh - elapsed
-
-        -- Check if unit is moving to stop castbar, thanks to Cordankos for this idea
-        if refresh < 0 then
-            if next(activeGUIDs) then
-                for unitID, unitGUID in pairs(activeGUIDs) do
-                    if unitID ~= "focus" then
-                        local cast = activeTimers[unitGUID]
-                        -- Only stop cast for players since some mobs runs while casting, also because
-                        -- of lag we have to only stop it if the cast has been active for atleast 0.25 sec
-                        if cast and cast.isPlayer and currTime - cast.timeStart > 0.25 then
-                            if not castStopBlacklist[cast.spellName] and GetUnitSpeed(unitID) ~= 0 then
-                                self:DeleteCast(unitGUID)
+    refresh = refresh - elapsed
+    if refresh < 0 then
+        if next(activeGUIDs) then
+            -- Check if unit is moving to stop castbar, thanks to Cordankos for this idea
+            for unitID, unitGUID in pairs(activeGUIDs) do
+                if unitID ~= "focus" then
+                    local cast = activeTimers[unitGUID]
+                    -- Only stop cast for players since some mobs runs while casting, also because
+                    -- of lag we have to only stop it if the cast has been active for atleast 0.25 sec
+                    if cast and cast.isPlayer and currTime - cast.timeStart > 0.25 then
+                        if not castStopBlacklist[cast.spellName] and GetUnitSpeed(unitID) ~= 0 then
+                            local castAlmostFinishied = ((currTime - cast.timeStart) > cast.maxValue - 0.1)
+                            -- due to lag its possible that the cast is successfuly casted but still shows interrupted
+                            -- unless we ignore the last few miliseconds here
+                            if not castAlmostFinishied then
+                                if not cast.isChanneled then
+                                    cast.isFailed = true
+                                end
+                                self:DeleteCast(unitGUID, nil, nil, cast.isChanneled)
                             end
                         end
                     end
                 end
             end
-            refresh = 0.1
         end
+        refresh = 0.1
     end
 
     -- Update all shown castbars in a single OnUpdate call
@@ -617,7 +616,7 @@ addon:SetScript("OnUpdate", function(self, elapsed)
             local castTime = cast.endTime - currTime
 
             if (castTime > 0) then
-                if not cast.showCastInfoOnly then
+                if not castbar.showCastInfoOnly then
                     local maxValue = cast.endTime - cast.timeStart
                     local value = currTime - cast.timeStart
                     if cast.isChanneled then -- inverse
@@ -635,10 +634,31 @@ addon:SetScript("OnUpdate", function(self, elapsed)
                     castbar.Spark:SetPoint("CENTER", castbar, "LEFT", sparkPosition, 0)
                 end
             else
+                -- slightly adjust color of the castbar when its not 100% sure if the cast is casted or failed
+                -- (gotta put it here to run before fadeout anim)
+                if not cast.isCastComplete and not cast.isInterrupted and not cast.isFailed then
+                    castbar.Spark:SetAlpha(0)
+                    if not cast.isChanneled then
+                        local c = self.db[gsub(unit, "%d", "")].statusColor
+                        castbar:SetStatusBarColor(c[1], c[2] + 0.1, c[3], c[4])
+                        castbar:SetMinMaxValues(0, 1)
+                        castbar:SetValue(1)
+                    else
+                        castbar:SetValue(0)
+                    end
+                end
+
                 -- Delete cast incase stop event wasn't detected in CLEU
                 if castTime <= -0.25 then -- wait atleast 0.25s before deleting incase CLEU stop event is happening at same time
-                    local skipFade = ((currTime - cast.timeStart) > cast.maxValue + 0.25)
-                    self:DeleteCast(cast.unitGUID, false, true, false, skipFade)
+                    if cast.isChanneled and not cast.isCastComplete and not cast.isInterrupted and not cast.isFailed then
+                        -- show finish animation on channels that doesnt have CLEU stop event
+                        -- Note: channels always have finish animations on stop, even if it was an early stop
+                        local skipFade = ((currTime - cast.timeStart) > cast.maxValue + 0.4) -- skips fade anim on castbar being RESHOWN if the cast is expired
+                        self:DeleteCast(cast.unitGUID, false, true, true, skipFade)
+                    else
+                        local skipFade = ((currTime - cast.timeStart) > cast.maxValue + 0.25)
+                        self:DeleteCast(cast.unitGUID, false, true, false, skipFade)
+                    end
                 end
             end
         end

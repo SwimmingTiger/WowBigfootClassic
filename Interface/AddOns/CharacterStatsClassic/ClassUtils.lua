@@ -106,3 +106,16 @@ function CSC_GetDefenseFromTalents(unit)
 
     return defense;
 end
+
+-- returns the shapeshift form index for druids
+function CSC_GetShapeshiftForm()
+	local shapeIndex = 0;
+
+	for possibleForm=1, GetNumShapeshiftForms() do
+		if select(2, GetShapeshiftFormInfo(possibleForm)) then
+			shapeIndex = possibleForm;
+		end
+	end
+
+	return shapeIndex;
+end

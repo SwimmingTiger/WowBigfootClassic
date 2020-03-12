@@ -132,7 +132,7 @@ function M:GetTooltipText(unit, talent)
 	local race = strupper(select(2, UnitRace(unit)));
 	local prefix = (level == 70) and "" or "+";
 
-	self:DoQueueScan(unit);
+	-- self:DoQueueScan(unit);
 	-- 在可观察天赋时需要累计上天赋加成
 	if (talent) then
 --		self:ScanUnitTalent(unit, class, race, level, (unit ~= "player"));

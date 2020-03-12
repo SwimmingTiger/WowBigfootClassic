@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.0.22"
+Spy.Version = "1.0.23"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -1271,7 +1271,7 @@ local Default_Profile = {
 		EnabledInBattlegrounds=true,
 		EnabledInArenas=true,
 		EnabledInWintergrasp=true,
-		DisableWhenPVPUnflagged=false,
+		DisableWhenPVPUnflagged=true,
 		MinimapDetection=false,
 		MinimapDetails=true,
 		DisplayOnMap=true,

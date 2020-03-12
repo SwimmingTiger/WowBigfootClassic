@@ -11,7 +11,7 @@ local FilterSize	= 20
 local RampUp		= 5
 local RampDown		= 10
 
-Recount.Version = tonumber(string.sub("$Revision: 1514 $", 12, -3))
+Recount.Version = tonumber(string.sub("$Revision: 1532 $", 12, -3))
 
 local _G = _G
 local abs = abs
@@ -1057,7 +1057,7 @@ function Recount:FindGuardianFromTooltip(nameGUID)
 end
 
 function Recount:ScanGUIDTooltip(nameGUID)
-    local newGUIDparts = {('-'):split(nameGUID)}
+	local newGUIDparts = {('-'):split(nameGUID)}
 	local NPCID = tonumber(newGUIDparts[6])
 	local spawnUID = tonumber(newGUIDparts[7], 16)
 	local nameGUID2 = string_format("%s-%s-%s-%s-%s-%d-%10X", newGUIDparts[1], newGUIDparts[2], newGUIDparts[3], newGUIDparts[4], newGUIDparts[5], NPCID, spawnUID)

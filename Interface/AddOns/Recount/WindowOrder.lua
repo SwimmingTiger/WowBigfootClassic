@@ -1,6 +1,6 @@
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1361 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1532 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -16,22 +16,8 @@ local TopWindow
 local AddToScale = { }
 local AllWindows = { }
 
---local LevelDiff
-
--- Based off an Aloft function to save memory usage by SetLevel (was creating a table for children frames)
---[[local function SetLevel_ProcessChildFrames(...)
-	for i = 1, select('#', ...) do
-		local frame = select(i, ...)
-
-		Recount:SetLevel(frame, frame:GetFrameLevel() + LevelDiff)
-	end
-end]]
-
 function Recount:SetLevel(frame, level)
-	--LevelDiff = level - frame:GetFrameLevel()
 	frame:SetFrameLevel(level)
-
-	--SetLevel_ProcessChildFrames(frame:GetChildren()) --Elsia: If I understood correctly children now inherit frame levels so this should not be needed.
 end
 
 function Recount:InitOrder()

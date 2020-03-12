@@ -33,7 +33,7 @@ L.labelPointsChanged = "(\124cffff0000Modified\124r)";
 L.resetButton = "Reset tanlents in current tab";
 L.resetAllButton = "Reset all talents";
 L.resetToSetButton = "Reset to initial state";
-L.readOnlyButton = "\124cff00ff00Left click\124r to switch Editable\n\124cff00ff00Right click\124r to set win style";
+L.readOnlyButton = "\124cff00ff00RClick\124r to set";
 L.closeButton = "Close this win";
 
 L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to import build-in talents\n    (Copied from \124cffff0000wowhead\124r).";
@@ -44,8 +44,8 @@ L.spellNotAvailable = "\124cffff0000Not Available\124r";
 L.showAllSpell = "Show all ranks";
 L.applyTalentsButton = "Apply this talents emulation.";
 L.applyTalentsButton_Notify = "Do u want to apply these talents?";
-L.importButton = "Import string or wowhead/nfu url.";
-L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu\124r url";
+L.importButton = "Import string or wowhead/nfu/yxrank url.";
+L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu/yxrank\124r url";
 L.saveButton = "\124cff00ff00Left click\124r to save talents set.\n\124cff00ff00Right click\124r to load saved talents set.\n\124cff00ff00Shift & Left click\124r to del";
 L.sendButton = "\124cff00ff00Left click\124r to send to chat message\n\124cff00ff00Right click\124r to show talents in recent chats";
 L.equipmentButton = "Watch equipment";
@@ -55,6 +55,7 @@ L.TalentFrameCallButtonFontString = "Emulator";
 L.curRank = "Current Rank";
 L.nextRank = "Next Rank";
 L.maxRank = "Top Rank";
+L.reqPoints = "%d/%d in %s";
 
 L.SetWinStyle_BLZ = "Set to blz style";
 L.SetWinStyle_ALA = "Set to flat style";

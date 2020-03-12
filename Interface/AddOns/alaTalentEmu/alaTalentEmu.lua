@@ -7,23 +7,23 @@ _G.__ala_meta__ = _G.__ala_meta__ or {  };
 
 do
 	local _G = _G;
-	local env_meta = {  };
-	local function set_global(key, value)
-		rawset(env_meta, key, value);
-		print("emu assign global", key, value);
-		return value;
-	end
-	local env = setmetatable(env_meta, {
-			__index = _G,
-			__newindex = function(t, key, value) set_global(key, value); end,
-		}
+	setfenv(1,
+		setmetatable({  },
+			{
+				__index = _G,
+				__newindex = function(t, key, value)
+					rawset(t, key, value);
+					print("ate assign global", key, value);
+					return value;
+				end,
+			}
+		)
 	);
-	setfenv(1, env);
 end
 
 local L = NS.L;
 if not L then return;end
-local curPhase = 2;
+local curPhase = 3;
 ----------------------------------------------------------------------------------------------------upvalue
 	----------------------------------------------------------------------------------------------------LUA
 	local math, table, string, bit = math, table, string, bit;
@@ -34,7 +34,7 @@ local curPhase = 2;
 			abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
 	local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
 			format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
-	local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall =  strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
+	local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall = strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
 	local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
 	local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
 	----------------------------------------------------------------------------------------------------GAME
@@ -187,7 +187,6 @@ local curPhase = 2;
 		mainFrameYSizeMin_Style2 = 180,
 		mainFrameHeaderYSize = 20,
 		mainFrameFooterYSize = 20,
-		mainFrameFooterYSize_Style2 = 40,
 
 		frameFont = SystemFont_Shadow_Med1:GetFont(),--=="Fonts\ARKai_T.ttf"
 		frameFontSize = 11,
@@ -206,7 +205,7 @@ local curPhase = 2;
 		talentFrameXToBorder = 8,
 		talentFrameYToBorder = 0,
 		talentFrameHeaderYSize = 0,
-		talentFrameFooterYSize = 0,
+		talentFrameFooterYSize = 20,
 		seqWidth = 1,
 
 		talentDepArrowXSize = 15,
@@ -239,7 +238,7 @@ local curPhase = 2;
 
 		specTabButtonWidth = 48,
 		specTabButtonHeight = 12,
-		specTabButtonGap = 12,
+		specTabButtonGap = 6,
 		specTabButtonTexCoord = { 0.05, 0.95, 0.40, 0.70, },
 		curSpecIndicatorSize = 20,
 
@@ -262,7 +261,7 @@ local curPhase = 2;
 	setting.mainFrameXSizeDefault_Style1 = setting.talentFrameXSizeTriple + setting.talentFrameXToBorder * 2;
 	setting.mainFrameYSizeDefault_Style1 = setting.talentFrameYSize + setting.talentFrameYToBorder * 2 + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize;
 	setting.mainFrameXSizeDefault_Style2 = setting.talentFrameXSizeSingle + setting.talentFrameXToBorder * 2;
-	setting.mainFrameYSizeDefault_Style2 = setting.talentFrameYSize + setting.talentFrameYToBorder * 2 + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize_Style2;
+	setting.mainFrameYSizeDefault_Style2 = setting.talentFrameYSize + setting.talentFrameYToBorder * 2 + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize;
 	setting.equipmentContainerYSize = setting.equipmentFrameButtonYToBorder + setting.equipmentFrameButtonSize * 10 + setting.equipmentFrameButtonGap * 11 + setting.equipmentFrameArmorWeaponGap + setting.equipmentFrameButtonYToBorder;
 	local TEXTURE_SET =
 	{
@@ -370,24 +369,12 @@ local curPhase = 2;
 	};
 	--------------------------------------------------
 	local function _log_(...)
-		--print(...);
+		-- print(date('\124cff00ff00%H:%M:%S\124r'), ...);
 	end
 	local function _error_(...)
-		print("\124cffff0000" .. select(1, ...) .. "\124r", select(2, ...));
+		print(date('\124cffff0000%H:%M:%S\124r'), ...);
 	end
 	local function _noop_()
-	end
-	local function _GetSpellTexture(id)
-		return select(3,GetSpellInfo(id));
-	end
-	local function GameTooltipSetTalent(icon, spellTable, curRank)
-		GameTooltip:SetOwner(icon, "ANCHOR_RIGHT");
-		if curRank == 0 then
-			GameTooltip:SetSpellByID(spellTable[1]);
-		else
-			GameTooltip:SetSpellByID(spellTable[curRank]);
-		end
-		--GameTooltip:Show();
 	end
 	_G.ALA_GetSpellLink = _G.ALA_GetSpellLink or function(id, name)
 		--\124cff71d5ff\124Hspell:355\124h[嘲讽]\124h\124r
@@ -462,8 +449,8 @@ local curPhase = 2;
 																					coordFamily		(num(identify))
 													reqByArrowSet	(table-table)
 													db				(table)
+					specButtonsBar					curTabIndicator	(texture)
 					specButtons[]	(frame table)
-					curTabIndicator	(texture)
 					level			(num)
 					totalUsedPoints	(num)
 					totalAvailablePoints	(num)
@@ -473,24 +460,6 @@ local curPhase = 2;
 
 		- 1---- 2--- 3-- 4-------- 5------- 6------ 7----- 8-------- 9------- 10--------- 11---------------- 12
 		--tier, col, id, maxPoint, reqTier, reqCol, reqId, Spell[5], texture, icon-index, req-index[] in db, req-by-index in db
-	]]
-	--[[
-		GameTooltipTextLeft1
-		GameTooltip:SetTalent(specIndex, id)
-		CHARACTER_POINTS_CHANGED or SPELLS_CHANGED -> TalentFrame_Update
-		LearnTalent(specIndex, id);
-		LearnTalents
-		ConfirmTalentWipe();
-		CheckTalentMasterDist();
-		frameStrata(string) Which layer your frame should be on. Some words of caution: if you set your frameStrata to "BACKGROUND" it will be blocked from receiving mouse events unless you set frameLevel to 1 or more. Same goes for "TOOLTIP" regardless of frameLevel. Possible values are, from highest to lowest:
-			TOOLTIP
-			FULLSCREEN_DIALOG
-			FULLSCREEN
-			DIALOG
-			HIGH
-			MEDIUM
-			LOW
-			BACKGROUND
 	]]
 ----------------------------------------------------------------------------------------------------
 local config = 
@@ -519,6 +488,7 @@ local emu = {
 	playerName = UnitName('player'),
 	realm = GetRealmName(),
 	playerFullName = UnitName('player') .. "-" .. GetRealmName();
+	QUERY_SENT = {  },
 	specializedMainFrameInspect = {  },
 	queryCache = {  },	-- [GUID] = { [addon] = { data, time, }, }
 	recv_msg = {  };
@@ -580,6 +550,35 @@ do	-- extern media
 		end
 		return nil;
 	end
+	function extern.import.yxrank(url)
+		--https://www.yxrank.com/classic/talent/warrior?count=333015011130012011111010010000000000000000000000000000000000000000000000000000000000
+		local _, _, class, temp = strfind(url, "yxrank%.com/classic/talent/([a-zA-Z]+)%?count=(%d+)");
+		if class and temp then
+			class = strlower(class);
+			local DB = _talentDB[class];
+			local classTalent = _classTalent[class];
+			if DB then
+				local data = "";
+				for i = 1, 3 do
+					local db = DB[classTalent[i]];
+					for j, val in ipairs(db) do
+						local pos = (i - 1) * 28 + val[1] * 4 + val[2] + 1;
+						local v = strsub(temp, pos, pos);
+						if v == "" then
+							break;
+						end
+						v = tonumber(v);
+						if v > val[4] then
+							return nil;
+						end
+						data = data .. v;
+					end
+				end
+				return class, data, 60;
+			end
+		end
+		return nil;
+	end
 	function extern.export.wowhead(mainFrame)
 		local talentFrames = mainFrame.talentFrames;
 		local DB = _talentDB[mainFrame.class];
@@ -635,6 +634,24 @@ do	-- extern media
 			end
 		end
 		return "www.nfuwow.com/talents/60/" .. strlower(mainFrame.class) .. "/tal/" .. data;
+	end
+	function extern.export.yxrank(mainFrame)
+		local talentFrames = mainFrame.talentFrames;
+		local DB = _talentDB[mainFrame.class];
+		local classTalent = _classTalent[mainFrame.class];
+		local ofs = 0;
+		local temp = {  };
+		for i = 1, 3 do
+			local talentSet = talentFrames[i].talentSet;
+			for j, val in ipairs(DB[classTalent[i]]) do
+				temp[ofs + val[1] * 4 + val[2] + 1] = talentSet[j];
+			end
+			for j = 1, 28 do
+				temp[ofs + j] = temp[ofs + j] or 0;
+			end
+			ofs = ofs + 28;
+		end
+		return "www.yxrank.com/classic/talent/" .. mainFrame.class .. "?count=" .. table.concat(temp);
 	end
 	function extern.addon_init()
 		--[[
@@ -1273,7 +1290,6 @@ do	-- internal sub
 			local talentFrames = data.talentFrames;
 			local class = data.class;
 			local talentRef = _classTalent[class];
-			--local title = L.DATA[class] .. "-";
 			local title = nil;
 			if uncolored then
 				title = L.DATA[class];
@@ -1291,7 +1307,6 @@ do	-- internal sub
 			local talentRef = _classTalent[class];
 			local pos = 1;
 			local len =strlen(data);
-			--local title = L.DATA[class] .. "-";
 			local title = nil;
 			if uncolored then
 				title = L.DATA[class];
@@ -1618,7 +1633,6 @@ do	-- internal sub
 				classButtons[index]:Hide();
 			end
 			objects.curClassIndicator:Hide();
-			--emu.EmuCore_SetReadOnly(mainFrame, true);
 			local talentFrames = mainFrame.talentFrames;
 			for specIndex = 1, 3 do
 				wipe(talentFrames[specIndex].talentChanged);
@@ -1674,10 +1688,6 @@ do	-- internal sub
 			mainFrame.initialized = false;
 		else
 			do	--check class value
-				-- if class == nil then
-				-- 	_log_("EmuCore_SetClass", - 1, 1, - 1);
-				-- 	return false;
-				-- end
 				if type(class) == 'number' then
 					if class <= #_indexToClass then
 						class = _indexToClass[class];
@@ -1732,6 +1742,7 @@ do	-- internal sub
 				local talentIcons = talentFrame.talentIcons;
 				local specId = talentRef[specIndex];
 				local db = DB[specId];
+				talentFrame.specId = specId;
 
 				local tabTexture = _talentTabIcon[specId];
 				local specButton = specButtons[specIndex];
@@ -1745,13 +1756,14 @@ do	-- internal sub
 					specButton:SetPushedTexture(TEXTURE_SET.UNK);
 				end
 				talentFrame.BG:SetTexture(_BG1[specId]);
+				talentFrame.specLabel:SetText(L.DATA[specId]);
 				if db then
 					for dbIndex = 1, #db do
 						local data = db[dbIndex];
 						local icon = talentIcons[data[10]];
 						icon.dbIndex = dbIndex;
 						icon:Show();
-						local texture = _GetSpellTexture(data[8][1]);
+						local texture = select(3,GetSpellInfo(data[8][1]));
 						if texture then
 							icon:SetNormalTexture(texture);
 							icon:SetPushedTexture(texture);
@@ -1809,10 +1821,6 @@ do	-- internal sub
 					_log_("EmuCore_SetData", 1, - 1);
 					return false;
 				end
-				-- if not data then
-				-- 	_log_("EmuCore_SetData", 2, - 1);
-				-- 	return false;
-				-- end
 				if type(data) ~= 'string' or data == "" then
 					_log_("EmuCore_SetData", 3, type(data));
 					return false;
@@ -1861,7 +1869,8 @@ do	-- internal sub
 
 		return true;
 	end
-	function emu.EmuCore_SetReadOnly(mainFrame, readOnly)	-- READONLY CHANGED HERE ONLY
+	function emu.EmuCore_SetReadOnly(mainFrame, readOnly)	-- READONLY CHANGED HERE ONLY	-- DISABLED
+		readOnly = false;
 		if mainFrame.readOnly == readOnly then
 			return;
 		end
@@ -1869,11 +1878,9 @@ do	-- internal sub
 		local objects = mainFrame.objects;
 		if readOnly then
 			objects.readOnlyButton:GetNormalTexture():SetVertexColor(TEXTURE_SET.LOCK_LOCKED_COLOR[1], TEXTURE_SET.LOCK_LOCKED_COLOR[2], TEXTURE_SET.LOCK_LOCKED_COLOR[3], TEXTURE_SET.LOCK_LOCKED_COLOR[4]);
-			--objects.readOnlyText:SetText(L.readOnly);
 			emu.EmuSub_NoRemainingPoints(mainFrame);
 		else
 			objects.readOnlyButton:GetNormalTexture():SetVertexColor(TEXTURE_SET.LOCK_UNLOCKED_COLOR[1], TEXTURE_SET.LOCK_UNLOCKED_COLOR[2], TEXTURE_SET.LOCK_UNLOCKED_COLOR[3], TEXTURE_SET.LOCK_UNLOCKED_COLOR[4]);
-			--objects.readOnlyText:SetText(L.notReadOnly);
 			if mainFrame.totalAvailablePoints > mainFrame.totalUsedPoints then
 				emu.EmuSub_HasRemainingPoints(mainFrame);
 			end
@@ -2037,7 +2044,7 @@ do	-- internal sub
 
 		emu.EmuSub_UpdateLabelText(mainFrame);
 		if GetMouseFocus() == self then
-			emu.EmuSub_TooltipSetTalent(emu.tooltipFrame, self, data[8], talentSet[dbIndex], data[4])
+			emu.EmuSub_TooltipSetTalent(emu.tooltipFrame, self, talentFrame.specId, data[1] * 5, talentFrame.talentSet.total, data[8], talentSet[dbIndex], data[4])
 		end
 
 		return ret;
@@ -2086,7 +2093,6 @@ do	-- internal sub
 		emu.EmuCore_SetData(mainFrame, nil);
 		emu.EmuCore_SetReadOnly(mainFrame, false);
 		emu.EmuCore_SetName(mainFrame, nil);
-		-- emu.Emu_ChangeTab_Style2(mainFrame, 1);
 
 		emu.EmuSub_UpdateLabelText(mainFrame);
 
@@ -2112,14 +2118,15 @@ do	-- internal sub
 		end
 	end
 
-	function emu.EmuSub_TooltipSetTalent(tooltipFrame, icon, spellTable, curRank, maxRank)
-		local fontString1h = tooltipFrame.fontString1h;
+	function emu.EmuSub_TooltipSetTalent(tooltipFrame, icon, specId, reqPts, pts, spellTable, curRank, maxRank)
+		local fontString1h1 = tooltipFrame.fontString1h1;
+		local fontString1h2 = tooltipFrame.fontString1h2;
 		local tooltip1 = tooltipFrame.tooltip1;
 
 		local fontString1f1 = tooltipFrame.fontString1f1;
 		local fontString1f2 = tooltipFrame.fontString1f2;
 
-		local fontString2h = tooltipFrame.fontString2h;
+		local fontString2h1 = tooltipFrame.fontString2h1;
 		local tooltip2 = tooltipFrame.tooltip2;
 
 		local fontString2f1 = tooltipFrame.fontString2f1;
@@ -2131,25 +2138,31 @@ do	-- internal sub
 		tooltipFrame:Show();
 		tooltipFrame:SetAlpha(0.0);
 		if curRank == 0 then
-			fontString1h:Show();
+			fontString1h1:Show();
 			--tooltip1:Show();
 			fontString1f1:Show();
 			fontString1f2:Show();
-			fontString2h:Hide();
+			fontString2h1:Hide();
 			tooltip2:Hide();
 			fontString2f1:Hide();
 			fontString2f2:Hide();
 
-			fontString1h:SetText(L.nextRank);
+			fontString1h1:SetText(L.nextRank);
 			if icon.active then
-				fontString1h:SetTextColor(setting.color_iconToolTipNextRank[1], setting.color_iconToolTipNextRank[2], setting.color_iconToolTipNextRank[3], setting.color_iconToolTipNextRank[4]);
+				fontString1h1:SetTextColor(setting.color_iconToolTipNextRank[1], setting.color_iconToolTipNextRank[2], setting.color_iconToolTipNextRank[3], setting.color_iconToolTipNextRank[4]);
+				fontString1h2:Hide();
 			else
-				fontString1h:SetTextColor(setting.color_iconToolTipNextRankDisabled[1], setting.color_iconToolTipNextRankDisabled[2], setting.color_iconToolTipNextRankDisabled[3], setting.color_iconToolTipNextRankDisabled[4]);
+				fontString1h1:SetTextColor(setting.color_iconToolTipNextRankDisabled[1], setting.color_iconToolTipNextRankDisabled[2], setting.color_iconToolTipNextRankDisabled[3], setting.color_iconToolTipNextRankDisabled[4]);
+				if reqPts > pts then
+					fontString1h2:SetTextColor(setting.color_iconToolTipNextRankDisabled[1], setting.color_iconToolTipNextRankDisabled[2], setting.color_iconToolTipNextRankDisabled[3], setting.color_iconToolTipNextRankDisabled[4]);
+					fontString1h2:Show();
+					fontString1h2:SetText(format(L.reqPoints, pts, reqPts, L.DATA[specId]));
+				end
 			end
 
 			tooltip1:SetBackdrop(setting.tooltipBackdrop);
 			tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
-			tooltip1:SetPoint("TOPLEFT", fontString1h, "BOTTOMLEFT", 0, 6);
+			tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
 			tooltip1:SetSpellByID(spellTable[1]);
 			fontString1f2:SetText(tostring(spellTable[1]));
 			tooltip1:SetAlpha(0.0);
@@ -2165,7 +2178,7 @@ do	-- internal sub
 				if tooltip1:IsShown() then
 					--tooltip1:Show();
 					self:SetWidth(tooltip1:GetWidth() + 4);
-					self:SetHeight(self.fontString1h:GetHeight() + tooltip1:GetHeight() + self.fontString1f2:GetHeight());
+					self:SetHeight(self.fontString1h1:GetHeight() + tooltip1:GetHeight() + self.fontString1f2:GetHeight());
 					self:SetAlpha(1.0);
 					tooltip1:SetAlpha(1.0);
 				else
@@ -2173,21 +2186,22 @@ do	-- internal sub
 				end
 			end);
 		elseif curRank == maxRank then
-			fontString1h:Show();
+			fontString1h1:Show();
 			--tooltip1:Show();
 			fontString1f1:Show();
 			fontString1f2:Show();
-			fontString2h:Hide();
+			fontString2h1:Hide();
 			tooltip2:Hide();
 			fontString2f1:Hide();
 			fontString2f2:Hide();
 
-			fontString1h:SetText(L.maxRank);
-			fontString1h:SetTextColor(setting.color_iconToolTipMaxRank[1], setting.color_iconToolTipMaxRank[2], setting.color_iconToolTipMaxRank[3], setting.color_iconToolTipMaxRank[4]);
+			fontString1h1:SetText(L.maxRank);
+			fontString1h1:SetTextColor(setting.color_iconToolTipMaxRank[1], setting.color_iconToolTipMaxRank[2], setting.color_iconToolTipMaxRank[3], setting.color_iconToolTipMaxRank[4]);
+			fontString1h2:Hide();
 
 			tooltip1:SetBackdrop(setting.tooltipBackdrop);
 			tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
-			tooltip1:SetPoint("TOPLEFT", fontString1h, "BOTTOMLEFT", 0, 6);
+			tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
 			tooltip1:SetSpellByID(spellTable[maxRank]);
 			fontString1f2:SetText(tostring(spellTable[maxRank]));
 			tooltip1:SetAlpha(0.0);
@@ -2203,7 +2217,7 @@ do	-- internal sub
 				if tooltip1:IsShown() then
 					--tooltip1:Show();
 					self:SetWidth(tooltip1:GetWidth() + 4);
-					self:SetHeight(self.fontString1h:GetHeight() + tooltip1:GetHeight() + self.fontString1f2:GetHeight());
+					self:SetHeight(self.fontString1h1:GetHeight() + tooltip1:GetHeight() + self.fontString1f2:GetHeight());
 					self:SetAlpha(1.0);
 					tooltip1:SetAlpha(1.0);
 				else
@@ -2211,35 +2225,36 @@ do	-- internal sub
 				end
 			end);
 		else
-			fontString1h:Show();
+			fontString1h1:Show();
 			--tooltip1:Show();
 			fontString1f1:Show();
 			fontString1f2:Show();
-			fontString2h:Show();
+			fontString2h1:Show();
 			--tooltip2:Show();
 			fontString2f1:Show();
 			fontString2f2:Show();
 
-			fontString1h:SetText(L.curRank);
-			fontString1h:SetTextColor(setting.color_iconToolTipCurRank[1], setting.color_iconToolTipCurRank[2], setting.color_iconToolTipCurRank[3], setting.color_iconToolTipCurRank[4]);
+			fontString1h1:SetText(L.curRank);
+			fontString1h1:SetTextColor(setting.color_iconToolTipCurRank[1], setting.color_iconToolTipCurRank[2], setting.color_iconToolTipCurRank[3], setting.color_iconToolTipCurRank[4]);
 
 			tooltip1:SetBackdrop(setting.tooltipBackdrop);
 			tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
-			tooltip1:SetPoint("TOPLEFT", fontString1h, "BOTTOMLEFT", 0, 6);
+			tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
 			tooltip1:SetSpellByID(spellTable[curRank]);
 			fontString1f2:SetText(tostring(spellTable[curRank]));
 			tooltip1:SetAlpha(0.0);
 
-			fontString2h:SetText(L.nextRank);
+			fontString2h1:SetText(L.nextRank);
 			if icon.active then
-				fontString2h:SetTextColor(setting.color_iconToolTipNextRank[1], setting.color_iconToolTipNextRank[2], setting.color_iconToolTipNextRank[3], setting.color_iconToolTipNextRank[4]);
+				fontString2h1:SetTextColor(setting.color_iconToolTipNextRank[1], setting.color_iconToolTipNextRank[2], setting.color_iconToolTipNextRank[3], setting.color_iconToolTipNextRank[4]);
+				fontString1h2:Hide();
 			else
-				fontString2h:SetTextColor(setting.color_iconToolTipNextRankDisabled[1], setting.color_iconToolTipNextRankDisabled[2], setting.color_iconToolTipNextRankDisabled[3], setting.color_iconToolTipNextRankDisabled[4]);
+				fontString2h1:SetTextColor(setting.color_iconToolTipNextRankDisabled[1], setting.color_iconToolTipNextRankDisabled[2], setting.color_iconToolTipNextRankDisabled[3], setting.color_iconToolTipNextRankDisabled[4]);
 			end
 
 			tooltip2:SetBackdrop(setting.tooltipBackdrop);
 			tooltip2:SetOwner(tooltipFrame, "ANCHOR_NONE");
-			tooltip2:SetPoint("TOPLEFT", fontString2h, "BOTTOMLEFT", 0, 6);
+			tooltip2:SetPoint("TOPLEFT", fontString2h1, "BOTTOMLEFT", 0, 6);
 			tooltip2:SetSpellByID(spellTable[curRank + 1]);
 			fontString2f2:SetText(tostring(spellTable[curRank + 1]));
 			tooltip2:SetAlpha(0.0);
@@ -2257,7 +2272,7 @@ do	-- internal sub
 					--tooltip1:Show();
 					--tooltip2:Show();
 					self:SetWidth(max(tooltip1:GetWidth(), tooltip2:GetWidth()) + 2);
-					self:SetHeight(self.fontString1h:GetHeight() + tooltip1:GetHeight() + self.fontString1f1:GetHeight() + self.fontString2h:GetHeight() + tooltip2:GetHeight() + self.fontString2f1:GetHeight() - 8);
+					self:SetHeight(self.fontString1h1:GetHeight() + tooltip1:GetHeight() + self.fontString1f1:GetHeight() + self.fontString2h1:GetHeight() + tooltip2:GetHeight() + self.fontString2f1:GetHeight() - 8);
 					self:SetAlpha(1.0);
 					tooltip1:SetAlpha(1.0);
 					tooltip2:SetAlpha(1.0);
@@ -2392,7 +2407,7 @@ do	-- communication func
 			end
 		end
 	end
-	----------------mainFrame or class, data, level
+	----------------
 	function emu.EmuSub_SendMessage(channel, target, _1, _2, _3)
 		local code = emu.EmuCore_Encoder(_1, _2, _3);
 		if code then
@@ -2403,14 +2418,11 @@ do	-- communication func
 	function emu.CHAT_MSG_ADDON(self, event, prefix, text, channel, sender, target, zoneChannelID, localID, name, instanceID)
 		if prefix == ADDON_PREFIX then
 			local control_code = strsub(text, 1, ADDON_MSG_CONTROL_CODE_LEN);
-			local n, realm =strsplit("-", sender);
-			if n and realm == emu.realm then
+			local n, r =strsplit("-", sender);
+			if n and r == emu.realm then
 				sender = n;
-			else
-				realm = nil;
 			end
 			n = nil;
-			-- realm = (realm == nil or r == "") and emu.realm or realm;
 			if control_code == ADDON_MSG_QUERY_TALENTS then
 				if channel == "INSTANCE_CHAT" then
 					local target = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
@@ -2421,12 +2433,12 @@ do	-- communication func
 				local class, data, level = emu.GetPlayerTalentData();
 				if class then
 					local code = emu.EmuCore_Encoder(class, data, level);
-					if channel == "WHISPER" then
-						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack(), "WHISPER", sender);
-						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
-					elseif channel == "INSTANCE_CHAT" then
+					if channel == "INSTANCE_CHAT" then
 						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack(), "INSTANCE_CHAT");
 						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
+					else--if channel == "WHISPER" then
+						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. emu.get_pack(), "WHISPER", sender);
+						SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
 					end
 				end
 			elseif control_code == ADDON_MSG_QUERY_EQUIPMENTS then
@@ -2470,15 +2482,18 @@ do	-- communication func
 						if sender ~= emu.playerName then
 							readOnly = true;
 						end
-						local specializedMainFrame = emu.specializedMainFrameInspect[sender];
-						if specializedMainFrame then
-							if specializedMainFrame[2]:IsShown() and specializedMainFrame[1] - GetTime() <= setting.INSPECT_WAIT_TIME then
-								emu.Emu_Set(specializedMainFrame[2], class, data, level, readOnly, sender);
+						if emu.QUERY_SENT[sender] then
+							emu.QUERY_SENT[sender] = nil;
+							local specializedMainFrame = emu.specializedMainFrameInspect[sender];
+							if specializedMainFrame then
+								if specializedMainFrame[2]:IsShown() and specializedMainFrame[1] - GetTime() <= setting.INSPECT_WAIT_TIME then
+									emu.Emu_Set(specializedMainFrame[2], class, data, level, readOnly, sender);
+								else
+									emu.Emu_Create(nil, class, data, level, readOnly, sender);
+								end
 							else
 								emu.Emu_Create(nil, class, data, level, readOnly, sender);
 							end
-						else
-							emu.Emu_Create(nil, class, data, level, readOnly, sender);
 						end
 					end
 				end
@@ -2540,8 +2555,8 @@ do	-- communication func
 					-- emu.display_pack(code);
 				end
 			elseif control_code == ADDON_MSG_PUSH or control_code == ADDON_MSG_PUSH_RECV then
-				local msg = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
-				local code, GUID = strsplit("#", msg);
+				local code = strsub(text, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
+				local code, GUID = strsplit("#", code);
 				if code and GUID then
 					local class, data, level = emu.EmuCore_Decoder(code);
 					if class and data then
@@ -2552,7 +2567,7 @@ do	-- communication func
 								MSG(channel, sender, link, zoneChannelID, GUID);
 								emu.push_recv_msg(code, sender, GUID, emu.EmuSub_GenerateTitle(data, class));
 								if channel == "WHISPER" then
-									SendAddonMessage(ADDON_PREFIX, ADDON_MSG_PUSH_RECV .. msg, "WHISPER", sender);
+									SendAddonMessage(ADDON_PREFIX, ADDON_MSG_PUSH_RECV .. code, "WHISPER", sender);
 								end
 							elseif control_code == ADDON_MSG_PUSH_RECV then
 								local link = "\124cffff8f00\124Hemu:" .. code .. "#" .. emu.playerName .. "#" .. emu.playerGUID .. "\124h[" .. title .. "]\124h\124r";
@@ -2570,7 +2585,7 @@ do	-- communication func
 		end
 	end
 	emu.CHAT_MSG_ADDON_LOGGED = emu.CHAT_MSG_ADDON;
-	function emu.Emu_Query(name, realm)
+	function emu.Emu_Query(name, realm, mute)
 		local n, r = strsplit("-", name);
 		if n ~= nil and n ~= "" and r ~= nil and r ~= "" then
 			name = n;
@@ -2580,9 +2595,16 @@ do	-- communication func
 		-- print("QUERY", name, realm);
 		if name then
 			if UnitInBattleground('player') and realm ~= emu.realm then
-				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_TALENTS .. "#" .. name .. "-" .. realm, "INSTANCE_CHAT");
-				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_EQUIPMENTS .. "#" .. name .. "-" .. realm, "INSTANCE_CHAT");
+				name = name .. "-" .. realm;
+				if not mute then
+					emu.QUERY_SENT[name] = true;
+				end
+				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_TALENTS .. "#" .. name, "INSTANCE_CHAT");
+				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_EQUIPMENTS .. "#" .. name, "INSTANCE_CHAT");
 			else
+				if not mute then
+					emu.QUERY_SENT[name] = true;
+				end
 				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_TALENTS, "WHISPER", name);
 				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_EQUIPMENTS, "WHISPER", name);
 				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_TALENTS_, "WHISPER", name);
@@ -2595,6 +2617,7 @@ do	-- communication func
 				end
 			end
 		end
+		return name;
 	end
 end
 
@@ -2626,74 +2649,11 @@ do	-- external func
 		for specIndex = 1, 3 do
 			local talentFrame = talentFrames[specIndex];
 			emu.EmuSub_ResetTalentSingleTab(talentFrame);
-			-- local talentIcons = talentFrame.talentIcons;
-			-- local db = talentFrame.db;
-			-- for i = 1, #db do
-			-- 	local data = db[i];
-			-- 	local icon = talentIcons[data[10]];
-			-- 	if data[1] ~= 0 or data[5] then
-			-- 		emu.EmuSub_DeactiveIcon(icon);
-			-- 	else
-			-- 		emu.EmuSub_ActivateIcon(icon);
-			-- 		emu.EmuSub_UnlightIcon(icon);
-			-- 	end
-			-- 	icon.curVal:SetText("0");
-			-- end
-
-			-- local talentSet = talentFrame.talentSet;
-			-- for i = 1, MAX_NUM_TALENTS do
-			-- 	talentSet[i] = 0;
-			-- end
-			-- for i = 0, MAX_NUM_TIER do
-			-- 	talentSet.totalPerTier[i] = 0;
-			-- end
-			-- talentSet.total = 0;
-			-- talentSet.curAvailableTopTier = 0;
-			-- talentSet.curCheckedTier = 0;
-
-			-- talentFrame.curTabPoints:SetText(0);
 		end
-
-		-- mainFrame.totalUsedPoints = 0;
-
-		-- emu.EmuSub_UpdateLabelText(mainFrame);
 	end
 	function emu.Emu_ResetTalentSingleTab(mainFrame, specIndex)
 		local talentFrame = mainFrame.talentFrames[specIndex];
 		emu.EmuSub_ResetTalentSingleTab(talentFrame);
-		-- local talentIcons = talentFrame.talentIcons;
-		-- local db = talentFrame.db;
-		-- for i = 1, #db do
-		-- 	local data = db[i];
-		-- 	local icon = talentIcons[data[10]];
-		-- 	if data[1] ~= 0 or data[5] then
-		-- 		emu.EmuSub_DeactiveIcon(icon);
-		-- 	else
-		-- 		emu.EmuSub_ActivateIcon(icon);
-		-- 		emu.EmuSub_UnlightIcon(icon);
-		-- 	end
-		-- 	icon.curVal:SetText("0");
-		-- end
-
-		-- local talentSet = talentFrame.talentSet;
-		-- for i = 1, MAX_NUM_TALENTS do
-		-- 	talentSet[i] = 0;
-		-- end
-		-- for i = 0, MAX_NUM_TIER do
-		-- 	talentSet.totalPerTier[i] = 0;
-		-- end
-		-- talentSet.total = 0;
-		-- talentSet.curAvailableTopTier = 0;
-		-- talentSet.curCheckedTier = 0;
-
-		-- talentFrame.curTabPoints:SetText(0);
-
-		-- mainFrame.totalUsedPoints = 0;
-		-- for index = 1, 3 do
-		-- 	mainFrame.totalUsedPoints = mainFrame.totalUsedPoints + mainFrame.talentFrames[index].talentSet.total;
-		-- end
-
-		-- emu.EmuSub_UpdateLabelText(mainFrame);
 	end
 	function emu.Emu_ResetToEmu(mainFrame)
 		emu.EmuCore_SetName(mainFrame, nil);
@@ -2710,7 +2670,6 @@ do	-- external func
 		local tab = mainFrame.curTab;
 		emu.EmuCore_Reset(mainFrame);
 		emu.Emu_Set(mainFrame, class, data, level, readOnly, name);
-		-- emu.Emu_ChangeTab_Style2(mainFrame, tab);
 	end
 	function emu.Emu_ApplyTalents(mainFrame)
 		if InCombatLockdown() then
@@ -2832,6 +2791,7 @@ do	-- external func
 			return;
 		end
 		if tab <= 0 or tab > 3 then
+			mainFrame.specButtonsBar.curTabIndicator:Hide();
 			return;
 		end
 		local talentFrames = mainFrame.talentFrames;
@@ -2840,18 +2800,18 @@ do	-- external func
 			talentFrames[mainFrame.curTab]:Hide();
 			talentFrames[tab]:Show();
 			mainFrame.curTab = tab;
-			local curTabIndicator = mainFrame.objects.curTabIndicator;
+			local curTabIndicator = mainFrame.specButtonsBar.curTabIndicator;
 			curTabIndicator:Show();
 			curTabIndicator:ClearAllPoints();
 			curTabIndicator:SetPoint("CENTER", specButtons[tab]);
 			-- curTabIndicator:SetScale(1.5);
-			for i = 1, 3 do
-				if i == tab then
-					specButtons[i]:SetSize(setting.specTabButtonWidth * 1.28, setting.specTabButtonHeight * 1.28);
-				else
-					specButtons[i]:SetSize(setting.specTabButtonWidth * 0.86, setting.specTabButtonHeight * 0.86);
-				end
-			end
+			-- for i = 1, 3 do
+			-- 	if i == tab then
+			-- 		specButtons[i]:SetSize(setting.specTabButtonWidth * 1.28, setting.specTabButtonHeight * 1.28);
+			-- 	else
+			-- 		specButtons[i]:SetSize(setting.specTabButtonWidth * 0.86, setting.specTabButtonHeight * 0.86);
+			-- 	end
+			-- end
 		end
 	end
 	function emu.mainFrameSetStyle(mainFrame, style)
@@ -2870,11 +2830,7 @@ do	-- external func
 				talentFrames[3]:ClearAllPoints();
 				talentFrames[3]:SetPoint("TOPLEFT", talentFrames[2], "TOPRIGHT");
 				talentFrames[3]:SetPoint("BOTTOMLEFT", talentFrames[2], "BOTTOMRIGHT");
-				local specButtons = mainFrame.specButtons;
-				for i = 1, 3 do
-					specButtons[i]:Hide();
-				end
-				mainFrame.objects.curTabIndicator:Hide();
+				mainFrame.specButtonsBar:Hide();
 				mainFrame:SetMinResize(setting.mainFrameXSizeMin_Style1, setting.mainFrameYSizeMin_Style1);
 
 				local scale = (mainFrame:GetHeight() - setting.talentFrameYToBorder * 2) / (setting.talentFrameYSize + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize);
@@ -2886,25 +2842,18 @@ do	-- external func
 				talentFrames[3]:Hide();
 				talentFrames[mainFrame.curTab]:Show();
 				talentFrames[2]:ClearAllPoints();
-				talentFrames[2]:SetPoint("CENTER", mainFrame, "CENTER", 0, (setting.mainFrameFooterYSize_Style2 - setting.mainFrameHeaderYSize) * 0.5);
+				talentFrames[2]:SetPoint("CENTER", mainFrame, "CENTER", 0, (setting.mainFrameFooterYSize - setting.mainFrameHeaderYSize) * 0.5);
 				talentFrames[1]:ClearAllPoints();
 				talentFrames[1]:SetPoint("TOPLEFT", talentFrames[2], "TOPLEFT");
 				talentFrames[1]:SetPoint("BOTTOMRIGHT", talentFrames[2], "BOTTOMRIGHT");
 				talentFrames[3]:ClearAllPoints();
 				talentFrames[3]:SetPoint("TOPLEFT", talentFrames[2], "TOPLEFT");
 				talentFrames[3]:SetPoint("BOTTOMRIGHT", talentFrames[2], "BOTTOMRIGHT");
-				local specButtons = mainFrame.specButtons;
-				for i = 1, 3 do
-					specButtons[i]:Show();
-				end
-				-- local curTabIndicator = mainFrame.objects.curTabIndicator;
-				-- curTabIndicator:Show();
-				-- curTabIndicator:ClearAllPoints();
-				-- curTabIndicator:SetPoint("CENTER", specButtons[mainFrame.curTab]);
+				mainFrame.specButtonsBar:Show();
 				emu.Emu_ChangeTab_Style2(mainFrame, mainFrame.curTab, true);
 				mainFrame:SetMinResize(setting.mainFrameXSizeMin_Style2, setting.mainFrameYSizeMin_Style2);
 
-				local scale = (mainFrame:GetHeight() - setting.talentFrameYToBorder * 2) / (setting.talentFrameYSize + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize_Style2);
+				local scale = (mainFrame:GetHeight() - setting.talentFrameYToBorder * 2) / (setting.talentFrameYSize + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize);
 				mainFrame.talentFrameScale = scale;
 				mainFrame:SetWidth(scale * setting.talentFrameXSizeSingle + setting.talentFrameXToBorder * 2);
 			else
@@ -2936,7 +2885,6 @@ end
 
 local function Info_OnEnter(self, motion)
 	if self.information then
-		-- GameTooltip:ClearAllPoints();
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT");
 		GameTooltip:SetText(self.information, 1.0, 1.0, 1.0);
 	end
@@ -3039,19 +2987,14 @@ do	-- equipmentFrame
 			icon:SetScript("OnClick", slot_OnClick);
 	
 			icon:SetNormalTexture(TEXTURE_SET.UNK);
-			-- icon:SetPushedTexture(TEXTURE_SET.UNK);
 			icon:SetHighlightTexture(TEXTURE_SET.EQUIPMENT_HIGHLIGHT);
 			icon:GetHighlightTexture():SetTexCoord(TEXTURE_SET.EQUIPMENT_HIGHLIGHT_COORD[1], TEXTURE_SET.EQUIPMENT_HIGHLIGHT_COORD[2], TEXTURE_SET.EQUIPMENT_HIGHLIGHT_COORD[3], TEXTURE_SET.EQUIPMENT_HIGHLIGHT_COORD[4]);
-			-- icon:SetHighlightTexture(TEXTURE_SET.SQUARE_HIGHLIGHT);
-			-- icon:GetHighlightTexture():SetTexCoord(TEXTURE_SET.ICON_HIGHLIGHT_COORD[1], TEXTURE_SET.ICON_HIGHLIGHT_COORD[2], TEXTURE_SET.ICON_HIGHLIGHT_COORD[3], TEXTURE_SET.ICON_HIGHLIGHT_COORD[4]);
-			-- icon:GetHighlightTexture():SetVertexColor(TEXTURE_SET.ICON_HIGHLIGHT_COLOR[1], TEXTURE_SET.ICON_HIGHLIGHT_COLOR[2], TEXTURE_SET.ICON_HIGHLIGHT_COLOR[3], TEXTURE_SET.ICON_HIGHLIGHT_COLOR[4]);
 	
 			local glow = icon:CreateTexture(nil, "OVERLAY");
 			glow:SetAllPoints(true);
 			glow:SetTexture(TEXTURE_SET.EQUIPMENT_GLOW);
 			glow:SetBlendMode("ADD");
 			glow:SetTexCoord(unpack(TEXTURE_SET.EQUIPMENT_GLOW_COORD));
-			-- glow:SetAlpha(0.75);
 			glow:Show();
 			icon.glow = glow;
 
@@ -3098,7 +3041,6 @@ end
 do	-- spellTabFrame
 	local function spellTabButton_OnEnter(self)
 		local index = self:GetDataIndex();
-		-- GameTooltip:ClearAllPoints();
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT");
 		local data = self.list[index];
 		GameTooltip:SetSpellByID(data[2]);
@@ -3353,7 +3295,7 @@ do	-- tooltipFrame
 		local talentFrame = icon:GetParent();
 		local dbIndex = icon.dbIndex;
 		local data = talentFrame.db[dbIndex];
-		emu.EmuSub_TooltipSetTalent(emu.tooltipFrame, icon, data[8], talentFrame.talentSet[dbIndex], data[4]);
+		emu.EmuSub_TooltipSetTalent(emu.tooltipFrame, icon, talentFrame.specId, data[1] * 5, talentFrame.talentSet.total, data[8], talentFrame.talentSet[dbIndex], data[4]);
 	end
 	function emu.Emu_TooltipHide(icon)
 		local tooltipFrame = emu.tooltipFrame;
@@ -3372,28 +3314,31 @@ do	-- tooltipFrame
 		tooltipFrame:Hide();
 		tooltipFrame:Show();
 
-		local fontString1h = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipHeaderText");
-		fontString1h:SetPoint("TOPLEFT", 6, -6);
+		local fontString1h1 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipHeaderText");
+		fontString1h1:SetPoint("TOPLEFT", 6, -6);
+		local fontString1h2 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipHeaderText");
+		fontString1h2:SetPoint("TOPRIGHT", -6, -6);
 		local tooltip1 = CreateFrame("GameTooltip", "emu_tooltip1" .. (time() + 1) .. random(1000000, 10000000), UIParent, "GameTooltipTemplate");
-		tooltip1:SetPoint("TOPLEFT", fontString1h, "BOTTOMLEFT", 0, 6);
+		tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
 
 		local fontString1f1 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipText");
 		fontString1f1:SetPoint("TOPLEFT", tooltip1, "BOTTOMLEFT", 12, 6);
 		local fontString1f2 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipText");
 		fontString1f2:SetPoint("TOPRIGHT", tooltip1, "BOTTOMRIGHT", - 12, 6);
 
-		local fontString2h = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipHeaderText");
-		fontString2h:SetPoint("TOPLEFT", fontString1f1, "BOTTOMLEFT", -12, -4);
+		local fontString2h1 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipHeaderText");
+		fontString2h1:SetPoint("TOPLEFT", fontString1f1, "BOTTOMLEFT", -12, -4);
 		local tooltip2 = CreateFrame("GameTooltip", "emu_tooltip2" .. (time() + 100) .. random(1000000, 10000000), UIParent, "GameTooltipTemplate");
-		tooltip2:SetPoint("TOPLEFT", fontString2h, "BOTTOMLEFT", 0, 6);
+		tooltip2:SetPoint("TOPLEFT", fontString2h1, "BOTTOMLEFT", 0, 6);
 
 		local fontString2f1 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipText");
 		fontString2f1:SetPoint("TOPLEFT", tooltip2, "BOTTOMLEFT", 12, 6);
 		local fontString2f2 = tooltipFrame:CreateFontString(nil, "ARTWORK", "GameTooltipText");
 		fontString2f2:SetPoint("TOPRIGHT", tooltip2, "BOTTOMRIGHT", - 12, 6);
 
-		fontString1h:SetText("")
-		fontString2h:SetText("")
+		fontString1h1:SetText("")
+		fontString1h2:SetText("")
+		fontString2h1:SetText("")
 
 		fontString1f1:SetTextColor(0.25, 0.5, 1.0, 1.0);
 		fontString1f2:SetTextColor(0.25, 0.5, 1.0, 1.0);
@@ -3405,13 +3350,14 @@ do	-- tooltipFrame
 		fontString1f2:SetText("");
 		fontString2f2:SetText("");
 
-		tooltipFrame.fontString1h = fontString1h;
+		tooltipFrame.fontString1h1 = fontString1h1;
+		tooltipFrame.fontString1h2 = fontString1h2;
 		tooltipFrame.tooltip1 = tooltip1;
 
 		tooltipFrame.fontString1f1 = fontString1f1;
 		tooltipFrame.fontString1f2 = fontString1f2;
 
-		tooltipFrame.fontString2h = fontString2h;
+		tooltipFrame.fontString2h1 = fontString2h1;
 		tooltipFrame.tooltip2 = tooltip2;
 
 		tooltipFrame.fontString2f1 = fontString2f1;
@@ -3463,12 +3409,6 @@ do	-- talentFrame
 		icon:SetScript("OnClick", talentIcon_OnClick);
 		icon:SetScript("OnEnter", talentIcon_OnEnter);
 		icon:SetScript("OnLeave", talentIcon_OnLeave);
-
-		-- local bg = icon:CreateTexture(nil, "BACKGROUND");
-		-- bg:SetPoint("CENTER");
-		-- bg:SetSize(setting.talentIconSize + 4, setting.talentIconSize + 4);
-		-- bg:SetTexture(TEXTURE_SET.ICON_BG);
-		-- bg:SetTexCoord(TEXTURE_SET.ICON_BG_COORD[1], TEXTURE_SET.ICON_BG_COORD[2], TEXTURE_SET.ICON_BG_COORD[3], TEXTURE_SET.ICON_BG_COORD[4]);
 
 		--icon:SetBackdrop(setting.iconBackdrop);
 		--icon:SetBackdropColor(setting.iconBackdropColor[1], setting.iconBackdropColor[2], setting.iconBackdropColor[3], setting.iconBackdropColor[4]);
@@ -3533,7 +3473,7 @@ do	-- talentFrame
 			talentFrames[3]:SetScale(scale);
 			mainFrame.talentFrameScale = scale;
 		elseif style == 2 then
-			local scale = min((width - setting.talentFrameXToBorder * 2) / setting.talentFrameXSizeSingle, (height - setting.talentFrameYToBorder * 2) / (setting.talentFrameYSize + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize_Style2));
+			local scale = min((width - setting.talentFrameXToBorder * 2) / setting.talentFrameXSizeSingle, (height - setting.talentFrameYToBorder * 2) / (setting.talentFrameYSize + setting.mainFrameHeaderYSize + setting.mainFrameFooterYSize));
 			talentFrames[1]:SetScale(scale);
 			talentFrames[2]:SetScale(scale);
 			talentFrames[3]:SetScale(scale);
@@ -3648,13 +3588,19 @@ do	-- talentFrame
 			talentFrame.resetButton = resetButton;
 			
 			local curTabPoints = talentFrame:CreateFontString(nil, "ARTWORK");
-			curTabPoints:SetPoint("CENTER", resetButton);
 			curTabPoints:SetFont(setting.frameFont, setting.frameFontSize, setting.frameFontOutline);
+			curTabPoints:SetPoint("CENTER", resetButton);
 			curTabPoints:SetTextColor(0.0, 1.0, 0.0, 1.0);
 			curTabPoints:SetText("0");
 			
 			talentFrame.curTabPoints = curTabPoints;
 
+			local specLabel = talentFrame:CreateFontString(nil, "ARTWORK");
+			specLabel:SetFont(setting.frameFont, setting.frameFontSize, setting.frameFontOutline);
+			specLabel:SetPoint("CENTER", talentFrame, "BOTTOM", 0, setting.talentFrameFooterYSize * 0.5);
+			specLabel:SetTextColor(0.0, 1.0, 0.0, 1.0);
+
+			talentFrame.specLabel = specLabel;
 
 			talentFrame.id = specIndex;
 			talentFrame.talentSet = { totalPerTier = {  }, total = 0, curAvailableTopTier = 0, curCheckedTier = 0, };
@@ -3687,7 +3633,7 @@ do	-- mainFrame sub objects
 	end
 	local function classButton_OnClick(self, button)
 		if button == "LeftButton" then
-			local mainFrame = self:GetParent();
+			local mainFrame = self:GetParent():GetParent();
 			if mainFrame.class ~= self.class then
 				emu.EmuCore_Reset(mainFrame);
 				emu.EmuCore_SetClass(mainFrame, self.class);
@@ -3701,7 +3647,7 @@ do	-- mainFrame sub objects
 			if preset and #preset > 0 then
 				local menu = {
 					handler = function(button, code)
-						emu.Emu_Set(self:GetParent(), self.class, code, 60, false);
+						emu.Emu_Set(self:GetParent():GetParent(), self.class, code, 60, false);
 					end;
 					elements = {  },
 				};
@@ -3793,7 +3739,6 @@ do	-- mainFrame sub objects
 			editBox:SetPoint("LEFT", self, "RIGHT", 4, 0);
 			editBox.OKButton:ClearAllPoints();
 			editBox.OKButton:SetPoint("LEFT", editBox, "RIGHT", 0, 0);
-			-- editBox.OKButton:Hide();
 			editBox.parent = self;
 			if button == "LeftButton" then
 				editBox:SetText(emu.EmuCore_Encoder(self:GetParent()));
@@ -3813,10 +3758,13 @@ do	-- mainFrame sub objects
 					elements = {  },
 				};
 				for key, func in pairs(extern.export) do
-					tinsert(menu.elements, {
-						para = { func(self:GetParent()), },
-						text = key,
-					});
+					local arg = func(self:GetParent());
+					if arg then
+						tinsert(menu.elements, {
+							para = { arg, },
+							text = key,
+						});
+					end
 				end
 				ALADROP(self, "TOPRIGHT", menu);
 			end
@@ -3835,7 +3783,6 @@ do	-- mainFrame sub objects
 				editBox:Show();
 				editBox.OKButton:ClearAllPoints();
 				editBox.OKButton:SetPoint("LEFT", self, "RIGHT", 4, 0);
-				-- editBox.OKButton:Hide();
 				editBox.parent = self;
 				editBox.type = "save";
 			end
@@ -3892,7 +3839,6 @@ do	-- mainFrame sub objects
 							editBox:Show();
 							editBox.OKButton:ClearAllPoints();
 							editBox.OKButton:SetPoint("LEFT", self, "RIGHT", 4, 0);
-							-- editBox.OKButton:Hide();
 							editBox.parent = self;
 							editBox.type = "send";
 						end
@@ -3958,10 +3904,10 @@ do	-- mainFrame sub objects
 	end
 
 	local function readOnlyButton_OnClick(self, button)
-		if button == "LeftButton" then
-			local mainFrame = self:GetParent();
-			emu.EmuCore_SetReadOnly(mainFrame, not mainFrame.readOnly);
-		elseif button == "RightButton" then
+		-- if button == "LeftButton" then
+		-- 	local mainFrame = self:GetParent();
+		-- 	emu.EmuCore_SetReadOnly(mainFrame, not mainFrame.readOnly);
+		-- elseif button == "RightButton" then
 			local mainFrame = self:GetParent();
 			local readOnlyButton_OnClickData = { handler = _noop_, elements = {  }, };
 			if config.win_style ~= 'blz' then
@@ -4068,7 +4014,7 @@ do	-- mainFrame sub objects
 				);
 			end
 			ALADROP(self, "BOTTOMLEFT", readOnlyButton_OnClickData);
-		end
+		-- end
 	end
 
 	function emu.CreateMainFrameSubObject(mainFrame)
@@ -4092,12 +4038,6 @@ do	-- mainFrame sub objects
 			readOnlyButton:SetScript("OnLeave", Info_OnLeave);
 			readOnlyButton.information = L.readOnlyButton;
 			objects.readOnlyButton = readOnlyButton;
-
-			-- local readOnlyText = mainFrame:CreateFontString(nil, "ARTWORK");
-			-- readOnlyText:SetFont(setting.frameFont, setting.frameFontSize, setting.frameFontOutline);
-			-- readOnlyText:SetText("");
-			-- readOnlyText:SetPoint("LEFT", readOnlyButton, "RIGHT", 0, 0);
-			-- objects.readOnlyText = readOnlyText;
 
 			local closeButton = CreateFrame("Button", nil, mainFrame);
 			closeButton:SetSize(setting.controlButtonSize, setting.controlButtonSize);
@@ -4231,7 +4171,7 @@ do	-- mainFrame sub objects
 
 			do	-- spec
 				local specButtonsBar = CreateFrame("Frame", nil, mainFrame);
-				specButtonsBar:SetPoint("CENTER", mainFrame, "BOTTOM", 0, (setting.mainFrameFooterYSize + setting.mainFrameFooterYSize_Style2) * 0.5);
+				specButtonsBar:SetPoint("CENTER", mainFrame, "BOTTOM", 0, setting.mainFrameFooterYSize + setting.talentFrameFooterYSize * 0.5);
 				specButtonsBar:SetSize(setting.specTabButtonWidth * 3 + setting.specTabButtonGap * 2, setting.specTabButtonHeight);
 				mainFrame.specButtonsBar = specButtonsBar;
 				local specButtons = {  };
@@ -4246,7 +4186,7 @@ do	-- mainFrame sub objects
 					specButton:GetPushedTexture():SetVertexColor(TEXTURE_SET.SPEC_PUSHED_COLOR[1], TEXTURE_SET.SPEC_PUSHED_COLOR[2], TEXTURE_SET.SPEC_PUSHED_COLOR[3], TEXTURE_SET.SPEC_PUSHED_COLOR[4]);
 					specButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 					specButton:GetHighlightTexture():SetTexCoord(setting.specTabButtonTexCoord[1], setting.specTabButtonTexCoord[2], setting.specTabButtonTexCoord[3], setting.specTabButtonTexCoord[4]);
-					specButton:Hide();
+					specButton:Show();
 					specButton:SetScript("OnClick", specButton_OnClick);
 					specButton:SetScript("OnEnter", Info_OnEnter);
 					specButton:SetScript("OnLeave", Info_OnLeave);
@@ -4259,22 +4199,19 @@ do	-- mainFrame sub objects
 					specButton.title = title;
 					specButtons[specIndex] = specButton;
 				end
-				-- specButtons[2]:SetPoint("CENTER", mainFrame, "BOTTOM", 0, (setting.mainFrameFooterYSize + setting.mainFrameFooterYSize_Style2) * 0.5);
-				-- specButtons[1]:SetPoint("RIGHT", specButtons[2], "LEFT", - setting.specTabButtonGap, 0);
-				-- specButtons[3]:SetPoint("LEFT", specButtons[2], "RIGHT", setting.specTabButtonGap, 0);
-				specButtons[1]:SetPoint("LEFT", specButtonsBar, "LEFT", 0, 0);
-				specButtons[2]:SetPoint("LEFT", specButtons[1], "RIGHT", setting.specTabButtonGap, 0);
+				specButtons[2]:SetPoint("CENTER", specButtonsBar, "CENTER", 0, 0);
+				specButtons[1]:SetPoint("RIGHT", specButtons[2], "LEFT", - setting.specTabButtonGap, 0);
 				specButtons[3]:SetPoint("LEFT", specButtons[2], "RIGHT", setting.specTabButtonGap, 0);
 				mainFrame.specButtons = specButtons;
 
-				local curTabIndicator = mainFrame:CreateTexture(nil, "OVERLAY");
-				curTabIndicator:SetSize(setting.specTabButtonWidth * 1.28 + 4, setting.specTabButtonHeight * 1.28 + 4);
+				local curTabIndicator = specButtonsBar:CreateTexture(nil, "OVERLAY");
+				curTabIndicator:SetSize(setting.specTabButtonWidth + 4, setting.specTabButtonHeight + 4);
 				curTabIndicator:SetBlendMode("ADD");
 				curTabIndicator:SetTexture(TEXTURE_SET.SQUARE_HIGHLIGHT);
 				curTabIndicator:SetTexCoord(TEXTURE_SET.SPEC_INDICATOR_COORD[1], TEXTURE_SET.SPEC_INDICATOR_COORD[2], TEXTURE_SET.SPEC_INDICATOR_COORD[3], TEXTURE_SET.SPEC_INDICATOR_COORD[4]);
 				curTabIndicator:SetVertexColor(TEXTURE_SET.SPEC_INDICATOR_COLOR[1], TEXTURE_SET.SPEC_INDICATOR_COLOR[2], TEXTURE_SET.SPEC_INDICATOR_COLOR[3], TEXTURE_SET.SPEC_INDICATOR_COLOR[4]);
 				curTabIndicator:Hide();
-				mainFrame.objects.curTabIndicator = curTabIndicator;
+				specButtonsBar.curTabIndicator = curTabIndicator;
 			end
 		end
 		--</footer>
@@ -4290,7 +4227,7 @@ do	-- mainFrame sub objects
 				local classButtons = {  };--_indexToClass
 				for index = 1, #_indexToClass do
 					local class = _indexToClass[index];
-					local classButton = CreateFrame("Button", nil, mainFrame);
+					local classButton = CreateFrame("Button", nil, side_anchor);
 					classButton:SetSize(setting.tabButtonSize, setting.tabButtonSize);
 					classButton:SetNormalTexture(TEXTURE_SET.CLASS);
 					classButton:SetPushedTexture(TEXTURE_SET.CLASS);
@@ -4306,9 +4243,6 @@ do	-- mainFrame sub objects
 					classButton:SetHighlightTexture(TEXTURE_SET.CLASS_HIGHLIGHT);
 					classButton:GetHighlightTexture():SetTexCoord(TEXTURE_SET.CLASS_HIGHLIGHT_COORD[1], TEXTURE_SET.CLASS_HIGHLIGHT_COORD[2], TEXTURE_SET.CLASS_HIGHLIGHT_COORD[3], TEXTURE_SET.CLASS_HIGHLIGHT_COORD[4]);
 					classButton:GetHighlightTexture():SetVertexColor(TEXTURE_SET.CLASS_HIGHLIGHT_COLOR[1], TEXTURE_SET.CLASS_HIGHLIGHT_COLOR[2], TEXTURE_SET.CLASS_HIGHLIGHT_COLOR[3], TEXTURE_SET.CLASS_HIGHLIGHT_COLOR[4]);
-					--classButton:GetHighlightTexture():ClearAllPoints();
-					--classButton:GetHighlightTexture():SetSize(setting.tabButtonSize + 2, setting.tabButtonSize + 2);
-					--classButton:GetHighlightTexture():SetPoint("CENTER");
 					classButton:SetPoint("TOPLEFT", side_anchor, "TOPLEFT", 0, - (setting.tabButtonSize + setting.tabButtonGap) * (index - 1));	--
 					classButton:Show();
 					classButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
@@ -4373,8 +4307,6 @@ do	-- mainFrame sub objects
 				applyTalentsButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 				applyTalentsButton:SetDisabledTexture(TEXTURE_SET.APPLY);
 				applyTalentsButton:GetDisabledTexture():SetVertexColor(TEXTURE_SET.CONTROL_DISABLED_COLOR[1], TEXTURE_SET.CONTROL_DISABLED_COLOR[2], TEXTURE_SET.CONTROL_DISABLED_COLOR[3], TEXTURE_SET.CONTROL_DISABLED_COLOR[4]);
-				-- applyTalentsButton:SetPoint("BOTTOMLEFT", side_anchor, "BOTTOMRIGHT", 0, 0);
-				-- applyTalentsButton:SetPoint("BOTTOM", inspectTargetButton, "TOP", 0, setting.tabButtonGap);
 				applyTalentsButton:SetPoint("BOTTOM", spellTabButton, "TOP", 0, setting.tabButtonGap);
 				applyTalentsButton:Show();
 				applyTalentsButton:SetScript("OnClick", applyTalentsButton_OnClick);
@@ -4420,9 +4352,7 @@ do	-- mainFrame sub objects
 				local saveButton = CreateFrame("Button", nil, mainFrame);
 				saveButton:SetSize(setting.tabButtonSize, setting.tabButtonSize);
 				saveButton:SetNormalTexture(TEXTURE_SET.SAVE);
-				--saveButton:GetNormalTexture():SetTexCoord(TEXTURE_SET.EXPORT_COORD[1], TEXTURE_SET.EXPORT_COORD[2], TEXTURE_SET.EXPORT_COORD[3], TEXTURE_SET.EXPORT_COORD[4]);
 				saveButton:SetPushedTexture(TEXTURE_SET.SAVE);
-				--saveButton:GetPushedTexture():SetTexCoord(TEXTURE_SET.EXPORT_COORD[1], TEXTURE_SET.EXPORT_COORD[2], TEXTURE_SET.EXPORT_COORD[3], TEXTURE_SET.EXPORT_COORD[4]);
 				saveButton:GetPushedTexture():SetVertexColor(TEXTURE_SET.CONTROL_PUSHED_COLOR[1], TEXTURE_SET.CONTROL_PUSHED_COLOR[2], TEXTURE_SET.CONTROL_PUSHED_COLOR[3], TEXTURE_SET.CONTROL_PUSHED_COLOR[4]);
 				saveButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 				saveButton:SetPoint("BOTTOM", exportButton, "TOP", 0, setting.tabButtonGap);
@@ -4437,9 +4367,7 @@ do	-- mainFrame sub objects
 				local sendButton = CreateFrame("Button", nil, mainFrame);
 				sendButton:SetSize(setting.tabButtonSize, setting.tabButtonSize);
 				sendButton:SetNormalTexture(TEXTURE_SET.SEND);
-				--sendButton:GetNormalTexture():SetTexCoord(TEXTURE_SET.EXPORT_COORD[1], TEXTURE_SET.EXPORT_COORD[2], TEXTURE_SET.EXPORT_COORD[3], TEXTURE_SET.EXPORT_COORD[4]);
 				sendButton:SetPushedTexture(TEXTURE_SET.SEND);
-				--sendButton:GetPushedTexture():SetTexCoord(TEXTURE_SET.EXPORT_COORD[1], TEXTURE_SET.EXPORT_COORD[2], TEXTURE_SET.EXPORT_COORD[3], TEXTURE_SET.EXPORT_COORD[4]);
 				sendButton:GetPushedTexture():SetVertexColor(TEXTURE_SET.CONTROL_PUSHED_COLOR[1], TEXTURE_SET.CONTROL_PUSHED_COLOR[2], TEXTURE_SET.CONTROL_PUSHED_COLOR[3], TEXTURE_SET.CONTROL_PUSHED_COLOR[4]);
 				sendButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
 				sendButton:SetPoint("BOTTOM", saveButton, "TOP", 0, setting.tabButtonGap);
@@ -4528,14 +4456,8 @@ do	-- mainFrame
 		for _, obj in pairs(self.objects) do
 			obj:SetScale(self.talentFrameScale);
 		end
-		-- for _, obj in pairs(self.specButtons) do
-		-- 	obj:SetScale(self.talentFrameScale);
-		-- end
 		self.specButtonsBar:SetScale(self.talentFrameScale);
-		for _, obj in pairs(self.classButtons) do
-			obj:SetScale(self.talentFrameScale);
-		end
-		self.side_anchor:SetWidth(setting.tabButtonSize * self.talentFrameScale);
+		self.side_anchor:SetScale(self.talentFrameScale);
 		self.spellTabFrame:SetScale(self.talentFrameScale);
 		self.spellTabFrame:SetHeight(self:GetHeight() / self.talentFrameScale);
 		self.equipmentFrame:SetScale(self.talentFrameScale);
@@ -4545,13 +4467,12 @@ do	-- mainFrame
 	local temp_id = 0;
 	function emu.CreateMainFrame()
 		temp_id = temp_id + 1;
-		local mainFrame = CreateFrame("Frame", nil, UIParent);	-- NAME .. "MainFrame" .. temp_id
+		local mainFrame = CreateFrame("Frame", nil, UIParent);
 		mainFrame.id = temp_id;
 
 		mainFrame:SetPoint("CENTER");
 		mainFrame:SetMinResize(setting.mainFrameXSizeMin_Style1, setting.mainFrameYSizeMin_Style1);
 		mainFrame:SetFrameStrata("HIGH");
-		-- mainFrame:SetBackdrop(setting.mainFrameBackdrop);
 		if config.win_style == 'ala' then
 			mainFrame:SetBackdrop(setting.mainFrameBackdrop);
 			mainFrame:SetBackdropColor(setting.mainFrameBackdropColor[1], setting.mainFrameBackdropColor[2], setting.mainFrameBackdropColor[3], setting.mainFrameBackdropColor[4]);
@@ -4569,7 +4490,6 @@ do	-- mainFrame
 		end
 
 		local BG = mainFrame:CreateTexture(nil, "BORDER");
-		-- BG:SetPoint("CENTER");
 		BG:SetAlpha(0.6);
 		if config.win_style == 'ala' then
 			BG:SetPoint("BOTTOMLEFT");
@@ -4950,12 +4870,9 @@ do	-- SLASH and _G
 
 	local ATEMU = {  };
 	_G.ATEMU = ATEMU;
-	_G.ATEmu = ATEMU;
 	_G.atemu = ATEMU;
-	_G.TEMU = ATEMU;
-	_G.TEmu = ATEMU;
-	_G.Emu = ATEMU;
 	_G.EMU = ATEMU;
+	_G.Emu = ATEMU;
 	ATEMU.ExportCode = function(...)
 		return emu.Emu_Export(...)
 	end
@@ -5437,8 +5354,114 @@ do	-- dev
 		--]]
 		config[key] = value;
 	end
-	if select(2, BNGetInfo()) == 'alex#516722' then
+	--
+	do	--	QUERY GUILD OR GROUP
+		local function display(result)
+			print("------------");
+			local total = 0;
+			for i = 1, #knownPacks do
+				if result[i] > 0 then
+					print(knownPacks[i], result[i]);
+					total = total + result[i];
+				end
+			end
+			if result[0] > 0 then
+				print("OTHER", result[0]);
+				total = total + result[0];
+			end
+			print("TOTAL", total);
+		end
+		local function do_check(cache, result, timer, call)
+			print(time() - timer)
+			if #cache > 0 then
+				if time() - timer < 4 then
+					for _, name in ipairs(cache) do
+						if not emu.queryCache[name] then
+							C_Timer.After(1.0, call);
+							print("Querying", timer + 4 - time());
+							return;
+						end
+					end
+				end
+				for i = 0, #knownPacks do
+					result[i] = 0;
+				end
+				for _, name in ipairs(cache) do
+					local meta = emu.queryCache[name];
+					if meta then
+						local pack = tonumber(meta.pack);
+						if pack then
+							local index = #knownPacks - 1;
+							local magic = 2 ^ index;
+							while magic >= 1 do
+								if pack >= magic then
+									result[index + 1] = result[index + 1] + 1;
+									pack = pack - magic;
+								end
+								magic = magic / 2;
+								index = index - 1;
+							end
+						else
+							result[0] = result[0] + 1;
+						end
+					end
+				end
+				display(result);
+			end
+		end
+		do
+			local cache = {  };
+			local result = {  };
+			local timer = 0;
+			local function check()
+				do_check(cache, result, timer, check);
+			end
+			function emu.EX_QUERY_GUILD()
+				local num_total, num_online, num_online_and_mobile = GetNumGuildMembers();
+				if num_online > 0 then
+					wipe(cache);
+					for i = 1, num_total do
+						local name, _, _, _, _, _, _, _, online = GetGuildRosterInfo(i);
+						if online then
+							tinsert(cache, emu.Emu_Query(name, nil, true));
+						end
+					end
+					timer = time();
+					C_Timer.After(1.0, check);
+					print("Querying", 4);
+				end
+			end
+		end
+		--------
+		do
+			local cache = {  };
+			local result = {  };
+			local timer = 0;
+			local function check()
+				do_check(cache, result, timer, check);
+			end
+			function emu.EX_QUERY_GROUP()
+				if GetNumGroupMembers(LE_PARTY_CATEGORY_HOME) > 0 or GetNumGroupMembers(LE_PARTY_CATEGORY_INSTANCE) > 0 then
+					wipe(cache);
+					for i = 1, MAX_RAID_MEMBERS do
+						local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i);
+						if name and online then
+							tinsert(cache, emu.Emu_Query(name, nil, true));
+						end
+					end
+					timer = time();
+					C_Timer.After(1.0, check);
+					print("Querying", 4);
+				end
+			end
+		end
+		--
+	end
+	local _, tag = BNGetInfo();
+	if tag == 'alex#516722' or tag == '单酒窝#51637' then
 		emu_set_config("inspect_pack", true);
+		_G.EMU_EX_QUERY_GUILD = emu.EX_QUERY_GUILD;
+		_G.EMU_EX_QUERY_GROUP = emu.EX_QUERY_GROUP;
 	end
 end
 

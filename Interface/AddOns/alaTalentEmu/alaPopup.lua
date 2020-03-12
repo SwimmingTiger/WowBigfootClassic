@@ -12,7 +12,7 @@ local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldex
 		abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
 local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
 		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
-local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall =  strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
+local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall = strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
 local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
 local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
 ----------------------------------------------------------------------------------------------------
@@ -61,7 +61,12 @@ menu:SetBackdropBorderColor(dropMenuBackdropBorderColor[1], dropMenuBackdropBord
 menu:SetScript("OnClick", function(self, button)
 	DropDownList1:Hide();
 end);
-menu:SetScript("OnShow", function()
+DropDownList1:HookScript("OnShow", function()
+	if DropDownList1.dropdown.which then
+		menu:Show();
+	else
+		menu:Hide();
+	end
 end);
 
 local func = {  };

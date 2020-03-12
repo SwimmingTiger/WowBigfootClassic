@@ -11,14 +11,14 @@ L["Profiles"] = "Profiles 配置文件"
 -- About
 L["About"] = "信息"
 L["SpyDescription1"] = [[
-Spy 侦测敌方玩家 插件可以提醒您附近有敌对玩家出现。这些是一些主要功能。
+Spy 侦测敌方玩家 插件可以提醒您附近有敌对玩家出现。
 ]]
 L["SpyDescription2"] = [[
 |cffffd000附近列表|cffffffff
 附近列表会显示已经被侦测到的任何敌方玩家。 在非战斗状态下，点击列表姓名可快速选定目标。 如果在一定时间内未再次侦测到的玩家会被从列表中移除。
  
 |cffffd000近一小时内清单|cffffffff
-显示在一小时内检测到的所有敌人。
+显示最近1小时内出现的所有敌方玩家。
  
 |cffffd000忽略列表|cffffffff
 被加入忽略列表的敌对玩家将不会在列表中显示。你可以通过鼠标右键菜单或按住Ctrl点击从列表中添加或删除敌对玩家。
@@ -122,7 +122,7 @@ L["Master"] = "主音量"
 L["SFX"] = "音效音量"
 L["Music"] = "音乐音量"
 L["Ambience"] = "环境音量"
-L["Announce"] = "发送公告至："
+L["Announce"] = "通报到:"
 L["None"] = "无"
 L["NoneDescription"] = "侦测到敌对玩家时不通报。"
 L["Self"] = "自己"
@@ -325,7 +325,7 @@ L["Player"] = " （玩家）"
 L["KOSReason"] = "KOS即视击杀"
 L["KOSReasonIndent"] = "    "
 L["KOSReasonOther"] = "自行输入原因..."
-L["KOSReasonClear"] = "清除入原因"
+L["KOSReasonClear"] = "清除"
 L["StatsWins"] = "|cff40ff00获胜："
 L["StatsSeparator"] = "  "
 L["StatsLoses"] = "|cff0070dd失败："

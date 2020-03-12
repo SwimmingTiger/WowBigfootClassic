@@ -10,7 +10,6 @@ local unpack = _G.unpack
 local min = _G.math.min
 local max = _G.math.max
 local ceil = _G.math.ceil
-local UnitExists = _G.UnitExists
 local InCombatLockdown = _G.InCombatLockdown
 
 function addon:GetCastbarFrame(unitID)
@@ -29,18 +28,10 @@ end
 function addon:SetTargetCastbarPosition(castbar, parentFrame)
     local auraRows = parentFrame.auraRows or 0
 
-    if parentFrame.haveToT or parentFrame.haveElite or UnitExists("targettarget") then
-        if parentFrame.buffsOnTop or auraRows <= 1 then
-            castbar:SetPoint("CENTER", parentFrame, -18, -75)
-        else
-            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -37.5 * auraRows), -150))
-        end
+    if parentFrame.buffsOnTop or auraRows <= 1 then
+        castbar:SetPoint("CENTER", parentFrame, -18, -75)
     else
-        if not parentFrame.buffsOnTop and auraRows > 0 then
-            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -37.5 * auraRows), -150))
-        else
-            castbar:SetPoint("CENTER", parentFrame, -18, -50)
-        end
+        castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -38.5 * auraRows), -150))
     end
 end
 
@@ -48,7 +39,7 @@ function addon:SetCastbarIconAndText(castbar, cast, db)
     local spellName = cast.spellName
 
     if castbar.Text:GetText() ~= spellName then
-        if cast.icon == 136235 then
+        if cast.icon == 136235 then -- unknown texture
             cast.icon = 136243
         end
         castbar.Icon:SetTexture(cast.icon)
@@ -68,11 +59,13 @@ function addon:SetCastbarStyle(castbar, cast, db)
     castbar:SetFrameLevel(db.frameLevel)
 
     if db.showCastInfoOnly then
+        castbar.showCastInfoOnly = true
         castbar.Timer:SetText("")
         castbar:SetValue(0)
         castbar.Spark:SetAlpha(0)
     else
         castbar.Spark:SetAlpha(1)
+        castbar.showCastInfoOnly = false
     end
 
     if db.hideIconBorder then
@@ -190,7 +183,6 @@ function addon:DisplayCastbar(castbar, unitID)
     castbar.Background:SetColorTexture(unpack(db.statusBackgroundColor))
 
     local cast = castbar._data
-    cast.showCastInfoOnly = db.showCastInfoOnly
     if cast.isChanneled then
         castbar:SetStatusBarColor(unpack(db.statusColorChannel))
     else
@@ -223,7 +215,7 @@ function addon:DisplayCastbar(castbar, unitID)
     castbar:Show()
 end
 
-function addon:HideCastbar(castbar, noFadeOut)
+function addon:HideCastbar(castbar, unitID, noFadeOut)
     if noFadeOut then
         castbar:SetAlpha(0)
         castbar:Hide()
@@ -231,18 +223,23 @@ function addon:HideCastbar(castbar, noFadeOut)
     end
 
     local cast = castbar._data
-    if cast and cast.isInterrupted then
-        castbar.Text:SetText(_G.INTERRUPTED)
-        castbar:SetStatusBarColor(castbar.failedCastColor:GetRGB())
+    if cast and (cast.isInterrupted or cast.isFailed) then
+        castbar.Text:SetText(cast.isInterrupted and _G.INTERRUPTED or _G.FAILED)
+        castbar:SetStatusBarColor(unpack(self.db[gsub(unitID, "%d", "")].statusColorFailed))
         castbar:SetMinMaxValues(0, 1)
         castbar:SetValue(1)
         castbar.Spark:SetAlpha(0)
     end
 
-    if cast and cast.isCastComplete then
+    if cast and cast.isCastComplete then -- SPELL_CAST_SUCCESS
         if castbar.Border:GetAlpha() == 1 then -- not using LSM borders
             local tex = castbar.Border:GetTexture()
             if tex == "Interface\\CastingBar\\UI-CastingBar-Border" or tex == "Interface\\CastingBar\\UI-CastingBar-Border-Small" then
+                if not cast.isChanneled then
+                    castbar.Flash:SetVertexColor(1, 1, 1)
+                else
+                    castbar.Flash:SetVertexColor(0, 1, 0)
+                end
                 castbar.Flash:Show()
             end
         end
@@ -258,7 +255,13 @@ function addon:HideCastbar(castbar, noFadeOut)
     end
 
     if castbar:GetAlpha() > 0 and castbar.fade then
-        castbar.fade:SetDuration(cast and cast.isInterrupted and 1.5 or 0.3)
+        castbar.fade:SetStartDelay(0) -- reset
+        if cast then
+            if cast.isInterrupted or cast.isFailed then
+                castbar.fade:SetStartDelay(0.5)
+            end
+        end
+        castbar.fade:SetDuration(cast and cast.isInterrupted and 1.2 or 0.3)
         castbar.animationGroup:Play()
     end
 end
@@ -271,13 +274,22 @@ function addon:SkinPlayerCastbar()
         CastingBarFrame.Timer = CastingBarFrame:CreateFontString(nil, "OVERLAY")
         CastingBarFrame.Timer:SetTextColor(1, 1, 1)
         CastingBarFrame.Timer:SetFontObject("SystemFont_Shadow_Small")
-        CastingBarFrame.Timer:SetPoint("RIGHT", CastingBarFrame, -6, 0)
         CastingBarFrame:HookScript("OnUpdate", function(frame)
             if db.enabled and db.showTimer then
+                local spellText = frame.Text and frame.Text:GetText()
+                if spellText then
+                    frame.Timer:SetPoint("RIGHT", CastingBarFrame, (spellText:len() >= 19) and 30 or -6, 0)
+                end
+
+                if frame.fadeOut or (not frame.casting and not frame.channeling) then
+                    -- just show no text at zero, the numbers looks kinda weird when Flash animation is playing
+                    return frame.Timer:SetText("")
+                end
+
                 if not frame.channeling then
-                    frame.Timer:SetFormattedText("%.1f", frame.casting and (frame.maxValue - frame.value) or 0)
+                    frame.Timer:SetFormattedText("%.1f", frame.maxValue - frame.value)
                 else
-                    frame.Timer:SetFormattedText("%.1f", frame.fadeOut and 0 or frame.value)
+                    frame.Timer:SetFormattedText("%.1f", frame.value)
                 end
             end
         end)
@@ -306,14 +318,14 @@ function addon:SkinPlayerCastbar()
         CastingBarFrame.Flash:SetSize(db.width + 61, db.height + 51)
         CastingBarFrame.Flash:SetPoint("TOP", 0, 26)
     else
-        CastingBarFrame.Flash:SetTexture(nil) -- hide it by deleting texture, SetAlpha() or Hide() wont work without messing with blizz code
+        CastingBarFrame.Flash:SetTexture(nil) -- hide it by removing texture, SetAlpha() or Hide() wont work without messing with blizz code
     end
 
     CastingBarFrame_SetStartCastColor(CastingBarFrame, unpack(db.statusColor))
 	CastingBarFrame_SetStartChannelColor(CastingBarFrame, unpack(db.statusColorChannel))
 	--CastingBarFrame_SetFinishedCastColor(CastingBarFrame, unpack(db.statusColor))
 	--CastingBarFrame_SetNonInterruptibleCastColor(CastingBarFrame, 0.7, 0.7, 0.7)
-    --CastingBarFrame_SetFailedCastColor(CastingBarFrame, 1.0, 0.0, 0.0)
+    CastingBarFrame_SetFailedCastColor(CastingBarFrame, unpack(db.statusColorFailed))
     if CastingBarFrame.isTesting then
         CastingBarFrame:SetStatusBarColor(CastingBarFrame.startCastColor:GetRGB())
     end

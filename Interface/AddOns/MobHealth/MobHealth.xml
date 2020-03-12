@@ -56,7 +56,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 		</Size>
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="MobHealthText" outline="NORMAL" font="Fonts\FRIZQT__.TTF" >
+				<FontString name="MobHealthText" inherits="TextStatusBarText">
 					<FontHeight>
 						<AbsValue val="12"/>
 					</FontHeight>
@@ -73,7 +73,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 						<Color r="0" g="0" b="0" a="0.3"/>
 					</Shadow>
 				</FontString>
-				<FontString name="MobManaText" outline="NORMAL" font="Fonts\FRIZQT__.TTF" >
+				<FontString name="MobManaText" inherits="TextStatusBarText">
 					<FontHeight>
 						<AbsValue val="12"/>
 					</FontHeight>

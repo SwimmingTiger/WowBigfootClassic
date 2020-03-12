@@ -102,16 +102,24 @@ function MobHealth_Toggle(arg)
 		MobHealth_Eventer:RegisterEvent("PLAYER_TARGET_CHANGED");
 		MobHealth_Eventer:RegisterEvent("UNIT_POWER_UPDATE");
 
-		TargetFrameHealthBar.TextString:SetAlpha(0);
-		TargetFrameManaBar.TextString:SetAlpha(0);
+		if TargetFrameHealthBar.TextString then
+			TargetFrameHealthBar.TextString:SetAlpha(0);
+		end
+		if TargetFrameManaBar.TextString then
+			TargetFrameManaBar.TextString:SetAlpha(0);
+		end
 		if TargetFrameTextureFrameDeadText then
 			TargetFrameTextureFrameDeadText:SetAlpha(0)
 		end
 		MobHealth_Display()
 	else
 		MobHealth_Eventer:UnregisterAllEvent();
-		TargetFrameHealthBar.TextString:SetAlpha(1);
-		TargetFrameManaBar.TextString:SetAlpha(1);
+		if TargetFrameHealthBar.TextString then
+			TargetFrameHealthBar.TextString:SetAlpha(1);
+		end
+		if TargetFrameManaBar.TextString then
+			TargetFrameManaBar.TextString:SetAlpha(1);
+		end
 		if TargetFrameTextureFrameDeadText then
 			TargetFrameTextureFrameDeadText:SetAlpha(1)
 		end

@@ -6,12 +6,12 @@ M:RegisterEvent("ADDON_LOADED");
 function M:ADDON_LOADED(name)
 	if (name == "MerInspect") then	
 		if not InspectFrame then return end
-		self:CreateMainFrame();
-		hooksecurefunc("InspectFrame_Show", function(unit)
-			if (self.Config.MerInspectEnable and InspectFrame.unit) then
-				self:DoQueue(InspectFrame.unit)				
-			end
-		end);
+		-- self:CreateMainFrame();
+		-- hooksecurefunc("InspectFrame_Show", function(unit)
+			-- if (self.Config.MerInspectEnable and InspectFrame.unit) then
+				-- self:DoQueue(InspectFrame.unit)				
+			-- end
+		-- end);
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end
@@ -23,9 +23,9 @@ function M:UNIT_INVENTORY_CHANGED(unit)
 end
 
 function M:PLAYER_TARGET_CHANGED()
-	if (self.Config.MerInspectEnable and InspectFrame:IsVisible()) then
-		self:DoQueue(InspectFrame.unit)
-	end
+	-- if (self.Config.MerInspectEnable and InspectFrame:IsVisible()) then
+		-- self:DoQueue(InspectFrame.unit)
+	-- end
 end
 
 function M:CreateButton(buttonName, parentFrame, width, height, texture, TexCoords)

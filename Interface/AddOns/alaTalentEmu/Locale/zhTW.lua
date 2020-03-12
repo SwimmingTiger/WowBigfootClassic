@@ -14,7 +14,7 @@ BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>天赋模�
 
 L.Locale = "zhTW";
 
-L.Emu = "仿真器";
+L.Emu = "仿真器 BY ALA";
 L.OK = "OK";
 L.Cancel = "Cancel";
 L.Search = "搜索";
@@ -33,7 +33,7 @@ L.labelPointsChanged = "(\124cffff0000修改\124r)";
 L.resetButton = "重置本欄天賦";
 L.resetAllButton = "重置所有天賦";
 L.resetToSetButton = "重置到初始狀態";
-L.readOnlyButton = "\124cff00ff00左鍵\124r切換禁止編輯\n\124cff00ff00右鍵\124r設置窗口風格";
+L.readOnlyButton = "\124cff00ff00點擊\124r設置";
 L.closeButton = "關閉窗體";
 
 L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
@@ -44,8 +44,8 @@ L.spellNotAvailable = "\124cffff0000技能不可用\124r";
 L.showAllSpell = "显示所有等级";
 L.applyTalentsButton = "應用當前天賦仿真";
 L.applyTalentsButton_Notify = "确定應用當前天賦吗？";
-L.importButton = "導入字符串或wowhead/nfu链接";
-L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右鍵\124r导出到\124cffff0000wowhead/nfu\124r网页链接";
+L.importButton = "導入字符串或wowhead/nfu/yxrank链接";
+L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右鍵\124r导出到\124cffff0000wowhead/nfu/yxrank\124r网页链接";
 L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右鍵\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
 L.sendButton = "\124cff00ff00左键\124r点击发送天赋到聊天\n\124cff00ff00右键\124r点击查看最近聊天中的天赋";
 L.equipmentButton = "打开装备查看";
@@ -55,6 +55,7 @@ L.TalentFrameCallButtonFontString = "仿真器";
 L.curRank = "當前等級";
 L.nextRank = "下一等級";
 L.maxRank = "最高等級";
+L.reqPoints = "%d/%d点%s";
 
 L.SetWinStyle_BLZ = "设置窗口为暴雪风格";
 L.SetWinStyle_ALA = "设置窗口为扁平化风格";

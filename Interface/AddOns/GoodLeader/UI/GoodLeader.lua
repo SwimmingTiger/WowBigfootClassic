@@ -12,11 +12,11 @@ function GoodLeader:Constructor(p)
     local raids = {
         {mapId = 2717, bossId = 672, image = [[interface\encounterjournal\ui-ej-dungeonbutton-moltencore]]},
         {mapId = 2159, bossId = 1084, image = [[interface\encounterjournal\ui-ej-dungeonbutton-onyxia]]},
-        {mapId = 2677, bossId = 0, image = [[interface\encounterjournal\ui-ej-dungeonbutton-blackwinglair]]},
-        {mapId = 3428, bossId = 0, image = [[interface\encounterjournal\ui-ej-dungeonbutton-templeofahnqiraj]]},
-        {mapId = 3456, bossId = 0, image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
-        {mapId = 1977, bossId = 0, image = [[interface\encounterjournal\ui-ej-dungeonbutton-zulgurub]]},
-        {mapId = 3429, bossId = 0, image = [[interface\encounterjournal\ui-ej-dungeonbutton-ruinsofahnqiraj]]},
+        {mapId = 2677, bossId = 617, image = [[interface\encounterjournal\ui-ej-dungeonbutton-blackwinglair]]},
+        {mapId = 3428, bossId = 717, image = [[interface\encounterjournal\ui-ej-dungeonbutton-templeofahnqiraj]]},
+        {mapId = 3456, bossId = 1114, image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 1977, bossId = 793, image = [[interface\encounterjournal\ui-ej-dungeonbutton-zulgurub]]},
+        {mapId = 3429, bossId = 723, image = [[interface\encounterjournal\ui-ej-dungeonbutton-ruinsofahnqiraj]]},
     }
 
     for i, v in ipairs(raids) do
@@ -38,6 +38,29 @@ function GoodLeader:Constructor(p)
 
     self.First.Footer.Text:SetText(L.TIP_SUMMARY)
     self.First.Footer.Title:SetText(L.TIP_TITLE)
+
+    self.Result.Score.NoResult:SetText(L['团长被评价数量较少，暂时无法查看。'])
+    self.Result.Raids.Title:SetText(L['作为团长的次数：|cff808080（暴雪通行证下所有角色）|r'])
+
+    self.scores = {}
+
+    local function SetupScore(frame, text)
+        frame.Text:SetText(text)
+        frame.Score:SetReadOnly(true)
+
+        tinsert(self.scores, frame)
+    end
+
+    SetupScore(self.Result.Score.Score1, L['指挥：'])
+    SetupScore(self.Result.Score.Score2, L['公正：'])
+    SetupScore(self.Result.Score.Score3, L['运势：'])
+
+    self.Result:SetScript('OnShow', function()
+        ns.Addon.MainPanel:SetTitleShown(false)
+    end)
+    self.First:SetScript('OnShow', function()
+        ns.Addon.MainPanel:SetTitleShown(true)
+    end)
 
     self.Result.Raids:SetScript('OnSizeChanged', function()
         local spacing = 20
@@ -151,6 +174,24 @@ function GoodLeader:GOODLEADER_LEADERINFO_UPDATE()
             L['|cff808080公会成员：|r团长距离过远，无法获得公会信息，建议进入团队后查看。'])
     end
 
+    -- self.Result.Name:SetFormattedText(L['团长ID：%s'], name)
+    self.Result.Tags:SetText(user.tags and table.concat(user.tags, ',') or '')
+
+    for i, frame in ipairs(self.scores) do
+        self:UpdateScore(frame, user.scores and user.scores[i])
+    end
+
+    self.Result.Score.NoResult:SetShown(not user.scores)
+
     self.Result:Show()
     self.First:Hide()
+end
+
+function GoodLeader:UpdateScore(frame, score)
+    if score then
+        frame.Score:SetValue(score)
+        frame:Show()
+    else
+        frame:Hide()
+    end
 end

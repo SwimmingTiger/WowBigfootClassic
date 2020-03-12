@@ -1,6 +1,6 @@
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1256 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1532 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -91,10 +91,4 @@ function Fights:DeleteOverflowFights(newmax)
 			end
 		end
 	end
-end
-
-function Fights:RemoveFight(num)
-end
-
-function Fights:ChangeFightNum(num)
 end

@@ -2,6 +2,7 @@
 ..\FrameXML\UI.xsd">
     <Include file="Localization\Localization.xml" />
     <Script file="Addon.lua" />
+    <Script file="Grade.lua" />
     <Script file="Api.lua" />
     <Include file="UI\UI.xml" />
 </Ui>

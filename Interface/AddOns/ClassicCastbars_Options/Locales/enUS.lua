@@ -40,19 +40,16 @@ L["ICON_SIZE_TOOLTIP"] = "Sets the size for the castbar spell icon."
 L["LSM_TEXTURE_NOTE"] = [=[
 
 Note: If you use a custom third-party texture/font and delete it later on from your PC, you'll need to manually reset the texture or font here for the addon to continue working.]=]
-L["MOVEMENT_DETECT"] = "Stop Castbar on Movement"
-L["MOVEMENT_DETECT_TOOLTIP"] = [=[Enable this to stop the castbar when the unit is moving their character.
-
-You might want to disable this if you play with high latency as it can sometimes incorrectly stop the castbar for laggy players.
-]=]
 L["NAMEPLATE"] = "Nameplate"
 L["PARTY"] = "Party"
 L["PLAYER"] = "Player"
 L["POSXY_TOOLTIP"] = "Adjust the XY offset values to move the frame."
-L["PUSHBACK"] = "Detect Cast Pushbacks"
-L["PUSHBACK_TOOLTIP"] = [=[Enables detection for cast pushback and modifiers (i.e Curse of Tongues).
+L["PUSHBACK"] = "Detect Cast Modifiers |cffffff00(Global Setting)|r"
+L["PUSHBACK_TOOLTIP"] = [=[Enables detection for cast pushback and speed modifiers (i.e Curse of Tongues). This setting affects all castbars except your own.
 
-This detection is not fully accurate as certain spells & talents gives a chance to ignore pushback.
+Notes:
+- Pushback detection is not fully accurate as certain talents gives a chance to ignore pushback.
+- For some speed increase modifiers you will need to also have the ClassicAuraDurations addon enabled.
 ]=]
 L["REQUIRES_RESTART"] = "Disabling this castbar module requires a reload of your interface. Press Accept to reload UI."
 L["RESET_ALL"] = "Reset All Settings"
@@ -64,6 +61,7 @@ L["SHOW_TIMER"] = "Show Timer Text"
 L["SHOW_TIMER_TOOLTIP"] = "Display a timer countdown for the current cast."
 L["STATUS_BG_COLOR"] = "Select Background Color"
 L["STATUS_CHANNEL_COLOR"] = "Select Channel Fill Color"
+L["STATUS_FAILED_COLOR"] = "Select Cast Failed Fill Color"
 L["STATUS_COLOR"] = "Select Cast Fill Color"
 L["TARGET"] = "Target"
 L["TEST"] = "Toggle Testing"

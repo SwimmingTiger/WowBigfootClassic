@@ -19,8 +19,8 @@ function MainPanel:Constructor()
     self.Title:SetText(L.ADDON_TITLE)
 
     local GoodLeader = ns.UI.GoodLeaderFrame:New(self)
-    GoodLeader:SetPoint('TOPLEFT', 4, -85)
-    GoodLeader:SetPoint('BOTTOMRIGHT', -6, 26)
+    GoodLeader:SetPoint('TOPLEFT', 4, -65)
+    GoodLeader:SetPoint('BOTTOMRIGHT', -6, 6)
 
     local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)
     FeedBack:SetPoint('TOPLEFT', 3, -22)
@@ -47,4 +47,14 @@ function MainPanel:Constructor()
     self.FeedBackButton:SetScript('OnLeave', GameTooltip_Hide)
 
     self.FeedBack = FeedBack
+end
+
+function MainPanel:SetTitleShown(flag)
+    if flag then
+        self.Title:Show()
+        self.TextBackground:Show()
+    else
+        self.Title:Hide()
+        self.TextBackground:Hide()
+    end
 end

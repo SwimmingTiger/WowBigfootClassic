@@ -37,9 +37,6 @@ function ClassModConfigFunc()
 		ENABLE_AIMED_SHOT = "启用自动射击计时器";
 		ENABLE_AIMED_SHOT_TOOLTIP = "在屏幕中下方显示下次普通射击的剩余时间框体";
 
-		ENABLE_YAHT = "启用YaHT(另一个猎人计时器)";
-		ENABLE_YAHT_TOOLTIP = "在屏幕中下方显示下次射击的剩余时间框体，与上面的风格不同";
-
 		AJUST_CAST_POSITION = "调整位置";
 
 		ENABLE_FOCUS_BAR = "开启集中值监视";
@@ -89,9 +86,6 @@ function ClassModConfigFunc()
 		ENABLE_AIMED_SHOT = "啟用自动射擊計時器";
 		ENABLE_AIMED_SHOT_TOOLTIP= "在屏幕中下方顯示下次普通射擊的剩餘時間框體";
 
-		ENABLE_YAHT = "啟用YaHT(另一個獵人計時器)";
-		ENABLE_YAHT_TOOLTIP = "在屏幕中下方顯示下次射擊的剩餘時間框體，與上面的風格不同";
-
 		AJUST_CAST_POSITION = "調整位置";
 
 		ENABLE_FOCUS_BAR = "開啟集中值監視";
@@ -116,9 +110,6 @@ function ClassModConfigFunc()
 		ENABLE_MISDIRECT = "Yell when cast misdirect";
 		AJUST_CAST_POSITION = "Ajust position";
 		ENABLE_ATTACK_TIMER = "Enable Attack Timer";
-
-		ENABLE_YAHT = "Enable YaHT (Yet another Hunter Timer)";
-		ENABLE_YAHT_TOOLTIP = "Show the remaining time frame of the next shot in the bottom and middle of the screen";
 	end
 
 	local ZERO_FEED_HAPPINESS = { PET_HAPPINESS1, PET_HAPPINESS2 };
@@ -137,7 +128,7 @@ function ClassModConfigFunc()
 		CLASS_MOD_PATH = "Interface\\ICONS\\Ability_Hunter_SniperShot.blp";
 	end
 
-	if IsConfigurableAddOn("BFClassMods") or IsConfigurableAddOn("AttackTimer") or (IsConfigurableAddOn("NewPowerBar") and playerclass == "HUNTER" or playerclass == "WARRIOR" or playerclass == "DRUID" or playerclass == "MONK") or playerclass == "ROGUE" or (IsConfigurableAddOn("YaHT") and playerclass == "HUNTER") then
+	if IsConfigurableAddOn("BFClassMods") or IsConfigurableAddOn("AttackTimer") or (IsConfigurableAddOn("NewPowerBar") and playerclass == "HUNTER" or playerclass == "WARRIOR" or playerclass == "DRUID" or playerclass == "MONK") or playerclass == "ROGUE" then
 		ModManagement_RegisterMod(
 			"BigFootClassMod",
 			CLASS_MOD_PATH,
@@ -358,40 +349,6 @@ function ClassModConfigFunc()
 					ZFeed_CHappiness(arg1);
 				end
 			end,
-			1
-		);
-	end
-
-	if (playerclass == "HUNTER" and IsConfigurableAddOn("YaHT")) then
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			ENABLE_YAHT,
-			ENABLE_YAHT_TOOLTIP,
-			"EnableYaHT",
-			0,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("YaHT")) then
-						BigFoot_LoadAddOn("YaHT");
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("YaHT")) then
-						BigFoot_RequestReloadUI()
-					end
-				end
-			end
-		);
-		
-		ModManagement_RegisterButton(
-			"BigFootClassMod",
-			AJUST_CAST_POSITION,
-			function ()
-				if (BigFoot_IsAddOnLoaded("YaHT")) then
-					YaHT.db.profile.lock = not YaHT.db.profile.lock
-					YaHT:ProfilesChanged()
-				end
-			end,
-			nil,
 			1
 		);
 	end
