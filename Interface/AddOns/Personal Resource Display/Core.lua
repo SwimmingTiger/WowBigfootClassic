@@ -7,23 +7,10 @@
               Shapeshifting from Druid also supported.
   Author:     Dioporc#2069   @Discord
               GianBzt#2855   @Battle.net
-              Ffz            Human Mage @Gandling EU
-  Version:    2.2
-              Introduced Personal Resource Display settings page in the Interface table
-              The strata level of the frames can be modified
-              The borders of the bars can be hidden
-              The scale of the bars can be modified
-              The width of the bars can be modified
-              The vertical position of the bars can be modified
-              Added a reset button to restore these 3 values
-              The minimap button can be hidden through the button itself or the settings tab
-              A text frame showing the percentage of the bars can be enabled through the settings tab
-              Added a option to show the percentage as the amount of health/mana missing instead
-              Added a option to automatically lower the opacity of the frames while out of combat
-              Added a option to automatically change the health bar tint color according to the amount of health
-              Added more functions to the minimap button
-              Slash command added to reset the addon
-              Slash command added to directly open the settings tab
+              Ffz            Human Mage @Gandling EU ----- currently unsubbed
+  Version:    2.3.1
+              Added a option in the settings tab to hide the health bar entirely
+              The percentage text color tint will now reflect the dynamic color of the health bar
   Disclaimer: All the textures found inside the AddOn folder are taken from the BlizzardInterfaceArt directory.
               I claim no credits to those.
 ]]
@@ -52,11 +39,15 @@ local frameStratas = {
   [8] = "TOOLTIP"
 }
 
+local function ExtractColorValueFromHex(str, index)
+	return tonumber(str:sub(index, index + 1), 16) / 255;
+end
+
 local playerClass = select(2, UnitClass("player"))
 local personalResourceBarHeight = 10
 local personalResourceBarWidth = 100
 local personalResourceBarBaseTopPadding = -130 -- units of space between center of screen downwards
-local percentageTextColor 
+local manaPercentageTextColor
 local minScale = 0.5
 local maxScale = 3
 local minWidth = 80
@@ -72,6 +63,7 @@ local playerMaxHealthReady = false
 local PRD_MinimapTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_MinimapTexture"
 local PRD_InterfaceSettingsTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_InterfaceSettingsTexture"
 
+
 StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
   text = "Syntax is: |cff3FD42A/prd <value>|r\nValue must be a number.\nDefault value is: |cff3FD42A"..personalResourceBarBaseTopPadding.."|r\nUse |cff3FD42A/prd reset|r to reset the frames.",
   button1 = OKAY,
@@ -84,10 +76,17 @@ local function PRD_round(num, decimals)
   return (("%%.%df"):format(decimals)):format(num)
 end
 
+
+function PRD_generateHexColor(r, g, b)
+  -- returns the RRGGBB string (not passing the alpha value just in case we need different than FF)
+  -- r, g, b must be within the interval [0,1]
+	return ("%02x%02x%02x"):format(r * 255, g * 255, b * 255);
+end
+
 -- Called once at launch
 -- no longer a function
 --function createPersonalResourceDisplay()
-  local PRD_personalHealthBar = CreateFrame("StatusBar", "PRD_personalHealthBar", UIParent)
+local PRD_personalHealthBar = CreateFrame("StatusBar", "PRD_personalHealthBar", UIParent)
     PRD_personalHealthBar:SetStatusBarTexture("Interface/TargetingFrame/UI-StatusBar")
     PRD_personalHealthBar:SetHeight(personalResourceBarHeight) -- Width is set after reading the savedVar
     PRD_personalHealthBar:SetHitRectInsets(2, 2, 2, 2)
@@ -244,18 +243,44 @@ local function toggleMinimap(fromMinimap)
 end
 
 local function updatePercentageText()
-  if PRD_settingsConfig.showReversePercentage then 
-    PRD_healthPercentageFontString:SetText("|cff40ff00-"..100 - getCurrentHealthBarValue())
-    PRD_manaPercentageFontString:SetText("|cff"..percentageTextColor.."-"..100 - getCurrentManaBarValue())
+  if PRD_settingsConfig.showReversePercentage then
+    if PRD_settingsConfig.dynamicHealthColor then
+      local r, g, b = PRD_personalHealthBar:GetStatusBarColor()
+      PRD_healthPercentageFontString:SetText("|cff"..PRD_generateHexColor(r, g, b).."-"..100 - getCurrentHealthBarValue())
+    else
+      PRD_healthPercentageFontString:SetText("|cff40ff00-"..100 - getCurrentHealthBarValue())
+    end
+
+    PRD_manaPercentageFontString:SetText("|cff"..manaPercentageTextColor.."-"..100 - getCurrentManaBarValue())
   elseif PRD_settingsConfig.showPercentage then
-    PRD_healthPercentageFontString:SetText("|cff40ff00"..getCurrentHealthBarValue())
-    PRD_manaPercentageFontString:SetText("|cff"..percentageTextColor..getCurrentManaBarValue())
+    if PRD_settingsConfig.dynamicHealthColor then
+      local r, g, b = PRD_personalHealthBar:GetStatusBarColor()
+      PRD_healthPercentageFontString:SetText("|cff"..PRD_generateHexColor(r, g, b)..getCurrentHealthBarValue())
+    else
+      PRD_healthPercentageFontString:SetText("|cff40ff00"..getCurrentHealthBarValue())
+    end
+
+      PRD_manaPercentageFontString:SetText("|cff"..manaPercentageTextColor..getCurrentManaBarValue())
   end
 end
 
 
 local function isModKeyDown()
   return IsAltKeyDown() or IsControlKeyDown() or IsShiftKeyDown()
+end
+
+local function toggleHealthBar()
+  -- hiding the bar when checking the box, and vice versa
+  PRD_settingsConfig.hideHealthBar = not PRD_settingsConfig.hideHealthBar
+  PRD_personalHealthBar:SetShown(not PRD_settingsConfig.hideHealthBar)
+
+  if not PRD_personalHealthBar:IsShown() then
+    personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH_FREQUENT", "player")
+    personalResourceBarsEventFrame:UnregisterEvent("UNIT_MAXHEALTH", "player")
+  else    
+    personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
+    personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
+  end
 end
 
 local function togglePercentage()
@@ -339,8 +364,9 @@ local set = {}
 
   
   local function PRD_DropDown_onClick(self, arg1, arg2, checked)
+    -- we are passing 1, 5 or 7 as arg1
     PRD_settingsConfig.strataLevel = arg1
-    -- arg1: 1 - 5 - 7
+    -- then we store it in our config
     PRD_personalManaBar:SetFrameStrata(frameStratas[arg1])
     PRD_personalHealthBar:SetFrameStrata(frameStratas[arg1])
     PRD_personalManaBarBorder:SetFrameStrata(frameStratas[arg1])
@@ -368,27 +394,27 @@ local set = {}
     UIDropDownMenu_Initialize(dropDown, PRD_DropDown_init)
 
   set.InterfaceOptions.editStrataFontString = set.InterfaceOptions:CreateFontString(nil, "ARTWORK", "GameFontNormalLargeOutline")
-    set.InterfaceOptions.editStrataFontString:SetText("框架层级:")
+    set.InterfaceOptions.editStrataFontString:SetText("Strata level:")
     set.InterfaceOptions.editStrataFontString:SetJustifyH("LEFT")
     set.InterfaceOptions.editStrataFontString:SetJustifyV("TOP")
     set.InterfaceOptions.editStrataFontString:SetPoint("TOPLEFT", PRD_editStrataDropDown, "TOPLEFT", 17, 15)
 
   set.InterfaceOptions.showBorder_checkBox = CreateFrame("CheckButton", "showBorder_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
     showBorder_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 105, -155);
-    _G[set.InterfaceOptions.showBorder_checkBox:GetName().."Text"]:SetText("显示边框");
-    showBorder_checkBox.tooltip = "Shows the borders of both status bars."
+    _G[set.InterfaceOptions.showBorder_checkBox:GetName().."Text"]:SetText("Show borders");
+    showBorder_checkBox.tooltip = "Show the borders of both status bars."
     showBorder_checkBox:SetScript("OnClick", toggleFrameBorders)
 
   set.InterfaceOptions.hideMinimap_checkBox = CreateFrame("CheckButton", "hideMinimap_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
     hideMinimap_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 105, -180);
-    _G[set.InterfaceOptions.hideMinimap_checkBox:GetName().."Text"]:SetText("启用小地图");
-    hideMinimap_checkBox.tooltip = "Shows the minimap button."
+    _G[set.InterfaceOptions.hideMinimap_checkBox:GetName().."Text"]:SetText("Enable Minimap");
+    hideMinimap_checkBox.tooltip = "Show the minimap button."
     hideMinimap_checkBox:SetScript("OnClick", function() toggleMinimap(false) end)
 
   set.InterfaceOptions.hideInCombat_checkBox = CreateFrame("CheckButton", "hideInCombat_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
     hideInCombat_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 105, -205);
-    _G[set.InterfaceOptions.hideInCombat_checkBox:GetName().."Text"]:SetText("脱战后隐藏");
-    hideInCombat_checkBox.tooltip = "Severely lowers the opacity of the frames while out of combat. It is not affected by environmental damage such as fire or drowning."
+    _G[set.InterfaceOptions.hideInCombat_checkBox:GetName().."Text"]:SetText("Hide while OOC");
+    hideInCombat_checkBox.tooltip = "Severely lower the opacity of the frames while out of combat. It is not affected by environmental damage such as fire or drowning."
     hideInCombat_checkBox:SetScript("OnClick", function() 
       PRD_settingsConfig.hideInCombat = not PRD_settingsConfig.hideInCombat
 
@@ -408,9 +434,15 @@ local set = {}
       end
     end)
 
+  set.InterfaceOptions.hideHealthBar_checkBox = CreateFrame("CheckButton", "hideHealthBar_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
+    hideHealthBar_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 300, -155);
+    _G[set.InterfaceOptions.hideHealthBar_checkBox:GetName().."Text"]:SetText("Hide HP bar");
+    hideHealthBar_checkBox.tooltip = "Hide the health bar."
+    hideHealthBar_checkBox:SetScript("OnClick", toggleHealthBar)
+
   set.InterfaceOptions.showPercentage_checkBox = CreateFrame("CheckButton", "showPercentage_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
     showPercentage_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 105, -230);
-    _G[set.InterfaceOptions.showPercentage_checkBox:GetName().."Text"]:SetText("显示百分比");
+    _G[set.InterfaceOptions.showPercentage_checkBox:GetName().."Text"]:SetText("Show percentage");
     showPercentage_checkBox.tooltip = "Enable percentage status text next to the bars."
     showPercentage_checkBox:SetScript("OnClick", togglePercentage)
 
@@ -422,7 +454,7 @@ local set = {}
 
   set.InterfaceOptions.dynamicHealthColor_checkBox = CreateFrame("CheckButton", "dynamicHealthColor_checkBox", set.InterfaceOptions, "ChatConfigCheckButtonTemplate")
     dynamicHealthColor_checkBox:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 105, -280);
-    _G[set.InterfaceOptions.dynamicHealthColor_checkBox:GetName().."Text"]:SetText("动态HP颜色");
+    _G[set.InterfaceOptions.dynamicHealthColor_checkBox:GetName().."Text"]:SetText("Dynamic HP color");
     dynamicHealthColor_checkBox.tooltip = "Change the color tint of the health bar according to the percentage of health."
     dynamicHealthColor_checkBox:SetScript("OnClick", toggleDynamicHealthColor)
   
@@ -497,7 +529,7 @@ local set = {}
     verticalPosition_Slider:SetWidth(200)
     verticalPosition_Slider:SetHeight(20)
     verticalPosition_Slider:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 110, -415);
-    verticalPosition_Slider.tooltipText = "Control the scale of the frames. Default value |cff66ff33("..personalResourceBarBaseTopPadding..")|r is highlighted with green but gl finding it lol"
+    verticalPosition_Slider.tooltipText = "Move the frames along the Y axis. Default value |cff66ff33("..personalResourceBarBaseTopPadding..")|r is highlighted with green."
     _G[verticalPosition_Slider:GetName() .. 'Low']:SetText(""..minVerticalPosition)
     _G[verticalPosition_Slider:GetName() .. 'High']:SetText(""..maxVerticalPosition)
     verticalPosition_Slider:SetScript("OnValueChanged", function(self, value)
@@ -517,7 +549,7 @@ local set = {}
     opacity_Slider:SetWidth(150)
     opacity_Slider:SetHeight(20)
     opacity_Slider:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 300, -215);
-    opacity_Slider.tooltipText = "Modifies the value of opacity for the frames while out of combat. Default value: |cff66ff33"..defaultOpacityOOC
+    opacity_Slider.tooltipText = "Modify the value of opacity for the frames while out of combat. Default value: |cff66ff33"..defaultOpacityOOC
     _G[opacity_Slider:GetName() .. 'Low']:SetText(""..minOpacityOOC)
     _G[opacity_Slider:GetName() .. 'High']:SetText(""..maxOpacityOOC)
     opacity_Slider:SetScript("OnValueChanged", function(self, value)
@@ -535,7 +567,7 @@ local set = {}
     opacity_Slider:Show()
 
   set.InterfaceOptions.resetButtonText = set.InterfaceOptions:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    set.InterfaceOptions.resetButtonText:SetText("重置")
+    set.InterfaceOptions.resetButtonText:SetText("Reset")
     set.InterfaceOptions.resetButtonText:SetJustifyH("CENTER")
     set.InterfaceOptions.resetButtonText:SetJustifyV("CENTER")
     set.InterfaceOptions.resetButtonText:SetPoint("CENTER")
@@ -550,7 +582,7 @@ local set = {}
     resetToDefault_button:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 335, -335);
     resetToDefault_button:SetNormalFontObject("GameFontNormalSmall")
     resetToDefault_button:SetFontString(set.InterfaceOptions.resetButtonText)
-    resetToDefault_button:SetText("重置")
+    resetToDefault_button:SetText("Reset")
     resetToDefault_button:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine("Reset width, scale and vertical position values to default.", 1, 0.79, 0.1, 1)
@@ -569,13 +601,13 @@ local set = {}
 local function handleResourceBarType()
   if playerClass == "ROGUE" then
     PRD_personalManaBar:SetStatusBarColor(1, 1, 0)
-    percentageTextColor = "ffff00"
+    manaPercentageTextColor = "ffff00"
   elseif playerClass == "WARRIOR" then
     PRD_personalManaBar:SetStatusBarColor(1, 0, 0)
-    percentageTextColor = "ff1a1a"
+    manaPercentageTextColor = "ff1a1a"
   else
     PRD_personalManaBar:SetStatusBarColor(0, 0.2, 1)
-    percentageTextColor = "3366ff"
+    manaPercentageTextColor = "3366ff"
   end
 
   PRD_personalManaBar:SetValue(getCurrentManaBarValue())
@@ -612,14 +644,14 @@ function PRD_onPlayerResourceChange(self, event, ...)
     if formId == 1 then
       -- should be Cat form
       PRD_personalManaBar:SetStatusBarColor(1, 1, 0)
-      percentageTextColor = "ffff00"
+      manaPercentageTextColor = "ffff00"
     elseif formId == 5 then
       -- and Bear form
       PRD_personalManaBar:SetStatusBarColor(1, 0, 0)
-      percentageTextColor = "ff1a1a"
+      manaPercentageTextColor = "ff1a1a"
     else
       PRD_personalManaBar:SetStatusBarColor(0, 0.2, 1)
-      percentageTextColor = "0000ff"
+      manaPercentageTextColor = "0000ff"
     end
   elseif (event == "PLAYER_REGEN_DISABLED") then
     PRD_personalManaBar:SetAlpha(1.0)
@@ -644,6 +676,7 @@ function PRD_onPlayerResourceChange(self, event, ...)
         PRD_settingsConfig["showPercentage"] = false
         PRD_settingsConfig["showReversePercentage"] = false
         PRD_settingsConfig["dynamicHealthColor"] = true
+        PRD_settingsConfig["hideHealthBar"] = false
 
         -- this is actually the angle in degrees for the minimap button, cba renaming
         PRD_minimapButtonConfig = 0
@@ -691,6 +724,7 @@ function PRD_onPlayerResourceChange(self, event, ...)
       PRD_personalManaBar:SetScale(PRD_settingsConfig.scale)
 
       -- showing all the frames at launch
+      PRD_personalHealthBar:SetShown(not PRD_settingsConfig.hideHealthBar)
       PRD_personalHealthBarBorder:SetShown(PRD_settingsConfig.showBorder)
       PRD_personalManaBarBorder:SetShown(PRD_settingsConfig.showBorder)
       PRD_MinimapButton:SetShown(PRD_settingsConfig.showMinimap)
@@ -699,16 +733,16 @@ function PRD_onPlayerResourceChange(self, event, ...)
 
       -- setting all the slider values according to SavedVars
       scale_Slider:SetValue(PRD_settingsConfig.scale)
-      _G[scale_Slider:GetName() .. 'Text']:SetText("框架大小 |cfffdf457"..math.floor(PRD_settingsConfig.scale*100)/100)
+      _G[scale_Slider:GetName() .. 'Text']:SetText("PRD frames scale |cfffdf457"..math.floor(PRD_settingsConfig.scale*100)/100)
 
       width_Slider:SetValue(PRD_settingsConfig.width)
-      _G[width_Slider:GetName() .. 'Text']:SetText("框架宽度 |cfffdf457"..math.floor(PRD_settingsConfig.width*100)/100)
+      _G[width_Slider:GetName() .. 'Text']:SetText("PRD frames width |cfffdf457"..math.floor(PRD_settingsConfig.width*100)/100)
 
       verticalPosition_Slider:SetValue(PRD_settingsConfig.verticalPosition)
-      _G[verticalPosition_Slider:GetName() .. 'Text']:SetText("Y位置: |cfffdf457"..math.floor(PRD_settingsConfig.verticalPosition*100)/100)
+      _G[verticalPosition_Slider:GetName() .. 'Text']:SetText("PRD y position: |cfffdf457"..math.floor(PRD_settingsConfig.verticalPosition*100)/100)
 
       opacity_Slider:SetValue(PRD_settingsConfig.opacityOOC)
-      _G[opacity_Slider:GetName().."Text"]:SetText("脱战时透明度:\n|cfffdf457"..PRD_round(PRD_settingsConfig.opacityOOC, 1))
+      _G[opacity_Slider:GetName().."Text"]:SetText("Opacity while OOC:\n|cfffdf457"..PRD_round(PRD_settingsConfig.opacityOOC, 1))
       
       -- and the checkboxes too.
       showBorder_checkBox:SetChecked(PRD_settingsConfig.showBorder)
@@ -717,18 +751,18 @@ function PRD_onPlayerResourceChange(self, event, ...)
       showPercentage_checkBox:SetChecked(PRD_settingsConfig.showPercentage)
       showReversePercentage_checkBox:SetChecked(PRD_settingsConfig.showReversePercentage)
       dynamicHealthColor_checkBox:SetChecked(PRD_settingsConfig.dynamicHealthColor)
+      hideHealthBar_checkBox:SetChecked(PRD_settingsConfig.hideHealthBar)
 
       showReversePercentage_checkBox:SetEnabled(PRD_settingsConfig.showPercentage)
       if PRD_settingsConfig.showPercentage == false then
-        _G[set.InterfaceOptions.showReversePercentage_checkBox:GetName().."Text"]:SetText("|cff8e8e8c使用反向百分比")
+        _G[set.InterfaceOptions.showReversePercentage_checkBox:GetName().."Text"]:SetText("|cff8e8e8cUse reverse percentage")
       else
-        _G[set.InterfaceOptions.showReversePercentage_checkBox:GetName().."Text"]:SetText("使用反向百分比")
+        _G[set.InterfaceOptions.showReversePercentage_checkBox:GetName().."Text"]:SetText("Use reverse percentage")
       end
 
       -- PRD_preloadInterfaceOptionsFrame()
     end
-  -- 老虎会游泳：适应按需加载，与"ADDON_LOADED"事件合并
-  --elseif (event == "PLAYER_ENTERING_WORLD") then
+  elseif (event == "PLAYER_ENTERING_WORLD") then
     --[[ because of either retarded limitations or code flaws, UnitMaxHealth is returning 0 upon login until the health gets modified by damage/regen
     therefore, as calculating the percentage involves dividing by MaxHealth, it would return infinite as long as it is zero.
     a couple frames will occurr at launch, in which the health bar and percentage are shown as full/100, because I set MaxHP equal to the CurrentHP
@@ -757,8 +791,11 @@ personalResourceBarsEventFrame:SetScript("OnEvent", PRD_onPlayerResourceChange)
 MinimapButton:SetScript("OnEnter", function(self)
   GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
   GameTooltip:AddLine("|cffff4d4d"..addonName.." ("..addonVersion..")|r")
-  GameTooltip:AddLine("|cff66ff33左键|r - 插件开关\n|cff66ff33SHIFT左键|r - 隐藏小地图按钮 (可以通过ESC-界面-插件再次启用)")
-  GameTooltip:AddLine("|cff66ff33右键|r - 插件设置\n|cff66ff33SHIFT右键|r - 恢复默认值")
+  GameTooltip:AddLine("|cff66ff33LMB|r - toggle the health and mana frames on/off\n|cff66ff33Mod LMB|r - hide this minimap button (can be shown through interface options)")
+  GameTooltip:AddLine("|cff66ff33RMB|r - toggle the addon settings frame on/off\n|cff66ff33Mod RMB|r - reset the frame to default values")
+  GameTooltip:AddLine("|cff66ff33/prd <value>|r command moves the bars vertically\n<value> is the units of distance from the middle of the screen\nDefault value is: |cffff4d4d"..personalResourceBarBaseTopPadding.."|r")
+  GameTooltip:AddLine("|cff66ff33/prd reset|r also resets the frame to default")
+  GameTooltip:AddLine("|cff66ff33/prd|r opens the settings tab")
   GameTooltip:Show()
 end)
 
@@ -808,6 +845,8 @@ MinimapButton:SetScript("OnDragStop", function(self) self:SetScript("OnUpdate", 
 SLASH_PERSONALRESOURCEDISPLAY1 = "/prd"
 SlashCmdList["PERSONALRESOURCEDISPLAY"] = function(cmd)  
   if not cmd or cmd == "" then
+    print(PRD_personalHealthBar:GetStatusBarColor())
+    print("|cff"..GenerateHexColor().."SUCA")
     InterfaceOptionsFrame_OpenToCategory(set.InterfaceOptions)
   elseif cmd == "reset" then
     PRD_resetFramesToDefault()
