@@ -1,10 +1,20 @@
-lightweight tag 42ab1c9d135e857d9f4cfc7c880cccd723b883bf 1.13.3.13
+lightweight tag 9736c5e9ce16b9372c1ec6fd41d080992bc10d92 1.13.3.15
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sat Feb 15 14:00:43 2020 +0100
+Date:	Sun Mar 1 17:50:37 2020 +0100
 
-commit 42ab1c9d135e857d9f4cfc7c880cccd723b883bf
+commit 9736c5e9ce16b9372c1ec6fd41d080992bc10d92
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sat Feb 15 14:00:43 2020 +0100
+Date:   Sun Mar 1 17:48:44 2020 +0100
 
-    'cursefix'
+    Added option to hide enemy castbars
+    
+    - Added option to hide enemy castbars (As 'disable castbars' disables all castbar logic)
+
+commit f3ce5442898fd199072e6424f4707e02cb687d46
+Author: Luxocracy <luxor355@gmail.com>
+Date:   Sun Mar 1 17:48:44 2020 +0100
+
+    Added option to hide enemy castbars
+    
+    - Added option to hide enemy castbars (As 'disable castbars' disables all castbar logic)
 
