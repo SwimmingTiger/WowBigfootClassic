@@ -58,7 +58,7 @@ local minOpacityOOC = 0.0
 local maxOpacityOOC = 0.6
 local defaultOpacityOOC = 0.2
 local backgroundSettingsFrameOpacity = 0.2
-local playerMaxHealth
+local playerMaxHealth = UnitHealthMax and UnitHealthMax("player") or 0
 local playerMaxHealthReady = false
 local PRD_MinimapTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_MinimapTexture"
 local PRD_InterfaceSettingsTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_InterfaceSettingsTexture"
