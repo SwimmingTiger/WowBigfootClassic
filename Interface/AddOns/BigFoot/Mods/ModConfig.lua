@@ -695,9 +695,26 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	if isAddonLoadable('aux-addon') then
-		check = __CreateEnableAddonCheckBox("aux-addon", L['aux-addon-enabled'], false)
-		M:AddBottomButton(check)
+	do
+		local _, _, _, active, status = GetAddOnInfo('aux-addon')
+		if status ~= 'MISSING' then
+			check = __CreateCustomCheckBox(L["aux-addon"], L['aux-addon-enabled'], active,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('aux-addon')
+					if not IsAddOnLoaded('aux-addon') then
+						EnableAddOn('aux-addon')
+						BigFoot_RequestReloadUI()
+					end
+				end,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('aux-addon')
+					if IsAddOnLoaded('aux-addon') then
+						DisableAddOn('aux-addon')
+						BigFoot_RequestReloadUI()
+					end
+				end)
+			M:AddBottomButton(check)
+		end
 	end
 
 	if isAddonLoadable('Personal Resource Display') then
@@ -705,24 +722,26 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	local _, _, _, active, status = GetAddOnInfo('Spy')
-	if status ~= 'MISSING' then
-		check = __CreateCustomCheckBox(L["Spy"], nil, active,
-			function()
-				local _, _, _, active, status = GetAddOnInfo('Spy')
-				if not IsAddOnLoaded('Spy') then
-					EnableAddOn('Spy')
-					BigFoot_RequestReloadUI()
-				end
-			end,
-			function()
-				local _, _, _, active, status = GetAddOnInfo('Spy')
-				if IsAddOnLoaded('Spy') then
-					DisableAddOn('Spy')
-					BigFoot_RequestReloadUI()
-				end
-			end)
-		M:AddBottomButton(check)
+	do
+		local _, _, _, active, status = GetAddOnInfo('Spy')
+		if status ~= 'MISSING' then
+			check = __CreateCustomCheckBox(L["Spy"], nil, active,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('Spy')
+					if not IsAddOnLoaded('Spy') then
+						EnableAddOn('Spy')
+						BigFoot_RequestReloadUI()
+					end
+				end,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('Spy')
+					if IsAddOnLoaded('Spy') then
+						DisableAddOn('Spy')
+						BigFoot_RequestReloadUI()
+					end
+				end)
+			M:AddBottomButton(check)
+		end
 	end
 
 	if type(SlashCmdList.AUTOINVITE) == 'function' then

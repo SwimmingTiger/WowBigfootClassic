@@ -142,10 +142,6 @@ function M.bid_update(auction_record)
 end
 
 function M.set_tooltip(itemstring, owner, anchor)
-
-end
-
-function M.set_tooltip(itemstring, owner, anchor)
     GameTooltip:SetOwner(owner, anchor)
     GameTooltip:SetHyperlink(itemstring)
 end
@@ -329,8 +325,8 @@ end
 function M.inventory()
 	local bag, slot = 0, 0
 	return function()
-        if slot >= GetContainerNumSlots(bag) then
-            repeat bag = bag + 1 until GetContainerNumSlots(bag) > 0 or bag > 4
+		if slot >= GetContainerNumSlots(bag) then
+			repeat bag = bag + 1 until GetContainerNumSlots(bag) > 0 or bag > 4
 			slot = 1
 		else
 			slot = slot + 1

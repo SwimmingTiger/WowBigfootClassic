@@ -76,4 +76,3 @@ function add_filter(filter_string)
     set_filter(old_filter_string .. filter_string)
 end
 
-

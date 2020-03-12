@@ -255,7 +255,7 @@ do
     editbox:SetFontSize(17)
     editbox:SetScript('OnTabPressed', function()
 	    if IsShiftKeyDown() then
-            duration_dropdown:SetFocus()
+		    duration_dropdown:SetFocus()
 	    else
 		    unit_buyout_price_input:SetFocus()
 	    end

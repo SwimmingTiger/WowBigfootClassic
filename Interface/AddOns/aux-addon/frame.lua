@@ -24,15 +24,13 @@ do
     frame:SetScript('OnDragStop', frame.StopMovingOrSizing)
 	frame:SetClampedToScreen(true)
 --	frame:CreateTitleRegion():SetAllPoints() TODO classic why
+	frame:SetScript('OnShow', function() PlaySound(SOUNDKIT.AUCTION_WINDOW_OPEN) end)
+	frame:SetScript('OnHide', function() PlaySound(SOUNDKIT.AUCTION_WINDOW_CLOSE); CloseAuctionHouse() end)
 	frame.content = CreateFrame('Frame', nil, frame)
 	frame.content:SetPoint('TOPLEFT', 4, -80)
 	frame.content:SetPoint('BOTTOMRIGHT', -4, 35)
 	frame:Hide()
 	M.frame = frame
-
-    -- 声音播放事件注册移动到 frame:Hide() 之后，否则按需加载时总会播放拍卖行关闭的声音
-	frame:SetScript('OnShow', function() PlaySound(SOUNDKIT.AUCTION_WINDOW_OPEN) end)
-	frame:SetScript('OnHide', function() PlaySound(SOUNDKIT.AUCTION_WINDOW_CLOSE); CloseAuctionHouse() end)
 end
 do
     local status_bar = gui.status_bar(frame.content)

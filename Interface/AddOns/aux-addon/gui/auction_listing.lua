@@ -14,10 +14,10 @@ local HEAD_HEIGHT = 27
 local HEAD_SPACE = 2
 
 local TIME_LEFT_STRINGS = {
-    aux.color.red'30M', -- Short
-    aux.color.orange'2H', -- Medium
-    aux.color.yellow'8H', -- Long
-    aux.color.blue'24H', -- Very Long
+	aux.color.red'30m', -- Short
+	aux.color.orange'2h', -- Medium
+	aux.color.yellow'8h', -- Long
+	aux.color.blue'24h', -- Very Long
 }
 
 function item_column_init(rt, cell)

@@ -1,11 +1,10 @@
-##Interface: 11304
+## Interface: 11304
 ## Author: shirsig
 ## Title: aux
-## Version: 0.8.7
+## Version: 1.0.1
 ## Notes: Auction House replacement
 ## SavedVariables: aux
-## Dependencies: BigFoot
-## LoadOnDemand: 1
+## DefaultState: disabled
 
 libs\package.lua
 

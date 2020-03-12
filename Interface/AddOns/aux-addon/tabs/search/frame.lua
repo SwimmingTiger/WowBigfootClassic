@@ -62,10 +62,10 @@ do
 	local btn = gui.button(frame, gui.font_size.small)
 	btn:SetHeight(25)
 	btn:SetWidth(60)
-    btn:SetScript('OnClick', function(self)
-        update_mode(mode == NORMAL_MODE and FRESH_MODE or NORMAL_MODE)
+	btn:SetScript('OnClick', function(self)
+		update_mode(mode == NORMAL_MODE and FRESH_MODE or NORMAL_MODE)
 	end)
-    mode_button = btn
+	mode_button = btn
 end
 do
     local btn = gui.button(frame)
@@ -477,7 +477,7 @@ tables = {}
 for _ = 1, 5 do
     local table = auction_listing.new(frame.results, 16, auction_listing.search_columns)
     table:SetHandler('OnClick', function(row, button)
-        if IsAltKeyDown() and aux.account_data.action_shortcuts then
+	    if IsAltKeyDown() and aux.account_data.action_shortcuts then
 		    if current_search().table:GetSelection().record == row.record then
 			    if button == 'LeftButton' then
 	                buyout_button:Click()
