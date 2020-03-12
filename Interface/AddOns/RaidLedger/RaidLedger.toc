@@ -1,4 +1,4 @@
-## Interface: 11303
+##Interface: 11304
 ## Title: Raid Ledger
 ## Title-koKR: 공격대 장부
 ## Title-ruRU: Рейдовая книга

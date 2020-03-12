@@ -1,4 +1,4 @@
-## Interface: 11303
+##Interface: 11304
 ## Title: |cff00aeffCharacterStatsClassic|r
 ## Title-zhCN: [大脚][集]人物详细属性
 ## Title-zhTW: [大腳][集]人物詳細屬性

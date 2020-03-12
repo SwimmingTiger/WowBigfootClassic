@@ -1,4 +1,4 @@
-## Interface: 11303
+##Interface: 11304
 ## Title: Personal Resource Display
 ## Author: |cff3FD42ADi|cffFFFFFFopo|cffF50E09rc|r 
 ## Notes: Just a Legion-style personal resource display. Author: |cff3FD42ADi|cffFFFFFFopo|cffF50E09rc|r 
