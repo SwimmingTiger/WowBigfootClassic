@@ -70,7 +70,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Golemagg")
 
 L:SetGeneralLocalization{
-	name = "『焚化者』古雷曼格"
+	name = "焚化者古雷曼格"
 }
 
 -----------------
@@ -106,5 +106,5 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Submerge	= "出現吧，我的奴僕! 保衛你們的主人!",
-	Pull		= "你這個莽撞的傢伙!你簡直是自尋死路!看吧，你驚動了主人!"
+	Pull		= "你這個莽撞的傢伙！你簡直是自尋死路！看吧，你驚動了主人！"
 }

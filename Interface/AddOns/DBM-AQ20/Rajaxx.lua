@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rajaxx", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20191229152337")
+mod:SetRevision("20200117132515")
 mod:SetCreatureID(15341)
 mod:SetEncounterID(719)
 mod:SetModelID(15376)

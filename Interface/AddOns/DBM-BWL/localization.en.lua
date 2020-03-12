@@ -70,6 +70,32 @@ L:SetGeneralLocalization{
 	name = "Flamegor"
 }
 
+
+-----------------------
+--  Vulnerabilities  --
+-----------------------
+-- Chromaggus, Death Talon Overseer and Death Talon Wyrmguard
+L = DBM:GetModLocalization("TalonGuards")
+
+L:SetGeneralLocalization{
+	name = "Talon Guards"
+}
+L:SetWarningLocalization{
+	WarnVulnerable		= "%s Vulnerability"
+}
+L:SetOptionLocalization{
+	WarnVulnerable		= "Show warning for spell vulnerabilities"
+}
+L:SetMiscLocalization{
+	Fire		= "Fire",
+	Nature		= "Nature",
+	Frost		= "Frost",
+	Shadow		= "Shadow",
+	Arcane		= "Arcane",
+	Holy		= "Holy"
+}
+
+
 ------------------
 --  Chromaggus  --
 ------------------
@@ -79,15 +105,17 @@ L:SetGeneralLocalization{
 	name = "Chromaggus"
 }
 L:SetWarningLocalization{
-	WarnBreath		= "%s"
+	WarnBreath		= "%s",
+	WarnVulnerable	= "%s Vulnerability"
 }
 L:SetTimerLocalization{
 	TimerBreathCD	= "%s CD",
 	TimerBreath		= "%s cast",
-	TimerVulnCD		= "Vulnerability CD"
+	TimerVulnCD		= "%s Vulnerability CD"
 }
 L:SetOptionLocalization{
 	WarnBreath		= "Show warning when Chromaggus casts one of his Breaths",
+	WarnVulnerable	= "Show warning for spell vulnerabilities",
 	TimerBreathCD	= "Show Breath CD",
 	TimerBreath		= "Show Breath cast",
 	TimerVulnCD		= "Show Vulnerability CD"
@@ -95,7 +123,13 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Breath1		= "First Breath",
 	Breath2		= "Second Breath",
-	VulnEmote	= "%s flinches as its skin shimmers."
+	VulnEmote	= "%s flinches as its skin shimmers.",
+	Fire		= "Fire",
+	Nature		= "Nature",
+	Frost		= "Frost",
+	Shadow		= "Shadow",
+	Arcane		= "Arcane",
+	Holy		= "Holy"
 }
 
 ----------------

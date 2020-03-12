@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Firemaw", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200217192345")
+mod:SetRevision("20200227172148")
 mod:SetCreatureID(11983)
 mod:SetEncounterID(613)
 mod:SetModelID(6377)
@@ -23,7 +23,6 @@ local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
 function mod:OnCombatStart(delay)
 	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(30-delay)
-	DBM:AddMsg("Flame Buffet doesn't have a timer because something that is spammed every 2 sec doesn't need a timer. Shadowflame timer off by default because 14-21sec variance.")
 end
 
 do

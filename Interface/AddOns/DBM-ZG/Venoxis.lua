@@ -25,7 +25,6 @@ local specWarnRenew		= mod:NewSpecialWarningDispel(23895, "MagicDispeller", nil,
 
 local timerCloud		= mod:NewBuffActiveTimer(10, 23861, nil, nil, nil, 3)
 local timerRenew		= mod:NewTargetTimer(15, 23895, nil, "MagicDispeller", nil, 5, nil, DBM_CORE_MAGIC_ICON)
-local timerFireCast		= mod:NewCastTimer(3.5, 23860, nil, "HasInterrupt", nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
 local timerFire			= mod:NewTargetTimer(8, 23860, nil, "RemoveMagic|Healer", nil, 5, nil, DBM_CORE_MAGIC_ICON)
 
 mod:AddBoolOption("RangeFrame", true)
@@ -61,7 +60,6 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args:IsSpellID(23860) then
 		if args.spellName == HolyFire and args:IsSrcTypeHostile() then
-			timerFireCast:Start()
 			if self:CheckInterruptFilter(args.sourceGUID, false, true) then
 				specWarnHolyFire:Show(args.sourceName)
 				specWarnHolyFire:Play("kickcast")

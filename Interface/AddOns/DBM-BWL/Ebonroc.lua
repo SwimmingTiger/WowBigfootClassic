@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ebonroc", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200217213447")
+mod:SetRevision("20200227172148")
 mod:SetCreatureID(14601)
 mod:SetEncounterID(614)
 mod:SetModelID(6377)
@@ -28,7 +28,6 @@ local timerShadow			= mod:NewTargetTimer(8, 23340, nil, "Tank|Healer", 2, 5, nil
 function mod:OnCombatStart(delay)
 	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(30-delay)
-	DBM:AddMsg("Shadowflame timer off by default because 14-21sec variance.")
 end
 
 do

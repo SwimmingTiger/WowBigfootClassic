@@ -69,9 +69,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200225170926"),
-	DisplayVersion = "1.13.38", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 2, 24) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200311152717"),
+	DisplayVersion = "1.13.40", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 3, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -547,21 +547,23 @@ local function checkForSafeSender(sender, checkFriends, checkGuild, filterRaid)
 		local _, numBNetOnline = BNGetNumFriends()
 		for i = 1, numBNetOnline do
 			local presenceID, _, _, _, _, _, _, isOnline = BNGetFriendInfo(i)
-			local friendIndex = BNGetFriendIndex(presenceID)--Check if they are on more than one client at once (very likely with bnet launcher or mobile)
-			for j = 1, BNGetNumFriendGameAccounts(friendIndex) do
-				local _, toonName, client = BNGetFriendGameAccountInfo(friendIndex, j)
-				if toonName and client == BNET_CLIENT_WOW then--Check if toon name exists and if client is wow. If yes to both, we found right client
-					if toonName == sender then--Now simply see if this is sender
-						if filterRaid and DBM:GetRaidUnitId(toonName) then--Person is in raid group and filter raid enabled
-							return false--just set sender as unsafe
-						else
+			if presenceID then
+				local friendIndex = BNGetFriendIndex(presenceID)--Check if they are on more than one client at once (very likely with bnet launcher or mobile)
+				for j = 1, BNGetNumFriendGameAccounts(friendIndex) do
+					local _, toonName, client = BNGetFriendGameAccountInfo(friendIndex, j)
+					if toonName and client == BNET_CLIENT_WOW then--Check if toon name exists and if client is wow. If yes to both, we found right client
+						if toonName == sender then--Now simply see if this is sender
+							if filterRaid and DBM:GetRaidUnitId(toonName) then--Person is in raid group and filter raid enabled
+								return false--just set sender as unsafe
+							else
+								return true
+							end
+						end
+					else
+						--Check if it's a bnet friend sending a bnet whisper who's not in game
+						if presenceID == sender then
 							return true
 						end
-					end
-				else
-					--Check if it's a bnet friend sending a bnet whisper who's not in game
-					if presenceID == sender then
-						return true
 					end
 				end
 			end
@@ -5065,7 +5067,7 @@ do
 	end
 
 	function DBM:ShowUpdateReminder(newVersion, newRevision, text, url)
-		urlText = url or DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"
+		urlText = url or "https://github.com/DeadlyBossMods/DeadlyBossMods/wiki"
 		if not frame then
 			createFrame()
 		else
@@ -5701,7 +5703,7 @@ do
 				mod:RegisterEvents(unpack(mod.inCombatOnlyEvents))
 			end
 			--Fix for "attempt to perform arithmetic on field 'stats' (a nil value)"
-			if not mod.stats then
+			if not mod.stats and not mod.noStatistics then
 				self:AddMsg(DBM_CORE_BAD_LOAD)--Warn user that they should reload ui soon as they leave combat to get their mod to load correctly as soon as possible
 				mod.ignoreBestkill = true--Force this to true so we don't check any more occurances of "stats"
 			elseif event == "TIMER_RECOVERY" then --add a lag time to delay when TIMER_RECOVERY
@@ -5768,12 +5770,12 @@ do
 			--serperate timer recovery and normal start.
 			if event ~= "TIMER_RECOVERY" then
 				--add pull count
-				if mod.stats then
+				if mod.stats and not mod.noStatistics then
 					if not mod.stats[statVarTable[savedDifficulty].."Pulls"] then mod.stats[statVarTable[savedDifficulty].."Pulls"] = 0 end
 					mod.stats[statVarTable[savedDifficulty].."Pulls"] = mod.stats[statVarTable[savedDifficulty].."Pulls"] + 1
 				end
 				--show speed timer
-				if self.Options.AlwaysShowSpeedKillTimer and mod.stats and not mod.ignoreBestkill then
+				if self.Options.AlwaysShowSpeedKillTimer and mod.stats and not mod.ignoreBestkill and not mod.noStatistics then
 					local bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
 					if bestTime and bestTime > 0 then
 						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, "136106", nil, false)
@@ -5951,7 +5953,7 @@ do
 			end
 			local name = mod.combatInfo.name
 			local modId = mod.id
-			if wipe and mod.stats then
+			if wipe and mod.stats and not mod.noStatistics then
 				mod.lastWipeTime = GetTime()
 				--Fix for "attempt to perform arithmetic on field 'pull' (a nil value)" (which was actually caused by stats being nil, so we never did getTime on pull, fixing one SHOULD fix the other)
 				local thisTime = GetTime() - mod.combatInfo.pull
@@ -6005,7 +6007,7 @@ do
 					sendWhisper(k, msg)
 				end
 				fireEvent("DBM_Wipe", mod)
-			elseif not wipe and mod.stats then
+			elseif not wipe and mod.stats and not mod.noStatistics then
 				mod.lastKillTime = GetTime()
 				local thisTime = GetTime() - (mod.combatInfo.pull or 0)
 				local lastTime = mod.stats[statVarTable[savedDifficulty].."LastTime"]
@@ -6395,24 +6397,24 @@ function DBM:GetSpellInfo(spellId)
 end
 
 --In classic, instead of adding rank back in at beginning where it was pre 8.0, it's 15th arg return at end (value 1)
-function DBM:UnitDebuff(uId, spellInput, spellInput2, spellInput3, spellInput4)
+function DBM:UnitDebuff(uId, spellInput, spellInput2, spellInput3, spellInput4, spellInput5)
 	if not uId then return end
-	for i = 1, 60 do
+	for i = 1, 40 do--In Classic, we probably don't need anywhere near 40, but for good measure. Definitely doesn't need to be 60 like retail
 		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitDebuff(uId, i)
 		if not spellName then return end
-		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId then
+		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId or spellInput5 == spellName or spellInput5 == spellId then
 			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3
 		end
 	end
 end
 
 --In classic, instead of adding rank back in at beginning where it was pre 8.0, it's 15th arg return at end (value 1)
-function DBM:UnitBuff(uId, spellInput, spellInput2, spellInput3, spellInput4)
+function DBM:UnitBuff(uId, spellInput, spellInput2, spellInput3, spellInput4, spellInput5)
 	if not uId then return end
-	for i = 1, 60 do
+	for i = 1, 40 do--In Classic, we probably don't need anywhere near 40, but for good measure. Definitely doesn't need to be 60 like retail
 		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(uId, i)
 		if not spellName then return end
-		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId then
+		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId or spellInput5 == spellName or spellInput5 == spellId  then
 			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3
 		end
 	end
@@ -7059,12 +7061,13 @@ do
 		local isInstance, instanceType = IsInInstance()
 		if not isInstance or self.Options.MovieFilter2 == "Never" or DBM.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
 		local currentMapID = C_Map.GetBestMapForUnit("player")
+		local currentSubZone = GetSubZoneText() or ""
 		if not currentMapID then return end--Protection from map failures in zones that have no maps yet
-		if self.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and self.Options.MoviesSeen[currentMapID] then
+		if self.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and self.Options.MoviesSeen[currentMapID..currentSubZone] then
 			CinematicFrame_CancelCinematic()
 			self:AddMsg(DBM_CORE_MOVIE_SKIPPED)
 		else
-			self.Options.MoviesSeen[currentMapID] = true
+			self.Options.MoviesSeen[currentMapID..currentSubZone] = true
 		end
 	end
 	function DBM:CINEMATIC_STOP()
@@ -11169,7 +11172,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200225170926" then
+	if not revision or revision == "20200311152717" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

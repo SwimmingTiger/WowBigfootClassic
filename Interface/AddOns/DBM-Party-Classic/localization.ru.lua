@@ -140,7 +140,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization(379)
 
 L:SetGeneralLocalization{
-	name 		= "Señor Gólem Argelmach"
+	name 		= "Повелитель големов Аргелмах"
 }
 ----------------------
 -- Hurley Blackbreath --
@@ -1426,7 +1426,7 @@ L:SetGeneralLocalization{
 }
 
 -----------------------------
---  Veran the Everliving  --
+--  Verdan the Everliving  --
 -----------------------------
 L = DBM:GetModLocalization(480)
 

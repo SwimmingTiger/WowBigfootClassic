@@ -11,8 +11,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 24212"
 )
 
-local warnMark		= mod:NewTargetAnnounce(24210, 3)
-local warnPain		= mod:NewTargetAnnounce(24212, 2, nil, "RemoveMagic|Healer")
+local warnMark		= mod:NewTargetNoFilterAnnounce(24210, 3)
+local warnPain		= mod:NewTargetNoFilterAnnounce(24212, 2, nil, "RemoveMagic|Healer")
 
 local specWarnMark	= mod:NewSpecialWarningYou(24210, nil, nil, nil, 1, 2)
 

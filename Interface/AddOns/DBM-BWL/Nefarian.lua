@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221220711")
+mod:SetRevision("20200310141745")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
 mod:RegisterCombat("combat_yell", L.YellP1)--ENCOUNTER_START appears to fire when he lands, so start of phase 2, ignoring all of phase 1
 mod:SetWipeTime(50)--guesswork
-mod:SetHotfixNoticeRev(20200218000000)--2020, Feb, 18th
-mod:SetMinSyncRevision(20200218000000)--2020, Feb, 18th
+mod:SetHotfixNoticeRev(20200310000000)--2020, Mar, 10th
+mod:SetMinSyncRevision(20200310000000)--2020, Mar, 10th
 
 mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
@@ -33,18 +33,17 @@ local specwarnVeilShadow	= mod:NewSpecialWarningDispel(22687, "RemoveCurse", nil
 
 local timerPhase			= mod:NewPhaseTimer(15)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
-local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, false, 2, 2)--26-42.5
+local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, 3, 2)--26-42.5
 
 mod.vb.phase = 1
-mod.vb.addLeft = 20
+mod.vb.addLeft = 42
 local addsGuidCheck = {}
 
 function mod:OnCombatStart(delay, yellTriggered)
 	table.wipe(addsGuidCheck)
-	DBM:AddMsg("Bellowing Roar: 26-42.5. Because of this, timer is now off by default (but you can still elect to use it)")
 	if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
 		self.vb.phase = 1
-		self.vb.addLeft = 20
+		self.vb.addLeft = 42
 	else--Blizz can't seem to figure out ENCOUNTER_START, so any pull not triggered by yell will be treated as if it's already phase 2
 		self.vb.phase = 2
 	end
@@ -100,7 +99,7 @@ end
 function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	local cid = self:GetCIDFromGUID(guid)
-	if cid == 14262 or cid == 14302 then--Green Drakonid, Chromatic Drakonid
+	if cid == 14264 or cid == 14263 or cid == 14261 or cid == 14265 or cid == 14262 or cid == 14302 then--Red, Bronze, Blue, Black, Green, Chromatic
 		self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
 		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
 		if not addsGuidCheck[guid] then

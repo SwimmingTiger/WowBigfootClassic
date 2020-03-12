@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Broodlord", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200217192345")
+mod:SetRevision("20200227172148")
 mod:SetCreatureID(12017)
 mod:SetEncounterID(612)
 mod:SetModelID(14308)
@@ -20,10 +20,6 @@ local warnKnockAway		= mod:NewSpellAnnounce(18670, 3)
 local warnMortal		= mod:NewTargetNoFilterAnnounce(24573, 2, nil, "Tank|Healer", 3)
 
 local timerMortal		= mod:NewTargetTimer(5, 24573, nil, "Tank|Healer", 3, 5, nil, DBM_CORE_TANK_ICON)
-
-function mod:OnCombatStart(delay)
-	DBM:AddMsg("Mortal Strike: 10-20, Blast Wave: 12-32, Knock Away: 13-30. i.e., timers on this fight would be near useless")
-end
 
 do
 	local BlastWave, KnockAway = DBM:GetSpellInfo(23331), DBM:GetSpellInfo(18670)

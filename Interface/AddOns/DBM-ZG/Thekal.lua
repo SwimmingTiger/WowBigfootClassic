@@ -27,16 +27,20 @@ local warnAdds			= mod:NewSpellAnnounce(24183, 3)
 local specWarnHeal		= mod:NewSpecialWarningInterrupt(24208, "HasInterrupt", nil, nil, 1, 2)
 
 local timerSimulKill	= mod:NewTimer(15, "TimerSimulKill", 24173)
-local timerHeal			= mod:NewCastTimer(4, 24208, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
 local timerBlind		= mod:NewTargetTimer(10, 21060, nil, nil, nil, 3)
 local timerGouge		= mod:NewTargetTimer(4, 12540, nil, nil, nil, 3)
+
+mod.vb.phase = 1
+
+function mod:OnCombatStart(delay)
+	self.vb.phase = 1
+end
 
 do
 	local GreatHeal = DBM:GetSpellInfo(24208)
 	function mod:SPELL_CAST_START(args)
 		--if args:IsSpellID(24208) then
 		if args.spellName == GreatHeal and args:IsSrcTypeHostile() then
-			timerHeal:Start()
 			if self:CheckInterruptFilter(args.sourceGUID, false, true) then
 				specWarnHeal:Show(args.sourceName)
 				specWarnHeal:Play("kickcast")
@@ -80,7 +84,6 @@ do
 	end
 end
 
-local killTime = 0
 function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	if msg == L.PriestDied then		-- Starts timer before ressurection of adds.
 		self:SendSync("PriestDied")
@@ -88,19 +91,19 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.YellPhase2 then		-- Bossfight (tank and spank)
+	if msg == L.YellPhase2 and self.vb.phase < 2 then		-- Bossfight (tank and spank)
 		self:SendSync("YellPhase2")
 	end
 end
 
 function mod:OnSync(msg, arg)
 	if msg == "PriestDied" then
-		if (GetTime() - killTime) > 20 then
+		if self:AntiSpam(20, 1) then
 			warnSimulKill:Show()
 			timerSimulKill:Start()
-			killTime = GetTime()
 		end
-	elseif msg == "YellPhase2" then
+	elseif msg == "YellPhase2" and self.vb.phase < 2 then
+		self.vb.phase = 2
 		warnPhase2:Show()
 		timerSimulKill:Stop()
 	end

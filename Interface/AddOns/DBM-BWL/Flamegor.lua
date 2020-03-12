@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200217192345")
+mod:SetRevision("20200227172148")
 mod:SetCreatureID(11981)
 mod:SetEncounterID(615)
 mod:SetModelID(6377)
@@ -25,7 +25,6 @@ function mod:OnCombatStart(delay)
 	timerFrenzyNext:Start(9.6-delay)
 	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(30-delay)
-	DBM:AddMsg("Shadowflame timer off by default because 14-21sec variance.")
 end
 
 do
