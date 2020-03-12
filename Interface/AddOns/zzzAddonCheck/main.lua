@@ -87,12 +87,16 @@ vZv3pUows9)w4beZinDJTJJDcR4HKBNCV9C7oDtC37DhPwXT)4KeR2XoRTt33EqtEbecXdi4f0(csi0(
         return
     end
 
-    if Combuctor_Sets and not TDPack2Command then
+    if CombuctorAutoDisplay and not TDPack2Command then
         StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
             text = [[
 你禁用了 tdPack2 插件，背包整理功能不可用。点击“是”启用 tdPack2 插件。
 
 如果你不想再看到这个提示，请禁用“整合包插件完整性检测”插件。如果一直循环弹出窗口，请重启魔兽世界。
+
+如果你通过第三方更新器更新了 tdPack2 插件，则会一直弹出这个提示，请同时更新 Combuctor 插件以避免该提示。
+
+注意：通过第三方更新器更新后，背包功能会改变，某些功能甚至会不正常，你可能需要自行解决问题。
 ]],
             button1 = YES,
             button2 = NO,
