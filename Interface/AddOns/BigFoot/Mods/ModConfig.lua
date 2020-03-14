@@ -717,9 +717,26 @@ local function __AddBottomFrames()
 		end
 	end
 
-	if isAddonLoadable('Personal Resource Display') then
-		check = __CreateEnableAddonCheckBox("Personal Resource Display", nil, false, true)
-		M:AddBottomButton(check)
+	do
+		local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
+		if status ~= 'MISSING' then
+			check = __CreateCustomCheckBox(L["Personal Resource Display"], nil, active,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
+					if not IsAddOnLoaded('Personal Resource Display') then
+						EnableAddOn('Personal Resource Display')
+						BigFoot_RequestReloadUI()
+					end
+				end,
+				function()
+					local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
+					if IsAddOnLoaded('Personal Resource Display') then
+						DisableAddOn('Personal Resource Display')
+						BigFoot_RequestReloadUI()
+					end
+				end)
+			M:AddBottomButton(check)
+		end
 	end
 
 	do
