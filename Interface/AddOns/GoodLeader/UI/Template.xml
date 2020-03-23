@@ -142,6 +142,11 @@
                                         <Anchor point="TOP" x="0" y="-30"/>
                                     </Anchors>
                                 </FontString>
+                                <FontString parentKey="Disconnect" hidden="true" inherits="GameFontNormal">
+                                    <Anchors>
+                                    <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-50"/>
+                                    </Anchors>
+                                </FontString>
                             </Layer>
                         </Layers>
                         <Frames>

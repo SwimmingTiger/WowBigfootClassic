@@ -16,6 +16,7 @@ TC2.defaultConfig.general = {
 	ignorePets			= false,								-- toggle for ignoring pets
 	hideOOC				= false,								-- hide frame when out of combat
 	hideSolo			= false,								-- hide frame when not in a group
+	hideOpenWorld		= false,								-- hide frame when not in an instance
 	hideInPVP			= true,									-- hide frame when in battlegrounds
 	hideAlways			= false,								-- hide frame always
 	nameplateThreat		= false,								-- color nameplates by threat

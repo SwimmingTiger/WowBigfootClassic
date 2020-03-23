@@ -167,8 +167,7 @@ L["Heals"] = "治療"
 L["Health"] = "生命"
 L["Hide"] = "隱藏"
 L["Hide When Not Collecting"] = "不統計時隱藏"
---[[Translation missing --]]
---[[ L["Hide While In Pet Battle"] = "Hide While In Pet Battle"--]] 
+L["Hide While In Pet Battle"] = "寵物戰鬥時隱藏"
 L["Hides the main window"] = "隱藏主視窗"
 L["Hit"] = "命中"
 L["Holy"] = "神聖"
@@ -276,8 +275,7 @@ L["Rage Sources"] = "怒氣來源"
 L["Raid"] = "團隊"
 L["Raid Instances"] = "團隊副本"
 L["Rank Number"] = "排名數字"
---[[Translation missing --]]
---[[ L["RealID"] = "RealID"--]] 
+L["RealID"] = "Real ID"
 L["Realtime"] = "即時曲線圖"
 L["Record Buffs/Debuffs"] = "紀錄增益效果/負面影響"
 L["Record Data"] = "紀錄資料"

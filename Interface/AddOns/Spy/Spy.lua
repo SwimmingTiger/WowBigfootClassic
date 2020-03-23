@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.0.23"
+Spy.Version = "1.0.24"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -32,9 +32,13 @@ Spy.UpgradeMessageSent = false
 Spy.zName = ""
 Spy.ChnlTime = 0
 Spy.Skull = -1
+Spy.PetGUID = {}		--++
 
--- Localizations for xml
+-- Localizations for SpyStats.xml
 L_STATS = "Spy "..L["Statistics"]
+L_WON = L["Won"]
+L_LOST = L["Lost"]
+L_REASON = L["Reason"]
 L_LIST = L["List"]
 L_TIME = L["Time"]
 L_FILTER = L["Filter"]..":"
@@ -154,6 +158,7 @@ Spy.options = {
 --						["Dalaran"] = L["Dalaran"],
 --						["Bogpaddle"] = L["Bogpaddle"],
 --						["The Vindicaar"] = L["The Vindicaar"],
+--						["Krasus' Landing"] = L["Krasus' Landing"],
 					},
 				},
 			},
@@ -1323,6 +1328,7 @@ local Default_Profile = {
 --			["Dalaran"] = false,
 --			["Bogpaddle"] = false,			
 --			["The Vindicaar"] = false,
+--			["Krasus' Landing"] = false,
 		}
 	}
 }
@@ -1565,6 +1571,7 @@ function Spy:OnEnable(first)
 	Spy:RegisterEvent("PLAYER_TARGET_CHANGED", "PlayerTargetEvent")
 	Spy:RegisterEvent("UPDATE_MOUSEOVER_UNIT", "PlayerMouseoverEvent")
 	Spy:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", "CombatLogEvent")
+	Spy:RegisterEvent("UNIT_PET", "UnitPets")
 	Spy:RegisterEvent("PLAYER_REGEN_ENABLED", "LeftCombatEvent")
 	Spy:RegisterEvent("PLAYER_DEAD", "PlayerDeadEvent")
 --	Spy:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", "ChannelNoticeEvent")
@@ -1987,23 +1994,29 @@ timestamp, event, hideCaster, srcGUID, srcName, srcFlags, sourceRaidFlags, dstGU
 			end
 		end
 
-		-- updates win stats for pet kills
-		if (combatEvent[event] and srcName == petName) then		
+		-- adds pet kills to the win stats
+		if combatEvent[event] then
 			if event == "SWING_DAMAGE" then
 				if arg13 == nil then overkill = 0 else overkill = arg13 end
 			else
 				if arg16 == nil then overkill = 0 else overkill = arg16 end
 			end
-			if (overkill > 1 and srcName == petName) and dstName then
-				local playerData = SpyPerCharDB.PlayerData[dstName]
-				if playerData then
-					if not playerData.wins then playerData.wins = 0 end
-					playerData.wins = playerData.wins + 1
---					PlaySoundFile("Interface\\AddOns\\Spy\\Sounds\\neck-snap.mp3", Spy.db.profile.SoundChannel)
---					DEFAULT_CHAT_FRAME:AddMessage("Your pet ".. petName .. " killed " .. dstName);
+			if (overkill > 1) and dstName then
+				if Spy.PetGUID[srcGUID] then
+					local playerData = SpyPerCharDB.PlayerData[dstName]
+					if playerData then
+						if not playerData.wins then playerData.wins = 0 end
+							playerData.wins = playerData.wins + 1
+--							PlaySoundFile("Interface\\AddOns\\Spy\\Sounds\\neck-snap.mp3", Spy.db.profile.SoundChannel)
+--							DEFAULT_CHAT_FRAME:AddMessage("Your pet/guardian killed " .. dstName);							
+					end				
 				end
 			end
-		end 
+		end
+		if event == "SPELL_SUMMON" and srcName == Spy.CharacterName then
+			local petGUID = dstGUID
+			Spy.PetGUID[petGUID] = time()			
+		end		
 	end
 end
 
@@ -2019,6 +2032,25 @@ function Spy:PlayerDeadEvent()
 			if not playerData.loses then playerData.loses = 0 end
 			playerData.loses = playerData.loses + 1
 		end
+	end
+end
+
+function Spy:UnitPets(event, unit)
+	local petUnit
+	if unit == "player" then petUnit = "pet" end
+	if petUnit and UnitExists(petUnit) then
+		local guid = UnitGUID(unit)
+		local petGUID = UnitGUID(petUnit)
+		Spy.PetGUID[petGUID] = time()	
+		local petCount = 0
+		for k, v in pairs(Spy.PetGUID) do
+			petCount = petCount + 1
+			if petCount > 50 then
+				if (time() - 9000) > v then			
+					Spy.PetGUID[k] = nil
+				end	
+			end
+		end	
 	end
 end
 

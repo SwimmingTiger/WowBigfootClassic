@@ -42,9 +42,12 @@ function Addon:OnInitialize()
     self:RegisterServer('SGL')
     self:RegisterServer('SGT')
 
-    -- self:RegisterEvent('INSPECT_READY')
+    self:RegisterEvent('GROUP_ROSTER_UPDATE')
+    self:GROUP_ROSTER_UPDATE()
 
     self.db = LibStub('AceDB-3.0'):New('GOODLEADER_DB', {profile = {cache = {}}})
+
+    self.defaultTags = {strsplit(',', '幽默风趣,效率,声音好听,段子手,妹子团长,欧皇在世')}
 end
 
 function Addon:OnEnable()
@@ -57,6 +60,9 @@ function Addon:OnEnable()
         },
     })
     self:SetupDataBroker()
+    self.timeoutTimer = C_Timer.NewTimer(5 * 60, function()
+        self:SERVER_CONNECT_TIMEOUT()
+    end)
 end
 
 function Addon:SetupDataBroker()
@@ -96,6 +102,15 @@ end
 function Addon:SERVER_CONNECTED()
     self:SendServer('SLOGIN', ns.ADDON_VERSION, UnitGUID('player'), ns.GetPlayerItemLevel(), UnitLevel('player'))
     self:SendMessage('GOODLEADER_LOGIN')
+    self.timeoutTimer:Cancel()
+    self.serverTimeout = nil
+    self.serverLogon = true
+end
+
+function Addon:SERVER_CONNECT_TIMEOUT()
+    self.timeoutTimer = nil
+    self.serverTimeout = true
+    self:SendMessage('GOODLEADER_CONNECT_TIMEOUT')
 end
 
 function Addon:SGL(_, name, code, msg, activeness, itemPercent, raidData, scores, tags)
@@ -122,10 +137,11 @@ function Addon:SGL(_, name, code, msg, activeness, itemPercent, raidData, scores
 end
 
 function Addon:SGT(_, tags)
-    self.tags = tags and {strsplit(',', tags)} or {}
-
-    self:RegisterEvent('GROUP_ROSTER_UPDATE')
-    self:GROUP_ROSTER_UPDATE()
+    tags = tags and {strsplit(',', tags)} or nil
+    if tags and #tags == 0 then
+        tags = nil
+    end
+    self.db.profile.tags = tags
 end
 
 function Addon:LookupLeader()
@@ -199,5 +215,13 @@ function Addon:Toggle()
 end
 
 function Addon:GetGradeTags()
-    return self.tags
+    return self.db.profile.tags or self.defaultTags
+end
+
+function Addon:IsServerTimeout()
+    return self.serverTimeout
+end
+
+function Addon:IsServerLogon()
+    return self.serverLogon
 end

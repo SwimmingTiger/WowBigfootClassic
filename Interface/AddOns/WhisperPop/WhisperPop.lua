@@ -99,7 +99,13 @@ function WhisperPop:OnListUpdate()
 	for i = 1, self.list:GetDataCount() do
 		local data = self.list:GetData(i)
 		if data.state == "new" then
-			tinsert(self.newNames, data.name)
+			local name;
+			if data.BNguid and data.BNguid > 0 then
+				name = select(2,BNGetFriendInfoByID(data.BNguid));
+			else
+				name = data.name;
+			end
+			tinsert(self.newNames, name)
 		end
 	end
 

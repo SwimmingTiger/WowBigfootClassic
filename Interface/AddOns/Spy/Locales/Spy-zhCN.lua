@@ -259,6 +259,8 @@ L["Ignore"] = "忽略"
 L["KillOnSight"] = "KOS即视击杀"
  
 --Stats
+L["Won"] = "胜"
+L["Lost"] = "负"
 L["Time"] = "时间"   
 L["List"] = "列表"
 L["Filter"] = "过滤"

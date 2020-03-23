@@ -91,4 +91,19 @@ end
 ---@param raid GoodLeaderRaidData
 function Grade:Grade(raid, scores, tags)
     ns.Addon:SendServer('SRS', raid.leader, raid.leaderGuid, raid.raidName, scores, tags)
+    ns.Message(ns.L['感谢您的评价。'])
 end
+
+--[===[@debug@
+function GG()
+    for n in pairs(ns.RAID_LOGO) do
+        Grade.db[n] = {
+            raidName = n,
+            leader = UnitName('player') .. '1',
+            leaderGuid = UnitGUID('player'),
+            timestamp = time(),
+        }
+    end
+    Grade:GROUP_ROSTER_UPDATE()
+end
+--@end-debug@]===]

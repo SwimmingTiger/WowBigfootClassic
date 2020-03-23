@@ -28,8 +28,8 @@ function GoodLeader:Constructor(p)
         button.bossId = v.bossId
     end
 
-    self.First.Header.Search:Disable()
-    self.First.Header.Search:SetText(L['正在初始化'])
+    self.First.Header.Disconnect:SetText(L['好团长查询正在维护中'])
+    self:UpdateButton()
 
     self.First.Header.Search:SetScript('OnClick', function(button)
         ns.Addon:LookupLeader()
@@ -98,6 +98,7 @@ function GoodLeader:Constructor(p)
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
     self:RegisterMessage('GOODLEADER_LOGIN')
     self:RegisterMessage('GOODLEADER_LEADERINFO_UPDATE')
+    self:RegisterMessage('GOODLEADER_CONNECT_TIMEOUT')
 end
 
 function GoodLeader:OnShow()
@@ -125,21 +126,33 @@ function GoodLeader:GROUP_ROSTER_UPDATE()
 end
 
 function GoodLeader:GOODLEADER_LOGIN()
-    self.logon = true
+    self:UpdateButton()
+end
+
+function GoodLeader:GOODLEADER_CONNECT_TIMEOUT()
     self:UpdateButton()
 end
 
 function GoodLeader:UpdateButton()
-    if not self.logon then
-        return
-    end
-
-    if IsInRaid() or IsInGroup(LE_PARTY_CATEGORY_HOME) then
-        self.First.Header.Search:Enable()
-        self.First.Header.Search:SetText(L['查询团长信息'])
+    if ns.Addon:IsServerLogon() then
+        if IsInRaid() or IsInGroup(LE_PARTY_CATEGORY_HOME) then
+            self.First.Header.Search:Enable()
+            self.First.Header.Search:SetText(L['查询团长信息'])
+        else
+            self.First.Header.Search:Disable()
+            self.First.Header.Search:SetText(L['进入团队后查询'])
+        end
     else
         self.First.Header.Search:Disable()
-        self.First.Header.Search:SetText(L['进入团队后查询'])
+        self.First.Header.Search:SetText(L['正在初始化'])
+    end
+
+    if ns.Addon:IsServerTimeout() then
+        self.First.Header.Search:Hide()
+        self.First.Header.Disconnect:Show()
+    else
+        self.First.Header.Search:Show()
+        self.First.Header.Disconnect:Hide()
     end
 end
 

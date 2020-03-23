@@ -1,10 +1,10 @@
-##Interface: 11304
+## Interface: 11304
 ## Title: GoodLeader
 ## Title-zhCN: 好团长
 ## Title-zhTW: 好團長
 ## Notes: |cff00ff00GoodLeader|r
 ## Author: NetEase
-## Version: 0.0.13
+## Version: 0.0.15
 ## SavedVariables: GOODLEADER_DB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot

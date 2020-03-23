@@ -118,7 +118,11 @@ bottomLine:SetPoint("LEFT", list, "BOTTOMLEFT", -1, -2)
 bottomLine:SetPoint("RIGHT", list, "BOTTOMRIGHT", 1, -2)
 
 local function CompareData(data, name)
-	return data.name == name
+	if type(name) == "number" then
+		return data.BNguid == name
+	else
+		return data.name == name
+	end
 end
 
 local function DeleteButton_OnClick(self)
@@ -196,8 +200,12 @@ function list:OnButtonCreated(button)
 end
 
 function list:OnButtonUpdate(button, data)
-	button.name = data.name
-	button:SetPlayer(data.class, data.name)
+	if data.BNguid and data.BNguid > 0 then
+		button.name = select(2,BNGetFriendInfoByID(data.BNguid))
+	else
+		button.name = data.name
+	end
+	button:SetPlayer(data.class, button.name)
 	if data.state == "new" then
 		button.nameText:SetTextColor(0, 1, 0)
 	elseif data.state == "read" then
@@ -208,6 +216,12 @@ function list:OnButtonUpdate(button, data)
 end
 
 function list:OnButtonEnter(button, data)
+	local name;
+	if data.BNguid and data.BNguid > 0 then
+		name = select(2,BNGetFriendInfoByID(data.BNguid));
+	else
+		name = data.name;
+	end
 	if WhisperPop.db.receiveonly and not data.state == "read" then
 		WhisperPop.messageFrame:Hide()
 		return
@@ -231,10 +245,10 @@ function list:OnButtonEnter(button, data)
 		WhisperPop.messageFrame:SetPoint("LEFT", button, "RIGHT", 4, 0)
 	end
 
-	WhisperPop.messageFrame:SetData(data.class, data.name, data.messages, data.bnFriend)
+	WhisperPop.messageFrame:SetData(data.class, name, data.messages, data.bnFriend)
 	WhisperPop.messageFrame:StopCounting()
-	if button.name and WhisperPopDB["help"] then
-		WhisperPop_ShowHelpTip(WhisperPopFrame, string.format(L["player help tip text 1"], button.name), string.format(L["player help tip text 2"], button.name), string.format(L["player help tip text 3"], button.name), string.format(L["player help tip text 4"], button.name));
+	if name and WhisperPopDB["help"] then
+		WhisperPop_ShowHelpTip(WhisperPopFrame, string.format(L["player help tip text 1"], name), string.format(L["player help tip text 2"], name), string.format(L["player help tip text 3"], name), string.format(L["player help tip text 4"], name));
 	end
 end
 
@@ -243,26 +257,38 @@ function list:OnButtonLeave(button, data)
 end
 
 function list:OnButtonClick(button, data, flag)
-	local presenceID = BNet_GetBNetIDAccount(data.name)
+	local name,presenceID;
+	if data.BNguid and data.BNguid > 0 then
+		name = select(2,BNGetFriendInfoByID(data.BNguid));
+	else
+		name = data.name;
+		presenceID = BNet_GetBNetIDAccount(data.name)
+	end
 	if flag == "RightButton" then
 		-- Right click brings up unit drop down menu
 		if data.bnFriend then
-			FriendsFrame_ShowBNDropdown(data.name, 1, nil, "BN_WHISPER", _, nil, presenceID)
+			presenceID = presenceID or data.BNguid
+			FriendsFrame_ShowBNDropdown(name, 1, nil, "BN_WHISPER", _, nil, presenceID)
 		else
-			FriendsFrame_ShowDropdown(data.name, 1);
+			FriendsFrame_ShowDropdown(name, 1);
 		end
 	elseif flag == "LeftButton" then
 		if IsShiftKeyDown() then
 			-- Query player info
-			C_FriendList.SendWho("n-"..data.name)
+			C_FriendList.SendWho("n-"..name)
 		elseif IsAltKeyDown() then
 			-- Invite
-			InviteUnit(data.name)
+			if data.bnFriend then
+				FriendsFrame_BattlenetInvite(nil, data.BNguid);
+			else
+				InviteUnit(name)
+			end
 		else
 			if data.bnFriend then
-				SetItemRef( "BNplayer:"..(data.name)..":"..presenceID, ("|Hplayer:%1$s|h[%1$s]|h"):format(data.name), "LeftButton" )
+				presenceID = presenceID or data.BNguid
+				SetItemRef( "BNplayer:"..(name)..":"..presenceID, ("|Hplayer:%1$s|h[%1$s]|h"):format(name), "LeftButton" )
 			else
-				ChatFrame_SendTell(data.name)
+				ChatFrame_SendTell(name)
 			end
 		end
 	end
@@ -281,7 +307,8 @@ list:SetScript("OnEvent", function (self, event, text, name, _, _, _, status, _,
 	local timeStamp = "|cffffd200"..date().."|r"
 	-- local timeStamp = "|cffffd200"..strsub(date(), 10, 17).."|r"
 	local reading = WhisperPop.messageFrame:IsReading() == name
-	local idx = list:FindData(name, CompareData)
+	local findData = BNguid > 0 and BNguid or name
+	local idx = list:FindData(findData, CompareData)
 	local data = list:GetData(idx)
 	if data then
 		if idx ~= 1 then
@@ -294,9 +321,10 @@ list:SetScript("OnEvent", function (self, event, text, name, _, _, _, status, _,
 		data = { name = name, class = class, messages = {}, bnFriend = bnFriend } -- Person not in list, create a new record for him
 		if bnFriend then
 			data.class = "BN"
+			data.BNguid = BNguid
 		elseif status == "GM" then
 			data.class = "GM"
-		elseif guid~="" and type(guid) == "string" then
+		elseif guid ~= "" and type(guid) == "string" then
 			data.class = select(2, GetPlayerInfoByGUID(guid))
 		end
 		list:InsertData(data, 1)

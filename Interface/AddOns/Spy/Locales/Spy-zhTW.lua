@@ -1,4 +1,4 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("Spy", "zhTW")
+local L = LibStub("AceLocale-3.0"):NewLocale("Spy", "zhTW") -- Traditional Chinese
 if not L then return end
 -- TOC Note: "偵測並警告你附近有敵方玩家出沒。"
 
@@ -259,6 +259,8 @@ L["Ignore"] = "忽略"
 L["KillOnSight"] = "即殺"
 
 --Stats
+L["Won"] = "勝"
+L["Lost"] = "敗"
 L["Time"] = "時間"	
 L["List"] = "清單"
 L["Filter"] = "過濾"	
