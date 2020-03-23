@@ -4,7 +4,7 @@ AutoInvite = addonTable
 function AutoInvite:LoadDefaults()
 	AutoInviteSettings = {
 		AutoInviteEnabled = false,
-		AutoInviteKeyword = "invite",
+		AutoInviteKeyword = "1",
 		AutoInviteChannel = "SAY"
 	}
 end
