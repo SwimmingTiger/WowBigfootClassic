@@ -21,6 +21,10 @@ function MobInfoConfigFunc()
 		MOB_HEALTH_TRANSPARENT_MODE = "半透明模式";
 		MOB_HEALTH_TRANSPARENT_MODE_TOOLTIP = "将显示的值透明化";
 
+		MODERN_TARGET_FRAME_TITLE = "现代目标生命框体"
+		MODERN_TARGET_FRAME_TOOLTIP = "Modern TargetFrame，提供目标生命、法力和仇恨显示"
+		MODERN_TARGET_FRAME_SETTINGS = "设置显示项目"
+
 	elseif (GetLocale() == "zhTW") then
 		MOD_MOB_HEALTH_TITLE = {"目標信息", "guaiwuxinxi"};
 
@@ -41,6 +45,10 @@ function MobInfoConfigFunc()
 
 		MOB_HEALTH_TRANSPARENT_MODE = "半透明模式";
 		MOB_HEALTH_TRANSPARENT_MODE_TOOLTIP= "將顯示的值透明化";
+
+		MODERN_TARGET_FRAME_TITLE = "現代目標生命框體"
+		MODERN_TARGET_FRAME_TOOLTIP = "Modern Target Frame，提供目標生命、法力和仇恨顯示"
+		MODERN_TARGET_FRAME_SETTINGS = "設置顯示項目"
 	else
 		MOD_MOB_HEALTH_TITLE = "Mob Health";
 
@@ -51,6 +59,10 @@ function MobInfoConfigFunc()
 		MOB_HEALTH_SHOW_MANA_POINT = "Show target mana";
 		MOB_HEALTH_SHOW_HEALTH_PERCENT = "Show mob health percentage";
 		MOB_HEALTH_TRANSPARENT_MODE = "Transparent mode";
+
+		MODERN_TARGET_FRAME_TITLE = "Modern TargetFrame"
+		MODERN_TARGET_FRAME_TOOLTIP = "Re-implements TargetFrame features found in modern WoW"
+		MODERN_TARGET_FRAME_SETTINGS = "Settings"
 	end
 
 	if IsConfigurableAddOn("MobHealth") then
@@ -189,6 +201,42 @@ function MobInfoConfigFunc()
 			end,
 			1
 		);
+
+		local _, _, _, active, status = GetAddOnInfo('ModernTargetFrame')
+		if status ~= 'MISSING' then
+			BigFoot_SetModVariable("MobHealth", "ModernTargetFrame", IsAddOnLoaded('ModernTargetFrame') and 1 or 0)
+			ModManagement_RegisterCheckBox(
+				"MobHealth",
+				MODERN_TARGET_FRAME_TITLE,
+				MODERN_TARGET_FRAME_TOOLTIP,
+				"ModernTargetFrame",
+				IsAddOnLoaded('ModernTargetFrame'),
+				function(arg)
+					if (arg == 1) then
+						if not IsAddOnLoaded('ModernTargetFrame') then
+							EnableAddOn('ModernTargetFrame')
+							BigFoot_RequestReloadUI()
+						end
+					else
+						if IsAddOnLoaded('ModernTargetFrame') then
+							DisableAddOn('ModernTargetFrame')
+							BigFoot_RequestReloadUI()
+						end
+					end
+				end
+			);
+
+			ModManagement_RegisterButton(
+				"MobHealth",
+				MODERN_TARGET_FRAME_SETTINGS,
+				function ()
+					InterfaceOptionsFrame_OpenToCategory("Modern TargetFrame")
+					InterfaceOptionsFrame_OpenToCategory("Modern TargetFrame")
+				end,
+				nil,
+				1
+			);
+		end
 	end
 end
 
