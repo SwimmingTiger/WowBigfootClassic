@@ -69,9 +69,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200311152717"),
-	DisplayVersion = "1.13.40", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 3, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200317214103"),
+	DisplayVersion = "1.13.41", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 3, 17) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -4575,7 +4575,8 @@ do
 			if DBM:AntiSpam(10, "GCB") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
-				local bossName = EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
+				modId = tonumber(modId)
+				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
 				DBM:AddMsg(DBM_CORE_GUILD_COMBAT_STARTED:format(bossName))
 			end
 		end
@@ -4586,7 +4587,8 @@ do
 			if DBM:AntiSpam(5, "GCE") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				difficulty = tonumber(difficulty)
-				local bossName = EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
+				modId = tonumber(modId)
+				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or DBM_CORE_UNKNOWN
 				if wipe == "1" then
 					DBM:AddMsg(DBM_CORE_GUILD_COMBAT_ENDED_AT:format(bossName, wipeHP, time))
 				else
@@ -5516,7 +5518,7 @@ do
 				DBM:Debug("DBM_CORE_WORLD_BUFFS.allianceNef detected")
 			elseif msg:find(DBM_CORE_WORLD_BUFFS.rendHead) then
 				local spellName = DBM:GetSpellInfo(16609)
-				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t"..spellName.."\t59", true)
+				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t"..spellName.."\t7", true)
 				DBM:Debug("DBM_CORE_WORLD_BUFFS.rendHead detected")
 			end
 		end
@@ -11172,7 +11174,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200311152717" then
+	if not revision or revision == "20200317214103" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

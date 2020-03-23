@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200311152717")
+mod:SetRevision("20200314142306")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -22,17 +22,18 @@ local warnRed			= mod:NewSpellAnnounce(23155, 2, nil, false)
 local warnGreen			= mod:NewSpellAnnounce(23169, 2, nil, false)
 local warnBlue			= mod:NewSpellAnnounce(23153, 2, nil, false)
 local warnBlack			= mod:NewSpellAnnounce(23154, 2, nil, false)
-local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage", 3)
+local warnFrenzy		= mod:NewSpellAnnounce(23128, 3, nil, "Tank|RemoveEnrage|Healer", 4)
 local warnPhase2Soon	= mod:NewPrePhaseAnnounce(2, 1)
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnMutation		= mod:NewCountAnnounce(23174, 4)
 local warnVuln			= mod:NewAnnounce("WarnVulnerable", 1, false)
 
 local specWarnBronze	= mod:NewSpecialWarningYou(23170, nil, nil, nil, 1, 8)
+local specWarnFrenzy	= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerBreath		= mod:NewCastTimer(2, "TimerBreath", 23316, nil, nil, 3)
 local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
-local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage", 2, 5, nil, DBM_CORE_TANK_ICON..DBM_CORE_ENRAGE_ICON)
+local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_CORE_TANK_ICON..DBM_CORE_ENRAGE_ICON)
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD")-- seen 16.94 - 25.53, avg 21.8
 
 mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
@@ -101,6 +102,7 @@ local function update_vulnerability(self)
 		DBM.Nameplate:Hide(true, target, 22277, 136096)
 		DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
 	end
+	self:UnregisterShortTermEvents()--Unregister SPELL_DAMAGE until next shimmer emote
 end
 
 local function check_spell_damage(self, target, amount, spellSchool, critical)
@@ -230,7 +232,12 @@ do
 				self:SendSync("Frenzy")
 			end
 			if self:AntiSpam(15, 2) then
-				warnFrenzy:Show()
+				if self.Options.SpecWarn23128dispel then
+					specWarnFrenzy:Show()
+					specWarnFrenzy:Play("enrage")
+				else
+					warnFrenzy:Show()
+				end
 				timerFrenzy:Start()
 			end
 		--elseif args.spellId == 23537 then
@@ -264,6 +271,9 @@ do
 		elseif args.spellName == BroodAffBronze and args:IsPlayer() then
 			mydebuffs = mydebuffs - 1
 		elseif args.spellName == Frenzy and args:IsDestTypeHostile() then
+			if self:AntiSpam(5, "FrenzyStop") then
+				self:SendSync("FrenzyStop")
+			end
 			timerFrenzy:Stop()
 		end
 	end
@@ -296,14 +306,26 @@ function mod:OnSync(msg, Name)
 		timerBreathCD:Start(Name)
 		timerBreathCD:UpdateIcon(spellIcons[Name])
 	elseif msg == "Frenzy" and self:AntiSpam(15, 2) then
-		warnFrenzy:Show()
+		if self.Options.SpecWarn23128dispel then
+			specWarnFrenzy:Show()
+			specWarnFrenzy:Play("enrage")
+		else
+			warnFrenzy:Show()
+		end
 		timerFrenzy:Start()
+	elseif msg == "FrenzyStop" then
+		timerFrenzy:Stop()
 	elseif msg == "Phase2" and self.vb.phase < 2 then
 		self.vb.phase = 2
 		warnPhase2:Show()
 	elseif msg == "Vulnerable" then
 		timerVuln:Start()
 		table.wipe(vulnerabilities)
-		check_target_vulns(self)
+		if self.Options.WarnVulnerable then
+			self:RegisterShortTermEvents(
+				"SPELL_DAMAGE"
+			)
+			check_target_vulns(self)
+		end
 	end
 end

@@ -8,12 +8,13 @@ local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20200309130837")
+mod:SetRevision("20200321122347")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
 mod:AddBoolOption("HideBossEmoteFrame", false)
 mod:AddBoolOption("AutoSpirit", false)
+mod:AddBoolOption("ShowRelativeGameTime", true)
 
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -124,6 +125,7 @@ local function ShowEstimatedPoints()
 end
 
 local function ShowBasesToWin()
+	if not AlwaysUpFrame2 then return end
 	if not scoreFrameToWin then
 		scoreFrameToWin = CreateFrame("Frame", nil, AlwaysUpFrame2)
 		scoreFrameToWin:SetHeight(10)
@@ -150,11 +152,31 @@ local function HideBasesToWin()
 	end
 end
 
+local get_gametime, update_gametime
+do
+	local gametime = 0
+	function update_gametime()
+		gametime = time()
+	end
+	function get_gametime()
+		if mod.Options.ShowRelativeGameTime then
+			local systime = GetBattlefieldInstanceRunTime()
+			if systime and systime > 0 then
+				return systime / 1000
+			else
+				return time() - gametime
+			end
+		else
+			return GetTime()
+		end
+	end
+end
+
 local subscribedMapID = 0
+local prevAScore, prevHScore = 0, 0
 local numObjectives, objectivesStore
 
 function mod:SubscribeAssault(mapID, objectsCount)
-	DBM:Debug(addonName.." SubscribeAssault "..tostring(mapID), 1)
 	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
 		if self.Options.ShowEstimatedPoints then
 			ShowEstimatedPoints()
@@ -182,10 +204,8 @@ function mod:SubscribeAssault(mapID, objectsCount)
 	subscribedMapID = mapID
 	objectivesStore = {}
 	numObjectives = objectsCount
+	update_gametime()
 end
-
--- Debug
-local prevAScore, prevHScore = 0, 0
 
 function mod:UnsubscribeAssault()
 	HideEstimatedPoints()
@@ -193,32 +213,19 @@ function mod:UnsubscribeAssault()
 	self:UnregisterShortTermEvents()
 	self:Stop()
 	subscribedMapID = 0
-	-- Debug
 	prevAScore, prevHScore = 0, 0
 end
-
-local SetCVar, GetCVar = C_CVar and C_CVar.SetCVar or SetCVar, C_CVar and C_CVar.GetCVar or GetCVar
-local cachedShowCastbar, cachedShowFrames, cachedShowPets = GetCVar("showArenaEnemyCastbar"), GetCVar("showArenaEnemyFrames"), GetCVar("showArenaEnemyPets")
 
 function mod:SubscribeFlags()
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
 		"CHAT_MSG_BG_SYSTEM_HORDE",
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL",
-		"START_TIMER"
+		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
 	)
-	-- Fix for flag carriers not showing up
-	SetCVar("showArenaEnemyCastbar", "1")
-	SetCVar("showArenaEnemyFrames", "1")
-	SetCVar("showArenaEnemyPets", "1")
 end
 
 function mod:UnsubscribeFlags()
 	self:UnregisterShortTermEvents()
-	-- Fix for flag carriers not showing up
-	SetCVar("showArenaEnemyCastbar", cachedShowCastbar)
-	SetCVar("showArenaEnemyFrames", cachedShowFrames)
-	SetCVar("showArenaEnemyPets", cachedShowPets)
 	self:Stop()
 end
 
@@ -254,38 +261,33 @@ do
 	-- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local winTimer = mod:NewTimer(30, "TimerWin", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485")
 	local resourcesPerSec = {
-		[3] = {1e-300, 3, 5--[[Unknown]], 30--[[Unknown]]}, -- Gilneas
-		[4] = {1e-300, 2, 3, 5--[[Unknown]], 10--[[Unknown]]}, -- TempleOfKotmogu/EyeOfTheStorm
-		[5] = {1e-300, 2, 3, 4, 7, 10--[[Unknown]], 30--[[Unknown]]} -- Arathi/Deepwind
+		[3] = {1e-300, 1, 3, 1000--[[Unknown]]}, -- Gilneas
+		[4] = {1e-300, 2, 3, 1000--[[Unknown]], 1000--[[Unknown]]}, -- TempleOfKotmogu/EyeOfTheStorm
+		[5] = {1e-300, 2, 3, 4, 7, 1000--[[Unknown]], 1000--[[Unknown]]} -- Arathi/Deepwind
 	}
+
+	if isClassic then
+		-- 2014 values seem ok https://github.com/DeadlyBossMods/DBM-PvP/blob/843a882eae2276c2be0646287c37b114c51fcffb/DBM-PvP/Battlegrounds/Arathi.lua#L32-L39
+		resourcesPerSec[5] = {1e-300, 10/12, 10/9, 10/6, 10/3, 30}
+	end
 
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
 		local resPerSec = resourcesPerSec[numObjectives]
 		-- Start debug
-		if prevAScore == 0 then
-			prevAScore = allianceScore
-		end
-		--							Higher than max (when they win) OR larger than 50 (flag cap)
-		if prevAScore ~= allianceScore and allianceScore < maxScore and (allianceScore - prevAScore) < 50 then
-			if (allianceScore - prevAScore) ~= resPerSec[allianceBases + 1] and DBM:AntiSpam(30, "PvPAWarn") then
+		if prevAScore ~= allianceScore then
+			if resPerSec[allianceBases + 1] == 1000 and DBM:AntiSpam(30, "PvPAWarn") then
 				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (A," .. (allianceScore - prevAScore) .. "," .. allianceBases .. "," .. resPerSec[allianceBases + 1]  .. ")")
 			end
-			DBM:Debug("Alliance: +" .. allianceScore - prevAScore .. " (" .. allianceBases .. ")", 3)
 			prevAScore = allianceScore
 		end
-		if prevHScore == 0 then
-			prevHScore = hordeScore
-		end
-		--							Higher than max (when they win) OR larger than 50 (flag cap)
-		if prevHScore ~= hordeScore and hordeScore < maxScore and (hordeScore - prevHScore) < 50 then
-			if (hordeScore - prevHScore) ~= resPerSec[hordeBases + 1] and DBM:AntiSpam(30, "PvPHWarn") then
+		if prevHScore ~= hordeScore then
+			if resPerSec[hordeBases + 1] == 1000 and DBM:AntiSpam(30, "PvPHWarn") then
 				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (H," .. (hordeScore - prevHScore) .. "," .. hordeBases .. "," .. resPerSec[hordeBases + 1]  .. ")")
 			end
-			DBM:Debug("Horde: +" .. hordeScore - prevHScore .. " (" .. hordeBases .. ")", 3)
 			prevHScore = hordeScore
 		end
 		-- End debug
-		local gameTime = GetTime()
+		local gameTime = get_gametime()
 		local allyTime = math.min(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1])
 		local hordeTime = math.min(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1])
 		if allyTime == hordeTime then
@@ -444,7 +446,6 @@ do
 	function mod:AREA_POIS_UPDATED(widget)
 		local allyBases, hordeBases = 0, 0
 		local widgetID = widget and widget.widgetID
-		DBM:Debug(addonName.." AREA_POIS_UPDATED "..tostring(widgetID), 2)
 		if subscribedMapID ~= 0 then
 			local isAtlas = false
 			for _, areaPOIID in ipairs(C_AreaPoiInfo.GetAreaPOIForMap(subscribedMapID)) do
@@ -460,7 +461,6 @@ do
 						isAllyCapping = icons[infoTexture] == State.ALLY_CONTESTED
 						isHordeCapping = icons[infoTexture] == State.HORDE_CONTESTED
 					end
-					DBM:Debug(addonName.." APU "..tostring(infoName)..", "..tostring(	isAllyCapping)..", "..tostring(isHordeCapping), 3)
 					if objectivesStore[infoName] ~= (atlasName and atlasName or infoTexture) then
 						capTimer:Stop(infoName)
 						objectivesStore[infoName] = (atlasName and atlasName or infoTexture)
@@ -485,29 +485,33 @@ do
 					end
 				end
 			end
-			-- Standard battleground score predictor: 1671. Deepwind rework: 2074
-			if widgetID == 1671 or widgetID == 2074 then
-				if isAtlas then
-					for _, v in pairs(objectivesStore) do
-						if type(v) ~= "string" then
-							-- Do nothing
-						elseif v:find('leftIcon') then
-							allyBases = allyBases + 1
-						elseif v:find('rightIcon') then
-							hordeBases = hordeBases + 1
-						end
-					end
-				else
-					for _, v in pairs(objectivesStore) do
-						if icons[v] == State.ALLY_CONTROLLED then
-							allyBases = allyBases + 1
-						elseif icons[v] == State.HORDE_CONTROLLED then
-							hordeBases = hordeBases + 1
-						end
+			if isAtlas then
+				for _, v in pairs(objectivesStore) do
+					if type(v) ~= "string" then
+						-- Do nothing
+					elseif v:find('leftIcon') then
+						allyBases = allyBases + 1
+					elseif v:find('rightIcon') then
+						hordeBases = hordeBases + 1
 					end
 				end
+			else
+				for _, v in pairs(objectivesStore) do
+					if icons[v] == State.ALLY_CONTROLLED then
+						allyBases = allyBases + 1
+					elseif icons[v] == State.HORDE_CONTROLLED then
+						hordeBases = hordeBases + 1
+					end
+				end
+			end
+			-- Standard battleground score predictor: 1671. Deepwind rework: 2074
+			if widgetID == 1671 or widgetID == 2074 then
 				local info = C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo(widgetID)
 				self:UpdateWinTimer(info.leftBarMax, info.leftBarValue, info.rightBarValue, allyBases, hordeBases)
+			end
+			-- Classic Arathi Basin
+			if widgetID == 1893 or widgetID == 1894 then
+				self:UpdateWinTimer(2000, tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(1893).text, '(%d+)/2000')), tonumber(string.match(C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(1894).text, '(%d+)/2000')), allyBases, hordeBases)
 			end
 		elseif widgetID == 1683 then -- TempleOfKotmogu
 			local widgetInfo = C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo(1683)

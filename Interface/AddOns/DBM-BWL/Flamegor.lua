@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200227172148")
+mod:SetRevision("20200313012837")
 mod:SetCreatureID(11981)
 mod:SetEncounterID(615)
 mod:SetModelID(6377)
@@ -15,11 +15,13 @@ mod:RegisterEventsInCombat(
 --(ability.id = 23339 or ability.id = 22539) and type = "begincast" or ability.id = 23342 and type = "cast"
 local warnWingBuffet		= mod:NewCastAnnounce(23339, 2)
 local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
-local warnFrenzy			= mod:NewSpellAnnounce(23342, 3, nil, "Tank|RemoveEnrage", 3)
+local warnFrenzy			= mod:NewSpellAnnounce(23342, 3, nil, "Tank|RemoveEnrage|Healer", 4)
+
+local specWarnFrenzy		= mod:NewSpecialWarningDispel(23342, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)
 local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
-local timerFrenzyNext 		= mod:NewCDTimer(8.5, 23342, nil, "Tank|RemoveEnrage", 3, 5, nil, DBM_CORE_ENRAGE_ICON)
+local timerFrenzyNext 		= mod:NewCDTimer(8.5, 23342, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_CORE_ENRAGE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerFrenzyNext:Start(9.6-delay)
@@ -47,7 +49,12 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 23342 then
 		if args.spellName == Frenzy and args:IsSrcTypeHostile() then
-			warnFrenzy:Show()
+			if self.Options.SpecWarn23342dispel then
+				specWarnFrenzy:Show()
+				specWarnFrenzy:Play("enrage")
+			else
+				warnFrenzy:Show()
+			end
 			timerFrenzyNext:Start()
 		end
 	end

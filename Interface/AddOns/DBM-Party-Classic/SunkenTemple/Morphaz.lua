@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Morphaz", "DBM-Party-Classic", 17)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200117132515")
+mod:SetRevision("20200207003205")
 mod:SetCreatureID(5719)
 mod:SetEncounterID(490)
 

@@ -29,7 +29,8 @@ L:SetOptionLocalization({
 	TimerInvite			= "Show battleground join timer",
 	TimerRemaining		= "Show time remaining for match start and match end",
 	TimerShadow			= "Show timer for Shadow Sight",
-	TimerWin			= "Show win timer"
+	TimerWin			= "Show win timer",
+	ShowRelativeGameTime= "Fill win timer relative to BG start time (If disabled, bar just always looks full)"
 })
 
 L:SetMiscLocalization({

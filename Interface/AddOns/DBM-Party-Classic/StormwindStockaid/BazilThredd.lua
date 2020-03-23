@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BazilThredd", "DBM-Party-Classic", 15)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200117132515")
+mod:SetRevision("20200207003205")
 mod:SetCreatureID(1716)
 
 mod:RegisterCombat("combat")

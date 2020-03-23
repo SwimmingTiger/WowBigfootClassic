@@ -11,7 +11,7 @@ DBM_CORE_LOAD_GUI_COMBAT			= "전투중에는 GUI의 최초 로딩을 할 수 �
 DBM_CORE_BAD_LOAD					= "DBM이 전투로 인해 현재 인스턴스의 모드를 완전히 로딩하지 못했습니다. 전투가 종료된 후 가능한 빨리 /console reloadui 명령어를 입력해주세요."
 DBM_CORE_LOAD_MOD_VER_MISMATCH		= "DBM-Core가 로딩 조건과 맞지 않아 %s|1을;를; 로딩하지 못했습니다. 최신 버전을 설치하세요"
 DBM_CORE_LOAD_MOD_EXP_MISMATCH		= "아직 출시되지 않은 WoW 확장팩용으로 설계되었으므로 %s|1을;를; 로딩하지 못했습니다. 확장팩이 출시되면 해당 모드는 자동으로 작동합니다."
-DBM_CORE_LOAD_MOD_TOC_MISMATCH		= "아직 나오지 않은 WoW 패치 (%2$s) 용으로 설계되었으므로 %1$s|1을;를; 로딩하지 못했습니다. 패치가 나오면 해당 모드는 자동으로 작동합니다."
+DBM_CORE_LOAD_MOD_TOC_MISMATCH		= "%s|1은;는; WoW 클래식 용으로 제작된 것이 아니라서 로딩할 수 없습니다. 최신 버전용 모듈을 설치한 것 같습니다. 해당 모듈은 삭제하시고 월드 오브 워크래프트 클래식 용으로 제작된 애드온만 사용하세요"
 DBM_CORE_LOAD_MOD_DISABLED			= "%s|1이;가; 설치는 돼있지만 켜져있질 않습니다. 직접 켜기 전까진 모드가 로딩되지 않습니다."
 DBM_CORE_LOAD_MOD_DISABLED_PLURAL	= "%s|1이;가; 설치는 돼있지만 켜져있질 않습니다. 직접 켜기 전까진 모드들이 로딩되지 않습니다."
 
