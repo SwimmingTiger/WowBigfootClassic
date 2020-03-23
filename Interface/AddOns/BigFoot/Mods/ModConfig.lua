@@ -588,24 +588,25 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	local _, _, _, active, status = GetAddOnInfo('Details')
-	if status ~= 'MISSING' then
-		check = __CreateCustomCheckBox("Details", nil, active,
-			function()
-				local _, _, _, active, status = GetAddOnInfo('Details')
-				if not IsAddOnLoaded('Details') then
-					EnableAddOn('Details')
-					BigFoot_RequestReloadUI()
-				end
-			end,
-			function()
-				local _, _, _, active, status = GetAddOnInfo('Details')
-				if IsAddOnLoaded('Details') then
-					DisableAddOn('Details')
-					BigFoot_RequestReloadUI()
-				end
-			end)
-		M:AddBottomButton(check)
+	do
+		local _, _, _, active, status = GetAddOnInfo('Details')
+		if status ~= 'MISSING' then
+			BigFoot_SetModVariable("CustomCheckBox", "Details", IsAddOnLoaded('Details') and 1 or 0)
+			check = __CreateCustomCheckBox("Details", nil, active,
+				function()
+					if not IsAddOnLoaded('Details') then
+						EnableAddOn('Details')
+						BigFoot_RequestReloadUI()
+					end
+				end,
+				function()
+					if IsAddOnLoaded('Details') then
+						DisableAddOn('Details')
+						BigFoot_RequestReloadUI()
+					end
+				end)
+			M:AddBottomButton(check)
+		end
 	end
 
 	if ThreatClassic2BarFrame ~= nil then
@@ -698,16 +699,15 @@ local function __AddBottomFrames()
 	do
 		local _, _, _, active, status = GetAddOnInfo('aux-addon')
 		if status ~= 'MISSING' then
-			check = __CreateCustomCheckBox(L["aux-addon"], L['aux-addon-enabled'], active,
+			BigFoot_SetModVariable("CustomCheckBox", "aux-addon", IsAddOnLoaded('aux-addon') and 1 or 0)
+			check = __CreateCustomCheckBox("aux-addon", L['aux-addon-enabled'], active,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('aux-addon')
 					if not IsAddOnLoaded('aux-addon') then
 						EnableAddOn('aux-addon')
 						BigFoot_RequestReloadUI()
 					end
 				end,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('aux-addon')
 					if IsAddOnLoaded('aux-addon') then
 						DisableAddOn('aux-addon')
 						BigFoot_RequestReloadUI()
@@ -720,19 +720,20 @@ local function __AddBottomFrames()
 	do
 		local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
 		if status ~= 'MISSING' then
-			check = __CreateCustomCheckBox(L["Personal Resource Display"], nil, active,
+			BigFoot_SetModVariable("CustomCheckBox", "Personal Resource Display", IsAddOnLoaded('Personal Resource Display') and 1 or 0)
+			check = __CreateCustomCheckBox("Personal Resource Display", nil, active,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
 					if not IsAddOnLoaded('Personal Resource Display') then
 						EnableAddOn('Personal Resource Display')
 						BigFoot_RequestReloadUI()
+						print("Personal")
 					end
 				end,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
 					if IsAddOnLoaded('Personal Resource Display') then
 						DisableAddOn('Personal Resource Display')
 						BigFoot_RequestReloadUI()
+						print("Personal")
 					end
 				end)
 			M:AddBottomButton(check)
@@ -742,19 +743,20 @@ local function __AddBottomFrames()
 	do
 		local _, _, _, active, status = GetAddOnInfo('Spy')
 		if status ~= 'MISSING' then
-			check = __CreateCustomCheckBox(L["Spy"], nil, active,
+			BigFoot_SetModVariable("CustomCheckBox", "Spy", IsAddOnLoaded('Spy') and 1 or 0)
+			check = __CreateCustomCheckBox("Spy", nil, active,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('Spy')
 					if not IsAddOnLoaded('Spy') then
 						EnableAddOn('Spy')
 						BigFoot_RequestReloadUI()
+						print("Spy")
 					end
 				end,
 				function()
-					local _, _, _, active, status = GetAddOnInfo('Spy')
 					if IsAddOnLoaded('Spy') then
 						DisableAddOn('Spy')
 						BigFoot_RequestReloadUI()
+						print("Spy")
 					end
 				end)
 			M:AddBottomButton(check)
