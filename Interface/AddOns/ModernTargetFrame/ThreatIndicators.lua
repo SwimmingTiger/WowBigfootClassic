@@ -26,8 +26,8 @@ if not LibThreatClassic then return; end--	If there's a problem loading the libr
 --[[	Numerical Threat Frame	]]
 ----------------------------------
 local ThreatFrame=CreateFrame("Frame",nil,TargetFrame);
-ThreatFrame:SetPoint("BOTTOM",TargetFrame,"TOP",-50,-22);
-ThreatFrame:SetSize(49,18);
+ThreatFrame:SetPoint("BOTTOM",TargetFrame,"TOP",-30,-21);
+ThreatFrame:SetSize(50,22);
 ThreatFrame:Hide();
 
 ThreatFrame.Text=ThreatFrame:CreateFontString(nil,"BACKGROUND","GameFontHighlight");
