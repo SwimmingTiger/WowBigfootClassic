@@ -27,7 +27,7 @@ if not LibThreatClassic then return; end--	If there's a problem loading the libr
 --------------------------
 local function UnitThreatPercentageOfLead(unit,mob)--	Hack to implement UnitThreatPercentageOfLead()
 	local unitguid,mobguid=UnitGUID(unit),UnitGUID(mob);
-	if not (unitguid and unitguid) then return nil; end
+	if not (unitguid and unitguid) then return 0; end
 
 	local unitval=LibThreatClassic:GetThreat(unitguid,mobguid);
 	if unitval>0 then
@@ -38,7 +38,7 @@ local function UnitThreatPercentageOfLead(unit,mob)--	Hack to implement UnitThre
 				if val>maxval then maxval=val; end
 			end
 		end
-		return maxval>0 and 100*unitval/maxval or 100;
+		return maxval>0 and 100*unitval/maxval or 0;
 	else return 0; end
 end
 
@@ -78,6 +78,7 @@ ThreatGlow:Hide();
 --------------------------------------------------
 --[[	Update Functions, Hooks, & Callbacks	]]
 --------------------------------------------------
+--	Threat Update Function
 local function TargetFrame_UpdateThreat()
 	local EnableNumeric,EnableGlow=AddOn.Options.ThreatIndicatorNumber,AddOn.Options.ThreatIndicatorGlow;
 	if (EnableNumeric or EnableGlow) and UnitExists("target") and LibThreatClassic:IsActive() then
@@ -98,18 +99,38 @@ local function TargetFrame_UpdateThreat()
 			ThreatGlow:Show();
 		else ThreatGlow:Hide(); end
 	else ThreatFrame:Hide(); ThreatGlow:Hide(); end--	Inactive
+	TargetFrame_UpdateAuras(TargetFrame);--	Update buff offset
 end
 
+--	Target Update Event
 ThreatFrame:RegisterEvent("PLAYER_TARGET_CHANGED");
 ThreatFrame:SetScript("OnEvent",TargetFrame_UpdateThreat);
 
+--	LibThreatClassic Registration
 local LTCIdentifier={};--	CallbackHandler-1.0 can take any value as an identifier, same identifiers overwrite each other on the same events
 LibThreatClassic.RegisterCallback(LTCIdentifier,"Activate",TargetFrame_UpdateThreat);
-LibThreatClassic.RegisterCallback(LTCIdentifier,"Deactivate",function() ThreatFrame:Hide(); ThreatGlow:Hide(); end);
+LibThreatClassic.RegisterCallback(LTCIdentifier,"Deactivate",function()
+	ThreatFrame:Hide(); ThreatGlow:Hide();
+	TargetFrame_UpdateAuras(TargetFrame);--	Update buff offset
+end);
 LibThreatClassic.RegisterCallback(LTCIdentifier,"ThreatUpdated",function(event,unitguid,targetguid)
 	if targetguid==UnitGUID("target") then TargetFrame_UpdateThreat(); end
 end);
 LibThreatClassic:RequestActiveOnSolo();
+
+--	Buff Update Hook
+local AURA_START_X=5;--	Local constant in TargetFrame.lua
+hooksecurefunc("TargetFrame_UpdateAuraPositions",function(self,basename,numauras,numother,_,_,_,_,flip)
+	if self==TargetFrame and flip and numauras>0 and ThreatFrame:IsShown() then
+		local friendly=UnitIsFriend("player",self.unit);
+		if	(basename=="TargetFrameBuff" and (friendly or numother<=0))
+		or	(basename=="TargetFrameDebuff" and not (friendly and numother>0))
+		then
+--			Y offset is static -15 plus self.threatNumericIndicator:GetHeight()
+			_G[basename..1]:SetPoint("BOTTOMLEFT",self,"TOPLEFT",AURA_START_X,3);
+		end
+	end
+end);
 
 ----------------------------------
 --[[	Feature Registration	]]

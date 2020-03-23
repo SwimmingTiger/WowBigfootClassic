@@ -9,6 +9,14 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.3.1 (2020-03-20)
+	-Updated LibThreatClassic2 (Rev 9 - acb53a7)
+
+v1.3 (2020-03-13)
+	-Fixed implementation of UnitThreatPercentageOfLead(); returns zero instead of 100 when solo
+	-Above note also fixes an inconsistency with how the Numeric Indicator works on Modern WoW
+	-Fixed buff clipping when "Buffs On Top" is enabled
+
 v1.2.1 (2020-03-03)
 	-Added frFR locale (Courtesy of Arektor)
 
