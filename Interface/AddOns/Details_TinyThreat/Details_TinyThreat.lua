@@ -692,8 +692,14 @@ local function CreatePluginFrames (data)
 		if (not ThreatMeter.Actived) then
 			return
 		end
-		local NewTarget = _UnitName ("target")
-		if (NewTarget and not _UnitIsFriend ("player", "target")) then
+		-- 老虎会游泳：选中友方单位时，显示自身对其目标的威胁值（适用于治疗者）
+		local NewTarget = nil
+		if (not _UnitIsFriend ("player", "target")) then
+			NewTarget = _UnitName ("target")
+		elseif (not _UnitIsFriend ("player", "targettarget")) then
+			NewTarget = _UnitName ("targettarget")
+		end
+		if (NewTarget) then
 			target = NewTarget
 			ThreatMeter.UpdateWindowTitle (NewTarget)
 			Threater()
