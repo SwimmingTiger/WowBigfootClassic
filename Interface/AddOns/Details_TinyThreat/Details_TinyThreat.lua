@@ -373,13 +373,30 @@ local function CreatePluginFrames (data)
 		end
 	end
 
+	local getTarget = function()
+		if not UnitExists ("target") then
+			return nil
+		end
+		if not _UnitIsFriend ("player", "target") then
+			return "target"
+		end
+		if not UnitExists ("targettarget") then
+			return nil
+		end
+		if not _UnitIsFriend ("player", "targettarget") then
+			return "targettarget"
+		end
+		return nil
+	end
+
 	local Threater = function()
 
 		local options = ThreatMeter.options
 	
-		if (ThreatMeter.Actived and UnitExists ("target") and not _UnitIsFriend ("player", "target")) then
+		target = getTarget()
+		if (ThreatMeter.Actived and target) then
 
-			ThreatMeter.UpdateWindowTitle (UnitName ("target"))
+			ThreatMeter.UpdateWindowTitle (UnitName (target))
 
 			if (_IsInRaid()) then
 				for i = 1, _GetNumGroupMembers(), 1 do
@@ -394,7 +411,7 @@ local function CreatePluginFrames (data)
 						return
 					end
 				
-					local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("raid"..i, "target")
+					local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("raid"..i, target)
 
 					isTanking = isTanking or false
 					threatpct = threatpct or 0
@@ -424,7 +441,7 @@ local function CreatePluginFrames (data)
 						return
 					end
 				
-					local isTanking, status, threatpct, rawthreatpct, threatvalue = ThreatLib:UnitDetailedThreatSituation ("party"..i, "target")
+					local isTanking, status, threatpct, rawthreatpct, threatvalue = ThreatLib:UnitDetailedThreatSituation ("party"..i, target)
 					--returns nil, 0, nil, nil, 0
 					--	print (isTanking, status, threatpct, rawthreatpct, threatvalue)
 
@@ -450,7 +467,7 @@ local function CreatePluginFrames (data)
 				local threat_table = ThreatMeter.player_list_indexes [threat_table_index]
 				local nameOrder = ThreatMeter:GetNameOrder (thisplayer_name or "zzzzzzz")
 
-				local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("player", "target")
+				local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("player", target)
 
 				isTanking = isTanking or false
 				threatpct = threatpct or 0
@@ -475,7 +492,7 @@ local function CreatePluginFrames (data)
 
 					if (threat_table) then
 
-						local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("pet", "target")
+						local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("pet", target)
 
 						--threatpct, rawthreatpct are nil on single player, dunno with pets
 						threatpct = threatpct or 0
@@ -499,7 +516,7 @@ local function CreatePluginFrames (data)
 				local thisplayer_name = GetUnitName ("player", true)
 				local threat_table_index = ThreatMeter.player_list_hash [thisplayer_name]
 				local threat_table = ThreatMeter.player_list_indexes [threat_table_index]
-				local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("player", "target")
+				local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("player", target)
 
 				local nameOrder = ThreatMeter:GetNameOrder (thisplayer_name or "zzzzzzz")
 
@@ -531,7 +548,7 @@ local function CreatePluginFrames (data)
 
 					if (threat_table) then
 
-						local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("pet", "target")
+						local isTanking, status, threatpct, rawthreatpct, threatvalue = _UnitDetailedThreatSituation ("pet", target)
 
 						--threatpct, rawthreatpct are nil on single player, dunno with pets
 						threatpct = threatpct or 0
@@ -573,7 +590,7 @@ local function CreatePluginFrames (data)
 				local myRole = me [4]
 				
 				local topThreat = ThreatMeter.player_list_indexes [1]
-				local aggro = topThreat [6] * (CheckInteractDistance ("target", 3) and 1.1 or 1.3)
+				local aggro = topThreat [6] * (CheckInteractDistance (target, 3) and 1.1 or 1.3)
 				
 				pullRow:SetLeftText ("Pull Aggro At")
 				local realPercent = _math_floor (aggro / max (topThreat [6], 0.01) * 100)
@@ -692,16 +709,9 @@ local function CreatePluginFrames (data)
 		if (not ThreatMeter.Actived) then
 			return
 		end
-		-- 老虎会游泳：选中友方单位时，显示自身对其目标的威胁值（适用于治疗者）
-		local NewTarget = nil
-		if (not _UnitIsFriend ("player", "target")) then
-			NewTarget = _UnitName ("target")
-		elseif (not _UnitIsFriend ("player", "targettarget")) then
-			NewTarget = _UnitName ("targettarget")
-		end
-		if (NewTarget) then
-			target = NewTarget
-			ThreatMeter.UpdateWindowTitle (NewTarget)
+		target = getTarget()
+		if (target) then
+			ThreatMeter.UpdateWindowTitle (UnitName (target))
 			Threater()
 		else
 			ThreatMeter.UpdateWindowTitle (false)
