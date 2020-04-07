@@ -16,7 +16,13 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	TimerAddsSpawn	= "Показывать таймер до первого появления аддов"
 }
-
+L:SetMiscLocalization{
+	Phase2Emote	= "flee as the controlling power of the orb is drained.", -- needs localized resource
+	YellEgg1 = "You'll pay for forcing me to do this!", -- needs localized resource
+	YellEgg2 = "Fools! These eggs are more precious than you know!",
+	YellEgg3 = "No - not another one! I'll have your heads for this atrocity!", -- needs localized resource
+	YellPull 	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n" -- needs localized resource
+}
 -------------------
 --  Vaelastrasz  --
 -------------------

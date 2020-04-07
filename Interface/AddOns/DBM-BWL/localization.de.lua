@@ -17,6 +17,9 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Phase2Emote	= "flieht während die kontrollierenden Kräfte der Kugel schwinden.",
+  YellEgg1 = "You'll pay for forcing me to do this!", -- needs localized resource
+  YellEgg2 = "Fools! These eggs are more precious than you know!", -- needs localized resource
+  YellEgg3 = "No - not another one! I'll have your heads for this atrocity!", -- needs localized resource
 	YellPull 	= "Eindringlinge sind in die Brutstätte vorgestoßen! Schlagt Alarm! Beschützt die Eier um jeden Preis!"
 }
 -------------------

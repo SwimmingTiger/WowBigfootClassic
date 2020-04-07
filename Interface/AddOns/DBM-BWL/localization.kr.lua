@@ -17,6 +17,9 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Phase2Emote	= "지배의 수정구가 힘을 잃고 작동을 멈춥니다!",
+  YellEgg1 = "You'll pay for forcing me to do this!", -- needs localized resource
+  YellEgg2 = "Fools! These eggs are more precious than you know!", -- needs localized resource
+  YellEgg3 = "No - not another one! I'll have your heads for this atrocity!", -- needs localized resource
 	YellPull 	= "침입자들이 들어왔다! 어떤 희생이 있더라도 알을 반드시 수호하라!"
 }
 -------------------

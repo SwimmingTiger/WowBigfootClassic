@@ -20,7 +20,10 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Phase2Emote	= "在宝珠的控制力消失的瞬间，奈法利安的部队逃走了。",
-	YellPull 	= "入侵者闯进了孵化间！我们要不惜一切代价保护龙蛋！"
+	YellEgg1	= "你要为强迫我这么做而付出代价！",
+	YellEgg2	= "蠢货！这些蛋比你认为的要珍贵的多！", -- needs localized resource
+	YellEgg3	= "不！住手！我要你的头颅来弥补你的罪行！",
+	YellPull	= "入侵者闯进了孵化间！我们要不惜一切代价保护龙蛋！"
 }
 -------------------
 --  Vaelastrasz  --
@@ -74,6 +77,30 @@ L:SetGeneralLocalization{
 	name = "弗莱格尔"
 }
 
+-----------------------
+--  Vulnerabilities  --
+-----------------------
+-- Chromaggus, Death Talon Overseer and Death Talon Wyrmguard
+L = DBM:GetModLocalization("TalonGuards")
+
+L:SetGeneralLocalization{
+	name = "龙人护卫"
+}
+L:SetWarningLocalization{
+	WarnVulnerable		= "%s 弱点"
+}
+L:SetOptionLocalization{
+	WarnVulnerable		= "为法术弱点显示警告"
+}
+L:SetMiscLocalization{
+	Fire		= "火焰",
+	Nature		= "自然",
+	Frost		= "冰霜",
+	Shadow		= "暗影",
+	Arcane		= "奥术",
+	Holy		= "神圣"
+}
+
 ------------------
 --  Chromaggus  --
 ------------------
@@ -83,23 +110,30 @@ L:SetGeneralLocalization{
 	name = "克洛玛古斯"
 }
 L:SetWarningLocalization{
-	WarnBreath		= "%s"
+	WarnBreath		= "%s",
+	WarnVulnerable	= "%s 弱点"
 }
 L:SetTimerLocalization{
 	TimerBreathCD	= "%s冷却",
 	TimerBreath		= "%s施法",
-	TimerVulnCD		= "无敌冷却"
+	TimerVulnCD		= "弱点冷却"
 }
 L:SetOptionLocalization{
-	WarnBreath		= "为克洛玛古斯其中一格吐息显示警告",
+	WarnBreath		= "为克洛玛古斯其中一个吐息显示警告",
 	TimerBreathCD	= "显示吐息冷却",
 	TimerBreath		= "显示吐息施法",
-	TimerVulnCD		= "显示无敌CD"
+	TimerVulnCD		= "显示弱点CD"
 }
 L:SetMiscLocalization{
 	Breath1	= "第一次吐息",
 	Breath2	= "第二次吐息",
-	VulnEmote	= "%s的皮肤闪着微光，它畏缩了。"
+	VulnEmote	= "%s的皮肤闪着微光，它畏缩了。",
+	Fire		= "火焰",
+	Nature		= "自然",
+	Frost		= "冰霜",
+	Shadow		= "暗影",
+	Arcane		= "奥术",
+	Holy		= "神圣"
 }
 
 ----------------
@@ -116,11 +150,11 @@ L:SetWarningLocalization{
 	WarnPhase			= "第%s阶段"
 }
 L:SetTimerLocalization{
-	TimerClassCall		= "%s呼喊结束"
+	TimerClassCall		= "%s 点名结束"
 }
 L:SetOptionLocalization{
-	TimerClassCall		= "为职业呼喊持续时间显示计时器",
-	WarnClassCall		= "提示职业呼喊",
+	TimerClassCall		= "为职业点名持续时间显示计时器",
+	WarnClassCall		= "提示职业点名",
 	WarnPhase			= "提示转换阶段"
 }
 L:SetMiscLocalization{
@@ -135,7 +169,5 @@ L:SetMiscLocalization{
 	YellRogue	= "潜行者？不要躲躲藏藏了，勇敢地面对我吧！",
 	YellWarlock	= "术士们，不要随便去尝试那些你们根本不理解的法术。看到后果了吧？",
 	YellHunter	= "猎人们，还有你们那些讨厌的玩具枪！",
-	YellMage	= "你们也是法师？小心别玩火自焚……",
-	YellDK		= "死亡骑士士们……来这。",
-	YellMonk	= "武僧？？？……又是什么？？？"
+	YellMage	= "你们也是法师？小心别玩火自焚……"
 }

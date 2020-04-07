@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200313012837")
+mod:SetRevision("20200321001428")
 mod:SetCreatureID(11981)
 mod:SetEncounterID(615)
 mod:SetModelID(6377)
@@ -9,7 +9,9 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 23339 22539",
-	"SPELL_CAST_SUCCESS 23342"
+	"SPELL_CAST_SUCCESS 23342",
+	"SPELL_AURA_APPLIED 23342",
+	"SPELL_AURA_REMOVED 23342"
 )
 
 --(ability.id = 23339 or ability.id = 22539) and type = "begincast" or ability.id = 23342 and type = "cast"
@@ -21,10 +23,9 @@ local specWarnFrenzy		= mod:NewSpecialWarningDispel(23342, "RemoveEnrage", nil, 
 
 local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)
 local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
-local timerFrenzyNext 		= mod:NewCDTimer(8.5, 23342, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_CORE_ENRAGE_ICON)
+local timerFrenzy	 		= mod:NewBuffActiveTimer(10, 23342, nil, "Tank|RemoveEnrage|Healer", 4, 5, nil, DBM_CORE_ENRAGE_ICON)
 
 function mod:OnCombatStart(delay)
-	timerFrenzyNext:Start(9.6-delay)
 	timerShadowFlameCD:Start(18-delay)
 	timerWingBuffet:Start(30-delay)
 end
@@ -55,7 +56,36 @@ do
 			else
 				warnFrenzy:Show()
 			end
-			timerFrenzyNext:Start()
 		end
+	end
+	function mod:SPELL_AURA_APPLIED(args)--did not see ebon use any of these abilities
+		--if args.spellId == 23342 then
+		if args.spellName == Frenzy then
+			if self:AntiSpam(5, "Frenzy") then
+				self:SendSync("Frenzy")
+			end
+			timerFrenzy:Start()
+		end
+	end
+	function mod:SPELL_AURA_REMOVED(args)--did not see ebon use any of these abilities
+		--if args.spellId == 23342 then
+		if args.spellName == Frenzy then
+			if self:AntiSpam(5, "FrenzyStop") then
+				self:SendSync("FrenzyStop")
+			end
+			timerFrenzy:Stop()
+		end
+	end
+end
+
+function mod:OnSync(msg, Name)
+	if self:AntiSpam(5, msg) then
+		--Do nothing, this is just an antispam threshold for syncing
+	end
+	if not self:IsInCombat() then return end
+	if msg == "Frenzy" then
+		timerFrenzy:Start()
+	elseif msg == "FrenzyStop" then
+		timerFrenzy:Stop()
 	end
 end
