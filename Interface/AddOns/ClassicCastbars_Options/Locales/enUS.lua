@@ -12,6 +12,11 @@ L["AUTO_POS_BAR_TOOLTIP"] = [=[When enabled it will auto position the castbar ba
 
 Does not work with third-party unit frames.]=]
 L["BORDER_COLOR"] = "Select Border Color"
+L["BORDERSHIELD"] = "Show Uninterruptible Border Shield"
+L["BORDERSHIELD_TOOLTIP"] = [=[Shows a shield around the castbar when a cast cannot be interrupted. Disabling this option will still show a grey background color on uninterruptible casts.
+
+|cffffff00You can click the "Toggle Testing Castbar" button while holding down any modifier keys like SHIFT or CTRL to test the castbar with border shield shown.|r
+]=]
 L["CAST_BORDER"] = "Select Border Texture"
 L["CAST_BORDER_TOOLTIP"] = "Select texture used for castbar border."
 L["CAST_FONT"] = "Select Castbar Font"
@@ -42,27 +47,22 @@ L["LSM_TEXTURE_NOTE"] = [=[
 Note: If you use a custom third-party texture/font and delete it later on from your PC, you'll need to manually reset the texture or font here for the addon to continue working.]=]
 L["NAMEPLATE"] = "Nameplate"
 L["PARTY"] = "Party"
+L["PER_CHARACTER"] = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|tCharacter Specific Settings"
+L["PER_CHARACTER_TOOLTIP"] = "Click this to toggle between general settings and settings specific to this character."
 L["PLAYER"] = "Player"
 L["POSXY_TOOLTIP"] = "Adjust the XY offset values to move the frame."
-L["PUSHBACK"] = "Detect Cast Modifiers |cffffff00(Global Setting)|r"
-L["PUSHBACK_TOOLTIP"] = [=[Enables detection for cast pushback and speed modifiers (i.e Curse of Tongues). This setting affects all castbars except your own.
-
-Notes:
-- Pushback detection is not fully accurate as certain talents gives a chance to ignore pushback.
-- For some speed increase modifiers you will need to also have the ClassicAuraDurations addon enabled.
-]=]
-L["REQUIRES_RESTART"] = "Disabling this castbar module requires a reload of your interface. Press Accept to reload UI."
+L["REQUIRES_RESTART"] = "Toggling this castbar module requires a reload of your interface. Press Accept to reload UI."
 L["RESET_ALL"] = "Reset All Settings"
-L["SHOW_CAST_INFO_ONLY"] = "Show Cast Info Only"
-L["SHOW_CAST_INFO_ONLY_TOOLTIP"] = [=[Enable to hide cast timers, but still show the cast information.
-
-You can also set the castbar height to zero and border to none if you want to only show the spell name instead of the whole bar.]=]
+L["SHOW_FOR_ENEMY"] = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|tShow Enemy Casts"
+L["SHOW_FOR_FRIENDLY"] = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|tShow Friendly Casts"
+L["SHOW_SPARK"] = "Show Castbar Spark Effect"
 L["SHOW_TIMER"] = "Show Timer Text"
 L["SHOW_TIMER_TOOLTIP"] = "Display a timer countdown for the current cast."
 L["STATUS_BG_COLOR"] = "Select Background Color"
 L["STATUS_CHANNEL_COLOR"] = "Select Channel Fill Color"
-L["STATUS_FAILED_COLOR"] = "Select Cast Failed Fill Color"
 L["STATUS_COLOR"] = "Select Cast Fill Color"
+L["STATUS_FAILED_COLOR"] = "Select Cast Failed Fill Color"
+L["STATUS_UNINTERRUPTIBLE_COLOR"] = "Select Uninterruptible Fill Color"
 L["TARGET"] = "Target"
 L["TEST"] = "Toggle Testing"
 L["TEST_MODE_DRAG"] = "Test Mode - Drag To Move"

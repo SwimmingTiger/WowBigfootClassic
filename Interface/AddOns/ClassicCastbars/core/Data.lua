@@ -1407,7 +1407,6 @@ local crowdControls = {
     4067,       -- Big Bronze Bomb
     4066,       -- Small Bronze Bomb
     4065,       -- Large Copper Bomb
-    13237,      -- Goblin Mortar
     835,        -- Tidal Charm
     13181,      -- Gnomish Mind Control Cap
     12562,      -- The Big One
@@ -1545,6 +1544,16 @@ C_Timer.After(11, function()
     crowdControls = nil
 end)
 
+-- List of player interrupts that can lock out a school (not silences)
+namespace.playerInterrupts = {
+    [GetSpellInfo(2139)] = 1,  -- Counterspell
+    [GetSpellInfo(1766)] = 1,  -- Kick
+    [GetSpellInfo(8042)] = 1,  -- Earth Shock
+    [GetSpellInfo(19244)] = 1, -- Spell Lock
+    [GetSpellInfo(6552)] = 1,  -- Pummel
+    [GetSpellInfo(16979)] = 1, -- Feral Charge
+}
+
 -- Skip pushback calculation for these spells since they
 -- have chance to ignore pushback when talented, or is always immune.
 namespace.pushbackBlacklist = {
@@ -1564,6 +1573,58 @@ namespace.pushbackBlacklist = {
     [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
     [GetSpellInfo(13278)] = 1,      -- Gnomish Death Ray
     [GetSpellInfo(20589)] = 1,      -- Escape Artist
+}
+
+namespace.uninterruptibleList = {
+    [GetSpellInfo(4068)] = 1,       -- Iron Grenade
+    [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
+    [GetSpellInfo(13808)] = 1,      -- M73 Frag Grenade
+    [GetSpellInfo(4069)] = 1,       -- Big Iron Bomb
+    [GetSpellInfo(12543)] = 1,      -- Hi-Explosive Bomb
+    [GetSpellInfo(4064)] = 1,       -- Rough Copper Bomb
+    [GetSpellInfo(12421)] = 1,      -- Mithril Frag Bomb
+    [GetSpellInfo(19784)] = 1,      -- Dark Iron Bomb
+    [GetSpellInfo(4067)] = 1,       -- Big Bronze Bomb
+    [GetSpellInfo(4066)] = 1,       -- Small Bronze Bomb
+    [GetSpellInfo(4065)] = 1,       -- Large Copper Bomb
+    [GetSpellInfo(13278)] = 1,      -- Gnomish Death Ray TODO: verify
+    [GetSpellInfo(23041)] = 1,      -- Call Anathema
+    [GetSpellInfo(20589)] = 1,      -- Escape Artist
+    [GetSpellInfo(20549)] = 1,      -- War Stomp
+    [GetSpellInfo(1510)] = 1,       -- Volley
+    [GetSpellInfo(20904)] = 1,      -- Aimed Shot
+    [GetSpellInfo(11605)] = 1,      -- Slam
+    [GetSpellInfo(6461)] = 1,       -- Pick Lock
+    [GetSpellInfo(1842)] = 1,       -- Disarm Trap
+    [GetSpellInfo(2641)] = 1,       -- Dismiss Pet
+    [GetSpellInfo(2480)] = 1,       -- Shoot Bow
+    [GetSpellInfo(7918)] = 1,       -- Shoot Gun
+    [GetSpellInfo(7919)] = 1,       -- Shoot Crossbow
+    [GetSpellInfo(11202)] = 1,      -- Crippling Poison
+    [GetSpellInfo(3421)] = 1,       -- Crippling Poison II
+    [GetSpellInfo(2835)] = 1,       -- Deadly Poison
+    [GetSpellInfo(2837)] = 1,       -- Deadly Poison II
+    [GetSpellInfo(11355)] = 1,      -- Deadly Poison III
+    [GetSpellInfo(11356)] = 1,      -- Deadly Poison IV
+    [GetSpellInfo(25347)] = 1,      -- Deadly Poison V
+    [GetSpellInfo(8681)] = 1,       -- Instant Poison
+    [GetSpellInfo(8686)] = 1,       -- Instant Poison II
+    [GetSpellInfo(8688)] = 1,       -- Instant Poison III
+    [GetSpellInfo(11338)] = 1,      -- Instant Poison IV
+    [GetSpellInfo(11339)] = 1,      -- Instant Poison V
+    [GetSpellInfo(11343)] = 1,      -- Instant Poison VI
+    [GetSpellInfo(5761)] = 1,       -- Mind-numbing Poison
+    [GetSpellInfo(8693)] = 1,       -- Mind-numbing Poison II
+    [GetSpellInfo(11399)] = 1,      -- Mind-numbing Poison III
+    [GetSpellInfo(13227)] = 1,      -- Wound Poison
+    [GetSpellInfo(13228)] = 1,      -- Wound Poison II
+    [GetSpellInfo(13229)] = 1,      -- Wound Poison III
+    [GetSpellInfo(13230)] = 1,      -- Wound Poison IV
+
+    -- these are technically uninterruptible but breaks on dmg
+    [GetSpellInfo(22999)] = 1,      -- Defibrillate
+    [GetSpellInfo(746)] = 1,        -- First Aid
+    [GetSpellInfo(20577)] = 1,      -- Cannibalize
 }
 
 -- Casts that should be stopped on damage received
@@ -1731,18 +1792,22 @@ namespace.unaffectedCastModsSpells = {
 
 -- Addon Savedvariables
 namespace.defaultConfig = {
-    version = "17", -- settings version
-    pushbackDetect = true,
+    version = "20", -- settings version
     locale = GetLocale(),
+    npcCastUninterruptibleCache = {},
+    usePerCharacterSettings = false,
 
     nameplate = {
         enabled = false,
+        showForFriendly = true,
+        showForEnemy = true,
         width = 106,
         height = 11,
         iconSize = 13,
-        showCastInfoOnly = false,
+        showBorderShield = true,
         showTimer = false,
         showIcon = true,
+        showSpark = true,
         autoPosition = true,
         castFont = _G.STANDARD_TEXT_FONT,
         castFontSize = 8,
@@ -1756,6 +1821,7 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorFailed = { 1, 0, 0 },
         statusColorChannel = { 0, 1, 0, 1 },
+        statusColorUninterruptible = { 0.7, 0.7, 0.7, 1 },
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
@@ -1768,9 +1834,10 @@ namespace.defaultConfig = {
         width = 150,
         height = 15,
         iconSize = 16,
-        showCastInfoOnly = false,
+        showBorderShield = true,
         showTimer = false,
         showIcon = true,
+        showSpark = true,
         autoPosition = true,
         castFont = _G.STANDARD_TEXT_FONT,
         castFontSize = 10,
@@ -1784,6 +1851,7 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorFailed = { 1, 0, 0 },
         statusColorChannel = { 0, 1, 0, 1 },
+        statusColorUninterruptible = { 0.7, 0.7, 0.7, 1 },
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
@@ -1796,9 +1864,10 @@ namespace.defaultConfig = {
         width = 150,
         height = 15,
         iconSize = 16,
-        showCastInfoOnly = false,
+        showBorderShield = true,
         showTimer = false,
         showIcon = true,
+        showSpark = true,
         autoPosition = false,
         castFont = _G.STANDARD_TEXT_FONT,
         castFontSize = 10,
@@ -1812,6 +1881,7 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorFailed = { 1, 0, 0 },
         statusColorChannel = { 0, 1, 0, 1 },
+        statusColorUninterruptible = { 0.7, 0.7, 0.7, 1 },
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
@@ -1824,9 +1894,10 @@ namespace.defaultConfig = {
         width = 120,
         height = 12,
         iconSize = 16,
-        showCastInfoOnly = false,
         showTimer = false,
+        showBorderShield = true,
         showIcon = true,
+        showSpark = true,
         autoPosition = false,
         castFont = _G.STANDARD_TEXT_FONT,
         castFontSize = 9,
@@ -1840,6 +1911,7 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorFailed = { 1, 0, 0 },
         statusColorChannel = { 0, 1, 0, 1 },
+        statusColorUninterruptible = { 0.7, 0.7, 0.7, 1 },
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 0,
@@ -1852,9 +1924,10 @@ namespace.defaultConfig = {
         width = 190,
         height = 20,
         iconSize = 22,
-        showCastInfoOnly = false,
+        showBorderShield = false,
         showTimer = false,
         showIcon = true,
+        showSpark = true,
         autoPosition = true,
         castFont = _G.STANDARD_TEXT_FONT,
         castFontSize = 12,
@@ -1868,10 +1941,49 @@ namespace.defaultConfig = {
         statusColor = { 1, 0.7, 0, 1 },
         statusColorFailed = { 1, 0, 0 },
         statusColorChannel = { 0, 1, 0, 1 },
+        statusColorUninterruptible = { 0.7, 0.7, 0.7, 1 },
         textColor = { 1, 1, 1, 1 },
         textPositionX = 0,
         textPositionY = 1,
         frameLevel = 10,
         statusBackgroundColor = { 0, 0, 0, 0.535 },
     },
+}
+
+namespace.defaultConfig.npcCastUninterruptibleCache = {
+    ["11981" .. GetSpellInfo(18500)] = true, -- Flamegor Wing Buffet
+    ["12459" .. GetSpellInfo(25417)] = true, -- Blackwing Warlock Shadowbolt
+    ["12264" .. GetSpellInfo(1449)] = true, -- Shazzrah Arcane Explosion
+    ["13280" .. GetSpellInfo(22421)] = true, -- Hydrospawn Massive Geyser
+    ["11583" .. GetSpellInfo(18431)] = true, -- Nefarian Bellowing Roar
+    ["11983" .. GetSpellInfo(18500)] = true, -- Firemaw Wing Buffet
+    ["11983" .. GetSpellInfo(22539)] = true, -- Firemaw Shadow Flame
+    ["12265" .. GetSpellInfo(133)] = true, -- Lava Spawn Fireball
+    ["11492" .. GetSpellInfo(22662)] = true, -- Alzzin the Wildshaper Wither
+    ["10438" .. GetSpellInfo(116)] = true, -- Maleki the Pallid Frostbolt
+    ["12465" .. GetSpellInfo(22425)] = true, -- Death Talon Wyrmkin Fireball Voley
+    ["14020" .. GetSpellInfo(23310)] = true, -- Chromaggus Time Lapse
+    ["14020" .. GetSpellInfo(23316)] = true, -- Chromaggus Ignite Flesh
+    ["14020" .. GetSpellInfo(23309)] = true, -- Chromaggus Incinerate
+    ["14020" .. GetSpellInfo(23187)] = true, -- Chromaggus Frost Burn
+    ["14020" .. GetSpellInfo(23314)] = true, -- Chromaggus Corrosive Acid
+    ["12468" .. GetSpellInfo(2120)] = true, -- Death Talon Hatcher Flamestrike
+    ["13020" .. GetSpellInfo(9573)] = true, -- Vaelastrasz the Corrupt Flame Breath
+    ["12435" .. GetSpellInfo(22425)] = true, -- Razorgore the Untamed Fireball Volley
+    ["14601" .. GetSpellInfo(18500)] = true, -- Ebonroc Wing Buffet
+    ["14601" .. GetSpellInfo(22539)] = true, -- Ebonroc Shadow Flame
+    ["11981" .. GetSpellInfo(22539)] = true, -- Flamegor Shadow Flame
+    ["11583" .. GetSpellInfo(22539)] = true, -- Nefarian Shadow Flame
+    ["10184" .. GetSpellInfo(18500)] = true, -- Onyxia Wing Buffet
+    ["12118" .. GetSpellInfo(20604)] = true, -- Lucifron Dominate Mind
+    ["12201" .. GetSpellInfo(9483)] = true, -- Princess Theradras Boulder
+    ["10184" .. GetSpellInfo(9573)] = true, -- Onyxia Flame Breath
+    ["10184" .. GetSpellInfo(133)] = true, -- Onyxia Fireball
+    ["11492" .. GetSpellInfo(22661)] = true, -- Alzzin the Wildshaper Enervate
+    ["11490" .. GetSpellInfo(1050)] = true, -- Zevrim Thornhoof Sacrifice
+    ["11490" .. GetSpellInfo(22478)] = true,  -- Zevrim Thornhoof Intense Pain
+    ["10436" .. GetSpellInfo(16868)] = true, -- Baroness Anastari Banshee Wail
+    ["10184" .. GetSpellInfo(18431)] = true, -- Onyxia Bellowing Roar
+    ["11492" .. GetSpellInfo(9616)] = true, -- Alzzin the Wildshaper Wild Regeneration
+    ["13996" .. GetSpellInfo(22334)] = true, -- Blackwing Technician Bomb
 }
