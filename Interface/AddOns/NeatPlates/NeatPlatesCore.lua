@@ -10,6 +10,7 @@ local NeatPlatesTarget
 local FrequentHealthUpdate = true
 local GetPetOwner = NeatPlatesUtility.GetPetOwner
 local ParseGUID = NeatPlatesUtility.ParseGUID
+local Debug = {}
 NeatPlates = {}
 NeatPlatesSpellDB = {}
 
@@ -641,6 +642,7 @@ do
 	-- OnHealthUpdate
 	function OnHealthUpdate(plate)
 		local unitid = PlatesVisible[plate]
+		if not unitid then return end
 
 		UpdateUnitCondition(plate, unitid)
 		ProcessUnitChanges()
@@ -727,7 +729,6 @@ do
 		unit.rawName = unit.name  -- gsub(unit.name, " %(%*%)", "")
 
 		local classification = UnitClassification(unitid)
-
 		unit.isBoss = UnitLevel(unitid) == -1
 		unit.isDangerous = unit.isBoss
 
@@ -846,6 +847,8 @@ do
 	function UpdateIndicator_HealthBar()
 		visual.healthbar:SetMinMaxValues(0, unit.healthmax)
 		visual.healthbar:SetValue(unit.health)
+		-- Subtext
+		UpdateIndicator_Subtext()
 	end
 
 
@@ -1791,7 +1794,8 @@ function NeatPlates.UpdateNameplateSize() UpdateNameplateSize() end
 
 function NeatPlates.THREAT_UPDATE(...)
 	local guid = select(3, ...)
-	local plate = PlatesByGUID[guid]
+	local plate = PlatesByGUID[guid] or IsEmulatedFrame(guid)
+	if(Debug['threat'] and plate) then checkLastThreatUpdate(UnitGUID(plate.extended.unit.unitid)) end
 
 	if plate then OnHealthUpdate(plate) end
 end
@@ -1804,7 +1808,39 @@ NeatPlates.RequestDelegateUpdate = NeatPlates.RequestUpdate
 
 
 
+-- Debug stuff
+local lastUpdate = {}
+local DebugFrame = CreateFrame("Frame", nil, WorldFrame)
+function checkLastThreatUpdate(guid)
+	if not guid then return end
 
+	local yellow, blue, red, orange, green = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cFFFF6906", "|cFF60E025"
+	local currentTime = GetTime()
+	if not lastUpdate[guid] then lastUpdate[guid] = currentTime end
+
+	local duration = GetTime() - lastUpdate[guid]
+	local color = red
+	if duration == 0 then return end
+	if duration < 3 then
+		color = green
+	elseif duration < 8 then
+		color = orange
+	end
+
+	print(blue.."NeatPlates: "..yellow.."Last threat update:", color..(("%%.%df"):format(1)):format(duration).."s")
+	lastUpdate[guid] = currentTime
+end
+
+SLASH_NeatPlatesThreatDebug1 = '/npdebug'
+SlashCmdList['NeatPlatesThreatDebug'] = function(arg)
+	arg = string.lower(arg)
+	Debug[arg] = not Debug[arg]
+
+	if arg == "threat" then
+		DebugFrame:SetScript("OnEvent", function(self, event) if event == "PLAYER_REGEN_DISABLED" then lastUpdate = {} end end)
+		DebugFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+	end
+end;
 
 
 

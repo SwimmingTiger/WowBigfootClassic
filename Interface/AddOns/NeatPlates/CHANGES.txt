@@ -1,20 +1,18 @@
-lightweight tag 9736c5e9ce16b9372c1ec6fd41d080992bc10d92 1.13.3.15
+lightweight tag c6ed9f2f8744da1d5f870b8a99cc3fbaf83d36b0 1.13.4.3
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sun Mar 1 17:50:37 2020 +0100
+Date:	Tue Mar 24 21:09:17 2020 +0100
 
-commit 9736c5e9ce16b9372c1ec6fd41d080992bc10d92
+commit c6ed9f2f8744da1d5f870b8a99cc3fbaf83d36b0
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Mar 1 17:48:44 2020 +0100
+Date:   Tue Mar 24 21:09:17 2020 +0100
 
-    Added option to hide enemy castbars
+    Separated threat debugging by plate
     
-    - Added option to hide enemy castbars (As 'disable castbars' disables all castbar logic)
+    - Separated threat debugging by plate
 
-commit f3ce5442898fd199072e6424f4707e02cb687d46
+commit acad319a136f02e59dd99c8edd0cc88622e518de
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Mar 1 17:48:44 2020 +0100
+Date:   Sun Mar 22 12:16:07 2020 +0100
 
-    Added option to hide enemy castbars
-    
-    - Added option to hide enemy castbars (As 'disable castbars' disables all castbar logic)
+    Locale update
 
