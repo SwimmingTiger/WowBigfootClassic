@@ -435,7 +435,7 @@ MessageClassifierDefaultRules = {
         ["class"] = "副本/祖尔法拉克/{author}",
         ["conditions"] = {
             {
-                ["value"] = "祖尔",
+                ["value"] = "祖尔法拉克",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
@@ -620,6 +620,32 @@ MessageClassifierDefaultRules = {
                 ["value"] = "BWL",
                 ["field"] = "content",
                 ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3028,
+        ["class"] = "副本/祖尔格拉布/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "祖尔格拉布",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "祖格",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "zg",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "zug",
+                ["operator"] = "contain",
+                ["field"] = "content",
             },
         },
     },

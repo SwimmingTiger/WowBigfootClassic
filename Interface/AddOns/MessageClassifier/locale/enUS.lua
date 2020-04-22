@@ -484,8 +484,13 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "match",
             },
             {
-                ["value"] = "%f[%a]zul",
+                ["value"] = "%f[%a]zul%f[%A]",
                 ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "farak",
+                ["operator"] = "contain",
                 ["field"] = "content",
             },
         },
@@ -667,6 +672,27 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "nefarian",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3028,
+        ["class"] = "Instance/Zul'Gurub/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]zg%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]zug%f[%A]",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "gurub",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
