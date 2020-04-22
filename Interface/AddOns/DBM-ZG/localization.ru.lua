@@ -10,9 +10,6 @@ L = DBM:GetModLocalization("Venoxis")
 L:SetGeneralLocalization{
 	name = "Верховный жрец Веноксис"
 }
-L:SetOptionLocalization{
-	RangeFrame		= "Показывать окно дистанции"
-}
 
 -------------------
 --  Jeklik  --

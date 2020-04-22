@@ -35,7 +35,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	Event	= "太迟了，朋友！奈法利斯的腐化已经掌握了我……我已经无法……控制我自己了。"
+	Event	= "太晚了，朋友们！奈法利安的堕落力量已经生效……我无法……控制自己。"
 }
 -----------------
 --  Broodlord  --

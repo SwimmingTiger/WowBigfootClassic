@@ -27,7 +27,7 @@ local timerCloud		= mod:NewBuffActiveTimer(10, 23861, nil, nil, nil, 3)
 local timerRenew		= mod:NewTargetTimer(15, 23895, nil, "MagicDispeller", nil, 5, nil, DBM_CORE_MAGIC_ICON)
 local timerFire			= mod:NewTargetTimer(8, 23860, nil, "RemoveMagic|Healer", nil, 5, nil, DBM_CORE_MAGIC_ICON)
 
-mod:AddBoolOption("RangeFrame", true)
+mod:AddRangeFrameOption("10")
 
 mod.vb.prewarn_Phase2 = false
 

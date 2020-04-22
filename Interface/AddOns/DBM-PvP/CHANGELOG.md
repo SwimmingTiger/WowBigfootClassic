@@ -1,6 +1,11 @@
 # <DBM> PvP
 
-## [r86](https://github.com/DeadlyBossMods/DBM-PvP/tree/r86) (2020-03-21)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r85...r86)
+## [r87](https://github.com/DeadlyBossMods/DBM-PvP/tree/r87) (2020-04-18)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r86...r87)
 
-- Just silence an error  
+- fix another error, derp  
+- Fix Lua error  
+- Make reporting data messages show at the END of battlegrounds.  
+- Finished Gilneas data for PvP  
+- Merge branch 'master' of github.com:DeadlyBossMods/DBM-PvP  
+- Add EOTS data, thanks @Testerrxxx  

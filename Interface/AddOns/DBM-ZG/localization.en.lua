@@ -8,9 +8,6 @@ L = DBM:GetModLocalization("Venoxis")
 L:SetGeneralLocalization{
 	name = "High Priest Venoxis"
 }
-L:SetOptionLocalization{
-	RangeFrame		= "Show range frame"
-}
 
 -------------------
 --  Jeklik  --
@@ -89,7 +86,8 @@ L:SetGeneralLocalization{
 }
 L:SetMiscLocalization{
 	Bloodlord 	= "Bloodlord Mandokir",
-	Ohgan		= "Ohgan"
+	Ohgan		= "Ohgan",
+	GazeYell	= "I'm watching you"
 }
 
 -------------------

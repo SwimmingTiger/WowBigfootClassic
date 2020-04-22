@@ -173,6 +173,14 @@ local GetWeaponEnchantInfo = _G.GetWeaponEnchantInfo
 
 local prototype = {}
 
+-- thunderfury tracking, as it applies two debuffs with different threat but same name
+-- one debuff is aoe and adds 145 threat, the other is single target and always hits after the damage
+-- this is used for tracking that the damage got applied and ignoring the next debuff that follows
+local thunderfury = {
+	lastMobGUID = nil,
+	lastHitTimestamp = 0,
+}
+
 local guidLookup = ThreatLib.GUIDNameLookup
 
 local new, del, newHash, newSet = ThreatLib.new, ThreatLib.del, ThreatLib.newHash, ThreatLib.newSet
@@ -310,10 +318,26 @@ function prototype:OnInitialize()
 	self.MobDebuffHandlers = new()
 
 	self.MobSpellNameDebuffHandlers = new() -- used to match single rank debuffs that return nil with GetSpellInfo(spellName)
+	self.SpellDamageSpellNameHandlers = new() -- used to act on SPELL_DAMAGE with spellname, when GetSpellInfo(spellname) won't work
 	-- Gift of Arthas
 	self.MobSpellNameDebuffHandlers[GetSpellInfo(11374)] = function(self, target)
 		self:AddTargetThreat(target, 90  * self:threatMods())
 	end
+
+	-- thunderfury; apply debuff threat, unless we just had a thunderfury spell damage hit on the same target
+	-- effectively skips the second debuff because spell damage is always applied right before it on the same timestamp
+	self.MobSpellNameDebuffHandlers[GetSpellInfo(21992)] = function(self, target, timestamp)
+		if(thunderfury.lastMobGUID ~= target or thunderfury.lastHitTimestamp + 0.01 < timestamp) then
+			self:AddTargetThreat(target, 145 * self:threatMods())
+		end
+	end
+	-- thunderfury; apply direct hit bonus threat (as a substitute for direct hit attack speed slow threat)
+	self.SpellDamageSpellNameHandlers[GetSpellInfo(21992)] = function(self, target, timestamp)
+		self:AddTargetThreat(target, 90 * self:threatMods())
+		thunderfury.lastMobGUID = target
+		thunderfury.lastHitTimestamp = timestamp
+	end
+
 	self.SpellReflectSources = new()
 
 	self.ClassDebuffs = new()
@@ -322,6 +346,9 @@ function prototype:OnInitialize()
 	-- Shrouding potion effect
 	self.CastLandedHandlers[28548] = function(self)
 		self:AddThreat(-800 * self:threatMods())
+	end
+	self.CastMissHandlers[28548] = function(self)
+		self:AddThreat(800 * self:threatMods())
 	end
 
 	-- Imp LOTP heals are 0 threat, and in the prototype as any class can proc them
@@ -498,6 +525,9 @@ end
 function cleuHandlers:SPELL_DAMAGE(timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, amount, overkill, school, resisted, blocked, absorbed, critical, glancing, crushing, isOffHand)
 	if bit_band(sourceFlags, self.unitTypeFilter) == self.unitTypeFilter and bit_band(destFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) == 0 then
 		self:parseDamage(destGUID, amount, spellId, spellName, spellSchool, critical, subEvent)
+		if self.SpellDamageSpellNameHandlers[spellName] then
+			self.SpellDamageSpellNameHandlers[spellName](self, destGUID, timestamp)
+		end
 	elseif sourceGUID == destGUID and self.SpellReflectSources[sourceGUID] then
 		self:parseDamage(destGUID, amount, spellId, spellName, spellSchool, critical, subEvent)
 		self.SpellReflectSources[sourceGUID] = nil
@@ -584,7 +614,7 @@ function cleuHandlers:SPELL_AURA_APPLIED(timestamp, subEvent, hideCaster, source
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
 		if self.MobSpellNameDebuffHandlers[spellName] then
-			self.MobSpellNameDebuffHandlers[spellName](self, destGUID)
+			self.MobSpellNameDebuffHandlers[spellName](self, destGUID, timestamp)
 		end
 	end
 end
@@ -597,7 +627,7 @@ function cleuHandlers:SPELL_AURA_APPLIED_DOSE(timestamp, subEvent, hideCaster, s
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
 		if self.MobSpellNameDebuffHandlers[spellName] then
-			self.MobSpellNameDebuffHandlers[spellName](self, destGUID)
+			self.MobSpellNameDebuffHandlers[spellName](self, destGUID, timestamp)
 		end
 	end
 end
@@ -610,7 +640,7 @@ function cleuHandlers:SPELL_AURA_REFRESH(timestamp, subEvent, hideCaster, source
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
 		if self.MobSpellNameDebuffHandlers[spellName] then
-			self.MobSpellNameDebuffHandlers[spellName](self, destGUID)
+			self.MobSpellNameDebuffHandlers[spellName](self, destGUID, timestamp)
 		end
 	end
 end
@@ -1005,16 +1035,8 @@ end
 
 function prototype:parseCast(recipient, spellId, spellName)
 	spellId = ThreatLib:GetSpellID(spellName) or spellId
-
-	if self.unitType == "pet" then
-		-- Pets don't get UNIT_SPELLCAST_SUCCEEDED, so we just parse their handlers here.
-		if self.CastLandedHandlers[spellId] then
-			self.CastLandedHandlers[spellId](self, spellId, recipient)
-		end
-	else
-		if self.CastLandedHandlers[spellId] then
-			self.CastLandedHandlers[spellId](self, spellId, recipient)
-		end
+	if self.CastLandedHandlers[spellId] then
+		self.CastLandedHandlers[spellId](self, spellId, recipient)
 	end
 end
 

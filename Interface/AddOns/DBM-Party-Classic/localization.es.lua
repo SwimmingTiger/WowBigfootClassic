@@ -1136,7 +1136,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization(443)
 
 L:SetGeneralLocalization{
-	name 		= "Cantachimeneas Forresten"
+	name 		= "Escupezones Foreste"
 }
 
 -----------------------------
@@ -1478,7 +1478,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization(485)
 
 L:SetGeneralLocalization{
-	name 		= "Theka el Mártir"
+	name 		= "Theka la Mártir"
 }
 
 -----------------------------

@@ -8,7 +8,7 @@ local ipairs, math = ipairs, math
 local IsInInstance, CreateFrame = IsInInstance, CreateFrame
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup--Classic Compat fix
 
-mod:SetRevision("20200321122347")
+mod:SetRevision("20200418171315")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 --mod:AddBoolOption("ColorByClass", true)
@@ -125,7 +125,9 @@ local function ShowEstimatedPoints()
 end
 
 local function ShowBasesToWin()
-	if not AlwaysUpFrame2 then return end
+	if not AlwaysUpFrame2 then
+		return
+	end
 	if not scoreFrameToWin then
 		scoreFrameToWin = CreateFrame("Frame", nil, AlwaysUpFrame2)
 		scoreFrameToWin:SetHeight(10)
@@ -175,6 +177,7 @@ end
 local subscribedMapID = 0
 local prevAScore, prevHScore = 0, 0
 local numObjectives, objectivesStore
+local warnAtEnd = {}
 
 function mod:SubscribeAssault(mapID, objectsCount)
 	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
@@ -214,6 +217,14 @@ function mod:UnsubscribeAssault()
 	self:Stop()
 	subscribedMapID = 0
 	prevAScore, prevHScore = 0, 0
+	if #warnAtEnd > 0 then
+		DBM:AddMsg("DBM-PvP missing data, please report to our discord.")
+		for k, _ in warnAtEnd do
+			DBM:AddMsg(k)
+		end
+		DBM:AddMsg("Thank you for making DBM-PvP a better addon.")
+		warnAtEnd = {}
+	end
 end
 
 function mod:SubscribeFlags()
@@ -261,8 +272,8 @@ do
 	-- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local winTimer = mod:NewTimer(30, "TimerWin", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485")
 	local resourcesPerSec = {
-		[3] = {1e-300, 1, 3, 1000--[[Unknown]]}, -- Gilneas
-		[4] = {1e-300, 2, 3, 1000--[[Unknown]], 1000--[[Unknown]]}, -- TempleOfKotmogu/EyeOfTheStorm
+		[3] = {1e-300, 1, 3, 4}, -- Gilneas
+		[4] = {1e-300, 2, 3, 4, 1000--[[Unknown]]}, -- TempleOfKotmogu/EyeOfTheStorm
 		[5] = {1e-300, 2, 3, 4, 7, 1000--[[Unknown]], 1000--[[Unknown]]} -- Arathi/Deepwind
 	}
 
@@ -275,14 +286,14 @@ do
 		local resPerSec = resourcesPerSec[numObjectives]
 		-- Start debug
 		if prevAScore ~= allianceScore then
-			if resPerSec[allianceBases + 1] == 1000 and DBM:AntiSpam(30, "PvPAWarn") then
-				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (A," .. (allianceScore - prevAScore) .. "," .. allianceBases .. "," .. resPerSec[allianceBases + 1]  .. ")")
+			if resPerSec[allianceBases + 1] == 1000 then
+				warnAtEnd[string.format("%d,%d", allianceScore - prevAScore, allianceBases)] = true
 			end
 			prevAScore = allianceScore
 		end
 		if prevHScore ~= hordeScore then
-			if resPerSec[hordeBases + 1] == 1000 and DBM:AntiSpam(30, "PvPHWarn") then
-				DBM:AddMsg("DBM-PvP missing data, please report to our discord. (H," .. (hordeScore - prevHScore) .. "," .. hordeBases .. "," .. resPerSec[hordeBases + 1]  .. ")")
+			if resPerSec[hordeBases + 1] == 1000 then
+				warnAtEnd[string.format("%d,%d", hordeScore - prevHScore, hordeBases)] = true
 			end
 			prevHScore = hordeScore
 		end

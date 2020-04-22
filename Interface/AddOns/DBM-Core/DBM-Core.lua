@@ -69,9 +69,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200331141011"),
-	DisplayVersion = "1.13.42", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 3, 31) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200419142205"),
+	DisplayVersion = "1.13.43", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 4, 19) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -4628,11 +4628,11 @@ do
 				DBM:Debug("WBA sync processing")
 				local factionText = faction == "Alliance" and FACTION_ALLIANCE or faction == "Horde" and FACTION_HORDE or DBM_CORE_BOTH
 				DBM:AddMsg(DBM_CORE_WORLDBUFF_STARTED:format(buffName, factionText, sender))
-				local timer = tonumber(time)
-				local myFaction = faction == "Both" and true or UnitFactionGroup("player") == faction
-				if timer and myFaction then
-					DBM.Bars:CreateBar(timer, buffName, 136106)
-				end
+				--local timer = tonumber(time)
+				--local myFaction = faction == "Both" and true or UnitFactionGroup("player") == faction
+				--if timer and myFaction then
+				--	DBM.Bars:CreateBar(timer, buffName, 136106)
+				--end
 			end
 		end
 
@@ -7388,7 +7388,7 @@ function bossModPrototype:IsValidWarning(sourceGUID, customunitID)
 	return false
 end
 
---Skip param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
+--force param is used when CheckInterruptFilter is actually being used for a simpe target/focus check and nothing more.
 --checkCooldown should never be passed with skip or COUNT interrupt warnings. It should be passed with any other interrupt filter
 function bossModPrototype:CheckInterruptFilter(sourceGUID, force, checkCooldown, ignoreTandF)
 	if DBM.Options.FilterInterrupt2 == "None" and not force then return true end--user doesn't want to use interrupt filter, always return true
@@ -9997,6 +9997,7 @@ do
 						return--Don't start the bogus timer shoved into timer field in the mod
 					end
 				else--AI timer passed with 4 or less is indicating phase change, with timer as phase number
+					timer = floor(timer)--Floor inprecise timers in classic because combat is mostly caused by PLAYER_REGEN in dungeons
 					if self["phase"..timer.."CastTimer"] and type(self["phase"..timer.."CastTimer"]) == "number" then
 						--Check if timer is shorter than previous learned first timer by scanning remaining time on existing bar
 						local bar = DBM.Bars:GetBar(id)
@@ -11174,7 +11175,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200331141011" then
+	if not revision or revision == "20200419142205" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

@@ -9,9 +9,6 @@ L = DBM:GetModLocalization("Venoxis")
 L:SetGeneralLocalization{
 	name = "Sumo sacerdote Venoxis"
 }
-L:SetOptionLocalization{
-	RangeFrame		= "Mostrar distancia"
-}
 
 -------------------
 --  Jeklik  --

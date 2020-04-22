@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200310141745")
+mod:SetRevision("20200404004515")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -120,23 +120,23 @@ function mod:UNIT_HEALTH(uId)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.YellDruid or msg:find(L.YellDruid) and self:AntiSpam(5, "ClassCall")  then
+	if (msg == L.YellDruid or msg:find(L.YellDruid)) and self:AntiSpam(5, "ClassCall") then
 		self:SendSync("ClassCall", "DRUID")
-	elseif msg == L.YellHunter or msg:find(L.YellHunter) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellHunter or msg:find(L.YellHunter)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "HUNTER")
-	elseif msg == L.YellWarlock or msg:find(L.YellWarlock) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellWarlock or msg:find(L.YellWarlock)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "WARLOCK")
-	elseif msg == L.YellMage or msg:find(L.YellMage) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellMage or msg:find(L.YellMage)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "MAGE")
-	elseif msg == L.YellPaladin or msg:find(L.YellPaladin) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellPaladin or msg:find(L.YellPaladin)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "PALADIN")
-	elseif msg == L.YellPriest or msg:find(L.YellPriest) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellPriest or msg:find(L.YellPriest)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "PRIEST")
-	elseif msg == L.YellRogue or msg:find(L.YellRogue) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellRogue or msg:find(L.YellRogue)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "ROGUE")
-	elseif msg == L.YellShaman or msg:find(L.YellShaman) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellShaman or msg:find(L.YellShaman)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "SHAMAN")
-	elseif msg == L.YellWarrior or msg:find(L.YellWarrior) and self:AntiSpam(5, "ClassCall")  then
+	elseif (msg == L.YellWarrior or msg:find(L.YellWarrior)) and self:AntiSpam(5, "ClassCall")  then
 		self:SendSync("ClassCall", "WARRIOR")
 	elseif msg == L.YellP2 or msg:find(L.YellP2) then
 		self:SendSync("Phase", 2)
