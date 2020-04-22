@@ -12,7 +12,7 @@ local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldex
 		abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
 local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
 		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
-local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall =  strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
+local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall = strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
 local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
 local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
 ----------------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ local frameToMenu = {  };
 ]]
 --------------------------------------------------
 local function CreateMenu()
-	menu = CreateFrame("Button", nil, UIParent);
+	menu = CreateFrame("BUTTON", nil, UIParent);
 	menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	menu:SetClampedToScreen(true);
 	menu:Hide();
@@ -174,7 +174,7 @@ local function closeMenu_Handler(button, self)
 end
 
 local function CreateMenuButton(menu, x, y)
-	local button = CreateFrame("Button", nil, menu);
+	local button = CreateFrame("BUTTON", nil, menu);
 	--button:SetFrameStrata("FULLSCREEN_DIALOG");
 	button:SetHeight(dropMenuButtonHeight);
 	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");

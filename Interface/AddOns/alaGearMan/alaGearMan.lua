@@ -1,26 +1,47 @@
 ﻿--[[--
-	alex/ALA	Please Keep WOW Addon open-source & Reduce barriers for others.
+	by ALA @ 163UI
+	Please Keep WOW Addon open-source & Reduce barriers for others.
+	复用代码请在显著位置标注来源【ALA@网易有爱】
+	请勿加密、乱码、删除空格tab换行符、设置加载依赖
 --]]--
 ----------------------------------------------------------------------------------------------------
-local ADDON, ns = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
-local math, table, string, bit = math, table, string, bit;
-local type = type;
-local assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset =
-		assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset;
-local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom =
-		abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
-local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
-		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
-local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall =  strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
-local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
-local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
-----------------------------------------------------------------------------------------------------
+local ADDON, NS = ...;
 local _G = _G;
-local _ = nil;
-----------------------------------------------------------------------------------------------------
-local GameTooltip = GameTooltip;
-local ItemRefTooltip = ItemRefTooltip;
+
+do
+	local _G = _G;
+	if NS.__fenv == nil then
+		NS.__fenv = setmetatable({  },
+				{
+					__index = _G,
+					__newindex = function(t, key, value)
+						rawset(t, key, value);
+						print("agm assign global", key, value);
+						return value;
+					end,
+				}
+			);
+	end
+	setfenv(1, NS.__fenv);
+end
+
+----------------------------------------------------------------------------------------------------upvalue LUA
+	local math, table, string, bit = math, table, string, bit;
+	local type = type;
+	local assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset =
+			assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset;
+	local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom =
+			abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
+	local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
+			format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
+	local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall = strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
+	local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
+	-- local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
+	----------------------------------------------------------------------------------------------------
+	local _ = nil;
+	----------------------------------------------------------------------------------------------------
+	local GameTooltip = GameTooltip;
+	local ItemRefTooltip = ItemRefTooltip;
 ----------------------------------------------------------------------------------------------------
 local GUID = UnitGUID('player');
 local saved_sets = {  };
@@ -29,6 +50,7 @@ local LOCALE = GetLocale();
 if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
 	L["INVENTORY_IS_FULL"] = "背包已满！";
 	L["IN_COMBAT"] = "战斗状态中无法换装！";
+	L["BE_DEAD"] = "你已经死亡！";
 	L["Add a new outfit"] = "添加一个套装";
 	L["Delete this outfit?"] = "删除此套装？";
 	L["OK"] = "确定";
@@ -48,12 +70,13 @@ if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
 	L["show_outfit_in_tooltip"] = "在物品提示中\124cffff0000显示\124r保存的套装信息";
 	L["show_outfit_in_tooltip_false"] = "在物品提示中\124cffff0000不显示\124r保存的套装信息";
 	L["reset_pos"] = "重置快速切换栏的位置";
-	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ff按住ctrl拖动来移动位置\124r";
+	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ff按住ctrl拖动来移动位置，保存为账号通用位置\124r\n\124cffff40ff按住shift拖动来移动位置，保存为角色专用位置\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "战斗结束时更新";
 	L["IN_OUTFIT"] = "装备配置方案：";
 	L["TOOLTIP_MISSING"] = " 缺失";
 	L["IN_BAG"] = "在背包中"
 	L["CURRENT_OUTFIT"] = "当前装备中";
+	L["SHOULD_TAKE_OFF"] = "应脱下";
 
 	L.slot = {
 		[0] = "子弹",
@@ -78,20 +101,21 @@ if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
 		[19] = "战袍",
 	};
 
-	BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>一键换装";
-	BINDING_NAME_ALAGEARMAN_QUICK_1 = "套装1";
-	BINDING_NAME_ALAGEARMAN_QUICK_2 = "套装2";
-	BINDING_NAME_ALAGEARMAN_QUICK_3 = "套装3";
-	BINDING_NAME_ALAGEARMAN_QUICK_4 = "套装4";
-	BINDING_NAME_ALAGEARMAN_QUICK_5 = "套装5";
-	BINDING_NAME_ALAGEARMAN_QUICK_6 = "套装6";
-	BINDING_NAME_ALAGEARMAN_QUICK_7 = "套装7";
-	BINDING_NAME_ALAGEARMAN_QUICK_8 = "套装8";
-	BINDING_NAME_ALAGEARMAN_QUICK_9 = "套装9";
-	BINDING_NAME_ALAGEARMAN_QUICK_X = "一键脱光";
+	_G.BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>一键换装";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_1 = "套装1";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_2 = "套装2";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_3 = "套装3";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_4 = "套装4";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_5 = "套装5";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_6 = "套装6";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_7 = "套装7";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "套装8";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "套装9";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "一键脱光";
 elseif LOCALE == "ruRU" then
 	L["INVENTORY_IS_FULL"] = "Инвентарь полон";
 	L["IN_COMBAT"] = "Не может измениться в бою!";
+	L["BE_DEAD"] = "You are DIED!";
 	L["Add a new outfit"] = "Добавить костюм";
 	L["Delete this outfit?"] = "Удалить этот костюм?";
 	L["OK"] = "Хорошо";
@@ -111,12 +135,13 @@ elseif LOCALE == "ruRU" then
 	L["show_outfit_in_tooltip"] = "\124cffff0000Show\124r outfit info in tooltip";
 	L["show_outfit_in_tooltip_false"] = "\124cffff0000DONOT Show\124r outfit info in tooltip";
 	L["reset_pos"] = "Reset position of quick bar";
-	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffHolding ctrl and left-drag to move\124r";
+	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffPress ctrl and left-drag to move, saving pos for account\124r\n\124cffff40ffPress shift and left-drag to move, saving pos for char\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "Update after combat";
 	L["IN_OUTFIT"] = "Equipements Sets: ";
 	L["TOOLTIP_MISSING"] = " missing";
 	L["IN_BAG"] = "in bag"
 	L["CURRENT_OUTFIT"] = "Current Equiped";
+	L["SHOULD_TAKE_OFF"] = "Should take off";
 
 	L.slot = {
 		[0] = "Ammo",
@@ -141,20 +166,21 @@ elseif LOCALE == "ruRU" then
 		[19] = "Tabard",
 	};
 
-	BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>";
-	BINDING_NAME_ALAGEARMAN_QUICK_1 = "The 1st outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_2 = "The 2nd outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_3 = "The 3rd outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_4 = "The 4th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_5 = "The 4th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_6 = "The 6th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_7 = "The 7th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_8 = "The 8th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_X = "Снять все снаряжение";
+	_G.BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_1 = "The 1st outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_2 = "The 2nd outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_3 = "The 3rd outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_4 = "The 4th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_5 = "The 4th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_6 = "The 6th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_7 = "The 7th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "The 8th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "Снять все снаряжение";
 else
 	L["INVENTORY_IS_FULL"] = "Inventory is full";
 	L["IN_COMBAT"] = "In Combat";
+	L["BE_DEAD"] = "You are DIED!";
 	L["Add a new outfit"] = true;
 	L["Delete this outfit?"] = true;
 	L["OK"] = true;
@@ -174,12 +200,13 @@ else
 	L["show_outfit_in_tooltip"] = "\124cffff0000Show\124r outfit info in tooltip";
 	L["show_outfit_in_tooltip_false"] = "\124cffff0000DONOT Show\124r outfit info in tooltip";
 	L["reset_pos"] = "Reset position of quick bar";
-	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffHolding ctrl and left-drag to move\124r";
+	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffPress ctrl and left-drag to move, saving pos for account\124r\n\124cffff40ffPress shift and left-drag to move, saving pos for char\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "Update after combat";
 	L["IN_OUTFIT"] = "Equipements Sets: ";
 	L["TOOLTIP_MISSING"] = " missing";
 	L["IN_BAG"] = "in bag"
 	L["CURRENT_OUTFIT"] = "Current Equiped";
+	L["SHOULD_TAKE_OFF"] = "Should take off";
 
 	L.slot = {
 		[0] = "Ammo",
@@ -204,20 +231,27 @@ else
 		[19] = "Tabard",
 	};
 
-	BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>";
-	BINDING_NAME_ALAGEARMAN_QUICK_1 = "The 1st outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_2 = "The 2nd outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_3 = "The 3rd outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_4 = "The 4th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_5 = "The 4th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_6 = "The 6th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_7 = "The 7th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_8 = "The 8th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
-	BINDING_NAME_ALAGEARMAN_QUICK_X = "Stripping";
+	_G.BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_1 = "The 1st outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_2 = "The 2nd outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_3 = "The 3rd outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_4 = "The 4th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_5 = "The 4th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_6 = "The 6th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_7 = "The 7th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "The 8th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "Stripping";
 end
-local default = {
-	QUICK_SIZE = 18,
+local default_sv = {
+	sets = {  },
+	quickSize = 18,
+	quickStyle = 'C',	--'T' 'C' 'TC'
+	quickPos = { "TOP", 0, - 100, },
+	quickPosChar = {  },
+	takeoffAll_pos = 'RIGHT',
+	takeoffAll_include_neck_finger_and_trinket = false,
+	show_outfit_in_tooltip = true,
 };
 local _PaperDollItemSlotButton_OnEnter = PaperDollItemSlotButton_OnEnter;
 local _PaperDollItemSlotButton_OnLeave = PaperDollItemSlotButton_OnLeave;
@@ -282,15 +316,14 @@ local takeoffAll_order = {	-- by price
 local NAME = "alaGearMan";
 local SECURE_QUICK_NAME_PREFIX = "alaGearMan_SecureQuick";
 local MACRO_NAME_PREFIX = "alaGearMan";
-local VERSION = 191020.0;
 local NUM_GEAR_BINDING = 9;
 --------------------------------------------------
 ----------------------------------------------------------------------------------------------------main
 local function _log_(...)
-	--print(...);
+	-- print(date('\124cff00ff00%H:%M:%S\124r'), ...);
 end
-local function _error_(key, msg, ...)
-	print("\124cffff0000" .. key .. "\124r", msg and "\124cffff0000" .. msg .. "\124r" or "", ...);
+local function _error_(...)
+	print(date('\124cffff0000%H:%M:%S\124r'), ...);
 end
 local function _noop_()
 end
@@ -325,13 +358,13 @@ local buttonBackdrop = {
 local buttonBackdropColor = { 0.25, 0.25, 0.25, 0.75 };
 local buttonBackdropBorderColor = { 0.0, 0.0, 0.0, 1.0 };
 
-local win_SizeX = 200;
+local win_SizeX = 240;
 local win_SizeY = 360;
 local btn_SizeY = 36;
 ----------------------------------------------------------------------------------------------------main
-local _EventVehicle = CreateFrame("Frame");
-_EventVehicle:SetSize(4, 4);
-_EventVehicle:EnableMouse(false);
+local _EventHandler = CreateFrame("FRAME");
+_EventHandler:SetSize(4, 4);
+_EventHandler:EnableMouse(false);
 
 --EquipItemByName(id/name/link, slot)
 --RepairAllItems
@@ -375,7 +408,7 @@ local iconTable = {
 };
 
 function func.pdf_CreateButton(index)
-	local button = CreateFrame("Button", nil, ui.pdf_menu);
+	local button = CreateFrame("BUTTON", nil, ui.pdf_menu);
 	button:EnableMouse(true);
 	button:SetSize(buttonSize, buttonSize);
 	button:SetNormalTexture(texture_unk);
@@ -410,14 +443,14 @@ function func.pdf_CreateButton(index)
 	end);
 	button:SetScript("OnClick", function(self, button)
 		local id = self.id;
-		if pdf_ofs_ignore and id == #var.pdf_list + pdf_ofs_ignore then
+		if var.pdf_ofs_ignore and id == #var.pdf_list + var.pdf_ofs_ignore then
 			var.gm_ignore[var.pdf_cur_slot] = not var.gm_ignore[var.pdf_cur_slot];
 			if var.gm_ignore[var.pdf_cur_slot] then
 				ui.pdf_ignore_mask[var.pdf_cur_slot]:Show();
 			else
 				ui.pdf_ignore_mask[var.pdf_cur_slot]:Hide();
 			end
-		elseif pdf_ofs_takeoff and id == #var.pdf_list + pdf_ofs_takeoff then
+		elseif var.pdf_ofs_takeoff and id == #var.pdf_list + var.pdf_ofs_takeoff then
 			if not InCombatLockdown() or var.pdf_cur_slot == 16 or var.pdf_cur_slot == 17 or var.pdf_cur_slot == 18 then
 				func.takeoff(var.pdf_cur_slot);
 			end
@@ -453,26 +486,26 @@ function func.pdf_CreateMenu(direction)
 		ui.pdf_buttons[i]:Show();
 	end
 	if hasInv then
-		pdf_ofs_takeoff = 1;
-		local i = #var.pdf_list + pdf_ofs_takeoff;
+		var.pdf_ofs_takeoff = 1;
+		local i = #var.pdf_list + var.pdf_ofs_takeoff;
 		ui.pdf_buttons[i]:SetNormalTexture(texture_takeoff);
 		ui.pdf_buttons[i]:SetPushedTexture(texture_takeoff);
 		-- ui.pdf_buttons[i].glow:SetVertexColor(1.0, 0.0, 0.0);
 		ui.pdf_buttons[i].glow:Hide();
 		ui.pdf_buttons[i]:Show();
 	else
-		pdf_ofs_takeoff = nil;
+		var.pdf_ofs_takeoff = nil;
 	end
 	if var.gm_is_editing or var.gm_cur_set then
-		pdf_ofs_ignore = (hasInv and 1 or 0) + 1;
-		local i = #var.pdf_list + pdf_ofs_ignore;
+		var.pdf_ofs_ignore = (hasInv and 1 or 0) + 1;
+		local i = #var.pdf_list + var.pdf_ofs_ignore;
 		ui.pdf_buttons[i]:SetNormalTexture(texture_ignore);
 		ui.pdf_buttons[i]:SetPushedTexture(texture_ignore);
 		-- ui.pdf_buttons[i].glow:SetVertexColor(1.0, 0.0, 0.0);
 		ui.pdf_buttons[i].glow:Hide();
 		ui.pdf_buttons[i]:Show();
 	else
-		pdf_ofs_ignore = nil;
+		var.pdf_ofs_ignore = nil;
 	end
 	local pos = 2;
 	local lines = 1;
@@ -515,7 +548,7 @@ function func.pdf_CreateMenu(direction)
 	ui.pdf_menu.countingTime = nil;
 end
 
-function func.pdf_EventVehicle_OnUpdate(self, elasped)
+function func.pdf_EventHandler_OnUpdate(self, elasped)
 	if var.pdf_cur_anchor and ((not var.pdf_cur_slot) or (var.pdf_cur_slot and var.pdf_update_timer > PDF_UPDATE_TIME)) then
 		if IsAltKeyDown() then
 			local slot = name2Slot[var.pdf_cur_anchor:GetName()];
@@ -568,7 +601,7 @@ function func.pdf_init()
 		ignore_mask:Hide();
 		ui.pdf_ignore_mask[i] = ignore_mask;
 	end
-	ui.pdf_menu = CreateFrame("Frame", nil, PaperDollFrame);
+	ui.pdf_menu = CreateFrame("FRAME", nil, PaperDollFrame);
 	ui.pdf_menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	ui.pdf_menu:SetScript("OnUpdate", function(self, elasped)
 		if ui.pdf_menu.countingTime then
@@ -591,7 +624,7 @@ function func.pdf_init()
 	ui.pdf_buttons[1]:SetPoint("TOPLEFT");
 
 	_G.PaperDollItemSlotButton_OnEnter = function(self)
-		_EventVehicle:SetScript("OnUpdate", func.pdf_EventVehicle_OnUpdate);
+		_EventHandler:SetScript("OnUpdate", func.pdf_EventHandler_OnUpdate);
 		if ui.pdf_menu:IsShown() then
 			if var.pdf_cur_anchor == self then
 				ui.pdf_menu.countingTime = nil;
@@ -607,7 +640,7 @@ function func.pdf_init()
 	end
 	_G.PaperDollItemSlotButton_OnLeave = function(self)
 		var.pdf_cur_anchor = nil;
-		_EventVehicle:SetScript("OnUpdate", nil);
+		_EventHandler:SetScript("OnUpdate", nil);
 		ui.pdf_menu.countingTime = PDF_COUNTING_TIME;
 		return _PaperDollItemSlotButton_OnLeave(self);
 	end
@@ -631,9 +664,6 @@ function func.pdf_show_mask(set)
 end
 
 function func.OnEnter_Info_Outfit(self, index)
-	if alaGearManSV.takeoffAll_pos == 'LEFT' then
-		index = index - 1;
-	end
 	local T, isCur = func.check(index);
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
 	if T then
@@ -643,7 +673,7 @@ function func.OnEnter_Info_Outfit(self, index)
 		else
 			local set = saved_sets[index];
 			local missed = false;
-			for slot = 0, 19 do
+			for slot = 1, 19 do
 				local link = T[slot];
 				if type(link) == 'string' then
 					missed = true;
@@ -653,10 +683,16 @@ function func.OnEnter_Info_Outfit(self, index)
 			if not missed then
 				-- 
 			end
-			for slot = 0, 19 do
+			for slot = 1, 19 do
 				if T[slot] == 0 then
 					local link = set[slot];
 					GameTooltip:AddDoubleLine(L.slot[slot] .. L["IN_BAG"], link, 1.0, 1.0, 0.0);
+				end
+			end
+			for slot = 1, 19 do
+				if T[slot] == 1 then
+					local link = set[slot];
+					GameTooltip:AddDoubleLine(L.slot[slot] .. L["SHOULD_TAKE_OFF"], link, 1.0, 1.0, 0.0);
 				end
 			end
 		end
@@ -701,7 +737,7 @@ StaticPopupDialogs["alaGearMan_DelSet"] = {
 	OnShow = function(self) end,
 	OnAccept = function(self)
 		func.delete_onclick();
-		self.which = nil;
+		-- self.which = nil;
 	end,
 	OnHide = function(self)
 		self.which = nil;
@@ -714,7 +750,7 @@ StaticPopupDialogs["alaGearMan_DelSet"] = {
 
 function func.gm_CreateButton(parent, index, buttonHeight)
 	-- print("CREATE", index)
-	local button = CreateFrame("Button", nil, parent);
+	local button = CreateFrame("BUTTON", nil, parent);
 	button:SetHeight(buttonHeight);
 	button:SetBackdrop(buttonBackdrop);
 	button:SetBackdropColor(buttonBackdropColor[1], buttonBackdropColor[2], buttonBackdropColor[3], buttonBackdropColor[4]);
@@ -742,7 +778,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	glow:Hide();
 	button.glow = glow;
 
-	local delete = CreateFrame("Button", nil, button);
+	local delete = CreateFrame("BUTTON", nil, button);
 	delete:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	delete:SetNormalTexture(texture_delete);
 	delete:SetPushedTexture(texture_delete);
@@ -762,7 +798,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	-- delete.info = {  };
 	button.delete = delete;
 
-	local modify = CreateFrame("Button", nil, button);
+	local modify = CreateFrame("BUTTON", nil, button);
 	modify:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	modify:SetNormalTexture(texture_modify);
 	modify:SetPushedTexture(texture_modify);
@@ -777,7 +813,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	-- modify.info = {  };
 	button.modify = modify;
 
-	local up = CreateFrame("Button", nil, button);
+	local up = CreateFrame("BUTTON", nil, button);
 	up:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	up:SetNormalTexture(texture_up);
 	up:GetNormalTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
@@ -797,7 +833,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	-- up.info = {  };
 	button.up = up;
 
-	local down = CreateFrame("Button", nil, button);
+	local down = CreateFrame("BUTTON", nil, button);
 	down:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	down:SetNormalTexture(texture_down);
 	down:GetNormalTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
@@ -816,6 +852,36 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	-- down.info = {  };
 	button.down = down;
+
+	local helmet = CreateFrame("CHECKBUTTON", nil, button, "OptionsBaseCheckButtonTemplate");
+	helmet:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
+	helmet:SetHitRectInsets(0, 0, 0, 0);
+	helmet:SetPoint("TOPRIGHT", -8 - buttonHeight * 0.8, -2);
+	helmet:Show();
+	local helmetStr = helmet:CreateFontString(nil, "ARTWORK");
+	helmetStr:SetFont(GameFontHighlightSmall:GetFont(), 13, "OUTLINE");
+	helmetStr:SetText(L.slot[1]);
+	helmet.fontString = helmetStr;
+	helmetStr:SetPoint("RIGHT", helmet, "LEFT", 0, 0);
+	helmet:SetScript("OnClick", function(self)
+		func.helmet(button:GetDataIndex(), self:GetChecked());
+	end);
+	button.helmet = helmet;
+
+	local cloak = CreateFrame("CHECKBUTTON", nil, button, "OptionsBaseCheckButtonTemplate");
+	cloak:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
+	cloak:SetHitRectInsets(0, 0, 0, 0);
+	cloak:SetPoint("BOTTOMRIGHT", -8 - buttonHeight * 0.8, 2);
+	cloak:Show();
+	local cloakStr = cloak:CreateFontString(nil, "ARTWORK");
+	cloakStr:SetFont(GameFontHighlightSmall:GetFont(), 13, "OUTLINE");
+	cloakStr:SetText(L.slot[15]);
+	cloak.fontString = cloakStr;
+	cloakStr:SetPoint("RIGHT", cloak, "LEFT", 0, 0);
+	cloak:SetScript("OnClick", function(self)
+		func.cloak(button:GetDataIndex(), self:GetChecked());
+	end);
+	button.cloak = cloak;
 
 	function button:SetIconTexture(tex)
 		icon:SetTexture(tex);
@@ -905,6 +971,8 @@ function func.gm_SetButton(button, index)
 		button.modify:Show();
 		button.up:Show();
 		button.down:Show();
+		button.helmet:Show();
+		button.cloak:Show();
 		if index == 1 then
 			button.up:Disable();
 		else
@@ -914,6 +982,20 @@ function func.gm_SetButton(button, index)
 			button.down:Disable();
 		else
 			button.down:Enable();
+		end
+		local cur = saved_sets[index];
+		if cur.helmet then
+			button.helmet:SetChecked(true);
+		else
+			button.helmet:SetChecked(false);
+		end
+		if cur.cloak then
+			button.cloak:SetChecked(true);
+		else
+			button.cloak:SetChecked(false);
+		end
+		if GetMouseFocus() == button then
+			button:GetScript("OnEnter")(button);
 		end
 	elseif index == #sets + 1 then
 		button:SetIconTexture(texture_add);
@@ -928,13 +1010,15 @@ function func.gm_SetButton(button, index)
 		button.modify:Hide();
 		button.up:Hide();
 		button.down:Hide();
+		button.helmet:Hide();
+		button.cloak:Hide();
 	else
 		button:Hide();
 	end
 end
 
 function func.initUI()
-	ui.open = CreateFrame("Button", nil, PaperDollFrame);
+	ui.open = CreateFrame("BUTTON", nil, PaperDollFrame);
 	ui.open:SetSize(32, 32);
 	ui.open:SetPoint("TOPRIGHT", -40, -40);
 	ui.open:SetNormalTexture("interface\\paperdollinfoframe\\ui-gearmanager-button");
@@ -943,7 +1027,7 @@ function func.initUI()
 	ui.open:SetScript("OnClick", func.open_onclick);
 
 	do	--win
-		ui.gearWin = CreateFrame("Frame", nil, PaperDollFrame);
+		ui.gearWin = CreateFrame("FRAME", nil, PaperDollFrame);
 		ui.gearWin:SetFrameStrata("FULLSCREEN");
 		ui.gearWin:SetBackdrop({
 			bgFile = "Interface/Tooltips/UI-Tooltip-Background",
@@ -977,19 +1061,19 @@ function func.initUI()
 		ui.scroll = ALASCR(ui.gearWin, win_SizeX - 20, win_SizeY - 64, btn_SizeY, func.gm_CreateButton, func.gm_SetButton);
 		ui.scroll:SetPoint("BOTTOMLEFT", 10, 10);
 
-		ui.save = CreateFrame("Button", nil, ui.gearWin, "UIPanelButtonTemplate");
+		ui.save = CreateFrame("BUTTON", nil, ui.gearWin, "UIPanelButtonTemplate");
 		ui.save:SetPoint("TOPLEFT", win_SizeX / 9, -16);
 		ui.save:SetText(L["Save"]);
 		ui.save:SetSize(win_SizeX / 3, 24);
 		ui.save:SetScript("OnClick", function(self) func.save(); end);
 
-		ui.equip = CreateFrame("Button", nil, ui.gearWin, "UIPanelButtonTemplate");
+		ui.equip = CreateFrame("BUTTON", nil, ui.gearWin, "UIPanelButtonTemplate");
 		ui.equip:SetPoint("TOPLEFT", win_SizeX * 5 / 9, -16);
 		ui.equip:SetText(L["Equip"]);
 		ui.equip:SetSize(win_SizeX / 3, 24);
 		ui.equip:SetScript("OnClick", function(self) func.equip(); end);
 
-		ui.setting = CreateFrame("Button", nil, ui.gearWin);
+		ui.setting = CreateFrame("BUTTON", nil, ui.gearWin);
 		ui.setting:SetSize(24, 24);
 		ui.setting:SetNormalTexture(texture_modify);
 		ui.setting:SetPoint("TOPRIGHT");
@@ -997,21 +1081,13 @@ function func.initUI()
 	end
 
 	if false then	--quick panel
-		ui.quick = CreateFrame("frame");
-		ui.quick:SetPoint(unpack(alaGearManSV.quickPos));
+		ui.quick = CreateFrame("FRAME");
+		ui.quick:SetPoint(unpack(alaGearManSV.quickPosChar[GUID] or alaGearManSV.quickPos));
 		ui.quick:EnableMouse(true);
 		ui.quick:SetMovable(true);
 		ui.quick:RegisterForDrag("LeftButton");
-		ui.quick:SetScript("OnDragStart", function(self)
-			if IsControlKeyDown() then
-				self:StartMoving();
-			end
-		end);
-		ui.quick:SetScript("OnDragStop", function(self)
-			self:StopMovingOrSizing();
-			self:SavePos();
-		end);
 		ui.quick:Show();
+		ui.quick:SetClampedToScreen(true);
 		ui.quick:RegisterEvent("PLAYER_REGEN_ENABLED");
 		ui.quick:SetScript("OnEvent", function(self, event)
 			if self.UpdateOnNextSecureEnv then
@@ -1023,12 +1099,19 @@ function func.initUI()
 				self:UpdateKeyBinding();
 			end
 		end);
+		local pos_on_char = false;
 		function ui.quick:SavePos()
-			alaGearManSV.quickPos = { self:GetPoint() };
-			for k, v in pairs(alaGearManSV.quickPos) do
+			local pos = { self:GetPoint() };
+			for k, v in pairs(pos) do
 				if type(v) == 'table' then
-					alaGearManSV.quickPos[k] = v:GetName();
+					pos[k] = v:GetName();
 				end
+			end
+			if pos_on_char then
+				alaGearManSV.quickPos = { self:GetPoint() };
+				alaGearManSV.quickPosChar[GUID] = nil;
+			else
+				alaGearManSV.quickPosChar[GUID] = { self:GetPoint() };
 			end
 		end
 		local quickButtons = { n = 0, };
@@ -1038,7 +1121,7 @@ function func.initUI()
 				quickButtons[index].id = index;
 				return quickButtons[index];
 			end
-			local button = CreateFrame("Button", "alaGearMan_Quick" .. index, ui.quick);
+			local button = CreateFrame("BUTTON", "alaGearMan_Quick" .. index, ui.quick);
 			button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
 			button:Show();
 			button:EnableMouse(true);
@@ -1057,7 +1140,11 @@ function func.initUI()
 			button:SetScript("OnLeave", func.OnLeave_Info);
 			button:SetScript("OnDragStart", function(self)
 				if IsControlKeyDown() then
-					ui.quick:StartMoving();
+					pos_on_char = false;
+					ui.secure:StartMoving();
+				elseif IsShiftKeyDown() then
+					pos_on_char = true;
+					ui.secure:StartMoving();
 				end
 			end);
 			button:SetScript("OnDragStop", function(self)
@@ -1079,7 +1166,7 @@ function func.initUI()
 				end
 			end);
 			button:SetScript("OnSizeChanged", function(self)
-				self.title:SetScale(self:GetWidth() / default.QUICK_SIZE);
+				self.title:SetScale(self:GetWidth() / alaGearManSV.quickSize);
 			end);
 			local title = button:CreateFontString(nil, "OVERLAY");
 			title:SetPoint("CENTER");
@@ -1147,7 +1234,7 @@ function func.initUI()
 			end
 			local N = #saved_sets + 1
 			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
-			ClearOverrideBindings(_EventVehicle);
+			ClearOverrideBindings(_EventHandler);
 			for i = 1, N do
 				local button = secureButtons[i];
 				local setIndex = i;
@@ -1157,19 +1244,19 @@ function func.initUI()
 				if i == TOA then
 					local key1, key2 = GetBindingKey("ALAGEARMAN_QUICK_X");
 					if key1 then
-						SetOverrideBindingClick(_EventVehicle, false, key1, button:GetName());
+						SetOverrideBindingClick(_EventHandler, false, key1, button:GetName());
 					end
 					if key2 then
-						SetOverrideBindingClick(_EventVehicle, false, key2, button:GetName());
+						SetOverrideBindingClick(_EventHandler, false, key2, button:GetName());
 					end
 				else
 					if setIndex <= NUM_GEAR_BINDING then
 						local key1, key2 = GetBindingKey("ALAGEARMAN_QUICK_" .. setIndex);
 						if key1 then
-							SetOverrideBindingClick(_EventVehicle, false, key1, button:GetName());
+							SetOverrideBindingClick(_EventHandler, false, key1, button:GetName());
 						end
 						if key2 then
-							SetOverrideBindingClick(_EventVehicle, false, key2, button:GetName());
+							SetOverrideBindingClick(_EventHandler, false, key2, button:GetName());
 						end
 					end
 				end
@@ -1202,7 +1289,7 @@ function func.initUI()
 				end
 				if i == TOA then
 					-- button.info[1] = info[1];
-					button:SetTitleAndIcon(L["Take_Off_All_ButtonText"], iconTable[37]);
+					button:SetTitleAndIcon(L["Take_Off_All_ButtonText"], iconTable[106]);
 				else
 					-- button.info[1] = saved_sets[setIndex].name;
 					button:SetTitleAndIcon(setIndex, iconTable[saved_sets[setIndex].icon or 1]);
@@ -1217,8 +1304,8 @@ function func.initUI()
 	end
 
 	do	--secure quick panel & macro
-		ui.secure = CreateFrame("frame", nil, UIParent);
-		ui.secure:SetPoint(unpack(alaGearManSV.quickPos));
+		ui.secure = CreateFrame("FRAME", nil, UIParent);
+		ui.secure:SetPoint(unpack(alaGearManSV.quickPosChar[GUID] or alaGearManSV.quickPos));
 		ui.secure:EnableMouse(true);
 		ui.secure:SetMovable(true);
 		ui.secure:RegisterForDrag("LeftButton");
@@ -1235,12 +1322,19 @@ function func.initUI()
 				self:UpdateKeyBinding();
 			end
 		end);
+		local pos_on_char = false;
 		function ui.secure:SavePos()
-			alaGearManSV.quickPos = { self:GetPoint() };
-			for k, v in pairs(alaGearManSV.quickPos) do
+			local pos = { self:GetPoint() };
+			for k, v in pairs(pos) do
 				if type(v) == 'table' then
-					alaGearManSV.quickPos[k] = v:GetName();
+					pos[k] = v:GetName();
 				end
+			end
+			if pos_on_char then
+				alaGearManSV.quickPosChar[GUID] = { self:GetPoint() };
+			else
+				alaGearManSV.quickPos = { self:GetPoint() };
+				alaGearManSV.quickPosChar[GUID] = nil;
 			end
 		end
 		local secureButtons = { n = 0, };
@@ -1250,7 +1344,7 @@ function func.initUI()
 				secureButtons[index].id = index;
 				return secureButtons[index];
 			end
-			local button = CreateFrame("CheckButton", SECURE_QUICK_NAME_PREFIX .. index, ui.secure, "SecureActionButtonTemplate");
+			local button = CreateFrame("CHECKBUTTON", SECURE_QUICK_NAME_PREFIX .. index, ui.secure, "SecureActionButtonTemplate");
 			button:SetAttribute('type', 'macro');
 			-- button:SetAttribute('macrotext', '');
 			-- SecureHandler_OnLoad(button);
@@ -1265,7 +1359,11 @@ function func.initUI()
 			button:RegisterForDrag("LeftButton");
 			button:SetScript("OnEnter", function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
-				if index > 0 and index <= #saved_sets then
+				local index = self.id;
+				if alaGearManSV.takeoffAll_pos == 'LEFT' then
+					index = index - 1;
+				end
+				if index > 0 and index <= #saved_sets + 1 then
 					func.OnEnter_Info_Outfit(self, index);
 				else
 					GameTooltip:AddLine(L["Take_Off_All"], 1.0, 1.0, 1.0);
@@ -1276,6 +1374,10 @@ function func.initUI()
 			button:SetScript("OnLeave", func.OnLeave_Info);
 			button:SetScript("OnDragStart", function(self)
 				if IsControlKeyDown() then
+					pos_on_char = false;
+					ui.secure:StartMoving();
+				elseif IsShiftKeyDown() then
+					pos_on_char = true;
 					ui.secure:StartMoving();
 				end
 			end);
@@ -1290,11 +1392,11 @@ function func.initUI()
 				end
 			end);
 			button:SetScript("OnSizeChanged", function(self)
-				self.title:SetScale(self:GetWidth() / default.QUICK_SIZE);
+				self.title:SetScale(self:GetWidth() / alaGearManSV.quickSize);
 			end);
 			local title = button:CreateFontString(nil, "OVERLAY");
 			title:SetPoint("CENTER");
-			title:SetFont(GameFontNormal:GetFont(), default.QUICK_SIZE * 0.75, "OUTLINE");
+			title:SetFont(GameFontNormal:GetFont(), alaGearManSV.quickSize * 0.75, "OUTLINE");
 			title:SetVertexColor(1.0, 0.75, 0.0, 1.0);
 			button:SetFontString(title);
 			button:SetPushedTextOffset(1, - 1);
@@ -1360,7 +1462,7 @@ function func.initUI()
 			end
 			local N = #saved_sets + 1
 			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
-			ClearOverrideBindings(_EventVehicle);
+			ClearOverrideBindings(_EventHandler);
 			for i = 1, N do
 				local button = secureButtons[i];
 				local setIndex = i;
@@ -1370,19 +1472,19 @@ function func.initUI()
 				if i == TOA then
 					local key1, key2 = GetBindingKey("ALAGEARMAN_QUICK_X");
 					if key1 then
-						SetOverrideBindingClick(_EventVehicle, false, key1, button:GetName());
+						SetOverrideBindingClick(_EventHandler, false, key1, button:GetName());
 					end
 					if key2 then
-						SetOverrideBindingClick(_EventVehicle, false, key2, button:GetName());
+						SetOverrideBindingClick(_EventHandler, false, key2, button:GetName());
 					end
 				else
 					if setIndex <= NUM_GEAR_BINDING then
 						local key1, key2 = GetBindingKey("ALAGEARMAN_QUICK_" .. setIndex);
 						if key1 then
-							SetOverrideBindingClick(_EventVehicle, false, key1, button:GetName());
+							SetOverrideBindingClick(_EventHandler, false, key1, button:GetName());
 						end
 						if key2 then
-							SetOverrideBindingClick(_EventVehicle, false, key2, button:GetName());
+							SetOverrideBindingClick(_EventHandler, false, key2, button:GetName());
 						end
 					end
 				end
@@ -1411,12 +1513,18 @@ function func.initUI()
 			end
 			secureButtons.n = N;
 			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
+			local ofs = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or 0;
+			if GetMacroInfo(MACRO_NAME_PREFIX .. 0) then
+				EditMacro(MACRO_NAME_PREFIX .. 0, MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
+			else
+				CreateMacro(MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
+			end
 			for i = 1, #saved_sets do
 				local macro_name = MACRO_NAME_PREFIX .. i;
 				if GetMacroInfo(macro_name) then
-					EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. i);
+					EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
 				else
-					CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. i);
+					CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
 				end
 			end
 			for i = 1, N do
@@ -1429,7 +1537,7 @@ function func.initUI()
 				if i == TOA then
 					button:SetAttribute('macrotext', "/run AGM_FUNC.takeoffAll()");
 					-- button.info[1] = info[1];
-					button:SetTitleAndIcon(L["Take_Off_All_ButtonText"], iconTable[37]);
+					button:SetTitleAndIcon(L["Take_Off_All_ButtonText"], iconTable[106]);
 				else
 					local macroText = "/run AGM_FUNC.equip(" .. setIndex .. ");\n";
 					local set = saved_sets[setIndex];
@@ -1459,7 +1567,7 @@ function func.initUI()
 	end
 
 	do	--customize
-		ui.custom = CreateFrame("Frame", nil, ui.gearWin);
+		ui.custom = CreateFrame("FRAME", nil, ui.gearWin);
 		ui.custom:SetFrameStrata("FULLSCREEN");
 		ui.custom:SetBackdrop({
 			bgFile = "Interface/Tooltips/UI-Tooltip-Background",
@@ -1515,7 +1623,7 @@ function func.initUI()
 			end
 		end
 
-		ui.customEdit = CreateFrame("EditBox", nil, ui.custom);
+		ui.customEdit = CreateFrame("EDITBOX", nil, ui.custom);
 		ui.customEdit:SetSize(220, 24);
 		ui.customEdit:SetFontObject(GameFontHighlightSmall);
 		ui.customEdit:SetAutoFocus(false);
@@ -1551,13 +1659,13 @@ function func.initUI()
 		ui.customEditTexture:SetBlendMode("ADD");
 		ui.customEditTexture:SetVertexColor(0.25, 0.25, 0.25);
 
-		ui.customOK = CreateFrame("Button", nil, ui.custom, "UIPanelButtonTemplate");
+		ui.customOK = CreateFrame("BUTTON", nil, ui.custom, "UIPanelButtonTemplate");
 		ui.customOK:SetPoint("TOPRIGHT", -12, -12);
 		ui.customOK:SetText(L["OK"]);
 		ui.customOK:SetSize(70, 24);
 		ui.customOK:SetScript("OnClick", func.customOK);
 
-		ui.customCancel = CreateFrame("Button", nil, ui.custom, "UIPanelButtonTemplate");
+		ui.customCancel = CreateFrame("BUTTON", nil, ui.custom, "UIPanelButtonTemplate");
 		ui.customCancel:SetPoint("BOTTOMRIGHT", -12, 12);
 		ui.customCancel:SetText(L["Cancel"]);
 		ui.customCancel:SetSize(70, 24);
@@ -1567,7 +1675,7 @@ function func.initUI()
 		local row = 0;
 		local col = 0;
 		for i = 1, #iconTable do
-			local button = CreateFrame("Button", nil, ui.custom);
+			local button = CreateFrame("BUTTON", nil, ui.custom);
 			button:SetSize(32, 32);
 			button:SetNormalTexture(iconTable[i]);
 			button:SetHighlightTexture(texture_highlight);
@@ -1685,6 +1793,7 @@ function func.setting(self, button)
 	tinsert(elements, {
 		handler = function()
 			alaGearManSV.quickPos = { "TOP", 0, 0, };
+			alaGearManSV.quickPosChar[GUID] = nil;
 			ui.secure:ClearAllPoints();
 			ui.secure:SetPoint(unpack(alaGearManSV.quickPos));
 		end,
@@ -1716,7 +1825,7 @@ function func.save(set)
 	if set then
 		saved_sets[set] = saved_sets[set] or {  };
 		local set = saved_sets[set];
-		for slot = 0, 19 do
+		for slot = 1, 19 do
 			if var.gm_ignore[slot] then
 				set[slot] = -1;
 			else
@@ -1762,6 +1871,10 @@ function func.takeoff(slot, not_take_off_dur0)
 	end
 end
 function func.takeoffAll()
+	if UnitIsDeadOrGhost('player') and not UnitIsFeignDeath('player') then
+		_error_(L["BE_DEAD"]);
+		return;
+	end
 	if InCombatLockdown() then
 		_error_(L["IN_COMBAT"]);
 		for i = 16, 18 do
@@ -1973,6 +2086,10 @@ function func.equipItem(item, slot)
 	end
 end
 function func.equip(set)
+	if UnitIsDeadOrGhost('player') and not UnitIsFeignDeath('player') then
+		_error_(L["BE_DEAD"]);
+		return;
+	end
 	if InCombatLockdown() then
 		_error_(L["IN_COMBAT"]);
 		return;
@@ -1981,7 +2098,7 @@ function func.equip(set)
 	if set and saved_sets[set] then
 		local set = saved_sets[set];
 		local disordered = false;
-		for slot = 0, 19 do
+		for slot = 1, 19 do
 			if set[slot] ~= -1 then
 				if set[slot] == nil then
 					func.takeoff(slot);
@@ -2011,6 +2128,8 @@ function func.equip(set)
 				end
 			end
 		end
+		ShowHelm(set.helmet);
+		ShowCloak(set.cloak);
 		func.Sound_Equip();
 	end
 end
@@ -2046,7 +2165,7 @@ function func.up(index)
 		saved_sets[index - 1] = cur;
 		ui.scroll:Update();
 		ui.secure:Update();
-		func.Sound_Order()
+		func.Sound_Order();
 	end
 end
 function func.down(index)
@@ -2056,24 +2175,57 @@ function func.down(index)
 		saved_sets[index + 1] = cur;
 		ui.scroll:Update();
 		ui.secure:Update();
-		func.Sound_Order()
+		func.Sound_Order();
 	end
+end
+function func.helmet(index, show)
+	local cur = saved_sets[index];
+	if cur then
+		cur.helmet = show;
+		func.Sound_Order();
+		-- if select(2, func.check(index)) then
+		-- 	ShowHelm(show);
+		-- end
+	end
+end
+function func.cloak(index, show)
+	local cur = saved_sets[index];
+	if cur then
+		cur.cloak = show;
+		func.Sound_Order();
+ 	end
 end
 function func.check(index)
 	if index > 0 and index <= #saved_sets then
 		local set = saved_sets[index];
 		local T = CreateFromMixins(set);
-		local all_empty_or_fit = true;
-		for slot = 0, 19 do
+		for slot = 1, 19 do
+			if T[slot] == nil then
+				T[slot] = 1;
+			end
+		end
+		for slot = 1, 19 do
 			local id = GetInventoryItemID('player', slot);
-			if id and T[slot] and type(T[slot]) == 'string' and id == tonumber(select(3, strfind(T[slot], "item:(%d+)"))) then
+			if id then
+				if (slot == 16) and T[16] and type(T[16]) == 'string' and id == tonumber(select(3, strfind(T[16], "item:(%d+)"))) and select(9, GetItemInfo(id)) == "INVTYPE_2HWEAPON" then
+					T[16] = nil;
+					T[17] = nil;
+				elseif T[slot] and type(T[slot]) == 'string' and id == tonumber(select(3, strfind(T[slot], "item:(%d+)"))) then
+					T[slot] = nil;
+				elseif (slot == 11 or slot == 13 or slot == 16) and T[slot + 1] and type(T[slot + 1]) == 'string' and id == tonumber(select(3, strfind(T[slot + 1], "item:(%d+)"))) then
+					T[slot + 1] = nil;
+				elseif (slot == 12 or slot == 14 or slot == 17) and T[slot - 1] and type(T[slot - 1]) == 'string' and id == tonumber(select(3, strfind(T[slot - 1], "item:(%d+)"))) then
+					T[slot - 1] = nil;
+				end
+			elseif T[slot] == 1 then
 				T[slot] = nil;
-			elseif (slot == 11 or slot == 13 or slot == 16) and id and T[slot + 1] and type(T[slot + 1]) == 'string' and id == tonumber(select(3, strfind(T[slot + 1], "item:(%d+)"))) then
-				T[slot + 1] = nil;
-			elseif (slot == 12 or slot == 14 or slot == 17) and id and T[slot - 1] and type(T[slot - 1]) == 'string' and id == tonumber(select(3, strfind(T[slot - 1], "item:(%d+)"))) then
-				T[slot - 1] = nil;
-			elseif T[slot] and type(T[slot]) == 'string' then
+			end
+		end
+		local all_empty_or_fit = true;
+		for slot = 1, 19 do
+			if T[slot] and (type(T[slot]) == 'string' or T[slot] == 1) then
 				all_empty_or_fit = false;
+				break;
 			end
 		end
 		if all_empty_or_fit then
@@ -2126,12 +2278,10 @@ function func.drop_handler(button, key, value)
 end
 function func.handle_low_version_variables()
 	if not alaGearManSV._version then
-		for _, set in pairs(alaGearManSV.sets[GUID]) do
-			for slot, inv in pairs(set) do
-			end
-		end
-	elseif tonumber(alaGearManSV._version) < VERSION then
+		alaGearManSV.quickPosChar = {  };
+	elseif tonumber(alaGearManSV._version) < 200422.0 then
 	end
+	alaGearManSV._version = 200422.0;
 end
 function func.hook_tooltip(self)
 	if not alaGearManSV.show_outfit_in_tooltip then
@@ -2154,17 +2304,12 @@ function func.hook_tooltip(self)
 	end
 end
 function func.init_variables()
-	alaGearManSV = alaGearManSV or {  };
-	alaGearManSV.sets = alaGearManSV.sets or {  };
-	alaGearManSV.sets[GUID] = alaGearManSV.sets[GUID] or {  };
-	alaGearManSV.quickSize = alaGearManSV.quickSize or default.QUICK_SIZE;
-	alaGearManSV.quickStyle = alaGearManSV.quickStyle or 'C';	--'T' 'C' 'TC'
-	alaGearManSV.quickPos = alaGearManSV.quickPos or { "TOP", 0, - 100, };
-	alaGearManSV.takeoffAll_pos = alaGearManSV.takeoffAll_pos or 'RIGHT';
-	alaGearManSV.takeoffAll_include_neck_finger_and_trinket = alaGearManSV.takeoffAll_include_neck_finger_and_trinket or false;
-	alaGearManSV.show_outfit_in_tooltip = alaGearManSV.show_outfit_in_tooltip or true;
-
-	func.handle_low_version_variables();
+	if _G.alaGearManSV then
+		func.handle_low_version_variables();
+	else
+		_G.alaGearManSV = default_sv;
+		alaGearManSV._version = 200422.0;
+	end
 end
 function func.init_hook_tooltip()
 	GameTooltip:HookScript("OnTooltipSetItem", func.hook_tooltip);
@@ -2184,10 +2329,14 @@ function func.BANKFRAME_CLOSED(...)
 end
 function func.ADDON_LOADED(arg1, ...)
 	if arg1 == "alaGearMan" then
-		_EventVehicle:UnregisterEvent("ADDON_LOADED");
+		_EventHandler:UnregisterEvent("ADDON_LOADED");
 		C_Timer.After(0.1, function()
 			func.init_variables();
 			saved_sets = alaGearManSV.sets[GUID];
+			if saved_sets == nil then
+				saved_sets = {  };
+				alaGearManSV.sets[GUID] = saved_sets;
+			end
 			func.pdf_init();
 			func.initUI();
 			func.init_hook_tooltip();
@@ -2202,15 +2351,14 @@ function func.Reg(event)
 	if not func[event] then
 		func[event] = _noop_;
 	end
-	_EventVehicle:RegisterEvent(event);
-end
-function func.OnEvent(self, event, ...)
-	func[event](...);
+	_EventHandler:RegisterEvent(event);
 end
 function func.FireEvent(event, ...)
-	func.OnEvent(_EventVehicle, event, ...);
+	if func[event] then
+		func[event](...);
+	end
 end
-_EventVehicle:SetScript("OnEvent", func.OnEvent);
+_EventHandler:SetScript("OnEvent", function(self, event, ...) func[event](...); end);
 
 func.Reg("ADDON_LOADED");
 
@@ -2225,11 +2373,17 @@ function func.toggle_quick_panel(show)
 		ui.secure:Hide();
 	end
 end
--- 老虎会游泳：打开套装配置
-function func.show_gear_win()
-	ui.gearWin:Show();
+-- 老虎会游泳：打开/关闭套装配置
+function func.toggle_gear_win(show)
+	if show == nil then
+		show = not ui.gearWin:IsShown()
+	end
+	if show then
+		ui.gearWin:Show()
+	else
+		ui.gearWin:Hide();
+	end
 end
 
 _G.AGM_FUNC = func;
-_G.AGM_GVAR = global_var;
 

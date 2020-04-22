@@ -162,9 +162,13 @@ function AutoEquipConfigFunc()
 				"AutoEquip",
 				ALAGEARMAN_CONFIG,
 				function ()
+					local show = nil
+					if not CharacterFrame:IsShown() then
+						show = true
+					end
 					CharacterFrame:Show()
-					if AGM_FUNC.show_gear_win then
-						AGM_FUNC.show_gear_win()
+					if AGM_FUNC.toggle_gear_win then
+						AGM_FUNC.toggle_gear_win(show)
 					end
 				end,
 				nil,
