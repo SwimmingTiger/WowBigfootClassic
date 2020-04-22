@@ -76,7 +76,7 @@ NeatPlatesHubMenus.BorderTypes = {
 				{ text = L["Glow"],  },
 			}
 
-NeatPlatesHubDefaults.HighlightTargetMode = 3
+NeatPlatesHubDefaults.HighlightTargetMode = 1
 NeatPlatesHubDefaults.HighlightFocustMode = 1
 NeatPlatesHubDefaults.HighlightMouseoverMode = 1
 NeatPlatesHubMenus.HighlightTypes = {
@@ -201,6 +201,11 @@ NeatPlatesHubMenus.StyleOptions = {
 		text = L["healthbar"],
 		value = "healthbar",
 		tooltip = L["healthbar_tooltip"],
+	},
+	{
+		text = L["powerbar"],
+		value = "powerbar",
+		tooltip = L["powerbar_tooltip"],
 	},
 	--{
 	--	text = L["targetindicator_arrowleft"],

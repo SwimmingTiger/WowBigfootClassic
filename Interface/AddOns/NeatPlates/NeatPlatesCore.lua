@@ -45,6 +45,7 @@ local ShowIntWhoCast = true
 local ColorCastBars = true
 local ShowServerIndicator = false
 local ShowUnitTitle = true
+local ShowPowerBar = false
 local EMPTY_TEXTURE = "Interface\\Addons\\NeatPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local OverrideFonts = false
@@ -193,7 +194,7 @@ local UpdateStyle, CheckNameplateStyle
 local UpdateIndicator_CustomScaleText, UpdateIndicator_Standard, UpdateIndicator_CustomAlpha
 local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIcon
 local UpdateIndicator_EliteIcon, UpdateIndicator_UnitColor, UpdateIndicator_Name
-local UpdateIndicator_HealthBar, UpdateIndicator_Highlight, UpdateIndicator_ExtraBar
+local UpdateIndicator_HealthBar, UpdateIndicator_Highlight, UpdateIndicator_ExtraBar, UpdateIndicator_PowerBar
 local OnUpdateCasting, OnStartCasting, OnStopCasting, OnUpdateCastMidway, OnInterruptedCast
 
 -- Event Functions
@@ -350,6 +351,19 @@ do
 	end
 
 
+	-- Poll for threat update
+	local function PolledThreat()
+		ForEachPlate(function(plate)
+			local unit = plate.extended.unit
+			local unitid = PlatesVisible[plate]
+			if not unitid then return end
+
+			local threatValue = UnitThreatSituation("player", unitid) or 0
+			if(unit.threatValue ~= threatValue) then SetUpdateMe(plate) end
+		end)
+	end
+
+	local threatTicker = C_Timer.NewTicker(0.1, PolledThreat)
 end
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -378,6 +392,7 @@ do
 		local visual = {}
 		-- Status Bars
 		local healthbar = CreateNeatPlatesStatusbar(extended)
+		local powerbar = CreateNeatPlatesStatusbar(extended)
 		local castbar = CreateNeatPlatesStatusbar(extended)
 		local textFrame = CreateFrame("Frame", nil, healthbar)
 		local widgetParent = CreateFrame("Frame", nil, textFrame)
@@ -386,8 +401,11 @@ do
 
 		extended.widgetParent = widgetParent
 		visual.healthbar = healthbar
+		visual.powerbar = powerbar
 		visual.castbar = castbar
+		-- Is this still even needed?
 		bars.healthbar = healthbar		-- For Threat Plates Compatibility
+		bars.powerbar = powerbar		-- For Threat Plates Compatibility
 		bars.castbar = castbar			-- For Threat Plates Compatibility
 		-- Parented to Health Bar - Lower Frame
 		visual.healthborder = healthbar:CreateTexture(nil, "ARTWORK")
@@ -422,12 +440,14 @@ do
 
 		extended:SetFrameStrata("BACKGROUND")
 		healthbar:SetFrameStrata("BACKGROUND")
+		powerbar:SetFrameStrata("BACKGROUND")
 		castbar:SetFrameStrata("BACKGROUND")
 		textFrame:SetFrameStrata("BACKGROUND")
 		widgetParent:SetFrameStrata("BACKGROUND")
 
 		widgetParent:SetFrameLevel(textFrame:GetFrameLevel() - 1)
 		castbar:SetFrameLevel(widgetParent:GetFrameLevel() + 1)
+		powerbar:SetFrameLevel(healthbar:GetFrameLevel() + 1)
 
 		topFrameLevel = topFrameLevel + 20
 		extended.defaultLevel = topFrameLevel
@@ -514,6 +534,7 @@ do
 				CheckNameplateStyle()
 				UpdateIndicator_Standard()
 				UpdateIndicator_HealthBar()
+				UpdateIndicator_PowerBar()
 				UpdateIndicator_Highlight()
 			end
 
@@ -646,7 +667,7 @@ do
 
 		UpdateUnitCondition(plate, unitid)
 		ProcessUnitChanges()
-		UpdateIndicator_HealthBar()		-- Just to be on the safe side
+		--UpdateIndicator_HealthBar()		-- Just to be on the safe side
 	end
 
      -- OnResetNameplate
@@ -794,6 +815,10 @@ do
 		unit.healthmax = healthmax or UnitHealthMax(unitid) or 1
 		
 
+		local powerType = UnitPowerType(unitid) or 0
+		unit.power = UnitPower(unitid, powerType) or 0
+		unit.powermax = UnitPowerMax(unitid, powerType) or 1
+
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
 		unit.isInCombat = UnitAffectingCombat(unitid)
@@ -831,7 +856,6 @@ do
 			UpdateIndicator_CustomScaleText()
 	end
 
-
 end		-- End of Nameplate/Unit Events
 
 
@@ -849,6 +873,19 @@ do
 		visual.healthbar:SetValue(unit.health)
 		-- Subtext
 		UpdateIndicator_Subtext()
+	end
+
+	-- UpdateIndicator_PowerBar: Updates the value on the resource/power bar
+	function UpdateIndicator_PowerBar()
+		visual.powerbar:SetMinMaxValues(0, unit.powermax)
+		visual.powerbar:SetValue(unit.power)
+
+		-- Fixes issue with small sliver being displayed even at 0
+		if unit.power == 0 then
+			visual.powerbar.Bar:Hide()
+		else
+			visual.powerbar.Bar:Show()
+		end
 	end
 
 
@@ -949,6 +986,12 @@ do
 
 		else visual.healthbar:SetStatusBarColor(unit.red, unit.green, unit.blue) end
 
+		-- Set Power Bar
+		if activetheme.SetPowerbarColor then
+			visual.powerbar:SetAllColors(activetheme.SetPowerbarColor(unit))
+
+		else visual.powerbar:SetStatusBarColor(0,0,1,1) end
+
 		-- Name Color
 		if activetheme.SetNameColor then
 			visual.name:SetTextColor(activetheme.SetNameColor(unit))
@@ -1014,9 +1057,9 @@ do
 					visual.customtext:SetTextColor(r or 1, g or 1, b or 1, a or 1)
 				else visual.customtext:SetText("") end
 			end
-
-			UpdateIndicator_UnitColor()
+			UpdateIndicator_UnitColor()		-- Keep within this block as we need to check if 'unit.health' exists
 		end
+
 	end
 
 
@@ -1348,6 +1391,14 @@ do
 		if plate then OnHealthUpdate(plate) end
 	end
 
+	function CoreEvents:UNIT_POWER_UPDATE(...)
+		local unitid = ...
+		local plate = PlatesByUnit[unitid]
+
+		if plate then OnHealthUpdate(plate) end
+	end
+	
+
 	function CoreEvents:PLAYER_REGEN_ENABLED()
 		InCombat = false
 		SetUpdateAll()
@@ -1617,7 +1668,7 @@ do
 						"name", "subtext", "spelltext", "durationtext", "customtext", "level",
 						"spellicon", "raidicon", "skullicon", "eliteicon", "target", "focus", "mouseover"}
 
-	local bargroup = {"castbar", "healthbar"}
+	local bargroup = {"castbar", "healthbar", "powerbar"}
 
 	local texturegroup = { "castborder", "castnostop", "healthborder", "threatborder", "eliteicon",
 						"skullicon", "highlight", "target", "focus", "mouseover", "spellicon", }
@@ -1662,6 +1713,7 @@ do
 			visual.raidicon:SetTexture(style.raidicon.texture)
 		end
 		if style and style.healthbar.texture == EMPTY_TEXTURE then visual.noHealthbar = true end
+		if style and not ShowPowerBar then visual.powerbar:Hide() else visual.powerbar:Show() end
 		-- Font Group
 		for index = 1, #fontgroup do
 			local objectname = fontgroup[index]
@@ -1776,6 +1828,7 @@ function NeatPlates:SetCoreVariables(LocalVars)
 	ShowIntWhoCast = LocalVars.IntCastWhoEnable
 	ShowServerIndicator = LocalVars.TextShowServerIndicator
 	ShowUnitTitle = LocalVars.TextShowUnitTitle
+	ShowPowerBar = LocalVars.StyleShowPowerBar
 end
 
 function NeatPlates:ShowNameplateSize(show, width, height) ForEachPlate(function(plate) UpdateNameplateSize(plate, show, width, height) end) end
@@ -1792,13 +1845,21 @@ function NeatPlates.OverrideOutline(enable) OverrideOutline = enable; end
 
 function NeatPlates.UpdateNameplateSize() UpdateNameplateSize() end
 
-function NeatPlates.THREAT_UPDATE(...)
-	local guid = select(3, ...)
-	local plate = PlatesByGUID[guid] or IsEmulatedFrame(guid)
-	if(Debug['threat'] and plate) then checkLastThreatUpdate(UnitGUID(plate.extended.unit.unitid)) end
+-- Also updates at intervals as a precaution, refer to 'PolledThreat'
+--function NeatPlates.THREAT_UPDATE(...)
+--	local guid = select(3, ...)
+--	local plate = PlatesByGUID[guid] or IsEmulatedFrame(guid)
+--	if not plate then return end
 
-	if plate then OnHealthUpdate(plate) end
-end
+--	local unit = plate.extended.unit
+--	local unitid = PlatesVisible[plate]
+--	if not unitid then return end
+
+--	if(Debug['threat'] and plate) then checkLastThreatUpdate(guid) end
+
+--	local threatValue = UnitThreatSituation("player", unitid) or 0
+--	if(unit.threatValue ~= threatValue) then OnHealthUpdate(plate) end
+--end
 
 -- Old and needing deleting - Just here to avoid errors
 function NeatPlates:EnableFadeIn() EnableFadeIn = true; end

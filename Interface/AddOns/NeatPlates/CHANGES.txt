@@ -1,18 +1,12 @@
-lightweight tag c6ed9f2f8744da1d5f870b8a99cc3fbaf83d36b0 1.13.4.3
+lightweight tag 160cfac8a819a072289f4faa21ae501bee72f831 1.13.4.8
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Tue Mar 24 21:09:17 2020 +0100
+Date:	Mon Apr 20 21:33:24 2020 +0200
 
-commit c6ed9f2f8744da1d5f870b8a99cc3fbaf83d36b0
+commit 160cfac8a819a072289f4faa21ae501bee72f831
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Tue Mar 24 21:09:17 2020 +0100
+Date:   Mon Apr 20 21:31:36 2020 +0200
 
-    Separated threat debugging by plate
+    Fixed an issue with powertypes
     
-    - Separated threat debugging by plate
-
-commit acad319a136f02e59dd99c8edd0cc88622e518de
-Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Mar 22 12:16:07 2020 +0100
-
-    Locale update
+    - Fixed an error that could occur with powertypes if unitid was missing
 

@@ -37,8 +37,6 @@ NeatPlatesHubDefaults = {
 	StyleEnemyBarsOnNPC = true,
 	StyleEnemyBarsClickThrough = false,
 
-	StyleForceBarsOnTargets = false,
-
 	StyleHeadlineNeutral = false,
 	StyleHeadlineMiniMobs = false,
 
@@ -54,6 +52,8 @@ NeatPlatesHubDefaults = {
 
 
 
+	StyleForceBarsOnTargets = false,
+	StyleShowPowerBar = false,
 
 	-- Headline
 	---------------------------------------
@@ -165,7 +165,7 @@ NeatPlatesHubDefaults = {
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
 
-	HighlightTargetMode = 3,
+	HighlightTargetMode = 1,
 	HighlightFocusMode = 1,
 	HighlightMouseoverMode = 1,
 	HighlightTargetScale = {x = 1, y = 1, offset = {x = 0, y = 0}},
@@ -259,7 +259,7 @@ NeatPlatesHubDefaults = {
 	WidgetComboPoints = true,
 	WidgetComboPointsStyle = 1,
 	WidgetComboPointsScaleOptions = {x = 1, y = 1, offset = {x = 0, y = 0}},
-	WidgetThreatIndicator = false,
+	WidgetThreatIndicator = true,
 	WidgetRangeIndicator = false,
 	WidgetRangeScale = false,
 	WidgetRangeMode = 1,
