@@ -1,0 +1,7 @@
+## Interface: 11302
+## Title: Lib: LibClassicItemSets-1.0
+## Notes: LibClassicItemSets-1.0
+## Author: Lag
+## Version: 1.0.0
+
+LibClassicItemSets-1.0.xml
