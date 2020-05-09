@@ -1619,13 +1619,10 @@ function NugRunning.CreateTimer(self)
     f._width = w
     f._height = h
 
-    f.prototype = NugRunning[f.prototype or "TimerBar"]
-
-    local mtFrameMethods = getmetatable(f).__index
-    setmetatable(f, { __index = function(t,k)
-                                    if t.prototype[k] then return t.prototype[k] end
-                                    return mtFrameMethods[k]
-                                end})
+    local prototypeObject = NugRunning[f.prototype or "TimerBar"]
+    for k,v in pairs(prototypeObject) do
+        f[k] = v
+    end
 
     f:SetScript("OnUpdate", NugRunning.TimerFunc)
 
@@ -1655,7 +1652,6 @@ do
     local anchors
     local dbanchors
     local targetIndicator
-    local growthDirection
 
     local sortedTimerGroups -- table from which arrange function works, generated in setup
 
@@ -1699,10 +1695,6 @@ do
     end
 
     function NugRunning.SetupArrange(self)
-        point = ( NRunDB.growth == "down" and "TOPLEFT" ) or "BOTTOMLEFT"
-        to = ( NRunDB.growth == "down" and "BOTTOMLEFT" ) or "TOPLEFT"
-        ySign = ( NRunDB.growth == "down" and -1 ) or 1
-        growthDirection = NRunDB.growth
         doswap = NRunDB.swapTarget
         anchors = NugRunning.anchors -- frames
         dbanchors = NRunDB.anchors -- settings
@@ -1778,6 +1770,7 @@ do
                         for i,timer in ipairs(group_timers) do
                             local noswap_alpha = guid == targetGUID and 1 or alpha
                             timer:SetAlpha(noswap_alpha)
+                            timer:ClearAllPoints()
                             timer:SetPoint(point, prev or anchorFrame, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
                             if timer.onupdate then timer:onupdate() end
                             prev = timer
@@ -1787,7 +1780,7 @@ do
                         if not doswap and guid == targetGUID then
                             local lastTimer = group_timers[1]
                             local firstTimer = group_timers[#group_timers]
-                            if growthDirection == "down" then
+                            if growth == "down" then
                                 firstTimer, lastTimer = lastTimer, firstTimer
                             end
                             targetIndicatorUpdated = true
@@ -1804,6 +1797,7 @@ do
                     if group_timers then
                     for i,timer in ipairs(group_timers) do
                         timer:SetAlpha(alpha)
+                        timer:ClearAllPoints()
                         timer:SetPoint(point, prev or anchorFrame, prev and to  or "TOPRIGHT", xOffset, (yOffset+gap)*ySign)
                         if timer.onupdate then timer:onupdate()end
                         prev = timer
@@ -2155,6 +2149,7 @@ NugRunning.Commands = {
     ["swaptarget"] = function()
         NRunDB.swapTarget = not NRunDB.swapTarget
         NugRunning:SetupArrange()
+        NugRunning:ArrangeTimers()
         print("Target swapping turned "..(NRunDB.swapTarget and "on" or "off"))
     end,
     ["totems"] = function()

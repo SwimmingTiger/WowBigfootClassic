@@ -83,7 +83,7 @@ end
 function Atr_SetupOptionsFrame()
 
   local expText = "<html><body>"
-          .."<p>"..ZT("The latest information on Auctionator can be found at").." |cFF4499FF http://mods.curse.com/addons/wow/auctionator .".."</p>"
+          .."<p>"..ZT("The latest information on Auctionator Classicfix can be found at").." |cFF4499FF https://www.curseforge.com/wow/addons/auctionator-classicfix .".."</p>"
           .."<p><br />"
           .. ZT("Read the FAQ at") .. " |cFF4499FF https://github.com/Auctionator/Auctionator/wiki ." .. "</p>"
           .."<p><br/>"
@@ -127,9 +127,10 @@ function Atr_BasicOptionsFrame_Save (frame)
     return;
   end
 
-  local origValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
+  local origValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION, AUCTIONATOR_AUTOCOMPLETE);
 
   AUCTIONATOR_ENABLE_ALT    = zc.BoolToNum(AuctionatorOption_Enable_Alt_CB:GetChecked ());
+  AUCTIONATOR_AUTOCOMPLETE  = zc.BoolToNum(AuctionatorOption_Enable_Autocomplete_CB:GetChecked ());
   AUCTIONATOR_SHOW_ST_PRICE = zc.BoolToNum(AuctionatorOption_Show_StartingPrice_CB:GetChecked ());
 
   AUCTIONATOR_DEFTAB      = UIDropDownMenu_GetSelectedValue(AuctionatorOption_Deftab);
@@ -140,7 +141,7 @@ function Atr_BasicOptionsFrame_Save (frame)
   if (Atr_RB_M:GetChecked())  then  AUCTIONATOR_DEF_DURATION = "M"; end;
   if (Atr_RB_L:GetChecked())  then  AUCTIONATOR_DEF_DURATION = "L"; end;
 
-  local newValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
+  local newValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION, AUCTIONATOR_AUTOCOMPLETE);
 
   if (origValues ~= newValues) then
     zc.msg_anm (ZT ("basic options saved"));
@@ -157,6 +158,8 @@ function Atr_SetupBasicOptionsFrame()
   Atr_BasicOptionsFrame_BTitle:SetText (string.format (ZT("Basic Options for %s"), "|cffffff55"..UnitName("player")));
 
   AuctionatorOption_Enable_Alt_CB:SetChecked      (zc.NumToBool(AUCTIONATOR_ENABLE_ALT));
+  AuctionatorOption_Enable_Autocomplete_CB:SetChecked      (zc.NumToBool(AUCTIONATOR_AUTOCOMPLETE));
+
   AuctionatorOption_Show_StartingPrice_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_SHOW_ST_PRICE));
   AuctionatorOption_Enable_Debug_CB:SetChecked( AUCTIONATOR_SAVEDVARS.DEBUG_MODE );
 
@@ -170,8 +173,11 @@ function Atr_SetupTooltipsOptionsFrame ()
 
   ATR_tipsVendorOpt_CB:SetChecked   (zc.NumToBool(AUCTIONATOR_V_TIPS));
   ATR_tipsAuctionOpt_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_A_TIPS));
+  ATR_tipsAuctionWeekOpt_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_A_WEEK_TIPS));
+  ATR_tipsAuctionMonthOpt_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_A_MONTH_TIPS));
   ATR_tipsDisenchantOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_D_TIPS));
-  ATR_tipsMailboxOpt_CB:SetChecked( zc.NumToBool( AUCTIONATOR_SHOW_MAILBOX_TIPS ))
+  ATR_tipsReagentOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_R_TIPS));
+  --ATR_tipsMailboxOpt_CB:SetChecked( zc.NumToBool( AUCTIONATOR_SHOW_MAILBOX_TIPS ))
 end
 
 
@@ -184,17 +190,20 @@ function Atr_TooltipsOptionsFrame_Save( frame )
     return
   end
 
-  local origValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
+  local origValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_A_WEEK_TIPS, AUCTIONATOR_A_MONTH_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS, AUCTIONATOR_R_TIPS);
 
   AUCTIONATOR_V_TIPS    = zc.BoolToNum(ATR_tipsVendorOpt_CB:GetChecked ());
   AUCTIONATOR_A_TIPS    = zc.BoolToNum(ATR_tipsAuctionOpt_CB:GetChecked ());
+  AUCTIONATOR_A_WEEK_TIPS    = zc.BoolToNum(ATR_tipsAuctionWeekOpt_CB:GetChecked ());
+  AUCTIONATOR_A_MONTH_TIPS    = zc.BoolToNum(ATR_tipsAuctionMonthOpt_CB:GetChecked ());
   AUCTIONATOR_D_TIPS    = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
-  AUCTIONATOR_SHOW_MAILBOX_TIPS = zc.BoolToNum( ATR_tipsMailboxOpt_CB:GetChecked() )
+  --AUCTIONATOR_SHOW_MAILBOX_TIPS = zc.BoolToNum( ATR_tipsMailboxOpt_CB:GetChecked() )
+  AUCTIONATOR_R_TIPS    = zc.BoolToNum(ATR_tipsReagentOpt_CB:GetChecked ());
 
   AUCTIONATOR_SHIFT_TIPS    = UIDropDownMenu_GetSelectedValue(Atr_tipsShiftDD);
   AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
 
-  local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
+  local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_A_WEEK_TIPS, AUCTIONATOR_A_MONTH_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS, AUCTIONATOR_R_TIPS);
 
   if (origValues ~= newValues) then
     zc.msg_anm (ZT("tooltip configuration saved"));
@@ -688,6 +697,10 @@ function Atr_ShowOptionTooltip (elem)
 
   if (zc.StringContains (name, "Enable_Alt")) then
     text = ZT("If this option is checked, holding the Alt key down while clicking an item in your bags will switch to the Auctionator panel, place the item in the Auction Item area, and start the scan.");
+  end
+
+  if (zc.StringContains (name, "Enable_Autocomplete")) then
+    text = "If this option is checked, typing in the buy tab search bar will autocomplete from your history and shopping lists"
   end
 
   if (zc.StringContains (name, "Deftab")) then

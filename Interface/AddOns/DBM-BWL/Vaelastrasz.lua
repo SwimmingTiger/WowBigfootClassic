@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200321130514")
+mod:SetRevision("20200420145030")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -20,12 +20,11 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 18173"
 )
 
---TODO, Burning Adrenaline have an actual CD timer?
 local warnBreath			= mod:NewCastAnnounce(23461, 2, nil, nil, "Tank", 2)
 local warnAdrenaline		= mod:NewTargetNoFilterAnnounce(18173, 2)
 
 local specWarnAdrenaline	= mod:NewSpecialWarningYou(18173, nil, nil, nil, 1, 2)
-local specWarnAdrenalineOut	= mod:NewSpecialWarningMoveAway(18173, nil, nil, nil, 1, 2)
+local specWarnAdrenalineOut	= mod:NewSpecialWarningMoveAway(18173, nil, nil, 2, 3, 2)
 local yellAdrenaline		= mod:NewYell(18173, nil, false)
 local yellAdrenalineFades	= mod:NewShortFadesYell(18173)
 
@@ -33,7 +32,7 @@ local timerAdrenalineCD		= mod:NewCDTimer(15.7, 18173, nil, nil, nil, 3)
 local timerAdrenaline		= mod:NewTargetTimer(20, 18173, nil, nil, nil, 5)
 local timerCombatStart		= mod:NewCombatTimer(43)
 
-mod:AddSetIconOption("SetIconOnDebuffTarget", 18173, false, false, {8, 7, 6})
+mod:AddSetIconOption("SetIconOnDebuffTarget2", 18173, true, false, {8, 7, 6})
 
 mod.vb.debuffIcon = 8
 
@@ -67,9 +66,6 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
-			if self:AntiSpam(5, "Adrenaline") then
-				self:SendSync("Adrenaline", args.destName)
-			end
 			if self:AntiSpam(5, args.destName) then
 				timerAdrenaline:Start(args.destName)
 				if args:IsPlayer() then
@@ -82,7 +78,7 @@ do
 				else
 					warnAdrenaline:Show(args.destName)
 				end
-				if self.Options.SetIconOnDebuffTarget then
+				if self.Options.SetIconOnDebuffTarget2 then
 					self:SetIcon(args.destName, self.vb.debuffIcon)
 				end
 				self.vb.debuffIcon = self.vb.debuffIcon - 1
@@ -90,24 +86,27 @@ do
 					self.vb.debuffIcon = 8
 				end
 			end
+			if self:AntiSpam(5, "Adrenaline") then
+				self:SendSync("Adrenaline", args.destName)
+			end
 		end
 	end
 
 	function mod:SPELL_AURA_REMOVED(args)
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
-			if self:AntiSpam(5, "AdrenalineOver") then
-				self:SendSync("AdrenalineOver", args.destName)
-			end
 			if args:IsPlayer() then
 				specWarnAdrenalineOut:Cancel()
 				specWarnAdrenalineOut:CancelVoice()
 				yellAdrenalineFades:Cancel()
 			end
-			if self.Options.SetIconOnDebuffTarget then
+			if self.Options.SetIconOnDebuffTarget2 then
 				self:SetIcon(args.destName, 0)
 			end
 			timerAdrenaline:Stop(args.destName)
+			if self:AntiSpam(5, "AdrenalineOver") then
+				self:SendSync("AdrenalineOver", args.destName)
+			end
 		end
 	end
 end
@@ -135,9 +134,33 @@ function mod:OnSync(msg, targetName)
 	if msg == "Breath" and self:AntiSpam(8, 1) then
 		warnBreath:Show()
 	elseif msg == "Adrenaline" and targetName and self:AntiSpam(5, targetName) then
-		warnAdrenaline:Show(targetName)
 		timerAdrenaline:Start(targetName)
+		if targetName == UnitName("player") then
+			specWarnAdrenaline:Show()
+			specWarnAdrenaline:Play("targetyou")
+			yellAdrenaline:Yell()
+			specWarnAdrenalineOut:Schedule(15)
+			specWarnAdrenalineOut:ScheduleVoice(15, "runout")
+			yellAdrenalineFades:Countdown(20)
+		else
+			warnAdrenaline:Show(targetName)
+		end
+		if self.Options.SetIconOnDebuffTarget2 then
+			self:SetIcon(targetName, self.vb.debuffIcon)
+		end
+		self.vb.debuffIcon = self.vb.debuffIcon - 1
+		if self.vb.debuffIcon == 5 then
+			self.vb.debuffIcon = 8
+		end
 	elseif msg == "AdrenalineOver" and targetName then
 		timerAdrenaline:Stop(targetName)
+		if targetName == UnitName("player") then
+			specWarnAdrenalineOut:Cancel()
+			specWarnAdrenalineOut:CancelVoice()
+			yellAdrenalineFades:Cancel()
+		end
+		if self.Options.SetIconOnDebuffTarget2 then
+			self:SetIcon(targetName, 0)
+		end
 	end
 end

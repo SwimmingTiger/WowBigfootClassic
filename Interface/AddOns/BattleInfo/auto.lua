@@ -40,7 +40,7 @@ RegEvent("ADDON_LOADED", function()
         end
 
         if AnyPennyLeft() then
-            ADDONSELF.Print(L["Wait for Bunker/Tower to be destoryed, stop auto leaving"])
+            ADDONSELF.Print(L["Waiting for Bunker/Tower to be destroyed, stopping auto-leave"])
             timetoleave = 0
             return
         end

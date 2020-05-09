@@ -1,0 +1,40 @@
+------------------------------------------------------------------------
+r92 | funkydude | 2018-04-25 06:54:21 +0000 (Wed, 25 Apr 2018) | 1 line
+Changed paths:
+   M /trunk/embeds.xml
+
+Remove an incorrect entry from the xml loader
+------------------------------------------------------------------------
+r91 | funkydude | 2018-04-25 06:50:13 +0000 (Wed, 25 Apr 2018) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   A /trunk/CallbackHandler-1.0
+   A /trunk/CallbackHandler-1.0/CallbackHandler-1.0.lua
+   M /trunk/LibGroupInSpecT-1.1.toc
+   A /trunk/LibStub
+   A /trunk/LibStub/LibStub.lua
+   A /trunk/embeds.xml
+   M /trunk/lib.xml
+
+Structural cleanups, bump toc version.
+------------------------------------------------------------------------
+r90 | funkydude | 2018-04-25 06:23:22 +0000 (Wed, 25 Apr 2018) | 1 line
+Changed paths:
+   M /trunk/LibGroupInSpecT-1.1.lua
+
+Fixes for addon comm changes in BfA.
+------------------------------------------------------------------------
+r89 | Greltok | 2017-04-22 22:15:15 +0000 (Sat, 22 Apr 2017) | 1 line
+Changed paths:
+   M /trunk/LibGroupInSpecT-1.1.lua
+
+Turn off debug messages by default.
+------------------------------------------------------------------------
+r88 | Greltok | 2017-04-22 20:39:14 +0000 (Sat, 22 Apr 2017) | 1 line
+Changed paths:
+   M /trunk/LibGroupInSpecT-1.1.lua
+   M /trunk/LibGroupInSpecT-1.1.toc
+
+Added event "GroupInSpecT_QueueChanged" and function :IsInspectQueued (guid).
+------------------------------------------------------------------------
+

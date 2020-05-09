@@ -190,7 +190,7 @@ DBM_CORE_RANGECHECK_OPTION_TEXT		= "顯示文字框"
 DBM_CORE_RANGECHECK_OPTION_BOTH		= "兩者都顯示"
 DBM_CORE_RANGERADAR_HEADER			= "距離:%d玩家(%d)"
 DBM_CORE_RANGERADAR_RHEADER			= "反距離:%d玩家:%d"
-DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d在範圍內(%d碼)"--Multi
+DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d在範圍內(%0.1f碼)"--Multi
 DBM_CORE_RANGECHECK_IN_RANGE_TEXT	= "%d在範圍內"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
 DBM_CORE_RANGERADAR_IN_RANGE_TEXTONE= "%s(%0.1f碼)"--One target
 

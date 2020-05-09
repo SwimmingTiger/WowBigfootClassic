@@ -32,20 +32,32 @@ local function ReplacePinTextureIfNeeded(pin)
     pin:SetPinTexture("party", UNIT_TEXTURE)
 end
 
+local function AllPins()
+    local pins = {}
+
+    for pin in BattlefieldMapFrame:EnumerateAllPins() do
+        if pin.UpdateAppearanceData then
+            table.insert(pins, pin)
+        end
+    end
+
+    return pins
+end
+
 local function UpdatePinTexture()
     if not BattlefieldMapFrame then
         return
     end
 
     if replaceTexture then
-        for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("GroupMembersPinTemplate") do
+        for _, pin in pairs(AllPins()) do
             pin:SetAppearanceField("party", "useClassColor", true)
             pin:SetAppearanceField("raid", "useClassColor", true)
 
             ReplacePinTextureIfNeeded(pin)
         end
     else
-        for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("GroupMembersPinTemplate") do
+        for _, pin in pairs(AllPins()) do
             pin:SetAppearanceField("party", "useClassColor", UNIT_POSITION_FRAME_DEFAULT_USE_CLASS_COLOR)
             pin:SetAppearanceField("raid", "useClassColor", UNIT_POSITION_FRAME_DEFAULT_USE_CLASS_COLOR)
             pin:UpdateAppearanceData()
@@ -54,7 +66,7 @@ local function UpdatePinTexture()
 end
 
 RegAddonLoaded("Blizzard_BattlefieldMap", function()
-    for pin in BattlefieldMapFrame:EnumeratePinsByTemplate("GroupMembersPinTemplate") do
+    for _, pin in pairs(AllPins()) do
         hooksecurefunc(pin, "UpdateAppearanceData", ReplacePinTextureIfNeeded)
     end
 

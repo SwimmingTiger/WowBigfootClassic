@@ -40,9 +40,20 @@
         <Anchors><Anchor point="LEFT"><Offset><AbsDimension x="440" y="0"/></Offset></Anchor></Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString name="$parent_StackPrice" inherits="GameFontHighlightSmall" justifyH="RIGHT"/>
+            <FontString name="$parent_Stack_Text" inherits="GameFontHighlightSmall" justifyH="RIGHT"/>
           </Layer>
         </Layers>
+        <Frames>
+          <Frame name="$parent_Stack_Price" inherits="SmallMoneyFrameTemplate">
+            <Anchors><Anchor point="RIGHT"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
+            <Scripts>
+              <OnLoad>
+                SmallMoneyFrame_OnLoad(self);
+                MoneyFrame_SetType(self, "AUCTION");
+              </OnLoad>
+            </Scripts>
+          </Frame>
+        </Frames>
       </Frame>
     </Frames>
 

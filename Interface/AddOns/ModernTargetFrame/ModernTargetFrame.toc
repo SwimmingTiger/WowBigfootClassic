@@ -1,6 +1,6 @@
 ## Interface: 11304
-## Title: Modern TargetFrame v1.3.1
-## Version: 1.3.1
+## Title: Modern TargetFrame v1.4
+## Version: 1.4
 ## Author: SDPhantom
 
 ## SavedVariables: ModernTargetFrame_Options
@@ -8,7 +8,7 @@
 ## Notes: Re-implements TargetFrame features found in modern WoW
 
 # Libraries
-#LibThreatClassic2\lib.xml
+LibThreatClassic2\lib.xml
 
 # Core Files
 Localization.lua

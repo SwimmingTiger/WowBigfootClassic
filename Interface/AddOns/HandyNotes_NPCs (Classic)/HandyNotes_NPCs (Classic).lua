@@ -395,9 +395,9 @@ local defaults = {
 		showRares = false,
 		showFlightMasters = true,
 		alwaysShowFlightmastersOnContinent = true,
-		undiscoveredFlightmasters = false,
+		undiscoveredFlightmasters = true,
 		show = true, -- Controls visibility of all nodes
-		mapButton = true,
+		mapButton = false,
 		minimapButton = { -- for LibDBIcon
 			hide = false,
 		},

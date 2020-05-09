@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200404004515")
+mod:SetRevision("20200423162250")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -41,12 +41,12 @@ local addsGuidCheck = {}
 
 function mod:OnCombatStart(delay, yellTriggered)
 	table.wipe(addsGuidCheck)
-	if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
+	self.vb.addLeft = 42
+	--if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
 		self.vb.phase = 1
-		self.vb.addLeft = 42
-	else--Blizz can't seem to figure out ENCOUNTER_START, so any pull not triggered by yell will be treated as if it's already phase 2
-		self.vb.phase = 2
-	end
+	--else--Blizz can't seem to figure out ENCOUNTER_START, so any pull not triggered by yell will be treated as if it's already phase 2
+	--	self.vb.phase = 2
+	--end
 end
 
 do

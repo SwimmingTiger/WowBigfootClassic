@@ -60,7 +60,7 @@ local frameToMenu = {  };
 ]]
 --------------------------------------------------
 local function CreateMenu()
-	menu = CreateFrame("Button", nil, UIParent);
+	menu = CreateFrame("BUTTON", nil, UIParent);
 	menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	menu:SetClampedToScreen(true);
 	menu:Hide();
@@ -146,6 +146,10 @@ local function GetMenu(parent, anchor)
 		menu:SetPoint("TOPLEFT", parent, "CENTER", x, y);
 	elseif anchor == "BOTTOMLEFT" then
 		menu:SetPoint("TOPRIGHT", parent, "CENTER", x, y);
+	elseif anchor == "TOP" then
+		menu:SetPoint("BOTTOM", parent, "CENTER", x, y);
+	elseif anchor == "BOTTOM" then
+		menu:SetPoint("TOP", parent, "CENTER", x, y);
 	else
 		menu:SetPoint("BOTTOMLEFT", parent, "CENTER", x, y);
 	end
@@ -174,7 +178,7 @@ local function closeMenu_Handler(button, self)
 end
 
 local function CreateMenuButton(menu, x, y)
-	local button = CreateFrame("Button", nil, menu);
+	local button = CreateFrame("BUTTON", nil, menu);
 	--button:SetFrameStrata("FULLSCREEN_DIALOG");
 	button:SetHeight(dropMenuButtonHeight);
 	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");

@@ -12,20 +12,50 @@ hooksecurefunc("SetItemRef", function(link)
         local linkType, target = strsplit(":", link)
 
         if linkType == "item" then
-            local _, itemLink = GetItemInfo(target)
-            if itemLink then
-                Print(L["Item added"] .. " " .. itemLink)
-                Database:AddLoot(itemLink, 1, "", 0, true)
-            end
+            -- local _, itemLink = GetItemInfo(target)
+            -- if itemLink then
+            --     Print(L["Item added"] .. " " .. itemLink)
+            --     Database:AddLoot(itemLink, 1, "", 0, true)
+            -- end
         elseif linkType == "player" then
             local playerName = strsplit("-", target)
             Print(L["Compensation added"] .. " " .. playerName)
-            Database:AddDebit("", playerName)
+
+            local edit = GetCurrentKeyBoardFocus()
+
+            if edit and edit.raidledgerbeneficiary then
+                edit:SetText(playerName)
+            else
+                Database:AddDebit("", playerName)
+            end
         end
         ScrollFrame_OnVerticalScroll(GUI.lootLogFrame.scrollframe, 0)
     end
 end)
 
+do
+    local lasttime = 0
+    local lastlink = nil
+
+    hooksecurefunc("HandleModifiedItemClick", function(link)
+        if lastlink == link then
+            if time() - lasttime < 2 then
+                return
+            end
+        end
+
+        if GUI.mainframe:IsShown() then
+            local _, itemLink = GetItemInfo(link)
+            if itemLink then
+                Print(L["Item added"] .. " " .. itemLink)
+                Database:AddLoot(itemLink, 1, "", 0, true)
+            end
+
+            lasttime = time()
+            lastlink = link
+        end
+    end)
+end
 
 local AUTOADDLOOT_TYPE_ALL = 0
 -- local AUTOADDLOOT_TYPE_PARTY = 1
@@ -65,24 +95,91 @@ RegEvent("CHAT_MSG_LOOT", function(chatmsg)
     end
     -- if code reaches this point, we should have a valid looter and a valid itemLink
     -- print(itemLink)
-    for _ = 1, itemCount do
-        Database:AddLoot(itemLink, 1, playerName, 0);
-    end
+    Database:AddLoot(itemLink, itemCount, playerName, 0);
 end)
 
--- RegEvent("ADDON_LOADED", function()
---     AutoAddLoot = Database:GetConfigOrDefault("autoaddloot", AUTOADDLOOT_TYPE_RAID)
--- end)
+RegEvent("ADDON_LOADED", function()
+    local ldb = LibStub("LibDataBroker-1.1")
+    local icon = LibStub("LibDBIcon-1.0")
 
--- local function ShowCurrentAutoLootType()
---     if AutoAddLoot == AUTOADDLOOT_TYPE_ALL then
---         Print(L["Auto recording loot: On"])
---     elseif AutoAddLoot == AUTOADDLOOT_TYPE_RAID then
---         Print(L["Auto recording loot: In Raid Only"])
---     elseif AutoAddLoot == AUTOADDLOOT_TYPE_DISABLE then
---         Print(L["Auto recording loot: Off"])
---     end
--- end
+    icon:Register("RaidLedger", ldb:NewDataObject("RaidLedger", {
+            icon = "Interface\\Icons\\inv_misc_note_03",
+            OnClick = function() 
+                if GUI.mainframe:IsShown() then
+                    GUI.mainframe:Hide()
+                else
+                    GUI.mainframe:Show()
+                end
+            end,
+            OnTooltipShow = function(tooltip)
+                tooltip:AddLine(L["Raid Ledger"])
+            end,
+        }),  { hide = not Database:GetConfigOrDefault("minimapicon", true) })
+end)
+
+local clearledger = function()
+    StaticPopup_Show("RAIDLEDGER_CLEARMSG")
+end
+
+
+do
+    -- some pharc addon overwrite AlertFrame
+    local frame = EnumerateFrames()
+    while frame do
+        if frame:GetName() == "AlertFrame" then
+
+            local cleartoast = frame:AddSimpleAlertFrameSubSystem("MoneyWonAlertFrameTemplate", function(frame, text)
+
+                frame.Icon:SetTexture("Interface\\Icons\\inv_misc_note_03")
+                frame.Label:SetText(L["Raid Ledger"])
+                frame.Amount:SetText(L["Click here to clear ledger"])
+                frame.Amount:SetWidth(180)
+                frame.Amount:SetFontObject(GameFontWhite)
+                frame:SetScript("OnClick", clearledger)
+
+                if not frame.closebtn then
+                    b = CreateFrame("Button", nil, frame, "UIPanelCloseButton")
+                    b:SetPoint("TOPRIGHT", frame, 0, 0);
+                    frame.closebtn = b
+                end
+
+            end)
+
+            local lastzone = nil
+
+            C_Timer.NewTicker(5, function()
+
+                local zone = GetInstanceInfo()
+                if not zone then
+                    return
+                end
+
+                if zone == "" then
+                    return
+                end
+
+                local _, type = IsInInstance()
+
+                if type == "raid" then
+
+                    if lastzone ~= zone then
+                        if #Database:GetCurrentLedger()["items"] > 0 then
+                            cleartoast:AddAlert()
+                        end
+                    end
+
+                end
+
+                lastzone = zone
+
+            end)
+
+
+            break
+        end
+        frame = EnumerateFrames(frame)
+    end
+end
 
 SlashCmdList["RAIDLEDGER"] = function(msg, editbox)
     local cmd, what = msg:match("^(%S*)%s*(%S*)%s*$")
@@ -92,7 +189,7 @@ SlashCmdList["RAIDLEDGER"] = function(msg, editbox)
 
         Print(L["Shift + item/name to add to record"])
         Print(L["Right click to remove record"])
-        Print(L["Shift + Right click to remove ALL SAME record"])
+        -- Print(L["Shift + Right click to remove ALL SAME record"])
         -- ShowCurrentAutoLootType()
         -- Print("[".. L["/raidledger"] .. " toggle] " .. L["toggle Auto recording on/off"])
 

@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.0.24"
+Spy.Version = "1.0.26"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -32,7 +32,7 @@ Spy.UpgradeMessageSent = false
 Spy.zName = ""
 Spy.ChnlTime = 0
 Spy.Skull = -1
-Spy.PetGUID = {}		--++
+Spy.PetGUID = {}
 
 -- Localizations for SpyStats.xml
 L_STATS = "Spy "..L["Statistics"]
@@ -94,7 +94,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
-				EnabledInArenas = {
+--[[				EnabledInArenas = {
 					name = L["EnabledInArenas"],
 					desc = L["EnabledInArenasDescription"],
 					type = "toggle",
@@ -108,7 +108,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
---[[				EnabledInWintergrasp = {
+				EnabledInWintergrasp = {
 					name = L["EnabledInWintergrasp"],
 					desc = L["EnabledInWintergraspDescription"],
 					type = "toggle",
@@ -156,9 +156,12 @@ Spy.options = {
 --						["Shattrath City"] = L["Shattrath City"],
 --						["Area 52"] = L["Area 52"],
 --						["Dalaran"] = L["Dalaran"],
+--						["Dalaran (Northrend)"] = L["Dalaran (Northrend)"],
 --						["Bogpaddle"] = L["Bogpaddle"],
 --						["The Vindicaar"] = L["The Vindicaar"],
 --						["Krasus' Landing"] = L["Krasus' Landing"],
+--						["The Violet Gate"] = L["The Violet Gate"],		
+--						["Magni's Encampment"] = L["Magni's Encampment"],
 					},
 				},
 			},
@@ -1326,9 +1329,12 @@ local Default_Profile = {
 --			["Shattrath City"] = false,
 --			["Area 52"] = false,
 --			["Dalaran"] = false,
+--			["Dalaran (Northrend)"] = false,
 --			["Bogpaddle"] = false,			
 --			["The Vindicaar"] = false,
 --			["Krasus' Landing"] = false,
+--			["The Violet Gate"] = false,
+--			["Magni's Encampment"] = false,
 		}
 	}
 }
@@ -1438,7 +1444,7 @@ function Spy:CheckDatabase()
 	if Spy.db.profile.EnabledInArenas == nil then Spy.db.profile.EnabledInArenas = Default_Profile.profile.EnabledInArenas end
 	if Spy.db.profile.EnabledInWintergrasp == nil then Spy.db.profile.EnabledInWintergrasp = Default_Profile.profile.EnabledInWintergrasp end
 	if Spy.db.profile.DisableWhenPVPUnflagged == nil then Spy.db.profile.DisableWhenPVPUnflagged = Default_Profile.profile.DisableWhenPVPUnflagged end
-	if Spy.db.profile.MinimapTracking == nil then Spy.db.profile.MinimapTracking = Default_Profile.profile.MinimapTracking end
+	if Spy.db.profile.MinimapDetection == nil then Spy.db.profile.MinimapDetection = Default_Profile.profile.MinimapDetection end
 	if Spy.db.profile.MinimapDetails == nil then Spy.db.profile.MinimapDetails = Default_Profile.profile.MinimapDetails end
 	if Spy.db.profile.DisplayOnMap == nil then Spy.db.profile.DisplayOnMap = Default_Profile.profile.DisplayOnMap end
 	if Spy.db.profile.SwitchToZone == nil then Spy.db.profile.SwitchToZone = Default_Profile.profile.SwitchToZone end	
@@ -1574,7 +1580,7 @@ function Spy:OnEnable(first)
 	Spy:RegisterEvent("UNIT_PET", "UnitPets")
 	Spy:RegisterEvent("PLAYER_REGEN_ENABLED", "LeftCombatEvent")
 	Spy:RegisterEvent("PLAYER_DEAD", "PlayerDeadEvent")
---	Spy:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", "ChannelNoticeEvent")
+	Spy:RegisterEvent("CHAT_MSG_CHANNEL_NOTICE", "ChannelNoticeEvent")
 	Spy:RegisterComm(Spy.Signature, "CommReceived")
 	Spy.IsEnabled = true
 --	Spy:RefreshCurrentList()
@@ -1598,7 +1604,7 @@ function Spy:OnDisable()
 	Spy:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	Spy:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	Spy:UnregisterEvent("PLAYER_DEAD")
---	Spy:UnregisterEvent("CHAT_MSG_CHANNEL_NOTICE")	
+	Spy:UnregisterEvent("CHAT_MSG_CHANNEL_NOTICE")	
 	Spy:UnregisterComm(Spy.Signature)
 	Spy.IsEnabled = false
 end
@@ -1716,21 +1722,26 @@ function Spy:OnInitialize()
 		DEFAULT_CHAT_FRAME:AddMessage(L["VersionCheck"])
 	end
 end
---[[
+
 function Spy:ChannelNoticeEvent(_, chStatus, _, _, Channel)
 	if chStatus ~= "SUSPENDED" then
-	Spy.zName = strsub(Channel, 14)
-		if Spy.zName == "Dalaran" then
-			Spy.ChnlTime = time()
+		Spy.ChnlTime = time()
+		local channel, zone = string.match(Channel, "(.+) %- (.+)")
+--		local subZone = GetSubZoneText()
+		local InFilteredZone = Spy:InFilteredZone(zone)
+		if InFilteredZone then
 			Spy.EnabledInZone = false
 		end
+--		if (zone == L["Silithus"] and (subZone == L["Hall of Ancient Paths"] or L["Sanctum of the Sages"]) or zone == L["Chamber of Heart"]) then
+--			Spy.EnabledInZone = false
+--		end
 	end
-end ]]--
+end
 
 function Spy:PlayerEnteringWorldEvent()
- 	local zone = GetZoneText()
+	Spy.EnabledInZone = false
 	local now = time()
-	if Spy.ChnlTime > (now - 6) then	
+	if Spy.ChnlTime > (now - 6) then
 		self:ScheduleTimer("PlayerEnteringWorldEvent",6)
 		return	
 	else 
@@ -1739,7 +1750,6 @@ function Spy:PlayerEnteringWorldEvent()
 end
 
 function Spy:ZoneChangedEvent()
- 	local zone = GetZoneText()
 	local now = time()
 	if Spy.ChnlTime > (now - 6) then	
 		self:ScheduleTimer("ZoneChangedEvent",6)
@@ -1750,9 +1760,8 @@ function Spy:ZoneChangedEvent()
 end
 
 function Spy:ZoneChangedNewAreaEvent()
- 	local zone = GetZoneText()
 	local now = time()
-	if Spy.ChnlTime > (now - 6) then	
+	if Spy.ChnlTime > (now - 6) then
 		self:ScheduleTimer("ZoneChangedNewAreaEvent",6)
 		return		
 	else 
@@ -1761,22 +1770,15 @@ function Spy:ZoneChangedNewAreaEvent()
 end
 
 function Spy:ZoneChanged()
- 	local zone = GetZoneText() 	
-	if zone == "" then
-		-- zone hasn't loaded yet, try again in 5 seconds.
-		self:ScheduleTimer("ZoneChanged",5)
-		return
-	end
 	Spy.InInstance = false
 	local pvpType = GetZonePVPInfo()
+ 	local zone = GetZoneText()
 	local subZone = GetSubZoneText()
 	local InFilteredZone = Spy:InFilteredZone(subZone)
---	if pvpType == "sanctuary" or GetZoneText() == "" or subZone == "The Vindicaar" then
 	if pvpType == "sanctuary" or zone == "" or InFilteredZone then
 		Spy.EnabledInZone = false
 	else
 		Spy.EnabledInZone = true
-
 		local inInstance, instanceType = IsInInstance()
 		if inInstance then
 			Spy.InInstance = true
@@ -1788,7 +1790,7 @@ function Spy:ZoneChanged()
 				Spy.EnabledInZone = false
 			end
 		elseif (pvpType == "friendly" or pvpType == nil) then
-			if UnitIsPVP("player") == false and Spy.db.profile.DisableWhenPVPUnflagged then -- WoD Change
+			if UnitIsPVP("player") == false and Spy.db.profile.DisableWhenPVPUnflagged then
 				Spy.EnabledInZone = false
 			end
 		end
@@ -1812,7 +1814,6 @@ function Spy:InFilteredZone(subzone)
 			break
 		end
 	end
-
 	return InFilteredZone
 end
 

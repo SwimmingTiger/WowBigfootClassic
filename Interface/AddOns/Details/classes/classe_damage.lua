@@ -1817,8 +1817,6 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 											end
 											this_spell [2] = this_spell [2] + on_player
 											total = total + on_player
-										else
-											error ("error - no spell id for DTBS friendly fire " .. spellid)
 										end
 									end
 								end
@@ -2037,6 +2035,12 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 					return _detalhes:EsconderBarrasNaoUsadas (instancia, showing), "", 0, 0
 				end
 			
+				for i = 1, #conteudo do
+					if (type(conteudo[i][keyName]) == "string") then
+						conteudo[i][keyName] = 0
+					end
+				end
+
 				_table_sort (conteudo, _detalhes.SortKeySimple)
 			
 				if (conteudo[1][keyName] < 1) then
@@ -2055,6 +2059,12 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 					atributo_damage:ContainerRefreshDps (conteudo, combat_time)
 				end
 
+				for i = 1, #conteudo do
+					if (type(conteudo[i][keyName]) == "string") then
+						conteudo[i][keyName] = 0
+					end
+				end
+				
 				_table_sort (conteudo, _detalhes.SortKeyGroup)
 			end
 			--
@@ -2800,6 +2810,7 @@ end
 				end
 			else
 				texture:SetTexture (instance and instance.row_info.icon_file or [[Interface\AddOns\Details\images\classes_small]])
+				classe = classe:upper()
 				texture:SetTexCoord (_unpack (_detalhes.class_coords [classe]))
 				texture:SetVertexColor (1, 1, 1)
 			end

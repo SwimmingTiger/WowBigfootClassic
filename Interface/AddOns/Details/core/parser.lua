@@ -859,6 +859,9 @@
 		end
 		
 		--> actor
+		if (type(este_jogador.total) == "string") then
+			este_jogador.total = 0
+		end
 		este_jogador.total = este_jogador.total + amount
 		
 		--> actor without pets
@@ -1698,6 +1701,10 @@
 			_current_total [2] = _current_total [2] + cura_efetiva
 			
 			--> actor healing amount
+			if (not este_jogador.total or type (este_jogador.total) == "string") then
+				este_jogador.total = 0
+			end
+			
 			este_jogador.total = este_jogador.total + cura_efetiva	
 			este_jogador.total_without_pet = este_jogador.total_without_pet + cura_efetiva
 			
@@ -5375,6 +5382,10 @@ local SPELL_POWER_PAIN = SPELL_POWER_PAIN or (PowerEnum and PowerEnum.Pain) or 1
 	end
 	
 	function _detalhes.pvp_parser_frame:ReadPvPData()
+
+		if (true) then
+			return
+		end
 	
 		local players = GetNumBattlefieldScores()
 

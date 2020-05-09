@@ -18,25 +18,30 @@ gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 local recommendElements     = {};
 
 AUCTIONATOR_ENABLE_ALT    = 1;
+AUCTIONATOR_AUTOCOMPLETE = 1;
 AUCTIONATOR_SHOW_ST_PRICE = 0;
 AUCTIONATOR_SHOW_TIPS   = 1;
 AUCTIONATOR_DEF_DURATION  = "N";    -- none
 AUCTIONATOR_V_TIPS      = 1;
 AUCTIONATOR_A_TIPS      = 1;
+AUCTIONATOR_A_WEEK_TIPS      = 0;
+AUCTIONATOR_A_MONTH_TIPS      = 0;
 AUCTIONATOR_D_TIPS      = 1;
 AUCTIONATOR_SHIFT_TIPS    = 1;
 AUCTIONATOR_DE_DETAILS_TIPS = 4;    -- off by default
 AUCTIONATOR_DEFTAB      = 1;
+AUCTIONATOR_R_TIPS      = 1;
 
 AUCTIONATOR_DB_MAXITEM_AGE  = 180;
 AUCTIONATOR_DB_MAXHIST_AGE  = 21;   -- obsolete - just needed for migration
-AUCTIONATOR_DB_MAXHIST_DAYS = 5;
+AUCTIONATOR_DB_MAXHIST_DAYS = 28;
 
 AUCTIONATOR_OPEN_FIRST    = 0;  -- obsolete - just needed for migration
 AUCTIONATOR_OPEN_BUY    = 0;  -- obsolete - just needed for migration
 
 local SELL_TAB    = 1;
-local BUY_TAB     = 2;
+local MORE_TAB    = 2;
+local BUY_TAB     = 3;
 
 
 -- saved variables - amounts to undercut
@@ -98,7 +103,7 @@ local gHlistNeedsUpdate = false;
 local gAtr_SellTriggeredByAuctionator = false;
 
 local gSellPane;
--- local gMorePane;
+local gMorePane;
 local gActivePane;
 local gShopPane;
 
@@ -154,8 +159,7 @@ function Atr_RegisterEvents(self)
 
   self:RegisterEvent("NEW_AUCTION_UPDATE");
   self:RegisterEvent("CHAT_MSG_ADDON");
-  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他事件
-  --self:RegisterEvent("PLAYER_ENTERING_WORLD");
+  self:RegisterEvent("PLAYER_ENTERING_WORLD");
 
 end
 
@@ -164,8 +168,7 @@ end
 function Atr_EventHandler(self, event, ...)
   -- Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
 
-  -- 老虎会游泳：按需加载收不到除了 ADDON_LOADED 之外的其他事件
-  if (event == --[["VARIABLES_LOADED"]] "ADDON_LOADED") and ... == "Auctionator"      then  Atr_OnLoad();             end;
+  if (event == "VARIABLES_LOADED")      then  Atr_OnLoad();             end;
   if (event == "ADDON_LOADED")        then  Atr_OnAddonLoaded(...);       end;
   if (event == "AUCTION_ITEM_LIST_UPDATE")  then  Atr_OnAuctionUpdate(...);       end;
   if (event == "AUCTION_OWNED_LIST_UPDATE") then  Atr_OnAuctionOwnedUpdate();     end;
@@ -178,7 +181,7 @@ function Atr_EventHandler(self, event, ...)
   if (event == "AUCTION_HOUSE_CLOSED")    then  Atr_OnAuctionHouseClosed();     end;
   if (event == "NEW_AUCTION_UPDATE")      then  Atr_OnNewAuctionUpdate();       end;
   if (event == "CHAT_MSG_ADDON")        then  Atr_OnChatMsgAddon(...);      end;
-  if (event == --[["PLAYER_ENTERING_WORLD"]] "ADDON_LOADED")   then  Atr_OnPlayerEnteringWorld();    end;
+  if (event == "PLAYER_ENTERING_WORLD")   then  Atr_OnPlayerEnteringWorld();    end;
 
   if (event == "UNIT_SPELLCAST_SENT")     then  Atr_OnSpellCastSent(...);     end;
   if (event == "UNIT_SPELLCAST_SUCCEEDED")  then  Atr_OnSpellCastSucess(...);     end;
@@ -1150,6 +1153,7 @@ function Atr_Init()
 
   gShopPane = Atr_AddSellTab (ZT("Buy"),      BUY_TAB);
   gSellPane = Atr_AddSellTab (ZT("Sell"),     SELL_TAB);
+  gMorePane = Atr_AddSellTab (ZT("More").."...",  MORE_TAB);
 
   Atr_AddMainPanel ();
 
@@ -1311,9 +1315,11 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 
     if (index == Atr_FindTabIndex(SELL_TAB))  then gCurrentPane = gSellPane; end;
     if (index == Atr_FindTabIndex(BUY_TAB))   then gCurrentPane = gShopPane; end;
+    if (index == Atr_FindTabIndex(MORE_TAB))  then gCurrentPane = gMorePane; end;
 
     if (index == Atr_FindTabIndex(SELL_TAB))  then AuctionatorTitle:SetText ("Auctionator - "..ZT("Sell"));     end;
     if (index == Atr_FindTabIndex(BUY_TAB))   then AuctionatorTitle:SetText ("Auctionator - "..ZT("Buy"));      end;
+    if (index == Atr_FindTabIndex(MORE_TAB))  then AuctionatorTitle:SetText ("Auctionator - "..ZT("More").."...");  end;
 
     Atr_ClearHlist();
     Atr_SellControls:Hide();
@@ -1346,6 +1352,15 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
         gSellPane:ClearSearch ();
       end
     end
+
+
+    if (index == Atr_FindTabIndex(MORE_TAB)) then
+      FauxScrollFrame_SetOffset (Atr_Hlist_ScrollFrame, gCurrentPane.hlistScrollOffset);
+      Atr_DisplayHlist();
+      Atr_ActiveItems_Text:Show();
+      Atr_CheckActiveButton:Show();
+    end
+
 
     if (index == Atr_FindTabIndex(BUY_TAB)) then
       Atr_Search_Box:Show();
@@ -1425,6 +1440,12 @@ function Atr_IsModeBuy ()
 end
 
 -----------------------------------------
+
+function Atr_IsModeActiveAuctions ()
+  -- Auctionator.Debug.Message( 'Atr_IsModeActiveAuctions' )
+
+  return (Atr_IsTabSelected(MORE_TAB));
+end
 
 -----------------------------------------
 
@@ -1681,6 +1702,10 @@ function Atr_OnAuctionOwnedUpdate ()
 
   gItemPostingInProgress = false;
 
+  if (Atr_IsModeActiveAuctions()) then
+    gHlistNeedsUpdate = true;
+  end
+
   if (not Atr_IsTabSelected()) then
     Atr_ClearScanCache();   -- if not our tab, we have no idea what happened so must flush all caches
     return;
@@ -1906,68 +1931,37 @@ function Atr_OnAuctionUpdate (...)
     Atr_FullScanBeginAnalyzePhase()   -- handle in idle loop to slow down
     return
   end
-  if gAtr_FullScanState == ATR_FS_ANALYZING then
-    return;
-  end
-  if gAtr_FullScanState == ATR_FS_UPDATING_DB then
-    return;
-  end
-  if gAtr_FullScanState == ATR_FS_CLEANING_UP then
-    return;
-  end
 
   if (gAtr_FullScanState == ATR_FS_SLOW_QUERY_SENT) then
     Atr_FullScanBeginAnalyzePhase()
     Atr_FullScanAnalyze()           -- handle here since it's just one page
     return
   end
-  if gAtr_FullScanState == ATR_FS_SLOW_QUERY_NEEDED then
-    return;
-  end
 
-  -- if (not Atr_IsTabSelected()) then
-  --   Atr_ClearScanCache()    -- if not our tab, we have no idea what happened so must flush all caches
-  --   return;
-  -- end;
+  if (not Atr_IsTabSelected()) then
+    Atr_ClearScanCache()    -- if not our tab, we have no idea what happened so must flush all caches
+    return;
+  end;
 
   if (Atr_Buy_OnAuctionUpdate()) then
     return
   end
 
-  if gCurrentPane then
+  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
+
     gCurrentPane.activeSearch:CapturePageInfo();
-    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
-      -- gCurrentPane = gCurrentPane or gShopPane;
 
+    local isDup = gCurrentPane.activeSearch:CheckForDuplicatePage ();
 
-      local isDup = gCurrentPane.activeSearch:CheckForDuplicatePage ();
+    if (not isDup) then
 
-      if (not isDup) then
+      local done = gCurrentPane.activeSearch:AnalyzeResultsPage();
 
-        local done = gCurrentPane.activeSearch:AnalyzeResultsPage();
-
-        if (done) then
-          gCurrentPane.activeSearch:Finish();
-          Atr_OnSearchComplete ();
-        end
+      if (done) then
+        gCurrentPane.activeSearch:Finish();
+        Atr_OnSearchComplete ();
       end
     end
-  else
-    gShopPane.activeSearch:CapturePageInfo();
-      -- gCurrentPane = gCurrentPane or gShopPane;
-
-
-      local isDup = gShopPane.activeSearch:CheckForDuplicatePage ();
-
-      if (not isDup) then
-
-        local done = gShopPane.activeSearch:AnalyzeResultsPage();
-
-        if (done) then
-          gShopPane.activeSearch:Finish();
-          -- Atr_OnSearchComplete ();
-        end
-      end
   end
 
 end
@@ -2012,6 +2006,10 @@ function Atr_OnSearchComplete()
 
     Atr_UpdateRecommendation(true);
   else
+    if (Atr_IsModeActiveAuctions()) then
+      Atr_DisplayHlist();
+    end
+
     Atr_FindBestCurrentAuction ();
   end
 
@@ -2080,7 +2078,7 @@ function Atr_SetMessage (msg)
 
   Atr_HideElems (recommendElements);
 
-  if (gCurrentPane and gCurrentPane.activeSearch.searchText) then
+  if (gCurrentPane.activeSearch.searchText) then
 
     Atr_ShowItemNameAndTexture (gCurrentPane.activeSearch.searchText);
 
@@ -2699,6 +2697,7 @@ function Atr_OnAuctionHouseShow()
 
   if (AUCTIONATOR_DEFTAB == 1) then   Atr_SelectPane (SELL_TAB);  end
   if (AUCTIONATOR_DEFTAB == 2) then   Atr_SelectPane (BUY_TAB); end
+  if (AUCTIONATOR_DEFTAB == 3) then   Atr_SelectPane (MORE_TAB);  end
 
   Atr_ResetDuration();
 
@@ -2723,7 +2722,7 @@ function Atr_OnAuctionHouseClosed()
 
   gSellPane:ClearSearch();
   gShopPane:ClearSearch();
-  -- gMorePane:ClearSearch();
+  gMorePane:ClearSearch();
 
 end
 
@@ -3005,6 +3004,11 @@ function Atr_UpdateUI ()
   end
 
   -- update the hlist if needed
+
+  if (gHlistNeedsUpdate and Atr_IsModeActiveAuctions()) then
+    gHlistNeedsUpdate = false;
+    Atr_DisplayHlist();
+  end
 
   if (Atr_IsTabSelected(SELL_TAB)) then
     Atr_UpdateUI_SellPane (needsUpdate);
@@ -3289,6 +3293,11 @@ function Atr_HEntryOnClick(self)
   local entryIndex = line:GetID();
   local itemName = gHistoryItemList[entryIndex].name;
   local itemLink = gHistoryItemList[entryIndex].link;
+
+  if (IsAltKeyDown() and Atr_IsModeActiveAuctions()) then
+    Atr_Cancel_Undercuts_OnClick (itemName)
+    return;
+  end
 
   gCurrentPane.UINeedsUpdate = true;
 
@@ -3596,17 +3605,20 @@ function Atr_ShowSearchSummary()
       local data = scn.absoluteBest;
 
       local lineEntry_item_tag = "AuctionatorEntry"..line.."_PerItem_Price";
-
+      local lineEntry_stack_tag = "AuctionatorEntry"..line.."_Stack_Price";
       local lineEntry_item    = _G[lineEntry_item_tag];
+      local lineEntry_stack    = _G[lineEntry_stack_tag];
+
       local lineEntry_itemtext  = _G["AuctionatorEntry"..line.."_PerItem_Text"];
       local lineEntry_text    = _G["AuctionatorEntry"..line.."_EntryText"];
-      local lineEntry_stack   = _G["AuctionatorEntry"..line.."_StackPrice"];
+      local lineEntry_stacktext   = _G["AuctionatorEntry"..line.."_Stack_Text"];
 
       lineEntry_itemtext:SetText  ("");
       lineEntry_text:SetText  ("");
-      lineEntry_stack:SetText ("");
+      lineEntry_stacktext:SetText ("");
+      lineEntry_stack:Hide();
 
-      lineEntry_text:GetParent():SetPoint ("LEFT", 157, 0);
+      --lineEntry_text:GetParent():SetPoint ("LEFT", 157, 0);
 
       Atr_SetMFcolor (lineEntry_item_tag);
 
@@ -3619,7 +3631,7 @@ function Atr_ShowSearchSummary()
       local b = scn.itemTextColor[3]
 
       lineEntry_text:SetTextColor (r, g, b)
-      lineEntry_stack:SetTextColor (1, 1, 1)
+      lineEntry_stacktext:SetTextColor (1, 1, 1)
 
       -- Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
       local icon = Atr_GetUCIcon( scn.itemLink )
@@ -3636,11 +3648,12 @@ function Atr_ShowSearchSummary()
         end
 
         lineEntry_text:SetText (icon.."  "..scn.itemName..iLevelStr)
-        lineEntry_stack:SetText (scn:GetNumAvailable().." "..ZT("available"))
+        lineEntry_stacktext:SetText (scn:GetNumAvailable().." "..ZT("available"))
       end
 
       if (data == nil or scn.sortedData == nil or #scn.sortedData == 0) then
         lineEntry_item:Hide();
+
         lineEntry_itemtext:Show();
         if (scn.sortedData and #scn.sortedData == 0) then
           lineEntry_itemtext:SetText (ZT("none available"));
@@ -3722,24 +3735,26 @@ function Atr_ShowCurrentAuctions()
       local data = scn.sortedData[dataOffset];
 
       local lineEntry_item_tag = "AuctionatorEntry"..line.."_PerItem_Price";
-
+      local lineEntry_stack_tag = "AuctionatorEntry"..line.."_Stack_Price";
       local lineEntry_item    = _G[lineEntry_item_tag];
+      local lineEntry_stack    = _G[lineEntry_stack_tag];
+
       local lineEntry_itemtext  = _G["AuctionatorEntry"..line.."_PerItem_Text"];
       local lineEntry_text    = _G["AuctionatorEntry"..line.."_EntryText"];
-      local lineEntry_stack   = _G["AuctionatorEntry"..line.."_StackPrice"];
+      local lineEntry_stacktext   = _G["AuctionatorEntry"..line.."_Stack_Text"];
 
       lineEntry_itemtext:SetText  ("");
       lineEntry_text:SetText  ("");
-      lineEntry_stack:SetText ("");
+      lineEntry_stacktext:SetText ("");
 
-      lineEntry_text:GetParent():SetPoint ("LEFT", 172, 0);
+      --lineEntry_text:GetParent():SetPoint ("LEFT", 172, 0);
 
       Atr_SetMFcolor (lineEntry_item_tag);
+      Atr_SetMFcolor (lineEntry_stack_tag);
 
       local entrytext = "";
 
       if (data.type == "n") then
-
         lineEntry:Show();
 
         if (data.count == 1) then
@@ -3764,16 +3779,21 @@ function Atr_ShowCurrentAuctions()
 
         if (data.buyoutPrice == 0) then
           lineEntry_item:Hide();
+          lineEntry_stack:Hide();
+
           lineEntry_itemtext:Show();
           lineEntry_itemtext:SetText (ZT("no buyout price"));
+          lineEntry_stacktext:SetText("")
         else
           lineEntry_item:Show();
-          lineEntry_itemtext:Hide();
-          MoneyFrame_Update (lineEntry_item_tag, zc.round(data.buyoutPrice/data.stackSize) );
+          --lineEntry_itemtext:Hide();
+          MoneyFrame_Update ( lineEntry_item_tag, zc.round(data.buyoutPrice/data.stackSize) );
 
           if (data.stackSize > 1) then
-            lineEntry_stack:SetText (zc.priceToString(data.buyoutPrice));
-            lineEntry_stack:SetTextColor (0.6, 0.6, 0.6);
+            lineEntry_stack:Show();
+            MoneyFrame_Update (lineEntry_stack_tag, data.buyoutPrice );
+          else
+            lineEntry_stack:Hide();
           end
         end
 
@@ -3860,18 +3880,21 @@ function Atr_ShowHistory (showPosts)
       local data = gCurrentPane.sortedHist[dataOffset];
 
       local lineEntry_item_tag = "AuctionatorEntry"..line.."_PerItem_Price";
-
+      local lineEntry_stack_tag = "AuctionatorEntry"..line.."_Stack_Price";
       local lineEntry_item    = _G[lineEntry_item_tag];
+      local lineEntry_stack    = _G[lineEntry_stack_tag];
+
       local lineEntry_itemtext  = _G["AuctionatorEntry"..line.."_PerItem_Text"];
       local lineEntry_text    = _G["AuctionatorEntry"..line.."_EntryText"];
-      local lineEntry_stack   = _G["AuctionatorEntry"..line.."_StackPrice"];
+      local lineEntry_stacktext   = _G["AuctionatorEntry"..line.."_Stack_Text"];
 
-      lineEntry_text:GetParent():SetPoint ("LEFT", 172, 0);
+      --lineEntry_text:GetParent():SetPoint ("LEFT", 172, 0);
 
       lineEntry_item:Show();
       lineEntry_itemtext:Hide();
 
-      lineEntry_stack:SetText ("");
+      lineEntry_stacktext:SetText ("");
+      lineEntry_stack:Hide();
 
       Atr_SetMFcolor (lineEntry_item_tag);
 
@@ -4464,12 +4487,12 @@ end
 
 function Atr_Duration_Initialize(self)
   Auctionator.Debug.Message( 'Atr_Duration_Initialize', self )
-	
+
 	-- DaMaGepy fix
   --Atr_Dropdown_AddPick (self, AUCTION_DURATION_ONE, 1, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "2小时", 1, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "8小时", 2, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, "24小时", 3, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "2 Hours", 1, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "8 Hours", 2, Atr_Duration_OnClick);
+  Atr_Dropdown_AddPick (self, "24 Hours", 3, Atr_Duration_OnClick);
 
 end
 
@@ -4538,7 +4561,7 @@ function Atr_IsTabSelected(whichTab)
   end
 
   if (not whichTab) then
-    return (Atr_IsTabSelected(SELL_TAB) or Atr_IsTabSelected(BUY_TAB));
+    return (Atr_IsTabSelected(SELL_TAB) or Atr_IsTabSelected(MORE_TAB) or Atr_IsTabSelected(BUY_TAB));
   end
 
   return (PanelTemplates_GetSelectedTab (AuctionFrame) == Atr_FindTabIndex(whichTab));
@@ -4549,7 +4572,7 @@ end
 function Atr_IsAuctionatorTab (tabIndex)
   Auctionator.Debug.Message( 'Atr_IsAuctionatorTab', tabIndex )
 
-  if (tabIndex == Atr_FindTabIndex(SELL_TAB) or tabIndex == Atr_FindTabIndex(BUY_TAB) ) then
+  if (tabIndex == Atr_FindTabIndex(SELL_TAB) or tabIndex == Atr_FindTabIndex(MORE_TAB) or tabIndex == Atr_FindTabIndex(BUY_TAB) ) then
 
     return true;
 
@@ -5025,6 +5048,8 @@ end
 
 function Atr_Item_Autocomplete(self)
   Auctionator.Debug.Message( 'Atr_Item_Autocomplete', self )
+
+  if AUCTIONATOR_AUTOCOMPLETE == 0 then return end
 
   local text = self:GetText();
   local textlen = strlen(text);

@@ -59,7 +59,7 @@ function Browser:Constructor()
     end
 
     SetupQuickButton(self.Quick1, 1)
-    SetupQuickButton(self.Quick2, 2)
+    SetupQuickButton(self.Quick2, 6)
     SetupQuickButton(self.Quick3, 3)
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)

@@ -127,6 +127,7 @@ L:SetMiscLocalization{
 	Breath1		= "First Breath",
 	Breath2		= "Second Breath",
 	VulnEmote	= "%s flinches as its skin shimmers.",
+	Vuln		= "Vulnerability",
 	Fire		= "Fire",
 	Nature		= "Nature",
 	Frost		= "Frost",

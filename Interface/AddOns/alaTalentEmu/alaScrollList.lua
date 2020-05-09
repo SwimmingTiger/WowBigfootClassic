@@ -53,15 +53,15 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	width = width and max(width, def_inner_size) or def_inner_size;
 	height = height and max(height, def_inner_size) or def_inner_size;
 
-	local scrollFrame = CreateFrame("ScrollFrame", nil, parent);
-	local scrollChild = CreateFrame("Frame", nil, scrollFrame);
-	local scrollBar = CreateFrame("Slider", nil, scrollFrame);
+	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
+	local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
+	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
 	local buttons = {};
 	local nButtonsShown = 0;
 	local ofsIndex = 0;
 	local numValue = -1;
 
-	local sbWidth = 16;
+	local sbWidth = 20;
 	local sfWidth = width - sbWidth;
 
 	scrollFrame:Show();
@@ -76,8 +76,8 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		scrollBar:SetValue(min(maxVal, max(minVal, scrollBar:GetValue() - delta * stepSize)));
 	end);
 	function scrollFrame:OnSizeChanged(width, height)
-		-- width = width or self:GetWidth();
-		height = height or self:GetHeight();
+		-- width = width or scrollFrame:GetWidth();
+		height = height or scrollFrame:GetHeight();
 		scrollChild:SetHeight(height);
 		--scrollBar:SetValue(mscrollBar:GetValue());
 		scrollChild:CreateScrollChildButtons();
@@ -92,17 +92,17 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	end
 	-- scrollFrame._SetSize = scrollFrame.SetSize;
 	-- function scrollFrame:SetSize(...)
-	-- 	self:_SetSize(...);
-	-- 	self:OnSizeChanged(...);
+	-- 	scrollFrame:_SetSize(...);
+	-- 	scrollFrame:OnSizeChanged(...);
 	-- end
 	-- scrollFrame._SetHeight = scrollFrame.SetHeight;
 	-- function scrollFrame:SetHeight(...)
-	-- 	self:_SetHeight(...);
-	-- 	self:OnSizeChange(self:GetWidth(), ...);
+	-- 	scrollFrame:_SetHeight(...);
+	-- 	scrollFrame:OnSizeChange(scrollFrame:GetWidth(), ...);
 	-- end
 	-- scrollFrame._SetWidth = scrollFrame.SetWidth;
 	-- function scrollFrame:SetWidth(...)
-	-- 	self:_SetWidth(...);
+	-- 	scrollFrame:_SetWidth(...);
 	-- 	scrollChild:SetWidth(...);
 	-- end
 	scrollFrame:SetScript("OnSizeChanged", scrollFrame.OnSizeChanged);
@@ -117,26 +117,30 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		end
 	);
 	scrollFrame:SetScript("OnShow", function(self)
-		self:Update();
+		scrollFrame:Update();
 	end);
 	function scrollFrame:UpdateButtons()
-		for i = 1, nButtonsShown do
-			functToSetButton(buttons[i], i + ofsIndex);
+		if scrollFrame:IsVisible() then
+			for i = 1, nButtonsShown do
+				functToSetButton(buttons[i], i + ofsIndex);
+			end
 		end
 	end
 	function scrollFrame:Update()
-		local maxVal = max(numValue - nButtonsShown + 2, 0) * buttonHeight;
-		local val = min(scrollBar:GetValue(), maxVal);
-		scrollBar:SetMinMaxValues(0, maxVal);
-		scrollBar:SetValue(val);
-		if nButtonsShown - 1 > numValue then
-			scrollBar:Hide();
-			scrollChild:SetWidth(self:GetWidth());
-		else
-			scrollBar:Show();
-			scrollChild:SetWidth(self:GetWidth() - sbWidth);
+		if scrollFrame:IsVisible() then
+			local maxVal = max(numValue - nButtonsShown + 2, 0) * buttonHeight;
+			local val = min(scrollBar:GetValue(), maxVal);
+			scrollBar:SetMinMaxValues(0, maxVal);
+			scrollBar:SetValue(val);
+			if nButtonsShown - 1 > numValue then
+				scrollBar:Hide();
+				scrollChild:SetWidth(scrollFrame:GetWidth());
+			else
+				scrollBar:Show();
+				scrollChild:SetWidth(scrollFrame:GetWidth() - sbWidth);
+			end
+			scrollFrame:UpdateButtons();
 		end
-		scrollFrame:UpdateButtons();
 	end
 	function scrollFrame:SetNumValue(n)
 		if n >= 0 and numValue ~= n then
@@ -145,7 +149,7 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		end
 	end
 	function scrollFrame:HandleButtonByDataIndex(index, func, ...)
-		return self:HandleButtonByRawIndex(index - ofsIndex, func, ...);
+		return scrollFrame:HandleButtonByRawIndex(index - ofsIndex, func, ...);
 	end
 	function scrollFrame:HandleButtonByRawIndex(index, func, ...)
 		if index >= 1 and index <= #buttons then
@@ -171,28 +175,29 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		return nil;
 	end
 	function scrollFrame:CallButtonFuncByDataIndex(index, func, ...)
-		return self:CallButtonFuncByRawIndex(index - ofsIndex, func, ...);
+		return scrollFrame:CallButtonFuncByRawIndex(index - ofsIndex, func, ...);
 	end
 
 
 	scrollChild:Show();
 	scrollChild:SetPoint("LEFT", scrollFrame);
+	local function GetDataIndex(self)
+		return self.id + ofsIndex;
+	end
 	function scrollChild:CreateScrollChildButtons()
-		local num = ceil(self:GetHeight() / buttonHeight) + 1;
+		local num = ceil(scrollChild:GetHeight() / buttonHeight) + 1;
 		if num == nButtonsShown then
 			return;
 		end
 		if not buttons[1] then
-			local button = funcToCreateButton(self, 1, buttonHeight);
+			local button = funcToCreateButton(scrollChild, 1, buttonHeight);
 			button.id = 1;
 			buttons[1] = button;
 			button:SetPoint("TOPLEFT");
 			button:SetPoint("TOPRIGHT");
 			button:Show();
 			nButtonsShown = 1;
-			function button:GetDataIndex()
-				return self.id + ofsIndex;
-			end
+			button.GetDataIndex = GetDataIndex;
 		end
 		if num < nButtonsShown then
 			for i = num + 1, nButtonsShown do
@@ -200,19 +205,17 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 			end
 		else
 			for i = nButtonsShown + 1, num do
-				local button = funcToCreateButton(self, i, buttonHeight);
+				local button = funcToCreateButton(scrollChild, i, buttonHeight);
 				button.id = i;
 				buttons[i] = button;
 				button:SetPoint("TOPLEFT", buttons[i - 1], "BOTTOMLEFT", 0, 0);
 				button:SetPoint("TOPRIGHT", buttons[i - 1], "BOTTOMRIGHT", 0, 0);
 				buttons[i]:Show();
-				function button:GetDataIndex()
-					return self.id + ofsIndex;
-				end
+				button.GetDataIndex = GetDataIndex;
 			end
 		end
 		nButtonsShown = num;
-		--self:SetHeight(buttonHeight * nButtonsShown);
+		--scrollChild:SetHeight(buttonHeight * nButtonsShown);
 		scrollBar:SetStepsPerPage(nButtonsShown - 2);
 	end
 
@@ -245,22 +248,22 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 		left:SetWidth(2);
 		left:SetPoint("TOPLEFT");
 		left:SetPoint("BOTTOMLEFT");
-		left:SetColorTexture(0.15, 0.15, 0.15, 1.0);
+		left:SetColorTexture(0.0, 0.0, 0.0, 1.0);
 		local right = scrollBar:CreateTexture(nil, "ARTWORK");
 		right:SetWidth(2);
 		right:SetPoint("TOPRIGHT");
 		right:SetPoint("BOTTOMRIGHT");
-		right:SetColorTexture(0.15, 0.15, 0.15, 1.0);
+		right:SetColorTexture(0.0, 0.0, 0.0, 1.0);
 		local top = scrollBar:CreateTexture(nil, "ARTWORK");
 		top:SetHeight(2);
 		top:SetPoint("TOPLEFT");
 		top:SetPoint("TOPRIGHT");
-		top:SetColorTexture(0.15, 0.15, 0.15, 1.0);
+		top:SetColorTexture(0.0, 0.0, 0.0, 1.0);
 		local bot = scrollBar:CreateTexture(nil, "ARTWORK");
 		bot:SetHeight(2);
 		bot:SetPoint("BOTTOMLEFT");
 		bot:SetPoint("BOTTOMRIGHT");
-		bot:SetColorTexture(0.15, 0.15, 0.15, 1.0);
+		bot:SetColorTexture(0.0, 0.0, 0.0, 1.0);
 	end
 	scrollBar:SetThumbTexture("Interface\\Buttons\\UI-ScrollBar-Knob");
 	local thumb = scrollBar:GetThumbTexture();

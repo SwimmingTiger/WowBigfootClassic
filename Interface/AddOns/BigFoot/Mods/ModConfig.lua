@@ -508,6 +508,27 @@ local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck
 	return check
 end
 
+local function __CreateNativeAddOnCheckBox(addonName, tooltip)
+	local _, _, _, active, status = GetAddOnInfo(addonName)
+	if status ~= 'MISSING' then
+		BigFoot_SetModVariable("CustomCheckBox", addonName, IsAddOnLoaded(addonName) and 1 or 0)
+		check = __CreateCustomCheckBox(addonName, tooltip, active,
+			function()
+				if not IsAddOnLoaded(addonName) then
+					EnableAddOn(addonName)
+					BigFoot_RequestReloadUI()
+				end
+			end,
+			function()
+				if IsAddOnLoaded(addonName) then
+					DisableAddOn(addonName)
+					BigFoot_RequestReloadUI()
+				end
+			end)
+		M:AddBottomButton(check)
+	end
+end
+
 local function __CreateBigFootButtons()
 	local bfButton = BLibrary("BFButton", M.panel, 80, 28);
 	local logButton = BLibrary("BFButton", M.panel, 80, 28);
@@ -578,36 +599,9 @@ end
 local function __AddBottomFrames()
 	local check;
 
-	if IsConfigurableAddOn("Recount") then
-		check = __CreateCheckBox(L["Recount"], "RaidToolkit","EnableRecount2",nil,"Recount")
-		M:AddBottomButton(check)
-	end
-
-	if IsConfigurableAddOn("Skada") then
-		check = __CreateCheckBox(L["Skada"], "RaidToolkit","EnableSkada",nil,"Skada")
-		M:AddBottomButton(check)
-	end
-
-	do
-		local _, _, _, active, status = GetAddOnInfo('Details')
-		if status ~= 'MISSING' then
-			BigFoot_SetModVariable("CustomCheckBox", "Details", IsAddOnLoaded('Details') and 1 or 0)
-			check = __CreateCustomCheckBox("Details", nil, active,
-				function()
-					if not IsAddOnLoaded('Details') then
-						EnableAddOn('Details')
-						BigFoot_RequestReloadUI()
-					end
-				end,
-				function()
-					if IsAddOnLoaded('Details') then
-						DisableAddOn('Details')
-						BigFoot_RequestReloadUI()
-					end
-				end)
-			M:AddBottomButton(check)
-		end
-	end
+	__CreateNativeAddOnCheckBox('Recount')
+	__CreateNativeAddOnCheckBox('Skada')
+	__CreateNativeAddOnCheckBox('Details')
 
 	if ThreatClassic2BarFrame ~= nil then
 		local oriShow = ThreatClassic2BarFrame.Show
@@ -669,11 +663,6 @@ local function __AddBottomFrames()
 		M:AddBottomButton2(check)
 	end
 
-	if pcall(GetCVarDefault, "targetnearestuseold") then
-	    check = __CreateOldTabCheckBox()
-		M:AddBottomButton(check)
-	end
-
 	if MonkeyQuestSlash_CmdOpen ~= nil then
 		check = __CreateCustomCheckBox("MonkeyQuestList", L["MonkeyQuestList-tooltip"], true,
 			function() MonkeyQuestSlash_CmdOpen(true) end,
@@ -691,77 +680,10 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	if isAddonLoadable('Auctionator') then
-		check = __CreateEnableAddonCheckBox("Auctionator", nil, true)
-		M:AddBottomButton(check)
-	end
-
-	do
-		local _, _, _, active, status = GetAddOnInfo('aux-addon')
-		if status ~= 'MISSING' then
-			BigFoot_SetModVariable("CustomCheckBox", "aux-addon", IsAddOnLoaded('aux-addon') and 1 or 0)
-			check = __CreateCustomCheckBox("aux-addon", L['aux-addon-enabled'], active,
-				function()
-					if not IsAddOnLoaded('aux-addon') then
-						EnableAddOn('aux-addon')
-						BigFoot_RequestReloadUI()
-					end
-				end,
-				function()
-					if IsAddOnLoaded('aux-addon') then
-						DisableAddOn('aux-addon')
-						BigFoot_RequestReloadUI()
-					end
-				end)
-			M:AddBottomButton(check)
-		end
-	end
-
-	do
-		local _, _, _, active, status = GetAddOnInfo('Personal Resource Display')
-		if status ~= 'MISSING' then
-			BigFoot_SetModVariable("CustomCheckBox", "Personal Resource Display", IsAddOnLoaded('Personal Resource Display') and 1 or 0)
-			check = __CreateCustomCheckBox("Personal Resource Display", nil, active,
-				function()
-					if not IsAddOnLoaded('Personal Resource Display') then
-						EnableAddOn('Personal Resource Display')
-						BigFoot_RequestReloadUI()
-						print("Personal")
-					end
-				end,
-				function()
-					if IsAddOnLoaded('Personal Resource Display') then
-						DisableAddOn('Personal Resource Display')
-						BigFoot_RequestReloadUI()
-						print("Personal")
-					end
-				end)
-			M:AddBottomButton(check)
-		end
-	end
-
-	do
-		local _, _, _, active, status = GetAddOnInfo('Spy')
-		if status ~= 'MISSING' then
-			BigFoot_SetModVariable("CustomCheckBox", "Spy", IsAddOnLoaded('Spy') and 1 or 0)
-			check = __CreateCustomCheckBox("Spy", nil, active,
-				function()
-					if not IsAddOnLoaded('Spy') then
-						EnableAddOn('Spy')
-						BigFoot_RequestReloadUI()
-						print("Spy")
-					end
-				end,
-				function()
-					if IsAddOnLoaded('Spy') then
-						DisableAddOn('Spy')
-						BigFoot_RequestReloadUI()
-						print("Spy")
-					end
-				end)
-			M:AddBottomButton(check)
-		end
-	end
+	__CreateNativeAddOnCheckBox('Auctionator')
+	__CreateNativeAddOnCheckBox('aux-addon', L['aux-addon-enabled'])
+	__CreateNativeAddOnCheckBox('Personal Resource Display')
+	__CreateNativeAddOnCheckBox('Spy')
 
 	if type(SlashCmdList.AUTOINVITE) == 'function' then
 		check = __CreateCustomCheckBox("AutoInvite", L["AutoInvite-tooltip"], AutoInviteSettings.AutoInviteEnabled,
@@ -792,6 +714,11 @@ local function __AddBottomFrames()
 				}
 				StaticPopup_Show("AutoInvite_Input_Keywords")
 			end)
+		M:AddBottomButton(check)
+	end
+
+	if pcall(GetCVarDefault, "targetnearestuseold") then
+	    check = __CreateOldTabCheckBox()
 		M:AddBottomButton(check)
 	end
 end

@@ -141,6 +141,20 @@
         </Scripts>
       </Frame>
 
+      <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Enable_Autocomplete">
+        <Anchors>
+          <Anchor point="TOP">
+            <Offset>
+              <AbsDimension y="-110"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <!-- need translations -->
+          <OnLoad>AuctionatorOption_Enable_Autocomplete_CB_Text:SetText ("Enable AutoComplete");  </OnLoad>
+        </Scripts>
+      </Frame>
+
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Show_StartingPrice">
         <Anchors>
           <Anchor point="TOP">
@@ -313,14 +327,14 @@
         <FontString inherits="GameFontNormal" text="When SHIFT is down show">
           <Anchors>
             <Anchor point="TOPLEFT">
-              <Offset x="20" y="-181"/>
+              <Offset x="20" y="-200"/>
             </Anchor>
           </Anchors>
         </FontString>
         <FontString inherits="GameFontNormal" text="Show disenchanting details">
           <Anchors>
             <Anchor point="TOPLEFT">
-              <Offset x="20" y="-251"/>
+              <Offset x="20" y="-260"/>
             </Anchor>
           </Anchors>
         </FontString>
@@ -354,7 +368,7 @@
         </Scripts>
       </Frame>
 
-      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsDisenchantOpt">
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsAuctionWeekOpt">
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
@@ -363,10 +377,50 @@
           </Anchor>
         </Anchors>
         <Scripts>
+          <OnLoad>ATR_tipsAuctionWeekOpt_CB_Text:SetText (gAtr_ZT("Show auction house week summary in tooltips"));  </OnLoad>
+        </Scripts>
+      </Frame>
+
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsAuctionMonthOpt">
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="20" y="-145"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>ATR_tipsAuctionMonthOpt_CB_Text:SetText (gAtr_ZT("Show auction house month summary in tooltips"));  </OnLoad>
+        </Scripts>
+      </Frame>
+
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsDisenchantOpt">
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="20" y="-170"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
           <OnLoad>ATR_tipsDisenchantOpt_CB_Text:SetText (gAtr_ZT("Show disenchant prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
 
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsReagentOpt">
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="20" y="-310"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>ATR_tipsReagentOpt_CB_Text:SetText (gAtr_ZT("Show reagent prices in tradeskill tooltips"));  </OnLoad>
+        </Scripts>
+      </Frame>
+
+<!--
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsMailboxOpt">
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -379,12 +433,13 @@
           <OnLoad>ATR_tipsMailboxOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in mailbox tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
+ -->
 
       <Frame inherits="UIDropDownMenuTemplate" name="Atr_tipsShiftDD">
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
-              <AbsDimension x="50" y="-197"/>
+              <AbsDimension x="50" y="-215"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -397,7 +452,7 @@
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
-              <AbsDimension x="50" y="-267"/>
+              <AbsDimension x="50" y="-275"/>
             </Offset>
           </Anchor>
         </Anchors>

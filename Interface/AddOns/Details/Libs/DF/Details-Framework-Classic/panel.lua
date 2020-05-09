@@ -1735,7 +1735,11 @@ function DF:IconPick (callback, close_when_select, param1, param2)
 					local GetSpellInfo = GetSpellInfo
 					for i = 1, #MACRO_ICON_FILENAMES do
 						local spellName = GetSpellInfo (MACRO_ICON_FILENAMES [i])
-						SPELLNAMES_CACHE [i] = spellName or "NULL"
+						if (spellName) then
+							SPELLNAMES_CACHE [i] = spellName
+						else
+							SPELLNAMES_CACHE [i] = MACRO_ICON_FILENAMES [i]
+						end
 					end
 				end
 				
@@ -8472,10 +8476,10 @@ DF.BorderFunctions = {
 	end,
 	
 	SetBorderThickness = function (self, newThickness)
-		DFPixelUtil.SetWidth (f.leftBorder, newThickness, newThickness)
-		DFPixelUtil.SetWidth (f.rightBorder, newThickness, newThickness)
-		DFPixelUtil.SetHeight (f.topBorder, newThickness, newThickness)
-		DFPixelUtil.SetHeight (f.bottomBorder, newThickness, newThickness)
+		DFPixelUtil.SetWidth (self.leftBorder, newThickness, newThickness)
+		DFPixelUtil.SetWidth (self.rightBorder, newThickness, newThickness)
+		DFPixelUtil.SetHeight (self.topBorder, newThickness, newThickness)
+		DFPixelUtil.SetHeight (self.bottomBorder, newThickness, newThickness)
 	end,
 	
 	WidgetType = "border",

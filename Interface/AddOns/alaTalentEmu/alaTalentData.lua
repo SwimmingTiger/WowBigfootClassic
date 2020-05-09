@@ -1,5 +1,10 @@
 --[[--
-	alex@0
+	by ALA @ 163UI
+	DATA FROM WEB SOURCE CODE OF WOWHEAD
+	数据来源于wowhead网页源代码
+	Please Keep WOW Addon open-source & Reduce barriers for others.
+	复用代码请在显著位置标注来源【ALA@网易有爱】
+	不欢迎加密和乱码发布的整合包、插件作者、插件修改者
 --]]--
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;

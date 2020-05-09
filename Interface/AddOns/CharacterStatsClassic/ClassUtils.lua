@@ -2,6 +2,20 @@
     Util functions specific for Classes
 ]]
 
+-- Class ids
+CSC_WARRIOR_CLASS_ID 		= 1;
+CSC_PALADIN_CLASS_ID 		= 2;
+CSC_HUNTER_CLASS_ID 		= 3;
+CSC_ROGUE_CLASS_ID 			= 4;
+CSC_PRIEST_CLASS_ID 		= 5;
+CSC_DEATHKNIGHT_CLASS_ID 	= 6;
+CSC_SHAMAN_CLASS_ID 		= 7;
+CSC_MAGE_CLASS_ID 			= 8;
+CSC_WARLOCK_CLASS_ID 		= 9;
+CSC_MONK_CLASS_ID 			= 10;
+CSC_DRUID_CLASS_ID 			= 11;
+CSC_DEMONHUNTER_CLASS_ID 	= 12;
+
 -- returns additional crit % stats from Arcane instability and Critical Mass if any
 function CSC_GetMageCritStatsFromTalents()
 
@@ -23,6 +37,41 @@ function CSC_GetMageCritStatsFromTalents()
     end
 
 	return arcaneInstabilityCrit, criticalMassCrit;
+end
+
+-- returns the spell hit from Arcane Focus and Elemental Precision talents
+function CSC_GetMageSpellHitFromTalents()
+	local arcaneHit = 0;
+	local frostFireHit = 0;
+
+	-- Arcane Focus
+	local spellRank = select(5, GetTalentInfo(1, 2));
+	arcaneHit = spellRank * 2; -- 2% for each point
+
+	-- Elemental Precision
+	spellRank = select(5, GetTalentInfo(3, 3));
+	frostFireHit = spellRank * 2; -- 2% for each point
+
+	return arcaneHit, frostFireHit;
+end
+
+-- returns the spell hit from Suppression talent
+function CSC_GetWarlockSpellHitFromTalents()
+	local afflictionHit = 0;
+
+	-- Suppression
+	local spellRank = select(5, GetTalentInfo(1, 1));
+	afflictionHit = spellRank * 2; -- 2% for each point
+
+	return afflictionHit;
+end
+
+-- returns the spell crit from Devastation talent
+function CSC_GetWarlockCritStatsFromTalents()
+	-- the spell rank is equal to the value
+	local devastationCrit = select(5, GetTalentInfo(3, 7));
+
+	return devastationCrit;
 end
 
 -- returns the combined crit stats from Holy Specialization and Force of Will
@@ -118,4 +167,74 @@ function CSC_GetShapeshiftForm()
 	end
 
 	return shapeIndex;
+end
+
+function CSC_GetMP5ModifierFromTalents(unit)
+    local unitClassId = select(3, UnitClass(unit));
+	local spellRank = 0;
+
+	if unitClassId == CSC_PRIEST_CLASS_ID then
+		-- Meditation
+        spellRank = select(5, GetTalentInfo(1, 8));
+	elseif unitClassId == CSC_MAGE_CLASS_ID then
+		-- Arcane Meditation
+		spellRank = select(5, GetTalentInfo(1, 12));
+	elseif unitClassId == CSC_DRUID_CLASS_ID then
+		-- Reflection
+        spellRank = select(5, GetTalentInfo(3, 6));
+	end
+	
+	local modifier = spellRank * 0.05;
+
+    return modifier;
+end
+
+function CSC_GetMP5ModifierFromSetBonus(unit)
+	local unitClassId = select(3, UnitClass(unit));
+	local modifier = 0;
+	
+	-- not Druid or Priest
+	if unitClassId ~= CSC_DRUID_CLASS_ID and unitClassId ~= CSC_PRIEST_CLASS_ID then
+		return modifier;
+	end
+	
+	local firstItemslotIndex = 1;
+	local lastItemslotIndex = 18;
+
+	local vestmentsOfTranscendenceIDs = { [16925] = 16925, 
+										  [16926] = 16926, 
+										  [16919] = 16919, 
+										  [16921] = 16921, 
+										  [16920] = 16920, 
+									   	  [16922] = 16922, 
+										  [16924] = 16924, 
+										  [16923] = 16923
+										};
+
+	local stormrageRaimentIDs = { [16897] = 16897, 
+								  [16898] = 16898, 
+								  [16899] = 16899, 
+								  [16900] = 16900, 
+								  [16901] = 16901, 
+								  [16902] = 16902, 
+								  [16903] = 16903, 
+								  [16904] = 16904
+								};
+
+	local equippedSetItems = 0;
+    for itemSlot = firstItemslotIndex, lastItemslotIndex do
+        local itemId = GetInventoryItemID(unit, itemSlot);
+		
+		if (itemId) then
+			if (itemId == vestmentsOfTranscendenceIDs[itemId] or itemId == stormrageRaimentIDs[itemId]) then
+				equippedSetItems = equippedSetItems + 1;
+			end
+		end
+    end
+
+    if equippedSetItems >= 3 then
+        modifier = 0.15;
+	end
+
+    return modifier;
 end

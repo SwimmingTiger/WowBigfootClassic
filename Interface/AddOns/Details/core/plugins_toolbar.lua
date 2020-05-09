@@ -48,12 +48,12 @@
 		button.__name = pluginname
 		
 		--> blizzard built-in animation
-		local FourCornerAnimeFrame = CreateFrame ("frame", framename.."Blink", button, "IconIntroAnimTemplate")
+		local FourCornerAnimeFrame = CreateFrame ("frame", framename.."Blink", button)
 		FourCornerAnimeFrame:SetPoint ("center", button)
 		FourCornerAnimeFrame:SetWidth (w or 14)
 		FourCornerAnimeFrame:SetHeight (w or 14)
-		FourCornerAnimeFrame.glow:SetScript ("OnFinished", nil)
-		button.blink = FourCornerAnimeFrame
+		--FourCornerAnimeFrame.glow:SetScript ("OnFinished", nil)
+		button.blink = function()end
 		
 		_detalhes.ToolBar.AllButtons [#_detalhes.ToolBar.AllButtons+1] = button
 		

@@ -9,6 +9,25 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.4 (2020-05-06)
+	-Fixed some compatibility issues with other addons that re-add the health/mana text
+	-Health/Mana text anchors reworked to match Modern WoW instead of being attached to their bars
+
+v1.3.5 (2020-05-04)
+	-Added zhCN locale (Courtesy of Junlin Zhou)
+
+v1.3.4 (2020-05-01)
+	-Updated LibThreatClassic2 (Rev 12 - 85c9fdb)
+	-UnitThreatPercentageOfLead() is now implemented in LibThreatClassic2
+
+v1.3.3 (2020-04-18)
+	-Added deDE locale (Courtesy of xF10w21)
+	-Updated LibThreatClassic2 (Rev 11 - 5a6c317)
+
+v1.3.2 (2020-04-15)
+	-Fixed unit existence checks in UnitThreatPercentageOfLead()
+	-Updated LibThreatClassic2 (Rev 11 - 2a768c3)
+
 v1.3.1 (2020-03-20)
 	-Updated LibThreatClassic2 (Rev 9 - acb53a7)
 

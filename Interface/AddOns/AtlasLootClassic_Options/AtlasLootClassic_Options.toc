@@ -1,6 +1,6 @@
 ﻿## Interface: 11304
 ## Author: Lag
-## Version: v1.5.0
+## Version: v1.5.1
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 
@@ -29,6 +29,8 @@
 
 ## X-Category: Map
 ## X-License: GPL v2
+
+embeds.xml
 
 Locales\constants.cn.lua
 Locales\constants.de.lua

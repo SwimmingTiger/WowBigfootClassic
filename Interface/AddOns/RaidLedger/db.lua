@@ -39,7 +39,7 @@ end
 function db:GetConfigOrDefault(key, def)
     local config = GetConfig()
 
-    if not config[key] then
+    if config[key] == nil then
         config[key] = def
     end
 
@@ -142,8 +142,47 @@ function db:AddDebit(reason, beneficiary, cost, costtype)
     }, beneficiary, cost, costtype)
 end
 
+local function GetFilteritemsSet(s)
+    local set = {}
+
+    s = string.gsub(s,"(#.[^\n]*\n)", "")
+
+    for _, line in ipairs({strsplit("\n", s)}) do
+        line = strtrim(line, " \t\r\n[]")
+        set[line] = true
+
+        local itemName = GetItemInfo(line)
+
+        if itemName then
+            set[itemName] = true
+        end
+
+    end
+
+    return set
+end
+
+function db:AddOrUpdateLoot(item, count, beneficiary, cost)
+    local itemName, itemLink, itemRarity, _, _, _, _, itemStackCount = GetItemInfo(item)
+
+    local ledger = self:GetCurrentLedger()
+    for _, entry in pairs(ledger["items"]) do
+        if entry.detail then
+            if entry.detail.item == itemLink and entry.cost == 0 and entry.detail.count == count then
+                entry.beneficiary = beneficiary
+                entry.cost = cost
+                self:OnLedgerItemsChange()
+                return
+            end
+        end
+    end
+
+    self:AddLoot(item, count, beneficiary, cost, true)
+end
+
 function db:AddLoot(item, count, beneficiary, cost, force)
-    local _, itemLink, itemRarity = GetItemInfo(item)
+    local itemName, itemLink, itemRarity, _, _, _, _, itemStackCount = GetItemInfo(item)
+    itemStackCount = itemStackCount or 0
 
     local filter = self:GetConfigOrDefault("filterlevel", LE_ITEM_QUALITY_RARE)
 
@@ -151,7 +190,32 @@ function db:AddLoot(item, count, beneficiary, cost, force)
         return
     end
 
-    if (itemRarity >= filter) or (force) then
+    if force then
+        self:AddEntry(TYPE_CREDIT, {
+            item = itemLink,
+            type = DETAIL_TYPE_ITEM,
+            count = count or 1,
+        }, beneficiary, cost)
+    elseif itemRarity >= filter then
+
+        local s = GetFilteritemsSet(self:GetConfigOrDefault("filteritems", ""))
+
+        if s[itemName] then
+            return
+        end
+
+        -- TODO bad smell code
+        local ledger = self:GetCurrentLedger()
+        for _, entry in pairs(ledger["items"]) do
+            if entry.detail then
+                if entry.detail.item == itemLink and entry.beneficiary == beneficiary and entry.cost == 0 and itemStackCount > 1 then
+                    entry.detail.count = entry.detail.count + (count or 1)
+                    self:OnLedgerItemsChange()
+                    return
+                end
+            end
+        end
+
         self:AddEntry(TYPE_CREDIT, {
             item = itemLink,
             type = DETAIL_TYPE_ITEM,

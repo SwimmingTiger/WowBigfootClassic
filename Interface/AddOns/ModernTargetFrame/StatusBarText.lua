@@ -18,34 +18,42 @@ AddOn.Options.StatusBarText=true;
 --------------------------
 --[[	TextStatusBars	]]
 --------------------------
-local StatusBarTextRegistry={};
-local function SetupStatusBarText(bar,parent)
-	if StatusBarTextRegistry[bar] then return; end
-	local text,left,right=parent:CreateFontString(nil,"OVERLAY","TextStatusBarText")
-		,parent:CreateFontString(nil,"OVERLAY","TextStatusBarText")
-		,parent:CreateFontString(nil,"OVERLAY","TextStatusBarText");
-	text:SetPoint("CENTER",bar,"CENTER");left:SetPoint("LEFT",bar,"LEFT",2,0);right:SetPoint("RIGHT",bar,"RIGHT",-2,0);
-	bar.TextString,bar.LeftText,bar.RightText=text,left,right;
-	StatusBarTextRegistry[bar]={text,left,right};
-end
+local TextObjects={};
+local AnchorSettings={--	Anchors copied from Modern WoW (Relative to TargetFrameTextureFrame)
+	[TargetFrameHealthBar]={
+		TextString={"CENTER",-50,3};
+		LeftText={"LEFT",8,3};
+		RightText={"RIGHT",-110,3};
+	};
+	[TargetFrameManaBar]={
+		TextString={"CENTER",-50,-8};
+		LeftText={"LEFT",8,-8};
+		RightText={"RIGHT",-110,-8};
+	};
+};
 
-SetupStatusBarText(TargetFrameHealthBar,TargetFrameTextureFrame);
-SetupStatusBarText(TargetFrameManaBar,TargetFrameTextureFrame);
+for bar,anchorlist in pairs(AnchorSettings) do
+	local tbl={};
+	for key,anchor in pairs(anchorlist) do
+		local text=TargetFrameTextureFrame:CreateFontString(nil,"OVERLAY","TextStatusBarText");
+		text:SetPoint(unpack(anchor));
+		tbl[key]=text;
+	end
+	TextObjects[bar]=tbl;
+end
 
 ----------------------------------
 --[[	Feature Registration	]]
 ----------------------------------
 AddOn.RegisterFeature("StatusBarText",function(_,enabled)
-	for bar,entry in pairs(StatusBarTextRegistry) do
-		local text,left,right;--	Init to nil if disabled
-		if not enabled then
---			Attempt to hide
-			if bar.TextString then bar.TextString:Hide(); end
-			if bar.LeftText then bar.LeftText:Hide(); end
-			if bar.RightText then bar.RightText:Hide(); end
-		else text,left,right=unpack(entry); end--	Fetch text objects if enabled
-
-		bar.TextString,bar.LeftText,bar.RightText=text,left,right;
-		if enabled then TextStatusBar_UpdateTextString(bar); end
+	for bar,entry in pairs(TextObjects) do
+		for key,obj in pairs(entry) do
+			local exist=bar[key];
+			if not exist or exist==obj then--	Only apply if untouched by other addons
+				if not enabled then obj:Hide(); end--	Hide if already shown and disabling (TextStatusBar_UpdateTextString() will autoshow when necessary)
+				bar[key]=enabled and obj or nil;
+			end
+		end
+		TextStatusBar_UpdateTextString(bar);--	Update text, including other addons' when disabling
 	end
 end);

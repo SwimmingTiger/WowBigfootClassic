@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200329220208")
+mod:SetRevision("20200430211936")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -37,6 +37,7 @@ local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|He
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD")-- seen 16.94 - 25.53, avg 21.8
 
 mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
+mod:AddInfoFrameOption(22277, true)
 
 mod.vb.phase = 1
 local mydebuffs = 0
@@ -49,6 +50,7 @@ local spellIcons = {
 	[TimeLaps] = 23312,
 }
 
+local lastVulnName = nil
 local vulnerabilities = {
 	-- [guid] = school
 }
@@ -73,6 +75,25 @@ local vulnSpells = {
 	[22281] = 64,
 }
 
+local updateInfoFrame
+do
+	local lines = {}
+	local sortedLines = {}
+	local function addLine(key, value)
+		-- sort by insertion order
+		lines[key] = value
+		sortedLines[#sortedLines + 1] = key
+	end
+	updateInfoFrame = function()
+		table.wipe(lines)
+		table.wipe(sortedLines)
+		if lastVulnName then
+			addLine(lastVulnName, "")
+		end
+		return lines, sortedLines
+	end
+end
+
 --Local Functions
 -- in theory this should only alert on a new vulnerability on your target or when you change target
 local function update_vulnerability(self)
@@ -92,7 +113,16 @@ local function update_vulnerability(self)
 	timerVuln:UpdateName(name)
 	warnVuln.icon = info[3]
 	warnVuln:Show(name)
+	lastVulnName = name
 
+	if self.Options.InfoFrame then
+		if not DBM.InfoFrame:IsShown() then
+			DBM.InfoFrame:SetHeader(L.Vuln)
+			DBM.InfoFrame:Show(1, "function", updateInfoFrame, false, false, true)
+		else
+			DBM.InfoFrame:Update()
+		end
+	end
 	if self.Options.NPAuraOnVulnerable then
 		DBM.Nameplate:Hide(true, target, 22277, 135924)
 		DBM.Nameplate:Hide(true, target, 22277, 135808)
@@ -150,6 +180,9 @@ function mod:OnCombatEnd()
 	self:UnregisterShortTermEvents()
 	if self.Options.NPAuraOnVulnerable  then
 		DBM.Nameplate:Hide(true, nil, nil, nil, true, true)--isGUID, unit, spellId, texture, force, isHostile, isFriendly
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end
 

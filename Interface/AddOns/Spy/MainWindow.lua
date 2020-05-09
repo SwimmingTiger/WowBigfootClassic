@@ -502,6 +502,10 @@ function Spy:CreateMainWindow()
 			end
 		end)
 		theFrame:SetMovable(true)
+        theFrame:EnableMouseWheel(true)	
+		theFrame:SetScript("OnMouseWheel", function(self, delta)
+			Spy:MainWindowScroll(delta)
+		end)
 		theFrame.TitleClick = CreateFrame("FRAME", nil, theFrame)
 		theFrame.TitleClick:SetAllPoints(theFrame.Title)
 		theFrame.TitleClick:EnableMouse(true)
@@ -521,6 +525,18 @@ function Spy:CreateMainWindow()
 				Spy:SaveMainWindowPosition()
 			end
 		end)
+        theFrame.TitleClick:EnableMouseWheel(true)		
+		theFrame.TitleClick:SetScript("OnMouseWheel", function(self, delta)
+			if not IsAltKeyDown() then
+				return
+			end
+			if delta > 0 then
+				Spy:MainWindowPrevMode()
+			else
+				Spy:MainWindowNextMode()
+			end
+		end)
+
 		if not Spy.db.profile.InvertSpy then
 			theFrame.DragBottomRight = CreateFrame("Button", "SpyResizeGripRight", theFrame)
 			theFrame.DragBottomRight:Show()
@@ -901,6 +917,16 @@ function Spy:MainWindowPrevMode()
 		mode = table.maxn(Spy.ListTypes)
 	end
 	Spy:SetCurrentList(mode)
+end
+
+function Spy:MainWindowScroll(delta)
+--  Work in progress to scroll the MainWindow
+--	DEFAULT_CHAT_FRAME:AddMessage(delta)
+	if delta > 0 then
+--		Code for scrolling up
+	else
+--		Code for scrolling down
+	end
 end
 
 function Spy:SaveMainWindowPosition()

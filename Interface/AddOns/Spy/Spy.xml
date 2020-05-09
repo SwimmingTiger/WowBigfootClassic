@@ -27,7 +27,7 @@
 	<Frame name="Spy_UpdateFrame">
 		<Scripts>
 			<OnUpdate>
-				if Spy.EnabledInZone and GameTooltip:IsOwned(Minimap) and (Spy.db.profile.MinimapTracking or Spy.db.profile.MinimapDetails) then
+				if Spy.EnabledInZone and GameTooltip:IsOwned(Minimap) and (Spy.db.profile.MinimapDetection or Spy.db.profile.MinimapDetails) then
 					Spy:TrackHumanoids();
 				end
 			</OnUpdate>

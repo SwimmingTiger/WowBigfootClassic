@@ -22,32 +22,12 @@ AddOn.Options.ThreatIndicatorGlow=true;
 local LibThreatClassic=LibStub and LibStub("LibThreatClassic2",true);
 if not LibThreatClassic then return; end--	If there's a problem loading the library, stop here (we want option defaults to persist though)
 
---------------------------
---[[	Custom API	]]
---------------------------
-local function UnitThreatPercentageOfLead(unit,mob)--	Hack to implement UnitThreatPercentageOfLead()
-	local unitguid,mobguid=UnitGUID(unit),UnitGUID(mob);
-	if not (unitguid and unitguid) then return 0; end
-
-	local unitval=LibThreatClassic:GetThreat(unitguid,mobguid);
-	if unitval>0 then
-		local maxval=0;
-		for otherguid in next,LibThreatClassic.threatTargets do
-			if otherguid~=unitguid then
-				local val=LibThreatClassic:GetThreat(otherguid,mobguid);
-				if val>maxval then maxval=val; end
-			end
-		end
-		return maxval>0 and 100*unitval/maxval or 0;
-	else return 0; end
-end
-
 ----------------------------------
 --[[	Numerical Threat Frame	]]
 ----------------------------------
 local ThreatFrame=CreateFrame("Frame",nil,TargetFrame);
-ThreatFrame:SetPoint("BOTTOM",TargetFrame,"TOP",-30,-21);
-ThreatFrame:SetSize(50,22);
+ThreatFrame:SetPoint("BOTTOM",TargetFrame,"TOP",-50,-22);
+ThreatFrame:SetSize(49,18);
 ThreatFrame:Hide();
 
 ThreatFrame.Text=ThreatFrame:CreateFontString(nil,"BACKGROUND","GameFontHighlight");
@@ -86,7 +66,7 @@ local function TargetFrame_UpdateThreat()
 		local r,g,b=LibThreatClassic:GetThreatStatusColor(status or 0);
 
 		if EnableNumeric then
-			if tanking then percent=UnitThreatPercentageOfLead("player","target"); end--	Hacked implementation pulling from LibThreatClassic
+			if tanking then percent=LibThreatClassic:UnitThreatPercentageOfLead("player","target"); end
 			if percent and percent>0 then
 				ThreatFrame.Text:SetFormattedText("%.0f%%",percent);
 				ThreatFrame.Background:SetVertexColor(r,g,b);

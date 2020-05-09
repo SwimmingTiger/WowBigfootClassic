@@ -1,11 +1,10 @@
 ﻿## Interface: 11304
 ## Author: Lag
-## Version: v1.5.0
+## Version: v1.5.1
 ## SavedVariables: AtlasLootClassicDB
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, LibDBIcon-1.0, LibDataBroker-1.1, LibClassicItemSets-1.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
-## Dependencies: !!!Libs
 
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses

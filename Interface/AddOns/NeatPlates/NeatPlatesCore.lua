@@ -308,7 +308,7 @@ do
 			SetUpdateAll()
 		end
 
-		for plate in pairs(PlatesVisible) do
+		for plate, unitid in pairs(PlatesVisible) do
 			local UpdateMe = UpdateAll or plate.UpdateMe
 			local UpdateHealth = plate.UpdateHealth
 			local carrier = plate.carrier
@@ -326,8 +326,8 @@ do
 				plate.UpdateMe = false
 				plate.UpdateHealth = false
 
-				local children = plate:GetChildren()
-				if children then children:Hide() end
+				--local children = plate:GetChildren()
+				--if children then children:Hide() end
 
 				if plate.UpdateCastbar then -- Check if spell is being cast
 					local unitGUID = UnitGUID(unit.unitid)
@@ -335,7 +335,8 @@ do
 					else OnStopCasting(plate) end
 					plate.UpdateCastbar = false
 				end
-
+			elseif unitid and not plate:IsVisible() then
+				OnHideNameplate(plate, unitid)  -- If the 'NAME_PLATE_UNIT_REMOVED' event didn't trigger
 			end
 
 			if plate.UnitFrame then plate.UnitFrame:Hide() end
@@ -358,8 +359,7 @@ do
 			local unitid = PlatesVisible[plate]
 			if not unitid then return end
 
-			local threatValue = UnitThreatSituation("player", unitid) or 0
-			if(unit.threatValue ~= threatValue) then SetUpdateMe(plate) end
+			if(unit.threatValue ~= UnitThreatSituation("player", unitid) or unit.isInCombat ~= UnitAffectingCombat(unitid) or unit.isTargetingPlayer ~= UnitIsUnit(unitid.."target", "player")) then SetUpdateMe(plate) end
 		end)
 	end
 
@@ -822,6 +822,7 @@ do
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
 		unit.isInCombat = UnitAffectingCombat(unitid)
+		unit.isTargetingPlayer = UnitIsUnit(unitid.."target", "player")
 
 		local raidIconIndex = GetRaidTargetIndex(unitid)
 
@@ -1336,15 +1337,16 @@ do
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
 		
-		-- Ignore if plate is Personal Display
-		if plate and not UnitIsUnit("player", unitid) then
-			local children = plate:GetChildren()
-			if children then children:Hide() end --Avoids errors incase the plate has no children
-
-			if NeatPlatesTarget and unitid and UnitGUID(unitid) == NeatPlatesTarget.unitGUID then toggleNeatPlatesTarget(false) end
-
-	 		OnShowNameplate(plate, unitid)
-	 	end
+		if plate then
+			if UnitIsUnit("player", unitid) then
+				OnHideNameplate(plate, unitid)
+			else
+				--local children = plate:GetChildren()
+				--if children then children:Hide() end --Avoids errors incase the plate has no children
+				if NeatPlatesTarget and unitid and UnitGUID(unitid) == NeatPlatesTarget.unitGUID then toggleNeatPlatesTarget(false) end
+		 		OnShowNameplate(plate, unitid)
+			end
+		end
 	end
 
 	function CoreEvents:NAME_PLATE_UNIT_REMOVED(...)
@@ -1678,7 +1680,7 @@ do
 	function UpdateStyle()
 		local index, unitSubtext, unitPlateStyle
 		local useYOffset = (style.subtext.show and activetheme.SetSubText(unit) and NeatPlatesHubFunctions.SetStyleNamed(unit) == "Default")
-		if useYOffset then extended.widgets["AuraWidgetHub"]:UpdateOffset(0, style.subtext.yOffset) end 	-- Update AuraWidget position if 'subtext' is displayed
+		if useYOffset and extended.widgets["AuraWidgetHub"] then extended.widgets["AuraWidgetHub"]:UpdateOffset(0, style.subtext.yOffset) end 	-- Update AuraWidget position if 'subtext' is displayed
 
 		-- Frame
 		SetAnchorGroupObject(extended, style.frame, carrier)

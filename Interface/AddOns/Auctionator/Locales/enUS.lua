@@ -61,7 +61,7 @@ AUCTIONATOR_ITEMS_UPDATED = "Items updated:"
 AUCTIONATOR_ITEMS_IGNORED = "Items ignored:"
 --- End Globals
 AtrL["AH"] = ""
-AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y alle %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
+AtrL["%A, %B %d at %I:%M %p"] = "%d/%m/%Y at %H:%M" -- Date and Time. Refer to https://www.lua.org/pil/22.1.html
 AtrL["Date"] = ""
 AtrL["Today"] = ""
 AtrL["Yesterday"] = ""

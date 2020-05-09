@@ -1330,7 +1330,7 @@ namespace.castTimeTalentDecreases = {
     [GetSpellInfo(8129)] = 2500,     -- Mana Burn
     [GetSpellInfo(5176)] = 1500,     -- Wrath
     [GetSpellInfo(2912)] = 3000,     -- Starfire
-    [GetSpellInfo(5185)] = 3000,     -- Healing Touch
+    [GetSpellInfo(9888)] = 3000,     -- Healing Touch
     [GetSpellInfo(2645)] = 1000,     -- Ghost Wolf
     [GetSpellInfo(691)] = 6000,      -- Summon Felhunter
     [GetSpellInfo(688)] = 6000,      -- Summon Imp
@@ -1564,7 +1564,7 @@ namespace.pushbackBlacklist = {
     [GetSpellInfo(2054)] = 1,       -- Heal
     [GetSpellInfo(2050)] = 1,       -- Lesser Heal
     [GetSpellInfo(596)] = 1,        -- Prayer of Healing
-    [GetSpellInfo(2060)] = 1,       -- Greater Heal
+    [GetSpellInfo(25314)] = 1,      -- Greater Heal
     [GetSpellInfo(19750)] = 1,      -- Flash of Light
     [GetSpellInfo(635)] = 1,        -- Holy Light
     -- Druid heals are afaik many times not talented so ignoring them for now
@@ -1575,6 +1575,7 @@ namespace.pushbackBlacklist = {
     [GetSpellInfo(20589)] = 1,      -- Escape Artist
 }
 
+-- Player spells that can't be interrupted
 namespace.uninterruptibleList = {
     [GetSpellInfo(4068)] = 1,       -- Iron Grenade
     [GetSpellInfo(19769)] = 1,      -- Thorium Grenade
@@ -1657,14 +1658,13 @@ namespace.castStopBlacklist = {
     [GetSpellInfo(6405)] = 1,       -- Furgbolg Form
 }
 
--- Spells that can't be slowed or speed up
+-- Casts that can't be slowed or speed up
 namespace.unaffectedCastModsSpells = {
     -- Player Spells
     [11605] = 1, -- Slam
     [6651] = 1, -- Instant Toxin
     [1842] = 1, -- Disarm Trap
     [6461] = 1, -- Pick Lock
-    [20904] = 1, -- Aimed Shot
     [2641] = 1, -- Dismiss Pet
     [2480] = 1, -- Shoot Bow
     [7918] = 1, -- Shoot Gun
@@ -1790,15 +1790,78 @@ namespace.unaffectedCastModsSpells = {
     [24189] = 1, -- Force Punch
 }
 
+local function IsNotChanneled(cast) return not cast.isChanneled end
+local function IsRangedSpell(cast) return cast.spellID == 20904 or cast.spellID == 1540 end -- Aimed Shot/Volley
+
+-- Buffs that modify casting speed
+namespace.castModifiers = {
+    [GetSpellInfo(22812)] = { -- Barkskin
+        value = 1.0,
+    },
+
+    [GetSpellInfo(16886)] = { -- Nature's Grace
+        value = -0.5,
+        condition = IsNotChanneled,
+    },
+
+    [GetSpellInfo(23723)] = { -- Mind Quickening
+        percentage = true,
+        value = 33,
+        condition = IsNotChanneled,
+    },
+
+    [GetSpellInfo(23733)] = { -- Blinding Light
+        percentage = true,
+        value = 33,
+        condition = IsNotChanneled,
+    },
+
+    [GetSpellInfo(20554)] = { -- Berserking
+        percentage = true,
+        value = 10,
+        condition = IsNotChanneled,
+    },
+
+    [GetSpellInfo(24542)] = { -- Nimble Healing Touch
+        percentage = true,
+        value = 40,
+        condition = function(cast) return cast.spellID == 9888 end,
+    },
+
+    [GetSpellInfo(24546)] = { -- Rapid Healing
+        percentage = true,
+        value = 40,
+        condition = function(cast) return cast.spellID == 25314 end,
+    },
+
+    [GetSpellInfo(3045)] = { -- Rapid Fire
+        percentage = true,
+        value = 40,
+        condition = IsRangedSpell,
+    },
+
+    [GetSpellInfo(6150)] = { -- Quick Shots
+        percentage = true,
+        value = 30,
+        condition = IsRangedSpell,
+    },
+
+    [GetSpellInfo(28866)] = { -- Kiss of the Spider
+        percentage = true,
+        value = 20,
+        condition = IsRangedSpell,
+    },
+}
+
 -- Addon Savedvariables
 namespace.defaultConfig = {
-    version = "20", -- settings version
+    version = "22", -- settings version
     locale = GetLocale(),
     npcCastUninterruptibleCache = {},
     usePerCharacterSettings = false,
 
     nameplate = {
-        enabled = false,
+        enabled = true,
         showForFriendly = true,
         showForEnemy = true,
         width = 106,
@@ -1950,6 +2013,7 @@ namespace.defaultConfig = {
     },
 }
 
+-- NPC spells that can't be interrupted. (Sensible defaults, doesn't include all)
 namespace.defaultConfig.npcCastUninterruptibleCache = {
     ["11981" .. GetSpellInfo(18500)] = true, -- Flamegor Wing Buffet
     ["12459" .. GetSpellInfo(25417)] = true, -- Blackwing Warlock Shadowbolt
@@ -1986,4 +2050,17 @@ namespace.defaultConfig.npcCastUninterruptibleCache = {
     ["10184" .. GetSpellInfo(18431)] = true, -- Onyxia Bellowing Roar
     ["11492" .. GetSpellInfo(9616)] = true, -- Alzzin the Wildshaper Wild Regeneration
     ["13996" .. GetSpellInfo(22334)] = true, -- Blackwing Technician Bomb
+    ["11359" .. GetSpellInfo(16430)] = true, -- Soulflayer Soul Tap
+    ["11359" .. GetSpellInfo(22678)] = true, -- Soulflayer Fear
+    ["11372" .. GetSpellInfo(24011)] = true, -- Razzashi Adder Venom Spit
+    ["14834" .. GetSpellInfo(24322)] = true, -- Hakkar Blood Siphon
+    ["14509" .. GetSpellInfo(24189)] = true, -- High Priest Thekal Force Punch
+    ["11382" .. GetSpellInfo(24314)] = true, -- Broodlord Mandokir Threatening Gaze
+    ["14750" .. GetSpellInfo(24024)] = true, -- Gurubashi Bat Rider Unstable Concoction
+    ["12259" .. GetSpellInfo(686)] = true, -- Gehennas Shadow Bolt
+    ["11339" .. GetSpellInfo(22908)] = true, -- Hakkari Shadow Hunter Volley
+    ["14507" .. GetSpellInfo(14914)] = true, -- High Priest Venoxis Holy Fire
+    ["13161" .. GetSpellInfo(21188)] = true, -- Aerie Gryphon Stun Bomb Attack
+    ["12119" .. GetSpellInfo(20604)] = true, -- Flamewaker Protector Dominate Mind
+    ["12459" .. GetSpellInfo(22372)] = true, -- Blackwing Warlock Demon Portal
 }

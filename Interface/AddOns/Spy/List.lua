@@ -315,6 +315,24 @@ function Spy:UpdatePlayerData(name, class, level, race, guild, isEnemy, isGuess)
 	return detected
 end
 
+function Spy:UpdatePlayerStatus(name, class, level, race, guild, isEnemy, isGuess)
+	local playerData = SpyPerCharDB.PlayerData[name]
+	if not playerData then
+		playerData = Spy:AddPlayerData(name, class, level, race, guild, isEnemy, isGuess)
+	else
+		if name ~= nil then playerData.name = name end  
+		if class ~= nil then playerData.class = class end
+		if type(level) == "number" then playerData.level = level end
+		if race ~= nil then playerData.race = race end
+		if guild ~= nil then playerData.guild = guild end
+		if isEnemy ~= nil then playerData.isEnemy = isEnemy end
+		if isGuess ~= nil then playerData.isGuess = isGuess end
+	end
+	if playerData.time == nil then
+		playerData.time = time()
+	end	
+end
+
 function Spy:RemovePlayerData(name)
 	SpyPerCharDB.PlayerData[name] = nil
 end
@@ -614,7 +632,8 @@ function Spy:ToggleKOSPlayer(kos, player)
 		Spy:AddKOSData(player)
 		Spy:RemoveIgnoreData(player)
 		if player ~= SpyPerCharDB.PlayerData[name] then --++
-			Spy:UpdatePlayerData(player, nil, nil, nil, nil, true, nil) --++
+--			Spy:UpdatePlayerData(player, nil, nil, nil, nil, true, nil)
+			Spy:UpdatePlayerStatus(player, nil, nil, nil, nil, true, nil)
 			SpyPerCharDB.PlayerData[player].kos = 1 
 		end	
 		if Spy.db.profile.EnableSound then
@@ -841,7 +860,7 @@ function Spy:ParseMinimapTooltip(tooltip)
 				end	
 				if not SpyPerCharDB.IgnoreData[name] and not Spy.InInstance then
 					local detected = Spy:UpdatePlayerData(name, nil, nil, nil, nil, true, nil)
-					if detected and Spy.db.profile.MinimapTracking then
+					if detected and Spy.db.profile.MinimapDetection then
 						Spy:AddDetected(name, time(), false)
 					end
 				end

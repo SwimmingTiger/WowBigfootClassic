@@ -56,6 +56,14 @@ helpers.ClassicTalentByEnum = function (spellID)
     end
     return 0
 end
+helpers.IsPlayerSpellAny = function (...)
+    local numArgs = select("#",...)
+    for i=1, numArgs do
+        local spellID = select(i, ...)
+        if IsPlayerSpell(spellID) then return true end
+    end
+    return false
+end
 
 
 helpers.GetCP = function()

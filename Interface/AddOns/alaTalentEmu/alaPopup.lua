@@ -49,7 +49,7 @@ local height = 16;
 local interval = 0;
 local v_to_border = 8;
 local h_to_border = 8;
-local menu = CreateFrame("Button", nil, DropDownList1);
+local menu = CreateFrame("BUTTON", nil, DropDownList1);
 menu:SetFrameStrata("FULLSCREEN_DIALOG");
 menu:SetClampedToScreen(false);
 menu:Show();
@@ -82,7 +82,7 @@ local function dropMenuButtonOnClick(self)
 		which = nil;
 		return;
 	end
-	local values = list[which];
+	local values = list[which] or list["*"];
 	local id = self.id;
 	if values and values[id] then
 		meta[values[id]][2](which, target);
@@ -91,7 +91,7 @@ local function dropMenuButtonOnClick(self)
 	which = nil;
 end
 function func.create(menu, id, x, y)
-	local button = CreateFrame("Button", nil, menu);
+	local button = CreateFrame("BUTTON", nil, menu);
 	--button:SetFrameStrata("FULLSCREEN_DIALOG");
 	button:SetHeight(height);
 	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
@@ -132,8 +132,8 @@ function func.set_num(num)
 	end
 end
 function func.set(which)
-	if which and list[which] then
-		local values = list[which];
+	if which and (list[which] or list["*"]) then
+		local values = list[which] or list["*"];
 		local num = #values;
 		func.set_num(num);
 		for i = 1, num do
@@ -146,7 +146,6 @@ end
 
 local function hook(level, value, frame, ...)
 	if level == 1 and DropDownList1:IsShown() then
-		_G.aladrop = frame;
 		-- bnetIDAccount
 		if frame and frame.which then
 			target = frame;

@@ -1,8 +1,13 @@
-##Interface: 11304
+## Interface: 11304
 ## Title: Details!: Streamer (plugin)
 ## Title-zhCN: Details!: Streamer (主播插件)
 ## Notes: Show which spells you are casting, viewers can see what are you doing and follow your steps.
 ## RequiredDeps: Details
 ## SavedVariables: Details_StreamerDB
+## DefaultState: disabled
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
 
 Details_Streamer.lua

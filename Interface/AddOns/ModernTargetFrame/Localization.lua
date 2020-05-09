@@ -8,6 +8,16 @@
 --[[	Localization Table	]]
 ----------------------------------
 local Localization={
+	deDE={--	Translated by xFl0w21
+--		Options Panel
+		Options_ByAuthor_Format="erstellt von %s";
+
+--		Options Panel (Feature List)
+		Options_FeatureName_StatusBarText="Zeige Lebens- & Manatext";
+		Options_FeatureName_ClassificationTexture="Aktiviere Rare-Elite Zielrahmen";
+		Options_FeatureName_ThreatIndicatorGlow="Aktiviere visuelle Warnung für Bedrohung (Threat)";
+		Options_FeatureName_ThreatIndicatorNumber="Aktiviere numerische Anzeige für Bedrohung (Threat)";
+	};
 	enUS={--	Native locale by SDPhantom
 --		Options Panel
 		Options_ByAuthor_Format="by %s";
@@ -28,15 +38,15 @@ local Localization={
 		Options_FeatureName_ThreatIndicatorGlow="Activer l'alerte visuelle d'aggro";
 		Options_FeatureName_ThreatIndicatorNumber="Afficher les quantités de menace";
 	};
-	zhCN={--	Native locale by SDPhantom
+	zhCN={--	Translated by Junlin Zhou
 --		Options Panel
 		Options_ByAuthor_Format="作者 %s";
 
 --		Options Panel (Feature List)
-		Options_FeatureName_StatusBarText="显示生命值、法力值";
-		Options_FeatureName_ClassificationTexture="显示稀有精英边框";
-		Options_FeatureName_ThreatIndicatorGlow="显示仇恨红色高亮边框";
-		Options_FeatureName_ThreatIndicatorNumber="显示仇恨数值框体";
+		Options_FeatureName_StatusBarText="显示生命值和法力值";
+		Options_FeatureName_ClassificationTexture="显示稀有/精英边框";
+		Options_FeatureName_ThreatIndicatorGlow="启用仇恨提示";
+		Options_FeatureName_ThreatIndicatorNumber="显示仇恨数值";
 	};
 }
 

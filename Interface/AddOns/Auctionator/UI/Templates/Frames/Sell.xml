@@ -556,11 +556,11 @@
 
             <FontString name="Atr_Col1_Heading" inherits="GameFontHighlightSmall" text="AUCTIONATOR_ITEM_PRICE" hidden="true" justifyH="CENTER">
               <Size><AbsDimension x="100"/></Size>
-              <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="40" y="1"/></Offset></Anchor></Anchors>
+              <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="60" y="1"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_Col3_Heading" inherits="GameFontHighlightSmall" text="AUCTIONATOR_CURRENT_AUCTIONS" hidden="true">
-              <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="175" y="1"/></Offset></Anchor></Anchors>
+              <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="170" y="1"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_Col4_Heading" inherits="GameFontHighlightSmall" text="TOTAL" hidden="true">
@@ -584,13 +584,13 @@
 
           <Button name="Atr_Col1_Heading_Button" text="AUCTIONATOR_LOWEST_PRICE" inherits="Atr_Col_Heading_Template"  hidden="true">
             <Size><AbsDimension x="100" y="20"/></Size>
-            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="46" y="-21"/></Offset></Anchor></Anchors>
+            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-21"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_Col1()</OnClick></Scripts>
           </Button>
 
           <Button name="Atr_Col3_Heading_Button" text="AUCTIONATOR_ITEM_NAME" inherits="Atr_Col_Heading_Template"  hidden="true">
             <Size><AbsDimension x="108" y="20"/></Size>
-            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="172" y="-21"/></Offset></Anchor></Anchors>
+            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="185" y="-21"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_Col3()</OnClick></Scripts>
           </Button>
 

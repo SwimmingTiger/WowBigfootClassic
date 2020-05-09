@@ -1,28 +1,16 @@
-lightweight tag 3ab80152978b8422dbce543609b568c1f4416ef9 v1.4.2
+lightweight tag de05553bc7f024cf25e869a238c60f16bfe09186 v1.8.0
 Author:	Boshi Lian <farmer1992@gmail.com>
-Date:	Wed Jan 1 03:33:40 2020 -0800
+Date:	Fri May 8 22:13:09 2020 -0700
 
-commit 3ab80152978b8422dbce543609b568c1f4416ef9
+commit de05553bc7f024cf25e869a238c60f16bfe09186
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Wed Jan 1 03:33:40 2020 -0800
+Date:   Fri May 8 22:13:09 2020 -0700
 
-    add summary mode
+    disable trade add checkbox by default
 
-commit 7c6636c1d6fb90ace9c0166f1c177693f5607e23
+commit a2f75e096a3003fc7936c68a08a40ffb7eb84efa
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Wed Jan 1 03:20:11 2020 -0800
+Date:   Fri May 8 21:40:01 2020 -0700
 
-    add option header
-
-commit 7062bce9378f5489d0af5f32de3ca20375056670
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Wed Dec 18 08:32:21 2019 -0800
-
-    better list vaule
-
-commit 0aa400ddc15bd31835b33ef0cb9a8a3343fde32c
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Mon Dec 16 12:58:01 2019 -0800
-
-    Update .pkgmeta
+    first trade preview
 

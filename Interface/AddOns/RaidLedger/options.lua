@@ -3,7 +3,6 @@ local L = ADDONSELF.L
 local RegEvent = ADDONSELF.regevent
 local Database = ADDONSELF.db
 
-
 local f = CreateFrame("Frame", nil, UIParent)
 f.name = L["Raid Ledger"]
 InterfaceOptions_AddCategory(f)
@@ -28,7 +27,7 @@ RegEvent("ADDON_LOADED", function()
 
         local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
         tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 20, 0)
-        tt:SetText(L["Auto record quality"])
+        tt:SetText(L["Auto recording quality"])
 
         local onclick = function(self)
             UIDropDownMenu_SetSelectedValue(t, self.value)
@@ -103,6 +102,85 @@ RegEvent("ADDON_LOADED", function()
         UIDropDownMenu_SetSelectedValue(t, Database:GetConfigOrDefault("autoaddloot", AUTOADDLOOT_TYPE_RAID))
     end
 
+    do
+        local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+        b:SetPoint("TOPLEFT", f, 310, -100)
+
+        b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+        b.text:SetText(L["Minimap Icon"])
+        b:SetChecked(Database:GetConfigOrDefault("minimapicon", true))
+        b:SetScript("OnClick", function()
+            Database:SetConfig("minimapicon", b:GetChecked())
+
+            local icon = LibStub("LibDBIcon-1.0")
+            if b:GetChecked() then
+                icon:Show("RaidLedger")
+            else
+                icon:Hide("RaidLedger")
+            end
+        end)
+    end
+
+    do
+        local raidbutton = nil
+
+        local createbtn = function()
+            if raidbutton then
+                return
+            end
+
+            if _G.RaidFrame then
+                local b = CreateFrame("Button", nil, _G.RaidFrame, "UIPanelButtonTemplate")
+                b:SetWidth(100)
+                b:SetHeight(20)
+                b:SetPoint("TOPRIGHT", -25, 0)
+                b:SetText(L["Raid Ledger"])
+                b:SetScript("OnClick", function()
+                    local GUI = ADDONSELF.gui
+                    if GUI.mainframe:IsShown() then
+                        GUI.mainframe:Hide()
+                    else
+                        GUI.mainframe:Show()
+                    end
+                end)
+
+                raidbutton = b
+            end
+        end
+
+
+        local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+        b:SetPoint("TOPLEFT", f, 470, -100)
+
+        b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+        b.text:SetText(L["Raid Frame Button"])
+        b:SetChecked(Database:GetConfigOrDefault("raidbutton", true))
+
+        local showorhide = function()
+            createbtn()
+            if not raidbutton then
+                return
+            end
+
+            if b:GetChecked() then
+                raidbutton:Show()
+            else
+                raidbutton:Hide()
+            end
+
+        end
+
+        showorhide()
+
+        b:SetScript("OnClick", function()
+            Database:SetConfig("raidbutton", b:GetChecked())
+            showorhide()
+        end)
+
+    end
+
     local editDebitTemplate
     do
         local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
@@ -175,6 +253,8 @@ RegEvent("ADDON_LOADED", function()
                                 costtype = "GOLD"
                             elseif costtype == "%" then
                                 costtype = "PROFIT_PERCENT"
+                            elseif costtype == "%%" then
+                                costtype = "REVENUE_PERCENT"
                             elseif costtype == "*" then
                                 costtype = "MUL_AVG"
                             else
@@ -373,6 +453,8 @@ RegEvent("ADDON_LOADED", function()
                             x = d .. " " .. c .. " G"
                         elseif ct == "PROFIT_PERCENT" then
                             x = d .. " " .. c .. " %"
+                        elseif ct == "REVENUE_PERCENT" then
+                            x = d .. " " .. c .. " %%"
                         elseif ct == "MUL_AVG" then
                             x = d .. " " .. c .. " *"
                         end
@@ -386,6 +468,50 @@ RegEvent("ADDON_LOADED", function()
             end)
         end
 
+        local editDebitTemplate
+        do
+            local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+
+            local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+            tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 10, 0)
+            tt:SetText(L["Auto recording blacklist"])
+
+            t:SetPoint("TOPLEFT", f, 25, -400)
+            t:SetWidth(550)
+            t:SetHeight(100)
+            t:SetBackdrop({ 
+                bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+                edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+                tile = true,
+                tileEdge = true,
+                tileSize = 16,
+                edgeSize = 16,
+                insets = { left = 2, right = 2, top = 2, bottom = 2 },    
+            })
+            t:SetBackdropColor(0, 0, 0);
+        
+    
+            local edit = CreateFrame("EditBox", nil, t)
+            edit.cursorOffset = 0
+            edit:SetTextInsets(20, 20, 20, 20)
+            edit:SetWidth(500)
+            edit:SetHeight(150)
+            edit:SetAutoFocus(false)
+            edit:EnableMouse(true)
+            edit:SetMaxLetters(99999999)
+            edit:SetMultiLine(true)
+            edit:SetFontObject(GameTooltipText)
+            edit:SetScript("OnTextChanged", function(self)
+                ScrollingEdit_OnTextChanged(self, t)
+                Database:SetConfig("filteritems", edit:GetText())
+            end)
+            edit:SetScript("OnCursorChanged", ScrollingEdit_OnCursorChanged)
+            edit:SetScript("OnEscapePressed", edit.ClearFocus)
+    
+            t:SetScrollChild(edit)
+            edit:SetText(Database:GetConfigOrDefault("filteritems", L["# one item per line, can be item name or item id"] .. "\n" .. L["# line starts with # will be ignored"] .. "\n"))
+        end    
+    
           
     end
 

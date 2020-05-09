@@ -1,4 +1,4 @@
-if (GetLocale() == "koKR") then
+if GetLocale() ~= "koKR" then return end
 
 DBM_HOW_TO_USE_MOD					= "DBM을 사용해 주셔서 감사합니다. 대화창에서 /dbm help를 입력하면 사용 가능한 명령어 목록을 볼 수 있습니다. 설정을 하시려면 /dbm을 입력하세요. 보스 알림 설정을 기호에 맞게 변경하려면 해당 던전을 직접 선택해서 로딩해야 합니다. DBM이 당신의 현재 전문화에 맞는 기본값을 설정하겠지만 일부 옵션은 직접 조정을 할 필요도 있습니다."
 DBM_SILENT_REMINDER					= "알림: DBM이 아직도 조용함 모드입니다."
@@ -193,7 +193,7 @@ DBM_CORE_RANGECHECK_OPTION_TEXT		= "텍스트 창 표시"
 DBM_CORE_RANGECHECK_OPTION_BOTH		= "모두 표시"
 DBM_CORE_RANGERADAR_HEADER			= "거리:%d, 플레이어:%d"
 DBM_CORE_RANGERADAR_RHEADER			= "반전-거리:%d 플레이어:%d"
-DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "거리 내 %d명 (%dm)"
+DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "거리 내 %d명 (%0.1fm)"
 DBM_CORE_RANGECHECK_IN_RANGE_TEXT	= "거리 내 %d명"--Text based doesn't need (%dyd), especially since it's not very accurate to the specific yard anyways
 DBM_CORE_RANGERADAR_IN_RANGE_TEXTONE	= "%s (%0.1fm)"--One target
 
@@ -585,9 +585,7 @@ DBM_LDB_ENABLE_BOSS_MOD	= "보스 모드 사용"
 
 DBM_CORE_WORLD_BUFFS.hordeOny		= "호드의 백성들이여, 오그리마의 주민들이여, 모두 와서 호드의 영웅을 찬양하라."
 DBM_CORE_WORLD_BUFFS.allianceOny	= "스톰윈드의 주민들과 모든 얼라이언스여! 오늘, 역사가 이루어졌노라."
-DBM_CORE_WORLD_BUFFS.hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar"
-DBM_CORE_WORLD_BUFFS.allianceNef	= "Citizens of the Alliance, the Lord of Blackrock is slain!"
-DBM_CORE_WORLD_BUFFS.zgHeart		= "Now, only one step remains to rid us of the Soulflayer's threat"
+DBM_CORE_WORLD_BUFFS.hordeNef		= "네파리안이 쓰러졌다! 오그리마의 백성들이여"
+DBM_CORE_WORLD_BUFFS.allianceNef	= "얼라이언스의 시민들이여, 검은바위부족의 군주가 쓰러졌다!"
+DBM_CORE_WORLD_BUFFS.zgHeart		= "이제 한 가지 일만 더 하면 영혼의 약탈자의 위협을 완전히 제거할 수 있겠군..."
 DBM_CORE_WORLD_BUFFS.rendHead		= "가짜 대족장 렌드 블랙핸드가 쓰러졌도다!"
-
-end
