@@ -146,6 +146,10 @@ local function GetMenu(parent, anchor)
 		menu:SetPoint("TOPLEFT", parent, "CENTER", x, y);
 	elseif anchor == "BOTTOMLEFT" then
 		menu:SetPoint("TOPRIGHT", parent, "CENTER", x, y);
+	elseif anchor == "TOP" then
+		menu:SetPoint("BOTTOM", parent, "CENTER", x, y);
+	elseif anchor == "BOTTOM" then
+		menu:SetPoint("TOP", parent, "CENTER", x, y);
 	else
 		menu:SetPoint("BOTTOMLEFT", parent, "CENTER", x, y);
 	end

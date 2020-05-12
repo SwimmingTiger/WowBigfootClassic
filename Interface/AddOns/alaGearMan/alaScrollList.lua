@@ -267,7 +267,7 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	end
 	scrollBar:SetThumbTexture("Interface\\Buttons\\UI-ScrollBar-Knob");
 	local thumb = scrollBar:GetThumbTexture();
-	thumb:SetSize(18, 24);
+	thumb:SetSize(sbWidth - 2, 24);
 	thumb:SetTexCoord(0.20, 0.80, 0.125, 0.875);
 	thumb:SetColorTexture(0.25, 0.25, 0.25, 1.0);
 

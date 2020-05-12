@@ -58,6 +58,8 @@ if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
 	L["Save"] = "保存";
 	L["Equip"] = "装备";
 	L["Style"] = "风格";
+	L["useBar"] = "显示按钮";
+	L["useBar_false"] = "隐藏按钮";
 	L["Style_TC"] = "文字+图标风格";
 	L["Style_T"] = "图标风格";
 	L["Style_C"] = "文字风格";
@@ -123,6 +125,8 @@ elseif LOCALE == "ruRU" then
 	L["Save"] = "Сохранить";
 	L["Equip"] = "Экипировка";
 	L["Style"] = "Стиль";
+	L["useBar"] = "Show buttons";
+	L["useBar_false"] = "Hide Buttons";
 	L["Style_TC"] = "Стиль текста и значков";
 	L["Style_T"] = "Стиль иконок";
 	L["Style_C"] = "Стиль текста";
@@ -188,6 +192,8 @@ else
 	L["Save"] = true;
 	L["Equip"] = true;
 	L["Style"] = true;
+	L["useBar"] = "Show buttons";
+	L["useBar_false"] = "Hide Buttons";
 	L["Style_TC"] = "Text & Texture";
 	L["Style_T"] = "Text Only";
 	L["Style_C"] = "Texture Only";
@@ -245,6 +251,7 @@ else
 end
 local default_sv = {
 	sets = {  },
+	useBar = true,
 	quickSize = 18,
 	quickStyle = 'C',	--'T' 'C' 'TC'
 	quickPos = { "TOP", 0, - 100, },
@@ -1363,7 +1370,7 @@ function func.initUI()
 				if alaGearManSV.takeoffAll_pos == 'LEFT' then
 					index = index - 1;
 				end
-				if index > 0 and index <= #saved_sets + 1 then
+				if index > 0 and index <= #saved_sets then
 					func.OnEnter_Info_Outfit(self, index);
 				else
 					GameTooltip:AddLine(L["Take_Off_All"], 1.0, 1.0, 1.0);
@@ -1564,6 +1571,9 @@ function func.initUI()
 		ui.secure:Create(1);	--for take_off_all button
 		ui.secure:Update();
 		-- ui.secure:Hide();
+		if not alaGearManSV.useBar then
+			ui.secure:Hide();
+		end
 	end
 
 	do	--customize
@@ -1738,6 +1748,17 @@ function func.delete_onclick()
 end
 function func.setting(self, button)
 	local elements = { };
+	if alaGearManSV.useBar then
+		tinsert(elements, {
+			para = { 'useBar', false, },
+			text = L["useBar_false"],
+		});
+	else
+		tinsert(elements, {
+			para = { 'useBar', true, },
+			text = L["useBar"],
+		});
+	end
 	if alaGearManSV.quickStyle ~= 'TC' then
 		tinsert(elements, {
 			para = { 'quickStyle', 'TC', },
@@ -2254,7 +2275,16 @@ end
 function func.update_drop_table()
 end
 function func.drop_handler(button, key, value)
-	if key == 'quickStyle' then
+	if key == 'useBar' then
+		if type(value) == 'boolean' then
+			alaGearManSV.useBar = value;
+			if value then
+				ui.secure:Show();
+			else
+				ui.secure:Hide();
+			end
+		end
+	elseif key == 'quickStyle' then
 		if value == 'TC' or value == 'T' or value == 'C' then
 			alaGearManSV.quickStyle = value;
 			-- ui.quick:Update();
@@ -2280,8 +2310,9 @@ function func.handle_low_version_variables()
 	if not alaGearManSV._version then
 		alaGearManSV.quickPosChar = {  };
 	elseif tonumber(alaGearManSV._version) < 200422.0 then
+	elseif tonumber(alaGearManSV._version) < 200507.0 then
+		alaGearManSV.useBar = true;
 	end
-	alaGearManSV._version = 200422.0;
 end
 function func.hook_tooltip(self)
 	if not alaGearManSV.show_outfit_in_tooltip then
@@ -2308,8 +2339,8 @@ function func.init_variables()
 		func.handle_low_version_variables();
 	else
 		_G.alaGearManSV = default_sv;
-		alaGearManSV._version = 200422.0;
 	end
+	alaGearManSV._version = 200507.0;
 end
 function func.init_hook_tooltip()
 	GameTooltip:HookScript("OnTooltipSetItem", func.hook_tooltip);
