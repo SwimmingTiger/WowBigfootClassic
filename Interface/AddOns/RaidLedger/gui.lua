@@ -254,7 +254,7 @@ function GUI:Init()
     do
         local bf = CreateFrame("Frame", nil, f)
         bf:SetWidth(290)
-        bf:SetHeight(280)
+        bf:SetHeight(310)
         bf:SetBackdrop({
             bgFile = "Interface\\FrameGeneral\\UI-Background-Marble",
             edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
@@ -626,6 +626,22 @@ function GUI:Init()
         end
 
         do
+            local b = CreateFrame("CheckButton", nil, bf, "UICheckButtonTemplate")
+            b:SetPoint("TOPLEFT", bf, 15, -230)
+    
+            b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+            b.text:SetText("/RA")
+
+            b:SetScript("OnClick", function() 
+                Database:SetConfig("bfusera", b:GetChecked())
+            end)
+            b:SetChecked(Database:GetConfigOrDefault("bfusera", true))            
+
+            bf.usera = b
+        end
+
+        do
             local ctx = nil
 
             local currentitem = function()
@@ -655,7 +671,7 @@ function GUI:Init()
             end
 
             local SendRaidMessage = function(text)
-                if UnitIsGroupLeader('player') or UnitIsGroupAssistant('player') then
+                if bf.usera:GetChecked() and (UnitIsGroupLeader('player') or UnitIsGroupAssistant('player')) then
                     SendChatMessage(text, "RAID_WARNING")
                 else
                     SendChatMessage(text, "RAID")
@@ -890,10 +906,12 @@ function GUI:Init()
         t:SetHeight(25)
         t:SetPoint("BOTTOMLEFT", f, 350, 95)
         t:SetAutoFocus(false)
-        t:SetMaxLetters(4)
+        t:SetMaxLetters(6)
         -- t:SetNumeric(true)
         t:SetScript("OnTextChanged", function() self:UpdateSummary() end)
         t:SetScript("OnChar", mustnumber)
+        t:SetScript("OnEnterPressed", t.ClearFocus)
+
 
         local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
         b:SetNormalTexture("Interface\\Buttons\\LockButton-UnLocked-Up")
@@ -950,7 +968,11 @@ function GUI:Init()
         b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
         b:SetPoint("BOTTOMLEFT", f, 195, 60)
         b.text:SetText(L["Round per member credit down"])
-        b:SetScript("OnClick", function() GUI:UpdateSummary() end)
+        b:SetScript("OnClick", function() 
+            GUI:UpdateSummary() 
+            Database:SetConfig("rounddownchecked", b:GetChecked())
+        end)
+        b:SetChecked(Database:GetConfigOrDefault("rounddownchecked", false))
 
         self.rouddownCheck = b
     end
@@ -1162,12 +1184,12 @@ function GUI:Init()
                 local name, _, subgroup, _, class = GetRaidRosterInfo(i)
 
                 if name then
-                    name = string.lower(name)
+                    local namelower = string.lower(name)
                     class = string.lower(class)
 
                     local b = text == ""
                     b = b or (text == "#ONFOCUS")
-                    b = b or (strfind(name, string.lower(text)))
+                    b = b or (strfind(namelower, string.lower(text)))
                     b = b or (tonumber(text) == subgroup)
                     b = b or (strfind(class, string.lower(text)))
 
@@ -1524,6 +1546,17 @@ function GUI:Init()
                     setCostType("MUL_AVG")
                 end, 
             },
+            { 
+                text = "", 
+                isTitle = true, 
+            },
+            {
+                text = CANCEL,
+                notCheckable = true,
+                func = function(self)
+                    CloseDropDownMenus()
+                end, 
+            },
         }        
 
 
@@ -1719,7 +1752,7 @@ function GUI:Init()
 
         local optctx = {
             channel = "RAID",
-            filterzero = false,
+            filterzero = Database:GetConfigOrDefault("filterzero", false),
         }
 
         f.reportopt = optctx
@@ -1921,10 +1954,22 @@ function GUI:Init()
                 isNotRadio = true,
                 func = function(self)
                     optctx.filterzero = not optctx.filterzero
+                    Database:SetConfig("filterzero", optctx.filterzero)
                 end, 
                 checked = function(self)
                     return optctx.filterzero
                 end
+            },
+            { 
+                text = "", 
+                isTitle = true, 
+            },
+            {
+                text = CANCEL,
+                notCheckable = true,
+                func = function(self)
+                    CloseDropDownMenus()
+                end, 
             },
         }        
 

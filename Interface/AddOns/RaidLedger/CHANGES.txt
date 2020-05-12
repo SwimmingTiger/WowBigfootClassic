@@ -1,16 +1,28 @@
-lightweight tag de05553bc7f024cf25e869a238c60f16bfe09186 v1.8.0
+lightweight tag fdc8f8593e5558b1b92d596a409ce29dd6fc3e96 v1.8.1
 Author:	Boshi Lian <farmer1992@gmail.com>
-Date:	Fri May 8 22:13:09 2020 -0700
+Date:	Mon May 11 02:58:29 2020 -0700
 
-commit de05553bc7f024cf25e869a238c60f16bfe09186
+commit fdc8f8593e5558b1b92d596a409ce29dd6fc3e96
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri May 8 22:13:09 2020 -0700
+Date:   Mon May 11 02:58:29 2020 -0700
 
-    disable trade add checkbox by default
+    ra opt on bf
 
-commit a2f75e096a3003fc7936c68a08a40ffb7eb84efa
+commit 0f5cec5a3990c4f3d9540ebbc3574e921f852166
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Fri May 8 21:40:01 2020 -0700
+Date:   Mon May 11 02:47:44 2020 -0700
 
-    first trade preview
+    better popuo
+
+commit 2c2497f5c5c20fd8b143af52e44b693c513c195e
+Author: Boshi Lian <farmer1992@gmail.com>
+Date:   Sat May 9 02:19:42 2020 -0700
+
+    optimze split editbox
+
+commit 371e3bc67fbe4f5a17978015dd36b6a318fc2cd2
+Author: Boshi Lian <farmer1992@gmail.com>
+Date:   Sat May 9 01:57:18 2020 -0700
+
+    fix name case when autocomplete
 

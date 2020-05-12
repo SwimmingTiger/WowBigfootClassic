@@ -992,8 +992,7 @@ L["/raidledger"] = "/raidledger"
 L["[Unknown]"] = "[알 수 없음]"
 --[[Translation missing --]]
 --[[ L["0 credit items"] = "0 credit items"--]] 
---[[Translation missing --]]
---[[ L["Add to"] = "Add to"--]] 
+L["Add to"] = "추가"
 L["Auto recording blacklist"] = "블랙리스트 자동 기록"
 L["Auto recording loot"] = "전리품 자동 기록"
 L["Auto recording loot: In Raid Only"] = "전리품 자동 기록: 공격대에서만"
@@ -1071,8 +1070,7 @@ L["Split into (Current %d)"] = "돈을 나눈 사람 수 (지금 %d)"
 L["Start bid"] = "입찰 시작"
 L["Starting price"] = "시작 금액"
 L["Subgroup total"] = "하위 그룹 합계"
---[[Translation missing --]]
---[[ L["Summary"] = "Summary"--]] 
+L["Summary"] = "요약"
 L["Time left"] = "남은 시간"
 L["TITLE"] = "공격대 장부"
 L["TOC_NOTES"] = "공격대의 골드 분배 시행에 대한 장부, 피드백: farmer1992@gmail.com"
@@ -1273,16 +1271,14 @@ L["# one item per line, can be item name or item id"] = "# один предме
 L["#Try to convert to item link"] = "#Попробуйте преобразовать в ссылку предмета"
 L["/raidledger"] = "/raidledger"
 L["[Unknown]"] = "[Неизвестно]"
---[[Translation missing --]]
---[[ L["0 credit items"] = "0 credit items"--]] 
---[[Translation missing --]]
---[[ L["Add to"] = "Add to"--]] 
+L["0 credit items"] = "0 заслуженных предметов"
+L["Add to"] = "Добавить к"
 L["Auto recording blacklist"] = "Автоматическая запись черного списка"
 L["Auto recording loot"] = "Автоматическая запись добычи"
 L["Auto recording loot: In Raid Only"] = "Автоматическая запись добычи: только в рейде"
 L["Auto recording loot: Off"] = "Автоматическая запись добычи: Выкл."
 L["Auto recording loot: On"] = "Автоматическая запись добычи: Вкл."
-L["Auto recording quality"] = "Автоматическая запись качества добычи"
+L["Auto recording quality"] = "Авто качество записи"
 L["Beneficiary"] = "Бенефициарий"
 L["Bid accept"] = "Заявка принята"
 L["Bid canceled"] = "Заявка отменена"
@@ -1303,7 +1299,7 @@ L["Compensation: Repait Bot"] = "Компенсации: Ремонтный бо
 L["Compensation: Tank"] = "Компенсация: Танк"
 L["convert failed, text can be either item id or item name"] = "преобразование не удалось, текст может быть либо ID элемента или имя элемента"
 L["Count down time"] = "Обратный отсчет времени"
-L["Credit"] = "Кредит"
+L["Credit"] = "Заслуги"
 L["CTRL + click for summary mode"] = "CTRL + щелчок для режима сводки"
 L["CTRL + Click to apply debit template"] = "CTRL + щелчок, чтобы применить шаблон дебета"
 L["CTRL + Click to start and then pause timer"] = "Ctrl + щелчок, чтобы начать, а затем поставить на паузу"
@@ -1315,82 +1311,53 @@ L["Expense"] = "Расход"
 L["Export as text"] = "Экспорт в виде текста"
 L["Feedback"] = "Обратная связь"
 L["Go"] = "Начинаем"
---[[Translation missing --]]
---[[ L["Hammer Price"] = "Hammer Price"--]] 
---[[Translation missing --]]
---[[ L["Hide locked items"] = "Hide locked items"--]] 
---[[Translation missing --]]
---[[ L["Import from ledger"] = "Import from ledger"--]] 
---[[Translation missing --]]
---[[ L["In Raid Only"] = "In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
---[[ L["is bought in"] = "is bought in"--]] 
+L["Hammer Price"] = "Окончательная цена"
+L["Hide locked items"] = "Скрыть заблокированные предметы"
+L["Import from ledger"] = "Импорт из книги учета"
+L["In Raid Only"] = "Только в Рейде"
+L["Input only"] = "Только ввод данных"
+L["is bought in"] = "покупается в"
 L["Item added"] = "Пункт добавлен"
---[[Translation missing --]]
---[[ L["Last used"] = "Last used"--]] 
---[[Translation missing --]]
---[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
---[[Translation missing --]]
---[[ L["Minimap Icon"] = "Minimap Icon"--]] 
---[[Translation missing --]]
---[[ L["Must bid higher than"] = "Must bid higher than"--]] 
---[[Translation missing --]]
---[[ L["Name of Debit template"] = "Name of Debit template"--]] 
+L["Last used"] = "Последнее использование"
+L["Member credit for subgroup"] = "Заслуги для членов подгруппы"
+L["Minimap Icon"] = "Значок на Миникарте"
+L["Must bid higher than"] = "Должен предложить цену выше, чем"
+L["Name of Debit template"] = "Название дебетового шаблона"
 L["Net Profit"] = "Чистая прибыль"
 L["Other"] = "Другое"
---[[Translation missing --]]
---[[ L["Pause"] = "Pause"--]] 
+L["Pause"] = "Пауза"
 L["Per Member"] = "на одного члена"
---[[Translation missing --]]
---[[ L["Per Member credit"] = "Per Member credit"--]] 
---[[Translation missing --]]
---[[ L["Raid Frame Button"] = "Raid Frame Button"--]] 
+L["Per Member credit"] = "По заслугам участника"
+L["Raid Frame Button"] = "Кнопка окна Рейда"
 L["Raid Ledger"] = "Рейдовая книга"
 L["Remove all records?"] = "Удалить все записи?"
---[[Translation missing --]]
---[[ L["Remove ALL SAME record?"] = "Remove ALL SAME record?"--]] 
+L["Remove ALL SAME record?"] = "Удалить все записи?"
 L["Remove this record?"] = "Удалить эту запись?"
---[[Translation missing --]]
---[[ L["Rename"] = "Rename"--]] 
+L["Rename"] = "Переименовать"
 L["Report"] = "Жалоба"
 L["Revenue"] = "Доход"
---[[Translation missing --]]
---[[ L["Right click to choose channel"] = "Right click to choose channel"--]] 
---[[Translation missing --]]
---[[ L["Right click to fine-tune"] = "Right click to fine-tune"--]] 
+L["Right click to choose channel"] = "Щелкните правой кнопкой мыши, чтобы выбрать канал"
+L["Right click to fine-tune"] = "Щелкните правой кнопкой мыши для точной настройки"
 L["Right click to remove record"] = "Щелкните правой кнопкой мыши, чтобы удалить запись"
---[[Translation missing --]]
---[[ L["Round down"] = "Round down"--]] 
---[[Translation missing --]]
---[[ L["Round per member credit down"] = "Round per member credit down"--]] 
---[[Translation missing --]]
---[[ L["Set split into number when team size changes automatically"] = "Set split into number when team size changes automatically"--]] 
+L["Round down"] = "Округлять"
+L["Round per member credit down"] = "Понижение заслуг одного из участников"
+L["Set split into number when team size changes automatically"] = "Установите разделение на количество при автоматическом изменении размера команды"
 L["Shift + item/name to add to record"] = "Shift + элемент/имя для добавления в запись"
---[[Translation missing --]]
---[[ L["Shift + Right click to remove ALL SAME record"] = "Shift + Right click to remove ALL SAME record"--]] 
---[[Translation missing --]]
---[[ L["Special Members"] = "Special Members"--]] 
+L["Shift + Right click to remove ALL SAME record"] = "Shift + Щелкните правой кнопкой мыши, чтобы удалить одну и ту же запись"
+L["Special Members"] = "VIP Персоны"
 L["Split into"] = "Разделить на"
 L["Split into (Current %d)"] = "Разделить на (текущий %d)"
---[[Translation missing --]]
---[[ L["Start bid"] = "Start bid"--]] 
---[[Translation missing --]]
---[[ L["Starting price"] = "Starting price"--]] 
+L["Start bid"] = "Начальная ставка"
+L["Starting price"] = "Стартовая цена"
 L["Subgroup total"] = "Всего подгрупп"
---[[Translation missing --]]
---[[ L["Summary"] = "Summary"--]] 
---[[Translation missing --]]
---[[ L["Time left"] = "Time left"--]] 
+L["Summary"] = "Резюме"
+L["Time left"] = "Времени осталось"
 L["TITLE"] = "Рейдовая книга"
---[[Translation missing --]]
---[[ L["TOC_NOTES"] = "A ledger for GDKP/gold run raid. Feedback: farmer1992@gmail.com"--]] 
+L["TOC_NOTES"] = "Книга для ГДКП/разделения золота в рейде. Обратная связь: farmer1992@gmail.com"
 L["toggle Auto recording on/off"] = "включение/выключение автоматической записи"
 L["Top [%d] contributors"] = "Лучшие [%d] участники"
 L["Value"] = "Значение"
---[[Translation missing --]]
---[[ L["Winner"] = "Winner"--]] 
+L["Winner"] = "Победитель"
 
 elseif locale == 'zhCN' then
 L["# line starts with # will be ignored"] = "# 以 # 开头的行自动被忽略"
@@ -1487,43 +1454,30 @@ L["Value"] = "费用"
 L["Winner"] = "赢家"
 
 elseif locale == 'zhTW' then
---[[Translation missing --]]
---[[ L["# line starts with # will be ignored"] = "# line starts with # will be ignored"--]] 
---[[Translation missing --]]
---[[ L["# one item per line, can be item name or item id"] = "# one item per line, can be item name or item id"--]] 
-L["#Try to convert to item link"] = "#嘗試轉換為物品連結"
+L["# line starts with # will be ignored"] = "# 以 # 開頭的行自動被忽略"
+L["# one item per line, can be item name or item id"] = "# 每行一條, 可以是物品名稱或物品ID"
+L["#Try to convert to item link"] = "#嘗試轉換為物品鏈接"
 L["/raidledger"] = "/gtuan"
 L["[Unknown]"] = "[未知]"
---[[Translation missing --]]
---[[ L["0 credit items"] = "0 credit items"--]] 
---[[Translation missing --]]
---[[ L["Add to"] = "Add to"--]] 
---[[Translation missing --]]
---[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
-L["Auto recording loot"] = "自動拾取紀錄"
+L["0 credit items"] = "0 收入物品"
+L["Add to"] = "添加到"
+L["Auto recording blacklist"] = "自動拾取黑名單"
+L["Auto recording loot"] = "自動拾取記錄"
 L["Auto recording loot: In Raid Only"] = "自動拾取記錄: 僅團隊中"
 L["Auto recording loot: Off"] = "自動拾取記錄關閉"
 L["Auto recording loot: On"] = "自動拾取記錄開啟"
---[[Translation missing --]]
---[[ L["Auto recording quality"] = "Auto recording quality"--]] 
+L["Auto recording quality"] = "自動拾取記錄品質"
 L["Beneficiary"] = "獲取人"
---[[Translation missing --]]
---[[ L["Bid accept"] = "Bid accept"--]] 
---[[Translation missing --]]
---[[ L["Bid canceled"] = "Bid canceled"--]] 
---[[Translation missing --]]
---[[ L["Bid denied"] = "Bid denied"--]] 
---[[Translation missing --]]
---[[ L["Bid increment"] = "Bid increment"--]] 
---[[Translation missing --]]
---[[ L["Bid mode"] = "Bid mode"--]] 
---[[Translation missing --]]
---[[ L["Bid price"] = "Bid price"--]] 
+L["Bid accept"] = "拍賣被接受"
+L["Bid canceled"] = "拍賣取消"
+L["Bid denied"] = "出價被拒絕"
+L["Bid increment"] = "加價"
+L["Bid mode"] = "加價模式"
+L["Bid price"] = "競拍價"
 L["Cannot find any debit entry in template, please check your template in options"] = "無法在支出模板中找到任何內容, 請在選項中檢查模板內容"
 L["Clear"] = "清空"
---[[Translation missing --]]
---[[ L["Click here to clear ledger"] = "Click here to clear ledger"--]] 
-L["Close text export"] = "關閉文字模式"
+L["Click here to clear ledger"] = "點我清空賬本"
+L["Close text export"] = "關閉文本模式"
 L["Compensation"] = "補助"
 L["Compensation added"] = "已經添補助"
 L["Compensation: DPS"] = "補助: 輸出"
@@ -1531,88 +1485,66 @@ L["Compensation: Healer"] = "補助: 治療"
 L["Compensation: Other"] = "補助: 其他"
 L["Compensation: Repait Bot"] = "補助: 修理機器人"
 L["Compensation: Tank"] = "補助: 坦克"
-L["convert failed, text can be either item id or item name"] = "轉換失敗, 名稱可以是物品ID或物品名稱"
---[[Translation missing --]]
---[[ L["Count down time"] = "Count down time"--]] 
+L["convert failed, text can be either item id or item name"] = "轉換失敗, 名稱可以是物品ID, 物品名稱"
+L["Count down time"] = "倒計時"
 L["Credit"] = "收入"
---[[Translation missing --]]
---[[ L["CTRL + click for summary mode"] = "CTRL + click for summary mode"--]] 
+L["CTRL + click for summary mode"] = "CTRL + 點擊發送扼要報告"
 L["CTRL + Click to apply debit template"] = "CTRL + 點擊應用支出模板"
---[[Translation missing --]]
---[[ L["CTRL + Click to start and then pause timer"] = "CTRL + Click to start and then pause timer"--]] 
---[[Translation missing --]]
---[[ L["Current price"] = "Current price"--]] 
+L["CTRL + Click to start and then pause timer"] = "CTRL + 點擊開始並馬上暫停計時"
+L["Current price"] = "當前價格"
 L["Debit"] = "支出"
 L["Debit Template"] = "支出模板"
 L["Entry"] = "條目"
 L["Expense"] = "總支出"
-L["Export as text"] = "導出為文字"
+L["Export as text"] = "導出戰報"
 L["Feedback"] = "反饋"
---[[Translation missing --]]
---[[ L["Go"] = "Go"--]] 
---[[Translation missing --]]
---[[ L["Hammer Price"] = "Hammer Price"--]] 
---[[Translation missing --]]
---[[ L["Hide locked items"] = "Hide locked items"--]] 
+L["Go"] = "繼續"
+L["Hammer Price"] = "成交價格"
+L["Hide locked items"] = "隱藏鎖定物品"
 L["Import from ledger"] = "從賬本中提取"
 L["In Raid Only"] = "僅團隊中"
---[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
---[[ L["is bought in"] = "is bought in"--]] 
+L["Input only"] = "僅輸入"
+L["is bought in"] = "流拍"
 L["Item added"] = "已添加物品"
 L["Last used"] = "上次使用"
 L["Member credit for subgroup"] = "小隊收入明細"
---[[Translation missing --]]
---[[ L["Minimap Icon"] = "Minimap Icon"--]] 
---[[Translation missing --]]
---[[ L["Must bid higher than"] = "Must bid higher than"--]] 
+L["Minimap Icon"] = "小地圖圖標"
+L["Must bid higher than"] = "出價必須高於"
 L["Name of Debit template"] = "支出模板的標題"
 L["Net Profit"] = "淨收入"
 L["Other"] = "其他"
---[[Translation missing --]]
---[[ L["Pause"] = "Pause"--]] 
+L["Pause"] = "暫停"
 L["Per Member"] = "平均每人"
 L["Per Member credit"] = "平均每人收入"
---[[Translation missing --]]
---[[ L["Raid Frame Button"] = "Raid Frame Button"--]] 
+L["Raid Frame Button"] = "團隊面板按鈕"
 L["Raid Ledger"] = "金團賬本"
-L["Remove all records?"] = "確定清空所有記錄？"
-L["Remove ALL SAME record?"] = "刪除全部相同紀錄？"
-L["Remove this record?"] = "確定刪除這條記錄？"
+L["Remove all records?"] = "確定清空所有記錄?"
+L["Remove ALL SAME record?"] = "刪除全部相同記錄?"
+L["Remove this record?"] = "確定刪除這條記錄?"
 L["Rename"] = "重命名"
 L["Report"] = "廣播"
 L["Revenue"] = "總收入"
 L["Right click to choose channel"] = "右鍵點擊選擇頻道"
---[[Translation missing --]]
---[[ L["Right click to fine-tune"] = "Right click to fine-tune"--]] 
-L["Right click to remove record"] = "右鍵點擊記錄刪除"
---[[Translation missing --]]
---[[ L["Round down"] = "Round down"--]] 
---[[Translation missing --]]
---[[ L["Round per member credit down"] = "Round per member credit down"--]] 
---[[Translation missing --]]
---[[ L["Set split into number when team size changes automatically"] = "Set split into number when team size changes automatically"--]] 
+L["Right click to fine-tune"] = "右鍵微調"
+L["Right click to remove record"] = "右鍵點擊刪除記錄"
+L["Round down"] = "四捨五入"
+L["Round per member credit down"] = "人均收入自動四捨五入"
+L["Set split into number when team size changes automatically"] = "團隊人數變化是否自動設置分賬人數"
 L["Shift + item/name to add to record"] = "Shift + 人名/物品 自動添加到記錄"
-L["Shift + Right click to remove ALL SAME record"] = "Shift + 右鍵點擊 刪除全部相同記錄"
+L["Shift + Right click to remove ALL SAME record"] = "Shift + 右鍵點擊 刪除 全部相同 記錄"
 L["Special Members"] = "特別成員"
 L["Split into"] = "分錢人數"
 L["Split into (Current %d)"] = "分錢人數 (當前 %d)"
---[[Translation missing --]]
---[[ L["Start bid"] = "Start bid"--]] 
---[[Translation missing --]]
---[[ L["Starting price"] = "Starting price"--]] 
+L["Start bid"] = "開始拍賣"
+L["Starting price"] = "起拍價"
 L["Subgroup total"] = "小隊總和"
---[[Translation missing --]]
---[[ L["Summary"] = "Summary"--]] 
---[[Translation missing --]]
---[[ L["Time left"] = "Time left"--]] 
-L["TITLE"] = "金團賬本"
+L["Summary"] = "彙總"
+L["Time left"] = "剩餘時間"
+L["TITLE"] = "Raid Ledger 金團賬本"
 L["TOC_NOTES"] = "金團賬本，幫你在金團中記賬 反饋問題 farmer1992@gmail.com"
 L["toggle Auto recording on/off"] = "開啟/關閉自動拾取記錄"
-L["Top [%d] contributors"] = "貢獻錢 [%d] 的老闆"
+L["Top [%d] contributors"] = "貢獻錢 [%d] 的老板"
 L["Value"] = "費用"
---[[Translation missing --]]
---[[ L["Winner"] = "Winner"--]] 
+L["Winner"] = "贏家"
 
 end
