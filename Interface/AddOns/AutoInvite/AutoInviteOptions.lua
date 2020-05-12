@@ -40,7 +40,7 @@ end
 
 AutoInvite.optionsInviteKeywordLabel = AutoInvite.optionsFrame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 AutoInvite.optionsInviteKeywordLabel:SetPoint("TOPLEFT", 20, -64)
-AutoInvite.optionsInviteKeywordLabel:SetText("邀请关键词")
+AutoInvite.optionsInviteKeywordLabel:SetText("邀请关键词(留空接受任意内容)")
 
 AutoInvite.optionsInviteKeyword = CreateFrame("EditBox", nil, AutoInvite.optionsFrame, "InputBoxTemplate")
 AutoInvite.optionsInviteKeyword:SetAutoFocus(false)

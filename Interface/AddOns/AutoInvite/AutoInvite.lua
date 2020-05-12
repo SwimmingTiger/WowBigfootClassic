@@ -33,7 +33,8 @@ function AutoInvite:ProcessWhisper(text, playerName)
 		return
 	end
 
-	if text == AutoInviteSettings.AutoInviteKeyword then
+	-- 老虎会游泳：允许空白密语关键字
+	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) or (text == AutoInviteSettings.AutoInviteKeyword) then
 		InviteUnit(playerName)
 	end
 end
@@ -105,8 +106,10 @@ function AutoInvite:ProcessBroadcast(subCommandMsg, chatChannel)
 	end
 
 	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) then
-		print("自动邀请关键词未设置")
-		return
+		-- 老虎会游泳：允许空白密语关键字
+		AutoInviteSettings.AutoInviteKeyword = ''
+		--print("自动邀请关键词未设置")
+		--return
 	end
 
 	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteChannel) then
@@ -118,15 +121,10 @@ function AutoInvite:ProcessBroadcast(subCommandMsg, chatChannel)
 end
 
 function AutoInvite:ProcessKeyword(keyword)
-	if not AutoInvite:StringIsNullOrEmpty(keyword) then
-		AutoInvite:SetInviteKeyword(keyword, 0)
-	end
-
-	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) then
-		print("自动邀请关键词未设置")
-	else
-		print("自动邀请关键词已设为 '" .. AutoInviteSettings.AutoInviteKeyword .. "'")
-	end
+	-- 老虎会游泳：允许空白密语关键字
+	if AutoInvite:StringIsNullOrEmpty(keyword) then keyword = '' end
+	AutoInvite:SetInviteKeyword(keyword, 0)
+	print("自动邀请关键词已设为 '" .. AutoInviteSettings.AutoInviteKeyword .. "'")
 end
 
 function AutoInvite:ProcessChannel(channel)

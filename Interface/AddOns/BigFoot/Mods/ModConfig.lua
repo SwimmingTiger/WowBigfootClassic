@@ -32,7 +32,7 @@ if GetLocale()=='zhCN' then
 	L["Spy"] = "Spy侦测"
 	L["AutoInvite"] = "密我进组"
 	L["AutoInvite-tooltip"] ="其他人密我即可自动邀请他们进组，左键启用，右键设置密我的内容。"
-	L["AutoInvite-message"] = "密我的内容"
+	L["AutoInvite-message"] = "密我的内容(留空接受任意内容)"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -66,7 +66,7 @@ elseif GetLocale()=='zhTW' then
 	L["Spy"] = "Spy偵測"
 	L["AutoInvite"] = "密我進組"
 	L["AutoInvite-tooltip"] ="其他人密我即可自動邀請他們進組，左鍵啟用，右鍵設置密我的內容。"
-	L["AutoInvite-message"] = "密我的內容"
+	L["AutoInvite-message"] = "密我的內容(留空接受任意內容)"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -87,7 +87,7 @@ else
 	L["Spy"] = "Spy"
 	L["AutoInvite"] = "AutoInvite"
 	L["AutoInvite-tooltip"] = "Others can be automatically invited to join my team if them whisper to me.\n\nLeft-click to enable, right-click to set the whisper keyword."
-	L["AutoInvite-message"] = "Whisper Keyword"
+	L["AutoInvite-message"] = "Whisper Keyword (Empty to accept any content)"
 
 end
 
