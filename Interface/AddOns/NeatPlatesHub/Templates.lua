@@ -101,59 +101,61 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 		end
 	end
 
-	local function CreateQuickEditbox(name, width, height, ...)
-		local columnFrame = ...
-		local frame = CreateFrame("ScrollFrame", name, columnFrame, "UIPanelScrollFrameTemplate")
-		frame.BorderFrame = CreateFrame("Frame", nil, frame )
-		local EditBox = CreateFrame("EditBox", nil, frame)
-		-- Margins	-- Bottom/Left are supposed to be negative
-		frame.Margins = {Left = 4, Right = 24, Top = 8, Bottom = 8, }
-		width, height = width or 150, height or 100
+	--local function CreateQuickEditbox(name, width, height, ...)
+	--	local columnFrame = ...
+	--	local frame = CreateFrame("ScrollFrame", name, columnFrame, "UIPanelScrollFrameTemplate")
+	--	frame.BorderFrame = CreateFrame("Frame", nil, frame )
+	--	local EditBox = CreateFrame("EditBox", nil, frame)
+	--	-- Margins	-- Bottom/Left are supposed to be negative
+	--	frame.Margins = {Left = 4, Right = 24, Top = 8, Bottom = 8, }
+	--	width, height = width or 150, height or 100
 
-		-- Frame Size
-		frame:SetWidth(width+15)
-		frame:SetHeight(height+25)
-		-- Border
-		frame.BorderFrame:SetPoint("TOPLEFT", 0, 5)
-		frame.BorderFrame:SetPoint("BOTTOMRIGHT", 3, -5)
-		frame.BorderFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-											edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-											tile = true, tileSize = 16, edgeSize = 16,
-											insets = { left = 4, right = 4, top = 4, bottom = 4 }
-											});
-		frame.BorderFrame:SetBackdropColor(0.05, 0.05, 0.05, 0)
-		frame.BorderFrame:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
-		-- Text
+	--	-- Frame Size
+	--	frame:SetWidth(width+15)
+	--	frame:SetHeight(height+25)
+	--	-- Border
+	--	frame.BorderFrame:SetPoint("TOPLEFT", 0, 5)
+	--	frame.BorderFrame:SetPoint("BOTTOMRIGHT", 3, -5)
+	--	frame.BorderFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+	--										edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+	--										tile = true, tileSize = 16, edgeSize = 16,
+	--										insets = { left = 4, right = 4, top = 4, bottom = 4 }
+	--										});
+	--	frame.BorderFrame:SetBackdropColor(0.05, 0.05, 0.05, 0)
+	--	frame.BorderFrame:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
+	--	-- Text
 
-		EditBox:SetPoint("TOPLEFT")
-		EditBox:SetPoint("BOTTOMLEFT")
-		EditBox:SetHeight(height)
-		EditBox:SetWidth(width)
-		EditBox:SetMultiLine(true)
+	--	EditBox:SetPoint("TOPLEFT")
+	--	EditBox:SetPoint("BOTTOMLEFT")
+	--	EditBox:SetHeight(height)
+	--	EditBox:SetWidth(width)
+	--	EditBox:SetMultiLine(true)
 
-		EditBox:SetFrameLevel(frame:GetFrameLevel()-1)
-		EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "NONE")
-		--EditBox:SetText("Empty")
-		EditBox:SetText("")
-		EditBox:SetAutoFocus(false)
-		EditBox:SetTextInsets(9, 6, 2, 2)
-		frame:SetScrollChild(EditBox)
-		frame.EditBox = EditBox
-		--EditBox:SetIndentedWordWrap(true)
-		--print(name, EditBox:GetFrameLevel(), frame:GetFrameLevel(), EditBox:GetFrameStrata(), frame:GetFrameStrata())
-		-- Functions
-		--function frame:GetValue() return SplitToTable(strsplit("\n", EditBox:GetText() )) end
-		--function frame:SetValue(value) EditBox:SetText(TableToString(value)) end
-		function frame:GetValue() return EditBox:GetText() end
-		function frame:SetValue(value) EditBox:SetText(value) end
-		frame._SetWidth = frame.SetWidth
-		function frame:SetWidth(value) frame:_SetWidth(value); EditBox:SetWidth(value) end
-		-- Set Positions
-		QuickSetPoints(frame, ...)
-		-- Set Feedback Function
-		--frame.OnValueChanged = columnFrame.OnFeedback
-		return frame, frame
-	end
+	--	EditBox:SetFrameLevel(frame:GetFrameLevel()-1)
+	--	EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "NONE")
+	--	--EditBox:SetText("Empty")
+	--	EditBox:SetText("")
+	--	EditBox:SetAutoFocus(false)
+	--	EditBox:SetTextInsets(9, 6, 2, 2)
+	--	frame:SetScrollChild(EditBox)
+	--	frame.EditBox = EditBox
+	--	--EditBox:SetIndentedWordWrap(true)
+	--	--print(name, EditBox:GetFrameLevel(), frame:GetFrameLevel(), EditBox:GetFrameStrata(), frame:GetFrameStrata())
+	--	-- Functions
+	--	--function frame:GetValue() return SplitToTable(strsplit("\n", EditBox:GetText() )) end
+	--	--function frame:SetValue(value) EditBox:SetText(TableToString(value)) end
+	--	function frame:GetValue() return EditBox:GetText() end
+	--	function frame:SetValue(value) EditBox:SetText(value) end
+	--	frame._SetWidth = frame.SetWidth
+	--	function frame:SetWidth(value) frame:_SetWidth(value); EditBox:SetWidth(value) end
+	--	-- Set Positions
+	--	QuickSetPoints(frame, ...)
+	--	-- Set Feedback Function
+	--	--frame.OnValueChanged = columnFrame.OnFeedback
+	--	return frame, frame
+	--end
+
+	local CreateQuickEditbox = NeatPlatesUtility.PanelHelpers.CreateEditBox
 
 	local function CreateQuickColorbox(name, label, onOkay, ...)
 		local columnFrame = ...
@@ -396,6 +398,7 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
   		EnableCheckbox = function(self, option) return (option.enabled == true or self.category == "main" and option.enabled ~= false) end,
   		AnchorOptions = function(self, option) return option.anchor ~= nil end,
   		AlignOptions = function(self, option) return option.align ~= nil end,
+  		FontSize = function(self, option) return option.size ~= nil end,
   		OffsetX = function(self, option) return option.x ~= nil end,
   		OffsetY = function(self, option) return option.y ~= nil end,
   		OffsetWidth = function(self, option) return option.width ~= nil or option.w ~= nil end,
@@ -434,6 +437,7 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 	  	local getOptionValue = function(item, defaultValue)
 	  		local objectName = getObjectName(item)
 	  		local value = current[objectName]
+	  		if type(value) == "table" and value.value then value = value.value end
 
 	  		if value == nil and defaultValue ~= nil then value = defaultValue
 	  		elseif value == nil then value = default[objectName] end
@@ -464,7 +468,12 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 	  			if itemType == "boolean" then
 	  				item:SetChecked(getOptionValue(item))
 	  			elseif itemType == "number" then
-						item:updateValues(getOptionValue(item, 0))
+	  				-- For Offsets default value to zero instead of actaul value
+	  				if item.objectType == "offset" then
+							item:updateValues(getOptionValue(item, 0))
+	  				else
+							item:updateValues(getOptionValue(item))
+	  				end
 					elseif item.objectName then
 						item:SetValue(getOptionValue(item))
 					elseif self.value == "import" then
@@ -549,20 +558,27 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 			CustomizationPanel.AlignOptions:SetPoint("TOPLEFT", CustomizationPanel.AnchorOptions, "BOTTOMLEFT", 0, -20)
 			CustomizationPanel.AlignOptions.objectName = "align"
 
+			CustomizationPanel.FontSize = PanelHelpers:CreateSliderFrame("NeatPlatesCustomizationPanel_FontSize", CustomizationPanel, L["Font Size"], 0, 1, 50, 1, "ACTUAL", 160, false)
+			CustomizationPanel.FontSize:SetPoint("TOPRIGHT", CustomizationPanel.StyleDropdown, "BOTTOMRIGHT", 20, -42)
+			CustomizationPanel.FontSize.objectName = "size"
 			CustomizationPanel.OffsetX = PanelHelpers:CreateSliderFrame("NeatPlatesCustomizationPanel_OffsetX", CustomizationPanel, L["Offset X"], 0, -50, 50, 1, "ACTUAL", 160, true)
 			CustomizationPanel.OffsetX:SetPoint("TOPRIGHT", CustomizationPanel.StyleDropdown, "BOTTOMRIGHT", 20, -84)
 			CustomizationPanel.OffsetX.objectName = "x"
+			CustomizationPanel.OffsetX.objectType = 'offset'
 			CustomizationPanel.OffsetY = PanelHelpers:CreateSliderFrame("NeatPlatesCustomizationPanel_OffsetY", CustomizationPanel, L["Offset Y"], 0, -50, 50, 1, "ACTUAL", 160, true)
 			CustomizationPanel.OffsetY:SetPoint("TOPLEFT", CustomizationPanel.OffsetX, "TOPLEFT", 0, -45)
 			CustomizationPanel.OffsetY.objectName = "y"
+			CustomizationPanel.OffsetY.objectType = 'offset'
 			CustomizationPanel.OffsetWidth = PanelHelpers:CreateSliderFrame("NeatPlatesCustomizationPanel_OffsetWidth", CustomizationPanel, L["Offset Width"], 0, -50, 50, 1, "ACTUAL", 160, true)
 			CustomizationPanel.OffsetWidth:SetPoint("RIGHT", CustomizationPanel.OffsetX, "LEFT", -30, 0)
 			CustomizationPanel.OffsetWidth.objectName = {"width", "w"}
+			CustomizationPanel.OffsetWidth.objectType = 'offset'
 			CustomizationPanel.OffsetHeight = PanelHelpers:CreateSliderFrame("NeatPlatesCustomizationPanel_OffsetHeight", CustomizationPanel, L["Offset Height"], 0, -50, 50, 1, "ACTUAL", 160, true)
 			CustomizationPanel.OffsetHeight:SetPoint("TOPLEFT", CustomizationPanel.OffsetWidth, "TOPLEFT", 0, -45)
 			CustomizationPanel.OffsetHeight.objectName = {"height", "h"}
+			CustomizationPanel.OffsetHeight.objectType = 'offset'
 
-			CustomizationPanel.ImportExport = PanelHelpers:CreateEditBox("NeatPlatesCustomizationPanel_ImportExport", 340, 190, CustomizationPanel, "TOPLEFT", CustomizationPanel.List, "TOPRIGHT", 30, -10)
+			CustomizationPanel.ImportExport = PanelHelpers.CreateEditBox("NeatPlatesCustomizationPanel_ImportExport", 340, 190, CustomizationPanel, "TOPLEFT", CustomizationPanel.List, "TOPRIGHT", 30, -10)
 
 			CustomizationPanel.ResetPrompt = CreateFrame("Frame", 'NeatPlatesCustomizationPanel_ResetPromp', CustomizationPanel, "NeatPlatesPromptTemplate")
 			CustomizationPanel.ResetPrompt:SetPoint("LEFT", CustomizationPanel.List, "RIGHT", 60, 20)
@@ -680,7 +696,9 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 					for k,v in pairs(CustomizationPanel) do
 						if type(v) == "table" and v.enabled and v.objectName then
 							local valueFunc = v.GetChecked or v.GetValue
-							NeatPlatesHubFunctions.SetCustomizationOption(CustomizationPanel.profile, category, activeOption, v.objectName, valueFunc(v))
+							if not v.objectType then v.objectType = 'actual' end
+
+							NeatPlatesHubFunctions.SetCustomizationOption(CustomizationPanel.profile, category, activeOption, v.objectName, {type = v.objectType, value = valueFunc(v)})
 						end
 					end
 				end
@@ -895,7 +913,7 @@ local function CreateQuickSlider(name, label, mode, width, ... ) --, neighborFra
 		    self:StopMovingOrSizing()
 		  end)
 
-		  panel.EditBox = PanelHelpers:CreateEditBox("NeatPlatesEditboxPopupEditbox", 340, 190, panel, "TOPLEFT", 20, -40)
+		  panel.EditBox = PanelHelpers.CreateEditBox("NeatPlatesEditboxPopupEditbox", 340, 190, panel, "TOPLEFT", 20, -40)
 		  panel.EditBox.EditBox:SetScript("OnEditFocusGained", function()
 				if panel.HighlightText then
 					panel.EditBox.EditBox:HighlightText()
