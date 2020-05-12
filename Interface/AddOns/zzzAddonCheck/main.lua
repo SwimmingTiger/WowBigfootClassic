@@ -19,8 +19,22 @@ if Combuctor_Sets == nil and CombuctorAutoDisplay then
     resetCombuctor()
 end
 
+function zzzAddonCheck_Init_Decursive()
+    -- 禁止Decursive在聊天窗口和屏幕中央显示信息
+    local patchVersion = '2020-05-12-18'
+    if DecursiveDB and DecursiveDB.profiles and DecursiveDB.profiles.Default and DecursiveDB.profiles.Default.DecursivePatchVersion ~= patchVersion then
+        DecursiveDB.profiles.Default.Print_ChatFrame = false
+        DecursiveDB.profiles.Default.Print_CustomFrame = false
+        DecursiveDB.profiles.Default.Print_Error = false
+        DecursiveDB.profiles.Default.DecursivePatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+
+    -- 禁止Decursive在聊天窗口和屏幕中央显示信息
+    zzzAddonCheck_Init_Decursive()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then

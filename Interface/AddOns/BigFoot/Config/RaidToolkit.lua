@@ -43,6 +43,8 @@ function RaidToolkitConfigFunc()
 		RAIDALERT_DISABLE_DELAY_TEXT = "|cff00c0c0<大脚插件>|r 你已经关闭团队报警(RaidAlerter)模块，该设置将在下次插件载入时生效。";
 		MeetingStone_DISABLE_DELAY_TEXT = "|cff00c0c0<大脚插件>|r 你已经关闭集合石(MeetingStone)模块，该设置将在下次插件载入时生效。";
 		AngryKeystones_DISABLE_DELAY_TEXT = "|cff00c0c0<大脚插件>|r 你已经关闭秘境增强(AngryKeystones)模块，该设置将在下次插件载入时生效。";
+
+		RaidToolkit_OPEN_CONFIG_WINDOW = "打开配置"
 	elseif (GetLocale() == "zhTW") then
 		RAID_TOOLKIT_TITLE = {"團隊工具", "tuanduigongju",2};
 
@@ -69,6 +71,7 @@ function RaidToolkitConfigFunc()
 		MeetingStone_DISABLE_DELAY_TEXT = "|cff00c0c0<組隊系統>|r 你已經關閉組隊系統(MeetingStone)模組，該設置將在下次外掛程式載入時生效。";
 		AngryKeystones_DISABLE_DELAY_TEXT = "|cff00c0c0<大腳插件>|r 你已經關閉秘境增強(AngryKeystones)模組，該設置將在下次外掛程式載入時生效。";
 
+		RaidToolkit_OPEN_CONFIG_WINDOW = "打開配置"
 	else
 		RAID_TOOLKIT_TITLE = "Raid Toolkit";
 
@@ -80,6 +83,8 @@ function RaidToolkitConfigFunc()
 		RECOUNT_DISABLE_DELAY_TEXT = "|cff00c0c0<Recount>|r Recount has been disabled. This setting will be available next time.";
 		THREAT_DISABLE_DELAY_TEXT = "|cff00c0c0<Omen3>|r Omen3 has been disabled. This setting will be available next time.";
 		RAIDALERT_DISABLE_DELAY_TEXT = "|cff00c0c0<RaidAlerter>|r RaidAlerter has been disabled. This setting will be available next time.";
+
+		RaidToolkit_OPEN_CONFIG_WINDOW = "Open Config Window"
 	end
 
 	RECOUNT_ENABLE_TEXT = OPEN..(RecountString.Name or "")..RecountString.colorText;
@@ -324,6 +329,9 @@ function RaidToolkitConfigFunc()
 				if (arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("Decursive")) then
 						BigFoot_LoadAddOn("Decursive");
+						if zzzAddonCheck_Init_Decursive then
+							BigFoot_DelayCall(zzzAddonCheck_Init_Decursive, 1)
+						end
 					end
 				else
 					if (BigFoot_IsAddOnLoadedFromBigFoot("Decursive")) then
@@ -334,6 +342,16 @@ function RaidToolkitConfigFunc()
 			nil,
 			nil,
 			DecursiveString.Name or DecursiveString.colorText
+		);
+
+		ModManagement_RegisterButton(
+			"RaidToolkit",
+			RaidToolkit_OPEN_CONFIG_WINDOW,
+			function ()
+				SlashCmdList.ACECONSOLE_DECURSIVE()
+			end,
+			nil,
+			1
 		);
 	end
 
