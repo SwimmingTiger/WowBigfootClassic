@@ -3,6 +3,7 @@ local L = BLocal("ModConfig")
 local masque_t;
 
 if GetLocale()=='zhCN' then
+	L["ResetWindow-tooltip"] ="右击重置窗体位置"
 	L["Recount"] = "伤害统计"
 	L["Skada"] = "战斗统计"
 	L["Details"] = "战斗统计"
@@ -22,7 +23,7 @@ if GetLocale()=='zhCN' then
 	L["aux-addon"] ="AUX拍卖"
 	L["MonkeyQuestList"] ="任务列表"
 	L["MonkeyQuestList-tooltip"] ="右击重置任务列表位置"
-	L["aux-addon-enabled"] ="AUX拍卖插件已打开，点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
+	L["aux-addon-enabled"] ="AUX拍卖插件打开后，可点击拍卖行界面上的“暴雪UI”进入原版拍卖行界面。"
 	L["ActionNeedReloadUI"] ="该设置将在下次插件载入时生效。"
 	L["ClassicThreatMeter"] ="仇恨统计"
 	L["MessageClassifier"] ="消息去重"
@@ -36,6 +37,7 @@ if GetLocale()=='zhCN' then
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
 elseif GetLocale()=='zhTW' then
+	L["ResetWindow-tooltip"] ="右擊重置窗體位置"
 	L["Recount"] = "傷害統計"
 	L["Skada"] = "戰鬥統計"
 	L["Details"] = "戰鬥統計"
@@ -70,6 +72,7 @@ elseif GetLocale()=='zhTW' then
 
 else
 
+	L["ResetWindow-tooltip"] ="Right click to reset the window position"
 	L["Details"] = "Details"
 	L["Auctionator"] ="Auctionator"
 	L["aux-addon"] ="AUX Addon"
@@ -508,7 +511,7 @@ local function __CreateCustomCheckBox(varName, toolTip, enableByDefault, onCheck
 	return check
 end
 
-local function __CreateNativeAddOnCheckBox(addonName, tooltip)
+local function __CreateNativeAddOnCheckBox(addonName, tooltip, onRightClick)
 	local _, _, _, active, status = GetAddOnInfo(addonName)
 	if status ~= 'MISSING' then
 		BigFoot_SetModVariable("CustomCheckBox", addonName, IsAddOnLoaded(addonName) and 1 or 0)
@@ -524,7 +527,8 @@ local function __CreateNativeAddOnCheckBox(addonName, tooltip)
 					DisableAddOn(addonName)
 					BigFoot_RequestReloadUI()
 				end
-			end)
+			end,
+			onRightClick)
 		M:AddBottomButton(check)
 	end
 end
@@ -599,7 +603,12 @@ end
 local function __AddBottomFrames()
 	local check;
 
-	__CreateNativeAddOnCheckBox('Recount')
+	__CreateNativeAddOnCheckBox('Recount', L["ResetWindow-tooltip"], function()
+		if SlashCmdList.ACECONSOLE_RECOUNT then
+			SlashCmdList.ACECONSOLE_RECOUNT('show')
+			SlashCmdList.ACECONSOLE_RECOUNT('resetpos')
+		end
+	end)
 	__CreateNativeAddOnCheckBox('Skada')
 	__CreateNativeAddOnCheckBox('Details')
 
