@@ -44,7 +44,7 @@ local screenHeight			= floor(GetScreenHeight())
 local lastCheckStatusTime 	= 0
 local callCheckStatus		= false
 
-local lastWarnPercent		=  0
+local lastWarnPercent		=  100
 
 local FACTION_BAR_COLORS	= _G.FACTION_BAR_COLORS
 local RAID_CLASS_COLORS		= (_G.CUSTOM_CLASS_COLORS or _G.RAID_CLASS_COLORS)
@@ -126,8 +126,8 @@ local function CreateBackdrop(parent, cfg)
 	f:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", cfg.inset, -cfg.inset)
 	-- Backdrop Settings
 	local backdrop = {
-		bgFile = cfg.bgFile,
-		edgeFile = cfg.edgeFile,
+		bgFile = LSM:Fetch("statusbar", cfg.bgTexture),
+		edgeFile = LSM:Fetch("statusbar", cfg.edgeTexture),
 		tile = cfg.tile,
 		tileSize = cfg.tileSize,
 		edgeSize = cfg.edgeSize,
@@ -338,8 +338,8 @@ local function UpdateThreatData(unit)
 		threatValue = threatValue + 410065408
 	end
 	-- check for warnings
-	if unit == "player" and threatPercent then
-		TC2:CheckWarning(isTanking, threatPercent)
+	if UnitIsUnit(unit, "player") and threatPercent then
+		TC2:CheckWarning(threatPercent, threatValue)
 	end
 	if C.general.rawPercent then
 		threatPercent = rawThreatPercent
@@ -416,20 +416,16 @@ local function ThreatUpdated(event, unitGUID, targetGUID, threat)
 	end
 end
 
-function TC2:CheckWarning(isTanking, threatPercent)
-	if isTanking then
-		-- so we don't warn when losing aggro.
-		lastWarnPercent = threatPercent
-		return
-	end
+function TC2:CheckWarning(threatPercent, threatValue)
 	-- percentage is now above threshold and was below threshold before
-	local threshold = C.warnings.threshold
-	if threatPercent >= threshold and lastWarnPercent < threshold then
+	if threatPercent >= C.warnings.threshold and lastWarnPercent < C.warnings.threshold then
 		lastWarnPercent = threatPercent
-		if C.warnings.sound then PlaySoundFile(LSM:Fetch("sound", C.warnings.soundFile), C.warnings.soundChannel) end
-		if C.warnings.flash then self:FlashScreen() end
+		if threatValue > C.warnings.minThreatAmount then
+			if C.warnings.sound then PlaySoundFile(LSM:Fetch("sound", C.warnings.soundFile), C.warnings.soundChannel) end
+			if C.warnings.flash then self:FlashScreen() end
+		end
 	-- percentage is below threshold -> reset lastWarnPercent
-	elseif threatPercent < threshold and lastWarnPercent > threshold then
+	elseif threatPercent < C.warnings.threshold then
 		lastWarnPercent = threatPercent
 	end
 end
@@ -846,7 +842,7 @@ end
 function TC2:PLAYER_TARGET_CHANGED(...)
 	UpdatePlayerTarget()
 	-- reset last warning on target change
-	lastWarnPercent = 0
+	lastWarnPercent = 100
 
 	C.frame.test = false
 	CheckStatus()
@@ -867,7 +863,7 @@ end
 
 function TC2:PLAYER_REGEN_DISABLED(...)
 	UpdatePlayerTarget() -- for friendly mobs that turn hostile like vaelastrasz
-	lastWarnPercent = 0
+	lastWarnPercent = 100
 	C.frame.test = false
 	CheckStatus()
 end
@@ -897,6 +893,10 @@ function TC2:PLAYER_LOGIN()
 		self.db.profile = CopyLegacySettings(TC2_Options, self.db.profile)
 		TC2_Options = nil
 	end
+	-- remove old config options
+	self.db.profile.backdrop.bgFile = nil
+	self.db.profile.backdrop.edgeFile = nil
+
 	C = self.db.profile
 
 	self.db.RegisterCallback(self, "OnProfileChanged", "RefreshProfile")
@@ -1051,6 +1051,7 @@ end
 
 function TC2:RefreshProfile()
 	C = self.db.profile
+	CheckVisibility()
 	TC2:UpdateFrame()
 end
 
@@ -1091,7 +1092,8 @@ TC2.configTable = {
 					width = "double",
 					min = 0.05,
 					max = 1,
-					step = 0.05,
+					step = 0.01,
+					bigStep = 0.05,
 				},
 				--[[
 				minimap = {
@@ -1289,7 +1291,8 @@ TC2.configTable = {
 									type = "range",
 									min = 64,
 									max = 1024,
-									step = 1,
+									step = 0.01,
+									bigStep = 1,
 									get = function(info)
 										return C[info[2]][info[4]]
 									end,
@@ -1305,7 +1308,8 @@ TC2.configTable = {
 									type = "range",
 									min = 10,
 									max = 1024,
-									step = 1,
+									step = 0.01,
+									bigStep = 1,
 									get = function(info)
 										return C[info[2]][info[4]]
 									end,
@@ -1321,7 +1325,8 @@ TC2.configTable = {
 									type = "range",
 									min = 0,
 									max = screenWidth,
-									step = 1,
+									step = 0.01,
+									bigStep = 1,
 									get = function(info)
 										return C[info[2]].position[4]
 									end,
@@ -1336,7 +1341,8 @@ TC2.configTable = {
 									type = "range",
 									min = -screenHeight,
 									max = 0,
-									step = 1,
+									step = 0.01,
+									bigStep = 1,
 									get = function(info)
 										return C[info[2]].position[5]
 									end,
@@ -1553,7 +1559,7 @@ TC2.configTable = {
 			name = L.warnings,
 			args = {
 				flash = {
-					order = 2,
+					order = 3,
 					name = L.warnings_flash,
 					type = "toggle",
 					width = "full",
@@ -1568,6 +1574,16 @@ TC2.configTable = {
 					step = 1,
 					bigStep = 5,
 					-- get / set
+				},
+				minThreatAmount = {
+					order = 2,
+					name = L.warnings_minThreatAmount,
+					type = "range",
+					width = "double",
+					min = 100,
+					max = 10000,
+					step = 1,
+					bigStep = 100,
 				},
 				sound = {
 					order = 4,

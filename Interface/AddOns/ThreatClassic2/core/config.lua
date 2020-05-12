@@ -4,7 +4,7 @@ local TC2, C, L, _ = unpack(select(2, ...))
 -----------------------------
 -- Default Config
 -----------------------------
-local defaultTexture	= "TC2 Default"
+local defaultTexture = "TC2 Default"
 local defaultFont = "NotoSans SemiCondensedBold"
 -- Adjust fonts for CJK
 local locale = GetLocale()
@@ -49,9 +49,9 @@ defaultConfig.frame = {
 
 -- backdrop settings
 defaultConfig.backdrop = {
-	bgFile				= defaultTexture,						-- backdrop file location
+	bgTexture			= defaultTexture,						-- backdrop texture
 	bgColor				= {1, 1, 1, 0.1},						-- backdrop color
-	edgeFile			= defaultTexture,						-- backdrop edge file location
+	edgeTexture			= defaultTexture,						-- backdrop edge texture
 	edgeColor			= {0, 0, 0, 1},							-- backdrop edge color
 	tile				= false,								-- backdrop texture tiling
 	tileSize			= 0,									-- backdrop tile size
@@ -94,6 +94,7 @@ defaultConfig.warnings = {
 	flash				= false,								-- enable screen flash
 	sound				= false,								-- enable sound
 	threshold			= 80,									-- alert threshold (of normalized percentage 0-100)
+	minThreatAmount		= 2000,
 	soundFile			= "You Will Die!",
 	soundChannel		= "SFX",
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.19
+
+* fix threat warnings not working in raids
+* fix background texture not loading properly
+* add min threat amount to show warnings
+* add smaller positioning options for frame positon (up to 0.01)
+* update chinese translations
+
 ## v2.18
 
 * fixed a small bug that caused toggled settings not to be copied to the new profiles
