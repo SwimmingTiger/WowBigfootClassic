@@ -1,0 +1,10 @@
+lightweight tag 9fa988f666e514bf2f600e934e4b335e1e795079 3.7.4
+Author:	Andrew Scott <ascott18@gmail.com>
+Date:	Sat Aug 17 17:58:36 2019 -0700
+
+commit 9fa988f666e514bf2f600e934e4b335e1e795079
+Author: Andrew Scott <ascott18@gmail.com>
+Date:   Sat Aug 17 17:58:36 2019 -0700
+
+    Fixed recently-arisen taint issues
+

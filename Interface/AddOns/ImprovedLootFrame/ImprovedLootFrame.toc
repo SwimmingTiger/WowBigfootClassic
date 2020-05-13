@@ -1,0 +1,11 @@
+## Interface: 11304
+## Title: Improved Loot Frame
+## Title-zhCN: 单页拾取（Improved Loot Frame）
+## Version: 3.7.4
+## Author: Cybeloras of Aerie Peak
+## Notes: Expands the loot frame to fit all items onto one page.
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Execute: LootFrame:HookScript("OnShow", function(self) if not IsAddOnLoaded("ImprovedLootFrame") then AddonLoader:LoadAddOn("ImprovedLootFrame") LootFrame_Show(self) end end)
+
+ImprovedLootFrame.lua
