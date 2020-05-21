@@ -17,11 +17,11 @@ L:SetOptionLocalization{
 	TimerAddsSpawn	= "Показывать таймер до первого появления аддов"
 }
 L:SetMiscLocalization{
-	Phase2Emote	= "flee as the controlling power of the orb is drained.", -- needs localized resource
-	YellEgg1 = "You'll pay for forcing me to do this!", -- needs localized resource
-	YellEgg2 = "Fools! These eggs are more precious than you know!",
-	YellEgg3 = "No - not another one! I'll have your heads for this atrocity!", -- needs localized resource
-	YellPull 	= "Intruders have breached the hatchery! Sound the alarm! Protect the eggs at all costs!\r\n" -- needs localized resource
+	Phase2Emote = "убегает, как только сила сферы пошла на спад.",
+	YellEgg1 = "Ты заплатишь за то, что принуждал меня к этому!",
+	YellEgg2 = "Недоумки! Эти яйца ценнее, чем вы думаете!",
+	YellEgg3 = "Да сколько же можно?! Вы заплатите за это головой!",
+	YellPull = "Враги в инкубаторе! Бейте тревогу! Защищайте яйца любой ценой!"
 }
 -------------------
 --  Vaelastrasz  --
@@ -32,6 +32,10 @@ L:SetGeneralLocalization{
 	name = "Валестраз Порочный"
 }
 
+L:SetMiscLocalization{
+	Event = "Слишком поздно, друзья мои! Порча Нефария подчинила меня... Я не могу... справиться с собой."
+}
+
 -----------------
 --  Broodlord  --
 -----------------
@@ -39,6 +43,10 @@ L = DBM:GetModLocalization("Broodlord")
 
 L:SetGeneralLocalization{
 	name = "Предводитель драконов Разящий Бич"
+}
+
+L:SetMiscLocalization{
+	Pull = "Таких, как вы, здесь быть не должно! Смерть грозит лишь вам!"
 }
 
 ---------------
@@ -123,7 +131,7 @@ L:SetMiscLocalization{
 	YellDruid	= "Друиды и их дурацкие превращения… Ну что ж, поглядим!",
 	YellPriest	= "Жрецы! Если вы собираетесь продолжать так лечить, то давайте хоть немного разнообразим процесс!",
 	YellWarrior	= "Воины! Я знаю, вы можете бить сильнее! Ну-ка, покажите!",
-	YellRogue	= "Rogues? Stop hiding and face me!",
+	YellRogue = "Разбойники? Хватит прятаться, покажитесь!",
 	YellWarlock	= "Чернокнижники, ну не беритесь вы за волшебство, которого сами не понимаете! Видите, что получилось?",
 	YellHunter	= "Охотники со своими жалкими пугачами!",
 	YellMage	= "И маги тоже? Осторожнее надо быть, когда играешь с магией…"

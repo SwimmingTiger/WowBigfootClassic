@@ -61,7 +61,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Sulfuron")
 
 L:SetGeneralLocalization{
-	name = "Presagista Sulfuron"
+	name = "Sulfuron Presagista"
 }
 
 ----------------

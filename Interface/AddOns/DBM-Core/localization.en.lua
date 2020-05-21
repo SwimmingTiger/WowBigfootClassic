@@ -38,6 +38,9 @@ DBM_CORE_BOSS_DOWN					= "%s down after %s!"
 DBM_CORE_BOSS_DOWN_I				= "%s down! You have %d total victories."
 DBM_CORE_BOSS_DOWN_L				= "%s down after %s! Your last kill took %s and your fastest kill took %s. You have %d total victories."
 DBM_CORE_BOSS_DOWN_NR				= "%s down after %s! This is a new record! (Old record was %s). You have %d total victories."
+DBM_CORE_RAID_DOWN					= "%s cleared after %s!"
+DBM_CORE_RAID_DOWN_L				= "%s cleared after %s! Your fastest clear took %s."
+DBM_CORE_RAID_DOWN_NR				= "%s cleared after %s! This is a new record! (Old record was %s)."
 DBM_CORE_GUILD_BOSS_DOWN			= "%s has been defeated by guild after %s!"
 DBM_CORE_COMBAT_ENDED_AT			= "Combat against %s (%s) ended after %s."
 DBM_CORE_COMBAT_ENDED_AT_LONG		= "Combat against %s (%s) ended after %s. You have %d total wipes on this difficulty."
@@ -149,7 +152,7 @@ DBM_CORE_VOICE_DISABLED				= "You currently have at least one DBM voice pack ins
 DBM_CORE_VOICE_COUNT_MISSING		= "Countdown voice %d is set to a voice/count pack that could not be found. It has be reset to default setting: %s."
 DBM_BIG_WIGS						= "BigWigs"
 
-DBM_CORE_UPDATEREMINDER_HEADER			= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (%s) is available for download through Curse/Twitch, WoWI, or from deadlybossmods.com"
+DBM_CORE_UPDATEREMINDER_HEADER			= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (%s) is available for download through Curse/Twitch, WoWI, or from GitHub project page"
 DBM_CORE_UPDATEREMINDER_HEADER_ALPHA	= "Your ALPHA version of Deadly Boss Mods is out-of-date.\n You are at least %s test versions behind. It is recommended that DBM users that choose ALPHA versions run the latest ALPHA. Otherwise, they should run latest RELEASE version. Out of date ALPHAs have a stricter version check because they are development versions of DBM."
 DBM_CORE_UPDATEREMINDER_FOOTER			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
@@ -324,6 +327,7 @@ local prewarnOption = "Show pre-warning for $spell:%s"
 DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	you			= "Announce when $spell:%s on you",
 	target		= "Announce $spell:%s targets",
+	targetNF	= "Announce $spell:%s targets (ignores global target filter)",
 	targetsource= "Announce $spell:%s targets (with source)",
 	targetcount	= "Announce $spell:%s targets (with count)",
 	spell		= "Show warning for $spell:%s",
@@ -542,6 +546,7 @@ DBM_CORE_AUTO_RRANGE_OPTION_TEXT_SHORT	= "Show reverse range frame (%s)"
 DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT	= "Show info frame for $spell:%s"
 DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT2	= "Show info frame for encounter overview"
 DBM_CORE_AUTO_READY_CHECK_OPTION_TEXT	= "Play ready check sound when boss is pulled (even if it's not targeted)"
+DBM_CORE_AUTO_SPEEDCLEAR_OPTION_TEXT	= "Show timer for fastest clear of %s"
 
 -- New special warnings
 DBM_CORE_MOVE_WARNING_BAR			= "Announce movable"

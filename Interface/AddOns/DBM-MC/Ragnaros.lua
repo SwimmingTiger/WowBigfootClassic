@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200218092210")
+mod:SetRevision("20200513172953")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -32,11 +32,13 @@ local timerSubmerge		= mod:NewTimer(180, "TimerSubmerge", "Interface\\AddOns\\DB
 local timerEmerge		= mod:NewTimer(90, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6, nil, nil, 1, 5)
 --local timerCombatStart	= mod:NewCombatTimer(73)
 local timerCombatStart	= mod:NewTimer(73, "timerCombatStart", "132349", nil, nil, nil, nil, nil, 1, 3)
+
+mod:AddRangeFrameOption("10", nil, "-Melee")
+
 mod.vb.addLeft = 0
 mod.vb.ragnarosEmerged = true
 local addsGuidCheck = {}
-
-mod:AddRangeFrameOption("10", nil, "-Melee")
+local firstBossMod = DBM:GetModByName("Lucifron")
 
 function mod:OnCombatStart(delay)
 	table.wipe(addsGuidCheck)
@@ -49,9 +51,27 @@ function mod:OnCombatStart(delay)
 	end
 end
 
-function mod:OnCombatEnd()
+function mod:OnCombatEnd(wipe)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
+	end
+	if not wipe then
+		DBM.Bars:CancelBar(DBM_SPEED_CLEAR_TIMER_TEXT)
+		if firstBossMod.vb.firstEngageTime then
+			local thisTime = GetTime() - firstBossMod.vb.firstEngageTime
+			if not firstBossMod.Options.FastestClear then
+				--First clear, just show current clear time
+				DBM:AddMsg(DBM_CORE_RAID_DOWN:format("MC", DBM:strFromTime(thisTime)))
+				firstBossMod.Options.FastestClear = thisTime
+			elseif (firstBossMod.Options.FastestClear > thisTime) then
+				--Update record time if this clear shorter than current saved record time and show users new time, compared to old time
+				DBM:AddMsg(DBM_CORE_RAID_DOWN_NR:format("MC", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+				firstBossMod.Options.FastestClear = thisTime
+			else
+				--Just show this clear time, and current record time (that you did NOT beat)
+				DBM:AddMsg(DBM_CORE_RAID_DOWN_L:format("MC", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+			end
+		end
 	end
 end
 

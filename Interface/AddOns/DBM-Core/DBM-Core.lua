@@ -69,9 +69,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200502013603"),
-	DisplayVersion = "1.13.44", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 5, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200513173652"),
+	DisplayVersion = "1.13.45", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 5, 13) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -681,6 +681,10 @@ local function strFromTime(time)
 	else
 		return DBM_CORE_TIMER_FORMAT:format(time/60, time % 60)
 	end
+end
+
+function DBM:strFromTime(time)
+	return strFromTime(time)
 end
 
 do
@@ -3190,7 +3194,7 @@ function DBM:AddDefaultOptions(t1, t2)
 	end
 end
 
-function DBM:LoadModOptions(modId, inCombat, first)
+function DBM:LoadModOptions(modId, inCombat, first, force)
 	local oldSavedVarsName = modId:gsub("-", "").."_SavedVars"
 	local savedVarsName = modId:gsub("-", "").."_AllSavedVars"
 	local savedStatsName = modId:gsub("-", "").."_SavedStats"
@@ -3300,7 +3304,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	--clean unused saved variables (do not work on combat load)
 	if not inCombat then
 		for id, table in pairs(savedOptions) do
-			if not existId[id] and not id:find("talent") then
+			if not existId[id] and not (id:find("talent") or id:find("FastestClear")) then
 				savedOptions[id] = nil
 			end
 		end
@@ -3952,7 +3956,7 @@ function DBM:LoadMod(mod, force)
 	else
 		self:Debug("LoadAddOn should have succeeded for "..mod.name, 2)
 		self:AddMsg(DBM_CORE_LOAD_MOD_SUCCESS:format(tostring(mod.name)))
-		self:LoadModOptions(mod.modId, InCombatLockdown(), true)
+		self:LoadModOptions(mod.modId, InCombatLockdown(), true, force)
 		if DBM_GUI then
 			DBM_GUI:UpdateModList()
 		end
@@ -4369,7 +4373,7 @@ do
 					--Find min revision.
 					updateNotificationDisplayed = 2
 					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
-					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
+					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
 					showConstantReminder = 1
 				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if revision grossly out of date even if not major patch.
@@ -4633,7 +4637,8 @@ do
 				DBM:Debug("WBA sync processing")
 				local factionText = faction == "Alliance" and FACTION_ALLIANCE or faction == "Horde" and FACTION_HORDE or DBM_CORE_BOTH
 				DBM:AddMsg(DBM_CORE_WORLDBUFF_STARTED:format(buffName, factionText, sender))
-				if DBM.Options.DebugMode then
+				DBM:PlaySound(DBM.Options.RaidWarningSound, true)
+				if DBM.Options.DebugMode or (time ~= 7 and time ~= 12) then
 					local timer = tonumber(time)
 					if timer then
 						DBM.Bars:CreateBar(timer, buffName, 136106)
@@ -4676,6 +4681,7 @@ do
 				DBM:Debug("WBA sync processing")
 				local factionText = faction == "Alliance" and FACTION_ALLIANCE or faction == "Horde" and FACTION_HORDE or DBM_CORE_BOTH
 				DBM:AddMsg(DBM_CORE_WORLDBUFF_STARTED:format(buffName, factionText, sender))
+				DBM:PlaySound(DBM.Options.RaidWarningSound, true)
 				if DBM.Options.DebugMode then
 					local timer = tonumber(time)
 					if timer then
@@ -8891,7 +8897,11 @@ do
 		elseif not (optionName == false) then
 			obj.option = catType..spellId..announceType..(optionVersion or "")
 			self:AddBoolOption(obj.option, optionDefault, catType)
-			self.localization.options[obj.option] = DBM_CORE_AUTO_ANNOUNCE_OPTIONS[announceType]:format(spellId)
+			if noFilter and announceType == "target" then
+				self.localization.options[obj.option] = DBM_CORE_AUTO_ANNOUNCE_OPTIONS["targetNF"]:format(spellId)
+			else
+				self.localization.options[obj.option] = DBM_CORE_AUTO_ANNOUNCE_OPTIONS[announceType]:format(spellId)
+			end
 		end
 		tinsert(self.announces, obj)
 		return obj
@@ -9827,13 +9837,13 @@ do
 		local activeVP = self.Options.ChosenVoicePack
 		--Check if voice pack out of date
 		if activeVP ~= "None" and activeVP == value then
-			if self.VoiceVersions[value] < 8 then--Version will be bumped when new voice packs released that contain new voices.
+			if self.VoiceVersions[value] < 10 then--Version will be bumped when new voice packs released that contain new voices.
 				if not self.Options.DontShowReminders then
 					self:AddMsg(DBM_CORE_VOICE_PACK_OUTDATED)
 				end
 				SWFilterDisabed = self.VoiceVersions[value]--Set disable to version on current voice pack
 			else
-				SWFilterDisabed = 8
+				SWFilterDisabed = 10
 			end
 		end
 	end
@@ -10830,6 +10840,16 @@ function bossModPrototype:AddReadyCheckOption(questId, default, maxLevel)
 	self:SetOptionCategory("ReadyCheck", "misc")
 end
 
+function bossModPrototype:AddSpeedClearOption(name, default)
+	self.DefaultOptions["SpeedClearTimer"] = (default == nil) or default
+	if default and type(default) == "string" then
+		default = self:GetRoleFlagValue(default)
+	end
+	self.Options["SpeedClearTimer"] = (default == nil) or default
+	self:SetOptionCategory("SpeedClearTimer", "timer")
+	self.localization.options["SpeedClearTimer"] = DBM_CORE_AUTO_SPEEDCLEAR_OPTION_TEXT:format(name)
+end
+
 function bossModPrototype:AddSliderOption(name, minValue, maxValue, valueStep, default, cat, func)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = {type = "slider", value = default or 0}
@@ -11183,7 +11203,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200502013603" then
+	if not revision or revision == "20200513173652" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

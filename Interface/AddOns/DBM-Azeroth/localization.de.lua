@@ -60,7 +60,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Emeriss")
 
 L:SetGeneralLocalization{
-	name = "Smariss"
+	name = "Emeriss"
 }
 
 L:SetMiscLocalization({
