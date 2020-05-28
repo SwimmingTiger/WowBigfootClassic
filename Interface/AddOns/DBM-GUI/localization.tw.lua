@@ -1,6 +1,6 @@
 ﻿if GetLocale() ~= "zhTW" then return end
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
-local L = DBM_GUI_Translations
+if not DBM_GUI_L then DBM_GUI_L = {} end
+local L = DBM_GUI_L
 
 L.MainFrame	= "Deadly Boss Mods"
 
@@ -172,7 +172,7 @@ L.KeepBar2					= "(當被模組支援)"
 L.FadeBar					= "清除超出範圍技能的計時條"
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "特別警告"
+L.Panel_SpecWarnFrame		= "特別團隊警告"
 L.Area_SpecWarn				= "特別警告選項"
 L.SpecWarn_ClassColor		= "為特別警告套用職業顏色"
 L.ShowSWarningsInChat 		= "在聊天視窗中顯示特別警告"
@@ -207,11 +207,11 @@ L.SWFAll					= "當特別警告使用所有音效"
 L.SpecWarn_AlwaysVoice		= "總是播放所有語音警告(覆蓋所有特定首領選項)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_GetVEM				= "取得VEM語言包"
-L.VEMDownload				= "|cFF73C2FBhttps://wow.curseforge.com/projects/dbm-voicepack-vem|r"
+L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-vem|r"
 L.Area_BrowseOtherVP		= "在Curse上瀏覽其他語言包"
-L.BrowseOtherVPs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+voice|r"
+L.BrowseOtherVPs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "在Curse上瀏覽倒數包"
-L.BrowseOtherCTs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+count+pack|r"
+L.BrowseOtherCTs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+count+pack|r"
 
 -- Tab: Event Sounds
 L.Panel_EventSounds			= "事件音效"

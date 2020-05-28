@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(387, "DBM-Party-Classic", 2, 228)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(9019)--Moira 8929
 mod:SetEncounterID(245)
 
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 
 local specWarnMaddeningCall			= mod:NewSpecialWarningInterrupt(86620, "HasInterrupt", nil, nil, 1, 2)
 
-local timerMaddeningCallCD			= mod:NewAITimer(180, 86620, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
+local timerMaddeningCallCD			= mod:NewAITimer(180, 86620, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 	timerMaddeningCallCD:Start(1-delay)

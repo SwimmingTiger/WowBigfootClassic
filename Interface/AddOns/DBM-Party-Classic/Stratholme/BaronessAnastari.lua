@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(451, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(10436)
 mod:SetEncounterID(479)
 
@@ -17,7 +17,7 @@ local warningSilence			= mod:NewTargetNoFilterAnnounce(18327, 2, nil, "RemoveMag
 
 local specWarnPossess			= mod:NewSpecialWarningTargetChange(17244, nil, nil, nil, 1, 2)
 
---local timerPossessCD			= mod:NewAITimer(180, 17244, nil, nil, nil, 3, nil, DBM_CORE_DAMAGE_ICON)
+--local timerPossessCD			= mod:NewAITimer(180, 17244, nil, nil, nil, 3, nil, DBM_CORE_L.DAMAGE_ICON)
 
 --function mod:OnCombatStart(delay)
 --	timerPossessCD:Start(1-delay)

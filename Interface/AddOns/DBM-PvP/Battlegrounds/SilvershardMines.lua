@@ -4,12 +4,9 @@ end
 local mod	= DBM:NewMod("z727", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190908135243")
+mod:SetRevision("20200524113830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-
-mod:RegisterEvents(
-	"ZONE_CHANGED_NEW_AREA"
-)
+mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 do
 	local bgzone = false

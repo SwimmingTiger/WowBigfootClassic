@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200430211936")
+mod:SetRevision("20200527024627")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -33,7 +33,7 @@ local specWarnFrenzy	= mod:NewSpecialWarningDispel(23128, "RemoveEnrage", nil, n
 
 local timerBreath		= mod:NewCastTimer(2, "TimerBreath", 23316, nil, nil, 3)
 local timerBreathCD		= mod:NewTimer(60, "TimerBreathCD", 23316, nil, nil, 3)
-local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_CORE_TANK_ICON..DBM_CORE_ENRAGE_ICON)
+local timerFrenzy		= mod:NewBuffActiveTimer(8, 23128, nil, "Tank|RemoveEnrage|Healer", 3, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.ENRAGE_ICON)
 local timerVuln			= mod:NewTimer(17, "TimerVulnCD")-- seen 16.94 - 25.53, avg 21.8
 
 mod:AddNamePlateOption("NPAuraOnVulnerable", 22277)
@@ -98,7 +98,7 @@ end
 -- in theory this should only alert on a new vulnerability on your target or when you change target
 local function update_vulnerability(self)
 	local target = UnitGUID("target")
-	local spellSchool	= vulnerabilities[target]
+	local spellSchool = vulnerabilities[target]
 	local cid = self:GetCIDFromGUID(target)
 	if not spellSchool or cid ~= 14020 then
 		return
@@ -111,32 +111,37 @@ local function update_vulnerability(self)
 	timerVuln:SetColor(info[2])
 	timerVuln:UpdateIcon(info[3])
 	timerVuln:UpdateName(name)
-	warnVuln.icon = info[3]
-	warnVuln:Show(name)
-	lastVulnName = name
-
-	if self.Options.InfoFrame then
-		if not DBM.InfoFrame:IsShown() then
-			DBM.InfoFrame:SetHeader(L.Vuln)
-			DBM.InfoFrame:Show(1, "function", updateInfoFrame, false, false, true)
-		else
-			DBM.InfoFrame:Update()
+	if not lastVulnName or lastVulnName ~= name then
+		warnVuln.icon = info[3]
+		warnVuln:Show(name)
+		lastVulnName = name
+		if self.Options.InfoFrame then
+			if not DBM.InfoFrame:IsShown() then
+				DBM.InfoFrame:SetHeader(L.Vuln)
+				DBM.InfoFrame:Show(1, "function", updateInfoFrame, false, false, true)
+			else
+				DBM.InfoFrame:Update()
+			end
 		end
-	end
-	if self.Options.NPAuraOnVulnerable then
-		DBM.Nameplate:Hide(true, target, 22277, 135924)
-		DBM.Nameplate:Hide(true, target, 22277, 135808)
-		DBM.Nameplate:Hide(true, target, 22277, 136006)
-		DBM.Nameplate:Hide(true, target, 22277, 135846)
-		DBM.Nameplate:Hide(true, target, 22277, 136197)
-		DBM.Nameplate:Hide(true, target, 22277, 136096)
-		DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
+		if self.Options.NPAuraOnVulnerable then
+			DBM.Nameplate:Hide(true, target, 22277, 135924)
+			DBM.Nameplate:Hide(true, target, 22277, 135808)
+			DBM.Nameplate:Hide(true, target, 22277, 136006)
+			DBM.Nameplate:Hide(true, target, 22277, 135846)
+			DBM.Nameplate:Hide(true, target, 22277, 136197)
+			DBM.Nameplate:Hide(true, target, 22277, 136096)
+			DBM.Nameplate:Show(true, target, 22277, tonumber(info[3]))
+		end
 	end
 	self:UnregisterShortTermEvents()--Unregister SPELL_DAMAGE until next shimmer emote
 end
 
 local function check_spell_damage(self, target, amount, spellSchool, critical)
-	if amount > (critical and 1400 or 700) then
+	local cid = self:GetCIDFromGUID(target)
+	if cid ~= 14020 then
+		return
+	end
+	if amount > (critical and 1600 or 800) then
 		if not vulnerabilities[target] or vulnerabilities[target] ~= spellSchool then
 			vulnerabilities[target] = spellSchool
 			update_vulnerability(self)
@@ -153,7 +158,7 @@ local function check_target_vulns(self)
 
 	local spellId = select(10, DBM:UnitBuff("target", 22277, 22280, 22278, 22279, 22281)) or 0
 	local vulnSchool = vulnSpells[spellId]
-	if vulnSchool ~= nil then
+	if vulnSchool then
 		return check_spell_damage(self, target, 10000, vulnSchool)
 	end
 end

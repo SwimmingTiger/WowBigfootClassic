@@ -5,9 +5,9 @@
 -- Last update: 2019/02/22
 
 if GetLocale() ~= "zhCN" then return end
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
+if not DBM_GUI_L then DBM_GUI_L = {} end
 
-local L = DBM_GUI_Translations
+local L = DBM_GUI_L
 
 L.MainFrame 				= "Deadly Boss Mods"
 
@@ -154,6 +154,19 @@ L.Bar7ForceLarge			= "总是使用大型计时条"
 L.Bar7CustomInline			= "使用自定义 '!' 图标"
 L.Bar7Footer				= "(测试用计时条)"
 
+--Dropdown Options
+L.CBTGeneric				= "通用"
+L.CBTAdd					= "ADD"
+L.CBTAOE					= "AOE"
+L.CBTTargeted				= "目标"
+L.CBTInterrupt				= "打断"
+L.CBTRole					= "角色"
+L.CBTPhase					= "阶段"
+L.CBTImportant				= "重要 (使用者)"
+L.CVoiceOne					= "倒数 1"
+L.CVoiceTwo					= "倒数 2"
+L.CVoiceThree				= "倒数 3"
+
 -- Tab: Timers
 L.AreaTitle_BarColors		= "按类型分类着色"
 L.AreaTitle_BarSetup 		= "计时条综合设置"
@@ -173,13 +186,14 @@ L.BarFlash					= "快走完时闪动"
 L.BarSort					= "按剩余时间排序"
 L.BarColorByType			= "按类着色"
 L.BarInlineIcons			= "显示条内图标"
+L.NoBarFade					= "使用开始/结束颜色作为长/短计时条颜色，而不是颜色渐变"
 L.ShortTimerText			= "使用更短的计时条文字 (当可行时)"
 L.KeepBar					= "保持计时条显示直到技能被释放"
 L.KeepBar2					= "(当被模组支持时)"
 L.FadeBar					= "隐藏超出技能范围的计时条"
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "特殊警报"
+L.Panel_SpecWarnFrame		= "特殊团队警报"
 L.Area_SpecWarn				= "特殊警报设置"
 L.SpecWarn_ClassColor		= "为特殊警报启用分职业着色"
 L.ShowSWarningsInChat 		= "在聊天窗口中显示特殊警报"
@@ -190,13 +204,20 @@ L.SpecWarn_Font				= "特殊警报字体"
 L.SpecWarn_FontSize			= "字体大小: %d"
 L.SpecWarn_FontColor		= "字体颜色"
 L.SpecWarn_FontType			= "选择字体"
+L.SpecWarn_Flash			= "屏幕泛光"
 L.SpecWarn_FlashRepeat		= "重复泛光"
-L.SpecWarn_FlashColor		= "泛光顏色 (%d)"
+L.SpecWarn_FlashColor		= "泛光颜色 (%d)"
 L.SpecWarn_FlashDur			= "泛光持续时间: %0.1f"
 L.SpecWarn_FlashAlpha		= "泛光透明度: %0.1f"
 L.SpecWarn_DemoButton		= "测试警报"
 L.SpecWarn_MoveMe			= "设置位置"
 L.SpecWarn_ResetMe			= "重置"
+L.SpecialWarnSoundOption	= "设置默认声音"
+L.SpecialWarnHeader1		= "类型1: 设置影响您或您的操作的普通优先级警告选项"
+L.SpecialWarnHeader2		= "类型2: 设置影响每个人的正常优先级警告选项"
+L.SpecialWarnHeader3		= "类型3: 设置高优先级警告的选项"
+L.SpecialWarnHeader4		= "类型4: 设置“高优先级”选项会避免特殊警告"
+L.SpecialWarnHeader5		= "类型5: 设置警告选项，并包含玩家姓名"
 
 -- Tab: Spoken Alerts Frame
 L.Panel_SpokenAlerts		= "语音警告"
@@ -214,11 +235,11 @@ L.SWFAll					= "当特殊警报使用任何默认声音时"
 L.SpecWarn_AlwaysVoice		= "总是播放所有语音警告(覆盖Boss特定的选项,建议指挥使用)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_GetVEM				= "获取夏一可语音包(普通话最新)"
-L.VEMDownload				= "|cFF73C2FBhttps://wow.curseforge.com/projects/dbm-voicepack-yike|r"
+L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-yike|r"
 L.Area_BrowseOtherVP		= "获取其他语音包"
-L.BrowseOtherVPs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+voice|r"
+L.BrowseOtherVPs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "获取其他倒计时语音包"
-L.BrowseOtherCTs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+count+pack|r"
+L.BrowseOtherCTs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+count+pack|r"
 
 -- Tab: Event Sounds
 L.Panel_EventSounds			= "事件音效"

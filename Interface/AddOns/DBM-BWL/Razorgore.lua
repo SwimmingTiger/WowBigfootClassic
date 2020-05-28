@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200513172953")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
 mod:SetEncounterID(610)--BOSS_KILL is valid, but ENCOUNTER_END is not
 mod:DisableEEKillDetection()--So disable only EE
@@ -50,6 +50,10 @@ function mod:OnCombatStart(delay)
 	end
 end
 
+function mod:OnCombatEnd()
+	DBM:AddMsg("Reason egg counter is off a little, is because blizzard gutted combat log range. Capturing their destruction is not accurate via combat log without heavy syncing which is then also prone to errors with lag that causes eggs to be counted twice sometimes. TL/DR, egg counter is approx at best unless blizzard reverts combat log nerf in instances")
+end
+
 do
 	local fireballVolley = DBM:GetSpellInfo(22425)
 	function mod:SPELL_CAST_START(args)
@@ -60,7 +64,7 @@ do
 			end
 			if self:AntiSpam(8, 1) then
 				if self.Options.SpecWarn22425moveto then
-					specWarnFireballVolley:Show(DBM_CORE_BREAK_LOS)
+					specWarnFireballVolley:Show(DBM_CORE_L.BREAK_LOS)
 					specWarnFireballVolley:Play("findshelter")
 				else
 					warnFireballVolley:Show()
@@ -135,7 +139,7 @@ function mod:OnSync(msg, name)
 		DBM:EndCombat(self)
 	elseif msg == "fireballVolley" and self:AntiSpam(8, 1) then
 		if self.Options.SpecWarn22425moveto then
-			specWarnFireballVolley:Show(DBM_CORE_BREAK_LOS)
+			specWarnFireballVolley:Show(DBM_CORE_L.BREAK_LOS)
 			specWarnFireballVolley:Play("findshelter")
 		else
 			warnFireballVolley:Show()

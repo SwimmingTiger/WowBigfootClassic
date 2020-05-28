@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Firemaw", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200227172148")
+mod:SetRevision("20200527023852")
 mod:SetCreatureID(11983)
 mod:SetEncounterID(613)
 mod:SetModelID(6377)
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 --(ability.id = 23339 or ability.id = 22539) and type = "begincast" or ability.id = 23341 and type = "cast"
 local warnWingBuffet		= mod:NewCastAnnounce(23339, 2)
 local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
-local warnFlameBuffet		= mod:NewStackAnnounce(23341, 3)
+local warnFlameBuffet		= mod:NewCountAnnounce(23341, 3, nil, nil, DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.stack:format(23341))
 
 local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)--Verified on classic 31-36
 local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21

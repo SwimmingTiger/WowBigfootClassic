@@ -57,7 +57,7 @@ L:SetWarningLocalization{
 L:SetOptionLocalization{
 	WarnPursue		= "Announce pursue targets",
 	SpecWarnPursue	= "Show special warning when you are being pursued",
-	WarnDismember	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(96)
+	WarnDismember	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(96)
 }
 L:SetMiscLocalization{
 	PursueEmote 	= "%s sets eyes on %s!"

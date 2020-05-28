@@ -3,14 +3,11 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z1191", "DBM-PvP")
 
-mod:SetRevision("20190908190050")
+mod:SetRevision("20200524113830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
+mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 mod:AddBoolOption("AutoTurnIn")
-
-mod:RegisterEvents(
-	"ZONE_CHANGED_NEW_AREA"
-)
 
 do
 	local bgzone = false
@@ -35,6 +32,7 @@ end
 
 do
 	local UnitGUID, GetCurrencyInfo, GetNumGossipOptions, SelectGossipOption = UnitGUID, GetCurrencyInfo, GetNumGossipOptions, SelectGossipOption
+
 	function mod:GOSSIP_SHOW()
 		if not self.Options.AutoTurnIn then
 			return

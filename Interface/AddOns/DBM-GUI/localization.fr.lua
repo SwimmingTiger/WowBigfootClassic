@@ -1,6 +1,6 @@
 ﻿if GetLocale() ~= "frFR" then return end
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
-local L = DBM_GUI_Translations
+if not DBM_GUI_L then DBM_GUI_L = {} end
+local L = DBM_GUI_L
 
 L.MainFrame = "Deadly Boss Mods"
 
@@ -157,7 +157,7 @@ L.BarSort					= "Arranger en fonction du temps restant"
 L.BarColorByType			= "Couleur par type"
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "Alertes spéciales"
+L.Panel_SpecWarnFrame		= "Alertes Raid spéciales"
 L.Area_SpecWarn				= "Options des alertes spéciales"
 L.SpecWarn_ClassColor		= "Utiliser des couleurs selon les classes pour les alertes spéciales"
 L.ShowSWarningsInChat 		= "Afficher les alertes spéciales dans la fenêtre de discussion"

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Fankriss", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15510)
 mod:SetEncounterID(712)
 mod:SetModelID(15743)
@@ -17,7 +17,7 @@ local warnWorm			= mod:NewSpellAnnounce(25831, 3)
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
-local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_TANK_ICON)
+local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	if not self:IsTrivial(85) then

@@ -81,6 +81,12 @@ L = DBM:GetModLocalization("Majordomo")
 L:SetGeneralLocalization{
 	name = "管理者埃克索图斯"
 }
+L:SetTimerLocalization{
+	timerShieldCD		= "下一个护盾"
+}
+L:SetOptionLocalization{
+	timerShieldCD		= "为下一个护盾显示计时器"
+}
 
 ----------------
 --  Ragnaros  --

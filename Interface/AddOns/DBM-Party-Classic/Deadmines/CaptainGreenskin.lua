@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CaptainGreenskin", "DBM-Party-Classic", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(647)
 --mod:SetEncounterID(1144)
 
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 --TODO, consider a cleave timer if not cast too often
 local warningPoisonedHarpoon		= mod:NewTargetNoFilterAnnounce(5208, 2, nil, "RemovePoison")
 
-local timerPoisonedHarpoonCD		= mod:NewAITimer(30, 5208, nil, "RemovePoison", nil, 5, nil, DBM_CORE_POISON_ICON)
+local timerPoisonedHarpoonCD		= mod:NewAITimer(30, 5208, nil, "RemovePoison", nil, 5, nil, DBM_CORE_L.POISON_ICON)
 
 function mod:OnCombatStart(delay)
 	timerPoisonedHarpoonCD:Start(1-delay)

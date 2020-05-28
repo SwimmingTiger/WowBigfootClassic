@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15509)
 mod:SetEncounterID(714)
 mod:SetModelID(15739)
@@ -25,13 +25,13 @@ local warnBerserk		= mod:NewSpellAnnounce(26068, 2)
 local specWarnAcid		= mod:NewSpecialWarningStack(26050, nil, 10, nil, nil, 1, 6)
 local specWarnAcidTaunt	= mod:NewSpecialWarningTaunt(26050, nil, nil, nil, 1, 2)
 
-local timerSting		= mod:NewBuffFadesTimer(12, 26180, nil, nil, nil, 5, nil, DBM_CORE_POISON_ICON..DBM_CORE_DEADLY_ICON)
-local timerStingCD		= mod:NewCDTimer(25, 26180, nil, nil, nil, 3, nil, DBM_CORE_POISON_ICON..DBM_CORE_DEADLY_ICON)
+local timerSting		= mod:NewBuffFadesTimer(12, 26180, nil, nil, nil, 5, nil, DBM_CORE_L.POISON_ICON..DBM_CORE_L.DEADLY_ICON)
+local timerStingCD		= mod:NewCDTimer(25, 26180, nil, nil, nil, 3, nil, DBM_CORE_L.POISON_ICON..DBM_CORE_L.DEADLY_ICON)
 local timerPoisonCD		= mod:NewCDTimer(11, 26053, nil, nil, nil, 3)
 local timerPoison		= mod:NewBuffFadesTimer(8, 26053)
-local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_CORE_TANK_ICON..DBM_CORE_HEALER_ICON)--Off by default do to ridiculous variation
-local timerFrenzy		= mod:NewBuffActiveTimer(8, 26051, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_TANK_ICON..DBM_CORE_HEALER_ICON)
-local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 2, 5, nil, DBM_CORE_TANK_ICON)
+local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)--Off by default do to ridiculous variation
+local timerFrenzy		= mod:NewBuffActiveTimer(8, 26051, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)
+local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 
 mod.vb.prewarn_berserk = false
 local StingTargets = {}

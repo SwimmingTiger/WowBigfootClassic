@@ -49,7 +49,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Lethon")
 
 L:SetGeneralLocalization{
-	name = "雷索"
+	name = "莱索恩"
 }
 
 -- Emeriss (Duskwood)

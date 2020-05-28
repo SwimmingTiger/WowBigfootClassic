@@ -22,7 +22,7 @@ local warnMortal	= mod:NewTargetNoFilterAnnounce(16856, 2, nil, "Tank|Healer")
 local specWarnGaze	= mod:NewSpecialWarningCast(24314, nil, nil, nil, 3, 2)
 
 local timerGaze 	= mod:NewTargetTimer(6, 24314, nil, nil, nil, 3)
-local timerMortal	= mod:NewTargetTimer(5, 16856, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerMortal	= mod:NewTargetTimer(5, 16856, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
 do
 	local ThreateningGaze, Frenzy, MortalStrike = DBM:GetSpellInfo(24314), DBM:GetSpellInfo(24318), DBM:GetSpellInfo(16856)

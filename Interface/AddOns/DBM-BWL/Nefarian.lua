@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200512175128")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -30,6 +30,7 @@ local warnFear				= mod:NewCastAnnounce(22686, 2)
 
 local specwarnShadowCommand	= mod:NewSpecialWarningTarget(22667, nil, nil, 2, 1, 2)
 local specwarnVeilShadow	= mod:NewSpecialWarningDispel(22687, "RemoveCurse", nil, nil, 1, 2)
+local specwarnClassCall		= mod:NewSpecialWarning("specwarnClassCall", nil, nil, nil, 1, 2)
 
 local timerPhase			= mod:NewPhaseTimer(15)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
@@ -57,15 +58,15 @@ function mod:OnCombatEnd(wipe)
 			local thisTime = GetTime() - RazorMod.vb.firstEngageTime
 			if not RazorMod.Options.FastestClear then
 				--First clear, just show current clear time
-				DBM:AddMsg(DBM_CORE_RAID_DOWN:format("BWL", DBM:strFromTime(thisTime)))
+				DBM:AddMsg(DBM_CORE_L.RAID_DOWN:format("BWL", DBM:strFromTime(thisTime)))
 				RazorMod.Options.FastestClear = thisTime
 			elseif (RazorMod.Options.FastestClear > thisTime) then
 				--Update record time if this clear shorter than current saved record time and show users new time, compared to old time
-				DBM:AddMsg(DBM_CORE_RAID_DOWN_NR:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
+				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_NR:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
 				RazorMod.Options.FastestClear = thisTime
 			else
 				--Just show this clear time, and current record time (that you did NOT beat)
-				DBM:AddMsg(DBM_CORE_RAID_DOWN_L:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
+				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
 			end
 		end
 	end
@@ -180,12 +181,18 @@ function mod:OnSync(msg, arg)
 		elseif phase == 3 then
 			self.vb.phase = 3
 		end
-		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(arg))
+		warnPhase:Show(DBM_CORE_L.AUTO_ANNOUNCE_TEXTS.stage:format(arg))
 	end
 	if not self:IsInCombat() then return end
 	if msg == "ClassCall" and arg then
-		warnClassCall:Show(LOCALIZED_CLASS_NAMES_MALE[arg])
-		timerClassCall:Start(30, LOCALIZED_CLASS_NAMES_MALE[arg])
+		local className = LOCALIZED_CLASS_NAMES_MALE[arg]
+		if UnitClass("player") == className then
+			specwarnClassCall:Show()
+			specwarnClassCall:Play("targetyou")
+		else
+			warnClassCall:Show(className)
+		end
+		timerClassCall:Start(30, className)
 	elseif msg == "Shadowflame" and self:AntiSpam(8, 1) then
 		warnShadowFlame:Show()
 	elseif msg == "Fear" and self:AntiSpam(8, 2) then

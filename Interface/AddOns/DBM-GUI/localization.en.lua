@@ -1,6 +1,6 @@
-DBM_GUI_Translations = {}
+DBM_GUI_L = {}
 
-local L = DBM_GUI_Translations
+local L = DBM_GUI_L
 
 L.MainFrame = "Deadly Boss Mods"
 
@@ -63,16 +63,19 @@ L.UseDialogChannel			= "Dialog audio channel."
 L.UseSFXChannel				= "Sound Effects (SFX) audio channel."
 L.Latency_Text				= "Set max latency sync threshold: %d"
 
+L.Button_RangeFrame			= "Show/hide range frame"
+L.Button_InfoFrame			= "Show/hide info frame"
+L.Button_TestBars			= "Start test bars"
+L.Button_ResetInfoRange		= "Reset Info/Range frames"
+
 L.ModelOptions				= "3D Model Viewer Options"
 L.EnableModels				= "Enable 3D models in boss options"
 L.ModelSoundOptions			= "Set sound option for model viewer"
 L.ModelSoundShort			= SHORT
 L.ModelSoundLong			= TOAST_DURATION_LONG
 
-L.Button_RangeFrame			= "Show/hide range frame"
-L.Button_InfoFrame			= "Show/hide info frame"
-L.Button_TestBars			= "Start test bars"
-L.Button_ResetInfoRange		= "Reset Info/Range frames"
+L.ResizeOptions			 	= "Resize Options"
+L.Button_ResetWindowSize	= "Reset GUI window size"
 
 -- Tab: Raidwarning
 L.Tab_RaidWarning 			= "Raid Warnings"
@@ -195,7 +198,7 @@ L.KeepBar2					= "(when supported by mod)"
 L.FadeBar					= "Fade timers for out of range abilities"
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "Special Warnings"
+L.Panel_SpecWarnFrame		= "Special Raid Warnings"
 L.Area_SpecWarn				= "Special Warning Options"
 L.SpecWarn_ClassColor		= "Use class coloring for special warnings"
 L.ShowSWarningsInChat 		= "Show special warnings in chat frame"
@@ -238,11 +241,11 @@ L.SWFAll					= "when special warnings use any sound"
 L.SpecWarn_AlwaysVoice		= "Always play all spoken alerts (Even if Special Warning disabled. Useful for Raid Leader, not recommended otherwise)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_GetVEM				= "Get VEM Voice Pack"
-L.VEMDownload				= "|cFF73C2FBhttps://wow.curseforge.com/projects/dbm-voicepack-vem|r"
+L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-vem|r"
 L.Area_BrowseOtherVP		= "Browse other voice packs on curse"
-L.BrowseOtherVPs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+voice|r"
+L.BrowseOtherVPs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "Browse countdown packs on curse"
-L.BrowseOtherCTs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+count+pack|r"
+L.BrowseOtherCTs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+count+pack|r"
 
 -- Tab: Event Sounds
 L.Panel_EventSounds			= "Event Sounds"

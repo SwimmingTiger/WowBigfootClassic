@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kurinnaxx", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15348)
 mod:SetEncounterID(718)
 mod:SetModelID(15742)
@@ -19,7 +19,7 @@ local warnSandTrap		= mod:NewTargetAnnounce(25656, 4)
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
-local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerSandTrap		= mod:NewTargetTimer(20, 25656, nil, false, nil, 3)
 
 do

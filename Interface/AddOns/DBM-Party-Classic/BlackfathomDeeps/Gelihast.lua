@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gelihast", "DBM-Party-Classic", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(6243)
 --mod:SetEncounterID(1667)
 
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 
 local warningNet			= mod:NewTargetNoFilterAnnounce(6533, 2)
 
-local timerNetCD			= mod:NewAITimer(180, 6533, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerNetCD			= mod:NewAITimer(180, 6533, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerNetCD:Start(1-delay)

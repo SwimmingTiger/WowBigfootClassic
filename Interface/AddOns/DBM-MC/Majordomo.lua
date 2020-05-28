@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Majordomo", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(12018, 11663, 11664)
 mod:SetEncounterID(671)
 mod:SetModelID(12029)
@@ -23,10 +23,10 @@ local warnDamageShield		= mod:NewSpellAnnounce(21075, 2)
 local specWarnMagicReflect	= mod:NewSpecialWarningReflect(20619, "CasterDps", nil, 2, 1, 2)
 local specWarnDamageShield	= mod:NewSpecialWarningReflect(21075, false, nil, 2, 1, 2)
 
-local timerMagicReflect		= mod:NewBuffActiveTimer(10, 20619, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON)
-local timerDamageShield		= mod:NewBuffActiveTimer(10, 21075, nil, nil, nil, 5, nil, DBM_CORE_DAMAGE_ICON)
-local timerTeleportCD		= mod:NewCDTimer(25, 20534, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)--25-30
-local timerShieldCD			= mod:NewTimer(30.3, "timerShieldCD", nil, nil, nil, 6, nil, DBM_CORE_DAMAGE_ICON)
+local timerMagicReflect		= mod:NewBuffActiveTimer(10, 20619, nil, nil, nil, 5, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerDamageShield		= mod:NewBuffActiveTimer(10, 21075, nil, nil, nil, 5, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerTeleportCD		= mod:NewCDTimer(25, 20534, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)--25-30
+local timerShieldCD			= mod:NewTimer(30.3, "timerShieldCD", nil, nil, nil, 6, nil, DBM_CORE_L.DAMAGE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerTeleportCD:Start(19.4-delay)

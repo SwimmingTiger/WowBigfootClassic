@@ -1,8 +1,8 @@
 ﻿if GetLocale() ~= "ptBR" then return end
 
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
+if not DBM_GUI_L then DBM_GUI_L = {} end
 
-local L = DBM_GUI_Translations
+local L = DBM_GUI_L
 
 L.MainFrame = "Deadly Boss Mods"
 
@@ -156,7 +156,7 @@ L.BarSort					= "selecionar pelo tempo restante"
 
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "Avisos Especiais"
+L.Panel_SpecWarnFrame		= "Avisos Raid Especiais"
 L.Area_SpecWarn				= "Opções de Avisos Especiais"
 L.ShowSWarningsInChat 		= "Exibir avisos especiais no quadro de chat"
 L.SpecWarn_FlashFrameRepeat	= "Repetir %d vezes (se habilitado)"

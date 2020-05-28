@@ -114,7 +114,7 @@ L:SetWarningLocalization{
 L:SetTimerLocalization{
 	TimerBreathCD	= "%s 쿨타임",
 	TimerBreath		= "%s 시전",
-	TimerVulnCD		= "%s 약화 쿨타임"
+	TimerVulnCD		= "약화 쿨타임"
 }
 L:SetOptionLocalization{
 	WarnBreath		= "크로마구스가 숨결 시전 시 경고 보기",
@@ -127,6 +127,7 @@ L:SetMiscLocalization{
 	Breath1	= "1번 숨결",
 	Breath2	= "2번 숨결",
 	VulnEmote	= "%s 주춤하면서 물러나면서 가죽이 빛납니다.",
+	Vuln		= "약화 속성",
 	Fire		= "화염",
 	Nature		= "자연",
 	Frost		= "냉기",
@@ -145,15 +146,17 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnAddsLeft		= "%d킬 남음",
-	WarnClassCall		= "%s 지목"
+	WarnClassCall		= "%s 지목",
+	specwarnClassCall	= "당신이 직업 지목 대상입니다!"
 }
 L:SetTimerLocalization{
 	TimerClassCall		= "%s 지목 종료"
 }
 L:SetOptionLocalization{
 	TimerClassCall		= "직업 지목 지속 시간 타이머 바 보기",
-	WarnAddsLeft		= "2 페이즈 전환까지 남은 쫄 킬 수 알림",
-	WarnClassCall		= "직업 지목 알림 보기"
+	WarnAddsLeft		= "2페이즈 전환까지 남은 쫄 킬 수 알림",
+	WarnClassCall		= "직업 지목 알림 보기",
+	specwarnClassCall	= "직업 지목 대상일 때 특수 경고 보기"
 }
 L:SetMiscLocalization{
 	YellP1			= "게임을 시작하자!",

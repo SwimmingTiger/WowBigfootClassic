@@ -1,7 +1,7 @@
 if GetLocale() ~= "ruRU" then return end
 
-if not DBM_GUI_Translations then DBM_GUI_Translations = {} end
-local L = DBM_GUI_Translations
+if not DBM_GUI_L then DBM_GUI_L = {} end
+local L = DBM_GUI_L
 
 L.MainFrame = "Deadly Boss Mods"
 
@@ -173,7 +173,7 @@ L.KeepBar2					= "(когда поддерживается модулем)"
 L.FadeBar					= "Fade timers for out of range abilities"
 
 -- Tab: Spec Warn Frame
-L.Panel_SpecWarnFrame		= "Специальные предупреждения"
+L.Panel_SpecWarnFrame		= "Специальные предупреждения для рейда"
 L.Area_SpecWarn				= "Настройка специальных предупреждений"
 L.SpecWarn_ClassColor		= "Использовать цвета классов для спец-предупреждений"
 L.ShowSWarningsInChat 		= "Показывать спец-предупреждения в окне чата"
@@ -208,11 +208,11 @@ L.SWFAll					= "когда спец-предупреждения использ�
 L.SpecWarn_AlwaysVoice		= "Всегда воспроизводить все голосовые предупреждения (даже если спец предупреждения отключены. Полезно для рейд лидера, иначе не рекомендуется.)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_GetVEM				= "Получить голосовой пакет VEM"
-L.VEMDownload				= "|cFF73C2FBhttps://wow.curseforge.com/projects/dbm-voicepack-vem|r"
+L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-vem|r"
 L.Area_BrowseOtherVP		= "Посмотреть другие голосовые пакеты на Curse"
-L.BrowseOtherVPs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+voice|r"
+L.BrowseOtherVPs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "Посмотреть пакеты обратного отсчета на Curse"
-L.BrowseOtherCTs			= "|cFF73C2FBhttps://wow.curseforge.com/search?search=dbm+count+pack|r"
+L.BrowseOtherCTs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+count+pack|r"
 
 -- Tab: Event Sounds
 L.Panel_EventSounds			= "Звуки событий"

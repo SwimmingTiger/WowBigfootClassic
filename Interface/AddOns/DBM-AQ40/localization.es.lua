@@ -51,12 +51,12 @@ L:SetGeneralLocalization{
 	name = "Viscidus"
 }
 L:SetWarningLocalization{
-	WarnFreeze	= "Freeze: %d/3",
-	WarnShatter	= "Shatter: %d/3"
+	WarnFreeze	= "Congelar: %d/3",
+	WarnShatter	= "Hacerse añicos: %d/3"
 }
 L:SetOptionLocalization{
-	WarnFreeze	= "Announce Freeze status",
-	WarnShatter	= "Announce Shatter status"
+	WarnFreeze	= "Anunciar congelar",
+	WarnShatter	= "Anunciar hacerse añicos"
 }
 L:SetMiscLocalization{
 	Slow	= "comienza a ir más despacio!",
@@ -83,8 +83,8 @@ L:SetGeneralLocalization{
 	name = "Los Emperadores Gemelos"
 }
 L:SetMiscLocalization{
-	Veklor = "Emperor Vek'lor",
-	Veknil = "Emperor Vek'nilash"
+	Veklor = "Emperador Vek'lor",
+	Veknil = "Emperador Vek'nilash"
 }
 
 ------------
@@ -125,8 +125,8 @@ L:SetGeneralLocalization{
 	name = "Ouro"
 }
 L:SetWarningLocalization{
-	WarnSubmerge		= "Ouro ha regresado",
-	WarnEmerge			= "Ouro se sumerge"
+	WarnSubmerge		= "Ouro se sumerge",
+	WarnEmerge			= "Ouro regresa"
 }
 L:SetTimerLocalization{
 	TimerSubmerge		= "Sumersión",

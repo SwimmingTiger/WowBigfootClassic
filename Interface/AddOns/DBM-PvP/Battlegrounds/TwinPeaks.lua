@@ -3,12 +3,9 @@
 end
 local mod	= DBM:NewMod("z726", "DBM-PvP")
 
-mod:SetRevision("20200215050906")
+mod:SetRevision("20200524113830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-
-mod:RegisterEvents(
-	"ZONE_CHANGED_NEW_AREA"
-)
+mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 do
 	function mod:OnInitialize()

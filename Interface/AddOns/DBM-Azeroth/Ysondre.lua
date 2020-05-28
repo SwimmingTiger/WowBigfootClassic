@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ysondre", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(14887)--121912 TW ID, 14887 classic ID
 --mod:SetModelID(17887)
 mod:SetZone()
@@ -21,7 +21,7 @@ local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank")
 
 local specWarnSleepingFog		= mod:NewSpecialWarningDodge(24814, nil, nil, nil, 2, 2)
 
---local timerNoxiousBreathCD		= mod:NewCDTimer(19.4, 24818, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--Iffy
+--local timerNoxiousBreathCD		= mod:NewCDTimer(19.4, 24818, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)--Iffy
 local timerSleepingFogCD		= mod:NewCDTimer(16.0, 24814, nil, nil, nil, 3)
 --local timerLightningWaveCD		= mod:NewCDTimer(13.4, 24819, nil, nil, nil, 3)
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 --mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
@@ -30,9 +30,9 @@ local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1,
 local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
 local yellManaBomb			= mod:NewShortYell(27819)
 
-local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_CORE_HEALER_ICON)
+local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
-local timerFrostBlast		= mod:NewCDTimer(40.1, 27808, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)--40-46
+local timerFrostBlast		= mod:NewCDTimer(40.1, 27808, nil, nil, nil, 3, nil, DBM_CORE_L.DEADLY_ICON)--40-46
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 --local timerMCCD			= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
 local timerPhase2			= mod:NewTimer(218, "TimerPhase2", "136116", nil, nil, 6)

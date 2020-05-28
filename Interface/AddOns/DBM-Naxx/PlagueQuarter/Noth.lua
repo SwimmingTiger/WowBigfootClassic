@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15954)
 mod:SetEncounterID(1117)
 mod:SetModelID(16590)
@@ -23,7 +23,7 @@ local specWarnAdds		= mod:NewSpecialWarningAdds(29212, "-Healer", nil, nil, 1, 2
 
 local timerTeleport		= mod:NewTimer(90, "TimerTeleport", "135736", nil, nil, 6)
 local timerTeleportBack	= mod:NewTimer(70, "TimerTeleportBack", "135736", nil, nil, 6)
-local timerCurseCD		= mod:NewCDTimer(53.3, 29213, nil, nil, nil, 5, nil, DBM_CORE_CURSE_ICON)
+local timerCurseCD		= mod:NewCDTimer(53.3, 29213, nil, nil, nil, 5, nil, DBM_CORE_L.CURSE_ICON)
 local timerAddsCD		= mod:NewAddsTimer(30, 29212, nil, "-Healer")
 
 mod.vb.teleCount = 0

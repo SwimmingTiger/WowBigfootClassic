@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("WolfMasterNandos", "DBM-Party-Classic", 14)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(3927)
 
 mod:RegisterCombat("combat")
@@ -14,9 +14,9 @@ local warningBleakWorg		= mod:NewSpellAnnounce(7487, 2)
 local warningLupineHorror	= mod:NewSpellAnnounce(7489, 2)
 local warningSlaveringWorg	= mod:NewSpellAnnounce(7488, 2)
 
-local timerBleakWorgCD		= mod:NewAITimer(180, 7487, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerLupineHorrorCD	= mod:NewAITimer(180, 7489, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerSlaveringWorgCD	= mod:NewAITimer(180, 7488, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
+local timerBleakWorgCD		= mod:NewAITimer(180, 7487, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerLupineHorrorCD	= mod:NewAITimer(180, 7489, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerSlaveringWorgCD	= mod:NewAITimer(180, 7488, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
 
 function mod:OnCombatStart(delay)
 	timerBleakWorgCD:Start(1-delay)

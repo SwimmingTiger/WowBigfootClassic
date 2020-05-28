@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Hamhock", "DBM-Party-Classic", 15)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200419141911")
 mod:SetCreatureID(1717)
 
 mod:RegisterCombat("combat")

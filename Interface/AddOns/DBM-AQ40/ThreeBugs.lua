@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ThreeBugs", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(15544, 15511, 15543)
 mod:SetEncounterID(710)
 mod:SetModelID(15657)
@@ -19,7 +19,7 @@ local warnHeal			= mod:NewCastAnnounce(25807, 3)
 local specWarnHeal		= mod:NewSpecialWarningInterrupt(25807, "HasInterrupt", nil, nil, 1, 2)
 
 local timerFearCD		= mod:NewCDTimer(20.5, 26580, nil, nil, nil, 2)
-local timerHeal			= mod:NewCastTimer(2, 25807, nil, nil, nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
+local timerHeal			= mod:NewCastTimer(2, 25807, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(10-delay)

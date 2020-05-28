@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(463, "DBM-Party-Classic", 17, 237)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200221190836")
+mod:SetRevision("20200524222200")
 mod:SetCreatureID(5709)
 mod:SetEncounterID(493)
 
@@ -16,8 +16,8 @@ local warningDeepSlumber			= mod:NewTargetNoFilterAnnounce(12890, 2)
 local warningAcidBreath				= mod:NewSpellAnnounce(12533, 2)
 local warningWarStomp				= mod:NewSpellAnnounce(24375, 2)
 
-local timerDeepSlumberCD			= mod:NewAITimer(180, 12890, nil, nil, nil, 3, nil, DBM_CORE_MAGIC_ICON)
-local timerAcidBreathCD				= mod:NewAITimer(180, 12533, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerDeepSlumberCD			= mod:NewAITimer(180, 12890, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerAcidBreathCD				= mod:NewAITimer(180, 12533, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerWarStompCD				= mod:NewAITimer(180, 24375, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)

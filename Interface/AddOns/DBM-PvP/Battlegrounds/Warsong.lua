@@ -1,20 +1,12 @@
-﻿local mod
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-	mod	= DBM:NewMod("z489", "DBM-PvP")
-else
-	mod	= DBM:NewMod("z2106", "DBM-PvP")
-end
+﻿local mod = DBM:NewMod(WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "z489" or "z2106", "DBM-PvP")
 
-mod:SetRevision("20200215050906")
+mod:SetRevision("20200524113830")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-
-mod:RegisterEvents(
-	"ZONE_CHANGED_NEW_AREA"
-)
+mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 do
 	function mod:OnInitialize()
-		if DBM:GetCurrentArea() == 489 or DBM:GetCurrentArea() == 2106 then--Classic, Retail
+		if DBM:GetCurrentArea() == 489 or DBM:GetCurrentArea() == 2106 then -- Classic, Retail
 			DBM:GetModByName("PvPGeneral"):SubscribeFlags()
 		end
 	end
