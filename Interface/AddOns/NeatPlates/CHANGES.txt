@@ -1,10 +1,10 @@
-lightweight tag 17be10e30cc986f503dbc5d5f75540d3f905336b 1.13.4.22
+lightweight tag 86992720dbb5afa8647b9d61978cb5f2720dd8a0 1.13.4.23
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Mon May 11 19:21:52 2020 +0200
+Date:	Sat May 23 20:30:00 2020 +0200
 
-commit 17be10e30cc986f503dbc5d5f75540d3f905336b
+commit 86992720dbb5afa8647b9d61978cb5f2720dd8a0
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Mon May 11 19:21:52 2020 +0200
+Date:   Sat May 23 20:30:00 2020 +0200
 
-    Update NeatPlates.toc
+    Update koKR.lua
 
