@@ -69,6 +69,7 @@ function NWB:setRegionFont()
      	--NWB.regionFont = "Fonts\\FRIZQT___CYR.TTF";
     end
 end
+NWB:setRegionFont();
 
 local foundPartner; --Debug testing.
 function NWB:OnCommReceived(commPrefix, string, distribution, sender)
