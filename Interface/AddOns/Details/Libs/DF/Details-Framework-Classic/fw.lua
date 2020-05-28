@@ -1,5 +1,5 @@
 
-local dversion = 219
+local dversion = 220
 local major, minor = "DetailsFramework-1.0", dversion
 local DF, oldminor = LibStub:NewLibrary (major, minor)
 
@@ -23,7 +23,7 @@ SMALL_NUMBER = 0.000001
 ALPHA_BLEND_AMOUNT = 0.8400251
 
 DF.AuthorInfo = {
-	Name = "Tercioo",
+	Name = "Terciob",
 	Discord = "https://discord.gg/AGSzAZX",
 }
 
@@ -1765,11 +1765,22 @@ DF.font_templates ["OPTIONS_FONT_TEMPLATE"] = {color = "yellow", size = 12, font
 
 DF.dropdown_templates = DF.dropdown_templates or {}
 DF.dropdown_templates ["OPTIONS_DROPDOWN_TEMPLATE"] = {
-	backdrop = {edgeFile = [[Interface\Buttons\WHITE8X8]], edgeSize = 1, bgFile = [[Interface\Tooltips\UI-Tooltip-Background]], tileSize = 64, tile = true},
-	backdropcolor = {1, 1, 1, .5},
+	backdrop = {
+		edgeFile = [[Interface\Buttons\WHITE8X8]],
+		edgeSize = 1,
+		bgFile = [[Interface\Tooltips\UI-Tooltip-Background]],
+		tileSize = 64,
+		tile = true
+	},
+
+	backdropcolor = {1, 1, 1, .7},
 	backdropbordercolor = {0, 0, 0, 1},
-	onentercolor = {1, 1, 1, .5},
+	onentercolor = {1, 1, 1, .9},
 	onenterbordercolor = {1, 1, 1, 1},
+
+	dropicon = "Interface\\BUTTONS\\arrow-Down-Down",
+	dropiconsize = {16, 16},
+	dropiconpoints = {-2, -3},
 }
 
 -- switches
@@ -3330,5 +3341,96 @@ DF.DebugMixin = {
 	
 }
 
---doo elsee 
---was doing double loops due to not enought height
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--> pool
+
+do    
+    local get = function(self)
+        local object = tremove(self.notUse, #self.notUse)
+        if (object) then
+            tinsert(self.inUse, object)
+			return object, false
+			
+        else
+            --need to create the new object
+            local newObject = self.newObjectFunc(self, unpack(self.payload))
+            if (newObject) then
+				tinsert(self.inUse, newObject)
+				return object, true
+            end
+        end
+	end
+	
+	local get_all_inuse = function(self)
+		return self.inUse;
+	end
+    
+    local release = function(self, object)
+        for i = #self.inUse, 1, -1 do
+            if (self.inUse[i] == object) then
+                tremove(self.inUse, i)
+                tinsert(self.notUse, object)
+                break
+            end
+        end        
+    end
+    
+    local reset = function(self)
+        for i = #self.inUse, 1, -1 do
+            local object = tremove(self.inUse, i)
+            tinsert(self.notUse, object)
+        end        
+	end
+	
+	--only hide objects in use, do not disable them
+		local hide = function(self)
+			for i = #self.inUse, 1, -1 do
+				self.inUse[i]:Hide()
+			end 
+		end
+
+	--only show objects in use, do not enable them
+		local show = function(self)
+			for i = #self.inUse, 1, -1 do
+				self.inUse[i]:Show()
+			end 
+		end	
+
+	--return the amount of objects 
+		local getamount = function(self)
+			return #self.notUse + #self.inUse
+		end
+    
+    local poolMixin = {
+		Get = get,
+		GetAllInUse = get_all_inuse,
+        Acquire = get,
+        Release = release,
+        Reset = reset,
+        ReleaseAll = reset,
+		Hide = hide,
+		Show = show,
+		GetAmount = getamount,
+    }
+    
+    function DF:CreatePool(func, ...)
+        local t = {}
+        DetailsFramework:Mixin(t, poolMixin)
+        
+        t.inUse = {}
+        t.notUse = {}
+        t.newObjectFunc = func
+        t.payload = {...}
+        
+        return t
+	end
+	
+	--alias
+	function DF:CreateObjectPool(func, ...)
+		return DF:CreatePool(func, ...)
+	end
+    
+end
+
+

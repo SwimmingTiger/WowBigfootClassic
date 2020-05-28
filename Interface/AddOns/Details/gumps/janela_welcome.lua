@@ -63,10 +63,7 @@ function _detalhes:OpenWelcomeWindow()
 		cancel:SetNormalTexture ([[Interface\Buttons\UI-GroupLoot-Pass-Up]])
 		cancel:SetScript ("OnClick", function() window:Hide() end)
 		cancel:GetNormalTexture():SetDesaturated (true)
-
-		-- 老虎会游泳：一开始就允许跳过
-		cancel:Enable()
-		cancel:GetNormalTexture():SetDesaturated (false)
+		cancel:Disable()
 		
 		local cancelText = cancel:CreateFontString (nil, "overlay", "GameFontNormal")
 		cancelText:SetTextColor (1, 1, 1)

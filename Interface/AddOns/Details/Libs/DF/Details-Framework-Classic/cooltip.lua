@@ -3335,7 +3335,7 @@ function DF:CreateCoolTip()
 			end
 		end
 		
-		return ture
+		return true
 	end
 	
 	--> all done
@@ -3344,13 +3344,10 @@ function DF:CreateCoolTip()
 --	local preset2_backdrop = {bgFile = [[Interface\DialogFrame\UI-DialogBox-Background-Dark]], edgeFile = DF.folder .. "border_3", tile=true,
 --	edgeSize = 16, tileSize = 64, insets = {left = 3, right = 3, top = 4, bottom = 4}}
 
-	local preset2_backdrop = {bgFile = DF.folder .. "background", edgeFile = [[Interface\Buttons\WHITE8X8]], tile = true,
+	local preset2_backdrop = {bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", edgeFile = [[Interface\Buttons\WHITE8X8]], tile = true,
 	edgeSize = 1, tileSize = 16, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-	local default_backdrop_color = {0.09019, 0.09019, 0.18823, 0.8}
-	local default_backdropborder_color = {1, 1, 1, 1}
 	
-	local gray_table = {0.37, 0.37, 0.37, 0.95}
-	local white_table = {1, 1, 1, 1}
+	local gray_table = {0.17, 0.17, 0.17, 1}
 	local black_table = {0.2, 0.2, 0.2, 1}
 	
 	function CoolTip:Preset (number)
@@ -3374,7 +3371,7 @@ function DF:CreateCoolTip()
 			self:SetOption ("YSpacingMod", -4)
 			self:SetOption ("IgnoreButtonAutoHeight", true)
 			
-			self:SetColor (1, 0.5, 0.5, 0.5, 0)
+			self:SetColor (1, 0.2, 0.2, 0.2, 1)
 			
 			self:SetBackdrop (1, preset2_backdrop, gray_table, black_table)
 			self:SetBackdrop (2, preset2_backdrop, gray_table, black_table)

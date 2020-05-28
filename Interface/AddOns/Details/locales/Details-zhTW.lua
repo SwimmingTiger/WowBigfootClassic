@@ -604,6 +604,8 @@ L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "當不在隊伍時"
 L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "當不在副本時"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "當在副本時"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "團隊除錯"
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[選擇戰鬥時的視窗透明度
 
 |cFFFFFF00不變|r: 不修改透明度。
@@ -1172,6 +1174,10 @@ L["STRING_OPTIONS_TEXT_LOUTILINE"] = "文本陰影"
 L["STRING_OPTIONS_TEXT_LOUTILINE_DESC"] = "啟用/禁用文本的輪廓陰影。"
 L["STRING_OPTIONS_TEXT_LPOSITION"] = "顯示號數"
 L["STRING_OPTIONS_TEXT_LPOSITION_DESC"] = "顯示在玩家姓名左側的排名號碼。"
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_TEXT_LTRANSLIT"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_TEXT_LTRANSLIT_DESC"] = ""--]] 
 L["STRING_OPTIONS_TEXT_RIGHT_ANCHOR"] = "右邊文本:"
 L["STRING_OPTIONS_TEXT_ROUTILINE_DESC"] = "啟用或禁用右文本輪廓。"
 L["STRING_OPTIONS_TEXT_ROWICONS_ANCHOR"] = "圖示:"

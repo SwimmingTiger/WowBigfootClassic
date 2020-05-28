@@ -610,6 +610,8 @@ L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "Не в группе"
 L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "Не внутри подземелья"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "Внутри подземелья"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Рейдовый отладчик"
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[Выберите, как бой влияет на прозрачность окна.
 
 |cFFFFFF00Никаких изменений|r: Не изменять альфу.
@@ -815,7 +817,7 @@ L["STRING_OPTIONS_MENU_X"] = "Положение X"
 L["STRING_OPTIONS_MENU_X_DESC"] = "Изменение положения оси по X."
 L["STRING_OPTIONS_MENU_Y"] = "Положение Y"
 L["STRING_OPTIONS_MENU_Y_DESC"] = "Изменение положения оси по Y."
-L["STRING_OPTIONS_MENUS_SHADOW"] = "Тень"
+L["STRING_OPTIONS_MENUS_SHADOW"] = "Тьма"
 L["STRING_OPTIONS_MENUS_SHADOW_DESC"] = "Добавляет тонкую теневую границу на всех кнопках."
 L["STRING_OPTIONS_MENUS_SPACEMENT"] = "Расстояние"
 L["STRING_OPTIONS_MENUS_SPACEMENT_DESC"] = "Контролирует, какое расстояние в кнопках друг от друга."
@@ -1157,6 +1159,8 @@ L["STRING_OPTIONS_TEXT_LOUTILINE"] = "Тень текста"
 L["STRING_OPTIONS_TEXT_LOUTILINE_DESC"] = "Включение или отключение контура для левого текста."
 L["STRING_OPTIONS_TEXT_LPOSITION"] = "Показывать номер"
 L["STRING_OPTIONS_TEXT_LPOSITION_DESC"] = "Показать номер позиции на левой стороне имени игрока."
+L["STRING_OPTIONS_TEXT_LTRANSLIT"] = "Транслит"
+L["STRING_OPTIONS_TEXT_LTRANSLIT_DESC"] = "Пусть эти русские буквы, которые никто не понимает, будут представлены как латинские буквы."
 L["STRING_OPTIONS_TEXT_RIGHT_ANCHOR"] = "Текст справа:"
 L["STRING_OPTIONS_TEXT_ROUTILINE_DESC"] = "Включение или отключение контура для правого текста."
 L["STRING_OPTIONS_TEXT_ROWICONS_ANCHOR"] = "Значки:"

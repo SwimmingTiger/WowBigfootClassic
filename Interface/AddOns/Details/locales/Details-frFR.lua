@@ -1,11 +1,11 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("Details", "frFR") 
 if not L then return end 
 
-L["ABILITY_ID"] = "ID de la capacité"
+L["ABILITY_ID"] = "ID de la technique"
 --[[Translation missing --]]
 --[[ L["STRING_"] = ""--]] 
 L["STRING_ABSORBED"] = "Absorbé"
-L["STRING_ACTORFRAME_NOTHING"] = "oups, aucune donnée à rapporter"
+L["STRING_ACTORFRAME_NOTHING"] = "oups, aucune donnée à rapporter :("
 L["STRING_ACTORFRAME_REPORTAT"] = "à"
 L["STRING_ACTORFRAME_REPORTOF"] = "de"
 L["STRING_ACTORFRAME_REPORTTARGETS"] = "rapporter pour les cibles de"
@@ -17,25 +17,25 @@ L["STRING_AGAINST"] = "contre"
 L["STRING_ALIVE"] = "Vivant"
 L["STRING_ALPHA"] = "Transparence "
 L["STRING_ANCHOR_BOTTOM"] = "Bas"
-L["STRING_ANCHOR_BOTTOMLEFT"] = "En bas à gauche"
-L["STRING_ANCHOR_BOTTOMRIGHT"] = "En bas à droite"
+L["STRING_ANCHOR_BOTTOMLEFT"] = "Bas gauche"
+L["STRING_ANCHOR_BOTTOMRIGHT"] = "Bas droit"
 L["STRING_ANCHOR_LEFT"] = "Gauche"
 L["STRING_ANCHOR_RIGHT"] = "Droite"
 L["STRING_ANCHOR_TOP"] = "Haut"
-L["STRING_ANCHOR_TOPLEFT"] = "En haut à gauche"
-L["STRING_ANCHOR_TOPRIGHT"] = "En haut à droite"
+L["STRING_ANCHOR_TOPLEFT"] = "Haut gauche"
+L["STRING_ANCHOR_TOPRIGHT"] = "Haut droit"
 L["STRING_ASCENDING"] = "Croissant"
 L["STRING_ATACH_DESC"] = "La fenêtre #%d  fait un groupe avec la fenêtre #%d."
 L["STRING_ATTRIBUTE_CUSTOM"] = "Personnalisé"
-L["STRING_ATTRIBUTE_DAMAGE"] = "Dégats"
-L["STRING_ATTRIBUTE_DAMAGE_BYSPELL"] = "Dégâts reçu par le sort"
+L["STRING_ATTRIBUTE_DAMAGE"] = "Dégâts"
+L["STRING_ATTRIBUTE_DAMAGE_BYSPELL"] = "Dégâts reçus du sort"
 L["STRING_ATTRIBUTE_DAMAGE_DEBUFFS"] = "Auras & Voidzones"
 L["STRING_ATTRIBUTE_DAMAGE_DEBUFFS_REPORT"] = "Dégâts et Uptime des débuffs"
 L["STRING_ATTRIBUTE_DAMAGE_DONE"] = "Dégâts infligés"
 L["STRING_ATTRIBUTE_DAMAGE_DPS"] = "DPS"
-L["STRING_ATTRIBUTE_DAMAGE_ENEMIES"] = "Dégâts subis (ennemis)"
+L["STRING_ATTRIBUTE_DAMAGE_ENEMIES"] = "Dégâts subis par l'ennemi"
 L["STRING_ATTRIBUTE_DAMAGE_ENEMIES_DONE"] = "Dégâts de l'ennemi"
-L["STRING_ATTRIBUTE_DAMAGE_FRAGS"] = "Frags"
+L["STRING_ATTRIBUTE_DAMAGE_FRAGS"] = "Eliminations"
 L["STRING_ATTRIBUTE_DAMAGE_FRIENDLYFIRE"] = "Dégâts aux alliés"
 L["STRING_ATTRIBUTE_DAMAGE_TAKEN"] = "Dégâts Subis"
 L["STRING_ATTRIBUTE_ENERGY"] = "Ressources"
@@ -809,6 +809,8 @@ L["STRING_NUMERALSYSTEM"] = "Système numérique"
 --[[ L["STRING_OPTIONS_COMBAT_ALPHA_6"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_COMBAT_ALPHA_7"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = ""--]] 
 --[[Translation missing --]]
@@ -1645,6 +1647,10 @@ L["STRING_NUMERALSYSTEM"] = "Système numérique"
 --[[ L["STRING_OPTIONS_TEXT_LPOSITION"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_TEXT_LPOSITION_DESC"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_TEXT_LTRANSLIT"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["STRING_OPTIONS_TEXT_LTRANSLIT_DESC"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_TEXT_RIGHT_ANCHOR"] = ""--]] 
 --[[Translation missing --]]
