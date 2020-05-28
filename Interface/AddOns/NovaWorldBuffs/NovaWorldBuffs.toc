@@ -1,0 +1,14 @@
+## Interface: 11304
+## Notes: World buff timers and pre warnings.
+## Title: Nova World Buffs
+## Author: Novaspark-Arugal OCE
+## Version: 1.58
+## SavedVariables: NWBdatabase
+
+embeds.xml
+Locale\Locales.xml
+NovaWorldBuffs.lua
+Options.lua
+NWBCreatures.lua
+NWBRealms.lua
+NWBGuildFilter.lua

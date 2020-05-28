@@ -33,6 +33,8 @@ if GetLocale()=='zhCN' then
 	L["AutoInvite"] = "密我进组"
 	L["AutoInvite-tooltip"] ="其他人密我即可自动邀请他们进组，左键启用，右键设置密我的内容。"
 	L["AutoInvite-message"] = "密我的内容(留空接受任意内容)"
+	L["NovaWorldBuffs"] = "世界Buff"
+	L["NovaWorldBuffs-tooltip"] ="勾选启用，右击打开世界Buff信息面板。"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -67,6 +69,8 @@ elseif GetLocale()=='zhTW' then
 	L["AutoInvite"] = "密我進組"
 	L["AutoInvite-tooltip"] ="其他人密我即可自動邀請他們進組，左鍵啟用，右鍵設置密我的內容。"
 	L["AutoInvite-message"] = "密我的內容(留空接受任意內容)"
+	L["NovaWorldBuffs"] = "世界Buff"
+	L["NovaWorldBuffs-tooltip"] ="勾選啟用，右擊打開世界Buff信息面板。"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -88,6 +92,8 @@ else
 	L["AutoInvite"] = "AutoInvite"
 	L["AutoInvite-tooltip"] = "Others can be automatically invited to join my team if them whisper to me.\n\nLeft-click to enable, right-click to set the whisper keyword."
 	L["AutoInvite-message"] = "Whisper Keyword (Empty to accept any content)"
+	L ["NovaWorldBuffs"] = "WorldBuffs"
+	L ["NovaWorldBuffs-tooltip"] = "Check to enable NovaWorldBuffs, right-click to open the world buff information panel."
 
 end
 
@@ -725,6 +731,12 @@ local function __AddBottomFrames()
 			end)
 		M:AddBottomButton(check)
 	end
+
+	__CreateNativeAddOnCheckBox('NovaWorldBuffs', L["NovaWorldBuffs-tooltip"], function()
+		if SlashCmdList.NWBCMD then
+			SlashCmdList.NWBCMD()
+		end
+	end)
 
 	if pcall(GetCVarDefault, "targetnearestuseold") then
 	    check = __CreateOldTabCheckBox()

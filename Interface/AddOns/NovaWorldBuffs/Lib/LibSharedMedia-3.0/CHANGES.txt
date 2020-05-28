@@ -1,0 +1,23 @@
+------------------------------------------------------------------------
+r114 | elkano | 2019-09-13 16:12:43 +0000 (Fri, 13 Sep 2019) | 2 lines
+Changed paths:
+   M /trunk/LibSharedMedia-3.0/LibSharedMedia-3.0.lua
+
+fixes registering mp3 paths
+closes #23
+------------------------------------------------------------------------
+r113 | elkano | 2019-07-14 17:20:43 +0000 (Sun, 14 Jul 2019) | 1 line
+Changed paths:
+   M /trunk/LibSharedMedia-3.0/LibSharedMedia-3.0.lua
+
+readded pre-8.2 compatibility for classic client
+------------------------------------------------------------------------
+r112 | elkano | 2019-07-11 16:45:13 +0000 (Thu, 11 Jul 2019) | 3 lines
+Changed paths:
+   M /trunk/LibSharedMedia-3.0/LibSharedMedia-3.0.lua
+
+- removed pre 8.2 compat code
+- BACKGROUND, BORDER, STATUSBAR and SOUND string values are meant for file paths with 8.2 limiting file access for such media to the interface folder, paths must now start with "interface" to be registered; numeric IDs for files are fine, too
+- added the solid background as option for statusbar, too
+------------------------------------------------------------------------
+
