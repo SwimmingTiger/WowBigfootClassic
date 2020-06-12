@@ -145,7 +145,7 @@ function process_item(item_id)
             slot = slot,
             max_stack = max_stack,
             texture = texture,
-            sell_price = sell_price,
+            sell_price = sell_price / (max_item_charges(item_id) or 1),
         })
         local tooltip = tooltip('link', itemstring)
         if auctionable(tooltip, quality) then
@@ -169,7 +169,7 @@ end
 
 function on_get_item_info_received(item_id, success)
     if success then
-        process_item(item_id)
+        aux.coro_thread(function() process_item(item_id) end)
     else -- TODO if success == nil then
         aux.account_data.unused_item_ids[item_id] = true
     end

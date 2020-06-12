@@ -35,7 +35,7 @@ do
 		elseif event == 'PLAYER_LOGIN' then
 			for _, f in ipairs(handlers2) do f(arg1, ...) end
             sort(account_data.auctionable_items, function(a, b) return strlen(a) < strlen(b) or (strlen(a) == strlen(b) and a < b) end)
-            print('已载入 - 输入 /aux')
+            print('已载入 - /aux')
 		else
 			_M[event](arg1, ...)
 		end

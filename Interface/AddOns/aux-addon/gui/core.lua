@@ -3,6 +3,12 @@ select(2, ...) 'aux.gui'
 local aux = require 'aux'
 local completion = require 'aux.util.completion'
 
+--[[M.font = (function()
+    local font = CreateFrame'Frame':CreateFontString()
+    font:SetFontObject(NumberFont_Normal_Med)
+    return font:GetFont()
+end)()]]
+-- 黑体显然更漂亮
 M.font = [[Fonts\ARHei.TTF]]
 
 M.font_size = aux.immutable-{
@@ -301,7 +307,7 @@ do
 	        self.primary_status_bar = status_bar
 	    end
 	    function self:update_status(primary_status, secondary_status)
-            if max(primary_status or 0, secondary_status or 0) < 1 then
+            if min(primary_status or 0, secondary_status or 0) < 1 then
                 self:SetScript('OnUpdate', update_alpha)
             else
                 self:SetScript('OnUpdate', nil)
