@@ -535,8 +535,10 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 		local destructionCrit = CSC_GetWarlockCritStatsFromTalents();
 		if (destructionCrit > 0) then
 			statFrame.shadowCrit = statFrame.shadowCrit + destructionCrit;
+			statFrame.fireCrit = statFrame.fireCrit + destructionCrit;
+			local tmpMax = max(statFrame.shadowCrit, statFrame.fireCrit);
 			-- set the new maximum
-			maxSpellCrit = max(maxSpellCrit, statFrame.shadowCrit);
+			maxSpellCrit = max(maxSpellCrit, tmpMax);
 		end
 	end
 

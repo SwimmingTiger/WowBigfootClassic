@@ -14,7 +14,7 @@ BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>天赋模�
 
 L.Locale = "zhCN";
 
-L.Emu = "模拟器 BY ALA";
+L.Emu = "模拟器";
 L.OK = "确定";
 L.Cancel = "取消";
 L.Search = "搜索";

@@ -4,7 +4,7 @@ BlockDialog.lua
 @Link    : https://dengsir.github.io
 ]]
 
-local MAJOR, MINOR = 'BlockDialog', 2
+local MAJOR, MINOR = 'BlockDialog', 3
 local GUI = LibStub('tdGUI-1.0')
 local BlockDialog, oldminor = GUI:NewClass(MAJOR, MINOR, 'Frame')
 if not BlockDialog then return end
@@ -130,6 +130,7 @@ function BlockDialog:Open(opts)
 
     if opts.editBox then
         self.EditBox:Show()
+        self.EditBox:SetMaxLetters(opts.maxLetter or 0)
         self.EditBox:SetText(opts.editText or '')
     else
         self.EditBox:Hide()
@@ -148,6 +149,10 @@ function BlockDialog:Open(opts)
         self.acceptText = nil
         self.delayTimer = nil
         self.AcceptButton:Enable()
+    end
+
+    if self:IsShown() then
+        self:OnHide()
     end
     self:Show()
 

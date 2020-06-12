@@ -16,45 +16,47 @@ L["ABOLISH_CHECK"] = "해제 전 \"해제 주문\" 검사"
 L["ABOUT_AUTHOREMAIL"] = "제작자 이메일"
 L["ABOUT_CREDITS"] = "공로자"
 L["ABOUT_LICENSE"] = "라이센스"
-L["ABOUT_NOTES"] = "쏠로, 파티, 공격대를 위한 고급화된 필터링과 시스템 우선권으로 고통들의 표시와 제거를 합니다."
+L["ABOUT_NOTES"] = "솔로, 그룹과 공격대를 위한 고급화된 필터링과 우선순위 시스템으로 피해들의 표시와 제거를 합니다."
 L["ABOUT_OFFICIALWEBSITE"] = "공식 웹사이트"
 L["ABOUT_SHAREDLIBS"] = "공유된 라이브러리들"
-L["ABSENT"] = "(%s) 자리비움"
+L["ABSENT"] = "(%s) 실패"
 L["AFFLICTEDBY"] = "%s에 걸림"
 L["ALT"] = "Alt"
-L["AMOUNT_AFFLIC"] = "표시할 대상의 수 : "
-L["ANCHOR"] = "Decursive 글자 위치"
-L["BINDING_NAME_DCRMUFSHOWHIDE"] = "작은 유닛 프레임 표시/숨김"
+L["AMOUNT_AFFLIC"] = "피해를 입은 수 표시 : "
+L["ANCHOR"] = "Decursive 문자 기준"
+L["BINDING_NAME_DCRMUFSHOWHIDE"] = "작은 유닛프레임 표시/숨김"
 L["BINDING_NAME_DCRPRADD"] = "대상을 우선순위 목록에 추가"
-L["BINDING_NAME_DCRPRCLEAR"] = "우선순위 목록 초기화"
+L["BINDING_NAME_DCRPRCLEAR"] = "우선순위 목록 지우기"
 L["BINDING_NAME_DCRPRLIST"] = "우선순위 목록 출력"
 L["BINDING_NAME_DCRPRSHOW"] = "우선순위 목록 표시/숨김"
 L["BINDING_NAME_DCRSHOW"] = [=[Decursive 메인바 표시/숨김
-(실시간 목록 고정위치)]=]
-L["BINDING_NAME_DCRSHOWOPTION"] = "고정 창 설정 표시"
-L["BINDING_NAME_DCRSKADD"] = "대상을 제외 목록에 추가"
-L["BINDING_NAME_DCRSKCLEAR"] = "제외 목록 초기화"
-L["BINDING_NAME_DCRSKLIST"] = "제외 목록 출력"
-L["BINDING_NAME_DCRSKSHOW"] = "제외 목록 표시/숨김"
+(실시간 목록 기준)]=]
+L["BINDING_NAME_DCRSHOWOPTION"] = "설정 고정 창 표시"
+L["BINDING_NAME_DCRSKADD"] = "대상을 예외 목록에 추가"
+L["BINDING_NAME_DCRSKCLEAR"] = "예외 목록 지우기"
+L["BINDING_NAME_DCRSKLIST"] = "예외 목록 출력"
+L["BINDING_NAME_DCRSKSHOW"] = "예외 목록 표시/숨김"
 L["BLACK_LENGTH"] = "블랙리스트 추가 시간(초) : "
 L["BLACKLISTED"] = "블랙리스트됨"
 L["CHARM"] = "변이"
 L["CLASS_HUNTER"] = "사냥꾼"
 L["CLEAR_PRIO"] = "C"
 L["CLEAR_SKIP"] = "C"
-L["COLORALERT"] = "'%s'|1이;가; 필요할때의 알림 색상을 설정합니다."
+L["COLORALERT"] = "'%s'|1이;가; 필요할 때의 색상 알림을 설정합니다."
 L["COLORCHRONOS"] = "중앙 카운터"
 L["COLORCHRONOS_DESC"] = "중앙 카운터의 색상을 설정합니다."
-L["COLORSTATUS"] = "MUF 상태가 '%s'일때 색상을 설정합니다."
+L["COLORSTATUS"] = "'%s' 작은 유닛프레임 상태의 색상을 설정합니다."
 L["CTRL"] = "Ctrl"
-L["CURE_PETS"] = "소환수 탐색과 해제"
+L["CURE_PETS"] = "소환수 탐색과 치료"
 L["CURSE"] = "저주"
-L["DEBUG_REPORT_HEADER"] = [=[|cFF11FF33<%s>로 이 창의 내용을 보고해 주십시오|r
-|cFF009999(CTRL+A키로 모두 선택하고 CTRL+C키로 당신의 클립보드 내 문자를 넣어 사용하십시오)|r
-또한 당신이 눈치챈 %s의 어떠한 이상 증상도 보고서에 알리십시오.
+L["DEBUG_REPORT_HEADER"] = [=[|cFF11FF33<%s>로 이 창의 내용을 이메일로 보내주세요.|r
+|cFF009999(CTRL+A키로 모두 선택하고 CTRL+C키로 당신의 클립보드 내 문자를 넣어 사용하세요.)|r
+또한 %s의 이상 동작을 발견하면 보고서에 알려주십시오.
 ]=]
 L["DECURSIVE_DEBUG_REPORT"] = "**** |cFFFF0000Decursive 디버그 보고서|r ****"
-L["DECURSIVE_DEBUG_REPORT_BUT_NEW_VERSION"] = "|cFF11FF33Decursive가 충돌했지만 두렵지 않어! 새로운 버전의 Decursive가 발견됐거든 (%s). 당신은 업데이트만 하면돼.  curse.com으로 가서 'Decursive'를 검색하거나 Curse의 클라이언트를 사용하면 네가 좋아하는 애드온, 모두 자동적으로 업데이트 할 수 있을거야.|r |cFFFF1133그러니 이 버그는 이미 고쳐졌으니 보고하는 데 시간을 낭비하지 마. 이 문제를 없애기 위해 Decursive를 업데이트하기만 하면 돼!|r |cFF11FF33읽어줘서 고마워!|r"
+L["DECURSIVE_DEBUG_REPORT_BUT_NEW_VERSION"] = [=[|cFF11FF33Decursive가 충돌했지만 두려워하지 마세요! 새로운 버전의 Decursive(%s)가 감지되었습니다. 단순히 업데이트만 하면됩니다. curse.com으로 이동해 'Decursive'를 검색하거나 Curse의 클라이언트를 사용하면 애용하는 모든 애드온이 자동으로 업데이트됩니다.|r
+|cFFFF1133이 버그는 이미 수정 된 것으로 보고되므로 시간을 낭비하지 마시고 이 문제를 해결하려면 Decursive를 업데이트 하세요!|r
+|cFF11FF33읽어주셔서 감사합니다!|r]=]
 L["DECURSIVE_DEBUG_REPORT_NOTIFY"] = [=[디버그 보고서가 유효합니다!
 |cFFFF0000/DCRREPORT|r를 입력해 그것을 확인합니다.]=]
 L["DECURSIVE_DEBUG_REPORT_SHOW"] = "디버그 보고서 유효함!"
@@ -77,8 +79,8 @@ L["DISABLEWARNING"] = [=[Decursive 사용이 중지되었습니다!
 
 다시 사용하려면, |cFFFFAA44/DCR ENABLE|r를 입력하세요.]=]
 L["DISEASE"] = "질병"
-L["DONOT_BL_PRIO"] = "우선순위 블랙리스트 제외"
-L["DONT_SHOOT_THE_MESSENGER"] = "Decursive가 문제를 간략히 알립니다. 그래서, 메신저와 주소를 쏘지 않도록 문제를 해결합니다."
+L["DONOT_BL_PRIO"] = "우선순위 목록의 이름을 블랙리스트에 올리지 마세요."
+L["DONT_SHOOT_THE_MESSENGER"] = "Decursive는 단지 문제를 보고하는 것입니다. 그래서, 메신저와 주소를 발송하지 않고 실제 문제를 해결합니다."
 L["FAILEDCAST"] = [=[|cFF22FFFF%s %s|r|1으로;로; %s |cFFAA0000치료 실패|r
 |cFF00AAAA%s|r]=]
 L["FOCUSUNIT"] = "주시대상"
@@ -97,7 +99,7 @@ L["GLOR4"] = [=[사랑과 우정은 그들은 언제 어디에서나 얻을 수 
 L["GLOR5"] = "그는 언제나 기억될 것입니다..."
 L["HANDLEHELP"] = "작은 유닛 프레임(MUFs) 모두 이동"
 L["HIDE_MAIN"] = "Decursive 창 숨김"
-L["HIDESHOW_BUTTONS"] = "버튼 표시/숨김"
+L["HIDESHOW_BUTTONS"] = "버튼 표시/숨김 및 \"Decursive\" 바 고정/고정해제"
 L["HLP_LEFTCLICK"] = "좌-클릭"
 L["HLP_LL_ONCLICK_TEXT"] = [=[실시간 목록이 클릭되는 것은 아닙니다. 이 애드온의 추가 기능을 사용하는 방법을 알아보려면 설명서를 읽으십시오. WoWAce.com에서 'Decursive'를 검색하세요.
 (이 목록에서 Decursive 바를 이동하려면 /dcrshow 및 왼쪽-Alt-클릭으로 이동)]=]
@@ -108,13 +110,13 @@ L["HLP_NOTHINGTOCURE"] = "치료할 것이 없습니다!"
 L["HLP_RIGHTCLICK"] = "우-클릭"
 L["HLP_USEXBUTTONTOCURE"] = "해당 디버프를 치료하려면 \"%s\" 버튼을 사용하세요"
 L["HLP_WRONGMBUTTON"] = "잘못된 마우스 버튼입니다!"
-L["IGNORE_STEALTH"] = "은신 대상 무시"
-L["IS_HERE_MSG"] = "초기화되었습니다. 옵션(/decursive)을 확인하세요."
-L["LIST_ENTRY_ACTIONS"] = [=[|cFF33AA33[CTRL]|r 클릭: 해당 플레이어 제거
-|cFF33AA33좌|r-클릭: 해당 플레이어를 위로
-|cFF33AA33우|r-클릭: 해당 플레이어를 아래로
-|cFF33AA33[SHIFT] 좌|r-클릭: 해당 플레이어를 최상위로
-|cFF33AA33[SHIFT] 우|r-클릭: 해당 플레이어를 최하위로]=]
+L["IGNORE_STEALTH"] = "은신한 유닛 무시"
+L["IS_HERE_MSG"] = "Decursive가 초기화되었습니다. 기억하는 설정을 확인하세요. (/decursive)"
+L["LIST_ENTRY_ACTIONS"] = [=[|cFF33AA33[CTRL]|r 클릭: 이 플레이어 제거
+|cFF33AA33좌|r-클릭: 이 플레이어를 위로
+|cFF33AA33우|r-클릭: 이 플레이어를 아래로
+|cFF33AA33[SHIFT] 좌|r-클릭: 이 플레이어를 최상단에 놓음
+|cFF33AA33[SHIFT] 우|r-클릭: 이 플레이어를 맨 최하단에 놓음]=]
 L["MACROKEYALREADYMAPPED"] = [=[경고: Decursive 매크로에 지정한 [%s]키는 '%s'|1을;를; 위해 지정되어 있습니다.
 당신이 매크로에 다른 키를 지정하면 Decursive는 이전 설정을 복원할 것입니다.]=]
 L["MACROKEYMAPPINGFAILED"] = "[%s] 키는 Decursive 매크로로 지정할 수 없습니다!"
@@ -122,42 +124,49 @@ L["MACROKEYMAPPINGSUCCESS"] = "[%s] 키가 Decursive 매크로로 성공적으�
 L["MACROKEYNOTMAPPED"] = "Decursive 마우스오버 매크로는 지정된 키가 없습니다, '매크로' 설정을 보시면 키를 지정할 수 있습니다!"
 L["MAGIC"] = "마법"
 L["MAGICCHARMED"] = "마법 정화"
-L["MISSINGUNIT"] = "잘못된 대상"
+L["MISSINGUNIT"] = "실패한 유닛"
 L["NEW_VERSION_ALERT"] = [=[새로운 버전의 Decursive가 발견됨: |cFFEE7722%q|r 배포중 |cFFEE7722%s|r!
 
 
-|cFFFF0000WoWAce.com|r에 방문하여 다운로드 하세요!]=]
+|cFFFF0000WoWAce.com|r에 방문하여 다운로드 하세요!
+--------]=]
 L["NORMAL"] = "정상"
-L["NOSPELL"] = "이용가능한 주문이 없습니다."
-L["OPT_ABOLISHCHECK_DESC"] = "'해제' 주문을 가진 대상을 표시하고 치유 할 지를 선택합니다."
+L["NOSPELL"] = "유효한 주문 없음"
+L["OPT_ABOLISHCHECK_DESC"] = "'해제' 주문을 가진 유닛을 표시하고 치료할지 선택합니다."
 L["OPT_ABOUT"] = "관하여"
-L["OPT_ADD_A_CUSTOM_SPELL"] = "사용자 주문 / 아이템 추가"
-L["OPT_ADD_A_CUSTOM_SPELL_DESC"] = "여길 클릭하고 마법책의 주문에 쉬프트-클릭합니다. 이름 또는 숫자ID로 직접 작성할 수 있습니다."
-L["OPT_ADDDEBUFF"] = "목록에 디버프 추가"
-L["OPT_ADDDEBUFF_DESC"] = "이 목록에 새로운 디버프 추가"
-L["OPT_ADDDEBUFF_USAGE"] = "<디버프명>"
-L["OPT_ADDDEBUFFFHIST"] = "최근의 디버프 추가"
-L["OPT_ADDDEBUFFFHIST_DESC"] = "예전에 사용된 디버프를 추가합니다."
+L["OPT_ADD_A_CUSTOM_SPELL"] = "사용자정의 주문 / 아이템 추가"
+L["OPT_ADD_A_CUSTOM_SPELL_DESC"] = "여기에 주문 또는 사용 가능한 아이템을 끌어다 놓습니다. 그것의 이름, 숫자 ID를 직접 쓰거나 쉬프트-클릭을 사용할 수도 있습니다."
+L["OPT_ADDDEBUFF"] = "사용자정의 피해 추가"
+L["OPT_ADDDEBUFF_DESC"] = "이 목록에 새로운 피해 추가"
+L["OPT_ADDDEBUFF_USAGE"] = "<피해 주문ID> (WoWHead.com에서 주문ID를 찾을 수 있습니다.)"
+L["OPT_ADDDEBUFFFHIST"] = "최근 해제한 피해 추가"
+L["OPT_ADDDEBUFFFHIST_DESC"] = "최근에 해제한 피해의 기록을 사용하여 피해를 추가합니다."
 L["OPT_ADVDISP"] = "고급 표시 설정"
-L["OPT_ADVDISP_DESC"] = "각 MUF 사이 간격 설정을 위해 테두리와 가운데 구분의 투명도를 설정할 수 있습니다."
-L["OPT_AFFLICTEDBYSKIPPED"] = "%s - %s에 걸리면 무시합니다."
+L["OPT_ADVDISP_DESC"] = "각 MUF 사이의 공간을 설정하기 위해 테두리와 중앙의 투명도를 별도로 설정할 수 있습니다."
+L["OPT_AFFLICTEDBYSKIPPED"] = "%s|1이;가; %s|1으로;로; 피해를 입으면 예외 처리합니다."
 L["OPT_ALLOWMACROEDIT"] = "매크로 편집 허용"
-L["OPT_ALLOWMACROEDIT_DESC"] = "당신이 원하는 편집할 수 있도록 해당 매크로가 Decursive로부터 업데이트되지 않도록 설정할 수 있습니다."
-L["OPT_ALWAYSIGNORE"] = "비전투시에도 항상 무시"
+L["OPT_ALLOWMACROEDIT_DESC"] = "Decursive가 매크로를 업데이트하여 원하는대로 편집 할 수 없도록 하려면 이 옵션을 사용합니다."
+L["OPT_ALWAYSIGNORE"] = "전투 중이 아닐 때도 무시"
 L["OPT_ALWAYSIGNORE_DESC"] = "선택 시 해당 디버프는 전투 중이 아닐때도 무시됩니다."
-L["OPT_AMOUNT_AFFLIC_DESC"] = "실시간 목록에 표시할 유닛의 최대 수를 지정합니다."
-L["OPT_ANCHOR_DESC"] = "사용자 정의 메세지창의 고정위치를 표시합니다."
-L["OPT_AUTOHIDEMFS"] = "MUF 자동 숨기기:"
-L["OPT_AUTOHIDEMFS_DESC"] = "언제 MUF 창을 자동으로 숨길지를 선택합니다."
-L["OPT_BLACKLENTGH_DESC"] = "블랙리스트에 등록할 시간을 지정합니다."
+L["OPT_AMOUNT_AFFLIC_DESC"] = "실시간 목록에 표시 할 저주의 최대 갯수를 정의합니다."
+L["OPT_ANCHOR_DESC"] = "사용자정의 메세지 프레임의 기준을 표시합니다."
+L["OPT_AUTOHIDEMFS"] = "MUF 숨김 시기:"
+L["OPT_AUTOHIDEMFS_DESC"] = "MUF 창을 자동으로 숨길시기를 선택하세요."
+L["OPT_BLACKLENTGH_DESC"] = "누군가가 블랙리스트에 머무는 시간을 정의합니다."
 L["OPT_BORDERTRANSP"] = "테두리 투명도"
 L["OPT_BORDERTRANSP_DESC"] = "테두리의 투명도를 설정합니다."
 L["OPT_CENTERTEXT"] = "중앙 카운터:"
+L["OPT_CENTERTEXT_DESC"] = [=[각 MUF 중앙에서 가장 높은 우선순위에 따른 정보를 표시합니다.
+
+다음 중 하나:
+- 자연 만료 전 남은 시간
+- 피해를 받은 후 경과 된 시간
+- 중첩 숫자]=]
 L["OPT_CENTERTEXT_DISABLED"] = "사용 안 함"
 L["OPT_CENTERTEXT_ELAPSED"] = "경과 시간"
 L["OPT_CENTERTEXT_STACKS"] = "중첩 수"
 L["OPT_CENTERTEXT_TIMELEFT"] = "남은 시간"
-L["OPT_CENTERTRANSP"] = "가운데 투명도"
+L["OPT_CENTERTRANSP"] = "중앙 투명도"
 L["OPT_CENTERTRANSP_DESC"] = "가운데의 투명도를 설정합니다."
 L["OPT_CHARMEDCHECK_DESC"] = "선택 시 지배에 걸린 대상을 표시하고 변이합니다."
 L["OPT_CHATFRAME_DESC"] = "Decursive의 메세지가 기본 대화창에 표시됩니다."
@@ -165,27 +174,35 @@ L["OPT_CHECKOTHERPLAYERS"] = "다른 플레이어 확인"
 L["OPT_CHECKOTHERPLAYERS_DESC"] = "당신이 현재 속한 길드 또는 그룹 플레이어의 Decursive 버전을 표시합니다. (Decursive 2.4.6 이전 버전은 표시할 수 없습니다.)"
 L["OPT_CMD_DISBLED"] = "사용안함"
 L["OPT_CMD_ENABLED"] = "사용함"
-L["OPT_CREATE_VIRTUAL_DEBUFF"] = "가상 테스트 디버프 생성"
+L["OPT_CREATE_VIRTUAL_DEBUFF"] = "가상 피해 테스트 생성"
 L["OPT_CREATE_VIRTUAL_DEBUFF_DESC"] = "피해가 발생하면 Decursive에서 어떻게 보여질 지 봅니다."
 L["OPT_CURE_PRIORITY_NUM"] = "우선순위 #%d"
 L["OPT_CUREPETS_DESC"] = "소환수를 관리하고 해제합니다."
 L["OPT_CURINGOPTIONS"] = "해제 옵션"
 L["OPT_CURINGOPTIONS_DESC"] = "각 피해 형식에 대한 우선순위 변경 설정을 포함한 해제 옵션입니다."
-L["OPT_CURINGOPTIONS_EXPLANATION"] = [=[당신이 치료를 원하는 재난의 유형을 선택, 선택하지 않은 유형은 Decursive에서 완전히 무시될 것입니다.
+L["OPT_CURINGOPTIONS_EXPLANATION"] = [=[치료하려는 피해의 유형을 선택하십시오. 체크되지 않은 유형은 Decursive에서 완전히 무시됩니다.
 
-재난의 우선 순위는 녹색 숫자로 정의됩니다. 이것은 몇 가지 영향을 미칠 것입니다:
-- 플레이어에 여러 종류의 디버프가 걸려있으면 Decursive가 먼저 표시 할 지.
-- 당신이 디버프를 치료하려 어떤 마우스 버튼을 클릭 할 지.(첫째 주문은 좌-클릭, 둘째는 우-클릭, 등...)
+녹색 숫자는 각 피해 유형과 관련된 우선 순위를 나타냅니다. 이 우선 순위에 따라 다음 옵션이 결정됩니다.:
 
-여기에 모든 설명이 기술되어 있습니다(참조 요망):
-http://www.wowace.com/addons/decursive/]=]
-L["OPT_CURINGORDEROPTIONS"] = "피해 형식과 우선순위"
-L["OPT_CURSECHECK_DESC"] = "체크 시 저주에 걸린 대상을 표시하고 치료합니다."
+- 어떤 피해 유형도 Decursive는 플레이어에 몇개의 피해 유형이 있는 경우 먼저 표시됩니다.
+
+- 각 피해 유형과 관련된 색상 및 단축키 지정.
+
+(우선 순위를 변경하려면 모든 확인란의 선택을 취소 한 다음 원하는 우선 순위대로 선택하십시오.)]=]
+L["OPT_CURINGORDEROPTIONS"] = "피해 유형과 우선순위"
+L["OPT_CURSECHECK_DESC"] = "선택하면 저주에 걸린 대상을 표시하고 치료할 수 있습니다."
 L["OPT_CUSTOM_SPELL_ALLOW_EDITING"] = "위 주문에 대해 내부 매크로 편집 허용"
-L["OPT_CUSTOM_SPELL_ALLOW_EDITING_DESC"] = "사용자 주문의 Decursive에서 사용하기 위해 내부 매크로를 편집하기 원하면 이것을 선택하세요."
-L["OPT_CUSTOM_SPELL_CURE_TYPES"] = "피해 형식"
+L["OPT_CUSTOM_SPELL_ALLOW_EDITING_DESC"] = [=[Decursive가 사용자 주문을 추가하여 사용할 내부 매크로를 편집하려면 이것을 선택하세요.
+
+참고 : 이것을 체크하면 Decursive가 관리하는 주문을 수정할 수 있습니다.
+
+주문이 이미 목록에 있으면 매크로 편집 사용 전 해당 주문을 제거해야 합니다.
+
+(---고급 사용자 전용---)]=]
+L["OPT_CUSTOM_SPELL_CURE_TYPES"] = "피해 유형"
 L["OPT_CUSTOM_SPELL_IS_DEFAULT"] = "이 주문은 Decursive 자동 구성설정의 일부입니다. 만약 이 주문이 올바르게 작동하지않으면, Decursive 동작 기본값을 되돌려 삭제 또는 비활성할 수 있습니다."
 L["OPT_CUSTOM_SPELL_ISPET"] = "소환수 능력"
+L["OPT_CUSTOM_SPELL_ISPET_DESC"] = "만약 이것이 당신의 소환수 중 하나에 속하는 능력이라면 이것을 체크해서 Decursive가 그것을 정확히 감지하고 시전할 수 있도록 합니다."
 L["OPT_CUSTOM_SPELL_MACRO_MISSING_NOMINAL_SPELL"] = "경고: 당신 매크로 상 %q 주문은 존재하지 않음, 거리와 대기시간 정보와 일치하지 않음..."
 L["OPT_CUSTOM_SPELL_MACRO_MISSING_UNITID_KEYWORD"] = "유닛ID 키워드가 누락됨."
 L["OPT_CUSTOM_SPELL_MACRO_TEXT"] = "매크로 문자:"
@@ -199,7 +216,11 @@ L["OPT_CUSTOM_SPELL_MACRO_TEXT_DESC"] = [=[기본 매크로 문자 편집:
 (조건문과 함께 다른 주문을 사용할 경우를 염두해둘 것)]=]
 L["OPT_CUSTOM_SPELL_MACRO_TOO_LONG"] = "당신의 매크로가 길어서 %d 문자를 제거해야 합니다."
 L["OPT_CUSTOM_SPELL_PRIORITY"] = "주문 우선순위"
-L["OPT_CUSTOM_SPELL_PRIORITY_DESC"] = "동일 피해 형식을 여러가지 주문으로 치료하려면, 원하는 주문의 우선순위가 높아야 합니다."
+L["OPT_CUSTOM_SPELL_PRIORITY_DESC"] = [=[각각의 주문으로 동일한 피해 유형을 치료할 수 있으면, 높은 우선순위부터 우선 치료하게 됩니다.
+
+Decursive에 의해 관리되는 기본 기능은 0에서 9까지의 우선순위를 가지고 있다는 점에 참고하세요.
+
+따라서, 만약 사용자정의 주문에 낮은 우선순위를 부여하면, 그것은 기본 기능을 사용할 수 없는 경우에만 선택됩니다.]=]
 L["OPT_CUSTOM_SPELL_UNAVAILABLE"] = "사용할 수 없음"
 L["OPT_CUSTOM_SPELL_UNIT_FILTER"] = "유닛 필터링"
 L["OPT_CUSTOM_SPELL_UNIT_FILTER_DESC"] = "이 주문을 쓸 수 있는 유닛을 고릅니다."
@@ -207,13 +228,15 @@ L["OPT_CUSTOM_SPELL_UNIT_FILTER_NONE"] = "모든 유닛"
 L["OPT_CUSTOM_SPELL_UNIT_FILTER_NONPLAYER"] = "다른 유닛만"
 L["OPT_CUSTOM_SPELL_UNIT_FILTER_PLAYER"] = "플레이어만"
 L["OPT_CUSTOMSPELLS"] = "사용자 주문 / 아이템"
-L["OPT_CUSTOMSPELLS_DESC"] = "여기 당신의 주문을 추가해 Decursive의 자동 구성설정을 확장할 수 있습니다."
+L["OPT_CUSTOMSPELLS_DESC"] = [=[여기에 Decursive의 자동 구성을 확장하기 위해 주문을 추가 할 수 있습니다.
+사용자정의 주문은 항상 높은 우선순위를 갖으며 기본 주문을 재정의하고 대체합니다. (만약 당신 캐릭터가 그 주문을 사용할 수 있으면)
+]=]
 L["OPT_CUSTOMSPELLS_EFFECTIVE_ASSIGNMENTS"] = "효과적인 주문 할당:"
 L["OPT_DEBCHECKEDBYDEF"] = [=[
 기본값으로 설정됨]=]
-L["OPT_DEBUFFENTRY_DESC"] = "해당 디버프에 걸렸을 때 전투 중 무시할 직업을 선택하세요."
-L["OPT_DEBUFFFILTER"] = "디버프 필터링"
-L["OPT_DEBUFFFILTER_DESC"] = "이름과 직업에 의해 필터링 할 디버프를 선택합니다."
+L["OPT_DEBUFFENTRY_DESC"] = "이 피해로 피해를 입을 때 전투 중 무시할 직업을 선택하세요."
+L["OPT_DEBUFFFILTER"] = "피해 필터링"
+L["OPT_DEBUFFFILTER_DESC"] = "전투 중에 이름과 직업별로 필터링 할 피해를 선택하세요."
 L["OPT_DELETE_A_CUSTOM_SPELL"] = "삭제"
 L["OPT_DISABLEABOLISH"] = "'무효화' 주문은 사용할 수 없음"
 L["OPT_DISABLEABOLISH_DESC"] = "만약 사용시, Decursive는 '무효화'와 동등 이상의 '질병 해제'나 '독 해제'를 선호할 것입니다."
@@ -221,12 +244,16 @@ L["OPT_DISABLEMACROCREATION"] = "매크로 생성 사용 안 함"
 L["OPT_DISABLEMACROCREATION_DESC"] = "Decursive 매크로를 더 이상 생성 또는 유지할 수 없습니다."
 L["OPT_DISEASECHECK_DESC"] = "선택 시 질병에 걸린 대상을 표시하고 치료합니다."
 L["OPT_DISPLAYOPTIONS"] = "디스플레이 옵션"
-L["OPT_DONOTBLPRIO_DESC"] = "우선순위에 등록된 유닛은 블랙리스트에 추가하지 않습니다."
+L["OPT_DONOTBLPRIO_DESC"] = "우선순위가 지정된 유닛은 블랙리스트에 포함되지 않습니다."
 L["OPT_ENABLE_A_CUSTOM_SPELL"] = "사용"
 L["OPT_ENABLE_LIVELIST"] = "실시간 목록 사용"
+L["OPT_ENABLE_LIVELIST_DESC"] = [=[피해를 받는 사람들의 유익한 목록을 표시합니다.
+
+Decursive 바를 움직여 이 목록을 이동할 수 있습니다. (/DCRSHOW를 입력해 해당 바를 표시)]=]
 L["OPT_ENABLEDEBUG"] = "디버깅 사용"
 L["OPT_ENABLEDEBUG_DESC"] = "디버깅 출력 사용"
 L["OPT_ENABLEDECURSIVE"] = "Decursive 사용"
+L["OPT_FILTERED_DEBUFF_RENAMED"] = "주문ID %d의 필터링된 피해 \"%s\"|1이;가; 자동으로 \"%s\"|1으로;로; 이름이 변경되었습니다."
 L["OPT_FILTEROUTCLASSES_FOR_X"] = "%q|1은;는; 전투 중 지정된 클래스에서 무시됩니다."
 L["OPT_GENERAL"] = "기본 설정"
 L["OPT_GROWDIRECTION"] = "MUF 표시 반전"
@@ -245,8 +272,13 @@ L["OPT_INPUT_SPELL_BAD_INPUT_ALREADY_HERE"] = "주문이 이미 나열됨!"
 L["OPT_INPUT_SPELL_BAD_INPUT_DEFAULT_SPELL"] = "Decursive가 이 주문을 이미 관리함. 특별한 순위 추가는 해당 ID 또는 주문을 쉬프트-클릭으로 입력하세요."
 L["OPT_INPUT_SPELL_BAD_INPUT_ID"] = "주문ID가 올바르지 않음!"
 L["OPT_INPUT_SPELL_BAD_INPUT_NOT_SPELL"] = "마법책에서 주문을 찾을 수 없음!"
+L["OPT_ISNOTVALID_SPELLID"] = "유효한 주문ID가 아닙니다."
 L["OPT_LIVELIST"] = "실시간 목록"
-L["OPT_LIVELIST_DESC"] = "실시간 목록에 대한 설정입니다."
+L["OPT_LIVELIST_DESC"] = [=[이것은 ""Decursive" 바 아래에 피해받은 유닛의 목록과 관련한 설정입니다.
+
+이 목록을 움직이려면 작은 "Decursive" 프레임을 이동해야 합니다. 아래 설정 중 일부는 이 프레임이 표시될 때만 사용할 수 있습니다. 채팅창에 |cff20CC20/DCRSHOW|r를 입력해 표시합니다.
+
+우선 실시간 목록의 위치, 크기, 투명도를 설정하고 나서 |cff20CC20/DCRHIDE|r를 입력하면 Decursive의 프레임을 안전하게 숨길 수 있습니다.]=]
 L["OPT_LLALPHA"] = "실시간 목록 투명도"
 L["OPT_LLALPHA_DESC"] = "Decursive 메인바와 실시간 목록의 투명도를 변경합니다. (메인바가 표시되어 있어야 함)"
 L["OPT_LLSCALE"] = "실시간 목록 크기"
@@ -287,7 +319,7 @@ L["OPT_MUFMOUSEBUTTONS_DESC"] = [=[MUF에서 대상 또는 주시대상 그룹�
 L["OPT_MUFSCOLORS"] = "색상"
 L["OPT_MUFSCOLORS_DESC"] = "작은 유닛프레임의 색상을 변경합니다."
 L["OPT_MUFSVERTICALDISPLAY"] = "세로 표시"
-L["OPT_MUFSVERTICALDISPLAY_DESC"] = "작은 유닛프레임 창을 세로로 늘임"
+L["OPT_MUFSVERTICALDISPLAY_DESC"] = "작은 유닛프레임 창을 세로로 늘림"
 L["OPT_MUFTARGETBUTTON"] = "대상 버튼:"
 L["OPT_NEWVERSIONBUGMENOT"] = "새로운 버전 알림"
 L["OPT_NEWVERSIONBUGMENOT_DESC"] = "새로운 버전의 Decursive가 발견되면 매 7일간 팝업으로 알림을 표시합니다."
@@ -322,10 +354,11 @@ L["OPT_RESTPROFILECONF"] = [=[정말로 '(%s) %s'
 초기화할까요?]=]
 L["OPT_REVERSE_LIVELIST_DESC"] = "실시간 목록을 아래에서 위로 채웁니다."
 L["OPT_SCANLENGTH_DESC"] = "각 탐색의 시간 간격을 지정합니다."
+L["OPT_SETAFFTYPECOLOR_DESC"] = "\"%s\" 피해 유형의 색상을 설정하십시오. (작은 유닛프레임의 툴팁과 실시간 목록에 나타남)"
 L["OPT_SHOW_STEALTH_STATUS"] = "은신 상태 보기"
-L["OPT_SHOW_STEALTH_STATUS_DESC"] = "플레이어가 은신중이면, 그 MUF는 특정한 색상을 갖게 될 것임"
+L["OPT_SHOW_STEALTH_STATUS_DESC"] = "플레이어가 은신중이면, 그 작은 유닛프레임은 특정한 색상 발현함"
 L["OPT_SHOWBORDER"] = "직업 색상 테두리 표시"
-L["OPT_SHOWBORDER_DESC"] = "MUF에 유닛의 직업에 따른 색상을 테두리로 표시합니다."
+L["OPT_SHOWBORDER_DESC"] = "작은 유닛프레임에 유닛의 직업에 따른 색상을 테두리로 표시합니다."
 L["OPT_SHOWHELP"] = "도움말 표시"
 L["OPT_SHOWHELP_DESC"] = "작은 유닛 프레임에 마우스를 올리면 정보 툴팁을 표시합니다."
 L["OPT_SHOWMFS"] = "작은 유닛 프레임(MUF) 표시"
@@ -333,6 +366,9 @@ L["OPT_SHOWMFS_DESC"] = "클릭으로 해제하려면 반드시 활성화 되어
 L["OPT_SHOWMINIMAPICON"] = "미니맵 아이콘"
 L["OPT_SHOWMINIMAPICON_DESC"] = "미니맵 아이콘을 표시합니다."
 L["OPT_SHOWTOOLTIP_DESC"] = "실시간 목록과 작은 유닛 프레임에 디버프에 대한 자세한 툴팁을 표시합니다."
+L["OPT_SPELL_DESCRIPTION_LOADING"] = "설명을 불러오는중... 나중에 다시 시도하세요."
+L["OPT_SPELL_DESCRIPTION_UNAVAILABLE"] = "설명을 사용할 수 없음"
+L["OPT_SPELLID_MISSING_READD"] = "이 메시지 대신 적절한 설명을 보려면 주문ID를 사용하여 이 피해를 다시 추가해야 합니다."
 L["OPT_STICKTORIGHT"] = "MUF창 우측 정렬"
 L["OPT_STICKTORIGHT_DESC"] = "MUF창은 오른쪽에서 왼쪽으로 생기며 동작은 자동적으로 이루어질 것입니다."
 L["OPT_TESTLAYOUT"] = "레이아웃 테스트"
@@ -344,50 +380,50 @@ L["OPT_TIE_LIVELIST_DESC"] = "실시간 목록을 아래에서 위로 생성합�
 L["OPT_TIECENTERANDBORDER"] = "가운데와 테두리의 투명도"
 L["OPT_TIECENTERANDBORDER_OPT"] = "체크 시 테두리의 투명도가 가운데 투명도의 절반이 됩니다."
 L["OPT_TIEXYSPACING"] = "수평/수직 간격"
-L["OPT_TIEXYSPACING_DESC"] = "MUF의 수평과 수직 간격이 같아 집니다."
+L["OPT_TIEXYSPACING_DESC"] = "작은 유닛프레임의 수평과 수직 간격이 같아 집니다."
 L["OPT_UNITPERLINES"] = "한 줄에 표시할 유닛의 갯수"
 L["OPT_UNITPERLINES_DESC"] = "한 줄에 표시할 작은 유닛프레임의 최대 갯수를 지정합니다."
 L["OPT_USERDEBUFF"] = "해당 디버프는 Decursive의 기본 디버프가 아닙니다."
 L["OPT_XSPACING"] = "수평 간격"
-L["OPT_XSPACING_DESC"] = "MUF 사이의 수평 간격을 설정합니다."
+L["OPT_XSPACING_DESC"] = "작은 유닛프레임 사이의 수평 공간을 설정합니다."
 L["OPT_YSPACING"] = "수직 간격"
-L["OPT_YSPACING_DESC"] = "MUF 사이의 수직 간격을 설정합니다."
+L["OPT_YSPACING_DESC"] = "작은 유닛프레임 사이의 수직 공간을 설정합니다."
 L["OPTION_MENU"] = "Decursive 설정 메뉴"
-L["PLAY_SOUND"] = "효과음 재생"
+L["PLAY_SOUND"] = "치료할 누군가 있으면 소리를 재생합니다."
 L["POISON"] = "독"
 L["POPULATE"] = "p"
-L["POPULATE_LIST"] = "Decursive 목록에 빠른 추가"
-L["PRINT_CHATFRAME"] = "기본 대화창에 메세지 표시"
-L["PRINT_CUSTOM"] = "Decursive 창에 메세지 표시"
+L["POPULATE_LIST"] = "Decursive 목록을 빠르게 채움"
+L["PRINT_CHATFRAME"] = "기본 채팅창에 메세지 출력"
+L["PRINT_CUSTOM"] = "창에서 메세지 출력"
 L["PRINT_ERRORS"] = "오류 메세지 출력"
 L["PRIORITY_LIST"] = "Decursive 우선순위 목록"
 L["PRIORITY_SHOW"] = "P"
-L["RANDOM_ORDER"] = "무작위 해제"
+L["RANDOM_ORDER"] = "무작위 순서로 치료"
 L["REVERSE_LIVELIST"] = "실시간 목록 표시 반전"
-L["SCAN_LENGTH"] = "실시간 탐색 시간(초) : "
+L["SCAN_LENGTH"] = "실시간 탐색 사이의 초 : "
 L["SHIFT"] = "Shift"
-L["SHOW_MSG"] = "Decursive 창 표시, /dcrshow 명령어를 입력하세요."
-L["SHOW_TOOLTIP"] = "디버프 걸린 대상의 툴팁 표시"
-L["SKIP_LIST_STR"] = "Decursive 제외 목록"
+L["SHOW_MSG"] = "Decursive의 프레임을 표시하려면 /dcrshow을 입력하세요."
+L["SHOW_TOOLTIP"] = "피해를 입은 유닛에 툴팁 표시"
+L["SKIP_LIST_STR"] = "Decursive 예외 목록"
 L["SKIP_SHOW"] = "S"
 L["SPELL_FOUND"] = "%s 주문 발견!"
 L["STEALTHED"] = "은신상태"
 L["STR_CLOSE"] = "닫기"
 L["STR_DCR_PRIO"] = "Decursive 우선순위"
-L["STR_DCR_SKIP"] = "Decursive 제외"
-L["STR_GROUP"] = "파티 "
+L["STR_DCR_SKIP"] = "Decursive 예외"
+L["STR_GROUP"] = "그룹"
 L["STR_OPTIONS"] = "Decursive 설정"
 L["STR_OTHER"] = "기타"
 L["STR_POP"] = "추가 목록"
-L["STR_QUICK_POP"] = "빠른 추가"
+L["STR_QUICK_POP"] = "빠른 채움"
 L["SUCCESSCAST"] = "|cFF22FFFF%s %s|r|1으로;로; %s |cFF00AA00치료 성공!|r"
-L["TARGETUNIT"] = "대상"
+L["TARGETUNIT"] = "대상 유닛"
 L["TIE_LIVELIST"] = "실시간 목록 표시를 DCR 창과 함께 표시"
 L["TOC_VERSION_EXPIRED"] = "Decursive 버전이 만료되었습니다. 이 버전의 Decursive는 당신이 사용하고 있는 World of Warcraft의 버전보다 먼저 출시되었습니다. 잠재적인 비호환성 및 런타임 오류를 수정하려면 Decursive를 업데이트해야 합니다. curse.com으로 이동하여 'Decursive'를 검색하거나 Curse의 클라이언트를 사용하여 모든 추가 기능을 한 번에 업데이트하세요. 이 안내는 2일 후에 다시 표시될 것입니다."
-L["TOO_MANY_ERRORS_ALERT"] = [=[사용자 인터페이스(%d)에 많은 Lua 오류가 있습니다. 당신의 게임 성능을 현재 저하시킵니다. 오류 애드온의 사용을 중지하여 적절한 프레임 속도를 향상시키도록 업데이트 또는 비활성합니다.
-당신은 식별된 문제있는 애드온의 Lua 오류를 보고하기(/console scriptErrors 1) 위해 설정할 수 있습니다.]=]
+L["TOO_MANY_ERRORS_ALERT"] = [=[사용자 인터페이스(%d개의 오류)에 많은 Lua 오류가 있습니다. 당신의 게임 환경이 타락하였습니다. 이 메시지를 해제하려면 실패한 애드온을 비활성화하거나 업데이트하십시오.
+Lua 오류를 보고하기 위해 다음의 설정을 할 수 있습니다. (/console scriptErrors 1)]=]
 L["TOOFAR"] = "거리 벗어남"
-L["UNITSTATUS"] = "상태: "
+L["UNITSTATUS"] = "유닛 상태: "
 L["UNSTABLERELEASE"] = "비안정화판 배포"
 
 	elseif locale == "deDE" then
@@ -863,6 +899,8 @@ L["HLP_LEFTCLICK"] = "左-鍵"
 L["HLP_LL_ONCLICK_TEXT"] = [=[實時列表不代表能被點擊。請先閱讀此文檔來學習如何使用此插件。在 WoWAce.com 網站搜索“Decursive”
 （從 Decursive 計時條移除此列表，/dcrshow 命令並左Alt+點擊移除）]=]
 L["HLP_MIDDLECLICK"] = "中-鍵"
+L["HLP_MOUSE4"] = "滑鼠按鈕 4"
+L["HLP_MOUSE5"] = "滑鼠按鈕 5"
 L["HLP_NOTHINGTOCURE"] = "沒有可處理的負面效果！"
 L["HLP_RIGHTCLICK"] = "右-鍵"
 L["HLP_USEXBUTTONTOCURE"] = "用 \"%s\" 來淨化這個負面效果！"
@@ -979,6 +1017,11 @@ L["OPT_CUSTOM_SPELL_PRIORITY_DESC"] = [=[當有多個法術可以治療相同類
 
 因此如果你將自行設定之施法能力的優先程度設為負值，此能力只有在預設施法能力無法使用時才會被選用。]=]
 L["OPT_CUSTOM_SPELL_UNAVAILABLE"] = "不可用"
+L["OPT_CUSTOM_SPELL_UNIT_FILTER"] = "單位過濾方式"
+L["OPT_CUSTOM_SPELL_UNIT_FILTER_DESC"] = "選擇可由此法術受益的單位"
+L["OPT_CUSTOM_SPELL_UNIT_FILTER_NONE"] = "所有單位"
+L["OPT_CUSTOM_SPELL_UNIT_FILTER_NONPLAYER"] = "只有其他"
+L["OPT_CUSTOM_SPELL_UNIT_FILTER_PLAYER"] = "只有玩家"
 L["OPT_CUSTOMSPELLS"] = "自訂法術"
 L["OPT_CUSTOMSPELLS_DESC"] = [=[這裡添加法術以擴展Decursive的自動配置。
 您的自訂法術總是會有高優先權，並且將蓋過與替代預設的法術(只有在你的角色可以使用這些法術的時候)。
@@ -1006,6 +1049,7 @@ L["OPT_ENABLE_LIVELIST_DESC"] = [=[顯示信息列表受影響玩家。
 L["OPT_ENABLEDEBUG"] = "啟用除錯"
 L["OPT_ENABLEDEBUG_DESC"] = "啟用除錯輸出"
 L["OPT_ENABLEDECURSIVE"] = "啟用 Decursive"
+L["OPT_FILTERED_DEBUFF_RENAMED"] = "已過濾的減益 \"%s\" 自動重新命名為  \"%s\" (法術 ID %d)"
 L["OPT_FILTEROUTCLASSES_FOR_X"] = "在戰鬥中指定的職業%q將被忽略。"
 L["OPT_GENERAL"] = "一般選項"
 L["OPT_GROWDIRECTION"] = "反向顯示 MUFs"
@@ -1024,6 +1068,7 @@ L["OPT_INPUT_SPELL_BAD_INPUT_ALREADY_HERE"] = "法術已在列表中！"
 L["OPT_INPUT_SPELL_BAD_INPUT_DEFAULT_SPELL"] = "Decursive 已經包含此法術。Shift+點擊此法術或輸入它的 ID 添加一個特殊等級。"
 L["OPT_INPUT_SPELL_BAD_INPUT_ID"] = "法術 ID 不可用！"
 L["OPT_INPUT_SPELL_BAD_INPUT_NOT_SPELL"] = "不能在技能書中找到法術！"
+L["OPT_ISNOTVALID_SPELLID"] = "不是有效的法術 ID"
 L["OPT_LIVELIST"] = "即時清單"
 L["OPT_LIVELIST_DESC"] = [=[These are the settings concerning the list of afflicted units displayed beneath the "Decursive" bar.
 
@@ -1108,6 +1153,7 @@ L["OPT_RESTPROFILECONF"] = [=[你確定要重置
  為原始設定?]=]
 L["OPT_REVERSE_LIVELIST_DESC"] = "由下到上填滿即時清單。"
 L["OPT_SCANLENGTH_DESC"] = "設定掃描時間間隔。"
+L["OPT_SETAFFTYPECOLOR_DESC"] = "設定 \"%s\" 減益類型的顏色。(大部分會出現在迷你單位格子的滑鼠提示和即時清單中)"
 L["OPT_SHOW_STEALTH_STATUS"] = "顯示潛行狀態"
 L["OPT_SHOW_STEALTH_STATUS_DESC"] = "當玩家前行時，他的 MUF 將有一個特殊的顏色"
 L["OPT_SHOWBORDER"] = "顯示職業顏色邊框"
@@ -1119,6 +1165,9 @@ L["OPT_SHOWMFS_DESC"] = "如果你要在螢幕上按按鍵清除就必須點選�
 L["OPT_SHOWMINIMAPICON"] = "迷你地圖圖標"
 L["OPT_SHOWMINIMAPICON_DESC"] = "啟用迷你地圖小圖示。"
 L["OPT_SHOWTOOLTIP_DESC"] = "在即時清單跟 MUFs 上顯示負面效果的小提示。"
+L["OPT_SPELL_DESCRIPTION_LOADING"] = "說明仍在載入中... 請稍後再回來看看。"
+L["OPT_SPELL_DESCRIPTION_UNAVAILABLE"] = "無法取得說明"
+L["OPT_SPELLID_MISSING_READD"] = "你需要使用法術 ID 來重新加入這個減益，才能看到正確的說明，而不是這段訊息。"
 L["OPT_STICKTORIGHT"] = "將 MUF 視窗向右對齊"
 L["OPT_STICKTORIGHT_DESC"] = "設定這個選項將會使 MUF 視窗由右邊向左邊成長"
 L["OPT_TESTLAYOUT"] = "測試布局"
@@ -1302,9 +1351,9 @@ L["OPT_ADD_A_CUSTOM_SPELL"] = "添加一个自定义法术/物品"
 L["OPT_ADD_A_CUSTOM_SPELL_DESC"] = "拖动一个法术或可用物品到这里。也可以直接写它们的名称或数字 ID，或者使用Shift+点击。"
 L["OPT_ADDDEBUFF"] = "新增自定义减益"
 L["OPT_ADDDEBUFF_DESC"] = "向列表中新增一个减益。"
-L["OPT_ADDDEBUFF_USAGE"] = "<减益名称>"
-L["OPT_ADDDEBUFFFHIST"] = "新增一个最近受到的减益"
-L["OPT_ADDDEBUFFFHIST_DESC"] = "从历史记录中新增一个减益"
+L["OPT_ADDDEBUFF_USAGE"] = "<减益名称>（可以从 WoWHead.com 链接中找到法术 ID）"
+L["OPT_ADDDEBUFFFHIST"] = "新增一个最近祛除的减益"
+L["OPT_ADDDEBUFFFHIST_DESC"] = "从历史记录中新增一个最近祛除的减益"
 L["OPT_ADVDISP"] = "高级显示选项"
 L["OPT_ADVDISP_DESC"] = "允许分别设置面板和边框的透明度，以及微单元框体的间距。"
 L["OPT_AFFLICTEDBYSKIPPED"] = "%s受到%s的影响，但将被忽略。"
@@ -1417,6 +1466,7 @@ L["OPT_ENABLE_LIVELIST_DESC"] = [=[显示受影响玩家的信息列表。
 L["OPT_ENABLEDEBUG"] = "启用除错"
 L["OPT_ENABLEDEBUG_DESC"] = "启用除错输出"
 L["OPT_ENABLEDECURSIVE"] = "启用 Decursive"
+L["OPT_FILTERED_DEBUFF_RENAMED"] = "已过滤减益“%s”自动更名为“%s”，法术 ID %d"
 L["OPT_FILTEROUTCLASSES_FOR_X"] = "在战斗中指定的职业%q将被忽略。"
 L["OPT_GENERAL"] = "一般选项"
 L["OPT_GROWDIRECTION"] = "反向显示微单元框体"
@@ -1435,6 +1485,7 @@ L["OPT_INPUT_SPELL_BAD_INPUT_ALREADY_HERE"] = "法术已在列表中！"
 L["OPT_INPUT_SPELL_BAD_INPUT_DEFAULT_SPELL"] = "Decursive 已经包含此法术。Shift+点击此法术或输入它的 ID 添加一个特殊等级。"
 L["OPT_INPUT_SPELL_BAD_INPUT_ID"] = "法术 ID 不可用！"
 L["OPT_INPUT_SPELL_BAD_INPUT_NOT_SPELL"] = "不能在技能书中找到法术！"
+L["OPT_ISNOTVALID_SPELLID"] = "不是有效的法术 ID"
 L["OPT_LIVELIST"] = "实时列表"
 L["OPT_LIVELIST_DESC"] = [=[这是显示在 Decursive 条下面受影响目标的相关设置列表。
 
@@ -1519,6 +1570,7 @@ L["OPT_RESTPROFILECONF"] = [=[你确定要重置配置文件
 为默认选项？]=]
 L["OPT_REVERSE_LIVELIST_DESC"] = "实时列表将从下往上显示"
 L["OPT_SCANLENGTH_DESC"] = "设置实时检测的时间间隔"
+L["OPT_SETAFFTYPECOLOR_DESC"] = "设置“%s”影响类型颜色。（通常出现在微单元框体提示和实时列表中）"
 L["OPT_SHOW_STEALTH_STATUS"] = "显示潜行状态"
 L["OPT_SHOW_STEALTH_STATUS_DESC"] = "当玩家潜行时，他的微单位框体将有一个特殊的颜色"
 L["OPT_SHOWBORDER"] = "显示职业彩色边框"
@@ -1530,6 +1582,9 @@ L["OPT_SHOWMFS_DESC"] = "如果要点击净化必须启用此项"
 L["OPT_SHOWMINIMAPICON"] = "小地图图标"
 L["OPT_SHOWMINIMAPICON_DESC"] = "切换小地图图标"
 L["OPT_SHOWTOOLTIP_DESC"] = "在实时列表以及微单元框体上显示信息提示"
+L["OPT_SPELL_DESCRIPTION_LOADING"] = "加载描述中…稍后再来。"
+L["OPT_SPELL_DESCRIPTION_UNAVAILABLE"] = "描述不可用"
+L["OPT_SPELLID_MISSING_READD"] = "需要重新添加此减益使用它的法术 ID 来查看正确的描述，而不是此信息。"
 L["OPT_STICKTORIGHT"] = "将微单元框体向右对齐"
 L["OPT_STICKTORIGHT_DESC"] = "这个选项将会使微单元框体向右对齐。"
 L["OPT_TESTLAYOUT"] = "测试布局"
@@ -1748,14 +1803,14 @@ L["OPT_CURINGOPTIONS_EXPLANATION"] = [=[Выберите типы колдовс
 - Какую кнопку мыши Вы должны будете нажать, чтобы развеять дебафф (Первое заклинание развеивается Левым щелчком, второе Правым, и т.д...)
 
 Все это описано в документации (необходимо прочесть):
-http://www.wowace.com/addons/decursive/]=]
+http://www.wowace.com/addons/decursive/ ]=]
 L["OPT_CURINGORDEROPTIONS"] = "Настройки порядка лечения"
 L["OPT_CURSECHECK_DESC"] = "Если отмечено, то вы сможете видеть и излечивать проклятых игроков"
 L["OPT_CUSTOM_SPELL_ALLOW_EDITING"] = "Разрешить изменение макросов (только для опытных пользователей)"
 L["OPT_CUSTOM_SPELL_ALLOW_EDITING_DESC"] = [=[Отметить, если хотите редактировать внутренний макрос Decursive для вашего заклинания.
 
 Заметка: Включение разрешит вам модифицировать заклинания управляемые Decursive .
-(--- Только для опытных пользователей ---)]=]
+(--- Только для опытных пользователей ---) ]=]
 L["OPT_CUSTOM_SPELL_CURE_TYPES"] = "Типы недугов"
 L["OPT_CUSTOM_SPELL_IS_DEFAULT"] = "Это заклинания часть автоматической настройки Decursive. Если это заклинание больше не работает правильно, вы можете удалить или отключить его для восстановления настроек по умолчанию."
 L["OPT_CUSTOM_SPELL_MACRO_MISSING_NOMINAL_SPELL"] = "ВНИМАНИЕ: Заклинание %q не используется в вашем макросе, информация о дистанции и времени перезарядки может не совпадать..."
@@ -2065,9 +2120,9 @@ L["OPT_ADD_A_CUSTOM_SPELL"] = "Ajouter un sort / objet personnalisé"
 L["OPT_ADD_A_CUSTOM_SPELL_DESC"] = "Glissez-déposez un sort ou un objet utilisable ici. Vous pouvez aussi directement taper son nom, son identifiant numérique ou utiliser MAJ+Clique."
 L["OPT_ADDDEBUFF"] = "Ajouter une affection"
 L["OPT_ADDDEBUFF_DESC"] = "Ajoute une nouvelle affection à cette liste"
-L["OPT_ADDDEBUFF_USAGE"] = "<Nom de l'affection>"
-L["OPT_ADDDEBUFFFHIST"] = "Ajouter une affection récente"
-L["OPT_ADDDEBUFFFHIST_DESC"] = "Ajouter une affection depuis l'historique"
+L["OPT_ADDDEBUFF_USAGE"] = "<Spell ID de l'affection> (Vous pouvez trouver cet ID dans les URLs du site WoWHead.com)"
+L["OPT_ADDDEBUFFFHIST"] = "Ajouter une affection récemment guérie"
+L["OPT_ADDDEBUFFFHIST_DESC"] = "Ajouter une affection depuis l'historique des affections que vous avez récemment guérie."
 L["OPT_ADVDISP"] = "Options avancées"
 L["OPT_ADVDISP_DESC"] = "Permet de régler la transparence de la bordure et du centre séparément, permet de régler l'espace entre les micro-portraits"
 L["OPT_AFFLICTEDBYSKIPPED"] = "%s affecté(e) par %s sera ignoré"
@@ -2179,6 +2234,7 @@ vous pouvez déplacer cette liste en déplaçant la barre de Decursive (tapper /
 L["OPT_ENABLEDEBUG"] = "Debug"
 L["OPT_ENABLEDEBUG_DESC"] = "Activer les informations de debuggage"
 L["OPT_ENABLEDECURSIVE"] = "Activer Decursive"
+L["OPT_FILTERED_DEBUFF_RENAMED"] = "L'affection filtrée \"%s\" a automatiquement été renommé par \"%s\" pour le Spell ID %d"
 L["OPT_FILTEROUTCLASSES_FOR_X"] = "%q sera ignoré sur les classes spécifiées pendant que vous êtes en combat."
 L["OPT_GENERAL"] = "Options générales"
 L["OPT_GROWDIRECTION"] = "Inverser l'affichage des micro-portraits"
@@ -2197,6 +2253,7 @@ L["OPT_INPUT_SPELL_BAD_INPUT_ALREADY_HERE"] = "Le sort est déjà dans la liste 
 L["OPT_INPUT_SPELL_BAD_INPUT_DEFAULT_SPELL"] = "Decursive gère déjà ce sort. MAJ-cliquez sur le sort ou tapez son ID pour ajouter un rang spécial."
 L["OPT_INPUT_SPELL_BAD_INPUT_ID"] = "ID de sort invalide !"
 L["OPT_INPUT_SPELL_BAD_INPUT_NOT_SPELL"] = "Ce sort ne se trouve pas dans votre grimoire !"
+L["OPT_ISNOTVALID_SPELLID"] = "n'est pas un Spell ID valide"
 L["OPT_LIVELIST"] = "Liste des affligés"
 L["OPT_LIVELIST_DESC"] = [=[Ce sont les options concernant la liste des affligés affichée en dessous de la barre "Decursive".
 
@@ -2283,6 +2340,9 @@ L["OPT_RESTPROFILECONF"] = [=[Êtes-vous sûr de vouloir remettre votre profil
  aux valeurs par défaut ?]=]
 L["OPT_REVERSE_LIVELIST_DESC"] = "La liste des affectés se remplit de bas en haut"
 L["OPT_SCANLENGTH_DESC"] = "Définit le temps entre chaque scan"
+L["OPT_SETAFFTYPECOLOR_DESC"] = [=[Change la couleur des afflictions de type "%s"
+
+(Apparaît principalement dans les infobulles des MUFs et dans la Live list)]=]
 L["OPT_SHOW_STEALTH_STATUS"] = "Montrer le camouflage"
 L["OPT_SHOW_STEALTH_STATUS_DESC"] = "Lorsqu'un joueur est camouflé, son micro-portrait prendra une couleur spéciale."
 L["OPT_SHOWBORDER"] = "Afficher la bordure colorée des classes"
@@ -2294,6 +2354,9 @@ L["OPT_SHOWMFS_DESC"] = "Cette option doit être activée, si vous voulez guéri
 L["OPT_SHOWMINIMAPICON"] = "Icône Minicarte"
 L["OPT_SHOWMINIMAPICON_DESC"] = "Active/Désactive l'icône de la minicarte"
 L["OPT_SHOWTOOLTIP_DESC"] = "Affiche une bulle d'informations détaillées à propos des affections sur les micro-portraits et dans la liste des affectés."
+L["OPT_SPELL_DESCRIPTION_LOADING"] = "Chargement de la description en cours... revenez plus tard."
+L["OPT_SPELL_DESCRIPTION_UNAVAILABLE"] = "La description n'est pas disponible"
+L["OPT_SPELLID_MISSING_READD"] = "Vous devez ré-ajouter cette affection en utilisant son Spell ID pour avoir une description au lieu de ce message."
 L["OPT_STICKTORIGHT"] = "Aligner la fenêtre à droite"
 L["OPT_STICKTORIGHT_DESC"] = "La fenêtre des micro-portrait se développera de la droite vers la gauche, la poignée sera déplacée automatiquement."
 L["OPT_TESTLAYOUT"] = "Tester la disposition"

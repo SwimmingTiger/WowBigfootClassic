@@ -42,11 +42,12 @@
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
 	<Include file="LibThreatClassic2\lib.xml"/>
 	
-	<!-- GoodLeader，MeetingHorn ~begin~ -->
+	<!-- GoodLeader，MeetingHorn ，Wargame ~begin~ -->
     <Script file="LibClass-2.0\Class-2.0.lua"/>
+    <Script file="LibLog-1.0\LibLog-1.0.lua"/>
     <Script file="LibCommSocket-3.0\Socket.lua"/>
     <Include file="tdGUI\Load.xml"/>
-	<!-- GoodLeader，MeetingHorn ~end~ -->
+	<!-- GoodLeader，MeetingHorn，Wargame  ~end~ -->
 
 	<Script>
 		LoadAddOn("BigFoot")

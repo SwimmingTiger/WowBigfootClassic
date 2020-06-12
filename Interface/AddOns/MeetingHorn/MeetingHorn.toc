@@ -5,5 +5,7 @@
 ## Notes: |cff00ff00MeetingHorn|r
 ## Version: 1.1.9
 ## SavedVariables: MEETINGHORN_DB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
 
 Load.xml

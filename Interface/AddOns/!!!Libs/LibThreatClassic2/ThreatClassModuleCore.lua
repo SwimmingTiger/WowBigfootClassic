@@ -233,13 +233,6 @@ local BuffModifiers = {
 			self:AddBuffThreatMultiplier(value)
 		end
 	end,
-
-	-- Pain Suppression - Maybe 44416? Need to test!
-	[33206] = function(self, action)
-		if action == "gain" then
-			self:MultiplyThreat(0.95)
-		end
-	end
 }
 
 local DebuffModifiers = {
@@ -300,8 +293,16 @@ local DebuffModifiers = {
 ------------------------------------------
 function prototype:OnInitialize()
 	if self.initted then return end
-	self.timers = self.timers or {}
 	self.initted = true
+	self.timers = self.timers or {}
+
+	self.unitEventFrame = self.unitEventFrame or CreateFrame("Frame", self:GetName().."-eventFrame")
+	self.unitEventFrame:SetScript("OnEvent", function(eventSelf, event, ...)
+		-- eventSelf is the context of the onEvent handler, while self is the
+		-- LTC2 class module initialized by Ace based on the prototype
+		return self[event] and self[event](self, event, ...)
+	end)
+	
 	ThreatLib:Debug("Init %s", self:GetName())
 	self.unitType = "player"
 
@@ -314,7 +315,8 @@ function prototype:OnInitialize()
 	self.AbilityHandlers = new()		-- Called when the player uses an ability (ie, has a combatlog entry)
 	self.CastHandlers = new()			-- Called when the player uses an ability (ie, casts, used for flat-threat adds like buffing)
 	self.CastMissHandlers = new()		-- Called when an ability misses.
-	self.CastLandedHandlers = new()		-- Called upon SPELL_CAST_SUCCESS
+	self.CastSuccessHandlers = new()		-- Called upon SPELL_CAST_SUCCESS
+
 	self.MobDebuffHandlers = new()
 
 	self.MobSpellNameDebuffHandlers = new() -- used to match single rank debuffs that return nil with GetSpellInfo(spellName)
@@ -338,13 +340,20 @@ function prototype:OnInitialize()
 		thunderfury.lastHitTimestamp = timestamp
 	end
 
+	-- Pain Suppression - Maybe 44416?
+	self.BuffHandlers[33206] = function(self, action)
+		if action == "gain" then
+			self:MultiplyThreat(0.95)
+		end
+	end
+
 	self.SpellReflectSources = new()
 
 	self.ClassDebuffs = new()
 	self.ThreatQueries = new()
 
 	-- Shrouding potion effect
-	self.CastLandedHandlers[28548] = function(self)
+	self.CastSuccessHandlers[28548] = function(self)
 		self:AddThreat(-800 * self:threatMods())
 	end
 	self.CastMissHandlers[28548] = function(self)
@@ -465,6 +474,7 @@ function prototype:Boot()
 	self:RegisterEvent("PLAYER_DEAD", "PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	self.unitEventFrame:RegisterUnitEvent("UNIT_AURA", "player")
 
 	ThreatLib:Debug("Initialized actor module")
 
@@ -502,6 +512,7 @@ function prototype:OnDisable()
 	self:UnregisterEvent("PLAYER_DEAD")
 	self:UnregisterEvent("PLAYER_REGEN_DISABLED")
 	self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	self.unitEventFrame:UnregisterEvent("UNIT_AURA")
 end
 
 local AFFILIATION_IN_GROUP = bit_bor(COMBATLOG_OBJECT_AFFILIATION_PARTY, COMBATLOG_OBJECT_AFFILIATION_RAID, COMBATLOG_OBJECT_AFFILIATION_MINE)
@@ -586,30 +597,17 @@ function cleuHandlers:SPELL_AURA_APPLIED(timestamp, subEvent, hideCaster, source
 	if bit_band(destFlags, self.unitTypeFilter) == self.unitTypeFilter then
 		-- spellId = ThreatLib.Classic and ThreatLib:GetSpellID(spellName, "player", auraType) or spellId
 		spellId = ThreatLib:GetSpellID(spellName, "player", auraType) or spellId
-		local rb, rd = false, false
-		ThreatLib:Debug("Applied spell ID %s", spellId)
-		if BuffModifiers[spellId] then
-			BuffModifiers[spellId](self, "gain", spellId)
-			rb = true
-		elseif DebuffModifiers[spellId] then
-			DebuffModifiers[spellId](self, "gain", spellId)
-			rd = true
-		end
-
+		ThreatLib:Debug("Applied spell %s ID %s ", spellName, spellId)
 		if self.BuffHandlers[spellId] then
 			ThreatLib:Debug("Running gain handler for spell ID %s", spellId)
 			self.BuffHandlers[spellId](self, "gain", spellId, 1)
-			rb = true
 		end
 		if self.DebuffHandlers[spellId] then
 			self.DebuffHandlers[spellId](self, "gain", spellId, 1)
-			rd = true
 		end
-		if rb then self:calcBuffMods("gain", spellId) end
-		if rd then self:calcDebuffMods("gain", spellId) end
 	elseif auraType == AURA_TYPE_DEBUFF and bit_band(sourceFlags, self.unitTypeFilter) == self.unitTypeFilter and bit_band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE then
 		spellId = ThreatLib:GetSpellID(spellName, "target", auraType) or spellId
-		ThreatLib:Debug("aura applied debuff spellId %s name %s", spellID, spellName)
+		ThreatLib:Debug("aura applied debuff spellId %s name %s", spellId, spellName)
 		if self.MobDebuffHandlers[spellId] then
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
@@ -622,7 +620,7 @@ end
 function cleuHandlers:SPELL_AURA_APPLIED_DOSE(timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, _, auraType)
 	if auraType == AURA_TYPE_DEBUFF and bit_band(sourceFlags, self.unitTypeFilter) == self.unitTypeFilter and bit_band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE then
 		spellId = ThreatLib:GetSpellID(spellName, "target", auraType) or spellId
-		ThreatLib:Debug("aura applied dose debuff spellId %s", spellID)
+		ThreatLib:Debug("aura applied dose debuff spellId %s name %s", spellId, spellName)
 		if self.MobDebuffHandlers[spellId] then
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
@@ -635,7 +633,7 @@ end
 function cleuHandlers:SPELL_AURA_REFRESH(timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, _, auraType)
 	if  auraType == AURA_TYPE_DEBUFF and bit_band(sourceFlags, self.unitTypeFilter) == self.unitTypeFilter and bit_band(destFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE then
 		spellId = ThreatLib:GetSpellID(spellName, "target", auraType) or spellId
-		ThreatLib:Debug("aura refresh debuff spellId %s", spellID)
+		ThreatLib:Debug("aura refresh debuff spellId %s name %s", spellId, spellName)
 		if self.MobDebuffHandlers[spellId] then
 			self.MobDebuffHandlers[spellId](self, spellId, destGUID)
 		end
@@ -651,17 +649,7 @@ function cleuHandlers:SPELL_AURA_REMOVED(timestamp, subEvent, hideCaster, source
 	if bit_band(destFlags, self.unitTypeFilter) == self.unitTypeFilter then
 		-- spellId = ThreatLib.Classic and ThreatLib:GetSpellID(spellName) or spellId
 		spellId = ThreatLib:GetSpellID(spellName) or spellId
-		local rb, rd = false, false
-		ThreatLib:Debug("Removed spell ID %s", spellId)
-		if BuffModifiers[spellId] then
-			ThreatLib:Debug("Running buff loss handler for spell ID %s", spellId)
-			BuffModifiers[spellId](self, "lose", spellId)
-			rb = true
-		elseif DebuffModifiers[spellId] then
-			ThreatLib:Debug("Running debuff loss handler for spell ID %s", spellId)
-			DebuffModifiers[spellId](self, "lose", spellId)
-			rd = true
-		end
+		ThreatLib:Debug("Removed spell %s ID %s ", spellName, spellId)
 
 		if self.BuffHandlers[spellId] then
 			ThreatLib:Debug("Running buff loss handler for spell ID %s", spellId)
@@ -672,8 +660,6 @@ function cleuHandlers:SPELL_AURA_REMOVED(timestamp, subEvent, hideCaster, source
 			self.DebuffHandlers[spellId](self, "lose", spellId, 1)
 			rd = true
 		end
-		if rb then self:calcBuffMods("lose", spellId) end
-		if rd then self:calcDebuffMods("lose", spellId) end
 	end
 end
 
@@ -1035,13 +1021,21 @@ end
 
 function prototype:parseCast(recipient, spellId, spellName)
 	spellId = ThreatLib:GetSpellID(spellName) or spellId
-	if self.CastLandedHandlers[spellId] then
-		self.CastLandedHandlers[spellId](self, spellId, recipient)
+	if self.CastSuccessHandlers[spellId] then
+		self.CastSuccessHandlers[spellId](self, spellId, recipient)
 	end
+end
+
+function prototype:UNIT_AURA(event, unitId)
+	ThreatLib:Debug("Unit aura changed %s", unitId)
+	self:calcBuffMods()
+	self:calcDebuffMods()
 end
 
 function prototype:PLAYER_REGEN_DISABLED()
 	self.totalThreatMods = nil
+	self:calcBuffMods()
+	self:calcDebuffMods()
 	if not ThreatLib.running then return end
 	self.threatActive = true
 end
@@ -1188,7 +1182,7 @@ prototype.ReduceAllThreat = prototype.MultiplyThreat
 function prototype:UNIT_SPELLCAST_SUCCEEDED(event, castingUnit, castGUID, spellId)
 	if castingUnit ~= self.unitType then return end
 
-	-- Param 3 is a target, but we can't get a target from this event! Best-guess it, if you MUST have the target then do it in CastLandedHandlers
+	-- Param 3 is a target, but we can't get a target from this event! Best-guess it, if you MUST have the target then do it in CastSuccessHandlers
 	-- TODO: If we haven't interacted with this target before, then we won't get a target
 	if self.CastHandlers[spellId] then
 		self.CastHandlers[spellId](self, spellId, UnitGUID("target"))

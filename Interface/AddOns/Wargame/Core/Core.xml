@@ -1,0 +1,12 @@
+<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Client.lua" />
+    <Script file="Game.lua" />
+    <Script file="Member.lua" />
+    <Script file="Team.lua" />
+    <Script file="Rank.lua" />
+    <Script file="Master.lua" />
+    <Script file="Minion.lua" />
+    <Script file="Wargame.lua" />
+    <Script file="Battle.lua" />
+</Ui>
