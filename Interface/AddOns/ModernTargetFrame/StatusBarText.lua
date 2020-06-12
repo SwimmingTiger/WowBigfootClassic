@@ -45,15 +45,39 @@ end
 ----------------------------------
 --[[	Feature Registration	]]
 ----------------------------------
-AddOn.RegisterFeature("StatusBarText",function(_,enabled)
+local function VerifyStatusBar(bar)
+	local tbl=TextObjects[bar];
+	if not tbl then return nil; end--	Not one of our bars
+
+--	Scanner
+	local valid=true;
+	for key,obj in pairs(tbl) do
+		local exist=bar[key];
+		if exist and exist~=obj then valid=false; break; end
+	end
+	if valid then return true; end--	No further processing if valid
+
+--	Invalid, do cleanup here
+	TextObjects[bar]=nil;--	Remove from our objects list (UI objects can't be garbage-collected, this just orphans them)
+	for key,obj in pairs(tbl) do
+		if bar[key]==obj then bar[key]=nil; end--	Remove if still set (another object in the group was overwritten)
+		obj:Hide();--	Hide object
+	end
+
+	TextStatusBar_UpdateTextString(bar);--	Update other addons' text
+	return false;--	Return as invalid
+end
+
+AddOn.RegisterFeature("StatusBarText",function(optionkey,enabled)
 	for bar,entry in pairs(TextObjects) do
-		for key,obj in pairs(entry) do
-			local exist=bar[key];
-			if not exist or exist==obj then--	Only apply if untouched by other addons
-				if not enabled then obj:Hide(); end--	Hide if already shown and disabling (TextStatusBar_UpdateTextString() will autoshow when necessary)
-				bar[key]=enabled and obj or nil;
+		if VerifyStatusBar(bar) then
+			for key,obj in pairs(entry) do
+				if not enabled then obj:Hide(); end--	Hide if disabling (TextStatusBar_UpdateTextString() will autoshow when necessary)
+				bar[key]=enabled and obj or nil;--	Apply if enabled
 			end
+			if enabled then TextStatusBar_UpdateTextString(bar); end--	Update text if enabled
 		end
-		TextStatusBar_UpdateTextString(bar);--	Update text, including other addons' when disabling
 	end
 end);
+
+hooksecurefunc("TextStatusBar_UpdateTextStringWithValues",VerifyStatusBar);

@@ -9,6 +9,14 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.6 (2020-06-05)
+	-Fixed options code loading into the wrong variable scope
+
+v1.5 (2020-06-03)
+	-Improved handling of health/mana text conflicts
+	-Implemented handling of the options "Defaults" button
+	-Added ruRU locale (Courtesy of AmetistoFF)
+
 v1.4 (2020-05-06)
 	-Fixed some compatibility issues with other addons that re-add the health/mana text
 	-Health/Mana text anchors reworked to match Modern WoW instead of being attached to their bars

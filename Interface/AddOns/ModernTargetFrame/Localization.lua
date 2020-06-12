@@ -8,16 +8,6 @@
 --[[	Localization Table	]]
 ----------------------------------
 local Localization={
-	deDE={--	Translated by xFl0w21
---		Options Panel
-		Options_ByAuthor_Format="erstellt von %s";
-
---		Options Panel (Feature List)
-		Options_FeatureName_StatusBarText="Zeige Lebens- & Manatext";
-		Options_FeatureName_ClassificationTexture="Aktiviere Rare-Elite Zielrahmen";
-		Options_FeatureName_ThreatIndicatorGlow="Aktiviere visuelle Warnung für Bedrohung (Threat)";
-		Options_FeatureName_ThreatIndicatorNumber="Aktiviere numerische Anzeige für Bedrohung (Threat)";
-	};
 	enUS={--	Native locale by SDPhantom
 --		Options Panel
 		Options_ByAuthor_Format="by %s";
@@ -28,6 +18,17 @@ local Localization={
 		Options_FeatureName_ThreatIndicatorGlow="Enable Threat Glow";
 		Options_FeatureName_ThreatIndicatorNumber="Enable Threat Numeric Display";
 	};
+
+	deDE={--	Translated by xFl0w21
+--		Options Panel
+		Options_ByAuthor_Format="erstellt von %s";
+
+--		Options Panel (Feature List)
+		Options_FeatureName_StatusBarText="Zeige Lebens- & Manatext";
+		Options_FeatureName_ClassificationTexture="Aktiviere Rare-Elite Zielrahmen";
+		Options_FeatureName_ThreatIndicatorGlow="Aktiviere visuelle Warnung für Bedrohung (Threat)";
+		Options_FeatureName_ThreatIndicatorNumber="Aktiviere numerische Anzeige für Bedrohung (Threat)";
+	};
 	frFR={--	Translated by Arektor
 --		Options Panel
 		Options_ByAuthor_Format="par %s";
@@ -37,6 +38,16 @@ local Localization={
 		Options_FeatureName_ClassificationTexture="Activer la bordure des élites rares";
 		Options_FeatureName_ThreatIndicatorGlow="Activer l'alerte visuelle d'aggro";
 		Options_FeatureName_ThreatIndicatorNumber="Afficher les quantités de menace";
+	};
+	ruRU={--	Translated by AmetistoFF
+--		Options Panel
+		Options_ByAuthor_Format="от %s";
+
+--		Options Panel (Feature List)
+		Options_FeatureName_StatusBarText="Отображать значение Жизни и Маны";
+		Options_FeatureName_ClassificationTexture="Отображать портреты Редких-Элитных мобов";
+		Options_FeatureName_ThreatIndicatorGlow="Отображать свечение от угрозы";
+		Options_FeatureName_ThreatIndicatorNumber="Отображать показатель угрозы";
 	};
 	zhCN={--	Translated by Junlin Zhou
 --		Options Panel

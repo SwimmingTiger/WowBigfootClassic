@@ -1,6 +1,6 @@
 ## Interface: 11304
-## Title: Modern TargetFrame v1.4
-## Version: 1.4
+## Title: Modern TargetFrame v1.6
+## Version: 1.6
 ## Author: SDPhantom
 
 ## SavedVariables: ModernTargetFrame_Options

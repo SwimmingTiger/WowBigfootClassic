@@ -16,7 +16,8 @@ local Author=GetAddOnMetadata(Name,"Author");
 --[[	Saved Variables	]]
 --------------------------
 AddOn.Options=AddOn.Options or {};
-ModernTargetFrame_Options=AddOn.Options;
+local Defaults,Options=AddOn.Options,{};
+ModernTargetFrame_Options=Options;
 
 --------------------------
 --[[	Options Panel	]]
@@ -41,46 +42,64 @@ local Panel=CreateFrame("Frame"); do
 	end
 end
 
-local FeatureButtons={};
-function Panel.refresh()
-	for key,button in pairs(FeatureButtons) do button:SetChecked(AddOn.Options[key]); end
-end
-
 ----------------------------------
 --[[	Events & Scripts	]]
 ----------------------------------
+local FeatureButtons={};
+
 Panel:RegisterEvent("ADDON_LOADED");
 Panel:SetScript("OnEvent",function(self,event,...)
 	if event=="ADDON_LOADED" and (...)==Name then
-		local defaults,options=AddOn.Options,ModernTargetFrame_Options;
-		if defaults~=options then--	Sync options
-			AddOn.Options=options;
+		Defaults,Options=AddOn.Options,ModernTargetFrame_Options;
+		AddOn.Options=Options;--	Sync options
 
---			Trim/Fill Options
-			for key,val in pairs(defaults) do if options[key]==nil then options[key]=val; end end
-			for key,val in pairs(options) do if defaults[key]==nil then options[key]=nil; end end
+--		Trim/Fill Options
+		for key,val in pairs(Defaults) do if Options[key]==nil then Options[key]=val; end end
+		for key,val in pairs(Options) do if Defaults[key]==nil then Options[key]=nil; end end
 
---			Send updates to modules
-			for key,button in pairs(FeatureButtons) do
-				if defaults[key]~=nil then button.Callback(key,options[key]); end
-			end
-		end
+--		Send updates to modules
+		local errhnd=geterrorhandler();
+		for key,button in pairs(FeatureButtons) do xpcall(button.Callback,errhnd,key,Options[key]); end
 
 --		Don't need this event anymore
 		self:UnregisterEvent(event);
 	end
 end);
 
+function Panel.refresh()--	Runs on show
+	for key,button in pairs(FeatureButtons) do button:SetChecked(Options[key]); end
+end
+
+function Panel.default()--	Write Defaults to Options (Panel.refresh() runs afterward)
+	local errhnd=geterrorhandler();
+	for key,val in pairs(Defaults) do
+		Options[key]=val;
+
+		local button=FeatureButtons[key];
+		if button then xpcall(button.Callback,errhnd,key,val); end
+	end
+end
+
+function Panel.okay()--	Changes stored in :SetChecked() state, save to Options
+	local errhnd=geterrorhandler();
+	for key,button in pairs(FeatureButtons) do
+		local val=button:GetChecked();
+		Options[key]=val;
+		xpcall(button.Callback,errhnd,key,val);
+	end
+end
+
+function Panel.cancel()--	Fire callbacks with Options values (OnShow runs Panel.refresh())
+	local errhnd=geterrorhandler();
+	for key,button in pairs(FeatureButtons) do xpcall(button.Callback,errhnd,key,Options[key]); end
+end
+
 ----------------------------------
 --[[	Feature Registration	]]
 ----------------------------------
 local FeatureCount=0;
 
-local function FeatureButton_OnClick(self)
-	local val=self:GetChecked();
-	AddOn.Options[self.Key]=val;
-	self.Callback(key,val);
-end
+local function FeatureButton_OnClick(self) xpcall(self.Callback,geterrorhandler(),self.Key,self:GetChecked()); end
 
 function AddOn.RegisterFeature(key,callback)
 	if FeatureButtons[key] then return; end--	Return button if exists
@@ -91,9 +110,13 @@ function AddOn.RegisterFeature(key,callback)
 
 --	Initialize
 	button.Key,button.Callback=key,callback;
-	button.text:SetText(AddOn.Localization["Options_FeatureName_"..key]);
+	button:SetFontString(button.text);
+	button:SetNormalFontObject(GameFontNormalSmall);
+	button:SetDisabledFontObject(GameFontDisableSmall);
+	button:SetText(AddOn.Localization["Options_FeatureName_"..key]);
 	button:SetScript("OnClick",FeatureButton_OnClick);
 
 --	Link to Panel & Increment Counter
 	FeatureButtons[key],FeatureCount=button,FeatureCount+1;
+	return button;
 end
