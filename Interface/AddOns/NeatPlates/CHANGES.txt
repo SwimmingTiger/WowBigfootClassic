@@ -1,10 +1,12 @@
-lightweight tag 86992720dbb5afa8647b9d61978cb5f2720dd8a0 1.13.4.23
+lightweight tag a0966336b84e0815642518c81282176b4fcb5729 1.13.4.28
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sat May 23 20:30:00 2020 +0200
+Date:	Mon Jun 8 23:00:14 2020 +0200
 
-commit 86992720dbb5afa8647b9d61978cb5f2720dd8a0
+commit a0966336b84e0815642518c81282176b4fcb5729
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sat May 23 20:30:00 2020 +0200
+Date:   Mon Jun 8 22:53:15 2020 +0200
 
-    Update koKR.lua
+    Fixed class/totem icons creating multiple textures
+    
+    - Fixed class/totem icons creating multiple textures
 
