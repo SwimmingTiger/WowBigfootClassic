@@ -2,7 +2,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale("NovaWorldBuffs", "zhCN");
 if (not L) then
 	return;
 end
-
+--由国服[寒脊山小径]服务器“新春快乐”汉化（Simplified Chinese localization by "新春快乐" from Coldridge Pass-CN）
 --Rend buff aura name.
 L["Warchief's Blessing"] = "酋长的祝福";
 --Onyxia and Nefarian buff aura name.
@@ -10,8 +10,7 @@ L["Rallying Cry of the Dragonslayer"] = "屠龙者的咆哮";
 --Songflower buff aura name from felwood.
 L["Songflower Serenade"] = "风歌夜曲";
 L["Songflower"] = "轻歌花";
---Spirit of Zandalar.
-L["Spirit of Zandalar"] = "赞达拉之魂";
+
 L["Flask of Supreme Power"] = "超级能量合剂";
 L["Flask of the Titans"] = "泰坦合剂";
 L["Flask of Distilled Wisdom"] = "精炼智慧合剂";
@@ -71,15 +70,15 @@ L["Revel in the rallying cry"] = "兴奋起来";
 ---NPC's killed---
 ---============---
 
-L["onyxiaNpcKilledHorde"] = "伦萨克死亡了。 (奥妮克希亚 buff NPC)。";
-L["onyxiaNpcKilledAlliance"] = "玛丁雷少校死亡了。(奥妮克希亚 buff NPC)。";
-L["nefarianNpcKilledHorde"] = "萨鲁法尔大王死亡了。 (奈法利安 buff NPC)。";
-L["nefarianNpcKilledAlliance"] = "艾法希比元帅死亡了。(奈法利安 buff NPC)。";
-L["onyxiaNpcKilledHordeWithTimer"] = "奥妮克希亚 NPC (伦萨克) 已经被击杀了 %s ， 之后没有任何buff记录。";
-L["NefarianNpcKilledHordeWithTimer"] = "奈法利安 NPC (萨鲁法尔大王)已经被击杀了 %s ， 之后没有任何buff记录。";
-L["onyxiaNpcKilledAllianceWithTimer"] = "奥妮克希亚 buff NPC (玛丁雷少校) 已经被击杀了 %s ， 之后没有任何buff记录。";
-L["NefarianNpcKilledAllianceWithTimer"] = "奈法利安 buff NPC (艾法希比元帅)已经被击杀了 %s ， 之后没有任何buff记录。";
-L["anyNpcKilledAllianceWithTimer"] = "NPC 在 %s 以前被击杀了"; --Map timers tooltip msg.
+L["onyxiaNpcKilledHorde"] = "伦萨克 刚刚被杀死了. (奥妮克希亚 buff NPC).";
+L["onyxiaNpcKilledAlliance"] = "玛丁雷少校 刚刚被杀死了. (奥妮克希亚 buff NPC).";
+L["nefarianNpcKilledHorde"] = "萨鲁法尔大王 刚刚被杀死了. (奈法利安 buff NPC).";
+L["nefarianNpcKilledAlliance"] = "艾法希比元帅 刚刚被杀死了 (奈法利安 buff NPC).";
+L["onyxiaNpcKilledHordeWithTimer"] = "奥妮克希亚 NPC (伦萨克) 已于 %s 前被击杀,之后没有buff记录.";
+L["nefarianNpcKilledHordeWithTimer"] = "奈法利安 NPC (萨鲁法尔大王) 已于 %s 前被击杀,之后没有buff记录.";
+L["onyxiaNpcKilledAllianceWithTimer"] = "奥妮克希亚 NPC (玛丁雷少校) 已于 %s 前被击杀,之后没有buff记录.";
+L["nefarianNpcKilledAllianceWithTimer"] = "奈法利安 NPC (艾法希比元帅) 已于 %s 前被击杀,之后没有buff记录.";
+L["anyNpcKilledWithTimer"] = "NPC 已于 %s 前被击杀"; --Map timers tooltip msg.
 
 
 ---==============---
@@ -95,12 +94,14 @@ L["Sayge's Dark Fortune of Strength"] = "塞格的黑暗塔罗牌：力量";
 L["Sayge's Dark Fortune of Armor"] = "塞格的黑暗塔罗牌：护甲";
 L["Sayge's Dark Fortune of Resistance"] = "塞格的黑暗塔罗牌：抗性";
 L["Sayge's Dark Fortune of Damage"] = "塞格的黑暗塔罗牌：伤害";
-L["dmfBuffCooldownMsg"] = "你的暗月马戏团 buff 冷却剩余时间 %s 。";
-L["dmfBuffReady"] = "你的暗月马戏团 buff 冷却剩余时间已就绪。"; --These 2 buff msgs are slightly different for a reason.
-L["dmfBuffReset"] = "你的暗月马戏团 buff 冷却剩余时间已重置。"; --These 2 buff msgs are slightly different for a reason.
-L["dmfBuffDropped"] = "暗月马戏团 buff %s 已获得, 输入/buffs来查看该buff在4小时游戏时间的冷却剩余。";
-L["dmfSpawns"] = "暗月马戏团将刷新于%s后(%s)。";
-L["dmfEnds"] = "暗月马戏团已刷新, 将于%s后(%s)结束。";
+L["dmfBuffCooldownMsg"] = "你的暗月马戏团buff冷却时间还剩 %s .";
+L["dmfBuffCooldownMsg2"] = "你的暗月马戏团buff冷却时间还剩 %s .";
+L["dmfBuffCooldownMsg3"] = "暗夜马戏团buff的冷却时间也会随着每周的服务器重启而重置."; --/wb frame 2nd msg.
+L["dmfBuffReady"] = "你的暗月马戏团buff冷却时间已结束."; --These 2 buff msgs are slightly different for a reason.
+L["dmfBuffReset"] = "您的暗月马戏团buff冷却时间已重置."; --These 2 buff msgs are slightly different for a reason.
+L["dmfBuffDropped"] = "暗月马戏团 buff %s 已获得,输入/buffs来查看该buff在游戏内4小时的冷却剩余时间.";
+L["dmfSpawns"] = "暗月马戏团将于 %s 后 (%s) 刷新于";
+L["dmfEnds"] = "暗月马戏团将于 %s 后 (%s) 结束";
 L["mulgore"] = "莫高雷";
 L["elwynnForest"] = "艾尔文森林";
 				
@@ -114,21 +115,21 @@ L["nefarian"] = "奈法利安"; --Nefarian
 L["dmf"] = "暗月马戏团"; --Darkmoon Faire
 L["noTimer"] = "没有计时"; --No timer
 L["noCurrentTimer"] = "没有当前计时"; --No current timer
-L["noActiveTimers"] = "没有激活计时";	--No active timers
-L["newBuffCanBeDropped"] = "一个新的%sBuff现在可以释放"
-L["buffResetsIn"] = "%s将于%s后重置。";
-L["rendFirstYellMsg"] = "雷德·黑手Buff将于6秒后释放。";
-L["onyxiaFirstYellMsg"] = "奥妮克希亚Buff将于14秒后释放。";
-L["nefarianFirstYellMsg"] = "奈法利安Buff将于15秒后释放。";
-L["rendBuffDropped"] = "酋长的祝福（雷德·黑手）已经释放。";
-L["onyxiaBuffDropped"] = "屠龙者的咆哮（奥妮克希亚）Buff已经释放。";
-L["nefarianBuffDropped"] = "屠龙者的咆哮（奈法利安）Buff已经释放。";
-L["onyxiaNpcKilledHorde"] = "伦萨克死亡了。 (奥妮克希亚 buff NPC)。";
-L["onyxiaNpcKilledAlliance"] = "玛丁雷少校死亡了。(奥妮克希亚 buff NPC)。";
-L["nefarianNpcKilledHorde"] = "萨鲁法尔大王死亡了。 (奈法利安 buff NPC)。";
-L["nefarianNpcKilledAlliance"] = "艾法希比元帅死亡了。(奈法利安 buff NPC)。";
+L["noActiveTimers"] = "没有激活计时"; --No active timers
+L["newBuffCanBeDropped"] = "现在可以取得一个新的 %s buff";
+L["buffResetsIn"] = "%s 将于 %s 后重置.";
+L["rendFirstYellMsg"] = "雷德·黑手Buff将于 6 秒后释放.";
+L["onyxiaFirstYellMsg"] = "奥妮克希亚Buff将于 14 秒后释放.";
+L["nefarianFirstYellMsg"] = "奈法利安Buff将于 15 秒后释放.";
+L["rendBuffDropped"] = "酋长的祝福Buff(雷德·黑手) 已经释放.";
+L["onyxiaBuffDropped"] = "屠龙者的咆哮Buff（奥妮克希亚）已经释放.";
+L["nefarianBuffDropped"] = "屠龙者的咆哮Buff（奈法利安）已经释放.";
+L["onyxiaNpcKilledHorde"] = "伦萨克 刚刚被杀死了.(奥妮克希亚 buff NPC).";
+L["onyxiaNpcKilledAlliance"] = "玛丁雷少校 刚刚被杀死了.(奥妮克希亚 buff NPC).";
+L["nefarianNpcKilledHorde"] = "萨鲁法尔大王 刚刚被杀死了.(奈法利安 buff NPC).";
+L["nefarianNpcKilledAlliance"] = "艾法希比元帅 刚刚被杀死了.(奈法利安 buff NPC).";
 L["newSongflowerReceived"] = "收到新的轻歌花计时"; --New songflower timer received
-L["songflowerPicked"] = "%s的轻歌花已被拾取, 25分钟后刷新。"; -- Guild msg when songflower picked.
+L["songflowerPicked"] = "轻歌花在 %s 被拾取, 将于25分钟后刷新."; -- Guild msg when songflower picked.
 L["North Felpaw Village"] = "魔爪村北部"; --Felwood map subzones (flower1).
 L["West Felpaw Village"] = "魔爪村西部"; --Felwood map subzones (flower2).
 L["North of Irontree Woods"] = "铁木森林北部"; --Felwood map subzones (flower3).
@@ -143,19 +144,19 @@ L["second"] = "秒"; --Second (singular).
 L["seconds"] = "秒"; --Seconds (plural).
 L["minute"] = "分"; --Minute (singular).
 L["minutes"] = "分"; --Minutes (plural).
-L["hour"] = "时"; --Hour (singular).
-L["hours"] = "时"; --Hours (plural).
+L["hour"] = "小时"; --Hour (singular).
+L["hours"] = "小时"; --Hours (plural).
 L["day"] = "天"; --Day (singular).
 L["days"] = "天"; --Days (plural).
 L["secondShort"] = "秒"; --Used in short timers like 1m30s (single letter only, usually the first letter of seconds).
 L["minuteShort"] = "分"; --Used in short timers like 1m30s (single letter only, usually the first letter of minutes).
-L["hourShort"] = "时"; --Used in short timers like 1h30m (single letter only, usually the first letter of hours).
+L["hourShort"] = "小时"; --Used in short timers like 1h30m (single letter only, usually the first letter of hours).
 L["dayShort"] = "天"; --Used in short timers like 1d8h (single letter only, usually the first letter of days).
-L["startsIn"] = "将于%s后开始"; --"Starts in 1hour".
-L["endsIn"] = "将于%s后结束"; --"Ends in 1hour".
-L["versionOutOfDate"] = "Nova World Buffs 插件已过期,请在 https://www.curseforge.com/wow/addons/nova-world-buffs 或 twitch 更新。";
-L["Your Current World Buffs"] = "当前世界Buff";
-L["Options"] = "选项";
+L["startsIn"] = "将于 %s 后开始"; --"Starts in 1hour".
+L["endsIn"] = "将于 %s 后结束"; --"Ends in 1hour".
+L["versionOutOfDate"] = "Nova World Buffs 插件已过期,请前往 https://www.curseforge.com/wow/addons/nova-world-buffs 或在 twitch 上更新.";
+L["Your Current World Buffs"] = "当前的世界Buffs";
+L["Options"] = "设置";
 
 ---New stuff---
 
@@ -165,7 +166,7 @@ L["The Blood God"] = "夺灵者已经被打败了"; --First Booty bay yell from 
 --Spirit of Zandalar buff NPC second yell string (part of his second yell msg before before buff).
 L["slayer of Hakkar"] = "向你致敬";
 
-L["Spirit of Zandalar"] = "赞达拉之魂"
+L["Spirit of Zandalar"] = "赞达拉之魂";
 L["Molthor"] = "莫托尔";
 L["Zandalarian Emissary"] = "赞达拉大使";
 L["Whipper Root Tuber"] = "鞭根块茎";
@@ -174,11 +175,10 @@ L["Resist Fire"] = "抵抗火焰"; -- LBRS fire resist buff.
 L["Blessing of Blackfathom"] = "黑暗深渊的祝福";
 
 L["zan"] = "赞达拉";
-L["zanFirstYellMsg"] = "赞达拉之魂将于30秒后释放。";
-L["zanBuffDropped"] = "赞达拉之魂已经释放。";
-L["singleSongflowerMsg"] = "%s的轻歌花将于%s后刷新。";
+L["zanFirstYellMsg"] = "赞达拉之魂Buff将于 30 秒后释放.";
+L["zanBuffDropped"] = "赞达拉之魂Buff(哈卡)已经释放.";
+L["singleSongflowerMsg"] = "位于 %s 的轻歌花将于 %s 后刷新."; -- Songflower at Bloodvenom Post spawns at 1pm.
 L["spawn"] = "刷新"; --Used in Felwood map marker tooltip (03:46pm spawn).
-
 L["Irontree Woods"] = "铁木森林";
 L["West of Irontree Woods"] = "铁木森林西部";
 L["Bloodvenom Falls"] = "血毒瀑布";
@@ -186,193 +186,338 @@ L["Jaedenar"] = "加德纳尔";
 L["North-West of Irontree Woods"] = "铁木森林西北部";
 L["South of Irontree Woods"] = "铁木森林南部";
 
-L["cityMapLayerMsgHorde"] = "当前在%s\n点选奥格瑞玛任意NPC\n更新你的位面信息。|r";
-L["cityMapLayerMsgAlliance"] = "当前在%s\n点选暴风城任意NPC\n更新你的位面信息。|r";
-L["noLayerYetHorde"] = "点选奥格瑞玛任意NPC\n确认你当前所在的位面。";
-L["noLayerYetAlliance"] = "点选暴风城任意NPC\n确认你当前所在的位面。";
+L["worldMapBuffsMsg"] = "输入/buffs来查看你所有的\n角色已获得的世界Buffs.";
+L["cityMapLayerMsgHorde"] = "当前位于 %s\n选中奥格瑞玛的任何NPC\n来更新你的位面信息.\n（在切换地区后）|r";
+L["cityMapLayerMsgAlliance"] = "当前位于 %s\n选中暴风城的任何NPC\n来更新你的位面信息.\n（在切换地区后）|r";
+L["noLayerYetHorde"] = "请选定奥格瑞玛的任何NPC\n来确认你当前所在的位面.";
+L["noLayerYetAlliance"] = "请选定暴风城的任何NPC\n来确认你当前所在的位面.";
 L["Reset Data"] = "重置数据"; --A button to Reset buffs window data.
 
--- Option汉化 by Aoikaze
-L["|CffDEDE42World Buffs Config (You can type /wb config to open this).\n"] = "|CffDEDE42世界Buff插件配置（输入/wb config开启此窗口）。\n"
-L["Type /wb to display timers to yourself.\n"] = "输入/wb 显示自身Buff状态。\n"
-L["Type /wb <channel> to display timers to the specified channel.\n"] = "输入/wb <channel> 在特定<channel>显示你的Buff状态。\n"
-L["Scroll down for more options."] = "向下滚动查看更多设置项目。"
-L["Send a message to guild when Spirit of Zandalar buff is about to drop? (If you want no guild msgs at all "] = "当赞达拉之魂即将释放时向公会频道发送信息。"
-L["Show a raid warning style msg in the middle of the screen when 30 minutesLeft."] = "Show a raid warning style msg in the middle of the screen when 30 minutesLeft."
-L["Filter the msg when a songflower is picked."] = "Filter the msg when a songflower is picked."
-L["Enable this to override the guild only data setting at the top of this config so you can share songflower "] = "Enable this to override the guild only data setting at the top of this config so you can share songflower "
-L["Disable all sounds from this addon."] = "Disable all sounds from this addon."
-L["Disable all guild messages including timers and when buffs drop? Note: You can disable all msgs 1 by 1 below and "] = "Disable all guild messages including timers and when buffs drop? Note: You can disable all msgs 1 by 1 below and "
-L["Colorize the prefix [WorldBuffs] in all chat channels? This is the prefix in chat you can click to show "] = "Colorize the prefix [WorldBuffs in all chat channels? This is the prefix in chat you can click to show "
-L["Disable sounds while in raids and instances."] = "Disable sounds while in raids and instances."
-L["Enable this to display all the sounds from all your addons at once in the dropdownLists here."] = "Enable this to display all the sounds from all your addons at once in the dropdownLists here."
-L["Enable this to track rend as Alliance, for guilds that mind control to get rend buff. If you use this then everyone in "] = "Enable this to track rend as Alliance, for guilds that mind control to get rend buff. If you use this then everyone in "
-L["Filter the !wb and !dmf in guild chat when typed by players."] = "Filter the !wb and !dmf in guild chat when typed by players."
-L["Filter the msg when a buff hand in NPC is killed in your city."] = "Filter the msg when a buff hand in NPC is killed in your city."
-L["Filter the msg when a buff has dropped (Rallying Cry of the Dragonslayer (Onyxia) has dropped)."] = "Filter the msg when a buff has dropped (Rallying Cry of the Dragonslayer (Onyxia) has dropped)."
-L["Filter the msg when a buff is about to drop in a few seconds (Onyxia will drop in 14 seconds)."] = "Filter the msg when a buff is about to drop in a few seconds (Onyxia will drop in 14 seconds)."
-L["Filter the reply msg with timers this addon does when !wb or !!dmf is used."] = "Filter the reply msg with timers this addon does when !wb or !!dmf is used."
-L["Filter timer msgs (Onyxia resets in 1 minute)."] = "Filter timer msgs (Onyxia resets in 1 minute)."
-L["Flash the wow client when you have it minimized and a buff is about to drop? Flashes when  minuteLeft on timer "] = "Flash the wow client when you have it minimized and a buff is about to drop? Flashes when  minuteLeft on timer "
-L["Only play buff sounds when you are in the main city where the buffs drop (Stranglethorn Vale included for Zandalar buff)."] = "Only play buff sounds when you are in the main city where the buffs drop (Stranglethorn Vale included for Zandalar buff)."
-L["Only record a new timer when I pick a songflower and not when others pick infront of me? This option is here "] = "Only record a new timer when I pick a songflower and not when others pick infront of me? This option is here "
-L["Print a msg in chat 30 seconds before Zandalar buff will drop when the NPC starts yelling."] = "Print a msg in chat 30 seconds before Zandalar buff will drop when the NPC starts yelling."
-L["Print a msg in chat when 1 minuteLeft."] = "Print a msg in chat when 1 minuteLeft."
-L["Print a msg in chat when 10 minutesLeft."] = "Print a msg in chat when 10 minutesLeft."
-L["Print a msg in chat when 15 minutesLeft."] = "Print a msg in chat when 15 minutesLeft."
-L["Print a msg in chat when 30 minutesLeft."] = "Print a msg in chat when 30 minutesLeft."
-L["Print a msg in chat when 5 minutesLeft."] = "Print a msg in chat when 5 minutesLeft."
-L["Print a msg in chat when a buff has reset and a new one can be dropped."] = "Print a msg in chat when a buff has reset and a new one can be dropped."
-L["Reply with timer info to !wb and !dmf commands in guild chat? You should probablyLeave this enabled to help your guild, "] = "Reply with timer info to !wb and !dmf commands in guild chat? You should probablyLeave this enabled to help your guild, "
-L["Reset colors back to default."] = "Reset colors back to default."
-L["Send a message to guild chat when 1 minuteLeft."] = "Send a message to guild chat when 1 minuteLeft."
-L["Send a message to guild chat when 10 minutesLeft."] = "Send a message to guild chat when 10 minutesLeft."
-L["Send a message to guild chat when 15 minutesLeft."] = "Send a message to guild chat when 15 minutesLeft."
-L["Send a message to guild chat when 30 minutesLeft."] = "Send a message to guild chat when 30 minutesLeft."
-L["Send a message to guild chat when 5 minutesLeft."] = "Send a message to guild chat when 5 minutesLeft."
-L["Send a message to guild chat when a buff has reset and a new one can be dropped."] = "Send a message to guild chat when a buff has reset and a new one can be dropped."
-L["Send a message to guild when one of the buff NPC's were killed in Orgrimmar or Stormwind? (mind control reset)."] = "Send a message to guild when one of the buff NPC's were killed in Orgrimmar or Stormwind? (mind control reset)."
-L["Send a message to guild when someone hands in a head and the NPC first yells and you still have time to relog if fast?"] = "Send a message to guild when someone hands in a head and the NPC first yells and you still have time to relog if fast?"
-L["Set which timestamp format to use, 12 hour (1:23pm) or 24 hour (13:23)."] = "Set which timestamp format to use, 12 hour (1:23pm) or 24 hour (13:23)."
-L["Show a raid warning style msg in the middle of the screen when 1 minuteLeft."] = "Show a raid warning style msg in the middle of the screen when 1 minuteLeft."
-L["Show a raid warning style msg in the middle of the screen when 10 minutesLeft."] = "Show a raid warning style msg in the middle of the screen when 10 minutesLeft."
-L["Show a raid warning style msg in the middle of the screen when 15 minutesLeft."] = "Show a raid warning style msg in the middle of the screen when 15 minutesLeft."
-L["Show a raid warning style msg in the middle of the screen when 5 minutesLeft."] = "Show a raid warning style msg in the middle of the screen when 5 minutesLeft."
-L["Show a raid warning style msg in the middle of the screen when a buff has reset and a new one can be dropped."] = "Show a raid warning style msg in the middle of the screen when a buff has reset and a new one can be dropped."
-L["Show a raid warning style msg in the middle of the screen when someone hands in the head for any buff and the "] = "Show a raid warning style msg in the middle of the screen when someone hands in the head for any buff and the "
-L["Show a time stamp (1:23pm) beside the timer msg?"] = "Show a time stamp (1:23pm) beside the timer msg?"
-L["Show all alts in the /buffs window even if they don't have an active buff?"] = "Show all alts in the /buffs window even if they don't have an active buff?"
-L["Show Darkmoon Faire buff 5 hour cooldown, this will only show when you have an ative cooldown and when DMF is up."] = "Show Darkmoon Faire buff 5 hour cooldown, this will only show when you have an ative cooldown and when DMF is up."
-L["Show Darkmoon Faire spawn time, this will only show when there isLess than 6 hours Left until spawn or despawn."] = "Show Darkmoon Faire spawn time, this will only show when there isLess than 6 hours Left until spawn or despawn."
-L["Show DMF map marker with spawn timer and buff cooldown info in Mulgore and Elwynn Forest "] = "Show DMF map marker with spawn timer and buff cooldown info in Mulgore and Elwynn Forest "
-L["Show DMF spawn timer atLogon always, even if it's not close to spawn."] = "Show DMF spawn timer atLogon always, even if it's not close to spawn."
-L["Show DMF spawn timer atLogon and together with /wb command when it's within 12 hours of spawn or despawn."] = "Show DMF spawn timer atLogon and together with /wb command when it's within 12 hours of spawn or despawn."
-L["Show DMF spawn timer together with /wb command?"] = "Show DMF spawn timer together with /wb command?"
-L["Show DMF spawn timer together with /wb command?"] = "Show DMF spawn timer together with /wb command?"
-L["Show Nefarian timer in the chat window when youLog on."] = "Show Nefarian timer in the chat window when youLog on."
-L["Show Night Dragon's Breath icons on the mini map?."] = "Show Night Dragon's Breath icons on the mini map?."
-L["Show Night Dragon's Breath icons on the world map?."] = "Show Night Dragon's Breath icons on the world map?."
-L["Show Onyxia timer in the chat window when youLog on."] = "Show Onyxia timer in the chat window when youLog on."
-L["Show Rend timer in the chat window when youLog on."] = "Show Rend timer in the chat window when youLog on."
-L["Show songflower icons on the mini map?."] = "Show songflower icons on the mini map?."
-L["Show songflower icons on the world map?."] = "Show songflower icons on the world map?."
-L["Show theLittle frame on the minimap with your currentLayer while in a capital city?"] = "Show theLittle frame on the minimap with your currentLayer while in a capital city?";
-L["Show timer icons on the Orgrimmar/Stormwind world map?"] = "Show timer icons on the Orgrimmar/Stormwind world map?"
-L["Show Whipper Root Tuber icons on the mini map?."] = "Show Whipper Root Tuber icons on the mini map?."
-L["Show Whipper Root Tuber icons on the world map?."] = "Show Whipper Root Tuber icons on the world map?."
-L["Show your current world buffs for all your characters, this can also be opened by typing /buffs or clicking "] = "Show your current world buffs for all your characters, this can also be opened by typing /buffs or clicking "
-L["Show your DMF buff cooldown timer together with /wb command? Only shows when you are on an active cooldown"] = "Show your DMF buff cooldown timer together with /wb command? Only shows when you are on an active cooldown"
-L["Sound to play for 1 minuteLeft timer warning."] = "Sound to play for 1 minuteLeft timer warning."
-L["Sound to play for Nefarian buff drops and you get the buff."] = "Sound to play for Nefarian buff drops and you get the buff."
-L["Sound to play for Onyxia buff drops and you get the buff."] = "Sound to play for Onyxia buff drops and you get the buff."
-L["Sound to play for Rend buff drops and you get the buff."] = "Sound to play for Rend buff drops and you get the buff."
-L["Sound to play for Zandalar buff drops and you get the buff."] = "Sound to play for Zandalar buff drops and you get the buff."
-L["Sound to play when head is handed in and you have a few seconds before buff will drop (First NPC Yell)."] = "Sound to play when head is handed in and you have a few seconds before buff will drop (First NPC Yell)."
-L["Tell your guild chat when you have picked a songflower with the time of next spawn?"] = "Tell your guild chat when you have picked a songflower with the time of next spawn?"
-L["This will make it so you don't get timer data from anyone outside the guild. You should only enable this "] = "This will make it so you don't get timer data from anyone outside the guild. You should only enable this "
-L["This will show you in chat window when a new flower timer is found from another player not in your guild "] = "This will show you in chat window when a new flower timer is found from another player not in your guild "
-L["UseLocal time or server time for timestamps?"] = "UseLocal time or server time for timestamps?"
-L["What color should the raid warning style msgs in the middle of the screen be?"] = "What color should the raid warning style msgs in the middle of the screen be?"
-L["What color should the timer msgs in chat be?"] = "What color should the timer msgs in chat be?"
-L[" (guild msgs already show in guild chat when a flower is picked)."] = " (guild msgs already show in guild chat when a flower is picked)."
-L[" and DMF is currently up."] = " and DMF is currently up."
-L["data outside the guild but keep worldbuff data guild only still."] = "data outside the guild but keep worldbuff data guild only still."
-L["for this buff then everyone in guild needs to disable this)."] = "for this buff then everyone in guild needs to disable this)."
-L["just incase you have problems with false timers being set from other players. There's currently "] = "just incase you have problems with false timers being set from other players. There's currently "
-L["no way to tell if another players buff is new so a timer may trigger on rare occasions if the gameLoads "] = "no way to tell if another players buff is new so a timer may trigger on rare occasions if the gameLoads "
-L["the guild with the addon should enable it or guild chat msgs may not work properly (personal timer msgs will still work)."] = "the guild with the addon should enable it or guild chat msgs may not work properly (personal timer msgs will still work).";
-L["the songflower buff on someone else when theyLogon infront of you beside a songflower."] = "the songflower buff on someone else when theyLogon infront of you beside a songflower."
-L["world maps (whichever is next spawn). You can also type /dmf map to open the world map strait to this marker."] = "world maps (whichever is next spawn). You can also type /dmf map to open the world map strait to this marker."
-L["if you really want to disable all guild msgs andLeave only this command then untick everything else in the "] = "if you really want to disable all guild msgs andLeave only this command then untick everything else in the "
-L["guild sectionand don't tick the Disable All Guild Msgs at the top."] = "guild sectionand don't tick the Disable All Guild Msgs at the top."
-L["if you think someone is spoofing wrong timer data on purpose because it willLower the accuracy of your timers "] = "if you think someone is spoofing wrong timer data on purpose because it willLower the accuracy of your timers "
-L["withLess people to pull data from. It will make it especially hard to get songflower timers becaus "] = "withLess people to pull data from. It will make it especially hard to get songflower timers becaus "
-L["they are so short."] = "they are so short."
-L["all your characters current world buffs."] = "all your characters current world buffs."
-L["and when a head is handed in a few seconds before buff drops."] = "and when a head is handed in a few seconds before buff drops."
-L["justLeave certain things enabled such as the !wb command to help out your guild if you rather."] = "justLeave certain things enabled such as the !wb command to help out your guild if you rather."
-L["on the [WorldBuffs] prefix in chat."] = "on the [WorldBuffs prefix in chat."
-L["1 Minute"] = "1分钟"
-L["10 Minutes"] = "10分钟"
-L["15 Minutes"] = "15分钟"
-L["30 Minutes"] = "30分钟"
-L["5 Minutes"] = "5分钟"
-L["Buff Coming"] = "世界Buff即将降临"
-L["Buff Drop Warning"] = "Buff释放提示"
-L["Buff Has Reset"] = "Buff已重置"
-L["Chat Msg Color"] = "聊天信息颜色"
-L["Chat Window Timer Warnings"] = "聊天窗口信息提示"
-L["City Map Timers"] = "城市计时器"
-L["Click To Show Your Current World Buffs"] = "点击显示你的当前世界Buff情况"
-L["Colored Prefix Link"] = "彩色信息前缀"
-L["Darkmoon Faire"] = "暗月马戏团"
-L["Disable All Sounds"] = "禁止所有提示音"
-L["Disable Guild Msgs"] = "禁止公会频道提示"
-L["Disable In Instances"] = "副本中禁止提示"
-L["DMF Buff Cooldown /wb"] = "查看暗月Buff CD"
-L["DMF Buff Coooldown"] = "暗月Buff冷却"
-L["NPC yells a few seconds before the buff will drop."] = "NPC大喊后将提供Buff。"
-L["DMF Spawn with /wb"] = "查看马戏团位置"
-L["DMF Spawn"] = "暗月马戏团"
-L["Dragon Minimap"] = "小地图夜龙之息"
-L["Dragon Worldmap"] = "大地图夜龙之息"
-L["Enable Alliance Rend"] = "启用联盟雷德提示"
-L["Extra Sound Options"] = "额外声音选项"
-L["Filter !wb command"] = "过滤!wb命令"
-L["Filter !wb reply"] = "过滤!wb回应"
-L["Filter Buff Dropped"] = "过滤Buff获取"
-L["Filter Buff Warning"] = "过滤Buff提示"
-L["Filter NPC Killed"] = "过滤NPC死亡"
-L["Filter Songflowers"] = "过滤轻歌花"
-L["Filter Timer Msgs"] = "计时器信息"
-L["Flash Minimized"] = "最小化闪光"
-L["General Options"] = "基本设置"
-L["Guild Chat Filter"] = "公会信息过滤器"
-L["Guild Commands"] = "公会命令"
-L["Guild Data Only"] = "只信任公会信息"
-L["Guild Message Timer Warnings"] = "公会信息计时提示"
-L["Local Time / Server Time"] = "本地时间/服务器时间"
-L["Logon Messages"] = "登录信息"
-L["Logon Timers"] = "登录计时器"
-L["Middle Of The Screen Timer Warnings"] = "屏幕提示计时器"
-L["Middle Screen Color"] = "屏幕提示颜色"
-L["Nef Buff Gained"] = "获得奈法利安Buff"
-L["Nefarian"] = "奈法利安"
-L["New Buff Dropped"] = "新Buff释放"
-L["NPC Dialogue Started"] = "NPC对话开始"
-L["NPC Was Killed"] = "NPC被杀死"
-L["One Minute Warning"] = "一分钟提示"
-L["Only In City"] = "仅在城市"
-L["Only When I Pick"] = "仅当我拾取时"
-L["Ony Buff Gained"] = "获得奥妮克希亚Buff"
-L["Onyxia"] = "奥妮克希亚"
-L["Rend Buff Gained"] = "获得雷德Buff"
-L["Rend"] = "雷德"
-L["Reset Colors"] = "重置颜色"
-L["Reset Minimap Layer"] = "还原位面提示窗"
-L["Show All Alts"] = "显示所有角色"
-L["Show Always Logon"] = "Show AlwaysLogon"
-L["Show Close To Spawn"] = "Show Close To Spawn"
-L["Show DMF with /wb"] = "在/wb中显示暗月马戏团"
-L["Show Map Marker"] = "显示地图标记"
-L["Show Minimap Layer"] = "显示位面提示窗"
-L["Show New SF Timers"] = "显示轻歌花计时器"
-L["Show Time Stamp"] = "显示时间戳"
-L["Songflower Minimap"] = "小地图轻歌花"
-L["Songflower Worldmap"] = "大地图轻歌花"
-L["Songflowers"] = "费伍德植物"
-L["Sounds"] = "声音"
-L["Sync Flowers With All"] = "同步拾取信息"
-L["Tell Guild When Picked"] = "公会通告拾取"
-L["Time Stamp Format"] = "时间戳格式"
-L["Tuber Minimap"] = "小地图鞭根块茎"
-L["Tuber Worldmap"] = "大地图鞭根块茎"
-L["Zandalar Buff Gained"] = "获取赞达拉之魂"
-L["Zandalar Buff Warning"] = "赞达拉之魂通告"
+---New translations to do---
+L["layerFrameMsgOne"] = "服务器重启后,以前的位面仍会显示几个小时."; --Msg at bottom of layer timers frame.
+L["layerFrameMsgTwo"] = "如果一个位面在6个小时后仍没有计时信息,则该位面将从此处消失."; --Msg at bottom of layer timers frame.
+L["You are currently on"] = "你当前位于"; --You are currently on [Layer 2]
 
-L["Scroll down for more options."] = "向下滚动查看更多设置选项。"
-L["Type /wb <channel> to display timers to the specified channel.\n"] = "输入/wb <channel> 在指定频道<channel>通告你的计时信息。\n"
-L["Type /wb to display timers to yourself.\n"] = "输入/wb 显示你的Buff计时信息。\n"
+
+-------------
+---Config---
+-------------
+--There are 2 types of strings here, the names end in Title or Desc L["exampleTitle"] and L["exampleDesc"].
+--Title must not be any longer than 21 characters (maybe less for chinese characters because they are larger).
+--Desc can be any length.
+
+---Description at the top---
+L["mainTextDesc"] = "输入/wb显示自己的buff计时器.\n输入/wb <频道名> 发送buff计时信息到指定频道.\n下拉进行更多设置.";
+
+---Show Buffs Button
+L["showBuffsTitle"] = "点此显示你当前的世界BUFF";
+L["showBuffsDesc"] = "显示你所有角色的当前世界Buff,可以输入/buffs或者点击聊天频道的[WorldBuffs]链接打开显示界面.";
+
+---General Options---
+L["generalHeaderDesc"] = "通用设置";
+
+L["showWorldMapMarkersTitle"] = "主城地图计时器";
+L["showWorldMapMarkersDesc"] = "在奥格和暴风城地图上显示计时器图标.";
+
+L["receiveGuildDataOnlyTitle"] = "仅限公会数据";
+L["receiveGuildDataOnlyDesc"] = "这将导致你无法从公会外的玩家获取buff数据信息.仅当你认为有人故意提供错误的计时数据时,才应勾选该选项.因为减少了提供数据玩家的数量,将会降低计时器的准确性.还会导致你很难获得风歌花计时数据,因为风歌花的计时太短,并且公会中的每个玩家都要勾选此选项才能使该功能正常工作.";
+
+L["chatColorTitle"] = "聊天频道信息颜色";
+L["chatColorDesc"] = "选择[WorldBuffs]计时器信息在聊天频道中的颜色.";
+
+L["middleColorTitle"] = "屏幕中央信息颜色";
+L["middleColorDesc"] = "选择屏幕中央的提示信息的颜色.";
+
+L["resetColorsTitle"] = "重置颜色";
+L["resetColorsDesc"] = "将颜色重置为默认.";
+
+L["showTimeStampTitle"] = "显示时间戳";
+L["showTimeStampDesc"] = "在计时器信息中显示一个时间戳(1:23pm).";
+
+L["timeStampFormatTitle"] = "时间戳格式";
+L["timeStampFormatDesc"] = "设置时间戳格式,12小时制(1:23pm)或24小时制(13:23).";
+
+L["timeStampZoneTitle"] = "本地时间/服务器时间";
+L["timeStampZoneDesc"] = "时间戳使用本地时间还是服务器时间.";
+
+L["colorizePrefixLinksTitle"] = "彩色前缀链接";
+L["colorizePrefixLinksDesc"] = "设定聊天频道[WorldBuffs]前缀链接的颜色.这个前缀会出现在聊天频道中,可点击显示你所有角色当前的世界BUFF计时.";
+
+L["showAllAltsTitle"] = "显示所有小号";
+L["showAllAltsDesc"] = "在/buffs窗口中显示你的小号,即使他们没有获得任何buff.";
+
+L["minimapButtonTitle"] = "显示小地图按钮";
+L["minimapButtonDesc"] = "在小地图上显示NWB按钮.";
+
+---Logon Messages---
+L["logonHeaderDesc"] = "登录提示信息";
+
+L["logonPrintTitle"] = "登录计时器";
+L["logonPrintDesc"] = "当你登录游戏时在聊天窗口中显示计时器,可以通过该设置来关闭所有登录提示信息.";
+
+L["logonRendTitle"] = "雷德·黑手";
+L["logonRendDesc"] = "登录时在聊天窗口中显示雷德·黑手计时器.";
+
+L["logonOnyTitle"] = "奥妮克希亚";
+L["logonOnyDesc"] = "登录时在聊天窗口中显示奥妮克希亚计时器.";
+
+L["logonNefTitle"] = "奈法利安";
+L["logonNefDesc"] = "登录时在聊天窗口中显示奈法利安计时器.";
+
+L["logonDmfSpawnTitle"] = "暗月马戏团刷新";
+L["logonDmfSpawnDesc"] = "显示暗月马戏团刷新时间,只有在马戏团将于6小时内刷新/消失时才会显示.";
+
+L["logonDmfBuffCooldownTitle"] = "暗月马戏团Buff冷却";
+L["logonDmfBuffCooldownDesc"] = "显示马戏团BUFF 4小时的冷却,只有暗月马戏团存在且你有马戏团BUFF时才显示.";
+
+---Chat Window Timer Warnings---
+L["chatWarningHeaderDesc"] = "聊天频道计时信息提示";
+
+L["chat30Title"] = "30分钟";
+L["chat30Desc"] = "重置时间剩余30分钟时,在聊天频道中发送一条提示信息.";
+
+L["chat15Title"] = "15分钟";
+L["chat15Desc"] = "重置时间剩余15分钟时,在聊天频道中发送一条提示信息.";
+
+L["chat10Title"] = "10分钟";
+L["chat10Desc"] = "重置时间剩余10分钟时,在聊天频道中发送一条提示信息.";
+
+L["chat5Title"] = "5分钟";
+L["chat5Desc"] = "重置时间剩余5分钟时,在聊天频道中发送一条提示信息.";
+
+L["chat1Title"] = "1分钟";
+L["chat1Desc"] = "重置时间剩余1分钟时,在聊天频道中发送一条提示信息.";
+
+L["chatResetTitle"] = "Buff已重置提示";
+L["chatResetDesc"] = "当buff已重置且可以获得新buff时,在聊天频道中发送一条提示信息.";
+
+L["chatZanTitle"] = "赞达拉Buff提示";
+L["chatZanDesc"] = "在赞达拉NPC开始大喊,给予buff前30秒时,在聊天频道中发送一条提示信息.";
+
+---Middle Of The Screen Timer Warnings---
+L["middleWarningHeaderDesc"] = "屏幕中央计时信息提示";
+
+L["middle30Title"] = "30 分钟";
+L["middle30Desc"] = "重置时间剩余30分钟时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middle15Title"] = "15分钟";
+L["middle15Desc"] = "重置时间剩余15分钟时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middle10Title"] = "10分钟";
+L["middle10Desc"] = "重置时间剩余10分钟时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middle5Title"] = "5分钟";
+L["middle5Desc"] = "重置时间剩余5分钟时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middle1Title"] = "1分钟";
+L["middle1Desc"] = "重置时间剩余1分钟时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middleResetTitle"] = "Buff已重置提示";
+L["middleResetDesc"] = "当buff已重置且可以获得新buff时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middleBuffWarningTitle"] = "Buff释放提示";
+L["middleBuffWarningDesc"] = "当玩家已完成任何世界buff任务,NPC开始大喊,buff即将在几秒后释放时,在屏幕中央发送一条团队警报样式的提示信息.";
+
+L["middleHideCombatTitle"] = "战斗中隐藏提示信息";
+L["middleHideCombatDesc"] = "当在战斗中时,隐藏屏幕中央的提示信息.";
+
+L["middleHideRaidTitle"] = "团队中隐藏提示信息";
+L["middleHideRaidDesc"] = "当在团队中时,隐藏屏幕中央的提示信息(在5人副本中不会隐藏).";
+
+---Guild Messages---
+L["guildWarningHeaderDesc"] = "公会信息提示";
+
+L["guild10Title"] = "10分钟";
+L["guild10Desc"] = "重置时间剩余10分钟时,在公会频道中发送一条提示信息.";
+
+L["guild1Title"] = "1分钟";
+L["guild1Desc"] = "重置时间剩余1分钟时,在公会频道中发送一条提示信息.";
+
+L["guildNpcDialogueTitle"] = "NPC开始喊话提示";
+L["guildNpcDialogueDesc"] = "当玩家已完成任何世界buff任务,NPC第一次开始喊话时,在公会频道中发送一条提示信息(如果你速度够快,仍有时间换号).";
+
+L["guildBuffDroppedTitle"] = "Buff已释放提示";
+L["guildBuffDroppedDesc"] = "当玩家已获得新的世界buff时,在公会频道中发送一条提示信息.这条信息会在NPC喊话已结束,你将在几秒后获得buff时发送(NPC第一次大喊后的时间,雷德·黑手buff6秒后,奥妮克希亚buff14秒后,奈法利安buff15秒后).";
+
+L["guildZanDialogueTitle"] = "赞达拉Buff提示";
+L["guildZanDialogueDesc"] = "当玩家即将获得赞达拉之魂buff时,在公会频道中发送一条提示信息(如果你不想看到这个buff的提示,需要公会所有人都关闭它).";
+
+L["guildNpcKilledTitle"] = "NPC被击杀提示";
+L["guildNpcKilledDesc"] = "当奥格瑞玛或暴风城交世界BUFF任务的NPC被击时,在公会频道中发送一条提示信息(通过心灵控制重置).";
+
+L["guildCommandTitle"] = "公会命令提示";
+L["guildCommandDesc"] = "针对公会聊天频道中的!wb和!dmf命令回复计时器信息.你应该启用此功能来帮助你的公会,如果您确实要禁用所有公会消息并且仅保留此命令,则应在公会信息提示中取消选中其他所有内容,而不是在顶部勾选“关闭所有公会提示信息.";
+
+L["disableAllGuildMsgsTitle"] = "关闭所有公会提示信息";
+L["disableAllGuildMsgsDesc"] = "关闭所有在公会频道发送的计时信息和buff释放信息.注意:如果你愿意的话,你可以逐一关闭所有的公会提示信息,并且只启用某些功能来帮助你的公会.";
+
+---Songflowers---
+L["songflowersHeaderDesc"] = "风歌花";
+
+L["guildSongflowerTitle"] = "采集后在公会频道通告";
+L["guildSongflowerDesc"] = "当你采集了一个风歌花后,在在公会频道中发送一条带有风歌花下次刷新时间的提示信息.";
+
+L["mySongflowerOnlyTitle"] = "仅当我采集时才计时";
+L["mySongflowerOnlyDesc"] = "只有当我自己采集了风歌花,而不是我之前的其他人采集时,才开始计时.此选项仅当你因其他玩家的数据而导致计时器错误时才启用.因为目前尚无办法判断其他人的buff是否是新获得的.因此,如果某个玩家带着风歌花buff上线进入游戏时,正好在风歌花旁边,则会罕见地触发计时.";
+
+L["syncFlowersAllTitle"] = "与所有人同步风歌花";
+L["syncFlowersAllDesc"] = "启用此选项会覆盖前面的[仅限公会数据]设置,这样你就可以与公会外玩家同步风歌花BUFF的计时数据,但世界buff数据仍然只会在公会玩家中同步.";
+
+L["showNewFlowerTitle"] = "显示新的风歌花计时";
+L["showNewFlowerDesc"] = "当从公会外玩家获得风歌花计时数据后,在聊天频道中发送一条提示信息(当风歌花被采集时,公会频道也会出现提示).";
+
+L["showSongflowerWorldmapMarkersTitle"] = "世界地图显示风歌花";
+L["showSongflowerWorldmapMarkersDesc"] = "在世界地图上显示风歌花图标.";
+
+L["showSongflowerMinimapMarkersTitle"] = "小地图显示风歌花";
+L["showSongflowerMinimapMarkersDesc"] = "在小地图上显示风歌花图标.";
+
+L["showTuberWorldmapMarkersTitle"] = "世界地图显示鞭根块茎";
+L["showTuberWorldmapMarkersDesc"] = "在世界地图上显示鞭根块茎图标.";
+
+L["showTuberMinimapMarkersTitle"] = "小地图显示鞭根块茎";
+L["showTuberMinimapMarkersDesc"] = "在小地图上显示鞭根块茎图标.";
+
+L["showDragonWorldmapMarkersTitle"] = "世界地图显示夜龙之息";
+L["showDragonWorldmapMarkersDesc"] = "在世界地图上显示夜龙之息图标.";
+
+L["showDragonMinimapMarkersTitle"] = "小地图显示夜龙之息";
+L["showDragonMinimapMarkersDesc"] = "在小底图上显示夜龙之息图标.";
+
+L["showExpiredTimersTitle"] = "显示过期时间计时器";
+L["showExpiredTimersDesc"] = "在费伍德地图上显示过期时间计时器.它们将以红色文字显示,计时器已过期多长时间,默认时间是5分钟(玩家反馈风歌花刷新后5分钟内将保持已净化状态,不需要净化就可以直接采集).";
+
+L["expiredTimersDurationTitle"] = "过期时间计时器周期";
+L["expiredTimersDurationDesc"] = "世界地图上的Felwood计时器在到期后应显示多长时间.";
+
+---Darkmoon Faire---
+L["dmfHeaderDesc"] = "暗月马戏团(DMF)";
+
+L["dmfTextDesc"] = "如果你有暗月马戏团伤害buff冷却时间,并且暗月马戏团当前处于开启状态,则暗月马戏团伤害buff冷却时间也会显示在暗月马戏团地图图标上.";
+
+L["showDmfWbTitle"] = "/wb打开BUFF计时";
+L["showDmfWbDesc"] = "输入/wb命令打开暗月马戏团BUFF计时器";
+
+L["showDmfBuffWbTitle"] = "/wb打开冷却计时";
+L["showDmfBuffWbDesc"] = "随/wb命令一起显示暗月马戏团buff冷却计时器,仅当你处于冷却时间且暗月马戏团当前处于开启状态时才显示.";
+
+L["showDmfMapTitle"] = "显示地图标记";
+L["showDmfMapDesc"] = "在莫高雷和艾尔文森林地图上显示暗月马戏团和BUFF的刷新时间(下一个刷新时间).你可以输入/dmf map来打开带有标记的世界地图.";
+
+---Guild Chat Filter---
+L["guildChatFilterHeaderDesc"] = "公会频道过滤";
+
+L["guildChatFilterTextDesc"] = "这将阻止您选择的此插件发送的任何公会消息,因此您不会看到它们.它将阻止您在公会聊天中看到您自己的消息以及来自其他插件用户的消息.";
+
+L["filterYellsTitle"] = "过滤BUFF将释放提示";
+L["filterYellsDesc"] = "屏蔽世界buff将在几秒后释放的公会提示信息(奥妮克希亚Buff将在 14 秒后释放).";
+
+L["filterDropsTitle"] = "过滤BUFF已释放提示";
+L["filterDropsDesc"] = "屏蔽世界buff已经释放的公会提示信息[屠龙者的咆哮（奥妮克希亚）Buff 已经释放].";
+
+L["filterTimersTitle"] = "过滤计时器提示";
+L["filterTimersDesc"] = "屏蔽计时器提示的公会提示信息(奥妮克希亚buff将于1分钟后重置).";
+
+L["filterCommandTitle"] = "过滤!wb命令";
+L["filterCommandDesc"] = "屏蔽玩家在公会聊天频道输入的!wb或!dmf命令.";
+
+L["filterCommandResponseTitle"] = "过滤!wb回复";
+L["filterCommandResponseDesc"] = "屏蔽当!wb或!!dmf 命令被使用时此插件回复的计时提示信息.";
+
+L["filterSongflowersTitle"] = "过滤风歌花提示";
+L["filterSongflowersDesc"] = "屏蔽当一个风歌花被采集时在公会频道发送的提示信息.";
+
+L["filterNpcKilledTitle"] = "过滤NPC被杀提示";
+L["filterNpcKilledDesc"] = "屏蔽当一个主城中释放Buff的NPC被击杀时在公会频道发送的提示信息.";
+
+---Sounds---
+L["soundsHeaderDesc"] = "提示音";
+
+L["soundsTextDesc"] = "设置提示音至\"None\" 来关闭.";
+
+L["disableAllSoundsTitle"] = "关闭所有提示音";
+L["disableAllSoundsDesc"] = "关闭来自该插件的所有提示音.";
+
+L["extraSoundOptionsTitle"] = "额外的提示声选项";
+L["extraSoundOptionsDesc"] = "启用此功能可在下拉列表中显示来自你所有插件的提示声.";
+
+L["soundOnlyInCityTitle"] = "仅在主城时";
+L["soundOnlyInCityDesc"] = "仅当你位于可以获得世界buff的主城时才播放buff提示音(赞达拉buff包含荆棘谷地区).";
+
+L["soundsDisableInInstancesTitle"] = "在副本中禁用";
+L["soundsDisableInInstancesDesc"] = "当你在副本中时禁用提示音.";
+
+L["soundsFirstYellTitle"] = "Buff即将释放时";
+L["soundsFirstYellDesc"] = "当龙头任务已交时播放提示声,你需要等待几秒钟,buff才会释放（NPC第一次喊话）.";
+
+L["soundsOneMinuteTitle"] = "1分钟提示";
+L["soundsOneMinuteDesc"] = "当计时器还剩一分钟时,播放提示声.";
+
+L["soundsRendDropTitle"] = "获得雷德黑手Buff时";
+L["soundsRendDropDesc"] = "当雷德黑手buff释放且你获得buff时播放提示声.";
+
+L["soundsOnyDropTitle"] = "获得奥妮克希亚Buff时";
+L["soundsOnyDropDesc"] = "当奥妮克希亚buff释放且你获得buff时播放提示声.";
+
+L["soundsNefDropTitle"] = "获得奈法利安Buff";
+L["soundsNefDropDesc"] = "当奈法利安buff释放且你获得buff时播放提示声.";
+
+L["soundsZanDropTitle"] = "获得赞达拉Buff时";
+L["soundsZanDropDesc"] = "当赞达拉buff释放且你获得buff时播放提示声.";
+
+---Flash When Minimized---
+L["flashHeaderDesc"] = "最小化时闪烁";
+
+L["flashOneMinTitle"] = "重置时间1分钟时闪烁";
+L["flashOneMinDesc"] = "当你将魔兽世界最小化且buff重置时间剩余1分钟时,闪烁魔兽世界图标.";
+
+L["flashFirstYellTitle"] = "NPC喊话时闪烁";
+L["flashFirstYellDesc"] = "当你将魔兽世界最小化且NPC在buff释放前几秒喊话时,闪烁魔兽世界图标.";
+
+L["flashFirstYellZanTitle"] = "赞达拉Buff闪烁";
+L["flashFirstYellZanDesc"] = "当你将魔兽世界最小化且赞达拉buff即将释放时,闪烁魔兽世界图标.";
+
+---Faction/realm specific options---
+
+L["allianceEnableRendTitle"] = "开启联盟雷德提示";
+L["allianceEnableRendDesc"] = "启用此选项可以为联盟玩家跟踪雷德·黑手Buff,以便通过心灵控制来获得酋长的祝福Buff.";
+
+L["minimapLayerFrameTitle"] = "在小地图上显示位面";
+L["minimapLayerFrameDesc"] = "当你位于主城时,在小地图上显示你当前所在的位面.";
+
+L["minimapLayerFrameResetTitle"] = "重置小地图位面位置";
+L["minimapLayerFrameResetDesc"] = "重置小地图位面信息的位置(按住shift并拖动来改变小地图位面信息位置).";
+
+---Dispels---
+L["dispelsHeaderDesc"] = "Buff被驱散提示";
+
+L["dispelsMineTitle"] = "我的Buff";
+L["dispelsMineDesc"] = "在聊天频道显示我的Buff被驱散了.这将提示谁驱散了你的什么Buff.";
+
+L["dispelsMineWBOnlyTitle"] = "我的世界Buff";
+L["dispelsMineWBOnlyDesc"] = "仅在聊天频道显示我的世界Buff被驱散了,而忽略其他任何Buff.";
+
+L["soundsDispelsMineTitle"] = "我的Buff被驱散提示音";
+L["soundsDispelsMineDesc"] = "请选择当我的Buff被驱散时,所播放的提示音.";
+
+L["dispelsAllTitle"] = "其他人的Buff";
+L["dispelsAllDesc"] = "在聊天频道显示我周围玩家的Buff被驱散了.这将提示谁驱散了你附近玩家的什么Buff.";
+
+L["dispelsAllWBOnlyTitle"] = "其他人的世界Buff";
+L["dispelsAllWBOnlyDesc"] = "仅在聊天频道显示其他人的世界Buff被驱散了,而忽略其他任何Buff.";
+
+L["soundsDispelsAllTitle"] = "其他人的Buff被驱散提示音";
+L["soundsDispelsAllDesc"] = "请选择当其他人的Buff被驱散时,所播放的提示音.";
+
+---New---
+
+L["middleHideBattlegroundsTitle"] = "战场中隐藏提示信息";
+L["middleHideBattlegroundsDesc"] = "当你在战场中时,隐藏屏幕中央的提示信息.";
+
+L["soundsDisableInBattlegroundsTitle"] = "战场中禁用提示音";
+L["soundsDisableInBattlegroundsDesc"] = "当你在战场中时,禁用提示音.";
+
+---Aoikaze
 
 L["Target a NPC to\nupdate your layer"] = "选择一个NPC\n更新位面信息"
 L["Layer "] = "位面"
@@ -459,7 +604,7 @@ L["you from seeing your own msgs and msgs from other addon users in guild chat."
 L["|CffDEDE42Your DMF damage buff cooldown will also show on the Darkmoon Faire map icon when you hover it, if you"] = "|CffDEDE42如果暗月马戏团存在且Buff CD已到，你可以获取的暗月马戏团伤害Buff也将在在地图上显示。"
 L[" have a cooldown and DMF is currently up."] = ""
 L["Send a message to guild when a new buff has been dropped? This msg is sent after the NPC is finished yelling "] = "当有世界Buff降临时发出公会通告。这个通告将在NPC大叫后发出，用于提示几秒后实际获取Buff。(6秒后释放雷德Buff，14秒后释放奥妮克希亚Buff，15秒后奈法利安Buff）"
-L[" and you get the actual buff a few secondsLater. (6 seconds after first yell for rend, 14 seconds for ony, "] = ""
+L[" and you get the actual buff a few seconds later. (6 seconds after first yell for rend, 14 seconds for ony, "] = ""
 L[" 15 seconds for nef)"] = ""
 
 L["Show Expired Timers"] = "Show Expired Timers"
@@ -505,7 +650,7 @@ L["Hide middle of the screen warnings in combat?"] = "战斗中隐藏屏幕中�
 L["Hide In Raid"] = "Raid中隐藏"
 L["Hide middle of the screen warnings in raid instances? (Doesn't hide in normal dungeons)"] = "处于Raid副本中时隐藏屏幕中间的提示（普通副本不隐藏）。"
 
-L["Flash When Minimized"] = "闪动WOW图标"
+L["Flash When Minimized"] = "闪动图标"
 
 L["Flash One Minute"] = "一分钟倒计时"
 L["Flash the wow client when you have it minimized and 1 minute is left on timer?"] = "在倒计时一分钟时闪动任务栏WOW图标。"
@@ -515,3 +660,24 @@ L["Flash the wow client when you have it minimized and the NPC's out a few secon
 L["Flash Zandalar"] = "赞达拉Buff"
 L["Flash the wow client when you have it minimized and the Zandalar buff is about to go out?"] = "在赞达拉Buff即将释放时闪动任务栏WOW图标。"
 
+L["|cFFFFFF00Shift held, songflower not being recorded."] = "|cFFFFFF00按住Shift键，轻歌花没有被记录。"
+
+L["Zandalar Buff Warning"] = "赞达拉Buff提示"
+L["Send a message to guild when Spirit of Zandalar buff is about to drop? (If you want no guild msgs at all "] = "在赞达拉之魂即将释放时向公会频道发送信息。（如果你不希望在公会看到这个信息，那么公会中所有人都应该禁用它）"
+L["for this buff then everyone in guild needs to disable this)."] = ""
+
+L["Disable All Guild Msgs"] = "禁用全部公会信息"
+L["Disable all guild messages including timers and when buffs drop? Note: You can disable all msgs one by one above and "] = "禁用所有公会信息，包括Buff释放计时器。注意：你也可以通过设置每个选项来禁用信息，仅保留屏幕正中提示来帮助你的公会了解情况。"
+L["just leave certain things enabled to help out your guild if you rather."] = ""
+
+L["\nNote: On rare occasions DMF buff can reset early, not sure why yet."] = "\n注意：一个罕见情况下暗月马戏团的Buff可以提前重置，不知道为什么。"
+
+L["Songflower picked on a realm with layered songflower timers enabled but you haven't targeted a NPC"] = "本位面轻歌花已被拾取，但你需要点击任意NPC获取位面信息，从而正确启用轻歌花计时器。"
+L[" since arriving in Felwood so no timer could be recorded."] = ""
+
+L[" (expired)"] = "(已过期)"
+L[" (expired) (Layer "] = "(已过期)(位面"
+
+L["No layer currently known for Felwood, try targetting a NPC."] = "费伍德森林位面信息未知，请点击任意NPC。"
+
+L["Removing old layer:"] = "移除过期位面："

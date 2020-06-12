@@ -179,10 +179,14 @@ function NWB.guildChatFilter(self, event, msg, author, ...)
 	for type, locales in pairs(filterTypeLocales) do
 		if (NWB.db.global[type]) then
 			for k, v in pairs(locales) do
-				local match = string.gsub(k, "%(", "%%(");
-				match = string.gsub(match, "%)", "%%)");
-				match = string.gsub(match, "%.", "."); --Test this.
-				match = string.gsub(match, "%%s", "(.+)");
+				local match = k;
+				if (type ~= "filterCommandResponse") then
+					--Only add escapes for strings without (.+).
+					match = string.gsub(k, "%(", "%%(");
+					match = string.gsub(match, "%)", "%%)");
+					match = string.gsub(match, "%.", "."); --Test this.
+					match = string.gsub(match, "%%s", "(.+)");
+				end
 				if (string.match(msg, "%[WorldBuffs%]") and string.match(msg, match)) then
 					NWB:debug("filtering", k);
 					return true;

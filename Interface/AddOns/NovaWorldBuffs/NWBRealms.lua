@@ -4,15 +4,15 @@
 
 --Only need layered realms here for now.
 NWB.usRealms = {
-	--["Arugal"] = true,
+	["Arugal"] = true,
 	--["Benediction"] = true,
 	--["Earthfury"] = true,
-	--["Faerlina"] = true,
+	["Faerlina"] = true,
 	--["Fairbanks"] = true,
-	--["Herod"] = true,
+	["Herod"] = true,
 	--["Pagle"] = true,
 	--["Sulfuras"] = true,
-	--["Whitemane"] = true,
+	["Whitemane"] = true,
 }
 
 NWB.euRealms = {
@@ -133,46 +133,3 @@ NWB.cnRealms = {
 	["震地者"] = true,
 	["霜语"] = true,
 }
-
---[[function NWB:setLayered()
-	--This needs to be changed to a table later.
-	--TW realms.
-	if (NWB.realm == "伊弗斯" or NWB.realm == "瑪拉頓"
-			--CN realms (so many realms and all have layering apparently, wtf?).
-			or NWB.realm == "匕首岭" or NWB.realm == "乌洛克" or NWB.realm == "厄运之槌"  or NWB.realm == "巴罗夫"
-			or NWB.realm == "无尽风暴" or NWB.realm == "无畏" or NWB.realm == "木喉要塞" or NWB.realm == "比格沃斯"
-			or NWB.realm == "比斯巨兽" or NWB.realm == "水晶之牙" or NWB.realm == "火锤" or NWB.realm == "加丁"
-			or NWB.realm == "巨人追猎者" or NWB.realm == "巨龙沼泽" or NWB.realm == "巨龙追猎者" or NWB.realm == "布劳缪克丝"
-			or NWB.realm == "布鲁" or NWB.realm == "弗莱拉斯" or NWB.realm == "末日之刃" or NWB.realm == "龙之召唤"
-			or NWB.realm == "龙牙" or NWB.realm == "伊森迪奥斯" or NWB.realm == "伦鲁迪洛尔" or NWB.realm == "光芒"
-			or NWB.realm == "吉兹洛克" or NWB.realm == "安娜丝塔丽" or NWB.realm == "灰烬使者" or NWB.realm == "艾隆纳亚"
-			or NWB.realm == "克罗米" or NWB.realm == "希尔盖" or NWB.realm == "怀特迈恩" or NWB.realm == "沙尔图拉"
-			or NWB.realm == "沙顶" or NWB.realm == "灵风" or NWB.realm == "狂野之刃" or NWB.realm == "辛洛斯"
-			or NWB.realm == "辛迪加" or NWB.realm == "迈克斯纳" or NWB.realm == "卓越" or NWB.realm == "审判"
-			or NWB.realm == "帕奇维克" or NWB.realm == "拉姆斯登" or NWB.realm == "法尔班克斯" or NWB.realm == "法拉克斯"
-			or NWB.realm == "法琳娜" or NWB.realm == "觅心者" or NWB.realm == "阿什坎迪" or NWB.realm == "阿拉希盆地"
-			or NWB.realm == "阿鲁高" or NWB.realm == "哈霍兰" or NWB.realm == "奎尔塞拉" or NWB.realm == "娅尔罗"
-			or NWB.realm == "怒炉" or NWB.realm == "狮心" or NWB.realm == "祈福" or NWB.realm == "范克瑞斯"
-			or NWB.realm == "范克瑞斯" or NWB.realm == "范沃森" or NWB.realm == "埃提耶什" or NWB.realm == "席瓦莱恩"
-			or NWB.realm == "神谕林地" or NWB.realm == "秩序之源" or NWB.realm == "诺克赛恩" or NWB.realm == "诺格弗格"
-			or NWB.realm == "骨火" or NWB.realm == "曼多基尔" or NWB.realm == "维克尼拉斯" or NWB.realm == "维克托"
-			or NWB.realm == "维克洛尔" or NWB.realm == "维希度斯" or NWB.realm == "莫格莱尼" or NWB.realm == "奥罗"
-			or NWB.realm == "奥金斧" or NWB.realm == "寒冰之王" or NWB.realm == "寒脊山小径" or NWB.realm == "湖畔镇"
-			or NWB.realm == "黑曜石之锋" or NWB.realm == "塞卡尔" or NWB.realm == "塞雷布拉斯" or NWB.realm == "毁灭之刃"
-			or NWB.realm == "萨弗拉斯" or NWB.realm == "萨弗隆" or NWB.realm == "雷德" or NWB.realm == "雷霆之击"
-			or NWB.realm == "碧玉矿洞" or NWB.realm == "碧空之歌" or NWB.realm == "赫洛德" or NWB.realm == "德姆塞卡尔"
-			or NWB.realm == "震地者" or NWB.realm == "霜语"
-			--US/OCE layered realms.
-			or NWB.realm == "Arugal" or NWB.realm == "Benediction" or NWB.realm == "Earthfury" or NWB.realm == "Faerlina"
-			or NWB.realm == "Fairbanks" or NWB.realm == "Herod" or NWB.realm == "Pagle" or NWB.realm == "Sulfuras"
-			or NWB.realm == "Whitemane"
-			--EU layered realms.
-			or NWB.realm == "Auberdine" or NWB.realm == "Ashbringer" or NWB.realm == "Firemaw" or NWB.realm == "Flamegor"
-			or NWB.realm == "Gehennas" or NWB.realm == "Golemagg" or NWB.realm == "Mograine" or NWB.realm == "Sulfuron"
-			or NWB.realm == "Venoxis" or NWB.realm == "Пламегор"
-			--KR layered realms.
-			or NWB.realm == "로크홀라" or NWB.realm == "얼음피" or NWB.realm == "힐스브래드" or NWB.realm == "라그나로스"
-			or NWB.realm == "소금 평원") then
-		NWB.isLayered = true;
-	end
-end]]

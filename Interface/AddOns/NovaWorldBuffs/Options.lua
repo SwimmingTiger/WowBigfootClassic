@@ -8,527 +8,495 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("NovaWorldBuffs");
 
 NWB.options = {
-	name = "|TInterface\\AddOns\\NovaWorldBuffs\\Media\\logo32:24:24:0:5|t NovaWorldBuffs v" .. GetAddOnMetadata("NovaWorldBuffs", "Version"),
+	name =  "",
 	handler = NWB,
 	type = 'group',
 	args = {
-		desc = {
+		titleText = {
 			type = "description",
-			name = L["|CffDEDE42World Buffs Config (You can type /wb config to open this).\n"]
-					.. L["Type /wb to display timers to yourself.\n"]
-					.. L["Type /wb <channel> to display timers to the specified channel.\n"]
-					.. L["Scroll down for more options."],
-			fontSize = "medium",
+			name = "        |cFFFF5100NovaWorldBuffs (v" .. GetAddOnMetadata("NovaWorldBuffs", "Version") .. ")",
+			fontSize = "large",
 			order = 1,
+		},
+		authorText = {
+			type = "description",
+			name = "|TInterface\\AddOns\\NovaWorldBuffs\\Media\\logo32:32:32:0:20|t |cFF9CD6DEby Novaspark-Arugal",
+			fontSize = "medium",
+			order = 2,
+		},
+		mainText = {
+			type = "description",
+			name = "|cFFFFFF00" .. L["mainTextDesc"],
+			fontSize = "medium",
+			order = 3,
 		},
 		showBuffs = {
 			type = "execute",
-			name = L["Click To Show Your Current World Buffs"],
-			desc = L["Show your current world buffs for all your characters, this can also be opened by typing /buffs or clicking "]
-					.. L["on the [WorldBuffs] prefix in chat."],
+			name = L["showBuffsTitle"],
+			desc = L["showBuffsDesc"],
 			func = "openBuffListFrame",
-			order = 2,
+			order = 4,
 			width = 1.7,
 		},
-		colorHeader = {
+		generalHeader = {
 			type = "header",
-			name = L["General Options"],
-			order = 3,
+			name = L["generalHeaderDesc"],
+			order = 5,
 		},
 		showWorldMapMarkers = {
 			type = "toggle",
-			name = L["City Map Timers"],
-			desc = L["Show timer icons on the Orgrimmar/Stormwind world map?"],
-			order = 4,
+			name = L["showWorldMapMarkersTitle"],
+			desc = L["showWorldMapMarkersDesc"],
+			order = 6,
 			get = "getShowWorldMapMarkers",
 			set = "setShowWorldMapMarkers",
 		},
-		disableAllGuildMsgs = {
-			type = "toggle",
-			name = L["Disable Guild Msgs"],
-			desc = L["Disable all guild messages including timers and when buffs drop? Note: You can disable all msgs 1 by 1 below and "]
-					.. L["just leave certain things enabled such as the !wb command to help out your guild if you rather."],
-			order = 5,
-			get = "getDisableAllGuildMsgs",
-			set = "setDisableAllGuildMsgs",
-		},
 		receiveGuildDataOnly  = {
 			type = "toggle",
-			name = L["Guild Data Only"],
-			desc = L["This will make it so you don't get timer data from anyone outside the guild. You should only enable this "]
-					.. L["if you think someone is spoofing wrong timer data on purpose because it will lower the accuracy of your timers "]
-					.. L["with less people to pull data from. It will make it especially hard to get songflower timers becaus "]
-					.. L["they are so short."],
-			order = 6,
+			name = L["receiveGuildDataOnlyTitle"],
+			desc = L["receiveGuildDataOnlyDesc"],
+			order = 7,
 			get = "getReceiveGuildDataOnly",
 			set = "setReceiveGuildDataOnly",
 		},
 		chatColor = {
 			type = "color",
-			name = L["Chat Msg Color"],
-			desc = L["What color should the timer msgs in chat be?"],
-			order = 7,
+			name = L["chatColorTitle"],
+			desc = L["chatColorDesc"],
+			order = 8,
 			get = "getChatColor",
 			set = "setChatColor",
 			hasAlpha = false,
 		},
 		middleColor = {
 			type = "color",
-			name = L["Middle Screen Color"],
-			desc = L["What color should the raid warning style msgs in the middle of the screen be?"],
-			order = 8,
+			name = L["middleColorTitle"],
+			desc = L["middleColorDesc"],
+			order = 9,
 			get = "getMiddleColor",
 			set = "setMiddleColor",
 			hasAlpha = false,
 		},
 		resetColors = {
 			type = "execute",
-			name = L["Reset Colors"],
-			desc = L["Reset colors back to default."],
+			name = L["resetColorsTitle"],
+			desc = L["resetColorsDesc"],
 			func = "resetColors",
-			order = 9,
+			order = 10,
 		},
 		showTimeStamp = {
 			type = "toggle",
-			name = L["Show Time Stamp"],
-			desc = L["Show a time stamp (1:23pm) beside the timer msg?"],
-			order = 10,
+			name = L["showTimeStampTitle"],
+			desc = L["showTimeStampDesc"],
+			order = 11,
 			get = "getShowTimeStamp",
 			set = "setShowTimeStamp",
 		},
 		timeStampFormat = {
 			type = "select",
-			name = L["Time Stamp Format"],
-			desc = L["Set which timestamp format to use, 12 hour (1:23pm) or 24 hour (13:23)."],
+			name = L["timeStampFormatTitle"],
+			desc = L["timeStampFormatDesc"],
 			values = {
-				[12] = L["12 hour"],
-				[24] = L["24 hour"],
+				[12] = "12 hour",
+				[24] = "24 hour",
 			},
 			sorting = {
 				[1] = 12,
 				[2] = 24,
 			},
-			order = 11,
+			order = 12,
 			get = "getTimeStampFormat",
 			set = "setTimeStampFormat",
 		},
 		timeStampZone = {
 			type = "select",
-			name = L["Local Time / Server Time"],
-			desc = L["Use local time or server time for timestamps?"],
+			name = L["timeStampZoneTitle"],
+			desc = L["timeStampZoneDesc"],
 			values = {
-				["local"] = L["Local Time"],
-				["server"] = L["Server Time"],
+				["local"] = "Local Time",
+				["server"] = "Server Time",
 			},
 			sorting = {
 				[1] = "local",
 				[2] = "server",
 			},
-			order = 12,
+			order = 13,
 			get = "getTimeStampZone",
 			set = "setTimeStampZone",
 		},
-		guildCommand = {
-			type = "toggle",
-			name = L["Guild Commands"],
-			desc = L["Reply with timer info to !wb and !dmf commands in guild chat? You should probably leave this enabled to help your guild, "]
-					.. L["if you really want to disable all guild msgs and leave only this command then untick everything else in the "]
-					.. L["guild sectionand don't tick the Disable All Guild Msgs at the top."],
-			order = 14,
-			get = "getGuildCommand",
-			set = "setGuildCommand",
-		},
 		colorizePrefixLinks = {
 			type = "toggle",
-			name = L["Colored Prefix Link"],
-			desc = L["Colorize the prefix [WorldBuffs] in all chat channels? This is the prefix in chat you can click to show "]
-					.. L["all your characters current world buffs."],
+			name = L["colorizePrefixLinksTitle"],
+			desc = L["colorizePrefixLinksDesc"],
 			order = 15,
 			get = "getColorizePrefixLinks",
 			set = "setColorizePrefixLinks",
 		},
 		showAllAlts = {
 			type = "toggle",
-			name = L["Show All Alts"],
-			desc = L["Show all alts in the /buffs window even if they don't have an active buff?"],
+			name = L["showAllAltsTitle"],
+			desc = L["showAllAltsDesc"],
 			order = 16,
 			get = "getShowAllAlts",
 			set = "setShowAllAlts",
 		},
 		minimapButton = {
 			type = "toggle",
-			name = L["Show Minimap Button"],
-			desc = L["Show the NWB button the minimap?"],
+			name = L["minimapButtonTitle"],
+			desc = L["minimapButtonDesc"],
 			order = 20,
 			get = "getMinimapButton",
 			set = "setMinimapButton",
 		},
 		logonHeader = {
 			type = "header",
-			name = L["Logon Messages"],
+			name = L["logonHeaderDesc"],
 			order = 23,
 		},
 		logonPrint = {
 			type = "toggle",
-			name = L["Logon Timers"],
-			desc = L["Show timers in the chat window when you log on, you can disable all logon msgs with this setting."],
+			name = L["logonPrintTitle"],
+			desc = L["logonPrintDesc"],
 			order = 24,
 			get = "getLogonPrint",
 			set = "setLogonPrint",
 		},
 		logonRend = {
 			type = "toggle",
-			name = L["Rend"],
-			desc = L["Show Rend timer in the chat window when you log on."],
+			name = L["logonRendTitle"],
+			desc = L["logonRendDesc"],
 			order = 25,
 			get = "getLogonRend",
 			set = "setLogonRend",
 		},
 		logonOny = {
 			type = "toggle",
-			name = L["Onyxia"],
-			desc = L["Show Onyxia timer in the chat window when you log on."],
+			name = L["logonOnyTitle"],
+			desc = L["logonOnyDesc"],
 			order = 26,
 			get = "getLogonOny",
 			set = "setLogonOny",
 		},
 		logonNef = {
 			type = "toggle",
-			name = L["Nefarian"],
-			desc = L["Show Nefarian timer in the chat window when you log on."],
+			name = L["logonNefTitle"],
+			desc = L["logonNefDesc"],
 			order = 27,
 			get = "getLogonNef",
 			set = "setLogonNef",
 		},
 		logonDmfSpawn = {
 			type = "toggle",
-			name = L["DMF Spawn"],
-			desc = L["Show Darkmoon Faire spawn time, this will only show when there is less than 6 hours left until spawn or despawn."],
-			order = 8,
+			name = L["logonDmfSpawnTitle"],
+			desc = L["logonDmfSpawnDesc"],
+			order = 28,
 			get = "getLogonDmfSpawn",
 			set = "setLogonDmfSpawn",
 		},
 		logonDmfBuffCooldown = {
 			type = "toggle",
-			name = L["DMF Buff Coooldown"],
-			desc = L["Show Darkmoon Faire buff 5 hour cooldown, this will only show when you have an ative cooldown and when DMF is up."],
+			name = L["logonDmfBuffCooldownTitle"],
+			desc = L["logonDmfBuffCooldownDesc"],
 			order = 29,
 			get = "getLogonDmfBuffCooldown",
 			set = "setLogonDmfBuffCooldown",
 		},
 		chatWarningHeader = {
 			type = "header",
-			name = L["Chat Window Timer Warnings"],
+			name = L["chatWarningHeaderDesc"],
 			order = 30,
 		},
 		chat30 = {
 			type = "toggle",
-			name = L["30 Minutes"],
-			desc = L["Print a msg in chat when 30 minutes left."],
+			name = L["chat30Title"],
+			desc = L["chat30Desc"],
 			order = 31,
 			get = "getChat30",
 			set = "setChat30",
 		},
 		chat15 = {
 			type = "toggle",
-			name = L["15 Minutes"],
-			desc = L["Print a msg in chat when 15 minutes left."],
+			name = L["chat15Title"],
+			desc = L["chat15Desc"],
 			order = 32,
 			get = "getChat15",
 			set = "setChat15",
 		},
 		chat10 = {
 			type = "toggle",
-			name = L["10 Minutes"],
-			desc = L["Print a msg in chat when 10 minutes left."],
+			name = L["chat10Title"],
+			desc = L["chat10Desc"],
 			order = 33,
 			get = "getChat10",
 			set = "setChat10",
 		},
 		chat5 = {
 			type = "toggle",
-			name = L["5 Minutes"],
-			desc = L["Print a msg in chat when 5 minutes left."],
+			name = L["chat5Title"],
+			desc = L["chat5Desc"],
 			order = 34,
 			get = "getChat5",
 			set = "setChat5",
 		},
 		chat1 = {
 			type = "toggle",
-			name = L["1 Minute"],
-			desc = L["Print a msg in chat when 1 minute left."],
+			name = L["chat1Title"],
+			desc = L["chat1Desc"],
 			order = 35,
 			get = "getChat1",
 			set = "setChat1",
 		},
 		chatReset = {
 			type = "toggle",
-			name = L["Buff Has Reset"],
-			desc = L["Print a msg in chat when a buff has reset and a new one can be dropped."],
+			name = L["chatResetTitle"],
+			desc = L["chatResetDesc"],
 			order = 36,
 			get = "getChat0",
 			set = "setChat0",
 		},
 		chatZan = {
 			type = "toggle",
-			name = L["Zandalar Buff Warning"],
-			desc = L["Print a msg in chat 30 seconds before Zandalar buff will drop when the NPC starts yelling."],
+			name = L["chatZanTitle"],
+			desc = L["chatZanDesc"],
 			order = 37,
 			get = "getChatZan",
 			set = "setChatZan",
 		},
 		middleWarningHeader = {
 			type = "header",
-			name = L["Middle Of The Screen Timer Warnings"],
+			name = L["middleWarningHeaderDesc"],
 			order = 40,
 		},
 		middle30 = {
 			type = "toggle",
-			name = L["30 Minutes"],
-			desc = L["Show a raid warning style msg in the middle of the screen when 30 minutes left."],
+			name = L["middle30Title"],
+			desc = L["middle30Desc"],
 			order = 41,
 			get = "getMiddle30",
 			set = "setMiddle30",
 		},
 		middle15 = {
 			type = "toggle",
-			name = L["15 Minutes"],
-			desc = L["Show a raid warning style msg in the middle of the screen when 15 minutes left."],
+			name = L["middle15Title"],
+			desc = L["middle15Desc"],
 			order = 42,
 			get = "getMiddle15",
 			set = "setMiddle15",
 		},
 		middle10 = {
 			type = "toggle",
-			name = L["10 Minutes"],
-			desc = L["Show a raid warning style msg in the middle of the screen when 10 minutes left."],
+			name = L["middle10Title"],
+			desc = L["middle10Desc"],
 			order = 43,
 			get = "getMiddle10",
 			set = "setMiddle10",
 		},
 		middle5 = {
 			type = "toggle",
-			name = L["5 Minutes"],
-			desc = L["Show a raid warning style msg in the middle of the screen when 5 minutes left."],
+			name = L["middle5Title"],
+			desc = L["middle5Desc"],
 			order = 44,
 			get = "getMiddle5",
 			set = "setMiddle5",
 		},
 		middle1 = {
 			type = "toggle",
-			name = L["1 Minute"],
-			desc = L["Show a raid warning style msg in the middle of the screen when 1 minute left."],
+			name = L["middle1Title"],
+			desc = L["middle1Desc"],
 			order = 45,
 			get = "getMiddle1",
 			set = "setMiddle1",
 		},
 		middleReset = {
 			type = "toggle",
-			name = L["Buff Has Reset"],
-			desc = L["Show a raid warning style msg in the middle of the screen when a buff has reset and a new one can be dropped."],
+			name = L["middleResetTitle"],
+			desc = L["middleResetDesc"],
 			order = 46,
 			get = "getMiddle0",
 			set = "setMiddle0",
 		},
 		middleBuffWarning = {
 			type = "toggle",
-			name = L["Buff Drop Warning"],
-			desc = L["Show a raid warning style msg in the middle of the screen when someone hands in the head for any buff and the "]
-					.. L["NPC yells a few seconds before the buff will drop."],
+			name = L["middleBuffWarningTitle"],
+			desc = L["middleBuffWarningDesc"],
 			order = 47,
 			get = "getMiddleBuffWarning",
 			set = "setMiddleBuffWarning",
 		},
 		middleHideCombat = {
 			type = "toggle",
-			name = L["Hide In Combat"],
-			desc = L["Hide middle of the screen warnings in combat?"],
+			name = L["middleHideCombatTitle"],
+			desc = L["middleHideCombatDesc"],
 			order = 48,
 			get = "getMiddleHideCombat",
 			set = "settMiddleHideCombat",
 		},
 		middleHideRaid = {
 			type = "toggle",
-			name = L["Hide In Raid"],
-			desc = L["Hide middle of the screen warnings in raid instances? (Doesn't hide in normal dungeons)"],
+			name = L["middleHideRaidTitle"],
+			desc = L["middleHideRaidDesc"],
 			order = 49,
 			get = "getMiddleHideRaid",
-			set = "settMiddleHideRaid",
+			set = "setMiddleHideRaid",
+		},
+		middleHideBattlegrounds = {
+			type = "toggle",
+			name = L["middleHideBattlegroundsTitle"],
+			desc = L["middleHideBattlegroundsDesc"],
+			order = 50,
+			get = "getMiddleHideBattlegrounds",
+			set = "setMiddleHideBattlegrounds",
 		},
 		guildWarningHeader = {
 			type = "header",
-			name = L["Guild Message Timer Warnings"],
-			order = 50,
-		},
-		--[[guild30 = {
-			type = "toggle",
-			name = L["30 Minutes"],
-			desc = L["Send a message to guild chat when 30 minutes left."],
-			order = 51,
-			get = "getGuild30",
-			set = "setGuild30",
-		},
-		guild15 = {
-			type = "toggle",
-			name = L["15 Minutes"],
-			desc = L["Send a message to guild chat when 15 minutes left."],
+			name = L["guildWarningHeaderDesc"],
 			order = 52,
-			get = "getGuild15",
-			set = "setGuild15",
-		},]]
+		},
 		guild10 = {
 			type = "toggle",
-			name = L["10 Minutes"],
-			desc = L["Send a message to guild chat when 10 minutes left."],
+			name = L["guild10Title"],
+			desc = L["guild10Desc"],
 			order = 53,
 			get = "getGuild10",
 			set = "setGuild10",
 		},
-		--[[guild5 = {
-			type = "toggle",
-			name = L["5 Minutes"],
-			desc = L["Send a message to guild chat when 5 minutes left."],
-			order = 54,
-			get = "getGuild5",
-			set = "setGuild5",
-		},]]
 		guild1 = {
 			type = "toggle",
-			name = L["1 Minute"],
-			desc = L["Send a message to guild chat when 1 minute left."],
+			name = L["guild1Title"],
+			desc = L["guild1Desc"],
 			order = 55,
 			get = "getGuild1",
 			set = "setGuild1",
 		},
-		--[[guildReset = {
-			type = "toggle",
-			name = L["Buff Has Reset"],
-			desc = L["Send a message to guild chat when a buff has reset and a new one can be dropped."],
-			order = 56,
-			get = "getGuild0",
-			set = "setGuild0",
-		},]]
 		guildNpcDialogue = {
 			type = "toggle",
-			name = L["NPC Dialogue Started"],
-			desc = L["Send a message to guild when someone hands in a head and the NPC first yells and you still have time to relog if fast?"],
+			name = L["guildNpcDialogueTitle"],
+			desc = L["guildNpcDialogueDesc"],
 			order = 57,
 			get = "getGuildNpcDialogue",
 			set = "setGuildNpcDialogue",
 		},
 		guildBuffDropped = {
 			type = "toggle",
-			name = L["New Buff Dropped"],
-			desc = L["Send a message to guild when a new buff has been dropped? This msg is sent after the NPC is finished yelling "]
-					.. L[" and you get the actual buff a few seconds later. (6 seconds after first yell for rend, 14 seconds for ony, "]
-					.. L[" 15 seconds for nef)"],
+			name = L["guildBuffDroppedTitle"],
+			desc = L["guildBuffDroppedDesc"],
 			order = 58,
 			get = "getGuildBuffDropped",
 			set = "setGuildBuffDropped",
 		},
-		guildNpcKilled = {
-			type = "toggle",
-			name = L["NPC Was Killed"],
-			desc = L["Send a message to guild when one of the buff NPC's were killed in Orgrimmar or Stormwind? (mind control reset)."],
-			order = 59,
-			get = "getGuildNpcKilled",
-			set = "setGuildNpcKilled",
-		},
 		guildZanDialogue = {
 			type = "toggle",
-			name = L["Zandalar Buff Warning"],
-			desc = L["Send a message to guild when Spirit of Zandalar buff is about to drop? (If you want no guild msgs at all "]
-					.. L["for this buff then everyone in guild needs to disable this)."],
-			order = 60,
+			name = L["guildZanDialogueTitle"],
+			desc = L["guildZanDialogueDesc"],
+			order = 59,
 			get = "getGuildZanDialogue",
 			set = "setGuildZanDialogue",
 		},
-		songflowers = {
+		guildNpcKilled = {
+			type = "toggle",
+			name = L["guildNpcKilledTitle"],
+			desc = L["guildNpcKilledDesc"],
+			order = 60,
+			get = "getGuildNpcKilled",
+			set = "setGuildNpcKilled",
+		},
+		guildCommand = {
+			type = "toggle",
+			name = L["guildCommandTitle"],
+			desc = L["guildCommandDesc"],
+			order = 61,
+			get = "getGuildCommand",
+			set = "setGuildCommand",
+		},
+		disableAllGuildMsgs = {
+			type = "toggle",
+			name = L["disableAllGuildMsgsTitle"],
+			desc = L["disableAllGuildMsgsDesc"],
+			order = 62,
+			get = "getDisableAllGuildMsgs",
+			set = "setDisableAllGuildMsgs",
+		},
+		songflowersHeader = {
 			type = "header",
-			name = L["Songflowers"],
+			name = L["songflowersHeaderDesc"],
 			order = 70,
 		},
 		guildSongflower = {
 			type = "toggle",
-			name = L["Tell Guild When Picked"],
-			desc = L["Tell your guild chat when you have picked a songflower with the time of next spawn?"],
+			name = L["guildSongflowerTitle"],
+			desc = L["guildSongflowerDesc"],
 			order = 71,
 			get = "getGuildSongflower",
 			set = "setGuildSongflower",
 		},
 		mySongflowerOnly = {
 			type = "toggle",
-			name = L["Only When I Pick"],
-			desc = L["Only record a new timer when I pick a songflower and not when others pick infront of me? This option is here "]
-					.. L["just incase you have problems with false timers being set from other players. There's currently "]
-					.. L["no way to tell if another players buff is new so a timer may trigger on rare occasions if the game loads "]
-					.. L["the songflower buff on someone else when they logon infront of you beside a songflower."],
+			name = L["mySongflowerOnlyTitle"],
+			desc = L["mySongflowerOnlyDesc"],
 			order = 72,
 			get = "getMySongflowerOnly",
 			set = "setMySongflowerOnly",
 		},
 		syncFlowersAll = {
 			type = "toggle",
-			name = L["Sync Flowers With All"],
-			desc = L["Enable this to override the guild only data setting at the top of this config so you can share songflower "]
-					.. L["data outside the guild but keep worldbuff data guild only still."],
+			name = L["syncFlowersAllTitle"],
+			desc = L["syncFlowersAllDesc"],
 			order = 73,
 			get = "getSyncFlowersAll",
 			set = "setSyncFlowersAll",
 		},
 		showNewFlower = {
 			type = "toggle",
-			name = L["Show New SF Timers"],
-			desc = L["This will show you in chat window when a new flower timer is found from another player not in your guild "]
-					.. L[" (guild msgs already show in guild chat when a flower is picked)."],
+			name = L["showNewFlowerTitle"],
+			desc = L["showNewFlowerDesc"],
 			order = 74,
 			get = "getShowNewFlower",
 			set = "setShowNewFlower",
 		},
 		showSongflowerWorldmapMarkers = {
 			type = "toggle",
-			name = L["Songflower Worldmap"],
-			desc = L["Show songflower icons on the world map?."],
+			name = L["showSongflowerWorldmapMarkersTitle"],
+			desc = L["showSongflowerWorldmapMarkersDesc"],
 			order = 75,
 			get = "getShowSongflowerWorldmapMarkers",
 			set = "setShowSongflowerWorldmapMarkers",
 		},
 		showSongflowerMinimapMarkers = {
 			type = "toggle",
-			name = L["Songflower Minimap"],
-			desc = L["Show songflower icons on the mini map?."],
+			name = L["showSongflowerMinimapMarkersTitle"],
+			desc = L["showSongflowerMinimapMarkersDesc"],
 			order = 76,
 			get = "getShowSongflowerMinimapMarkers",
 			set = "setShowSongflowerMinimapMarkers",
 		},
 		showTuberWorldmapMarkers = {
 			type = "toggle",
-			name = L["Tuber Worldmap"],
-			desc = L["Show Whipper Root Tuber icons on the world map?."],
+			name = L["showTuberWorldmapMarkersTitle"],
+			desc = L["showTuberWorldmapMarkersDesc"],
 			order = 77,
 			get = "getShowTuberWorldmapMarkers",
 			set = "setShowTuberWorldmapMarkers",
 		},
 		showTuberMinimapMarkers = {
 			type = "toggle",
-			name = L["Tuber Minimap"],
-			desc = L["Show Whipper Root Tuber icons on the mini map?."],
+			name = L["showTuberMinimapMarkersTitle"],
+			desc = L["showTuberMinimapMarkersDesc"],
 			order = 78,
 			get = "getShowTuberMinimapMarkers",
 			set = "setShowTuberMinimapMarkers",
 		},
 		showDragonWorldmapMarkers = {
 			type = "toggle",
-			name = L["Dragon Worldmap"],
-			desc = L["Show Night Dragon's Breath icons on the world map?."],
+			name = L["showDragonWorldmapMarkersTitle"],
+			desc = L["showDragonWorldmapMarkersDesc"],
 			order = 79,
 			get = "getShowDragonWorldmapMarkers",
 			set = "setShowDragonWorldmapMarkers",
 		},
 		showDragonMinimapMarkers = {
 			type = "toggle",
-			name = L["Dragon Minimap"],
-			desc = L["Show Night Dragon's Breath icons on the mini map?."],
+			name = L["showDragonMinimapMarkersTitle"],
+			desc = L["showDragonMinimapMarkersDesc"],
 			order = 80
 			,
 			get = "getShowDragonMinimapMarkers",
@@ -536,17 +504,16 @@ NWB.options = {
 		},
 		showExpiredTimers = {
 			type = "toggle",
-			name = L["Show Expired Timers"],
-			desc = L["Show expired timers in Felwood? They will be shown in red text how long ago a timer expired, the default "]
-					.. L["time is 5 minutes (people say songflowers stay cleansed for 5 minutes after spawn?)."],
+			name = L["showExpiredTimersTitle"],
+			desc = L["showExpiredTimersDesc"],
 			order = 81,
 			get = "getShowExpiredTimers",
 			set = "setShowExpiredTimers",
 		},
 		expiredTimersDuration = {
 			type = "range",
-			name = L["Expired Timers Duraton"],
-			desc = L["How long should Felwood timers show for after expiring on the world map?"],
+			name = L["expiredTimersDurationTitle"],
+			desc = L["expiredTimersDurationDesc"],
 			order = 82,
 			get = "getExpiredTimersDuration",
 			set = "setExpiredTimersDuration",
@@ -556,159 +523,131 @@ NWB.options = {
 			softMax = 60,
 			step = 1,
 		},
-		dmf = {
+		dmfHeader = {
 			type = "header",
-			name = L["Darkmoon Faire"],
+			name = L["dmfHeaderDesc"],
 			order = 90,
 		},
-		dmfDesc = {
+		dmfText = {
 			type = "description",
-			name = L["|CffDEDE42Your DMF damage buff cooldown will also show on the Darkmoon Faire map icon when you hover it, if you"]
-					.. L[" have a cooldown and DMF is currently up."],
+			name = "|CffDEDE42" .. L["dmfTextDesc"],
 			fontSize = "medium",
 			order = 91,
 		},
 		showDmfWb = {
 			type = "toggle",
-			name = L["Show DMF with /wb"],
-			desc = L["Show DMF spawn timer together with /wb command?"],
-			order = 92,
-			get = "getShowDmfWb",
-			set = "setShowDmfWb",
-		},
-		showDmfWb = {
-			type = "toggle",
-			name = L["DMF Spawn with /wb"],
-			desc = L["Show DMF spawn timer together with /wb command?"],
+			name = L["showDmfWbTitle"],
+			desc = L["showDmfWbDesc"],
 			order = 92,
 			get = "getShowDmfWb",
 			set = "setShowDmfWb",
 		},
 		showDmfBuffWb = {
 			type = "toggle",
-			name = L["DMF Buff Cooldown /wb"],
-			desc = L["Show your DMF buff cooldown timer together with /wb command? Only shows when you are on an active cooldown"]
-					.. L[" and DMF is currently up."],
+			name = L["showDmfBuffWbTitle"],
+			desc = L["showDmfBuffWbDesc"],
 			order = 93,
 			get = "getShowDmfBuffWb",
 			set = "setShowDmfBuffWb",
 		},
-		--[[showDmfWhenClose = {
-			type = "toggle",
-			name = L["Show Close To Spawn"],
-			desc = L["Show DMF spawn timer at logon and together with /wb command when it's within 12 hours of spawn or despawn."],
-			order = 93,
-			get = "getShowDmfWhenClose",
-			set = "setShowDmfWhenClose",
-		},]]
-		--[[showDmfLogon = {
-			type = "toggle",
-			name = L["Show Always Logon"],
-			desc = L["Show DMF spawn timer at logon always, even if it's not close to spawn."],
-			order = 94,
-			get = "getShowDmfLogon",
-			set = "setShowDmfLogon",
-		},]]
 		showDmfMap = {
 			type = "toggle",
-			name = L["Show Map Marker"],
-			desc = L["Show DMF map marker with spawn timer and buff cooldown info in Mulgore and Elwynn Forest "]
-					.. L["world maps (whichever is next spawn). You can also type /dmf map to open the world map strait to this marker."],
+			name = L["showDmfMapTitle"],
+			desc = L["showDmfMapDesc"],
 			order = 95,
 			get = "getShowDmfMap",
 			set = "setShowDmfMap",
 		},
-		guildChatFilter = {
+		guildChatFilterHeader = {
 			type = "header",
-			name = L["Guild Chat Filter"],
+			name = L["guildChatFilterHeaderDesc"],
 			order = 100,
 		},
-		guildChatFilterDesc = {
+		guildChatFilterText = {
 			type = "description",
-			name = L["|CffDEDE42This will block any guild msgs from this addon you choose so you don't see them. It will stop "]
-					.. L["you from seeing your own msgs and msgs from other addon users in guild chat."],
+			name = "|CffDEDE42".. L["guildChatFilterTextDesc"],
 			fontSize = "medium",
 			order = 101,
 		},
 		filterYells = {
 			type = "toggle",
-			name = L["Filter Buff Warning"],
-			desc = L["Filter the msg when a buff is about to drop in a few seconds (Onyxia will drop in 14 seconds)."],
+			name = L["filterYellsTitle"],
+			desc = L["filterYellsDesc"],
 			order = 102,
 			get = "getFilterYells",
 			set = "setFilterYells",
 		},
 		filterDrops = {
 			type = "toggle",
-			name = L["Filter Buff Dropped"],
-			desc = L["Filter the msg when a buff has dropped (Rallying Cry of the Dragonslayer (Onyxia) has dropped)."],
+			name = L["filterDropsTitle"],
+			desc = L["filterDropsDesc"],
 			order = 103,
 			get = "getFilterDrops",
 			set = "setFilterDrops",
 		},
 		filterTimers = {
 			type = "toggle",
-			name = L["Filter Timer Msgs"],
-			desc = L["Filter timer msgs (Onyxia resets in 1 minute)."],
+			name = L["filterTimersTitle"],
+			desc = L["filterTimersDesc"],
 			order = 104,
 			get = "getFilterTimers",
 			set = "setFilterTimers",
 		},
 		filterCommand = {
 			type = "toggle",
-			name = L["Filter !wb command"],
-			desc = L["Filter the !wb and !dmf in guild chat when typed by players."],
+			name = L["filterCommandTitle"],
+			desc = L["filterCommandDesc"],
 			order = 105,
 			get = "getFilterCommand",
 			set = "setFilterCommand",
 		},
 		filterCommandResponse = {
 			type = "toggle",
-			name = L["Filter !wb reply"],
-			desc = L["Filter the reply msg with timers this addon does when !wb or !!dmf is used."],
+			name = L["filterCommandResponseTitle"],
+			desc = L["filterCommandResponseDesc"],
 			order = 106,
 			get = "getFilterCommandResponse",
 			set = "setFilterCommandResponse",
 		},
 		filterSongflowers = {
 			type = "toggle",
-			name = L["Filter Songflowers"],
-			desc = L["Filter the msg when a songflower is picked."],
+			name = L["filterSongflowersTitle"],
+			desc = L["filterSongflowersDesc"],
 			order = 107,
 			get = "getFilterSongflowers",
 			set = "setFilterSongflowers",
 		},
 		filterNpcKilled = {
 			type = "toggle",
-			name = L["Filter NPC Killed"],
-			desc = L["Filter the msg when a buff hand in NPC is killed in your city."],
+			name = L["filterNpcKilledTitle"],
+			desc = L["filterNpcKilledDesc"],
 			order = 108,
 			get = "getFilterNpcKilled",
 			set = "setFilterNpcKilled",
 		},
-		sounds = {
+		soundsHeader = {
 			type = "header",
-			name = L["Sounds"],
+			name = L["soundsHeaderDesc"],
 			order = 110,
 		},
-		soundsDesc = {
+		soundsText = {
 			type = "description",
-			name = L["|CffDEDE42Set sound to \"None\" to disable."],
+			name = "|CffDEDE42" .. L["soundsTextDesc"],
 			fontSize = "medium",
 			order = 111,
 		},
 		disableAllSounds = {
 			type = "toggle",
-			name = L["Disable All Sounds"],
-			desc = L["Disable all sounds from this addon."],
+			name = L["disableAllSoundsTitle"],
+			desc = L["disableAllSoundsDesc"],
 			order = 112,
 			get = "getDisableAllSounds",
 			set = "setDisableAllSounds",
 		},
 		extraSoundOptions = {
 			type = "toggle",
-			name = L["Extra Sound Options"],
-			desc = L["Enable this to display all the sounds from all your addons at once in the dropdown lists here."],
+			name = L["extraSoundOptionsTitle"],
+			desc = L["extraSoundOptionsDesc"],
 			order = 113,
 			get = "getExtraSoundOptions",
 			set = "setExtraSoundOptions",
@@ -716,46 +655,54 @@ NWB.options = {
 		},
 		soundOnlyInCity = {
 			type = "toggle",
-			name = L["Only In City"],
-			desc = L["Only play buff sounds when you are in the main city where the buffs drop (Stranglethorn Vale included for Zandalar buff)."],
+			name = L["soundOnlyInCityTitle"],
+			desc = L["soundOnlyInCityDesc"],
 			order = 114,
 			get = "getSoundOnlyInCity",
 			set = "setSoundOnlyInCity",
 		},
 		soundsDisableInInstances = {
 			type = "toggle",
-			name = L["Disable In Instances"],
-			desc = L["Disable sounds while in raids and instances."],
+			name = L["soundsDisableInInstancesTitle"],
+			desc = L["soundsDisableInInstancesDesc"],
 			order = 115,
 			get = "getSoundsDisableInInstances",
 			set = "setSoundsDisableInInstances",
 		},
+		soundsDisableInBattlegrounds = {
+			type = "toggle",
+			name = L["soundsDisableInBattlegroundsTitle"],
+			desc = L["soundsDisableInBattlegroundsDesc"],
+			order = 116,
+			get = "getSoundsDisableInBattlegrounds",
+			set = "setSoundsDisableInBattlegrounds",
+		},
 		soundsFirstYell = {
 			type = "select",
-			name = L["Buff Coming"],
-			desc = L["Sound to play when head is handed in and you have a few seconds before buff will drop (First NPC Yell)."],
+			name = L["soundsFirstYellTitle"],
+			desc = L["soundsFirstYellDesc"],
 			values = function()
 				return NWB:getSounds();
 			end,
-			order = 116,
+			order = 117,
 			get = "getSoundsFirstYell",
 			set = "setSoundsFirstYell",
 		},
 		soundsOneMinute = {
 			type = "select",
-			name = L["One Minute Warning"],
-			desc = L["Sound to play for 1 minute left timer warning."],
+			name = L["soundsOneMinuteTitle"],
+			desc = L["soundsOneMinuteDesc"],
 			values = function()
 				return NWB:getSounds();
 			end,
-			order = 117,
+			order = 118,
 			get = "getSoundsOneMinute",
 			set = "setSoundsOneMinute",
 		},
 		soundsRendDrop = {
 			type = "select",
-			name = L["Rend Buff Gained"],
-			desc = L["Sound to play for Rend buff drops and you get the buff."],
+			name = L["soundsRendDropTitle"],
+			desc = L["soundsRendDropDesc"],
 			values = function()
 				return NWB:getSounds("rend");
 			end,
@@ -765,8 +712,8 @@ NWB.options = {
 		},
 		soundsOnyDrop = {
 			type = "select",
-			name = L["Ony Buff Gained"],
-			desc = L["Sound to play for Onyxia buff drops and you get the buff."],
+			name = L["soundsOnyDropTitle"],
+			desc = L["soundsOnyDropDesc"],
 			values = function()
 				return NWB:getSounds("ony");
 			end,
@@ -776,8 +723,8 @@ NWB.options = {
 		},
 		soundsNefDrop = {
 			type = "select",
-			name = L["Nef Buff Gained"],
-			desc = L["Sound to play for Nefarian buff drops and you get the buff."],
+			name = L["soundsNefDropTitle"],
+			desc = L["soundsNefDropDesc"],
 			values = function()
 				return NWB:getSounds("nef");
 			end,
@@ -787,8 +734,8 @@ NWB.options = {
 		},
 		soundsZanDrop = {
 			type = "select",
-			name = L["Zandalar Buff Gained"],
-			desc = L["Sound to play for Zandalar buff drops and you get the buff."],
+			name = L["soundsZanDropTitle"],
+			desc = L["soundsZanDropDesc"],
 			values = function()
 				return NWB:getSounds("zan");
 			end,
@@ -796,34 +743,93 @@ NWB.options = {
 			get = "getSoundsZanDrop",
 			set = "setSoundsZanDrop",
 		},
-		flash = {
+		flashHeader = {
 			type = "header",
-			name = L["Flash When Minimized"],
+			name = L["flashHeaderDesc"],
 			order = 130,
 		},
 		flashOneMin = {
 			type = "toggle",
-			name = L["Flash One Minute"],
-			desc = L["Flash the wow client when you have it minimized and 1 minute is left on timer?"],
+			name = L["flashOneMinTitle"],
+			desc = L["flashOneMinDesc"],
 			order = 131,
 			get = "getFlashOneMin",
 			set = "setFlashOneMin",
 		},
 		flashFirstYell = {
 			type = "toggle",
-			name = L["Flash NPC Yell"],
-			desc = L["Flash the wow client when you have it minimized and the NPC's out a few seconds before buff drops?"],
+			name = L["flashFirstYellTitle"],
+			desc = L["flashFirstYellDesc"],
 			order = 132,
 			get = "getFlashFirstYell",
 			set = "setFlashFirstYell",
 		},
 		flashFirstYellZan = {
 			type = "toggle",
-			name = L["Flash Zandalar"],
-			desc = L["Flash the wow client when you have it minimized and the Zandalar buff is about to go out?"],
+			name = L["flashFirstYellZanTitle"],
+			desc = L["flashFirstYellZanDesc"],
 			order = 133,
 			get = "getFlashFirstYellZan",
 			set = "setFlashFirstYellZan",
+		},
+		dispelsHeader = {
+			type = "header",
+			name = L["dispelsHeaderDesc"],
+			order = 140,
+		},
+		dispelsMine = {
+			type = "toggle",
+			name = L["dispelsMineTitle"],
+			desc = L["dispelsMineDesc"],
+			order = 141,
+			get = "getDispelsMine",
+			set = "setDispelsMine",
+		},
+		dispelsMineWBOnly = {
+			type = "toggle",
+			name = L["dispelsMineWBOnlyTitle"],
+			desc = L["dispelsMineWBOnlyDesc"],
+			order = 142,
+			get = "getDispelsMineWBOnly",
+			set = "setDispelsMineWBOnly",
+		},
+		soundsDispelsMine = {
+			type = "select",
+			name = L["soundsDispelsMineTitle"],
+			desc = L["soundsDispelsMineDesc"],
+			values = function()
+				return NWB:getSounds();
+			end,
+			order = 143,
+			get = "getSoundsDispelsMine",
+			set = "setSoundsDispelsMine",
+		},
+		dispelsAll = {
+			type = "toggle",
+			name = L["dispelsAllTitle"],
+			desc = L["dispelsAllDesc"],
+			order = 144,
+			get = "getDispelsAll",
+			set = "setDispelsAll",
+		},
+		dispelsAllWBOnly = {
+			type = "toggle",
+			name = L["dispelsAllWBOnlyTitle"],
+			desc = L["dispelsAllWBOnlyDesc"],
+			order = 145,
+			get = "getDispelsAllWBOnly",
+			set = "setDispelsAllWBOnly",
+		},
+		soundsDispelsAll = {
+			type = "select",
+			name = L["soundsDispelsAllTitle"],
+			desc = L["soundsDispelsAllDesc"],
+			values = function()
+				return NWB:getSounds();
+			end,
+			order = 146,
+			get = "getSoundsDispelsAll",
+			set = "setSoundsDispelsAll",
 		},
 	},
 };
@@ -832,10 +838,9 @@ function NWB:loadSpecificOptions()
 	if (NWB.faction == "Alliance") then
 		NWB.options.args["allianceEnableRend"] = {
 			type = "toggle",
-			name = L["Enable Alliance Rend"],
-			desc = L["Enable this to track rend as Alliance, for guilds that mind control to get rend buff. If you use this then everyone in "]
-					.. L["the guild with the addon should enable it or guild chat msgs may not work properly (personal timer msgs will still work)."];
-			order = 18,
+			name = L["allianceEnableRendTitle"],
+			desc = L["allianceEnableRendDesc"],
+			order = 17,
 			get = "getAllianceEnableRend",
 			set = "setAllianceEnableRend",
 		};
@@ -843,18 +848,18 @@ function NWB:loadSpecificOptions()
 	if (NWB.isLayered) then
 		NWB.options.args["minimapLayerFrame"] = {
 			type = "toggle",
-			name = L["Show Minimap Layer"],
-			desc = L["Show the little frame on the minimap with your current layer while in a capital city?"];
+			name = L["minimapLayerFrameTitle"],
+			desc = L["minimapLayerFrameDesc"],
 			order = 18,
 			get = "getMinimapLayerFrame",
 			set = "setMinimapLayerFrame",
 		};
 		NWB.options.args["minimapLayerFrameReset"] = {
-				type = "execute",
-				name = L["Reset Minimap Layer"],
-				desc = L["Reset minimap layer frame back to default position (hold shift to drag the minimap frame)."],
-				func = "resetMinimapLayerFrame",
-				order = 19,
+			type = "execute",
+			name = L["minimapLayerFrameResetTitle"],
+			desc = L["minimapLayerFrameResetDesc"],
+			func = "resetMinimapLayerFrame",
+			order = 19,
 		};
 	end
 end
@@ -885,12 +890,17 @@ NWB.optionDefaults = {
 		middleBuffWarning = true,
 		middleHideCombat = false,
 		middleHideRaid = false,
-		guild30 = false,
-		guild15 = false,
-		guild10 = true,
-		guild5 = false,
-		guild1 = true,
-		guild0 = false,
+		middleHideBattlegrounds = false,
+		--These are 1/0 instead of true/false to be smaller via addon comms.
+		guild10 = 1,
+		guild1 = 1,
+		guildNpcKilled = 1,
+		guildBuffDropped = 1,
+		guildNpcDialogue = 1,
+		guildZanDialogue = 1,
+		guildCommand = 1,
+		guildSongflower = 1,
+		disableAllGuildMsgs = 0,
 		rendRespawnTime = 10800,
 		rendBuffTime = 3600,
 		onyRespawnTime = 21600,
@@ -904,14 +914,7 @@ NWB.optionDefaults = {
 		showTimeStamp = true,
 		timeStampFormat = 12,
 		timeStampZone = "local",
-		guildNpcKilled = true,
-		guildBuffDropped = true,
-		guildNpcDialogue = true,
-		guildZanDialogue = true,
-		guildCommand = true,
-		disableAllGuildMsgs = false,
 		receiveGuildDataOnly = false,
-		guildSongflower = true,
 		mySongflowerOnly = false,
 		syncFlowersAll = true,
 		allianceEnableRend = false,
@@ -964,6 +967,7 @@ NWB.optionDefaults = {
 		extraSoundOptions = false,
 		soundOnlyInCity = false,
 		soundsDisableInInstances = true,
+		soundsDisableInBattlegrounds = false,
 		soundsFirstYell = "NWB - Electronic",
 		soundsOneMinute = "None",
 		soundsRendDrop = "NWB - Zelda",
@@ -977,10 +981,18 @@ NWB.optionDefaults = {
 		flashOneMin = true,
 		flashFirstYell = true,
 		flashFirstYellZan = true,
+		dispelsMine = true,
+		dispelsMineWBOnly = true,
+		dispelsAll = false,
+		dispelsAllWBOnly = false,
+		soundsDispelsMine = "NWB - Dink",
+		soundsDispelsAll = "None",
+		
 		resetLayers3 = true, --Reset layers one time (sometimes needed when upgrading from old version.
 		resetSongflowers = true, --Reset songflowers one time.
 		experimental = true, --Enable features being tested on occasion.
-		resetLayerMaps = true;
+		resetLayerMaps = true,
+		convertSettings = true,
 	},
 };
 
@@ -1070,6 +1082,52 @@ function NWB:buildRealmFactionData()
 	self.data = self.db.global[NWB.realm][NWB.faction];
 end
 
+function NWB:convertSettings()
+	if (NWB.db.global.convertSettings) then
+		if (NWB.db.global.guild10 == true or NWB.db.global.guild10 == 1) then
+			NWB.db.global.guild10 = 1;
+		else
+			NWB.db.global.guild10 = 0;
+		end
+		if (NWB.db.global.guild1 or NWB.db.global.guild1 == 1) then
+			NWB.db.global.guild1 = 1;
+		else
+			NWB.db.global.guild1 = 0;
+		end
+		if (NWB.db.global.guildNpcKilled == true or NWB.db.global.guildNpcKilled == 1) then
+			NWB.db.global.guildNpcKilled = 1;
+		else
+			NWB.db.global.guildNpcKilled = 0;
+		end
+		if (NWB.db.global.guildBuffDropped == true or NWB.db.global.guildBuffDropped == 1) then
+			NWB.db.global.guildBuffDropped = 1;
+		else
+			NWB.db.global.guildBuffDropped = 0;
+		end
+		if (NWB.db.global.guildNpcDialogue == true or NWB.db.global.guildNpcDialogue == 1) then
+			NWB.db.global.guildNpcDialogue = 1;
+		else
+			NWB.db.global.guildNpcDialogue = 0;
+		end
+		if (NWB.db.global.guildZanDialogue == true or NWB.db.global.guildZanDialogue == 1) then
+			NWB.db.global.guildZanDialogue = 1;
+		else
+			NWB.db.global.guildZanDialogue = 0;
+		end
+		if (NWB.db.global.guildCommand == true or NWB.db.global.guildCommand == 1) then
+			NWB.db.global.guildCommand = 1;
+		else
+			NWB.db.global.guildCommand = 0;
+		end
+		if (NWB.db.global.disableAllGuildMsgs == true or NWB.db.global.disableAllGuildMsgs == 1) then
+			NWB.db.global.disableAllGuildMsgs = 1;
+		else
+			NWB.db.global.disableAllGuildMsgs = 0;
+		end
+		NWB.db.global.convertSettings = false;
+	end
+end
+
 --Print timers to chat window at logon time.
 function NWB:setLogonPrint(info, value)
 	self.db.global.logonPrint = value;
@@ -1124,16 +1182,6 @@ end
 
 function NWB:getAllianceEnableRend(info)
 	return self.db.global.allianceEnableRend;
-end
-
---Disable all guild msgs.
-function NWB:setDisableAllGuildMsgs(info, value)
-	self.db.global.disableAllGuildMsgs = value;
-	NWB:sendData("GUILD");
-end
-
-function NWB:getDisableAllGuildMsgs(info)
-	return self.db.global.disableAllGuildMsgs;
 end
 
 --Ignore data from outside the guild.
@@ -1394,117 +1442,175 @@ function NWB:getMiddleHideRaid(info)
 	return self.db.global.middleHideRaid;
 end
 
---Guild 30 minute warning.
-function NWB:setGuild30(info, value)
-	self.db.global.guild30 = value;
+--Middle of the screen hide in raid.
+function NWB:setMiddleHideBattlegrounds(info, value)
+	self.db.global.middleHideBattlegrounds = value;
 end
 
-function NWB:getGuild30(info)
-	return self.db.global.guild30;
+function NWB:getMiddleHideBattlegrounds(info)
+	return self.db.global.middleHideBattlegrounds;
 end
-
---Guild 15 minute warning.
-function NWB:setGuild15(info, value)
-	self.db.global.guild15 = value;
-end
-
-function NWB:getGuild15(info)
-	return self.db.global.guild15;
-end
-
+		
 --Guild 10 minute warning.
 function NWB:setGuild10(info, value)
-	self.db.global.guild10 = value;
+	if (value) then
+		self.db.global.guild10 = 1;
+	else
+		self.db.global.guild10 = 0;
+	end
+	NWB:sendSettings("GUILD");
 end
 
 function NWB:getGuild10(info)
-	return self.db.global.guild10;
-end
-
---Guild 5 minute warning.
-function NWB:setGuild5(info, value)
-	self.db.global.guild5 = value;
-end
-
-function NWB:getGuild5(info)
-	return self.db.global.guild5;
+	if (self.db.global.guild10 == 1) then
+		return true;
+	else
+		return false;
+	end
 end
 
 --Guild 1 minute warning.
 function NWB:setGuild1(info, value)
-	self.db.global.guild1 = value;
+	if (value) then
+		self.db.global.guild1 = 1;
+	else
+		self.db.global.guild1 = 0;
+	end
+	NWB:sendSettings("GUILD");
 end
 
 function NWB:getGuild1(info)
-	return self.db.global.guild1;
-end
-
---Guild 0 minute warning.
-function NWB:setGuild0(info, value)
-	self.db.global.guild0 = value;
-end
-
-function NWB:getGuild0(info)
-	return self.db.global.guild0;
-end
-
---Guild NPC dialogue started.
-function NWB:setGuildNpcDialogue(info, value)
-	self.db.global.guildNpcDialogue = value;
-	NWB:sendData("GUILD");
-end
-
-function NWB:getGuildNpcDialogue(info)
-	return self.db.global.guildNpcDialogue;
-end
-
---Guild Zan dialogue started.
-function NWB:setGuildZanDialogue(info, value)
-	self.db.global.guildZanDialogue = value;
-	NWB:sendData("GUILD");
-end
-
-function NWB:getGuildZanDialogue(info)
-	return self.db.global.guildZanDialogue;
-end
-
---Guild buff dropped.
-function NWB:setGuildBuffDropped(info, value)
-	self.db.global.guildBuffDropped = value;
-	NWB:sendData("GUILD");
-end
-
-function NWB:getGuildBuffDropped(info)
-	return self.db.global.guildBuffDropped;
+	if (self.db.global.guild1 == 1) then
+		return true;
+	else
+		return false;
+	end
 end
 
 --Guild NPC killed.
 function NWB:setGuildNpcKilled(info, value)
-	self.db.global.guildNpcKilled = value;
-	NWB:sendData("GUILD");
+	if (value) then
+		self.db.global.guildNpcKilled = 1;
+	else
+		self.db.global.guildNpcKilled = 0;
+	end
+	NWB:sendSettings("GUILD");
 end
 
 function NWB:getGuildNpcKilled(info)
-	return self.db.global.guildNpcKilled;
+	if (self.db.global.guildNpcKilled == 1) then
+		return true;
+	else
+		return false;
+	end
+end
+
+--Guild buff dropped.
+function NWB:setGuildBuffDropped(info, value)
+	if (value) then
+		self.db.global.guildBuffDropped = 1;
+	else
+		self.db.global.guildBuffDropped = 0;
+	end
+	NWB:sendSettings("GUILD");
+end
+
+function NWB:getGuildBuffDropped(info)
+	if (self.db.global.guildBuffDropped == 1) then
+		return true;
+	else
+		return false;
+	end
+end
+
+--Guild NPC dialogue started.
+function NWB:setGuildNpcDialogue(info, value)
+	if (value) then
+		self.db.global.guildNpcDialogue = 1;
+	else
+		self.db.global.guildNpcDialogue = 0;
+	end
+	NWB:sendSettings("GUILD");
+end
+
+function NWB:getGuildNpcDialogue(info)
+	if (self.db.global.guildNpcDialogue == 1) then
+		return true;
+	else
+		return false;
+	end
+end
+
+--Guild Zan dialogue started.
+function NWB:setGuildZanDialogue(info, value)
+	if (value) then
+		self.db.global.guildZanDialogue = 1;
+	else
+		self.db.global.guildZanDialogue = 0;
+	end
+	NWB:sendSettings("GUILD");
+end
+
+function NWB:getGuildZanDialogue(info)
+	if (self.db.global.guildZanDialogue == 1) then
+		return true;
+	else
+		return false;
+	end
 end
 
 --Guild !wb command.
 function NWB:setGuildCommand(info, value)
-	self.db.global.guildCommand = value;
-	NWB:sendData("GUILD");
+	if (value) then
+		self.db.global.guildCommand = 1;
+	else
+		self.db.global.guildCommand = 0;
+	end
+	NWB:sendSettings("GUILD");
 end
 
 function NWB:getGuildCommand(info)
-	return self.db.global.guildCommand;
+	if (self.db.global.guildCommand == 1) then
+		return true;
+	else
+		return false;
+	end
+end
+
+--Disable all guild msgs.
+function NWB:setDisableAllGuildMsgs(info, value)
+	if (value) then
+		self.db.global.disableAllGuildMsgs = 1;
+	else
+		self.db.global.disableAllGuildMsgs = 0;
+	end
+	NWB:sendSettings("GUILD");
+end
+
+function NWB:getDisableAllGuildMsgs(info)
+	if (self.db.global.disableAllGuildMsgs == 1) then
+		return true;
+	else
+		return false;
+	end
 end
 
 --Guild songflower picked announce.
 function NWB:setGuildSongflower(info, value)
-	self.db.global.guildSongflower = value;
+	if (value) then
+		self.db.global.guildSongflower = 1;
+	else
+		self.db.global.guildSongflower = 0;
+	end
+	NWB:sendSettings("GUILD");
 end
 
 function NWB:getGuildSongflower(info)
-	return self.db.global.guildSongflower;
+	if (self.db.global.guildSongflower == 1) then
+		return true;
+	else
+		return false;
+	end
 end
 
 --Only set songflower timer if I picked it.
@@ -1790,6 +1896,7 @@ local sounds = {
 	["NWB - Clock"] = "Interface\\AddOns\\NovaWorldBuffs\\Media\\Clock.ogg",
 	["NWB - Electronic"] = "Interface\\AddOns\\NovaWorldBuffs\\Media\\Electronic.ogg",
 	["NWB - Pop"] = "Interface\\AddOns\\NovaWorldBuffs\\Media\\Pop.ogg",
+	["NWB - Dink"] = "Interface\\AddOns\\NovaWorldBuffs\\Media\\Dink.ogg",
 }
 function NWB:registerSounds()
 	for k, v in pairs(sounds) do
@@ -1856,6 +1963,15 @@ end
 
 function NWB:getSoundsDisableInInstances(info)
 	return self.db.global.soundsDisableInInstances;
+end
+
+--Only plays sounds in city.
+function NWB:setSoundsDisableInBattlegrounds(info, value)
+	self.db.global.soundsDisableInBattlegrounds = value;
+end
+
+function NWB:getSoundsDisableInBattlegrounds(info)
+	return self.db.global.soundsDisableInBattlegrounds;
 end
 
 --First yell sound.
@@ -1940,4 +2056,62 @@ end
 
 function NWB:getSoundsZanDrop(info)
 	return self.db.global.soundsZanDrop;
+end
+
+--My buffs dispelled.
+function NWB:setSoundsDispelsMine(info, value)
+	self.db.global.soundsDispelsMine = value;
+	local soundFile = NWB.LSM:Fetch("sound", value);
+	PlaySoundFile(soundFile);
+end
+
+function NWB:getSoundsDispelsMine(info)
+	return self.db.global.soundsDispelsMine;
+end
+
+--Others buffs dispelled.
+function NWB:setSoundsDispelsAll(info, value)
+	self.db.global.soundsDispelsAll = value;
+	local soundFile = NWB.LSM:Fetch("sound", value);
+	PlaySoundFile(soundFile);
+end
+
+function NWB:getSoundsDispelsAll(info)
+	return self.db.global.soundsDispelsAll;
+end
+
+--Show my buffs dispelled.
+function NWB:setDispelsMine(info, value)
+	self.db.global.dispelsMine = value;
+end
+
+function NWB:getDispelsMine(info)
+	return self.db.global.dispelsMine;
+end
+
+--Show my buffs dispelled (world buffs only).
+function NWB:setDispelsMineWBOnly(info, value)
+	self.db.global.dispelsMineWBOnly = value;
+end
+
+function NWB:getDispelsMineWBOnly(info)
+	return self.db.global.dispelsMineWBOnly;
+end
+
+--Show all buffs dispelled.
+function NWB:setDispelsAll(info, value)
+	self.db.global.dispelsAll = value;
+end
+
+function NWB:getDispelsAll(info)
+	return self.db.global.dispelsAll;
+end
+
+--Show all buffs dispelled (world buffs only).
+function NWB:setDispelsAllWBOnly(info, value)
+	self.db.global.dispelsAllWBOnly = value;
+end
+
+function NWB:getDispelsAllWBOnly(info)
+	return self.db.global.dispelsAllWBOnly;
 end
