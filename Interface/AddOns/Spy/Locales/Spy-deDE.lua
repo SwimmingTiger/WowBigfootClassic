@@ -113,6 +113,9 @@ L["TooltipDisplayKOSReason"] = "Zeigt die Gründe für das Töten bei Sichtkonta
 L["TooltipDisplayKOSReasonDescription"] = "Wählen Sie diese Einstellung, um die Gründe für das Töten eines Spielers bei Sichtkontakt in der QuickInfo des Spielers anzuzeigen."
 L["TooltipDisplayLastSeen"] = "Zeigt die zuletzt angesehenen Details in der QuickInfo an."
 L["TooltipDisplayLastSeenDescription"] = "Wählen Sie diese Einstellung, um die letzte bekannte Zeit und den letzten bekannten Ort eines Spielers in der QuickInfo des Spielers anzuzeigen."
+L["DisplayListData"] = "Wählen Sie die anzuzeigenden feindlichen Daten aus"
+L["Name"] = "Name"
+L["Class"] = "Klasse"
 L["SelectFont"] = "Wählen Sie eine Schriftart"
 L["SelectFontDescription"] = "Wählen Sie eine Schriftart für das Spy-Fenster."
 L["RowHeight"] = "Wählen Sie die Zeilenhöhe aus"
@@ -158,6 +161,10 @@ L["SelectWarnRaceDescription"] = "Wählen Sie eine Rasse, welche mittels akustis
 L["WarnRaceNote"] = "Hinweis: Sie müssen den Feind mindestens einmal ins Visier genommen haben, damit dessen Rasse in die Datenbank aufgenommen werden kann. Bei der nächsten Detektion ertönt ein Alarm. Das funktioniert nicht genauso, wie die Detektion von kämpfenden Gegnern in der Nähe."
 L["DisplayWarningsInErrorsFrame"] = "Zeigt Warnungen im Fehler-Fenster an."
 L["DisplayWarningsInErrorsFrameDescription"] = "Wählen Sie diese Einstellung, um eine Warnung wiederzugeben, anstatt grafische Popup-Frames anzuzeigen."
+L["DisplayWarnings"] = "Wählen Sie den Speicherort der Warnmeldung"
+L["Default"] = "Standard"
+L["ErrorFrame"] = "Fehlerrahmen"
+L["Moveable"] = "Beweglich"
 L["EnableSound"] = "Aktiviert akustische Warnungen."
 L["EnableSoundDescription"] = "Wählen Sie diese Einstellung, um akustische Warnungen zu aktivieren, wenn feindliche Spieler erkannt werden. Es erklingen unterschiedliche Warnungen, wenn ein feindlicher Spieler sich tarnt oder wenn ein feindlicher Spieler auf deiner Bei Sichtkontakt zu Töten-Liste ist."
 L["OnlySoundKoS"] = "Es ertönen nur akustische Alarme fuer die Bei Sichtkontakt zu Töten-Liste"
@@ -259,6 +266,8 @@ L["KOSDescription"] = "Fügt hinzu/entfernt einen Spieler von der Sofort zu Töt
 L["InvalidInput"] = "Ungültige Eingabe"
 L["Ignore"] = "Ignorieren"
 L["IgnoreDescription"] = "Fügt hinzu/entfernt einen Spieler von der Zu Ignorieren-Liste."
+L["Test"] = "Testen"
+L["TestDescription"] = "Zeigt eine Warnung an, damit Sie sie neu positionieren können."
  
 --Listen
 L["Nearby"] = "In der Nähe"
@@ -431,69 +440,71 @@ StaticPopupDialogs ["Spy_SetKOSReasonOther"] = {
 	OnShow = function(self)
 		self.editBox:SetText("");
 	end,
-		OnAccept = function(self)
+	OnAccept = function(self)
 		local reason = Self.editBox:GetText()
 		Spy:SetKOSReason(self.playerName, "Geben Sie Ihren eigenen Grund ein ...", reason)
 	end,
 };
 
---++ Class descriptions
---L["DEATHKNIGHT"] = "Todesritter"
---L["DEMONHUNTER"] = "Dämonenjäger"
+-- Class descriptions
+L["UNKNOWN"] = "Unbekannt"
 L["DRUID"] = "Druide"
 L["HUNTER"] = "Jäger"
 L["MAGE"] = "Magier"
---L["MONK"] = "Mönch"
 L["PALADIN"] = "Paladin"
 L["PREIST"] = "Priester"
 L["ROGUE"] = "Schurke"
 L["SHAMAN"] = "Schamane"
 L["WARLOCK"] = "Hexenmeister"
 L["WARRIOR"] = "Krieger"
-L["UNKNOWN"] = "Unbekannt"
+L["DEATHKNIGHT"] = "Todesritter"
+L["MONK"] = "Mönch"
+L["DEMONHUNTER"] = "Dämonenjäger"
  
- --++ Race descriptions
-L["HUMAN"] = "Mensch"
-L["ORC"] = "Orc"
-L["DWARF"] = "Zwerg"
-L["NIGHT ELF"] = "Nachtelf"
-L["UNDEAD"] = "Untoter"
-L["TAUREN"] = "Tauren"
-L["GNOME"] = "Gnom"
-L["TROLL"] = "Troll"
---L["GOBLIN"] = "Goblin"
---L["BLOOD ELF"] = "Blutelf"
---L["DRAENEI"] = "Draenei"
---L["WORGEN"] = "Worgen"
---L["PANDAREN"] = "Pandaren"
---L["NIGHTBORNE"] = "Nachtgeborener"
---L["HIGHMOUNTAIN TAUREN"] = "Hochbergtauren"
---L["VOID ELF"] = "Leerenelf"	
---L["LIGHTFORGED DRAENEI"] = "Lichtgeschmiedeter Draenei"
---L["ZANDALARI TROLL"] = "Zandalaritroll"
---L["KUL TIRAN"] = "Kul Tiran"
---L["DARK IRON DWARF"] = "Dunkeleisenzwerg"
---L["MAG'HAR ORC"] = "Mag'har"
+-- Race descriptions
+L["Human"] = "Mensch"
+L["Orc"] = "Orc"
+L["Dwarf"] = "Zwerg"
+L["Tauren"] = "Tauren"
+L["Troll"] = "Troll"
+L["Night Elf"] = "Nachtelf"
+L["Undead"] = "Untoter"
+L["Gnome"] = "Gnom"
+L["Blood Elf"] = "Blutelf"
+L["Draenei"] = "Draenei"
+L["Goblin"] = "Goblin"
+L["Worgen"] = "Worgen"
+L["Pandaren"] = "Pandaren"
+L["Highmountain Tauren"] = "Hochbergtauren"
+L["Lightforged Draenei"] = "Lichtgeschmiedeter Draenei"
+L["Nightborne"] = "Nachtgeborener"
+L["Void Elf"] = "Leerenelf"	
+L["Dark Iron Dwarf"] = "Dunkeleisenzwerg"
+L["Mag'har Orc"] = "Mag'har"
+L["Kul Tiran"] = "Kul Tiran"
+L["Zandalari Troll"] = "Zandalaritroll"
+L["Mechagnome"] = "Mechagnom"
+L["Vulpera"] = "Vulpera"
  
---Stealth Fähigkeiten
+-- Stealth Fähigkeiten
 L["Stealth"] = "Verstohlenheit"
 L["Prowl"] = "Schleichen"
  
---++ Minimap-Farbcodes
---L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
---L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
+-- Minimap-Farbcodes
+L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextUNKNOWN"] = "|cff191919"
 L["MinimapClassTextDRUID"] = "|cffff7c0a"
 L["MinimapClassTextHUNTER"] = "|cffaad372"
 L["MinimapClassTextMAGE"] = "|cff68ccef"
---L["MinimapClassTextMONK"] = "|cff00ff96"
 L["MinimapClassTextPALADIN"] = "|cfff48cba"
 L["MinimapClassTextPRIEST"] = "|cffffffff"
 L["MinimapClassTextROGUE"] = "|cfffff468"
 L["MinimapClassTextSHAMAN"] = "|cff2359ff"
 L["MinimapClassTextWARLOCK"] = "|cff9382c9"
 L["MinimapClassTextWARRIOR"] = "|cffc69b6d"
-L["MinimapClassTextUNKNOWN"] = "|cff191919"
-L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
+L["MinimapClassTextMONK"] = "|cff00ff96"
+L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
  
 Spy_AbilityList = {
  -----------------------------------------------------------

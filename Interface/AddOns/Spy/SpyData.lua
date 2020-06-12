@@ -60,7 +60,9 @@ local function getTable()
 end
 
 local function releaseTable(t)
-    if type(t) ~= "table" then return end
+    if type(t) ~= "table" then
+		return
+	end
     for k in pairs(t) do t[k] = nil end
     t[1] = true; t[1] = nil
     tp[t] = true
@@ -75,7 +77,9 @@ end
 
 function SpyData:OnEnable()
     -- unit testing
-    if SpyUnitTest then SpyUnitTest:LoadData(Spy_db, cache) end
+    if SpyUnitTest then
+		SpyUnitTest:LoadData(Spy_db, cache)
+	end
 end
 
 function SpyData:SetSavedVariablesDb(val)
@@ -96,8 +100,8 @@ end
 
 function SpyData:AddPlayer(unit)  -- Delete
     if unit.isEnemy then	
-	SpyPerCharDB.PlayerData[unit.name] = unit
-	SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][unit.name] = unit	
+		SpyPerCharDB.PlayerData[unit.name] = unit
+		SpyDB.kosData[Spy.RealmName][Spy.FactionName][Spy.CharacterName][unit.name] = unit	
 	end
 end
 

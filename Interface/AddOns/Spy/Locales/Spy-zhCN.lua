@@ -27,16 +27,16 @@ L["SpyDescription2"] = [[
 在该列表中的敌对玩家一旦被侦测会出警报。您可以通过鼠标右键菜单或按住Shift点击从列表中添加或删除敌对玩家。
  
 右键菜单也可以添加将某人加入此列表的原因。如果你希望添加不在列表中的说明，可以通过其他列表“自行输入原因...”。
-  
+
 |cffffd000Statistics Window|cffffffff
 The Statistics Window contains a list of all enemy encounters which can be sorted by name, level, guild, wins, losses and the last time an enemy was detected. It also provides the ability to search for a specific enemy by name or guild and has filters to show only enemies that are marked as Kill on Sight, with a Win/Loss or entered Reasons. 
 
 |cffffd000Kill On Sight Button|cffffffff
 If enabled, this button will be located on the enemy players target frame. Clicking on this button will add/remove the enemy target to/from the Kill On Sight list. Right clicking on the button will allow you to enter Kill on Sight reasons.
-  
+
 |cffffd000作者: Slipjack|cffffffff
 ]]
- 
+
 -- General Settings
 L["GeneralSettings"] = "一般配置"
 L["GeneralSettingsDescription"] = [[
@@ -113,6 +113,9 @@ L["TooltipDisplayKOSReason"] = "在鼠标提示中显示KOS原因"
 L["TooltipDisplayKOSReasonDescription"] = "设置在鼠标提示中显示KOS原因。"
 L["TooltipDisplayLastSeen"] = "在鼠标提示中显示上次遇到的详情"
 L["TooltipDisplayLastSeenDescription"] = "设置在鼠标提示中显示上次遇到的详情。"
+L["DisplayListData"] = "选择要显示的敌人数据"
+L["Name"] = "名称"
+L["Class"] = "职业"
 L["SelectFont"] = "选择字体"
 L["SelectFontDescription"] = "为Spy选择字体。"
 L["RowHeight"] = "选择列高"
@@ -158,6 +161,10 @@ L["SelectWarnRaceDescription"] = "选择特定种族发出警告。"
 L["WarnRaceNote"] = "提示：您必须选择过该敌对玩家至少一次该种族信息才会被添加，在下次侦测时才会发出警告。与侦测附近敌对玩家一样，在战斗中无法进行设置。"
 L["DisplayWarningsInErrorsFrame"] = "以错误信息提示显示警告"
 L["DisplayWarningsInErrorsFrameDescription"] = "设置错误信息提示来取代图形化弹出窗口。"
+L["DisplayWarnings"] = "选择警告消息的位置"
+L["Default"] = "默认位置"
+L["ErrorFrame"] = "错误框"
+L["Moveable"] = "可移动的"
 L["EnableSound"] = "启用声音警告"
 L["EnableSoundDescription"] = "设置当检测到敌对玩家时声音警告。 潜行或者KOS列表中的敌对玩家会有不同的声音提示。"
 L["OnlySoundKoS"] = "仅开启KOS列表中敌对玩家的声音警告"
@@ -259,6 +266,8 @@ L["KOSDescription"] = "从KOS敌对玩家列表中添加或删除敌对玩家"
 L["InvalidInput"] = "输入错误"
 L["Ignore"] = "忽略"
 L["IgnoreDescription"] = "从忽略列表中添加或删除敌对玩家"
+L["Test"] = "Test"
+L["TestDescription"] = "显示警告，以便您可以重新放置它。"
  
 -- Lists
 L["Nearby"] = "附近"
@@ -431,69 +440,71 @@ StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
     OnShow = function(self)
         self.editBox:SetText("");
     end,
-        OnAccept = function(self)
+    OnAccept = function(self)
         local reason = self.editBox:GetText()
         Spy:SetKOSReason(self.playerName, "自行输入原因...", reason)
     end,
 };
 
---++ Class descriptions
-L["DEATHKNIGHT"] = "死亡騎士"
-L["DEMONHUNTER"] = "惡魔獵人"
+-- Class descriptions
+L["UNKNOWN"] = "未知"
 L["DRUID"] = "德魯伊"
 L["HUNTER"] = "獵人"
 L["MAGE"] = "法師"
-L["MONK"] = "武僧"
 L["PALADIN"] = "聖騎士"
 L["PRIEST"] = "牧師"
 L["ROGUE"] = "盜賊"
 L["SHAMAN"] = "薩滿"
 L["WARLOCK"] = "術士"
 L["WARRIOR"] = "戰士"
-L["UNKNOWN"] = "未知"
+L["DEATHKNIGHT"] = "死亡騎士"
+L["MONK"] = "武僧"
+L["DEMONHUNTER"] = "惡魔獵人"
 
---++ Race descriptions
-L["HUMAN"] = "人类"
-L["ORC"] = "兽人"
-L["DWARF"] = "矮人"
-L["NIGHT ELF"] = "暗夜精灵"
-L["UNDEAD"] = "亡灵"
-L["TAUREN"] = "牛头人"
-L["GNOME"] = "侏儒"
-L["TROLL"] = "巨魔"
-L["GOBLIN"] = "地精"
-L["BLOOD ELF"] = "血精灵"
-L["DRAENEI"] = "德莱尼"
-L["WORGEN"] = "狼人"
-L["PANDAREN"] = "熊猫人"
-L["NIGHTBORNE"] = "夜之子"
-L["HIGHMOUNTAIN TAUREN"] = "至高岭牛头人"
-L["VOID ELF"] = "虚空精灵"
-L["LIGHTFORGED DRAENEI"] = "光铸德莱尼"
-L["ZANDALARI TROLL"] = "赞达拉巨魔"
-L["KUL TIRAN"] = "库尔提拉斯人"
-L["DARK IRON DWARF"] = "黑铁矮人"
-L["MAG'HAR ORC"] = "玛格汉兽人"
+-- Race descriptions
+L["Human"] = "人类"
+L["Orc"] = "兽人"
+L["Dwarf"] = "矮人"
+L["Tauren"] = "牛头人"
+L["Troll"] = "巨魔"
+L["Night Elf"] = "暗夜精灵"
+L["Undead"] = "亡灵"
+L["Gnome"] = "侏儒"
+L["Blood Elf"] = "血精灵"
+L["Draenei"] = "德莱尼"
+L["Goblin"] = "地精"
+L["Worgen"] = "狼人"
+L["Pandaren"] = "熊猫人"
+L["Highmountain Tauren"] = "至高岭牛头人"
+L["Lightforged Draenei"] = "光铸德莱尼"
+L["Nightborne"] = "夜之子"
+L["Void Elf"] = "虚空精灵"
+L["Dark Iron Dwarf"] = "黑铁矮人"
+L["Mag'har Orc"] = "玛格汉兽人"
+L["Kul Tiran"] = "库尔提拉斯人"
+L["Zandalari Troll"] = "赞达拉巨魔"
+L["Mechagnome"] = "机械侏儒"
+L["Vulpera"] = "狐人"
 
 -- Stealth abilities
 L["Stealth"] = "潜行"
 L["Prowl"] = "潛行"
 
---++ Minimap color codes
-L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
-L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
+-- Minimap color codes
+L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextUNKNOWN"] = "|cff191919"
 L["MinimapClassTextDRUID"] = "|cffff7c0a"
 L["MinimapClassTextHUNTER"] = "|cffaad372"
 L["MinimapClassTextMAGE"] = "|cff68ccef"
-L["MinimapClassTextMONK"] = "|cff00ff96"
 L["MinimapClassTextPALADIN"] = "|cfff48cba"
 L["MinimapClassTextPRIEST"] = "|cffffffff"
 L["MinimapClassTextROGUE"] = "|cfffff468"
 L["MinimapClassTextSHAMAN"] = "|cff2359ff"
 L["MinimapClassTextWARLOCK"] = "|cff9382c9"
 L["MinimapClassTextWARRIOR"] = "|cffc69b6d"
-L["MinimapClassTextUNKNOWN"] = "|cff191919"
-L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
+L["MinimapClassTextMONK"] = "|cff00ff96"
+L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
 
 Spy_AbilityList = {
 -----------------------------------------------------------

@@ -113,6 +113,9 @@ L["TooltipDisplayKOSReason"] = "적 플레이어 툴팁에 살생부 이유 표�
 L["TooltipDisplayKOSReasonDescription"] = "적 플레이어 툴팁에 살생부 이유를 표시하려면 체크하십시오."
 L["TooltipDisplayLastSeen"] = "적 플레이어 툴팁에 마지막 탐지 시간 표시"
 L["TooltipDisplayLastSeenDescription"] = "적 플레이어 툴팁에 마지막으로 탐지된 시간과 위치를 표시하려면 체크하십시오."
+L["DisplayListData"] = "표시 할 적의 데이터를 선택하십시오"
+L["Name"] = "이름"
+L["Class"] = "직업"
 L["SelectFont"] = "폰트 설정"
 L["SelectFontDescription"] = "Spy 창의 폰트를 선택하세요."
 L["RowHeight"] = "열 높이 설정"
@@ -158,6 +161,10 @@ L["SelectWarnRaceDescription"] = "탐지할 종족을 선택합니다. 탐지시
 L["WarnRaceNote"] = "주의: 적 플레이어를 최소 한번이라도 타겟팅해야 적의 종족이 데이터베이스에 추가됩니다. 그 다음 탐지 시 소리가 재생됩니다. 근접한 적을 탐지하는 것과는 다르게 동작합니다."
 L["DisplayWarningsInErrorsFrame"] = "오류 프레임으로 경고 표시"
 L["DisplayWarningsInErrorsFrameDescription"] = "그래픽 팝업 프레임 대신 오류 프레임으로 경고를 표시하려면 체크하십시오."
+L["DisplayWarnings"] = "경고 메시지 위치 선택"
+L["Default"] = "기본 위치"
+L["ErrorFrame"] = "오류 프레임"
+L["Moveable"] = "움직일 수 있는"
 L["EnableSound"] = "경고 소리 활성화"
 L["EnableSoundDescription"] = "적 플레이어가 탐지될 때 소리를 활성화하려면 체크하십시오. 은신을 탐지할 때와 살생부 명단을 탐지할 때의 소리는 다릅니다."
 L["OnlySoundKoS"] = "살생부 명단에 한하여 경고 소리 재생"
@@ -259,6 +266,8 @@ L["KOSDescription"] = "적 플레이어를 살생부에 추가/제거 합니다.
 L["InvalidInput"] = "잘못된 입력"
 L["Ignore"] = "제외"
 L["IgnoreDescription"] = "적 플레이어를 제외 목록에 추가/제거 합니다."
+L["Test"] = "Test"
+L["TestDescription"] = "위치를 조정할 수 있도록 경고를 표시합니다."
 
 -- Lists
 L["Nearby"] = "근접한 적"
@@ -431,69 +440,71 @@ StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
 	OnShow = function(self)
 		self.editBox:SetText("");
 	end,
-    	OnAccept = function(self)
+    OnAccept = function(self)
 		local reason = self.editBox:GetText()
 		Spy:SetKOSReason(self.playerName, "이유를 입력하세요...", reason)
 	end,
 };
 
---++ Class descriptions
---L["DEATHKNIGHT"] = "죽음의 기사"
---L["DEMONHUNTER"] = "악마사냥꾼"
+-- Class descriptions
+L["UNKNOWN"] = "미확인"
 L["DRUID"] = "드루이드"
 L["HUNTER"] = "사냥꾼"
 L["MAGE"] = "마법사"
---L["MONK"] = "수도사"
 L["PALADIN"] = "성기사"
 L["PRIEST"] = "사제"
 L["ROGUE"] = "도적"
 L["SHAMAN"] = "주술사"
 L["WARLOCK"] = "흑마법사"
 L["WARRIOR"] = "전사"
-L["UNKNOWN"] = "미확인"
+L["DEATHKNIGHT"] = "죽음의 기사"
+L["MONK"] = "수도사"
+L["DEMONHUNTER"] = "악마사냥꾼"
 
---++ Race descriptions
-L["HUMAN"] = "인간"
-L["ORC"] = "오크"
-L["DWARF"] = "드워프"
-L["NIGHT ELF"] = "나이트 엘프"
-L["UNDEAD"] = "언데드"
-L["TAUREN"] = "타우렌"
-L["GNOME"] = "노움"
-L["TROLL"] = "트롤"
-L["GOBLIN"] = "고블린"
---L["BLOOD ELF"] = "블러드 엘프"
---L["DRAENEI"] = "드레나이"
---L["WORGEN"] = "늑대인간"
---L["PANDAREN"] = "판다렌"
---L["NIGHTBORNE"] = "나이트본"
---L["HIGHMOUNTAIN TAUREN"] = "높은산 타우렌"
---L["VOID ELF"] = "공허 엘프"
---L["LIGHTFORGED DRAENEI"] = "빛벼림 드레나이"
---L["ZANDALARI TROLL"] = "잔달라 트롤"
---L["KUL TIRAN"] = "쿨 티란"
---L["DARK IRON DWARF"] = "검은무쇠 드워프"
---L["MAG'HAR ORC"] = "마그하르 오크"
+-- Race descriptions
+L["Human"] = "인간"
+L["Orc"] = "오크"
+L["Dwarf"] = "드워프"
+L["Tauren"] = "타우렌"
+L["Troll"] = "트롤"
+L["Night Elf"] = "나이트 엘프"
+L["Undead"] = "언데드"
+L["Gnome"] = "노움"
+L["Blood Elf"] = "블러드 엘프"
+L["Draenei"] = "드레나이"
+L["Goblin"] = "고블린"
+L["Worgen"] = "늑대인간"
+L["Pandaren"] = "판다렌"
+L["Highmountain Tauren"] = "높은산 타우렌"
+L["Lightforged Draenei"] = "빛벼림 드레나이"
+L["Nightborne"] = "나이트본"
+L["Void Elf"] = "공허 엘프"
+L["Dark Iron Dwarf"] = "검은무쇠 드워프"
+L["Mag'har Orc"] = "마그하르 오크"
+L["Kul Tiran"] = "쿨 티란"
+L["Zandalari Troll"] = "잔달라 트롤"
+L["Mechagnome"] = "기계노움"
+L["Vulpera"] = "불페라"
 
 -- Stealth abilities
 L["Stealth"] = "은신"
 L["Prowl"] = "숨기"
 
---++ Minimap color codes
---L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
---L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
+-- Minimap color codes
+L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextUNKNOWN"] = "|cff191919"
 L["MinimapClassTextDRUID"] = "|cffff7c0a"
 L["MinimapClassTextHUNTER"] = "|cffaad372"
 L["MinimapClassTextMAGE"] = "|cff68ccef"
---L["MinimapClassTextMONK"] = "|cff00ff96"
 L["MinimapClassTextPALADIN"] = "|cfff48cba"
 L["MinimapClassTextPRIEST"] = "|cffffffff"
 L["MinimapClassTextROGUE"] = "|cfffff468"
 L["MinimapClassTextSHAMAN"] = "|cff2359ff"
 L["MinimapClassTextWARLOCK"] = "|cff9382c9"
 L["MinimapClassTextWARRIOR"] = "|cffc69b6d"
-L["MinimapClassTextUNKNOWN"] = "|cff191919"
-L["MinimapGuildText"] = "|cffffffff"
+L["MinimapClassTextDEATHKNIGHT"] = "|cffc41e3a"
+L["MinimapClassTextMONK"] = "|cff00ff96"
+L["MinimapClassTextDEMONHUNTER"] = "|cffa330c9"
 
 Spy_AbilityList = {
 -----------------------------------------------------------

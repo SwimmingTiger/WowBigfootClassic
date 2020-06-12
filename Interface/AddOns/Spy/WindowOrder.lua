@@ -22,7 +22,9 @@ function Spy:InitOrder()
 end
 
 function Spy:SetWindowTop(window)
-	if InCombatLockdown() then return end
+	if InCombatLockdown() then
+		return
+	end
 	local Check = window.Above
 
 	while Check ~= nil do

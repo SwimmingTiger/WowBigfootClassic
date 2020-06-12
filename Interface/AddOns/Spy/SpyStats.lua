@@ -140,7 +140,9 @@ function SpyStats:SetSortColumn(name)
 end
 
 function SpyStats:Recalulate()
-    if not self:IsShown() or not self:IsEnabled() then return end
+    if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
 
     self.newevents = false
     SpyStatsRefreshButton:UnlockHighlight()
@@ -156,13 +158,17 @@ function SpyStats:Recalulate()
         end
     end
 
-    for j = i, #units.recent do units.recent[j] = nil end
+    for j = i, #units.recent do
+		units.recent[j] = nil
+	end
 
     self:Filter()
 end
 
 function SpyStats:Filter()
-    if not self:IsShown() or not self:IsEnabled() then return end
+    if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
 
     local tab = PanelTemplates_GetSelectedTab(SpyStatsTabFrame)
 
@@ -175,25 +181,23 @@ function SpyStats:Filter()
     for _, unit in ipairs(units.recent) do
         local session = SpyData:GetUnitSession(unit)		
 
-        if (filter == ""
-                or (unit.name and unit.name:sub(1, string.len(filter)):lower() == filter:lower()) 
-                or (unit.guild and unit.guild:sub(1, string.len(filter)):lower() == filter:lower())) 
-                and (not filterkos or unit.kos)
-                and (not filterpvp or ((unit.wins and unit.wins > 0) or (unit.loses and unit.loses > 0)))				
-                and (not filterreason or unit.reason)
-				then
-                units.display[i] = unit
-                i = i + 1
+        if (filter == "" or (unit.name and unit.name:sub(1, string.len(filter)):lower() == filter:lower()) or (unit.guild and unit.guild:sub(1, string.len(filter)):lower() == filter:lower())) and (not filterkos or unit.kos) and (not filterpvp or ((unit.wins and unit.wins > 0) or (unit.loses and unit.loses > 0))) and (not filterreason or unit.reason) then
+			units.display[i] = unit
+			i = i + 1
         end
     end
 
-    for j = i, #units.display do units.display[j] = nil end
+    for j = i, #units.display do
+		units.display[j] = nil
+	end
 
     self:Refresh()
 end
 
 function SpyStats:Refresh()
-    if self.refreshing then return end
+    if self.refreshing then
+		return
+	end
     self.refreshing = true
 
     local tab = PanelTemplates_GetSelectedTab(SpyStatsTabFrame)
@@ -264,7 +268,9 @@ function SpyStats:Refresh()
 				local reasonText = ""
 				if unit.reason then
 					for reason in pairs(unit.reason) do
-						if reasonText ~= "" then reasonText = reasonText..", " end
+						if reasonText ~= "" then
+							reasonText = reasonText..", "
+						end
 						if reason == L["KOSReasonOther"] then
 							reasonText = reasonText..unit.reason[reason]
 						else
@@ -292,7 +298,9 @@ function SpyStats:Refresh()
 				for key, value in pairs(SpyPerCharDB.KOSData) do	
 					-- find units that match
 					local KoSname = key
-					if unit.name == KoSname then f = f .. "x" end
+					if unit.name == KoSname then
+						f = f .. "x"
+					end
 				end		
                 tList:SetText(f)
                 tList:SetTextColor(r, g, b)				
@@ -307,7 +315,9 @@ function SpyStats:Refresh()
 end
 
 function SpyStats:OnRefreshButtonUpdate(frame, elapsed)
-    if not self.newevents then return end
+    if not self.newevents then
+		return
+	end
 
     local timer = frame.timer + elapsed
 
@@ -359,7 +369,9 @@ function CreateStatsDropdown(node)
 			info.hasArrow = false
 			info.disabled = nil
 			info.text = L["AddToKOSList"]
-			info.func = function() Spy:ToggleKOSPlayer(true, unit.name) end
+			info.func = function()
+				Spy:ToggleKOSPlayer(true, unit.name)
+			end
 			info.value = nil
 			UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL)
 			
@@ -371,7 +383,7 @@ function CreateStatsDropdown(node)
 			info.func = function() 
 				Spy:RemovePlayerData(unit.name)
 				SpyStats:Recalulate()
-				end 
+			end 
 			info.value = nil
 			UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL)
 		else
@@ -379,7 +391,9 @@ function CreateStatsDropdown(node)
 			info.notCheckable = true
 			info.text = L["KOSReasonDropDownMenu"]		
 			info.value = unit
-			info.func = function() Spy:SetKOSReason(unit.name, L["KOSReasonOther"], other) end 			
+			info.func = function()
+				Spy:SetKOSReason(unit.name, L["KOSReasonOther"], other)
+			end 			
 			info.checked = false
 			UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL)
 			
@@ -388,7 +402,9 @@ function CreateStatsDropdown(node)
 			info.hasArrow = false
 			info.disabled = nil
 			info.text = L["RemoveFromKOSList"]
-			info.func = function() Spy:ToggleKOSPlayer(false, unit.name) end
+			info.func = function()
+				Spy:ToggleKOSPlayer(false, unit.name)
+			end
 			info.value = nil
 			UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL)
 
@@ -397,7 +413,9 @@ function CreateStatsDropdown(node)
 			info.hasArrow = false
 			info.disabled = nil
 			info.text = L["KOSReasonClear"]
-			info.func = function() Spy:SetKOSReason(unit.name, nil) end
+			info.func = function()
+				Spy:SetKOSReason(unit.name, nil)
+			end
 			info.value = nil
 			UIDropDownMenu_AddButton(info, UIDROPDOWNMENU_MENU_LEVEL)
 		end	
@@ -407,7 +425,9 @@ function CreateStatsDropdown(node)
 end
 
 function Spy:ShowStatsDropDown(node, button)
-    if button ~= "RightButton" then return end
+    if button ~= "RightButton" then
+		return
+	end
     GameTooltip:Hide()
 	StatsDropDownMenu.unit = node.unit
     local cursor = GetCursorPosition() / UIParent:GetEffectiveScale()

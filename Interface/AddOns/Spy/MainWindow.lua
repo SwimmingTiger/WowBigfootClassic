@@ -12,7 +12,7 @@ local SPYFLASHFRAMES = {};
 local SpyFrameFlashTimers = {};
 local SpyFrameFlashTimerRefCount = {};
 
--- Fucntion to see if a frame is fading													  
+-- Fucntion to see if a frame is fading
 function SpyFrameIsFading(frame)
 	for index, value in pairs(SPYFADEFRAMES) do
 		if ( value == frame ) then
@@ -141,8 +141,12 @@ function Spy:CreateMapNote(num)
 	worldIcon:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 	worldIcon:SetParent(WorldMapFrame)
 	worldIcon:SetFrameLevel(WorldMapFrame:GetFrameLevel() + 5)	
-	worldIcon:SetScript("OnEnter", function(self) Spy:ShowMapTooltip(self, true) end)
-	worldIcon:SetScript("OnLeave", function(self) Spy:ShowMapTooltip(self, false) end)
+	worldIcon:SetScript("OnEnter", function(self)
+		Spy:ShowMapTooltip(self, true)
+	end)
+	worldIcon:SetScript("OnLeave", function(self)
+		Spy:ShowMapTooltip(self, false)
+	end)
 	worldIcon:SetWidth(18)
 	worldIcon:SetHeight(18)
 	worldIcon.id = num
@@ -156,8 +160,12 @@ function Spy:CreateMapNote(num)
 	miniIcon:SetFrameStrata(Minimap:GetFrameStrata())
 	miniIcon:SetParent(Minimap)
 	miniIcon:SetFrameLevel(Minimap:GetFrameLevel() + 5)
-	miniIcon:SetScript("OnEnter", function(self) Spy:ShowMapTooltip(self, true) end)
-	miniIcon:SetScript("OnLeave", function(self) Spy:ShowMapTooltip(self, false) end)
+	miniIcon:SetScript("OnEnter", function(self)
+		Spy:ShowMapTooltip(self, true)
+	end)
+	miniIcon:SetScript("OnLeave", function(self)
+		Spy:ShowMapTooltip(self, false)
+	end)
 	miniIcon:SetWidth(14)
 	miniIcon:SetHeight(14)
 	miniIcon.id = num
@@ -228,7 +236,7 @@ function Spy:SetupBar(row)
 	row.RightText:SetPoint("RIGHT", row.StatusBar, "RIGHT", -2, 0)	
 	row.RightText:SetJustifyH("RIGHT")
 	row.RightText:SetTextColor(1, 1, 1, 1)
-	Spy:SetFontSize(row.RightText, math.max(Spy.db.profile.MainWindow.RowHeight * 0.5, Spy.db.profile.MainWindow.RowHeight - 12))		
+	Spy:SetFontSize(row.RightText, math.max(Spy.db.profile.MainWindow.RowHeight * 0.65, Spy.db.profile.MainWindow.RowHeight - 12))		
 	Spy:AddFontString(row.RightText)
 
 	Spy.Colors:RegisterFont("Bar", "Bar Text", row.LeftText)
@@ -549,7 +557,8 @@ function Spy:CreateMainWindow()
 			theFrame.DragBottomRight:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 0)
 			theFrame.DragBottomRight:EnableMouse(true)
 			theFrame.DragBottomRight:SetScript("OnEnter", function(self)
-			theFrame.DragBottomRight:SetAlpha(1) end)
+				theFrame.DragBottomRight:SetAlpha(1)
+			end)
 			theFrame.DragBottomRight:SetScript("OnMouseDown", function(self, button)
 				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then 
 					self:GetParent().isResizing = true;
@@ -564,7 +573,9 @@ function Spy:CreateMainWindow()
 					self:GetParent().isResizing = false;
 				end
 			end)
-			theFrame.DragBottomRight:SetScript("OnLeave", function(self) theFrame.DragBottomRight:SetAlpha(0) end)
+			theFrame.DragBottomRight:SetScript("OnLeave", function(self)
+				theFrame.DragBottomRight:SetAlpha(0)
+			end)
 		
 			theFrame.DragBottomLeft = CreateFrame("Button", "SpyResizeGripLeft", theFrame)
 			theFrame.DragBottomLeft:Show()
@@ -577,7 +588,8 @@ function Spy:CreateMainWindow()
 			theFrame.DragBottomLeft:SetPoint("BOTTOMLEFT", theFrame, "BOTTOMLEFT", 0, 0)
 			theFrame.DragBottomLeft:EnableMouse(true)
 			theFrame.DragBottomLeft:SetScript("OnEnter", function(self)
-			theFrame.DragBottomLeft:SetAlpha(1) end)
+				theFrame.DragBottomLeft:SetAlpha(1)
+			end)
 			theFrame.DragBottomLeft:SetScript("OnMouseDown", function(self, button)
 				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
 					self:GetParent().isResizing = true;
@@ -593,7 +605,8 @@ function Spy:CreateMainWindow()
 				end
 			end)
 			theFrame.DragBottomLeft:SetScript("OnLeave", function(self)
-			theFrame.DragBottomLeft:SetAlpha(0) end)
+				theFrame.DragBottomLeft:SetAlpha(0)
+			end)
 		else
 			theFrame.DragTopRight = CreateFrame("Button", "SpyResizeGripRight", theFrame)
 			theFrame.DragTopRight:Show()
@@ -605,10 +618,26 @@ function Spy:CreateMainWindow()
 			theFrame.DragTopRight:SetAlpha(0)
 			theFrame.DragTopRight:SetPoint("TOPRIGHT", theFrame, "TOPRIGHT", 0, -32)
 			theFrame.DragTopRight:EnableMouse(true)
-			theFrame.DragTopRight:SetScript("OnEnter", function(self) theFrame.DragTopRight:SetAlpha(1)	end)
-			theFrame.DragTopRight:SetScript("OnMouseDown", function(self, button) if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then self:GetParent().isResizing = true; self:GetParent():StartSizing("TOPRIGHT") end end)
-			theFrame.DragTopRight:SetScript("OnMouseUp", function(self, button) if self:GetParent().isResizing == true then self:GetParent():StopMovingOrSizing(); Spy:SaveMainWindowPosition(); Spy:RefreshCurrentList(); self:GetParent().isResizing = false; end end)
-			theFrame.DragTopRight:SetScript("OnLeave", function(self) theFrame.DragTopRight:SetAlpha(0) end)
+			theFrame.DragTopRight:SetScript("OnEnter", function(self)
+				theFrame.DragTopRight:SetAlpha(1)
+			end)
+			theFrame.DragTopRight:SetScript("OnMouseDown", function(self, button)
+				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
+					self:GetParent().isResizing = true;
+					self:GetParent():StartSizing("TOPRIGHT")
+				end
+			end)
+			theFrame.DragTopRight:SetScript("OnMouseUp", function(self, button)
+				if self:GetParent().isResizing == true then
+					self:GetParent():StopMovingOrSizing();
+					Spy:SaveMainWindowPosition();
+					Spy:RefreshCurrentList();
+					self:GetParent().isResizing = false;
+				end
+			end)
+			theFrame.DragTopRight:SetScript("OnLeave", function(self)
+				theFrame.DragTopRight:SetAlpha(0)
+			end)
 		
 			theFrame.DragTopLeft = CreateFrame("Button", "SpyResizeGripLeft", theFrame)
 			theFrame.DragTopLeft:Show()
@@ -620,10 +649,26 @@ function Spy:CreateMainWindow()
 			theFrame.DragTopLeft:SetAlpha(0)		
 			theFrame.DragTopLeft:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -32)
 			theFrame.DragTopLeft:EnableMouse(true)
-			theFrame.DragTopLeft:SetScript("OnEnter", function(self) theFrame.DragTopLeft:SetAlpha(1)	end)		
-			theFrame.DragTopLeft:SetScript("OnMouseDown", function(self, button) if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then self:GetParent().isResizing = true; self:GetParent():StartSizing("TOPLEFT") end end)
-			theFrame.DragTopLeft:SetScript("OnMouseUp", function(self, button) if self:GetParent().isResizing == true then self:GetParent():StopMovingOrSizing(); Spy:SaveMainWindowPosition(); Spy:RefreshCurrentList(); self:GetParent().isResizing = false; end end)
-			theFrame.DragTopLeft:SetScript("OnLeave", function(self) theFrame.DragTopLeft:SetAlpha(0) end)		
+			theFrame.DragTopLeft:SetScript("OnEnter", function(self)
+				theFrame.DragTopLeft:SetAlpha(1)
+			end)		
+			theFrame.DragTopLeft:SetScript("OnMouseDown", function(self, button)
+				if (((not self:GetParent().isLocked) or (self:GetParent().isLocked == 0)) and (button == "LeftButton")) then
+					self:GetParent().isResizing = true;
+					self:GetParent():StartSizing("TOPLEFT")
+				end
+			end)
+			theFrame.DragTopLeft:SetScript("OnMouseUp", function(self, button)
+				if self:GetParent().isResizing == true then
+					self:GetParent():StopMovingOrSizing();
+					Spy:SaveMainWindowPosition();
+					Spy:RefreshCurrentList();
+					self:GetParent().isResizing = false;
+				end
+			end)
+			theFrame.DragTopLeft:SetScript("OnLeave", function(self)
+				theFrame.DragTopLeft:SetAlpha(0)
+			end)
 		end
 			
 		theFrame.RightButton = CreateFrame("Button", nil, theFrame)
@@ -763,8 +808,9 @@ function Spy:CreateMainWindow()
 	if not Spy.AlertWindow then
 		Spy.AlertWindow = CreateFrame("Frame", "Spy_AlertWindow", UIParent)
 		Spy.AlertWindow:ClearAllPoints()
-		Spy.AlertWindow:SetPoint("TOP", UIParent, "TOP", 0, -140)  -- Positioned so it does not hide other alerts
-		Spy.AlertWindow:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+--		Spy.AlertWindow:SetPoint("TOP", UIParent, "TOP", 0, -140)
+		Spy.AlertWindow:SetClampedToScreen(true)
+		Spy:UpdateAlertWindow()
 		Spy.AlertWindow:SetHeight(42)
 		Spy.AlertWindow:SetBackdrop({
 			bgFile = "Interface\\AddOns\\Spy\\Textures\\alert-background.tga", tile = true, tileSize = 8,
@@ -781,23 +827,23 @@ function Spy:CreateMainWindow()
 
 		Spy.AlertWindow.Title = Spy.AlertWindow:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		Spy.AlertWindow.Title:SetPoint("TOPLEFT", Spy.AlertWindow, "TOPLEFT", 42, -3)
-		Spy.AlertWindow.Title:SetJustifyH("LEFT")
+--		Spy.AlertWindow.Title:SetJustifyH("LEFT")
 		Spy.AlertWindow.Title:SetHeight(Spy.db.profile.MainWindow.TextHeight)
 		Spy:AddFontString(Spy.AlertWindow.Title)
 
 		Spy.AlertWindow.Name = Spy.AlertWindow:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		Spy.AlertWindow.Name:SetPoint("TOPLEFT", Spy.AlertWindow, "TOPLEFT", 42, -15)
-		Spy.AlertWindow.Name:SetJustifyH("LEFT")
+--		Spy.AlertWindow.Name:SetJustifyH("LEFT")
 		Spy.AlertWindow.Name:SetHeight(Spy.db.profile.MainWindow.TextHeight)
 		Spy:AddFontString(Spy.AlertWindow.Name)
-		Spy:SetFontSize(Spy.AlertWindow.Name, Spy.db.profile.AlertWindowNameSize)
+		Spy:SetFontSize(Spy.AlertWindow.Name, Spy.db.profile.AlertWindow.NameSize)
 
 		Spy.AlertWindow.Location = Spy.AlertWindow:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		Spy.AlertWindow.Location:SetPoint("TOPLEFT", Spy.AlertWindow, "TOPLEFT", 42, -26)
-		Spy.AlertWindow.Location:SetJustifyH("LEFT")
+--		Spy.AlertWindow.Location:SetJustifyH("LEFT")
 		Spy.AlertWindow.Location:SetHeight(Spy.db.profile.MainWindow.TextHeight)
 		Spy:AddFontString(Spy.AlertWindow.Location)
-		Spy:SetFontSize(Spy.AlertWindow.Location, Spy.db.profile.AlertWindowLocationSize)
+		Spy:SetFontSize(Spy.AlertWindow.Location, Spy.db.profile.AlertWindow.LocationSize)
 
 		Spy.AlertWindow:Hide()
 	end
@@ -863,8 +909,12 @@ end
 function Spy:ManageBarsDisplayed()
 	local detected = Spy.ListAmountDisplayed
 	local bars = math.floor((Spy.MainWindow:GetHeight() - 34) / (Spy.db.profile.MainWindow.RowHeight + Spy.db.profile.MainWindow.RowSpacing))
-	if bars > detected then bars = detected end
-	if bars > Spy.db.profile.ResizeSpyLimit then bars = Spy.db.profile.ResizeSpyLimit end	
+	if bars > detected then
+		bars = detected
+	end
+	if bars > Spy.db.profile.ResizeSpyLimit then
+		bars = Spy.db.profile.ResizeSpyLimit
+	end	
 	Spy.MainWindow.CurRows = bars
 
 	if not InCombatLockdown() then
@@ -879,7 +929,9 @@ function Spy:ManageBarsDisplayed()
 end
 
 function Spy:ResizeMainWindow()
-	if Spy.MainWindow.Rows[0] then Spy.MainWindow.Rows[0]:Hide() end
+	if Spy.MainWindow.Rows[0] then
+		Spy.MainWindow.Rows[0]:Hide()
+	end
 
 	local CurWidth = Spy.MainWindow:GetWidth() - 4
 	Spy.MainWindow.Title:SetWidth(CurWidth - 75)
@@ -954,6 +1006,38 @@ function Spy:RestoreMainWindowPosition(x, y, width, height)
 	end
 	Spy.MainWindow:SetHeight(height)
 end
+
+function Spy:SaveAlertWindowPosition()
+	Spy.db.profile.AlertWindow.Position.x = Spy.AlertWindow:GetLeft()
+	Spy.db.profile.AlertWindow.Position.y = Spy.AlertWindow:GetTop()
+end
+
+function Spy:RestoreAlertWindowPosition(x, y)
+	Spy.AlertWindow:ClearAllPoints()
+	Spy.AlertWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x, y)
+end
+
+function Spy:UpdateAlertWindow()
+	if Spy.db.profile.DisplayWarnings == "Moveable" then	
+		Spy.AlertWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", Spy.db.profile.AlertWindow.Position.x, Spy.db.profile.AlertWindow.Position.y)
+		Spy.AlertWindow:SetMovable(true)
+		Spy.AlertWindow:EnableMouse(true)
+		Spy.AlertWindow:SetScript("OnMouseDown", function(self, button) 
+			Spy.AlertWindow:StartMoving();
+			Spy.AlertWindow.isMoving = true;
+		end)
+		Spy.AlertWindow:SetScript("OnMouseUp", function(self) 
+			if (Spy.AlertWindow.isMoving) then
+				Spy.AlertWindow:StopMovingOrSizing();
+				Spy.AlertWindow.isMoving = false;
+				Spy:SaveAlertWindowPosition()
+			end
+		end)
+	else
+		Spy.AlertWindow:ClearAllPoints()	
+		Spy.AlertWindow:SetPoint("TOP", UIParent, "TOP", 0, -140)
+	end		
+end	
 
 function Spy:ShowTooltip(self, show, id)
 	if show then
@@ -1234,18 +1318,18 @@ function Spy:CreateKoSButton()
 		RaiseFrameLevel(Spy.KoSButton)
 
 		Spy.KoSButton:SetScript("OnMouseDown", function(self, button)
-		if (UnitIsEnemy("player","target") and UnitIsPlayer("target")) then
-			local name = GetUnitName("target", true)
-			if button == "LeftButton" then
-				if SpyPerCharDB.KOSData[name] then
-					Spy:ToggleKOSPlayer(false, name)
-				else
-					Spy:ToggleKOSPlayer(true, name)
+			if (UnitIsEnemy("player","target") and UnitIsPlayer("target")) then
+				local name = GetUnitName("target", true)
+				if button == "LeftButton" then
+					if SpyPerCharDB.KOSData[name] then
+						Spy:ToggleKOSPlayer(false, name)
+					else
+						Spy:ToggleKOSPlayer(true, name)
+					end
+				elseif button == "RightButton" then	
+					Spy:SetKOSReason(name, L["KOSReasonOther"], other)
 				end
-			elseif button == "RightButton" then	
-				Spy:SetKOSReason(name, L["KOSReasonOther"], other)
 			end
-		end
 		end)
 	end
 end
