@@ -1,28 +1,22 @@
-lightweight tag fdc8f8593e5558b1b92d596a409ce29dd6fc3e96 v1.8.1
+lightweight tag fd9bd22fda05f97846158635dd7382f598a2073e v1.8.4
 Author:	Boshi Lian <farmer1992@gmail.com>
-Date:	Mon May 11 02:58:29 2020 -0700
+Date:	Tue May 19 06:33:38 2020 -0700
 
-commit fdc8f8593e5558b1b92d596a409ce29dd6fc3e96
+commit fd9bd22fda05f97846158635dd7382f598a2073e
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Mon May 11 02:58:29 2020 -0700
+Date:   Tue May 19 06:33:38 2020 -0700
 
-    ra opt on bf
+    csv support
 
-commit 0f5cec5a3990c4f3d9540ebbc3574e921f852166
+commit 4d2b9e288c600ccfecd391dbe22f24f3d3d7e46e
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Mon May 11 02:47:44 2020 -0700
+Date:   Tue May 19 06:01:54 2020 -0700
 
-    better popuo
+    template can be applied in main gui
 
-commit 2c2497f5c5c20fd8b143af52e44b693c513c195e
+commit 3c2acee81b94382412b58e1e871fa0f5e87fd69d
 Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Sat May 9 02:19:42 2020 -0700
+Date:   Sun May 17 04:12:17 2020 -0700
 
-    optimze split editbox
-
-commit 371e3bc67fbe4f5a17978015dd36b6a318fc2cd2
-Author: Boshi Lian <farmer1992@gmail.com>
-Date:   Sat May 9 01:57:18 2020 -0700
-
-    fix name case when autocomplete
+    fix % prefix
 

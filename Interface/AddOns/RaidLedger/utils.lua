@@ -222,7 +222,55 @@ end
 
 ADDONSELF.sendchat = sendchat
 
+local function csv(items, number)
+    local s = ""
+
+    local line = function(item, c)
+        local l = item["beneficiary"] or L["[Unknown]"]
+        local i = item["detail"]["item"] or ""
+        local cnt = item["detail"]["count"] or 1
+        local d = item["detail"]["displayname"] or ""
+        local t = item["type"]
+        local ct = item["costtype"]
+
+        local n = GetItemInfo(i)
+        n = n or d
+        n = n ~= "" and n or L["Other"]
+    
+        if t == "DEBIT" then
+            n = d or L["Compensation"]
+        end
+    
+        n = "[" ..  n .. "]"
+
+        local note = ""
+        if ct == "PROFIT_PERCENT" then
+            note = (item["cost"] or 0) .. " % " .. L["Net Profit"]
+        elseif ct == "REVENUE_PERCENT" then
+            note = (item["cost"] or 0) .. " % " .. L["Revenue"]
+        elseif ct == "MUL_AVG" then
+            note = (item["cost"] or 0) .. " *" .. L["Per Member credit"]
+        end
+
+        return string.join(",", n, cnt, l, c/10000, note) .. CRLF
+    end
+
+    calcavg(items, number, function(item, c)
+        s = s .. L["Credit"] .. "," .. line(item, c)
+    end, function(item, c)
+        s = s .. L["Debit"] .. "," .. line(item, c)
+    end)
+
+    return s
+end
+
 ADDONSELF.genexport = function(items, n, conf)
+
+    -- TODO code struct
+    if conf.format == "csv" then
+        return csv(items, n)
+    end
+
     local s = L["Raid Ledger"] .. CRLF
     s = s .. L["Feedback"] .. ": farmer1992@gmail.com" .. CRLF
     s = s .. CRLF

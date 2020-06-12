@@ -230,8 +230,8 @@ RegEvent("ADDON_LOADED", function()
 
         local templates = Database:GetConfigOrDefault("debittemplates", {})
 
-        ADDONSELF.GetCurrentDebitTemplate = function()
-            local idx = UIDropDownMenu_GetSelectedValue(t) or "NOTEXISTS"
+        ADDONSELF.GetDebitTemplate = function(idx)
+            local idx = idx or UIDropDownMenu_GetSelectedValue(t) or "NOTEXISTS"
             local s = templates[idx] and templates[idx].value or ""
             local output = {}
 
