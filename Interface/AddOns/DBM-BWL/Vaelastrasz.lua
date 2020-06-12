@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200420145030")
+mod:SetRevision("20200522204910")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)

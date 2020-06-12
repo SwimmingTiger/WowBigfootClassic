@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200530184609")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -39,7 +39,7 @@ local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, 3, 2)--26-42.5
 mod.vb.phase = 1
 mod.vb.addLeft = 42
 local addsGuidCheck = {}
-local RazorMod = DBM:GetModByName("Razorgore")
+local firstBossMod = DBM:GetModByName("Razorgore")
 
 function mod:OnCombatStart(delay, yellTriggered)
 	table.wipe(addsGuidCheck)
@@ -54,20 +54,21 @@ end
 function mod:OnCombatEnd(wipe)
 	if not wipe then
 		DBM.Bars:CancelBar(DBM_SPEED_CLEAR_TIMER_TEXT)
-		if RazorMod.vb.firstEngageTime then
-			local thisTime = GetTime() - RazorMod.vb.firstEngageTime
-			if not RazorMod.Options.FastestClear then
+		if firstBossMod.vb.firstEngageTime then
+			local thisTime = GetTime() - firstBossMod.vb.firstEngageTime
+			if not firstBossMod.Options.FastestClear then
 				--First clear, just show current clear time
 				DBM:AddMsg(DBM_CORE_L.RAID_DOWN:format("BWL", DBM:strFromTime(thisTime)))
-				RazorMod.Options.FastestClear = thisTime
-			elseif (RazorMod.Options.FastestClear > thisTime) then
+				firstBossMod.Options.FastestClear = thisTime
+			elseif (firstBossMod.Options.FastestClear > thisTime) then
 				--Update record time if this clear shorter than current saved record time and show users new time, compared to old time
-				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_NR:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
-				RazorMod.Options.FastestClear = thisTime
+				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_NR:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+				firstBossMod.Options.FastestClear = thisTime
 			else
 				--Just show this clear time, and current record time (that you did NOT beat)
-				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(RazorMod.Options.FastestClear)))
+				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("BWL", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
 			end
+			firstBossMod.vb.firstEngageTime = nil
 		end
 	end
 end

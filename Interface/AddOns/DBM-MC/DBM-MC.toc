@@ -23,6 +23,7 @@
 ## X-DBM-Mod-MinCoreRevision: 14565
 localization.en.lua
 localization.es.lua
+localization.mx.lua
 localization.ru.lua
 localization.de.lua
 localization.kr.lua

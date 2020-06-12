@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200419141911")
+mod:SetRevision("20200522204910")
 mod:SetCreatureID(15931)
 mod:SetEncounterID(1111)
 mod:SetUsedIcons(1, 2, 3, 4)

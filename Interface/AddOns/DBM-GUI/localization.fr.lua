@@ -195,7 +195,6 @@ L.SpecWarn_AlwaysVoice		= "Toujours jouer toutes les alertes vocales (Outrepasse
 L.Panel_SpamFilter			= "Filtres globaux et de spam"
 L.Area_SpamFilter_Outgoing	= "Options des filtres globaux"
 L.SpamBlockNoShowAnnounce	= "Ne pas afficher d'annonces ou jouer de sons d'alerte"
-L.SpamBlockNoSpecWarn		= "Ne pas afficher d'annonces ou jouer de sons d'alerte spéciales"
 L.SpamBlockNoShowTimers		= "Ne pas afficher les timers de module (Boss Mod/CM/LFG/Respawn)"
 L.SpamBlockNoShowUTimers	= "Ne pas afficher au joueur les timers envoyés (Personnalisés/Pull/Pause)"
 L.SpamBlockNoSetIcon		= "Ne pas placer d'icônes sur les cibles"

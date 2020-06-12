@@ -12,7 +12,7 @@
 -- The localizations are written by:
 --    * enGB/enUS: Omegal				Twitter @MysticalOS
 --    * deDE: Ebmor						http://www.deadlybossmods.com/forum/memberlist.php?mode=viewprofile&u=79
---    * ruRU: TOM_RUS					http://www.curseforge.com/profiles/TOM_RUS/
+--    * ruRU: TOM_RUS					http://curseforge.com/profiles/TOM_RUS/
 --    * zhTW: Whyv						ultrashining@gmail.com
 --    * koKR: Elnarfim					---
 --    * zhCN: Mini Dragon				projecteurs@gmail.com
@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200528004148"),
-	DisplayVersion = "1.13.47", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 5, 27, 12) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200605210456"),
+	DisplayVersion = "1.13.48", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 6, 5) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -257,8 +257,9 @@ DBM.DefaultOptions = {
 	-- global boss mod settings (overrides mod-specific settings for some options)
 	DontShowBossAnnounces = false,
 	DontShowTargetAnnouncements = true,
-	DontShowSpecialWarnings = false,
 	DontShowSpecialWarningText = false,
+	DontShowSpecialWarningFlash = false,
+	DontShowSpecialWarningSound = false,
 	DontShowBossTimers = false,
 	DontShowUserTimers = false,
 	DontShowFarWarnings = true,
@@ -444,7 +445,6 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 	"DBM-Suramar",--Renamed to DBM-Nighthold
 	"DBM-KulTiras",--Merged to DBM-Azeroth-BfA
 	"DBM-Zandalar",--Merged to DBM-Azeroth-BfA
-	"DBM-SpellTimers",
 }
 
 
@@ -458,11 +458,6 @@ end
 local LD
 if LibStub("LibDurability", true) then
 	LD = LibStub("LibDurability")
-end
---While it's old original lib longer hard embed, if lib exists might as well still use it as a fallback
-local ThreatLib
-if LibStub("ThreatClassic-1.0", true) and WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
-	ThreatLib = LibStub("ThreatClassic-1.0")
 end
 local ThreatLib2
 if LibStub("LibThreatClassic2", true) and WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
@@ -492,11 +487,6 @@ local GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown = GetSpell
 local GetInstanceInfo = GetInstanceInfo
 local UnitDetailedThreatSituation = ThreatLib2 and function(unit, mob)
 	return ThreatLib2:UnitDetailedThreatSituation(unit, mob)
-end or function(unit, mob)
-	return false, 0--If threatlib failure (shouldn't happen, but if user screws with it, UnitDetailedThreatSituation will just fail silently with not tanking
-end
-local UnitDetailedThreatSituationOld = ThreatLib and function(unit, mob)
-	return ThreatLib:UnitDetailedThreatSituation(unit, mob)
 end or function(unit, mob)
 	return false, 0--If threatlib failure (shouldn't happen, but if user screws with it, UnitDetailedThreatSituation will just fail silently with not tanking
 end
@@ -1357,8 +1347,17 @@ do
 				return
 			end
 			if GetAddOnEnableState(playerName, "DBM-SpellTimers") >= 1 then
+				local version = GetAddOnMetadata("DBM-SpellTimers", "Version") or "r0"
+				version = tonumber(string.sub(version, 2, 4)) or 0
+				if version < 122 then
+					self:Disable(true)
+					self:Schedule(15, infniteLoopNotice, self, L.OUTDATEDSPELLTIMERS)
+					return
+				end
+			end
+			if GetAddOnEnableState(playerName, "DBM-RaidLeadTools") >= 1 then
 				self:Disable(true)
-				C_TimerAfter(15, function() AddMsg(self, "DBM-SpellTimers is not compatible with Classic WoW, it must be disabled/removed") end)
+				self:Schedule(15, infniteLoopNotice, self, L.OUTDATEDRLT)
 				return
 			end
 			if GetAddOnEnableState(playerName, "DPMCore") >= 1 then
@@ -1404,6 +1403,7 @@ do
 								sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or mhuge) or mhuge,
 								type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
 								category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
+								optionsTab		= GetAddOnMetadata(i, "X-DBM-Mod-OptionsTab"),
 								name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or L.UNKNOWN,
 								mapId			= mapIdTable,
 								subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
@@ -2650,6 +2650,18 @@ do
 			self:AddMsg(L.OUTDATEDPROFILES)
 			return
 		end
+		if GetAddOnEnableState(playerName, "DBM-SpellTimers") >= 1 then
+			local version = GetAddOnMetadata("DBM-SpellTimers", "Version") or "r0"
+			version = tonumber(string.sub(version, 2, 4)) or 0
+			if version < 122 then
+				self:AddMsg(L.OUTDATEDSPELLTIMERS)
+				return
+			end
+		end
+		if GetAddOnEnableState(playerName, "DBM-RaidLeadTools") >= 1 then
+			self:AddMsg(L.OUTDATEDRLT)
+			return
+		end
 		if GetAddOnEnableState(playerName, "DPMCore") >= 1 then
 			self:AddMsg(L.DPMCORE)
 			return
@@ -2662,6 +2674,7 @@ do
 			DBM:AddMsg(L.UPDATEREMINDER_DISABLE)
 			return
 		end
+		local firstLoad = false
 		if not IsAddOnLoaded("DBM-GUI") then
 			local enabled = GetAddOnEnableState(playerName, "DBM-GUI")
 			if enabled == 0 then
@@ -2676,13 +2689,17 @@ do
 				end
 				return false
 			end
-			tsort(callOnLoad, function(v1, v2) return v1[2] < v2[2] end)
-			for i, v in ipairs(callOnLoad) do v[1]() end
 			if not InCombatLockdown() and not UnitAffectingCombat("player") and not IsFalling() then--We loaded in combat but still need to avoid garbage collect in combat
 				collectgarbage("collect")
 			end
+			firstLoad = true
 		end
-		return DBM_GUI:ShowHide()
+		DBM_GUI:ShowHide()
+		if firstLoad then
+			firstLoad = false
+			tsort(callOnLoad, function(v1, v2) return v1[2] < v2[2] end)
+			for i, v in ipairs(callOnLoad) do v[1]() end
+		end
 	end
 
 	function DBM:RegisterOnGuiLoadCallback(f, sort)
@@ -3830,14 +3847,18 @@ do
 			local path = "MISSING"
 			if self.Options.EventSoundDungeonBGM == "Random" then
 				local usedTable = self.Options.EventSoundMusicCombined and DBM.Music or DBM.DungeonMusic
-				local random = fastrandom(3, #usedTable)
-				path = usedTable[random].value
+				if #usedTable >= 3 then
+					local random = fastrandom(3, #usedTable)
+					path = usedTable[random].value
+				end
 			else
 				path = self.Options.EventSoundDungeonBGM
 			end
-			PlayMusic(path)
-			self.Options.musicPlaying = true
-			DBM:Debug("Starting Dungeon music with file: "..path)
+			if path ~= "MISSING" then
+				PlayMusic(path)
+				self.Options.musicPlaying = true
+				DBM:Debug("Starting Dungeon music with file: "..path)
+			end
 		end
 	end
 	local function SecondaryLoadCheck(self)
@@ -4040,8 +4061,7 @@ do
 			self:Debug("targetMonitor: "..modId..", "..uId..", "..returnFunc, 2)
 			if not targetMonitor[uId].allowTank then
 				local tanking, status = UnitDetailedThreatSituation(uId, uId.."target")--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
-				local oldtanking, oldstatus = UnitDetailedThreatSituationOld(uId, uId.."target")--TODO, remove when newer threadlib adoption has increased enough
-				if tanking or (status == 3) or oldtanking or (oldstatus == 3)  then
+				if tanking or (status == 3) then
 					self:Debug("targetMonitor ending for unit without 'allowTank', ignoring target", 2)
 					return
 				end
@@ -4231,14 +4251,12 @@ do
 		--Cancel any existing pull timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
 		if not DBM.Options.DontShowPT2 then--and DBM.Bars:GetBar(L.TIMER_PULL)
 			dummyMod.timer:Stop()
-			--fireEvent("DBM_TimerStop", "pull")
 		end
 		dummyMod.text:Cancel()
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
 		DBM:FlashClientIcon()
 		if not DBM.Options.DontShowPT2 then
 			dummyMod.timer:Start(timer, L.TIMER_PULL)
-			--fireEvent("DBM_TimerStart", "pull", L.TIMER_PULL, timer, "132349", "utilitytimer", nil, 0)
 		end
 		if not DBM.Options.DontShowPTText then
 			if target then
@@ -4656,7 +4674,7 @@ do
 
 		syncHandlers["WBA"] = function(sender, bossName, faction, spellId, time, ver)
 			DBM:Debug("WBA sync recieved")
-			if not ver or not (ver == "2") then return end--Ignore old versions
+			if not ver or not (ver == "3") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
 			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
@@ -4701,7 +4719,7 @@ do
 
 		whisperSyncHandlers["WBA"] = function(sender, bossName, faction, spellId, time, ver)
 			DBM:Debug("WBA sync recieved")
-			if not ver or not (ver == "2") then return end--Ignore old versions
+			if not ver or not (ver == "3") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
 			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
@@ -5547,19 +5565,19 @@ do
 		end
 		if not IsInInstance() then
 			if msg:find(L.WORLD_BUFFS.hordeOny) then
-				SendWorldSync(self, "WBA", "Onyxia\tHorde\t22888\t15\t2")
+				SendWorldSync(self, "WBA", "Onyxia\tHorde\t22888\t15\t3")
 				DBM:Debug("L.WORLD_BUFFS.hordeOny detected")
 			elseif msg:find(L.WORLD_BUFFS.allianceOny) then
-				SendWorldSync(self, "WBA", "Onyxia\tAlliance\tt22888\t15\t2")
+				SendWorldSync(self, "WBA", "Onyxia\tAlliance\t22888\t15\t3")
 				DBM:Debug("L.WORLD_BUFFS.allianceOny detected")
 			elseif msg:find(L.WORLD_BUFFS.hordeNef) then
-				SendWorldSync(self, "WBA", "Nefarian\tHorde\tt22888\t16\t2")
+				SendWorldSync(self, "WBA", "Nefarian\tHorde\t22888\t16\t3")
 				DBM:Debug("L.WORLD_BUFFS.hordeNef detected")
 			elseif msg:find(L.WORLD_BUFFS.allianceNef) then
-				SendWorldSync(self, "WBA", "Nefarian\tAlliance\tt22888\t16\t2")
+				SendWorldSync(self, "WBA", "Nefarian\tAlliance\t22888\t16\t3")
 				DBM:Debug("L.WORLD_BUFFS.allianceNef detected")
 			elseif msg:find(L.WORLD_BUFFS.rendHead) then
-				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t16609\t7\t2")
+				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t16609\t7\t3")
 				DBM:Debug("L.WORLD_BUFFS.rendHead detected")
 			end
 		end
@@ -5599,7 +5617,7 @@ do
 	function DBM:CHAT_MSG_MONSTER_SAY(msg)
 		if not IsInInstance() then
 			if msg:find(L.WORLD_BUFFS.zgHeart) then
-				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t27\t2")
+				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t27\t3")
 			end
 		end
 		return onMonsterMessage(self, "say", msg)
@@ -5912,14 +5930,18 @@ do
 					local path = "MISSING"
 					if self.Options.EventSoundMusic == "Random" then
 						local usedTable = self.Options.EventSoundMusicCombined and DBM.Music or DBM.BattleMusic
-						local random = fastrandom(3, #usedTable)
-						path = usedTable[random].value
+						if #usedTable >= 3 then
+							local random = fastrandom(3, #usedTable)
+							path = usedTable[random].value
+						end
 					else
 						path = self.Options.EventSoundMusic
 					end
-					PlayMusic(path)
-					self.Options.musicPlaying = true
-					DBM:Debug("Starting combat music with file: "..path)
+					if path ~= "MISSING" then
+						PlayMusic(path)
+						self.Options.musicPlaying = true
+						DBM:Debug("Starting combat music with file: "..path)
+					end
 				end
 			else
 				self:AddMsg(L.COMBAT_STATE_RECOVERED:format(difficultyText..name, strFromTime(delay)))
@@ -6030,8 +6052,10 @@ do
 					end
 					if self.Options.EventSoundWipe and self.Options.EventSoundWipe ~= "None" and self.Options.EventSoundWipe ~= "" then
 						if self.Options.EventSoundWipe == "Random" then
-							local random = fastrandom(3, #DBM.Defeat)
-							self:PlaySoundFile(DBM.Defeat[random].value)
+							if #self.Defeat >= 3 then
+								local random = fastrandom(3, #self.Defeat)
+								self:PlaySoundFile(DBM.Defeat[random].value)
+							end
 						else
 							self:PlaySoundFile(self.Options.EventSoundWipe, nil, true)
 						end
@@ -6108,8 +6132,10 @@ do
 				end
 				if self.Options.EventSoundVictory2 and self.Options.EventSoundVictory2 ~= "None" and self.Options.EventSoundVictory2 ~= "" then
 					if self.Options.EventSoundVictory2 == "Random" then
-						local random = fastrandom(3, #DBM.Victory)
-						self:PlaySoundFile(DBM.Victory[random].value)
+						if #self.Victory >= 3 then
+							local random = fastrandom(3, #self.Victory)
+							self:PlaySoundFile(self.Victory[random].value)
+						end
 					else
 						self:PlaySoundFile(self.Options.EventSoundVictory2, nil, true)
 					end
@@ -7721,8 +7747,7 @@ do
 				for i = 0, GetNumGroupMembers() do
 					local id = (i == 0 and "target") or unitId..i
 					local tanking, status = UnitDetailedThreatSituation(id, mobuId)--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
-					local oldtanking, oldstatus = UnitDetailedThreatSituationOld(id, mobuId)--TODO, remove when newer threadlib adoption has increased enough
-					if (tanking or (status == 3) or oldtanking or (oldstatus == 3)) then uId = id end--Found highest threat target, make them uId
+					if tanking or (status == 3) then uId = id end--Found highest threat target, make them uId
 					if uId then break end
 				end
 				--Did not get anything useful from threat, so use who the boss was looking at, at time of cast (ie fallbackuId)
@@ -7785,8 +7810,7 @@ do
 				for i = 0, GetNumGroupMembers() do
 					local id = (i == 0 and "target") or unitId..i
 					local tanking, status = UnitDetailedThreatSituation(id, mobuId)--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
-					local oldtanking, oldstatus = UnitDetailedThreatSituationOld(id, mobuId)
-					if (tanking or (status == 3) or oldtanking or (oldstatus == 3)) then uId = id end--Found highest threat target, make them uId
+					if tanking or (status == 3) then uId = id end--Found highest threat target, make them uId
 					if uId then break end
 				end
 				--Did not get anything useful from threat, so use who the boss was looking at, at time of cast (ie fallbackuId)
@@ -8230,11 +8254,6 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 		if tanking or (status == 3) then
 			return true
 		end
-		--Check ThreatLib second (the old non embedded one, if it exists)
-		local oldtanking, oldstatus = UnitDetailedThreatSituationOld(unit, boss)
-		if oldtanking or (oldstatus == 3) then
-			return true
-		end
 		--Non threatlib fallback
 		if UnitExists(boss) then
 			local _, targetuid = self:GetBossTarget(UnitGUID(boss), true)
@@ -8249,11 +8268,6 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 			--Check ThreatLib2 first
 			local tanking, status = UnitDetailedThreatSituation(unit, unitID)
 			if tanking or (status == 3) then
-				return true
-			end
-			--Check ThreatLib second (the old non embedded one, if it exists)
-			local oldtanking, oldstatus = UnitDetailedThreatSituationOld(unit, unitID)
-			if oldtanking or (oldstatus == 3) then
 				return true
 			end
 			--Non threatlib fallback
@@ -9365,8 +9379,13 @@ do
 	end
 
 	function specialWarningPrototype:Show(...)
-		if not DBM.Options.DontShowSpecialWarnings and not DBM.Options.DontShowSpecialWarningText and (not self.option or self.mod.Options[self.option]) and not moving and frame then
+		--Check if option for this warning is even enabled
+		if (not self.option or self.mod.Options[self.option]) and not moving and frame then
+			--Now, check if all special warning filters are enabled to save cpu and abort immediately if true.
+			if DBM.Options.DontPlaySpecialWarningSound and DBM.Options.DontShowSpecialWarningFlash and DBM.Options.DontShowSpecialWarningText then return end
+			--Next, we check if trash mod warning and if so check the filter trash warning filter for trivial difficulties
 			if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
+			--Lastly, we check if it's a tank warning and filter if not in tank spec. This is done because tank warnings on by default and handled fluidly by spec, not option setting
 			if self.announceType == "taunt" and DBM.Options.FilterTankSpec and not self.mod:IsTank() then return end--Don't tell non tanks to taunt, ever.
 			local argTable = {...}
 			-- add a default parameter for move away warnings
@@ -9442,18 +9461,21 @@ do
 					end
 				end
 			end
-			--No stripping on switch warnings, ever. They will NEVER have player name, but often have adds with "-" in name
-			if self.announceType and not self.announceType:find("switch") then
-				text = text:gsub(">.-<", classColoringFunction)
+			--Text is disabled, suresss text from screen and chat frame
+			if not DBM.Options.DontShowSpecialWarningText then
+				--No stripping on switch warnings, ever. They will NEVER have player name, but often have adds with "-" in name
+				if self.announceType and not self.announceType:find("switch") then
+					text = text:gsub(">.-<", classColoringFunction)
+				end
+				DBM:AddSpecialWarning(text)
+				if DBM.Options.ShowSWarningsInChat then
+					local colorCode = ("|cff%.2x%.2x%.2x"):format(DBM.Options.SpecialWarningFontCol[1] * 255, DBM.Options.SpecialWarningFontCol[2] * 255, DBM.Options.SpecialWarningFontCol[3] * 255)
+					self.mod:AddMsg(colorCode.."["..L.MOVE_SPECIAL_WARNING_TEXT.."] "..text.."|r", nil)
+				end
 			end
-			DBM:AddSpecialWarning(text)
 			self.combinedcount = 0
 			self.combinedtext = {}
-			if DBM.Options.ShowSWarningsInChat then
-				local colorCode = ("|cff%.2x%.2x%.2x"):format(DBM.Options.SpecialWarningFontCol[1] * 255, DBM.Options.SpecialWarningFontCol[2] * 255, DBM.Options.SpecialWarningFontCol[3] * 255)
-				self.mod:AddMsg(colorCode.."["..L.MOVE_SPECIAL_WARNING_TEXT.."] "..text.."|r", nil)
-			end
-			if not UnitIsDeadOrGhost("player") then
+			if not UnitIsDeadOrGhost("player") and not DBM.Options.DontShowSpecialWarningFlash then
 				if noteHasName then
 					if DBM.Options.SpecialWarningFlash5 then--Not included in above if statement on purpose. we don't want to trigger else rule if noteHasName is true but SpecialWarningFlash5 is false
 						local repeatCount = DBM.Options.SpecialWarningFlashCount5 or 1
@@ -9481,7 +9503,7 @@ do
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
 			--boolean: Whether or not this warning is a special warning (higher priority).
 			fireEvent("DBM_Announce", text, self.icon, self.type, self.spellId, self.mod.id, true)
-			if self.sound then
+			if self.sound and not DBM.Options.DontPlaySpecialWarningSound then
 				local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 				if noteHasName and type(soundId) == "number" then soundId = noteHasName end--Change number to 5 if it's not a custom sound, else, do nothing with it
 				if self.hasVoice and DBM.Options.ChosenVoicePack ~= "None" and not voiceSessionDisabled and self.hasVoice <= SWFilterDisabed and (type(soundId) == "number" and soundId < 5 and DBM.Options.VoiceOverSpecW2 == "DefaultOnly" or DBM.Options.VoiceOverSpecW2 == "All") then return end
@@ -9496,8 +9518,11 @@ do
 	end
 
 	function specialWarningPrototype:CombinedShow(delay, ...)
-		if DBM.Options.DontShowSpecialWarnings or DBM.Options.DontShowSpecialWarningText then return end
+		--Check if option for this warning is even enabled
 		if self.option and not self.mod.Options[self.option] then return end
+		--Now, check if all special warning filters are enabled to save cpu and abort immediately if true.
+		if DBM.Options.DontPlaySpecialWarningSound and DBM.Options.DontShowSpecialWarningFlash and DBM.Options.DontShowSpecialWarningText then return end
+		--Next, we check if trash mod warning and if so check the filter trash warning filter for trivial difficulties
 		if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
 		local argTable = {...}
 		for i = 1, #argTable do
@@ -9537,7 +9562,7 @@ do
 		local voice = DBM.Options.ChosenVoicePack
 		if voiceSessionDisabled or voice == "None" then return end
 		if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
-		if (not DBM.Options.DontShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabed then
+		if ((not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabed then
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
@@ -11004,6 +11029,7 @@ function bossModPrototype:SetOptionCategory(name, cat)
 		self.optionCategories[cat] = {}
 	end
 	tinsert(self.optionCategories[cat], name)
+	tinsert(self.categorySort, cat)
 end
 
 --------------
@@ -11239,7 +11265,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200528004148" then
+	if not revision or revision == "20200605210456" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

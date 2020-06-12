@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200530184609")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -71,6 +71,7 @@ function mod:OnCombatEnd(wipe)
 				--Just show this clear time, and current record time (that you did NOT beat)
 				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("MC", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
 			end
+			firstBossMod.vb.firstEngageTime = nil
 		end
 	end
 end

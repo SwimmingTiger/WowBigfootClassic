@@ -1,7 +1,7 @@
 local L = DBM_GUI_L
 
 local hideBlizzPanel = DBM_GUI_Frame:CreateNewPanel(L.Panel_HideBlizzard, "option")
-local hideBlizzArea = hideBlizzPanel:CreateArea(L.Area_HideBlizzard, 125)
+local hideBlizzArea = hideBlizzPanel:CreateArea(L.Area_HideBlizzard)
 
 hideBlizzArea:CreateCheckButton(L.HideBossEmoteFrame, true, nil, "HideBossEmoteFrame2")
 hideBlizzArea:CreateCheckButton(L.HideWatchFrame, true, nil, "HideObjectivesFrame")
@@ -14,10 +14,11 @@ local movieOptions = {
 	{	text	= L.Disable,	value	= "Never"},
 	{	text	= L.OnlyFight,	value	= "OnlyFight"},
 	{	text	= L.AfterFirst,	value	= "AfterFirst"},
-	{	text	= L.Always,		value	= "Block"},
+	{	text	= ALWAYS,		value	= "Block"},
 }
 local blockMovieDropDown = hideBlizzArea:CreateDropdown(L.DisableCinematics, movieOptions, "DBM", "MovieFilter2", function(value)
 	DBM.Options.MovieFilter2 = value
 end, 350)
-blockMovieDropDown:SetPoint("TOPLEFT", DisableSFX, "TOPLEFT", 0, -40)
+blockMovieDropDown:SetPoint("TOPLEFT", _G[DisableSFX:GetName() .. "Text"], "BOTTOMLEFT", -26, -5)
+blockMovieDropDown.myheight = 45
 ]]--

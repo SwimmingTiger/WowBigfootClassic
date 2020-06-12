@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "esMX" then return end
 local L
 
 ----------------
@@ -110,6 +110,6 @@ L:SetOptionLocalization{
 	TimerEmerge			= "Mostrar temporizador para cuando Ragnaros regrese a la superficie"
 }
 L:SetMiscLocalization{
-	Submerge	= "¡AVANZAD, MIS SIRVIENTES! ¡DEFENDED A VUESTRO MAESTRO!",
-	Pull		= "¡Crías imprudentes! ¡Os habéis precipitado hasta vuestra propia muerte! ¡Ahora mirad, el maestro se agita!"
+	Submerge	= "¡AVANCEN, MIS SIRVIENTES! ¡DEFIENDEN A SU MAESTRO!",
+	Pull		= "¡Crías imprudentes! ¡Se han precipitado hasta su propia muerte! ¡Ahora miren, el maestro se agita!"
 }

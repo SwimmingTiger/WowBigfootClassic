@@ -124,15 +124,18 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerCart	= "Cart respawn"
+	TimerRespawn	= "Cart respawn"
 })
 
 L:SetOptionLocalization({
-	TimerCart	= "Show cart respawn timer"
+	TimerResapwn	= "Show cart respawn timer",
+	TimerCart		= "Show cart cap timer"
 })
 
 L:SetMiscLocalization({
-	Capture	= "has captured"
+	Capture	= "has captured",
+	Arrived	= "has arived",
+	Begun	= "has begun"
 })
 
 -------------------------

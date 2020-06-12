@@ -10,6 +10,9 @@ if not DBM_CORE_L then DBM_CORE_L = {} end
 
 local L = DBM_CORE_L
 
+L.DEADLY_BOSS_MODS				= "Deadly Boss Mods"
+L.DBM								= "DBM"
+
 L.HOW_TO_USE_MOD					= "欢迎使用DBM。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口，并对各个Boss模块进行设置，也可以浏览首领击杀记录。DBM 会自动按你的专精做出相应配置，但是你可以进行微调。"
 L.SILENT_REMINDER					= "提示：DBM 正处于安静模式。"
 
@@ -54,8 +57,8 @@ L.COMBAT_ENDED_AT			= "%s （%s）作战结束，用时%s。"
 L.COMBAT_ENDED_AT_LONG		= "%s （%s）作战结束，用时%s。该难度下总计失败%d次。"
 L.GUILD_COMBAT_ENDED_AT		= "公会版%s （%s）作战结束，用时%s。"
 L.COMBAT_STATE_RECOVERED		= "%s作战%s前开始，正在恢复计时条……"
-L.TRANSCRIPTOR_LOG_START		= "Transcriptor logging started."
-L.TRANSCRIPTOR_LOG_END		= "Transcriptor logging ended."
+L.TRANSCRIPTOR_LOG_START		= "Transcriptor 开始记录。"
+L.TRANSCRIPTOR_LOG_END		= "Transcriptor 结束记录。"
 
 L.MOVIE_SKIPPED				= "该场景已被跳过。"
 
@@ -103,6 +106,7 @@ L.MOD_DEFAULT_LOADED			= "将会使用默认设置来进行本场战斗"
 
 L.WORLDBOSS_ENGAGED			= "世界Boss-%s可能正在作战。当前还有%s的生命值。 (由%s的DBM发送)"
 L.WORLDBOSS_DEFEATED			= "世界Boss-%s可能战斗结束了。 (由%s的DBM发送)"
+L.WORLDBUFF_STARTED					= "世界增益 %s 已开始释放，阵营- %s  (由%s的DBM发送)."
 
 L.TIMER_FORMAT_SECS			= "%.2f秒"
 L.TIMER_FORMAT_MINS			= "%d分钟"
@@ -159,7 +163,7 @@ L.UPDATEREMINDER_HEADER			= "您的DBM版本已过期。\n您可以在Curse/Twit
 L.UPDATEREMINDER_HEADER_ALPHA	= "您正在使用的Alpha DBM 版本已至少落后主干%d个版本。\n 我们建议使用Alpha版本的用户时刻追随主干更新，否则请切换到正式发行版。Alpha版的版本检查会比正式发行版严格。"
 L.UPDATEREMINDER_FOOTER			= "按下 " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制下载地址到剪切板。"
 L.UPDATEREMINDER_FOOTER_GENERIC	= "按下 " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制链接到剪切板。"
---L.UPDATEREMINDER_DISABLE			= "警告：你的DBM已经过期太久，它已被强制禁用，直到你更新。这是为了确保它不会导致你或其他团队成员出错。"
+L.UPDATEREMINDER_DISABLE			= "警告：你的DBM已经过期太久，它已被强制禁用，直到你更新。这是为了确保它不会导致你或其他团队成员出错。"
 L.UPDATEREMINDER_NODISABLE		= "警告：你的DBM已经过期太久，此消息过了某些指标后不能被禁用，直到你更新。"
 L.UPDATEREMINDER_HOTFIX			= "你的DBM版本会在这首领战斗中有问题。最新版的DBM已经修复了这个问题。"
 L.UPDATEREMINDER_HOTFIX_ALPHA	= "你的DBM版本会在这首领战斗中有问题。最新版的DBM（或Alpha版本）已经修复了这个问题。"
@@ -167,6 +171,8 @@ L.UPDATEREMINDER_MAJORPATCH		= "你的DBM已经过期,它已被禁用,直到你�
 L.UPDATEREMINDER_TESTVERSION		= "警告：你使用了不正确版本的DBM。请确保DBM版本和游戏版本一致。"
 L.VEM							= "你好像在使用VEM。DBM在这种情况下无法被载入。"
 L.OUTDATEDPROFILES					= "警告: DBM-Profiles已经无法和本版本DBM兼容。DBM核心已经自带配置文件管理系统，请移除DBM-Profiles避免冲突。"
+L.OUTDATEDSPELLTIMERS				= "警告: DBM-SpellTimers 干扰到 " .. L.DBM .. "。 DBM-SpellTimers 不再得到支持，必须将其删除。 " .. L.DBM .. " 才能正常运行。"
+L.OUTDATEDRLT						= "警告: DBM-RaidLeadTools 干扰到 " .. L.DBM .. "。 DBM-RaidLeadTools 不再得到支持，必须将其删除。 " .. L.DBM .. " 才能正常运行。"
 L.DPMCORE						= "警告: DBM-PVP已经已经很久没人维护了,并无法兼容。请移除DBM-PVP避免冲突。"
 L.DBMLDB							= "警告: DBM-LDB 已经集成入DBM核心。建议在插件目录删掉'DBM-LDB'。"
 L.UPDATE_REQUIRES_RELAUNCH		= "警告: 如果你不完全重启游戏，DBM可能会工作不正常。此次更新包含了新的文件，或者toc文件的改变，这是重载界面无法加载的。不重启游戏可能导致作战模块功能错误。"
@@ -323,6 +329,7 @@ L.AUTO_ANNOUNCE_OPTIONS.you				= "警报：中了%s时"
 L.AUTO_ANNOUNCE_OPTIONS.target			= "警报：$spell:%s的目标"
 L.AUTO_ANNOUNCE_OPTIONS.targetsource		= "警报：$spell:%s的目标(带来源)"
 L.AUTO_ANNOUNCE_OPTIONS.targetcount		= "警报：$spell:%s的目标(带计数)"
+L.AUTO_ANNOUNCE_OPTIONS.targetNF		= "警报：$spell:%s的目标(无视目标)" --
 L.AUTO_ANNOUNCE_OPTIONS.spell			= "警报：$spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS.ends				= "警报：$spell:%s结束"
 L.AUTO_ANNOUNCE_OPTIONS.endtarget		= "警报：$spell:%s结束"
@@ -591,3 +598,10 @@ L.LDB_CAT_OTHER		= "其他首领"
 
 L.LDB_CAT_GENERAL		= "常规"
 L.LDB_ENABLE_BOSS_MOD	= "启用首领模块"
+--首领喊话应该没错吧
+L.WORLD_BUFFS.hordeOny		 = "部落的人民，奥格瑞玛的居民，来吧，聚集在一起，欢庆部落英雄的诞生"
+L.WORLD_BUFFS.allianceOny	 = "暴风城的城民和盟友们，今天，有人创造了历史"
+L.WORLD_BUFFS.hordeNef		 = "奈法利安被杀掉了！奥格瑞玛的居民"
+L.WORLD_BUFFS.allianceNef	 = "联盟的人民们，黑石领主已经被干掉了！"
+L.WORLD_BUFFS.zgHeart		 = "夺灵者已经被打败了！我们不再有危险了！"
+L.WORLD_BUFFS.rendHead		 = "那个假的酋长，雷德·黑手，已经倒下了！"

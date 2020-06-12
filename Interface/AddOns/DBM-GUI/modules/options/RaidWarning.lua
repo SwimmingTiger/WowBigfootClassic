@@ -1,4 +1,5 @@
-local L = DBM_GUI_L
+local L		= DBM_GUI_L
+local CL	= DBM_CORE_L
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
 local standardFont = STANDARD_TEXT_FONT
@@ -16,7 +17,7 @@ end
 
 local RaidWarningPanel = DBM_GUI_Frame:CreateNewPanel(L.Tab_RaidWarning, "option")
 
-local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header, 375)
+local raidwarnoptions = RaidWarningPanel:CreateArea(L.RaidWarning_Header)
 
 raidwarnoptions:CreateCheckButton(L.ShowWarningsInChat, true, nil, "ShowWarningsInChat")
 raidwarnoptions:CreateCheckButton(L.WarningIconLeft, true, nil, "WarningIconLeft")
@@ -48,7 +49,7 @@ local Fonts = DBM_GUI:MixinSharedMedia3("font", {
 local FontDropDown = raidwarnoptions:CreateDropdown(L.Warn_FontType, Fonts, "DBM", "WarningFont", function(value)
 	DBM.Options.WarningFont = value
 	DBM:UpdateWarningOptions()
-	DBM:AddWarning(DBM_CORE_L.MOVE_WARNING_MESSAGE)
+	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
 FontDropDown:SetPoint("TOPLEFT", WarningShortText, "BOTTOMLEFT", 0, -10)
 
@@ -83,7 +84,7 @@ local FontStyles = {
 local FontStyleDropDown = raidwarnoptions:CreateDropdown(L.Warn_FontStyle, FontStyles, "DBM", "WarningFontStyle", function(value)
 	DBM.Options.WarningFontStyle = value
 	DBM:UpdateWarningOptions()
-	DBM:AddWarning(DBM_CORE_L.MOVE_WARNING_MESSAGE)
+	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
 FontStyleDropDown:SetPoint("TOPLEFT", FontDropDown, "BOTTOMLEFT", 0, -10)
 
@@ -92,7 +93,7 @@ local FontShadow = raidwarnoptions:CreateCheckButton(L.Warn_FontShadow, nil, nil
 FontShadow:SetScript("OnClick", function()
 	DBM.Options.WarningFontShadow = not DBM.Options.WarningFontShadow
 	DBM:UpdateWarningOptions()
-	DBM:AddWarning(DBM_CORE_L.MOVE_WARNING_MESSAGE)
+	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
 FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", 35, 0)
 
@@ -128,7 +129,7 @@ fontSizeSlider:SetValue(DBM.Options.WarningFontSize)
 fontSizeSlider:HookScript("OnValueChanged", function(self)
 	DBM.Options.WarningFontSize = self:GetValue()
 	DBM:UpdateWarningOptions()
-	DBM:AddWarning(DBM_CORE_L.MOVE_WARNING_MESSAGE)
+	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
 
 -- RaidWarn Duration
@@ -138,7 +139,7 @@ durationSlider:SetValue(DBM.Options.WarningDuration2)
 durationSlider:HookScript("OnValueChanged", function(self)
 	DBM.Options.WarningDuration2 = self:GetValue()
 	DBM:UpdateWarningOptions()
-	DBM:AddWarning(DBM_CORE_L.MOVE_WARNING_MESSAGE)
+	DBM:AddWarning(CL.MOVE_WARNING_MESSAGE)
 end)
 
 local movemebutton = raidwarnoptions:CreateButton(L.MoveMe, 100, 16)
@@ -148,7 +149,7 @@ movemebutton:SetHighlightFontObject(GameFontNormalSmall)
 movemebutton:SetScript("OnClick", function() DBM:MoveWarning() end)
 
 --Raid Warning Colors
-local raidwarncolors = RaidWarningPanel:CreateArea(L.RaidWarnColors, 150)
+local raidwarncolors = RaidWarningPanel:CreateArea(L.RaidWarnColors)
 
 local color1 = raidwarncolors:CreateColorSelect(64)
 local color2 = raidwarncolors:CreateColorSelect(64)
@@ -162,6 +163,11 @@ local color1reset = raidwarncolors:CreateButton(L.Reset, 60, 10, nil, GameFontNo
 local color2reset = raidwarncolors:CreateButton(L.Reset, 60, 10, nil, GameFontNormalSmall)
 local color3reset = raidwarncolors:CreateButton(L.Reset, 60, 10, nil, GameFontNormalSmall)
 local color4reset = raidwarncolors:CreateButton(L.Reset, 60, 10, nil, GameFontNormalSmall)
+
+color1.myheight = 64
+color2.myheight = 0
+color3.myheight = 0
+color4.myheight = 0
 
 color1:SetPoint("TOPLEFT", 30, -10)
 color2:SetPoint("TOPLEFT", color1, "TOPRIGHT", 30, 0)
@@ -189,7 +195,7 @@ local function UpdateColorFrames(color, text, rset, id)
 	color:SetScript("OnColorSelect", UpdateColor)
 	color:SetColorRGB(DBM.Options.WarningColors[id].r, DBM.Options.WarningColors[id].g, DBM.Options.WarningColors[id].b)
 	text:SetPoint("TOPLEFT", color, "BOTTOMLEFT", 3, -10)
-	text:SetJustifyH("CENTER")
+	text.myheight = 0
 	rset:SetPoint("TOP", text, "BOTTOM", 0, -5)
 	rset:SetScript("OnClick", ResetColor(id, color))
 end

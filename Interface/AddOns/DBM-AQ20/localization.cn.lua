@@ -49,7 +49,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Buru")
 
 L:SetGeneralLocalization{
-	name 		= "『暴食者』布鲁"
+	name 		= "『吞咽者』布鲁"
 }
 L:SetWarningLocalization{
 	WarnPursue		= ">%s<被追击了",

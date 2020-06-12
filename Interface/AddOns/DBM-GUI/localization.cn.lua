@@ -116,6 +116,7 @@ L.AutoRespond 				= "在战斗中自动回复私聊"
 L.WhisperStats 				= "在回复的私聊中包含击杀或灭团次数统计信息"
 L.DisableStatusWhisper 		= "屏蔽全团成员的status私聊(需要团长权限)。只对普通/英雄/神话团队和挑战/神话五人小队有效。"
 L.DisableGuildStatus 		= "屏蔽通报团队进度信息到工会(需要团长权限)。"
+L.EnableWBSharing 			= "当世界增益BUFF的激活或者世界BOSS刷新/击杀；分享给在一个服务器战网上的朋友。 （此信息将始终与您的公会分享）"
 
 -- Tab: Barsetup
 L.BarSetup   				= "计时条设置"
@@ -170,6 +171,7 @@ L.CVoiceThree				= "倒数 3"
 -- Tab: Timers
 L.AreaTitle_BarColors		= "按类型分类着色"
 L.AreaTitle_BarSetup 		= "计时条综合设置"
+L.AreaTitle_Behavior		= "计时条特性设置" --
 L.AreaTitle_BarSetupSmall 	= "小型计时条设置"
 L.AreaTitle_BarSetupHuge 	= "大型计时条设置"
 L.EnableHugeBar 			= "开启大型计时条（2号计时条）"
@@ -199,6 +201,7 @@ L.SpecWarn_ClassColor		= "为特殊警报启用分职业着色"
 L.ShowSWarningsInChat 		= "在聊天窗口中显示特殊警报"
 L.SWarnNameInNote			= "使用自定义注记的特殊警报请选择SW5"
 L.SpecialWarningIcon		= "特殊警报使用技能图标"
+L.ShortTextSpellname		= "使用较短的技能名称 (当可行时)"  --
 L.SpecWarn_FlashFrameRepeat	= "重复 %d 次 (如果开启的话)"
 L.SpecWarn_Font				= "特殊警报字体"
 L.SpecWarn_FontSize			= "字体大小: %d"
@@ -235,7 +238,7 @@ L.SWFAll					= "当特殊警报使用任何默认声音时"
 L.SpecWarn_AlwaysVoice		= "总是播放所有语音警告(覆盖Boss特定的选项,建议指挥使用)"
 --TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 L.Area_GetVEM				= "获取夏一可语音包(普通话最新)"
-L.VEMDownload				= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/dbm-voicepack-yike|r"
+L.VEMDownload				= "|cFF73C2FBhttps://curseforge.com/wow/addons/dbm-voicepack-yike|r"
 L.Area_BrowseOtherVP		= "获取其他语音包"
 L.BrowseOtherVPs			= "|cFF73C2FBhttps://curseforge.com/wow/addons/search?search=dbm+voice|r"
 L.Area_BrowseOtherCT		= "获取其他倒计时语音包"
@@ -257,19 +260,24 @@ L.EventFilterMythicMusic	= "不要在M/M+难度下播放战斗音乐"
 
 -- Tab: Global Filter
 L.Panel_SpamFilter			= "DBM全局过滤"
-L.Area_SpamFilter_Outgoing	= "DBM全局过滤设置"
+L.Area_SpamFilter_Anounces	= "警报过滤选项"
 L.SpamBlockNoShowAnnounce	= "不显示警报或播放警报音效"
 L.SpamBlockNoShowTgtAnnounce= "不显示针对目标类型的警报或播放警报音效(上面那个优先级比这个高)"
-L.SpamBlockNoSpecWarn		= "不要显示特殊警报和特殊警报音效"
-L.SpamBlockNoSpecWarnText	= "不要显示特殊警报，但允许语音包(上面那个优先级比这个高)"
+L.SpamBlockNoSpecWarnText	= "不显示特殊警报，但允许语音包(上面那个优先级比这个高)"
+L.SpamBlockNoSpecWarnFlash	= "不显示特殊警报屏幕闪烁"
+L.SpamBlockNoSpecWarnSound	= "不播放特殊团队警报的声音（如果在“语音警报”面板中启用了语音包，则仍然允许语音包）"
+
+L.Area_SpamFilter_Timers	= "计时器过滤选项"
 L.SpamBlockNoShowTimers		= "不显示DBM原装计时条"
 L.SpamBlockNoShowUTimers	= "不显示用户自定生成的计时条"
+L.SpamBlockNoCountdowns		= "不要播放倒计时语音"
+
+L.Area_SpamFilter_Misc		= "全局过滤设置"
 L.SpamBlockNoSetIcon		= "不在目标上设定标记"
 L.SpamBlockNoRangeFrame		= "不显示距离雷达框体"
 L.SpamBlockNoInfoFrame		= "不显示信息框体"
 L.SpamBlockNoHudMap			= "不显示HudMap"
 L.SpamBlockNoNameplate		= "不要显示姓名面板高亮"
-L.SpamBlockNoCountdowns		= "不要播放倒计时语音"
 L.SpamBlockNoYells			= "不要再战斗中大喊"
 L.SpamBlockNoNoteSync		= "不接受别人分享的自定义注记"
 L.SpamBlockNoReminders		= "不显示任何登陆, 过期信息(不推荐)"
@@ -279,7 +287,7 @@ L.SpamBlockNoIconRestore	= "当战斗结束后不保存团队标记状态并重�
 L.SpamBlockNoRangeRestore	= "当Boss模块隐藏距离窗体时不重置窗体位置"
 
 -- Tab: Spam Filter
-L.Area_SpamFilter			= "信息过滤设置"
+L.Area_SpamFilter			= "信息过滤选项"  --
 L.DontShowFarWarnings		= "不为过远的事件显示计时条/警报"
 L.StripServerName			= "警告和计时器中不显示服务器名"
 
@@ -289,6 +297,7 @@ L.FilterInterruptsHeader	= "基于行为偏好的打断技能提示过滤"
 L.FilterInterrupts			= "如果被打断对象不是当前目标/焦点(总是)"
 L.FilterInterrupts2			= "如果被打断对象不是当前目标/焦点(总是)或者打断技能正在冷却(限Boss)"
 L.FilterInterrupts3			= "如果被打断对象不是当前目标/焦点(总是)或者打断技能正在冷却(Boss和小怪)"
+L.FilterInterrupts4			= "始终过滤打断警报 (你不想看到他们的时候)"  --
 L.FilterInterruptNoteName	= "当自定义注记内没有包含你的名字的时候，过滤掉打断提示 (带计数)"
 L.FilterDispels				= "当驱散技能在冷却时, 过滤掉驱散提示"
 L.FilterTrashWarnings		= "当进入普通或英雄副本时，过滤掉所有小怪警报"
@@ -324,6 +333,7 @@ L.Panel_ExtraFeatures		= "其他功能"
 L.Area_ChatAlerts			= "文字提示警告选项"
 L.CheckGear					= "当你身上的装备装等低于背包装等40点时显示警告。(可能没有装备某物品或装备了低等级的任务道具或没有装备主武器)"
 L.WorldBossAlert			= "当世界Boss进入战斗后发送警告，这个信息可能是你的朋友或者同工会成员发送的。 (由于跨服，卡位面等因素，可能不准确)"
+L.WorldBuffAlert			= "当世界增益BUFF激活后发送警告，这个信息可能是你的朋友或者同工会成员发送的。 (由于跨服，卡位面等因素，可能不准确)"
 --
 L.Area_SoundAlerts			= "语音/闪动警告选项"
 L.LFDEnhance				= "当发起角色检查或随机团队/战场就绪时，在主声道播放准备音效(即使关闭了音效而且很大声！)并闪烁图标"
@@ -338,6 +348,7 @@ L.ShowQueuePop				= "显示随机小队/团队查找器确认计时条"
 --
 L.Area_AutoLogging			= "自动日志记录选项"
 L.AutologBosses				= "自动采用官方格式记录日志。 (使用 /dbm pull 可提前记录并使得记录更准确，如提前偷药水或是召唤大军。)"
+L.RecordOnlyBosses			= "只记录团队BOSS数据 (不记录其他数据，使用 /dbm pull 可提前记录并使得记录更准确，如提前偷药水或是召唤大军。)"
 L.AdvancedAutologBosses		= "自动采用 Transcriptor 记录日志"
 L.LogOnlyNonTrivial			= "只记录团队Boss，而不记录随机团队，5人本，场景战役。"
 --
@@ -373,4 +384,4 @@ L.SelectModProfileCopyNote	= "只复制自定义注记："
 L.SelectModProfileDelete	= "删除Boss模块设置："
 
 -- Misc
-L.FontHeight	= 20
+L.FontHeight	= 16

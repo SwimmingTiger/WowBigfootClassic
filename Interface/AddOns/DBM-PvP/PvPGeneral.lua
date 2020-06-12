@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-mod:SetRevision("20200524113830")
+mod:SetRevision("20200603134141")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -240,7 +240,7 @@ do
 	end
 
 	local function updateflagcarrier(_, msg)
-		if msg:match(L.ExprFlagCaptured) then
+		if msg == L.ExprFlagCaptured or msg:match(L.ExprFlagCaptured) then
 			flagTimer:Start()
 			if not isClassic then
 				vulnerableTimer:Cancel()
@@ -257,11 +257,11 @@ do
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
-		if msg:find(L.BgStart60) then
+		if msg == L.BgStart60 or msg:find(L.BgStart60) then
 			remainingTimer:Update(60, 120)
-		elseif msg:find(L.BgStart30) then
+		elseif msg == L.BgStart30 or msg:find(L.BgStart30) then
 			remainingTimer:Update(90, 120)
-		elseif not isClassic and (msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2)) then
+		elseif not isClassic and (msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2)) then
 			vulnerableTimer:Start()
 		end
 	end
