@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200522204910")
+mod:SetRevision("20200608230840")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
 mod:SetZone()
 mod:SetModelID(8570)
+mod:SetUsedIcons(8)
 mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
 
 mod:RegisterCombat("combat")
@@ -53,6 +54,7 @@ local timerBreath			= mod:NewCastTimer(5, 18584, nil, nil, nil, 3)
 
 mod:AddBoolOption("SoundWTF3", true, "sound")
 mod:AddRangeFrameOption(8, 18392)
+mod:AddSetIconOption("SetIconOnFireball", 18392, true, false, {8})
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
@@ -95,6 +97,9 @@ do
 		warnFireball:Show(targetname)
 		if targetname == UnitName("player") then
 			yellFireball:Yell()
+		end
+		if self.Options.SetIconOnFireball then
+			self:SetIcon(targetname, 8, 3)
 		end
 	end
 

@@ -105,6 +105,8 @@ ModelSoundDropDown.myheight = 40
 
 local resizeOptions = DBM_GUI_Frame:CreateArea(L.ResizeOptions)
 
+local optionsFrame = _G["DBM_GUI_OptionsFrame"]
+
 local resetbutton2 = resizeOptions:CreateButton(L.Button_ResetWindowSize, 120, 16)
 resetbutton2:SetPoint("BOTTOMRIGHT", resizeOptions.frame, "BOTTOMRIGHT", -5, 5)
 resetbutton2:SetNormalFontObject(GameFontNormalSmall)
@@ -112,10 +114,10 @@ resetbutton2:SetHighlightFontObject(GameFontNormalSmall)
 resetbutton2:SetScript("OnClick", function()
 	DBM.Options.GUIWidth = DBM.DefaultOptions.GUIWidth
 	DBM.Options.GUIHeight = DBM.DefaultOptions.GUIHeight
-	DBM_GUI_OptionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
+	optionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
 end)
 
-local minWidth, minHeight = DBM_GUI_OptionsFrame:GetMinResize()
+local minWidth, minHeight = optionsFrame:GetMinResize()
 
 local resizeWidth = resizeOptions:CreateEditBox(L.Editbox_WindowWidth, math.floor(DBM.Options.GUIWidth * 10 ^ 2 + 0.5) / 10 ^ 2)
 resizeWidth:SetPoint("TOPLEFT", 30, -25)
@@ -132,7 +134,7 @@ resizeWidth:SetScript("OnEnterPressed", function(self)
 		self:SetText(UIParent:GetWidth())
 	end
 	DBM.Options.GUIWidth = value
-	DBM_GUI_OptionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
+	optionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
 end)
 
 local resizeHeight = resizeOptions:CreateEditBox(L.Editbox_WindowHeight, math.floor(DBM.Options.GUIHeight * 10 ^ 2 + 0.5) / 10 ^ 2)
@@ -151,10 +153,10 @@ resizeHeight:SetScript("OnEnterPressed", function(self)
 		self:SetText(UIParent:GetHeight())
 	end
 	DBM.Options.GUIHeight = value
-	DBM_GUI_OptionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
+	optionsFrame:SetSize(DBM.Options.GUIWidth, DBM.Options.GUIHeight)
 end)
 
-DBM_GUI_OptionsFrame:HookScript("OnSizeChanged", function(self)
+optionsFrame:HookScript("OnSizeChanged", function(self)
 	resizeWidth:SetText(math.floor(self:GetWidth() * 10 ^ 2 + 0.5) / 10 ^ 2)
 	resizeHeight:SetText(math.floor(self:GetHeight() * 10 ^ 2 + 0.5) / 10 ^ 2)
 end)

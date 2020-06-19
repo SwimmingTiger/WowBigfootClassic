@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Garr-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200522204910")
+mod:SetRevision("20200521044036")
 mod:SetCreatureID(12057)--, 12099
 mod:SetEncounterID(666)
 mod:SetModelID(12110)

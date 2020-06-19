@@ -10,7 +10,7 @@ local L = DBM_CORE_L
 local rangeCheck = DBM.RangeCheck
 local mainFrame = CreateFrame("Frame")
 local textFrame, radarFrame, updateIcon, updateRangeFrame, initializeDropdown
-local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS -- For Phanx' Class Colors
+local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS -- For Phanx' Class Colors
 
 -- Function for automatically converting inputed ranges from old mods to be ones that have valid item/api checks
 local function setCompatibleRestrictedRange(range)
@@ -682,11 +682,13 @@ do
 						end
 					end
 					if not closetName then
-						closetName = UnitName(uId)
+						closetName = DBM:GetUnitFullName(uId)
+						closetName = DBM:GetShortServerName(closetName)
 					end
 				end
 				if tEnabled and inRange and not onlySummary and closePlayer < 6 then -- Display up to 5 players in text range frame.
-					local playerName = UnitName(uId)
+					local playerName = DBM:GetUnitFullName(uId)
+					playerName = DBM:GetShortServerName(playerName)
 					local color = RAID_CLASS_COLORS[dot.class] or NORMAL_FONT_COLOR
 					textFrame.lines[closePlayer]:SetText(dot.icon and ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t %s"):format(dot.icon, playerName) or playerName)
 					textFrame.lines[closePlayer]:SetTextColor(color.r, color.g, color.b)
@@ -784,7 +786,7 @@ do
 	local UnitPosition, UnitExists, UnitIsUnit, UnitIsDeadOrGhost, UnitIsConnected, UnitInPhase = UnitPosition, UnitExists, UnitIsUnit, UnitIsDeadOrGhost, UnitIsConnected, UnitInPhase
 
 	function getDistanceBetweenAll(checkrange)
-		local range = 1000
+		local range
 		for uId in DBM:GetGroupMembers() do
 			if UnitExists(uId) and not UnitIsUnit(uId, "player") and not UnitIsDeadOrGhost(uId) and UnitIsConnected(uId) and UnitInPhase(uId) then
 				range = DBM:HasMapRestrictions() and itsBCAgain(uId, checkrange) or UnitDistanceSquared(uId) * 0.5

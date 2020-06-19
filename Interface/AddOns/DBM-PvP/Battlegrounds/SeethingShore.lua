@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z1803", "DBM-PvP")
 
-mod:SetRevision("20200603131206")
+mod:SetRevision("20200612120231")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
@@ -57,7 +57,7 @@ do
 		for i = 1, #vignetteids do
 			local vignette = C_VignetteInfo.GetVignetteInfo(vignetteids[i])
 			if vignette and vignette.vignetteGUID then
-				local poss = C_VignetteInfo.GetVignettePosition(vignette.vignetteGUID, 907):GetXY()
+				local poss = C_VignetteInfo.GetVignettePosition(vignette.vignetteGUID, 907)
 				if not poss then
 					return
 				end

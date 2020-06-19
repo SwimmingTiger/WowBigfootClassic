@@ -2,10 +2,6 @@ local L = DBM_GUI_L
 
 local extraFeaturesPanel	= DBM_GUI_Frame:CreateNewPanel(L.Panel_ExtraFeatures, "option")
 
-local chatAlertsArea		= extraFeaturesPanel:CreateArea(L.Area_ChatAlerts)
-chatAlertsArea:CreateCheckButton(L.WorldBossAlert, true, nil, "WorldBossAlert")
-chatAlertsArea:CreateCheckButton(L.WorldBuffAlert, true, nil, "WorldBuffAlert")
-
 local soundAlertsArea		= extraFeaturesPanel:CreateArea(L.Area_SoundAlerts)
 soundAlertsArea:CreateCheckButton(L.LFDEnhance, true, nil, "LFDEnhance")
 soundAlertsArea:CreateCheckButton(L.WorldBossNearAlert, true, nil, "WorldBossNearAlert")
@@ -13,13 +9,13 @@ soundAlertsArea:CreateCheckButton(L.RLReadyCheckSound, true, nil, "RLReadyCheckS
 soundAlertsArea:CreateCheckButton(L.AFKHealthWarning, true, nil, "AFKHealthWarning")
 
 local generaltimeroptions	= extraFeaturesPanel:CreateArea(L.TimerGeneral)
-generaltimeroptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer2")
+generaltimeroptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer")
 generaltimeroptions:CreateCheckButton(L.ShowRespawn, true, nil, "ShowRespawn")
 generaltimeroptions:CreateCheckButton(L.ShowQueuePop, true, nil, "ShowQueuePop")
 
 local bossLoggingArea		= extraFeaturesPanel:CreateArea(L.Area_AutoLogging)
 bossLoggingArea:CreateCheckButton(L.AutologBosses, true, nil, "AutologBosses")
-if Transcriptor then
+if _G["Transcriptor"] then
 	bossLoggingArea:CreateCheckButton(L.AdvancedAutologBosses, true, nil, "AdvancedAutologBosses")
 end
 bossLoggingArea:CreateCheckButton(L.RecordOnlyBosses, true, nil, "RecordOnlyBosses")
@@ -27,6 +23,7 @@ bossLoggingArea:CreateCheckButton(L.LogOnlyNonTrivial, true, nil, "LogOnlyNonTri
 
 --[[
 local thirdPartyArea
+local bigBrother = _G["BigBrother"]
 if BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 	thirdPartyArea			= extraFeaturesPanel:CreateArea(L.Area_3rdParty)
 	thirdPartyArea:CreateCheckButton(L.ShowBBOnCombatStart, true, nil, "ShowBigBrotherOnCombatStart")

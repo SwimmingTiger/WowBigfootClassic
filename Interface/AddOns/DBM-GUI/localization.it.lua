@@ -93,7 +93,7 @@ L.ShowPizzaMessage 			= "Visualizza i messaggi inviati a tutti in chat"
 L.CombatMessages			= "Messaggi di Combattimento - Opzioni"
 L.ShowEngageMessage 		= "Visualizza in chat il messaggio di Ingaggio"
 L.ShowDefeatMessage 		= "Visualizza in chat il messaggio di uccisione"
-L.WhisperMessages			= "Sussurri - Opzioni"
+L.Area_WhisperMessages		= "Sussurri - Opzioni"
 L.AutoRespond 				= "Rispondi automaticamente ai sussurri mentre stai combattendo"
 L.WhisperStats 				= "Nelle risposte ai sussurri, aggiungi le informazioni su uccisioni e sconfitte."
 

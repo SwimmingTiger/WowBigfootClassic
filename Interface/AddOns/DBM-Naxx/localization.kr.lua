@@ -208,8 +208,8 @@ L:SetMiscLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningChargeChanged	= "극성이 바뀔때 특수 경고 보기",
-	WarningChargeNotChanged	= "극성이 바뀌지 않으면 특수 경고 보기",
+	WarningChargeChanged	= "극성이 바뀔때 특수 알림 보기",
+	WarningChargeNotChanged	= "극성이 바뀌지 않으면 특수 알림 보기",
 	ArrowsEnabled			= "기본 화살표 보기 (일반 \"2점\" 공략용)",
 	ArrowsRightLeft			= "\"4점\" 공략용 왼쪽/오른쪽 화살표 보기 (극성이 바뀌면 왼쪽 화살표가 나오고 바뀌지 않으면 오른쪽이 나옴)",
 	ArrowsInverse			= "역 \"4점\" 공략 (극성이 바뀌면 오른쪽 화살표가 나오고 바뀌지 않으면 왼쪽이 나옴)"
@@ -301,7 +301,7 @@ L:SetGeneralLocalization({
 L:SetOptionLocalization({
 	WarningMarkSoon				= "징표 사전 경고 보기",
 	WarningMarkNow				= "징표 경고 보기",
-	SpecialWarningMarkOnPlayer	= "징표가 4중첩 이상이 되면 특수 경고 보기"
+	SpecialWarningMarkOnPlayer	= "징표가 4중첩 이상이 되면 특수 알림 보기"
 })
 
 L:SetTimerLocalization({
@@ -336,7 +336,7 @@ L:SetOptionLocalization({
 	TimerAir				= "비행 단계 타이머 바 보기",
 	TimerLanding			= "착지 중 타이머 바 보기",
 	TimerIceBlast			= "냉기 숨결 타이머 바 보기",
-	WarningDeepBreath		= "냉기 숨결 특수 경고 보기"
+	WarningDeepBreath		= "냉기 숨결 특수 알림 보기"
 })
 
 L:SetMiscLocalization({
@@ -367,7 +367,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	TimerPhase2			= "2단계 타이머 바 보기",
-	specwarnP2Soon		= "켈투자드 전투 개시 10초 전에 특수 경고 보기",
+	specwarnP2Soon		= "켈투자드 전투 개시 10초 전에 특수 알림 보기",
 	warnAddsSoon		= "얼음왕관의 수호자 사전 경고 보기"
 })
 

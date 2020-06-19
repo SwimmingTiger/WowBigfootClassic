@@ -34,6 +34,6 @@ Sartura.lua
 Fankriss.lua
 Viscidus.lua
 Huhuran.lua
+Ouro.lua
 TwinEmps.lua
 CThun.lua
-Ouro.lua

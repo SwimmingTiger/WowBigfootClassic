@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lucifron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200610150315")
 mod:SetCreatureID(12118)--, 12119
 mod:SetEncounterID(663)
 mod:SetModelID(13031)
@@ -44,7 +44,8 @@ function mod:OnCombatStart(delay)
 		self.vb.firstEngageTime = GetTime()
 		if self.Options.FastestClear and self.Options.SpeedClearTimer then
 			--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_SPEED_CLEAR_TIMER_TEXT)
+			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
+			DBM:AddMsg("Speed run timer should have started, please report if it didn't on DBM Discord")
 		end
 	end
 end

@@ -1,7 +1,7 @@
 local L		= DBM_GUI_L
 local CL	= DBM_CORE_L
 
-local setmetatable, select, type, pairs, tonumber, strsplit, mmax, tinsert, tremove = setmetatable, select, type, pairs, tonumber, strsplit, math.max, table.insert, table.remove
+local setmetatable, select, type, tonumber, strsplit, mmax, tinsert, tremove = setmetatable, select, type, tonumber, strsplit, math.max, table.insert, table.remove
 local CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal = CreateFrame, GetCursorPosition, UIParent, GameTooltip, NORMAL_FONT_COLOR, GameFontNormal
 local DBM, DBM_GUI = DBM, DBM_GUI
 
@@ -207,10 +207,10 @@ do
 	local sounds = DBM_GUI:MixinSharedMedia3("sound", {
 		-- Inject basically dummy values for ordering special warnings to just use default SW sound assignments
 		{ text = L.None, value = "None" },
-		{ text = "SW 1", value = 1 },
-		{ text = "SW 2", value = 2 },
-		{ text = "SW 3", value = 3 },
-		{ text = "SW 4", value = 4 },
+		{ text = "SA 1", value = 1 },
+		{ text = "SA 2", value = 2 },
+		{ text = "SA 3", value = 3 },
+		{ text = "SA 4", value = 4 },
 		-- Inject DBMs custom media that's not available to LibSharedMedia because it uses SoundKit Id (which LSM doesn't support)
 		--{ text = "AirHorn (DBM)",			value = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg" },
 		{ text = "Algalon: Beware!",		value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\UR_Algalon_BHole01.ogg" },
@@ -468,11 +468,12 @@ do
 	local myid = 100
 
 	function DBM_GUI:CreateNewPanel(frameName, frameType, showSub, sortID, displayName)
-		local panel = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), DBM_GUI_OptionsFramePanelContainer)
+		local panel = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), _G["DBM_GUI_OptionsFramePanelContainer"])
 		panel.mytype = "panel"
 		panel.sortID = self:GetCurrentID()
-		panel:SetSize(DBM_GUI_OptionsFramePanelContainer:GetWidth(), DBM_GUI_OptionsFramePanelContainer:GetHeight())
-		panel:SetPoint("TOPLEFT", DBM_GUI_OptionsFramePanelContainer, "TOPLEFT")
+		local container = _G["DBM_GUI_OptionsFramePanelContainer"]
+		panel:SetSize(container:GetWidth(), container:GetHeight())
+		panel:SetPoint("TOPLEFT", "DBM_GUI_OptionsFramePanelContainer", "TOPLEFT")
 		panel.name = frameName
 		panel.displayName = displayName or frameName
 		panel.showSub = showSub or showSub == nil

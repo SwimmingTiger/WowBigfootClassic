@@ -20,7 +20,7 @@ L:SetMiscLocalization{
 	YellEgg1	= "¡Pagarán por obligarme a hacer esto!",
 	YellEgg2	= "¡Locos! ¡Esos huevos son más valiosos de lo que creen!",
 	YellEgg3	= "¡No, otro no! ¡Rodarán sus cabezas por esta infamia!",
-	YellPull	= "¡Los invasores han penetrado en El Criadero! ¡Activad la alarma! ¡Hay que proteger los huevos a toda costa!"
+	YellPull	= "¡Los invasores han penetrado en El Criadero! ¡Activa la alarma! ¡Hay que proteger los huevos a toda costa!"
 }
 -------------------
 --  Vaelastrasz  --
@@ -41,6 +41,10 @@ L = DBM:GetModLocalization("Broodlord")
 
 L:SetGeneralLocalization{
 	name	= "Señor de linaje Capazote"
+}
+
+L:SetMiscLocalization{
+	Pull	= "None of your kind should be here!  You've doomed only yourselves!"
 }
 
 ---------------
@@ -77,10 +81,10 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("TalonGuards")
 
 L:SetGeneralLocalization{
-	name = "Guardias Garra"
+	name = "Guardias Garramortal"
 }
 L:SetWarningLocalization{
-	WarnVulnerable		= "%s Vulnerabilidad"
+	WarnVulnerable		= "Vulnerabilidad: %s"
 }
 L:SetOptionLocalization{
 	WarnVulnerable		= "Mostrar aviso de vulnerabilidades de hechizo"
@@ -104,7 +108,7 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnBreath		= "%s",
-	WarnVulnerable	= "%s Vulnerabilidad"
+	WarnVulnerable	= "Vulnerabilidad: %s"
 }
 L:SetTimerLocalization{
 	TimerBreathCD	= "%s TdR",
@@ -121,7 +125,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Breath1	= "Primer aliento",
 	Breath2	= "Segundo aliento",
-	VulnEmote	= "%s flinches as its skin shimmers.",
+	VulnEmote	= "%s se estremece mientras su piel empieza a brillar.",
 	Vuln		= "Vulnerabilidad",
 	Fire		= "Fuego",
 	Nature		= "Naturaleza",
@@ -157,19 +161,19 @@ L:SetOptionLocalization{
 --	WarnPhase			= "Anunciar cambios de fase"
 }
 L:SetMiscLocalization{
-	YellP1		= "Let the games begin!",
+	YellP1		= "¡Que comiencen los juegos!",
 	YellP2		= "Bien hecho, mis esbirros. El coraje de los mortales empieza a mermar. ¡Veamos ahora cómo se enfrentan al verdadero Señor de la Cubre de Roca Negra!",
-	YellP3		= "¡Imposible! ¡Erguíos, mis esbirros! ¡Servid a vuestro maestro una vez más!",
+	YellP3		= "¡Imposible! ¡Levántense, mis esbirros! ¡Sirvan a su amo una vez más!",
 	YellShaman	= "¡Chamanes, mostradme lo que pueden hacer vuestros tótems!",
 	YellPaladin	= "Paladines... He oído que tenéis muchas vidas. Demostrádmelo.",
 	YellDruid	= "Los druidas y vuestro estúpido poder de cambiar de forma. ¡Veámoslo en acción!",
 	YellPriest	= "¡Sacerdotes! Si vais a seguir curando de esa forma, ¡podríamos hacerlo más interesante!",
-	YellWarrior	= "¡Vamos guerreros, sé que podéis golpear más fuerte que eso! ¡Veámoslo!",
-	YellRogue	= "¿Pícaros? ¡Dejad de esconderos y enfrentaos a mí!",
-	YellWarlock	= "Brujos... No deberíais estar jugando con magia que no comprendéis. ¿Veis lo que pasa?",
-	YellHunter	= "¡Cazadores y vuestras molestas cerbatanas!",
-	YellMage	= "¡Magos también? Deberíais tener más cuidado cuando jugáis con la magia...",
-	YellDK		= "¡Caballeros de la Muerte... venid aquí!",
-	YellMonk	= "Monjes, ¿no os mareáis con tanta vuelta?",
-	YellDH		= "¿Cazadores de demonios? Qué raro eso de taparos los ojos así. ¿No os cuesta ver lo que tenéis alrededor?"--Demon Hunter call; I know this hasn't been implemented yet in DBM, but I added it just in case.
+	YellWarrior	= "¡Vamos guerreros, sé que pueden golpear más fuerte que eso! ¡Veámoslo!",
+	YellRogue	= "¿Pícaros? ¡Dejen de esconderse y enfréntense a mí!",
+	YellWarlock	= "Brujos... No deberían estar jugando con magia que no comprenden. ¿Ven lo que pasa?",
+	YellHunter	= "¡Cazadores y sus molestas cerbatanas!",
+	YellMage	= "¿Magos también? Deberían tener más cuidado cuando juegan con la magia...",
+--	YellDK		= "¡Caballeros de la Muerte... venid aquí!",
+--	YellMonk	= "Monjes, ¿no os mareáis con tanta vuelta?",
+--	YellDH		= "¿Cazadores de demonios? Qué raro eso de taparos los ojos así. ¿No os cuesta ver lo que tenéis alrededor?"--Demon Hunter call; I know this hasn't been implemented yet in DBM, but I added it just in case.
 }

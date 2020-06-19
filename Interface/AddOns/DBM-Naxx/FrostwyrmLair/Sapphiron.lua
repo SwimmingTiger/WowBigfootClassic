@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200611171919")
 mod:SetCreatureID(15989)
 mod:SetEncounterID(1119)
-mod:SetModelID(16033)
+--mod:SetModelID(16033)--Scales incorrectly
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(

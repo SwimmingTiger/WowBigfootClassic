@@ -7,7 +7,7 @@ local L
 L = DBM:GetModLocalization("Razorgore")
 
 L:SetGeneralLocalization{
-	name = "Razorgore the Untamed"
+	name = "Tranchetripe l'Indompté"
 }
 L:SetTimerLocalization{
 	TimerAddsSpawn	= "Adds spawning"
@@ -28,7 +28,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Vaelastrasz")
 
 L:SetGeneralLocalization{
-	name				= "Vaelastrasz the Corrupt"
+	name				= "Vaelastrasz le Corrompu"
 }
 
 L:SetMiscLocalization{
@@ -40,7 +40,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Broodlord")
 
 L:SetGeneralLocalization{
-	name	= "Broodlord Lashlayer"
+	name	= "Seigneur des couvées Lashlayer"
 }
 
 L:SetMiscLocalization{
@@ -53,7 +53,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Firemaw")
 
 L:SetGeneralLocalization{
-	name = "Firemaw"
+	name = "Gueule-de-feu"
 }
 
 ---------------
@@ -62,7 +62,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Ebonroc")
 
 L:SetGeneralLocalization{
-	name = "Ebonroc"
+	name = "Rochébène"
 }
 
 ----------------
@@ -82,7 +82,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("TalonGuards")
 
 L:SetGeneralLocalization{
-	name = "Talon Guards"
+	name = "Gardes Griffemort"
 }
 L:SetWarningLocalization{
 	WarnVulnerable		= "%s Vulnerability"

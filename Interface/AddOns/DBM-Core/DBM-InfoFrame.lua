@@ -6,6 +6,7 @@ DBM.InfoFrame = {}
 --------------
 --  Locals  --
 --------------
+local L = DBM_CORE_L
 local infoFrame = DBM.InfoFrame
 local frame, initializeDropdown, currentMapId, currentEvent, createFrame
 local maxlines, modLines, maxWidth = 5, 5, 0
@@ -16,9 +17,9 @@ local playerName = UnitName("player")
 -------------------
 -- Local Globals --
 -------------------
-local GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition = GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition
+local GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit = GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit
 local select, tonumber, twipe, mfloor = select, tonumber, table.wipe, math.floor
-local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS-- for Phanx' Class Colors
+local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS-- for Phanx' Class Colors
 
 ---------------------
 --  Dropdown Menu  --
@@ -63,7 +64,7 @@ do
 
 			info = UIDropDownMenu_CreateInfo()
 			info.keepShownOnClick = true
-			info.text = DBM_CORE_INFOFRAME_SHOW_SELF
+			info.text = L.INFOFRAME_SHOW_SELF
 			if DBM.Options.InfoFrameShowSelf then
 				info.checked = true
 			end
@@ -71,7 +72,7 @@ do
 			UIDropDownMenu_AddButton(info, 1)
 
 			info = UIDropDownMenu_CreateInfo()
-			info.text = DBM_CORE_INFOFRAME_SETLINES
+			info.text = L.INFOFRAME_SETLINES
 			info.notCheckable = true
 			info.hasArrow = true
 			info.keepShownOnClick = true
@@ -87,49 +88,49 @@ do
 		elseif level == 2 then
 			if menu == "lines" then
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINESDEFAULT
+				info.text = L.INFOFRAME_LINESDEFAULT
 				info.func = setLines
 				info.arg1 = 0
 				info.checked = (DBM.Options.InfoFrameLines == 0)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(3)
+				info.text = L.INFOFRAME_LINES_TO:format(3)
 				info.func = setLines
 				info.arg1 = 3
 				info.checked = (DBM.Options.InfoFrameLines == 3)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(5)
+				info.text = L.INFOFRAME_LINES_TO:format(5)
 				info.func = setLines
 				info.arg1 = 5
 				info.checked = (DBM.Options.InfoFrameLines == 5)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(8)
+				info.text = L.INFOFRAME_LINES_TO:format(8)
 				info.func = setLines
 				info.arg1 = 8
 				info.checked = (DBM.Options.InfoFrameLines == 8)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(10)
+				info.text = L.INFOFRAME_LINES_TO:format(10)
 				info.func = setLines
 				info.arg1 = 10
 				info.checked = (DBM.Options.InfoFrameLines == 10)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(15)
+				info.text = L.INFOFRAME_LINES_TO:format(15)
 				info.func = setLines
 				info.arg1 = 15
 				info.checked = (DBM.Options.InfoFrameLines == 15)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = DBM_CORE_INFOFRAME_LINES_TO:format(20)
+				info.text = L.INFOFRAME_LINES_TO:format(20)
 				info.func = setLines
 				info.arg1 = 20
 				info.checked = (DBM.Options.InfoFrameLines == 20)
@@ -207,10 +208,6 @@ local function sortFuncAsc(a, b)
 	return lines[a] < lines[b]
 end
 
-local function namesortFuncAsc(a, b)
-	return a < b
-end
-
 local function sortGroupId(a, b)
 	return DBM.GetGroupId(DBM, a) < DBM.GetGroupId(DBM, b)
 end
@@ -234,9 +231,14 @@ local function updateLines(preSorted)
 			table.sort(sortedLines, sortFuncDesc)
 		end
 	end
-	for i, v in ipairs(updateCallbacks) do
+	for _, v in ipairs(updateCallbacks) do
 		v(sortedLines)
 	end
+end
+
+--[[
+local function namesortFuncAsc(a, b)
+	return a < b
 end
 
 local function updateNamesortLines()
@@ -245,10 +247,11 @@ local function updateNamesortLines()
 		sortedLines[#sortedLines + 1] = i
 	end
 	table.sort(sortedLines, namesortFuncAsc)
-	for i, v in ipairs(updateCallbacks) do
+	for _, v in ipairs(updateCallbacks) do
 		v(sortedLines)
 	end
 end
+]]--
 
 local function updateLinesCustomSort(sortFunc)
 	twipe(sortedLines)
@@ -256,7 +259,7 @@ local function updateLinesCustomSort(sortFunc)
 		sortedLines[#sortedLines + 1] = i
 	end
 	table.sort(sortedLines, sortFunc)
-	for i, v in ipairs(updateCallbacks) do
+	for _, v in ipairs(updateCallbacks) do
 		v(sortedLines)
 	end
 end
@@ -267,10 +270,10 @@ local function updateIcons()
 		local icon = GetRaidTargetIndex(uId)
 		local icon2 = GetRaidTargetIndex(uId .. "target")
 		if icon then
-			icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
+			icons[DBM:GetUnitFullName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
 		end
 		if icon2 then
-			icons[UnitName(uId .. "target")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon2)
+			icons[DBM:GetUnitFullName(uId .. "target")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon2)
 		end
 	end
 	for i = 1, 5 do
@@ -286,7 +289,7 @@ local function updateHealth()
 	local threshold = value[1]
 	for uId in DBM:GetGroupMembers() do
 		if UnitHealth(uId) < threshold and not UnitIsDeadOrGhost(uId) then
-			lines[UnitName(uId)] = UnitHealth(uId) - threshold
+			lines[DBM:GetUnitFullName(uId)] = UnitHealth(uId) - threshold
 		end
 	end
 	updateLines()
@@ -306,7 +309,7 @@ local function updatePlayerPower()
 		else
 			local maxPower = UnitPowerMax(uId, powerType)
 			if maxPower ~= 0 and not UnitIsDeadOrGhost(uId) and UnitPower(uId, powerType) / UnitPowerMax(uId, powerType) * 100 >= threshold then
-				lines[UnitName(uId)] = UnitPower(uId, powerType)
+				lines[DBM:GetUnitFullName(uId)] = UnitPower(uId, powerType)
 			end
 		end
 	end
@@ -367,7 +370,7 @@ local function updateEnemyPower()
 			local currentAltPower, maxAltPower = UnitPower(uId, 10), UnitPowerMax(uId, 10)
 			if maxAltPower and maxAltPower > 0 then
 				if currentAltPower / maxAltPower * 100 >= threshold then
-					lines[UnitName(uId)] = DBM_CORE_INFOFRAME_ALT .. currentAltPower
+					lines[UnitName(uId)] = L.INFOFRAME_ALT .. currentAltPower
 				end
 			end
 		end
@@ -461,7 +464,7 @@ local function updateAllAbsorb()
 				else
 					text = absorbAmount
 				end
-				lines[UnitName(uId)] = mfloor(text) .. "%"
+				lines[DBM:GetUnitFullName(uId)] = mfloor(text) .. "%"
 			end
 		end
 	end
@@ -482,7 +485,7 @@ local function updatePlayerAbsorb()
 			else
 				text = absorbAmount
 			end
-			lines[UnitName(uId)] = mfloor(text)
+			lines[DBM:GetUnitFullName(uId)] = mfloor(text)
 		end
 	end
 	updateLines()
@@ -498,7 +501,7 @@ local function updatePlayerBuffs()
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not DBM:UnitBuff(uId, spellName) and not UnitIsDeadOrGhost(uId) then
-				lines[UnitName(uId)] = ""
+				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
 	end
@@ -515,7 +518,7 @@ local function updateGoodPlayerDebuffs()
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
-				lines[UnitName(uId)] = ""
+				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
 	end
@@ -533,7 +536,7 @@ local function updateBadPlayerDebuffs()
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) then
-				lines[UnitName(uId)] = ""
+				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
 	end
@@ -549,10 +552,10 @@ local function updatePlayerDebuffRemaining()
 		local expires = select(6, DBM:UnitDebuff(uId, spellInput))
 		if expires then
 			if expires == 0 then
-				lines[UnitName(uId)] = 9000--Force sorting the unknowns under the ones we do know.
+				lines[DBM:GetUnitFullName(uId)] = 9000--Force sorting the unknowns under the ones we do know.
 			else
 				local debuffTime = expires - GetTime()
-				lines[UnitName(uId)] = mfloor(debuffTime)
+				lines[DBM:GetUnitFullName(uId)] = mfloor(debuffTime)
 			end
 		end
 	end
@@ -568,10 +571,10 @@ local function updatePlayerBuffRemaining()
 		local expires = select(6, DBM:UnitBuff(uId, spellInput))
 		if expires then
 			if expires == 0 then
-				lines[UnitName(uId)] = 9000--Force sorting the unknowns under the ones we do know.
+				lines[DBM:GetUnitFullName(uId)] = 9000--Force sorting the unknowns under the ones we do know.
 			else
 				local debuffTime = expires - GetTime()
-				lines[UnitName(uId)] = mfloor(debuffTime)
+				lines[DBM:GetUnitFullName(uId)] = mfloor(debuffTime)
 			end
 		end
 	end
@@ -589,7 +592,7 @@ local function updateReverseBadPlayerDebuffs()
 		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not DBM:UnitDebuff(uId, spellInput) and not UnitIsDeadOrGhost(uId) and not DBM:UnitBuff(uId, 27827) then--27827 Spirit of Redemption. This particular info frame wants to ignore this
-				lines[UnitName(uId)] = ""
+				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
 	end
@@ -603,7 +606,7 @@ local function updatePlayerBuffStacks()
 	for uId in DBM:GetGroupMembers() do
 		local spellName, _, count = DBM:UnitBuff(uId, spellInput)
 		if spellName and count then
-			lines[UnitName(uId)] = count
+			lines[DBM:GetUnitFullName(uId)] = count
 		end
 	end
 	updateIcons()
@@ -616,7 +619,7 @@ local function updatePlayerDebuffStacks()
 	for uId in DBM:GetGroupMembers() do
 		local spellName, _, count = DBM:UnitDebuff(uId, spellInput)
 		if spellName and count then
-			lines[UnitName(uId)] = count
+			lines[DBM:GetUnitFullName(uId)] = count
 		end
 	end
 	updateIcons()
@@ -632,7 +635,7 @@ local function updatePlayerAggro()
 		else
 			local currentThreat = UnitThreatSituation(uId) or 0
 			if currentThreat >= aggroType then
-				lines[UnitName(uId)] = ""
+				lines[DBM:GetUnitFullName(uId)] = ""
 			end
 		end
 	end
@@ -643,9 +646,9 @@ end
 local function updatePlayerTargets()
 	twipe(lines)
 	local cId = value[1]
-	for uId, i in DBM:GetGroupMembers() do
+	for uId, _ in DBM:GetGroupMembers() do
 		if DBM:GetUnitCreatureId(uId .. "target") ~= cId and (UnitGroupRolesAssigned(uId) == "DAMAGER" or UnitGroupRolesAssigned(uId) == "NONE") then
-			lines[UnitName(uId)] = ""
+			lines[DBM:GetUnitFullName(uId)] = ""
 		end
 	end
 	updateLines()
@@ -770,11 +773,17 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId)
 				if class then
 					color = RAID_CLASS_COLORS[class]
-				else
-					color = NORMAL_FONT_COLOR
+					if DBM.Options.StripServerName then--This still needs it's own check because it has to run custom code for the ugly 3rd column hack
+						local shortName = DBM:GetShortServerName(extraName or leftText)
+						if extraName then--3 column hack is present, we need to reconstruct leftText with shortened name
+							leftText = extra.."*"..shortName
+						else--LeftText is name, just replace it with shortname
+							leftText = shortName
+						end
+					end
 				end
 				linesShown = linesShown + 1
-				if (extraName or leftText) == playerName then--It's player.
+				if unitId and UnitIsUnit(unitId, "player") then--It's player.
 					if currentEvent == "health" or currentEvent == "playerpower" or currentEvent == "playerabsorb" or currentEvent == "playerbuff" or currentEvent == "playergooddebuff" or currentEvent == "playerbaddebuff" or currentEvent == "playerdebuffremaining" or currentEvent == "playerdebuffstacks" or currentEvent == "playerbuffremaining" or currentEvent == "playertargets" or currentEvent == "playeraggro" then--Red
 						infoFrame:SetLine(linesShown, icon or leftText, rightText, 255, 0, 0, 255, 255, 255)
 					else--Green
@@ -808,8 +817,6 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId)
 				if class then
 					color = RAID_CLASS_COLORS[class]
-				else
-					color = NORMAL_FONT_COLOR
 				end
 			else
 				color = NORMAL_FONT_COLOR
@@ -818,11 +825,7 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId2)
 				if class then
 					color2 = RAID_CLASS_COLORS[class]
-				else
-					color2 = NORMAL_FONT_COLOR
 				end
-			else
-				color2 = NORMAL_FONT_COLOR
 			end
 			linesShown = linesShown + 1
 			infoFrame:SetLine(linesShown, icon or leftText, rightText, color.r, color.g, color.b, color2.r, color2.g, color2.b)

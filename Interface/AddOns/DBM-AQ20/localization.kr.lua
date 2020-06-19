@@ -57,7 +57,7 @@ L:SetWarningLocalization{
 }
 L:SetOptionLocalization{
 	WarnPursue		= "추적 대상 알림 보기",
-	SpecWarnPursue	= "추적 대상이 된 경우 특수 경고 보기"
+	SpecWarnPursue	= "추적 대상이 된 경우 특수 알림 보기"
 }
 L:SetMiscLocalization{
 	PursueEmote 	= "노려봅니다!"

@@ -13,7 +13,7 @@ function OptionsList_OnLoad(self, ...)
 	end
 end
 
-local tabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", DBM_GUI_OptionsFrame, "OptionsFrameListTemplate")
+local tabFrame1 = CreateFrame("Frame", "DBM_GUI_DropDown", _G["DBM_GUI_OptionsFrame"], "OptionsFrameListTemplate")
 tabFrame1:Hide()
 tabFrame1:SetFrameStrata("TOOLTIP")
 tabFrame1.offset = 0
@@ -39,7 +39,6 @@ tabFrame1List:SetScript("OnVerticalScroll", function(self, offset)
 	tabFrame1:Refresh()
 end)
 tabFrame1List:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.6)
-tabFrame1List:SetBackdrop(nil)
 
 local tabFrame1ScrollBar = _G[tabFrame1List:GetName() .. "ScrollBar"]
 tabFrame1ScrollBar:SetMinMaxValues(0, 11)
@@ -67,7 +66,6 @@ tabFrame1:SetScript("OnMouseWheel", function(_, delta)
 end)
 
 local ClickFrame = CreateFrame("Button", nil, UIParent)
-ClickFrame:SetAllPoints(DBM_GUI_OptionsFrame)
 ClickFrame:SetFrameStrata("TOOLTIP")
 ClickFrame:RegisterForClicks("AnyDown")
 ClickFrame:SetScript("OnClick", function()

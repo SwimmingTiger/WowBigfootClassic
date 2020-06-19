@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200522204910")
+mod:SetRevision("20200612154050")
 mod:SetCreatureID(15931)
 mod:SetEncounterID(1111)
 mod:SetUsedIcons(1, 2, 3, 4)
 
 mod:RegisterCombat("combat")
-mod:SetModelID(16035)
+--mod:SetModelID(16035)--Renders too close
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 28169",
@@ -51,7 +51,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-    for i,j in ipairs(mutateIcons) do
+    for _, j in ipairs(mutateIcons) do
        self:SetIcon(j, 0)
     end
 end

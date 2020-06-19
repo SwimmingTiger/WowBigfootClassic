@@ -1,7 +1,7 @@
 local L = DBM_GUI_L
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
-local standardFont = STANDARD_TEXT_FONT
+local standardFont
 if LOCALE_koKR then
 	standardFont = "Fonts\\2002.TTF"
 elseif LOCALE_zhCN then
@@ -17,9 +17,9 @@ end
 local specPanel = DBM_GUI_Frame:CreateNewPanel(L.Panel_SpecWarnFrame, "option")
 local specArea = specPanel:CreateArea(L.Area_SpecWarn)
 
-local check1 = specArea:CreateCheckButton(L.SpecWarn_ClassColor, true, nil, "SWarnClassColor")
-local check2 = specArea:CreateCheckButton(L.WarningAlphabetical, true, nil, "SWarningAlphabetical")
-local check3 = specArea:CreateCheckButton(L.ShowSWarningsInChat, true, nil, "ShowSWarningsInChat")
+local check1 = specArea:CreateCheckButton(L.ShowSWarningsInChat, true, nil, "ShowSWarningsInChat")
+local check2 = specArea:CreateCheckButton(L.SpecWarn_ClassColor, true, nil, "SWarnClassColor")
+local check3 = specArea:CreateCheckButton(L.WarningAlphabetical, true, nil, "SWarningAlphabetical")
 local check4 = specArea:CreateCheckButton(L.SWarnNameInNote, true, nil, "SWarnNameInNote")
 local check5 = specArea:CreateCheckButton(L.SpecialWarningIcon, true, nil, "SpecialWarningIcon")
 local check6 = specArea:CreateCheckButton(L.ShortTextSpellname, true, nil, "SpecialWarningShortText")
@@ -192,7 +192,7 @@ color1:SetScript("OnColorSelect", function(self)
 	color1text:SetTextColor(self:GetColorRGB())
 	DBM:UpdateSpecialWarningOptions()
 end)
-color1.myheight = 94
+color1.myheight = 104
 
 local SpecialWarnSoundDropDown = specWarnOne:CreateDropdown(L.SpecialWarnSoundOption, Sounds, "DBM", "SpecialWarningSound", function(value)
 	DBM.Options.SpecialWarningSound = value
@@ -260,7 +260,7 @@ color2:SetScript("OnColorSelect", function(self)
 		color2text:SetTextColor(self:GetColorRGB())
 		DBM:UpdateSpecialWarningOptions()
 end)
-color2.myheight = 94
+color2.myheight = 104
 
 local SpecialWarnSoundDropDown2 = specWarnTwo:CreateDropdown(L.SpecialWarnSoundOption, Sounds, "DBM", "SpecialWarningSound2", function(value)
 	DBM.Options.SpecialWarningSound2 = value
@@ -330,7 +330,7 @@ color3:SetScript("OnColorSelect", function(self)
 	DBM:UpdateSpecialWarningOptions()
 	DBM:ShowTestSpecialWarning(nil, 3)
 end)
-color3.myheight = 94
+color3.myheight = 104
 
 local SpecialWarnSoundDropDown3 = specWarnThree:CreateDropdown(L.SpecialWarnSoundOption, Sounds, "DBM", "SpecialWarningSound3", function(value)
 	DBM.Options.SpecialWarningSound3 = value
@@ -399,7 +399,7 @@ color4:SetScript("OnColorSelect", function(self)
 	DBM:UpdateSpecialWarningOptions()
 	DBM:ShowTestSpecialWarning(nil, 4)
 end)
-color4.myheight = 94
+color4.myheight = 104
 
 local SpecialWarnSoundDropDown4 = specWarnFour:CreateDropdown(L.SpecialWarnSoundOption, Sounds, "DBM", "SpecialWarningSound4", function(value)
 	DBM.Options.SpecialWarningSound4 = value
@@ -466,7 +466,7 @@ color5:SetScript("OnColorSelect", function(self)
 	color5text:SetTextColor(self:GetColorRGB())
 	DBM:UpdateSpecialWarningOptions()
 end)
-color5.myheight = 94
+color5.myheight = 104
 
 local SpecialWarnSoundDropDown5 = specWarnFive:CreateDropdown(L.SpecialWarnSoundOption, Sounds, "DBM", "SpecialWarningSound5", function(value)
 	DBM.Options.SpecialWarningSound5 = value
@@ -555,9 +555,9 @@ resetbutton:SetScript("OnClick", function()
 	DBM.Options.SpecialWarningX = DBM.DefaultOptions.SpecialWarningX
 	DBM.Options.SpecialWarningY = DBM.DefaultOptions.SpecialWarningY
 	-- Set UI visuals
-	check1:SetChecked(DBM.Options.SWarnClassColor)
-	check2:SetChecked(DBM.Options.SWarningAlphabetical)
-	check3:SetChecked(DBM.Options.ShowSWarningsInChat)
+	check1:SetChecked(DBM.Options.ShowSWarningsInChat)
+	check2:SetChecked(DBM.Options.SWarnClassColor)
+	check3:SetChecked(DBM.Options.SWarningAlphabetical)
 	check4:SetChecked(DBM.Options.SWarnNameInNote)
 	check5:SetChecked(DBM.Options.SpecialWarningIcon)
 	check6:SetChecked(DBM.Options.SpecialWarningShortText)
