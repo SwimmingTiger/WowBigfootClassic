@@ -112,7 +112,7 @@ vZv3pUows9)w4beZinDJTJJDcR4HKBNCV9C7oDtC37DhPwXT)4KeR2XoRTt33EqtEbecXdi4f0(csi0(
 
 注意：用第三方更新器更新 Combuctor 插件后，背包功能会改变，某些功能甚至会不正常，你可能需要自行解决问题。
 
-如果用第三方更新器更新后不满意，你也可以考虑用回我提供的 tdPack2 插件（用我的插件包覆盖安装，或者用我的自动更新器进行更新）。
+如果用第三方更新器更新后不满意，你也可以考虑用回整合包提供的 tdPack2 插件（解压整合包覆盖AddOns目录，或者用整合包自动更新器进行更新）。
 ]],
             button1 = YES,
             button2 = NO,
