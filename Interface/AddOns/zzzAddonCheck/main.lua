@@ -19,6 +19,7 @@ if Combuctor_Sets == nil and CombuctorAutoDisplay then
     resetCombuctor()
 end
 
+-- 全局函数，被 BigFoot/Config/RaidToolkit.lua 使用
 function zzzAddonCheck_Init_Decursive()
     -- 禁止Decursive在聊天窗口和屏幕中央显示信息
     local patchVersion = '2020-05-12-18'
@@ -30,11 +31,26 @@ function zzzAddonCheck_Init_Decursive()
     end
 end
 
+local function zzzAddonCheck_Init_DBM()
+    -- 为DBM选择夏一可语音包
+    local patchVersion = '2020-06-27-11'
+    if DBM and DBM.Options and DBM.Options.DBMPatchVersion ~= patchVersion then
+        DBM.Options.ChosenVoicePack = 'Yike'
+        DBM.Options.CountdownVoice = 'VP:Yike'
+        DBM.Options.CountdownVoice2 = 'VP:Yike'
+        DBM.Options.CountdownVoice3 = 'VP:Yike'
+        DBM.Options.DBMPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
     -- 禁止Decursive在聊天窗口和屏幕中央显示信息
     zzzAddonCheck_Init_Decursive()
+
+    -- 为DBM选择夏一可语音包
+    zzzAddonCheck_Init_DBM()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
