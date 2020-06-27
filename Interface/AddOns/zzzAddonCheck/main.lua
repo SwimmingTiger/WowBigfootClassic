@@ -54,6 +54,21 @@ local function zzzAddonCheck_Init_ClassicCastbars()
     end
 end
 
+local function zzzAddonCheck_Init_NeatPlates()
+    -- 姓名板：打开目标高亮和友方施法条，禁用仇恨指示器
+    local patchVersion = '2020-06-27-15'
+    if NeatPlatesOptions and NeatPlatesOptions.FirstSpecProfile and
+       NeatPlatesHubSettings and NeatPlatesHubSettings['HubPanelProfile'..NeatPlatesOptions.FirstSpecProfile] and
+       NeatPlatesHubSettings['HubPanelProfile'..NeatPlatesOptions.FirstSpecProfile].neatplatesPatchVersion ~= patchVersion
+    then
+        local db = NeatPlatesHubSettings['HubPanelProfile'..NeatPlatesOptions.FirstSpecProfile]
+        db.HighlightTargetMode = 3
+        db.SpellCastEnableFriendly = true
+        db.WidgetThreatIndicator = false
+        db.neatplatesPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -65,6 +80,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 禁用 ClassicCastbars 的姓名板施法条
     zzzAddonCheck_Init_ClassicCastbars()
+
+    -- 姓名板：打开目标高亮和友方施法条，禁用仇恨指示器
+    zzzAddonCheck_Init_NeatPlates()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
