@@ -6,10 +6,10 @@
 --]]--
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
-local _G = _G;
+_G.__ala_meta__ = _G.__ala_meta__ or {  };
 
+local _G = _G;
 do
-	local _G = _G;
 	if NS.__fenv == nil then
 		NS.__fenv = setmetatable({  },
 				{
@@ -27,19 +27,18 @@ end
 
 ----------------------------------------------------------------------------------------------------upvalue LUA
 	local math, table, string, bit = math, table, string, bit;
-	local type = type;
-	local assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset =
-			assert, collectgarbage, date, difftime, error, getfenv, getmetatable, loadstring, next, newproxy, pcall, select, setfenv, setmetatable, time, type, unpack, xpcall, rawequal, rawget, rawset;
-	local abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom =
-			abs, acos, asin, atan, atan2, ceil, cos, deg, exp, floor, fmod or math.fmod, frexp,ldexp, log, log10, max, min, mod, rad, random, sin, sqrt, tan, fastrandom;
-	local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring =
-			format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, tonumber, tostring;
-	local strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall = strcmputf8i, strlenutf8, strtrim, strsplit, strjoin, strconcat, tostringall;
-	local ipairs, pairs, sort, tContains, tinsert, tremove, wipe = ipairs, pairs, sort, tContains, tinsert, tremove, wipe;
-	-- local gcinfo, foreach, foreachi, getn = gcinfo, foreach, foreachi, getn;	-- Deprecated
+	local type, tonumber, tostring = type, tonumber, tostring;
+	local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
+	local abs, ceil, floor, max, min, random, sqrt = abs, ceil, floor, max, min, random, sqrt;
+	local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat =
+			format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat;
+	local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
+	local ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
+	local tConcat = table.concat;
+	local select = select;
+	local date, time = date, time;
 	----------------------------------------------------------------------------------------------------
 	local _ = nil;
-	----------------------------------------------------------------------------------------------------
 	local GameTooltip = GameTooltip;
 	local ItemRefTooltip = ItemRefTooltip;
 ----------------------------------------------------------------------------------------------------
@@ -340,8 +339,9 @@ local PDF_UPDATE_TIME = 0.5;
 local num_button_per_line = 6;
 local buttonSize = 36;
 local texture_unk = 134400;	--"Interface\\Icons\\inv_misc_questionmark";
-local texture_takeoff = "Interface\\paperdollinfoframe\\ui-gearmanager-leaveitem-opaque";
-local texture_ignore = "Interface\\paperdollinfoframe\\ui-gearmanager-undo";
+local texture_open = "interface\\AddOns\\alaGearMan\\ARTWORK\\ui-gearmanager-button";
+local texture_takeoff = "Interface\\AddOns\\alaGearMan\\ARTWORK\\ui-gearmanager-leaveitem-opaque";
+local texture_ignore = "Interface\\AddOns\\alaGearMan\\ARTWORK\\ui-gearmanager-undo";
 local texture_add = "interface\\paperdollinfoframe\\character-plus";
 local texture_highlight = "Interface\\Buttons\\ButtonHilight-Square";
 local texture_highlight_coord = { 0.05, 0.95, 0.05, 0.95, };
@@ -350,8 +350,8 @@ local texture_glow_coord = { 0.25, 0.75, 0.25, 0.75, };
 local texture_ignore_mask = "Interface\\paperdollinfoframe\\ui-gearmanager-leaveitem-transparent";
 local texture_delete = "interface\\raidframe\\readycheck-notready";
 local texture_modify = "interface\\scenarios\\scenarioicon-interact";
-local texture_up = "interface\\mainmenubar\\ui-mainmenu-scrollupbutton-up";
-local texture_down = "interface\\mainmenubar\\ui-mainmenu-scrolldownbutton-up";
+local texture_up = "interface\\AddOns\\alaGearMan\\ARTWORK\\ui-mainmenu-scrollupbutton-up";
+local texture_down = "interface\\AddOns\\alaGearMan\\ARTWORK\\ui-mainmenu-scrolldownbutton-up";
 local texture_style_char = "interface\\buttons\\checkbuttonhilight";
 
 local buttonBackdrop = {
@@ -416,15 +416,15 @@ local iconTable = {
 
 function func.pdf_CreateButton(index)
 	local button = CreateFrame("BUTTON", nil, ui.pdf_menu);
-	button:EnableMouse(true);
 	button:SetSize(buttonSize, buttonSize);
+	button:EnableMouse(true);
 	button:SetNormalTexture(texture_unk);
 	button:SetPushedTexture(texture_unk);
 	button:GetPushedTexture():SetVertexColor(0.5, 0.5, 0.5, 1.0);
 	button:SetHighlightTexture(texture_highlight);
 	button:GetHighlightTexture():SetTexCoord(unpack(texture_highlight_coord));
 	local glow = button:CreateTexture(nil, "OVERLAY");
-	glow:SetAllPoints(true);
+	glow:SetAllPoints();
 	glow:SetTexture(texture_glow);
 	glow:SetBlendMode("ADD");
 	glow:SetTexCoord(unpack(texture_glow_coord));
@@ -485,44 +485,48 @@ function func.pdf_CreateMenu(direction)
 		end
 	end
 	for i = 1, #var.pdf_list do
-		local _, _, quality, _, _, _, _, _, _, t = GetItemInfo(var.pdf_list[i]);
-		ui.pdf_buttons[i]:SetNormalTexture(t);
-		ui.pdf_buttons[i]:SetPushedTexture(t);
-		ui.pdf_buttons[i].glow:SetVertexColor(GetItemQualityColor(quality));
-		ui.pdf_buttons[i].glow:Show();
-		ui.pdf_buttons[i]:Show();
+		local button = ui.pdf_buttons[i];
+		local name, _, quality, _, _, _, _, _, _, t = GetItemInfo(var.pdf_list[i]);
+		button:SetNormalTexture(t);
+		button:SetPushedTexture(t);
+		button.glow:SetVertexColor(GetItemQualityColor(quality));
+		button.glow:Show();
+		button:Show();
 	end
 	if hasInv then
 		var.pdf_ofs_takeoff = 1;
 		local i = #var.pdf_list + var.pdf_ofs_takeoff;
-		ui.pdf_buttons[i]:SetNormalTexture(texture_takeoff);
-		ui.pdf_buttons[i]:SetPushedTexture(texture_takeoff);
-		-- ui.pdf_buttons[i].glow:SetVertexColor(1.0, 0.0, 0.0);
-		ui.pdf_buttons[i].glow:Hide();
-		ui.pdf_buttons[i]:Show();
+		local button = ui.pdf_buttons[i];
+		button:SetNormalTexture(texture_takeoff);
+		button:SetPushedTexture(texture_takeoff);
+		-- button.glow:SetVertexColor(1.0, 0.0, 0.0);
+		button.glow:Hide();
+		button:Show();
 	else
 		var.pdf_ofs_takeoff = nil;
 	end
 	if var.gm_is_editing or var.gm_cur_set then
 		var.pdf_ofs_ignore = (hasInv and 1 or 0) + 1;
 		local i = #var.pdf_list + var.pdf_ofs_ignore;
-		ui.pdf_buttons[i]:SetNormalTexture(texture_ignore);
-		ui.pdf_buttons[i]:SetPushedTexture(texture_ignore);
-		-- ui.pdf_buttons[i].glow:SetVertexColor(1.0, 0.0, 0.0);
-		ui.pdf_buttons[i].glow:Hide();
-		ui.pdf_buttons[i]:Show();
+		local button = ui.pdf_buttons[i];
+		button:SetNormalTexture(texture_ignore);
+		button:SetPushedTexture(texture_ignore);
+		-- button.glow:SetVertexColor(1.0, 0.0, 0.0);
+		button.glow:Hide();
+		button:Show();
 	else
 		var.pdf_ofs_ignore = nil;
 	end
 	local pos = 2;
 	local lines = 1;
 	for i = 2, nButtons do
+		local button = ui.pdf_buttons[i];
 		if pos > num_button_per_line then
-			ui.pdf_buttons[i]:SetPoint("TOP", ui.pdf_buttons[i - num_button_per_line], "BOTTOM", 0, -2);
+			button:SetPoint("TOP", ui.pdf_buttons[i - num_button_per_line], "BOTTOM", 0, -2);
 			pos = 1;
 			lines = lines + 1;
 		else
-			ui.pdf_buttons[i]:SetPoint("LEFT", ui.pdf_buttons[i - 1], "RIGHT", 2, 0);
+			button:SetPoint("LEFT", ui.pdf_buttons[i - 1], "RIGHT", 2, 0);
 			pos = pos + 1;
 		end
 	end
@@ -551,49 +555,51 @@ function func.pdf_CreateMenu(direction)
 			ui.pdf_menu:SetPoint("LEFT", var.pdf_cur_anchor, "RIGHT", 2, 0);
 		end
 	end
-	ui.pdf_menu:Show();
-	ui.pdf_menu.countingTime = nil;
 end
 
 function func.pdf_EventHandler_OnUpdate(self, elasped)
-	if var.pdf_cur_anchor and ((not var.pdf_cur_slot) or (var.pdf_cur_slot and var.pdf_update_timer > PDF_UPDATE_TIME)) then
+	if var.pdf_update_timer <= 0.0 then
 		if IsAltKeyDown() then
-			local slot = name2Slot[var.pdf_cur_anchor:GetName()];
+			local slot = var.pdf_cur_slot;
 			if slot then
-				--_PaperDollItemSlotButton_OnLeave(var.pdf_cur_anchor);
+				_PaperDollItemSlotButton_OnLeave(var.pdf_cur_anchor);
 				wipe(var.pdf_list);
+				local slotHash = SlotInfo[slot];
 				for i = var.isBankOpened and -1 or 0, var.isBankOpened and 11 or 4 do
 					for j = 1, GetContainerNumSlots(i) do
 						local link = GetContainerItemLink(i, j);
 						if link and IsEquippableItem(link) then
 							local loc = select(9, GetItemInfo(link));
-							if SlotInfo[slot][loc] then
+							if slotHash[loc] then
 								tinsert(var.pdf_list, link);
 							end
 						end
 					end
 				end
-				var.pdf_cur_slot = slot;
 				if slot == 0 or slot == 16 or slot == 17 or slot == 18 then
 					func.pdf_CreateMenu(1);
-				elseif slot == 1 or slot == 2 or slot == 3 or slot == 4 or slot == 5 or slot == 9 or slot == 15 or slot == 9 then
+				elseif slot == 1 or slot == 2 or slot == 3 or slot == 4 or slot == 5 or slot == 9 or slot == 15 or slot == 19 then
 					func.pdf_CreateMenu(2);
 				else
 					func.pdf_CreateMenu(3);
 				end
+				ui.pdf_menu.countingTime = nil;
+				ui.pdf_menu:Show();
 			end
 		else
-			var.pdf_cur_slot = nil;
 			ui.pdf_menu:Hide();
 			--_PaperDollItemSlotButton_OnEnter(var.pdf_cur_anchor);
 		end
-		var.pdf_update_timer = 0.0;
+		var.pdf_update_timer = PDF_UPDATE_TIME;
 	else
 		if IsAltKeyDown() then
-			var.pdf_update_timer = var.pdf_update_timer + elasped;
+			if not ui.pdf_menu:IsShown() then
+				var.pdf_update_timer = 0.0;
+				func.pdf_EventHandler_OnUpdate(nil, 0.0);
+			else
+				var.pdf_update_timer = var.pdf_update_timer - elasped;
+			end
 		else
-			var.pdf_cur_slot = nil;
-			var.pdf_update_timer = 0.0;
 			ui.pdf_menu:Hide();
 		end
 	end
@@ -603,51 +609,56 @@ function func.pdf_init()
 	for i, n in pairs(slot2Name) do
 		local sf = _G[n];
 		local ignore_mask = sf:CreateTexture(nil, "OVERLAY");
-		ignore_mask:SetAllPoints(true);
+		ignore_mask:SetAllPoints();
 		ignore_mask:SetTexture(texture_ignore_mask);
 		ignore_mask:Hide();
 		ui.pdf_ignore_mask[i] = ignore_mask;
 	end
 	ui.pdf_menu = CreateFrame("FRAME", nil, PaperDollFrame);
 	ui.pdf_menu:SetFrameStrata("FULLSCREEN_DIALOG");
+	ui.pdf_menu:SetScript("OnEnter", function(self)
+		self.countingTime = nil;
+	end);
+	ui.pdf_menu:SetScript("OnLeave", function(self)
+		self.countingTime = PDF_COUNTING_TIME;
+	end);
 	ui.pdf_menu:SetScript("OnUpdate", function(self, elasped)
-		if ui.pdf_menu.countingTime then
+		if self.countingTime then
 			self.countingTime = self.countingTime - elasped;
-			if self.countingTime < 0 then
+			if self.countingTime <= 0.0 then
 				self:Hide();
 				self.countingTime = nil;
-				var.pdf_cur_slot = nil;
-				var.pdf_cur_anchor = nil;
 				wipe(var.pdf_list);
 			end
 		end
 	end);
-	ui.pdf_menu:SetScript("OnEnter", function(self)
-		self.countingTime = nil;
+	ui.pdf_menu:SetScript("OnHide", function(self)
+		if var.pdf_cur_anchor then
+			_PaperDollItemSlotButton_OnEnter(var.pdf_cur_anchor);
+		end
 	end);
-	ui.pdf_menu:SetScript("OnLeave", function(self) self.countingTime = PDF_COUNTING_TIME; end);
 
 	func.pdf_CreateButton(1);
 	ui.pdf_buttons[1]:SetPoint("TOPLEFT");
 
+	local handler = CreateFrame("FRAME");
 	_G.PaperDollItemSlotButton_OnEnter = function(self)
-		_EventHandler:SetScript("OnUpdate", func.pdf_EventHandler_OnUpdate);
-		if ui.pdf_menu:IsShown() then
-			if var.pdf_cur_anchor == self then
-				ui.pdf_menu.countingTime = nil;
-			else
-				var.pdf_cur_slot = nil;
-				ui.pdf_menu:Hide();
-			end
-		end
 		var.pdf_cur_anchor = self;
-		--if not IsAltKeyDown() then
+		local slot = name2Slot[self:GetName()];
+		if slot then
+			var.pdf_cur_slot = slot;
+			var.pdf_update_timer = 0.0;
+			handler:SetScript("OnUpdate", func.pdf_EventHandler_OnUpdate);
+			ui.pdf_menu.countingTime = nil;
+			ui.pdf_menu:Show();
+		end
+		if not IsAltKeyDown() then
 			return _PaperDollItemSlotButton_OnEnter(self);
-		--end
+		end
 	end
 	_G.PaperDollItemSlotButton_OnLeave = function(self)
 		var.pdf_cur_anchor = nil;
-		_EventHandler:SetScript("OnUpdate", nil);
+		handler:SetScript("OnUpdate", nil);
 		ui.pdf_menu.countingTime = PDF_COUNTING_TIME;
 		return _PaperDollItemSlotButton_OnLeave(self);
 	end
@@ -718,7 +729,7 @@ function func.OnEnter_Info(self)
 end
 function func.OnLeave_Info(self)
 	if GameTooltip:GetOwner() == self then
-    	GameTooltip:Hide();
+		GameTooltip:Hide();
 	end
 end
 function func.Sound_Equip()
@@ -777,13 +788,22 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	title:SetPoint("LEFT", icon, "RIGHT", 4, 0);
 	button.title = title;
 
-	local glow = button:CreateTexture(nil, "OVERLAY");
-	glow:SetTexture(texture_glow);
-	glow:SetTexCoord(unpack(texture_glow_coord));
-	glow:SetAllPoints(true);
-	glow:SetBlendMode("ADD");
-	glow:Hide();
-	button.glow = glow;
+	local glow_current = button:CreateTexture(nil, "OVERLAY");
+	glow_current:SetTexture(texture_glow);
+	glow_current:SetTexCoord(unpack(texture_glow_coord));
+	glow_current:SetVertexColor(1.0, 0.5, 0.0, 1.0);
+	glow_current:SetAllPoints();
+	glow_current:SetBlendMode("ADD");
+	glow_current:Hide();
+	button.glow_current = glow_current;
+
+	local glow_selected = button:CreateTexture(nil, "OVERLAY");
+	glow_selected:SetTexture(texture_glow);
+	glow_selected:SetTexCoord(unpack(texture_glow_coord));
+	glow_selected:SetAllPoints();
+	glow_selected:SetBlendMode("ADD");
+	glow_selected:Hide();
+	button.glow_selected = glow_selected;
 
 	local delete = CreateFrame("BUTTON", nil, button);
 	delete:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
@@ -804,6 +824,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	-- delete.info = {  };
 	button.delete = delete;
+	-- func.StyleObject('button', delete);
 
 	local modify = CreateFrame("BUTTON", nil, button);
 	modify:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
@@ -819,17 +840,15 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	-- modify.info = {  };
 	button.modify = modify;
+	-- func.StyleObject('button', modify);
 
 	local up = CreateFrame("BUTTON", nil, button);
 	up:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	up:SetNormalTexture(texture_up);
-	up:GetNormalTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	up:SetPushedTexture(texture_up);
 	up:GetPushedTexture():SetVertexColor(0.25, 0.25, 0.25, 1.0);
-	up:GetPushedTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	up:SetDisabledTexture(texture_up);
 	up:GetDisabledTexture():SetVertexColor(0.5, 0.5, 0.5, 1.0);
-	up:GetDisabledTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	up:SetPoint("TOPRIGHT", -6 - buttonHeight * 0.4, -2);
 	up:Show();
 	up:SetScript("OnEnter", func.OnEnter_Info);
@@ -839,16 +858,14 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	-- up.info = {  };
 	button.up = up;
+	-- func.StyleObject('button', up);
 
 	local down = CreateFrame("BUTTON", nil, button);
 	down:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
 	down:SetNormalTexture(texture_down);
-	down:GetNormalTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	down:SetPushedTexture(texture_down);
-	down:GetPushedTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	down:GetPushedTexture():SetVertexColor(0.25, 0.25, 0.25, 1.0);
 	down:SetDisabledTexture(texture_down);
-	down:GetDisabledTexture():SetTexCoord(6 / 32, 25 / 32, 7 / 32, 24 / 32);
 	down:GetDisabledTexture():SetVertexColor(0.5, 0.5, 0.5, 1.0);
 	down:SetPoint("BOTTOMRIGHT", -6 - buttonHeight * 0.4, 2);
 	down:Show();
@@ -859,6 +876,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	-- down.info = {  };
 	button.down = down;
+	-- func.StyleObject('button', down);
 
 	local helmet = CreateFrame("CHECKBUTTON", nil, button, "OptionsBaseCheckButtonTemplate");
 	helmet:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
@@ -874,6 +892,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 		func.helmet(button:GetDataIndex(), self:GetChecked());
 	end);
 	button.helmet = helmet;
+	func.StyleObject('check', helmet);
 
 	local cloak = CreateFrame("CHECKBUTTON", nil, button, "OptionsBaseCheckButtonTemplate");
 	cloak:SetSize(buttonHeight * 0.4, buttonHeight * 0.4);
@@ -889,6 +908,7 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 		func.cloak(button:GetDataIndex(), self:GetChecked());
 	end);
 	button.cloak = cloak;
+	func.StyleObject('check', cloak);
 
 	function button:SetIconTexture(tex)
 		icon:SetTexture(tex);
@@ -896,13 +916,21 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	function button:SetTitleText(text)
 		title:SetText(text);
 	end
+	function button:Current()
+		self.current = true;
+		self.glow_current:Show();
+	end
+	function button:NonCurrent()
+		self.current = false;
+		self.glow_current:Hide();
+	end
 	function button:Select()
 		self.selected = true;
-		self.glow:Show();
+		self.glow_selected:Show();
 	end
 	function button:Deselect()
 		self.selected = nil;
-		self.glow:Hide();
+		self.glow_selected:Hide();
 	end
 	function button:IsSelected()
 		return self.selected;
@@ -969,6 +997,12 @@ function func.gm_SetButton(button, index)
 		button:SetIconTexture(iconTable[sets[index].icon or 1]);
 		button:SetTitleText(sets[index].name or "UNK_NAME");
 		button:Show();
+		local T, isCur = func.check(index);
+		if isCur then
+			button:Current();
+		else
+			button:NonCurrent();
+		end
 		if button:IsSelected() and button:GetDataIndex() ~= var.gm_cur_set then
 			button:Deselect();
 		elseif not button:IsSelected() and button:GetDataIndex() == var.gm_cur_set then
@@ -1008,6 +1042,7 @@ function func.gm_SetButton(button, index)
 		button:SetIconTexture(texture_add);
 		button:SetTitleText(L["Add a new outfit"]);
 		button:Show();
+		button:NonCurrent();
 		if button:IsSelected() and button:GetDataIndex() ~= var.gm_cur_set then
 			button:Deselect();
 		elseif not button:IsSelected() and button:GetDataIndex() == var.gm_cur_set then
@@ -1024,12 +1059,25 @@ function func.gm_SetButton(button, index)
 	end
 end
 
+function func.get_pos(frame)
+	local pos = { frame:GetPoint() };
+	for index, val in pairs(pos) do
+		if type(val) == 'table' then
+			pos[index] = val:GetName();
+		elseif type(val) ~= 'number' and type(val) ~= 'string' then
+			pos[index] = nil;
+		end
+	end
+	return pos;
+end
+
 function func.initUI()
 	ui.open = CreateFrame("BUTTON", nil, PaperDollFrame);
 	ui.open:SetSize(32, 32);
 	ui.open:SetPoint("TOPRIGHT", -40, -40);
-	ui.open:SetNormalTexture("interface\\paperdollinfoframe\\ui-gearmanager-button");
-	ui.open:SetPushedTexture("interface\\paperdollinfoframe\\ui-gearmanager-button-pushed");
+	ui.open:SetNormalTexture(texture_open);
+	ui.open:SetPushedTexture(texture_open);
+	ui.open:GetPushedTexture():SetVertexColor(0.25, 0.25, 0.25, 1.0);
 	ui.open:EnableMouse(true);
 	ui.open:SetScript("OnClick", func.open_onclick);
 
@@ -1037,8 +1085,8 @@ function func.initUI()
 		ui.gearWin = CreateFrame("FRAME", nil, PaperDollFrame);
 		ui.gearWin:SetFrameStrata("FULLSCREEN");
 		ui.gearWin:SetBackdrop({
-			bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-			edgeFile = "interface/dialogframe/ui-dialogbox-border",
+			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+			edgeFile = "interface\\dialogframe\\ui-dialogbox-border",
 			tile = true,
 			tileSize = 16,
 			edgeSize = 20,
@@ -1083,6 +1131,8 @@ function func.initUI()
 		ui.setting = CreateFrame("BUTTON", nil, ui.gearWin);
 		ui.setting:SetSize(24, 24);
 		ui.setting:SetNormalTexture(texture_modify);
+		ui.setting:SetPushedTexture(texture_modify);
+		ui.setting:GetPushedTexture():SetVertexColor(0.25, 0.25, 0.25, 1.0);
 		ui.setting:SetPoint("TOPRIGHT");
 		ui.setting:SetScript("OnClick", func.setting);
 	end
@@ -1108,17 +1158,11 @@ function func.initUI()
 		end);
 		local pos_on_char = false;
 		function ui.quick:SavePos()
-			local pos = { self:GetPoint() };
-			for k, v in pairs(pos) do
-				if type(v) == 'table' then
-					pos[k] = v:GetName();
-				end
-			end
 			if pos_on_char then
-				alaGearManSV.quickPos = { self:GetPoint() };
+				alaGearManSV.quickPos = func.get_pos(self);
 				alaGearManSV.quickPosChar[GUID] = nil;
 			else
-				alaGearManSV.quickPosChar[GUID] = { self:GetPoint() };
+				alaGearManSV.quickPosChar[GUID] = func.get_pos(self);
 			end
 		end
 		local quickButtons = { n = 0, };
@@ -1181,7 +1225,7 @@ function func.initUI()
 			title:SetVertexColor(1.0, 0.75, 0.0, 1.0);
 			button.title = title;
 			local icon = button:CreateTexture(nil, "ARTWORK");
-			icon:SetAllPoints(true);
+			icon:SetAllPoints();
 			button.icon = icon;
 			function button:SetTitleText(text)
 				title:SetText(text);
@@ -1331,16 +1375,10 @@ function func.initUI()
 		end);
 		local pos_on_char = false;
 		function ui.secure:SavePos()
-			local pos = { self:GetPoint() };
-			for k, v in pairs(pos) do
-				if type(v) == 'table' then
-					pos[k] = v:GetName();
-				end
-			end
 			if pos_on_char then
-				alaGearManSV.quickPosChar[GUID] = { self:GetPoint() };
+				alaGearManSV.quickPosChar[GUID] = func.get_pos(self);
 			else
-				alaGearManSV.quickPos = { self:GetPoint() };
+				alaGearManSV.quickPos = func.get_pos(self);
 				alaGearManSV.quickPosChar[GUID] = nil;
 			end
 		end
@@ -1359,11 +1397,11 @@ function func.initUI()
 			button:SetAttribute('showgrid', 0);
 			-- button:SetAttribute("action", ACTION_START + index);
 			button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
-			button:Show();
 			button:EnableMouse(true);
 			-- button:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 			button:SetClampedToScreen(true);
 			button:RegisterForDrag("LeftButton");
+			button:Show();
 			button:SetScript("OnEnter", function(self)
 				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
 				local index = self.id;
@@ -1409,8 +1447,16 @@ function func.initUI()
 			button:SetPushedTextOffset(1, - 1);
 			button.title = title;
 			local icon = button:CreateTexture(nil, "ARTWORK");
-			icon:SetAllPoints(true);
+			icon:SetAllPoints();
 			button.icon = icon;
+			local glow_current = button:CreateTexture(nil, "OVERLAY");
+			glow_current:SetTexture(texture_glow);
+			glow_current:SetTexCoord(unpack(texture_glow_coord));
+			glow_current:SetVertexColor(1.0, 0.5, 0.0, 1.0);
+			glow_current:SetAllPoints();
+			glow_current:SetBlendMode("ADD");
+			glow_current:Hide();
+			button.glow_current = glow_current;
 			function button:SetTitleText(text)
 				title:SetText(text);
 			end
@@ -1450,6 +1496,12 @@ function func.initUI()
 					-- icon:Show();
 					title:Show();
 				end
+			end
+			function button:Current()
+				self.glow_current:Show();
+			end
+			function button:NonCurrent()
+				self.glow_current:Hide();
 			end
 			-- button.info = Mixin({  }, info);
 			button.id = index;
@@ -1566,6 +1618,7 @@ function func.initUI()
 			end
 			ui.secure:SetSize(N * alaGearManSV.quickSize + (N + 1) * 2, alaGearManSV.quickSize + 2 * 2);
 			self:UpdateKeyBinding();
+			func.refreshAppearance();
 		end
 		ui.secureButtons = secureButtons;
 		ui.secure:Create(1);	--for take_off_all button
@@ -1707,7 +1760,7 @@ function func.initUI()
 			glow:SetTexture(texture_glow);
 			glow:SetTexCoord(unpack(texture_glow_coord));
 			glow:SetVertexColor(1.0, 0.0, 0.0);
-			--glow:SetAllPoints(true);
+			--glow:SetAllPoints();
 			glow:SetPoint("BOTTOMLEFT", - 2, - 2);
 			glow:SetPoint("TOPRIGHT", 2, 2);
 			glow:SetBlendMode("ADD");
@@ -1730,6 +1783,31 @@ function func.initUI()
 			end
 		end
 		ui.customIconButtons = customIconButtons;
+	end
+end
+function func.refreshAppearance()
+	ui.scroll:Update();
+	local secureButtons = ui.secureButtons;
+	local N = #saved_sets;
+	if N < (#secureButtons + 1) then
+	end
+	local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or (N + 1);
+	local ofs = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or 0;
+	if secureButtons[TOA] then
+		secureButtons[TOA]:NonCurrent();
+	end
+	for i = 1, N do
+		local T, isCur = func.check(i);
+		local button = secureButtons[i + ofs];
+		if isCur then
+			if button then
+				button:Current();
+			end
+		else
+			if button then
+				button:NonCurrent();
+			end
+		end
 	end
 end
 
@@ -1839,6 +1917,7 @@ function func.delete(set)
 		ui.scroll:SetNumValue(#saved_sets + 1);
 		-- ui.quick:Update();
 		ui.secure:Update();
+		_EventHandler:run_on_next_tick(func.refreshAppearance);
 	end
 end
 function func.save(set)
@@ -2152,6 +2231,7 @@ function func.equip(set)
 		ShowHelm(set.helmet);
 		ShowCloak(set.cloak);
 		func.Sound_Equip();
+		_EventHandler:run_on_next_tick(func.refreshAppearance);
 	end
 end
 function func.customOK()
@@ -2171,6 +2251,7 @@ function func.customOK()
 		func.save(index);
 		-- ui.quick:Update();
 		-- ui.secure:Update();	--func.save will always update securequick
+		-- _EventHandler:run_on_next_tick(func.refreshAppearance);
 	end
 	func.pdf_hide_mask();
 	ui.custom:Hide();
@@ -2312,6 +2393,19 @@ function func.handle_low_version_variables()
 	elseif tonumber(alaGearManSV._version) < 200422.0 then
 	elseif tonumber(alaGearManSV._version) < 200507.0 then
 		alaGearManSV.useBar = true;
+	elseif tonumber(alaGearManSV._version) < 200610.0 then
+		for index, val in pairs(alaGearManSV.quickPos) do
+			if type(val) ~= 'number' and type(val) ~= 'string' then
+				alaGearManSV.quickPos[index] = nil;
+			end
+		end
+		for GUID, pos in pairs(alaGearManSV.quickPosChar) do
+			for index, val in pairs(pos) do
+				if type(val) ~= 'number' and type(val) ~= 'string' then
+					pos[index] = nil;
+				end
+			end
+		end
 	end
 end
 function func.hook_tooltip(self)
@@ -2337,6 +2431,11 @@ end
 function func.init_variables()
 	if _G.alaGearManSV then
 		func.handle_low_version_variables();
+		for key, val in next, default_sv do
+			if alaGearManSV[key] == nil then
+				alaGearManSV[key] = val;
+			end
+		end
 	else
 		_G.alaGearManSV = default_sv;
 	end
@@ -2347,6 +2446,9 @@ function func.init_hook_tooltip()
 	ItemRefTooltip:HookScript("OnTooltipSetItem", func.hook_tooltip);
 end
 
+function func.PLAYER_EQUIPMENT_CHANGED()
+	_EventHandler:run_on_next_tick(func.refreshAppearance);
+end
 function func.UPDATE_BINDINGS(...)
 	-- print("UPDATE_BINDINGS", ...)
 	-- GetBindingKey("ALAGEARMAN_QUICK_1");
@@ -2358,40 +2460,154 @@ end
 function func.BANKFRAME_CLOSED(...)
 	var.isBankOpened = false;
 end
-function func.ADDON_LOADED(arg1, ...)
-	if arg1 == "alaGearMan" then
-		_EventHandler:UnregisterEvent("ADDON_LOADED");
-		C_Timer.After(0.1, function()
-			func.init_variables();
-			saved_sets = alaGearManSV.sets[GUID];
-			if saved_sets == nil then
-				saved_sets = {  };
-				alaGearManSV.sets[GUID] = saved_sets;
-			end
-			func.pdf_init();
-			func.initUI();
-			func.init_hook_tooltip();
-			func.Reg("UPDATE_BINDINGS");
-			func.Reg("BANKFRAME_OPENED");
-			func.Reg("BANKFRAME_CLOSED");
-		end);
-	end
+function func.PLAYER_ENTERING_WORLD()
+	_EventHandler:UnregisterEvent("PLAYER_ENTERING_WORLD");
+	C_Timer.After(0.1, function()
+		func.init_variables();
+		saved_sets = alaGearManSV.sets[GUID];
+		if saved_sets == nil then
+			saved_sets = {  };
+			alaGearManSV.sets[GUID] = saved_sets;
+		end
+		func.pdf_init();
+		func.initUI();
+		func.init_hook_tooltip();
+		_EventHandler:RegEvent("UPDATE_BINDINGS");
+		_EventHandler:RegEvent("BANKFRAME_OPENED");
+		_EventHandler:RegEvent("BANKFRAME_CLOSED");
+		_EventHandler:RegEvent("PLAYER_EQUIPMENT_CHANGED");
+		func.RegAddonListener();
+	end);
+	if __ala_meta__.initpublic then __ala_meta__.initpublic(); end
 end
 
-function func.Reg(event)
+function _EventHandler:RegEvent(event)
 	if not func[event] then
 		func[event] = _noop_;
 	end
 	_EventHandler:RegisterEvent(event);
 end
-function func.FireEvent(event, ...)
+function _EventHandler:FireEvent(event, ...)
 	if func[event] then
 		func[event](...);
 	end
 end
-_EventHandler:SetScript("OnEvent", function(self, event, ...) func[event](...); end);
+_EventHandler:SetScript("OnEvent", function(self, event, ...)
+	func[event](...);
+end);
 
-func.Reg("ADDON_LOADED");
+do	--	run_on_next_tick	--	execute two ticks later
+	local min_ticker_duration = 0.1;
+	local run_on_next_tick_func_1 = {  };
+	local run_on_next_tick_func_2 = {  };
+	local timer = 0.0;
+	local function run_on_next_tick_handler(self, elasped)
+		timer = timer + elasped;
+		if timer >= min_ticker_duration * 2 then
+			timer = 0.0;
+			while true do
+				local func = tremove(run_on_next_tick_func_1, 1);
+				if func then
+					func();
+				else
+					break;
+				end
+			end
+			if #run_on_next_tick_func_1 + #run_on_next_tick_func_2 == 0 then
+				_EventHandler:SetScript("OnUpdate", nil);
+			else
+				run_on_next_tick_func_1, run_on_next_tick_func_2 = run_on_next_tick_func_2, run_on_next_tick_func_1;
+			end
+		end
+	end
+	function _EventHandler:run_on_next_tick(func)
+		for index = 1, #run_on_next_tick_func_1 do
+			if func == run_on_next_tick_func_1[index] then
+				tremove(run_on_next_tick_func_1, index);
+				break;
+			end
+		end
+		for index = 1, #run_on_next_tick_func_2 do
+			if func == run_on_next_tick_func_2[index] then
+				return;
+			end
+		end
+		tinsert(run_on_next_tick_func_2, func);
+		_EventHandler:SetScript("OnUpdate", run_on_next_tick_handler);
+	end
+	function _EventHandler:frame_update_on_next_tick(frame)
+		_EventHandler:run_on_next_tick(frame.update_func);
+	end
+end
+
+do	--	extern style
+	local handler_table = {  };
+	local style = {  };
+	function handler_table.ElvUI()
+		if ElvUI and ElvUI[1] then
+			local S = ElvUI[1]:GetModule('Skins');
+			if S then
+				-- S:HandleButton(ui.open);
+				S:HandleFrame(ui.gearWin);
+				S:HandleButton(ui.save);
+				S:HandleButton(ui.equip);
+				S:HandleFrame(ui.custom);
+				S:HandleButton(ui.customOK);
+				S:HandleButton(ui.customCancel);
+				-- S:HandleCheckBox(gui.ExactQueryCheckButton);
+				-- S:HandleDropDownBox(AuctionFrameAuctions_Time);
+				style.frame = function(f) return S:HandleFrame(f); end;
+				style.button = function(f) return S:HandleButton(f); end;
+				style.check = function(f) return S:HandleCheckBox(f); end;
+				style.drop = function(f) return S:HandleDropDownBox(f); end;
+				local index = 1;
+				while true do
+					if not ui.scroll:HandleButtonByRawIndex(index, func.StyleScroll) then
+						break;
+					end
+					index = index + 1;
+				end
+			end
+		end
+	end
+	function func.StyleScroll(button)
+		if button then
+			-- func.StyleObject('button', button.delete);
+			-- func.StyleObject('button', button.modify);
+			-- func.StyleObject('button', button.up);
+			-- func.StyleObject('button', button.down);
+			func.StyleObject('check', button.helmet);
+			func.StyleObject('check', button.cloak);
+			return true;
+		else
+			return false;
+		end
+	end
+	function func.StyleObject(t, f)
+		local handler = style[t];
+		if handler then
+			return handler(f);
+		end
+	end
+	function func.ADDON_LOADED(addon)
+		local handler = handler_table[addon];
+		if handler then
+			handler();
+		end
+	end
+	function func.RegAddonListener()
+		_EventHandler:RegEvent("ADDON_LOADED");
+		for addon, handler in pairs(handler_table) do
+			if IsAddOnLoaded(addon) then
+				handler();
+			end
+		end
+	end
+end
+
+_EventHandler:RegEvent("PLAYER_ENTERING_WORLD");
+
+_G.AGM_FUNC = func;
 
 -- 老虎会游泳：启用/禁用快捷栏
 function func.toggle_quick_panel(show)
@@ -2415,6 +2631,3 @@ function func.toggle_gear_win(show)
 		ui.gearWin:Hide();
 	end
 end
-
-_G.AGM_FUNC = func;
-
