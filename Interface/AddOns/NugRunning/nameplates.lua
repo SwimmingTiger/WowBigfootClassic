@@ -1,3 +1,5 @@
+local _, helpers = ...
+
 local NugRunning = NugRunning
 local LSM = LibStub("LibSharedMedia-3.0")
 
@@ -21,7 +23,7 @@ local guidmap = {}
 
 local GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 
-NugRunningNameplates = CreateFrame("Frame")
+NugRunningNameplates = CreateFrame("Frame", "NugRunningNameplates", UIParent)
 local NugRunningNameplates = NugRunningNameplates
 
 
@@ -64,19 +66,23 @@ local MiniOnUpdate = function(self, time)
     local endTime = self.endTime
     local beforeEnd = endTime - GetTime()
 
-    self:SetValue(beforeEnd + self.startTime)
+    self.bar:SetValue(beforeEnd + self.startTime)
 end
-
-local backdrop = {
-        bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-        tile = true, tileSize = 0,
-        insets = {left = -1, right = -1, top = -1, bottom = -1},
-    }
 
 function NugRunningNameplates:CreateNameplateTimer(frame)
     local parented = confignp.parented
-    local f = CreateFrame("StatusBar")
+    local f = CreateFrame("Frame")
+
+    np_xoffset = NugRunning.db.np_xoffset
+    np_yoffset = NugRunning.db.np_yoffset
+
+    local w = NugRunning.db.np_width
+    local h = NugRunning.db.np_height
+    f:SetWidth(w+2*h+1)
+    f:SetHeight(h)
+
     table.insert(all_np_timers, f)
+
     if parented then
         if TidyPlates then
             f:SetParent(frame.extended)
@@ -86,44 +92,47 @@ function NugRunningNameplates:CreateNameplateTimer(frame)
             f:SetParent(frame)
         end
     end
+
+    local bar = CreateFrame("StatusBar", nil, f)
     local texture = LSM:Fetch("statusbar", NugRunning.db.nptextureName)
-    f:SetStatusBarTexture(texture, "OVERLAY")
-    -- local w = confignp.width
-    -- local h = confignp.height
-    -- local xo = confignp.x_offset
-    -- local yo = confignp.y_offset
-    local w = NugRunning.db.np_width
-    local h = NugRunning.db.np_height
-    np_xoffset = NugRunning.db.np_xoffset
-    np_yoffset = NugRunning.db.np_yoffset
-    f:SetWidth(w)
-    f:SetHeight(h)
-
-    if makeicon then
-        local icon = f:CreateTexture("ARTWORK")
-        -- icon:SetTexCoord(.1, .9, .1, .9)
-        -- icon:SetHeight(h); icon:SetWidth(h)
-        icon:SetTexCoord(.1, .9, .3, .7)
-        icon:SetHeight(h); icon:SetWidth(2*h)
-        icon:SetPoint("TOPRIGHT", f, "TOPLEFT",0,0)
-        -- backdrop.insets.left = -h -1
-        backdrop.insets.left = -(h*2) -1
-        f.icon = icon
-    end
-
-    f:SetBackdrop(backdrop)
-    f:SetBackdropColor(0,0,0,0.7)
+    bar:SetStatusBarTexture(texture)
+    bar:SetPoint("TOPRIGHT")
+    bar:SetSize(w,h)
+    f.bar = bar
 
     local bg = f:CreateTexture("BACKGROUND", nil, -5)
-    bg:SetTexture([[Interface\AddOns\NugRunning\statusbar]])
-    bg:SetAllPoints(f)
-    f.bg = bg
+    bg:SetTexture(texture)
+    bg:SetAllPoints(bar)
+    bar.bg = bg
+
+    local icon = f:CreateTexture("ARTWORK")
+    icon:SetTexCoord(.1, .9, .3, .7)
+    icon:SetHeight(h); icon:SetWidth(2*h)
+    icon:SetPoint("TOPLEFT", f, "TOPLEFT",0,0)
+    f.icon = icon
+
+    local border = f:CreateTexture(nil, "BACKGROUND", nil, -7)
+    local offset = 1
+    border:SetTexture("Interface\\BUTTONS\\WHITE8X8")
+    border:SetVertexColor(0,0,0, 0.5)
+    border:SetPoint("TOPLEFT", -offset, offset)
+    border:SetPoint("BOTTOMRIGHT", offset, -offset)
+    border:Show()
+
+    --[[
+    local overlay = bar:CreateTexture(nil, "OVERLAY", nil, 6)
+    overlay:SetTexture("Interface\\Tooltips\\UI-Tooltip-Background")
+    overlay:SetVertexColor(0,0,0, 0.2)
+    overlay:Hide()
+    f.overlay = overlay
+    ]]
+
 
     f._elapsed = 0
     f:SetScript("OnUpdate", MiniOnUpdate)
 
     if not next(frame.timers) then
-        f:SetPoint("BOTTOM", frame, "TOP", 0+np_xoffset,-7+np_yoffset)
+        f:SetPoint("BOTTOM", frame, "TOP", np_xoffset,-7+np_yoffset)
     else
         local prev = frame.timers[#frame.timers]
         f:SetPoint("BOTTOM", prev, "TOP", 0,1)
@@ -133,20 +142,17 @@ function NugRunningNameplates:CreateNameplateTimer(frame)
 end
 
 function NugRunningNameplates:Resize()
-    
     np_xoffset = NugRunning.db.np_xoffset
     np_yoffset = NugRunning.db.np_yoffset
 
     for _,npt in ipairs(all_np_timers) do
         local w = NugRunning.db.np_width
-        local h = NugRunning.db.np_height 
-        npt:SetWidth(w)
+        local h = NugRunning.db.np_height
+        npt:SetWidth(w+2*h+1)
         npt:SetHeight(h)
         npt.icon:SetHeight(h)
         npt.icon:SetWidth(2*h)
-        backdrop.insets.left = -(h*2) -1
-        npt:SetBackdrop(backdrop)
-        npt:SetBackdropColor(0,0,0,0.7)
+        npt.bar:SetSize(w,h)
     end
 
     for unit in pairs(activeNameplates) do
@@ -154,7 +160,7 @@ function NugRunningNameplates:Resize()
         if np then
             local firstTimer = np.timers[1]
             if firstTimer then
-                firstTimer:SetPoint("BOTTOM", np, "TOP", 7+np_xoffset,-7+np_yoffset)
+                firstTimer:SetPoint("BOTTOM", np, "TOP", np_xoffset,-7+np_yoffset)
             end
         end
     end
@@ -202,17 +208,36 @@ function NugRunningNameplates:UpdateNPTimers(np, nrunTimers, nameplateUnit)
             else
                 npt.startTime = nrunt._startTimeModified or nrunt.startTime
                 npt.endTime = nrunt.endTime
-                npt:SetMinMaxValues(nrunt.bar:GetMinMaxValues())
+                npt.bar:SetMinMaxValues(nrunt.bar:GetMinMaxValues())
                 local r,g,b = nrunt.bar:GetStatusBarColor()
-                npt:SetStatusBarColor(r,g,b)
-                npt.bg:SetVertexColor(r*.4,g*.4,b*.4)
-                if npt.icon then
-                    npt.icon:SetTexture(nrunt.icon:GetTexture())
+                npt.bar:SetStatusBarColor(r,g,b)
+                npt.bar.bg:SetVertexColor(r*0.4,g*0.4,b*0.4)
+                npt.icon:SetTexture(nrunt.icon:GetTexture())
+
+                --[[
+                local nrutnOverlay = nrunt.overlay2
+                if nrutnOverlay.t1 and nrutnOverlay.t2 then
+                    local pos1 = helpers.getbarpos(npt, nrutnOverlay.t1)
+                    local pos2 = helpers.getbarpos(npt, nrutnOverlay.t2)
+                    local alpha = 0.2
+                    if pos2 > pos1 then
+                        npt.overlay:SetPoint("TOPLEFT", npt.bar, "TOPLEFT", pos1, 0)
+                        npt.overlay:SetPoint("BOTTOMRIGHT", npt.bar, "BOTTOMLEFT", pos2, 0)
+                        npt.overlay:SetVertexColor(0,0,0, alpha)
+                        -- npt.overlay:SetDrawLayer("OVERLAY", 6)
+                        npt.overlay:Show()
+                    else
+                        npt.overlay:Hide()
+                    end
+                else
+                    npt.overlay:Hide()
                 end
+                ]]
+
                 npt:Show()
 
-                if i == 1 then --
-                    npt:SetPoint("BOTTOM", np, "TOP", 7+np_xoffset,-7+np_yoffset)
+                if i == 1 then
+                    npt:SetPoint("BOTTOM", np, "TOP", np_xoffset,-7+np_yoffset)
                 end
             end
 

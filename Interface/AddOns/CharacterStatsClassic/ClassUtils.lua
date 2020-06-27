@@ -238,3 +238,36 @@ function CSC_GetMP5ModifierFromSetBonus(unit)
 
     return modifier;
 end
+
+function CSC_GetShamanT2SpellCrit(unit)
+	local spellCritFromSet = 0;
+	local firstItemslotIndex = 1;
+	local lastItemslotIndex = 18;
+
+	local theTenStormsIDs = { [16943] = 16943, 
+							  [16944] = 16944, 
+							  [16945] = 16945, 
+							  [16946] = 16946, 
+							  [16947] = 16947, 
+							  [16948] = 16948, 
+							  [16949] = 16949, 
+							  [16950] = 16950
+						};
+
+	local equippedSetItems = 0;
+    for itemSlot = firstItemslotIndex, lastItemslotIndex do
+        local itemId = GetInventoryItemID(unit, itemSlot);
+		
+		if (itemId) then
+			if (itemId == theTenStormsIDs[itemId]) then
+				equippedSetItems = equippedSetItems + 1;
+			end
+		end
+    end
+
+    if equippedSetItems >= 5 then
+        spellCritFromSet = 3;
+	end
+
+    return spellCritFromSet;
+end

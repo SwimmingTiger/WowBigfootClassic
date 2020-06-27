@@ -732,7 +732,7 @@ Cooldown( 2565 ,{ name = "Shield Block", priority = 9.9, scale = 0.5, ghost = tr
 
 Cooldown( 23922, { name = "Shield Slam", short = "", priority = 10, fixedlen = 6, ghost = true, ghosteffect = "MAGICCAST", color = colors.CURSE, isknowncheck = function() return IsPlayerSpellAny(23922, 23923, 23924, 23925) end })
 Cooldown( 12294, { name = "Mortal Strike", priority = 10, short = "", fixedlen = 6, ghost = true, ghosteffect = "MAGICCAST",  color = colors.CURSE, isknowncheck = function() return IsPlayerSpellAny(12294, 21551, 21552, 21553) end })
-Cooldown( 23881, { name = "Bloodthirst", priority = 10, short = "", fixedlen = 6, ghost = true, ghosteffect = "MAGICCAST",  color = colors.CURSE, isknowncheck = function() return IsPlayerSpellAny(23881, 23882, 23883, 23884) end })
+Cooldown( 23881, { name = "Bloodthirst", priority = 10, short = "", fixedlen = 6, ghost = true, ghosteffect = "MAGICCAST",  color = colors.CURSE, isknowncheck = function() return IsPlayerSpellAny(23881, 23892, 23893, 23894) end })
 
 -- Make Charges?
 Spell({ 7386, 7405, 8380, 11596, 11597 }, { name = "Sunder Armor", duration = 30, color = colors.DBROWN })

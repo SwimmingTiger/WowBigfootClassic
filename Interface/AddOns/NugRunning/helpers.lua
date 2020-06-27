@@ -25,6 +25,22 @@ local AFFILIATION_OUTSIDER = COMBATLOG_OBJECT_AFFILIATION_OUTSIDER
 -- end
 
 
+-- function helpers.pixelperfect(size, region)
+--     region = region or UIParent
+--     return PixelUtil.GetNearestPixelSize(size, NugRunning:GetEffectiveScale(), size)
+-- end
+
+local pmult = 1
+function helpers.pixelperfect(size)
+    return floor(size/pmult + 0.5)*pmult
+end
+
+local res = GetCVar("gxWindowedResolution")
+if res then
+    local w,h = string.match(res, "(%d+)x(%d+)")
+    pmult = (768/h) / UIParent:GetScale()
+end
+
 helpers.Talent = function (spellID)
     return IsSpellKnown(spellID) and 1 or 0
 end
@@ -112,6 +128,7 @@ helpers.Spell = function(id, opts)
     if opts and not GetSpellInfo(id) then print(string.format("nrun: misssing spell #%d (%s)",id,opts.name)) return end
     NugRunningConfig.spells[id] = opts
 end
+
 helpers.AddSpell = helpers.Spell
 helpers.ModSpell = function(id, mods)
     if type(id) == "table" then

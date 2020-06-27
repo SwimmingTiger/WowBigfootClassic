@@ -53,7 +53,6 @@ local RAID_CLASS_COLORS		= (_G.CUSTOM_CLASS_COLORS or _G.RAID_CLASS_COLORS)
 TC2.bars = {}
 TC2.threatData = {}
 TC2.colorFallback = {}
-TC2.threatColors = {}
 TC2.numGroupMembers = 0
 TC2.playerName = ""
 TC2.playerTarget = ""
@@ -61,8 +60,7 @@ TC2.playerTarget = ""
 -----------------------------
 -- WOW CLASSIC
 -----------------------------
--- TC2.classic = _G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_CLASSIC -- for testing in retail
-TC2.classic = _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC
+TC2.api_available = _G.UnitThreatSituation ~= nil
 
 -- depreciation warning for ClassicThreatMeter
 C_Timer.After(3, 
@@ -88,14 +86,16 @@ local SoundChannels = {
 	["Music"] = L.soundChannel_music
 }
 
-local ThreatLib = TC2.classic and LibStub:GetLibrary("LibThreatClassic2")
-assert(ThreatLib, "ThreatClassic2 requires LibThreatClassic2")
+local ThreatLib = not TC2.api_available and LibStub:GetLibrary("LibThreatClassic2")
+if not TC2.api_available then
+	assert(ThreatLib, "ThreatClassic2 requires LibThreatClassic2")
+end
 
-local UnitThreatSituation = TC2.classic and function(unit, mob)
+local UnitThreatSituation = _G.UnitThreatSituation or not TC2.api_available and function(unit, mob)
 	return ThreatLib:UnitThreatSituation(unit, mob)
 end or _G.UnitThreatSituation
 
-local UnitDetailedThreatSituation = TC2.classic and function(unit, mob)
+local UnitDetailedThreatSituation = _G.UnitDetailedThreatSituation or not TC2.api_available and function(unit, mob)
 	return ThreatLib:UnitDetailedThreatSituation(unit, mob)
 end or _G.UnitDetailedThreatSituation
 
@@ -337,6 +337,10 @@ local function UpdateThreatData(unit)
 	if threatValue and threatValue < 0 then
 		threatValue = threatValue + 410065408
 	end
+
+	if threatValue and TC2.api_available and C.general.downscaleThreat then
+		threatValue = math.floor(threatValue / 100)
+	end
 	-- check for warnings
 	if UnitIsUnit(unit, "player") and threatPercent then
 		TC2:CheckWarning(threatPercent, threatValue)
@@ -410,6 +414,7 @@ local function CheckStatusDeferred()
 	callCheckStatus = true
 end
 
+-- remove me once api_available
 local function ThreatUpdated(event, unitGUID, targetGUID, threat)
 	if UnitGUID(TC2.playerTarget) == targetGUID then
 		CheckStatusDeferred()
@@ -655,39 +660,6 @@ function TC2:TestMode()
 end
 
 -----------------------------
--- NAMEPLATES
------------------------------
-local function UpdateNameplateThreat(self)
-	if not InCombatLockdown() or not C.general.nameplateThreat then return end
-	local unit = self.unit
-	if not unit then return end
-	if not unit:match("nameplate%d?$") then return end
-	if UnitIsPlayer(unit) or UnitIsFriend("player", unit) then return end -- prevent coloring player/friendly NPC nameplates
-	local nameplate = C_NamePlate.GetNamePlateForUnit(unit)
-	if not nameplate then return end
-	local status = UnitThreatSituation("player", unit)
-	if status then
-		if C.general.invertColors then
-			if status == 3 then
-				status = 0
-			elseif status == 0 then
-				status = 3
-			end
-		end
-		self.healthBar:SetStatusBarColor(unpack(TC2.threatColors[status]))
-	end
-end
-
-if TC2.classic then
-	-- since UNIT_THREAT_LIST_UPDATE isn't a thing in Classic, health color doesn't update nearly as frequently
-	-- we'll instead hook the range check since it is OnUpdate - gross, but it works for now
-	hooksecurefunc("CompactUnitFrame_UpdateInRange", UpdateNameplateThreat)
-else
-	hooksecurefunc("CompactUnitFrame_UpdateHealthColor", UpdateNameplateThreat)
-	hooksecurefunc("CompactUnitFrame_UpdateAggroFlash", UpdateNameplateThreat)
-end
-
------------------------------
 -- VERSION CHECK
 -----------------------------
 local group = {}
@@ -793,27 +765,6 @@ local function NotifyOldClients()
 	end
 end
 
---[[
-local function CheckVersionOLD(self, event, prefix, msg, channel, sender)
-	if event == "CHAT_MSG_ADDON" then
-		if prefix ~= "TC2Ver" or sender == playerName then return end
-		if tonumber(msg) ~= nil and tonumber(msg) > tonumber(TC2.version) then
-			print("|cffff0000"..L.outdated.."|r")
-			self.frame:UnregisterEvent("CHAT_MSG_ADDON")
-		end
-	else
-		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
-			C_ChatInfo.SendAddonMessage("TC2Ver", tonumber(TC2.version), "INSTANCE_CHAT")
-		elseif IsInRaid(LE_PARTY_CATEGORY_HOME) then
-			C_ChatInfo.SendAddonMessage("TC2Ver", tonumber(TC2.version), "RAID")
-		elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
-			C_ChatInfo.SendAddonMessage("TC2Ver", tonumber(TC2.version), "PARTY")
-		elseif IsInGuild() then
-			C_ChatInfo.SendAddonMessage("TC2Ver", tonumber(TC2.version), "GUILD")
-		end
-	end
-end
---]]
 
 -----------------------------
 -- EVENTS
@@ -825,8 +776,12 @@ TC2.frame:SetScript("OnEvent", function(self, event, ...)
 	return TC2[event] and TC2[event](TC2, event, ...)
 end)
 TC2.frame:SetScript("OnUpdate", function(self, elapsed)
-	if callCheckStatus and GetTime() > lastCheckStatusTime + C.general.updateFreq then
-		CheckStatus()
+	if GetTime() > lastCheckStatusTime + C.general.updateFreq then
+		-- always check status in interval if the playerTarget is set to targettarget (i.e. direct traget is friendly)
+		-- because THREAT_LIST_UPDATE does not trigger for targettarget. Also the threat api only works in combat
+		if callCheckStatus or (TC2.api_available and TC2.playerTarget == "targettarget" and UnitAffectingCombat("player")) then
+			CheckStatus()
+		end
 	end
 end)
 
@@ -874,9 +829,11 @@ function TC2:PLAYER_REGEN_ENABLED(...)
 	CheckStatus()
 end
 
-function TC2:UNIT_THREAT_LIST_UPDATE(...)
+function TC2:UNIT_THREAT_LIST_UPDATE(event, unitTarget)
 	C.frame.test = false
-	CheckStatusDeferred()
+	if TC2.playerTarget == unitTarget then
+		CheckStatusDeferred()
+	end
 end
 
 function TC2:PLAYER_LOGIN()
@@ -912,13 +869,6 @@ function TC2:PLAYER_LOGIN()
 	-- Get Colors
 	TC2.colorFallback = {0.8, 0, 0.8, C.bar.alpha}
 
-	TC2.threatColors = {
-		[0] = C.general.threatColors.good,
-		[1] = C.general.threatColors.neutral,
-		[2] = C.general.threatColors.neutral,
-		[3] = C.general.threatColors.bad
-	}
-
 	-- Test Mode
 	C.frame.test = false
 
@@ -935,13 +885,13 @@ function TC2:PLAYER_LOGIN()
 	self.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 
-	if self.classic then
+	if self.api_available then
+		self.frame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
+	else
 		ThreatLib.RegisterCallback(self, "Activate", CheckStatusDeferred)
 		ThreatLib.RegisterCallback(self, "Deactivate", CheckStatusDeferred)
 		ThreatLib.RegisterCallback(self, "ThreatUpdated", ThreatUpdated)
 		ThreatLib:RequestActiveOnSolo(true)
-	else
-		self.frame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
 	end
 
 	-- Setup Config
@@ -1085,8 +1035,16 @@ TC2.configTable = {
 					type = "toggle",
 					width = "full",
 				},
-				updateFreq = {
+				downscaleThreat = {
 					order = 4,
+					name = L.general_downscaleThreat,
+					desc = L.general_downscaleThreatDesc,
+					type = "toggle",
+					width = "full",
+					hidden = not TC2.api_available
+				},
+				updateFreq = {
+					order = 5,
 					name = L.general_updateFreq,
 					type = "range",
 					width = "double",
@@ -1165,59 +1123,6 @@ TC2.configTable = {
 						C[info[1]][info[2]] = value
 						CheckStatus()
 					end,
-				},
-				nameplates = {
-					order = 11,
-					name = L.nameplates,
-					type = "header",
-				},
-				nameplateThreat = {
-					order = 12,
-					name = L.nameplates_enable,
-					type = "toggle",
-					width = "full",
-				},
-				invertColors = {
-					order = 13,
-					name = L.nameplates_invert,
-					type = "toggle",
-					width = "full",
-				},
-				threatColors = {
-					order = 14,
-					name = L.nameplates_colors,
-					type = "group",
-					inline = true,
-					get = function(info)
-						return unpack(C[info[1]][info[2]][info[3]])
-					end,
-					set = function(info, r, g, b)
-						local cfg = C[info[1]][info[2]][info[3]]
-						cfg[1] = r
-						cfg[2] = g
-						cfg[3] = b
-					end,
-
-					args = {
-						good = {
-							order = 1,
-							name = L.color_good,
-							type = "color",
-							hasAlpha = false,
-						},
-						neutral = {
-							order = 2,
-							name = L.color_neutral,
-							type = "color",
-							hasAlpha = false,
-						},
-						bad = {
-							order = 3,
-							name = L.color_bad,
-							type = "color",
-							hasAlpha = false,
-						},
-					},
 				},
 			},
 		},
@@ -1323,8 +1228,8 @@ TC2.configTable = {
 									order = 5,
 									name = L.frame_xOffset,
 									type = "range",
-									min = 0,
-									max = screenWidth,
+									softMin = 0,
+									softMax = screenWidth,
 									step = 0.01,
 									bigStep = 1,
 									get = function(info)
@@ -1339,8 +1244,8 @@ TC2.configTable = {
 									order = 5,
 									name = L.frame_yOffset,
 									type = "range",
-									min = -screenHeight,
-									max = 0,
+									softMin = -screenHeight,
+									softMax = 0,
 									step = 0.01,
 									bigStep = 1,
 									get = function(info)
@@ -1580,8 +1485,9 @@ TC2.configTable = {
 					name = L.warnings_minThreatAmount,
 					type = "range",
 					width = "double",
-					min = 100,
-					max = 10000,
+					min = 1,
+					softMin = 100,
+					softMax = 10000,
 					step = 1,
 					bigStep = 100,
 				},

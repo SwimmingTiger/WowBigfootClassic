@@ -296,16 +296,25 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
     end)
 
     local speed, offhandSpeed = CSC_GetAppropriateAttackSpeed(unit, category);
-    local minDamage, maxDamage, minOffHandDamage, maxOffHandDamage, physicalBonusPos, physicalBonusNeg, percent = CSC_GetAppropriateDamage(unit, category);
+	local minDamage, maxDamage, minOffHandDamage, maxOffHandDamage, physicalBonusPos, physicalBonusNeg, percentMod = CSC_GetAppropriateDamage(unit, category);
+	
+	-- sometimes this is wrongly reported as 0
+	if percentMod == nil or percentMod == 0 then
+		percentMod = 1;
+	end
+
+	if speed == nil or speed == 0 then
+		speed = 1;
+	end
     
     local displayMin = max(floor(minDamage),1);
     local displayMax = max(ceil(maxDamage),1);
     
-    minDamage = (minDamage / percent) - physicalBonusPos - physicalBonusNeg;
-    maxDamage = (maxDamage / percent) - physicalBonusPos - physicalBonusNeg;
+    minDamage = (minDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
+    maxDamage = (maxDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
     
     local baseDamage = (minDamage + maxDamage) * 0.5;
-	local fullDamage = (baseDamage + physicalBonusPos + physicalBonusNeg) * percent;
+	local fullDamage = (baseDamage + physicalBonusPos + physicalBonusNeg) * percentMod;
 	local totalBonus = (fullDamage - baseDamage);
 	local damagePerSecond = (max(fullDamage,1) / speed);
     local damageTooltip = max(floor(minDamage),1).." - "..max(ceil(maxDamage),1);
@@ -345,10 +354,10 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 		if ( physicalBonusNeg < 0 ) then
 			damageTooltip = damageTooltip..colorNeg.." "..physicalBonusNeg.."|r";
 		end
-		if ( percent > 1 ) then
-			damageTooltip = damageTooltip..colorPos.." x"..floor(percent*100+0.5).."%|r";
-		elseif ( percent < 1 ) then
-			damageTooltip = damageTooltip..colorNeg.." x"..floor(percent*100+0.5).."%|r";
+		if ( percentMod > 1 ) then
+			damageTooltip = damageTooltip..colorPos.." x"..floor(percentMod*100+0.5).."%|r";
+		elseif ( percentMod < 1 ) then
+			damageTooltip = damageTooltip..colorNeg.." x"..floor(percentMod*100+0.5).."%|r";
 		end
     end
     
@@ -366,11 +375,15 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 
     -- If there's an offhand speed then add the offhand info to the tooltip
 	if ( offhandSpeed and category == PLAYERSTAT_MELEE_COMBAT) then
-		minOffHandDamage = (minOffHandDamage / percent) - physicalBonusPos - physicalBonusNeg;
-		maxOffHandDamage = (maxOffHandDamage / percent) - physicalBonusPos - physicalBonusNeg;
+		if offhandSpeed == 0 then
+			offhandSpeed = 1;
+		end
+
+		minOffHandDamage = (minOffHandDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
+		maxOffHandDamage = (maxOffHandDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
 
 		local offhandBaseDamage = (minOffHandDamage + maxOffHandDamage) * 0.5;
-		local offhandFullDamage = (offhandBaseDamage + physicalBonusPos + physicalBonusNeg) * percent;
+		local offhandFullDamage = (offhandBaseDamage + physicalBonusPos + physicalBonusNeg) * percentMod;
 		local offhandDamagePerSecond = (max(offhandFullDamage,1) / offhandSpeed);
 		local offhandDamageTooltip = max(floor(minOffHandDamage),1).." - "..max(ceil(maxOffHandDamage),1);
 		if ( physicalBonusPos > 0 ) then
@@ -379,10 +392,10 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 		if ( physicalBonusNeg < 0 ) then
 			offhandDamageTooltip = offhandDamageTooltip..colorNeg.." "..physicalBonusNeg.."|r";
 		end
-		if ( percent > 1 ) then
-			offhandDamageTooltip = offhandDamageTooltip..colorPos.." x"..floor(percent*100+0.5).."%|r";
-		elseif ( percent < 1 ) then
-			offhandDamageTooltip = offhandDamageTooltip..colorNeg.." x"..floor(percent*100+0.5).."%|r";
+		if ( percentMod > 1 ) then
+			offhandDamageTooltip = offhandDamageTooltip..colorPos.." x"..floor(percentMod*100+0.5).."%|r";
+		elseif ( percentMod < 1 ) then
+			offhandDamageTooltip = offhandDamageTooltip..colorNeg.." x"..floor(percentMod*100+0.5).."%|r";
 		end
 		statFrame.offhandDamage = offhandDamageTooltip;
 		statFrame.offhandAttackSpeed = offhandSpeed;
@@ -539,6 +552,13 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 			local tmpMax = max(statFrame.shadowCrit, statFrame.fireCrit);
 			-- set the new maximum
 			maxSpellCrit = max(maxSpellCrit, tmpMax);
+		end
+	elseif (unitClassId == CSC_SHAMAN_CLASS_ID) then
+		local natureCritFromSet = CSC_GetShamanT2SpellCrit(unit);
+		if (natureCritFromSet > 0) then
+			statFrame.natureCrit = statFrame.natureCrit + natureCritFromSet;
+			-- set the new maximum
+			maxSpellCrit = max(maxSpellCrit, statFrame.natureCrit);
 		end
 	end
 

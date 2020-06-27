@@ -683,16 +683,6 @@ function BigDebuffs:OnEnable()
         self:PLAYER_TALENT_UPDATE()
     end
 
-    -- (finish animations deprecated in latest OmniCC)
-    -- Prevent OmniCC finish animations
-    if OmniCC and OmniCC.TriggerEffect then
-        self:RawHook(OmniCC, "TriggerEffect", function(object, cooldown)
-            local name = cooldown:GetName()
-            if name and name:find(addonName) then return end
-            self.hooks[OmniCC].TriggerEffect(object, cooldown)
-        end, true)
-    end
-
     InsertTestDebuff(8122, "Magic") -- Psychic Scream
     InsertTestDebuff(408, nil) -- Kidney Shot
 
@@ -874,7 +864,7 @@ function BigDebuffs:PLAYER_REGEN_ENABLED()
     end
 end
 
-local function IsPriorityDebuff(id)
+function BigDebuffs:IsPriorityDebuff(id)
     for i = 1, #BigDebuffs.PriorityDebuffs do
         if id == BigDebuffs.PriorityDebuffs[i] then
             return true
@@ -1098,7 +1088,7 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 
     local function CompactUnitFrame_UtilIsPriorityDebuff(...)
         local _,_,_,_,_,_,_,_,_, spellId = UnitDebuff(...)
-        return BigDebuffs:IsPriorityBigDebuff(spellId) or Default_CompactUnitFrame_UtilIsPriorityDebuff(...)
+        return BigDebuffs:IsPriorityDebuff(spellId) or Default_CompactUnitFrame_UtilIsPriorityDebuff(...)
     end
 
     local Default_SpellGetVisibilityInfo = SpellGetVisibilityInfo
@@ -1228,6 +1218,11 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
     -- Show extra buffs
     local MAX_BUFFS = 6
     hooksecurefunc("CompactUnitFrame_UpdateBuffs", function(frame)
+        if ( not frame.buffFrames or not frame.optionTable.displayBuffs ) then
+            CompactUnitFrame_HideAllBuffs(frame);
+            return;
+        end
+
         if not UnitIsPlayer(frame.displayedUnit) then
             return
         end
@@ -1238,30 +1233,29 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
             return
         end
 
-        if ( not frame.optionTable.displayBuffs ) then
-            CompactUnitFrame_HideAllBuffs(frame);
-            return;
-        end
+        local maxBuffs = BigDebuffs.db.profile.raidFrames.increaseBuffs and MAX_BUFFS or frame.maxBuffs
 
         local index = 1;
         local frameNum = 1;
         local filter = nil;
-        while ( frameNum <= MAX_BUFFS ) do
+        while ( frameNum <= maxBuffs ) do
             local buffName = UnitBuff(frame.displayedUnit, index, filter);
             if ( buffName ) then
                 if ( CompactUnitFrame_UtilShouldDisplayBuff(frame.displayedUnit, index, filter) and
                     not CompactUnitFrame_UtilIsBossAura(frame.displayedUnit, index, filter, true) )
                 then
                     local buffFrame = frame.buffFrames[frameNum];
-                    CompactUnitFrame_UtilSetBuff(buffFrame, frame.displayedUnit, index, filter);
-                    frameNum = frameNum + 1;
+                    if buffFrame then
+                       CompactUnitFrame_UtilSetBuff(buffFrame, frame.displayedUnit, index, filter);
+                       frameNum = frameNum + 1;
+                    end
                 end
             else
                 break;
             end
             index = index + 1;
         end
-        for i=frameNum, MAX_BUFFS do
+        for i=frameNum, maxBuffs do
             local buffFrame = frame.buffFrames[i];
             if buffFrame then buffFrame:Hide() end
         end
@@ -1303,7 +1297,6 @@ else
 
     local dispellableDebuffTypes = { Magic = true, Curse = true, Disease = true, Poison = true};
 
-    local MAX_BUFFS = 6
     hooksecurefunc("CompactUnitFrame_UpdateAuras", function(frame)
         if not UnitIsPlayer(frame.displayedUnit) then
             return
@@ -1694,11 +1687,6 @@ function BigDebuffs:UNIT_AURA(unit)
                 icon = icon == 611425 and 1508487 or icon
 
                 SetPortraitToTexture(frame.icon, icon)
-
-                -- Adapt
-                -- if frame.anchor and Adapt and Adapt.portraits[frame.anchor] then
-                --  Adapt.portraits[frame.anchor].modelLayer:SetFrameStrata("BACKGROUND")
-                -- end
             else
                 frame.icon:SetTexture(icon)
             end
@@ -1714,11 +1702,6 @@ function BigDebuffs:UNIT_AURA(unit)
         frame.interrupt = interrupt
         frame.current = icon
     else
-        -- Adapt
-        -- if frame.anchor and frame.blizzard and Adapt and Adapt.portraits[frame.anchor] then
-        --  Adapt.portraits[frame.anchor].modelLayer:SetFrameStrata("LOW")
-        -- end
-
         frame:Hide()
         frame.current = nil
     end

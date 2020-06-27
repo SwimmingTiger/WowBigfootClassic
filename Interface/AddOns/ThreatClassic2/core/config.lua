@@ -17,6 +17,8 @@ local defaultConfig = {}
 defaultConfig.general = {
 	welcome				= true,									-- display welcome message
 	updateFreq			= 0.2,									-- how often the threat bars update
+	rawPercent			= false,								-- use raw percent
+	downscaleThreat		= true,									-- downscale threat so 1 damage = 1 threat
 	minimap				= false,								-- toggle for minimap icon
 	ignorePets			= false,								-- toggle for ignoring pets
 	hideOOC				= false,								-- hide frame when out of combat
@@ -24,13 +26,6 @@ defaultConfig.general = {
 	hideOpenWorld		= false,								-- hide frame when not in an instance
 	hideInPVP			= true,									-- hide frame when in battlegrounds
 	hideAlways			= false,								-- hide frame always
-	nameplateThreat		= false,								-- color nameplates by threat
-	invertColors		= false,								-- invert threat coloring (for tanks)
-	threatColors		= {										-- colors for nameplateThreat
-							good	= {0.2, 0.8, 0.2},
-							neutral	= {1, 1, 0},
-							bad		= {1, 0, 0},
-						}
 }
 
 -- frame settings

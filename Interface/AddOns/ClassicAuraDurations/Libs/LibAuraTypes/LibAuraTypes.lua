@@ -748,7 +748,7 @@ A( 14278 ,{ DAMAGE_REDUCTION }) -- Ghostly Strike
 
 A( 18498 ,{ SILENCE }) -- Improved Shield Bash
 A( 20230 ,{ PHYSICAL_IMMUNITY }) -- Retaliation
-A( 1719 ,{ FEAR_IMMUNITY }) -- Recklessness, Fear immunity
+A( 1719 ,{ DAMAGE_VULNERABILITY }) -- Recklessness, Fear immunity, Damage Vuln
 A( 871, { DAMAGE_REDUCTION }) -- Shield Wall
 A( 12328, { FEAR_IMMUNITY }) -- Death Wish, Fear immunity
 A({ 1715, 7372, 7373 }, { SLOW }) -- Hamstring

@@ -279,7 +279,6 @@ RegEvent("UPDATE_BATTLEFIELD_SCORE", function()
 
     if BattleZoneHelper:IsInAlterac() then
         f.num:SetPoint("TOPLEFT", f, -35, 0)    
-        f.num:Show()
     else
 
         -- calibrate num pos
@@ -296,8 +295,11 @@ RegEvent("UPDATE_BATTLEFIELD_SCORE", function()
         end
 
         f.num:SetPoint("TOPLEFT", r, -15, 2)    
-        f.num:Show()
     end    
+
+    if f.num.showing then
+        f.num:Show()
+    end
 end)
 
 RegEvent("ADDON_LOADED", function()
@@ -474,8 +476,10 @@ RegEvent("ADDON_LOADED", function()
         RegisterKeyChangedCallback("show_number", function(v)
             if v then
                 f.num:Show()
+                f.num.showing = true
             else
                 f.num:Hide()
+                f.num.showing = false
             end
         end)
     end
