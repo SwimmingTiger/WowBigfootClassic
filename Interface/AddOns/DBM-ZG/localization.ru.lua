@@ -94,7 +94,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("EdgeOfMadness")
 
 L:SetGeneralLocalization{
-	name = "Edge of Madness"
+	name = "Грань Безумия"
 }
 L:SetMiscLocalization{
 	Hazzarah = "Хазза'рах",

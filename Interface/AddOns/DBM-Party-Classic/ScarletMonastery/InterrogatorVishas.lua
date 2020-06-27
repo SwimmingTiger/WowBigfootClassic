@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("InterrogatorVishas", "DBM-Party-Classic", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200530184609")
 mod:SetCreatureID(3983)
 --mod:SetEncounterID(585)
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lucifron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200610150315")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(12118)--, 12119
 mod:SetEncounterID(663)
 mod:SetModelID(13031)
@@ -45,7 +45,6 @@ function mod:OnCombatStart(delay)
 		if self.Options.FastestClear and self.Options.SpeedClearTimer then
 			--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
-			DBM:AddMsg("Speed run timer should have started, please report if it didn't on DBM Discord")
 		end
 	end
 end
@@ -102,31 +101,13 @@ do
 		local spellName = args.spellName
 		--if spellId == 19702 then
 		if spellName == Doom then
-			self:SendSync("Doom")
-			if self:AntiSpam(5, 1) then
-				warnDoom:Show()
---				timerDoom:Start()
-				timerDoomCD:Start()
-			end
+			warnDoom:Show()
+--			timerDoom:Start()
+			timerDoomCD:Start()
 		--elseif spellId == 19703 then
 		elseif spellName == Curse then
-			self:SendSync("Curse")
-			if self:AntiSpam(5, 2) then
-				warnCurse:Show()
-				timerCurseCD:Start()
-			end
+			warnCurse:Show()
+			timerCurseCD:Start()
 		end
-	end
-end
-
-function mod:OnSync(msg, targetName)
-	if not self:IsInCombat() then return end
-	if msg == "Doom" and self:AntiSpam(5, 1) then
-		warnDoom:Show()
---		timerDoom:Start()
-		timerDoomCD:Start()
-	elseif msg == "Curse" and self:AntiSpam(5, 2) then
-		warnCurse:Show()
-		timerCurseCD:Start()
 	end
 end

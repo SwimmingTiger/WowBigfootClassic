@@ -155,7 +155,7 @@ function frame:DisplayFrame(frame)
 							else
 								child2:SetPointOld("TOPLEFT", 10, -12)
 							end
-							child2.myheight = mmax(buttonText:GetContentHeight() + 12, 25)
+							child2.myheight = mmax(height + 12, 25)
 							buttonText:SetHeight(child2.myheight)
 						end
 						lastObject = child2

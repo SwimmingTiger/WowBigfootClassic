@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Geddon", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200521044036")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(12056)
 mod:SetEncounterID(668)
 mod:SetModelID(12129)
@@ -49,22 +49,19 @@ do
 		local spellName = args.spellName
 		--if args.spellId == 20475 then
 		if spellName == LivingBomb then
-			self:SendSync("Bomb", args.destName)
-			if self:AntiSpam(5, 1) then
-				timerBomb:Start(args.destName)
-				if self.Options.SetIconOnBombTarget then
-					self:SetIcon(args.destName, 8)
+			timerBomb:Start(args.destName)
+			if self.Options.SetIconOnBombTarget then
+				self:SetIcon(args.destName, 8)
+			end
+			if args:IsPlayer() then
+				specWarnBomb:Show()
+				specWarnBomb:Play("runout")
+				if self:IsDifficulty("event40") or not self:IsTrivial(75) then
+					yellBomb:Yell()
+					yellBombFades:Countdown(20475)
 				end
-				if args:IsPlayer() then
-					specWarnBomb:Show()
-					specWarnBomb:Play("runout")
-					if self:IsDifficulty("event40") or not self:IsTrivial(75) then
-						yellBomb:Yell()
-						yellBombFades:Countdown(20475)
-					end
-				else
-					warnBomb:Show(args.destName)
-				end
+			else
+				warnBomb:Show(args.destName)
 			end
 		elseif spellName == Ignite and self:CheckDispelFilter() then
 			specWarnIgnite:CombinedShow(0.3, args.destName)
@@ -100,11 +97,8 @@ do
 			timerInfernoCD:Start()
 		--elseif spellId == 19659 then
 		elseif spellName == Ignite and args:IsSrcTypeHostile() then
-			self:SendSync("IgniteMana")
-			if self:AntiSpam(5, 2) then
-				--warnIgnite:Show()
-				timerIgniteManaCD:Start()
-			end
+			--warnIgnite:Show()
+			timerIgniteManaCD:Start()
 		--elseif spellId == 20478 then
 		elseif spellName == Armageddon then
 			warnArmageddon:Show()
@@ -112,29 +106,5 @@ do
 		elseif spellName == LivingBomb then
 			timerBombCD:Start()
 		end
-	end
-end
-
---Ensures Bomb detection still works even if bomb target is > 50 yards away
-function mod:OnSync(msg, targetName)
-	if not self:IsInCombat() then return end
-	if msg == "Bomb" and targetName and self:AntiSpam(5, 1) then
-		timerBomb:Start(targetName)
-		if self.Options.SetIconOnBombTarget then
-			self:SetIcon(targetName, 8)
-		end
-		if targetName == UnitName("player") then
-			specWarnBomb:Show()
-			specWarnBomb:Play("runout")
-			if self:IsDifficulty("event40") or not self:IsTrivial(75) then
-				yellBomb:Yell()
-				yellBombFades:Countdown(20475)
-			end
-		else
-			warnBomb:Show(targetName)
-		end
-	elseif msg == "IgniteMana" and self:AntiSpam(5, 2) then
-		--warnIgnite:Show()
-		timerIgniteManaCD:Start()
 	end
 end

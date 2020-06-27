@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200612160227"),
-	DisplayVersion = "1.13.49", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 6, 12) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200623122558"),
+	DisplayVersion = "1.13.51", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 6, 23) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -129,10 +129,10 @@ DBM.DefaultOptions = {
 	SpecialWarningSound4 = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\HoodWolfTransformPlayer01.ogg",
 	SpecialWarningSound5 = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\LOA_NAXX_AGGRO02.ogg",
 	ModelSoundValue = "Short",
-	CountdownVoice = "VP:Yike",
-	CountdownVoice2 = "VP:Yike",
-	CountdownVoice3 = "VP:Yike",
-	ChosenVoicePack = "Yike",
+	CountdownVoice = "Corsica",
+	CountdownVoice2 = "Kolt",
+	CountdownVoice3 = "Smooth",
+	ChosenVoicePack = "None",
 	VoiceOverSpecW2 = "DefaultOnly",
 	AlwaysPlayVoice = false,
 	EventSoundVictory2 = "None",
@@ -483,7 +483,7 @@ local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit = UnitExists, UnitIsDead,
 local GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown = GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown
 --local EJ_GetEncounterInfo, EJ_GetCreatureInfo, EJ_GetSectionInfo, GetSectionIconFlags = EJ_GetEncounterInfo, EJ_GetCreatureInfo, C_EncounterJournal.GetSectionInfo, C_EncounterJournal.GetSectionIconFlags
 local GetInstanceInfo = GetInstanceInfo
-local UnitDetailedThreatSituation = ThreatLib2 and function(unit, mob)
+local UnitDetailedThreatSituation = UnitDetailedThreatSituation or ThreatLib2 and function(unit, mob)
 	return ThreatLib2:UnitDetailedThreatSituation(unit, mob)
 end or function(unit, mob)
 	return false, 0--If threatlib failure (shouldn't happen, but if user screws with it, UnitDetailedThreatSituation will just fail silently with not tanking
@@ -738,11 +738,29 @@ do
 	end
 
 	function argsMT.__index:IsPlayer()
-		return bband(args.destFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0 and bband(args.destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
+		--If blizzard ever removes sourceFlags, this will automatically switch to fallback
+		if args.destFlags and COMBATLOG_OBJECT_AFFILIATION_MINE then
+			return bband(args.destFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0 and bband(args.destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
+		else
+			if raid[args.destName] then--Unit in group, friendly
+				return true
+			else
+				return false
+			end
+		end
 	end
 
 	function argsMT.__index:IsPlayerSource()
-		return bband(args.sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0 and bband(args.sourceFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
+		--If blizzard ever removes sourceFlags, this will automatically switch to fallback
+		if args.sourceFlags and COMBATLOG_OBJECT_AFFILIATION_MINE then
+			return bband(args.sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= 0 and bband(args.sourceFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0
+		else
+			if raid[args.sourceName] then
+				return true
+			else
+				return false
+			end
+		end
 	end
 
 	function argsMT.__index:IsNPC()
@@ -1294,14 +1312,14 @@ do
 		self:BuildVoiceCountdownCache()
 		--Break timer recovery
 		--Try local settings
-		if self.Options.tempBreak2 then
-			local timer, startTime = string.split("/", self.Options.tempBreak2)
+		if self.Options.RestoreSettingBreakTimer then
+			local timer, startTime = string.split("/", self.Options.RestoreSettingBreakTimer)
 			local elapsed = time() - tonumber(startTime)
 			local remaining = timer - elapsed
 			if remaining > 0 then
 				breakTimerStart(DBM, remaining, playerName)
 			else--It must have ended while we were offline, kill variable.
-				self.Options.tempBreak2 = nil
+				self.Options.RestoreSettingBreakTimer = nil
 			end
 		end
 		if IsInGuild() then
@@ -2355,7 +2373,7 @@ do
 			DBM:RequestTimers(3)
 		elseif cmd:sub(1, 6) == "silent" then
 			DBM.Options.SilentMode = DBM.Options.SilentMode == false and true or false
-			DBM:AddMsg("SilentMode is " .. (DBM.Options.SilentMode and "ON" or "OFF"))
+			DBM:AddMsg(L.SILENTMODE_IS .. (DBM.Options.SilentMode and "ON" or "OFF"))
 		elseif cmd:sub(1, 10) == "musicstart" then
 			DBM:TransitionToDungeonBGM(true)
 		elseif cmd:sub(1, 9) == "musicstop" then
@@ -2724,9 +2742,9 @@ do
 
 		function dataBroker.OnClick(self, button)
 			if IsShiftKeyDown() then return end
-			if button == "RightButton" then
+			if IsAltKeyDown() then
 				DBM.Options.SilentMode = DBM.Options.SilentMode == false and true or false
-				DBM:AddMsg("SilentMode is " .. (DBM.Options.SilentMode and "ON" or "OFF"))
+				DBM:AddMsg(L.SILENTMODE_IS .. (DBM.Options.SilentMode and "ON" or "OFF"))
 			else
 				DBM:LoadGUI()
 			end
@@ -3292,9 +3310,10 @@ function DBM:LoadModOptions(modId, inCombat, first, force)
 				end
 			end
 			--clean unused saved variables (do not work on combat load)
+			--Why are saved options cleaned twice?
 			if not inCombat then
 				for option, _ in pairs(savedOptions[id][profileNum]) do
-					if mod.DefaultOptions[option] == nil then
+					if (mod.DefaultOptions[option] == nil) and not (option:find("talent") or option:find("FastestClear")) then
 						savedOptions[id][profileNum][option] = nil
 					elseif mod.DefaultOptions[option] and (type(mod.DefaultOptions[option]) == "table") then--recover broken dropdown option
 						if savedOptions[id][profileNum][option] and (type(savedOptions[id][profileNum][option]) == "boolean") then
@@ -3349,6 +3368,7 @@ function DBM:LoadModOptions(modId, inCombat, first, force)
 		end
 	end
 	--clean unused saved variables (do not work on combat load)
+	--Why are saved options cleaned twice?
 	if not inCombat then
 		for id, _ in pairs(savedOptions) do
 			if not existId[id] and not (id:find("talent") or id:find("FastestClear")) then
@@ -3742,6 +3762,8 @@ do
 		if migrated then
 			self:AddMsg(L.SOUNDKIT_MIGRATION)
 		end
+		--TODO, why doesn't DBM core garbage collection options like sub mods do?
+		--If deleted unused option check code does get added though it needs excemption from anything comtaining text "RestoreSetting"
 	end
 end
 
@@ -3836,9 +3858,9 @@ do
 	function DBM:TransitionToDungeonBGM(force, cleanup)
 		if cleanup then--Runs on zone change (first load delay) and combat end
 			self:Unschedule(self.TransitionToDungeonBGM)
-			if self.Options.tempMusicSetting then
-				SetCVar("Sound_EnableMusic", self.Options.tempMusicSetting)
-				self.Options.tempMusicSetting = nil
+			if self.Options.RestoreSettingMusic then
+				SetCVar("Sound_EnableMusic", self.Options.RestoreSettingMusic)
+				self.Options.RestoreSettingMusic = nil
 				DBM:Debug("Restoring Sound_EnableMusic CVAR")
 			end
 			if self.Options.musicPlaying then--Primarily so DBM doesn't call StopMusic unless DBM is one that started it. We don't want to screw with other addons
@@ -3852,12 +3874,12 @@ do
 		if LastInstanceType ~= "raid" and LastInstanceType ~= "party" and not force then return end
 		fireEvent("DBM_MusicStart", "RaidOrDungeon")
 		if self.Options.EventSoundDungeonBGM and self.Options.EventSoundDungeonBGM ~= "None" and self.Options.EventSoundDungeonBGM ~= "" and not (self.Options.EventDungMusicMythicFilter and (savedDifficulty == "mythic" or savedDifficulty == "challenge")) then
-			if not self.Options.tempMusicSetting then
-				self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic")) or 1
-				if self.Options.tempMusicSetting == 0 then
+			if not self.Options.RestoreSettingMusic then
+				self.Options.RestoreSettingMusic = tonumber(GetCVar("Sound_EnableMusic")) or 1
+				if self.Options.RestoreSettingMusic == 0 then
 					SetCVar("Sound_EnableMusic", 1)
 				else
-					self.Options.tempMusicSetting = nil--Don't actually need it
+					self.Options.RestoreSettingMusic = nil--Don't actually need it
 				end
 			end
 			local path = "MISSING"
@@ -4324,9 +4346,9 @@ do
 				--fireEvent("DBM_TimerStop", "break")
 			end
 			dummyMod2.text:Cancel()
-			DBM.Options.tempBreak2 = nil
+			DBM.Options.RestoreSettingBreakTimer = nil
 			if timer == 0 then return end--"/dbm break 0" will strictly be used to cancel the break timer (which is why we let above part of code run but not below)
-			self.Options.tempBreak2 = timer.."/"..time()
+			self.Options.RestoreSettingBreakTimer = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
 				dummyMod2.timer:Start(timer, L.TIMER_BREAK)
 				--fireEvent("DBM_TimerStart", "break", L.TIMER_BREAK, timer, "136106", "utilitytimer", nil, 0)
@@ -4349,7 +4371,7 @@ do
 				if timer/60 > 1 then dummyMod2.text:Schedule(timer - 1*60, L.BREAK_MIN:format(1)) end
 				dummyMod2.text:Schedule(timer, L.ANNOUNCE_BREAK_OVER:format(hour..":"..minute))
 			end
-			C_TimerAfter(timer, function() self.Options.tempBreak2 = nil end)
+			C_TimerAfter(timer, function() self.Options.RestoreSettingBreakTimer = nil end)
 		end
 	end
 
@@ -5836,7 +5858,7 @@ do
 				GameTooltip.Temphide = function() GameTooltip:Hide() end; GameTooltip:SetScript("OnShow", GameTooltip.Temphide)
 			end
 			if self.Options.DisableSFX and GetCVar("Sound_EnableSFX") == "1" then
-				self.Options.sfxDisabled = true
+				self.Options.RestoreSettingSFX = true
 				SetCVar("Sound_EnableSFX", 0)
 			end
 			--boss health info scheduler
@@ -5960,12 +5982,12 @@ do
 				end
 				fireEvent("DBM_MusicStart", "BossEncounter")
 				if self.Options.EventSoundMusic and self.Options.EventSoundMusic ~= "None" and self.Options.EventSoundMusic ~= "" and not (self.Options.EventMusicMythicFilter and (savedDifficulty == "mythic" or savedDifficulty == "challenge")) then
-					if not self.Options.tempMusicSetting then
-						self.Options.tempMusicSetting = tonumber(GetCVar("Sound_EnableMusic")) or 1
-						if self.Options.tempMusicSetting == 0 then
+					if not self.Options.RestoreSettingMusic then
+						self.Options.RestoreSettingMusic = tonumber(GetCVar("Sound_EnableMusic")) or 1
+						if self.Options.RestoreSettingMusic == 0 then
 							SetCVar("Sound_EnableMusic", 1)
 						else
-							self.Options.tempMusicSetting = nil--Don't actually need it
+							self.Options.RestoreSettingMusic = nil--Don't actually need it
 						end
 					end
 					local path = "MISSING"
@@ -6211,8 +6233,8 @@ do
 					tooltipsHidden = false
 					GameTooltip:SetScript("OnShow", GameTooltip.Show)
 				end
-				if self.Options.sfxDisabled then
-					self.Options.sfxDisabled = nil
+				if self.Options.RestoreSettingSFX then
+					self.Options.RestoreSettingSFX = nil
 					SetCVar("Sound_EnableSFX", 1)
 				end
 				--cache table
@@ -6754,18 +6776,17 @@ do
 			end
 		end
 		--Check if any previous changed cvars were not restored and restore them
-		if self.Options.sfxDisabled then
-			self.Options.sfxDisabled = nil
+		if self.Options.RestoreSettingSFX then
+			self.Options.RestoreSettingSFX = nil
 			SetCVar("Sound_EnableSFX", 1)
 			DBM:Debug("Restoring Sound_EnableSFX CVAR")
 		end
-		if self.Options.tempQuestCVar then
-			SetCVar("showQuestTrackingTooltips", self.Options.tempQuestCVar)
-			self.Options.tempQuestCVar = nil
+		if self.Options.RestoreSettingQuestTooltips then
+			SetCVar("showQuestTrackingTooltips", self.Options.RestoreSettingQuestTooltips)
+			self.Options.RestoreSettingQuestTooltips = nil
 			DBM:Debug("Restoring showQuestTrackingTooltips CVAR")
 		end
-		--tempMusicSetting doens't need restoring here, since zone change transition will handle it
-		if self.Options.RestoreRange then self.Options.RestoreRange = nil end--User DCed while this was true, clear it
+		--RestoreSettingMusic doens't need restoring here, since zone change transition will handle it
 	end
 end
 
@@ -6901,11 +6922,11 @@ do
 	function DBM:HideBlizzardEvents(toggle, custom)
 		if toggle == 1 then
 			--[[if self.Options.HideQuestTooltips then
-				self.Options.tempQuestCVar = tonumber(GetCVar("showQuestTrackingTooltips")) or 1
-				if self.Options.tempQuestCVar == 1 then
+				self.Options.RestoreSettingQuestTooltips = tonumber(GetCVar("showQuestTrackingTooltips")) or 1
+				if self.Options.RestoreSettingQuestTooltips == 1 then
 					SetCVar("showQuestTrackingTooltips", 0)
 				else
-					self.Options.tempQuestCVar = nil--Don't actually need it
+					self.Options.RestoreSettingQuestTooltips = nil--Don't actually need it
 				end
 			end--]]
 			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
@@ -6915,9 +6936,9 @@ do
 				SOUNDKIT.UI_RAID_BOSS_WHISPER_WARNING = 999999--Since blizzard can still play the sound via RaidBossEmoteFrame_OnEvent (line 148) via encounter scripts in certain cases despite the frame having no registered events
 			end
 		elseif toggle == 0 then
-			if self.Options.tempQuestCVar then
-				SetCVar("showQuestTrackingTooltips", self.Options.tempQuestCVar)
-				self.Options.tempQuestCVar = nil
+			if self.Options.RestoreSettingQuestTooltips then
+				SetCVar("showQuestTrackingTooltips", self.Options.RestoreSettingQuestTooltips)
+				self.Options.RestoreSettingQuestTooltips = nil
 				DBM:Debug("Restoring Quest Tooltip CVAR")
 			end
 			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
@@ -8293,12 +8314,12 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 	end
 	--Prefer main target first
 	if boss then--Only checking one bossID as requested
-		--Check ThreatLib2 first
+		--Check threat first
 		local tanking, status = UnitDetailedThreatSituation(unit, boss)
 		if tanking or (status == 3) then
 			return true
 		end
-		--Non threatlib fallback
+		--Non threat fallback
 		if UnitExists(boss) then
 			local _, targetuid = self:GetBossTarget(UnitGUID(boss), true)
 			if UnitIsUnit(unit, targetuid) then
@@ -8309,12 +8330,12 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 		--Check all of them if one isn't defined
 		for i = 1, 5 do
 			local unitID = "boss"..i
-			--Check ThreatLib2 first
+			--Check threat first
 			local tanking, status = UnitDetailedThreatSituation(unit, unitID)
 			if tanking or (status == 3) then
 				return true
 			end
-			--Non threatlib fallback
+			--Non threat fallback
 			if UnitExists(unitID) then
 				local _, targetuid = self:GetBossTarget(UnitGUID(unitID), true)
 				if UnitIsUnit(unit, targetuid) then
@@ -8322,24 +8343,23 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 				end
 			end
 		end
-		--Check group targets if no boss unitIDs found, but we have a bossGUID
+		--Check group targets if no boss unitIDs found and bossGUID passed.
+		--This allows IsTanking to be used in situations boss UnitIds don't exist (which is pretty much everywhere in classic)
 		if bossGUID then
-			if IsInRaid() then
-				for i = 1, GetNumGroupMembers() do
-					if UnitGUID("raid"..i.."target") == bossGUID then
-						local _, targetuid = self:GetBossTarget(bossGUID, true)
-						if UnitIsUnit("raid"..i.."target", targetuid) then
-							return true
-						end
+			local groupType = (IsInRaid() and "raid") or "party"
+			for i = 0, GetNumGroupMembers() do
+				local unitID = (i == 0 and "target") or groupType..i.."target"
+				local guid = UnitGUID(unitID)
+				if guid and guid == bossGUID then
+					--Check threat first
+					local tanking, status = UnitDetailedThreatSituation(unit, unitID)
+					if tanking or (status == 3) then
+						return true
 					end
-				end
-			elseif IsInGroup() then
-				for i = 1, GetNumSubgroupMembers() do
-					if UnitGUID("party"..i.."target") == bossGUID then
-						local _, targetuid = self:GetBossTarget(bossGUID, true)
-						if UnitIsUnit("party"..i.."target", targetuid) then
-							return true
-						end
+					--Non threat fallback
+					local _, targetuid = self:GetBossTarget(bossGUID, true)
+					if UnitIsUnit(unit, targetuid) then
+						return true
 					end
 				end
 			end
@@ -8350,6 +8370,7 @@ function bossModPrototype:IsTanking(unit, boss, isName, onlyRequested, bossGUID)
 		if GetPartyAssignment("MAINTANK", unit, 1) then
 			return true
 		end
+		--Not supported until WoTLK, so off the table on Classic and TBC
 		--if UnitGroupRolesAssigned(unit) == "TANK" then
 		--	return true
 		--end
@@ -11311,7 +11332,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200612160227" then
+	if not revision or revision == "20200623122558" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

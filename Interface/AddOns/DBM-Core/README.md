@@ -5,7 +5,7 @@
 
 # Deadly Boss Mods (Classic)
 ### [Supporter Benefits](https://www.deadlybossmods.com/forum/viewtopic.php?f=7&t=428#p1180)
-### [Some basic DBM setup/advanced features guides](https://www.deadlybossmods.com/forum/viewforum.php?f=7)
+### [Some basic DBM setup/advanced features guides](https://github.com/DeadlyBossMods/DeadlyBossMods/wiki)
 
 ## Additional Mods
 * [SpellTimers](https://curseforge.com/wow/addons/dbm-spelltimers)

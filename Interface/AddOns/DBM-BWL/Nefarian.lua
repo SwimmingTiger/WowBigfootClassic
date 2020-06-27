@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200610150315")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -78,21 +78,11 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 22539 then
 		if args.spellName == ShadowFlame then
-			if self:AntiSpam(5, "Shadowflame") then
-				self:SendSync("Shadowflame")
-			end
-			if self:AntiSpam(8, 1) then
-				warnShadowFlame:Show()
-			end
+			warnShadowFlame:Show()
 		--elseif args.spellId == 22686 then
 		elseif args.spellName == BellowingRoar then
-			if self:AntiSpam(5, "Fear") then
-				self:SendSync("Fear")
-			end
-			if self:AntiSpam(8, 2) then
-				warnFear:Show()
-				timerFearNext:Start()
-			end
+			warnFear:Show()
+			timerFearNext:Start()
 		end
 	end
 end
@@ -102,20 +92,14 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 22687 then
 		if args.spellName == VielShadow then
-			self:SendSync("VielShadow", args.destName)
-			if self:AntiSpam(8, args.destName .. "1") then
-				if self:CheckDispelFilter() then
-					specwarnVeilShadow:Show(args.destName)
-					specwarnVeilShadow:Play("dispelnow")
-				end
+			if self:CheckDispelFilter() then
+				specwarnVeilShadow:Show(args.destName)
+				specwarnVeilShadow:Play("dispelnow")
 			end
 		--elseif args.spellId == 22667 then
 		elseif args.spellName == ShadowCommand then
-			self:SendSync("MindControl", args.destName)
-			if self:AntiSpam(8, args.destName .. "2") then
-				specwarnShadowCommand:Show(args.destName)
-				specwarnShadowCommand:Play("findmc")
-			end
+			specwarnShadowCommand:Show(args.destName)
+			specwarnShadowCommand:Play("findmc")
 		end
 	end
 end
@@ -124,7 +108,7 @@ function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	local cid = self:GetCIDFromGUID(guid)
 	if cid == 14264 or cid == 14263 or cid == 14261 or cid == 14265 or cid == 14262 or cid == 14302 then--Red, Bronze, Blue, Black, Green, Chromatic
-		self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
+		--self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
 		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
 		if not addsGuidCheck[guid] then
 			addsGuidCheck[guid] = true
@@ -194,25 +178,12 @@ function mod:OnSync(msg, arg)
 			warnClassCall:Show(className)
 		end
 		timerClassCall:Start(30, className)
-	elseif msg == "Shadowflame" and self:AntiSpam(8, 1) then
-		warnShadowFlame:Show()
-	elseif msg == "Fear" and self:AntiSpam(8, 2) then
-		warnFear:Show()
-		timerFearNext:Start()
-	elseif msg == "VielShadow" and arg and self:AntiSpam(8, arg .. "1") then
-		if self:CheckDispelFilter() then
-			specwarnVeilShadow:Show(arg)
-			specwarnVeilShadow:Play("dispelnow")
-		end
-	elseif msg == "MindControl" and arg and self:AntiSpam(8, arg .. "2") then
-		specwarnShadowCommand:Show(arg)
-		specwarnShadowCommand:Play("findmc")
-	elseif msg == "AddDied" and arg and not addsGuidCheck[arg] then
+	--[[elseif msg == "AddDied" and arg and not addsGuidCheck[arg] then
 		--A unit died we didn't detect ourselves, so we correct our adds counter from sync
 		addsGuidCheck[arg] = true
 		self.vb.addLeft = self.vb.addLeft - 1
 		if self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
 			WarnAddsLeft:Show(self.vb.addLeft)
-		end
+		end--]]
 	end
 end

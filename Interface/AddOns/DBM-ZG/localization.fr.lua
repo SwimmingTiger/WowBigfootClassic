@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "frFR" then return end
 local L
 
 -------------------
@@ -7,7 +7,7 @@ local L
 L = DBM:GetModLocalization("Venoxis")
 
 L:SetGeneralLocalization{
-	name = "Sumo Sacerdote Venoxis"
+	name = "Grand prêtre Venoxis"
 }
 
 -------------------
@@ -16,7 +16,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jeklik")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Jeklik"
+	name = "Grande prêtresse Jeklik"
 }
 
 -------------------
@@ -25,7 +25,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Marli")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Mar'li"
+	name = "Grande prêtresse Mar'li"
 }
 
 -------------------
@@ -34,29 +34,29 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Thekal")
 
 L:SetGeneralLocalization{
-	name = "Sumo Sacerdote Thekal"
+	name = "Grand prêtre Thekal"
 }
 
 L:SetWarningLocalization({
-	WarnSimulKill	= "Primer esbirro muerto - Resurrección en ~15 segundos"
+	WarnSimulKill	= "Premier séide mort - Résurrection en ~ 15 secondes"
 })
 
 L:SetTimerLocalization({
-	TimerSimulKill	= "Resurrección"
+	TimerSimulKill	= "Résurrection"
 })
 
 L:SetOptionLocalization({
-	WarnSimulKill	= "Anunciar primer esbirro muerto",
-	TimerSimulKill	= "Mostrar tiempo para resurrección de sacerdote"
+	WarnSimulKill	= "Annoncez le premier séide mort",
+	TimerSimulKill	= "Montre le timer pour la résurrection des prêtres"
 })
 
 L:SetMiscLocalization({
 	PriestDied	= "%s muere.",
-	YellPhase2	= "Shirvallah, ¡lléname de tu IRA!",
-	YellKill	= "¡Estoy libre de Hakkar! ¡Por fin tengo paz!",
-	Thekal		= "Sumo Sacerdote Thekal",
-	Zath		= "Integrista Zath",
-	LorKhan		= "Integrista Lor'Khan"
+	YellPhase2	= "Shirvallah, ¡lléname de IRA!",
+	YellKill	= "¡Hakkar ya no me controla! ¡Por fin algo de paz!",
+	Thekal		= "Grand prêtre Thekal",
+	Zath		= "Zélote Zath",
+	LorKhan		= "Zélote Lor'Khan"
 })
 
 -------------------
@@ -65,7 +65,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Arlokk")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Arlokk"
+	name = "Grande prêtresse Arlokk"
 }
 
 -------------------
@@ -83,12 +83,12 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Bloodlord")
 
 L:SetGeneralLocalization{
-	name = "Señor sangriento Mandokir"
+	name = "Seigneur sanglant Mandokir"
 }
 L:SetMiscLocalization{
-	Bloodlord 	= "Señor sangriento Mandokir",
+	Bloodlord 	= "Seigneur sanglant Mandokir",
 	Ohgan		= "Ohgan",
-	GazeYell	= "Te estoy vigilando"
+	GazeYell	= "I'm watching you"
 }
 
 -------------------
@@ -97,7 +97,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("EdgeOfMadness")
 
 L:SetGeneralLocalization{
-	name = "Extremo de la Locura"
+	name = "Frontière de la folie"
 }
 L:SetMiscLocalization{
 	Hazzarah = "Hazza'rah",
@@ -121,5 +121,5 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jindo")
 
 L:SetGeneralLocalization{
-	name = "Jin'do el Malhechor"
+	name = "Jin'do le Maléficieur"
 }

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Magmadar", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(11982)
 mod:SetEncounterID(664)
 mod:SetModelID(10193)
@@ -33,16 +33,13 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 19451 then
 		if args.spellName == Enrage and args:IsDestTypeHostile() then
-			self:SendSync("Enrage")
-			if self:AntiSpam(5, 1) then
-				if self.Options.SpecWarn19451dispel then
-					specWarnEnrage:Show(args.destName)
-					specWarnEnrage:Play("enrage")
-				else
-					warnEnrage:Show(args.destName)
-				end
-				timerEnrage:Start()
+			if self.Options.SpecWarn19451dispel then
+				specWarnEnrage:Show(args.destName)
+				specWarnEnrage:Play("enrage")
+			else
+				warnEnrage:Show(args.destName)
 			end
+			timerEnrage:Start()
 		elseif args.spellName == Conflagration and args:IsDestTypePlayer() then
 			warnConflagration:CombinedShow(0.5, args.destName)
 		end
@@ -51,10 +48,7 @@ do
 	function mod:SPELL_AURA_REMOVED(args)
 		--if args.spellId == 19451 then
 		if args.spellName == Enrage and args:IsDestTypeHostile() then
-			self:SendSync("EnrageStop")
-			if self:AntiSpam(5, 2) then
-				timerEnrage:Stop()
-			end
+			timerEnrage:Stop()
 		end
 	end
 end
@@ -64,29 +58,8 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 19408 then
 		if args.spellName == Panic then
-			self:SendSync("Panic")
-			if self:AntiSpam(5, 3) then
-				warnPanic:Show()
-				timerPanicCD:Start()
-			end
+			warnPanic:Show()
+			timerPanicCD:Start()
 		end
-	end
-end
-
-function mod:OnSync(msg, targetName)
-	if not self:IsInCombat() then return end
-	if msg == "Enrage" and self:AntiSpam(5, 1) then
-		if self.Options.SpecWarn19451dispel then
-			specWarnEnrage:Show(L.name)
-			specWarnEnrage:Play("enrage")
-		else
-			warnEnrage:Show(L.name)
-		end
-		timerEnrage:Start()
-	elseif msg == "EnrageStop" and self:AntiSpam(5, 2) then
-		timerEnrage:Stop()
-	elseif msg == "Panic" and self:AntiSpam(5, 3) then
-		warnPanic:Show()
-		timerPanicCD:Start()
 	end
 end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Broodlord", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200524222200")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(12017)
 mod:SetEncounterID(612)
 mod:SetModelID(14308)
@@ -26,20 +26,10 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 23331 then
 		if args.spellName == BlastWave and args:IsSrcTypeHostile() then
-			if self:AntiSpam(5, "BlastWave") then
-				self:SendSync("BlastWave")
-			end
-			if self:AntiSpam(8, 1) then
-				warnBlastWave:Show()
-			end
+			warnBlastWave:Show()
 		--elseif args.spellId == 18670 then
 		elseif args.spellName == KnockAway then
-			if self:AntiSpam(5, "KnockAway") then
-				self:SendSync("KnockAway")
-			end
-			if self:AntiSpam(8, 2) then
-				warnKnockAway:Show()
-			end
+			warnKnockAway:Show()
 		end
 	end
 end
@@ -59,17 +49,5 @@ do
 		if args.spellName == MortalStrike and args:IsDestTypePlayer() then
 			timerMortal:Stop(args.destName)
 		end
-	end
-end
-
-function mod:OnSync(msg, targetName)
-	if self:AntiSpam(5, msg) then
-		--Do nothing, this is just an antispam threshold for syncing
-	end
-	if not self:IsInCombat() then return end
-	if msg == "BlastWave" and self:AntiSpam(8, 1) then
-		warnBlastWave:Show()
-	elseif msg == "KnockAway" and self:AntiSpam(8, 2) then
-		warnKnockAway:Show()
 	end
 end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200528032623")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -195,16 +195,11 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args:IsSpellID(23309, 23313, 23189, 23315, 23312) then
 		if args.spellName == Incinerate or args.spellName == CorrosiveAcid or args.spellName == FrostBurn or args.spellName == IgniteFlesh or args.spellName == TimeLaps then
-			if self:AntiSpam(5, "Breath") then
-				self:SendSync("Breath", args.spellName)
-			end
-			if self:AntiSpam(15, 1) then
-				warnBreath:Show(args.spellName)
-				timerBreath:Start(2, args.spellName)
-				timerBreath:UpdateIcon(spellIcons[args.spellName])
-				timerBreathCD:Start(60, args.spellName)
-				timerBreathCD:UpdateIcon(spellIcons[args.spellName])
-			end
+			warnBreath:Show(args.spellName)
+			timerBreath:Start(2, args.spellName)
+			timerBreath:UpdateIcon(spellIcons[args.spellName])
+			timerBreathCD:Start(60, args.spellName)
+			timerBreathCD:UpdateIcon(spellIcons[args.spellName])
 		end
 	end
 end
@@ -267,23 +262,15 @@ do
 			end
 		--elseif args.spellId == 23128 then
 		elseif args.spellName == Frenzy and args:IsDestTypeHostile() then
-			if self:AntiSpam(5, "Frenzy") then
-				self:SendSync("Frenzy")
+			if self.Options.SpecWarn23128dispel then
+				specWarnFrenzy:Show()
+				specWarnFrenzy:Play("enrage")
+			else
+				warnFrenzy:Show()
 			end
-			if self:AntiSpam(15, 2) then
-				if self.Options.SpecWarn23128dispel then
-					specWarnFrenzy:Show()
-					specWarnFrenzy:Play("enrage")
-				else
-					warnFrenzy:Show()
-				end
-				timerFrenzy:Start()
-			end
+			timerFrenzy:Start()
 		--elseif args.spellId == 23537 then
 		elseif args.spellName == Enrage and args:IsDestTypeHostile() then
-			if self:AntiSpam(5, "Phase2") then
-				self:SendSync("Phase2")
-			end
 			if self.vb.phase < 2 then
 				self.vb.phase = 2
 				warnPhase2:Show()
@@ -310,9 +297,6 @@ do
 		elseif args.spellName == BroodAffBronze and args:IsPlayer() then
 			mydebuffs = mydebuffs - 1
 		elseif args.spellName == Frenzy and args:IsDestTypeHostile() then
-			if self:AntiSpam(5, "FrenzyStop") then
-				self:SendSync("FrenzyStop")
-			end
 			timerFrenzy:Stop()
 		end
 	end
@@ -336,28 +320,8 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 end
 
 function mod:OnSync(msg, Name)
-	if self:AntiSpam(5, msg) then
-		--Do nothing, this is just an antispam threshold for syncing
-	end
 	if not self:IsInCombat() then return end
-	if msg == "Breath" and Name and self:AntiSpam(15, 1) then
-		warnBreath:Show(Name)
-		timerBreathCD:Start(Name)
-		timerBreathCD:UpdateIcon(spellIcons[Name])
-	elseif msg == "Frenzy" and self:AntiSpam(15, 2) then
-		if self.Options.SpecWarn23128dispel then
-			specWarnFrenzy:Show()
-			specWarnFrenzy:Play("enrage")
-		else
-			warnFrenzy:Show()
-		end
-		timerFrenzy:Start()
-	elseif msg == "FrenzyStop" then
-		timerFrenzy:Stop()
-	elseif msg == "Phase2" and self.vb.phase < 2 then
-		self.vb.phase = 2
-		warnPhase2:Show()
-	elseif msg == "Vulnerable" then
+	if msg == "Vulnerable" then
 		timerVuln:Start()
 		table.wipe(vulnerabilities)
 		if self.Options.WarnVulnerable then

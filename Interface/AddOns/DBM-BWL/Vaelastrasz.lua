@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200521044036")
+mod:SetRevision("20200623011525")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -46,10 +46,7 @@ do
 	function mod:SPELL_CAST_START(args)
 		--if args.spellId == 23461 then
 		if args.spellName == FlameBreath then
-			self:SendSync("Breath")
-			if self:AntiSpam(8, 1) then
-				warnBreath:Show()
-			end
+			warnBreath:Show()
 		end
 	end
 end
@@ -66,28 +63,23 @@ do
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
-			if self:AntiSpam(5, args.destName) then
-				timerAdrenaline:Start(args.destName)
-				if args:IsPlayer() then
-					specWarnAdrenaline:Show()
-					specWarnAdrenaline:Play("targetyou")
-					yellAdrenaline:Yell()
-					specWarnAdrenalineOut:Schedule(15)
-					specWarnAdrenalineOut:ScheduleVoice(15, "runout")
-					yellAdrenalineFades:Countdown(20)
-				else
-					warnAdrenaline:Show(args.destName)
-				end
-				if self.Options.SetIconOnDebuffTarget2 then
-					self:SetIcon(args.destName, self.vb.debuffIcon)
-				end
-				self.vb.debuffIcon = self.vb.debuffIcon - 1
-				if self.vb.debuffIcon == 5 then
-					self.vb.debuffIcon = 8
-				end
+			timerAdrenaline:Start(args.destName)
+			if args:IsPlayer() then
+				specWarnAdrenaline:Show()
+				specWarnAdrenaline:Play("targetyou")
+				yellAdrenaline:Yell()
+				specWarnAdrenalineOut:Schedule(15)
+				specWarnAdrenalineOut:ScheduleVoice(15, "runout")
+				yellAdrenalineFades:Countdown(20)
+			else
+				warnAdrenaline:Show(args.destName)
 			end
-			if self:AntiSpam(5, "Adrenaline") then
-				self:SendSync("Adrenaline", args.destName)
+			if self.Options.SetIconOnDebuffTarget2 then
+				self:SetIcon(args.destName, self.vb.debuffIcon)
+			end
+			self.vb.debuffIcon = self.vb.debuffIcon - 1
+			if self.vb.debuffIcon == 5 then
+				self.vb.debuffIcon = 8
 			end
 		end
 	end
@@ -104,9 +96,6 @@ do
 				self:SetIcon(args.destName, 0)
 			end
 			timerAdrenaline:Stop(args.destName)
-			if self:AntiSpam(5, "AdrenalineOver") then
-				self:SendSync("AdrenalineOver", args.destName)
-			end
 		end
 	end
 end
@@ -124,43 +113,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 end
 
 function mod:OnSync(msg, targetName)
-	if self:AntiSpam(5, msg) then
-		--Do nothing, this is just an antispam threshold for syncing
-	end
 	if msg == "PullRP" then
 		timerCombatStart:Start()
-	end
-	if not self:IsInCombat() then return end
-	if msg == "Breath" and self:AntiSpam(8, 1) then
-		warnBreath:Show()
-	elseif msg == "Adrenaline" and targetName and self:AntiSpam(5, targetName) then
-		timerAdrenaline:Start(targetName)
-		if targetName == UnitName("player") then
-			specWarnAdrenaline:Show()
-			specWarnAdrenaline:Play("targetyou")
-			yellAdrenaline:Yell()
-			specWarnAdrenalineOut:Schedule(15)
-			specWarnAdrenalineOut:ScheduleVoice(15, "runout")
-			yellAdrenalineFades:Countdown(20)
-		else
-			warnAdrenaline:Show(targetName)
-		end
-		if self.Options.SetIconOnDebuffTarget2 then
-			self:SetIcon(targetName, self.vb.debuffIcon)
-		end
-		self.vb.debuffIcon = self.vb.debuffIcon - 1
-		if self.vb.debuffIcon == 5 then
-			self.vb.debuffIcon = 8
-		end
-	elseif msg == "AdrenalineOver" and targetName then
-		timerAdrenaline:Stop(targetName)
-		if targetName == UnitName("player") then
-			specWarnAdrenalineOut:Cancel()
-			specWarnAdrenalineOut:CancelVoice()
-			yellAdrenalineFades:Cancel()
-		end
-		if self.Options.SetIconOnDebuffTarget2 then
-			self:SetIcon(targetName, 0)
-		end
 	end
 end

@@ -215,12 +215,11 @@ do
 		--{ text = "AirHorn (DBM)",			value = "Interface\\AddOns\\DBM-Core\\sounds\\AirHorn.ogg" },
 		{ text = "Algalon: Beware!",		value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\UR_Algalon_BHole01.ogg" },
 		{ text = "BB Wolf: Run Away",		value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\HoodWolfTransformPlayer01.ogg" },
-		--{ text = "Blizzard Raid Emote",	value = 37666 },
 		{ text = "Illidan: Not Prepared",	value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\BLACK_Illidan_04.ogg" },
 		{ text = "Illidan: Not Prepared2",	value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\VO_703_Illidan_Stormrage_03.ogg" },
 		{ text = "Kil'Jaeden: Destruction",	value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\KILJAEDEN02.ogg" },
 		{ text = "Loatheb: I see you",		value = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\LOA_NAXX_AGGRO02.ogg" },
-		{ text = "Night Elf Bell",			value = 11742 },
+		{ text = "Night Elf Bell",			value = 6674 },
 		{ text = "PvP Flag",				value = 8174 }
 	})
 	local tcolors = {

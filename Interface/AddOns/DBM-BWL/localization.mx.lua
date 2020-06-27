@@ -62,7 +62,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Ebonroc")
 
 L:SetGeneralLocalization{
-	name = "Ebonorroca"
+	name = "Ebanorroca"
 }
 
 ----------------

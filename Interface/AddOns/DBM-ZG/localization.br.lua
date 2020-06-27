@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "esES" then return end
+﻿if GetLocale() ~= "ptBR" then return end
 local L
 
 -------------------
@@ -16,7 +16,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jeklik")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Jeklik"
+	name = "Alta-sacerdotisa Jeklik"
 }
 
 -------------------
@@ -25,7 +25,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Marli")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Mar'li"
+	name = "Alta-sacerdotisa Mar'li"
 }
 
 -------------------
@@ -38,25 +38,25 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization({
-	WarnSimulKill	= "Primer esbirro muerto - Resurrección en ~15 segundos"
+	WarnSimulKill	= "Primeiro lacaio morto - ressurreição em ~ 15 segundos"
 })
 
 L:SetTimerLocalization({
-	TimerSimulKill	= "Resurrección"
+	TimerSimulKill	= "Ressurreição"
 })
 
 L:SetOptionLocalization({
-	WarnSimulKill	= "Anunciar primer esbirro muerto",
-	TimerSimulKill	= "Mostrar tiempo para resurrección de sacerdote"
+	WarnSimulKill	= "Anunciar o primeiro lacaio morto",
+	TimerSimulKill	= "Mostrar a hora da ressurreição do sacerdote"
 })
 
 L:SetMiscLocalization({
 	PriestDied	= "%s muere.",
-	YellPhase2	= "Shirvallah, ¡lléname de tu IRA!",
-	YellKill	= "¡Estoy libre de Hakkar! ¡Por fin tengo paz!",
+	YellPhase2	= "Shirvallah, ¡lléname de IRA!",
+	YellKill	= "¡Hakkar ya no me controla! ¡Por fin algo de paz!",
 	Thekal		= "Sumo Sacerdote Thekal",
-	Zath		= "Integrista Zath",
-	LorKhan		= "Integrista Lor'Khan"
+	Zath		= "Zelote Zath",
+	LorKhan		= "Zelote Lor'Khan"
 })
 
 -------------------
@@ -65,7 +65,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Arlokk")
 
 L:SetGeneralLocalization{
-	name = "Suma Sacerdotisa Arlokk"
+	name = "Alta-sacerdotisa Arlokk"
 }
 
 -------------------
@@ -83,12 +83,12 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Bloodlord")
 
 L:SetGeneralLocalization{
-	name = "Señor sangriento Mandokir"
+	name = "Sangrelorde Mandokir"
 }
 L:SetMiscLocalization{
-	Bloodlord 	= "Señor sangriento Mandokir",
+	Bloodlord 	= "Sangrelorde Mandokir",
 	Ohgan		= "Ohgan",
-	GazeYell	= "Te estoy vigilando"
+	GazeYell	= "Estou do olho em você"
 }
 
 -------------------
@@ -97,12 +97,12 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("EdgeOfMadness")
 
 L:SetGeneralLocalization{
-	name = "Extremo de la Locura"
+	name = "Beira da Loucura"
 }
 L:SetMiscLocalization{
 	Hazzarah = "Hazza'rah",
 	Renataki = "Renataki",
-	Wushoolay = "Wushoolay",
+	Wushoolay = "Vuxulai",
 	Grilek = "Gri'lek"
 }
 
@@ -121,5 +121,5 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Jindo")
 
 L:SetGeneralLocalization{
-	name = "Jin'do el Malhechor"
+	name = "Jin'do, o Bagateiro"
 }
