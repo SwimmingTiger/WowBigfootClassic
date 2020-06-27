@@ -43,6 +43,17 @@ local function zzzAddonCheck_Init_DBM()
     end
 end
 
+local function zzzAddonCheck_Init_ClassicCastbars()
+    -- 禁用 ClassicCastbars 的姓名板施法条
+    local patchVersion = '2020-06-27-14'
+    if ClassicCastbars and ClassicCastbars.db and ClassicCastbars.db.nameplate and
+       ClassicCastbars.db.nameplate.castbarPatchVersion ~= patchVersion
+    then
+        ClassicCastbars.db.nameplate.enabled = false
+        ClassicCastbars.db.nameplate.castbarPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -51,6 +62,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 为DBM选择夏一可语音包
     zzzAddonCheck_Init_DBM()
+
+    -- 禁用 ClassicCastbars 的姓名板施法条
+    zzzAddonCheck_Init_ClassicCastbars()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
