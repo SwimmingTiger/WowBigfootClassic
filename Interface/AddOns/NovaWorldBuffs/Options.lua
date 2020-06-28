@@ -68,11 +68,20 @@ NWB.options = {
 			set = "setChatColor",
 			hasAlpha = false,
 		},
+		mmColor = {
+			type = "color",
+			name = L["mmColorTitle"],
+			desc = L["mmColorDesc"],
+			order = 9,
+			get = "getMmColor",
+			set = "setMmColor",
+			hasAlpha = false,
+		},
 		middleColor = {
 			type = "color",
 			name = L["middleColorTitle"],
 			desc = L["middleColorDesc"],
-			order = 9,
+			order = 10,
 			get = "getMiddleColor",
 			set = "setMiddleColor",
 			hasAlpha = false,
@@ -82,13 +91,13 @@ NWB.options = {
 			name = L["resetColorsTitle"],
 			desc = L["resetColorsDesc"],
 			func = "resetColors",
-			order = 10,
+			order = 11,
 		},
 		showTimeStamp = {
 			type = "toggle",
 			name = L["showTimeStampTitle"],
 			desc = L["showTimeStampDesc"],
-			order = 11,
+			order = 12,
 			get = "getShowTimeStamp",
 			set = "setShowTimeStamp",
 		},
@@ -104,7 +113,7 @@ NWB.options = {
 				[1] = 12,
 				[2] = 24,
 			},
-			order = 12,
+			order = 13,
 			get = "getTimeStampFormat",
 			set = "setTimeStampFormat",
 		},
@@ -120,7 +129,7 @@ NWB.options = {
 				[1] = "local",
 				[2] = "server",
 			},
-			order = 13,
+			order = 14,
 			get = "getTimeStampZone",
 			set = "setTimeStampZone",
 		},
@@ -147,6 +156,14 @@ NWB.options = {
 			order = 20,
 			get = "getMinimapButton",
 			set = "setMinimapButton",
+		},
+		showBuffDtats = {
+			type = "toggle",
+			name = L["showBuffStatsTitle"],
+			desc = L["showBuffStatsDesc"],
+			order = 21,
+			get = "getShowBuffStats",
+			set = "setShowBuffStats",
 		},
 		logonHeader = {
 			type = "header",
@@ -831,6 +848,65 @@ NWB.options = {
 			get = "getSoundsDispelsAll",
 			set = "setSoundsDispelsAll",
 		},
+		autoBuffsHeader = {
+			type = "header",
+			name = L["autoBuffsHeaderDesc"],
+			order = 160,
+		},
+		autoDmfBuff = {
+			type = "toggle",
+			name = L["autoDmfBuffTitle"],
+			desc = L["autoDmfBuffDesc"],
+			order = 164,
+			get = "getAutoDmfBuff",
+			set = "setAutoDmfBuff",
+		},
+		autoDmfBuffType = {
+			type = "select",
+			name = L["autoDmfBuffTypeTitle"],
+			desc = L["autoDmfBuffTypeDesc"],
+			values = {
+				["Damage"] = L["Sayge's Dark Fortune of Damage"],
+				["Agility"] = L["Sayge's Dark Fortune of Agility"],
+				["Intelligence"] = L["Sayge's Dark Fortune of Intelligence"],
+				["Spirit"] = L["Sayge's Dark Fortune of Spirit"],
+				["Stamina"] = L["Sayge's Dark Fortune of Stamina"],
+				["Strength"] = L["Sayge's Dark Fortune of Strength"],
+				["Armor"] = L["Sayge's Dark Fortune of Armor"],
+				["Resistance"] = L["Sayge's Dark Fortune of Resistance"],
+			},
+			sorting = {
+				[1] = "Damage",
+				[2] = "Agility",
+				[3] = "Intelligence",
+				[4] = "Spirit",
+				[5] = "Stamina",
+				[6] = "Strength",
+				[7] = "Armor",
+				[8] = "Resistance",
+			},
+			order = 165,
+			width = "double",
+			--width = 1.6,
+			get = "getAutoDmfBuffType",
+			set = "setAutoDmfBuffType",
+		},
+		autoDireMaulBuff = {
+			type = "toggle",
+			name = L["autoDireMaulBuffTitle"],
+			desc = L["autoDireMaulBuffDesc"],
+			order = 166,
+			get = "getAutoDireMaulBuff",
+			set = "setAutoDireMaulBuff",
+		},
+		autoBwlPortal = {
+			type = "toggle",
+			name = L["autoBwlPortalTitle"],
+			desc = L["autoBwlPortalDesc"],
+			order = 167,
+			get = "getAutoBwlPortal",
+			set = "setAutoBwlPortal",
+		},
 	},
 };
 
@@ -871,6 +947,7 @@ NWB.optionDefaults = {
 	global = {
 		chatColorR = 255, chatColorG = 255, chatColorB = 0,
 		middleColorR = 1, middleColorG = 0.96, middleColorB = 0.41,
+		mmColorR = 255, mmColorG = 255, mmColorB = 255,
 		logonPrint = true,
 		chatWarning = true,
 		middleScreenWarning = true,
@@ -987,6 +1064,11 @@ NWB.optionDefaults = {
 		dispelsAllWBOnly = false,
 		soundsDispelsMine = "NWB - Dink",
 		soundsDispelsAll = "None",
+		autoDmfBuff = false,
+		autoDmfBuffType = "Damage",
+		autoDireMaulBuff = true,
+		autoBwlPortal = true,
+		showBuffStats = false,
 		
 		resetLayers3 = true, --Reset layers one time (sometimes needed when upgrading from old version.
 		resetSongflowers = true, --Reset songflowers one time.
@@ -1212,6 +1294,17 @@ function NWB:getMiddleColor(info)
 	return self.db.global.middleColorR, self.db.global.middleColorG, self.db.global.middleColorB;
 end
 
+--Minimap layer color.
+function NWB:setMmColor(info, r, g, b, a)
+	self.db.global.mmColorR, self.db.global.mmColorG, self.db.global.mmColorB = r, g, b;
+	NWB.mmColor = "|cff" .. NWB:RGBToHex(self.db.global.mmColorR, self.db.global.mmColorG, self.db.global.mmColorB);
+	NWB:recalcMinimapLayerFrame();
+end
+
+function NWB:getMmColor(info)
+	return self.db.global.mmColorR, self.db.global.mmColorG, self.db.global.mmColorB;
+end
+
 --Reset colors.
 function NWB:resetColors(info, r, g, b, a)
 	self.db.global.chatColorR = self.optionDefaults.global.chatColorR;
@@ -1220,13 +1313,18 @@ function NWB:resetColors(info, r, g, b, a)
 	self.db.global.middleColorR = self.optionDefaults.global.middleColorR;
 	self.db.global.middleColorG = self.optionDefaults.global.middleColorG;
 	self.db.global.middleColorB = self.optionDefaults.global.middleColorB;
+	self.db.global.mmColorR = self.optionDefaults.global.mmColorR;
+	self.db.global.mmColorG = self.optionDefaults.global.mmColorG;
+	self.db.global.mmColorB = self.optionDefaults.global.mmColorB;
 	NWB.chatColor = "|cff" .. NWB:RGBToHex(self.db.global.chatColorR, self.db.global.chatColorG, self.db.global.chatColorB);
+	NWB.mmColor = "|cff" .. NWB:RGBToHex(self.db.global.mmColorR, self.db.global.mmColorG, self.db.global.mmColorB);
+	NWB:recalcMinimapLayerFrame();
 end
 
 --Reset colors.
 function NWB:resetMinimapLayerFrame(info)
 	MinimapLayerFrame:ClearAllPoints();
-	MinimapLayerFrame:SetPoint("BOTTOM", Minimap, 0, -21);
+	MinimapLayerFrame:SetPoint("BOTTOM", Minimap, 2, 4);
 end
 --Colorize chat prefix in all chat channels.
 function NWB:setColorizePrefixLinks(info, value)
@@ -1296,6 +1394,16 @@ end
 
 function NWB:getMinimapButton(info)
 	return self.db.global.minimapButton;
+end
+
+--Show buff stats.
+function NWB:setShowBuffStats(info, value)
+	self.db.global.showBuffStats = value;
+	NWB:recalcBuffListFrame();
+end
+
+function NWB:getShowBuffStats(info)
+	return self.db.global.showBuffStats;
 end
 
 --Chat 30 minute warning.
@@ -2114,4 +2222,40 @@ end
 
 function NWB:getDispelsAllWBOnly(info)
 	return self.db.global.dispelsAllWBOnly;
+end
+
+--Auto get DMF buff.
+function NWB:setAutoDmfBuff(info, value)
+	self.db.global.autoDmfBuff = value;
+end
+
+function NWB:getAutoDmfBuff(info)
+	return self.db.global.autoDmfBuff;
+end
+
+--Which DMF buff to get.
+function NWB:setAutoDmfBuffType(info, value)
+	self.db.global.autoDmfBuffType = value;
+end
+
+function NWB:getAutoDmfBuffType(info)
+	return self.db.global.autoDmfBuffType;
+end
+
+--Auto get Dire Maul buff.
+function NWB:setAutoDireMaulBuff(info, value)
+	self.db.global.autoDireMaulBuff = value;
+end
+
+function NWB:getAutoDireMaulBuff(info)
+	return self.db.global.autoDireMaulBuff;
+end
+
+--Auto enter BWL portal.
+function NWB:setAutoBwlPortal(info, value)
+	self.db.global.autoBwlPortal = value;
+end
+
+function NWB:getAutoBwlPortal(info)
+	return self.db.global.autoBwlPortal;
 end

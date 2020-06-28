@@ -501,10 +501,33 @@ L["dispelsAllWBOnlyDesc"] = "只會顯示在你身邊被驅散的世界增益，
 L["soundsDispelsAllTitle"] = "其他人的增益驅散音效";
 L["soundsDispelsAllDesc"] = "其他人增益被驅散時要撥放什麼音效";
 
----New---
-
 L["middleHideBattlegroundsTitle"] = "在戰場時隱藏。";
 L["middleHideBattlegroundsDesc"] = "在戰場時隱藏螢幕中間的警告?";
 
 L["soundsDisableInBattlegroundsTitle"] = "在戰場時關閉。";
 L["soundsDisableInBattlegroundsDesc"] = "在戰場時關閉音效。";
+
+L["autoBuffsHeaderDesc"] = "從NPC自動取得增益";
+
+L["autoDmfBuffTitle"] = "自動取的暗月增益";
+L["autoDmfBuffDesc"] = "你想跟賽吉講話時自動對話選擇你要的增益嗎? 確定你選擇你想要哪種增益。";
+
+L["autoDmfBuffTypeTitle"] = "哪個暗月增益";
+L["autoDmfBuffTypeDesc"] = "你想要在跟賽吉講話時，這個插件幫你選擇哪個暗月增益?";
+
+L["autoDireMaulBuffTitle"] = "厄運增益";
+L["autoDireMaulBuffDesc"] = "你想要這個差件在你對話時，自動幫你取得增益嗎?";
+
+L["autoBwlPortalTitle"] = "自動取使黑翼之巢寶珠";
+L["autoBwlPortalDesc"] = "你想要插件幫你在你點擊寶珠時自動進入副本嗎?";
+
+L["showBuffStatsTitle"] = "顯示增益次數";
+L["showBuffStatsDesc"] = "在/buff 框架顯示你獲得每個增益的次數?";
+
+L["buffResetButtonTooltip"] = "這將會重置所有增益\n增益次數資料不會被重置."; --/buff 框架的重置按鈕的提示。
+L["time"] = "次"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "次"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["flowerWarning"] = "輕歌花的鏡像紀錄已啟動，但是你沒有在到達費伍德時先點擊NPC，所以沒有計時器被記錄。";
+
+L["mmColorTitle"] = "小地圖Layer顏色";
+L["mmColorDesc"] = "小地圖的Layer要用什麼色? (Layer 1)";

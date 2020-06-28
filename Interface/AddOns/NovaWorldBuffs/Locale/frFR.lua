@@ -476,3 +476,51 @@ L["minimapLayerFrameDesc"] = "Show the little frame on the minimap with your cur
 
 L["minimapLayerFrameResetTitle"] = "Reset Minimap Layer";
 L["minimapLayerFrameResetDesc"] = "Reset minimap layer frame back to default position (hold shift to drag the minimap frame).";
+
+---Dispels---
+L["dispelsHeaderDesc"] = "Dispels";
+
+L["dispelsMineTitle"] = "My Buffs";
+L["dispelsMineDesc"] = "Show in chat my buffs being dispelled? This shows who dispelled you and what buff.";
+
+L["dispelsMineWBOnlyTitle"] = "My Worldbuffs Only";
+L["dispelsMineWBOnlyDesc"] = "Only show my worldbuffs being dispelled and not any other kind of buffs.";
+
+L["soundsDispelsMineTitle"] = "My Buffs Sound";
+L["soundsDispelsMineDesc"] = "Which sound to play for my buffs being dispelled.";
+
+L["dispelsAllTitle"] = "Other Players Buffs";
+L["dispelsAllDesc"] = "Show in chat everyone's buffs being dispelled around me? This shows who dispelled anyone close to you and what buff.";
+
+L["dispelsAllWBOnlyTitle"] = "Others Worldbuffs Only";
+L["dispelsAllWBOnlyDesc"] = "Only show worldbuffs on everyone else being dispelled and not any other kind of buffs.";
+
+L["soundsDispelsAllTitle"] = "Others Players Buffs Sound";
+L["soundsDispelsAllDesc"] = "Which sound to play for other players buffs being dispelled.";
+
+L["middleHideBattlegroundsTitle"] = "Hide In Battlegrounds";
+L["middleHideBattlegroundsDesc"] = "Hide middle of the screen warnings in Battlegrounds?";
+
+L["soundsDisableInBattlegroundsTitle"] = "Disable In Battleground";
+L["soundsDisableInBattlegroundsDesc"] = "Disable sounds while in Battlegrounds.";
+
+L["autoBuffsHeaderDesc"] = "Auto Get Buffs From NPCs";
+
+L["autoDmfBuffTitle"] = "Auto Get DMF Buff";
+L["autoDmfBuffDesc"] = "Do you want this addon to auto select a Darkmoon Faire buff for you when you speak to the Sayge NPC? Make sure you pick which buff you want also.";
+
+L["autoDmfBuffTypeTitle"] = "Which DMF Buff";
+L["autoDmfBuffTypeDesc"] = "Which Darkmoon Faire buff do you want this addon to auto select for you when you speak to Sayge?";
+
+L["autoDireMaulBuffTitle"] = "Dire Maul Buffs";
+L["autoDireMaulBuffDesc"] = "Do you want this addon to auto get buffs from the NPC's in Dire Maul when you talk to them? (Also auto gets King buff).";
+
+L["autoBwlPortalTitle"] = "Auto BWL Portal";
+L["autoBwlPortalDesc"] = "Do you want this addon to auto use the Blackwing Lair portal when you click the orb?";
+
+L["showBuffStatsTitle"] = "Show Buff Stats";
+L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
+
+L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
+L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)

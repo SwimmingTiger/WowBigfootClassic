@@ -2,13 +2,14 @@
 ## Notes: World buff timers and pre warnings.
 ## Title: Nova World Buffs
 ## Author: Novaspark-Arugal OCE
-## Version: 1.63
+## Version: 1.66
 ## SavedVariables: NWBdatabase
 
 embeds.xml
 Locale\Locales.xml
 NovaWorldBuffs.lua
 Options.lua
+NWBHelp.lua
 NWBData.lua
 NWBCreatures.lua
 NWBRealms.lua

@@ -16,6 +16,7 @@ L["Flask of Chromatic Resistance"] = "Flask of Chromatic Resistance";
 L["Supreme Power"] = "Supreme Power";
 L["Distilled Wisdom"] = "Distilled Wisdom";
 L["Chromatic Resistance"] = "Chromatic Resistance";
+L["Sap"] = "Sap";
 
 ---=====---
 ---Horde---
@@ -504,10 +505,33 @@ L["dispelsAllWBOnlyDesc"] = "Only show worldbuffs on everyone else being dispell
 L["soundsDispelsAllTitle"] = "Others Players Buffs Sound";
 L["soundsDispelsAllDesc"] = "Which sound to play for other players buffs being dispelled.";
 
----New---
-
 L["middleHideBattlegroundsTitle"] = "Hide In Battlegrounds";
 L["middleHideBattlegroundsDesc"] = "Hide middle of the screen warnings in Battlegrounds?";
 
 L["soundsDisableInBattlegroundsTitle"] = "Disable In Battleground";
 L["soundsDisableInBattlegroundsDesc"] = "Disable sounds while in Battlegrounds.";
+
+L["autoBuffsHeaderDesc"] = "Auto Get Buffs From NPCs";
+
+L["autoDmfBuffTitle"] = "Auto Get DMF Buff";
+L["autoDmfBuffDesc"] = "Do you want this addon to auto select a Darkmoon Faire buff for you when you speak to the Sayge NPC? Make sure you pick which buff you want also.";
+
+L["autoDmfBuffTypeTitle"] = "Which DMF Buff";
+L["autoDmfBuffTypeDesc"] = "Which Darkmoon Faire buff do you want this addon to auto select for you when you speak to Sayge?";
+
+L["autoDireMaulBuffTitle"] = "Dire Maul Buffs";
+L["autoDireMaulBuffDesc"] = "Do you want this addon to auto get buffs from the NPC's in Dire Maul when you talk to them? (Also auto gets King buff).";
+
+L["autoBwlPortalTitle"] = "Auto BWL Portal";
+L["autoBwlPortalDesc"] = "Do you want this addon to auto use the Blackwing Lair portal when you click the orb?";
+
+L["showBuffStatsTitle"] = "Show Buff Stats";
+L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
+
+L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
+L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["flowerWarning"] = "Songflower picked on a realm with layered songflower timers enabled but you haven't targeted a NPC since arriving in Felwood so no timer could be recorded.";
+
+L["mmColorTitle"] = "Minimap Layer Color";
+L["mmColorDesc"] = "What color should the minimap layer text be? (Layer 1)";
