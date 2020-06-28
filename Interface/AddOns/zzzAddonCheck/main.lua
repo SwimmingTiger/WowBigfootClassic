@@ -69,6 +69,20 @@ local function zzzAddonCheck_Init_NeatPlates()
     end
 end
 
+local function zzzAddonCheck_Init_NovaWorldBuffs()
+    -- 默认不向公会频道发送世界Buff信息，并过滤其他人发送的此类消息
+    local patchVersion = '2020-06-28-23'
+    if NWB and NWB.db and NWB.db.global and NWB.db.global.nwbPatchVersion ~= patchVersion then
+        NWB.db.global.disableAllGuildMsgs = 1
+        NWB.db.global.filterDrops = true
+        NWB.db.global.filterNpcKilled = true
+        NWB.db.global.filterSongflowers = true
+        NWB.db.global.filterTimers = true
+        NWB.db.global.filterYells = true
+        NWB.db.global.nwbPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -83,6 +97,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 姓名板：打开目标高亮和友方施法条，禁用仇恨指示器
     zzzAddonCheck_Init_NeatPlates()
+
+    -- 默认不向公会频道发送世界Buff信息，并过滤其他人发送的此类消息
+    zzzAddonCheck_Init_NovaWorldBuffs()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
@@ -227,3 +244,30 @@ Bagnon_Forever
 end
 
 LoaderFrame:SetScript("OnEvent", LoaderEvents)
+
+-- 立即执行的初始化操作
+if NWB and NWB.setRegionFont then
+    -- 防止世界Buff插件部分字体出现乱码
+    NWB:setRegionFont()
+    NWBbuffListFrame.fs:SetFont(NWB.regionFont, 14);
+    NWBbuffListDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+    NWBbuffListFrameWipeButton.tooltip.fs:SetFont(NWB.regionFont, 12);
+    NWBlayerFrame.fs:SetFont(NWB.regionFont, 14);
+    NWBlayerFrame.fs2:SetFont(NWB.regionFont, 14);
+    NWBlayerFrame.fs3:SetFont(NWB.regionFont, 14);
+    NWBlayerDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+    NWBLayerMapFrame.fs:SetFont(NWB.regionFont, 14);
+    NWBLayerMapDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+    MinimapLayerFrame.fs:SetFont(NWB.regionFont, 10);
+    MinimapLayerFrame.tooltip.fs:SetFont(NWB.regionFont, 10);
+    NWBVersionFrame.fs:SetFont(NWB.regionFont, 14);
+    NWBVersionDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+
+    -- 修复部分未生效的汉化
+    local L = LibStub("AceLocale-3.0"):GetLocale("NovaWorldBuffs")
+    if L then
+        L["You are on a layered realm."] = "你的服务器存在位面。"
+        L["Click here to view current timers."] = "点击查看当前计时器信息。"
+        L["|cffffff00No characters with buffs found."] = "|cffffff00你的角色身上没有世界Buff。"
+    end
+end
