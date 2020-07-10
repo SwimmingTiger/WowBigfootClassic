@@ -84,6 +84,7 @@ L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Shift+Clique|r: |cFFFFEE00modo janel
 L["STRING_CLOSEALL"] = "Todas as janelas estão fechadas, digite '/details show' para reabri-las."
 L["STRING_COLOR"] = "Cor"
 L["STRING_COMMAND_LIST"] = "lista de comandos"
+L["STRING_CONTEXT"] = "Contexto"
 L["STRING_COOLTIP_NOOPTIONS"] = "não há opções"
 L["STRING_CREATEAURA"] = "Criar Aura"
 L["STRING_CRITICAL_HITS"] = "Golpes Críticos"
@@ -289,6 +290,7 @@ L["STRING_INFO_TUTORIAL_COMPARISON1"] = [=[Clique na aba |cFFFFDD00Comparar|r pa
 L["STRING_INSTANCE_CHAT"] = "Bate-papo da instância."
 L["STRING_INSTANCE_LIMIT"] = "o limite de janelas criadas foi atingido, você pode modificar este limite no painel de opções. Você também pode reabrir janelas fechadas anteriormente no menu da engrenagem."
 L["STRING_INTERFACE_OPENOPTIONS"] = "Abrir Painel de Opções"
+L["STRING_INVERT_RULE"] = "Regra de inversão"
 L["STRING_ISA_PET"] = "Este Ator é um Ajudante"
 L["STRING_KEYBIND_BOOKMARK"] = "Atalhos"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "Atalho #%s"
@@ -599,15 +601,13 @@ L["STRING_OPTIONS_CMISC_DESC"] = [=[Ativa a Captura de:
 L["STRING_OPTIONS_COLORANDALPHA"] = "Cor & Transparência"
 L["STRING_OPTIONS_COLORFIXED"] = "Cor Fixada"
 L["STRING_OPTIONS_COMBAT_ALPHA"] = "Quando"
-L["STRING_OPTIONS_COMBAT_ALPHA_1"] = "Sem modificações"
 L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "Durante o combate"
 L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "Enquanto fora de combate"
 L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "Enquanto fora de um grupo"
 L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "Quando não Estiver Em Instância"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "Quando Estiver em Instância"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Raid Debug"
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
+L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "No Campo de batalha"
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[Seleciona a forma como o combate afeta a transparência da janela.
 
 |cFFFFFF00Nenhuma modificação|r: Não modifica o alpha.
@@ -845,8 +845,8 @@ L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN"] = "'Trash' de Masmorra"
 L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN_DESC"] = "Segmentos de limpeza de 'trash mobs' em masmorras são adicionados aos dados globais."
 L["STRING_OPTIONS_OVERALL_LOGOFF"] = "Limpar ao Deslogar"
 L["STRING_OPTIONS_OVERALL_LOGOFF_DESC"] = "Quando ativado, os dados gerais de combate são automaticamente apagados quando seu personagem efetua logoff."
-L["STRING_OPTIONS_OVERALL_MYTHICPLUS"] = "Limpar ao Iniciar Dungeon Mítica+"
-L["STRING_OPTIONS_OVERALL_MYTHICPLUS_DESC"] = "Limpa os dados do overall quando iniciar uma dungeon mítica+."
+L["STRING_OPTIONS_OVERALL_MYTHICPLUS"] = "Limpar ao Iniciar Masmorra Mítica+"
+L["STRING_OPTIONS_OVERALL_MYTHICPLUS_DESC"] = "Limpa os dados do overall quando iniciar uma masmorra mítica+."
 L["STRING_OPTIONS_OVERALL_NEWBOSS"] = "Limpar em um novo chefe de raide"
 L["STRING_OPTIONS_OVERALL_NEWBOSS_DESC"] = "Quando habilitado, os dados gerais são limpos automaticamente quando enfrentando um novo chefe."
 L["STRING_OPTIONS_OVERALL_RAIDBOSS"] = "Chefes de raide"
@@ -1549,7 +1549,7 @@ L["STRING_TOTAL"] = "Total"
 L["STRING_TRANSLATE_LANGUAGE"] = "Ajude a traduzir o Details!"
 L["STRING_TUTORIAL_FULLY_DELETE_WINDOW"] = [=[Você fechou uma janela e pode reabri-la quando quiser.
 Para deleta-la por completo, vá nas opções -> Janela: Geral -> Deletar.]=]
-L["STRING_TUTORIAL_OVERALL1"] = "ajuste o overall no painel de opções > PvE/PvP."
+L["STRING_TUTORIAL_OVERALL1"] = "A Data Overall atualiza apenas após o combate, clique com o botão direito na barra de título e escolha 'Dynamic Overall Damage' se você desejar atualizações regulares. "
 L["STRING_UNKNOW"] = "Desconhecido"
 L["STRING_UNKNOWSPELL"] = "Magia Desconhecida"
 L["STRING_UNLOCK"] = [=[Separe as janelas

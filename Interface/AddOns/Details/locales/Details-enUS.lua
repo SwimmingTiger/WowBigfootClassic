@@ -2,7 +2,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale ("Details", "enUS", true)
 if not L then return end 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-
+L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "In Mythic+"
 L["ABILITY_ID"] = "ability id"
 L["STRING_"] = ""
 L["STRING_ABSORBED"] = "Absorbed"
@@ -86,6 +86,7 @@ L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Shift+Click|r: |cFFFFEE00window mode
 L["STRING_CLOSEALL"] = "All windows are closed, you may type '/details show' to re-open."
 L["STRING_COLOR"] = "Color"
 L["STRING_COMMAND_LIST"] = "command list"
+L["STRING_CONTEXT"] = "Context"
 L["STRING_COOLTIP_NOOPTIONS"] = "no options"
 L["STRING_CREATEAURA"] = "Create Aura"
 L["STRING_CRITICAL_HITS"] = "Critical Hits"
@@ -290,6 +291,7 @@ L["STRING_INFO_TUTORIAL_COMPARISON1"] = "Click on |cFFFFDD00Compare|r tab to see
 L["STRING_INSTANCE_CHAT"] = "Instance Chat"
 L["STRING_INSTANCE_LIMIT"] = "max window amount has been reached, you can modify this limit on options panel. Also you can reopen closed windows from (#) window menu."
 L["STRING_INTERFACE_OPENOPTIONS"] = "Open Options Panel"
+L["STRING_INVERT_RULE"] = "Invert Rule"
 L["STRING_ISA_PET"] = "This Actor is a Pet"
 L["STRING_KEYBIND_BOOKMARK"] = "Bookmark"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "Bookmark #%s"
@@ -596,7 +598,6 @@ L["STRING_OPTIONS_CMISC_DESC"] = [=[Enable capture of:
 L["STRING_OPTIONS_COLORANDALPHA"] = "Color & Alpha"
 L["STRING_OPTIONS_COLORFIXED"] = "Fixed Color"
 L["STRING_OPTIONS_COMBAT_ALPHA"] = "When"
-L["STRING_OPTIONS_COMBAT_ALPHA_1"] = "None"
 L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "While In Combat"
 L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "While Out of Combat"
 L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "While Not in a Group"
@@ -1567,8 +1568,8 @@ L["STRING_TOTAL"] = "Total"
 L["STRING_TRANSLATE_LANGUAGE"] = "Help Translate Details!"
 L["STRING_TUTORIAL_FULLY_DELETE_WINDOW"] = [=[You closed a window and you may reopen it at any time.
 To fully delete a window, go to Options -> Window: General -> Delete.]=]
-L["STRING_TUTORIAL_OVERALL1"] = [=[adjust overall settings on options panel > PvE/PvP
-overall data updates when you leave combat, use 'Dynamic Overall Damage' from 'Custom' to update on real time.]=]
+L["STRING_TUTORIAL_OVERALL1"] = [=[Overall data only updates when the combat is done, if you want regular updates right click the title bar and select 'Dynamic Overall Data'.
+]=]
 L["STRING_UNKNOW"] = "Unknown"
 L["STRING_UNKNOWSPELL"] = "Unknow Spell"
 L["STRING_UNLOCK"] = [=[Ungroup windows

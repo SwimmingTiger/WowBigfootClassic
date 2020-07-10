@@ -21,9 +21,6 @@
 	<Include file="LibItemUpgradeInfo-1.0\LibItemUpgradeInfo-1.0.xml"/>
 	<Script file="LibClassicCasterino\LibClassicCasterino.lua"/>
 
-	<!-- <Include file="ThreatClassic-1.0\lib.xml"/> EsreverWoW is MIA and his lib is doing too many errors on battlegrounds -->
-	<Include file="LibThreatClassic2\lib.xml"/>
-
 	<!-- <Include file="LibGroupInSpecT-1.1\lib.xml"/> temp disabled due to classic-->
 	<Include file="DF\Details-Framework-Classic\load.xml"/>
 	<Include file="LibBossIDs-1.0\lib.xml"/>

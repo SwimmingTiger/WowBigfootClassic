@@ -87,6 +87,8 @@ L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Maj+Clic|r: |cFFFFEE00mode fenêtré
 L["STRING_CLOSEALL"] = "Toutes les fenêtres de Details sont fermées. Tapez «/details show» pour rouvrir."
 L["STRING_COLOR"] = "Couleur"
 L["STRING_COMMAND_LIST"] = "liste de commandes"
+--[[Translation missing --]]
+--[[ L["STRING_CONTEXT"] = ""--]] 
 L["STRING_COOLTIP_NOOPTIONS"] = "aucune option"
 --[[Translation missing --]]
 --[[ L["STRING_CREATEAURA"] = ""--]] 
@@ -378,6 +380,8 @@ L["STRING_IMAGEEDIT_ALPHA"] = "Transparence"
 --[[Translation missing --]]
 --[[ L["STRING_INSTANCE_LIMIT"] = ""--]] 
 L["STRING_INTERFACE_OPENOPTIONS"] = "Ouvrir le panneau des options"
+--[[Translation missing --]]
+--[[ L["STRING_INVERT_RULE"] = ""--]] 
 L["STRING_ISA_PET"] = "Cet acteur est un familier"
 L["STRING_KEYBIND_BOOKMARK"] = "Marque-pages"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "Marque-page #%s"
@@ -795,8 +799,6 @@ L["STRING_NUMERALSYSTEM"] = "Système numérique"
 --[[ L["STRING_OPTIONS_COLORFIXED"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_COMBAT_ALPHA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_1"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["STRING_OPTIONS_COMBAT_ALPHA_2"] = ""--]] 
 --[[Translation missing --]]

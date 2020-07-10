@@ -21,12 +21,29 @@ do
 		WidgetType = "label",
 		SetHook = DF.SetHook,
 		RunHooksForWidget = DF.RunHooksForWidget,
+
+		dversion = DF.dversion,
 	}
 
-	_G [DF.GlobalWidgetControlNames ["label"]] = _G [DF.GlobalWidgetControlNames ["label"]] or metaPrototype
+	--check if there's a metaPrototype already existing
+	if (_G[DF.GlobalWidgetControlNames["label"]]) then
+		--get the already existing metaPrototype
+		local oldMetaPrototype = _G[DF.GlobalWidgetControlNames ["label"]]
+		--check if is older
+		if ( (not oldMetaPrototype.dversion) or (oldMetaPrototype.dversion < DF.dversion) ) then
+			--the version is older them the currently loading one
+			--copy the new values into the old metatable
+			for funcName, _ in pairs(metaPrototype) do
+				oldMetaPrototype[funcName] = metaPrototype[funcName]
+			end
+		end
+	else
+		--first time loading the framework
+		_G[DF.GlobalWidgetControlNames ["label"]] = metaPrototype
+	end
 end
 
-local LabelMetaFunctions = _G [DF.GlobalWidgetControlNames ["label"]]
+local LabelMetaFunctions = _G[DF.GlobalWidgetControlNames ["label"]]
 
 ------------------------------------------------------------------------------------------------------------
 --> metatables
@@ -288,7 +305,7 @@ function DF:NewLabel (parent, container, name, member, text, font, size, color, 
 		container = container.widget
 	end
 
-	font = font or "GameFontHighlightSmall"
+	font = font == "" and "GameFontHighlightSmall" or font or "GameFontHighlightSmall"
 
 	LabelObject.label = parent:CreateFontString (name, layer or "OVERLAY", font)
 	LabelObject.widget = LabelObject.label

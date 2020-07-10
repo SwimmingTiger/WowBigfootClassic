@@ -7,6 +7,7 @@ local _
 --lua locals
 local _unpack = unpack
 local _math_floor = math.floor
+local tinsert = _G.tinsert
 
 --api locals
 do
@@ -322,6 +323,7 @@ do
 		texture_highlight_frame:SetPoint ("left", 0, 0)
 		texture_highlight_frame.texture = button.texture
 		texture_highlight_frame.MainFrame = button
+		button.texture_highlight_frame = texture_highlight_frame
 		
 		button.text = button:CreateFontString (nil, "overlay", "GameFontNormal")
 		button.text:SetPoint ("left", button.texture, "right", 2, 0)
@@ -349,6 +351,40 @@ do
 		if (not all_switch.already_built) then
 			local x, y = 8, -8
 			all_switch.higher_counter = 0
+
+			--raid plugins
+			do
+				all_switch.buttons["plugins"] = {}
+
+				--reserve buttons and space for plugins
+				local loc_attribute_name = "Plugins"
+				local title_icon = all_switch:CreateTexture(nil, "overlay")
+				title_icon:SetPoint ("topleft", x, y)
+				local texture = ""
+				local l, r, t, b = 0, 1, 0, 1
+				title_icon:SetTexture (texture)
+				title_icon:SetTexCoord (l, r, t, b)
+				title_icon:SetSize (18, 18)
+				local title_str = all_switch:CreateFontString(nil, "overlay", "GameFontNormal")
+				title_str:SetPoint ("left", title_icon, "right", 2, 0)
+				title_str:SetText (loc_attribute_name)
+				y = y - 20
+				
+
+				for i = 1, 8 do
+					--> plugin name
+					local pluginName = ""
+					local button = create_all_switch_button("plugin", i, x, y)
+					button.text:SetText (pluginName)
+					button.texture:SetTexture ("")
+					button.texture:SetTexCoord (0, 1, 0, 1)
+					tinsert(all_switch.buttons["plugins"], button)
+					y = y - 17
+				end
+				
+				x = x + 130
+				y = -8
+			end
 
 			for attribute = 1, _detalhes.atributos[0] do 
 				--> localized attribute name
@@ -408,6 +444,43 @@ do
 			all_switch.already_built = true
 		end
 		
+		--> update plugins
+		local pluginIndex = 1
+
+		local pluginButtonOnClick = function(self)
+			local pluginAbsName = self.pluginAbsName
+			_detalhes.RaidTables:EnableRaidMode(all_switch.instance)
+			_detalhes.RaidTables:switch (false, pluginAbsName, all_switch.instance)
+			all_switch:Hide()
+		end
+
+		--raid
+		local availableRaidPlugins = _detalhes.RaidTables:GetAvailablePlugins()
+		for i = 1, #availableRaidPlugins do
+			local pluginButtons = all_switch.buttons["plugins"]
+			--plugin
+
+			local pluginData = availableRaidPlugins[i]
+			local pluginName = pluginData[1] --name
+			local pluginIcon = pluginData[2] --icon
+			local pluginObject = pluginData[3] --object
+			local pluginAbsName = pluginData[4] --global name
+
+			if (pluginObject.__enabled) then
+				local button = pluginButtons[i]
+				button.text:SetText (pluginName)
+				button.texture:SetTexture (pluginIcon)
+				button.texture:SetTexCoord (0, 1, 0, 1)
+
+				button.pluginAbsName = pluginAbsName
+
+				button:SetScript ("OnClick", pluginButtonOnClick)
+				button.texture_highlight_frame:SetScript ("OnClick", pluginButtonOnClick)
+
+				pluginIndex = pluginIndex + 1
+			end
+		end
+
 		--> update customs
 		local custom_index = _detalhes.atributos[0]+1
 		for _, button in ipairs (all_switch.buttons [custom_index]) do
@@ -438,32 +511,19 @@ do
 		end
 		
 		all_switch:SetHeight ((all_switch.higher_counter * 17) + 20 + 16)
-		all_switch:SetWidth ((120 * 5) + (5 * 2) + (12*4))
+		all_switch:SetWidth ((120 * 6) + (6 * 2) + (12*5))
 		
 		all_switch.last_up = GetTime()
 		local cursor_x, cursor_y = GetCursorPosition()
 		all_switch.cursor_x, all_switch.cursor_y = floor (cursor_x), floor (cursor_y)
 		all_switch:SetScript ("OnUpdate", on_update_all_switch)
 		
-		--[=[
-		all_switch.wallpaper:SetTexture (_detalhes.tooltip.menus_bg_texture)
-		all_switch.wallpaper:SetTexCoord (unpack (_detalhes.tooltip.menus_bg_coords))
-		all_switch.wallpaper:SetVertexColor (unpack (_detalhes.tooltip.menus_bg_color))
-		all_switch.wallpaper:SetDesaturated (true)
-		--]=]
-		
-		--[=[
-		all_switch:SetBackdrop (_detalhes.tooltip_backdrop)
-		all_switch:SetBackdropColor (0.09019, 0.09019, 0.18823, 1)
-		all_switch:SetBackdropBorderColor (unpack (_detalhes.tooltip_border_color))
-		--]=]
-		
 		--updated colors (these colors are set inside the janela_principal file
 		all_switch:SetBackdrop (_detalhes.menu_backdrop_config.menus_backdrop)
 		all_switch:SetBackdropColor (unpack (_detalhes.menu_backdrop_config.menus_backdropcolor))
 		all_switch:SetBackdropBorderColor (unpack (_detalhes.menu_backdrop_config.menus_bordercolor))
 		
-	end) 
+	end)
 	
 ---------------------------------------------------------------------------------------------------------------------------	
 

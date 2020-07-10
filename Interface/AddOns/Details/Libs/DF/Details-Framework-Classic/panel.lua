@@ -30,12 +30,29 @@ do
 		WidgetType = "panel",
 		SetHook = DF.SetHook,
 		RunHooksForWidget = DF.RunHooksForWidget,
+
+		dversion = DF.dversion,
 	}
 
-	_G [DF.GlobalWidgetControlNames ["panel"]] = _G [DF.GlobalWidgetControlNames ["panel"]] or metaPrototype
+	--check if there's a metaPrototype already existing
+	if (_G[DF.GlobalWidgetControlNames["panel"]]) then
+		--get the already existing metaPrototype
+		local oldMetaPrototype = _G[DF.GlobalWidgetControlNames ["panel"]]
+		--check if is older
+		if ( (not oldMetaPrototype.dversion) or (oldMetaPrototype.dversion < DF.dversion) ) then
+			--the version is older them the currently loading one
+			--copy the new values into the old metatable
+			for funcName, _ in pairs(metaPrototype) do
+				oldMetaPrototype[funcName] = metaPrototype[funcName]
+			end
+		end
+	else
+		--first time loading the framework
+		_G[DF.GlobalWidgetControlNames ["panel"]] = metaPrototype
+	end
 end
 
-local PanelMetaFunctions = _G [DF.GlobalWidgetControlNames ["panel"]]
+local PanelMetaFunctions = _G[DF.GlobalWidgetControlNames ["panel"]]
 
 --> mixin for options functions
 DF.OptionsFunctions = {
@@ -832,6 +849,30 @@ local align_rows = function (self)
 						entry.onleave_func = row.onleave
 					end
 				end
+
+			elseif (type == "checkbox") then	
+				for i = 1, #self.scrollframe.lines do
+					local line = self.scrollframe.lines [i]
+					local checkbox = tremove (line.checkbox_available)
+					if (not checkbox) then
+						self:CreateCheckbox (line)
+						checkbox = tremove (line.checkbox_available)
+					end
+
+					tinsert (line.checkbox_inuse, checkbox)
+
+					checkbox:SetPoint ("left", line, "left", self._anchors [#self._anchors] + ((row.width - 20) / 2), 0)
+					if (sindex == rows_shown) then
+						checkbox:SetWidth (20)
+						--checkbox:SetWidth (row.width - 25)
+					else
+						checkbox:SetWidth (20)
+					end
+
+					checkbox.onenter_func = nil
+					checkbox.onleave_func = nil
+				end
+
 			elseif (type == "button") then
 				for i = 1, #self.scrollframe.lines do
 					local line = self.scrollframe.lines [i]
@@ -982,6 +1023,13 @@ local update_rows = function (self, updated_rows)
 		for i = 1, #row.button_available do
 			row.button_available[i]:Hide()
 		end
+
+		for i = #row.checkbox_inuse, 1, -1 do
+			tinsert (row.checkbox_available, tremove (row.checkbox_inuse, i))
+		end
+		for i = 1, #row.checkbox_available do
+			row.checkbox_available[i]:Hide()
+		end
 		
 		for i = #row.icon_inuse, 1, -1 do
 			tinsert (row.icon_available, tremove (row.icon_inuse, i))
@@ -1041,6 +1089,18 @@ local create_panel_entry = function (self, row)
 	editbox:SetTemplate (DF:GetTemplate ("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
 	
 	tinsert (row.entry_available, editbox)
+end
+
+local create_panel_checkbox = function (self, row)
+	--row.checkbox_available
+	row.checkbox_total = row.checkbox_total + 1
+
+	local switch = DF:NewSwitch (row, nil, "$parentCheckBox" .. row.checkbox_total, nil, 20, 20, nil, nil, false)
+	switch:SetAsCheckBox()
+
+	switch:SetTemplate(DF:GetTemplate ("switch", "OPTIONS_CHECKBOX_TEMPLATE"))
+
+	tinsert (row.checkbox_available, switch)
 end
 
 local create_panel_button = function (self, row)
@@ -1137,6 +1197,7 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 	panel.CreateRowText = create_panel_text
 	panel.CreateRowEntry = create_panel_entry
 	panel.CreateRowButton = create_panel_button
+	panel.CreateCheckbox = create_panel_checkbox
 	panel.CreateRowIcon = create_panel_icon
 	panel.CreateRowTexture = create_panel_texture
 	panel.SetFillFunction = set_fill_function
@@ -1176,7 +1237,7 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 				if (results and results [1]) then
 					row:Show()
 
-					local text, entry, button, icon, texture = 1, 1, 1, 1, 1
+					local text, entry, button, icon, texture, checkbox = 1, 1, 1, 1, 1, 1
 					
 					for index, t in ipairs (panel.rows) do
 						if (not t.hidden) then
@@ -1204,7 +1265,19 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 								entrywidget:SetCursorPosition(0)
 								
 								entrywidget:Show()
-								
+							
+							elseif (t.type == "checkbox") then
+								local checkboxwidget = row.checkbox_inuse [button]
+								checkbox = checkbox + 1
+								checkboxwidget.index = real_index
+								checkboxwidget:SetValue(results [index])
+
+								local func = function()
+									t.func (real_index, index)
+									panel:Refresh()
+								end
+								checkboxwidget.OnSwitch = func
+
 							elseif (t.type == "button") then
 								local buttonwidget = row.button_inuse [button]
 								button = button + 1
@@ -1254,11 +1327,28 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 								
 								iconwidget.line = index
 								iconwidget.index = real_index
-								
-								--print (index, results [index])
+
 								if (type (results [index]) == "string") then
 									local result = results [index]:gsub (".-%\\", "")
 									iconwidget._icon.texture = results [index]
+
+								elseif (type (results [index]) == "table") then
+									iconwidget._icon:SetTexture (results [index].texture)
+
+									local textCoord = results [index].texcoord
+									if (textCoord) then
+										iconwidget._icon:SetTexCoord (unpack(textCoord))
+									else
+										iconwidget._icon:SetTexCoord (0, 1, 0, 1)
+									end
+									
+									local color = results [index].color
+									if (color) then
+										local r, g, b, a = DF:ParseColors(color)
+										iconwidget._icon:SetVertexColor(r, g, b, a)
+									else
+										iconwidget._icon:SetVertexColor(1, 1, 1, 1)
+									end
 								else
 									iconwidget._icon:SetTexture (results [index])
 								end
@@ -1275,6 +1365,25 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 								if (type (results [index]) == "string") then
 									local result = results [index]:gsub (".-%\\", "")
 									texturewidget.texture = results [index]
+								
+								elseif (type (results [index]) == "table") then
+									texturewidget:SetTexture (results [index].texture)
+
+									local textCoord = results [index].texcoord
+									if (textCoord) then
+										texturewidget:SetTexCoord (unpack(textCoord))
+									else
+										texturewidget:SetTexCoord (0, 1, 0, 1)
+									end
+									
+									local color = results [index].color
+									if (color) then
+										local r, g, b, a = DF:ParseColors(color)
+										texturewidget:SetVertexColor(r, g, b, a)
+									else
+										texturewidget:SetVertexColor(1, 1, 1, 1)
+									end
+
 								else
 									texturewidget:SetTexture (results [index])
 								end
@@ -1352,6 +1461,10 @@ function DF:NewFillPanel (parent, rows, name, member, w, h, total_lines, fill_ro
 			row.button_inuse = {}
 			row.button_total = 0
 			
+			row.checkbox_available = {}
+			row.checkbox_inuse = {}
+			row.checkbox_total = 0
+
 			row.icon_available = {}
 			row.icon_inuse = {}
 			row.icon_total = 0
@@ -4139,7 +4252,7 @@ DF.ScrollBoxFunctions.Refresh = function (self)
 	
 	local offset = 0
 	if (self.IsFauxScroll) then
-		FauxScrollFrame_Update (self, #self.data, self.LineAmount, self.LineHeight+1)
+		FauxScrollFrame_Update (self, #self.data, self.LineAmount, self.LineHeight)
 		offset = FauxScrollFrame_GetOffset (self)
 	end	
 	

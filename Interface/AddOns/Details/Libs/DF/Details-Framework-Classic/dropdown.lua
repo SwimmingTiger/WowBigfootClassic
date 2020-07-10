@@ -24,12 +24,29 @@ do
 		HasHook = DF.HasHook,
 		ClearHooks = DF.ClearHooks,
 		RunHooksForWidget = DF.RunHooksForWidget,
+		
+		dversion = DF.dversion,
 	}
 
-	_G [DF.GlobalWidgetControlNames ["dropdown"]] = _G [DF.GlobalWidgetControlNames ["dropdown"]] or metaPrototype
+	--check if there's a metaPrototype already existing
+	if (_G[DF.GlobalWidgetControlNames["dropdown"]]) then
+		--get the already existing metaPrototype
+		local oldMetaPrototype = _G[DF.GlobalWidgetControlNames ["dropdown"]]
+		--check if is older
+		if ( (not oldMetaPrototype.dversion) or (oldMetaPrototype.dversion < DF.dversion) ) then
+			--the version is older them the currently loading one
+			--copy the new values into the old metatable
+			for funcName, _ in pairs(metaPrototype) do
+				oldMetaPrototype[funcName] = metaPrototype[funcName]
+			end
+		end
+	else
+		--first time loading the framework
+		_G[DF.GlobalWidgetControlNames ["dropdown"]] = metaPrototype
+	end
 end
 
-local DropDownMetaFunctions = _G [DF.GlobalWidgetControlNames ["dropdown"]]
+local DropDownMetaFunctions = _G[DF.GlobalWidgetControlNames ["dropdown"]]
 
 ------------------------------------------------------------------------------------------------------------
 --> metatables
@@ -456,7 +473,7 @@ function DropDownMetaFunctions:Selected (_table)
 	else
 		self.label:SetPoint ("left", self.label:GetParent(), "left", 4, 0)
 	end
-	
+
 	if (_table.statusbar) then
 		self.statusbar:SetTexture (_table.statusbar)
 		if (_table.statusbarcolor) then
@@ -510,7 +527,7 @@ end
 function DropDownMetaFunctions:Open()
 	self.dropdown.dropdownframe:Show()
 	self.dropdown.dropdownborder:Show()
-	--self.dropdown.arrowTexture:SetTexture ("Interface\\Buttons\\UI-ScrollBar-ScrollDownButton-Down")self.dropdown.arrowTexture:SetTexture ("Interface\\Buttons\\UI-ScrollBar-ScrollDownButton-Down")
+	--self.dropdown.arrowTexture:SetTexture ("Interface\\Buttons\\UI-ScrollBar-ScrollDownButton-Down")
 	self.opened = true
 	if (last_opened) then
 		last_opened:Close()
@@ -925,7 +942,7 @@ function DropDownMetaFunctions:SetTemplate (template)
 		local r, g, b, a = DF:ParseColors (template.onleavebordercolor)
 		self.onleave_backdrop_border_color = {r, g, b, a}
 	end
-	
+
 	self:RefreshDropIcon()
 end
 
@@ -1229,7 +1246,7 @@ function DF:CreateDropdownButton (parent, name)
 	local rightButton = DF:CreateButton(f, function()end, 16, 16, "", 0, 0, "", "rightButton", "$parentRightButton", nil, DF:GetTemplate ("dropdown", "OPTIONS_DROPDOWN_TEMPLATE"))
 	rightButton:SetPoint("right", f, "right", -2, 0)
 	rightButton:Hide()
-	
+
 	f:SetScript ("OnMouseDown", DetailsFrameworkDropDownOptionClick)
 	f:SetScript ("OnEnter", DetailsFrameworkDropDownOptionOnEnter)
 	f:SetScript ("OnLeave", DetailsFrameworkDropDownOptionOnLeave)

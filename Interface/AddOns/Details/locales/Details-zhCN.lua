@@ -84,6 +84,8 @@ L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Shift+点击|r：|cFFFFEE00窗口模
 L["STRING_CLOSEALL"] = "所有Details窗口已关闭，输入'/details show'来重新打开。"
 L["STRING_COLOR"] = "颜色"
 L["STRING_COMMAND_LIST"] = "命令列表"
+--[[Translation missing --]]
+--[[ L["STRING_CONTEXT"] = ""--]] 
 L["STRING_COOLTIP_NOOPTIONS"] = "无选项"
 L["STRING_CREATEAURA"] = "创建一个wa监视"
 L["STRING_CRITICAL_HITS"] = "致命一击"
@@ -282,6 +284,8 @@ L["STRING_INFO_TUTORIAL_COMPARISON1"] = "点击 |cFFFFDD00比较|r 标签来比�
 L["STRING_INSTANCE_CHAT"] = "副本频道"
 L["STRING_INSTANCE_LIMIT"] = "最大窗口数量已经达到，你可以在选项面板修改这个限制。你也可以重新打开关闭的窗口 通过 (#) 窗口菜单。"
 L["STRING_INTERFACE_OPENOPTIONS"] = "打开选项面板"
+--[[Translation missing --]]
+--[[ L["STRING_INVERT_RULE"] = ""--]] 
 L["STRING_ISA_PET"] = "这个角色是一个宠物"
 L["STRING_KEYBIND_BOOKMARK"] = "书签"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "书签#%s"
@@ -562,15 +566,13 @@ L["STRING_OPTIONS_CMISC_DESC"] = [=[启用捕获：
 L["STRING_OPTIONS_COLORANDALPHA"] = "颜色和透明度"
 L["STRING_OPTIONS_COLORFIXED"] = "修正颜色"
 L["STRING_OPTIONS_COMBAT_ALPHA"] = "当"
-L["STRING_OPTIONS_COMBAT_ALPHA_1"] = "无"
 L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "战斗中"
-L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "脱离战斗"
-L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "当退出队伍"
-L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "当不在副本中"
-L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "当在副本中"
+L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "战斗外"
+L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "不在队伍中"
+L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "不在副本内"
+L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "在副本内"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "团队副本测试"
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
+L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "战场内"
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[选择战斗状态如何影响窗口透明度。
 |cFFFFFF00没变化|r：不修改透明度。
 |cFFFFFF00当在战斗|r：当角色进入战斗时，所选的Alpha将应用于窗口

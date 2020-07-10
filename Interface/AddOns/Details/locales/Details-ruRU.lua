@@ -84,6 +84,8 @@ L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Shift+Щелчок|r: |cFFFFEE00ре
 L["STRING_CLOSEALL"] = "Все окна закрыты, вы можете ввести '/details show', чтобы снова открыть."
 L["STRING_COLOR"] = "Цвет"
 L["STRING_COMMAND_LIST"] = "список кoманд"
+--[[Translation missing --]]
+--[[ L["STRING_CONTEXT"] = ""--]] 
 L["STRING_COOLTIP_NOOPTIONS"] = "нет параметров"
 L["STRING_CREATEAURA"] = "Создать ауру"
 L["STRING_CRITICAL_HITS"] = "Критические попадания"
@@ -296,6 +298,8 @@ L["STRING_INFO_TUTORIAL_COMPARISON1"] = "Щелкните на вкладку |c
 L["STRING_INSTANCE_CHAT"] = "Рейд, группа, лфр"
 L["STRING_INSTANCE_LIMIT"] = "максимальное количество окон было достигнуто, это ограничение можно изменить на панели параметры. Также можно открыть закрытые окна из меню окна (#)."
 L["STRING_INTERFACE_OPENOPTIONS"] = "Открыть панель параметров"
+--[[Translation missing --]]
+--[[ L["STRING_INVERT_RULE"] = ""--]] 
 L["STRING_ISA_PET"] = "Этот субъект является питомцем"
 L["STRING_KEYBIND_BOOKMARK"] = "Закладка"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "Закладка #%s"
@@ -603,15 +607,13 @@ L["STRING_OPTIONS_CMISC_DESC"] = [=[Включить захват:
 L["STRING_OPTIONS_COLORANDALPHA"] = "Цвет и альфа"
 L["STRING_OPTIONS_COLORFIXED"] = "Фиксированный цвет"
 L["STRING_OPTIONS_COMBAT_ALPHA"] = "Когда"
-L["STRING_OPTIONS_COMBAT_ALPHA_1"] = "Никогда"
 L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "В бою"
 L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "Не в бою"
 L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "Не в группе"
 L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "Не внутри подземелья"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "Внутри подземелья"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Рейдовый отладчик"
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
+L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "В поле боя"
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[Выберите, как бой влияет на прозрачность окна.
 
 |cFFFFFF00Никаких изменений|r: Не изменять альфу.
@@ -1567,7 +1569,8 @@ L["STRING_TOTAL"] = "Всего"
 L["STRING_TRANSLATE_LANGUAGE"] = "Помогите перевести Details!"
 L["STRING_TUTORIAL_FULLY_DELETE_WINDOW"] = [=[Вы закрыли окно, и вы можете возобновить его в любое время.
 Чтобы полностью удалить окно, перейдите к параметрам -> Окно: Общее -> Удалить.]=]
-L["STRING_TUTORIAL_OVERALL1"] = "Настройка общих настроек на панели параметров > PvE/PvP."
+--[[Translation missing --]]
+--[[ L["STRING_TUTORIAL_OVERALL1"] = ""--]] 
 L["STRING_UNKNOW"] = "Неизвестно"
 L["STRING_UNKNOWSPELL"] = "Неизвестное заклинание"
 L["STRING_UNLOCK"] = [=[Разгруппировать окна
@@ -1662,7 +1665,7 @@ L["STRING_WELCOME_68"] = [=[Details! заражен,
 
 Примеры: измеритель угроз, анализ увс, сводка сражения, создание диаграмм и многое другое.]=]
 L["STRING_WELCOME_69"] = "Пропустить"
-L["STRING_WELCOME_7"] = "используется для рейтинга, этот метод считывает прошедшее время боя для измерения УВС и ИВС - всех участников рейда."
+L["STRING_WELCOME_7"] = "используется для рейтинга, этот метод считывает прошедшее время боя для измерения DPS и HPS всех участников рейда."
 L["STRING_WELCOME_70"] = "Настройки полос заголовка"
 L["STRING_WELCOME_71"] = "Настройки полос"
 L["STRING_WELCOME_72"] = "Настройки окнa"

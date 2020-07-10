@@ -22,13 +22,32 @@ do
 	local metaPrototype = {
 		WidgetType = "textentry",
 		SetHook = DF.SetHook,
+		HasHook = DF.HasHook,
+		ClearHooks = DF.ClearHooks,
 		RunHooksForWidget = DF.RunHooksForWidget,
+
+		dversion = DF.dversion,
 	}
 
-	_G [DF.GlobalWidgetControlNames ["textentry"]] = _G [DF.GlobalWidgetControlNames ["textentry"]] or metaPrototype
+	--check if there's a metaPrototype already existing
+	if (_G[DF.GlobalWidgetControlNames["textentry"]]) then
+		--get the already existing metaPrototype
+		local oldMetaPrototype = _G[DF.GlobalWidgetControlNames ["textentry"]]
+		--check if is older
+		if ( (not oldMetaPrototype.dversion) or (oldMetaPrototype.dversion < DF.dversion) ) then
+			--the version is older them the currently loading one
+			--copy the new values into the old metatable
+			for funcName, _ in pairs(metaPrototype) do
+				oldMetaPrototype[funcName] = metaPrototype[funcName]
+			end
+		end
+	else
+		--first time loading the framework
+		_G[DF.GlobalWidgetControlNames ["textentry"]] = metaPrototype
+	end
 end
 
-local TextEntryMetaFunctions = _G [DF.GlobalWidgetControlNames ["textentry"]]
+local TextEntryMetaFunctions = _G[DF.GlobalWidgetControlNames ["textentry"]]
 DF.TextEntryCounter = DF.TextEntryCounter or 1
 
 ------------------------------------------------------------------------------------------------------------
@@ -302,6 +321,12 @@ DF.TextEntryCounter = DF.TextEntryCounter or 1
 			if (self.editbox.borderframe) then
 				self.editbox.borderframe:SetBackdropColor (.5, .5, .5, .5)
 			end
+		end
+	end
+
+	function TextEntryMetaFunctions:SetCommitFunction(func)
+		if (type(func) == "function") then
+			self.func = func
 		end
 	end
 	
@@ -1103,7 +1128,7 @@ function DF:NewSpecialLuaEditorEntry (parent, w, h, member, name, nointent, show
 	scrollframe.editbox:SetScript ("OnEscapePressed", _G.EditBox_ClearFocus)
 	scrollframe.editbox:SetFontObject ("GameFontHighlightSmall")
 	scrollframe:SetScrollChild (scrollframe.editbox)
-	
+
 	--line number
 	if (showLineNumbers) then
 		scrollframeNumberLines.editbox = CreateFrame ("editbox", "$parentLineNumbers", scrollframeNumberLines)
@@ -1171,7 +1196,6 @@ function DF:NewSpecialLuaEditorEntry (parent, w, h, member, name, nointent, show
 	scrollframe:SetScript ("OnSizeChanged", function (self)
 		scrollframe.editbox:SetSize (self:GetSize())
 	end)
-	
 	
 	scrollframe.editbox:SetJustifyH ("left")
 	scrollframe.editbox:SetJustifyV ("top")
