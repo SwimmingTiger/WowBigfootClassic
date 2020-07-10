@@ -6,46 +6,11 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	local theFrame = CreateFrame("Frame", Name, UIParent)
 
 	theFrame:ClearAllPoints()
---	theFrame:SetPoint("TOPLEFT", UIParent)
 	theFrame:SetPoint("CENTER", UIParent)
 	theFrame:SetHeight(Height)
 	theFrame:SetWidth(Width)
-	if not Spy.db.profile.InvertSpy then
-		theFrame:SetBackdrop({
-			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 16,
-			edgeFile = "Interface\\AddOns\\Spy\\Textures\\title-industrial.tga", edgeSize = 32,
-			insets = {left = 0, right = 0, top = 31, bottom = 0},
-		})
-	else
-		theFrame.Edge = theFrame:CreateTexture(nil, "OVERLAY")	
-		theFrame.Edge:ClearAllPoints()
-		theFrame.Edge:SetTexture("Interface\\AddOns\\Spy\\Textures\\title-industrial3.tga", false)
-		theFrame.Edge:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, -20)
-		theFrame.Edge:SetPoint("BOTTOMLEFT", theFrame, "BOTTOMLEFT", 0, -20)		
-		theFrame.Edge:SetHeight(Height)
-		theFrame.Edge:SetWidth(Width * 2)	
-		theFrame.Edge:SetTexCoord(0.51, .74, 0, 1) -- left, right, top, bottom	
-		
-		theFrame.Background = theFrame:CreateTexture(nil, "BACKGROUND")	
-		theFrame.Background:ClearAllPoints()
-		theFrame.Background:SetTexture("Interface\\CHARACTERFRAME\\UI-Party-Background")
-		theFrame.Background:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -32)
-		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, -20)		
-		theFrame.Background:SetHeight(Height)
-		theFrame.Background:SetWidth(Width * 2)	
-		theFrame.Background:SetAlpha(.5)			
-	end
-	if Name == "Spy_MainWindow" then
-		Spy.Colors:RegisterBorder("Window", "Title", theFrame)
-		Spy.Colors:RegisterBackground("Window", "Background", theFrame)
-	else
-		Spy.Colors:RegisterBorder("Other Windows", "Title", theFrame)
-		Spy.Colors:RegisterBackground("Other Windows", "Background", theFrame)
-	end
-
 	theFrame:EnableMouse(true)
 	theFrame:SetMovable(true)
-
 	theFrame:SetScript("OnMouseDown", function(self, event) 
 		if (((not self.isLocked) or (self.isLocked == 0)) and (event == "LeftButton")) then
 			Spy:SetWindowTop(self)
@@ -60,7 +25,6 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 			Spy:SaveMainWindowPosition()
 		end
 	end)
-
 	theFrame.ShowFunc = ShowFunc
 	theFrame:SetScript("OnShow", function(self)
 		Spy:SetWindowTop(self)
@@ -77,12 +41,53 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 		if (self.HideFunc) then
 			self:HideFunc()
 		end
-	end)
+	end)	
+	
+	theFrame.Background = theFrame:CreateTexture(nil, "BACKGROUND")	
+	theFrame.Background:ClearAllPoints()
+	theFrame.Background:SetTexture("Interface\\CHARACTERFRAME\\UI-Party-Background")
+	if not Spy.db.profile.InvertSpy then
+		theFrame.Background:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -32)
+		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 2)	
+	else
+		theFrame.Background:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -34)
+		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 0)		
+	end
+	theFrame.Background:SetHeight(Height)
+	theFrame.Background:SetWidth(Width)	
+	theFrame.Background:SetAlpha(1)
+
+	if Name == "Spy_MainWindow" then
+		Spy.Colors:RegisterBorder("Window", "Title", theFrame)
+		Spy.Colors:RegisterBackground("Window", "Background", theFrame)
+	else
+		Spy.Colors:RegisterBorder("Other Windows", "Title", theFrame)
+		Spy.Colors:RegisterBackground("Other Windows", "Background", theFrame)
+	end
+
+	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame)	
+	theFrame.TitleBar:SetFrameStrata("BACKGROUND")
+	if not Spy.db.profile.InvertSpy then	
+		theFrame.TitleBar:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -11)
+		theFrame.TitleBar:SetPoint("TOPRIGHT", theFrame, "TOPRIGHT", 0, -11)
+	else
+		theFrame.TitleBar:SetPoint("BOTTOMLEFT", theFrame, "BOTTOMLEFT", 0, -21)
+		theFrame.TitleBar:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, -21)
+	end
+	theFrame.TitleBar:SetHeight(22)
+	theFrame.TitleBar:SetBackdrop({
+			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8,
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 12,			
+			insets = {left = 2, right = 2, top = 2, bottom = 2},			
+		})
+	theFrame.TitleBar:SetBackdropColor(0,0,0,1) 
+	theFrame.TitleBar:SetBackdropBorderColor(1,1,1,1)
+
 	theFrame.Title = theFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	if not Spy.db.profile.InvertSpy then 	
 		theFrame.Title:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 8, -16)
 	else
-		theFrame.Title:SetPoint("BOTTOMLEFT", theFrame, "BOTTOMLEFT", 8, -14)
+		theFrame.Title:SetPoint("BOTTOMLEFT", theFrame, "BOTTOMLEFT", 8, -15)
 	end	
 	theFrame.Title:SetJustifyH("LEFT")
 	theFrame.Title:SetTextColor(1.0, 1.0, 1.0, 1.0)
@@ -107,7 +112,7 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	if not Spy.db.profile.InvertSpy then 	
 		theFrame.CloseButton:SetPoint("TOPRIGHT", theFrame, "TOPRIGHT", -4, -12)
 	else
-		theFrame.CloseButton:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", -4, -18)
+		theFrame.CloseButton:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", -4, -19)
 	end		
 	theFrame.CloseButton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
