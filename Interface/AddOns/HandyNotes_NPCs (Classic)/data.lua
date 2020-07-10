@@ -34137,7 +34137,7 @@ nodes[1435] = {
 	[45405500] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[45005020] = {
 		name = L["Grimnal"],

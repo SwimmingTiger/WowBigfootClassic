@@ -181,15 +181,23 @@ function addon:StoreCast(unitGUID, spellName, spellID, iconTexturePath, castTime
     end
 
     local cast = activeTimers[unitGUID]
+
+    if isPlayer then
+        cast.maxValue = (castTime / 1000) - 0.1 -- reduce cast time slightly to account for latency (makes interrupting feel smoother)
+        cast.endTime = currTime + ((castTime / 1000) - 0.1)
+    else
+        cast.maxValue = castTime / 1000
+        cast.endTime = currTime + (castTime / 1000)
+    end
+
     cast.spellName = spellName
     cast.spellID = spellID
     cast.icon = iconTexturePath
-    cast.maxValue = castTime / 1000
-    cast.endTime = currTime + (castTime / 1000)
     cast.isChanneled = isChanneled
     cast.unitGUID = unitGUID
     cast.timeStart = currTime
     cast.isPlayer = isPlayer
+
     cast.isUninterruptible = uninterruptibleList[spellName]
     if not cast.isUninterruptible and not isPlayer then
         local _, _, _, _, _, npcID = strsplit("-", unitGUID)
@@ -371,8 +379,9 @@ function addon:PLAYER_LOGIN()
         ClassicCastbarsDB.npcCastUninterruptibleCache = {}
     end
 
-    if ClassicCastbarsDB.npcCastUninterruptibleCache and ClassicCastbarsDB.npcCastUninterruptibleCache["11830"..GetSpellInfo(6063)] then
+    if ClassicCastbarsDB.npcCastUninterruptibleCache then
         ClassicCastbarsDB.npcCastUninterruptibleCache["11830"..GetSpellInfo(6063)] = nil
+        ClassicCastbarsDB.npcCastUninterruptibleCache["11359"..GetSpellInfo(22678)] = nil
     end
 
     -- Copy any settings from defaults if they don't exist in current profile

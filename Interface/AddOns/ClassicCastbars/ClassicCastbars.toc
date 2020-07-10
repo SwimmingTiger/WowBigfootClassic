@@ -4,7 +4,7 @@
 ## SavedVariables: ClassicCastbarsDB
 ## SavedVariablesPerCharacter: ClassicCastbarsCharDB
 ## Author: Wardz
-## Version: v1.3.7
+## Version: v1.3.8
 ## X-Curse-Project-ID: 322865
 ## X-WoWI-ID: 24925
 ## Dependencies: BigFoot
