@@ -17,10 +17,14 @@ AddOn.Options.ThreatIndicatorNumber=true;
 AddOn.Options.ThreatIndicatorGlow=true;
 
 --------------------------
---[[	Library Loader	]]
+--[[	Local Variables	]]
 --------------------------
-local LibThreatClassic=LibStub and LibStub("LibThreatClassic2",true);
-if not LibThreatClassic then return; end--	If there's a problem loading the library, stop here (we want option defaults to persist though)
+local ThreatStatusColors={
+	[0]={0.69,0.69,0.69};
+	{1,1,0.47};
+	{1,0.6,0};
+	{1,0,0};
+}
 
 ----------------------------------
 --[[	Numerical Threat Frame	]]
@@ -30,14 +34,15 @@ ThreatFrame:SetPoint("BOTTOM",TargetFrame,"TOP",-30,-21);
 ThreatFrame:SetSize(50,22);
 ThreatFrame:Hide();
 
-ThreatFrame.Text=ThreatFrame:CreateFontString(nil,"BACKGROUND","GameFontHighlight");
-ThreatFrame.Text:SetPoint("TOP",0,-4);
-ThreatFrame.Text:SetText("0%");
-
 ThreatFrame.Background=ThreatFrame:CreateTexture(nil,"BACKGROUND");
 ThreatFrame.Background:SetTexture("Interface\\TargetingFrame\\UI-StatusBar");
 ThreatFrame.Background:SetPoint("TOP",0,-3);
 ThreatFrame.Background:SetSize(37,14);
+
+ThreatFrame.Text=ThreatFrame:CreateFontString(nil,"BACKGROUND","GameFontHighlight");
+ThreatFrame.Text:SetDrawLayer("BACKGROUND",1);--	Raise the sublevel (Modern Default UI has this on the same layer and sublevel, but that may cause random Z-order issues)
+ThreatFrame.Text:SetPoint("TOP",0,-4);
+ThreatFrame.Text:SetText("0%");
 
 do	local border=ThreatFrame:CreateTexture(nil,"ARTWORK");
 	border:SetTexture("Interface\\TargetingFrame\\NumericThreatBorder");
@@ -61,12 +66,12 @@ ThreatGlow:Hide();
 --	Threat Update Function
 local function TargetFrame_UpdateThreat()
 	local EnableNumeric,EnableGlow=AddOn.Options.ThreatIndicatorNumber,AddOn.Options.ThreatIndicatorGlow;
-	if (EnableNumeric or EnableGlow) and UnitExists("target") and LibThreatClassic:IsActive() then
-		local tanking,status,_,percent=LibThreatClassic:UnitDetailedThreatSituation("player","target");
-		local r,g,b=LibThreatClassic:GetThreatStatusColor(status or 0);
+	if (EnableNumeric or EnableGlow) and UnitExists("target") then
+		local tanking,status,_,percent=UnitDetailedThreatSituation("player","target");
+		local r,g,b=unpack(ThreatStatusColors[status or 0]);
 
 		if EnableNumeric then
-			if tanking then percent=LibThreatClassic:UnitThreatPercentageOfLead("player","target"); end
+			if tanking then percent=UnitThreatPercentageOfLead("player","target"); end
 			if percent and percent>0 then
 				ThreatFrame.Text:SetFormattedText("%.0f%%",percent);
 				ThreatFrame.Background:SetVertexColor(r,g,b);
@@ -84,19 +89,8 @@ end
 
 --	Target Update Event
 ThreatFrame:RegisterEvent("PLAYER_TARGET_CHANGED");
+ThreatFrame:RegisterUnitEvent("UNIT_THREAT_LIST_UPDATE","target");
 ThreatFrame:SetScript("OnEvent",TargetFrame_UpdateThreat);
-
---	LibThreatClassic Registration
-local LTCIdentifier={};--	CallbackHandler-1.0 can take any value as an identifier, same identifiers overwrite each other on the same events
-LibThreatClassic.RegisterCallback(LTCIdentifier,"Activate",TargetFrame_UpdateThreat);
-LibThreatClassic.RegisterCallback(LTCIdentifier,"Deactivate",function()
-	ThreatFrame:Hide(); ThreatGlow:Hide();
-	TargetFrame_UpdateAuras(TargetFrame);--	Update buff offset
-end);
-LibThreatClassic.RegisterCallback(LTCIdentifier,"ThreatUpdated",function(event,unitguid,targetguid)
-	if targetguid==UnitGUID("target") then TargetFrame_UpdateThreat(); end
-end);
-LibThreatClassic:RequestActiveOnSolo();
 
 --	Buff Update Hook
 local AURA_START_X=5;--	Local constant in TargetFrame.lua

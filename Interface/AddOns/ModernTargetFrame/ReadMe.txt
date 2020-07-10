@@ -9,6 +9,13 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.8 (2020-07-08)
+	-Rewrote threat system using Blizzard's ThreatAPI (Removed LibThreatClassic2)
+
+v1.7 (2020-06-26)
+	-Raised the DrawLayer sublevel of the numerical threat indicator text to help with random Z-order issues
+	(Note: The text clipping under the border when long enough is an intended recreation of a bug in Modern WoW)
+
 v1.6 (2020-06-05)
 	-Fixed options code loading into the wrong variable scope
 
