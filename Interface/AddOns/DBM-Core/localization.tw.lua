@@ -500,6 +500,7 @@ L.AUTO_RRANGE_OPTION_TEXT_SHORT	= "顯示反色距離框架(%s碼)"
 L.AUTO_INFO_FRAME_OPTION_TEXT	= "為$spell:%s顯示訊息框架"
 L.AUTO_INFO_FRAME_OPTION_TEXT2	= "為整體戰鬥顯示訊息框架"
 L.AUTO_READY_CHECK_OPTION_TEXT	= "當首領開打時撥放準備檢查的音效(即使沒有選定目標)"
+L.AUTO_SPEEDCLEAR_OPTION_TEXT   = "顯示 %s 的最快清除計時器 "
 
 -- New special warnings
 L.MOVE_WARNING_BAR			= "可移動提示"
@@ -567,8 +568,8 @@ L.LAG_FOOTER					= "無回應:%s"
 
 --LDB
 L.LDB_TOOLTIP_HELP1	= "左鍵開啟DBM"
-L.LDB_TOOLTIP_HELP2	= "右鍵開啟設置"
-
+L.LDB_TOOLTIP_HELP2	= "Alt-點擊以切換無聲模式"
+L.SILENTMODE_IS     = "無聲模式是 "
 L.LDB_LOAD_MODS		= "載入首領模組"
 
 L.LDB_CAT_OTHER		= "其他首領"

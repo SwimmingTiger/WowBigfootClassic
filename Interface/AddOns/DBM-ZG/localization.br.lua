@@ -51,9 +51,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	PriestDied	= "%s muere.",
-	YellPhase2	= "Shirvallah, ¡lléname de IRA!",
-	YellKill	= "¡Hakkar ya no me controla! ¡Por fin algo de paz!",
+	PriestDied	= "%s morre.",
+	YellPhase2	= "Shirvallah! Me preenche com a tua fúria!",
+	YellKill	= "Não sou mais prisioneiro de Hakkar! Enfim, paz!",
 	Thekal		= "Sumo Sacerdote Thekal",
 	Zath		= "Zelote Zath",
 	LorKhan		= "Zelote Lor'Khan"

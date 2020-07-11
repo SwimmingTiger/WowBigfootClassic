@@ -64,5 +64,5 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "Hope is a DISEASE of the soul! This land shall wither and die!"
+	Pull		= "A esperança é uma DOENÇA da alma! Estas terras definharão até a morte!"
 })

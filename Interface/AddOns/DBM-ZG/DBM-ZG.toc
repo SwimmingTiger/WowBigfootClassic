@@ -1,6 +1,7 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
 ## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
 ## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
@@ -19,6 +20,7 @@
 ## X-DBM-Mod-Sort: 11
 ## X-DBM-Mod-MapID: 309
 localization.en.lua
+localization.de.lua
 localization.es.lua
 localization.fr.lua
 localization.kr.lua
@@ -26,6 +28,7 @@ localization.mx.lua
 localization.br.lua
 localization.ru.lua
 localization.cn.lua
+localization.tw.lua
 Venoxis.lua
 Jeklik.lua
 Marli.lua

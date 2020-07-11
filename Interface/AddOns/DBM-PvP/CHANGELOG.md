@@ -1,11 +1,15 @@
 # <DBM> PvP
 
-## [r91](https://github.com/DeadlyBossMods/DBM-PvP/tree/r91) (2020-06-12)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r90...r91)
+## [r92](https://github.com/DeadlyBossMods/DBM-PvP/tree/r92) (2020-07-07)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r91...r92) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
 
-- Merge branch 'master' of github.com:DeadlyBossMods/DBM-PvP  
-- Fix #256  
-- Merge pull request #25 from nanjuekaien1/patch-1  
-    Update localization.cn.lua  
-- Update localization.cn.lua  
-    Add the last omission  
+- Bump TOC for classic  
+- Update localization.tw.lua (#31)  
+- Update localization.cn.lua (#30)  
+- Update localization.en.lua (#29)  
+- Merge pull request #27 from venuatu/master  
+    bump AB timer up to 64 for classic and keep bars active until the poi changes  
+- Update PvPGeneral.lua  
+- Update PvPGeneral.lua  
+- bump AB timer up to 64 for classic and keep bars active until the poi changes  
+- Styling updates  

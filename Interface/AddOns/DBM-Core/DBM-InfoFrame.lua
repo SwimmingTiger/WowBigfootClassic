@@ -35,6 +35,10 @@ do
 
 	local function setLines(_, line)
 		if not frame then
+			--Probably not needed here, but for good measure, mods would never call this method directly
+			if DBM.Options.DontShowInfoFrame then
+				return
+			end
 			createFrame()
 		end
 		if line > #frame.lines then
@@ -773,7 +777,7 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId)
 				if class then
 					color = RAID_CLASS_COLORS[class]
-					if DBM.Options.StripServerName then--This still needs it's own check because it has to run custom code for the ugly 3rd column hack
+					if DBM.Options.StripServerName then--StripServerName option is checked here, even though it's checked in GetShortServerName function, because we have to apply custom 3rd column hack reconstruction
 						local shortName = DBM:GetShortServerName(extraName or leftText)
 						if extraName then--3 column hack is present, we need to reconstruct leftText with shortened name
 							leftText = extra.."*"..shortName
@@ -817,6 +821,14 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId)
 				if class then
 					color = RAID_CLASS_COLORS[class]
+					if DBM.Options.StripServerName then--StripServerName option is checked here, even though it's checked in GetShortServerName function, because we have to apply custom 3rd column hack reconstruction
+						local shortName = DBM:GetShortServerName(extraName or leftText)
+						if extraName then--3 column hack is present, we need to reconstruct leftText with shortened name
+							leftText = extra.."*"..shortName
+						else--LeftText is name, just replace it with shortname
+							leftText = shortName
+						end
+					end
 				end
 			else
 				color = NORMAL_FONT_COLOR
@@ -825,6 +837,7 @@ local function onUpdate(frame, table)
 				local _, class = UnitClass(unitId2)
 				if class then
 					color2 = RAID_CLASS_COLORS[class]
+					rightText = DBM:GetShortServerName(rightText)
 				end
 			end
 			linesShown = linesShown + 1
@@ -840,8 +853,8 @@ end
 ---------------
 --Arg 1: spellName, health/powervalue, customfunction, table type. Arg 2: TankIgnore, Powertype, SortFunction, totalAbsorb, sortmethod (table/stacks). Arg 3: SpellFilter, UseIcon. Arg 4: disable onUpdate. Arg 5: sortmethod (playerpower)
 function infoFrame:Show(maxLines, event, ...)
-	currentMapId = select(4, UnitPosition("player"))
 	if DBM.Options.DontShowInfoFrame and (event or 0) ~= "test" then return end
+	currentMapId = select(4, UnitPosition("player"))
 	modLines = maxLines
 	if DBM.Options.InfoFrameLines and DBM.Options.InfoFrameLines ~= 0 then
 		maxlines = DBM.Options.InfoFrameLines
@@ -906,6 +919,10 @@ end
 
 function infoFrame:Update(time)
 	if not frame then
+		--Needed because mods DO call this method directly
+		if DBM.Options.DontShowInfoFrame then
+			return
+		end
 		createFrame()
 	end
 	if frame:IsShown() then
@@ -919,6 +936,10 @@ end
 
 function infoFrame:UpdateTable(table)
 	if not frame then
+		--Needed because mods DO call this method directly
+		if DBM.Options.DontShowInfoFrame then
+			return
+		end
 		createFrame()
 	end
 	if frame:IsShown() and table then
@@ -928,6 +949,10 @@ end
 
 function infoFrame:SetHeader(text)
 	if not frame then
+		--Needed because mods DO call this method directly
+		if DBM.Options.DontShowInfoFrame then
+			return
+		end
 		createFrame()
 	end
 	frame.header:SetText(text or "DBM Info Frame")
@@ -935,6 +960,10 @@ end
 
 function infoFrame:ClearLines()
 	if not frame then
+		--Probably not needed here, but for good measure, mods would never call this method directly
+		if DBM.Options.DontShowInfoFrame then
+			return
+		end
 		createFrame()
 	end
 	for i = 1, #frame.lines do
@@ -962,6 +991,10 @@ end
 
 function infoFrame:SetLine(lineNum, leftText, rightText, colorR, colorG, colorB, color2R, color2G, color2B)
 	if not frame then
+		--Probably not needed here, but for good measure, mods would never call this method directly
+		if DBM.Options.DontShowInfoFrame then
+			return
+		end
 		createFrame()
 	end
 	lineNum = lineNum * 2 - 1

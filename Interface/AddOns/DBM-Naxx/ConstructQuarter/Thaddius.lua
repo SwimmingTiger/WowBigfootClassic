@@ -2,13 +2,11 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200530184609")
+mod:SetRevision("20200624154416")
 mod:SetCreatureID(15928)
 mod:SetEncounterID(1120)
 mod:SetModelID(16137)
 mod:RegisterCombat("combat_yell", L.Yell)
-
-mod:EnableModel()
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 28089",

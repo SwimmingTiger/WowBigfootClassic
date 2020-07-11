@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-mod:SetRevision("20200603134141")
+mod:SetRevision("20200630154905")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -458,7 +458,8 @@ do
 		[219]                       = State.HORDE_CONTESTED,
 		[216]                       = State.HORDE_CONTROLLED
 	}
-	local capTimer = mod:NewTimer(60, "TimerCap", "136002") -- Interface\\icons\\spell_misc_hellifrepvphonorholdfavor.blp
+	local capTimer = mod:NewTimer(isClassic and 64 or 60, "TimerCap", "136002") -- Interface\\icons\\spell_misc_hellifrepvphonorholdfavor.blp
+	capTimer.keep = true
 	local prevTime = 0
 
 	function mod:AREA_POIS_UPDATED(widget)
@@ -492,6 +493,7 @@ do
 					if objectivesStore[infoName] ~= (atlasName and atlasName or infoTexture) then
 						capTimer:Stop(infoName)
 						objectivesStore[infoName] = (atlasName and atlasName or infoTexture)
+						DBM:Debug(string.format("pvp objective update: %s,%s,%s", GetServerTime(), infoName, objectivesStore[infoName]), 2)
 						if not ignoredAtlas[subscribedMapID] and (isAllyCapping or isHordeCapping) then
 							local timeLeft = (
 								-- GetAreaPOISecondsLeft doesn't work in retail?

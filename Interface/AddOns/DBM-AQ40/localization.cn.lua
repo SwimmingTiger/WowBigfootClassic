@@ -140,3 +140,11 @@ L:SetOptionLocalization{
 	WarnEmerge			= "为现身显示警告",
 	TimerEmerge			= "为现身显示计时器"
 }
+----------------
+-- AQ40 Trash --
+----------------
+L = DBM:GetModLocalization("AQ40Trash")
+
+L:SetGeneralLocalization{
+	name = "AQ40 全程计时"
+}

@@ -113,3 +113,12 @@ L:SetMiscLocalization{
 	Submerge	= "¡AVANCEN, MIS SIRVIENTES! ¡DEFIENDEN A SU MAESTRO!",
 	Pull		= "¡Crías imprudentes! ¡Se han precipitado hasta su propia muerte! ¡Ahora miren, el maestro se agita!"
 }
+
+-----------------
+--  MC: Trash  --
+-----------------
+L = DBM:GetModLocalization("MCTrash")
+
+L:SetGeneralLocalization{
+	name = "NM: Bichos"
+}

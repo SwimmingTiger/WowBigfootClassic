@@ -111,7 +111,8 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Eye			= "Eye of C'Thun",
-	Weakened 	= "weaken"
+	Weakened 	= "weaken",
+	NotValid	= "AQ40 partially cleared after %s. This is not a full clear so time will not be saved from this run."
 }
 ----------------
 -- Ouro --
@@ -134,4 +135,13 @@ L:SetOptionLocalization{
 	TimerSubmerge		= "Show timer for submerge",
 	WarnEmerge			= "Show warning for emerge",
 	TimerEmerge			= "Show timer for emerge"
+}
+
+----------------
+-- AQ40 Trash --
+----------------
+L = DBM:GetModLocalization("AQ40Trash")
+
+L:SetGeneralLocalization{
+	name = "AQ40 Trash"
 }

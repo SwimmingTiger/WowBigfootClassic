@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classic)|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classic)|r
@@ -6,6 +6,7 @@
 ## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Clásico)|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classique)|r
 ## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Clássico)|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Азерот (классический)|r
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아제로스 (클래식)|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0艾澤拉斯 (經典)|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领 (经典)|r
@@ -24,6 +25,7 @@
 ## X-DBM-Mod-Name-esMX: Azeroth (Clásico)
 ## X-DBM-Mod-Name-frFR: Azeroth (Classique)
 ## X-DBM-Mod-Name-ptBR: Azeroth (Clássico)
+## X-DBM-Mod-Name-ruRU: Азерот (классический)
 ## X-DBM-Mod-Name-koKR: 아제로스 (클래식)
 ## X-DBM-Mod-Name-zhTW: 艾澤拉斯 (經典)
 ## X-DBM-Mod-Name-zhCN: 世界首领 (经典)
@@ -36,6 +38,7 @@ localization.de.lua
 localization.br.lua
 localization.fr.lua
 localization.es.lua
+localization.ru.lua
 localization.kr.lua
 localization.tw.lua
 localization.cn.lua

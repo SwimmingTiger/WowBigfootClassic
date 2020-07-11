@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple of Ahn'Qiraj|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Tempel von Ahn'Qiraj|r
@@ -28,6 +28,7 @@ localization.ru.lua
 localization.kr.lua
 localization.tw.lua
 localization.cn.lua
+AQ40Trash.lua
 Skeram.lua
 ThreeBugs.lua
 Sartura.lua

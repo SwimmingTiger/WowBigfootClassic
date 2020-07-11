@@ -82,10 +82,10 @@ L:SetGeneralLocalization{
 	name = "Chambellan Executus"
 }
 L:SetTimerLocalization{
-	timerShieldCD		= "Next Shield"
+	timerShieldCD		= "Bouclier suivant"
 }
 L:SetOptionLocalization{
-	timerShieldCD		= "Show timer for next Damage/Reflect Shield"
+	timerShieldCD		= "Afficher le timer pour le prochain bouclier de dégâts / réflexion"
 }
 
 ----------------
@@ -97,22 +97,29 @@ L:SetGeneralLocalization{
 	name = "Ragnaros"
 }
 L:SetWarningLocalization{
-	WarnSubmerge		= "Submerge",
-	WarnEmerge			= "Emerge"
+	WarnSubmerge		= "Submerger",
+	WarnEmerge			= "Émerger"
 }
 L:SetTimerLocalization{
-	TimerSubmerge		= "Submerge",
-	TimerEmerge			= "Emerge",
-	timerCombatStart	= DBM_CORE_L.GENERIC_TIMER_COMBAT
+	TimerSubmerge		= "Submerger",
+	TimerEmerge			= "Émerger",
 }
 L:SetOptionLocalization{
-	WarnSubmerge		= "Show warning for submerge",
-	TimerSubmerge		= "Show timer for submerge",
-	WarnEmerge			= "Show warning for emerge",
-	TimerEmerge			= "Show timer for emerge",
-	timerCombatStart	= DBM_CORE_L.OPTION_TIMER_COMBAT
+	WarnSubmerge		= "Afficher un avertissement pour submerger",
+	TimerSubmerge		= "Afficher le timer pour submerger",
+	WarnEmerge			= "Afficher un avertissement pour émerger",
+	TimerEmerge			= "Afficher le timer pour émerger",
 }
 L:SetMiscLocalization{
 	Submerge	= "COME FORTH, MY SERVANTS! DEFEND YOUR MASTER!",
 	Pull		= "Impudent whelps! You've rushed headlong to your own deaths! See now, the master stirs!\r\n"
+}
+
+-----------------
+--  MC: Trash  --
+-----------------
+L = DBM:GetModLocalization("MCTrash")
+
+L:SetGeneralLocalization{
+	name = "CM: Ennemis communs"
 }

@@ -53,7 +53,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
---	Pull		= "Ich spüre die Schatten in Euren Herzen. Die Verdammten werden niemals ruhen!"
+	Pull		= "Ich spüre die Schatten in Euren Herzen. Die Verdammten werden niemals ruhen!"
 })
 
 -- Emeriss (Duskwood)

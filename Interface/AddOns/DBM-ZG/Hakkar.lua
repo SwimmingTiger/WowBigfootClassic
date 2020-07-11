@@ -27,8 +27,8 @@ local warnAspectOfThekal		= mod:NewSpellAnnounce(24689, 3, nil, "Tank|RemoveEnra
 local warnAspectOfArlokk		= mod:NewTargetNoFilterAnnounce(24690, 3)
 
 local specWarnBlood				= mod:NewSpecialWarningMoveAway(24328, nil, nil, nil, 1, 2)
+local yellBlood					= mod:NewYell(24328, nil, false, 2)
 local specWarnAspectOfThekal	= mod:NewSpecialWarningDispel(24689, "RemoveEnrage", nil, nil, 1, 6)
-local yellBlood					= mod:NewYell(24328)
 
 local timerSiphon				= mod:NewNextTimer(90, 24324, nil, nil, nil, 2)
 local timerAspectOfMarli		= mod:NewTargetTimer(6, 24686, nil, nil, nil, 5)

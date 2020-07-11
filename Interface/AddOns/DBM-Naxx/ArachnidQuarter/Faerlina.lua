@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200530184609")
+mod:SetRevision("20200701173853")
 mod:SetCreatureID(15953)
 mod:SetEncounterID(1110)
 mod:SetModelID(15940)
@@ -19,7 +19,7 @@ local warnEnrageSoon		= mod:NewSoonAnnounce(28131, 3)
 local warnEnrageNow			= mod:NewSpellAnnounce(28131, 4)
 
 local specWarnEnrage		= mod:NewSpecialWarningDefensive(28131, nil, nil, nil, 3, 2)
-local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 2)
+local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 8)
 
 local timerEmbrace			= mod:NewBuffActiveTimer(30, 28732, nil, nil, nil, 6)
 local timerEnrage			= mod:NewCDTimer(60, 28131, nil, nil, nil, 6)
@@ -64,7 +64,7 @@ do
 		--elseif args:IsSpellID(28794, 54099) and args:IsPlayer() then--Rain of Fire
 		elseif args.spellName == RainofFire and args:IsPlayer() then--Rain of Fire
 			specWarnGTFO:Show(args.spellName)
-			specWarnGTFO:Play("runaway")
+			specWarnGTFO:Play("watchfeet")
 		end
 	end
 end

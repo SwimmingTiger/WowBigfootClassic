@@ -44,7 +44,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	Pull	= "None of your kind should be here!  You've doomed only yourselves!"
+	Pull	= "¡Nadie de su raza debería estar aquí! ¡Están condenados!"
 }
 
 ---------------
@@ -164,10 +164,10 @@ L:SetMiscLocalization{
 	YellP1		= "¡Que comiencen los juegos!",
 	YellP2		= "Bien hecho, mis esbirros. El coraje de los mortales empieza a mermar. ¡Veamos ahora cómo se enfrentan al verdadero Señor de la Cubre de Roca Negra!",
 	YellP3		= "¡Imposible! ¡Levántense, mis esbirros! ¡Sirvan a su amo una vez más!",
-	YellShaman	= "¡Chamanes, mostradme lo que pueden hacer vuestros tótems!",
-	YellPaladin	= "Paladines... He oído que tenéis muchas vidas. Demostrádmelo.",
-	YellDruid	= "Los druidas y vuestro estúpido poder de cambiar de forma. ¡Veámoslo en acción!",
-	YellPriest	= "¡Sacerdotes! Si vais a seguir curando de esa forma, ¡podríamos hacerlo más interesante!",
+	YellShaman	= "¡Chamanes, muéstrenme lo que pueden hacer sus tótems!",
+	YellPaladin	= "Paladines... He oído que tienen muchas vidas. Demuéstrenmelo.",
+	YellDruid	= "Los druidas y su estúpido poder de cambiar de forma. ¡Veámoslo en acción!",
+	YellPriest	= "¡Sacerdotes! Si van a seguir curando de esa forma, ¡podríamos hacerlo más interesante!",
 	YellWarrior	= "¡Vamos guerreros, sé que pueden golpear más fuerte que eso! ¡Veámoslo!",
 	YellRogue	= "¿Pícaros? ¡Dejen de esconderse y enfréntense a mí!",
 	YellWarlock	= "Brujos... No deberían estar jugando con magia que no comprenden. ¿Ven lo que pasa?",

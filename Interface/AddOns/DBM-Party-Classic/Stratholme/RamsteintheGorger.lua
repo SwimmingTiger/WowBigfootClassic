@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(455, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200530184609")
+mod:SetRevision("20200706223848")
 mod:SetCreatureID(10439)
 mod:SetEncounterID(483)
 
@@ -20,6 +20,12 @@ local timerTrampleCD			= mod:NewAITimer(180, 5568, nil, nil, nil, 2)
 function mod:OnCombatStart(delay)
 	timerKnockoutCD:Start(1-delay)
 	timerTrampleCD:Start(1-delay)
+end
+
+function mod:OnCombatEnd(wipe, isSecondRun)
+	if not wipe and not isSecondRun then
+		--do things
+	end
 end
 
 do

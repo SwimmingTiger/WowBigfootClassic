@@ -17,9 +17,9 @@ L.Website					= "拜访我们的Discord |cFF73C2FBhttps://discord.gg/deadlybossm
 L.WebsiteButton				= "网页"
 
 L.OTabBosses	            = "模块"--Deprecated and will be deleted once tabs no longer use this
-L.OTabRaids		            = "团队副本 & PVP"--Raids & PVP
-L.OTabDungeons	            = "地下城"--Dungeons only, classic doesn't have scenarios of any type, first scenario wasn't until Mists of Pandaria
-L.OTabPlugins	            = "插件"
+L.OTabRaids		            = "团队副本"--Raids & PVP
+L.OTabDungeons	            = "地下城/个人场景"--1-5人的副本内容（地下城，MoP场景，世界事件，要塞战役，试验场等）
+L.OTabPlugins	            = "核心插件"
 L.OTabOptions	            = "选项"
 L.OTabAbout		            = "关于"
 

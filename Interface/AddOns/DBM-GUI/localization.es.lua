@@ -11,6 +11,11 @@ L.Website					= "Visita nuestro canal de Discord: |cFF73C2FBhttps://discord.gg/d
 L.WebsiteButton				= "Página web"
 
 L.OTabBosses	= "Jefes"
+L.OTabRaids		= "Banda"--Raids & PVP
+L.OTabDungeons	= "Grupo/Solo"--1-5 person content (Dungeons, MoP Scenarios, World Events, Brawlers, Proving Grounds, Visions, Torghast, etc)
+L.OTabPlugins	= "Plugins del núcleo"
+L.OTabOptions	= GAMEOPTIONS_MENU
+L.OTabAbout		= "Sobre"
 
 L.TabCategory_Options	 	= "Opciones generales"
 L.TabCategory_BFA	 		= "Battle for Azeroth"

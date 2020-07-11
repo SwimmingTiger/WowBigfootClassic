@@ -1,6 +1,6 @@
 ﻿if GetLocale() ~= "zhCN" then return end
 local L
-
+--Last update: 2020/07/03 （重新整理）
 --------------------------
 --  General BG Options  --
 --------------------------
@@ -11,47 +11,60 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerInvite	= "%s"
+	TimerCap		= "%s",
+	TimerFlag		= "重置",
+	TimerInvite		= "%s",
+	TimerRemaining	= "剩余时间: ",
+	TimerShadow		= "暗影之眼"
 })
 
 L:SetOptionLocalization({
-	ColorByClass		  = "得分板上玩家按职业着色",
-	TimerInvite			  = "计时条：进入战场",
-	TimerCap			  = "计时条：占领资源",   ---
-	TimerFlag			  = "计时条：旗帜重置", --
-	TimerRemaining		  = "计时条：比赛开始和结束的剩余时间",  --
-	TimerWin			  = "计时条：胜利时间",  --
-	ShowRelativeGameTime  = "计时条：战场开始到获胜的计时（如果禁用，则计时条总是看起来满了）", --
-	AutoSpirit			  = "自动释放灵魂",
-	ShowFlagCarrier		  = "显示旗帜携带者",  --
-	HideBossEmoteFrame	  = "隐藏团队首领表情框体"
+	AutoSpirit			= "自动释放灵魂",
+	ColorByClass		= "得分板上玩家按职业着色",
+	HideBossEmoteFrame	= "在战场时隐藏团队首领表情框体/公会信息等",
+	ShowBasesToWin		= "显示获胜需要占领的资源点",
+	ShowEstimatedPoints	= "显示战斗开始/结束时双方资源统计",
+	ShowFlagCarrier		= "显示旗帜携带者",
+	TimerCap			= "计时条：占领资源",
+	TimerFlag			= "计时条：旗帜重置",
+	TimerInvite			= "计时条：进入战场",
+	TimerRemaining		= "计时条：比赛开始和结束的剩余时间",
+	TimerShadow			= "计时条：暗影之眼",
+	TimerWin			= "计时条：胜利时间",
+	ShowRelativeGameTime= "计时条：战场开始到获胜的计时（如果禁用，则计时条总是看起来满了）"
 })
 
 L:SetMiscLocalization({
-	BgStart60	= "战歌峡谷战斗将在1分钟内开始。",
-	BgStart30	= "战歌峡谷战斗将在30秒钟内开始。做好准备！",
-	ArenaInvite	= "竞技场邀请"
+	BgStart60           = "战斗将在1分钟内开始。",
+	BgStart30           = "战斗将在30秒钟内开始。做好准备！",
+	ArenaInvite			= "竞技场邀请",
+	BasesToWin			= "胜利需要占领资源点: %d",
+	WinBarText			= "%s 获胜",
+	-- TODO: Implement the flag carrying system
+	Flag				= "旗帜",
+	FlagReset			= "旗帜被重新放置了！",
+	FlagTaken			= "(.+) 夺走了旗帜！",
+	FlagCaptured		= " .+ ha%w+ 夺得了旗帜！",
+	FlagDropped			= "旗帜被扔掉了！",
+	--
+	InfoErrorText		= "携带旗帜者目标功能会在你脱离战斗后恢复。",
+	ExprFlagPickUp		= " (%w+) 的旗帜。被 (.+) 拔起了！",
+	ExprFlagCaptured	= "(.+) 夺取了 (%w+) 的旗帜！",
+	ExprFlagReturn		= " (%w+) 的旗帜！被 (.+) 还到了它的基地中！",
+	FlagAlliance		= "联盟: ",
+	FlagHorde			= "部落: ",
+	FlagBase			= "基地",
+	Vulnerable1			= "旗帜携带者已变的容易受到攻击！",
+	Vulnerable2			= "旗帜携带者越来越容易受到攻击！"
 })
 
---------------
---  Arenas  --
---------------
-L = DBM:GetModLocalization("Arenas")
-
-L:SetGeneralLocalization({
-	name	= "竞技场"
-})
-
-L:SetTimerLocalization({
-	TimerShadow	= "暗影之眼"
-})
+----------------------
+--  Seething Shore  --
+----------------------
+L = DBM:GetModLocalization("z1803")
 
 L:SetOptionLocalization({
-	TimerShadow	= "计时条：暗影之眼"
-})
-
-L:SetMiscLocalization({
-	Start15	= "竞技场战斗将在十五秒后开始！"
+	TimerSpawn	= "显示计时器"
 })
 
 ----------------------
@@ -59,109 +72,17 @@ L:SetMiscLocalization({
 ----------------------
 L = DBM:GetModLocalization("z30")
 
-L:SetTimerLocalization({
-	TimerTower = "%s",
-	TimerGY = "%s"
-})
-
 L:SetOptionLocalization({
-	TimerTower	= "计时条：占领哨塔",
-	TimerGY	= "计时条：占领墓地",
 	AutoTurnIn	= "自动递交任务物品"
 })
 
---------------------
---  Arathi Basin  --
---------------------
-L = DBM:GetModLocalization("z529")
-
-L:SetTimerLocalization({
-	TimerCap = "%s"
-})
+--------------
+--  Ashran  --
+--------------
+L = DBM:GetModLocalization("z1191")
 
 L:SetOptionLocalization({
-	TimerWin				= "计时条：获胜",
-	TimerCap				= "计时条：占领资源点",
-	ShowAbEstimatedPoints	= "显示战斗结束时双方资源统计",
-	ShowAbBasesToWin		= "显示获胜需要占领的资源点"
-})
-
-L:SetMiscLocalization({
-	ScoreExpr	= "(%d+)/1500",
-	WinBarText	= "%s 获胜",
-	BasesToWin	= "胜利需要占领资源点: %d"
-})
-
----------------------
---  Deepwind Gorge --
----------------------
-L = DBM:GetModLocalization("z1105")
-
-L:SetTimerLocalization({
-	TimerCap	= "%s"
-})
-
-L:SetOptionLocalization({
-	TimerCap	= "计时条：占领资源点",
-	TimerWin	= "计时条：胜利时间"
-})
-
-L:SetMiscLocalization({
-	ScoreExpr	= "(%d+)/1500",
-	WinBarText	= "%s 获胜"
-})
-
-------------------------
---  Eye of the Storm  --
-------------------------
-L = DBM:GetModLocalization("z566")
-
-L:SetTimerLocalization({
-	TimerFlag	= "旗帜重置"
-})
-
-L:SetOptionLocalization({
-	TimerWin		= "计时条：获胜",
-	TimerFlag		= "计时条：旗帜重置",
-	ShowPointFrame	= "显示旗帜携带着和预计获胜点数"
-})
-
-L:SetMiscLocalization({
-	ScoreExpr		= "(%d+)/1500",
-	WinBarText		= "%s 获胜",
-	FlagReset		= "旗帜被重新放置了。!",
-	FlagTaken		= "(.+)夺走了旗帜！",
-	FlagCaptured	= "(.+)夺得了旗帜！",
-	FlagDropped		= "旗帜被扔掉了！",
-})
-
----------------------
---  Warsong Gulch  --
----------------------
-L = DBM:GetModLocalization("z489")
-
-L:SetTimerLocalization({
-	TimerStart	= "战斗即将开始",
-	TimerFlag	= "旗帜重置"
-})
-
-L:SetOptionLocalization({
-	TimerStart					= "计时条：战斗开始",
-	TimerFlag					= "计时条：旗帜重置",
-	ShowFlagCarrier				= "显示旗帜携带者",
-	ShowFlagCarrierErrorNote	= "战斗中显示旗帜携带者错误信息"
-})
-
-L:SetMiscLocalization({
-	InfoErrorText		= "携带旗帜者目标功能会在你脱离战斗后恢复。",
-	ExprFlagPickUp		= "(.+)的旗帜被(.+)拔起了！",
-	ExprFlagCaptured	= "(.+)夺取了(.+)的旗帜！",
-	ExprFlagReturn		= "(.+)的旗帜被(.+)还到了它的基地中！",
-	FlagAlliance		= "联盟: ",
-	FlagHorde			= "部落: ",
-	FlagBase 			= "基地",
-	Vulnerable1			= "The flag carriers have become vulnerable to attack!",
-	Vulnerable2			= "The flag carriers have become increasingly vulnerable to attack!"
+	AutoTurnIn	= "自动递交任务物品"
 })
 
 ------------------------
@@ -175,12 +96,10 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerPOI			= "%s",
 	TimerSiegeEngine	= "攻城机具修复"
 })
 
 L:SetOptionLocalization({
-	TimerPOI			= "计时条：占领",
 	TimerSiegeEngine	= "计时条：攻城器的建造",
 	WarnSiegeEngine		= "警报：攻城器准备就绪",
 	WarnSiegeEngineSoon	= "预警：攻城器准备就绪",
@@ -200,74 +119,24 @@ L:SetMiscLocalization({
 	GoblinBrokenHorde		= "又坏掉了吗？！让我来修理吧……但别指望产品的保固会帮你支付这一切。"
 })
 
-------------------
---  Twin Peaks  --
-------------------
-L = DBM:GetModLocalization("z726")
-
-L:SetTimerLocalization({
-	TimerStart = "战斗即将开始",
-	TimerFlag = "旗帜重置"
-})
-
-L:SetOptionLocalization({
-	TimerStart  = "计时条：战斗开始",
-	TimerFlag = "计时条：旗帜重置",
-	ShowFlagCarrier = "显示旗帜携带者",
-	ShowFlagCarrierErrorNote = "战斗中显示旗帜携带者错误信息"
-})
-
-L:SetMiscLocalization({
-	Alliance			= "联盟",
-	Horde				= "部落",
-	InfoErrorText		= "携带旗帜者目标功能会在你脱离战斗后恢复。",
-	ExprFlagPickUp = "(.+)的旗帜被(.+)拔起了！",
-	ExprFlagCaptured = "(.+)夺取了(.+)的旗帜！",
-	ExprFlagReturn = "(.+)的旗帜被(.+)还到了它的基地中！",
-	FlagAlliance = "联盟: ",
-	FlagHorde = "部落: ",
-	FlagBase = "基地",
-	Vulnerable1		= "The flag carriers have become vulnerable to attack!",
-	Vulnerable2		= "The flag carriers have become increasingly vulnerable to attack!"
-})
-
---------------------------
---  Battle for Gilneas  --
---------------------------
-L = DBM:GetModLocalization("z761")
-
-L:SetTimerLocalization({
-	TimerCap = "%s"
-})
-
-L:SetOptionLocalization({
-	TimerWin = "计时条：获胜",
-	TimerCap = "计时条：占领",
-	ShowGilneasEstimatedPoints = "显示战斗结束时双方资源统计",
-	ShowGilneasBasesToWin = "显示获胜需要占领的资源点"
-})
-
-L:SetMiscLocalization({
-	ScoreExpr = "(%d+)/1500",
-	WinBarText = "%s 获胜",
-	BasesToWin = "胜利需要占领资源点: %d"
-})
-
 -------------------------
 --  Silvershard Mines  --
 -------------------------
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerCart	= "矿车刷新"
+	TimerRespawn	= "矿车刷新"
 })
 
 L:SetOptionLocalization({
-	TimerCart	= "计时条：矿车刷新"
+	TimerResapwn	= "显示矿车刷新计时",
+	TimerCart		= "计时条：矿车刷新"
 })
 
 L:SetMiscLocalization({
-	Capture = "控制了"
+	Capture	= "已控制",
+	Arrived	= "已到达",
+	Begun	= "已经开始"
 })
 
 -------------------------
@@ -276,15 +145,10 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z998")
 
 L:SetOptionLocalization({
-	TimerWin			= "计时条：获胜",
-	ShowKotmoguEstimatedPoints	= "显示战斗结束时双方资源统计",
-	ShowKotmoguOrbsToWin		= "显示获胜需要控制的宝珠数量"
+	ShowOrbCarriers	= "显示框体"
 })
 
 L:SetMiscLocalization({
-	OrbTaken	= "(%S+)取走了(%S+)的球！",
-	OrbReturn	= "(%S+)宝珠被放回了！",
-	ScoreExpr	= "(%d+)/1500",
-	WinBarText	= "预计：%s获胜",
-	OrbsToWin	= "胜利需要控制宝珠：%d"
+	OrbTaken	= "(%S+) 取走了 (%S+) 的球！",
+	OrbReturn	= " (%S+) 宝珠被放回了！"
 })

@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Blackwing Lair|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Pechschwingenhort|r
@@ -25,6 +25,7 @@ localization.en.lua
 localization.de.lua
 localization.es.lua
 localization.mx.lua
+localization.br.lua
 localization.ru.lua
 localization.kr.lua
 localization.tw.lua

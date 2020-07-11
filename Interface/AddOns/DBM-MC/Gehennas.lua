@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Gehennas", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200623011525")
+mod:SetRevision("20200701173853")
 mod:SetCreatureID(12259)--, 11661
 mod:SetEncounterID(665)
 mod:SetModelID(13030)
@@ -19,7 +19,7 @@ local warnRainFire	= mod:NewSpellAnnounce(19717, 2, nil, false)
 local warnCurse		= mod:NewSpellAnnounce(19716, 3)
 local warnFist		= mod:NewTargetAnnounce(20277, 2, nil, false, 2)
 
-local specWarnRoF	= mod:NewSpecialWarningMove(19717, nil, nil, nil, 1, 2)
+local specWarnGTFO	= mod:NewSpecialWarningGTFO(19717, nil, nil, nil, 1, 8)
 
 local timerRoF		= mod:NewCDTimer(6, 19717, nil, false, nil, 3)
 local timerCurse	= mod:NewCDTimer(26.7, 19716, nil, nil, nil, 3, nil, DBM_CORE_L.HEALER_ICON..DBM_CORE_L.CURSE_ICON)--26.7-30
@@ -69,8 +69,8 @@ do
 	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId, spellName)
 		--if spellId == 19717 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		if spellName == RainofFire and destGUID == UnitGUID("player") and self:AntiSpam() then
-			specWarnRoF:Show(spellName)
-			specWarnRoF:Play("runaway")
+			specWarnGTFO:Show(spellName)
+			specWarnGTFO:Play("watchfeet")
 		end
 	end
 	mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE

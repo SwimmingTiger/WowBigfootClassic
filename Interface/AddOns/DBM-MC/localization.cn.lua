@@ -114,3 +114,11 @@ L:SetMiscLocalization{
 	Submerge	= "出现吧，我的奴仆! 保卫你们的主人!",
 	Pull		= "你这个莽撞的家伙!你简直是自寻死路!看吧，你惊动了主人!"
 }
+-----------------
+--  MC: Trash  --
+-----------------
+L = DBM:GetModLocalization("MCTrash")
+
+L:SetGeneralLocalization{
+	name = "MC: 全程计时"
+}

@@ -30,7 +30,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Sartura")
 
 L:SetGeneralLocalization{
-	name = "戰地衛士沙爾圖拉"
+	name = "沙爾圖拉"
 }
 
 --------------

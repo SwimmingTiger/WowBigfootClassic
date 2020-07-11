@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lucifron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200623011525")
+mod:SetRevision("20200625015320")
 mod:SetCreatureID(12118)--, 12119
 mod:SetEncounterID(663)
 mod:SetModelID(13031)
@@ -31,22 +31,13 @@ local timerDoomCD	= mod:NewCDTimer(20, 19702, nil, nil, nil, 3, nil, DBM_CORE_L.
 --local timerDoom		= mod:NewCastTimer(10, 19702, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
 
 mod:AddSetIconOption("SetIconOnMC", 20604, true, false, {1, 2})
-mod:AddSpeedClearOption("MC", true)
 
 mod.vb.lastIcon = 1
-mod.vb.firstEngageTime = nil
 
 function mod:OnCombatStart(delay)
 	self.vb.lastIcon = 1
 	timerDoomCD:Start(7-delay)--7-8
 	timerCurseCD:Start(12-delay)--12-15
-	if not self.vb.firstEngageTime then
-		self.vb.firstEngageTime = GetTime()
-		if self.Options.FastestClear and self.Options.SpeedClearTimer then
-			--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
-		end
-	end
 end
 
 do

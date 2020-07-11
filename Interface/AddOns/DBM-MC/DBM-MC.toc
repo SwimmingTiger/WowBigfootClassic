@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## X-Min-Interface: 11302
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Molten Core|r
 ## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Núcleo de Magma|r
@@ -31,6 +31,7 @@ localization.br.lua
 localization.kr.lua
 localization.tw.lua
 localization.cn.lua
+MCTrash.lua
 Lucifron.lua
 Magmadar.lua
 Gehennas.lua
