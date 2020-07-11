@@ -14,8 +14,8 @@ L.reset					= "重置為默認"
 -- messages
 L.message_welcome		= "輸入 /tc2 進入設置"
 L.message_leader		= "你必須是隊長或者有A"
-L.message_outdated		= "新版本TC2發現! 請下載最新版本."
-L.message_incompatible	= "TC2 已過期或不相容.請立即升級."
+L.message_outdated		= "|cFFFBB709ThreatClassic2:|r新版本已發布，請去 https://www.curseforge.com/wow/addons/threatclassic2 下載最新版本。"
+L.message_incompatible	= "你的 |cFFFBB709ThreatClassic2|r 已過期，因此不兼容，請立即升級。"
 
 -- version check
 L.version				= "版本檢查"
@@ -29,7 +29,7 @@ L.version_incompatible	= "不相容！"
 
 L.general				= "一般"
 L.general_welcome		= "顯示歡迎資訊當你登陸時."
-L.general_update		= "更新間隔時間 (秒)"
+L.general_updateFreq    = "更新間隔最短時間 (秒)。"   --
 L.general_test			= "測試模式."
 L.general_minimap		= "小地圖按鈕."
 L.general_ignorePets	= "忽略玩家寵物的仇恨."

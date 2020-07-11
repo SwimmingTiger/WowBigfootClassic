@@ -44,12 +44,17 @@ local screenHeight			= floor(GetScreenHeight())
 local lastCheckStatusTime 	= 0
 local callCheckStatus		= false
 
+local announcedOutdated	    = false
+local announcedIncompatible = false
+
 local lastWarnPercent		=  100
 
 local FACTION_BAR_COLORS	= _G.FACTION_BAR_COLORS
 local RAID_CLASS_COLORS		= (_G.CUSTOM_CLASS_COLORS or _G.RAID_CLASS_COLORS)
 
+
 -- other
+TC2.commPrefix = "TC2"
 TC2.bars = {}
 TC2.threatData = {}
 TC2.colorFallback = {}
@@ -57,10 +62,8 @@ TC2.numGroupMembers = 0
 TC2.playerName = ""
 TC2.playerTarget = ""
 
------------------------------
--- WOW CLASSIC
------------------------------
-TC2.api_available = _G.UnitThreatSituation ~= nil
+local AceComm = LibStub("AceComm-3.0")
+AceComm:Embed(TC2)
 
 -- depreciation warning for ClassicThreatMeter
 C_Timer.After(3, 
@@ -74,6 +77,8 @@ C_Timer.After(3,
 local LSM = LibStub("LibSharedMedia-3.0")
 -- Register some media
 LSM:Register("sound", "You Will Die!", [[Sound\Creature\CThun\CThunYouWillDie.ogg]])
+LSM:Register("sound", "Omen: Aoogah!", [[Interface\AddOns\ThreatClassic2\aoogah.ogg]])
+LSM:Register("sound", "TC2: Bell", [[Sound/Doodad/BellTollAlliance.ogg]])
 LSM:Register("font", "NotoSans SemiCondensedBold", [[Interface\AddOns\ThreatClassic2\media\NotoSans-SemiCondensedBold.ttf]])
 LSM:Register("font", "Standard Text Font", _G.STANDARD_TEXT_FONT) -- register so it's usable as a default in config
 LSM:Register("statusbar", "TC2 Default", [[Interface\ChatFrame\ChatFrameBackground]]) -- register so it's usable as a default in config
@@ -86,18 +91,8 @@ local SoundChannels = {
 	["Music"] = L.soundChannel_music
 }
 
-local ThreatLib = not TC2.api_available and LibStub:GetLibrary("LibThreatClassic2")
-if not TC2.api_available then
-	assert(ThreatLib, "ThreatClassic2 requires LibThreatClassic2")
-end
-
-local UnitThreatSituation = _G.UnitThreatSituation or not TC2.api_available and function(unit, mob)
-	return ThreatLib:UnitThreatSituation(unit, mob)
-end or _G.UnitThreatSituation
-
-local UnitDetailedThreatSituation = _G.UnitDetailedThreatSituation or not TC2.api_available and function(unit, mob)
-	return ThreatLib:UnitDetailedThreatSituation(unit, mob)
-end or _G.UnitDetailedThreatSituation
+local UnitThreatSituation = _G.UnitThreatSituation
+local UnitDetailedThreatSituation = _G.UnitDetailedThreatSituation
 
 -----------------------------
 -- FUNCTIONS
@@ -334,20 +329,26 @@ end
 local function UpdateThreatData(unit)
 	if not UnitExists(unit) then return end
 	local isTanking, _, threatPercent, rawThreatPercent, threatValue = UnitDetailedThreatSituation(unit, TC2.playerTarget)
-	if threatValue and threatValue < 0 then
-		threatValue = threatValue + 410065408
+
+	if isTanking then
+		-- this fixes wonky returns from the API. regular threatPercent should be working correctly, but just in case...
+		rawThreatPercent = 100
+		threatPercent = 100
 	end
 
-	if threatValue and TC2.api_available and C.general.downscaleThreat then
+	if threatValue and C.general.downscaleThreat then
 		threatValue = math.floor(threatValue / 100)
 	end
+
 	-- check for warnings
 	if UnitIsUnit(unit, "player") and threatPercent then
 		TC2:CheckWarning(threatPercent, threatValue)
 	end
+
 	if C.general.rawPercent then
 		threatPercent = rawThreatPercent
 	end
+
 	tinsert(TC2.threatData, {
 		unit			= unit,
 		threatPercent	= threatPercent or 0,
@@ -414,13 +415,6 @@ local function CheckStatusDeferred()
 	callCheckStatus = true
 end
 
--- remove me once api_available
-local function ThreatUpdated(event, unitGUID, targetGUID, threat)
-	if UnitGUID(TC2.playerTarget) == targetGUID then
-		CheckStatusDeferred()
-	end
-end
-
 function TC2:CheckWarning(threatPercent, threatValue)
 	-- percentage is now above threshold and was below threshold before
 	if threatPercent >= C.warnings.threshold and lastWarnPercent < C.warnings.threshold then
@@ -434,7 +428,6 @@ function TC2:CheckWarning(threatPercent, threatValue)
 		lastWarnPercent = threatPercent
 	end
 end
-
 
 function TC2:FlashScreen()
 	if not self.FlashFrame then
@@ -662,109 +655,27 @@ end
 -----------------------------
 -- VERSION CHECK
 -----------------------------
-local group = {}
-local groupSort = {}
 
-local function CheckVersion(onlyOutdated)
-	if onlyOutdated then
-		print(L.version_list_outdated)
-	else
-		print(L.version_list)
-	end
-	local latestRevision = ThreatLib.latestSeenRevision
-	local revisions = ThreatLib.partyMemberRevisions
-	local agents = ThreatLib.partyMemberAgents
-	for k, _ in pairs(group) do
-		group[k] = nil
-	end
-	if TC2.numGroupMembers > 0 then
-		local unit = IsInRaid() and "raid" or "party"
-		for i = 1, TC2.numGroupMembers do
-			local name = UnitName(unit .. i)
-			if name then
-				group[name] = true
+function TC2:OnCommReceived(prefix, message, distribution, sender)
+	if prefix == "TC2" then
+		local cmd, value = strmatch(message, "^(.*)::(.*)$")
+		if cmd == "VERSION" then
+			if self.version < value and not announcedOutdated then
+				announcedOutdated = true
+				C_Timer.After(2, function() print(L.message_outdated) end)
 			end
-		end
-		for i = 1, #groupSort do
-			tremove(groupSort)
-		end
-		for k, _ in pairs(group) do
-			tinsert(groupSort, k)
-		end
-		table.sort(groupSort)
-		print(L.version_divider)
-		local incompatibleClients = {}
-		local missingClients = {}
-		local outdatedClients = {}
-		for _, v in ipairs(groupSort) do
-			local compatible = ThreatLib:IsCompatible(v)
-			local missing = not revisions[v]
-			local outdated = not missing and revisions[v] < (latestRevision or 0)
-			if not onlyOutdated or missing or outdated then
-				print(("%s: %s / %s %s"):format(v, agents[v] or ("|cff666666" .. UNKNOWN .. "|r"), revisions[v] or ("|cff666666" .. UNKNOWN .. "|r"), compatible and "" or " - |cffff0000" .. L.version_incompatible))
-			end
-			if missing then
-				tinsert(missingClients, v)
-			elseif outdated then
-				tinsert(outdatedClients, v)
-			elseif not compatible then
-				tinsert(incompatibleClients, v)
-			end
-		end
-		print("---")
-		if #missingClients > 0 or #outdatedClients > 0 or #incompatibleClients > 0 then
-			if #missingClients > 0 then
-				local s = format("Found %d player(s) without any version: ", #missingClients)
-				for i, v in ipairs(missingClients) do
-					s = s .. (i == 1 and v or format(", %s", v))
-				end
-				print(s)
-			end
-			if #outdatedClients > 0 then
-				local s = format("Found %d player(s) with outdated version: ", #outdatedClients)
-				for i, v in ipairs(outdatedClients) do
-					s = s .. (i == 1 and v or format(", %s", v))
-				end
-				print(s)
-			end
-			if #incompatibleClients > 0 then
-				local s = format("Found %d player(s) with incompatible version: ", #incompatibleClients)
-				for i, v in ipairs(incompatibleClients) do
-					s = s .. (i == 1 and v or format(", %s", v))
-				end
-				print(s)
-			end
-		else
-			print("Every player in your group has the lastest version installed!")
-		end
-	end
-end
-
-local function NotifyOldClients()
-	if not ThreatLib:IsGroupOfficer("player") then
-		print(L.message_leader)
-		return
-	end
-	local latestRevision = ThreatLib.latestSeenRevision
-	local revisions = ThreatLib.partyMemberRevisions
-	local agents = ThreatLib.partyMemberAgents
-	if TC2.numGroupMembers > 0 then
-		local unit = IsInRaid() and "raid" or "party"
-		for i = 1, TC2.numGroupMembers do
-			local name = UnitName(unit .. i)
-			if name then
-				if ThreatLib:IsCompatible(name) then
-					if revisions[name] and revisions[name] < latestRevision then
-						SendChatMessage(L.message_outdated, "WHISPER", nil, name)
-					end
-				else
-					SendChatMessage(L.message_incompatible, "WHISPER", nil, name)
-				end
+		elseif cmd == "INCOMPATIBLE" then
+			if self.version < value and not announcedIncompatible then
+				announcedIncompatible = true
+				C_Timer.After(3, function() print(L.message_incompatible) end)
 			end
 		end
 	end
 end
 
+function TC2:PublishVersion()
+	self:SendCommMessage(self.commPrefix, "VERSION::"..self.version, "GUILD")
+end
 
 -----------------------------
 -- EVENTS
@@ -779,7 +690,7 @@ TC2.frame:SetScript("OnUpdate", function(self, elapsed)
 	if GetTime() > lastCheckStatusTime + C.general.updateFreq then
 		-- always check status in interval if the playerTarget is set to targettarget (i.e. direct traget is friendly)
 		-- because THREAT_LIST_UPDATE does not trigger for targettarget. Also the threat api only works in combat
-		if callCheckStatus or (TC2.api_available and TC2.playerTarget == "targettarget" and UnitAffectingCombat("player")) then
+		if callCheckStatus or (TC2.playerTarget == "targettarget" and UnitAffectingCombat("player")) then
 			CheckStatus()
 		end
 	end
@@ -790,7 +701,6 @@ function TC2:PLAYER_ENTERING_WORLD(...)
 
 	self.numGroupMembers = IsInRaid() and GetNumGroupMembers() or GetNumSubgroupMembers()
 
-	-- CheckVersionOLD(self, ...)
 	CheckStatus()
 end
 
@@ -808,7 +718,6 @@ TC2.UNIT_TARGET = TC2.PLAYER_TARGET_CHANGED
 function TC2:GROUP_ROSTER_UPDATE(...)
 	self.numGroupMembers = IsInRaid() and GetNumGroupMembers() or GetNumSubgroupMembers()
 
-	-- CheckVersionOLD(self, ...)
 	CheckStatusDeferred()
 end
 
@@ -875,24 +784,18 @@ function TC2:PLAYER_LOGIN()
 	if C.general.welcome then
 		print("|c00FFAA00"..self.addonName.." v"..self.version.." - "..L.message_welcome.."|r")
 	end
+	self:RegisterComm(self.commPrefix)
+	self:PublishVersion()
 
 	self.frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self.frame:RegisterEvent("GROUP_ROSTER_UPDATE")
 	self.frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	-- self.frame:RegisterEvent("CHAT_MSG_ADDON")
 	self.frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 	self.frame:RegisterUnitEvent("UNIT_TARGET", "target")
 	self.frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self.frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 
-	if self.api_available then
-		self.frame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
-	else
-		ThreatLib.RegisterCallback(self, "Activate", CheckStatusDeferred)
-		ThreatLib.RegisterCallback(self, "Deactivate", CheckStatusDeferred)
-		ThreatLib.RegisterCallback(self, "ThreatUpdated", ThreatUpdated)
-		ThreatLib:RequestActiveOnSolo(true)
-	end
+	self.frame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
 
 	-- Setup Config
 	self:SetupConfig()
@@ -968,15 +871,6 @@ function TC2:SetupMenu()
 				CheckStatus()
 			end
 		end},
-		{text = L.version_check_all, notCheckable = true, func = function()
-			CheckVersion()
-		end},
-		{text = L.version_check, notCheckable = true, func = function()
-			CheckVersion(true)
-		end},
-		{text = L.version_notify, notCheckable = true, func = function()
-			NotifyOldClients()
-		end},
 		{text = L.gui_config, notCheckable = true, func = function()
 			LibStub("AceConfigDialog-3.0"):Open("ThreatClassic2")
 		end},
@@ -995,7 +889,6 @@ function TC2:SetupConfig()
 	self.config.general = ACD:AddToBlizOptions(TC2.addonName, TC2.addonName, nil, "general")
 	self.config.appearance = ACD:AddToBlizOptions(TC2.addonName, L.appearance, TC2.addonName, "appearance")
 	self.config.warnings = ACD:AddToBlizOptions(TC2.addonName, L.warnings, TC2.addonName, "warnings")
-	self.config.version = ACD:AddToBlizOptions(TC2.addonName, L.version, TC2.addonName, "version")
 	self.config.profiles = ACD:AddToBlizOptions(TC2.addonName, L.profiles, TC2.addonName, "profiles")
 end
 
@@ -1041,7 +934,6 @@ TC2.configTable = {
 					desc = L.general_downscaleThreatDesc,
 					type = "toggle",
 					width = "full",
-					hidden = not TC2.api_available
 				},
 				updateFreq = {
 					order = 5,
@@ -1483,6 +1375,7 @@ TC2.configTable = {
 				minThreatAmount = {
 					order = 2,
 					name = L.warnings_minThreatAmount,
+					desc = L.warnings_minThreatAmount_desc,
 					type = "range",
 					width = "double",
 					min = 1,
@@ -1513,42 +1406,6 @@ TC2.configTable = {
 				},
 			},
 		},
-		version = {
-			order = 4,
-			type = "group",
-			name = L.version,
-			args = {
-				version = {
-					order = 1,
-					name = L.version,
-					type = "header",
-				},
-				version_check = {
-					order = 2,
-					name = L.version_check,
-					type = "execute",
-					func = function(info, value)
-						CheckVersion(true)
-					end,
-				},
-				version_check_all = {
-					order = 3,
-					name = L.version_check_all,
-					type = "execute",
-					func = function(info, value)
-						CheckVersion()
-					end,
-				},
-				version_notify = {
-					order = 4,
-					name = L.version_notify,
-					type = "execute",
-					func = function(info, value)
-						NotifyOldClients()
-					end,
-				},
-			},
-		},
 	},
 }
 
@@ -1561,36 +1418,8 @@ SlashCmdList["TC2_SLASHCMD"] = function(arg)
 	if arg == "toggle" then
 		C.general.hideAlways = not C.general.hideAlways
 		CheckStatus();
-	elseif arg == "debug" then
-		ThreatLib.DebugEnabled = not ThreatLib.DebugEnabled
-		
-		if ThreatLib.DebugEnabled then
-			print("Debug enabled. Output in Chatframe 4.")
-		else
-			print("Debug disabled.")
-		end
-	elseif arg == "runsolo" then
-		ThreatLib.alwaysRunOnSolo = not ThreatLib.alwaysRunOnSolo
-		if ThreatLib.alwaysRunOnSolo then
-			print("LibThreatClassic2 solo mode enabled.")
-		else
-			print("LibThreatClassic2 solo mode disabled.")
-		end
-	elseif arg == "logthreat" then
-		ThreatLib.LogThreat = not ThreatLib.LogThreat
-		if ThreatLib.LogThreat then
-			print("LibThreatClassic2 logThreat enabled.")
-			if not ThreatLib.DebugEnabled then
-				print("Debug is disabled. Also enabling debug mode.")
-				ThreatLib.DebugEnabled = true
-			end
-		else 
-			print("LibThreatClassic2 LogThreat disabled.")
-		end 
 	elseif arg == "ver" or arg == "version" then
-		CheckVersion()
-	elseif arg == "ver2" or arg == "version2" then
-		NotifyOldClients()
+		print("|c00FFAA00"..TC2.addonName.." v"..TC2.version.."|r")
 	else
 		LibStub("AceConfigDialog-3.0"):Open("ThreatClassic2")
 	end	
