@@ -86,7 +86,7 @@ end
 
 function tab.OPEN()
     frame:Show()
-    update_inventory_records()
+    update_inventory_records(true)
     refresh = true
 end
 
@@ -255,17 +255,19 @@ function post_auction()
         end
 
         update_inventory_records()
-        local same
+        local all_posted = true
         for _, record in pairs(inventory_records) do
             if record.key == item_key then
-                same = record
+                all_posted = false
                 break
             end
         end
-        if same then
-            update_item(same)
-        else
-            selected_item = nil
+        if selected_item and selected_item.key == item_key then
+            if all_posted then
+                selected_item = nil
+            else
+                update_item(selected_item)
+            end
         end
         refresh = true
     end)
@@ -432,7 +434,7 @@ function update_item(item)
     refresh = true
 end
 
-function update_inventory_records()
+function update_inventory_records(reset)
     local auctionable_map = {}
     for slot in info.inventory() do
 	    local item_info = info.container_item(unpack(slot))
@@ -464,7 +466,21 @@ function update_inventory_records()
             end
         end
     end
-    inventory_records = aux.values(auctionable_map)
+
+    if reset then
+        inventory_records = aux.values(auctionable_map)
+    else
+        for i = #inventory_records, 1, -1 do
+            local new_record = auctionable_map[inventory_records[i].key]
+            if new_record then
+                for k in pairs(new_record) do
+                    inventory_records[i][k] = new_record[k]
+                end
+            else
+                tremove(inventory_records, i)
+            end
+        end
+    end
 end
 
 function refresh_entries()

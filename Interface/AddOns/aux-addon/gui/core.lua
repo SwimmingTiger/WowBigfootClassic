@@ -3,11 +3,13 @@ select(2, ...) 'aux.gui'
 local aux = require 'aux'
 local completion = require 'aux.util.completion'
 
---[[M.font = (function()
+--[[
+M.font = (function()
     local font = CreateFrame'Frame':CreateFontString()
     font:SetFontObject(NumberFont_Normal_Med)
     return font:GetFont()
-end)()]]
+end)()
+]]
 -- 黑体显然更漂亮
 M.font = [[Fonts\ARHei.TTF]]
 
