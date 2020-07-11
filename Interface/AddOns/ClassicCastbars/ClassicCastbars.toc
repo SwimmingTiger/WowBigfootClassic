@@ -1,14 +1,12 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: ClassicCastbars
 ## Notes: Adds castbars to various unitframes.
 ## SavedVariables: ClassicCastbarsDB
 ## SavedVariablesPerCharacter: ClassicCastbarsCharDB
 ## Author: Wardz
-## Version: v1.3.8
+## Version: v1.3.9
 ## X-Curse-Project-ID: 322865
 ## X-WoWI-ID: 24925
-## Dependencies: BigFoot
-## X-Revision: BigFoot
 
 core/PoolManager.lua
 core/AnchorManager.lua
