@@ -259,4 +259,6 @@ alaPopup.sub_meta = sub_meta;
 alaPopup.add_list = add_list;
 alaPopup.sub_list = sub_list;
 _G["ALAPOPUP"] = showMenu;
+alaPopup.func = func;
+alaPopup.menu = menu;
 

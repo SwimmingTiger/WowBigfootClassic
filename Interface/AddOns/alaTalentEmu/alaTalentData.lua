@@ -23,68 +23,68 @@ local ADDON, NS = ...;
 
 NS._indexToClass =
 {
-	"druid",
-	"hunter",
-	"mage",
-	"paladin",
-	"priest",
-	"rogue",
-	"shaman",
-	"warlock",
-	"warrior",
+	"DRUID",
+	"HUNTER",
+	"MAGE",
+	"PALADIN",
+	"PRIEST",
+	"ROGUE",
+	"SHAMAN",
+	"WARLOCK",
+	"WARRIOR",
 };
 
 NS._classTalent =
 {
-	druid =
+	DRUID =
 	{
 		283,	--Balance,平衡
 		281,	--Feral,野性战斗
 		282,	--Restoration,恢复
 	},
-	hunter =
+	HUNTER =
 	{
 		361,	--BeastMastery,野兽控制
 		363,	--Marksmanship,射击
 		362,	--Survival,生存
 	},
-	mage =
+	MAGE =
 	{
 		81,		--Arcane,奥术
 		41,		--Fire,火焰
 		61,		--Frost,冰霜
 	},
-	paladin =
+	PALADIN =
 	{
 		382,	--Holy,神圣
 		383,	--Protection,防护
 		381,	--Combat,惩戒
 	},
-	priest =
+	PRIEST =
 	{
 		201,	--Discipline,戒律
 		202,	--Holy,神圣
 		203,	--Shadow,暗影
 	},
-	rogue =
+	ROGUE =
 	{
 		182,	--Assassination,刺杀
 		181,	--Combat,战斗
 		183,	--Subtlety,敏锐
 	},
-	shaman =
+	SHAMAN =
 	{
 		261,	--Elemental,元素
 		263,	--Enhancement,增强
 		262,	--Restoration,恢复
 	},
-	warlock =
+	WARLOCK =
 	{
 		302,	--Curses,痛苦
 		303,	--Summoning,恶魔学识
 		301,	--Destruction,毁灭
 	},
-	warrior =
+	WARRIOR =
 	{
 		161,	--Arms,武器
 		164,	--Fury,狂怒
@@ -97,7 +97,7 @@ NS._classTalent =
 	--tier, col, id, maxPoint, reqTier, reqCol, reqId, Spell[5], texture, [icon index, req index in db, req by index in db](calculated after addon loaded)
 NS._talentDB =
 {
-	mage =
+	MAGE =
 	{
 		[41] =
 		{
@@ -159,7 +159,7 @@ NS._talentDB =
 			{ 6, 1,   87, 1,   5,   1,  421, { 12042,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_nature_lightning", },
 		},
 	},
-	warrior =
+	WARRIOR =
 	{
 		[161] =
 		{
@@ -223,7 +223,7 @@ NS._talentDB =
 			{ 6, 1,  167, 1,   4,   1,  165, { 23881,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_nature_bloodlust", },
 		},
 	},
-	rogue =
+	ROGUE =
 	{
 		[181] =
 		{
@@ -286,7 +286,7 @@ NS._talentDB =
 			{ 6, 1,  381, 1,   4,   1,  284, { 14183,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_shadow_possession", },
 		},
 	},
-	priest =
+	PRIEST =
 	{
 		[201] =
 		{
@@ -345,7 +345,7 @@ NS._talentDB =
 			{ 6, 1,  521, 1,   4,   1,  484, { 15473,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_shadow_shadowform", },
 		},
 	},
-	shaman =
+	SHAMAN =
 	{
 		[261] =
 		{
@@ -403,7 +403,7 @@ NS._talentDB =
 			{ 6, 1,  901, 1,   4,   1,  611, { 17364,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_holy_sealofmight", },
 		},
 	},
-	druid =
+	DRUID =
 	{
 		[281] =
 		{
@@ -462,7 +462,7 @@ NS._talentDB =
 			{ 6, 1,  793, 1, nil, nil,  nil, { 24858,   nil,   nil,   nil,   nil, }, "Interface\\icons\\spell_nature_forceofnature", },
 		},
 	},
-	warlock =
+	WARLOCK =
 	{
 		[301] =
 		{
@@ -524,7 +524,7 @@ NS._talentDB =
 			{ 6, 2, 1263, 2, nil, nil,  nil, { 18774, 18775,   nil,   nil,   nil, }, "Interface\\icons\\inv_misc_gem_sapphire_01", },
 		},
 	},
-	hunter =
+	HUNTER =
 	{
 		[361] =
 		{
@@ -582,7 +582,7 @@ NS._talentDB =
 			{ 6, 1, 1361, 1,   4,   1, 1347, { 19506,   nil,   nil,   nil,   nil, }, "Interface\\icons\\ability_trueshot", },
 		},
 	},
-	paladin =
+	PALADIN =
 	{
 		[381] =
 		{
@@ -684,58 +684,58 @@ NS._talentTabIcon =
 };
 
 NS._BG0 = {
-	deathknight = {
+	DEATHKNIGHT = {
 		"Interface\\TalentFrame\\bg-deathknight-blood",
 		"Interface\\TalentFrame\\bg-deathknight-frost",
 		"Interface\\TalentFrame\\bg-deathknight-unholy",
 	},
-	druid = {
+	DRUID = {
 		"Interface\\TalentFrame\\bg-druid-balance",
 		"Interface\\TalentFrame\\bg-druid-bear",
 		"Interface\\TalentFrame\\bg-druid-cat",
 		"Interface\\TalentFrame\\bg-druid-restoration",
 	},
-	hunter = {
+	HUNTER = {
 		"Interface\\TalentFrame\\bg-hunter-beastmaster",
 		"Interface\\TalentFrame\\bg-hunter-marksman",
 		"Interface\\TalentFrame\\bg-hunter-survival",
 	},
-	mage = {
+	MAGE = {
 		"Interface\\TalentFrame\\bg-mage-arcane",
 		"Interface\\TalentFrame\\bg-mage-fire",
 		"Interface\\TalentFrame\\bg-mage-frost",
 	},
-	monk = {
+	MONK = {
 		"Interface\\TalentFrame\\bg-monk-battledancer",
 		"Interface\\TalentFrame\\bg-monk-brewmaster",
 		"Interface\\TalentFrame\\bg-monk-mistweaver",
 	},
-	paladin = {
+	PALADIN = {
 		"Interface\\TalentFrame\\bg-paladin-holy",
 		"Interface\\TalentFrame\\bg-paladin-protection",
 		"Interface\\TalentFrame\\bg-paladin-retribution",
 	},
-	priest = {
+	PRIEST = {
 		"Interface\\TalentFrame\\bg-priest-discipline",
 		"Interface\\TalentFrame\\bg-priest-holy",
 		"Interface\\TalentFrame\\bg-priest-shadow",
 	},
-	rogue = {
+	ROGUE = {
 		"Interface\\TalentFrame\\bg-rogue-assassination",
 		"Interface\\TalentFrame\\bg-rogue-combat",
 		"Interface\\TalentFrame\\bg-rogue-subtlety",
 	},
-	shaman = {
+	SHAMAN = {
 		"Interface\\TalentFrame\\bg-shaman-elemental",
 		"Interface\\TalentFrame\\bg-shaman-enhancement",
 		"Interface\\TalentFrame\\bg-shaman-restoration",
 	},
-	warlock = {
+	WARLOCK = {
 		"Interface\\TalentFrame\\bg-warlock-affliction",
 		"Interface\\TalentFrame\\bg-warlock-demonology",
 		"Interface\\TalentFrame\\bg-warlock-destruction",
 	},
-	warrior = {
+	WARRIOR = {
 		"Interface\\TalentFrame\\bg-warrior-arms",
 		"Interface\\TalentFrame\\bg-warrior-fury",
 		"Interface\\TalentFrame\\bg-warrior-protection",
@@ -773,7 +773,7 @@ NS._BG1 = {
 };
 
 NS._preset_talent = {
-	druid =
+	DRUID =
 	{
 		H = {
 			E = {
@@ -804,7 +804,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	hunter =
+	HUNTER =
 	{
 		D = {
 			E = {
@@ -818,7 +818,7 @@ NS._preset_talent = {
 			},
 		}
 	},
-	mage =
+	MAGE =
 	{
 		D = {
 			E = {
@@ -832,7 +832,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	paladin =
+	PALADIN =
 	{
 		H = {
 			E = {
@@ -862,7 +862,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	priest =
+	PRIEST =
 	{
 		H = {
 			E = {
@@ -885,7 +885,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	rogue =
+	ROGUE =
 	{
 		D = {
 			E = {
@@ -898,7 +898,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	shaman =
+	SHAMAN =
 	{
 		H = {
 			E = {
@@ -921,7 +921,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	warlock =
+	WARLOCK =
 	{
 		D = {
 			E = {
@@ -937,7 +937,7 @@ NS._preset_talent = {
 			},
 		},
 	},
-	warrior =
+	WARRIOR =
 	{
 		D = {
 			E = {
@@ -962,7 +962,7 @@ NS._preset_talent = {
 --	 S:		1_level, 2_id, 3_name, 4_rank, 5_cost, 6_passive, 7_talent, 8_require_id/prev_rank_id, 9_actually_require_id/first_rank_id
 --	 P:		1_level, 2_id, 3_cost, 4_phase, name, passive, talent, class
 NS._spellDB_P = {
-	druid = {
+	DRUID = {
 		{ name = "愤怒", { 1, 5176, 0, }, { 6, 5177, 100, }, { 14, 5178, 900, }, { 22, 5179, 3000, }, { 30, 5180, 6000, }, { 38, 6780, 12000, }, { 46, 8905, 20000, }, { 54, 9912, 28000, }, },
 		{ name = "野性印记", { 1, 1126, 10, }, { 10, 5232, 300, }, { 20, 6756, 2000, }, { 30, 5234, 6000, }, { 40, 8907, 14000, }, { 50, 9884, 23000, }, { 60, 9885, 34000, }, },
 		{ name = "治疗之触", { 1, 5185, 0, }, { 8, 5186, 200, }, { 14, 5187, 900, }, { 20, 5188, 2000, }, { 26, 5189, 4500, }, { 32, 6778, 8000, }, { 38, 8903, 12000, }, { 44, 9758, 18000, }, { 50, 9888, 23000, }, { 56, 9889, 30000, }, { 60, 25297, 0, 5, }, },
@@ -1021,7 +1021,7 @@ NS._spellDB_P = {
 		{ name = "兽群领袖", { -1, 17007, 0, }, passive = true, talent = true, },
 		{ name = "迅捷治愈", { -1, 18562, 0, }, talent = true, },
 	},
-	hunter = {
+	HUNTER = {
 		{ name = "准备就绪", { 0, 23989, 0, }, },
 		{ name = "自动射击", { 1, 75, 0, }, },
 		{ name = "猛禽一击", { 1, 2973, 0, }, { 8, 14260, 200, }, { 16, 14261, 1800, }, { 24, 14262, 7000, }, { 32, 14263, 10000, }, { 40, 14264, 18000, }, { 48, 14265, 32000, }, { 56, 14266, 46000, }, },
@@ -1082,7 +1082,7 @@ NS._spellDB_P = {
 		{ name = "强击光环", { -1, 19506, 0, }, { 50, 20905, 1800, }, { 60, 20906, 2500, }, talent = true, },
 		{ name = "翼龙钉刺", { -1, 19386, 0, }, { 50, 24132, 1800, }, { 60, 24133, 2500, }, talent = true, },
 	},
-	mage = {
+	MAGE = {
 		{ name = "奥术智慧", { 1, 1459, 10, }, { 14, 1460, 900, }, { 28, 1461, 7000, }, { 42, 10156, 18000, }, { 56, 10157, 38000, }, },
 		{ name = "火球术", { 1, 133, 0, }, { 6, 143, 100, }, { 12, 145, 600, }, { 18, 3140, 1800, }, { 24, 8400, 4000, }, { 30, 8401, 8000, }, { 36, 8402, 13000, }, { 42, 10148, 18000, }, { 48, 10149, 28000, }, { 54, 10150, 36000, }, { 60, 10151, 42000, }, { 60, 25306, 0, 5, }, },
 		{ name = "霜甲术", { 1, 168, 0, }, { 10, 7300, 400, }, { 20, 7301, 2000, }, },
@@ -1138,7 +1138,7 @@ NS._spellDB_P = {
 		{ name = "燃烧", { -1, 11129, 0, }, talent = true, },
 		{ name = "寒冰护体", { -1, 11426, 0, }, { 46, 13031, 6500, }, { 52, 13032, 8750, }, { 58, 13033, 9000, }, talent = true, },
 	},
-	paladin = {
+	PALADIN = {
 		{ name = "圣光术", { 1, 635, 0, }, { 6, 639, 100, }, { 14, 647, 2000, }, { 22, 1026, 4000, }, { 30, 1042, 11000, }, { 38, 3472, 16000, }, { 46, 10328, 24000, }, { 54, 10329, 40000, }, { 60, 25292, 0, 5, }, },
 		{ name = "正义圣印", { 1, 21084, 0, }, { 10, 20287, 300, }, { 18, 20288, 3500, }, { 26, 20289, 6000, }, { 34, 20290, 13000, }, { 42, 20291, 21000, }, { 50, 20292, 28000, }, { 58, 20293, 44000, }, },
 		{ name = "虔诚光环", { 1, 465, 10, }, { 10, 10290, 300, }, { 20, 643, 4000, }, { 30, 10291, 11000, }, { 40, 1032, 20000, }, { 50, 10292, 28000, }, { 60, 10293, 46000, }, },
@@ -1194,7 +1194,7 @@ NS._spellDB_P = {
 		{ name = "强效王者祝福", { 60, 25898, 2300 , }, talent = true, require = 20217, },
 		{ name = "强效庇护祝福", { 60, 25899, 2300, }, talent = true, require = 20911, },
 	},
-	priest = {
+	PRIEST = {
 		{ name = "真言术：韧", { 1, 1243, 10, }, { 12, 1244, 800, }, { 24, 1245, 5000, }, { 36, 2791, 14000, }, { 48, 10937, 28000, }, { 60, 10938, 46000, }, },
 		{ name = "惩击", { 1, 585, 0, }, { 6, 591, 100, }, { 14, 598, 1200, }, { 22, 984, 4000, }, { 30, 1004, 10000, }, { 38, 6060, 16000, }, { 46, 10933, 26000, }, { 54, 10934, 40000, }, },
 		{ name = "次级治疗术", { 1, 2050, 0, }, { 4, 2052, 100, }, { 10, 2053, 300, }, },
@@ -1244,7 +1244,7 @@ NS._spellDB_P = {
 		{ name = "暗影形态", { -1, 15473, 0, }, talent = true, },
 		{ name = "精神祷言", { 60, 27681, 2300, }, talent = true, require = 14752, },
 	},
-	rogue = {
+	ROGUE = {
 		{ name = "刺骨", { 1, 2098, 0, }, { 8, 6760, 200, }, { 16, 6761, 1800, }, { 24, 6762, 5000, }, { 32, 8623, 12000, }, { 40, 8624, 20000, }, { 48, 11299, 33000, }, { 56, 11300, 50000, }, { 60, 31016, 0, }, },
 		{ name = "邪恶攻击", { 1, 1752, 0, }, { 6, 1757, 100, }, { 14, 1758, 1200, }, { 22, 1759, 4000, }, { 30, 1760, 10000, }, { 38, 8621, 18000, }, { 46, 11293, 31000, }, { 54, 11294, 48000, }, },
 		{ name = "潜行", { 1, 1784, 10, }, { 20, 1785, 3000, }, { 40, 1786, 20000, }, { 60, 1787, 54000, }, },
@@ -1290,7 +1290,7 @@ NS._spellDB_P = {
 		{ name = "冲动", { -1, 13750, 0, }, talent = true, },
 		{ name = "预谋", { -1, 14183, 0, }, talent = true, },
 	},
-	shaman = {
+	SHAMAN = {
 		{ name = "闪电箭", { 1, 403, 0, }, { 8, 529, 100, }, { 14, 548, 900, }, { 20, 915, 2200, }, { 26, 943, 4000, }, { 32, 6041, 8000, }, { 38, 10391, 11000, }, { 44, 10392, 18000, }, { 50, 15207, 24000, }, { 56, 15208, 30000, }, },
 		{ name = "石化武器", { 1, 8017, 10, }, { 8, 8018, 100, }, { 16, 8019, 1800, }, { 24, 10399, 3500, }, { 34, 16314, 9000, }, { 44, 16315, 18000, }, { 54, 16316, 29000, }, },
 		{ name = "治疗波", { 1, 331, 0, }, { 6, 332, 100, }, { 12, 547, 800, }, { 18, 913, 2000, }, { 24, 939, 3500, }, { 32, 959, 8000, }, { 40, 8005, 12000, }, { 48, 10395, 22000, }, { 56, 10396, 30000, }, { 60, 25357, 0, 5, }, },
@@ -1347,7 +1347,7 @@ NS._spellDB_P = {
 		{ name = "风暴打击", { -1, 17364, 0, }, talent = true, },
 		{ name = "法力之潮图腾", { -1, 16190, 0, }, { 48, 17354, 55000, }, { 58, 17359, 80000, }, talent = true, },
 	},
-	warlock = {
+	WARLOCK = {
 		{ name = "恶魔皮肤", { 1, 687, 0, }, { 10, 696, 300, }, },
 		{ name = "献祭", { 1, 348, 10, }, { 10, 707, 300, }, { 20, 1094, 2000, }, { 30, 2941, 6000, }, { 40, 11665, 11000, }, { 50, 11667, 15000, }, { 60, 11668, 26000, }, { 60, 25309, 0, 5, }, },
 		{ name = "暗影箭", { 1, 686, 0, }, { 6, 695, 100, }, { 12, 705, 600, }, { 20, 1088, 2000, }, { 28, 1106, 5000, }, { 36, 7641, 9000, }, { 44, 11659, 12000, }, { 52, 11660, 18000, }, { 60, 11661, 26000, }, { 60, 25307, 0, 5, }, },
@@ -1403,7 +1403,7 @@ NS._spellDB_P = {
 		{ name = "灵魂链接", { -1, 19028, 0, }, talent = true, },
 		{ name = "燃烧", { -1, 17962, 0, }, { 48, 18930, 700, }, { 54, 18931, 1000, }, { 60, 18932, 1300, }, talent = true, },
 	},
-	warrior = {
+	WARRIOR = {
 		{ name = "英勇打击", { 1, 78, 0, }, { 8, 284, 200, }, { 16, 285, 2000, }, { 24, 1608, 8000, }, { 32, 11564, 14000, }, { 40, 11565, 22000, }, { 48, 11566, 40000, }, { 56, 11567, 58000, }, { 60, 25286, 0, 5, }, },
 		{ name = "战斗姿态", { 1, 2457, 0, }, },
 		{ name = "战斗怒吼", { 1, 6673, 10, }, { 12, 5242, 1000, }, { 22, 6192, 6000, }, { 32, 11549, 14000, }, { 42, 11550, 32000, }, { 52, 11551, 54000, }, { 60, 25289, 0, 5, }, },

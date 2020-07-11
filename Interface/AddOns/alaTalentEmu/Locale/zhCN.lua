@@ -57,6 +57,8 @@ L.nextRank = "下一等级";
 L.maxRank = "最高等级";
 L.reqPoints = "%d/%d点%s";
 
+L.resizable_border_TRUE = "拖动窗口边缘可改变大小";
+L.resizable_border_FALSE = "禁止拖动窗口边缘来改变大小";
 L.SetWinStyle_BLZ = "设置窗口为暴雪风格";
 L.SetWinStyle_ALA = "设置窗口为扁平化风格";
 L.SetSingleFrame_True = "设置为单窗口显示";
@@ -67,6 +69,10 @@ L.SetStyleAllTo1_AlsoSetShownWin = "设置本插件为三列显示所有天赋�
 L.SetStyleAllTo1_LaterWin = "设置本插件为三列显示所有天赋树";
 L.SetStyleAllTo2_AlsoSetShownWin = "设置本插件为单列显示天赋树，通过标签切换（同时更改已显示的窗口）";
 L.SetStyleAllTo2_LaterWin = "设置本插件为单列显示天赋树，通过标签切换";
+L.TalentsInTip_TRUE = "在鼠标提示中显示玩家天赋";
+L.TalentsInTip_FALSE = "不在鼠标提示中显示玩家天赋";
+L.TalentsInTipIcon_TRUE = "鼠标提示中使用图标表示天赋树";
+L.TalentsInTipIcon_FALSE = "鼠标提示中使用文字表示天赋树";
 L.inspectButtonOnUnitFrame_Enable = "开启观察按钮（按住alt/ctrl/shift键在目标头像上显示观察按钮）";
 L.inspectButtonOnUnitFrame_Disable = "关闭观察按钮";
 L.insepctALTKEY = "按住ALT键显示观察按钮";
@@ -80,15 +86,15 @@ L.spellTabGTTReqLevel = "需要等级: ";
 L.DATA = {
 	talent = "天赋",
 
-	druid = "德鲁伊",
-	hunter = "猎人",
-	mage = "法爷",
-	paladin = "圣骑士",
-	priest = "牧师",
-	rogue = "盗贼",
-	shaman = "傻馒",
-	warlock = "术士",
-	warrior = "屌丝战",
+	DRUID = "德鲁伊",
+	HUNTER = "猎人",
+	MAGE = "法爷",
+	PALADIN = "圣骑士",
+	PRIEST = "牧师",
+	ROGUE = "盗贼",
+	SHAMAN = "傻馒",
+	WARLOCK = "术士",
+	WARRIOR = "屌丝战",
 
 	[283] = "平衡",
 	[281] = "野性战斗",
@@ -135,5 +141,33 @@ L.SCOURGE = "亡灵";
 L.TROLL = "巨魔";
 
 
+L.label_itemLevel = "装等";
+L.label_missItem = "装备";
+L.label_missEnchant = "附魔";
+L.label_DBM = "DBM版本";
+L.guildList = "公会成员";
 
-
+L.SLOT = {
+	[0] = "子弹",
+	[1] = "头部",
+	[2] = "颈部",
+	[3] = "肩部",
+	[4] = "衬衣",
+	[5] = "胸甲",
+	[6] = "腰带",
+	[7] = "腿部",
+	[8] = "靴子",
+	[9] = "护腕",
+	[10] = "手套",
+	[11] = "戒指",
+	[12] = "戒指",
+	[13] = "饰品",
+	[14] = "饰品",
+	[15] = "披风",
+	[16] = "主手",
+	[17] = "副手",
+	[18] = "远程",
+	[19] = "战袍",
+};
+L.EMTPY_SLOT = "\124cffff0000未装备\124r";
+L.MISS_ENCHANT = "\124cffff0000缺少附魔\124r";
