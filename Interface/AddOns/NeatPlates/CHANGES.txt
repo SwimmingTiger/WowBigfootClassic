@@ -1,12 +1,12 @@
-lightweight tag a0966336b84e0815642518c81282176b4fcb5729 1.13.4.28
+lightweight tag b40f4811e872478e66ef0e8e34df0e1c32783d8b 1.13.4.30
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Mon Jun 8 23:00:14 2020 +0200
+Date:	Sat Jul 4 10:40:07 2020 +0200
 
-commit a0966336b84e0815642518c81282176b4fcb5729
+commit b40f4811e872478e66ef0e8e34df0e1c32783d8b
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Mon Jun 8 22:53:15 2020 +0200
+Date:   Sat Jul 4 10:40:07 2020 +0200
 
-    Fixed class/totem icons creating multiple textures
+    Revert "Account for blizzards "UnitShouldDisplayName" option"
     
-    - Fixed class/totem icons creating multiple textures
+    This reverts commit 22ff4fb52d5fadbed6cf9f3f74c656b9099c76f1.
 
