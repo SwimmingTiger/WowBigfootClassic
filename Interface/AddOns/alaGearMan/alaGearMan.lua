@@ -33,7 +33,7 @@ end
 	local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat =
 			format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat;
 	local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-	local ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
+	local next, ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = next, ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
 	local tConcat = table.concat;
 	local select = select;
 	local date, time = date, time;
@@ -46,7 +46,7 @@ local GUID = UnitGUID('player');
 local saved_sets = {  };
 local L = setmetatable({  }, { __newindex = function(t, k, v) rawset(t, k, (v == true) and k or v); end});
 local LOCALE = GetLocale();
-if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
+if LOCALE == 'zhCN' then
 	L["INVENTORY_IS_FULL"] = "背包已满！";
 	L["IN_COMBAT"] = "战斗状态中无法换装！";
 	L["BE_DEAD"] = "你已经死亡！";
@@ -113,6 +113,73 @@ if LOCALE == 'zhCN' or LOCALE == 'zhTW' then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "套装8";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "套装9";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "一键脱光";
+elseif LOCALE == 'zhTW' then
+	L["INVENTORY_IS_FULL"] = "背包已滿！";
+	L["IN_COMBAT"] = "戰鬥狀態中無法換裝！";
+	L["BE_DEAD"] = "你已經死亡！";
+	L["Add a new outfit"] = "添加一個套裝";
+	L["Delete this outfit?"] = "刪除此套裝？";
+	L["OK"] = "確定";
+	L["Cancel"] = "取消";
+	L["Save"] = "保存";
+	L["Equip"] = "裝備";
+	L["Style"] = "風格";
+	L["useBar"] = "顯示按鈕";
+	L["useBar_false"] = "隱藏按鈕";
+	L["Style_TC"] = "文字+圖標風格";
+	L["Style_T"] = "圖標風格";
+	L["Style_C"] = "文字風格";
+	L["Take_Off_All"] = "一鍵脫光";
+	L["Take_Off_All_ButtonText"] = "脫";
+	L["Take-off-all On Right"] = "一鍵脫光按鈕在\124cffff0000右邊\124r";
+	L["Take-off-all On Left"] = "一鍵脫光按鈕在\124cffff0000左邊\124r";
+	L["takeoffAll_include_neck_finger_and_trinket"] = "一鍵脫光\124cffff0000包括\124r戒指飾品披風和耐久度為0的裝備";
+	L["takeoffAll_include_neck_finger_and_trinket_false"] = "一鍵脫光\124cffff0000不包括\124r戒指飾品披風和耐久度為0的裝備";
+	L["show_outfit_in_tooltip"] = "在鼠標提示中\124cffff0000顯示\124r保存的套裝信息";
+	L["show_outfit_in_tooltip_false"] = "在鼠標提示中\124cffff0000不顯示\124r保存的套裝信息";
+	L["reset_pos"] = "重置快速切換欄的位置";
+	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ff按住ctrl拖動來移動位置，保存爲賬號通用位置\124r\n\124cffff40ff按住shift拖動來移動位置，保存爲角色專用位置\124r";
+	L["WAITING_FOR_REGEN_ENABLED"] = "戰鬥結束時更新";
+	L["IN_OUTFIT"] = "裝備配置方案：";
+	L["TOOLTIP_MISSING"] = " 缺失";
+	L["IN_BAG"] = "在背包中"
+	L["CURRENT_OUTFIT"] = "當前裝備中";
+	L["SHOULD_TAKE_OFF"] = "應脫下";
+
+	L.slot = {
+		[0] = "子彈",
+		[1] = "頭部",
+		[2] = "頸部",
+		[3] = "肩部",
+		[4] = "襯衣",
+		[5] = "胸甲",
+		[6] = "腰帶",
+		[7] = "腿部",
+		[8] = "靴子",
+		[9] = "護腕",
+		[10] = "手套",
+		[11] = "戒指1",
+		[12] = "戒指2",
+		[13] = "飾品1",
+		[14] = "飾品2",
+		[15] = "披風",
+		[16] = "主手",
+		[17] = "副手",
+		[18] = "遠程",
+		[19] = "戰袍",
+	};
+
+	_G.BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>一鍵換裝";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_1 = "套裝1";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_2 = "套裝2";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_3 = "套裝3";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_4 = "套裝4";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_5 = "套裝5";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_6 = "套裝6";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_7 = "套裝7";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "套裝8";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "套裝9";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "一鍵脫光";
 elseif LOCALE == "ruRU" then
 	L["INVENTORY_IS_FULL"] = "Инвентарь полон";
 	L["IN_COMBAT"] = "Не может измениться в бою!";
@@ -230,7 +297,7 @@ else
 		[13] = "Trinet1",
 		[14] = "Trinet2",
 		[15] = "Cloak",
-		[16] = "Weapon MH",
+		[16] = "MainHand",
 		[17] = "OffHand",
 		[18] = "Ranged",
 		[19] = "Tabard",
@@ -284,8 +351,8 @@ local SlotInfo = {
 	[19] = { INVTYPE_TABARD = 1, },
 };
 local loc2Slot = {  };
-for slot, v in pairs(SlotInfo) do
-	for loc, _ in pairs(v) do
+for slot, v in next, SlotInfo do
+	for loc, _ in next, v do
 		loc2Slot[loc] = loc2Slot[loc] or {  };
 		tinsert(loc2Slot[loc], slot);
 	end
@@ -313,7 +380,7 @@ local slot2Name = {
 	[19] = "CharacterTabardSlot",
 };
 local name2Slot = {  };
-for slot, name in pairs(slot2Name) do
+for slot, name in next, slot2Name do
 	name2Slot[name] = slot;
 end
 local takeoffAll_order = {	-- by price
@@ -606,7 +673,7 @@ function func.pdf_EventHandler_OnUpdate(self, elasped)
 end
 
 function func.pdf_init()
-	for i, n in pairs(slot2Name) do
+	for i, n in next, slot2Name do
 		local sf = _G[n];
 		local ignore_mask = sf:CreateTexture(nil, "OVERLAY");
 		ignore_mask:SetAllPoints();
@@ -664,13 +731,13 @@ function func.pdf_init()
 	end
 end
 function func.pdf_hide_mask()
-	for slot, mask in pairs(ui.pdf_ignore_mask) do
+	for slot, mask in next, ui.pdf_ignore_mask do
 		mask:Hide();
 		var.gm_ignore[slot] = false;
 	end
 end
 function func.pdf_show_mask(set)
-	for slot, mask in pairs(ui.pdf_ignore_mask) do
+	for slot, mask in next, ui.pdf_ignore_mask do
 		if set[slot] == -1 then
 			ui.pdf_ignore_mask[slot]:Show();
 			var.gm_ignore[slot] = true;
@@ -721,7 +788,7 @@ end
 function func.OnEnter_Info(self)
 	if self.info then
 		GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
-		for _, msg in pairs(self.info) do
+		for _, msg in next, self.info do
 			GameTooltip:AddLine(msg);
 		end
 		GameTooltip:Show();
@@ -1061,7 +1128,7 @@ end
 
 function func.get_pos(frame)
 	local pos = { frame:GetPoint() };
-	for index, val in pairs(pos) do
+	for index, val in next, pos do
 		if type(val) == 'table' then
 			pos[index] = val:GetName();
 		elseif type(val) ~= 'number' and type(val) ~= 'string' then
@@ -1482,17 +1549,20 @@ function func.initUI()
 					title:SetText(text);
 					title:SetTextColor(1.0, 1.0, 1.0);
 					icon:SetTexture(texture);
+					icon:SetVertexColor(1.0, 1.0, 1.0, 1.0);
 					-- icon:Show();
 					title:Show();
 				elseif alaGearManSV.quickStyle == 'T' then
 					-- title:SetTextColor(1.0, 1.0, 1.0);
 					icon:SetTexture(texture);
+					icon:SetVertexColor(1.0, 1.0, 1.0, 1.0);
 					-- icon:Show();
 					title:Hide();
 				elseif alaGearManSV.quickStyle == 'C' then
 					title:SetTextColor(1.0, 0.75, 0.0);
 					title:SetText(text);
 					icon:SetTexture(texture_style_char);
+					icon:SetVertexColor(1.0, 1.0, 1.0, 0.25);
 					-- icon:Show();
 					title:Show();
 				end
@@ -2340,7 +2410,7 @@ function func.check(index)
 					local loc = select(9, GetItemInfo(id));
 					local slots = loc2Slot[loc];
 					if slots then
-						for _, slot in pairs(slots) do
+						for _, slot in next, slots do
 							if type(T[slot]) == 'string' and id == tonumber(select(3, strfind(T[slot], "item:(%d+)"))) then
 								T[slot] = 0;
 							end
@@ -2387,27 +2457,6 @@ function func.drop_handler(button, key, value)
 		end
 	end
 end
-function func.handle_low_version_variables()
-	if not alaGearManSV._version then
-		alaGearManSV.quickPosChar = {  };
-	elseif tonumber(alaGearManSV._version) < 200422.0 then
-	elseif tonumber(alaGearManSV._version) < 200507.0 then
-		alaGearManSV.useBar = true;
-	elseif tonumber(alaGearManSV._version) < 200610.0 then
-		for index, val in pairs(alaGearManSV.quickPos) do
-			if type(val) ~= 'number' and type(val) ~= 'string' then
-				alaGearManSV.quickPos[index] = nil;
-			end
-		end
-		for GUID, pos in pairs(alaGearManSV.quickPosChar) do
-			for index, val in pairs(pos) do
-				if type(val) ~= 'number' and type(val) ~= 'string' then
-					pos[index] = nil;
-				end
-			end
-		end
-	end
-end
 function func.hook_tooltip(self)
 	if not alaGearManSV.show_outfit_in_tooltip then
 		return;
@@ -2418,8 +2467,8 @@ function func.hook_tooltip(self)
 		local slots = loc2Slot[loc];
 		if slots then
 			local ID = select(3, strfind(link, "item:(%d+)"));
-			for _, slot in pairs(slots) do
-				for index, set in pairs(saved_sets) do
+			for _, slot in next, slots do
+				for index, set in next, saved_sets do
 					if type(set[slot]) == 'string' and ((set[slot] == link) or (ID and ID == select(3, strfind(set[slot], "item:(%d+)")))) then
 						self:AddLine("\124cffffcf00" .. L["IN_OUTFIT"] .. "\124r\124cffffffff" .. set.name);
 					end
@@ -2430,7 +2479,32 @@ function func.hook_tooltip(self)
 end
 function func.init_variables()
 	if _G.alaGearManSV then
-		func.handle_low_version_variables();
+		if alaGearManSV._version == nil then
+			alaGearManSV.quickPosChar = {  };
+			alaGearManSV._version = 0.0;
+		end
+		if alaGearManSV._version < 200422.0 then
+			alaGearManSV._version = 200422.0;
+		end
+		if alaGearManSV._version < 200507.0 then
+			alaGearManSV.useBar = true;
+			alaGearManSV._version = 200507.0;
+		end
+		if alaGearManSV._version < 200610.0 then
+			for index, val in next, alaGearManSV.quickPos do
+				if type(val) ~= 'number' and type(val) ~= 'string' then
+					alaGearManSV.quickPos[index] = nil;
+				end
+			end
+			for GUID, pos in next, alaGearManSV.quickPosChar do
+				for index, val in next, pos do
+					if type(val) ~= 'number' and type(val) ~= 'string' then
+						pos[index] = nil;
+					end
+				end
+			end
+			alaGearManSV._version = 200610.0;
+		end
 		for key, val in next, default_sv do
 			if alaGearManSV[key] == nil then
 				alaGearManSV[key] = val;
@@ -2439,7 +2513,7 @@ function func.init_variables()
 	else
 		_G.alaGearManSV = default_sv;
 	end
-	alaGearManSV._version = 200507.0;
+	alaGearManSV._version = 200610.0;
 end
 function func.init_hook_tooltip()
 	GameTooltip:HookScript("OnTooltipSetItem", func.hook_tooltip);
@@ -2597,7 +2671,7 @@ do	--	extern style
 	end
 	function func.RegAddonListener()
 		_EventHandler:RegEvent("ADDON_LOADED");
-		for addon, handler in pairs(handler_table) do
+		for addon, handler in next, handler_table do
 			if IsAddOnLoaded(addon) then
 				handler();
 			end
@@ -2608,6 +2682,8 @@ end
 _EventHandler:RegEvent("PLAYER_ENTERING_WORLD");
 
 _G.AGM_FUNC = func;
+
+__ala_meta__.gear = { func = func, ui = ui, };
 
 -- 老虎会游泳：启用/禁用快捷栏
 function func.toggle_quick_panel(show)
