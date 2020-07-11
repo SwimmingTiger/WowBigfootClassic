@@ -245,30 +245,6 @@ function NWB:sendData(distribution, target, prio, noLayerMap)
 	end
 end
 
---Testing data sizes.
-function NWB:testData()
-	local data, data2;
-	if (NWB.isLayered) then
-		data = NWB:createDataLayered("guild");
-	else
-		data = NWB:createData("guild");
-	end
-	if (next(data) ~= nil) then
-		local d1 = NWB.serializerOld:Serialize(data);
-		local d2 = NWB.serializer:Serialize(data);
-		local c1 = NWB.libDeflate:CompressDeflate(d1, {level = 9});
-		local c2 = NWB.libDeflate:CompressDeflate(d2, {level = 9});
-		local e1 = NWB.libDeflate:EncodeForWoWAddonChannel(c1);
-		local e2 = NWB.libDeflate:EncodeForWoWAddonChannel(c2);
-		print("AceSerializer:", string.len(d1));
-		print(" -LibDeflate:", string.len(c1));
-		--print(" -EncodedForWoWChannel:", string.len(e1));
-		print("LibSerialize:", string.len(d2));
-		print(" -LibDeflate:", string.len(c2));
-		--print(" -EncodedForWoWChannel:", string.len(e2));
-	end
-end
-
 --Check if we should send guild data, first few online only will send data to not spam addon comms.
 function NWB:getGuildDataStatus()
 	if (not IsInGuild()) then
@@ -627,7 +603,7 @@ function NWB:createDataLayered(distribution, noLayerMap)
 		if (not foundTimer and NWB.data.layers[layer].lastSeenNPC
 				and NWB.data.layers[layer].lastSeenNPC > GetServerTime() - 3600) then
 			--If no timer data to share then check when we last saw a valid NPC in city for this layer.
-			--Trying to keep layers valid after long perios overnight when no timers drop, but not persist to long after server restarts.
+			--Trying to keep layers valid after long periods overnight when no timers drop, but not persist to long after server restarts.
 			if (not data.layers) then
 				data.layers = {};
 			end
@@ -671,6 +647,7 @@ function NWB:createDataLayered(distribution, noLayerMap)
 	end
 	--data['faction'] = NWB.faction;
 	data = NWB:convertKeys(data, true, distribution);
+	--NWB:debug(data);
 	return data;
 end
 
@@ -707,7 +684,7 @@ function NWB:validateCloseTimestamps(layer, key, timestamp)
 			end
 		end
 	end
-	NWB:debug("Passed validation", layer, key, timestamp);
+	--NWB:debug("Passed validation", layer, key, timestamp);
 	return true;
 end
 
@@ -790,7 +767,7 @@ function NWB:extractSettings(dataReceived, sender, distribution)
 		return;
 	end
 	if (not dataReceived) then
-		NWB:debug("extractSettings no data received from:", sender);
+		--NWB:debug("extractSettings no data received from:", sender);
 		return;
 	end
 	local deserializeResult, data = NWB.serializer:Deserialize(dataReceived);
@@ -799,7 +776,7 @@ function NWB:extractSettings(dataReceived, sender, distribution)
 		deserializeResult, data = NWB.serializerOld:Deserialize(dataReceived);
 	end
 	if (not deserializeResult) then
-		NWB:debug("Failed to deserialize extractSettings data.");
+		--NWB:debug("Failed to deserialize extractSettings data.");
 		return;
 	end
 	data = NWB:convertKeys(data, nil, distribution);
@@ -884,9 +861,10 @@ function NWB:receivedData(dataReceived, sender, distribution)
 		--There's a lot of ugly shit in this function trying to quick fix timer bugs for this layered stuff...
 		for layer, vv in NWB:pairsByKeys(data.layers) do
 			--Temp fix, this can be removed soon.
-			if ((not vv["rendTimer"] or vv["rendTimer"] == 0) and (not vv["onyTimer"] or vv["onyTimer"] == 0)
+			if (((not vv["rendTimer"] or vv["rendTimer"] == 0) and (not vv["onyTimer"] or vv["onyTimer"] == 0)
 					 and (not vv["nefTimer"] or vv["nefTimer"] == 0) and (not vv["onyNpcDied"] or vv["onyNpcDied"] == 0)
-					  and (not vv["nefNpcDied"] or vv["nefNpcDied"] == 0) and (not vv["lastSeenNPC"] or vv["lastSeenNPC"] == 0)) then
+					  and (not vv["nefNpcDied"] or vv["nefNpcDied"] == 0) and (not vv["lastSeenNPC"] or vv["lastSeenNPC"] == 0))
+					  or NWB.data.layersDisabled[layer]) then
 				--Do nothing if all timers are 0, this is to fix a bug in last version with layerMaps causing old layer data
 				--to bounce back and forth between users, making it so layers with no timers keep being created after server
 				--restart and won't disappear.
@@ -1156,7 +1134,7 @@ end
 function NWB:versionCheck(remoteVersion)
 	local lastVersionMsg = NWB.db.global.lastVersionMsg;
 	if (tonumber(remoteVersion) > tonumber(version) and (GetServerTime() - lastVersionMsg) > 14400) then
-		print("|cffFF5100" .. L["versionOutOfDate"]);
+		print(NWB.prefixColor .. L["versionOutOfDate"]);
 		NWB.db.global.lastVersionMsg = GetServerTime();
 	end
 	if (tonumber(remoteVersion) > tonumber(version)) then
@@ -1170,7 +1148,9 @@ function NWB:yellTicker()
 	if (NWB.cnRealms[NWB.realm] or NWB.twRealms[NWB.realm] or NWB.krRealms[NWB.realm]) then
 		--If this is a Chinese realm then longer yell delay, chinese servers having issues because more layers, too much data sending.
 		--I have plans to fix this, making db smaller etc.
-		yellDelay = 1200;
+		--Trying a lower yell interval on asian servers, we compress data much more now so it should be fine
+		--Also this shorter interval may help a songflower timer issue there.
+		yellDelay = 900;
 	end
 	--if (NWB.isLayered) then
 		--Longer yell delay on high pop servers, no need for as many.

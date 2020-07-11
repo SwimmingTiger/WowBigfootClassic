@@ -539,6 +539,15 @@ L["flowerWarning"] = "你在开启了位面的服务器上采集了风歌花，�
 L["mmColorTitle"] = "小地图位面信息颜色";
 L["mmColorDesc"] = "设置小地图位面信息文本(Layer 1)的颜色";
 
+---new---
+L["layerHasBeenDisabled"] = "位面%s已禁用，此位面仍在数据库中,但是将被忽略,直到你再次启用它或它被检测为是有效的。";
+L["layerHasBeenEnabled"] = "位面%s已启用，此位面会重新显示计时器和位面计数。";
+L["layerDoesNotExist"] = "位面ID %s在数据库中不存在.";
+L["enableLayerButton"] = "启用位面";
+L["disableLayerButton"] = "禁用位面";
+L["enableLayerButtonTooltip"] = "单击以重新启用此位面。\n此位面将被重新放回计时器和位面计算中。";
+L["disableLayerButtonTooltip"] = "在服务器重启后，单击以禁用此位面。\n插件将忽略此位面并在稍后将其删除。";
+
 ---Aoikaze
 
 L["Target a NPC to\nupdate your layer"] = "选择一个NPC\n更新位面信息"
@@ -593,6 +602,7 @@ L[" ago no buff recorded since) "] = "，至今无Buff释放记录）"
 L[" (Layer "] = "(位面"
 L[" of "] = "/"
 L[" (Layer 1 of "] = "(位面1/"
+L["(No layers found)"] = "(没有找到位面)"
 L["|cff00ff00[Layer "] = "|cff00ff00[位面"
 L[" (expired)"] = "(已过期)"
 L[" (expired) (Layer "] = "(已过期)(位面"
@@ -611,3 +621,16 @@ L[" dispelled "] = "驱散了"
 L["Onyxia buff NPC sapped by "] = "奥妮克希亚 Buff NPC 被 "
 L[", setting backup timer."] = "消耗了，开始重生计时。"
 L["Onyxia buff NPC sapped, setting backup timer."] = "奥妮克希亚 Buff NPC 被消耗，开始重生计时。"
+
+L["No channel with id "] = "不存在ID为"
+L[" exists."] = "的频道。"
+L["Type \"/wb\" to print world buff timers to yourself."] = "输入\"/wb\" 显示你当前的世界Buff情况。"
+L["Type \"/wb config\" to open options."] = "输入\"/wb config\" 打开设置窗口。"
+L["Type \"/wb guild\" to post buff timers to the specified chat channel (accepts channel names and numbers)."] = "输入\"/wb guild\" 向特定频道通报世界Buff信息（接受频道数字或频道名称）。"
+L["Use \"/sf\" in the same way for songflowers."] = "使用\"/sf\" 查看轻歌花情况。"
+L["Type \"/dmf\" for your Darkmoon Faire buff cooldown."] = "输入\"/dmf\" 查看暗月马戏团Buff冷却情况。"
+L["Type \"/buffs\" to view all your alts world buffs."] = "输入\"/buffs\" 查看所有角色世界Buff情况。"
+
+L["\n|cFF989898[Layer Disabled]  (zone "] = "\n|cFF989898[位面已禁用](区域"
+
+L["|cFFFFFF00Looking for layered timers to convert."] = "|cFFFFFF00寻找可以转换的位面计时器。"

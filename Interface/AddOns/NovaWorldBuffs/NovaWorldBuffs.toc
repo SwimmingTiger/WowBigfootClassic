@@ -1,8 +1,8 @@
-## Interface: 11304
+## Interface: 11305
 ## Notes: World buff timers and pre warnings.
 ## Title: Nova World Buffs
 ## Author: Novaspark-Arugal OCE
-## Version: 1.66
+## Version: 1.70
 ## SavedVariables: NWBdatabase
 
 embeds.xml

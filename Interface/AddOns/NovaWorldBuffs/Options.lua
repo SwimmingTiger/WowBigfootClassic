@@ -14,7 +14,7 @@ NWB.options = {
 	args = {
 		titleText = {
 			type = "description",
-			name = "        |cFFFF5100NovaWorldBuffs (v" .. GetAddOnMetadata("NovaWorldBuffs", "Version") .. ")",
+			name = "        " .. NWB.prefixColor .. "NovaWorldBuffs (v" .. GetAddOnMetadata("NovaWorldBuffs", "Version") .. ")",
 			fontSize = "large",
 			order = 1,
 		},
@@ -946,6 +946,7 @@ end
 NWB.optionDefaults = {
 	global = {
 		chatColorR = 255, chatColorG = 255, chatColorB = 0,
+		prefixColorR = 255, prefixColorG = 105, prefixColorB = 0,
 		middleColorR = 1, middleColorG = 0.96, middleColorB = 0.41,
 		mmColorR = 255, mmColorG = 255, mmColorB = 255,
 		logonPrint = true,
@@ -1019,6 +1020,10 @@ NWB.optionDefaults = {
 		flaskWisdomBuffTime = 7200,
 		flaskResistanceBuffTime = 7200,
 		resistFireBuffTime = 3600,
+		festivalFortitudeBuffTime = 3600,
+		festivalFuryBuffTime = 3600,
+		ribbonDanceBuffTime = 3600,
+		silithystBuffTime = 3600,
 		printRend = true,
 		printOny = true,
 		printNef = true,
@@ -1053,7 +1058,7 @@ NWB.optionDefaults = {
 		soundsZanDrop = "NWB - Zelda",
 		showExpiredTimers = true,
 		expiredTimersDuration = 5,
-		minimapIcon = {["minimapPos"] = 165, ["hide"] = false},
+		minimapIcon = {["minimapPos"] = 160, ["hide"] = false},
 		minimapButton = true,
 		flashOneMin = true,
 		flashFirstYell = true,
@@ -1148,6 +1153,9 @@ function NWB:buildRealmFactionData()
 	end
 	if (not self.db.global[NWB.realm][NWB.faction].layers) then
 			self.db.global[NWB.realm][NWB.faction].layers = {};
+	end
+	if (not self.db.global[NWB.realm][NWB.faction].layersDisabled) then
+			self.db.global[NWB.realm][NWB.faction].layersDisabled = {};
 	end
 	local localizedClass, englishClass = UnitClass("player");
 	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].localizedClass = localizedClass;

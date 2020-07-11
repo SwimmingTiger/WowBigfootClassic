@@ -20,6 +20,10 @@ L["Flask of Chromatic Resistance"] = "多重抗性精煉藥水";
 L["Supreme Power"] = "至高能量";
 L["Distilled Wisdom"] = "萃取智慧";
 L["Chromatic Resistance"] = "多彩抗性";
+L["Sap"] = "悶棍";
+L["Fire Festival Fortitude"] = "火焰節慶之韌";
+L["Fire Festival Fury"] = "火焰節慶之怒";
+L["Ribbon Dance"] = "緞帶舞";
 
 ---=====---
 ---Horde---
@@ -509,16 +513,16 @@ L["soundsDisableInBattlegroundsDesc"] = "在戰場時關閉音效。";
 
 L["autoBuffsHeaderDesc"] = "從NPC自動取得增益";
 
-L["autoDmfBuffTitle"] = "自動取的暗月增益";
+L["autoDmfBuffTitle"] = "自動取得暗月增益";
 L["autoDmfBuffDesc"] = "你想跟賽吉講話時自動對話選擇你要的增益嗎? 確定你選擇你想要哪種增益。";
 
 L["autoDmfBuffTypeTitle"] = "哪個暗月增益";
 L["autoDmfBuffTypeDesc"] = "你想要在跟賽吉講話時，這個插件幫你選擇哪個暗月增益?";
 
 L["autoDireMaulBuffTitle"] = "厄運增益";
-L["autoDireMaulBuffDesc"] = "你想要這個差件在你對話時，自動幫你取得增益嗎?";
+LL["autoDireMaulBuffDesc"] = "你想要這個插件在你對話時，自動幫你取得增益嗎?";
 
-L["autoBwlPortalTitle"] = "自動取使黑翼之巢寶珠";
+L["autoBwlPortalTitle"] = "自動使用黑翼之巢寶珠";
 L["autoBwlPortalDesc"] = "你想要插件幫你在你點擊寶珠時自動進入副本嗎?";
 
 L["showBuffStatsTitle"] = "顯示增益次數";
@@ -531,3 +535,12 @@ L["flowerWarning"] = "輕歌花的鏡像紀錄已啟動，但是你沒有在到�
 
 L["mmColorTitle"] = "小地圖Layer顏色";
 L["mmColorDesc"] = "小地圖的Layer要用什麼色? (Layer 1)";
+
+
+L["layerHasBeenDisabled"] = "關閉鏡像 %s, 直到你再次開啟或是再次偵測之前，鏡像仍會在資料庫中。";
+L["layerHasBeenEnabled"] = "啟用鏡像 %s, 現在回到計時與鏡像運算。";
+L["layerDoesNotExist"] = "這鏡像編號 %s 不存在於資料庫。";
+L["enableLayerButton"] = "啟動鏡像";
+L["disableLayerButton"] = "關閉鏡像";
+L["enableLayerButtonTooltip"] = "點擊以重新啟動鏡像,\n這將會將鏡像計時及圖層計算放回去。";
+L["disableLayerButtonTooltip"] = "在伺服器重開 後點擊取消舊的鏡像。\n這將會忽略這個差鑑以前移除鏡像。";

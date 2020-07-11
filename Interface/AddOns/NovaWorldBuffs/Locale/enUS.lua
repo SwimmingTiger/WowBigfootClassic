@@ -17,6 +17,10 @@ L["Supreme Power"] = "Supreme Power";
 L["Distilled Wisdom"] = "Distilled Wisdom";
 L["Chromatic Resistance"] = "Chromatic Resistance";
 L["Sap"] = "Sap";
+L["Fire Festival Fortitude"] = "Fire Festival Fortitude";
+L["Fire Festival Fury"] = "Fire Festival Fury";
+L["Ribbon Dance"] = "Ribbon Dance";
+L["Traces of Silithyst"] = "Traces of Silithyst";
 
 ---=====---
 ---Horde---
@@ -535,3 +539,12 @@ L["flowerWarning"] = "Songflower picked on a realm with layered songflower timer
 
 L["mmColorTitle"] = "Minimap Layer Color";
 L["mmColorDesc"] = "What color should the minimap layer text be? (Layer 1)";
+
+---New---
+L["layerHasBeenDisabled"] = "Disabled layer %s, this layer is still in the database but will be ignored until you enable it again or it's detected again as being valid.";
+L["layerHasBeenEnabled"] = "Enabled layer %s, this is now back in timer and layer calculations.";
+L["layerDoesNotExist"] = "The layer ID %s doesn't exist in the database.";
+L["enableLayerButton"] = "Enable Layer";
+L["disableLayerButton"] = "Disable Layer";
+L["enableLayerButtonTooltip"] = "Click to re-enable this layer,\nIt will be put back into timer and layer calcs.";
+L["disableLayerButtonTooltip"] = "Click to disable this old layer after server restarts.\nIt will be ignored by the addon and removed later.";

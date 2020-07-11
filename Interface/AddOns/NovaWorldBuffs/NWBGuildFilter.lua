@@ -176,29 +176,35 @@ local filterTypeLocales = {
 };
 
 function NWB.guildChatFilter(self, event, msg, author, ...)
-	for type, locales in pairs(filterTypeLocales) do
-		if (NWB.db.global[type]) then
-			for k, v in pairs(locales) do
-				local match = k;
-				if (type ~= "filterCommandResponse") then
-					--Only add escapes for strings without (.+).
-					match = string.gsub(k, "%(", "%%(");
-					match = string.gsub(match, "%)", "%%)");
-					match = string.gsub(match, "%.", "."); --Test this.
-					match = string.gsub(match, "%%s", "(.+)");
-				end
-				if (string.match(msg, "%[WorldBuffs%]") and string.match(msg, match)) then
-					NWB:debug("filtering", k);
-					return true;
+	if (NWB.loaded) then
+		for type, locales in pairs(filterTypeLocales) do
+			if (NWB.db.global[type]) then
+				for k, v in pairs(locales) do
+					local match = k;
+					if (type ~= "filterCommandResponse") then
+						--Only add escapes for strings without (.+).
+						match = string.gsub(k, "%(", "%%(");
+						match = string.gsub(match, "%)", "%%)");
+						match = string.gsub(match, "%.", "."); --Test this.
+						match = string.gsub(match, "%%s", "(.+)");
+					end
+					if (match and match ~= "" and string.match(msg, "%[WorldBuffs%]") and string.match(msg, match)) then
+						NWB:debug("filtering", k);
+						return true;
+					end
 				end
 			end
 		end
-	end
-	if (NWB.db.global.filterCommand and (string.match(msg, "^!wb") or string.match(msg, "^!dmf"))) then
-		NWB:debug("filtering command");
-		return true;
+		if (NWB.db.global.filterCommand and (string.match(msg, "^!wb") or string.match(msg, "^!dmf"))) then
+			NWB:debug("filtering command");
+			return true;
+		end
 	end
 	return false, msg, author, ...;
 end
 
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", NWB.guildChatFilter);
+
+--This is to make sure the whole addon loaded correctly with no errors so the chat filters work correctly.
+--This is the last file to load.
+NWB.loaded = true;
