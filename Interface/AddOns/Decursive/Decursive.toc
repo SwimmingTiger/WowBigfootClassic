@@ -1,4 +1,4 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: Decursive
 ## Title-zhCN: [大脚][集]一键驱散
 ## Title-zhTW: [大腳][集]一鍵驅散

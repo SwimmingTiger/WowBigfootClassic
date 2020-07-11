@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: <DCT> Options
 ## Title-zhCN: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 菜单模块
 ## Title-zhTW: |cffffe00a<|r|cffff7d0aDCT|r|cffffe00a>|r 功能表模組

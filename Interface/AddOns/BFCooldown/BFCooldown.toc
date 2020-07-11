@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: [BF] Cooldown
 ## Title-zhCN: [大脚]冷却增强
 ## Title-zhTW: [大腳]冷卻增強

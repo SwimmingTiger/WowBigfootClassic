@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: [BF] BigFootChat
 ## Title-zhCN: [大脚]聊天增强条
 ## Title-zhTW: [大腳]聊天增強條

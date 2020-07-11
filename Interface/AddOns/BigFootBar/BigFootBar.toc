@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: [BF] BigFootBar
 ## Title-zhCN: [大脚]大脚动作条增强
 ## Title-zhTW: [大腳]大腳動作條增強

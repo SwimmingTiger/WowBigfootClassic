@@ -1,4 +1,4 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: Battle Info
 ## Title-zhCN: [大脚][集]战场助手
 ## Title-zhTW: [大腳][集]戰場資訊增強

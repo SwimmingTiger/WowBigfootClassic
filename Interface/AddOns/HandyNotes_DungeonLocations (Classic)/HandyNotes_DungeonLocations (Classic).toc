@@ -1,4 +1,4 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: HandyNotes_DungeonLocations (Classic)
 ## Version: 1.03
 ## Notes: Shows locations of old world dungeon and raid entrances

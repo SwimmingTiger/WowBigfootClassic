@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: [BF] CombatIndicator
 ## Title-zhCN: [大脚]战斗指示器
 ## Title-zhTW: [大腳]戰鬥指示器

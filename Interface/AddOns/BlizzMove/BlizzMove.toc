@@ -1,4 +1,4 @@
-﻿## Interface: 11304
+﻿## Interface: 11305
 ## Title: BlizzMove
 ## Title-zhCN: [大脚][集]窗体移动
 ## Title-zhTW: [大腳][集]窗體移動

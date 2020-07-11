@@ -1,4 +1,4 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: YaHT
 ## Notes: Yet another Hunter Timer.
 ## Author: Avi

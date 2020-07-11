@@ -1,4 +1,4 @@
-## Interface: 11304
+## Interface: 11305
 ## Title: Raid Ledger
 ## Title-deDE: Titel
 ## Title-koKR: 공격대 장부
