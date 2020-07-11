@@ -4,7 +4,7 @@ local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 local BossIDs = LibStub("LibBossIDs-1.0")
 
-local revision = tonumber(string.sub("$Revision: 1476 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1552 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -101,11 +101,11 @@ local LIB_FILTER_RAIDTARGET	= bit_bor(
 local LIB_FILTER_ME = bit_bor(
 	COMBATLOG_OBJECT_AFFILIATION_MINE, COMBATLOG_OBJECT_CONTROL_PLAYER, COMBATLOG_OBJECT_TYPE_PLAYER
 )
-local LIB_FILTER_MY_PET = bit_bor(
+--[[local LIB_FILTER_MY_PET = bit_bor(
 	COMBATLOG_OBJECT_AFFILIATION_MINE,
 	COMBATLOG_OBJECT_CONTROL_PLAYER,
 	COMBATLOG_OBJECT_TYPE_PET
-)
+)--]]
 local LIB_FILTER_PARTY	= bit_bor(COMBATLOG_OBJECT_TYPE_PLAYER, COMBATLOG_OBJECT_AFFILIATION_PARTY)
 local LIB_FILTER_RAID	= bit_bor(COMBATLOG_OBJECT_TYPE_PLAYER, COMBATLOG_OBJECT_AFFILIATION_RAID)
 local LIB_FILTER_GROUP	= bit_bor(LIB_FILTER_PARTY, LIB_FILTER_RAID)
@@ -1693,7 +1693,7 @@ function Recount:DetectPet(name, nGUID, nFlags)
 				Recount.PlayerPetGUID = nGUID
 			else -- Guardians
 				Recount.LatestGuardian = Recount.LatestGuardian + 1
-				Recount.GuardiansGUIDs[Recount.LatestGuardian]=nGUID
+				Recount.GuardiansGUIDs[Recount.LatestGuardian] = nGUID
 				if Recount.LatestGuardian > 20 then -- Elsia: Max guardians set to 20 for now
 					Recount.LatestGuardian = 0
 				end
@@ -1706,19 +1706,13 @@ function Recount:DetectPet(name, nGUID, nFlags)
 				if not owner then
 					owner, ownerID = Recount:FindOwnerPetFromGUID(name, nGUID)
 
-					--[[if not owner then
-						local tipname = Recount:FindGuardianFromTooltip(nGUID)
-						if tipname then
-							local tippetname , tipowner = tipname:match("(.-) <(.*)>")
-							if dbCombatants[tippetowner] then
-								owner = tippetowner
-								ownerID = dbCombatants[tippetowner].GUID
-								Recount:DPrint("Found Pet from Tooltip: "..name.." "..owner)
-							else
-								Recount:DPrint("NoOwner2: "..name.." "..(nGUID or "nil"))
-							end
+					if not owner then
+						owner = Recount:GetPetOwnerFromTooltip(nGUID)
+						if dbCombatants[owner] then
+							owner = owner
+							ownerID = dbCombatants[owner].GUID
 						end
-					end]]
+					end
 				end
 				if owner then
 					name = name.." <"..owner..">"
@@ -1735,6 +1729,55 @@ function Recount:DetectPet(name, nGUID, nFlags)
 	end
 
 	return name, owner, ownerID
+end
+
+function Recount:FindNameDeclensions(ownerString, playerName, serverName)
+	for gender = 3, 2, -1 do
+		for declensionSet = 1, GetNumDeclensionSets(playerName, gender) do
+			local genitive = DeclineName(playerName, gender, declensionSet)
+			if strfind(ownerString, genitive, nil, true) then
+				if serverName then
+					if strfind(ownerString, serverName, nil, true) then
+						return true
+					end
+				else
+					return true
+				end
+			end
+		end
+	end
+
+	return false
+end
+
+function Recount:GetPetOwnerFromTooltip(nGUID)
+	local _, ownerString = Recount:FindGuardianFromTooltip(nGUID)
+	if ownerString then
+		for i = 1, GetNumGroupMembers() do
+			local unitName, serverName = UnitName(IsInRaid() and "raid"..i or "party"..i)
+			if unitName then
+				if GetLocale() == "ruRU" then
+					if Recount:FindNameDeclensions(ownerString, unitName, serverName) then
+						return serverName and unitName.."-"..serverName or unitName
+					else
+						if serverName then
+							unitName = unitName.."-"..serverName
+						end
+						if strfind(ownerString, unitName, nil, true) then
+							return unitName
+						end
+					end
+				else
+					if serverName then
+						unitName = unitName.."-"..serverName
+					end
+					if strfind(ownerString, unitName, nil, true) then
+						return unitName
+					end
+				end
+			end
+		end
+	end
 end
 
 function Recount:BossFound()

@@ -1,11 +1,8 @@
 ------------------------------------------------------------------------
-r1540 | Resike | 2020-04-26 15:50:08 +0000 (Sun, 26 Apr 2020) | 1 line
+r1556 | Resike | 2020-07-08 23:57:17 +0000 (Wed, 08 Jul 2020) | 1 line
 Changed paths:
-   M /trunk/GUI_Main.lua
-   M /trunk/Recount.lua
    M /trunk/Recount.toc
-   M /trunk/embeds.xml
 
-- Fully remove AceEvent
+- Classic TOC switch
 ------------------------------------------------------------------------
 
