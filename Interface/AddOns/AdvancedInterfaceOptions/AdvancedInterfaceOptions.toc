@@ -1,4 +1,4 @@
-##Interface: 11304
+## Interface: 11305
 ## Title: Advanced Interface Options
 ## Author: Stanzilla, Semlar
 ## Version: 1.3.4
