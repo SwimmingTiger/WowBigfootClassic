@@ -1,12 +1,13 @@
-lightweight tag b40f4811e872478e66ef0e8e34df0e1c32783d8b 1.13.4.30
+lightweight tag 1b10f88e05f6a280651d2fe3337ac89018022aa9 1.13.5.2
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sat Jul 4 10:40:07 2020 +0200
+Date:	Mon Jul 13 21:37:03 2020 +0200
 
-commit b40f4811e872478e66ef0e8e34df0e1c32783d8b
+commit 1b10f88e05f6a280651d2fe3337ac89018022aa9
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sat Jul 4 10:40:07 2020 +0200
+Date:   Mon Jul 13 21:33:21 2020 +0200
 
-    Revert "Account for blizzards "UnitShouldDisplayName" option"
+    Added more CVar sliders for opacity/alpha
     
-    This reverts commit 22ff4fb52d5fadbed6cf9f3f74c656b9099c76f1.
+    - Added more CVar sliders for opacity/alpha
+    - Fixed 'Clickable width/height' sliders not working
 
