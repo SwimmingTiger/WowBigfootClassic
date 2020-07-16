@@ -19,6 +19,33 @@
 	@return		the blue value
 
 --]]
+
+-- make default font config-able, based on client locale
+local locale = GetLocale()
+local l
+if (locale == "zhTW" or locale == "zhCN" or locale == "koKR") then 
+	l = true
+else
+	l = false
+end
+
+-- to config font in xml
+local MonkeyQuestMasterFont = CreateFont("MonkeyQuestMasterFont")
+	MonkeyQuestMasterFont:SetShadowColor(0,0,0)
+	MonkeyQuestMasterFont:SetShadowOffset(1,-1)
+
+local MonkeyQuestFont = CreateFont("MonkeyQuestFont")
+	MonkeyQuestFont:SetFontObject("MonkeyQuestMasterFont")
+	MonkeyQuestFont:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\myriapsc.ttf", 12)
+	
+local MonkeyQuestFontWide = CreateFont("MonkeyQuestFontWide")
+	MonkeyQuestFontWide:SetFontObject("MonkeyQuestMasterFont")
+	MonkeyQuestFontWide:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\framd.ttf", l and 14 or 12)
+	
+local MonkeyQuestTitleFont = CreateFont("MonkeyQuestTitleFont")
+	MonkeyQuestTitleFont:SetFontObject("MonkeyQuestMasterFont")
+	MonkeyQuestTitleFont:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\adventure.ttf", 14)
+
 function MonkeyLib_ColourStrToARGB(strColour)
 	-- "|cFFFFFFFF"
 	local i = 3;

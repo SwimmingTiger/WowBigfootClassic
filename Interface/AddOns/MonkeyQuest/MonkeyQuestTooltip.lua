@@ -88,19 +88,20 @@ function MonkeyQuest_SearchQuestListItem(strSearch)
             
             colourTip.a, colourTip.r, colourTip.g, colourTip.b = MonkeyQuest_GetCompletenessColorStr(value.m_iNumItems, value.m_iNumNeeded);
 
-
-            GameTooltip:AddLine(MONKEYQUEST_TOOLTIP_QUESTITEM .. " " .. value.m_iNumItems .. "/" .. value.m_iNumNeeded,
-                    colourTip.r, colourTip.g, colourTip.b, 1);
-            
-                
-            -- resize the tootip (thanks Turan's AuctionIt)
-            length = _G[GameTooltip:GetName() .. "TextLeft" .. GameTooltip:NumLines()]:GetStringWidth();
-            -- Give the text some border space on the right side of the tooltip.
-            length = length + 22;
-        
-            GameTooltip:SetHeight(GameTooltip:GetHeight() + 14);
-            if ( length > GameTooltip:GetWidth() ) then
-                GameTooltip:SetWidth(length);
+			local newLine = MONKEYQUEST_TOOLTIP_QUESTITEM .. " " .. value.m_iNumItems .. "/" .. value.m_iNumNeeded
+			if (_G[GameTooltip:GetName() .. "TextLeft" .. GameTooltip:NumLines()]:GetText() ~= newLine) then
+				GameTooltip:AddLine(newLine, colourTip.r, colourTip.g, colourTip.b, 1);
+				
+				-- resize the tootip (thanks Turan's AuctionIt)
+				length = _G[GameTooltip:GetName() .. "TextLeft" .. GameTooltip:NumLines()]:GetStringWidth();
+				
+				-- Give the text some border space on the right side of the tooltip.
+				length = length + 22;
+			
+				GameTooltip:SetHeight(GameTooltip:GetHeight() + 14);
+				if ( length > GameTooltip:GetWidth() ) then
+					GameTooltip:SetWidth(length);
+				end
             end
 
             return true;

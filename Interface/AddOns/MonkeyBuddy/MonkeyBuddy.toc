@@ -1,12 +1,9 @@
 ﻿## Interface: 11305
-## Title: MonkeyBuddy
+## Title: MonkeyBuddy v2.10.0
 ## Notes: Helps you configure your MonkeyMods.
-## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-設定選項
-## Notes-zhTW: MonkeyBuddy |n幫助你設定 MQ 任務清單。|n|cffffd200使用方法：|r右鍵點擊清單標題開啟設定選項。
-## Author: Trentin, Jim-Bim, DaMaGepy
+## Notes-deDE: Hilft Euch beim Einstellen Euer MonkeyMods.
+## Author: Trentin, Jim-Bim
 ## Dependencies: MonkeyLibrary
 ## OptionalDeps: MonkeyQuest, MonkeySpeed, MonkeyClock, myAddOns
 ## SavedVariables: MonkeyBuddyConfig
-## X-Revision: BigFoot
-
 MonkeyBuddy.xml

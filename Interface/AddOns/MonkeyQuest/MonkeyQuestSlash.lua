@@ -27,20 +27,6 @@ StaticPopupDialogs["MONKEYQUEST_RESET_TO_BLIZZARD_STYLE"] = {
 	exclusive = 1
 };
 
-StaticPopupDialogs["MONKEYQUEST_GEPY_STYLE"] = {
-	text = MONKEYQUEST_CONFIRM_GEPY_STYLE,
-	button1 = OKAY,
-	button2 = CANCEL,
-	OnAccept = function()
-		MonkeyQuestInit_ResetConfigToDaMaGepyStyle();
-		if (DEFAULT_CHAT_FRAME) then
-			DEFAULT_CHAT_FRAME:AddMessage(MONKEYQUEST_RESET_GEPY_STYLE_MSG);
-		end
-	end,
-	timeout = 0,
-	exclusive = 1
-};
-
 -- function to register all the slash commands
 function MonkeyQuestSlash_Init()
 	-- this command toggles the Quest Monkey display
@@ -270,7 +256,22 @@ function MonkeyQuestSlash_Parse(msg)
 		MonkeyQuestSlash_CmdHideQuestsEnabled(false);
 		return;
 	end
-
+	if (string.lower(msg) == "colourdoneorfailed") then
+		MonkeyQuestSlash_CmdColourDoneOrFailed(true);
+		return;
+	end
+	if (string.lower(msg) == "nocolourdoneorfailed") then
+		MonkeyQuestSlash_CmdColourDoneOrFailed(false);
+		return;
+	end
+	if (string.lower(msg) == "questtexttooltipon") then
+		MonkeyQuestSlash_CmdShowQuestTextTooltip(true);
+		return;
+	end
+	if (string.lower(msg) == "questtexttooltipoff") then
+		MonkeyQuestSlash_CmdShowQuestTextTooltip(false);
+		return;
+	end
 	-- didn't match any others, print out the help msg
 	MonkeyQuestSlash_CmdHelp();
 end
@@ -439,10 +440,6 @@ end
 
 function MonkeyQuestSlash_CmdResetToBlizzardStyle()
 	StaticPopup_Show("MONKEYQUEST_RESET_TO_BLIZZARD_STYLE");
-end
-
-function MonkeyQuestSlash_CmdGepyStyle()
-	StaticPopup_Show("MONKEYQUEST_GEPY_STYLE");
 end
 
 function MonkeyQuestSlash_CmdOpen(bOpen)
@@ -782,6 +779,26 @@ end
 
 function MonkeyQuestSlash_CmdHideQuestsEnabled(bHide)
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideQuestsEnabled = bHide;
+	MonkeyQuest_Refresh();
+
+	-- check for MonkeyBuddy
+	if (MonkeyBuddyQuestFrame_Refresh ~= nil) then
+		MonkeyBuddyQuestFrame_Refresh();
+	end
+end
+
+function MonkeyQuestSlash_CmdColourDoneOrFailed(bColour)
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourDoneOrFailed = bColour;
+	MonkeyQuest_Refresh();
+
+	-- check for MonkeyBuddy
+	if (MonkeyBuddyQuestFrame_Refresh ~= nil) then
+		MonkeyBuddyQuestFrame_Refresh();
+	end
+end
+
+function MonkeyQuestSlash_CmdShowQuestTextTooltip(bShow)
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip = bShow;
 	MonkeyQuest_Refresh();
 
 	-- check for MonkeyBuddy

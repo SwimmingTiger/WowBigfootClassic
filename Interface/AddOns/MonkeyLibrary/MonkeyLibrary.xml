@@ -13,22 +13,13 @@
 		</Shadow>
 	</FontString>
 
-	<FontString name="MonkeyQuestFont" inherits="MonkeyQuestMasterFont" font="Fonts\ARHei.TTF" virtual="true">
-		<FontHeight>
-			<AbsValue val="14"/>
-		</FontHeight>
+	<FontString name="MonkeyQuestFont" inherits="MonkeyQuestMasterFont" virtual="true">
 	</FontString>
 
-	<FontString name="MonkeyQuestFontWide" inherits="MonkeyQuestMasterFont" font="Fonts\ARHei.TTF" virtual="true">
-		<FontHeight>
-			<AbsValue val="14"/>
-		</FontHeight>
+	<FontString name="MonkeyQuestFontWide" inherits="MonkeyQuestMasterFont" virtual="true">
 	</FontString>
 
-	<FontString name="MonkeyQuestTitleFont" inherits="MonkeyQuestMasterFont" font="Fonts\ARKai_T.TTF" virtual="true">
-		<FontHeight>
-			<AbsValue val="18"/>
-		</FontHeight>
+	<FontString name="MonkeyQuestTitleFont" inherits="MonkeyQuestMasterFont" virtual="true">
 	</FontString>
 
 </Ui>

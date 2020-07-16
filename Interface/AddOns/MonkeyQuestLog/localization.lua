@@ -1,7 +1,7 @@
--- Not translations
+﻿-- Not translations
 MkQL_MAX_REWARDS						= 10
 MONKEYQUESTLOG_TITLE					= "MonkeyQuestLog"
-MONKEYQUESTLOG_VERSION					= "0.9.37"
+MONKEYQUESTLOG_VERSION					= "0.10.3"
 MONKEYQUESTLOG_TITLE_VERSION			= MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION
 MONKEYQUESTLOG_INFO_COLOUR				= "|cffffff00"
 
@@ -17,30 +17,40 @@ MkQL_SHARE_TXT							= "Share"
 MkQL_ABANDON_TXT						= "Abandon"
 
 
-if (GetLocale() == "zhTW") then
-MONKEYQUESTLOG_TITLE					= "MQ 任務日誌"
-MONKEYQUESTLOG_DESCRIPTION				= "顯示完整任務說明"
-MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " 已載入"
+if (GetLocale() == "deDE") then
+
+MONKEYQUESTLOG_DESCRIPTION				= "Zeigt die volle Quest Beschreibung für MonkeyQuest an"
+MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " geladen"
+
+MONKEYQUESTLOG_DESC_HEADER				= "Beschreibung"
+MONKEYQUESTLOG_REWARDS_HEADER			= "Belohnungen"
+MkQL_REWARDSCHOOSE_TXT					= "Auf Euch wartet eine dieser Belohnungen:"
+MkQL_REWARDSRECEIVE_TXT					= "Ihr bekommt:"
+MkQL_SHARE_TXT							= "Teilen"
+MkQL_ABANDON_TXT						= "Abbrechen"
+
+elseif (GetLocale() == "zhTW") then
+
+MONKEYQUESTLOG_DESCRIPTION				= "為MonkeyQuest顯示完整的任務描述"
+MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " 載入"
 
 MONKEYQUESTLOG_DESC_HEADER				= "描述"
-MONKEYQUESTLOG_REWARDS_HEADER			= "獎勵"
-MkQL_REWARDSCHOOSE_TXT					= "你可以從這些獎勵物品中選擇一件:"
-MkQL_REWARDSRECEIVE_TXT					= "你將得到:"
-MkQL_SHARE_TXT							= "分享任務"
-MkQL_ABANDON_TXT						= "放棄任務"
+MONKEYQUESTLOG_REWARDS_HEADER			= "獎金"
+MkQL_REWARDSCHOOSE_TXT					= "下列擇一："
+MkQL_REWARDSRECEIVE_TXT					= "下列所有："
+MkQL_SHARE_TXT							= "分享"
+MkQL_ABANDON_TXT						= "放棄"
 
-end
+elseif (GetLocale() == "zhCN") then
 
-if (GetLocale() == "zhCN") then
-    MONKEYQUESTLOG_TITLE					= "MQ 任务日志"
-    MONKEYQUESTLOG_DESCRIPTION				= "显示完整任务说明"
-    MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " 已加载"
-    
-    MONKEYQUESTLOG_DESC_HEADER				= "描述"
-    MONKEYQUESTLOG_REWARDS_HEADER			= "奖励"
-    MkQL_REWARDSCHOOSE_TXT					= "你可以从这些奖励物品中选择一件:"
-    MkQL_REWARDSRECEIVE_TXT					= "你将得到:"
-    MkQL_SHARE_TXT							= "分享任务"
-    MkQL_ABANDON_TXT						= "放弃任务"
-    
+MONKEYQUESTLOG_DESCRIPTION				= "为MonkeyQuest显示完整的任务描述"
+MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " 载入"
+
+MONKEYQUESTLOG_DESC_HEADER				= "描述"
+MONKEYQUESTLOG_REWARDS_HEADER			= "奖金"
+MkQL_REWARDSCHOOSE_TXT					= "下列择一："
+MkQL_REWARDSRECEIVE_TXT					= "下列所有："
+MkQL_SHARE_TXT							= "分享"
+MkQL_ABANDON_TXT						= "放弃"
+
 end

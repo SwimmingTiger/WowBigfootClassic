@@ -165,6 +165,16 @@ MonkeyBuddyQuest_CheckButtons[MONKEYBUDDY_QUEST_HIDEQUESTSENABLED] = {
     strVar = "m_bHideQuestsEnabled",
     pSlashCommand = MonkeyQuestSlash_CmdHideQuestsEnabled
 };
+MonkeyBuddyQuest_CheckButtons[MONKEYBUDDY_QUEST_COLOURDONEORFAILED] = {
+    id = 27,
+    strVar = "m_bColourDoneOrFailed",
+    pSlashCommand = MonkeyQuestSlash_CmdColourDoneOrFailed
+};
+MonkeyBuddyQuest_CheckButtons[MONKEYBUDDY_QUEST_QUESTTEXTTOOLTIP] = {
+    id = 28,
+    strVar = "m_bShowQuestTextTooltip",
+    pSlashCommand = MonkeyQuestSlash_CmdShowQuestTextTooltip
+};
 
 -- this array is used to init the colour buttons
 local MonkeyBuddyQuest_ColourButtons = { };
@@ -311,13 +321,13 @@ end
 function MonkeyBuddySlash_CmdDismiss()
     MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDismissed = true;
     MonkeyBuddyIconButton:Hide();
-    --MonkeyBuddyOptionsCheckButton:SetChecked(false)
+    MonkeyBuddyOptionsCheckButton:SetChecked(false)
 end
 
 function MonkeyBuddySlash_CmdCall()
     MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDismissed = false;
     MonkeyBuddyIconButton:Show();
-    --MonkeyBuddyOptionsCheckButton:SetChecked(true)
+    MonkeyBuddyOptionsCheckButton:SetChecked(true)
 end
 
 function MonkeyBuddy_OnEvent(self, event, ...)
@@ -336,25 +346,20 @@ function MonkeyBuddy_OnEvent(self, event, ...)
 		end
 		if (MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer] == nil) then
 			MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer] = {};
-            MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDismissed = true;
+            MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDismissed = false;
             MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDailies = false;
         end
         
-		--[[
-		-- Minimap icon
         if (MonkeyBuddyConfig[MonkeyBuddy.m_strPlayer].m_bDismissed == true) then
             MonkeyBuddyIconButton:Hide();
         else
             MonkeyBuddyIconButton:Show();
         end
-        ]]--
-		
+        
         -- print out a nice message letting the user know the addon loaded
-        --[[
-		if (DEFAULT_CHAT_FRAME) then
+        if (DEFAULT_CHAT_FRAME) then
             DEFAULT_CHAT_FRAME:AddMessage(MONKEYBUDDY_LOADED_MSG);
         end
-		--]]
 		MonkeyBuddyOptions()
     end
 end
@@ -473,6 +478,9 @@ function MonkeyBuddyQuestFrame_Refresh()
         	elseif (MonkeyQuestConfig[MonkeyQuest.m_global][value.strVar] == 2) then
 				string:SetText(key .. " (Blizzard)");
         	end
+			if (GetLocale() == "zhTW" or GetLocale() == "zhCN" or GetLocale() == "koKR") then
+				slider:SetShown(false)
+			end
         elseif (value.strVar == "m_iHighlightAlpha" or value.strVar == "m_iAlpha" or value.strVar == "m_iFrameAlpha") then
         	string:SetText(key .. " (" .. current*100 .. "%)");
         else
@@ -594,7 +602,7 @@ function MonkeyBuddySlider_OnValueChanged(self, value)
 end
 
 function MonkeyBuddyOptions()
---[[
+
 -- Create main frame for information text
 local MonkeyBuddyOptions = CreateFrame("FRAME", "MonkeyBuddyOptions")
 MonkeyBuddyOptions.name = MONKEYBUDDY_TITLE
@@ -646,7 +654,7 @@ MonkeyBuddyStatus:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Backgroun
 MonkeyBuddyStatus:SetBackdropBorderColor(1, 1, 1, 1.0);
 MonkeyBuddyStatus:SetBackdropColor(0, 0, 0, 0);
 MonkeyBuddyStatus:SetWidth(345)
-MonkeyBuddyStatus:SetHeight(65)
+MonkeyBuddyStatus:SetHeight(125)
 MonkeyBuddyStatus:ClearAllPoints()
 MonkeyBuddyStatus:SetPoint("TOPLEFT", MonkeyBuddyOptionsText3, "BOTTOMLEFT", -6, -36)
 
@@ -676,7 +684,6 @@ MonkeyBuddyOptionsText5:ClearAllPoints()
 MonkeyBuddyOptionsText5:SetPoint("TOPLEFT", MonkeyBuddyOptionsText4, "BOTTOMLEFT", 0, -14)
 MonkeyBuddyOptionsText5:SetWidth(340)
 
-
 local MonkeyBuddyOptionsText6 = MonkeyBuddyOptions:CreateFontString(nil, "ARTWORK")
 MonkeyBuddyOptionsText6:SetFontObject(GameFontNormalLarge)
 MonkeyBuddyOptionsText6:SetJustifyH("LEFT") 
@@ -702,7 +709,6 @@ MonkeyBuddyOptionsText7:SetText("MonkeySpeed") end
 MonkeyBuddyOptionsText7:ClearAllPoints()
 MonkeyBuddyOptionsText7:SetPoint("TOPLEFT", MonkeyBuddyOptionsText6, "BOTTOMLEFT", 0, -14)
 MonkeyBuddyOptionsText7:SetWidth(340)
-
 
 local MonkeyBuddyOptionsTextB= MonkeyBuddyOptions:CreateFontString(nil, "ARTWORK")
 MonkeyBuddyOptionsTextB:SetFontObject(GameFontNormalLarge)
@@ -805,5 +811,5 @@ MonkeyBuddyOptionsMBButton:SetPoint("TOPLEFT", MonkeyBuddyOptionsTextB, "BOTTOML
 MonkeyBuddyOptionsMBButton:SetScript("OnClick", MBButton_OnClick)
 MonkeyBuddyOptionsMBButton:SetScript("OnMouseDown", MBButton_MouseDown)
 MonkeyBuddyOptionsMBButton:SetScript("OnMouseUp", MBButton_MouseUp)
-]]--
+
 end

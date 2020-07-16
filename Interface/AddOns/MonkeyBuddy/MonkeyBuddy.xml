@@ -96,8 +96,7 @@
 			</OnValueChanged>
 		</Scripts>
 	</Slider>
-	
-<!--
+
 	<Button name="MonkeyBuddyIconButton" parent="MinimapBackdrop" toplevel="true">
 		<Size>
 			<AbsDimension x="24" y="24"/>
@@ -124,7 +123,6 @@
 		<NormalTexture file="Interface\AddOns\MonkeyLibrary\Textures\MonkeyBuddyIcon.tga"/>
 		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
 	</Button>
-!-->
 
 	<Frame name="MonkeyBuddyFrame" toplevel="true" frameStrata="MEDIUM" movable="true" enableMouse="true" hidden="true" parent="UIParent">
 		<Size>
@@ -344,6 +342,16 @@
                             <Anchor point="TOPLEFT" relativeTo="MonkeyBuddyQuestCheck25" relativePoint="BOTTOMLEFT" />
                         </Anchors>
                     </CheckButton>
+                    <CheckButton name="MonkeyBuddyQuestCheck27" inherits="MonkeyBuddyCheckButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="MonkeyBuddyQuestCheck26" relativePoint="BOTTOMLEFT" />
+                        </Anchors>
+                    </CheckButton>
+                    <CheckButton name="MonkeyBuddyQuestCheck28" inherits="MonkeyBuddyCheckButtonTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="MonkeyBuddyQuestCheck27" relativePoint="BOTTOMLEFT" />
+                        </Anchors>
+                    </CheckButton>
 					<Button name="MonkeyBuddyQuestColour1" inherits="MonkeyBuddyQuestColourButtonTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT">
@@ -464,9 +472,9 @@
 					<Button name="MonkeyBuddyQuestResetAllButton" inherits="GameMenuButtonTemplate" text="MONKEYBUDDY_RESET">
 						<Size x="150" y="20"/>
 						<Anchors>
-							<Anchor point="BOTTOM">
+							<Anchor point="BOTTOMRIGHT">
 								<Offset>
-									<AbsDimension x="0" y="8" />
+									<AbsDimension x="-5" y="8" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -476,8 +484,22 @@
 							</OnClick>
 						</Scripts>
 					</Button>
-
-					</Frames>
+					<Button name="MonkeyBuddyQuestResetAllToBlizzardStyleButton" inherits="GameMenuButtonTemplate" text="MONKEYBUDDY_RESET_TO_BLIZZARD_STYLE">
+						<Size x="150" y="20"/>
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT">
+								<Offset>
+									<AbsDimension x="-5" y="30" />
+								</Offset>
+							</Anchor>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								MonkeyQuestSlash_CmdResetToBlizzardStyle();
+							</OnClick>
+						</Scripts>
+					</Button>
+				</Frames>
 				<Scripts>
 					<OnShow>
 						MonkeyBuddyQuestFrame_OnShow();

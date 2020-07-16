@@ -10,9 +10,6 @@
 	if (MonkeyQuest.m_bVariablesLoaded == false) then
 		return;
 	end
-	
-	-- 停用自動更新任務進度，避免顯示出內建的任務清單
-	SetCVar("autoQuestProgress", 0)
 		
 	-- add the realm to the "player's name" for the config settings
 	MonkeyQuest.m_strPlayer = GetRealmName().."|"..MonkeyQuest.m_strPlayer;
@@ -196,7 +193,13 @@
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideQuestsEnabled == nil) then
 		MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideQuestsEnabled = MONKEYQUEST_DEFAULT_HIDEQUESTSENABLED;
 	end
-
+	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourDoneOrFailed == nil) then
+		MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourDoneOrFailed = MONKEYQUEST_DEFAULT_COLOURDONEORFAILED;
+	end
+	
+	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip == nil) then
+		MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip = MONKEYQUEST_DEFAULT_QUESTTEXTTOOLTIP;
+	end
 	-- All variables are loaded now
 	MonkeyQuest.m_bLoaded = true;
 	
@@ -204,11 +207,9 @@
 	MonkeyQuestInit_ApplySettings();
 
 	-- Let the user know the mod is loaded
-	--[[
 	if (DEFAULT_CHAT_FRAME) then
 		DEFAULT_CHAT_FRAME:AddMessage(MONKEYQUEST_LOADED_MSG);
 	end
-	--]]
 end
 
 function MonkeyQuestInit_CleanQuestList()
@@ -293,44 +294,45 @@ function MonkeyQuestInit_ResetConfig()
 
 	-- reset all the config variables to the defaults, but keep the hidden list intact
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iAlpha = MONKEYQUEST_DEFAULT_ALPHA;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bNoBorder = MONKEYQUEST_DEFAULT_NOBORDER;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight = MONKEYQUEST_DEFAULT_FONTHEIGHT;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameWidth = MONKEYQUEST_DEFAULT_WIDTH;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bGrowUp = MONKEYQUEST_DEFAULT_GROWUP;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bObjectives = MONKEYQUEST_DEFAULT_OBJECTIVES; -- use overviews
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowNumQuests = MONKEYQUEST_DEFAULT_SHOWNUMQUESTS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedQuests = MONKEYQUEST_DEFAULT_HIDECOMPLETEDQUESTS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedObjectives = MONKEYQUEST_DEFAULT_HIDECOMPLETEDOBJECTIVES;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitleButtons = MONKEYQUEST_DEFAULT_HIDETITLEBUTTONS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitle = MONKEYQUEST_DEFAULT_HIDETITLE;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourSubObjectivesByProgress = MONKEYQUEST_DEFAULT_COLOURSUBOBJECTIVES;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iQuestPadding = MONKEYQUEST_DEFAULT_QUESTPADDING;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowZoneHighlight = MONKEYQUEST_DEFAULT_SHOWZONEHIGHLIGHT;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestLevel = MONKEYQUEST_DEFAULT_SHOWQUESTLEVEL;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete = MONKEYQUEST_DEFAULT_WORKCOMPLETE;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFont = MONKEYQUEST_DEFAULT_FONT;
-	
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iHighlightAlpha = MONKEYQUEST_DEFAULT_HIGHLIGHT_ALPHA;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameAlpha = MONKEYQUEST_DEFAULT_FRAME_ALPHA;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameWidth = MONKEYQUEST_DEFAULT_WIDTH;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameLeft = MONKEYQUEST_DEFAULT_LEFT;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameTop = MONKEYQUEST_DEFAULT_TOP;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameBottom = MONKEYQUEST_DEFAULT_BOTTOM;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_iQuestPadding = MONKEYQUEST_DEFAULT_QUESTPADDING;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowZoneHighlight = MONKEYQUEST_DEFAULT_SHOWZONEHIGHLIGHT;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestLevel = MONKEYQUEST_DEFAULT_SHOWQUESTLEVEL;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bDisplay = MONKEYQUEST_DEFAULT_DISPLAY;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bDefaultAnchor = MONKEYQUEST_DEFAULT_DEFAULTANCHOR;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_strAnchor = MONKEYQUEST_DEFAULT_ANCHOR;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bObjectives = MONKEYQUEST_DEFAULT_OBJECTIVES;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bMinimized = MONKEYQUEST_DEFAULT_MINIMIZED;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden = MONKEYQUEST_DEFAULT_SHOWHIDDEN;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bNoHeaders = MONKEYQUEST_DEFAULT_NOHEADERS;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bAlwaysHeaders = MONKEYQUEST_DEFAULT_ALWAYSHEADERS;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bNoBorder = MONKEYQUEST_DEFAULT_NOBORDER;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bGrowUp = MONKEYQUEST_DEFAULT_GROWUP;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowNumQuests = MONKEYQUEST_DEFAULT_SHOWNUMQUESTS;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowDailyNumQuests = MONKEYQUEST_DEFAULT_SHOWDAILYNUMQUESTS;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bLocked = MONKEYQUEST_DEFAULT_LOCKED;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedQuests = MONKEYQUEST_DEFAULT_HIDECOMPLETEDQUESTS;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedObjectives = MONKEYQUEST_DEFAULT_HIDECOMPLETEDOBJECTIVES;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bAllowRightClick = MONKEYQUEST_DEFAULT_ALLOWRIGHTCLICK;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowTooltipObjectives = MONKEYQUEST_DEFAULT_SHOWTOOLTIPOBJECTIVES;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitleButtons = MONKEYQUEST_DEFAULT_HIDETITLEBUTTONS;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitle = MONKEYQUEST_DEFAULT_HIDETITLE;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete = MONKEYQUEST_DEFAULT_WORKCOMPLETE;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourTitle = MONKEYQUEST_DEFAULT_COLOURTITLE;
 
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight = MONKEYQUEST_DEFAULT_FONTHEIGHT;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFont = MONKEYQUEST_DEFAULT_FONT;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bCrashBorder = MONKEYQUEST_DEFAULT_CRASHBORDER;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourSubObjectivesByProgress = MONKEYQUEST_DEFAULT_COLOURSUBOBJECTIVES;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsOnLeft = MONKEYQUEST_DEFAULT_ITEMSONLEFT;
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideHeader = MONKEYQUEST_DEFAULT_HIDEHEADER;
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourDoneOrFailed = MONKEYQUEST_DEFAULT_COLOURDONEORFAILED
+	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip = MONKEYQUEST_DEFAULT_QUESTTEXTTOOLTIP;
 	
 	-- noob tips
 	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowNoobTips = MONKEYQUEST_DEFAULT_SHOWNOOBTIPS;
@@ -351,32 +353,6 @@ function MonkeyQuestInit_ResetConfig()
 	MonkeyQuestInit_ApplySettings();
 	
 	MonkeyQuest_ShowDetailedControls();
-end
-
--- This resets your config to make MonkeyQuest DaMaGepy Style
-function MonkeyQuestInit_ResetConfigToDaMaGepyStyle()
-	MonkeyQuestInit_ResetConfig();	
-	-- apply DaMaGepy style
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iAlpha = MONKEYQUEST_DEFAULT_ALPHA;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bNoBorder = MONKEYQUEST_DEFAULT_NOBORDER;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight = MONKEYQUEST_DEFAULT_FONTHEIGHT;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameWidth = MONKEYQUEST_DEFAULT_WIDTH;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bGrowUp = MONKEYQUEST_DEFAULT_GROWUP;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bObjectives = MONKEYQUEST_DEFAULT_OBJECTIVES; -- use overviews
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowNumQuests = MONKEYQUEST_DEFAULT_SHOWNUMQUESTS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedQuests = MONKEYQUEST_DEFAULT_HIDECOMPLETEDQUESTS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedObjectives = MONKEYQUEST_DEFAULT_HIDECOMPLETEDOBJECTIVES;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitleButtons = MONKEYQUEST_DEFAULT_HIDETITLEBUTTONS;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitle = MONKEYQUEST_DEFAULT_HIDETITLE;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourSubObjectivesByProgress = MONKEYQUEST_DEFAULT_COLOURSUBOBJECTIVES;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iQuestPadding = MONKEYQUEST_DEFAULT_QUESTPADDING;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowZoneHighlight = MONKEYQUEST_DEFAULT_SHOWZONEHIGHLIGHT;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestLevel = MONKEYQUEST_DEFAULT_SHOWQUESTLEVEL;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete = MONKEYQUEST_DEFAULT_WORKCOMPLETE;
-	MonkeyQuestConfig[MonkeyQuest.m_global].m_iFont = MONKEYQUEST_DEFAULT_FONT;
-	-- finally apply the settings
-	MonkeyQuestInit_ApplySettings();	
-	MonkeyQuest_HideDetailedControls();
 end
 
 
@@ -415,19 +391,19 @@ function MonkeyQuestInit_Font(iFont)
 		-- Default look
 		
 		-- change the fonts
-		MonkeyQuestInit_SetButtonFonts(STANDARD_TEXT_FONT, MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
-		--MonkeyQuestTitleText:SetFont("Fonts\\bLEI00D.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
+		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\framd.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		--MonkeyQuestTitleText:SetFont("Fonts\\FRIZQT__.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
 
 	elseif ( iFont == 1 ) then 
 		-- crash font
 		
 		--MonkeyQuestTitleText:SetFont("Interface\\AddOns\\MonkeyLibrary\\Fonts\\adventure.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
-		MonkeyQuestInit_SetButtonFonts("Fonts\\bHEI01B.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\myriapsc.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 
 	elseif ( iFont == 2 ) then
 		-- Blizzard style
 		
-		MonkeyQuestInit_SetButtonFonts("Fonts\\bKAI00M.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts(STANDARD_TEXT_FONT, MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 	end
 
 	-- check for MonkeyBuddy

@@ -20,14 +20,6 @@ MonkeyQuest.m_colourBorder = { r = TOOLTIP_DEFAULT_COLOR.r, g = TOOLTIP_DEFAULT_
 MonkeyQuestObjectiveTable = {};
 MonkeyQuestAllowSounds = false
 
--- colors --
-local CLRED = "|cFFFF8080"
-local CLBLUE = "|cFF40FFFF"
-local CCYAN = "|cFF68F8FF"
-local CLGREEN = "|cFF80FF80"
-local CLLGREEN = "|cFFAAFF88"
-local CGRAY = "|cFF888888"
-
 function MonkeyQuest_OnLoad(self)
     hooksecurefunc("HideUIPanel", MonkeyQuest_Refresh);
     hooksecurefunc(GameTooltip, "SetBagItem", YourSetBagItem);
@@ -60,8 +52,10 @@ function MonkeyQuest_OnLoad(self)
 	MonkeyQuest_OLD_aftt_setName = aftt_setName;
 	aftt_setName = MonkeyQuest_NEW_aftt_setName;
     
-    -- this will catch mobs needed for quests (not needed anymore)
-	-- self:RegisterEvent('UPDATE_MOUSEOVER_UNIT');
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC) then
+		-- this will catch mobs needed for quests (not needed on retail)
+		self:RegisterEvent('UPDATE_MOUSEOVER_UNIT');
+	end
 end
 
 function MonkeyQuest_OnUpdate(self, elapsed)
@@ -166,7 +160,7 @@ function MonkeyQuest_OnEvent(self, event, ...)
     if (event == 'PLAYER_ENTERING_WORLD') then
         -- this event gets called when the player enters the world
         -- Note: on initial login this event will not give a good player name
-
+        
         -- double check that the mod isn't already loaded
         if (not MonkeyQuest.m_bLoaded) then
         
@@ -178,7 +172,7 @@ function MonkeyQuest_OnEvent(self, event, ...)
                 MonkeyQuestInit_LoadConfig();
             end
         end
-		-- My (damagepy's) custom init
+        
         -- exit this event
         return;
     
@@ -206,11 +200,11 @@ function MonkeyQuest_OnEvent(self, event, ...)
         end
     end -- TOOLTIP_ANCHOR_DEFAULT
 
-	--not needed anymore
-    --if (event == 'UPDATE_MOUSEOVER_UNIT') then
-    --    -- check if this is a quest item
-    --    MonkeyQuest_SearchTooltip();
-    --end -- UPDATE_MOUSEOVER_UNIT
+	--not used on retail
+    if (event == 'UPDATE_MOUSEOVER_UNIT') then
+        -- check if this is a quest item
+        MonkeyQuest_SearchTooltip();
+    end -- UPDATE_MOUSEOVER_UNIT
 end
 
 -- this function is called when the frame should be dragged around
@@ -437,9 +431,7 @@ end
 
 function MonkeyQuest_SetHighlightAlpha(iAlpha)
 
-	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowZoneHighlight) then
-		MonkeyQuest_Refresh();
-	end
+	MonkeyQuest_Refresh();
 
 	-- check for MonkeyBuddy
 	if (MonkeyBuddyQuestFrame_Refresh ~= nil) then
@@ -498,16 +490,13 @@ function MonkeyQuest_Refresh(MBDaily)
 
 	local iNumEntries, iNumQuests = GetNumQuestLogEntries();
 	
-	local DQCompleted = 0;--GetDailyQuestsCompleted();
-	local DQMax;
-	
-	local v, b, d, t = GetBuildInfo();
-	
-	if (t >= 50000) then
-		DQMax = " Dailies"
-	else
-		DQMax = "/ 0";
-	end
+	local DQCompleted = 0
+    
+    if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+        DQCompleted = GetDailyQuestsCompleted();
+    end
+    
+	local DQMax = " Dailies"
 
 	MonkeyQuestTitleText:SetTextHeight(MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
 	-- set the title, with or without the number of quests
@@ -706,12 +695,15 @@ function MonkeyQuest_Refresh(MBDaily)
 									chars = "S"
 								elseif ( tagID == QUEST_TAG_ACCOUNT) then
 									chars = "A"
+                                else
+                                    chars = string.sub(tagName, 1, 1)
 								end
 							end
 							
-							--[[
-							if suggestedGroup and suggestedGroup > 1 then	
-								chars = chars .. suggestedGroup
+							if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+								if suggestedGroup and suggestedGroup > 1 then	
+									chars = chars .. suggestedGroup
+								end
 							end
 							
 							if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
@@ -719,161 +711,75 @@ function MonkeyQuest_Refresh(MBDaily)
 							elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
 								chars = chars.."**"
 							end
-							]]--
+							
 							strMonkeyQuestBody = strMonkeyQuestBody ..
 								format("|c%02X%02X%02X%02X%s|r", 255, colour.r * 255, colour.g * 255, colour.b * 255,
-									"["..strQuestLevel..chars.."] ");
+									"["..strQuestLevel..chars.."]");
 							
 						end
 
 						-- add the completed/failed tag, if needed
 						local strTitleFailColor = "|cFF995555"
 						local strTitleDoneColor = "|cFF22AA22"
+						
+						if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourDoneOrFailed == false) then
+							strTitleFailColor = strTitleColor
+							strTitleDoneColor = strTitleColor
+						end
+						
 						if (isComplete and isComplete < 0) then
 							strMonkeyQuestBody = strMonkeyQuestBody .. 
-								format(strTitleFailColor .. "%s|r", strQuestLogTitleText) .. CLRED..
+								format(strTitleFailColor .. "%s|r", strQuestLogTitleText) .. "|cFFFF8080" ..
 								" (" .. MONKEYQUEST_QUEST_FAILED .. ")\n";
 						elseif (isComplete and isComplete > 0) then
 							strMonkeyQuestBody = strMonkeyQuestBody ..
-								format(strTitleDoneColor .. "%s|r", strQuestLogTitleText) .. CLGREEN..
+								format(strTitleDoneColor .. "%s|r", strQuestLogTitleText) .. "|cFF80FF80" ..
 								" (" .. MONKEYQUEST_QUEST_DONE .. ")\n";
 						else
 							strMonkeyQuestBody = strMonkeyQuestBody ..
 								format(strTitleColor .. "%s|r", strQuestLogTitleText) .. "\n";
-						end							
-
+						end
 						
 
 						local strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
 						
 						-- wraith: item
-						--[[
-						local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(i);
-						if (item and (not isQuestComplete or showItemWhenComplete) and MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsEnabled == true) then
-							watchItemIndex = watchItemIndex + 1;
-							local itemButton = _G["MQWatchFrameItem"..watchItemIndex];
-							if ( not itemButton ) then
-								MQWATCHFRAME_NUM_ITEMS = watchItemIndex;
-								itemButton = CreateFrame("BUTTON", "MQWatchFrameItem" .. watchItemIndex, _G["MonkeyQuestFrame"], "QuestObjectiveItemButtonTemplate");
-								--SecureActionButtonTemplate
-							end
+                        if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+                            local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(i);
+                            if (item and (not isQuestComplete or showItemWhenComplete) and MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsEnabled == true) then
+                                watchItemIndex = watchItemIndex + 1;
+                                local itemButton = _G["MQWatchFrameItem"..watchItemIndex];
+                                if ( not itemButton ) then
+                                    MQWATCHFRAME_NUM_ITEMS = watchItemIndex;
+                                    itemButton = CreateFrame("BUTTON", "MQWatchFrameItem" .. watchItemIndex, _G["MonkeyQuestFrame"], "QuestObjectiveItemButtonTemplate");
+                                    --SecureActionButtonTemplate
+                                end
 
-							itemButton.questLogIndex = i;
-							itemButton.charges = charges;
-							itemButton.rangeTimer = -1;
-							SetItemButtonTexture(itemButton, item);
-							SetItemButtonCount(itemButton, charges);
-							QuestObjectiveItem_UpdateCooldown(itemButton);
-							
-							--itemButton:SetAttribute("type","item")
-							--itemButton:SetAttribute("item",link)
-							
-							itemButton:ClearAllPoints();
-							if ( MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsOnLeft == true ) then
-								if ( MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden == true ) then
-									itemButton:SetPoint( "TOPRIGHT", _G["MonkeyQuestHideButton" .. iButtonId], "TOPLEFT", -12, 0);
-								else
-									itemButton:SetPoint( "TOPRIGHT", _G["MonkeyQuestButton" .. iButtonId], "TOPLEFT" );
-								end
-							else
-								itemButton:SetPoint( "TOPLEFT", _G["MonkeyQuestButton" .. iButtonId], "TOPRIGHT", 12, 0);
-							end
-							itemButton:SetScale(0.7)
-							itemButton:Show();
-						end
-		]]--
-						local strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
-						-- DaMaGepy
-						if (GetNumQuestLeaderBoards() > 0) then
-							for ii=1, GetNumQuestLeaderBoards(), 1 do
-								--local string = getglobal("QuestLogObjective"..ii);
-								local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii);
-								
-								MonkeyQuest_AddQuestItemToList(strLeaderBoardText); 
-								
-								if (strLeaderBoardText) then -- Gepy
-									if (not iFinished) then
-										strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. MonkeyQuest_GetLeaderboardColorStr(strLeaderBoardText) .. 
-											strLeaderBoardText .. "\n";
-									elseif (MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_bHideCompletedObjectives == false
-										or MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_bShowHidden) then
-										local gqcolor = MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_strCompleteObjectiveColour;
-										gqcolor = CLLGREEN; --CCYAN;
-										strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. 
-											gqcolor .. 
-											strLeaderBoardText .. "\n";
-									end
-								end
-							end
-
-							-- Work Complete
-							if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete == true and strQuestLogTitleText ~= nil) then							
-								for ii = 1, GetNumQuestLeaderBoards(), 1 do
-									objectiveDesc, objectiveType, objectiveComplete = GetQuestLogLeaderBoard(ii);
-									if (objectiveType == "item" or objectiveType == "monster" or objectiveType == "object") then
-										if(GetLocale() == "enUS") then
-											j, k, objectiveNumItems, objectiveNumNeeded, objectiveName = string.find(objectiveDesc, "([-%d]+)/([-%d]+)%s*(.*)$");
-										else
-											j, k, objectiveName, objectiveNumItems, objectiveNumNeeded = string.find(objectiveDesc, "(.*):%s*([-%d]+)%s*/%s*([-%d]+)%s*$");
-										end										
-										if (objectiveName ~= nil and objectiveName ~= "  slain" and objectiveName ~= " ") then										
-											local currentObjectiveName = strQuestLogTitleText .. objectiveName;										
-											if (MonkeyQuestObjectiveTable[currentObjectiveName] == nil) then
-												MonkeyQuestObjectiveTable[currentObjectiveName] = false
-											end
-											if (objectiveComplete == true and MonkeyQuestObjectiveTable[currentObjectiveName] == false and MonkeyQuestAllowSounds == true) then
-												if (isComplete and isComplete > 0) then
-													PlaySoundFile("Sound\\Creature\\Peon\\PeonBuildingComplete1.ogg");
-												else
-													--PlaySoundFile("Sound\\Creature\\Peasant\\PeasantWhat3.ogg");
-												end
-											end
-											MonkeyQuestObjectiveTable[currentObjectiveName] = objectiveComplete
-										end
-									elseif (objectiveType == "event") then
-										if (objectiveDesc ~= nil) then										
-											local currentObjectiveDesc = strQuestLogTitleText .. objectiveDesc;										
-											if (MonkeyQuestObjectiveTable[currentObjectiveDesc] == nil) then
-												MonkeyQuestObjectiveTable[currentObjectiveDesc] = false;
-											end
-											if (objectiveComplete == true and MonkeyQuestObjectiveTable[currentObjectiveDesc] == false and MonkeyQuestAllowSounds == true) then
-												if (isComplete and isComplete > 0) then
-													PlaySoundFile("Sound\\Creature\\Peon\\PeonBuildingComplete1.ogg");
-												else
-													--PlaySoundFile("Sound\\Creature\\Peasant\\PeasantWhat3.ogg");
-												end
-											end
-											MonkeyQuestObjectiveTable[currentObjectiveDesc] = objectiveComplete
-										end
-									end
-								end
-							end
-
-
-
-
-
-
-
-
-
-
-
-
-						else --if (MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_bObjectives) then    -- DaMaGepy    /script ReloadUI();
-							-- this quest has no leaderboard so display the objective instead if the config is set
-			
-							strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. 
-								--gqcolor ..
-								CGRAY
-								--format(MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_strOverviewColour .. "%s|r",
-									.. strQuestObjectives .. "\n"
-									;
-								--format("|c%02X%02X%02X%02X%s|r", 255, GRAY_FONT_COLOR.r * 255, GRAY_FONT_COLOR.g * 255, 
-								--GRAY_FONT_COLOR.b * 255, strQuestObjectives) .. "\n";
-						end
-						
-						--[[ -- DaMaGepy original start
+                                itemButton.questLogIndex = i;
+                                itemButton.charges = charges;
+                                itemButton.rangeTimer = -1;
+                                SetItemButtonTexture(itemButton, item);
+                                SetItemButtonCount(itemButton, charges);
+                                QuestObjectiveItem_UpdateCooldown(itemButton);
+                                
+                                --itemButton:SetAttribute("type","item")
+                                --itemButton:SetAttribute("item",link)
+                                
+                                itemButton:ClearAllPoints();
+                                if ( MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsOnLeft == true ) then
+                                    if ( MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden == true ) then
+                                        itemButton:SetPoint( "TOPRIGHT", _G["MonkeyQuestHideButton" .. iButtonId], "TOPLEFT", -12, 0);
+                                    else
+                                        itemButton:SetPoint( "TOPRIGHT", _G["MonkeyQuestButton" .. iButtonId], "TOPLEFT" );
+                                    end
+                                else
+                                    itemButton:SetPoint( "TOPLEFT", _G["MonkeyQuestButton" .. iButtonId], "TOPRIGHT", 12, 0);
+                                end
+                                itemButton:SetScale(0.7)
+                                itemButton:Show();
+                            end
+                        end
+		
 						if (GetNumQuestLeaderBoards() > 0) then
 							for ii=1, GetNumQuestLeaderBoards(), 1 do
 								--local string = _G["QuestLogObjective"..ii];
@@ -897,7 +803,60 @@ function MonkeyQuest_Refresh(MBDaily)
 								end
 							end
 							
+							if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete == true and strQuestLogTitleText ~= nil) then
 							
+								for ii = 1, GetNumQuestLeaderBoards(), 1 do
+
+									objectiveDesc, objectiveType, objectiveComplete = GetQuestLogLeaderBoard(ii);
+
+									if (objectiveType == "item" or objectiveType == "monster" or objectiveType == "object") then
+
+										if(GetLocale() == "enUS" and _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+											j, k, objectiveNumItems, objectiveNumNeeded, objectiveName = string.find(objectiveDesc, "([-%d]+)/([-%d]+)%s*(.*)$");
+										else
+											j, k, objectiveName, objectiveNumItems, objectiveNumNeeded = string.find(objectiveDesc, "(.*):%s*([-%d]+)%s*/%s*([-%d]+)%s*$");
+										end
+										
+										if (objectiveName ~= nil and objectiveName ~= "  slain" and objectiveName ~= " ") then
+										
+											local currentObjectiveName = strQuestLogTitleText .. objectiveName;
+										
+											if (MonkeyQuestObjectiveTable[currentObjectiveName] == nil) then
+												MonkeyQuestObjectiveTable[currentObjectiveName] = false
+											end
+
+											if (objectiveComplete == true and MonkeyQuestObjectiveTable[currentObjectiveName] == false and MonkeyQuestAllowSounds == true) then
+												if (isComplete and isComplete > 0) then
+													PlaySound(6199);
+												else
+													PlaySound(6288);
+												end
+											end
+
+											MonkeyQuestObjectiveTable[currentObjectiveName] = objectiveComplete
+										end
+									elseif (objectiveType == "event") then
+										if (objectiveDesc ~= nil) then
+										
+											local currentObjectiveDesc = strQuestLogTitleText .. objectiveDesc;
+										
+											if (MonkeyQuestObjectiveTable[currentObjectiveDesc] == nil) then
+												MonkeyQuestObjectiveTable[currentObjectiveDesc] = false;
+											end
+
+											if (objectiveComplete == true and MonkeyQuestObjectiveTable[currentObjectiveDesc] == false and MonkeyQuestAllowSounds == true) then
+												if (isComplete and isComplete > 0) then
+													PlaySound(6199);
+												else
+													PlaySound(6288);
+												end
+											end
+
+											MonkeyQuestObjectiveTable[currentObjectiveDesc] = objectiveComplete
+										end
+									end
+								end
+							end
 
 						elseif (MonkeyQuestConfig[MonkeyQuest.m_global].m_bObjectives) then
 							-- this quest has no leaderboard so display the objective instead if the config is set
@@ -908,8 +867,7 @@ function MonkeyQuest_Refresh(MBDaily)
 								--format("|c%02X%02X%02X%02X%s|r", 255, GRAY_FONT_COLOR.r * 255, GRAY_FONT_COLOR.g * 255, 
 								--GRAY_FONT_COLOR.b * 255, strQuestObjectives) .. "\n";
 						end
-						]]--
-						
+			
 						-- finally set the text
 						_G["MonkeyQuestButton" .. iButtonId .. "Text"]:SetText(strMonkeyQuestBody);
 						_G["MonkeyQuestButton" .. iButtonId .. "Text"]:Show();
@@ -926,11 +884,9 @@ function MonkeyQuest_Refresh(MBDaily)
 									string.find(string.lower(strQuestObjectives), strSubZoneText, 1, true)) then
 	
 									local a, r, g, b = MonkeyLib_ColourStrToARGB(MonkeyQuestConfig[MonkeyQuest.m_global].m_strZoneHighlightColour);
-									-- damagepy black background
-									r,g,b = 0,0,0;
-									
+	
 									-- _G["MonkeyQuestButton" .. iButtonId .. "Texture"]:SetVertexColor(r, g, b, MonkeyQuestConfig[MonkeyQuest.m_global].m_iAlpha);
-									_G["MonkeyQuestButton" .. iButtonId .. "Texture"]:SetVertexColor(r, g, b, 0.3); -- m_iHighlightAlpha /script ReloadUI();
+									_G["MonkeyQuestButton" .. iButtonId .. "Texture"]:SetVertexColor(r, g, b, MonkeyQuestConfig[MonkeyQuest.m_global].m_iHighlightAlpha);
 								end
 							end
 						end
@@ -1011,7 +967,7 @@ function MonkeyQuest_AddQuestItemToList(strLeaderBoardText)
 	
 	local i, j, iNumItems, iNumNeeded, strItemName;
 	
-	if(GetLocale() == "enUS") then
+	if(GetLocale() == "enUS" and _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
 		i, j, iNumItems, iNumNeeded, strItemName = string.find(strLeaderBoardText, "([-%d]+)/([-%d]+)%s*(.*)$");
 	else
 		i, j, strItemName, iNumItems, iNumNeeded = string.find(strLeaderBoardText, "(.*):%s*([-%d]+)%s*/%s*([-%d]+)%s*$");
@@ -1057,6 +1013,11 @@ function MonkeyQuest_Resize()
 	MonkeyQuestTitleButton:SetWidth(MonkeyQuestTitleText:GetWidth());
 	MonkeyQuestTitleButton:SetHeight(MonkeyQuestTitleText:GetHeight());
 
+	local substractPadding = 0
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		substractPadding = 10
+	end
+
 	for i = 1, MonkeyQuest.m_iNumQuestButtons, 1 do
 		text = _G["MonkeyQuestButton" .. i .. "Text"];
 		button = _G["MonkeyQuestButton" .. i];
@@ -1064,10 +1025,10 @@ function MonkeyQuest_Resize()
 		if (text:IsVisible()) then
 			text:SetWidth(iTextWidth);
 
-			iHeight = iHeight + text:GetHeight() - 10 + iPadding;
+			iHeight = iHeight + text:GetHeight() - substractPadding + iPadding;
 			
 			button:SetWidth(text:GetWidth());
-			button:SetHeight(text:GetHeight() - 10);
+			button:SetHeight(text:GetHeight() - substractPadding);
 		end
 	end
 
@@ -1077,10 +1038,10 @@ function MonkeyQuest_Resize()
 	MonkeyQuestFrame:SetHeight(iHeight);
 	
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameLeft == nil) then
-		MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameLeft = GetScreenWidth() - MONKEYQUEST_DEFAULT_WIDTH + 10;
+		MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameLeft = 500;
 	end
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameTop == nil) then
-		MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameTop = GetScreenHeight() - 200;
+		MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameTop = 500;
 	end
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameBottom == nil) then
 		MonkeyQuestConfig[MonkeyQuest.m_global].m_iFrameBottom = 539;
@@ -1130,7 +1091,7 @@ end
 function MonkeyQuest_GetLeaderboardColorStr(strText)
 	local i, j, iNumItems, iNumNeeded, strItemName;
 
-	if(GetLocale() == "enUS") then
+	if(GetLocale() == "enUS" and _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
 		i, j, iNumItems, iNumNeeded, strItemName = string.find(strText, "([-%d]+)/([-%d]+)%s*(.*)$");
 	else
 		i, j, strItemName, iNumItems, iNumNeeded = string.find(strText, "(.*):%s*([-%d]+)%s*/%s*([-%d]+)%s*$");
@@ -1147,7 +1108,7 @@ function MonkeyQuest_GetLeaderboardColorStr(strText)
 		-- it's a quest with no numerical objectives
 		local i, j, strItems, strNeeded, strItemName;
 		
-		if(GetLocale() == "enUS") then
+		if(GetLocale() == "enUS" and _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
 			i, j, strItems, strNeeded, strItemName = string.find(strText, "([-%a]+)/([-%a]+)%s*(.*)$");
 		else
 			i, j, strItemName, strItems, strNeeded = string.find(strText, "(.*):%s*([-%a]+)%s*/%s*([-%a]+)%s*$");
@@ -1238,7 +1199,6 @@ end
 -- when the mouse goes over the main frame, this gets called
 function MonkeyQuestTitle_OnEnter(self, motion)
 	-- noob tip?
-
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowNoobTips == true) then
 
 		-- put the tool tip in the specified position
@@ -1253,19 +1213,17 @@ function MonkeyQuestTitle_OnEnter(self, motion)
 		GameTooltip:AddLine(MONKEYQUEST_NOOBTIP_TITLE, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
 	
 		GameTooltip:Show();
+
 		return;
 	end
 
-
-	
-	--[[
 	-- put the tool tip in the default position
 	GameTooltip_SetDefaultAnchor(GameTooltip, self);
 	
 	-- set the tool tip text
 	GameTooltip:SetText(MONKEYQUEST_TITLE_VERSION, MONKEYLIB_TITLE_COLOUR.r, MONKEYLIB_TITLE_COLOUR.g, MONKEYLIB_TITLE_COLOUR.b, 1);
 	GameTooltip:AddLine(MONKEYQUEST_DESCRIPTION, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
-	GameTooltip:Show();]]--
+	GameTooltip:Show();
 
 end
 
@@ -1275,10 +1233,15 @@ end
 
 function MonkeyQuestButton_OnClick(self, button, down)
 
-	--local strQuestLink = GetQuestLink(self.m_iQuestIndex);
 	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex);
-	
-	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex);
+    
+    local strQuestLink = ""
+    
+    if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+        strQuestLink = GetQuestLink(self.m_iQuestIndex);
+    else
+        strQuestLink = strQuestLogTitleText
+    end
 	
 	if (isHeader) then
 		MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_aQuestList[_G["MonkeyQuestHideButton" .. self.id].m_strQuestLogTitleText].m_bChecked =
@@ -1321,12 +1284,15 @@ function MonkeyQuestButton_OnClick(self, button, down)
 					chars = "S"
 				elseif ( tagID == QUEST_TAG_ACCOUNT) then
 					chars = "A"
+                else
+                    chars = string.sub(tagName, 1, 1)
 				end
 			end
 			
-			--[[
-			if suggestedGroup and suggestedGroup > 1 then	
-				chars = chars .. suggestedGroup
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+				if suggestedGroup and suggestedGroup > 1 then	
+					chars = chars .. suggestedGroup
+				end
 			end
 			
 			if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
@@ -1334,10 +1300,8 @@ function MonkeyQuestButton_OnClick(self, button, down)
 			elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
 				chars = chars.."**"
 			end
-			]]--
-			--activeWindow:Insert("["..strQuestLevel..chars.."] " .. strQuestLink .. " ");
-			activeWindow:Insert("["..strQuestLevel..chars.."]" .. strQuestLogTitleText .. " ");
-			
+
+			activeWindow:Insert("["..strQuestLevel..chars.."] " .. strQuestLink .. " ");
 		else
 			local strChatObjectives = "";
 
@@ -1391,9 +1355,15 @@ function MonkeyQuestButton_OnClick(self, button, down)
 
 			-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
 			-- SelectQuestLogEntry(self.m_iQuestIndex);
-			
-			QuestMapQuestOptions_AbandonQuest(questID)
-			
+            
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+                QuestMapQuestOptions_AbandonQuest(questID)
+			else
+                SelectQuestLogEntry(self.m_iQuestIndex);
+                SetAbandonQuest();
+                StaticPopup_Show("ABANDON_QUEST", GetAbandonQuestName());
+            end
+            
 			-- Restore the currently selected quest log entry
 			--SelectQuestLogEntry(tmpQuestLogSelection);
 		end
@@ -1415,18 +1385,27 @@ function MonkeyQuestButton_OnClick(self, button, down)
 			return;
 		end
 
-		-- show the real questlog
-		-- ShowUIPanel(QuestLogFrame);
-
-		-- actually select the quest entry
-		if (QuestMapFrame:IsShown() and QuestMapFrame:IsVisible()) then
-			QuestMapFrame_OpenToQuestDetails(questID)
-		else
-			QuestLogPopupDetailFrame_Show(self.m_iQuestIndex)
-		end
-
-		-- update the real quest log
-		-- QuestLog_Update();
+        if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+            -- actually select the quest entry
+            if (QuestMapFrame:IsShown() and QuestMapFrame:IsVisible()) then
+                QuestMapFrame_OpenToQuestDetails(questID)
+            else
+                QuestLogPopupDetailFrame_Show(self.m_iQuestIndex)
+            end
+        else
+            SelectQuestLogEntry(self.m_iQuestIndex);
+            QuestLog_SetSelection(self.m_iQuestIndex);
+        
+        	-- show the real questlog
+            if (QuestLogEx==nil or QuestLogExFrame==nil) then
+                ShowUIPanel(QuestLogFrame);
+            else
+                ShowUIPanel(QuestLogExFrame);
+                QuestLogEx:Maximize();
+            end
+            -- update the real quest log
+            QuestLog_Update();
+        end
 
 	elseif (button == "RightButton") then
 		if(MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideQuestsEnabled == true or MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden == true) then
@@ -1494,12 +1473,38 @@ function MonkeyQuestButton_OnEnter(self, motion)
 	end
 	
 	-- set the tool tip text
---[[	GameTooltip:SetText(strQuestLogTitleText, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
+	GameTooltip:SetText(strQuestLogTitleText, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
 	if ( isComplete and isComplete < 0 ) then
         GameTooltip:AddLine(FAILED, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
         GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["FAILED"]));   
     end
-	GameTooltip:AddLine(self.m_strQuestObjectives, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
+	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip == true) then
+		local objcol="|cFFB0D0B0";
+		local descol="|cFF888899";
+		
+		SelectQuestLogEntry(self.m_iQuestIndex);
+		
+		local qtdesc,qtobj = GetQuestLogQuestText();
+		local mqhigh = {"Gorgrond","Talador","Nagrand","Shadowmoon Valley","Spires of Arak","Frostfire Ridge","Ashran","Stormshield","Tanaan Jungle","Bloodmaul Slag Mines","Grimrail Depot","Skyreach",
+					"The Everbloom","Shadowmoon Burial Grounds","Iron Docks","Auchindoun","Upper Blackrock Spire","Stormwind","Ironforge","Darnassus",
+					"Loch Modan","Wetlands","Felwood","Hinterland","Alterac Mountain","Tanaris","Gadgetzan","Desolace","Barrens","Ratchet","Theramore","Booty Bay",
+					"Gnomeregan","Elwynn","Darkshore","Ashenvale","Stonetalon Mountains","Feralas","Redridge Mountains","Redridge","Darkshire","Lakeshire","Duskwood","Stranglethorn Vale",
+					"Southshore","Hillsbrad","Badlands","Thelsamar","Kharanos","Westfall","Sentinel Hill","Burning Steppes","Menethil Harbor","Menethil","Swamp of Sorrows","Stockade",
+					"Auberdine","Astranaar","Winterspring","Everlook","Feathermoon Stronghold","Azshara","Dustwallow Marsh","Thousand Needles","Shimmering Flat",
+					"Un'Goro","Silithus","Maraudon","Scarlet Monastery","Plaguelands","Orgrimmar","Undercity","Mulgore","Thunder Bluff","Crossroads","Thalanaar",
+					"Nijel's Point","Teldrassil","Dolanaar","Shadowglen","Refuge Pointe","Arathi Highland","Uldaman","Tirisfal Glades","Scholomance","Stratholme",
+					"Tabetha","Zul'Farrak","Dire Maul","Blackrock Spire","Blackrock Depths","Dun Modr"};
+		for mqff = 1,table.getn(mqhigh) do 
+			qtobj=string.gsub(qtobj, mqhigh[mqff], "|cFFFFFF00"..mqhigh[mqff]..objcol); 
+			qtdesc=string.gsub(qtdesc, mqhigh[mqff], "|cFFFFFFFF"..mqhigh[mqff]..descol); 
+		end
+		
+		local fullQuestText = "\n"..objcol..qtobj.."\n\n"..descol..qtdesc;
+		GameTooltip:SetMinimumWidth(400);
+		GameTooltip:AddLine(fullQuestText, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
+	else
+		GameTooltip:AddLine(self.m_strQuestObjectives, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
+	end
 
     local tagID, tagName = GetQuestTagInfo(questID);
     if ( tagName ) then
@@ -1535,15 +1540,7 @@ function MonkeyQuestButton_OnEnter(self, motion)
     end
 	
 	-- see if any nearby group mates are on this quest
-	local iNumPartyMembers;
-	
-	local v, b, d, t = GetBuildInfo();
-	
-	if (t >= 50000) then
-		iNumPartyMembers = GetNumSubgroupMembers();
-	else
-		iNumPartyMembers = 0;
-	end
+	local iNumPartyMembers = GetNumSubgroupMembers();
 	
 	local isOnQuest, i;
 	
@@ -1558,62 +1555,8 @@ function MonkeyQuestButton_OnEnter(self, motion)
 			GameTooltip:AddLine(MonkeyQuestConfig[MonkeyQuest.m_global].m_strInitialObjectiveColour .. UnitName("party" .. i));
 		end
 	end
-	]]--
 	
-	
-	
-	-- set the tool tip text
--- DaMaGepy's editing --
-	local titcol="|cFFFFFF00"; 
-	local objcol="|cFFB0D0B0";
-	local descol="|cFF888899";	
-	--local questLink = GetQuestLink(self.m_iQuestIndex);
-	--local _,_, questString = string.split("|", questLink);
-	--local linkHeader, QID = string.split(":", questString);
-	
-	-- /script ReloadUI();
-	--GameTooltip_SetDefaultAnchor(GameTooltip, self);
-	GameTooltip:SetOwner(MonkeyQuestFrame, MonkeyQuestConfig[MonkeyQuest.m_global].m_strAnchor);
-	if (self.m_iQuestIndex~=nil) then
-		local QID = self.m_iQuestIndex;
-		if (QID==nil) then
-			local questLink = GetQuestLink(self.m_iQuestIndex);
-			local _,_, questString = string.split("|", questLink);
-			local linkHeader, QID = string.split(":", questString);	
-		end;
-		SelectQuestLogEntry(QID);
-		local qtdesc,qtobj = GetQuestLogQuestText();
-		local mqhigh = {"Gorgrond","Talador","Nagrand","Shadowmoon Valley","Spires of Arak","Frostfire Ridge","Ashran","Stormshield","Tanaan Jungle","Bloodmaul Slag Mines","Grimrail Depot","Skyreach",
-					"The Everbloom","Shadowmoon Burial Grounds","Iron Docks","Auchindoun","Upper Blackrock Spire","Stormwind","Ironforge","Darnassus",
-					"Loch Modan","Wetlands","Felwood","Hinterland","Alterac Mountain","Tanaris","Gadgetzan","Desolace","Barrens","Ratchet","Theramore","Booty Bay",
-					"Gnomeregan","Elwynn","Darkshore","Ashenvale","Stonetalon Mountains","Feralas","Redridge Mountains","Redridge","Darkshire","Lakeshire","Duskwood","Stranglethorn Vale",
-					"Southshore","Hillsbrad","Badlands","Thelsamar","Kharanos","Westfall","Sentinel Hill","Burning Steppes","Menethil Harbor","Menethil","Swamp of Sorrows","Stockade",
-					"Auberdine","Astranaar","Winterspring","Everlook","Feathermoon Stronghold","Azshara","Dustwallow Marsh","Thousand Needles","Shimmering Flat",
-					"Un'Goro","Silithus","Maraudon","Scarlet Monastery","Plaguelands","Orgrimmar","Undercity","Mulgore","Thunder Bluff","Crossroads","Thalanaar",
-					"Nijel's Point","Teldrassil","Dolanaar","Shadowglen","Refuge Pointe","Arathi Highland","Uldaman","Tirisfal Glades","Scholomance","Stratholme",
-					"Tabetha","Zul'Farrak","Dire Maul","Blackrock Spire","Blackrock Depths","Dun Modr"};
-		for mqff = 1,table.getn(mqhigh) do 
-			qtobj=string.gsub(qtobj, mqhigh[mqff], "|cFFFFFF00"..mqhigh[mqff]..objcol); 
-			qtdesc=string.gsub(qtdesc, mqhigh[mqff], "|cFFFFFFFF"..mqhigh[mqff]..descol); 
-		end -- kiemel
-		self.m_strQuestObjectives = "\n"..objcol..qtobj.."\n\n"..descol..qtdesc;
-	
-		GameTooltip:SetText(strQuestLogTitleText.." |cFF554444("..QID..")", NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
-		GameTooltip:SetMinimumWidth(400);
-	-- modositas vege --		
-	
-	
-		--GameTooltip:SetText(strQuestLogTitleText, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
-		GameTooltip:AddLine(self.m_strQuestObjectives, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
-		GameTooltip:AddLine(strQuestTag, TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b, 1);
-			
-		GameTooltip:Show();
--- DaMaGepy End;
-	end;	
-	
-	
-	
-	--GameTooltip:Show();
+	GameTooltip:Show();
 end
 
 function MonkeyQuestHideButton_OnLoad()
