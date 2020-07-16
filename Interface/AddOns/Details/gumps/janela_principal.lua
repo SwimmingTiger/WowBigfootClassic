@@ -5054,10 +5054,13 @@ function _detalhes:SetWindowAlphaForCombat (entering_in_combat, true_hide, alpha
 	
 	--apply
 	if (true_hide and amount == 0) then
-		gump:Fade (self.baseframe, _unpack (_detalhes.windows_fade_in))
-		gump:Fade (self.rowframe, _unpack (_detalhes.windows_fade_in))
-		gump:Fade (self.windowSwitchButton, _unpack (_detalhes.windows_fade_in))
-		self:SetIconAlpha (nil, true)
+		--gump:Fade (self.baseframe, _unpack (_detalhes.windows_fade_in))
+		--gump:Fade (self.rowframe, _unpack (_detalhes.windows_fade_in))
+		--gump:Fade (self.windowSwitchButton, _unpack (_detalhes.windows_fade_in))
+		self.baseframe:Hide()
+		self.rowframe:Hide()
+		self.windowSwitchButton:Hide()
+		--self:SetIconAlpha (nil, true) --12 july 2020, auto hide icons fix
 		
 		if (_detalhes.debug) then
 			_detalhes:Msg ("(debug) hiding window SetWindowAlphaForCombat()", amount, rowsamount, menuamount)
@@ -5070,7 +5073,8 @@ function _detalhes:SetWindowAlphaForCombat (entering_in_combat, true_hide, alpha
 		self:InstanceAlpha (min (amount, self.color[4]))
 		gump:Fade (self.rowframe, "ALPHAANIM", rowsamount)
 		gump:Fade (self.baseframe, "ALPHAANIM", rowsamount)
-		self:SetIconAlpha (menuamount)
+
+		--self:SetIconAlpha (menuamount)
 		
 		if (_detalhes.debug) then
 			_detalhes:Msg ("(debug) showing window SetWindowAlphaForCombat()", amount, rowsamount, menuamount)
@@ -5445,13 +5449,16 @@ function _detalhes:SetIconAlpha (alpha, hide, no_animations)
 	for index, button in _ipairs (SetIconAlphaCacheButtonsTable) do
 		if (self.menu_icons [index]) then
 			if (hide) then
-				gump:Fade (button, _unpack (_detalhes.windows_fade_in))	
+				--gump:Fade (button, _unpack (_detalhes.windows_fade_in))	
+				button:Hide() --July 12 2020: fix title bars buttons not hiding correctly
 			else
-				if (no_animations) then
-					button:SetAlpha (alpha)
-				else
-					gump:Fade (button, "ALPHAANIM", alpha)
-				end
+				button:Show()
+				button:SetAlpha(alpha)
+				--if (no_animations) then
+				--	button:SetAlpha (alpha)
+				--else
+				--	gump:Fade (button, "ALPHAANIM", alpha)
+				--end
 			end
 		end
 	end

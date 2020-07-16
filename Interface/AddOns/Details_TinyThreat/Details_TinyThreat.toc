@@ -3,6 +3,7 @@
 ## Notes: Threat meter plugin, show threat for group members in the window. Select it from the Plugin menu in the Orange Cogwheel.
 ## RequiredDeps: Details
 ## OptionalDeps: Ace3
+## SavedVariables: Details_TinyThreatDB
 
 enUS.lua
 ptBR.lua

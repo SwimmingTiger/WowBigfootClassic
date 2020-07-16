@@ -8,7 +8,7 @@ L["STRING_ACTORFRAME_NOTHING"] = "沒有資料可供報告 :("
 L["STRING_ACTORFRAME_REPORTAT"] = "於"
 L["STRING_ACTORFRAME_REPORTOF"] = "來自"
 L["STRING_ACTORFRAME_REPORTTARGETS"] = "報告目標來自"
-L["STRING_ACTORFRAME_REPORTTO"] = "報告給"
+L["STRING_ACTORFRAME_REPORTTO"] = "報告"
 L["STRING_ACTORFRAME_SPELLDETAILS"] = "法術詳細內容"
 L["STRING_ACTORFRAME_SPELLSOF"] = "法術來自"
 L["STRING_ACTORFRAME_SPELLUSED"] = "所有使用的法術"
@@ -27,12 +27,12 @@ L["STRING_ASCENDING"] = "遞增"
 L["STRING_ATACH_DESC"] = "視窗 #%d 和視窗 #%d 組成群組。"
 L["STRING_ATTRIBUTE_CUSTOM"] = "自訂"
 L["STRING_ATTRIBUTE_DAMAGE"] = "傷害"
-L["STRING_ATTRIBUTE_DAMAGE_BYSPELL"] = "承受的法術傷害"
+L["STRING_ATTRIBUTE_DAMAGE_BYSPELL"] = "承受傷害的法術"
 L["STRING_ATTRIBUTE_DAMAGE_DEBUFFS"] = "光環 & 虛無區域"
-L["STRING_ATTRIBUTE_DAMAGE_DEBUFFS_REPORT"] = "減益傷害和持續時間"
+L["STRING_ATTRIBUTE_DAMAGE_DEBUFFS_REPORT"] = "減益傷害和時間"
 L["STRING_ATTRIBUTE_DAMAGE_DONE"] = "輸出傷害"
 L["STRING_ATTRIBUTE_DAMAGE_DPS"] = "每秒傷害 (DPS)"
-L["STRING_ATTRIBUTE_DAMAGE_ENEMIES"] = "敵方承受傷害"
+L["STRING_ATTRIBUTE_DAMAGE_ENEMIES"] = "承受敵方傷害"
 L["STRING_ATTRIBUTE_DAMAGE_ENEMIES_DONE"] = "敵方輸出傷害"
 L["STRING_ATTRIBUTE_DAMAGE_FRAGS"] = "輸出傷害目標"
 L["STRING_ATTRIBUTE_DAMAGE_FRIENDLYFIRE"] = "隊友誤傷"
@@ -50,7 +50,7 @@ L["STRING_ATTRIBUTE_HEAL_DONE"] = "造成治療"
 L["STRING_ATTRIBUTE_HEAL_ENEMY"] = "敵方造成治療"
 L["STRING_ATTRIBUTE_HEAL_HPS"] = "每秒治療 (HPS)"
 L["STRING_ATTRIBUTE_HEAL_OVERHEAL"] = "過量治療"
-L["STRING_ATTRIBUTE_HEAL_PREVENT"] = "減免傷害"
+L["STRING_ATTRIBUTE_HEAL_PREVENT"] = "減傷"
 L["STRING_ATTRIBUTE_HEAL_TAKEN"] = "承受治療"
 L["STRING_ATTRIBUTE_MISC"] = "其他"
 L["STRING_ATTRIBUTE_MISC_BUFF_UPTIME"] = "增益覆蓋時間"
@@ -72,7 +72,7 @@ L["STRING_CAUGHT"] = "抓到"
 L["STRING_CCBROKE"] = "移除控場"
 L["STRING_CENTER"] = "中"
 L["STRING_CENTER_UPPER"] = "中"
-L["STRING_CHANGED_TO_CURRENT"] = "分段已切換成: |cFFFFFF00目前|r"
+L["STRING_CHANGED_TO_CURRENT"] = "片段已切換成: |cFFFFFF00目前|r"
 L["STRING_CHANNEL_PRINT"] = "觀察"
 L["STRING_CHANNEL_RAID"] = "團隊"
 L["STRING_CHANNEL_SAY"] = "說"
@@ -81,13 +81,12 @@ L["STRING_CHANNEL_WHISPER_TARGET_COOLDOWN"] = "密語冷卻目標"
 L["STRING_CHANNEL_YELL"] = "大喊"
 L["STRING_CLICK_REPORT_LINE1"] = "|cFFFFCC22左鍵|r: |cFFFFEE00報告|r"
 L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Shift+左鍵|r: |cFFFFEE00視窗模式|r"
-L["STRING_CLOSEALL"] = "所有視窗都已關閉，可以輸入 '/details show' 重新開啟視窗。"
+L["STRING_CLOSEALL"] = "所有視窗都已關閉，輸入 '/details show' 可以重新打開視窗。"
 L["STRING_COLOR"] = "顏色"
 L["STRING_COMMAND_LIST"] = "指令列表"
---[[Translation missing --]]
---[[ L["STRING_CONTEXT"] = ""--]] 
+L["STRING_CONTEXT"] = "環境"
 L["STRING_COOLTIP_NOOPTIONS"] = "沒有選項"
-L["STRING_CREATEAURA"] = "建立提醒效果"
+L["STRING_CREATEAURA"] = "建立WA提醒效果"
 L["STRING_CRITICAL_HITS"] = "致命一擊"
 L["STRING_CRITICAL_ONLY"] = "致命"
 L["STRING_CURRENT"] = "目前"
@@ -116,7 +115,7 @@ L["STRING_CUSTOM_DAMAGEONSKULL_DESC"] = "顯示對被標記骷髏的目標所輸
 L["STRING_CUSTOM_DESCRIPTION"] = "說明:"
 L["STRING_CUSTOM_DESCRIPTION_DESC"] = "關於此視窗是做什麼的說明。"
 L["STRING_CUSTOM_DONE"] = "完成"
-L["STRING_CUSTOM_DTBS"] = "承受的法術傷害"
+L["STRING_CUSTOM_DTBS"] = "承受傷害的法術"
 L["STRING_CUSTOM_DTBS_DESC"] = "顯示敵方技能對你的隊伍所造成的傷害。"
 L["STRING_CUSTOM_DYNAMICOVERAL"] = "動態整體傷害"
 L["STRING_CUSTOM_EDIT"] = "編輯"
@@ -128,7 +127,7 @@ L["STRING_CUSTOM_ENEMY_DT"] = "承受傷害"
 L["STRING_CUSTOM_EXPORT"] = "匯出"
 L["STRING_CUSTOM_FUNC_INVALID"] = "無效的自訂程式碼，無法重新整理視窗。"
 L["STRING_CUSTOM_HEALTHSTONE_DEFAULT"] = "治療藥水 & 治療石"
-L["STRING_CUSTOM_HEALTHSTONE_DEFAULT_DESC"] = " 顯示團隊內誰使用了治療藥水或治療石。"
+L["STRING_CUSTOM_HEALTHSTONE_DEFAULT_DESC"] = " 顯示團隊中誰使用了治療藥水或治療石。"
 L["STRING_CUSTOM_ICON"] = "圖示:"
 L["STRING_CUSTOM_IMPORT"] = "匯入"
 L["STRING_CUSTOM_IMPORT_ALERT"] = "已載入視窗，請按下匯入來確認。"
@@ -139,17 +138,17 @@ L["STRING_CUSTOM_LONGNAME"] = "名稱過長，最多只能使用 32 個字元 (1
 L["STRING_CUSTOM_MYSPELLS"] = "我的法術"
 L["STRING_CUSTOM_MYSPELLS_DESC"] = "在視窗中顯示你的法術。"
 L["STRING_CUSTOM_NAME"] = "名稱:"
-L["STRING_CUSTOM_NAME_DESC"] = "輸入新自訂視窗的名稱。"
+L["STRING_CUSTOM_NAME_DESC"] = "輸入新的自訂視窗名稱。"
 L["STRING_CUSTOM_NEW"] = "管理自訂視窗"
 L["STRING_CUSTOM_PASTE"] = "在這裡貼上:"
 L["STRING_CUSTOM_POT_DEFAULT"] = "使用藥水"
-L["STRING_CUSTOM_POT_DEFAULT_DESC"] = "顯示團隊內誰在首領戰中使用了藥水。"
+L["STRING_CUSTOM_POT_DEFAULT_DESC"] = "顯示團隊中誰在首領戰時使用了藥水。"
 L["STRING_CUSTOM_REMOVE"] = "移除"
 L["STRING_CUSTOM_REPORT"] = "(自訂)"
 L["STRING_CUSTOM_SAVE"] = "儲存變更"
 L["STRING_CUSTOM_SAVED"] = "已儲存視窗。"
 L["STRING_CUSTOM_SHORTNAME"] = "名稱最少要 5 個字元。"
-L["STRING_CUSTOM_SKIN_TEXTURE"] = "自訂外觀檔"
+L["STRING_CUSTOM_SKIN_TEXTURE"] = "自訂外觀檔案"
 L["STRING_CUSTOM_SKIN_TEXTURE_DESC"] = [=[副檔名為 .tga 的檔案。
 
 必須放在這個資料夾內:
@@ -172,7 +171,7 @@ L["STRING_CUSTOM_TARGET_DESC"] = [=[這是施法者的目標。
 右側按鈕會列出團隊首領戰的 NPC。]=]
 L["STRING_CUSTOM_TEMPORARILY"] = " (|cFFFFC000暫時|r)"
 L["STRING_DAMAGE"] = "傷害"
-L["STRING_DAMAGE_DPS_IN"] = "受到 DPS 來自"
+L["STRING_DAMAGE_DPS_IN"] = "收到 DPS 來自"
 L["STRING_DAMAGE_FROM"] = "受到傷害來自"
 L["STRING_DAMAGE_TAKEN_FROM"] = "承受傷害來自"
 L["STRING_DAMAGE_TAKEN_FROM2"] = "施加傷害在"
@@ -182,12 +181,12 @@ L["STRING_DETACH_DESC"] = "分離視窗群組"
 L["STRING_DISCARD"] = "捨棄"
 L["STRING_DISPELLED"] = "移除的增益/減益"
 L["STRING_DODGE"] = "閃避"
-L["STRING_DOT"] = "(DoT)"
+L["STRING_DOT"] = "持續性傷害 (DoT)"
 L["STRING_DPS"] = "每秒傷害 (DPS)"
 L["STRING_EMPTY_SEGMENT"] = "空的片段"
 L["STRING_ENABLED"] = "已啟用"
 L["STRING_ENVIRONMENTAL_DROWNING"] = "環境 (溺水)"
-L["STRING_ENVIRONMENTAL_FALLING"] = "環境 (掉落)"
+L["STRING_ENVIRONMENTAL_FALLING"] = "環境 (墜落)"
 L["STRING_ENVIRONMENTAL_FATIGUE"] = "環境 (疲勞)"
 L["STRING_ENVIRONMENTAL_FIRE"] = "環境 (著火)"
 L["STRING_ENVIRONMENTAL_LAVA"] = "環境 (岩漿)"
@@ -204,7 +203,7 @@ L["STRING_FEEDBACK_CURSE_DESC"] = "在 Details! 的網頁回報問題或留言�
 L["STRING_FEEDBACK_MMOC_DESC"] = "在 mmo-champion 討論區，我們的討論串中發文。"
 L["STRING_FEEDBACK_PREFERED_SITE"] = "選擇你喜愛的社群網站:"
 L["STRING_FEEDBACK_SEND_FEEDBACK"] = "傳送回饋"
-L["STRING_FEEDBACK_WOWI_DESC"] = "在 Details! 的專案頁面留下評論。"
+L["STRING_FEEDBACK_WOWI_DESC"] = "在 Details! 的專案頁面留言。"
 L["STRING_FIGHTNUMBER"] = "戰鬥 #"
 L["STRING_FORGE_BUTTON_ALLSPELLS"] = "所有法術"
 L["STRING_FORGE_BUTTON_ALLSPELLS_DESC"] = "列出來自玩家和 NPC 的所有法術。"
@@ -212,7 +211,7 @@ L["STRING_FORGE_BUTTON_BWTIMERS"] = "BigWigs 計時條"
 L["STRING_FORGE_BUTTON_BWTIMERS_DESC"] = "列出來自 BigWigs 的計時器。"
 L["STRING_FORGE_BUTTON_DBMTIMERS"] = "DBM 計時條"
 L["STRING_FORGE_BUTTON_DBMTIMERS_DESC"] = "列出來自 Deadly Boss Mods 的計時器。"
-L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS"] = "首領法術"
+L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS"] = "首領技能"
 L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS_DESC"] = "只列出來自團隊和地城首領戰的法術。"
 L["STRING_FORGE_BUTTON_ENEMIES"] = "敵人"
 L["STRING_FORGE_BUTTON_ENEMIES_DESC"] = "列出目前這場戰鬥的敵人。"
@@ -232,7 +231,7 @@ L["STRING_FORGE_FILTER_SPELLNAME"] = "法術名稱"
 L["STRING_FORGE_HEADER_BARTEXT"] = "計量條文字"
 L["STRING_FORGE_HEADER_CASTER"] = "施法者"
 L["STRING_FORGE_HEADER_CLASS"] = "職業"
-L["STRING_FORGE_HEADER_CREATEAURA"] = "建立提醒效果"
+L["STRING_FORGE_HEADER_CREATEAURA"] = "建立WA提醒效果"
 L["STRING_FORGE_HEADER_ENCOUNTERID"] = "首領戰 ID"
 L["STRING_FORGE_HEADER_ENCOUNTERNAME"] = "首領戰名稱"
 L["STRING_FORGE_HEADER_EVENT"] = "事件"
@@ -247,13 +246,13 @@ L["STRING_FORGE_HEADER_OWNER"] = "擁有者"
 L["STRING_FORGE_HEADER_SCHOOL"] = "屬性"
 L["STRING_FORGE_HEADER_SPELLID"] = "法術 ID"
 L["STRING_FORGE_HEADER_TIMER"] = "計時器"
-L["STRING_FORGE_TUTORIAL_DESC"] = "按下 '|cFFFFFF00建立提醒效果|r' 來瀏覽法術和首領技能警報插件的計時器，以便建立提醒效果。"
+L["STRING_FORGE_TUTORIAL_DESC"] = "按下 '|cFFFFFF00建立WA提醒效果|r' 來瀏覽法術和首領技能警報插件的計時器，以便建立提醒效果。"
 L["STRING_FORGE_TUTORIAL_TITLE"] = "歡迎使用 Details! Forge"
 L["STRING_FORGE_TUTORIAL_VIDEO"] = "使用首領技能警報插件計時器的提醒效果範例:"
-L["STRING_FREEZE"] = "此時無法取得這個分段"
+L["STRING_FREEZE"] = "現在無法取得此片段"
 L["STRING_FROM"] = "來自"
 L["STRING_GERAL"] = "一般"
-L["STRING_GLANCING"] = "擦過"
+L["STRING_GLANCING"] = "瀏覽"
 L["STRING_GUILDDAMAGERANK_BOSS"] = "首領"
 L["STRING_GUILDDAMAGERANK_DATABASEERROR"] = "無法開啟 '|cFFFFFF00Details! Storage|r'，請檢查看看該插件是否被停用?"
 L["STRING_GUILDDAMAGERANK_DIFF"] = "難度"
@@ -263,17 +262,17 @@ L["STRING_GUILDDAMAGERANK_PLAYERBASE_INDIVIDUAL"] = "個人"
 L["STRING_GUILDDAMAGERANK_PLAYERBASE_PLAYER"] = "玩家"
 L["STRING_GUILDDAMAGERANK_PLAYERBASE_RAID"] = "所有玩家"
 L["STRING_GUILDDAMAGERANK_RAID"] = "團隊"
-L["STRING_GUILDDAMAGERANK_ROLE"] = "角色"
+L["STRING_GUILDDAMAGERANK_ROLE"] = "角色職責"
 L["STRING_GUILDDAMAGERANK_SHOWHISTORY"] = "顯示歷史記錄"
 L["STRING_GUILDDAMAGERANK_SHOWRANK"] = "顯示公會排名"
 L["STRING_GUILDDAMAGERANK_SYNCBUTTONTEXT"] = "與公會同步資料"
 L["STRING_GUILDDAMAGERANK_TUTORIAL_DESC"] = "Details! 會儲存你和你的公會在每次首領戰輸出的傷害和治療。\\n\\n勾選 '|cFFFFFF00顯示歷史記錄|r' 可以瀏覽記錄，所有戰鬥的結果都會顯示出來。\\n勾選 '|cFFFFFF00顯示公會排名|r' 會秀出所選首領的最高分數。\\n\\n如果你是第一次使用這個工具，或是請假沒有出團，可以按下 '|cFFFFFF00與公會同步資料|r' 按鈕。"
-L["STRING_GUILDDAMAGERANK_WINDOWALERT"] = "已擊殺首領! 顯示排名"
+L["STRING_GUILDDAMAGERANK_WINDOWALERT"] = "已擊敗首領! 顯示排名"
 L["STRING_HEAL"] = "治療"
 L["STRING_HEAL_ABSORBED"] = "吸收治療"
 L["STRING_HEAL_CRIT"] = "爆擊治療"
-L["STRING_HEALING_FROM"] = "受到治療來自"
-L["STRING_HEALING_HPS_FROM"] = "每秒受到治療 (HPS) 來自"
+L["STRING_HEALING_FROM"] = "接收治療來自"
+L["STRING_HEALING_HPS_FROM"] = "接收每秒治療 (HPS) 來自"
 L["STRING_HITS"] = "命中"
 L["STRING_HPS"] = "每秒治療 (HPS)"
 L["STRING_IMAGEEDIT_ALPHA"] = "透明"
@@ -289,10 +288,9 @@ L["STRING_INFO_TAB_COMPARISON"] = "比較"
 L["STRING_INFO_TAB_SUMMARY"] = "總結"
 L["STRING_INFO_TUTORIAL_COMPARISON1"] = "點一下 |cFFFFDD00比較|r 標籤頁面查看相同職業玩家之間的比較。"
 L["STRING_INSTANCE_CHAT"] = "副本頻道"
-L["STRING_INSTANCE_LIMIT"] = "已達視窗數量的上限，可以在選項設定中更改上限，也可以從 (#) 視窗選項重新開啟已關閉的視窗。"
+L["STRING_INSTANCE_LIMIT"] = "已達視窗數量的上限，可以在選項設定中更改上限，也可以從 (#) 視窗選項重新打開被關閉的視窗。"
 L["STRING_INTERFACE_OPENOPTIONS"] = "開啟設定選項"
---[[Translation missing --]]
---[[ L["STRING_INVERT_RULE"] = ""--]] 
+L["STRING_INVERT_RULE"] = "反轉規則"
 L["STRING_ISA_PET"] = "這是寵物"
 L["STRING_KEYBIND_BOOKMARK"] = "書籤"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "書籤 #%s"
@@ -304,7 +302,7 @@ L["STRING_KEYBIND_SEGMENTCONTROL"] = "片段"
 L["STRING_KEYBIND_TOGGLE_WINDOW"] = "切換顯示視窗 #%s"
 L["STRING_KEYBIND_TOGGLE_WINDOWS"] = "切換顯示全部"
 L["STRING_KEYBIND_WINDOW_CONTROL"] = "視窗"
-L["STRING_KEYBIND_WINDOW_REPORT"] = "報告顯示在視窗 #%s 的資料。"
+L["STRING_KEYBIND_WINDOW_REPORT"] = "報告顯示在視窗 #%s 中的資料。"
 L["STRING_KEYBIND_WINDOW_REPORT_HEADER"] = "報告資料"
 L["STRING_KILLED"] = "擊殺"
 L["STRING_LAST_COOLDOWN"] = "最後的冷卻時間"
@@ -324,8 +322,8 @@ L["STRING_MEMORY_ALERT_TEXT2"] = "所以，當你看到 Details! 使用了大量
 L["STRING_MEMORY_ALERT_TEXT3"] = "然而，如果你想要知道|cFFFF8800哪個插件 '較吃效能'|r 或者會降低 FPS，可以安裝插件: '|cFFFFFF00AddOns Cpu Usage|r'。"
 L["STRING_MEMORY_ALERT_TITLE"] = "請仔細閱讀!"
 L["STRING_MENU_CLOSE_INSTANCE"] = "關閉這個視窗"
-L["STRING_MENU_CLOSE_INSTANCE_DESC"] = "被關閉的視窗只是閒置，隨時都可以使用視窗控制選單重新開啟。"
-L["STRING_MENU_CLOSE_INSTANCE_DESC2"] = "要永久刪除視窗，請看設定選項中的其他部分。"
+L["STRING_MENU_CLOSE_INSTANCE_DESC"] = "被關閉的視窗只是閒置，隨時都可以使用視窗控制選單重新打開。"
+L["STRING_MENU_CLOSE_INSTANCE_DESC2"] = "要永久刪除視窗，請看設定選項中的其他。"
 L["STRING_MENU_INSTANCE_CONTROL"] = "視窗控制"
 L["STRING_MINIMAP_TOOLTIP1"] = "|cFFCFCFCF左鍵|r: 開啟設定選項"
 L["STRING_MINIMAP_TOOLTIP11"] = "|cFFCFCFCF左鍵|r: 清空所有片段"
@@ -339,20 +337,20 @@ L["STRING_MINIMAPMENU_REOPENALL"] = "全部重開"
 L["STRING_MINIMAPMENU_UNLOCK"] = "解鎖"
 L["STRING_MINIMUM"] = "最小化"
 L["STRING_MINIMUM_SHORT"] = "最小"
-L["STRING_MINITUTORIAL_BOOKMARK1"] = "右鍵點擊視窗中的任何區域打開書籤!"
-L["STRING_MINITUTORIAL_BOOKMARK2"] = "書籤可以快速顯示最愛的視窗。"
-L["STRING_MINITUTORIAL_BOOKMARK3"] = "右鍵點擊關閉書籤面板。"
+L["STRING_MINITUTORIAL_BOOKMARK1"] = "在視窗中的任何區域點一下右鍵打開書籤!"
+L["STRING_MINITUTORIAL_BOOKMARK2"] = "書籤可以快速切換到最愛的視窗內容。"
+L["STRING_MINITUTORIAL_BOOKMARK3"] = "點一下右鍵關閉書籤面板。"
 L["STRING_MINITUTORIAL_BOOKMARK4"] = "不再顯示"
-L["STRING_MINITUTORIAL_CLOSECTRL1"] = "|cFFFFFF00Ctrl + 右鍵點擊|r 關閉視窗!"
+L["STRING_MINITUTORIAL_CLOSECTRL1"] = "|cFFFFFF00Ctrl + 右鍵|r 關閉視窗!"
 L["STRING_MINITUTORIAL_CLOSECTRL2"] = "要重新打開視窗，請到 模式選單 -> 視窗控制 或 選項面板。"
 L["STRING_MINITUTORIAL_OPTIONS_PANEL1"] = "正在編輯哪個視窗。"
-L["STRING_MINITUTORIAL_OPTIONS_PANEL2"] = "勾選時，群組中的所有視窗都會跟著變更。"
+L["STRING_MINITUTORIAL_OPTIONS_PANEL2"] = "勾選時，群組中的所有視窗都會跟著改變。"
 L["STRING_MINITUTORIAL_OPTIONS_PANEL3"] = [=[要建立群組，請將 視窗 #2 拖曳到 視窗 #1 旁。
 
 要解散群組，請按下 |cFFFFFF00取消群組|r 按鈕。]=]
 L["STRING_MINITUTORIAL_OPTIONS_PANEL4"] = "建立測試條來測試設定。"
-L["STRING_MINITUTORIAL_OPTIONS_PANEL5"] = "啟用編輯群組時，群組中的所有視窗都會變更。"
-L["STRING_MINITUTORIAL_OPTIONS_PANEL6"] = "在此選擇來改變視窗外觀。"
+L["STRING_MINITUTORIAL_OPTIONS_PANEL5"] = "啟用編輯群組時，群組中的所有視窗都會跟著改變。"
+L["STRING_MINITUTORIAL_OPTIONS_PANEL6"] = "在此處選擇和改變視窗外觀。"
 L["STRING_MINITUTORIAL_WINDOWS1"] = [=[你剛建立了視窗群組。
 
 點一下小鎖圖示來取消群組。]=]
@@ -360,10 +358,10 @@ L["STRING_MINITUTORIAL_WINDOWS2"] = [=[視窗已被鎖定。
 
 拖曳標題列可以上下拉伸。]=]
 L["STRING_MIRROR_IMAGE"] = "鏡像"
-L["STRING_MISS"] = "未命中"
-L["STRING_MODE_ALL"] = "所有的"
+L["STRING_MISS"] = "未擊中"
+L["STRING_MODE_ALL"] = "全部"
 L["STRING_MODE_GROUP"] = "標準"
-L["STRING_MODE_OPENFORGE"] = "光環清單"
+L["STRING_MODE_OPENFORGE"] = "法術清單"
 L["STRING_MODE_PLUGINS"] = "外掛套件"
 L["STRING_MODE_RAID"] = "外掛套件: 團隊"
 L["STRING_MODE_SELF"] = "外掛套件: 單人"
@@ -376,7 +374,7 @@ Details]=]
 L["STRING_NEWROW"] = "正在等待更新..."
 L["STRING_NEWS_REINSTALL"] = "更新後有問題嗎? 請試試輸入指令 /details reinstall"
 L["STRING_NEWS_TITLE"] = "更新資訊"
-L["STRING_NO"] = "沒有"
+L["STRING_NO"] = "否"
 L["STRING_NO_DATA"] = "資料已被清空"
 L["STRING_NO_SPELL"] = "沒有已使用的法術"
 L["STRING_NO_TARGET"] = "沒有找到目標。"
@@ -388,185 +386,185 @@ L["STRING_NOMORE_INSTANCES"] = [=[已達最多視窗數量的上限。
 請在選項面板中更改限制。]=]
 L["STRING_NORMAL_HITS"] = "一般命中"
 L["STRING_NUMERALSYSTEM"] = "數字系統"
-L["STRING_NUMERALSYSTEM_ARABIC_MYRIAD_EASTASIA"] = "用於東方亞洲國家，分成千和萬。"
+L["STRING_NUMERALSYSTEM_ARABIC_MYRIAD_EASTASIA"] = "用於東亞國家，分成千和萬。"
 L["STRING_NUMERALSYSTEM_ARABIC_WESTERN"] = "西方"
 L["STRING_NUMERALSYSTEM_ARABIC_WESTERN_DESC"] = "最常用的方式，分成千和百萬。"
 L["STRING_NUMERALSYSTEM_DESC"] = [=[選擇要使用的數字縮寫系統
 ]=]
-L["STRING_NUMERALSYSTEM_MYRIAD_EASTASIA"] = "東方亞洲"
+L["STRING_NUMERALSYSTEM_MYRIAD_EASTASIA"] = "東亞"
 L["STRING_OFFHAND_HITS"] = "副手"
-L["STRING_OPTIONS_3D_LALPHA_DESC"] = [=[調整低階模型的透明度。
-|cFFFFFF00重要|r: 某些模型無視透明度。]=]
-L["STRING_OPTIONS_3D_LANCHOR"] = "低階3D模型:"
-L["STRING_OPTIONS_3D_LENABLED_DESC"] = "啟用或是禁用在計量條的後方的3D模型框架使用率。"
-L["STRING_OPTIONS_3D_LSELECT_DESC"] = "選擇哪個模型可以被使用在低階模型計量條。"
+L["STRING_OPTIONS_3D_LALPHA_DESC"] = [=[調整後方模型的透明度。
+|cFFFFFF00重要|r: 有些模型會無視透明度。]=]
+L["STRING_OPTIONS_3D_LANCHOR"] = "後方 3D 模型:"
+L["STRING_OPTIONS_3D_LENABLED_DESC"] = "啟用或停用計量條後方的 3D 模型框架。"
+L["STRING_OPTIONS_3D_LSELECT_DESC"] = "選擇後方模型條要使用哪個模型。"
 L["STRING_OPTIONS_3D_SELECT"] = "選擇模型"
-L["STRING_OPTIONS_3D_UALPHA_DESC"] = [=[調整高階模型的透明度。
-|cFFFFFF00重要|r: 某些模型無視透明度。]=]
-L["STRING_OPTIONS_3D_UANCHOR"] = "高階3D模型:"
-L["STRING_OPTIONS_3D_UENABLED_DESC"] = "啟用或是禁用在計量條的上方的3D模型框架使用率。"
-L["STRING_OPTIONS_3D_USELECT_DESC"] = "選擇哪個模型可以被使用在高階模型計量條。"
+L["STRING_OPTIONS_3D_UALPHA_DESC"] = [=[調整前方模型的透明度。
+|cFFFFFF00重要|r: 有些模型會無視透明度。]=]
+L["STRING_OPTIONS_3D_UANCHOR"] = "前方 3D 模型:"
+L["STRING_OPTIONS_3D_UENABLED_DESC"] = "啟用或停用計量條前方的 3D 模型框架。"
+L["STRING_OPTIONS_3D_USELECT_DESC"] = "選擇前方模型條要使用哪個模型。"
 L["STRING_OPTIONS_ADVANCED"] = "進階"
 L["STRING_OPTIONS_ALPHAMOD_ANCHOR"] = "自動隱藏:"
-L["STRING_OPTIONS_ALWAYS_USE"] = "使用在所有角色"
-L["STRING_OPTIONS_ALWAYS_USE_DESC"] = "當啟用後，所有角色會使用此選擇的設定檔，否則，會顯示一個詢問要使用哪個設定檔的面板。"
-L["STRING_OPTIONS_ALWAYSSHOWPLAYERS"] = "顯示未組入隊的玩家"
-L["STRING_OPTIONS_ALWAYSSHOWPLAYERS_DESC"] = "當使用預設的標準模式時, 顯示玩家名字, 即使他們不在你的隊伍。"
+L["STRING_OPTIONS_ALWAYS_USE"] = "帳號共用設定"
+L["STRING_OPTIONS_ALWAYS_USE_DESC"] = "所有角色都使用相同的設定檔。但只要有任何角色選擇了其他設定檔，便會取代此設定。"
+L["STRING_OPTIONS_ALWAYSSHOWPLAYERS"] = "顯示未組隊的玩家"
+L["STRING_OPTIONS_ALWAYSSHOWPLAYERS_DESC"] = "使用預設的標準模式時，也要顯示不在你的隊伍中的玩家。"
 L["STRING_OPTIONS_ANCHOR"] = "側"
-L["STRING_OPTIONS_ANIMATEBARS"] = "動畫計量條"
-L["STRING_OPTIONS_ANIMATEBARS_DESC"] = "套用動畫到所有計量條"
-L["STRING_OPTIONS_ANIMATESCROLL"] = "滾動條動畫化"
-L["STRING_OPTIONS_ANIMATESCROLL_DESC"] = "當啟用時，當出現或隱藏滾動條時使用動畫效果"
+L["STRING_OPTIONS_ANIMATEBARS"] = "計量條動畫"
+L["STRING_OPTIONS_ANIMATEBARS_DESC"] = "所有計量條都要顯示動畫效果。"
+L["STRING_OPTIONS_ANIMATESCROLL"] = "捲軸動畫"
+L["STRING_OPTIONS_ANIMATESCROLL_DESC"] = "啟用時，捲軸出現和隱藏時會顯示動畫效果。"
 L["STRING_OPTIONS_APPEARANCE"] = "外觀"
-L["STRING_OPTIONS_ATTRIBUTE_TEXT"] = "標題列文字設定"
-L["STRING_OPTIONS_ATTRIBUTE_TEXT_DESC"] = "這些選項為視窗標題列的設定"
-L["STRING_OPTIONS_AUTO_SWITCH"] = "所有角色 |cFFFFAA00(戰鬥中)|r"
+L["STRING_OPTIONS_ATTRIBUTE_TEXT"] = "標題文字設定"
+L["STRING_OPTIONS_ATTRIBUTE_TEXT_DESC"] = "這些選項控制視窗的標題文字。"
+L["STRING_OPTIONS_AUTO_SWITCH"] = "所有角色職責 |cFFFFAA00(戰鬥中)|r"
 L["STRING_OPTIONS_AUTO_SWITCH_COMBAT"] = "|cFFFFAA00(戰鬥中)|r"
-L["STRING_OPTIONS_AUTO_SWITCH_DAMAGER_DESC"] = "當為傷害專精時，這視窗顯示選定的屬性或插件"
-L["STRING_OPTIONS_AUTO_SWITCH_DESC"] = [=[當你進入戰鬥時，這視窗顯示選定的屬性或插件
-|cFFFFFF00重要|r: 選定的個別角色屬性將會覆蓋已選擇的屬性]=]
-L["STRING_OPTIONS_AUTO_SWITCH_HEALER_DESC"] = "當為治療專精時，這視窗顯示選定的屬性或插件"
-L["STRING_OPTIONS_AUTO_SWITCH_TANK_DESC"] = "當為坦克專精時，這視窗顯示選定的屬性或插件"
-L["STRING_OPTIONS_AUTO_SWITCH_WIPE"] = "清除後"
-L["STRING_OPTIONS_AUTO_SWITCH_WIPE_DESC"] = "在團隊首領戰鬥後，這視窗會自動顯示該屬性"
+L["STRING_OPTIONS_AUTO_SWITCH_DAMAGER_DESC"] = "在傷害輸出的專精時，此視窗會顯示選擇的屬性或外掛套件。"
+L["STRING_OPTIONS_AUTO_SWITCH_DESC"] = [=[進入戰鬥時，此視窗會顯示選擇的屬性或外掛套件。
+|cFFFFFF00重要|r: 每種角色職責各別選擇的屬性會取代在這裡選擇的屬性。]=]
+L["STRING_OPTIONS_AUTO_SWITCH_HEALER_DESC"] = "在治療者的專精時，此視窗會顯示選擇的屬性或外掛套件。"
+L["STRING_OPTIONS_AUTO_SWITCH_TANK_DESC"] = "在坦克的專精時，此視窗會顯示選擇的屬性或外掛套件。"
+L["STRING_OPTIONS_AUTO_SWITCH_WIPE"] = "清空後"
+L["STRING_OPTIONS_AUTO_SWITCH_WIPE_DESC"] = "團隊首領戰結束後，此視窗會自動顯示該屬性。"
 L["STRING_OPTIONS_AVATAR"] = "選擇頭像"
-L["STRING_OPTIONS_AVATAR_ANCHOR"] = "身分:"
-L["STRING_OPTIONS_AVATAR_DESC"] = "頭像也傳給公會成員，並顯示在玩家視窗的工具提示上"
+L["STRING_OPTIONS_AVATAR_ANCHOR"] = "身份:"
+L["STRING_OPTIONS_AVATAR_DESC"] = "頭像也會傳送給公會成員，顯示在滑鼠提示的最上方和玩家詳細資訊的視窗中。"
 L["STRING_OPTIONS_BAR_BACKDROP_ANCHOR"] = "邊框:"
-L["STRING_OPTIONS_BAR_BACKDROP_COLOR_DESC"] = "改變邊框顏色"
-L["STRING_OPTIONS_BAR_BACKDROP_ENABLED_DESC"] = "啟用或禁用行的邊框"
-L["STRING_OPTIONS_BAR_BACKDROP_SIZE_DESC"] = "調整邊框大小"
-L["STRING_OPTIONS_BAR_BACKDROP_TEXTURE_DESC"] = "改變邊框外觀"
+L["STRING_OPTIONS_BAR_BACKDROP_COLOR_DESC"] = "更改邊框顏色。"
+L["STRING_OPTIONS_BAR_BACKDROP_ENABLED_DESC"] = "啟用或停用橫列的邊框。"
+L["STRING_OPTIONS_BAR_BACKDROP_SIZE_DESC"] = "調整邊框大小。"
+L["STRING_OPTIONS_BAR_BACKDROP_TEXTURE_DESC"] = "更改邊框外觀。"
 L["STRING_OPTIONS_BAR_BCOLOR"] = "背景顏色"
-L["STRING_OPTIONS_BAR_BTEXTURE_DESC"] = "在頂部材質下方的材質總是和視窗寬度一樣"
-L["STRING_OPTIONS_BAR_COLOR_DESC"] = [=[該材質的顏色和透明度
+L["STRING_OPTIONS_BAR_BTEXTURE_DESC"] = "此材質會顯示在最上層材質的下方，大小會永遠和視窗寬度相同。"
+L["STRING_OPTIONS_BAR_COLOR_DESC"] = [=[此材質的顏色和透明度。
 
-|cFFFFFF00重要|r: 當使用職業顏色時，顏色選擇將被忽略。]=]
+|cFFFFFF00重要|r: 使用職業顏色時，選擇的顏色會被忽略。]=]
 L["STRING_OPTIONS_BAR_COLORBYCLASS"] = "使用職業顏色"
-L["STRING_OPTIONS_BAR_COLORBYCLASS_DESC"] = "當啟用時，總是使用玩家職業顏色的紋理"
+L["STRING_OPTIONS_BAR_COLORBYCLASS_DESC"] = "啟用時，此材質會永遠使用玩家的職業顏色。"
 L["STRING_OPTIONS_BAR_FOLLOWING"] = "總是顯示我"
 L["STRING_OPTIONS_BAR_FOLLOWING_ANCHOR"] = "玩家計量條:"
-L["STRING_OPTIONS_BAR_FOLLOWING_DESC"] = "當啟用時，你的計量條永遠會顯示即使你不是在排名前頭的玩家。"
-L["STRING_OPTIONS_BAR_GROW"] = "計量條增長方向"
+L["STRING_OPTIONS_BAR_FOLLOWING_DESC"] = "啟用時，就算你不是排在前幾名，也會永遠顯示你的計量條。"
+L["STRING_OPTIONS_BAR_GROW"] = "計量條延伸方向"
 L["STRING_OPTIONS_BAR_GROW_DESC"] = "計量條從視窗的上方或是下方開始增長。"
 L["STRING_OPTIONS_BAR_HEIGHT"] = "高度"
-L["STRING_OPTIONS_BAR_HEIGHT_DESC"] = "增加或減少計量條高度"
-L["STRING_OPTIONS_BAR_ICONFILE"] = "圖標檔案"
-L["STRING_OPTIONS_BAR_ICONFILE_DESC"] = [=[自定義圖標路徑
+L["STRING_OPTIONS_BAR_HEIGHT_DESC"] = "增加或減少計量條的高度。"
+L["STRING_OPTIONS_BAR_ICONFILE"] = "圖示檔案"
+L["STRING_OPTIONS_BAR_ICONFILE_DESC"] = [=[自訂圖示檔案的路徑。
 
-圖檔副檔名需要是.tag，256*256畫素與alpha通道。]=]
-L["STRING_OPTIONS_BAR_ICONFILE_DESC2"] = "選擇圖示包使用。"
+圖形檔案的副檔名必須是 .tag、256x256 像素大小並且包含 alpha 色頻。]=]
+L["STRING_OPTIONS_BAR_ICONFILE_DESC2"] = "選擇要使用的圖示包。"
 L["STRING_OPTIONS_BAR_ICONFILE1"] = "沒有圖示"
 L["STRING_OPTIONS_BAR_ICONFILE2"] = "預設"
-L["STRING_OPTIONS_BAR_ICONFILE3"] = "預設(黑白)"
-L["STRING_OPTIONS_BAR_ICONFILE4"] = "預設(透明)"
-L["STRING_OPTIONS_BAR_ICONFILE5"] = "圓形圖示"
-L["STRING_OPTIONS_BAR_ICONFILE6"] = "預設(透明黑白)"
+L["STRING_OPTIONS_BAR_ICONFILE3"] = "預設 (黑白)"
+L["STRING_OPTIONS_BAR_ICONFILE4"] = "預設 (透明)"
+L["STRING_OPTIONS_BAR_ICONFILE5"] = "圓角圖示"
+L["STRING_OPTIONS_BAR_ICONFILE6"] = "預設 (透明黑白)"
 L["STRING_OPTIONS_BAR_SPACING"] = "間距"
-L["STRING_OPTIONS_BAR_SPACING_DESC"] = "每個計量條的間距"
-L["STRING_OPTIONS_BAR_TEXTURE_DESC"] = "使用在頂部計量條的材質"
-L["STRING_OPTIONS_BARLEFTTEXTCUSTOM"] = "自定文字格式"
-L["STRING_OPTIONS_BARLEFTTEXTCUSTOM_DESC"] = "當啟用時，以方框中的規則格式化左邊的文字"
+L["STRING_OPTIONS_BAR_SPACING_DESC"] = "計量條之間的距離。"
+L["STRING_OPTIONS_BAR_TEXTURE_DESC"] = "計量條頂部使用的材質。"
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM"] = "自訂文字格式"
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM_DESC"] = "啟用時，會依照方框中的規則來格式化左側文字。"
 L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2"] = "-"
 L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2_DESC"] = [=[|cFFFFFF00{data1}|r: 通常代表了玩家的位置編號。
 
-|cFFFFFF00{data2}|r: 總是玩家名字。
+|cFFFFFF00{data2}|r: 永遠是玩家的名字。
 
-|cFFFFFF00{data3}|r: 在某些情況下，此值代表玩家的聲望或角色標誌。
+|cFFFFFF00{data3}|r: 在某些情況下，此值代表玩家的陣營或角色職責圖示。
 
-|cFFFFFF00{func}|r: 執行一個自定義的Lua函數來增加回傳值到語法中。
+|cFFFFFF00{func}|r: 執行一個自訂的 Lua 函數，將回傳值加入到文字語法中。
 例如: 
 {func return 'hello azeroth'}
 
-|cFFFFFF00Escape Sequences|r: 用它來改變顏色或加入材質。搜尋“UI跳脫序列”('UI escape sequences')以獲取更多資訊。
-指令必是英文Lua語法,如套用{資料1},UI是看不明,必須使用{data1},請參考文字列編緝器格式]=]
+|cFFFFFF00跳脫序列|r: 用來更改顏色或加入材質。搜尋 'UI 跳脫序列' (UI escape sequences) 以獲取更多資訊。
+
+指令必須是英文 Lua 語法，例如寫 {資料1} 插件是看不懂的，必須使用 {data1}。請參考文字列編緝器格式。]=]
 L["STRING_OPTIONS_BARORIENTATION"] = "計量條填滿方向"
 L["STRING_OPTIONS_BARORIENTATION_DESC"] = "計量條往哪個方向填滿。"
-L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM"] = "自定文字格式"
-L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM_DESC"] = "當啟用時，以方框中的規則格式化右邊的文字"
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM"] = "自訂文字格式"
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM_DESC"] = "啟用時，會依照方框中的規則來格式化右側文字。"
 L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2"] = "-"
-L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2_DESC"] = [=[|cFFFFFF00{data1}|r: 第一次數據測試，通常表示此數據已完成。
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2_DESC"] = [=[|cFFFFFF00{data1}|r: 傳遞的第一個數字，通常代表總共完成。
 
-|cFFFFFF00{data2}|r: 第二次數據測試，大多時候通常代表每秒平均。
+|cFFFFFF00{data2}|r: 傳遞的第二個數字，大多數的時候代表每秒平均。
 
-|cFFFFFF00{data3}|r: 第三次數據測試，正常就是百分比。 
+|cFFFFFF00{data3}|r: 傳遞的第三個數字，通常是百分比。 
 
-|cFFFFFF00{func}|r: 執行一個自定義的Lua函數來增加回傳值到語法中。
-Example: 
+|cFFFFFF00{func}|r: 執行一個自訂的 Lua 函數，將回傳值加入到文字語法中。
+例如: 
 {func return 'hello azeroth'}
 
-|cFFFFFF00Escape Sequences|r: 用它來改變顏色或加入材質。搜尋“UI跳脫序列”('UI escape sequences')以獲取更多資訊。
-指令必是英文Lua語法,如套用{資料1},UI是看不明,必須使用{data1},請參考文字列編緝器格式]=]
+|cFFFFFF00跳脫序列|r: 用來更改顏色或加入材質。搜尋 'UI 跳脫序列' (UI escape sequences) 以獲取更多資訊。
+
+指令必須是英文 Lua 語法，例如寫 {資料1} 插件是看不懂的，必須使用 {data1}。請參考文字列編緝器格式。]=]
 L["STRING_OPTIONS_BARS"] = "計量條一般設定"
 L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE"] = "自訂材質檔案"
-L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE_DESC"] = [=[
-|cFFFFFF00重要|r： 圖片必須為256x32像素。]=]
-L["STRING_OPTIONS_BARS_DESC"] = "這些選項設定計量條外觀"
-L["STRING_OPTIONS_BARSORT"] = "計量條排序"
-L["STRING_OPTIONS_BARSORT_DESC"] = "遞增或是遞減計量條排序。"
-L["STRING_OPTIONS_BARSTART"] = "計量條在圖示之後"
-L["STRING_OPTIONS_BARSTART_DESC"] = [=[讓頂部材質一開始出現在圖標的左邊而不是右邊
-使用帶有透明區域的圖標集時，這是非常有用的]=]
+L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE_DESC"] = "|cFFFFFF00重要|r: 圖片必須為 256x32 像素大小。"
+L["STRING_OPTIONS_BARS_DESC"] = "這些選項控制計量條的外觀"
+L["STRING_OPTIONS_BARSORT"] = "計量條排名順序"
+L["STRING_OPTIONS_BARSORT_DESC"] = "計量條要遞增或是遞減排序。"
+L["STRING_OPTIONS_BARSTART"] = "計量條從圖示後面開始"
+L["STRING_OPTIONS_BARSTART_DESC"] = "停用時，最上層的材質從圖示的左側開始，而不是右側。非常適用於背景透明的圖示包。"
 L["STRING_OPTIONS_BARUR_ANCHOR"] = "快速更新:"
-L["STRING_OPTIONS_BARUR_DESC"] = "當啟用以後，DPS與HPS值會更新的比一般要快一點。"
+L["STRING_OPTIONS_BARUR_DESC"] = "啟用時，DPS 和 HPS 數值會更新的比平常還要更快一點。"
 L["STRING_OPTIONS_BG_ALL_ALLY"] = "顯示全部"
-L["STRING_OPTIONS_BG_ALL_ALLY_DESC"] = [=[當啟用時，敵方玩家也會顯示在隊伍模式中。
-|cFFFFFF00重要|r: 改變會在下次進入戰鬥時套用。]=]
+L["STRING_OPTIONS_BG_ALL_ALLY_DESC"] = [=[啟用時，當視窗為群組模式時，也會顯示敵方玩家。
+|cFFFFFF00重要|r: 下次進入戰鬥後才會套用變更。]=]
 L["STRING_OPTIONS_BG_ANCHOR"] = "戰場:"
-L["STRING_OPTIONS_BG_UNIQUE_SEGMENT"] = "獨立片段"
-L["STRING_OPTIONS_BG_UNIQUE_SEGMENT_DESC"] = "戰場開始時創建一個片段，一直持續到戰場結束。"
-L["STRING_OPTIONS_CAURAS"] = "獲得光環"
-L["STRING_OPTIONS_CAURAS_DESC"] = [=[啟用獲得:
+L["STRING_OPTIONS_BG_UNIQUE_SEGMENT"] = "獨特片段"
+L["STRING_OPTIONS_BG_UNIQUE_SEGMENT_DESC"] = "戰場開始時建立一個片段，一直持續到戰場結束。"
+L["STRING_OPTIONS_CAURAS"] = "收集光環"
+L["STRING_OPTIONS_CAURAS_DESC"] = [=[啟用取得:
 
 - |cFFFFFF00增益持續時間|r
 - |cFFFFFF00减益持續時間|r
 - |cFFFFFF00空白區|r
 -|cFFFFFF00 冷卻|r]=]
-L["STRING_OPTIONS_CDAMAGE"] = "獲得傷害"
-L["STRING_OPTIONS_CDAMAGE_DESC"] = [=[啟用獲得:
+L["STRING_OPTIONS_CDAMAGE"] = "收集傷害"
+L["STRING_OPTIONS_CDAMAGE_DESC"] = [=[啟用取得:
 
 - |cFFFFFF00造成傷害|r
 - |cFFFFFF00每秒傷害|r
 - |cFFFFFF00隊友誤傷|r
 - |cFFFFFF00承受傷害|r]=]
-L["STRING_OPTIONS_CENERGY"] = "獲得能源"
-L["STRING_OPTIONS_CENERGY_DESC"] = [=[啟用獲得:
+L["STRING_OPTIONS_CENERGY"] = "收集能量"
+L["STRING_OPTIONS_CENERGY_DESC"] = [=[啟用取得:
 
 - |cFFFFFF00法力恢復|r
 - |cFFFFFF00怒氣生成|r
 - |cFFFFFF00能量生成|r
-- |cFFFFFF00符文能量生成|r]=]
+- |cFFFFFF00符能生成|r]=]
 L["STRING_OPTIONS_CHANGE_CLASSCOLORS"] = "修改職業顏色"
-L["STRING_OPTIONS_CHANGE_CLASSCOLORS_DESC"] = "選擇職業的新顏色。"
-L["STRING_OPTIONS_CHANGECOLOR"] = "修改顏色"
-L["STRING_OPTIONS_CHANGELOG"] = "版本註釋"
-L["STRING_OPTIONS_CHART_ADD"] = "增加數據"
-L["STRING_OPTIONS_CHART_ADD2"] = "增加"
-L["STRING_OPTIONS_CHART_ADDAUTHOR"] = "作者:"
-L["STRING_OPTIONS_CHART_ADDCODE"] = "編碼:"
-L["STRING_OPTIONS_CHART_ADDICON"] = "圖標:"
-L["STRING_OPTIONS_CHART_ADDNAME"] = "名子:"
-L["STRING_OPTIONS_CHART_ADDVERSION"] = "版本:"
+L["STRING_OPTIONS_CHANGE_CLASSCOLORS_DESC"] = "替職業選擇新的顏色。"
+L["STRING_OPTIONS_CHANGECOLOR"] = "更改顏色"
+L["STRING_OPTIONS_CHANGELOG"] = "版本備註"
+L["STRING_OPTIONS_CHART_ADD"] = "新增資料"
+L["STRING_OPTIONS_CHART_ADD2"] = "新增"
+L["STRING_OPTIONS_CHART_ADDAUTHOR"] = "作者: "
+L["STRING_OPTIONS_CHART_ADDCODE"] = "程式碼: "
+L["STRING_OPTIONS_CHART_ADDICON"] = "圖示: "
+L["STRING_OPTIONS_CHART_ADDNAME"] = "名字: "
+L["STRING_OPTIONS_CHART_ADDVERSION"] = "版本: "
 L["STRING_OPTIONS_CHART_AUTHOR"] = "作者"
-L["STRING_OPTIONS_CHART_AUTHORERROR"] = "作者名稱無效"
-L["STRING_OPTIONS_CHART_CANCEL"] = "刪除"
+L["STRING_OPTIONS_CHART_AUTHORERROR"] = "無效的作者名字。"
+L["STRING_OPTIONS_CHART_CANCEL"] = "取消"
 L["STRING_OPTIONS_CHART_CLOSE"] = "關閉"
-L["STRING_OPTIONS_CHART_CODELOADED"] = "編碼已被載入但無法顯示"
-L["STRING_OPTIONS_CHART_EDIT"] = "編輯編碼"
+L["STRING_OPTIONS_CHART_CODELOADED"] = "程式碼已經載入，但是無法顯示出來。"
+L["STRING_OPTIONS_CHART_EDIT"] = "編輯程式碼"
 L["STRING_OPTIONS_CHART_EXPORT"] = "匯出"
-L["STRING_OPTIONS_CHART_FUNCERROR"] = "無效的功能"
-L["STRING_OPTIONS_CHART_ICON"] = "圖標"
+L["STRING_OPTIONS_CHART_FUNCERROR"] = "無效的功能/函數。"
+L["STRING_OPTIONS_CHART_ICON"] = "圖示"
 L["STRING_OPTIONS_CHART_IMPORT"] = "匯入"
-L["STRING_OPTIONS_CHART_IMPORTERROR"] = "無效的匯入字串"
+L["STRING_OPTIONS_CHART_IMPORTERROR"] = "無效的匯入字串。"
 L["STRING_OPTIONS_CHART_NAME"] = "名稱"
-L["STRING_OPTIONS_CHART_NAMEERROR"] = "無效的名稱"
-L["STRING_OPTIONS_CHART_PLUGINWARNING"] = "安裝Chart Viewer組件來顯示自訂圖表。"
+L["STRING_OPTIONS_CHART_NAMEERROR"] = "無效的名稱。"
+L["STRING_OPTIONS_CHART_PLUGINWARNING"] = "安裝 Chart Viewer 外掛套件來顯示自訂圖表。"
 L["STRING_OPTIONS_CHART_REMOVE"] = "移除"
 L["STRING_OPTIONS_CHART_SAVE"] = "儲存"
 L["STRING_OPTIONS_CHART_VERSION"] = "版本"
-L["STRING_OPTIONS_CHART_VERSIONERROR"] = "版本無效"
-L["STRING_OPTIONS_CHEAL"] = "獲得治療"
-L["STRING_OPTIONS_CHEAL_DESC"] = [=[啟用獲得:
+L["STRING_OPTIONS_CHART_VERSIONERROR"] = "無效的版本。"
+L["STRING_OPTIONS_CHEAL"] = "收集治療"
+L["STRING_OPTIONS_CHEAL_DESC"] = [=[啟用取得:
 
 - |cFFFFFF00造成治療|r
 - |cFFFFFF00吸收|r
@@ -576,183 +574,187 @@ L["STRING_OPTIONS_CHEAL_DESC"] = [=[啟用獲得:
 - |cFFFFFF00敵方治療|r
 - |cFFFFFF00減傷|r]=]
 L["STRING_OPTIONS_CLASSCOLOR_MODIFY"] = "修改職業顏色"
-L["STRING_OPTIONS_CLASSCOLOR_RESET"] = "右點擊重置"
+L["STRING_OPTIONS_CLASSCOLOR_RESET"] = "點一下右鍵來重置"
 L["STRING_OPTIONS_CLEANUP"] = "自動刪除垃圾片段"
-L["STRING_OPTIONS_CLEANUP_DESC"] = "當啟用時，超出兩個片段後，垃圾片段會被自動移除"
-L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS"] = "點擊開啟選單"
-L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS_DESC"] = [=[當懸停在標題條按鈕不會顯示他們的選單。
-反而你需要點擊按鈕去開啟。]=]
-L["STRING_OPTIONS_CLOUD"] = "雲端捕獲"
-L["STRING_OPTIONS_CLOUD_DESC"] = "當啟用時，停用收集者的資料而收集其他團隊成員。"
-L["STRING_OPTIONS_CMISC"] = "收集雜項"
-L["STRING_OPTIONS_CMISC_DESC"] = [=[啟用捕獲：
+L["STRING_OPTIONS_CLEANUP_DESC"] = "啟用時，將會自動移除兩個片段之後的垃圾片段。"
+L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS"] = "點一下打開選單"
+L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS_DESC"] = "滑鼠指向時不會顯示標題列的按鈕，而是需要點一下才會打開。"
+L["STRING_OPTIONS_CLOUD"] = "雲端擷取"
+L["STRING_OPTIONS_CLOUD_DESC"] = "啟用時，已停用的收集器資料，會是從其他團隊成員之間收集而來的。"
+L["STRING_OPTIONS_CMISC"] = "收集其他"
+L["STRING_OPTIONS_CMISC_DESC"] = [=[啟用取得：
 
 - |cFFFFFF00打破控場|r
 - |cFFFFFF00驅散|r
-- |cFFFFFF00中斷|r
-- |cFFFFFF00復生|r
+- |cFFFFFF00斷法|r
+- |cFFFFFF00復活|r
 - |cFFFFFF00死亡|r]=]
-L["STRING_OPTIONS_COLORANDALPHA"] = "顏色和透明度"
+L["STRING_OPTIONS_COLORANDALPHA"] = "顏色 & 透明"
 L["STRING_OPTIONS_COLORFIXED"] = "固定顏色"
 L["STRING_OPTIONS_COMBAT_ALPHA"] = "當"
 L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "戰鬥中"
 L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "脫離戰鬥"
-L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "當不在隊伍時"
-L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "當不在副本時"
-L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "當在副本時"
+L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "不在隊伍中"
+L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "不在副本內"
+L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "在副本內"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "團隊除錯"
-L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "戰場內"
-L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[選擇戰鬥時的視窗透明度
+L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "在戰場中"
+L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "在傳奇+"
+L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[選擇戰鬥如何影響視窗的透明度。
 
 |cFFFFFF00不變|r: 不修改透明度。
 
-|cFFFFFF00戰鬥中|r: 當進入戰鬥時，顯示在視窗上的效果
+|cFFFFFF00戰鬥中|r: 進入戰鬥時，選擇的透明度會套用到視窗。
 
-|cFFFFFF00脫離戰鬥|r: 只要是在非戰鬥中的視窗效果
+|cFFFFFF00非戰鬥中|r: 只要不在戰鬥中就會套用透明度。
 
-|cFFFFFF00離開隊伍|r: 當不在團隊或隊伍中,所顯示的視窗效果
+|cFFFFFF00不在隊伍中|r: 不在團隊或隊伍中時，視窗會顯示選擇的透明度。
 
-|cFFFFFF00重要|r: 自動透明度功能會覆蓋目前的設定]=]
+|cFFFFFF00重要|r: 此選項會取代自動透明度功能的設定。]=]
 L["STRING_OPTIONS_COMBATTWEEKS"] = "戰鬥微調"
-L["STRING_OPTIONS_COMBATTWEEKS_DESC"] = "設定Details!如何調整一些戰鬥數據的細節。"
-L["STRING_OPTIONS_CONFIRM_ERASE"] = "您想要刪除數據嗎？"
-L["STRING_OPTIONS_CUSTOMSPELL_ADD"] = "增加技能"
-L["STRING_OPTIONS_CUSTOMSPELLTITLE"] = "編輯技能設定"
-L["STRING_OPTIONS_CUSTOMSPELLTITLE_DESC"] = "這面板允許你修改技能名稱跟圖示"
-L["STRING_OPTIONS_DATABROKER"] = "數據整理:"
+L["STRING_OPTIONS_COMBATTWEEKS_DESC"] = "設定 Details! 如何調整一些戰鬥方面的細節。"
+L["STRING_OPTIONS_CONFIRM_ERASE"] = "是否要刪除資料?"
+L["STRING_OPTIONS_CUSTOMSPELL_ADD"] = "新增法術"
+L["STRING_OPTIONS_CUSTOMSPELLTITLE"] = "編輯法術設定"
+L["STRING_OPTIONS_CUSTOMSPELLTITLE_DESC"] = "此面板讓你能夠修改法術的名稱和圖示。"
+L["STRING_OPTIONS_DATABROKER"] = "資訊列 (Data Broker):"
 L["STRING_OPTIONS_DATABROKER_TEXT"] = "文字"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD1"] = "玩家造成傷害"
-L["STRING_OPTIONS_DATABROKER_TEXT_ADD2"] = "玩家造成每秒傷害"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD2"] = "玩家有效 DPS"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD3"] = "傷害排名"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD4"] = "傷害差距"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD5"] = "玩家造成治療"
-L["STRING_OPTIONS_DATABROKER_TEXT_ADD6"] = "玩家造成每秒治療"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD6"] = "玩家有效 HPS"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD7"] = "治療排名"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD8"] = "治療差距"
 L["STRING_OPTIONS_DATABROKER_TEXT_ADD9"] = "經過戰鬥時間"
 L["STRING_OPTIONS_DATABROKER_TEXT1_DESC"] = [=[|cFFFFFF00{dmg}|r: 玩家造成傷害。
 
-|cFFFFFF00{dps}|r: 玩家造成每秒傷害。
+|cFFFFFF00{dps}|r: 玩家有效每秒傷害。
 
-|cFFFFFF00{dpos}|r: 排序團隊或隊伍成員的傷害排名。
+|cFFFFFF00{rdps}|r: 團隊有效每秒傷害。
+
+|cFFFFFF00{dpos}|r: 團隊或隊伍成員的傷害排名。
 
 |cFFFFFF00{ddiff}|r: 你和第一名的傷害差距。
 
 |cFFFFFF00{heal}|r: 玩家造成治療。
 
-|cFFFFFF00{hps}|r: 玩家造成每秒治療。
+|cFFFFFF00{hps}|r: 玩家有效每秒治療。
 
-|cFFFFFF00{hpos}|r: 排序團隊或隊伍成員的治療排名。
+|cFFFFFF00{rhps}|r: 團隊有效每秒治療。
+
+|cFFFFFF00{hpos}|r: 團隊或隊伍成員的治療排名。
 
 |cFFFFFF00{hdiff}|r: 你和第一名的治療差距。
 
-|cFFFFFF00{time}|r: 經過戰鬥時間。]=]
-L["STRING_OPTIONS_DATACHARTTITLE"] = "建立定時數據的圖表"
-L["STRING_OPTIONS_DATACHARTTITLE_DESC"] = "這面板允許你增加創建圖表的自訂資料"
-L["STRING_OPTIONS_DATACOLLECT_ANCHOR"] = "資料形式:"
+|cFFFFFF00{time}|r: 經過的戰鬥時間。]=]
+L["STRING_OPTIONS_DATACHARTTITLE"] = "為圖表建立時間性的資料"
+L["STRING_OPTIONS_DATACHARTTITLE_DESC"] = "此面板讓你能夠建立自訂資料擷取供圖表使用。"
+L["STRING_OPTIONS_DATACOLLECT_ANCHOR"] = "資料類型:"
 L["STRING_OPTIONS_DEATHLIMIT"] = "死亡事件數量"
 L["STRING_OPTIONS_DEATHLIMIT_DESC"] = [=[設定死亡顯示的事件數量。
 
-|cFFFFFF00重要|r: 只套用在變更過後新的死亡。]=]
-L["STRING_OPTIONS_DEATHLOG_MINHEALING"] = "死亡日誌最小治療"
-L["STRING_OPTIONS_DEATHLOG_MINHEALING_DESC"] = [=[死亡日誌在這個閾值下不會顯示治療。
+|cFFFFFF00重要|r: 只會套用在更改過後的死亡。]=]
+L["STRING_OPTIONS_DEATHLOG_MINHEALING"] = "死亡記錄最小治療"
+L["STRING_OPTIONS_DEATHLOG_MINHEALING_DESC"] = [=[死亡記錄不會顯示低於此數值的治療。
 
-|cFFFFFF00提示|r：按右鍵可手動輸入此值。]=]
-L["STRING_OPTIONS_DESATURATE_MENU"] = "降低飽和度"
-L["STRING_OPTIONS_DESATURATE_MENU_DESC"] = "啟用這個選項，所有工具列上的選單圖標會變成黑跟白"
-L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW"] = "禁用'全部顯示'選單"
-L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW_DESC"] = [=[如果啟用，右鍵單擊標題欄會顯示您的書籤。
-選單面板->標題列:一般->關閉全部顯示選單且打開書籤]=]
-L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT"] = "禁用計量條明亮互動"
-L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT_DESC"] = "鼠標懸停在計量條不會使其更明亮。"
-L["STRING_OPTIONS_DISABLE_GROUPS"] = "禁用群組"
-L["STRING_OPTIONS_DISABLE_GROUPS_DESC"] = "當放置在彼此附近時, 視窗不會再進行合組。"
-L["STRING_OPTIONS_DISABLE_LOCK_RESIZE"] = "停用調整大小按鈕"
-L["STRING_OPTIONS_DISABLE_LOCK_RESIZE_DESC"] = "將鼠標懸停在窗口上時，不會顯示調整大小，鎖定/解鎖和取消組合按鈕。"
-L["STRING_OPTIONS_DISABLE_RESET"] = "禁用重置按鈕點擊"
-L["STRING_OPTIONS_DISABLE_RESET_DESC"] = "啟用後，點擊重置按鈕將不起作用，必須選擇重置其工具提示菜單中的數據。"
-L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON"] = "禁用拉伸按鈕"
-L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON_DESC"] = "啟用此選項時不會顯示 \"拉伸\" 按鈕。"
-L["STRING_OPTIONS_DISABLED_RESET"] = "通過此按鈕重置現時已禁用, 請在 \"工具提示\" 功能表中選擇它。"
-L["STRING_OPTIONS_DTAKEN_EVERYTHING"] = "高階傷害取樣"
-L["STRING_OPTIONS_DTAKEN_EVERYTHING_DESC"] = "受到傷害將一直顯示與 |cFFFFFF00全部|r  模式。"
-L["STRING_OPTIONS_ED"] = "刪除數據"
-L["STRING_OPTIONS_ED_DESC"] = [=[|cFFFFFF00手動|r: 使用者需要點擊重置按鈕。
+|cFFFFFF00小提示|r: 點一下右鍵可以手動輸入數值。]=]
+L["STRING_OPTIONS_DESATURATE_MENU"] = "去除色彩"
+L["STRING_OPTIONS_DESATURATE_MENU_DESC"] = "啟用時，工具列上的所有選單圖示都會變成黑白的。"
+L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW"] = "停用 '全部顯示' 選單"
+L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW_DESC"] = "啟用時，在標題列上點右鍵會改為顯示書籤。"
+L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT"] = "停用顯著標示計量條"
+L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT_DESC"] = "滑鼠指向計量條時不會變得更亮。"
+L["STRING_OPTIONS_DISABLE_GROUPS"] = "停用群組"
+L["STRING_OPTIONS_DISABLE_GROUPS_DESC"] = "當視窗放在另一個視窗附近時，不會再結合成群組。"
+L["STRING_OPTIONS_DISABLE_LOCK_RESIZE"] = "停用縮放按鈕大小"
+L["STRING_OPTIONS_DISABLE_LOCK_RESIZE_DESC"] = "滑鼠指向視窗時，不會顯示縮放大小、鎖定/解鎖和取消群組按鈕。"
+L["STRING_OPTIONS_DISABLE_RESET"] = "停用重置按鈕點擊"
+L["STRING_OPTIONS_DISABLE_RESET_DESC"] = "啟用時，點一下重置按鈕不會有任何作用。必須從滑鼠提示選單中選擇重置資料。"
+L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON"] = "停用快速拉伸按鈕"
+L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON_DESC"] = "啟用時，不會顯示快速拉伸按鈕。"
+L["STRING_OPTIONS_DISABLED_RESET"] = "按下此按鈕來重置的功能已被停用，請改由滑鼠提示選單中選擇重置。"
+L["STRING_OPTIONS_DTAKEN_EVERYTHING"] = "進階承受傷害"
+L["STRING_OPTIONS_DTAKEN_EVERYTHING_DESC"] = "在 '|cFFFFFF00全部|r' 模式中會永遠顯示承受傷害。"
+L["STRING_OPTIONS_ED"] = "清除資料"
+L["STRING_OPTIONS_ED_DESC"] = [=[|cFFFFFF00手動|r: 使用者需要自行點擊重置按鈕。
 
-|cFFFFFF00提示|r: 進入新副本時詢問是否重置。
+|cFFFFFF00詢問|r: 進入新副本時詢問是否要重置。
 
-|cFFFFFF00自動|r: 進入新副本時清除數據。]=]
+|cFFFFFF00自動|r: 進入新副本時自動清空資料。]=]
 L["STRING_OPTIONS_ED1"] = "手動"
-L["STRING_OPTIONS_ED2"] = "提示"
+L["STRING_OPTIONS_ED2"] = "詢問"
 L["STRING_OPTIONS_ED3"] = "自動"
 L["STRING_OPTIONS_EDITIMAGE"] = "編輯圖片"
 L["STRING_OPTIONS_EDITINSTANCE"] = "編輯視窗:"
-L["STRING_OPTIONS_ERASECHARTDATA"] = "刪除圖表"
-L["STRING_OPTIONS_ERASECHARTDATA_DESC"] = "登出時，所有戰鬥中收集的圖表資料會被刪除"
-L["STRING_OPTIONS_EXTERNALS_TITLE"] = "外部小工具"
-L["STRING_OPTIONS_EXTERNALS_TITLE2"] = "這些選項控制許多外部小工具的作用"
+L["STRING_OPTIONS_ERASECHARTDATA"] = "清除圖表"
+L["STRING_OPTIONS_ERASECHARTDATA_DESC"] = "登出時，所有用來建立圖表所蒐集的戰鬥資料都會被清除。"
+L["STRING_OPTIONS_EXTERNALS_TITLE"] = "外部小套件"
+L["STRING_OPTIONS_EXTERNALS_TITLE2"] = "這些選項控制許多外部小套件的作用"
 L["STRING_OPTIONS_GENERAL"] = "一般設定"
 L["STRING_OPTIONS_GENERAL_ANCHOR"] = "一般:"
-L["STRING_OPTIONS_HIDE_ICON"] = "隱藏圖標"
-L["STRING_OPTIONS_HIDE_ICON_DESC"] = [=[當啟用時，不顯示目前所選擇的圖標
+L["STRING_OPTIONS_HIDE_ICON"] = "隱藏圖示"
+L["STRING_OPTIONS_HIDE_ICON_DESC"] = [=[啟用時，不會顯示代表所選視窗的圖示。
 
-|cFFFFFF00重要|r: 啟用圖標後，强烈建議調整標題文字的位置]=]
-L["STRING_OPTIONS_HIDECOMBATALPHA_DESC"] = [=[你的角色符合對應的規則時改變透明度
+|cFFFFFF00重要|r: 啟用圖示後，强烈建議調整標題文字的位置。]=]
+L["STRING_OPTIONS_HIDECOMBATALPHA_DESC"] = [=[當你的角色符合所選的規則時，將透明度更改為此值。
 
-|cFFFFFF00無|r: 完全隱藏，無法在視窗內動作。
+|cFFFFFF000|r: 完全隱藏，無法與視窗內容互動。
 
-|cFFFFFF001 - 100|r: 不隐藏，您可以在視窗內改變透明度]=]
+|cFFFFFF001 - 100|r: 不隐藏，只更改透明度，可以和視窗互動。]=]
 L["STRING_OPTIONS_HOTCORNER"] = "顯示按鈕"
 L["STRING_OPTIONS_HOTCORNER_ACTION"] = "左鍵點擊"
-L["STRING_OPTIONS_HOTCORNER_ACTION_DESC"] = "當左鍵點擊後選擇Hotcorner bar要做甚麼"
-L["STRING_OPTIONS_HOTCORNER_ANCHOR"] = "Hotcorner:"
-L["STRING_OPTIONS_HOTCORNER_DESC"] = "顯示或隱藏Hotcorner面板的按鈕"
+L["STRING_OPTIONS_HOTCORNER_ACTION_DESC"] = "選擇左鍵點擊熱點列上的按鈕時要做什麼。"
+L["STRING_OPTIONS_HOTCORNER_ANCHOR"] = "熱點:"
+L["STRING_OPTIONS_HOTCORNER_DESC"] = "顯示或隱藏熱點面板上的按鈕。"
 L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK"] = "啟用快速點擊"
-L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_DESC"] = [=[啟用或禁用Hotcorners快速點擊功能
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_DESC"] = [=[啟用或停用熱點的快速點擊功能。
 
-Quick button is localized at the further top left pixel，並從任一處移動你的滑鼠到這, 點擊後設定左上角的動作將可被執行]=]
+快速按鈕位於最左上角的像素，將滑鼠移動到該處，會啟動左上角的熱點。然後點一下則會執行相關功能的動作。]=]
 L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC"] = "快速點擊"
-L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC_DESC"] = "當Hotcorner的快速按钮被點擊時選擇做甚麼"
-L["STRING_OPTIONS_IGNORENICKNAME"] = "忽略全部暱稱及自定頭像"
-L["STRING_OPTIONS_IGNORENICKNAME_DESC"] = "如果開啟，您公會的成員所設定的暱稱及頭像將會被忽略。"
-L["STRING_OPTIONS_ILVL_TRACKER"] = "裝備等級追縱器:"
-L["STRING_OPTIONS_ILVL_TRACKER_DESC"] = [=[當啟用和退出戰鬥, 插件查詢和追蹤在團隊中玩家裝備等級。
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC_DESC"] = "選擇熱點上的快速點擊按鈕被按下時要做什麼。"
+L["STRING_OPTIONS_IGNORENICKNAME"] = "忽略暱稱和頭像"
+L["STRING_OPTIONS_IGNORENICKNAME_DESC"] = "啟用時，會忽略其他公會成員所設定的暱稱和頭像。"
+L["STRING_OPTIONS_ILVL_TRACKER"] = "物品等級追蹤:"
+L["STRING_OPTIONS_ILVL_TRACKER_DESC"] = [=[啟用時，在非戰鬥中的時候，插件會查詢並追蹤團隊成員的物品等級 (裝等)。
 
-如果禁用, 它仍會從其他外掛程式的查詢或手動檢查時讀取其他玩家裝備等級。]=]
+停用時，仍然會從其他插件的查詢，或者你手動觀察其他玩家的資料中讀取物品等級。]=]
 L["STRING_OPTIONS_ILVL_TRACKER_TEXT"] = "啟用"
 L["STRING_OPTIONS_INSTANCE_ALPHA2"] = "背景顏色"
-L["STRING_OPTIONS_INSTANCE_ALPHA2_DESC"] = "這選項可讓你改變時窗背景顏色"
-L["STRING_OPTIONS_INSTANCE_BACKDROP"] = "背景紋理"
-L["STRING_OPTIONS_INSTANCE_BACKDROP_DESC"] = "選擇這個視窗使用的背景紋理"
+L["STRING_OPTIONS_INSTANCE_ALPHA2_DESC"] = "此選項讓你更改視窗背景的顏色。"
+L["STRING_OPTIONS_INSTANCE_BACKDROP"] = "背景材質"
+L["STRING_OPTIONS_INSTANCE_BACKDROP_DESC"] = [=[選擇此視窗使用的背景材質。
+
+|cFFFFFF00預設|r: Details Background。]=]
 L["STRING_OPTIONS_INSTANCE_COLOR"] = "視窗顏色"
-L["STRING_OPTIONS_INSTANCE_COLOR_DESC"] = [=[變更視窗的顏色和透明度
+L["STRING_OPTIONS_INSTANCE_COLOR_DESC"] = [=[更改此視窗的顏色和透明度。
 
-|cFFFFFF00重要|r: 這裡選擇的透明值會被複寫，當|cFFFFFF00Auto Transparency|r 值啟用時
+|cFFFFFF00重要|r: 啟用 |cFFFFFF00自動透明度|r 時，會取代這裡選擇的透明度。
 
-|cFFFFFF00重要|r:  選擇的窗口颜色會覆盖任何自訂的狀態欄]=]
-L["STRING_OPTIONS_INSTANCE_CURRENT"] = "自動轉換到目前"
-L["STRING_OPTIONS_INSTANCE_CURRENT_DESC"] = "不管何時進入戰鬥，這個視窗會自動切換到目前的片段"
+|cFFFFFF00重要|r: 選擇的視窗顏色會取代狀態列上的所有自訂顏色。]=]
+L["STRING_OPTIONS_INSTANCE_CURRENT"] = "自動切換成目前"
+L["STRING_OPTIONS_INSTANCE_CURRENT_DESC"] = "只要進入戰鬥，視窗就會自動切換到目前片段。"
 L["STRING_OPTIONS_INSTANCE_DELETE"] = "刪除"
-L["STRING_OPTIONS_INSTANCE_DELETE_DESC"] = [=[永久移除一個窗口。
-在移除過程中你的遊戲界面可能會重載。]=]
-L["STRING_OPTIONS_INSTANCE_SKIN"] = "皮膚"
-L["STRING_OPTIONS_INSTANCE_SKIN_DESC"] = "基於一個皮膚主題來調整窗口效果"
-L["STRING_OPTIONS_INSTANCE_STATUSBAR_ANCHOR"] = "狀態條:"
-L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR"] = "顏色及透明度"
-L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR_DESC"] = [=[選擇狀態條的顏色。
+L["STRING_OPTIONS_INSTANCE_DELETE_DESC"] = "永久性的移除視窗。清除的過程中可能會重新載入遊戲畫面。"
+L["STRING_OPTIONS_INSTANCE_SKIN"] = "外觀"
+L["STRING_OPTIONS_INSTANCE_SKIN_DESC"] = "依據外觀主題來修改視窗外觀。"
+L["STRING_OPTIONS_INSTANCE_STATUSBAR_ANCHOR"] = "狀態列:"
+L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR"] = "顏色和透明度"
+L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR_DESC"] = [=[選擇狀態列使用的顏色。
 
-|cFFFFFF00重要|r: 這個選項將會覆蓋在 窗口顏色 中設定的顏色及透明度設置。]=]
-L["STRING_OPTIONS_INSTANCE_STRATA"] = "圖層階級"
-L["STRING_OPTIONS_INSTANCE_STRATA_DESC"] = [=[選擇框架將放置在的圖層高度。
+|cFFFFFF00重要|r: 此選項會取代在 '視窗顏色' 所選擇的顏色和透明度。]=]
+L["STRING_OPTIONS_INSTANCE_STRATA"] = "圖層層級"
+L["STRING_OPTIONS_INSTANCE_STRATA_DESC"] = [=[選擇框架所處的圖層高度。
 
-低層是預設的, 使視窗保持在大多數其他介面面板的後面。
+預設是較低的圖層，會讓視窗保持在大部分介面面板的後方。
 
-使用高層視窗可能會停留在其他主要面板的前面。
+使用較高的圖層時，會讓視窗保持在其他主要面板的前方。
 
-更改圖層高度時, 可能會發現與其他面板重疊的一些衝突。]=]
+更改圖層高度時，可能會看到與其他面板有些衝突、彼此重疊。]=]
 L["STRING_OPTIONS_INSTANCES"] = "視窗:"
-L["STRING_OPTIONS_INTERFACEDIT"] = "接口編輯模式"
-L["STRING_OPTIONS_LEFT_MENU_ANCHOR"] = "菜單設定:"
+L["STRING_OPTIONS_INTERFACEDIT"] = "介面編輯模式"
+L["STRING_OPTIONS_LEFT_MENU_ANCHOR"] = "選單設定:"
 L["STRING_OPTIONS_LOCKSEGMENTS"] = "片段鎖定"
 L["STRING_OPTIONS_LOCKSEGMENTS_DESC"] = "如果開啟，改變一個戰鬥片段的時候會將其他窗口都切換到該片段。"
 L["STRING_OPTIONS_MANAGE_BOOKMARKS"] = "管理書籤"

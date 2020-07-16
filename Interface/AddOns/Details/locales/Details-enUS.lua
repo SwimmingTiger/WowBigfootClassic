@@ -2,7 +2,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale ("Details", "enUS", true)
 if not L then return end 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "In Mythic+"
+
 L["ABILITY_ID"] = "ability id"
 L["STRING_"] = ""
 L["STRING_ABSORBED"] = "Absorbed"
@@ -605,6 +605,7 @@ L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "While Not Inside Instance"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "While Inside Instance"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Raid Debug"
 L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "In Battleground"
+L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "In Mythic+"
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[Select how combat affects the window transparency.
 
 |cFFFFFF00No Changes|r: Doesn't modify the alpha.

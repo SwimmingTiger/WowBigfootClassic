@@ -263,6 +263,7 @@ function _detalhes:LoadConfig()
 
 	--> plugins data
 		_detalhes.plugin_database = _detalhes_database.plugin_database or {}
+		_detalhes_database.plugin_database = _detalhes.plugin_database
 
 	--> startup
 	

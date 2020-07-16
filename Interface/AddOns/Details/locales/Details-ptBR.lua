@@ -608,6 +608,7 @@ L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "Quando não Estiver Em Instância"
 L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "Quando Estiver em Instância"
 L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Raid Debug"
 L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "No Campo de batalha"
+L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "Em mítico+"
 L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = [=[Seleciona a forma como o combate afeta a transparência da janela.
 
 |cFFFFFF00Nenhuma modificação|r: Não modifica o alpha.

@@ -1,9 +1,8 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("Details", "frFR") 
 if not L then return end 
 
-L["ABILITY_ID"] = "ID de la technique"
---[[Translation missing --]]
---[[ L["STRING_"] = ""--]] 
+L["ABILITY_ID"] = "ID de la compétence"
+L["STRING_"] = "-"
 L["STRING_ABSORBED"] = "Absorbé"
 L["STRING_ACTORFRAME_NOTHING"] = "oups, aucune donnée à rapporter :("
 L["STRING_ACTORFRAME_REPORTAT"] = "à"
@@ -54,15 +53,14 @@ L["STRING_ATTRIBUTE_HEAL_OVERHEAL"] = "Excès de soin"
 L["STRING_ATTRIBUTE_HEAL_PREVENT"] = "Dégâts Empêchés"
 L["STRING_ATTRIBUTE_HEAL_TAKEN"] = "Soins Reçus"
 L["STRING_ATTRIBUTE_MISC"] = "Divers"
-L["STRING_ATTRIBUTE_MISC_BUFF_UPTIME"] = "Uptime des Buffs"
+L["STRING_ATTRIBUTE_MISC_BUFF_UPTIME"] = "Disponibilité de l'amélioration"
 L["STRING_ATTRIBUTE_MISC_CCBREAK"] = "CC Cassés"
 L["STRING_ATTRIBUTE_MISC_DEAD"] = "Morts"
-L["STRING_ATTRIBUTE_MISC_DEBUFF_UPTIME"] = "Uptime des Débuffs"
+L["STRING_ATTRIBUTE_MISC_DEBUFF_UPTIME"] = "Disponibilité de l'affaiblissement"
 L["STRING_ATTRIBUTE_MISC_DEFENSIVE_COOLDOWNS"] = "Cooldowns"
 L["STRING_ATTRIBUTE_MISC_DISPELL"] = "Dissipations"
 L["STRING_ATTRIBUTE_MISC_INTERRUPT"] = "Interruptions"
---[[Translation missing --]]
---[[ L["STRING_ATTRIBUTE_MISC_RESS"] = ""--]] 
+L["STRING_ATTRIBUTE_MISC_RESS"] = "Résurrection"
 L["STRING_AUTO"] = "automatique"
 L["STRING_AUTOSHOT"] = "Tir automatique"
 L["STRING_AVERAGE"] = "Moyenne"
@@ -71,7 +69,7 @@ L["STRING_BOTTOM"] = "bas"
 L["STRING_BOTTOM_TO_TOP"] = "De bas en haut"
 L["STRING_CAST"] = "Incantations"
 L["STRING_CAUGHT"] = "attrapé"
-L["STRING_CCBROKE"] = "CC Brisés"
+L["STRING_CCBROKE"] = "Contrôle des foules supprimé "
 L["STRING_CENTER"] = "centre"
 L["STRING_CENTER_UPPER"] = "Centre"
 L["STRING_CHANGED_TO_CURRENT"] = "Segment changé: |cFFFFFF00Actuel|r"
@@ -79,23 +77,20 @@ L["STRING_CHANNEL_PRINT"] = "Observateur"
 L["STRING_CHANNEL_RAID"] = "Raid"
 L["STRING_CHANNEL_SAY"] = "Dire"
 L["STRING_CHANNEL_WHISPER"] = "Chuchoter"
---[[Translation missing --]]
---[[ L["STRING_CHANNEL_WHISPER_TARGET_COOLDOWN"] = ""--]] 
+L["STRING_CHANNEL_WHISPER_TARGET_COOLDOWN"] = "Chuchoter le temps de recharge global à la cible"
 L["STRING_CHANNEL_YELL"] = "Crier"
 L["STRING_CLICK_REPORT_LINE1"] = "|cFFFFCC22Clic|r: |cFFFFEE00rapporter|r"
 L["STRING_CLICK_REPORT_LINE2"] = "|cFFFFCC22Maj+Clic|r: |cFFFFEE00mode fenêtré|r"
-L["STRING_CLOSEALL"] = "Toutes les fenêtres de Details sont fermées. Tapez «/details show» pour rouvrir."
+L["STRING_CLOSEALL"] = "Toutes les fenêtres sont fermées. Tapez «/details show» pour les rouvrir."
 L["STRING_COLOR"] = "Couleur"
 L["STRING_COMMAND_LIST"] = "liste de commandes"
---[[Translation missing --]]
---[[ L["STRING_CONTEXT"] = ""--]] 
-L["STRING_COOLTIP_NOOPTIONS"] = "aucune option"
---[[Translation missing --]]
---[[ L["STRING_CREATEAURA"] = ""--]] 
+L["STRING_CONTEXT"] = "Contexte"
+L["STRING_COOLTIP_NOOPTIONS"] = "pas d'options"
+L["STRING_CREATEAURA"] = "Créer une aura"
 L["STRING_CRITICAL_HITS"] = "Coups Critiques"
 L["STRING_CRITICAL_ONLY"] = "critique"
 L["STRING_CURRENT"] = "Actuel"
-L["STRING_CURRENTFIGHT"] = "Segment Présent"
+L["STRING_CURRENTFIGHT"] = "Segment actuel"
 L["STRING_CUSTOM_ACTIVITY_ALL"] = "Temps d'activité"
 L["STRING_CUSTOM_ACTIVITY_ALL_DESC"] = "Montre les résultats d'activité pour chaque joueur dans le groupe de raid."
 L["STRING_CUSTOM_ACTIVITY_DPS"] = "Temps d'activité des dégâts"
@@ -108,16 +103,13 @@ L["STRING_CUSTOM_ATTRIBUTE_SCRIPT"] = "Script personalisé"
 L["STRING_CUSTOM_AUTHOR"] = "Auteur:"
 L["STRING_CUSTOM_AUTHOR_DESC"] = "La personne ayant créé cet affichage."
 L["STRING_CUSTOM_CANCEL"] = "Annuler"
---[[Translation missing --]]
---[[ L["STRING_CUSTOM_CC_DONE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_CUSTOM_CC_RECEIVED"] = ""--]] 
+L["STRING_CUSTOM_CC_DONE"] = "Contrôle des foules terminé"
+L["STRING_CUSTOM_CC_RECEIVED"] = "Contrôle des foules reçu"
 L["STRING_CUSTOM_CREATE"] = "Créer"
 L["STRING_CUSTOM_CREATED"] = "Nouvel affichage créé."
 L["STRING_CUSTOM_DAMAGEONANYMARKEDTARGET"] = "Dégâts sur les autres cibles marquées"
 L["STRING_CUSTOM_DAMAGEONANYMARKEDTARGET_DESC"] = "Affiche le montant des dégâts infligés sur les cibles marquées avec une autre marque."
---[[Translation missing --]]
---[[ L["STRING_CUSTOM_DAMAGEONSHIELDS"] = ""--]] 
+L["STRING_CUSTOM_DAMAGEONSHIELDS"] = "Dégâts sur les boucliers"
 L["STRING_CUSTOM_DAMAGEONSKULL"] = "Dégâts sur la/les cibles ayant eu la marque Crâne"
 L["STRING_CUSTOM_DAMAGEONSKULL_DESC"] = "Affiche le montant des dégâts infligés aux cibles marquées avec la marque du crâne."
 L["STRING_CUSTOM_DESCRIPTION"] = "Desc:"
@@ -125,13 +117,12 @@ L["STRING_CUSTOM_DESCRIPTION_DESC"] = "Description de ce qu'effectue cet afficha
 L["STRING_CUSTOM_DONE"] = "Terminé"
 L["STRING_CUSTOM_DTBS"] = "Dégâts reçus par sorts"
 L["STRING_CUSTOM_DTBS_DESC"] = "Affiche les dégâts des sorts de l'ennemi affligés à votre groupe."
---[[Translation missing --]]
---[[ L["STRING_CUSTOM_DYNAMICOVERAL"] = ""--]] 
+L["STRING_CUSTOM_DYNAMICOVERAL"] = "Dommages dynamiques globaux"
 L["STRING_CUSTOM_EDIT"] = "Modifier"
 L["STRING_CUSTOM_EDIT_SEARCH_CODE"] = "Modifier Code de Recherche."
 L["STRING_CUSTOM_EDIT_TOOLTIP_CODE"] = "Modifier le Code du tooltip"
 L["STRING_CUSTOM_EDITCODE_DESC"] = "Ceci est une fonction avancée permettant à l'utilisateur de créer son propre code d'affichage."
-L["STRING_CUSTOM_EDITTOOLTIP_DESC"] = "Ceci est le code du tooltip, appelé lorsque l'utilisateur passe sur une barre."
+L["STRING_CUSTOM_EDITTOOLTIP_DESC"] = "Il s'agit du code tooltip, qui s'exécute lorsque l'utilisateur passe au-dessus d'une barre."
 L["STRING_CUSTOM_ENEMY_DT"] = "Dégâts Pris"
 L["STRING_CUSTOM_EXPORT"] = "Exporter"
 L["STRING_CUSTOM_FUNC_INVALID"] = "Le script personnalisé est invalide et ne peut rafraîchir la fenêtre."
@@ -157,21 +148,15 @@ L["STRING_CUSTOM_REPORT"] = "(personalisé)"
 L["STRING_CUSTOM_SAVE"] = "Enregistrer les changements"
 L["STRING_CUSTOM_SAVED"] = "L'affichage a été sauvegardé."
 L["STRING_CUSTOM_SHORTNAME"] = "Le nom doit être composé de 5 caractères minimum."
-L["STRING_CUSTOM_SKIN_TEXTURE"] = "Ficher de skin personnalisé"
-L["STRING_CUSTOM_SKIN_TEXTURE_DESC"] = [=[Le nom du fichier .tga.
-
-Il doit être placé à l'intérieur du dossier :
-
-|cFFFFFF00WoW/Interface/|r
-
+L["STRING_CUSTOM_SKIN_TEXTURE"] = "Ficher d'habillage personnalisé"
+L["STRING_CUSTOM_SKIN_TEXTURE_DESC"] = [=[Le nom du fichier .tga.Il doit être placé à l'intérieur du dossier : |cFFFFFF00WoW/Interface/|r
 |cFFFFFF00Important :|r avant de créer le fichier, fermez le jeu. Après ça, un /reload appliquera les changements sauvegardés dans le fichier de texture.]=]
 L["STRING_CUSTOM_SOURCE"] = "Source :"
 L["STRING_CUSTOM_SOURCE_DESC"] = [=[Qui déclenche l'effet.
 
 Le bouton à droite montre une liste de pnj extraits des combats de raid.]=]
 L["STRING_CUSTOM_SPELLID"] = "Identifiant du sort :"
---[[Translation missing --]]
---[[ L["STRING_CUSTOM_SPELLID_DESC"] = ""--]] 
+L["STRING_CUSTOM_SPELLID_DESC"] = "Facultatif, le sort est utilisé par la source pour appliquer l'effet sur la cible. Le bouton de droite affiche une liste de sorts issus de rencontres de raids."
 L["STRING_CUSTOM_TARGET"] = "Cible :"
 L["STRING_CUSTOM_TARGET_DESC"] = [=[Ceci est la cible de la source.
 
@@ -181,26 +166,16 @@ L["STRING_DAMAGE"] = "Dégâts"
 L["STRING_DAMAGE_DPS_IN"] = "DPS reçu de"
 L["STRING_DAMAGE_FROM"] = "Reçu des dégâts de"
 L["STRING_DAMAGE_TAKEN_FROM"] = "Dégâts pris de"
---[[Translation missing --]]
---[[ L["STRING_DAMAGE_TAKEN_FROM2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DEFENSES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DESCENDING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DETACH_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DISCARD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DISPELLED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DODGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DOT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_DPS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_EMPTY_SEGMENT"] = ""--]] 
+L["STRING_DAMAGE_TAKEN_FROM2"] = "dommages appliqués avec"
+L["STRING_DEFENSES"] = "Défenses"
+L["STRING_DESCENDING"] = "Descendant"
+L["STRING_DETACH_DESC"] = "Groupe de fenêtre d'interruption"
+L["STRING_DISCARD"] = "Jeter"
+L["STRING_DISPELLED"] = "Améliorations / affaiblissements supprimés"
+L["STRING_DODGE"] = "Esquive"
+L["STRING_DOT"] = "(DoT)"
+L["STRING_DPS"] = "DPS"
+L["STRING_EMPTY_SEGMENT"] = "Segment vide"
 L["STRING_ENABLED"] = "Activé"
 L["STRING_ENVIRONMENTAL_DROWNING"] = "Environnement (noyade)"
 L["STRING_ENVIRONMENTAL_FALLING"] = "Environnement (chute)"
@@ -212,17 +187,14 @@ L["STRING_EQUILIZING"] = "Partager les données des rencontres"
 L["STRING_ERASE"] = "Effacer"
 L["STRING_ERASE_DATA"] = "Réinitialiser toutes les données"
 L["STRING_ERASE_DATA_OVERALL"] = "Réinitialiser les données globales"
---[[Translation missing --]]
---[[ L["STRING_ERASE_IN_COMBAT"] = ""--]] 
+L["STRING_ERASE_IN_COMBAT"] = "Effacement global programmé après le combat en cours."
 L["STRING_EXAMPLE"] = "Exemple"
 L["STRING_EXPLOSION"] = "explosion"
---[[Translation missing --]]
---[[ L["STRING_FAIL_ATTACKS"] = ""--]] 
+L["STRING_FAIL_ATTACKS"] = "Échecs des attaques"
 L["STRING_FEEDBACK_CURSE_DESC"] = "Ouvrez un ticket ou laissez un message sur la page de Details!"
 L["STRING_FEEDBACK_MMOC_DESC"] = "Envoyez un message sur notre fil de discussion du forum de mmo-champion."
 L["STRING_FEEDBACK_PREFERED_SITE"] = "Choisissez votre site communautaire préféré :"
---[[Translation missing --]]
---[[ L["STRING_FEEDBACK_SEND_FEEDBACK"] = ""--]] 
+L["STRING_FEEDBACK_SEND_FEEDBACK"] = "Envoyez vos commentaires"
 L["STRING_FEEDBACK_WOWI_DESC"] = "Laissez un commentaire sur la page du projet de Details!"
 L["STRING_FIGHTNUMBER"] = "Combat #"
 L["STRING_FORGE_BUTTON_ALLSPELLS"] = "Tous les sorts"
@@ -231,210 +203,121 @@ L["STRING_FORGE_BUTTON_BWTIMERS"] = "Délais BigWigs"
 L["STRING_FORGE_BUTTON_BWTIMERS_DESC"] = "Liste les délais de BigWigs"
 L["STRING_FORGE_BUTTON_DBMTIMERS"] = "Délais DBM"
 L["STRING_FORGE_BUTTON_DBMTIMERS_DESC"] = "Liste les délais de Deadly Boss Mods"
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_ENEMIES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_ENEMIES_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_PETS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_PETS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_PLAYERS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_BUTTON_PLAYERS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_ENABLEPLUGINS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_BARTEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_CASTERNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_ENCOUNTERNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_ENEMYNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_OWNERNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_PETNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_PLAYERNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_FILTER_SPELLNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_BARTEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_CASTER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_CLASS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_CREATEAURA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_ENCOUNTERID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_ENCOUNTERNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_EVENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_FLAG"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_GUID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_ICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_ID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_INDEX"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_NAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_NPCID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_OWNER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_SCHOOL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_SPELLID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_HEADER_TIMER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_TUTORIAL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_TUTORIAL_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_FORGE_TUTORIAL_VIDEO"] = ""--]] 
+L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS"] = "Sorts du Boss"
+L["STRING_FORGE_BUTTON_ENCOUNTERSPELLS_DESC"] = "Liste uniquement les sorts issus des rencontres du raid et du donjon."
+L["STRING_FORGE_BUTTON_ENEMIES"] = "Ennemies"
+L["STRING_FORGE_BUTTON_ENEMIES_DESC"] = "Liste des ennemis du combat en cours."
+L["STRING_FORGE_BUTTON_PETS"] = "Familiers"
+L["STRING_FORGE_BUTTON_PETS_DESC"] = "Liste des familiers du combat en cours."
+L["STRING_FORGE_BUTTON_PLAYERS"] = "Joueurs"
+L["STRING_FORGE_BUTTON_PLAYERS_DESC"] = "Liste les joueurs du combat en cours."
+L["STRING_FORGE_ENABLEPLUGINS"] = [=[Veuillez activer l'addon Details ! dans le menu Echappement > Addon, par exemple Details : Tombeau de Sargeras".
+]=]
+L["STRING_FORGE_FILTER_BARTEXT"] = "Nom de la barre"
+L["STRING_FORGE_FILTER_CASTERNAME"] = "Nom du lanceur de sorts"
+L["STRING_FORGE_FILTER_ENCOUNTERNAME"] = "Nom de la rencontre"
+L["STRING_FORGE_FILTER_ENEMYNAME"] = "Nom de l'ennemi"
+L["STRING_FORGE_FILTER_OWNERNAME"] = "Nom du propriétaire"
+L["STRING_FORGE_FILTER_PETNAME"] = "Nom du familier"
+L["STRING_FORGE_FILTER_PLAYERNAME"] = "Nom du joueur"
+L["STRING_FORGE_FILTER_SPELLNAME"] = "Nom du sort"
+L["STRING_FORGE_HEADER_BARTEXT"] = "Texte de la barre"
+L["STRING_FORGE_HEADER_CASTER"] = "Lanceur de sorts"
+L["STRING_FORGE_HEADER_CLASS"] = "Classe"
+L["STRING_FORGE_HEADER_CREATEAURA"] = "Créer une aura"
+L["STRING_FORGE_HEADER_ENCOUNTERID"] = "ID de la rencontre"
+L["STRING_FORGE_HEADER_ENCOUNTERNAME"] = "Nom de la rencontre"
+L["STRING_FORGE_HEADER_EVENT"] = "Événement"
+L["STRING_FORGE_HEADER_FLAG"] = "Drapeau"
+L["STRING_FORGE_HEADER_GUID"] = "GUID"
+L["STRING_FORGE_HEADER_ICON"] = "Icône"
+L["STRING_FORGE_HEADER_ID"] = "ID"
+L["STRING_FORGE_HEADER_INDEX"] = "Index"
+L["STRING_FORGE_HEADER_NAME"] = "Nom"
+L["STRING_FORGE_HEADER_NPCID"] = "PnjID"
+L["STRING_FORGE_HEADER_OWNER"] = "Propriétaire"
+L["STRING_FORGE_HEADER_SCHOOL"] = "École"
+L["STRING_FORGE_HEADER_SPELLID"] = "SortID"
+L["STRING_FORGE_HEADER_TIMER"] = "Chronomètre"
+L["STRING_FORGE_TUTORIAL_DESC"] = "Recherche les minuteurs des sorts et des boss pour créer des auras en cliquant sur '|cFFFFFF00Créer Aura|r'."
+L["STRING_FORGE_TUTORIAL_TITLE"] = "Bienvenue sur Details ! Forge"
+L["STRING_FORGE_TUTORIAL_VIDEO"] = "Exemple d'une Aura utilisant des minuteries de boss mods:"
 L["STRING_FREEZE"] = "Ce segment n'est pas disponible pour le moment"
 L["STRING_FROM"] = "De"
 L["STRING_GERAL"] = "Général"
---[[Translation missing --]]
---[[ L["STRING_GLANCING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_BOSS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_DATABASEERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_DIFF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_GUILD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_PLAYERBASE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_PLAYERBASE_INDIVIDUAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_PLAYERBASE_PLAYER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_PLAYERBASE_RAID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_RAID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_ROLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_SHOWHISTORY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_SHOWRANK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_SYNCBUTTONTEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_TUTORIAL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_GUILDDAMAGERANK_WINDOWALERT"] = ""--]] 
+L["STRING_GLANCING"] = "Aperçu"
+L["STRING_GUILDDAMAGERANK_BOSS"] = "Boss"
+L["STRING_GUILDDAMAGERANK_DATABASEERROR"] = "Échec de l'ouverture '|cFFFFFF00Details! Storage|r',  l'addon est peut-être désactivé ?"
+L["STRING_GUILDDAMAGERANK_DIFF"] = "Difficulté"
+L["STRING_GUILDDAMAGERANK_GUILD"] = "Guilde"
+L["STRING_GUILDDAMAGERANK_PLAYERBASE"] = "Base du joueur"
+L["STRING_GUILDDAMAGERANK_PLAYERBASE_INDIVIDUAL"] = "Individuel"
+L["STRING_GUILDDAMAGERANK_PLAYERBASE_PLAYER"] = "Joueur"
+L["STRING_GUILDDAMAGERANK_PLAYERBASE_RAID"] = "Tous les joueurs"
+L["STRING_GUILDDAMAGERANK_RAID"] = "Raid"
+L["STRING_GUILDDAMAGERANK_ROLE"] = "Rôle"
+L["STRING_GUILDDAMAGERANK_SHOWHISTORY"] = "Afficher l'historique"
+L["STRING_GUILDDAMAGERANK_SHOWRANK"] = "Affiche le rang de la guilde"
+L["STRING_GUILDDAMAGERANK_SYNCBUTTONTEXT"] = "Synchronisation avec la guilde"
+L["STRING_GUILDDAMAGERANK_TUTORIAL_DESC"] = "Détails! stocker les dégâts et les soins prodigués pour chaque rencontre avec un boss que vous dirigez avec votre guilde.\\n\\nParcourez l'historique en cochant la case '|cFFFFFF00Afficher l'historique|r', les résultats de tous les combats seront affichés.\\nEn sélectionnant '|cFFFFFF00Afficher le rang de la guilde|r', les meilleurs scores pour le boss sélectionné sont affichés.\\n\\nSi vous utilisez cet outil pour la première fois ou si vous avez perdu une journée de raid, cliquez sur le bouton '|cFFFFFF00Synchronisation avec la guilde|r'."
+L["STRING_GUILDDAMAGERANK_WINDOWALERT"] = "Boss vaincu ! Afficher le classement"
 L["STRING_HEAL"] = "Soin"
 L["STRING_HEAL_ABSORBED"] = "Soin Absorbé"
 L["STRING_HEAL_CRIT"] = "Soin Critique"
 L["STRING_HEALING_FROM"] = "Soin reçu de"
---[[Translation missing --]]
---[[ L["STRING_HEALING_HPS_FROM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_HITS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_HPS"] = ""--]] 
+L["STRING_HEALING_HPS_FROM"] = "HPS reçu de"
+L["STRING_HITS"] = "Toucher"
+L["STRING_HPS"] = "HPS"
 L["STRING_IMAGEEDIT_ALPHA"] = "Transparence"
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_CROPBOTTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_CROPLEFT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_CROPRIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_CROPTOP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_DONE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_FLIPH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_IMAGEEDIT_FLIPV"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INFO_TAB_AVOIDANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INFO_TAB_COMPARISON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INFO_TAB_SUMMARY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INFO_TUTORIAL_COMPARISON1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INSTANCE_CHAT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_INSTANCE_LIMIT"] = ""--]] 
+L["STRING_IMAGEEDIT_CROPBOTTOM"] = "Recadrer en bas"
+L["STRING_IMAGEEDIT_CROPLEFT"] = "Recadrer à gauche"
+L["STRING_IMAGEEDIT_CROPRIGHT"] = "Recadrer à droite"
+L["STRING_IMAGEEDIT_CROPTOP"] = "Recadrer en haut"
+L["STRING_IMAGEEDIT_DONE"] = "FAIT"
+L["STRING_IMAGEEDIT_FLIPH"] = "Retournement Horizontal"
+L["STRING_IMAGEEDIT_FLIPV"] = "Retournement vertical"
+L["STRING_INFO_TAB_AVOIDANCE"] = "Évitement"
+L["STRING_INFO_TAB_COMPARISON"] = "Comparer"
+L["STRING_INFO_TAB_SUMMARY"] = "Résumé"
+L["STRING_INFO_TUTORIAL_COMPARISON1"] = "Cliquez sur l'onglet |cFFFFDD00Comparer|r pour voir les comparaisons entre les joueurs d'une même classe."
+L["STRING_INSTANCE_CHAT"] = "Chat d'instance"
+L["STRING_INSTANCE_LIMIT"] = "Le montant maximum de la fenêtre a été atteint, vous pouvez modifier cette limite dans le panneau des options. Vous pouvez également rouvrir les fenêtres fermées à partir du menu de la fenêtre (#)."
 L["STRING_INTERFACE_OPENOPTIONS"] = "Ouvrir le panneau des options"
---[[Translation missing --]]
---[[ L["STRING_INVERT_RULE"] = ""--]] 
+L["STRING_INVERT_RULE"] = "Inverser la règle"
 L["STRING_ISA_PET"] = "Cet acteur est un familier"
 L["STRING_KEYBIND_BOOKMARK"] = "Marque-pages"
 L["STRING_KEYBIND_BOOKMARK_NUMBER"] = "Marque-page #%s"
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_RESET_SEGMENTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_SCROLL_DOWN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_SCROLL_UP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_SCROLLING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_SEGMENTCONTROL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_TOGGLE_WINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_TOGGLE_WINDOWS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_WINDOW_CONTROL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_WINDOW_REPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KEYBIND_WINDOW_REPORT_HEADER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_KILLED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_LAST_COOLDOWN"] = ""--]] 
+L["STRING_KEYBIND_RESET_SEGMENTS"] = "Remise à zéro des segments"
+L["STRING_KEYBIND_SCROLL_DOWN"] = "Faire défiler toutes les fenêtres vers le bas"
+L["STRING_KEYBIND_SCROLL_UP"] = "Faire défiler toutes les fenêtres vers le haut"
+L["STRING_KEYBIND_SCROLLING"] = "Défilement"
+L["STRING_KEYBIND_SEGMENTCONTROL"] = "Segments"
+L["STRING_KEYBIND_TOGGLE_WINDOW"] = "Affiche la fenêtre #%s"
+L["STRING_KEYBIND_TOGGLE_WINDOWS"] = "Tout afficher"
+L["STRING_KEYBIND_WINDOW_CONTROL"] = "Fenêtres"
+L["STRING_KEYBIND_WINDOW_REPORT"] = "Les données du rapport sont affichées sur la fenêtre #%s."
+L["STRING_KEYBIND_WINDOW_REPORT_HEADER"] = "Données du rapport"
+L["STRING_KILLED"] = "Tué"
+L["STRING_LAST_COOLDOWN"] = "dernier temps de recharge utilisé"
 L["STRING_LEFT"] = "gauche"
 L["STRING_LEFT_CLICK_SHARE"] = "Clic gauche pour signaler."
---[[Translation missing --]]
---[[ L["STRING_LEFT_TO_RIGHT"] = ""--]] 
+L["STRING_LEFT_TO_RIGHT"] = "De gauche à droite"
 L["STRING_LOCK_DESC"] = "Verrouille ou déverrouille la fenêtre"
---[[Translation missing --]]
---[[ L["STRING_LOCK_WINDOW"] = ""--]] 
+L["STRING_LOCK_WINDOW"] = "bloquer"
 L["STRING_MASTERY"] = "Maîtrise"
 L["STRING_MAXIMUM"] = "Maximum"
 L["STRING_MAXIMUM_SHORT"] = "Max"
---[[Translation missing --]]
---[[ L["STRING_MEDIA"] = ""--]] 
+L["STRING_MEDIA"] = "Média"
 L["STRING_MELEE"] = "Mêlée"
 L["STRING_MEMORY_ALERT_BUTTON"] = "J'ai compris"
 L["STRING_MEMORY_ALERT_TEXT1"] = "Details! utilise beaucoup de mémoire, mais, |cFFFF8800contrairement à la croyance populaire|r, utilisation de la mémoire par extension |cFFFF8800n'a pas d'incidence|r en rien les performances du jeu ou de votre FPS."
 L["STRING_MEMORY_ALERT_TEXT2"] = "Donc, si vous voyez Details! en utilisant beaucoup de mémoire, ne paniquez pas :D! |cFFFF8800Tout va bien|r, et une partie de cette mémoire est encore |cFFFF8800utilisé dans caches|r pour l'addon encore plus vite."
 L["STRING_MEMORY_ALERT_TEXT3"] = "Toutefois, si votre souhait est de savoir |cFFFF8800addons qui sont plus 'lourd'|r ou qui sont en baisse plus vos FPS, installer l'addon: '|cFFFFFF00AddOns Cpu Usage|r'."
 L["STRING_MEMORY_ALERT_TITLE"] = "S'il vous plaît lire attentivement!"
---[[Translation missing --]]
---[[ L["STRING_MENU_CLOSE_INSTANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MENU_CLOSE_INSTANCE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MENU_CLOSE_INSTANCE_DESC2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MENU_INSTANCE_CONTROL"] = ""--]] 
+L["STRING_MENU_CLOSE_INSTANCE"] = "Fermer cette fenêtre"
+L["STRING_MENU_CLOSE_INSTANCE_DESC"] = "Une fenêtre fermée est considérée comme inactive et peut être rouverte à tout moment en utilisant le menu de contrôle de la fenêtre."
+L["STRING_MENU_CLOSE_INSTANCE_DESC2"] = "Pour détruire complètement une fenêtre, consultez la section \"Divers\" dans le panneau des options."
+L["STRING_MENU_INSTANCE_CONTROL"] = "Contrôle de la fenêtre"
 L["STRING_MINIMAP_TOOLTIP1"] = "|cFFCFCFCFclic gauche| r: ouvre le panneau des options"
 L["STRING_MINIMAP_TOOLTIP11"] = "|cFFCFCFCFclic gauche|r : efface tous les segments"
 L["STRING_MINIMAP_TOOLTIP12"] = "|cFFCFCFCFclic gauche|r : affiche/cache les fenêtres"
@@ -442,12 +325,9 @@ L["STRING_MINIMAP_TOOLTIP2"] = "|cFFCFCFCFclic droit|r : menu rapide"
 L["STRING_MINIMAPMENU_CLOSEALL"] = "Tout fermer"
 L["STRING_MINIMAPMENU_HIDEICON"] = "Cacher l'icône de la minicarte"
 L["STRING_MINIMAPMENU_LOCK"] = "Verrouiller"
---[[Translation missing --]]
---[[ L["STRING_MINIMAPMENU_NEWWINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MINIMAPMENU_REOPENALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MINIMAPMENU_UNLOCK"] = ""--]] 
+L["STRING_MINIMAPMENU_NEWWINDOW"] = "Créer une nouvelle fenêtre"
+L["STRING_MINIMAPMENU_REOPENALL"] = "Réouvrir tout"
+L["STRING_MINIMAPMENU_UNLOCK"] = "Débloquer"
 L["STRING_MINIMUM"] = "Minimum"
 L["STRING_MINIMUM_SHORT"] = "Min"
 L["STRING_MINITUTORIAL_BOOKMARK1"] = "Faites un clic droit à tout moment au cours de la fenêtre pour ouvrir les signets!"
@@ -464,1563 +344,796 @@ Casser un groupe cliquant sur le bouton de dissocier.]=]
 L["STRING_MINITUTORIAL_OPTIONS_PANEL4"] = "Testez vos configuration créant des barreaux d'essai."
 L["STRING_MINITUTORIAL_OPTIONS_PANEL5"] = "Lorsque Groupe Édition est activé, toutes les fenêtres dans un groupe sont modifiés."
 L["STRING_MINITUTORIAL_OPTIONS_PANEL6"] = "Sélectionnez ici quelle fenêtre vous voulez changer l'apparence."
---[[Translation missing --]]
---[[ L["STRING_MINITUTORIAL_WINDOWS1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MINITUTORIAL_WINDOWS2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MIRROR_IMAGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MISS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_ALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_GROUP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_OPENFORGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_PLUGINS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_RAID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MODE_SELF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MORE_INFO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MULTISTRIKE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MULTISTRIKE_HITS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_MUSIC_DETAILS_ROBERTOCARLOS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NEWROW"] = ""--]] 
+L["STRING_MINITUTORIAL_WINDOWS1"] = "Vous venez de créer un groupe de fenêtres. Pour rompre le groupe, cliquez sur l'icône du cadenas."
+L["STRING_MINITUTORIAL_WINDOWS2"] = "La fenêtre a été verrouillée. Cliquez sur la barre de titre et faites-la glisser vers le haut pour l'étirer."
+L["STRING_MIRROR_IMAGE"] = "Image miroir"
+L["STRING_MISS"] = "Manquer"
+L["STRING_MODE_ALL"] = "Tout"
+L["STRING_MODE_GROUP"] = "Standard"
+L["STRING_MODE_OPENFORGE"] = "Liste des sorts"
+L["STRING_MODE_PLUGINS"] = "plugins"
+L["STRING_MODE_RAID"] = "Plugins: Raid"
+L["STRING_MODE_SELF"] = "Plugins: jeu en solo"
+L["STRING_MORE_INFO"] = "Voir l'encadré de droite pour plus d'informations."
+L["STRING_MULTISTRIKE"] = "frappe multiple"
+L["STRING_MULTISTRIKE_HITS"] = "Frappe multiple touché"
+L["STRING_MUSIC_DETAILS_ROBERTOCARLOS"] = "Il ne sert à rien d'essayer d'oublier Pendant longtemps dans votre vie, je vivrai des détails aussi petits que nous"
+L["STRING_NEWROW"] = "Attendre l'actualisation ..."
 L["STRING_NEWS_REINSTALL"] = "Des problèmes après une mise à jour ? Essayez la commande '/details reinstall'."
 L["STRING_NEWS_TITLE"] = "Quoi de neuf dans cette version"
 L["STRING_NO"] = "Non"
 L["STRING_NO_DATA"] = "les données ont déjà été nettoyées"
 L["STRING_NO_SPELL"] = "aucun sort n'a été utilisé"
 L["STRING_NO_TARGET"] = "Aucune cible trouvée."
---[[Translation missing --]]
---[[ L["STRING_NO_TARGET_BOX"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NOCLOSED_INSTANCES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NOLAST_COOLDOWN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NOMORE_INSTANCES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NORMAL_HITS"] = ""--]] 
+L["STRING_NO_TARGET_BOX"] = "Aucune cible disponible"
+L["STRING_NOCLOSED_INSTANCES"] = "Il n'y a pas de fenêtres fermées, cliquez pour en ouvrir une nouvelle."
+L["STRING_NOLAST_COOLDOWN"] = "pas de temps de recharge utilisée"
+L["STRING_NOMORE_INSTANCES"] = "Nombre maximum de fenêtres atteintes. Modifier la limite dans le panneau d'options."
+L["STRING_NORMAL_HITS"] = "Coups normaux"
 L["STRING_NUMERALSYSTEM"] = "Système numérique"
---[[Translation missing --]]
---[[ L["STRING_NUMERALSYSTEM_ARABIC_MYRIAD_EASTASIA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NUMERALSYSTEM_ARABIC_WESTERN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NUMERALSYSTEM_ARABIC_WESTERN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NUMERALSYSTEM_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_NUMERALSYSTEM_MYRIAD_EASTASIA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OFFHAND_HITS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_LALPHA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_LANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_LENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_LSELECT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_SELECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_UALPHA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_UANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_UENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_3D_USELECT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ADVANCED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ALPHAMOD_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ALWAYS_USE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ALWAYS_USE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ALWAYSSHOWPLAYERS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ALWAYSSHOWPLAYERS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ANIMATEBARS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ANIMATEBARS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ANIMATESCROLL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ANIMATESCROLL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_APPEARANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ATTRIBUTE_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ATTRIBUTE_TEXT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_COMBAT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_DAMAGER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_HEALER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_TANK_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_WIPE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AUTO_SWITCH_WIPE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AVATAR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AVATAR_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_AVATAR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BACKDROP_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BACKDROP_COLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BACKDROP_ENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BACKDROP_SIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BACKDROP_TEXTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_BTEXTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_COLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_COLORBYCLASS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_COLORBYCLASS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_FOLLOWING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_FOLLOWING_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_FOLLOWING_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_GROW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_GROW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_HEIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_HEIGHT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE_DESC2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE4"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE5"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_ICONFILE6"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_SPACING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_SPACING_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BAR_TEXTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARLEFTTEXTCUSTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARLEFTTEXTCUSTOM_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARORIENTATION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARORIENTATION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARSORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARSORT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARSTART"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARSTART_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARUR_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BARUR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BG_ALL_ALLY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BG_ALL_ALLY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BG_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BG_UNIQUE_SEGMENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_BG_UNIQUE_SEGMENT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CAURAS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CAURAS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CDAMAGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CDAMAGE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CENERGY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CENERGY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHANGE_CLASSCOLORS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHANGE_CLASSCOLORS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHANGECOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHANGELOG"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADD2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADDAUTHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADDCODE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADDICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADDNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ADDVERSION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_AUTHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_AUTHORERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_CANCEL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_CLOSE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_CODELOADED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_EDIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_EXPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_FUNCERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_ICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_IMPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_IMPORTERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_NAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_NAMEERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_PLUGINWARNING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_REMOVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_SAVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_VERSION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHART_VERSIONERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHEAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CHEAL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLASSCOLOR_MODIFY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLASSCOLOR_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLEANUP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLEANUP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLOUD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CLOUD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CMISC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CMISC_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COLORANDALPHA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COLORFIXED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_4"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_5"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_6"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_7"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_8"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBATTWEEKS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_COMBATTWEEKS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CONFIRM_ERASE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CUSTOMSPELL_ADD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CUSTOMSPELLTITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_CUSTOMSPELLTITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD4"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD5"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD6"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD7"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD8"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT_ADD9"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATABROKER_TEXT1_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATACHARTTITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATACHARTTITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DATACOLLECT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DEATHLIMIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DEATHLIMIT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DEATHLOG_MINHEALING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DEATHLOG_MINHEALING_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DESATURATE_MENU"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DESATURATE_MENU_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_GROUPS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_GROUPS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_LOCK_RESIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_LOCK_RESIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_RESET_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DISABLED_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DTAKEN_EVERYTHING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_DTAKEN_EVERYTHING_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ED1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ED2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ED3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_EDITIMAGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_EDITINSTANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ERASECHARTDATA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ERASECHARTDATA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_EXTERNALS_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_EXTERNALS_TITLE2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_GENERAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_GENERAL_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HIDE_ICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HIDE_ICON_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HIDECOMBATALPHA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_ACTION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_ACTION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_IGNORENICKNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_IGNORENICKNAME_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ILVL_TRACKER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ILVL_TRACKER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ILVL_TRACKER_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_ALPHA2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_ALPHA2_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_BACKDROP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_BACKDROP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_COLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_COLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_CURRENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_CURRENT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_DELETE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_DELETE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_SKIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_SKIN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_STATUSBAR_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_STRATA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCE_STRATA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INSTANCES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_INTERFACEDIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_LEFT_MENU_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_LOCKSEGMENTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_LOCKSEGMENTS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MANAGE_BOOKMARKS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MAXINSTANCES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MAXINSTANCES_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MAXSEGMENTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MAXSEGMENTS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHAENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHAENTER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHAENTER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHALEAVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHALEAVE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ALPHAWARNING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ANCHOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORX"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORX_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ENCOUNTERTIMER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_ENCOUNTERTIMER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_FONT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_FONT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_SHADOW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_SIDE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_SIDE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTSIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTSIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_ATTRIBUTESETTINGS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_AUTOHIDE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_AUTOHIDE_LEFT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_BUTTONSSIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_FONT_FACE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_FONT_FACE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_FONT_SIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_FONT_SIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_IGNOREBARS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_IGNOREBARS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_SHOWBUTTONS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_SHOWBUTTONS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_X"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_X_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_Y"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENU_Y_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENUS_SHADOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENUS_SHADOW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENUS_SPACEMENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MENUS_SPACEMENT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAY_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAY_LOCK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAY_LOCK_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYS_DROPDOWN_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYS_OPTION_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYS_SHOWHIDE_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYS_WARNING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYSSIDE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYSSIDE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MICRODISPLAYWARNING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ACTION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ACTION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ACTION1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ACTION2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ACTION3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MINIMAP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MISCTITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_MISCTITLE2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_NICKNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_NICKNAME_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OPEN_ROWTEXT_EDITOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OPEN_TEXT_EDITOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_ALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_ALL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_DUNGEONBOSS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_DUNGEONBOSS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_LOGOFF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_LOGOFF_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_MYTHICPLUS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_MYTHICPLUS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_NEWBOSS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_NEWBOSS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_RAIDBOSS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_RAIDBOSS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_RAIDCLEAN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_OVERALL_RAIDCLEAN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PANIMODE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PANIMODE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PDW_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PDW_SKIN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERCENT_TYPE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERCENT_TYPE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_ARENA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_BG15"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_BG40"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_DUNGEON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_ENABLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_ERASEWORLD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_ERASEWORLD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_MYTHIC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_PROFILE_LOAD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_RAID15"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_RAID30"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_RF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_TYPES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE_TYPES_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCE1_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCECAPTURES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCECAPTURES_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PERFORMANCEPROFILES_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PICONS_DIRECTION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PICONS_DIRECTION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_AUTHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_NAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_OPTIONS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_RAID_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_SOLO_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_TOOLBAR_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PLUGINS_VERSION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PRESETNONAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PRESETTOOLD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_COPYOKEY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_FIELDEMPTY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_GLOBAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_LOADED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_NOTCREATED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_OVERWRITTEN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_POSSIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_POSSIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_REMOVEOKEY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_SELECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_SELECTEXISTING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILE_USENEW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_COPY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_COPY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_CREATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_CREATE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_CURRENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_CURRENT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_ERASE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_ERASE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_RESET_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_SELECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_SELECT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PROFILES_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_COMMA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_NONE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOK0"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOK0MIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOK2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOK2MIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PS_ABBREVIATE_TOKMIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PVPFRAGS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_PVPFRAGS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REALMNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REALMNAME_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_HEALLINKS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_HEALLINKS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_SCHEMA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_SCHEMA_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_SCHEMA1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_SCHEMA2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_REPORT_SCHEMA3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RESET_TO_DEFAULT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ROW_SETTING_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ROWADV_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_ROWADV_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWN1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWN2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_CHANNEL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_CHANNEL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_CUSTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_CUSTOM_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_ONOFF_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_SELECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_COOLDOWNS_SELECT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATH_MSG"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_FIRST"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_FIRST_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_HITS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_HITS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_ONOFF_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_WHERE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_WHERE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_WHERE1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_WHERE2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_DEATHS_WHERE3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_FIRST_HIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_FIRST_HIT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_IGNORE_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INFOS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INFOS_PREPOTION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INFOS_PREPOTION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPT_NEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_CHANNEL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_CHANNEL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_CUSTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_CUSTOM_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_NEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_NEXT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_ONOFF_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_INTERRUPTS_WHISPER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_OTHER_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_RT_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_APPLYALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_APPLYALL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_APPLYTOALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_CREATE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_ERASE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_EXPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_EXPORT_COPY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_EXPORT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_IMPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_IMPORT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_IMPORT_OKEY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_LOAD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_LOAD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_MAKEDEFAULT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_PNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_REMOVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_SAVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_SKINCREATED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_STD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SAVELOAD_STDSAVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SCROLLBAR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SCROLLBAR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SEGMENTSSAVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SEGMENTSSAVE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SENDFEEDBACK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_SIDEBARS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_SIDEBARS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_STATUSBAR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_STATUSBAR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_COLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_ICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_ICON_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_INGROUP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SHOW_TOTALBAR_INGROUP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_A"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_A_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON1_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON2_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_ELVUI_BUTTON3_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_EXTRA_OPTIONS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_LOADED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_PRESETS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_PRESETSCONFIG_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_REMOVED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_RESET_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_RESET_TOOLTIP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_SELECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SKIN_SELECT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SOCIAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SOCIAL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ADD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ADDICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ADDNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ADDSPELL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ADDSPELLID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_CLOSE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_ICON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_IDERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_INDEX"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_NAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_NAMEERROR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_NOTFOUND"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_REMOVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SPELL_SPELLID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_STRETCH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_STRETCH_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_STRETCHTOP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_STRETCHTOP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SWITCH_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_SWITCHINFO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_ENABLED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_SINGLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_SINGLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_TABNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TABEMB_TABNAME_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TESTBARS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_FIXEDCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_FIXEDCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_FONT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_FONT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LCLASSCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LEFT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LOUTILINE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LOUTILINE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LPOSITION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LPOSITION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LTRANSLIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_LTRANSLIT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_RIGHT_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_ROUTILINE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_ROWICONS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_BRACKET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_BRACKET_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_PERCENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_PERCENT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_PS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_PS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_SEPARATOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_SEPARATOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_TOTAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SHOW_TOTAL_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_SIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_TEXTUREL_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXT_TEXTUREU_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_CANCEL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_CANCEL_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_COLOR_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_COMMA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_COMMA_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_DATA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_DATA_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_DONE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_DONE_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_FUNC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_FUNC_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_RESET_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_TOK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TEXTEDITOR_TOK_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TIMEMEASURE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TIMEMEASURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLBAR_SETTINGS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLBAR_SETTINGS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLBARSIDE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLBARSIDE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLS_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIP_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIP_ANCHORTEXTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ABBREVIATION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ABBREVIATION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_ATTACH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_ATTACH_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_BORDER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_POINT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_RELATIVE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_RELATIVE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TEXT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_CHOOSE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_CHOOSE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_ANCHORCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_BACKGROUNDCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_BACKGROUNDCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_BORDER_COLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_BORDER_SIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_BORDER_TEXTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTCOLOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTCOLOR_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTFACE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTFACE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTSHADOW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTSIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_FONTSIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_IGNORESUBWALLPAPER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_IGNORESUBWALLPAPER_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE4"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE5"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MENU_WALLP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_MENU_WALLP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_OFFSETX"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_OFFSETX_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_OFFSETY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_OFFSETY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_SHOWAMT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_SHOWAMT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOOLTIPS_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TOTALBAR_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TRASH_SUPPRESSION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_TRASH_SUPPRESSION_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_ALPHA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_BLUE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_CBOTTOM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_CLEFT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_CRIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_CTOP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_FILE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_GREEN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_EXCLAMATION"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_FILENAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_FILENAME_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_OKEY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_TROUBLESHOOT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_LOAD_TROUBLESHOOT_TEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WALLPAPER_RED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_ANCHOR"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_BOOKMARK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_BOOKMARK_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_CLOSE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_CLOSE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_CREATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_CREATE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_LOCK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_LOCK_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_REOPEN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_UNLOCK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_UNSNAP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WC_UNSNAP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WHEEL_SPEED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WHEEL_SPEED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_ANCHOR_ANCHORS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_IGNOREMASSTOGGLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_IGNOREMASSTOGGLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_SCALE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_SCALE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOW_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOWSPEED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WINDOWSPEED_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_ALIGN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_ALIGN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_EDIT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_EDIT_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_ENABLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_GROUP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_GROUP_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_GROUP2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONS_WP_GROUP2_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_AUTOMATIC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_AUTOMATIC_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_AUTOMATIC_TITLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_COMBAT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_DATACHART"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_DATACOLLECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_DATAFEED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_DISPLAY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_DISPLAY_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_LEFTMENU"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_MISC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_PERFORMANCE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_PLUGINS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_PROFILES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_RAIDTOOLS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_RIGHTMENU"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_ROWMODELS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_ROWSETTINGS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_ROWTEXTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_SKIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_SPELLS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_SPELLS_CONSOLIDATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_TITLETEXT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_WALLPAPER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OPTIONSMENU_WINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OVERALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OVERHEAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_OVERHEALED"] = ""--]] 
+L["STRING_NUMERALSYSTEM_ARABIC_MYRIAD_EASTASIA"] = "utilisés par les pays d'Asie de l'Est, séparés en milliers et myriades."
+L["STRING_NUMERALSYSTEM_ARABIC_WESTERN"] = "Occidental"
+L["STRING_NUMERALSYSTEM_ARABIC_WESTERN_DESC"] = "le plus souvent, se séparent en milliers et en millions."
+L["STRING_NUMERALSYSTEM_DESC"] = "Sélectionnez le système numérique à utiliser"
+L["STRING_NUMERALSYSTEM_MYRIAD_EASTASIA"] = "Asie de l'Est"
+L["STRING_OFFHAND_HITS"] = "Main gauche"
+L["STRING_OPTIONS_3D_LALPHA_DESC"] = "Ajustez le degré de transparence dans le modèle inférieur. |cFFFFFF00Important|r : certains modèles ignorent le degré de transparence."
+L["STRING_OPTIONS_3D_LANCHOR"] = "Modèle en 3D inférieur :"
+L["STRING_OPTIONS_3D_LENABLED_DESC"] = "Active ou désactive l'utilisation d'un cadre de modèle 3D derrière les barres."
+L["STRING_OPTIONS_3D_LSELECT_DESC"] = "Choisissez le modèle qui sera utilisé sur la barre de modèle inférieure."
+L["STRING_OPTIONS_3D_SELECT"] = "Choisir un modèle"
+L["STRING_OPTIONS_3D_UALPHA_DESC"] = "Ajustez le degré de transparence dans le modèle supérieur. |cFFFFFF00Important|r : certains modèles ignorent le degré de transparence."
+L["STRING_OPTIONS_3D_UANCHOR"] = "Modèle 3D supérieur :"
+L["STRING_OPTIONS_3D_UENABLED_DESC"] = "Active ou désactive l'utilisation d'un cadre de modèle 3d au-dessus des barres."
+L["STRING_OPTIONS_3D_USELECT_DESC"] = "Choisissez le modèle à utiliser dans la barre de modèle supérieure."
+L["STRING_OPTIONS_ADVANCED"] = "Avancé"
+L["STRING_OPTIONS_ALPHAMOD_ANCHOR"] = "Masque automatique:"
+L["STRING_OPTIONS_ALWAYS_USE"] = "Utilisation sur tous les personnages"
+L["STRING_OPTIONS_ALWAYS_USE_DESC"] = "Le même profil est utilisé sur tous les personnages. Vous pouvez le remplacer sur n'importe quel caractère en sélectionnant simplement un autre profil existant."
+L["STRING_OPTIONS_ALWAYSSHOWPLAYERS"] = "Afficher les joueurs non groupés"
+L["STRING_OPTIONS_ALWAYSSHOWPLAYERS_DESC"] = "Lorsque vous utilisez le mode Standard par défaut, affiche les joueurs même s'ils ne sont pas groupés avec vous."
+L["STRING_OPTIONS_ANCHOR"] = "Côté"
+L["STRING_OPTIONS_ANIMATEBARS"] = "Bars d'animation"
+L["STRING_OPTIONS_ANIMATEBARS_DESC"] = "Activer les animations pour tous les bars."
+L["STRING_OPTIONS_ANIMATESCROLL"] = "Animer la barre de défilement"
+L["STRING_OPTIONS_ANIMATESCROLL_DESC"] = "Lorsqu'elle est activée, la barre de défilement utilise une animation lorsqu'elle s'affiche ou se cache."
+L["STRING_OPTIONS_APPEARANCE"] = "Apparence"
+L["STRING_OPTIONS_ATTRIBUTE_TEXT"] = "Réglages du texte du titre"
+L["STRING_OPTIONS_ATTRIBUTE_TEXT_DESC"] = "Ces options contrôlent le texte du titre de la fenêtre."
+L["STRING_OPTIONS_AUTO_SWITCH"] = "Tous les rôles |cFFFFAA00(en combat)|r"
+L["STRING_OPTIONS_AUTO_SWITCH_COMBAT"] = "|cFFFFAA00(en combat)|r"
+L["STRING_OPTIONS_AUTO_SWITCH_DAMAGER_DESC"] = "Quand la spécialisation et sur les dommages, cette fenêtre affichent l'attribut ou le plugin sélectionné."
+L["STRING_OPTIONS_AUTO_SWITCH_DESC"] = "Lorsque vous entrez en combat, cette fenêtre affiche l'attribut ou le plugin sélectionné. |cFFFFFF00Important|r : L'attribut individuel choisi pour chaque rôle écrase l'attribut sélectionné ici."
+L["STRING_OPTIONS_AUTO_SWITCH_HEALER_DESC"] = "Quand la spécialisation et sur soigneur, cette fenêtre affiche l'attribut ou le plugin sélectionné."
+L["STRING_OPTIONS_AUTO_SWITCH_TANK_DESC"] = "Quand la spécialisation et sur tank, cette fenêtre affiche l'attribut ou le plugin sélectionné."
+L["STRING_OPTIONS_AUTO_SWITCH_WIPE"] = "Après Wipe"
+L["STRING_OPTIONS_AUTO_SWITCH_WIPE_DESC"] = "Après une tentative d'échec ou une défaite lors d'un raid, cette fenêtre affiche automatiquement cet attribut."
+L["STRING_OPTIONS_AVATAR"] = "Choisir un avatar"
+L["STRING_OPTIONS_AVATAR_ANCHOR"] = "Identité :"
+L["STRING_OPTIONS_AVATAR_DESC"] = "Les avatars sont également envoyés aux membres de la guilde et apparaissent en haut des infobulles et dans la fenêtre des détails du joueur."
+L["STRING_OPTIONS_BAR_BACKDROP_ANCHOR"] = "Bordure :"
+L["STRING_OPTIONS_BAR_BACKDROP_COLOR_DESC"] = "Change la couleur de la bordure."
+L["STRING_OPTIONS_BAR_BACKDROP_ENABLED_DESC"] = "Active ou désactive les bordures de ligne."
+L["STRING_OPTIONS_BAR_BACKDROP_SIZE_DESC"] = "Ajuste la taille de la bordure."
+L["STRING_OPTIONS_BAR_BACKDROP_TEXTURE_DESC"] = "Modifie l'apparence de la bordure."
+L["STRING_OPTIONS_BAR_BCOLOR"] = "Couleur de l'arrière plan"
+L["STRING_OPTIONS_BAR_BTEXTURE_DESC"] = "This texture lies below the top texture and its size is always the same as the window width."
+L["STRING_OPTIONS_BAR_COLOR_DESC"] = "Couleur et transparence pour cette texture. |cFFFFFF00Important|r : La couleur choisie est ignorée lors de l'utilisation des couleurs de classe."
+L["STRING_OPTIONS_BAR_COLORBYCLASS"] = "Couleur par classe de joueur"
+L["STRING_OPTIONS_BAR_COLORBYCLASS_DESC"] = "Lorsqu'elle est activée, cette texture utilise toujours la couleur de la classe du joueur."
+L["STRING_OPTIONS_BAR_FOLLOWING"] = "Toujours me montrer"
+L["STRING_OPTIONS_BAR_FOLLOWING_ANCHOR"] = "Barre du joueur:"
+L["STRING_OPTIONS_BAR_FOLLOWING_DESC"] = "Lorsqu'elle est activée, votre barre sera toujours affichée même si vous ne faites pas partie des joueurs les mieux classés."
+L["STRING_OPTIONS_BAR_GROW"] = "Direction du grossissement"
+L["STRING_OPTIONS_BAR_GROW_DESC"] = "Les bars se développent en haut ou en bas de la fenêtre."
+L["STRING_OPTIONS_BAR_HEIGHT"] = "Hauteur de la barre"
+L["STRING_OPTIONS_BAR_HEIGHT_DESC"] = "Augmenter ou diminuer la hauteur de la barre."
+L["STRING_OPTIONS_BAR_ICONFILE"] = "Fichier d'icônes"
+L["STRING_OPTIONS_BAR_ICONFILE_DESC"] = "Chemin d'accès pour un fichier d'icône personnalisé. L'image doit être un fichier .tga, 256x256 pixels avec un canal alpha."
+L["STRING_OPTIONS_BAR_ICONFILE_DESC2"] = "Sélectionnez le pack d'icônes à utiliser."
+L["STRING_OPTIONS_BAR_ICONFILE1"] = "Pas d'icône"
+L["STRING_OPTIONS_BAR_ICONFILE2"] = "Par défaut"
+L["STRING_OPTIONS_BAR_ICONFILE3"] = "Par défaut (noir blanc)"
+L["STRING_OPTIONS_BAR_ICONFILE4"] = "Par défaut (transparent)"
+L["STRING_OPTIONS_BAR_ICONFILE5"] = "Icônes arrondies"
+L["STRING_OPTIONS_BAR_ICONFILE6"] = "Par défaut (transparent noir blanc)"
+L["STRING_OPTIONS_BAR_SPACING"] = "Espacement"
+L["STRING_OPTIONS_BAR_SPACING_DESC"] = "Taille de l'espace entre chaque barre."
+L["STRING_OPTIONS_BAR_TEXTURE_DESC"] = "Texture utilisée sur le haut de la barre."
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM"] = "Texte personnalisé activé"
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM_DESC"] = "Lorsqu'il est activé, le texte de gauche est formaté selon les règles indiquées dans la case."
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2"] = "-"
+L["STRING_OPTIONS_BARLEFTTEXTCUSTOM2_DESC"] = "|cFFFFFF00{data1}|r : représente généralement le numéro de position du joueur. |cFFFFFF00{data2}|r : représente toujours le nom du joueur. |cFFFFFF00{data3}|r : dans certains cas, cette valeur représente l'icône de la faction ou du rôle du joueur. |cFFFFFF00{func}|r : exécute une fonction Lua personnalisée en ajoutant sa valeur de retour au texte. Exemple : {func return 'hello azeroth'} |cFFFFFF00Escape Sequences|r : à utiliser pour changer de couleur ou ajouter des textures. Recherchez \"UI escape sequences\" pour plus d'informations."
+L["STRING_OPTIONS_BARORIENTATION"] = "Orientation de la barre"
+L["STRING_OPTIONS_BARORIENTATION_DESC"] = "Direction dans laquelle les barres sont remplies."
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM"] = "Texte personnalisé activé"
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM_DESC"] = "Lorsqu'il est activé, le texte de droite est formaté selon les règles indiquées dans l'encadré."
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2"] = "-"
+L["STRING_OPTIONS_BARRIGHTTEXTCUSTOM2_DESC"] = "|cFFFFFF00{data1}|r : est le premier nombre passé, généralement ce nombre représente le total effectué. |cFFFFFF00{data2}|r : est le deuxième nombre passé, la plupart du temps ce nombre représente la moyenne par seconde. |cFFFFFF00{data3}|r : le troisième nombre passé, généralement ce nombre représente le pourcentage. |cFFFFFF00{func}|r : exécute une fonction Lua personnalisée en ajoutant sa valeur de retour au texte. Exemple : {func return 'hello azeroth'} |cFFFFFF00Escape Sequences|r : à utiliser pour changer de couleur ou ajouter des textures. Recherchez \"UI escape sequences\" pour plus d'informations."
+L["STRING_OPTIONS_BARS"] = "Réglages généraux des barres"
+L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE"] = "Fichier de texture personnalisée"
+L["STRING_OPTIONS_BARS_CUSTOM_TEXTURE_DESC"] = "|cFFFFFF00Important|r : l'image doit être de 256x32 pixels."
+L["STRING_OPTIONS_BARS_DESC"] = "Ces options contrôlent l'apparence de la barre."
+L["STRING_OPTIONS_BARSORT"] = "Ordre de tri du classement"
+L["STRING_OPTIONS_BARSORT_DESC"] = "Triez les barres par ordre décroissant ou croissant."
+L["STRING_OPTIONS_BARSTART"] = "La barre commence après l'icône"
+L["STRING_OPTIONS_BARSTART_DESC"] = "Lorsqu'elle est désactivée, la texture supérieure commence à gauche de l'icône au lieu de la droite. Ceci est utile lorsque vous utilisez un pack d'icônes avec des zones transparentes."
+L["STRING_OPTIONS_BARUR_ANCHOR"] = "Mises à jour rapides :"
+L["STRING_OPTIONS_BARUR_DESC"] = "Lorsqu'elles sont activées, les valeurs DPS et HPS sont mises à jour un peu plus rapidement que d'habitude."
+L["STRING_OPTIONS_BG_ALL_ALLY"] = "Tout afficher"
+L["STRING_OPTIONS_BG_ALL_ALLY_DESC"] = "Lorsqu'elle est activée, les joueurs ennemis sont également affichés lorsque la fenêtre est en mode Groupe. |cFFFFFF00Important|r : les modifications sont appliquées après la prochaine entrée en combat."
+L["STRING_OPTIONS_BG_ANCHOR"] = "Champ de bataille :"
+L["STRING_OPTIONS_BG_UNIQUE_SEGMENT"] = "Unique Segment"
+L["STRING_OPTIONS_BG_UNIQUE_SEGMENT_DESC"] = "Un segment est créé au début du champ de bataille et dure jusqu'à sa fin."
+L["STRING_OPTIONS_CAURAS"] = "Collecter les auras"
+L["STRING_OPTIONS_CAURAS_DESC"] = "Permettre la capture de : - |cFFFFFF00Buffs Uptime|r - |cFFFFFF00Debuffs Uptime|r - |cFFFFFF00Zone de vide|r -|cFFFFFF00 Temps de recharge|r"
+L["STRING_OPTIONS_CDAMAGE"] = "Collecter les dommages"
+L["STRING_OPTIONS_CDAMAGE_DESC"] = "Permettre la capture de : - |cFFFFFFFF00Dommages faits|r - |cFFFFFFFF00Dommages par seconde|r - |cFFFFFF00Tir ami|r - |cFFFFFFFF00Dommages pris|r"
+L["STRING_OPTIONS_CENERGY"] = "Collecter l'énergie"
+L["STRING_OPTIONS_CENERGY_DESC"] = "Permettre la capture de : - |cFFFFFF00Mana restaurée|r - |cFFFFFF00Rage générée|r - |cFFFFFF00Energie générée|r - |cFFFFFF00Pouvoir runique générée|r"
+L["STRING_OPTIONS_CHANGE_CLASSCOLORS"] = "Modifier les couleurs de classe"
+L["STRING_OPTIONS_CHANGE_CLASSCOLORS_DESC"] = "Sélectionnez de nouvelles couleurs pour les classes."
+L["STRING_OPTIONS_CHANGECOLOR"] = "Changer de couleur"
+L["STRING_OPTIONS_CHANGELOG"] = "Notes sur les versions"
+L["STRING_OPTIONS_CHART_ADD"] = "Ajout de données"
+L["STRING_OPTIONS_CHART_ADD2"] = "Ajouter"
+L["STRING_OPTIONS_CHART_ADDAUTHOR"] = "Auteur :"
+L["STRING_OPTIONS_CHART_ADDCODE"] = "Code :"
+L["STRING_OPTIONS_CHART_ADDICON"] = "Icône :"
+L["STRING_OPTIONS_CHART_ADDNAME"] = "Nom :"
+L["STRING_OPTIONS_CHART_ADDVERSION"] = "Version :"
+L["STRING_OPTIONS_CHART_AUTHOR"] = "Auteur"
+L["STRING_OPTIONS_CHART_AUTHORERROR"] = "Le nom de l'auteur n'est pas valable."
+L["STRING_OPTIONS_CHART_CANCEL"] = "Annuler"
+L["STRING_OPTIONS_CHART_CLOSE"] = "Fermer"
+L["STRING_OPTIONS_CHART_CODELOADED"] = "Le code est déjà chargé et ne peut pas être affiché."
+L["STRING_OPTIONS_CHART_EDIT"] = "Modifier le code"
+L["STRING_OPTIONS_CHART_EXPORT"] = "Exporter"
+L["STRING_OPTIONS_CHART_FUNCERROR"] = "La fonction est invalide."
+L["STRING_OPTIONS_CHART_ICON"] = "Icône"
+L["STRING_OPTIONS_CHART_IMPORT"] = "Importer"
+L["STRING_OPTIONS_CHART_IMPORTERROR"] = "La chaîne d'importation n'est pas valide."
+L["STRING_OPTIONS_CHART_NAME"] = "Nom"
+L["STRING_OPTIONS_CHART_NAMEERROR"] = "Le nom est invalide."
+L["STRING_OPTIONS_CHART_PLUGINWARNING"] = "Installez le plugin Chart Viewer pour afficher des graphiques personnalisés."
+L["STRING_OPTIONS_CHART_REMOVE"] = "Supprimer"
+L["STRING_OPTIONS_CHART_SAVE"] = "Sauvegarder"
+L["STRING_OPTIONS_CHART_VERSION"] = "Version"
+L["STRING_OPTIONS_CHART_VERSIONERROR"] = "La version n'est pas valide."
+L["STRING_OPTIONS_CHEAL"] = "Collecter les soins"
+L["STRING_OPTIONS_CHEAL_DESC"] = "Permettre la capture de : - |cFFFFFFFF00Soin effectué|r - |cFFFFFFFF00Absorbe|r - |cFFFFFFFF00Soin par seconde|r - |cFFFFFFFF00Soins en trop|r - |cFFFFFFFF00Soin pris|r - |cFFFFFFFF00Ennemis soignés|r - |cFFFFFF00Dommages évités|r"
+L["STRING_OPTIONS_CLASSCOLOR_MODIFY"] = "Modifier les couleurs de classe"
+L["STRING_OPTIONS_CLASSCOLOR_RESET"] = "Clic droit pour réinitialiser"
+L["STRING_OPTIONS_CLEANUP"] = "Effacement automatique des segments de la corbeille"
+L["STRING_OPTIONS_CLEANUP_DESC"] = "Lorsqu'ils sont activés, les segments de nettoyage de la corbeille sont automatiquement supprimés après deux autres segments."
+L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS"] = "Cliquez pour ouvrir le menu"
+L["STRING_OPTIONS_CLICK_TO_OPEN_MENUS_DESC"] = "Les boutons de la barre de titre n'affichent pas leurs menus lorsqu'on les survole. Vous devez plutôt cliquer dessus pour les ouvrir."
+L["STRING_OPTIONS_CLOUD"] = "Capture Cloud"
+L["STRING_OPTIONS_CLOUD_DESC"] = "Lorsqu'elle est activée, les données des collecteurs désactivés sont collectées avec d'autres membres du raid."
+L["STRING_OPTIONS_CMISC"] = "Diverses collectes"
+L["STRING_OPTIONS_CMISC_DESC"] = "Permettre la capture de : - |cFFFFFF00Rupture de contrôle de la foule|r - |cFFFFFF00Dispells|r - |cFFFFFF00Interrompt|r - |cFFFFFF00Resurrection|r - |cFFFFFF00Décès|r"
+L["STRING_OPTIONS_COLORANDALPHA"] = "Couleur & Alpha"
+L["STRING_OPTIONS_COLORFIXED"] = "Couleur fixe"
+L["STRING_OPTIONS_COMBAT_ALPHA"] = "Quand"
+L["STRING_OPTIONS_COMBAT_ALPHA_2"] = "Pendant le combat"
+L["STRING_OPTIONS_COMBAT_ALPHA_3"] = "En dehors du combat"
+L["STRING_OPTIONS_COMBAT_ALPHA_4"] = "Sans être dans un groupe"
+L["STRING_OPTIONS_COMBAT_ALPHA_5"] = "Sans être dans l'instance"
+L["STRING_OPTIONS_COMBAT_ALPHA_6"] = "À l'intérieur de l'instance"
+L["STRING_OPTIONS_COMBAT_ALPHA_7"] = "Raid Debug"
+L["STRING_OPTIONS_COMBAT_ALPHA_8"] = "Sur le champ de bataille"
+L["STRING_OPTIONS_COMBAT_ALPHA_9"] = "Dans une mythique +"
+L["STRING_OPTIONS_COMBAT_ALPHA_DESC"] = "Sélectionnez comment le combat affecte la transparence de la fenêtre. |cFFFFFF00Aucun changement|r : Ne modifie pas l'alpha. |cFFFFFF00Pendant le combat|r : Lorsque votre personnage entre en combat, l'alpha choisi est appliqué à la fenêtre. |cFFFFFF00Pendant le combat|r : Lorsque votre personnage entre en combat, l'alpha choisi est appliqué à la fenêtre : L'alpha est appliqué lorsque votre personnage n'est pas en combat. |cFFFFFF00Pendant qu'il n'est pas dans un groupe|r : Lorsque vous n'êtes pas dans un groupe de combat ou de raid, la fenêtre assume l'alpha sélectionné. |cFFFFFF00Important|r : Cette option écrase l'alpha déterminé par la fonction de transparence automatique."
+L["STRING_OPTIONS_COMBATTWEEKS"] = "Ajustements de combat"
+L["STRING_OPTIONS_COMBATTWEEKS_DESC"] = "Ajustements comportementaux sur la façon dont Details ! traite certains aspects du combat."
+L["STRING_OPTIONS_CONFIRM_ERASE"] = "Vous voulez effacer des données ?"
+L["STRING_OPTIONS_CUSTOMSPELL_ADD"] = "Ajouter un sort"
+L["STRING_OPTIONS_CUSTOMSPELLTITLE"] = "Modifier les paramètres des sorts"
+L["STRING_OPTIONS_CUSTOMSPELLTITLE_DESC"] = "Ce panneau vous permet de modifier le nom et l'icône des sorts."
+L["STRING_OPTIONS_DATABROKER"] = "Données intermédiaire :"
+L["STRING_OPTIONS_DATABROKER_TEXT"] = "Texte"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD1"] = "Dégâts infligés aux joueurs"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD2"] = "DPS réel du joueur"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD3"] = "Position des dommages"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD4"] = "Différence de dommages"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD5"] = "Guérison du joueur terminée"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD6"] = "HPS réel du joueur"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD7"] = "Position de guérison"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD8"] = "Différence de guérison"
+L["STRING_OPTIONS_DATABROKER_TEXT_ADD9"] = "Temps de combat écoulé"
+L["STRING_OPTIONS_DATABROKER_TEXT1_DESC"] = "|cFFFFFF00{dmg}|r : dommages causés aux joueurs. |cFFFFFF00{dps}|r : dommages effectifs du joueur par seconde. |cFFFFFF00{rdps}|r : dommages effectifs du raid par seconde. |cFFFFFF00{dpos}|r : position de rang entre les membres du raid ou les dommages du groupe de joueurs. |cFFFFFF00{ddiff}|r : différence de dommages entre vous et la position de première place.  |cFFFFFF00{heal}|r : guérison du joueur effectuée. |cFFFFFF00{hps}|r : guérison effective du joueur par seconde. |cFFFFFF00{rhps}|r : guérison efficace du raid par seconde. |cFFFFFF00{hpos}|r : position de rang entre les membres du raid ou du groupe de guérison. |cFFFFFF00{hdiff}|r : différence de guérison entre vous et la première place. |cFFFFFF00{time}|r : temps de combat écoulé."
+L["STRING_OPTIONS_DATACHARTTITLE"] = "Créer des données chronologiques pour les graphiques"
+L["STRING_OPTIONS_DATACHARTTITLE_DESC"] = "Ce panneau vous permet de créer une saisie de données personnalisée pour la création de graphiques."
+L["STRING_OPTIONS_DATACOLLECT_ANCHOR"] = "Types de données :"
+L["STRING_OPTIONS_DEATHLIMIT"] = "Montant des décès sur l'épreuves"
+L["STRING_OPTIONS_DEATHLIMIT_DESC"] = "Définissez le nombre d'épreuve à afficher sur l'écran des décès. |cFFFFFF00Important|r : ne s'applique qu'aux nouveaux décès après modification."
+L["STRING_OPTIONS_DEATHLOG_MINHEALING"] = "Journal des décès, guérison minimale"
+L["STRING_OPTIONS_DEATHLOG_MINHEALING_DESC"] = "Le registre des décès ne montre pas les guérisons en dessous de ce seuil. |cFFFFFF00Conseil|r : clic droit pour saisir manuellement la valeur."
+L["STRING_OPTIONS_DESATURATE_MENU"] = "Désaturé"
+L["STRING_OPTIONS_DESATURATE_MENU_DESC"] = "En activant cette option, toutes les icônes du menu de la barre d'outils deviennent noires et blanches."
+L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW"] = "Désactive 'Tous les affichages' dans le menu"
+L["STRING_OPTIONS_DISABLE_ALLDISPLAYSWINDOW_DESC"] = "Si cette option est activée, un clic droit sur la barre de titre affiche votre signet à la place."
+L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT"] = "Barre de désactivation en surbrillance"
+L["STRING_OPTIONS_DISABLE_BARHIGHLIGHT_DESC"] = "Survoler une barre ne le rendra pas plus lumineux."
+L["STRING_OPTIONS_DISABLE_GROUPS"] = "Désactiver le regroupement"
+L["STRING_OPTIONS_DISABLE_GROUPS_DESC"] = "Les fenêtres ne feront plus de groupes lorsqu'elles seront placées les unes à côté des autres."
+L["STRING_OPTIONS_DISABLE_LOCK_RESIZE"] = "Désactiver les boutons de redimensionnement"
+L["STRING_OPTIONS_DISABLE_LOCK_RESIZE_DESC"] = "Les boutons \"redimensionner\", \"verrouiller/déverrouiller\" et \"dégrouper\" n'apparaîtront pas lorsque vous survolerez une fenêtre."
+L["STRING_OPTIONS_DISABLE_RESET"] = "Désactiver le bouton de réinitialisation"
+L["STRING_OPTIONS_DISABLE_RESET_DESC"] = "Lorsqu'il est activé, le clic sur le bouton de réinitialisation ne fonctionnera pas, vous devez  réinitialiser les données à partir de son menu infobulle."
+L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON"] = "Désactiver le bouton d'étirement"
+L["STRING_OPTIONS_DISABLE_STRETCH_BUTTON_DESC"] = "Le bouton d'étirement ne sera pas affiché lorsque cette option est activée."
+L["STRING_OPTIONS_DISABLED_RESET"] = "La réinitialisation via ce bouton est actuellement désactivée, sélectionnez-la dans le menu info-bulle."
+L["STRING_OPTIONS_DTAKEN_EVERYTHING"] = "Dommages avancés subis"
+L["STRING_OPTIONS_DTAKEN_EVERYTHING_DESC"] = "Les dégâts subis sont toujours indiqués en mode \"|cFFFFFF00Tout|r\"."
+L["STRING_OPTIONS_ED"] = "Effacer les données"
+L["STRING_OPTIONS_ED_DESC"] = [=[|cFFFFFF00Manuellement|r : l'utilisateur doit cliquer sur le bouton de réinitialisation. |cFFFFFF00Demander|r : demande de réinitialisation à l'entrée d'une nouvelle instance. |cFFFFFF00Auto|r : efface les données après l'entrée d'une nouvelle instance.
+]=]
+L["STRING_OPTIONS_ED1"] = "Manuellement"
+L["STRING_OPTIONS_ED2"] = "Demander"
+L["STRING_OPTIONS_ED3"] = "Auto"
+L["STRING_OPTIONS_EDITIMAGE"] = "Modifier l'image"
+L["STRING_OPTIONS_EDITINSTANCE"] = "Fenêtre d'édition :"
+L["STRING_OPTIONS_ERASECHARTDATA"] = "Effacer les graphiques"
+L["STRING_OPTIONS_ERASECHARTDATA_DESC"] = "Lors de la déconnexion, toutes les données de combat recueillies pour créer des graphiques sont effacées."
+L["STRING_OPTIONS_EXTERNALS_TITLE"] = "Gadgets externes"
+L["STRING_OPTIONS_EXTERNALS_TITLE2"] = "Ces options contrôlent le comportement de nombreux gadgets étrangers."
+L["STRING_OPTIONS_GENERAL"] = "Paramètres généraux"
+L["STRING_OPTIONS_GENERAL_ANCHOR"] = "Général :"
+L["STRING_OPTIONS_HIDE_ICON"] = "Cacher l'icône"
+L["STRING_OPTIONS_HIDE_ICON_DESC"] = "Lorsqu'elle est activée, l'icône représentant l'affichage sélectionné n'est pas affichée. |cFFFFFF00Important|r : après avoir activé l'icône, il est recommandé d'ajuster l'emplacement du texte du titre."
+L["STRING_OPTIONS_HIDECOMBATALPHA_DESC"] = "La transparence est modifiée à cette valeur lorsque votre personnage correspond à la règle choisie. |cFFFFFF00Zero|r : entièrement caché, ne peut pas interagir dans la fenêtre. |cFFFFFF001 - 100|r : non caché, seule la transparence est modifiée, vous pouvez interagir avec la fenêtre."
+L["STRING_OPTIONS_HOTCORNER"] = "Afficher le bouton"
+L["STRING_OPTIONS_HOTCORNER_ACTION"] = "Clic sur"
+L["STRING_OPTIONS_HOTCORNER_ACTION_DESC"] = "Sélectionnez quoi faire lorsque vous cliquez sur le bouton de la barre Hotcorner avec le bouton gauche de la souris."
+L["STRING_OPTIONS_HOTCORNER_ANCHOR"] = "Hotcorner :"
+L["STRING_OPTIONS_HOTCORNER_DESC"] = "Afficher ou masquer le bouton au-dessus du panneau Hotcorner."
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK"] = "Activer le clic rapide"
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_DESC"] = "Activez ou désactivez la fonction Quick Click pour Hotcorners. Le bouton rapide est localisé dans le pixel supérieur gauche le plus éloigné. En déplaçant votre souris jusqu'à cet endroit, vous activez le coin supérieur gauche du coin chaud et si vous cliquez dessus, une action est effectuée."
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC"] = "Clic rapide sur clic"
+L["STRING_OPTIONS_HOTCORNER_QUICK_CLICK_FUNC_DESC"] = "Sélectionnez ce qu'il faut faire lorsque vous cliquez sur le bouton clic rapide sur Hotcorner."
+L["STRING_OPTIONS_IGNORENICKNAME"] = "Ignorer les surnoms et les avatars"
+L["STRING_OPTIONS_IGNORENICKNAME_DESC"] = "Lorsqu'ils sont activés, les surnoms et avatars définis par les autres membres de la guilde sont ignorés."
+L["STRING_OPTIONS_ILVL_TRACKER"] = "Suivi du niveau de l'objet :"
+L["STRING_OPTIONS_ILVL_TRACKER_DESC"] = "Lorsqu'il est activé et hors combat, l'addon interroge et suit le niveau des objets des joueurs dans le raid. S'il est désactivé, il lit toujours le niveau de l'objet à partir des requêtes des autres addons ou lorsque vous inspectez manuellement un autre joueur."
+L["STRING_OPTIONS_ILVL_TRACKER_TEXT"] = "Activé"
+L["STRING_OPTIONS_INSTANCE_ALPHA2"] = "Couleur de fond"
+L["STRING_OPTIONS_INSTANCE_ALPHA2_DESC"] = "Cette option vous permet de modifier la couleur du fond de la fenêtre."
+L["STRING_OPTIONS_INSTANCE_BACKDROP"] = "Texture de fond"
+L["STRING_OPTIONS_INSTANCE_BACKDROP_DESC"] = "Sélectionnez la texture de fond utilisée par cette fenêtre. |cFFFFFF00Par défaut|r : Détails Arrière-plan."
+L["STRING_OPTIONS_INSTANCE_COLOR"] = "Couleur de la fenêtre"
+L["STRING_OPTIONS_INSTANCE_COLOR_DESC"] = "Changez la couleur et l'alpha de cette fenêtre. |cFFFFFF00Important|r : l'alpha choisi ici est écrasé par les valeurs de |cFFFFFF00Auto Transparence|r lorsqu'il est activé. |cFFFFFF00Important|r : la sélection de la couleur de la fenêtre écrase toute personnalisation de la couleur sur la barre d'état."
+L["STRING_OPTIONS_INSTANCE_CURRENT"] = "Passage automatique à l'actuel"
+L["STRING_OPTIONS_INSTANCE_CURRENT_DESC"] = "Chaque fois qu'un combat commence, cette fenêtre passe automatiquement au segment en cours."
+L["STRING_OPTIONS_INSTANCE_DELETE"] = "Supprimer"
+L["STRING_OPTIONS_INSTANCE_DELETE_DESC"] = "Supprimer une fenêtre de façon permanente. Votre écran de jeu peut se recharger pendant le processus d'effacement."
+L["STRING_OPTIONS_INSTANCE_SKIN"] = "Habillage"
+L["STRING_OPTIONS_INSTANCE_SKIN_DESC"] = "Modifier l'apparence des fenêtres en fonction du thème de l'habillage"
+L["STRING_OPTIONS_INSTANCE_STATUSBAR_ANCHOR"] = "Barre d'état :"
+L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR"] = "Couleur et transparence"
+L["STRING_OPTIONS_INSTANCE_STATUSBARCOLOR_DESC"] = "Sélectionnez la couleur utilisée par la barre d'état. |cFFFFFF00Important|r : cette option écrase la couleur et la transparence choisies par rapport à la couleur de la fenêtre."
+L["STRING_OPTIONS_INSTANCE_STRATA"] = "couche de strates"
+L["STRING_OPTIONS_INSTANCE_STRATA_DESC"] = "Sélectionne la hauteur de la couche sur laquelle le cadre sera placé. La couche basse est la couche par défaut et fait que la fenêtre reste derrière la plupart des autres panneaux d'interface. En utilisant la couche haute, la fenêtre peut rester devant les autres panneaux principaux. Lorsque vous modifiez la hauteur du calque, vous pouvez trouver des conflits avec d'autres panneaux qui se chevauchent."
+L["STRING_OPTIONS_INSTANCES"] = "Fenêtres :"
+L["STRING_OPTIONS_INTERFACEDIT"] = "Mode d'édition de l'interface"
+L["STRING_OPTIONS_LEFT_MENU_ANCHOR"] = "Réglages du menu :"
+L["STRING_OPTIONS_LOCKSEGMENTS"] = "Segments verrouillés"
+L["STRING_OPTIONS_LOCKSEGMENTS_DESC"] = "Lorsqu'elle est activée, la modification du segment fait que toutes les autres fenêtres passent également à la section sélectionnée."
+L["STRING_OPTIONS_MANAGE_BOOKMARKS"] = "Gérer les signets"
+L["STRING_OPTIONS_MAXINSTANCES"] = "Montant de la fenêtre"
+L["STRING_OPTIONS_MAXINSTANCES_DESC"] = "Limiter le nombre de fenêtres qui peuvent être créées. Vous pouvez gérer vos fenêtres par le biais du menu Contrôle des fenêtres."
+L["STRING_OPTIONS_MAXSEGMENTS"] = "Segments Montant"
+L["STRING_OPTIONS_MAXSEGMENTS_DESC"] = "Contrôle le nombre de segments que vous souhaitez maintenir."
+L["STRING_OPTIONS_MENU_ALPHA"] = "Interaction avec la souris :"
+L["STRING_OPTIONS_MENU_ALPHAENABLED_DESC"] = "Lorsqu'elle est activée, la transparence change automatiquement lorsque vous passez le curseur et quittez la fenêtre. |cFFFFFF00Important|r : Ce paramètre écrase l'alpha sélectionné dans l'option Couleur de la fenêtre, dans la section Paramètres de la fenêtre."
+L["STRING_OPTIONS_MENU_ALPHAENTER"] = "En survolant"
+L["STRING_OPTIONS_MENU_ALPHAENTER_DESC"] = "Lorsque vous passez la souris sur la fenêtre, la transparence passe à cette valeur."
+L["STRING_OPTIONS_MENU_ALPHALEAVE"] = "Pas d'interaction"
+L["STRING_OPTIONS_MENU_ALPHALEAVE_DESC"] = "Lorsque vous n'avez pas la souris sur la fenêtre, la transparence change à cette valeur."
+L["STRING_OPTIONS_MENU_ALPHAWARNING"] = "L'interaction avec la souris est activée, l'alpha peut ne pas être affecté."
+L["STRING_OPTIONS_MENU_ANCHOR"] = "Boutons à attacher à droite"
+L["STRING_OPTIONS_MENU_ANCHOR_DESC"] = "Lorsqu'ils sont cochés, les boutons sont attachés au côté droit de la fenêtre."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORX"] = "Position X"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORX_DESC"] = "Ajustez l'emplacement du texte de l'attribut sur l'axe X."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORY"] = "Position Y"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ANCHORY_DESC"] = "Ajustez l'emplacement du texte de l'attribut sur l'axe Y."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ENABLED_DESC"] = "Actif affiche le nom d'affichage actuellement affiché dans la fenêtre."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ENCOUNTERTIMER"] = "Minuteur de rencontre"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_ENCOUNTERTIMER_DESC"] = "Lorsqu'il est activé, un chronomètre est affiché sur le côté gauche du texte."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_FONT"] = "-"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_FONT_DESC"] = "Sélectionnez la police de texte pour le texte d'attribut."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_SHADOW_DESC"] = "Activez ou désactivez l'ombre sur le texte."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_SIDE"] = "Attacher à la partie supérieure"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_SIDE_DESC"] = "Choisissez l'endroit où le texte est ancré."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTCOLOR"] = "Couleur du texte"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTCOLOR_DESC"] = "Changez la couleur du texte de l'attribut."
+L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTSIZE"] = "-"
+L["STRING_OPTIONS_MENU_ATTRIBUTE_TEXTSIZE_DESC"] = "Ajustez la taille du texte de l'attribut."
+L["STRING_OPTIONS_MENU_ATTRIBUTESETTINGS_ANCHOR"] = "Réglages :"
+L["STRING_OPTIONS_MENU_AUTOHIDE_DESC"] = "Cacher les boutons automatiquement lorsque la souris quitte la fenêtre et s'affiche lorsque vous revenez pour interagir à nouveau dans la fenêtre."
+L["STRING_OPTIONS_MENU_AUTOHIDE_LEFT"] = "Boutons de masquage automatique"
+L["STRING_OPTIONS_MENU_BUTTONSSIZE_DESC"] = "Choisissez la taille des boutons. Cela permet également de modifier les boutons ajoutés par les plugins."
+L["STRING_OPTIONS_MENU_FONT_FACE"] = "Police du texte des menus"
+L["STRING_OPTIONS_MENU_FONT_FACE_DESC"] = "Modifie la police utilisée dans tous les menus."
+L["STRING_OPTIONS_MENU_FONT_SIZE"] = "Taille du texte des menus"
+L["STRING_OPTIONS_MENU_FONT_SIZE_DESC"] = "Modifie la taille de la police dans tous les menus."
+L["STRING_OPTIONS_MENU_IGNOREBARS"] = "Ignore les barres"
+L["STRING_OPTIONS_MENU_IGNOREBARS_DESC"] = "Lorsqu'il est activé, toutes les lignes de cette fenêtre ne sont pas affectées par ce mécanisme."
+L["STRING_OPTIONS_MENU_SHOWBUTTONS"] = "Boutons d'affichage"
+L["STRING_OPTIONS_MENU_SHOWBUTTONS_DESC"] = "Choisissez les boutons qui sont affichés sur la barre de titre."
+L["STRING_OPTIONS_MENU_X"] = "Position X"
+L["STRING_OPTIONS_MENU_X_DESC"] = "Change la position de l'axe X."
+L["STRING_OPTIONS_MENU_Y"] = "Position Y"
+L["STRING_OPTIONS_MENU_Y_DESC"] = "Modifie la position de l'axe Y"
+L["STRING_OPTIONS_MENUS_SHADOW"] = "Ombre"
+L["STRING_OPTIONS_MENUS_SHADOW_DESC"] = "Ajoute une fine bordure d'ombre sur tous les boutons."
+L["STRING_OPTIONS_MENUS_SPACEMENT"] = "Espacement"
+L["STRING_OPTIONS_MENUS_SPACEMENT_DESC"] = "Contrôle la distance entre les boutons."
+L["STRING_OPTIONS_MICRODISPLAY_ANCHOR"] = "Micro-écrans:"
+L["STRING_OPTIONS_MICRODISPLAY_LOCK"] = "Verrouiller les micro-écrans"
+L["STRING_OPTIONS_MICRODISPLAY_LOCK_DESC"] = "Lorsqu'ils sont verrouillés, ils n'interagissent pas avec le survol de la souris et les clics."
+L["STRING_OPTIONS_MICRODISPLAYS_DROPDOWN_TOOLTIP"] = "Sélectionnez le micro-écran que vous souhaitez afficher de ce côté."
+L["STRING_OPTIONS_MICRODISPLAYS_OPTION_TOOLTIP"] = "Définissez la configuration pour ce micro affichage."
+L["STRING_OPTIONS_MICRODISPLAYS_SHOWHIDE_TOOLTIP"] = "Afficher ou masquer ce micro écran"
+L["STRING_OPTIONS_MICRODISPLAYS_WARNING"] = [=[|cFFFFFF00Note|r : les micro-écrans ne peuvent pas être affichés 
+car ils sont ancrés sur le côté inférieur 
+et la barre d'état est désactivée.]=]
+L["STRING_OPTIONS_MICRODISPLAYSSIDE"] = "Micro-écrans sur le dessus"
+L["STRING_OPTIONS_MICRODISPLAYSSIDE_DESC"] = "Place les micro-écrans en haut de la fenêtre ou sur le côté inférieur."
+L["STRING_OPTIONS_MICRODISPLAYWARNING"] = "Les micro-écrans ne sont pas affichés car la barre d'état est désactivée."
+L["STRING_OPTIONS_MINIMAP"] = "Afficher l'icône"
+L["STRING_OPTIONS_MINIMAP_ACTION"] = "Clic sur"
+L["STRING_OPTIONS_MINIMAP_ACTION_DESC"] = "Sélectionnez ce qu'il faut faire lorsque vous cliquez sur l'icône de la minimap avec le bouton gauche de la souris."
+L["STRING_OPTIONS_MINIMAP_ACTION1"] = "Ouvrir le panneau d'options"
+L["STRING_OPTIONS_MINIMAP_ACTION2"] = "Réinitialiser les segments"
+L["STRING_OPTIONS_MINIMAP_ACTION3"] = "Afficher/Masquer les fenêtres"
+L["STRING_OPTIONS_MINIMAP_ANCHOR"] = "Minimap:"
+L["STRING_OPTIONS_MINIMAP_DESC"] = "Afficher ou masquer l'icône de la miniature."
+L["STRING_OPTIONS_MISCTITLE"] = "Réglages divers"
+L["STRING_OPTIONS_MISCTITLE2"] = "Ceux-ci contrôlent plusieurs options."
+L["STRING_OPTIONS_NICKNAME"] = "Surnom"
+L["STRING_OPTIONS_NICKNAME_DESC"] = "Définissez un surnom pour vous. Les surnoms sont envoyés aux membres de la guilde et Details ! l'utilise à la place du nom de votre personnage."
+L["STRING_OPTIONS_OPEN_ROWTEXT_EDITOR"] = "Éditeur de texte de ligne"
+L["STRING_OPTIONS_OPEN_TEXT_EDITOR"] = "Ouvrir l'éditeur de texte"
+L["STRING_OPTIONS_OVERALL_ALL"] = "Tous les segments"
+L["STRING_OPTIONS_OVERALL_ALL_DESC"] = "Tous les segments sont ajoutés aux données globales."
+L["STRING_OPTIONS_OVERALL_ANCHOR"] = "Données globales :"
+L["STRING_OPTIONS_OVERALL_DUNGEONBOSS"] = "Boss de donjon"
+L["STRING_OPTIONS_OVERALL_DUNGEONBOSS_DESC"] = "Les segments avec les boss de donjon sont ajoutés aux données globales."
+L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN"] = "Les Trash du donjon"
+L["STRING_OPTIONS_OVERALL_DUNGEONCLEAN_DESC"] = "Les segments avec le nettoyage des trash mobs des donjons sont ajoutés aux données globales."
+L["STRING_OPTIONS_OVERALL_LOGOFF"] = "Fermeture de la session"
+L["STRING_OPTIONS_OVERALL_LOGOFF_DESC"] = "Lorsque cette option est activée, les données globales sont automatiquement effacées lorsque vous vous déconnectez du personnage."
+L["STRING_OPTIONS_OVERALL_MYTHICPLUS"] = "Efface au démarrage en Mythique+"
+L["STRING_OPTIONS_OVERALL_MYTHICPLUS_DESC"] = "Lorsqu'elles sont activées, les données globales sont automatiquement effacées lorsqu'une nouvelle course mythique+ commence."
+L["STRING_OPTIONS_OVERALL_NEWBOSS"] = "Efface les nouveaux boss de raid"
+L["STRING_OPTIONS_OVERALL_NEWBOSS_DESC"] = "Lorsqu'elle est activée, les données globales sont automatiquement effacées lorsque l'on fait face à un autre boss de raid."
+L["STRING_OPTIONS_OVERALL_RAIDBOSS"] = "Boss de raid"
+L["STRING_OPTIONS_OVERALL_RAIDBOSS_DESC"] = "Les segments comportant des rencontres de raid sont ajoutés aux données globales."
+L["STRING_OPTIONS_OVERALL_RAIDCLEAN"] = "Raid Trash"
+L["STRING_OPTIONS_OVERALL_RAIDCLEAN_DESC"] = "Les segments avec le trash mobs de raid sont ajoutés aux données globales."
+L["STRING_OPTIONS_PANIMODE"] = "Mode panique"
+L["STRING_OPTIONS_PANIMODE_DESC"] = "Lorsqu'il est activé et que vous êtes exclu du jeu (par une déconnexion, par exemple) et que vous vous battez contre un boss, tous les segments sont effacés, ce qui rend votre processus de déconnexion plus rapide."
+L["STRING_OPTIONS_PDW_ANCHOR"] = "Panneaux :"
+L["STRING_OPTIONS_PDW_SKIN_DESC"] = "Habillage à utiliser dans la fenêtre des détails du joueur, la fenêtre du rapport et le panneau d'options. Certaines modifications nécessitent /reload."
+L["STRING_OPTIONS_PERCENT_TYPE"] = "Type de pourcentage"
+L["STRING_OPTIONS_PERCENT_TYPE_DESC"] = "Modification de la méthode du pourcentage : |cFFFFFF00Total relatif|r : le pourcentage indique la fraction active du montant total effectué par tous les membres du raid. |cFFFFFF00Le premier joueur relatif|r : le pourcentage est relatif au montant du score du meilleur joueur."
+L["STRING_OPTIONS_PERFORMANCE"] = "Performance"
+L["STRING_OPTIONS_PERFORMANCE_ANCHOR"] = "Général :"
+L["STRING_OPTIONS_PERFORMANCE_ARENA"] = "Arène"
+L["STRING_OPTIONS_PERFORMANCE_BG15"] = "Champ de bataille 15"
+L["STRING_OPTIONS_PERFORMANCE_BG40"] = "Champ de bataille 40"
+L["STRING_OPTIONS_PERFORMANCE_DUNGEON"] = "Donjon"
+L["STRING_OPTIONS_PERFORMANCE_ENABLE_DESC"] = "S'il est activé, ce paramètre est appliqué lorsque votre raid correspond au type de raid sélectionné."
+L["STRING_OPTIONS_PERFORMANCE_ERASEWORLD"] = "Segments du monde à effacement automatique"
+L["STRING_OPTIONS_PERFORMANCE_ERASEWORLD_DESC"] = "Effacement automatique des segments lors des combats en extérieur."
+L["STRING_OPTIONS_PERFORMANCE_MYTHIC"] = "Mythique"
+L["STRING_OPTIONS_PERFORMANCE_PROFILE_LOAD"] = "Modification des performances du profil :"
+L["STRING_OPTIONS_PERFORMANCE_RAID15"] = "Raid 10-15"
+L["STRING_OPTIONS_PERFORMANCE_RAID30"] = "Raid 16-30"
+L["STRING_OPTIONS_PERFORMANCE_RF"] = "Recherche de raid"
+L["STRING_OPTIONS_PERFORMANCE_TYPES"] = "Type"
+L["STRING_OPTIONS_PERFORMANCE_TYPES_DESC"] = "C'est le type de raid où différentes options peuvent changer automatiquement."
+L["STRING_OPTIONS_PERFORMANCE1"] = "Réglages de performance"
+L["STRING_OPTIONS_PERFORMANCE1_DESC"] = "Ces options peuvent aider à économiser une partie de l'utilisation du processeur."
+L["STRING_OPTIONS_PERFORMANCECAPTURES"] = "Collecteur de données"
+L["STRING_OPTIONS_PERFORMANCECAPTURES_DESC"] = "Ces options sont responsables de l'analyse et de la collecte des données de combat."
+L["STRING_OPTIONS_PERFORMANCEPROFILES_ANCHOR"] = "Profils de performances :"
+L["STRING_OPTIONS_PICONS_DIRECTION"] = "Les plugins se fixent à droite"
+L["STRING_OPTIONS_PICONS_DIRECTION_DESC"] = "Lorsqu'elle est cochée, les boutons de plugin sont affichés sur le côté droit des boutons de menu."
+L["STRING_OPTIONS_PLUGINS"] = "Plugins"
+L["STRING_OPTIONS_PLUGINS_AUTHOR"] = "Auteur"
+L["STRING_OPTIONS_PLUGINS_NAME"] = "Nom"
+L["STRING_OPTIONS_PLUGINS_OPTIONS"] = "Options"
+L["STRING_OPTIONS_PLUGINS_RAID_ANCHOR"] = "Plugins de raid"
+L["STRING_OPTIONS_PLUGINS_SOLO_ANCHOR"] = "Plugins en solo"
+L["STRING_OPTIONS_PLUGINS_TOOLBAR_ANCHOR"] = "Barre d'outils des plugins"
+L["STRING_OPTIONS_PLUGINS_VERSION"] = "Version"
+L["STRING_OPTIONS_PRESETNONAME"] = "Donnez un nom à votre présélection."
+L["STRING_OPTIONS_PRESETTOOLD"] = "Ce préréglage est trop ancien et ne peut pas être chargé avec cette version de Details !"
+L["STRING_OPTIONS_PROFILE_COPYOKEY"] = "Profil copié avec succès."
+L["STRING_OPTIONS_PROFILE_FIELDEMPTY"] = "Le champ du nom est vide."
+L["STRING_OPTIONS_PROFILE_GLOBAL"] = "Sélectionnez le profil à utiliser sur tous les caractères."
+L["STRING_OPTIONS_PROFILE_LOADED"] = "Profil chargé :"
+L["STRING_OPTIONS_PROFILE_NOTCREATED"] = "Profil non créé."
+L["STRING_OPTIONS_PROFILE_OVERWRITTEN"] = "vous avez sélectionné un profil spécifique pour ce personnage"
+L["STRING_OPTIONS_PROFILE_POSSIZE"] = "Sauvegarder la taille et la position"
+L["STRING_OPTIONS_PROFILE_POSSIZE_DESC"] = "Enregistrez la position et la taille de la fenêtre dans le profil. Lorsqu'il est désactivé, chaque caractère a ses propres valeurs."
+L["STRING_OPTIONS_PROFILE_REMOVEOKEY"] = "Profil supprimé avec succès."
+L["STRING_OPTIONS_PROFILE_SELECT"] = "choisissez un profil."
+L["STRING_OPTIONS_PROFILE_SELECTEXISTING"] = "Sélectionnez un profil existant ou continuez à utiliser un nouveau profil pour ce personnage :"
+L["STRING_OPTIONS_PROFILE_USENEW"] = "Utiliser un nouveau profil"
+L["STRING_OPTIONS_PROFILES_ANCHOR"] = "Réglages :"
+L["STRING_OPTIONS_PROFILES_COPY"] = "Copier le profil de"
+L["STRING_OPTIONS_PROFILES_COPY_DESC"] = "Copiez tous les paramètres du profil sélectionné vers le profil actuel en écrasant toutes les valeurs."
+L["STRING_OPTIONS_PROFILES_CREATE"] = "Créer un profil"
+L["STRING_OPTIONS_PROFILES_CREATE_DESC"] = "Créer un nouveau profil."
+L["STRING_OPTIONS_PROFILES_CURRENT"] = "Profil actuel :"
+L["STRING_OPTIONS_PROFILES_CURRENT_DESC"] = "C'est le nom du profil actif actuel."
+L["STRING_OPTIONS_PROFILES_ERASE"] = "Supprimer le profil"
+L["STRING_OPTIONS_PROFILES_ERASE_DESC"] = "Supprimez le profil sélectionné."
+L["STRING_OPTIONS_PROFILES_RESET"] = "Rétablir le profil actuel"
+L["STRING_OPTIONS_PROFILES_RESET_DESC"] = "Réinitialiser tous les paramètres du profil sélectionné aux valeurs par défaut."
+L["STRING_OPTIONS_PROFILES_SELECT"] = "Sélectionner un profil"
+L["STRING_OPTIONS_PROFILES_SELECT_DESC"] = "Chargez un profil existant. Si vous utilisez le même profil pour tous les caractères (option Utiliser sur tous les caractères), une exception est créée pour ce caractère."
+L["STRING_OPTIONS_PROFILES_TITLE"] = "Profils"
+L["STRING_OPTIONS_PROFILES_TITLE_DESC"] = "Ces options vous permettent de partager les mêmes paramètres entre différents personnages."
+L["STRING_OPTIONS_PS_ABBREVIATE"] = "Format numérique"
+L["STRING_OPTIONS_PS_ABBREVIATE_COMMA"] = "Virgule"
+L["STRING_OPTIONS_PS_ABBREVIATE_DESC"] = "Choisissez la méthode d'abréviation. |cFFFFFF00ToK I|r : 520600 = 520,6K 19530000 = 19,53M |cFFFFFF00ToK II|r : 520600 = 520K 19530000 = 19,53M |cFFFFFF00ToM I|r : 520600 = 520.6K 19530000 = 19M |cFFFFFF00Virgule|r : 19530000 = 19.530.000 |cFFFFFF00Bas|r et |cFFFFFF00Haut|r : sont des références aux lettres \"K\" et \"M\" si elles sont en minuscules ou en majuscules."
+L["STRING_OPTIONS_PS_ABBREVIATE_NONE"] = "Aucun"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOK"] = "ToK I Supérieur"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOK0"] = "ToM I Supérieur"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOK0MIN"] = "ToM I Inférieur"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOK2"] = "ToK II Supérieur"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOK2MIN"] = "ToK II Inférieur"
+L["STRING_OPTIONS_PS_ABBREVIATE_TOKMIN"] = "ToK I Baisse"
+L["STRING_OPTIONS_PVPFRAGS"] = "Seulement les frags JcJ"
+L["STRING_OPTIONS_PVPFRAGS_DESC"] = "Lorsqu'elle est activée, seules les tueries contre des joueurs ennemis comptent sur l'affichage |cFFFFFF00domage > frags|r."
+L["STRING_OPTIONS_REALMNAME"] = "Supprimer le nom du domaine"
+L["STRING_OPTIONS_REALMNAME_DESC"] = "Lorsqu'il est activé, le nom du domaine du personnage n'est pas affiché. |cFFFFFF00Désactivé|r : Charles-Netherwing |cFFFFFF00Activée|r : Charles"
+L["STRING_OPTIONS_REPORT_ANCHOR"] = "Rapport :"
+L["STRING_OPTIONS_REPORT_HEALLINKS"] = "Liens utiles sur l'orthographe"
+L["STRING_OPTIONS_REPORT_HEALLINKS_DESC"] = "Lorsque vous envoyez un rapport et que cette option est activée, les sorts |cFF55FF55helpful|r sont signalés avec le lien du sort au lieu de son nom. Par défaut, les sorts |cFFFF5555Harmful|r sont signalés avec des liens."
+L["STRING_OPTIONS_REPORT_SCHEMA"] = "Format"
+L["STRING_OPTIONS_REPORT_SCHEMA_DESC"] = "Sélectionnez le format de texte pour le texte lié sur le canal de discussion."
+L["STRING_OPTIONS_REPORT_SCHEMA1"] = "Total / Par seconde / Pourcentage"
+L["STRING_OPTIONS_REPORT_SCHEMA2"] = "Pourcentage / Par seconde / Total"
+L["STRING_OPTIONS_REPORT_SCHEMA3"] = "Pourcentage / Total / Par seconde"
+L["STRING_OPTIONS_RESET_TO_DEFAULT"] = "Remise en défaut"
+L["STRING_OPTIONS_ROW_SETTING_ANCHOR"] = "En-tête pour les options de disposition dans les barres d'options: Paramètres généraux"
+L["STRING_OPTIONS_ROWADV_TITLE"] = "Paramètres avancés de la ligne"
+L["STRING_OPTIONS_ROWADV_TITLE_DESC"] = "Ces options vous permettent de modifier les lignes plus profondément."
+L["STRING_OPTIONS_RT_COOLDOWN1"] = "%s utilisés sur %s !"
+L["STRING_OPTIONS_RT_COOLDOWN2"] = "%s utilisés !"
+L["STRING_OPTIONS_RT_COOLDOWNS_ANCHOR"] = "Annoncer les temps de recharge :"
+L["STRING_OPTIONS_RT_COOLDOWNS_CHANNEL"] = "Canal"
+L["STRING_OPTIONS_RT_COOLDOWNS_CHANNEL_DESC"] = "Quel canal de discussion est utilisé pour envoyer le message d'alerte. Si |cFFFFFF00Observer|r est sélectionné, toutes les durées sont affichées sur votre chat, à l'exception des durées individuelles."
+L["STRING_OPTIONS_RT_COOLDOWNS_CUSTOM"] = "Texte personnalisé"
+L["STRING_OPTIONS_RT_COOLDOWNS_CUSTOM_DESC"] = "Tapez votre propre phrase à envoyer. Utilisez |cFFFFFF00{sort}|r pour ajouter le nom de la phrase à envoyer. Utilisez |cFFFFFF00{cible}|r pour ajouter le nom de la cible du joueur."
+L["STRING_OPTIONS_RT_COOLDOWNS_ONOFF_DESC"] = "Lorsque vous utilisez un temps de recharge, un message est envoyé par le canal sélectionné."
+L["STRING_OPTIONS_RT_COOLDOWNS_SELECT"] = "Liste de temps de recharge ignorée"
+L["STRING_OPTIONS_RT_COOLDOWNS_SELECT_DESC"] = "Choisissez les temps de recharge qui doivent être ignorées."
+L["STRING_OPTIONS_RT_DEATH_MSG"] = "Details! %s's Mort"
+L["STRING_OPTIONS_RT_DEATHS_ANCHOR"] = "Annonce des décès :"
+L["STRING_OPTIONS_RT_DEATHS_FIRST"] = "Seulement en premier"
+L["STRING_OPTIONS_RT_DEATHS_FIRST_DESC"] = "Faites en sorte qu'il n'annonce que les premiers X décès pendant la rencontre."
+L["STRING_OPTIONS_RT_DEATHS_HITS"] = "Nombre de coups"
+L["STRING_OPTIONS_RT_DEATHS_HITS_DESC"] = "Lorsque vous annoncez le décès, indiquez le nombre de coups."
+L["STRING_OPTIONS_RT_DEATHS_ONOFF_DESC"] = "Lorsqu'un membre du raid meurt, il envoie à la chaîne de raid ce qui a tué ce joueur."
+L["STRING_OPTIONS_RT_DEATHS_WHERE"] = "Instances"
+L["STRING_OPTIONS_RT_DEATHS_WHERE_DESC"] = "Sélectionnez le lieu où les décès peuvent être signalés. |cFFFFFF00Important|r pour les raids /le canal de raid est utilisé, /p pendant les instances. Si |cFFFFFF00Observer|r est sélectionné, les décès ne sont affichés que pour vous dans le chat."
+L["STRING_OPTIONS_RT_DEATHS_WHERE1"] = "Raid & Instance"
+L["STRING_OPTIONS_RT_DEATHS_WHERE2"] = "Raid uniquement"
+L["STRING_OPTIONS_RT_DEATHS_WHERE3"] = "Instance uniquement"
+L["STRING_OPTIONS_RT_FIRST_HIT"] = "Premier coup"
+L["STRING_OPTIONS_RT_FIRST_HIT_DESC"] = "Affiche sur le canal de discussion (|cFFFFFF00seulement pour vous|r) qui a donné le premier coup, généralement celui qui a commencé le combat."
+L["STRING_OPTIONS_RT_IGNORE_TITLE"] = "Ignorer les temps de recharge"
+L["STRING_OPTIONS_RT_INFOS"] = "Informations supplémentaires :"
+L["STRING_OPTIONS_RT_INFOS_PREPOTION"] = "Utilisation de Pré potion"
+L["STRING_OPTIONS_RT_INFOS_PREPOTION_DESC"] = "Lorsqu'il est activé et après une rencontre de raid, affiche dans votre canal de discussion (|cFFFFFF00uniquement pour vous|r) qui a utilisé une potion avant l'attaque."
+L["STRING_OPTIONS_RT_INTERRUPT"] = "%s interrompu !"
+L["STRING_OPTIONS_RT_INTERRUPT_ANCHOR"] = "Annonce des interruptions :"
+L["STRING_OPTIONS_RT_INTERRUPT_NEXT"] = "Suivant : %s"
+L["STRING_OPTIONS_RT_INTERRUPTS_CHANNEL"] = "Canal"
+L["STRING_OPTIONS_RT_INTERRUPTS_CHANNEL_DESC"] = "Quel canal de chat est utilisé pour envoyer le message d'alerte. Si |cFFFFFF00Observer|r est sélectionné, toutes les interruptions sont publiées uniquement pour vous dans le chat."
+L["STRING_OPTIONS_RT_INTERRUPTS_CUSTOM"] = "Texte personnalisé"
+L["STRING_OPTIONS_RT_INTERRUPTS_CUSTOM_DESC"] = "Tapez votre propre phrase à envoyer. Utilisez |cFFFFFF00{sort}|r pour ajouter le nom du sort interrompu. Utilisez |cFFFFFF00{suivant}|r pour ajouter le nom du prochain joueur renseigné dans la case 'suivant'."
+L["STRING_OPTIONS_RT_INTERRUPTS_NEXT"] = "Joueur suivant"
+L["STRING_OPTIONS_RT_INTERRUPTS_NEXT_DESC"] = "Lorsqu'il existe, une séquence d'interruption, placez le nom du joueur responsable de la prochaine interruption."
+L["STRING_OPTIONS_RT_INTERRUPTS_ONOFF_DESC"] = "Lorsque vous réussissez à interrompre un sort, un message est envoyé."
+L["STRING_OPTIONS_RT_INTERRUPTS_WHISPER"] = "Chuchoter à"
+L["STRING_OPTIONS_RT_OTHER_ANCHOR"] = "Général :"
+L["STRING_OPTIONS_RT_TITLE"] = "Outils pour Raiders"
+L["STRING_OPTIONS_RT_TITLE_DESC"] = "Dans ce panneau, vous pouvez activer plusieurs mécanismes pour vous aider lors des raids."
+L["STRING_OPTIONS_SAVELOAD"] = "Enregistrer et charger"
+L["STRING_OPTIONS_SAVELOAD_APPLYALL"] = "L'habillage actuelle a été appliquée sur toutes les autres fenêtres."
+L["STRING_OPTIONS_SAVELOAD_APPLYALL_DESC"] = "Appliquez l'habillage actuelle sur toutes les fenêtres créées."
+L["STRING_OPTIONS_SAVELOAD_APPLYTOALL"] = "Appliquer à toutes les fenêtres"
+L["STRING_OPTIONS_SAVELOAD_CREATE_DESC"] = "Enregistrez l'habillage actuel comme préréglage, vous pouvez l'exporter ou le conserver comme sauvegarde."
+L["STRING_OPTIONS_SAVELOAD_DESC"] = "Ces options vous permettent de sauvegarder ou de charger des paramètres prédéfinis."
+L["STRING_OPTIONS_SAVELOAD_ERASE_DESC"] = "Cette option permet d'effacer un habillage précédemment sauvegardée."
+L["STRING_OPTIONS_SAVELOAD_EXPORT"] = "Exporter"
+L["STRING_OPTIONS_SAVELOAD_EXPORT_COPY"] = "Appuyez sur CTRL + C"
+L["STRING_OPTIONS_SAVELOAD_EXPORT_DESC"] = "Sauvegarde de l'habillage au format texte."
+L["STRING_OPTIONS_SAVELOAD_IMPORT"] = "Importer un habillage personnalisé"
+L["STRING_OPTIONS_SAVELOAD_IMPORT_DESC"] = "Importer un habillage au format texte."
+L["STRING_OPTIONS_SAVELOAD_IMPORT_OKEY"] = "Habillage importé avec succès dans votre liste d'habillage sauvegardés. Vous pouvez maintenant l'appliquer via la boîte de dépôt 'Appliquer'."
+L["STRING_OPTIONS_SAVELOAD_LOAD"] = "Appliquer"
+L["STRING_OPTIONS_SAVELOAD_LOAD_DESC"] = "Choisissez l'habillage enregistrés précédemment pour l'appliquer à la fenêtre actuellement sélectionnée."
+L["STRING_OPTIONS_SAVELOAD_MAKEDEFAULT"] = "Ensemble standard"
+L["STRING_OPTIONS_SAVELOAD_PNAME"] = "Nom"
+L["STRING_OPTIONS_SAVELOAD_REMOVE"] = "Effacer"
+L["STRING_OPTIONS_SAVELOAD_RESET"] = "Charger l'habillage par défaut"
+L["STRING_OPTIONS_SAVELOAD_SAVE"] = "sauver"
+L["STRING_OPTIONS_SAVELOAD_SKINCREATED"] = "Habillage crée."
+L["STRING_OPTIONS_SAVELOAD_STD_DESC"] = "Définissez l'apparence actuelle comme l'habillage standard. Cet habillage est appliqué sur toutes les nouvelles fenêtres créées."
+L["STRING_OPTIONS_SAVELOAD_STDSAVE"] = "L'habillage standard a été enregistré, de nouvelles fenêtres utiliseront cet habillage par défaut."
+L["STRING_OPTIONS_SCROLLBAR"] = "Barre de défilement"
+L["STRING_OPTIONS_SCROLLBAR_DESC"] = "Activez ou désactivez la barre de défilement. Par défaut, les barres de défilement de Details ! sont remplacées par un mécanisme qui étire la fenêtre. La |cFFFFFF00poignée d'étirement|r  est située à l'extérieur, au-dessus du bouton/menu de la fenêtre (à gauche du bouton de fermeture)."
+L["STRING_OPTIONS_SEGMENTSSAVE"] = "Segments enregistrés"
+L["STRING_OPTIONS_SEGMENTSSAVE_DESC"] = "Combien de segments vous souhaitez enregistrer entre les sessions de jeu. Des valeurs élevées peuvent augmenter le temps de déconnexion de votre personnage."
+L["STRING_OPTIONS_SENDFEEDBACK"] = "Retour d'information"
+L["STRING_OPTIONS_SHOW_SIDEBARS"] = "Afficher les bordures"
+L["STRING_OPTIONS_SHOW_SIDEBARS_DESC"] = "Affiche ou masque les bordures des fenêtres."
+L["STRING_OPTIONS_SHOW_STATUSBAR"] = "Afficher la barre d'état"
+L["STRING_OPTIONS_SHOW_STATUSBAR_DESC"] = "Affichez ou masquez la barre d'état inférieure."
+L["STRING_OPTIONS_SHOW_TOTALBAR_COLOR_DESC"] = "Sélectionnez la couleur. La valeur de transparence suit la valeur de la ligne alpha."
+L["STRING_OPTIONS_SHOW_TOTALBAR_DESC"] = "Afficher ou cacher la barre totale."
+L["STRING_OPTIONS_SHOW_TOTALBAR_ICON"] = "Icône"
+L["STRING_OPTIONS_SHOW_TOTALBAR_ICON_DESC"] = "Sélectionnez l'icône qui apparaît sur la barre totale."
+L["STRING_OPTIONS_SHOW_TOTALBAR_INGROUP"] = "Seulement en groupe"
+L["STRING_OPTIONS_SHOW_TOTALBAR_INGROUP_DESC"] = "La barre totale n'est pas affichée si vous n'êtes pas dans un groupe."
+L["STRING_OPTIONS_SIZE"] = "Taille"
+L["STRING_OPTIONS_SKIN_A"] = "Paramètres de l'habillage"
+L["STRING_OPTIONS_SKIN_A_DESC"] = "Ces options vous permettent de changer l'habillage."
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON1"] = "Aligner dans le chat de droite"
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON1_DESC"] = "Déplacez et redimensionnez les fenêtres |cFFFFFF00#1|r et |cFFFFFF00#2|r au-dessus de la fenêtre de discussion de droite."
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON2"] = "Définir la bordure de l'info-bulle en Noir"
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON2_DESC"] = "Modifiez l'info-bulle: Couleur de la bordure en: |cFFFFFF00Noir|r. Taille de la bordure à: |cFFFFFF0016|r. Texture à: |cFFFFFF00Info-bulle Blizzard|r."
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON3"] = "Supprimer la bordure de l'info-bulle"
+L["STRING_OPTIONS_SKIN_ELVUI_BUTTON3_DESC"] = "Modifiez l'info-bulle: Couleur de la bordure en: |cFFFFFF00Transparent|r."
+L["STRING_OPTIONS_SKIN_EXTRA_OPTIONS_ANCHOR"] = "Options d'habillage :"
+L["STRING_OPTIONS_SKIN_LOADED"] = "habillage correctement chargé."
+L["STRING_OPTIONS_SKIN_PRESETS_ANCHOR"] = "Enregistrer les paramètres actuels en tant que habillage personnalisé:"
+L["STRING_OPTIONS_SKIN_PRESETSCONFIG_ANCHOR"] = "Gérer les habillages personnalisés enregistrés:"
+L["STRING_OPTIONS_SKIN_REMOVED"] = "Habillage enlevé."
+L["STRING_OPTIONS_SKIN_RESET_TOOLTIP"] = "Réinitialiser la bordure de l'info-bulle"
+L["STRING_OPTIONS_SKIN_RESET_TOOLTIP_DESC"] = "Définissez la couleur et la texture de la bordure de l'infobulle par défaut."
+L["STRING_OPTIONS_SKIN_SELECT"] = "sélectionner un habillage"
+L["STRING_OPTIONS_SKIN_SELECT_ANCHOR"] = "Sélection de l'habillage :"
+L["STRING_OPTIONS_SOCIAL"] = "Social"
+L["STRING_OPTIONS_SOCIAL_DESC"] = "Dites comment vous voulez être connu dans votre environnement de guilde."
+L["STRING_OPTIONS_SPELL_ADD"] = "Ajouter"
+L["STRING_OPTIONS_SPELL_ADDICON"] = "Nouvelle icône :"
+L["STRING_OPTIONS_SPELL_ADDNAME"] = "Nouveau nom :"
+L["STRING_OPTIONS_SPELL_ADDSPELL"] = "Ajouter un sort"
+L["STRING_OPTIONS_SPELL_ADDSPELLID"] = "SortID"
+L["STRING_OPTIONS_SPELL_CLOSE"] = "Fermer"
+L["STRING_OPTIONS_SPELL_ICON"] = "Icône"
+L["STRING_OPTIONS_SPELL_IDERROR"] = "ID du sort invalide."
+L["STRING_OPTIONS_SPELL_INDEX"] = "Index"
+L["STRING_OPTIONS_SPELL_NAME"] = "Nom"
+L["STRING_OPTIONS_SPELL_NAMEERROR"] = "Nom du sort invalide."
+L["STRING_OPTIONS_SPELL_NOTFOUND"] = "Sort non trouvé."
+L["STRING_OPTIONS_SPELL_REMOVE"] = "Supprimer"
+L["STRING_OPTIONS_SPELL_RESET"] = "Réinitialiser"
+L["STRING_OPTIONS_SPELL_SPELLID"] = "Sort ID"
+L["STRING_OPTIONS_STRETCH"] = "Bouton extensible sur le dessus"
+L["STRING_OPTIONS_STRETCH_DESC"] = "Place le bouton extensible en haut de la fenêtre."
+L["STRING_OPTIONS_STRETCHTOP"] = "Bouton étendu toujours sur le dessus"
+L["STRING_OPTIONS_STRETCHTOP_DESC"] = "Le bouton d'étirement sera placé sur les strates FULLSCREEN et restera toujours plus haut que les autres cadres. |cFFFFFF00Important|r : En déplaçant la pince pour une couche haute, elle peut rester devant les autres cadres comme les sacs à dos, à n'utiliser que si vous en avez vraiment besoin."
+L["STRING_OPTIONS_SWITCH_ANCHOR"] = "Interrupteurs :"
+L["STRING_OPTIONS_SWITCHINFO"] = "|cFFF79F81 GAUCHE DÉSACTIVÉ|r |cFF81BEF7 DROIT ACTIVÉ|r"
+L["STRING_OPTIONS_TABEMB_ANCHOR"] = "Onglet Chat Intégrer"
+L["STRING_OPTIONS_TABEMB_ENABLED_DESC"] = "Lorsqu'elle est activée, une ou plusieurs fenêtres sont attachées sur un onglet de discussion."
+L["STRING_OPTIONS_TABEMB_SINGLE"] = "Fenêtre unique"
+L["STRING_OPTIONS_TABEMB_SINGLE_DESC"] = "Lorsqu'il est activé, il n'attachera qu'une seule fenêtre au lieu de deux."
+L["STRING_OPTIONS_TABEMB_TABNAME"] = "Nom de l'onglet"
+L["STRING_OPTIONS_TABEMB_TABNAME_DESC"] = "Le nom de l'onglet sur lequel les fenêtres seront fixées."
+L["STRING_OPTIONS_TESTBARS"] = "Créer des barres de test"
+L["STRING_OPTIONS_TEXT"] = "Paramètres du texte de la barre"
+L["STRING_OPTIONS_TEXT_DESC"] = "Ces options contrôlent l'apparence des textes des lignes de la fenêtre."
+L["STRING_OPTIONS_TEXT_FIXEDCOLOR"] = "Couleur du texte"
+L["STRING_OPTIONS_TEXT_FIXEDCOLOR_DESC"] = "Changez la couleur des textes de gauche et de droite. Ignoré si |cFFFFFFFFcoleur par classe|r est activé."
+L["STRING_OPTIONS_TEXT_FONT"] = "Police du texte"
+L["STRING_OPTIONS_TEXT_FONT_DESC"] = "Changez la police des textes de gauche et de droite."
+L["STRING_OPTIONS_TEXT_LCLASSCOLOR_DESC"] = "Lorsqu'il est activé, le texte utilise toujours la couleur de la classe du joueur."
+L["STRING_OPTIONS_TEXT_LEFT_ANCHOR"] = "Texte à gauche :"
+L["STRING_OPTIONS_TEXT_LOUTILINE"] = "Ombre de texte"
+L["STRING_OPTIONS_TEXT_LOUTILINE_DESC"] = "Activez ou désactivez le contour pour le texte de gauche."
+L["STRING_OPTIONS_TEXT_LPOSITION"] = "Afficher le numéro"
+L["STRING_OPTIONS_TEXT_LPOSITION_DESC"] = "Afficher le numéro de position sur le côté gauche du nom du joueur."
+L["STRING_OPTIONS_TEXT_LTRANSLIT"] = "Translitérer"
+L["STRING_OPTIONS_TEXT_LTRANSLIT_DESC"] = "Faites ces lettres russes que personne ne comprend être présentées comme des lettres occidentales."
+L["STRING_OPTIONS_TEXT_RIGHT_ANCHOR"] = "Texte de droite:"
+L["STRING_OPTIONS_TEXT_ROUTILINE_DESC"] = "Activez ou désactivez le contour du texte de droite."
+L["STRING_OPTIONS_TEXT_ROWICONS_ANCHOR"] = "Icônes :"
+L["STRING_OPTIONS_TEXT_SHOW_BRACKET"] = "Support"
+L["STRING_OPTIONS_TEXT_SHOW_BRACKET_DESC"] = "Choisir quel caractère est utilisé pour ouvrir et fermer le bloc par seconde et par pourcentage."
+L["STRING_OPTIONS_TEXT_SHOW_PERCENT"] = "Afficher le pourcentage"
+L["STRING_OPTIONS_TEXT_SHOW_PERCENT_DESC"] = "Montrez le pourcentage. Lors de la désactivation du pourcentage, vous pouvez régler 'Séparateur' sur 'aucun' pour éviter une virgule supplémentaire après le DPS."
+L["STRING_OPTIONS_TEXT_SHOW_PS"] = "Afficher par seconde"
+L["STRING_OPTIONS_TEXT_SHOW_PS_DESC"] = "Afficher les dégâts par seconde et les soins par seconde."
+L["STRING_OPTIONS_TEXT_SHOW_SEPARATOR"] = "Séparateur"
+L["STRING_OPTIONS_TEXT_SHOW_SEPARATOR_DESC"] = "Choisir le caractère utilisé pour séparer le montant par seconde du pourcentage."
+L["STRING_OPTIONS_TEXT_SHOW_TOTAL"] = "Afficher le total"
+L["STRING_OPTIONS_TEXT_SHOW_TOTAL_DESC"] = "Montrez le total réalisé par le personnage. Par exemple : dommage total, guérison totale reçue."
+L["STRING_OPTIONS_TEXT_SIZE"] = "Taille du texte"
+L["STRING_OPTIONS_TEXT_SIZE_DESC"] = "Modifiez la taille des textes de gauche et de droite."
+L["STRING_OPTIONS_TEXT_TEXTUREL_ANCHOR"] = "Arrière-plan :"
+L["STRING_OPTIONS_TEXT_TEXTUREU_ANCHOR"] = "Apparence :"
+L["STRING_OPTIONS_TEXTEDITOR_CANCEL"] = "Annuler"
+L["STRING_OPTIONS_TEXTEDITOR_CANCEL_TOOLTIP"] = "Terminez la modification et ignorez toute modification du code."
+L["STRING_OPTIONS_TEXTEDITOR_COLOR_TOOLTIP"] = "Sélectionnez le texte, puis cliquez sur le bouton de couleur pour modifier la couleur de texte sélectionnée."
+L["STRING_OPTIONS_TEXTEDITOR_COMMA"] = "Virgule"
+L["STRING_OPTIONS_TEXTEDITOR_COMMA_TOOLTIP"] = "Ajoutez une fonction pour formater les nombres, en les séparant par des virgules. Exemple: 1000000 à 1.000.000."
+L["STRING_OPTIONS_TEXTEDITOR_DATA"] = "[Data %s]"
+L["STRING_OPTIONS_TEXTEDITOR_DATA_TOOLTIP"] = "Ajouter un flux de données : |cFFFFFF00Data 1|r : représente normalement le total fait par le joueur ou le numéro de position. |cFFFF00Data 2|r : dans la plupart des cas, représente le DPS, le HPS ou le nom du joueur. |cFFFFFF00Data 3|r : représente le pourcentage réalisé par l'icône du joueur, de la spécification ou de la faction."
+L["STRING_OPTIONS_TEXTEDITOR_DONE"] = "Terminé"
+L["STRING_OPTIONS_TEXTEDITOR_DONE_TOOLTIP"] = "Terminez l'édition et sauvegardez le code."
+L["STRING_OPTIONS_TEXTEDITOR_FUNC"] = "Function"
+L["STRING_OPTIONS_TEXTEDITOR_FUNC_TOOLTIP"] = "Ajoutez une fonction vide. Les fonctions doivent toujours renvoyer un nombre."
+L["STRING_OPTIONS_TEXTEDITOR_RESET"] = "Réinitialiser"
+L["STRING_OPTIONS_TEXTEDITOR_RESET_TOOLTIP"] = "Effacez tous les codes et ajoutez le code par défaut."
+L["STRING_OPTIONS_TEXTEDITOR_TOK"] = "ToK"
+L["STRING_OPTIONS_TEXTEDITOR_TOK_TOOLTIP"] = "Ajouter une fonction pour formater les nombres en abrégeant ses valeurs. Exemple : 1500000 à 1,5kk."
+L["STRING_OPTIONS_TIMEMEASURE"] = "Mesure du temps"
+L["STRING_OPTIONS_TIMEMEASURE_DESC"] = "|cFFFFFF00Activité|r : le chronomètre de chaque membre du raid est mis en attente si son activité est interrompue et revient pour compter lorsqu'elle reprend, méthode commune de mesure des DPS et HPS. |cFFFFFF00Effective|r : utilisée pour les classements, cette méthode utilise le temps de combat écoulé pour mesurer le DPS et le HPS de tous les membres du raid."
+L["STRING_OPTIONS_TOOLBAR_SETTINGS"] = "Paramètres du bouton de la barre de titre"
+L["STRING_OPTIONS_TOOLBAR_SETTINGS_DESC"] = "Ces options modifient le menu principal en haut de la fenêtre."
+L["STRING_OPTIONS_TOOLBARSIDE"] = "Barre de titre sur le dessus"
+L["STRING_OPTIONS_TOOLBARSIDE_DESC"] = "Place la barre de titre en haut de la fenêtre. |cFFFFFF00Important|r : lorsque vous alternez la position, le texte du titre ne change pas, vérifiez |cFFFFFF00Barre de titre : Texte|r pour obtenir plus d'options."
+L["STRING_OPTIONS_TOOLS_ANCHOR"] = "Les outils :"
+L["STRING_OPTIONS_TOOLTIP_ANCHOR"] = "Réglages :"
+L["STRING_OPTIONS_TOOLTIP_ANCHORTEXTS"] = "Textes :"
+L["STRING_OPTIONS_TOOLTIPS_ABBREVIATION"] = "Type d'abréviation"
+L["STRING_OPTIONS_TOOLTIPS_ABBREVIATION_DESC"] = "Choisissez la façon dont les chiffres affichés dans les infobulles sont formatés."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_ATTACH"] = "Côté infobulle"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_ATTACH_DESC"] = "Quel côté de l'infobulle est utilisé pour s'adapter au côté de fixation de l'ancrage."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_BORDER"] = "Borduer :"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_POINT"] = "Ancre :"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_RELATIVE"] = "Côté ancre"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_RELATIVE_DESC"] = "De quel côté de l'ancre l'info-bulle sera placée."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TEXT"] = "Ancre d'infobulle"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TEXT_DESC"] = "clic droit pour verrouiller."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO"] = "Ancre"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_CHOOSE"] = "Déplacer le point d'ancrage"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_CHOOSE_DESC"] = "Déplacez la position d'ancrage lorsque l'ancre est défini sur |cFFFFFF00Point sur l'écran|r."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO_DESC"] = "Les info-bulles se fixent sur la ligne survolée ou sur un point choisi dans l'écran de jeu."
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO1"] = "Rangée de fenêtres"
+L["STRING_OPTIONS_TOOLTIPS_ANCHOR_TO2"] = "Point à l'écran"
+L["STRING_OPTIONS_TOOLTIPS_ANCHORCOLOR"] = "en-tête"
+L["STRING_OPTIONS_TOOLTIPS_BACKGROUNDCOLOR"] = "Couleur de fond"
+L["STRING_OPTIONS_TOOLTIPS_BACKGROUNDCOLOR_DESC"] = "Choisissez la couleur utilisée pour le fond."
+L["STRING_OPTIONS_TOOLTIPS_BORDER_COLOR_DESC"] = "Changez la couleur de la bordure."
+L["STRING_OPTIONS_TOOLTIPS_BORDER_SIZE_DESC"] = "Modifier la taille de la bordure."
+L["STRING_OPTIONS_TOOLTIPS_BORDER_TEXTURE_DESC"] = "Modifiez le fichier de texture de la bordure."
+L["STRING_OPTIONS_TOOLTIPS_FONTCOLOR"] = "Couleur du texte"
+L["STRING_OPTIONS_TOOLTIPS_FONTCOLOR_DESC"] = "Modifiez la couleur utilisée sur les textes de l'info-bulle."
+L["STRING_OPTIONS_TOOLTIPS_FONTFACE"] = "-"
+L["STRING_OPTIONS_TOOLTIPS_FONTFACE_DESC"] = "Choisissez la police utilisée sur les textes de l'info-bulle."
+L["STRING_OPTIONS_TOOLTIPS_FONTSHADOW_DESC"] = "Activez ou désactivez l'ombre dans le texte."
+L["STRING_OPTIONS_TOOLTIPS_FONTSIZE"] = "-"
+L["STRING_OPTIONS_TOOLTIPS_FONTSIZE_DESC"] = "Augmenter ou diminuer la taille des textes de l'info-bulle"
+L["STRING_OPTIONS_TOOLTIPS_IGNORESUBWALLPAPER"] = "Fond d'écran du sous-menu"
+L["STRING_OPTIONS_TOOLTIPS_IGNORESUBWALLPAPER_DESC"] = "Lorsque cette option est activée, certains menus peuvent utiliser leur propre fond d'écran dans les sous-menus."
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE"] = "Méthode Maximiser"
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE_DESC"] = "Sélectionnez la méthode utilisée pour développer les informations affichées dans l'infobulle. |cFFFFFF00 Sur les touches de contrôle|r : la boîte de l'info-bulle est développée lorsque les touches Shift, Ctrl ou Alt sont enfoncées. |cFFFFFF00 Toujours maximisé|r : l'info-bulle affiche toujours toutes les informations sans aucune limitation de montant. |cFFFFFF00 Bloc Shift uniquement|r : le premier bloc de l'info-bulle est toujours développé par défaut. |cFFFFFF00 Seulement Ctrl Bloc|r : le deuxième bloc est toujours développé par défaut. |cFFFFFF00 Uniquement Alt Bloc|r : le troisième bloc est toujours développé par défaut."
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE1"] = "Sur Maj Ctrl Alt"
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE2"] = "Toujours maximisé"
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE3"] = "Bloc Shift uniquement"
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE4"] = " Bloc Ctrl uniquement"
+L["STRING_OPTIONS_TOOLTIPS_MAXIMIZE5"] = " Alt Bloc uniquement"
+L["STRING_OPTIONS_TOOLTIPS_MENU_WALLP"] = "Modifier le fond d'écran du menu"
+L["STRING_OPTIONS_TOOLTIPS_MENU_WALLP_DESC"] = "Modifiez les aspects du fond d'écran des menus de la barre de titre."
+L["STRING_OPTIONS_TOOLTIPS_OFFSETX"] = "Distance X"
+L["STRING_OPTIONS_TOOLTIPS_OFFSETX_DESC"] = "La distance horizontale de l'infobulle par rapport à son ancre."
+L["STRING_OPTIONS_TOOLTIPS_OFFSETY"] = "Distance Y"
+L["STRING_OPTIONS_TOOLTIPS_OFFSETY_DESC"] = "La distance verticale de l'infobulle par rapport à son ancre."
+L["STRING_OPTIONS_TOOLTIPS_SHOWAMT"] = "Montrez le montant"
+L["STRING_OPTIONS_TOOLTIPS_SHOWAMT_DESC"] = "Affiche un nombre indiquant le nombre de sorts, de cibles et de familiers dans l'infobulle."
+L["STRING_OPTIONS_TOOLTIPS_TITLE"] = "Info-bulles"
+L["STRING_OPTIONS_TOOLTIPS_TITLE_DESC"] = "Ces options contrôlent l'apparence des info-bulles."
+L["STRING_OPTIONS_TOTALBAR_ANCHOR"] = "Barre totale:"
+L["STRING_OPTIONS_TRASH_SUPPRESSION"] = "Suppression des Trash"
+L["STRING_OPTIONS_TRASH_SUPPRESSION_DESC"] = "Pendant |cFFFFFF00X|r secondes, supprimez la commutation automatique pour afficher les segments de la corbeille (|cFFFFFF00 uniquement après avoir vaincu une rencontre avec le boss|r)."
+L["STRING_OPTIONS_WALLPAPER_ALPHA"] = "Alpha:"
+L["STRING_OPTIONS_WALLPAPER_ANCHOR"] = "Sélection du fond d'écran :"
+L["STRING_OPTIONS_WALLPAPER_BLUE"] = "Bleu :"
+L["STRING_OPTIONS_WALLPAPER_CBOTTOM"] = "Recadrage (|cFFC0C0C0bas|r):"
+L["STRING_OPTIONS_WALLPAPER_CLEFT"] = "Recadrage (|cFFC0C0C0gauche|r):"
+L["STRING_OPTIONS_WALLPAPER_CRIGHT"] = "Recadrage(|cFFC0C0C0droite|r):"
+L["STRING_OPTIONS_WALLPAPER_CTOP"] = "Recadrage (|cFFC0C0C0haut|r):"
+L["STRING_OPTIONS_WALLPAPER_FILE"] = "Fichier :"
+L["STRING_OPTIONS_WALLPAPER_GREEN"] = "Vert :"
+L["STRING_OPTIONS_WALLPAPER_LOAD"] = "Charger l'image"
+L["STRING_OPTIONS_WALLPAPER_LOAD_DESC"] = "Sélectionnez une image de votre disque dur pour l'utiliser comme fond d'écran."
+L["STRING_OPTIONS_WALLPAPER_LOAD_EXCLAMATION"] = "L'image doit: - Être au format Truevision TGA (extension .tga). - Doit être dans le dossier WOW / Interface / root. - La taille doit être de 256 x 256 pixels. - Le jeu doit être fermé avant de copier le fichier."
+L["STRING_OPTIONS_WALLPAPER_LOAD_FILENAME"] = "Nom du fichier :"
+L["STRING_OPTIONS_WALLPAPER_LOAD_FILENAME_DESC"] = "Insérez uniquement le nom du fichier, à l'exclusion du chemin et de l'extension."
+L["STRING_OPTIONS_WALLPAPER_LOAD_OKEY"] = "Charger"
+L["STRING_OPTIONS_WALLPAPER_LOAD_TITLE"] = "Depuis l'ordinateur :"
+L["STRING_OPTIONS_WALLPAPER_LOAD_TROUBLESHOOT"] = "Dépannage"
+L["STRING_OPTIONS_WALLPAPER_LOAD_TROUBLESHOOT_TEXT"] = "Si le fond d'écran affiche la couleur verte : - Redémarrez le client wow. - Assurez-vous que l'image a une largeur et une hauteur de 256. - Vérifiez si l'image est au format TGA et assurez-vous qu'elle est enregistrée en 32 bits/pixel. - Elle se trouve dans le dossier Interface, par exemple : C:/Program Files/World of Warcraft/Interface/"
+L["STRING_OPTIONS_WALLPAPER_RED"] = "Rouge :"
+L["STRING_OPTIONS_WC_ANCHOR"] = "Contrôle rapide des fenêtres (#%s) :"
+L["STRING_OPTIONS_WC_BOOKMARK"] = "Gérer les signets"
+L["STRING_OPTIONS_WC_BOOKMARK_DESC"] = "Ouvrez le panneau de configuration pour les signets."
+L["STRING_OPTIONS_WC_CLOSE"] = "Fermer"
+L["STRING_OPTIONS_WC_CLOSE_DESC"] = "Fermez la fenêtre d'édition en cours. Lorsqu'elle est fermée, la fenêtre est considérée comme inactive et peut être rouverte à tout moment à l'aide du menu Contrôle de la fenêtre. |cFFFFFF00Important:|r pour supprimer complètement une fenêtre, allez dans la section 'Fenêtre : Général'."
+L["STRING_OPTIONS_WC_CREATE"] = "Créer une fenêtre"
+L["STRING_OPTIONS_WC_CREATE_DESC"] = "Créer une nouvelle fenêtre."
+L["STRING_OPTIONS_WC_LOCK"] = "Verrouillage"
+L["STRING_OPTIONS_WC_LOCK_DESC"] = "Verrouillez ou déverrouillez la fenêtre. Lorsqu'elle est verrouillée, la fenêtre ne peut pas être déplacée."
+L["STRING_OPTIONS_WC_REOPEN"] = "Réouvrir"
+L["STRING_OPTIONS_WC_UNLOCK"] = "Déverrouiller"
+L["STRING_OPTIONS_WC_UNSNAP"] = "Détachement"
+L["STRING_OPTIONS_WC_UNSNAP_DESC"] = "Supprimez cette fenêtre du groupe de fenêtres."
+L["STRING_OPTIONS_WHEEL_SPEED"] = "Vitesse de la molette"
+L["STRING_OPTIONS_WHEEL_SPEED_DESC"] = "Modifie la vitesse du défilement lorsque vous faites rouler la molette de la souris sur une fenêtre."
+L["STRING_OPTIONS_WINDOW"] = "Panneau d'options"
+L["STRING_OPTIONS_WINDOW_ANCHOR_ANCHORS"] = "Ancres :"
+L["STRING_OPTIONS_WINDOW_IGNOREMASSTOGGLE"] = "Ignorer l'affichage de masse"
+L["STRING_OPTIONS_WINDOW_IGNOREMASSTOGGLE_DESC"] = "Lorsqu'elle est activée, cette fenêtre n'est pas affectée lors du masquage, de l'affichage ou du basculement de toutes les fenêtres."
+L["STRING_OPTIONS_WINDOW_SCALE"] = "Échelle"
+L["STRING_OPTIONS_WINDOW_SCALE_DESC"] = "Ajustez l'échelle de la fenêtre. |cFFFFFF00Conseil|r : clic droit pour saisir la valeur. |cFFFFFF00En cours|r : %s"
+L["STRING_OPTIONS_WINDOW_TITLE"] = "Paramètres généraux des fenêtres"
+L["STRING_OPTIONS_WINDOW_TITLE_DESC"] = "Ces options contrôlent l'apparence de la fenêtre sélectionnée."
+L["STRING_OPTIONS_WINDOWSPEED"] = "Délai de mise à jour"
+L["STRING_OPTIONS_WINDOWSPEED_DESC"] = "Intervalle de temps entre chaque mise à jour. |cFFFFFF000.05|r : mise à jour en temps réel. |cFFFFFF000.3|r : mise à jour environ 3 fois par seconde. |cFFFFFF003.0|r : mise à jour une fois toutes les 3 secondes."
+L["STRING_OPTIONS_WP"] = "Paramètres du fond d'écran"
+L["STRING_OPTIONS_WP_ALIGN"] = "Aligner"
+L["STRING_OPTIONS_WP_ALIGN_DESC"] = "Comment le fond d'écran s'aligne dans la fenêtre. - |cFFFFFF00Remplir|r : redimensionnement automatique et alignement avec tous les coins. - |cFFFFFF00Centre|r : ne redimensionne pas et ne s'aligne pas avec le centre de la fenêtre. -|cFFFFFF00Étendue|r : redimensionnement automatique à la verticale ou à l'horizontale et alignement sur les côtés gauche-droite ou haut-bas. -|cFFFFFF00Quatre coins|r : s'aligne avec le coin spécifié, aucun redimensionnement automatique n'est effectué."
+L["STRING_OPTIONS_WP_DESC"] = "Ces options contrôlent le fond d'écran de la fenêtre."
+L["STRING_OPTIONS_WP_EDIT"] = "Modifier l'image"
+L["STRING_OPTIONS_WP_EDIT_DESC"] = "Ouvrez l'éditeur d'images pour modifier certains aspects de l'image sélectionnée."
+L["STRING_OPTIONS_WP_ENABLE_DESC"] = "Afficher le fond d'écran."
+L["STRING_OPTIONS_WP_GROUP"] = "Catégorie"
+L["STRING_OPTIONS_WP_GROUP_DESC"] = "Sélectionnez le groupe d'images."
+L["STRING_OPTIONS_WP_GROUP2"] = "Fond d'écran"
+L["STRING_OPTIONS_WP_GROUP2_DESC"] = "L'image qui servira de fond d'écran."
+L["STRING_OPTIONSMENU_AUTOMATIC"] = "Fenêtre: Automation"
+L["STRING_OPTIONSMENU_AUTOMATIC_TITLE"] = "Paramètres d'automatisation des fenêtres"
+L["STRING_OPTIONSMENU_AUTOMATIC_TITLE_DESC"] = "Ces paramètres contrôlent les comportements automatiques de la fenêtre, tels que le masquage et l'activation automatiques."
+L["STRING_OPTIONSMENU_COMBAT"] = "PvE PvP"
+L["STRING_OPTIONSMENU_DATACHART"] = "Données pour les graphiques"
+L["STRING_OPTIONSMENU_DATACOLLECT"] = "Collecteur de données"
+L["STRING_OPTIONSMENU_DATAFEED"] = "Flux de données"
+L["STRING_OPTIONSMENU_DISPLAY"] = "Afficher"
+L["STRING_OPTIONSMENU_DISPLAY_DESC"] = "Adaptations de base globales et contrôle rapide des fenêtres."
+L["STRING_OPTIONSMENU_LEFTMENU"] = "Barre de titre: Général"
+L["STRING_OPTIONSMENU_MISC"] = "Divers"
+L["STRING_OPTIONSMENU_PERFORMANCE"] = "Réglages de performance"
+L["STRING_OPTIONSMENU_PLUGINS"] = "Gestion des plugins"
+L["STRING_OPTIONSMENU_PROFILES"] = "Profils"
+L["STRING_OPTIONSMENU_RAIDTOOLS"] = "Outils de raid"
+L["STRING_OPTIONSMENU_RIGHTMENU"] = "-- x -- x --"
+L["STRING_OPTIONSMENU_ROWMODELS"] = "Barres: Avancées"
+L["STRING_OPTIONSMENU_ROWSETTINGS"] = "Barres: Général"
+L["STRING_OPTIONSMENU_ROWTEXTS"] = "Barres : Textes"
+L["STRING_OPTIONSMENU_SKIN"] = "Sélection de l'habillage"
+L["STRING_OPTIONSMENU_SPELLS"] = "Personnalisation des sorts"
+L["STRING_OPTIONSMENU_SPELLS_CONSOLIDATE"] = "Fusionne les sorts communs avec le même nom"
+L["STRING_OPTIONSMENU_TITLETEXT"] = "Barre de titre : texte"
+L["STRING_OPTIONSMENU_TOOLTIP"] = "Info-bulles"
+L["STRING_OPTIONSMENU_WALLPAPER"] = "Fenêtre : Fond d'écran :"
+L["STRING_OPTIONSMENU_WINDOW"] = "Fenêtre : Général"
+L["STRING_OVERALL"] = "Global"
+L["STRING_OVERHEAL"] = "Sur-soins"
+L["STRING_OVERHEALED"] = "Sur-soins"
 L["STRING_PARRY"] = "Parade"
 L["STRING_PERCENTAGE"] = "Pourcentage"
 L["STRING_PET"] = "Familier"
 L["STRING_PETS"] = "Familiers"
---[[Translation missing --]]
---[[ L["STRING_PLAYER_DETAILS"] = ""--]] 
+L["STRING_PLAYER_DETAILS"] = "Détails du joueur! Panne"
 L["STRING_PLAYERS"] = "Joueurs"
 L["STRING_PLEASE_WAIT"] = "Veuillez patienter"
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_CLEAN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_CLOCKNAME"] = ""--]] 
+L["STRING_PLUGIN_CLEAN"] = "Aucun"
+L["STRING_PLUGIN_CLOCKNAME"] = "Temps de rencontre"
 L["STRING_PLUGIN_CLOCKTYPE"] = "Type d'horloge"
 L["STRING_PLUGIN_DURABILITY"] = "Durabilité"
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_FPS"] = ""--]] 
+L["STRING_PLUGIN_FPS"] = "Framerate"
 L["STRING_PLUGIN_GOLD"] = "Or"
 L["STRING_PLUGIN_LATENCY"] = "Latence"
 L["STRING_PLUGIN_MINSEC"] = "Minutes & secondes"
@@ -2035,246 +1148,131 @@ L["STRING_PLUGIN_SEGMENTTYPE_2"] = "Nom de la rencontre"
 L["STRING_PLUGIN_SEGMENTTYPE_3"] = "Nom de la rencontre plus segment"
 L["STRING_PLUGIN_THREATNAME"] = "Ma menace"
 L["STRING_PLUGIN_TIME"] = "Horloge"
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_TIMEDIFF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_TOOLTIP_LEFTBUTTON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGIN_TOOLTIP_RIGHTBUTTON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_ABBREVIATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_COMMA"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_FONTFACE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_NOFORMAT"] = ""--]] 
+L["STRING_PLUGIN_TIMEDIFF"] = "Différence du dernier combat"
+L["STRING_PLUGIN_TOOLTIP_LEFTBUTTON"] = "Configurer le plugin actuel"
+L["STRING_PLUGIN_TOOLTIP_RIGHTBUTTON"] = "Choisissez un autre plugin"
+L["STRING_PLUGINOPTIONS_ABBREVIATE"] = "Abréger"
+L["STRING_PLUGINOPTIONS_COMMA"] = "Virgule"
+L["STRING_PLUGINOPTIONS_FONTFACE"] = "Choisir la police"
+L["STRING_PLUGINOPTIONS_NOFORMAT"] = "Aucun"
 L["STRING_PLUGINOPTIONS_TEXTALIGN"] = "Alignement du texte"
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_TEXTALIGN_X"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_PLUGINOPTIONS_TEXTALIGN_Y"] = ""--]] 
+L["STRING_PLUGINOPTIONS_TEXTALIGN_X"] = "Texte aligné X"
+L["STRING_PLUGINOPTIONS_TEXTALIGN_Y"] = "Texte aligné Y"
 L["STRING_PLUGINOPTIONS_TEXTCOLOR"] = "Couleur du texte"
 L["STRING_PLUGINOPTIONS_TEXTSIZE"] = "Taille de la police"
 L["STRING_PLUGINOPTIONS_TEXTSTYLE"] = "Style du texte"
---[[Translation missing --]]
---[[ L["STRING_QUERY_INSPECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_QUERY_INSPECT_FAIL1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_QUERY_INSPECT_REFRESH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RAID_WIDE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RAIDCHECK_PLUGIN_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RAIDCHECK_PLUGIN_NAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_BUTTON_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_FIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_FIGHTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_INVALIDTARGET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_LAST"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_LASTFIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_LEFTCLICK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_PREVIOUSFIGHTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_SINGLE_BUFFUPTIME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_SINGLE_COOLDOWN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_SINGLE_DEATH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_SINGLE_DEBUFFUPTIME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORT_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_COPY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_CURRENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_CURRENTINFO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_GUILD"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_INSERTNAME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_LINES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_OFFICERS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_PARTY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_RAID"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_REVERT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_REVERTED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_REVERTINFO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_SAY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_SEND"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_WHISPER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_WHISPERTARGET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTFRAME_WINDOW_TITLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_REPORTHISTORY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RESISTED"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RESIZE_ALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RESIZE_COMMON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RESIZE_HORIZONTAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RESIZE_VERTICAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHT_TO_LEFT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHTCLICK_CLOSE_LARGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHTCLICK_CLOSE_MEDIUM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHTCLICK_CLOSE_SHORT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_RIGHTCLICK_TYPEVALUE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SCORE_BEST"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SCORE_NOTBEST"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEE_BELOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_EMPTY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_END"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_ENEMY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_LOWER"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_OVERALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_START"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENT_TRASH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_BOSS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_COMBATTIME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_OVERALL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_TIMEINCOMBAT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_TOTALTIME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_TRASH"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SEGMENTS_LIST_WASTED_TIME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SHIELD_HEAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SHIELD_OVERHEAL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SHORTCUT_RIGHTCLICK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_API_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CAPTURE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CAPTUREOFF"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CAPTUREON"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CHANGES"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CHANGES_ALIAS1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CHANGES_ALIAS2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_CHANGES_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_DISABLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_ENABLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_HIDE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_HIDE_ALIAS1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_HISTORY"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_NEW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_NEW_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_OPTIONS"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_OPTIONS_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_RESET"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_RESET_ALIAS1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_RESET_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_SHOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_SHOW_ALIAS1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_SHOWHIDETOGGLE_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_TOGGLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_WIPE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_WIPECONFIG"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_WIPECONFIG_CONFIRM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_WIPECONFIG_DESC"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SLASH_WORLDBOSS"] = ""--]] 
+L["STRING_QUERY_INSPECT"] = "récupérer les talents et le niveau d'objet."
+L["STRING_QUERY_INSPECT_FAIL1"] = "ne peut pas interroger pendant le combat."
+L["STRING_QUERY_INSPECT_REFRESH"] = "besoin de rafraîchir"
+L["STRING_RAID_WIDE"] = "[*] large temps de recharge du raid"
+L["STRING_RAIDCHECK_PLUGIN_DESC"] = "A l'intérieur d'une instance de raid, affiche l'icône sur la barre de titre de Details ! montrant le flacon, la nourriture, et l'utilisation de la pré-potion."
+L["STRING_RAIDCHECK_PLUGIN_NAME"] = "Vérification du raid"
+L["STRING_REPORT"] = "pour"
+L["STRING_REPORT_BUTTON_TOOLTIP"] = "Cliquez pour ouvrir la boîte de dialogue du rapport"
+L["STRING_REPORT_FIGHT"] = "combat"
+L["STRING_REPORT_FIGHTS"] = "combats"
+L["STRING_REPORT_INVALIDTARGET"] = "Chuchotement sur la cible introuvable"
+L["STRING_REPORT_LAST"] = "dernier"
+L["STRING_REPORT_LASTFIGHT"] = "dernier combat"
+L["STRING_REPORT_LEFTCLICK"] = "Cliquez pour ouvrir la boîte de dialogue du rapport"
+L["STRING_REPORT_PREVIOUSFIGHTS"] = "combats précédents"
+L["STRING_REPORT_SINGLE_BUFFUPTIME"] = "amélioration disponible pour"
+L["STRING_REPORT_SINGLE_COOLDOWN"] = "temps de rechargement utilisés par"
+L["STRING_REPORT_SINGLE_DEATH"] = "Mort de"
+L["STRING_REPORT_SINGLE_DEBUFFUPTIME"] = "Affaiblissement disponible pour"
+L["STRING_REPORT_TOOLTIP"] = "Résultats du rapport"
+L["STRING_REPORTFRAME_COPY"] = "Copier & coller"
+L["STRING_REPORTFRAME_CURRENT"] = "Actuelle"
+L["STRING_REPORTFRAME_CURRENTINFO"] = "Afficher uniquement les données actuellement affichées (si prises en charge)."
+L["STRING_REPORTFRAME_GUILD"] = "Guilde"
+L["STRING_REPORTFRAME_INSERTNAME"] = "insérer le nom du joueur"
+L["STRING_REPORTFRAME_LINES"] = "Lignes"
+L["STRING_REPORTFRAME_OFFICERS"] = "Canal des officiers"
+L["STRING_REPORTFRAME_PARTY"] = "Groupe"
+L["STRING_REPORTFRAME_RAID"] = "Raid"
+L["STRING_REPORTFRAME_REVERT"] = "Inverser"
+L["STRING_REPORTFRAME_REVERTED"] = "inversé"
+L["STRING_REPORTFRAME_REVERTINFO"] = "envoyer par ordre croissant."
+L["STRING_REPORTFRAME_SAY"] = "Dire"
+L["STRING_REPORTFRAME_SEND"] = "Envoyer"
+L["STRING_REPORTFRAME_WHISPER"] = "Chuchoter"
+L["STRING_REPORTFRAME_WHISPERTARGET"] = "Chuchoté à la cible"
+L["STRING_REPORTFRAME_WINDOW_TITLE"] = "Lien de Details!"
+L["STRING_REPORTHISTORY"] = "Derniers rapports"
+L["STRING_RESISTED"] = "Résisté"
+L["STRING_RESIZE_ALL"] = "Redimensionner librement toutes les fenêtres"
+L["STRING_RESIZE_COMMON"] = "Redimensionner"
+L["STRING_RESIZE_HORIZONTAL"] = "Redimensionner la largeur de toutes les fenêtres du groupe"
+L["STRING_RESIZE_VERTICAL"] = "Redimensionner la hauteur de toutes les fenêtres du groupe"
+L["STRING_RIGHT"] = "droite"
+L["STRING_RIGHT_TO_LEFT"] = "De droite à gauche"
+L["STRING_RIGHTCLICK_CLOSE_LARGE"] = "Cliquez avec le bouton droit de la souris pour fermer cette fenêtre."
+L["STRING_RIGHTCLICK_CLOSE_MEDIUM"] = "Utilisez le clic droit pour fermer cette fenêtre."
+L["STRING_RIGHTCLICK_CLOSE_SHORT"] = "Cliquez sur le bouton droit pour fermer."
+L["STRING_RIGHTCLICK_TYPEVALUE"] = "clic droit pour taper la valeur"
+L["STRING_SCORE_BEST"] = "vous avez obtenu |cFFFFFF00%s|r, c'est votre meilleur score, félicitations !"
+L["STRING_SCORE_NOTBEST"] = "vous avez obtenu |cFFFFFF00%s|r, votre meilleur score est |cFFFFFF00%s|r sur %s avec %d  niveau d'objet."
+L["STRING_SEE_BELOW"] = "voir ci-dessous"
+L["STRING_SEGMENT"] = "Segment"
+L["STRING_SEGMENT_EMPTY"] = "ce segment est vide"
+L["STRING_SEGMENT_END"] = "Fin"
+L["STRING_SEGMENT_ENEMY"] = "Ennemi"
+L["STRING_SEGMENT_LOWER"] = "segment"
+L["STRING_SEGMENT_OVERALL"] = "Données globales"
+L["STRING_SEGMENT_START"] = "Début"
+L["STRING_SEGMENT_TRASH"] = "Nettoyage des déchets"
+L["STRING_SEGMENTS"] = "Segments"
+L["STRING_SEGMENTS_LIST_BOSS"] = "Combat du boss"
+L["STRING_SEGMENTS_LIST_COMBATTIME"] = "Temps du combat"
+L["STRING_SEGMENTS_LIST_OVERALL"] = "global"
+L["STRING_SEGMENTS_LIST_TIMEINCOMBAT"] = "Temps du combat"
+L["STRING_SEGMENTS_LIST_TOTALTIME"] = "Durée totale"
+L["STRING_SEGMENTS_LIST_TRASH"] = "poubelle"
+L["STRING_SEGMENTS_LIST_WASTED_TIME"] = "Pas en combat"
+L["STRING_SHIELD_HEAL"] = "Empêché"
+L["STRING_SHIELD_OVERHEAL"] = "Perdu"
+L["STRING_SHORTCUT_RIGHTCLICK"] = "clic droit pour fermer"
+L["STRING_SLASH_API_DESC"] = "ouvrir le panneau de l'API pour construire des plugins, des affichages personnalisés, des auras, etc."
+L["STRING_SLASH_CAPTURE_DESC"] = "activer ou désactiver toutes les captures de données."
+L["STRING_SLASH_CAPTUREOFF"] = "toutes les captures ont été désactivées."
+L["STRING_SLASH_CAPTUREON"] = "toutes les captures ont été activées."
+L["STRING_SLASH_CHANGES"] = "mises à jour"
+L["STRING_SLASH_CHANGES_ALIAS1"] = "news"
+L["STRING_SLASH_CHANGES_ALIAS2"] = "changements"
+L["STRING_SLASH_CHANGES_DESC"] = "affiche ce qui est nouveau, ce qui a changé dans Details !"
+L["STRING_SLASH_DISABLE"] = "désactiver"
+L["STRING_SLASH_ENABLE"] = "activer"
+L["STRING_SLASH_HIDE"] = "cacher"
+L["STRING_SLASH_HIDE_ALIAS1"] = "Fermer"
+L["STRING_SLASH_HISTORY"] = "historique"
+L["STRING_SLASH_NEW"] = "nouveau"
+L["STRING_SLASH_NEW_DESC"] = "créer une nouvelle fenêtre."
+L["STRING_SLASH_OPTIONS"] = "options"
+L["STRING_SLASH_OPTIONS_DESC"] = "ouvrir le panneau des options."
+L["STRING_SLASH_RESET"] = "réinitialiser"
+L["STRING_SLASH_RESET_ALIAS1"] = "Nettoyer"
+L["STRING_SLASH_RESET_DESC"] = "Supprimer tous les segments."
+L["STRING_SLASH_SHOW"] = "Affiche"
+L["STRING_SLASH_SHOW_ALIAS1"] = "Ouvrir"
+L["STRING_SLASH_SHOWHIDETOGGLE_DESC"] = "toutes les fenêtres si <numéro de fenêtre> n'est pas passé."
+L["STRING_SLASH_TOGGLE"] = "Active"
+L["STRING_SLASH_WIPE"] = "wipe"
+L["STRING_SLASH_WIPECONFIG"] = "réinstaller"
+L["STRING_SLASH_WIPECONFIG_CONFIRM"] = "Cliquez pour continuer avec la réinstallation"
+L["STRING_SLASH_WIPECONFIG_DESC"] = "régler toutes les configurations par défaut, à utiliser si Details ! ne fonctionne pas correctement."
+L["STRING_SLASH_WORLDBOSS"] = "worldboss"
 L["STRING_SLASH_WORLDBOSS_DESC"] = "exécute une macro indiquant quels boss vous avez tués cette semaine."
 L["STRING_SPELL_INTERRUPTED"] = "Sorts interrompus"
 L["STRING_SPELLLIST"] = "Liste des sorts"
 L["STRING_SPELLS"] = "Sorts"
---[[Translation missing --]]
---[[ L["STRING_SPIRIT_LINK_TOTEM"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SPIRIT_LINK_TOTEM_DESC"] = ""--]] 
+L["STRING_SPIRIT_LINK_TOTEM"] = "Échange sur la santé"
+L["STRING_SPIRIT_LINK_TOTEM_DESC"] = "Quantité de santé échangée entre les joueurs à l'intérieur du cercle du totem. Cette guérison n'est pas ajoutée à la guérison totale du joueur."
 L["STRING_STATISTICS"] = "Statistiques"
 L["STRING_STATUSBAR_NOOPTIONS"] = "Ce widget n'a pas d'option."
---[[Translation missing --]]
---[[ L["STRING_SWITCH_CLICKME"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SWITCH_SELECTMSG"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SWITCH_TO"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_SWITCH_WARNING"] = ""--]] 
+L["STRING_SWITCH_CLICKME"] = "ajouter un signet"
+L["STRING_SWITCH_SELECTMSG"] = "Sélectionnez l'affichage pour le signet #%d."
+L["STRING_SWITCH_TO"] = "Passer à"
+L["STRING_SWITCH_WARNING"] = "Le rôle a changé. Changement : |cFFFFAA00%s|r"
 L["STRING_TARGET"] = "Cible"
 L["STRING_TARGETS"] = "Cibles"
 L["STRING_TARGETS_OTHER1"] = "Familiers et autres cibles"
@@ -2282,127 +1280,71 @@ L["STRING_TEXTURE"] = "Texture"
 L["STRING_TIME_OF_DEATH"] = "Mort"
 L["STRING_TOOOLD"] = "n'a pas pu être installé car votre version de Details! est trop ancienne."
 L["STRING_TOP"] = "haut"
---[[Translation missing --]]
---[[ L["STRING_TOP_TO_BOTTOM"] = ""--]] 
+L["STRING_TOP_TO_BOTTOM"] = "De haut en bas"
 L["STRING_TOTAL"] = "Total"
---[[Translation missing --]]
---[[ L["STRING_TRANSLATE_LANGUAGE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_TUTORIAL_FULLY_DELETE_WINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_TUTORIAL_OVERALL1"] = ""--]] 
+L["STRING_TRANSLATE_LANGUAGE"] = "Aidez-nous à traduire Details !"
+L["STRING_TUTORIAL_FULLY_DELETE_WINDOW"] = "Vous avez fermé une fenêtre et vous pouvez la rouvrir à tout moment. Pour supprimer complètement une fenêtre, allez dans Options -> Fenêtre : Général -> Supprimer."
+L["STRING_TUTORIAL_OVERALL1"] = "Les données globales ne sont mises à jour que lorsque le combat est terminé. Si vous souhaitez des mises à jour régulières, cliquez avec le bouton droit de la souris sur la barre de titre et sélectionnez \"Données globales dynamiques\"."
 L["STRING_UNKNOW"] = "Inconnu"
---[[Translation missing --]]
---[[ L["STRING_UNKNOWSPELL"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_UNLOCK"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_UNLOCK_WINDOW"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_UPTADING"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_VERSION_AVAILABLE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_VERSION_UPDATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_VOIDZONE_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WAITPLUGIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WAVE"] = ""--]] 
+L["STRING_UNKNOWSPELL"] = "Sort inconnu"
+L["STRING_UNLOCK"] = "Dégrouper les fenêtres dans ce bouton"
+L["STRING_UNLOCK_WINDOW"] = "débloquer"
+L["STRING_UPTADING"] = "mise à jour"
+L["STRING_VERSION_AVAILABLE"] = "une nouvelle version est disponible, téléchargez-la sur le site de Twitch App ou Curse."
+L["STRING_VERSION_UPDATE"] = "nouvelle version : qu'est-ce qui a changé ? cliquez ici"
+L["STRING_VOIDZONE_TOOLTIP"] = "Dégâts et temps"
+L["STRING_WAITPLUGIN"] = "en attente de plugins"
+L["STRING_WAVE"] = "Onde"
 L["STRING_WELCOME_1"] = [=[|cFFFFFFFFBienvenue sur l'assistant de démarrage rapide de Details!|r
 
 Utilisez les flèches en bas à droite pour vous déplacer.]=]
 L["STRING_WELCOME_11"] = "Si vous changez d'avis, vous pouvez toujours modifier à nouveau via le panneau des options"
---[[Translation missing --]]
---[[ L["STRING_WELCOME_12"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_13"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_14"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_15"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_16"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_17"] = ""--]] 
+L["STRING_WELCOME_12"] = [=[Choisissez la vitesse à laquelle la fenêtre est mise à jour, vous pouvez également activer des animations et des mises à jour en temps réel pour les numéros Hps et Dps.
+]=]
+L["STRING_WELCOME_13"] = "-"
+L["STRING_WELCOME_14"] = "-"
+L["STRING_WELCOME_15"] = "Info-bulle pour la vitesse de mise à jour dans la fenêtre d'accueil."
+L["STRING_WELCOME_16"] = "-"
+L["STRING_WELCOME_17"] = "-"
 L["STRING_WELCOME_2"] = "Si vous changez d'avis, vous pouvez toujours modifier à nouveau via le panneau des options"
---[[Translation missing --]]
---[[ L["STRING_WELCOME_26"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_27"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_28"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_29"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_3"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_30"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_31"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_32"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_34"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_36"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_38"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_39"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_4"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_41"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_42"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_43"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_44"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_45"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_46"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_5"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_57"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_58"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_59"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_6"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_60"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_61"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_62"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_63"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_64"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_65"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_66"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_67"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_68"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_69"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_7"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_70"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_71"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WELCOME_72"] = ""--]] 
+L["STRING_WELCOME_26"] = "Utilisation de l'interface : Élargir"
+L["STRING_WELCOME_27"] = "Le bouton en surbrillance est le Tendeur. |cFFFFFF00Cliquez|r sur le bouton et faites |cFFFFFF00glisser vers le haut !|r. Si la fenêtre est verrouillée, toute la barre de titre devient un bouton d'étirement."
+L["STRING_WELCOME_28"] = "Utilisation de l'interface : Contrôle des fenêtres"
+L["STRING_WELCOME_29"] = "Le contrôle des fenêtres fait essentiellement deux choses : - ouvrir une |cFFFFFF00nouvelle fenêtre|r. - afficher un menu avec |cFFFFFF00fenêtres fermées|r qui peut être réouvert à tout moment."
+L["STRING_WELCOME_3"] = "Choisissez votre méthode préférée DPS et HPS :"
+L["STRING_WELCOME_30"] = "Utilisation de l'interface: signets"
+L["STRING_WELCOME_31"] = "|cFFFFFF00Cliquer à droite|r n'importe où dans la fenêtre affiche le panneau |cFFFFAA00Signet|r. |cFFFFFF00Clic droit à nouveau|r ferme le panneau ou choisit un autre affichage si on clique sur une icône. |cFFFFFF00Clic droit|r sur la barre de titre pour ouvrir le panneau 'Tous les affichages. |TInterface\\AddOns\\Details\\images\\key_ctrl:14:30:0:0:64:64:0:64:0:40|t + clic droit pour fermer la fenêtre."
+L["STRING_WELCOME_32"] = "Utilisation de l'interface : Groupe de fenêtres"
+L["STRING_WELCOME_34"] = "Utilisation de l'interface : Agrandir l'info-bulle"
+L["STRING_WELCOME_36"] = "Utilisation de l'interface : Plugins"
+L["STRING_WELCOME_38"] = "Prêt pour le raid !"
+L["STRING_WELCOME_39"] = "Merci d'avoir choisi Details ! N'hésitez pas à nous envoyer vos commentaires et vos rapports de bugs. |cFFFFAA00/details feedback|r"
+L["STRING_WELCOME_4"] = "Temps d'activité :"
+L["STRING_WELCOME_41"] = "Ajustement de l'interface de divertissement"
+L["STRING_WELCOME_42"] = "Paramètres d'apparence rapide"
+L["STRING_WELCOME_43"] = "Choisissez votre apparence préféré:"
+L["STRING_WELCOME_44"] = "-"
+L["STRING_WELCOME_45"] = "Pour plus d'options de personnalisation, consultez le panneau des options."
+L["STRING_WELCOME_46"] = "-"
+L["STRING_WELCOME_5"] = "Temps effectif :"
+L["STRING_WELCOME_57"] = "-"
+L["STRING_WELCOME_58"] = "Des ensembles prédéfinis de configurations d'apparence. |cFFFFFF00Important|r : tous les paramètres peuvent être modifiés ultérieurement dans le panneau d'options."
+L["STRING_WELCOME_59"] = "-"
+L["STRING_WELCOME_6"] = "le chronomètre de chaque membre du raid est mis en attente si son activité cesse et revient à nouveau une fois repris."
+L["STRING_WELCOME_60"] = "-"
+L["STRING_WELCOME_61"] = "-"
+L["STRING_WELCOME_62"] = "-"
+L["STRING_WELCOME_63"] = "Mise à jour du DPS/HPS en temps réel"
+L["STRING_WELCOME_64"] = "-"
+L["STRING_WELCOME_65"] = "Appuyez sur le bouton droit !"
+L["STRING_WELCOME_66"] = "Faites glisser une fenêtre près d'une autre pour créer un groupe. Les fenêtres groupées s'étirent et se redimensionnent ensemble. Ils vivent aussi plus heureux en couple."
+L["STRING_WELCOME_67"] = "Appuyez sur la touche Maj pour développer l'info-bulle du joueur afin d'afficher tous les sorts utilisés. Ctrl pour les cibles et Alt pour les animaux."
+L["STRING_WELCOME_68"] = "Details ! est infesté par un fléau appelé \"Plugins\". Ils sont partout et vous aident à accomplir de nombreuses tâches. Par exemple : compteur de menaces, analyse dps, résumé de la rencontre, création de graphiques, etc."
+L["STRING_WELCOME_69"] = "Sauter"
+L["STRING_WELCOME_7"] = "Utilisée pour les classements, cette méthode utilise le temps de combat écoulé pour mesurer les DPS et HPS de tous les membres du raid."
+L["STRING_WELCOME_70"] = "-"
+L["STRING_WELCOME_71"] = "-"
+L["STRING_WELCOME_72"] = "."
 L["STRING_WELCOME_73"] = "Choisissez l'alphabet ou la région :"
 L["STRING_WELCOME_74"] = "Alphabet latin"
 L["STRING_WELCOME_75"] = "Alphabet cyrillique"
@@ -2411,16 +1353,11 @@ L["STRING_WELCOME_77"] = "Corée"
 L["STRING_WELCOME_78"] = "Taïwan"
 L["STRING_WELCOME_79"] = "Créer une 2ème fenêtre"
 L["STRING_WINDOW_NOTFOUND"] = "Aucune fenêtre trouvée."
---[[Translation missing --]]
---[[ L["STRING_WINDOW_NUMBER"] = ""--]] 
+L["STRING_WINDOW_NUMBER"] = "numéro de fenêtre"
 L["STRING_WINDOW1ATACH_DESC"] = "Pour créer un groupe de fenêtre, approchez la fenêtre #2 de la fenêtre #1."
---[[Translation missing --]]
---[[ L["STRING_WIPE_ALERT"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WIPE_ERROR1"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WIPE_ERROR2"] = ""--]] 
---[[Translation missing --]]
---[[ L["STRING_WIPE_ERROR3"] = ""--]] 
+L["STRING_WIPE_ALERT"] = "Appel du chef de raid: Suicide!"
+L["STRING_WIPE_ERROR1"] = "un suicide a déjà été demandé."
+L["STRING_WIPE_ERROR2"] = "nous ne sommes pas dans une rencontre de raid."
+L["STRING_WIPE_ERROR3"] = "vous ne pouvez pas mettre fin à la rencontre."
 L["STRING_YES"] = "Oui"
 

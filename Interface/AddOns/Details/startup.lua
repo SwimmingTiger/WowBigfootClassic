@@ -1881,10 +1881,12 @@ function _G._detalhes:Start()
 		print ("|CFFFFFF00[Details!]: you're using the classic version of Details! on the 8.2.0 patch. If you need help, see our Discord (/details discord)")
 	else
 		if (math.random (0, 2) == 0) then
-			print ("|CFFFFFF00[Details!]: To use Tiny Threat: cogwheel > raid plugins > Tiny Threat.")
-			print ("|CFFFFFF00[Details!]: To fix the '50 yard' issue try: /details sync.")
+			print ("|CFFFFFF00[Details!]: To use Tiny Threat: right click the title bar and select Tiny Threat.")
 		end
 	end
+
+	--force disable sync
+	Details.data_sync = false
 
 	--> queue workaround: when pressing 'enter battle' for battlegrounds
 	--> the client blocks the action due to some no sense taint, this taint has been fixed 5 years ago on retail
