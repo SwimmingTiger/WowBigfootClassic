@@ -1,3 +1,8 @@
+### 1.13.60
+
+- Fixed issue with buffs sometimes not registering
+- Moonfire now correctly stacks
+
 ### 1.13.59
 
 - ToC Update
