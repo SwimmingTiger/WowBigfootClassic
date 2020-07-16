@@ -537,7 +537,7 @@ L["time"] = "次"; --Singular - This shows how many timers you got a buff. Examp
 L["times"] = "次"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 L["flowerWarning"] = "你在开启了位面的服务器上采集了风歌花，虽然风歌花计时器已启用，但是自你到达费伍德森林后，尚未选中任何NPC，所以插件无法记录采集时间。";
 L["mmColorTitle"] = "小地图位面信息颜色";
-L["mmColorDesc"] = "设置小地图位面信息文本(Layer 1)的颜色";
+L["mmColorDesc"] = "设置小地图位面信息文本(位面1)的颜色";
 
 ---new---
 L["layerHasBeenDisabled"] = "位面%s已禁用，此位面仍在数据库中,但是将被忽略,直到你再次启用它或它被检测为是有效的。";

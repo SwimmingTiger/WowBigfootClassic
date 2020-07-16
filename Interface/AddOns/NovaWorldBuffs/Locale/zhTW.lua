@@ -520,7 +520,7 @@ L["autoDmfBuffTypeTitle"] = "哪個暗月增益";
 L["autoDmfBuffTypeDesc"] = "你想要在跟賽吉講話時，這個插件幫你選擇哪個暗月增益?";
 
 L["autoDireMaulBuffTitle"] = "厄運增益";
-LL["autoDireMaulBuffDesc"] = "你想要這個插件在你對話時，自動幫你取得增益嗎?";
+L["autoDireMaulBuffDesc"] = "你想要這個插件在你對話時，自動幫你取得增益嗎?";
 
 L["autoBwlPortalTitle"] = "自動使用黑翼之巢寶珠";
 L["autoBwlPortalDesc"] = "你想要插件幫你在你點擊寶珠時自動進入副本嗎?";
@@ -543,4 +543,4 @@ L["layerDoesNotExist"] = "這鏡像編號 %s 不存在於資料庫。";
 L["enableLayerButton"] = "啟動鏡像";
 L["disableLayerButton"] = "關閉鏡像";
 L["enableLayerButtonTooltip"] = "點擊以重新啟動鏡像,\n這將會將鏡像計時及圖層計算放回去。";
-L["disableLayerButtonTooltip"] = "在伺服器重開 後點擊取消舊的鏡像。\n這將會忽略這個差鑑以前移除鏡像。";
+L["disableLayerButtonTooltip"] = "在伺服器重開之後，後點擊取消舊的鏡像。\n這將會忽略這個插件移除鏡像。";

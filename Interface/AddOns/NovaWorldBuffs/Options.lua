@@ -1332,7 +1332,7 @@ end
 --Reset colors.
 function NWB:resetMinimapLayerFrame(info)
 	MinimapLayerFrame:ClearAllPoints();
-	MinimapLayerFrame:SetPoint("BOTTOM", Minimap, 2, 4);
+	MinimapLayerFrame:SetPoint("BOTTOM", Minimap, 0, -21);
 end
 --Colorize chat prefix in all chat channels.
 function NWB:setColorizePrefixLinks(info, value)
