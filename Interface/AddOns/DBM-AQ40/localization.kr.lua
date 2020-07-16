@@ -16,12 +16,12 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("ThreeBugs")
 
 L:SetGeneralLocalization{
-	name = "벌레 무리"
+	name = "벌레 3형제"
 }
 L:SetMiscLocalization{
 	Yauj	= "공주 야우즈",
-	Vem		= "벰",
-	Kri		= "군주 크리"
+	Vem	= "벰",
+	Kri	= "군주 크리"
 }
 
 -------------
@@ -47,7 +47,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("Viscidus")
 
 L:SetGeneralLocalization{
-	name = "비시두스"
+	name = "비시디우스"
 }
 L:SetWarningLocalization{
 	WarnFreeze	= "빙결 : %d/3",
@@ -96,36 +96,23 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "눈 달린 촉수",
---	WarnClawTentacle		= "발톱 촉수",
---	WarnGiantEyeTentacle	= "거대한 눈달린 촉수",
---	WarnGiantClawTentacle	= "거대한 발톱 촉수",
-	WarnWeakened			= "쑨 약화",
-	SpecWarnWeakened		= "쑨 약화 - 지금 공격!"
+	SpecWarnWeakened		= "쑨 약화됨!"
 }
 L:SetTimerLocalization{
 	TimerEyeTentacle		= "다음 눈 달린 촉수",
---	TimerGiantEyeTentacle	= "다음 거대한 눈 달린 촉수",
---	TimerClawTentacle		= "다음 발톱 촉수",
---	TimerGiantClawTentacle	= "다음 거대한 발톱 촉수",
 	TimerWeakened			= "쑨 약화 종료"
 }
 L:SetOptionLocalization{
-	WarnEyeTentacle			= "눈 달린 촉수 알림 보기",
---	WarnClawTentacle		= "발톱 촉수 알림 보기",
---	WarnGiantEyeTentacle	= "거대한 눈 달린 촉수 알림 보기",
---	WarnGiantClawTentacle	= "거대한 발톱 촉수 알림 보기",
-	WarnWeakened			= "쑨 약화 알림 보기",
-	SpecWarnWeakened		= "쑨 약화 특수 알림 보기",
-	TimerEyeTentacle		= "다음 눈 달린 촉수 바 보기",
---	TimerGiantEyeTentacle	= "다음 거대한 눈 달린 촉수 바 보기",
---	TimerClawTentacle		= "다음 발톱 촉수 바 보기",
---	TimerGiantClawTentacle	= "다음 거대한 발톱 촉수 바 보기",
-	TimerWeakened			= "쑨 약화 유지시간 바 보기",
+	WarnEyeTentacle			= "눈 달린 촉수 경고 보기",
+	SpecWarnWeakened		= "쑨 약화시 특수 경고 보기",
+	TimerEyeTentacle		= "다음 눈 달린 촉수 타이머 바 보기",
+	TimerWeakened			= "쑨 약화 지속시간 타이머 바 보기",
 	RangeFrame				= "거리 창 보기(10m)"
 }
 L:SetMiscLocalization{
 	Eye			= "쑨의 눈",
-	Weakened 	= "약해집니다!"
+	Weakened 	= "약해집니다!",
+	NotValid	= "%s 만에 안퀴40 레이드를 불완전하게 클리어했습니다. 완전하게 클리어하지 않았으므로 이번 클리어 시간은 저장되지 않습니다."
 }
 ----------------
 -- Ouro --
@@ -140,12 +127,21 @@ L:SetWarningLocalization{
 	WarnEmerge			= "등장",
 }
 L:SetTimerLocalization{
-	TimerSubmerge		= "다음 잠수",
-	TimerEmerge			= "다음 등장"
+	TimerSubmerge		= "잠수",
+	TimerEmerge			= "등장"
 }
 L:SetOptionLocalization{
-	WarnSubmerge		= "잠수 알림 보기",
-	TimerSubmerge		= "다음 잠수 바 보기",
-	WarnEmerge			= "등장 알림 보기",
-	TimerEmerge			= "다음 등장 바 보기"
+	WarnSubmerge		= "잠수 경고 보기",
+	TimerSubmerge		= "잠수 타이머 바 보기",
+	WarnEmerge			= "등장 경고 보기",
+	TimerEmerge			= "등장 타이머 바 보기"
+}
+
+----------------
+-- AQ40 Trash --
+----------------
+L = DBM:GetModLocalization("AQ40Trash")
+
+L:SetGeneralLocalization{
+	name = "안퀴40 일반몹"
 }

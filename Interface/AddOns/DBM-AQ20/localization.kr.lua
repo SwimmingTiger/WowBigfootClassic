@@ -25,6 +25,7 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Wave12		= "그들이 오고 있다. 자신의 몸을 지키도록 하라!",
+	Wave12Alt	= "Remember, Rajaxx, when I said I'd kill you last?",
 	Wave3		= "응보의 날이 다가왔다! 암흑이 적들의 마음을 지배하리라!",
 	Wave4		= "더는 돌벽과 성문 뒤에서 기다릴 수 없다! 복수의 기회를 놓칠 수 없다. 우리가 분노를 터뜨리는 날 용족은 두려움에 떨리라.",
 	Wave5		= "적에게 공포와 죽음의 향연을!",

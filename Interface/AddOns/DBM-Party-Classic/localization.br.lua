@@ -1237,7 +1237,12 @@ L = DBM:GetModLocalization(455)
 L:SetGeneralLocalization{
 	name 		= "Ramstein, o Devorador"
 }
-
+L:SetTimerLocalization{
+	TimerGuards	= "Guardas aparecem"
+}
+L:SetOptionLocalization{
+	TimerGuards	= "Depois de derrotar o chefe, exibe o cronômetro para a chegada das Sentinelas da Guarda Negra"
+}
 -----------------------------
 --  Baron Rivendare  --
 -----------------------------

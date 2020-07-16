@@ -5,6 +5,12 @@ local L = DBM_CORE_L
 L.DEADLY_BOSS_MODS					= "Deadly Boss Mods"
 L.DBM								= "DBM"
 
+local dateTable = date("*t")
+if dateTable.day and dateTable.month and dateTable.day == 1 and dateTable.month == 4 then
+	L.DEADLY_BOSS_MODS				= "Harmless Boss Mods"
+	L.DBM							= "HBM"
+end
+
 L.HOW_TO_USE_MOD					= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. DBM will setup defaults for your spec, but you may want to fine tune these."
 L.SILENT_REMINDER					= "Reminder: " .. L.DBM .. " is still in silent mode."
 
@@ -677,5 +683,7 @@ L.WORLD_BUFFS = {
 	hordeNef						= "NEFARIAN IS SLAIN! People of Orgrimmar",
 	allianceNef						= "Citizens of the Alliance, the Lord of Blackrock is slain!",
 	zgHeart							= "Now, only one step remains to rid us of the Soulflayer's threat",
+	zgHeartBooty					= "The Blood God, the Soulflayer, has been defeated!  We are imperiled no longer!",
+	zgHeartYojamba					= "Begin the ritual, my servants.  We must banish the heart of Hakkar back into the void!",
 	rendHead						= "The false Warchief, Rend Blackhand, has fallen!"
 }

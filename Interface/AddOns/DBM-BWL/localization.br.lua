@@ -172,5 +172,5 @@ L:SetMiscLocalization{
 	YellRogue	= "Ladinos? Parem de se esconder e venham me enfrentar!",
 	YellWarlock	= "Bruxos, vocês não deveriam brincar com magias que não compreendem. Viram só o que acontece?",
 	YellHunter	= "Caçadores e seus irritantes atiradores de ervilhas!",
-	YellMage	= "¡Magos también? Deberíais tener más cuidado cuando jugáis con la magia..." --needs localization
+	YellMage	= "Magos também? Vocês deveriam ter mais cuidado ao brincar com magia..."
 }

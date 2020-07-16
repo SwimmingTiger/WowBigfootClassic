@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("AQ40Trash", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200703201105")
+mod:SetRevision("20200710050304")
 --mod:SetModelID(47785)
 mod:SetZone()
+mod:SetMinSyncRevision(20200710000000)--2020, 7, 10
 
 mod.isTrashMod = true
 
@@ -43,7 +44,7 @@ do
 		local cid = self:GetCIDFromGUID(GUID)
 		if startCreatureIds[cid] then
 			if not self.vb.firstEngageTime then
-				self.vb.firstEngageTime = GetTime()
+				self.vb.firstEngageTime = GetServerTime()
 				if self.Options.FastestClear and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
 					DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "136106")
@@ -79,7 +80,7 @@ do
 			end
 			if self.Options.FastestClear and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-				local adjustment = GetTime() - self.vb.firstEngageTime
+				local adjustment = GetServerTime() - self.vb.firstEngageTime
 				DBM.Bars:CreateBar(self.Options.FastestClear - adjustment, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 			end
 			--Unregister high CPU combat log events

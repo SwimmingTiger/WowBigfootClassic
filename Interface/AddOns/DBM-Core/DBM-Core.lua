@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200707142423"),
-	DisplayVersion = "1.13.52", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 7, 7) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200714153956"),
+	DisplayVersion = "1.13.53", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 7, 14) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -426,7 +426,7 @@ local dataBroker
 local voiceSessionDisabled = false
 local handleSync
 
-local fakeBWVersion, fakeBWHash = 9, "4bfc8af"
+local fakeBWVersion, fakeBWHash = 14, "42eb186"
 local bwVersionResponseString = "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -4440,16 +4440,14 @@ do
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
 					showConstantReminder = 1
-				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
+				elseif not noRaid and #newerVersionPerson == 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if revision grossly out of date even if not major patch.
-					if raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] then
-						local revDifference = mmin(((raid[newerVersionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[2]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[3]].revision or 0) - DBM.Revision))
-						if revDifference > 100000000 then--Approx 1 month old 20190416172622
-							if updateNotificationDisplayed < 3 then
-								updateNotificationDisplayed = 3
-								AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
-								DBM:Disable(true)
-							end
+					local revDifference = mmin(((raid[newerVersionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[2]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[3]].revision or 0) - DBM.Revision))
+					if revDifference > 100000000 then--Approx 1 month old 20190416172622
+						if updateNotificationDisplayed < 3 then
+							updateNotificationDisplayed = 3
+							AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
+							DBM:Disable(true)
 						end
 					--Disable if out of date and it's a major patch.
 					elseif not testBuild and dbmToc < wowTOC then
@@ -4661,7 +4659,7 @@ do
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				--difficulty = tonumber(difficulty)--Will be used in WoTLK
 				modId = tonumber(modId)
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				DBM:AddMsg(L.GUILD_COMBAT_STARTED:format(bossName))
 			end
 		end
@@ -4673,7 +4671,7 @@ do
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				--difficulty = tonumber(difficulty)--Will be used in WoTLK
 				modId = tonumber(modId)
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				if wipe == "1" then
 					DBM:AddMsg(L.GUILD_COMBAT_ENDED_AT:format(bossName, wipeHP, time))
 				else
@@ -4688,7 +4686,7 @@ do
 			lastBossEngage[modId..realm] = GetTime()
 			if realm == playerRealm and DBM.Options.WorldBossAlert and not IsEncounterInProgress() then
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), sender))
 			end
 		end
@@ -4699,14 +4697,14 @@ do
 			lastBossDefeat[modId..realm] = GetTime()
 			if realm == playerRealm and DBM.Options.WorldBossAlert and not IsEncounterInProgress() then
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, sender))
 			end
 		end
 
 		syncHandlers["WBA"] = function(sender, bossName, faction, spellId, time, ver)
 			DBM:Debug("WBA sync recieved")
-			if not ver or not (ver == "3") then return end--Ignore old versions
+			if not ver or not (ver == "4") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
 			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
@@ -4715,11 +4713,9 @@ do
 				local buffName, _, buffIcon = DBM:GetSpellInfo(tonumber(spellId) or 0)
 				DBM:AddMsg(L.WORLDBUFF_STARTED:format(buffName or L.UNKNOWN, factionText, sender))
 				DBM:PlaySound(DBM.Options.RaidWarningSound, true)
-				if DBM.Options.DebugMode or (time ~= 7 and time ~= 27) then
-					local timer = tonumber(time)
-					if timer then
-						DBM.Bars:CreateBar(timer, buffName or L.UNKNOWN, buffIcon or 136106)
-					end
+				time = tonumber(time)
+				if time then
+					DBM.Bars:CreateBar(time, buffName or L.UNKNOWN, buffIcon or 136106)
 				end
 			end
 		end
@@ -4732,7 +4728,7 @@ do
 			if realm == playerRealm and DBM.Options.WorldBossAlert and #inCombat == 0 then
 				local _, toonName = BNGetGameAccountInfo(sender)
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				DBM:AddMsg(L.WORLDBOSS_ENGAGED:format(bossName, floor(health), toonName))
 			end
 		end
@@ -4744,14 +4740,14 @@ do
 			if realm == playerRealm and DBM.Options.WorldBossAlert and #inCombat == 0 then
 				local _, toonName = BNGetGameAccountInfo(sender)
 				modId = tonumber(modId)--If it fails to convert into number, this makes it nil
-				local bossName = modId and EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or name or L.UNKNOWN
+				local bossName = modId and (EJ_GetEncounterInfo and EJ_GetEncounterInfo(modId) or DBM:GetModLocalization(modId).general.name) or name or L.UNKNOWN
 				DBM:AddMsg(L.WORLDBOSS_DEFEATED:format(bossName, toonName))
 			end
 		end
 
 		whisperSyncHandlers["WBA"] = function(sender, bossName, faction, spellId, time, ver)
 			DBM:Debug("WBA sync recieved")
-			if not ver or not (ver == "3") then return end--Ignore old versions
+			if not ver or not (ver == "4") then return end--Ignore old versions
 			if lastBossEngage[bossName..faction] and (GetTime() - lastBossEngage[bossName..faction] < 30) then return end--We recently got a sync about this buff on this realm, so do nothing.
 			lastBossEngage[bossName..faction] = GetTime()
 			if DBM.Options.WorldBuffAlert and #inCombat == 0 then
@@ -4760,11 +4756,9 @@ do
 				local buffName, _, buffIcon = DBM:GetSpellInfo(tonumber(spellId) or 0)
 				DBM:AddMsg(L.WORLDBUFF_STARTED:format(buffName or L.UNKNOWN, factionText, sender))
 				DBM:PlaySound(DBM.Options.RaidWarningSound, true)
-				if DBM.Options.DebugMode or (time ~= 7 and time ~= 27) then
-					local timer = tonumber(time)
-					if timer then
-						DBM.Bars:CreateBar(timer, buffName or L.UNKNOWN, buffIcon or 136106)
-					end
+				time = tonumber(time)
+				if time then
+					DBM.Bars:CreateBar(time, buffName or L.UNKNOWN, buffIcon or 136106)
 				end
 			end
 		end
@@ -5600,20 +5594,29 @@ do
 		end
 		if not IsInInstance() then
 			if msg:find(L.WORLD_BUFFS.hordeOny) then
-				SendWorldSync(self, "WBA", "Onyxia\tHorde\t22888\t15\t3")
+				SendWorldSync(self, "WBA", "Onyxia\tHorde\t22888\t15\t4")
 				DBM:Debug("L.WORLD_BUFFS.hordeOny detected")
 			elseif msg:find(L.WORLD_BUFFS.allianceOny) then
-				SendWorldSync(self, "WBA", "Onyxia\tAlliance\t22888\t15\t3")
+				SendWorldSync(self, "WBA", "Onyxia\tAlliance\t22888\t15\t4")
 				DBM:Debug("L.WORLD_BUFFS.allianceOny detected")
 			elseif msg:find(L.WORLD_BUFFS.hordeNef) then
-				SendWorldSync(self, "WBA", "Nefarian\tHorde\t22888\t16\t3")
+				SendWorldSync(self, "WBA", "Nefarian\tHorde\t22888\t16\t4")
 				DBM:Debug("L.WORLD_BUFFS.hordeNef detected")
 			elseif msg:find(L.WORLD_BUFFS.allianceNef) then
-				SendWorldSync(self, "WBA", "Nefarian\tAlliance\t22888\t16\t3")
+				SendWorldSync(self, "WBA", "Nefarian\tAlliance\t22888\t16\t4")
 				DBM:Debug("L.WORLD_BUFFS.allianceNef detected")
 			elseif msg:find(L.WORLD_BUFFS.rendHead) then
-				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t16609\t7\t3")
+				SendWorldSync(self, "WBA", "rendBlackhand\tHorde\t16609\t7\t4")
 				DBM:Debug("L.WORLD_BUFFS.rendHead detected")
+			elseif msg:find(L.WORLD_BUFFS.zgHeartYojamba) then
+				-- zg buff transcripts https://gist.github.com/venuatu/18174f0e98759f83b9834574371b8d20
+				-- 28.58, 28.67, 27.77, 29.39, 28.67, 29.03, 28.12, 28.19, 29.61
+				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t28\t4")
+				DBM:Debug("L.WORLD_BUFFS.zgHeartYojamba detected")
+			elseif msg:find(L.WORLD_BUFFS.zgHeartBooty) then
+				-- 48.7, 49.76, 50.64, 49.42, 49.8, 50.67, 50.94, 51.06
+				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t49\t4")
+				DBM:Debug("L.WORLD_BUFFS.zgHeartBooty detected")
 			end
 		end
 		return onMonsterMessage(self, "yell", msg)
@@ -5652,7 +5655,8 @@ do
 	function DBM:CHAT_MSG_MONSTER_SAY(msg)
 		if not IsInInstance() then
 			if msg:find(L.WORLD_BUFFS.zgHeart) then
-				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t27\t3")
+				-- 51.01 51.82 51.85 51.53
+				SendWorldSync(self, "WBA", "Zandalar\tBoth\t24425\t51\t4")
 			end
 		end
 		return onMonsterMessage(self, "say", msg)
@@ -11327,7 +11331,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200707142423" then
+	if not revision or revision == "20200714153956" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

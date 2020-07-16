@@ -576,8 +576,9 @@ L.DUR_ENTRY					= "%s: 내구도 [%d 퍼센트] / 깨진 장비 [%s]"
 L.LAG_FOOTER					= "응답 없음: %s"
 
 --LDB
-L.LDB_TOOLTIP_HELP1	= "왼쪽 클릭으로 " .. L.DBM .. " 열기"
-L.LDB_TOOLTIP_HELP2	= "오른쪽 클릭으로 조용함 모드 켜고 끄기"
+L.LDB_TOOLTIP_HELP1	= "클릭으로 " .. L.DBM .. " 열기"
+L.LDB_TOOLTIP_HELP2	= "Alt+클릭으로 조용함 모드 켜고 끄기"
+L.SILENTMODE_IS                     = "조용함 모드 "
 
 L.LDB_LOAD_MODS		= "보스 모드 로드"
 
@@ -598,4 +599,6 @@ L.WORLD_BUFFS.allianceOny	= "스톰윈드의 주민들과 모든 얼라이언스
 L.WORLD_BUFFS.hordeNef		= "네파리안이 쓰러졌다! 오그리마의 백성들이여"
 L.WORLD_BUFFS.allianceNef	= "얼라이언스의 시민들이여, 검은바위부족의 군주가 쓰러졌다!"
 L.WORLD_BUFFS.zgHeart		= "이제 한 가지 일만 더 하면 영혼의 약탈자의 위협을 완전히 제거할 수 있겠군..."
+L.WORLD_BUFFS.zgHeartBooty	= "공포의 혈신"
+L.WORLD_BUFFS.zgHeartYojamba	= "나의 종복들이여, 의식을 시작하라! 학카르의 심장을 다시 공허의 차원으로 쫓아내야 한다!"
 L.WORLD_BUFFS.rendHead		= "가짜 대족장 렌드 블랙핸드가 쓰러졌도다!"

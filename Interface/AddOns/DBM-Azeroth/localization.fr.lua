@@ -42,18 +42,18 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "The strands of LIFE have been severed! The Dreamers must be avenged!"
+	Pull		= "Les fils de la VIE ont été coupés ! Les Rêveurs doivent être vengés !"
 })
 
 -- Lethon (Hinterlands)
 L = DBM:GetModLocalization("Lethon")
 
 L:SetGeneralLocalization{
-	name = "Lethon"
+	name = "Léthon"
 }
 
 L:SetMiscLocalization({
---	Pull		= "The strands of LIFE have been severed! The Dreamers must be avenged!"--Does not have one :\
+	Pull		= "Je sens l'OMBRE dans vos cœurs. Il ne peut y avoir de repos pour les vilains !"
 })
 
 -- Emeriss (Duskwood)

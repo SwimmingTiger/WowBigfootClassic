@@ -600,7 +600,7 @@ L.LDB_CAT_OTHER		= "Otros módulos"
 L.LDB_CAT_GENERAL		= "General"
 L.LDB_ENABLE_BOSS_MOD	= "Habilitar módulo"
 
-L.WORLD_BUFFS.hordeOny		= "People of the Horde, citizens of Orgrimmar, come, gather round and celebrate a hero of the Horde"
+L.WORLD_BUFFS.hordeOny		= "Miembros de la Horda, ciudadanos de Orgrimmar, vengan y reúnanse para homenajear un hecho heroico"
 L.WORLD_BUFFS.allianceOny	= "Ciudadanos y aliados de Ventormenta, en el día de hoy, hemos hecho historia."
 L.WORLD_BUFFS.hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar"
 L.WORLD_BUFFS.allianceNef	= "¡Ciudadanos de la Alianza, el Señor de Roca Negra está muerto!"

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200625015320")
+mod:SetRevision("20200710050925")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:RegisterCombat("combat")
@@ -53,21 +53,23 @@ function mod:OnCombatEnd(wipe)
 	if not wipe then
 		DBM.Bars:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 		if firstBossMod.vb.firstEngageTime then
-			local thisTime = GetTime() - firstBossMod.vb.firstEngageTime
-			--Not an eligable speed run, since all 3 optional bosses weren't defeated
-			if not firstBossMod.vb.OuroDefeated or not firstBossMod.vb.OuroDefeated or not firstBossMod.vb.OuroDefeated then
-				DBM:AddMsg(L.NotValid:format(DBM:strFromTime(thisTime)))
-			elseif not firstBossMod.Options.FastestClear then
-				--First clear, just show current clear time
-				DBM:AddMsg(DBM_CORE_L.RAID_DOWN:format("AQ40", DBM:strFromTime(thisTime)))
-				firstBossMod.Options.FastestClear = thisTime
-			elseif (firstBossMod.Options.FastestClear > thisTime) then
-				--Update record time if this clear shorter than current saved record time and show users new time, compared to old time
-				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_NR:format("AQ40", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
-				firstBossMod.Options.FastestClear = thisTime
-			else
-				--Just show this clear time, and current record time (that you did NOT beat)
-				DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("AQ40", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+			local thisTime = GetServerTime() - firstBossMod.vb.firstEngageTime
+			if thisTime and thisTime > 0 then
+				--Not an eligable speed run, since all 3 optional bosses weren't defeated
+				if not firstBossMod.vb.OuroDefeated or not firstBossMod.vb.OuroDefeated or not firstBossMod.vb.OuroDefeated then
+					DBM:AddMsg(L.NotValid:format(DBM:strFromTime(thisTime)))
+				elseif not firstBossMod.Options.FastestClear then
+					--First clear, just show current clear time
+					DBM:AddMsg(DBM_CORE_L.RAID_DOWN:format("AQ40", DBM:strFromTime(thisTime)))
+					firstBossMod.Options.FastestClear = thisTime
+				elseif (firstBossMod.Options.FastestClear > thisTime) then
+					--Update record time if this clear shorter than current saved record time and show users new time, compared to old time
+					DBM:AddMsg(DBM_CORE_L.RAID_DOWN_NR:format("AQ40", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+					firstBossMod.Options.FastestClear = thisTime
+				else
+					--Just show this clear time, and current record time (that you did NOT beat)
+					DBM:AddMsg(DBM_CORE_L.RAID_DOWN_L:format("AQ40", DBM:strFromTime(thisTime), DBM:strFromTime(firstBossMod.Options.FastestClear)))
+				end
 			end
 			firstBossMod.vb.firstEngageTime = nil
 		end

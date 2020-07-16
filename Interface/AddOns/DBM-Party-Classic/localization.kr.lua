@@ -1243,6 +1243,12 @@ L = DBM:GetModLocalization(455)
 L:SetGeneralLocalization{
 	name 		= "먹보 람스타인"
 }
+L:SetTimerLocalization{
+	TimerGuards	= "보초병 등장"
+}
+L:SetOptionLocalization{
+	TimerGuards	= "보스를 쓰러트리면 검은호위대 보초병 등장 타이머 바 표시"
+}
 
 -----------------------------
 --  Baron Rivendare  --

@@ -14,36 +14,36 @@ local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS -- For 
 
 -- Function for automatically converting inputed ranges from old mods to be ones that have valid item/api checks
 local function setCompatibleRestrictedRange(range)
-	if range <= 4 then
-		range = 4
-	elseif range <= 6 then
-		range = 6
-	elseif range <= 8 then
+--	if range <= 4 then
+--		range = 4
+--	elseif range <= 6 then
+--		range = 6
+	if range <= 8 then
 		range = 8
 	elseif range <= 10 then
 		range = 10
 	elseif range <= 11 then
 		range = 11
-	elseif range <= 13 then
-		range = 13
+--	elseif range <= 13 then
+--		range = 13
 	elseif range <= 18 then
 		range = 18
 	elseif range <= 23 then
 		range = 23
-	elseif range <= 30 then
-		range = 30
+--	elseif range <= 30 then
+--		range = 30
 	elseif range <= 33 then
 		range = 33
 	elseif range <= 43 then
 		range = 43
-	elseif range <= 48 then
-		range = 48
-	elseif range <= 53 then
-		range = 53
-	elseif range <= 60 then
-		range = 60
-	elseif range <= 80 then
-		range = 80
+--	elseif range <= 48 then
+--		range = 48
+--	elseif range <= 53 then
+--		range = 53
+--	elseif range <= 60 then
+--		range = 60
+--	elseif range <= 80 then
+--		range = 80
 	end
 	return range
 end
@@ -55,29 +55,36 @@ do
 	-- All ranges are tested and compared against UnitDistanceSquared.
 	-- Example: Worgsaw has a tooltip of 6 but doesn't factor in hitboxes/etc. It doesn't return false until UnitDistanceSquared of 8.
 	local itemRanges = {
-		[4] = 90175, -- Gin-Ji Knife Set
-		[6] = 37727, -- Ruby Acorn
-		[8] = 8149, -- Voodoo Charm
-		[13] = 32321, -- Sparrowhawk Net
-		[18] = 6450, -- Silk Bandage
-		[23] = 21519, -- Mistletoe
-		[33] = 1180, -- Scroll of Stamina
-		[43] = 34471, -- Vial of the Sunwell (UnitInRange api alternate if item checks break)
-		[48] = 32698, -- Wrangling Rope
-		[53] = 116139, -- Haunting Memento
-		[60] = 32825, -- Soul Cannon
-		[80] = 35278, -- Reinforced Net
+	--	[4] = 90175,--Gin-Ji Knife Set
+	--	[6] = 37727,--Ruby Acorn
+		[8] = 8149,--Voodoo Charm
+	--	[13] = 32321,--Sparrowhawk Net
+		[18] = 6450,--Silk Bandage
+		[23] = 21519,--Mistletoe
+		[33] = 1180,--Scroll of Stamina
+	--	[43] = 34471,--Vial of the Sunwell (UnitInRange api alternate if item checks break)
+	--	[48] = 32698,--Wrangling Rope
+	--	[53] = 116139,--Haunting Memento
+	--	[60] = 32825,--Soul Cannon
+	--	[80] = 35278,--Reinforced Net
 	}
 
 	local apiRanges = {
-		[10] = 3, -- CheckInteractDistance (Duel)
-		[11] = 2, -- CheckInteractDistance (Trade)
-		[30] = 1, -- CheckInteractDistance (Inspect)
+		[10] = 3,--CheckInteractDistance (Duel)
+		[11] = 2,--CheckInteractDistance (Trade)
+	--	[30] = 1,--CheckInteractDistance (Inspect) (in Classic inspect range is 10)
 	}
 
 	function itsBCAgain(uId, checkrange)
 		if checkrange then -- Specified range, this check only cares whether unit is within specific range
-			if itemRanges[checkrange] then -- Only query item range for requested active range check
+			--Only classic uses UnitInRange so only classic has this check, TBC+ can use Vial of the Sunwell
+			if checkrange == 43 then
+				if UnitInRange(uId) then
+					return checkrange
+				else
+					return 1000
+				end
+			elseif itemRanges[checkrange] then -- Only query item range for requested active range check
 				return IsItemInRange(itemRanges[checkrange], uId) and checkrange or 1000
 			elseif apiRanges[checkrange] then -- Only query item range for requested active range if no item found for it
 				return CheckInteractDistance(uId, apiRanges[checkrange]) and checkrange or 1000
@@ -85,22 +92,22 @@ do
 				 return 1000 -- Just so it has a numeric value, even if it's unknown to protect from nil errors
 			end
 		else -- No range passed, this is being used by a getDistanceBetween function that needs to calculate precise distances of members of raid (well as precise as possible with a crappy api)
-			if IsItemInRange(90175, uId) then return 4
-			elseif IsItemInRange(37727, uId) then return 6
-			elseif IsItemInRange(8149, uId) then return 8
+	--		if IsItemInRange(90175, uId) then return 4
+	--		elseif IsItemInRange(37727, uId) then return 6
+			if IsItemInRange(8149, uId) then return 8
 			elseif CheckInteractDistance(uId, 3) then return 10
 			elseif CheckInteractDistance(uId, 2) then return 11
-			elseif IsItemInRange(32321, uId) then return 13
+	--		elseif IsItemInRange(32321, uId) then return 13
 			elseif IsItemInRange(6450, uId) then return 18
 			elseif IsItemInRange(21519, uId) then return 23
-			elseif CheckInteractDistance(uId, 1) then return 30
+	--		elseif CheckInteractDistance(uId, 1) then return 30
 			elseif IsItemInRange(1180, uId) then return 33
 			elseif UnitInRange(uId) then return 43
-			elseif IsItemInRange(32698, uId) then return 48
-			elseif IsItemInRange(116139, uId) then return 53
-			elseif IsItemInRange(32825, uId) then return 60
-			elseif IsItemInRange(35278, uId) then return 80
-			else return 1000 end -- Just so it has a numeric value, even if it's unknown to protect from nil errors
+	--		elseif IsItemInRange(32698, uId) then return 48
+	--		elseif IsItemInRange(116139, uId) then return 53
+	--		elseif IsItemInRange(32825, uId) then return 60
+	--		elseif IsItemInRange(35278, uId) then return 80
+			else return 1000 end--Just so it has a numeric value, even if it's unknown to protect from nil errors
 		end
 	end
 end
@@ -193,20 +200,6 @@ do
 		elseif level == 2 then
 			if menu == "range" then
 				info = UIDropDownMenu_CreateInfo()
-				info.text = L.RANGECHECK_SETRANGE_TO:format(4)
-				info.func = setRange
-				info.arg1 = 4
-				info.checked = (mainFrame.range == 4)
-				UIDropDownMenu_AddButton(info, 2)
-
-				info = UIDropDownMenu_CreateInfo()
-				info.text = L.RANGECHECK_SETRANGE_TO:format(6)
-				info.func = setRange
-				info.arg1 = 6
-				info.checked = (mainFrame.range == 6)
-				UIDropDownMenu_AddButton(info, 2)
-
-				info = UIDropDownMenu_CreateInfo()
 				info.text = L.RANGECHECK_SETRANGE_TO:format(8)
 				info.func = setRange
 				info.arg1 = 8
@@ -221,10 +214,10 @@ do
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = L.RANGECHECK_SETRANGE_TO:format(13)
+				info.text = L.RANGECHECK_SETRANGE_TO:format(11)
 				info.func = setRange
-				info.arg1 = 13
-				info.checked = (mainFrame.range == 13)
+				info.arg1 = 11
+				info.checked = (mainFrame.range == 11)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
@@ -239,13 +232,6 @@ do
 				info.func = setRange
 				info.arg1 = 23
 				info.checked = (mainFrame.range == 23)
-				UIDropDownMenu_AddButton(info, 2)
-
-				info = UIDropDownMenu_CreateInfo()
-				info.text = L.RANGECHECK_SETRANGE_TO:format(30)
-				info.func = setRange
-				info.arg1 = 30
-				info.checked = (mainFrame.range == 30)
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
