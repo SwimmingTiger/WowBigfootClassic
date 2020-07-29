@@ -92,8 +92,8 @@ local function zzzAddonCheck_Init_MonkeyQuest()
     if MonkeyQuestConfig.mqPatchVersion == patchVersion then
         return
     end
-    if MonkeyBuddyConfig and MonkeyBuddyConfig.Global then
-        MonkeyBuddyConfig.Global.m_bDismissed = true
+    if MonkeyBuddySlash_CmdDismiss then
+        MonkeyBuddySlash_CmdDismiss()
     end
     if MonkeyQuestInit_ResetConfig then
         BigFoot_DelayCall(MonkeyQuestInit_ResetConfig, 1)
@@ -276,5 +276,6 @@ if NWB then
         L["|cffffff00No characters with buffs found."] = "|cffffff00你的角色身上没有世界Buff。"
         L["\nNo current timers found."] = "\n目前没有世界Buff计时器。"
         L["Layer"] = "位面"
+        L["Buff records have been reset."] = "Buff记录已重置。"
     end
 end

@@ -6124,7 +6124,7 @@ function NWB:recalclayerFrame()
 		end
 	end
 	if (not foundTimers) then
-		NWBlayerFrame.EditBox:Insert(NWB.chatColor .. "\nNo current timers found.");
+		NWBlayerFrame.EditBox:Insert(NWB.chatColor .. L["\nNo current timers found."]);
 	end
 	NWB:setCurrentLayerText();
 	local found;
