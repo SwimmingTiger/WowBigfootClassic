@@ -50,6 +50,19 @@ L:SetMiscLocalization({
 })
 
 ----------------------
+--  Seething Shore  --
+----------------------
+L = DBM:GetModLocalization("z1803")
+
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerSpawn	= "Show azerite spawn timer"
+})
+
+----------------------
 --  Alterac Valley  --
 ----------------------
 L = DBM:GetModLocalization("z30")
@@ -253,15 +266,19 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerCart	= "Восстановление вагонетки"
+	TimerRespawn	= "Восстановление вагонетки",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerCart	= "Отсчет времени до восстановления вагонетки"
+	TimerResapwn	= "тсчет времени до восстановления вагонетки",
+	TimerCart		= "Show cart cap timer"
 })
 
 L:SetMiscLocalization({
-	Capture		= "захвачена"
+	Capture	= "захвачена",
+	Arrived	= "has arived",
+	Begun	= "has begun"
 })
 
 -------------------------

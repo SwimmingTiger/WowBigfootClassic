@@ -1,8 +1,11 @@
 # <DBM> PvP
 
-## [r92](https://github.com/DeadlyBossMods/DBM-PvP/tree/r92) (2020-07-07)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r91...r92) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
+## [r93](https://github.com/DeadlyBossMods/DBM-PvP/tree/r93) (2020-07-29)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r91...r93) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
 
+- Sync master?  
+- Fix timers for silvershard and seething (Wern't localized)  
+- Fix #32  
 - Bump TOC for classic  
 - Update localization.tw.lua (#31)  
 - Update localization.cn.lua (#30)  

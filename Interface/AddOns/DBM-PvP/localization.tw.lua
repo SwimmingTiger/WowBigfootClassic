@@ -63,6 +63,10 @@ L:SetMiscLocalization({
 ----------------------
 L = DBM:GetModLocalization("z1803")
 
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
 L:SetOptionLocalization({
 	TimerSpawn	= "顯示戰場計時器"
 })
@@ -125,7 +129,8 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerRespawn	= "礦坑推車"
+	TimerRespawn	= "礦坑推車",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({

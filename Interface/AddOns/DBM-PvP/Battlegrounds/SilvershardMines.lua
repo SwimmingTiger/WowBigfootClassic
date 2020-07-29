@@ -4,7 +4,7 @@ end
 local mod	= DBM:NewMod("z727", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200606155104")
+mod:SetRevision("20200719033919")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
@@ -33,7 +33,9 @@ do
 	end
 end
 
-local carts, clearCartCache
+local carts = {}
+local clearCartCache
+
 do
 	local tinsert = table.insert
 	local GetTime = GetTime

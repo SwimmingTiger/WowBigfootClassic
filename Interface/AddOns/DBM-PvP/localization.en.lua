@@ -62,6 +62,10 @@ L:SetMiscLocalization({
 ----------------------
 L = DBM:GetModLocalization("z1803")
 
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
 L:SetOptionLocalization({
 	TimerSpawn	= "Show azerite spawn timer"
 })
@@ -124,7 +128,8 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerRespawn	= "Cart respawn"
+	TimerRespawn	= "Cart respawn",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({

@@ -49,6 +49,19 @@ L:SetMiscLocalization({
 	highmaulArena	= "The battle for supremacy begins in 30 seconds!"
 })
 
+----------------------
+--  Seething Shore  --
+----------------------
+L = DBM:GetModLocalization("z1803")
+
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerSpawn	= "Show azerite spawn timer"
+})
+
 ---------------
 --  Alterac  --
 ---------------
@@ -253,15 +266,19 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerCart	= "Chariot respawn"
+	TimerRespawn	= "Chariot respawn",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerCart	= "Afficher le temps de respawn des chariots"
+	TimerResapwn	= "Afficher le temps de respawn des chariots",
+	TimerCart		= "Show cart cap timer"
 })
 
 L:SetMiscLocalization({
-	Capture	= "pris le contrôle"
+	Capture	= "pris le contrôle",
+	Arrived	= "has arived",
+	Begun	= "has begun"
 })
 
 -------------------------

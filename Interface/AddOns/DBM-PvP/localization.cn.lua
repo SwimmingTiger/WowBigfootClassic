@@ -58,13 +58,29 @@ L:SetMiscLocalization({
 	Vulnerable2			= "旗帜携带者越来越容易受到攻击！"
 })
 
+L:SetTimerLocalization({
+	TimerShadow	= "暗影之眼"
+})
+
+L:SetOptionLocalization({
+	TimerShadow	= "计时条：暗影之眼"
+})
+
+L:SetMiscLocalization({
+	Start15	= "竞技场战斗将在十五秒后开始！"
+})
+
 ----------------------
 --  Seething Shore  --
 ----------------------
 L = DBM:GetModLocalization("z1803")
 
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
 L:SetOptionLocalization({
-	TimerSpawn	= "显示计时器"
+	TimerSpawn	= "Show azerite spawn timer"
 })
 
 ----------------------
@@ -125,7 +141,8 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerRespawn	= "矿车刷新"
+	TimerRespawn	= "矿车刷新",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({

@@ -50,6 +50,19 @@ L:SetMiscLocalization({
 })
 
 ----------------------
+--  Seething Shore  --
+----------------------
+L = DBM:GetModLocalization("z1803")
+
+L:SetTimerLocalization({
+	TimerSpawn	= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerSpawn	= "Show azerite spawn timer"
+})
+
+----------------------
 --  Alterac Valley  --
 ----------------------
 L = DBM:GetModLocalization("z30")
@@ -253,15 +266,19 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerCart	= "수레 재생성"
+	TimerRespawn	= "수레 재생성",
+	TimerCart		= "%s"
 })
 
 L:SetOptionLocalization({
-	TimerCart	= "수레 재생성 바 보기"
+	TimerResapwn	= "수레 재생성 바 보기",
+	TimerCart		= "Show cart cap timer"
 })
 
 L:SetMiscLocalization({
-	Capture	= "수레를 빼앗았습니다!"
+	Capture	= "수레를 빼앗았습니다!",
+	Arrived	= "has arived",
+	Begun	= "has begun"
 })
 
 -------------------------
