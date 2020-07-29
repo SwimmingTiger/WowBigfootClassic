@@ -96,7 +96,7 @@ local function zzzAddonCheck_Init_MonkeyQuest()
         MonkeyBuddyConfig.Global.m_bDismissed = true
     end
     if MonkeyQuestInit_ResetConfig then
-        MonkeyQuestInit_ResetConfig()
+        BigFoot_DelayCall(MonkeyQuestInit_ResetConfig, 1)
     end
     MonkeyQuestConfig.mqPatchVersion = patchVersion
 end
