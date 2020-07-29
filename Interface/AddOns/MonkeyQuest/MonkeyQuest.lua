@@ -20,6 +20,23 @@ MonkeyQuest.m_colourBorder = { r = TOOLTIP_DEFAULT_COLOR.r, g = TOOLTIP_DEFAULT_
 MonkeyQuestObjectiveTable = {};
 MonkeyQuestAllowSounds = false
 
+local function get_utf8_char(str)
+	local function chsize(char)
+		if not char then
+			return 0
+		elseif char > 240 then
+			return 4
+		elseif char > 225 then
+			return 3
+		elseif char > 192 then
+			return 2
+		else
+			return 1
+		end
+	end
+	return string.sub(str, 1, chsize(string.byte(str)))
+end
+
 function MonkeyQuest_OnLoad(self)
     hooksecurefunc("HideUIPanel", MonkeyQuest_Refresh);
     hooksecurefunc(GameTooltip, "SetBagItem", YourSetBagItem);
@@ -696,7 +713,7 @@ function MonkeyQuest_Refresh(MBDaily)
 								elseif ( tagID == QUEST_TAG_ACCOUNT) then
 									chars = "A"
                                 else
-                                    chars = string.sub(tagName, 1, 1)
+                                    chars = get_utf8_char(tagName)
 								end
 							end
 							
@@ -1285,7 +1302,7 @@ function MonkeyQuestButton_OnClick(self, button, down)
 				elseif ( tagID == QUEST_TAG_ACCOUNT) then
 					chars = "A"
                 else
-                    chars = string.sub(tagName, 1, 1)
+                    chars = get_utf8_char(tagName)
 				end
 			end
 			
