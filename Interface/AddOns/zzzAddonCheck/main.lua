@@ -275,5 +275,6 @@ if NWB then
         L["Click here to view current timers."] = "点击查看当前计时器信息。"
         L["|cffffff00No characters with buffs found."] = "|cffffff00你的角色身上没有世界Buff。"
         L["\nNo current timers found."] = "\n目前没有世界Buff计时器。"
+        L["Layer"] = "位面"
     end
 end

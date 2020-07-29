@@ -6298,7 +6298,7 @@ function NWB:setCurrentLayerText(unit)
 	for k, v in NWB:pairsByKeys(NWB.data.layers) do
 		count = count + 1;
 		if (k == tonumber(zoneID)) then
-			NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00[Layer " .. count .. "]|cFF9CD6DE.|r");
+			NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00["..L["Layer"].." " .. count .. "]|cFF9CD6DE.|r");
 			NWB.currentLayer = count;
 			NWB.lastKnownLayer = count;
 			NWB.lastKnownLayerID = k;
@@ -6986,7 +6986,7 @@ end)
 		for k, v in NWB:pairsByKeys(NWB.data.layers) do
 			count = count + 1;
 			if (k == NWB.lastKnownLayerMapID) then
-				NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00[Layer " .. count .. "]|cFF9CD6DE.|r");
+				NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00["..L["Layer"].." " .. count .. "]|cFF9CD6DE.|r");
 				NWB.currentLayer = count;
 				NWB.lastKnownLayer = count;
 				NWB.lastKnownLayerID = k;
