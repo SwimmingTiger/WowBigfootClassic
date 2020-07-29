@@ -391,14 +391,14 @@ function MonkeyQuestInit_Font(iFont)
 		-- Default look
 		
 		-- change the fonts
-		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\framd.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts(STANDARD_TEXT_FONT, MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 		--MonkeyQuestTitleText:SetFont("Fonts\\FRIZQT__.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
 
 	elseif ( iFont == 1 ) then 
 		-- crash font
 		
 		--MonkeyQuestTitleText:SetFont("Interface\\AddOns\\MonkeyLibrary\\Fonts\\adventure.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
-		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\myriapsc.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts("Fonts\\ARHei.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 
 	elseif ( iFont == 2 ) then
 		-- Blizzard style
