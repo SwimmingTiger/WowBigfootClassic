@@ -70,17 +70,35 @@ local function zzzAddonCheck_Init_NeatPlates()
 end
 
 local function zzzAddonCheck_Init_NovaWorldBuffs()
-    -- 默认不向公会频道发送世界Buff信息，并过滤其他人发送的此类消息
-    local patchVersion = '2020-06-28-23'
+    -- 重新打开公会频道世界Buff信息发送
+    local patchVersion = '2020-07-29-22'
     if NWB and NWB.db and NWB.db.global and NWB.db.global.nwbPatchVersion ~= patchVersion then
-        NWB.db.global.disableAllGuildMsgs = 1
-        NWB.db.global.filterDrops = true
-        NWB.db.global.filterNpcKilled = true
-        NWB.db.global.filterSongflowers = true
-        NWB.db.global.filterTimers = true
-        NWB.db.global.filterYells = true
+        NWB.db.global.disableAllGuildMsgs = 0
+        NWB.db.global.filterDrops = false
+        NWB.db.global.filterNpcKilled = false
+        NWB.db.global.filterSongflowers = false
+        NWB.db.global.filterTimers = false
+        NWB.db.global.filterYells = false
         NWB.db.global.nwbPatchVersion = patchVersion
     end
+end
+
+local function zzzAddonCheck_Init_MonkeyQuest()
+    -- 设置MonkeyQuest初始样式
+    local patchVersion = '2020-07-29-22'
+    if not MonkeyQuestConfig then
+        return
+    end
+    if MonkeyQuestConfig.mqPatchVersion == patchVersion then
+        return
+    end
+    if MonkeyBuddyConfig and MonkeyBuddyConfig.Global then
+        MonkeyBuddyConfig.Global.m_bDismissed = true
+    end
+    if MonkeyQuestInit_ResetConfig then
+        MonkeyQuestInit_ResetConfig()
+    end
+    MonkeyQuestConfig.mqPatchVersion = patchVersion
 end
 
 local function LoaderEvents(frame, event, arg1)
@@ -98,8 +116,11 @@ local function LoaderEvents(frame, event, arg1)
     -- 姓名板：打开目标高亮和友方施法条，禁用仇恨指示器
     zzzAddonCheck_Init_NeatPlates()
 
-    -- 默认不向公会频道发送世界Buff信息，并过滤其他人发送的此类消息
+    -- 重新打开公会频道世界Buff信息发送
     zzzAddonCheck_Init_NovaWorldBuffs()
+
+    -- 设置MonkeyQuest初始样式
+    zzzAddonCheck_Init_MonkeyQuest()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
