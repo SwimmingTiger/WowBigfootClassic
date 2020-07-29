@@ -44,6 +44,7 @@ local ColorCastBars = true
 local ShowServerIndicator = false
 local ShowUnitTitle = true
 local ShowPowerBar = false
+local ShowSpellTarget = false
 local EMPTY_TEXTURE = "Interface\\Addons\\NeatPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local OverrideFonts = false
@@ -418,6 +419,7 @@ do
 		visual.castnostop = castbar:CreateTexture(nil, "ARTWORK")
 		visual.spellicon = castbar:CreateTexture(nil, "OVERLAY")
 		visual.spelltext = castbar:CreateFontString(nil, "OVERLAY")
+		visual.spelltarget = castbar:CreateFontString(nil, "OVERLAY")
 		visual.durationtext = castbar:CreateFontString(nil, "OVERLAY")
 		castbar.durationtext = visual.durationtext -- Extra reference for updating castbars duration text
 		-- Set Base Properties
@@ -451,6 +453,7 @@ do
 		visual.subtext:SetFontObject("NeatPlatesFontSmall")
 		visual.level:SetFontObject("NeatPlatesFontSmall")
 		visual.spelltext:SetFontObject("NeatPlatesFontNormal")
+		visual.spelltarget:SetFontObject("NeatPlatesFontNormal")
 		visual.durationtext:SetFontObject("NeatPlatesFontNormal")
 		visual.customtext:SetFontObject("NeatPlatesFontSmall")
 
@@ -1119,7 +1122,31 @@ do
 		-- Clear registered events incase they weren't
 		castBar:SetScript("OnEvent", nil)
 		--castBar:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+		
+		-- Set spell target (Target doesn't usually update until a little bit after the combat event, so we need to recheck)
+		if ShowSpellTarget and unit.unitid then
+			local maxTries = 10
+			local targetof = unit.unitid.."target"
+			local function setSpellTarget()
+				local targetname =  UnitName(targetof) or ""
+				if UnitIsUnit(targetof, "player") then
+					targetname = "|cFFFF1100"..">> "..L["You"].." <<" or ""	-- Red '>> You <<' instead of character name
+				elseif UnitIsPlayer(targetof) then
+					local targetclass = select(2, UnitClass(targetof))
+					targetname = ConvertRGBtoColorString(RaidClassColors[targetclass])..targetname or ""
+				end
+				visual.spelltarget:SetText(targetname)
 
+				-- Retry if target is empty
+				if targetname == "" and maxTries > 0 then
+					maxTries = maxTries - 1
+					C_Timer.After(0.1, setSpellTarget)
+				end
+			end
+			C_Timer.After(0.002, setSpellTarget) -- Next Frame
+		end
+
+		-- Set spell text & duration
 		visual.spelltext:SetText(spell.name)
 		visual.durationtext:SetText("")
 		visual.spellicon:SetTexture(NeatPlatesSpellDB.default[spell.name].texture or 136243) -- 136243 (Default to Engineering Cog)
@@ -1169,6 +1196,7 @@ do
 
 			visual.spelltext:SetText(spellString)
 			visual.durationtext:SetText("")
+			visual.spelltarget:SetText("")
 		end
 
 		-- Main function
@@ -1230,6 +1258,8 @@ do
 
 		castBar:Hide()
 		castBar:SetScript("OnUpdate", nil)
+
+		visual.spelltarget:SetText("")
 
 		unit.isCasting = false
 		unit.interrupted = false
@@ -1672,10 +1702,10 @@ do
 
 
 	-- Style Groups
-	local fontgroup = {"name", "subtext", "level", "spelltext", "durationtext", "customtext"}
+	local fontgroup = {"name", "subtext", "level", "spelltext", "spelltarget", "durationtext", "customtext"}
 
 	local anchorgroup = {"healthborder", "threatborder", "castborder", "castnostop",
-						"name", "subtext", "spelltext", "durationtext", "customtext", "level",
+						"name", "subtext", "spelltext", "spelltarget", "durationtext", "customtext", "level",
 						"spellicon", "raidicon", "skullicon", "eliteicon", "target", "focus", "mouseover"}
 
 	local bargroup = {"castbar", "healthbar", "powerbar"}
@@ -1851,6 +1881,7 @@ function NeatPlates:SetCoreVariables(LocalVars)
 	ShowServerIndicator = LocalVars.TextShowServerIndicator
 	ShowUnitTitle = LocalVars.TextShowUnitTitle
 	ShowPowerBar = LocalVars.StyleShowPowerBar
+	ShowSpellTarget = LocalVars.SpellTargetEnable
 end
 
 function NeatPlates:ShowNameplateSize(show, width, height) ForEachPlate(function(plate) UpdateNameplateSize(plate, show, width, height) end) end

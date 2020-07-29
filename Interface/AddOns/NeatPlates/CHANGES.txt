@@ -1,13 +1,12 @@
-lightweight tag 1b10f88e05f6a280651d2fe3337ac89018022aa9 1.13.5.2
+lightweight tag 82b6fcb707be1b96d5dec725210e83503dadb3f2 1.13.5.6
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Mon Jul 13 21:37:03 2020 +0200
+Date:	Fri Jul 24 21:36:43 2020 +0200
 
-commit 1b10f88e05f6a280651d2fe3337ac89018022aa9
+commit 82b6fcb707be1b96d5dec725210e83503dadb3f2
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Mon Jul 13 21:33:21 2020 +0200
+Date:   Fri Jul 24 21:36:43 2020 +0200
 
-    Added more CVar sliders for opacity/alpha
+    Toc update
     
-    - Added more CVar sliders for opacity/alpha
-    - Fixed 'Clickable width/height' sliders not working
+    - Toc update
 
