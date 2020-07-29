@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.1.0"
+Spy.Version = "1.1.1"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -34,7 +34,7 @@ Spy.ChnlTime = 0
 Spy.Skull = -1
 Spy.PetGUID = {}
 
--- Localizations for SpyStats.xml
+-- Localizations for SpyStats
 L_STATS = "Spy "..L["Statistics"]
 L_WON = L["Won"]
 L_LOST = L["Lost"]
@@ -164,25 +164,11 @@ Spy.options = {
 --						["Magni's Encampment"] = L["Magni's Encampment"],
 					},
 				},
-			},
-		},
-		DisplayOptions = {
-			name = L["DisplayOptions"],
-			desc = L["DisplayOptions"],
-			type = "group",
-			order = 2,
-			args = {
-				intro = {
-					name = L["DisplayOptionsDescription"],
-					type = "description",
-					order = 1,
-					fontSize = "medium",
-				},
 				ShowOnDetection = {
 					name = L["ShowOnDetection"],
 					desc = L["ShowOnDetectionDescription"],
 					type = "toggle",
-					order = 2,
+					order = 7,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.ShowOnDetection
@@ -195,7 +181,7 @@ Spy.options = {
 					name = L["HideSpy"],
 					desc = L["HideSpyDescription"],
 					type = "toggle",
-					order = 3,
+					order = 8,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.HideSpy
@@ -224,7 +210,7 @@ Spy.options = {
 					name = L["ShowKoSButton"],
 					desc = L["ShowKoSButtonDescription"],
 					type = "toggle",
-					order = 4,
+					order = 9,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.ShowKoSButton
@@ -232,13 +218,84 @@ Spy.options = {
 					set = function(info, value)
 						Spy.db.profile.ShowKoSButton = value
 					end,
-				},					
+				},
+			},
+		},
+		DisplayOptions = {
+			name = L["DisplayOptions"],
+			desc = L["DisplayOptions"],
+			type = "group",
+			order = 2,
+			args = {
+				intro = {
+					name = L["DisplayOptionsDescription"],
+					type = "description",
+					order = 1,
+					fontSize = "medium",
+				},
+				ShowNearbyList = {
+					name = L["ShowNearbyList"],
+					desc = L["ShowNearbyListDescription"],
+					type = "toggle",
+					order = 2,
+					width = "full",
+					get = function(info)
+						return Spy.db.profile.ShowNearbyList
+					end,
+					set = function(info, value)
+						Spy.db.profile.ShowNearbyList = value
+					end,
+				},
+				PrioritiseKoS = {
+					name = L["PrioritiseKoS"],
+					desc = L["PrioritiseKoSDescription"],
+					type = "toggle",
+					order = 3,
+					width = "full",
+					get = function(info)
+						return Spy.db.profile.PrioritiseKoS
+					end,
+					set = function(info, value)
+						Spy.db.profile.PrioritiseKoS = value
+					end,
+				},
+				Alpha = {
+					name = L["Alpha"],
+					desc = L["AlphaDescription"],
+					type = "range",
+					order = 4,
+--					width = "double",					
+					min = 0, max = 1, step = 0.01,
+					isPercent = true,
+					get = function()
+						return Spy.db.profile.MainWindow.Alpha end,
+					set = function(info, value)
+						Spy.db.profile.MainWindow.Alpha = value
+						Spy:UpdateMainWindow()
+
+					end,
+				},
+				AlphaBG = {
+					name = L["AlphaBG"],
+					desc = L["AlphaBGDescription"],
+					type = "range",
+					order = 5,
+--					width = "double",					
+					min = 0, max = 1, step = 0.01,
+					isPercent = true,
+					get = function()
+						return Spy.db.profile.MainWindow.AlphaBG end,
+					set = function(info, value)
+						Spy.db.profile.MainWindow.AlphaBG = value
+						Spy:UpdateMainWindow()
+					end,
+				},
 				Lock = {
 					name = L["LockSpy"],
 					desc = L["LockSpyDescription"],
 					type = "toggle",
-					order = 5,
---					width = "full",
+					order = 6,
+					width = 1.6,
 					get = function(info) 
 						return Spy.db.profile.Locked
 					end,
@@ -252,8 +309,8 @@ Spy.options = {
 					name = L["ClampToScreen"],
 					desc = L["ClampToScreenDescription"],				
 					type = "toggle",
-					order = 6,
-					width = "double",					
+					order = 7,
+--					width = "double",					
 					get = function(info) 
 						return Spy.db.profile.ClampToScreen
 					end,					
@@ -266,7 +323,7 @@ Spy.options = {
 					name = L["InvertSpy"],
 					desc = L["InvertSpyDescription"],
 					type = "toggle",
-					order = 7,
+					order = 8,
 					get = function(info)
 						return Spy.db.profile.InvertSpy
 					end,
@@ -278,7 +335,7 @@ Spy.options = {
 					name = L["Reload"],
 					desc = L["ReloadDescription"],
 					type = 'execute',
-					order = 8,					
+					order = 9,					
 					width = .6,					
 					func = function()
 						C_UI.Reload()
@@ -288,7 +345,7 @@ Spy.options = {
 					name = L["ResizeSpy"],
 					desc = L["ResizeSpyDescription"],
 					type = "toggle",
-					order = 9,
+					order = 10,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.ResizeSpy
@@ -300,7 +357,7 @@ Spy.options = {
 				},
 				ResizeSpyLimit = {  
 					type = "range",
-					order = 10,
+					order = 11,
 					name = L["ResizeSpyLimit"],
 					desc = L["ResizeSpyLimitDescription"],
 					min = 1, max = 15, step = 1,
@@ -313,11 +370,81 @@ Spy.options = {
 						end	
 					end,
 				},
+				DisplayListData = {
+					name = L["DisplayListData"],
+					type = 'select',
+					order = 12,
+					values = {
+						["NameLevelClass"] = L["Name"].." / "..L["Level"].." / "..L["Class"],
+						["NameLevelOnly"] = L["Name"].." / "..L["Level"],
+						["NameGuild"] = L["Name"].." / "..L["Guild"],
+						["NameOnly"] = L["Name"],
+					},					
+					get = function()
+						return Spy.db.profile.DisplayListData
+					end,
+					set = function(info, value)
+						Spy.db.profile.DisplayListData = value
+						Spy:RefreshCurrentList() 
+					end,
+				},
+				SelectFont = {
+					type = "select",
+					order = 13,
+					name = L["SelectFont"],
+					desc = L["SelectFontDescription"],
+					values = fonts,
+					get = function()
+						for info, value in next, fonts do
+							if value == Spy.db.profile.Font then
+								return info
+							end
+						end
+					end,
+					set = function(_, value)
+						Spy.db.profile.Font = fonts[value]
+						if value then
+							Spy:UpdateBarTextures()
+						end
+					end,
+				},
+				RowHeight = {
+					type = "range",
+					order = 14,
+					name = L["RowHeight"], 
+					desc = L["RowHeightDescription"], 
+					min = 8, max = 20, step = 1,
+					get = function()
+						return Spy.db.profile.MainWindow.RowHeight
+					end,
+					set = function(info, value)
+						Spy.db.profile.MainWindow.RowHeight = value
+						if value then
+							Spy:BarsChanged()
+						end
+					end,
+				},
+				BarTexture = {
+					type = "select",				
+					order = 15,
+					name = L["Texture"],	
+					desc = L["TextureDescription"],	
+					dialogControl = "LSM30_Statusbar",					
+					width = "double",
+					values = SM:HashTable("statusbar"),
+					get = function()
+						return Spy.db.profile.BarTexture
+					end,
+					set = function(_, key)
+						Spy.db.profile.BarTexture = key
+						Spy:UpdateBarTextures()
+					end,
+				},
 				DisplayTooltipNearSpyWindow = {
 					name = L["DisplayTooltipNearSpyWindow"],
 					desc = L["DisplayTooltipNearSpyWindowDescription"],
 					type = "toggle",
-					order = 11,
+					order = 16,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.DisplayTooltipNearSpyWindow
@@ -328,7 +455,7 @@ Spy.options = {
 				},	
 				SelectTooltipAnchor = {
 					type = "select",
-					order = 12,
+					order = 17,
 					name = L["SelectTooltipAnchor"],
 					desc = L["SelectTooltipAnchorDescription"],
 					values = { 
@@ -349,7 +476,7 @@ Spy.options = {
 					name = L["TooltipDisplayWinLoss"],
 					desc = L["TooltipDisplayWinLossDescription"],
 					type = "toggle",
-					order = 13,
+					order = 18,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.DisplayWinLossStatistics
@@ -362,7 +489,7 @@ Spy.options = {
 					name = L["TooltipDisplayKOSReason"],
 					desc = L["TooltipDisplayKOSReasonDescription"],
 					type = "toggle",
-					order = 14,
+					order = 19,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.DisplayKOSReason
@@ -375,7 +502,7 @@ Spy.options = {
 					name = L["TooltipDisplayLastSeen"],
 					desc = L["TooltipDisplayLastSeenDescription"],
 					type = "toggle",
-					order = 15,
+					order = 20,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.DisplayLastSeen
@@ -384,76 +511,6 @@ Spy.options = {
 						Spy.db.profile.DisplayLastSeen = value
 					end,
 				},
-				DisplayListData = {
-					name = L["DisplayListData"],
-					type = 'select',
-					order = 16,
-					values = {
-						["NameLevelClass"] = L["Name"].." / "..L["Level"].." / "..L["Class"],
-						["NameLevelOnly"] = L["Name"].." / "..L["Level"],
-						["NameGuild"] = L["Name"].." / "..L["Guild"],
-						["NameOnly"] = L["Name"],
-					},					
-					get = function()
-						return Spy.db.profile.DisplayListData
-					end,
-					set = function(info, value)
-						Spy.db.profile.DisplayListData = value
-						Spy:RefreshCurrentList() 
-					end,
-				},
-				SelectFont = {
-					type = "select",
-					order = 17,
-					name = L["SelectFont"],
-					desc = L["SelectFontDescription"],
-					values = fonts,
-					get = function()
-						for info, value in next, fonts do
-							if value == Spy.db.profile.Font then
-								return info
-							end
-						end
-					end,
-					set = function(_, value)
-						Spy.db.profile.Font = fonts[value]
-						if value then
-							Spy:UpdateBarTextures()
-						end
-					end,
-				},
-				RowHeight = {
-					type = "range",
-					order = 18,
-					name = L["RowHeight"], 
-					desc = L["RowHeightDescription"], 
-					min = 8, max = 20, step = 1,
-					get = function()
-						return Spy.db.profile.MainWindow.RowHeight
-					end,
-					set = function(info, value)
-						Spy.db.profile.MainWindow.RowHeight = value
-						if value then
-							Spy:BarsChanged()
-						end
-					end,
-				},
-				BarTexture = {
-					type = "select",				
-					order = 19,
-					name = L["Texture"],	
-					desc = L["TextureDescription"],	
-					dialogControl = "LSM30_Statusbar",					
-					width = "double",
-					values = SM:HashTable("statusbar"),
-					get = function()
-						return Spy.db.profile.BarTexture
-					end,
-					set = function(_, key)
-						Spy.db.profile.BarTexture = key
-						Spy:UpdateBarTextures()
-					end,
-				},				
 			},					
 		},
 		AlertOptions = {
@@ -735,132 +792,6 @@ Spy.options = {
 				},
 			},
 		},
-		ListOptions = {
-			name = L["ListOptions"],
-			desc = L["ListOptions"],
-			type = "group",
-			order = 4,
-			args = {
-				intro = {
-					name = L["ListOptionsDescription"],
-					type = "description",
-					order = 1,
-					fontSize = "medium",
-				},
-				RemoveUndetected = {
-					name = L["RemoveUndetected"],
-					type = "group",
-					order = 2,
-					inline = true,
-					args = {
-						OneMinute = {
-							name = L["1Min"],
-							desc = L["1MinDescription"],
-							type = "toggle",
-							order = 1,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "OneMinute"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "OneMinute"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-						TwoMinutes = {
-							name = L["2Min"],
-							desc = L["2MinDescription"],
-							type = "toggle",
-							order = 2,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "TwoMinutes"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "TwoMinutes"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-						FiveMinutes = {
-							name = L["5Min"],
-							desc = L["5MinDescription"],
-							type = "toggle",
-							order = 3,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "FiveMinutes"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "FiveMinutes"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-						TenMinutes = {
-							name = L["10Min"],
-							desc = L["10MinDescription"],
-							type = "toggle",
-							order = 4,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "TenMinutes"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "TenMinutes"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-						FifteenMinutes = {
-							name = L["15Min"],
-							desc = L["15MinDescription"],
-							type = "toggle",
-							order = 5,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "FifteenMinutes"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "FifteenMinutes"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-						Never = {
-							name = L["Never"],
-							desc = L["NeverDescription"],
-							type = "toggle",
-							order = 6,
-							get = function(info)
-								return Spy.db.profile.RemoveUndetected == "Never"
-							end,
-							set = function(info, value)
-								Spy.db.profile.RemoveUndetected = "Never"
-								Spy:UpdateTimeoutSettings()
-							end,
-						},
-					},
-				},
-				ShowNearbyList = {
-					name = L["ShowNearbyList"],
-					desc = L["ShowNearbyListDescription"],
-					type = "toggle",
-					order = 4,
-					width = "full",
-					get = function(info)
-						return Spy.db.profile.ShowNearbyList
-					end,
-					set = function(info, value)
-						Spy.db.profile.ShowNearbyList = value
-					end,
-				},
-				PrioritiseKoS = {
-					name = L["PrioritiseKoS"],
-					desc = L["PrioritiseKoSDescription"],
-					type = "toggle",
-					order = 5,
-					width = "full",
-					get = function(info)
-						return Spy.db.profile.PrioritiseKoS
-					end,
-					set = function(info, value)
-						Spy.db.profile.PrioritiseKoS = value
-					end,
-				},
-			},
-		},
 		MapOptions = {
 			name = L["MapOptions"],
 			desc = L["MapOptions"],
@@ -986,15 +917,101 @@ Spy.options = {
 			order = 6,
 			args = {
 				intro = {
-					name = L["DataOptionsDescription"],
+					name = L["ListOptionsDescription"],
 					type = "description",
 					order = 1,
 					fontSize = "medium",
 				},
+				RemoveUndetected = {
+					name = L["RemoveUndetected"],
+					type = "group",
+					order = 2,
+					inline = true,
+					args = {
+						OneMinute = {
+							name = L["1Min"],
+							desc = L["1MinDescription"],
+							type = "toggle",
+							order = 1,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "OneMinute"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "OneMinute"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+						TwoMinutes = {
+							name = L["2Min"],
+							desc = L["2MinDescription"],
+							type = "toggle",
+							order = 2,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "TwoMinutes"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "TwoMinutes"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+						FiveMinutes = {
+							name = L["5Min"],
+							desc = L["5MinDescription"],
+							type = "toggle",
+							order = 3,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "FiveMinutes"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "FiveMinutes"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+						TenMinutes = {
+							name = L["10Min"],
+							desc = L["10MinDescription"],
+							type = "toggle",
+							order = 4,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "TenMinutes"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "TenMinutes"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+						FifteenMinutes = {
+							name = L["15Min"],
+							desc = L["15MinDescription"],
+							type = "toggle",
+							order = 5,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "FifteenMinutes"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "FifteenMinutes"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+						Never = {
+							name = L["Never"],
+							desc = L["NeverDescription"],
+							type = "toggle",
+							order = 6,
+							get = function(info)
+								return Spy.db.profile.RemoveUndetected == "Never"
+							end,
+							set = function(info, value)
+								Spy.db.profile.RemoveUndetected = "Never"
+								Spy:UpdateTimeoutSettings()
+							end,
+						},
+					},
+				},
 				PurgeData = {
 					name = L["PurgeData"],
 					type = "group",
-					order = 2,
+					order = 7,
 					inline = true,
 					args = {
 						OneDay = {
@@ -1075,7 +1092,7 @@ Spy.options = {
 					name = L["PurgeKoS"],
 					desc = L["PurgeKoSDescription"],
 					type = "toggle",
-					order = 3,
+					order = 8,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.PurgeKoS
@@ -1088,7 +1105,7 @@ Spy.options = {
 					name = L["PurgeWinLossData"],
 					desc = L["PurgeWinLossDataDescription"],
 					type = "toggle",
-					order = 4,
+					order = 9,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.PurgeWinLossData
@@ -1101,7 +1118,7 @@ Spy.options = {
 					name = L["ShareData"],
 					desc = L["ShareDataDescription"],
 					type = "toggle",
-					order = 5,
+					order = 10,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.ShareData
@@ -1114,7 +1131,7 @@ Spy.options = {
 					name = L["UseData"],
 					desc = L["UseDataDescription"],
 					type = "toggle",
-					order = 6,
+					order = 11,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.UseData
@@ -1127,7 +1144,7 @@ Spy.options = {
 					name = L["ShareKOSBetweenCharacters"],
 					desc = L["ShareKOSBetweenCharactersDescription"],
 					type = "toggle",
-					order = 7,
+					order = 12,
 					width = "full",
 					get = function(info)
 						return Spy.db.profile.ShareKOSBetweenCharacters
@@ -1307,7 +1324,7 @@ local Default_Profile = {
 				["SHAMAN"] = { r = 0.14, g = 0.35, b = 1.0, a = 0.6 },
 				["WARRIOR"] = { r = 0.78, g = 0.61, b = 0.43, a = 0.6 },
 --				["DEATHKNIGHT"] = { r = 0.77, g = 0.12, b = 0.23, a = 0.6 },
---              ["MONK"] = { r = 0.00, g = 1.00, b = 0.59, a = 0.6 },
+--				["MONK"] = { r = 0.00, g = 1.00, b = 0.59, a = 0.6 },
 --				["DEMONHUNTER"] = { r = 0.64, g = 0.19, b = 0.79, a = 0.6 },
 				["PET"] = { r = 0.09, g = 0.61, b = 0.55, a = 0.6 },
 				["MOB"] = { r = 0.58, g = 0.24, b = 0.63, a = 0.6 },
@@ -1317,6 +1334,8 @@ local Default_Profile = {
 			},
 		},
 		MainWindow={
+			Alpha=1,
+			AlphaBG=1,
 			Buttons={
 				ClearButton=true,
 				LeftButton=true,
@@ -1597,7 +1616,7 @@ function Spy:SetupOptions()
 	self.optionsFrames.About = ACD3:AddToBlizOptions("Spy", L["About"], L["Spy Option"], "About")
 	self.optionsFrames.DisplayOptions = ACD3:AddToBlizOptions("Spy", L["DisplayOptions"], L["Spy Option"], "DisplayOptions")
 	self.optionsFrames.AlertOptions = ACD3:AddToBlizOptions("Spy", L["AlertOptions"], L["Spy Option"], "AlertOptions")
-	self.optionsFrames.ListOptions = ACD3:AddToBlizOptions("Spy", L["ListOptions"], L["Spy Option"], "ListOptions")
+--	self.optionsFrames.ListOptions = ACD3:AddToBlizOptions("Spy", L["ListOptions"], L["Spy Option"], "ListOptions")
 	self.optionsFrames.MapOptions = ACD3:AddToBlizOptions("Spy", L["MapOptions"], L["Spy Option"], "MapOptions")
 	self.optionsFrames.DataOptions = ACD3:AddToBlizOptions("Spy", L["DataOptions"], L["Spy Option"], "DataOptions")
 
@@ -1898,6 +1917,7 @@ function Spy:ZoneChanged()
 	else
 		if not InCombatLockdown() then Spy.MainWindow:Hide() end
 	end
+	Spy:UpdateMainWindow()
 end
 
 function Spy:InFilteredZone(subzone)

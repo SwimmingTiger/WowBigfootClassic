@@ -86,6 +86,10 @@ L["ShowOnlyPvPFlagged"] = "Show only enemy players flagged for PvP"
 L["ShowOnlyPvPFlaggedDescription"] = "Set this to show only enemy players that are flagged for PvP in the Nearby list."
 L["ShowKoSButton"] = "Show KOS button on the enemy target frame"
 L["ShowKoSButtonDescription"] = "Set this to show the KOS button on the enemy player's target frame."
+L["Alpha"] = "Transparency"
+L["AlphaDescription"] = "Set the transparency of the Spy window."
+L["AlphaBG"] = "Transparency in BGs"
+L["AlphaBGDescription"] = "Set the transparency of the Spy window in battlegrounds."
 L["LockSpy"] = "Lock the Spy window"
 L["LockSpyDescription"] = "Locks the Spy window in place so it doesn't move."
 L["ClampToScreen"] = "Clamp to Screen"
@@ -220,6 +224,7 @@ L["LimitSameContinentDescription"] = "Only displays detected enemies on the map 
 -- Data Management
 L["DataOptions"] = "Data Management"
 L["DataOptionsDescription"] = [[
+
 Options on how Spy maintains and gathers data.
 ]]
 L["PurgeData"] = "Purge undetected enemy player data after:"

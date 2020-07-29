@@ -497,9 +497,10 @@ function Spy:CreateMainWindow()
 		function()
 			Spy.db.profile.MainWindowVis = false
 		end)
+
+		Spy:UpdateMainWindow()
 	
 		local theFrame = Spy.MainWindow
-	
 		theFrame:SetResizable(true)
 		theFrame:SetMinResize(90, 34)
 		theFrame:SetMaxResize(300, 264)
@@ -1017,6 +1018,14 @@ end
 function Spy:RestoreAlertWindowPosition(x, y)
 	Spy.AlertWindow:ClearAllPoints()
 	Spy.AlertWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x, y)
+end
+
+function Spy:UpdateMainWindow()
+	if Spy.InInstance then
+		Spy.MainWindow:SetAlpha(Spy.db.profile.MainWindow.AlphaBG)		
+	else	
+		Spy.MainWindow:SetAlpha(Spy.db.profile.MainWindow.Alpha)
+	end	
 end
 
 function Spy:UpdateAlertWindow()
