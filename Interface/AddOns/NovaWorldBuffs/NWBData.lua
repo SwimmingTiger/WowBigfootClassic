@@ -119,34 +119,34 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 				NWB:sendData("GUILD");
 				--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
 				--To avoid duplicate guild msgs.
-				NWB:sendSettings("GUILD");
+				--NWB:sendSettings("GUILD");
 			end
 		end
 		return;
 	end
 	if (cmd == "drop" and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		NWB:debug("drop inc", sender, data);
+		--NWB:debug("drop inc", sender, data);
 		--Buff drop seen by someone in org.
 		local type, layer = strsplit(" ", data, 2);
 		NWB:doBuffDropMsg(type, layer);
 	elseif ((cmd == "yell" or cmd == "yell2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		NWB:debug("yell inc", sender, data);
+		--NWB:debug("yell inc", sender, data);
 		--Yell msg seen by someone in org.
 		local type, layer = strsplit(" ", data, 2);
 		NWB:doFirstYell(type, layer);
 	elseif ((cmd == "npcKilled" or cmd == "npcKilled2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		NWB:debug("npc killed inc", sender, data);
+		--NWB:debug("npc killed inc", sender, data);
 		--Npc killed seen by someone in org.
 		local type, layer = strsplit(" ", data, 2);
 		NWB:doNpcKilledMsg(type, layer);
 	elseif ((cmd == "flower" or cmd == "flower2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		NWB:debug("flower inc", sender, data);
+		--NWB:debug("flower inc", sender, data);
 		--Flower picked.
 		local type, layer = strsplit(" ", data, 2);
 		NWB:doFlowerMsg(type, layer);
 	end
 	--Ignore data syncing for some recently out of date versions.
-	if (tonumber(remoteVersion) < 1.66) then
+	if (tonumber(remoteVersion) < 1.75) then
 		if (cmd == "requestData" and distribution == "GUILD") then
 			if (not NWB:getGuildDataStatus()) then
 				NWB:sendSettings("GUILD");
@@ -154,7 +154,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 				NWB:sendData("GUILD");
 				--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
 				--To avoid duplicate guild msgs.
-				NWB:sendSettings("GUILD");
+				--NWB:sendSettings("GUILD");
 			end
 		end
 		return;
@@ -170,7 +170,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 			NWB:sendData("GUILD");
 			--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
 			--To avoid duplicate guild msgs.
-			NWB:sendSettings("GUILD");
+			--NWB:sendSettings("GUILD");
 		end
 	elseif (cmd == "requestSettings") then
 		--Only used once per logon.
@@ -224,6 +224,9 @@ end
 --Send full data.
 NWB.lastDataSent = 0;
 function NWB:sendData(distribution, target, prio, noLayerMap)
+	--if (NWB.isDebug) then
+	--	return;
+	--end
 	local inInstance, instanceType = IsInInstance();
 	if (distribution == "YELL" and inInstance) then
 		return;
@@ -267,18 +270,18 @@ function NWB:getGuildDataStatus()
 	for k, v in NWB:pairsByKeys(onlineMembers) do
 		count = count + 1;
 		if (count > limit) then
-			NWB:debug("Not first in line for guild data");
+			--NWB:debug("Not first in line for guild data");
 			return;
 		end
 		if (k == me) then
-			NWB:debug("First in line for guild data");
+			--NWB:debug("First in line for guild data");
 			return true;
 		end
 	end
 end
 
 --Send settings only.
-function NWB:sendSettingsNew(distribution, target, prio)
+function NWB:sendSettings(distribution, target, prio)
 	if (UnitInBattleground("player") and distribution ~= "GUILD") then
 		return data;
 	end
@@ -294,7 +297,8 @@ function NWB:sendSettingsNew(distribution, target, prio)
 end
 
 --Temporary send old serializaton type, remove in later version when more people are on the new serializer.
-function NWB:sendSettings(distribution, target, prio)
+--Removed, no longer in use.
+function NWB:sendSettingsOld(distribution, target, prio)
 	if (UnitInBattleground("player") and distribution ~= "GUILD") then
 		return data;
 	end
@@ -320,6 +324,9 @@ end
 
 --Send first yell msg.
 function NWB:sendYell(distribution, type, target, layer)
+	if (NWB.sharedLayerBuffs) then
+		layer = nil;
+	end
 	if (tonumber(layer)) then
 		NWB:sendComm(distribution, "yell2 " .. version .. " " .. type .. " " .. layer, target);
 		--Temporary send both msgs until next version so people don't get lua error on old versions.
@@ -353,6 +360,9 @@ end
 
 --Send full data and also request other users data back, used at logon time.
 function NWB:requestData(distribution, target, prio)
+	--if (NWB.isDebug) then
+	--	return;
+	--end
 	if (not prio) then
 		prio = "NORMAL";
 	end
@@ -367,7 +377,7 @@ function NWB:requestData(distribution, target, prio)
 	NWB:sendComm(distribution, "requestData " .. version .. " " .. data, target, prio);
 	--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
 	--To avoid duplicate guild msgs.
-	NWB:sendSettings("GUILD");
+	--NWB:sendSettings("GUILD");
 end
 
 --Send settings only and also request other users settings back.
@@ -512,7 +522,7 @@ function NWB:createDataLayered(distribution, noLayerMap)
 			--NWB:validateCloseTimestamps(layer, "onyTimer");
 			--NWB:validateCloseTimestamps(layer, "onyYell");
 			data.layers[layer]['onyTimer'] = NWB.data.layers[layer].onyTimer;
-			--data.layers[layer]['onyTimerWho'] = NWB.data.layers[layer].onyTimerWho;
+			data.layers[layer]['onyTimerWho'] = NWB.data.layers[layer].onyTimerWho;
 			data.layers[layer]['onyYell'] = NWB.data.layers[layer].onyYell;
 			--data.layers[layer]['onyYell2'] = NWB.data.layers[layer].onyYell2;
 			--data.layers[layer]['onySource'] = NWB.data.layers[layer].onySource;
@@ -530,7 +540,7 @@ function NWB:createDataLayered(distribution, noLayerMap)
 				data.layers[layer] = {};
 			end
 			data.layers[layer]['nefTimer'] = NWB.data.layers[layer].nefTimer;
-			--data.layers[layer]['nefTimerWho'] = NWB.data.layers[layer].nefTimerWho;
+			data.layers[layer]['nefTimerWho'] = NWB.data.layers[layer].nefTimerWho;
 			data.layers[layer]['nefYell'] = NWB.data.layers[layer].nefYell;
 			--data.layers[layer]['nefYell2'] = NWB.data.layers[layer].nefYell2;
 			--data.layers[layer]['nefSource'] = NWB.data.layers[layer].nefSource;
@@ -594,16 +604,16 @@ function NWB:createDataLayered(distribution, noLayerMap)
 				if (not data.layers[layer]) then
 					data.layers[layer] = {};
 				end
-				NWB:debug("sending layer map data", distribution);
+				--NWB:debug("sending layer map data", distribution);
 				data.layers[layer].layerMap = NWB.data.layers[layer].layerMap;
 				--Don't share created time for now.
 				data.layers[layer].layerMap.created = nil;
 			end
 		end
 		if (not foundTimer and NWB.data.layers[layer].lastSeenNPC
-				and NWB.data.layers[layer].lastSeenNPC > GetServerTime() - 3600) then
+				and NWB.data.layers[layer].lastSeenNPC > GetServerTime() - 7200) then
 			--If no timer data to share then check when we last saw a valid NPC in city for this layer.
-			--Trying to keep layers valid after long periods overnight when no timers drop, but not persist to long after server restarts.
+			--Trying to keep layers valid after long periods overnight when no timers drop, but not persist too long after server restarts.
 			if (not data.layers) then
 				data.layers = {};
 			end
@@ -655,6 +665,10 @@ end
 --Until I find why I'm going to check for this happening before sending and accepting data.
 --This is not an ideal solution because maybe on rare occasions the same buff may drop on more than 1 layer at the same time.
 function NWB:validateCloseTimestamps(layer, key, timestamp)
+	if (NWB.sharedLayerBuffs and key == "rendTimer") then
+		--If buffs are syncing on both layers then skip this check for rend (Blizzard hotfix enabled 23/7/2020).
+		return true;
+	end
 	local offset = 30;
 	if (string.match(key, "flower")) then
 		offset = 10;
@@ -861,10 +875,10 @@ function NWB:receivedData(dataReceived, sender, distribution)
 		--There's a lot of ugly shit in this function trying to quick fix timer bugs for this layered stuff...
 		for layer, vv in NWB:pairsByKeys(data.layers) do
 			--Temp fix, this can be removed soon.
-			if (((not vv["rendTimer"] or vv["rendTimer"] == 0) and (not vv["onyTimer"] or vv["onyTimer"] == 0)
+			if (type(vv) ~= "table" or (((not vv["rendTimer"] or vv["rendTimer"] == 0) and (not vv["onyTimer"] or vv["onyTimer"] == 0)
 					 and (not vv["nefTimer"] or vv["nefTimer"] == 0) and (not vv["onyNpcDied"] or vv["onyNpcDied"] == 0)
 					  and (not vv["nefNpcDied"] or vv["nefNpcDied"] == 0) and (not vv["lastSeenNPC"] or vv["lastSeenNPC"] == 0))
-					  or NWB.data.layersDisabled[layer]) then
+					  or NWB.data.layersDisabled[layer])) then
 				--Do nothing if all timers are 0, this is to fix a bug in last version with layerMaps causing old layer data
 				--to bounce back and forth between users, making it so layers with no timers keep being created after server
 				--restart and won't disappear.
@@ -1086,9 +1100,9 @@ function NWB:receivedData(dataReceived, sender, distribution)
 	--If we get newer data from someone outside the guild then share it with the guild.
 	if (hasNewData and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm] and not NWB.krRealms[NWB.realm]) then
 		NWB.data.lastSyncBy = sender;
-		NWB:debug("new data received", sender, distribution, NWB:isPlayerInGuild(sender));
+		--NWB:debug("new data received", sender, distribution, NWB:isPlayerInGuild(sender));
 		if (distribution ~= "GUILD" and not NWB:isPlayerInGuild(sender)) then
-			NWB:debug("sending new data");
+			--NWB:debug("sending new data");
 			--Don't send layermap when sharing these new timers.
 			NWB:sendData("GUILD", nil, nil, true);
 		end
