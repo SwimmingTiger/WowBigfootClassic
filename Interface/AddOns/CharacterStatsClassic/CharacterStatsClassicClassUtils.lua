@@ -2,20 +2,6 @@
     Util functions specific for Classes
 ]]
 
--- Class ids
-CSC_WARRIOR_CLASS_ID 		= 1;
-CSC_PALADIN_CLASS_ID 		= 2;
-CSC_HUNTER_CLASS_ID 		= 3;
-CSC_ROGUE_CLASS_ID 			= 4;
-CSC_PRIEST_CLASS_ID 		= 5;
-CSC_DEATHKNIGHT_CLASS_ID 	= 6;
-CSC_SHAMAN_CLASS_ID 		= 7;
-CSC_MAGE_CLASS_ID 			= 8;
-CSC_WARLOCK_CLASS_ID 		= 9;
-CSC_MONK_CLASS_ID 			= 10;
-CSC_DRUID_CLASS_ID 			= 11;
-CSC_DEMONHUNTER_CLASS_ID 	= 12;
-
 -- returns additional crit % stats from Arcane instability and Critical Mass if any
 function CSC_GetMageCritStatsFromTalents()
 
@@ -99,17 +85,10 @@ end
 
 -- returns the crit bonus from Holy Power
 function CSC_GetPaladinCritStatsFromTalents()
-
-	local holyPowerCrit = 0;
-	local critTable = { 1, 2, 3, 4, 5 };
-
 	-- Holy Power (1, 2, 3, 4, 5)%
 	local spellRank = select(5, GetTalentInfo(1, 13));
-	if (spellRank > 0) and (spellRank <= 5) then
-		holyPowerCrit = critTable[spellRank];
-    end
 
-	return holyPowerCrit;
+	return spellRank;
 end
 
 -- returns the defense bonus from the Anticipation Prot talent
@@ -144,12 +123,12 @@ end
 
 function CSC_GetDefenseFromTalents(unit)
     
-    local defense = 0;
-    local unitClassLoc = select(2, UnitClass(unit));
+	local defense = 0;
+	local unitClassId = select(3, UnitClass(unit));
 
-    if (unitClassLoc == "PALADIN") then
+    if (unitClassId == CSC_PALADIN_CLASS_ID) then
         defense = CSC_GetPaladinDefenseFromTalents();
-    elseif (unitClassLoc == "WARRIOR") then
+    elseif (unitClassId == CSC_WARRIOR_CLASS_ID) then
         defense = CSC_GetWarriorDefenseFromTalents();
     end
 
@@ -201,32 +180,12 @@ function CSC_GetMP5ModifierFromSetBonus(unit)
 	local firstItemslotIndex = 1;
 	local lastItemslotIndex = 18;
 
-	local vestmentsOfTranscendenceIDs = { [16925] = 16925, 
-										  [16926] = 16926, 
-										  [16919] = 16919, 
-										  [16921] = 16921, 
-										  [16920] = 16920, 
-									   	  [16922] = 16922, 
-										  [16924] = 16924, 
-										  [16923] = 16923
-										};
-
-	local stormrageRaimentIDs = { [16897] = 16897, 
-								  [16898] = 16898, 
-								  [16899] = 16899, 
-								  [16900] = 16900, 
-								  [16901] = 16901, 
-								  [16902] = 16902, 
-								  [16903] = 16903, 
-								  [16904] = 16904
-								};
-
 	local equippedSetItems = 0;
     for itemSlot = firstItemslotIndex, lastItemslotIndex do
         local itemId = GetInventoryItemID(unit, itemSlot);
 		
 		if (itemId) then
-			if (itemId == vestmentsOfTranscendenceIDs[itemId] or itemId == stormrageRaimentIDs[itemId]) then
+			if (itemId == g_VestmentsOfTranscendenceIds[itemId] or itemId == g_StormrageRaimentIds[itemId]) then
 				equippedSetItems = equippedSetItems + 1;
 			end
 		end
@@ -244,22 +203,12 @@ function CSC_GetShamanT2SpellCrit(unit)
 	local firstItemslotIndex = 1;
 	local lastItemslotIndex = 18;
 
-	local theTenStormsIDs = { [16943] = 16943, 
-							  [16944] = 16944, 
-							  [16945] = 16945, 
-							  [16946] = 16946, 
-							  [16947] = 16947, 
-							  [16948] = 16948, 
-							  [16949] = 16949, 
-							  [16950] = 16950
-						};
-
 	local equippedSetItems = 0;
     for itemSlot = firstItemslotIndex, lastItemslotIndex do
         local itemId = GetInventoryItemID(unit, itemSlot);
 		
 		if (itemId) then
-			if (itemId == theTenStormsIDs[itemId]) then
+			if (itemId == g_TheTenStormsIds[itemId]) then
 				equippedSetItems = equippedSetItems + 1;
 			end
 		end
@@ -270,4 +219,15 @@ function CSC_GetShamanT2SpellCrit(unit)
 	end
 
     return spellCritFromSet;
+end
+
+function CSC_GetHolyCritFromBenediction(unit)
+	local benedictionCrit = 0;
+	local itemId = GetInventoryItemID(unit, INVSLOT_MAINHAND);
+
+	if itemId == 18608 then
+		benedictionCrit = 2;
+	end
+
+	return benedictionCrit;
 end

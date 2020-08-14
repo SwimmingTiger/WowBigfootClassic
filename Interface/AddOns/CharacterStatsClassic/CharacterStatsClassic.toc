@@ -1,6 +1,6 @@
 ## Interface: 11305
 ## Author: Peter Getov
-## Version: 3.5.5
+## Version: 3.6.2
 ## Title: |cff00aeffCharacterStatsClassic|r
 ## Notes: Advanced Character Stats
 ## DefaultState:  enabled
@@ -18,7 +18,9 @@ Localization\Localization_kr.lua
 Localization\Localization_es.lua
 Localization\Localization_br.lua
 
+CharacterStatsClassicConstants.lua
 CharacterStatsClassicUI.lua
 CharacterStatsClassicCore.lua
 CharacterStatsClassicUtils.lua
-ClassUtils.lua
+CharacterStatsClassicClassUtils.lua
+CharacterStatsClassicCallbacks.lua

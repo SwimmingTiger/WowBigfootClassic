@@ -84,13 +84,13 @@ function UIConfig:SetCharacterStats(statsTable, category)
         CSC_PaperDollFrame_SetDamage(statsTable[1], "player", category);
         CSC_PaperDollFrame_SetMeleeAttackPower(statsTable[2], "player");
         CSC_PaperDollFrame_SetAttackSpeed(statsTable[3], "player");
-        CSC_PaperDollFrame_SetCritChance(statsTable[4], "player", category);
+        CSC_PaperDollFrame_SetCritChance(statsTable[4], "player");
         CSC_PaperDollFrame_SetHitChance(statsTable[5], "player");
     elseif category == PLAYERSTAT_RANGED_COMBAT then
         CSC_PaperDollFrame_SetDamage(statsTable[1], "player", category);
         CSC_PaperDollFrame_SetRangedAttackPower(statsTable[2], "player");
         CSC_PaperDollFrame_SetRangedAttackSpeed(statsTable[3], "player");
-        CSC_PaperDollFrame_SetCritChance(statsTable[4], "player", category);
+        CSC_PaperDollFrame_SetRangedCritChance(statsTable[4], "player");
         CSC_PaperDollFrame_SetRangedHitChance(statsTable[5], "player");
     elseif category == PLAYERSTAT_SPELL_COMBAT then
         -- bonus dmg, bonus healing, crit chance, mana regen, hit

@@ -13,6 +13,9 @@ CSC_WEAPON_SWORD2H_TXT      = "Двуручный Меч";
 CSC_WEAPON_STAFF_TXT        = "Посох";
 CSC_WEAPON_UNARMED_TXT      = "Кистевое оружие";
 CSC_WEAPON_DAGGER_TXT       = "Кинжал";
+CSC_WEAPON_BOW_TXT          = "Bows";
+CSC_WEAPON_CROSSBOW_TXT     = "Crossbows";
+CSC_WEAPON_GUN_TXT          = "Guns";
 CSC_HIT_BIZNICKS_TXT        = "к рейтингу меткости";
 
 CSC_SPELL_HIT_TOOLTIP_TXT       = "Spell Hit chance from gear: %d%%";

@@ -13,6 +13,9 @@ CSC_WEAPON_SWORD2H_TXT      = "양손 도검류";
 CSC_WEAPON_STAFF_TXT        = "지팡이류";
 CSC_WEAPON_UNARMED_TXT      = "맨손 전투";
 CSC_WEAPON_DAGGER_TXT       = "단검류";
+CSC_WEAPON_BOW_TXT          = "Bows";
+CSC_WEAPON_CROSSBOW_TXT     = "Crossbows";
+CSC_WEAPON_GUN_TXT          = "Guns";
 CSC_HIT_BIZNICKS_TXT        = HIT;
 
 CSC_SPELL_HIT_TOOLTIP_TXT       = "장비에 의한 주문 적중률: %d%%";
