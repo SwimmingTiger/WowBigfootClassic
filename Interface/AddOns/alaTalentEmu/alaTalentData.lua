@@ -21,18 +21,6 @@ local ADDON, NS = ...;
 
 ]]
 
-NS._indexToClass =
-{
-	"DRUID",
-	"HUNTER",
-	"MAGE",
-	"PALADIN",
-	"PRIEST",
-	"ROGUE",
-	"SHAMAN",
-	"WARLOCK",
-	"WARRIOR",
-};
 
 NS._classTalent =
 {
@@ -639,11 +627,6 @@ NS._talentDB =
 		},
 	},
 };
-
-NS._classToIndex = {  };
-for i = 1, #NS._indexToClass do
-	NS._classToIndex[NS._indexToClass[i]] = i;
-end
 
 NS._talentTabIcon =
 {

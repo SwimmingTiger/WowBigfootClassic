@@ -4,33 +4,18 @@
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
-local math, table, string, bit = math, table, string, bit;
-local type, tonumber, tostring = type, tonumber, tostring;
 local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
-local abs, ceil, floor, max, min, random, sqrt = abs, ceil, floor, max, min, random, sqrt;
-local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat =
-		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat;
+local type, tonumber, tostring = type, tonumber, tostring;
 local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-local ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
-local tConcat = table.concat;
-local select = select;
-local date, time = date, time;
+local unpack = unpack;
 ----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------main
-local function _debug_(...)
-	print("\124cffff0000alaChat addon:\124r", ...);
-end
-local function _log_(...)
-	print(...);
-end
---------------------------------------------------
 if alaDropMenu then return; end
 alaDropMenu = {};
 local DropMenu = alaDropMenu;
-local NAME = "alaDropMenu";
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -212,7 +197,7 @@ local function showMenu(parent, anchor, data)
 		frameToMenu[parent] = nil;
 		return;
 	end
-	if type(data) ~= "table" or (type(data) == "table" and (type(data.elements) ~= "table" or type(data.handler) ~= "function")) then
+	if type(data) ~= "table" or (type(data) == "table" and type(data.elements) ~= "table") then
 		return;
 	end
 	local menu = GetMenu(parent, anchor);

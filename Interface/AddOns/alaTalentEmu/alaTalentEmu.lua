@@ -27,10 +27,11 @@ do
 	end
 	setfenv(1, NS.__fenv);
 end
+local __rt = __ala_meta__.__rt;
 
 local L = NS.L;
 if not L then return; end
-local curPhase = 4;
+local curPhase = 5;
 ----------------------------------------------------------------------------------------------------upvalue
 	----------------------------------------------------------------------------------------------------LUA
 	local math, table, string, bit = math, table, string, bit;
@@ -282,9 +283,6 @@ local curPhase = 4;
 		color_iconToolTipNextRank = { 0.0, 0.5, 1.0, 1.0, },
 		color_iconToolTipNextRankDisabled = { 1.0, 0.0, 0.0, 1.0, },
 		color_iconToolTipMaxRank = { 1.0, 0.5, 0.0, 1.0, },
-		DEFAULT_LEVEL = 60,
-		INSPECT_WAIT_TIME = 10,
-		TOOLTIP_UPDATE_DELAY = 0.02,
 
 	};
 	ui_style.talentFrameXSizeSingle = ui_style.talentIconSize * MAX_NUM_COL + ui_style.talentIconXGap * (MAX_NUM_COL - 1) + ui_style.talentIconXToBorder * 2;
@@ -408,8 +406,8 @@ local curPhase = 4;
 	};
 	--------------------------------------------------
 	local _talentDB = NS._talentDB;
-	local _indexToClass = NS._indexToClass;
-	local _classToIndex = NS._classToIndex;
+	local _indexToClass = __rt.classList;
+	local _classToIndex = __rt.classHash;
 	local _classTalent = NS._classTalent;
 	local _talentTabIcon = NS._talentTabIcon;
 	local _BG0 = NS._BG0;
@@ -460,10 +458,9 @@ local curPhase = 4;
 		--tier, col, id, maxPoint, reqTier, reqCol, reqId, Spell[5], texture, icon-index, req-index[] in db, req-by-index in db
 	]]
 ----------------------------------------------------------------------------------------------------
+
 Mixin(NS, {
 	initialized = false,
-	codeTable = {  },
-	revCodeTable = {  },
 	mainFrames = { num = 0, used = 0, },
 	inspectButtonKeyFunc = IsAltKeyDown,
 	applyingMainFrame = false,
@@ -482,6 +479,9 @@ Mixin(NS, {
 	custom_event_meta = {  },
 	callback = {  },
 	chatfilter = {  },
+	DEFAULT_LEVEL = 60,
+	INSPECT_WAIT_TIME = 10,
+	TOOLTIP_UPDATE_DELAY = 0.02,
 });
 NS.playerFullName_Len = #(NS.playerFullName);
 
@@ -931,21 +931,6 @@ end
 		function NS.GetLevelAvailablePoints(level)
 			return max(0, level - 9);
 		end
-		function NS.GetPlayerTalentData(usePlayerLevel)
-			local data = "";
-			for specIndex = 1, 3 do
-				local numTalents = GetNumTalents(specIndex);
-				for id = 1, numTalents do
-					local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, id);
-					data = data .. rank;
-				end
-			end
-			if usePlayerLevel then
-				return NS.playerClassUpper, data, UnitLevel('player');
-			else
-				return NS.playerClassUpper, data, 60;
-			end
-		end
 		function NS.EmuCore_StatPoints(data, class)
 			local DB = _talentDB[class];
 			local talentRef = _classTalent[class];
@@ -1009,22 +994,6 @@ end
 			return format("\124cff%.2x%.2x%.2x", color.r * 255, color.g * 255, color.b * 255) .. "\124Hemu:" .. code .. "#" .. GUID .. "\124h[" .. title .. "]\124h\124r";
 		end
 
-		function NS.EmuCore_InitCodeTable()
-			-- 6^11 < 64^5 < 2^32
-			-- 6^11 =   362,797,056
-			-- 6^12 = 2,176,782,336
-			-- 64^5 = 1,073,741,824‬
-			-- 2^32 = 4,294,967,296
-			for i = 0, 9 do NS.codeTable[i] = tostring(i); end
-			NS.codeTable[10] = "-";
-			NS.codeTable[11] = "=";
-			for i = 0, 25 do NS.codeTable[i + 1 + 11] = strchar(i + 65); end
-			for i = 0, 25 do NS.codeTable[i + 1 + 11 + 26] = strchar(i + 97); end
-
-			for i = 0, 63 do
-				NS.revCodeTable[NS.codeTable[i]] = i;
-			end
-		end
 		-- arg			code, useCodeLevel
 		-- return		class, data, level
 		function NS.EmuCore_Decoder(code, useCodeLevel)
@@ -1034,258 +1003,54 @@ end
 					return class, data, level;
 				end
 			end
-			local data = "";
-			local revCodeTable = NS.revCodeTable;
-			local classIndex = revCodeTable[strsub(code, 1, 1)];
-			if not classIndex then
-				_log_("EmuCore_Decoder", 1, code);
-				return nil;
-			end
-			local class = _indexToClass[classIndex];
-			if not class then
-				_log_("EmuCore_Decoder", 2, classIndex, code);
-				return nil;
-			end
-
-			local len = #code;
-			if len < 3 then
-				_log_("EmuCore_Decoder", 3, classIndex, code);
-			end
-			local pos = 0;
-			local raw = 0;
-			local magic = 1;
-			local nChar = 0;
-			for p = 2, len - 2 do
-				local c = strsub(code, p, p);
-				pos = pos + 1;
-				if c == ":" then
-					--
-				elseif revCodeTable[c] then
-					raw = raw + revCodeTable[c] * magic;
-					magic = bit.lshift(magic, 6);
-					nChar = nChar + 1;
-				else
-					_log_("EmuCore_Decoder", 3, c, code);
-				end
-				if c == ":" or nChar == 5 or p == len - 2 then
-					pos = 0;
-					magic = 1;
-					nChar = 0;
-					local n = 0;
-					while raw > 0 do
-						data = data .. raw % 6;
-						raw = floor(raw / 6);
-						n = n + 1;
-					end
-					if n < 11 then
-						for i = n + 1, 11 do
-							data = data .. "0";
-						end
-					end
-				end
-			end
-
-			if useCodeLevel then
-				return class, data, revCodeTable[strsub(code, - 2, - 2)] + bit.lshift(revCodeTable[strsub(code, - 1, - 1)], 6);
-			else
-				return class, data, 60;
-			end
+			return __rt.DecodeTalentData(code, not useCodeLevel and NS.DEFAULT_LEVEL)
 		end
 		-- arg			[mainFrame] or [class, data, level]
 		-- return		code
 		function NS.EmuCore_Encoder(class, data, level)
-			level = (level and tonumber(level)) or ui_style.DEFAULT_LEVEL;
-			if type(class) == 'number' then
-				class = _indexToClass[class];
-			end
-			if type(class) == 'string' then
-				local codeTable = NS.codeTable;
-				if not _classToIndex[class] or not codeTable[_classToIndex[class]] then
-					_log_("EmuCore_Encoder", 1, class);
-					return nil;
-				end
-				if type(data) == 'string' then
-					local DB = _talentDB[class];
-					local classTalent = _classTalent[class];
-					local len = #data;
-					local p = 0;
-
-					local pos = 0;
-					local raw = 0;
-					local magic = 1;
-					local mem = {  };
-					for specIndex = 1, 3 do
-						local numTalents = #DB[classTalent[specIndex]];
-						for j = 1, numTalents do
-							p = p + 1;
-							local d = tonumber(strsub(data, p, p));
-							if not d then
-								_log_("EmuCore_Encoder", 3, class, data, p);
-								return nil;
-							end
-							pos = pos + 1;
-							raw = raw + magic * d;
-							magic = magic * 6;
-							if pos >= 11 or p == len then
-								pos = 0;
-								magic = 1;
-								local nChar = 0;
-								while raw > 0 do
-									tinsert(mem, codeTable[bit.band(raw, 63)]);
-									raw = bit.rshift(raw, 6);
-									nChar = nChar + 1;
-								end
-								if nChar < 5 then
-									tinsert(mem, ":");
-								end
-								if p == len then
-									break;
-								end
-							end
-						end
-					end
-
-					for i = #mem, 1, - 1 do
-						if mem[i] == ":" then
-							mem[i] = nil;
-						else
-							break;
-						end
-					end
-					local code = codeTable[_classToIndex[class]];
-					for i = 1, #mem do
-						code = code .. mem[i];
-					end
-					if level < 64 then
-						code = code .. codeTable[level] .. "0";
-					else
-						code = code .. codeTable[bit.band(level, 63)] .. codeTable[bit.rshift(level, 6)];
-					end
-
-					return code;
-
-				elseif type(data) == 'table' and type(data[1]) == 'table' and type(data[2]) == 'table' and type(data[3]) == 'table' then
-					local DB = _talentDB[class];
-					local classTalent = _classTalent[class];
-					for specIndex = 1, 3 do
-						local talentSet = data[specIndex];
-						local numTalents = #_talentDB[classTalent[specIndex]];
-						for j = 1, numTalents do
-							pos = pos + 1;
-							raw = raw + magic * talentSet[j];
-							magic = magic * 6;
-							if pos >= 11 or (specIndex == 3 and j == numTalents) then
-								pos = 0;
-								magic = 1;
-								local nChar = 0;
-								while raw > 0 do
-									tinsert(mem, codeTable[bit.band(raw, 63)]);
-									raw = bit.rshift(raw, 6);
-									nChar = nChar + 1;
-								end
-								if nChar < 5 then
-									tinsert(mem, ":");
-								end
-								if specIndex == 3 and j == numTalents then
-									break;
-								end
-							end
-						end
-					end
-
-					for i = #mem, 1, - 1 do
-						if mem[i] == ":" then
-							mem[i] = nil;
-						else
-							break;
-						end
-					end
-					local code = codeTable[_classToIndex[class]];
-					for i = 1, #mem do
-						code = code .. mem[i];
-					end
-					if level < 64 then
-						code = code .. codeTable[level] .. "0";
-					else
-						code = code .. codeTable[bit.band(level, 63)] .. codeTable[bit.rshift(level, 6)];
-					end
-
-					return code;
-
-				else
-					_log_("EmuCore_Encoder", 2, class, type(data));
-					return nil;
-				end
-			elseif type(class) == 'table' then
+			if type(class) == 'table' then
 				local mainFrame = class;
 				local talentFrames = mainFrame.talentFrames;
-				local codeTable = NS.codeTable;
 				if type(talentFrames) == 'table' and
 							type(talentFrames[1]) == 'table' and type(talentFrames[1].talentSet) == 'table' and
 							type(talentFrames[2]) == 'table' and type(talentFrames[2].talentSet) == 'table' and
 							type(talentFrames[3]) == 'table' and type(talentFrames[3].talentSet) == 'table'
 					then
 					--
-					class = mainFrame.class;
-					level = mainFrame.level;
+					return __rt.EncodeTalentData(_classToIndex[mainFrame.class], mainFrame.level,
+								talentFrames[1].talentSet, talentFrames[2].talentSet, talentFrames[3].talentSet,
+								#talentFrames[1].db, #talentFrames[2].db, #talentFrames[3].db
+							);
 					--
-					local pos = 0;
-					local raw = 0;
-					local magic = 1;
-					local mem = {  };
-					for i = 1, 3 do
-						local talentSet = talentFrames[i].talentSet;
-						local numTalents = #talentFrames[i].db;
-						for j = 1, numTalents do
-							pos = pos + 1;
-							raw = raw + magic * talentSet[j];
-							magic = magic * 6;
-							if pos >= 11 or (i == 3 and j == numTalents) then
-								pos = 0;
-								magic = 1;
-								local nChar = 0;
-								while raw > 0 do
-									tinsert(mem, codeTable[bit.band(raw, 63)]);
-									raw = bit.rshift(raw, 6);
-									nChar = nChar + 1;
-								end
-								if nChar < 5 then
-									tinsert(mem, ":");
-								end
-								if i == 3 and j == numTalents then
-									break;
-								end
-							end
-						end
-					end
-
-					for i = #mem, 1, - 1 do
-						if mem[i] == ":" then
-							mem[i] = nil;
-						else
-							break;
-						end
-					end
-					local code = codeTable[_classToIndex[class]];
-					for i = 1, #mem do
-						code = code .. mem[i];
-					end
-					if level < 64 then
-						code = code .. codeTable[level] .. "0";
-					else
-						code = code .. codeTable[bit.band(level, 63)] .. codeTable[bit.rshift(level, 6)];
-					end
-
-					return code;
-
 				else
-					_log_("EmuCore_Encoder", 3, 'table');
+					_log_("EmuCore_Encoder", 1, 'table');
 					return nil;
-
 				end
 			else
-				_log_("EmuCore_Encoder", 4, type(class));
-				return nil;
+				local classIndex = nil;
+				if type(class) == 'number' then
+					classIndex = class;
+					class = _indexToClass[class];
+				elseif type(class) == 'string' then
+					classIndex = _classToIndex[class];
+				else
+					_log_("EmuCore_Encoder", 2, type(data));
+					return nil;
+				end
+				if type(data) == 'string' then
+					local DB = _talentDB[class];
+					__rt.EncodeTalentData(classIndex, (level and tonumber(level)) or NS.DEFAULT_LEVEL,
+								data,
+								#DB[classTalent[1]], #DB[classTalent[2]], #DB[classTalent[3]]);
+				elseif type(data) == 'table' and type(data[1]) == 'table' and type(data[2]) == 'table' and type(data[3]) == 'table' then
+					local DB = _talentDB[class];
+					__rt.EncodeTalentData(classIndex, (level and tonumber(level)) or NS.DEFAULT_LEVEL,
+								data[1], data[2], data[3],
+								#DB[classTalent[1]], #DB[classTalent[2]], #DB[classTalent[3]]);
+				else
+					_log_("EmuCore_Encoder", 3, type(data));
+					return nil;
+				end
 			end
 		end
 
@@ -1298,7 +1063,7 @@ end
 			if name then
 				local objects = mainFrame.objects;
 				objects.label:SetText(name);
-				local info = NS.get_pack_info(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack);
+				local info = __rt.DecodeAddonPackData(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack);
 				if info then
 					objects.pack_label:SetText(info);
 					objects.pack_label:Show();
@@ -1337,9 +1102,9 @@ end
 		end
 		function NS.EmuCore_SetLevel(mainFrame, level)			-- LEVEL CHANGED HERE ONLY
 			if level == nil then
-				mainFrame.level = ui_style.DEFAULT_LEVEL;
+				mainFrame.level = NS.DEFAULT_LEVEL;
 				mainFrame.totalUsedPoints = 0;
-				mainFrame.totalAvailablePoints = NS.GetLevelAvailablePoints(ui_style.DEFAULT_LEVEL);
+				mainFrame.totalAvailablePoints = NS.GetLevelAvailablePoints(NS.DEFAULT_LEVEL);
 			else
 				if type(level) == 'string' then
 					level = tonumber(level);
@@ -1931,7 +1696,7 @@ end
 				fontString1f2:SetText(tostring(spellTable[1]));
 				tooltip1:SetAlpha(0.0);
 
-				tooltipFrame.delay = ui_style.TOOLTIP_UPDATE_DELAY;
+				tooltipFrame.delay = NS.TOOLTIP_UPDATE_DELAY;
 				tooltipFrame:SetScript("OnUpdate", function(self, elasped)
 					self.delay = self.delay - elasped;
 					if self.delay > 0 then
@@ -1970,7 +1735,7 @@ end
 				fontString1f2:SetText(tostring(spellTable[maxRank]));
 				tooltip1:SetAlpha(0.0);
 
-				tooltipFrame.delay = ui_style.TOOLTIP_UPDATE_DELAY;
+				tooltipFrame.delay = NS.TOOLTIP_UPDATE_DELAY;
 				tooltipFrame:SetScript("OnUpdate", function(self, elasped)
 					self.delay = self.delay - elasped;
 					if self.delay > 0 then
@@ -2023,7 +1788,7 @@ end
 				fontString2f2:SetText(tostring(spellTable[curRank + 1]));
 				tooltip2:SetAlpha(0.0);
 
-				tooltipFrame.delay = ui_style.TOOLTIP_UPDATE_DELAY;
+				tooltipFrame.delay = NS.TOOLTIP_UPDATE_DELAY;
 				tooltipFrame:SetScript("OnUpdate", function(self, elasped)
 					self.delay = self.delay - elasped;
 					if self.delay > 0 then
@@ -2093,7 +1858,7 @@ end
 				if NS.POPUP_ON_RECV[name] then
 					local specializedMainFrame = NS.specializedMainFrameInspect[name];
 					if specializedMainFrame then
-						if specializedMainFrame[2]:IsShown() and specializedMainFrame[1] - GetTime() <= ui_style.INSPECT_WAIT_TIME then
+						if specializedMainFrame[2]:IsShown() and specializedMainFrame[1] - GetTime() <= NS.INSPECT_WAIT_TIME then
 							NS.Emu_Set(specializedMainFrame[2], cache.class, cache.data, 60, readOnly, name);
 						else
 							NS.Emu_Create(nil, cache.class, cache.data, 60, false, readOnly, name);
@@ -2114,41 +1879,27 @@ end
 				end
 			end
 		end
-		function NS.EmuSub_GetEquipmentInfo(meta)
-			meta = meta or {  };
-			wipe(meta);
-			local _;
-			for slot = 0, 19 do
-				local link = GetInventoryItemLink('player', slot);
-				if link then
-					_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
-				end
-				link = link or "item:-1";
-				meta[slot] = link;
-			end
-			return meta;
-		end
 	end
 
 	do	-- communication func
-		local ADDON_PREFIX = "ATEADD";
-		local ADDON_MSG_CONTROL_CODE_LEN = 6;
-		local ADDON_MSG_QUERY_TALENTS = "_q_tal";
-		local ADDON_MSG_REPLY_TALENTS = "_r_tal";
-		local ADDON_MSG_PUSH = "_push_";
-		local ADDON_MSG_PUSH_RECV = "_pushr";
-		local ADDON_MSG_PULL = "_pull_";
+		local ADDON_PREFIX = __rt.__emu_meta.ADDON_PREFIX;
+		local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
+		local ADDON_MSG_QUERY_TALENTS = __rt.__emu_meta.ADDON_MSG_QUERY_TALENTS;
+		local ADDON_MSG_REPLY_TALENTS = __rt.__emu_meta.ADDON_MSG_REPLY_TALENTS;
+		local ADDON_MSG_PUSH = __rt.__emu_meta.ADDON_MSG_PUSH;
+		local ADDON_MSG_PUSH_RECV = __rt.__emu_meta.ADDON_MSG_PUSH_RECV;
+		local ADDON_MSG_PULL = __rt.__emu_meta.ADDON_MSG_PULL;
 		--
-		local ADDON_MSG_QUERY_EQUIPMENTS = "_q_equ";
-		local ADDON_MSG_REPLY_EQUIPMENTS = "_r_equ";
-		local ADDON_MSG_REPLY_ADDON_PACK = "_r_pak";
+		local ADDON_MSG_QUERY_EQUIPMENTS = __rt.__emu_meta.ADDON_MSG_QUERY_EQUIPMENTS;
+		local ADDON_MSG_REPLY_EQUIPMENTS = __rt.__emu_meta.ADDON_MSG_REPLY_EQUIPMENTS;
+		local ADDON_MSG_REPLY_ADDON_PACK = __rt.__emu_meta.ADDON_MSG_REPLY_ADDON_PACK;
 		----------------
-		local ADDON_MSG_QUERY_TALENTS_ = "_query";
-		local ADDON_MSG_REPLY_TALENTS_ = "_reply";
+		local ADDON_MSG_QUERY_TALENTS_ = __rt.__emu_meta.ADDON_MSG_QUERY_TALENTS_;
+		local ADDON_MSG_REPLY_TALENTS_ = __rt.__emu_meta.ADDON_MSG_REPLY_TALENTS_;
 		--	old version compatibility
-		local ADDON_MSG_QUERY_EQUIPMENTS_ = "_queeq";
-		local ADDON_MSG_REPLY_EQUIPMENTS_ = "_repeq";
-		local ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
+		local ADDON_MSG_QUERY_EQUIPMENTS_ = __rt.__emu_meta.ADDON_MSG_QUERY_EQUIPMENTS_;
+		local ADDON_MSG_REPLY_EQUIPMENTS_ = __rt.__emu_meta.ADDON_MSG_REPLY_EQUIPMENTS_;
+		local ADDON_MSG_REPLY_ADDON_PACK_ = __rt.__emu_meta.ADDON_MSG_REPLY_ADDON_PACK_;
 		--------------------------------------------------
 		function NS.push_recv_msg(code, sender, GUID, title, colored_title)
 			for i = 1, #NS.recv_msg do
@@ -2246,21 +1997,20 @@ end
 			local name = Ambiguate(sender, 'none');
 			if prefix == ADDON_PREFIX then
 				local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
-				if control_code == ADDON_MSG_QUERY_TALENTS then
+				--[[if control_code == ADDON_MSG_QUERY_TALENTS then			--	moved to ala/core.lua
 					if channel == "INSTANCE_CHAT" then
 						local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
 						if target ~= NS.playerFullName then
 							return;
 						end
 					end
-					local class, data, level = NS.GetPlayerTalentData(true);
-					if class then
-						local code = NS.EmuCore_Encoder(class, data, level);
+					local code = __rt.GetEncodedPlayerTalentData(NS.DEFAULT_LEVEL);
+					if code then
 						if channel == "INSTANCE_CHAT" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. NS.get_pack(), "INSTANCE_CHAT");
+							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __rt.GetAddonPackData(), "INSTANCE_CHAT");
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
 						else--if channel == "WHISPER" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. NS.get_pack(), "WHISPER", sender);
+							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __rt.GetAddonPackData(), "WHISPER", sender);
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
 						end
 					end
@@ -2271,23 +2021,15 @@ end
 							return;
 						end
 					end
-					local meta = NS.EmuSub_GetEquipmentInfo();
-					local msg = "";
-					local n = 0;
-					for slot = 0, 19 do
-						msg = msg .. "+" .. slot .. "+" .. meta[slot];
-						n = n + 1;
-						if n >= 4 then
-							n = 0;
-							if channel == "INSTANCE_CHAT" then
-								SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. NS.realm, "INSTANCE_CHAT");
-							else--if channel == "WHISPER" then
-								SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
-							end
-							msg = "";
+					local data = __rt.EncodeEquipmentData();
+					for _, msg in next, data do
+						if channel == "INSTANCE_CHAT" then
+							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. NS.realm, "INSTANCE_CHAT");
+						else--if channel == "WHISPER" then
+							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
 						end
 					end
-				elseif control_code == ADDON_MSG_REPLY_TALENTS or control_code == ADDON_MSG_REPLY_TALENTS_ then
+				else]]if control_code == ADDON_MSG_REPLY_TALENTS or control_code == ADDON_MSG_REPLY_TALENTS_ then
 					local code = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
 					if code and code ~= "" then
 						local _1, _2 = strsplit("#", code);
@@ -2312,7 +2054,7 @@ end
 							_EventHandler:FireEvent("USER_EVENT_TALENT_DATA_RECV", name);
 						end
 					end
-				elseif control_code == ADDON_MSG_REPLY_EQUIPMENTS or control_code == ADDON_MSG_REPLY_EQUIPMENTS_ then
+				elseif control_code == ADDON_MSG_REPLY_EQUIPMENTS or control_code == ADDON_MSG_REPLY_EQUIPMENTS_ then 
 					local code = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
 					-- queryCache
 					-- NS.specializedMainFrameInspect
@@ -2325,40 +2067,12 @@ end
 						end
 						-- #0#item:-1#1#item:123:::::#2#item:444:::::#3#item:-1
 						-- #(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)
-						local start = 1;
-						local _ = nil;
-						local slot = nil;
-						local item = nil;
 						local cache = NS.queryCache[name];
 						if cache == nil then
 							cache = {  };
 							NS.queryCache[name] = cache;
 						end
-						cache.time_inv = time();
-						local got_data = false;
-						while true do
-							_, start, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", start);
-							if slot and item then
-								slot = tonumber(slot);
-								if slot and slot >= 0 and slot <= 19 then
-									local _, _, id = strfind(item, "item:([%-0-9]+)");
-									id = tonumber(id);
-									if id and id > 0 then
-										GetItemInfo(id);
-										cache[slot] = item;
-									else
-										cache[slot] = nil;
-									end
-								end
-								got_data = true;
-							else
-								break;
-							end
-							if not start then
-								break;
-							end
-						end
-						if got_data then
+						if __rt.DecodeEquipmentData(cache, code) then
 							_EventHandler:FireEvent("USER_EVENT_DATA_RECV", name);
 							_EventHandler:FireEvent("USER_EVENT_INVENTORY_DATA_RECV", name);
 						end
@@ -2462,6 +2176,9 @@ end
 							end
 						end
 					end
+					if not update_tal then
+						_EventHandler:FireEvent("USER_EVENT_TALENT_DATA_RECV", name);
+					end
 				else
 					_EventHandler:FireEvent("USER_EVENT_DATA_RECV", name);
 					_EventHandler:FireEvent("USER_EVENT_TALENT_DATA_RECV", name);
@@ -2502,7 +2219,7 @@ end
 		function NS.Emu_ResetToEmu(mainFrame)
 			NS.EmuCore_SetName(mainFrame, nil);
 			NS.EmuCore_SetData(mainFrame, nil);
-			NS.EmuCore_SetLevel(mainFrame, ui_style.DEFAULT_LEVEL);
+			NS.EmuCore_SetLevel(mainFrame, NS.DEFAULT_LEVEL);
 			NS.EmuCore_SetReadOnly(mainFrame, false);
 		end
 		function NS.Emu_ResetToSet(mainFrame)
@@ -6163,7 +5880,7 @@ do	--	tooltip unit talents
 				end
 				tip:AddLine(line);
 				if SET.supreme and cache.pack then
-					local info = NS.get_pack_info(cache.pack, true);
+					local info = __rt.DecodeAddonPackData(cache.pack, true);
 					if info then
 						tip:AddLine("\124cffffffffPack\124r: " .. info, 0.75, 1.0, 0.25);
 					end
@@ -6336,7 +6053,6 @@ do	-- initialize
 
 	local function init()
 		NS.DB_PreProc(_talentDB);
-		NS.EmuCore_InitCodeTable();
 
 		NS.EmuCore_InitAddonMessage();
 		NS.tooltipFrame = NS.CreateTooltipFrame();
@@ -6670,7 +6386,7 @@ end
 		end
 
 		local function inspect_talent(which, frame)
-			NS.Emu_Query(frame.name, frame.server);
+			NS.Emu_Query(frame.name, frame.server, nil, true);
 		end
 
 		alaPopup.add_meta("EMU_INSPECT", { text, inspect_talent, });
@@ -6952,46 +6668,8 @@ end
 -->		misc>
 
 do	-- dev
-	local knownPacks = {
-		"BigFoot", "ElvUI", "Tukui", "!!!163UI!!!", "Duowan", "rLib", "NDui", "ShestakUI", "!!!EaseAddonController", "_ShiGuang",
-	};
-	local has_pack = {  };
-	local magic = 1;
-	local packs = 0;
-	for index, pack in next, knownPacks do
-		if select(5, GetAddOnInfo(pack)) ~= "MISSING" then
-			packs = packs + magic;
-		end
-		magic = magic * 2;
-	end
-	function NS.get_pack()
-		return packs;
-	end
-	function NS.get_pack_info(meta, short)
-		if meta and meta ~= "" then
-			meta = tonumber(meta);
-			if meta then
-				local info = nil;
-				local index = #knownPacks - 1;
-				local magic = 2 ^ index;
-				while magic >= 1 do
-					if meta >= magic then
-						if short then
-							info = info and (info .. " " .. (knownPacks[index + 1] or "???")) or (knownPacks[index + 1] or "???");
-						else
-							info = info and (info .. " " .. (knownPacks[index + 1] or "???") .. "-" .. index) or ((knownPacks[index + 1] or "???") .. "-" .. index);
-						end
-						meta = meta - magic;
-					end
-					magic = magic / 2;
-					index = index - 1;
-				end
-				return info or "none";
-			end
-		end
-	end
 	function NS.display_pack(meta)
-		local info = NS.get_pack_info(meta);
+		local info = __rt.DecodeAddonPackData(meta);
 		if info then
 			print("Packed: ", info);
 		else
@@ -7102,7 +6780,7 @@ do	-- dev
 	end
 	--
 	function NS.CONFIRM_TALENT_WIPE(...)
-		print("CONFIRM_TALENT_WIPE", ...);
+		-- print("CONFIRM_TALENT_WIPE", ...);
 	end
 	function NS.CHARACTER_POINTS_CHANGED(...)
 		print("CHARACTER_POINTS_CHANGED", ...);
