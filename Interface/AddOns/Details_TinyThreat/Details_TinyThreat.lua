@@ -696,7 +696,7 @@ local function CreatePluginFrames()
 						end
 
 						--set the value
-						thisRow.IsAnimating = true
+						thisRow.IsAnimating = false
 						thisRow:SetValue(threatActor[2])
 						
 						--adjust the line color
@@ -742,7 +742,7 @@ local function CreatePluginFrames()
 	function ThreatMeter:Start()
 		ThreatMeter:HideBars()
 		if (ThreatMeter.Actived) then
-			if (ThreatMeter.updateThreatJob) then
+			if (ThreatMeter.updateThreatJob) then --ticker is disabled, it won't work
 				ThreatMeter.updateThreatJob:Cancel()
 				ThreatMeter.updateThreatJob = nil
 			end
@@ -803,14 +803,19 @@ local function CreatePluginFrames()
 				end
 			end
 			
-			local updateThreatJob = _G.C_Timer.NewTicker(ThreatMeter.db.updatespeed, ThreatMeter.Tick)
-			ThreatMeter.updateThreatJob = updateThreatJob
+			ThreatMeterFrame:RegisterEvent("UNIT_THREAT_LIST_UPDATE")
+
+			--local updateThreatJob = _G.C_Timer.NewTicker(ThreatMeter.db.updatespeed, ThreatMeter.Tick)
+			--ThreatMeter.updateThreatJob = updateThreatJob
 		end
 	end
 	
 	function ThreatMeter:End()
 		ThreatMeter:HideBars()
-		if (ThreatMeter.updateThreatJob) then
+		ThreatMeterFrame:UnregisterEvent("UNIT_THREAT_LIST_UPDATE")
+		ThreatMeter.UpdateWindowTitle(false)
+
+		if (ThreatMeter.updateThreatJob) then --ticker is disabled, it won't work
 			ThreatMeter.updateThreatJob:Cancel()
 			ThreatMeter.updateThreatJob = nil
 			ThreatMeter.UpdateWindowTitle(false)
@@ -819,7 +824,10 @@ local function CreatePluginFrames()
 	
 	function ThreatMeter:Cancel()
 		ThreatMeter:HideBars()
-		if (ThreatMeter.updateThreatJob) then
+		ThreatMeterFrame:UnregisterEvent("UNIT_THREAT_LIST_UPDATE")
+		ThreatMeter.UpdateWindowTitle(false)
+
+		if (ThreatMeter.updateThreatJob) then --ticker is disabled, it won't work
 			ThreatMeter.updateThreatJob:Cancel()
 			ThreatMeter.updateThreatJob = nil
 		end
@@ -986,9 +994,20 @@ local loadPlugin = function()
 	ThreatMeter.initialized = true
 end
 
+local GetTime = _G.GetTime
+local latestUpdate = GetTime()
+
 function ThreatMeter:OnEvent (_, event, ...)
 
-	if (event == "PLAYER_TARGET_CHANGED") then
+	if (event == "UNIT_THREAT_LIST_UPDATE") then
+		local timeFromLatestUpdate = GetTime() - latestUpdate
+		if (timeFromLatestUpdate > 0.1) then
+			ThreatMeter.Tick()
+			--print("threat updated...", timeFromLatestUpdate) --debug
+			latestUpdate = GetTime()
+		end
+
+	elseif (event == "PLAYER_TARGET_CHANGED") then
 		ThreatMeter:TargetChanged()
 
 	elseif ( event == "UNIT_TARGET" ) then
