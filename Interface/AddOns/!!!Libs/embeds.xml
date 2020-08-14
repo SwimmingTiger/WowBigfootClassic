@@ -40,7 +40,6 @@
 	<Script file="HereBeDragons\HereBeDragons-Pins-2.0.lua" /><!-- ClassicCodex,HandyNotes,TotemTimers -->
 	<Script file="HereBeDragons\HereBeDragons-Migrate.lua" /><!-- HandyNotes -->
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
-	<Include file="LibThreatClassic2\lib.xml"/>
 	
 	<!-- GoodLeader，MeetingHorn ，Wargame ~begin~ -->
     <Script file="LibClass-2.0\Class-2.0.lua"/>
