@@ -1,4 +1,4 @@
-﻿-- Last update by GlitterStorm @ Azralon on Feb,28th,2015
+-- Last update by GlitterStorm @ Azralon on Feb,28th,2015
 if GetLocale() ~= "ptBR" then return end
 
 if not DBM_CORE_L then DBM_CORE_L = {} end
@@ -49,15 +49,15 @@ L.MOD_AVAILABLE				= "%s esta disponível para este conteúdo. Esta disponível 
 
 L.COMBAT_STARTED				= "%s na mira. Boa sorte e divirta-se! :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "Entrando em uma luta em progresso contra %s. Boa sorte e divirta-se! :)"
-L.GUILD_COMBAT_STARTED		= "%s engrenou em combate com a Guild"
+L.GUILD_COMBAT_STARTED		= "%s engrenou em combate com a Guilda"
 L.BOSS_DOWN					= "%s derrotado após %s!"
 L.BOSS_DOWN_I				= "%s derrotado! você tem %d vitorias no total."
 L.BOSS_DOWN_L				= "%s derrotado após %s! Sua última vitória levou %s, sua vitória mais rápida %s. Você tem um total de %d vitórias."
 L.BOSS_DOWN_NR				= "%s derrotado após %s! Esse é um novo recorde! (Recorde antigo era %s). Você tem um total de %d vitórias."
-L.GUILD_BOSS_DOWN			= "%s foi derrotado pela guild após %s!"
+L.GUILD_BOSS_DOWN			= "%s foi derrotado pela guilda após %s!"
 L.COMBAT_ENDED_AT			= "Combate contra %s (%s) encerrado após %s."
 L.COMBAT_ENDED_AT_LONG		= "Combate contra %s (%s) encerrado após %s. Você tem um total de %d derrotas nessa dificuldade."
-L.GUILD_COMBAT_ENDED_AT		= "Guild foi derrotada por %s (%s) após %s."
+L.GUILD_COMBAT_ENDED_AT		= "Guilda foi derrotada por %s (%s) após %s."
 L.COMBAT_STATE_RECOVERED		= "Luta contra %s começou %s atrás, reajustando cronômetros..."
 L.TRANSCRIPTOR_LOG_START		= "Gravação do Transcritor começou."
 L.TRANSCRIPTOR_LOG_END		= "Gravação do Transcritor finalizado."
@@ -172,10 +172,10 @@ L.UPDATEREMINDER_HEADER		= "Sua versão do Deadly Boss Mods está desatualizada.
 L.UPDATEREMINDER_HEADER_ALPHA	= "A sua versão alpha do DBM está desatualizada.\n Você esta pelo menos %d versões de testes para trás. É recomendado que os usuários do DBM utilizem a versão mais recente do alpha ou a mais recente das versões estáveis. Versões alphas desatualizadas podem resultar em faltas de algumas funcionalidades ou totalmente inoperante."
 L.UPDATEREMINDER_FOOTER		= "Pressione Ctrl+C para copiar o link de download para a área de transferência."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Pressione Ctrl+C para copiar o link de download para a área de transferência."
-L.UPDATEREMINDER_DISABLE			= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raid."
+L.UPDATEREMINDER_DISABLE			= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raide."
 L.UPDATEREMINDER_HOTFIX			= "A sua versão do DBM contem temporizadores ou avisos incorretos para este chefe. Isso foi corrigido em uma versão mais recente ( ou alpha caso não exista versão estável mais recente disponível)"
 L.UPDATEREMINDER_HOTFIX_ALPHA	= L.DBM .. " A versão em que você está enfrentou problemas conhecidos durante esse encontro com os chefes, corrigidos em uma próxima versão (ou na versão alfa mais recente)"
-L.UPDATEREMINDER_MAJORPATCH		= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raid. Certifique-se de baixar a versão mais recente em deadlybossmods.com ou curse o mais breve possível."
+L.UPDATEREMINDER_MAJORPATCH		= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raide. Certifique-se de baixar a versão mais recente em deadlybossmods.com ou curse o mais breve possível."
 L.UPDATEREMINDER_TESTVERSION		= "AVISO: Você esta usando uma versão do DBM que não foi criada para esta versão do jogo. Por favor, certifique-se de baixar a versão correta em deadlybossmods.com ou curse."
 L.VEM				= "AVISO: Você esta usando DBM e Voice Encounter Mods. DBM não funcionara corretamente nesta configuração e portanto não será carregada."
 L.OUTDATEDPROFILES				= "AVISO: DBM-Profiles não é compatível com esta versão de DBM. Deve ser removida antes de DBM continuar para evitar conflitos."
@@ -241,11 +241,11 @@ L.LFG_INVITE						= "Aceitar convite"
 L.SLASHCMD_HELP				= {
 	"Comandos disponíveis:",
 	"/dbm unlock: Exibe uma barra de cronômetro móvel. (ou: move).",
-	"/range <number> or /distance <number>: Shows range frame. /rrange or /rdistance to reverse colors.",--Translate
-	"/dbm timer: Starts a custom DBM timer, see '/dbm timer' for details.",--Translate
+	"/range <number> or /distance <number>: Exibe o quadro de alcance. /rrange ou /rdistance para inverter cores.",
+	"/dbm timer: Inicia um timer DBM personalizado, consulte '/ dbm timer' para obter detalhes.",
 	"/dbm arrow: Exibe a seta do DBM, veja /dbm arrow help para detalhes.",
-	"/dbm hud: Shows the DBM hud, see '/dbm hud' for details.",--Translate
-	"/dbm help2: Shows raid management slash commands."--Translate
+	"/dbm hud: Exibe o DBM hud, consulte '/ dbm hud' para obter detalhes.",
+	"/dbm help2: Exibe comandos de barra de gerenciamento de raide."
 }
 L.SLASHCMD_HELP2				= {
 	"Comandos disponíveis:",
@@ -258,10 +258,10 @@ L.SLASHCMD_HELP2				= {
 --Translate all of these
 L.TIMER_USAGE	= {
 	"DBM timer commands:",
-	"/dbm timer <time> <text>: Starts a <x> second DBM Timer with the name <text>.",
-	"/dbm ltimer <time> <text>: Starts a timer that also automatically loops until canceled.",
-	"('Broadcast' in front of any timer also shares it with raid if leader/promoted)",
-	"/dbm timer endloop: Stops any looping ltimer."
+	"/dbm timer <time> <text>: Inicia um cronômetro do <x> segundos com o nome <text>.",
+	"/dbm ltimer <time> <text>: Inicia um cronômetro que também volta automaticamente até ser cancelado",
+	"('Transmissão' na frente de qualquer cronômetro também o compartilha com o ataque, se o líder / promovido)",
+	"/dbm timer endloop: Pára qualquer cronômetro de loop."
 }
 
 L.ERROR_NO_PERMISSION				= "Você não tem as permissões necessárias para fazer isso."
@@ -269,7 +269,7 @@ L.ERROR_NO_PERMISSION				= "Você não tem as permissões necessárias para faze
 L.ALLIANCE					= "Aliança"
 L.HORDE						= "Horda"
 
-L.NEXT						= "Next %s"
+L.NEXT						= "Próximo %s"
 L.COOLDOWN					= "%s CD"
 L.UNKNOWN					= "desconhecido"
 L.LEFT						= "Esquerda"
@@ -406,7 +406,7 @@ L.AUTO_SPEC_WARN_TEXTS.adds			= "Lacaios em breve - mude de alvo"
 L.AUTO_SPEC_WARN_TEXTS.addscustom	= "Lacaios em breve - %%s"
 L.AUTO_SPEC_WARN_TEXTS.targetchange	= "Alteração de alvo - mude para %%s"
 
--- Auto-generated Special Warning Localizations
+--Auto-generated Special Warning Localizations
 L.AUTO_SPEC_WARN_OPTIONS.spell 		= "Exibir aviso especial para $spell:%s"
 L.AUTO_SPEC_WARN_OPTIONS.ends		= "Exibir aviso especial quando $spell:%s terminou"
 L.AUTO_SPEC_WARN_OPTIONS.fades		= "Exibir aviso especial quando $spell:%s desvanece"
@@ -450,7 +450,7 @@ L.AUTO_SPEC_WARN_OPTIONS.adds		= "Exibir aviso especial para mudar de alvo para 
 L.AUTO_SPEC_WARN_OPTIONS.addscustom	= "Exibir aviso especial para lacaios entrantes"
 L.AUTO_SPEC_WARN_OPTIONS.targetchange	= "Exibir aviso especial para alterações de alvo prioritário"
 
--- Auto-generated Timer Localizations
+--Auto-generated Timer Localizations
 L.AUTO_TIMER_TEXTS.target		= "%s: >%%s<"
 L.AUTO_TIMER_TEXTS.cast			= "%s"
 L.AUTO_TIMER_TEXTS.castshort	= "%s "
@@ -467,7 +467,7 @@ L.AUTO_TIMER_TEXTS.cdcountshort	= "~%s (%%s)"
 L.AUTO_TIMER_TEXTS.cdsource		= "%s recarga: >%%s<"
 L.AUTO_TIMER_TEXTS.cdsourceshort = "~%s: >%%s<"
 L.AUTO_TIMER_TEXTS.cdspecial	= "Recarga especial"
-L.AUTO_TIMER_TEXTS.cdspecialshort "~Especial"
+L.AUTO_TIMER_TEXTS.cdspecialshort = "~Especial"
 L.AUTO_TIMER_TEXTS.next			= "Próx. %s"
 L.AUTO_TIMER_TEXTS.nextshort	= "%s"
 L.AUTO_TIMER_TEXTS.nextcount	= "Próx. %s (%%s)"
@@ -551,7 +551,7 @@ L.AUTO_INFO_FRAME_OPTION_TEXT2		= "Exibir quadro de informações para a visão 
 L.AUTO_READY_CHECK_OPTION_TEXT		= "Tocar som de verificação pronto quando o chefe é puxado (mesmo que não seja direcionado)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT		= "Exibir cronômetro para uma limpeza mais rápida %s"
 
--- New special warnings
+--New special warnings
 L.MOVE_WARNING_BAR					= "Anunciar móvel"
 L.MOVE_WARNING_MESSAGE				= "Obrigado por usar " .. L.DEADLY_BOSS_MODS
 L.MOVE_SPECIAL_WARNING_BAR	= "Aviso especial móvel"
@@ -588,9 +588,9 @@ L.TIMER_RESPAWN						= "%s Respawn"
 
 L.REQ_INSTANCE_ID_PERMISSION		= "%s solicitou suas IDs de instância e progresso atuais.\nVocê deseja enviar essa informação para %s? Ele(a) poderá requisitar essa informação durante a sessão atual (i. e. até que você reconecte)."
 L.ERROR_NO_RAID					= "Você precisa estar em um grupo de raide para utilizar essa funcionalidade."
-L.INSTANCE_INFO_REQUESTED			= "Enviadas requisições de vínculos de raid para o grupo.\nPor favor, note que a permissão dos usuários será solicitada antes de os dados serem enviados para você, portanto pode levar um minuto para que você receba todas as respostas."
+L.INSTANCE_INFO_REQUESTED			= "Enviadas requisições de vínculos de raide para o grupo.\nPor favor, note que a permissão dos usuários será solicitada antes de os dados serem enviados para você, portanto pode levar um minuto para que você receba todas as respostas."
 L.INSTANCE_INFO_STATUS_UPDATE		= "Recebidas respostas de %d jogadores de um total de %d usuários do DBM: %d enviaram os dados, %d negaram a solicitação. Esperando mais %d segundos pelas respostas restantes..."
-L.INSTANCE_INFO_ALL_RESPONSES		= "Recebidas respostas de tosos os membros da raid"
+L.INSTANCE_INFO_ALL_RESPONSES		= "Recebidas respostas de tosos os membros da raide"
 L.INSTANCE_INFO_DETAIL_DEBUG		= "Sender: %s ResultType: %s InstanceName: %s InstanceID: %s Difficulty: %d Size: %d Progress: %s"
 L.INSTANCE_INFO_DETAIL_HEADER		= "%s, dificuldade %s:"
 L.INSTANCE_INFO_DETAIL_INSTANCE	= "    ID %s, progresso %d: %s"
@@ -598,7 +598,7 @@ L.INSTANCE_INFO_DETAIL_INSTANCE2	= "    progresso %d: %s"
 L.INSTANCE_INFO_STATS_DENIED		= "Negou a solicitação: %s"
 L.INSTANCE_INFO_STATS_AWAY		= "Ausente: %s"
 L.INSTANCE_INFO_STATS_NO_RESPONSE	= "Não possui uma versão recente do DBM instalada: %s"
-L.INSTANCE_INFO_RESULTS			= "Resultados da busca por  IDs de raid. Note que instâncias podem aparecer mais de uma vez, se houver jogadores com clientes de WoW em outra língua."
+L.INSTANCE_INFO_RESULTS			= "Resultados da busca por  IDs de raide. Note que instâncias podem aparecer mais de uma vez, se houver jogadores com clientes de WoW em outra língua."
 --L.INSTANCE_INFO_SHOW_RESULTS		= "Jogadores que ainda não responderam: %s\n|HDBM:showRaidIdResults|h|cff3588ff[Exibir resultados agora]|r|h"
 L.INSTANCE_INFO_SHOW_RESULTS		= "Jogadores que ainda não responderam: %s"
 
@@ -634,9 +634,9 @@ L.LDB_ENABLE_BOSS_MOD				= "Ativar mods de chefe"
 
 L.WORLD_BUFFS.hordeOny		= "Povo da Horda, cidadãos de Orgrimmar, venham! Vamos homenagear uma heroína da Horda"
 L.WORLD_BUFFS.allianceOny	= "Cidadãos e aliados de Ventobravo, no dia de hoje, fez-se história."
-L.WORLD_BUFFS.hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar"
+L.WORLD_BUFFS.hordeNef		= "NEFARIAN ESTÁ MORTO! Povo de Orgrimmar"
 L.WORLD_BUFFS.allianceNef	= "Cidadãos da Aliança, o Senhor da Rocha Negra foi derrubado!"
 L.WORLD_BUFFS.zgHeart		= "Agora só falta um passo para nos livrarmos do Esfolador de Almas"
-L.WORLD_BUFFS.zgHeartBooty	= "The Blood God, the Soulflayer, has been defeated!  We are imperiled no longer!"
+L.WORLD_BUFFS.zgHeartBooty	= "O Deus Sanguinário, o Esfolador de Almas, foi derrotado! Acabaram-se os nossos temores!"
 L.WORLD_BUFFS.zgHeartYojamba	= "Iniciem o ritual, meus servos. Temos que banir o coração de Hakkar de volta para o vórtice!"
-L.WORLD_BUFFS.rendHead		= "The false Warchief, Rend Blackhand, has fallen!"
+L.WORLD_BUFFS.rendHead		= "O falso Chefe Guerreiro, Laceral Mão Negra, caiu!"

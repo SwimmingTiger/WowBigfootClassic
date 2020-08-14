@@ -21,7 +21,7 @@ L:SetGeneralLocalization{
 L:SetMiscLocalization{
 	Yauj = "亞爾基公主",
 	Vem = "維姆",
-	Kri = "克里領主"
+	Kri = "克里勳爵"
 }
 
 -------------
@@ -64,7 +64,7 @@ L:SetMiscLocalization{
 	Frozen	= "變成冰凍的固體!",
 	Phase4 	= "開始爆裂!",
 	Phase5 	= "看來準備好毀滅了!",
-	Phase6 	= "Explodes."
+	Phase6 	= "爆炸。"
 }
 -------------
 -- Huhuran --
@@ -112,7 +112,8 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Eye			= "克蘇恩之眼",
-	Weakened 	= "變弱了"
+	Weakened 	= "變弱了",
+	NotValid	= "AQ40 擊殺信息： %s 首領未擊殺。"
 }
 ----------------
 -- Ouro --
@@ -127,12 +128,20 @@ L:SetWarningLocalization{
 	WarnEmerge			= "現身"
 }
 L:SetTimerLocalization{
-	TimerSubmerge		= "鑽地",
+	TimerSubmerge		= "強制鑽地",
 	TimerEmerge			= "現身"
 }
 L:SetOptionLocalization{
 	WarnSubmerge		= "為鑽地顯示警告",
-	TimerSubmerge		= "為鑽地顯示計時器",
+	TimerSubmerge		= "為鑽地顯示計時器，確定何時將強制執行合併。 注意：如果近戰離開目標範圍，他仍然可以隨時鑽地。",
 	WarnEmerge			= "為現身顯示警告",
 	TimerEmerge			= "為現身顯示計時器"
+}
+---------------
+-- AQ40 Trash --
+----------------
+L = DBM:GetModLocalization("AQ40Trash")
+
+L:SetGeneralLocalization{
+	name = "AQ40：全程計時"
 }

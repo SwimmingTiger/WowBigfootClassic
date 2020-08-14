@@ -18,7 +18,7 @@ local playerName = UnitName("player")
 -- Local Globals --
 -------------------
 local GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit = GetRaidTargetIndex, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit
-local select, tonumber, twipe, mfloor = select, tonumber, table.wipe, math.floor
+local select, tonumber, twipe, mfloor, mmax = select, tonumber, table.wipe, math.floor, math.max
 local RAID_CLASS_COLORS = _G["CUSTOM_CLASS_COLORS"] or RAID_CLASS_COLORS-- for Phanx' Class Colors
 
 ---------------------
@@ -844,7 +844,16 @@ local function onUpdate(frame, table)
 			infoFrame:SetLine(linesShown, icon or leftText, rightText, color.r, color.g, color.b, color2.r, color2.g, color2.b)
 		end
 	end
-	frame:SetHeight((linesShown * 12) + 12)
+	local maxWidth1, maxWidth2 = 0, 0
+	for i = 1, linesShown do
+		maxWidth1 = mmax(maxWidth1, frame.lines[i * 2 - 1]:GetStringWidth())
+		maxWidth2 = mmax(maxWidth2, frame.lines[i * 2]:GetStringWidth())
+	end
+	for i = 1, linesShown do
+		frame.lines[i * 2 - 1]:SetSize(maxWidth1+12, 12)
+		frame.lines[i * 2]:SetSize(maxWidth2+12, 12)
+	end
+	frame:SetSize(maxWidth1 + maxWidth2 + 24, (linesShown * 12) + 12)
 	frame:Show()
 end
 

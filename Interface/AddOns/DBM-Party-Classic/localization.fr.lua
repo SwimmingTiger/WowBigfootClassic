@@ -1241,7 +1241,7 @@ L:SetTimerLocalization{
 	TimerGuards	= "Sentinelles apparaissent"
 }
 L:SetOptionLocalization{
-	TimerGuards	= "Après la défaite du boss, affichez le chronomètre pour l'arrivée des Sentinelles de la Garde noire"
+	TimerGuards	= "Après la défaite du boss, affichez le timer pour l'arrivée des Sentinelles de la Garde noire"
 }
 -----------------------------
 --  Baron Rivendare  --

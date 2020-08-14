@@ -14,7 +14,7 @@ L.DEADLY_BOSS_MODS				= "Deadly Boss Mods"
 L.DBM							= "DBM"
 
 L.HOW_TO_USE_MOD				= "欢迎使用" .. L.DBM .. "。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口，并对各个Boss模块进行设置，也可以浏览首领击杀记录。" .. L.DBM .. " 会自动按你的专精做出相应配置，但是你可以进行微调。"
-L.SILENT_REMINDER				= "提示：" .. L.DBM .. "正处于安静模式。"
+L.SILENT_REMINDER				= "提示：" .. L.DBM .. "正处于静音模式。"
 
 L.LOAD_MOD_ERROR			    = "读取%s模块时发生错误：%s"
 L.LOAD_MOD_SUCCESS			    = "'%s' 模块已加载。在聊天框输入 /dbm 可设置自定义语音或注记等选项。"
@@ -35,15 +35,15 @@ L.NO_RANGE					    = "距离雷达在副本中无法使用，该功能会使用�
 L.NO_ARROW					    = "箭头在副本中无法使用"
 L.NO_HUD						= "HUDMap 在副本中无法使用"
 
-L.DYNAMIC_DIFFICULTY_CLUMP	    = "由于玩家数量不足，DBM 无法开启动态距离检测。"
-L.DYNAMIC_ADD_COUNT			    = "由于玩家数量不足，DBM 无法开启小怪计数。"
-L.DYNAMIC_MULTIPLE			    = "由于玩家数量不足，DBM 禁用了多个功能。"
+L.DYNAMIC_DIFFICULTY_CLUMP	    = "由于玩家数量不足，" .. L.DBM .. " 无法开启动态距离检测。"
+L.DYNAMIC_ADD_COUNT			    = "由于玩家数量不足，" .. L.DBM .. " 无法开启小怪计数。"
+L.DYNAMIC_MULTIPLE			    = "由于玩家数量不足，" .. L.DBM .. " 禁用了多个功能。"
 
 L.LOOT_SPEC_REMINDER			= "你当前的人物专精为 %s。你当前的拾取选择为 %s。"
 
 L.BIGWIGS_ICON_CONFLICT		    = L.DBM .. "检测到你同时开启了Bigwigs,请关闭自动标记以避免冲突。"
 
-L.MOD_AVAILABLE				    = L.DBM .. "已经为%s制作了相关模块。你可以在 deadlybossmods.com 或Curse上找到新版本。"
+L.MOD_AVAILABLE				    = L.DBM .. "已经为%s制作了相关模块。你可以在Curse/Twitch和WoWI 上找到下载。"
 
 L.COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 L.COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗-%s正在作战。祝你走运 :)"
@@ -157,14 +157,14 @@ L.VERSIONCHECK_ENTRY_TWO	        = "%s: %s (r%d) & %s (r%d)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM	        = "%s：未安装" .. L.DEADLY_BOSS_MODS
 L.VERSIONCHECK_FOOTER		        = "团队中有%d名成员正在使用" .. L.DEADLY_BOSS_MODS .. "， %d名成员正在使用Bigwigs"
 L.VERSIONCHECK_OUTDATED		        = "下列%d名玩家的" .. L.DEADLY_BOSS_MODS .. "版本已经过期:%s"
-L.YOUR_VERSION_OUTDATED		        = "你的" .. L.DEADLY_BOSS_MODS .. "已经过期。请访问 http://dev.deadlybossmods.com 下载最新版本。"
+L.YOUR_VERSION_OUTDATED		        = "你的" .. L.DEADLY_BOSS_MODS .. "已经过期。请访问Curse/Twitch，WoWI或者到GitHub Releases页面下载最新版本。"
 L.VOICE_PACK_OUTDATED		        = "你当前使用的" .. L.DEADLY_BOSS_MODS .. "语音包已经过期。有些特殊警告的屏蔽（当心，毁灭）已被禁用。请下载最新语音包，或联系语音包作者更新。"
 L.VOICE_MISSING				        =  L.DBM .. "找不到你当前选择的语音包。语音包选项已经被设置成'None'。请确保你的语音包被正确安装和启用。"
 L.VOICE_DISABLED			        = "你安装了语音包但是没有启动它。请在选项中的语音报警菜单中开启语音包。如果不需要语音报警请卸载语音包。"
 L.VOICE_COUNT_MISSING		        = "在 %d 语音包中找不到倒计时语音。倒计时已恢复为默认值"
 L.BIG_WIGS					        = "BigWigs"
 
-L.UPDATEREMINDER_HEADER			    = "您的" .. L.DEADLY_BOSS_MODS .. "版本已过期。\n您可以在Curse/Twitch, WOWI, 或者deadlybossmods.com下载到新版本：%s（%s）。如果您使用整合包，请使用更新器更新。"
+L.UPDATEREMINDER_HEADER			    = "您的" .. L.DEADLY_BOSS_MODS .. "版本已过期。\n您可以在Curse/Twitch, WOWI, 或者GitHub Releases页面下载到新版本：%s（%s）。如果您使用整合包，请使用更新器更新。"
 L.UPDATEREMINDER_HEADER_ALPHA	    = "您正在使用Alpha的" .. L.DEADLY_BOSS_MODS .. " 的版本已至少落后主干%d个版本。\n 我们建议使用Alpha版本的用户时刻追随主干更新，否则请切换到正式发行版。Alpha版的版本检查会比正式发行版严格。"
 L.UPDATEREMINDER_FOOTER			    = "按下 " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制下载地址到剪切板。"
 L.UPDATEREMINDER_FOOTER_GENERIC	    = "按下 " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制链接到剪切板。"
@@ -182,6 +182,7 @@ L.DPMCORE						    = "警告: DBM-PVP已经已经很久没人维护了,并无法
 L.DBMLDB							= "警告: DBM-LDB 已经集成入" .. L.DEADLY_BOSS_MODS .. "核心。建议在插件目录删掉'DBM-LDB'。"
 L.UPDATE_REQUIRES_RELAUNCH		    = "警告: 如果你不完全重启游戏，" .. L.DEADLY_BOSS_MODS .. "可能会工作不正常。此次更新包含了新的文件，或者toc文件的改变，这是重载界面无法加载的。不重启游戏可能导致作战模块功能错误。"
 L.OUT_OF_DATE_NAG				    = "你的" .. L.DEADLY_BOSS_MODS .. "已经过期并且你决定不弹出升级提示窗口。这可能导致你或其他团队成员出错。千万不要成为害群之马！"
+L.CLASSIC_ONLY						= "警告: 你所用的 " .. L.DBM .. " 是正式服的版本，请删除这个，去下载怀旧服使用的 " .. L.DBM .. " 版本。"
 
 L.MOVABLE_BAR				        = "拖动我！"
 
@@ -610,7 +611,7 @@ L.DUR_FOOTER					= "未反馈此次检测的团员:%s"
 
 --LDB
 L.LDB_TOOLTIP_HELP1	            = "左键 打开" .. L.DBM
-L.LDB_TOOLTIP_HELP2	            = "Alt+右键 开启/关闭静音"
+L.LDB_TOOLTIP_HELP2	            = "Alt+右键点击 开启/关闭静音"
 L.SILENTMODE_IS					= "静音模式为："
 
 L.LDB_LOAD_MODS		            = "载入首领模块"

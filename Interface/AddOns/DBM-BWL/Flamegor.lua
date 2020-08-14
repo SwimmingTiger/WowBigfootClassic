@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Flamegor", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200626182941")
+mod:SetRevision("20200807234046")
 mod:SetCreatureID(11981)
 mod:SetEncounterID(615)
 mod:SetModelID(6377)
@@ -51,7 +51,7 @@ do
 		--if args.spellId == 23342 then
 		if args.spellName == Frenzy and args:IsSrcTypeHostile() then
 			if self.Options.SpecWarn23342dispel then
-				specWarnFrenzy:Show()
+				specWarnFrenzy:Show(args.sourceName)
 				specWarnFrenzy:Play("enrage")
 			else
 				warnFrenzy:Show()

@@ -440,6 +440,6 @@ L.WORLD_BUFFS.allianceOny	= "Citoyens et alliés de Stormwind, ce jour est histo
 L.WORLD_BUFFS.hordeNef		= "NEFARIAN IS SLAIN! People of Orgrimmar"
 L.WORLD_BUFFS.allianceNef	= "Citoyens de l'Alliance, le seigneur du clan Blackrock a été tué !"
 L.WORLD_BUFFS.zgHeart		= "Il ne reste plus qu'une étape avant que prenne fin la menace de l'Écorcheur d'âmes"
-L.WORLD_BUFFS.zgHeartBooty	= "The Blood God, the Soulflayer, has been defeated!  We are imperiled no longer!"
+L.WORLD_BUFFS.zgHeartBooty	= "Le Dieu sanglant, l'Écorcheur d'âmes, a été vaincu ! Nous ne sommes plus menacés !"
 L.WORLD_BUFFS.zgHeartYojamba	= "Commencez le rituel, mes serviteurs. Nous devons renvoyer le cœur d'Hakkar dans le vide !"
 L.WORLD_BUFFS.rendHead		= "The false Warchief, Rend Blackhand, has fallen!"

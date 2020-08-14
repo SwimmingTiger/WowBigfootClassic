@@ -31,7 +31,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "Frieden ist nur ein flüchtiger Traum! Möge der Alptraum herrschen!"
+	Pull		= "Frieden ist nur ein flüchtiger Traum! Von nun an herrscht der ALPTRAUM!"
 })
 
 -- Ysondre (Feralas)
@@ -42,7 +42,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "Die Fäden des Lebens wurden durchtrennt! Die Träumer müssen gerächt werden."
+	Pull		= "Die Fäden des LEBENS wurden durchtrennt! Die Träumer müssen gerächt werden!"
 })
 
 -- Lethon (Hinterlands)
@@ -53,7 +53,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "Ich spüre die Schatten in Euren Herzen. Die Verdammten werden niemals ruhen!"
+	Pull		= "Ich fühle die SCHATTEN in Euren Herzen. Niemals darf das Böse Ruhe finden!"
 })
 
 -- Emeriss (Duskwood)
@@ -64,5 +64,5 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "Hoffnung ist ein Gebrechen der Seele! Dieses Land wird verdorren und vergehen!"
+	Pull		= "Die Hoffnung ist eine KRANKHEIT der Seele. Dieses Land wird verdorren und sterben!"
 })

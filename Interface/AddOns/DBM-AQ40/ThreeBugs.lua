@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ThreeBugs", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200701174739")
+mod:SetRevision("20200724164117")
 mod:SetCreatureID(15544, 15511, 15543)
 mod:SetEncounterID(710)
 mod:SetModelID(15657)
@@ -28,9 +28,9 @@ function mod:OnCombatStart(delay)
 	timerFearCD:Start(10-delay)
 	if self:IsDifficulty("event40") or not self:IsTrivial(75) then--Only want to warn if it's a threat
 		self:RegisterShortTermEvents(
-			"SPELL_AURA_APPLIED 25786",
-			"SPELL_PERIODIC_DAMAGE 25786",
-			"SPELL_PERIODIC_MISSED 25786"
+			"SPELL_AURA_APPLIED 25786 25989",
+			"SPELL_PERIODIC_DAMAGE 25786 25989",
+			"SPELL_PERIODIC_MISSED 25786 25989"
 		)
 	end
 end
@@ -69,9 +69,10 @@ end
 
 do
 	local ToxicVaper = DBM:GetSpellInfo(25786)
+	local Toxin 	 = DBM:GetSpellInfo(25989)
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 20277 and args:IsDestTypePlayer() then
-		if args.spellName == ToxicVaper and args:IsPlayer() and self:AntiSpam(3, 2) then
+		if (args.spellName == ToxicVaper or args.spellName == Toxin) and args:IsPlayer() and self:AntiSpam(3, 2) then
 			specWarnGTFO:Show(args.spellName)
 			specWarnGTFO:Play("watchfeet")
 		end
@@ -79,7 +80,7 @@ do
 
 	function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId, spellName)
 		--if spellId == 19717 and destGUID == UnitGUID("player") and self:AntiSpam() then
-		if spellName == ToxicVaper and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
+		if (spellName == ToxicVaper or spellName == Toxin) and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 			specWarnGTFO:Show(spellName)
 			specWarnGTFO:Play("watchfeet")
 		end

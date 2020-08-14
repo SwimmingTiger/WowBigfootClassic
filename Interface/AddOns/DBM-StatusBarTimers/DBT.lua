@@ -80,7 +80,6 @@ else
 	standardFont = "Fonts\\FRIZQT__.TTF"
 end
 
-
 -----------------------
 --  Default Options  --
 -----------------------
@@ -450,7 +449,7 @@ options = {
 	},
 	Font = {
 		type = "string",
-		default = standardFont,
+		default = "standardFont",
 	},
 	FontFlag = {
 		type = "string",
@@ -644,8 +643,9 @@ do
 		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
 		self:Rearrange()
 		DBM:Schedule(2, delaySkinCheck, self)
-		if not self.options.Font then -- Fix font if it's nil
-			self.options.Font = standardFont
+		--Fix font if it's nil or set to any of standard font values
+		if not self.options.Font or (self.options.Font == "Fonts\\2002.TTF" or self.options.Font == "Fonts\\ARKai_T.ttf" or self.options.Font == "Fonts\\blei00d.TTF" or self.options.Font == "Fonts\\FRIZQT___CYR.TTF" or self.options.Font == "Fonts\\FRIZQT__.TTF") then
+			self.options.Font = "standardFont"
 		end
 		if self.options.Template == "DBTBarTemplate" then -- Kill internal default template
 			self.options.Template = "DBMDefaultSkinTimerTemplate"
@@ -1369,7 +1369,8 @@ function barPrototype:ApplyStyle()
 	end
 	texture:SetAlpha(1)
 	bar:SetAlpha(1)
-	local barFont, barFontSize, barFontFlag = barOptions.Font, barOptions.FontSize, barOptions.FontFlag
+	local barFont = barOptions.Font == "standardFont" and standardFont or barOptions.Font
+	local barFontSize, barFontFlag = barOptions.FontSize, barOptions.FontFlag
 	name:SetFont(barFont, barFontSize, barFontFlag)
 	name:SetPoint("LEFT", bar, "LEFT", 3, 0)
 	timer:SetFont(barFont, barFontSize, barFontFlag)
@@ -1528,7 +1529,7 @@ function barPrototype:Announce()
 	if chatWindow then
 		chatWindow:Insert(msg)
 	else
-		SendChatMessage(msg, (IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY")
+		SendChatMessage(msg, (IsInGroup(2) and "INSTANCE_CHAT") or (IsInRaid() and "RAID") or "PARTY")
 	end
 end
 

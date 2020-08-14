@@ -25,7 +25,7 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Breath = "%s takes in a deep breath...",
+	Breath = "%s toma aliento...",
 	YellPull = "Qué casualidad. Generalmente, debo salir de mi guarida para poder comer.",
 	YellP2 = "Este ejercicio sin sentido me aburre. ¡Os incineraré a todos desde arriba!",
 	YellP3 = "¡Parece ser que vais a necesitar otra lección, mortales!"

@@ -112,7 +112,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Eye			= "쑨의 눈",
 	Weakened 	= "약해집니다!",
-	NotValid	= "%s 만에 안퀴40 레이드를 불완전하게 클리어했습니다. 완전하게 클리어하지 않았으므로 이번 클리어 시간은 저장되지 않습니다."
+	NotValid	= "안퀴40 레이드를 일부만 클리어 했습니다. 부차적인 네임드가 %s마리 남아있습니다."
 }
 ----------------
 -- Ouro --

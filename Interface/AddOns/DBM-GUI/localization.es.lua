@@ -7,7 +7,7 @@ L.MainFrame = "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "Traducido por "
 L.TranslationBy 			= "Saispai, Woopy"
-L.Website					= "Visita nuestro canal de Discord: |cFF73C2FBhttps://discord.gg/deadlybossmods|r."
+L.Website					= "Visita nuestro canal de Discord: |cFF73C2FBhttps://discord.gg/DF5mffk|r."
 L.WebsiteButton				= "Página web"
 
 L.OTabBosses	= "Jefes"

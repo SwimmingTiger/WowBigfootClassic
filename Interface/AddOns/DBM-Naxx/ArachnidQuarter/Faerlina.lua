@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200701173853")
+mod:SetRevision("20200721013955")
 mod:SetCreatureID(15953)
 mod:SetEncounterID(1110)
 mod:SetModelID(15940)
@@ -40,7 +40,7 @@ do
 			warnEnrageNow:Show()
 			self.vb.enraged = true
 			--if self:IsTanking("player", "boss1", nil, true) then
-			if self:IsTanking(nil, nil, UnitName("player"), nil, args.destGUID) then--Basically, HAS to be bosses current target
+			if self:IsTanking("player", nil, nil, nil, args.destGUID) then--Basically, HAS to be bosses current target
 				specWarnEnrage:Show()
 				specWarnEnrage:Play("defensive")
 			else

@@ -25,6 +25,7 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Wave12		= "Ahí vienen. Intenta que no te maten,",--Followed by 'chico' or 'chica'
+	Wave12Alt	= "Rajaxx, ¿recuerdas que te dije que serías el último en morir?",
 	Wave3		= "¡La hora de las recompensas está próxima! ¡Que la oscuridad gobierne el corazón de nuestros enemigos!",
 	Wave4		= "¡No volveremos a esperar detrás de rejas y paredes de piedra! ¡Nunca más podrán negarnos nuestra venganza! ¡Hasta los dragones temblarán frente a nuestra ira!",
 	Wave5		= "¡El miedo es para el enemigo! ¡Miedo y muerte!",
@@ -90,4 +91,13 @@ L:SetTimerLocalization{
 L:SetOptionLocalization{
 	WarnVulnerable	= "Anunciar debilidades",
 	TimerVulnerable	= "Mostrar temporizador para la duración de las debilidades"
+}
+
+----------------
+-- AQ20 Trash --
+----------------
+L = DBM:GetModLocalization("AQ20Trash")
+
+L:SetGeneralLocalization{
+	name = "AQ20: Bichos"
 }

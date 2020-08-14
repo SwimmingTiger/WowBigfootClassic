@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Fankriss", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200626182941")
+mod:SetRevision("20200724163929")
 mod:SetCreatureID(15510)
 mod:SetEncounterID(712)
 mod:SetModelID(15743)
@@ -11,6 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 518 25832 25831"
 )
 
+local warnEntangle 		= mod:NewTargetAnnounce(1121, 2)
 local warnWound			= mod:NewStackAnnounce(25646, 3, nil, "Tank", 2)
 local warnWorm			= mod:NewSpellAnnounce(25831, 3)
 
@@ -19,10 +20,12 @@ local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
 local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 
+local yellEntangle		= mod:NewYell(1121)
+
 function mod:OnCombatStart(delay)
 	if not self:IsTrivial(85) then
 		self:RegisterShortTermEvents(
-			"SPELL_AURA_APPLIED 25646",
+			"SPELL_AURA_APPLIED 25646 1121",
 			"SPELL_AURA_APPLIED_DOSE 25646",
 			"SPELL_AURA_REMOVED 25646"
 		)
@@ -34,6 +37,7 @@ function mod:OnCombatEnd()
 end
 
 do
+	local Entangle = DBM:GetSpellInfo(1121)
 	local MortalWound = DBM:GetSpellInfo(25646)
 	function mod:SPELL_AURA_APPLIED(args)
 		--if args.spellId == 25646 then
@@ -53,6 +57,11 @@ do
 			else
 				warnWound:Show(args.destName, amount)
 			end
+		elseif args.spellName == Entangle then
+			if args:IsPlayer() then
+				yellEntangle:Yell()
+			end
+			warnEntangle:Show(args.destName)
 		end
 	end
 	mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED

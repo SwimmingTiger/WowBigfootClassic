@@ -102,7 +102,7 @@ L:SetWarningLocalization{
 L:SetTimerLocalization{
 	TimerSubmerge		= "Submerge",
 	TimerEmerge			= "Emerge",
-	timerCombatStart	= DBM_CORE_L.GENERIC_TIMER_COMBAT
+	timerCombatStart	= "~" .. DBM_CORE_L.GENERIC_TIMER_COMBAT
 }
 L:SetOptionLocalization{
 	WarnSubmerge		= "Show warning for submerge",

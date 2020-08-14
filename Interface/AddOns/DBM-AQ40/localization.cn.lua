@@ -1,5 +1,6 @@
-﻿-- Mini Dragon(projecteurs AT gmail.com) Brilla@金色平原
--- Last update: 2019/08/22
+-- Mini Dragon(projecteurs AT gmail.com) Brilla@金色平原
+-- 枫聖@光芒
+-- Last update: 2020/08/08
 
 if GetLocale() ~= "zhCN" then return end
 local L
@@ -19,7 +20,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("ThreeBugs")
 
 L:SetGeneralLocalization{
-	name = "异种蝎皇族"
+	name = "安其拉三宝"
 }
 L:SetMiscLocalization{
 	Yauj = "亚尔基公主",
@@ -100,7 +101,7 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "眼球触须",
-	SpecWarnWeakened		= "克苏恩变得虚弱了!"
+	SpecWarnWeakened		= "克苏恩的力量被削弱了！"
 }
 L:SetTimerLocalization{
 	TimerEyeTentacle		= "下一次眼球触须",
@@ -116,7 +117,8 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Eye			= "克苏恩之眼",
-	Weakened 	= "变弱了"
+	Weakened 	= "削弱了",
+    NotValid	= "AQ40 击杀信息： %s 首领未击杀。"
 }
 ----------------
 -- Ouro --
@@ -131,12 +133,12 @@ L:SetWarningLocalization{
 	WarnEmerge			= "现身"
 }
 L:SetTimerLocalization{
-	TimerSubmerge		= "钻地",
+	TimerSubmerge		= "强制钻地",
 	TimerEmerge			= "现身"
 }
 L:SetOptionLocalization{
 	WarnSubmerge		= "为钻地显示警告",
-	TimerSubmerge		= "为钻地显示计时器",
+	TimerSubmerge		= "为钻地显示计时器，确定何时将强制执行合并。 注意：如果近战离开目标范围，他仍然可以随时钻地。",
 	WarnEmerge			= "为现身显示警告",
 	TimerEmerge			= "为现身显示计时器"
 }
@@ -146,5 +148,5 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("AQ40Trash")
 
 L:SetGeneralLocalization{
-	name = "AQ40 全程计时"
+	name = "AQ40：全程计时"
 }

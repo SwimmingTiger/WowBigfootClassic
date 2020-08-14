@@ -6,7 +6,10 @@ local L = DBM_GUI_L
 
 L.MainFrame = "Deadly Boss Mods"
 
+L.TranslationByPrefix		= "Traduzido por "
 L.TranslationBy 			= "GlitterStorm @ Azralon"
+L.Website					= "Visita nosso canal Discord: |cFF73C2FBhttps://discord.gg/DF5mffk|r."
+L.WebsiteButton				= "Pagina web"
 
 L.OTabBosses	= "Chefes"
 L.OTabRaids		= "Raide"--Raids & PVP
@@ -23,8 +26,8 @@ L.TabCategory_MOP	 		= "Mists of Pandaria"
 L.TabCategory_CATA	 		= "Cataclysm"
 L.TabCategory_WOTLK 		= "Wrath of the Lich King"
 L.TabCategory_BC 			= "The Burning Crusade"
-L.TabCategory_CLASSIC		= "Wow Vanilla"
-L.TabCategory_PVP 			= "PVP"
+L.TabCategory_CLASSIC		= "Classic"
+L.TabCategory_PVP 			= "JxJ"
 L.TabCategory_OTHER    		= "Outros módulos"
 
 L.BossModLoaded 			= "%s estatísticas"

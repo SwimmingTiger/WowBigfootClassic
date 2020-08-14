@@ -13,7 +13,8 @@
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Зул'Гуруб|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMZG_SavedVars, DBMZG_SavedStats
+## SavedVariables: DBMZG_AllSavedVars
+## SavedVariablesPerCharacter: DBMZG_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: Classic
 ## X-DBM-Mod-Has-Single-Format: 1

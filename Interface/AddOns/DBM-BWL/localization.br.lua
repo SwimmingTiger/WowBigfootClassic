@@ -164,9 +164,9 @@ L:SetMiscLocalization{
 	YellP1		= "Que comecem os jogos!",
 	YellP2		= "Muito bem, meus lacaios. A coragem dos mortais começa a vacilar! Agora vejamos como eles enfrentarão o verdadeiro Senhor dos Rocha Negra!!!",
 	YellP3		= "Impossível! Ergam-se, meus lacaios! Sirvam ao seu mestre mais uma vez!",
-	YellShaman	= "¡Chamanes, mostradme lo que pueden hacer vuestros tótems!", --needs localization
-	YellPaladin	= "Paladines... He oído que tenéis muchas vidas. Demostrádmelo.", --needs localization
-	YellDruid	= "Los druidas y vuestro estúpido poder de cambiar de forma. ¡Veámoslo en acción!", --needs localization
+	YellShaman	= "Xamãs, mostrem-me do que seus totens são capazes!",
+	YellPaladin	= "Paladinos... ouvi dizer que vocês têm muitas vidas. Isso eu quero ver.",
+	YellDruid	= "Druidas e suas metamorfoses idiotas. Vamos vê-las em ação!",
 	YellPriest	= "Sacerdotes! Se vocês continuarem a curar desse jeito, acho que podemos tornar as coisas um pouquinho mais interessantes!",
 	YellWarrior	= "Guerreiros, sei que vocês conseguem bater mais forte que isso! Vamos!",
 	YellRogue	= "Ladinos? Parem de se esconder e venham me enfrentar!",

@@ -1,12 +1,13 @@
 local mod	= DBM:NewMod("Skeram", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200626182941")
+mod:SetRevision("20200810225555")
 mod:SetCreatureID(15263)
 mod:SetEncounterID(709)
 mod:SetModelID(15345)
-mod:RegisterCombat("combat")
 mod:SetUsedIcons(4, 5, 6, 7, 8)
+
+mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 785",
@@ -74,7 +75,7 @@ do
 	local Teleport = DBM:GetSpellInfo(4801)
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args:IsSpellID(20449, 4801, 8195) and self:AntiSpam() then
-		if args.spellName == Teleport and args:IsSrcTypeHostile() and self:AntiSpam() then
+		if args.spellName == Teleport and args:IsSrcTypeHostile() and self:AntiSpam(3, 1) then
 			warnTeleport:Show()
 		end
 	end
@@ -84,7 +85,7 @@ do
 	local SummonImages = DBM:GetSpellInfo(747)
 	function mod:SPELL_SUMMON(args)
 		--if args.spellId == 747 then
-		if args.spellName == SummonImages then
+		if args.spellName == SummonImages and self:AntiSpam(3, 2) then
 			warnSummon:Show()
 		end
 	end

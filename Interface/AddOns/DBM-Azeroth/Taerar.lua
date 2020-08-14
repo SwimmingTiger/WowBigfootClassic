@@ -1,10 +1,9 @@
 local mod	= DBM:NewMod("Taerar", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200626182941")
+mod:SetRevision("20200805234921")
 mod:SetCreatureID(14890)--121911 TW ID, 14890 classic ID
 --mod:SetModelID(17887)
-mod:SetZone()
 
 mod:RegisterCombat("combat_yell", L.Pull)
 

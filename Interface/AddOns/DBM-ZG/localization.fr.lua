@@ -38,7 +38,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization({
-	WarnSimulKill	= "Premier séide mort - Résurrection en ~ 15 secondes"
+	WarnSimulKill	= "Premier serviteur mort - Résurrection en ~15 secondes"
 })
 
 L:SetTimerLocalization({
@@ -46,14 +46,14 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarnSimulKill	= "Annoncez le premier séide mort",
+	WarnSimulKill	= "Annoncez le premier serviteur mort",
 	TimerSimulKill	= "Montre le timer pour la résurrection des prêtres"
 })
 
 L:SetMiscLocalization({
-	PriestDied	= "%s muere.",
-	YellPhase2	= "Shirvallah, ¡lléname de IRA!",
-	YellKill	= "¡Hakkar ya no me controla! ¡Por fin algo de paz!",
+	PriestDied	= "%s meurt.",
+	YellPhase2	= "Shirvallah, que ta RAGE m’envahisse !",
+	YellKill	= "Hakkar ne me domine plus ! Je connais enfin la paix !",
 	Thekal		= "Grand prêtre Thekal",
 	Zath		= "Zélote Zath",
 	LorKhan		= "Zélote Lor'Khan"
@@ -88,7 +88,7 @@ L:SetGeneralLocalization{
 L:SetMiscLocalization{
 	Bloodlord 	= "Seigneur sanglant Mandokir",
 	Ohgan		= "Ohgan",
-	GazeYell	= "I'm watching you"
+	GazeYell	= "je vous ai à l'œil"
 }
 
 -------------------

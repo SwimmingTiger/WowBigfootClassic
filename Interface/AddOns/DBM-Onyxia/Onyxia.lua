@@ -1,10 +1,9 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200626182941")
+mod:SetRevision("20200805234921")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
-mod:SetZone()
 mod:SetModelID(8570)
 mod:SetUsedIcons(8)
 mod:SetHotfixNoticeRev(20191122000000)--2019, 11, 22
