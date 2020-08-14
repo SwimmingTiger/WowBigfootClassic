@@ -159,7 +159,7 @@ L["Options"] = "Options";
 
 --Spirit of Zandalar buff NPC first yell string (part of his first yell msg before before buff).
 L["Begin the ritual"] = "Commencez le rituel"
-L["The Blood God"] = "Le Dieu sanglantd"; --First Booty bay yell from Zandalarian Emissary.
+L["The Blood God"] = "Le Dieu sanglant"; --First Booty bay yell from Zandalarian Emissary.
 --Spirit of Zandalar buff NPC second yell string (part of his second yell msg before before buff).
 L["slayer of Hakkar"] = "vainqueur d’Hakkar";
 

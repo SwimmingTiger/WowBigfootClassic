@@ -1082,6 +1082,7 @@ NWB.optionDefaults = {
 		experimental = true, --Enable features being tested on occasion.
 		resetLayerMaps = true,
 		convertSettings = true,
+		wipeSingleLayer = true,
 	},
 };
 

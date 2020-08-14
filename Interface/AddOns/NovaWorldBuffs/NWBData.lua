@@ -146,7 +146,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 		NWB:doFlowerMsg(type, layer);
 	end
 	--Ignore data syncing for some recently out of date versions.
-	if (tonumber(remoteVersion) < 1.75) then
+	if (tonumber(remoteVersion) < 1.76) then
 		if (cmd == "requestData" and distribution == "GUILD") then
 			if (not NWB:getGuildDataStatus()) then
 				NWB:sendSettings("GUILD");
