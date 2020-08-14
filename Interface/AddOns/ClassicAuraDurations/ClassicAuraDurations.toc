@@ -2,7 +2,7 @@
 ## Title: ClassicAuraDurations
 ## Author: d87
 ## SavedVariables: ClassicAuraDurationsDB
-## Version: 1.13.60
+## Version: 1.13.61
 
 ## X-WoWI-ID: 25006
 ## X-Curse-Project-ID: 323806

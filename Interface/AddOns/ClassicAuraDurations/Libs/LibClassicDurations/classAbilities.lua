@@ -1,7 +1,7 @@
 local lib = LibStub and LibStub("LibClassicDurations", true)
 if not lib then return end
 
-local Type, Version = "SpellTable", 64
+local Type, Version = "SpellTable", 66
 if lib:GetDataVersion(Type) >= Version then return end  -- older versions didn't have that function
 
 local Spell = lib.AddAura
@@ -15,6 +15,9 @@ local locale = GetLocale()
 -- Erases Fire Vulnerability from the name to id table in case older version of the lib written it there
 if locale == "zhCN" then
     lib.spellNameToID[GetSpellInfo(980)] = nil
+end
+if locale == "ruRU" then
+    lib.spellNameToID[GetSpellInfo(12721)] = nil -- Deep Wounds conflict with Rake on ruRU
 end
 
 -- https://github.com/rgd87/LibClassicDurations/issues/11
@@ -90,22 +93,6 @@ if class == "MAGE" then
 
     -- Ignite
 
-    -- Scorch is separate
-    local fire_spells = {133, 2136, 2120, 11113} -- Fireball, Fireblast, Flamestrike, Blast Wave
-
-    for _, spellId in ipairs(fire_spells) do
-        lib.indirectRefreshSpells[GetSpellInfo(spellId)] = { -- Fireball
-            [12654] = {
-                events = {
-                    ["SPELL_DAMAGE"] = true
-                },
-                -- targetSpellID = 12654, -- Ignite
-                rollbackMisses = true,
-                condition = function(isMine, isCrit) return isCrit end,
-            }
-        }
-    end
-
     lib.indirectRefreshSpells[GetSpellInfo(10207)] = { -- Scorch
         [22959] = {
             events = {
@@ -117,15 +104,38 @@ if class == "MAGE" then
             -- it'll refresg only from mages personal casts which is fine
             -- because if mage doesn't have imp scorch then he won't even see a Fire Vulnerability timer
         },
-        [12654] = { -- Ignite
+    }
+
+    local fire_spells = {133, 10207, 2136, 2120, 11113} -- Fireball, Scorch, Fireblast, Flamestrike, Blast Wave
+
+    for _, spellId in ipairs(fire_spells) do
+        local spellName = GetSpellInfo(spellId)
+        if not lib.indirectRefreshSpells[spellName] then
+            lib.indirectRefreshSpells[spellName] = {}
+        end
+        lib.indirectRefreshSpells[spellName][12654] = {
             events = {
                 ["SPELL_DAMAGE"] = true
             },
             -- targetSpellID = 12654, -- Ignite
             rollbackMisses = true,
             condition = function(isMine, isCrit) return isCrit end,
+            customAction = function(srcGUID, dstGUID, spellID)
+                local lib = LibStub("LibClassicDurations")
+                local spellTable = lib:GetSpellTable(srcGUID, dstGUID, spellID)
+                if spellTable and not spellTable.tickExtended then
+                    local igniteStartTime = spellTable[2]
+                    spellTable[2] = igniteStartTime + 2
+                    spellTable.tickExtended = true
+                    if lib.DEBUG_IGNITE then
+                        print(GetTime(), "[Ignite] Extended", dstGUID, "New start time:", spellTable[2])
+                    end
+                end
+            end,
         }
-    }
+    end
+
+
 
     lib.indirectRefreshSpells[GetSpellInfo(12654)] = CopyTable(lib.indirectRefreshSpells[GetSpellInfo(133)]) -- Just adding Ignite to indirectRefreshSpells table
     lib.indirectRefreshSpells[GetSpellInfo(12654)][12654].events = {}
@@ -483,7 +493,9 @@ Spell({ 772, 6546, 6547, 6548, 11572, 11573, 11574 }, { stacking = true,
         else return 21 end
     end
 }) -- Rend
+if locale ~= "ruRU" or class ~= "DRUID" then
 Spell( 12721, { duration = 12, stacking = true }) -- Deep Wounds
+end
 
 Spell({ 1715, 7372, 7373 }, { duration = 15 }) -- Hamstring
 Spell( 23694 , { duration = 5 }) -- Improved Hamstring
@@ -956,7 +968,8 @@ Spell({ 543, 8457, 8458, 10223, 10225 }, { duration = 30, type = "BUFF", buffTyp
 Spell({ 6143, 8461, 8462, 10177, 28609 }, { duration = 30, type = "BUFF", buffType = "Magic" }) -- Frost Ward
 
 Spell(12355, { duration = 2 }) -- Impact
-Spell(12654, { duration = 4 }) -- Ignite
+lib.spellNameToID[GetSpellInfo(12654)] = 12654
+-- Spell(12654, { duration = 4 }) -- Ignite
 
 if class == "MAGE" then
 Spell(22959, {

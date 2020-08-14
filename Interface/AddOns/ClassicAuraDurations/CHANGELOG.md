@@ -1,3 +1,7 @@
+### 1.13.61
+
+- Ignite extension changes
+
 ### 1.13.60
 
 - Fixed issue with buffs sometimes not registering
