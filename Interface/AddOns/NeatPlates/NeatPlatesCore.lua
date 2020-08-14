@@ -45,6 +45,7 @@ local ShowServerIndicator = false
 local ShowUnitTitle = true
 local ShowPowerBar = false
 local ShowSpellTarget = false
+local ThreatSoloEnable = true
 local EMPTY_TEXTURE = "Interface\\Addons\\NeatPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local OverrideFonts = false
@@ -317,7 +318,7 @@ do
 			-- CVar integrations
 			if NeatPlatesOptions.BlizzardScaling then carrier:SetScale(plate:GetScale()) end	-- Scale the carrier to allow for certain CVars that control scale to function properly.
 			if plate.extended.unit.alphaMult ~= plate:GetAlpha() then
-				UpdateMe = true
+				UpdateHealth = true
 			end
 
 			-- Check for an Update Request
@@ -334,9 +335,11 @@ do
 				--if children then children:Hide() end
 
 				if plate.UpdateCastbar then -- Check if spell is being cast
-					local unitGUID = UnitGUID(unit.unitid)
-					if unitGUID and SpellCastCache[unitGUID] and not SpellCastCache[unitGUID].finished then OnStartCasting(plate, unitGUID, false)
-					else OnStopCasting(plate) end
+					if unit and unit.unitid then
+						local unitGUID = UnitGUID(unit.unitid)
+						if unitGUID and SpellCastCache[unitGUID] and not SpellCastCache[unitGUID].finished then OnStartCasting(plate, unitGUID, false)
+						else OnStopCasting(plate) end
+					end
 					plate.UpdateCastbar = false
 				end
 			elseif unitid and not plate:IsVisible() then
@@ -811,8 +814,11 @@ do
 		unit.power = UnitPower(unitid, powerType) or 0
 		unit.powermax = UnitPowerMax(unitid, powerType) or 0
 
-		unit.threatValue = UnitThreatSituation("player", unitid) or 0
-		unit.threatSituation = ThreatReference[unit.threatValue]
+		unit.threatValue = 0
+		if ThreatSoloEnable or UnitInParty("player") or UnitExists("pet") then
+			unit.threatValue = UnitThreatSituation("player", unitid) or 0
+			unit.threatSituation = ThreatReference[unit.threatValue]
+		end
 		unit.isInCombat = UnitAffectingCombat(unitid)
 		unit.isTargetingPlayer = UnitIsUnit(unitid.."target", "player")
 		unit.alphaMult = nameplate:GetAlpha()
@@ -1123,28 +1129,30 @@ do
 		castBar:SetScript("OnEvent", nil)
 		--castBar:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
 		
-		-- Set spell target (Target doesn't usually update until a little bit after the combat event, so we need to recheck)
-		if ShowSpellTarget and unit.unitid then
-			local maxTries = 10
-			local targetof = unit.unitid.."target"
-			local function setSpellTarget()
-				local targetname =  UnitName(targetof) or ""
-				if UnitIsUnit(targetof, "player") then
-					targetname = "|cFFFF1100"..">> "..L["You"].." <<" or ""	-- Red '>> You <<' instead of character name
-				elseif UnitIsPlayer(targetof) then
-					local targetclass = select(2, UnitClass(targetof))
-					targetname = ConvertRGBtoColorString(RaidClassColors[targetclass])..targetname or ""
-				end
-				visual.spelltarget:SetText(targetname)
+		-- -- Set spell target (Target doesn't usually update until a little bit after the combat event, so we need to recheck)
+		-- if ShowSpellTarget and unit.unitid then
+		-- 	local maxTries = 10
+		-- 	local targetof = unit.unitid.."target"
+		-- 	local function setSpellTarget()
+		-- 		local targetname =  UnitName(targetof) or ""
+		-- 		if UnitIsUnit(targetof, "player") then
+		-- 			targetname = "|cFFFF1100"..">> "..L["You"].." <<" or ""	-- Red '>> You <<' instead of character name
+		-- 		elseif UnitIsPlayer(targetof) then
+		-- 			local targetclass = select(2, UnitClass(targetof))
+		-- 			targetname = ConvertRGBtoColorString(RaidClassColors[targetclass])..targetname or ""
+		-- 		end
+		-- 		visual.spelltarget:SetText(targetname)
 
-				-- Retry if target is empty
-				if targetname == "" and maxTries > 0 then
-					maxTries = maxTries - 1
-					C_Timer.After(0.1, setSpellTarget)
-				end
-			end
-			C_Timer.After(0.002, setSpellTarget) -- Next Frame
-		end
+		-- 		-- Retry if target is empty
+		-- 		if targetname == "" and maxTries > 0 then
+		-- 			maxTries = maxTries - 1
+		-- 			C_Timer.After(0.1, setSpellTarget)
+		-- 		end
+		-- 	end
+		-- 	C_Timer.After(0.002, setSpellTarget) -- Next Frame
+		-- end
+
+		OnUpdateCastTarget(plate, unitid)
 
 		-- Set spell text & duration
 		visual.spelltext:SetText(spell.name)
@@ -1281,6 +1289,20 @@ do
 		--end
 	end
 
+	function OnUpdateCastTarget(plate, unitid)
+		if ShowSpellTarget and plate and unitid then
+			local targetof = unitid.."target"
+			local targetname =  UnitName(targetof) or ""
+			if UnitIsUnit(targetof, "player") then
+				targetname = "|cFFFF1100"..">> "..L["You"].." <<" or ""	-- Red '>> You <<' instead of character name
+			elseif UnitIsPlayer(targetof) then
+				local targetclass = select(2, UnitClass(targetof))
+				targetname = ConvertRGBtoColorString(RaidClassColors[targetclass])..targetname or ""
+			end
+			plate.extended.visual.spelltarget:SetText(targetname)
+		end
+	end
+
 
 end -- End Indicator section
 
@@ -1403,6 +1425,15 @@ do
 		if HasTarget and NeatPlatesTarget then NeatPlatesTarget.unitGUID = guid end
 		toggleNeatPlatesTarget(HasTarget and unitAlive and not PlatesByGUID[guid])
 		SetUpdateAll()
+	end
+	
+	function CoreEvents:UNIT_TARGET(...)
+		local unitid = ...
+		local plate = GetNamePlateForUnit(unitid);
+		
+		if plate and plate.extended.unit.isCasting then
+			OnUpdateCastTarget(plate, unitid)
+		end
 	end
 
 	function CoreEvents:PLAYER_TARGET_CHANGED()
@@ -1882,6 +1913,7 @@ function NeatPlates:SetCoreVariables(LocalVars)
 	ShowUnitTitle = LocalVars.TextShowUnitTitle
 	ShowPowerBar = LocalVars.StyleShowPowerBar
 	ShowSpellTarget = LocalVars.SpellTargetEnable
+	ThreatSoloEnable = LocalVars.ThreatSoloEnable
 end
 
 function NeatPlates:ShowNameplateSize(show, width, height) ForEachPlate(function(plate) UpdateNameplateSize(plate, show, width, height) end) end

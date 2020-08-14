@@ -1,12 +1,12 @@
-lightweight tag 82b6fcb707be1b96d5dec725210e83503dadb3f2 1.13.5.6
+lightweight tag b3c895e73c9db7aab686105fe12a6a055214836b 1.13.5.9
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Fri Jul 24 21:36:43 2020 +0200
+Date:	Thu Aug 13 20:05:04 2020 +0200
 
-commit 82b6fcb707be1b96d5dec725210e83503dadb3f2
+commit b3c895e73c9db7aab686105fe12a6a055214836b
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Fri Jul 24 21:36:43 2020 +0200
+Date:   Thu Aug 13 20:05:04 2020 +0200
 
-    Toc update
+    Fixed an error related to the castbar
     
-    - Toc update
+    - Fixed an error related to the castbar that could occur if the nameplate disappeard before the cast was updated.
 
