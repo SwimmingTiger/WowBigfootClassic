@@ -100,6 +100,12 @@ config.options = {
 					desc = L["Show the node's additional notes when it's available."],
 					order = 28,
 				},
+				easy_waypoint = {
+					type = "toggle",
+					name = L["Easy waypoints"],
+					desc = L["easy_waypoints_desc"],
+					order = 30,
+				},
 			},
 		},
 		plugin_config = {

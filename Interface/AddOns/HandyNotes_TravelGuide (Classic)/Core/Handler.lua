@@ -143,7 +143,7 @@ do
 			info.notCheckable 	= true
 			UIDropDownMenu_AddButton(info, level)
 
-			if TomTom then
+			if TomTom and not profile.easy_waypoint then
 				-- Waypoint menu item
 				info = UIDropDownMenu_CreateInfo()
 				info.text = LH["Add this location to TomTom waypoints"]
@@ -176,10 +176,22 @@ do
 	HL_Dropdown.initialize = generateMenu
 
 	function PluginHandler:OnClick(button, down, uMapID, coord)
-		if (button == "RightButton" and not down) then
+		if ((down or button ~= "RightButton") and profile.easy_waypoint) then
+			return
+		end
+		if ((button == "RightButton" and not down) and not profile.easy_waypoint) then
 			currentMapID = uMapID
 			currentCoord = coord
 			ToggleDropDownMenu(1, nil, HL_Dropdown, self, 0, 0)
+		end
+		if (IsControlKeyDown() and profile.easy_waypoint) then
+			currentMapID = uMapID
+			currentCoord = coord
+			ToggleDropDownMenu(1, nil, HL_Dropdown, self, 0, 0)
+		else
+		if profile.easy_waypoint then
+			addTomTomWaypoint(button, uMapID, coord)
+		end
 		end
 	end
 end

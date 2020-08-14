@@ -1,4 +1,5 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_TravelGuide (Classic)", "zhCN", false)
+local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_TravelGuide (Classic)", "zhCN", false) or
+          LibStub("AceLocale-3.0"):NewLocale("HandyNotes_TravelGuide (Classic)", "zhTW", false)
 
 if not L then return end
 --simplified chinese translation by swimstiger https://www.curseforge.com/members/swimstiger

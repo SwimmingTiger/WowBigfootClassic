@@ -20,6 +20,7 @@ constants.defaults = {
 		show_zepplin = true,
 		show_hzepplin = true,
 		show_note = true,
+		easy_waypoint = true,
 	},
 	char = {
 		hidden = {

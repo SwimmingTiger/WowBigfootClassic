@@ -23,6 +23,9 @@ L["Horde Zeppelin"] = true
 L["Show the Horde Zeppelin locations."] = true
 L["Note"] = true
 L["Show the node's additional notes when it's available."] = true
+L["Easy waypoints"] = true
+L["easy_waypoints_desc"] = "Activates simplified waypoint creation. \nAllows you to set a waypoint by right-clicking and access to more options by CTRL + right-clicking."
+
 L["Deeprun Tram"] = true
 L["Show the Deeprun Tram locations in Stormwind and Ironforge."] = true
 
