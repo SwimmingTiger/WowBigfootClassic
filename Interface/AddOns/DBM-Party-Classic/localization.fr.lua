@@ -283,6 +283,9 @@ L = DBM:GetModLocalization("PyroguardEmberseer")
 L:SetGeneralLocalization{
 	name 		= "Pyrogarde Prophète ardent"
 }
+L:SetMiscLocalization{
+	Pull		= "%s commence à retrouver ses forces !"
+}
 -----------------------------
 --  Solakar Flamewreath  --
 -----------------------------

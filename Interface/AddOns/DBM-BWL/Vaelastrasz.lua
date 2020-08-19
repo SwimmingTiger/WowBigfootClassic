@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 18173"
 )
 
-local warnBreath			= mod:NewCastAnnounce(23461, 2, nil, nil, "Tank", 2)
+local warnBreath			= mod:NewCastAnnounce(23461, 2, nil, nil, "Tank", 3)
 local warnAdrenaline		= mod:NewTargetNoFilterAnnounce(18173, 2)
 
 local specWarnAdrenaline	= mod:NewSpecialWarningYou(18173, nil, nil, nil, 1, 2)

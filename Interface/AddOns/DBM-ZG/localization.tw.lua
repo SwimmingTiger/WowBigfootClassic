@@ -53,7 +53,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	PriestDied	= "%s死了。",
 	YellPhase2	= "西瓦爾拉，讓我感受你的憤怒吧！", --TBD
-	YellKill	= "哈卡再也不能束縛我了！我終于可以安息了！", --TBD
+	YellKill	= "哈卡再也不能束縛我了！我終於可以安息了！",
 	Thekal		= "高階祭司塞卡爾",
 	Zath		= "狂熱者紮斯",
 	LorKhan		= "狂熱者洛卡恩"

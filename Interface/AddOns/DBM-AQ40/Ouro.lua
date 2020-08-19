@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200806195413")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15517)
 mod:SetEncounterID(716)
 mod:SetModelID(15509)
@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 --]]
 local warnSubmerge		= mod:NewAnnounce("WarnSubmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp")
 local warnEmerge		= mod:NewAnnounce("WarnEmerge", 3, "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp")
-local warnSweep			= mod:NewSpellAnnounce(26103, 2, nil, "Tank", 2)
+local warnSweep			= mod:NewSpellAnnounce(26103, 2, nil, "Tank", 3)
 local warnBerserk		= mod:NewSpellAnnounce(26615, 3)
 local warnBerserkSoon	= mod:NewSoonAnnounce(26615, 2)
 
@@ -30,7 +30,7 @@ local specWarnBlast		= mod:NewSpecialWarningSpell(26102, nil, nil, nil, 2, 2)
 
 local timerSubmerge		= mod:NewTimer(30, "TimerSubmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendBurrow.blp", nil, nil, nil, 6)
 local timerEmerge		= mod:NewTimer(30, "TimerEmerge", "Interface\\AddOns\\DBM-Core\\textures\\CryptFiendUnBurrow.blp", nil, nil, 6)
-local timerSweepCD		= mod:NewNextTimer(20.5, 26103, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerSweepCD		= mod:NewNextTimer(20.5, 26103, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerBlastCD		= mod:NewNextTimer(23, 26102, nil, nil, nil, 2)
 
 mod.vb.prewarn_Berserk = false

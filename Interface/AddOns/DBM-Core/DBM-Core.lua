@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200811024007"),
-	DisplayVersion = "1.13.56", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 8, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200818185136"),
+	DisplayVersion = "1.13.57", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 8, 18) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -3180,6 +3180,14 @@ function DBM:GetCIDFromGUID(guid)
 		return tonumber(playerdbID)
 	end
 	return 0
+end
+
+function DBM:GetSpawnIdFromGUID(guid)
+	local type, _, playerdbID, _, _, cid, creationbits = strsplit("-", guid or "")
+	if type and (type == "Creature" or type == "Vehicle" or type == "Pet") then
+		return tostring(creationbits)
+	end
+	return ""
 end
 
 function DBM:IsCreatureGUID(guid)
@@ -6532,7 +6540,7 @@ do
 	end
 
 	function DBM:PlaySound(path, ignoreSFX, validate)
-		if self.Options.SilentMode then return end
+		if self.Options.SilentMode or path == "" or path == "None" then return end
 		playSound(self, path, ignoreSFX, validate)
 	end
 end
@@ -7995,6 +8003,7 @@ do
 			["HasImmunity"] = true,
 		},
 		["PALADIN3"] = {	--Retribution Paladin
+			["Tank"] = true,
 			["Dps"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
@@ -8008,6 +8017,7 @@ do
 		},
 		["WARRIOR1"] = {	--Arms Warrior
 			["Dps"] = true,
+			["Tank"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
 			["Physical"] = true,
@@ -8021,6 +8031,7 @@ do
 			["MagicDispeller"] = (IsSpellKnown(23922) or IsSpellKnown(23923) or IsSpellKnown(23924) or IsSpellKnown(23925)) and true or false,--Shield Slam
 		},
 		["DRUID1"] = {	--Balance Druid
+			["Healer"] = true,
 			["Dps"] = true,
 			["Ranged"] = true,
 			["RangedDps"] = true,
@@ -8029,7 +8040,8 @@ do
 			["CasterDps"] = true,
 			["RemoveCurse"] = true,
 		},
-		["DRUID2"] = {	--Feral Druid
+		["DRUID2"] = { --Feral Druid
+			["Healer"] = true,
 			["Dps"] = true,
 			["Tank"] = true,
 			["Melee"] = true,
@@ -8037,7 +8049,7 @@ do
 			["Physical"] = true,
 			["RemoveCurse"] = true,
 		},
-		["DRUID3"] = {	-- Restoration Druid
+		["DRUID3"] = { -- Restoration Druid
 			["Healer"] = true,
 			["Ranged"] = true,
 			["ManaUser"] = true,
@@ -8090,7 +8102,7 @@ do
 			["RemoveMagic"] = true,
 			["HasInterrupt"] = IsSpellKnown(15487) and true or false,--Silence is a talent tree talent
 		},
-		["ROGUE1"] = {	--Assassination Rogue
+		["ROGUE1"] = { --Assassination Rogue
 			["Dps"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
@@ -8120,7 +8132,7 @@ do
 			["ManaUser"] = true,
 			["SpellCaster"] = true,
 		},
-		["WARLOCK1"] = {	--Affliction Warlock
+		["WARLOCK1"] = { --Affliction Warlock
 			["Dps"] = true,
 			["Ranged"] = true,
 			["RangedDps"] = true,
@@ -8266,16 +8278,22 @@ do
 		end
 	end
 
+	-- if we catch someone in a tank stance keep sending them warnings
+	local playerIsTank = false
+
 	function bossModPrototype:IsTank()
 		--IsTanking already handles external calls, no need here.
 		if not currentSpecID then
 			DBM:SetCurrentSpecInfo()
 		end
 		if specRoleTable[currentSpecID]["Tank"] then
-			return true
-		else
-			return false
+			-- 17 defensive stance, 5487 bear form, 9634 dire bear, 25780 righteous fury
+			if playerIsTank or GetShapeshiftFormID() == 18 or DBM:UnitBuff('player', 5487, 9634) then
+				playerIsTank = true
+				return true
+			end
 		end
+		return false
 	end
 
 	function bossModPrototype:IsDps(uId)
@@ -8309,10 +8327,14 @@ do
 			DBM:SetCurrentSpecInfo()
 		end
 		if specRoleTable[currentSpecID]["Healer"] then
-			return true
-		else
-			return false
+			if playerClass == "DRUID" then
+				-- not in form (moonkin for balance, cat/bear for ferals)
+				return GetShapeshiftFormID() == nil
+			else
+				return true
+			end
 		end
+		return false
 	end
 end
 
@@ -8907,7 +8929,7 @@ do
 		local argTable = {...}
 		for i = 1, #argTable do
 			if type(argTable[i]) == "string" then
-				if #self.combinedtext < 8 then--Throttle spam. We may not need more than 9 targets..
+				if #self.combinedtext < 7 then--Throttle spam. We may not need more than 6 targets..
 					if not checkEntry(self.combinedtext, argTable[i]) then
 						self.combinedtext[#self.combinedtext + 1] = argTable[i]
 					end
@@ -9634,7 +9656,7 @@ do
 		local argTable = {...}
 		for i = 1, #argTable do
 			if type(argTable[i]) == "string" then
-				if #self.combinedtext < 8 then--Throttle spam. We may not need more than 9 targets..
+				if #self.combinedtext < 6 then--Throttle spam. We may not need more than 5 targets..
 					if not checkEntry(self.combinedtext, argTable[i]) then
 						self.combinedtext[#self.combinedtext + 1] = argTable[i]
 					end
@@ -11396,7 +11418,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200811024007" then
+	if not revision or revision == "20200818185136" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

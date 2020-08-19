@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sulfuron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(12098)--, 11662
 mod:SetEncounterID(669)
 mod:SetModelID(13030)
@@ -13,14 +13,14 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, nameplate aura if classic API supports it enough
-local warnInspire		= mod:NewTargetNoFilterAnnounce(19779, 2, nil, "Tank|Healer")
+local warnInspire		= mod:NewTargetNoFilterAnnounce(19779, 2, nil, "Tank|Healer", 2)
 local warnHandRagnaros	= mod:NewTargetAnnounce(19780, 2, nil, false, 2)
 local warnShadowPain	= mod:NewTargetAnnounce(19776, 2, nil, false, 2)
 local warnImmolate		= mod:NewTargetAnnounce(20294, 2, nil, false, 2)
 
 local specWarnHeal		= mod:NewSpecialWarningInterrupt(19775, "HasInterrupt", nil, nil, 1, 2)
 
-local timerInspire		= mod:NewTargetTimer(10, 19779, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)
+local timerInspire		= mod:NewTargetTimer(10, 19779, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)
 local timerHeal			= mod:NewCastTimer(2, 19775, nil, nil, 2, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
 
 --function mod:OnCombatStart(delay)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("AQ40Trash", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200811005840")
+mod:SetRevision("20200813135210")
 mod:SetModelID(15347)-- Anubisath Sentinel
 mod:SetMinSyncRevision(20200810000000)--2020, 8, 10
 
@@ -50,7 +50,7 @@ do
 				self.vb.firstEngageTime = GetServerTime()
 				if self.Options.FastestClear3 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBM.Bars:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "136106")
+					DBM.Bars:CreateBar(self.Options.FastestClear3, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
 				end
 				self:SendSync("AQ40Started", self.vb.firstEngageTime)--Also sync engage time
 			end

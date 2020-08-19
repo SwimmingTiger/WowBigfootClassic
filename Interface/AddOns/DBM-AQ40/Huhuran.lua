@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15509)
 mod:SetEncounterID(714)
 mod:SetModelID(15739)
@@ -16,22 +16,22 @@ mod:RegisterEventsInCombat(
 )
 
 local warnSting			= mod:NewTargetNoFilterAnnounce(26180, 2, nil, "RemovePoison")
-local warnAcid			= mod:NewStackAnnounce(26050, 3, nil, "Tank", 2)
+local warnAcid			= mod:NewStackAnnounce(26050, 3, nil, "Tank", 3)
 local warnPoison		= mod:NewSpellAnnounce(26053, 3)
-local warnFrenzy		= mod:NewSpellAnnounce(26051, 2, nil, "Tank", 2)
+local warnFrenzy		= mod:NewSpellAnnounce(26051, 2, nil, "Healer|Tank|RemoveEnrage", 4)
 local warnBerserkSoon	= mod:NewSoonAnnounce(26068, 2)
 local warnBerserk		= mod:NewSpellAnnounce(26068, 2)
 
 local specWarnAcid		= mod:NewSpecialWarningStack(26050, nil, 10, nil, nil, 1, 6)
 local specWarnAcidTaunt	= mod:NewSpecialWarningTaunt(26050, nil, nil, nil, 1, 2)
+local specWarnFrenzy	= mod:NewSpecialWarningDispel(26051, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerSting		= mod:NewBuffFadesTimer(12, 26180, nil, nil, nil, 5, nil, DBM_CORE_L.POISON_ICON..DBM_CORE_L.DEADLY_ICON)
 local timerStingCD		= mod:NewCDTimer(25, 26180, nil, nil, nil, 3, nil, DBM_CORE_L.POISON_ICON..DBM_CORE_L.DEADLY_ICON)
 local timerPoisonCD		= mod:NewCDTimer(11, 26053, nil, nil, nil, 3)
 local timerPoison		= mod:NewBuffFadesTimer(8, 26053)
 local timerFrenzyCD		= mod:NewCDTimer(11.8, 26051, nil, false, 3, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)--Off by default do to ridiculous variation
-local timerFrenzy		= mod:NewBuffActiveTimer(8, 26051, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.HEALER_ICON)
-local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerAcid			= mod:NewTargetTimer(30, 26050, nil, "Tank", 3, 5, nil, DBM_CORE_L.TANK_ICON)
 
 mod:AddRangeFrameOption("18", nil, "-Melee")
 
@@ -85,8 +85,12 @@ do
 			timerPoison:Start()
 		--elseif args.spellId == 26051 then
 		elseif args.spellName == Frenzy and args:IsDestTypeHostile() then
-			warnFrenzy:Show()
-			timerFrenzy:Start()
+			if self.Options.SpecWarn26051dispel then
+				specWarnFrenzy:Show(args.destName)
+				specWarnFrenzy:Play("enrage")
+			else
+				warnFrenzy:Show(args.destName)
+			end
 			timerFrenzyCD:Start()
 		--elseif args.spellId == 26068 then
 		elseif args.spellName == Berserk and args:IsDestTypeHostile() then

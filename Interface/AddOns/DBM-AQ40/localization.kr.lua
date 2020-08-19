@@ -96,21 +96,35 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "눈 달린 촉수",
+	WarnClawTentacle		= "갈고리 촉수",
+	TimerGiantEyeTentacle		= "눈 달린 거대한 촉수",
+	TimerGiantClawTentacle		= "거대한 발톱 촉수",
 	SpecWarnWeakened		= "쑨 약화됨!"
 }
 L:SetTimerLocalization{
-	TimerEyeTentacle		= "다음 눈 달린 촉수",
+	TimerEyeTentacle		= "눈 달린 촉수",
+	TimerClawTentacle		= "갈고리 촉수",
+	TimerGiantEyeTentacle		= "눈 달린 거대한 촉수",
+	TimerGiantClawTentacle		= "거대한 발톱 촉수",
 	TimerWeakened			= "쑨 약화 종료"
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "눈 달린 촉수 경고 보기",
-	SpecWarnWeakened		= "쑨 약화시 특수 경고 보기",
+	WarnClawTentacle		= "갈고리 촉수 경고 보기",
+	WarnGiantEyeTentacle		= "눈 달린 거대한 촉수 경고 보기",
+	WarnGiantClawTentacle		= "거대한 발톱 촉수 경고 보기",
+	SpecWarnWeakened		= "보스 약화시 특수 경고 보기",
 	TimerEyeTentacle		= "다음 눈 달린 촉수 타이머 바 보기",
-	TimerWeakened			= "쑨 약화 지속시간 타이머 바 보기",
-	RangeFrame				= "거리 창 보기(10m)"
+	TimerClawTentacle		= "다음 갈고리 촉수 타이머 바 보기",
+	TimerGiantEyeTentacle		= "다음 눈 달린 거대한 촉수 타이머 바 보기",
+	TimerGiantClawTentacle		= "다음 거대한 발톱 촉수 타이머 바 보기",
+	TimerWeakened			= "보스 약화 지속시간 타이머 바 보기",
+	RangeFrame				= "거리 창 보기 (10m)"
 }
 L:SetMiscLocalization{
+	Stomach		= "쑨의 뱃속",
 	Eye			= "쑨의 눈",
+	FleshTent	= "식인 촉수",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "약해집니다!",
 	NotValid	= "안퀴40 레이드를 일부만 클리어 했습니다. 부차적인 네임드가 %s마리 남아있습니다."
 }
@@ -127,12 +141,12 @@ L:SetWarningLocalization{
 	WarnEmerge			= "등장",
 }
 L:SetTimerLocalization{
-	TimerSubmerge		= "잠수",
+	TimerSubmerge		= "강제 잠수",
 	TimerEmerge			= "등장"
 }
 L:SetOptionLocalization{
 	WarnSubmerge		= "잠수 경고 보기",
-	TimerSubmerge		= "잠수 타이머 바 보기",
+	TimerSubmerge		= "잠수가 강제로 될 때 타이머 바를 표시합니다. 알림: 아우로는 현재 대상이 평타 사거리에 있더라도 여전히 아무때나 잠수를 할 수 있습니다.",
 	WarnEmerge			= "등장 경고 보기",
 	TimerEmerge			= "등장 타이머 바 보기"
 }

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("MCTrash", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200805234921")
+mod:SetRevision("20200813135210")
 --mod:SetModelID(47785)
 mod:SetMinSyncRevision(20200710000000)--2020, 7, 10
 
@@ -36,7 +36,7 @@ do
 				self.vb.firstEngageTime = GetServerTime()
 				if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 					--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-					DBM.Bars:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "136106")
+					DBM.Bars:CreateBar(self.Options.FastestClear2, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
 				end
 				self:SendSync("MCStarted", self.vb.firstEngageTime)--Also sync engage time
 			end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ysondre", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200805234921")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(14887)--121912 TW ID, 14887 classic ID
 --mod:SetModelID(17887)
 
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, maybe taunt special warnings for classic version when it matters more.
-local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank")
+local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank", 2)
 --local warningLightningWave		= mod:NewSpellAnnounce(24819, 3)
 
 local specWarnSleepingFog		= mod:NewSpecialWarningDodge(24814, nil, nil, nil, 2, 2)

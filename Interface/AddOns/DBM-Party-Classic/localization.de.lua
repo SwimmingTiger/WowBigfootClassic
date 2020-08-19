@@ -283,6 +283,9 @@ L = DBM:GetModLocalization("PyroguardEmberseer")
 L:SetGeneralLocalization{
 	name 		= "Feuerwache Glutseher"
 }
+L:SetMiscLocalization{
+	Pull		= "%s kommt allmählich wieder zu Kräften!"
+}
 -----------------------------
 --  Solakar Flamewreath  --
 -----------------------------

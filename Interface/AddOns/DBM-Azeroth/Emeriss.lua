@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Emeriss", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200805234921")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(14889)--121913 TW ID, 14889 classic ID
 --mod:SetModelID(17887)
 
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 
 --TODO, maybe taunt special warnings for classic version when it matters more.
 --TODO, Needs valid spellIDs for Classic
-local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank")
+local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank", 2)
 
 local specWarnSleepingFog		= mod:NewSpecialWarningDodge(24814, nil, nil, nil, 2, 2)
 --local specWarnMushroom			= mod:NewSpecialWarningYou(243451, nil, nil, nil, 1, 2)

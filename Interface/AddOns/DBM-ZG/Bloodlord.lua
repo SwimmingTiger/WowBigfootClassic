@@ -15,14 +15,14 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, actual timer for abilities. Tank swap for mortal?
-local warnFrenzy	= mod:NewSpellAnnounce(24318, 3, nil, "Tank|Healer")
+local warnFrenzy	= mod:NewSpellAnnounce(24318, 3, nil, "Tank|Healer", 2)
 local warnGaze		= mod:NewTargetNoFilterAnnounce(24314, 4)
-local warnMortal	= mod:NewTargetNoFilterAnnounce(16856, 2, nil, "Tank|Healer")
+local warnMortal	= mod:NewTargetNoFilterAnnounce(16856, 2, nil, "Tank|Healer", 2)
 
 local specWarnGaze	= mod:NewSpecialWarningCast(24314, nil, nil, nil, 3, 2)
 
 local timerGaze 	= mod:NewTargetTimer(6, 24314, nil, nil, nil, 3)
-local timerMortal	= mod:NewTargetTimer(5, 16856, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerMortal	= mod:NewTargetTimer(5, 16856, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 
 do
 	local ThreateningGaze, Frenzy, MortalStrike = DBM:GetSpellInfo(24314), DBM:GetSpellInfo(24318), DBM:GetSpellInfo(16856)

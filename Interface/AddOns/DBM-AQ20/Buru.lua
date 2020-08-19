@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Buru", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15370)
 mod:SetEncounterID(721)
 mod:SetModelID(15654)
@@ -12,14 +12,14 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, see if CLASSIC data set has a spellID for pursuit before it can use generic alerts and voice pack suppot
-local WarnDismember				= mod:NewStackAnnounce(96, 3, nil, "Tank", 2)
+local WarnDismember				= mod:NewStackAnnounce(96, 3, nil, "Tank", 3)
 local warnPursue				= mod:NewAnnounce("WarnPursue", 3, 62374)
 
 local specWarnDismember			= mod:NewSpecialWarningStack(96, nil, 5, nil, nil, 1, 6)
 local specWarnDismemberTaunt	= mod:NewSpecialWarningTaunt(96, nil, nil, nil, 1, 2)
 local specWarnPursue			= mod:NewSpecialWarning("SpecWarnPursue", nil, nil, nil, 4, 2)
 
-local timerDismember			= mod:NewTargetTimer(10, 96, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerDismember			= mod:NewTargetTimer(10, 96, nil, "Tank", 3, 5, nil, DBM_CORE_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	if not self:IsTrivial(80) then

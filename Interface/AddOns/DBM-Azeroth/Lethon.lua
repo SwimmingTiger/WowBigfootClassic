@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lethon", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200805234921")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(14888)--121821 TW ID, 14888 classic ID
 --mod:SetModelID(17887)
 
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 
 --TODO, maybe taunt special warnings for classic version when it matters more.
 --TODO, needs valid spellIds for Classic
-local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank")
+local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank", 2)
 
 local specWarnSleepingFog		= mod:NewSpecialWarningDodge(24814, nil, nil, nil, 2, 2)
 --local specWarnShadowBoltWhirl	= mod:NewSpecialWarningDodge(243468, nil, nil, nil, 2, 2)

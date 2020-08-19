@@ -96,21 +96,35 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "Eye Tentacle",
+	WarnClawTentacle		= "Claw Tentacle",
+	WarnGiantEyeTentacle	= "Giant Eye Tentacle",
+	WarnGiantClawTentacle	= "Giant Claw Tentacle",
 	SpecWarnWeakened		= "C'Thun Weaken!"
 }
 L:SetTimerLocalization{
-	TimerEyeTentacle		= "Next Eye Tentacle",
+	TimerEyeTentacle		= "Eye Tentacle",
+	TimerClawTentacle		= "Claw Tentacle",
+	TimerGiantEyeTentacle	= "Giant Eye Tentacle",
+	TimerGiantClawTentacle	= "Giant Claw Tentacle",
 	TimerWeakened			= "Weaken ends"
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "Show warning for Eye Tentacle",
+	WarnClawTentacle		= "Show warning for Claw Tentacle",
+	WarnGiantEyeTentacle	= "Show warning for Giant Eye Tentacle",
+	WarnGiantClawTentacle	= "Show warning for Giant Claw Tentacle",
 	SpecWarnWeakened		= "Show special warning when boss weaken",
 	TimerEyeTentacle		= "Show timer for next Eye Tentacle",
+	TimerClawTentacle		= "Show timer for next Claw Tentacle",
+	TimerGiantEyeTentacle	= "Show timer for next Giant Eye Tentacle",
+	TimerGiantClawTentacle	= "Show timer for next Giant Claw Tentacle",
 	TimerWeakened			= "Show timer for boss weaken duration",
 	RangeFrame				= "Show range frame (10)"
 }
 L:SetMiscLocalization{
+	Stomach		= "Stomach of C'Thun",
 	Eye			= "Eye of C'Thun",
+	FleshTent	= "Flesh Tentacle",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "weaken",
 	NotValid	= "AQ40 partially cleared. %s optional bosses remain."
 }

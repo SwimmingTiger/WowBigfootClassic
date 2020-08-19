@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TwinEmpsAQ", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200811013452")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15276, 15275)
 mod:SetEncounterID(715)
 --mod:SetModelID(15778)--Renders too close
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 )
 
 --Add warning for classic to actually swap for strike? boss taunt immune though.
-local warnStrike			= mod:NewTargetNoFilterAnnounce(26613, 3, nil, "Tank|Healer")
+local warnStrike			= mod:NewTargetNoFilterAnnounce(26613, 3, nil, "Tank|Healer", 2)
 local warnTeleport			= mod:NewSpellAnnounce(800, 3)
 local warnExplodeBug		= mod:NewSpellAnnounce(804, 2, nil, false)
 local warnMutateBug			= mod:NewSpellAnnounce(802, 2, nil, false)
@@ -32,6 +32,7 @@ function mod:OnCombatStart(delay)
 	--timerStrikeCD:Start(14.2-delay)
 	berserkTimer:Start()
 	timerTeleport:Start(-delay)
+	DBM:AddMsg("Teleport has a 29.2-41 cooldown window. DBM displays 30 second timer and then displays the window timer in negative on full bar. This is not bugged, just under explained. This is me explaining it")
 end
 
 --pull:30.6, 35.2, 37.8, 40.1, 36.5, 36.6, 37.7, 31.9, 31.7, 38.8, 32.9, 30.4, 40.2, 30.6, 37.6, 35.4, 32.9, 34.2, 35.3, 36.5, 30.4, 29.2, 34.3, 32.8, 40.0, 35.4, 36.5, 35.3

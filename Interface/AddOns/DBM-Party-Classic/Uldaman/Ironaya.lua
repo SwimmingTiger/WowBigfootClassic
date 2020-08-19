@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(469, "DBM-Party-Classic", 18, 239)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(7228)
 mod:SetEncounterID(549)
 
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local warningArcingSmash			= mod:NewSpellAnnounce(8374, 2)
 local warningWarStomp				= mod:NewSpellAnnounce(11876, 2)
 
-local timerArcingSmashCD			= mod:NewAITimer(180, 8374, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerArcingSmashCD			= mod:NewAITimer(180, 8374, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerWarStompCD				= mod:NewAITimer(180, 11876, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)

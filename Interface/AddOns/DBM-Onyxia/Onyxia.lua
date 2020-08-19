@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200805234921")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
 mod:SetModelID(8570)
@@ -31,7 +31,7 @@ mod:RegisterEventsInCombat(
 
 --Todo, adds stuff (if they exist) with classic IDs
 --local warnWhelpsSoon		= mod:NewAnnounce("WarnWhelpsSoon", 1, 69004)
-local warnWingBuffet		= mod:NewSpellAnnounce(18500, 2, nil, "Tank")
+local warnWingBuffet		= mod:NewSpellAnnounce(18500, 2, nil, "Tank", 1)
 local warnKnockAway			= mod:NewTargetNoFilterAnnounce(19633, 2, nil, false)
 local warnPhase2			= mod:NewPhaseAnnounce(2)
 local warnFireball			= mod:NewTargetNoFilterAnnounce(18392, 2, nil, false)
@@ -45,7 +45,7 @@ local yellFireball				= mod:NewYell(18392)
 --local specWarnBlastNova		= mod:NewSpecialWarningRun(68958, "Melee", nil, nil, 4, 2)
 --local specWarnAdds			= mod:NewSpecialWarningAdds(68959, "-Healer", nil, nil, 1, 2)
 
-local timerNextFlameBreath	= mod:NewCDTimer(13.3, 18435, nil, "Tank", 2, 5)--13.3-20 Breath she does on ground in frontal cone.
+local timerNextFlameBreath	= mod:NewCDTimer(13.3, 18435, nil, "Tank|Healer", 3, 5)--13.3-20 Breath she does on ground in frontal cone.
 --local timerNextDeepBreath	= mod:NewCDTimer(35, 18584, nil, nil, nil, 3)--Range from 35-60seconds in between based on where she moves to.
 local timerBreath			= mod:NewCastTimer(5, 18584, nil, nil, nil, 3)
 --local timerWhelps			= mod:NewTimer(105, "TimerWhelps", 10697, nil, nil, 1)

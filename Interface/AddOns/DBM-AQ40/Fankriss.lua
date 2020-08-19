@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Fankriss", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200724163929")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15510)
 mod:SetEncounterID(712)
 mod:SetModelID(15743)
@@ -12,13 +12,13 @@ mod:RegisterEventsInCombat(
 )
 
 local warnEntangle 		= mod:NewTargetAnnounce(1121, 2)
-local warnWound			= mod:NewStackAnnounce(25646, 3, nil, "Tank", 2)
+local warnWound			= mod:NewStackAnnounce(25646, 3, nil, "Tank", 3)
 local warnWorm			= mod:NewSpellAnnounce(25831, 3)
 
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
-local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerWound		= mod:NewTargetTimer(20, 25646, nil, "Tank", 3, 5, nil, DBM_CORE_L.TANK_ICON)
 
 local yellEntangle		= mod:NewYell(1121)
 

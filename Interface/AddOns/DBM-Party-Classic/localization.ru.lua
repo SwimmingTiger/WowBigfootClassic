@@ -283,6 +283,9 @@ L = DBM:GetModLocalization("PyroguardEmberseer")
 L:SetGeneralLocalization{
 	name 		= "Пиростраж Углевзор"
 }
+L:SetMiscLocalization{
+	Pull		= "%s начинает восстанавливать прежнюю силу!"
+}
 -----------------------------
 --  Solakar Flamewreath  --
 -----------------------------

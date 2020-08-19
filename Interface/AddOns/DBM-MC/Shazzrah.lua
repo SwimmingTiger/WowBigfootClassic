@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Shazzrah", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(12264)
 mod:SetEncounterID(667)
 mod:SetModelID(13032)
@@ -23,11 +23,11 @@ local warnDeadenMagic		= mod:NewTargetNoFilterAnnounce(19714, 2, nil, false, 2)
 local warnCntrSpell			= mod:NewSpellAnnounce(19715, 3, nil, "SpellCaster", 2)
 
 local specWarnDeadenMagic	= mod:NewSpecialWarningDispel(19714, false, nil, 2, 1, 2)
-local specWarnGate			= mod:NewSpecialWarningTaunt(23138, "Tank", nil, nil, 1, 2)--aggro wipe, needs fresh taunt
+local specWarnGate			= mod:NewSpecialWarningTaunt(23138, "Tank", 2, nil, 1, 2)--aggro wipe, needs fresh taunt
 
 local timerCurseCD			= mod:NewCDTimer(22, 19713, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)--22-25.5 (20-25?)
 local timerDeadenMagic		= mod:NewBuffActiveTimer(30, 19714, nil, false, 3, 5, nil, DBM_CORE_L.MAGIC_ICON)
-local timerGateCD			= mod:NewCDTimer(41.3, 23138, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)--41-50
+local timerGateCD			= mod:NewCDTimer(41.3, 23138, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)--41-50
 local timerCounterSpellCD	= mod:NewCDTimer(15, 19715, nil, "SpellCaster", nil, 3)--15-19
 
 function mod:OnCombatStart(delay)

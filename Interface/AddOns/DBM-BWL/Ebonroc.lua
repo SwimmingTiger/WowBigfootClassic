@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ebonroc", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(14601)
 mod:SetEncounterID(614)
 mod:SetModelID(6377)
@@ -16,14 +16,14 @@ mod:RegisterEventsInCombat(
 --(ability.id = 23339 or ability.id = 22539) and type = "begincast"
 local warnWingBuffet		= mod:NewCastAnnounce(23339, 2)
 local warnShadowFlame		= mod:NewCastAnnounce(22539, 2)
-local warnShadow			= mod:NewTargetNoFilterAnnounce(23340, 4, nil, "Tank|Healer")
+local warnShadow			= mod:NewTargetNoFilterAnnounce(23340, 4, nil, "Tank|Healer", 2)
 
 local specWarnShadowYou		= mod:NewSpecialWarningYou(23340, nil, nil, nil, 1, 2)
 local specWarnShadow		= mod:NewSpecialWarningTaunt(23340, nil, nil, nil, 1, 2)
 
 local timerWingBuffet		= mod:NewCDTimer(31, 23339, nil, nil, nil, 2)
 local timerShadowFlameCD	= mod:NewCDTimer(14, 22539, nil, false)--14-21
-local timerShadow			= mod:NewTargetTimer(8, 23340, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerShadow			= mod:NewTargetTimer(8, 23340, nil, "Tank|Healer", 3, 5, nil, DBM_CORE_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerShadowFlameCD:Start(18-delay)

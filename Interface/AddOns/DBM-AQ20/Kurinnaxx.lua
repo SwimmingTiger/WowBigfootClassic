@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kurinnaxx", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200716131113")
+mod:SetRevision("20200817152042")
 mod:SetCreatureID(15348)
 mod:SetEncounterID(718)
 mod:SetModelID(15742)
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 25646"
 )
 
-local warnWound			= mod:NewStackAnnounce(25646, 2, nil, "Tank")
+local warnWound			= mod:NewStackAnnounce(25646, 2, nil, "Tank", 2)
 local warnSandTrap		= mod:NewTargetNoFilterAnnounce(25656, 3)
 local warnFrenzy		= mod:NewTargetNoFilterAnnounce(26527, 3)
 
@@ -23,7 +23,7 @@ local yellSandTrap		= mod:NewYell(25656)
 local specWarnWound		= mod:NewSpecialWarningStack(25646, nil, 5, nil, nil, 1, 6)
 local specWarnWoundTaunt= mod:NewSpecialWarningTaunt(25646, nil, nil, nil, 1, 2)
 
-local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerWound		= mod:NewTargetTimer(15, 25646, nil, "Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 local timerSandTrapCD	= mod:NewCDTimer(8, 25656, nil, nil, nil, 3)
 
 --mod:AddSpeedClearOption("AQ20", true)
@@ -36,7 +36,7 @@ function mod:OnCombatStart(delay)
 		self.vb.firstEngageTime = GetServerTime()
 		if self.Options.FastestClear and self.Options.SpeedClearTimer then
 			--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers
-			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, "136106")
+			DBM.Bars:CreateBar(self.Options.FastestClear, DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT, 136106)
 		end
 	end--]]
 end
