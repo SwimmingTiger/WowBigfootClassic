@@ -4,12 +4,17 @@
 local ADDON, NS = ...;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN or 6;
-if __ala_meta__.__rt then
+local VERSION = 200901.0;
+if __ala_meta__.__rt and __ala_meta__.__rt.__version and __ala_meta__.__rt.__version >= VERSION then
 	return;
 end
-local __ns = {  };
+local __ns = __ala_meta__.__rt;
+if __ns == nil then
+	__ns = {  };
+	__ala_meta__.__rt = __ns;
+end
+__ns.__version = VERSION;
 NS.__rt = __ns;
-__ala_meta__.__rt = __ns;
 
 local _G = _G;
 do
@@ -47,7 +52,8 @@ local function _log_(...)
 	--	tinsert(logfile, { date('\124cff00ff00%H:%M:%S\124r'), ... });
 end
 
-local _EventHandler = CreateFrame('FRAME');
+local _EventHandler = __ns.__eventHandler or CreateFrame('FRAME');
+__ns.__eventHandler = _EventHandler;
 -->		--	EventHandler
 	local function _EventHandler_OnEvent(self, event, ...)
 		return __ns[event](...);
@@ -82,388 +88,410 @@ local function safe_call(func, ...)
 	end
 end
 
-__ns.prefixHandler = {  };
+__ns.prefixHandler = __ns.prefixHandler or {  };
 local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 -->		Data
-	__ns.__base64, __ns.__debase64 = {  }, {  };
-		for i = 0, 9 do __ns.__base64[i] = tostring(i); end
-		__ns.__base64[10] = "-";
-		__ns.__base64[11] = "=";
-		for i = 0, 25 do __ns.__base64[i + 1 + 11] = strchar(i + 65); end
-		for i = 0, 25 do __ns.__base64[i + 1 + 11 + 26] = strchar(i + 97); end
-		for i = 0, 63 do
-			__ns.__debase64[__ns.__base64[i]] = i;
-		end
-	__ns.classList, __ns.classHash = {
-		"DRUID",
-		"HUNTER",
-		"MAGE",
-		"PALADIN",
-		"PRIEST",
-		"ROGUE",
-		"SHAMAN",
-		"WARLOCK",
-		"WARRIOR",
-	}, {  };
-		for index, class in next, __ns.classList do
-			__ns.classHash[class] = index;
-			__ns.classHash[strupper(class)] = index;
-			__ns.classHash[strlower(class)] = index;
-		end
-	__ns.playerFactionGroup = UnitFactionGroup('player');
-	__ns.PlayerClass = UnitClassBase('player');
-	__ns.playerClassUpper = strupper(__ns.PlayerClass);
-	__ns.playerClassLower = strlower(__ns.PlayerClass);
-	__ns.playerClassIndex = __ns.classHash[__ns.playerClassUpper];
-	__ns.playerGUID = UnitGUID('player');
-	__ns.playerName = UnitName('player');
-	__ns.realm = GetRealmName();
-	__ns.playerFullName = __ns.playerName .. "-" .. __ns.realm;
-	__ns.knownAddonPacks = {
-		"BigFoot", "ElvUI", "Tukui", "!!!163UI!!!", "Duowan", "rLib", "NDui", "ShestakUI", "!!!EaseAddonController", "_ShiGuang",
-	};
-	__ns.addonPacks = 0;
-	for index, pack in next, __ns.knownAddonPacks do
-		if select(5, GetAddOnInfo(pack)) ~= "MISSING" then
-			__ns.addonPacks = __ns.addonPacks + 2 ^ (index - 1);
-		end
-	end
-	-->		TalentEmu
-		local __emu_meta = {
-			ADDON_PREFIX = "ATEADD",
-			ADDON_MSG_QUERY_TALENTS = "_q_tal",
-			ADDON_MSG_REPLY_TALENTS = "_r_tal",
-			ADDON_MSG_PUSH = "_push_",
-			ADDON_MSG_PUSH_RECV = "_pushr",
-			ADDON_MSG_PULL = "_pull_",
-			--
-			ADDON_MSG_QUERY_EQUIPMENTS = "_q_equ",
-			ADDON_MSG_REPLY_EQUIPMENTS = "_r_equ",
-			ADDON_MSG_REPLY_ADDON_PACK = "_r_pak",
-			----------------
-			ADDON_MSG_QUERY_TALENTS_ = "_query",
-			ADDON_MSG_REPLY_TALENTS_ = "_reply",
-			--	old version compatibility
-			ADDON_MSG_QUERY_EQUIPMENTS_ = "_queeq",
-			ADDON_MSG_REPLY_EQUIPMENTS_ = "_repeq",
-			ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk",	
-			__table_sub = function(T, index, index2)
-				return T[index];
-			end,
+	-->		public
+		__ns.__base64, __ns.__debase64 = {  }, {  };
+			for i = 0, 9 do __ns.__base64[i] = tostring(i); end
+			__ns.__base64[10] = "-";
+			__ns.__base64[11] = "=";
+			for i = 0, 25 do __ns.__base64[i + 1 + 11] = strchar(i + 65); end
+			for i = 0, 25 do __ns.__base64[i + 1 + 11 + 26] = strchar(i + 97); end
+			for i = 0, 63 do
+				__ns.__debase64[__ns.__base64[i]] = i;
+			end
+		__ns.classList, __ns.classHash = {
+			"DRUID",
+			"HUNTER",
+			"MAGE",
+			"PALADIN",
+			"PRIEST",
+			"ROGUE",
+			"SHAMAN",
+			"WARLOCK",
+			"WARRIOR",
+		}, {  };
+			for index, class in next, __ns.classList do
+				__ns.classHash[class] = index;
+				__ns.classHash[strupper(class)] = index;
+				__ns.classHash[strlower(class)] = index;
+			end
+		__ns.playerFactionGroup = UnitFactionGroup('player');
+		__ns.PlayerClass = UnitClassBase('player');
+		__ns.playerClassUpper = strupper(__ns.PlayerClass);
+		__ns.playerClassLower = strlower(__ns.PlayerClass);
+		__ns.playerClassIndex = __ns.classHash[__ns.playerClassUpper];
+		__ns.playerGUID = UnitGUID('player');
+		__ns.playerName = UnitName('player');
+		__ns.realm = GetRealmName();
+		__ns.playerFullName = __ns.playerName .. "-" .. __ns.realm;
+		__ns.knownAddonPacks = {
+			"BigFoot", "ElvUI", "Tukui", "!!!163UI!!!", "Duowan", "rLib", "NDui", "ShestakUI", "!!!EaseAddonController", "_ShiGuang",
 		};
-		__ns.__emu_meta = __emu_meta;
-		-->		Talent
-			--	return 			UPPER_CLASS, data, level
-			function __ns.GetPlayerTalentData(DEFAULT_LEVEL)
-				local data = "";
-				local len = 0;
-				for specIndex = 1, 3 do
-					local numTalents = GetNumTalents(specIndex);
-					len = len + numTalents;
-					for index = 1, numTalents do
-						local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, index);
-						data = data .. rank;
-					end
-				end
-				return __ns.playerClassIndex, data, type(DEFAULT_LEVEL) == 'number' and DEFAULT_LEVEL or UnitLevel('player'), len;
-			end
-			--	arg			code, useCodeLevel
-			--	return		class, data, level
-			function __ns.DecodeTalentData(code)
-				local data = "";
-				local __debase64 = __ns.__debase64;
-				local classIndex = __debase64[strsub(code, 1, 1)];
-				if not classIndex then
-					_log_("DecodeTalent", 1, code);
-					return nil;
-				end
-				local class = __ns.classList[classIndex];
-				if not class then
-					_log_("DecodeTalent", 2, classIndex, code);
-					return nil;
-				end
-
-				local tail = #code - 2;
-				if tail < 1 then
-					_log_("DecodeTalent", 3, classIndex, code);
-				end
-				local raw = 0;
-				local magic = 1;
-				local nChar = 0;
-				for index = 2, tail do
-					local c = strsub(code, index, index);
-					if c == ":" then
-						--
-					elseif __debase64[c] then
-						raw = raw + __debase64[c] * magic;
-						magic = bit.lshift(magic, 6);
-						nChar = nChar + 1;
-					else
-						_log_("DecodeTalent", 4, c, index, code);
-					end
-					if c == ":" or nChar == 5 or index == tail then
-						magic = 1;
-						nChar = 0;
-						local n = 0;
-						while raw > 0 do
-							data = data .. raw % 6;
-							raw = floor(raw / 6);
-							n = n + 1;
-						end
-						if n < 11 then
-							for i = n + 1, 11 do
-								data = data .. "0";
-							end
-						end
-					end
-				end
-
-				return class, data, __debase64[strsub(code, - 2, - 2)] + bit.lshift(__debase64[strsub(code, - 1, - 1)], 6);
-			end
-			--	arg			classIndex, level, 'string', n1, n2, n3
-			--	arg			classIndex, level, {t1}, {t2}, {t3}, n1, n2, n3
-			--	arg			'player'
-			--	return		code
-			--	6^11 < 64^5 < 2^32
-			--	6^11 =   362,797,056		<<
-			--	64^5 = 1,073,741,824‬
-			--	6^12 = 2,176,782,336
-			function __ns.EncodeTalentData(classIndex, level, D1, D2, D3, N1, N2, N3)
-				local data, len = nil, nil;
-				if classIndex == 'player' then
-					classIndex, data, level, len = __ns.GetPlayerTalentData(level);
-				else
-					if type(classIndex) == 'string' then
-						classIndex = __ns.classHash[classIndex];
-					elseif type(classIndex) == 'number' and __ns.classList[classIndex] then
-					else
-						_log_("EmuCore_Encoder", 2, classIndex);
-						return nil;
-					end
-					if type(D1) == 'string' then
-						data, len = D1, D2 + D3 + N1;
-					elseif type(D1) == 'table' then
-						data = { sub = __emu_meta.__table_sub, };
-						len = 0;
-						for index = 1, N1 do len = len + 1; data[len] = D1 and D1[index] or 0; end
-						for index = 1, N2 do len = len + 1; data[len] = D2 and D2[index] or 0; end
-						for index = 1, N3 do len = len + 1; data[len] = D3 and D3[index] or 0; end
-					else
-						_log_("EmuCore_Encoder", 1, classIndex);
-						return nil;
-					end
-				end
-				local __base64 = __ns.__base64;
-				level = level and tonumber(level) or 60;
-				local pos = 0;
-				local raw = 0;
-				local magic = 1;
-				local mem = {  };
-				for index = 1, len do
-					local d = tonumber(data:sub(index, index));			--	table or string
-					if not d then
-						_log_("EncodeTalent", 3, classIndex, data, p);
-						return nil;
-					end
-					pos = pos + 1;
-					raw = raw + magic * d;
-					magic = magic * 6;
-					if pos >= 11 or index == len then
-						pos = 0;
-						magic = 1;
-						local nChar = 0;
-						while raw > 0 do
-							tinsert(mem, __base64[bit.band(raw, 63)]);
-							raw = bit.rshift(raw, 6);
-							nChar = nChar + 1;
-						end
-						if nChar < 5 then
-							tinsert(mem, ":");
-						end
-					end
-				end
-
-				for i = #mem, 1, - 1 do
-					if mem[i] == ":" then
-						mem[i] = nil;
-					else
-						break;
-					end
-				end
-				local code = __base64[classIndex];
-				for i = 1, #mem do
-					code = code .. mem[i];
-				end
-				if level < 64 then
-					code = code .. __base64[level] .. "0";
-				else
-					code = code .. __base64[bit.band(level, 63)] .. __base64[bit.rshift(level, 6)];
-				end
-
-				return code;
-			end
-			--	arg			[mainFrame] or [class, data, level]
-			--	return		code
-			--	6^11 < 64^5 < 2^32
-			--	6^11 =   362,797,056		<<
-			--	64^5 = 1,073,741,824‬
-			--	6^12 = 2,176,782,336
-			function __ns.GetEncodedPlayerTalentData(DEFAULT_LEVEL)
-				return __ns.EncodeTalentData('player');
-			end
-		-->		Addon Pack
-			function __ns.GetAddonPackData()
-				return __ns.addonPacks;
-			end
-			function __ns.DecodeAddonPackData(data, short)
-				if data and data ~= "" then
-					data = tonumber(data);
-					if data then
-						local knownAddonPacks = __ns.knownAddonPacks;
-						local info = nil;
-						local index = #knownAddonPacks - 1;
-						local magic = 2 ^ index;
-						while magic >= 1 do
-							if data >= magic then
-								if short then
-									info = info and (info .. " " .. (knownAddonPacks[index + 1] or "???")) or (knownAddonPacks[index + 1] or "???");
-								else
-									info = info and (info .. " " .. (knownAddonPacks[index + 1] or "???") .. "-" .. index) or ((knownAddonPacks[index + 1] or "???") .. "-" .. index);
-								end
-								data = data - magic;
-							end
-							magic = magic / 2;
-							index = index - 1;
-						end
-						return info or "none";
-					end
-				end
-			end
-		-->		Equipment
-			function __ns.GetEquipmentData(data)
-				if data == nil then
-					data = {  };
-				else
-					wipe(data);
-				end
-				local _;
-				for slot = 0, 19 do
-					local link = GetInventoryItemLink('player', slot);
-					if link then
-						_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
-					end
-					link = link or "item:-1";
-					data[slot] = link;
-				end
-				return data;
-			end
-			function __ns.EncodeEquipmentData(data)
-				if data == nil then
-					data = {  };
-				else
-					wipe(data);
-				end
-				local _;
-				local msg = "";
-				local n = 0;
-				for slot = 0, 19 do
-					local link = GetInventoryItemLink('player', slot);
-					if link then
-						_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
-					end
-					link = link or "item:-1";
-					msg = msg .. "+" .. slot .. "+" .. link;
-					n = n + 1;
-					if n >= 4 then
-						n = 0;
-						tinsert(data, msg);
-						msg = "";
-					end
-				end
-				if msg ~= "" then
-					tinsert(data, msg);
-				end
-				return data;
-			end
-			function __ns.DecodeEquipmentData(cache, code)
-				local start, slot, item = 1, nil, nil;
-				local _ = nil;
-				cache.time_inv = time();
-				local got_data = false;
-				while true do
-					_, start, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", start);
-					if slot and item then
-						slot = tonumber(slot);
-						if slot and slot >= 0 and slot <= 19 then
-							local _, _, id = strfind(item, "item:([%-0-9]+)");
-							id = tonumber(id);
-							if id and id > 0 then
-								GetItemInfo(id);
-								cache[slot] = item;
-							else
-								cache[slot] = nil;
-							end
-						end
-						got_data = true;
-					else
-						break;
-					end
-					if not start then
-						break;
-					end
-				end
-				return got_data, cache;
-			end
-		-->
-		__ns.prefixHandler[__emu_meta.ADDON_PREFIX] = function(prefix, msg, channel, sender)
-			local name = Ambiguate(sender, 'none');
-			local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
-			if control_code == __emu_meta.ADDON_MSG_QUERY_TALENTS then
-				if channel == "INSTANCE_CHAT" then
-					local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-					if target ~= __ns.playerFullName then
-						return;
-					end
-				end
-				local code = __ns.GetEncodedPlayerTalentData(60);
-				if code then
-					if channel == "INSTANCE_CHAT" then
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_ADDON_PACK .. __ns.GetAddonPackData(), "INSTANCE_CHAT");
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
-					else--if channel == "WHISPER" then
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_ADDON_PACK .. __ns.GetAddonPackData(), "WHISPER", sender);
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
-					end
-				end
-			elseif control_code == __emu_meta.ADDON_MSG_QUERY_TALENTS_ then
-				local code = __ns.GetEncodedPlayerTalentData(60);
-				if code then
-					SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS_ .. code, "WHISPER", sender);
-				end
-			elseif control_code == __emu_meta.ADDON_MSG_QUERY_EQUIPMENTS then
-				if channel == "INSTANCE_CHAT" then
-					local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-					if target ~= __ns.playerFullName then
-						return;
-					end
-				end
-				local data = __ns.EncodeEquipmentData();
-				for _, msg in next, data do
-					if channel == "INSTANCE_CHAT" then
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. __ns.realm, "INSTANCE_CHAT");
-					else--if channel == "WHISPER" then
-						SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
-					end
-				end
-			elseif control_code == __emu_meta.ADDON_MSG_QUERY_EQUIPMENTS_ then
-				local data = __ns.EncodeEquipmentData();
-				for _, msg in next, data do
-					SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS_ .. msg, "WHISPER", sender);
-				end
+		__ns.addonPacks = 0;
+		for index, pack in next, __ns.knownAddonPacks do
+			if select(5, GetAddOnInfo(pack)) ~= "MISSING" then
+				__ns.addonPacks = __ns.addonPacks + 2 ^ (index - 1);
 			end
 		end
-		function __ns.initializeTalentEmu()
-			RegisterAddonMessagePrefix(__emu_meta.ADDON_PREFIX);
+	-->		TalentEmu
+		if __ns.__emu_meta == nil then
+			local __emu_meta = {
+				ADDON_PREFIX = "ATEADD",
+				ADDON_MSG_QUERY_TALENTS = "_q_tal",
+				ADDON_MSG_REPLY_TALENTS = "_r_tal",
+				ADDON_MSG_PUSH = "_push_",
+				ADDON_MSG_PUSH_RECV = "_pushr",
+				ADDON_MSG_PULL = "_pull_",
+				--
+				ADDON_MSG_QUERY_EQUIPMENTS = "_q_equ",
+				ADDON_MSG_REPLY_EQUIPMENTS = "_r_equ",
+				ADDON_MSG_REPLY_ADDON_PACK = "_r_pak",
+				----------------
+				ADDON_MSG_QUERY_TALENTS_ = "_query",
+				ADDON_MSG_REPLY_TALENTS_ = "_reply",
+				--	old version compatibility
+				ADDON_MSG_QUERY_EQUIPMENTS_ = "_queeq",
+				ADDON_MSG_REPLY_EQUIPMENTS_ = "_repeq",
+				ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk",	
+				__table_sub = function(T, index, index2)
+					return T[index];
+				end,
+			};
+			__ns.__emu_meta = __emu_meta;
+			-->		Talent
+				--	return 			UPPER_CLASS, data, level
+				function __ns.GetPlayerTalentData(DEFAULT_LEVEL)
+					local data = "";
+					local len = 0;
+					for specIndex = 1, 3 do
+						local numTalents = GetNumTalents(specIndex);
+						len = len + numTalents;
+						for index = 1, numTalents do
+							local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, index);
+							data = data .. rank;
+						end
+					end
+					return __ns.playerClassIndex, data, type(DEFAULT_LEVEL) == 'number' and DEFAULT_LEVEL or UnitLevel('player'), len;
+				end
+				--	arg			code, useCodeLevel
+				--	return		class, data, level
+				function __ns.DecodeTalentData(code)
+					local data = "";
+					local __debase64 = __ns.__debase64;
+					local classIndex = __debase64[strsub(code, 1, 1)];
+					if not classIndex then
+						_log_("DecodeTalent", 1, code);
+						return nil;
+					end
+					local class = __ns.classList[classIndex];
+					if not class then
+						_log_("DecodeTalent", 2, classIndex, code);
+						return nil;
+					end
+
+					local tail = #code - 2;
+					if tail < 1 then
+						_log_("DecodeTalent", 3, classIndex, code);
+					end
+					local raw = 0;
+					local magic = 1;
+					local nChar = 0;
+					for index = 2, tail do
+						local c = strsub(code, index, index);
+						if c == ":" then
+							--
+						elseif __debase64[c] then
+							raw = raw + __debase64[c] * magic;
+							magic = bit.lshift(magic, 6);
+							nChar = nChar + 1;
+						else
+							_log_("DecodeTalent", 4, c, index, code);
+						end
+						if c == ":" or nChar == 5 or index == tail then
+							magic = 1;
+							nChar = 0;
+							local n = 0;
+							while raw > 0 do
+								data = data .. raw % 6;
+								raw = floor(raw / 6);
+								n = n + 1;
+							end
+							if n < 11 then
+								for i = n + 1, 11 do
+									data = data .. "0";
+								end
+							end
+						end
+					end
+
+					return class, data, __debase64[strsub(code, - 2, - 2)] + bit.lshift(__debase64[strsub(code, - 1, - 1)], 6);
+				end
+				--	arg			classIndex, level, 'string', n1, n2, n3
+				--	arg			classIndex, level, {t1}, {t2}, {t3}, n1, n2, n3
+				--	arg			'player'
+				--	return		code
+				--	6^11 < 64^5 < 2^32
+				--	6^11 =   362,797,056		<<
+				--	64^5 = 1,073,741,824‬
+				--	6^12 = 2,176,782,336
+				function __ns.EncodeTalentData(classIndex, level, D1, D2, D3, N1, N2, N3)
+					local data, len = nil, nil;
+					if classIndex == 'player' then
+						classIndex, data, level, len = __ns.GetPlayerTalentData(level);
+					else
+						if type(classIndex) == 'string' then
+							classIndex = __ns.classHash[classIndex];
+						elseif type(classIndex) == 'number' and __ns.classList[classIndex] then
+						else
+							_log_("EmuCore_Encoder", 2, classIndex);
+							return nil;
+						end
+						if type(D1) == 'string' then
+							data, len = D1, D2 + D3 + N1;
+						elseif type(D1) == 'table' then
+							data = { sub = __emu_meta.__table_sub, };
+							len = 0;
+							for index = 1, N1 do len = len + 1; data[len] = D1 and D1[index] or 0; end
+							for index = 1, N2 do len = len + 1; data[len] = D2 and D2[index] or 0; end
+							for index = 1, N3 do len = len + 1; data[len] = D3 and D3[index] or 0; end
+						else
+							_log_("EmuCore_Encoder", 1, classIndex);
+							return nil;
+						end
+					end
+					local __base64 = __ns.__base64;
+					level = level and tonumber(level) or 60;
+					local pos = 0;
+					local raw = 0;
+					local magic = 1;
+					local mem = {  };
+					for index = 1, len do
+						local d = tonumber(data:sub(index, index));			--	table or string
+						if not d then
+							_log_("EncodeTalent", 3, classIndex, data, p);
+							return nil;
+						end
+						pos = pos + 1;
+						raw = raw + magic * d;
+						magic = magic * 6;
+						if pos >= 11 or index == len then
+							pos = 0;
+							magic = 1;
+							local nChar = 0;
+							while raw > 0 do
+								tinsert(mem, __base64[bit.band(raw, 63)]);
+								raw = bit.rshift(raw, 6);
+								nChar = nChar + 1;
+							end
+							if nChar < 5 then
+								tinsert(mem, ":");
+							end
+						end
+					end
+
+					for i = #mem, 1, - 1 do
+						if mem[i] == ":" then
+							mem[i] = nil;
+						else
+							break;
+						end
+					end
+					local code = __base64[classIndex];
+					for i = 1, #mem do
+						code = code .. mem[i];
+					end
+					if level < 64 then
+						code = code .. __base64[level] .. "0";
+					else
+						code = code .. __base64[bit.band(level, 63)] .. __base64[bit.rshift(level, 6)];
+					end
+
+					return code;
+				end
+				--	arg			[mainFrame] or [class, data, level]
+				--	return		code
+				--	6^11 < 64^5 < 2^32
+				--	6^11 =   362,797,056		<<
+				--	64^5 = 1,073,741,824‬
+				--	6^12 = 2,176,782,336
+				function __ns.GetEncodedPlayerTalentData(DEFAULT_LEVEL)
+					return __ns.EncodeTalentData('player');
+				end
+			-->		Addon Pack
+				function __ns.GetAddonPackData()
+					return __ns.addonPacks;
+				end
+				function __ns.DecodeAddonPackData(data, short)
+					if data and data ~= "" then
+						data = tonumber(data);
+						if data then
+							local knownAddonPacks = __ns.knownAddonPacks;
+							local info = nil;
+							local index = #knownAddonPacks - 1;
+							local magic = 2 ^ index;
+							while magic >= 1 do
+								if data >= magic then
+									if short then
+										info = info and (info .. " " .. (knownAddonPacks[index + 1] or "???")) or (knownAddonPacks[index + 1] or "???");
+									else
+										info = info and (info .. " " .. (knownAddonPacks[index + 1] or "???") .. "-" .. index) or ((knownAddonPacks[index + 1] or "???") .. "-" .. index);
+									end
+									data = data - magic;
+								end
+								magic = magic / 2;
+								index = index - 1;
+							end
+							return info or "none";
+						end
+					end
+				end
+			-->		Equipment
+				function __ns.GetEquipmentData(data)
+					if data == nil then
+						data = {  };
+					else
+						wipe(data);
+					end
+					local _;
+					for slot = 0, 19 do
+						local link = GetInventoryItemLink('player', slot);
+						if link then
+							_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
+						end
+						link = link or "item:-1";
+						data[slot] = link;
+					end
+					return data;
+				end
+				function __ns.EncodeEquipmentData(data)
+					if data == nil then
+						data = {  };
+					else
+						wipe(data);
+					end
+					local _;
+					local msg = "";
+					local n = 0;
+					for slot = 0, 19 do
+						local link = GetInventoryItemLink('player', slot);
+						if link then
+							_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
+						end
+						link = link or "item:-1";
+						msg = msg .. "+" .. slot .. "+" .. link;
+						n = n + 1;
+						if n >= 4 then
+							n = 0;
+							tinsert(data, msg);
+							msg = "";
+						end
+					end
+					if msg ~= "" then
+						tinsert(data, msg);
+					end
+					return data;
+				end
+				function __ns.DecodeEquipmentData(cache, code)
+					local start, slot, item = 1, nil, nil;
+					local _ = nil;
+					cache.time_inv = time();
+					local got_data = false;
+					while true do
+						_, start, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", start);
+						if slot and item then
+							slot = tonumber(slot);
+							if slot and slot >= 0 and slot <= 19 then
+								local _, _, id = strfind(item, "item:([%-0-9]+)");
+								id = tonumber(id);
+								if id and id > 0 then
+									GetItemInfo(id);
+									cache[slot] = item;
+								else
+									cache[slot] = nil;
+								end
+							end
+							got_data = true;
+						else
+							break;
+						end
+						if not start then
+							break;
+						end
+					end
+					return got_data, cache;
+				end
+			-->
+			local __REPLY_TALENTS_TIME = {  };
+			local __REPLY_EQUIPMENTS_TIME = {  };
+			__ns.prefixHandler[__emu_meta.ADDON_PREFIX] = function(prefix, msg, channel, sender)
+				local name = Ambiguate(sender, 'none');
+				local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
+				local now = GetTime();
+				if control_code == __emu_meta.ADDON_MSG_QUERY_TALENTS then
+					local prev = __REPLY_TALENTS_TIME[name];
+					if prev == nil or now - prev > 0.05 then
+						__REPLY_TALENTS_TIME[name] = now;
+						if channel == "INSTANCE_CHAT" then
+							local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
+							if target ~= __ns.playerFullName then
+								return;
+							end
+						end
+						local code = __ns.GetEncodedPlayerTalentData(60);
+						if code then
+							if channel == "INSTANCE_CHAT" then
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_ADDON_PACK .. __ns.GetAddonPackData(), "INSTANCE_CHAT");
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
+							else--if channel == "WHISPER" then
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_ADDON_PACK .. __ns.GetAddonPackData(), "WHISPER", sender);
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
+							end
+						end
+					end
+				elseif control_code == __emu_meta.ADDON_MSG_QUERY_TALENTS_ then
+					local prev = __REPLY_TALENTS_TIME[name];
+					if prev == nil or now - prev > 0.05 then
+						__REPLY_TALENTS_TIME[name] = now;
+						local code = __ns.GetEncodedPlayerTalentData(60);
+						if code then
+							SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_TALENTS_ .. code, "WHISPER", sender);
+						end
+					end
+				elseif control_code == __emu_meta.ADDON_MSG_QUERY_EQUIPMENTS then
+					local prev = __REPLY_EQUIPMENTS_TIME[name];
+					if prev == nil or now - prev >= 0.05 then
+						__REPLY_EQUIPMENTS_TIME[name] = now;
+						if channel == "INSTANCE_CHAT" then
+							local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
+							if target ~= __ns.playerFullName then
+								return;
+							end
+						end
+						local data = __ns.EncodeEquipmentData();
+						for _, msg in next, data do
+							if channel == "INSTANCE_CHAT" then
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. __ns.realm, "INSTANCE_CHAT");
+							else--if channel == "WHISPER" then
+								SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
+							end
+						end
+					end
+				elseif control_code == __emu_meta.ADDON_MSG_QUERY_EQUIPMENTS_ then
+					local prev = __REPLY_EQUIPMENTS_TIME[name];
+					if prev == nil or now - prev >= 0.05 then
+						__REPLY_EQUIPMENTS_TIME[name] = now;
+						local data = __ns.EncodeEquipmentData();
+						for _, msg in next, data do
+							SendAddonMessage(prefix, __emu_meta.ADDON_MSG_REPLY_EQUIPMENTS_ .. msg, "WHISPER", sender);
+						end
+					end
+				end
+			end
+			function __ns.initializeTalentEmu()
+				RegisterAddonMessagePrefix(__emu_meta.ADDON_PREFIX);
+			end
 		end
 	-->
 	-->		InstanceLock
@@ -476,7 +504,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 					40raid		不受任何次数限制
 					20raid		受每日32次限制但是不计入32次内、受每小时5次限制【5pary计入5次、40raid待确认】
 			--]]
-		local __inst_meta = CreateFrame('FRAME');
+		local __inst_meta = __ns.__inst_meta or CreateFrame('FRAME');
 		__ns.__inst_meta = __inst_meta;
 		-->
 			--		ContinentID	@//DB//AreaTable		--	https://wow.gamepedia.com/InstanceID/Complete_list
@@ -718,14 +746,13 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 				self:UnregisterEvent(event);
 			end
 		-->
-		Mixin(__inst_meta, {
-			ADDON_PREFIX = "ILTADD",
-			ADDON_MSG_PUSH_ZONEUID = "_push_",
-			ADDON_MSG_QUERY_ZONEUID = "_q_uid",
-		});
+		__inst_meta.ADDON_PREFIX = "ILTADD";
+		__inst_meta.ADDON_MSG_PUSH_ZONEUID = "_push_";
+		__inst_meta.ADDON_MSG_QUERY_ZONEUID = "_q_uid";
 		-->		Private method
-			__inst_meta.__callbacks = {  };
-			__inst_meta.__revokes = {  };
+			__inst_meta.__callbacks = __inst_meta.__callbacks or {  };
+			__inst_meta.__revokes = __inst_meta.__revokes or {  };
+			__inst_meta.__mark_as_locals = __inst_meta.__mark_as_locals or {  };
 			function __inst_meta.SaveZoneUID(serverID, instanceID, zoneUID)			--	save zoneUID & serverID, make it muted and ignore CHAT_MSG_ADDON
 				__inst_meta._var_serverID = serverID;
 				__inst_meta._var_zoneUID = zoneUID;
@@ -837,6 +864,12 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 				local inInstance, instanceType = IsInInstance();
 				local name, instanceType, difficultyID, difficultyName, maxPlayers, dynamicDifficulty, isDynamic, instanceID, instanceGroupSize, LfgDungeonID = GetInstanceInfo();
 				_log_('L', inInstance, instanceType, name);
+				if __inst_meta._var_inInstance then
+					for _, __mark_as_local in next, __inst_meta.__mark_as_locals do
+						__mark_as_local(instanceID);
+					end
+				end
+				__inst_meta._var_inInstance = inInstance;
 				__inst_meta._var_instanceTime = GetServerTime();
 				__inst_meta._var_instanceType = instanceType;
 				__inst_meta._var_maxPlayers = maxPlayers;
@@ -854,9 +887,18 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			function __inst_meta.LOADING_SCREEN_ENABLED()
 				__inst_meta.StopCapturing();
 			end
-		function __ns.RegInstanceIDCallback(call, revoke)
+			function __inst_meta.PLAYER_LOGOUT()
+				if __inst_meta._var_inInstance then
+					for _, __mark_as_local in next, __inst_meta.__mark_as_locals do
+						__mark_as_local();
+					end
+				end
+			end
+		-->
+		function __ns.RegInstanceIDCallback(call, revoke, mark_as_local)
 			tinsert(__inst_meta.__callbacks, call);
 			tinsert(__inst_meta.__revokes, revoke);
+			tinsert(__inst_meta.__mark_as_locals, mark_as_local);
 		end
 		__ns.prefixHandler[__inst_meta.ADDON_PREFIX] = function(prefix, msg, channel, sender)
 			local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
@@ -905,6 +947,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			RegisterAddonMessagePrefix(__inst_meta.ADDON_PREFIX);
 			__inst_meta:RegEvent("LOADING_SCREEN_ENABLED");
 			__inst_meta:RegEvent("LOADING_SCREEN_DISABLED");
+			__inst_meta:RegEvent("PLAYER_LOGOUT");
 		end
 	-->
 	-->		RaidLock
@@ -919,7 +962,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 					BWL = "黑翼之巢",
 					ZG = "祖尔格拉布",
 					RAQ = "安其拉废墟",
-					TAQ = "安其拉",
+					TAQ = "安其拉神殿",
 					NAXX = "纳克萨玛斯",
 					DarkMoon = "暗月马戏团",
 					["DarkMoon: Elwynn"] = "暗月马戏团 \124cff00afff艾尔文森林\124r",
@@ -1087,7 +1130,20 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			},
 			hash = {  };
 		};
+		local L2 = {
+			ONY = 249,
+			MC = 409,
+			BWL = 469,
+			ZG = 309,
+			RAQ = 509,
+			TAQ = 531,
+			NAXX = 533,
+		};
 		__raid_meta.esMX = __raid_meta.esES;
+		local to = __raid_meta.L[GetLocale()] or __raid_meta.L['*'];
+		for key, id in next, L2 do
+			to[key] = GetRealZoneText(id) or to[key];
+		end
 		for LOC, LIST in next, __raid_meta.L do
 			for key, val in next, LIST do
 				__raid_meta.hash[val] = key;
@@ -1126,6 +1182,49 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			end
 		end
 	-->
+	-->		Map
+		local __map_meta = {  };
+		__ns.__map_meta = __map_meta;
+		__map_meta.ADDON_PREFIX = "AMSADD";
+		__map_meta.ADDON_MSG_MAP_PULL = "_pull_";
+		__map_meta.ADDON_MSG_MAP_PUSH = "_push_";
+		local function GetMapPosition()
+			local map = C_Map.GetBestMapForUnit('player');
+			local y, x, _z, instance = UnitPosition('player');
+			if x ~= nil and y ~= nil then
+				return map, x, y;
+			end
+		end
+		__ns.prefixHandler[__map_meta.ADDON_PREFIX] = function(prefix, msg, channel, sender)
+			local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
+			if control_code == __map_meta.ADDON_MSG_MAP_PULL then
+				local map, x, y = GetMapPosition();
+				if map == nil then
+					map = -1;
+					x, y = 0, 0;
+				end
+				SendAddonMessage(prefix, __map_meta.ADDON_MSG_MAP_PUSH .. map .. "#" .. x .. "#" .. y, "WHISPER", sender);
+			elseif control_code == __map_meta.ADDON_MSG_MAP_PUSH then
+				if __ala_meta__.____OnMapPositionReceived ~= nil then
+					local map, x, y = strsplit("#", strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1));
+					if map ~= nil and x ~= nil and y ~= nil then
+						map = tonumber(map);
+						x = tonumber(x);
+						y = tonumber(y);
+						if map ~= nil and x ~= nil and y ~= nil then
+							__ala_meta__.____OnMapPositionReceived(sender, map, x, y);
+						end
+					end
+				end
+			end
+		end
+		function __ns.PullPosition(name)
+			SendAddonMessage(__map_meta.ADDON_PREFIX, "_pull_", "WHISPER", Ambiguate(name, 'none'));
+		end
+		function __ns.initializeMapPosition()
+			RegisterAddonMessagePrefix(__map_meta.ADDON_PREFIX);
+		end
+	-->
 -->		Core
 	function __ns.CHAT_MSG_ADDON(prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID)
 		local handler = __ns.prefixHandler[prefix];
@@ -1137,6 +1236,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 		_EventHandler:RegEvent("CHAT_MSG_ADDON");
 		__ns.initializeTalentEmu();
 		__ns.initializeInstanceCapture();
+		__ns.initializeMapPosition();
 	end
 -->
 -->		Initialize

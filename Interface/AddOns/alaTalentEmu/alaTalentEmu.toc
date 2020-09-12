@@ -10,7 +10,7 @@
 ## Author: |cff00ff00ALA|r @ |cffff0000163UI|r
 ## Author-zhCN: |cff00ff00ALA|r @ |cffff0000网易有爱|r
 ## Author-zhTW: |cff00ff00ALA|r @ |cffff0000网易有爱|r
-## Version: 113r.200729
+## Version: 113r.200902
 
 alaTalentEmu.xml
 

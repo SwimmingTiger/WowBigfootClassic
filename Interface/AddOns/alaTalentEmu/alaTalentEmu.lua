@@ -1,4 +1,4 @@
-﻿--[[--
+--[[--
 	by ALA @ 163UI
 	DATA FROM WEB SOURCE CODE OF WOWHEAD
 	数据来源于wowhead网页源代码
@@ -1956,8 +1956,7 @@ end
 			local _, _, name = strfind(msg, pattern_ERR_CHAT_PLAYER_NOT_FOUND_S);
 			if name ~= nil then
 				name = Ambiguate(name, 'none');
-				local t = NS.PREV_QUERY_SENT_TIME[name];
-				if t ~= nil and time() - t <= 2 then
+				if NS.PREV_QUERY_SENT_TIME[name] ~= nil then
 					return true, msg, ...;
 				end
 			end
@@ -1969,7 +1968,12 @@ end
 				_EventHandler:RegEvent("CHAT_MSG_ADDON_LOGGED");
 				_EventHandler:AddCustomEventHandler("USER_EVENT_TALENT_DATA_RECV", NS.EmuSub_TalentDataRecv);
 				_EventHandler:AddCustomEventHandler("USER_EVENT_INVENTORY_DATA_RECV", NS.EmuSub_InventoryDataRecv);
-				ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", NS.chatfilter.CHAT_MSG_SYSTEM)
+				ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", NS.chatfilter.CHAT_MSG_SYSTEM);
+				hooksecurefunc("SendChatMessage", function(_msg, _type, _lang, _target)
+					if _type == "WHISPER" then
+						NS.PREV_QUERY_SENT_TIME[_target] = nil;
+					end
+				end);
 			else
 				_log_("Init", "RegisterAddonMessagePrefix", ADDON_PREFIX);
 			end
@@ -5890,7 +5894,7 @@ do	--	tooltip unit talents
 		end
 	end
 	local function set_tip(tip, _name)
-		if tip:IsShown() and prev_name[tip] == nil then
+		if prev_name[tip] == nil then
 			local _, unit = tip:GetUnit();
 			if unit then
 				local name, realm = UnitName(unit);
@@ -6196,6 +6200,7 @@ do	-- initialize
 		['\229\141\149\233\133\146\231\170\157\35\53\49\54\51\55'] = 1,
 	});
 	function NS.PLAYER_ENTERING_WORLD()
+		_EventHandler:UnregEvent("PLAYER_ENTERING_WORLD");
 		if not NS.initialized then
 			modify_saved_var();
 			local _, tag = BNGetInfo();
