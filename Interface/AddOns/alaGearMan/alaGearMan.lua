@@ -1,4 +1,4 @@
-﻿--[[--
+--[[--
 	by ALA @ 163UI
 	Please Keep WOW Addon open-source & Reduce barriers for others.
 	复用代码请在显著位置标注来源【ALA@网易有爱】
@@ -70,6 +70,8 @@ if LOCALE == 'zhCN' then
 	L["takeoffAll_include_neck_finger_and_trinket_false"] = "一键脱光\124cffff0000不包括\124r戒指饰品披风和耐久度为0的装备";
 	L["show_outfit_in_tooltip"] = "在物品提示中\124cffff0000显示\124r保存的套装信息";
 	L["show_outfit_in_tooltip_false"] = "在物品提示中\124cffff0000不显示\124r保存的套装信息";
+	L["multi_lines"] = "按钮分多行";
+	L["multi_lines_false"] = "按钮放在一排";
 	L["reset_pos"] = "重置快速切换栏的位置";
 	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ff按住ctrl拖动来移动位置，保存为账号通用位置\124r\n\124cffff40ff按住shift拖动来移动位置，保存为角色专用位置\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "战斗结束时更新";
@@ -137,6 +139,8 @@ elseif LOCALE == 'zhTW' then
 	L["takeoffAll_include_neck_finger_and_trinket_false"] = "一鍵脫光\124cffff0000不包括\124r戒指飾品披風和耐久度為0的裝備";
 	L["show_outfit_in_tooltip"] = "在鼠標提示中\124cffff0000顯示\124r保存的套裝信息";
 	L["show_outfit_in_tooltip_false"] = "在鼠標提示中\124cffff0000不顯示\124r保存的套裝信息";
+	L["multi_lines"] = "按鈕分多行擺放";
+	L["multi_lines_false"] = "按鈕全部放在一行";
 	L["reset_pos"] = "重置快速切換欄的位置";
 	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ff按住ctrl拖動來移動位置，保存爲賬號通用位置\124r\n\124cffff40ff按住shift拖動來移動位置，保存爲角色專用位置\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "戰鬥結束時更新";
@@ -204,6 +208,8 @@ elseif LOCALE == "ruRU" then
 	L["takeoffAll_include_neck_finger_and_trinket_false"] = "Снять все снаряжение \124cffff0000DONOT\124r включает в себя кольцо, акссесуар, плащ и снаряжение с продолжительностью 0%";
 	L["show_outfit_in_tooltip"] = "\124cffff0000Show\124r outfit info in tooltip";
 	L["show_outfit_in_tooltip_false"] = "\124cffff0000DONOT Show\124r outfit info in tooltip";
+	L["multi_lines"] = "Put quick buttons on multi lines";
+	L["multi_lines_false"] = "Put all quick buttons on one line";
 	L["reset_pos"] = "Reset position of quick bar";
 	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffPress ctrl and left-drag to move, saving pos for account\124r\n\124cffff40ffPress shift and left-drag to move, saving pos for char\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "Update after combat";
@@ -271,6 +277,8 @@ else
 	L["takeoffAll_include_neck_finger_and_trinket_false"] = "Stripping \124cffff0000DONOT INCLUDES\124r finger, trinket, cloak and duration 0% gear";
 	L["show_outfit_in_tooltip"] = "\124cffff0000Show\124r outfit info in tooltip";
 	L["show_outfit_in_tooltip_false"] = "\124cffff0000DONOT Show\124r outfit info in tooltip";
+	L["multi_lines"] = "Put quick buttons on multi lines";
+	L["multi_lines_false"] = "Put all quick buttons on one line";
 	L["reset_pos"] = "Reset position of quick bar";
 	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffPress ctrl and left-drag to move, saving pos for account\124r\n\124cffff40ffPress shift and left-drag to move, saving pos for char\124r";
 	L["WAITING_FOR_REGEN_ENABLED"] = "Update after combat";
@@ -325,6 +333,8 @@ local default_sv = {
 	takeoffAll_pos = 'RIGHT',
 	takeoffAll_include_neck_finger_and_trinket = false,
 	show_outfit_in_tooltip = true,
+	multi_lines = false,
+	num_per_line = 6,
 };
 local _PaperDollItemSlotButton_OnEnter = PaperDollItemSlotButton_OnEnter;
 local _PaperDollItemSlotButton_OnLeave = PaperDollItemSlotButton_OnLeave;
@@ -1439,6 +1449,10 @@ function func.initUI()
 				self.UpdateKeyBindingOnNextSecureEnv = false;
 				self:UpdateKeyBinding();
 			end
+			if self.ReArrangeOnNextSecureEnv then
+				self.ReArrangeOnNextSecureEnv = false;
+				self:ReArrange();
+			end
 		end);
 		local pos_on_char = false;
 		function ui.secure:SavePos()
@@ -1452,134 +1466,155 @@ function func.initUI()
 		local secureButtons = { n = 0, };
 		-- local info = { L["Take_Off_All"], L["CTRL-DRAG-TO-MOVE"], };
 		function ui.secure:Create(index)
-			if secureButtons[index] then
-				secureButtons[index].id = index;
-				return secureButtons[index];
-			end
-			local button = CreateFrame("CHECKBUTTON", SECURE_QUICK_NAME_PREFIX .. index, ui.secure, "SecureActionButtonTemplate");
-			button:SetAttribute('type', 'macro');
-			-- button:SetAttribute('macrotext', '');
-			-- SecureHandler_OnLoad(button);
-			-- UnregisterStateDriver(button, "page");
-			button:SetAttribute('showgrid', 0);
-			-- button:SetAttribute("action", ACTION_START + index);
-			button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
-			button:EnableMouse(true);
-			-- button:RegisterForClicks("LeftButtonUp", "RightButtonUp");
-			button:SetClampedToScreen(true);
-			button:RegisterForDrag("LeftButton");
-			button:Show();
-			button:SetScript("OnEnter", function(self)
-				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
-				local index = self.id;
-				if alaGearManSV.takeoffAll_pos == 'LEFT' then
-					index = index - 1;
-				end
-				if index > 0 and index <= #saved_sets then
-					func.OnEnter_Info_Outfit(self, index);
-				else
-					GameTooltip:AddLine(L["Take_Off_All"], 1.0, 1.0, 1.0);
-				end
-				GameTooltip:AddLine(L["CTRL-DRAG-TO-MOVE"], 1.0, 1.0, 1.0);
-				GameTooltip:Show();
-			end);
-			button:SetScript("OnLeave", func.OnLeave_Info);
-			button:SetScript("OnDragStart", function(self)
-				if IsControlKeyDown() then
-					pos_on_char = false;
-					ui.secure:StartMoving();
-				elseif IsShiftKeyDown() then
-					pos_on_char = true;
-					ui.secure:StartMoving();
-				end
-			end);
-			button:SetScript("OnDragStop", function(self)
-				ui.secure:StopMovingOrSizing();
-				ui.secure:SavePos();
-			end);
-			button:SetScript("OnMouseWheel", function(self, delta)
-				if IsControlKeyDown() and not InCombatLockdown() then
-					alaGearManSV.quickSize = alaGearManSV.quickSize + delta * 2;
-					ui.secure:Update();
-				end
-			end);
-			button:SetScript("OnSizeChanged", function(self)
-				self.title:SetScale(self:GetWidth() / alaGearManSV.quickSize);
-			end);
-			local title = button:CreateFontString(nil, "OVERLAY");
-			title:SetPoint("CENTER");
-			title:SetFont(GameFontNormal:GetFont(), alaGearManSV.quickSize * 0.75, "OUTLINE");
-			title:SetVertexColor(1.0, 0.75, 0.0, 1.0);
-			button:SetFontString(title);
-			button:SetPushedTextOffset(1, - 1);
-			button.title = title;
-			local icon = button:CreateTexture(nil, "ARTWORK");
-			icon:SetAllPoints();
-			button.icon = icon;
-			local glow_current = button:CreateTexture(nil, "OVERLAY");
-			glow_current:SetTexture(texture_glow);
-			glow_current:SetTexCoord(unpack(texture_glow_coord));
-			glow_current:SetVertexColor(1.0, 0.5, 0.0, 1.0);
-			glow_current:SetAllPoints();
-			glow_current:SetBlendMode("ADD");
-			glow_current:Hide();
-			button.glow_current = glow_current;
-			function button:SetTitleText(text)
-				title:SetText(text);
-			end
-			function button:SetIconTexture(tex)
-				icon:SetTexture(tex);
-			end
-			function button:ShowTitle(bool)
-				if bool then
-					title:Show();
-				else
-					title:Hide();
-				end
-			end
-			function button:ShowIcon(bool)
-				if bool then
-					icon:Show();
-				else
-					icon:Hide();
-				end
-			end
-			function button:SetTitleAndIcon(text, texture)
-				if alaGearManSV.quickStyle == 'TC' then
+			local button = secureButtons[index];
+			if button == nil then
+				button = CreateFrame("CHECKBUTTON", SECURE_QUICK_NAME_PREFIX .. index, ui.secure, "SecureActionButtonTemplate");
+				button:SetAttribute('type', 'macro');
+				-- button:SetAttribute('macrotext', '');
+				-- SecureHandler_OnLoad(button);
+				-- UnregisterStateDriver(button, "page");
+				button:SetAttribute('showgrid', 0);
+				-- button:SetAttribute("action", ACTION_START + index);
+				button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
+				button:EnableMouse(true);
+				-- button:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+				button:SetClampedToScreen(true);
+				button:RegisterForDrag("LeftButton");
+				button:Show();
+				local glow_hover = button:CreateTexture(nil, "OVERLAY");
+				glow_hover:SetTexture(texture_glow);
+				glow_hover:SetTexCoord(unpack(texture_glow_coord));
+				glow_hover:SetVertexColor(1.0, 1.0, 1.0, 0.5);
+				glow_hover:SetAllPoints();
+				glow_hover:SetBlendMode("ADD");
+				glow_hover:Hide();
+				button.glow_hover = glow_hover;
+				button:SetScript("OnEnter", function(self)
+					GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT");
+					local index = self.id;
+					if alaGearManSV.takeoffAll_pos == 'LEFT' then
+						index = index - 1;
+					end
+					if index > 0 and index <= #saved_sets then
+						func.OnEnter_Info_Outfit(self, index);
+					else
+						GameTooltip:AddLine(L["Take_Off_All"], 1.0, 1.0, 1.0);
+					end
+					GameTooltip:AddLine(L["CTRL-DRAG-TO-MOVE"], 1.0, 1.0, 1.0);
+					GameTooltip:Show();
+					glow_hover:Show();
+				end);
+				button:SetScript("OnLeave", function(self)
+					func.OnLeave_Info(self);
+					glow_hover:Hide();
+				end);
+				button:SetScript("OnDragStart", function(self)
+					if IsControlKeyDown() then
+						pos_on_char = false;
+						ui.secure:StartMoving();
+					elseif IsShiftKeyDown() then
+						pos_on_char = true;
+						ui.secure:StartMoving();
+					end
+				end);
+				button:SetScript("OnDragStop", function(self)
+					ui.secure:StopMovingOrSizing();
+					ui.secure:SavePos();
+				end);
+				button:SetScript("OnMouseWheel", function(self, delta)
+					if IsControlKeyDown() and not InCombatLockdown() then
+						alaGearManSV.quickSize = alaGearManSV.quickSize + delta * 2;
+						ui.secure:Update();
+					end
+				end);
+				button:SetScript("OnSizeChanged", function(self)
+					self.title:SetScale(self:GetWidth() / alaGearManSV.quickSize);
+				end);
+				local title = button:CreateFontString(nil, "OVERLAY");
+				title:SetPoint("CENTER");
+				title:SetFont(GameFontNormal:GetFont(), alaGearManSV.quickSize * 0.75, "OUTLINE");
+				title:SetVertexColor(1.0, 0.75, 0.0, 1.0);
+				button:SetFontString(title);
+				button:SetPushedTextOffset(1, - 1);
+				button.title = title;
+				local icon = button:CreateTexture(nil, "ARTWORK");
+				icon:SetAllPoints();
+				button.icon = icon;
+				local glow_current = button:CreateTexture(nil, "OVERLAY");
+				glow_current:SetTexture(texture_glow);
+				glow_current:SetTexCoord(unpack(texture_glow_coord));
+				glow_current:SetVertexColor(1.0, 0.5, 0.0, 1.0);
+				glow_current:SetAllPoints();
+				glow_current:SetBlendMode("ADD");
+				glow_current:Hide();
+				button.glow_current = glow_current;
+				function button:SetTitleText(text)
 					title:SetText(text);
-					title:SetTextColor(1.0, 1.0, 1.0);
-					icon:SetTexture(texture);
-					icon:SetVertexColor(1.0, 1.0, 1.0, 1.0);
-					-- icon:Show();
-					title:Show();
-				elseif alaGearManSV.quickStyle == 'T' then
-					-- title:SetTextColor(1.0, 1.0, 1.0);
-					icon:SetTexture(texture);
-					icon:SetVertexColor(1.0, 1.0, 1.0, 1.0);
-					-- icon:Show();
-					title:Hide();
-				elseif alaGearManSV.quickStyle == 'C' then
-					title:SetTextColor(1.0, 0.75, 0.0);
-					title:SetText(text);
-					icon:SetTexture(texture_style_char);
-					icon:SetVertexColor(1.0, 1.0, 1.0, 0.25);
-					-- icon:Show();
-					title:Show();
 				end
+				function button:SetIconTexture(tex)
+					icon:SetTexture(tex);
+				end
+				function button:ShowTitle(bool)
+					if bool then
+						title:Show();
+					else
+						title:Hide();
+					end
+				end
+				function button:ShowIcon(bool)
+					if bool then
+						icon:Show();
+					else
+						icon:Hide();
+					end
+				end
+				function button:SetTitleAndIcon(text, texture)
+					if alaGearManSV.quickStyle == 'TC' then
+						title:SetText(text);
+						title:SetTextColor(1.0, 1.0, 1.0);
+						icon:SetTexture(texture);
+						icon:SetVertexColor(1.0, 1.0, 1.0, 0.66);
+						-- icon:Show();
+						title:Show();
+					elseif alaGearManSV.quickStyle == 'T' then
+						-- title:SetTextColor(1.0, 1.0, 1.0);
+						icon:SetTexture(texture);
+						icon:SetVertexColor(1.0, 1.0, 1.0, 0.75);
+						-- icon:Show();
+						title:Hide();
+					elseif alaGearManSV.quickStyle == 'C' then
+						title:SetTextColor(1.0, 0.75, 0.0);
+						title:SetText(text);
+						icon:SetTexture(texture_style_char);
+						icon:SetVertexColor(1.0, 1.0, 1.0, 0.25);
+						-- icon:Show();
+						title:Show();
+					end
+				end
+				function button:Current()
+					self.glow_current:Show();
+				end
+				function button:NonCurrent()
+					self.glow_current:Hide();
+				end
+				-- button.info = Mixin({  }, info);
+				secureButtons[index] = button;
+			else
 			end
-			function button:Current()
-				self.glow_current:Show();
-			end
-			function button:NonCurrent()
-				self.glow_current:Hide();
-			end
-			-- button.info = Mixin({  }, info);
 			button.id = index;
-			secureButtons[index] = button;
+			button:ClearAllPoints();
 			if index == 1 then
 				button:SetPoint("TOPLEFT", 2, -2);
 			else
-				button:SetPoint("LEFT", secureButtons[index - 1], "RIGHT", 2, 0);
+				if alaGearManSV.multi_lines then
+					if (index - 1) % alaGearManSV.num_per_line == 0 then
+						button:SetPoint("TOP", secureButtons[index - alaGearManSV.num_per_line], "BOTTOM", 0, -2);
+					else
+						button:SetPoint("LEFT", secureButtons[index - 1], "RIGHT", 2, 0);
+					end
+				else
+					button:SetPoint("LEFT", secureButtons[index - 1], "RIGHT", 2, 0);
+				end
 			end
 			return button;
 		end
@@ -1689,6 +1724,31 @@ function func.initUI()
 			ui.secure:SetSize(N * alaGearManSV.quickSize + (N + 1) * 2, alaGearManSV.quickSize + 2 * 2);
 			self:UpdateKeyBinding();
 			func.refreshAppearance();
+		end
+		function ui.secure:ReArrange()
+			if InCombatLockdown() then
+				self.ReArrangeOnNextSecureEnv = true;
+				print(L["WAITING_FOR_REGEN_ENABLED"]);
+				return;
+			end
+			print('ReArrange', #secureButtons)
+			for index = 1, #secureButtons do
+				local button = secureButtons[index];
+				button:ClearAllPoints();
+				if index == 1 then
+					button:SetPoint("TOPLEFT", 2, -2);
+				else
+					if alaGearManSV.multi_lines then
+						if (index - 1) % alaGearManSV.num_per_line == 0 then
+							button:SetPoint("TOP", secureButtons[index - alaGearManSV.num_per_line], "BOTTOM", 0, -2);
+						else
+							button:SetPoint("LEFT", secureButtons[index - 1], "RIGHT", 2, 0);
+						end
+					else
+						button:SetPoint("LEFT", secureButtons[index - 1], "RIGHT", 2, 0);
+					end
+				end
+			end
 		end
 		ui.secureButtons = secureButtons;
 		ui.secure:Create(1);	--for take_off_all button
@@ -1957,6 +2017,17 @@ function func.setting(self, button)
 		tinsert(elements, {
 			para = { 'show_outfit_in_tooltip', true, },
 			text = L["show_outfit_in_tooltip"],
+		});
+	end
+	if alaGearManSV.multi_lines then
+		tinsert(elements, {
+			para = { 'multi_lines', false, },
+			text = L["multi_lines_false"],
+		});
+	else
+		tinsert(elements, {
+			para = { 'multi_lines', true, },
+			text = L["multi_lines"],
 		});
 	end
 	tinsert(elements, {
@@ -2455,6 +2526,11 @@ function func.drop_handler(button, key, value)
 		if type(value) == 'boolean' then
 			alaGearManSV.show_outfit_in_tooltip = value;
 		end
+	elseif key == 'multi_lines' then
+		if type(value) == 'boolean' then
+			alaGearManSV.multi_lines = value;
+			ui.secure:ReArrange();
+		end
 	end
 end
 function func.hook_tooltip(self)
@@ -2534,24 +2610,32 @@ end
 function func.BANKFRAME_CLOSED(...)
 	var.isBankOpened = false;
 end
+function func.init()
+	func.init_variables();
+	saved_sets = alaGearManSV.sets[GUID];
+	if saved_sets == nil then
+		saved_sets = {  };
+		alaGearManSV.sets[GUID] = saved_sets;
+	end
+	func.pdf_init();
+	func.initUI();
+	func.init_hook_tooltip();
+	_EventHandler:RegEvent("UPDATE_BINDINGS");
+	_EventHandler:RegEvent("BANKFRAME_OPENED");
+	_EventHandler:RegEvent("BANKFRAME_CLOSED");
+	_EventHandler:RegEvent("PLAYER_EQUIPMENT_CHANGED");
+	func.RegAddonListener();
+end
+function func.PLAYER_REGEN_ENABLED()
+	_EventHandler:UnregisterEvent("PLAYER_REGEN_ENABLED");
+end
 function func.PLAYER_ENTERING_WORLD()
 	_EventHandler:UnregisterEvent("PLAYER_ENTERING_WORLD");
-	C_Timer.After(0.1, function()
-		func.init_variables();
-		saved_sets = alaGearManSV.sets[GUID];
-		if saved_sets == nil then
-			saved_sets = {  };
-			alaGearManSV.sets[GUID] = saved_sets;
-		end
-		func.pdf_init();
-		func.initUI();
-		func.init_hook_tooltip();
-		_EventHandler:RegEvent("UPDATE_BINDINGS");
-		_EventHandler:RegEvent("BANKFRAME_OPENED");
-		_EventHandler:RegEvent("BANKFRAME_CLOSED");
-		_EventHandler:RegEvent("PLAYER_EQUIPMENT_CHANGED");
-		func.RegAddonListener();
-	end);
+	if InCombatLockdown() then
+		_EventHandler:RegEvent("PLAYER_REGEN_ENABLED");
+	else
+		C_Timer.After(0.1, func.init);
+	end
 	if __ala_meta__.initpublic then __ala_meta__.initpublic(); end
 end
 
@@ -2611,6 +2695,20 @@ do	--	run_on_next_tick	--	execute two ticks later
 	end
 	function _EventHandler:frame_update_on_next_tick(frame)
 		_EventHandler:run_on_next_tick(frame.update_func);
+	end
+end
+
+do	--	SLASH
+	_G.SLASH_ALAGEARMAN1 = "/alaGearMan";
+	_G.SLASH_ALAGEARMAN1 = "/alaGM";
+	_G.SLASH_ALAGEARMAN1 = "/agm";
+	SlashCmdList["ALAGEARMAN"] = function(msg)
+		local num = tonumber(msg);
+		if num then
+			alaGearManSV.multi_lines = true;
+			alaGearManSV.num_per_line = num;
+			ui.secure.ReArrange();
+		end
 	end
 end
 
@@ -2684,26 +2782,3 @@ _EventHandler:RegEvent("PLAYER_ENTERING_WORLD");
 _G.AGM_FUNC = func;
 
 __ala_meta__.gear = { func = func, ui = ui, };
-
--- 老虎会游泳：启用/禁用快捷栏
-function func.toggle_quick_panel(show)
-	if show == nil then
-		show = not ui.secure:IsShown()
-	end
-	if show then
-		ui.secure:Show();
-	else
-		ui.secure:Hide();
-	end
-end
--- 老虎会游泳：打开/关闭套装配置
-function func.toggle_gear_win(show)
-	if show == nil then
-		show = not ui.gearWin:IsShown()
-	end
-	if show then
-		ui.gearWin:Show()
-	else
-		ui.gearWin:Hide();
-	end
-end

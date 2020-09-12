@@ -101,6 +101,37 @@ local function zzzAddonCheck_Init_MonkeyQuest()
     MonkeyQuestConfig.mqPatchVersion = patchVersion
 end
 
+local function zzzAddonCheck_Init_alaGearMan()
+    -- 为有爱一键换装添加功能函数
+    if not __ala_meta__ then return end
+    local func = __ala_meta__.gear.func
+    local ui = __ala_meta__.gear.ui
+
+    -- 启用/禁用快捷栏
+    function func.toggle_quick_panel(show)
+        if show == nil then
+            show = not ui.secure:IsShown()
+        end
+        if show then
+            ui.secure:Show();
+        else
+            ui.secure:Hide();
+        end
+    end
+
+    -- 打开/关闭套装配置
+    function func.toggle_gear_win(show)
+        if show == nil then
+            show = not ui.gearWin:IsShown()
+        end
+        if show then
+            ui.gearWin:Show()
+        else
+            ui.gearWin:Hide();
+        end
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -121,6 +152,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 设置MonkeyQuest初始样式
     zzzAddonCheck_Init_MonkeyQuest()
+
+    -- 为有爱一键换装添加功能函数
+    zzzAddonCheck_Init_alaGearMan()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then

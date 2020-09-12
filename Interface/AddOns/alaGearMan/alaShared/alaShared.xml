@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<!--
+	<Include file = "..\..\sharedxml\hybridscrollframe.xml"/>
+	<Include file = "template.xml"/>
+-->
+	<script file = "core.lua" />
+	<script file = "drop.lua" />
+	<script file = "popup.lua" />
+	<script file = "scroll.lua" />
+
+	<!-- <include file = "Bindings.xml" /> -->
+
+
+</Ui>
+
