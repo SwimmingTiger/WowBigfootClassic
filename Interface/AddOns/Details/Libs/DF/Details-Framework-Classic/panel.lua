@@ -5130,6 +5130,7 @@ DF.IconRowFunctions = {
 			cooldownFrame:SetAllPoints()
 			cooldownFrame:EnableMouse (false)
 			cooldownFrame:SetFrameLevel (newIconFrame:GetFrameLevel()+1)
+			cooldownFrame.noCooldownCount = self.options.surpress_tulla_omni_cc
 			
 			newIconFrame.CountdownText = cooldownFrame:CreateFontString (nil, "overlay", "GameFontNormal")
 			--newIconFrame.CountdownText:SetPoint ("center")
@@ -5355,6 +5356,7 @@ local default_icon_row_options = {
 	backdrop_border_color = {0, 0, 0, 1},
 	anchor = {side = 6, x = 2, y = 0},
 	grow_direction = 1, --1 = to right 2 = to left
+	surpress_tulla_omni_cc = false,
 }
 
 function DF:CreateIconRow (parent, name, options)
@@ -8170,16 +8172,17 @@ DF.CastFrameFunctions = {
 			self.flashTexture:Hide()
 			self:Animation_StopAllAnimations()
 			
+			self:SetAlpha (1)
+			
+			--> set the statusbar color
+			self:UpdateCastColor()
+			
 			if (not self:IsShown()) then
 				self:Animation_FadeIn()
 			end
 			
 			self.Spark:Show()
-			self:SetAlpha (1)
 			self:Show()
-		
-		--> set the statusbar color
-		self:UpdateCastColor()
 		
 		--> update the interrupt cast border
 		self:UpdateInterruptState()
@@ -8226,16 +8229,17 @@ DF.CastFrameFunctions = {
 			self.flashTexture:Hide()
 			self:Animation_StopAllAnimations()
 			
+			self:SetAlpha (1)
+			
+			--> set the statusbar color
+			self:UpdateCastColor()
+			
 			if (not self:IsShown()) then
 				self:Animation_FadeIn()
 			end
 			
 			self.Spark:Show()
-			self:SetAlpha (1)
 			self:Show()
-			
-		--> set the statusbar color
-		self:UpdateCastColor()
 		
 		--> update the interrupt cast border
 		self:UpdateInterruptState()
