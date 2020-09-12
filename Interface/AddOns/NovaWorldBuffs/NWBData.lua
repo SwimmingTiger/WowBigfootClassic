@@ -29,6 +29,9 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 	--if (NWB.isDebug) then
 	--	return;
 	--end
+	if (UnitName("player") == "Delvara") then
+		return;
+	end
 	if (distribution == "GUILD" and commPrefix == NWB.commPrefix) then
 		--Temp bug fix test.
 		local tempSender = sender;
@@ -223,7 +226,11 @@ end
 
 --Send full data.
 NWB.lastDataSent = 0;
-function NWB:sendData(distribution, target, prio, noLayerMap)
+local enableLogging = true;
+local includeTimerLog = true;
+local logRendOnly = true;
+local logLayeredServersOnly = true;
+function NWB:sendData(distribution, target, prio, noLayerMap, noLogs)
 	--if (NWB.isDebug) then
 	--	return;
 	--end
@@ -236,9 +243,9 @@ function NWB:sendData(distribution, target, prio, noLayerMap)
 	end
 	local data;
 	if (NWB.isLayered) then
-		data = NWB:createDataLayered(distribution, noLayerMap);
+		data = NWB:createDataLayered(distribution, noLayerMap, noLogs);
 	else
-		data = NWB:createData(distribution);
+		data = NWB:createData(distribution, noLogs);
 	end
 	--NWB:debug(data);
 	if (next(data) ~= nil) then
@@ -248,7 +255,34 @@ function NWB:sendData(distribution, target, prio, noLayerMap)
 	end
 end
 
---Check if we should send guild data, first few online only will send data to not spam addon comms.
+--Send timer log only.
+--Sorry Blizzard for the extra log data but only the person handing in the quest knows which layer rend dropped on after the last hotfix.
+--So now we have to share this data around along with rend drop history it's only way to have any idea which layer we can drop rend on. :/
+--I've tried my best to keep the data short and only send the first few log entries at a time.
+--I will remove this log system if the rend drop is ever fixed so it can work like ony/nef and not send the yell msgs on every layer.
+function NWB:sendTimerLogData(distribution, entries)
+	if (not enableLogging) then
+		return;
+	end
+	if (logLayeredServersOnly and not NWB.isLayered) then
+		return;
+	end
+	local inInstance, instanceType = IsInInstance();
+	if (distribution == "YELL" and inInstance) then
+		return;
+	end
+	local data = {};
+	data.timerLog = NWB:createTimerLogData(distribution, entries);
+	if (next(data) ~= nil) then
+		data = NWB:convertKeys(data, true, distribution);
+		--NWB:debug(data);
+		data = NWB.serializer:Serialize(data);
+		NWB.lastDataSent = GetServerTime();
+		NWB:sendComm(distribution, "data " .. version .. " " .. data, target, prio);
+	end
+end
+
+--Check if we should send guild data, first 2 online only will send data to not spam addon comms.
 function NWB:getGuildDataStatus()
 	if (not IsInGuild()) then
 		return;
@@ -400,7 +434,7 @@ function NWB:requestSettings(distribution, target, prio)
 end
 
 --Create data table for sending.
-function NWB:createData(distribution)
+function NWB:createData(distribution, noLogs)
 	local data = {};
 	if (UnitInBattleground("player") and distribution ~= "GUILD") then
 		return data;
@@ -458,6 +492,12 @@ function NWB:createData(distribution)
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
+	if (enableLogging and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+		local timerLog = NWB:createTimerLogData(distribution);
+		if (next(timerLog)) then
+			data.timerLog = timerLog;
+		end
+	end
 	--data['faction'] = NWB.faction;
 	--NWB:debug("Before key convert:", string.len(NWB.serializer:Serialize(data)));
 	data = NWB:convertKeys(data, true, distribution);
@@ -467,7 +507,7 @@ function NWB:createData(distribution)
 end
 
 local lastSendLayerMap = {};
-function NWB:createDataLayered(distribution, noLayerMap)
+function NWB:createDataLayered(distribution, noLayerMap, noLogs)
 	local data = {};
 	if (UnitInBattleground("player") and distribution ~= "GUILD") then
 		return data;
@@ -506,10 +546,10 @@ function NWB:createDataLayered(distribution, noLayerMap)
 			data.layers[layer]['rendYell'] = NWB.data.layers[layer].rendYell;
 			--data.layers[layer]['rendYell2'] = NWB.data.layers[layer].rendYell2;
 			--data.layers[layer]['rendSource'] = NWB.data.layers[layer].rendSource;
-			if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
-					and not NWB.krRealms[NWB.realm]) then
-				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
-			end
+			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+			--		and not NWB.krRealms[NWB.realm]) then
+			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			--end
 			foundTimer = true;
 		end
 		if (NWB.data.layers[layer].onyTimer > (GetServerTime() - NWB.db.global.onyRespawnTime)) then
@@ -522,14 +562,14 @@ function NWB:createDataLayered(distribution, noLayerMap)
 			--NWB:validateCloseTimestamps(layer, "onyTimer");
 			--NWB:validateCloseTimestamps(layer, "onyYell");
 			data.layers[layer]['onyTimer'] = NWB.data.layers[layer].onyTimer;
-			data.layers[layer]['onyTimerWho'] = NWB.data.layers[layer].onyTimerWho;
+			--data.layers[layer]['onyTimerWho'] = NWB.data.layers[layer].onyTimerWho;
 			data.layers[layer]['onyYell'] = NWB.data.layers[layer].onyYell;
 			--data.layers[layer]['onyYell2'] = NWB.data.layers[layer].onyYell2;
 			--data.layers[layer]['onySource'] = NWB.data.layers[layer].onySource;
-			if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
-					and not NWB.krRealms[NWB.realm]) then
-				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
-			end
+			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+			--		and not NWB.krRealms[NWB.realm]) then
+			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			--end
 			foundTimer = true;
 		end
 		if (NWB.data.layers[layer].nefTimer > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
@@ -540,14 +580,14 @@ function NWB:createDataLayered(distribution, noLayerMap)
 				data.layers[layer] = {};
 			end
 			data.layers[layer]['nefTimer'] = NWB.data.layers[layer].nefTimer;
-			data.layers[layer]['nefTimerWho'] = NWB.data.layers[layer].nefTimerWho;
+			--data.layers[layer]['nefTimerWho'] = NWB.data.layers[layer].nefTimerWho;
 			data.layers[layer]['nefYell'] = NWB.data.layers[layer].nefYell;
 			--data.layers[layer]['nefYell2'] = NWB.data.layers[layer].nefYell2;
 			--data.layers[layer]['nefSource'] = NWB.data.layers[layer].nefSource;
-			if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
-					and not NWB.krRealms[NWB.realm]) then
-				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
-			end
+			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+			--		and not NWB.krRealms[NWB.realm]) then
+			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			--end
 			foundTimer = true;
 		end
 		if ((NWB.data.layers[layer].onyNpcDied > NWB.data.layers[layer].onyTimer) and
@@ -559,10 +599,10 @@ function NWB:createDataLayered(distribution, noLayerMap)
 				data.layers[layer] = {};
 			end
 			data.layers[layer]['onyNpcDied'] = NWB.data.layers[layer].onyNpcDied;
-			if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
-					and not NWB.krRealms[NWB.realm]) then
-				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
-			end
+			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+			--		and not NWB.krRealms[NWB.realm]) then
+			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			--end
 			foundTimer = true;
 		end
 		if ((NWB.data.layers[layer].nefNpcDied > NWB.data.layers[layer].nefTimer) and
@@ -574,10 +614,10 @@ function NWB:createDataLayered(distribution, noLayerMap)
 				data.layers[layer] = {};
 			end
 			data.layers[layer]['nefNpcDied'] = NWB.data.layers[layer].nefNpcDied;
-			if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
-					and not NWB.krRealms[NWB.realm]) then
-				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
-			end
+			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+			--		and not NWB.krRealms[NWB.realm]) then
+			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			--end
 			foundTimer = true;
 		end
 		if (NWB.layeredSongflowers) then
@@ -655,9 +695,80 @@ function NWB:createDataLayered(distribution, noLayerMap)
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
+	if (enableLogging and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+		local timerLog = NWB:createTimerLogData(distribution);
+		if (next(timerLog)) then
+			data.timerLog = timerLog;
+		end
+	end
 	--data['faction'] = NWB.faction;
 	data = NWB:convertKeys(data, true, distribution);
 	--NWB:debug(data);
+	return data;
+end
+
+function NWB:createTimerLogData(distribution, entries)
+	local data = {};
+	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+		return data;
+	end
+	if (not entries) then
+		--7 log entries by default, 3 per layer and one for a rend drop msg, the minimum needed to be reliable on 2 layer servers.
+		if (logRendOnly) then
+			--If logging rend only then do 6, last 2 timers per layer, plus 2 drop msg.
+			entries = 6;
+		else
+			entries = 7;
+		end
+	end
+	local count = 0;
+	local sorted = {}
+	if (next(NWB.data.timerLog)) then
+		for k, v in ipairs(NWB.data.timerLog) do
+			if (not logRendOnly or v.type == "r" or v.type == "q") then
+				count = count + 1;
+				if (v.timestamp and v.timestamp > (GetServerTime() - 86400)) then
+			    	table.insert(sorted, v);
+			    end
+			    --Remove layerNum, it's local only. 
+			    v.layerNum = nil;
+			    --Create a bigger table than we send for sorting by timestamp and getting the last entries from.
+				if (count >= entries * 2) then
+					break;
+				end
+			end
+		end
+		table.sort(sorted, function(a, b) return a.timestamp > b.timestamp end);
+		count = 0;
+		--Get last few entries.
+		for k, v in ipairs(sorted) do
+			count = count + 1;
+			data[k] = v;
+			if (count >= entries) then
+				break;
+			end
+		end
+		local extra = {};
+		for k, v in ipairs(data) do
+			--Check if we left out any timers that didn't make it in the entries limit
+			--but are a diff layer with matching type and close to matching timestamp
+			--so we send pairs of matching layers as data.
+			count = 0;
+			for kk, vv in ipairs(sorted) do
+				count = count + 1;
+				--If count > entries then the data wasn't checked in sorted above so it's safe to check here.
+				if (count > entries and v.timestamp < (vv.timestamp + 30) and v.timestamp > (vv.timestamp - 30)
+						and v.layerID ~= vv.layerID) then
+					table.insert(extra, vv);
+				end
+			end
+		end
+		if (next(extra)) then
+			for k, v in ipairs(extra) do
+				table.insert(data, v);
+			end
+		end
+	end
 	return data;
 end
 
@@ -680,6 +791,11 @@ function NWB:validateCloseTimestamps(layer, key, timestamp)
 			--Check other layers only.
 			if (k ~= layer) then
 				local diff = v[key] - timestamp;
+				--Error reported this somehow was a string, very rare case but adding a check anyway, probably corrupted data.
+				if (not tonumber(diff)) then
+					NWB:debug("close tmestamp number fail", layer, key, timestamp);
+					return;
+				end
 				--NWB:debug(k, diff);
 				if (diff < offset and diff > -offset) then
 					NWB:debug("Found matching timestamp", key, k, v[key], layer, timestamp);
@@ -774,6 +890,7 @@ local validKeys = {
 	["faction"] = true,
 	["GUID"] = true,
 	["lastSeenNPC"] = true,
+	["timerLog"] = true,
 };
 
 function NWB:extractSettings(dataReceived, sender, distribution)
@@ -817,11 +934,11 @@ function NWB:receivedData(dataReceived, sender, distribution)
 	end
 	--NWB:debug(data);
 	data = NWB:convertKeys(data, nil, distribution);
+	--NWB:debug(data);
 	if (not data) then
 		NWB:debug("bad hash result.");
 		return;
 	end
-	--NWB:debug(data);
 	--A faction check should not be needed but who knows what funky stuff can happen with the new yell channel and mind control etc.
 	--if (not data['faction'] or data['faction'] ~= faction) then
 	--	NWB:debug("data from opposite faction received", sender, distribution);
@@ -982,7 +1099,7 @@ function NWB:receivedData(dataReceived, sender, distribution)
 								vv['nefNpcDied'] = nil;
 							end
 							for k, v in pairs(vv) do
-								if ((string.match(k, "flower") and NWB.db.global.syncFlowersAll)
+								if (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 										or (not NWB.db.global.receiveGuildDataOnly)
 										or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) then
 									if (validKeys[k] and tonumber(v)) then
@@ -993,6 +1110,9 @@ function NWB:receivedData(dataReceived, sender, distribution)
 												--This will correct it by resetting thier timestamp to 0.
 												NWB:debug("Local data error:", k, NWB.data[k]);
 												NWB.data.layers[layer][k] = 0;
+											end
+											if (enableLogging) then
+												NWB:timerLog(k, v, layer, nil, nil, distribution);
 											end
 											--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 											if (NWB.data.layers[layer][k] and v ~= 0 and v > NWB.data.layers[layer][k] and NWB:validateTimestamp(v)) then
@@ -1005,6 +1125,7 @@ function NWB:receivedData(dataReceived, sender, distribution)
 														and (GetServerTime() - NWB.data.layers[layer][k]) > 15)) then
 														newFlowerData = true;
 													end
+													NWB:timerLog(k, v, layer);
 													if (NWB:validateCloseTimestamps(layer, k, v)) then
 														NWB.data.layers[layer][k] = v;
 														if (not string.match(k, "lastSeenNPC")) then
@@ -1060,7 +1181,9 @@ function NWB:receivedData(dataReceived, sender, distribution)
 		end
 	end
 	for k, v in pairs(data) do
-		if ((string.match(k, "flower") and NWB.db.global.syncFlowersAll)
+		--Not sure how it's possible for k to be anything but a string here but a rare error was reported.
+		--bad argument #1 to 'match' (string expected, got table)
+		if (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 				or (not NWB.db.global.receiveGuildDataOnly)
 				or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) then
 			if (validKeys[k] and tonumber(v)) then
@@ -1074,7 +1197,6 @@ function NWB:receivedData(dataReceived, sender, distribution)
 					end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v)) then
-					
 						if (NWB.isLayered and string.match(k, "flower") and (GetServerTime() - NWB.data[k]) < 1500) then
 							--Don't overwrite songflower timers on layered realms.
 						else
@@ -1084,6 +1206,19 @@ function NWB:receivedData(dataReceived, sender, distribution)
 							end
 							NWB.data[k] = v;
 							hasNewData = true;
+							if (not NWB.isLayered) then
+								NWB:timerLog(k, v, nil, nil, nil, distribution);
+							end
+						end
+					end
+				end
+			elseif (k == "timerLog") then
+				if (enableLogging) then
+					if (NWB:validateTimerLogData(v)) then
+						--Sort from oldest to newest so we don't insert newer entries before old or some inserts may fail the time check.
+						table.sort(v, function(a, b) return a.timestamp < b.timestamp end);
+						for kk, vv in pairs(v) do
+							NWB:timerLog(vv.type, vv.timestamp, vv.layerID, vv.who, nil, distribution);
 						end
 					end
 				end
@@ -1103,8 +1238,8 @@ function NWB:receivedData(dataReceived, sender, distribution)
 		--NWB:debug("new data received", sender, distribution, NWB:isPlayerInGuild(sender));
 		if (distribution ~= "GUILD" and not NWB:isPlayerInGuild(sender)) then
 			--NWB:debug("sending new data");
-			--Don't send layermap when sharing these new timers.
-			NWB:sendData("GUILD", nil, nil, true);
+			--Don't send layermap or logs when sharing these new timers.
+			NWB:sendData("GUILD", nil, nil, true, true);
 		end
 	end
 	--If new flower data received and not freshly picked by guild member (that sends a msg to guild chat already)
@@ -1141,6 +1276,16 @@ function NWB:validateData(data)
 	--if (tonumber(data["nefTimer"]) and (not tonumber(data["nefYell"]) or not tonumber(data["nefYell2"]))) then
 	if (tonumber(data["nefTimer"]) and (not tonumber(data["nefYell"]))) then
 		return;
+	end
+	return true;
+end
+
+--Make sure each log entry has a valid timestamp so there's no lua errors when sorting data.
+function NWB:validateTimerLogData(data)
+	for k, v in pairs(data) do
+		if (not v.timestamp or not tonumber(v.timestamp)) then
+			return false;
+		end
 	end
 	return true;
 end
@@ -1222,6 +1367,11 @@ local shortKeys = {
 	["C"] = "nefSource",
 	["D"] = "nefNpcDied",
 	["E"] = "lastSeenNPC",
+	["F"] = "timerLog",
+	["G"] = "type",
+	["H"] = "timestamp",
+	["I"] = "layerID",
+	["J"] = "who",
 	["f1"] = "flower1",
 	["f2"] = "flower2",
 	["f3"] = "flower3",
@@ -1365,4 +1515,584 @@ function NWB:convertKeys(table, shorten, distribution)
 		end
 	end
 	return data;
+end
+
+
+---New log testing so rend history can be seen after the hotfix that broke timers.
+--Timers are just inserted into the log so they are often out of order by timestamp.
+--There are only a max of 3 timers per layer so as long as the total timers active on the server are less than the log trim it's fine.
+
+--This was originally written to log all buffs, but I think only rend matters.
+--There is a variable above logRendOnly enabled for now.
+function NWB:timerLog(type, timestamp, layer, who, forceSend, distribution)
+	if (not enableLogging) then
+		return;
+	end
+	if (logLayeredServersOnly and not NWB.isLayered) then
+		return;
+	end
+	--Logging directly from timers received come as the full rendTimer after convertKeys converts them to full name.
+	--Logging pulled from other peoples logs comes as shorter keys to make data transmission smaller.
+	if (type == "r") then
+		type = "rendTimer";
+	elseif (type == "o") then
+		type = "onyTimer";
+	elseif (type == "n") then
+		type = "nefTimer";
+	end
+	--Allow through if rend timer, or if layered realm and other times are enabled, or any timer if non-layered realm.
+	if (((type == "rendTimer" or type == "q") or ((not logRendOnly or not NWB.isLayered) and (type == "onyTimer" or type == "nefTimer")))
+			and tonumber(timestamp)) then
+		local newQuestHandIn;
+		local shortKey;
+		--Use short keys for data storage and data sharing.
+		if (type == "rendTimer") then
+			shortKey = "r";
+		elseif (type == "onyTimer") then
+			shortKey = "o";
+		elseif (type == "nefTimer") then
+			shortKey = "n";
+		else
+			shortKey = type;
+		end
+		local lastEntry = 0;
+		for k, v in ipairs(NWB.data.timerLog) do
+			--Get the last log entry for this type so we can make sure to not get any duplicate timestamps within a minute.
+			if (v.type == shortKey and v.layerID == layer) then
+				lastEntry = v.timestamp;
+				break;
+			end
+		end
+		local cooldown = 60;
+		--if (type == "q") then
+			--If it's a hand in make don't overwrite for almost as long as the 3h rend cooldown 10800 seconds.
+		--	cooldown = 10600
+		--end
+		if (((NWB.data.layers[layer] and (NWB.data.layers[layer][type] or type == "q")) or (not NWB.isLayered and NWB.data[type]))
+				--The data received isn't ordered by timestamp so we have to check if it's within cooldown both ways.
+				--and (timestamp > (lastEntry + cooldown) or timestamp < (lastEntry - cooldown))
+				--Ignore above, this was changed to sort when received instead.
+				--and timestamp > (lastEntry + cooldown)
+				and NWB:validateCloseLogEntries(shortKey, timestamp, layer, cooldown)
+				and NWB:validateTimestamp(timestamp)) then
+			local t = {
+				type = shortKey,
+				timestamp = timestamp,
+			};
+			if (who) then
+				t.who = who;
+			end
+			if (layer) then
+				t.layerID = layer;
+			end
+			if (NWB:GetLayerCount() > 1) then
+				t.layerNum = NWB:GetLayerNum(layer);
+			end
+			table.insert(NWB.data.timerLog, 1, t);
+			NWB:debug("logging", type, timestamp);
+			if (type == "q") then
+				--New quest hand in received, share with guild.
+				newQuestHandIn = true;
+			end
+		end
+		if ((distribution ~= "GUILD" and newQuestHandIn) or forceSend) then
+			--Gather all the new log entries from a single receivedData event before pushing to guild.
+			NWB:throddleEventByFunc("newLogData", 2, "sendNewTimeLogData");
+			--NWB:sendTimerLogData("GUILD");
+		end
+	end
+end
+
+function NWB:validateCloseLogEntries(shortKey, timestamp, layer, cooldown)
+	local count = 0;
+	for k, v in ipairs(NWB.data.timerLog) do
+		--Check the last few logs entry for this type so we can make sure to not get any duplicate timestamps within a minute.
+		if (v.type == shortKey and (v.layerID == layer or not layer)) then
+			count = count + 1;
+			if (timestamp > (v.timestamp + cooldown) or timestamp < (v.timestamp - cooldown)) then
+				--NWB:debug("safe");
+			else
+				--NWB:debug("unsafe")
+				return false;
+			end
+			if (count >= 20) then
+				break;
+			end
+		end
+	end
+	return true;
+end
+
+function NWB:sendNewTimeLogData()
+	NWB:sendTimerLogData("GUILD");
+end
+
+--Run at logon.
+function NWB:trimTimerLog()
+	for i, v in pairs(NWB.data.timerLog) do
+		if (i > 200) then
+			table.remove(NWB.data.timerLog, i);
+		elseif (not v.type or not v.timestamp or not v.layerID) then
+			table.remove(NWB.data.timerLog, i);
+		end
+	end
+end
+
+function NWB:resetTimerLog()
+	NWB.data.timerLog = {};
+end
+
+local NWBTimerLogFrame = CreateFrame("ScrollFrame", "NWBTimerLogFrame", UIParent, "InputScrollFrameTemplate");
+NWBTimerLogFrame:Hide();
+NWBTimerLogFrame:SetToplevel(true);
+NWBTimerLogFrame:SetMovable(true);
+NWBTimerLogFrame:EnableMouse(true);
+tinsert(UISpecialFrames, "NWBTimerLogFrame");
+NWBTimerLogFrame:SetPoint("CENTER", UIParent, 0, 100);
+NWBTimerLogFrame:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8x8",insets = {top = 0, left = 0, bottom = 0, right = 0}});
+NWBTimerLogFrame:SetBackdropColor(0,0,0,.5);
+NWBTimerLogFrame.CharCount:Hide();
+NWBTimerLogFrame:SetFrameStrata("HIGH");
+NWBTimerLogFrame.EditBox:SetAutoFocus(false);
+NWBTimerLogFrame.EditBox:SetScript("OnKeyDown", function(self, arg)
+	--If control key is down keep focus for copy/paste to work.
+	--Otherwise remove focus so "enter" can be used to open chat and not have a stuck cursor on this edit box.
+	if (not IsControlKeyDown()) then
+		NWBTimerLogFrame.EditBox:ClearFocus();
+	end
+end)
+NWBTimerLogFrame.EditBox:SetScript("OnShow", function(self, arg)
+	NWBTimerLogFrame:SetVerticalScroll(0);
+end)
+local versionUpdateTime = 0;
+NWBTimerLogFrame:HookScript("OnUpdate", function(self, arg)
+	--Only update once per second.
+	if (GetServerTime() - versionUpdateTime > 0 and self:GetVerticalScrollRange() == 0) then
+		NWB:recalclayerFrame();
+		versionUpdateTime = GetServerTime();
+	end
+end)
+NWBTimerLogFrame.fs = NWBTimerLogFrame:CreateFontString("NWBTimerLogFrameFS", "HIGH");
+NWBTimerLogFrame.fs:SetPoint("TOP", 0, -0);
+NWBTimerLogFrame.fs:SetFont(NWB.regionFont, 14);
+NWBTimerLogFrame.fs:SetText("|cFFFFFF00NovaWorldBuffs Timer Log|r");
+
+local NWBTimerLogDragFrame = CreateFrame("Frame", "NWBTimerLogDragFrame", NWBTimerLogFrame);
+NWBTimerLogDragFrame:SetToplevel(true);
+NWBTimerLogDragFrame:EnableMouse(true);
+NWBTimerLogDragFrame:SetWidth(205);
+NWBTimerLogDragFrame:SetHeight(18);
+NWBTimerLogDragFrame:SetPoint("TOP", 0, 4);
+NWBTimerLogDragFrame:SetFrameLevel(131);
+NWBTimerLogDragFrame.tooltip = CreateFrame("Frame", "NWBTimerLogDragTooltip", NWBTimerLogDragFrame, "TooltipBorderedFrameTemplate");
+NWBTimerLogDragFrame.tooltip:SetPoint("CENTER", NWBTimerLogDragFrame, "TOP", 0, 12);
+NWBTimerLogDragFrame.tooltip:SetFrameStrata("TOOLTIP");
+NWBTimerLogDragFrame.tooltip:SetFrameLevel(9);
+NWBTimerLogDragFrame.tooltip:SetAlpha(.8);
+NWBTimerLogDragFrame.tooltip.fs = NWBTimerLogDragFrame.tooltip:CreateFontString("NWBTimerLogDragTooltipFS", "HIGH");
+NWBTimerLogDragFrame.tooltip.fs:SetPoint("CENTER", 0, 0.5);
+NWBTimerLogDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+NWBTimerLogDragFrame.tooltip.fs:SetText("Hold to drag");
+NWBTimerLogDragFrame.tooltip:SetWidth(NWBTimerLogDragFrame.tooltip.fs:GetStringWidth() + 16);
+NWBTimerLogDragFrame.tooltip:SetHeight(NWBTimerLogDragFrame.tooltip.fs:GetStringHeight() + 10);
+NWBTimerLogDragFrame:SetScript("OnEnter", function(self)
+	NWBTimerLogDragFrame.tooltip:Show();
+end)
+NWBTimerLogDragFrame:SetScript("OnLeave", function(self)
+	NWBTimerLogDragFrame.tooltip:Hide();
+end)
+NWBTimerLogDragFrame.tooltip:Hide();
+NWBTimerLogDragFrame:SetScript("OnMouseDown", function(self, button)
+	if (button == "LeftButton" and not self:GetParent().isMoving) then
+		self:GetParent().EditBox:ClearFocus();
+		self:GetParent():StartMoving();
+		self:GetParent().isMoving = true;
+	end
+end)
+NWBTimerLogDragFrame:SetScript("OnMouseUp", function(self, button)
+	if (button == "LeftButton" and self:GetParent().isMoving) then
+		self:GetParent():StopMovingOrSizing();
+		self:GetParent().isMoving = false;
+	end
+end)
+NWBTimerLogDragFrame:SetScript("OnHide", function(self)
+	if (self:GetParent().isMoving) then
+		self:GetParent():StopMovingOrSizing();
+		self:GetParent().isMoving = false;
+	end
+end)
+
+--Top right X close button.
+local NWBTimerLogFrameClose = CreateFrame("Button", "NWBTimerLogFrameClose", NWBTimerLogFrame, "UIPanelCloseButton");
+NWBTimerLogFrameClose:SetPoint("TOPRIGHT", -5, 8.6);
+NWBTimerLogFrameClose:SetWidth(31);
+NWBTimerLogFrameClose:SetHeight(31);
+NWBTimerLogFrameClose:SetScript("OnClick", function(self, arg)
+	NWBTimerLogFrame:Hide();
+end)
+
+--Config button.
+local NWBTimerLogRefreshButton = CreateFrame("Button", "NWBTimerLogRefreshButton", NWBTimerLogFrameClose, "UIPanelButtonTemplate");
+NWBTimerLogRefreshButton:SetPoint("CENTER", -68, -1);
+NWBTimerLogRefreshButton:SetWidth(90);
+NWBTimerLogRefreshButton:SetHeight(17);
+NWBTimerLogRefreshButton:SetText(L["Refresh"]);
+NWBTimerLogRefreshButton:SetNormalFontObject("GameFontNormalSmall");
+NWBTimerLogRefreshButton:SetScript("OnClick", function(self, arg)
+	NWB:recalcTimerLogFrame();
+	NWBTimerLogFrame:SetVerticalScroll(0);
+	C_Timer.After(0.05, function()
+		NWBTimerLogFrame:SetVerticalScroll(0);
+	end)
+	C_Timer.After(0.2, function()
+		NWBTimerLogFrame:SetVerticalScroll(0);
+	end)
+end)
+NWBTimerLogRefreshButton:SetScript("OnMouseDown", function(self, button)
+	if (button == "LeftButton" and not self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent().EditBox:ClearFocus();
+		self:GetParent():GetParent():StartMoving();
+		self:GetParent():GetParent().isMoving = true;
+	end
+end)
+NWBTimerLogRefreshButton:SetScript("OnMouseUp", function(self, button)
+	if (button == "LeftButton" and self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent():StopMovingOrSizing();
+		self:GetParent():GetParent().isMoving = false;
+	end
+end)
+NWBTimerLogRefreshButton:SetScript("OnHide", function(self)
+	if (self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent():StopMovingOrSizing();
+		self:GetParent():GetParent().isMoving = false;
+	end
+end)
+
+function NWB:openTimerLogFrame()
+	if (not enableLogging) then
+		return;
+	end
+	if (logLayeredServersOnly and not NWB.isLayered) then
+		return;
+	end
+	NWBTimerLogFrame.fs:SetFont(NWB.regionFont, 14);
+	if (NWBTimerLogFrame:IsShown()) then
+		NWBTimerLogFrame:Hide();
+	else
+		if (not logRendOnly or not NWB.isLayered) then
+			NWB:createTimerLogCheckboxes();
+		else
+			NWBTimerLogFrame.fs:SetText("|cFFFFFF00NovaWorldBuffs Rend Log|r");
+		end
+		NWB:createTimerLogMergeLayersCheckbox();
+		NWBTimerLogFrame:SetHeight(300);
+		NWBTimerLogFrame:SetWidth(590);
+		local fontSize = false
+		NWBTimerLogFrame.EditBox:SetFont(NWB.regionFont, 14);
+		NWBTimerLogFrame.EditBox:SetWidth(NWBTimerLogFrame:GetWidth() - 30);
+		NWBTimerLogFrame:Show();
+		NWB:recalcTimerLogFrame();
+		--Changing scroll position requires a slight delay.
+		--Second delay is a backup.
+		C_Timer.After(0.05, function()
+			NWBTimerLogFrame:SetVerticalScroll(0);
+		end)
+		C_Timer.After(0.3, function()
+			NWBTimerLogFrame:SetVerticalScroll(0);
+		end)
+		--So interface options and this frame will open on top of each other.
+		if (InterfaceOptionsFrame:IsShown()) then
+			NWBTimerLogFrame:SetFrameStrata("DIALOG")
+		else
+			NWBTimerLogFrame:SetFrameStrata("HIGH")
+		end
+	end
+end
+
+function NWB:setLayerFrameTimerLogButtonText()
+	if (not NWBlayerFrameTimerLogButton) then
+		return;
+	end
+	if (not logRendOnly or not NWB.isLayered) then
+		NWBlayerFrameTimerLogButton:SetText("Timer Log");
+	else
+		NWBlayerFrameTimerLogButton:SetText("Rend Log");
+	end
+end
+
+function NWB:recalcTimerLogFrame()
+	NWBTimerLogFrame.EditBox:SetText("\n\n\n");
+	if (type(NWB.data.timerLog) ~= "table" or not next(NWB.data.timerLog)) then
+		NWBTimerLogFrame.EditBox:Insert("|cffFFFF00No timer logs found.\n");
+	else
+		local sorted = {}
+		for k, v in ipairs(NWB.data.timerLog) do
+		    table.insert(sorted, v)
+		end
+		table.sort(sorted, function(a, b) return a.timestamp > b.timestamp end);
+		local text = "";
+		local layers = {};
+		local lineCount = 0;
+		for k, v in ipairs(sorted) do
+			if ((NWB.db.global.timerLogShowRend and (v.type == "r" or v.type == "q")) or
+					(NWB.db.global.timerLogShowOny and v.type == "o" and (not logRendOnly or not NWB.isLayered)) or
+					(NWB.db.global.timerLogShowNef and v.type == "n" and (not logRendOnly or not NWB.isLayered))) then
+				local line = "";
+				local layerText = "";
+				local layerNumText = "";
+				local layerNum = 0;
+				if (NWB.isLayered) then
+					layerNum = NWB:GetLayerNum(v.layerID);
+				end
+				if (layerNum == 0 and v.layerNum) then
+					layerNum = v.layerNum;
+				end
+				local keyText = "unknownTimer";
+				if (v.type == "r") then
+					keyText = "|cffFFFF00Rend|r";
+				elseif (v.type == "o") then
+					keyText = "|cffFFFF00Onyxia|r";
+				elseif (v.type == "n") then
+					keyText = "|cffFFFF00Nefarian|r";
+				elseif (v.type == "q") then
+					keyText = "|cffFFFF00Rend handed in by " .. v.who .. "|r";
+				end
+				local timeText = NWB:getTimeFormat(v.timestamp, true, true);
+				local space = "";
+				local _, n = string.gsub(timeText, "%d", " ");
+				if (n < 4) then
+					--Make things line up a little better with shorter times.
+					space = "  ";
+				end
+				local agoText = " |cff9CD6DE(Dropped "
+						.. NWB:getTimeString(GetServerTime() - v.timestamp, true, NWB.db.global.timeStringType) .. " ago)|r";
+				if (v.type == "q") then
+					agoText = " |cff9CD6DE("
+							.. NWB:getTimeString(GetServerTime() - v.timestamp, true, NWB.db.global.timeStringType) .. " ago)|r";
+				end
+				--If the next line is the same time within a few seconds and same drop type then merge the msgs together.
+				if (NWB.db.global.timerLogMergeLayers and sorted[k + 1] and sorted[k + 1].timestamp
+						and sorted[k + 1].layerID and sorted[k + 1].type == v.type
+						and (sorted[k + 1].timestamp < (v.timestamp + 30) and sorted[k + 1].timestamp > (v.timestamp - 30))) then
+					layers[layerNum] = true;
+					layers[NWB:GetLayerNum(sorted[k + 1].layerID)] = true;
+				elseif (NWB.db.global.timerLogMergeLayers and sorted[k + 2] and sorted[k + 2].timestamp
+						and sorted[k + 2].layerID and sorted[k + 2].type == v.type
+						and (sorted[k + 2].timestamp < (v.timestamp + 30) and sorted[k + 2].timestamp > (v.timestamp - 30))) then
+					--Check the 2nd next in line also incase the first in line is a rend quest hand in event
+					--in between the 2 diff layer rend drop timers.
+					layers[layerNum] = true;
+					layers[NWB:GetLayerNum(sorted[k + 2].layerID)] = true;
+				else
+					if (next(layers) and v.type ~= "q") then
+						--Decided to scrap showing which layers it dropped on and just call it "All Layers".
+						--[[local layerString = "";
+						local layerStringCount = 0;
+						for k, v in NWB:pairsByKeys(layers) do
+							layerStringCount = layerStringCount + 1;
+							if (layerStringCount == 1) then
+								layerString = layerString .. k .. "";
+							else
+								layerString = layerString .. "+" .. k;
+							end
+						end
+						layerText = "|cff00ff00[Layers " .. layerString .. "]|r ";]]
+						layerText = "|cff00ff00[All Layers]|r ";
+						layers = {};
+					elseif (NWB.isLayered) then
+						layerText = "|cff00ff00[Layer " .. layerNum .. "]|r ";
+					end
+					local timeLeftString = "";
+					if (v.type == "r") then
+						local timeLeft = NWB.db.global.rendRespawnTime - (GetServerTime() - v.timestamp);
+						if (timeLeft > 0) then
+							timeLeftString = " |cFFB0B0B0(Cooldown " .. NWB:getTimeString(timeLeft, true, "short", true) .. ")|r";
+						end
+					end
+					if (v.type == "q") then
+						layerNumText = "|cFF989898(zone " .. v.layerID .. ")|r ";
+					end
+					lineCount = lineCount + 1;
+					line = lineCount .. ") |cFFFFAE42" .. timeText .. space .. "|r " .. layerText .. layerNumText .. keyText
+						.. agoText .. timeLeftString .. "\n";
+					text = text .. line;
+					--layers = {};
+				end
+			end
+		end
+		NWBTimerLogFrame.EditBox:Insert(text);
+	end
+end
+
+local f = CreateFrame("Frame");
+NWB.rendHandIn = nil;
+NWB.rendHandInTime = 0;
+f:RegisterEvent("QUEST_TURNED_IN");
+f:SetScript('OnEvent', function(self, event, ...)
+	if (event == "QUEST_TURNED_IN") then
+		--if (logLayeredServersOnly and not NWB.isLayered) then
+		--No need to log hand in data on non-layered realms.
+		if (not enableLogging or not NWB.isLayered) then
+			return;
+		end
+		local questID = ...;
+		if (questID == 4974) then
+			local GUID = UnitGUID("npc");
+			local unitType, zoneID, npcID;
+			if (GUID) then
+				unitType, _, _, _, zoneID, npcID = strsplit("-", GUID);
+			end
+			zoneID = tonumber(zoneID);
+			if (zoneID) then
+				NWB.rendHandIn = zoneID;
+				NWB.rendHandInTime = GetServerTime();
+				--If we hand in and a yell comes within the next 15 seconds record an entry.
+				C_Timer.After(20, function()
+					NWB:debug("clearing quest hand in data", NWB.rendHandIn, NWB.rendHandInTime);
+					NWB.rendHandIn = nil
+					NWB.rendHandInTime = 0;
+				end)
+			end
+		end
+	end
+end)
+
+function NWB:createTimerLogCheckboxes()
+	if (not NWB.timerLogShowRendButton) then
+		NWB.timerLogShowRendButton = CreateFrame("CheckButton", "NWBtimerLogShowRendButton", NWBTimerLogFrame.EditBox, "ChatConfigCheckButtonTemplate");
+		NWB.timerLogShowRendButton:SetPoint("TOPLEFT", 5, -16);
+		--So strange the way to set text is to append Text to the global frame name.
+		NWBtimerLogShowRendButtonText:SetText("Show Rend");
+		NWB.timerLogShowRendButton.tooltip = "Show Rend drops?";
+		NWB.timerLogShowRendButton:SetFrameStrata("HIGH");
+		NWB.timerLogShowRendButton:SetFrameLevel(3);
+		NWB.timerLogShowRendButton:SetWidth(24);
+		NWB.timerLogShowRendButton:SetHeight(24);
+		NWB.timerLogShowRendButton:SetChecked(NWB.db.global.timerLogShowRend);
+		NWB.timerLogShowRendButton:SetScript("OnClick", function()
+			local value = NWB.timerLogShowRendButton:GetChecked();
+			NWB.db.global.timerLogShowRend = value;
+			NWB:recalcTimerLogFrame()
+			--Refresh the config page.
+			NWB.acr:NotifyChange("NovaWorldBuffs");
+		end)
+	end
+	if (not NWB.timerLogShowOnyButton) then
+		NWB.timerLogShowOnyButton = CreateFrame("CheckButton", "NWBtimerLogShowOnyButton", NWBTimerLogFrame.EditBox, "ChatConfigCheckButtonTemplate");
+		NWB.timerLogShowOnyButton:SetPoint("TOPLEFT", 110, -16);
+		--So strange the way to set text is to append Text to the global frame name.
+		NWBtimerLogShowOnyButtonText:SetText("Show Ony");
+		NWB.timerLogShowOnyButton.tooltip = "Show Onyxia drops?";
+		NWB.timerLogShowOnyButton:SetFrameStrata("HIGH");
+		NWB.timerLogShowOnyButton:SetFrameLevel(4);
+		NWB.timerLogShowOnyButton:SetWidth(24);
+		NWB.timerLogShowOnyButton:SetHeight(24);
+		NWB.timerLogShowOnyButton:SetChecked(NWB.db.global.timerLogShowOny);
+		NWB.timerLogShowOnyButton:SetScript("OnClick", function()
+			local value = NWB.timerLogShowOnyButton:GetChecked();
+			NWB.db.global.timerLogShowOny = value;
+			NWB:recalcTimerLogFrame()
+			--Refresh the config page.
+			NWB.acr:NotifyChange("NovaWorldBuffs");
+		end)
+	end
+	if (not NWB.timerLogShowNefButton) then
+		NWB.timerLogShowNefButton = CreateFrame("CheckButton", "NWBtimerLogShowNefButton", NWBTimerLogFrame.EditBox, "ChatConfigCheckButtonTemplate");
+		NWB.timerLogShowNefButton:SetPoint("TOPLEFT", 215, -16);
+		--So strange the way to set text is to append Text to the global frame name.
+		NWBtimerLogShowNefButtonText:SetText("Show Nef");
+		NWB.timerLogShowNefButton.tooltip = "Show Nefarian drops?";
+		NWB.timerLogShowNefButton:SetFrameStrata("HIGH");
+		NWB.timerLogShowNefButton:SetFrameLevel(5);
+		NWB.timerLogShowNefButton:SetWidth(24);
+		NWB.timerLogShowNefButton:SetHeight(24);
+		NWB.timerLogShowNefButton:SetChecked(NWB.db.global.timerLogShowNef);
+		NWB.timerLogShowNefButton:SetScript("OnClick", function()
+			local value = NWB.timerLogShowNefButton:GetChecked();
+			NWB.db.global.timerLogShowNef = value;
+			NWB:recalcTimerLogFrame()
+			--Refresh the config page.
+			NWB.acr:NotifyChange("NovaWorldBuffs");
+		end)
+	end
+end
+
+function NWB:createTimerLogMergeLayersCheckbox()
+	if (not NWB.timerLogMergeLayersButton) then
+		NWB.timerLogMergeLayersButton = CreateFrame("CheckButton", "NWBtimerLogMergeLayersButton", NWBTimerLogFrame.EditBox, "ChatConfigCheckButtonTemplate");
+		NWB.timerLogMergeLayersButton:SetPoint("TOPLEFT", 5, 0);
+		--So strange the way to set text is to append Text to the global frame name.
+		NWBtimerLogMergeLayersButtonText:SetText("Merge Layers");
+		NWB.timerLogMergeLayersButton.tooltip = "If multiple layers have the same timer this will merge them into [All Layers] instead of showing them separately.";
+		NWB.timerLogMergeLayersButton:SetFrameStrata("HIGH");
+		NWB.timerLogMergeLayersButton:SetFrameLevel(3);
+		NWB.timerLogMergeLayersButton:SetWidth(24);
+		NWB.timerLogMergeLayersButton:SetHeight(24);
+		NWB.timerLogMergeLayersButton:SetChecked(NWB.db.global.timerLogMergeLayers);
+		NWB.timerLogMergeLayersButton:SetScript("OnClick", function()
+			local value = NWB.timerLogMergeLayersButton:GetChecked();
+			NWB.db.global.timerLogMergeLayers = value;
+			NWB:recalcTimerLogFrame()
+			--Refresh the config page.
+			NWB.acr:NotifyChange("NovaWorldBuffs");
+		end)
+	end
+end
+
+function NWB:createLayerFrameTimerLogButton()
+	if (enableLogging and (not logLayeredServersOnly or NWB.isLayered)) then
+		--Timer log button.
+		local NWBlayerFrameTimerLogButton = CreateFrame("Button", "NWBlayerFrameTimerLogButton", NWBlayerFrameClose, "UIPanelButtonTemplate");
+		NWBlayerFrameTimerLogButton:SetPoint("CENTER", -58, -42);
+		NWBlayerFrameTimerLogButton:SetWidth(90);
+		NWBlayerFrameTimerLogButton:SetHeight(17);
+		NWBlayerFrameTimerLogButton:SetText("Timer Log");
+		NWBlayerFrameTimerLogButton:SetNormalFontObject("GameFontNormalSmall");
+		NWBlayerFrameTimerLogButton:SetScript("OnClick", function(self, arg)
+			NWB:openTimerLogFrame();
+		end)
+		NWBlayerFrameTimerLogButton:SetScript("OnMouseDown", function(self, button)
+			if (button == "LeftButton" and not self:GetParent():GetParent().isMoving) then
+				self:GetParent():GetParent().EditBox:ClearFocus();
+				self:GetParent():GetParent():StartMoving();
+				self:GetParent():GetParent().isMoving = true;
+			end
+		end)
+		NWBlayerFrameTimerLogButton:SetScript("OnMouseUp", function(self, button)
+			if (button == "LeftButton" and self:GetParent():GetParent().isMoving) then
+				self:GetParent():GetParent():StopMovingOrSizing();
+				self:GetParent():GetParent().isMoving = false;
+			end
+		end)
+		NWBlayerFrameTimerLogButton:SetScript("OnHide", function(self)
+			if (self:GetParent():GetParent().isMoving) then
+				self:GetParent():GetParent():StopMovingOrSizing();
+				self:GetParent():GetParent().isMoving = false;
+			end
+		end)
+	end
+end
+
+--Throddle by function name, delays functions being run until it's finished being called within a time period.
+--Used mostly to supress data syncing until all data is gathered and ready to be sent in one go.
+local throddle = true;
+NWB.currentThroddles = {};
+function NWB:throddleEventByFunc(event, time, func, ...)
+	if (throddle and NWB.currentThroddles[func] == nil) then
+		--Must be false and not nil.
+		NWB.currentThroddles[func] = ... or false;
+		C_Timer.After(time, function()
+			self[func](self, NWB.currentThroddles[func]);
+			NWB.currentThroddles[func] = nil;
+		end)
+	elseif (not throddle) then
+		self[func](...);
+	end
+end
+
+--Disabled on asian realms with higher layer counts until this is tested properly on the US/EU 2 layer limit realms.
+function NWB:setLoggingState()
+	if (NWB.cnRealms[NWB.realm] or NWB.twRealms[NWB.realm] or NWB.krRealms[NWB.realm]) then
+		enableLogging = false;
+	end
 end

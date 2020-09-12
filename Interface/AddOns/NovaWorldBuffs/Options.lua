@@ -157,13 +157,21 @@ NWB.options = {
 			get = "getMinimapButton",
 			set = "setMinimapButton",
 		},
-		showBuffDtats = {
+		showBuffStats = {
 			type = "toggle",
 			name = L["showBuffStatsTitle"],
 			desc = L["showBuffStatsDesc"],
 			order = 21,
 			get = "getShowBuffStats",
 			set = "setShowBuffStats",
+		},
+		minimapLayerHover = {
+			type = "toggle",
+			name = L["minimapLayerHoverTitle"],
+			desc = L["minimapLayerHoverDesc"],
+			order = 22,
+			get = "getMinimapLayerHover",
+			set = "setMinimapLayerHover",
 		},
 		logonHeader = {
 			type = "header",
@@ -1076,6 +1084,11 @@ NWB.optionDefaults = {
 		autoDireMaulBuff = true,
 		autoBwlPortal = true,
 		showBuffStats = false,
+		minimapLayerHover = false,
+		timerLogShowRend = true,
+		timerLogShowOny = true,
+		timerLogShowNef = true,
+		timerLogMergeLayers = true,
 		
 		resetLayers4 = true, --Reset layers one time (sometimes needed when upgrading from old version.
 		resetSongflowers = true, --Reset songflowers one time.
@@ -1159,6 +1172,9 @@ function NWB:buildRealmFactionData()
 	end
 	if (not self.db.global[NWB.realm][NWB.faction].layersDisabled) then
 			self.db.global[NWB.realm][NWB.faction].layersDisabled = {};
+	end
+	if (not self.db.global[NWB.realm][NWB.faction].timerLog) then
+			self.db.global[NWB.realm][NWB.faction].timerLog = {};
 	end
 	local localizedClass, englishClass = UnitClass("player");
 	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].localizedClass = localizedClass;
@@ -2269,4 +2285,18 @@ end
 
 function NWB:getAutoBwlPortal(info)
 	return self.db.global.autoBwlPortal;
+end
+
+--Show minimap layer frame on mouseover only.
+function NWB:setMinimapLayerHover(info, value)
+	self.db.global.minimapLayerHover = value;
+	if (not value and NWB.minimapLayerFrameState) then
+		MinimapLayerFrame:Show();
+	elseif (value) then
+		MinimapLayerFrame:Hide();
+	end
+end
+
+function NWB:getMinimapLayerHover(info)
+	return self.db.global.minimapLayerHover;
 end

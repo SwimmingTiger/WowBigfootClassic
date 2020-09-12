@@ -548,3 +548,8 @@ L["enableLayerButton"] = "Enable Layer";
 L["disableLayerButton"] = "Disable Layer";
 L["enableLayerButtonTooltip"] = "Click to re-enable this layer,\nIt will be put back into timer and layer calcs.";
 L["disableLayerButtonTooltip"] = "Click to disable this old layer after server restarts.\nIt will be ignored by the addon and removed later.";
+
+L["minimapLayerHoverTitle"] = "Minimap Mouseover";
+L["minimapLayerHoverDesc"] = "Only show the minimap layer number frame when you hover the mouse over the minimap?";
+
+L["Blackrock Mountain"] = "Blackrock Mountain";

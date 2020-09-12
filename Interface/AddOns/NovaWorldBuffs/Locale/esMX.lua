@@ -431,3 +431,5 @@ L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in t
 L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
 L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
 L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+
+L["Blackrock Mountain"] = "Montaña Roca Negra";

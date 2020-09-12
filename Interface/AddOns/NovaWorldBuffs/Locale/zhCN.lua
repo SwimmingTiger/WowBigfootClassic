@@ -548,6 +548,8 @@ L["disableLayerButton"] = "禁用位面";
 L["enableLayerButtonTooltip"] = "单击以重新启用此位面。\n此位面将被重新放回计时器和位面计算中。";
 L["disableLayerButtonTooltip"] = "在服务器重启后，单击以禁用此位面。\n插件将忽略此位面并在稍后将其删除。";
 
+L["Blackrock Mountain"] = "黑石山";
+
 ---Aoikaze
 
 L["Target a NPC to\nupdate your layer"] = "选择一个NPC\n更新位面信息"
@@ -597,7 +599,7 @@ L["(Onyxia: NPC (Runthak) was killed "] = "(奥妮克希亚：伦萨克已死亡
 L["(Onyxia: NPC (Mattingly) was killed "] = "(奥妮克希亚：玛丁雷已死亡"
 L["(Nefarian: NPC (Saurfang) was killed "] = "(奈法利安：萨鲁法尔已死亡"
 L["(Nefarian: NPC (Afrasiabi) was killed "] = "(奈法利安：艾法希比已死亡"
-L[" ago no buff recorded since) "] = "，至今无Buff释放记录）"
+L[" ago no buff recorded since"] = "，至今无Buff释放记录"
 
 L[" (Layer "] = "(位面"
 L[" of "] = "/"
@@ -636,3 +638,4 @@ L["\n|cFF989898[Layer Disabled]  (zone "] = "\n|cFF989898[位面已禁用](区�
 L["|cFFFFFF00Looking for layered timers to convert."] = "|cFFFFFF00寻找可以转换的位面计时器。"
 
 L["No timers found."] = "未找到计时器。"
+L["."] = "。"

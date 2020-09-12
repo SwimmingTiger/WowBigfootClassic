@@ -544,3 +544,5 @@ L["enableLayerButton"] = "啟動鏡像";
 L["disableLayerButton"] = "關閉鏡像";
 L["enableLayerButtonTooltip"] = "點擊以重新啟動鏡像,\n這將會將鏡像計時及圖層計算放回去。";
 L["disableLayerButtonTooltip"] = "在伺服器重開之後，後點擊取消舊的鏡像。\n這將會忽略這個插件移除鏡像。";
+
+L["Blackrock Mountain"] = "黑石山";
