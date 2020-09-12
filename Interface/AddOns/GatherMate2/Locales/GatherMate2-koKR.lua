@@ -1,6 +1,6 @@
 -- GatherMate Locale
 -- Please use the Localization App on WoWAce to Update this
--- http://www.wowace.com/projects/gathermate2/localization
+-- http://www.wowace.com/projects/gathermate2-classic/localization/
 
 local L = LibStub("AceLocale-3.0"):NewLocale("GatherMate2", "koKR")
 if not L then return end
@@ -111,7 +111,7 @@ L["GatherMateData has been imported."] = "GatherMate 데이터가 추가되었�
 L["General"] = "일반 설정"
 L["Herb Bushes"] = "약초"
 L["Herb filter"] = "약초 분류"
-L["Herbalism"] = "약초채집"
+L["Herbalism"] = "약초 채집"
 L["Icon Alpha"] = "아이콘 투명도"
 L["Icon alpha value, this lets you change the transparency of the icons. Only applies on World Map."] = "아이콘의 투명도를 조절합니다. 세계 지도에만 적용됩니다."
 L["Icon Scale"] = "아이콘 크기"
@@ -330,6 +330,7 @@ NL["Giant Mantis Shrimp Swarm"] = "거대 사마귀 새우 떼"
 NL["Glacial Salmon School"] = "빙하연어 떼"
 NL["Glassfin Minnow School"] = "유리지느러미 송사리 떼"
 NL["Gleaming Draenic Chest"] = "빛나는 드레나이 궤짝"
+NL["Glimmering Chest"] = "희미하게 빛나는 상자"
 NL["Glowcap"] = "초롱버섯"
 NL["Glowing Tome"] = "빛을 발하는 책"
 NL["Gold Vein"] = "금 광맥"
@@ -397,6 +398,7 @@ NL["Mana-Infused Gem"] = "마나 깃든 보석"
 NL["Mantid Archaeology Find"] = "사마귀 고고학 발굴품"
 NL["Maplewood Treasure Chest"] = "은행나무 보물 상자"
 NL["Mauve Stinger School"] = "보랏빛 해파리 떼"
+NL["Mechanized Chest"] = "기계 상자"
 NL["Mithril Deposit"] = "미스릴 광맥"
 NL["Mixed Ocean School"] = "각종 바닷물고기 떼"
 NL["Mogu Archaeology Find"] = "모구 고고학 발굴품"

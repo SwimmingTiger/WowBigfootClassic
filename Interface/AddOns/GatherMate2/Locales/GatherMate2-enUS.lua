@@ -1,6 +1,6 @@
 -- GatherMate Locale
 -- Please use the Localization App on WoWAce to Update this
--- http://www.wowace.com/projects/gathermate2/localization/
+-- http://www.wowace.com/projects/gathermate2-classic/localization/
 
 local debug = false
 --[===[@debug@

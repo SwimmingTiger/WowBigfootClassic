@@ -1,6 +1,6 @@
 -- GatherMate Locale
 -- Please use the Localization App on WoWAce to Update this
--- http://www.wowace.com/projects/gathermate2/localization
+-- http://www.wowace.com/projects/gathermate2-classic/localization/
 
 local L = LibStub("AceLocale-3.0"):NewLocale("GatherMate2", "frFR")
 if not L then return end
@@ -444,7 +444,7 @@ NL["Other Archaeology Find"] = "Autre trouvaille archéologique"
 NL["Pandaren Archaeology Find"] = "Trouvaille archéologique pandarène"
 NL["Patch of Elemental Water"] = "Remous d'eau élémentaire"
 NL["Peacebloom"] = "Pacifique"
-NL["Plaguebloom"] = "Chagrinelle"
+NL["Plaguebloom"] = "Fleur de peste"
 NL["Platinum Deposit"] = "Gisement de platine"
 NL["Pool of Fire"] = "Flaque de feu"
 NL["Practice Lockbox"] = "Coffret d'apprentissage"
