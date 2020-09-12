@@ -63,7 +63,11 @@ L:SetMiscLocalization{
 	Frozen	= "is frozen solid",
 	Phase4 	= "begins to crack",
 	Phase5 	= "looks ready to shatter",
-	Phase6 	= "Explodes."
+	Phase6 	= "Explodes.",
+
+	HitsRemain	= "Hits Remaining",
+	Frost		= "Frost",
+	Physical	= "Physical"
 }
 -------------
 -- Huhuran --
@@ -96,7 +100,7 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "Eye Tentacle",
-	WarnClawTentacle		= "Claw Tentacle",
+	WarnClawTentacle2		= "Claw Tentacle",
 	WarnGiantEyeTentacle	= "Giant Eye Tentacle",
 	WarnGiantClawTentacle	= "Giant Claw Tentacle",
 	SpecWarnWeakened		= "C'Thun Weaken!"
@@ -110,7 +114,7 @@ L:SetTimerLocalization{
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "Show warning for Eye Tentacle",
-	WarnClawTentacle		= "Show warning for Claw Tentacle",
+	WarnClawTentacle2		= "Show warning for Claw Tentacle",
 	WarnGiantEyeTentacle	= "Show warning for Giant Eye Tentacle",
 	WarnGiantClawTentacle	= "Show warning for Giant Claw Tentacle",
 	SpecWarnWeakened		= "Show special warning when boss weaken",
@@ -122,7 +126,7 @@ L:SetOptionLocalization{
 	RangeFrame				= "Show range frame (10)"
 }
 L:SetMiscLocalization{
-	Stomach		= "Stomach of C'Thun",
+	Stomach		= "Stomach",
 	Eye			= "Eye of C'Thun",
 	FleshTent	= "Flesh Tentacle",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "weaken",

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200723031938")
+mod:SetRevision("20200909050942")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -115,7 +115,8 @@ function mod:UNIT_DIED(args)
 		if not addsGuidCheck[guid] then
 			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
-			if self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
+			--40, 35, 30, 25, 20, 15, 12, 9, 6, 3
+			if self.vb.addLeft >= 15 and (self.vb.addLeft % 5 == 0) or self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
 				WarnAddsLeft:Show(self.vb.addLeft)
 			end
 		end

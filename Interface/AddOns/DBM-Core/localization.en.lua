@@ -165,15 +165,12 @@ L.VOICE_COUNT_MISSING				= "Countdown voice %d is set to a voice/count pack that
 L.BIG_WIGS							= "BigWigs"
 
 L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date.\n Version %s (%s) is available for download through Curse/Twitch, WoWI, or from the GitHub Releases page"
-L.UPDATEREMINDER_HEADER_ALPHA		= "Your ALPHA version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date.\n You are at least %s test versions behind. It is recommended that DBM users that choose ALPHA versions run the latest ALPHA. Otherwise, they should run latest RELEASE version. Out of date ALPHAs have a stricter version check because they are development versions of " .. L.DBM .. "."
 L.UPDATEREMINDER_FOOTER				= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC		= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
 L.UPDATEREMINDER_DISABLE			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS .. " being too out of date it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
---L.UPDATEREMINDER_NODISABLE		= "WARNING: Your " .. L.DEADLY_BOSS_MODS .. " install is very out of date. While you may have disabled update notification, this message starts to appear after a certain threshold and cannot be disabled. Updating is HIGHLY recommended."
 L.UPDATEREMINDER_HOTFIX				= L.DBM .. " version you are on has known issues during this boss encounter that are corrected if you update to latest release"
 L.UPDATEREMINDER_HOTFIX_ALPHA		= L.DBM .. " version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
 L.UPDATEREMINDER_MAJORPATCH			= "WARNING: Do to your " .. L.DEADLY_BOSS_MODS .. " being out of date, " .. L.DBM .. " has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from deadlybossmods.com or curse as soon as possible."
-L.UPDATEREMINDER_TESTVERSION		= "WARNING: You are using a version of " .. L.DEADLY_BOSS_MODS .. " not intended to be used with this game version. Please make sure you download the appropriate version for your game client from deadlybossmods.com or curse."
 L.VEM								= "WARNING: You are running both " .. L.DEADLY_BOSS_MODS .. " and Voice Encounter Mods. " .. L.DBM .. " will not run in this configuration and therefore will not be loaded."
 L.OUTDATEDPROFILES					= "WARNING: DBM-Profiles not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
 L.OUTDATEDSPELLTIMERS				= "WARNING: DBM-SpellTimers breaks " .. L.DBM .. "and must be disabled for " .. L.DBM .. " to function properly."
@@ -182,7 +179,7 @@ L.VICTORYSOUND						= "WARNING: DBM-VictorySound not compatible with this versio
 L.DPMCORE							= "WARNING: Deadly PvP mods is discontinued and not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
 L.DBMLDB							= "WARNING: DBM-LDB is now built into DBM-Core. While it won't do any harm, it's recommended to remove 'DBM-LDB' from your addons folder"
 L.UPDATE_REQUIRES_RELAUNCH			= "WARNING: This " .. L.DBM .. " update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
-L.OUT_OF_DATE_NAG					= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date. It is recommended you update for this fight so you are not missing an important alert or timer or a yell rest of raid is expecting to see from you."
+L.OUT_OF_DATE_NAG					= "Your version of " .. L.DBM.. " is out-of-date and this specific fight mod has newer features or bug fixes. It is recommended you update for this fight to improve your experience."
 L.CLASSIC_ONLY						= "WARNING: This version of " .. L.DBM .. " is only meant to be used with World of Warcraft: Classic. Uninstall this version and install correct version of " .. L.DBM .. " for Retail WoW."
 
 L.MOVABLE_BAR						= "Drag me!"
@@ -220,8 +217,10 @@ L.RANGERADAR_IN_RANGE_TEXTONE		= "%s (%0.1fy)"--One target
 
 L.INFOFRAME_SHOW_SELF				= "Always show your power"		-- Always show your own power value even if you are below the threshold
 L.INFOFRAME_SETLINES				= "Set max lines"
+L.INFOFRAME_SETCOLS					= "Set max columns"
 L.INFOFRAME_LINESDEFAULT			= "Set by mod"
 L.INFOFRAME_LINES_TO				= "%d lines"
+L.INFOFRAME_COLS_TO					= "%d columns"
 L.INFOFRAME_POWER					= "Power"
 L.INFOFRAME_AGGRO					= "Aggro"
 L.INFOFRAME_MAIN					= "Main:"--Main power

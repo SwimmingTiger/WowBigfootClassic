@@ -94,7 +94,7 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle 	= "Появляются глазные отростки!",
-	WarnClawTentacle	= "Появляется когтещупальце!",
+	WarnClawTentacle2	= "Появляется когтещупальце!",
 	WarnGiantEyeTentacle	= "Появляется гигантский глазной отросток!",
 	WarnGiantClawTentacle	= "Появляется гигантское когтещупальце!",
 	WarnWeakened 		= "К'Тун ослаблен! Бейте его!"

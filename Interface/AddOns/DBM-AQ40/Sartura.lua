@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sartura", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200811204334")
+mod:SetRevision("20200821020339")
 mod:SetCreatureID(15516)
 mod:SetEncounterID(711)
 mod:SetModelID(15583)
@@ -29,7 +29,7 @@ do
 	local Whirlwind, Enrage = DBM:GetSpellInfo(26083), DBM:GetSpellInfo(8269)
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args:IsSpellID(26083) and self:AntiSpam() then--26084
-		if args.spellName == Whirlwind and args:IsSrcTypeHostile() and self:AntiSpam() then--26084
+		if args.spellName == Whirlwind and args:IsSrcTypeHostile() and self:AntiSpam(4, 1) then--26084
 			if self:CheckInterruptFilter(args.sourceGUID, true) and self.Options.SpecWarn26083run then
 				specWarnWhirlwind:Show()
 				specWarnWhirlwind:Play("justrun")

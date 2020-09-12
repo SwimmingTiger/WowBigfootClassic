@@ -20,7 +20,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization({
-	Pull		= "This place is under my protection. The mysteries of the arcane shall remain inviolate."
+	Pull		= "Este lugar está sob minha proteção. Os mistérios do arcano devem permanecer intactos."
 })
 
 -- Taerar (Ashenvale)

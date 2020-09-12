@@ -51,11 +51,11 @@ L:SetGeneralLocalization{
 	name = "Viscidus"
 }
 L:SetWarningLocalization{
-	WarnFreeze	= "Congelar: %d/3",
+	WarnFreeze	= "Congelación: %d/3",
 	WarnShatter	= "Hacerse añicos: %d/3"
 }
 L:SetOptionLocalization{
-	WarnFreeze	= "Anunciar congelar",
+	WarnFreeze	= "Anunciar congelación",
 	WarnShatter	= "Anunciar hacerse añicos"
 }
 L:SetMiscLocalization{
@@ -64,7 +64,7 @@ L:SetMiscLocalization{
 	Frozen	= "no se puede mover!",
 	Phase4 	= "comienza a desmoronarse!",
 	Phase5 	= "parece a punto de hacerse añicos!",
-	Phase6 	= "explota"--Might want to double check this, since no further messages appeared after the previous one.
+	Phase6 	= "explota!"
 }
 -------------
 -- Huhuran --
@@ -97,24 +97,37 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "Tentáculo ocular",
+	WarnClawTentacle2		= "Tentáculo Garral",
+	WarnGiantEyeTentacle	= "Tentáculo ocular gigante",
+	WarnGiantClawTentacle	= "Tentáculo garral gigante",
 	WarnWeakened			= "C'Thun débil",
 	SpecWarnWeakened		= "¡C'Thun está débil!"
 }
 L:SetTimerLocalization{
 	TimerEyeTentacle		= "Siguiente Tentáculo ocular",
+	TimerClawTentacle		= "Siguiente Tentáculo Garral",
+	TimerGiantEyeTentacle	= "Siguiente Tentáculo ocular gigante",
+	TimerGiantClawTentacle	= "Siguiente Tentáculo garral gigante",
 	TimerWeakened			= "Debilidad termina"
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "Mostrar aviso cuando aparezca un Tentáculo ocular",
+	WarnClawTentacle2		= "Mostrar aviso cuando aparezca un Tentáculo Garral",
+	WarnGiantEyeTentacle	= "Mostrar aviso cuando aparezca un Tentáculo ocular gigante",
+	WarnGiantClawTentacle	= "Mostrar aviso cuando aparezca un Tentáculo garral gigante",
 	WarnWeakened			= "Mostrar aviso cuando C'Thun se vuelva débil",
 	SpecWarnWeakened		= "Mostrar aviso especial cuando C'Thun se vuelva débil",
 	TimerEyeTentacle		= "Mostrar temporizador para el siguiente Tentáculo ocular",
+	TimerClawTentacle		= "Mostrar temporizador para el siguiente Tentáculo Garral",
+	TimerGiantEyeTentacle	= "Mostrar temporizador para el siguiente Tentáculo ocular gigante",
+	TimerGiantClawTentacle	= "Mostrar temporizador para el siguiente Tentáculo garral gigante",
 	TimerWeakened			= "Mostrar temporizador para la duración de la debilidad de C'Thun",
 	RangeFrame				= "Mostrar marco de distancia (10 m)"
 }
 L:SetMiscLocalization{
-	Stomach		= "Estómago de C'Thun",
+	Stomach		= "Estómago",
 	Eye			= "Ojo de C'Thun",
+	FleshTent	= "Tentáculo de carne",
 	Weakened 	= "está débil!",
 	NotValid	= "AQ40 parcialmente limpiado. Quedan %s jefes opcionales."
 }

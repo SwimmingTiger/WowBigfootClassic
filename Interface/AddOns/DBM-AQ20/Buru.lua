@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Buru", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817152042")
+mod:SetRevision("20200831224112")
 mod:SetCreatureID(15370)
 mod:SetEncounterID(721)
 mod:SetModelID(15654)
@@ -68,8 +68,7 @@ do
 end
 
 function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
-	if not msg:find(L.PursueEmote) then return end
-	if target then
+	if (msg:find(L.PursueEmote) or msg == L.PursueEmote) and target then
 		target = DBM:GetUnitFullName(target)
 		if target == UnitName("player") then
 			specWarnPursue:Show()

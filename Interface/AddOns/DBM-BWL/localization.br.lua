@@ -146,19 +146,16 @@ L:SetGeneralLocalization{
 L:SetWarningLocalization{
 	WarnAddsLeft		= "%d restante",
 	WarnClassCall		= "Chamada de %s",
-	specwarnClassCall	= "Sua chamada de classe!"
---	WarnClassCall		= "Chamada: %s",
---	WarnPhase			= "Fase %s"
+	specwarnClassCall	= "Chamada da sua classe!"
 }
 L:SetTimerLocalization{
-	TimerClassCall		= "Chamada de %s finalizada"
+	TimerClassCall		= "Chamada de %s acaba"
 }
 L:SetOptionLocalization{
 	TimerClassCall		= "Exibir cronômetro para duração da chamada em cada classe",
 	WarnAddsLeft		= "Anunciar as mortes restantes até a Fase 2",
 	WarnClassCall		= "Exibir aviso para chamadas de classe",
 	specwarnClassCall	= "Exibir aviso especial quando afetado por chamada em classe"
---	WarnPhase			= "Anunciar mudanças de fase"
 }
 L:SetMiscLocalization{
 	YellP1		= "Que comecem os jogos!",

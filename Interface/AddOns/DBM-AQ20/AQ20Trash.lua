@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("AQ20Trash", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200811005840")
+mod:SetRevision("20200828175856")
 mod:SetModelID(15741)-- Qiraji Gladiator
 mod:SetMinSyncRevision(20200710000000)--2020, 7, 10
 
@@ -15,14 +15,15 @@ mod:RegisterEvents(
 
 mod:AddRangeFrameOption(10, 22997)
 
-local eventsRegistered = false
+--local eventsRegistered = false
 
 do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
 	local warnPlague                    = mod:NewTargetAnnounce(22997, 2)
+	local warnCauseInsanity             = mod:NewTargetNoFilterAnnounce(26079, 2)
+
 	local specWarnPlague                = mod:NewSpecialWarningMoveAway(22997, nil, nil, nil, 1, 2)
 	local yellPlague                    = mod:NewYell(22997)
-	local specWarnExplode               = mod:NewSpecialWarningRun(25698, false, nil, 2, 4, 2)
-	local warnCauseInsanity             = mod:NewTargetNoFilterAnnounce(26079, 2)
+	local specWarnExplode               = mod:NewSpecialWarningRun(25698, "Melee", nil, 3, 4, 2)
 
 	local Plague = DBM:GetSpellInfo(22997)
 	local Explode = DBM:GetSpellInfo(25698)
@@ -59,9 +60,6 @@ do-- Anubisath Plague/Explode - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash
 end
 
 do-- Anubisath Reflect - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
-	local ShadowFrostReflect 			= DBM:GetSpellInfo(19595)
-	local FireArcaneReflect 			= DBM:GetSpellInfo(13022)
-
 	local specWarnShadowFrostReflect    = mod:NewSpecialWarningReflect(19595, nil, nil, nil, 1, 2)
 	local specWarnFireArcaneReflect     = mod:NewSpecialWarningReflect(13022, nil, nil, nil, 1, 2)
 
@@ -78,8 +76,8 @@ do-- Anubisath Reflect - keep in sync - AQ40/AQ40Trash.lua AQ20/AQ20Trash.lua
 				specWarnFireArcaneReflect:Play("stopattack")
 			end
 		end
-		if eventsRegistered then-- for AQ40 timer
-			self:SPELL_DAMAGE(nil, nil, nil, nil, destGUID)
-		end
+--		if eventsRegistered then-- for AQ40 timer
+--			self:SPELL_DAMAGE(nil, nil, nil, nil, destGUID)
+--		end
 	end
 end

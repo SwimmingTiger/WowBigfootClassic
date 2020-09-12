@@ -62,7 +62,7 @@ L:SetOptionLocalization{
 	WarnDismember	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(96)
 }
 L:SetMiscLocalization{
-	PursueEmote 	= "%s pose ses yeux sur %s!"
+	PursueEmote 	= "%s pose ses yeux sur"
 }
 
 -------------

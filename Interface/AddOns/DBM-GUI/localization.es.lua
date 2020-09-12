@@ -17,6 +17,7 @@ L.OTabPlugins	= "Plugins del núcleo"
 L.OTabOptions	= GAMEOPTIONS_MENU
 L.OTabAbout		= "Sobre"
 
+
 L.TabCategory_Options	 	= "Opciones generales"
 L.TabCategory_BFA	 		= "Battle for Azeroth"
 L.TabCategory_LEG	 		= "Legion"
@@ -25,7 +26,7 @@ L.TabCategory_MOP	 		= "Mists of Pandaria"
 L.TabCategory_CATA	 		= "Cataclysm"
 L.TabCategory_WOTLK 		= "Wrath of the Lich King"
 L.TabCategory_BC 			= "Burning Crusade"
-L.TabCategory_CLASSIC		= "Classic"
+L.TabCategory_CLASSIC		= "Clásico"
 L.TabCategory_OTHER    		= "Otros módulos"
 
 L.BossModLoaded 			= "Estadísticas de %s"
@@ -59,7 +60,13 @@ L.Statistic_Incompletes		= "Inacabados:"--For scenarios, TODO, figure out a clea
 L.Statistic_BestKill		= "Mejor victoria:"
 L.Statistic_BestRank		= "Mejor nivel:"--Maybe not get used, not sure yet, localize anyways
 
--- Tab: General Core Options
+-- Tab: General Options
+L.TabCategory_Options	 	= "Opciones generales"
+L.Area_BasicSetup			= "Sugerencias de configuración inicial de DBM"
+L.Area_ModulesForYou		= "¿Qué módulos DBM son adecuados para ti?"
+L.Area_ProfilesSetup		= "Guía de uso de perfiles de DBM"
+-- Panel: Core & GUI
+L.Core_GUI 					= "Core y GUI"
 L.General 					= "Opciones generales de DBM"
 L.EnableMiniMapIcon			= "Mostrar botón junto al minimapa"
 L.UseSoundChannel			= "Canal de audio para alertas"
@@ -74,12 +81,22 @@ L.ModelSoundOptions			= "Sonido"
 L.ModelSoundShort			= "Corto"
 L.ModelSoundLong			= "Duración grande"
 
+L.ResizeOptions			 	= "Opciones de redimensionamiento"
+L.Button_ResetWindowSize	= "Restablecer el tamaño de la ventana"
+L.Editbox_WindowWidth		= "Anchura de la ventana"
+L.Editbox_WindowHeight		= "Altura de la ventana"
+
 L.Button_RangeFrame			= "Mostrar/ocultar\nmarco de distancia"
 L.Button_InfoFrame			= "Mostrar/ocultar\nmarco de información"
 L.Button_TestBars			= "Comprobar barras"
 L.Button_ResetInfoRange		= "Restaurar posiciones por defecto"
 
--- Tab: Raidwarning
+-- Tab: Alerts
+L.TabCategory_Alerts	 	= "Alertas"
+L.Area_SpecAnnounceConfig	= "Guía de alertas especial de imágenes y sonido"
+L.Area_SpecAnnounceNotes	= "Guía de notas especiales de alerta"
+L.Area_VoicePackInfo		= "Información sobre los paquetes de voz DBM"
+-- Panel: Raidwarning
 L.Tab_RaidWarning 			= "Avisos de banda"
 L.RaidWarning_Header		= "Opciones de avisos de banda"
 L.RaidWarnColors 			= "Colores de avisos de banda"
@@ -95,10 +112,6 @@ L.WarningIconLeft 			= "Mostrar iconos a la izquierda"
 L.WarningIconRight 			= "Mostrar iconos a la derecha"
 L.WarningIconChat 			= "Mostrar iconos en el chat"
 L.WarningAlphabetical		= "Ordenar nombres alfabéticamente"
-L.Warn_FontType				= "Fuente"
-L.Warn_FontStyle			= "Contorno"
-L.Warn_FontShadow			= "Sombra"
-L.Warn_FontSize				= "Tamaño: %d"
 L.Warn_Duration				= "Duración: %0.1f s"
 L.None						= "Ninguno"
 L.Random					= "Aleatorio"
@@ -121,7 +134,7 @@ L.ShowGuildMessages 		= "Mostrar mensajes de inicio de encuentro, victoria y der
 L.ShowGuildMessagesPlus		= "Mostrar también mensajes de inicio, victoria y derrota de Mítica+ de grupos de hermandad (requiere que la opción anterior esté activada)"
 
 -- Tab: Privacy
-L.Tab_Privacy 				= "Privacidad"
+L.Tab_Privacy 				= "Controles de privacidad"
 L.Area_WhisperMessages		= "Opciones de susurros"
 L.AutoRespond 				= "Responder automáticamente a susurros en encuentro"
 L.WhisperStats 				= "Incluir estadísticas de victoria y derrota en las respuestas automáticas a susurros"
@@ -131,6 +144,21 @@ L.Area_SyncMessages			= "Opciones de sincronización"
 L.DisableGuildStatus 		= "Desactivar mensajes de hermandad de estado de encuentro del grupo o banda para todos los jugadores (requiere ser el líder)."
 L.EnableWBSharing 			= "Comparte cuando sacas/derrotas a un jefe mundial o activas un buff mundial con tus amigos de battle.net que están en el mismo reino. (Esta información siempre se compartirá con tu hermandad)"
 
+-- Tab: Frames & Integrations
+L.TabCategory_Frames		= "Marcos e integraciones"
+L.Area_NamelateInfo			= "Información sobre las Auras de la placa identificativa de DBM"
+-- Panel: InfoFrame
+L.Panel_InfoFrame			= "Marco de información"
+
+-- Panel: Range
+L.Panel_Range				= "Marco de distancia"
+
+-- Panel: Nameplate
+L.Panel_Nameplates			= "Placas identificativas"
+L.UseNameplateHandoff		= "Pasa las solicitudes de aura de la placa identificativa a los addons de la placa identificativa admitidos (KuiNameplates, Threat Plates, Plater) en lugar de manejarlos internamente. Esta es la opción recomendada ya que permite realizar más funciones y configuraciones avanzadas a través del addon de la placa identificativa"
+L.Area_NPStyle				= "Estilo (Nota: Solo configura el estilo cuando DBM está manejando placas identificativas.)"
+L.NPAuraSize				= "Tamaño de píxel de aura (cuadrado): %d"
+
 -- Tab: Barsetup
 L.BarSetup					= "Configuración de barras"
 L.BarTexture				= "Textura de barras"
@@ -139,8 +167,6 @@ L.BarDBM					= "DBM (con animaciones)"
 L.BarSimple					= "Simple (sin animaciones)"
 L.BarStartColor				= "Color inicial"
 L.BarEndColor 				= "Color final"
-L.Bar_Font					= "Fuente del texto"
-L.Bar_FontSize				= "Tamaño del texto: %d"
 L.Bar_Height				= "Altura de barras: %d"
 L.Slider_BarOffSetX 		= "Posición X: %d"
 L.Slider_BarOffSetY 		= "Posición Y: %d"
@@ -180,7 +206,13 @@ L.CVoiceTwo					= "Voz de Cuenta 2"
 L.CVoiceThree				= "Voz de Cuenta 3"
 
 -- Tab: Timers
+L.TabCategory_Timers		= "Temporizadores"
+L.Area_ColorBytype			= "Guía de barras de color por tipo"
+-- Panel: Color by Type
+L.Panel_ColorByType	 		= "Color por tipo"
 L.AreaTitle_BarColors		= "Colores de barras por tipo de temporizador"
+L.Panel_Appearance	 		= "Apariencia de barra"
+L.Panel_Behavior	 		= "Comportamiento de barra"
 L.AreaTitle_BarSetup		= "Opciones generales de barras"
 L.AreaTitle_Behavior		= "Opciones de comportamiento de barra"
 L.AreaTitle_BarSetupSmall 	= "Opciones de barras pequeñas"
@@ -215,17 +247,12 @@ L.SWarnNameInNote			= "Usar Destello 5 si una nota personalizada contiene tu nom
 L.SpecialWarningIcon		= "Mostrar iconos en avisos especiales"
 L.ShortTextSpellname		= "Usar texto de hechizos corto (si disponible)"
 L.SpecWarn_FlashFrameRepeat	= "Repetir %d veces (si está habilitado)"
-L.SpecWarn_Font				= "Fuente de avisos especiales"
-L.SpecWarn_FontSize			= "Tamaño: %d"
-L.SpecWarn_FontColor		= "Texto"
-L.SpecWarn_FontType			= "Fuente"
 L.SpecWarn_Flash			= "Destello de pantalla"
 L.SpecWarn_FlashRepeat		= "Repetir destello"
 L.SpecWarn_FlashColor		= "Destello %d"
 L.SpecWarn_FlashDur			= "Duración: %0.1f s"
 L.SpecWarn_FlashAlpha		= "Transparencia: %0.1f"
 L.SpecWarn_DemoButton		= "Mostrar ejemplo"
-L.SpecWarn_MoveMe			= "Posición"
 L.SpecWarn_ResetMe			= "Restaurar valores por defecto"
 L.SpecialWarnSoundOption	= "Sonido por defecto"
 L.SpecialWarnHeader1		= "Tipo 1: Establecer opciones para las advertencias de prioridad normal que lo afectan a ti o tus acciones"
@@ -270,7 +297,11 @@ L.Area_EventSoundsFilters	= "Filtros de sonidos de evento"
 L.EventFilterDungMythicMusic= "Desactivar música personalizada de mazmorra en dificultad Mítica/M+."
 L.EventFilterMythicMusic	= "Desactivar música personalizada de encuentros en dificultad Mítica/M+."
 
--- Tab: Global Filter
+-- Tab: Global Disables & Filters
+L.TabCategory_Filters	 	= "Filtros globales"
+L.Area_DBMFiltersSetup		= "Guía de filtros de DBM"
+L.Area_BlizzFiltersSetup	= "Guía de filtros de Blizzard"
+-- Panel: DBM Features
 L.Panel_SpamFilter			= "Filtros globales"
 L.Area_SpamFilter_Anounces	= "Anunciar opciones globales de desactivación y filtro"
 L.SpamBlockNoShowAnnounce	= "Ocultar anuncios generales y desactivar los sonidos asociados"
@@ -296,8 +327,6 @@ L.Area_Restore				= "Opciones de restauración"
 L.SpamBlockNoIconRestore	= "Restaurar iconos al acabar el encuentro"
 L.SpamBlockNoRangeRestore	= "Mantener los marcos de distancia cuando los módulos intenten esconderlos"
 
--- Tab: Spam Filter
-L.Panel_SpamFilter			= "Filtros de avisos"
 L.Area_SpamFilter			= "Opciones de filtros de avisos"
 L.DontShowFarWarnings		= "Ocultar anuncios y temporizadores de eventos que estén demasiado lejos"
 L.StripServerName			= "Omitir nombre del reino en avisos y temporizadores"
@@ -346,6 +375,10 @@ L.Area_ChatAlerts			= "Opciones de alertas de texto"
 --L.CheckGear				= "Mostrar mensaje de alerta al iniciar un encuentro cuando tu nivel de equipo sea como mínimo 40 niveles menor que el de tu inventario o no tengas equipada un arma principal"
 L.WorldBossAlert			= "Mostrar mensaje de alerta cuando un amigo o miembro de hermandad inicie un encuentro contra un jefe de mundo (impreciso si el jugador en combate está en otro reino)"
 L.WorldBuffAlert			= "Mostrar mensaje de alerta y el temporizador cuando se haya iniciado buff mundial en tu reino"
+
+L.Area_BugAlerts			= "Opciones de alerta de informes de errores"
+L.BadTimerAlert				= "Mostrar mensaje de chat cuando DBM detecta un temporizador incorrecto con al menos 1 segundo de error"
+L.BadIDAlert				= "Mostrar mensaje de chat cuando DBM detecta un hechizo o ID de diario no válido en uso"
 --
 L.Area_SoundAlerts			= "Opciones de alertas de sonido e iluminación del icono del juego"
 L.LFDEnhance				= "Reproducir sonido de comprobación de banda e iluminar icono del juego para avisos del buscador de mazmorra/banda/grupo y campos de batalla por el canal de audio general o de diálogo (en otras palabras, reproduce el sonido aunque el canal de efectos de sonido esté desactivado, y en general suena más alto)"
@@ -396,4 +429,14 @@ L.SelectModProfileCopyNote	= "Copiar notas de"
 L.SelectModProfileDelete	= "Borrar configuración de"
 
 -- Misc
+L.Area_General				= "General"
+L.Area_Position				= "Posición"
+L.Area_Style				= "Estilo"
+
+L.FontType					= "Fuente"
+L.FontStyle					= "Contorno"
+L.FontColor					= "Texto"
+L.FontShadow				= "Sombra"
+L.FontSize					= "Tamaño: %d"
+
 L.FontHeight	= 16

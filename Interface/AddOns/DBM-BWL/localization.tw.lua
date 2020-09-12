@@ -85,7 +85,7 @@ L:SetGeneralLocalization{
 	name = "龍人護衛"
 }
 L:SetWarningLocalization{
-	WarnVulnerable		= "%s 弱點"
+	WarnVulnerable		= "%s弱點"
 }
 L:SetOptionLocalization{
 	WarnVulnerable		= "爲法術弱點顯示警告"
@@ -110,11 +110,11 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnBreath		= "%s",
-	WarnVulnerable	= "%s 弱點"
+	WarnVulnerable	= "%s弱點"
 }
 L:SetTimerLocalization{
-	TimerBreathCD	= "%s 冷卻",
-	TimerBreath		= "%s 施放",
+	TimerBreathCD	= "%s冷卻",
+	TimerBreath		= "%s施放",
 	TimerVulnCD		= "弱點冷卻"
 }
 L:SetOptionLocalization{
@@ -127,7 +127,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Breath1	= "第一次吐息",
 	Breath2	= "第二次吐息",
-	VulnEmote	= "克洛瑪古斯因皮膚閃著微光而驚訝退縮。",
+	VulnEmote	= "%s因皮膚閃著微光而驚訝退縮。",
 	Fire		= "火焰",
 	Nature		= "自然",
 	Frost		= "冰霜",
@@ -145,16 +145,18 @@ L:SetGeneralLocalization{
 	name = "奈法利安"
 }
 L:SetWarningLocalization{
-	WarnAddsLeft		= "剩下 %d 擊殺",
-	WarnClassCall		= "%s 點名"
+	WarnAddsLeft		= "剩下%d擊殺",
+	WarnClassCall		= "%s點名",
+	specwarnClassCall    = "你中了職業點名！"
 }
 L:SetTimerLocalization{
-	TimerClassCall		= "%s 點名結束"
+	TimerClassCall		= "%s點名結束"
 }
 L:SetOptionLocalization{
 	TimerClassCall		= "為職業點名持續時間顯示計時器",
 	WarnAddsLeft		= "提示離第二階段開始剩多少擊殺",
-	WarnClassCall		= "提示職業點名"
+	WarnClassCall		= "提示職業點名",
+	specwarnClassCall	= "特別警告：當你中了職業點名時"
 }
 L:SetMiscLocalization{
 	YellP1		= "讓賽事開始吧！",

@@ -169,14 +169,12 @@ L.VOICE_COUNT_MISSING		= "Voz de contagem regressiva %d esta selecionada para um
 L.BIG_WIGS							= "BigWigs"
 
 L.UPDATEREMINDER_HEADER		= "Sua versão do Deadly Boss Mods está desatualizada.\n A versão %s (%s) está disponível para baixar no site da curse, WoWI ou aqui:"
-L.UPDATEREMINDER_HEADER_ALPHA	= "A sua versão alpha do DBM está desatualizada.\n Você esta pelo menos %d versões de testes para trás. É recomendado que os usuários do DBM utilizem a versão mais recente do alpha ou a mais recente das versões estáveis. Versões alphas desatualizadas podem resultar em faltas de algumas funcionalidades ou totalmente inoperante."
 L.UPDATEREMINDER_FOOTER		= "Pressione Ctrl+C para copiar o link de download para a área de transferência."
 L.UPDATEREMINDER_FOOTER_GENERIC	= "Pressione Ctrl+C para copiar o link de download para a área de transferência."
 L.UPDATEREMINDER_DISABLE			= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raide."
 L.UPDATEREMINDER_HOTFIX			= "A sua versão do DBM contem temporizadores ou avisos incorretos para este chefe. Isso foi corrigido em uma versão mais recente ( ou alpha caso não exista versão estável mais recente disponível)"
 L.UPDATEREMINDER_HOTFIX_ALPHA	= L.DBM .. " A versão em que você está enfrentou problemas conhecidos durante esse encontro com os chefes, corrigidos em uma próxima versão (ou na versão alfa mais recente)"
 L.UPDATEREMINDER_MAJORPATCH		= "AVISO: O seu DBM foi desativado por estar drasticamente desatualizado (pelo menos %d revisões), atualize para utilizar novamente. Isso garante que versões antigas ou códigos incompatíveis não arruínem à experiência de jogo para você ou para os membros da raide. Certifique-se de baixar a versão mais recente em deadlybossmods.com ou curse o mais breve possível."
-L.UPDATEREMINDER_TESTVERSION		= "AVISO: Você esta usando uma versão do DBM que não foi criada para esta versão do jogo. Por favor, certifique-se de baixar a versão correta em deadlybossmods.com ou curse."
 L.VEM				= "AVISO: Você esta usando DBM e Voice Encounter Mods. DBM não funcionara corretamente nesta configuração e portanto não será carregada."
 L.OUTDATEDPROFILES				= "AVISO: DBM-Profiles não é compatível com esta versão de DBM. Deve ser removida antes de DBM continuar para evitar conflitos."
 L.OUTDATEDSPELLTIMERS				= "AVISO: DBM-SpellTimers rompe " .. L.DBM .. "e deve ser desativado para " .. L.DBM .. " funciona corretamente."
@@ -226,8 +224,10 @@ L.RANGERADAR_IN_RANGE_TEXTONE		= "%s (%0.1fy)"--One target
 
 L.INFOFRAME_SHOW_SELF				= "Sempre mostre seu poder"		-- Always show your own power value even if you are below the threshold
 L.INFOFRAME_SETLINES				= "Definir linhas máximas"
+L.INFOFRAME_SETCOLS					= "Definir colunas máximas"
 L.INFOFRAME_LINESDEFAULT			= "Definir por mod"
 L.INFOFRAME_LINES_TO				= "%d linhas"
+L.INFOFRAME_COLS_TO					= "%d colunas"
 L.INFOFRAME_POWER					= "Poder"
 L.INFOFRAME_AGGRO					= "Aggro"
 L.INFOFRAME_MAIN					= "Principal:"--Main power

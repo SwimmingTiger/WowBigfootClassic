@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20200818185136"),
-	DisplayVersion = "1.13.57", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 8, 18) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20200910223258"),
+	DisplayVersion = "1.13.60", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 9, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -207,6 +207,10 @@ DBM.DefaultOptions = {
 	InfoFrameY = -75,
 	InfoFrameShowSelf = false,
 	InfoFrameLines = 0,
+	InfoFrameCols = 0,
+	InfoFrameFont = "standardFont",
+	InfoFrameFontSize = 12,
+	InfoFrameFontStyle = "None",
 	WarningDuration2 = 1.5,
 	WarningPoint = "CENTER",
 	WarningX = 0,
@@ -271,6 +275,8 @@ DBM.DefaultOptions = {
 	DontShowInfoFrame = false,
 	DontShowHudMap2 = false,
 	DontShowNameplateIcons = false,
+	UseNameplateHandoff = true,
+	NPAuraSize = 40,
 	DontPlayCountdowns = false,
 	DontSendYells = false,
 	BlockNoteShare = false,
@@ -294,6 +300,8 @@ DBM.DefaultOptions = {
 	DebugLevel = 1,
 	WorldBossAlert = true,
 	WorldBuffAlert = true,
+	BadTimerAlert = false,
+	BadIDAlert = false,
 	AutoAcceptFriendInvite = false,
 	AutoAcceptGuildInvite = false,
 	FakeBWVersion = false,
@@ -1268,12 +1276,12 @@ do
 		if activeVP ~= "None" then
 			if not self.VoiceVersions[activeVP] or (self.VoiceVersions[activeVP] and self.VoiceVersions[activeVP] == 0) then--A voice pack is selected that does not belong
 				voiceSessionDisabled = true
-				AddMsg(DBM, L.VOICE_MISSING)
+				AddMsg(self, L.VOICE_MISSING)
 			end
 		else
 			if self.Options.ShowReminders and #self.Voices > 1 then
 				--At least one voice pack installed but activeVP set to "None"
-				AddMsg(DBM, L.VOICE_DISABLED)
+				AddMsg(self, L.VOICE_DISABLED)
 			end
 		end
 		local found1, found2, found3 = false, false, false
@@ -1290,15 +1298,15 @@ do
 			end
 		end
 		if not found1 then
-			AddMsg(DBM, L.VOICE_COUNT_MISSING:format(1, self.DefaultOptions.CountdownVoice))
+			AddMsg(self, L.VOICE_COUNT_MISSING:format(1, self.DefaultOptions.CountdownVoice))
 			self.Options.CountdownVoice = self.DefaultOptions.CountdownVoice
 		end
 		if not found2 then
-			AddMsg(DBM, L.VOICE_COUNT_MISSING:format(2, self.DefaultOptions.CountdownVoice2))
+			AddMsg(self, L.VOICE_COUNT_MISSING:format(2, self.DefaultOptions.CountdownVoice2))
 			self.Options.CountdownVoice2 = self.DefaultOptions.CountdownVoice2
 		end
 		if not found3 then
-			AddMsg(DBM, L.VOICE_COUNT_MISSING:format(3, self.DefaultOptions.CountdownVoice3))
+			AddMsg(self, L.VOICE_COUNT_MISSING:format(3, self.DefaultOptions.CountdownVoice3))
 			self.Options.CountdownVoice3 = self.DefaultOptions.CountdownVoice3
 		end
 		self:BuildVoiceCountdownCache()
@@ -1500,7 +1508,7 @@ do
 							if loaded and insertFunction then
 								insertFunction()
 							else
-								DBM:Debug(addonName.." failed to load at time CountPack function "..voiceGlobal.."ran", 2)
+								self:Debug(addonName.." failed to load at time CountPack function "..voiceGlobal.."ran", 2)
 							end
 						end)
 					end
@@ -1516,7 +1524,7 @@ do
 							if loaded and insertFunction then
 								insertFunction()
 							else
-								DBM:Debug(addonName.." failed to load at time VictoryPack function "..victoryGlobal.." ran", 2)
+								self:Debug(addonName.." failed to load at time VictoryPack function "..victoryGlobal.." ran", 2)
 							end
 						end)
 					end
@@ -1532,7 +1540,7 @@ do
 							if loaded and insertFunction then
 								insertFunction()
 							else
-								DBM:Debug(addonName.." failed to load at time DefeatPack function "..defeatGlobal.." ran", 2)
+								self:Debug(addonName.." failed to load at time DefeatPack function "..defeatGlobal.." ran", 2)
 							end
 						end)
 					end
@@ -1548,7 +1556,7 @@ do
 							if loaded and insertFunction then
 								insertFunction()
 							else
-								DBM:Debug(addonName.." failed to load at time MusicPack function "..musicGlobal.." ran", 2)
+								self:Debug(addonName.." failed to load at time MusicPack function "..musicGlobal.." ran", 2)
 							end
 						end)
 					end
@@ -2697,8 +2705,11 @@ do
 			return
 		end
 		if not dbmIsEnabled then
-			DBM:AddMsg(L.UPDATEREMINDER_DISABLE)
+			self:AddMsg(L.UPDATEREMINDER_DISABLE)
 			return
+		end
+		if self.NewerVersion and showConstantReminder >= 1 then
+			AddMsg(self, L.UPDATEREMINDER_HEADER:format(self.NewerVersion, showRealDate(self.HighestRelease)))
 		end
 		local firstLoad = false
 		if not IsAddOnLoaded("DBM-GUI") then
@@ -2748,12 +2759,12 @@ do
 
 		function dataBroker.OnClick(self, button)
 			if IsShiftKeyDown() then return end
-			if IsAltKeyDown() and button == "RightButton" then
-				DBM.Options.SilentMode = DBM.Options.SilentMode == false and true or false
-				DBM:AddMsg(L.SILENTMODE_IS .. (DBM.Options.SilentMode and "ON" or "OFF"))
-			else
+--			if IsAltKeyDown() and button == "RightButton" then
+--				DBM.Options.SilentMode = DBM.Options.SilentMode == false and true or false
+--				DBM:AddMsg(L.SILENTMODE_IS .. (DBM.Options.SilentMode and "ON" or "OFF"))
+--			else
 				DBM:LoadGUI()
-			end
+--			end
 		end
 
 		function dataBroker.OnTooltipShow(GameTooltip)
@@ -2762,7 +2773,7 @@ do
 			GameTooltip:AddLine(" ")
 			GameTooltip:AddLine(L.MINIMAP_TOOLTIP_FOOTER, RAID_CLASS_COLORS.MAGE.r, RAID_CLASS_COLORS.MAGE.g, RAID_CLASS_COLORS.MAGE.b, 1)
 			GameTooltip:AddLine(L.LDB_TOOLTIP_HELP1, RAID_CLASS_COLORS.MAGE.r, RAID_CLASS_COLORS.MAGE.g, RAID_CLASS_COLORS.MAGE.b)
-			GameTooltip:AddLine(L.LDB_TOOLTIP_HELP2, RAID_CLASS_COLORS.MAGE.r, RAID_CLASS_COLORS.MAGE.g, RAID_CLASS_COLORS.MAGE.b)
+--			GameTooltip:AddLine(L.LDB_TOOLTIP_HELP2, RAID_CLASS_COLORS.MAGE.r, RAID_CLASS_COLORS.MAGE.g, RAID_CLASS_COLORS.MAGE.b)
 		end
 	end
 
@@ -3068,7 +3079,7 @@ do
 	--Shortens name but custom so we add * to off realmers instead of stripping it entirely like Ambiguate does
 	--Technically GetUnitName without "true" can be used to shorten name to "name (*)" but "name*" is even shorter which is why we do this
 	function DBM:GetShortServerName(name)
-		if not DBM.Options.StripServerName then return name end--If strip is disabled, just return name
+		if not self.Options.StripServerName then return name end--If strip is disabled, just return name
 		local shortName, serverName = string.split("-", name)
 		if serverName and serverName ~= playerRealm then
 			return shortName.."*"
@@ -3233,7 +3244,7 @@ function DBM:GetUnitIdFromGUID(cidOrGuid, bossOnly)
 	end
 	--Didn't find valid unitID from boss units, scan raid targets
 	if not returnUnitID and not bossOnly then
-		for uId in self:GetGroupMembers() do
+		for uId in DBM:GetGroupMembers() do--Do not use self on this function, because self might be bossModPrototype
 			local unitId = uId .. "target"
 			local bossGUID = UnitGUID(unitId)
 			local cid = self:GetCIDFromGUID(cidOrGuid)
@@ -3246,12 +3257,12 @@ function DBM:GetUnitIdFromGUID(cidOrGuid, bossOnly)
 end
 
 function DBM:CheckNearby(range, targetname)
-	if not targetname and DBM.RangeCheck:GetDistanceAll(range) then
+	if not targetname and DBM.RangeCheck:GetDistanceAll(range) then--Do not use self on this function, because self might be bossModPrototype
 		return true--No target name means check if anyone is near self, period
 	else
-		local uId = DBM:GetRaidUnitId(targetname)
+		local uId = DBM:GetRaidUnitId(targetname)--Do not use self on this function, because self might be bossModPrototype
 		if uId and not UnitIsUnit("player", uId) then
-			local inRange = DBM.RangeCheck:GetDistance(uId)
+			local inRange = DBM.RangeCheck:GetDistance(uId)--Do not use self on this function, because self might be bossModPrototype
 			if inRange and inRange < range+0.5 then
 				return true
 			end
@@ -3286,11 +3297,11 @@ function DBM:LoadModOptions(modId, inCombat, first, force)
 	local savedOptions = _G[savedVarsName][fullname] or {}
 	local savedStats = _G[savedStatsName] or {}
 	local existId = {}
-	for _, id in ipairs(DBM.ModLists[modId]) do
+	for _, id in ipairs(self.ModLists[modId]) do
 		existId[id] = true
 		-- init
 		if not savedOptions[id] then savedOptions[id] = {} end
-		local mod = DBM:GetModByName(id)
+		local mod = self:GetModByName(id)
 		-- migrate old option
 		if _G[oldSavedVarsName] and _G[oldSavedVarsName][id] then
 			self:Debug("LoadModOptions: Found old options, importing", 2)
@@ -3882,12 +3893,12 @@ do
 			if self.Options.RestoreSettingMusic then
 				SetCVar("Sound_EnableMusic", self.Options.RestoreSettingMusic)
 				self.Options.RestoreSettingMusic = nil
-				DBM:Debug("Restoring Sound_EnableMusic CVAR")
+				self:Debug("Restoring Sound_EnableMusic CVAR")
 			end
 			if self.Options.musicPlaying then--Primarily so DBM doesn't call StopMusic unless DBM is one that started it. We don't want to screw with other addons
 				StopMusic()
 				self.Options.musicPlaying = nil
-				DBM:Debug("Stopping music")
+				self:Debug("Stopping music")
 			end
 			fireEvent("DBM_MusicStop", "ZoneOrCombatEndTransition")
 			return
@@ -3916,7 +3927,7 @@ do
 			if path ~= "MISSING" then
 				PlayMusic(path)
 				self.Options.musicPlaying = true
-				DBM:Debug("Starting Dungeon music with file: "..path)
+				self:Debug("Starting Dungeon music with file: "..path)
 			end
 		end
 	end
@@ -3963,7 +3974,7 @@ do
 			end
 		end
 		-- Auto Logging for entire zone if record only bosses is off
-		if not DBM.Options.RecordOnlyBosses then
+		if not self.Options.RecordOnlyBosses then
 			if LastInstanceType == "raid" or LastInstanceType == "party" then
 				self:StartLogging(0, nil)
 			else
@@ -3984,11 +3995,11 @@ do
 		self:Schedule(1, SecondaryLoadCheck, self)--Now delayed by one second to work around an issue on 8.x where spec info isn't available yet on reloadui
 		self:TransitionToDungeonBGM(false, true)
 		self:Schedule(5, SecondaryLoadCheck, self)
-		if DBM:HasMapRestrictions() then
-			DBM.Arrow:Hide()
-			DBM.HudMap:Disable()
-			if DBM.RangeCheck:IsRadarShown() then
-				DBM.RangeCheck:Hide(true)
+		if self:HasMapRestrictions() then
+			self.Arrow:Hide()
+			self.HudMap:Disable()
+			if self.RangeCheck:IsRadarShown() then
+				self.RangeCheck:Hide(true)
 			end
 		end
 	end
@@ -4051,6 +4062,9 @@ function DBM:LoadMod(mod, force)
 	else
 		self:Debug("LoadAddOn should have succeeded for "..mod.name, 2)
 		self:AddMsg(L.LOAD_MOD_SUCCESS:format(tostring(mod.name)))
+		if self.NewerVersion and showConstantReminder >= 1 then
+			AddMsg(self, L.UPDATEREMINDER_HEADER:format(self.NewerVersion, showRealDate(self.HighestRelease)))
+		end
 		self:LoadModOptions(mod.modId, InCombatLockdown(), true, force)
 		if DBM_GUI then
 			DBM_GUI:UpdateModList()
@@ -4223,14 +4237,16 @@ do
 				if dbmRevision < 10481 then return end
 				if mod and delay and (not mod.zones or mod.zones[LastInstanceMapID]) and (not mod.minSyncRevision or modRevision >= mod.minSyncRevision) then
 					DBM:StartCombat(mod, delay + lag, "SYNC from - "..sender, true, startHp, event)
-					if (mod.revision < modHFRevision) and (mod.revision > 1000) then--mod.revision because we want to compare to OUR revision not senders
-						if DBM:AntiSpam(3, "HOTFIX") and DBM.Options.ShowReminders then
-							--There is a newer RELEASE version of DBM out that has this mods fixes that we do not possess
-							if DBM.HighestRelease >= modHFRevision and DBM.ReleaseRevision < modHFRevision then
-								showConstantReminder = 2
-								DBM:AddMsg(L.UPDATEREMINDER_HOTFIX)
-							else--This mods fixes are in an alpha version
-								DBM:AddMsg(L.UPDATEREMINDER_HOTFIX_ALPHA)
+					if mod.revision < modHFRevision then--mod.revision because we want to compare to OUR revision not senders
+						--There is a newer RELEASE version of DBM out that has this mods fixes that we do not possess
+						if DBM.HighestRelease >= modHFRevision and DBM.ReleaseRevision < modHFRevision then
+							showConstantReminder = 2
+							if DBM:AntiSpam(3, "HOTFIX") then
+								AddMsg(DBM, L.UPDATEREMINDER_HOTFIX)
+							end
+						else--This mods fixes are in an alpha version
+							if DBM:AntiSpam(3, "HOTFIX") then
+								AddMsg(DBM, L.UPDATEREMINDER_HOTFIX_ALPHA)
 							end
 						end
 					end
@@ -4446,19 +4462,19 @@ do
 				end
 				if #newerVersionPerson == 2 and updateNotificationDisplayed < 2 then--Only requires 2 for update notification.
 					if DBM.HighestRelease < version then
-						DBM.HighestRelease = version
-					end
-					DBM.NewerVersion = displayVersion
-					--UGLY hack to get release version number instead of alpha one
-					if DBM.NewerVersion:find("alpha") then
-						local temp1, temp2 = string.split(" ", DBM.NewerVersion)--Strip down to just version, no alpha
-						if temp1 then
-							local temp3, temp4, temp5 = string.split(".", temp1)--Strip version down to 3 numbers
-							if temp3 and temp4 and temp5 and tonumber(temp5) then
-								temp5 = tonumber(temp5)
-								temp5 = temp5 - 1
-								temp5 = tostring(temp5)
-								DBM.NewerVersion = temp3.."."..temp4.."."..temp5
+						DBM.HighestRelease = version--Increase HighestRelease
+						DBM.NewerVersion = displayVersion--Apply NewerVersion
+						--UGLY hack to get release version number instead of alpha one
+						if DBM.NewerVersion:find("alpha") then
+							local temp1, _ = string.split(" ", DBM.NewerVersion)--Strip down to just version, no alpha
+							if temp1 then
+								local temp3, temp4, temp5 = string.split(".", temp1)--Strip version down to 3 numbers
+								if temp3 and temp4 and temp5 and tonumber(temp5) then
+									temp5 = tonumber(temp5)
+									temp5 = temp5 - 1
+									temp5 = tostring(temp5)
+									DBM.NewerVersion = temp3.."."..temp4.."."..temp5
+								end
 							end
 						end
 					end
@@ -4467,38 +4483,18 @@ do
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("([^\n]*)"))
 					AddMsg(DBM, L.UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, showRealDate(version)))
 					showConstantReminder = 1
-				elseif #newerVersionPerson >= 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
-					--Disable if revision grossly out of date even if not major patch.
-					local revDifference = mmin(((raid[newerVersionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[2]].revision or 0) - DBM.Revision), ((raid[newerVersionPerson[3]].revision or 0) - DBM.Revision))
-					if revDifference > 100000000 then--Approx 1 month old 20190416172622
-						if updateNotificationDisplayed < 3 then
-							updateNotificationDisplayed = 3
-							AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
-							DBM:Disable(true)
-						end
+				elseif #newerVersionPerson == 3 and raid[newerVersionPerson[1]] and raid[newerVersionPerson[2]] and raid[newerVersionPerson[3]] and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if out of date and it's a major patch.
-					elseif not testBuild and dbmToc < wowTOC then
+					if not testBuild and dbmToc < wowTOC then
 						updateNotificationDisplayed = 3
-						AddMsg(DBM, L.UPDATEREMINDER_MAJORPATCH)--Major patches will ALWAYS ignore ShowReminders being disabled
+						AddMsg(DBM, L.UPDATEREMINDER_MAJORPATCH)
+						DBM:Disable(true)
+					--Disallow out of date to run during beta/ptr what so ever.
+					elseif testBuild then
+						updateNotificationDisplayed = 3
+						AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
 						DBM:Disable(true)
 					end
-				end
-			end
-		end
-		if DBM.DisplayVersion:find("alpha") and #newerRevisionPerson < 3 and updateNotificationDisplayed < 2 and (revision - DBM.Revision) > 7000000 then--Approx 7 days old 20190416172622
-			if not checkEntry(newerRevisionPerson, sender) then
-				newerRevisionPerson[#newerRevisionPerson + 1] = sender
-				DBM:Debug("Newer revision detected from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision))
-			end
-			if #newerRevisionPerson == 2 and raid[newerRevisionPerson[1]] and raid[newerRevisionPerson[2]] then
-				local revDifference = mmin(((raid[newerRevisionPerson[1]].revision or 0) - DBM.Revision), ((raid[newerRevisionPerson[2]].revision or 0) - DBM.Revision))
-				if testBuild and revDifference > 3000000 then--Approx 3 days old 20190416172622
-					updateNotificationDisplayed = 3
-					AddMsg(DBM, L.UPDATEREMINDER_DISABLE)
-					DBM:Disable(true)
-				else
-					updateNotificationDisplayed = 2
-					AddMsg(DBM, L.UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
 				end
 			end
 		end
@@ -6028,7 +6024,7 @@ do
 					if path ~= "MISSING" then
 						PlayMusic(path)
 						self.Options.musicPlaying = true
-						DBM:Debug("Starting combat music with file: "..path)
+						self:Debug("Starting combat music with file: "..path)
 					end
 				end
 			else
@@ -6149,9 +6145,9 @@ do
 						end
 					end
 				end
-				if self.Options.ShowReminders and showConstantReminder == 2 and IsInGroup() and savedDifficulty ~= "lfr" and savedDifficulty ~= "lfr25" then
+				if showConstantReminder == 2 and IsInGroup() then
 					showConstantReminder = 1
-					--Show message any time this is a mod that has a newer hotfix revision
+					--Show message any time this is a mod that has a newer hotfix revision and it's a wipe
 					--These people need to know the wipe could very well be their fault.
 					self:AddMsg(L.OUT_OF_DATE_NAG)
 				end
@@ -6493,7 +6489,7 @@ do
 	local function playSound(self, path, ignoreSFX, validate)
 		local soundSetting = self.Options.UseSoundChannel
 		if type(path) == "number" then
-			fireEvent("DBM_PlaySound", path)
+			self:Debug("PlaySound playing with media "..path, 3)
 			if soundSetting == "Dialog" then
 				PlaySound(path, "Dialog", false)
 			elseif ignoreSFX or soundSetting == "Master" then
@@ -6501,28 +6497,29 @@ do
 			else
 				PlaySound(path)--using SFX channel, leave forceNoDuplicates on.
 			end
+			fireEvent("DBM_PlaySound", path)
 		else
 			if validate then
 				--Validate LibSharedMedia
 				if not LSMMediaCacheBuilt then buildLSMFileCache() end
 				if not sharedMediaFileCache[path] and not path:find("DBM") then
 					--This uses debug print because it has potential to cause mid fight spam
-					DBM:Debug("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add missing sound or change setting using this sound to a different sound.")
+					self:Debug("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add missing sound or change setting using this sound to a different sound.")
 					return
 				end
 				--Validate Event packs
 				if not _G["DBMVPSoundEventsPack"] and path:find("DBM-SoundEventsPack") then
 					--This uses actual user print because these events only occure at start or end of instance or fight.
-					AddMsg("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SoundEventsPack or change setting using this sound to a different sound.")
+					AddMsg(self, "PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SoundEventsPack or change setting using this sound to a different sound.")
 					return
 				end
 				if not _G["DBMVPSMGPack"] and path:find("DBM-SMGEventsPack") then
 					--This uses actual user print because these events only occure at start or end of instance or fight.
-					AddMsg("PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SMGEventsPack or change setting using this sound to a different sound.")
+					AddMsg(self, "PlaySoundFile failed do to missing media at "..path..". To fix this, re-add/enable DBM-SMGEventsPack or change setting using this sound to a different sound.")
 					return
 				end
 			end
-			DBM:Debug("PlaySoundFile playing with media "..path, 3)
+			self:Debug("PlaySoundFile playing with media "..path, 3)
 			if soundSetting == "Dialog" then
 				PlaySoundFile(path, "Dialog")
 			elseif ignoreSFX or soundSetting == "Master" then
@@ -6548,7 +6545,15 @@ end
 --Future proofing EJ_GetSectionInfo compat layer to make it easier updatable.
 function DBM:EJ_GetSectionInfo(sectionID)
 	return "EJ_GetSectionInfo"
---	local info = EJ_GetSectionInfo(sectionID);
+--	local info = EJ_GetSectionInfo(sectionID)
+--	if not info then
+--		if DBM.Options.BadIDAlert then
+--			self:AddMsg("|cffff0000Invalid call to EJ_GetSectionInfo for sectionID: |r"..sectionID..". Please report this bug")
+--		else
+--			self:Debug("|cffff0000Invalid call to EJ_GetSectionInfo for sectionID: |r"..sectionID)
+--		end
+--		return nil
+--	end
 --	local flag1, flag2, flag3, flag4;
 --	local flags = GetSectionIconFlags(sectionID);
 --	if flags then
@@ -6561,7 +6566,11 @@ end
 function DBM:GetSpellInfo(spellId)
 	local name, rank, icon, castingTime, minRange, maxRange, returnedSpellId  = GetSpellInfo(spellId)
 	if not returnedSpellId then--Bad request all together
-		DBM:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
+		if DBM.Options.BadIDAlert then
+			self:AddMsg("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId..". Please report this bug")
+		else
+			self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
+		end
 		return nil
 	else--Good request, return now
 		return name, rank, icon, castingTime, minRange, maxRange, returnedSpellId
@@ -6807,12 +6816,12 @@ do
 		if self.Options.RestoreSettingSFX then
 			self.Options.RestoreSettingSFX = nil
 			SetCVar("Sound_EnableSFX", 1)
-			DBM:Debug("Restoring Sound_EnableSFX CVAR")
+			self:Debug("Restoring Sound_EnableSFX CVAR")
 		end
 		if self.Options.RestoreSettingQuestTooltips then
 			SetCVar("showQuestTrackingTooltips", self.Options.RestoreSettingQuestTooltips)
 			self.Options.RestoreSettingQuestTooltips = nil
-			DBM:Debug("Restoring showQuestTrackingTooltips CVAR")
+			self:Debug("Restoring showQuestTrackingTooltips CVAR")
 		end
 		--RestoreSettingMusic doens't need restoring here, since zone change transition will handle it
 	end
@@ -6858,6 +6867,9 @@ do
 			end
 		end
 		return alive
+	end
+	function DBM:NumRealAlivePlayers()
+		return getNumRealAlivePlayers()
 	end
 
 	local function isOnSameServer(presenceId)
@@ -6967,7 +6979,7 @@ do
 			if self.Options.RestoreSettingQuestTooltips then
 				SetCVar("showQuestTrackingTooltips", self.Options.RestoreSettingQuestTooltips)
 				self.Options.RestoreSettingQuestTooltips = nil
-				DBM:Debug("Restoring Quest Tooltip CVAR")
+				self:Debug("Restoring Quest Tooltip CVAR")
 			end
 			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
 				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
@@ -7214,23 +7226,23 @@ do
 	}
 	function DBM:PLAY_MOVIE(id)
 		if id and not neverFilter[id] then
-			DBM:Debug("PLAY_MOVIE fired for ID: "..id, 2)
+			self:Debug("PLAY_MOVIE fired for ID: "..id, 2)
 			local isInstance, instanceType = IsInInstance()
-			if not isInstance or DBM.Options.MovieFilter2 == "Never" or DBM.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
-			if DBM.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and DBM.Options.MoviesSeen[id] then
+			if not isInstance or self.Options.MovieFilter2 == "Never" or self.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
+			if self.Options.MovieFilter2 == "Block" or (self.Options.MovieFilter2 == "AfterFirst" or self.Options.MovieFilter2 == "OnlyFight") and self.Options.MoviesSeen[id] then
 				MovieFrame:Hide()--can only just hide movie frame safely now, which means can't stop audio anymore :\
-				DBM:AddMsg(L.MOVIE_SKIPPED)
+				self:AddMsg(L.MOVIE_SKIPPED)
 			else
-				DBM.Options.MoviesSeen[id] = true
+				self.Options.MoviesSeen[id] = true
 			end
 		end
 	end
 
 	function DBM:CINEMATIC_START()
 		self:Debug("CINEMATIC_START fired", 2)
-		DBM.HudMap:SupressCanvas()
+		self.HudMap:SupressCanvas()
 		local isInstance, instanceType = IsInInstance()
-		if not isInstance or self.Options.MovieFilter2 == "Never" or DBM.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
+		if not isInstance or self.Options.MovieFilter2 == "Never" or self.Options.MovieFilter2 == "OnlyFight" and not IsEncounterInProgress() then return end
 		local currentMapID = C_Map.GetBestMapForUnit("player")
 		local currentSubZone = GetSubZoneText() or ""
 		if not currentMapID then return end--Protection from map failures in zones that have no maps yet
@@ -7243,7 +7255,7 @@ do
 	end
 	function DBM:CINEMATIC_STOP()
 		self:Debug("CINEMATIC_STOP fired", 2)
-		DBM.HudMap:UnSupressCanvas()
+		self.HudMap:UnSupressCanvas()
 	end
 end
 
@@ -8780,7 +8792,7 @@ do
 					self.Options.WarningX = xOfs
 					self.Options.WarningY = yOfs
 					self:Schedule(15, moveEnd, self)
-					self.Bars:CreateBar(15, L.MOVE_WARNING_BAR)
+					self.Bars:CreateBar(15, L.MOVE_WARNING_BAR, 136106)
 				end)
 			end
 			if anchorFrame:IsShown() then
@@ -8790,7 +8802,7 @@ do
 				anchorFrame.ticker = anchorFrame.ticker or C_TimerNewTicker(5, function() self:AddWarning(L.MOVE_WARNING_MESSAGE) end)
 				self:AddWarning(L.MOVE_WARNING_MESSAGE)
 				self:Schedule(15, moveEnd, self)
-				self.Bars:CreateBar(15, L.MOVE_WARNING_BAR)
+				self.Bars:CreateBar(15, L.MOVE_WARNING_BAR, 136106)
 				frame:Show()
 				frame:SetFrameStrata("TOOLTIP")
 				frame:SetAlpha(1)
@@ -9443,7 +9455,7 @@ do
 					self.Options.SpecialWarningX = xOfs
 					self.Options.SpecialWarningY = yOfs
 					self:Schedule(15, moveEnd, self)
-					self.Bars:CreateBar(15, L.MOVE_SPECIAL_WARNING_BAR)
+					self.Bars:CreateBar(15, L.MOVE_SPECIAL_WARNING_BAR, 136106)
 				end)
 			end
 			if anchorFrame:IsShown() then
@@ -9454,7 +9466,7 @@ do
 				DBM:AddSpecialWarning(L.MOVE_SPECIAL_WARNING_TEXT)
 				DBM:AddSpecialWarning(L.MOVE_SPECIAL_WARNING_TEXT)
 				self:Schedule(15, moveEnd, self)
-				self.Bars:CreateBar(15, L.MOVE_SPECIAL_WARNING_BAR)
+				self.Bars:CreateBar(15, L.MOVE_SPECIAL_WARNING_BAR, 136106)
 				frame:Show()
 				frame:SetFrameStrata("TOOLTIP")
 				frame:SetAlpha(1)
@@ -10171,14 +10183,18 @@ do
 		if not self.option or self.mod.Options[self.option] then
 			if self.type and (self.type == "cdcount" or self.type == "nextcount") and not self.allowdouble then--remove previous timer.
 				for i = #self.startedTimers, 1, -1 do
-					if DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
+					if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
 						local bar = DBM.Bars:GetBar(self.startedTimers[i])
 						if bar then
 							local remaining = ("%.1f"):format(bar.timer)
 							local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 							ttext = ttext.."("..self.id..")"
 							if bar.timer > 0.2 then
-								DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+									DBM:AddMsg("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+								else
+									DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+								end
 							end
 						end
 					end
@@ -10240,7 +10256,7 @@ do
 					end
 				end
 			end
-			if DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
+			if DBM.Options.BadTimerAlert or DBM.Options.DebugMode and DBM.Options.DebugLevel > 1 then
 				if not self.type or (self.type ~= "target" and self.type ~= "active" and self.type ~= "fades" and self.type ~= "ai") then
 					local bar = DBM.Bars:GetBar(id)
 					if bar then
@@ -10248,7 +10264,11 @@ do
 						local ttext = _G[bar.frame:GetName().."BarName"]:GetText() or ""
 						ttext = ttext.."("..self.id..")"
 						if bar.timer > 0.2 then
-							DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+							if DBM.Options.BadTimerAlert and bar.timer > 1 then--If greater than 1 seconds off, report this out of debug mode to all users
+								DBM:AddMsg("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining..". Please report this bug", 2)
+							else
+								DBM:Debug("Timer "..ttext.. " refreshed before expired. Remaining time is : "..remaining, 2)
+							end
 						end
 					end
 				end
@@ -10283,7 +10303,7 @@ do
 			msg = msg:gsub(">.-<", stripServerName)
 			bar:SetText(msg, self.inlineIcon)
 			--ID: Internal DBM timer ID
-			--msg: Timer Text
+			--msg: Timer Text (Do not use msg has an event trigger, it varies language to language or based on user timer options. Use this to DISPLAY only (such as timer replacement UI). use spellId field 99% of time
 			--timer: Raw timer value (number).
 			--Icon: Texture Path for Icon
 			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, stage, ai. Durations: target, active, fades, roleplay. Casting: cast)
@@ -11418,7 +11438,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20200818185136" then
+	if not revision or revision == "20200910223258" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200818142543")
+mod:SetRevision("20200907165533")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
-mod:SetHotfixNoticeRev(20200817000000)--2020, 8, 17
-mod:SetMinSyncRevision(20200817000000)--2020, 8, 17
+mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
+mod:SetMinSyncRevision(20200820000000)--2020, 8, 20
 mod:SetUsedIcons(1)
 
 mod:RegisterCombat("combat")
@@ -14,13 +14,14 @@ mod:SetWipeTime(25)
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 26134",
 	"SPELL_CAST_SUCCESS 26586",
+	"SPELL_AURA_APPLIED 26476",
+	"SPELL_AURA_REMOVED 26476",
 	"CHAT_MSG_MONSTER_EMOTE",
-	"UNIT_DIED",
-	"UNIT_HEALTH mouseover target"
+	"UNIT_DIED"
 )
 
 local warnEyeTentacle			= mod:NewAnnounce("WarnEyeTentacle", 2, 126)
-local warnClawTentacle			= mod:NewAnnounce("WarnClawTentacle", 2, 26391)
+local warnClawTentacle			= mod:NewAnnounce("WarnClawTentacle2", 2, 26391, false)
 local warnGiantEyeTentacle		= mod:NewAnnounce("WarnGiantEyeTentacle", 3, 126)
 local warnGiantClawTentacle		= mod:NewAnnounce("WarnGiantClawTentacle", 3, 26391)
 local warnPhase2				= mod:NewPhaseAnnounce(2)
@@ -31,7 +32,7 @@ local specWarnEyeBeam			= mod:NewSpecialWarningYou(26134, nil, nil, nil, 1, 2)
 local yellEyeBeam				= mod:NewYell(26134)
 
 local timerDarkGlareCD			= mod:NewNextTimer(86, 26029)
-local timerDarkGlare			= mod:NewBuffActiveTimer(37, 26029)
+local timerDarkGlare			= mod:NewBuffActiveTimer(39, 26029)
 local timerEyeTentacle			= mod:NewTimer(45, "TimerEyeTentacle", 126, nil, nil, 1)
 local timerGiantEyeTentacle		= mod:NewTimer(60, "TimerGiantEyeTentacle", 126, nil, nil, 1)
 local timerClawTentacle			= mod:NewTimer(8, "TimerClawTentacle", 26391, nil, nil, 1) -- every 8 seconds
@@ -42,16 +43,56 @@ mod:AddRangeFrameOption("10")
 mod:AddSetIconOption("SetIconOnEyeBeam", 26134, true, false, {1})
 mod:AddInfoFrameOption(nil, true)
 
-local firstBossMod = DBM:GetModByName("AQ40Trash")
-
-local COMMS = {	CTHUN = "C", TENTACLES = "T", CREATE = "C", UPDATE = "U", REMOVE = "R" }
-
 mod.vb.phase = 1
+local firstBossMod = DBM:GetModByName("AQ40Trash")
+local playersInStomach = {}
 local fleshTentacles = {}
 
+local updateInfoFrame
+do
+	local twipe, tsort = table.wipe, table.sort
+	local lines = {}
+	local sortedLines = {}
+	local function addLine(key, value)
+		-- sort by insertion order
+		lines[key] = value
+		sortedLines[#sortedLines + 1] = key
+	end
+	updateInfoFrame = function()
+		twipe(lines)
+		twipe(sortedLines)
+		--First, process players in stomach and gather tentacle information and debuff stacks
+		for i = 1, #playersInStomach do
+			local name = playersInStomach[i]
+			local uId = DBM:GetRaidUnitId(name)
+			if uId then
+				--First, display their stomach debuff stacks
+				local spellName, _, count = DBM:UnitDebuff(uId, 26476)
+				if spellName and count then
+					addLine(name, count)
+				end
+				--Also, process their target information for tentacles
+				local targetuId = uId.."target"
+				local guid = UnitGUID(targetuId)
+				if guid and mod:GetCIDFromGUID(guid) == 15802 then--Targetting Flesh Tentacle
+					fleshTentacles[guid] = math.floor(UnitHealth(targetuId) / UnitHealthMax(targetuId) * 100)
+				end
+			end
+		end
+		--Now, show tentacle data after it's been updated from player processing
+		local nLines = 0
+		for _, health in pairs(fleshTentacles) do
+			nLines = nLines + 1
+			addLine(L.FleshTent .. " " .. nLines, health .. '%')
+		end
+		return lines, sortedLines
+	end
+end
+
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	table.wipe(playersInStomach)
 	table.wipe(fleshTentacles)
+	self.vb.phase = 1
 	timerClawTentacle:Start(9-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
 	timerEyeTentacle:Start(45-delay)
 	timerDarkGlareCD:Start(48-delay)
@@ -65,11 +106,9 @@ function mod:OnCombatEnd(wipe, isSecondRun)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
 	end
-
 	--Only run on second run, to ensure trash mod has had enough time to update requiredBosses
 	if not wipe and isSecondRun and firstBossMod.vb.firstEngageTime and firstBossMod.Options.SpeedClearTimer then
 		if firstBossMod.vb.requiredBosses < 5 then
@@ -79,8 +118,12 @@ function mod:OnCombatEnd(wipe, isSecondRun)
 end
 
 function mod:DarkGlare()
-	specWarnDarkGlare:Show()
-	specWarnDarkGlare:Play("laserrun")--Or "watchstep" ?
+	--ghost check, because if someone releases during encounter, this loop continues until they zone back in
+	--We don't want to spam dark glare warnings while they are a ghost outside running back on a wipe
+	if not UnitIsDeadOrGhost("player") then
+		specWarnDarkGlare:Show()
+		specWarnDarkGlare:Play("laserrun")--Or "watchstep" ?
+	end
 	timerDarkGlare:Start()
 	timerDarkGlareCD:Start()
 	self:ScheduleMethod(86, "DarkGlare")
@@ -102,7 +145,7 @@ do
 
 	function mod:SPELL_CAST_START(args)
 		local spellName = args.spellName
-		if spellName == EyeBeam and args:IsSrcTypeHostile() and DBM.Options.DebugMode then
+		if spellName == EyeBeam and args:IsSrcTypeHostile() then
 			-- the eye target can change to the correct target a tiny bit after the cast starts
 			self:ScheduleMethod(0.1, "BossTargetScanner", args.sourceGUID, "EyeBeamTarget", 0.1, 3)
 		end
@@ -138,9 +181,32 @@ do
 	end
 end
 
+do
+	local DigestiveAcid = DBM:GetSpellInfo(26476)
+	function mod:SPELL_AURA_APPLIED(args)
+		if args.spellName == DigestiveAcid then
+			--I'm aware debuff stacks, but it's a context that doesn't matter to this mod
+			if not tContains(playersInStomach, args.destName) then
+				table.insert(playersInStomach, args.destName)
+			end
+			if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
+				DBM.InfoFrame:SetHeader(L.Stomach)
+				DBM.InfoFrame:Show(42, "function", updateInfoFrame, false, false)
+				DBM.InfoFrame:SetColumns(1)
+			end
+		end
+	end
+
+	function mod:SPELL_AURA_REMOVED(args)
+		if args.spellName == DigestiveAcid then
+			tDeleteItem(playersInStomach, args.destName)
+		end
+	end
+end
+
 function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	if msg == L.Weakened or msg:find(L.Weakened) then
-		self:SendSync(COMMS.CTHUN, COMMS.UPDATE)
+		self:SendSync("Weakened")
 	end
 end
 
@@ -152,145 +218,30 @@ function mod:UNIT_DIED(args)
 		timerDarkGlareCD:Stop()
 		timerEyeTentacle:Stop()
 		timerClawTentacle:Stop() -- Claw Tentacle never respawns in phase2
-		timerEyeTentacle:Start(40)
-		timerGiantClawTentacle:Start(10) -- Start Giant Claw Tentacle Spawn Timer, After Entering Phase 2
-		timerGiantEyeTentacle:Start(40) -- Start Giant Eye Tentacle Spawn Timer, After Entering Phase 2
+		timerEyeTentacle:Start(40.5)
+		timerGiantClawTentacle:Start(10.5)
+		timerGiantEyeTentacle:Start(41.3)
 		self:UnscheduleMethod("DarkGlare")
 	elseif cid == 15802 then -- Flesh Tentacle
-		local spawnUid = DBM:GetSpawnIdFromGUID(args.destGUID)
-		if fleshTentacles[spawnUid] then
-			self:SendSync(COMMS.TENTACLES, COMMS.REMOVE, spawnUid)
-		end
+		fleshTentacles[args.destGUID] = nil
 	end
 end
 
-do
-	local lines = {}
-	local sortedLines = {}
-	local function addLine(key, value)
-		-- sort by insertion order
-		lines[key] = value
-		sortedLines[#sortedLines + 1] = key
-	end
-	local function updateInfoFrame()
-		table.wipe(lines)
-		table.wipe(sortedLines)
-		for _,v in pairs(fleshTentacles) do
-			addLine(v:GetName(), tostring(v:GetPercentage()).."%%")
-		end
-		return lines, sortedLines
-	end
-
-	local ResourceTracker = {}
-	ResourceTracker.__index = ResourceTracker
-
-	function ResourceTracker.new(name, max)
-		local self = setmetatable({}, ResourceTracker)
-		self.name = tostring(name) or ""
-		self.value = tonumber(max) or 0
-		self.percentage = 100
-		self.max = self.value
-		return self
-	end
-
-	function ResourceTracker:GetName()
-		return self.name
-	end
-
-	function ResourceTracker:Update(value)
-		self.value = tonumber(value) or 0
-		self.percentage = math.abs(math.floor(self.value/self.max))
-	end
-
-	function ResourceTracker:GetPercentage()
-		return self.percentage
-	 end
-
-	function ResourceTracker:CalculatePercentageChange(value)
-		return self.percentage - math.abs(math.floor((tonumber(value) or 0)/self.max))
-	end
-
-	function mod:OnSync(msg, event, spawnUid, health, maxHealth)
-		if not self:IsInCombat() then return end
-		if msg == COMMS.CTHUN and event == COMMS.UPDATE then
-			specWarnWeakened:Show()
-			specWarnWeakened:Play("targetchange")
-			timerEyeTentacle:Stop() -- Stop Eye Tentacle Timer, casused by C'Thun be Weakened
-			timerGiantClawTentacle:Stop() -- Stop Giant Claw Tentacle Timer, casused by C'Thun be Weakened
-			timerGiantEyeTentacle:Stop() -- Stop Giant Eye Tentacle Timer, casused by C'Thun be Weakened
-			timerEyeTentacle:Start(85)
-			timerGiantClawTentacle:Start(55) -- Renew Giant Claw Tentacle Spawn Timer, After C'Thun be Weakened
-			timerGiantEyeTentacle:Start(85) -- Renew Giant Eye Tentacle Spawn Timer, After C'Thun be Weakened
-
-			fleshTentacles = {}
-			if self.Options.InfoFrame then
-				DBM.InfoFrame:Hide()
-			end
-
-		elseif (msg == COMMS.TENTACLES) and spawnUid then
-			spawnUid = tonumber(spawnUid)
-			if not spawnUid then return end
-			if (event == COMMS.CREATE) and maxHealth and health then
-				health = tonumber(health) or 0
-				maxHealth = tonumber(maxHealth) or 0
-
-				if health == 0 or maxHealth == 0 then return end
-				if health > maxHealth then return end
-
-				if not fleshTentacles[spawnUid] then
-					fleshTentacles[spawnUid] = ResourceTracker.new(L.FleshTent, maxHealth)
-				end
-				fleshTentacles[spawnUid]:Update(health)
-			elseif (event == COMMS.UPDATE) and health then
-				health = tonumber(health)
-				if not health then return end
-				if fleshTentacles[spawnUid] then
-					fleshTentacles[spawnUid]:Update(health)
-				end
-			elseif (event == COMMS.REMOVE) then
-				if fleshTentacles[spawnUid] then
-					fleshTentacles[spawnUid] = nil
-				end
-			else
-				return
-			end
-
-			if self.Options.InfoFrame then
-				if not DBM.InfoFrame:IsShown() then
-					DBM.InfoFrame:SetHeader(L.Stomach)
-					DBM.InfoFrame:Show(2, "function", updateInfoFrame, false, false, true)
-				else
-					DBM.InfoFrame:Update()
-				end
-			end
-		end
-	end
-end
-
-function mod:UNIT_HEALTH(uid)
+function mod:OnSync(msg, spawnUid, pct)
 	if not self:IsInCombat() then return end
-	if self.vb.phase ~= 2 then return end
-
-	if self:GetUnitCreatureId(uid) == 15802 then -- 15802 Flesh Tentacle
-		local spawnUid = DBM:GetSpawnIdFromGUID(UnitGUID(uid))
-		if not spawnUid or spawnUid == "" then return end
-		if not fleshTentacles[spawnUid] then
-			self:SendSync(COMMS.TENTACLES, COMMS.CREATE, spawnUid, UnitHealth(uid), UnitHealthMax(uid))
-		else
-			local current = fleshTentacles[spawnUid]
-			local step
-			if current:GetPercentage() > 33 then
-				step = 5
-			elseif current:GetPercentage() > 10 then
-				step = 3
-			else
-				step = 1
-			end
-
-			local health = UnitHealth(uid)
-			if current:CalculatePercentageChange(health) >= step then
-				self:SendSync(COMMS.TENTACLES, COMMS.UPDATE, spawnUid, tostring(health))
-			end
+	if msg == "Weakened" then
+		table.wipe(fleshTentacles)
+		specWarnWeakened:Show()
+		specWarnWeakened:Play("targetchange")
+		timerEyeTentacle:Stop()
+		timerGiantClawTentacle:Stop()
+		timerGiantEyeTentacle:Stop()
+		timerWeakened:Start()
+		timerEyeTentacle:Start(83) -- 53+30
+		timerGiantClawTentacle:Start(53) -- Renew Giant Claw Tentacle Spawn Timer, After C'Thun be Weakened
+		timerGiantEyeTentacle:Start(83.7) -- Renew Giant Eye Tentacle Spawn Timer, After C'Thun be Weakened, A litter later than Eye Tentacles Spawn.(0.7s)
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Hide()
 		end
 	end
 end

@@ -4,7 +4,7 @@ local L
 --------------------------------
 -- Blackfathom Deeps (1) --
 --------------------------------
---  Ghamoo-Ra  --
+--  Ghamoo-Ra --
 -----------------------------
 L = DBM:GetModLocalization("GhamooRa")
 
@@ -1237,7 +1237,12 @@ L = DBM:GetModLocalization(455)
 L:SetGeneralLocalization{
 	name 		= "『暴食者』拉姆斯登"
 }
-
+L:SetTimerLocalization{
+    TimerGuards    = "哨兵出現"
+}
+L:SetOptionLocalization{
+    TimerGuards    = "擊敗首領後，為精英護衛的出現顯示計時器。"
+}
 -----------------------------
 --  Baron Rivendare  --
 -----------------------------

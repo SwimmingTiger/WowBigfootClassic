@@ -25,6 +25,7 @@ L:SetOptionLocalization{
 }
 L:SetMiscLocalization{
 	Wave12		= "Hier kommen sie. Bleibt am Leben, Welpen.",
+	Wave12Alt	= "Erinnerst du dich, Rajaxx? Ich habe dir doch versprochen, dich zuletzt zu töten.",
 	Wave3		= "Die Zeit der Vergeltung ist gekommen! Lasst uns die Herzen unserer Feinde mit Dunkelheit erfüllen!",
 	Wave4		= "Wir werden nicht länger hinter verbarrikadierten Toren und Mauern aus Stein ausharren! Die Rache wird unser sein! Selbst die Drachen werden im Angesicht unseres Zornes erzittern!",
 	Wave5		= "Wir kennen keine Furcht! Und wir werden unseren Feinden den Tod bringen!",
@@ -60,7 +61,7 @@ L:SetOptionLocalization{
 	SpecWarnPursue	= "Spezialwarnung, wenn du verfolgt wirst"
 }
 L:SetMiscLocalization{
-	PursueEmote 	= "%s behält %s im Blickfeld!"
+	PursueEmote 	= "%s behält %s im Blickfeld!"--MIGHT NOT WORK
 }
 
 -------------

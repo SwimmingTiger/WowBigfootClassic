@@ -63,7 +63,11 @@ L:SetMiscLocalization{
 	Frozen	= "단단하게 얼었습니다!",
 	Phase4 	= "분해되기 시작합니다!",
 	Phase5 	= "부서질 것 같습니다!",
-	Phase6 	= "폭발"
+	Phase6 	= "폭발",
+
+	HitsRemain	= "냉기 타격 남은 횟수",
+	Frost		= "냉기",
+	Physical	= "물리"
 }
 -------------
 -- Huhuran --
@@ -96,9 +100,9 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "눈 달린 촉수",
-	WarnClawTentacle		= "갈고리 촉수",
-	TimerGiantEyeTentacle		= "눈 달린 거대한 촉수",
-	TimerGiantClawTentacle		= "거대한 발톱 촉수",
+	WarnClawTentacle2		= "갈고리 촉수",
+	WarnGiantEyeTentacle		= "눈 달린 거대한 촉수",
+	WarnGiantClawTentacle		= "거대한 발톱 촉수",
 	SpecWarnWeakened		= "쑨 약화됨!"
 }
 L:SetTimerLocalization{
@@ -110,7 +114,7 @@ L:SetTimerLocalization{
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "눈 달린 촉수 경고 보기",
-	WarnClawTentacle		= "갈고리 촉수 경고 보기",
+	WarnClawTentacle2		= "갈고리 촉수 경고 보기",
 	WarnGiantEyeTentacle		= "눈 달린 거대한 촉수 경고 보기",
 	WarnGiantClawTentacle		= "거대한 발톱 촉수 경고 보기",
 	SpecWarnWeakened		= "보스 약화시 특수 경고 보기",
@@ -122,7 +126,7 @@ L:SetOptionLocalization{
 	RangeFrame				= "거리 창 보기 (10m)"
 }
 L:SetMiscLocalization{
-	Stomach		= "쑨의 뱃속",
+	Stomach		= "뱃속",
 	Eye			= "쑨의 눈",
 	FleshTent	= "식인 촉수",--Localized so it shows on frame in users language, not senders
 	Weakened 	= "약해집니다!",

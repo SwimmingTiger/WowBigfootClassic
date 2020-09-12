@@ -67,7 +67,7 @@ L:SetOptionLocalization{
 	SpecWarnPursue	= "Показывать специальное предупреждение, когда преследование на вас"
 }
 L:SetMiscLocalization{
-	PursueEmote 	= "%s sets eyes on %s!"
+	PursueEmote 	= "%s sets eyes on"
 }
 
 -------------

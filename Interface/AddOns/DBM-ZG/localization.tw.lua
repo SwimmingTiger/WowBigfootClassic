@@ -52,10 +52,10 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	PriestDied	= "%s死了。",
-	YellPhase2	= "西瓦爾拉，讓我感受你的憤怒吧！", --TBD
+	YellPhase2	= "希瓦拉爾，給我憤怒的力量吧！",
 	YellKill	= "哈卡再也不能束縛我了！我終於可以安息了！",
 	Thekal		= "高階祭司塞卡爾",
-	Zath		= "狂熱者紮斯",
+	Zath		= "狂熱者札斯",
 	LorKhan		= "狂熱者洛卡恩"
 })
 
@@ -87,7 +87,8 @@ L:SetGeneralLocalization{
 }
 L:SetMiscLocalization{
 	Bloodlord 	= "血領主曼多基爾",
-	Ohgan		= "奧根"
+	Ohgan		= "奧根",
+	GazeYell	= "我正在監視你"
 }
 
 -------------------

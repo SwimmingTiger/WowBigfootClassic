@@ -97,22 +97,35 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnEyeTentacle			= "Tentóculo",
+	WarnClawTentacle2		= "Tentáculo de Garra",
+	WarnGiantEyeTentacle	= "Tentóculo Gigante",
+	WarnGiantClawTentacle	= "Tentáculo de Garra Gigante",
 	SpecWarnWeakened		= "C'Thun enfraquecido!"
 }
 L:SetTimerLocalization{
 	TimerEyeTentacle		= "Próximo Tentóculo",
-	TimerWeakened			= "Enfraquecido termina"
+	TimerClawTentacle		= "Próximo Tentáculo de Garra",
+	TimerGiantEyeTentacle	= "Próximo Tentóculo Gigante",
+	TimerGiantClawTentacle	= "Próximo Tentáculo de Garra Gigante",
+	TimerWeakened			= "Enfraquecido acaba"
 }
 L:SetOptionLocalization{
 	WarnEyeTentacle			= "Exibir aviso para Tentóculo",
+	WarnClawTentacle2		= "Exibir aviso para Tentáculo de Garra",
+	WarnGiantEyeTentacle	= "Exibir aviso para Tentóculo Gigante",
+	WarnGiantClawTentacle	= "Exibir aviso para Tentáculo de Garra Gigante",
 	SpecWarnWeakened		= "Exibir aviso especial quando o chefe enfraquece",
 	TimerEyeTentacle		= "Exibir cronômetro para o próximo Tentóculo",
+	TimerClawTentacle		= "Exibir cronômetro para o próximo Tentáculo de Garra",
+	TimerGiantEyeTentacle	= "Exibir cronômetro para o próximo Tentóculo Gigante",
+	TimerGiantClawTentacle	= "Exibir cronômetro para o próximo Tentáculo de Garra Gigante",
 	TimerWeakened			= "Exibir cronômetro para duração mais fraca do chefe",
 	RangeFrame				= "Exibir quadro de alcance (10 m)"
 }
 L:SetMiscLocalization{
-	Stomach		= "Estómago de C'Thun",
+	Stomach		= "Estômago",
 	Eye			= "Olho de C'Thun",
+	FleshTent	= "Tentáculo de Carne",
 	Weakened 	= "enfraquecido",
 	NotValid	= "AQ40 parcialmente limpo. %s chefes opcionais permanecem."
 }

@@ -284,7 +284,7 @@ L:SetGeneralLocalization{
 	name 		= "Piroguardia Brasadivino"
 }
 L:SetMiscLocalization{
-	Pull		= "%s comienza a recuperar la fuerza!"
+	Pull		= "¡%s comienza a recuperar la fuerza!"
 }
 -----------------------------
 --  Solakar Flamewreath  --

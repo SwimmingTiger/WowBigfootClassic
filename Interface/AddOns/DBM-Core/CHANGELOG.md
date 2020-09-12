@@ -1,57 +1,48 @@
 # Deadly Boss Mods Core
 
-## [1.13.57](https://github.com/DeadlyBossMods/DBM-Classic/tree/1.13.57) (2020-08-18)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-Classic/compare/1.13.56...1.13.57) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Classic/releases)
+## [1.13.60](https://github.com/DeadlyBossMods/DBM-Classic/tree/1.13.60) (2020-09-10)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-Classic/compare/1.13.59...1.13.60) [Previous Releases](https://github.com/DeadlyBossMods/DBM-Classic/releases)
 
-- Update localization.cn.lua (#477)  
-- Prep new classic release  
-- Infoframe should work with option, but the tentacles table needs to be a local variable. mod.vb doesn't support tables yet in sync methods so syncing it would cause errors, also wipe it on pull so lingering tentacles wouldn't show from previous pull after a wipe  
-- cthun/tentacle: fixup a couple errors, still not exposing infoframe (#478)  
-- Update localization.tw.lua (#475)  
-- Fix editbox backdrop (#474)  
-    The editbox already has a backdrop defined as part of InputBoxTemplate, this is causing a 2nd one to overlay on top, but outpositioned.  
-- Update koKR (Classic) (#472)  
-    * Update koKR (Classic)  
-- Fix a typo  
-- Fix checking wrong GUID on birth spell casts, which result in not finding tentacle IDs  
-- Fix tentical removal  
-- Update localization.cn.lua (#470)  
-- Fix incorrect GetShapeshiftFormID ID  
-- Tidy up some  
-- Tentacle Spawn Timer (#469)  
-- core: add tank to arms/ret spec role and check for tank stance in IsTank (#466)  
-- bump all of the tank option versions (#467)  
-- Odd that was missed in the PR, that wasn't something I introduced in last commit.  
-    Also added minsync revision to block syncs from the 2 or so alphas that may include mobname  
-- Few changes to Tentacle Infoframe  
-     - Tentacle name is now localized. Getting name from sender would be problematic if sender played different language from reciever  
-     - Removed unneeded local function. Since it was only called in one spot, didn't need to be split off.  
-     - Saved a few bytes with self over mod usage.  
-     - Put the arg names in OnSync handler and removed unnessesary shadowing of them while still having robust nil checks.  
-     - Moved all moving parts of infoframe into same section. locals are generally declared at top of mod but only if they are used in multiple parts of it (for example if infoframe has updates in multiple places), otherwise they belong with section they are use. Option locals being the exception since finding those at top of mod helps  maintenance/updating of mod options without digging through mod to find all of them. (Not all older mods are good examples of this, as many of them were written over a decade ago and just updated for classic.)  
-- core/IsHealer: allow any druid spec to be a healer but check for form (#468)  
-- AQ40 Add support for Stomach Tentacle health monitoring outside of it (#460)  
-- Remove unused  
-- Update localization.cn.lua (#462)  
-- Improve eye tentacle spawn detection/timers, Closes #463  
-- aq/cthun: delay the eye beam target scanner a little (#459)  
-- Update localization.ru.lua (#458)  
-- Update localization.es.lua (#457)  
-- Update localization.mx.lua (#456)  
-- Update localization.de.lua (#455)  
-- Update localization.fr.lua (#454)  
-- Apply new lower restrictions for max targets announcements can show before they begin target aggregation.  
-     - General announcements changed from 7 target cap to 6 (allowing up to a max of 2 pairs)  
-     - Special announcements changed from 7 target cap to 5 (maxing out on the size of a 5 man party)  
-- because of accuracy issues, cthun eye target features will be restricted to debug mode for dev testing only. Everyone else should not be shown inaccurate information  
-- Fixed PlaySound not having the no sound check  
-- Sync profile change from retail  
-    Changed icon for speed timers from a string to a number, since it's calling timer object directly, api expects it to be a number, not a string. it's only core that expects it to be a string  
-- Update localization.es.lua (#453)  
-- Update localization.mx.lua (#452)  
-- Fixed a bug that caused Whirlwind special warning to never show on Sartura. However, with the bug fixed, it should now be off by default since that's the expected behavior now  
-- Fix name  
-- Added frenzy dispel warning to Huhuran  
-    Removed Frenzy buff active timer.  
-- Update koKR (Classic) (#450)  
-- Explain the teleport timer at least for short term  
+- Prep new release  
+- Update localization.es.lua (#580)  
+- Update localization.cn.lua (#579)  
+- Update localization.tw.lua (#578)  
+- Scrap revision based force disable code. it's been tried 3 different ways and it's always broken in some way. Instead. add a bunch of annoying messages in various places about being out of date (with no disable). exception is force disable will now ALWAYS run if PTR/Beta, because testing that with old mods is just hard no. Or a major patch. These two situations will always automatically disable DBM if it's out of date regardless of revision. All other situations, there will just be a lot of nagging with no disable. If this these chat message nags prove to be ineffective, more aggressive nags will be implimented. The force update by revision code wasn't scrapped because I believe users should ignore updates, I just couldn't get it to work the way i wanted without uglier and uglier hacky code that rarely worked right, so exploring different ways of doing it til something that isn't broken is found that gets the job done (gets users to update mods when important updates are available)  
+- Update localization.es.lua (#577)  
+- Update koKR (Classic) (#576)  
+    Co-authored-by: QartemisT <63267788+QartemisT@users.noreply.github.com>  
+- Changed nefarian add counts to do every 5 until at 15 THEN switch to every 3.  
+- Update localization.cn.lua (#575)  
+- Update localization.tw.lua (#573)  
+    According to the check sequence of the EN document of classic, the TW localization file comes from the TW localization document of retail  
+- Fixed one of the links  
+- Added guide links to each category panel in options.  
+    Fixed duplicate localization entry for General Options tab  
+- Update koKR (Classic) (#572)  
+    Co-authored-by: QartemisT <63267788+QartemisT@users.noreply.github.com>  
+- Update localization.tw.lua (#571)  
+- Update localization.cn.lua (#570)  
+    * Update localization.cn.lua  
+    * Update localization.cn.lua  
+    Co-authored-by: QartemisT <63267788+QartemisT@users.noreply.github.com>  
+- Fixed regression with CheckNearby when the function was called by mod via bossModPrototype  
+    Also fixed  bug that's existed for quite some time if GetUnitIdFromGUID is called by bossModPrototype. The reason this bug was never caught is because this function is pretty much never used on non boss unitId targets on retail and on classic it probably hasn't been used at all yet.  
+- Fix two missed spots  
+- Update localization.tw.lua (#568)  
+- Sync GUI Re-arrangement and new options to classic from retail. Probably errors until I can do some review and let luacheck run  
+- First batch of Syncs from retail to classic.  
+     - Removed redundant Localizations  
+     - Added Infoframe options plumbing (but not GUI yet)  
+- some AddMsg fixes and some dbm vs self usage fixes  
+- Update koKR (Classic) (#566)  
+- Update localization.cn.lua (#565)  
+- Update localization.tw.lua (#563)  
+- 6 bytes  
+- Scrap old explode bug waring that is spammy and add a smart one that scans nearby nameplates to determine if exploding bug is nearby. if it is, shows a special warning. Explode has 15 range and nameplate range is 20. This is a very smart way to filter it.  
+- Forgot to update option text  
+- Improvments to last  
+- Lower cap of cthun infoframe from 40 down to 9. 9 should still get everything without it triggering column behaviors  
+- Fixed regression on viscidus that caused frost tracker to completely bread  
+    Fixed bug with shoot being counted during melee phase instead of frost  
+- Improve wipe detection for razorgore to prevent declaring a phase 2 wipe as a victory  
+- rep new alpha dev cycle  

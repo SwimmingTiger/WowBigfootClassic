@@ -1,57 +1,172 @@
 local mod	= DBM:NewMod("Viscidus", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200811013452")
+mod:SetRevision("20200905140102")
 mod:SetCreatureID(15299)
 mod:SetEncounterID(713)
 mod:SetModelID(15686)
-mod:SetMinSyncRevision(428)
+mod:SetHotfixNoticeRev(20200829000000)--2020, 8, 29
+mod:SetMinSyncRevision(20200828000000)--2020, 8, 28
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
+	"SPELL_CAST_SUCCESS 25991 25896",
 	"SPELL_AURA_APPLIED 25989",
 	"CHAT_MSG_MONSTER_EMOTE"
 )
 
---TODO, frost damage counter on infoframe (if I recall, it was 250k frost damage to freeze)
---TODO, melee hit counter on infoframe (x number of melee hits to shatter)
-local warnFreeze		= mod:NewAnnounce("WarnFreeze", 2, 16350)
-local warnShatter		= mod:NewAnnounce("WarnShatter", 2, 12982)
-local specWarnGTFO		= mod:NewSpecialWarningGTFO(25989, nil, nil, nil, 1, 8)
+local warnPoisonBoltVolley		= mod:NewCountAnnounce(25991, 3)
+local warnFreeze				= mod:NewAnnounce("WarnFreeze", 2, 16350)
+local warnShatter				= mod:NewAnnounce("WarnShatter", 2, 12982)
 
-local timerFrozen		= mod:NewBuffActiveTimer(30, 25937, nil, nil, nil, 6)
+local specWarnGTFO				= mod:NewSpecialWarningGTFO(25989, nil, nil, nil, 1, 8)
 
-function mod:CHAT_MSG_MONSTER_EMOTE(msg)
-	if msg:find(L.Phase4) then
-		self:SendSync("Phase", 1)
-	elseif msg:find(L.Phase5) then
-		self:SendSync("Phase", 2)
-	elseif msg:find(L.Phase6) then
-		self:SendSync("Phase", 3)
-	elseif msg:find(L.Slow) then
-		self:SendSync("Slow")
-	elseif msg:find(L.Freezing) then
-		self:SendSync("Freezing")
-	elseif msg:find(L.Frozen) then
-		self:SendSync("Frozen")
+local timerPoisonBoltVolleyCD	= mod:NewCDCountTimer(11, 25991, nil, nil, nil, 2, nil, DBM_CORE_L.POISON_ICON)
+local timerFrozen				= mod:NewBuffActiveTimer(30, 25937, nil, nil, nil, 6)
+
+mod:AddInfoFrameOption(nil, true)
+
+mod.vb.Frozen = false
+mod.vb.volleyCount = 0
+
+local twipe = table.wipe
+local updateInfoFrame
+
+local creatureIDCache = {}
+local hits = 200
+
+local function BossVisible(self)
+	if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
+		self:RegisterShortTermEvents(
+			"RANGE_DAMAGE",
+			"SPELL_DAMAGE",
+			"SWING_DAMAGE"
+		)
+		DBM.InfoFrame:SetHeader(L.HitsRemain)
+		DBM.InfoFrame:Show(1, "function", updateInfoFrame, false, false)
 	end
 end
 
-function mod:OnSync(msg, arg)
-	if msg == "Phase" then
-		local count = tonumber(arg)
-		warnShatter:Show(count)
-		if count == 3 then
-			timerFrozen:Stop()
+function mod:OnCombatStart(delay)
+	self.vb.Frozen = false
+	self.vb.volleyCount = 0
+	timerPoisonBoltVolleyCD:Start(12.9, 1)
+	hits = 200
+	twipe(creatureIDCache)
+	BossVisible(self)
+end
+
+function mod:OnCombatEnd(delay)
+	self:UnregisterShortTermEvents()
+	twipe(creatureIDCache)
+	if DBM.InfoFrame:IsShown() then
+		DBM.InfoFrame:Hide()
+	end
+end
+
+do
+	local lines = {}
+	local sortedLines = {}
+	updateInfoFrame = function()
+		twipe(lines)
+		twipe(sortedLines)
+
+		local key = mod.vb.Frozen and L.Physical or L.Frost
+		lines[key] = tostring(hits)
+		sortedLines[1] = key
+
+		return lines, sortedLines
+	end
+end
+
+do
+	local function GlobPhase(self)
+		timerFrozen:Stop()
+		warnShatter:Show(3)
+		self.vb.Frozen = false
+		hits = 200
+		if DBM.InfoFrame:IsShown() then
+			DBM.InfoFrame:Hide()
+			self:UnregisterShortTermEvents()
 		end
-	elseif msg == "Slow" then
-		warnFreeze:Show(1)
-	elseif msg == "Freezing" then
-		warnFreeze:Show(2)
-	elseif msg == "Frozen" then
-		warnFreeze:Show(3)
-		timerFrozen:Start()
+	end
+
+	local PoisonBoltVolley, Rejoin = DBM:GetSpellInfo(25991), DBM:GetSpellInfo(25896)
+	function mod:SPELL_CAST_SUCCESS(args)
+		if args.spellName == PoisonBoltVolley then
+			self.vb.volleyCount = self.vb.volleyCount + 1
+			warnPoisonBoltVolley:Show(self.vb.volleyCount)
+			timerPoisonBoltVolleyCD:Start(11, self.vb.volleyCount+1)
+			if self.vb.Frozen then
+				--Boss casts this near instantly coming out of frozen
+				GlobPhase(self)
+			end
+		elseif args.spellName == Rejoin then
+			BossVisible(self)
+		end
+	end
+
+	local frostSpellSchools = {
+		[16] = true,--Frost
+		[17] = true,--Froststrike
+		[18] = true,--Holyfrost
+		[20] = true,--Frostfire
+		[24] = true,--Froststorm
+		[48] = true,--Shadowfrost
+		[80] = true,--Spellfrost
+		[28] = true,--Elemental
+		[124] = true,--Chromatic
+		[126] = true,--Magic
+		[127] = true,--Chaos
+	}
+
+	-- function mod:SPELL_DAMAGE(sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, spellId, spellName, spellSchool, amount)
+	local Shoot = DBM:GetSpellInfo(5019)
+	function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, _, _, spellSchool)
+		local creatureID = creatureIDCache[destGUID]
+		if creatureID == nil then
+			creatureID = DBM:GetCIDFromGUID(destGUID)
+			creatureIDCache[destGUID] = creatureID
+		end
+		if not self.vb.Frozen and frostSpellSchools[tonumber(spellSchool)] and creatureID == 15299 then
+			hits = hits - 1
+		end
+		if self.vb.Frozen and creatureID == 15667 then
+			GlobPhase(self)-- reset on a glob hit if still in frozen mode
+		end
+	end
+
+	function mod:SWING_DAMAGE(_, _, _, _, destGUID, _, _, _, _, _, spellSchool)
+		local creatureID = creatureIDCache[destGUID]
+		if creatureID == nil then
+			creatureID = DBM:GetCIDFromGUID(destGUID)
+			creatureIDCache[destGUID] = creatureID
+		end
+		--Only count melee swings
+		if self.vb.Frozen and spellSchool == 1 and creatureID == 15299 then
+			hits = hits - 1
+		end
+		if self.vb.Frozen and creatureID == 15667 then
+			GlobPhase(self)-- reset on a glob hit if still in frozen mode
+		end
+	end
+
+	function mod:RANGE_DAMAGE(_, _, _, _, destGUID, _, _, _, _, spellName)
+		local creatureID = creatureIDCache[destGUID]
+		if creatureID == nil then
+			creatureID = DBM:GetCIDFromGUID(destGUID)
+			creatureIDCache[destGUID] = creatureID
+		end
+		--RANGE_DAMAGE,Player-4395-00282794,"Anshlun-Whitemane",0x511,0x0,Creature-0-4400-189-11806-4542-00006BB674,"High Inquisitor Fairbanks",0x10a48,0x0,5019,"Shoot",
+		--Count all wand hits as frost, since we can't get school out of them
+		--RANGED melee hits don't count for shattering, it's left out on purpose
+		if not self.vb.Frozen and spellName == Shoot and creatureID == 15299 then
+			hits = hits - 1
+		end
+		if self.vb.Frozen and creatureID == 15667 then
+			GlobPhase(self)-- reset on a glob hit if still in frozen mode
+		end
 	end
 end
 
@@ -62,5 +177,41 @@ do
 			specWarnGTFO:Show(args.spellName)
 			specWarnGTFO:Play("watchfeet")
 		end
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_EMOTE(msg)
+	if msg == L.Phase4 or msg:find(L.Phase4) then
+		self:SendSync("Shatter", 1)
+	elseif msg == L.Phase5 or msg:find(L.Phase5) then
+		self:SendSync("Shatter", 2)
+	elseif msg == L.Phase6 or msg:find(L.Phase6) then--No longer present in classic?
+		self:SendSync("Shatter", 3)
+	elseif msg == L.Slow or msg:find(L.Slow) then
+		self:SendSync("Freeze", 1)
+	elseif msg == L.Freezing or msg:find(L.Freezing) then
+		self:SendSync("Freeze", 2)
+	elseif msg == L.Frozen or msg:find(L.Frozen) then
+		self:SendSync("Freeze", 3)
+	end
+end
+
+function mod:OnSync(msg, count)
+	if msg == "Shatter" and count then
+		count = tonumber(count)
+		warnShatter:Show(count)
+--		if count == 3 then
+--			timerFrozen:Stop()
+--		end
+	elseif msg == "Freeze" and count then
+		count = tonumber(count)
+		warnFreeze:Show(count)
+		if count == 3 then
+			timerFrozen:Start()
+			timerPoisonBoltVolleyCD:Stop()
+			hits = 75
+			self.vb.Frozen = true
+		end
+		BossVisible(self)
 	end
 end
