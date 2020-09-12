@@ -1,12 +1,12 @@
-lightweight tag b3c895e73c9db7aab686105fe12a6a055214836b 1.13.5.9
+lightweight tag 5af3ac2a91a27eb287862ed968e714e7936b434b 1.13.5.12
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Thu Aug 13 20:05:04 2020 +0200
+Date:	Mon Sep 7 19:18:39 2020 +0200
 
-commit b3c895e73c9db7aab686105fe12a6a055214836b
+commit 5af3ac2a91a27eb287862ed968e714e7936b434b
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Thu Aug 13 20:05:04 2020 +0200
+Date:   Mon Sep 7 19:16:46 2020 +0200
 
-    Fixed an error related to the castbar
+    Fixed 'unit' prefix
     
-    - Fixed an error related to the castbar that could occur if the nameplate disappeard before the cast was updated.
+    - Fixed the 'unit' prefix for custom color conditions
 

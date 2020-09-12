@@ -149,7 +149,7 @@ local function ColorFunctionByThreat(unit)
 
 	if classColor then
 		return classColor
-	elseif LocalVars.SafeColorSolo and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
+	elseif not UnitInParty("player") and not UnitExists("pet") and LocalVars.SafeColorSolo and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		return LocalVars.ColorThreatSafe
 	elseif (LocalVars.ThreatSoloEnable or UnitInParty("player") or UnitExists("pet")) and InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" and (unit.isInCombat or UnitIsUnit(unit.unitid.."target", "player")) then
 		local isTank = (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
@@ -214,15 +214,19 @@ local function CustomColorDelegate(unit)
 	local temp = {strsplit("\n", LocalVars.CustomColorList)}
 	for index=1, #temp do
 		local key = select(3, string.find(temp[index], "#%x+[%s%p]*(.*)"))
-		
-		if key then
-			--Custom Color by Unit Name
-			if not color and key == unit.name then
-				color = HexToRGB(LocalVars.CustomColorLookup[unit.name]); break
 
+		if key then
+		--Custom Color by Unit Name
+			if not color and key == unit.name then
+				color = HexToRGB(LocalVars.CustomColorLookup[unit.name].hex); break
+
+			elseif string.lower(LocalVars.CustomColorLookup[key].prefix) == "unit" then
+				-- Do nothing, and skip the other checks for this line/condition
 		--Custom Color by Buff/Debuff
 			elseif not color and aura and aura[key] then
-				color = HexToRGB(LocalVars.CustomColorLookup[key]); break
+				if string.lower(LocalVars.CustomColorLookup[key].prefix) ~= "my" or aura[key].caster == "player" then
+					color = HexToRGB(LocalVars.CustomColorLookup[key].hex); break
+				end
 
 		-- Custom Color by Unit Threshold
 			else
@@ -231,7 +235,7 @@ local function CustomColorDelegate(unit)
 					lowest = current
 					threshold = key
 				end
-				if threshold then color = HexToRGB(LocalVars.CustomColorLookup[threshold]) end
+				if threshold then color = HexToRGB(LocalVars.CustomColorLookup[threshold].hex) end
 			end
 		end
 	end
