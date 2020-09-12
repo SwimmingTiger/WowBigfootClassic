@@ -7,26 +7,23 @@ local TC2, C, L, _ = unpack(select(2, ...))
 local _G		= _G
 local select	= _G.select
 local unpack	= _G.unpack
-local tonumber	= _G.tonumber
 local type		= _G.type
 local floor		= _G.math.floor
 local strbyte	= _G.string.byte
 local format	= _G.string.format
 local strlen	= _G.string.len
 local strsub	= _G.string.sub
+local strmatch	= _G.string.match
 
-local ipairs	= _G.ipairs
 local pairs		= _G.pairs
 local tinsert	= _G.table.insert
-local tremove	= _G.table.remove
 local sort		= _G.table.sort
 local wipe		= _G.table.wipe
 
-local GetTime			= _G.GetTime
+local GetTime				= _G.GetTime
 local GetNumGroupMembers	= _G.GetNumGroupMembers
 local GetNumSubgroupMembers	= _G.GetNumSubgroupMembers
 local GetInstanceInfo		= _G.GetInstanceInfo
-local InCombatLockdown		= _G.InCombatLockdown
 local IsInRaid				= _G.IsInRaid
 local UnitAffectingCombat	= _G.UnitAffectingCombat
 local UnitClass				= _G.UnitClass
@@ -41,11 +38,11 @@ local UnitIsUnit 			= _G.UnitIsUnit
 local screenWidth			= floor(GetScreenWidth())
 local screenHeight			= floor(GetScreenHeight())
 
-local lastCheckStatusTime 	= 0
+local lastCheckStatusTime	= 0
 local callCheckStatus		= false
 
-local announcedOutdated	    = false
-local announcedIncompatible = false
+local announcedOutdated		= false
+local announcedIncompatible	= false
 
 local lastWarnPercent		=  100
 
@@ -66,8 +63,8 @@ local AceComm = LibStub("AceComm-3.0")
 AceComm:Embed(TC2)
 
 -- depreciation warning for ClassicThreatMeter
-C_Timer.After(3, 
-  function() 
+C_Timer.After(3,
+  function()
     if IsAddOnLoaded("ClassicThreatMeter") then
       print("Please disable |cFFFBB709ClassicThreatMeter|cFFFF6060 to avoid unnecessary syncing that can negatively impact |cFFFBB709ThreatClassic2|cFFFF6060 and other addons.")
     end
@@ -91,7 +88,7 @@ local SoundChannels = {
 	["Music"] = L.soundChannel_music
 }
 
-local UnitThreatSituation = _G.UnitThreatSituation
+--local UnitThreatSituation = _G.UnitThreatSituation
 local UnitDetailedThreatSituation = _G.UnitDetailedThreatSituation
 
 -----------------------------
@@ -224,6 +221,7 @@ local function TruncateString(str, i, ellipsis)
 end
 
 local function DefaultUnitColor(unit)
+	local colorUnit
 	if UnitIsPlayer(unit) then
 		colorUnit = RAID_CLASS_COLORS[select(2, UnitClass(unit))]
 	else
@@ -235,8 +233,6 @@ end
 
 local function GetColor(unit, isTanking)
 	if unit then
-		local colorUnit = {}
-		
 		if UnitIsUnit(unit, "player") then
 			if C.customBarColors.playerEnabled then
 				return C.customBarColors.playerColor
@@ -315,7 +311,7 @@ local function CheckVisibility()
 	local instanceType = select(2, GetInstanceInfo())
 	local hide = C.general.hideAlways or
 		(C.general.hideOOC and not UnitAffectingCombat("player")) or
-		(C.general.hideSolo and TC2.numGroupMembers == 0) or 
+		(C.general.hideSolo and TC2.numGroupMembers == 0) or
 		(C.general.hideInPVP and (instanceType == "arena" or instanceType == "pvp")) or
 		(C.general.hideOpenWorld and instanceType == "none")
 
@@ -471,7 +467,7 @@ end
 -- UPDATE FRAME
 -----------------------------
 local function SetPosition(f)
-	local a1, _, a2, x, y = f:GetPoint()
+	local _, _, _, x, y = f:GetPoint()
 	C.frame.position = {"TOPLEFT", "UIParent", "TOPLEFT", x, y}
 end
 
@@ -489,7 +485,7 @@ local function OnDragStop(f)
 		-- see https://wowwiki.fandom.com/wiki/API_Frame_StartMoving
 		SetPosition(f)
 		f:StopMovingOrSizing()
-		
+
 	end
 end
 
@@ -674,7 +670,9 @@ function TC2:OnCommReceived(prefix, message, distribution, sender)
 end
 
 function TC2:PublishVersion()
-	self:SendCommMessage(self.commPrefix, "VERSION::"..self.version, "GUILD")
+	if IsInGuild() then
+		self:SendCommMessage(self.commPrefix, "VERSION::"..self.version, "GUILD")
+	end
 end
 
 -----------------------------
@@ -1318,9 +1316,9 @@ TC2.configTable = {
 							name = L.font_style,
 							type = "select",
 							values = {
-								[""] = "NONE",
-								["OUTLINE"] = "OUTLINE",
-								["THICKOUTLINE"] = "THICKOUTLINE",
+								[""] = L.NONE,
+								["OUTLINE"] = L.OUTLINE,
+								["THICKOUTLINE"] = L.THICKOUTLINE,
 							},
 							style = "dropdown",
 						},
@@ -1344,7 +1342,7 @@ TC2.configTable = {
 					name = L.reset,
 					type = "execute",
 					func = function(info, value)
-						self.db.profile = TC2.defaultConfig
+						TC2.db.profile = TC2.defaultConfig
 						TC2:UpdateFrame()
 					end,
 				},
@@ -1422,5 +1420,5 @@ SlashCmdList["TC2_SLASHCMD"] = function(arg)
 		print("|c00FFAA00"..TC2.addonName.." v"..TC2.version.."|r")
 	else
 		LibStub("AceConfigDialog-3.0"):Open("ThreatClassic2")
-	end	
+	end
 end
