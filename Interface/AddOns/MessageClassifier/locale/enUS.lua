@@ -698,4 +698,36 @@ MessageClassifierDefaultRules = {
             },
         },
     },
+    {
+        id = 3029,
+        ["class"] = "Instance/The Temple of Ahn'Qiraj/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "aq40",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "%f[%a]taq%f[%A]",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3030,
+        ["class"] = "Instance/Ruins of Ahn'Qiraj/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "aq20",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "%f[%a]raq%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
 }

@@ -648,4 +648,56 @@ MessageClassifierDefaultRules = {
             },
         },
     },
+    {
+        id = 3029,
+        ["class"] = "副本/安其拉神殿/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "安其拉",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "aql",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "taq",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "aq40",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3030,
+        ["class"] = "副本/安其拉廢墟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "廢墟",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "fx",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "raq",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "aq20",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
 }
