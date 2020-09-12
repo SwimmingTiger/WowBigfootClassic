@@ -4,7 +4,7 @@ if not AL then return end
 
 -- These localization strings are translated on Curseforge: https://www.curseforge.com/wow/addons/atlaslootclassic/localization
 -- Collections
-AL["%s Sets"] = "Sets %s"
+AL["%s Sets"] = "Ensembles de %s"
 AL["Abyssal Dukes"] = "Ducs abyssaux"
 AL["Abyssal Lords"] = "Seigneurs des abysses"
 AL["Abyssal Templars"] = "Templiers abyssaux"
