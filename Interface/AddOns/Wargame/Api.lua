@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 5/7/2020, 10:47:42 AM
-
 ---@type string
 local ADDON_NAME
 ---@type ns
@@ -27,8 +26,20 @@ ns.RULE = { --
 --- MapUtil.GetDisplayableMapForPlayer()
 -- mapID 战歌 1460 阿拉希 1461
 ns.ZONE = { --
-    Warsong = 1460, -- 战歌
-    Alx = 1461, -- 阿拉希
+    WSG = 1460, -- 战歌
+    AB = 1461, -- 阿拉希
+}
+
+---@type RankType
+ns.RANK = { --
+    TEAM = 1,
+    SOLO = 2,
+    GUILD = 3,
+}
+
+ns.TEMPLATE = { --
+    GUILD_GAME = 1,
+    SOLO_GAME = 2,
 }
 
 ns.ErrorCode = {
@@ -55,6 +66,15 @@ ns.ErrorCode = {
     ERR_MATCH_INVALID_GAME = 20021, -- 无效局
     ERR_MATCH_TOO_MANY_BATTLE_ROOMS = 20022, -- 战场太多
     ERR_TEAM_NOT_PERSIST = 20024, -- 暂时还是临时
+    ERR_MATCH_TIMEOUT_BY_WORLD = 20025, -- 匹配超时
+    ERR_TEAM_NAME_TABOO = 20026, -- 队伍名包含敏感词
+    ERR_TEAM_NAME_ALREADY_EXIST = 20027, -- 队伍名已存在
+    ERR_TEAM_NAME_MODIFY_ONCE = 20028, -- 队伍名只能修改一次
+    ERR_TEAM_NAME_MODIFY_SAME = 20029, -- 队伍名修改前后相同，不能修改
+    ERR_SOME_MEMBER_ALREADY_IN_GAME = 20030, -- 队伍中有成员已经在其他游戏中
+    ERR_TEAM_NAME_NOT_LEADER = 20031, -- 不是队长不能修改队伍名
+    ERR_TEAM_NAME_NOT_VALID = 20032, -- 队伍名不合法，只能包含中文数字和英文字母
+    ERR_TEAM_NAME_LEN_ERROR = 20033, -- 队伍名为1到7个(中文，数字，英文字母)
 
     ERR_TEAM_STATE_ERROR = 20101, -- 队伍状态错误 空闲
     ERR_TEAM_STATE_START_MATCHING = 20102, -- 队伍状态错误 开始匹配
@@ -83,6 +103,10 @@ function ns.UnitClass(unit)
     return (select(3, UnitClass(unit)))
 end
 
+function ns.UnitRace(unit)
+    return (select(3, UnitRace(unit)))
+end
+
 function ns.GetBattleTag()
     return (select(2, BNGetInfo()))
 end
@@ -101,7 +125,12 @@ function ns.GetNumGroupMembers()
 end
 
 function ns.GenerateFromProto(...)
-    local keys = {...}
+    local keys
+    if type(...) == 'table' then
+        keys = ...
+    else
+        keys = {...}
+    end
 
     return function(self, p)
         local obj = self:New()
@@ -115,6 +144,12 @@ function ns.GenerateFromProto(...)
 
         return obj
     end
+end
+
+function ns.NewProto(name, ...)
+    local class = ns.Addon:NewClass(name)
+    class.FromProto = ns.GenerateFromProto(...)
+    return class
 end
 
 local SOLO_UNITS = {'player'}
@@ -147,6 +182,20 @@ function ns.GetClassColor(id)
     return GetClassColor('PRIEST')
 end
 
+function ns.GetClassName(id)
+    local info = C_CreatureInfo.GetClassInfo(id)
+    if info then
+        return info.className
+    end
+end
+
+function ns.GetRaceName(id)
+    local info = C_CreatureInfo.GetRaceInfo(id)
+    if info then
+        return info.raceName
+    end
+end
+
 function ns.Message(f, ...)
     local text
     if select('#', ...) == 0 then
@@ -169,10 +218,35 @@ function ns.Spawn(fn, ...)
     end
 end
 
-function ns.InputBox(title, text, accept, data)
+local function getDialog()
     StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX'] = StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX'] or {}
-    local dlg = StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX']
-    wipe(dlg)
+    return wipe(StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX'])
+end
+
+function ns.InputBox(title, accept, letters, data)
+    local dlg = getDialog()
+    dlg.text = title
+    dlg.button1 = ACCEPT
+    dlg.button2 = CANCEL
+    dlg.hideOnEscape = 1
+    dlg.timeout = 0
+    dlg.exclusive = 1
+    dlg.whileDead = 1
+    dlg.hasEditBox = true
+    dlg.maxLetters = letters
+    dlg.OnAccept = function(dialog)
+        return accept(_G[dialog:GetName() .. 'EditBox']:GetText(), dialog.data)
+    end
+    dlg.EditBoxOnEnterPressed = function(self)
+        local dialog = self:GetParent()
+        accept(self:GetText(), dialog.data)
+        dialog:Hide()
+    end
+    StaticPopup_Show('NETEASE_WARGAME_MSG_BOX', nil, nil, data)
+end
+
+function ns.CopyBox(title, text, accept, data)
+    local dlg = getDialog()
     dlg.text = title
     dlg.button1 = L['确定']
     dlg.OnAccept = accept
@@ -197,12 +271,9 @@ function ns.InputBox(title, text, accept, data)
 end
 
 function ns.MsgBox(text, accept, data, timeout, button1Text, button2Text, editBoxText)
-    StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX'] = StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX'] or {}
-    local dlg = StaticPopupDialogs['NETEASE_WARGAME_MSG_BOX']
-    wipe(dlg)
-
+    local dlg = getDialog()
     dlg.text = text
-    dlg.button1 = button1Text or YES
+    dlg.button1 = button1Text or L['确定']
     dlg.button2 = accept and (button2Text or NO) or nil
     dlg.OnAccept = accept
     dlg.hideOnEscape = 1
@@ -249,4 +320,16 @@ function ns.FormatSummary(text, game)
     return text:gsub('{{([%w_]+)}}', function(key)
         return game[key]
     end)
+end
+
+function ns.GetFactionColor(faction)
+    local factionId = tonumber(faction)
+    if not factionId then
+        factionId = PLAYER_FACTION_GROUP[faction]
+    end
+
+    if factionId then
+        return PLAYER_FACTION_COLORS[factionId]:GetRGB()
+    end
+    return HIGHLIGHT_FONT_COLOR:GetRGB()
 end

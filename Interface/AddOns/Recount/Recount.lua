@@ -11,7 +11,9 @@ local FilterSize	= 20
 local RampUp		= 5
 local RampDown		= 10
 
-Recount.Version = tonumber(string.sub("$Revision: 1544 $", 12, -3))
+Recount.Version = tonumber(string.sub("$Revision: 1559 $", 12, -3))
+
+
 
 local _G = _G
 local abs = abs
@@ -1720,6 +1722,13 @@ end
 function Recount:OnInitialize()
 	local acedb = LibStub:GetLibrary("AceDB-3.0")
 	Recount.db = acedb:New("RecountDB", Default_Profile)
+	
+	--Terry@bf
+	if BFRecountLDBIcon and RecountLauncher then
+		BFRecountLDBIcon:Register("Recount", RecountLauncher, Recount.db.profile.MiniMap)
+	end
+	--end Terry@bf
+
 	--Recount.db2 = acedb:New("RecountPerCharDB", DefaultConfig)
 	RecountPerCharDB = RecountPerCharDB or { }
 	Recount.db2 = RecountPerCharDB

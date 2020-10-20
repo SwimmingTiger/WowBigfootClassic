@@ -108,22 +108,3 @@ end
 function ScoreWidget:IsReadyOnly()
     return self.Overlay:IsShown()
 end
-
--- local w = ScoreWidget:New(UIParent)
--- w:SetPoint('CENTER')
--- w:SetValue(4.2)
--- w:SetReadOnly(true)
-
--- function _G.GG(v)
---     w:SetValue(v)
--- end
-
--- local w = CreateFrame('Frame', nil, UIParent, 'GoodLeaderGradePanelTemplate')
--- w:SetPoint('CENTER')
--- w.Title:SetText('团长评价')
--- w.Leader:SetText('假牙')
--- w.Leader:Disable()
--- w.Score1.Text:SetText('公正：')
--- w.Score2.Text:SetText('公正：')
--- w.Score3.Text:SetText('公正：')
--- w.Tags:SetTags{'幽默风趣', '好团长', '效率', '飙车司机', '公正', '磁性嗓音', '段子手', '欧皇'}

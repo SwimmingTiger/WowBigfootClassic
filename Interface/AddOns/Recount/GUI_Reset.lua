@@ -3,7 +3,7 @@ local Recount = _G.Recount
 local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 
-local revision = tonumber(string.sub("$Revision: 1254 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1563 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -14,7 +14,7 @@ local UIParent = UIParent
 local me = {}
 
 function me:CreateResetWindow()
-	me.ResetFrame = CreateFrame("Frame", nil, UIParent)
+	me.ResetFrame = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
 	local theFrame = me.ResetFrame
 

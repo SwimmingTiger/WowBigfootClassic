@@ -31,8 +31,9 @@ function TotemTimers.CreateTimers()
 		tt.events[1] = "PLAYER_TOTEM_UPDATE"
         tt.events[2] = "SPELL_UPDATE_COOLDOWN"
         tt.events[3] = "PLAYER_ENTERING_WORLD"
-        tt.events[4] = "UNIT_SPELLCAST_SUCCEEDED"
-        tt.events[5] = "PLAYER_REGEN_ENABLED"
+        --tt.events[4] = "UNIT_SPELLCAST_SUCCEEDED"
+        tt.events[4] = "PLAYER_REGEN_ENABLED"
+        tt.playerEvents[1] = "UNIT_SPELLCAST_SUCCEEDED"
         --tt.events[6] = "UNIT_AURA"
         --tt.events[7] = "RAID_ROSTER_UPDATE"
         
@@ -44,7 +45,7 @@ function TotemTimers.CreateTimers()
 		tt.button:SetAttribute("*macrotext2", "/cast Totemic Recall")
 		tt.button:SetAttribute("*macrotext3", "/cast Totemic Recall")
 		tt.button:SetAttribute("*type1", "spell")
-        tt.button.bar:SetStatusBarColor(0.7,1,0.7,0.5)
+        tt.button.bar:SetStatusBarColor(0.7,1,0.7,0.8)
 		tt.button.UpdateMiniIconAndProfile = function(self)
                 local spell = self:GetAttribute("*spell1")
                 if spell and spell ~= 0 then
@@ -54,6 +55,7 @@ function TotemTimers.CreateTimers()
                     self.timer.manaCheck = t
                     TotemTimers.ActiveProfile.LastTotems[self.timer.nr] = spell
 				end
+				TotemTimers.UpdateMacro()
 			end
         tt.button.ShowTooltip = TotemTimers.timerTooltip
         tt.button.HideTooltip = function(self) GameTooltip:Hide() end
@@ -154,12 +156,43 @@ local FireElemental = TotemTimers.SpellNames[TotemTimers.SpellIDs.FireElemental]
 
 function TotemTimers:TotemEvent(event, arg1, arg2, arg3)
     local settings = TotemTimers.ActiveProfile
-	
     if event == "PLAYER_TOTEM_UPDATE" then
-    	if self.element == arg1 and self.timer.activeTotem and self.timer.timers[1] > 0 then
-		if self.timer.timers[1] < TotemData[self.timer.activeTotem].duration - 1 then
-			self.timer:Stop(1)
-		end
+    	if self.element == arg1 then
+    		local _, totem, startTime, duration, icon = GetTotemInfo(arg1)
+            totem = string.gsub(totem, " [IV]*$", "") -- strip spell rank from name
+            totem = NameToSpellID[totem]
+    		if duration > 0 and totem and TotemData[totem] then
+    			self.icons[1]:SetTexture(icon)
+                self.timer.activeTotem = totem
+    			self.timer.warningMsgs[1] = "TotemWarning"
+    			self.timer.expirationMsgs[1] = "TotemExpiration"
+    			self.timer.earlyExpirationMsgs[1] = "TotemDestroyed"
+                self.timer.warningIcons[1] = icon
+                self.timer.warningSpells[1] = SpellNames[totem]
+                if TotemData[totem].flashInterval then
+                    self.bar:SetMinMaxValues(0,TotemData[totem].flashInterval)
+                    self.timer.bar = TotemData[totem].flashInterval
+                    self.timer.barDelay = TotemData[totem].flashDelay or 0
+                else
+                    self.timer.bar = nil
+                end
+				self.timer.warningPoint = TotemData[totem].warningPoint or 10
+    			self.timer:Start(1, startTime+duration-GetTime())
+                --TotemTimers.SetTotemPosition(self.element)
+                --[[ TotemTimers.ResetRange(self.element)
+                self.timer:SetOutOfRange(false)
+                if TotemData[totem].noRangeCheck then
+                    self.rangeCount:SetText("")
+                else TotemTimers.ResetRange(self.element)
+                    self.rangeCount:SetText("")
+                end --]]
+            else
+                --[[ TotemTimers.ResetRange(self.element)
+                self.rangeCount:SetText("") --]]
+                if self.timer.timers[1] > 0 then 
+                    self.timer:Stop(1)
+                end
+    		end
     	end
     elseif event == "SPELL_UPDATE_COOLDOWN" then -- SPELL_UPDATE_COOLDOWN
         local spell = self:GetAttribute("*spell1")
@@ -190,34 +223,13 @@ function TotemTimers:TotemEvent(event, arg1, arg2, arg3)
                 self.timer:Stop(i)
             end
         end
-    elseif (event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "player" and arg2 == TotemicCall)
+    elseif (event == "UNIT_SPELLCAST_SUCCEEDED" and arg2 == TotemicCall)
         or event == "PLAYER_ENTERING_WORLD" then
         self.timer.StopQuiet = true
         self.timer:Stop(1)
         --self.rangeCount:SetText("")
-	elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
-	
-		local name, rank, icon, castTime, minRange, maxRange, _ = GetSpellInfo(arg3)
-		spellId = TotemTimers.NameToSpellID[name]
-
-		if spellId and TotemData[spellId] and TotemData[spellId].element == self.element then
-				self.icons[1]:SetTexture(icon)
-                self.timer.activeTotem = spellId
-    			self.timer.warningMsgs[1] = "TotemWarning"
-    			self.timer.expirationMsgs[1] = "TotemExpiration"
-    			self.timer.earlyExpirationMsgs[1] = "TotemDestroyed"
-                self.timer.warningIcons[1] = icon
-                self.timer.warningSpells[1] = name
-                if TotemData[spellId].flashInterval then
-                    self.bar:SetMinMaxValues(0,TotemData[spellId].flashInterval)
-                    self.timer.bar = TotemData[spellId].flashInterval
-                    self.timer.barDelay = TotemData[spellId].flashDelay or 0
-                else
-                    self.timer.bar = nil
-                end
-				self.timer.warningPoint = TotemData[spellId].warningPoint or 10
-    			self.timer:Start(1, TotemData[spellId].duration)
-		end
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" and self.timer.nr == 3 and arg3 == SpellIDs.EnamoredWaterSpirit then
+        self.timer:Start(1,24,24)
     end
 end
 

@@ -291,7 +291,7 @@ function XiTimers:Update(elapsed)
                     if self.nr < 8 and self.timers[1] <= 10 then button.time:SetTextColor(1,0,0) end
                     
                     if self.procFlash and timers[1] > 0 and self.bar then
-                        button.bar:SetValue(self.bar - mod(timers[1] + self.barDelay, self.bar))
+                        button.bar:SetValue(self.bar - mod(self.durations[1] - timers[1] + self.barDelay, self.bar))
                         button.bar:Show()
                     end
                 end

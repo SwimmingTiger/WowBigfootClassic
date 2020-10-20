@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ouro", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817175343")
+mod:SetRevision("20200915200129")
 mod:SetCreatureID(15517)
 mod:SetEncounterID(716)
 mod:SetModelID(15509)
@@ -42,7 +42,6 @@ function mod:OnCombatStart(delay)
 	timerSweepCD:Start(22-delay)--22-25
 	timerBlastCD:Start(20-delay)--20-26
 	timerSubmerge:Start(184-delay)
-	DBM:AddMsg("DBM will now show submerge timer for natural submerge timing if he remains in melee range of his current target. If at anytime he can't reach his current target it triggers an automatic submerge")
 end
 
 function mod:Emerge()

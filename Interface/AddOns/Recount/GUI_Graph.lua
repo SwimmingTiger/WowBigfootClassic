@@ -4,7 +4,7 @@ local Graph = LibStub:GetLibrary("LibGraph-2.0")
 local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 
-local revision = tonumber(string.sub("$Revision: 1472 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1563 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -872,7 +872,7 @@ function Recount:GraphRefreshCombat()
 end
 
 function Recount:CreateGraphWindow()
-	Recount.GraphWindow = CreateFrame("Frame","Recount_GraphWindow",UIParent)
+	Recount.GraphWindow = CreateFrame("Frame", "Recount_GraphWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
 	local theFrame = Recount.GraphWindow
 
@@ -890,8 +890,8 @@ function Recount:CreateGraphWindow()
 	})
 	theFrame:SetBackdropBorderColor(1.0, 0.0, 0.0)
 	theFrame:SetBackdropColor(24 / 255, 24 / 255, 24 / 255)
-	Recount.Colors:RegisterBorder("Other Windows","Title",theFrame)
-	Recount.Colors:RegisterBackground("Other Windows","Background",theFrame)
+	Recount.Colors:RegisterBorder("Other Windows", "Title", theFrame)
+	Recount.Colors:RegisterBackground("Other Windows", "Background", theFrame)
 
 	theFrame:EnableMouse(true)
 	theFrame:SetMovable(true)

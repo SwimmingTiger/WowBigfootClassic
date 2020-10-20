@@ -144,7 +144,7 @@
                                 </FontString>
                                 <FontString parentKey="Disconnect" hidden="true" inherits="GameFontNormal">
                                     <Anchors>
-                                    <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-50"/>
+                                        <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-50"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -174,28 +174,45 @@
                     <Frame parentKey="Footer" inherits="InsetFrameTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.Header" relativePoint="BOTTOMLEFT" />
-                            <Anchor point="BOTTOMRIGHT" />
+                            <Anchor point="BOTTOMRIGHT" x="-173" />
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Text" inherits="GameFontHighlightLeft">
                                     <Anchors>
-                                        <Anchor point="TOP" x="96" y="-30"/>
+                                        <Anchor point="TOPLEFT" x="16" y="-30"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="Title" inherits="GameFontNormalLeft">
                                     <Anchors>
-                                        <Anchor point="TOPRIGHT" relativeKey="$parent.Text" relativePoint="TOPLEFT" x="-10" y="0"/>
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Text" relativePoint="TOPLEFT" x="0" y="5"/>
                                     </Anchors>
                                 </FontString>
-                                <Texture file="Interface\CharacterFrame\temporaryportrait-male-bloodelf">
-                                    <Size x="40" y="40" />
-                                    <Anchors>
-                                        <Anchor point="TOPRIGHT" relativeKey="$parent.Title" relativePoint="TOPLEFT" x="-10" y="0"/>
-                                    </Anchors>
-                                </Texture>
                             </Layer>
                         </Layers>
+                    </Frame>
+                    <Frame parentKey="Inset" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Footer" relativePoint="TOPRIGHT" />
+                            <Anchor point="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString inherits="GameFontNormalSmall" text="微信扫码 查询团长">
+                                    <Anchors>
+                                        <Anchor point="BOTTOM" relativePoint="BOTTOM" x="-5" y="0" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Button parentKey="QRCode">
+                                <Size x="152" y="152" />
+                                <Anchors>
+                                    <Anchor point="CENTER" />
+                                </Anchors>
+                            </Button>
+                        </Frames>
                     </Frame>
                 </Frames>
             </Frame>
@@ -540,6 +557,58 @@
                 </Anchors>
                 <Scripts>
                     <OnClick function="HideParentPanel" />
+                </Scripts>
+            </Button>
+            <Frame parentKey="QrCodeFrame" hidden="true">
+                <Size x="189" y="189" />
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="0" />
+                </Anchors>
+                <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+                    <BackgroundInsets>
+                        <AbsInset left="11" right="11" top="11" bottom="11"/>
+                    </BackgroundInsets>
+                    <TileSize>
+                        <AbsValue val="32"/>
+                    </TileSize>
+                    <EdgeSize>
+                        <AbsValue val="32"/>
+                    </EdgeSize>
+                </Backdrop>
+                <Frames>
+                    <Button parentKey="QRCode">
+                        <Size x="152" y="152" />
+                        <Anchors>
+                            <Anchor point="CENTER" />
+                        </Anchors>
+                    </Button>
+                </Frames>
+            </Frame>
+            <Button>
+                <Size x="48" y="48" />
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-11" y="11" />
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString inherits="GameFontNormalSmall" text="微信扫码 查询团长">
+                            <Anchors>
+                                <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="-5" y="0" />
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <NormalTexture file="Interface\AddOns\GoodLeader\Media\goodleader_icon_qrcoad_normal">
+                </NormalTexture>
+                <HighlightTexture file="Interface\AddOns\GoodLeader\Media\goodleader_icon_qrcoad_hover" alphaMode="ADD">
+                </HighlightTexture>
+                <Scripts>
+                    <OnEnter>
+                        self:GetParent().QrCodeFrame:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        self:GetParent().QrCodeFrame:Hide()
+                    </OnLeave>
                 </Scripts>
             </Button>
         </Frames>

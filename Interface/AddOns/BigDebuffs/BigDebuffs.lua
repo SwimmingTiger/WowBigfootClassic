@@ -320,6 +320,11 @@ local GetNameplateAnchor = {
 			return frame.unitFrame, frame.unitFrame
 		end
     end,
+    NeatPlates = function(frame)
+        if frame.carrier and frame.extended and frame.extended.bars and frame.carrier:IsShown() then
+            return frame.extended.bars.healthbar, frame.extended
+        end
+    end,
 	Blizzard = function(frame)
         if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
             return frame.UnitFrame, frame.UnitFrame
@@ -353,7 +358,13 @@ local nameplatesAnchors = {
 		end,
         func = GetNameplateAnchor.Plater,
     },
-	[4] = {
+    [4] = {
+        used = function()
+            return NeatPlates ~= nil -- or TidyPlates ~= nil -- Should be the same but haven't confirmed
+        end,
+        func = GetNameplateAnchor.NeatPlates,
+    },
+	[5] = {
         used = function(frame) return frame.UnitFrame ~= nil end,
         func = GetNameplateAnchor.Blizzard,
     },
@@ -367,10 +378,10 @@ local anchors = {
             pet = "ElvUF_Pet",
             target = "ElvUF_Target",
             focus = "ElvUF_Focus",
-            party1 = "ElvUF_PartyGroup1UnitButton1",
-            party2 = "ElvUF_PartyGroup1UnitButton2",
-            party3 = "ElvUF_PartyGroup1UnitButton3",
-            party4 = "ElvUF_PartyGroup1UnitButton4",
+            party1 = "ElvUF_PartyGroup1UnitButton2",
+            party2 = "ElvUF_PartyGroup1UnitButton3",
+            party3 = "ElvUF_PartyGroup1UnitButton4",
+            party4 = "ElvUF_PartyGroup1UnitButton5",
         },
     },
     ["bUnitFrames"] = {
@@ -1907,7 +1918,8 @@ end
 function BigDebuffs:NAME_PLATE_UNIT_REMOVED(_, unit)
 	local frame = self.Nameplates[unit]
 
-	frame:UnregisterEvent("UNIT_AURA")
+	if frame then frame:UnregisterEvent("UNIT_AURA") end
+
 	for i = 1, #unitsWithRaid do
 		if (unitsWithRaid[i] == unit) then
 			table.remove(unitsWithRaid, i)

@@ -276,7 +276,7 @@ local function BuildBlizzardProfile()
 end
 
 function PresetsMod:ResetProfile(type)
-	if not type then type = PresetsMod.defaultType end
+	if not type then type = PresetsMod.defaultType or "BLIZZARD" end	--bf@178.com
 	Bartender4.db:ResetProfile()
 	if type == "BLIZZARD" then
 		BuildBlizzardProfile()

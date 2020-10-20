@@ -1,6 +1,6 @@
 local Recount = _G.Recount
 
-local revision = tonumber(string.sub("$Revision: 1309 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1563 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -12,7 +12,7 @@ local CreateFrame = CreateFrame
 local UIParent = UIParent
 
 function Recount:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
-	local theFrame = CreateFrame("Frame", Name, UIParent)
+	local theFrame = CreateFrame("Frame", Name, UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
 	theFrame:ClearAllPoints()
 	theFrame:SetPoint("CENTER",UIParent)

@@ -168,3 +168,24 @@ L['SHORT: Ysondre'] = '' -- 伊森德雷
 L['SHORT: Taerar'] = '' -- 泰拉尔
 L['SHORT: Emeriss'] = '' -- 艾莫莉丝
 L['SHORT: Lethon'] = '' -- 莱索恩
+
+L['玛丁雷少校'] = true
+L['暴风城的城民和盟友们'] = true
+L['看看强大的联盟吧'] = true
+L['艾法希比元帅'] = true
+L['联盟的人民们'] = true
+L['兴奋起来'] = true
+L['伦萨克'] = true
+L['部落的人民，奥格瑞玛的居民'] = true
+L['在屠龙大军的战斗号角声中精神抖擞地前进吧'] = true
+L['萨鲁法尔大王'] = true
+L['奈法利安被杀掉了'] = true
+L['为他的胜利而狂欢吧'] = true
+L['萨尔'] = true
+L['奈法利安被杀掉了'] = true
+L['为他的胜利而狂欢吧'] = true
+L['为你们的英雄而欢庆'] = true
+L['沐浴在我的力量中吧'] = true
+
+L['二维码尺寸过小'] = true
+L['加载中'] = true

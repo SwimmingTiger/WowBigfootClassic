@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Huhuran", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817175343")
+mod:SetRevision("20201011193247")
 mod:SetCreatureID(15509)
 mod:SetEncounterID(714)
 mod:SetModelID(15739)
@@ -43,7 +43,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(StingTargets)
 	timerFrenzyCD:Start(9.6-delay)
 	timerPoisonCD:Start(11-delay)
-	timerStingCD:Start(24.4-delay)
+	timerStingCD:Start(20-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(18)
 	end
@@ -134,7 +134,7 @@ do
 end
 
 function mod:UNIT_HEALTH(uId)
-	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.35 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
+	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.38 and self:GetUnitCreatureId(uId) == 15509 and not self.vb.prewarn_berserk then
 		warnBerserkSoon:Show()
 		self.vb.prewarn_berserk = true
 	end

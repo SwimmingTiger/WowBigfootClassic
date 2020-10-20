@@ -1,6 +1,7 @@
 ﻿---@type ns
 local ADDON_NAME, ns = ...
 local L = ns.L
+local Log = ns.Logger
 
 ---@class NeteaseWargameUIMatchPanel
 local MatchPanel = ns.Addon:NewClass('UI.MatchPanel', 'Frame')
@@ -15,7 +16,11 @@ function MatchPanel:Constructor()
 
     local function OnClick()
         if self.MatchTimer then
-            ns.Wargame:CancelMatch(self.gameId, false)
+            local currentGame = ns.Wargame:CurrentGame()
+            if currentGame then
+                Log:Debug('Cancel Match', currentGame.id)
+                ns.Wargame:CancelMatch(currentGame.id, false)
+            end
             self.MatchButton:Disable()
         else
             local ok, msg = ns.Wargame:Match(self.gameId)
@@ -24,13 +29,13 @@ function MatchPanel:Constructor()
                 return
             end
 
-            self.MatchDuration = 0
             if not self.MatchTimer then
                 self.MatchTimer = C_Timer.NewTicker(1, function()
                     self:UpdateButtons()
                 end)
             end
             self:UpdateButtons()
+            Log:Debug('Start Match', self.gameId)
         end
     end
 
@@ -45,7 +50,7 @@ function MatchPanel:Constructor()
         ns.Addon:OpenBlocker({
             text = L['比赛规则'],
             acceptText = CLOSE,
-            editText = game.zone == ns.ZONE.Warsong and ns.FormatSummary(L.WARSONG_RULES, game) or L.ALX_RULES,
+            editText = game:GetGameRules(),
             cancelHidden = true,
             editBox = true,
         })
@@ -70,11 +75,6 @@ function MatchPanel:Clear()
         tex:Hide()
     end
 
-    if self.MatchTimer then
-        self.MatchTimer:Cancel()
-        self.MatchTimer = nil
-    end
-
     if self.NotStartTimer then
         self.NotStartTimer:Cancel()
         self.NotStartTimer = nil
@@ -90,38 +90,63 @@ function MatchPanel:Clear()
     self.gameId = 0
 end
 
-function MatchPanel:UpdateButtons()
-    local game = ns.Wargame.games[self.gameId]
-    if not game then
-        return
+function MatchPanel:StopMatching()
+    if self.MatchTimer then
+        self.MatchTimer:Cancel()
+        self.MatchTimer = nil
     end
+end
 
-    local duration = game:GetNextStartTime()
-    local inprogress = game:IsInProgress()
-    if duration and not inprogress then
-        if not self.NotStartTimer then
-            self.NotStartTimer = C_Timer.NewTicker(1, function()
-                self:UpdateButtons()
-            end)
-        end
-        local hours, minutes, seconds = ns.secToHMS(duration - ns.time())
-        self.MatchButton:SetText(string.format(L['距离比赛开始|n%02d:%02d:%02d'], hours, minutes, seconds))
-        self.MatchButton:Disable()
-    elseif self.MatchTimer then
-        self.MatchDuration = self.MatchDuration + 1
-        self.Duration:SetText(string.format(L['正在寻找对手...|n%02d:%02d'], self.MatchDuration / 60,
-                                            self.MatchDuration % 60))
-        self.MatchButton:SetText(L['取消'])
-        self.MatchButton:Enable()
-    else
+function MatchPanel:UpdateButtons()
+    local currentGame = ns.Wargame:CurrentGame()
+    if currentGame then
         if self.NotStartTimer then
             self.NotStartTimer:Cancel()
             self.NotStartTimer = nil
         end
-        local inBattle = ns.Wargame:IsInBattle()
-        self.MatchButton:SetText(inBattle and L['比赛中'] or inprogress and L['匹配'] or L['赛事结束'])
-        self.Duration:SetText('')
-        self.MatchButton:SetEnabled(inprogress and not inBattle)
+
+        if ns.Wargame:IsInBattle() then
+            self.MatchButton:SetText(L['比赛中'])
+            self.Duration:SetText('')
+            self.MatchButton:SetEnabled(false)
+        elseif currentGame.id ~= self.gameId then
+            self.MatchButton:SetText(L['匹配'])
+            self.Duration:SetText('')
+            self.MatchButton:SetEnabled(false)
+        else
+            local duration = ns.time() - ns.Wargame.gameMatchTick
+            self.Duration:SetText(string.format(L['正在寻找对手%s...|n%02d:%02d'],
+                                                currentGame and string.format('[%s]', currentGame.tabName) or '',
+                                                duration / 60, duration % 60))
+            self.MatchButton:SetText(L['取消'])
+            self.MatchButton:Enable()
+        end
+    else
+        local game = ns.Wargame.games[self.gameId]
+        if not game then
+            return
+        end
+        local duration = game:GetNextStartTime()
+        local inprogress = game:IsInProgress()
+        if duration and not inprogress then
+            if not self.NotStartTimer then
+                self.NotStartTimer = C_Timer.NewTicker(1, function()
+                    self:UpdateButtons()
+                end)
+            end
+            local hours, minutes, seconds = ns.secToHMS(duration - ns.time())
+            self.MatchButton:SetText(string.format(L['距离比赛开始|n%02d:%02d:%02d'], hours, minutes, seconds))
+            self.MatchButton:Disable()
+        else
+            if self.NotStartTimer then
+                self.NotStartTimer:Cancel()
+                self.NotStartTimer = nil
+            end
+            local inBattleground = UnitInBattleground('player') or IsWargame()
+            self.MatchButton:SetText(inprogress and L['匹配'] or L['赛事结束'])
+            self.Duration:SetText('')
+            self.MatchButton:SetEnabled(inprogress and not inBattleground)
+        end
     end
 end
 
@@ -131,14 +156,21 @@ function MatchPanel:Update()
         return
     end
 
-    -- self.Description.Text:SetText(ns.FormatSummary(L.MATCH_DESCRIPTION, game))
     self:UpdateDescription(game)
     self.Param.Mode:SetText(string.format(L['比赛模式：%s'], game.mode))
     self.Param.Time:SetText(game:GetStartTimeText())
-    self.ProgressBar:SetMinMaxValues(0, game.maxRoundCount or 0)
-    self.ProgressBar:SetValue(game.roundCount or 0)
-    self.ProgressBar.Text:SetText(
-        string.format(L['比赛进度：%s/%s'], game.roundCount or 0, game.maxRoundCount or 0))
+
+    -- 进度条
+    if game.templateId == ns.TEMPLATE.GUILD_GAME then
+        self.ProgressBar:SetMinMaxValues(0, game.maxRoundCount or 0)
+        self.ProgressBar:SetValue(game.roundCount or 0)
+        self.ProgressBar.Text:SetText(string.format(L['比赛进度：%s/%s'], game.roundCount or 0,
+                                                    game.maxRoundCount or 0))
+        self.ProgressBar:Show()
+    else
+
+        self.ProgressBar:Hide()
+    end
 
     -- update texture
     local texName = 'nw-bg-' .. game.zone
@@ -154,7 +186,6 @@ function MatchPanel:Update()
     local tex = self.titleTex[texName]
     if not tex then
         tex = CreateFrame('Frame', nil, self, texName)
-        tex:SetPoint('TOP', 0, -10)
         self.titleTex[texName] = tex
     end
     tex:Show()
@@ -164,7 +195,7 @@ function MatchPanel:Update()
 end
 
 function MatchPanel:UpdateDescription(game)
-    self.Description.Text:SetText(game and ns.FormatSummary(L.MATCH_DESCRIPTION, game) or '')
+    self.Description.Text:SetText(game and game:GetMatchDesc() or '')
     self.Description:SetHeight(max(105, self.Description.Text:GetStringHeight() + 30))
 end
 
@@ -182,23 +213,16 @@ function MatchPanel:NETEASE_WARGAME_BATTLE_FINISH(_, error, gameId, isSameRoom)
 end
 
 function MatchPanel:NETEASE_WARGAME_LEAVE_BATTLE()
-    if self.MatchTimer then
-        self.MatchTimer:Cancel()
-        self.MatchTimer = nil
-    end
+    self:StopMatching()
     self:UpdateButtons()
 end
 
 function MatchPanel:NETEASE_WARGAME_MATCH_START(_, error, gameId, errorData)
-    if gameId ~= self.gameId then
+    if error == 0 and (not ns.Wargame:CurrentGame() or ns.Wargame:CurrentGame().id ~= gameId) then
         return
     end
 
-    if self.MatchTimer then
-        self.MatchTimer:Cancel()
-        self.MatchTimer = nil
-    end
-
+    self:StopMatching()
     self.MatchButton:SetText(error == 0 and L['比赛中'] or L['匹配'])
     self.Duration:SetText('')
 
@@ -208,6 +232,9 @@ function MatchPanel:NETEASE_WARGAME_MATCH_START(_, error, gameId, errorData)
             ns.MsgBox(string.format(
                           L['检测到成员|cffff0000%s|r已经加入过其他队伍，无法与当前队伍进行匹配'],
                           table.concat(errorData, L['、'])))
+        elseif error == ns.ErrorCode.ERR_SOME_MEMBER_ALREADY_IN_GAME and type(errorData) == 'table' then
+            ns.MsgBox(string.format(L['检测到成员|cffff0000%s|r已经在游戏中，无法进行匹配'],
+                                    table.concat(errorData, L['、'])))
         else
             ns.MsgBox(ns.GetError(error))
         end
@@ -217,17 +244,15 @@ function MatchPanel:NETEASE_WARGAME_MATCH_START(_, error, gameId, errorData)
 end
 
 function MatchPanel:NETEASE_WARGAME_MATCH_CANCEL(_, error, gameId)
-    if gameId ~= self.gameId then
+    local currentGame = ns.Wargame:CurrentGame()
+    if currentGame and currentGame.id ~= gameId then
         return
     end
 
     if error ~= 0 then
         ns.MsgBox(ns.GetError(error))
     else
-        if self.MatchTimer then
-            self.MatchTimer:Cancel()
-            self.MatchTimer = nil
-        end
+        self:StopMatching()
     end
 
     self:UpdateButtons()

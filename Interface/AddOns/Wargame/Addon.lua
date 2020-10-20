@@ -1,20 +1,9 @@
----@class UI
----@field MainPanel NeteaseWargameUIMainPanel
----@field MatchPanel NeteaseWargameUIMatchPanel
----@field TeamPanel NeteaseWargameUITeamPanel
----@field RankPanel NeteaseWargameUIRankPanel
----@field MapCanvas NeteaseWargameUIMapCanvas
-
 ---@type ns
----@field UI UI
----@field Addon NeteaseWargame
----@field L NeteaseWargameLocale
 local ADDON_NAME, ns = ...
 
 local L = LibStub('AceLocale-3.0'):GetLocale('NeteaseWargame', true)
 
----@type NeteaseWargame
----@field private MainPanel NeteaseWargameUIMainPanel
+---@type Addon
 local Addon = LibStub('AceAddon-3.0'):NewAddon('NeteaseWargame', 'LibClass-2.0')
 ns.Addon = Addon
 
@@ -35,6 +24,8 @@ function Addon:OnInitialize()
             },
         },
     })
+
+    self:SetupCharacterDB()
 
     self.MainPanel = ns.UI.MainPanel:Bind(NeteaseWargameMainPanel)
     self:SetupDataBroker()
@@ -66,17 +57,37 @@ function Addon:OnClassCreated(class, name)
     end
 end
 
+function Addon:SetupCharacterDB()
+    local db = _G.NETEASE_WARGAME_DB_CHARACTER
+    db = db or {}
+    _G.NETEASE_WARGAME_DB_CHARACTER = db
+
+    db.recents = db.recents or {}
+
+    self.C = db
+end
+
 function Addon:Toggle()
     if self.MainPanel:IsShown() then
-        HideUIPanel(self.MainPanel)
+        self:CloseMainPanel()
     else
         self:OpenMainPanel()
     end
 end
 
 function Addon:OpenMainPanel()
-    ShowUIPanel(self.MainPanel)
-    ns.Wargame:RefreshGuild()
+    if ns.Wargame.isSupport then
+        ShowUIPanel(self.MainPanel)
+        ns.Wargame:RefreshGuild()
+    else
+        ns.CopyBox(format(
+                       L['您的战争游戏插件已过期，最新版本为%s，请复制以下网址前往更新或者直接更新您的整合插件'],
+                       ns.Wargame.version), 'https://esports.blizzard.cn/wow/rank')
+    end
+end
+
+function Addon:CloseMainPanel()
+    return HideUIPanel(self.MainPanel)
 end
 
 function Addon:ShowLoading(text, spinner)

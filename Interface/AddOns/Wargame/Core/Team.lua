@@ -9,11 +9,12 @@ local ns = select(2, ...)
 ---@type NeteaseWargameTeam
 local Team = ns.Addon:NewClass('Team')
 
-function Team:FromProto(name, win, lose, members)
+function Team:FromProto(name, win, lose, members, renameCount)
     local team = Team:New()
     team.name = name
     team.win = win
     team.lose = lose
+    team.renameCount = renameCount or 0
     team.members = {}
 
     for i, v in ipairs(members) do
@@ -21,4 +22,8 @@ function Team:FromProto(name, win, lose, members)
         tinsert(team.members, member)
     end
     return team
+end
+
+function Team:CanRename()
+    return self.renameCount > 0
 end

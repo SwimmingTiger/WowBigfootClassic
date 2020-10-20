@@ -1,4 +1,3 @@
-
 ---@type ns
 local ADDON_NAME, ns = ...
 local L = ns.L
@@ -85,7 +84,7 @@ local CATEGORY_LIST = {
     --@end-debug@]===]
 }
 
-local CLASS_INFO = FillLocalizedClassList{}
+local CLASS_INFO = FillLocalizedClassList {}
 local MODE_LIST = {'带新', '自强', 'Roll', 'AA', '菜刀', '传送', '其它'}
 local MODE_IDS = tInvert(MODE_LIST)
 local CATEGORY_DATA = invert(CATEGORY_LIST, 'path')
@@ -502,7 +501,7 @@ local ITEMS = { --
 function ns.GetPlayerItemLevel()
     local itemLevel = 0
     for slot, func in pairs(ITEMS) do
-        itemLevel = itemLevel + func(slot)
+        itemLevel = itemLevel + func(slot) or 0
     end
     local count = IsNoRangeWeaponClass() and 16 or 17
     return floor(itemLevel / count * 10) / 10
@@ -588,4 +587,27 @@ end
 
 function ns.ParseRaidTag(text)
     return (text:gsub('{([^{]+)}', replace))
+end
+
+function ns.FindAuraById(id, unit, filter)
+    return AuraUtil.FindAura(function(idToFind, _, _, ...)
+        local spellId = select(10, ...)
+        return idToFind == spellId
+    end, unit, filter, id)
+end
+
+function ns.RandomCall(sec, func, ...)
+    local delay = random() * sec + 5
+    local args = {...}
+    C_Timer.After(delay, function()
+        func(unpack(args))
+    end)
+
+    --[===[@debug@
+    print('Random Call', delay, sec, func, ...)
+    --@end-debug@]===]
+end
+
+function ns.MakeQRCode(leader)
+    return format('https://tavern.blizzard.cn/miniprogram/goodLeader/detail?%s-%s', GetRealmName(), leader or '')
 end

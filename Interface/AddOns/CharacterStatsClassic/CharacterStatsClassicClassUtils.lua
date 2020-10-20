@@ -83,6 +83,13 @@ function CSC_GetPriestCritStatsFromTalents()
 	return critCombined;
 end
 
+-- returns the healing modifier from Spiritual Healing talent for Priests
+function CSC_GetPriestBonusHealingModifierFromTalents()
+	-- Spiritual Healing
+	local spellRank = select(5, GetTalentInfo(2, 15));
+	return spellRank * 0.02;
+end
+
 -- returns the crit bonus from Holy Power
 function CSC_GetPaladinCritStatsFromTalents()
 	-- Holy Power (1, 2, 3, 4, 5)%
@@ -104,6 +111,24 @@ local function CSC_GetPaladinDefenseFromTalents()
     end
 
     return defense;
+end
+
+-- returns the modifier from Improved Blessing of Wisdom Holy talent
+function CSC_GetPaladinImprovedBoWModifier()
+	-- Improved Blessing of Wisdom
+	local spellRank = select(5, GetTalentInfo(1, 10));
+
+	return spellRank * 0.1;
+end
+
+-- Checks if spellId is Blessing of Wisdom
+function CSC_IsBoWSpellId(spellId)
+
+	if (spellId == 19742 or spellId == 19850 or spellId == 19852 or spellId == 19853 or spellId == 19854 or spellId == 25290) then
+		return true;
+	end
+
+	return false;
 end
 
 -- returns the defense bonus from the Anticipation Prot talent
@@ -148,6 +173,36 @@ function CSC_GetShapeshiftForm()
 	return shapeIndex;
 end
 
+-- returns the bonus hit from Nature's Guidance talent (counts as melee and spell hit)
+function CSC_GetShamanHitFromTalents()
+	-- Nature's Guidance
+	local spellRank = select(5, GetTalentInfo(3, 6));
+	return spellRank;
+end
+
+-- returns the bonus crit from the Call of Thunder talent for Shamans
+function CSC_GetShamanCallOfThunderCrit()
+	local bonusCrit = 0;
+	local talentTable = { 1, 2, 3, 4, 6 };
+
+	-- Call of Thunder (Lightning)
+	local spellRank = select(5, GetTalentInfo(1, 8));
+
+    if (spellRank > 0) and (spellRank <=5) then
+		bonusCrit = talentTable[spellRank];
+	end
+
+	return bonusCrit;
+end
+
+-- returns the bonus crit from the Tidal Mastery telent for Shamans
+function CSC_GetShamanTidalMasteryCrit()
+	-- Tidal Mastery (Nature/Lightning)
+	local spellRank = select(5, GetTalentInfo(3, 11));
+	return spellRank;
+end
+
+-- ITEMS AND ENCHANTS RELATED
 function CSC_GetMP5ModifierFromTalents(unit)
     local unitClassId = select(3, UnitClass(unit));
 	local spellRank = 0;
@@ -224,10 +279,38 @@ end
 function CSC_GetHolyCritFromBenediction(unit)
 	local benedictionCrit = 0;
 	local itemId = GetInventoryItemID(unit, INVSLOT_MAINHAND);
-
+	
 	if itemId == 18608 then
 		benedictionCrit = 2;
 	end
 
 	return benedictionCrit;
+end
+
+function CSC_GetBlockValueFromWarriorZGEnchants(unit)
+	local blockValue = 0;
+
+	if CSC_HasEnchant(unit, INVSLOT_HEAD, 2583) then
+		blockValue = blockValue + 15;
+	end
+
+	if CSC_HasEnchant(unit, INVSLOT_LEGS, 2583) then
+		blockValue = blockValue + 15;
+	end
+
+	return blockValue;
+end
+
+function CSC_GetMp5FromPriestZGEnchants(unit)
+	local mp5 = 0;
+
+	if CSC_HasEnchant(unit, INVSLOT_HEAD, 2590) then
+		mp5 = mp5 + 4;
+	end
+
+	if CSC_HasEnchant(unit, INVSLOT_LEGS, 2590) then
+		mp5 = mp5 + 4;
+	end
+
+	return mp5;
 end

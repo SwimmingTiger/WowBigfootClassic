@@ -1,4 +1,3 @@
-
 ---@type ns
 local ns = select(2, ...)
 
@@ -61,6 +60,8 @@ function Browser:Constructor()
     SetupQuickButton(self.Quick1, 1)
     SetupQuickButton(self.Quick2, 6)
     SetupQuickButton(self.Quick3, 3)
+    SetupQuickButton(self.Quick4, 7)
+    SetupQuickButton(self.Quick5, 4)
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
     self.Activity:SetDefaultText(ALL)
@@ -116,6 +117,16 @@ function Browser:Constructor()
         button.Signup:SetText(L['Whisper'])
         button.Signup:SetShown(item:IsActivity() and not state)
         -- button.Signup:SetEnabled(canSignup)
+
+        button.QRIcon:SetScript('OnClick', function()
+            if not self.QRTooltip then
+                self.QRTooltip = CreateFrame('Frame', nil, self, 'MeetingHornActivityTooltipTemplate')
+                self.QRTooltip:SetPoint('TOPLEFT', self.Header5, 'BOTTOMLEFT', 0, 0)
+                ns.UI.QRCodeWidget:Bind(self.QRTooltip.QRCode)
+            end
+            self.QRTooltip.QRCode:SetValue(ns.MakeQRCode(item:GetLeader()))
+            self.QRTooltip:Show()
+        end)
     end)
     ---@param item MeetingHornActivity
     self.ActivityList:SetCallback('OnItemSignupClick', function(_, button, item)
@@ -193,6 +204,10 @@ end
 
 function Browser:OnHide()
     self:UnregisterAllMessages()
+
+    if self.QRTooltip then
+        self.QRTooltip:Hide()
+    end
 end
 
 function Browser:UpdateProgress()

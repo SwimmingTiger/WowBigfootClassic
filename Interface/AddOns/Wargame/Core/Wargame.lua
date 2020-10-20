@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 5/8/2020, 9:39:02 AM
-
 ---@type ns
 local ns = select(2, ...)
 
@@ -13,6 +12,7 @@ local Log = ns.Logger
 local Wargame = ns.Addon:NewModule('Wargame', 'AceEvent-3.0', 'AceBucket-3.0', 'AceTimer-3.0')
 
 function Wargame:OnEnable()
+    self.isSupport = true
     self.games = {}
     self.gameList = {}
     self.guildMembers = {}
@@ -54,20 +54,29 @@ function Wargame:GUILD_ROSTER_UPDATE()
 end
 
 function Wargame:PLAYER_ENTERING_WORLD()
-    Log:Debug('PLAYER_ENTERING_WORLD', self.game)
     if self.zoneCheckTimer then
         self.zoneCheckTimer:Cancel()
     end
 
     self.zoneCheckTimer = C_Timer.NewTicker(1, function()
-        Log:Debug('zoneCheckTimer', IsWargame())
-        if IsWargame() then
+        if IsWargame() and self:IsInBattle() then
             ns.Battle:Enable()
+            ns.Recent:Enable()
         else
             ns.Battle:Disable()
+            ns.Recent:Disable()
         end
-        self.zoneCheckTimer = nil
     end, 20)
+end
+
+function Wargame:RecvNewVersion(version, isSupport)
+    self.isSupport = isSupport
+    self.version = version
+    ns.Message(L['发现新版本：%s'], version)
+
+    if not isSupport then
+        ns.Addon:CloseMainPanel()
+    end
 end
 
 function Wargame:RecvGames(games)
@@ -86,16 +95,17 @@ function Wargame:RecvGames(games)
     end
 
     self:SendMessage('NETEASE_WARGAME_GAMES_UPDATE')
+    self:ClearRecents()
 end
 
-function Wargame:RecvTeam(error, gameId, teamName, win, lose, members)
+function Wargame:RecvTeam(error, gameId, teamName, win, lose, members, renameCount)
     local game = self.games[gameId]
     if not game then
         return
     end
 
     if error == 0 then
-        game.team = ns.Team:FromProto(teamName, win, lose, members)
+        game.team = ns.Team:FromProto(teamName, win, lose, members, renameCount)
     end
 
     self:SendMessage('NETEASE_WARGAME_TEAM_UPDATE', error, gameId)
@@ -108,13 +118,41 @@ function Wargame:RecvRank(gameId, ranks, rankSelf, updateTime)
     end
 
     game.rankUpdateTime = updateTime
+    game.rankSelf = ns.Rank:FromProto(rankSelf)
     game.ranks = {}
 
     for i, v in ipairs(ranks) do
         tinsert(game.ranks, ns.Rank:FromProto(v))
     end
 
-    game.rankSelf = ns.Rank:FromProto(rankSelf)
+    self:SendMessage('NETEASE_WARGAME_RANK_UPDATE', gameId)
+end
+
+function Wargame:RecvRankSolo(gameId, ranks, rankSelf, updateTime)
+    local game = self.games[gameId]
+    if not game then
+        return
+    end
+
+    game.rankUpdateTime = updateTime
+    game.rankSelf = ns.RankSolo:FromProto(rankSelf)
+    game.ranks = {}
+
+    for i, v in ipairs(ranks) do
+        tinsert(game.ranks, ns.RankSolo:FromProto(v))
+    end
+
+    self:SendMessage('NETEASE_WARGAME_RANK_UPDATE', gameId)
+end
+
+function Wargame:RecvRankGuild(gameId, ranks, rankSelf, updateTime)
+    self.guildRankUpdateTime = updateTime
+    self.guildRankSelf = ns.RankGuild:FromProto(rankSelf)
+    self.guildRanks = {}
+
+    for i, v in ipairs(ranks) do
+        tinsert(self.guildRanks, ns.RankGuild:FromProto(v))
+    end
 
     self:SendMessage('NETEASE_WARGAME_RANK_UPDATE', gameId)
 end
@@ -135,8 +173,7 @@ function Wargame:RecvMatch(error, gameId, battleTag, target, isMaster, errorData
             ns.Minion:Start(gameId, battleTag, target)
         end
     else
-        self.game = nil
-        self.roomId = nil
+        self:CloseGame()
         SendChatMessage(L['当前队伍已经离开匹配队列'], 'RAID_WARNING')
     end
 
@@ -150,8 +187,7 @@ function Wargame:RecvMatchCancel(error, gameId)
     end
 
     if error == 0 then
-        self.game = nil
-        self.roomId = nil
+        self:CloseGame()
         SendChatMessage(L['当前队伍已经离开匹配队列'], 'RAID_WARNING')
     end
 
@@ -170,8 +206,7 @@ function Wargame:RecvBattleFinish(gameId, error, roomId, teamName)
     end
 
     if isSameRoom then
-        self.game = nil
-        self.roomId = nil
+        self:CloseGame()
     end
 
     local msg
@@ -245,8 +280,9 @@ function Wargame:Match(gameId)
 
             local name = UnitName(unit)
             local class = ns.UnitClass(unit)
+            local race = ns.UnitRace(unit)
 
-            local member = {name, class, nil, nil, guid}
+            local member = {name, class, nil, nil, guid, race}
 
             tinsert(members, member)
         end
@@ -256,6 +292,7 @@ function Wargame:Match(gameId)
 
     self.game = game
     self.roomId = nil
+    self.gameMatchTick = ns.time()
     self.matchingShot = self:SnapshotTeam()
 
     SendChatMessage(L['我已开始匹配，请中途不要退队或者离线'], 'RAID_WARNING')
@@ -285,17 +322,25 @@ function Wargame:QueryTeam(gameId, force)
     ns.Client:SendServer('CTEAM', gameId)
 end
 
-function Wargame:QueryRank(gameId, force)
+function Wargame:QueryRank(gameId, rankType, force)
     local game = self.games[gameId]
     if not game then
         return
     end
 
-    if game.ranks and not force then
-        return
+    if rankType == ns.RANK.SOLO then
+        if force or not game.ranks then
+            ns.Client:SendServer('CRANKSOLO', gameId)
+        end
+    elseif rankType == ns.RANK.GUILD then
+        if force or not self.guildRanks then
+            ns.Client:SendServer('CRANKGUILD', gameId)
+        end
+    else
+        if force or not game.ranks then
+            ns.Client:SendServer('CRANK', gameId)
+        end
     end
-
-    ns.Client:SendServer('CRANK', gameId)
 end
 
 function Wargame:GetGame(gameId)
@@ -329,7 +374,7 @@ function Wargame:SendStartGameResult(ok, reason)
     end
     if reason == 'leaved' then
         ns.Client:SendServer('CLEAVEBATTLE', self.game.id)
-        self.game = nil
+        self:CloseGame()
         self:SendMessage('NETEASE_WARGAME_LEAVE_BATTLE')
     else
         ns.Client:SendServer('CBATTLE', self.game.id, ok, reason)
@@ -338,26 +383,32 @@ end
 
 function Wargame:OnHourTimer()
     local now = ns.time()
+    local incomingGame
     for id, game in pairs(self.games) do
         if game:IsInProgress() then
-            ns.Message(L['%s%s正在进行，|cff00ffff%s|r'], game:GetZoneText(), game.title,
-                       ns.GameToLink(game.id, L['点击查看']))
+            ns.Message(L['战场赛事正在进行，|cff00ffff%s|r'], ns.GameToLink(game.id, L['点击查看']))
+            return
         else
             local nextStartTime = game:GetNextStartTime()
             if nextStartTime then
                 local diff = nextStartTime - now
                 if diff > 0 and diff < game.noticeTime * 3600 + 5 * 60 then
-                    ns.Message(L['%s%s将在%s后开启，|cff00ffff%s|r'], game:GetZoneText(), game.title,
-                               SecondsToTime(diff, true), ns.GameToLink(game.id, L['点击查看']))
+                    if not incomingGame then
+                        incomingGame = game
+                    end
                 end
             end
         end
+    end
+
+    if incomingGame then
+        ns.Message(L['战场赛事即将开始，|cff00ffff%s|r'], ns.GameToLink(incomingGame.id, L['点击查看']))
     end
 end
 
 function Wargame:StartHourTimer()
     local now = ns.date('*t')
-    local nextHour = ns.time{year = now.year, month = now.month, day = now.day, hour = now.hour + 1, min = 0, sec = 0}
+    local nextHour = ns.time {year = now.year, month = now.month, day = now.day, hour = now.hour + 1, min = 0, sec = 0}
     local diff = nextHour - ns.time()
 
     --[===[@debug@
@@ -375,4 +426,39 @@ end
 ---是否正在比赛中
 function Wargame:IsInBattle()
     return self.game and self.roomId
+end
+
+function Wargame:RenameTeam(gameId, newName)
+    ns.Client:SendServer('CTEAMRENAME', gameId, newName)
+end
+
+function Wargame:RecvTeamRename(gameId, error, teamName)
+    if error ~= 0 then
+        ns.MsgBox(ns.GetError(error))
+    else
+        local game = ns.Wargame:GetGame(gameId)
+        if game and game.team then
+            game.team.renameCount = game.team.renameCount - 1
+            game.team.name = teamName or game.team.name
+            self:SendMessage('NETEASE_WARGAME_TEAM_UPDATE', error, gameId)
+        end
+    end
+end
+
+function Wargame:CurrentGame()
+    return self.game
+end
+
+function Wargame:CloseGame()
+    self.game = nil
+    self.roomId = nil
+    self.gameMatchTick = nil
+end
+
+function Wargame:ClearRecents()
+    for id in pairs(ns.Addon.C.recents) do
+        if not self.games[id] then
+            ns.Addon.C.recents[id] = nil
+        end
+    end
 end

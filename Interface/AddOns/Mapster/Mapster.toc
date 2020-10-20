@@ -7,7 +7,7 @@
 ## Notes-zhTW: |cff00ff00Mapster|r|n|cffbc8f8f簡單實用的地圖增強。|r
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
-## Version: 1.8.5
+## Version: 1.9.0
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
@@ -19,5 +19,6 @@ Config.lua
 Coords.lua
 # GroupIcons.lua
 # BattleMap.lua
+FogClearDataClassic.lua
 FogClear.lua
 Scaling.lua

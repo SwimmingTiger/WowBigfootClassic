@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-mod:SetRevision("20200630154905")
+mod:SetRevision("20200916002535")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -233,7 +233,9 @@ do
 			if info and info.state == 1 and self.Options.TimerRemaining then
 				local minutes, seconds = info.text:match("(%d+):(%d+)")
 				if minutes and seconds then
-					remainingTimer:Start(tonumber(seconds) + (tonumber(minutes) * 60) + 1)
+					local remaining = tonumber(seconds) + (tonumber(minutes) * 60) + 1
+					local elapsed = 120 - remaining
+					remainingTimer:Update(elapsed, 120)
 				end
 			end
 		end, self)
@@ -257,7 +259,9 @@ do
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
-		if msg == L.BgStart60 or msg:find(L.BgStart60) then
+		if msg == L.BgStart120 or msg:find(L.BgStart120) then
+			remainingTimer:Update(0, 120)
+		elseif msg == L.BgStart60 or msg:find(L.BgStart60) then
 			remainingTimer:Update(60, 120)
 		elseif msg == L.BgStart30 or msg:find(L.BgStart30) then
 			remainingTimer:Update(90, 120)

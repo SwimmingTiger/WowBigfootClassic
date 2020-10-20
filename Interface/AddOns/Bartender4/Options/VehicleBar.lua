@@ -42,6 +42,7 @@ function VehicleBarMod:SetupOptions()
 			name = L["VehicleBar"],
 			desc = L["Configure the VehicleBar"],
 			childGroups = "tab",
+			disabled = function(info) return Bartender4.db.profile.blizzardVehicle end,	--bf@178.com
 		}
 		Bartender4:RegisterBarOptions("Vehicle", self.options)
 	end

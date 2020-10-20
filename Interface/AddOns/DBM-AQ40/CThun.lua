@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200907165533")
+mod:SetRevision("20200912033239")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
@@ -46,7 +46,7 @@ mod:AddInfoFrameOption(nil, true)
 mod.vb.phase = 1
 local firstBossMod = DBM:GetModByName("AQ40Trash")
 local playersInStomach = {}
-local fleshTentacles = {}
+local fleshTentacles, diedTentacles = {}, {}
 
 local updateInfoFrame
 do
@@ -74,7 +74,7 @@ do
 				--Also, process their target information for tentacles
 				local targetuId = uId.."target"
 				local guid = UnitGUID(targetuId)
-				if guid and mod:GetCIDFromGUID(guid) == 15802 then--Targetting Flesh Tentacle
+				if guid and (mod:GetCIDFromGUID(guid) == 15802) and not diedTentacles[guid] then--Targetting Flesh Tentacle
 					fleshTentacles[guid] = math.floor(UnitHealth(targetuId) / UnitHealthMax(targetuId) * 100)
 				end
 			end
@@ -92,6 +92,7 @@ end
 function mod:OnCombatStart(delay)
 	table.wipe(playersInStomach)
 	table.wipe(fleshTentacles)
+	table.wipe(diedTentacles)
 	self.vb.phase = 1
 	timerClawTentacle:Start(9-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
 	timerEyeTentacle:Start(45-delay)
@@ -103,6 +104,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd(wipe, isSecondRun)
+	table.wipe(diedTentacles)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
@@ -224,6 +226,7 @@ function mod:UNIT_DIED(args)
 		self:UnscheduleMethod("DarkGlare")
 	elseif cid == 15802 then -- Flesh Tentacle
 		fleshTentacles[args.destGUID] = nil
+		diedTentacles[args.destGUID] = true
 	end
 end
 

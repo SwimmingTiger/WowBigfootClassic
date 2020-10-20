@@ -19,9 +19,12 @@ CSC_WEAPON_GUN_TXT          = "槍械";
 CSC_HIT_BIZNICKS_TXT        = HIT;
 
 CSC_SPELL_HIT_TOOLTIP_TXT       = "法術命中（裝備）: %d%%";
+CSC_SPELL_HIT_TOOLTIP_2_TXT     = "Spell Hit chance (Gear and Talents): %d%%";
 CSC_SPELL_HIT_SUBTOOLTIP_TXT    = "法術命中（裝備+天賦）:";
 CSC_ARCANE_SPELL_HIT_TXT        = "奧術法術命中";
 CSC_FIRE_SPELL_HIT_TXT          = "火焰法術命中";
 CSC_FROST_SPELL_HIT_TXT         = "冰霜法術命中";
 CSC_DESTRUCTION_SPELL_HIT_TXT   = "毀滅法術命中";
 CSC_AFFLICTION_SPELL_HIT_TXT    = "痛苦法術命中";
+
+CSC_LIGHTNING_TXT = "Lightning";

@@ -26,11 +26,14 @@ function PanelPrototype:SetMyOwnHeight() -- TODO: remove in 9.x
 	DBM:Debug(self.frame:GetName() .. " is calling a deprecated function SetMyOwnHeight")
 end
 
-function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid)
+function PanelPrototype:CreateCreatureModelFrame(width, height, creatureid, scale)
 	local model = CreateFrame("PlayerModel", "DBM_GUI_Option_" .. self:GetNewID(), self.frame)
 	model.mytype = "modelframe"
 	model:SetSize(width or 100, height or 200)
 	model:SetCreature(tonumber(creatureid) or 448) -- Hogger!!! he kills all of you
+	if scale then
+		model:SetModelScale(scale)
+	end
 	self:SetLastObj(model)
 	return model
 end
@@ -45,7 +48,7 @@ function PanelPrototype:CreateText(text, width, autoplaced, style, justify, myhe
 	textblock.autowidth = not width
 	textblock:SetWidth(width or self.frame:GetWidth())
 	if autoplaced then
-		textblock:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 10, -10)
+		textblock:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 10, -5)
 	end
 	self:SetLastObj(textblock)
 	return textblock
@@ -288,7 +291,9 @@ do
 		local frame, frame2, textPad
 		if modvar then -- Special warning, has modvar for sound and note
 			if isTimer then
-				frame = self:CreateDropdown(nil, tcolors, mod, modvar .. "TColor", nil, 20, 25, button)
+				frame = self:CreateDropdown(nil, tcolors, mod, modvar .. "TColor", function(value)
+					mod.Options[modvar .. "TColor"] = value
+				end, 20, 25, button)
 				frame2 = self:CreateDropdown(nil, cvoice, mod, modvar .. "CVoice", function(value)
 					mod.Options[modvar.."CVoice"] = value
 					if type(value) == "string" then
@@ -302,7 +307,7 @@ do
 				textPad = 35
 			else
 				frame = self:CreateDropdown(nil, sounds, mod, modvar .. "SWSound", function(value)
-					mod.Options[modvar.."SWSound"] = value
+					mod.Options[modvar .. "SWSound"] = value
 					DBM:PlaySpecialWarningSound(value)
 				end, 20, 25, button)
 				frame:ClearAllPoints()
@@ -448,7 +453,7 @@ function PanelPrototype:Rename(newname)
 end
 
 function PanelPrototype:Destroy()
-	tremove(DBM_GUI.frameTypes[self.frame.frameType], self.frame.categoryid)
+	tremove(DBM_GUI.tabs[self.frame.frameType], self.frame.categoryid)
 	tremove(self.parent.panels, self.frame.panelid)
 	self.frame:Hide()
 end
@@ -476,7 +481,7 @@ do
 		if frameType == "option" then
 			frameType = 2
 		end
-		panel.categoryid = DBM_GUI.frameTypes[frameType or 1]:CreateCategory(panel, self and self.frame and self.frame.name)
+		panel.categoryid = DBM_GUI.tabs[frameType or 1]:CreateCategory(panel, self and self.frame and self.frame.name)
 		panel.frameType = frameType
 		PanelPrototype:SetLastObj(panel)
 		self.panels = self.panels or {}

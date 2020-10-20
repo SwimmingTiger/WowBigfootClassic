@@ -1,46 +1,29 @@
 ## Interface: 11305
-## X-Min-Interface: 11305
-## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
-## Title-zhCN:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Ядро|r
-## Title-zhTW:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-koKR:|cffffd200Deadly Boss Mods|r |cff69ccf0핵심 모듈|r
-## Title-esES:|cffffd200Deadly Boss Mods|r |cff69ccf0Proceso|r
-## Title-esMX:|cffffd200Deadly Boss Mods|r |cff69ccf0Proceso|r
-## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
-## Notes: Deadly Boss Mods
+## X-Min-Interface: 11302
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFCore|r
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
+## Notes: |cffbc8f8fDeadly Boss Mods.|r
+## Notes-zhCN: |cff00ff00DBM-Core|r|n|cffbc8f8f首领报警。|r
+## Notes-zhTW: |cff00ff00DBM-Core|r|n|cffbc8f8f首領報警。|r
 ## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
-## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision
-## LoadOnDemand: 0
-## DefaultState: enabled
 ## Author: Tandanu and Nitram and MysticalOS
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.60
+## Version: 1.13.61
+## X-Revision: BigFoot
+## LoadOnDemand: 1
 
-Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-
-Libs\LibChatAnims\LibChatAnims.xml
-Libs\LibSharedMedia-3.0\lib.xml
-Libs\LibLatency\LibLatency.xml
-Libs\LibDurability\LibDurability.xml
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-Libs\LibDBIcon-1.0\lib.xml
+Libs\LibLatency\LibLatency.lua
+Libs\LibDurability\LibDurability.lua
 
 localization.en.lua
-localization.de.lua
 localization.cn.lua
-localization.ru.lua
-localization.fr.lua
-localization.it.lua
 localization.tw.lua
-localization.kr.lua
-localization.es.lua
-localization.br.lua
+
 DBM-Core.lua
 DBM-Arrow.lua
 DBM-Flash.lua

@@ -42,6 +42,8 @@ function GoodLeader:Constructor(p)
     self.Result.Score.NoResult:SetText(L['团长被评价数量较少，暂时无法查看。'])
     self.Result.Raids.Title:SetText(L['作为团长的次数：|cff808080（暴雪通行证下所有角色）|r'])
 
+    ns.UI.QRCodeWidget:Bind(self.First.Inset.QRCode)
+
     self.scores = {}
 
     local function SetupScore(frame, text)
@@ -60,6 +62,7 @@ function GoodLeader:Constructor(p)
     end)
     self.First:SetScript('OnShow', function()
         ns.Addon.MainPanel:SetTitleShown(true)
+        self.First.Inset.QRCode:SetValue(ns.MakeQRCode(ns.GetGroupLeader()))
     end)
 
     self.Result.Raids:SetScript('OnSizeChanged', function()

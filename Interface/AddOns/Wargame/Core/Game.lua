@@ -2,17 +2,15 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 5/7/2020, 11:01:13 AM
-
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
 
 ---@type NeteaseWargameGame
-local Game = ns.Addon:NewClass('Game')
-
-Game.FromProto = ns.GenerateFromProto('id', 'templateId', 'title', 'mode', 'zone', 'rules', 'combatCount',
-                                      'backupCount', 'startTime', 'endTime', 'startMonment', 'endMonment', 'roundCount',
-                                      'maxRoundCount', 'noticeTime')
+local Game = ns.NewProto('Game', {
+    'id', 'templateId', 'title', 'mode', 'zone', 'rules', 'combatCount', 'backupCount', 'startTime', 'endTime',
+    'startMonment', 'endMonment', 'roundCount', 'maxRoundCount', 'noticeTime', 'tabName',
+})
 
 function Game:OnProto()
     self.noticeTime = self.noticeTime or 3
@@ -40,7 +38,7 @@ end
 function Game:IsInQueue()
     for i = 1, GetMaxBattlefieldID() do
         local status, name, _, _, _, _, battleType = GetBattlefieldStatus(i)
-        if battleType == 'WARGAME' and name == self:GetZoneText() then
+        if (status == 'queued' or status == 'confirm') and battleType == 'WARGAME' and name == self:GetZoneText() then
             return true
         end
     end
@@ -69,5 +67,21 @@ function Game:GetNextStartTime()
         if now <= v.start then
             return v.start
         end
+    end
+end
+
+function Game:GetMatchDesc()
+    if self.templateId == ns.TEMPLATE.GUILD_GAME then
+        return ns.FormatSummary(L.MATCH_DESC1, self)
+    elseif self.templateId == ns.TEMPLATE.SOLO_GAME then
+        return ns.FormatSummary(L.MATCH_DESC2, self)
+    end
+end
+
+function Game:GetGameRules()
+    if self.templateId == ns.TEMPLATE.GUILD_GAME then
+        return ns.FormatSummary(self.zone == ns.ZONE.WSG and L.WSG_RULES or L.AB_RULES, self)
+    elseif self.templateId == ns.TEMPLATE.SOLO_GAME then
+        return ns.FormatSummary(L.RULES2, self)
     end
 end

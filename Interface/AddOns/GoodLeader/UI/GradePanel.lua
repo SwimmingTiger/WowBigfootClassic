@@ -27,6 +27,7 @@ function GradePanel:Constructor()
     end)
 
     self.scores = {}
+    ns.UI.QRCodeWidget:Bind(self.QrCodeFrame.QRCode)
 
     local function SetupScore(obj, label, icon)
         obj.Text:SetText(label)
@@ -46,6 +47,7 @@ function GradePanel:OnShow()
     self.Title:SetText(self.raid.raidName)
     self.Label1:SetFormattedText(L['请就本次团长|cffffd100%s|r的表现给予评分'], self.raid.leader)
     self.Tags:SetTags(ns.Addon:GetGradeTags())
+    self.QrCodeFrame.QRCode:SetValue(ns.MakeQRCode(self.raid.leader))
 
     local logo = ns.RAID_LOGO[self.raid.raidName]
     if logo then

@@ -4,6 +4,7 @@
     <Script file="ListView.lua" />
     <Script file="CountdownButton.lua" />
     <Script file="InputDialog.lua" />
+    <Script file="QRCodeWidget.lua" />
     <Script file="MainPanel.lua" />
     <Script file="Browser.lua" />
     <Script file="Applicant.lua" />

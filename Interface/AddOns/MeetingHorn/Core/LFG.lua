@@ -1,4 +1,4 @@
-
+--
 local tinsert = table.insert
 local random = fastrandom or math.random
 
@@ -73,6 +73,7 @@ function LFG:OnEnable()
     self:RegisterSocket('JOIN', 'OnSocketJoin')
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
+    self:RegisterServer('SWORLDBUFF')
 
     self:RegisterEvent('ENCOUNTER_END')
     self:RegisterEvent('ENCOUNTER_START')
@@ -152,7 +153,7 @@ function LFG:OnEnable()
     end)
 
     local function RefreshServerChannels()
-        for i, v in ipairs{EnumerateServerChannels()} do
+        for i, v in ipairs {EnumerateServerChannels()} do
             serverChannels[v] = true
         end
     end
@@ -172,12 +173,15 @@ function LFG:CreateActivity(activity, userInput)
     self.currentCache.comment = activity:GetComment()
     self.activtyTimer:Start(self:GetCooldown())
 
-    if userInput then
-        self:SendServer('SEI', activity:GetName(), activity:GetMode(), activity:GetComment())
-    end
-
     self.current = self:RecvActivity(activity:GetChannelName(), UnitGUID('player'), UnitName('player'),
                                      activity:ToProto())
+
+    if userInput then
+        self:SendServer('SEI', self.current:GetName(), self.current:GetMode(), self.current:GetComment(),
+                        ns.ADDON_VERSION, self.current:GetLeaderClass(), self.current:GetLeaderLevel(),
+                        self.current:GetMembers(), self.current.data.members, (GetGuildInfo('player')))
+    end
+
     self:SendMessage('MEETINGHORN_CURRENT_CREATED')
 end
 
@@ -190,6 +194,7 @@ function LFG:CloseActivity()
     wipe(self.currentCache)
     self:SendMessage('MEETINGHORN_CURRENT_CLOSED')
     self:SendMessage('MEETINGHORN_APPLICANT_UPDATE')
+    self:SendServer('SED')
 end
 
 ---@param activity MeetingHornActivity
@@ -408,6 +413,13 @@ end
 
 function LFG:SNEWVERSION(_, version, url, changelog)
     SendSystemMessage(format(L.SUMMARY_NEW_VERSION, L.ADDON_NAME, version, url))
+end
+
+function LFG:SWORLDBUFF(_, enable, data)
+    if type(data) == 'table' then
+        ns.WorldBuff:SetPos(data)
+    end
+    self:SendMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED', enable)
 end
 
 function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, lineId, guid)
@@ -647,4 +659,12 @@ function LFG:IsFilter(text)
     if text then
         return self.filters[text]
     end
+end
+
+function LFG:WorldBuff(instanceId, npcId, spellId)
+    ns.RandomCall(30, self.SendServer, self, 'SWB', instanceId, npcId, spellId, GetServerTime())
+end
+
+function LFG:KillWorldBuffNpc(instanceId, npcId)
+    ns.RandomCall(30, self.SendServer, self, 'SKN', instanceId, npcId, GetServerTime())
 end

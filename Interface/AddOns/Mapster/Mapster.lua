@@ -9,6 +9,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 local L = LibStub("AceLocale-3.0"):GetLocale("Mapster")
 
 local WoWClassic = select(4, GetBuildInfo()) < 20000
+local WoWShadowlands = select(4, GetBuildInfo()) >= 90001
 
 local defaults = {
 	profile = {
@@ -103,6 +104,8 @@ function Mapster:OnEnable()
 		break
 	end
 
+	self:SecureHook("ShowUIPanel", "ShowUIPanelHook")
+
 	-- classic compat stuff
 	if WoWClassic then
 		self:RawHook(WorldMapFrame, "HandleUserActionToggleSelf", function(frame) if frame:IsShown() then frame:Hide() else frame:Show() end end, true)
@@ -180,7 +183,9 @@ function WorldMapFrameStopMoving(frame)
 end
 
 function Mapster:SetPosition()
-	LibWindow.RestorePosition(WorldMapFrame)
+	if not WorldMapFrame:IsMaximized() then
+		LibWindow.RestorePosition(WorldMapFrame)
+	end
 end
 
 function Mapster:SetFadeAlpha()
@@ -255,10 +260,17 @@ end
 
 function Mapster:QuestPOI_OnAcquired(pin)
 	pin:SetSize(50 * db.poiScale, 50 * db.poiScale)
-	pin.Texture:SetScale(db.poiScale)
-	pin.PushedTexture:SetScale(db.poiScale)
-	pin.Number:SetScale(db.poiScale)
-	pin.Highlight:SetScale(db.poiScale)
+	if WoWShadowlands then
+		pin.Display:SetScale(db.poiScale)
+		pin.NormalTexture:SetScale(db.poiScale)
+		pin.PushedTexture:SetScale(db.poiScale)
+		pin.HighlightTexture:SetScale(db.poiScale)
+	else
+		pin.Texture:SetScale(db.poiScale)
+		pin.PushedTexture:SetScale(db.poiScale)
+		pin.Number:SetScale(db.poiScale)
+		pin.Highlight:SetScale(db.poiScale)
+	end
 end
 
 function Mapster:SetPOIScale()
@@ -267,6 +279,12 @@ function Mapster:SetPOIScale()
 	end
 	for pin in WorldMapFrame:EnumeratePinsByTemplate("QuestPinTemplate") do
 		self:QuestPOI_OnAcquired(pin)
+	end
+end
+
+function Mapster:ShowUIPanelHook(frame)
+	if frame == WorldMapFrame and InCombatLockdown() and not frame:IsShown() then
+		frame:Show()
 	end
 end
 

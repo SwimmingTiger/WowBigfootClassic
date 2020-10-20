@@ -106,6 +106,14 @@ local function CSC_GetMP5FromGear(unit)
 		end
 	end
 
+	local unitClassId = select(3, UnitClass(unit));
+	if (unitClassId == CSC_PRIEST_CLASS_ID) then
+		local zgEnchantMp5 = CSC_GetMp5FromPriestZGEnchants(unit);
+		if (zgEnchantMp5 > 0) then
+			mp5 = mp5 + zgEnchantMp5;
+		end
+	end
+
 	return mp5;
 end
 
@@ -200,6 +208,20 @@ function CSC_GetPlayerMissChances(unit, playerHit, totalWeaponSkill)
 	missChanceVsPlayer = math.max(0, missChanceVsPlayer - playerHit);
 
 	return missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer;
+end
+
+function CSC_HasEnchant(unit, slotId, enchantId)
+	local itemLink = GetInventoryItemLink(unit, slotId);
+	if itemLink then
+		local itemId, enchant = itemLink:match("item:(%d+):(%d*)");
+		if enchant then
+			if tonumber(enchant) == enchantId then
+				return true;
+			end
+		end
+	end
+
+	return false;
 end
 -- GENERAL UTIL FUNCTIONS END --
 
@@ -548,7 +570,25 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 			-- set the new maximum
 			maxSpellCrit = max(maxSpellCrit, tmpMax);
 		end
+	elseif (unitClassId == CSC_SHAMAN_CLASS_ID) then
+		statFrame.lightningCrit = statFrame.natureCrit;
+		
+		local callOfThunderCrit = CSC_GetShamanCallOfThunderCrit();
+		if callOfThunderCrit > 0 then
+			statFrame.lightningCrit = statFrame.lightningCrit + callOfThunderCrit;
+		end
+
+		local tidalMastery = CSC_GetShamanTidalMasteryCrit();
+		if tidalMastery > 0 then
+			statFrame.lightningCrit = statFrame.lightningCrit + tidalMastery;
+			statFrame.natureCrit = statFrame.natureCrit + tidalMastery;
+		end
+
+		local tmpMax = max(statFrame.lightningCrit, statFrame.natureCrit);
+		-- set the new maximum
+		maxSpellCrit = max(maxSpellCrit, tmpMax);
 	end
+	statFrame.unitClassId = unitClassId;
 
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_CRITICAL_STRIKE, maxSpellCrit, true, maxSpellCrit);
 
@@ -877,7 +917,18 @@ local function CSC_GetMP5FromAuras()
 		local spellId = select(10, UnitAura("player", i, "HELPFUL", "PLAYER"));
 		if spellId then
 			if g_AuraIdToMp5[spellId] then
-				mp5FromAuras = mp5FromAuras + g_AuraIdToMp5[spellId];
+				local auraMp5 = g_AuraIdToMp5[spellId];
+				
+				local unitClassId = select(3, UnitClass("player"));
+				if (unitClassId == CSC_PALADIN_CLASS_ID and CSC_IsBoWSpellId(spellId)) then
+					local improvedBoWModifier = CSC_GetPaladinImprovedBoWModifier();
+					
+					if (improvedBoWModifier > 0) then
+						auraMp5 = auraMp5 + auraMp5 * improvedBoWModifier;
+					end
+				end
+
+				mp5FromAuras = mp5FromAuras + auraMp5;
 			elseif g_CombatManaRegenSpellIdToModifier[spellId] then
 				mp5CombatModifier = mp5CombatModifier + g_CombatManaRegenSpellIdToModifier[spellId];
 			end
@@ -940,7 +991,9 @@ function CSC_PaperDollFrame_SetManaRegen(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetHealing(statFrame, unit)
+	local unitClassId = select(3, UnitClass(unit));
 	local healing = GetSpellBonusHealing();
+
 	local healingText = healing;
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_SPELLHEALING, healingText, false, healing);
 	statFrame.tooltip = STAT_SPELLHEALING.." "..healing;

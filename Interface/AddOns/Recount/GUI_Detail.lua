@@ -4,7 +4,7 @@ local Graph = LibStub:GetLibrary("LibGraph-2.0")
 local AceLocale = LibStub("AceLocale-3.0")
 local L = AceLocale:GetLocale("Recount")
 
-local revision = tonumber(string.sub("$Revision: 1447 $", 12, -3))
+local revision = tonumber(string.sub("$Revision: 1563 $", 12, -3))
 if Recount.Version < revision then
 	Recount.Version = revision
 end
@@ -1533,7 +1533,7 @@ end
 
 --Create Detail Window Function
 function Recount:CreateDetailWindow()
-	Recount.DetailWindow = CreateFrame("Frame", "Recount_DetailWindow", UIParent)
+	Recount.DetailWindow = CreateFrame("Frame", "Recount_DetailWindow", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
 	local theFrame = Recount.DetailWindow
 

@@ -70,6 +70,11 @@ function Addon:OnInitialize()
     self.DataBroker = ns.UI.DataBroker:Bind(MeetingHornDataBroker)
 
     self:RegisterMessage('MEETINGHORN_OPTION_CHANGED_CHATFILTER')
+    self:RegisterMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED')
+    self:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'ZoneChanged')
+    self:RegisterEvent('PLAYER_ENTERING_WORLD', 'ZoneChanged')
+    self:RegisterEvent('GROUP_JOINED', 'ZoneChanged')
+    self:RegisterEvent('UNIT_PHASE', 'ZoneChanged')
 end
 
 function Addon:OnEnable()
@@ -111,4 +116,15 @@ function Addon:Toggle()
     if ns.LFG:GetCurrentActivity() then
         self.MainPanel:SetTab(2)
     end
+end
+
+function Addon:MEETINGHORN_WORLDBUFF_STATUS_CHANGED(_, enable)
+    ns.WorldBuff:SetStatus(enable)
+end
+
+function Addon:ZoneChanged(ev)
+    --[===[@debug@
+    print(ev)
+    --@end-debug@]===]
+    ns.WorldBuff:CheckEnable()
 end

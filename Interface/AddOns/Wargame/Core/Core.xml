@@ -9,4 +9,5 @@
     <Script file="Minion.lua" />
     <Script file="Wargame.lua" />
     <Script file="Battle.lua" />
+    <Script file="Recent.lua" />
 </Ui>

@@ -1,5 +1,5 @@
 --[[
-Copyright (c) 2010-2019, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
+Copyright (c) 2010-2020, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
 
 All rights reserved.
 
@@ -29,33 +29,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 77
+local MINOR_VERSION = 80
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then return end
 
 -- Lua functions
-local _G = _G
 local type, error, tostring, tonumber, assert, select = type, error, tostring, tonumber, assert, select
 local setmetatable, wipe, unpack, pairs, next = setmetatable, wipe, unpack, pairs, next
 local str_match, format, tinsert, tremove = string.match, format, tinsert, tremove
-
--- Global vars/functions that we don't upvalue since they might get hooked, or upgraded
--- List them here for Mikk's FindGlobals script
--- Note: No WoW API function get upvalued to allow proper interaction with any addons that try to hook them.
--- GLOBALS: LibStub, CreateFrame, InCombatLockdown, ClearCursor, GetCursorInfo, GameTooltip, GameTooltip_SetDefaultAnchor
--- GLOBALS: GetBindingKey, GetBindingText, SetBinding, SetBindingClick, GetCVar, GetMacroInfo
--- GLOBALS: PickupAction, PickupItem, PickupMacro, PickupPetAction, PickupSpell, PickupCompanion, PickupEquipmentSet
--- GLOBALS: CooldownFrame_SetTimer, UIParent, IsSpellOverlayed, SpellFlyout, GetMouseFocus, SetClampedTextureRotation
--- GLOBALS: GetActionInfo, GetActionTexture, HasAction, GetActionText, GetActionCount, GetActionCooldown, IsAttackAction
--- GLOBALS: IsAutoRepeatAction, IsEquippedAction, IsCurrentAction, IsConsumableAction, IsUsableAction, IsStackableAction, IsActionInRange
--- GLOBALS: GetSpellLink, GetMacroSpell, GetSpellTexture, GetSpellCount, GetSpellCooldown, IsAttackSpell, IsCurrentSpell
--- GLOBALS: FindSpellBookSlotBySpellID, IsUsableSpell, IsConsumableSpell, IsSpellInRange, IsAutoRepeatSpell
--- GLOBALS: GetItemIcon, GetItemCount, GetItemCooldown, IsEquippedItem, IsCurrentItem, IsUsableItem, IsConsumableItem, IsItemInRange
--- GLOBALS: GetActionCharges, IsItemAction, GetSpellCharges
--- GLOBALS: RANGE_INDICATOR, ATTACK_BUTTON_FLASH_TIME, TOOLTIP_UPDATE_TIME
--- GLOBALS: ZoneAbilityFrame, HasZoneAbility, GetLastZoneAbilitySpellTexture
 
 local WoWClassic = select(4, GetBuildInfo()) < 20000
 
@@ -111,7 +94,7 @@ local type_meta_map = {
 
 local ButtonRegistry, ActiveButtons, ActionButtons, NonActionButtons = lib.buttonRegistry, lib.activeButtons, lib.actionButtons, lib.nonActionButtons
 
-local Update, UpdateButtonState, UpdateUsable, UpdateCount, UpdateCooldown, UpdateTooltip, UpdateNewAction, ClearNewActionHighlight
+local Update, UpdateButtonState, UpdateUsable, UpdateCount, UpdateCooldown, UpdateTooltip, UpdateNewAction, UpdateSpellHighlight, ClearNewActionHighlight
 local StartFlash, StopFlash, UpdateFlash, UpdateHotkeys, UpdateRangeTimer, UpdateOverlayGlow
 local UpdateFlyout, ShowGrid, HideGrid, UpdateGrid, SetupSecureSnippets, WrapOnClick
 local ShowOverlayGlow, HideOverlayGlow
@@ -188,6 +171,7 @@ function lib:CreateButton(id, name, header, config)
 	-- adjust hotkey style for better readability
 	button.HotKey:SetFont(button.HotKey:GetFont(), 13, "OUTLINE")
 	button.HotKey:SetVertexColor(0.75, 0.75, 0.75)
+	button.HotKey:SetPoint("TOPLEFT", button, "TOPLEFT", -2, -4)
 
 	-- adjust count/stack size
 	button.Count:SetFont(button.Count:GetFont(), 16, "OUTLINE")
@@ -494,7 +478,7 @@ function Generic:AddToMasque(group)
 	if type(group) ~= "table" or type(group.AddButton) ~= "function" then
 		error("LibActionButton-1.0:AddToMasque: You need to supply a proper group to use!", 2)
 	end
-	group:AddButton(self)
+	group:AddButton(self, nil, "Action")
 	self.MasqueSkinned = true
 end
 
@@ -1090,6 +1074,10 @@ function Update(self)
 		if self.chargeCooldown then
 			EndChargeCooldown(self.chargeCooldown)
 		end
+
+		if self.LevelLinkLockIcon then
+			self.LevelLinkLockIcon:SetShown(false)
+		end
 	end
 
 	-- Add a green border if button is an equipped item
@@ -1113,18 +1101,6 @@ function Update(self)
 	-- Zone ability button handling
 	self.zoneAbilityDisabled = false
 	self.icon:SetDesaturated(false)
-	if self._state_type == "action" then
-		local action_type, id = GetActionInfo(self._state_action)
-		if ((action_type == "spell" or action_type == "companion") and ZoneAbilityFrame and ZoneAbilityFrame.baseName and not HasZoneAbility()) then
-			local name = GetSpellInfo(ZoneAbilityFrame.baseName)
-			local abilityName = GetSpellInfo(id)
-			if name == abilityName then
-				texture = GetLastZoneAbilitySpellTexture()
-				self.zoneAbilityDisabled = true
-				self.icon:SetDesaturated(true)
-			end
-		end
-	end
 
 	if texture then
 		self.icon:SetTexture(texture)
@@ -1158,6 +1134,8 @@ function Update(self)
 	UpdateOverlayGlow(self)
 
 	UpdateNewAction(self)
+
+	UpdateSpellHighlight(self)
 
 	if GameTooltip_GetOwnerForbidden() == self then
 		UpdateTooltip(self)
@@ -1208,6 +1186,18 @@ function UpdateUsable(self)
 			--self.NormalTexture:SetVertexColor(1.0, 1.0, 1.0)
 		end
 	end
+
+	if not WoWClassic and self._state_type == "action" then
+		local isLevelLinkLocked = C_LevelLink.IsActionLocked(self._state_action)
+		if not self.icon:IsDesaturated() then
+			self.icon:SetDesaturated(isLevelLinkLocked)
+		end
+
+		if self.LevelLinkLockIcon then
+			self.LevelLinkLockIcon:SetShown(isLevelLinkLocked)
+		end
+	end
+
 	lib.callbacks:Fire("OnButtonUsable", self)
 end
 
@@ -1261,6 +1251,12 @@ local function StartChargeCooldown(parent, chargeStart, chargeDuration, chargeMo
 	-- set cooldown
 	parent.chargeCooldown:SetDrawBling(parent.chargeCooldown:GetEffectiveAlpha() > 0.5)
 	CooldownFrame_Set(parent.chargeCooldown, chargeStart, chargeDuration, true, true, chargeModRate)
+
+	-- update charge cooldown skin when masque is used
+	if Masque and Masque.UpdateCharge then
+		Masque:UpdateCharge(parent)
+	end
+
 	if not chargeStart or chargeStart == 0 then
 		EndChargeCooldown(parent.chargeCooldown)
 	end
@@ -1297,7 +1293,7 @@ function UpdateCooldown(self)
 			self.cooldown:SetScript("OnCooldownDone", OnCooldownDone)
 		end
 
-		if charges and maxCharges and charges > 0 and charges < maxCharges then
+		if charges and maxCharges and maxCharges > 1 and charges < maxCharges then
 			StartChargeCooldown(self, chargeStart, chargeDuration, chargeModRate)
 		elseif self.chargeCooldown then
 			EndChargeCooldown(self.chargeCooldown)
@@ -1344,11 +1340,9 @@ function UpdateHotkeys(self)
 	local key = self:GetHotkey()
 	if not key or key == "" or self.config.hideElements.hotkey then
 		self.HotKey:SetText(RANGE_INDICATOR)
-		self.HotKey:SetPoint("TOPLEFT", self, "TOPLEFT", 1, - 2)
 		self.HotKey:Hide()
 	else
 		self.HotKey:SetText(key)
-		self.HotKey:SetPoint("TOPLEFT", self, "TOPLEFT", - 2, - 2)
 		self.HotKey:Show()
 	end
 end
@@ -1420,6 +1414,54 @@ function UpdateNewAction(self)
 		else
 			self.NewActionTexture:Hide()
 		end
+	end
+end
+
+hooksecurefunc("UpdateOnBarHighlightMarksBySpell", function(spellID)
+	lib.ON_BAR_HIGHLIGHT_MARK_TYPE = "spell"
+	lib.ON_BAR_HIGHLIGHT_MARK_ID = tonumber(spellID)
+
+	for button in next, ButtonRegistry do
+		UpdateSpellHighlight(button)
+	end
+end)
+
+hooksecurefunc("UpdateOnBarHighlightMarksByFlyout", function(flyoutID)
+	lib.ON_BAR_HIGHLIGHT_MARK_TYPE = "flyout"
+	lib.ON_BAR_HIGHLIGHT_MARK_ID = tonumber(flyoutID)
+
+	for button in next, ButtonRegistry do
+		UpdateSpellHighlight(button)
+	end
+end)
+
+hooksecurefunc("ClearOnBarHighlightMarks", function()
+	lib.ON_BAR_HIGHLIGHT_MARK_TYPE = nil
+
+	for button in next, ButtonRegistry do
+		UpdateSpellHighlight(button)
+	end
+end)
+
+function UpdateSpellHighlight(self)
+	local shown = false
+
+	local highlightType, id = lib.ON_BAR_HIGHLIGHT_MARK_TYPE, lib.ON_BAR_HIGHLIGHT_MARK_ID
+	if highlightType == "spell" and self:GetSpellId() == id then
+		shown = true
+	elseif highlightType == "flyout" and self._state_type == "action" then
+		local actionType, actionId = GetActionInfo(self._state_action)
+		if actionType == "flyout" and actionId == id then
+			shown = true
+		end
+	end
+
+	if shown then
+		self.SpellHighlightTexture:Show()
+		self.SpellHighlightAnim:Play()
+	else
+		self.SpellHighlightTexture:Hide()
+		self.SpellHighlightAnim:Stop()
 	end
 end
 

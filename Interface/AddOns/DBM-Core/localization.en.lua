@@ -90,6 +90,7 @@ L.MPROFILE_DELETE_SELF_ERROR		= "Cannot delete mod settings currently in use."
 L.MPROFILE_DELETE_S_ERROR			= "Source is corrupted. Settings not deleted or partly deleted. Delete failed."
 
 L.NOTE_SHARE_SUCCESS				= "%s has shared their note for %s"
+L.NOTE_SHARE_LINK					= "Click Here to Open Note"
 L.NOTE_SHARE_FAIL					= "%s attempted to share note text with you for %s. However, mod associated with this ability is not uninstalled or is not loaded. If you need this note, make sure you load the mod they are sharing notes for and ask them to share again"
 
 L.NOTEHEADER						= "Enter your note text here for %s. Enclosing a players name with >< class colors it. For alerts with multiple counts, separate notes with '/'"
@@ -173,7 +174,7 @@ L.UPDATEREMINDER_HOTFIX_ALPHA		= L.DBM .. " version you are on has known issues 
 L.UPDATEREMINDER_MAJORPATCH			= "WARNING: Do to your " .. L.DEADLY_BOSS_MODS .. " being out of date, " .. L.DBM .. " has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from deadlybossmods.com or curse as soon as possible."
 L.VEM								= "WARNING: You are running both " .. L.DEADLY_BOSS_MODS .. " and Voice Encounter Mods. " .. L.DBM .. " will not run in this configuration and therefore will not be loaded."
 L.OUTDATEDPROFILES					= "WARNING: DBM-Profiles not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
-L.OUTDATEDSPELLTIMERS				= "WARNING: DBM-SpellTimers breaks " .. L.DBM .. "and must be disabled for " .. L.DBM .. " to function properly."
+L.OUTDATEDSPELLTIMERS				= "WARNING: DBM-SpellTimers breaks " .. L.DBM .. " and must be disabled for " .. L.DBM .. " to function properly."
 L.OUTDATEDRLT						= "WARNING: DBM-RaidLeadTools breaks " .. L.DBM .. ". DBM-RaidLeadTools is no longer supported and must be removed for " .. L.DBM .. " to function properly."
 L.VICTORYSOUND						= "WARNING: DBM-VictorySound not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
 L.DPMCORE							= "WARNING: Deadly PvP mods is discontinued and not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
@@ -184,8 +185,8 @@ L.CLASSIC_ONLY						= "WARNING: This version of " .. L.DBM .. " is only meant to
 
 L.MOVABLE_BAR						= "Drag me!"
 
---L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[Cancel this timer]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[Ignore timers from %1$s]|r|h"
-L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer"
+L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer: '%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[Cancel this timer]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[Ignore timers from %1$s]|r|h"
+--L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer"
 L.PIZZA_CONFIRM_IGNORE				= "Do you really want to ignore " .. L.DBM .. " timers from %s for this session?"
 L.PIZZA_ERROR_USAGE					= "Usage: /dbm [broadcast] timer <time> <text>. <time> must be greater than 1."
 
@@ -617,8 +618,8 @@ L.INSTANCE_INFO_STATS_DENIED		= "Denied the request: %s"
 L.INSTANCE_INFO_STATS_AWAY			= "Away: %s"
 L.INSTANCE_INFO_STATS_NO_RESPONSE	= "No recent " .. L.DBM .. " version installed: %s"
 L.INSTANCE_INFO_RESULTS				= "Instance ID scan results. Note that instances might show up more than once if there are players with localized WoW clients in your raid."
---L.INSTANCE_INFO_SHOW_RESULTS		= "Players yet to respond: %s\n|HDBM:showRaidIdResults|h|cff3588ff[Show results now]|r|h"
-L.INSTANCE_INFO_SHOW_RESULTS		= "Players yet to respond: %s"
+L.INSTANCE_INFO_SHOW_RESULTS		= "Players yet to respond: %s\n|HDBM:showRaidIdResults|h|cff3588ff[Show results now]|r|h"
+--L.INSTANCE_INFO_SHOW_RESULTS		= "Players yet to respond: %s"
 
 L.LAG_CHECKING						= "Checking raid Latency..."
 L.LAG_HEADER						= L.DEADLY_BOSS_MODS .. " - Latency Results"
@@ -654,6 +655,7 @@ L.CURSE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20
 L.POISON_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:40:58|t"
 L.DISEASE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:40:58|t"
 L.ENRAGE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:102:118:40:58|t"
+L.BLEED_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:40:58|t"
 
 --LDB
 L.LDB_TOOLTIP_HELP1					= "Click to open " .. L.DBM

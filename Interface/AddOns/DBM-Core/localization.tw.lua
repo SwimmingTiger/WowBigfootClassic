@@ -83,6 +83,7 @@ L.MPROFILE_DELETE_SELF_ERROR	= "不能刪除使用中的模組設定。"
 L.MPROFILE_DELETE_S_ERROR	= "配置檔來源已經損毀，設定不能被刪除或是部分刪除，刪除已失敗。"
 
 L.NOTE_SHARE_SUCCESS			= "%s已分享他的%s的註記"
+L.NOTE_SHARE_LINK				= "點擊這裡打開註記"
 L.NOTE_SHARE_FAIL			= "%s嘗試與你分享%s的註記。模組相關的技能沒有安裝或是載入。請確定你載入此模組並請求他們在分享一次。"
 
 L.NOTEHEADER					= "為%s輸入你的註記。在><插入腳色名稱可套用職業顏色。多個註記請使用'/'分開"
@@ -176,8 +177,8 @@ L.CLASSIC_ONLY					= "警告: 此版本的" .. L.DBM .. "僅適用於經典版�
 
 L.MOVABLE_BAR				= "拖動我!"
 
---L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你發送了一個倒數計時：'%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[取消該計時]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[忽略來自%1$s的計時]|r|h"
-L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你發送了一個DBM計時器"
+L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你發送了一個倒數計時：'%2$s'\n|HDBM:cancel:%2$s:nil|h|cff3588ff[取消該計時]|r|h  |HDBM:ignore:%2$s:%1$s|h|cff3588ff[忽略來自%1$s的計時]|r|h"
+--L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你發送了一個DBM計時器"
 L.PIZZA_CONFIRM_IGNORE			= "是否要在該次遊戲連結中忽略來自%s的計時？"
 L.PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <時間（秒）> <文字>。<時間>必須大於1"
 
@@ -589,8 +590,8 @@ L.INSTANCE_INFO_STATS_DENIED		= "拒絕回傳數據:%s"
 L.INSTANCE_INFO_STATS_AWAY		= "離開:%s"
 L.INSTANCE_INFO_STATS_NO_RESPONSE	= "沒有安裝最新版本的DBM:%s"
 L.INSTANCE_INFO_RESULTS			= "副本ID掃描結果。注意如果團隊中有不同語言版本的魔獸客戶端，那麼同一副本可能會出現不止一次。"
---L.INSTANCE_INFO_SHOW_RESULTS		= "仍未回覆的玩家: %s\n|HDBM:showRaidIdResults|h|cff3588ff[查看結果]|r|h"
-L.INSTANCE_INFO_SHOW_RESULTS		= "仍未回覆的玩家: %s"
+L.INSTANCE_INFO_SHOW_RESULTS		= "仍未回覆的玩家: %s\n|HDBM:showRaidIdResults|h|cff3588ff[查看結果]|r|h"
+--L.INSTANCE_INFO_SHOW_RESULTS		= "仍未回覆的玩家: %s"
 
 L.LAG_CHECKING				= "檢測團隊成員的網路延遲中..."
 L.LAG_HEADER					= "Deadly Boss Mods - 網路延遲結果"

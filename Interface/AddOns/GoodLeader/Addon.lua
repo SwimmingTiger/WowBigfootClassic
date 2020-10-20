@@ -47,7 +47,7 @@ function Addon:OnInitialize()
 
     self.db = LibStub('AceDB-3.0'):New('GOODLEADER_DB', {profile = {cache = {}}})
 
-    self.defaultTags = {strsplit(',', '幽默风趣,效率,声音好听,段子手,妹子团长,欧皇在世')}
+    self.defaultTags = {strsplit(',', '幽默风趣,效率,飙车司机,萌妹,磁性嗓音,段子手,欧皇,良心团长')}
 end
 
 function Addon:OnEnable()
@@ -100,7 +100,7 @@ function Addon:OnClassCreated(class, name)
 end
 
 function Addon:SERVER_CONNECTED()
-    self:SendServer('SLOGIN', ns.ADDON_VERSION, UnitGUID('player'), ns.GetPlayerItemLevel(), UnitLevel('player'))
+    self:SendServer('SLOGIN', ns.ADDON_VERSION, UnitGUID('player'), ns.GetPlayerItemLevel(), UnitLevel('player'), (GetGuildInfo('player')))
     self:SendMessage('GOODLEADER_LOGIN')
     self.timeoutTimer:Cancel()
     self.serverTimeout = nil

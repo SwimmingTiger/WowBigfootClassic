@@ -117,9 +117,9 @@
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Leader" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="110" />
+                    <Size x="90" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" x="20" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Comment" wordwrap="false" inherits="GameFontHighlightSmallLeft">
@@ -150,6 +150,18 @@
                         parent.scrollFrame:Fire('OnItemSignupClick', parent, parent.item)
                     </OnClick>
                 </Scripts>
+            </Button>
+            <Button parentKey="QRIcon">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" x="0" y="0" />
+                </Anchors>
+                <NormalTexture file="Interface\AddOns\MeetingHorn\Media\QRIcon">
+                    <TexCoords left="0" right="0.390625" top="0" bottom="0.78125" />
+                </NormalTexture>
+                <HighlightTexture file="Interface\AddOns\MeetingHorn\Media\QRIcon" alphaMode="ADD">
+                    <TexCoords left="0.40625" right="0.796875" top="0" bottom="0.78125" />
+                </HighlightTexture>
             </Button>
         </Frames>
         <HighlightTexture setAllPoints="true">
@@ -229,6 +241,59 @@
         <HighlightTexture setAllPoints="true">
             <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
         </HighlightTexture>
+    </Button>
+    <Button name="MeetingHornActivityTooltipTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
+        <Size x="175" y="215" />
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="4" top="4" bottom="4"/>
+			</BackgroundInsets>
+		</Backdrop>
+        <Frames>
+            <Button parentKey="Close" inherits="UIPanelCloseButtonNoScripts">
+                <HitRectInsets>
+                    <AbsInset left="6" right="6" top="6" bottom="6"/>
+                </HitRectInsets>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="0" y="0" />
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        local parent = self:GetParent()
+                        parent:Hide()
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button parentKey="QRCode">
+                <Size x="152" y="152" />
+                <Anchors>
+                    <Anchor point="CENTER" y="5" />
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString inherits="GameFontNormalSmall" text="微信扫码 查询团长">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.QRCode" relativePoint="BOTTOM" x="0" y="-5" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnShow>
+                if GameTooltip then
+                    self:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
+                    self:SetBackdropColor(GameTooltip:GetBackdropColor())
+                end
+            </OnShow>
+        </Scripts>
     </Button>
     <Button name="MeetingHornMainPanel" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate">
         <Size x="818" y="424"/>
@@ -386,7 +451,7 @@
                     <Button parentKey="Quick1" inherits="MeetingHornQuickTemplate">
                         <Size x="30" y="22" />
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Input" relativePoint="RIGHT" x="5" y="0" />
+                            <Anchor point="LEFT" relativeKey="$parent.Input" relativePoint="RIGHT" x="5" y="-5" />
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick2" inherits="MeetingHornQuickTemplate">
@@ -401,10 +466,22 @@
                             <Anchor point="LEFT" relativeKey="$parent.Quick2" relativePoint="RIGHT" x="5" y="0" />
                         </Anchors>
                     </Button>
+                    <Button parentKey="Quick4" inherits="MeetingHornQuickTemplate">
+                        <Size x="30" y="22" />
+                        <Anchors>
+                            <Anchor point="BOTTOM" relativeKey="$parent.Quick1" relativePoint="TOP" x="5" y="0" />
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="Quick5" inherits="MeetingHornQuickTemplate">
+                        <Size x="30" y="22" />
+                        <Anchors>
+                            <Anchor point="BOTTOM" relativeKey="$parent.Quick2" relativePoint="TOP" x="5" y="0" />
+                        </Anchors>
+                    </Button>
                     <Button parentKey="Reset" inherits="UIPanelButtonTemplate" text="RESET">
                         <Size x="60" y="22" />
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Quick3" relativePoint="RIGHT" x="5" y="0" />
+                            <Anchor point="LEFT" relativeKey="$parent.Quick3" relativePoint="RIGHT" x="5" y="5" />
                         </Anchors>
                     </Button>
                     <Button parentKey="Refresh" inherits="UIPanelButtonTemplate" text="REFRESH">

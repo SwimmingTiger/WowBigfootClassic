@@ -1,4 +1,6 @@
-﻿-- 使用 "LibThreatClassic2" 库提供的仇恨接口
+﻿
+--[[
+-- 使用 "LibThreatClassic2" 库提供的仇恨接口
 local ThreatLib = LibStub("LibThreatClassic2", true)
 
 local UnitThreatSituation = function (...)
@@ -7,7 +9,7 @@ end
 
 local UnitDetailedThreatSituation = function (...)
     return ThreatLib:UnitDetailedThreatSituation (...)
-end
+end]]
 
 -- provisional
 UnitGroupRolesAssigned = UnitGroupRolesAssigned or function() return "" end

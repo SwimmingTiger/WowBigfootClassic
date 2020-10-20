@@ -117,8 +117,10 @@ function TotemTimers.WeaponButtonTooltip(self)
     local s = self:GetAttribute("spell1")
     if s and not self:GetAttribute("doublespell1") then
         local n = GetSpellInfo(s)
-        text = format(L["Leftclick to cast %s"], n)
-        GameTooltip:AddLine(text,r,g,b,1)
+        if n ~= nil then
+            text = format(L["Leftclick to cast %s"], n)
+            GameTooltip:AddLine(text,r,g,b,1)
+        end
     else
         local ds = self:GetAttribute("ds")
         if ds then

@@ -7,9 +7,7 @@
 local ns = select(2, ...)
 
 ---@type NeteaseWargameMember
-local Member = ns.Addon:NewClass('Member')
-
-Member.FromProto = ns.GenerateFromProto('name', 'class', 'win', 'lose', 'guid')
+local Member = ns.NewProto('Member', {'name', 'class', 'win', 'lose', 'guid', 'race'})
 
 function Member:IsOnline()
     return ns.Wargame:IsInGuild(self.guid)

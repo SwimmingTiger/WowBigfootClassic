@@ -126,6 +126,7 @@ function Bartender4:HideBlizzard()
 	UIPARENT_MANAGED_FRAME_POSITIONS["PossessBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["MultiCastActionBarFrame"] = nil
 	UIPARENT_MANAGED_FRAME_POSITIONS["PETACTIONBAR_YPOS"] = nil
+	UIPARENT_MANAGED_FRAME_POSITIONS["ExtraAbilityContainer"] = nil
 
 	--MainMenuBar:UnregisterAllEvents()
 	--MainMenuBar:SetParent(UIHider)
@@ -141,6 +142,14 @@ function Bartender4:HideBlizzard()
 	if OverrideActionBar then -- classic doesn't have this
 		animations = {OverrideActionBar.slideOut:GetAnimations()}
 		animations[1]:SetOffset(0,0)
+
+		-- when blizzard vehicle is turned off, we need to manually fix the state since the OverrideActionBar animation wont run
+		hooksecurefunc("BeginActionBarTransition", function(bar, animIn)
+			if bar == OverrideActionBar and not self.db.profile.blizzardVehicle then
+				OverrideActionBar.slideOut:Stop()
+				MainMenuBar:Show()
+			end
+		end)
 	end
 
 	MainMenuBarArtFrame:Hide()
@@ -282,6 +291,9 @@ function Bartender4:UpdateBlizzardVehicle()
 	if self.db.profile.blizzardVehicle then
 		--MainMenuBar:SetParent(UIParent)
 		OverrideActionBar:SetParent(UIParent)
+		if CURRENT_ACTION_BAR_STATE ~= LE_ACTIONBAR_STATE_OVERRIDE then
+			OverrideActionBar:Hide()
+		end
 		if not self.vehicleController then
 			self.vehicleController = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
 			self.vehicleController:SetFrameRef("overrideActionBar", OverrideActionBar)
@@ -349,7 +361,7 @@ end
 
 function Bartender4:ShowUnlockDialog()
 	if not self.unlock_dialog then
-		local f = CreateFrame("Frame", "Bartender4Dialog", UIParent)
+		local f = CreateFrame("Frame", "Bartender4Dialog", UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
 		f:SetFrameStrata("DIALOG")
 		f:SetToplevel(true)
 		f:EnableMouse(true)

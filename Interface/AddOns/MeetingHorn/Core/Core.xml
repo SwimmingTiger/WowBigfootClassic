@@ -5,4 +5,5 @@
     <Script file="Timer.lua" />
     <Script file="LFG.lua" />
     <Script file="Channel.lua" />
+    <Script file="WorldBuff.lua" />
 </Ui>

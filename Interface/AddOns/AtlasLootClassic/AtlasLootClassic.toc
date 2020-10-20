@@ -2,40 +2,20 @@
 ## Author: Lag
 ## Version: v1.5.6
 ## SavedVariables: AtlasLootClassicDB
-## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, LibDBIcon-1.0, LibDataBroker-1.1, LibClassicItemSets-1.0
-## DefaultState: Enabled
-## LoadOnDemand: 0
-
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
-
-## Title-deDE: AtlasLootClassic |cFF22B14C[Kern]|r
-## Title-esES: AtlasLootClassic |cFF22B14C[Núcleo]|r
-## Title-esMX: AtlasLootClassic |cFF22B14C[Núcleo]|r
-## Title-frFR: AtlasLoot Classic |cFF22B14C[Noyau]|r
-## Title-itIT: AtlasLoot Classic |cFF22B14C[Core]|r
-## Title-koKR: AtlasLoot 클래식 |cFF22B14C[코어]|r
-## Title-ptBR: AtlasLoot Classic |cFF22B14C[Núcleo]|r
-## Title-ruRU: AtlasLoot Classic |cFF22B14C[Ядро]|r
 ## Title-zhCN: AtlasLoot经典版 |cFF22B14C[主程序]|r
 ## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[主程式]|r
-## Notes-deDE: Zeigt die mögliche Boss-Beute.
-## Notes-esES: Muestra botines posibles de jefes
-## Notes-esMX: Muestra botines posibles de jefes
-## Notes-frFR: Affiche les butins possibles des boss
-## Notes-itIT: Shows the possible loot from the bosses
-## Notes-koKR: 보스로부터 획득가능한 전리품 표시
-## Notes-ptBR: Mostra o possível saque dos chefes
-## Notes-ruRU: Показывает возможную добычу с боссов
 ## Notes-zhCN: 显示首领可能的掉落物品
 ## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等資訊。
-
 ## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
 ## X-WoWI-ID: 25185
+## Dependencies: !!!Libs
+## X-Revision: BigFoot
 
 embeds.xml
 

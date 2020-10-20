@@ -6,7 +6,6 @@
 ---@type ns
 local ns = select(2, ...)
 
----@type NeteaseWargameRankItem
-local Rank = ns.Addon:NewClass('Rank')
-
-Rank.FromProto = ns.GenerateFromProto('rank', 'realm', 'name', 'win', 'lose', 'flagCount', 'faction')
+ns.NewProto('Rank', {'rank', 'realm', 'name', 'win', 'lose', 'flagCount', 'faction'})
+ns.NewProto('RankSolo', {'rank', 'realm', 'name', 'guild', 'class', 'race', 'faction', 'score'})
+ns.NewProto('RankGuild', {'rank', 'realm', 'name', 'faction', 'score'})

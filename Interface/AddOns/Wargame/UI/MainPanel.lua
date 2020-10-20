@@ -10,6 +10,7 @@ local L = ns.L
 local MainPanel = ns.Addon:NewClass('UI.MainPanel', 'Frame')
 
 function MainPanel:Constructor()
+    self.maxTabWidth = 200
 
     self.TitleText:SetText(L.ADDON_NAME .. ' ' .. ns.ADDON_VERSION)
 
@@ -30,11 +31,12 @@ function MainPanel:Constructor()
     ns.UI.TeamPanel:Bind(self.Team)
     ns.UI.RankPanel:Bind(self.Rank)
     ns.UI.LoadingPanel:Bind(self.Loading)
+    ns.GUI:GetClass('Dropdown'):Bind(self.Page)
 
     local BlockDialog = ns.GUI:GetClass('BlockDialog'):New(self)
     BlockDialog:SetPoint('TOPLEFT', 3, -22)
     BlockDialog:SetPoint('BOTTOMRIGHT', -3, 3)
-    BlockDialog:SetFrameLevel(self:GetFrameLevel() + 100)
+    BlockDialog:SetFrameStrata('FULLSCREEN_DIALOG')
     self.BlockDialog = BlockDialog
 
     self.FeedBackButton:SetScript('OnClick', function()
@@ -59,6 +61,21 @@ function MainPanel:Constructor()
     self.FeedBackButton:SetScript('OnLeave', GameTooltip_Hide)
     self.FeedBackButton:Disable()
 
+    local pages = {
+        {text = L['匹配'], value = self.Match}, --
+        {text = L['队伍'], value = self.Team}, --
+        {text = L['排行'], value = self.Rank},
+    }
+
+    self.Page:SetMenuTable(pages)
+    self.Page:SetDefaultText(pages[1].text)
+    self.Page:SetCallback('OnSelectChanged', function(item)
+        for _, v in ipairs(pages) do
+            v.value:SetShown(item.value == v.value)
+        end
+    end)
+    self:SetPage(pages[1].value)
+
     self:RegisterMessage('SERVER_CONNECTED')
     self:RegisterMessage('NETEASE_WARGAME_GAMES_UPDATE')
 end
@@ -68,42 +85,47 @@ function MainPanel:UpdateTabs()
     PanelTemplates_UpdateTabs(self)
 end
 
-function MainPanel:UpdateTabFrames()
-    local current = PanelTemplates_GetSelectedTab(self)
-    for i, tab in ipairs(self.Tabs) do
-        if tab.frame then
-            tab.frame:SetShown(i == current)
-        end
-    end
+function MainPanel:SetPage(page)
+    self.Page:SetValue(page)
 end
 
-function MainPanel:SetTab(n)
-    PanelTemplates_SetTab(self, n)
-    self:UpdateTabFrames()
+function MainPanel:ReturnMatch()
+    self:SetPage(self.Match)
 end
 
 function MainPanel:CreateTabButton(id)
     local button = CreateFrame('Button', nil, self, 'NeteaseWargameTabButtonTemplate')
     button:SetPoint('LEFT', self.Tabs[id - 1], 'RIGHT', -18, 0)
     button:SetID(id)
+    button:Hide()
     return button
 end
 
-function MainPanel:SetupTabs(tabs)
-    local function UpdateTabs()
+---@param gameList NeteaseWargameGame[]
+function MainPanel:SetupTabs(gameList)
+
+    local function UpdateTabs(tab)
         self:UpdateTabs()
-        self:UpdateTabFrames()
+        self:ReturnMatch()
+        self:SendMessage('NETEASE_WARGAME_GAME_SELECTED', tab.game)
     end
 
-    local tabIndex = 0
-    for i, v in ipairs(tabs) do
-        tabIndex = tabIndex + 1
+    local tabIndex = 1
+    for i, game in ipairs(gameList) do
         local tab = self.Tabs[i] or self:CreateTabButton(tabIndex)
-        tab:SetText(v[1])
-        tab.frame = v[2]
+        tab:SetText(game.tabName)
+        tab.game = game
         tab:HookScript('OnClick', UpdateTabs)
         tab:Show()
+        tabIndex = tabIndex + 1
     end
+
+    for i = tabIndex, #self.Tabs do
+        self.Tabs[i]:Hide()
+    end
+
+    self.selectedTab = 1
+    UpdateTabs(self.Tabs[1])
 end
 
 function MainPanel:SERVER_CONNECTED()
@@ -113,24 +135,13 @@ end
 function MainPanel:NETEASE_WARGAME_GAMES_UPDATE()
     self.FeedBackButton:Enable()
 
-    ---@type NeteaseWargameGame
-    local game = ns.Wargame.gameList[1]
-    if not game then
+    if #ns.Wargame.gameList == 0 then
         ns.Addon:ShowLoading(L['暂无赛事'], false)
         return
     end
 
     -- tab
-    self.selectedTab = 1
-    self:SetupTabs({
-        {L['匹配'], self.Match}, --
-        {L['队伍'], self.Team}, --
-        {L['排行'], self.Rank}, --
-    })
+    self:SetupTabs(ns.Wargame.gameList)
 
-    self:UpdateTabs()
-    self:UpdateTabFrames()
     ns.Addon:ShowLoading(false)
-
-    self:SendMessage('NETEASE_WARGAME_GAME_SELECTED', game)
 end

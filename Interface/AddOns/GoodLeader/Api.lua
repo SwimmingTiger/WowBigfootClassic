@@ -122,3 +122,7 @@ function ns.Message(msg, ...)
     end
     return SendSystemMessage(ns.ADDON_PREFIX .. msg)
 end
+
+function ns.MakeQRCode(leader)
+    return format('https://tavern.blizzard.cn/miniprogram/goodLeader/detail?%s-%s', GetRealmName(), leader or '')
+end

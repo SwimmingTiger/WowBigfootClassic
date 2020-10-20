@@ -83,7 +83,7 @@ function Creator:OnCreateClick()
                         button2 = NO,
                         OnAccept = function(_, data)
                             self.CreateButton:SetCountdown(10)
-                            ns.LFG:CreateActivity(ns.Activity:New(data.activityId, data.modeId, data.comment))
+                            ns.LFG:CreateActivity(ns.Activity:New(data.activityId, data.modeId, data.comment), true)
                             ns.Message(hasActivity and L['Update activity success.'] or L['Create acitivty success.'])
                         end,
                         hideOnEscape = 1,

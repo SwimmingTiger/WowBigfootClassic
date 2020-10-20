@@ -140,40 +140,40 @@
                 </Texture>
             </Layer>
             <Layer level="ARTWORK">
-                <FontString parentKey="Rank" wordwrap="false" inherits="GameFontNormalSmallLeft">
+                <FontString parentKey="Item1" wordwrap="false" inherits="GameFontNormalSmallLeft">
                     <Size x="50" />
                     <Anchors>
                         <Anchor point="LEFT" x="25" y="0" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Realm" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                <FontString parentKey="Item2" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="90" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Rank" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Item1" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Team" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                <FontString parentKey="Item3" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="140" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Realm" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Item2" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Score" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                <FontString parentKey="Item4" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="60" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Team" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Item3" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Total" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                <FontString parentKey="Item5" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="60" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Score" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Item4" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Wins" wordwrap="false" inherits="GameFontHighlightSmallLeft">
+                <FontString parentKey="Item6" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="60" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Total" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Item5" relativePoint="RIGHT" />
                     </Anchors>
                 </FontString>
             </Layer>
@@ -206,6 +206,9 @@
     </Texture>
     <Frame name="NeteaseWargameTitleTexture1460" virtual="true">
         <Size x="328" y="162" />
+        <Anchors>
+            <Anchor point="TOP" x="0" y="-10" />
+        </Anchors>
         <Layers>
             <Layer level="ARTWORK">
                 <Texture file="Interface\AddOns\Wargame\Media\bg-ws">
@@ -219,7 +222,6 @@
             </Layer>
             <Layer level="BACKGROUND">
                 <Texture parentKey="Background" inherits="nw-shadow-small">
-                <!-- <Size x="30" y="30" /> -->
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeKey="$parent.Text" x="-50" y="10" />
                         <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Text" x="50" y="-10" />
@@ -250,6 +252,61 @@
         </Layers>
     </Frame>
 
+    <!-- 阿拉希素材 -->
+    <Texture name="nw-bg-1461" file="Interface\AddOns\Wargame\Media\bg-ab" virtual="true">
+        <TexCoords left="0" right="0.7060546875" top="0" bottom="0.5830078125"/>
+    </Texture>
+    <Texture name="nw-banner-1461" file="Interface\AddOns\Wargame\Media\bg-ab" virtual="true">
+        <TexCoords left="0.0009765625" right="0.7021484375" top="0.5908203125" bottom="0.693359375"/>
+    </Texture>
+    <Frame name="NeteaseWargameTitleTexture1461" virtual="true">
+        <Size x="385" y="132" />
+        <Anchors>
+            <Anchor point="TOP" x="0" y="-20" />
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Text" inherits="GameFontNormalLeftRed">
+                    <Anchors>
+                        <Anchor point="CENTER" relativePoint="TOPRIGHT" x="-100" y="-15" />
+                    </Anchors>
+                </FontString>
+                <Texture file="Interface\AddOns\Wargame\Media\bg-ab">
+                    <TexCoords left="0.0771484375" right="0.6318359375" top="0.7197265625" bottom="0.900390625"/>
+                </Texture>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background" inherits="nw-shadow-small">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Text" x="-50" y="10" />
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Text" x="50" y="-10" />
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+    <Frame name="NeteaseWargameSmallTitleTexture1461" virtual="true">
+        <Size x="320" y="110" />
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture file="Interface\AddOns\Wargame\Media\bg-ab">
+                    <TexCoords left="0.0771484375" right="0.6318359375" top="0.7197265625" bottom="0.900390625"/>
+                </Texture>
+                <Texture inherits="nw-shadow-small">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-20" y="-70" />
+                        <Anchor point="BOTTOMRIGHT" x="10" y="20" />
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontNormalLeftRed">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-72" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
     <Button name="NeteaseWargameMainPanel" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate">
         <Size x="541" y="515"/>
         <Layers>
@@ -263,6 +320,12 @@
             </Layer>
         </Layers>
         <Frames>
+            <Button parentKey="Page">
+                <Size x="70" y="24" />
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="5" y="-27" />
+                </Anchors>
+            </Button>
             <Button parentKey="FeedBackButton">
                 <Size x="16" y="16"/>
                 <Anchors>
@@ -423,10 +486,35 @@
                             </Layer>
                         </Layers>
                     </Frame>
-                    <Frame parentKey="Content" inherits="InsetFrameTemplate">
+                    <Frame parentKey="ContentBg" inherits="InsetFrameTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" x="0" y="-86" />
                             <Anchor point="BOTTOMRIGHT" x="0" y="-2" />
+                        </Anchors>
+                        <Frames>
+                            <Frame parentKey="Canvas">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="3" y="0" />
+                                    <Anchor point="BOTTOMRIGHT" x="1" y="2" />
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="BACKGROUND">
+                                        <Texture>
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" />
+                                                <Anchor point="BOTTOMRIGHT" x="-3" />
+                                            </Anchors>
+                                            <Color r="0" g="0" b="0" a="0.75" />
+                                        </Texture>
+                                    </Layer>
+                                </Layers>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Content">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ContentBg" relativePoint="TOPLEFT" />
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ContentBg" relativePoint="BOTTOMRIGHT" />
                         </Anchors>
                         <Frames>
                             <Frame parentKey="Info">
@@ -459,6 +547,14 @@
                                         </FontString>
                                     </Layer>
                                 </Layers>
+                                <Frames>
+                                    <Button parentKey="Rename" inherits="UIPanelButtonTemplate">
+                                        <Size x="80" y="22" />
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.Server" relativePoint="RIGHT" x="10" y="0" />
+                                        </Anchors>
+                                    </Button>
+                                </Frames>
                             </Frame>
                             <Frame parentKey="Team" inherits="InsetFrameTemplate">
                                 <Anchors>
@@ -521,22 +617,95 @@
                                     </Button>
                                 </Frames>
                             </Frame>
-                            <Frame parentKey="Canvas">
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="RecentContent">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ContentBg" relativePoint="TOPLEFT" />
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ContentBg" relativePoint="BOTTOMRIGHT" />
+                        </Anchors>
+                        <Frames>
+                            <Frame parentKey="Info">
+                                <Size y="80" />
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="3" y="0" />
-                                    <Anchor point="BOTTOMRIGHT" x="1" y="2" />
+                                    <Anchor point="TOPLEFT" x="0" y="0" />
+                                    <Anchor point="TOPRIGHT" x="0" y="0" />
                                 </Anchors>
                                 <Layers>
-                                    <Layer level="BACKGROUND">
-                                        <Texture>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="Title" inherits="GameFontNormal">
                                             <Anchors>
-                                                <Anchor point="TOPLEFT" />
-                                                <Anchor point="BOTTOMRIGHT" x="-3" />
+                                                <Anchor point="TOPLEFT" x="70" y="-28" />
                                             </Anchors>
-                                            <Color r="0" g="0" b="0" a="0.75" />
-                                        </Texture>
+                                        </FontString>
+                                        <FontString parentKey="Server" inherits="NumberFont_Shadow_Small">
+                                            <Anchors>
+                                                <Anchor point="TOPLEFT" x="70" y="-48" />
+                                            </Anchors>
+                                        </FontString>
                                     </Layer>
                                 </Layers>
+                            </Frame>
+                            <Frame parentKey="Recent" inherits="InsetFrameTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="11" y="-93" />
+                                    <Anchor point="BOTTOMRIGHT" x="-14" y="12" />
+                                </Anchors>
+                                <Frames>
+                                    <ScrollFrame parentKey="RecentList" inherits="HybridScrollFrameTemplate" virtual="true">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="5" y="-5" />
+                                            <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                                        </Anchors>
+                                        <Frames>
+                                            <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
+                                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                                </Anchors>
+                                            </Slider>
+                                        </Frames>
+                                    </ScrollFrame>
+                                    <Frame parentKey="Empty">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeKey="$parent.TeamList" x="5" y="-5" />
+                                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.TeamList" x="-20" y="5" />
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <FontString parentKey="Text" spacing="5" inherits="GameFontDisable">
+                                                    <Anchors>
+                                                        <Anchor point="CENTER" />
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </Frame>
+                                    <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate" id="1">
+                                        <Size x="100" y="24" />
+                                        <Anchors>
+                                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.Team" relativePoint="TOPLEFT" x="20" y="0" />
+                                        </Anchors>
+                                    </Button>
+                                    <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate" id="2">
+                                        <Size x="100" y="24" />
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT" />
+                                        </Anchors>
+                                    </Button>
+                                    <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate" id="3">
+                                        <Size x="100" y="24" />
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT" />
+                                        </Anchors>
+                                    </Button>
+                                    <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate" id="4">
+                                        <Size x="150" y="24" />
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT" />
+                                        </Anchors>
+                                    </Button>
+                                </Frames>
                             </Frame>
                         </Frames>
                     </Frame>
@@ -581,6 +750,30 @@
                             <Anchor point="BOTTOMRIGHT" x="0" y="-2" />
                         </Anchors>
                         <Frames>
+                            <Frame parentKey="Info">
+                                <Size y="80" />
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" x="0" y="0" />
+                                    <Anchor point="TOPRIGHT" x="0" y="0" />
+                                </Anchors>
+                                <Layers>
+                                    <Layer level="OVERLAY">
+                                        <FontString parentKey="Score" inherits="GameFontNormalLarge">
+                                            <Anchors>
+                                                <Anchor point="TOPRIGHT" x="-15" y="-28" />
+                                            </Anchors>
+                                        </FontString>
+                                    </Layer>
+                                </Layers>
+                                <Frames>
+                                    <Button parentKey="Type">
+                                        <Size x="200" y="24" />
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" x="20" y="-28" />
+                                        </Anchors>
+                                    </Button>
+                                </Frames>
+                            </Frame>
                             <Frame parentKey="Rank" inherits="InsetFrameTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT" x="11" y="-93" />
