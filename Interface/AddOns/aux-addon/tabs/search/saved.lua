@@ -3,6 +3,15 @@ select(2, ...) 'aux.tabs.search'
 local aux = require 'aux'
 local filter_util = require 'aux.util.filter'
 
+StaticPopupDialogs.AUX_REMOVE_FAVORITE_CONFIRMATION = {
+    text = '您确定要从收藏夹中删除此项目吗？',
+    button1 = '是',
+    button2 = '否',
+    showAlert = 1,
+    timeout = 0,
+    hideOnEscape = 1,
+}
+
 dragged_search = nil
 
 function aux.event.AUX_LOADED()
@@ -75,14 +84,18 @@ handlers = {
                     end
                 end
 				tinsert(favorite_searches, 1, data.search)
+                update_search_listings()
 			elseif st == favorite_searches_listing then
-                tremove(favorite_searches, data.index)
+                StaticPopupDialogs.AUX_REMOVE_FAVORITE_CONFIRMATION.OnAccept = function()
+                    tremove(favorite_searches, data.index)
+                    update_search_listings()
+                end
+                StaticPopup_Show('AUX_REMOVE_FAVORITE_CONFIRMATION')
             end
-            update_search_listings()
         end
 	end,
     OnMouseDown = function(st, data)
-        if st == favorite_searches_listing then
+        if st == favorite_searches_listing and IsAltKeyDown() then
             dragged_search = favorite_searches[data.index]
         end
     end,
