@@ -274,7 +274,7 @@ local function newSlider(parent, cvar, minRange, maxRange, stepSize, getValue, s
 	slider.maxText:SetText(maxRange)
 	slider.text:SetText(label)
 
-	local valueBox = CreateFrame('editbox', nil, slider)
+	local valueBox = CreateFrame('editbox', nil, slider, BackdropTemplateMixin and "BackdropTemplate")
 	valueBox:SetPoint('TOP', slider, 'BOTTOM', 0, 0)
 	valueBox:SetSize(60, 14)
 	valueBox:SetFontObject(GameFontHighlightSmall)
@@ -292,7 +292,7 @@ local function newSlider(parent, cvar, minRange, maxRange, stepSize, getValue, s
 		local factor = 1 / stepSize
 		value = floor(value * factor + 0.5) / factor
 		value = max(minRange, min(maxRange, value))
-		slider:SetValue(value)
+		slider:SetValue(value, true)
 		self:SetText(value)
 		self:ClearFocus()
 	end)
@@ -443,7 +443,7 @@ playerTitles:SetPoint("TOPLEFT", subText, "BOTTOMLEFT", 0, -8)
 playerGuilds:SetPoint("TOPLEFT", playerTitles, "BOTTOMLEFT", 0, -4)
 playerGuildTitles:SetPoint("TOPLEFT", playerGuilds, "BOTTOMLEFT", 0, -4)
 if not IsClassic() then
-fadeMap:SetPoint("TOPLEFT", playerGuildTitles, "BOTTOMLEFT", 0, -4)
+	fadeMap:SetPoint("TOPLEFT", playerGuildTitles, "BOTTOMLEFT", 0, -4)
 end
 secureToggle:SetPoint("TOPLEFT", IsClassic() and playerGuildTitles or fadeMap, "BOTTOMLEFT", 0, -4)
 luaErrors:SetPoint("TOPLEFT", secureToggle, "BOTTOMLEFT", 0, -4)
@@ -881,7 +881,7 @@ SubText_C:SetJustifyV('TOP')
 SubText_C:SetJustifyH('LEFT')
 SubText_C:SetPoint('TOPLEFT', Title_C, 'BOTTOMLEFT', 0, -8)
 SubText_C:SetPoint('RIGHT', -32, 0)
-SubText_C:SetText('These options allow you to modify Combat or Loot Options.')
+SubText_C:SetText('These options allow you to modify Combat Options.')
 
 local stopAutoAttack = newCheckbox(AIO_C, 'stopAutoAttackOnTargetChange')
 stopAutoAttack:SetPoint("TOPLEFT", SubText_C, "BOTTOMLEFT", 0, -8)
@@ -893,7 +893,7 @@ local castOnKeyDown = newCheckbox(AIO_C, 'ActionButtonUseKeyDown')
 castOnKeyDown:SetPoint("TOPLEFT", attackOnAssist, "BOTTOMLEFT", 0, -4)
 
 local spellStartRecovery = newSlider(AIO_C, 'SpellQueueWindow', 0, 400)
-spellStartRecovery:SetPoint('TOPLEFT', castOnKeyDown, 'BOTTOMLEFT', 24, -24)
+spellStartRecovery:SetPoint('TOPLEFT', castOnKeyDown, 'BOTTOMLEFT', 24, -12)
 spellStartRecovery.minMaxValues = {spellStartRecovery:GetMinMaxValues()}
 spellStartRecovery.minText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[1], MILLISECONDS_ABBR)
 spellStartRecovery.maxText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[2], MILLISECONDS_ABBR)
