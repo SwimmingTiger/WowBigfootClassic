@@ -55,17 +55,17 @@ L["NEFARIAN IS SLAIN"] = "NEFARIAN A ÉTÉ TUÉ";
 --Alliance Onyxia buff NPC.
 L["Major Mattingly"] = "Major Mattingly";
 --Alliance Onyxia buff NPC first yell string (part of his first yell msg before before buff).
---L["history has been made"] = "";
+L["history has been made"] = "Citoyens et alliés de Stormwind, ce jour est historique";
 --Alliance Onyxia buff NPC second yell string (part of his second yell msg before before buff).
---L["Onyxia, hangs from the arches"] = "";
+L["Onyxia, hangs from the arches"] = "La terrible Onyxia est accrochée";
 
 
 --Alliance Nefarian buff NPC.
-L["Field Marshal Afrasiabi"] = "Grand maréchal Afrasiabi";
+L["Grand maréchal Afrasiabi"] = "Grand maréchal Afrasiabi";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
---L["the Lord of Blackrock is slain"] = "";
+L["the Lord of Blackrock is slain"] = "le seigneur du clan Blackrock";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
---L["Revel in the rallying cry"] = "";
+L["Revel in the rallying cry"] = "Ralliez-vous autour de votre champion";
 
 ---===========----
 ---NPC's killed---
@@ -96,7 +96,7 @@ L["Sayge's Dark Fortune of Resistance"] = "Sombre prédiction de résistance de 
 L["Sayge's Dark Fortune of Damage"] = "Sombre prédiction de dégâts de Sayge";
 L["dmfBuffCooldownMsg"] = "Cooldown buff Sombrelune : %s";
 L["dmfBuffCooldownMsg2"] = "Cooldown buff Sombrelune : %s";
-L["dmfBuffCooldownMsg3"] = "DMF Buff cooldown also resets with the weekly server reset."; --/wb frame 2nd msg.
+L["dmfBuffCooldownMsg3"] = "Le CD du buff sombrelune se reinitialize pendant la maintenance du mercredi."; --/wb frame 2nd msg.
 L["dmfBuffReady"] = "Votre buff de la Foire de Sombrelune est reset";
 L["dmfBuffReset"] = "Votre buff Foire de Sombrelune est de nouveau disponible.";
 L["dmfBuffDropped"] = "Buff Foire de Sombrelune %s reçue. Pour suivre le cooldown de 5 heures tapez /dmf";
@@ -171,7 +171,7 @@ L["Resist Fire"] = "Résistance au Feu"; -- LBRS fire resist buff.
 L["Blessing of Blackfathom"] = "Bénédiction de Brassenoire";
 
 L["zan"] = "Zandalar";
-L["zanFirstYellMsg"] = "Zandalar va être posé dans 30 secondes.";
+L["zanFirstYellMsg"] = "Zandalar va être posé dans %s secondes.";
 L["zanBuffDropped"] = "Esprit des Zandalar (Hakkar) a été posé.";
 L["singleSongflowerMsg"] = "La Songflower prise à %s va apparaître dans %s.";
 L["spawn"] = "spawn"; --Used in Felwood map marker tooltip (03:46pm spawn).
@@ -183,9 +183,9 @@ L["North-West of Irontree Woods"] = "le nord du bois d'Arbrefer";
 L["South of Irontree Woods"] = "le sud du bois d'Arbrefer";
 
 ---New translations to do---
-L["layerFrameMsgOne"] = "Old layers will still show for a few hours after server restarts."; --Msg at bottom of layer timers frame.
-L["layerFrameMsgTwo"] = "Layers will disappear from here 8 hours after having no timers."; --Msg at bottom of layer timers frame.
-L["You are currently on"] = "You are currently on"; --You are currently on [Layer 2]
+L["layerFrameMsgOne"] = "Les anciens layers continueront d'apparaître pendant quelques heures apres un redémarrage serveur."; --Msg at bottom of layer timers frame.
+L["layerFrameMsgTwo"] = "Les layers disparaitront apres 8 heures d'inactivité."; --Msg at bottom of layer timers frame.
+L["You are currently on"] = "Vous êtes sur le"; --You are currently on [Layer 2]
 
 
 -------------
@@ -521,8 +521,68 @@ L["autoBwlPortalDesc"] = "Do you want this addon to auto use the Blackwing Lair 
 L["showBuffStatsTitle"] = "Show Buff Stats";
 L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
 
-L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
-L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
-L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["buffResetButtonTooltip"] = "Tout les buffs enregistrés seront effacés.\nLes statistiques ne seront pas affectées."; --Reset button tooltip for the /buffs frame.
+L["time"] = "(%s time)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "(%s times)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 
 L["Blackrock Mountain"] = "Mont Blackrock";
+
+L["onyxiaNpcRespawnHorde"] = "Le PNJ Onyxia (Runthak) va réapparaître aléatoirement dans les deux prochaines minutes.";
+L["nefarianNpcRespawnHorde"] = "Le PNJ Nefarian (Saurfang) va réapparaître aléatoirement dans les deux prochaines minutes.";
+L["onyxiaNpcRespawnAlliance"] = "Le PNJ Onyxia (Mattingly) va réapparaître aléatoirement dans les deux prochaines minutes.";
+L["nefarianNpcRespawnAlliance"] = "Le PNJ Nefarian (Afrasiabi) va réapparaître aléatoirement dans les deux prochaines minutes.";
+
+L["onyxiaNpcKilledHordeWithTimer2"] = "Le PNJ d'Onyxia (Runthak) a été tué il y a %s, réapparition dans %s.";
+L["nefarianNpcKilledHordeWithTimer2"] = "Le PNJ de Nefarian (Saurfang) a été tué il y a %s, réapparition dans %s.";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "Le PNJ d'Onyxia (Mattingly) a été tué il y a %s, réapparition dans %s.";
+L["nefarianNpcKilledAllianceWithTimer2"] = "Le PNJ de Nefarian (Afrasiabi) a été tué il y a %s, réapparition dans %s.";
+
+L["soundsNpcKilledTitle"] = "PNJ tué";
+L["soundsNpcKilledDesc"] = "Son à jouter lorsqu'un PNJ permettant un buff est tué afin de reinitialiser le timer.";
+
+L["autoDmfBuffCharsText"] = "Configuration par personnage pour la foire de sombrelune:";
+
+L["middleNpcKilledTitle"] = "PNJ tué";
+L["middleNpcKilledDesc"] = "Afficher un message ressemblant à un avertissement raid au milieu de l'écran quand un NPC Ony ou Nefa est tué afin réinitialiser le timer.";
+
+L["chatNpcKilledTitle"] = "PNJ tué";
+L["chatNpcKilledDesc"] = "Afficher un message dans la fenêtre de discussion lorsqu'un PNJ Ony ou Nefa est tué afin de réinitialiser le timer.";
+
+L["flashNpcKilledTitle"] = "Flash PNJ tué";
+L["flashNpcKilledDesc"] = "Faire clignoter le client du jeu quand un PNJ buff est tué?";
+
+L["trimDataHeaderDesc"] = "Nettoyer";
+
+L["flashNpcKilledTitle"] = "Flash NPC Killed";
+L["flashNpcKilledDesc"] = "Flash the wow client when a buff NPC is killed?";
+
+L["trimDataBelowLevelTitle"] = "Supprimer sous le niveau";
+L["trimDataBelowLevelDesc"] = "Selectionner le niveau auquel et sous lequel les personnages seront supprimé de la base de données.";
+
+L["trimDataBelowLevelButtonTitle"] = "Suppression des personnages";
+L["trimDataBelowLevelButtonDesc"] = "Cette action supprimera tout les personnages du niveau selectionné et inférieurs de la base de donnée de cet addon. Note: Cette action supprime les statistiques de buff définitivement.";
+
+L["trimDataTextDesc"] = "Supprimer des personnages de la basse de donnée:";
+L["trimDataText2Desc"] = "Supprimer un personnage de la base de donnée:";
+
+L["trimDataCharInputTitle"] = "Champ de suppression individuelle de personnage";
+L["trimDataCharInputDesc"] = "Saisir un nom de personnage à supprimer au formar Nom-Royaume (Sensible à la casse). Note: Cette action supprime les statistiques de buff définitivement.";
+
+L["trimDataBelowLevelButtonConfirm"] = "Êtes vous certains de vouloir supprimer tout les personnages dont le niveau est inférieur ou égal à %s de la base de données ?";
+L["trimDataCharInputConfirm"] = "Êtes vous certain de vouloir supprimer le personnage %s de la base de données ?";
+
+L["trimDataMsg1"] = "Les buffs des personnages ont été reinitialisés."
+L["trimDataMsg2"] = "Supprimer tout les personnages dont le niveau est inférieur ou égal à %s.";
+L["trimDataMsg3"] = "Effacé: %s.";
+L["trimDataMsg4"] = "Effectué, aucun personnage n'as été trouvé.";
+L["trimDataMsg5"] = "Effectué, personnage %s éffacé.";
+L["trimDataMsg6"] = "Merci de saisir un nom de personnage valide au format Nom-Royaume pour la suppression de ses données.";
+L["trimDataMsg7"] = "Le nom %s n'inclus pas le royaume, merci de saisir un personnage au format Nom-Royaume.";
+L["trimDataMsg8"] = "Erreur lors de la suppression du personnage %s, personnage non trouvé (Le nom est sensible à la casse).";
+L["trimDataMsg9"] = "%s à été éffacé de la base de données.";
+
+L["serverTime"] = "Heure du royaume";
+L["serverTimeShort"] = "hr";
+
+L["showUnbuffedAltsTitle"] = "Afficher les rerolls sans buff";
+L["showUnbuffedAltsDesc"] = "Afficher les rerolls sans buff dans la fenêtre /buffs ? Cela vous permet de voir les rerolls non buffé si vous le souhaitez.";

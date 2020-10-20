@@ -6,6 +6,8 @@
 --So we have to use this large table instead because acelocale doesn't load all locales at once to check.
 --Maybe it can do that but I'm not sure how and this was easier, guild msgs aren't spammed anyway so a big table is fine.
 --These need to be updated if any of these strings in the locale file changes.
+local addonName, addon = ...;
+local NWB = addon.a;
 local filterTypeLocales = {
 	["filterYells"] = {
 		--NPC dialogue started msgs (first yell).

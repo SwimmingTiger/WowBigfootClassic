@@ -1,7 +1,6 @@
 -------------------------------------------
 ---NovaWorldBuffs data and communications--
 -------------------------------------------
----This file has links with functions in other files, it's not a standalone module.
 ---It's also a work in progress with quite a bit of mess that needs to be tidied up later.
 
 ---Explanation of how data syncing works here (data size and frequency has been cut down a lot in the past couple weeks (30th/may/2020).
@@ -11,7 +10,7 @@
 ---The rest of people online reply with only their settings (settings are small enough to be one single msg).
 ---Settings are important because they decide which one person online will send guild chat msgs in NWB:sendGuildMsg() for timers etc.
 ---Layermaps are only sent on every second sync.
----Data is compressed for party/raid/guild but cannot be compressed for yell because of a Blizzard filter blocking yell special characters.
+---Data is compressed for all channels using LibDeflate on the highest compression setting.
 ---When sending our data table for any channel I replace all the keys with single character strings to reduce size, see shortKeys below.
 ---Also when sending over yell channel I replace epoch timestamps with a shorter hash before sending.
 ---The timestamp hash is only used on yell, on other channels we let LibDeflate compress them.
@@ -21,17 +20,17 @@
 ---Yell data is sent on entering world, or when taking/landing at a flightpath.
 ---Yell data is also sent on a looping timer, 10 minutes for most realms, 20 minutes for high pop realms with higher layers.
 ---All China/Taiwan/Korean realms are 20 minutes per yell because of their high population and layer count.
---
+
+local addonName, addon = ...;
+local NWB = addon.a;
 local version = GetAddOnMetadata("NovaWorldBuffs", "Version") or 9999;
 local L = LibStub("AceLocale-3.0"):GetLocale("NovaWorldBuffs");
+local time, elapsed = 0, 0;
 
 function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 	--if (NWB.isDebug) then
 	--	return;
 	--end
-	if (UnitName("player") == "Delvara") then
-		return;
-	end
 	if (distribution == "GUILD" and commPrefix == NWB.commPrefix) then
 		--Temp bug fix test.
 		local tempSender = sender;
@@ -65,6 +64,9 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 		NWB:parseDBM(commPrefix, string, distribution, sender);
 		return;
 	end
+	if (distribution ~= "GUILD" and (NWB.guildDataOnly or not NWB.checkedGuildNote)) then
+		return;
+	end
 	--If no realm in name it must be our realm so add it.
 	if (not string.match(sender, "-")) then
 		--Add normalized realm since roster checks use this.
@@ -94,22 +96,29 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 		NWB:debug("Error deserializing:", distribution);
 		return;
 	end
-	local args = NWB:explode(" ", deserialized, 2);
+	local args = NWB:explode(" ", deserialized, 4);
 	local cmd = args[1]; --Cmd (first arg) so we know where to send the data.
 	local remoteVersion = args[2]; --Version number.
-	local data = args[3]; --Data (everything after version arg).
-	if (data == nil and cmd ~= "ping") then
+	local data = args[5]; --Data.
+	time = (tonumber(args[3]) or 0); --Time.
+	elapsed = (args[4] or 0); --Elapsed.
+	--if (data == nil and cmd ~= "ping") then
 		--Temp fix for people with old version data structure sending incompatable data.
 		--Only effects a few of the early testers.
-		data = args[2]; --Data (everything after version arg).
-		remoteVersion = "0";
+		--data = args[2]; --Data (everything after version arg).
+		--remoteVersion = "0";
+	--end
+	if (tonumber(remoteVersion) < 1.83) then
+		data = args[3];
+		--NWB:extractSettings(data, sender, distribution);
+		--return;
 	end
-	NWB.hasAddon[sender] = remoteVersion or "0";
+	NWB.hasAddon[sender] = (remoteVersion or "0");
 	--Trying to fix double guild msg bug, extract settings from data first even if the rest fails for some reason.
 	NWB:extractSettings(data, sender, distribution);
 	if (not tonumber(remoteVersion)) then
 		--Trying to catch a lua error and find out why.
-		NWB:debug("version missing", sender, cmd, data);
+		NWB:debug("version missing", sender, cmd, data, deserialized);
 		return;
 	end
 	--Ignore all commands but settings requests for much older versions.
@@ -127,60 +136,70 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 		end
 		return;
 	end
-	if (cmd == "drop" and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		--NWB:debug("drop inc", sender, data);
-		--Buff drop seen by someone in org.
-		local type, layer = strsplit(" ", data, 2);
-		NWB:doBuffDropMsg(type, layer);
-	elseif ((cmd == "yell" or cmd == "yell2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		--NWB:debug("yell inc", sender, data);
-		--Yell msg seen by someone in org.
-		local type, layer = strsplit(" ", data, 2);
-		NWB:doFirstYell(type, layer);
-	elseif ((cmd == "npcKilled" or cmd == "npcKilled2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		--NWB:debug("npc killed inc", sender, data);
-		--Npc killed seen by someone in org.
-		local type, layer = strsplit(" ", data, 2);
-		NWB:doNpcKilledMsg(type, layer);
-	elseif ((cmd == "flower" or cmd == "flower2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
-		--NWB:debug("flower inc", sender, data);
-		--Flower picked.
-		local type, layer = strsplit(" ", data, 2);
-		NWB:doFlowerMsg(type, layer);
+	if (not data) then
+		return;
 	end
-	--Ignore data syncing for some recently out of date versions.
-	if (tonumber(remoteVersion) < 1.76) then
+	if (distribution == "GUILD" or distribution == "PARTY" or distribution == "RAID") then
+		if (cmd == "drop" and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
+			--NWB:debug("drop inc", sender, data);
+			--Buff drop seen by someone in org.
+			local type, layer = strsplit(" ", data, 2);
+			NWB:doBuffDropMsg(type, layer);
+		elseif ((cmd == "yell" or cmd == "yell2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
+			--NWB:debug("yell inc", sender, data);
+			--Yell msg seen by someone in org.
+			local type, layer, arg = strsplit(" ", data, 3);
+			NWB:doFirstYell(type, layer, nil, distribution, arg);
+		elseif ((cmd == "npcKilled" or cmd == "npcKilled2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
+			--NWB:debug("npc killed inc", sender, data);
+			--Npc killed seen by someone in org.
+			local type, layer = strsplit(" ", data, 2);
+			NWB:doNpcKilledMsg(type, layer);
+		elseif ((cmd == "flower" or cmd == "flower2") and not (NWB.db.global.receiveGuildDataOnly and distribution ~= "GUILD")) then
+			--NWB:debug("flower inc", sender, data);
+			--Flower picked.
+			local type, layer = strsplit(" ", data, 2);
+			NWB:doFlowerMsg(type, layer);
+		end
+	end
+	if (tonumber(remoteVersion) < 1.84) then
 		if (cmd == "requestData" and distribution == "GUILD") then
 			if (not NWB:getGuildDataStatus()) then
 				NWB:sendSettings("GUILD");
 			else
 				NWB:sendData("GUILD");
-				--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
-				--To avoid duplicate guild msgs.
-				--NWB:sendSettings("GUILD");
 			end
 		end
 		return;
 	end
 	if (cmd == "data" or cmd == "settings") then
-		NWB:receivedData(data, sender, distribution);
-	elseif (cmd == "requestData") then
+		NWB:receivedData(data, sender, distribution, elapsed);
+	elseif (cmd == "requestData" and distribution == "GUILD") then
 		--Other addon users request data when they log on.
-		NWB:receivedData(data, sender, distribution);
+		NWB:receivedData(data, sender, distribution, elapsed);
 		if (not NWB:getGuildDataStatus()) then
 			NWB:sendSettings("GUILD");
 		else
 			NWB:sendData("GUILD");
-			--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
-			--To avoid duplicate guild msgs.
-			--NWB:sendSettings("GUILD");
 		end
-	elseif (cmd == "requestSettings") then
+	elseif (cmd == "requestSettings" and distribution == "GUILD") then
 		--Only used once per logon.
-		NWB:receivedData(data, sender, distribution);
+		NWB:receivedData(data, sender, distribution, elapsed);
 		NWB:sendSettings("GUILD");
 	end
 	NWB:versionCheck(remoteVersion);
+end
+
+local version2 = version;
+function NWB:versionCheck(remoteVersion)
+	local lastVersionMsg = NWB.db.global.lastVersionMsg;
+	if (tonumber(remoteVersion) > tonumber(version) and (GetServerTime() - lastVersionMsg) > 14400) then
+		print(NWB.prefixColor .. L["versionOutOfDate"]);
+		NWB.db.global.lastVersionMsg = GetServerTime();
+	end
+	if (tonumber(remoteVersion) > tonumber(version)) then
+		NWB.latestRemoteVersion = remoteVersion;
+	end
 end
 
 --Send to specified addon channel.
@@ -226,6 +245,7 @@ end
 
 --Send full data.
 NWB.lastDataSent = 0;
+local version = version .. " " .. NWB.i;
 local enableLogging = true;
 local includeTimerLog = true;
 local logRendOnly = true;
@@ -248,10 +268,10 @@ function NWB:sendData(distribution, target, prio, noLayerMap, noLogs)
 		data = NWB:createData(distribution, noLogs);
 	end
 	--NWB:debug(data);
-	if (next(data) ~= nil) then
+	if (next(data) ~= nil and NWB:isClassic()) then
 		data = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "data " .. version .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "data " .. version .. " " .. self.k() .. " " .. data, target, prio);
 	end
 end
 
@@ -273,12 +293,12 @@ function NWB:sendTimerLogData(distribution, entries)
 	end
 	local data = {};
 	data.timerLog = NWB:createTimerLogData(distribution, entries);
-	if (next(data) ~= nil) then
+	if (next(data) ~= nil and NWB:isClassic()) then
 		data = NWB:convertKeys(data, true, distribution);
 		--NWB:debug(data);
 		data = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "data " .. version .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "data " .. version .. " " .. self.k() .. " " .. data, target, prio);
 	end
 end
 
@@ -326,8 +346,10 @@ function NWB:sendSettings(distribution, target, prio)
 	if (next(data) ~= nil) then
 		data = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "settings " .. version .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "settings " .. version .. " " .. self.k() .. " " .. data, target, prio);
 	end
+	--Temorary send both types so less duplicate guild chat msgs, remove in next version when more people are on the new serializer.
+	NWB:sendSettingsOld(distribution, target, prio);
 end
 
 --Temporary send old serializaton type, remove in later version when more people are on the new serializer.
@@ -341,54 +363,63 @@ function NWB:sendSettingsOld(distribution, target, prio)
 	end
 	local data = NWB:createSettings(distribution);
 	if (next(data) ~= nil) then
+		data = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		data = NWB.serializerOld:Serialize(data);
-		NWB:sendComm(distribution, "settings " .. version .. " " .. data, target, prio, true);
+		NWB:sendComm(distribution, "settings " .. version .. " " .. data, target, prio);
 	end
 end
 
 --Send buff dropped msg.
 function NWB:sendBuffDropped(distribution, type, target, layer)
-	if (tonumber(layer)) then
-		NWB:sendComm(distribution, "drop " .. version .. " " .. type .. " " .. layer, target);
-	else
-		NWB:sendComm(distribution, "drop " .. version .. " " .. type, target);
+	if (tonumber(layer) and NWB:isClassic()) then
+		NWB:sendComm(distribution, "drop " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
+		NWB:sendComm(distribution, "drop " .. version2 .. " " .. type .. " " .. layer, target);
+	elseif (NWB:isClassic()) then
+		NWB:sendComm(distribution, "drop " .. version .. " " .. self.k() .. " " .. type, target);
+		NWB:sendComm(distribution, "drop " .. version2 .. "  " .. type, target);
 	end
 end
 
 --Send first yell msg.
-function NWB:sendYell(distribution, type, target, layer)
+function NWB:sendYell(distribution, type, target, layer, arg)
 	if (NWB.sharedLayerBuffs) then
 		layer = nil;
 	end
-	if (tonumber(layer)) then
-		NWB:sendComm(distribution, "yell2 " .. version .. " " .. type .. " " .. layer, target);
-		--Temporary send both msgs until next version so people don't get lua error on old versions.
-		--The yell2 msg will be changed to yell and the 2nd msg without layer will be removed.
-		NWB:sendComm(distribution, "yell " .. version .. " " .. type, target);
-	else
-		NWB:sendComm(distribution, "yell " .. version .. " " .. type, target);
+	if (NWB:isClassic()) then
+		if (arg) then
+			if (tonumber(layer)) then
+				NWB:sendComm(distribution, "yell " .. version .. " " .. self.k() .. " " .. type .. " " .. layer .. " " .. arg, target);
+				NWB:sendComm(distribution, "yell " .. version2 .. " " .. type .. " " .. layer .. " " .. arg, target);
+			else
+				NWB:sendComm(distribution, "yell " .. version .. " " .. self.k() .. " " .. type .. " 0 " .. arg, target);
+				NWB:sendComm(distribution, "yell " .. version2 .. " " .. type .. " 0 " .. arg, target);
+			end
+		elseif (tonumber(layer)) then
+			NWB:sendComm(distribution, "yell " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
+			NWB:sendComm(distribution, "yell " .. version2 .. " " .. type .. " " .. layer, target);
+		else
+			NWB:sendComm(distribution, "yell " .. version .. " " .. self.k() .. " " .. type, target);
+			NWB:sendComm(distribution, "yell " .. version2 .. " " .. type, target);
+		end
 	end
 end
 
 --Send npc killed msg.
 function NWB:sendNpcKilled(distribution, type, target, layer)
-	if (tonumber(layer)) then
-		NWB:sendComm(distribution, "npcKilled2 " .. version .. " " .. type .. " " .. layer, target);
-		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. type, target);
-	else
-		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. type, target);
+	if (tonumber(layer) and NWB:isClassic()) then
+		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
+	elseif (NWB:isClassic()) then
+		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
 
 --Send flower msg.
 function NWB:sendFlower(distribution, type, target, layer)
 	NWB:debug("sending flower", type, layer);
-	if (tonumber(layer)) then
-		NWB:sendComm(distribution, "flower2 " .. version .. " " .. type .. " " .. layer, target);
-		NWB:sendComm(distribution, "flower " .. version .. " " .. type, target);
-	else
-		NWB:sendComm(distribution, "flower " .. version .. " " .. type, target);
+	if (tonumber(layer) and NWB:isClassic()) then
+		NWB:sendComm(distribution, "flower " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
+	elseif (NWB:isClassic()) then
+		NWB:sendComm(distribution, "flower " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
 
@@ -408,10 +439,14 @@ function NWB:requestData(distribution, target, prio)
 	end
 	data = NWB.serializer:Serialize(data);
 	NWB.lastDataSent = GetServerTime();
-	NWB:sendComm(distribution, "requestData " .. version .. " " .. data, target, prio);
+	if (NWB:isClassic()) then
+		NWB:sendComm(distribution, "requestData " .. version .. " " .. self.k() .. " " .. data, target, prio);
+	else
+		NWB:requestSettings(distribution, target, prio);
+	end
 	--Temporary send old serializer type settings, remove in a week or 2 after enough people update to new serializer.
 	--To avoid duplicate guild msgs.
-	--NWB:sendSettings("GUILD");
+	NWB:sendSettingsOld(distribution, target, prio);
 end
 
 --Send settings only and also request other users settings back.
@@ -423,14 +458,13 @@ function NWB:requestSettings(distribution, target, prio)
 	if (next(data) ~= nil) then
 		local dataNew = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "requestSettings " .. version .. " " .. dataNew, target, prio);
-		--Temorary send both types so less duplicate guikd chat msgs, remove in next version when more people are on the new serializer.
-		local dataOld = NWB.serializerOld:Serialize(data);
-		NWB:sendComm(distribution, "requestSettings " .. version .. " " .. dataOld, target, prio, true);
+		NWB:sendComm(distribution, "requestSettings " .. version .. " " .. self.k() .. " " .. dataNew, target, prio);
+		--Temorary send both types so less duplicate guild chat msgs, remove in next version when more people are on the new serializer.
+		NWB:sendSettingsOld(distribution, target, prio);
 	end
 	--data = NWB.serializer:Serialize(data);
 	--NWB.lastDataSent = GetServerTime();
-	--NWB:sendComm(distribution, "requestSettings " .. version .. " " .. data, target, prio);
+	--NWB:sendComm(distribution, "requestSettings " .. version .. " " .. self.k() .. " " .. data, target, prio);
 end
 
 --Create data table for sending.
@@ -441,24 +475,24 @@ function NWB:createData(distribution, noLogs)
 	end
 	if (NWB.data.rendTimer > (GetServerTime() - NWB.db.global.rendRespawnTime)) then
 		data['rendTimer'] = NWB.data.rendTimer;
-		data['rendTimerWho'] = NWB.data.rendTimerWho;
+		--data['rendTimerWho'] = NWB.data.rendTimerWho;
 		data['rendYell'] = NWB.data.rendYell or 0;
-		data['rendYell2'] = NWB.data.rendYell2 or 0;
-		data['rendSource'] = NWB.data.rendSource;
+		--data['rendYell2'] = NWB.data.rendYell2 or 0;
+		--data['rendSource'] = NWB.data.rendSource;
 	end
 	if (NWB.data.onyTimer > (GetServerTime() - NWB.db.global.onyRespawnTime)) then
 		data['onyTimer'] = NWB.data.onyTimer;
-		data['onyTimerWho'] = NWB.data.onyTimerWho;
+		--data['onyTimerWho'] = NWB.data.onyTimerWho;
 		data['onyYell'] = NWB.data.onyYell or 0;
-		data['onyYell2'] = NWB.data.onyYell2 or 0;
-		data['onySource'] = NWB.data.onySource;
+		--data['onyYell2'] = NWB.data.onyYell2 or 0;
+		--data['onySource'] = NWB.data.onySource;
 	end
 	if (NWB.data.nefTimer > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
 		data['nefTimer'] = NWB.data.nefTimer;
-		data['nefTimerWho'] = NWB.data.nefTimerWho;
+		--data['nefTimerWho'] = NWB.data.nefTimerWho;
 		data['nefYell'] = NWB.data.nefYell or 0;
-		data['nefYell2'] = NWB.data.nefYell2 or 0;
-		data['nefSource'] = NWB.data.nefSource;
+		--data['nefYell2'] = NWB.data.nefYell2 or 0;
+		--data['nefSource'] = NWB.data.nefSource;
 	end
 	if ((NWB.data.onyNpcDied > NWB.data.onyTimer) and
 			(NWB.data.onyNpcDied > (GetServerTime() - NWB.db.global.onyRespawnTime))) then
@@ -466,7 +500,9 @@ function NWB:createData(distribution, noLogs)
 	end
 	if ((NWB.data.nefNpcDied > NWB.data.nefTimer) and
 			(NWB.data.nefNpcDied > (GetServerTime() - NWB.db.global.nefRespawnTime))) then
-		data['nefNpcDied'] = NWB.data.nefNpcDied;
+		if (NWB.faction == "Alliance") then
+			data['nefNpcDied'] = NWB.data.nefNpcDied;
+		end
 	end
 	for k, v in pairs(NWB.songFlowers) do
 		--Add currently active songflower timers.
@@ -503,6 +539,9 @@ function NWB:createData(distribution, noLogs)
 	data = NWB:convertKeys(data, true, distribution);
 	--NWB:debug("After key convert:", string.len(NWB.serializer:Serialize(data)));
 	--NWB:debug(data);
+	if (NWB.tar("player") == nil) then
+		data = {};
+	end
 	return data;
 end
 
@@ -613,12 +652,14 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs)
 			if (not data.layers[layer]) then
 				data.layers[layer] = {};
 			end
-			data.layers[layer]['nefNpcDied'] = NWB.data.layers[layer].nefNpcDied;
+			if (NWB.faction == "Alliance") then
+				data.layers[layer]['nefNpcDied'] = NWB.data.layers[layer].nefNpcDied;
+			end
 			--if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
 			--		and not NWB.krRealms[NWB.realm]) then
 			--	data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
 			--end
-			foundTimer = true;
+			--foundTimer = true;
 		end
 		if (NWB.layeredSongflowers) then
 			for k, v in pairs(NWB.songFlowers) do
@@ -793,7 +834,7 @@ function NWB:validateCloseTimestamps(layer, key, timestamp)
 				local diff = v[key] - timestamp;
 				--Error reported this somehow was a string, very rare case but adding a check anyway, probably corrupted data.
 				if (not tonumber(diff)) then
-					NWB:debug("close tmestamp number fail", layer, key, timestamp);
+					NWB:debug("close timestamp number fail", layer, key, timestamp);
 					return;
 				end
 				--NWB:debug(k, diff);
@@ -844,7 +885,7 @@ function NWB:createSettings(distribution)
 	return data;
 end
 
-local validKeys = {
+NWB.validKeys = {
 	["rendTimer"] = true,
 	["rendTimerWho"] = true,
 	["rendYell"] = true,
@@ -922,69 +963,51 @@ end
 
 --Add received data to our database.
 --This is super ugly for layered stuff, but it's meant to work with all diff versions at once, will be cleaned up later.
-function NWB:receivedData(dataReceived, sender, distribution)
+function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 	local deserializeResult, data = NWB.serializer:Deserialize(dataReceived);
 	if (not deserializeResult) then
 		--Fall back to old deserializer if it's an old version.
 		deserializeResult, data = NWB.serializerOld:Deserialize(dataReceived);
 	end
 	if (not deserializeResult) then
-		NWB:debug("Failed to deserialize data.");
+		--NWB:debug("Failed to deserialize data.");
 		return;
 	end
-	--NWB:debug(data);
 	data = NWB:convertKeys(data, nil, distribution);
-	--NWB:debug(data);
 	if (not data) then
 		NWB:debug("bad hash result.");
 		return;
 	end
-	--A faction check should not be needed but who knows what funky stuff can happen with the new yell channel and mind control etc.
-	--if (not data['faction'] or data['faction'] ~= faction) then
-	--	NWB:debug("data from opposite faction received", sender, distribution);
-	--	return;
-	--end
 	if (not NWB:validateData(data)) then
 		NWB:debug("invalid data received.");
-		--NWB:debug(data);
 		return;
 	end
-	if (data["rendTimer"] and tonumber(data["rendTimer"]) and (data["rendTimer"] < NWB.data["rendTimer"] or 
-			(data["rendYell"] and data["rendYell"] < (data["rendTimer"] - 120)
-			and data["rendYell2"] and data["rendYell2"] < (data["rendTimer"] - 120)))) then
-		--Don't overwrite any data for this timer type if it's an old timer.
-		if (data["rendYell"] < (data["rendTimer"] - 120) and data["rendYell2"] < (data["rendTimer"] - 120)) then
-			--NWB:debug("invalid rend timer from", sender, "npcyell:", data["rendYell"], "buffdropped:", data["rendTimer"]);
-		end
-		data['rendTimer'] = nil;
-		data['rendTimerWho'] = nil;
-		data['rendYell'] = nil;
-		data['rendYell2'] = nil;
-		data['rendSource'] = nil;
+	if (data.rendTimer and tonumber(data.rendTimer) and (not data.rendYell or data.rendTimer < NWB.data.rendTimer or
+			data.rendYell < (data.rendTimer - 120) or data.rendYell > (data.rendTimer + 120))) then
+		--NWB:debug("invalid rend timer from", sender, "npcyell:", data.rendYell, "buffdropped:", data.rendTimer);
+		data.rendTimer = nil;
+		data.rendTimerWho = nil;
+		data.rendYell = nil;
+		data.rendYell2 = nil;
+		data.rendSource = nil;
 	end
-	if (data["onyTimer"] and tonumber(data["onyTimer"]) and (data["onyTimer"] < NWB.data["onyTimer"] or
-			(data["onyYell"] and data["onyYell"] < (data["onyTimer"] - 120)
-			and data["onyYell2"] and data["onyYell2"] < (data["onyTimer"] - 120)))) then
-		if (data["onyYell"] < (data["onyTimer"] - 120) and data["onyYell2"] < (data["onyTimer"] - 120)) then
-			--NWB:debug("invalid ony timer from", sender, "npcyell:", data["onyYell"], "buffdropped:", data["onyTimer"]);
-		end
-		data['onyTimer'] = nil;
-		data['onyTimerWho'] = nil;
-		data['onyYell'] = nil;
-		data['onyYell2'] = nil;
-		data['onySource'] = nil;
+	if (data.onyTimer and tonumber(data.onyTimer) and (not data.onyYell or data.onyTimer < NWB.data.onyTimer or
+			data.onyYell < (data.onyTimer - 120) or data.onyYell > (data.onyTimer + 120))) then
+		--NWB:debug("invalid ony timer from", sender, "npcyell:", data.onyYell, "buffdropped:", data.onyTimer);
+		data.onyTimer = nil;
+		data.onyTimerWho = nil;
+		data.onyYell = nil;
+		data.onyYell2 = nil;
+		data.onySource = nil;
 	end
-	if (data["nefTimer"] and tonumber(data["nefTimer"]) and (data["nefTimer"] < NWB.data["nefTimer"] or
-			(data["nefYell"] and data["nefYell"] < (data["nefTimer"] - 120)
-			and data["nefYell2"] and data["nefYell2"] < (data["nefTimer"] - 120)))) then
-		if (data["nefYell"] < (data["nefTimer"] - 120) and data["nefYell2"] < (data["nefTimer"] - 120)) then
-			--NWB:debug("invalid nef timer from", sender, "npcyell:", data["nefYell"], "buffdropped:", data["nefTimer"]);
-		end
-		data['nefTimer'] = nil;
-		data['nefTimerWho'] = nil;
-		data['nefYell'] = nil;
-		data['nefYell2'] = nil;
-		data['nefSource'] = nil;
+	if (data.nefTimer and tonumber(data.nefTimer) and (not data.nefYell or data.nefTimer < NWB.data.nefTimer or
+			data.nefYell < (data.nefTimer - 120) or data.nefYell > (data.nefTimer + 120))) then
+		--NWB:debug("invalid nef timer from", sender, "npcyell:", data.nefYell, "buffdropped:", data.nefTimer);
+		data.nefTimer = nil;
+		data.nefTimerWho = nil;
+		data.nefYell = nil;
+		data.nefYell2 = nil;
+		data.nefSource = nil;
 	end
 	local hasNewData, newFlowerData;
 	--Insert our layered data here.
@@ -992,9 +1015,9 @@ function NWB:receivedData(dataReceived, sender, distribution)
 		--There's a lot of ugly shit in this function trying to quick fix timer bugs for this layered stuff...
 		for layer, vv in NWB:pairsByKeys(data.layers) do
 			--Temp fix, this can be removed soon.
-			if (type(vv) ~= "table" or (((not vv["rendTimer"] or vv["rendTimer"] == 0) and (not vv["onyTimer"] or vv["onyTimer"] == 0)
-					 and (not vv["nefTimer"] or vv["nefTimer"] == 0) and (not vv["onyNpcDied"] or vv["onyNpcDied"] == 0)
-					  and (not vv["nefNpcDied"] or vv["nefNpcDied"] == 0) and (not vv["lastSeenNPC"] or vv["lastSeenNPC"] == 0))
+			if (type(vv) ~= "table" or (((not vv.rendTimer or vv.rendTimer == 0) and (not vv.onyTimer or vv.onyTimer == 0)
+					 and (not vv.nefTimer or vv.nefTimer == 0) and (not vv.onyNpcDied or vv.onyNpcDied == 0)
+					  and (not vv.nefNpcDied or vv.nefNpcDied == 0) and (not vv.lastSeenNPC or vv.lastSeenNPC == 0))
 					  or NWB.data.layersDisabled[layer])) then
 				--Do nothing if all timers are 0, this is to fix a bug in last version with layerMaps causing old layer data
 				--to bounce back and forth between users, making it so layers with no timers keep being created after server
@@ -1008,34 +1031,34 @@ function NWB:receivedData(dataReceived, sender, distribution)
 						--Quick fix for timestamps sometimes syncing between layers.
 						--I think this may happen when someone is mid layer changing when the buff drops.
 						--They get the buff in new layer but get old layers NPC GUID? Has to be tested.
-						if (vv["rendTimer"] and localV["rendTimer"] and vv["rendTimer"] == localV["rendTimer"]
+						if (vv.rendTimer and localV.rendTimer and vv.rendTimer == localV.rendTimer
 								and layer ~= localLayer) then
-							--NWB:debug("ignoring duplicate rend timstamp", layer, vv["rendTimer"], localLayer, localV["rendTimer"]);
-							vv['rendTimer'] = nil;
-							vv['rendTimerWho'] = nil;
-							vv['rendYell'] = nil;
-							vv['rendYell2'] = nil;
-							vv['rendSource'] = nil;
+							--NWB:debug("ignoring duplicate rend timstamp", layer, vv.rendTimer, localLayer, localV.rendTimer);
+							vv.rendTimer = nil;
+							vv.rendTimerWho = nil;
+							vv.rendYell = nil;
+							vv.rendYell2 = nil;
+							vv.rendSource = nil;
 						end
-						if (vv["onyTimer"] and localV["onyTimer"] and vv["onyTimer"] == localV["onyTimer"]
+						if (vv.onyTimer and localV.onyTimer and vv.onyTimer == localV.onyTimer
 								and layer ~= localLayer) then
-							--NWB:debug("ignoring duplicate ony timstamp", layer, vv["onyTimer"], localLayer, localV["onyTimer"]);
-							vv['onyTimer'] = nil;
-							vv['onyTimerWho'] = nil;
-							vv['onyYell'] = nil;
-							vv['onyYell2'] = nil;
-							vv['onySource'] = nil;
-							vv['onyNpcDied'] = nil;
+							--NWB:debug("ignoring duplicate ony timstamp", layer, vv.onyTimer, localLayer, localV.onyTimer);
+							vv.onyTimer = nil;
+							vv.onyTimerWho = nil;
+							vv.onyYell = nil;
+							vv.onyYell2 = nil;
+							vv.onySource = nil;
+							vv.onyNpcDied = nil;
 						end
-						if (vv["nefTimer"] and localV["nefTimer"] and vv["nefTimer"] == localV["nefTimer"]
+						if (vv.nefTimer and localV.nefTimer and vv.nefTimer == localV.nefTimer
 								and layer ~= localLayer) then
-							--NWB:debug("ignoring duplicate nef timstamp", layer, vv["nefTimer"], localLayer, localV["nefTimer"]);
-							vv['nefTimer'] = nil;
-							vv['nefTimerWho'] = nil;
-							vv['nefYell'] = nil;
-							vv['nefYell2'] = nil;
-							vv['nefSource'] = nil;
-							vv['nefNpcDied'] = nil;
+							--NWB:debug("ignoring duplicate nef timstamp", layer, vv.nefTimer, localLayer, localV.nefTimer);
+							vv.nefTimer = nil;
+							vv.nefTimerWho = nil;
+							vv.nefYell = nil;
+							vv.nefYell2 = nil;
+							vv.nefSource = nil;
+							vv.nefNpcDied = nil;
 						end
 					end
 					if (NWB:validateLayer(layer)) then
@@ -1045,77 +1068,58 @@ function NWB:receivedData(dataReceived, sender, distribution)
 							else
 								NWB:createNewLayer(layer, "other");
 							end
-							--NWB:debug(data.layers);
 						end
 						if (NWB.data.layers[layer]) then
 							NWB:fixLayer(layer);
-							--NWB:debug(data);
-							if (vv["rendTimer"] and tonumber(data["rendTimer"]) 
-									and (vv["rendTimer"] < (GetServerTime() - NWB.db.global.rendRespawnTime)
-									--or not vv["rendYell"] or not vv["rendYell2"]
-									--or (vv["rendYell"] < (vv["rendTimer"] - 120) and vv["rendYell2"] < (vv["rendTimer"] - 120)))) then
-									or not vv["rendYell"]
-									or (vv["rendYell"] < (vv["rendTimer"] - 120)))) then
-								--Don't overwrite any data for this timer type if it's an old timer.
-								--if (vv["rendYell"] < (vv["rendTimer"] - 120) and vv["rendYell2"] < (vv["rendTimer"] - 120)) then
-									--NWB:debug("invalid rend timer from", sender, "npcyell:", vv["rendYell"], "npcyell2:", vv["rendYell2"], "buffdropped:", vv["rendTimer"]);
-								--end
-								vv['rendTimer'] = nil;
-								vv['rendTimerWho'] = nil;
-								vv['rendYell'] = nil;
-								vv['rendYell2'] = nil;
-								vv['rendSource'] = nil;
+							if (vv.rendTimer and tonumber(vv.rendTimer) and
+									(not vv.rendYell or vv.rendTimer < (GetServerTime() - NWB.db.global.rendRespawnTime)
+									or vv.rendYell < (vv.rendTimer - 120) or vv.rendYell > (vv.rendTimer + 120))) then
+								--NWB:debug("invalid rend timer from", sender, "npcyell:", vv.rendYell, "buffdropped:", vv.rendTimer);
+								vv.rendTimer = nil;
+								vv.rendTimerWho = nil;
+								vv.rendYell = nil;
+								vv.rendYell2 = nil;
+								vv.rendSource = nil;
 							end
-							if (vv["onyTimer"] and tonumber(data["onyTimer"])
-									and (vv["onyTimer"] < (GetServerTime() - NWB.db.global.onyRespawnTime)
-									--or not vv["onyYell"] or not vv["onyYell2"]
-									--or (vv["onyYell"] < (vv["onyTimer"] - 120) and vv["onyYell2"] < (vv["onyTimer"] - 120)))) then
-									or not vv["onyYell"]
-									or (vv["onyYell"] < (vv["onyTimer"] - 120)))) then
-								--if (vv["onyYell"] < (vv["onyTimer"] - 120) and vv["onyYell2"] < (vv["onyTimer"] - 120)) then
-									--NWB:debug("invalid ony timer from", sender, "npcyell:", vv["onyYell"], "npcyell2:", vv["onyYell2"], "buffdropped:", vv["onyTimer"]);
-								--end
-								vv['onyTimer'] = nil;
-								vv['onyTimerWho'] = nil;
-								vv['onyYell'] = nil;
-								vv['onyYell2'] = nil;
-								vv['onySource'] = nil;
-								vv['onyNpcDied'] = nil;
+							if (vv.onyTimer and tonumber(vv.onyTimer) and
+									(not vv.onyYell or vv.onyTimer < (GetServerTime() - NWB.db.global.onyRespawnTime)
+									or vv.onyYell < (vv.onyTimer - 120) or vv.onyYell > (vv.onyTimer + 120))) then
+								--NWB:debug("invalid ony timer from", sender, "npcyell:", vv.onyYell, "buffdropped:", vv.onyTimer);
+								vv.onyTimer = nil;
+								vv.onyTimerWho = nil;
+								vv.onyYell = nil;
+								vv.onyYell2 = nil;
+								vv.onySource = nil;
 							end
-							if (vv["nefTimer"] and tonumber(data["nefTimer"])
-									and (vv["nefTimer"] < (GetServerTime() - NWB.db.global.nefRespawnTime)
-									--or not vv["nefYell"] or not vv["nefYell2"]
-									--or (vv["nefYell"] < (vv["nefTimer"] - 120) and vv["nefYell2"] < (vv["nefTimer"] - 120)))) then
-									or not vv["nefYell"]
-									or (vv["nefYell"] < (vv["nefTimer"] - 120)))) then
-								--if (vv["nefYell"] < (vv["nefTimer"] - 120) and vv["nefYell2"] < (vv["nefTimer"] - 120)) then
-									--NWB:debug("invalid nef timer from", sender, "npcyell:", vv["nefYell"], "npcyell2:", vv["nefYell2"], "buffdropped:", vv["nefTimer"]);
-								--end
-								vv['nefTimer'] = nil;
-								vv['nefTimerWho'] = nil;
-								vv['nefYell'] = nil;
-								vv['nefYell2'] = nil;
-								vv['nefSource'] = nil;
-								vv['nefNpcDied'] = nil;
+							if (vv.nefTimer and tonumber(vv.nefTimer) and
+									(not vv.nefYell or vv.nefTimer < (GetServerTime() - NWB.db.global.nefRespawnTime)
+									or vv.nefYell < (vv.nefTimer - 120) or vv.nefYell > (vv.nefTimer + 120))) then
+								--NWB:debug("invalid nef timer from", sender, "npcyell:", vv.nefYell, "buffdropped:", vv.nefTimer);
+								vv.nefTimer = nil;
+								vv.nefTimerWho = nil;
+								vv.nefYell = nil;
+								vv.nefYell2 = nil;
+								vv.nefSource = nil;
 							end
 							for k, v in pairs(vv) do
-								if (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
+								if ((type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 										or (not NWB.db.global.receiveGuildDataOnly)
-										or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) then
-									if (validKeys[k] and tonumber(v)) then
+										or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) and time > 50) then
+									if (NWB.validKeys[k] and tonumber(v)) then
 										--If data is numeric (a timestamp) then check it's newer than our current timer.
 										if (v ~= nil) then
 											if (not NWB.data.layers[layer][k] or not tonumber(NWB.data.layers[layer][k])) then
 												--Rare bug someone has corrupt data (not sure how and it's never happened to me, but been reported).
 												--This will correct it by resetting thier timestamp to 0.
-												NWB:debug("Local data error:", k, NWB.data[k]);
+												--NWB:debug("Local data error:", k, NWB.data[k]);
 												NWB.data.layers[layer][k] = 0;
 											end
 											if (enableLogging) then
 												NWB:timerLog(k, v, layer, nil, nil, distribution);
 											end
 											--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
-											if (NWB.data.layers[layer][k] and v ~= 0 and v > NWB.data.layers[layer][k] and NWB:validateTimestamp(v)) then
+											if (NWB.data.layers[layer][k] and v ~= 0 and v > NWB.data.layers[layer][k]
+													and NWB:validateTimestamp(v, k, layer)) then
 												--NWB:debug("new data", sender, distribution, k, v, "old:", NWB.data.layers[layer][k]);
 												if (NWB.isLayered and string.match(k, "flower") and NWB.data.layers[layer][k]
 														and (GetServerTime() - NWB.data.layers[layer][k]) < 1500) then
@@ -1126,6 +1130,10 @@ function NWB:receivedData(dataReceived, sender, distribution)
 														newFlowerData = true;
 													end
 													NWB:timerLog(k, v, layer);
+													if (k == "onyNpcDied" or (k == "nefNpcDied" and NWB.faction == "Alliance")) then
+													--if (k == "onyNpcDied") then
+														NWB:receivedNpcDied(k, v, distribution, layer, sender);
+													end
 													if (NWB:validateCloseTimestamps(layer, k, v)) then
 														NWB.data.layers[layer][k] = v;
 														if (not string.match(k, "lastSeenNPC")) then
@@ -1161,12 +1169,12 @@ function NWB:receivedData(dataReceived, sender, distribution)
 											end
 										end
 									elseif (v ~= nil and k ~= "layers") then
-										if (not validKeys[k]) then
+										if (not NWB.validKeys[k]) then
 											--NWB:debug(data)
 											NWB:debug("Invalid key received:", k, v);
 										end
-										--if (not validKeys[k] and not next(v)) then
-										if (not validKeys[k] and type(v) ~= "table") then
+										--if (not NWB.validKeys[k] and not next(v)) then
+										if (not NWB.validKeys[k] and type(v) ~= "table") then
 											NWB:debug("Invalid key received2:", k, v);
 										else
 											NWB.data.layers[layer][k] = v;
@@ -1183,20 +1191,22 @@ function NWB:receivedData(dataReceived, sender, distribution)
 	for k, v in pairs(data) do
 		--Not sure how it's possible for k to be anything but a string here but a rare error was reported.
 		--bad argument #1 to 'match' (string expected, got table)
-		if (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
+		if (self.j(elapsed) and (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 				or (not NWB.db.global.receiveGuildDataOnly)
-				or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) then
-			if (validKeys[k] and tonumber(v)) then
+				or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) and time > 50) then
+			if (NWB.validKeys[k] and tonumber(v)) then
 				--If data is numeric (a timestamp) then check it's newer than our current timer.
 				if (v ~= nil) then
 					if (not NWB.data[k] or not tonumber(NWB.data[k])) then
 						--Rare bug someone has corrupt data (not sure how and it's never happened to me, but been reported).
+						--Can also be triggered if key that should be a string is somehow a number.
+						--Like if onyTimeWho is a number, not sure how this is possible but it happens on rare occasion.
 						--This will correct it by resetting thier timestamp to 0.
-						NWB:debug("Local data error:", k, NWB.data[k])
+						--NWB:debug("Local data error:", k, v, NWB.data[k])
 						NWB.data[k] = 0;
 					end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
-					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v)) then
+					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v, k)) then
 						if (NWB.isLayered and string.match(k, "flower") and (GetServerTime() - NWB.data[k]) < 1500) then
 							--Don't overwrite songflower timers on layered realms.
 						else
@@ -1204,10 +1214,16 @@ function NWB:receivedData(dataReceived, sender, distribution)
 							if (string.match(k, "flower") and not (distribution == "GUILD" and (GetServerTime() - NWB.data[k]) > 15)) then
 								newFlowerData = true;
 							end
-							NWB.data[k] = v;
-							hasNewData = true;
-							if (not NWB.isLayered) then
-								NWB:timerLog(k, v, nil, nil, nil, distribution);
+							if (k == "onyNpcDied" or (k == "nefNpcDied" and NWB.faction == "Alliance")) then
+							--if (k == "onyNpcDied") then
+								NWB:receivedNpcDied(k, v, distribution, nil, sender);
+							end
+							if (k ~= "nefNpcDied" or NWB.faction ~= "Horde") then
+								NWB.data[k] = v;
+								hasNewData = true;
+								if (not NWB.isLayered) then
+									NWB:timerLog(k, v, nil, nil, nil, distribution);
+								end
 							end
 						end
 					end
@@ -1223,7 +1239,7 @@ function NWB:receivedData(dataReceived, sender, distribution)
 					end
 				end
 			elseif (v ~= nil and k ~= "layers") then
-				if (not validKeys[k] and type(v) ~= "table") then
+				if (not NWB.validKeys[k] and type(v) ~= "table") then
 					NWB:debug("Invalid key received:", k, v);
 				else
 					NWB.data[k] = v;
@@ -1263,6 +1279,75 @@ function NWB:receivedData(dataReceived, sender, distribution)
 	end
 end
 
+NWB.receivedNpcDiedCooldown = {};
+function NWB:receivedNpcDied(type, timestamp, distribution, layer, sender)
+	if (NWB.db.global.ignoreKillData or (type == "nefNpcDied" and NWB.faction == "Horde")) then
+		return;
+	end
+	if (tonumber(timestamp) and timestamp > 0) then
+		local timeAgo = GetServerTime() - timestamp;
+		if (timeAgo < 1800 and (not NWB.receivedNpcDiedCooldown[type] or (GetServerTime() - NWB.receivedNpcDiedCooldown[type]) > 600)) then
+			local typeString = "Unknown";
+			local dataPrefix;
+			if (NWB.isLayered and layer) then
+				dataPrefix = NWB.data.layers[layer];
+			else
+				dataPrefix = NWB.data;
+			end
+			if (type == "onyNpcDied") then
+				--If it's within a few minutes of ony drop don't alert.
+				if ((GetServerTime() - dataPrefix.onyTimer) < 600) then
+					return;
+				end
+				--If the timer is within a short time from our last timer then return to avoid more alerts incase no new buff is dropped.
+				--Checking it's a newer timestamp is already done when data is received.
+				--This is just a backup incase things ever change there.
+				if (dataPrefix.onyNpcDied and (timestamp - dataPrefix.onyNpcDied)  < 60) then
+					return;
+				end
+				typeString = L["onyxia"];
+			elseif (type == "nefNpcDied") then
+				if ((GetServerTime() - dataPrefix.nefTimer) < 600) then
+					return;
+				end
+				if (dataPrefix.nefNpcDied and (timestamp - dataPrefix.nefNpcDied)  < 60) then
+					return;
+				end
+				typeString = L["nefarian"];
+			end
+			NWB.receivedNpcDiedCooldown[type] = GetServerTime();
+			if (GetServerTime() - NWB.loadTime < 10) then
+				--Small delay at logon to let the UI load properly.
+				C_Timer.After(10, function()
+					local timeAgoString =  NWB:getTimeString(timeAgo, true);
+					local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago.";
+					if (NWB.db.global.middleNpcKilled) then
+						local colorTable = {r = self.db.global.middleColorR, g = self.db.global.middleColorG, 
+								b = self.db.global.middleColorB, id = 41, sticky = 0};
+						RaidNotice_AddMessage(RaidWarningFrame, msg, colorTable, 5);
+					end
+					--if (NWB.db.global.chatNpcKilled) then
+						--NWB:print(msg);
+					--end
+					NWB:playSound("soundsNpcKilled", "timer");
+				end)
+			else
+				local timeAgoString =  NWB:getTimeString(timeAgo, true);
+				local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago.";
+				if (NWB.db.global.middleNpcKilled) then
+					local colorTable = {r = self.db.global.middleColorR, g = self.db.global.middleColorG, 
+							b = self.db.global.middleColorB, id = 41, sticky = 0};
+					RaidNotice_AddMessage(RaidWarningFrame, msg, colorTable, 5);
+				end
+				if (NWB.db.global.chatNpcKilled) then
+					NWB:print(msg);
+				end
+				NWB:playSound("soundsNpcKilled", "timer");
+			end
+		end
+	end
+end
+
 function NWB:validateData(data)
 	--For some reason on rare occasions a timer is received without the yell msg timetsamps (not even a default 0);
 	--if (tonumber(data["rendTimer"]) and (not tonumber(data["rendYell"]) or not tonumber(data["rendYell2"]))) then
@@ -1288,17 +1373,6 @@ function NWB:validateTimerLogData(data)
 		end
 	end
 	return true;
-end
-
-function NWB:versionCheck(remoteVersion)
-	local lastVersionMsg = NWB.db.global.lastVersionMsg;
-	if (tonumber(remoteVersion) > tonumber(version) and (GetServerTime() - lastVersionMsg) > 14400) then
-		print(NWB.prefixColor .. L["versionOutOfDate"]);
-		NWB.db.global.lastVersionMsg = GetServerTime();
-	end
-	if (tonumber(remoteVersion) > tonumber(version)) then
-		NWB.latestRemoteVersion = remoteVersion;
-	end
 end
 
 --Please Blizzard let us use compression libs for yell msgs, they get blocked by some filter only on the yell/say channel.
@@ -1574,7 +1648,7 @@ function NWB:timerLog(type, timestamp, layer, who, forceSend, distribution)
 				--Ignore above, this was changed to sort when received instead.
 				--and timestamp > (lastEntry + cooldown)
 				and NWB:validateCloseLogEntries(shortKey, timestamp, layer, cooldown)
-				and NWB:validateTimestamp(timestamp)) then
+				and NWB:validateTimestamp(timestamp, type)) then
 			local t = {
 				type = shortKey,
 				timestamp = timestamp,
@@ -1629,6 +1703,8 @@ end
 
 --Run at logon.
 function NWB:trimTimerLog()
+	self.m = epochToHash;
+	self.n = epochFromHash;
 	for i, v in pairs(NWB.data.timerLog) do
 		if (i > 200) then
 			table.remove(NWB.data.timerLog, i);
@@ -1664,12 +1740,12 @@ end)
 NWBTimerLogFrame.EditBox:SetScript("OnShow", function(self, arg)
 	NWBTimerLogFrame:SetVerticalScroll(0);
 end)
-local versionUpdateTime = 0;
+local timerLogUpdateTime = 0;
 NWBTimerLogFrame:HookScript("OnUpdate", function(self, arg)
 	--Only update once per second.
-	if (GetServerTime() - versionUpdateTime > 0 and self:GetVerticalScrollRange() == 0) then
+	if (GetServerTime() - timerLogUpdateTime > 0 and self:GetVerticalScrollRange() == 0) then
 		NWB:recalclayerFrame();
-		versionUpdateTime = GetServerTime();
+		timerLogUpdateTime = GetServerTime();
 	end
 end)
 NWBTimerLogFrame.fs = NWBTimerLogFrame:CreateFontString("NWBTimerLogFrameFS", "HIGH");

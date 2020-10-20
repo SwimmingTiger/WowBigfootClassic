@@ -175,9 +175,9 @@ L["Resist Fire"] = "抵抗火焰"; -- LBRS fire resist buff.
 L["Blessing of Blackfathom"] = "黑暗深渊的祝福";
 
 L["zan"] = "赞达拉";
-L["zanFirstYellMsg"] = "赞达拉之魂Buff将于 30 秒后释放。";
+L["zanFirstYellMsg"] = "赞达拉之魂Buff将于%s秒后释放。";
 L["zanBuffDropped"] = "赞达拉之魂Buff(哈卡)已经释放。";
-L["singleSongflowerMsg"] = "位于 %s 的轻歌花将于 %s 后刷新。"; -- Songflower at Bloodvenom Post spawns at 1pm.
+L["singleSongflowerMsg"] = "位于%s的轻歌花将于%s后刷新。"; -- Songflower at Bloodvenom Post spawns at 1pm.
 L["spawn"] = "刷新"; --Used in Felwood map marker tooltip (03:46pm spawn).
 L["Irontree Woods"] = "铁木森林";
 L["West of Irontree Woods"] = "铁木森林西部";
@@ -533,22 +533,91 @@ L["showBuffStatsTitle"] = "显示Buff计数器";
 L["showBuffStatsDesc"] = "在/buffs命令出现的窗口中显示你获得的每个世界Buff的次数。";
 
 L["buffResetButtonTooltip"] = "重置所有已记录的Buffs。\nBuff计数器数据不会被重置。"; --Reset button tooltip for the /buffs frame.
-L["time"] = "次"; --Singular - This shows how many timers you got a buff. Example: (1 time)
-L["times"] = "次"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["time"] = "(%s次)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "(%s次)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 L["flowerWarning"] = "你在开启了位面的服务器上采集了风歌花，虽然风歌花计时器已启用，但是自你到达费伍德森林后，尚未选中任何NPC，所以插件无法记录采集时间。";
+
 L["mmColorTitle"] = "小地图位面信息颜色";
 L["mmColorDesc"] = "设置小地图位面信息文本(位面1)的颜色";
 
 ---new---
 L["layerHasBeenDisabled"] = "位面%s已禁用，此位面仍在数据库中,但是将被忽略,直到你再次启用它或它被检测为是有效的。";
 L["layerHasBeenEnabled"] = "位面%s已启用，此位面会重新显示计时器和位面计数。";
-L["layerDoesNotExist"] = "位面ID%s在数据库中不存在。";
+L["layerDoesNotExist"] = "位面ID %s在数据库中不存在。";
 L["enableLayerButton"] = "启用位面";
 L["disableLayerButton"] = "禁用位面";
 L["enableLayerButtonTooltip"] = "单击以重新启用此位面。\n此位面将被重新放回计时器和位面计算中。";
 L["disableLayerButtonTooltip"] = "在服务器重启后，单击以禁用此位面。\n插件将忽略此位面并在稍后将其删除。";
 
 L["Blackrock Mountain"] = "黑石山";
+
+L["onyxiaNpcKilledHordeWithTimer2"] = "奥妮克希亚 NPC (伦萨克) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["nefarianNpcKilledHordeWithTimer2"] = "奈法利安 NPC (萨鲁法尔大王) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "奥妮克希亚 NPC (玛丁雷少校) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["nefarianNpcKilledAllianceWithTimer2"] = "奈法利安 NPC (艾法希比元帅) 已于 %s 前被击杀，将于 %s 后刷新。";
+
+L["onyxiaNpcRespawnHorde"] = "奥妮克希亚 NPC (伦萨克)将在接下来2分钟之内的任意时间刷新。";
+L["nefarianNpcRespawnHorde"] = "奈法利安 NPC (萨鲁法尔大王)将在接下来2分钟之内的任意时间刷新。";
+L["onyxiaNpcRespawnAlliance"] = "奥妮克希亚 NPC (玛丁雷少校)将在接下来2分钟之内的任意时间刷新。";
+L["nefarianNpcRespawnAlliance"] = "奈法利安 NPC (艾法希比元帅)将在接下来2分钟之内的任意时间刷新。";
+
+L["soundsNpcKilledTitle"] = "NPC被击杀提示音";
+L["soundsNpcKilledDesc"] = "当Buff NPC被击杀以重置计时器时，播放提示音。";
+
+L["autoDmfBuffCharsText"] = "暗夜马戏团角色专用Buff设置:";
+
+L["middleNpcKilledTitle"] = "NPC被击杀";
+L["middleNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀以重置计时器时，在屏幕中央发送一条团队警报样式的提示信息。";
+
+L["chatNpcKilledTitle"] = "NPC被击杀";
+L["chatNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀以重置计时器时，在聊天频道中发送一条提示信息。";
+
+L["flashNpcKilledTitle"] = "NPC被击杀后闪烁";
+L["flashNpcKilledDesc"] = "当一个Buff NPC被击杀后，闪烁魔兽世界图标。";
+
+L["minimapLayerHoverTitle"] = "小地图自动隐藏";
+L["minimapLayerHoverDesc"] = "仅当鼠标滑过小地图时才显示位面信息。";
+
+L["showUnbuffedAltsTitle"] = "显示无世界Buff小号";
+L["showUnbuffedAltsDesc"] = "显示那些没有Buff的小号，这样你可以知道上什么号不会浪费Buff时间。";
+
+L["trimDataHeaderDesc"] = "数据库维护";
+ 
+L["trimDataBelowLevelTitle"] = "依据等级删除";
+L["trimDataBelowLevelDesc"] = "选择一个等级，低于或等于该等级的角色将被从数据库中删除。";
+ 
+L["trimDataBelowLevelButtonTitle"] = "删除角色";
+L["trimDataBelowLevelButtonDesc"] = "点击按钮将从数据库中删除所有等级低于滑动条的角色。注意：删除是不可逆的。";
+ 
+L["trimDataTextDesc"] = "从数据库中删除部分角色：";
+L["trimDataText2Desc"] = "从数据库中删除特定角色：";
+ 
+L["trimDataCharInputTitle"] = "输入角色名称";
+L["trimDataCharInputDesc"] = "输入希望删除的角色名称，格式为 名字-服务器(区分大小写)。注意：删除是不可逆的。";
+ 
+L["trimDataBelowLevelButtonConfirm"] = "确定从数据库中删除等级低于%s的角色？";
+L["trimDataCharInputConfirm"] = "确定从数据库中删除%s这个角色？";
+ 
+L["trimDataMsg1"] = "数据库已重置."
+L["trimDataMsg2"] = "删除%s级以下的所有角色.";
+L["trimDataMsg3"] = "删除：%s。";
+L["trimDataMsg4"] = "完成，未找到角色。";
+L["trimDataMsg5"] = "完成，已删除[%s]。";
+L["trimDataMsg6"] = "请输入有效的角色名称。";
+L["trimDataMsg7"] = "该角色名称%s不包含服务器名称，请输入服务器名称。";
+L["trimDataMsg8"] = "从数据库中删除[%s]时出错，角色未找到(区分大小写)。";
+L["trimDataMsg9"] = "从数据库中删除[%s]。";
+
+L["serverTime"] = "服务器时间";
+L["serverTimeShort"] = "服务器时间";
+
+L["showUnbuffedAltsTitle"] = "显示没有Buff的小号";
+L["showUnbuffedAltsDesc"] = "在输入/buffs 出现的窗口中显示所有没有任何Buff的小号。这样你就可以查看哪些小号没有Buff了。";
+
+L["dmfSettingsListTitle"] = "暗月Buff策略列表";
+L["dmfSettingsListDesc"] = "点此显示每个角色的暗月马戏团Buff设置。";
+L["note"] = "注意："
+L["dmfConfigWarning"] = "暗月马戏团Buff设定现在不再是全局设定，而变成了一个针对当前角色的设定。你的设置仅对当前角色生效。"
 
 ---Aoikaze
 
@@ -639,3 +708,20 @@ L["|cFFFFFF00Looking for layered timers to convert."] = "|cFFFFFF00寻找可以�
 
 L["No timers found."] = "未找到计时器。"
 L["."] = "。"
+L["your "] = "你的"
+L["Show how many times you got each buff."] = "显示你获得每个Buff的次数。"
+L["Show all alts that have buff stats? (stats must be enabled)."] = "显示你所有角色拥有的Buff（必须开启状态模式）。"
+
+L["No current timers found."] = "未找到当前计时器。"
+
+L["Copy/Paste"] = "复制/粘贴"
+L["Show Stats"] = "显示状态"
+L["All"] = "全部"
+L["|cffffff00No characters with buffs found."] = "|cffffff00未找到拥有世界Buff的角色。"
+
+
+L["|cffDEDE42No character specific buffs set yet.\n\n"] = "|cffDEDE42当前没有启用角色单独暗月Buff设置。\n\n"
+L["|cffDEDE42All characters are using default |cFF9CD6DE"] = "|cffDEDE42所有角色的默认暗月Buff设置为 |cFF9CD6DE"
+L["\n|cffDEDE42All other alts using default |cFF9CD6DE"] = "\n|cffDEDE42所有角色的默认暗月Buff设置为 |cFF9CD6DE"
+
+L["Detected valid layer that you have disabled, re-enabling layer ID "] = "检测到已禁用的可用位面，重新启用位面，ID "

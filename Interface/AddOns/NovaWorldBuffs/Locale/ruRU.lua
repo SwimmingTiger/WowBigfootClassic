@@ -96,7 +96,7 @@ L["Sayge's Dark Fortune of Resistance"] = "Темный жребий Сейдж�
 L["Sayge's Dark Fortune of Damage"] = "Темный жребий Сейджа - урон";
 L["dmfBuffCooldownMsg"] = "Баф Ярмарки Новолуния на перезарядке еще %s.";
 L["dmfBuffCooldownMsg2"] = "Баф Ярмарки Новолуния на перезарядке еще %s.";
-L["dmfBuffCooldownMsg3"] = "DMF Buff cooldown also resets with the weekly server reset."; --/wb frame 2nd msg.
+L["dmfBuffCooldownMsg3"] = "КД бафа Ярмарки Новолуния сбрасывается при еженедельном рестарте сервера."; --/wb frame 2nd msg.
 L["dmfBuffReady"] = "Баф Ярмарки Новолуния откатился.";
 L["dmfBuffReset"] = "Баф Ярмарки Новолуния откатился.";
 L["dmfBuffDropped"] = "Баф Ярмарки Новолуния %s получен. Отслеживать 5-часовую перезарядку бафа можно с помощью команды /dmf.";
@@ -151,7 +151,7 @@ L["dayShort"] = "д"; --Used in short timers like 1d8h (single letter only, usua
 L["startsIn"] = "Начнется через %s"; --"Starts in 1hour".
 L["endsIn"] = "Закончится через %s"; --"Ends in 1hour".
 L["versionOutOfDate"] = "Ваша версия аддона Nova World Buffs устарела. Пожалуйста, обновите ее по ссылке https://www.curseforge.com/wow/addons/nova-world-buffs или через Twitch-клиент";
-L["Your Current World Buffs"] = "Ваши текущие мировые бафы";
+L["Your Current World Buffs"] = "Ваши мировые бафы";
 L["Options"] = "Настройки";
 
 ---New stuff---
@@ -170,7 +170,7 @@ L["Resist Fire"] = "Сопротивление огню"; -- LBRS fire resist bu
 L["Blessing of Blackfathom"] = "Благословение Черных Глубин";
 
 L["zan"] = "Зандалар";
-L["zanFirstYellMsg"] = "Зандалар будет бафнут через 30 секунд.";
+L["zanFirstYellMsg"] = "Зандалар будет бафнут через %s секунд.";
 L["zanBuffDropped"] = "Дух Зандалара (Хаккар) был бафнут.";
 L["singleSongflowerMsg"] = "Песнецвет в локации: %s заспавнится в %s."; -- Songflower at Bloodvenom Post spawns at 1pm.
 L["spawn"] = ""; --Used in Felwood map marker tooltip (03:46pm spawn). (blank for russian on purpose)
@@ -182,9 +182,9 @@ L["North-West of Irontree Woods"] = "Железнолесье — Северо-�
 L["South of Irontree Woods"] = "Железнолесье — Юг";
 
 ---New translations to do---
-L["layerFrameMsgOne"] = "Old layers will still show for a few hours after server restarts."; --Msg at bottom of layer timers frame.
-L["layerFrameMsgTwo"] = "Layers will disappear from here 8 hours after having no timers."; --Msg at bottom of layer timers frame.
-L["You are currently on"] = "You are currently on"; --You are currently on [Layer 2]
+L["layerFrameMsgOne"] = "Старые слои будут отображаться в течение нескольких часов после рестарта сервера."; --Msg at bottom of layer timers frame.
+L["layerFrameMsgTwo"] = "Слои исчезнут отсюда спустя 8 часов отсутствия таймеров."; --Msg at bottom of layer timers frame.
+L["You are currently on"] = "Вы сейчас на"; --You are currently on [Layer 2]
 
 
 -------------
@@ -195,333 +195,402 @@ L["You are currently on"] = "You are currently on"; --You are currently on [Laye
 --Desc can be any length.
 
 ---Description at the top---
-L["mainTextDesc"] = "Type /wb to display timers to yourself.\nType /wb <channel> to display timers to the specified channel.\nScroll down for more options.";
+L["mainTextDesc"] = "Введите /wb для отображения своих таймеров.\nВведите /wb <channel> для отображения таймеров в конкретном канале.\nНиже находятся дополнительные опции.";
 
 ---Show Buffs Button
-L["showBuffsTitle"] = "Click To Show Your Current World Buffs";
-L["showBuffsDesc"] = "Show your current world buffs for all your characters, this can also be opened by typing /buffs or clicking on the [WorldBuffs] prefix in chat.";
+L["showBuffsTitle"] = "Ваши мировые бафы";
+L["showBuffsDesc"] = "Показать список ваших текущих мировых бафов на всех персонажах. Также можно вызвать командой /buffs или кликнув по надписи [WorldBuffs] в чате.";
 
 ---General Options---
-L["generalHeaderDesc"] = "General Options";
+L["generalHeaderDesc"] = "Основные настройки";
 
-L["showWorldMapMarkersTitle"] = "City Map Timers";
-L["showWorldMapMarkersDesc"] = "Show timer icons on the Orgrimmar/Stormwind world map?";
+L["showWorldMapMarkersTitle"] = "Таймеры на карте";
+L["showWorldMapMarkersDesc"] = "Таймеры на карте Оргриммара/Штормграда";
 
-L["receiveGuildDataOnlyTitle"] = "Guild Data Only";
-L["receiveGuildDataOnlyDesc"] = "This will make it so you don't get timer data from anyone outside the guild. You should only enable this if you think someone is spoofing wrong timer data on purpose because it will lower the accuracy of your timers with less people to pull data from. It will make it especially hard to get songflower timers becaus they are so short. Every single person in the guild needs this enabled for it to even work.";
+L["receiveGuildDataOnlyTitle"] = "Данные из гильдии";
+L["receiveGuildDataOnlyDesc"] = "Отключить получение данных о таймерах от игроков не из гильдии. Используйте это в случае, если считаете, что кто-то подделывает данные о таймерах, в ином случае это понизит точность ваших таймеров из-за уменьшения пула игроков. Особенно сложно будет получить релевантную информацию о таймере Песнецвета, т.к. он очень короткий. Также чтобы функция работала корректно требуется включить ее каждому игроку в гильдии.";
 
-L["chatColorTitle"] = "Chat Msg Color";
-L["chatColorDesc"] = "What color should the timer msgs in chat be?";
+L["chatColorTitle"] = "Цвет сообщений в чате";
+L["chatColorDesc"] = "Цвет сообщений о таймерах бафов в чате";
 
-L["middleColorTitle"] = "Middle Screen Color";
-L["middleColorDesc"] = "What color should the raid warning style msgs in the middle of the screen be?";
+L["middleColorTitle"] = "Цвет оповещений на экране";
+L["middleColorDesc"] = "Цвет оповещений по центру экрана";
 
-L["resetColorsTitle"] = "Reset Colors";
-L["resetColorsDesc"] = "Reset colors back to default.";
+L["resetColorsTitle"] = "Сброс настроек цвета";
+L["resetColorsDesc"] = "Сбросить настройки цвета к значениям по умолчанию.";
 
-L["showTimeStampTitle"] = "Show Time Stamp";
-L["showTimeStampDesc"] = "Show a time stamp (1:23pm) beside the timer msg?";
+L["showTimeStampTitle"] = "Показ времени";
+L["showTimeStampDesc"] = "Отображать время (13:23) рядом с оповещением.";
 
-L["timeStampFormatTitle"] = "Time Stamp Format";
-L["timeStampFormatDesc"] = "Set which timestamp format to use, 12 hour (1:23pm) or 24 hour (13:23).";
+L["timeStampFormatTitle"] = "Формат времени";
+L["timeStampFormatDesc"] = "Формат отображения времени.\n12-часовой (1:23 pm) или 24-часовой (13:23).";
 
-L["timeStampZoneTitle"] = "Local Time / Server Time";
-L["timeStampZoneDesc"] = "Use local time or server time for timestamps?";
+L["timeStampZoneTitle"] = "Местное / Серверное время";
+L["timeStampZoneDesc"] = "Выберите местное или серверное время для отображения.";
 
-L["colorizePrefixLinksTitle"] = "Colored Prefix Link";
-L["colorizePrefixLinksDesc"] = "Colorize the prefix [WorldBuffs] in all chat channels? This is the prefix in chat you can click to show all your characters current world buffs.";
+L["colorizePrefixLinksTitle"] = "Цветная кнопка в чате";
+L["colorizePrefixLinksDesc"] = "Окрасить кнопку [WorldBuffs] во всех каналах чата. На эту кнопку в чате можно кликнуть, чтобы показать мировые бафы на всех ваших персонажах.";
 
-L["showAllAltsTitle"] = "Show All Alts";
-L["showAllAltsDesc"] = "Show all alts in the /buffs window even if they don't have an active buff?";
+L["showAllAltsTitle"] = "Отображение альтов";
+L["showAllAltsDesc"] = "Отображать всех альтов в окне /buffs, даже если на них нет активных бафов";
 
-L["minimapButtonTitle"] = "Show Minimap Button";
-L["minimapButtonDesc"] = "Show the NWB button the minimap?";
+L["minimapButtonTitle"] = "Кнопка у миникарты";
+L["minimapButtonDesc"] = "Кнопка NovaWorldBuffs возле миникарты";
 
 ---Logon Messages---
-L["logonHeaderDesc"] = "Logon Messages";
+L["logonHeaderDesc"] = "Приветственное сообщение";
 
-L["logonPrintTitle"] = "Logon Timers";
-L["logonPrintDesc"] = "Show timers in the chat window when you log on, you can disable all logon msgs with this setting.";
+L["logonPrintTitle"] = "Таймеры при входе";
+L["logonPrintDesc"] = "Отключить приветственное сообщение с таймерами. Вы можете отключить ВСЕ приветственные сообщения с помощью этого пункта настройки.";
 
-L["logonRendTitle"] = "Rend";
-L["logonRendDesc"] = "Show Rend timer in the chat window when you log on.";
+L["logonRendTitle"] = "Ренд";
+L["logonRendDesc"] = "Показывать при входе в игру в чате таймер Ренда.";
 
-L["logonOnyTitle"] = "Onyxia";
-L["logonOnyDesc"] = "Show Onyxia timer in the chat window when you log on.";
+L["logonOnyTitle"] = "Ониксия";
+L["logonOnyDesc"] = "Показывать при входе в игру в чате таймер Ониксии.";
 
-L["logonNefTitle"] = "Nefarian";
-L["logonNefDesc"] = "Show Nefarian timer in the chat window when you log on.";
+L["logonNefTitle"] = "Нефариан";
+L["logonNefDesc"] = "Показывать при входе в игру в чате таймер Нефариана.";
 
-L["logonDmfSpawnTitle"] = "DMF Spawn";
-L["logonDmfSpawnDesc"] = "Show Darkmoon Faire spawn time, this will only show when there is less than 6 hours left until spawn or despawn.";
+L["logonDmfSpawnTitle"] = "Открытие Ярмарки";
+L["logonDmfSpawnDesc"] = "Показывать время открытия Ярмарки Новолуния. Отображается только если осталось менее 6 часов до открытия или закрытия Ярмарки.";
 
-L["logonDmfBuffCooldownTitle"] = "DMF Buff Coooldown";
-L["logonDmfBuffCooldownDesc"] = "Show Darkmoon Faire buff 4 hour cooldown, this will only show when you have an ative cooldown and when DMF is up.";
+L["logonDmfBuffCooldownTitle"] = "КД бафа с Ярмарки";
+L["logonDmfBuffCooldownDesc"] = "Показывать 4-часовую перезарядку бафа с Ярмарки Новолуния. Отображается только когда у вас есть активный КД, и Ярмарка еще работает.";
 
 ---Chat Window Timer Warnings---
-L["chatWarningHeaderDesc"] = "Chat Window Timer Warnings";
+L["chatWarningHeaderDesc"] = "Оповещения о таймерах в чате";
 
-L["chat30Title"] = "30 Minutes";
-L["chat30Desc"] = "Print a msg in chat when 30 minutes left.";
+L["chat30Title"] = "30 минут";
+L["chat30Desc"] = "Сообщение в чате, когда остается 30 минут.";
 
-L["chat15Title"] = "15 Minutes";
-L["chat15Desc"] = "Print a msg in chat when 15 minutes left.";
+L["chat15Title"] = "15 минут";
+L["chat15Desc"] = "Сообщение в чате, когда остается 15 минут.";
 
-L["chat10Title"] = "10 Minutes";
-L["chat10Desc"] = "Print a msg in chat when 10 minutes left.";
+L["chat10Title"] = "10 минут";
+L["chat10Desc"] = "Сообщение в чате, когда остается 10 минут.";
 
-L["chat5Title"] = "5 Minutes";
-L["chat5Desc"] = "Print a msg in chat when 5 minutes left.";
+L["chat5Title"] = "5 минут";
+L["chat5Desc"] = "Сообщение в чате, когда остается 5 минут.";
 
-L["chat1Title"] = "1 Minute";
-L["chat1Desc"] = "Print a msg in chat when 1 minute left.";
+L["chat1Title"] = "1 минута";
+L["chat1Desc"] = "Сообщение в чате, когда остается 1 минута.";
 
-L["chatResetTitle"] = "Buff Has Reset";
-L["chatResetDesc"] = "Print a msg in chat when a buff has reset and a new one can be dropped.";
+L["chatResetTitle"] = "КД на баф был сброшен";
+L["chatResetDesc"] = "Сообщение в чате, когда КД был сброшен и новый баф может быть поставлен.";
 
-L["chatZanTitle"] = "Zandalar Buff Warning";
-L["chatZanDesc"] = "Print a msg in chat 30 seconds before Zandalar buff will drop when the NPC starts yelling.";
+L["chatZanTitle"] = "Баф Зандалара";
+L["chatZanDesc"] = "Сообщение в чате за 30 секунд до бафа Зандалара.";
 
 ---Middle Of The Screen Timer Warnings---
-L["middleWarningHeaderDesc"] = "Middle Of The Screen Timer Warnings";
+L["middleWarningHeaderDesc"] = "Оповещения о таймерах на экране";
 
-L["middle30Title"] = "30 Minutes";
-L["middle30Desc"] = "Show a raid warning style msg in the middle of the screen when 30 minutes left.";
+L["middle30Title"] = "30 минут";
+L["middle30Desc"] = "Оповещение по центру экрана, когда остается 30 минут.";
 
-L["middle15Title"] = "15 Minutes";
-L["middle15Desc"] = "Show a raid warning style msg in the middle of the screen when 15 minutes left.";
+L["middle15Title"] = "15 минут";
+L["middle15Desc"] = "Оповещение по центру экрана, когда остается 15 минут.";
 
-L["middle10Title"] = "10 Minutes";
-L["middle10Desc"] = "Show a raid warning style msg in the middle of the screen when 10 minutes left.";
+L["middle10Title"] = "10 минут";
+L["middle10Desc"] = "Оповещение по центру экрана, когда остается 10 минут.";
 
-L["middle5Title"] = "5 Minutes";
-L["middle5Desc"] = "Show a raid warning style msg in the middle of the screen when 5 minutes left.";
+L["middle5Title"] = "5 минут";
+L["middle5Desc"] = "Оповещение по центру экрана, когда остается 5 минут.";
 
-L["middle1Title"] = "1 Minute";
-L["middle1Desc"] = "Show a raid warning style msg in the middle of the screen when 1 minute left.";
+L["middle1Title"] = "1 минута";
+L["middle1Desc"] = "Оповещение по центру экрана, когда остается 1 минута.";
 
-L["middleResetTitle"] = "Buff Has Reset";
-L["middleResetDesc"] = "Show a raid warning style msg in the middle of the screen when a buff has reset and a new one can be dropped.";
+L["middleResetTitle"] = "КД на баф был сброшен";
+L["middleResetDesc"] = "Оповещение по центру экрана, когда КД был сброшен и новый баф может быть поставлен.";
 
-L["middleBuffWarningTitle"] = "Buff Drop Warning";
-L["middleBuffWarningDesc"] = "Show a raid warning style msg in the middle of the screen when someone hands in the head for any buff and the NPC yells a few seconds before the buff will drop.";
+L["middleBuffWarningTitle"] = "Запуск бафа";
+L["middleBuffWarningDesc"] = "Оповещение по центру экрана, когда кто-то сдает голову для бафа и NPC кричит об этом.";
 
-L["middleHideCombatTitle"] = "Hide In Combat";
-L["middleHideCombatDesc"] = "Hide middle of the screen warnings in combat?";
+L["middleHideCombatTitle"] = "Спрятать в бою";
+L["middleHideCombatDesc"] = "Отключить оповещения по центру экрана, когда вы находитесь в бою";
 
-L["middleHideRaidTitle"] = "Hide In Raid";
-L["middleHideRaidDesc"] = "Hide middle of the screen warnings in raid instances? (Doesn't hide in normal dungeons)";
+L["middleHideRaidTitle"] = "Спрятать в рейде";
+L["middleHideRaidDesc"] = "Отключить оповещения по центру экрана, когда вы находитесь в рейдовом подземелье. (В подземельях на 5 человек оповещение остается).";
 
 ---Guild Messages---
-L["guildWarningHeaderDesc"] = "Guild Messages";
+L["guildWarningHeaderDesc"] = "Гильдейские сообщения";
 
-L["guild10Title"] = "10 Minutes";
-L["guild10Desc"] = "Send a message to guild chat when 10 minutes left.";
+L["guild10Title"] = "10 минут";
+L["guild10Desc"] = "Сообщать в гильдейский чат, когда осталось 10 минут.";
 
-L["guild1Title"] = "1 Minute";
-L["guild1Desc"] = "Send a message to guild chat when 1 minute left.";
+L["guild1Title"] = "1 минута";
+L["guild1Desc"] = "Сообщать в гильдейский чат, когда осталось 1 минута.";
 
-L["guildNpcDialogueTitle"] = "NPC Dialogue Started";
-L["guildNpcDialogueDesc"] = "Send a message to guild when someone hands in a head and the NPC first yells and you still have time to relog if fast?";
+L["guildNpcDialogueTitle"] = "NPC начал диалог";
+L["guildNpcDialogueDesc"] = "Сообщать в гильдейский чат, когда голова была сдана кем-то, и NPC начал кричать.";
 
-L["guildBuffDroppedTitle"] = "New Buff Dropped";
-L["guildBuffDroppedDesc"] = "Send a message to guild when a new buff has been dropped? This msg is sent after the NPC is finished yelling and you get the actual buff a few seconds later. (6 seconds after first yell for rend, 14 seconds for ony, 15 seconds for nef)";
+L["guildBuffDroppedTitle"] = "Баф был дан";
+L["guildBuffDroppedDesc"] = "Сообщать в гильдейский чат, когда новый баф был дан.\nЭто сообщение отправляется, когда NPC перестает кричать, и вы скоро получите сам баф. (6 секунд после после первого крика для Ренда, 14 секунд для Ониксии, 15 секунд для Нефариана)";
 
-L["guildZanDialogueTitle"] = "Zandalar Buff Warning";
-L["guildZanDialogueDesc"] = "Send a message to guild when Spirit of Zandalar buff is about to drop? (If you want no guild msgs at all for this buff then everyone in guild needs to disable this).";
+L["guildZanDialogueTitle"] = "Баф Зандалара";
+L["guildZanDialogueDesc"] = "Сообщать в гильдейский чат, когда Дух Зандалара скоро будет бафнут. (Если вы не хотите видеть сообщения об этом в гильдейском чате, то все игроки гильдии должны выключить это).";
 
-L["guildNpcKilledTitle"] = "NPC Was Killed";
-L["guildNpcKilledDesc"] = "Send a message to guild when one of the buff NPC's were killed in Orgrimmar or Stormwind? (mind control reset).";
+L["guildNpcKilledTitle"] = "NPC был убит";
+L["guildNpcKilledDesc"] = "Сообщать в гильдейский чат, когда NPC был убит в Оргриммаре или Штормграде (сброс КД с помощью МК).";
 
-L["guildCommandTitle"] = "Guild Commands";
-L["guildCommandDesc"] = "Reply with timer info to !wb and !dmf commands in guild chat? You should probably leave this enabled to help your guild, if you really want to disable all guild msgs and leave only this command then untick everything else in the guild sectionand don't tick the Disable All Guild Msgs at the top.";
+L["guildCommandTitle"] = "Гильдейские команды";
+L["guildCommandDesc"] = "Автоматически отвечать сообщением с таймерами на команды !wb и !dmf в гильдейском чате. Лучше оставить это включенным, чтобы помогать вашим согильдийцам. Если вы хотите отключить все гильдейские сообщения и оставить включенной только эту функцию, то отключите все остальные пункты в разделе Гильдейских сообщений и не отмечайте пункт \"Отключить ВСЕ гильдейские сообщения\" справа.";
 
-L["disableAllGuildMsgsTitle"] = "Disable All Guild Msgs";
-L["disableAllGuildMsgsDesc"] = "Disable all guild messages including timers and when buffs drop? Note: You can disable all msgs one by one above and just leave certain things enabled to help out your guild if you rather.";
+L["disableAllGuildMsgsTitle"] = "Отключить ВСЕ сбщ";
+L["disableAllGuildMsgsDesc"] = "Отключить все гильдейские сообщения включая таймеры и анонсы бафов. Примечание: Вы можете отключить все сообщения по одному и оставить только отдельные включенными, чтобы помочь согильдийцам.";
 
 ---Songflowers---
-L["songflowersHeaderDesc"] = "Songflowers";
+L["songflowersHeaderDesc"] = "Песнецветы";
 
-L["guildSongflowerTitle"] = "Tell Guild When Picked";
-L["guildSongflowerDesc"] = "Tell your guild chat when you have picked a songflower with the time of next spawn?";
+L["guildSongflowerTitle"] = "Сообщение в гильдию";
+L["guildSongflowerDesc"] = "Сообщать в гильдейский чат, когда вы взяли баф Песнецвета с таймером следующего спавна.";
 
-L["mySongflowerOnlyTitle"] = "Only When I Pick";
-L["mySongflowerOnlyDesc"] = "Only record a new timer when I pick a songflower and not when others pick infront of me? This option is here just incase you have problems with false timers being set from other players. There's currently no way to tell if another players buff is new so a timer may trigger on rare occasions if the game loads the songflower buff on someone else when they logon infront of you beside a songflower.";
+L["mySongflowerOnlyTitle"] = "Только когда я взял";
+L["mySongflowerOnlyDesc"] = "Записывать новый таймер только когда ВЫ взяли баф Песнецвета.";
 
-L["syncFlowersAllTitle"] = "Sync Flowers With All";
-L["syncFlowersAllDesc"] = "Enable this to override the guild only data setting at the top of this config so you can share songflower data outside the guild but keep worldbuff data guild only still.";
+L["syncFlowersAllTitle"] = "Синхронизация";
+L["syncFlowersAllDesc"] = "Включите это, чтобы делиться данными о Песнецветах с людьми вне гильдии (вне зависимости от значения пункта о \"Данных только из гильдии\" выше). Распространяется только на Песнецветы.";
 
-L["showNewFlowerTitle"] = "Show New SF Timers";
-L["showNewFlowerDesc"] = "This will show you in chat window when a new flower timer is found from another player not in your guild (guild msgs already show in guild chat when a flower is picked).";
+L["showNewFlowerTitle"] = "Новые таймеры";
+L["showNewFlowerDesc"] = "Сообщение в чате, когда новый таймер Песнецвета был получен от игрока вне гильдии (гильдейские сообщения как обычно показываются в гильдейском чате, когда Песнецвет был взят).";
 
-L["showSongflowerWorldmapMarkersTitle"] = "Songflower Worldmap";
-L["showSongflowerWorldmapMarkersDesc"] = "Show songflower icons on the world map?";
+L["showSongflowerWorldmapMarkersTitle"] = "Песнецветы на карте";
+L["showSongflowerWorldmapMarkersDesc"] = "Отображать иконки Песнецветов на карте.";
 
-L["showSongflowerMinimapMarkersTitle"] = "Songflower Minimap";
-L["showSongflowerMinimapMarkersDesc"] = "Show songflower icons on the mini map?";
+L["showSongflowerMinimapMarkersTitle"] = "Песнецвет на миникарте";
+L["showSongflowerMinimapMarkersDesc"] = "Отображать иконки Песнецветов на миникарте.";
 
-L["showTuberWorldmapMarkersTitle"] = "Tuber Worldmap";
-L["showTuberWorldmapMarkersDesc"] = "Show Whipper Root Tuber icons on the world map?";
+L["showTuberWorldmapMarkersTitle"] = "Кнутокорень на карте";
+L["showTuberWorldmapMarkersDesc"] = "Отображать иконки Плодов Кнутокорня на карте.";
 
-L["showTuberMinimapMarkersTitle"] = "Tuber Minimap";
-L["showTuberMinimapMarkersDesc"] = "Show Whipper Root Tuber icons on the mini map?";
+L["showTuberMinimapMarkersTitle"] = "Кнутокорень на миникарте";
+L["showTuberMinimapMarkersDesc"] = "Отображать иконки Плодов Кнутокорня на миникарте.";
 
-L["showDragonWorldmapMarkersTitle"] = "Dragon Worldmap";
-L["showDragonWorldmapMarkersDesc"] = "Show Night Dragon's Breath icons on the world map?";
+L["showDragonWorldmapMarkersTitle"] = "Дыхание Дракона на карте";
+L["showDragonWorldmapMarkersDesc"] = "Отображать иконки Ночного дыхания Дракона на карте.";
 
-L["showDragonMinimapMarkersTitle"] = "Dragon Minimap";
-L["showDragonMinimapMarkersDesc"] = "Show Night Dragon's Breath icons on the mini map?";
+L["showDragonMinimapMarkersTitle"] = "Дыхание Дракона на миникарте";
+L["showDragonMinimapMarkersDesc"] = "Отображать иконки Ночного дыхания Дракона на миникарте.";
 
-L["showExpiredTimersTitle"] = "Show Expired Timers";
-L["showExpiredTimersDesc"] = "Show expired timers in Felwood? They will be shown in red text how long ago a timer expired, the default time is 5 minutes (people say songflowers stay cleansed for 5 minutes after spawn?).";
+L["showExpiredTimersTitle"] = "Истекшие таймеры";
+L["showExpiredTimersDesc"] = "Отображать истекшие таймеры в Оскверненном лесу. Они будут отображаться красным цветом, показывая как давно таймер истек (по умолчанию 5 минут; люди говорят, что Песнецветы остаются очищенными в течение 5 минут после появления).";
 
-L["expiredTimersDurationTitle"] = "Expired Timers Duraton";
-L["expiredTimersDurationDesc"] = "How long should Felwood timers show for after expiring on the world map?";
+L["expiredTimersDurationTitle"] = "Продолжительность истекших таймеров";
+L["expiredTimersDurationDesc"] = "Укажите, как долго таймеры в Оскверненном лесу должны отображаться на карте после истечения времени (по умолчанию 5 минут).";
 
 ---Darkmoon Faire---
-L["dmfHeaderDesc"] = "Darkmoon Faire";
+L["dmfHeaderDesc"] = "Ярмарка Новолуния";
 
-L["dmfTextDesc"] = "Your DMF damage buff cooldown will also show on the Darkmoon Faire map icon when you hover it, if you have a cooldown and DMF is currently up.";
+L["dmfTextDesc"] = "Перезарядка бафа будет отображаться на значке Ярмарки Новолуния на карте (при наведении), при условии наличия КД и самой Ярмарки.";
 
-L["showDmfWbTitle"] = "Show DMF with /wb";
-L["showDmfWbDesc"] = "Show DMF spawn timer together with /wb command?";
+L["showDmfWbTitle"] = "Ярмарка в /wb";
+L["showDmfWbDesc"] = "Отображать баф с Ярмарки Новолуния в общем окне /wb.";
 
-L["showDmfBuffWbTitle"] = "DMF Buff Cooldown /wb";
-L["showDmfBuffWbDesc"] = "Show your DMF buff cooldown timer together with /wb command? Only shows when you are on an active cooldown and DMF is currently up.";
+L["showDmfBuffWbTitle"] = "Перезарядка бафа";
+L["showDmfBuffWbDesc"] = "Отображать перезарядку бафа с Ярмарки Новолуния с помощью команды /wb. При наличии активного КД и самой Ярмарки.";
 
-L["showDmfMapTitle"] = "Show Map Marker";
-L["showDmfMapDesc"] = "Show DMF map marker with spawn timer and buff cooldown info in Mulgore and Elwynn Forest world maps (whichever is next spawn). You can also type /dmf map to open the world map strait to this marker.";
+L["showDmfMapTitle"] = "Знак Ярмарки Новолуния";
+L["showDmfMapDesc"] = "Отображать знак Ярмарки Новолуния на карте. Также отображается время появления и КД бафа (на карте Мулгора и Элвиннского леса в зависимости от того, где следующий спавн). Вы также можете открыть карту локации следующей Ярмарки с помощью команды /dmf map.";
 
 ---Guild Chat Filter---
-L["guildChatFilterHeaderDesc"] = "Guild Chat Filter";
+L["guildChatFilterHeaderDesc"] = "Фильтрация гильдейского чата";
 
-L["guildChatFilterTextDesc"] = "This will block any guild msgs from this addon you choose so you don't see them. It will stop you from seeing your own msgs and msgs from other addon users in guild chat.";
+L["guildChatFilterTextDesc"] = "Отключить показ любых гильдейских оповещений этого аддона, которые вы выберете. Вы перестанете видеть свои собственные оповещения и оповещения в гильдейском чате от других игроков с этим аддоном.";
 
-L["filterYellsTitle"] = "Filter Buff Warning";
-L["filterYellsDesc"] = "Filter the msg when a buff is about to drop in a few seconds (Onyxia will drop in 14 seconds).";
+L["filterYellsTitle"] = "Предупреждения";
+L["filterYellsDesc"] = "Отключить показ сообщений о бафе, когда до бафа остается несколько секунд (например, \"Ониксия будет бафнута через 14 секунд\").";
 
-L["filterDropsTitle"] = "Filter Buff Dropped";
-L["filterDropsDesc"] = "Filter the msg when a buff has dropped (Rallying Cry of the Dragonslayer (Onyxia) has dropped).";
+L["filterDropsTitle"] = "Полученные бафы";
+L["filterDropsDesc"] = "Отключить показ сообщений о поставленном только что бафе (например, \"Ободряющий клич Драконоборца (Ониксия) был бафнут\").";
 
-L["filterTimersTitle"] = "Filter Timer Msgs";
-L["filterTimersDesc"] = "Filter timer msgs (Onyxia resets in 1 minute).";
+L["filterTimersTitle"] = "Таймеры";
+L["filterTimersDesc"] = "Отключить показ сообщений с таймером (например, \"Ониксия откатится через 1 минуту\").";
 
-L["filterCommandTitle"] = "Filter !wb command";
-L["filterCommandDesc"] = "Filter the !wb and !dmf in guild chat when typed by players.";
+L["filterCommandTitle"] = "Команды !wb и !dmf";
+L["filterCommandDesc"] = "Отключить показ команд !wb и !dmf, написанных игроками.";
 
-L["filterCommandResponseTitle"] = "Filter !wb reply";
-L["filterCommandResponseDesc"] = "Filter the reply msg with timers this addon does when !wb or !!dmf is used.";
+L["filterCommandResponseTitle"] = "Ответ на !wb и !dmf";
+L["filterCommandResponseDesc"] = "Отключить показ автоматического ответа на сообщение в гильдейском чате с командой !wb и !dmf.";
 
-L["filterSongflowersTitle"] = "Filter Songflowers";
-L["filterSongflowersDesc"] = "Filter the msg when a songflower is picked.";
+L["filterSongflowersTitle"] = "Песнецвет";
+L["filterSongflowersDesc"] = "Отключить показ сообщений о взятии бафа Песнецвета.";
 
-L["filterNpcKilledTitle"] = "Filter NPC Killed";
-L["filterNpcKilledDesc"] = "Filter the msg when a buff hand in NPC is killed in your city.";
+L["filterNpcKilledTitle"] = "Убийство NPC";
+L["filterNpcKilledDesc"] = "Отключить показ сообщений об убийстве NPC, дающего баф.";
 
 ---Sounds---
-L["soundsHeaderDesc"] = "Sounds";
+L["soundsHeaderDesc"] = "Звуки";
 
-L["soundsTextDesc"] = "Set sound to \"None\" to disable.";
+L["soundsTextDesc"] = "Установите звук на \"None\" чтобы отключить.";
 
-L["disableAllSoundsTitle"] = "Disable All Sounds";
-L["disableAllSoundsDesc"] = "Disable all sounds from this addon.";
+L["disableAllSoundsTitle"] = "Отключить все звуки";
+L["disableAllSoundsDesc"] = "Отключить все звуковые оповещения аддона";
 
-L["extraSoundOptionsTitle"] = "Extra Sound Options";
-L["extraSoundOptionsDesc"] = "Enable this to display all the sounds from all your addons at once in the dropdown lists here.";
+L["extraSoundOptionsTitle"] = "Доп. настройки звука";
+L["extraSoundOptionsDesc"] = "Включите, чтобы показывать звуки из всех ваших аддонов в списке.";
 
-L["soundOnlyInCityTitle"] = "Only In City";
-L["soundOnlyInCityDesc"] = "Only play buff sounds when you are in the main city where the buffs drop (Stranglethorn Vale included for Zandalar buff).";
+L["soundOnlyInCityTitle"] = "Только в городе";
+L["soundOnlyInCityDesc"] = "Включить звуковые оповещения о бафах ТОЛЬКО если вы находитесь в столице (а также в Тернистой Долине).";
 
-L["soundsDisableInInstancesTitle"] = "Disable In Instances";
-L["soundsDisableInInstancesDesc"] = "Disable sounds while in raids and instances.";
+L["soundsDisableInInstancesTitle"] = "Отключить в подземельях";
+L["soundsDisableInInstancesDesc"] = "Отключить звуковые оповещения, когда вы находитесь в рейдовом и обычном подземельях.";
 
-L["soundsFirstYellTitle"] = "Buff Coming";
-L["soundsFirstYellDesc"] = "Sound to play when head is handed in and you have a few seconds before buff will drop (First NPC Yell).";
+L["soundsFirstYellTitle"] = "Скоро баф";
+L["soundsFirstYellDesc"] = "Звуковое оповещение, когда NPC закричал в первый раз и скоро будет дан баф.";
 
-L["soundsOneMinuteTitle"] = "One Minute Warning";
-L["soundsOneMinuteDesc"] = "Sound to play for 1 minute left timer warning.";
+L["soundsOneMinuteTitle"] = "Предупреждение за 1 минуту";
+L["soundsOneMinuteDesc"] = "Звуковое оповещение, когда осталась 1 минута до истечения таймера бафа.";
 
-L["soundsRendDropTitle"] = "Rend Buff Gained";
-L["soundsRendDropDesc"] = "Sound to play for Rend buff drops and you get the buff.";
+L["soundsRendDropTitle"] = "Баф Ренда получен";
+L["soundsRendDropDesc"] = "Звуковое оповещение, когда был получен баф Ренда.";
 
-L["soundsOnyDropTitle"] = "Ony Buff Gained";
-L["soundsOnyDropDesc"] = "Sound to play for Onyxia buff drops and you get the buff.";
+L["soundsOnyDropTitle"] = "Баф Ониксии получен";
+L["soundsOnyDropDesc"] = "Звуковое оповещение, когда был получен баф Ониксии.";
 
-L["soundsNefDropTitle"] = "Nef Buff Gained";
-L["soundsNefDropDesc"] = "Sound to play for Nefarian buff drops and you get the buff.";
+L["soundsNefDropTitle"] = "Баф Нефариана получен";
+L["soundsNefDropDesc"] = "Звуковое оповещение, когда был получен баф Нефариана.";
 
-L["soundsZanDropTitle"] = "Zandalar Buff Gained";
-L["soundsZanDropDesc"] = "Sound to play for Zandalar buff drops and you get the buff.";
+L["soundsZanDropTitle"] = "Баф Зандалара получен";
+L["soundsZanDropDesc"] = "Звуковое оповещение, когда был получен баф Зандалара";
 
 ---Flash When Minimized---
-L["flashHeaderDesc"] = "Flash When Minimized";
+L["flashHeaderDesc"] = "Моргание в свернутом режиме";
 
-L["flashOneMinTitle"] = "Flash One Minute";
-L["flashOneMinDesc"] = "Flash the wow client when you have it minimized and 1 minute is left on timer?";
+L["flashOneMinTitle"] = "Моргание за 1 минуту";
+L["flashOneMinDesc"] = "Моргать значком свернутого WoW-клиента, когда осталась 1 минута до истечения таймера.";
 
-L["flashFirstYellTitle"] = "Flash NPC Yell";
-L["flashFirstYellDesc"] = "Flash the wow client when you have it minimized and the NPC's yells a few seconds before buff drops?";
+L["flashFirstYellTitle"] = "Крик NPC";
+L["flashFirstYellDesc"] = "Моргать значком свернутого WoW-клиента, когда NPC крикнул и скоро будет дан баф.";
 
-L["flashFirstYellZanTitle"] = "Flash Zandalar";
-L["flashFirstYellZanDesc"] = "Flash the wow client when you have it minimized and the Zandalar buff is about to go out?";
+L["flashFirstYellZanTitle"] = "Перед Зандаларом";
+L["flashFirstYellZanDesc"] = "Моргать значком свернутого WoW-клиента, когда был начат эвент и скоро будет дан баф Зандалара.";
 
 ---Faction/realm specific options---
 
-L["allianceEnableRendTitle"] = "Enable Alliance Rend";
-L["allianceEnableRendDesc"] = "Enable this to track rend as Alliance, for guilds that mind control to get rend buff. If you use this then everyone in the guild with the addon should enable it or guild chat msgs may not work properly (personal timer msgs will still work).";
+L["allianceEnableRendTitle"] = "Баф Ренда для Альянса";
+L["allianceEnableRendDesc"] = "Включить отслеживание Ренда за Альянс. Для гильдий, которые используют МК для получения бафа Ренда. Для корректной работы гильдейских оповещений требуется включить данную функцию всем членам гильдии (персональные таймеры продолжают работать).";
 
-L["minimapLayerFrameTitle"] = "Show Minimap Layer";
-L["minimapLayerFrameDesc"] = "Show the little frame on the minimap with your current layer while in a capital city?";
+L["minimapLayerFrameTitle"] = "Показывать слой на миникарте";
+L["minimapLayerFrameDesc"] = "Отображать на миникарте рамку с номером текущего слоя, когда вы находитесь в столице.";
 
-L["minimapLayerFrameResetTitle"] = "Reset Minimap Layer";
-L["minimapLayerFrameResetDesc"] = "Reset minimap layer frame back to default position (hold shift to drag the minimap frame).";
+L["minimapLayerFrameResetTitle"] = "Сбросить слой на миникарте";
+L["minimapLayerFrameResetDesc"] = "Сбросить положение рамки с номером слоя к значению по умолчанию (зажмите Shift для перемещения рамки).";
 
 ---Dispels---
-L["dispelsHeaderDesc"] = "Dispels";
+L["dispelsHeaderDesc"] = "Рассеивания";
 
-L["dispelsMineTitle"] = "My Buffs";
-L["dispelsMineDesc"] = "Show in chat my buffs being dispelled? This shows who dispelled you and what buff.";
+L["dispelsMineTitle"] = "Мои бафы";
+L["dispelsMineDesc"] = "Отображать в чате мои бафы, которые были рассеяны. Показывает, кто рассеял и какой баф.";
 
-L["dispelsMineWBOnlyTitle"] = "My Worldbuffs Only";
-L["dispelsMineWBOnlyDesc"] = "Only show my worldbuffs being dispelled and not any other kind of buffs.";
+L["dispelsMineWBOnlyTitle"] = "Только мировые бафы";
+L["dispelsMineWBOnlyDesc"] = "Отображать мои ТОЛЬКО МИРОВЫЕ бафы, которые были рассеяны. Прочие бафы не отслеживаются.";
 
-L["soundsDispelsMineTitle"] = "My Buffs Sound";
-L["soundsDispelsMineDesc"] = "Which sound to play for my buffs being dispelled.";
+L["soundsDispelsMineTitle"] = "Звуки моих бафов";
+L["soundsDispelsMineDesc"] = "Звуковое оповещение при рассеивании кем-то моих бафов.";
 
-L["dispelsAllTitle"] = "Other Players Buffs";
-L["dispelsAllDesc"] = "Show in chat everyone's buffs being dispelled around me? This shows who dispelled anyone close to you and what buff.";
+L["dispelsAllTitle"] = "Бафы других игроков";
+L["dispelsAllDesc"] = "Отображать в чате рассеянные возле меня бафы других игроков. Показывает, кто рассеял и какой баф.";
 
-L["dispelsAllWBOnlyTitle"] = "Others Worldbuffs Only";
-L["dispelsAllWBOnlyDesc"] = "Only show worldbuffs on everyone else being dispelled and not any other kind of buffs.";
+L["dispelsAllWBOnlyTitle"] = "Чужие мировые бафы";
+L["dispelsAllWBOnlyDesc"] = "Отображать чужие мировые бафы, которые были рассеяны рядом. Другие бафы не отслеживаются.";
 
-L["soundsDispelsAllTitle"] = "Others Players Buffs Sound";
-L["soundsDispelsAllDesc"] = "Which sound to play for other players buffs being dispelled.";
+L["soundsDispelsAllTitle"] = "Звуки бафов других игроков";
+L["soundsDispelsAllDesc"] = "Звуковое оповещение при рассеивании кем-то бафов игроков рядом.";
 
-L["middleHideBattlegroundsTitle"] = "Hide In Battlegrounds";
-L["middleHideBattlegroundsDesc"] = "Hide middle of the screen warnings in Battlegrounds?";
+L["middleHideBattlegroundsTitle"] = "Спрятать на поле боя";
+L["middleHideBattlegroundsDesc"] = "Отключить оповещения по центру экрана, когда вы на поле боя.";
 
-L["soundsDisableInBattlegroundsTitle"] = "Disable In Battleground";
-L["soundsDisableInBattlegroundsDesc"] = "Disable sounds while in Battlegrounds.";
+L["soundsDisableInBattlegroundsTitle"] = "Отключить на поле боя";
+L["soundsDisableInBattlegroundsDesc"] = "Отключить звуковые оповещения, когда вы на поле боя.";
 
-L["autoBuffsHeaderDesc"] = "Auto Get Buffs From NPCs";
+L["autoBuffsHeaderDesc"] = "Автоматическое получение бафов от NPC";
 
-L["autoDmfBuffTitle"] = "Auto Get DMF Buff";
-L["autoDmfBuffDesc"] = "Do you want this addon to auto select a Darkmoon Faire buff for you when you speak to the Sayge NPC? Make sure you pick which buff you want also.";
+L["autoDmfBuffTitle"] = "Ярмарка Новолуния";
+L["autoDmfBuffDesc"] = "Включить автоматический выбор бафа на Ярмарке Новолуния при разговоре с NPC. Убедитесь, что вы выбрали желаемый баф.";
 
-L["autoDmfBuffTypeTitle"] = "Which DMF Buff";
-L["autoDmfBuffTypeDesc"] = "Which Darkmoon Faire buff do you want this addon to auto select for you when you speak to Sayge?";
+L["autoDmfBuffTypeTitle"] = "Желаемый баф на Ярмарке";
+L["autoDmfBuffTypeDesc"] = "Выберите баф с Ярмарки Новолуния, который вы хотите автоматически получать при разговоре с NPC.";
 
-L["autoDireMaulBuffTitle"] = "Dire Maul Buffs";
-L["autoDireMaulBuffDesc"] = "Do you want this addon to auto get buffs from the NPC's in Dire Maul when you talk to them? (Also auto gets King buff).";
+L["autoDireMaulBuffTitle"] = "Забытый Город";
+L["autoDireMaulBuffDesc"] = "Включить автоматическое получение бафов от NPC в Забытом Городе. (Также включает автопринятие бафа Короля).";
 
-L["autoBwlPortalTitle"] = "Auto BWL Portal";
-L["autoBwlPortalDesc"] = "Do you want this addon to auto use the Blackwing Lair portal when you click the orb?";
+L["autoBwlPortalTitle"] = "Сфера БВЛ";
+L["autoBwlPortalDesc"] = "Включить автоматическое использование портала в Логово Крыла Тьмы при нажатии на сферу.";
 
-L["showBuffStatsTitle"] = "Show Buff Stats";
-L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
+L["showBuffStatsTitle"] = "Статистика бафов";
+L["showBuffStatsDesc"] = "Отображение кол-ва, сколько раз вы получили каждый из мировых бафов в окне /buffs.\nПримечание: Бафы Они/Нефа/Ренда/Зандалара записывались с момента введения окна с бафами, остальные начали записываться с версии 1.65.";
 
-L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
-L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
-L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["buffResetButtonTooltip"] = "Сбросить все таймеры бафов.\nСтатистика не будет сброшена."; --Reset button tooltip for the /buffs frame.
+L["time"] = "%s раз"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "%s раз(а)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 
 L["Blackrock Mountain"] = "Черная гора";
+
+--New--
+
+L["mmColorTitle"] = "Цвет слоя на миникарте";
+L["mmColorDesc"] = "Цвет текста на миникарте. (Слой 1)";
+
+L["layerHasBeenDisabled"] = "Отключен слой %s. Этот слой останется в базе данных, но будет игнорироваться до тех пор пока вы его не включите или он будет обнаружен снова как действующий.";
+L["layerHasBeenEnabled"] = "Включен слой %s.";
+L["layerDoesNotExist"] = "Слой с ID %s отсутствует в базе данных";
+L["enableLayerButton"] = "Включить слой";
+L["disableLayerButton"] = "Отключить слой";
+L["enableLayerButtonTooltip"] = "Кликните чтобы включить этот слой.\nЭто запустит расчет таймеров.";
+L["disableLayerButtonTooltip"] = "Кликните чтобы выключить этот старый слой после рестарта сервера.\nОн будет игнорироваться аддоном и удалится позже.";
+
+L["minimapLayerHoverTitle"] = "Слой на миникарте";
+L["minimapLayerHoverDesc"] = "Отображать фрейм с номером слоя на миникарте при наведении курсора мыши";
+
+L["Blackrock Mountain"] = "Черная гора";
+
+L["soundsNpcKilledTitle"] = "Убийство NPC";
+L["soundsNpcKilledDesc"] = "Звуковое оповещение, когда NPC был убит для сброса таймера бафа.";
+
+L["autoDmfBuffCharsText"] = "Настройки Ярмарки Новолуния для конкретного персонажа:";
+
+L["middleNpcKilledTitle"] = "Убийство NPC";
+L["middleNpcKilledDesc"] = "Оповещение по центру экрана, когда Рунтак или Саурфанг были убиты для сброса таймера бафа.";
+
+L["chatNpcKilledTitle"] = "Убийство NPC";
+L["chatNpcKilledDesc"] = "Сообщение в чат, когда Рунтак или Саурфанг были убиты для сброса таймера бафа.";
+
+L["onyxiaNpcRespawnHorde"] = "Рунтак (баф Ониксии) возродится в любой момент в течение 2 минут.";
+L["nefarianNpcRespawnHorde"] = "Саурфанг (баф Нефариана) возродится в любой момент в течение 2 минут.";
+L["onyxiaNpcRespawnAlliance"] = "Маттингли (баф Ониксии) возродится в любой момент в течение 2 минут.";
+L["nefarianNpcRespawnAlliance"] = "Афрасиаби (баф Нефариана) возродится в любой момент в течение 2 минут.";
+
+L["onyxiaNpcKilledHordeWithTimer2"] = "Рунтак (баф Ониксии) был убит %s назад, возродится через %s.";
+L["nefarianNpcKilledHordeWithTimer2"] = "Саурфанг (баф Нефариана) был убит %s назад, возродится через %s.";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "Маттингли (баф Ониксии) был убит %s назад, возродится через %s.";
+L["nefarianNpcKilledAllianceWithTimer2"] = "Афрасиаби (баф Нефариана) был убит %s назад, возродится через %s.";
+
+L["trimDataHeaderDesc"] = "Очистка данных";
+
+L["flashNpcKilledTitle"] = "Моргание при убийстве NPC";
+L["flashNpcKilledDesc"] = "Моргать значком свернутого WoW-клиента, когда дающий баф NPC был убит.";
+
+L["trimDataBelowLevelTitle"] = "Максимальный уровень для удаления";
+L["trimDataBelowLevelDesc"] = "Укажите максимальный уровень персонажей для удаления из базы. Все персонажи ниже этого уровня будут удалены.";
+
+L["trimDataBelowLevelButtonTitle"] = "Удаление персонажей";
+L["trimDataBelowLevelButtonDesc"] = "Нажмите эту кнопку, чтобы удалить всех персонажей выбранного уровня и ниже из базы данных аддона. Примечание: это удалит информацию о бафах навсегда.";
+
+L["trimDataTextDesc"] = "Удаление нескольких персонажей из базы данных:";
+L["trimDataText2Desc"] = "Удаление одного персонажа из базы данных:";
+
+L["trimDataCharInputTitle"] = "Удаление одного персонажа";
+L["trimDataCharInputDesc"] = "Введите имя персонажа здесь в формате Имя-Сервер (с учетом регистра). Примечание: это удалит информацию о бафах навсегда.";
+
+L["trimDataBelowLevelButtonConfirm"] = "Вы уверены, что хотите удалить всех персонажей ниже %s уровня из базы данных?";
+L["trimDataCharInputConfirm"] = "Вы уверены, что хотите удалить этого персонажа %s из базы данных?";
+
+L["trimDataMsg1"] = "Записи бафов были сброшены."
+L["trimDataMsg2"] = "Удаление всех персонажей ниже %s уровня.";
+L["trimDataMsg3"] = "Удалено: %s.";
+L["trimDataMsg4"] = "Готово. Персонажи не найдены.";
+L["trimDataMsg5"] = "Готово. Удалено персонажей: %s.";
+L["trimDataMsg6"] = "Пожалуйста, введите корректное имя персонажа для удаления из базы данных.";
+L["trimDataMsg7"] = "Это имя персонажа %s не содержит название сервера. Пожалуйста введите имя в виде: Имя-Сервер (с учетом регистра).";
+L["trimDataMsg8"] = "Ошибка удаления %s из базы данных. Персонаж не найден (проверьте имя и регистр).";
+L["trimDataMsg9"] = "Удален %s из базы данных.";

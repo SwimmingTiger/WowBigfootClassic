@@ -2,6 +2,8 @@
 ---NovaWorldBuffs city NPC whitelist--
 --------------------------------------
 
+local addonName, addon = ...;
+local NWB = addon.a;
 --A list of Orgrimmar NPC's from wowhead.
 --Commented out NPC's that may appear in other zones also (usually pulled to org).
 NWB.orgrimmarCreatures = {

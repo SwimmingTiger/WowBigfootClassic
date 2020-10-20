@@ -175,7 +175,7 @@ L["Resist Fire"] = "Resistir ao Fogo"; -- LBRS fire resist buff.
 L["Blessing of Blackfathom"] = "Bênção das Profundezas Negras";
 
 L["zan"] = "Zandalar";
-L["zanFirstYellMsg"] = "Zandalar will drop in 30 seconds.";
+L["zanFirstYellMsg"] = "Zandalar will drop in %s seconds.";
 L["zanBuffDropped"] = "Spirit of Zandalar (Hakkar) has dropped.";
 L["singleSongflowerMsg"] = "Songflower at %s spawns in %s."; -- Songflower at Bloodvenom Post spawns at 1pm.
 L["spawn"] = "spawn"; --Used in Felwood map marker tooltip (03:46pm spawn).
@@ -526,7 +526,81 @@ L["showBuffStatsTitle"] = "Show Buff Stats";
 L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
 
 L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
-L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
-L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["time"] = "(%s time)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "(%s times)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 
 L["Blackrock Mountain"] = "Montanha Rocha Negra";
+
+L["flowerWarning"] = "Songflower picked on a realm with layered songflower timers enabled but you haven't targeted a NPC since arriving in Felwood so no timer could be recorded.";
+
+L["mmColorTitle"] = "Minimap Layer Color";
+L["mmColorDesc"] = "What color should the minimap layer text be? (Layer 1)";
+
+---New---
+L["layerHasBeenDisabled"] = "Disabled layer %s, this layer is still in the database but will be ignored until you enable it again or it's detected again as being valid.";
+L["layerHasBeenEnabled"] = "Enabled layer %s, this is now back in timer and layer calculations.";
+L["layerDoesNotExist"] = "The layer ID %s doesn't exist in the database.";
+L["enableLayerButton"] = "Enable Layer";
+L["disableLayerButton"] = "Disable Layer";
+L["enableLayerButtonTooltip"] = "Click to re-enable this layer,\nIt will be put back into timer and layer calcs.";
+L["disableLayerButtonTooltip"] = "Click to disable this old layer after server restarts.\nIt will be ignored by the addon and removed later.";
+
+L["minimapLayerHoverTitle"] = "Minimap Mouseover";
+L["minimapLayerHoverDesc"] = "Only show the minimap layer number frame when you hover the mouse over the minimap?";
+
+L["soundsNpcKilledTitle"] = "NPC Killed";
+L["soundsNpcKilledDesc"] = "Sound to play when a buff NPC is killed to reset a timer.";
+
+L["autoDmfBuffCharsText"] = "Darkmoon Faire Character Specific Buff Settings:";
+
+L["middleNpcKilledTitle"] = "NPC Killed";
+L["middleNpcKilledDesc"] = "Show a raid warning style msg in the middle of the screen when an Ony or Nef NPC is killed for a buff reset.";
+
+L["chatNpcKilledTitle"] = "NPC Killed";
+L["chatNpcKilledDesc"] = "Print a msg in chat when an Ony or Nef NPC is killed for a buff reset.";
+
+L["onyxiaNpcRespawnHorde"] = "Onyxia NPC (Runthak) will respawn at a random time within the next 2 minutes.";
+L["nefarianNpcRespawnHorde"] = "Nefarian NPC (Saurfang) will respawn at a random time within the next 2 minutes.";
+L["onyxiaNpcRespawnAlliance"] = "Onyxia NPC (Mattingly) will respawn at a random time within the next 2 minutes.";
+L["nefarianNpcRespawnAlliance"] = "Nefarian NPC (Afrasiabi) will respawn at a random time within the next 2 minutes.";
+
+L["onyxiaNpcKilledHordeWithTimer2"] = "Onyxia NPC (Runthak) was killed %s ago, respawn in %s.";
+L["nefarianNpcKilledHordeWithTimer2"] = "Nefarian NPC (Saurfang) was killed %s ago, respawn in %s.";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "Onyxia NPC (Mattingly) was killed %s ago, respawn in %s.";
+L["nefarianNpcKilledAllianceWithTimer2"] = "Nefarian NPC (Afrasiabi) was killed %s ago, respawn in %s.";
+
+L["flashNpcKilledTitle"] = "Flash NPC Killed";
+L["flashNpcKilledDesc"] = "Flash the wow client when a buff NPC is killed?";
+
+L["trimDataHeaderDesc"] = "Data Cleanup";
+
+L["trimDataBelowLevelTitle"] = "Maximum Level To Remove";
+L["trimDataBelowLevelDesc"] = "Select maximum level of characters to remove from database, all characters this level and below will be deleted.";
+
+L["trimDataBelowLevelButtonTitle"] = "Remove Characters";
+L["trimDataBelowLevelButtonDesc"] = "Click this button to remove all characters with the selected level and lower from this addon database. Note: This removes buff count data permanently.";
+
+L["trimDataTextDesc"] = "Remove multiple characters from buffs database:";
+L["trimDataText2Desc"] = "Remove one character from buffs database:";
+
+L["trimDataCharInputTitle"] = "Remove One Character Input";
+L["trimDataCharInputDesc"] = "Type a character here to remove, format as Name-Realm (Case sensitive). Note: This removes buff count data permanently.";
+
+L["trimDataBelowLevelButtonConfirm"] = "Are you sure you want to remove all characters below level %s from the database?";
+L["trimDataCharInputConfirm"] = "Are you sure you want to remove this character %s from the database?";
+
+L["trimDataMsg1"] = "Buff records have been reset."
+L["trimDataMsg2"] = "Removing all chars below level %s.";
+L["trimDataMsg3"] = "Removed: %s.";
+L["trimDataMsg4"] = "Done, no characters found.";
+L["trimDataMsg5"] = "Done, removed %s characters.";
+L["trimDataMsg6"] = "Please enter a valid Character-Name to delete from database.";
+L["trimDataMsg7"] = "This character name %s doesn't include a realm, please input Name-Realm.";
+L["trimDataMsg8"] = "Error removing %s from the database, character not found (name is case sensitive).";
+L["trimDataMsg9"] = "Removed %s from the database.";
+
+L["serverTime"] = "server time";
+L["serverTimeShort"] = "st";
+
+L["showUnbuffedAltsTitle"] = "Show Unbuffed Alts";
+L["showUnbuffedAltsDesc"] = "Show alts without any buffs in the buffs window? This is so you can see what characters have no buffs if you would like.";

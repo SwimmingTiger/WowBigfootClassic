@@ -76,10 +76,10 @@ L["onyxiaNpcKilledHorde"] = "Overlord Runthak has just been killed (Onyxia buff 
 L["onyxiaNpcKilledAlliance"] = "Major Mattingly has just been killed (Onyxia buff NPC).";
 L["nefarianNpcKilledHorde"] = "High Overlord Saurfang has just been killed (Nefarian buff NPC).";
 L["nefarianNpcKilledAlliance"] = "Field Marshal Afrasiabi has just been killed (Nefarian buff NPC).";
-L["onyxiaNpcKilledHordeWithTimer"] = "Onyxia NPC (Runthak) was killed %s ago no buff recorded since.";
-L["nefarianNpcKilledHordeWithTimer"] = "Nefarian NPC (Saurfang) was killed %s ago no buff recorded since.";
-L["onyxiaNpcKilledAllianceWithTimer"] = "Onyxia NPC (Mattingly) was killed %s ago no buff recorded since.";
-L["nefarianNpcKilledAllianceWithTimer"] = "Nefarian NPC (Afrasiabi) was killed %s ago no buff recorded since.";
+L["onyxiaNpcKilledHordeWithTimer"] = "Onyxia NPC (Runthak) was killed %s ago, no buff recorded since.";
+L["nefarianNpcKilledHordeWithTimer"] = "Nefarian NPC (Saurfang) was killed %s ago, no buff recorded since.";
+L["onyxiaNpcKilledAllianceWithTimer"] = "Onyxia NPC (Mattingly) was killed %s ago, no buff recorded since.";
+L["nefarianNpcKilledAllianceWithTimer"] = "Nefarian NPC (Afrasiabi) was killed %s ago, no buff recorded since.";
 L["anyNpcKilledWithTimer"] = "NPC was killed %s ago"; --Map timers tooltip msg.
 
 
@@ -175,7 +175,7 @@ L["Resist Fire"] = "Resist Fire"; -- LBRS fire resist buff.
 L["Blessing of Blackfathom"] = "Blessing of Blackfathom";
 
 L["zan"] = "Zandalar";
-L["zanFirstYellMsg"] = "Zandalar will drop in 30 seconds.";
+L["zanFirstYellMsg"] = "Zandalar will drop in %s seconds.";
 L["zanBuffDropped"] = "Spirit of Zandalar (Hakkar) has dropped.";
 L["singleSongflowerMsg"] = "Songflower at %s spawns in %s."; -- Songflower at Bloodvenom Post spawns at 1pm.
 L["spawn"] = "spawn"; --Used in Felwood map marker tooltip (03:46pm spawn).
@@ -243,8 +243,8 @@ L["timeStampZoneDesc"] = "Use local time or server time for timestamps?";
 L["colorizePrefixLinksTitle"] = "Colored Prefix Link";
 L["colorizePrefixLinksDesc"] = "Colorize the prefix [WorldBuffs] in all chat channels? This is the prefix in chat you can click to show all your characters current world buffs.";
 
-L["showAllAltsTitle"] = "Show All Alts";
-L["showAllAltsDesc"] = "Show all alts in the /buffs window even if they don't have an active buff?";
+L["showAllAltsTitle"] = "Show All Buff Stats";
+L["showAllAltsDesc"] = "Show all alts with buff stats in the buffs window even if they don't have an active buff?";
 
 L["minimapButtonTitle"] = "Show Minimap Button";
 L["minimapButtonDesc"] = "Show the NWB button the minimap?";
@@ -530,11 +530,11 @@ L["autoBwlPortalTitle"] = "Auto BWL Portal";
 L["autoBwlPortalDesc"] = "Do you want this addon to auto use the Blackwing Lair portal when you click the orb?";
 
 L["showBuffStatsTitle"] = "Show Buff Stats";
-L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the /buffs frame? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
+L["showBuffStatsDesc"] = "Show how many times you've gotten each world buff in the buffs window? Ony/Nef/Rend/Zand buffs have been recording since the buffs frame was put in, but the rest of the buffs only started recording now in version 1.65";
 
 L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will not be reset."; --Reset button tooltip for the /buffs frame.
-L["time"] = "time"; --Singular - This shows how many timers you got a buff. Example: (1 time)
-L["times"] = "times"; --Plural - This shows how many timers you got a buff. Example: (5 times)
+L["time"] = "(%s time)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
+L["times"] = "(%s times)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 L["flowerWarning"] = "Songflower picked on a realm with layered songflower timers enabled but you haven't targeted a NPC since arriving in Felwood so no timer could be recorded.";
 
 L["mmColorTitle"] = "Minimap Layer Color";
@@ -553,3 +553,90 @@ L["minimapLayerHoverTitle"] = "Minimap Mouseover";
 L["minimapLayerHoverDesc"] = "Only show the minimap layer number frame when you hover the mouse over the minimap?";
 
 L["Blackrock Mountain"] = "Blackrock Mountain";
+
+L["soundsNpcKilledTitle"] = "NPC Killed";
+L["soundsNpcKilledDesc"] = "Sound to play when a buff NPC is killed to reset a timer.";
+
+L["autoDmfBuffCharsText"] = "Darkmoon Faire Character Specific Buff Settings";
+
+L["middleNpcKilledTitle"] = "NPC Killed";
+L["middleNpcKilledDesc"] = "Show a raid warning style msg in the middle of the screen when an Ony or Nef NPC is killed for a buff reset.";
+
+L["chatNpcKilledTitle"] = "NPC Killed";
+L["chatNpcKilledDesc"] = "Print a msg in chat when an Ony or Nef NPC is killed for a buff reset.";
+
+L["onyxiaNpcRespawnHorde"] = "Onyxia NPC (Runthak) will respawn at a random time within the next 2 minutes.";
+L["nefarianNpcRespawnHorde"] = "Nefarian NPC (Saurfang) will respawn at a random time within the next 2 minutes.";
+L["onyxiaNpcRespawnAlliance"] = "Onyxia NPC (Mattingly) will respawn at a random time within the next 2 minutes.";
+L["nefarianNpcRespawnAlliance"] = "Nefarian NPC (Afrasiabi) will respawn at a random time within the next 2 minutes.";
+
+L["onyxiaNpcKilledHordeWithTimer2"] = "Onyxia NPC (Runthak) was killed %s ago, respawn in %s.";
+L["nefarianNpcKilledHordeWithTimer2"] = "Nefarian NPC (Saurfang) was killed %s ago, respawn in %s.";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "Onyxia NPC (Mattingly) was killed %s ago, respawn in %s.";
+L["nefarianNpcKilledAllianceWithTimer2"] = "Nefarian NPC (Afrasiabi) was killed %s ago, respawn in %s.";
+
+L["flashNpcKilledTitle"] = "Flash NPC Killed";
+L["flashNpcKilledDesc"] = "Flash the wow client when a buff NPC is killed?";
+
+L["trimDataHeaderDesc"] = "Data Cleanup";
+
+L["trimDataBelowLevelTitle"] = "Maximum Level To Remove";
+L["trimDataBelowLevelDesc"] = "Select maximum level of characters to remove from database, all characters this level and below will be deleted.";
+
+L["trimDataBelowLevelButtonTitle"] = "Remove Characters";
+L["trimDataBelowLevelButtonDesc"] = "Click this button to remove all characters with the selected level and lower from this addon database. Note: This removes buff count data permanently.";
+
+L["trimDataTextDesc"] = "Remove multiple characters from buffs database:";
+L["trimDataText2Desc"] = "Remove one character from buffs database:";
+
+L["trimDataCharInputTitle"] = "Remove One Character Input";
+L["trimDataCharInputDesc"] = "Type a character here to remove, format as Name-Realm (Case sensitive). Note: This removes buff count data permanently.";
+
+L["trimDataBelowLevelButtonConfirm"] = "Are you sure you want to remove all characters below level %s from the database?";
+L["trimDataCharInputConfirm"] = "Are you sure you want to remove this character %s from the database?";
+
+L["trimDataMsg1"] = "Buff records have been reset."
+L["trimDataMsg2"] = "Removing all chars below level %s.";
+L["trimDataMsg3"] = "Removed: %s.";
+L["trimDataMsg4"] = "Done, no characters found.";
+L["trimDataMsg5"] = "Done, removed %s characters.";
+L["trimDataMsg6"] = "Please enter a valid Character-Name to delete from database.";
+L["trimDataMsg7"] = "This character name %s doesn't include a realm, please input Name-Realm.";
+L["trimDataMsg8"] = "Error removing %s from the database, character not found (name is case sensitive).";
+L["trimDataMsg9"] = "Removed %s from the database.";
+
+L["serverTime"] = "server time";
+L["serverTimeShort"] = "st";
+
+L["showUnbuffedAltsTitle"] = "Show Unbuffed Alts";
+L["showUnbuffedAltsDesc"] = "Show alts without any buffs in the buffs window? This is so you can see what characters have no buffs if you would like.";
+
+L["timerWindowWidthTitle"] = "Timer Window Width";
+L["timerWindowWidthDesc"] = "How wide should the timer window be.";
+
+L["timerWindowHeightTitle"] = "Timer Window Height";
+L["timerWindowHeghtDesc"] = "How high should the timer window be.";
+
+L["buffWindowWidthTitle"] = "Buff Window Width";
+L["buffWindowWidthDesc"] = "How wide should the buff window be.";
+
+L["buffWindowHeightTitle"] = "Buff Window Height";
+L["buffWindowHeghtDesc"] = "How high should the buff window be.";
+
+L["dmfSettingsListTitle"] = "DMF Buffs List";
+L["dmfSettingsListDesc"] = "Click this to show a list of your alts DMF buff type settings.";
+
+L["ignoreKillDataTitle"] = "Ignore NPC Killed Data";
+L["ignoreKillDataDesc"] = "Ignore any NPC killed data from being recorded.";
+			
+L["noOverwriteTitle"] = "Dont Overwrite Timers";
+L["noOverwriteDesc"] = "You can enable this so if you have a valid timer already running you will ignore any new data for that timer until the timer ends.";
+
+L["layerMsg1"] = "You are on a layered realm.";
+L["layerMsg2"] = "Click here to view current timers.";
+L["layerMsg3"] = "Target any NPC to see your current layer.";
+L["layerMsg4"] = "Target any NPC in %s to see your current layer."; --Target any NPC in Orgrimmar to see your current layer.
+
+--NOTE: Darkmoon Faire buff type is now a character specific setting, changing buff type will only change it for this character.
+L["note"] = "NOTE:";
+L["dmfConfigWarning"] = "Darkmoon Faire buff type is now a character specific setting, changing buff type will only change it for this character.";

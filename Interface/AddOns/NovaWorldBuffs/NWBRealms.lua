@@ -2,6 +2,8 @@
 ---NovaWorldBuffs classic realm list--
 --------------------------------------
 
+local addonName, addon = ...;
+local NWB = addon.a;
 --Only need layered realms here for now.
 NWB.usRealms = {
 	--["Arugal"] = true,
