@@ -1,9 +1,10 @@
 ﻿## Interface: 11305
-## Title: MonkeyBuddy v2.10.0
+## Title: MonkeyBuddy v2.11.0c
 ## Notes: Helps you configure your MonkeyMods.
-## Notes-deDE: Hilft Euch beim Einstellen Euer MonkeyMods.
 ## Author: Trentin, Jim-Bim
 ## Dependencies: MonkeyLibrary
 ## OptionalDeps: MonkeyQuest, MonkeySpeed, MonkeyClock, myAddOns
 ## SavedVariables: MonkeyBuddyConfig
+## X-Revision: BigFoot
+
 MonkeyBuddy.xml

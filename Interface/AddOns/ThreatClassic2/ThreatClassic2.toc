@@ -4,7 +4,7 @@
 ## Title-zhTW: [大腳][集]仇恨統計
 ## Notes: |cff00ff00ThreatClassic2|r|n|cffbc8f8fSimple threat meter for WoW Classic.|r
 ## Author: Dennis-Florian Herr (dfherr)
-## Version: 2.24
+## Version: 2.25
 ## SavedVariables: ThreatClassic2DB
 ## SavedVariablesPerCharacter: TC2_Options
 

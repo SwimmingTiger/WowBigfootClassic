@@ -1,6 +1,6 @@
 ﻿-- Not translations
 MONKEYBUDDY_TITLE							= "MonkeyBuddy";
-MONKEYBUDDY_VERSION							= "2.10.0";
+MONKEYBUDDY_VERSION							= "2.11.0";
 MONKEYBUDDY_FRAME_TITLE						= MONKEYBUDDY_TITLE .. " v" .. MONKEYBUDDY_VERSION;
 MONKEYBUDDY_QUEST_TITLE						= "MonkeyQuest";
 MONKEYBUDDY_SPEED_TITLE						= "MonkeySpeed";

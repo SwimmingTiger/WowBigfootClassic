@@ -1,15 +1,13 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCastbars")
-
-local TestMode = CreateFrame("Frame")
+local TestMode = CreateFrame("Frame", "ClassicCastbars_TestMode")
 TestMode.isTesting = {}
-ClassicCastbars_TestMode = TestMode -- global ref for use in both addons
 
 local dummySpellData = {
     spellName = GetSpellInfo(118),
     icon = GetSpellTexture(118),
-    maxValue = 10,
+    maxValue = 10.0,
     timeStart = GetTime(),
-    endTime = GetTime() + 10,
+    endTime = GetTime() + 10.0,
     isChanneled = false,
 }
 
@@ -43,38 +41,13 @@ local function OnDragStop(self)
     -- Frame loses relativity to parent and is instead relative to UIParent after
     -- dragging so we can't just use self:GetPoint() here
     local x, y = CalcScreenGetPoint(self)
-    ClassicCastbars.db[unit].position[1] = "CENTER" -- has to be center for CalcScreenGetPoint to work
-    ClassicCastbars.db[unit].position[2] = x
-    ClassicCastbars.db[unit].position[3] = y
+    ClassicCastbars.db[unit].position = { "CENTER", x, y }  -- has to be center for CalcScreenGetPoint to work
     ClassicCastbars.db[unit].autoPosition = false
 
     -- Reanchor from UIParent back to parent frame
     self:SetParent(self.parent)
     self:ClearAllPoints()
     self:SetPoint("CENTER", self.parent, x, y)
-end
-
-function TestMode:ToggleCastbarMovable(unitID)
-    if unitID == "nameplate" then
-        unitID = "nameplate-testmode"
-    elseif unitID == "party" then
-        unitID = "party-testmode"
-    end
-
-    if self.isTesting[unitID] then
-        self:SetCastbarImmovable(unitID)
-        self.isTesting[unitID] = false
-        if unitID == "nameplate-testmode" then
-            self:UnregisterEvent("PLAYER_TARGET_CHANGED")
-        end
-    else
-        self:SetCastbarMovable(unitID)
-        self.isTesting[unitID] = true
-
-        if ClassicCastbars.db.nameplate.enabled and unitID == "nameplate-testmode" then
-            self:RegisterEvent("PLAYER_TARGET_CHANGED")
-        end
-    end
 end
 
 function TestMode:OnOptionChanged(unitID)
@@ -91,8 +64,32 @@ function TestMode:OnOptionChanged(unitID)
     -- Immediately update castbar display after changing an option
     local castbar = ClassicCastbars.activeFrames[unitID]
     if castbar and castbar.isTesting then
-        castbar._data = dummySpellData
+        castbar._data = CopyTable(dummySpellData)
         ClassicCastbars:DisplayCastbar(castbar, unitID)
+    end
+end
+
+function TestMode:ToggleCastbarMovable(unitID)
+    if unitID == "nameplate" then
+        unitID = "nameplate-testmode"
+    elseif unitID == "party" then
+        unitID = "party-testmode"
+    end
+
+    if self.isTesting[unitID] then
+        self:SetCastbarImmovable(unitID)
+        self.isTesting[unitID] = false
+        if unitID == "nameplate-testmode" then
+            self:UnregisterEvent("PLAYER_TARGET_CHANGED")
+        end
+    else
+        if self:SetCastbarMovable(unitID) then
+            self.isTesting[unitID] = true
+
+            if ClassicCastbars.db.nameplate.enabled and unitID == "nameplate-testmode" then
+                self:RegisterEvent("PLAYER_TARGET_CHANGED")
+            end
+        end
     end
 end
 
@@ -100,9 +97,9 @@ function TestMode:SetCastbarMovable(unitID, parent)
     local parentFrame = parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)
     if not parentFrame then
         if unitID == "target" or unitID == "nameplate-testmode" then
-            print(_G.ERR_GENERIC_NO_TARGET)
+            print(format("|cFFFF0000[ClassicCastbars] %s|r", _G.ERR_GENERIC_NO_TARGET))
         end
-        return
+        return false
     end
 
     local castbar = ClassicCastbars:GetCastbarFrame(unitID)
@@ -115,21 +112,22 @@ function TestMode:SetCastbarMovable(unitID, parent)
     castbar.tooltip:SetText(L.TEST_MODE_DRAG)
     castbar.tooltip:Show()
 
-    -- Note: we use OnMouseX instead of OnDragX as it's more accurate
+    -- Note: we use OnMouseX instead of OnDragX as it's more precise when dragging small distances
     castbar:SetScript("OnMouseDown", castbar.StartMoving)
     castbar:SetScript("OnMouseUp", OnDragStop)
 
-    castbar._data = dummySpellData -- Set test data for :DisplayCastbar()
+    castbar._data = CopyTable(dummySpellData) -- Set test data for :DisplayCastbar()
     castbar.parent = parentFrame
     castbar.unitID = unitID
     castbar.isTesting = true
 
-    castbar:SetMinMaxValues(1, 10)
-    castbar:SetValue(5)
-    castbar.Timer:SetText("0.75")
-    castbar.Spark:SetPoint("CENTER", castbar, "LEFT", (5 / 10) * castbar:GetWidth(), 0)
+    local maxValue = castbar._data.maxValue
+    castbar:SetMinMaxValues(1, maxValue)
+    castbar:SetValue(maxValue / 2)
+    castbar.Timer:SetFormattedText("%.1f", maxValue / 2)
+    castbar.Spark:SetPoint("CENTER", castbar, "LEFT", (((maxValue / 2) / maxValue) * castbar:GetWidth()) - 6, 0)
 
-    if IsModifierKeyDown() then
+    if IsModifierKeyDown() or (IsMetaKeyDown and IsMetaKeyDown()) then
         castbar._data.isUninterruptible = true
     else
         castbar._data.isUninterruptible = false
@@ -149,16 +147,20 @@ function TestMode:SetCastbarMovable(unitID, parent)
 		castbar.holdTime = 0
         castbar.fadeOut = nil
         castbar.flash = nil
-        if IsModifierKeyDown() then
+
+        if IsModifierKeyDown() or (IsMetaKeyDown and IsMetaKeyDown()) then
             castbar:SetStatusBarColor(castbar.nonInterruptibleColor:GetRGB())
         else
             castbar:SetStatusBarColor(castbar.startCastColor:GetRGB())
         end
+
         castbar:SetAlpha(1)
         castbar:Show()
     else
         ClassicCastbars:DisplayCastbar(castbar, unitID)
     end
+
+    return true
 end
 
 function TestMode:SetCastbarImmovable(unitID)
@@ -171,8 +173,8 @@ function TestMode:SetCastbarImmovable(unitID)
     castbar.unitID = nil
     castbar.parent = nil
     castbar.isTesting = nil
-    castbar:EnableMouse(false)
     castbar.holdTime = 0
+    castbar:EnableMouse(false)
 
     if unitID == "party-testmode" then
         local parentFrame = castbar.parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)

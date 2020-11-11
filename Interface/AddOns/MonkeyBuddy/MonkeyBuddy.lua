@@ -646,7 +646,7 @@ MonkeyBuddyOptionsTextS:SetPoint("TOPLEFT", MonkeyBuddyOptionsText3, "BOTTOMLEFT
 MonkeyBuddyOptionsTextS:SetWidth(340)
 MonkeyBuddyOptionsTextS:SetText(MONKEYBUDDY_GUI_MMINSTALLED)
 
-local MonkeyBuddyStatus = CreateFrame("FRAME", "MBStatus", MonkeyBuddyOptions)
+local MonkeyBuddyStatus = CreateFrame("FRAME", "MBStatus", MonkeyBuddyOptions, BackdropTemplateMixin and "BackdropTemplate")
 MonkeyBuddyStatus:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
 	edgeFile = "Interface/Tooltips/UI-Tooltip-Border", 
 	tile = true, tileSize = 16, edgeSize = 16, 
@@ -719,7 +719,7 @@ MonkeyBuddyOptionsTextB:SetPoint("TOPLEFT", MonkeyBuddyOptionsText7, "BOTTOMLEFT
 MonkeyBuddyOptionsTextB:SetWidth(340)
 MonkeyBuddyOptionsTextB:SetText("MonkeyBuddy:")
 
-local MonkeyBuddyStatus = CreateFrame("FRAME", "MBIconOption", MonkeyBuddyOptions)
+local MonkeyBuddyStatus = CreateFrame("FRAME", "MBIconOption", MonkeyBuddyOptions, BackdropTemplateMixin and "BackdropTemplate")
 MonkeyBuddyStatus:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
 	edgeFile = "Interface/Tooltips/UI-Tooltip-Border", 
 	tile = true, tileSize = 16, edgeSize = 16, 
@@ -758,7 +758,7 @@ MonkeyBuddyOptionsTextM:SetPoint("TOPLEFT", MonkeyBuddyOptionsTextB, "BOTTOMLEFT
 MonkeyBuddyOptionsTextM:SetWidth(340)
 MonkeyBuddyOptionsTextM:SetText(MONKEYBUDDY_GUI_MQEXTRA)
 
-local MonkeyQuestDailies = CreateFrame("FRAME", "MQDailiesOption", MonkeyBuddyOptions)
+local MonkeyQuestDailies = CreateFrame("FRAME", "MQDailiesOption", MonkeyBuddyOptions, BackdropTemplateMixin and "BackdropTemplate")
 MonkeyQuestDailies:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
 	edgeFile = "Interface/Tooltips/UI-Tooltip-Border", 
 	tile = true, tileSize = 16, edgeSize = 16, 

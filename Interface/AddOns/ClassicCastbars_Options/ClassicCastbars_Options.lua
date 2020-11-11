@@ -34,6 +34,14 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
         return not ClassicCastbars.db[unitID].enabled
     end
 
+    local function GetStatusColoredEnableText(unit)
+        if ClassicCastbars.db[unit].enabled then
+            return "|cFF20C000" .. L.TOGGLE_CASTBAR .. "|r"
+        else
+            return "|cFFFF0000" .. L.TOGGLE_CASTBAR .. "|r"
+        end
+    end
+
     return {
         name = format("%s %s", L.CASTBAR, localizedUnit),
         order = order,
@@ -58,7 +66,7 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
                     -- or else you have to set a new 'get' and 'set' func
                     enabled = {
                         order = 1,
-                        name = L.TOGGLE_CASTBAR,
+                        name = GetStatusColoredEnableText(unitID),
                         desc = L.TOGGLE_CASTBAR_TOOLTIP,
                         width = "full", -- these have to be full to not truncate text in non-english locales
                         type = "toggle",
@@ -138,9 +146,7 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
                     notes = {
                         order = 9,
                         hidden = unitID ~= "focus",
-                        -- this note will soon be removed or changed to only contain slash commands so we dont bother localizing here
-                        name = "\nSlash Commands:\n\n|cffffff00 - /focus\n\n - /clearfocus\n\n - /click FocusCastbar|r\n\n Note that if you switch focus in combat it wont update the targetting until you leave combat. Only the cast tracking will still work in combat.\n"
-                        .. "\n\nExample macro for focus cast:\n |cffffff00/click FocusCastbar\n /cast SpellName\n /targetlasttarget|r\n\nNote that if you somehow fail targetting your focus (i.e out of range) it will use the spell on your current target instead. Sadly nothing can be done about this, so use with caution.",
+                        name = "\n\nSlash Commands:\n\n|cffffff00 - /focus\n\n - /clearfocus\n\n - /click FocusCastbar|r",
                         type = "description",
                     },
                 },
@@ -457,7 +463,6 @@ local function GetOptionsTable()
 
             resetAllSettings = {
                 order = 6,
-                --width = 2,
                 name = L.RESET_ALL,
                 type = "execute",
                 confirm = function()
@@ -466,9 +471,13 @@ local function GetOptionsTable()
                 func = function()
                     local shouldReloadUI = ClassicCastbars.db.player.enabled
                     -- Reset savedvariables to default
+                    local oldUninterruptibleData = CopyTable(ClassicCastbars.db.npcCastUninterruptibleCache)
                     ClassicCastbarsCharDB = {}
                     ClassicCastbarsDB = CopyTable(ClassicCastbars.defaultConfig)
+                    ClassicCastbarsDB.npcCastUninterruptibleCache = oldUninterruptibleData -- no reason to reset this data
+                    ClassicCastbars.npcCastUninterruptibleCache = ClassicCastbarsDB.npcCastUninterruptibleCache -- update pointer
                     ClassicCastbars.db = ClassicCastbarsDB -- update pointer
+
                     ClassicCastbars_TestMode:OnOptionChanged("target")
                     ClassicCastbars_TestMode:OnOptionChanged("nameplate")
                     ClassicCastbars_TestMode:OnOptionChanged("party")
@@ -481,15 +490,15 @@ local function GetOptionsTable()
                 end,
             },
 
+            -- Character specific savedvariables
             usePerCharacterSettings = {
-                order = 8,
+                order = 7,
                 width = 2,
+                type = "toggle",
                 name = L.PER_CHARACTER,
                 desc = L.PER_CHARACTER_TOOLTIP,
-                type = "toggle",
-                confirm = function()
-                    return L.REQUIRES_RESTART
-                end,
+                confirm = true,
+                confirmText = L.REQUIRES_RESTART,
                 get = function()
                     return ClassicCastbarsCharDB and ClassicCastbarsCharDB.usePerCharacterSettings
                 end,
@@ -516,4 +525,7 @@ SLASH_CLASSICCASTBARS3 = "/classiccastbars"
 SLASH_CLASSICCASTBARS4 = "/classicastbars"
 SlashCmdList["CLASSICCASTBARS"] = function()
     LibStub("AceConfigDialog-3.0"):Open("ClassicCastbars")
+    if LibStub("AceConfigDialog-3.0").OpenFrames["ClassicCastbars"] then
+        LibStub("AceConfigDialog-3.0").OpenFrames["ClassicCastbars"]:SetStatusText("Buy me a coffee: https://paypal.me/castbar")
+    end
 end

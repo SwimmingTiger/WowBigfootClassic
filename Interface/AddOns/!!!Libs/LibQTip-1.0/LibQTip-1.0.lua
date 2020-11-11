@@ -1,5 +1,5 @@
 local MAJOR = "LibQTip-1.0"
-local MINOR = 46 -- Should be manually increased
+local MINOR = 48 -- Should be manually increased
 local LibStub = _G.LibStub
 
 assert(LibStub, MAJOR .. " requires LibStub")
@@ -37,7 +37,12 @@ local geterrorhandler = _G.geterrorhandler
 ------------------------------------------------------------------------------
 -- Tables and locals
 ------------------------------------------------------------------------------
-lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame")}
+if BackdropTemplateMixin and oldMinor and (oldMinor < 48) and lib.frameMetatable then
+    -- mix new BackdropTemplateMixin into frame metatable
+    Mixin(lib.frameMetatable["__index"], BackdropTemplateMixin)
+else
+    lib.frameMetatable = lib.frameMetatable or {__index = CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")}
+end
 
 lib.tipPrototype = lib.tipPrototype or setmetatable({}, lib.frameMetatable)
 lib.tipMetatable = lib.tipMetatable or {__index = lib.tipPrototype}
@@ -52,6 +57,7 @@ lib.activeTooltips = lib.activeTooltips or {}
 
 lib.tooltipHeap = lib.tooltipHeap or {}
 lib.frameHeap = lib.frameHeap or {}
+lib.timerHeap = lib.timerHeap or {}
 lib.tableHeap = lib.tableHeap or {}
 
 lib.onReleaseHandlers = lib.onReleaseHandlers or {}
@@ -94,7 +100,7 @@ local SetFrameScript, ClearFrameScripts
 ------------------------------------------------------------------------------
 -- @debug @
 local usedTables, usedFrames, usedTooltips = 0, 0, 0
---@end-debug@
+--@end-debug@]===]
 
 ------------------------------------------------------------------------------
 -- Internal constants to tweak the layout
@@ -163,16 +169,16 @@ function lib:IterateTooltips()
 end
 
 ------------------------------------------------------------------------------
--- Frame cache
+-- Frame cache (for lines and columns)
 ------------------------------------------------------------------------------
 local frameHeap = lib.frameHeap
 
 local function AcquireFrame(parent)
-	local frame = tremove(frameHeap) or CreateFrame("Frame")
+	local frame = tremove(frameHeap) or CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")
 	frame:SetParent(parent)
-	--@debug@
+	--[===[@debug@
 	usedFrames = usedFrames + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return frame
 end
 
@@ -185,9 +191,29 @@ local function ReleaseFrame(frame)
 	ClearFrameScripts(frame)
 
 	tinsert(frameHeap, frame)
-	--@debug@
+	--[===[@debug@
 	usedFrames = usedFrames - 1
-	--@end-debug@
+	--@end-debug@]===]
+end
+
+------------------------------------------------------------------------------
+-- Timer cache
+------------------------------------------------------------------------------
+local timerHeap = lib.timerHeap
+
+local function AcquireTimer(parent)
+	local frame = tremove(timerHeap) or CreateFrame("Frame")
+	frame:SetParent(parent)
+	return frame
+end
+
+local function ReleaseTimer(frame)
+	frame:Hide()
+	frame:SetParent(nil)
+
+	ClearFrameScripts(frame)
+
+	tinsert(timerHeap, frame)
 end
 
 ------------------------------------------------------------------------------
@@ -377,9 +403,9 @@ function AcquireTooltip()
 		setmetatable(tooltip, tipMetatable)
 	end
 
-	--@debug@
+	--[===[@debug@
 	usedTooltips = usedTooltips + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return tooltip
 end
 
@@ -442,9 +468,9 @@ function ReleaseTooltip(tooltip)
 	highlightTexture:SetTexture(DEFAULT_HIGHLIGHT_TEXTURE_PATH)
 	highlightTexture:SetTexCoord(0, 1, 0, 1)
 
-	--@debug@
+	--[===[@debug@
 	usedTooltips = usedTooltips - 1
-	--@end-debug@
+	--@end-debug@]===]
 end
 
 ------------------------------------------------------------------------------
@@ -492,9 +518,9 @@ local tableHeap = lib.tableHeap
 -- Returns a table
 function AcquireTable()
 	local tbl = tremove(tableHeap) or {}
-	--@debug@
+	--[===[@debug@
 	usedTables = usedTables + 1
-	--@end-debug@
+	--@end-debug@]===]
 	return tbl
 end
 
@@ -502,9 +528,9 @@ end
 function ReleaseTable(tableInstance)
 	wipe(tableInstance)
 	tinsert(tableHeap, tableInstance)
-	--@debug@
+	--[===[@debug@
 	usedTables = usedTables - 1
-	--@end-debug@
+	--@end-debug@]===]
 end
 
 ------------------------------------------------------------------------------
@@ -669,19 +695,15 @@ end
 ------------------------------------------------------------------------------
 -- Scrollbar data and functions
 ------------------------------------------------------------------------------
-local sliderBackdrop = {
-	bgFile = [[Interface\Buttons\UI-SliderBar-Background]],
-	edgeFile = [[Interface\Buttons\UI-SliderBar-Border]],
+local BACKDROP_SLIDER_8_8 = BACKDROP_SLIDER_8_8 or {
+	bgFile = "Interface\\Buttons\\UI-SliderBar-Background",
+	edgeFile = "Interface\\Buttons\\UI-SliderBar-Border",
 	tile = true,
-	edgeSize = 8,
+	tileEdge = true,
 	tileSize = 8,
-	insets = {
-		left = 3,
-		right = 3,
-		top = 3,
-		bottom = 3
-	}
-}
+	edgeSize = 8,
+	insets = { left = 3, right = 3, top = 6, bottom = 6 },
+};
 
 local function slider_OnValueChanged(self)
 	self.scrollFrame:SetVerticalScroll(self:GetValue())
@@ -732,13 +754,13 @@ function tipPrototype:UpdateScrolling(maxheight)
 		self.scrollFrame:SetPoint("RIGHT", self, "RIGHT", -(TOOLTIP_PADDING + 20), 0)
 
 		if not self.slider then
-			local slider = CreateFrame("Slider", nil, self)
+			local slider = CreateFrame("Slider", nil, self, BackdropTemplateMixin and "BackdropTemplate")
 			slider.scrollFrame = self.scrollFrame
 
 			slider:SetOrientation("VERTICAL")
 			slider:SetPoint("TOPRIGHT", self, "TOPRIGHT", -TOOLTIP_PADDING, -TOOLTIP_PADDING)
 			slider:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -TOOLTIP_PADDING, TOOLTIP_PADDING)
-			slider:SetBackdrop(sliderBackdrop)
+			slider:SetBackdrop(BACKDROP_SLIDER_8_8)
 			slider:SetThumbTexture([[Interface\Buttons\UI-SliderBar-Button-Vertical]])
 			slider:SetMinMaxValues(0, 1)
 			slider:SetValueStep(1)
@@ -1452,7 +1474,7 @@ function tipPrototype:SetAutoHideDelay(delay, alternateFrame, releaseHandler)
 
 	if delay > 0 then
 		if not timerFrame then
-			timerFrame = AcquireFrame(self)
+			timerFrame = AcquireTimer(self)
 			timerFrame:SetScript("OnUpdate", AutoHideTimerFrame_OnUpdate)
 
 			self.autoHideTimerFrame = timerFrame
@@ -1470,7 +1492,7 @@ function tipPrototype:SetAutoHideDelay(delay, alternateFrame, releaseHandler)
 		timerFrame.alternateFrame = nil
 		timerFrame:SetScript("OnUpdate", nil)
 
-		ReleaseFrame(timerFrame)
+		ReleaseTimer(timerFrame)
 	end
 end
 
@@ -1526,4 +1548,4 @@ end
 
 SLASH_LibQTip1 = "/qtip"
 _G.SlashCmdList["LibQTip"] = PrintStats
---@end-debug@
+--@end-debug@]===]

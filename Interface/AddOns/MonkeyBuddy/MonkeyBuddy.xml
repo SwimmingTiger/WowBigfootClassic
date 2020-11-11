@@ -131,17 +131,6 @@
 		<Anchors>
 			<Anchor point="CENTER"/>
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
-		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture name="MonkeyBuddyFrame_TitleTexture" file="Interface\DialogFrame\UI-DialogBox-Header">
@@ -196,17 +185,6 @@
                     	</Offset>
                     </Anchor>
                 </Anchors>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-					<EdgeSize>
-						<AbsValue val="16"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val="16"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left="5" right="5" top="5" bottom="5"/>
-					</BackgroundInsets>
-				</Backdrop>	
 				<Frames>
 					<CheckButton name="MonkeyBuddyQuestCheck1" inherits="MonkeyBuddyCheckButtonTemplate">
 						<Anchors>
@@ -501,6 +479,19 @@
 					</Button>
 				</Frames>
 				<Scripts>
+					<OnLoad>
+						if BackdropTemplateMixin then
+							Mixin(MonkeyBuddyQuestFrame, BackdropTemplateMixin)
+						end
+						self:SetBackdrop({
+							bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background", 
+							edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+							tile = true,
+							tileSize = 16,
+							edgeSize = 16,
+							insets = {left = 5, right = 5, top = 5, bottom = 5},
+						})
+					</OnLoad>
 					<OnShow>
 						MonkeyBuddyQuestFrame_OnShow();
 					</OnShow>
@@ -509,6 +500,17 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
+				if BackdropTemplateMixin then
+					Mixin(MonkeyBuddyFrame, BackdropTemplateMixin)
+				end
+				self:SetBackdrop({
+					bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background", 
+					edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+					tile = true,
+					tileSize = 32,
+					edgeSize = 32,
+					insets = {left = 11, right = 12, top = 12, bottom = 11},
+				})
 				MonkeyBuddy_OnLoad(self);
 			</OnLoad>
 			<OnEvent>

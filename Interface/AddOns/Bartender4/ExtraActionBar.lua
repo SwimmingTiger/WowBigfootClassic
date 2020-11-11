@@ -34,12 +34,12 @@ end
 
 function ExtraActionBarMod:OnEnable()
 	if not self.bar then
-		self.bar = setmetatable(Bartender4.Bar:Create("ExtraActionBar", self.db.profile, L["Extra Action Bar"]), {__index = ExtraActionBar})
+		self.bar = setmetatable(Bartender4.Bar:Create("ExtraActionBar", self.db.profile, L["Extra Action Bar"], 2), {__index = ExtraActionBar})
 		self.bar.content = ExtraAbilityContainer
 
 		self.bar.content.ignoreFramePositionManager = true
+		self.bar.content:SetToplevel(false)
 		self.bar.content:SetParent(self.bar)
-		--self.bar.content:SetFrameLevel(self.bar:GetFrameLevel() + 1)
 	end
 	self.bar:Enable()
 	self:ToggleOptions()

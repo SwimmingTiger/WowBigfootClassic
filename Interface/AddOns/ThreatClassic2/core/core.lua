@@ -9,6 +9,7 @@ local select	= _G.select
 local unpack	= _G.unpack
 local type		= _G.type
 local floor		= _G.math.floor
+local min		= _G.math.min
 local strbyte	= _G.string.byte
 local format	= _G.string.format
 local strlen	= _G.string.len
@@ -34,6 +35,7 @@ local UnitIsPlayer			= _G.UnitIsPlayer
 local UnitName				= _G.UnitName
 local UnitReaction			= _G.UnitReaction
 local UnitIsUnit 			= _G.UnitIsUnit
+local FindAuraByName		= AuraUtil.FindAuraByName
 
 local screenWidth			= floor(GetScreenWidth())
 local screenHeight			= floor(GetScreenHeight())
@@ -154,6 +156,17 @@ local function CreateStatusBar(parent, header)
 		-- BG
 		bar.bg = bar:CreateTexture(nil, "BACKGROUND", nil, -6)
 		bar.bg:SetAllPoints(bar)
+		-- ignite indicator
+		bar.ignite = bar:CreateTexture(nil, "OVERLAY")
+		bar.ignite:SetPoint("LEFT", bar, 4, 0)
+		bar.ignite:SetTexture("Interface\\Icons\\Spell_Fire_Incinerate")
+		bar.ignite:SetTexCoord(0.07, 0.93, 0.07, 0.93)
+		if C.igniteIndicator.makeRound then
+			local mask = bar:CreateMaskTexture()
+			mask:SetTexture([[Interface\CHARACTERFRAME\TempPortraitAlphaMask]], "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+			mask:SetAllPoints(bar.ignite)
+			bar.ignite:AddMaskTexture(mask)
+		end
 		-- Name
 		bar.name = CreateFS(bar)
 		bar.name:SetJustifyH("LEFT")
@@ -227,23 +240,31 @@ local function DefaultUnitColor(unit)
 	else
 		colorUnit = FACTION_BAR_COLORS[UnitReaction(unit, "player")]
 	end
+	-- safeguard, i.e. if requested unit is out of draw distance
+	if colorUnit == nil then
+		colorUnit = FACTION_BAR_COLORS[5]
+	end
 	colorUnit = {colorUnit.r, colorUnit.g, colorUnit.b, C.bar.alpha}
 	return colorUnit
 end
 
-local function GetColor(unit, isTanking)
+local function GetColor(unit, isTanking, hasActiveIgnite)
 	if unit then
 		if UnitIsUnit(unit, "player") then
 			if C.customBarColors.playerEnabled then
 				return C.customBarColors.playerColor
 			elseif isTanking and C.customBarColors.activeTankEnabled then
 				return C.customBarColors.activeTankColor
+			elseif hasActiveIgnite and C.customBarColors.igniteEnabled then
+				return C.customBarColors.igniteColor
 			else
 				return DefaultUnitColor(unit)
 			end
 		else
 			if isTanking and C.customBarColors.activeTankEnabled then
 				return C.customBarColors.activeTankColor
+			elseif hasActiveIgnite and C.customBarColors.igniteEnabled then
+				return C.customBarColors.igniteColor
 			elseif C.customBarColors.otherUnitEnabled then
 				return C.customBarColors.otherUnitColor
 			else
@@ -259,6 +280,13 @@ function TC2:UpdateThreatBars()
 	-- sort the threat table
 	sort(self.threatData, Compare)
 	local playerIncluded = false
+
+	-- ignite
+	local igniteOwner = nil
+	local hasActiveIgnite = false
+	if C.bar.showIgniteIndicator or C.customBarColors.igniteEnabled then
+		igniteOwner = select(7, FindAuraByName(GetSpellInfo(12848), TC2.playerTarget, "HARMFUL"))
+	end
 	-- update view
 	for i = 1, C.bar.count do
 		-- get values out of table
@@ -268,11 +296,20 @@ function TC2:UpdateThreatBars()
 			if UnitIsUnit(data.unit, "player") then
 				playerIncluded = true
 			end
+			if igniteOwner and UnitIsUnit(igniteOwner, data.unit) then
+				bar.ignite:Show()
+				bar.name:SetPoint("LEFT", bar, 5+C.igniteIndicator.size, 0)
+				hasActiveIgnite = true
+			else
+				bar.ignite:Hide()
+				bar.name:SetPoint("LEFT", bar, 4, 0)
+				hasActiveIgnite = false
+			end
 			bar.name:SetText(UnitName(data.unit) or UNKNOWN)
 			bar.val:SetText(NumFormat(data.threatValue))
 			bar.perc:SetText(floor(data.threatPercent).."%")
 			bar:SetValue(data.threatPercent)
-			local color = GetColor(data.unit, data.isTanking)
+			local color = GetColor(data.unit, data.isTanking, hasActiveIgnite)
 			bar:SetStatusBarColor(unpack(color))
 			bar.bg:SetVertexColor(color[1] * C.bar.colorMod, color[2] * C.bar.colorMod, color[3] * C.bar.colorMod, C.bar.alpha)
 			bar.backdrop:SetBackdropColor(unpack(C.backdrop.bgColor))
@@ -289,11 +326,20 @@ function TC2:UpdateThreatBars()
 			if data and UnitIsUnit(data.unit, "player") then
 				if data.threatValue > 0 then
 					local bar = self.bars[C.bar.count]
+					if igniteOwner and UnitIsUnit(igniteOwner, data.unit) then
+						bar.ignite:Show()
+						bar.name:SetPoint("LEFT", bar, 5+C.igniteIndicator.size, 0)
+						hasActiveIgnite = true
+					else
+						bar.ignite:Hide()
+						bar.name:SetPoint("LEFT", bar, 4, 0)
+						hasActiveIgnite = false
+					end
 					bar.name:SetText(UnitName(data.unit) or UNKNOWN)
 					bar.val:SetText(NumFormat(data.threatValue))
 					bar.perc:SetText(floor(data.threatPercent).."%")
 					bar:SetValue(data.threatPercent)
-					local color = GetColor(data.unit, data.isTanking)
+					local color = GetColor(data.unit, data.isTanking, hasActiveIgnite)
 					bar:SetStatusBarColor(unpack(color))
 					bar.bg:SetVertexColor(color[1] * C.bar.colorMod, color[2] * C.bar.colorMod, color[3] * C.bar.colorMod, C.bar.alpha)
 					bar.backdrop:SetBackdropColor(unpack(C.backdrop.bgColor))
@@ -493,7 +539,7 @@ local function UpdateSize(f)
 	C.frame.width = f:GetWidth() - 2
 	C.frame.height = f:GetHeight()
 
-	C.bar.count = floor(C.frame.height / (C.bar.height + C.bar.padding - 1))
+	TC2:SetBarCount()
 
 	for i = 1, 40 do
 		if i <= C.bar.count and TC2.threatData[i] then
@@ -528,6 +574,10 @@ local function UpdateFont(fs)
 	fs:SetFont(LSM:Fetch("font", C.font.name), C.font.size, C.font.style)
 	fs:SetVertexColor(unpack(C.font.color))
 	fs:SetShadowOffset(C.font.shadow and 1 or 0, C.font.shadow and -1 or 0)
+end
+
+function TC2:SetBarCount()
+	C.bar.count = min(floor(C.frame.height / (C.bar.height + C.bar.padding - 1)), 40)
 end
 
 function TC2:UpdateFrame()
@@ -612,19 +662,47 @@ function TC2:UpdateBars()
 
 		-- BG
 		bar.bg:SetTexture(LSM:Fetch("statusbar", C.bar.texture))
+		-- ignite
+		bar.ignite:SetSize(C.igniteIndicator.size, C.igniteIndicator.size)
+		bar.ignite:Hide()
 		-- Name
 		bar.name:SetPoint("LEFT", bar, 4, 0)
 		UpdateFont(bar.name)
-		-- Perc
-		bar.perc:SetPoint("RIGHT", bar, -2, 0)
-		UpdateFont(bar.perc)
 		-- Value
 		-- bar.val:SetPoint("RIGHT", bar, -40, 0)
 		bar.val:SetPoint("RIGHT", bar, -(C.font.size * 3.5), 0)
 		UpdateFont(bar.val)
+		if C.bar.showThreatValue then
+			bar.val:Show()
+		else
+			bar.val:Hide()
+		end
+		-- Perc
+		bar.perc:SetPoint("RIGHT", bar, -2, 0)
+		UpdateFont(bar.perc)
+		if C.bar.showThreatPercentage then
+			bar.perc:Show()
+		else
+			bar.perc:Hide()
+		end
 
-		-- Adjust Name
-		bar.name:SetPoint("RIGHT", bar.val, "LEFT", -10, 0) -- right point of name is left point of value
+		-- Adjust anchor points
+		if C.bar.showThreatValue then
+			-- move val to the right if percentage isn't shown
+			if not C.bar.showThreatPercentage then
+				bar.val:SetPoint("RIGHT", bar, -2, 0)
+			end
+			 -- right point of name is left point of value
+			bar.name:SetPoint("RIGHT", bar.val, "LEFT", -10, 0)
+		else
+			if C.bar.showThreatPercentage then
+				 -- right point of name is left point of perc
+				bar.name:SetPoint("RIGHT", bar.perc, "LEFT", -10, 0)
+			else
+				-- anchor to right of bar
+				bar.name:SetPoint("RIGHT", bar, "RIGHT", -10, 0)
+			end
+		end
 	end
 	TC2:UpdateThreatBars()
 end
@@ -767,8 +845,7 @@ function TC2:PLAYER_LOGIN()
 	self.db.RegisterCallback(self, "OnProfileCopied", "RefreshProfile")
 	self.db.RegisterCallback(self, "OnProfileReset", "RefreshProfile")
 
-	C.bar.count = floor(C.frame.height / (C.bar.height + C.bar.padding - 1))
-
+	self:SetBarCount()
 	self:SetupUnits()
 	self:SetupFrame()
 	self:SetupMenu()
@@ -936,6 +1013,7 @@ TC2.configTable = {
 				updateFreq = {
 					order = 5,
 					name = L.general_updateFreq,
+					desc = L.general_updateFreq_desc,
 					type = "range",
 					width = "double",
 					min = 0.05,
@@ -1093,7 +1171,7 @@ TC2.configTable = {
 									end,
 									set = function(info, value)
 										C[info[2]][info[4]] = value
-										C.bar.count = floor(C.frame.height / (C.bar.height + C.bar.padding - 1))
+										TC2:SetBarCount()
 										TC2:UpdateFrame()
 									end,
 								},
@@ -1110,7 +1188,7 @@ TC2.configTable = {
 									end,
 									set = function(info, value)
 										C[info[2]][info[4]] = value
-										C.bar.count = floor(C.frame.height / (C.bar.height + C.bar.padding - 1))
+										TC2:SetBarCount()
 										TC2:UpdateFrame()
 									end,
 								},
@@ -1234,11 +1312,50 @@ TC2.configTable = {
 							type = "select",
 							dialogControl = 'LSM30_Statusbar',
 							values = AceGUIWidgetLSMlists.statusbar,
-						}
+						},
+						showThreatValue = {
+							order = 7,
+							name = L.bar_showThreatValue,
+							type = "toggle",
+						},
+						showThreatPercentage = {
+							order = 8,
+							name = L.bar_showThreatPercentage,
+							type = "toggle",
+						},
+						showIgniteIndicator = {
+							order = 9,
+							name = L.bar_showIgniteIndicator,
+							desc = L.bar_showIgniteIndicator_desc,
+							type = "toggle",
+						},
 					},
 				},
-				customBarColors = {
+				igniteIndicator = {
 					order = 3,
+					name = L.igniteIndicator,
+					type = "group",
+					inline = true,
+					hidden = function() return not C.bar.showIgniteIndicator end,
+					args = {
+						size = {
+							order = 1,
+							name = L.igniteIndicator_size,
+							type = "range",
+							min = 6,
+							max = 64,
+							step = 0.1,
+						},
+						makeRound = {
+							order = 2,
+							name = L.igniteIndicator_makeRound,
+							desc = L.igniteIndicator_makeRound_desc,
+							type = "toggle",
+						}
+					}
+				},
+				customBarColors = {
+					order = 4,
 					name = L.customBarColors,
 					type = "group",
 					inline = true,
@@ -1246,6 +1363,7 @@ TC2.configTable = {
 						playerEnabled = {
 							order = 1,
 							name = L.customBarColorsPlayer_enabled,
+							desc = L.customBarColorsPlayer_desc,
 							type = "toggle",
 						},
 						activeTankEnabled = {
@@ -1258,8 +1376,14 @@ TC2.configTable = {
 							name = L.customBarColorsOtherUnit_enabled,
 							type = "toggle",
 						},
-						colors = {
+						igniteEnabled = {
 							order = 4,
+							name = L.customBarColorsIgnite_enabled,
+							desc = L.customBarColorsIgnite_desc,
+							type = "toggle",
+						},
+						colors = {
+							order = 5,
 							name = L.color,
 							type = "group",
 							inline = false,
@@ -1293,12 +1417,18 @@ TC2.configTable = {
 									type = "color",
 									hasAlpha = true,
 								},
+								igniteColor = {
+									order = 4,
+									name = L.customBarColorsIgnite_color,
+									type = "color",
+									hasAlpha = true,
+								},
 							},
 						},
 					},
 				},
 				font = {
-					order = 4,
+					order = 5,
 					name = L.font,
 					type = "group",
 					inline = true,
@@ -1338,7 +1468,7 @@ TC2.configTable = {
 					},
 				},
 				reset = {
-					order = 5,
+					order = 6,
 					name = L.reset,
 					type = "execute",
 					func = function(info, value)

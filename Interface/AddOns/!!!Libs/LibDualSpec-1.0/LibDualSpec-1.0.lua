@@ -34,7 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -- just bail out on classic, there is no DualSpec there
 if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then return end
 
-local MAJOR, MINOR = "LibDualSpec-1.0", 17
+local MAJOR, MINOR = "LibDualSpec-1.0", 18
 assert(LibStub, MAJOR.." requires LibStub")
 local lib, minor = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
@@ -270,10 +270,6 @@ end
 -- AceDBOptions-3.0 support
 -- ----------------------------------------------------------------------------
 
-local function NoDualSpec()
-	return UnitLevel("player") < 11
-end
-
 options.new = {
 	name = "New",
 	type = "input",
@@ -311,7 +307,6 @@ options.enabled = {
 	width = "full",
 	get = function(info) return info.handler.db:IsDualSpecEnabled() end,
 	set = function(info, value) info.handler.db:SetDualSpecEnabled(value) end,
-	hidden = NoDualSpec,
 }
 
 for i = 1, numSpecs do
@@ -325,7 +320,6 @@ for i = 1, numSpecs do
 		values = "ListProfiles",
 		arg = "common",
 		disabled = function(info) return not info.handler.db:IsDualSpecEnabled() end,
-		hidden = NoDualSpec,
 	}
 end
 
@@ -437,4 +431,29 @@ else
 	lib.eventFrame:RegisterEvent("PLAYER_LOGIN")
 end
 
-
+--@do-not-package@
+if not lib.testdb then
+	local AC = LibStub("AceConfig-3.0", true)
+	local ACD = LibStub("AceConfigDialog-3.0", true)
+	local ADO = LibStub("AceDBOptions-3.0", true)
+	if AC and ACD and ADO then
+		local key = format("%s-%d test", MAJOR, MINOR)
+		local testdb = LibStub('AceDB-3.0'):New(key)
+		lib.testdb = testdb
+		testdb:RegisterCallback("OnNewProfile", print)
+		testdb:RegisterCallback("OnProfileChanged", print)
+		testdb:RegisterCallback("OnProfileShutdown", print)
+		testdb:RegisterCallback("OnProfileCopied", print)
+		testdb:RegisterCallback("OnProfileDeleted", print)
+		testdb:RegisterCallback("OnProfileReset", print)
+		testdb:RegisterCallback("OnDatabaseReset", print)
+		testdb:RegisterCallback("OnDatabaseShutdown", print)
+		lib:EnhanceDatabase(testdb, key)
+		local options = ADO:GetOptionsTable(testdb)
+		lib:EnhanceOptions(options, testdb)
+		AC:RegisterOptionsTable(key, options)
+		SlashCmdList["SPECPROFILES"] = function() ACD:Open(key) end
+		SLASH_SPECPROFILES1 = "/testdb"
+	end
+end
+--@end-do-not-package@

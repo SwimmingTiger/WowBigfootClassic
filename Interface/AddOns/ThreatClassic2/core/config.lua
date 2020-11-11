@@ -63,6 +63,14 @@ defaultConfig.bar = {
 	texture				= defaultTexture,						-- texture file location
 	alpha				= 1,									-- statusbar alpha
 	colorMod			= 0,									-- color modifier
+	showThreatValue		= true,									-- show threat value in bar
+	showThreatPercentage = true,								-- show threat percentage in bar
+	showIgniteIndicator = true,									-- show ignite icon when target has ignite
+}
+
+defaultConfig.igniteIndicator = {
+	size				= 10,									-- ignite indicator icon size
+	makeRound			= false,								-- makes the texture round
 }
 
 --bar custom color settings
@@ -70,9 +78,11 @@ defaultConfig.customBarColors  = {
 	playerEnabled		= false,								-- enable custom color for player
 	activeTankEnabled	= false,								-- enable custom color for active tank
 	otherUnitEnabled	= false,								-- enable custom color for other units
+	igniteColorEnabled	= false,								-- enable custom color for active ignite player
 	playerColor			= {0.8, 0, 0, 1},						-- custom color for player
 	activeTankColor		= {0, 0.8, 0, 1},						-- custom color for active tank
 	otherUnitColor		= {0.3, 0.3, 0.3, 1},					-- custom color for other units
+	igniteColor			= {1.0, 0.6, 0, 1},						-- custom color for active ignite player
 }
 
 -- font settings

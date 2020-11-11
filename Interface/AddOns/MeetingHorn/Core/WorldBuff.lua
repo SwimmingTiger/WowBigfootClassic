@@ -50,9 +50,7 @@ WorldBuff:Disable()
 
 function WorldBuff:OnEnable()
     self.data = {}
-    self.instance = nil
     self:RegisterEvent('CHAT_MSG_MONSTER_YELL')
-    self:RegisterEvent('UPDATE_MOUSEOVER_UNIT')
     self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
     --[===[@debug@
     print('buff enable')
@@ -170,16 +168,23 @@ end
 --[===[@debug@
 function WorldBuff:Test()
     local data = self:GetData()
-    if not data or not self.instance.id then
-        print('Not hover npc')
+    if not data then
+        print('INVALID DATA')
         return
     end
+
+    local unitType, _, _, _, zoneId, npcId = strsplit('-', UnitGUID('target'))
+    if unitType ~= 'Creature' then
+        print('Target a NPC Please')
+        return
+    end
+
     for k, item in pairs(data) do
         if k ~= 'zone' then
-            ns.LFG:KillWorldBuffNpc(self.instance.id, item.npc)
-            print('KillWorldBuffNpc', self.instance.id, item.npc)
-            ns.LFG:WorldBuff(self.instance.id, item.npc, item.id)
-            print('WorldBuff', self.instance.id, item.npc, item.id)
+            ns.LFG:KillWorldBuffNpc(zoneId, item.npc)
+            print('KillWorldBuffNpc', zoneId, item.npc)
+            ns.LFG:WorldBuff(zoneId, item.npc, item.id)
+            print('WorldBuff', zoneId, item.npc, item.id)
         end
     end
 end
@@ -194,18 +199,6 @@ C_Timer.After(3, function()
     end
 end)
 --@end-debug@]===]
-
-function WorldBuff:UPDATE_MOUSEOVER_UNIT()
-    local guid = UnitGUID('mouseover')
-    if not guid then
-        return
-    end
-
-    local unitType, _, _, _, zoneId, npcId = strsplit('-', guid)
-    if unitType == 'Creature' then
-        self.instance = {id = tonumber(zoneId), t = GetServerTime()}
-    end
-end
 
 function WorldBuff:COMBAT_LOG_EVENT_UNFILTERED()
     local timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
@@ -236,24 +229,19 @@ function WorldBuff:COMBAT_LOG_EVENT_UNFILTERED()
               destFlags, destRaidFlags, _, spellName)
         --@end-debug@]===]
 
-        if not self.instance then
-            --[===[@debug@
-            print('No instance Id')
-            --@end-debug@]===]
+        local unitType, _, _, _, zoneId, npcId = strsplit('-', sourceGUID)
+        if unitType ~= 'Creature' then
             return
         end
 
-        --@non-debug@
-        if GetServerTime() - self.instance.t > 120 then
-            return
-        end
-        --@end-non-debug@
+        --[===[@debug@
+        print('Instance id', zoneId)
+        --@end-debug@]===]
 
         for spellId, v in pairs(self.data) do
             local npc = self:CheckValidBuff(spellName, spellId, v)
             if npc then
-                ns.LFG:WorldBuff(self.instance.id, npc, spellId)
-                self.instance = nil
+                ns.LFG:WorldBuff(zoneId, npc, spellId)
                 -- 回传一次就清空
                 wipe(self.data)
                 break
