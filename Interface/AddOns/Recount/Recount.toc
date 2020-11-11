@@ -11,7 +11,7 @@
 ## SavedVariablesPerCharacter: RecountPerCharDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-## LoadOnDemand: 1
+## DefaultState: disabled
 
 Libs\LibDropDown-1.0\LibDropdown-1.0.lua
 Libs\LibGraph-2.0\LibGraph-2.0.lua
