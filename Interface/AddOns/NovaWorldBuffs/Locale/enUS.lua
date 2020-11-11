@@ -548,53 +548,37 @@ L["enableLayerButton"] = "Enable Layer";
 L["disableLayerButton"] = "Disable Layer";
 L["enableLayerButtonTooltip"] = "Click to re-enable this layer,\nIt will be put back into timer and layer calcs.";
 L["disableLayerButtonTooltip"] = "Click to disable this old layer after server restarts.\nIt will be ignored by the addon and removed later.";
-
 L["minimapLayerHoverTitle"] = "Minimap Mouseover";
 L["minimapLayerHoverDesc"] = "Only show the minimap layer number frame when you hover the mouse over the minimap?";
-
 L["Blackrock Mountain"] = "Blackrock Mountain";
-
 L["soundsNpcKilledTitle"] = "NPC Killed";
 L["soundsNpcKilledDesc"] = "Sound to play when a buff NPC is killed to reset a timer.";
-
 L["autoDmfBuffCharsText"] = "Darkmoon Faire Character Specific Buff Settings";
-
 L["middleNpcKilledTitle"] = "NPC Killed";
 L["middleNpcKilledDesc"] = "Show a raid warning style msg in the middle of the screen when an Ony or Nef NPC is killed for a buff reset.";
-
 L["chatNpcKilledTitle"] = "NPC Killed";
 L["chatNpcKilledDesc"] = "Print a msg in chat when an Ony or Nef NPC is killed for a buff reset.";
-
 L["onyxiaNpcRespawnHorde"] = "Onyxia NPC (Runthak) will respawn at a random time within the next 2 minutes.";
 L["nefarianNpcRespawnHorde"] = "Nefarian NPC (Saurfang) will respawn at a random time within the next 2 minutes.";
 L["onyxiaNpcRespawnAlliance"] = "Onyxia NPC (Mattingly) will respawn at a random time within the next 2 minutes.";
 L["nefarianNpcRespawnAlliance"] = "Nefarian NPC (Afrasiabi) will respawn at a random time within the next 2 minutes.";
-
 L["onyxiaNpcKilledHordeWithTimer2"] = "Onyxia NPC (Runthak) was killed %s ago, respawn in %s.";
 L["nefarianNpcKilledHordeWithTimer2"] = "Nefarian NPC (Saurfang) was killed %s ago, respawn in %s.";
 L["onyxiaNpcKilledAllianceWithTimer2"] = "Onyxia NPC (Mattingly) was killed %s ago, respawn in %s.";
 L["nefarianNpcKilledAllianceWithTimer2"] = "Nefarian NPC (Afrasiabi) was killed %s ago, respawn in %s.";
-
 L["flashNpcKilledTitle"] = "Flash NPC Killed";
 L["flashNpcKilledDesc"] = "Flash the wow client when a buff NPC is killed?";
-
 L["trimDataHeaderDesc"] = "Data Cleanup";
-
 L["trimDataBelowLevelTitle"] = "Maximum Level To Remove";
 L["trimDataBelowLevelDesc"] = "Select maximum level of characters to remove from database, all characters this level and below will be deleted.";
-
 L["trimDataBelowLevelButtonTitle"] = "Remove Characters";
 L["trimDataBelowLevelButtonDesc"] = "Click this button to remove all characters with the selected level and lower from this addon database. Note: This removes buff count data permanently.";
-
 L["trimDataTextDesc"] = "Remove multiple characters from buffs database:";
 L["trimDataText2Desc"] = "Remove one character from buffs database:";
-
 L["trimDataCharInputTitle"] = "Remove One Character Input";
 L["trimDataCharInputDesc"] = "Type a character here to remove, format as Name-Realm (Case sensitive). Note: This removes buff count data permanently.";
-
 L["trimDataBelowLevelButtonConfirm"] = "Are you sure you want to remove all characters below level %s from the database?";
 L["trimDataCharInputConfirm"] = "Are you sure you want to remove this character %s from the database?";
-
 L["trimDataMsg1"] = "Buff records have been reset."
 L["trimDataMsg2"] = "Removing all chars below level %s.";
 L["trimDataMsg3"] = "Removed: %s.";
@@ -604,34 +588,24 @@ L["trimDataMsg6"] = "Please enter a valid Character-Name to delete from database
 L["trimDataMsg7"] = "This character name %s doesn't include a realm, please input Name-Realm.";
 L["trimDataMsg8"] = "Error removing %s from the database, character not found (name is case sensitive).";
 L["trimDataMsg9"] = "Removed %s from the database.";
-
 L["serverTime"] = "server time";
 L["serverTimeShort"] = "st";
-
 L["showUnbuffedAltsTitle"] = "Show Unbuffed Alts";
 L["showUnbuffedAltsDesc"] = "Show alts without any buffs in the buffs window? This is so you can see what characters have no buffs if you would like.";
-
 L["timerWindowWidthTitle"] = "Timer Window Width";
 L["timerWindowWidthDesc"] = "How wide should the timer window be.";
-
 L["timerWindowHeightTitle"] = "Timer Window Height";
 L["timerWindowHeghtDesc"] = "How high should the timer window be.";
-
 L["buffWindowWidthTitle"] = "Buff Window Width";
 L["buffWindowWidthDesc"] = "How wide should the buff window be.";
-
 L["buffWindowHeightTitle"] = "Buff Window Height";
 L["buffWindowHeghtDesc"] = "How high should the buff window be.";
-
 L["dmfSettingsListTitle"] = "DMF Buffs List";
 L["dmfSettingsListDesc"] = "Click this to show a list of your alts DMF buff type settings.";
-
 L["ignoreKillDataTitle"] = "Ignore NPC Killed Data";
 L["ignoreKillDataDesc"] = "Ignore any NPC killed data from being recorded.";
-			
 L["noOverwriteTitle"] = "Dont Overwrite Timers";
 L["noOverwriteDesc"] = "You can enable this so if you have a valid timer already running you will ignore any new data for that timer until the timer ends.";
-
 L["layerMsg1"] = "You are on a layered realm.";
 L["layerMsg2"] = "Click here to view current timers.";
 L["layerMsg3"] = "Target any NPC to see your current layer.";

@@ -1,12 +1,12 @@
-lightweight tag 5af3ac2a91a27eb287862ed968e714e7936b434b 1.13.5.12
+lightweight tag 8015b80079ef87f0537003951162d66b728de42d 1.13.5.17
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Mon Sep 7 19:18:39 2020 +0200
+Date:	Sun Oct 25 14:23:48 2020 +0100
 
-commit 5af3ac2a91a27eb287862ed968e714e7936b434b
+commit 8015b80079ef87f0537003951162d66b728de42d
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Mon Sep 7 19:16:46 2020 +0200
+Date:   Sun Oct 25 14:22:16 2020 +0100
 
-    Fixed 'unit' prefix
+    Fixed the 'my' syntax for custom color conditions
     
-    - Fixed the 'unit' prefix for custom color conditions
+    - Fixed the 'my' syntax for custom color conditions when a non-player version of the aura also existed.
 

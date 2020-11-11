@@ -19,6 +19,11 @@ L["Flask of Chromatic Resistance"] = "多重抗性合剂";
 L["Supreme Power"] = "至高能量";
 L["Distilled Wisdom"] = "萃取智慧";
 L["Chromatic Resistance"] = "多彩抗性";
+L["Sap"] = "闷棍";
+L["Fire Festival Fortitude"] = "火焰节之韧";
+L["Fire Festival Fury"] = "火焰节之怒";
+L["Ribbon Dance"] = "彩带之舞";
+L["Traces of Silithyst"] = "水晶尘迹";
 
 ---=====---
 ---Horde---
@@ -157,8 +162,6 @@ L["endsIn"] = "将于 %s 后结束"; --"Ends in 1hour".
 L["versionOutOfDate"] = "Nova World Buffs 插件已过期，请前往 https://www.curseforge.com/wow/addons/nova-world-buffs 或在 twitch 上更新。";
 L["Your Current World Buffs"] = "当前的世界Buffs";
 L["Options"] = "设置";
-
----New stuff---
 
 --Spirit of Zandalar buff NPC first yell string (part of his first yell msg before before buff).
 L["Begin the ritual"] = "开始仪式";
@@ -388,7 +391,7 @@ L["showExpiredTimersTitle"] = "显示过期时间计时器";
 L["showExpiredTimersDesc"] = "在费伍德地图上显示过期时间计时器。它们将以红色文字显示，计时器已过期多长时间，默认时间是5分钟(玩家反馈风歌花刷新后5分钟内将保持已净化状态，不需要净化就可以直接采集)。";
 
 L["expiredTimersDurationTitle"] = "过期时间计时器周期";
-L["expiredTimersDurationDesc"] = "世界地图上的Felwood计时器在到期后应显示多长时间。";
+L["expiredTimersDurationDesc"] = "世界地图上的费伍德森林计时器在到期后应显示多长时间。";
 
 ---Darkmoon Faire---
 L["dmfHeaderDesc"] = "暗月马戏团(DMF)";
@@ -494,7 +497,7 @@ L["dispelsHeaderDesc"] = "Buff被驱散提示";
 L["dispelsMineTitle"] = "我的Buff";
 L["dispelsMineDesc"] = "在聊天频道显示我的Buff被驱散了。这将提示谁驱散了你的什么Buff。";
 
-L["dispelsMineWBOnlyTitle"] = "我的世界Buff";
+L["dispelsMineWBOnlyTitle"] = "仅世界Buff";
 L["dispelsMineWBOnlyDesc"] = "仅在聊天频道显示我的世界Buff被驱散了，而忽略其他任何Buff。";
 
 L["soundsDispelsMineTitle"] = "我的Buff被驱散提示音";
@@ -530,7 +533,7 @@ L["autoBwlPortalTitle"] = "黑翼之巢自动传送";
 L["autoBwlPortalDesc"] = "当你点击了黑翼之巢门口的[命令宝珠]时，插件会自动选择对话，从而将你传送到黑翼之巢副本内。";
 
 L["showBuffStatsTitle"] = "显示Buff计数器";
-L["showBuffStatsDesc"] = "在/buffs命令出现的窗口中显示你获得的每个世界Buff的次数。";
+L["showBuffStatsDesc"] = "在/buffs命令出现的窗口中显示每个世界Buff你已获得的的次数。";
 
 L["buffResetButtonTooltip"] = "重置所有已记录的Buffs。\nBuff计数器数据不会被重置。"; --Reset button tooltip for the /buffs frame.
 L["time"] = "(%s次)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
@@ -540,7 +543,7 @@ L["flowerWarning"] = "你在开启了位面的服务器上采集了风歌花，�
 L["mmColorTitle"] = "小地图位面信息颜色";
 L["mmColorDesc"] = "设置小地图位面信息文本(位面1)的颜色";
 
----new---
+---New---
 L["layerHasBeenDisabled"] = "位面%s已禁用，此位面仍在数据库中,但是将被忽略,直到你再次启用它或它被检测为是有效的。";
 L["layerHasBeenEnabled"] = "位面%s已启用，此位面会重新显示计时器和位面计数。";
 L["layerDoesNotExist"] = "位面ID %s在数据库中不存在。";
@@ -548,56 +551,37 @@ L["enableLayerButton"] = "启用位面";
 L["disableLayerButton"] = "禁用位面";
 L["enableLayerButtonTooltip"] = "单击以重新启用此位面。\n此位面将被重新放回计时器和位面计算中。";
 L["disableLayerButtonTooltip"] = "在服务器重启后，单击以禁用此位面。\n插件将忽略此位面并在稍后将其删除。";
-
+L["minimapLayerHoverTitle"] = "小地图自动隐藏";
+L["minimapLayerHoverDesc"] = "仅当鼠标滑过小地图时才显示位面信息。";
 L["Blackrock Mountain"] = "黑石山";
-
-L["onyxiaNpcKilledHordeWithTimer2"] = "奥妮克希亚 NPC (伦萨克) 已于 %s 前被击杀，将于 %s 后刷新。";
-L["nefarianNpcKilledHordeWithTimer2"] = "奈法利安 NPC (萨鲁法尔大王) 已于 %s 前被击杀，将于 %s 后刷新。";
-L["onyxiaNpcKilledAllianceWithTimer2"] = "奥妮克希亚 NPC (玛丁雷少校) 已于 %s 前被击杀，将于 %s 后刷新。";
-L["nefarianNpcKilledAllianceWithTimer2"] = "奈法利安 NPC (艾法希比元帅) 已于 %s 前被击杀，将于 %s 后刷新。";
-
+L["soundsNpcKilledTitle"] = "NPC被击杀提示音";
+L["soundsNpcKilledDesc"] = "当Buff NPC被击杀时，播放提示音。";
+L["autoDmfBuffCharsText"] = "暗夜马戏团角色专用Buff设置:";
+L["middleNpcKilledTitle"] = "NPC被击杀";
+L["middleNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀时，在屏幕中间显示提示信息。";
+L["chatNpcKilledTitle"] = "NPC被击杀";
+L["chatNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀时，向聊天窗口发送提示信息。";
 L["onyxiaNpcRespawnHorde"] = "奥妮克希亚 NPC (伦萨克)将在接下来2分钟之内的任意时间刷新。";
 L["nefarianNpcRespawnHorde"] = "奈法利安 NPC (萨鲁法尔大王)将在接下来2分钟之内的任意时间刷新。";
 L["onyxiaNpcRespawnAlliance"] = "奥妮克希亚 NPC (玛丁雷少校)将在接下来2分钟之内的任意时间刷新。";
 L["nefarianNpcRespawnAlliance"] = "奈法利安 NPC (艾法希比元帅)将在接下来2分钟之内的任意时间刷新。";
-
-L["soundsNpcKilledTitle"] = "NPC被击杀提示音";
-L["soundsNpcKilledDesc"] = "当Buff NPC被击杀以重置计时器时，播放提示音。";
-
-L["autoDmfBuffCharsText"] = "暗夜马戏团角色专用Buff设置:";
-
-L["middleNpcKilledTitle"] = "NPC被击杀";
-L["middleNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀以重置计时器时，在屏幕中央发送一条团队警报样式的提示信息。";
-
-L["chatNpcKilledTitle"] = "NPC被击杀";
-L["chatNpcKilledDesc"] = "当奥妮克希亚或者奈法利安Buff NPC被击杀以重置计时器时，在聊天频道中发送一条提示信息。";
-
+L["onyxiaNpcKilledHordeWithTimer2"] = "奥妮克希亚 NPC (伦萨克) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["nefarianNpcKilledHordeWithTimer2"] = "奈法利安 NPC (萨鲁法尔大王) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["onyxiaNpcKilledAllianceWithTimer2"] = "奥妮克希亚 NPC (玛丁雷少校) 已于 %s 前被击杀，将于 %s 后刷新。";
+L["nefarianNpcKilledAllianceWithTimer2"] = "奈法利安 NPC (艾法希比元帅) 已于 %s 前被击杀，将于 %s 后刷新。";
 L["flashNpcKilledTitle"] = "NPC被击杀后闪烁";
 L["flashNpcKilledDesc"] = "当一个Buff NPC被击杀后，闪烁魔兽世界图标。";
-
-L["minimapLayerHoverTitle"] = "小地图自动隐藏";
-L["minimapLayerHoverDesc"] = "仅当鼠标滑过小地图时才显示位面信息。";
-
-L["showUnbuffedAltsTitle"] = "显示无世界Buff小号";
-L["showUnbuffedAltsDesc"] = "显示那些没有Buff的小号，这样你可以知道上什么号不会浪费Buff时间。";
-
 L["trimDataHeaderDesc"] = "数据库维护";
- 
 L["trimDataBelowLevelTitle"] = "依据等级删除";
 L["trimDataBelowLevelDesc"] = "选择一个等级，低于或等于该等级的角色将被从数据库中删除。";
- 
 L["trimDataBelowLevelButtonTitle"] = "删除角色";
 L["trimDataBelowLevelButtonDesc"] = "点击按钮将从数据库中删除所有等级低于滑动条的角色。注意：删除是不可逆的。";
- 
 L["trimDataTextDesc"] = "从数据库中删除部分角色：";
 L["trimDataText2Desc"] = "从数据库中删除特定角色：";
- 
 L["trimDataCharInputTitle"] = "输入角色名称";
 L["trimDataCharInputDesc"] = "输入希望删除的角色名称，格式为 名字-服务器(区分大小写)。注意：删除是不可逆的。";
- 
 L["trimDataBelowLevelButtonConfirm"] = "确定从数据库中删除等级低于%s的角色？";
 L["trimDataCharInputConfirm"] = "确定从数据库中删除%s这个角色？";
- 
 L["trimDataMsg1"] = "数据库已重置."
 L["trimDataMsg2"] = "删除%s级以下的所有角色.";
 L["trimDataMsg3"] = "删除：%s。";
@@ -607,15 +591,30 @@ L["trimDataMsg6"] = "请输入有效的角色名称。";
 L["trimDataMsg7"] = "该角色名称%s不包含服务器名称，请输入服务器名称。";
 L["trimDataMsg8"] = "从数据库中删除[%s]时出错，角色未找到(区分大小写)。";
 L["trimDataMsg9"] = "从数据库中删除[%s]。";
-
 L["serverTime"] = "服务器时间";
 L["serverTimeShort"] = "服务器时间";
-
 L["showUnbuffedAltsTitle"] = "显示没有Buff的小号";
-L["showUnbuffedAltsDesc"] = "在输入/buffs 出现的窗口中显示所有没有任何Buff的小号。这样你就可以查看哪些小号没有Buff了。";
-
+L["showUnbuffedAltsDesc"] = "显示那些没有Buff的小号，这样你可以知道上什么号不会浪费Buff时间。";
+L["timerWindowWidthTitle"] = "计时器宽度";
+L["timerWindowWidthDesc"] = "决定计时器的宽度。";
+L["timerWindowHeightTitle"] = "计时器高度";
+L["timerWindowHeghtDesc"] = "决定计时器的高度。";
+L["buffWindowWidthTitle"] = "Buff窗口宽度";
+L["buffWindowWidthDesc"] = "决定Buff窗口的宽度。";
+L["buffWindowHeightTitle"] = "Buff窗口高度";
+L["buffWindowHeghtDesc"] = "决定Buff窗口的高度。";
 L["dmfSettingsListTitle"] = "暗月Buff策略列表";
 L["dmfSettingsListDesc"] = "点此显示每个角色的暗月马戏团Buff设置。";
+L["ignoreKillDataTitle"] = "忽略NPC被击杀数据";
+L["ignoreKillDataDesc"] = "忽略数据库中的NPC被击杀信息。";
+L["noOverwriteTitle"] = "禁止复写计时器";
+L["noOverwriteDesc"] = "如果已有一个准确的计时器在运行，你可以选中此项以忽略其他计时器信息带来的干扰。";
+L["layerMsg1"] = "你的服务器拥有位面。";
+L["layerMsg2"] = "点击查看当前计时器。";
+L["layerMsg3"] = "选中任意NPC显示所在位面信息。";
+L["layerMsg4"] = "选中%s的任意NPC显示所在位面信息。"; --Target any NPC in Orgrimmar to see your current layer.
+
+--NOTE: Darkmoon Faire buff type is now a character specific setting, changing buff type will only change it for this character.
 L["note"] = "注意："
 L["dmfConfigWarning"] = "暗月马戏团Buff设定现在不再是全局设定，而变成了一个针对当前角色的设定。你的设置仅对当前角色生效。"
 
@@ -635,8 +634,6 @@ L["Server Time"] = "服务器时间"
 L["Buffs"] = "世界Buff"
 L["Layer Map"] = "位面"
 
-L["|cFF9CD6DETarget any NPC in Orgrimmar to see your current layer.|r"] = "|cFF9CD6DE点击任意NPC获取奥格瑞玛位面信息。|r"
-L["|cFF9CD6DETarget any NPC in Stormwind to see your current layer.|r"] = "|cFF9CD6DE点击任意NPC获取暴风城位面信息。|r"
 L["|cFF9CD6DEYou are currently on |cff00ff00[Layer "] = "|cFF9CD6DE你正在|cff00ff00[位面 "
 L["|cff00ff00[Layer "] = "|cff00ff00[位面"
 L["\n|cff00ff00[Layer "] = "\n|cff00ff00[位面"
@@ -644,7 +641,6 @@ L["]|r  |cFF989898(zone "] = "]|r  |cFF989898(区域"
 L["|cFF9CD6DECan't find current layer or no timers active for this layer.|r"] = "|cFF9CD6DE未找到位面信息，或当前位面没有计时器。|r"
 L["|cffFFFF00No zones have been mapped yet since server restart.\n"] = "|cffFFFF00服务器重启后尚未获取位面信息。\n"
 L["|cffFFFF00You have no guild, this command shows guild members only.\n"] = "|cffFFFF00你没有公会，这个命令仅显示公会成员。\n"
-L["|cFF9CD6DETarget any NPC to see your current layer.|r"] = "|cFF9CD6DE点击任意NPC显示你的位面信息。|r"
 L["|cFFFFFF00Layer Mapping for "] = "|cFFFFFF00位面信息："
 
 L["Layer 1"] = "位面1"
@@ -657,9 +653,6 @@ L["Layers will disappear from here 6 hours after having no timers。"] = "位面
 L["Out of date version "] = "已过期版本"
 L[" (New version: "] = "(新版本："
 L[")\nPlease update so your timers are accurate。"] = "）\n请更新NWB插件。"
-
-L["|HNWBCustomLink:timers|hYou are on a layered realm.|h"] = "|HNWBCustomLink:timers|h你的服务器存在位面。|h"
-L["|HNWBCustomLink:timers|hClick here to view current timers.|h"] = "|HNWBCustomLink:timers|h点击查看当前计时器信息。|h"
 
 L["(No layers found)"] = "(没有找到位面）"
 L["That layer wasn't found or has no valid timers。"] = "未找到位面，或没有有效的计时信息。"

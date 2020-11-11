@@ -249,7 +249,7 @@ local function UpdateNameplateSize(plate, show, cWidth, cHeight)
 	}
 
 	if not InCombatLockdown() then
-		if IsInInstance() then 
+		if IsInInstance() then
 			local zeroBasedScale = tonumber(GetCVar("NamePlateVerticalScale")) - 1.0;
 			local horizontalScale = tonumber(GetCVar("NamePlateHorizontalScale"));
 			SetNamePlateFriendlySize(128 * horizontalScale, 45 * Lerp(1.0, 1.25, zeroBasedScale))  -- Reset to blizzard nameplate default to avoid issues if we are not allowed to modify the nameplate
@@ -257,7 +257,7 @@ local function UpdateNameplateSize(plate, show, cWidth, cHeight)
 		SetNamePlateEnemySize(hitbox.width * scaleStandard, hitbox.height * scaleStandard) -- Clickable area of the nameplate
 	end
 
-	if plate then 
+	if plate then
 		plate.carrier:SetPoint("CENTER", plate, "CENTER", hitbox.x, hitbox.y)	-- Offset
 		plate.extended.visual.hitbox:SetPoint("CENTER", plate)
 		plate.extended.visual.hitbox:SetWidth(hitbox.width)
@@ -298,6 +298,15 @@ do
 		end
 	end
 
+	function ShouldShowBlizzardPlate(plate)
+		if plate.UnitFrame then
+			if plate.showBlizzardPlate then
+				plate.UnitFrame:Show()
+				plate.extended:Hide()
+			else plate.UnitFrame:Hide() end
+		end
+	end
+
         -- OnUpdate; This function is run frequently, on every clock cycle
 	function OnUpdate(self, e)
 		-- Poll Loop
@@ -331,9 +340,6 @@ do
 				plate.UpdateMe = false
 				plate.UpdateHealth = false
 
-				--local children = plate:GetChildren()
-				--if children then children:Hide() end
-
 				if plate.UpdateCastbar then -- Check if spell is being cast
 					if unit and unit.unitid then
 						local unitGUID = UnitGUID(unit.unitid)
@@ -346,7 +352,7 @@ do
 				OnHideNameplate(plate, unitid)  -- If the 'NAME_PLATE_UNIT_REMOVED' event didn't trigger
 			end
 
-			if plate.UnitFrame then plate.UnitFrame:Hide() end
+			ShouldShowBlizzardPlate(plate)
 
 		-- This would be useful for alpha fades
 		-- But right now it's just going to get set directly
@@ -601,7 +607,7 @@ do
 		visual.castbar:Hide()
 		visual.highlight:Hide()
 		visual.hitbox:Hide()
-		
+
 
 
 		-- Widgets/Extensions
@@ -761,7 +767,7 @@ do
 			unit.class = ""
 			unit.type = "NPC"
 		end
-		
+
 	end
 
 
@@ -779,7 +785,7 @@ do
 
 		UpdateUnitCondition(plate, unitid)	-- This updates a bunch of properties
 
-		if activetheme.OnContextUpdate then 
+		if activetheme.OnContextUpdate then
 			CheckNameplateStyle()
 			activetheme.OnContextUpdate(extended, unit)
 		end
@@ -801,14 +807,14 @@ do
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
 		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue) or "HOSTILE"
 
-		if RealMobHealth and RealMobHealth.GetUnitHealth then 
+		if RealMobHealth and RealMobHealth.GetUnitHealth then
 			 health, healthmax = RealMobHealth.GetUnitHealth(unitid)
 		end
 
 		-- Ensure we have some unit health data if RealMobHealth doesn't return it
 		unit.health = health or UnitHealth(unitid) or 0
 		unit.healthmax = healthmax or UnitHealthMax(unitid) or 1
-		
+
 
 		local powerType = UnitPowerType(unitid) or 0
 		unit.power = UnitPower(unitid, powerType) or 0
@@ -881,9 +887,10 @@ do
 		visual.powerbar:SetValue(unit.power)
 
 		-- Hide bar if max power is none as the unit doesn't use power
-		if unit.powermax == 0 or not ShowPowerBar then
+		local showPowerBar = (ShowFriendlyPowerBar and unit.reaction == "FRIENDLY") or (ShowEnemyPowerBar and unit.reaction ~= "FRIENDLY")
+		if unit.powermax == 0 or not showPowerBar then
 			visual.powerbar:Hide()
-		elseif ShowPowerBar then
+		elseif showPowerBar then
 			visual.powerbar:Show()
 		end
 
@@ -954,7 +961,7 @@ do
 	-- UpdateIndicator_Highlight
 	function UpdateIndicator_Highlight()
 		local current = nil
-		
+
 		if not current and unit.isTarget and style.target.show and style.target.enabled then current = 'target'; visual.target:Show() else visual.target:Hide() end
 		if not current and unit.isFocus and style.focus.show and style.focus.enabled then current = 'focus'; visual.focus:Show() else visual.focus:Hide() end
 		if not current and unit.isMouseover and style.mouseover.show and style.mouseover.enabled then current = 'mouseover'; visual.mouseover:Show() else visual.mouseover:Hide() end
@@ -1128,7 +1135,7 @@ do
 		-- Clear registered events incase they weren't
 		castBar:SetScript("OnEvent", nil)
 		--castBar:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
-		
+
 		-- -- Set spell target (Target doesn't usually update until a little bit after the combat event, so we need to recheck)
 		-- if ShowSpellTarget and unit.unitid then
 		-- 	local maxTries = 10
@@ -1171,9 +1178,14 @@ do
 
 		castBar:SetAlpha(a or 1)
 
-		if unit.spellIsShielded then
-			   visual.castnostop:Show(); visual.castborder:Hide()
-		else visual.castnostop:Hide(); visual.castborder:Show() end
+
+		if style.castnostop and style.castnostop.enabled and unit.spellIsShielded then
+			visual.castnostop:Show(); visual.castborder:Hide()
+		elseif style.castborder and style.castborder.enabled then
+			visual.castnostop:Hide(); visual.castborder:Show()
+		else
+			visual.castnostop:Hide(); visual.castborder:Hide()
+		end
 
 		UpdateIndicator_CustomScaleText()
 		UpdateIndicator_CustomAlpha()
@@ -1200,7 +1212,7 @@ do
 				spellString = eventText.." |c"..color.."("..sourceName..")"
 			else
 				spellString = eventText
-			end	
+			end
 
 			visual.spelltext:SetText(spellString)
 			visual.durationtext:SetText("")
@@ -1211,7 +1223,7 @@ do
 		if unit.interrupted and type and sourceGUID and sourceName and destGUID then
 			setSpellText()
 		else
-			if unit.interrupted or not ShowIntCast then return end --not extended:IsShown() or 
+			if unit.interrupted or not ShowIntCast then return end --not extended:IsShown() or
 
 			unit.interrupted = true
 			unit.isCasting = false
@@ -1222,7 +1234,7 @@ do
 			castBar:Show()
 
 			local r, g, b, a = 1, 1, 0, 1
-			
+
 			if activetheme.SetCastbarColor then
 				r, g, b, a = activetheme.SetCastbarColor(unit)
 				if not (r and g and b and a) then return end
@@ -1281,7 +1293,7 @@ do
 		if not ShowCastBars then return end
 		local currentTime = GetTime() * 1000
 
-		
+
 		--if UnitCastingInfo(unitid) then
 		--	OnStartCasting(plate, unitid, false)	-- Check to see if there's a spell being cast
 		--elseif UnitChannelInfo(unitid) then
@@ -1356,6 +1368,7 @@ do
 	local CoreEvents = {}
 
 	local function EventHandler(self, event, ...)
+		-- print(event)
 		CoreEvents[event](event, ...)
 	end
 
@@ -1376,7 +1389,7 @@ do
 	function CoreEvents:UNIT_NAME_UPDATE(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
-		
+
 		if plate then
 			SetUpdateMe(plate)
 		end
@@ -1390,14 +1403,25 @@ do
 	function CoreEvents:NAME_PLATE_UNIT_ADDED(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
-		
+
 		if plate then
 			if UnitIsUnit("player", unitid) then
+				plate.showBlizzardPlate = true
+				ShouldShowBlizzardPlate(plate)
 				OnHideNameplate(plate, unitid)
 			else
-				local children = plate:GetChildren()
-				if children then children:Hide() end --Avoids errors incase the plate has no children
+				plate.showBlizzardPlate = false
+				--local children = plate:GetChildren() -- Do children even need to be hidden anymore when UnitFrame is unhooked
+				--if children then children:Hide() end
+				--if plate._frame then plate._frame:Show() end -- Show Questplates frame
 				if NeatPlatesTarget and unitid and UnitGUID(unitid) == NeatPlatesTarget.unitGUID then toggleNeatPlatesTarget(false) end
+
+				-- Unhook UnitFrame events
+				if plate.UnitFrame then
+					plate.UnitFrame:Hide()
+					plate.UnitFrame:UnregisterAllEvents()
+				end
+
 		 		OnShowNameplate(plate, unitid)
 			end
 		end
@@ -1426,11 +1450,11 @@ do
 		toggleNeatPlatesTarget(HasTarget and unitAlive and not PlatesByGUID[guid])
 		SetUpdateAll()
 	end
-	
+
 	function CoreEvents:UNIT_TARGET(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
-		
+
 		if plate and plate.extended.unit.isCasting then
 			OnUpdateCastTarget(plate, unitid)
 		end
@@ -1462,7 +1486,7 @@ do
 
 		if plate then OnHealthUpdate(plate) end
 	end
-	
+
 
 	function CoreEvents:PLAYER_REGEN_ENABLED()
 		InCombat = false
@@ -1575,7 +1599,7 @@ do
 			if CTICache[sourceGUID] and CTICache[sourceGUID].timeout then CTICache[sourceGUID].timeout:Cancel() end
 			CTICache[sourceGUID] = {}
 		end
-		
+
 		-- Spellcasts (Classic)
 		if ShowCastBars and unitType and (spellName and type(spellName) == "string") and not spellBlacklist[spellName] then
 			local currentTime = GetTime() * 1000
@@ -1659,6 +1683,8 @@ do
 	NeatPlatesCore:SetFrameStrata("TOOLTIP") 	-- When parented to WorldFrame, causes OnUpdate handler to run close to last
 	NeatPlatesCore:SetScript("OnEvent", EventHandler)
 	for eventName in pairs(CoreEvents) do NeatPlatesCore:RegisterEvent(eventName) end
+	-- NeatPlatesCore:RegisterAllEvents() --Debugging
+
 end
 
 
@@ -1889,7 +1915,7 @@ local function BuildDefaultSpellDB()
 			end
 			if not NeatPlatesSpellDB.default[spellName].castTime and castTime > 0 then NeatPlatesSpellDB.default[spellName].castTime = castTime end
 		end
-			
+
 	end
 end
 
@@ -1911,7 +1937,8 @@ function NeatPlates:SetCoreVariables(LocalVars)
 	ShowIntWhoCast = LocalVars.IntCastWhoEnable
 	ShowServerIndicator = LocalVars.TextShowServerIndicator
 	ShowUnitTitle = LocalVars.TextShowUnitTitle
-	ShowPowerBar = LocalVars.StyleShowPowerBar
+	ShowFriendlyPowerBar = LocalVars.StyleShowFriendlyPowerBar
+	ShowEnemyPowerBar = LocalVars.StyleShowEnemyPowerBar
 	ShowSpellTarget = LocalVars.SpellTargetEnable
 	ThreatSoloEnable = LocalVars.ThreatSoloEnable
 end
