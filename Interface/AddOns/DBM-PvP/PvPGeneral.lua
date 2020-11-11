@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-mod:SetRevision("20200916002535")
+mod:SetRevision("20201018212526")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -214,7 +214,8 @@ do
 		timerDamp		= mod:NewCastTimer(300, 110310)
 	end
 
-	function mod:START_TIMER(_, timeSeconds)
+	function mod:START_TIMER(timerType, timeSeconds)
+		if timerType ~= 1 then return end--don't run this code if a player started the timer, we only want type 1 events (PVP)
 		local _, instanceType = IsInInstance()
 		if (instanceType == "pvp" or instanceType == "arena" or instanceType == "scenario") and self.Options.TimerRemaining then
 			if TimerTracker then

@@ -4,7 +4,7 @@ end
 local mod	= DBM:NewMod("z727", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200719033919")
+mod:SetRevision("20201018212526")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
@@ -80,7 +80,7 @@ end
 
 do
 	local pairs, abs, sqrt, tremove = pairs, math.abs, math.sqrt, table.remove
-	local GetTime, GetNumBattlefieldVehicles, GetBattlefieldVehicleInfo = GetTime, GetNumBattlefieldVehicles, GetBattlefieldVehicleInfo
+	local GetTime, GetNumBattlefieldVehicles, GetBattlefieldVehicleInfo = GetTime, GetNumBattlefieldVehicles, C_PvP.GetBattlefieldVehicleInfo
 
 	local times = { 181, 234, 129, 97, 153 }
 	local caps = { {x = 22.848, y = 42.823}, {x = 76.517, y = 21.757}, {x = 41.281, y = 48.239}, {x = 69.326, y = 70.632}, {x = 76.517, y = 21.757} }
@@ -168,14 +168,15 @@ do
 	function mod:PVP_VEHICLE_INFO_UPDATED()
 		local cache = {}
 		for i = 1, GetNumBattlefieldVehicles() do
-			local x, y, _, _, vType = GetBattlefieldVehicleInfo(i, 423)
+			local vInfo = GetBattlefieldVehicleInfo(i, 423)
+			local x, y = vInfo.x, vInfo.y
 			x = x * 100
 			y = y * 100
 			cache[i] = {
 				x	= x,
 				y	= y,
 				dir	= identifyCartCoord(x, y),
-				c	= (vType:match("Red") and 0) or (vType:match("Blue") and 1) or -1
+				c	= (vInfo.name:match("Red") and 0) or (vInfo.name:match("Blue") and 1) or -1
 			}
 		end
 		local prune = #cache < #carts

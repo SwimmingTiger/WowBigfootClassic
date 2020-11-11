@@ -1,7 +1,14 @@
 ## Interface: 11305
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
+## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JcJ|r
+## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0JxJ|r
+## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Author: Nitram/Tandanu/Arta
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -11,17 +18,29 @@
 ## X-DBM-Mod-Category: OTHER
 ## X-DBM-Mod-No-Statistics: 1
 ## X-DBM-Mod-Name: PvP
+## X-DBM-Mod-Name-deDE: PvP
+## X-DBM-Mod-Name-frFR: PvP
+## X-DBM-Mod-Name-ruRU: PvP
 ## X-DBM-Mod-Name-zhTW: PvP
 ## X-DBM-Mod-Name-zhCN: PvP
+## X-DBM-Mod-Name-koKR: PvP
+## X-DBM-Mod-Name-esES: JcJ
+## X-DBM-Mod-Name-esMX: JcJ
+## X-DBM-Mod-Name-ptBR: JxJ
 ## X-DBM-Mod-MapID: 30,489,529,559,562,566,572,617,618,628,726,727,761,968,980,998,1105,1134,1191,1681,1803,2106,2107,2118,2167,2177,2197,2245
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
-## Version: r94
-## X-Revision: BigFoot
+## Version: r98
 
 localization.en.lua
+localization.br.lua
 localization.cn.lua
+localization.de.lua
+localization.es.lua
+localization.fr.lua
+localization.kr.lua
+localization.ru.lua
 localization.tw.lua
 
 PvPGeneral.lua
