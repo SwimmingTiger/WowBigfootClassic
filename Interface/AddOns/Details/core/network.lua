@@ -372,12 +372,12 @@
 		end
 	end
 
+	--deprecated
 	function _detalhes.network.Cloud_Equalize (player, realm, core_version, data)
 		if (not _detalhes.in_combat) then
 			if (core_version ~= _detalhes.realversion) then
 				return
 			end
-			_detalhes:MakeEqualizeOnActor (player, realm, data)
 		end
 	end
 	
