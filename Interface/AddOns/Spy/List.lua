@@ -382,7 +382,9 @@ function Spy:RemoveKOSData(name)
 			playerData.reason = nil
 		end
 		SpyPerCharDB.KOSData[name] = nil
-		SpyPerCharDB.PlayerData[name].kos = nil		
+		if SpyPerCharDB.PlayerData[name] then
+			SpyPerCharDB.PlayerData[name].kos = nil
+		end
 		if Spy.db.profile.ShareKOSBetweenCharacters then
 			SpyDB.removeKOSData[Spy.RealmName][Spy.FactionName][name] = time()
 		end
