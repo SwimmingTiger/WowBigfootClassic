@@ -13,4 +13,10 @@
     <Script file="DataBroker.lua" />
     <Script file="Options.lua" />
     <Script file="Filters.lua" />
+    <Script file="EncounterInfoBase.lua" />
+    <Script file="EncounterInfo.lua" />
+    <Script file="EncounterInfoSummary.lua" />
+    <Script file="EncounterInfoPanel.lua" />
+    <Script file="Encounter.lua" />
+    <Script file="Recent.lua" />
 </Ui>

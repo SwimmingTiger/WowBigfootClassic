@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
-local main= "1.13.5."
-local minor = "71"
+local main= "1.13.6."
+local minor = "75"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,23 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2020/12/03 (1.13.6.75)")
+	BigFootChangelog_ar("大脚插件","兼容至当前游戏版本。")
+	BigFootChangelog_ar("首领报警","升级至最新版本(1.13.62)。")
+
+
+	BigFootChangelog_at("2020/11/27 (1.13.5.74)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.4.0)。")
+
+
+	BigFootChangelog_at("2020/11/23 (1.13.5.73)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2020/11/16 (1.13.5.72)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2020/11/09 (1.13.5.71)")
 	BigFootChangelog_ar("界面调整","修复无法正常加载的问题。")
@@ -351,4 +368,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "49"
+BF_VERSION_CHECKSUM = "54"

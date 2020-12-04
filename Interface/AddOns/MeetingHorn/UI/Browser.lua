@@ -118,6 +118,22 @@ function Browser:Constructor()
         button.Signup:SetShown(item:IsActivity() and not state)
         -- button.Signup:SetEnabled(canSignup)
 
+        local sameInstance
+        if item:HaveProgress() then
+            button.Instance:SetWidth(16)
+            sameInstance = item:IsSameInstance()
+            button.Instance.Same:SetShown(sameInstance)
+            button.Instance.Diff:SetShown(not sameInstance)
+        else
+            button.Instance:SetWidth(1)
+            button.Instance.Same:Hide()
+            button.Instance.Diff:Hide()
+        end
+        
+        button.NormalBg:SetShown(not sameInstance)
+        button.SameInstanceBgLeft:SetShown(sameInstance)
+        button.SameInstanceBgRight:SetShown(sameInstance)
+
         button.QRIcon:SetScript('OnClick', function()
             if not self.QRTooltip then
                 self.QRTooltip = CreateFrame('Frame', nil, self, 'MeetingHornActivityTooltipTemplate')

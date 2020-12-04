@@ -24,6 +24,7 @@ local LFG = ns.Addon:NewModule('LFG', 'AceEvent-3.0', 'AceTimer-3.0', 'AceComm-3
 function LFG:OnEnable()
     self.cooldown = ns.Addon.db.profile.cache.cooldown
     self.currentCache = ns.Addon.db.profile.cache.current
+    self.members = MEETINGHORN_DB_CHARACTER_MEMBERS
 
     self.chats = {}
     self.activities = {}
@@ -31,6 +32,7 @@ function LFG:OnEnable()
     self.lockCache = {}
     self.banCache = {}
     self.bossCache = {}
+    self.welcome = {}
     self.inCity = false
     self.filters = setmetatable({}, {
         __mode = 'k',
@@ -74,10 +76,12 @@ function LFG:OnEnable()
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
     self:RegisterServer('SWORLDBUFF')
+    self:RegisterServer('SNOTICE')
 
     self:RegisterEvent('ENCOUNTER_END')
     self:RegisterEvent('ENCOUNTER_START')
     self:RegisterEvent('ZONE_CHANGED_NEW_AREA')
+    self:RegisterEvent('RAID_INSTANCE_WELCOME')
 
     self.errorBlocker = CreateFrame('Frame')
     self.errorBlocker:RegisterEvent('ADDON_ACTION_BLOCKED')
@@ -200,7 +204,25 @@ end
 ---@param activity MeetingHornActivity
 function LFG:AddActivity(activity)
     -- tinsert(self.activities, random(1, #self.activities + 1), activity)
-    tinsert(self.activities, 1, activity)
+
+    local insertTo
+    if activity:IsSameInstance() then
+        insertTo = 1
+    else
+        for i, v in ipairs(self.activities) do
+            if not v:IsSameInstance() then
+                insertTo = i
+                break
+            end
+        end
+    end
+
+    if not insertTo then
+        tinsert(self.activities, activity)
+    else
+        tinsert(self.activities, insertTo, activity)
+    end
+
     self.activities[activity:GetLeaderGUID()] = activity
     self:SendMessage('MEETINGHORN_ACTIVITY_UPDATE')
 end
@@ -415,6 +437,10 @@ function LFG:SNEWVERSION(_, version, url, changelog)
     SendSystemMessage(format(L.SUMMARY_NEW_VERSION, L.ADDON_NAME, version, url))
 end
 
+function LFG:SNOTICE(_, text)
+    ns.SystemMessage(format('|cff00ffff集结号温馨提示|r: |cff47e53d%s|r', text))
+end
+
 function LFG:SWORLDBUFF(_, enable, data)
     if type(data) == 'table' then
         ns.WorldBuff:SetPos(data)
@@ -545,32 +571,97 @@ end
 
 function LFG:ENCOUNTER_START(_, bossId)
     self.bossCache[bossId] = time()
+    self.currentBossId = bossId
+
+    if ns.ENCOUNTER_BOSSES[bossId] then
+        self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
+    end
 end
 
-function LFG:ENCOUNTER_END(_, bossId, _, _, _, success)
-    if success ~= 1 then
+function LFG:COMBAT_LOG_EVENT_UNFILTERED()
+    local _, event, _, _, _, _, _, guid, name = CombatLogGetCurrentEventInfo()
+    if event == 'UNIT_DIED' and guid == UnitGUID('player') then
+        self.youDead = true
+    end
+end
+
+function LFG:RAID_INSTANCE_WELCOME()
+    local instanceId = select(8, GetInstanceInfo())
+    if self.welcome[instanceId] then
         return
     end
 
-    RequestRaidInfo()
+    self.welcome[instanceId] = true
 
-    local raidName = GetInstanceInfo()
-    local leaderName, leaderGUID = ns.GetGroupLeader()
-    local looterName, looterGUID = ns.GetGroupLooter()
-    local lootMethod = GetLootMethod()
-    local startTime = self.bossCache[bossId]
-    local timeDiff = startTime and time() - startTime or -1
-
-    if looterGUID == leaderGUID then
-        looterName = nil
-        looterGUID = nil
+    local instanceInfo = ns.ENCOUNTER_INSTANCES[instanceId]
+    if not instanceInfo then
+        return
     end
 
-    C_Timer.After(5, function()
-        local id = ns.GetRaidId(raidName)
-        self:SendServer('SBK', raidName, id, bossId, timeDiff, leaderName, leaderGUID, looterName, looterGUID,
-                        ns.ADDON_VERSION, lootMethod)
-    end)
+    ns.Message(L['欢迎来到%s，打开集结号查看|cff47e53d|Hmeetinghornencounter:%s|h[Boss击杀攻略]|r。'],
+               instanceInfo.title, instanceId)
+end
+
+function LFG:ENCOUNTER_END(_, bossId, _, _, _, success)
+    if success == 1 then
+        RequestRaidInfo()
+
+        local raidName = GetInstanceInfo()
+        local leaderName, leaderGUID = ns.GetGroupLeader()
+        local looterName, looterGUID = ns.GetGroupLooter()
+        local lootMethod = GetLootMethod()
+        local startTime = self.bossCache[bossId]
+        local timeDiff = startTime and time() - startTime or -1
+
+        if looterGUID == leaderGUID then
+            looterName = nil
+            looterGUID = nil
+        end
+
+        C_Timer.After(5, function()
+            local id = ns.GetRaidId(raidName)
+            self:SendServer('SBK', raidName, id, bossId, timeDiff, leaderName, leaderGUID, looterName, looterGUID,
+                            ns.ADDON_VERSION, lootMethod)
+            self:SaveInstanceMembers(id)
+        end)
+    elseif self.youDead then
+        local bossData = ns.ENCOUNTER_BOSSES[bossId]
+        if bossData then
+            ns.Message(
+                L['你在与[%s]的战斗中阵亡，|cff00ffff|Hmeetinghornencounter:%s:%s:%s|h[点击查看Boss攻略]|h|r。'],
+                bossData.name, select(8, GetInstanceInfo()), bossId, 1)
+        end
+    end
+    self.youDead = nil
+    self.currentBossId = nil
+end
+
+function LFG:GetInstanceMembers(id)
+    return self.members[id]
+end
+
+function LFG:SaveInstanceMembers(id)
+    if not id or id == -1 then
+        return
+    end
+
+    self.members[id] = self.members[id] or {}
+
+    local members = self.members[id]
+
+    for _, unit in ns.IterateGroup() do
+        if UnitExists(unit) then
+            local name = UnitName(unit)
+
+            if not members.leader and UnitIsGroupLeader(unit) then
+                members.leader = name
+            end
+
+            if not UnitIsUnit(unit, 'player') then
+                members[name] = UnitClassBase(unit)
+            end
+        end
+    end
 end
 
 function LFG:CheckUnit(guid)

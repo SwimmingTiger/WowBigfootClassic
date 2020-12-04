@@ -3,7 +3,7 @@ if TC2.locale ~= "zhCN" then return end
 
 -----------------------------
 --	zhCN client (by Qcat of 60Addons & 阿什坎迪-枫聖)
---  Last update: 2020/07/17
+--  Last update: 2020/11/06
 -----------------------------
 -- main frame
 L.gui_threat			= "仇恨"
@@ -20,10 +20,11 @@ L.message_incompatible	= "你的 |cFFFBB709ThreatClassic2|r 已过期，因此�
 
 L.general				= "一般"
 L.general_welcome		= "登录时显示信息。"
-L.general_rawPercent    = "启用原始威胁百分比 (近战 110% / 远程 130% 的仇恨)"   ---
+L.general_rawPercent    = "启用原始威胁百分比 (近战 110% / 远程 130% 的仇恨)" 
 L.general_downscaleThreat = "启用调整后威胁值 (修正后威胁值是1伤害等于1威胁值)"
 L.general_downscaleThreatDesc = "暴雪威胁API是每造成1点伤害算100点威胁值。 此设置是将威胁API的数字缩减为我们在补丁1.13.5之前使用的数字。"
-L.general_updateFreq    = "更新间隔的最短时间（以秒为单位）。"   --
+L.general_updateFreq    = "更新间隔的最短时间（以秒为单位）。" 
+L.general_updateFreq_desc = "这个设置是为了限制tc2更新时的CPU消耗(例如，在targettarget模式下)。一般来说，威胁值不能更新得更快，因为暴雪的API更新速度限制了它们。"
 L.general_test			= "测试模式。"
 --L.general_minimap		= "小地图按钮."  --You can't find this option, you can delete it.
 --L.general_ignorePets	= "忽略玩家宠物的仇恨."  --You can't find this option, you can delete it.
@@ -54,7 +55,7 @@ L.frame_position		= "位置"--
 L.frame_width			= "宽度"
 L.frame_height			= "高度"
 L.frame_xOffset         = "X 偏移"
-L.frame_yOffset         = "Y 偏移"---
+L.frame_yOffset         = "Y 偏移"
 
 L.bar					= "仇恨条"
 --L.bar_descend			= "反向增长"  --You can't find this option, you can delete it.
@@ -62,14 +63,27 @@ L.bar_height			= "高度"
 L.bar_padding			= "间隔"
 L.bar_texture			= "纹理"
 L.bar_alpha				= "透明度 (默认颜色)"
+L.bar_showThreatValue   = "显示威胁值"
+L.bar_showThreatPercentage = "显示威胁比例"
+L.bar_showIgniteIndicator = "显示点燃指示器"
+L.bar_showIgniteIndicator_desc = "在当前拥有“点燃”的玩家名字旁边显示一个小的“点燃”图标"
+
+L.igniteIndicator                   = "点燃指示器"
+L.igniteIndicator_makeRound         = "圆形图标"
+L.igniteIndicator_makeRound_desc    = "需要 /reloadui 来重载创建的纹理"
+L.igniteIndicator_size              = "大小"
 
 L.customBarColors 			        = "自定义颜色"
 L.customBarColorsPlayer_enabled	    = "启用自定义玩家颜色"
+L.customBarColorsPlayer_desc 		= "这个选项为玩家设置一个固定的颜色，而不考虑其他任何颜色选项。"
 L.customBarColorsActiveTank_enabled	= "启用自定义坦克颜色"
 L.customBarColorsOtherUnit_enabled 	= "启用自定义其他玩家颜色"
+L.customBarColorsIgnite_enabled 	= "启用点燃的颜色"
+L.customBarColorsIgnite_desc        = "这将改变状态条的颜色，如果目标上存在该玩家的点燃技能。坦克和玩家颜色有优先级。"
 L.customBarColorsPlayer_color 	    = "玩家颜色"
 L.customBarColorsActiveTank_color 	= "主坦克颜色"
 L.customBarColorsOtherUnit_color 	= "其他玩家颜色"
+L.customBarColorsIgnite_color 	    = "点燃玩家颜色"
 
 L.font					= "字体"
 L.font_name			    = "字体选择"

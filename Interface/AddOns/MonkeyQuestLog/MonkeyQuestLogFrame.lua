@@ -1,4 +1,5 @@
 ﻿MkQL_global_iCurrQuest = 0;
+MkQL_global_iCurrQuestID = 0;
 
 local MkQL_local_bResizing = false;
 
@@ -60,9 +61,18 @@ end
 function MkQL_RewardItem_OnClick(self, button)
 
 	-- Remember the currently selected quest log entry, just to play nice
-	local tmpQuestLogSelection = GetQuestLogSelection();
+	local tmpQuestLogSelection
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		tmpQuestLogSelection = C_QuestLog.GetSelectedQuest()
+	else
+		tmpQuestLogSelection = GetQuestLogSelection()
+	end
 
-	SelectQuestLogEntry(MkQL_global_iCurrQuest);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(MkQL_global_iCurrQuestID)
+	else
+		SelectQuestLogEntry(MkQL_global_iCurrQuest)
+	end
 
 	MonkeyLib_DebugMsg("self.type: "..self.type);
 	MonkeyLib_DebugMsg("self:GetID(): "..self:GetID());
@@ -72,9 +82,7 @@ function MkQL_RewardItem_OnClick(self, button)
 	local activeWindow = ChatEdit_GetActiveWindow();
 
 	if ( IsControlKeyDown() ) then
-
 		if ( self.rewardType ~= "spell" ) then
-			
 			DressUpItemLink(GetQuestLogItemLink(self.type, self:GetID()));
 		end
 	elseif ( IsShiftKeyDown() and activeWindow) then
@@ -84,26 +92,64 @@ function MkQL_RewardItem_OnClick(self, button)
 	end
 	
 	-- Restore the current quest log selection
-	SelectQuestLogEntry(tmpQuestLogSelection);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(tmpQuestLogSelection)
+	else
+		SelectQuestLogEntry(tmpQuestLogSelection)
+	end
 end
 
 function MkQL_SetQuest(iQuestNum)
+	MonkeyLib_DebugMsg("SetQuestNum=" .. iQuestNum)
 
 	-- show the main frame
 	MkQL_Main_Frame:Show();
 
 	-- Remember the currently selected quest log entry, just to play nice
-	local tmpQuestLogSelection = GetQuestLogSelection();
+	local tmpQuestLogSelection
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		tmpQuestLogSelection = C_QuestLog.GetSelectedQuest()
+	else
+		tmpQuestLogSelection = GetQuestLogSelection()
+	end
 	
 	-- Get the quest title info
-	local strQuestLogTitleText, suggestedGroup, strQuestTag, isHeader, isCollapsed, isComplete = GetQuestLogTitle(iQuestNum);
+	local strQuestLogTitleText, suggestedGroup, strQuestTag, isHeader, isCollapsed, isComplete, frequency, questID, questInfo
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		questInfo = C_QuestLog.GetInfo(iQuestNum)
+		
+		if questInfo ~= nil then	
+			strQuestLogTitleText = questInfo.title
+			strQuestLevel = questInfo.level
+			suggestedGroup = questInfo.suggestedGroup
+			isHeader = questInfo.isHeader
+			isCollapsed = questInfo.isCollapsed
+			if (C_QuestLog.IsComplete(questInfo.questID)) then
+				isComplete = 1
+			elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+				isComplete = -1
+			end
+			frequency = questInfo.frequency
+			questID = questInfo.questID
+		else
+			MkQL_Main_Frame:Hide();
+			return
+		end
+	else
+		strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(iQuestNum)
+	end
 
 	-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-	SelectQuestLogEntry(iQuestNum);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(questID)
+	else
+		SelectQuestLogEntry(iQuestNum)
+	end
 	
-	MkQL_global_iCurrQuest = iQuestNum;
-	
-	local strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
+	MkQL_global_iCurrQuestID = questID
+	MkQL_global_iCurrQuest = iQuestNum
+
+	local strQuestDescription, strQuestObjectives = GetQuestLogQuestText(iQuestNum);
 	
 	local strOverview = strQuestObjectives;
 
@@ -122,12 +168,12 @@ function MkQL_SetQuest(iQuestNum)
 		MkQL_Main_Frame:Hide(); return
 	end
 	
-	if (GetNumQuestLeaderBoards() > 0) then
+	if (GetNumQuestLeaderBoards(iQuestNum) > 0) then
 		
 		strOverview = strOverview .. "\n\n";
 
-		for i=1, GetNumQuestLeaderBoards(), 1 do
-			local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(i);
+		for i=1, GetNumQuestLeaderBoards(iQuestNum), 1 do
+			local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(i, iQuestNum);
 
 			if (strLeaderBoardText) then
 				strOverview = strOverview .. "  " .. MonkeyQuest_GetLeaderboardColorStr(strLeaderBoardText) ..
@@ -147,7 +193,12 @@ function MkQL_SetQuest(iQuestNum)
 
 	-- REWARDS
 	local numQuestRewards = GetNumQuestLogRewards();
-	local numQuestChoices = GetNumQuestLogChoices();
+	local numQuestChoices;
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		numQuestChoices = GetNumQuestLogChoices(MkQL_global_iCurrQuestID, true);
+	else
+		numQuestChoices = GetNumQuestLogChoices();
+	end
 	local rewardMoney = GetQuestLogRewardMoney();
 	local name, texture, numItems, quality, isUsable = 1;
 	local numTotalRewards = numQuestRewards + numQuestChoices;
@@ -310,15 +361,28 @@ function MkQL_SetQuest(iQuestNum)
 	end
 	
 	-- share button
-	-- Determine whether the selected quest is pushable or not
-	if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
-		MkQL_ShareQuest_Btn:Enable();
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		-- Determine whether the selected quest is pushable or not
+		if (C_QuestLog.IsPushableQuest(questID) and GetNumSubgroupMembers() > 0) then
+			MkQL_ShareQuest_Btn:Enable();
+		else
+			MkQL_ShareQuest_Btn:Disable();
+		end
 	else
-		MkQL_ShareQuest_Btn:Disable();
+		-- Determine whether the selected quest is pushable or not
+		if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
+			MkQL_ShareQuest_Btn:Enable();
+		else
+			MkQL_ShareQuest_Btn:Disable();
+		end
 	end
 	
 	-- Restore the current quest log selection
-	SelectQuestLogEntry(tmpQuestLogSelection);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(tmpQuestLogSelection)
+	else
+		SelectQuestLogEntry(tmpQuestLogSelection)
+	end
 
 	MkQL_UpdateSize();
 
@@ -425,32 +489,56 @@ end
 
 function MkQL_AbandonQuest_Btn_OnMouseClick(self, button)
 
-	-- Remember the currently selected quest log entry
-	local tmpQuestLogSelection = GetQuestLogSelection();
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		QuestMapQuestOptions_AbandonQuest(MkQL_global_iCurrQuestID)
+	else
+		-- Remember the currently selected quest log entry
+		local tmpQuestLogSelection = GetQuestLogSelection()
 
-	-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-	SelectQuestLogEntry(MkQL_global_iCurrQuest);
+		SelectQuestLogEntry(MkQL_global_iCurrQuest)
+
+		SetAbandonQuest();
+		StaticPopup_Show("ABANDON_QUEST", GetAbandonQuestName());
 	
-	SetAbandonQuest();
-	StaticPopup_Show("ABANDON_QUEST", GetAbandonQuestName());
-	
-	-- Restore the currently selected quest log entry
-	SelectQuestLogEntry(tmpQuestLogSelection);
+		-- Restore the currently selected quest log entry
+		SelectQuestLogEntry(tmpQuestLogSelection)
+	end
 end
 
 function MkQL_ShareQuest_Btn_OnMouseClick(self, button)
 
 	-- Remember the currently selected quest log entry
-	local tmpQuestLogSelection = GetQuestLogSelection();
+	local tmpQuestLogSelection
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		tmpQuestLogSelection = C_QuestLog.GetSelectedQuest()
+	else
+		tmpQuestLogSelection = GetQuestLogSelection()
+	end
 	
 	-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-	SelectQuestLogEntry(MkQL_global_iCurrQuest);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(MkQL_global_iCurrQuestID)
+	else
+		SelectQuestLogEntry(MkQL_global_iCurrQuest)
+	end
 	
 	-- try and share this quest with party members
-	if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
-		QuestLogPushQuest();
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		-- Determine whether the selected quest is pushable or not
+		if (C_QuestLog.IsPushableQuest(MkQL_global_iCurrQuestID) and GetNumSubgroupMembers() > 0) then
+			QuestLogPushQuest();
+		end
+	else
+		-- Determine whether the selected quest is pushable or not
+		if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
+			QuestLogPushQuest();
+		end
 	end
-			
+	
 	-- Restore the currently selected quest log entry
-	SelectQuestLogEntry(tmpQuestLogSelection);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(tmpQuestLogSelection)
+	else
+		SelectQuestLogEntry(tmpQuestLogSelection)
+	end
 end

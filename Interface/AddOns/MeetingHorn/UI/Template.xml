@@ -91,23 +91,66 @@
     </Button>
     <Button name="MeetingHornAcitvityTemplate" virtual="true">
         <Size y="24" />
+        <Frames>
+            <Frame parentKey="Instance">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativePoint="LEFT" x="145" y="0" />
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Same" file="Interface\AddOns\MeetingHorn\Media\Progress">
+                            <Size x="16" y="12"/>
+                            <TexCoords left="0" right="0.359375" top="0" bottom="1" />
+                        </Texture>
+                        <Texture parentKey="Diff" setAllPoints="true" file="Interface\AddOns\MeetingHorn\Media\DifferentProgress">
+                            <TexCoords left="0" right="0.625" top="0" bottom="0.625" />
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
+                        GameTooltip:SetText(self.Diff:IsShown() and '团长有进度' or '与你的副本ID相同')
+                        GameTooltip:Show()
+                    </OnEnter>
+                    <OnLeave function="GameTooltip_Hide" />
+                </Scripts>
+            </Frame>
+        </Frames>
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture setAllPoints="true">
+                <Texture parentKey="NormalBg" setAllPoints="true">
                     <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
+                </Texture>
+                <Texture parentKey="SameInstanceBgLeft" file="Interface\AddOns\MeetingHorn\Media\ProgressBg">
+                    <Size x="160" />
+                    <TexCoords left="0" right="0.625" top="0" bottom="0.359375" />
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0" />
+                        <Anchor point="BOTTOMLEFT" x="0" y="0" />
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="SameInstanceBgRight" file="Interface\AddOns\MeetingHorn\Media\ProgressBg">
+                    <TexCoords left="0.625" right="1" top="0" bottom="0.359375" />
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.SameInstanceBgLeft" relativePoint="TOPRIGHT" x="0" y="0" />
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0" />
+                    </Anchors>
                 </Texture>
             </Layer>
             <Layer level="ARTWORK">
                 <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
-                    <Size x="145" />
+                    <!-- <Size x="145" /> -->
                     <Anchors>
                         <Anchor point="LEFT" x="5" y="0" />
+                        <Anchor point="RIGHT" relativeKey="$parent.Instance" relativePoint="LEFT" x="-5" y="0" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Mode" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="60" />
+                    <Size x="55" />
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Name" relativePoint="RIGHT" />
+                        <Anchor point="LEFT" relativeKey="$parent.Instance" relativePoint="RIGHT" x="5" />
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Members" wordwrap="false" inherits="GameFontHighlightSmallLeft">
@@ -244,17 +287,17 @@
     </Button>
     <Button name="MeetingHornActivityTooltipTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
         <Size x="175" y="215" />
-		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val="16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="4" right="4" top="4" bottom="4"/>
-			</BackgroundInsets>
-		</Backdrop>
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="16"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="16"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="4" right="4" top="4" bottom="4"/>
+            </BackgroundInsets>
+        </Backdrop>
         <Frames>
             <Button parentKey="Close" inherits="UIPanelCloseButtonNoScripts">
                 <HitRectInsets>
@@ -295,6 +338,490 @@
             </OnShow>
         </Scripts>
     </Button>
+    <Button name="MeetingHornEncounterTabTemplate" parentArray="Tabs" motionScriptsWhileDisabled="true" virtual="true">
+        <Size x="63" y="57"/>
+        <NormalTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <TexCoords left="0.25585938" right="0.37890625" top="0.90332031" bottom="0.95898438"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <TexCoords left="0.12890625" right="0.25195313" top="0.90332031" bottom="0.95898438"/>
+        </PushedTexture>
+        <DisabledTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <TexCoords left="0.25585938" right="0.37890625" top="0.90332031" bottom="0.95898438"/>
+        </DisabledTexture>
+        <HighlightTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures" alphaMode="ADD">
+            <TexCoords left="0.00195313" right="0.12500000" top="0.90332031" bottom="0.95898438"/>
+        </HighlightTexture>
+        <Scripts>
+            <OnEnter>
+                if self.tooltip then
+                    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                    GameTooltip:SetText(self.tooltip)
+                end
+            </OnEnter>
+            <OnLeave function="GameTooltip_Hide"/>
+        </Scripts>
+    </Button>
+    <Button name="MeetingHornEncounterDifficultyTemplate" virtual="true">
+        <Size x="75" y="26"/>
+        <HitRectInsets>
+            <AbsInset left="-13" right="-13" top="0" bottom="0"/>
+        </HitRectInsets>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="UpLeft" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.90039063" right="0.925781255" top="0.04980469" bottom="0.07519531"/>
+                </Texture>
+                <Texture parentKey="UpRight" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.925781255" right="0.95117188" top="0.04980469" bottom="0.07519531"/>
+                </Texture>
+                <Texture parentKey="DownLeft" hidden="true" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.63476563" right="0.660156255" top="0.06738281" bottom="0.09277344"/>
+                </Texture>
+                <Texture parentKey="DownRight" hidden="true" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.660156255" right="0.68554688" top="0.06738281" bottom="0.09277344"/>
+                </Texture>
+            </Layer>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="HighLeft" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.72656250" right="0.751953125" top="0.06738281" bottom="0.09277344"/>
+                </Texture>
+                <Texture parentKey="HighRight" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                    <Size x="13" y="26"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.751953125" right="0.77734375" top="0.06738281" bottom="0.09277344"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <NormalTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" horizTile="true">
+            <Size x="64" y="26"/>
+            <TexCoords left="0.00000000" right="1.00000000" top="0.00195313" bottom="0.05273438"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" horizTile="true">
+            <Size x="64" y="26"/>
+            <TexCoords left="0.00000000" right="1.00000000" top="0.05664063" bottom="0.10742188"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" horizTile="true">
+            <Size x="64" y="26"/>
+            <TexCoords left="0.00000000" right="1.00000000" top="0.11132813" bottom="0.16210938"/>
+        </HighlightTexture>
+        <NormalFont style="GameFontNormalSmall"/>
+        <ButtonText>
+            <Size x="0" y="12"/>
+            <Anchors>
+                <Anchor point="LEFT" x="-3" y="0"/>
+                <Anchor point="RIGHT" x="3" y="0"/>
+            </Anchors>
+            <Color r="0.973" g="0.902" b="0.581"/>
+        </ButtonText>
+        <Scripts>
+            <OnMouseDown>
+                self.UpLeft:Hide()
+                self.UpRight:Hide()
+
+                self.DownLeft:Show()
+                self.DownRight:Show()
+            </OnMouseDown>
+            <OnMouseUp>
+                self.UpLeft:Show()
+                self.UpRight:Show()
+
+                self.DownLeft:Hide()
+                self.DownRight:Hide()
+            </OnMouseUp>
+        </Scripts>
+    </Button>
+    <Frame name="MeetingHornEncounterInfoTemplate" hidden="true" virtual="true">
+        <Size x="5" y="24"/>
+        <Frames>
+            <Button parentKey="Button">
+                <Size y="24"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="5" y="0"/>
+                    <Anchor point="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="ExpandedIcon" inherits="GameFontNormalLarge">
+                            <Size x="12" y="12"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="5" y="0"/>
+                            </Anchors>
+                        </FontString>
+                        <Texture parentKey="AbilityIcon">
+                            <Size x="18" y="18"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.ExpandedIcon" relativePoint="RIGHT" x="5" y="0"/>
+                            </Anchors>
+                        </Texture>
+                        <FontString parentKey="Title" inherits="GameFontNormal" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.AbilityIcon" relativePoint="RIGHT" x="5" y="0"/>
+                            </Anchors>
+                            <Color r="0.929" g="0.788" b=".620" a="1"/>
+                        </FontString>
+                    </Layer>
+                    <Layer level="BACKGROUND">
+                        <Texture parentKey="eLeftUp" inherits="UI-PaperOverlay-PaperHeader-SelectUp-Left" hidden="true">
+                            <Anchors>
+                                <Anchor point="LEFT" x="-1" y="-1"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture parentKey="eRightUp" inherits="UI-PaperOverlay-PaperHeader-SelectUp-Right" hidden="true">
+                            <Anchors>
+                                <Anchor point="RIGHT" x="3" y="-1"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture parentKey="eLeftDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" hidden="true">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftUp" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.64062500" right="0.76562500" top="0.21386719" bottom="0.24218750"/>
+                        </Texture>
+                        <Texture parentKey="eRightDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" hidden="true">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightUp" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.76953125" right="0.89453125" top="0.21386719" bottom="0.24218750"/>
+                        </Texture>
+                        <Texture parentKey="cLeftUp" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftUp" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.84960938" right="0.97460938" top="0.49023438" bottom="0.51855469"/>
+                        </Texture>
+                        <Texture parentKey="cRightUp" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightUp" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.72656250" right="0.85156250" top="0.52441406" bottom="0.55273438"/>
+                        </Texture>
+                        <Texture parentKey="cLeftDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" hidden="true">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftUp" x="0" y="0"/>
+                            </Anchors>
+                            <Size x="64" y="29"/>
+                            <TexCoords left="0.47460938" right="0.59960938" top="0.49316406" bottom="0.52148438"/>
+                        </Texture>
+                        <Texture parentKey="cRightDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" hidden="true">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightUp" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.60351563" right="0.72851563" top="0.49316406" bottom="0.52148438"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="BACKGROUND" textureSubLevel="-2">
+                        <Texture parentKey="eMidUp" inherits="UI-PaperOverlay-PaperHeader-SelectUp-Mid" hidden="true">
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftUp" relativePoint="RIGHT" x="-32" y="0"/>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightUp" relativePoint="LEFT" x="32" y="0"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture parentKey="eMidDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" hidden="true">
+                            <Size y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftDown" relativePoint="RIGHT" x="-32" y="0"/>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightDown" relativePoint="LEFT" x="32" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.00000000" right="1.00000000" top="0.40429688" bottom="0.46093750"/>
+                        </Texture>
+                        <Texture parentKey="cMidUp" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile">
+                            <Size y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftUp" relativePoint="RIGHT" x="-32" y="0"/>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightUp" relativePoint="LEFT" x="32" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.00000000" right="1.00000000" top="0.34375000" bottom="0.40039063"/>
+                        </Texture>
+                        <Texture parentKey="cMidDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" hidden="true">
+                            <Size y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.eLeftDown" relativePoint="RIGHT" x="-32" y="0"/>
+                                <Anchor point="RIGHT" relativeKey="$parent.eRightDown" relativePoint="LEFT" x="32" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.00000000" right="1.00000000" top="0.28320313" bottom="0.33984375"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="HIGHLIGHT">
+                        <Texture parentKey="HighlightLeft" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" x="-1" y="-1"/>
+                            </Anchors>
+                            <TexCoords left="0.74218750" right="0.86718750" top="0.15820313" bottom="0.18652344"/>
+                        </Texture>
+                        <Texture parentKey="HighlightRight" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="RIGHT" x="3" y="-1"/>
+                            </Anchors>
+                            <TexCoords left="0.87109375" right="0.99609375" top="0.15820313" bottom="0.18652344"/>
+                        </Texture>
+                        <Texture file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile">
+                            <Size x="64" y="29"/>
+                            <Anchors>
+                                <Anchor point="LEFT" relativeKey="$parent.HighlightLeft" relativePoint="RIGHT" x="-32" y="0"/>
+                                <Anchor point="RIGHT" relativeKey="$parent.HighlightRight" relativePoint="LEFT" x="32" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.00000000" right="1.00000000" top="0.46484375" bottom="0.52148438"/>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="IconButton" hidden="true">
+                        <Size x="32" y="32" />
+                        <Anchors>
+                            <Anchor point="RIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture parentKey="Icon" file="Interface\EncounterJournal\UI-EJ-Icons" setAllPoints="true">
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnEnter>
+                                if self.tooltip then
+                                    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                                    GameTooltip:SetText(self.tooltip, 1, 1, 1, nil, true)
+                                end
+                            </OnEnter>
+                            <OnLeave function="GameTooltip_Hide"/>
+                        </Scripts>
+                    </Frame>
+                    <Button parentKey="ChatButton" motionScriptsWhileDisabled="true" hidden="true">
+                        <Size x="16" y="16"/>
+                        <Anchors>
+                            <Anchor point="RIGHT" relativeKey="$parent.IconButton" relativePoint="LEFT" x="0" y="0" />
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                self:GetDisabledTexture():SetDesaturated(true)
+                                self:GetDisabledTexture():SetVertexColor(0.5, 0.5, 0.5)
+                            </OnLoad>
+                            <OnClick>
+                                self:GetParent():GetParent():OpenChatMenu(self)
+                            </OnClick>
+                            <OnEnter>
+                                GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+                                GameTooltip:SetText('发送到聊天频道', 1, 1, 1, nil, true)
+                            </OnEnter>
+                            <OnLeave function="GameTooltip_Hide"/>
+                        </Scripts>
+                        <NormalTexture file="Interface\ChatFrame\UI-ChatWhisperIcon"/>
+                        <DisabledTexture file="Interface\ChatFrame\UI-ChatWhisperIcon"/>
+                        <HighlightTexture file="Interface\ChatFrame\UI-ChatWhisperIcon" alphaMode="ADD"/>
+                    </Button>
+                </Frames>
+                <Scripts>
+                    <OnLoad>
+                        self.textures = {
+                            expanded = {
+                                up = {self.eLeftUp, self.eMidUp, self.eRightUp},
+                                down = {self.eLeftDown, self.eMidDown, self.eRightDown}
+                            },
+                            collapsed = {
+                                up = {self.cLeftUp, self.cMidUp, self.cRightUp},
+                                down = {self.cLeftDown, self.cMidDown, self.cRightDown}
+                            },
+                        }
+                        self.tex = self.textures.collapsed
+                    </OnLoad>
+                    <OnMouseDown>
+                        self.tex.up[1]:Hide()
+                        self.tex.up[2]:Hide()
+                        self.tex.up[3]:Hide()
+
+                        self.tex.down[1]:Show()
+                        self.tex.down[2]:Show()
+                        self.tex.down[3]:Show()
+                    </OnMouseDown>
+                    <OnMouseUp>
+                        self.tex.up[1]:Show()
+                        self.tex.up[2]:Show()
+                        self.tex.up[3]:Show()
+
+                        self.tex.down[1]:Hide()
+                        self.tex.down[2]:Hide()
+                        self.tex.down[3]:Hide()
+                    </OnMouseUp>
+                    <OnClick>
+                        self:GetParent():OnClick()
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Frame parentKey="Overview" hidden="true" inherits="InlineHyperlinkFrameTemplate">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Button" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Button" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture inherits="UI-PaperOverlay-AbilityTextBottomBorder" parentKey="bgBottom">
+                            <Anchors>
+                                <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture inherits="UI-PaperOverlay-AbilityTextBG">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" relativeKey="$parent.bgBottom" relativePoint="TOPRIGHT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                            <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-5"/>
+                                <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="Children" hidden="true">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Overview" relativePoint="BOTTOMLEFT" x="10" y="0"/>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+    <Frame name="MeetingHornEncounterInfoSummaryTemplate" hidden="true" virtual="true">
+        <Size x="5" y="24"/>
+        <Frames>
+            <Frame parentKey="Title">
+                <Size y="25"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" />
+                    <Anchor point="TOPRIGHT" />
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size y="30"/>
+                            <Anchors>
+                                <Anchor point="BOTTOMLEFT" x="-10" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="10" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.359375" right="0.99609375" top="0.8525390625" bottom="0.880859375"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="LEFT" x="15" y="0"/>
+                            </Anchors>
+                            <Color r="0.929" g="0.788" b=".620" a="1"/>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="Overview" hidden="true" inherits="InlineHyperlinkFrameTemplate">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Title" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Title" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                            <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="10" y="-5"/>
+                                <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
+            <Frame parentKey="Children" hidden="true">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.Overview" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+    <ScrollFrame name="MeetingHornEncounterInfoPanelTemplate" inherits="UIPanelScrollFrameTemplate" virtual="true">
+        <ScrollChild>
+            <Frame>
+                <Size x="1" y="1"/>
+                <Frames>
+                    <Frame parentKey="Overview" inherits="InlineHyperlinkFrameTemplate">
+                        <Size y="1"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="0" y="0"/>
+                            <Anchor point="TOPRIGHT" x="0" y="0"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                                    <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="10" y="-5"/>
+                                        <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="Children">
+                        <Size y="1"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Overview" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+                            <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT" x="0" y="-10"/>
+                        </Anchors>
+                    </Frame>
+                </Frames>
+                <Scripts>
+                    <OnLoad>
+                        local parent = self:GetParent()
+                        parent.Overview = self.Overview
+                        parent.Children = self.Children
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+        </ScrollChild>
+        <Scripts>
+            <OnSizeChanged>
+                self:GetScrollChild():SetWidth(self:GetWidth())
+            </OnSizeChanged>
+        </Scripts>
+    </ScrollFrame>
+
     <Button name="MeetingHornMainPanel" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate">
         <Size x="818" y="424"/>
         <Layers>
@@ -803,6 +1330,233 @@
                     </Layer>
                 </Layers>
             </Frame>
+            <Frame parentKey="Encounter" inherits="InsetFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-60" />
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6" />
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture file="Interface\EncounterJournal\UI-EJ-JournalBG">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                                <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0" right="0.766601562" top="0" bottom="0.830078125"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="BACKGROUND" textureSubLevel="3">
+                        <Texture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size y="39"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="-11"/>
+                                <Anchor point="TOPRIGHT" relativePoint="TOP" x="-6" y="-11"/>
+                            </Anchors>
+                            <TexCoords left="0.00000000" right="0.755859375" top="0.9599609375" bottom="1"/>
+                        </Texture>
+                        <Texture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                            <Size y="39"/>
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" x="0" y="-11"/>
+                                <Anchor point="TOPLEFT" relativePoint="TOP" x="6" y="-11"/>
+                            </Anchors>
+                            <TexCoords left="0.755859375" right="0.00000000" top="0.9599609375" bottom="1"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="OVERLAY">
+                        <FontString parentKey="Title" inherits="GameFontNormalLarge" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="20" y="-15"/>
+                            </Anchors>
+                            <Color r="0.902" g="0.788" b="0.671"/>
+                        </FontString>
+                        <FontString parentKey="BossTitle" inherits="GameFontNormalLarge" justifyH="LEFT">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="440" y="-15"/>
+                            </Anchors>
+                            <Color r="0.902" g="0.788" b="0.671"/>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <ScrollFrame parentKey="BossList" inherits="HybridScrollFrameTemplate" virtual="true">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="5" y="-47" />
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-20" y="5" />
+                        </Anchors>
+                        <Frames>
+                            <Slider parentKey="scrollBar" inherits="MinimalHybridScrollBarTemplate">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
+                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                </Anchors>
+                                <Scripts>
+                                    <OnLoad>
+                                        self.trackBG:SetVertexColor(0.2, 0.13, 0.08, 0.25)
+                                    </OnLoad>
+                                </Scripts>
+                            </Slider>
+                        </Frames>
+                    </ScrollFrame>
+                    <Button parentKey="Instance">
+                        <Size x="160" y="24" />
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="60" y="28" />
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="ZoneButton" inherits="MeetingHornEncounterDifficultyTemplate">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="RIGHT" x="30" y="0" />
+                        </Anchors>
+                    </Button>
+                    <ScrollFrame parentKey="Panel1" inherits="MeetingHornEncounterInfoPanelTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-27" y="-44" />
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2" />
+                        </Anchors>
+                    </ScrollFrame>
+                    <ScrollFrame parentKey="Panel3" inherits="MeetingHornEncounterInfoPanelTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-27" y="-44" />
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2" />
+                        </Anchors>
+                    </ScrollFrame>
+                    <Button parentKey="Tab1" inherits="MeetingHornEncounterTabTemplate" id="1">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-15" y="-37" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <Texture parentKey="Unselected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="RIGHT" x="-6" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.85546875" right="0.94921875" top="0.52441406" bottom="0.56640625"/>
+                                </Texture>
+                                <Texture parentKey="Selected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" relativeKey="$parent.Unselected" x="0" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.90234375" right="0.99609375" top="0.26953125" bottom="0.31152344"/>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Button>
+                    <!-- <Button parentKey="Tab2" inherits="MeetingHornEncounterTabTemplate" id="2">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab1" relativePoint="BOTTOMLEFT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <Texture parentKey="Unselected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="RIGHT" x="-6" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.90234375" right="1" top="0.662109375" bottom="0.705078125"/>
+                                </Texture>
+                                <Texture parentKey="Selected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" relativeKey="$parent.Unselected" x="0" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.8046875" right="0.900390625" top="0.662109375" bottom="0.705078125"/>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Button> -->
+                    <Button parentKey="Tab2" inherits="MeetingHornEncounterTabTemplate" id="2">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab1" relativePoint="BOTTOMLEFT" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="OVERLAY">
+                                <Texture parentKey="Unselected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="RIGHT" x="-6" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.904296875" right="0.99609375" top="0.70703125" bottom="0.748046875"/>
+                                </Texture>
+                                <Texture parentKey="Selected" file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+                                    <Size x="48" y="43"/>
+                                    <Anchors>
+                                        <Anchor point="CENTER" relativeKey="$parent.Unselected" x="0" y="0"/>
+                                    </Anchors>
+                                    <TexCoords left="0.806640625" right="0.8984375" top="0.70703125" bottom="0.748046875"/>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                    </Button>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Recent">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-90" />
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                </Anchors>
+                <Frames>
+                    <Frame parentKey="Left" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" />
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="20" y="0" />
+                        </Anchors>
+                        <Frames>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Right" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
+                            <Anchor point="BOTTOMRIGHT" x="0" y="0" />
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="Members">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" x="5" y="-4" />
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Left" x="-3" y="1" />
+                        </Anchors>
+                    </Frame>
+                    <Button parentKey="QRCode" hidden="true">
+                        <Size x="180" y="180" />
+                        <Anchors>
+                            <Anchor point="TOP" relativeKey="$parent.Right" x="0" y="-20" />
+                        </Anchors>
+                        <Layers>
+                            <Layer>
+                                <FontString parentKey="Label" inherits="GameFontNormalSmall">
+                                    <Size x="300" />
+                                    <Anchors>
+                                        <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-20" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Button>
+                    <Button parentKey="Instance">
+                        <Size x="160" y="24" />
+                        <Anchors>
+                            <Anchor point="TOPLEFT" x="60" y="38" />
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Label" inherits="GameFontNormalSmall">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" />
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Button>
+                    <Button parentKey="Invite" inherits="MagicButtonTemplate">
+                        <Size x="120" y="22" />
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" />
+                        </Anchors>
+                    </Button>
+                </Frames>
+            </Frame>
             <Frame parentKey="Options">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="4" y="-80" />
@@ -1006,4 +1760,84 @@
             <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
         </HighlightTexture>
     </Button>
+    <Button name="MeetingHornEncounterBossButtonTemplate" virtual="true">
+        <Size x="325" y="65"/>
+        <Frames>
+            <Frame>
+                <Size x="128" y="64"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER" x="-167" y="7"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY" textureSubLevel="6">
+                        <Texture file="Interface\EncounterJournal\UI-EJ-BOSS-Default" parentKey="Creature">
+                            <Size x="128" y="64"/>
+                            <Anchors>
+                                <Anchor point="CENTER" />
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        self:GetParent().Creature = self.Creature
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+        </Frames>
+        <NormalTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <Size x="325" y="55"/>
+            <Anchors>
+                <Anchor point="CENTER" />
+            </Anchors>
+            <TexCoords left="0.00195313" right="0.63671875" top="0.21386719" bottom="0.26757813"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <Size x="325" y="55"/>
+            <Anchors>
+                <Anchor point="CENTER" />
+            </Anchors>
+            <TexCoords left="0.00195313" right="0.63671875" top="0.10253906" bottom="0.15625000"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+            <Size x="325" y="55"/>
+            <Anchors>
+                <Anchor point="CENTER" />
+            </Anchors>
+            <TexCoords left="0.00195313" right="0.63671875" top="0.15820313" bottom="0.21191406"/>
+        </HighlightTexture>
+        <ButtonText parentKey="Text" justifyH="LEFT" justifyV="MIDDLE">
+            <Size x="160" y="40"/>
+            <Anchors>
+                <Anchor point="LEFT" relativePoint="CENTER" x="-63" y="-3"/>
+            </Anchors>
+            <Color r="0.827" g="0.659" b="0.463"/>
+        </ButtonText>
+        <NormalFont style="GameFontNormalMed3">
+            <Color r="0.827" g="0.659" b="0.463"/>
+        </NormalFont>
+        <HighlightFont style="GameFontNormalMed3">
+            <Color r="0.973" g="0.902" b="0.581"/>
+        </HighlightFont>
+        <DisabledFont style="GameFontHighlightMedium"/>
+    </Button>
+    <Frame name="MeetingHornRecentItemTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Text" inherits="GameFontNormalSmall">
+                    <Anchors>
+                        <Anchor point="CENTER" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <HighlightTexture setAllPoints="true">
+            <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
+        </HighlightTexture>
+    </Frame>
 </Ui>

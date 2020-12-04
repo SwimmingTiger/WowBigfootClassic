@@ -1,4 +1,4 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: Details!: Storage
 ## Notes: Stores information for Details! Damage Meter
 ## DefaultState: Enabled

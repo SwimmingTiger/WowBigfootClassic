@@ -1,4 +1,4 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: NugRunning
 ## Notes: Spelltimers
 ## Author: d87

@@ -1,5 +1,5 @@
-﻿## Interface: 11305
-## Title: MonkeyQuestLog v0.10.3
+﻿## Interface: 11306
+## Title: MonkeyQuestLog v0.11.0c
 ## Notes: Replacement Quest Log.
 ## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-任務日誌
 ## Notes-zhTW: MonkeyQuestLog |n顯示任務內容說明，取代遊戲內建的任務日誌。|n|cffffd200使用方法：|r左鍵點擊清單中的任務顯示任務內容說明。

@@ -2,7 +2,7 @@
 MonkeyQuest = {};
 MonkeyQuest.m_bLoaded = false;				-- true when the config variables are loaded
 MonkeyQuest.m_bVariablesLoaded = false;
-MonkeyQuest.m_iNumQuestButtons = 50;		-- 50 is the max possible entries in the quest log (25 quests and 25 different locations)
+MonkeyQuest.m_iNumQuestButtons = 60;		-- 50 is the max possible entries in the quest log (25 quests and 25 different locations)
 MonkeyQuest.m_iMaxTextWidth = 229;			-- wraps the text if it gets too long, mostly needed for objectives
 MonkeyQuest.m_strPlayer = "";
 MonkeyQuest.m_aQuestList = {};
@@ -21,20 +21,20 @@ MonkeyQuestObjectiveTable = {};
 MonkeyQuestAllowSounds = false
 
 local function get_utf8_char(str)
-	local function chsize(char)
-		if not char then
-			return 0
-		elseif char > 240 then
-			return 4
-		elseif char > 225 then
-			return 3
-		elseif char > 192 then
-			return 2
-		else
-			return 1
-		end
-	end
-	return string.sub(str, 1, chsize(string.byte(str)))
+    local function chsize(char)
+        if not char then
+            return 0
+        elseif char > 240 then
+            return 4
+        elseif char > 225 then
+            return 3
+        elseif char > 192 then
+            return 2
+        else
+            return 1
+        end
+    end
+    return string.sub(str, 1, chsize(string.byte(str)))
 end
 
 function MonkeyQuest_OnLoad(self)
@@ -271,7 +271,6 @@ function MonkeyQuest_OnLeave()
 	end
 end
 
--- wraith:
 function MonkeyQuest_ShowDetailedControls()
 	MonkeyQuestTitleText:Show();
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitleButtons == false) then
@@ -281,7 +280,6 @@ function MonkeyQuest_ShowDetailedControls()
 	end
 end
 
--- wraith:
 function MonkeyQuest_HideDetailedControls()
 	MonkeyQuestTitleText:Hide();
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideTitleButtons == false) then
@@ -428,7 +426,6 @@ end
 
 function MonkeyQuest_SetFrameAlpha(iAlpha)
 
-	-- wraith:
 	--MonkeyQuestFrame:SetAlpha(iAlpha);
 	MonkeyQuestFrame:SetAlpha(1.0);
 	
@@ -502,11 +499,21 @@ function MonkeyQuest_Refresh(MBDaily)
 		MonkeyQuestTitleTable = {};
 	end
 	
+	local tmpQuestLogSelection
 	-- Remember the currently selected quest log entry
-	local tmpQuestLogSelection = GetQuestLogSelection();
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		tmpQuestLogSelection = C_QuestLog.GetSelectedQuest()
+	else
+		tmpQuestLogSelection = GetQuestLogSelection()
+	end
 
-	local iNumEntries, iNumQuests = GetNumQuestLogEntries();
-	
+	local iNumEntries, iNumQuests
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		iNumEntries, iNumQuests = C_QuestLog.GetNumQuestLogEntries()
+	else
+		iNumEntries, iNumQuests = GetNumQuestLogEntries()
+	end
+
 	local DQCompleted = 0
     
     if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
@@ -569,7 +576,25 @@ function MonkeyQuest_Refresh(MBDaily)
 			-- strQuestLogTitleText		the title text of the quest, may be a header (ex. Wetlands)
 			-- strQuestLevel			the level of the quest
 			-- strQuestTag				the tag on the quest (ex. COMPLETED)
-			local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(i);
+			local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, questInfo
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+				questInfo = C_QuestLog.GetInfo(i)
+				
+				strQuestLogTitleText = questInfo.title
+				strQuestLevel = questInfo.level
+				suggestedGroup = questInfo.suggestedGroup
+				isHeader = questInfo.isHeader
+				isCollapsed = questInfo.isCollapsed
+				if (C_QuestLog.IsComplete(questInfo.questID)) then
+					isComplete = 1
+				elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+					isComplete = -1
+				end
+				frequency = questInfo.frequency
+				questID = questInfo.questID
+			else
+				strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(i)
+			end
 			
 			-- are we looking for the next header?
 			if (bNextHeader == true and isHeader) then
@@ -580,7 +605,11 @@ function MonkeyQuest_Refresh(MBDaily)
 			if (bNextHeader == false) then
 				-- no longer looking for the next header
 				-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-				SelectQuestLogEntry(i);
+				if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+					C_QuestLog.SetSelectedQuest(questID)
+				else
+					SelectQuestLogEntry(i)
+				end
 				
 				-- since 4.0.1 some strQuestLogTitleText are nil
 				if (strQuestLogTitleText == nil) then
@@ -690,7 +719,16 @@ function MonkeyQuest_Refresh(MBDaily)
 						-- check if the user wants the quest levels
 						if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestLevel == true) then
 							local chars = ""
-							local tagID, tagName = GetQuestTagInfo(questID);
+							local tagID, tagName, tagInfo
+							if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+								tagInfo = C_QuestLog.GetQuestTagInfo(questID)
+								if (tagInfo) then
+									tagID = tagInfo.tagID
+									tagName = tagInfo.tagName
+								end
+							else
+								tagID, tagName = GetQuestTagInfo(questID)
+							end
 							if ( tagName ) then
 								if ( tagID == QUEST_TAG_GROUP) then
 									chars = "G"
@@ -721,12 +759,17 @@ function MonkeyQuest_Refresh(MBDaily)
 								if suggestedGroup and suggestedGroup > 1 then	
 									chars = chars .. suggestedGroup
 								end
-							end
-							
-							if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
-								chars = chars.."*"
-							elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
-								chars = chars.."**"
+								if ( frequency == Enum.QuestFrequency.Daily ) then
+									chars = chars.."*"
+								elseif ( frequency == Enum.QuestFrequency.Weekly ) then
+									chars = chars.."**"
+								end
+							else			
+								if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
+									chars = chars.."*"
+								elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
+									chars = chars.."**"
+								end
 							end
 							
 							strMonkeyQuestBody = strMonkeyQuestBody ..
@@ -758,12 +801,11 @@ function MonkeyQuest_Refresh(MBDaily)
 						end
 						
 
-						local strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
+						local strQuestDescription, strQuestObjectives = GetQuestLogQuestText(i);
 						
-						-- wraith: item
                         if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
                             local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(i);
-                            if (item and (not isQuestComplete or showItemWhenComplete) and MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsEnabled == true) then
+                            if (item and (not C_QuestLog.IsComplete(questID) or showItemWhenComplete) and MonkeyQuestConfig[MonkeyQuest.m_global].m_bItemsEnabled == true) then
                                 watchItemIndex = watchItemIndex + 1;
                                 local itemButton = _G["MQWatchFrameItem"..watchItemIndex];
                                 if ( not itemButton ) then
@@ -797,10 +839,10 @@ function MonkeyQuest_Refresh(MBDaily)
                             end
                         end
 		
-						if (GetNumQuestLeaderBoards() > 0) then
-							for ii=1, GetNumQuestLeaderBoards(), 1 do
+						if (GetNumQuestLeaderBoards(i) > 0) then
+							for ii=1, GetNumQuestLeaderBoards(i), 1 do
 								--local string = _G["QuestLogObjective"..ii];
-								local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii);
+								local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii, i);
 								
 								MonkeyQuest_AddQuestItemToList(strLeaderBoardText);
 								
@@ -809,22 +851,19 @@ function MonkeyQuest_Refresh(MBDaily)
 										if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourSubObjectivesByProgress == true) then
 											strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. MonkeyQuest_GetLeaderboardColorStr(strLeaderBoardText) .. strLeaderBoardText .. "\n";
 										else
-											strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. strLeaderBoardText .. "\n";
+											strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. MonkeyLib_ARGBToColourStr(1,1,1,1) .. strLeaderBoardText .. "\n";
 										end
-									elseif (MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedObjectives == false
-										or MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden) then
-										strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. 
-											MonkeyQuestConfig[MonkeyQuest.m_global].m_strFinishObjectiveColour ..
-											strLeaderBoardText .. "\n";
+									elseif (MonkeyQuestConfig[MonkeyQuest.m_global].m_bHideCompletedObjectives == false	or MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowHidden) then
+										strMonkeyQuestBody = strMonkeyQuestBody .. "    " .. MonkeyQuestConfig[MonkeyQuest.m_global].m_strFinishObjectiveColour .. strLeaderBoardText .. "\n";
 									end
 								end
 							end
 							
 							if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bWorkComplete == true and strQuestLogTitleText ~= nil) then
 							
-								for ii = 1, GetNumQuestLeaderBoards(), 1 do
+								for ii = 1, GetNumQuestLeaderBoards(i), 1 do
 
-									objectiveDesc, objectiveType, objectiveComplete = GetQuestLogLeaderBoard(ii);
+									objectiveDesc, objectiveType, objectiveComplete = GetQuestLogLeaderBoard(ii, i);
 
 									if (objectiveType == "item" or objectiveType == "monster" or objectiveType == "object") then
 
@@ -935,7 +974,11 @@ function MonkeyQuest_Refresh(MBDaily)
 	end
 	
 	-- Restore the current quest log selection
-	SelectQuestLogEntry(tmpQuestLogSelection);
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		C_QuestLog.SetSelectedQuest(tmpQuestLogSelection)
+	else
+		SelectQuestLogEntry(tmpQuestLogSelection)
+	end
 	
 	MonkeyQuest_Resize();
 	-- we don't have a dropped QUEST_LOG_UPDATE anymore
@@ -945,10 +988,14 @@ end
 
 function MonkeyQuest_RefreshQuestItemList()
 
-	local strQuestLogTitleText, strQuestLevel, strQuestTag, suggestedGroup, isHeader, isCollapsed, isComplete;
+	local strQuestLogTitleText, strQuestLevel, strQuestTag, suggestedGroup, isHeader, isCollapsed, isComplete, questInfo
 	local i;
-	local iNumEntries, iNumQuests = GetNumQuestLogEntries();
-
+	local iNumEntries, iNumQuests
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		iNumEntries, iNumQuests = C_QuestLog.GetNumQuestLogEntries()
+	else
+		iNumEntries, iNumQuests = GetNumQuestLogEntries()
+	end
 
 	MonkeyQuest.m_aQuestItemList = nil;
 	MonkeyQuest.m_aQuestItemList = {};
@@ -957,16 +1004,28 @@ function MonkeyQuest_RefreshQuestItemList()
 		-- strQuestLogTitleText		the title text of the quest, may be a header (ex. Wetlands)
 		-- strQuestLevel			the level of the quest
 		-- strQuestTag				the tag on the quest (ex. COMPLETED)
-		strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i);
+		if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+			questInfo = C_QuestLog.GetInfo(i)
+				
+			strQuestLogTitleText = questInfo.title
+			strQuestLevel = questInfo.level
+			suggestedGroup = questInfo.suggestedGroup
+			isHeader = questInfo.isHeader
+			isCollapsed = questInfo.isCollapsed
+			if (C_QuestLog.IsComplete(questInfo.questID)) then
+				isComplete = 1
+			elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+				isComplete = -1
+			end
+		else
+			strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+		end
 		
 		if (not isHeader) then
-			-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-			SelectQuestLogEntry(i);
-
-			if (GetNumQuestLeaderBoards() > 0) then
-				for ii=1, GetNumQuestLeaderBoards(), 1 do
+			if (GetNumQuestLeaderBoards(i) > 0) then
+				for ii=1, GetNumQuestLeaderBoards(i), 1 do
 					--local string = _G["QuestLogObjective"..ii];
-					local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii);
+					local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii, i);
 					
 					MonkeyQuest_AddQuestItemToList(strLeaderBoardText);
 
@@ -1030,11 +1089,6 @@ function MonkeyQuest_Resize()
 	MonkeyQuestTitleButton:SetWidth(MonkeyQuestTitleText:GetWidth());
 	MonkeyQuestTitleButton:SetHeight(MonkeyQuestTitleText:GetHeight());
 
-	local substractPadding = 0
-	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
-		substractPadding = 10
-	end
-
 	for i = 1, MonkeyQuest.m_iNumQuestButtons, 1 do
 		text = _G["MonkeyQuestButton" .. i .. "Text"];
 		button = _G["MonkeyQuestButton" .. i];
@@ -1042,10 +1096,10 @@ function MonkeyQuest_Resize()
 		if (text:IsVisible()) then
 			text:SetWidth(iTextWidth);
 
-			iHeight = iHeight + text:GetHeight() - substractPadding + iPadding;
+			iHeight = iHeight + text:GetHeight() + iPadding;
 			
 			button:SetWidth(text:GetWidth());
-			button:SetHeight(text:GetHeight() - substractPadding);
+			button:SetHeight(text:GetHeight());
 		end
 	end
 
@@ -1114,7 +1168,6 @@ function MonkeyQuest_GetLeaderboardColorStr(strText)
 		i, j, strItemName, iNumItems, iNumNeeded = string.find(strText, "(.*):%s*([-%d]+)%s*/%s*([-%d]+)%s*$");
 	end
 
-	-- wraith:
 	if ( MonkeyQuestConfig[MonkeyQuest.m_global].m_bColourSubObjectivesByProgress == true ) then
 		if (iNumItems ~= nil) then
 			local colour = {a = 1.0, r = 1.0, g = 1.0, b = 1.0};
@@ -1250,12 +1303,30 @@ end
 
 function MonkeyQuestButton_OnClick(self, button, down)
 
-	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex);
-    
+	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, questInfo
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		questInfo = C_QuestLog.GetInfo(self.m_iQuestIndex)
+		
+		strQuestLogTitleText = questInfo.title
+		strQuestLevel = questInfo.level
+		suggestedGroup = questInfo.suggestedGroup
+		isHeader = questInfo.isHeader
+		isCollapsed = questInfo.isCollapsed
+		if (C_QuestLog.IsComplete(questInfo.questID)) then
+			isComplete = 1
+		elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+			isComplete = -1
+		end
+		frequency = questInfo.frequency
+		questID = questInfo.questID
+	else
+		strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex)
+	end
+	
     local strQuestLink = ""
     
     if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
-        strQuestLink = GetQuestLink(self.m_iQuestIndex);
+        strQuestLink = GetQuestLink(questID);
     else
         strQuestLink = strQuestLogTitleText
     end
@@ -1279,7 +1350,16 @@ function MonkeyQuestButton_OnClick(self, button, down)
 		-- what button was it?
 		if (button == "LeftButton") then
 			local chars = ""
-			local tagID, tagName = GetQuestTagInfo(questID);
+			local tagID, tagName, tagInfo
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+				tagInfo = C_QuestLog.GetQuestTagInfo(questID)
+				if (tagInfo) then
+					tagID = tagInfo.tagID
+					tagName = tagInfo.tagName
+				end
+			else
+				tagID, tagName = GetQuestTagInfo(questID);
+			end
 			if ( tagName ) then
 				if ( tagID == QUEST_TAG_GROUP) then
 					chars = "G"
@@ -1310,28 +1390,27 @@ function MonkeyQuestButton_OnClick(self, button, down)
 				if suggestedGroup and suggestedGroup > 1 then	
 					chars = chars .. suggestedGroup
 				end
-			end
-			
-			if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
-				chars = chars.."*"
-			elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
-				chars = chars.."**"
+				if ( frequency == Enum.QuestFrequency.Daily ) then
+					chars = chars.."*"
+				elseif ( frequency == Enum.QuestFrequency.Weekly ) then
+					chars = chars.."**"
+				end
+			else			
+				if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
+					chars = chars.."*"
+				elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
+					chars = chars.."**"
+				end
 			end
 
 			activeWindow:Insert("["..strQuestLevel..chars.."] " .. strQuestLink .. " ");
 		else
 			local strChatObjectives = "";
 
-			-- Remember the currently selected quest log entry
-			local tmpQuestLogSelection = GetQuestLogSelection();
-
-			-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-			SelectQuestLogEntry(self.m_iQuestIndex);
-
-			if (GetNumQuestLeaderBoards() > 0) then
-				for i=1, GetNumQuestLeaderBoards(), 1 do
+			if (GetNumQuestLeaderBoards(self.m_iQuestIndex) > 0) then
+				for i=1, GetNumQuestLeaderBoards(self.m_iQuestIndex), 1 do
 					--local string = _G["QuestLogObjective"..ii];
-					local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(i);
+					local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(i, self.m_iQuestIndex);
 					
 					if (strLeaderBoardText) then
 						strChatObjectives = strChatObjectives .. "{" .. strLeaderBoardText .. "} ";
@@ -1339,16 +1418,12 @@ function MonkeyQuestButton_OnClick(self, button, down)
 				end
 			elseif (MonkeyQuestConfig[MonkeyQuest.m_global].m_bObjectives) then
 				-- this quest has no leaderboard so display the objective instead if the config is set
-				local strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
+				local strQuestDescription, strQuestObjectives = GetQuestLogQuestText(self.m_iQuestIndex);
 
 				strChatObjectives = strChatObjectives .. "{" .. strQuestObjectives .. "} ";
 			end
 
 			activeWindow:Insert(strChatObjectives);
-
-			-- Restore the currently selected quest log entry
-			SelectQuestLogEntry(tmpQuestLogSelection);
-
 		end
 
 		-- the user isn't trying to actually open the real quest log, so just exit here
@@ -1359,30 +1434,40 @@ function MonkeyQuestButton_OnClick(self, button, down)
 		-- what button was it?
 		if (button == "LeftButton") then
 			-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-			SelectQuestLogEntry(self.m_iQuestIndex);
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+				C_QuestLog.SetSelectedQuest(questID)
+			else
+				SelectQuestLogEntry(self.m_iQuestIndex)
+			end
 			
 			-- try and share this quest with party members
-			if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
-				QuestLogPushQuest();
+			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+				if (C_QuestLog.IsPushableQuest(questID) and GetNumSubgroupMembers() > 0) then
+					QuestLogPushQuest();
+				end
+			else
+				if (GetQuestLogPushable() and GetNumSubgroupMembers() > 0) then
+					QuestLogPushQuest();
+				end
 			end
 			
 		else
-			-- Remember the currently selected quest log entry
-			--local tmpQuestLogSelection = GetQuestLogSelection();
-
-			-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-			-- SelectQuestLogEntry(self.m_iQuestIndex);
-            
+			
 			if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
                 QuestMapQuestOptions_AbandonQuest(questID)
 			else
+				-- Remember the currently selected quest log entry
+				local tmpQuestLogSelection = GetQuestLogSelection();
+				
+				-- Select the quest log entry
                 SelectQuestLogEntry(self.m_iQuestIndex);
+				
                 SetAbandonQuest();
                 StaticPopup_Show("ABANDON_QUEST", GetAbandonQuestName());
+				
+				-- Restore the currently selected quest log entry
+				SelectQuestLogEntry(tmpQuestLogSelection);
             end
-            
-			-- Restore the currently selected quest log entry
-			--SelectQuestLogEntry(tmpQuestLogSelection);
 		end
 
 		-- the user isn't trying to actually open the real quest log, so just exit here
@@ -1455,7 +1540,25 @@ function MonkeyQuestButton_OnEnter(self, motion)
 		return;
 	end
 
-	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex);
+	local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID, questInfo
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		questInfo = C_QuestLog.GetInfo(self.m_iQuestIndex)
+		
+		strQuestLogTitleText = questInfo.title
+		strQuestLevel = questInfo.level
+		suggestedGroup = questInfo.suggestedGroup
+		isHeader = questInfo.isHeader
+		isCollapsed = questInfo.isCollapsed
+		if (C_QuestLog.IsComplete(questInfo.questID)) then
+			isComplete = 1
+		elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+			isComplete = -1
+		end
+		frequency = questInfo.frequency
+		questID = questInfo.questID
+	else
+		strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, frequency, questID = GetQuestLogTitle(self.m_iQuestIndex)
+	end
 
 	if (strQuestLogTitleText == nil) then
 		return;
@@ -1491,17 +1594,12 @@ function MonkeyQuestButton_OnEnter(self, motion)
 	
 	-- set the tool tip text
 	GameTooltip:SetText(strQuestLogTitleText, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, 1);
-	if ( isComplete and isComplete < 0 ) then
-        GameTooltip:AddLine(FAILED, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
-        GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["FAILED"]));   
-    end
+
 	if (MonkeyQuestConfig[MonkeyQuest.m_global].m_bShowQuestTextTooltip == true) then
 		local objcol="|cFFB0D0B0";
 		local descol="|cFF888899";
 		
-		SelectQuestLogEntry(self.m_iQuestIndex);
-		
-		local qtdesc,qtobj = GetQuestLogQuestText();
+		local qtdesc,qtobj = GetQuestLogQuestText(self.m_iQuestIndex);
 		local mqhigh = {"Gorgrond","Talador","Nagrand","Shadowmoon Valley","Spires of Arak","Frostfire Ridge","Ashran","Stormshield","Tanaan Jungle","Bloodmaul Slag Mines","Grimrail Depot","Skyreach",
 					"The Everbloom","Shadowmoon Burial Grounds","Iron Docks","Auchindoun","Upper Blackrock Spire","Stormwind","Ironforge","Darnassus",
 					"Loch Modan","Wetlands","Felwood","Hinterland","Alterac Mountain","Tanaris","Gadgetzan","Desolace","Barrens","Ratchet","Theramore","Booty Bay",
@@ -1523,38 +1621,94 @@ function MonkeyQuestButton_OnEnter(self, motion)
 		GameTooltip:AddLine(self.m_strQuestObjectives, GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b, 1);
 	end
 
-    local tagID, tagName = GetQuestTagInfo(questID);
-    if ( tagName ) then
-        local factionGroup = GetQuestFactionGroup(questID);
-        -- Faction-specific account quests have additional info in the tooltip
-        if ( tagID == QUEST_TAG_ACCOUNT and factionGroup ) then
-            local factionString = FACTION_ALLIANCE;
-            if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
-                factionString = FACTION_HORDE;
-            end
-            tagName = format("%s (%s)", tagName, factionString);
-        end
-        GameTooltip:AddLine(tagName, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-        if ( QUEST_TAG_TCOORDS[tagID] ) then
-            local questTypeIcon;
-            if ( tagID == QUEST_TAG_ACCOUNT and factionGroup ) then
-                questTypeIcon = QUEST_TAG_TCOORDS["ALLIANCE"];
-                if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
-                    questTypeIcon = QUEST_TAG_TCOORDS["HORDE"];
-                end
-            else
-                questTypeIcon = QUEST_TAG_TCOORDS[tagID];
-            end
-            GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(questTypeIcon));
-        end
-    end
-    if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
-        GameTooltip:AddLine(DAILY, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-        GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["DAILY"]));
-    elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
-        GameTooltip:AddLine(WEEKLY, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
-        GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["WEEKLY"]));
-    end
+    local tagID, tagName, tagInfo
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		tagInfo = C_QuestLog.GetQuestTagInfo(questID)
+		if (tagInfo) then
+			tagID = tagInfo.tagID
+			tagName = tagInfo.tagName
+		end
+	else
+		tagID, tagName = GetQuestTagInfo(questID)
+	end
+
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		if (tagInfo) then
+			local factionGroup = GetQuestFactionGroup(questID);
+			-- Faction-specific account quests have additional info in the tooltip
+			if ( tagID == Enum.QuestTag.Account and factionGroup ) then
+				local factionString = FACTION_ALLIANCE;
+				if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
+					factionString = FACTION_HORDE;
+				end
+				tagName = format("%s (%s)", tagName, factionString);
+			end
+
+			local overrideQuestTag = tagID;
+			if ( QUEST_TAG_TCOORDS[tagID] ) then
+				if ( tagID == Enum.QuestTag.Account and factionGroup ) then
+					overrideQuestTag = "ALLIANCE";
+					if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
+						overrideQuestTag = "HORDE";
+					end
+				end
+			end
+			QuestUtils_AddQuestTagLineToTooltip(GameTooltip, tagName, overrideQuestTag, tagInfo.worldQuestType, NORMAL_FONT_COLOR);
+		end
+		
+		if C_QuestLog.IsQuestCalling(questID) then
+			WorldMap_AddQuestTimeToTooltip(questID);
+		end
+		
+		if ( frequency == Enum.QuestFrequency.Daily ) then
+			QuestUtils_AddQuestTagLineToTooltip(GameTooltip, DAILY, "DAILY", nil, NORMAL_FONT_COLOR);
+		elseif ( frequency == Enum.QuestFrequency.Weekly ) then
+			QuestUtils_AddQuestTagLineToTooltip(GameTooltip, WEEKLY, "WEEKLY", nil, NORMAL_FONT_COLOR);
+		end
+		
+		if C_QuestLog.IsFailed(questID) then
+			QuestUtils_AddQuestTagLineToTooltip(GameTooltip, FAILED, "FAILED", nil, RED_FONT_COLOR);
+		end
+	else
+	
+		if ( tagName ) then
+			local factionGroup = GetQuestFactionGroup(questID);
+			-- Faction-specific account quests have additional info in the tooltip
+			if ( tagID == QUEST_TAG_ACCOUNT and factionGroup ) then
+				local factionString = FACTION_ALLIANCE;
+				if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
+					factionString = FACTION_HORDE;
+				end
+				tagName = format("%s (%s)", tagName, factionString);
+			end
+			GameTooltip:AddLine(tagName, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+			if ( QUEST_TAG_TCOORDS[tagID] ) then
+				local questTypeIcon;
+				if ( tagID == QUEST_TAG_ACCOUNT and factionGroup ) then
+					questTypeIcon = QUEST_TAG_TCOORDS["ALLIANCE"];
+					if ( factionGroup == LE_QUEST_FACTION_HORDE ) then
+						questTypeIcon = QUEST_TAG_TCOORDS["HORDE"];
+					end
+				else
+					questTypeIcon = QUEST_TAG_TCOORDS[tagID];
+				end
+				GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(questTypeIcon));
+			end
+		end
+		
+		if ( frequency == LE_QUEST_FREQUENCY_DAILY ) then
+			GameTooltip:AddLine(DAILY, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+			GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["DAILY"]));
+		elseif ( frequency == LE_QUEST_FREQUENCY_WEEKLY ) then
+			GameTooltip:AddLine(WEEKLY, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+			GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["WEEKLY"]));
+		end
+		
+		if ( isComplete and isComplete < 0 ) then
+			GameTooltip:AddLine(FAILED, RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b);
+			GameTooltip:AddTexture("Interface\\QuestFrame\\QuestTypeIcons", unpack(QUEST_TAG_TCOORDS["FAILED"]));   
+		end
+	end
 	
 	-- see if any nearby group mates are on this quest
 	local iNumPartyMembers = GetNumSubgroupMembers();
@@ -1562,7 +1716,11 @@ function MonkeyQuestButton_OnEnter(self, motion)
 	local isOnQuest, i;
 	
 	for i = 1, iNumPartyMembers do
-		isOnQuest = IsUnitOnQuest(self.m_iQuestIndex, "party" .. i);
+		if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+			isOnQuest = C_QuestLog.IsUnitOnQuest("party" .. i, questID)
+		else
+			isOnQuest = IsUnitOnQuest(self.m_iQuestIndex, "party" .. i);
+		end
 		
 		if (isOnQuest and isOnQuest == true) then
 			-- this member is on the quest

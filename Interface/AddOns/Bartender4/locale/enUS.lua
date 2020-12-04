@@ -3,9 +3,9 @@
 -- http://www.wowace.com/projects/bartender4/localization/ ;¶
 
 local debug = false
---[===[@debug@
+--[==[@debug@
 debug = true
---@end-debug@]===]
+--@end-debug@]==]
 
 local L = LibStub("AceLocale-3.0"):NewLocale("Bartender4", "enUS", true, debug)
 

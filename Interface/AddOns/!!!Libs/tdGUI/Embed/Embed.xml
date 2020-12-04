@@ -5,4 +5,5 @@
   <Script file="Refresh.lua" />
   <Script file="View.lua" />
   <Script file="Select.lua" />
+  <Script file="Backdrop.lua" />
 </Ui>

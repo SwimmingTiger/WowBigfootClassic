@@ -6,6 +6,7 @@
 ---@field ActivityItem MeetingHornUIActivityItem
 ---@field Applicant MeetingHornUIApplicant
 ---@field ApplicantItem MeetingHornUIApplicantItem
+---@field Encounter MeetingHornUIEncounter
 
 ---@class ns
 ---@field UI UI
@@ -66,6 +67,8 @@ function Addon:OnInitialize()
         },
     })
 
+    _G.MEETINGHORN_DB_CHARACTER_MEMBERS = _G.MEETINGHORN_DB_CHARACTER_MEMBERS or {}
+
     self.MainPanel = ns.UI.MainPanel:Bind(MeetingHornMainPanel)
     self.DataBroker = ns.UI.DataBroker:Bind(MeetingHornDataBroker)
 
@@ -75,6 +78,8 @@ function Addon:OnInitialize()
     self:RegisterEvent('PLAYER_ENTERING_WORLD', 'ZoneChanged')
     self:RegisterEvent('GROUP_JOINED', 'ZoneChanged')
     self:RegisterEvent('UNIT_PHASE', 'ZoneChanged')
+
+    self:SetupHyperlink()
 end
 
 function Addon:OnEnable()
@@ -98,6 +103,19 @@ function Addon:OnClassCreated(class, name)
     end
 end
 
+function Addon:SetupHyperlink()
+    local origItemRefTooltipSetHyperlink = ItemRefTooltip.SetHyperlink
+    function ItemRefTooltip.SetHyperlink(frame, link, ...)
+        local data = link:match('meetinghornencounter:([%d:]+)')
+        if data then
+            local instanceId, bossId, tab = strsplit(':', data)
+            self:OpenEncounter(tonumber(instanceId), tonumber(bossId), tonumber(tab))
+        else
+            origItemRefTooltipSetHyperlink(frame, link, ...)
+        end
+    end
+end
+
 function Addon:MEETINGHORN_OPTION_CHANGED_CHATFILTER(_, value)
     if value then
         ChatFrame_AddMessageEventFilter('CHAT_MSG_CHANNEL', chatFilter)
@@ -116,6 +134,15 @@ function Addon:Toggle()
     if ns.LFG:GetCurrentActivity() then
         self.MainPanel:SetTab(2)
     end
+end
+
+function Addon:OpenEncounter(...)
+    if not self.MainPanel:IsShown() then
+        ShowUIPanel(self.MainPanel)
+    end
+
+    self.MainPanel:SetTab(4)
+    self.MainPanel.Encounter:Open(...)
 end
 
 function Addon:MEETINGHORN_WORLDBUFF_STATUS_CHANGED(_, enable)

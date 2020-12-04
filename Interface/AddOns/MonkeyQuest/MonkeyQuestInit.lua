@@ -214,10 +214,12 @@ end
 
 function MonkeyQuestInit_CleanQuestList()
 	-- make sure the hidden array is ready to go
-	local iNumEntries, iNumQuests = GetNumQuestLogEntries();
-
-	-- Remember the currently selected quest log entry
-	local tmpQuestLogSelection = GetQuestLogSelection();	
+	local iNumEntries, iNumQuests
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		iNumEntries, iNumQuests = C_QuestLog.GetNumQuestLogEntries()
+	else
+		iNumEntries, iNumQuests = GetNumQuestLogEntries()
+	end
 
 	MonkeyQuest.m_iNumEntries = iNumEntries;
 
@@ -225,7 +227,23 @@ function MonkeyQuestInit_CleanQuestList()
 	for i = 1, iNumEntries, 1 do
 		-- strQuestLogTitleText		the title text of the quest, may be a header (ex. Wetlands)
 		-- strQuestLevel			the level of the quest
-		local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i);
+		local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, questInfo
+		if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+			questInfo = C_QuestLog.GetInfo(i)
+				
+			strQuestLogTitleText = questInfo.title
+			strQuestLevel = questInfo.level
+			suggestedGroup = questInfo.suggestedGroup
+			isHeader = questInfo.isHeader
+			isCollapsed = questInfo.isCollapsed
+			if (C_QuestLog.IsComplete(questInfo.questID)) then
+				isComplete = 1
+			elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+				isComplete = -1
+			end
+		else
+			strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+		end
 		
 		-- since 4.0.1 some strQuestLogTitleText are nil
 		if (strQuestLogTitleText == nil) then
@@ -258,7 +276,23 @@ function MonkeyQuestInit_CleanQuestList()
 	for i = 1, iNumEntries, 1 do
 		-- strQuestLogTitleText		the title text of the quest, may be a header (ex. Wetlands)
 		-- strQuestLevel			the level of the quest
-		local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i);
+		local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, questInfo
+		if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+			questInfo = C_QuestLog.GetInfo(i)
+				
+			strQuestLogTitleText = questInfo.title
+			strQuestLevel = questInfo.level
+			suggestedGroup = questInfo.suggestedGroup
+			isHeader = questInfo.isHeader
+			isCollapsed = questInfo.isCollapsed
+			if (C_QuestLog.IsComplete(questInfo.questID)) then
+				isComplete = 1
+			elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+				isComplete = -1
+			end
+		else
+			strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+		end
 		
 		-- since 4.0.1 some strQuestLogTitleText are nil
 		if (strQuestLogTitleText == nil) then
@@ -267,24 +301,17 @@ function MonkeyQuestInit_CleanQuestList()
 		
 		MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_aQuestList[strQuestLogTitleText.." - "..tostring(isHeader)] = {};
 		MonkeyQuestConfig[MonkeyQuest.m_strPlayer].m_aQuestList[strQuestLogTitleText.." - "..tostring(isHeader)].m_bChecked = MonkeyQuest.m_aQuestList[strQuestLogTitleText.." - "..tostring(isHeader)].m_bChecked;
-			
-		
-		-- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-		SelectQuestLogEntry(i);
 		
 		-- here's a good place to create the objective list
-		if (GetNumQuestLeaderBoards() > 0) then
-			for ii = 1, GetNumQuestLeaderBoards(), 1 do
+		if (GetNumQuestLeaderBoards(i) > 0) then
+			for ii = 1, GetNumQuestLeaderBoards(i), 1 do
 				--local string = _G["QuestLogObjective"..ii];
-				local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii);
+				local strLeaderBoardText, strType, iFinished = GetQuestLogLeaderBoard(ii, i);
 				
 				MonkeyQuest_AddQuestItemToList(strLeaderBoardText);
 			end
 		end
 	end
-	
-	-- Restore the currently quest log selection
-	SelectQuestLogEntry(tmpQuestLogSelection);
 	
 	-- kill it
 	MonkeyQuest.m_aQuestList = nil;
@@ -391,14 +418,14 @@ function MonkeyQuestInit_Font(iFont)
 		-- Default look
 		
 		-- change the fonts
-		MonkeyQuestInit_SetButtonFonts(STANDARD_TEXT_FONT, MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\framd.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 		--MonkeyQuestTitleText:SetFont("Fonts\\FRIZQT__.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
 
 	elseif ( iFont == 1 ) then 
 		-- crash font
 		
 		--MonkeyQuestTitleText:SetFont("Interface\\AddOns\\MonkeyLibrary\\Fonts\\adventure.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight + 2);
-		MonkeyQuestInit_SetButtonFonts("Fonts\\ARHei.TTF", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
+		MonkeyQuestInit_SetButtonFonts("Interface\\AddOns\\MonkeyLibrary\\Fonts\\myriapsc.ttf", MonkeyQuestConfig[MonkeyQuest.m_global].m_iFontHeight);
 
 	elseif ( iFont == 2 ) then
 		-- Blizzard style

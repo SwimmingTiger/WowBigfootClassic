@@ -167,22 +167,37 @@ function MonkeyQuest_SearchQuestDetails(strSearch)
         return false;
     end
     
-    local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete;
+    local strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete, questInfo
     local i, j, k;
-    local iNumEntries, iNumQuests = GetNumQuestLogEntries();
-    local strQuestDescription, strQuestObjectives;
-
+	local iNumEntries, iNumQuests
+	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+		iNumEntries, iNumQuests = C_QuestLog.GetNumQuestLogEntries()
+	else
+		iNumEntries, iNumQuests = GetNumQuestLogEntries()
+	end
 
     for i = 1, iNumEntries, 1 do
         -- strQuestLogTitleText     the title text of the quest, may be a header (ex. Wetlands)
         -- strQuestLevel            the level of the quest
-        strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i);
+		if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+			questInfo = C_QuestLog.GetInfo(i)
+				
+			strQuestLogTitleText = questInfo.title
+			strQuestLevel = questInfo.level
+			suggestedGroup = questInfo.suggestedGroup
+			isHeader = questInfo.isHeader
+			isCollapsed = questInfo.isCollapsed
+			if (C_QuestLog.IsComplete(questInfo.questID)) then
+				isComplete = 1
+			elseif (C_QuestLog.IsFailed(questInfo.questID)) then
+				isComplete = -1
+			end
+		else
+			strQuestLogTitleText, strQuestLevel, suggestedGroup, isHeader, isCollapsed, isComplete = GetQuestLogTitle(i)
+		end
 
         if (not isHeader) then
-            -- Select the quest log entry for other functions like GetNumQuestLeaderBoards()
-            SelectQuestLogEntry(i);
-
-            strQuestDescription, strQuestObjectives = GetQuestLogQuestText();
+            local strQuestDescription, strQuestObjectives = GetQuestLogQuestText(i);
 
             --DEFAULT_CHAT_FRAME:AddMessage(strSearch .. " == " .. strQuestDescription);
             if (string.find(strQuestDescription, strSearch) or string.find(strQuestObjectives, strSearch)) then

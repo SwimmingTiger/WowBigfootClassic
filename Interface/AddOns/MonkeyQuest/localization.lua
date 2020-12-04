@@ -1,6 +1,6 @@
 ﻿-- Not translations
 MONKEYQUEST_TITLE						= "MonkeyQuest"
-MONKEYQUEST_VERSION						= "2.10.3"
+MONKEYQUEST_VERSION						= "2.11.0"
 MONKEYQUEST_TITLE_VERSION				= MONKEYQUEST_TITLE .. " v" .. MONKEYQUEST_VERSION
 MONKEYQUEST_INFO_COLOUR					= "|cffffff00"
 MONKEYQUEST_CHAT_COLOUR					= "|cff00ff00"
@@ -254,6 +254,133 @@ BINDING_NAME_MONKEYQUEST_CLOSE			= "Fermer/Open"
 BINDING_NAME_MONKEYQUEST_MINIMIZE		= "Réduire/Restore"
 BINDING_NAME_MONKEYQUEST_HIDDEN			= "Hide/Montrer les quêtes cachées"
 BINDING_NAME_MONKEYQUEST_NOHEADERS		= "Afficher/Masquer Headers"
+
+elseif (GetLocale() == "ruRU") then
+
+MONKEYQUEST_DESCRIPTION					= "Отображает ваши задания для быстрого просмотра."
+MONKEYQUEST_LOADED_MSG					= MONKEYQUEST_INFO_COLOUR .. MONKEYQUEST_TITLE .. " v" .. MONKEYQUEST_VERSION .. " загрузка"
+MONKEYQUEST_OPTIONS1					= "Пожалуйста, установите MonkeyBuddy, чтобы легко настроить MonkeyQuest."
+MONKEYQUEST_OPTIONS2					= "\124TInterface\\Icons\\Trade_Engineering:0\124t MonkeyBuddy в настоящее время не установлен."
+
+MONKEYQUEST_NO_HEADER					= "Нет заголовка"
+MONKEYQUEST_QUEST_DONE					= "сделанный"
+MONKEYQUEST_QUEST_FAILED				= "не удалось"
+MONKEYQUEST_CONFIRM_RESET				= "Хорошо, чтобы сбросить " .. MONKEYQUEST_TITLE .. " настройки по умолчанию?"
+MONKEYQUEST_CONFIRM_RESET_TO_BLIZZARD_STYLE				= "Хорошо, чтобы установить " .. MONKEYQUEST_TITLE .. " настройки в стиле квест-трекера Blizzard?"
+
+MONKEYQUEST_SET_WIDTH_MSG				= MONKEYQUEST_CHAT_COLOUR .. MONKEYQUEST_TITLE .. ": Вам может понадобиться '/console reloadui' чтобы увидеть изменения в ширине."
+MONKEYQUEST_RESET_MSG					= MONKEYQUEST_CHAT_COLOUR .. MONKEYQUEST_TITLE .. ": Сброс настроек."
+MONKEYQUEST_RESET_TO_BLIZZARD_STYLE_MSG	= MONKEYQUEST_CHAT_COLOUR .. MONKEYQUEST_TITLE .. ": В настройках Blizzard установлен стиль заданий."
+
+MONKEYQUEST_HELP_MSG					= MONKEYQUEST_INFO_COLOUR .. "Команды: /mquest help <command>\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Где <command> отвечает за: \n" ..
+										  "reset, open, close, showhidden, hidehidden, useoverviews, nooverviews, " ..
+										  "tipanchor, alpha, width, hideheaders, showheaders, hideborder, showborder, " ..
+										  "growup, growdown, hidenumquests, shownumquests, lock, unlock, colourtitleon, " ..
+										  "colourtitleoff, hidecompletedquests, showcompletedquests, hidecompletedobjectives, " ..
+										  "showcompletedobjectives, fontheight, showtooltipobjectives, hidetootipobjectives, " ..
+										  "allowrightclick, disallowrightclick, hidetitlebuttons, showtitlebuttons, allowworkcomplete, disallowworkcomplete, " ..
+										  "colourobjectiveson, colourobjectivesoff, showitems, hideitems, itemsonleft, itemsonright, hideviaclick, nohideviaclick."
+MONKEYQUEST_HELP_RESET_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest reset\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Отображает диалог сброса переменных конфигурации.\n"
+MONKEYQUEST_HELP_OPEN_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest open\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Показывает основное " .. MONKEYQUEST_TITLE .. " окно.\n"
+MONKEYQUEST_HELP_CLOSE_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest close\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает основное " .. MONKEYQUEST_TITLE .. " окно.\n"
+MONKEYQUEST_HELP_SHOWHIDDEN_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showhidden\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Показывает свернутые заголовки зоны и скрытые задания.\n"
+MONKEYQUEST_HELP_HIDEHIDDEN_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidehidden\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает свернутые заголовки зон и скрытые задания.\n"
+MONKEYQUEST_HELP_USEOVERVIEWS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest useoverviews\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Отображает обзор заданий для заданий без целей.\n"
+MONKEYQUEST_HELP_NOOVERVIEWS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest nooverviews\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает обзор заданий для заданий без целей.\n"
+MONKEYQUEST_HELP_TIPANCHOR_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest tipanchor=<anchor position>\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Устанавливает точку привязки всплывающей подсказки, где <anchor position> " .. 
+										  "может быть в любом из следующих:\nANCHOR_TOPLEFT, ANCHOR_TOPRIGHT, ANCHOR_TOP, ANCHOR_LEFT, " ..
+										  "ANCHOR_RIGHT, ANCHOR_BOTTOMLEFT, ANCHOR_BOTTOMRIGHT, ANCHOR_BOTTOM, ANCHOR_CURSOR, " .. 
+										  "DEFAULT, NONE"
+MONKEYQUEST_HELP_ALPHA_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest alpha=<0 - 255>\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Устанавливает прозрачность фона на указанное значение.\n"
+MONKEYQUEST_HELP_WIDTH_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest width=<positive integer>\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Устанавливает ширину в указанное значение, по умолчанию 255.\n"
+MONKEYQUEST_HELP_HIDEHEADERS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hideheaders\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает отображение заголовок зон.\n"
+MONKEYQUEST_HELP_SHOWHEADERS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showheaders\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Показывает отображение заголовок зон.\n"
+MONKEYQUEST_HELP_HIDEBORDER_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hideborder\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает границу вокруг главного " .. MONKEYQUEST_TITLE .. " окна.\n"
+MONKEYQUEST_HELP_SHOWBORDER_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showborder\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Отображает границу вокруг главного " .. MONKEYQUEST_TITLE .. " окна.\n"
+MONKEYQUEST_HELP_GROWUP_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest growup\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Заставляет " .. MONKEYQUEST_TITLE .. " главное окно двигатся вверх.\n"
+MONKEYQUEST_HELP_GROWDOWN_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest growdown\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Заставляет " .. MONKEYQUEST_TITLE .. " главное окно двигатся вниз.\n"
+MONKEYQUEST_HELP_HIDENUMQUESTS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidenumquests\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрыть количество заданий рядом с названием.\n"
+MONKEYQUEST_HELP_SHOWNUMQUESTS_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest shownumquests\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Показать количество заданий рядом с названием.\n"
+MONKEYQUEST_HELP_LOCK_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest lock\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Заблокировать " .. MONKEYQUEST_TITLE .. " окно на месте.\n"
+MONKEYQUEST_HELP_UNLOCK_MSG				= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest unlock\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Разблокировать " .. MONKEYQUEST_TITLE .. " окно, делая его подвижным.\n"
+MONKEYQUEST_HELP_COLOURTITLEON_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest colourtitleon\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Окрашивает задания исходя из сложности при выполнении.\n"
+MONKEYQUEST_HELP_COLOURTITLEOFF_MSG		= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest colourtitleoff\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Не окрашивает задания по сложности.\n"
+MONKEYQUEST_HELP_HIDECOMPLETEDQUESTS_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidecompletedquests\n" ..
+											  MONKEYQUEST_CHAT_COLOUR .. "Скрывает выполненные задания.\n"
+MONKEYQUEST_HELP_SHOWCOMPLETEDQUESTS_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showcompletedquests\n" ..
+											  MONKEYQUEST_CHAT_COLOUR .. "Показывает выполненные задания.\n"
+MONKEYQUEST_HELP_HIDECOMPLETEDOBJECTIVES_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidecompletedobjectives\n" ..
+												  MONKEYQUEST_CHAT_COLOUR .. "Скрывает выполненные задачи.\n"
+MONKEYQUEST_HELP_SHOWCOMPLETEDOBJECTIVES_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showcompletedobjectives\n" ..
+												  MONKEYQUEST_CHAT_COLOUR .. "Показывает выполненные задачи.\n"
+MONKEYQUEST_HELP_FONTHEIGHT_MSG			= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest fontheight=<positive integer>\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Устанавливает высоту шрифта в указанное значение, по умолчанию 12.\n"
+MONKEYQUEST_HELP_SHOWTOOLTIPOBJECTIVES_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showtooltipobjectives\n" ..
+											  MONKEYQUEST_CHAT_COLOUR .. "Добавляет строку во всплывающую подсказку, которая отображает описание к этой цели задания.\n"
+MONKEYQUEST_HELP_HIDETOOLTIPOBJECTIVES_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidetooltipobjectives\n" ..
+											  MONKEYQUEST_CHAT_COLOUR .. "Не добавляет строку во всплывающую подсказку, которая отображает описание к этой цели задания.\n"
+MONKEYQUEST_HELP_ALLOWRIGHTCLICK_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest allowrightclick\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Позволяет по нажатию ПКМ открыть MonkeyBuddy.\n"
+MONKEYQUEST_HELP_DISALLOWRIGHTCLICK_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest disallowrightclick\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Не позволяет по нажатию ПКМ открыть MonkeyBuddy.\n"
+MONKEYQUEST_HELP_HIDETITLEBUTTONS_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest hidetitlebuttons\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Скрывает кнопки заголовка.\n"
+MONKEYQUEST_HELP_SHOWTITLEBUTTONS_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest showtitlebuttons\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Показывает кнопки заголовка.\n"
+MONKEYQUEST_HELP_ALLOWWORKCOMPLETE_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest allowworkcomplete\n" ..
+										  MONKEYQUEST_CHAT_COLOUR .. "Включить >работа завершена< звук.\n"
+MONKEYQUEST_HELP_DISALLOWWORKCOMPLETE_MSG	= MONKEYQUEST_INFO_COLOUR .. "Команда: /mquest disallowworkcomplete\n" ..
+											  MONKEYQUEST_CHAT_COLOUR .. "Отключить >работа завершена< звук.\n"
+
+-- tooltip strings
+MONKEYQUEST_TOOLTIP_QUESTITEM			= "Предмет Задания"					-- as it appears in the tooltip of unique quest items
+MONKEYQUEST_TOOLTIP_QUEST				= "Задание"
+MONKEYQUEST_TOOLTIP_SLAIN				= "убитый"						-- as it appears in the objective text
+
+-- misc quest strings
+MONKEYQUEST_DUNGEON						= "Подземелье"
+MONKEYQUEST_PVP							= "PvP"
+
+-- noob tips
+MONKEYQUEST_NOOBTIP_HEADER				= "Подсказки для Новичка:"
+
+MONKEYQUEST_NOOBTIP_CLOSE				= "Нажмите здесь, чтобы закрыть основное окно. Чтобы вернуть его попробуйте:"
+MONKEYQUEST_NOOBTIP_MINIMIZE			= "Нажмите здесь, чтобы свернуть основное окно"
+MONKEYQUEST_NOOBTIP_RESTORE				= "Нажмите здесь, чтобы восстановить основное окно"
+MONKEYQUEST_NOOBTIP_SHOWALLHIDDEN		= "Нажмите здесь, чтобы показать все скрытые предметы"
+MONKEYQUEST_NOOBTIP_HIDEALLHIDDEN		= "Нажмите здесь, чтобы скрыть все скрытые предметы"
+MONKEYQUEST_NOOBTIP_HIDEBUTTON			= "Нажмите здесь, чтобы скрыть это задание. Активируйте 'Показать все скрытые предметы', чтобы увидеть это задание снова"
+MONKEYQUEST_NOOBTIP_TITLE				= "Нажмите ПКМ здесь, чтобы открыть MonkeyBuddy, чтобы вы могли настроить " .. MONKEYQUEST_TITLE
+MONKEYQUEST_NOOBTIP_QUESTHEADER			= "Нажмите здесь, чтобы скрыть/показать все задания в этой зоне. Активируйте 'Показать все скрытые предметы', чтобы показать скрытые заголовки зон."
+
+-- bindings
+BINDING_NAME_MONKEYQUEST_CLOSE			= "Закрыто/Открыто"
+BINDING_NAME_MONKEYQUEST_MINIMIZE		= "Свернуть/Восстановить"
+BINDING_NAME_MONKEYQUEST_HIDDEN			= "Скрыть/Показать все скрытые предметы"
+BINDING_NAME_MONKEYQUEST_NOHEADERS		= "Переключить без заголовков"
 
 elseif (GetLocale() == "deDE") then
 

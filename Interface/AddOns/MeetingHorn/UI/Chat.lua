@@ -49,6 +49,5 @@ function Chat:OnEvent(...)
 end
 
 function Chat:OnHyperlinkClick(link, text, button)
-    print(link, text, button)
     SetItemRef(link, text, button, self.ChatFrame)
 end

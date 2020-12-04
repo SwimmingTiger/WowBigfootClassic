@@ -1,4 +1,4 @@
-## Interface: 11305
+## Interface: 11306
 ## Author: Atlas Team
 ## Version: v1.0.0
 ## Dependencies: AtlasLootClassic

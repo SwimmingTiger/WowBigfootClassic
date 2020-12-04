@@ -36,15 +36,15 @@ local MonkeyQuestMasterFont = CreateFont("MonkeyQuestMasterFont")
 
 local MonkeyQuestFont = CreateFont("MonkeyQuestFont")
 	MonkeyQuestFont:SetFontObject("MonkeyQuestMasterFont")
-	MonkeyQuestFont:SetFont("Fonts\\ARHei.TTF", 14)
+	MonkeyQuestFont:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\myriapsc.ttf", 12)
 	
 local MonkeyQuestFontWide = CreateFont("MonkeyQuestFontWide")
 	MonkeyQuestFontWide:SetFontObject("MonkeyQuestMasterFont")
-	MonkeyQuestFontWide:SetFont("Fonts\\ARHei.TTF", 14)
+	MonkeyQuestFontWide:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\framd.ttf", l and 14 or 12)
 	
 local MonkeyQuestTitleFont = CreateFont("MonkeyQuestTitleFont")
 	MonkeyQuestTitleFont:SetFontObject("MonkeyQuestMasterFont")
-	MonkeyQuestTitleFont:SetFont(STANDARD_TEXT_FONT, 18)
+	MonkeyQuestTitleFont:SetFont((l and STANDARD_TEXT_FONT) or "Interface\\AddOns\\MonkeyLibrary\\Fonts\\adventure.ttf", 14)
 
 function MonkeyLib_ColourStrToARGB(strColour)
 	-- "|cFFFFFFFF"

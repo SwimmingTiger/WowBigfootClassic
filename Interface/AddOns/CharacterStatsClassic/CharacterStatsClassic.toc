@@ -1,10 +1,10 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: |cff00aeffCharacterStatsClassic|r
 ## Title-zhCN: [大脚][集]人物详细属性
 ## Title-zhTW: [大腳][集]人物詳細屬性
 ## Notes: |cff00ff00CharacterStatsClassic|r|n|cffbc8f8fAdvanced Character Stats|r
 ## Author: Peter Getov
-## Version: 3.6.5
+## Version: 3.6.8
 ## SavedVariables: CharacterStatsClassicDB
 ## SavedVariablesPerCharacter: CharacterStatsClassicCharacterDB
 ## Dependencies: BigFoot

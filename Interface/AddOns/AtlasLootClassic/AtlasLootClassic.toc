@@ -1,4 +1,4 @@
-﻿## Interface: 11305
+﻿## Interface: 11306
 ## Author: Lag
 ## Version: v1.5.6
 ## SavedVariables: AtlasLootClassicDB

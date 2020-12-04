@@ -100,7 +100,7 @@ local SetFrameScript, ClearFrameScripts
 ------------------------------------------------------------------------------
 -- @debug @
 local usedTables, usedFrames, usedTooltips = 0, 0, 0
---@end-debug@]===]
+--@end-debug@]==]
 
 ------------------------------------------------------------------------------
 -- Internal constants to tweak the layout
@@ -176,9 +176,9 @@ local frameHeap = lib.frameHeap
 local function AcquireFrame(parent)
 	local frame = tremove(frameHeap) or CreateFrame("Frame", nil, nil, BackdropTemplateMixin and "BackdropTemplate")
 	frame:SetParent(parent)
-	--[===[@debug@
+	--[==[@debug@
 	usedFrames = usedFrames + 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 	return frame
 end
 
@@ -191,9 +191,9 @@ local function ReleaseFrame(frame)
 	ClearFrameScripts(frame)
 
 	tinsert(frameHeap, frame)
-	--[===[@debug@
+	--[==[@debug@
 	usedFrames = usedFrames - 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 end
 
 ------------------------------------------------------------------------------
@@ -403,9 +403,9 @@ function AcquireTooltip()
 		setmetatable(tooltip, tipMetatable)
 	end
 
-	--[===[@debug@
+	--[==[@debug@
 	usedTooltips = usedTooltips + 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 	return tooltip
 end
 
@@ -468,9 +468,9 @@ function ReleaseTooltip(tooltip)
 	highlightTexture:SetTexture(DEFAULT_HIGHLIGHT_TEXTURE_PATH)
 	highlightTexture:SetTexCoord(0, 1, 0, 1)
 
-	--[===[@debug@
+	--[==[@debug@
 	usedTooltips = usedTooltips - 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 end
 
 ------------------------------------------------------------------------------
@@ -518,9 +518,9 @@ local tableHeap = lib.tableHeap
 -- Returns a table
 function AcquireTable()
 	local tbl = tremove(tableHeap) or {}
-	--[===[@debug@
+	--[==[@debug@
 	usedTables = usedTables + 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 	return tbl
 end
 
@@ -528,9 +528,9 @@ end
 function ReleaseTable(tableInstance)
 	wipe(tableInstance)
 	tinsert(tableHeap, tableInstance)
-	--[===[@debug@
+	--[==[@debug@
 	usedTables = usedTables - 1
-	--@end-debug@]===]
+	--@end-debug@]==]
 end
 
 ------------------------------------------------------------------------------
@@ -1548,4 +1548,4 @@ end
 
 SLASH_LibQTip1 = "/qtip"
 _G.SlashCmdList["LibQTip"] = PrintStats
---@end-debug@]===]
+--@end-debug@]==]

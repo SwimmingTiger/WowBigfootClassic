@@ -81,18 +81,6 @@
 			</Anchor>
 		</Anchors>
 		
-		<Backdrop bgFile="Interface\AddOns\MonkeyLibrary\Textures\BackDrop.tga" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val="16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-		</Backdrop>
-		
 		<Frames>
 			<Button name="MonkeyQuestTitleButton">
 				<Anchors>
@@ -435,7 +423,66 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			
+			<Button name="MonkeyQuestButton51" inherits="MonkeyQuestButtonTemplate" id="51">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton50" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton52" inherits="MonkeyQuestButtonTemplate" id="52">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton51" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton53" inherits="MonkeyQuestButtonTemplate" id="53">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton52" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton54" inherits="MonkeyQuestButtonTemplate" id="54">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton53" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton55" inherits="MonkeyQuestButtonTemplate" id="55">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton54" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton56" inherits="MonkeyQuestButtonTemplate" id="56">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton55" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton57" inherits="MonkeyQuestButtonTemplate" id="57">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton56" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton58" inherits="MonkeyQuestButtonTemplate" id="58">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton57" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton59" inherits="MonkeyQuestButtonTemplate" id="59">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton58" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="MonkeyQuestButton60" inherits="MonkeyQuestButtonTemplate" id="60">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="MonkeyQuestButton59" relativePoint="BOTTOMLEFT">
+					</Anchor>
+				</Anchors>
+			</Button>
 			<CheckButton name="MonkeyQuestHideButton1" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="1">
 				<Anchors>
 					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton1" relativePoint="TOPLEFT">
@@ -736,7 +783,66 @@
 					</Anchor>
 				</Anchors>
 			</CheckButton>
-			
+			<CheckButton name="MonkeyQuestHideButton51" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="51">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton51" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton52" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="52">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton52" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton53" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="53">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton53" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton54" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="54">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton54" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton55" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="55">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton55" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton56" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="56">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton56" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton57" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="57">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton57" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton58" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="58">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton58" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton59" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="59">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton59" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="MonkeyQuestHideButton60" checked="true" inherits="MonkeyQuestHideButtonTemplate" id="60">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="MonkeyQuestButton60" relativePoint="TOPLEFT">
+					</Anchor>
+				</Anchors>
+			</CheckButton>
 			<Button name="MonkeyQuestCloseButton">
 				<Size>
 					<AbsDimension x="16" y="16"/>
@@ -824,6 +930,17 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
+				if BackdropTemplateMixin then
+					Mixin(MonkeyQuestFrame, BackdropTemplateMixin)
+				end
+				self:SetBackdrop({
+					bgFile = "Interface\\AddOns\\MonkeyLibrary\\Textures\\BackDrop.tga", 
+					edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+					tile = true,
+					tileSize = 16,
+					edgeSize = 16,
+					insets = {left = 5, right = 5, top = 5, bottom = 5},
+				})
 				MonkeyQuest_OnLoad(self);
 			</OnLoad>
 			<OnUpdate>

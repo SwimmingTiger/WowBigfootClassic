@@ -1,4 +1,4 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: Modern TargetFrame v1.8
 ## Version: 1.8
 ## Author: SDPhantom

@@ -1,4 +1,4 @@
-﻿## Interface: 11305
+﻿## Interface: 11306
 ## Title: Spy
 ## Version: 1.1.1
 ## Notes: Detects and alerts you to the presence of nearby enemy players.
@@ -11,7 +11,6 @@
 ## SavedVariablesPerCharacter: SpyPerCharDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-## DefaultState: disabled
 
 Spy.xml
 

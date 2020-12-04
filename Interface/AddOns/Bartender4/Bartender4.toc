@@ -1,11 +1,11 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: Bartender4
 ## Title-zhCN: [大脚][集]界面调整
 ## Title-zhTW: [大腳][集]界面調整
 ## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
 ## Notes-zhCN: |cff00ff00Bartender4|r
 ## Notes-zhTW: |cff00ff00Bartender4|r
-## Version: 4.10.5
+## Version: 4.10.6
 ## Author: Nevcairiel
 ## X-Email: h.leppkes at gmail dot com
 ## X-Category: Action Bars

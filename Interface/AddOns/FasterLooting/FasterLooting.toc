@@ -1,4 +1,4 @@
-## Interface: 11305
+## Interface: 11306
 ## Title: FasterLooting
 ## Title-zhCN: 自动拾取加速
 ## Author: cannon

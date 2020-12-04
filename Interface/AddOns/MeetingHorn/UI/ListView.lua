@@ -97,6 +97,7 @@ end
 
 local function ButtonOnClick(button, clicked)
     if clicked == 'LeftButton' then
+        button.scrollFrame:Fire('OnItemClick', button, button.item)
     else
         button.scrollFrame:Fire('OnItemRightClick', button, button.item)
     end

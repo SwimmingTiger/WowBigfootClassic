@@ -1,4 +1,4 @@
-﻿## Interface: 11305
+﻿## Interface: 11306
 ## Title: Message Classifier
 ## Title-zhCN: 聊天消息分类去重
 ## Title-zhTW: 聊天消息分类去重

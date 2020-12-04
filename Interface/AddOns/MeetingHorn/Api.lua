@@ -135,7 +135,7 @@ local INSTANCE_NAMES = {
     [C_Map.GetAreaInfo(2717)] = C_Map.GetAreaInfo(2717), -- 熔火之心
     [C_Map.GetAreaInfo(2159)] = C_Map.GetAreaInfo(2159), -- 奥妮克希亚的巢穴
     [C_Map.GetAreaInfo(2677)] = C_Map.GetAreaInfo(2677), -- 黑翼之巢
-    [C_Map.GetAreaInfo(3428)] = C_Map.GetAreaInfo(3428), -- 安其拉神殿
+    [C_Map.GetAreaInfo(3428)] = L['Ahn\'Qiraj Temple'], -- 安其拉神殿
     [C_Map.GetAreaInfo(3456)] = C_Map.GetAreaInfo(3456), -- 纳克萨玛斯
     [C_Map.GetAreaInfo(1977)] = C_Map.GetAreaInfo(1977), -- 祖尔格拉布
     [C_Map.GetAreaInfo(3429)] = C_Map.GetAreaInfo(3429), -- 安其拉废墟
@@ -501,7 +501,7 @@ local ITEMS = { --
 function ns.GetPlayerItemLevel()
     local itemLevel = 0
     for slot, func in pairs(ITEMS) do
-        itemLevel = itemLevel + func(slot) or 0
+        itemLevel = itemLevel + (func(slot) or 0)
     end
     local count = IsNoRangeWeaponClass() and 16 or 17
     return floor(itemLevel / count * 10) / 10
@@ -515,6 +515,32 @@ function ns.GetRaidId(raidName)
         end
     end
     return -1
+end
+
+local SOLO_GROUPS = {'player'}
+local PARTY_GROUPS = (function()
+    local r = {'player'}
+    for i = 1, 4 do
+        tinsert(r, 'party' .. i)
+    end
+    return r
+end)()
+local RAID_GROUPS = (function()
+    local r = {}
+    for i = 1, 40 do
+        tinsert(r, 'raid' .. i)
+    end
+    return r
+end)()
+
+function ns.IterateGroup()
+    if IsInRaid(LE_PARTY_CATEGORY_HOME) then
+        return ipairs(RAID_GROUPS)
+    elseif IsInGroup(LE_PARTY_CATEGORY_HOME) then
+        return ipairs(PARTY_GROUPS)
+    else
+        return ipairs(SOLO_GROUPS)
+    end
 end
 
 function ns.GetGroupLeader()
@@ -560,11 +586,15 @@ function ns.tRemoveIf(t, condition)
     return any
 end
 
+function ns.SystemMessage(text)
+    return DEFAULT_CHAT_FRAME:AddMessage(text, 1, 1, 0)
+end
+
 function ns.Message(msg, ...)
     if select('#', ...) > 0 then
-        return SendSystemMessage(string.format(ns.ADDON_PREFIX .. msg, ...))
+        return ns.SystemMessage(string.format(ns.ADDON_PREFIX .. msg, ...))
     end
-    return SendSystemMessage(ns.ADDON_PREFIX .. msg)
+    return ns.SystemMessage(ns.ADDON_PREFIX .. msg)
 end
 
 function ns.FireHardWare()
@@ -610,4 +640,64 @@ end
 
 function ns.MakeQRCode(leader)
     return format('https://tavern.blizzard.cn/miniprogram/goodLeader/detail?%s-%s', GetRealmName(), leader or '')
+end
+
+function ns.memorize(func)
+    local cache = {}
+    return function(k, ...)
+        if not k then
+            return
+        end
+        if cache[k] == nil then
+            cache[k] = func(k, ...)
+        end
+        return cache[k]
+    end
+end
+
+local R = ns.memorize(function(d)
+    local r = {}
+    for i, v in ipairs {strsplit(',', d)} do
+        r[v] = true
+    end
+    return r
+end)
+
+local CLASS_ROLES = { --
+    DRUID = {R('DAMAGER,MAGIC,RANGE'), R('TANK'), R('HEALER')},
+    HUNTER = {R('DAMAGER,PHYSICAL,RANGE')},
+    MAGE = {R('DAMAGER,MAGIC,RANGE')},
+    PALADIN = {R('HEALER'), R('TANK'), R('DAMAGER,PHYSICAL,MELEE')},
+    PRIEST = {R('HEALER'), R('HEALER'), R('DAMAGER,MAGIC,RANGE')},
+    ROGUE = {R('DAMAGER,PHYSICAL,MELEE')},
+    SHAMAN = {R('DAMAGER,MAGIC,RANGE'), R('DAMAGER,PHYSICAL,MELEE'), R('HEALER')},
+    WARLOCK = {R('DAMAGER,MAGIC,RANGE')},
+    WARRIOR = {R('DAMAGER,PHYSICAL,MELEE'), R('DAMAGER,PHYSICAL,MELEE'), R('TANK')},
+}
+
+local function GetCurrentRoles()
+    local class = UnitClassBase('player')
+
+    local roles = CLASS_ROLES[class]
+    if #roles == 1 then
+        return roles[1]
+    end
+
+    local maxTalentTabIndex
+    do
+        local maxPoints = -1
+        for i = 1, GetNumTalentTabs() do
+            local name, _, points = GetTalentTabInfo(i)
+            if points > maxPoints then
+                maxTalentTabIndex = i
+                maxPoints = points
+            end
+        end
+    end
+
+    return roles[maxTalentTabIndex]
+end
+
+function ns.PlayerIsRole(role)
+    return GetCurrentRoles()[role]
 end

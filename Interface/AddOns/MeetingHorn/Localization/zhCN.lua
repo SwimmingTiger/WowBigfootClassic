@@ -23,6 +23,12 @@ L['Close Activity'] = '解散活动'
 L['Update Activity'] = '更新活动'
 L['Members'] = '队伍人数'
 L['Whisper'] = '密语'
+L['Encounter'] = '冒险指南'
+L['Recent members'] = '最近队友'
+L['Instance Name'] = '副本名称'
+L['Invite All'] = '全部邀请'
+L['职责攻略'] = true
+L['技能'] = true
 
 L['Help'] = '帮助'
 L['Manage'] = '管理'
@@ -127,6 +133,8 @@ L['Taerar'] = '泰拉尔' -- 泰拉尔
 L['Emeriss'] = '艾莫莉丝' -- 艾莫莉丝
 L['Lethon'] = '莱索恩' -- 莱索恩
 
+L['Ahn\'Qiraj Temple'] = '安其拉神殿'
+
 L['SHORT: Molten Core'] = 'MC' -- 熔火之心
 L['SHORT: Onyxia\'s Lair'] = '黑龙' -- 奥妮克希亚的巢穴
 L['SHORT: Blackwing Lair'] = 'BWL' -- 黑翼之巢
@@ -189,3 +197,8 @@ L['沐浴在我的力量中吧'] = true
 
 L['二维码尺寸过小'] = true
 L['加载中'] = true
+
+L['欢迎来到%s，打开集结号查看|cff47e53d|Hmeetinghornencounter:%s|h[Boss击杀攻略]|r。'] = true
+L['你在与[%s]的战斗中阵亡，|cff00ffff|Hmeetinghornencounter:%s:%s:%s|h[点击查看Boss攻略]|h|r。'] = true
+L['近战输出者预警'] = true
+L['远程输出者预警'] = true

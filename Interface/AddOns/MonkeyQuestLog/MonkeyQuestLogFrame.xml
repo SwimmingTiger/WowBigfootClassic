@@ -44,9 +44,18 @@
 					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 					
 					-- Remember the currently selected quest log entry, just to play nice
-					local tmpQuestLogSelection = GetQuestLogSelection();
-					
-					SelectQuestLogEntry(MkQL_global_iCurrQuest);
+					local tmpQuestLogSelection
+					if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+						tmpQuestLogSelection = C_QuestLog.GetSelectedQuest()
+					else
+						tmpQuestLogSelection = GetQuestLogSelection()
+					end
+
+					if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+						C_QuestLog.SetSelectedQuest(MkQL_global_iCurrQuestID)
+					else
+						SelectQuestLogEntry(MkQL_global_iCurrQuest)
+					end
 					
 					if ( self.rewardType == "item" ) then
 						GameTooltip:SetQuestLogItem(self.type, self:GetID());
@@ -55,7 +64,11 @@
 					end
 					
 					-- Restore the current quest log selection
-					SelectQuestLogEntry(tmpQuestLogSelection);
+					if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+						C_QuestLog.SetSelectedQuest(tmpQuestLogSelection)
+					else
+						SelectQuestLogEntry(tmpQuestLogSelection)
+					end
 				end
 				CursorUpdate(self);
 			</OnEnter>
@@ -84,18 +97,6 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		
-		<Backdrop bgFile="Interface\AddOns\MonkeyLibrary\Textures\BackDrop.tga" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val="16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-		</Backdrop>
 		
 		<Frames>
 			<Button name="MkQL_Title_Btn">
@@ -639,6 +640,19 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
+				if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE) then
+					if BackdropTemplateMixin then
+						Mixin(MkQL_Main_Frame, BackdropTemplateMixin)
+					end
+				end
+				self:SetBackdrop({
+					bgFile = "Interface\\AddOns\\MonkeyLibrary\\Textures\\BackDrop.tga", 
+					edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+					tile = true,
+					tileSize = 16,
+					edgeSize = 16,
+					insets = {left = 5, right = 5, top = 5, bottom = 5},
+				})
 				MkQL_OnLoad(self);
 				tinsert(UISpecialFrames,self:GetName());
 			</OnLoad>

@@ -1,4 +1,3 @@
-
 ---@type ns
 local ADDON_NAME, ns = ...
 local L = ns.L
@@ -20,6 +19,8 @@ function MainPanel:Constructor()
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
         {L['Help'], self.Help}, --
+        {L['Encounter'], self.Encounter}, --
+        {L['Recent members'], self.Recent}, --
         {L['Options'], self.Options}, --
     })
 
@@ -45,6 +46,8 @@ function MainPanel:Constructor()
     ns.UI.Options:Bind(self.Options.Options)
     ns.UI.Filters:Bind(self.Options.Filters)
     ns.UI.Chat:Bind(self.Manage.Chat)
+    ns.UI.Encounter:Bind(self.Encounter)
+    ns.UI.Recent:Bind(self.Recent)
 
     self.Manage.Applicant:Hide()
 

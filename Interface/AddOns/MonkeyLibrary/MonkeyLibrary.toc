@@ -1,5 +1,5 @@
-﻿## Interface: 11305
-## Title: MonkeyLibrary v2.10.3
+﻿## Interface: 11306
+## Title: MonkeyLibrary v2.11.0c
 ## Notes: Common files and functions for MonkeyMods.
 ## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-媒體庫
 ## Notes-zhTW: MonkeyLibrary |nMQ 任務清單的共用檔案，請勿關閉!!

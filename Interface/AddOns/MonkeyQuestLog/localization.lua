@@ -1,7 +1,7 @@
 ﻿-- Not translations
 MkQL_MAX_REWARDS						= 10
 MONKEYQUESTLOG_TITLE					= "MonkeyQuestLog"
-MONKEYQUESTLOG_VERSION					= "0.10.3"
+MONKEYQUESTLOG_VERSION					= "0.11.0"
 MONKEYQUESTLOG_TITLE_VERSION			= MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION
 MONKEYQUESTLOG_INFO_COLOUR				= "|cffffff00"
 
@@ -28,6 +28,18 @@ MkQL_REWARDSCHOOSE_TXT					= "Auf Euch wartet eine dieser Belohnungen:"
 MkQL_REWARDSRECEIVE_TXT					= "Ihr bekommt:"
 MkQL_SHARE_TXT							= "Teilen"
 MkQL_ABANDON_TXT						= "Abbrechen"
+
+elseif (GetLocale() == "ruRU") then
+
+MONKEYQUESTLOG_DESCRIPTION				= "Отображает полное описание квеста для MonkeyQuest"
+MONKEYQUESTLOG_LOADED_MSG				= MONKEYQUESTLOG_INFO_COLOUR .. MONKEYQUESTLOG_TITLE .. " v" .. MONKEYQUESTLOG_VERSION .. " загрузка"
+
+MONKEYQUESTLOG_DESC_HEADER				= "Описание"
+MONKEYQUESTLOG_REWARDS_HEADER			= "Награды"
+MkQL_REWARDSCHOOSE_TXT					= "Выберите один из:"
+MkQL_REWARDSRECEIVE_TXT					= "Получить все:"
+MkQL_SHARE_TXT							= "Предложить"
+MkQL_ABANDON_TXT						= "Отменить"
 
 elseif (GetLocale() == "zhTW") then
 

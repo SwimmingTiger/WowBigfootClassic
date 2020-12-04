@@ -37,6 +37,7 @@ addon.PriorityDebuffs = {
     19284, -- Hex of Weakness
     19285, -- Hex of Weakness
     23230, -- Blood Fury Debuff
+    23605, -- Nightfall, Spell Vulnerability
 }
 
 addon.Spells = {
@@ -82,6 +83,7 @@ addon.Spells = {
     [9774] = { type = BUFF_OFFENSIVE }, -- Spider Belt & Ornate Mithril Boots
     [18798] = { type = CROWD_CONTROL }, -- Freezing Band
     [22734] = { type = BUFF_OTHER }, -- Drink
+    [23605] = { type = BUFF_OTHER }, -- Nightfall, Spell Vulnerability
     [13494] = { type = BUFF_OFFENSIVE }, -- Manual Crowd Pummeler Haste buff
 
     -- Interrupts
@@ -160,6 +162,13 @@ addon.Spells = {
         [19442] = { parent = 7812 },
         [19443] = { parent = 7812 },
     [18093] = { type = CROWD_CONTROL }, -- Pyroclasm
+    [18223] = { type = ROOT }, -- Curse of Exhaustion
+        [18310] = { parent = 18223 },
+        [18310] = { parent = 18311 },
+        [18310] = { parent = 18312 },
+        [18313] = { parent = 18223 },
+    [1714] = { type = ROOT }, -- Curse of Tongues
+        [11719] = { parent =  1714 },
 
     -- Shaman
 

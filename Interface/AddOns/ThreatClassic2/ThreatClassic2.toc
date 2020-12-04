@@ -1,10 +1,10 @@
-﻿## Interface: 11305
+﻿## Interface: 11306
 ## Title: ThreatClassic2
 ## Title-zhCN: [大脚][集]仇恨统计
 ## Title-zhTW: [大腳][集]仇恨統計
 ## Notes: |cff00ff00ThreatClassic2|r|n|cffbc8f8fSimple threat meter for WoW Classic.|r
 ## Author: Dennis-Florian Herr (dfherr)
-## Version: 2.25
+## Version: 2.26
 ## SavedVariables: ThreatClassic2DB
 ## SavedVariablesPerCharacter: TC2_Options
 
