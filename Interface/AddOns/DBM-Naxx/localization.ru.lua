@@ -24,8 +24,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	ArachnophobiaTimer	= "Арахнофобия",
-	Pull1				= "Yes, run! It makes the blood pump faster!",
-	Pull2				= "Just a little taste..."
+	Pull1				= "Бегите, бегите! Я люблю горячую кровь!",
+	Pull2				= "Посмотрим, какие вы на вкус!"
 })
 
 ----------------------------
@@ -48,7 +48,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull					= "Kneel before me, worm!"--Not actually pull trigger, but often said on pull
+	Pull					= "Склонитесь передо мной, черви!"--Not actually pull trigger, but often said on pull
 })
 
 ---------------
@@ -106,7 +106,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull				= "Die, trespasser!"
+	Pull				= "Смерть чужакам!"
 })
 
 --------------------------
@@ -134,7 +134,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull				= "You are mine now."
+	Pull				= "Теперь вы принадлежите мне!"
 })
 
 ---------------
@@ -221,10 +221,6 @@ L:SetOptionLocalization({
 L:SetWarningLocalization({
 	WarningChargeChanged	= "Полярность изменена на %s",
 	WarningChargeNotChanged	= "Полярность не изменена"
-})
-
-L:SetOptionCatLocalization({
-	Arrows	= "Стрелки"
 })
 
 ----------------------------

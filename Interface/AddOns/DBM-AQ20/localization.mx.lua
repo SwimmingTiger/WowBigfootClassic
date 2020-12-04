@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "esMX" then return end
 local L
 
 ---------------
@@ -26,12 +26,12 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	Wave12		= "Ahí vienen. Intenta que no te maten,",--Followed by 'chico' or 'chica'
 	Wave12Alt	= "Rajaxx, ¿recuerdas que te dije que serías el último en morir?",
-	Wave3		= "¡Se acerca la hora de imponer nuestro castigo!	¡Que la oscuridad reine en los corazones de nuestros enemigos!",
-	Wave4		= "¡No nos quedaremos esperando por más tiempo tras puertas con barrotes ni muros de piedra! ¡Ya no nos negarán nuestra venganza! ¡Hasta los propios dragones temblarán antes nuestra ira!",
-	Wave5		= "¡El miedo es para el enemigo! ¡El miedo y la muerte!",
-	Wave6		= "¡Corzocelada lloriqueará y suplicará por su vida, al igual que hizo el mocoso de su cría! ¡Hoy se pondrá fin a mil años de injusticia!",
-	Wave7		= "¡Fandral! ¡Tu hora ha llegado! ¡Ve y escóndete en el Sueño Esmeralda y reza para que nunca te encontremos!",
-	Wave8		= "¡Idiota insolente! ¡Te mataré yo mismo!"
+	Wave3		= "¡La hora de las recompensas está próxima! ¡Que la oscuridad gobierne el corazón de nuestros enemigos!",
+	Wave4		= "¡No volveremos a esperar detrás de rejas y paredes de piedra! ¡Nunca más podrán negarnos nuestra venganza! ¡Hasta los dragones temblarán frente a nuestra ira!",
+	Wave5		= "¡El miedo es para el enemigo! ¡Miedo y muerte!",
+	Wave6		= "¡Corzocelada lloriqueará y rogará por su vida, igual que hizo su débil hijo! ¡Hoy acabará un milenio de injusticia!",
+	Wave7		= "¡Fandral! ¡Ha llegado tu hora! ¡Ve y escóndete en el Sueño Esmeralda y reza para que nunca te encontremos!",
+	Wave8		= "¡Loco imprudente! ¡Acabaré contigo yo mismo!"
 }
 
 ----------

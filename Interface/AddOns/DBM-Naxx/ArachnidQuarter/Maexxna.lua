@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Maexxna", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200615030820")
+mod:SetRevision("20201025150202")
 mod:SetCreatureID(15952)
 mod:SetEncounterID(1116)
 mod:SetModelID(15928)
@@ -21,7 +21,7 @@ local warnSpidersNow	= mod:NewAnnounce("WarningSpidersNow", 4, 17332)
 local specWarnWebWrap	= mod:NewSpecialWarningSwitch(28622, "RangedDps", nil, nil, 1, 2)
 local yellWebWrap		= mod:NewYell(28622)
 
-local timerWebSpray		= mod:NewNextTimer(40.5, 29484, nil, nil, nil, 2)
+local timerWebSpray		= mod:NewNextTimer(40.4, 29484, nil, nil, nil, 2)-- 40.43-40.54
 local timerSpider		= mod:NewTimer(30, "TimerSpider", 17332, nil, nil, 1)
 
 function mod:OnCombatStart(delay)

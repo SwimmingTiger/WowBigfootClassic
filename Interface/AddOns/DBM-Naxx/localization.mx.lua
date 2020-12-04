@@ -1,4 +1,4 @@
-if GetLocale() ~= "esES" then return end
+if GetLocale() ~= "esMX" then return end
 local L
 
 -----------------
@@ -387,4 +387,3 @@ L:SetWarningLocalization({
 L:SetTimerLocalization({
 	TimerPhase2	= "Fase 2"
 })
-

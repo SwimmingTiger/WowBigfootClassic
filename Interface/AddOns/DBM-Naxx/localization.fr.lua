@@ -23,7 +23,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	ArachnophobiaTimer	= "Arachnophobia"
+	ArachnophobiaTimer	= "Arachnophobia",
+	Pull1				= "Oui, courez ! Faites circuler le sang !",
+	Pull2				= "Rien qu'une petite bouchée…"
 })
 
 ----------------------------
@@ -32,7 +34,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Faerlina")
 
 L:SetGeneralLocalization({
-	name = "Grande Veuve Faerlina"
+	name = "Grande veuve Faerlina"
 })
 
 L:SetWarningLocalization({
@@ -45,6 +47,9 @@ L:SetOptionLocalization({
 	WarningEmbraceExpired	= "Afficher un avertissement quand le baisé de la veuve va se terminer"
 })
 
+L:SetMiscLocalization({
+	Pull					= "À genoux, vermisseau !"--Not actually pull trigger, but often said on pull
+})
 ---------------
 --  Maexxna  --
 ---------------
@@ -96,9 +101,15 @@ L:SetOptionLocalization({
 	WarningTeleportNow		= "Activer l'avertissement pour la téléporation",
 	WarningTeleportSoon		= "Activer le pré-avertissement pour la téléporation",
 	TimerTeleport			= "Activer le timer pour la téléporation",
-	TimerTeleportBack		= "Activer le timer pour le retour de North"
+	TimerTeleportBack		= "Activer le timer pour le retour de Noth"
 })
 
+L:SetMiscLocalization({
+	Pull				= "Mourez, intrus !",
+	AddsYell			= "Levez-vous, soldats ! Levez-vous et combattez une fois encore !",
+	Adds				= "invoque des guerriers squelettes !",
+	AddsTwo				= "lève encore d'autres squelettes !"
+})
 --------------------------
 --  Heigan the Unclean  --
 --------------------------
@@ -123,6 +134,9 @@ L:SetOptionLocalization({
 	TimerTeleport			= "Activer le timer pour la Téléporation"
 })
 
+L:SetMiscLocalization({
+	Pull				= "Vous êtes à moi, maintenant."
+})
 ----------------
 --  Lolotheb  --
 ----------------
@@ -148,7 +162,7 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("Patchwerk")
 
 L:SetGeneralLocalization({
-	name = "Le recousu"
+	name = "Le Recousu"
 })
 
 L:SetOptionLocalization({
@@ -210,24 +224,20 @@ L:SetWarningLocalization({
 	WarningChargeNotChanged	= "Même polarité"
 })
 
-L:SetOptionCatLocalization({
-	Arrows					= "Flèches"
-})
-
 -----------------
 --  Razuvious  --
 -----------------
 L = DBM:GetModLocalization("Razuvious")
 
 L:SetGeneralLocalization({
-	name = "Razuvious"
+	name = "Instructeur Razuvious"
 })
 
 L:SetMiscLocalization({
 	Yell1 					= "Pas de quartier !",
 	Yell2 					= "Les cours sont terminés ! Montrez-moi ce que vous avez appris !",
 	Yell3 					= "Faites ce que vous ai appris !",
-	Yell4 					= "Frappe-le à la jambe"
+	Yell4 					= "Frappe-le à la jambe… Ça te pose un problème ?"
 })
 
 L:SetOptionLocalization({
@@ -244,7 +254,7 @@ L:SetWarningLocalization({
 L = DBM:GetModLocalization("Gothik")
 
 L:SetGeneralLocalization({
-	name = "Gothik"
+	name = "Gothik le Moissonneur"
 })
 
 L:SetOptionLocalization({
@@ -286,7 +296,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Horsemen")
 
 L:SetGeneralLocalization({
-	name = "Les quatre Cavaliers"
+	name = "Les Quatre Cavaliers"
 })
 
 L:SetOptionLocalization({
@@ -376,6 +386,5 @@ L:SetWarningLocalization({
 
 L:SetTimerLocalization({
 	TimerPhase2				= "Phase 2",
-	BlastTimer				= "Heal Maintenant !"
 })
 

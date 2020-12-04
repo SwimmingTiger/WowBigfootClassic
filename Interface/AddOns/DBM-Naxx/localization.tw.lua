@@ -212,10 +212,6 @@ L:SetWarningLocalization({
 	WarningChargeNotChanged	= "極性沒有改變"
 })
 
-L:SetOptionCatLocalization({
-	Arrows	= "箭頭"
-})
-
 ----------------------------
 --  Instructor Razuvious  --
 ----------------------------

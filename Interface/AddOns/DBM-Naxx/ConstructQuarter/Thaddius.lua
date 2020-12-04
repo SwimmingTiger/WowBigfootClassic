@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200624154416")
+mod:SetRevision("20201024205158")
 mod:SetCreatureID(15928)
 mod:SetEncounterID(1120)
 mod:SetModelID(16137)
@@ -10,7 +10,7 @@ mod:RegisterCombat("combat_yell", L.Yell)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 28089",
-	"RAID_BOSS_EMOTE",
+	"CHAT_MSG_MONSTER_EMOTE",
 	"UNIT_AURA player"
 )
 
@@ -22,13 +22,11 @@ local warnThrow				= mod:NewSpellAnnounce(28338, 2)
 local warnThrowSoon			= mod:NewSoonAnnounce(28338, 1)
 
 local enrageTimer			= mod:NewBerserkTimer(365)
-local timerNextShift		= mod:NewNextTimer(30, 28089, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON)
-local timerShiftCast		= mod:NewCastTimer(3, 28089, nil, nil, nil, 2)
-local timerThrow			= mod:NewNextTimer(20.6, 28338, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerNextShift		= mod:NewCDTimer(25.9, 28089, nil, nil, nil, 2, nil, DBM_CORE_L.DEADLY_ICON)--25.9-34
+local timerShiftCast		= mod:NewCastTimer(3, 28089, nil, nil, nil, 5)
+local timerThrow			= mod:NewCDTimer(20.6, 28338, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
 
-mod:AddBoolOption("ArrowsEnabled", false, "Arrows")
-mod:AddBoolOption("ArrowsRightLeft", false, "Arrows")
-mod:AddBoolOption("ArrowsInverse", false, "Arrows")
+mod:AddDropdownOption("ArrowsEnabled", {"Never", "TwoCamp", "ArrowsRightLeft", "ArrowsInverse"}, "ArrowsRightLeft", "misc")
 
 local currentCharge
 mod.vb.phase = 1
@@ -38,9 +36,15 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	currentCharge = nil
 	down = 0
-	self:ScheduleMethod(20.6 - delay, "TankThrow")
+	self:ScheduleMethod(40.6 - delay, "TankThrow")
 	timerThrow:Start(-delay)
-	warnThrowSoon:Schedule(17.6 - delay)
+	warnThrowSoon:Schedule(37.6 - delay)
+end
+
+function mod:OnCombatEnd(wipe, isSecondRun)
+	if wipe and not isSecondRun then
+		DBM:AddMsg("Arrow Options can be changed for this encounter. Mod supports 3 different strats. Choose one that matches your strat")
+	end
 end
 
 local lastShift = 0
@@ -76,32 +80,30 @@ function mod:UNIT_AURA()
 	end
 	if charge then
 		lastShift = 0
+		--Did not Change
 		if charge == currentCharge then
 			warnChargeNotChanged:Show()
-			if self.Options.ArrowsEnabled and self.Options.ArrowsRightLeft then
-				if self.Options.ArrowsInverse then
-					self:ShowLeftArrow()
-				else
-					self:ShowRightArrow()
-				end
+			if self.Options.ArrowsEnabled == "ArrowsInverse" then
+				self:ShowLeftArrow()
+			elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
+				self:ShowRightArrow()
 			end
+		--Changed
 		else
 			warnChargeChanged:Show(charge)
-			if self.Options.ArrowsEnabled then
-				if self.Options.ArrowsRightLeft and self.Options.ArrowsInverse then
-					self:ShowRightArrow()
-				elseif self.Options.ArrowsRightLeft then
-					self:ShowLeftArrow()
-				elseif currentCharge then
-					self:ShowUpArrow()
-				end
+			if self.Options.ArrowsEnabled == "ArrowsInverse" then
+				self:ShowRightArrow()
+			elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
+				self:ShowLeftArrow()
+			elseif self.Options.ArrowsEnabled == "TwoCamp" then
+				self:ShowUpArrow()
 			end
 		end
 		currentCharge = charge
 	end
 end
 
-function mod:RAID_BOSS_EMOTE(msg)
+function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	if msg == L.Emote or msg == L.Emote2 then
 		down = down + 1
 		if down >= 2 then
@@ -118,8 +120,8 @@ function mod:TankThrow()
 		return
 	end
 	timerThrow:Start()
-	warnThrowSoon:Schedule(17.6)
-	self:ScheduleMethod(20.6, "TankThrow")
+	warnThrowSoon:Schedule(37.6)
+	self:ScheduleMethod(40.6, "TankThrow")
 end
 
 local function arrowOnUpdate(self, elapsed)

@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-mod:SetRevision("20201018212526")
+mod:SetRevision("20201021204159")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -164,7 +164,8 @@ function mod:SubscribeAssault(mapID, objectsCount)
 	end
 	self:RegisterShortTermEvents(
 		"AREA_POIS_UPDATED",
-		"UPDATE_UI_WIDGET"
+		"UPDATE_UI_WIDGET",
+		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
 	)
 	subscribedMapID = mapID
 	objectivesStore = {}

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Horsemen", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200615030820")
+mod:SetRevision("20201025150202")
 mod:SetCreatureID(16062, 16063, 16064, 16065)--30549
 mod:SetEncounterID(1121)
 mod:SetModelID(10729)
@@ -20,11 +20,11 @@ local warnMeteor				= mod:NewSpellAnnounce(28884, 4)
 
 local specWarnMarkOnPlayer		= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, nil, nil, 1, 6)
 
-local timerMarkCD				= mod:NewCDTimer(12, 28835, nil, nil, nil, 3)
+local timerMarkCD				= mod:NewCDTimer(12.9, 28835, nil, nil, nil, 3)-- 12.9
 
 
 function mod:OnCombatStart(delay)
-	--timerMarkCD:Start()
+	timerMarkCD:Start(20.9 - delay)-- 20.98-21.44
 	--warnMarkSoon:Schedule(7)
 end
 
@@ -59,4 +59,3 @@ do
 		end
 	end
 end
-

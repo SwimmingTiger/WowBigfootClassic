@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20201011235922"),
-	DisplayVersion = "1.13.61", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2020, 10, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20201201161049"),
+	DisplayVersion = "1.13.62", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2020, 12, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -621,7 +621,7 @@ local function sendLoggedSync(prefix, msg)
 		elseif IsInGroup(1) then
 			C_ChatInfo.SendAddonMessageLogged("D4C", prefix .. "\t" .. msg, "PARTY")
 		else--for solo raid
-			C_ChatInfo.SendAddonMessageLogged("D4C", prefix .. "\t" .. msg, "WHISPER", playerName)
+			handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
 		end
 	end
 end
@@ -633,6 +633,8 @@ local function SendWorldSync(self, prefix, msg, noBNet)
 		SendAddonMessage("D4C", prefix.."\t"..msg, "RAID")
 	elseif IsInGroup(1) then
 		SendAddonMessage("D4C", prefix.."\t"..msg, "PARTY")
+	else--for solo raid
+		handleSync("SOLO", playerName, prefix, strsplit("\t", msg))
 	end
 	if IsInGuild() then
 		SendAddonMessage("D4C", prefix.."\t"..msg, "GUILD")--Even guild syncs send realm so we can keep antispam the same across realid as well.
@@ -2677,7 +2679,7 @@ do
 	local ignore, cancel
 	local popuplevel = 0
 	local function showPopupConfirmIgnore(ignore, cancel)
-		local popup = CreateFrame("Frame", "DBMHyperLinks", UIParent, DBM:IsAlpha() and "BackdropTemplate")
+		local popup = CreateFrame("Frame", "DBMHyperLinks", UIParent)
 		popup.backdropInfo = {
 			bgFile		= "Interface\\DialogFrame\\UI-DialogBox-Background-Dark", -- 312922
 			edgeFile	= "Interface\\DialogFrame\\UI-DialogBox-Border", -- 131072
@@ -2686,11 +2688,7 @@ do
 			edgeSize	= 16,
 			insets		= { left = 1, right = 1, top = 1, bottom = 1 }
 		}
-		if not DBM:IsAlpha() then
-			popup:SetBackdrop(popup.backdropInfo)
-		else
-			popup:ApplyBackdrop()
-		end
+		popup:SetBackdrop(popup.backdropInfo)
 		popup:SetSize(500, 80)
 		popup:SetPoint("TOP", UIParent, "TOP", 0, -200)
 		popup:SetFrameStrata("DIALOG")
@@ -6686,11 +6684,15 @@ end
 function DBM:GetSpellInfo(spellId)
 	local name, rank, icon, castingTime, minRange, maxRange, returnedSpellId  = GetSpellInfo(spellId)
 	if not returnedSpellId then--Bad request all together
-		if spellId > 4 then
-			if self.Options.BadIDAlert then
-				self:AddMsg("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId..". Please report this bug")
-			else
-				self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
+		if type(spellId) == "string" then
+			self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId.." as a string!")
+		else
+			if spellId > 4 then
+				if self.Options.BadIDAlert then
+					self:AddMsg("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId..". Please report this bug")
+				else
+					self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
+				end
 			end
 		end
 		return nil
@@ -11580,7 +11582,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20201011235922" then
+	if not revision or revision == "20201201161049" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

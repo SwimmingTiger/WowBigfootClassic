@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200912033239")
+mod:SetRevision("20201105030319")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
@@ -96,8 +96,8 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	timerClawTentacle:Start(9-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
 	timerEyeTentacle:Start(45-delay)
-	timerDarkGlareCD:Start(48-delay)
-	self:ScheduleMethod(48-delay, "DarkGlare")
+	timerDarkGlareCD:Start(46-delay)
+	self:ScheduleMethod(46-delay, "DarkGlare")
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end

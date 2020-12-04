@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Anub'Rekhan", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200615030820")
+mod:SetRevision("20201025150202")
 mod:SetCreatureID(15956)
 mod:SetEncounterID(1107)
 mod:SetModelID(15931)
@@ -18,7 +18,7 @@ local warningLocustFaded	= mod:NewFadesAnnounce(28785, 1)
 
 local specialWarningLocust	= mod:NewSpecialWarningSpell(28785, nil, nil, nil, 2, 2)
 
-local timerLocustIn			= mod:NewCDTimer(80, 28785, nil, nil, nil, 6)
+local timerLocustIn			= mod:NewCDTimer(80, 28785, nil, nil, nil, 6)-- 80-104
 local timerLocustFade 		= mod:NewBuffActiveTimer(26, 28785, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)

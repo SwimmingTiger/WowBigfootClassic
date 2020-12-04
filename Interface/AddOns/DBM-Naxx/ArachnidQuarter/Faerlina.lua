@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200721013955")
+mod:SetRevision("20201025150202")
 mod:SetCreatureID(15953)
 mod:SetEncounterID(1110)
 mod:SetModelID(15940)
@@ -22,7 +22,7 @@ local specWarnEnrage		= mod:NewSpecialWarningDefensive(28131, nil, nil, nil, 3, 
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(28794, nil, nil, nil, 1, 8)
 
 local timerEmbrace			= mod:NewBuffActiveTimer(30, 28732, nil, nil, nil, 6)
-local timerEnrage			= mod:NewCDTimer(60, 28131, nil, nil, nil, 6)
+local timerEnrage			= mod:NewCDTimer(56, 28131, nil, nil, nil, 6)-- 56-76
 
 mod.vb.enraged = false
 

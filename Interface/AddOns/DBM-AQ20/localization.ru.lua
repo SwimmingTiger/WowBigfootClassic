@@ -10,12 +10,6 @@ L = DBM:GetModLocalization("Kurinnaxx")
 L:SetGeneralLocalization{
 	name 		= "Куриннакс"
 }
-L:SetWarningLocalization{
-	WarnWound	= "%s на >%s< (%s)"
-}
-L:SetOptionLocalization{
-	WarnWound	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(25646)
-}
 ------------
 -- Rajaxx --
 ------------
@@ -26,13 +20,13 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnWave	= "Волна %s",
-	WarnBoss	= "Появление босса"
 }
 L:SetOptionLocalization{
 	WarnWave	= "Показывать предупреждение о следующей волне"
 }
 L:SetMiscLocalization{
 	Wave1		= "Они пришли. Постарайся не дать себя убить, ",
+	Wave12Alt	= "Раджакс, напомни, когда я в последний раз обещал тебя убить?",
 	Wave3		= "Час возмездия близок! Да охватит мрак сердца наших врагов!",
 	Wave4		= "Мы не будем больше ждать за закрытыми дверьми и каменными стенами! Мы не будем больше отказываться от возмездия! Даже драконы содрогнутся перед нашим гневом!",
 	Wave5		= "Пусть наши враги трепещут! Смерть им!",
@@ -60,14 +54,16 @@ L:SetGeneralLocalization{
 }
 L:SetWarningLocalization{
 	WarnPursue		= "Преследует >%s<",
-	SpecWarnPursue	= "Преследует вас!"
+	SpecWarnPursue	= "Преследует вас!",
+	WarnDismember	= "%s на >%s< (%s)"
 }
 L:SetOptionLocalization{
 	WarnPursue		= "Называть преследуемые цели",
-	SpecWarnPursue	= "Показывать специальное предупреждение, когда преследование на вас"
+	SpecWarnPursue	= "Показывать специальное предупреждение, когда преследование на вас",
+	WarnDismember	= DBM_CORE_L.AUTO_ANNOUNCE_OPTIONS.spell:format(96)
 }
 L:SetMiscLocalization{
-	PursueEmote 	= "%s sets eyes on"
+	PursueEmote 	= "%s смотрит на"
 }
 
 -------------
@@ -104,5 +100,5 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("AQ20Trash")
 
 L:SetGeneralLocalization{
-	name = "AQ20 Trash"
+	name = "АК20: Треш"
 }
