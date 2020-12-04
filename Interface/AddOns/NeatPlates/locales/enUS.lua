@@ -161,6 +161,7 @@ L["Friendly Status Text"] = true
 		L["SHORT_THOUSAND"] = "K"
 	L["Health Deficit"] = true
 	L["Health Total & Percent"] = true
+	L["Exact Health & Percent"] = true
 	L["Target Of"] = true
 	L["Target Of (Class Colored)"] = true
 	L["Level"] = true
@@ -211,6 +212,7 @@ L["Friendly Headline Subtext"] = true
 ------------------------------
 L["Buffs & Debuffs"] = true
 L["Aura Widget"] = true
+L["Emphasized Aura Widget"] = true
 
 L["Enable Aura Widget"] = true
 	-- Aura Widget Options
@@ -231,7 +233,9 @@ L["Enable Aura Widget"] = true
 
 L["Space Between buffs & debuffs"] = true
 L["Aura Scale"] = true
+L["Emphasized Aura Scale"] = true
 L["Aura Offsets"] = true
+L["Emphasized Aura Offsets"] = true
 L["Amount of Emphasized Auras"] = true
 L["Precise Aura Duration Threshold"] = true
 L["Additional Auras"] = true
@@ -255,6 +259,12 @@ L["Aura Alignment"] = true
 	L["Left"] = true
 	L["Center"] = true
 	L["Right"] = true
+
+L["Buff Separation Mode"] = true
+	-- Buff Separation Dropdown
+	L["Separate Row"] = true
+	L["Space Between"] = true
+	L["No Space"] = true
 
 L["Include Dispellable Debuffs on Friendly Units"] = true
 	-- Dispellable Options
@@ -289,6 +299,7 @@ L["Current Target Opacity"] = true
 L["Non-Target Opacity"] = true
 
 L["Spotlight Casting Units"] = true
+L["Spotlight Casting Units (Interruptible)"] = true
 L["Spotlight Mouseover"] = true
 L["Spotlight Raid Marked"] = true
 L["Use Target Opacity When No Target Exists"] = true
@@ -377,12 +388,13 @@ L["CUSTOM_COLOR_CONDITION_TIP"] = [=[|cffCCCCCCColor value in Hex(#) followed by
 - Unit Name
 - Buff/Debuff Name/SpellID
 - Health Threshold
+- Target Marker ({rt1-8})
 
 Available prefixes:
 - Unit (Only match units)
 - My (Only match your auras)
 
-(ex. '#A300FF Spawn of G'huun', or 'unit #A300FF Skyfury Totem')
+(ex. '#A300FF Spawn of G'huun', 'unit #A300FF Skyfury Totem', or '#FF0000 {rt7}')
 
 |cffff9320Prioritised top to bottom]=]
 
@@ -727,7 +739,7 @@ L["Color of the border highlight"] = true
 L["Type of highlighting to use"] = true
 L["Display beneficial auras that can be removed by Dispel/Purge"] = true
 L["Display Enrage effects that can be removed by Soothe"] = true
-L["The amount of empty aura slots between Buffs & Debuffs.\nMax value means they never share a row"] = true
+L["The minimum amount of empty aura slots allowed between Buffs & Debuffs"] = true
 L["The amount of Emphasized auras that can be displayed at once"] = true
 L["Hides the regular aura from the aura widget if it is currently emphasized"] = true
 L["Color is defined under the 'Reaction' category."] = true

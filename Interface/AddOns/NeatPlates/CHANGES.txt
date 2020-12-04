@@ -1,12 +1,10 @@
-lightweight tag 8015b80079ef87f0537003951162d66b728de42d 1.13.5.17
+lightweight tag 02ed7e95b8249e31c12ee12aa52f61a04df08fca 1.13.5.22
 Author:	Luxocracy <luxor355@gmail.com>
-Date:	Sun Oct 25 14:23:48 2020 +0100
+Date:	Sun Nov 29 20:49:26 2020 +0100
 
-commit 8015b80079ef87f0537003951162d66b728de42d
+commit 02ed7e95b8249e31c12ee12aa52f61a04df08fca
 Author: Luxocracy <luxor355@gmail.com>
-Date:   Sun Oct 25 14:22:16 2020 +0100
+Date:   Sun Nov 29 20:43:42 2020 +0100
 
-    Fixed the 'my' syntax for custom color conditions
-    
-    - Fixed the 'my' syntax for custom color conditions when a non-player version of the aura also existed.
+    Added some more modes to subtext
 

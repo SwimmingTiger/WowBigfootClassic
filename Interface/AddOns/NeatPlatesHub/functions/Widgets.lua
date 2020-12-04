@@ -102,6 +102,13 @@ NeatPlatesHubMenus.AuraAlignmentModes = {
 				{ text = L["Right"],  },
 			}
 
+NeatPlatesHubDefaults.BuffSeparationMode = 1
+NeatPlatesHubMenus.BuffSeparationModes = {
+				{ text = L["Separate Row"],  },
+				{ text = L["Space Between"],  },
+				{ text = L["No Space"],  },
+			}
+
 NeatPlatesHubMenus.StyleOptions = {
 	{
 		text = L["customtext"],
@@ -676,11 +683,8 @@ local function OnVariableChange(vars)
 		NeatPlatesWidgets.SetAuraFilter(DebuffFilter)
 		NeatPlatesWidgets.SetAuraSortMode(AuraSortFunction)
 		NeatPlatesWidgets.SetAuraOptions(LocalVars)
-	else NeatPlatesWidgets:DisableAuraWatcher() end
-
-	if true then
 		NeatPlatesWidgets.SetEmphasizedAuraFilter(EmphasizedFilter, LocalVars.EmphasizedUnique)
-	end
+	else NeatPlatesWidgets:DisableAuraWatcher() end
 
 	if LocalVars.WidgetAbsorbIndicator then
 		NeatPlatesWidgets.SetAbsorbType(LocalVars.WidgetAbsorbMode, LocalVars.WidgetAbsorbUnits)
