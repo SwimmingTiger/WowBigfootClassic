@@ -44,9 +44,6 @@ L["ICON_SIZE"] = "图标大小"
 L["ICON_SIZE_TOOLTIP"] = "为施法条图标设置大小."
 L["IGNORE_PARENT_ALPHA"] = "忽略上一层框架的透明度"
 L["IGNORE_PARENT_ALPHA_TOOLTIP"] = "忽略从施法条上一层框架所继承的透明度/alpha 数值"
-L["LSM_TEXTURE_NOTE"] = [=[
-
-备注: 如果您使用了第三方纹理/字体, 并且随后删除了它们, 那么为了确保插件能够正常工作, 您必须手动在此重置它们.]=]
 L["NAMEPLATE"] = "姓名板"
 L["PARTY"] = "小队"
 L["PER_CHARACTER"] = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:0:0:0:-1|t角色专用设定"
@@ -68,12 +65,6 @@ L["STATUS_UNINTERRUPTIBLE_COLOR"] = "选择无法打断颜色"
 L["TARGET"] = "目标"
 L["TEST"] = "切换测试模式"
 L["TEST_MODE_DRAG"] = "测试模式 - 拖动来调整施法条位置"
-L["TEST_PLATE_TOOLTIP"] = [=[在角色头顶显示测试施法条, 以便于您可以拖动来调整位置.
-注意: 您首先需要选择一个目标来让施法条显示出来, 才能看到测试施法条.
-]=]
-L["TEST_TARGET_TOOLTIP"] = [=[在目标框体上显示施法条, 以便于您可以拖动来调整位置.
-注意: 您需要首先选择一个目标, 才能看到测试施法条.
-]=]
 L["TEXT_COLOR"] = "文字颜色"
 L["TEXT_POINT"] = "文字对齐点"
 L["TEXT_POS_X"] = "文字X轴坐标"
