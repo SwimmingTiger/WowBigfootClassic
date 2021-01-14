@@ -701,3 +701,30 @@ end
 function ns.PlayerIsRole(role)
     return GetCurrentRoles()[role]
 end
+
+function ns.OpenUrlDialog(url)
+    if not StaticPopupDialogs['MEETINGHORN_COPY_URL'] then
+        StaticPopupDialogs['MEETINGHORN_COPY_URL'] = {
+            text = '请按<|cff00ff00Ctrl+C|r>复制网址到浏览器打开',
+            button1 = OKAY,
+            timeout = 0,
+            exclusive = 1,
+            whileDead = 1,
+            hideOnEscape = 1,
+            hasEditBox = true,
+            editBoxWidth = 260,
+            EditBoxOnTextChanged = function(editBox, url)
+                if editBox:GetText() ~= url then
+                    editBox:SetMaxBytes(nil)
+                    editBox:SetMaxLetters(nil)
+                    editBox:SetText(url)
+                    editBox:HighlightText()
+                    editBox:SetCursorPosition(0)
+                    editBox:SetFocus()
+                end
+            end
+        }
+    end
+
+    StaticPopup_Show('MEETINGHORN_COPY_URL', nil, nil, url)
+end

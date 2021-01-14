@@ -6,4 +6,6 @@
     <Script file="LFG.lua" />
     <Script file="Channel.lua" />
     <Script file="WorldBuff.lua" />
+    <Script file="ErrorCode.lua" />
+    <Script file="Challenge.lua" />
 </Ui>

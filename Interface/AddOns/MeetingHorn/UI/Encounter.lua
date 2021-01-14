@@ -67,10 +67,12 @@ function Encounter:Constructor()
     end)
 
     self.selectedTab = 1
-    self:SetupTabs({{L['职责攻略'], self.Panel1}, {L['技能'], self.Panel3}})
+    self:SetupTabs({{L['职责攻略'], self.Panel1}, {L['技能'], self.Panel2}, {L['视频攻略'], self.Panel3}})
 
     ns.UI.EncounterInfoPanel:Bind(self.Panel1)
-    ns.UI.EncounterInfoPanel:Bind(self.Panel3)
+    ns.UI.EncounterInfoPanel:Bind(self.Panel2)
+
+    self.Panel3.Label:SetText('PC查看视频及站位请按<Ctrl+C>复制地址到浏览器打开')
 
     self:Open(ns.DEFAULT_ENCOUNTER_INSTANCE_ID)
 end
@@ -86,7 +88,19 @@ function Encounter:SetCurrentBoss(bossId)
     self.BossTitle:SetText(info.name)
     self.BossList:Refresh()
     self.Panel1:SetInfo(info.summary, info.desc, true)
-    self.Panel3:SetInfo(info.abilities, info.desc)
+    self.Panel2:SetInfo(info.abilities, info.desc)
+
+    if info.url then
+        self.Panel3.Url.text = info.url
+        self.Panel3.Url:SetText(info.url)
+        self.Tab3:Show()
+    else
+        self.Tab3:Hide()
+
+        if self.selectedTab == 3 then
+            self:SetTab(1)
+        end
+    end
 end
 
 function Encounter:SetCurrentInstance(instanceId, bossId)

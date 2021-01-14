@@ -7,6 +7,7 @@
 ---@field Applicant MeetingHornUIApplicant
 ---@field ApplicantItem MeetingHornUIApplicantItem
 ---@field Encounter MeetingHornUIEncounter
+---@field Challenge MeetingHornUIChallenge
 
 ---@class ns
 ---@field UI UI
@@ -18,6 +19,9 @@
 ---@field Applicant MeetingHornApplicant
 ---@field Timer MeetingHornTimer
 ---@field Channel MeetingHornChannel
+---@field ChallengeGroup MeetingHornChallengeGroup
+---@field Challenge MeetingHornChallenge
+---@field ErrorCode table<string, number>
 local ns = select(2, ...)
 
 local L = LibStub('AceLocale-3.0'):GetLocale('MeetingHorn', true)

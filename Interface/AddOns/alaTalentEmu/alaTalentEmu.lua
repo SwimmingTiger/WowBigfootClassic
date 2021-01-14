@@ -31,7 +31,7 @@ local __rt = __ala_meta__.__rt;
 
 local L = NS.L;
 if not L then return; end
-local curPhase = 5;
+local curPhase = 6;
 ----------------------------------------------------------------------------------------------------upvalue
 	----------------------------------------------------------------------------------------------------LUA
 	local math, table, string, bit = math, table, string, bit;

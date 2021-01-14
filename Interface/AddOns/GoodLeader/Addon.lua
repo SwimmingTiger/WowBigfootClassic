@@ -101,10 +101,10 @@ end
 
 function Addon:SERVER_CONNECTED()
     self:SendServer('SLOGIN', ns.ADDON_VERSION, UnitGUID('player'), ns.GetPlayerItemLevel(), UnitLevel('player'), (GetGuildInfo('player')))
-    self:SendMessage('GOODLEADER_LOGIN')
     self.timeoutTimer:Cancel()
     self.serverTimeout = nil
     self.serverLogon = true
+    self:SendMessage('GOODLEADER_LOGIN')
 end
 
 function Addon:SERVER_CONNECT_TIMEOUT()

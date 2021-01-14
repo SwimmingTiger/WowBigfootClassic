@@ -534,6 +534,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1107,
         zone = 1,
         icon = 1378964,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW',
         summary = {
             children = {
                 {
@@ -577,6 +578,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1110,
         zone = 1,
         icon = 1378980,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=2',
         summary = {
             children = {
                 {
@@ -610,6 +612,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1116,
         zone = 1,
         icon = 1378994,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=3',
         summary = {
             children = {
                 {
@@ -642,24 +645,25 @@ local ENCOUNTER_BOSSES = {
         },
     }, --
     [1117] = {
-        name = '药剂师诺斯',
+        name = '瘟疫使者诺斯',
         bossId = 1117,
         zone = 2,
         icon = 1379004,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=4',
         summary = {
             children = {
                 {
                     role = 'TANK',
-                    desc = 'BOSS战斗需要5个T，主T和副T拉BOSS，其余三个T需要分别站在3个骨堆边坦住召唤出的小怪。\n1.主T开怪，将BOSS拉在房间正中间，副T站在人群，等待BOSS闪现清仇恨后拉住BOSS，然后主T站在人群，等待BOSS下次闪现清仇恨后拉住，两个T一直循环。\n2.BOSS从平台下来之后会回到房间正中间，主T提早站位拉住BOSS，副T人群等待。\n3.3个小怪T分别站在一个骨堆前，出现小怪就拉住仇恨，出现构造体则第一时间拉离人群。',
+                    desc = 'BOSS战斗需要5个T，主T和副T拉BOSS，其余三个T需要分别站在3个骨堆边坦住召唤出的小怪。\n1.主T开怪，将BOSS拉在房间正中间，副T站在人群，等待BOSS闪现清仇恨后拉住BOSS，然后主T站在人群，等待BOSS下次闪现清仇恨后拉住，两个T一直循环。\n2.BOSS从平台下来之后会回到房间正中间，主T提早站位拉住BOSS，副T人群等待。\n3.3个小怪T分别面朝骨堆，出现小怪就拉住仇恨，BOSS上墙后出现的瘟疫勇士等怪拉在人群外围等待击杀。',
                 }, {
                     role = 'HEALER',
                     desc = '1.根据指挥每个拉小怪的T都分配2个治疗，其他人则治疗主副T和人群。\n2.所有治疗尽量靠近人群站位，方便T在BOSS闪现后拉走BOSS。\n注意：德鲁伊第一时间驱散BOSS释放的群体诅咒。牧师可以在小怪多的时候锁住瘟疫战士。',
                 }, {
                     role = 'MELEE',
-                    desc = '1.进入战斗后对BOSS输出.\n2.BOSS上墙后帮助击杀小怪，第二次上墙后优先控制击杀瘟疫卫士（奥爆法系怪）。\n3.BOSS下来后仍先击杀完小怪后再继续输出BOSS。',
+                    desc = '1.进入战斗后对BOSS输出。BOSS闪现时停止输出，等T拉住仇恨之后再输出。\n2.BOSS上墙后帮助击杀小怪，第二次上墙后优先控制击杀瘟疫卫士（奥爆法系怪）。\n3.3个小怪T分别面朝骨堆，出现小怪就拉住仇恨，BOSS上墙后出现的瘟疫勇士等怪拉在人群外围等待击杀。',
                 }, {
                     role = 'RANGE',
-                    desc = '1.根据指挥分配分为3个小组，分别帮助3个小怪T击杀召唤出的精英怪（尽量靠近人群站位）。\n2.优先击杀小怪，小怪击杀完之后再输出BOSS。\n3.BOSS第二次上墙后优先控制击杀瘟疫卫士（奥爆法系怪），第三次上墙仍旧优先击杀瘟疫卫士，然后是构造体，再是瘟疫勇士。\n注意：法师第一时间驱散BOSS释放的群体诅咒。',
+                    desc = '1.集中站位，优先帮助3个小怪T击杀召唤出的精英怪。\n2.小怪击杀完之后再输出BOSS，BOSS闪现时停止输出，等T拉住仇恨之后再输出。\n3.BOSS第二次上墙后优先控制击杀瘟疫卫士（奥爆法系怪），第三次上墙仍旧优先击杀瘟疫卫士，然后是构造体，再是瘟疫勇士。\n注意：法师第一时间驱散BOSS释放的群体诅咒。',
                 },
             },
         },
@@ -692,6 +696,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1112,
         zone = 2,
         icon = 1378984,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=5',
         summary = {
             children = {
                 {
@@ -772,6 +777,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1115,
         zone = 2,
         icon = 1378991,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=6',
         summary = {
             children = {
                 {
@@ -815,6 +821,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1113,
         zone = 3,
         icon = 1378988,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=11',
         summary = {
             children = {
                 {
@@ -848,6 +855,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1109,
         zone = 3,
         icon = 1378979,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=12',
         summary = {
             children = {
                 {
@@ -971,6 +979,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1121,
         zone = 3,
         icon = 1385732,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=13',
         summary = {
             children = {
                 {
@@ -1078,6 +1087,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1118,
         zone = 4,
         icon = 1379005,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=7',
         summary = {
             children = {
                 {
@@ -1103,6 +1113,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1111,
         zone = 4,
         icon = 1378981,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=8',
         summary = {
             children = {
                 {
@@ -1147,6 +1158,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1108,
         zone = 4,
         icon = 1378977,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=9',
         summary = {
             children = {
                 {
@@ -1186,6 +1198,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1120,
         zone = 4,
         icon = 1379019,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=10',
         summary = {
             children = {
                 {
@@ -1276,6 +1289,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1119,
         zone = 5,
         icon = 1379010,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=14',
         summary = {
             children = {
                 {
@@ -1323,6 +1337,7 @@ local ENCOUNTER_BOSSES = {
         bossId = 1114,
         zone = 5,
         icon = 1378989,
+        url = 'https://www.bilibili.com/video/BV1dr4y1w7gW?p=15',
         summary = {
             children = {
                 {
@@ -1400,7 +1415,11 @@ local ENCOUNTER_BOSSES = {
                             expanded = true,
                             desc = '对当前目标释放，造成大量冰霜伤害且减速，可打断。',
                         }, ---
-                        {title = '群体寒冰箭', expanded = true, desc = '对所有玩家释放，造成大量冰霜伤害。'}, ---
+                        {
+                            title = '群体寒冰箭',
+                            expanded = true,
+                            desc = '对所有玩家释放，造成大量冰霜伤害。',
+                        }, ---
                         {
                             spell = 27810,
                             expanded = true,
@@ -1457,7 +1476,7 @@ local ENCOUNTER_INSTANCES = {
         zones = {
             {zone = 1, text = '蜘蛛区'}, --
             {zone = 2, text = '瘟疫区'}, --
-            {zone = 3, text = '死亡骑士区'}, --
+            {zone = 3, text = '军事区'}, --
             {zone = 4, text = '构造区'}, --
             {zone = 5, text = '中心区'}, --
         },
@@ -1470,3 +1489,13 @@ ns.ENCOUNTER_BOSSES = ENCOUNTER_BOSSES
 ns.ENCOUNTER_INSTANCES = ENCOUNTER_INSTANCES
 ns.ENCOUNTER_DATA = ENCOUNTER_DATA
 ns.DEFAULT_ENCOUNTER_INSTANCE_ID = 533
+
+function ns.GetEncouterBossName(id)
+    local data = ENCOUNTER_BOSSES[id]
+    return data and data.name or UNKNOWN
+end
+
+function ns.GetEncounterRaidName(id)
+    local data = ENCOUNTER_INSTANCES[id]
+    return data and data.title or UNKNOWN
+end

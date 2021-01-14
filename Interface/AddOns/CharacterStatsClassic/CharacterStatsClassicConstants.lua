@@ -102,6 +102,34 @@ g_CombatManaRegenSpellIdToModifier = {
     [22783] = 0.3
 };
 
+g_ArgentDawnAPItems = {
+    -- Chests
+    [23087] = 81, -- Plate
+    [23088] = 81, -- Mail
+    [23089] = 81, -- Leather
+    -- Gloves
+    [23078] = 60, -- Plate
+    [23082] = 60, -- Mail
+    [23081] = 60, -- Leather
+    -- Bracers
+    [23090] = 45, -- Plate
+    [23092] = 45, -- Mail
+    [23093] = 45, -- Leather
+    -- Trinkets
+    [13209] = 81, -- Seal of the Dawn
+    [23206] = 150 -- Mark of the Champion AP
+}
+
+g_ArgentDawnSPItems = {
+    -- SP cloth set
+    [23085] = 48, -- Chest
+    [23091] = 26, -- Bracers
+    [23084] = 35, -- Gloves
+    -- Trinkets
+    [19812] = 48, -- Rune of the Dawn 
+    [23207] = 85 -- Mark of the Champion SP
+}
+
 CSC_SYMBOL_TAB   = "    "; -- for some reason "\t" doesn't work
 CSC_SYMBOL_SPACE = " ";
                                 

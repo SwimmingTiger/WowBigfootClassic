@@ -14,7 +14,11 @@ function GoodLeader:Constructor(p)
         {mapId = 2159, bossId = 1084, image = [[interface\encounterjournal\ui-ej-dungeonbutton-onyxia]]},
         {mapId = 2677, bossId = 617, image = [[interface\encounterjournal\ui-ej-dungeonbutton-blackwinglair]]},
         {mapId = 3428, bossId = 717, image = [[interface\encounterjournal\ui-ej-dungeonbutton-templeofahnqiraj]]},
-        {mapId = 3456, bossId = 1114, image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 3456, bossId = 1114, name = L['克尔苏加德'], image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 3456, bossId = 1121, name = L['军事区'], image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 3456, bossId = 1115, name = L['瘟疫区'], image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 3456, bossId = 1116, name = L['蜘蛛区'], image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
+        {mapId = 3456, bossId = 1120, name = L['构造区'], image = [[interface\encounterjournal\ui-ej-dungeonbutton-naxxramas]]},
         {mapId = 1977, bossId = 793, image = [[interface\encounterjournal\ui-ej-dungeonbutton-zulgurub]]},
         {mapId = 3429, bossId = 723, image = [[interface\encounterjournal\ui-ej-dungeonbutton-ruinsofahnqiraj]]},
     }
@@ -23,7 +27,7 @@ function GoodLeader:Constructor(p)
         local button = self.Result.Raids['Raid' .. i]
         tinsert(self.instances, button)
 
-        button.Name:SetText(C_Map.GetAreaInfo(v.mapId))
+        button.Name:SetText(C_Map.GetAreaInfo(v.mapId) .. (v.name and '-' .. v.name or ''))
         button.Image:SetTexture(v.image)
         button.bossId = v.bossId
     end

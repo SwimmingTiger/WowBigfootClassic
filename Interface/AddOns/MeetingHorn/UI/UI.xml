@@ -19,4 +19,5 @@
     <Script file="EncounterInfoPanel.lua" />
     <Script file="Encounter.lua" />
     <Script file="Recent.lua" />
+    <Script file="Challenge.lua" />
 </Ui>

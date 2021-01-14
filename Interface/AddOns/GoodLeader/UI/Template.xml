@@ -316,6 +316,26 @@
                                     <Anchor point="LEFT" relativeKey="$parent.Raid6" relativePoint="RIGHT" x="20" y="0" />
                                 </Anchors>
                             </Frame>
+                            <Frame parentKey="Raid8" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid7" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid9" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid8" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid10" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid9" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Raid11" inherits="GoodLeaderRaidTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Raid10" relativePoint="RIGHT" x="20" y="0" />
+                                </Anchors>
+                            </Frame>
                         </Frames>
                     </Frame>
                     <Frame parentKey="Info" inherits="InsetFrameTemplate">
@@ -343,7 +363,7 @@
         </Frames>
     </Frame>
     <Frame name="GoodLeaderMainPanelTemplate" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate" virtual="true">
-        <Size x="588" y="424"/>
+        <Size x="588" y="500"/>
         <Layers>
             <Layer level="OVERLAY" textureSubLevel="1">
                 <Texture file="Interface\AddOns\GoodLeader\Media\TopLogo">

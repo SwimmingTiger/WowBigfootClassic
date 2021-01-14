@@ -114,6 +114,10 @@ local function CSC_GetMP5FromGear(unit)
 		end
 	end
 
+	if (CSC_HasEnchant(unit, INVSLOT_WRIST, 2565)) then -- Mana Regen
+		mp5 = mp5 + 4;
+	end
+
 	return mp5;
 end
 
@@ -222,6 +226,122 @@ function CSC_HasEnchant(unit, slotId, enchantId)
 	end
 
 	return false;
+end
+
+function CSC_GetAttackPowerFromArgentDawnItems(unit)
+	local chestId = GetInventoryItemID(unit, INVSLOT_CHEST);
+	local glovesId = GetInventoryItemID(unit, INVSLOT_HAND);
+	local bracerId = GetInventoryItemID(unit, INVSLOT_WRIST);
+	local trinketFirst = GetInventoryItemID(unit, INVSLOT_TRINKET1);
+	local trinketSecond = GetInventoryItemID(unit, INVSLOT_TRINKET2);
+
+	local apVsUndead = 0;
+	
+	if (g_ArgentDawnAPItems[chestId] ~= nil) then
+		apVsUndead = apVsUndead + g_ArgentDawnAPItems[chestId];
+	end
+
+	if (g_ArgentDawnAPItems[glovesId] ~= nil) then
+		apVsUndead = apVsUndead + g_ArgentDawnAPItems[glovesId];
+	end
+
+	if (g_ArgentDawnAPItems[bracerId] ~= nil) then
+		apVsUndead = apVsUndead + g_ArgentDawnAPItems[bracerId];
+	end
+
+	if (g_ArgentDawnAPItems[trinketFirst] ~= nil) then
+		apVsUndead = apVsUndead + g_ArgentDawnAPItems[trinketFirst];
+	end
+
+	if (g_ArgentDawnAPItems[trinketSecond] ~= nil) then
+		apVsUndead = apVsUndead + g_ArgentDawnAPItems[trinketSecond];
+	end
+
+	local tempMHEnchantId = select(4, GetWeaponEnchantInfo());
+	if (tempMHEnchantId == 2684) then -- Consecrated Sharpening Stone
+		apVsUndead = apVsUndead + 100;
+	end
+
+	local tempOHEnchantId = select(8, GetWeaponEnchantInfo());
+	if (tempOHEnchantId == 2684) then -- Consecrated Sharpening Stone
+		apVsUndead = apVsUndead + 100;
+	end
+
+	return apVsUndead;
+end
+
+function CSC_GetSpellkPowerFromArgentDawnItems(unit)
+	local chestId = GetInventoryItemID(unit, INVSLOT_CHEST);
+	local glovesId = GetInventoryItemID(unit, INVSLOT_HAND);
+	local bracerId = GetInventoryItemID(unit, INVSLOT_WRIST);
+	local trinketFirst = GetInventoryItemID(unit, INVSLOT_TRINKET1);
+	local trinketSecond = GetInventoryItemID(unit, INVSLOT_TRINKET2);
+
+	local spVsUndead = 0;
+	
+	if (g_ArgentDawnSPItems[chestId] ~= nil) then
+		spVsUndead = spVsUndead + g_ArgentDawnSPItems[chestId];
+	end
+
+	if (g_ArgentDawnSPItems[glovesId] ~= nil) then
+		spVsUndead = spVsUndead + g_ArgentDawnSPItems[glovesId];
+	end
+
+	if (g_ArgentDawnSPItems[bracerId] ~= nil) then
+		spVsUndead = spVsUndead + g_ArgentDawnSPItems[bracerId];
+	end
+
+	if (g_ArgentDawnSPItems[trinketFirst] ~= nil) then
+		spVsUndead = spVsUndead + g_ArgentDawnSPItems[trinketFirst];
+	end
+
+	if (g_ArgentDawnSPItems[trinketSecond] ~= nil) then
+		spVsUndead = spVsUndead + g_ArgentDawnSPItems[trinketSecond];
+	end
+
+	local tempMHEnchantId = select(4, GetWeaponEnchantInfo());
+	if (tempMHEnchantId == 2685) then -- Blessed Wizard Oil
+		spVsUndead = spVsUndead + 60;
+	end
+
+	local tempOHEnchantId = select(8, GetWeaponEnchantInfo());
+	if (tempOHEnchantId == 2685) then -- Blessed Wizard Oil
+		spVsUndead = spVsUndead + 60;
+	end
+
+	return spVsUndead;
+end
+
+function CSC_GetDefense(unit)
+	local numSkills = GetNumSkillLines();
+	local skillIndex = 0;
+	local currentHeader = nil;
+	local playerLevel = UnitLevel(unit);
+
+	for i = 1, numSkills do
+		local skillName = select(1, GetSkillLineInfo(i));
+		local isHeader = select(2, GetSkillLineInfo(i));
+
+		if isHeader ~= nil and isHeader then
+			currentHeader = skillName;
+		else
+			if (currentHeader == CSC_WEAPON_SKILLS_HEADER and skillName == CSC_DEFENSE) then
+				skillIndex = i;
+				break;
+			end
+		end
+	end
+
+	local skillRank, skillModifier;
+	if (skillIndex > 0) then
+		skillRank = select(4, GetSkillLineInfo(skillIndex));
+		skillModifier = select(6, GetSkillLineInfo(skillIndex));
+	else
+		-- Use this as a backup, just in case something goes wrong
+		skillRank, skillModifier = UnitDefense(unit); --Not working properly
+	end
+
+	return skillRank, skillModifier, playerLevel;
 end
 -- GENERAL UTIL FUNCTIONS END --
 
@@ -446,12 +566,17 @@ end
 function CSC_PaperDollFrame_SetMeleeAttackPower(statFrame, unit)
     
 	local base, posBuff, negBuff = UnitAttackPower(unit);
+
+	if (UISettingsCharacter.showStatsFromArgentDawnItems) then
+		local apFromAD = CSC_GetAttackPowerFromArgentDawnItems(unit);
+		posBuff = posBuff + apFromAD;
+	end
     
     local valueText, tooltipText = CSC_PaperDollFormatStat(MELEE_ATTACK_POWER, base, posBuff, negBuff);
     local valueNum = max(0, base + posBuff + negBuff);
     CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_ATTACK_POWER, valueText, false, valueNum);
     statFrame.tooltip = tooltipText;
-    statFrame.tooltip2 = format(MELEE_ATTACK_POWER_TOOLTIP, max((base+posBuff+negBuff), 0)/ATTACK_POWER_MAGIC_NUMBER);
+	statFrame.tooltip2 = format(MELEE_ATTACK_POWER_TOOLTIP, max((base+posBuff+negBuff), 0)/ATTACK_POWER_MAGIC_NUMBER);
 	statFrame:Show();
 end
 
@@ -471,6 +596,12 @@ function CSC_PaperDollFrame_SetRangedAttackPower(statFrame, unit)
 	end
 
 	local base, posBuff, negBuff = UnitRangedAttackPower(unit);
+
+	if (UISettingsCharacter.showStatsFromArgentDawnItems) then
+		local apFromAD = CSC_GetAttackPowerFromArgentDawnItems(unit);
+		posBuff = posBuff + apFromAD;
+	end
+	
     local valueText, tooltipText = CSC_PaperDollFormatStat(RANGED_ATTACK_POWER, base, posBuff, negBuff);
     local valueNum = max(0, base + posBuff + negBuff);
     CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_ATTACK_POWER, valueText, false, valueNum);
@@ -757,32 +888,12 @@ end
 
 function CSC_PaperDollFrame_SetDefense(statFrame, unit)
 
-	local numSkills = GetNumSkillLines();
-	local skillIndex = 0;
-	local currentHeader = nil;
+	statFrame:SetScript("OnEnter", CSC_CharacterDefenseFrame_OnEnter)
+	statFrame:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+	end)
 
-	for i = 1, numSkills do
-		local skillName = select(1, GetSkillLineInfo(i));
-		local isHeader = select(2, GetSkillLineInfo(i));
-
-		if isHeader ~= nil and isHeader then
-			currentHeader = skillName;
-		else
-			if (currentHeader == CSC_WEAPON_SKILLS_HEADER and skillName == CSC_DEFENSE) then
-				skillIndex = i;
-				break;
-			end
-		end
-	end
-
-	local skillRank, skillModifier;
-	if (skillIndex > 0) then
-		skillRank = select(4, GetSkillLineInfo(skillIndex));
-		skillModifier = select(6, GetSkillLineInfo(skillIndex));
-	else
-		-- Use this as a backup, just in case something goes wrong
-		skillRank, skillModifier = UnitDefense(unit); --Not working properly
-	end
+	local  skillRank, skillModifier, playerLevel = CSC_GetDefense(unit);
 
 	local posBuff = 0;
 	local negBuff = 0;
@@ -791,14 +902,10 @@ function CSC_PaperDollFrame_SetDefense(statFrame, unit)
 	elseif ( skillModifier < 0 ) then
 		negBuff = skillModifier;
 	end
-	local valueText, tooltipText = CSC_PaperDollFormatStat(DEFENSE_COLON, skillRank, posBuff, negBuff);
+	local valueText, defenseText = CSC_PaperDollFormatStat(DEFENSE_COLON, skillRank, posBuff, negBuff);
 	local valueNum = max(0, skillRank + posBuff + negBuff);
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, CSC_DEFENSE, valueText, false, valueNum);
-	statFrame.tooltip = tooltipText;
-	tooltipText = format(DEFAULT_STATDEFENSE_TOOLTIP, valueNum, 0, valueNum*0.04, valueNum*0.04);
-	tooltipText = tooltipText:gsub('.-\n', '', 1);
-	tooltipText = tooltipText:gsub('\n|cff888888%b()|r', '');
-	statFrame.tooltip2 = tooltipText;
+	statFrame.defense = defenseText;
 	statFrame:Show();
 end
 
@@ -904,6 +1011,12 @@ function CSC_PaperDollFrame_SetSpellPower(statFrame, unit)
 		maxSpellDmg = max(maxSpellDmg, bonusDamage);
 	end
 
+	if (UISettingsCharacter.showStatsFromArgentDawnItems) then
+		local spFromAD = CSC_GetSpellkPowerFromArgentDawnItems(unit);
+		maxSpellDmg = maxSpellDmg + spFromAD;
+		statFrame.spVsUndead = maxSpellDmg;
+	end
+
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_SPELLPOWER, BreakUpLargeNumbers(maxSpellDmg), false, maxSpellDmg);
 	statFrame:Show();
 end
@@ -973,7 +1086,7 @@ function CSC_PaperDollFrame_SetManaRegen(statFrame, unit)
 	end
 	
 	-- All mana regen stats are displayed as mana/5 sec.
-	local regenWhenNotCasting = floor(base * 5.0) + mp5FromGear + mp5FromAuras;
+	local regenWhenNotCasting = (base * 5.0) + mp5FromGear + mp5FromAuras;
 	casting = mp5FromGear + mp5FromAuras; -- if GetManaRegen() gets fixed ever, this should be changed
 
 	if mp5ModifierCasting > 0 then

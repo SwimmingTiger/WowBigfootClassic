@@ -77,6 +77,9 @@ function LFG:OnEnable()
     self:RegisterServer('SNEWVERSION')
     self:RegisterServer('SWORLDBUFF')
     self:RegisterServer('SNOTICE')
+    self:RegisterServer('SGA', 'SGETACTIVITY')
+    self:RegisterServer('SAP', 'SACTIVITYPROGRESS')
+    self:RegisterServer('SAF', 'SACTIVITYFETCHREWARD')
 
     self:RegisterEvent('ENCOUNTER_END')
     self:RegisterEvent('ENCOUNTER_START')
@@ -431,6 +434,11 @@ end
 
 function LFG:SERVER_CONNECTED()
     self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'))
+    self:SendMessage('MEETINGHORN_SERVER_CONNECTED')
+
+    --[===[@debug@
+    print('Connected')
+    --@end-debug@]===]
 end
 
 function LFG:SNEWVERSION(_, version, url, changelog)
@@ -446,6 +454,48 @@ function LFG:SWORLDBUFF(_, enable, data)
         ns.WorldBuff:SetPos(data)
     end
     self:SendMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED', enable)
+end
+
+function LFG:RequestChallengeGroup()
+    self:SendServer('CGA', UnitGUID('player'))
+end
+
+function LFG:SGETACTIVITY(_, err, activities, progress)
+    if ns.ErrorCode[err] then
+        self.challengeGroup = nil
+    else
+        self.challengeGroup = ns.ChallengeGroup:New(activities)
+        self.challengeGroup:UpdateProgresses(progress)
+    end
+    self:SendMessage('MEETINGHORN_CHALLENGE_GROUP_UPDATED', err)
+end
+
+function LFG:RequestChallengeProgress(id)
+    self:SendServer('CAP', UnitGUID('player'), id)
+end
+
+function LFG:SACTIVITYPROGRESS(_, err, id, progresses)
+    if not ns.ErrorCode[err] and type(progresses) == 'table' then
+        local item = self.challengeGroup:Get(id)
+        if item then
+            item:UpdateProgress(progresses[1])
+        end
+    end
+    self:SendMessage('MEETINGHORN_CHALLENGE_PROGRESS_UPDATED', err, id)
+end
+
+function LFG:FetchChallengeReward(id)
+    self:SendServer('CAF', UnitGUID('player'), id)
+end
+
+function LFG:SACTIVITYFETCHREWARD(_, err, id)
+    if not ns.ErrorCode[err] then
+        local item = self.challengeGroup:Get(id)
+        if item then
+            item:Fetched()
+        end
+    end
+    self:SendMessage('MEETINGHORN_CHALLENGE_FETCH_REWARD_RESULT', err, id)
 end
 
 function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, lineId, guid)
