@@ -132,8 +132,23 @@ local function zzzAddonCheck_Init_alaGearMan()
     end
 end
 
+local function zzzAddonCheck_Init_NugRunning()
+    -- 防止NugRunning计时条挡住玩家角色
+    if NugRunning and NugRunning.anchors and NugRunning.anchors.main and NugRunning.anchors.main.db_tbl 
+        and NugRunning.anchors.main.db_tbl.x == 0 and NugRunning.anchors.main.db_tbl.y == 0
+    then
+        NugRunning.anchors.main.db_tbl.x = 200
+        if NugRunning.anchors.main.SetPoint then
+            NugRunning.anchors.main:SetPoint("CENTER", NugRunning.anchors.main.db_tbl.x, NugRunning.anchors.main.db_tbl.y)
+        end
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+
+    -- 防止NugRunning计时条挡住玩家角色
+    zzzAddonCheck_Init_NugRunning()
 
     -- 禁止Decursive在聊天窗口和屏幕中央显示信息
     zzzAddonCheck_Init_Decursive()
