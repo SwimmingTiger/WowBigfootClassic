@@ -58,7 +58,7 @@ NWB.options = {
 		},
 		generalHeader = {
 			type = "header",
-			name = L["generalHeaderDesc"],
+			name = NWB.prefixColor .. L["generalHeaderDesc"],
 			order = 10,
 		},
 		showWorldMapMarkers = {
@@ -255,9 +255,33 @@ NWB.options = {
 			step = 1,
 			width = 1.5,
 		},
+		showNaxxWorldmapMarkers = {
+			type = "toggle",
+			name = L["showNaxxWorldmapMarkersTitle"],
+			desc = L["showNaxxWorldmapMarkersDesc"],
+			order = 30,
+			get = "getShowNaxxWorldmapMarkers",
+			set = "setShowNaxxWorldmapMarkers",
+		},
+		showNaxxMinimapMarkers = {
+			type = "toggle",
+			name = L["showNaxxMinimapMarkersTitle"],
+			desc = L["showNaxxMinimapMarkersDesc"],
+			order = 31,
+			get = "getShowNaxxMinimapMarkers",
+			set = "setShowNaxxMinimapMarkers",
+		},
+		bigWigsSupport = {
+			type = "toggle",
+			name = L["bigWigsSupportTitle"],
+			desc = L["bigWigsSupportDesc"],
+			order = 32,
+			get = "getBigWigsSupport",
+			set = "setBigWigsSupport",
+		},
 		logonHeader = {
 			type = "header",
-			name = L["logonHeaderDesc"],
+			name = NWB.prefixColor .. L["logonHeaderDesc"],
 			order = 40,
 		},
 		logonPrint = {
@@ -310,7 +334,7 @@ NWB.options = {
 		},
 		chatWarningHeader = {
 			type = "header",
-			name = L["chatWarningHeaderDesc"],
+			name = NWB.prefixColor .. L["chatWarningHeaderDesc"],
 			order = 60,
 		},
 		chat30 = {
@@ -379,7 +403,7 @@ NWB.options = {
 		},
 		middleWarningHeader = {
 			type = "header",
-			name = L["middleWarningHeaderDesc"],
+			name = NWB.prefixColor .. L["middleWarningHeaderDesc"],
 			order = 80,
 		},
 		middle30 = {
@@ -472,7 +496,7 @@ NWB.options = {
 		},
 		guildWarningHeader = {
 			type = "header",
-			name = L["guildWarningHeaderDesc"],
+			name = NWB.prefixColor .. L["guildWarningHeaderDesc"],
 			order = 110,
 		},
 		guild10 = {
@@ -541,7 +565,7 @@ NWB.options = {
 		},
 		songflowersHeader = {
 			type = "header",
-			name = L["songflowersHeaderDesc"],
+			name = NWB.prefixColor .. L["songflowersHeaderDesc"],
 			order = 140,
 		},
 		guildSongflower = {
@@ -648,7 +672,7 @@ NWB.options = {
 		},
 		dmfHeader = {
 			type = "header",
-			name = L["dmfHeaderDesc"],
+			name = NWB.prefixColor .. L["dmfHeaderDesc"],
 			order = 170,
 		},
 		dmfText = {
@@ -681,9 +705,60 @@ NWB.options = {
 			get = "getShowDmfMap",
 			set = "setShowDmfMap",
 		},
+		autoDmfBuff = {
+			type = "toggle",
+			name = L["autoDmfBuffTitle"],
+			desc = L["autoDmfBuffDesc"],
+			order = 183,
+			get = "getAutoDmfBuff",
+			set = "setAutoDmfBuff",
+		},
+		autoDmfBuffType = {
+			type = "select",
+			name = L["autoDmfBuffTypeTitle"],
+			desc = L["autoDmfBuffTypeDesc"],
+			values = {
+				["Damage"] = L["Sayge's Dark Fortune of Damage"],
+				["Agility"] = L["Sayge's Dark Fortune of Agility"],
+				["Intelligence"] = L["Sayge's Dark Fortune of Intelligence"],
+				["Spirit"] = L["Sayge's Dark Fortune of Spirit"],
+				["Stamina"] = L["Sayge's Dark Fortune of Stamina"],
+				["Strength"] = L["Sayge's Dark Fortune of Strength"],
+				["Armor"] = L["Sayge's Dark Fortune of Armor"],
+				["Resistance"] = L["Sayge's Dark Fortune of Resistance"],
+			},
+			sorting = {
+				[1] = "Damage",
+				[2] = "Agility",
+				[3] = "Intelligence",
+				[4] = "Spirit",
+				[5] = "Stamina",
+				[6] = "Strength",
+				[7] = "Armor",
+				[8] = "Resistance",
+			},
+			order = 184,
+			width = "double",
+			--width = 1.6,
+			get = "getAutoDmfBuffType",
+			set = "setAutoDmfBuffType",
+		},
+		autoBuffsText = {
+			type = "description",
+			name = "|cFFFF0000" .. L["note"] .. " |cFF9CD6DE" .. L["dmfConfigWarning"],
+			fontSize = "medium",
+			order = 185,
+		},
+		dmfSettingsList = {
+			type = "execute",
+			name = L["dmfSettingsListTitle"],
+			desc = L["dmfSettingsListDesc"],
+			func = "openDMFListFrame",
+			order = 186,
+		},
 		guildChatFilterHeader = {
 			type = "header",
-			name = L["guildChatFilterHeaderDesc"],
+			name = NWB.prefixColor .. L["guildChatFilterHeaderDesc"],
 			order = 190,
 		},
 		guildChatFilterText = {
@@ -750,7 +825,7 @@ NWB.options = {
 		},
 		soundsHeader = {
 			type = "header",
-			name = L["soundsHeaderDesc"],
+			name = NWB.prefixColor .. L["soundsHeaderDesc"],
 			order = 220,
 		},
 		soundsText = {
@@ -877,9 +952,20 @@ NWB.options = {
 			get = "getSoundsNpcKilled",
 			set = "setSoundsNpcKilled",
 		},
+		soundsNpcWalking = {
+			type = "select",
+			name = L["soundsNpcWalkingTitle"],
+			desc = L["soundsNpcWalkingDesc"],
+			values = function()
+				return NWB:getSounds("npcWalking");
+			end,
+			order = 234,
+			get = "getSoundsNpcWalking",
+			set = "setSoundsNpcWalking",
+		},
 		flashHeader = {
 			type = "header",
-			name = L["flashHeaderDesc"],
+			name = NWB.prefixColor .. L["flashHeaderDesc"],
 			order = 260,
 		},
 		flashOneMin = {
@@ -916,7 +1002,7 @@ NWB.options = {
 		},
 		dispelsHeader = {
 			type = "header",
-			name = L["dispelsHeaderDesc"],
+			name = NWB.prefixColor .. L["dispelsHeaderDesc"],
 			order = 280,
 		},
 		dispelsMine = {
@@ -975,52 +1061,8 @@ NWB.options = {
 		},
 		autoBuffsHeader = {
 			type = "header",
-			name = L["autoBuffsHeaderDesc"],
+			name = NWB.prefixColor .. L["autoBuffsHeaderDesc"],
 			order = 300,
-		},
-		autoBuffsText = {
-			type = "description",
-			name = "|cFFFF0000" .. L["note"] .. "|cFF9CD6DE" .. L["dmfConfigWarning"],
-			fontSize = "medium",
-			order = 301,
-		},
-		autoDmfBuff = {
-			type = "toggle",
-			name = L["autoDmfBuffTitle"],
-			desc = L["autoDmfBuffDesc"],
-			order = 304,
-			get = "getAutoDmfBuff",
-			set = "setAutoDmfBuff",
-		},
-		autoDmfBuffType = {
-			type = "select",
-			name = L["autoDmfBuffTypeTitle"],
-			desc = L["autoDmfBuffTypeDesc"],
-			values = {
-				["Damage"] = L["Sayge's Dark Fortune of Damage"],
-				["Agility"] = L["Sayge's Dark Fortune of Agility"],
-				["Intelligence"] = L["Sayge's Dark Fortune of Intelligence"],
-				["Spirit"] = L["Sayge's Dark Fortune of Spirit"],
-				["Stamina"] = L["Sayge's Dark Fortune of Stamina"],
-				["Strength"] = L["Sayge's Dark Fortune of Strength"],
-				["Armor"] = L["Sayge's Dark Fortune of Armor"],
-				["Resistance"] = L["Sayge's Dark Fortune of Resistance"],
-			},
-			sorting = {
-				[1] = "Damage",
-				[2] = "Agility",
-				[3] = "Intelligence",
-				[4] = "Spirit",
-				[5] = "Stamina",
-				[6] = "Strength",
-				[7] = "Armor",
-				[8] = "Resistance",
-			},
-			order = 305,
-			width = "double",
-			--width = 1.6,
-			get = "getAutoDmfBuffType",
-			set = "setAutoDmfBuffType",
 		},
 		autoDireMaulBuff = {
 			type = "toggle",
@@ -1038,16 +1080,9 @@ NWB.options = {
 			get = "getAutoBwlPortal",
 			set = "setAutoBwlPortal",
 		},
-		dmfSettingsList = {
-			type = "execute",
-			name = L["dmfSettingsListTitle"],
-			desc = L["dmfSettingsListDesc"],
-			func = "openDMFListFrame",
-			order = 308,
-		},
 		trimDataHeader = {
 			type = "header",
-			name = L["trimDataHeaderDesc"],
+			name = NWB.prefixColor .. L["trimDataHeaderDesc"],
 			order = 330,
 		},
 		trimDataText = {
@@ -1099,6 +1134,140 @@ NWB.options = {
 				return string.format(L["trimDataCharInputConfirm"], "|cFFFFFF00" .. input .. "|r");
 			end,
 		},
+		buffHelpersHeader = {
+			type = "header",
+			name = NWB.prefixColor .. L["buffHelpersHeaderDesc"],
+			order = 400,
+		},
+		buffHelpersText = {
+			type = "description",
+			name = "|cFF9CD6DE".. L["buffHelpersTextDesc"],
+			fontSize = "medium",
+			order = 401,
+		},
+		buffHelperDelay = {
+			type = "range",
+			name = L["buffHelperDelayTitle"],
+			desc = L["buffHelperDelayDesc"],
+			order = 402,
+			get = "getBuffHelperDelay",
+			set = "setBuffHelperDelay",
+			min = 5,
+			max = 300,
+			softMin = 5,
+			softMax = 300,
+			step = 1,
+			width = 2,
+		},
+		buffHelpersText2 = {
+			type = "description",
+			name = "|CffDEDE42" .. L["buffHelpersTextDesc2"],
+			fontSize = "medium",
+			order = 403,
+		},
+		takeTaxiZG = {
+			type = "toggle",
+			name = L["takeTaxiZGTitle"],
+			desc = L["takeTaxiZGDesc"],
+			order = 404,
+			get = "getTakeTaxiZG",
+			set = "setTakeTaxiZG",
+		},
+		takeTaxiNodeZG = {
+			type = "select",
+			name = L["takeTaxiNodeTitle"],
+			desc = L["takeTaxiNodeDesc"],
+			values = function()
+				return NWB:getTaxiNodes();
+			end,
+			order = 405,
+			width = "double",
+			get = "getTakeTaxiNodeZG",
+			set = "setTakeTaxiNodeZG",
+		},
+		zgGotBuffSummon = {
+			type = "toggle",
+			name = L["zgGotBuffSummonTitle"],
+			desc = L["zgGotBuffSummonDesc"],
+			order = 406,
+			get = "getZgGotBuffSummon",
+			set = "setZgGotBuffSummon",
+		},
+		buffHelpersText3 = {
+			type = "description",
+			name = "|CffDEDE42" .. L["buffHelpersTextDesc3"],
+			fontSize = "medium",
+			order = 410,
+		},
+		dmfGotBuffSummon = {
+			type = "toggle",
+			name = L["dmfGotBuffSummonTitle"],
+			desc = L["dmfGotBuffSummonDesc"],
+			order = 411,
+			get = "getDmfGotBuffSummon",
+			set = "setDmfGotBuffSummon",
+		},
+		dmfVanishSummon = {
+			type = "toggle",
+			name = L["dmfVanishSummonTitle"],
+			desc = L["dmfVanishSummonDesc"],
+			order = 412,
+			get = "getDmfVanishSummon",
+			set = "setDmfVanishSummon",
+		},
+		dmfFeignSummon = {
+			type = "toggle",
+			name = L["dmfFeignSummonTitle"],
+			desc = L["dmfFeignSummonDesc"],
+			order = 413,
+			get = "getDmfFeignSummon",
+			set = "setDmfFeignSummon",
+		},
+		dmfCombatSummon = {
+			type = "toggle",
+			name = L["dmfCombatSummonTitle"],
+			desc = L["dmfCombatSummonDesc"],
+			order = 414,
+			get = "getDmfCombatSummon",
+			set = "setDmfCombatSummon",
+		},
+		dmfLeaveBG = {
+			type = "toggle",
+			name = L["dmfLeaveBGTitle"],
+			desc = L["dmfLeaveBGDesc"],
+			order = 415,
+			get = "getDmfLeaveBG",
+			set = "setDmfLeaveBG",
+			width = 2,
+		},
+		buffHelpersText4 = {
+			type = "description",
+			name = "|CffDEDE42" .. L["buffHelpersTextDesc4"],
+			fontSize = "medium",
+			order = 416,
+		},
+		songflowerGotBuffSummon = {
+			type = "toggle",
+			name = L["songflowerGotBuffSummonTitle"],
+			desc = L["songflowerGotBuffSummonDesc"],
+			order = 417,
+			get = "getSongflowerGotBuffSummon",
+			set = "setSongflowerGotBuffSummon",
+		},
+		cityHelpersText5 = {
+			type = "description",
+			name = "|CffDEDE42" .. L["buffHelpersTextDesc5"],
+			fontSize = "medium",
+			order = 418,
+		},
+		cityGotBuffSummon = {
+			type = "toggle",
+			name = L["cityGotBuffSummonTitle"],
+			desc = L["cityGotBuffSummonDesc"],
+			order = 419,
+			get = "getCityGotBuffSummon",
+			set = "setCityGotBuffSummon",
+		},
 	},
 };
 
@@ -1111,6 +1280,22 @@ function NWB:loadSpecificOptions()
 			order = 17,
 			get = "getAllianceEnableRend",
 			set = "setAllianceEnableRend",
+		};
+		--Set default zg drop flight path location for alliance.
+		NWB.optionDefaults.global.takeTaxiNodeZG = 2;
+	else
+		--Set default zg drop flight path location for horde.
+		NWB.optionDefaults.global.takeTaxiNodeZG = 20;
+		NWB.options.args["soundsNpcKilled"] = {
+			type = "select",
+			name = L["soundsNpcKilledTitle"],
+			desc = L["soundsNpcKilledDesc"],
+			values = function()
+				return NWB:getSounds("npcKilled");
+			end,
+			order = 233,
+			get = "getSoundsNpcKilled",
+			set = "setSoundsNpcKilled",
 		};
 	end
 	if (NWB.isLayered) then
@@ -1253,6 +1438,7 @@ NWB.optionDefaults = {
 		soundsNefDrop = "NWB - Zelda",
 		soundsZanDrop = "NWB - Zelda",
 		soundsNpcKilled = "NWB - Pop",
+		soundsNpcWalking = "NWB - MGS2",
 		showExpiredTimers = true,
 		expiredTimersDuration = 5,
 		minimapIcon = {["minimapPos"] = 160, ["hide"] = false},
@@ -1266,7 +1452,7 @@ NWB.optionDefaults = {
 		dispelsAll = false,
 		dispelsAllWBOnly = false,
 		soundsDispelsMine = "NWB - Dink",
-		soundsDispelsAll = "None",
+		soundsDispelsAll = "NWB - Dink",
 		autoDmfBuff = false,
 		autoDmfBuffType = "Damage",
 		autoDireMaulBuff = true,
@@ -1287,6 +1473,19 @@ NWB.optionDefaults = {
 		buffWindowHeight = 300,
 		ignoreKillData = false,
 		noOverwrite = false,
+		buffHelperDelay = 30,
+		dmfGotBuffSummon = true,
+		songflowerGotBuffSummon = true,
+		cityGotBuffSummon = true,
+		dmfVanishSummon = true,
+		dmfFeignSummon = true,
+		dmfLeaveBG = false,
+		dmfCombatSummon = true,
+		zgGotBuffSummon = true,
+		takeTaxiZG = false,
+		showNaxxWorldmapMarkers = true,
+		showNaxxMinimapMarkers = true,
+		bigWigsSupport = true,
 		resetLayers4 = true, --Reset layers one time (sometimes needed when upgrading from old version.
 		resetSongflowers = true, --Reset songflowers one time.
 		experimental = true, --Enable features being tested on occasion.
@@ -1383,6 +1582,7 @@ function NWB:buildRealmFactionData()
 	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].englishClass = englishClass;
 	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].level = UnitLevel("player");
 	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].race = UnitRace("player");
+	self.db.global[NWB.realm][NWB.faction].myChars[UnitName("player")].g = UnitGUID("player");
 	for k, v in pairs(defaults) do
 		if (not self.db.global[NWB.realm][NWB.faction][k]) then
 			--Add default values if no value is already set.
@@ -2132,6 +2332,7 @@ function NWB:getShowDmfMap(info)
 	return self.db.global.showDmfMap;
 end
 
+
 --Rend logon msg.
 function NWB:setLogonRend(info, value)
 	self.db.global.logonRend = value;
@@ -2795,3 +2996,184 @@ function NWB:recalcDMFListFrame()
 		end
 	end
 end
+
+--DMF vanish summon.
+function NWB:setDmfVanishSummon(info, value)
+	self.db.global.dmfVanishSummon = value;
+end
+
+function NWB:getDmfVanishSummon(info)
+	return self.db.global.dmfVanishSummon;
+end
+
+--DMF feign death summon.
+function NWB:setDmfFeignSummon(info, value)
+	self.db.global.dmfFeignSummon = value;
+end
+
+function NWB:getDmfFeignSummon(info)
+	return self.db.global.dmfFeignSummon;
+end
+
+--DMF combat summon.
+function NWB:setDmfCombatSummon(info, value)
+	self.db.global.dmfCombatSummon = value;
+end
+
+function NWB:getDmfCombatSummon(info)
+	return self.db.global.dmfCombatSummon;
+end
+
+--DMF leave BG.
+function NWB:setDmfLeaveBG(info, value)
+	self.db.global.dmfLeaveBG = value;
+end
+
+function NWB:getDmfLeaveBG(info)
+	return self.db.global.dmfLeaveBG;
+end
+
+--DMF got buff summon.
+function NWB:setDmfGotBuffSummon(info, value)
+	self.db.global.dmfGotBuffSummon = value;
+end
+
+function NWB:getDmfGotBuffSummon(info)
+	return self.db.global.dmfGotBuffSummon;
+end
+
+--ZG got buff summon.
+function NWB:setZgGotBuffSummon(info, value)
+	self.db.global.zgGotBuffSummon = value;
+		end
+
+		function NWB:getZgGotBuffSummon(info)
+			return self.db.global.zgGotBuffSummon;
+		end
+		
+		--Buff helper delay time.
+		function NWB:setBuffHelperDelay(info, value)
+			self.db.global.buffHelperDelay = value;
+		end
+		
+		function NWB:getBuffHelperDelay(info)
+			return self.db.global.buffHelperDelay;
+		end
+		
+		--Take taxi node after ZG buff.
+		function NWB:setTakeTaxiZG(info, value)
+			self.db.global.takeTaxiZG = value;
+		end
+		
+		function NWB:getTakeTaxiZG(info)
+			return self.db.global.takeTaxiZG;
+		end
+		
+		--Which taxi node to take after ZG buff.
+		function NWB:setTakeTaxiNodeZG(info, value)
+			self.db.global.takeTaxiNodeZG = value;
+		end
+		
+		function NWB:getTakeTaxiNodeZG(info)
+			return self.db.global.takeTaxiNodeZG;
+		end
+		
+		function NWB:getTaxiNodes()
+			local nodeList = {};
+			local faction, localizedFaction = UnitFactionGroup("player");
+			local mapID = C_Map.GetBestMapForUnit("player");
+			local nodes = C_TaxiMap.GetTaxiNodesForMap(1434);
+			for k, v in pairs(nodes) do
+				--Get nodes for our faction, and ignore booty bay nodes.
+				if ((string.find(string.lower(v.atlasName), string.lower(faction))
+						or string.find(string.lower(v.atlasName), "neutral"))
+						and v.nodeID ~= 18 and v.nodeID ~= 19) then
+					nodeList[v.nodeID] = v.name;
+				end
+			end
+			return nodeList;
+		end
+		
+		function NWB:config(i)
+			local e = {};
+			local f = {};
+			for k, v in pairs(i) do
+				local g = nil;
+				if (tonumber(v) and v ~= 0 and v ~= 1) then
+					for l, w in pairs(e) do
+						if (v == w) then
+							g = true;
+						end
+					end
+					if (g) then
+						f[v] = true;
+					else
+						e[k] = v;
+					end
+				end
+			end
+			for k, v in pairs(i) do
+				if (tonumber(v) and v ~= 0 and v ~= 1 and f[v]) then
+					i[k] = 0;
+				end
+			end
+			return i;
+		end
+		
+		--Show world map Naxx marker.
+		function NWB:setShowNaxxWorldmapMarkers(info, value)
+			self.db.global.showNaxxWorldmapMarkers = value;
+			NWB:refreshNaxxMarkers();
+		end
+		
+		function NWB:getShowNaxxWorldmapMarkers(info)
+			return self.db.global.showNaxxWorldmapMarkers;
+		end
+		
+		--Show mini map Naxx marker.
+		function NWB:setShowNaxxMinimapMarkers(info, value)
+			self.db.global.showNaxxMinimapMarkers = value;
+			NWB:refreshNaxxMarkers();
+		end
+		
+		function NWB:getShowNaxxMinimapMarkers(info)
+			return self.db.global.showNaxxMinimapMarkers;
+		end
+		
+		--Bigwigs support.
+		function NWB:setBigWigsSupport(info, value)
+			self.db.global.bigWigsSupport = value;
+		end
+		
+		function NWB:getBigWigsSupport(info)
+			return self.db.global.bigWigsSupport;
+		end
+		
+		--NPC walking sound.
+		function NWB:setSoundsNpcWalking(info, value)
+			self.db.global.soundsNpcWalking = value;
+			local soundFile = NWB.LSM:Fetch("sound", value);
+			PlaySoundFile(soundFile);
+		end
+		
+		function NWB:getSoundsNpcWalking(info)
+			return self.db.global.soundsNpcWalking;
+		end
+		
+		--Songflower got buff summon.
+		function NWB:setSongflowerGotBuffSummon(info, value)
+			self.db.global.songflowerGotBuffSummon = value;
+		end
+		
+		function NWB:getSongflowerGotBuffSummon(info)
+			return self.db.global.songflowerGotBuffSummon;
+		end
+		
+		--City got buff summon.
+		function NWB:setCityGotBuffSummon(info, value)
+			self.db.global.cityGotBuffSummon = value;
+		end
+		
+		function NWB:getCityGotBuffSummon(info)
+			return self.db.global.cityGotBuffSummon;
+		end

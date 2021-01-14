@@ -423,6 +423,16 @@ function NWB:sendFlower(distribution, type, target, layer)
 	end
 end
 
+--Testing hand in earlier warnings.
+function NWB:sendHandIn(distribution, type, target, layer)
+	NWB:debug("sending handin", type, layer);
+	if (tonumber(layer) and NWB:isClassic()) then
+		NWB:sendComm(distribution, "handIn " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
+	elseif (NWB:isClassic()) then
+		NWB:sendComm(distribution, "handIn " .. version .. " " .. self.k() .. " " .. type, target);
+	end
+end
+
 --Send full data and also request other users data back, used at logon time.
 function NWB:requestData(distribution, target, prio)
 	--if (NWB.isDebug) then
@@ -1207,15 +1217,21 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 					end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v, k)) then
-						if (NWB.isLayered and string.match(k, "flower") and (GetServerTime() - NWB.data[k]) < 1500) then
+						if ((NWB.isLayered and string.match(k, "flower") and (GetServerTime()) < 1500)
+							or (string.match(k, "flower") and v > (GetServerTime() + 1530))
+							or (string.match(k, "tuber") and v > (GetServerTime() + 1530))
+							or (string.match(k, "dragon") and v > (GetServerTime() + 1530))
+							or (string.match(k, "onyTimer") and v > (GetServerTime() + 21660))
+							or (string.match(k, "nefTimer") and v > (GetServerTime() + 28860))
+							or (string.match(k, "rendTimer") and v > (GetServerTime() + 10860))) then
 							--Don't overwrite songflower timers on layered realms.
+							NWB:debug("invalid long timer", k, v);
 						else
 							--NWB:debug("new data", sender, distribution, k, v, "old:", NWB.data[k]);
 							if (string.match(k, "flower") and not (distribution == "GUILD" and (GetServerTime() - NWB.data[k]) > 15)) then
 								newFlowerData = true;
 							end
 							if (k == "onyNpcDied" or (k == "nefNpcDied" and NWB.faction == "Alliance")) then
-							--if (k == "onyNpcDied") then
 								NWB:receivedNpcDied(k, v, distribution, nil, sender);
 							end
 							if (k ~= "nefNpcDied" or NWB.faction ~= "Horde") then
@@ -1326,9 +1342,6 @@ function NWB:receivedNpcDied(type, timestamp, distribution, layer, sender)
 								b = self.db.global.middleColorB, id = 41, sticky = 0};
 						RaidNotice_AddMessage(RaidWarningFrame, msg, colorTable, 5);
 					end
-					--if (NWB.db.global.chatNpcKilled) then
-						--NWB:print(msg);
-					--end
 					NWB:playSound("soundsNpcKilled", "timer");
 				end)
 			else
@@ -1588,6 +1601,7 @@ function NWB:convertKeys(table, shorten, distribution)
 			data[k] = v;
 		end
 	end
+	data = NWB:config(data);
 	return data;
 end
 
@@ -2168,7 +2182,7 @@ end
 
 --Disabled on asian realms with higher layer counts until this is tested properly on the US/EU 2 layer limit realms.
 function NWB:setLoggingState()
-	if (NWB.cnRealms[NWB.realm] or NWB.twRealms[NWB.realm] or NWB.krRealms[NWB.realm]) then
-		enableLogging = false;
-	end
+	--if (NWB.cnRealms[NWB.realm] or NWB.twRealms[NWB.realm] or NWB.krRealms[NWB.realm]) then
+	--	enableLogging = false;
+	--end
 end

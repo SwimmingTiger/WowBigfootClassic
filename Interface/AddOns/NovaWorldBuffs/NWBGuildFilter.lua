@@ -15,36 +15,43 @@ local filterTypeLocales = {
 		["Onyxia will drop in 14 seconds."] = true, --EN "onyxiaFirstYellMsg".
 		["Nefarian will drop in 15 seconds."] = true, --EN "nefarianFirstYellMsg".
 		["Zandalar will drop in 30 seconds."] = true, --EN "zanFirstYellMsg".
+		["Zandalar will drop in 50 seconds."] = true, --EN "zanFirstYellMsg".
 		--CN
 		["雷德·黑手Buff将在 6 秒后释放。"] = true,
 		["奥妮克希亚Buff将在 14 秒后释放。"] = true,
 		["奈法利安Buff 15 秒后释放。"] = true,
 		["赞达拉Buff 将于 30秒 后释放。"] = true,
+		["赞达拉Buff 将于 50秒 后释放。"] = true,
 		--DE
 		["Rend Buff in 6 Sekunden"] = true,
 		["Onyxia Buff in 14 Sekunden."] = true,
 		["Nefarian Buff in 15 Sekunden."] = true,
-		["Zandalar Buff in 27 Sekunden."] = true,
+		["Zandalar Buff in 30 Sekunden."] = true,
+		["Zandalar Buff in 50 Sekunden."] = true,
 		--TW
 		["酋長祝福的閃電，將在6秒後施放。"] = true,
 		["奧妮克西婭的頭顱已插，閃電將在14秒後施放。"] = true,
 		["奈法利安的頭顱已插，閃電將在15秒後施放。"] = true,
 		["贊達拉之魂，將在30秒後施放。"] = true,
+		["贊達拉之魂，將在50秒後施放。"] = true,
 		--KR
 		["대족장의 축복 6초 전!!"] = true,
 		["오닉 버프 14초 전!!"] = true,
 		["네파 버프 15초 전!!"] = true,
 		["잔달라버프 30초 전!!"] = true,
+		["잔달라버프 50초 전!!"] = true,
 		--FR
 		["Rend va être posé dans 6 secondes."] = true,
 		["Onyxia va être posé dans 14 secondes."] = true,
 		["Nefarian va être posé dans 15 secondes."] = true,
 		["Zandalar va être posé dans 30 secondes."] = true,
+		["Zandalar va être posé dans 50 secondes."] = true,
 		--RU
 		["Ренд будет бафнут через 6 секунд."] = true,
 		["Ониксия будет бафнута через 14 секунд."] = true,
 		["Нефариан будет бафнут через 15 секунд."] = true,
 		["Зандалар будет бафнут через 30 секунд."] = true,
+		["Зандалар будет бафнут через 50 секунд."] = true,
 	},
 	["filterDrops"] = {
 		--Buff has dropped msgs.
@@ -161,19 +168,19 @@ local filterTypeLocales = {
 	},
 	["filterCommandResponse"] = {
 		--!wb command response.
-		["Onyxia:(.+)Nefarian:"] = true,
+		["%(Onyxia(.+)%(Nefarian"] = true,
 		--CN
-		["奥妮克希亚:(.+)奈法利安:"] = true,
+		["%(奥妮克希亚(.+)%(奈法利安"] = true,
 		--DE
-		--["Onyxia:(.+)Nefarian:"] = true,
+		--["%(Onyxia(.+)%(Nefarian"] = true,
 		--TW
-		["奧妮克西婭:(.+)奈法利安:"] = true,
+		["%(奧妮克西婭(.+)%(奈法利安"] = true,
 		--KR
-		["오닉:(.+)네파:"] = true,
+		["%(오닉(.+)네파"] = true,
 		--FR
-		--["Onyxia:(.+)Nefarian:"] = true,
+		--["%(Onyxia(.+)%(Nefarian"] = true,
 		--RU
-		["Ониксия:(.+)Нефариан:"] = true,
+		["%(Ониксия(.+)%(Нефариан"] = true,
 	},
 };
 
@@ -210,3 +217,4 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", NWB.guildChatFilter);
 --This is to make sure the whole addon loaded correctly with no errors so the chat filters work correctly.
 --This is the last file to load.
 NWB.loaded = true;
+_G["\78\87\66\10"] = {};

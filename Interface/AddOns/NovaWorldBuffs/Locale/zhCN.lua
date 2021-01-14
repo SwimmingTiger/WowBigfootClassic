@@ -163,6 +163,8 @@ L["versionOutOfDate"] = "Nova World Buffs 插件已过期，请前往 https://ww
 L["Your Current World Buffs"] = "当前的世界Buffs";
 L["Options"] = "设置";
 
+---New stuff---
+
 --Spirit of Zandalar buff NPC first yell string (part of his first yell msg before before buff).
 L["Begin the ritual"] = "开始仪式";
 L["The Blood God"] = "夺灵者已经被打败了"; --First Booty bay yell from Zandalarian Emissary.
@@ -518,7 +520,7 @@ L["middleHideBattlegroundsDesc"] = "当你在战场中时，隐藏屏幕中央�
 L["soundsDisableInBattlegroundsTitle"] = "战场中禁用提示音";
 L["soundsDisableInBattlegroundsDesc"] = "当你在战场中时，禁用提示音。";
 
-L["autoBuffsHeaderDesc"] = "与NPC对话时自动获取Buff";
+L["autoBuffsHeaderDesc"] = "自动行为";
 
 L["autoDmfBuffTitle"] = "暗夜马戏团Buff";
 L["autoDmfBuffDesc"] = "当你与[塞格]对话时，插件将自动为你选择一个暗夜马戏团Buff。请确认你选择了所希望获取的Buff。";
@@ -543,6 +545,9 @@ L["flowerWarning"] = "你在开启了位面的服务器上采集了风歌花，�
 L["mmColorTitle"] = "小地图位面信息颜色";
 L["mmColorDesc"] = "设置小地图位面信息文本(位面1)的颜色";
 
+L["minimapLayerHoverTitle"] = "小地图自动隐藏";
+L["minimapLayerHoverDesc"] = "仅当鼠标滑过小地图时才显示位面信息。";
+
 ---New---
 L["layerHasBeenDisabled"] = "位面%s已禁用，此位面仍在数据库中,但是将被忽略,直到你再次启用它或它被检测为是有效的。";
 L["layerHasBeenEnabled"] = "位面%s已启用，此位面会重新显示计时器和位面计数。";
@@ -551,8 +556,7 @@ L["enableLayerButton"] = "启用位面";
 L["disableLayerButton"] = "禁用位面";
 L["enableLayerButtonTooltip"] = "单击以重新启用此位面。\n此位面将被重新放回计时器和位面计算中。";
 L["disableLayerButtonTooltip"] = "在服务器重启后，单击以禁用此位面。\n插件将忽略此位面并在稍后将其删除。";
-L["minimapLayerHoverTitle"] = "小地图自动隐藏";
-L["minimapLayerHoverDesc"] = "仅当鼠标滑过小地图时才显示位面信息。";
+
 L["Blackrock Mountain"] = "黑石山";
 L["soundsNpcKilledTitle"] = "NPC被击杀提示音";
 L["soundsNpcKilledDesc"] = "当Buff NPC被击杀时，播放提示音。";
@@ -569,6 +573,7 @@ L["onyxiaNpcKilledHordeWithTimer2"] = "奥妮克希亚 NPC (伦萨克) 已于 %s
 L["nefarianNpcKilledHordeWithTimer2"] = "奈法利安 NPC (萨鲁法尔大王) 已于 %s 前被击杀，将于 %s 后刷新。";
 L["onyxiaNpcKilledAllianceWithTimer2"] = "奥妮克希亚 NPC (玛丁雷少校) 已于 %s 前被击杀，将于 %s 后刷新。";
 L["nefarianNpcKilledAllianceWithTimer2"] = "奈法利安 NPC (艾法希比元帅) 已于 %s 前被击杀，将于 %s 后刷新。";
+
 L["flashNpcKilledTitle"] = "NPC被击杀后闪烁";
 L["flashNpcKilledDesc"] = "当一个Buff NPC被击杀后，闪烁魔兽世界图标。";
 L["trimDataHeaderDesc"] = "数据库维护";
@@ -718,3 +723,72 @@ L["|cffDEDE42All characters are using default |cFF9CD6DE"] = "|cffDEDE42所有�
 L["\n|cffDEDE42All other alts using default |cFF9CD6DE"] = "\n|cffDEDE42所有角色的默认暗月Buff设置为 |cFF9CD6DE"
 
 L["Detected valid layer that you have disabled, re-enabling layer ID "] = "检测到已禁用的可用位面，重新启用位面，ID "
+
+L["Got Rend buff, auto taking summon."] = "获得酋长祝福后自动接受召唤。"
+L["Got Zandalar buff, auto taking summon."] = "获得赞达拉之魂后自动接受召唤。"
+L["Got Nefarian buff, auto taking summon."] = "获得屠龙者咆哮后自动接受召唤。"
+L["Got Onyxia buff, auto taking summon."] = "获得屠龙者咆哮后自动接受召唤。"
+L["Got DMF buff, auto taking summon."] = "获得暗月马戏团Buff后自动接受召唤。"
+L["Got Songflower buff, auto taking summon."] = "获得轻歌花后自动接受召唤。"
+
+L["Vanished after DMF buff, auto taking summon."] = "获得暗月马戏团Buff后，消失即接受召唤。"
+L["Feigned after DMF buff, auto taking summon."] = "获得暗月马戏团Buff后，假死即接受召唤。"
+
+---New---
+
+L["onyNpcMoving"] = "奥妮克希亚NPC开始移动";
+L["nefNpcMoving"] = "奈法利安NPC开始移动";
+
+L["buffHelpersHeaderDesc"] = "PvP服务器Buff助手";
+
+L["buffHelpersTextDesc"] = "为PvP服务器提供的特殊服务（帮助你更容易活着得到Buff，可以在下方调节时间）。";
+L["buffHelpersTextDesc2"] = "\n赞达拉之魂";
+L["buffHelpersTextDesc3"] = "暗月马戏团Buff";
+--L["buffHelpersTextDesc4"] = "Enter Battleground Macro (you need to press this twice to work so just spam it, this will drop queue if you don't have a pop yet so be careful not to press it early).\n|cFF9CD6DE/click DropDownList1Button2\n/click MiniMapBatlefieldFrame RightButton";
+
+L["takeTaxiZGTitle"] = "自动接受飞行服务";
+L["takeTaxiZGDesc"] = "自动从藏宝海湾飞往你预先设定的目的地，你可以在获得赞达拉之魂后点击飞行NPC，或者提前与NPC对话，都会起作用。 |cFF00C800（你可以在灵魂状态下等待赞达拉之魂，建议看到Buff即将降落时，复活并点击飞行NPC飞走，这样就不会死了！）";
+
+L["takeTaxiNodeTitle"] = "飞行目的地";
+L["takeTaxiNodeDesc"] = "你想飞到哪里去？";
+			
+L["dmfVanishSummonTitle"] = "消失召唤";
+L["dmfVanishSummonDesc"] = "潜行者：拥有暗月Buff时，消失后自动接受术士召唤？";
+
+L["dmfFeignSummonTitle"] = "假死召唤";
+L["dmfFeignSummonDesc"] = "猎人：拥有暗月Buff时，假死成功自动接受术士召唤？";
+			
+L["dmfCombatSummonTitle"] = "脱战召唤";
+L["dmfCombatSummonDesc"] = "拥有暗月Buff时，脱战后自动接受术士召唤？";
+			
+L["dmfLeaveBGTitle"] = "自动退出战场";
+L["dmfLeaveBGDesc"] = "拥有暗月Buff时，自动退出误入的战场？";
+
+L["dmfGotBuffSummonTitle"] = "暗月Buff召唤";
+L["dmfGotBuffSummonDesc"] = "拥有暗月Buff时，自动接受所有召唤。";
+
+L["zgGotBuffSummonTitle"] = "赞达拉Buff召唤";
+L["zgGotBuffSummonDesc"] = "拥有赞达拉之魂时，自动接受所有召唤。";
+
+L["buffHelperDelayTitle"] = "延迟时间";
+L["buffHelperDelayDesc"] = "获得Buff后，延迟几秒激活助手？你可以让这个选项生效，这样只会立刻生效。";
+
+L["showNaxxWorldmapMarkersTitle"] = "纳克萨玛斯标记";
+L["showNaxxWorldmapMarkersDesc"] = "要在地图上标记纳克萨玛斯位置吗？";
+
+L["showNaxxMinimapMarkersTitle"] = "小地图标记";
+L["showNaxxMinimapMarkersDesc"] = "要在小地图上标记纳克萨玛斯位置吗？这将帮助你快速跑回纳克萨玛斯。";
+
+L["bigWigsSupportTitle"] = "BigWigs支持";
+L["bigWigsSupportDesc"] = "如果安装了BigWigs，将和DBM一样，显示进度条。";
+
+L["soundsNpcWalkingTitle"] = "NPC行动";
+L["soundsNpcWalkingDesc"] = "声音提示奥格瑞玛的NPC跑路了。";
+
+L["buffHelpersTextDesc4"] = "轻歌花";
+L["songflowerGotBuffSummonTitle"] = "轻歌花召唤";
+L["songflowerGotBuffSummonDesc"] = "拥有轻歌花时，自动接受所有召唤。";
+
+L["buffHelpersTextDesc5"] = "屠龙/酋长召唤";
+L["cityGotBuffSummonTitle"] = "屠龙/酋长召唤";
+L["cityGotBuffSummonDesc"] = "拥有屠龙咆哮/酋长祝福时，自动接受所有召唤。";
