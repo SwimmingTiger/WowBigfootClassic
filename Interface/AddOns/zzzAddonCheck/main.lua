@@ -144,6 +144,23 @@ local function zzzAddonCheck_Init_NugRunning()
     end
 end
 
+local function zzzAddonCheck_Init_MonkeyLibrary()
+    -- 调整 MonkeyQuest 任务说明的字体
+    if MonkeyQuest then
+        local MonkeyQuestFont = CreateFont("MonkeyQuestFont")
+        MonkeyQuestFont:SetFontObject("MonkeyQuestMasterFont")
+        MonkeyQuestFont:SetFont("Fonts\\ARHei.TTF", 14)
+        
+        local MonkeyQuestFontWide = CreateFont("MonkeyQuestFontWide")
+        MonkeyQuestFontWide:SetFontObject("MonkeyQuestMasterFont")
+        MonkeyQuestFontWide:SetFont("Fonts\\ARHei.TTF", 14)
+            
+        local MonkeyQuestTitleFont = CreateFont("MonkeyQuestTitleFont")
+        MonkeyQuestTitleFont:SetFontObject("MonkeyQuestMasterFont")
+        MonkeyQuestTitleFont:SetFont(STANDARD_TEXT_FONT, 18)
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -164,6 +181,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 重新打开公会频道世界Buff信息发送
     zzzAddonCheck_Init_NovaWorldBuffs()
+
+    -- 调整 MonkeyQuest 任务说明的字体
+    zzzAddonCheck_Init_MonkeyLibrary()
 
     -- 设置MonkeyQuest初始样式
     zzzAddonCheck_Init_MonkeyQuest()
@@ -328,3 +348,6 @@ if NWB then
         L["Buff records have been reset."] = "Buff记录已重置。"
     end
 end
+
+-- 完善 MonkeyQuest 汉化
+MONKEYQUESTLOG_TITLE = '任务日志'
