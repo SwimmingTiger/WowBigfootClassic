@@ -494,7 +494,7 @@
 		local dono_do_pet
 		serial = serial or "ns"
 		
-		if (container_pets [serial]) then --> � um pet reconhecido
+		if (container_pets [serial] and not UnitIsPlayer(nome) and not _detalhes.cached_specs[serial]) then --> � um pet reconhecido
 			--[[statistics]]-- _detalhes.statistics.container_pet_calls = _detalhes.statistics.container_pet_calls + 1
 			local nome_dele, dono_nome, dono_serial, dono_flag = _detalhes.tabela_pets:PegaDono (serial, nome, flag)
 			if (nome_dele and dono_nome) then
