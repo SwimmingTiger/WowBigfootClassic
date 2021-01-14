@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20201024214454")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(15931)
 mod:SetEncounterID(1111)
 mod:SetUsedIcons(1, 2, 3, 4)
@@ -63,16 +63,16 @@ do
 		--if args.spellId == 28169 then
 		if args.spellName == Injection then
 			timerInjection:Start(args.destName)
+			if self.Options.SetIconOnInjectionTarget then
+				table.insert(mutateIcons, args.destName)
+				addIcon()
+			end
 			if args:IsPlayer() then
 				specWarnInjection:Show()
 				specWarnInjection:Play("runout")
 				yellInjection:Yell()
 			else
 				warnInjection:Show(args.destName)
-			end
-			if self.Options.SetIconOnInjectionTarget then
-				table.insert(mutateIcons, args.destName)
-				addIcon()
 			end
 		end
 	end

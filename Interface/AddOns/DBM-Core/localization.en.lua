@@ -41,7 +41,7 @@ L.LOOT_SPEC_REMINDER				= "Your current spec is %s. Your current loot choice is 
 
 L.BIGWIGS_ICON_CONFLICT				= L.DBM .. " has detected that you have raid icons turned on in both BigWigs and " .. L.DBM .. ". Please disable icons in one of them to avoid conflicts"
 
-L.MOD_AVAILABLE						= "%s is available for this zone. You can find download on Curse/Twitch or WoWI"
+L.MOD_AVAILABLE						= "%s is available for this zone. You can find download on Curse or WoWI"
 
 L.COMBAT_STARTED					= "%s engaged. Good luck and have fun! :)"
 L.COMBAT_STARTED_IN_PROGRESS		= "Engaged an in progress fight against %s. Good luck and have fun! :)"
@@ -55,7 +55,7 @@ L.RAID_DOWN_L						= "%s cleared after %s! Your fastest clear took %s."
 L.RAID_DOWN_NR						= "%s cleared after %s! This is a new record! (Old record was %s)."
 L.GUILD_BOSS_DOWN					= "%s has been defeated by guild after %s!"
 L.COMBAT_ENDED_AT					= "Combat against %s (%s) ended after %s."
-L.COMBAT_ENDED_AT_LONG				= "Combat against %s (%s) ended after %s. You have %d total wipes on this difficulty."
+L.COMBAT_ENDED_AT_LONG				= "Combat against %s (%s) ended after %s. You have %d total wipe(s) on this difficulty."
 L.GUILD_COMBAT_ENDED_AT				= "Guild has wiped on %s (%s) after %s."
 L.COMBAT_STATE_RECOVERED			= "%s was engaged %s ago, recovering timers..."
 L.TRANSCRIPTOR_LOG_START			= "Transcriptor logging started."
@@ -158,14 +158,14 @@ L.VERSIONCHECK_ENTRY_TWO			= "%s: %s (%s) & %s (%s)"--Two Boss mods
 L.VERSIONCHECK_ENTRY_NO_DBM			= "%s: No boss mod installed"
 L.VERSIONCHECK_FOOTER				= "Found %d player(s) with " .. L.DBM .. " & %d player(s) with Bigwigs"
 L.VERSIONCHECK_OUTDATED				= "Following %d player(s) have outdated boss mod version: %s"
-L.YOUR_VERSION_OUTDATED     		= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date. Please download the latest version through Curse/Twitch, WoWI, or from the GitHub Releases page."
+L.YOUR_VERSION_OUTDATED     		= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date. Please download the latest version through Curse, WoWI, or from the GitHub Releases page."
 L.VOICE_PACK_OUTDATED				= "Your selected " .. L.DBM .. " voice pack is missing some sounds supported by " .. L.DBM .. ". Some warning sounds will still play default sounds. Please download a newer version of voice pack or pack contact author for an update that contains missing audio"
 L.VOICE_MISSING						= "You have a " .. L.DBM .. " voice pack selected that could not be found. If this is an error, make sure your voice pack is properly installed and enabled in addons."
 L.VOICE_DISABLED					= "You currently have at least one " .. L.DBM .. " voice pack installed but none enabled. If you intend to use a voice pack, make sure it's chosen in 'Spoken Alerts', else uninstall unused voice packs to hide this message"
 L.VOICE_COUNT_MISSING				= "Countdown voice %d is set to a voice/count pack that could not be found. It has be reset to default setting: %s."
 L.BIG_WIGS							= "BigWigs"
 
-L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date.\n Version %s (%s) is available for download through Curse/Twitch, WoWI, or from the GitHub Releases page"
+L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date.\n Version %s (%s) is available for download through Curse, WoWI, or from the GitHub Releases page"
 L.UPDATEREMINDER_FOOTER				= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC		= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
 L.UPDATEREMINDER_DISABLE			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS .. " being too out of date it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
@@ -536,7 +536,8 @@ L.AUTO_YELL_OPTION_TEXT = {
 	fade							= "Yell (with countdown and spell name) when $spell:%s is fading",
 	shortfade						= "Yell (with countdown) when $spell:%s is fading",
 	iconfade						= "Yell (with countdown and icon) when $spell:%s is fading",
-	position						= "Yell (with position) when you are affected by $spell:%s",
+	position						= "Yell (with position and player name) when you are affected by $spell:%s",
+	shortposition					= "Yell (with position) when you are affected by $spell:%s",
 	combo							= "Yell (with custom text) when you are affected by $spell:%s and other spells at same time"
 }
 L.AUTO_YELL_ANNOUNCE_TEXT = {
@@ -547,6 +548,7 @@ L.AUTO_YELL_ANNOUNCE_TEXT = {
 	shortfade						= "%%d",
 	iconfade						= "{rt%%2$d}%%1$d",
 	position 						= "%s %%s on {rt%%d}"..UnitName("player").."{rt%%d}",
+	shortposition 					= "{rt%%1$d}%s %%2$d",--Icon, Spellname, number
 	combo							= "%s and %%s"--Spell name (from option, plus spellname given in arg)
 }
 L.AUTO_YELL_CUSTOM_POSITION			= "{rt%d}%s{"--Doesn't need translating. Has no strings

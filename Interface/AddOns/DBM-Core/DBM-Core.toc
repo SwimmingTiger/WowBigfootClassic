@@ -19,7 +19,7 @@
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.62
+## Version: 1.13.67
 
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
@@ -30,6 +30,8 @@ Libs\LibLatency\LibLatency.xml
 Libs\LibDurability\LibDurability.xml
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\lib.xml
+Libs\LibDeflate\LibDeflate.lua
+Libs\LibSerialize\lib.xml
 
 localization.en.lua
 localization.de.lua

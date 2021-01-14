@@ -3,12 +3,12 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z566", "DBM-PvP")
 
-mod:SetRevision("20201018212526")
+mod:SetRevision("20201228165807")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 do
-	function mod:OnInitialize()
+	local function Init()
 		if DBM:GetCurrentArea() == 566 or DBM:GetCurrentArea() == 968 then
 			local modz = DBM:GetModByName("PvPGeneral")
 			modz:SubscribeAssault(DBM:GetCurrentArea() == 566 and 112 or 397, 4)
@@ -17,6 +17,8 @@ do
 	end
 
 	function mod:ZONE_CHANGED_NEW_AREA()
-		self:ScheduleMethod(1, "OnInitialize")
+		self:Schedule(1, Init)
 	end
+	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
+	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
 end

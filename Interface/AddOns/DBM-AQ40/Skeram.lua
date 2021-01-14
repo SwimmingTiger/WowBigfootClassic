@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Skeram", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200810225555")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(15263)
 mod:SetEncounterID(709)
 mod:SetModelID(15345)
@@ -51,13 +51,13 @@ do
 		if args.spellName == TrueFulfillment then
 			MCTargets[#MCTargets + 1] = args.destName
 			self:Unschedule(warnMCTargets)
+			if self.Options.SetIconOnMC then
+				self:SetIcon(args.destName, self.vb.MCIcon)
+			end
 			if #MCTargets >= 3 then
 				warnMCTargets(self)
 			else
 				self:Schedule(0.5, warnMCTargets, self)
-			end
-			if self.Options.SetIconOnMC then
-				self:SetIcon(args.destName, self.vb.MCIcon)
 			end
 			self.vb.MCIcon = self.vb.MCIcon - 1
 		end

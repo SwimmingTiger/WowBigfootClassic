@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817152042")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -64,6 +64,9 @@ do
 		--if args.spellId == 18173 then
 		if args.spellName == BurningAdrenaline then
 			timerAdrenaline:Start(args.destName)
+			if self.Options.SetIconOnDebuffTarget2 then
+				self:SetIcon(args.destName, self.vb.debuffIcon)
+			end
 			if args:IsPlayer() then
 				specWarnAdrenaline:Show()
 				specWarnAdrenaline:Play("targetyou")
@@ -73,9 +76,6 @@ do
 				yellAdrenalineFades:Countdown(20)
 			else
 				warnAdrenaline:Show(args.destName)
-			end
-			if self.Options.SetIconOnDebuffTarget2 then
-				self:SetIcon(args.destName, self.vb.debuffIcon)
 			end
 			self.vb.debuffIcon = self.vb.debuffIcon - 1
 			if self.vb.debuffIcon == 5 then

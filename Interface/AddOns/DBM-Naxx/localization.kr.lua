@@ -101,9 +101,9 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "죽어라, 침입자들아!",
-	AddsYell			= "Rise, my soldiers! Rise and fight once more!",
-	Adds				= "summons forth Skeletal Warriors!",
-	AddsTwo				= "raises more skeletons!"
+	AddsYell			= "일어나라, 병사들이여! 다시 일어나 싸워라!",
+--	Adds				= "summons forth Skeletal Warriors!",
+--	AddsTwo				= "raises more skeletons!"
 })
 
 --------------------------
@@ -278,7 +278,6 @@ L:SetWarningLocalization({
 
 L:SetMiscLocalization({
 	yell			= "어리석은 것들, 스스로 죽음을 자초하다니!",
-	WarningWave1	= "%d %s",
 	WarningWave2	= "%d %s, %d %s",
 	WarningWave3	= "%d %s, %d %s, %d %s",
 	Trainee			= "수련생",
@@ -297,7 +296,6 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	WarningMarkSoon				= "징표 사전 경고 보기",
-	WarningMarkNow				= "징표 경고 보기",
 	SpecialWarningMarkOnPlayer	= "징표가 4중첩 이상이 되면 특수 알림 보기"
 })
 
@@ -305,9 +303,7 @@ L:SetTimerLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningMarkSoon				= "3초 후 징표 %d",
-	WarningMarkNow				= "징표 %d",
-	SpecialWarningMarkOnPlayer	= "%s: %s"
+	WarningMarkSoon				= "곧 징표",
 })
 
 L:SetMiscLocalization({

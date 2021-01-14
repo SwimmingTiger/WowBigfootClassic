@@ -3,14 +3,14 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z1803", "DBM-PvP")
 
-mod:SetRevision("20201018212526")
+mod:SetRevision("20201228165807")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
 
 do
 	local bgzone = false
 
-	function mod:OnInitialize()
+	local function Init(self)
 		if DBM:GetCurrentArea() == 1803 then
 			bgzone = true
 			self:RegisterShortTermEvents("VIGNETTES_UPDATED")
@@ -22,8 +22,10 @@ do
 	end
 
 	function mod:ZONE_CHANGED_NEW_AREA()
-		self:ScheduleMethod(1, "OnInitialize")
+		self:Schedule(1, Init, self)
 	end
+	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
+	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
 end
 
 do

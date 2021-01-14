@@ -1,8 +1,13 @@
 # <DBM> PvP
 
-## [r99](https://github.com/DeadlyBossMods/DBM-PvP/tree/r99) (2020-11-17)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r98...r99) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
+## [r105](https://github.com/DeadlyBossMods/DBM-PvP/tree/r105) (2021-01-13)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r104...r105) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
 
-- bump toc  
-- Shorten string for 30 second matching to something that should be more reliable  
-    Subscribe neutral messages in assaults so the BG starting emotes are actually listened to in other battlegrounds too  
+- Merge pull request #61 from DeadlyBossMods/QartemisT-patch-1  
+    Update PvPGeneral.lua  
+- Update PvPGeneral.lua  
+- Update PvPGeneral.lua  
+- Merge pull request #60 from DeadlyBossMods/QartemisT-patch-1  
+    Fix deepwind  
+- Fix deepwind  
+    Apparently the ID changed???  

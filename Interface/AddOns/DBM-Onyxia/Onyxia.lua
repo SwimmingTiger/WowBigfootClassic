@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817152042")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
 mod:SetModelID(8570)
@@ -93,12 +93,12 @@ end
 do
 	function mod:FireballTarget(targetname, uId)
 		if not targetname then return end
+		if self.Options.SetIconOnFireball then
+			self:SetIcon(targetname, 8, 3)
+		end
 		warnFireball:Show(targetname)
 		if targetname == UnitName("player") then
 			yellFireball:Yell()
-		end
-		if self.Options.SetIconOnFireball then
-			self:SetIcon(targetname, 8, 3)
 		end
 	end
 

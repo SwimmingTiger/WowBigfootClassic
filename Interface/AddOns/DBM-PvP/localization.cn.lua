@@ -41,46 +41,16 @@ L:SetMiscLocalization({
 	BasesToWin			= "胜利需要占领资源点: %d",
 	WinBarText			= "%s 获胜",
 	-- TODO: Implement the flag carrying system
-	Flag				= "旗帜",
 	FlagReset			= "旗帜被重新放置了！",
 	FlagTaken			= "(.+) 夺走了旗帜！",
 	FlagCaptured		= " .+ ha%w+ 夺得了旗帜！",
 	FlagDropped			= "旗帜被扔掉了！",
 	--
-	InfoErrorText		= "携带旗帜者目标功能会在你脱离战斗后恢复。",
 	ExprFlagPickUp		= " (%w+) 的旗帜。被 (.+) 拔起了！",
 	ExprFlagCaptured	= "(.+) 夺取了 (%w+) 的旗帜！",
 	ExprFlagReturn		= " (%w+) 的旗帜！被 (.+) 还到了它的基地中！",
-	FlagAlliance		= "联盟: ",
-	FlagHorde			= "部落: ",
-	FlagBase			= "基地",
 	Vulnerable1			= "旗帜携带者已变的容易受到攻击！",
 	Vulnerable2			= "旗帜携带者越来越容易受到攻击！"
-})
-
-L:SetTimerLocalization({
-	TimerShadow	= "暗影之眼"
-})
-
-L:SetOptionLocalization({
-	TimerShadow	= "计时条：暗影之眼"
-})
-
-L:SetMiscLocalization({
-	Start15	= "竞技场战斗将在十五秒后开始！"
-})
-
-----------------------
---  Seething Shore  --
-----------------------
-L = DBM:GetModLocalization("z1803")
-
-L:SetTimerLocalization({
-	TimerSpawn	= "%s"
-})
-
-L:SetOptionLocalization({
-	TimerSpawn	= "Show azerite spawn timer"
 })
 
 ----------------------
@@ -146,7 +116,7 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	TimerResapwn	= "显示矿车刷新计时",
+	TimerRespawn	= "显示矿车刷新计时",
 	TimerCart		= "计时条：矿车刷新"
 })
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lucifron", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200723031923")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(12118)--, 12119
 mod:SetEncounterID(663)
 mod:SetModelID(13031)
@@ -44,14 +44,14 @@ do
 	local MindControl = DBM:GetSpellInfo(20604)
 	function mod:MCTarget(targetname, uId)
 		if not targetname then return end
+		if self.Options.SetIconOnMC then
+			self:SetIcon(targetname, self.vb.lastIcon)
+		end
 		warnMC:CombinedShow(1, targetname)
 		if targetname == UnitName("player") then
 			specWarnMC:Show()
 			specWarnMC:Play("targetyou")
 			yellMC:Yell()
-		end
-		if self.Options.SetIconOnMC then
-			self:SetIcon(targetname, self.vb.lastIcon)
 		end
 		--Alternate icon between 1 and 2
 		if self.vb.lastIcon == 1 then

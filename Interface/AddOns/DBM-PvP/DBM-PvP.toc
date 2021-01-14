@@ -1,4 +1,4 @@
-## Interface: 11306
+## Interface: 11305
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
@@ -27,11 +27,11 @@
 ## X-DBM-Mod-Name-esES: JcJ
 ## X-DBM-Mod-Name-esMX: JcJ
 ## X-DBM-Mod-Name-ptBR: JxJ
-## X-DBM-Mod-MapID: 30,489,529,559,562,566,572,617,618,628,726,727,761,968,980,998,1105,1134,1191,1681,1803,2106,2107,2118,2167,2177,2197,2245
+## X-DBM-Mod-MapID: 30,489,529,559,562,566,572,617,618,628,726,727,761,968,980,998,1105,1134,1504,1552,1681,1803,1911,2106,2107,2118,2167,2177,2197,2245,2373
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
-## Version: r99
+## Version: r105
 
 localization.en.lua
 localization.br.lua

@@ -41,19 +41,14 @@ L:SetMiscLocalization({
 	BasesToWin			= "勝利需要基地: %d",
 	WinBarText			= "%s 勝利",
 	-- TODO: Implement the flag carrying system
-	Flag				= "旗幟",
 	FlagReset			= "旗幟已重置！",
 	FlagTaken			= "(.+) 佔據了旗幟！",
 	FlagCaptured		= " .+ ha%w+ 佔據旗幟！",
 	FlagDropped			= "旗幟已經掉落！",
 	--
-	InfoErrorText		= "當你離開戰鬥後，旗幟框架將會回復。",
 	ExprFlagPickUp		= " (%w+) 的旗幟。被 (.+) 拔掉了！",
 	ExprFlagCaptured	= "(.+) 佔據了 (%w+) 的旗幟！",
 	ExprFlagReturn		= " (%w+) 的旗幟，被 (.+) 還到了它的基地",
-	FlagAlliance		= "聯盟旗幟: ",
-	FlagHorde			= "部落旗幟: ",
-	FlagBase			= "基地",
 	Vulnerable1			= "旗幟攜帶者變得脆弱了！",
 	Vulnerable2			= "旗幟攜帶者變得更加的脆弱了！"
 })
@@ -62,10 +57,6 @@ L:SetMiscLocalization({
 --  Seething Shore  --
 ----------------------
 L = DBM:GetModLocalization("z1803")
-
-L:SetTimerLocalization({
-	TimerSpawn	= "%s"
-})
 
 L:SetOptionLocalization({
 	TimerSpawn	= "顯示戰場計時器"
@@ -129,12 +120,11 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
-	TimerRespawn	= "礦坑推車",
-	TimerCart		= "%s"
+	TimerRespawn	= "礦坑推車"
 })
 
 L:SetOptionLocalization({
-	TimerResapwn	= "礦坑推車重生",
+	TimerRespawn	= "礦坑推車重生",
 	TimerCart		= "顯示礦坑推車重生計時器"
 })
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20201105030319")
+mod:SetRevision("20201225041541")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
@@ -135,13 +135,13 @@ do
 	local EyeBeam = DBM:GetSpellInfo(26134)
 	function mod:EyeBeamTarget(targetname, uId)
 		if not targetname then return end
+		if self.Options.SetIconOnEyeBeam then
+			self:SetIcon(targetname, 1, 3)
+		end
 		if targetname == UnitName("player") then
 			specWarnEyeBeam:Show()
 			specWarnEyeBeam:Play("targetyou")
 			yellEyeBeam:Yell()
-		end
-		if self.Options.SetIconOnEyeBeam then
-			self:SetIcon(targetname, 1, 3)
 		end
 	end
 
