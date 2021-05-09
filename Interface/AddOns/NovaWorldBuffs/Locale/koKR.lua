@@ -19,6 +19,14 @@ L["Flask of Chromatic Resistance"] = "마력 저항의 영약";
 L["Supreme Power"] = "강력한 마력";
 L["Distilled Wisdom"] = "순수한 지혜";
 L["Chromatic Resistance"] = "마력 저항";
+L["Sap"] = "Sap";
+L["Fire Festival Fortitude"] = "Fire Festival Fortitude";
+L["Fire Festival Fury"] = "Fire Festival Fury";
+L["Ribbon Dance"] = "Ribbon Dance";
+L["Traces of Silithyst"] = "Traces of Silithyst";
+L["Slip'kik's Savvy"] = "슬립킥의 손재주";
+L["Fengus' Ferocity"] = "펜구스의 흉포";
+L["Mol'dar's Moxie"] = "몰다르의 투지";
  
 ---=====---
 ---Horde---
@@ -536,7 +544,7 @@ L["buffResetButtonTooltip"] = "This will reset all buffs.\nBuff count data will 
 L["time"] = "(%s time)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
 L["times"] = "(%s times)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 
-L["Blackrock Mountain"] = "Blackrock Mountain";
+L["Blackrock Mountain"] = "검은바위 산";
 
 L["flowerWarning"] = "Songflower picked on a realm with layered songflower timers enabled but you haven't targeted a NPC since arriving in Felwood so no timer could be recorded.";
 
@@ -611,3 +619,46 @@ L["serverTimeShort"] = "st";
 
 L["showUnbuffedAltsTitle"] = "Show Unbuffed Alts";
 L["showUnbuffedAltsDesc"] = "Show alts without any buffs in the buffs window? This is so you can see what characters have no buffs if you would like.";
+
+L["Sheen of Zanza"] = "잔자의 광휘";
+L["Spirit of Zanza"] = "잔자의 기백";
+L["Swiftness of Zanza"] = "잔자의 신속";
+
+L["Mind Control"] = "정신 지배";
+L["Gnomish Mind Control Cap"] = "노움 정신 지배 모자";
+
+L["Flask of Fortification"] = "Flask of Fortification";
+L["Flask of Pure Death"] = "Flask of Pure Death";
+L["Flask of Relentless Assault"] = "Flask of Relentless Assault";
+L["Flask of Blinding Light"] = "Flask of Blinding Light";
+L["Flask of Mighty Restoration"] = "Flask of Mighty Restoration";
+L["Flask of Chromatic Wonder"] = "Flask of Chromatic Wonder";
+L["Fortification of Shattrath"] = "Fortification of Shattrath";
+L["Pure Death of Shattrath"] = "Pure Death of Shattrath";
+L["Relentless Assault of Shattrath"] = "Relentless Assault of Shattrath";
+L["Blinding Light of Shattrath"] = "Blinding Light of Shattrath";
+L["Mighty Restoration of Shattrath"] = "Mighty Restoration of Shattrath";
+L["Supreme Power of Shattrath"] = "Supreme Power of Shattrath";
+L["Unstable Flask of the Beast"] = "Unstable Flask of the Beast";
+L["Unstable Flask of the Sorcerer"] = "Unstable Flask of the Sorcerer";
+L["Unstable Flask of the Bandit"] = "Unstable Flask of the Bandit";
+L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
+L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
+L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
+
+L["Chronoboon Displacer"] = "Chronoboon Displacer";
+
+L["Silithyst"] = "실리시스트";
+
+L["Gold"] = "Gold";
+L["level"] = "Level";
+L["realmGold"] = "Realm gold for";
+L["total"] = "Total";
+L["guild"] = "Guild";
+L["bagSlots"] = "Bag slots";
+L["durability"] = "Durability";
+L["items"] = "Items";
+L["ammunition"] = "Ammo";
+L["attunements"] = "Attunements";
+L["currentRaidLockouts"] = "Current Raid Lockouts";
+L["none"] = "None.";

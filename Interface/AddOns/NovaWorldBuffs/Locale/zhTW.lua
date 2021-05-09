@@ -24,6 +24,9 @@ L["Sap"] = "悶棍";
 L["Fire Festival Fortitude"] = "火焰節慶之韌";
 L["Fire Festival Fury"] = "火焰節慶之怒";
 L["Ribbon Dance"] = "緞帶舞";
+L["Slip'kik's Savvy"] = "斯里基克的機智";
+L["Fengus' Ferocity"] = "芬古斯的狂暴";
+L["Mol'dar's Moxie"] = "摩爾達的勇氣";
 
 ---=====---
 ---Horde---
@@ -572,11 +575,6 @@ L["flashNpcKilledTitle"] = "NPC被殺時閃爍";
 L["flashNpcKilledDesc"] = "當NPC被殺時，閃爍魔獸視窗?";
 
 
-
-
-
-
-
 L["timerWindowWidthTitle"] = "計時器視窗寬度";
 L["timerWindowWidthDesc"] = "計時器的視窗寬度。";
 
@@ -606,3 +604,46 @@ L["layerMsg4"] = "目標任何NPC在 %s 以觀看你正確的Layer。"; --Target
 --NOTE: Darkmoon Faire buff type is now a character specific setting, changing buff type will only change it for this character.
 L["note"] = "註記:";
 L["dmfConfigWarning"] = "暗月馬戲團的增益種類特定設定，更改增益類型只會對此腳色進行修改。";
+
+L["Sheen of Zanza"] = "贊札之光";
+L["Spirit of Zanza"] = "贊札之魂";
+L["Swiftness of Zanza"] = "贊札之速";
+
+L["Mind Control"] = "心靈控制";
+L["Gnomish Mind Control Cap"] = "地精洗腦帽";
+
+L["Flask of Fortification"] = "Flask of Fortification";
+L["Flask of Pure Death"] = "Flask of Pure Death";
+L["Flask of Relentless Assault"] = "Flask of Relentless Assault";
+L["Flask of Blinding Light"] = "Flask of Blinding Light";
+L["Flask of Mighty Restoration"] = "Flask of Mighty Restoration";
+L["Flask of Chromatic Wonder"] = "Flask of Chromatic Wonder";
+L["Fortification of Shattrath"] = "Fortification of Shattrath";
+L["Pure Death of Shattrath"] = "Pure Death of Shattrath";
+L["Relentless Assault of Shattrath"] = "Relentless Assault of Shattrath";
+L["Blinding Light of Shattrath"] = "Blinding Light of Shattrath";
+L["Mighty Restoration of Shattrath"] = "Mighty Restoration of Shattrath";
+L["Supreme Power of Shattrath"] = "Supreme Power of Shattrath";
+L["Unstable Flask of the Beast"] = "Unstable Flask of the Beast";
+L["Unstable Flask of the Sorcerer"] = "Unstable Flask of the Sorcerer";
+L["Unstable Flask of the Bandit"] = "Unstable Flask of the Bandit";
+L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
+L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
+L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
+
+L["Chronoboon Displacer"] = "Chronoboon Displacer";
+
+L["Silithyst"] = "水晶塵";
+
+L["Gold"] = "Gold";
+L["level"] = "Level";
+L["realmGold"] = "Realm gold for";
+L["total"] = "Total";
+L["guild"] = "Guild";
+L["bagSlots"] = "Bag slots";
+L["durability"] = "Durability";
+L["items"] = "Items";
+L["ammunition"] = "Ammo";
+L["attunements"] = "Attunements";
+L["currentRaidLockouts"] = "Current Raid Lockouts";
+L["none"] = "None.";

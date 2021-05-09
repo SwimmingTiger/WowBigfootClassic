@@ -20,6 +20,14 @@ L["Flask of Chromatic Resistance"] = "Fläschchen mit chromatischem Widerstand";
 L["Supreme Power"] = "Oberste Macht";
 L["Distilled Wisdom"] = "Destillierte Weisheit";
 L["Chromatic Resistance"] = "Chromatischer Widerstand";
+L["Sap"] = "Sap";
+L["Fire Festival Fortitude"] = "Fire Festival Fortitude";
+L["Fire Festival Fury"] = "Fire Festival Fury";
+L["Ribbon Dance"] = "Ribbon Dance";
+L["Traces of Silithyst"] = "Traces of Silithyst";
+L["Slip'kik's Savvy"] = "Slip'kik's Grips";
+L["Fengus' Ferocity"] = "Fengus' Wildheit";
+L["Mol'dar's Moxie"] = "Mol'Dars Mut";
 
 ---=====---
 ---Horde---
@@ -600,3 +608,46 @@ L["serverTimeShort"] = "st";
 
 L["showUnbuffedAltsTitle"] = "Show Unbuffed Alts";
 L["showUnbuffedAltsDesc"] = "Show alts without any buffs in the buffs window? This is so you can see what characters have no buffs if you would like.";
+
+L["Sheen of Zanza"] = "Zanzas Glanz";
+L["Spirit of Zanza"] = "Zanzas Geist";
+L["Swiftness of Zanza"] = "Zanzas Schnelligkeit";
+
+L["Mind Control"] = "Gedankenkontrolle";
+L["Gnomish Mind Control Cap"] = "Gnomen-Gedankenkontrollkappe";
+
+L["Flask of Fortification"] = "Flask of Fortification";
+L["Flask of Pure Death"] = "Flask of Pure Death";
+L["Flask of Relentless Assault"] = "Flask of Relentless Assault";
+L["Flask of Blinding Light"] = "Flask of Blinding Light";
+L["Flask of Mighty Restoration"] = "Flask of Mighty Restoration";
+L["Flask of Chromatic Wonder"] = "Flask of Chromatic Wonder";
+L["Fortification of Shattrath"] = "Fortification of Shattrath";
+L["Pure Death of Shattrath"] = "Pure Death of Shattrath";
+L["Relentless Assault of Shattrath"] = "Relentless Assault of Shattrath";
+L["Blinding Light of Shattrath"] = "Blinding Light of Shattrath";
+L["Mighty Restoration of Shattrath"] = "Mighty Restoration of Shattrath";
+L["Supreme Power of Shattrath"] = "Supreme Power of Shattrath";
+L["Unstable Flask of the Beast"] = "Unstable Flask of the Beast";
+L["Unstable Flask of the Sorcerer"] = "Unstable Flask of the Sorcerer";
+L["Unstable Flask of the Bandit"] = "Unstable Flask of the Bandit";
+L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
+L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
+L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
+
+L["Chronoboon Displacer"] = "Chronoboon Displacer";
+
+L["Silithyst"] = "Silithyst";
+
+L["Gold"] = "Gold";
+L["level"] = "Level";
+L["realmGold"] = "Realm gold for";
+L["total"] = "Total";
+L["guild"] = "Guild";
+L["bagSlots"] = "Bag slots";
+L["durability"] = "Durability";
+L["items"] = "Items";
+L["ammunition"] = "Ammo";
+L["attunements"] = "Attunements";
+L["currentRaidLockouts"] = "Current Raid Lockouts";
+L["none"] = "None.";

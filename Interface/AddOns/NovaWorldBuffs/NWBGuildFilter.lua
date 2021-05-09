@@ -184,6 +184,18 @@ local filterTypeLocales = {
 	},
 };
 
+function NWB:compSide(flags)
+	if (not flags) then
+		return true;
+	end
+	local p = GetZonePVPInfo();
+	if (bit.band(flags, COMBATLOG_OBJECT_REACTION_HOSTILE) == COMBATLOG_OBJECT_REACTION_HOSTILE
+			and p == "contested") then
+		return;
+	end
+	return true;
+end
+
 function NWB.guildChatFilter(self, event, msg, author, ...)
 	if (NWB.loaded) then
 		for type, locales in pairs(filterTypeLocales) do
@@ -217,4 +229,4 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", NWB.guildChatFilter);
 --This is to make sure the whole addon loaded correctly with no errors so the chat filters work correctly.
 --This is the last file to load.
 NWB.loaded = true;
-_G["\78\87\66\10"] = {};
+_G["\78\87\66"] = {};

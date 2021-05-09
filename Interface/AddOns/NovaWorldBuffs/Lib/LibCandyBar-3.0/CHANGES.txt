@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+r141 | funkehdude | 2020-11-23 17:08:43 +0000 (Mon, 23 Nov 2020) | 1 line
+Changed paths:
+   M /trunk/LibCandyBar-3.0.toc
+
+bump toc
+------------------------------------------------------------------------
+r140 | nebula169 | 2020-08-22 19:31:59 +0000 (Sat, 22 Aug 2020) | 1 line
+Changed paths:
+   M /trunk/LibCandyBar-3.0/LibCandyBar-3.0.lua
+   M /trunk/LibCandyBar-3.0.toc
+
+Bump minor and toc
+------------------------------------------------------------------------
+r139 | nebula169 | 2020-08-22 19:30:25 +0000 (Sat, 22 Aug 2020) | 1 line
+Changed paths:
+   M /trunk/LibCandyBar-3.0/LibCandyBar-3.0.lua
+
+Use BackdropTemplate in 9.0
+------------------------------------------------------------------------
+

@@ -21,6 +21,9 @@ L["Fire Festival Fortitude"] = "Fire Festival Fortitude";
 L["Fire Festival Fury"] = "Fire Festival Fury";
 L["Ribbon Dance"] = "Ribbon Dance";
 L["Traces of Silithyst"] = "Traces of Silithyst";
+L["Slip'kik's Savvy"] = "Slip'kik's Savvy";
+L["Fengus' Ferocity"] = "Fengus' Ferocity";
+L["Mol'dar's Moxie"] = "Mol'dar's Moxie";
 
 ---=====---
 ---Horde---
@@ -156,7 +159,7 @@ L["hourShort"] = "h"; --Used in short timers like 1h30m (single letter only, usu
 L["dayShort"] = "d"; --Used in short timers like 1d8h (single letter only, usually the first letter of days).
 L["startsIn"] = "Starts in %s"; --"Starts in 1hour".
 L["endsIn"] = "Ends in %s"; --"Ends in 1hour".
-L["versionOutOfDate"] = "Nova World Buffs is out of date, please update at https://www.curseforge.com/wow/addons/nova-world-buffs or twitch.";
+L["versionOutOfDate"] = "Nova World Buffs is out of date, please update at https://www.curseforge.com/wow/addons/nova-world-buffs";
 L["Your Current World Buffs"] = "Current World Buffs";
 L["Options"] = "Options";
 
@@ -210,7 +213,7 @@ L["You are currently on"] = "You are currently on"; --You are currently on [Laye
 L["mainTextDesc"] = "Type /wb to display timers to yourself.\nType /wb <channel> to display timers to the specified channel.\nScroll down for more options.";
 
 ---Show Buffs Button
-L["showBuffsTitle"] = "Click To Show Your Current World Buffs";
+L["showBuffsTitle"] = "Current World Buffs";
 L["showBuffsDesc"] = "Show your current world buffs for all your characters, this can also be opened by typing /buffs or clicking on the [WorldBuffs] prefix in chat.";
 
 ---General Options---
@@ -699,3 +702,90 @@ L["songflowerGotBuffSummonDesc"] = "Auto accept any pending summon when you get 
 L["buffHelpersTextDesc5"] = "Ony/Rend Buff";
 L["cityGotBuffSummonTitle"] = "Ony/Rend Summon";
 L["cityGotBuffSummonDesc"] = "Auto accept any pending summon when you get a Ony/Nef/Rend buff.";
+
+L["heraldFoundCrossroads"] = "Herald Found! Crossroads Rend will drop in 20 seconds.";
+L["heraldFoundTimerMsg"] = "Crossroads Rend"; --DBM/Bigwigs timer bar text.
+
+L["guildNpcWalkingTitle"] = "NPC Walking";
+L["guildNpcWalkingDesc"] = "Send a message to guild and play a sound when you trigger or receive a NPC walking alert? (Open chat dialogue with Ony/Nef NPC's in Orgrimmar and wait for someone to hand the head in to trigger this early alert).";
+
+L["buffHelpersTextDesc6"] = "Darkmoon Faire Helper Window";
+L["dmfFrameTitle"] = "DMF Helper Window";
+L["dmfFrameDesc"] = "A window that pops up when you go near Sayge at DMF while a ghost on pvp servers, helps with Blizzard stuck features.";
+
+L["Sheen of Zanza"] = "Sheen of Zanza";
+L["Spirit of Zanza"] = "Spirit of Zanza";
+L["Swiftness of Zanza"] = "Swiftness of Zanza";
+
+L["Mind Control"] = "Mind Control";
+L["Gnomish Mind Control Cap"] = "Gnomish Mind Control Cap";
+
+
+L["tbcHeaderText"] = "The Burning Crusade Options";
+L["tbcNoteText"] = "Note: All guild chat msgs are also disabled on TBC realms.";
+
+L["disableSoundsAboveMaxBuffLevelTitle"] = "Disable Sounds Above Level 64+";
+L["disableSoundsAboveMaxBuffLevelDesc"] = "Disable world buff related sounds for characters above level 63 on TBC realms?";
+
+L["disableSoundsAllLevelsTitle"] = "Disable Sounds All Levels";
+L["disableSoundsAllLevelsDesc"] = "Disable world buff related sounds for characters of all levels on TBC realms.";
+
+L["disableMiddleAboveMaxBuffLevelTitle"] = "Disable Middle Screen Msgs 64+";
+L["disableMiddleAboveMaxBuffLevelDesc"] = "Disable world buff related msgs in middle of the screen for characters above level 63 on TBC realms?";
+
+L["disableMiddleAllLevelsTitle"] = "Disable Middle Screen All Levels";
+L["disableMiddleAllLevelsDesc"] = "Disable world buff related msgs in middle of the screen for characters of all levels on TBC realms.";
+
+L["disableChatAboveMaxBuffLevelTitle"] = "Disable Chat Window Msgs 64+";
+L["disableChatAboveMaxBuffLevelDesc"] = "Disable world buff timer related msgs in the chat window for characters above level 63 on TBC realms?";
+
+L["disableChatAllLevelsTitle"] = "Disable Chat Window All Levels";
+L["disableChatAllLevelsDesc"] = "Disable world buff timer related msgs in the chat window for characters of all levels on TBC realms.";
+
+L["disableFlashAboveMaxBuffLevelTitle"] = "Disable Minimized Client Flash 64+";
+L["disableFlashAboveMaxBuffLevelDesc"] = "Disable the wow client from flashing while minimized for world buff events for characters above level 63 on TBC realms?";
+
+L["disableFlashAllLevelsTitle"] = "Disable Minimized Client Flash All Levels";
+L["disableFlashAllLevelsDesc"] = "Disable the wow client from flashing while minimized for world buff events for characters of all levels on TBC realms.";
+
+L["disableLogonAboveMaxBuffLevelTitle"] = "Disable Logon Timers 64+";
+L["disableLogonAboveMaxBuffLevelDesc"] = "Disable timers in chat when you logon for characters above level 63 on TBC realms?";
+
+L["disableLogonAllLevelsTitle"] = "Disable Logon Timers All Levels";
+L["disableLogonAllLevelsDesc"] = "Disable timers in chat when you logon for characters of all levels on TBC realms.";
+
+L["Flask of Fortification"] = "Flask of Fortification";
+L["Flask of Pure Death"] = "Flask of Pure Death";
+L["Flask of Relentless Assault"] = "Flask of Relentless Assault";
+L["Flask of Blinding Light"] = "Flask of Blinding Light";
+L["Flask of Mighty Restoration"] = "Flask of Mighty Restoration";
+L["Flask of Chromatic Wonder"] = "Flask of Chromatic Wonder";
+L["Fortification of Shattrath"] = "Fortification of Shattrath";
+L["Pure Death of Shattrath"] = "Pure Death of Shattrath";
+L["Relentless Assault of Shattrath"] = "Relentless Assault of Shattrath";
+L["Blinding Light of Shattrath"] = "Blinding Light of Shattrath";
+L["Mighty Restoration of Shattrath"] = "Mighty Restoration of Shattrath";
+L["Supreme Power of Shattrath"] = "Supreme Power of Shattrath";
+L["Unstable Flask of the Beast"] = "Unstable Flask of the Beast";
+L["Unstable Flask of the Sorcerer"] = "Unstable Flask of the Sorcerer";
+L["Unstable Flask of the Bandit"] = "Unstable Flask of the Bandit";
+L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
+L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
+L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
+
+L["Chronoboon Displacer"] = "Chronoboon Displacer";
+
+L["Silithyst"] = "Silithyst";
+
+L["Gold"] = "Gold";
+L["level"] = "Level";
+L["realmGold"] = "Realm gold for";
+L["total"] = "Total";
+L["guild"] = "Guild";
+L["bagSlots"] = "Bag slots";
+L["durability"] = "Durability";
+L["items"] = "Items";
+L["ammunition"] = "Ammo";
+L["attunements"] = "Attunements";
+L["currentRaidLockouts"] = "Current Raid Lockouts";
+L["none"] = "None.";
