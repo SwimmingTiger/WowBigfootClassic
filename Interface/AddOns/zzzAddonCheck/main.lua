@@ -336,18 +336,5 @@ end
 LoaderFrame:SetScript("OnEvent", LoaderEvents)
 
 -- 立即执行的初始化操作
-if NWB then
-    -- 修复部分未生效的汉化
-    local L = LibStub("AceLocale-3.0"):GetLocale("NovaWorldBuffs")
-    if L then
-        L["You are on a layered realm."] = "你的服务器存在位面。"
-        L["Click here to view current timers."] = "点击查看当前计时器信息。"
-        L["|cffffff00No characters with buffs found."] = "|cffffff00你的角色身上没有世界Buff。"
-        L["\nNo current timers found."] = "\n目前没有世界Buff计时器。"
-        L["Layer"] = "位面"
-        L["Buff records have been reset."] = "Buff记录已重置。"
-    end
-end
-
 -- 完善 MonkeyQuest 汉化
 MONKEYQUESTLOG_TITLE = '任务日志'
