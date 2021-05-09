@@ -1,5 +1,5 @@
-## Interface: 11306
-## X-Min-Interface: 11306
+## Interface: 11307
+## X-Min-Interface: 11307
 ## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
 ## Title-zhCN:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
 ## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Ядро|r
@@ -9,7 +9,7 @@
 ## Title-esMX:|cffffd200Deadly Boss Mods|r |cff69ccf0Proceso|r
 ## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
 ## Notes: Deadly Boss Mods
-## Dependencies: DBM-StatusBarTimers, DBM-DefaultSkin
+## Dependencies: DBM-StatusBarTimers
 ## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision
@@ -19,8 +19,10 @@
 ## X-Website: http://www.deadlybossmods.com
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
-## Version: 1.13.67
+## X-Wago-ID: qv633o6b
+## Version: 1.13.72
 
+#@no-lib-strip@
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 
@@ -32,6 +34,7 @@ Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\lib.xml
 Libs\LibDeflate\LibDeflate.lua
 Libs\LibSerialize\lib.xml
+#@end-no-lib-strip@
 
 localization.en.lua
 localization.de.lua

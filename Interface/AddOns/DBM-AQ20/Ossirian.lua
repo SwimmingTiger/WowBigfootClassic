@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ossirian", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200710050925")
+mod:SetRevision("20210322203214")
 mod:SetCreatureID(15339)
 mod:SetEncounterID(723)
 mod:SetModelID(15432)
@@ -28,7 +28,7 @@ local firstBossMod = DBM:GetModByName("Kurinnaxx")
 --[[
 function mod:OnCombatEnd(wipe)
 	if not wipe then
-		DBM.Bars:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
+		DBT:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 		if firstBossMod.vb.firstEngageTime then
 			local thisTime = GetServerTime() - firstBossMod.vb.firstEngageTime
 			if thisTime and thisTime > 0 then

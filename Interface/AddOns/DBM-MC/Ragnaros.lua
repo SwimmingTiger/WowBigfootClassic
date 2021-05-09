@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ragnaros-Classic", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200717034549")
+mod:SetRevision("20210322203214")
 mod:SetCreatureID(11502)
 mod:SetEncounterID(672)
 mod:SetModelID(11121)
@@ -55,7 +55,7 @@ function mod:OnCombatEnd(wipe)
 		DBM.RangeCheck:Hide()
 	end
 	if not wipe then
-		DBM.Bars:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
+		DBT:CancelBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT)
 		if firstBossMod.vb.firstEngageTime then
 			local thisTime = GetServerTime() - firstBossMod.vb.firstEngageTime
 			if thisTime and thisTime > 0 then

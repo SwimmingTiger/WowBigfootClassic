@@ -16,14 +16,6 @@ L.OTabPlugins	= "Core Plugins"
 L.OTabOptions	= GAMEOPTIONS_MENU
 L.OTabAbout		= "About"
 
-L.TabCategory_BFA	 		= "Battle for Azeroth"
-L.TabCategory_LEG	 		= "Legion"
-L.TabCategory_WOD	 		= "Warlords of Draenor"
-L.TabCategory_MOP	 		= "Mists of Pandaria"
-L.TabCategory_CATA	 		= "Cataclysm"
-L.TabCategory_WOTLK 		= "Wrath of the Lich King"
-L.TabCategory_BC 			= "Burning Crusade"
-L.TabCategory_CLASSIC		= EXPANSION_NAME0
 L.TabCategory_OTHER    		= "Other Mods"
 
 L.BossModLoaded 			= "%s statistics"
@@ -146,6 +138,8 @@ L.Area_ImportExportProfile	= "Import/Export profiles"
 L.ImportExportInfo			= "Importing will overwrite your current profile, do at your own risk."
 L.ButtonImportProfile		= "Import profile"
 L.ButtonExportProfile		= "Export profile"
+
+L.ImportErrorOn				= "Custom sounds missing for setting: %s"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "Alerts"
@@ -337,13 +331,14 @@ L.TabCategory_Filters	 	= "Global Disables & Filters"
 L.Area_DBMFiltersSetup		= "DBM Filters guide"
 L.Area_BlizzFiltersSetup	= "Blizzard Filters guide"
 -- Panel: DBM Features
-L.Panel_SpamFilter			= "DBM Features"
-L.Area_SpamFilter_Anounces	= "Announce Global Disable & Filter Options"
-L.SpamBlockNoShowAnnounce	= "Do not show text or play sound for ANY general announces"
-L.SpamBlockNoShowTgtAnnounce= "Do not show text or play sound for TARGET general announces (above filter overrides this one)"
-L.SpamBlockNoSpecWarnText	= "Do not show special announce text"
-L.SpamBlockNoSpecWarnFlash	= "Do not show special announce screen flash"
-L.SpamBlockNoSpecWarnSound	= "Do not play special announce sounds (still permits voice packs, if one is enabled in Spoken Alerts panel)"
+L.Panel_SpamFilter					= "DBM Features"
+L.Area_SpamFilter_Anounces			= "Announce Global Disable & Filter Options"
+L.SpamBlockNoShowAnnounce			= "Do not show text or play sound for ANY general announces"
+L.SpamBlockNoShowTgtAnnounce		= "Do not show text or play sound for TARGET general announces (above filter overrides this one)"
+L.SpamBlockNoSpecWarnText			= "Do not show special announce text"
+L.SpamBlockNoSpecWarnFlash			= "Do not show special announce screen flash"
+L.SpamBlockNoSpecWarnSound			= "Do not play special announce sounds (still permits voice packs, if one is enabled in Spoken Alerts panel)"
+L.SpamBlockNoTrivialSpecWarnSound	= "Do not play special announce sounds or show screen flash for content that is trivial for your level (plays user selected regular announce sound instead)"
 
 L.Area_SpamFilter_Timers	= "Timer Global Disable & Filter Options"
 L.SpamBlockNoShowTimers		= "Do not show mod timers (Boss Mod/Respawn)"

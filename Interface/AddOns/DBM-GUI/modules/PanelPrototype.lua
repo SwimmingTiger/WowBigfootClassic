@@ -131,7 +131,7 @@ function PanelPrototype:CreateScrollingMessageFrame(width, height, insertmode, f
 end
 
 function PanelPrototype:CreateEditBox(text, value, width, height)
-	local textbox = CreateFrame("EditBox", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "InputBoxTemplate")
+	local textbox = CreateFrame("EditBox", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, DBM:IsShadowlands() and "BackdropTemplate,InputBoxTemplate" or "InputBoxTemplate")
 	textbox.mytype = "textbox"
 	textbox:SetSize(width or 100, height or 20)
 	textbox:SetAutoFocus(false)
@@ -285,7 +285,7 @@ do
 			if isTimer then
 				frame = self:CreateDropdown(nil, tcolors, mod, modvar .. "TColor", function(value)
 					mod.Options[modvar .. "TColor"] = value
-				end, 20, 25, button)
+				end, 22, 25, button)
 				frame2 = self:CreateDropdown(nil, cvoice, mod, modvar .. "CVoice", function(value)
 					mod.Options[modvar.."CVoice"] = value
 					if type(value) == "string" then
@@ -293,15 +293,15 @@ do
 					elseif value > 0 then
 						DBM:PlayCountSound(1, value == 3 and DBM.Options.CountdownVoice3 or value == 2 and DBM.Options.CountdownVoice2 or DBM.Options.CountdownVoice)
 					end
-				end, 20, 25, button)
+				end, 22, 25, button)
 				frame:SetPoint("LEFT", button, "RIGHT", -20, 2)
 				frame2:SetPoint("LEFT", frame, "RIGHT", 18, 0)
-				textPad = 35
+				textPad = 37
 			else
 				frame = self:CreateDropdown(nil, sounds, mod, modvar .. "SWSound", function(value)
 					mod.Options[modvar .. "SWSound"] = value
-					DBM:PlaySpecialWarningSound(value)
-				end, 20, 25, button)
+					DBM:PlaySpecialWarningSound(value, true)
+				end, 22, 25, button)
 				frame:ClearAllPoints()
 				frame:SetPoint("LEFT", button, "RIGHT", -20, 2)
 				if mod.Options[modvar .. "SWNote"] then -- Mod has note, insert note hack
@@ -399,10 +399,10 @@ do
 		end
 		if dbtvar then
 			button:SetScript("OnShow", function(self)
-				button:SetChecked(DBM.Bars:GetOption(dbtvar))
+				button:SetChecked(DBT.Options[dbtvar])
 			end)
 			button:SetScript("OnClick", function(self)
-				DBM.Bars:SetOption(dbtvar, not DBM.Bars:GetOption(dbtvar))
+				DBT:SetOption(dbtvar, not DBT.Options[dbtvar])
 			end)
 		end
 		if globalvar and _G[globalvar] ~= nil then
@@ -419,7 +419,7 @@ do
 end
 
 function PanelPrototype:CreateArea(name)
-	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "OptionsBoxTemplate")
+	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, DBM:IsShadowlands() and "BackdropTemplate,OptionsBoxTemplate" or "OptionsBoxTemplate")
 	area.mytype = "area"
 	area:SetBackdropColor(0.15, 0.15, 0.15, 0.5)
 	area:SetBackdropBorderColor(0.4, 0.4, 0.4)

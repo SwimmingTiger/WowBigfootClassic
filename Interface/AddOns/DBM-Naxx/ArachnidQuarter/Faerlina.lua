@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod("Faerlina", "DBM-Naxx", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20201025150202")
+mod:SetRevision("20210214203725")
 mod:SetCreatureID(15953)
 mod:SetEncounterID(1110)
 mod:SetModelID(15940)
 mod:RegisterCombat("combat_yell", L.Pull)
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 28798 54100 28732 54097 28794 54099",
+	"SPELL_AURA_APPLIED 28798 28732 28794",--54100, 54097, 54099
 	"UNIT_DIED"
 )
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(455, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200707165602")
+mod:SetRevision("20210322203214")
 mod:SetCreatureID(10439)
 mod:SetEncounterID(483)
 
@@ -27,7 +27,7 @@ end
 function mod:OnCombatEnd(wipe, isSecondRun)
 	if not wipe and not isSecondRun and self.Options.TimerGuards then
 		-- Custom bar that's bound to core so timer doesn't stop when mod stops its own timers
-		DBM.Bars:CreateBar(91, self.localization.timers.TimerGuards, 136187, nil, nil, nil, nil, self.Options.TimerGuardsTColor, nil, nil, nil, self.Options.TimerGuardsCVoice)
+		DBT:CreateBar(91, self.localization.timers.TimerGuards, 136187, nil, nil, nil, nil, self.Options.TimerGuardsTColor, nil, nil, nil, self.Options.TimerGuardsCVoice)
 	end
 end
 

@@ -14,13 +14,6 @@ L.OTabDungeons	= "파티/1인"--1-5 person content (Dungeons, MoP Scenarios, Wor
 L.OTabPlugins	= "핵심 플러그인"
 L.OTabAbout		= "소개"
 
-L.TabCategory_BFA	 		= "격전의 아제로스"
-L.TabCategory_LEG	 		= "군단"
-L.TabCategory_WOD	 		= "드레노어의 전쟁군주"
-L.TabCategory_MOP	 		= "판다리아의 안개"
-L.TabCategory_CATA	 		= "대격변"
-L.TabCategory_WOTLK 		= "리치 왕의 분노"
-L.TabCategory_BC 			= "불타는 성전"
 L.TabCategory_OTHER			= "기타 모드"
 
 L.BossModLoaded 			= "%s 통계"
@@ -38,6 +31,7 @@ L.Button_LoadMod			= "애드온 로드"
 L.Mod_Enabled				= "보스 모드 활성화"
 L.Mod_Reset					= "설정 기본값 로드"
 L.Reset						= "초기화"
+L.Import					= "가져오기"
 
 L.Enable					= "활성화"
 L.Disable					= "비활성화"
@@ -72,6 +66,7 @@ L.Latency_Text				= "동기화 신호를 보낼 최대 지연시간 설정: %d"
 L.Button_RangeFrame			= "거리 창 표시/숨기기"
 L.Button_InfoFrame			= "정보 창 표시/숨기기"
 L.Button_TestBars			= "테스트 바 시작"
+L.Button_MoveBars			= "바 이동"
 L.Button_ResetInfoRange		= "정보/거리 창 위치 초기화"
 
 L.ModelOptions				= "3D 모델 뷰어 설정"
@@ -81,6 +76,7 @@ L.ModelSoundShort			= "짧은 효과음"
 L.ModelSoundLong			= "긴 효과음"
 
 L.ResizeOptions			 	= "설정 창 크기 설정"
+L.ResizeInfo				= "우측 하단 모서리를 클릭 후 드래그하면 설정 창 크기를 조절할 수 있습니다."
 L.Button_ResetWindowSize	= "설정 창 크기 초기화"
 L.Editbox_WindowWidth		= "설정 창 너비"
 L.Editbox_WindowHeight		= "설정 창 높이"
@@ -88,7 +84,7 @@ L.Editbox_WindowHeight		= "설정 창 높이"
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "기타 기능"
 L.Area_SoundAlerts			= "효과음/점멸 알림 설정"
-L.LFDEnhance				= "역할 확인 및 전장/공격대 찾기가 열릴 때 전투 준비 효과음 재생(주 오디오 또는 대화 채널) 및 작업 표시줄 아이콘 점멸 (참고: 소리 채널이 꺼져있어도 작동하며, 다른 때보다 더 크게 들립니다)"
+L.LFDEnhance				= "역할 확인 및 전장이 열릴 때 전투 준비 효과음 재생(주 오디오 또는 대화 채널) 및 작업 표시줄 아이콘 점멸 (참고: 소리 채널이 꺼져있어도 작동하며, 다른 때보다 더 크게 들립니다)"
 L.WorldBossNearAlert		= "근처에서 필드 보스 전투가 시작된 경우 전투 준비 효과음 재생 및 작업 표시줄 아이콘 점멸"
 L.RLReadyCheckSound			= "전투 준비 효과음을 주 오디오나 대화 채널을 통해 재생하고 작업 표시줄 아이콘 점멸"
 L.AFKHealthWarning			= "자리 비움 상태 도중 체력이 줄면 경고음 재생 및 작업 표시줄 아이콘 점멸"
@@ -96,7 +92,7 @@ L.AFKHealthWarning			= "자리 비움 상태 도중 체력이 줄면 경고음 �
 L.TimerGeneral 				= "타이머 설정"
 L.SKT_Enabled				= "가능할 경우 현재 전투의 최고 승리 기록 타이머 표시"
 L.ShowRespawn				= "전멸 후 보스 재생성 타이머 표시"
-L.ShowQueuePop				= "입장 수락 남은 시간 타이머 표시 (공격대 찾기,전장 등)"
+L.ShowQueuePop				= "입장 수락 남은 시간 타이머 표시 (전장 등)"
 --
 L.Area_AutoLogging			= "자동 전투 기록 설정"
 L.AutologBosses				= "블리자드 전투 로그를 사용해 자동으로 던전/레이드 기록"
@@ -135,6 +131,13 @@ L.SelectModProfileCopy		= "전체 설정 복사"
 L.SelectModProfileCopySound	= "음성 설정만 복사"
 L.SelectModProfileCopyNote	= "메모 설정만 복사"
 L.SelectModProfileDelete	= "모드 설정 삭제"
+
+L.Area_ImportExportProfile	= "프로필 가져오기/내보내기"
+L.ImportExportInfo			= "가져오기를 하면 현재 프로필 설정에 덮어씌우게 되니 주의하세요."
+L.ButtonImportProfile		= "프로필 가져오기"
+L.ButtonExportProfile		= "프로필 내보내기"
+
+L.ImportErrorOn				= "프로필 설정에 빠져있는 사용자 지정 효과음: %s"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "경고"
@@ -316,6 +319,7 @@ L.StripTimerText			= "타이머 텍스트에 쿨타임/다음 삭제"
 L.KeepBar					= "스킬 시전 전까지 타이머 작동 중단"
 L.KeepBar2					= "(모드에서 지원할 경우에만)"
 L.FadeBar					= "사정거리 밖의 스킬에 대한 타이머 바 숨김"
+L.BarSkin					= "바 스킨"
 
 -- Tab: Global Disables & Filters
 L.TabCategory_Filters	 	= "기능 끄기 및 필터"
@@ -329,6 +333,7 @@ L.SpamBlockNoShowTgtAnnounce = "대상 관련 알림 및 효과음만 재생 안
 L.SpamBlockNoSpecWarnText	= "특수 알림 텍스트 표시 안함"
 L.SpamBlockNoSpecWarnFlash	= "특수 알림에 화면 점멸 사용 안함"
 L.SpamBlockNoSpecWarnSound	= "특수 알림 효과음 재생 안함 (음성 경고 메뉴에서 설정했다면 음성팩은 계속 작동)"
+L.SpamBlockNoTrivialSpecWarnSound	= "현재 레벨에 맞는 콘텐츠 이외에는 특수 알림 효과음 재생이나 화면 점멸 효과 사용 안함 (대신 사용자가 선택한 정규 알림 효과음 재생)"
 
 L.Area_SpamFilter_Timers	= "타이머 관련 기능 끄기 및 필터 설정"
 L.SpamBlockNoShowTimers		= "모드 타이머 표시 안함 (보스 모드/도전모드/파티찾기/재생성)"

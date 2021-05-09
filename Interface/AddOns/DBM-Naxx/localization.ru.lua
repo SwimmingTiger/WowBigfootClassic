@@ -1,4 +1,4 @@
-﻿if GetLocale() ~= "ruRU" then return end
+if GetLocale() ~= "ruRU" then return end
 
 local L
 
@@ -306,7 +306,7 @@ L:SetTimerLocalization({
 })
 
 L:SetWarningLocalization({
-	WarningMarkSoon				= "Mark soon",--FIXME
+	WarningMarkSoon				= "Знак %d через 3 секунды",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
 })
 

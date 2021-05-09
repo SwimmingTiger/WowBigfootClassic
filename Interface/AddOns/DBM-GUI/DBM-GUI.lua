@@ -138,19 +138,24 @@ do
 	local popupFrame
 
 	local function createPopupFrame()
-		popupFrame = CreateFrame("Frame", nil, UIParent)
+		popupFrame = CreateFrame("Frame", nil, UIParent, DBM:IsShadowlands() and "BackdropTemplate")
 		popupFrame:SetFrameStrata("DIALOG")
 		popupFrame:SetFrameLevel(popupFrame:GetFrameLevel() + 10)
 		popupFrame:SetSize(512, 512)
 		popupFrame:SetPoint("CENTER")
-		popupFrame:SetBackdrop({
+		popupFrame.backdropInfo = {
 			bgFile		= "Interface\\DialogFrame\\UI-DialogBox-Background", -- 131071
 			edgeFile	= "Interface\\DialogFrame\\UI-DialogBox-Border", -- 131072
 			tile		= true,
 			tileSize	= 32,
 			edgeSize	= 32,
 			insets		= { left = 8, right = 8, top = 8, bottom = 8 }
-		})
+		}
+		if DBM:IsShadowlands() then
+			popupFrame:ApplyBackdrop()
+		else
+			popupFrame:SetBackdrop(popupFrame.backdropInfo)
+		end
 		popupFrame:SetMovable(true)
 		popupFrame:EnableMouse(true)
 		popupFrame:RegisterForDrag("LeftButton")
@@ -159,15 +164,20 @@ do
 		popupFrame:Hide()
 		popupFrame.text = ""
 
-		local backdrop = CreateFrame("Frame", nil, popupFrame)
-		backdrop:SetBackdrop({
+		local backdrop = CreateFrame("Frame", nil, popupFrame, DBM:IsShadowlands() and "BackdropTemplate")
+		backdrop.backdropInfo = {
 			bgFile		= "Interface\\ChatFrame\\ChatFrameBackground",
 			edgeFile	= "Interface\\Tooltips\\UI-Tooltip-Border",
 			tile		= true,
 			tileSize	= 16,
 			edgeSize	= 16,
 			insets		= { left = 3, right = 3, top = 5, bottom = 3 }
-		})
+		}
+		if DBM:IsShadowlands() then
+			backdrop:ApplyBackdrop()
+		else
+			backdrop:SetBackdrop(backdrop.backdropInfo)
+		end
 		backdrop:SetBackdropColor(0.1, 0.1, 0.1, 0.6)
 		backdrop:SetBackdropBorderColor(0.4, 0.4, 0.4)
 		backdrop:SetPoint("TOPLEFT", 15, -15)
@@ -726,14 +736,13 @@ do
 	local category = {}
 	local subTabId = 0
 	local expansions = {
-		[0] = "CLASSIC",
-		"BC", "WotLK", "CATA", "MOP", "WOD", "LEG", "BFA", "SHADOWLANDS"
+		"CLASSIC", "BC", "WOTLK", "CATA", "MOP", "WOD", "LEG", "BFA", "SHADOWLANDS"
 	}
 
 	function DBM_GUI:UpdateModList()
 		for _, addon in ipairs(DBM.AddOns) do
 			if not category[addon.category] then
-				category[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_" .. addon.category:upper()] or L.TabCategory_OTHER, nil, addon.category:upper() == expansions[GetExpansionLevel()])
+				category[addon.category] = DBM_GUI:CreateNewPanel(_G["EXPANSION_NAME" .. (tIndexOf(expansions, addon.category:upper()) or 99) - 1] or L.TabCategory_OTHER, nil, addon.category:upper() == expansions[GetExpansionLevel() + 1])
 			end
 
 			if not addon.panel then

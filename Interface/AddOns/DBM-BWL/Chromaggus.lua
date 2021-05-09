@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Chromaggus", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200817152042")
+mod:SetRevision("20210118215223")
 mod:SetCreatureID(14020)
 mod:SetEncounterID(616)
 mod:SetModelID(14367)
@@ -77,16 +77,16 @@ local vulnSpells = {
 
 local updateInfoFrame
 do
-	local lines = {}
-	local sortedLines = {}
+	local twipe = table.wipe
+	local lines, sortedLines = {}, {}
 	local function addLine(key, value)
 		-- sort by insertion order
 		lines[key] = value
 		sortedLines[#sortedLines + 1] = key
 	end
 	updateInfoFrame = function()
-		table.wipe(lines)
-		table.wipe(sortedLines)
+		twipe(lines)
+		twipe(sortedLines)
 		if lastVulnName then
 			addLine(lastVulnName, "")
 		end

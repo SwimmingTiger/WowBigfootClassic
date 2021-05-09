@@ -1,4 +1,4 @@
-## Interface: 11306
+## Interface: 11307
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
@@ -31,7 +31,8 @@
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
-## Version: r105
+## X-Wago-ID: Xb6Xe0Kp
+## Version: r122
 
 localization.en.lua
 localization.br.lua

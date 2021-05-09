@@ -3,9 +3,12 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z1191", "DBM-PvP")
 
-mod:SetRevision("20201228182452")
+mod:SetRevision("20210419223508")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
+mod:RegisterEvents(
+	"LOADING_SCREEN_DISABLED",
+	"ZONE_CHANGED_NEW_AREA"
+)
 
 mod:AddBoolOption("AutoTurnIn")
 
@@ -13,23 +16,26 @@ do
 	local bgzone = false
 
 	local function Init(self)
-		if DBM:GetCurrentArea() == 1191 then
+		local zoneID = DBM:GetCurrentArea()
+		if not bgzone and zoneID == 1191 then
 			bgzone = true
 			self:RegisterShortTermEvents(
 				"GOSSIP_SHOW",
 				"QUEST_PROGRESS",
 				"QUEST_COMPLETE"
 			)
-		elseif bgzone then
+		elseif bgzone and zoneID ~= 1191 then
+			bgzone = false
 			self:UnregisterShormTermEvents()
 		end
 	end
 
-	function mod:ZONE_CHANGED_NEW_AREA()
+	function mod:LOADING_SCREEN_DISABLED()
 		self:Schedule(1, Init, self)
 	end
-	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
-	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
+	mod.ZONE_CHANGED_NEW_AREA	= mod.LOADING_SCREEN_DISABLED
+	mod.PLAYER_ENTERING_WORLD	= mod.LOADING_SCREEN_DISABLED
+	mod.OnInitialize			= mod.LOADING_SCREEN_DISABLED
 end
 
 do

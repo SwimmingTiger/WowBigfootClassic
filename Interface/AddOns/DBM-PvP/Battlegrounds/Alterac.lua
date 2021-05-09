@@ -1,9 +1,12 @@
 local mod	= DBM:NewMod("z30", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210102162846")
+mod:SetRevision("20210419223508")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
+mod:RegisterEvents(
+	"LOADING_SCREEN_DISABLED",
+	"ZONE_CHANGED_NEW_AREA"
+)
 
 mod:AddBoolOption("AutoTurnIn")
 
@@ -12,7 +15,7 @@ do
 
 	local function Init(self)
 		local zoneID = DBM:GetCurrentArea()
-		if zoneID == 30 or zoneID == 2197 then -- Regular AV (retail and classic), Korrak
+		if not bgzone and (zoneID == 30 or zoneID == 2197) then -- Regular AV (retail and classic), Korrak
 			bgzone = true
 			self:RegisterShortTermEvents(
 				"CHAT_MSG_MONSTER_YELL",
@@ -34,18 +37,20 @@ do
 			generalMod:TrackHealth(11949, "Balinda")
 			generalMod:TrackHealth(13419, "Ivus")
 			generalMod:TrackHealth(13256, "Lokholar")
-		elseif bgzone then
+		elseif bgzone and (zoneID ~= 30 and zoneID ~= 2197) then
 			bgzone = false
 			self:UnregisterShortTermEvents()
+			self:Stop()
 			DBM:GetModByName("PvPGeneral"):StopTrackHealth()
 		end
 	end
 
-	function mod:ZONE_CHANGED_NEW_AREA()
+	function mod:LOADING_SCREEN_DISABLED()
 		self:Schedule(1, Init, self)
 	end
-	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
-	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
+	mod.ZONE_CHANGED_NEW_AREA	= mod.LOADING_SCREEN_DISABLED
+	mod.PLAYER_ENTERING_WORLD	= mod.LOADING_SCREEN_DISABLED
+	mod.OnInitialize			= mod.LOADING_SCREEN_DISABLED
 end
 
 do

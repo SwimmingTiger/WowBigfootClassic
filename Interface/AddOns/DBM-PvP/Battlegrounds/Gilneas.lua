@@ -3,20 +3,30 @@ if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 end
 local mod	= DBM:NewMod("z761", "DBM-PvP")
 
-mod:SetRevision("20201228165807")
+mod:SetRevision("20210419223508")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
-mod:RegisterEvents("ZONE_CHANGED_NEW_AREA")
+mod:RegisterEvents(
+	"LOADING_SCREEN_DISABLED",
+	"ZONE_CHANGED_NEW_AREA"
+)
 
 do
+	local bgzone = false
+
 	local function Init()
-		if DBM:GetCurrentArea() == 761 then
+		local zoneID = DBM:GetCurrentArea()
+		if not bgzone and zoneID == 761 then
+			bgzone = true
 			DBM:GetModByName("PvPGeneral"):SubscribeAssault(275, 3)
+		elseif bgzone and zoneID ~= 761 then
+			bgzone = false
 		end
 	end
 
-	function mod:ZONE_CHANGED_NEW_AREA()
+	function mod:LOADING_SCREEN_DISABLED()
 		self:Schedule(1, Init)
 	end
-	mod.PLAYER_ENTERING_WORLD	= mod.ZONE_CHANGED_NEW_AREA
-	mod.OnInitialize			= mod.ZONE_CHANGED_NEW_AREA
+	mod.ZONE_CHANGED_NEW_AREA	= mod.LOADING_SCREEN_DISABLED
+	mod.PLAYER_ENTERING_WORLD	= mod.LOADING_SCREEN_DISABLED
+	mod.OnInitialize			= mod.LOADING_SCREEN_DISABLED
 end
