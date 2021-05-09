@@ -27,7 +27,7 @@ local CreateQuickCustomization = NeatPlatesHubRapidPanel.CreateQuickCustomizatio
 local OnMouseWheelScrollFrame = NeatPlatesHubRapidPanel.OnMouseWheelScrollFrame
 local CreateHubInterfacePanel = NeatPlatesHubRapidPanel.CreateInterfacePanel
 
-local PanelHelpers = PanelHelpers
+local PanelHelpers = NeatPlatesUtility.PanelHelpers
 
 -- Modes
 local ThemeList = NeatPlatesHubMenus.ThemeList
@@ -151,13 +151,15 @@ local function BuildHubPanel(panel)
 	panel.StyleForceBarsOnTargets, F = CreateQuickCheckbutton(objectName.."StyleForceBarsOnTargets", L["Force Bars on Targets"], AlignmentColumn, F, 16, 2)
 	panel.TextShowLevel, F = CreateQuickCheckbutton(objectName.."TextShowLevel", L["Show Unit Level"], AlignmentColumn, F, 16)
 	panel.TextShowUnitTitle, F = CreateQuickCheckbutton(objectName.."TextShowUnitTitle", L["Show Unit Title"], AlignmentColumn, F, 16)
+	panel.TextUnitNameArenaID, F = CreateQuickCheckbutton(objectName.."TextUnitNameArenaID", L["Replace Unit Name with Arena ID"], AlignmentColumn, F, 16)
 	panel.StyleShowFriendlyPowerBar, F = CreateQuickCheckbutton(objectName.."StyleShowFriendlyPowerBar", L["Show Friendly Unit Powerbar"], AlignmentColumn, F, 16)
 	panel.StyleShowFriendlyPowerBar.tooltipText = L["powerbar_unfinished_warning"]
 	panel.StyleShowEnemyPowerBar, F = CreateQuickCheckbutton(objectName.."StyleShowEnemyPowerBar", L["Show Enemy Unit Powerbar"], AlignmentColumn, F, 16)
 	panel.StyleShowEnemyPowerBar.tooltipText = L["powerbar_unfinished_warning"]
 	panel.TextStatusForceShadow, F = CreateQuickCheckbutton(objectName.."TextStatusForceShadow", L["Force Shadow on Status Text"], AlignmentColumn, F, 16)
-  panel.TextShowOnlyOnTargets, F = CreateQuickCheckbutton(objectName.."TextShowOnlyOnTargets", L["Show Status Text on Target & Mouseover"], AlignmentColumn, F, 16)
-  panel.TextShowOnlyOnActive, F = CreateQuickCheckbutton(objectName.."TextShowOnlyOnActive", L["Show Status Text on Active/Damaged Units"], AlignmentColumn, F, 16)
+	panel.TextShowOnlyOnTargets, F = CreateQuickCheckbutton(objectName.."TextShowOnlyOnTargets", L["Show Status Text on Target & Mouseover"], AlignmentColumn, F, 16)
+	panel.TextShowOnlyOnActive, F = CreateQuickCheckbutton(objectName.."TextShowOnlyOnActive", L["Show Status Text on Active/Damaged Units"], AlignmentColumn, F, 16)
+	panel.TextHealthPercentPrecision, F = CreateQuickSlider(objectName.."TextHealthPercentPrecision", L["Health Percent Precision"]..':', "ACTUAL", 160, AlignmentColumn, F, 16)
 
 
 	------------------------------
@@ -257,16 +259,19 @@ local function BuildHubPanel(panel)
 	panel.BuffSeparationMode =  CreateQuickDropdown(objectName.."BuffSeparationModes", L["Buff Separation Mode"]..':', BuffSeparationModes, 1, AlignmentColumn, panel.WidgetDebuffStyle, OffsetColumnB)
 
 	panel.WidgetDebuffListLabel = CreateQuickItemLabel(nil, L["Additional Auras"]..':', AlignmentColumn, panel.WidgetAuraAlignment, 16)
-	panel.WidgetDebuffTrackList = CreateQuickEditbox(objectName.."WidgetDebuffTrackList", nil, nil, AlignmentColumn, panel.WidgetDebuffListLabel, 16)
-	panel.WidgetDebuffAuraTip = PanelHelpers:CreateTipBox(objectName.."AuraTip", L["AURA_TIP"], AlignmentColumn, "BOTTOMRIGHT", panel.WidgetDebuffTrackList, "TOPRIGHT", 6, 0)
-	PanelHelpers.CreateEditBoxButton(panel.WidgetDebuffTrackList, panel.onEditboxOkay)
+	-- panel.WidgetDebuffTrackList = CreateQuickEditbox(objectName.."WidgetDebuffTrackList", nil, nil, AlignmentColumn, panel.WidgetDebuffListLabel, 16)
+	-- PanelHelpers.CreateEditBoxButton(panel.WidgetDebuffTrackList, panel.onEditboxOkay)
 
-	panel.EmphasizedAuraListLabel = CreateQuickItemLabel(nil, L["Emphasized Auras"]..':', AlignmentColumn, panel.WidgetAuraAlignment, OffsetColumnB + 64)
-	panel.EmphasizedAuraList = CreateQuickEditbox(objectName.."EmphasizedAuraList", nil, nil, AlignmentColumn, panel.EmphasizedAuraListLabel, OffsetColumnB + 64)
-	panel.EmphasizedAuraTip = PanelHelpers:CreateTipBox(objectName.."AuraTip", L["AURA_TIP"], AlignmentColumn, "BOTTOMRIGHT", panel.EmphasizedAuraList, "TOPRIGHT", 6, 0)
-	PanelHelpers.CreateEditBoxButton(panel.EmphasizedAuraList, panel.onEditboxOkay)
+	-- panel.EmphasizedAuraListLabel = CreateQuickItemLabel(nil, L["Emphasized Auras"]..':', AlignmentColumn, panel.WidgetAuraAlignment, OffsetColumnB + 64)
+	-- panel.EmphasizedAuraList = CreateQuickEditbox(objectName.."EmphasizedAuraList", nil, nil, AlignmentColumn, panel.EmphasizedAuraListLabel, OffsetColumnB + 64)
+	-- panel.EmphasizedAuraTip = PanelHelpers:CreateTipBox(objectName.."AuraTip", L["AURA_TIP"], AlignmentColumn, "BOTTOMRIGHT", panel.EmphasizedAuraList, "TOPRIGHT", 6, 0)
+	-- PanelHelpers.CreateEditBoxButton(panel.EmphasizedAuraList, panel.onEditboxOkay)
 
-	panel.EmphasizedUnique = CreateQuickCheckbutton(objectName.."EmphasizedUnique", L["Emphasize Hides Normal Aura"], AlignmentColumn, panel.EmphasizedAuraList, 16, 4)
+	panel.WidgetAdditionalAuras = PanelHelpers:CreateAuraManagement(objectName.."WidgetAdditionalAuras", AlignmentColumn, 500, 150)
+	panel.WidgetAdditionalAuras:SetPoint("TOPLEFT", panel.WidgetDebuffListLabel, "BOTTOMLEFT", 0, -10)
+	panel.WidgetDebuffAuraTip = PanelHelpers:CreateTipBox(objectName.."AuraTip", L["AURA_TIP"], AlignmentColumn, "BOTTOMRIGHT", panel.WidgetAdditionalAuras, "TOPRIGHT", 6, 0)
+
+	panel.EmphasizedUnique = CreateQuickCheckbutton(objectName.."EmphasizedUnique", L["Emphasize Hides Normal Aura"], AlignmentColumn, panel.WidgetAdditionalAuras, 16, 24)
 	panel.EmphasizedUnique.tooltipText = L["Hides the regular aura from the aura widget if it is currently emphasized"]
 	panel.HideCooldownSpiral = CreateQuickCheckbutton(objectName.."HideCooldownSpiral", L["Hide Cooldown Spiral"], AlignmentColumn, panel.EmphasizedUnique, 16, 0)
 	panel.HideCooldownSpiral.tooltipText = L["Hides the Cooldown Spiral on Auras"]
@@ -651,8 +656,8 @@ local function BuildHubPanel(panel)
 	panel.MainFrame:SetHeight(2800)
 
 	panel.OpacityFilterList:SetWidth(200)
-	panel.WidgetDebuffTrackList:SetWidth(200)
-	panel.EmphasizedAuraList:SetWidth(200)
+	-- panel.WidgetDebuffTrackList:SetWidth(200)
+	-- panel.EmphasizedAuraList:SetWidth(200)
 
 	SetSliderMechanics(panel.OpacityTarget, 1, 0, 1, .01)
 	SetSliderMechanics(panel.OpacityNonTarget, 1, 0, 1, .01)
@@ -668,6 +673,7 @@ local function BuildHubPanel(panel)
 	SetSliderMechanics(panel.EmphasizedAuraScale, 2, .5, 2.2, .01)
 	SetSliderMechanics(panel.EmphasizedSlots, 0, 1, 3, 1)
 	SetSliderMechanics(panel.PreciseAuraThreshold, 0, 0, 60, 0.1)
+	SetSliderMechanics(panel.TextHealthPercentPrecision, 0, 0, 5, 1)
 
 	--SetSliderMechanics(panel.WidgetRangeMax, 0, 1, 100, 1)
 
@@ -691,18 +697,38 @@ local function BuildHubPanel(panel)
 		-- print("RefreshSettings", panel:IsShown())
 		-- Convert WidgetComboPoints to new format
 		if LocalVars then
-			CallForStyleUpdate()
+			-- if LocalVars.WidgetComboPoints == true then
+			-- 	LocalVars.WidgetComboPoints = 1
+			-- elseif LocalVars.WidgetComboPoints == false then
+			-- 	LocalVars.WidgetComboPoints = 4
+			-- end
+
+
+			-- CallForStyleUpdate()
 			-- Convert Debuff Filter Strings
-			ConvertAuraListTable(LocalVars.WidgetDebuffTrackList, LocalVars.WidgetDebuffLookup, LocalVars.WidgetDebuffPriority)
+			-- if LocalVars.WidgetDebuffTrackList and not LocalVars.WidgetAdditionalAuras then ConvertAuraListTable(LocalVars.WidgetDebuffTrackList, LocalVars.WidgetDebuffLookup, LocalVars.WidgetDebuffPriority) end
 			-- Convert Emphasized Filter Strings
-			ConvertAuraListTable(LocalVars.EmphasizedAuraList, LocalVars.EmphasizedAuraLookup, LocalVars.EmphasizedAuraPriority)
+			-- if LocalVars.EmphasizedAuraList and not LocalVars.WidgetAdditionalAuras then ConvertAuraListTable(LocalVars.EmphasizedAuraList, LocalVars.EmphasizedAuraLookup, LocalVars.EmphasizedAuraPriority) end
 			-- Convert Unit Filter Strings
 			ConvertStringToTable(LocalVars.OpacityFilterList, LocalVars.OpacityFilterLookup)
 			ConvertStringToTable(LocalVars.UnitSpotlightList, LocalVars.UnitSpotlightLookup)
 			ConvertColorListTable(LocalVars.CustomColorList, LocalVars.CustomColorLookup)
-		else
-			CallForStyleUpdate()
+
+			-- Convert old aura lists to new format
+			if LocalVars.WidgetDebuffLookup and LocalVars.EmphasizedAuraLookup and LocalVars.WidgetAdditionalAuras then
+				NeatPlatesUtility.ConvertOldAuraListToAuraTable(LocalVars.WidgetAdditionalAuras, LocalVars.WidgetDebuffLookup, LocalVars.EmphasizedAuraLookup)
+
+				-- Cleanup old vars
+				-- LocalVars.WidgetDebuffTrackList = nil
+				LocalVars.WidgetDebuffLookup = nil
+				LocalVars.WidgetDebuffPriority = nil
+				-- LocalVars.EmphasizedAuraList = nil
+				LocalVars.EmphasizedAuraLookup = nil
+				LocalVars.EmphasizedAuraPriority = nil
+			end
 		end
+
+		CallForStyleUpdate()
 
 	end
 
@@ -714,18 +740,26 @@ end
 local Panels = {}
 
 local function CreateProfile(label, color)
+	local objectName = "HubPanelProfile"..label
 	color = color:gsub("|c","")
 	local suffix = ""
 
 	if NeatPlatesSettings.DefaultProfile == label then suffix = "|cFFFFFFFF("..L["Default"]..")" end
 
+	-- Verify Variable Integrity
+	if NeatPlatesHubSettings[objectName] then
+		for i,v in pairs(NeatPlatesHubDefaults) do
+			if NeatPlatesHubSettings[objectName][i] == nil then NeatPlatesHubSettings[objectName][i] = v end
+		end
+	end
+
 	if not NeatPlatesHubSettings.profiles[label] then NeatPlatesHubSettings.profiles[label] = color end  -- If profile doesn't exist, create it
 	if not Panels[label] then -- If panel doesn't exist, create it
-		Panels[label] = CreateHubInterfacePanel("HubPanelProfile"..label, "|c"..color..label.." "..L["Profile"]..suffix, "NeatPlates" )	-- Create the basic settings panel
+		Panels[label] = CreateHubInterfacePanel(objectName, "|c"..color..label.." "..L["Profile"]..suffix, "NeatPlates" )	-- Create the basic settings panel
 		NeatPlatesPanel:AddProfile(label)	-- Add profile to profile list
 		BuildHubPanel(Panels[label])	-- Fill the settings panel with options
 	end
-	Panels[label].RefreshSettings(NeatPlatesHubSettings["HubPanelProfile"..label])	-- Update existing profile
+	Panels[label].RefreshSettings(NeatPlatesHubSettings[objectName])	-- Update existing profile
 
 	InterfaceAddOnsList_Update()	-- Update Interface Options to display new profile
 
@@ -740,11 +774,7 @@ end
 --}
 
 local function LoadProfiles(profiles)
-	--if next(profiles) == nil then profiles = {["Default"] = "FFFFFFFF"} end -- Make sure at least something is loaded
-	--CreateProfile("Default", profiles["Default"]) -- Load Default first to keep it at the top of the list
-
 	for k, v in pairs(profiles) do
-		--if k ~= "Default" then CreateProfile(k, v) end
 		CreateProfile(k, v)
 	end
 end

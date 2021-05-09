@@ -1,12 +1,12 @@
-lightweight tag 4eb9e966d39267a91e5780d4718b794d7603ddd9 1.13.5.24
-Author:	Luxocracy <luxor355@gmail.com>
-Date:	Wed Dec 9 17:44:43 2020 +0100
+lightweight tag 3a374665adcf34d6ee4d506a1d99bb5410071b01 1.13.7.1
+Author:	Luxocracy <Luxocracy@users.noreply.github.com>
+Date:	Fri Apr 30 11:54:27 2021 +0200
 
-commit 4eb9e966d39267a91e5780d4718b794d7603ddd9
-Author: Luxocracy <luxor355@gmail.com>
-Date:   Wed Dec 9 17:43:59 2020 +0100
+commit 3a374665adcf34d6ee4d506a1d99bb5410071b01
+Author: Luxocracy <Luxocracy@users.noreply.github.com>
+Date:   Fri Apr 30 11:51:34 2021 +0200
 
-    Minor priority fix for additional auras
+    Fix tooltips in dropdowns
     
-    - Minor priority fix for additional auras
+    Fix tooltips in dropdowns causing issues
 

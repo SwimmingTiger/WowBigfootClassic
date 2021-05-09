@@ -11,8 +11,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale("NeatPlates")
 local LibClassicDurations = LibStub("LibClassicDurations", true)
 local LCDUnitAura = function() end
 if LibClassicDurations then
-    LibClassicDurations:Register("NeatPlates")
-    LCDUnitAura = LibClassicDurations.UnitAuraWithBuffs
+	LibClassicDurations:Register("NeatPlates")
+	LCDUnitAura = LibClassicDurations.UnitAuraWithBuffs
 end
 
 
@@ -517,7 +517,8 @@ local function ClearWidgetContext(frame)
 end
 
 local function ExpireFunction(icon)
-	UpdateWidget(icon.Parent)
+	-- UpdateWidget(icon.Parent)
+	UpdateIcon(icon) -- Won't re-arrange auras to fill empty slots, but at least it won't show and hopefully will prevent script timeouts from the expire function (This function is really just a backup that rarely gets run anyways)
 end
 
 -------------------------------------------------------------

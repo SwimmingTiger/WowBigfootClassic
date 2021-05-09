@@ -24,6 +24,7 @@ local CachedUnitDescription = NeatPlatesUtility.CachedUnitDescription
 
 local GetUnitSubtitle = NeatPlatesUtility.GetUnitSubtitle
 local GetUnitQuestInfo = NeatPlatesUtility.GetUnitQuestInfo
+local GetArenaIndex = NeatPlatesUtility.GetArenaIndex
 local round = NeatPlatesUtility.round
 
 
@@ -34,6 +35,26 @@ local function DummyFunction() end
 -- Colors
 --local White = {r = 1, g = 1, b = 1}
 --local WhiteColor = { r = 250/255, g = 250/255, b = 250/255, }
+
+
+
+
+
+------------------------------------------------------------------------------
+-- Unit name text
+------------------------------------------------------------------------------
+
+local function UnitNameDelegate(unit)
+	local unitname = unit.name
+	if LocalVars.TextShowUnitTitle then unitname = unit.pvpname or unit.name end
+	if LocalVars.TextShowServerIndicator and unit.realm then unitname = unitname.." (*)" end
+
+	-- Overwrite current name with Arena ID
+	local arenaindex = GetArenaIndex(unit.rawName)
+	if LocalVars.TextUnitNameArenaID and unit.type == "PLAYER" and arenaindex then unitname = tostring(GetArenaIndex(unit.rawName)) end
+
+	return unitname
+end
 
 
 ------------------------------------------------------------------------------
@@ -104,14 +125,24 @@ end
 -- None
 local function HealthFunctionNone() return "" end
 
+local function GetHealthPercent(unit)
+	local precision = LocalVars.TextHealthPercentPrecision
+	local f = '1'
+	for i=precision,1,-1 do f = f..'0' end
+	f = tonumber(f)
+	local hpercent = 100*(unit.health/unit.healthmax) * f
+
+
+	return tonumber(string.format("%." .. (precision or 0) .. "f", ceil(hpercent) / f)) --Ceil to prevent health from showing as 0 while still being alive
+end
 -- Percent
 local function TextHealthPercent(unit)
-	return ceil(100*(unit.health/unit.healthmax)).."%"
+	return GetHealthPercent(unit).."%"
 end
 
 local function TextHealthPercentColored(unit)
 	local color = ColorFunctionByHealth(unit)
-	return ceil(100*(unit.health/unit.healthmax)).."%", color.r, color.g, color.b, .7
+	return GetHealthPercent(unit).."%", color.r, color.g, color.b, .7
 end
 
 local function HealthFunctionPercent(unit)
@@ -137,7 +168,7 @@ end
 -- Approximate
 local function HealthFunctionApproxAndPercent(unit)
 	local color = ColorFunctionByHealth(unit)
-	return HealthFunctionApprox(unit).."  ("..ceil(100*(unit.health/unit.healthmax)).."%)", color.r, color.g, color.b, .7
+	return HealthFunctionApprox(unit).."  ("..GetHealthPercent(unit).."%)", color.r, color.g, color.b, .7
 end
 --Deficit
 local function HealthFunctionDeficit(unit)
@@ -149,14 +180,14 @@ local function HealthFunctionTotal(unit)
 	local color = ColorFunctionByHealth(unit)
 	--local color = HubData.Colors.White
 	local health, healthmax = GetHealth(unit), GetHealthMax(unit)
-	return ShortenNumber(health).."|cffffffff ("..ceil(100*(unit.health/unit.healthmax)).."%)", color.r, color.g, color.b
+	return ShortenNumber(health).."|cffffffff ("..GetHealthPercent(unit).."%)", color.r, color.g, color.b
 end
 -- Exact Health and Percent
 local function HealthFunctionExactTotal(unit)
 	local color = ColorFunctionByHealth(unit)
 	--local color = HubData.Colors.White
 	local health, healthmax = GetHealth(unit), GetHealthMax(unit)
-	return SepThousands(health).."|cffffffff ("..ceil(100*(unit.health/unit.healthmax)).."%)", color.r, color.g, color.b
+	return SepThousands(health).."|cffffffff ("..GetHealthPercent(unit).."%)", color.r, color.g, color.b
 end
 -- TargetOf
 local function HealthFunctionTargetOf(unit)
@@ -427,7 +458,7 @@ local function TextAll(unit)
 	-- local color = ColorFunctionByHealth(unit) --6.0
 	local color = HubData.Colors.White
 	if unit.health < unit.healthmax then
-		return ceil(100*(unit.health/unit.healthmax)).."%", color.r, color.g, color.b, .7
+		return GetHealthPercent(unit).."%", color.r, color.g, color.b, .7
 	else
 		--return GetLevelDescription(unit) , unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue, .7
 		return TextQuest(unit) or TextRoleGuildLevel(unit)
@@ -544,4 +575,6 @@ HubData.RegisterCallback(OnVariableChange)
 NeatPlatesHubFunctions.SetCustomText = HealthTextDelegate
 NeatPlatesHubFunctions.SetSubText = SubTextDelegate
 NeatPlatesHubFunctions.SetCastbarDuration = CastbarDurationDelegate
+NeatPlatesHubFunctions.GetArenaIndex = GetArenaIndex
+NeatPlatesHubFunctions.SetUnitName = UnitNameDelegate
 
