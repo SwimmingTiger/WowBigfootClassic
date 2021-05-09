@@ -124,7 +124,7 @@ end
 -- Checks if spellId is Blessing of Wisdom
 function CSC_IsBoWSpellId(spellId)
 
-	if (spellId == 19742 or spellId == 19850 or spellId == 19852 or spellId == 19853 or spellId == 19854 or spellId == 25290) then
+	if (spellId == 19742 or spellId == 19850 or spellId == 19852 or spellId == 19853 or spellId == 19854 or spellId == 25290 or spellId == 25894 or spellId == 25918) then
 		return true;
 	end
 

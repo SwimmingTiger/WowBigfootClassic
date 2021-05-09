@@ -1,4 +1,21 @@
+<?xml version="1.0"?>
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ http://wowprogramming.com/FrameXML/UI.xsd">
+    <!-- Ensure we always have access to Backdrops on both classic and retail -->
+    <Frame name="Clique_BackdropTemplate" virtual="true">
+        <Scripts>
+            <OnLoad>
+                if BackdropTemplateMixin then
+                    Mixin(self, BackdropTemplateMixin);
+                end
+            </OnLoad>
+            <OnSizeChanged>
+                if self.OnBackdropSizeChanged then
+                    self:OnBackdropSizeChanged();
+                end
+            </OnSizeChanged>
+        </Scripts>
+    </Frame>
+
     <Button name="CliqueRowTemplate" enableMouse="true" virtual="true">
         <Size x="298" y="30"/>
         <Layers>
@@ -87,9 +104,7 @@
         <Scripts>
             <OnEnter>
                 local parent = self:GetParent()
-                if Clique:APIIsTrue(parent:IsEnabled()) then
-                    SpellButton_OnEnter(parent)
-                else
+                if not Clique:APIIsTrue(parent:IsEnabled()) then
                     self:GetHighlightTexture():Hide()
                 end
 
@@ -303,7 +318,9 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                WhoFrameColumn_SetWidth(self, 203);
+                                local width = 203
+                                self:SetWidth(width);
+                                _G[self:GetName().."Middle"]:SetWidth(width - 9);
                             </OnLoad>
                         </Scripts>
                     </Button>
@@ -315,7 +332,9 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                WhoFrameColumn_SetWidth(self, 120);
+                                local width = 120
+                                self:SetWidth(width);
+                                _G[self:GetName().."Middle"]:SetWidth(width - 9);
                             </OnLoad>
                         </Scripts>
                         <ButtonText>
@@ -328,24 +347,25 @@
                             </Anchors>
                         </ButtonText>
                     </Button>
-                    <Slider name="$parent_VSlider" parentKey="slider" valueStep="1.0" hidden="true" orientation="VERTICAL">
+                    <Slider name="$parent_VSlider" parentKey="slider" valueStep="1.0" hidden="true" orientation="VERTICAL" inherits="Clique_BackdropTemplate">
                         <Size x="18" y="0"/>
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="-20"/>
                             <Anchor point="BOTTOMRIGHT"/>
                         </Anchors>
-                        <Backdrop edgeFile="Interface\Buttons\UI-SliderBar-Border" bgFile="Interface\Buttons\UI-SliderBar-Background" tile="true">
-                            <EdgeSize>
-                                <AbsValue val="8"/>
-                            </EdgeSize>
-                            <TileSize>
-                                <AbsValue val="8"/>
-                            </TileSize>
-                            <BackgroundInsets>
-                                <AbsInset left="3" right="3" top="6" bottom="6"/>
-                            </BackgroundInsets>
-                        </Backdrop>
                         <Scripts>
+                            <OnLoad inherit="prepend">
+                                local backdropInfo = {
+                                    bgFile   = "Interface\\Buttons\\UI-SliderBar-Background",
+                                    edgeFile = "Interface\\Buttons\\UI-SliderBar-Border",
+                                    tile     = true,
+                                    tileEdge = true,
+                                    tileSize = 8,
+                                    edgeSize = 8,
+                                    insets   = {left = 3, right = 3, top = 6, bottom = 6},
+                                }
+                                self:SetBackdrop(backdropInfo)
+                            </OnLoad>
                             <OnValueChanged>
                                 CliqueConfig:UpdateList()
                             </OnValueChanged>
@@ -453,7 +473,7 @@
                     </Button>
 
                     <!-- Wrap the scroll frame in a frame that can capture clicks -->
-                    <Button name="CliqueClickGrabber" parentKey="clickGrabber">
+                    <Button name="CliqueClickGrabber" parentKey="clickGrabber" inherits="Clique_BackdropTemplate">
                         <Size x="320" y="160"/>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
@@ -462,19 +482,18 @@
                                 </Offset>
                             </Anchor>
                         </Anchors>
-                        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-                            <EdgeSize>
-                                <AbsValue val="16"/>
-                            </EdgeSize>
-                            <TileSize>
-                                <AbsValue val="16"/>
-                            </TileSize>
-                            <BackgroundInsets>
-                                <AbsInset left="5" right="5" top="5" bottom="5"/>
-                            </BackgroundInsets>
-                        </Backdrop>
                         <Scripts>
-                            <OnLoad>
+                            <OnLoad inherit="prepend">
+                                local backdropInfo = {
+                                    bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+                                    edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                                    tile     = true,
+                                    tileEdge = true,
+                                    tileSize = 16,
+                                    edgeSize = 16,
+                                    insets   = {left = 5, right = 5, top = 5, bottom = 5},
+                                }
+                                self:SetBackdrop(backdropInfo)
                                 self:SetBackdropColor(0.3, 0.3, 0.3)
                                 self:SetBackdropBorderColor(0.5, 0.5, 0.5)
                             </OnLoad>

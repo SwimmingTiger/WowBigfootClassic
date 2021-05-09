@@ -259,6 +259,78 @@ helpers.CheckSpec = function(specmask, spec)
     return bit_band(specmask, s) == s
 end
 
+local function SetupDefaults(t, defaults)
+    if not defaults then return end
+    for k,v in pairs(defaults) do
+        if type(v) == "table" then
+            if t[k] == nil then
+                t[k] = CopyTable(v)
+            elseif t[k] == false then
+                t[k] = false --pass
+            else
+                SetupDefaults(t[k], v)
+            end
+        else
+            if t[k] == nil then t[k] = v end
+            if t[k] == "__REMOVED__" then t[k] = nil end
+        end
+    end
+end
+helpers.SetupDefaults = SetupDefaults
+
+local function RemoveDefaults(t, defaults)
+    if not defaults then return end
+    for k, v in pairs(defaults) do
+        if type(t[k]) == 'table' and type(v) == 'table' then
+            RemoveDefaults(t[k], v)
+            if next(t[k]) == nil then
+                t[k] = nil
+            end
+        elseif t[k] == v then
+            t[k] = nil
+        end
+    end
+    return t
+end
+helpers.RemoveDefaults = RemoveDefaults
+
+local function RemoveDefaultsPreserve(t, defaults)
+    if not defaults then return end
+    for k, v in pairs(defaults) do
+        if type(t[k]) == 'table' and type(v) == 'table' then
+            RemoveDefaultsPreserve(t[k], v)
+            if next(t[k]) == nil then
+                t[k] = nil
+            end
+        elseif t[k] == nil and v ~= nil then
+            t[k] = "__REMOVED__"
+        elseif t[k] == v then
+            t[k] = nil
+        end
+    end
+    return t
+end
+helpers.RemoveDefaultsPreserve = RemoveDefaultsPreserve
+
+local function MergeTable(t1, t2)
+    if not t2 then return false end
+    for k,v in pairs(t2) do
+        if type(v) == "table" then
+            if t1[k] == nil then
+                t1[k] = CopyTable(v)
+            else
+                MergeTable(t1[k], v)
+            end
+        elseif v == "__REMOVED__" then
+            t1[k] = nil
+        else
+            t1[k] = v
+        end
+    end
+    return t1
+end
+helpers.MergeTable = MergeTable
+
 --[[
 local ItemSetsRegistered = {}
 

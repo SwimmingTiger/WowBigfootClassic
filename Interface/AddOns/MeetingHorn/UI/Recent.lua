@@ -75,7 +75,9 @@ function Recent:Constructor()
         local list = self.Members:GetItemList()
 
         for i, info in ipairs(list) do
-            InviteToGroup(info.name)
+            if not (UnitInRaid(info.name) or UnitInParty(info.name)) then
+                InviteToGroup(info.name)
+            end
         end
         btn:SetCountdown(600)
     end)

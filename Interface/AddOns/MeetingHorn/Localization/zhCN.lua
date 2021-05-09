@@ -210,9 +210,17 @@ L['ACTIVITY_NOT_FINISH'] = '任务尚未完成'
 L['ACTIVITY_REWARD_FETCHED '] = '任务奖励已领取'
 L['ACTIVITY_FETCH_REWARD_FAILED '] = '领取任务奖励失败'
 L['ACTIVITY_REWARD_OUT_OF_DATE'] = '任务奖励领取过期'
+L['ACTIVITY_INVALID_FETCH_CONDITION'] = '任务领取条件未达成'
+L['ADDON_UPDATED'] = '请更新至最新版本后参与挑战活动'
 
-L.CHALLENGE_RULES = [[●本次活动所有奖励均在插件上兑换领取，不安装插件的玩家将无法兑换相应的奖励；
+L.CHALLENGE_RULES =
+    [[●本次活动所有奖励均在插件上兑换领取，不安装插件的玩家将无法兑换相应的奖励；
 ●活动到期后，击杀或经验值将不再被计入本次活动。已完成活动目标的玩家，仍可以在2周内继续领取；
 ●同一种虚拟物品奖励，每个角色只能领取一次，不同挑战活动的不同虚拟物品奖励，每个角色达到挑战目标后都可以领取，不同角色可以重复参与活动并在达到挑战目标后领取对应的虚拟物品奖励；
 ●若在72小时内奖励并没有发放至游戏角色邮箱，请联系人工客服进行反馈；
 ●本次挑战活动由于数量较大，当您击杀Boss后，请点击进度条上的【刷新进度】按钮查看最新进度，刷新后每30分钟更新一次数据结果；]]
+
+L['Activities List'] = '活动列表'
+L['Current Activity'] = '当前活动'
+L['Last Activity'] = '往期活动'
+L['Last Activity %s'] = '往期活动%s'

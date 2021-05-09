@@ -115,7 +115,7 @@ local function CopyLegacySettings(oldSettings, newSettings)
 end
 
 local function CreateBackdrop(parent, cfg)
-	local f = CreateFrame("Frame", nil, parent)
+	local f = CreateFrame("Frame", nil, parent, BackdropTemplateMixin and "BackdropTemplate")
 	f:SetPoint("TOPLEFT", parent, "TOPLEFT", -cfg.inset, cfg.inset)
 	f:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", cfg.inset, -cfg.inset)
 	-- Backdrop Settings
@@ -384,7 +384,7 @@ local function UpdateThreatData(unit)
 
 	-- check for warnings
 	if UnitIsUnit(unit, "player") and threatPercent then
-		TC2:CheckWarning(threatPercent, threatValue)
+		TC2:CheckWarning(threatPercent, threatValue, rawThreatPercent)
 	end
 
 	if C.general.rawPercent then
@@ -457,9 +457,9 @@ local function CheckStatusDeferred()
 	callCheckStatus = true
 end
 
-function TC2:CheckWarning(threatPercent, threatValue)
+function TC2:CheckWarning(threatPercent, threatValue, rawThreatPercent)
 	-- percentage is now above threshold and was below threshold before
-	if threatPercent >= C.warnings.threshold and lastWarnPercent < C.warnings.threshold then
+	if threatPercent >= C.warnings.threshold and lastWarnPercent < C.warnings.threshold and rawThreatPercent < 250 then
 		lastWarnPercent = threatPercent
 		if threatValue > C.warnings.minThreatAmount then
 			if C.warnings.sound then PlaySoundFile(LSM:Fetch("sound", C.warnings.soundFile), C.warnings.soundChannel) end

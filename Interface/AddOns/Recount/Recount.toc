@@ -1,4 +1,5 @@
-## Interface: 11306
+## Interface: 11307
+## Version: v1.13.6d
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計
@@ -6,7 +7,6 @@
 ## Notes-zhCN: |cff00ff00Recount|r|n|cffbc8f8f图形化显示的伤害/治疗统计插件。|r
 ## Notes-zhTW: |cff00ff00Recount|r|n|cffbc8f8f圖形化顯示的傷害/治療統計插件。|r
 ## Author: Cryect, ported to 2.4 by Elsia, maintained by Resike from 5.4
-## Version: v1.13.5c
 ## SavedVariables: RecountDB
 ## SavedVariablesPerCharacter: RecountPerCharDB
 ## Dependencies: BigFoot

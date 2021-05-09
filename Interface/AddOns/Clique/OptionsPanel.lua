@@ -76,7 +76,7 @@ function panel:CreateOptions()
     end
     self.specswap:SetScript("PostClick", self.specswap.EnableDisable)
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         -- Generate the dropdowns for each spec
         for i = 1, GetNumSpecializations() do
             local _, specName = GetSpecializationInfo(i)

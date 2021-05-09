@@ -124,8 +124,20 @@ function MainPanel:UpdateTabFrames()
     end
 end
 
+function MainPanel:GetTabIndex(n)
+    if type(n) == 'number' then
+        return n
+    end
+
+    for i, tab in ipairs(self.Tabs) do
+        if tab.frame == n then
+            return i
+        end
+    end
+end
+
 function MainPanel:SetTab(n)
-    PanelTemplates_SetTab(self, n)
+    PanelTemplates_SetTab(self, self:GetTabIndex(n))
     self:UpdateTabFrames()
 end
 

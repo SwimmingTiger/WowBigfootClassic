@@ -274,55 +274,56 @@ function NugRunningGUI.CreateCommonForm(self)
             -- else
             NugRunning.MergeTable(NugRunningConfigMerged[category][spellID], delta, true)
             -- end
-		else
-			NugRunningConfigMerged[category][spellID] = delta
-		end
+        else
+            NugRunningConfigMerged[category][spellID] = delta
+            delta.isAdded = true
+        end
 
-		NugRunning:UpdateSpellNameToIDTable()
+        NugRunning:UpdateSpellNameToIDTable()
 
-		-- fill up spell clones of the new version
-		local originalSpell = NugRunningConfigMerged[category][spellID]
-		if originalSpell.clones then
-			for i, additionalSpellID in ipairs(originalSpell.clones) do
-				NugRunningConfigMerged[category][additionalSpellID] = originalSpell
-				NugRunningConfigMerged.spellClones[additionalSpellID] = true
-			end
-		end
-		----------
+        -- fill up spell clones of the new version
+        local originalSpell = NugRunningConfigMerged[category][spellID]
+        if originalSpell.clones then
+            for i, additionalSpellID in ipairs(originalSpell.clones) do
+                NugRunningConfigMerged[category][additionalSpellID] = originalSpell
+                NugRunningConfigMerged.spellClones[additionalSpellID] = true
+            end
+        end
+        ----------
 
-		NugRunningConfigCustom[class] = NugRunningConfigCustom[class] or {}
-		NugRunningConfigCustom[class][category] = NugRunningConfigCustom[class][category] or {}
-		if not next(delta) then delta = nil end
-		NugRunningConfigCustom[class][category][spellID] = delta
+        NugRunningConfigCustom[class] = NugRunningConfigCustom[class] or {}
+        NugRunningConfigCustom[class][category] = NugRunningConfigCustom[class][category] or {}
+        if not next(delta) then delta = nil end
+        NugRunningConfigCustom[class][category][spellID] = delta
 
-		NugRunningGUI.frame.tree:UpdateSpellTree()
-		NugRunningGUI.frame.tree:SelectByPath(class, category, spellID)
-	end)
-	Form:AddChild(save)
+        NugRunningGUI.frame.tree:UpdateSpellTree()
+        NugRunningGUI.frame.tree:SelectByPath(class, category, spellID)
+    end)
+    Form:AddChild(save)
 
-	local delete = AceGUI:Create("Button")
-	delete:SetText(L"Delete")
-	save:SetRelativeWidth(0.45)
-	delete:SetCallback("OnClick", function(self, event)
-		local p = self.parent
-		local class = p.class
-		local category = p.category
-		local spellID = p.id
-		-- local opts = p.opts
-		if NugRunningConfigCustom[class][category] then
-			NugRunningConfigCustom[class][category][spellID] = nil
-		end
-		NugRunningConfigMerged[category][spellID] = NugRunningConfig[category][spellID]
+    local delete = AceGUI:Create("Button")
+    delete:SetText(L"Delete")
+    save:SetRelativeWidth(0.45)
+    delete:SetCallback("OnClick", function(self, event)
+        local p = self.parent
+        local class = p.class
+        local category = p.category
+        local spellID = p.id
+        -- local opts = p.opts
+        if NugRunningConfigCustom[class][category] then
+            NugRunningConfigCustom[class][category][spellID] = nil
+        end
+        NugRunningConfigMerged[category][spellID] = NugRunningConfig[category][spellID]
 
-		NugRunningGUI.frame.tree:UpdateSpellTree()
-		NugRunningGUI.frame.tree:SelectByPath(class, category, spellID)
-	end)
-	Form.controls.delete = delete
-	Form:AddChild(delete)
+        NugRunningGUI.frame.tree:UpdateSpellTree()
+        NugRunningGUI.frame.tree:SelectByPath(class, category, spellID)
+    end)
+    Form.controls.delete = delete
+    Form:AddChild(delete)
 
-	local spellID = AceGUI:Create("EditBox")
-	spellID:SetLabel(L"Spell ID")
-	spellID:SetDisabled(true)
+    local spellID = AceGUI:Create("EditBox")
+    spellID:SetLabel(L"Spell ID")
+    spellID:SetDisabled(true)
     spellID:DisableButton(true)
     spellID:SetRelativeWidth(0.2)
     spellID:SetCallback("OnTextChanged", function(self, event, value)

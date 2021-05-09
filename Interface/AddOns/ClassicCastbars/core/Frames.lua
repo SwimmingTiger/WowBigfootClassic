@@ -211,10 +211,13 @@ function addon:SetLSMBorders(castbar, cast, db)
 end
 
 function addon:SetCastbarFonts(castbar, cast, db)
-    local fontName, fontHeight = castbar.Text:GetFont()
-    if fontName ~= db.castFont or db.castFontSize ~= fontHeight then
-        castbar.Text:SetFont(db.castFont, db.castFontSize)
-        castbar.Timer:SetFont(db.castFont, db.castFontSize)
+    local fontName, fontHeight, fontFlags = castbar.Text:GetFont()
+    if fontName ~= db.castFont or db.castFontSize ~= fontHeight or db.textOutline ~= fontFlags then
+        castbar.Text:SetFont(db.castFont, db.castFontSize, db.textOutline)
+        castbar.Timer:SetFont(db.castFont, db.castFontSize, db.textOutline)
+
+        castbar.Text:SetShadowColor(0, 0, 0, db.textOutline == "" and 1 or 0)
+        castbar.Timer:SetShadowColor(0, 0, 0, db.textOutline == "" and 1 or 0)
     end
 
     local c = db.textColor
@@ -377,6 +380,7 @@ function addon:SkinPlayerCastbar()
     if not db.enabled then return end
 
     if not CastingBarFrame:IsEventRegistered("UNIT_SPELLCAST_START") then
+        -- luacheck: ignore
         print("|cFFFF0000[ClassicCastbars] Incompatibility detected for player castbar. You most likely have another addon disabling the Blizzard castbar.|r")
     end
 
@@ -417,7 +421,7 @@ function addon:SkinPlayerCastbar()
                 -- Color castbar on first OnShow triggered aswell with a small delay. Hopefully fixes an issue where other addons or scripts
                 -- can cause conflicts by overwriting our color values
                 addon.playerColorChangesRan = true
-                C_Timer.After(0.1, ColorPlayerCastbar)
+                C_Timer.After(0.3, ColorPlayerCastbar)
             end
         end)
 

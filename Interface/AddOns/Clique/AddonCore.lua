@@ -123,7 +123,7 @@ function addon:RegisterMessage(name, handler)
 end
 
 function addon:UnregisterMessage(name)
-    assert(type(event) == "string", "Invalid argument to 'UnregisterMessage'")
+    assert(type(name) == "string", "Invalid argument to 'UnregisterMessage'")
     messageMap[name] = nil
 end
 
@@ -134,7 +134,7 @@ function addon:FireMessage(name, ...)
     if handler_t == "function" then
         handler(name, ...)
     elseif handler_t == "string" and addon[handler] then
-        addon[handler](addon, event, ...)
+        addon[handler](addon, name, ...)
     end
 end
 

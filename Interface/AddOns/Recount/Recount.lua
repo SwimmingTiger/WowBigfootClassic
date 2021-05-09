@@ -11,7 +11,8 @@ local FilterSize	= 20
 local RampUp		= 5
 local RampDown		= 10
 
-Recount.Version = tonumber(string.sub("$Revision: 1559 $", 12, -3))
+Recount.Version = tonumber(string.sub("$Revision: 1572 $", 12, -3))
+
 
 
 

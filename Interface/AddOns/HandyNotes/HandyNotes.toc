@@ -1,4 +1,4 @@
-## Interface: 11306
+## Interface: 11307
 ## Title: HandyNotes
 ## Title-zhCN: [大脚][集]地图标记
 ## Title-zhTW: [大腳][集]地圖標記
@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00HandyNotes|r|n|cffbc8f8f使用Alt+鼠标右键快速标记|r
 ## Notes-zhTW: |cff00ff00HandyNotes|r
 ## Author: Xinhuan
-## Version: v1.6.1
+## Version: v1.6.2
 ## X-Category: Map
 ## X-eMail: xinhuan @ gmail DOT com
 ## OptionalDeps: Ace3, TomTom, HereBeDragons

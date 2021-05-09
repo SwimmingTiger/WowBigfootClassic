@@ -1,4 +1,4 @@
-﻿local _, MySlot = ...;
+local _, MySlot = ...
 
 local L = MySlot.L
 
@@ -8,17 +8,18 @@ local base64 = MySlot.base64
 local pblua = MySlot.luapb
 local _MySlot = pblua.load_proto_ast(MySlot.ast)
 
-local MYSLOT_AUTHOR = "T.G. <farmer1992@gmail.com>"
+
+local MYSLOT_AUTHOR = "Boshi Lian <farmer1992@gmail.com>"
+
+
 local MYSLOT_VER = 30
 local MYSLOT_ALLOW_VER = {MYSLOT_VER}
 
-MySlot_SavedDb = MySlot_SavedDb or {}
-
+-- local MYSLOT_IS_DEBUG = true
 local MYSLOT_LINE_SEP = IsWindowsClient() and "\r\n" or "\n"
-local MYSLOT_MAX_ACTIONBAR = 120
+local MYSLOT_MAX_ACTIONBAR = 132
 
-local MySlot_Scheme = {}
-
+-- {{{ SLOT TYPE
 local MYSLOT_SPELL = _MySlot.Slot.SlotType.SPELL
 local MYSLOT_COMPANION = _MySlot.Slot.SlotType.COMPANION
 local MYSLOT_ITEM = _MySlot.Slot.SlotType.ITEM
@@ -43,130 +44,54 @@ MySlot.SLOT_TYPE = {
     ["summonmount"] = MYSLOT_SUMMONMOUNT,
     [MYSLOT_NOTFOUND] = MYSLOT_EMPTY,
 }
+-- }}}
 
 local MYSLOT_BIND_CUSTOM_FLAG = 0xFFFF
 
+-- {{{ MergeTable
+-- return item count merge into target
 local function MergeTable(target, source)
-	if source then
-		assert(type(target) == 'table' and type(source) == 'table');
-		for _,b in ipairs(source) do
-			assert(b < 256);
-			target[#target+1] = b;
-		end
-		return #source;
-	else
-		return 0;
-	end
+    if source then
+        assert(type(target) == 'table' and type(source) == 'table')
+        for _,b in ipairs(source) do
+            assert(b < 256)
+            target[#target+1] = b
+        end
+        return #source
+    else
+        return 0
+    end
 end
+-- }}}
 
 -- fix unpack stackoverflow
 local function StringToTable(s)
-	if type(s) ~= 'string' then
-		return {}
-	end
-	local r = {}
-	for i = 1, string.len(s) do
-		r[#r + 1] = string.byte(s, i)
-	end
-	return r
+    if type(s) ~= 'string' then
+        return {}
+    end
+    local r = {}
+    for i = 1, string.len(s) do
+        r[#r + 1] = string.byte(s, i)
+    end
+    return r
 end
 
 local function TableToString(s)
-	if type(s) ~= 'table' then
-		return ''
-	end
-	local t = {}
-	for _,c in pairs(s) do
-		t[#t + 1] = string.char(c)
-	end
-	return table.concat(t)
+    if type(s) ~= 'table' then
+        return ''
+    end
+    local t = {}
+    for _,c in pairs(s) do
+        t[#t + 1] = string.char(c)
+    end
+    return table.concat(t)
 end
 
 function MySlot:Print(msg)
-	DEFAULT_CHAT_FRAME:AddMessage("|CFFFF0000<|r|CFFFFD100MySlot|r|CFFFF0000>|r"..(msg or "nil"));
+    DEFAULT_CHAT_FRAME:AddMessage("|CFFFF0000<|r|CFFFFD100Myslot|r|CFFFF0000>|r"..(msg or "nil"))
 end
 
-StaticPopupDialogs["MySlot_SAVE_SET"] = {
-	text = GEARSETS_POPUP_TEXT,
-	button1 = ACCEPT,
-	button2 = CANCEL,
-	hasEditBox = 1,
-	maxLetters = 16,
-	OnAccept = function(self)
-		local name = _G[self:GetName().."EditBox"]:GetText();
-		if name then
-			local Stable = {};
-			Stable.Sname = name;
-			Stable.Scheme = MYSLOT_ReportFrame_EditBox:GetText();
-			Stable.addtime = time();
-			MySlot_Save_Check(Stable, name);
-		end
-	end,
-	OnShow = function(self)
-		local SnameTemplate = "";
-		SnameTemplate = (UnitClass("player")).."  -  "..UnitName("player");
-		_G[self:GetName().."EditBox"]:SetText(SnameTemplate);
-		_G[self:GetName().."EditBox"]:HighlightText();
-		_G[self:GetName().."EditBox"]:SetFocus();
-	end,
-	OnHide = function(self)
-		_G[self:GetName().."EditBox"]:SetText("");
-	end,
-	OnCancel = function(self)
-
-	end,
-	EditBoxOnEnterPressed = function(self)
-		local name = _G[self:GetName()]:GetText();
-		if name then
-			local Stable = {};
-			Stable.Sname = name;
-			Stable.Scheme = MYSLOT_ReportFrame_EditBox:GetText();
-			Stable.addtime = time();
-			MySlot_Save_Check(Stable,name);
-		end
-		self:GetParent():Hide();
-	end,
-	EditBoxOnEscapePressed = function(self)
-		self:GetParent():Hide();
-	end,
-	timeout = 0,
-	exclusive = 1,
-	whileDead = 1,
-	hideOnEscape = 1
-};
-
-StaticPopupDialogs["MySlot_DELETE_SET"] = {
-	text = MySlot_DEL_Text,
-	button1 = YES,
-	button2 = NO,
-	OnAccept = function(self)
-		local Sname = StaticPopupDialogs["MySlot_DELETE_SET"].Sname;
-		for i,Stable in pairs(MySlot_SavedDb) do
-			if Stable and Stable.Sname and Sname == Stable.Sname then
-				table.remove(MySlot_SavedDb, i);
-			end
-		end
-		if MySlot_SavedDb[1] then
-			MYSLOT_LoadFrame_Update();
-			MYSLOT_LoadFrameDelButton:Disable()
-			MYSLOT_LoadFrameLoadSchemeButton:Disable();
-		else
-			MYSLOT_LoadFrame:Hide();
-		end
-		MYSLOT_LoadFrame.selectedSname = nil;
-		MySlot_Check_Status();
-		local str = string.format(MySlot_DEL_SUCCESS,Sname);
-		MySlot:Print(str);
-	end,
-	OnCancel = function(self)
-
-	end,
-	showAlert = 1,
-	timeout = 0,
-	hideOnEscape = 1,
-	whileDead = 1,
-};
-
+-- {{{ GetMacroInfo
 function MySlot:GetMacroInfo(macroId)
     -- {macroId ,icon high 8, icon low 8 , namelen, ..., bodylen, ...}
 
@@ -179,7 +104,6 @@ function MySlot:GetMacroInfo(macroId)
     iconTexture = gsub( strupper(iconTexture or "INV_Misc_QuestionMark") , "INTERFACE\\ICONS\\", "");
 
     local msg = _MySlot.Macro()
-
     msg.id = macroId
     msg.icon = iconTexture
     msg.name = name
@@ -187,43 +111,50 @@ function MySlot:GetMacroInfo(macroId)
 
     return msg
 end
+-- }}}
 
+-- {{{ GetActionInfo
 function MySlot:GetActionInfo(slotId)
-	-- { slotId, slotType and high 16 ,high 8 , low 8, }
-	local slotType, index = GetActionInfo(slotId)
-	if MySlot.SLOT_TYPE[slotType] == MYSLOT_EQUIPMENTSET then
-		for i = 1, C_EquipmentSet.GetNumEquipmentSets() do
-			if C_EquipmentSet.GetEquipmentSetInfo(i) == index then
-				index = i
-				break
-			end
-		end
-	elseif not MySlot.SLOT_TYPE[slotType] then
-		if slotType then
-			self:Print(L["[WARN] Ignore unsupported Slot Type [ %s ] , contact %s please"]:format(slotType , MYSLOT_AUTHOR))
-		end
-		return nil
-	elseif not index then
-		return nil
-	end
+    -- { slotId, slotType and high 16 ,high 8 , low 8, }
+    local slotType, index = GetActionInfo(slotId)
+    if MySlot.SLOT_TYPE[slotType] == MYSLOT_EQUIPMENTSET then
+        -- i starts from 0 https://github.com/tg123/myslot/issues/10 weird blz
+        for i = 0, C_EquipmentSet.GetNumEquipmentSets() do
+            if C_EquipmentSet.GetEquipmentSetInfo(i) == index then
+                index = i
+                break
+            end
+        end
+    elseif not MySlot.SLOT_TYPE[slotType] then
+        if slotType then 
+            self:Print(L["[WARN] Ignore unsupported Slot Type [ %s ] , contact %s please"]:format(slotType , MYSLOT_AUTHOR))
+        end
+        return nil
+    elseif not index then
+        return nil
+    end
 
-	local msg = _MySlot.Slot()
-	msg.id = slotId
-	msg.type = MySlot.SLOT_TYPE[slotType]
-	if type(index) == 'string' then
-		msg.strindex = index
-		msg.index = 0
-	else
-		msg.index = index
-	end
-	return msg
+    local msg = _MySlot.Slot()
+    msg.id = slotId
+    msg.type = MySlot.SLOT_TYPE[slotType]
+    if type(index) == 'string' then
+        msg.strindex = index
+        msg.index = 0
+    else
+        msg.index = index
+    end
+    return msg
 end
 
-local function KeyToByte(key, command)
-	-- {mod , key , command high 8, command low 8}
-	if not key then
-		return nil
-	end
+-- }}}
+
+-- {{{ GetBindingInfo
+-- {{{ Serialzie Key
+local function KeyToByte(key , command)
+    -- {mod , key , command high 8, command low 8}
+    if not key then
+        return nil
+    end
 
     local mod = nil
     local _, _, _mod, _key = string.find(key ,"(.+)-(.+)") 
@@ -231,88 +162,108 @@ local function KeyToByte(key, command)
         mod, key = _mod, _key
     end
 
-	mod = mod or "NONE"
+    mod = mod or "NONE"
 
-	if not MySlot.MOD_KEYS[mod] then
-		MySlot:Print(L["[WARN] Ignore unsupported Key Binding [ %s ] , contact %s please"]:format(mod, MYSLOT_AUTHOR))
-		return nil
-	end
+    if not MySlot.MOD_KEYS[mod] then
+        MySlot:Print(L["[WARN] Ignore unsupported Key Binding [ %s ] , contact %s please"]:format(mod, MYSLOT_AUTHOR))
+        return nil
+    end
 
-	local msg = _MySlot.Key()
-	if MySlot.KEYS[key] then
-		msg.key = MySlot.KEYS[key]
-	else
-		msg.key = MySlot.KEYS["KEYCODE"]
-		msg.keycode = key
-	end
-	msg.mod = MySlot.MOD_KEYS[mod]
+    local msg = _MySlot.Key()
+    if MySlot.KEYS[key] then
+        msg.key = MySlot.KEYS[key]
+    else
+        msg.key = MySlot.KEYS["KEYCODE"]
+        msg.keycode = key
+    end
+    msg.mod = MySlot.MOD_KEYS[mod]
 
-	return msg
+    return msg
 end
+-- }}}
 
 function MySlot:GetBindingInfo(index)
-	-- might more than 1
+    -- might more than 1
     local _command, _, key1, key2 = GetBinding(index)
 
-	if not _command then
-		return
-	end
+    if not _command then
+        return
+    end
 
-	local command = MySlot.BINDS[_command]
+    local command = MySlot.BINDS[_command]
 
-	local msg = _MySlot.Bind()
+    local msg = _MySlot.Bind()
 
-	if not command then
-		msg.command = _command
-		command = MYSLOT_BIND_CUSTOM_FLAG
-	end
+    if not command then
+        msg.command = _command
+        command = MYSLOT_BIND_CUSTOM_FLAG
+    end
 
-	msg.id = command
+    msg.id = command
 
-	msg.key1 = KeyToByte(key1)
-	msg.key2 = KeyToByte(key2)
+    msg.key1 = KeyToByte(key1)
+    msg.key2 = KeyToByte(key2)
 
-	if msg.key1 or msg.key2 then
-		return msg
-	else
-		return nil
-	end
+    if msg.key1 or msg.key2 then
+        return msg
+    else
+        return nil
+    end
 end
+-- }}}
 
-function MySlot_Export()
-	local msg = _MySlot.Charactor()
 
-	msg.ver = MYSLOT_VER
-	msg.name = UnitName("player")
+function MySlot:Export(opt)
+    -- ver nop nop nop crc32 crc32 crc32 crc32
 
-	msg.macro = {}
+    local msg = _MySlot.Charactor()
 
-    for i = 1, MAX_ACCOUNT_MACROS + MAX_CHARACTER_MACROS do
-		local m = MySlot:GetMacroInfo(i)
-		if m then
-			msg.macro[#msg.macro + 1] = m
-		end
-	end
+    msg.ver = MYSLOT_VER
+    msg.name = UnitName("player")
 
-	msg.slot = {}
-	for i = 1,MYSLOT_MAX_ACTIONBAR do
-		local m = MySlot:GetActionInfo(i)
-		if m then
-			msg.slot[#msg.slot + 1] = m
-		end
-	end
+    msg.macro = {}
 
-	msg.bind = {}
-	for i = 1, GetNumBindings() do
-		local m = MySlot:GetBindingInfo(i)
-		if m then
-			msg.bind[#msg.bind + 1] = m
-		end
-	end
+    if not opt.ignoreMacro then
+        for i = 1, MAX_ACCOUNT_MACROS + MAX_CHARACTER_MACROS do
+            local m = self:GetMacroInfo(i)
+            if m then
+                msg.macro[#msg.macro + 1] = m
+            end
+        end
+    end
 
-	local ct = msg:Serialize()
+    msg.slot = {}
+    if opt.ignoreAction then
+        -- dummy action, for older myslot to import and will do nothing
+        for i = 1, MYSLOT_MAX_ACTIONBAR do
+            local m = _MySlot.Slot()
+            m.id = i
+            m.type = MYSLOT_ITEM
+            m.index = 0
+            msg.slot[#msg.slot + 1] = m
+        end
+    else
+        for i = 1, MYSLOT_MAX_ACTIONBAR do
+            local m = self:GetActionInfo(i)
+            if m then
+                msg.slot[#msg.slot + 1] = m
+            end
+        end
+    end
+
+    msg.bind = {}
+    if not opt.ignoreBinding then
+        for i = 1, GetNumBindings() do
+            local m = self:GetBindingInfo(i)
+            if m then
+                msg.bind[#msg.bind + 1] = m
+            end
+        end
+    end
+
+    local ct = msg:Serialize()
     local t = {MYSLOT_VER,86,04,22,0,0,0,0}
-	MergeTable(t, StringToTable(ct))
+    MergeTable(t, StringToTable(ct))
 
     -- {{{ CRC32
     -- crc
@@ -338,41 +289,37 @@ function MySlot_Export()
     s = "@ Myslot (V" .. MYSLOT_VER .. ")" .. MYSLOT_LINE_SEP .. s
 
     local d = base64.enc(t)
-    local LINE_LEN = 80
+    local LINE_LEN = 60
     for i = 1, d:len(), LINE_LEN do
         s = s .. d:sub(i, i + LINE_LEN - 1) .. MYSLOT_LINE_SEP
     end
-	MYSLOT_ReportFrame_EditBox:SetText(s)
-	MYSLOT_ReportFrame_EditBox:HighlightText()
-	MYSLOT_ReportFrame_EditBox:SetCursorPosition(0);
+    s = strtrim(s)
+    s = s .. MYSLOT_LINE_SEP .. "@ --------------------"
+    s = s .. MYSLOT_LINE_SEP .. "@ END OF MYSLOT"
+
+    return s
+    -- }}}
 end
 
-function MySlot_Import()
-	local text = MYSLOT_ReportFrame_EditBox:GetText() or ""
-	MySlot:ImportByText(text);
-end
+function MySlot:Import(text, opt)
+    if InCombatLockdown() then
+        MySlot:Print(L["Import is not allowed when you are in combat"])
+        return
+    end
 
-function MySlot:ImportByText(text, Sname)
-	if InCombatLockdown() then
-		self:Print(L["Import is not allowed when you are in combat"])
-		return;
-	end
+    local s = text or ""
+    s = string.gsub(s,"(@.[^\n]*\n*)","")
+    s = string.gsub(s,"(#.[^\n]*\n*)","")
+    s = string.gsub(s,"\n","")
+    s = string.gsub(s,"\r","")
+    s = base64.dec(s)
+    
+    if #s < 8  then
+        MySlot:Print(L["Bad importing text [TEXT]"])
+        return
+    end
 
-	local s = text;
-	if not s then return end
-
-	s = string.gsub(s,"(@.[^\n]*\n)","")
-    s = string.gsub(s,"(#.[^\n]*\n)","")
-	s = string.gsub(s,"\n","")
-	s = string.gsub(s,"\r","")
-	s = base64.dec(s)
-
-	if #s < 8 then
-		MySlot:Print(L["Bad importing text [TEXT]"])
-		return
-	end
-
-    local force = _G['MYSLOT_ReportFrameForceImport']:GetChecked()
+    local force = opt.force
 
     local ver = s[1]
     local crc = s[5] * 2^24 + s[6] * 2^16 + s[7] * 2^8 + s[8]
@@ -396,102 +343,112 @@ function MySlot:ImportByText(text, Sname)
         end
     end
 
-	local ct = {}
-	for i = 9, #s do
-		ct[#ct + 1] = s[i]
-	end
-	ct = TableToString(ct)
-
-	local msg = _MySlot.Charactor():Parse(ct)
-	-- return msg
-	StaticPopupDialogs["MYSLOT_MSGBOX"].OnAccept = function()
-		MySlot:RecoverData(msg)
-	end
-	StaticPopup_Show("MYSLOT_MSGBOX","")
+    local ct = {}
+    for i = 9, #s do
+        ct[#ct + 1] = s[i]
+    end
+    ct = TableToString(ct)
+    
+    local msg = _MySlot.Charactor():Parse(ct)
+    return msg
 end
 
+local function UnifyCRLF(text)
+    text = string.gsub(text, "\r", "")
+    text = string.gsub(text, "\n", MYSLOT_LINE_SEP)
+    return text
+end
+
+-- {{{ FindOrCreateMacro
 function MySlot:FindOrCreateMacro(macroInfo)
-	if not macroInfo then
-		return
-	end
+    if not macroInfo then
+        return
+    end
+    -- cache local macro index
+    -- {{{ 
+    local localMacro = {}
+    for i = 1, MAX_ACCOUNT_MACROS + MAX_CHARACTER_MACROS do
+        
+        local name, _, body = GetMacroInfo(i)
+        if name then
+            body = UnifyCRLF(body)
+            localMacro[ name .. "_" .. body ] = i
+            localMacro[ body ] = i
+        end
+    end
+    -- }}} 
 
-	-- cache local macro index
-	local localMacro = {}
-	for i = 1, MAX_ACCOUNT_MACROS + MAX_CHARACTER_MACROS do
+    local id = macroInfo["oldid"]
+    local name = macroInfo["name"]
+    local icon = macroInfo["icon"]
+    local body = macroInfo["body"]
+    body = UnifyCRLF(body)
 
-		local name, _, body = GetMacroInfo(i)
-		if name then
-			localMacro[ name .. "_" .. body ] = i
-			localMacro[ body ] = i
-		end
-	end
+    local localIndex = localMacro[ name .. "_" .. body] or localMacro[ body ]
 
-	local id = macroInfo["oldid"]
-	local name = macroInfo["name"]
-	local icon = macroInfo["icon"]
-	local body = macroInfo["body"]
+    if localIndex then
+        return localIndex
+    else
 
-	local localIndex = localMacro[ name .. "_" .. body ] or localMacro[ body ]
+        local numglobal, numperchar = GetNumMacros()
+        local perchar = id > MAX_ACCOUNT_MACROS and 2 or 1
 
-	if localIndex then
-		return localIndex
-	else
-		local numglobal, numperchar = GetNumMacros()
-		local perchar = id > MAX_ACCOUNT_MACROS and 2 or 1
+        --[[
+            perchar    G = 01 P = 10 
+            testallow  allow 01 | allow 10 = 00 , 01 , 10 , 11
+            perchar & testallow = 01 , 10 , 00
+            perchar = testallow when not allow
+        ]]
+        local testallow = bit.bor( numglobal < MAX_ACCOUNT_MACROS and 1 or 0 , numperchar < MAX_CHARACTER_MACROS and 2 or 0)
+        perchar = bit.band( perchar, testallow)
+        perchar = perchar == 0 and testallow or perchar
+                
+        if perchar ~= 0 then
+            -- fix icon using #showtooltip
+            
+            if strsub(body,0, 12) == '#showtooltip' then
+                icon = 'INV_Misc_QuestionMark'
+            end
+            local newid = CreateMacro(name, icon, body, perchar >= 2)
+            if newid then
+                return newid
+            end
+        end
 
-		local testallow = bit.bor( numglobal < MAX_ACCOUNT_MACROS and 1 or 0 , numperchar < MAX_CHARACTER_MACROS and 2 or 0)
-		perchar = bit.band( perchar, testallow)
-		perchar = perchar == 0 and testallow or perchar
-
-		if perchar ~= 0 then
-			-- fix icon using #showtooltip
-			if strsub(body,0, 12) == '#showtooltip' then
-				icon = 'INV_Misc_QuestionMark'
-			end
-			local newid = CreateMacro(name, icon, body, perchar >= 2)
-			if newid then
-				return newid
-			end
-		end
-
-		self:Print(L["Macro %s was ignored, check if there is enough space to create"]:format(name))
-		return nil
-	end
+        self:Print(L["Macro %s was ignored, check if there is enough space to create"]:format(name))
+        return nil
+    end
 end
+-- }}}
 
-function MySlot:RecoverData(msg)
-	--cache spells
-	local spells = {}
 
-	for i = 1, GetNumSpellTabs() do
-	        local tab, tabTex, offset, numSpells, isGuild, offSpecID = GetSpellTabInfo(i);
-		offSpecID = (offSpecID ~= 0)
-		if not offSpecID then
+function MySlot:RecoverData(msg, opt)
 
-			offset = offset + 1;
-			local tabEnd = offset + numSpells;
-			for j = offset, tabEnd - 1 do
-				local spellType, spellId = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
-				if spellType then
-					local slot = j + ( SPELLS_PER_PAGE * (SPELLBOOK_PAGENUMBERS[i] - 1));
-					local spellName = GetSpellInfo(spellId)
-					spells[MySlot.SLOT_TYPE[string.lower(spellType)] .. "_" .. spellId] = {slot, BOOKTYPE_SPELL, "spell"}
-					if spellName then -- flyout
-						spells[MySlot.SLOT_TYPE[string.lower(spellType)] .. "_" .. spellName] = {slot, BOOKTYPE_SPELL, "spell"}
-					end
-				end
-			end
-		end
-	end
+    -- {{{ Cache Spells
+    --cache spells
+    local spells = {}
 
-    -- removed in 6.0 
-    -- for _, companionsType in pairs({"CRITTER"}) do
-    --     for i =1,GetNumCompanions(companionsType) do
-    --         local _,_,spellId = GetCompanionInfo( companionsType, i)
-    --         spells[MYSLOT_SPELL .. "_" .. spellId] = {i, companionsType, "companions"}
-    --     end
-    -- end
 
+    for i = 1, GetNumSpellTabs() do
+            local tab, tabTex, offset, numSpells, isGuild, offSpecID = GetSpellTabInfo(i);
+        offSpecID = (offSpecID ~= 0)
+        if not offSpecID then
+
+            offset = offset + 1;
+            local tabEnd = offset + numSpells;
+            for j = offset, tabEnd - 1 do
+                local spellType, spellId = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
+                if spellType then
+                    local slot = j + ( SPELLS_PER_PAGE * (SPELLBOOK_PAGENUMBERS[i] - 1));
+                    local spellName = GetSpellInfo(spellId)
+                    spells[MySlot.SLOT_TYPE[string.lower(spellType)] .. "_" .. spellId] = {slot, BOOKTYPE_SPELL, "spell"}
+                    if spellName then -- flyout 
+                        spells[MySlot.SLOT_TYPE[string.lower(spellType)] .. "_" .. spellName] = {slot, BOOKTYPE_SPELL, "spell"}
+                    end
+                end
+            end
+        end
+    end
 
     -- for _, p in pairs({GetProfessions()}) do
     --     local _, _, _, _, numSpells, spelloffset = GetProfessionInfo(p)
@@ -529,322 +486,160 @@ function MySlot:RecoverData(msg)
     -- cache macro
 
     
-
     local macro = {}
-    for _, m in pairs(msg.macro or {}) do
+    if not opt.ignoreMacro then
+        for _, m in pairs(msg.macro or {}) do
 
-        local macroId = m.id
-        local icon = m.icon
+            local macroId = m.id
+            local icon = m.icon
 
-        local name = m.name
-        local body = m.body
+            local name = m.name
+            local body = m.body
 
-        macro[macroId] = {
-            ["oldid"] = macroId,
-            ["name"] = name,
-            ["icon"] = icon,
-            ["body"] = body,
-        }
+            macro[macroId] = {
+                ["oldid"] = macroId,
+                ["name"] = name,
+                ["icon"] = icon,
+                ["body"] = body,
+            }
 
-        self:FindOrCreateMacro(macro[macroId])
+            self:FindOrCreateMacro(macro[macroId])
+        end
     end
 
     -- }}} Macro
 
-    local slotBucket = {}
+    if (not opt.ignoreAction) then
+        local slotBucket = {}
 
-    for _, s in pairs(msg.slot or {}) do
-        local slotId = s.id
-        local slotType = _MySlot.Slot.SlotType[s.type]
-        local index = s.index
-        local strindex = s.strindex
+        for _, s in pairs(msg.slot or {}) do
+            local slotId = s.id
+            local slotType = _MySlot.Slot.SlotType[s.type]
+            local index = s.index
+            local strindex = s.strindex
 
-        local curType, curIndex = GetActionInfo(slotId)
-        curType = MySlot.SLOT_TYPE[curType or MYSLOT_NOTFOUND]
-        slotBucket[slotId] = true
+            local curType, curIndex = GetActionInfo(slotId)
+            curType = MySlot.SLOT_TYPE[curType or MYSLOT_NOTFOUND]
+            slotBucket[slotId] = true
 
-        if not pcall(function()
-            if curIndex ~= index or curType ~= slotType or slotType == MYSLOT_MACRO then -- macro always test
-                if slotType == MYSLOT_SPELL or slotType == MYSLOT_FLYOUT or slotType == MYSLOT_COMPANION then
-                    
-                    if slotType == MYSLOT_SPELL or slotType == MYSLOT_COMPANION then
-                        PickupSpell(index)
-                    end
-
-                    if not GetCursorInfo() then
-                        -- flyout and failover
-
-                        local spellName = GetSpellInfo(index) or "NOSUCHSPELL"
-                        local newId, spellType, pickType = unpack(spells[slotType .."_" ..index] or spells[slotType .."_" ..spellName] or {})
-
-                        if newId then
-                            if pickType == "spell" then
-                                PickupSpellBookItem(newId, spellType)
-                            elseif pickType == "companions" then
-                                PickupCompanion(spellType , newId)
-                            end
-                        else
-                            MySlot:Print(L["Ignore unlearned skill [id=%s], %s"]:format(index, GetSpellLink(index)))    
+            if not pcall(function()
+                if curIndex ~= index or curType ~= slotType or slotType == MYSLOT_MACRO then -- macro always test
+                    if slotType == MYSLOT_SPELL or slotType == MYSLOT_FLYOUT or slotType == MYSLOT_COMPANION then
+                        
+                        if slotType == MYSLOT_SPELL or slotType == MYSLOT_COMPANION then
+                            PickupSpell(index)
                         end
-                    end
-                elseif slotType == MYSLOT_ITEM then
-                    PickupItem(index)
-                elseif slotType == MYSLOT_MACRO then
-                    local macroid = self:FindOrCreateMacro(macro[index])
 
-                    if curType ~= MYSLOT_MACRO or curIndex ~=index then
-                        PickupMacro(macroid)
+                        if not GetCursorInfo() then
+                            -- flyout and failover
+
+                            local spellName = GetSpellInfo(index) or "NOSUCHSPELL"
+                            local newId, spellType, pickType = unpack(spells[slotType .."_" ..index] or spells[slotType .."_" ..spellName] or {})
+
+                            if newId then
+                                if pickType == "spell" then
+                                    PickupSpellBookItem(newId, spellType)
+                                elseif pickType == "companions" then
+                                    PickupCompanion(spellType , newId)
+                                end
+                            else
+                                MySlot:Print(L["Ignore unlearned skill [id=%s], %s"]:format(index, GetSpellLink(index)))    
+                            end
+                        end
+                    elseif slotType == MYSLOT_ITEM then
+                        PickupItem(index)
+                    elseif slotType == MYSLOT_MACRO then
+                        local macroid = self:FindOrCreateMacro(macro[index])
+
+                        if curType ~= MYSLOT_MACRO or curIndex ~=index then
+                            PickupMacro(macroid)
+                        end
+                    elseif slotType == MYSLOT_SUMMONPET and strindex and strindex ~=curIndex then
+                        C_PetJournal.PickupPet(strindex , false)
+                        if not GetCursorInfo() then
+                            C_PetJournal.PickupPet(strindex, true)
+                        end
+                        if not GetCursorInfo() then
+                            MySlot:Print(L["Ignore unattained pet[id=%s], %s"]:format(strindex, C_PetJournal.GetBattlePetLink(strindex)))    
+                        end
+                    elseif slotType == MYSLOT_SUMMONMOUNT then
+                        
+                        index = mounts[index]
+                        if index then
+                            C_MountJournal.Pickup(index)
+                        else
+                            C_MountJournal.Pickup(0)
+                            MySlot:Print(L["Use random mount instead of an unattained mount"])
+                        end
+                        
+                    elseif slotType == MYSLOT_EMPTY then
+                        PickupAction(slotId)
+                    elseif slotType == MYSLOT_EQUIPMENTSET then
+                        C_EquipmentSet.PickupEquipmentSet(index)
                     end
-                elseif slotType == MYSLOT_SUMMONPET and strindex and strindex ~=curIndex then
-                    C_PetJournal.PickupPet(strindex , false)
-                    if not GetCursorInfo() then
-                        C_PetJournal.PickupPet(strindex, true)
-                    end
-                    if not GetCursorInfo() then
-                        MySlot:Print(L["Ignore unattained pet[id=%s], %s"]:format(strindex, C_PetJournal.GetBattlePetLink(strindex)))    
-                    end
-                elseif slotType == MYSLOT_SUMMONMOUNT then
-                    
-                    index = mounts[index]
-                    if index then
-                        C_MountJournal.Pickup(index)
-                    else
-                        C_MountJournal.Pickup(0)
-                        MySlot:Print(L["Use random mount instead of an unattained mount"])
-                    end
-                    
-                elseif slotType == MYSLOT_EMPTY then
-                    PickupAction(slotId)
-                elseif slotType == MYSLOT_EQUIPMENTSET then
-                    PickupEquipmentSet(index)
+                    PlaceAction(slotId) 
+                    ClearCursor()
                 end
-                PlaceAction(slotId) 
-                ClearCursor()
+            end) then
+                
+                MySlot:Print(L["[WARN] Ignore slot due to an unknown error DEBUG INFO = [S=%s T=%s I=%s] Please send Importing Text and DEBUG INFO to %s"]:format(slotId,slotType,index,MYSLOT_AUTHOR))
             end
-        end) then
+        end
+
+        for i = 1, MYSLOT_MAX_ACTIONBAR do
+            if not slotBucket[i] then
+                if GetActionInfo(i) then
+                    PickupAction(i)
+                    ClearCursor()
+                end
+            end
+        end
+    end
+
+    if not opt.ignoreBinding then
+        for _, b in pairs(msg.bind or {}) do
             
-            MySlot:Print(L["[WARN] Ignore slot due to an unknown error DEBUG INFO = [S=%s T=%s I=%s] Please send Importing Text and DEBUG INFO to %s"]:format(slotId,slotType,index,MYSLOT_AUTHOR))
-        end
-    end
-
-    for i = 1, MYSLOT_MAX_ACTIONBAR do
-        if not slotBucket[i] then
-            if GetActionInfo(i) then
-                PickupAction(i)
-                ClearCursor()
+            local command = b.command
+            if b.id ~= MYSLOT_BIND_CUSTOM_FLAG then
+                command = MySlot.R_BINDS[b.id]
             end
-        end
-    end
 
-    for _, b in pairs(msg.bind or {}) do
-        
-        local command = b.command
-        if b.id ~= MYSLOT_BIND_CUSTOM_FLAG then
-            command = MySlot.R_BINDS[b.id]
-        end
-
-        if b.key1 then
-            local mod, key = MySlot.R_MOD_KEYS[b.key1.mod], MySlot.R_KEYS[b.key1.key]
-            if key == "KEYCODE" then
-                key = b.key1.keycode
+            if b.key1 then
+                local mod, key = MySlot.R_MOD_KEYS[b.key1.mod], MySlot.R_KEYS[b.key1.key]
+                if key == "KEYCODE" then
+                    key = b.key1.keycode
+                end
+                key = ( mod ~= "NONE" and (mod .. "-") or "" ) .. key
+                SetBinding(key, command, 1)
             end
-            key = ( mod ~= "NONE" and (mod .. "-") or "" ) .. key
-            SetBinding(key, command, 1)
-        end
 
-        if b.key2 then
-            local mod, key = MySlot.R_MOD_KEYS[b.key2.mod], MySlot.R_KEYS[b.key2.key]
-            if key == "KEYCODE" then
-                key = b.key2.keycode
+            if b.key2 then
+                local mod, key = MySlot.R_MOD_KEYS[b.key2.mod], MySlot.R_KEYS[b.key2.key]
+                if key == "KEYCODE" then
+                    key = b.key2.keycode
+                end
+                local key = ( mod ~= "NONE" and (mod .. "-") or "" ) .. key
+                SetBinding(key, command, 1)
             end
-            local key = ( mod ~= "NONE" and (mod .. "-") or "" ) .. key
-            SetBinding(key, command, 1)
-        end
 
+        end
+        AttemptToSaveBindings(GetCurrentBindingSet())
     end
-    AttemptToSaveBindings(GetCurrentBindingSet())
 
     MySlot:Print(L["All slots were restored"])
 end
 
-function MYSLOT_ReportFrame_OnLoad()
-	UIPanelWindows["MYSLOT_ReportFrame"] = {area = "center", pushable = 0};
-end
-
-function MYSLOT_ReportFrame_OnMouseDown(self, button)
-	if button == "LeftButton" then
-		MYSLOT_ReportFrame:StartMoving();
-	end
-end
-
-function MYSLOT_ReportFrame_OnMouseUp(self, button)
-	if button == "LeftButton" then
-        MYSLOT_ReportFrame:StopMovingOrSizing();
-    end
-end
-
-function MYSLOT_LoadButton_OnClick()
-	if not MYSLOT_LoadFrame:IsVisible() then
-		MYSLOT_LoadFrame:Show();
-	else
-		MYSLOT_LoadFrame:Hide();
-	end
-end
-
-function MYSLOT_LoadFrame_OnLoad(self)
-	local lastBtn;
-	for i=1, 4 do
-		MySlot_Scheme[i] = CreateFrame("Button", "MySlot_Scheme" .. i, self, "MYSLOT_SchemeTemplate");
-		MySlot_Scheme[i]:SetID(i);
-		if (i == 1) then
-			MySlot_Scheme[i]:SetPoint("TOPLEFT", self, "TOPLEFT", 10, -20);
-		else
-			MySlot_Scheme[i]:SetPoint("TOPLEFT", lastBtn, "BOTTOMLEFT", 0, -3);
-		end
-		lastBtn = MySlot_Scheme[i];
-	end
-end
-
-local function MySlot_UpdateItem(button,Sname)
-	if Sname then
-		_G[button:GetName().."Name"]:SetText(Sname);
-		button.Sname = Sname
-		if button.Sname ==button:GetParent().selectedSname then
-			button:LockHighlight()
-		else
-			button:UnlockHighlight()
-		end
-		button:Show()
-	end
-end
-
-function MYSLOT_LoadFrame_Update()
-	if not MySlot_SavedDb then return end
-	for i = 1, 4 do
-		_G["MySlot_Scheme"..i]:Hide();
-	end
-
-	local tempSortTable ={}
-	for _,Stable in pairs(MySlot_SavedDb) do
-		if Stable and Stable.Sname and Stable.addtime then
-			tinsert(tempSortTable,{Stable.Sname,Stable.addtime})
-		end
-	end
-	local function sortByTime(a,b)
-		if not a or not b then return false end
-		if not a[2] or not b[2] then return false end
-		return a[2] >= b[2]
-	end
-	table.sort(tempSortTable,sortByTime)
-	local index = 0;
-	local offset = FauxScrollFrame_GetOffset(MYSLOT_LoadFrameScrollFrame) + 1;
-	for _,_table in pairs(tempSortTable) do
-		local _name = _table[1]
-		index = index + 1;
-		if index >= offset and index <offset + 4 then
-			local button = _G["MySlot_Scheme"..(index + 1 - offset)]
-			if  button then
-				MySlot_UpdateItem(_G["MySlot_Scheme"..(index + 1 - offset)],_name);
-			end
-		end
-	end
-	FauxScrollFrame_Update(MYSLOT_LoadFrameScrollFrame, index, 4, 32 );
-end
-
-local function MYSLOT_ReportFrame_Update(name)
-	for _, Stable in pairs(MySlot_SavedDb) do
-		if Stable and Stable.Sname and Stable.Sname == name then
-			MYSLOT_ReportFrame_EditBox.change = false;
-			MYSLOT_ReportFrame_EditBox:SetText("")
-			MYSLOT_ReportFrame_EditBox:SetText(Stable.Scheme)
-			MYSLOT_ReportFrame_EditBox:HighlightText()
-			MYSLOT_ReportFrame_EditBox:SetCursorPosition(0);
-		end
-	end
-end
-
-function MYSLOT_Scheme_OnClick(button)
-	local parent = button:GetParent();
-	parent.selectedSname = button.Sname;
-	MYSLOT_ReportFrame_Update(button.Sname);
-	MYSLOT_LoadFrame_Update();
-	MYSLOT_LoadFrameDelButton:Enable()
-	MYSLOT_LoadFrameLoadSchemeButton:Enable();
-end
-
-function MySlot_LoadScheme_Onclick()
-	local Sname = MYSLOT_LoadFrame.selectedSname;
-	if Sname then
-		for _,Stable in pairs(MySlot_SavedDb) do
-			if Stable and Stable.Scheme and Stable.Sname == Sname then
-				StaticPopupDialogs["MYSLOT_MSGBOX"].Sname = Sname;
-				MySlot:ImportByText(Stable.Scheme, Sname);
-			end
-		end
-	end
-end
-
-function MySlot_Del_Onclick()
-	local Sname = MYSLOT_LoadFrame.selectedSname;
-	if Sname then
-		StaticPopupDialogs["MySlot_DELETE_SET"].Sname = Sname;
-		StaticPopup_Show("MySlot_DELETE_SET",Sname);
-	end
-end
-
-function MySlot_Save_Check(Stable,name)
-	if (not Stable or not name) then return end;
-
-	local alreadyScheme  = false;
-	local index;
-	for i,_table in pairs(MySlot_SavedDb) do
-		if _table.Sname == Stable.Sname then
-			alreadyScheme = true;
-			index = i;
-			break;
-		end
-	end
-
-	if not alreadyScheme then
-		table.insert(MySlot_SavedDb, Stable);
-		local str = string.format(MySlot_SAVE_SUCCESS, name);
-		MySlot:Print(str);
-		MySlot_Check_Status();
-		MYSLOT_LoadFrame_Update();
-	else
-		MySlot_SavedDb[index] = Stable;
-		local str = string.format(MySlot_CHANGE_SUCCESS, name);
-		MySlot:Print(str);
-	end
-end
-
-function MySlot_Check_Status()
-	if MySlot_SavedDb and MySlot_SavedDb[1] then
-		MYSLOT_ReportFrameLoadButton:Enable();
-	else
-		MYSLOT_ReportFrameLoadButton:Disable();
-	end
-end
-
-function MySlot_Check_Status_Update(button)
-	if MYSLOT_ReportFrame_EditBox:GetText() ~= nil and MYSLOT_ReportFrame_EditBox:GetText() ~= "" then
-		button:Enable();
-	else
-		button:Disable();
-	end
-end
-
-function MYSLOT_LoadFrame_OnScroll(self, offset)
-	FauxScrollFrame_OnVerticalScroll(self, offset, 27, MYSLOT_LoadFrame_Update)
-end
-
-function MySlot_Clearall(what)
-    if what == "action" then
+function MySlot:Clear(what)
+    if what == "ACTION" then
         for i = 1, MYSLOT_MAX_ACTIONBAR do
             PickupAction(i)
             ClearCursor()
         end
-    elseif what == "binding" then
+    elseif what == "MACRO" then
+        for i = MAX_ACCOUNT_MACROS + MAX_CHARACTER_MACROS, 1, -1 do
+            DeleteMacro(i)
+        end
+    elseif what == "BINDING" then
         for i = 1, GetNumBindings() do
             local _, _, key1, key2 = GetBinding(i)
             

@@ -97,6 +97,7 @@ function TestMode:SetCastbarMovable(unitID, parent)
     local parentFrame = parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)
     if not parentFrame then
         if unitID == "target" or unitID == "nameplate-testmode" then
+            -- luacheck: ignore
             print(format("|cFFFF0000[ClassicCastbars] %s|r", _G.ERR_GENERIC_NO_TARGET))
         end
         return false
@@ -205,3 +206,11 @@ TestMode:SetScript("OnEvent", function(self)
         C_Timer.After(0.2, TestMode.ReanchorOnNameplateTargetSwitch)
     end
 end)
+
+if date("%d.%m") == "01.04" then -- April Fools :)
+    C_Timer.After(1800, function()
+        if not UnitIsDeadOrGhost("player") and not IsInRaid() then
+            DoEmote(math.random(0, 1) == 1 and "fart" or "nosepick")
+        end
+    end)
+end

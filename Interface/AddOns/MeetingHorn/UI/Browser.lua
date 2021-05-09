@@ -62,6 +62,7 @@ function Browser:Constructor()
     SetupQuickButton(self.Quick3, 3)
     SetupQuickButton(self.Quick4, 7)
     SetupQuickButton(self.Quick5, 4)
+    SetupQuickButton(self.Quick6, 5)
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
     self.Activity:SetDefaultText(ALL)

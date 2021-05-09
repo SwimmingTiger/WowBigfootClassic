@@ -4,7 +4,7 @@ local NugRunning = NugRunning
 local LSM = LibStub("LibSharedMedia-3.0")
 
 LSM:Register("statusbar", "Aluminium", [[Interface\AddOns\NugRunning\statusbar.tga]])
-LSM:Register("font", "ClearFont", [[Interface\AddOns\NugRunning\Calibri.ttf]], GetLocale() ~= "enUS" and 15)
+LSM:Register("font", "AlegreyaSans-Medium", [[Interface\AddOns\NugRunning\AlegreyaSans-Medium.ttf]],  GetLocale() ~= "enUS" and 15)
 
 local isClassic = select(4,GetBuildInfo()) <= 19999
 local UnitSpellHaste = isClassic and function() return 0 end or _G.UnitSpellHaste
@@ -191,6 +191,15 @@ function TimerBar.SetCharge(self,val)
     self.bar:SetValue(val)
     if self.opts.stackcolor then
         self:SetColor(unpack(self.opts.stackcolor[val]))
+    end
+    if self.opts.glowstack then
+        if self.glow then
+            if val >= self.opts.glowstack then
+                if not self.glow:IsPlaying() then self.glow:Play() end
+            else
+                self.glow:Stop()
+            end
+        end
     end
 end
 

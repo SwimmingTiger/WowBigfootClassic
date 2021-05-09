@@ -1490,6 +1490,10 @@ ns.ENCOUNTER_INSTANCES = ENCOUNTER_INSTANCES
 ns.ENCOUNTER_DATA = ENCOUNTER_DATA
 ns.DEFAULT_ENCOUNTER_INSTANCE_ID = 533
 
+local QUEST_NAMES = {
+    [1] = '关注|cff00ffff|Hqrcode:http://weixin.qq.com/q/02JtAwgez6cal10000M03f|h[暴雪游戏服务中心公众号]|h|r并绑定战网账号和手机号',
+}
+
 function ns.GetEncouterBossName(id)
     local data = ENCOUNTER_BOSSES[id]
     return data and data.name or UNKNOWN
@@ -1498,4 +1502,8 @@ end
 function ns.GetEncounterRaidName(id)
     local data = ENCOUNTER_INSTANCES[id]
     return data and data.title or UNKNOWN
+end
+
+function ns.GetChallengeQuest(id)
+    return QUEST_NAMES[id] or UNKNOWN
 end

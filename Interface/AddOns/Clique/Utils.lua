@@ -15,9 +15,9 @@ local L = addon.L
 -- Returns the prefix string for the current keyboard state.
 --
 -- Arguments:
---   split - Whether or not to split the modifier keys into left and right components
+--   extended - Whether or not to split the modifier keys into left and right components
 
-function addon:GetPrefixString(split)
+function addon:GetPrefixString(extended)
     local shift, lshift, rshift = IsShiftKeyDown(), IsLeftShiftKeyDown(), IsRightShiftKeyDown()
     local ctrl, lctrl, rctrl = IsControlKeyDown(), IsLeftControlKeyDown(), IsRightControlKeyDown()
     local alt, lalt, ralt = IsAltKeyDown(), IsLeftAltKeyDown() IsRightAltKeyDown()
@@ -248,8 +248,8 @@ function addon:GetCapturedKey(key)
         end
     end
 
-    -- TODO: Support NOT splitting the modifier keys
-    local prefix = addon:GetPrefixString(true)
+    -- TODO: Support splitting the modifier keys
+    local prefix = addon:GetPrefixString(false)
     return tostring(prefix) .. tostring(key)
 end
 

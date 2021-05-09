@@ -19,7 +19,17 @@ Usage example 1:
 --]================]
 if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then return end
 
-local MAJOR, MINOR = "LibClassicDurations", 64
+local apiLevel = math.floor(select(4,GetBuildInfo())/10000)
+local isClassic = apiLevel <= 2
+local isBC = apiLevel == 2
+
+if isBC then
+    -- lib.UnitAuraDirect = _G.UnitAura
+    -- lib.UnitAuraWrapper = _G.UnitAura
+    return
+end
+
+local MAJOR, MINOR = "LibClassicDurations", 66
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
 
@@ -113,6 +123,7 @@ lib.AddAura = function(id, opts)
     end
 
     local spellName = GetSpellInfo(lastRankID)
+    if not spellName then return end
     spellNameToID[spellName] = lastRankID
 
     if type(id) == "table" then

@@ -1,7 +1,7 @@
-## Interface: 11306
+## Interface: 11307
 ## Title: ClassicCastbars_Options
 ## Notes: Configuration for ClassicCastbars. Type /castbars for options.
-## Version: v1.3.16
+## Version: v1.3.22
 ## Dependencies: ClassicCastbars
 ## X-Revision: BigFoot
 

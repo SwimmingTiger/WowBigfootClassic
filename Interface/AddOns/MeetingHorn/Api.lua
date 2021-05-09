@@ -26,7 +26,7 @@ local L = ns.L
 
 ns.MIN_INTERVAL = 10
 ns.ADDON_PREFIX = format('|cff00ffff%s|r：', L.ADDON_NAME)
-ns.ADDON_VERSION = GetAddOnMetadata(ADDON_NAME, 'Version')
+ns.ADDON_VERSION = GetAddOnMetadata(ADDON_NAME, 'Version'):gsub('%-%d+', '')
 ns.ADDON_TAG = '<' .. L.ADDON_NAME .. '>'
 
 ns.APPLICANT_STATUS = {Normal = 1, Invited = 2, Declined = 3, Joined = 4}

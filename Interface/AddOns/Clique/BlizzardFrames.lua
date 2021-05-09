@@ -73,7 +73,7 @@ function panel:CreateOptions()
     table.insert(bits, self.TargetFrame)
 	table.insert(bits, self.TargetFrameToT)
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         table.insert(bits, self.FocusFrame)
         table.insert(bits, self.FocusFrameToT)
         table.insert(bits, self.arena)
@@ -113,7 +113,7 @@ function panel.refresh()
     panel.TargetFrame:SetChecked(opt.TargetFrame)
     panel.TargetFrameToT:SetChecked(opt.TargetFrameToT)
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         panel.FocusFrame:SetChecked(opt.FocusFrame)
         panel.FocusFrameToT:SetChecked(opt.FocusFrameToT)
         panel.arena:SetChecked(opt.arena)
@@ -133,7 +133,7 @@ function panel.okay()
     opt.TargetFrame = not not panel.TargetFrame:GetChecked()
     opt.TargetFrameToT = not not panel.TargetFrameToT:GetChecked()
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         opt.FocusFrame = not not panel.FocusFrame:GetChecked()
         opt.FocusFrameToT = not not panel.FocusFrameToT:GetChecked()
         opt.arena = not not panel.arena:GetChecked()
@@ -165,7 +165,12 @@ local function enable(frame)
     end
 
     -- skip the nameplates, they're TEHBROKEN
-    if frame and frame.GetName and frame:GetName():match("^NamePlate") then
+    if frame and frame.GetName and frame:GetName() and frame:GetName():match("^NamePlate") then
+        return
+    end
+
+    -- skip the nameplates, new
+    if frame and frame.GetName and not frame:GetName() then
         return
     end
 
@@ -183,18 +188,12 @@ function addon:Enable_BlizzCompactUnitFrames()
             return
         end
 
-        local name = frame and frame.GetName and frame:GetName()
         for i = 1, 3 do
-            local buff = _G[name .. "Buff" .. i]
-            local debuff = _G[name .. "Debuff" .. i]
-            local dispel = _G[name .. "DispelDebuff" .. i]
-			local statusIcon = _G[name .. "CenterStatusIcon" .. i]
+            local buffFrame = frame.BuffFrame
 
-            if buff then enable(buff) end
-            if debuff then enable(debuff) end
-            if dispel then enable(dispel) end
-			if statusIcon then enable(statusIcon) end
+            if buffFrame then enable(buffFrame) end
         end
+
         enable(frame)
     end)
 end
@@ -204,7 +203,7 @@ function addon:Enable_BlizzArenaFrames()
         return
     end
 
-    if not addon.compatRelease then
+    if not addon.versionIsRelease then
         return
     end
 
@@ -228,7 +227,7 @@ function addon:Enable_BlizzSelfFrames()
         "TargetFrameToT",
     }
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         table.insert(frames, "FocusFrame")
         table.insert(frames, "FocusFrameToT")
     end
@@ -288,7 +287,7 @@ function addon:EnableBlizzardFrames()
 
     local waitForAddon = {}
 
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         if IsAddOnLoaded("Blizzard_ArenaUI") then
             self:Enable_BlizzArenaFrames()
         else

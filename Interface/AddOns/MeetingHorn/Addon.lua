@@ -21,7 +21,6 @@
 ---@field Channel MeetingHornChannel
 ---@field ChallengeGroup MeetingHornChallengeGroup
 ---@field Challenge MeetingHornChallenge
----@field ErrorCode table<string, number>
 local ns = select(2, ...)
 
 local L = LibStub('AceLocale-3.0'):GetLocale('MeetingHorn', true)
@@ -136,7 +135,7 @@ function Addon:Toggle()
     end
 
     if ns.LFG:GetCurrentActivity() then
-        self.MainPanel:SetTab(2)
+        self.MainPanel:SetTab(self.MainPanel.Manage)
     end
 end
 
@@ -145,7 +144,7 @@ function Addon:OpenEncounter(...)
         ShowUIPanel(self.MainPanel)
     end
 
-    self.MainPanel:SetTab(4)
+    self.MainPanel:SetTab(self.MainPanel.Encounter)
     self.MainPanel.Encounter:Open(...)
 end
 

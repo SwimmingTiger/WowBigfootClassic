@@ -42,7 +42,7 @@ local L = addon.L
 
 function addon:Initialize()
     -- Are we running on release rather than classic?
-    self.compatRelease = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+    self.versionIsRelease = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
     -- Create an AceDB, but it needs to be cleared first
     self.db = LibStub("AceDB-3.0"):New("CliqueDB3", self.defaults)
@@ -204,6 +204,11 @@ function addon:Initialize()
     -- Register for combat events to ensure we can swap between the two states
     self:RegisterEvent("PLAYER_REGEN_DISABLED", "EnteringCombat")
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "LeavingCombat")
+
+    if self.versionIsRelease then
+        self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
+    end
+
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "PlayerEnteringWorld")
 
     -- Register for Clique-based messages for settings updates, etc.
@@ -213,10 +218,9 @@ function addon:Initialize()
     -- Handle combat watching so we can change ooc based on party combat status
     addon:UpdateCombatWatch()
 
-    -- Handle talent specs for release
-    if self.compatRelease then
-        self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
-        self:TalentGroupChanged()
+    -- Trigger a 'TalentGroupChanged' so we end up on the right profile
+    if self.versionIsRelease then
+        addon:TalentGroupChanged()
     end
 
     self:FireMessage("BLACKLIST_CHANGED")
@@ -359,8 +363,8 @@ local function shouldApply(global, entry)
     end
 end
 
-local function correctSpec(entry)
-    if not addon.compatRelease then
+function addon:EntryIsCorrectSpec(entry)
+    if not self.versionIsRelease then
         return true
     end
 
@@ -430,7 +434,7 @@ function addon:GetClickAttributes(global)
         -- non-global bindings are only applied on non-global frames. handle
         -- this logic here.
 
-        if shouldApply(global, entry) and correctSpec(entry) and entry.key then
+        if shouldApply(global, entry) and self:EntryIsCorrectSpec(entry) and entry.key then
             -- Check to see if this is a 'friend' or an 'enemy' binding, and
             -- check if it would mask an 'ooc' binding with the same key. If
             -- so, we need to add code that prevents this from happening, by
@@ -513,7 +517,7 @@ function addon:GetClickAttributes(global)
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
             elseif entry.type == "menu" then
-                set_text = ATTR(indent, prefix, "type", suffix, "togglemenu")
+                local set_text = ATTR(indent, prefix, "type", suffix, "togglemenu")
                 bits[#bits + 1] = string.gsub(set_text, '"togglemenu"', 'button:GetAttribute("*type2") == "menu" and "menu" or "togglemenu"')
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
             elseif entry.type == "spell" and self.settings.stopcastingfix then
@@ -618,7 +622,7 @@ function addon:GetBindingAttributes(global)
 
     for idx, entry in ipairs(self.bindings) do
 		if entry.key then
-			if shouldApply(global, entry) and correctSpec(entry) then
+			if shouldApply(global, entry) and self:EntryIsCorrectSpec(entry) then
 				if global then
 					-- Allow for the re-binding of clicks and keys, except for
 					-- unmodified left/right-click

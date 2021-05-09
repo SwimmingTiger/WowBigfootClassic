@@ -7,6 +7,14 @@ local TEXT_POINTS = {
     ["LEFT"] = "LEFT",
 }
 
+local TEXT_OUTLINES = {
+    [""] = L.DEFAULT,
+    ["OUTLINE"] = "OUTLINE",
+    ["THICKOUTLINE"] = "THICKOUTLINE",
+    ["MONOCHROME"] = "MONOCHROME",
+    ["MONOCHROME,OUTLINE"] = "MONOCHROME OUTLINE"
+}
+
 local function GetLSMTable(lsmType)
     local tbl = CopyTable(LSM:HashTable(lsmType)) -- copy to prevent modifying LSM table
 
@@ -298,7 +306,7 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
                     groupCastFillHeader = {
                         order = 6,
                         type = "header",
-                        name = "Cast Fill Colors", -- TODO: localize
+                        name = L.CAST_FILL_HEADER,
                     },
                     statusColor = {
                         name = L.STATUS_COLOR,
@@ -336,7 +344,7 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
             ----------------------------------------------------
             fonts = {
                 order = 5,
-                name = "Castbar Text", -- TODO: localize
+                name = L.CASTBAR_FONTS,
                 type = "group",
                 inline = false,
                 disabled = ModuleIsDisabled,
@@ -375,6 +383,12 @@ local function CreateUnitTabGroup(unitID, localizedUnit, order)
                         name = L.TEXT_POINT,
                         type = "select",
                         values = TEXT_POINTS,
+                    },
+                    textOutline = {
+                        order = 7,
+                        name = L.TEXT_OUTLINE,
+                        type = "select",
+                        values = TEXT_OUTLINES,
                     },
                 },
             },

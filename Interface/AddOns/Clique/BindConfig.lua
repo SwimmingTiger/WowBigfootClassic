@@ -48,7 +48,7 @@ function CliqueConfig:OnHide()
 end
 
 function CliqueConfig:SetupTalents()
-    if addon.compatRelease then
+    if addon.versionIsRelease then
         self.talents = {}
         for i = 1, GetNumSpecializations() do
             local id, name = GetSpecializationInfo(i)
@@ -68,13 +68,13 @@ function CliqueConfig:SetupGUI()
     end
 
     self.rows[1]:ClearAllPoints()
-    self.rows[1]:SetPoint("TOPLEFT", "CliqueConfigPage1Column1", "BOTTOMLEFT", 0, -3)
-    self.rows[1]:SetPoint("RIGHT", CliqueConfigPage1Column2, "RIGHT", 0, 0)
+    self.rows[1]:SetPoint("TOPLEFT", self.page1.column1, "BOTTOMLEFT", 0, -3)
+    self.rows[1]:SetPoint("RIGHT", self.page1.column2, "RIGHT", 0, 0)
 
     for i = 2, MAX_ROWS do
         self.rows[i]:ClearAllPoints()
         self.rows[i]:SetPoint("TOPLEFT", self.rows[i - 1], "BOTTOMLEFT")
-        self.rows[i]:SetPoint("RIGHT", CliqueConfigPage1Column2, "RIGHT", 0, 0)
+        self.rows[i]:SetPoint("RIGHT", self.page1.column2, "RIGHT", 0, 0)
     end
 
 	self.TitleText:SetText(L["Clique Binding Configuration"])
@@ -269,6 +269,8 @@ function CliqueConfig:Button_OnClick(button)
                 func = function()
                     HideUIPanel(SpellBookFrame)
                     HideUIPanel(CliqueConfig)
+                    -- Bugfix since this won't work if we call it once
+                    InterfaceOptionsFrame_OpenToCategory(addon.optpanels["GENERAL"])
                     InterfaceOptionsFrame_OpenToCategory(addon.optpanels["GENERAL"])
                 end,
                 notCheckable = true,
@@ -278,6 +280,8 @@ function CliqueConfig:Button_OnClick(button)
                 func = function()
                     HideUIPanel(SpellBookFrame)
                     HideUIPanel(CliqueConfig)
+                    -- Bugfix since this won't work if we call it once
+                    InterfaceOptionsFrame_OpenToCategory(addon.optpanels["BLACKLIST"])
                     InterfaceOptionsFrame_OpenToCategory(addon.optpanels["BLACKLIST"])
                 end,
                 notCheckable = true,
@@ -287,6 +291,8 @@ function CliqueConfig:Button_OnClick(button)
                 func = function()
                     HideUIPanel(SpellBookFrame)
                     HideUIPanel(CliqueConfig)
+                    -- Bugfix since this won't work if we call it once
+                    InterfaceOptionsFrame_OpenToCategory(addon.optpanels["BLIZZFRAMES"])
                     InterfaceOptionsFrame_OpenToCategory(addon.optpanels["BLIZZFRAMES"])
                 end,
                 notCheckable = true,
@@ -561,7 +567,7 @@ function CliqueConfig:Row_OnClick(frame, button)
             text = L["Remove spell rank"],
             func = function()
                 local binding = frame.binding
-                binding.spellSubName = null
+                binding.spellSubName = nil
                 self:UpdateList()
                 addon:FireMessage("BINDINGS_CHANGED")
             end,

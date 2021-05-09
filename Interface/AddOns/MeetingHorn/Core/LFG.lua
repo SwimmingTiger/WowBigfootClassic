@@ -19,6 +19,8 @@ local AceSerializer = LibStub('AceSerializer-3.0')
 ---@field private lockCache table<string, number>
 ---@field private banCache table<string, number>
 ---@field private idle boolean
+---@field private challengeGroups MeetingHornChallengeGroup[]
+---@field private challengeGroup MeetingHornChallengeGroup
 local LFG = ns.Addon:NewModule('LFG', 'AceEvent-3.0', 'AceTimer-3.0', 'AceComm-3.0', 'LibCommSocket-3.0')
 
 function LFG:OnEnable()
@@ -77,9 +79,11 @@ function LFG:OnEnable()
     self:RegisterServer('SNEWVERSION')
     self:RegisterServer('SWORLDBUFF')
     self:RegisterServer('SNOTICE')
-    self:RegisterServer('SGA', 'SGETACTIVITY')
-    self:RegisterServer('SAP', 'SACTIVITYPROGRESS')
-    self:RegisterServer('SAF', 'SACTIVITYFETCHREWARD')
+
+    self:RegisterChallenge('SGA', 'SGETACTIVITY')
+    self:RegisterChallenge('SGP', 'SACTIVITYGROUPPROGRESS')
+    self:RegisterChallenge('SAP', 'SACTIVITYPROGRESS')
+    self:RegisterChallenge('SAF', 'SACTIVITYFETCHREWARD')
 
     self:RegisterEvent('ENCOUNTER_END')
     self:RegisterEvent('ENCOUNTER_START')
@@ -456,47 +460,125 @@ function LFG:SWORLDBUFF(_, enable, data)
     self:SendMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED', enable)
 end
 
-function LFG:RequestChallengeGroup()
-    self:SendServer('CGA', UnitGUID('player'))
+---- Challenge
+
+function LFG:RegisterChallenge(event, method)
+    method = self[method] or self[event]
+    assert(type(method) == 'function')
+
+    self:RegisterServer(event, function(event, err, ...)
+        if err and err > 0 then
+            --[===[@debug@
+            print(event, err)
+            --@end-debug@]===]
+            local errString = ns.errorString(err)
+            if errString then
+                ns.Message(format('|cffff0000%s。|r', errString))
+            end
+            if err == ns.ErrorCode.ADDON_UPDATED then
+                self:SendMessage('MEETINGHORN_CHALLENGE_OUT_OF_DATE')
+            end
+            return
+        end
+        return method(self, event, ...)
+    end)
 end
 
-function LFG:SGETACTIVITY(_, err, activities, progress)
-    if ns.ErrorCode[err] then
-        self.challengeGroup = nil
-    else
-        self.challengeGroup = ns.ChallengeGroup:New(activities)
-        self.challengeGroup:UpdateProgresses(progress)
+function LFG:GetChallengeGroup(id)
+    if not self.challengeGroups then
+        return
     end
-    self:SendMessage('MEETINGHORN_CHALLENGE_GROUP_UPDATED', err)
+
+    for i, challengeGroup in ipairs(self.challengeGroups) do
+        if challengeGroup.id == id then
+            return challengeGroup
+        end
+    end
+end
+
+function LFG:GetChallenge(id)
+    if not self.challengeGroups then
+        return
+    end
+
+    for i, challengeGroup in ipairs(self.challengeGroups) do
+        local item = challengeGroup:Get(id)
+        if item then
+            return item
+        end
+    end
+end
+
+function LFG:RequestChallengeGroup()
+    self:SendServer('CGA', UnitGUID('player'), ns.ADDON_VERSION)
+end
+
+function LFG:SGETACTIVITY(_, activities, progress, moreActivities)
+    self.challengeGroups = {}
+
+    local challengeGroup = ns.ChallengeGroup:New(activities)
+    challengeGroup:UpdateProgresses(progress)
+    tinsert(self.challengeGroups, challengeGroup)
+
+    if moreActivities then
+        --[===[@debug@
+        dump('moreActivities', moreActivities)
+        --@end-debug@]===]
+        for i, v in ipairs(moreActivities) do
+            table.insert(self.challengeGroups, ns.ChallengeGroup:New(v))
+        end
+    end
+    self:SendMessage('MEETINGHORN_CHALLENGE_GROUP_READY')
+end
+
+function LFG:RequestChallengeGroupProgress(id)
+    self:SendServer('CGP', UnitGUID('player'), id)
+end
+
+function LFG:SACTIVITYGROUPPROGRESS(_, id, proto, progress)
+    if not self.challengeGroups then
+        return
+    end
+
+    local challengeGroup = self:GetChallengeGroup(id)
+    if challengeGroup then
+        challengeGroup:UpdateProto(proto)
+        challengeGroup:UpdateProgresses(progress)
+        self:SendMessage('MEETINGHORN_CHALLENGE_GROUP_UPDATED', id)
+    end
 end
 
 function LFG:RequestChallengeProgress(id)
     self:SendServer('CAP', UnitGUID('player'), id)
 end
 
-function LFG:SACTIVITYPROGRESS(_, err, id, progresses)
-    if not ns.ErrorCode[err] and type(progresses) == 'table' then
-        local item = self.challengeGroup:Get(id)
+function LFG:SACTIVITYPROGRESS(_, id, progresses)
+    --[===[@debug@
+    dump(progresses)
+    --@end-debug@]===]
+    if type(progresses) == 'table' then
+        local item = self:GetChallenge(id)
         if item then
             item:UpdateProgress(progresses[1])
+            self:SendMessage('MEETINGHORN_CHALLENGE_PROGRESS_UPDATED', id)
         end
     end
-    self:SendMessage('MEETINGHORN_CHALLENGE_PROGRESS_UPDATED', err, id)
 end
 
-function LFG:FetchChallengeReward(id)
-    self:SendServer('CAF', UnitGUID('player'), id)
+function LFG:FetchChallengeReward(id, itemId)
+    local battleTag = select(2, BNGetInfo())
+    self:SendServer('CAF', UnitGUID('player'), id, itemId, battleTag)
 end
 
-function LFG:SACTIVITYFETCHREWARD(_, err, id)
-    if not ns.ErrorCode[err] then
-        local item = self.challengeGroup:Get(id)
-        if item then
-            item:Fetched()
-        end
+function LFG:SACTIVITYFETCHREWARD(_, id)
+    local item = self:GetChallenge(id)
+    if item then
+        item:Fetched()
+        self:SendMessage('MEETINGHORN_CHALLENGE_PROGRESS_UPDATED', id)
     end
-    self:SendMessage('MEETINGHORN_CHALLENGE_FETCH_REWARD_RESULT', err, id)
 end
+
+----
 
 function LFG:CHAT_MSG_CHANNEL(event, text, unitName, _, _, _, flag, _, _, channelName, _, lineId, guid)
     local baseChannelName = channelName:match('^([^ -]+)')

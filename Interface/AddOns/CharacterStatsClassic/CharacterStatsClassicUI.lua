@@ -6,6 +6,7 @@ core.UIConfig = {};
 -- Defaults
 UISettingsGlobal = {
     useBlizzardBlockValue = false;
+    useTransparentStatsBackground = true;
 }
 
 UISettingsCharacter = {
@@ -32,12 +33,19 @@ local LeftStatsTable = { }
 local RightStatsTable = { }
 
 local function CSC_ResetStatFrames(statFrames)
+    
+    local statFrameDefaultAlpha = 0.3;
+    if UISettingsGlobal.useTransparentStatsBackground then
+        statFrameDefaultAlpha = 0;
+    end
+
     for i=1, NUM_STATS_TO_SHOW, 1 do
         statFrames[i]:Hide();
         statFrames[i]:SetScript("OnEnter", statFrames[i].OnEnterCallback);
         statFrames[i].tooltip = nil;
         statFrames[i].tooltip2 = nil;
         statFrames[i].tooltip3 = nil;
+        statFrames[i].Background:SetAlpha(statFrameDefaultAlpha);
     end
 end
 
@@ -81,6 +89,9 @@ function UIConfig:SetCharacterStats(statsTable, category)
         CSC_PaperDollFrame_SetParry(statsTable[4], "player");
         CSC_PaperDollFrame_SetBlock(statsTable[5], "player");
     elseif category == PLAYERSTAT_MELEE_COMBAT then
+        if (UISettingsCharacter.showStatsFromArgentDawnItems) then
+            CSC_CacheAPFromADItems("player");
+        end
         -- damage, Att Power, speed, hit raiting, crit chance
         CSC_PaperDollFrame_SetDamage(statsTable[1], "player", category);
         CSC_PaperDollFrame_SetMeleeAttackPower(statsTable[2], "player");
@@ -88,6 +99,10 @@ function UIConfig:SetCharacterStats(statsTable, category)
         CSC_PaperDollFrame_SetCritChance(statsTable[4], "player");
         CSC_PaperDollFrame_SetHitChance(statsTable[5], "player");
     elseif category == PLAYERSTAT_RANGED_COMBAT then
+        if (UISettingsCharacter.showStatsFromArgentDawnItems) then
+            CSC_CacheAPFromADItems("player");
+        end
+        
         CSC_PaperDollFrame_SetDamage(statsTable[1], "player", category);
         CSC_PaperDollFrame_SetRangedAttackPower(statsTable[2], "player");
         CSC_PaperDollFrame_SetRangedAttackSpeed(statsTable[3], "player");
@@ -208,6 +223,17 @@ function UIConfig:SetupConfigInterface()
     function()
         UISettingsCharacter.showStatsFromArgentDawnItems = not UISettingsCharacter.showStatsFromArgentDawnItems;
     end);
+
+    -- Stats frames alpha checkbox
+    CSC_ConfigFrame.chkBtnStatsFramesAlpha = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
+    CSC_ConfigFrame.chkBtnStatsFramesAlpha:SetPoint("TOPLEFT", 20, -80);
+    CSC_ConfigFrame.chkBtnStatsFramesAlpha.text:SetText("Use a transparent background for the stats frames.");
+    CSC_ConfigFrame.chkBtnStatsFramesAlpha:SetChecked(UISettingsGlobal.useTransparentStatsBackground);
+    CSC_ConfigFrame.chkBtnStatsFramesAlpha:SetScript("OnClick", 
+    function()
+        UISettingsGlobal.useTransparentStatsBackground = not UISettingsGlobal.useTransparentStatsBackground;
+    end);
+    
 end
 
 -- Hook a custom function in order to extend the functionality of the default ToggleCharacter function
@@ -231,6 +257,12 @@ local function SerializeGlobalDatabase()
         CharacterStatsClassicDB.useBlizzardBlockValue = UISettingsGlobal.useBlizzardBlockValue;
     else
         UISettingsGlobal.useBlizzardBlockValue = CharacterStatsClassicDB.useBlizzardBlockValue;
+    end
+
+    if (CharacterStatsClassicDB.useTransparentStatsBackground == nil) then
+        CharacterStatsClassicDB.useTransparentStatsBackground = UISettingsGlobal.useTransparentStatsBackground;
+    else
+        UISettingsGlobal.useTransparentStatsBackground = CharacterStatsClassicDB.useTransparentStatsBackground;
     end
 end
 

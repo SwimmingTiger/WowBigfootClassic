@@ -116,6 +116,9 @@ local DUNGEON_DATA = {
 		minimumLevel = 50,
 		recommendedLevelRange = '60',
 	},
+	[L["Naxxramas"]] = {
+		minimumLevel = 60,
+	},
 }
 
 local pluginHandler = { }
@@ -684,7 +687,10 @@ nodes[1423] = { -- EasternPlaguelands
 		name = L["Stratholme"],
 		type = "Dungeon",
 	}, -- Stratholme World 52902870
-
+	[39002600] = { -- Naxxramas
+		name = L["Naxxramas"],
+		type = "Dungeon",
+	},
 }
 nodes[1444] = { -- Feralas
 	 [77063695] = {

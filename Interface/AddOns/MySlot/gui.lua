@@ -1,9 +1,11 @@
 local _, MySlot = ...
 
 local L = MySlot.L
+local RegEvent = MySlot.regevent
+local MAX_PROFILES_COUNT = 50
 
 
-local f = CreateFrame("Frame", nil, UIParent)
+local f = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
 f:SetWidth(650)
 f:SetHeight(600)
 f:SetBackdrop({
@@ -25,6 +27,8 @@ f:SetScript("OnDragStart", f.StartMoving)
 f:SetScript("OnDragStop", f.StopMovingOrSizing)
 f:Hide()
 
+MySlot.MainFrame = f
+
 -- title
 do
     local t = f:CreateTexture(nil, "ARTWORK")
@@ -41,40 +45,7 @@ do
     t:SetPoint("TOP", f.texture, 0, -14)
 end
 
--- export editbox
 local exportEditbox
-do
-    local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
-    t:EnableMouse(true)
-    t:SetPoint("TOPLEFT", f, 25, -30)
-    t:SetWidth(580)
-    t:SetHeight(500)
-    local edit = CreateFrame("EditBox", nil, t)
-    edit:SetWidth(560)
-    edit:SetHeight(480)
-    edit:SetPoint("TOPLEFT", t, 0, 0)
-    edit:SetAutoFocus(false)
-    edit:SetMaxLetters(99999999)
-    edit:SetMultiLine(true)
-    edit:SetFontObject(GameTooltipTextSmall)
-    edit:SetScript("OnTextChanged", function(self)
-        ScrollingEdit_OnTextChanged(self, t)
-    end)
-    edit:SetScript("OnCursorChanged", ScrollingEdit_OnCursorChanged)
-    edit:SetScript("OnUpdate", function(self, elapsed)
-        ScrollingEdit_OnUpdate(self, elapsed, t)
-    end)
-    edit:SetScript("OnEscapePressed", edit.ClearFocus)
-    edit:SetScript("OnTextSet", edit.HighlightText)
-    edit:SetScript("OnMouseUp", edit.HighlightText)
-
-    t:SetScript("OnMouseDown", function()
-        edit:SetFocus()
-    end)
-
-    t:SetScrollChild(edit)
-    exportEditbox = edit
-end
 
 -- close
 do
@@ -102,6 +73,57 @@ do
     forceImportCheckbox = b
 end
 
+local ignoreActionCheckbox
+local ignoreBindingCheckbox
+local ignoreMacroCheckbox
+
+do
+    do
+        local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+        b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+        b:SetPoint("BOTTOMLEFT", 38, 95)
+        b.text:SetText(L["Ignore Import/Export Action"])
+        -- b:SetScript("OnEnter", function(self)
+        --     GameTooltip:SetOwner(self, "ANCHOR_TOP");
+        --     GameTooltip:SetText(L[""], nil, nil, nil, nil, true);
+        --     GameTooltip:Show();
+        -- end)
+        -- b:SetScript("OnLeave", GameTooltip_Hide)
+        ignoreActionCheckbox = b
+    end
+
+    do
+        local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+        b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+        b:SetPoint("BOTTOMLEFT", 38, 70)
+        b.text:SetText(L["Ignore Import/Export Key Binding"])
+        -- b:SetScript("OnEnter", function(self)
+        --     GameTooltip:SetOwner(self, "ANCHOR_TOP");
+        --     GameTooltip:SetText(L[""], nil, nil, nil, nil, true);
+        --     GameTooltip:Show();
+        -- end)
+        -- b:SetScript("OnLeave", GameTooltip_Hide)
+        ignoreBindingCheckbox = b
+    end
+
+    do
+        local b = CreateFrame("CheckButton", nil, f, "UICheckButtonTemplate")
+        b.text = b:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        b.text:SetPoint("LEFT", b, "RIGHT", 0, 1)
+        b:SetPoint("BOTTOMLEFT", 38, 45)
+        b.text:SetText(L["Ignore Import/Export Macro"])
+        -- b:SetScript("OnEnter", function(self)
+        --     GameTooltip:SetOwner(self, "ANCHOR_TOP");
+        --     GameTooltip:SetText(L[""], nil, nil, nil, nil, true);
+        --     GameTooltip:Show();
+        -- end)
+        -- b:SetScript("OnLeave", GameTooltip_Hide)
+        ignoreMacroCheckbox = b
+    end
+end
+
 -- import
 do
     local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
@@ -111,20 +133,26 @@ do
     b:SetText(L["Import"])
     b:SetScript("OnClick", function()
         local msg = MySlot:Import(exportEditbox:GetText(), {
-            force = forceImportCheckbox:GetChecked()
+            force = forceImportCheckbox:GetChecked(),
         })
 
         if not msg then
             return
         end
-        
+
         StaticPopupDialogs["MYSLOT_MSGBOX"].OnAccept = function()
             StaticPopup_Hide("MYSLOT_MSGBOX")
-            MySlot:RecoverData(msg)
+            MySlot:RecoverData(msg, {
+                ignoreAction = ignoreActionCheckbox:GetChecked(),
+                ignoreBinding = ignoreBindingCheckbox:GetChecked(),
+                ignoreMacro = ignoreMacroCheckbox:GetChecked(),
+            })
         end
         StaticPopup_Show("MYSLOT_MSGBOX")
     end)
 end
+
+local infolabel
 
 -- export
 do
@@ -134,30 +162,374 @@ do
     b:SetPoint("BOTTOMLEFT", 40, 15)
     b:SetText(L["Export"])
     b:SetScript("OnClick", function()
-        local s = MySlot:Export()
+        local s = MySlot:Export({
+            ignoreAction = ignoreActionCheckbox:GetChecked(),
+            ignoreBinding = ignoreBindingCheckbox:GetChecked(),
+            ignoreMacro = ignoreMacroCheckbox:GetChecked(),
+        })
         exportEditbox:SetText(s)
-        ScrollingEdit_SetCursorOffsets(exportEditbox, 0, 0)
+        infolabel.ShowUnsaved()
     end)
 end
+
+RegEvent("ADDON_LOADED", function()
+    do
+        local t = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
+        t:SetWidth(600)
+        t:SetHeight(400)
+        t:SetPoint("TOPLEFT", f, 25, -75)
+        t:SetBackdrop({ 
+            bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+            edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+            tile = true,
+            tileEdge = true,
+            tileSize = 16,
+            edgeSize = 16,
+            insets = { left = -2, right = -2, top = -2, bottom = -2 },    
+        })
+        t:SetBackdropColor(0, 0, 0, 0)
+    
+        local s = CreateFrame("ScrollFrame", nil, t, "UIPanelScrollFrameTemplate")
+        s:SetWidth(560)
+        s:SetHeight(375)
+        s:SetPoint("TOPLEFT", 10, -10)
+
+
+        local edit = CreateFrame("EditBox", nil, s)
+        s.cursorOffset = 0
+        edit:SetWidth(550)
+        s:SetScrollChild(edit)
+        edit:SetAutoFocus(false)
+        edit:EnableMouse(true)
+        edit:SetMaxLetters(99999999)
+        edit:SetMultiLine(true)
+        edit:SetFontObject(GameTooltipText)
+        edit:SetScript("OnEscapePressed", edit.ClearFocus)
+        edit:SetScript("OnTextSet", edit.HighlightText)
+        edit:SetScript("OnMouseUp", edit.HighlightText)
+
+        -- edit:SetScript("OnTextChanged", function()
+        --     infolabel:SetText(L["Unsaved"])
+        -- end)
+        edit:SetScript("OnTextSet", function()
+            edit.savedtxt = edit:GetText()
+            infolabel:SetText("")
+        end)
+        edit:SetScript("OnChar", function(self, c)
+            infolabel.ShowUnsaved()
+        end)
+
+        t:SetScript("OnMouseDown", function()
+            edit:SetFocus()
+        end)
+
+        exportEditbox = edit
+    end    
+
+
+    do
+        local t = CreateFrame("Frame", nil, f, "UIDropDownMenuTemplate")
+        t:SetPoint("TOPLEFT", f, 5, -45)
+        UIDropDownMenu_SetWidth(t, 200)
+        do
+            local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+            tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 20, 0)
+
+            tt.ShowUnsaved = function()
+                tt:SetText(YELLOW_FONT_COLOR:WrapTextInColorCode(L["Unsaved"]))
+            end
+            
+            infolabel = tt
+        end
+
+        if not MyslotExports then
+            MyslotExports = {}
+        end
+        if not MyslotExports["exports"] then
+            MyslotExports["exports"] = {}
+        end
+        local exports = MyslotExports["exports"]
+
+        local onclick = function(self)
+            local idx = self.value
+            UIDropDownMenu_SetSelectedValue(t, idx)
+
+            local n = exports[idx] and exports[idx].name or ""
+            UIDropDownMenu_SetText(t, n)
+
+            local v = exports[idx] and exports[idx].value or ""
+            exportEditbox:SetText(v)
+        end
+
+        local create = function(name)
+            if #exports >= MAX_PROFILES_COUNT then
+                MySlot:Print(L["Too many saved profiles, please use '/myslot trim' to clean up"])
+                return
+            end
+
+            local txt = {
+                name = name
+            }
+            table.insert(exports, txt)
+
+            local info = UIDropDownMenu_CreateInfo()
+            info.text = txt.name
+            info.value = #exports
+            info.func = onclick
+            UIDropDownMenu_AddButton(info)
+
+            return true
+        end
+
+        local save = function(force)
+            local c = UIDropDownMenu_GetSelectedValue(t)
+            local v = exportEditbox:GetText()
+            if not force and v == "" then
+                return
+            end
+            if (not c) or (not exports[c]) then
+                local n = date()
+                if not create(n) then
+                    return
+                end
+                UIDropDownMenu_SetSelectedValue(t, #exports)
+                UIDropDownMenu_SetText(t, n)
+                c = #exports
+            end
+
+            exports[c].value = v
+            infolabel:SetText("")
+        end
+        -- exportEditbox:SetScript("OnTextChanged", function() save(false) end)
+
+        UIDropDownMenu_Initialize(t, function()
+            for i, txt in pairs(exports) do
+                -- print(txt.name)
+                local info = UIDropDownMenu_CreateInfo()
+                info.text = txt.name
+                info.value = i
+                info.func = onclick
+                UIDropDownMenu_AddButton(info)
+            end
+        end)
+
+        local popctx = {}
+
+        StaticPopupDialogs["MYSLOT_EXPORT_TITLE"].OnShow = function(self)
+            local c = popctx.current
+
+            if c and exports[c] then
+                self.editBox:SetText(exports[c].name or "")
+            end
+            self.editBox:SetFocus()
+        end
+
+
+        StaticPopupDialogs["MYSLOT_EXPORT_TITLE"].OnAccept = function(self)
+            local c = popctx.current
+
+            -- if c then rename
+            if c and exports[c] then
+                local n = self.editBox:GetText()
+                if n ~= "" then
+                    exports[c].name = n
+                    UIDropDownMenu_SetText(t, n)
+                end
+                return
+            end
+
+            if create(self.editBox:GetText()) then
+                onclick({value = #exports})
+            end
+        end
+
+        do
+            local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
+            b:SetWidth(70)
+            b:SetHeight(25)
+            b:SetPoint("TOPLEFT", t, 240, 0)
+            b:SetText(NEW)
+            b:SetScript("OnClick", function()
+                popctx.current = nil
+                StaticPopup_Show("MYSLOT_EXPORT_TITLE")
+            end)
+        end
+
+        do
+            local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
+            b:SetWidth(70)
+            b:SetHeight(25)
+            b:SetPoint("TOPLEFT", t, 315, 0)
+            b:SetText(SAVE)
+            b:SetScript("OnClick", function() save(true) end)
+        end
+
+        do
+            local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
+            b:SetWidth(70)
+            b:SetHeight(25)
+            b:SetPoint("TOPLEFT", t, 390, 0)
+            b:SetText(DELETE)
+            b:SetScript("OnClick", function()
+                local c = UIDropDownMenu_GetSelectedValue(t)
+
+                if c then
+                    StaticPopupDialogs["MYSLOT_CONFIRM_DELETE"].OnAccept = function()
+                        StaticPopup_Hide("MYSLOT_CONFIRM_DELETE")
+                        table.remove(exports, c)
+                        
+                        if #exports == 0 then
+                            UIDropDownMenu_SetSelectedValue(t, nil)
+                            UIDropDownMenu_SetText(t, "")
+                            exportEditbox:SetText("")
+                        else
+                            onclick({value = #exports})
+                        end
+                    end
+                    StaticPopup_Show("MYSLOT_CONFIRM_DELETE", exports[c].name)
+                end
+            end)
+        end
+       
+        do
+            local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")
+            b:SetWidth(70)
+            b:SetHeight(25)
+            b:SetPoint("TOPLEFT", t, 465, 0)
+            b:SetText(L["Rename"])
+            b:SetScript("OnClick", function()
+                local c = UIDropDownMenu_GetSelectedValue(t)
+
+                if c and exports[c] then
+                    popctx.current = c
+                    StaticPopup_Show("MYSLOT_EXPORT_TITLE")
+                end
+            end)
+        end
+
+    end
+
+end)
+
+RegEvent("ADDON_LOADED", function()
+    local ldb = LibStub("LibDataBroker-1.1")
+    local icon = LibStub("LibDBIcon-1.0")
+
+    MyslotSettings = MyslotSettings or {}
+    MyslotSettings.minimap = MyslotSettings.minimap or { hide = false }
+    local config = MyslotSettings.minimap
+
+    icon:Register("Myslot", ldb:NewDataObject("Myslot", {
+            icon = "Interface\\MacroFrame\\MacroFrame-Icon",
+            OnClick = function()
+                f:SetShown(not f:IsShown())
+            end,
+            OnTooltipShow = function(tooltip)
+                tooltip:AddLine(L["Myslot"])
+            end,
+        }), config)
+    
+
+    local lib = LibStub:NewLibrary("Myslot-5.0", 1)
+
+    if lib then
+        lib.MainFrame = MySlot.MainFrame
+    end
+	
+	--[ [	bf.178.com
+	MySlot_SavedDb = MySlot_SavedDb
+	if MySlot_SavedDb then
+		if not MyslotExports then
+			MyslotExports = {}
+		end
+		if not MyslotExports["exports"] then
+			MyslotExports["exports"] = {}
+		end
+		local exports = MyslotExports["exports"]
+		
+		for i,t in pairs(MySlot_SavedDb) do
+			if t then
+				local tt = {name = t.Sname,value = t.Scheme}
+				table.insert(exports, tt)
+			end
+		end
+		
+		local bf_TODO = false
+		StaticPopupDialogs["bf_UPDATE_TODO"] = {
+			button1 = OKAY,
+			button2 = CANCEL,
+			OnAccept = function()
+				MySlot_SavedDb = nil
+			end,
+			showAlert = 1,
+		};
+		StaticPopupDialogs["bf_UPDATE_TODO"].text = "旧按键配置已自动导入至新版本配置中,点击【确定】删除老配置。"
+		f:SetScript("OnShow", function()
+			if MySlot_SavedDb and not bf_TODO then
+				StaticPopup_Show("bf_UPDATE_TODO");
+				bf_TODO = true
+			end
+		end)
+	end
+	--]]
+
+end)
 
 SlashCmdList["MYSLOT"] = function(msg, editbox)
     local cmd, what = msg:match("^(%S*)%s*(%S*)%s*$")
 
     if cmd == "clear" then
-		MySlot_Clearall(what)
+        -- MySlot:Clear(what)
+        InterfaceOptionsFrame_OpenToCategory(L["Myslot"])
+        InterfaceOptionsFrame_OpenToCategory(L["Myslot"])
+    elseif cmd == "trim" then
+        if not MyslotExports then
+            MyslotExports = {}
+        end
+        if not MyslotExports["exports"] then
+            MyslotExports["exports"] = {}
+        end
+        local exports = MyslotExports["exports"]
+        local n = tonumber(what) or MAX_PROFILES_COUNT
+        n = math.max(n, 0)
+        while #exports > n do
+            table.remove(exports, 1)
+        end
+        C_UI.Reload()
     else
-		if not MYSLOT_ReportFrame:IsVisible() then
-			MYSLOT_ReportFrame:Show();
-		else
-			MYSLOT_ReportFrame:Hide();
-		end
-	end
+        f:Show()
+    end
 end
 SLASH_MYSLOT1 = "/MYSLOT"
 
 StaticPopupDialogs["MYSLOT_MSGBOX"] = {
-	text = MySlot_Sure_Scheme,
-	button1 = OKAY,
+    text = L["Are you SURE to import ?"],
+    button1 = ACCEPT,
+    button2 = CANCEL,
+    timeout = 0,
+    whileDead = 1,
+    hideOnEscape = 1,
+    multiple = 0,
+}
+
+StaticPopupDialogs["MYSLOT_EXPORT_TITLE"] = {
+    text = L["Name of exported text"],
+    button1 = ACCEPT,
+    button2 = CANCEL,
+    hasEditBox = true,
+    timeout = 0,
+    whileDead = 1,
+    hideOnEscape = 1,
+    multiple = 0,
+    OnAccept = function()
+    end,
+    OnShow = function()
+    end,
+}
+
+StaticPopupDialogs["MYSLOT_CONFIRM_DELETE"] = {
+    text = L["Are you SURE to delete '%s'?"],
+    button1 = ACCEPT,
     button2 = CANCEL,
     timeout = 0,
     whileDead = 1,

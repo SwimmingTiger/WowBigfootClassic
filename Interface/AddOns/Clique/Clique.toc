@@ -1,4 +1,4 @@
-﻿## Interface: 11306
+﻿## Interface: 11307
 ## Title: Clique
 ## Title-zhCN: [大脚][集]一键施法
 ## Title-zhTW: [大腳][集]一鍵施法
@@ -6,8 +6,10 @@
 ## Notes-zhCN: |cff00ff00Clique|r|n|cffbc8f8f简单而强大的点击施法工具。|r
 ## Notes-zhTW: |cff00ff00Clique|r|n|cffbc8f8f簡單而強大的點擊施法工具。|r
 ## Author: Cladhaire
-## Version: v1.0.3-classic
+## Version: v90005-2.0.2
 ## SavedVariables: CliqueDB, CliqueDB3
+## X-Curse-Project-ID: 15564
+## X-WoWI-ID: 5108
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1
