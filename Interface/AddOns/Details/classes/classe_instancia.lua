@@ -380,15 +380,15 @@ end
 		
 		self:ResetaGump()
 		
-		--gump:Fade (self.baseframe.cabecalho.atributo_icon, _unpack (_detalhes.windows_fade_in))
-		--gump:Fade (self.baseframe.cabecalho.ball, _unpack (_detalhes.windows_fade_in))
-		--gump:Fade (self.baseframe, _unpack (_detalhes.windows_fade_in))
-		--gump:Fade (self.rowframe, _unpack (_detalhes.windows_fade_in))
+		--Details.FadeHandler.Fader (self.baseframe.cabecalho.atributo_icon, _unpack (_detalhes.windows_fade_in))
+		--Details.FadeHandler.Fader (self.baseframe.cabecalho.ball, _unpack (_detalhes.windows_fade_in))
+		--Details.FadeHandler.Fader (self.baseframe, _unpack (_detalhes.windows_fade_in))
+		--Details.FadeHandler.Fader (self.rowframe, _unpack (_detalhes.windows_fade_in))
 		
-		gump:Fade (self.baseframe.cabecalho.ball, 1)
-		gump:Fade (self.baseframe, 1)
-		gump:Fade (self.rowframe, 1)
-		gump:Fade (self.windowSwitchButton, 1) --4th july 2020: fix for autohiding
+		Details.FadeHandler.Fader (self.baseframe.cabecalho.ball, 1)
+		Details.FadeHandler.Fader (self.baseframe, 1)
+		Details.FadeHandler.Fader (self.rowframe, 1)
+		Details.FadeHandler.Fader (self.windowSwitchButton, 1) --4th july 2020: fix for autohiding
 		
 		self:Desagrupar (-1)
 		
@@ -412,10 +412,10 @@ end
 		local _fadeType, _fadeSpeed = _unpack (_detalhes.row_fade_in)
 		if (segmento) then
 			if (instancia.segmento == segmento) then
-				return gump:Fade (instancia, _fadeType, _fadeSpeed, "barras")
+				return Details.FadeHandler.Fader (instancia, _fadeType, _fadeSpeed, "barras")
 			end
 		else
-			return gump:Fade (instancia, _fadeType, _fadeSpeed, "barras")
+			return Details.FadeHandler.Fader (instancia, _fadeType, _fadeSpeed, "barras")
 		end
 	end
 
@@ -586,15 +586,15 @@ end
 		_detalhes:TrocaTabela (self, nil, nil, nil, true)
 
 		if (self.hide_icon) then
-			gump:Fade (self.baseframe.cabecalho.atributo_icon, 1)
+			Details.FadeHandler.Fader (self.baseframe.cabecalho.atributo_icon, 1)
 		else
-			gump:Fade (self.baseframe.cabecalho.atributo_icon, 0)
+			Details.FadeHandler.Fader (self.baseframe.cabecalho.atributo_icon, 0)
 		end
 		
-		gump:Fade (self.baseframe.cabecalho.ball, 0)
-		gump:Fade (self.baseframe, 0)
-		gump:Fade (self.rowframe, 0)
-		gump:Fade (self.windowSwitchButton, 0) --4th july 2020: fix for autohiding
+		Details.FadeHandler.Fader (self.baseframe.cabecalho.ball, 0)
+		Details.FadeHandler.Fader (self.baseframe, 0)
+		Details.FadeHandler.Fader (self.rowframe, 0)
+		Details.FadeHandler.Fader (self.windowSwitchButton, 0) --4th july 2020: fix for autohiding
 		
 		self:SetMenuAlpha()
 		
@@ -1796,7 +1796,7 @@ function _detalhes:InstanceReset (instance)
 	if (instance) then
 		self = instance
 	end
-	_detalhes.gump:Fade (self, "in", nil, "barras")
+	Details.FadeHandler.Fader (self, "in", nil, "barras")
 	self:AtualizaSegmentos (self)
 	self:AtualizaSoloMode_AfertReset()
 	self:ResetaGump()
@@ -1948,7 +1948,7 @@ function _detalhes:Freeze (instancia)
 
 	if (not _detalhes.initializing) then
 		instancia:ResetaGump()
-		gump:Fade (instancia, "in", nil, "barras")
+		Details.FadeHandler.Fader (instancia, "in", nil, "barras")
 	end
 	
 	instancia:InstanceMsg (Loc ["STRING_FREEZE"], [[Interface\CHARACTERFRAME\Disconnect-Icon]], "silver")
@@ -2009,7 +2009,7 @@ function _detalhes:AtualizaSegmentos_AfterCombat (instancia, historico)
 	if (segmento == _detalhes.segments_amount) then --> significa que o index [5] passou a ser [6] com a entrada da nova tabela
 		instancia.showing = historico.tabelas [_detalhes.segments_amount] --> ent�o ele volta a pegar o index [5] que antes era o index [4]
 		--print ("==> Changing the Segment now! - classe_instancia.lua 1942")
-		gump:Fade (instancia, _fadeType, _fadeSpeed, "barras")
+		Details.FadeHandler.Fader (instancia, _fadeType, _fadeSpeed, "barras")
 		instancia.showing[instancia.atributo].need_refresh = true
 		instancia.v_barras = true
 		instancia:ResetaGump()
@@ -2020,7 +2020,7 @@ function _detalhes:AtualizaSegmentos_AfterCombat (instancia, historico)
 		instancia.showing = historico.tabelas [segmento]
 		--print ("==> Changing the Segment now! - classe_instancia.lua 1952")
 		
-		gump:Fade (instancia, _fadeType, _fadeSpeed, "barras") --"in", nil
+		Details.FadeHandler.Fader (instancia, _fadeType, _fadeSpeed, "barras") --"in", nil
 		instancia.showing[instancia.atributo].need_refresh = true
 		instancia.v_barras = true
 		instancia:ResetaGump()
@@ -2790,7 +2790,7 @@ function _detalhes:AlteraModo (instancia, qual, from_mode_menu)
 		end
 		
 		_detalhes:ResetaGump (instancia)
-		--gump:Fade (instancia, 1, nil, "barras")
+		--Details.FadeHandler.Fader (instancia, 1, nil, "barras")
 		
 		instancia.modo = modo_grupo
 		instancia:ChangeIcon()

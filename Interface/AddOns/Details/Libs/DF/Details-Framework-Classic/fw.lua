@@ -1,5 +1,5 @@
 
-local dversion = 227
+local dversion = 230
 local major, minor = "DetailsFramework-1.0", dversion
 local DF, oldminor = LibStub:NewLibrary (major, minor)
 
@@ -590,11 +590,30 @@ function DF:TruncateText (fontString, maxWidth)
 		if (string.len (text) <= 1) then
 			break
 		end
-	end	
+	end
+	
+	text = DF:CleanTruncateUTF8String(text)
+	fontString:SetText (text)
 end
 
-function DF:Msg (msg)
-	print ("|cFFFFFFAA" .. (self.__name or "FW Msg:") .. "|r ", msg)
+function DF:CleanTruncateUTF8String(text)
+	if type(text) == "string" and text ~= "" then
+		local b1 = (#text > 0) and strbyte(strsub(text, #text, #text)) or nil
+		local b2 = (#text > 1) and strbyte(strsub(text, #text-1, #text)) or nil
+		local b3 = (#text > 2) and strbyte(strsub(text, #text-2, #text)) or nil
+		if b1 and b1 >= 194 and b1 <= 244 then
+			text = strsub (text, 1, #text - 1)
+		elseif b2 and b2 >= 224 and b2 <= 244 then
+			text = strsub (text, 1, #text - 2)
+		elseif b3 and b3 >= 240 and b3 <= 244 then
+			text = strsub (text, 1, #text - 3)
+		end
+	end
+	return text
+end
+
+function DF:Msg (msg,...)
+	print ("|cFFFFFFAA" .. (self.__name or "FW Msg:") .. "|r ", msg, ...)
 end
 
 function DF:GetNpcIdFromGuid (guid)
@@ -3730,3 +3749,118 @@ do
 end
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--> forbidden functions on scripts
+
+	--these are functions which scripts cannot run due to security issues
+	local forbiddenFunction = {
+		--block mail, trades, action house, banks
+		["C_AuctionHouse"] 	= true,
+		["C_Bank"] = true,
+		["C_GuildBank"] = true,
+		["SetSendMailMoney"] = true,
+		["SendMail"]		= true,
+		["SetTradeMoney"]	= true,
+		["AddTradeMoney"]	= true,
+		["PickupTradeMoney"]	= true,
+		["PickupPlayerMoney"]	= true,
+		["AcceptTrade"]		= true,
+
+		--frames
+		["BankFrame"] 		= true,
+		["TradeFrame"]		= true,
+		["GuildBankFrame"] 	= true,
+		["MailFrame"]		= true,
+		["EnumerateFrames"] = true,
+
+		--block run code inside code
+		["RunScript"] = true,
+		["securecall"] = true,
+		["getfenv"] = true,
+		["getfenv"] = true,
+		["loadstring"] = true,
+		["pcall"] = true,
+		["xpcall"] = true,
+		["getglobal"] = true,
+		["setmetatable"] = true,
+		["DevTools_DumpCommand"] = true,
+
+		--avoid creating macros
+		["SetBindingMacro"] = true,
+		["CreateMacro"] = true,
+		["EditMacro"] = true,
+		["hash_SlashCmdList"] = true,
+		["SlashCmdList"] = true,
+
+		--block guild commands
+		["GuildDisband"] = true,
+		["GuildUninvite"] = true,
+
+		--other things
+		["C_GMTicketInfo"] = true,
+
+		--deny messing addons with script support
+		["PlaterDB"] = true,
+		["_detalhes_global"] = true,
+		["WeakAurasSaved"] = true,
+	}
+
+	local C_RestrictedSubFunctions = {
+		["C_GuildInfo"] = {
+			["RemoveFromGuild"] = true,
+		},
+	}
+
+	--not in use, can't find a way to check within the environment handle
+	local addonRestrictedFunctions = {
+		["DetailsFramework"] = {
+			["SetEnvironment"] = true,
+		},
+
+		["Plater"] = {
+			["ImportScriptString"] = true,
+			["db"] = true,
+		},
+
+		["WeakAuras"] = {
+			["Add"] = true,
+			["AddMany"] = true,
+			["Delete"] = true,
+			["NewAura"] = true,
+		},
+	}
+
+    local C_SubFunctionsTable = {}
+    for globalTableName, functionTable in pairs(C_RestrictedSubFunctions) do
+        C_SubFunctionsTable [globalTableName] = {}
+        for functionName, functionObject in pairs(_G[globalTableName]) do
+            if (not functionTable[functionName]) then
+                C_SubFunctionsTable [globalTableName][functionName] = functionObject
+            end
+        end
+    end
+	
+	DF.DefaultSecureScriptEnvironmentHandle = {
+		__index = function (env, key)
+
+			if (forbiddenFunction[key]) then
+				return nil
+
+			elseif (key == "_G") then
+				return env
+				
+			elseif (C_SubFunctionsTable[key]) then
+				return C_SubFunctionsTable[key]
+			end
+
+			return _G[key]
+		end
+	}
+
+	function DF:SetEnvironment(func, environmentHandle, newEnvironment)
+		environmentHandle = environmentHandle or DF.DefaultSecureScriptEnvironmentHandle
+		newEnvironment = newEnvironment or {}
+
+		setmetatable(newEnvironment, environmentHandle)
+		_G.setfenv(func, newEnvironment)
+	end

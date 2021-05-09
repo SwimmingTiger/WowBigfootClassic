@@ -106,7 +106,7 @@ function _G._detalhes:Start()
 			
 		--> actor details window
 			self.janela_info = self.gump:CriaJanelaInfo()
-			self.gump:Fade (self.janela_info, 1)
+			Details.FadeHandler.Fader (self.janela_info, 1)
 			
 		--> copy and paste window
 			self:CreateCopyPasteWindow()
@@ -450,7 +450,7 @@ function _G._detalhes:Start()
 				self:SairDoCombate()
 				
 				--> update all windows
-				self:InstanciaCallFunction (self.gump.Fade, "in", nil, "barras")
+				self:InstanciaCallFunction (Details.FadeHandler.Fader, "in", nil, "barras")
 				self:InstanciaCallFunction (self.AtualizaSegmentos)
 				self:InstanciaCallFunction (self.AtualizaSoloMode_AfertReset)
 				self:InstanciaCallFunction (self.ResetaGump)
@@ -572,7 +572,7 @@ function _G._detalhes:Start()
 					end
 
 					--> update all windows
-					self:InstanciaCallFunction (self.gump.Fade, "in", nil, "barras")
+					self:InstanciaCallFunction (Details.FadeHandler.Fader, "in", nil, "barras")
 					self:InstanciaCallFunction (self.AtualizaSegmentos)
 					self:InstanciaCallFunction (self.AtualizaSoloMode_AfertReset)
 					self:InstanciaCallFunction (self.ResetaGump)
@@ -670,7 +670,7 @@ function _G._detalhes:Start()
 						end
 						
 						--> update all windows
-						self:InstanciaCallFunction (self.gump.Fade, "in", nil, "barras")
+						self:InstanciaCallFunction (Details.FadeHandler.Fader, "in", nil, "barras")
 						self:InstanciaCallFunction (self.AtualizaSegmentos)
 						self:InstanciaCallFunction (self.AtualizaSoloMode_AfertReset)
 						self:InstanciaCallFunction (self.ResetaGump)
@@ -1225,7 +1225,7 @@ function _G._detalhes:Start()
 		function self:AnnounceVersion()
 			for index, instancia in _detalhes:ListInstances() do
 				if (instancia.ativa) then
-					self.gump:Fade (instancia._version, "in", 0.1)
+					Details.FadeHandler.Fader (instancia._version, "in", 0.1)
 				end
 			end
 		end
@@ -1557,7 +1557,7 @@ function _G._detalhes:Start()
 			end
 		
 			--version
-			self.gump:Fade (instance._version, 0)
+			Details.FadeHandler.Fader (instance._version, 0)
 			instance._version:SetText ("Details! " .. _detalhes.userversion .. " (core " .. self.realversion .. ")")
 			instance._version:SetTextColor (1, 1, 1, .35)
 			instance._version:SetPoint ("bottomleft", instance.baseframe, "bottomleft", 5, 1)
@@ -1567,9 +1567,9 @@ function _G._detalhes:Start()
 			end
 
 			function _detalhes:FadeStartVersion()
-				_detalhes.gump:Fade (dev_icon, "in", 2)
-				_detalhes.gump:Fade (dev_text, "in", 2)
-				self.gump:Fade (instance._version, "in", 2)
+				Details.FadeHandler.Fader (dev_icon, "in", 2)
+				Details.FadeHandler.Fader (dev_text, "in", 2)
+				Details.FadeHandler.Fader (instance._version, "in", 2)
 				
 				if (_detalhes.switch.table) then
 				
@@ -1585,9 +1585,9 @@ function _G._detalhes:Start()
 					if (not have_bookmark) then
 						function _detalhes:WarningAddBookmark()
 							instance._version:SetText ("right click to set bookmarks.")
-							self.gump:Fade (instance._version, "out", 1)
+							Details.FadeHandler.Fader (instance._version, "out", 1)
 							function _detalhes:FadeBookmarkWarning()
-								self.gump:Fade (instance._version, "in", 2)
+								Details.FadeHandler.Fader (instance._version, "in", 2)
 							end
 							_detalhes:ScheduleTimer ("FadeBookmarkWarning", 5)
 						end
@@ -1905,26 +1905,36 @@ function _G._detalhes:Start()
 	local warningMessage = taintWarning:CreateFontString (nil, "overlay", "GameFontNormal")
 	warningMessage:SetText ("< right click and choose 'Enter Battle' if 'Enter Battle' button not work")
 
-	C_Timer.NewTicker(1, function()
-		if (StaticPopup1:IsShown()) then
+	C_Timer.NewTicker(3, function()
+		if (StaticPopup1:IsShown() or StaticPopup2:IsShown()) then
 			if (StaticPopup1.which == "CONFIRM_BATTLEFIELD_ENTRY") then
+				if (StaticPopup1.which == "ADDON_ACTION_FORBIDDEN" or (StaticPopup2 and StaticPopup2:IsShown() and StaticPopup2.which == "ADDON_ACTION_FORBIDDEN")) then
 
-				taintWarning:Show()
-				taintWarning:SetPoint ("topleft", StaticPopup1, "bottomleft", 0, -10)
-				if (MiniMapBattlefieldFrame:IsShown())then
-					if (not originalPosition) then
-						local a = {}
-						for i = 1, MiniMapBattlefieldFrame:GetNumPoints() do
-							a[#a + 1] = {MiniMapBattlefieldFrame:GetPoint(i)}
+					if (StaticPopup2:IsShown()) then
+						if (StaticPopup2.which == "ADDON_ACTION_FORBIDDEN") then
+							StaticPopup_Hide("ADDON_ACTION_FORBIDDEN")
 						end
-						originalPosition = a
 					end
 
-					MiniMapBattlefieldFrame:ClearAllPoints()
-					MiniMapBattlefieldFrame:SetPoint("left", taintWarning, "left", 10, -2)
-					warningMessage:SetPoint ("left", MiniMapBattlefieldFrame, "right", 9, 0)
+					taintWarning:Show()
+					taintWarning:SetPoint ("topleft", StaticPopup1, "bottomleft", 0, -10)
+					if (MiniMapBattlefieldFrame:IsShown())then
 
-					isOnOriginalPosition = false
+						if (not originalPosition) then
+							local a = {}
+							for i = 1, MiniMapBattlefieldFrame:GetNumPoints() do
+								a[#a + 1] = {MiniMapBattlefieldFrame:GetPoint(i)}
+							end
+							originalPosition = a
+						end
+
+						MiniMapBattlefieldFrame:ClearAllPoints()
+						MiniMapBattlefieldFrame:SetPoint("left", taintWarning, "left", 10, -2)
+						warningMessage:SetPoint ("left", MiniMapBattlefieldFrame, "right", 9, 0)
+						MiniMapBattlefieldFrame:SetFrameStrata("HIGH")
+
+						isOnOriginalPosition = false
+					end
 				end
 			end
 		else

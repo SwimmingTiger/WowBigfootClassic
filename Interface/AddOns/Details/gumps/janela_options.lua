@@ -8116,7 +8116,7 @@ function window:CreateFrame6()
 				end
 			end
 			--hard instances reset
-			_detalhes:InstanciaCallFunction (_detalhes.gump.Fade, "in", nil, "barras")
+			_detalhes:InstanciaCallFunction (_detalhes.Details.FadeHandler.Fader, "in", nil, "barras")
 			_detalhes:InstanciaCallFunction (_detalhes.AtualizaSegmentos) -- atualiza o instancia.showing para as novas tabelas criadas
 			_detalhes:InstanciaCallFunction (_detalhes.AtualizaSoloMode_AfertReset) -- verifica se precisa zerar as tabela da janela solo mode
 			_detalhes:InstanciaCallFunction (_detalhes.ResetaGump) --_detalhes:ResetaGump ("de todas as instancias")

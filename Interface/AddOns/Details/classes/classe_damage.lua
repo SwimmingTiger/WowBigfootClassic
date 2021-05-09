@@ -941,7 +941,7 @@
 		end
 		
 		if (esta_barra.hidden or esta_barra.fading_in or esta_barra.faded) then
-			gump:Fade (esta_barra, "out")
+			Details.FadeHandler.Fader (esta_barra, "out")
 		end
 		
 		if (instancia.row_info.texture_class_colors) then
@@ -1127,7 +1127,7 @@
 		esta_barra.texto_direita:SetTextColor (1, 1, 1, 1)		
 		
 		if (esta_barra.hidden or esta_barra.fading_in or esta_barra.faded) then
-			gump:Fade (esta_barra, "out")
+			Details.FadeHandler.Fader (esta_barra, "out")
 		end
 
 		_detalhes:SetBarColors (esta_barra, instancia, _unpack (_detalhes.class_colors [tabela [3]]))
@@ -1540,7 +1540,7 @@
 		esta_barra:SetValue (100)
 		
 		if (esta_barra.hidden or esta_barra.fading_in or esta_barra.faded) then
-			gump:Fade (esta_barra, "out")
+			Details.FadeHandler.Fader (esta_barra, "out")
 		end
 		
 		local _, _, icon = GetSpellInfo (self.damage_spellid)
@@ -2102,7 +2102,7 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 		if (forcar) then
 			if (instancia.modo == 2) then --> group
 				for i = 1, instancia.rows_fit_in_window  do
-					gump:Fade (instancia.barras [i], "in", 0.3)
+					Details.FadeHandler.Fader (instancia.barras [i], "in", 0.3)
 				end
 			end
 		end
@@ -2200,7 +2200,7 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 			row1.icone_classe:SetTexture (instancia.total_bar.icon)
 			row1.icone_classe:SetTexCoord (0.0625, 0.9375, 0.0625, 0.9375)
 			
-			gump:Fade (row1, "out")
+			Details.FadeHandler.Fader (row1, "out")
 			totalBarIsShown = true
 			
 			if (following and myPos and myPos > instancia.rows_fit_in_window and instancia.barraS[2] < myPos) then
@@ -2265,7 +2265,7 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 			row1.icone_classe:SetTexture (instancia.total_bar.icon)
 			row1.icone_classe:SetTexCoord (0.0625, 0.9375, 0.0625, 0.9375)
 			
-			gump:Fade (row1, "out")
+			Details.FadeHandler.Fader (row1, "out")
 			totalBarIsShown = true
 			
 			if (following and myPos and myPos > instancia.rows_fit_in_window and instancia.barraS[2] < myPos) then
@@ -2324,7 +2324,7 @@ function atributo_damage:RefreshWindow (instancia, tabela_do_combate, forcar, ex
 	if (forcar) then
 		if (instancia.modo == 2) then --> group
 			for i = qual_barra, instancia.rows_fit_in_window  do
-				gump:Fade (instancia.barras [i], "in", 0.3)
+				Details.FadeHandler.Fader (instancia.barras [i], "in", 0.3)
 			end
 		end
 	end
@@ -2600,7 +2600,7 @@ end
 			esta_barra:SetValue (100)
 			
 			if (esta_barra.hidden or esta_barra.fading_in or esta_barra.faded) then
-				gump:Fade (esta_barra, "out")
+				Details.FadeHandler.Fader (esta_barra, "out")
 			end
 			
 			return self:RefreshBarra (esta_barra, instancia)
@@ -2618,7 +2618,7 @@ end
 				esta_barra.animacao_ignorar = true
 			end
 			
-			gump:Fade (esta_barra, "out")
+			Details.FadeHandler.Fader (esta_barra, "out")
 
 			return self:RefreshBarra (esta_barra, instancia)
 		else

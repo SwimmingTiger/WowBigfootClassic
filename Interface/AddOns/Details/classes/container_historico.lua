@@ -542,7 +542,7 @@ function historico:resetar()
 	_detalhes:InstanciaCallFunction (_detalhes.AtualizaSegmentos) -- atualiza o instancia.showing para as novas tabelas criadas
 	_detalhes:InstanciaCallFunction (_detalhes.AtualizaSoloMode_AfertReset) -- verifica se precisa zerar as tabela da janela solo mode
 	_detalhes:InstanciaCallFunction (_detalhes.ResetaGump) --_detalhes:ResetaGump ("de todas as instancias")
-	_detalhes:InstanciaCallFunction (gump.Fade, "in", nil, "barras")
+	_detalhes:InstanciaCallFunction (Details.FadeHandler.Fader, "in", nil, "barras")
 	
 	_detalhes:AtualizaGumpPrincipal (-1) --atualiza todas as instancias
 	

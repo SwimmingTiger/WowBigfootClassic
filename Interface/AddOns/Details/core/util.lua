@@ -26,6 +26,7 @@
 	local _strsplit = strsplit
 	local _pcall = pcall
 	local _GetTime = GetTime
+	local upper = string.upper
 	
 	local _UnitClass = UnitClass --wow api local
 	local _IsInRaid = IsInRaid --wow api local
@@ -417,7 +418,271 @@
 	function _detalhes:GetCurrentToKFunction()
 		return _detalhes.ToKFunctions [_detalhes.ps_abbreviation]
 	end
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--> fade handler
+
+Details.FadeHandler = {
+	frames = {}
+}
+
+--fade in is hidding the frame,	it is the opposite of the stardard
+local fadeINFinishedCallback = function(frame)
+	if (frame.fading_in) then
+		frame.hidden = true
+		frame.faded = true
+		frame.fading_in = false
+		frame:Hide()
+	end
+end
+
+--fade out is showing the frame
+local fadeOUTFinishedCallback = function(frame)
+	if (frame:IsShown() and frame.fading_out) then
+		frame.hidden = false
+		frame.faded = false
+		frame.fading_out = false
+	else
+		frame:SetAlpha(0)
+	end
+end
+
+local just_fade_func = function(frame)
+	frame.hidden = false
+	frame.faded = true
+	frame.fading_in = false
+end
+
+local cancelFadeAnimation = function(frame)
+	Details.FadeHandler.frames[frame] = nil
+end
+
+Details.FadeHandler.OnUpdateFrame = CreateFrame("frame", "DetailsFadeFrameOnUpdate", UIParent)
+Details.FadeHandler.OnUpdateFrame:SetScript("OnUpdate", function(self, deltaTime)
+	for frame, frameSettings in pairs(Details.FadeHandler.frames) do
+		local totalTime = frameSettings.totalTime
+		local initAlpha = frameSettings.startAlpha
+		local targetAlpha = frameSettings.endAlpha
+
+		frameSettings.elapsed = frameSettings.elapsed + deltaTime
+		local currentAlpha = Lerp(initAlpha, targetAlpha, frameSettings.elapsed / totalTime)
+
+		if (frameSettings.elapsed >= totalTime) then
+			frame:SetAlpha(targetAlpha)
+			frameSettings.finishedCallback(frame)
+			--remove the frame from the list
+			Details.FadeHandler.frames[frame] = nil
+		else
+			frame:SetAlpha(currentAlpha)
+		end
+	end
+end)
+
+--fade in is hidding the frame
+local startFadeINAnimation = function(frame, totalTime, startAlpha, endAlpha, callbackFunc)
+	frame.fading_out = nil
+	frame.fading_in = true
+
+	Details.FadeHandler.frames[frame] = {
+		totalTime = totalTime or 0.3,
+		startAlpha = startAlpha or frame:GetAlpha(),
+		endAlpha = endAlpha or 0,
+		finishedCallback = callbackFunc or fadeINFinishedCallback,
+		elapsed = 0,
+	}
+end
+
+--fade out is showing the frame
+local startFadeOUTAnimation = function(frame, totalTime, startAlpha, endAlpha, callbackFunc)
+	frame.fading_in = nil
+	frame.fading_out = true
+
+	Details.FadeHandler.frames[frame] = {
+		totalTime = totalTime or 0.3,
+		startAlpha = startAlpha or frame:GetAlpha() or 0,
+		endAlpha = endAlpha or 1,
+		finishedCallback = callbackFunc or fadeOUTFinishedCallback,
+		elapsed = 0,
+	}
+end
+
+function Details.FadeHandler.Fader(frame, animationType, speed, hideType, param5)
+	if (frame == nil) then
+		frame, animationType, speed, hideType = animationType, speed, hideType, param5
+	end
+
+	--if is a table, might be passed an instance object
+	if (type(frame) == "table") then
+		--is it an instance
+		if (frame.meu_id) then
+
+			local instance = frame
+
+			--hide all bars in the instance
+			if (hideType == "barras") then
+				if (speed) then
+					for i = 1, instance.rows_created do
+						local instanceBar = instance.barras[i]
+						Details.FadeHandler.Fader(instanceBar, animationType, speed)
+					end
+					return
+				else
+					speed = speed or 0.3
+					for i = 1, instance.rows_created do
+						local instanceBar = instance.barras[i]
+						Details.FadeHandler.Fader(instanceBar, animationType, 0.3+(i/10))
+					end
+					return
+				end
+
+			--instant hide all bars in the instance
+			elseif (hideType == "hide_barras") then
+				for i = 1, instance.rows_created do
+					local instanceBar = instance.barras[i]
+					if (instanceBar.fading_in or instanceBar.fading_out) then
+						startFadeINAnimation(instanceBar, 0.01, instanceBar:GetAlpha(), instanceBar:GetAlpha())
+--							_UIFrameFadeIn (instanceBar, 0.01, instanceBar:GetAlpha(), instanceBar:GetAlpha())
+					end
+					instanceBar.hidden = true
+					instanceBar.faded = true
+					instanceBar.fading_in = false
+					instanceBar.fading_out = false
+					instanceBar:Hide()
+					instanceBar:SetAlpha(0)
+				end
+				return
+			end
+
+		--if is a framework widget
+		elseif (frame.dframework) then
+			frame = frame.widget
+		end
+	end
+
+	speed = speed or 0.3
+	--animationType = upper(animationType)
+
+	--hide all instanceBars on all instances
+	if (frame == "all") then
+		for _, instancia in _ipairs(_detalhes.tabela_instancias) do
+			if (hideType == "barras") then
+				for i = 1, instancia.rows_created do
+					local instanceBar = instancia.barras[i]
+					Details.FadeHandler.Fader(instanceBar, animationType, speed+(i/10))
+				end
+			end
+		end
+		return
 	
+	elseif (upper(animationType) == "IN") then --hide the frame
+
+		--check if already hidden
+		if (frame:GetAlpha() == 0 and frame.hidden and not frame.fading_out) then
+			return
+		--chekc if already with an animation going on
+		elseif (frame.fading_in) then
+			return
+		end
+		
+		--cancel face out animation if exists
+		if (frame.fading_out) then
+			frame.fading_out = false
+		end
+
+--			_UIFrameFadeIn (frame, speed, frame:GetAlpha(), 0)
+		startFadeINAnimation(frame, speed, frame:GetAlpha(), 0)
+
+	elseif (upper(animationType) == "OUT") then --show the frame
+
+		if (frame:GetAlpha() == 1 and not frame.hidden and not frame.fading_in) then --> ja esta na tela
+			return
+		elseif (frame.fading_out) then --> j� ta com fading out
+			return
+		end
+		
+		if (frame.fading_in) then --> se tiver uma anima��o de hidar em andamento se for true
+			frame.fading_in = false
+		end
+		
+		frame:Show()
+--			_UIFrameFadeOut (frame, speed, frame:GetAlpha(), 1.0)
+		startFadeOUTAnimation(frame, speed, frame:GetAlpha(), 1.0)
+		frame.fading_out = true
+			
+	elseif (animationType == 0) then --force show the frame
+		frame.hidden = false
+		frame.faded = false
+		frame.fading_out = false
+		frame.fading_in = false
+		cancelFadeAnimation(frame) --cancel any ongoing animation
+		frame:Show()
+		frame:SetAlpha(1)
+		
+	elseif (animationType == 1) then --force hide the frame
+		frame.hidden = true
+		frame.faded = true
+		frame.fading_out = false
+		frame.fading_in = false
+		cancelFadeAnimation(frame) --cancel any ongoing animation
+		frame:SetAlpha(0)
+		frame:Hide()
+		
+	elseif (animationType == -1) then --just fade to zero without hidding the frame
+		--check already hidden
+		if (frame:GetAlpha() == 0 and frame.hidden and not frame.fading_out) then
+			return
+		--check already hidding
+		elseif (frame.fading_in) then
+			return
+		end
+		
+		if (frame.fading_out) then
+			frame.fading_out = false
+		end
+
+		startFadeINAnimation(frame, speed, frame:GetAlpha(), 0, just_fade_func)
+--			_UIFrameFadeIn (frame, speed, frame:GetAlpha(), 0)
+
+	elseif (upper(animationType) == "ALPHAANIM") then
+
+		local value = speed
+		local currentApha = frame:GetAlpha()
+		frame:Show()
+		
+		if (currentApha < value) then
+			if (frame.fading_in) then
+				frame.fading_in = false
+			end
+			startFadeOUTAnimation(frame, 0.3, currentApha, value, function(frame) frame.fading_out = false end)
+--				_UIFrameFadeOut (frame, 0.3, currentApha, value)
+
+		else
+			if (frame.fading_out) then
+				frame.fading_out = false
+			end
+
+--				_UIFrameFadeIn (frame, 0.3, currentApha, value)
+			startFadeINAnimation(frame, 0.3, currentApha, value, function(frame) frame.fading_in = false end)
+		end
+
+	--set a fixed alpha value
+	elseif (upper(animationType) == "ALPHA") then
+		local alphaAmount = speed
+
+		if (frame.fading_in or frame.fading_out) then
+			startFadeINAnimation(frame, speed, alphaAmount, alphaAmount)
+		end
+		frame.hidden = false
+		frame.faded = false
+		frame.fading_in = false
+		frame.fading_out = false
+		frame:Show()
+		frame:SetAlpha(alphaAmount)
+	end
+end
+
+
 ------------------------------------------------------------------------------------------------------------
 --> numerical system
 
@@ -1219,13 +1484,13 @@ end
 				if (parametros == "barras") then --> hida todas as barras da inst�ncia
 					if (velocidade) then
 						for i = 1, frame.rows_created, 1 do
-							gump:Fade (frame.barras[i], tipo, velocidade)
+							Details.FadeHandler.Fader (frame.barras[i], tipo, velocidade)
 						end
 						return
 					else
 						velocidade = velocidade or 0.3
 						for i = 1, frame.rows_created, 1 do
-							gump:Fade (frame.barras[i], tipo, 0.3+(i/10))
+							Details.FadeHandler.Fader (frame.barras[i], tipo, 0.3+(i/10))
 						end
 						return
 					end
@@ -1257,7 +1522,7 @@ end
 			for _, instancia in _ipairs (_detalhes.tabela_instancias) do
 				if (parametros == "barras") then --> hida todas as barras da inst�ncia
 					for i = 1, instancia.rows_created, 1 do
-						gump:Fade (instancia.barras[i], tipo, velocidade+(i/10))
+						Details.FadeHandler.Fader (instancia.barras[i], tipo, velocidade+(i/10))
 					end
 				end
 			end
