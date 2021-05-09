@@ -1,9 +1,3 @@
--- File: FasterLooting.lua
--- Name: FasterLooting
--- Author: cannon
--- Description: Auto loots all items without the delay currently in Classic
--- Version: 1.1.1
-
 -- Time delay
 local delay = 0
 local DEBOUNCE_INTERVAL = 0.3
