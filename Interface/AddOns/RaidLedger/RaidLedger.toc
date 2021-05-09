@@ -1,4 +1,4 @@
-## Interface: 11306
+## Interface: 11307
 ## Title: Raid Ledger
 ## Title-deDE: Titel
 ## Title-koKR: 공격대 장부
