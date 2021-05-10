@@ -1,0 +1,472 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="core.lua"/>
+	<Script file="chatframe.lua"/>
+	<Script file="statReport.lua"/>
+	<Script file="raidersFrame.lua"/>
+	<Script file="iconframe.lua"/>
+	<Script file="config.lua"/>
+	<Script file="offline.lua"/>
+	<!-- <Script file="BigFootQRCodes.lua"/> -->
+
+	<Font name="BFCFontNormal" inherits="QuestFont_Large" virtual="true">
+		<Color  r="1.0" g="0.82" b="0"/>
+	</Font>
+
+	<Button name="BFCIconButtonTemplate" virtual="true" hidden="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="23" y="23"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="ChatFrameMenuButton" relativePoint="RIGHT"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				local editBox = ChatEdit_ChooseBoxForSend(SELECTED_CHAT_FRAME)
+				editBox:Show();
+				editBox:SetFocus();
+				local _,font=SELECTED_CHAT_FRAME:GetFont()
+				font=floor(font)
+				editBox:Insert("|T"..self.texture..":"..font.."|t")
+				BFCIconFrame:Hide()
+			</OnClick>
+			<OnEnter>
+				GameTooltip:SetOwner(_G.BFCIconFrame, "ANCHOR_TOPLEFT");
+				GameTooltip:SetText(self.text);
+				BFC_StopCount(self)
+			</OnEnter>
+			<OnLeave>
+				BFC_StartCount(self)
+				GameTooltip:Hide()
+			</OnLeave>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+	</Button>
+
+	<Button name="BFCChatTabTemplate"  virtual="true" hidden="true"  enableMouse="true">
+		<Size>
+			<AbsDimension x="25" y="24"/>
+		</Size>
+		<ButtonText name="$parentText" font="BFCFontNormal">
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="-1.5" y="0.5"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.8)
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnClick>
+				if button=="LeftButton" then
+					BFC_SetChatType(self.type)
+				end
+			</OnClick>
+			<OnDragStart>
+				BFCChatFrame.oripoint={BFCChatFrame:GetPoint()}
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StartMoving();
+					BFCChatFrame.starty=BFCChatFrame:GetTop()
+					BFCChatFrame.startx=BFCChatFrame:GetLeft()
+				end
+			</OnDragStart>
+			<OnDragStop>
+				BFCChatFrame.endy=BFCChatFrame:GetTop()
+				BFCChatFrame.endx=BFCChatFrame:GetLeft()
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StopMovingOrSizing();
+					BFCChatFrame_SavePos(BFCChatFrame)
+				end
+			</OnDragStop>
+		</Scripts>
+		<NormalTexture  file="Interface\AddOns\BigFootChat\icon\text_nor_frame" />
+		<PushedTexture  file="Interface\AddOns\BigFootChat\icon\text_push_frame" />
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+	</Button>
+
+	<Button name="BFCIconFrameCalloutButton"  parent="UIParent" hidden="true" >
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<NormalTexture file="Interface\AddOns\BigFootChat\icon\text_nor_icon"/>
+		<PushedTexture file="Interface\AddOns\BigFootChat\icon\text_push_icon"/>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.8)
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnDragStart>
+				BFCChatFrame.oripoint={BFCChatFrame:GetPoint()}
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StartMoving();
+					BFCChatFrame.starty=BFCChatFrame:GetTop()
+					BFCChatFrame.startx=BFCChatFrame:GetLeft()
+				end
+			</OnDragStart>
+			<OnDragStop>
+				BFCChatFrame.endy=BFCChatFrame:GetTop()
+				BFCChatFrame.endx=BFCChatFrame:GetLeft()
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StopMovingOrSizing();
+					BFCChatFrame_SavePos(BFCChatFrame)
+				end
+			</OnDragStop>
+		</Scripts>
+	</Button>
+
+	<Button name="BFCIconFrameRollButton"  parent="UIParent" hidden="true" >
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBG" file="Interface\AddOns\BigFootChat\icon\text_nor_frame" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\AddOns\BigFootChat\icon\roll">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="23" y="23"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+		<PushedTexture file="Interface\AddOns\BigFootChat\icon\roll">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.8)
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnClick>
+				RandomRoll("1", "100");
+			</OnClick>
+			<OnMouseUp>
+				changeBGTexture(self);
+			</OnMouseUp>
+			<OnMouseDown>
+				changeBGTexture(self,1);
+			</OnMouseDown>
+			<OnDragStart>
+				BFCChatFrame.oripoint={BFCChatFrame:GetPoint()}
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StartMoving();
+					BFCChatFrame.starty=BFCChatFrame:GetTop()
+					BFCChatFrame.startx=BFCChatFrame:GetLeft()
+				end
+			</OnDragStart>
+			<OnDragStop>
+				BFCChatFrame.endy=BFCChatFrame:GetTop()
+				BFCChatFrame.endx=BFCChatFrame:GetLeft()
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StopMovingOrSizing();
+					BFCChatFrame_SavePos(BFCChatFrame)
+				end
+			</OnDragStop>
+		</Scripts>
+	</Button>
+
+	<Button name="BFCIconFrameReportButton"  parent="UIParent" hidden="true" >
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBG" file="Interface\AddOns\BigFootChat\icon\text_nor_frame" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\AddOns\BigFootChat\icon\report">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="23" y="23"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+		<PushedTexture file="Interface\AddOns\BigFootChat\icon\report">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.8);
+				self:RegisterForDrag("LeftButton");
+			</OnLoad>
+			<OnClick>
+				BFCIconFrameReportButton_OnClick(self,button);
+			</OnClick>
+			<OnMouseUp>
+				changeBGTexture(self);
+			</OnMouseUp>
+			<OnMouseDown>
+				changeBGTexture(self,1);
+			</OnMouseDown>
+			<OnDragStart>
+				BFCChatFrame.oripoint={BFCChatFrame:GetPoint()}
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StartMoving();
+					BFCChatFrame.starty=BFCChatFrame:GetTop()
+					BFCChatFrame.startx=BFCChatFrame:GetLeft()
+				end
+			</OnDragStart>
+			<OnDragStop>
+				BFCChatFrame.endy=BFCChatFrame:GetTop()
+				BFCChatFrame.endx=BFCChatFrame:GetLeft()
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StopMovingOrSizing();
+					BFCChatFrame_SavePos(BFCChatFrame)
+				end
+			</OnDragStop>
+			<OnUpdate>
+				BFCIconFrameReportButton_OnUpdate(self);
+			</OnUpdate>
+		</Scripts>
+	</Button>
+
+	<Button name="BFCIconFrameRaidersButton"  parent="UIParent" hidden="true" >
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBG" file="Interface\AddOns\BigFootChat\icon\text_nor_frame" setAllPoints="true"/>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\AddOns\BigFootChat\icon\raiders">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="23" y="23"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-1"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+		<PushedTexture file="Interface\AddOns\BigFootChat\icon\raiders">
+			<Size>
+				<AbsDimension x="17" y="17"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</PushedTexture>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.8)
+				self:RegisterForDrag("LeftButton");
+				BFCIconFrameRaidersButton_OnLoad(self);
+			</OnLoad>
+			<OnMouseUp>
+				changeBGTexture(self);
+			</OnMouseUp>
+			<OnMouseDown>
+				changeBGTexture(self,1);
+			</OnMouseDown>
+			<OnDragStart>
+				BFCChatFrame.oripoint={BFCChatFrame:GetPoint()}
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StartMoving();
+					BFCChatFrame.starty=BFCChatFrame:GetTop()
+					BFCChatFrame.startx=BFCChatFrame:GetLeft()
+				end
+			</OnDragStart>
+			<OnDragStop>
+				BFCChatFrame.endy=BFCChatFrame:GetTop()
+				BFCChatFrame.endx=BFCChatFrame:GetLeft()
+				if BFCChatFrame:IsMovable() then
+					BFCChatFrame:StopMovingOrSizing();
+					BFCChatFrame_SavePos(BFCChatFrame)
+				end
+			</OnDragStop>
+		</Scripts>
+	</Button>
+
+	<Button name="BFCChatFrame" frameStrata ="LOW" parent="UIParent" enableKeyBoard="true" enableMouse="true" movable="true">
+		<Size>
+			<AbsDimension x="235" y="27"/>
+		</Size>
+
+		<Scripts>
+			<OnLoad>
+				self:SetClampedToScreen(true)
+				ChangeSet();
+			</OnLoad>
+		</Scripts>
+
+	</Button>
+
+	<Button name="BFCIconFrame" frameStrata="MEDIUM" parent="UIParent" hidden="true" enableKeyBoard="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="260" y="160"/>
+		</Size>
+		<Backdrop  bgFile="Interface\DialogFrame\UI-DialogBox-Gold-Background" tile="true">
+			<EdgeSize>
+				<AbsValue val="7"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="4" right="4" top="4" bottom="4"/>
+			</BackgroundInsets>
+		</Backdrop>
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" relativeTo="BFCIconFrameCalloutButton" relativePoint="TOPRIGHT"/>
+		</Anchors>
+		<Scripts>
+			<OnUpdate>
+				BFC_OnUpdate(self,elapsed)
+			</OnUpdate>
+
+			<OnEnter>
+				BFC_StopCount(self)
+			</OnEnter>
+			<OnLeave>
+				BFC_StartCount(self)
+			</OnLeave>
+		</Scripts>
+
+	</Button>
+
+	<Button name="BFChannelMuteButton" frameStrata="MEDIUM" parent="ChatFrame1" hidden ="true">
+		<Size>
+			<AbsDimension x="22" y="22"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativeTo="ChatFrame1" relativePoint="TOPRIGHT">
+				<AbsDimension x="-3" y="3"/>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture  file="Interface\AddOns\BigFoot\Media\bigfoot.tga" setAllPoints="true">
+					<Size>
+						<AbsDimension x="18" y="18"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentMute" file="Interface\AddOns\BigFoot\Media\mute.tga" hidden="true">
+					<Size>
+						<AbsDimension x="20" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="-1" y="0"/>
+							</Offset>
+
+						</Anchor>
+					</Anchors>
+				</Texture>
+
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>
+				BFChannelMuteButton_OnClick();
+			</OnClick>
+			<OnEnter>
+				BigFoot_ShowNewbieTooltip(BFCHANNEL_MUTE_LABEL,BFCHANNEL_MUTE_DESC);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+	</Button>
+
+	<Button name="BigFootQRCodesFrame" hidden="true" enableMouse="true">
+		<Size>
+			<AbsDimension x="185" y="185"/>
+		</Size>
+		<Backdrop bgFile="Interface\AchievementFrame\UI-Achievement-Parchment-Horizontal" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
+			<EdgeSize>
+				<AbsValue val="20"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="16"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Button>
+</Ui>
