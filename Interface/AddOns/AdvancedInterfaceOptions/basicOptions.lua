@@ -9,7 +9,7 @@ local SetCVar = function(...) -- Suppress errors trying to set read-only cvars
 end
 
 local function IsClassic()
-    return WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
+    return WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 end
 
 AdvancedInterfaceOptionsSaved = {}
