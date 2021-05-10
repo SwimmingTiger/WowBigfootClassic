@@ -1,9 +1,10 @@
 ## Interface: 20501
 ## Title: BugGrabber
+## Title-zhCN: BugGrabber 错误信息搜集器
 ## Notes: Grabs bugs for the bug sack.
 ## Notes-deDE: Grabs bugs for the bug sack.
 ## Notes-ruRU: Grabs bugs for the bug sack.
-## Notes-zhCN: Grabs bugs for the bug sack.
+## Notes-zhCN: 可搜集游戏插件错误，然后通过错误信息查看器查看。
 ## Notes-zhTW: Grabs bugs for the bug sack.
 ## Notes-koKR: Grabs bugs for the bug sack.
 ## Notes-frFR: Grabs bugs for the bug sack.
