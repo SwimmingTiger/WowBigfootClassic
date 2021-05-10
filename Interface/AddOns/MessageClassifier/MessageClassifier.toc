@@ -1,0 +1,19 @@
+﻿## Interface: 11307
+## Title: Message Classifier
+## Title-zhCN: 聊天消息分类去重
+## Title-zhTW: 聊天消息分类去重
+## Notes: MessageClassifier
+## Version: @project-version@
+## Author: SwimmingTiger (NGA: hu60)
+## SavedVariables: MessageClassifierConfig
+## X-Curse-Project-ID: 348875
+## Dependencies: !!!Libs
+
+locale\enUS.lua
+locale\ruRU.lua
+locale\zhCN.lua
+locale\zhTW.lua
+
+Options.lua
+MessageBrowser.lua
+MessageClassifier.lua
