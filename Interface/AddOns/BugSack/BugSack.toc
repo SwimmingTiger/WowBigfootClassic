@@ -24,8 +24,7 @@
 ## X-Curse-Project-ID: 6273
 ## X-WoWI-ID: 5995
 ## X-BugGrabber-Display: BugSack
-
-embeds.xml
+## Dependencies: !!!Libs
 
 locales.lua
 core.lua
