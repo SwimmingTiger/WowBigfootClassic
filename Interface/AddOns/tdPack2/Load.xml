@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Include file="Libs\Libs.xml"/>
+    <Include file="Localization\Localization.xml"/>
+    <Script file="Api.lua"/>
+    <Script file="Addon.lua"/>
+    <Include file="Object\Object.xml"/>
+    <Include file="Core\Core.xml"/>
+    <Include file="Order\Order.xml"/>
+    <Include file="UI\UI.xml"/>
+    <Include file="Button\Button.xml"/>
+</Ui>
