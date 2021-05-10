@@ -1,0 +1,67 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="volume.lua"/>
+
+	<Slider name="VolumeSliderTemplate" orientation="VERTICAL" virtual="true" enableMouse="true" inherits = "OptionsSliderTemplate">
+		<Size>
+			<AbsDimension x="10" y="10"/>
+		</Size>
+		<ThumbTexture name="$parentThumb" file="Interface\Buttons\UI-SliderBar-Button-Vertical">
+			<Size>
+				<AbsDimension x="32" y="32"/>
+			</Size>
+		</ThumbTexture>
+	</Slider>
+
+	<Button name="BFVolumnMuteButton">
+		<Size>
+			<AbsDimension x="26" y="26"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<Texture  file="Interface\AddOns\BigFoot\Mods\MBB\res\volume" >
+					<Size>
+						<AbsDimension x="28" y="28"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentMute" file="Interface\AddOns\BigFoot\Media\mute" hidden="true">
+					<Size>
+						<AbsDimension x="19" y="19"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnShow>
+				if GetCVar("Sound_EnableAllSound")=="1" then
+					self.mute = false
+					BFVolumnMuteButtonMute:Hide();
+				else
+					BFVolumnMuteButtonMute:Show();
+					self.mute = true
+				end
+			</OnShow>
+			<OnClick>
+				self.mute = not self.mute
+				if self.mute then
+					SetCVar("Sound_EnableAllSound","0")
+					BFVolumnMuteButtonMute:Show();
+				else
+					SetCVar("Sound_EnableAllSound","1")
+					BFVolumnMuteButtonMute:Hide();
+				end
+			</OnClick>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+
+	</Button>
+
+</Ui>

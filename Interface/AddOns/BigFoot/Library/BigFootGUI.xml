@@ -1,0 +1,202 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+	<Button name="BFTreeCtrlItemTemplate" virtual="true">
+		<ButtonText name="$parentText"/>
+		<NormalFont inherits="GameFontNormal"/>
+		<HighlightFont inherits="GameFontHighlight"/>
+		<DisabledFont inherits="GameFontDisable"/>
+	</Button>
+
+	<Button name="BFTreeCtrlItemButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<NormalTexture file="Interface\Buttons\UI-PlusButton-Up">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<AbsDimension x="0" y="0"/>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-PlusButton-Down">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<AbsDimension x="0" y="0"/>
+				</Anchor>
+			</Anchors>
+		</PushedTexture>
+		<DisabledTexture file="Interface\Buttons\UI-PlusButton-Disabled">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<AbsDimension x="0" y="0"/>
+				</Anchor>
+			</Anchors>
+		</DisabledTexture>
+		<HighlightTexture file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<AbsDimension x="0" y="0"/>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+
+	<Button name="BF_LockButtonTemplate"  virtual="true">
+		<Size>
+			<AbsDimension x="32" y="32"/>
+		</Size>
+	</Button>
+
+	<Font name="ChatFontDisable" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="0.5" g="0.5" b="0.5"/>
+	</Font>
+
+	<Frame name="BFSearchFrameTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="130" y="32"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentTopLeft" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0" right="0.125" top="0" bottom="0.25"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBottomLeft" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0" right="0.125" top="0.75" bottom="1"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentLeft" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0" right="0.125" top="0.25" bottom="0.75"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentTopLeft" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomLeft" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentTopRight" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.375" right="0.5" top="0" bottom="0.25"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBottomRight" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.375" right="0.5"  top="0.75" bottom="1.0"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentMiddleRight" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.375" right="0.5"  top="0.25" bottom="0.75"/>
+					<Size>
+						<AbsDimension x="8" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentTopRight" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBottomRight" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentTopMiddle" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.125" right="0.375" top="0" bottom="0.25"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentTopLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentTopRight" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBottomMiddle" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.125" right="0.375" top="0.75" bottom="1"/>
+					<Size>
+						<AbsDimension x="8" y="6"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomLeft" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBottomRight" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentCenterMiddle" file="Interface\AddOns\BigFoot\Media\EditBox">
+					<TexCoords left="0.125" right="0.375" top="0.25" bottom="0.75"/>
+					<Size>
+						<AbsDimension x="8" y="8"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentTopRight" relativePoint="BOTTOMLeft"/>
+					</Anchors>
+				</Texture>
+
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentSearchBtn" enableMouse="true" registerForClicks="AnyUp">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Size>
+					<AbsDimension x="26" y="26"/>
+				</Size>
+
+				<NormalTexture file="Interface\AddOns\BigFoot\Media\SearchButton" setAllPoints="true">
+					<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+				</NormalTexture>
+				<HighLightTexture file="Interface\AddOns\BigFoot\Media\SearchButton" setAllPoints="true">
+					<TexCoords left="0.25" right="0.5" top="0" bottom="1"/>
+				</HighLightTexture>
+				<PushedTexture file="Interface\AddOns\BigFoot\Media\SearchButton" setAllPoints="true">
+					<TexCoords left="0.5" right="0.75" top="0" bottom="1"/>
+				</PushedTexture>
+			</Button>
+			<EditBox name="$parentEditBox" autoFocus="false" maxLetter="20" historyLines="10">
+				<Size>
+					<AbsDimension x="100" y="32"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parentSearchBtn" relativePoint="BOTTOMLEFT"/>
+				</Anchors>
+				<FontString inherits="ChatFontDisable"/>
+				<Scripts>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+		</Frames>
+	</Frame>
+</Ui>
