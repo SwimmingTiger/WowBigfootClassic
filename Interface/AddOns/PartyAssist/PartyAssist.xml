@@ -1,0 +1,447 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Script file="PartyAssist.lua"/>
+
+	<Frame name="PartyAssistMainFrame">
+		<Scripts>
+			<OnLoad>
+				self:RegisterEvent("ADDON_LOADED");
+				self.time = 0;
+			</OnLoad>
+			<OnEvent>
+				PartyAssist_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnUpdate>
+				PartyAssist_OnUpdate(self, elapsed);
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+
+	<Button name="PartyAssistButtonTemplate" inherits="SecureActionButtonTemplate" virtual="true">
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background">
+			<Color r="0" g="0" b="0" a="0.5"/>
+		</Backdrop>
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+			</Layer>
+			<Layer level="BORDER">
+				<Texture name="$parentIcon" setAllPoints="true" hidden="true"/>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Cooldown name="$parentCooldown" inherits="CooldownFrameTemplate"/>
+		</Frames>
+		<Scripts>
+		</Scripts>
+		<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+			<Size>
+				<AbsDimension x="30" y="30"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</NormalTexture>
+		<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress">
+			<Size>
+				<AbsDimension x="20" y="20"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER">
+					<Offset>
+						<AbsDimension x="0" y="0"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</PushedTexture>
+		<HighlightTexture name="$parentHighlight" file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="16" y="16"/>
+			</Size>
+		</CheckedTexture>
+		<Scripts>
+			<OnLoad>
+				PartyAssistButton_OnLoad(self);
+			</OnLoad>
+			<PreClick>
+				PartyAssistButton_OnPreClick(self, button);
+			</PreClick>
+			<OnEvent>
+				PartyAssistButton_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnEnter>
+				PartyAssistButton_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				PartyAssistButton_OnLeave(self);
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Frame name="PartyAssistFrame1" parent="PartyMemberFrame1" hidden="true" id="1">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="PartyMemberFrame1" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="-5" y="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Frames>
+					<Button name="$parentButton1" inherits="PartyAssistButtonTemplate" id="1">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton2" inherits="PartyAssistButtonTemplate" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton3" inherits="PartyAssistButtonTemplate" id="3">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton4" inherits="PartyAssistButtonTemplate" id="4">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton5" inherits="PartyAssistButtonTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentButton1" relativePoint="BOTTOM">
+								<Offset>
+									<AbsDimension x="0" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton6" inherits="PartyAssistButtonTemplate" id="6">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton5" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton7" inherits="PartyAssistButtonTemplate" id="7">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton6" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton8" inherits="PartyAssistButtonTemplate" id="8">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton7" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+	<Frame name="PartyAssistFrame2" parent="PartyMemberFrame2" hidden="true" id="2">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="PartyMemberFrame2" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="-5" y="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Frames>
+					<Button name="$parentButton1" inherits="PartyAssistButtonTemplate" id="1">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton2" inherits="PartyAssistButtonTemplate" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton3" inherits="PartyAssistButtonTemplate" id="3">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton4" inherits="PartyAssistButtonTemplate" id="4">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton5" inherits="PartyAssistButtonTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentButton1" relativePoint="BOTTOM">
+								<Offset>
+									<AbsDimension x="0" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton6" inherits="PartyAssistButtonTemplate" id="6">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton5" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton7" inherits="PartyAssistButtonTemplate" id="7">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton6" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton8" inherits="PartyAssistButtonTemplate" id="8">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton7" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+	<Frame name="PartyAssistFrame3" parent="PartyMemberFrame3" hidden="true" id="3">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="PartyMemberFrame3" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="-5" y="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Frames>
+					<Button name="$parentButton1" inherits="PartyAssistButtonTemplate" id="1">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton2" inherits="PartyAssistButtonTemplate" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton3" inherits="PartyAssistButtonTemplate" id="3">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton4" inherits="PartyAssistButtonTemplate" id="4">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton5" inherits="PartyAssistButtonTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentButton1" relativePoint="BOTTOM">
+								<Offset>
+									<AbsDimension x="0" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton6" inherits="PartyAssistButtonTemplate" id="6">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton5" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton7" inherits="PartyAssistButtonTemplate" id="7">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton6" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton8" inherits="PartyAssistButtonTemplate" id="8">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton7" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+	<Frame name="PartyAssistFrame4" parent="PartyMemberFrame4" hidden="true" id="4">
+		<Size>
+			<AbsDimension x="16" y="16"/>
+		</Size>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="PartyMemberFrame4" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="-5" y="5"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<Frame setAllPoints="true">
+				<Frames>
+					<Button name="$parentButton1" inherits="PartyAssistButtonTemplate" id="1">
+						<Anchors>
+							<Anchor point="LEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton2" inherits="PartyAssistButtonTemplate" id="2">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton3" inherits="PartyAssistButtonTemplate" id="3">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton4" inherits="PartyAssistButtonTemplate" id="4">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton5" inherits="PartyAssistButtonTemplate" id="5">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="$parentButton1" relativePoint="BOTTOM">
+								<Offset>
+									<AbsDimension x="0" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton6" inherits="PartyAssistButtonTemplate" id="6">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton5" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton7" inherits="PartyAssistButtonTemplate" id="7">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton6" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton8" inherits="PartyAssistButtonTemplate" id="8">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="$parentButton7" relativePoint="RIGHT">
+								<Offset>
+									<AbsDimension x="4" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+				</Frames>
+			</Frame>
+		</Frames>
+	</Frame>
+</Ui>
