@@ -1,0 +1,11 @@
+<Bindings>
+	<Binding name="RaidAlerter_BINDING_Title1" header="RaidAlerter_BINDING_TopTitle">
+		RaidAlerter_SET_FUNC_OnOff("OnOff")
+	</Binding>
+	<Binding name="RaidAlerter_BINDING_Title2">
+		RaidAlerter_Option_MainFrame_Show(self)
+	</Binding>
+	<Binding name="RaidAlerter_BINDING_Title3">
+		RaidAlerter_Inspect(self)
+	</Binding>
+</Bindings>
