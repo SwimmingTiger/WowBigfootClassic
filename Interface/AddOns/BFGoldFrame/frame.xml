@@ -1,0 +1,227 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	<Frame name = "BFGoldFrame" parent="UIParent" movable="true">
+		<Size>
+			<AbsDimension x="180" y="40"/>
+		</Size>
+		<Layers>
+			<Layer level = "OVERLAY">
+				<FontString name="$parentCurrent" justifyH="RIGHT" inherits="QuestFont_Large" >
+					<Color r="0.8" g="0.8" b="0.8"/>
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint = "TOPLEFT">
+							<Offset>
+								<AbsDimension x="-34" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentToday" justifyH="RIGHT" inherits="QuestFont_Large" >
+					<Color r="0.8" g="0.8" b="0.8"/>
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentCurrent" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDiff" justifyH="RIGHT" inherits="QuestFont_Large" >
+					<Color r="0.8" g="0.8" b="0.8"/>
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentToday" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMax" justifyH="RIGHT" inherits="QuestFont_Large" >
+					<Color r="0.8" g="0.8" b="0.8"/>
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentDiff" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentMin" justifyH="RIGHT" inherits="QuestFont_Large" >
+					<Color r="0.8" g="0.8" b="0.8"/>
+					<Size>
+						<AbsDimension x="90" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentMax" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentCurrentMoneyFrame" inherits="MoneyFrameTemplate" >
+				<Anchors>
+					<Anchor point="TOPRIGHT"  relativePoint="TOPRIGHT">
+						<Offset x="-3" y="-7"/>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentTodayMoneyFrame" inherits="MoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentCurrentMoneyFrame" relativePoint="BOTTOMRIGHT">
+						<Offset x="0" y="7"/>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentDiffMoneyFrame" inherits="MoneyFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentTodayMoneyFrame" relativePoint="BOTTOMRIGHT">
+						<Offset x="0" y="7"/>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentMaxMoneyFrame" inherits="MoneyFrameTemplate" >
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentDiffMoneyFrame" relativePoint="BOTTOMRIGHT">
+						<Offset x="0" y="7"/>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentMinMoneyFrame" inherits="MoneyFrameTemplate" >
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parentMaxMoneyFrame" relativePoint="BOTTOMRIGHT">
+						<Offset x="0" y="7"/>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Button name="$parentDisableMask" hidden="false" toplevel="true" enableMouse="true">
+				<Size>
+					<AbsDimension x="180" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						self:SetFrameLevel(9);
+					</OnLoad>
+					<OnMouseDown>
+						self.centerX,self.centerY = self:GetCenter()
+						self:GetParent():StartMoving();
+					</OnMouseDown>
+					<OnMouseUp>
+						self:GetParent():StopMovingOrSizing();
+						local currentX,currentY = self:GetCenter()
+						if 0.3>abs(currentX-self.centerX) and 0.3>abs(currentY-self.centerY ) then
+							self.toggleExp = not self.toggleExp
+							if not self.toggleExp then
+								collapseFrame(self)
+							else
+								expandFrame(self)
+							end
+						end
+					</OnMouseUp>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+                <TileSize>
+                        <AbsValue val="32"/>
+                </TileSize>
+                <EdgeSize>
+                        <AbsValue val="32"/>
+                </EdgeSize>
+                <BackgroundInsets>
+                        <AbsInset left="11" right="12" top="12" bottom="11"/>
+                </BackgroundInsets>
+        </Backdrop>
+		<Animations>
+			<AnimationGroup name="$parentAnimGroupExp" looping="NONE" smoothing ="IN_OUT">
+				<Animation startDelay="0.1" duration="0.2" maxFramerate="180">
+					<Scripts>
+						<OnLoad>
+							self.regionParent = self:GetRegionParent();
+						</OnLoad>
+						<OnPlay>
+							UpdateMoney()
+							self.miny = 40;
+							self.maxy = 120;
+							self.minx = self.regionParent.minx
+							self.maxx = self.regionParent.maxx
+						</OnPlay>
+						<OnUpdate>
+							local sizex = self.minx + (self.maxx - self.minx)*self:GetProgress();
+							local sizey = self.miny + (self.maxy - self.miny)*self:GetProgress();
+							self.regionParent:SetWidth(sizex);
+							BFGoldFrameDisableMask:SetWidth(sizex);
+							self.regionParent:SetHeight(sizey);
+							BFGoldFrameDisableMask:SetHeight(sizey);
+						</OnUpdate>
+						<OnFinished>
+								ShowGoldPanel()
+								BFGoldFrameDisableMask.status = 'expanded'
+						</OnFinished>
+					</Scripts>
+				</Animation>
+			</AnimationGroup>
+			<AnimationGroup name="$parentAnimGroupCol" looping="NONE" smoothing ="IN_OUT">
+				<Animation  startDelay="0.1" duration="0.2" maxFramerate="180">
+					<Scripts>
+						<OnLoad>
+							self.regionParent = self:GetRegionParent();
+						</OnLoad>
+						<OnUpdate>
+							local sizex = self.maxx - (self.maxx - self.minx)*self:GetProgress();
+							local sizey = self.maxy - (self.maxy - self.miny)*self:GetProgress();
+							self.regionParent:SetWidth(sizex);
+							BFGoldFrameDisableMask:SetWidth(sizex);
+							self.regionParent:SetHeight(sizey);
+							BFGoldFrameDisableMask:SetHeight(sizey);
+						</OnUpdate>
+						<OnPlay>
+							HideGoldPanel()
+							self.miny = 40;
+							self.maxy = 120;
+							self.minx = self.regionParent.minx
+							self.maxx = self.regionParent.maxx
+						</OnPlay>
+						<OnFinished>
+							BFGoldFrameDisableMask.status = 'collapsed'
+						</OnFinished>
+					</Scripts>
+				</Animation>
+			</AnimationGroup>
+		</Animations>
+		<Scripts>
+			<OnLoad>
+				self:SetPoint("CENTER", UIParent, "CENTER", 100, -80);
+				self:SetClampedToScreen( true );
+				RegisterForSaveFrame(self);
+			</OnLoad>
+			<OnMouseDown>
+				self:StartMoving();
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing();
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>
