@@ -3162,7 +3162,7 @@ end
 			end
 		end
 		function NS.CreateEquipmentFrame(mainFrame)
-			local wrap = CreateFrame("FRAME", nil, mainFrame);
+			local wrap = CreateFrame("FRAME", nil, mainFrame, BackdropTemplateMixin and "BackdropTemplate");
 			wrap:SetPoint("TOPRIGHT", mainFrame, "TOPLEFT", 0, 0);
 			wrap:SetPoint("BOTTOMRIGHT", mainFrame, "BOTTOMLEFT", 0, 0);
 			wrap:SetWidth(ui_style.equipmentFrameXSize);
@@ -3378,7 +3378,7 @@ end
 			end
 		end
 		function NS.CreateSpellTabFrame(mainFrame)
-			local wrap = CreateFrame("FRAME", nil, mainFrame);
+			local wrap = CreateFrame("FRAME", nil, mainFrame, BackdropTemplateMixin and "BackdropTemplate");
 			wrap:SetPoint("TOPLEFT", mainFrame, "TOPRIGHT", 0, 0);
 			wrap:SetPoint("BOTTOMLEFT", mainFrame, "BOTTOMRIGHT", 0, 0);
 			wrap:SetWidth(ui_style.spellTabFrameXSize);
@@ -3531,7 +3531,7 @@ end
 			tooltipFrame.tooltip2:Hide();
 		end
 		function NS.CreateTooltipFrame()
-			local tooltipFrame = CreateFrame("FRAME", nil, UIParent);
+			local tooltipFrame = CreateFrame("FRAME", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate");
 			tooltipFrame:SetSize(1, 1);
 			tooltipFrame:SetFrameStrata("FULLSCREEN");
 			tooltipFrame:SetClampedToScreen(true);
@@ -4605,7 +4605,7 @@ end
 		local temp_id = 0;
 		function NS.CreateMainFrame()
 			temp_id = temp_id + 1;
-			local mainFrame = CreateFrame("FRAME", nil, UIParent);
+			local mainFrame = CreateFrame("FRAME", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate");
 			mainFrame.id = temp_id;
 
 			mainFrame:SetPoint("CENTER");

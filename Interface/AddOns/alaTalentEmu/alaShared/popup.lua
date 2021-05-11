@@ -48,7 +48,7 @@ local height = 16;
 local interval = 0;
 local v_to_border = 8;
 local h_to_border = 8;
-local menu = CreateFrame("BUTTON", nil, DropDownList1);
+local menu = CreateFrame("BUTTON", nil, DropDownList1, BackdropTemplateMixin and "BackdropTemplate");
 menu:SetFrameStrata("FULLSCREEN_DIALOG");
 menu:SetClampedToScreen(false);
 menu:Show();
