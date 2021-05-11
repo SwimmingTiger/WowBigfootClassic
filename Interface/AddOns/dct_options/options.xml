@@ -1,0 +1,647 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Frame name="DCT_OptionFrameBoxTemplate" virtual="true">
+			<Layers>
+				<Layer level="BACKGROUND">
+					<FontString name="$parentTitle" inherits="GameFontHighlightSmall">
+						<Anchors>
+							<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+								<Offset>
+									<AbsDimension x="5" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</FontString>
+				</Layer>
+			</Layers>
+			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<EdgeSize>
+					<AbsValue val="16"/>
+				</EdgeSize>
+				<TileSize>
+					<AbsValue val="16"/>
+				</TileSize>
+				<BackgroundInsets>
+					<AbsInset left="5" right="5" top="5" bottom="5"/>
+				</BackgroundInsets>
+			</Backdrop>
+			<Scripts>
+				<OnLoad>
+					self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+					self:SetBackdropColor(0.5, 0.5, 0.5);
+				</OnLoad>
+			</Scripts>
+	</Frame>
+
+	<Button name = "DCT_OptionsButtonTemplate2" virtual="true">
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD"/>
+		<Size>
+			<AbsDimension x="140" y="20" />
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parent_Text" inherits="GameFontHighlight" wraponspaces="false" text="">
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+					<Color r="1.0" g="0.82" b="0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnClick>
+				DCT_OptionsButtonClick(self)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="DCT_OptionsFrameBGTemplate" frameStrata="LOW" inherits="DCT_OptionFrameBoxTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.1, 0.1, 0.1);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<Slider name="DCTSliderIncludeEditBoxTemplate" frameStrata="MEDIUM" inherits="OptionsSliderTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="150" y="16"/>
+		</Size>
+		<Frames>
+			<EditBox name="$parentEditBox" autoFocus ="false" historyLines="0" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="40" y="25"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						getglobal(self:GetParent():GetName().."Text"):SetPoint("RIGHT",self,"LEFT",-5,0)
+						self:ClearFocus();
+                                                (self:GetParent()).missOnValue = false
+					</OnShow>
+					<OnEnterPressed>
+						local text = self:GetText()
+						local value = tonumber(text)
+						if value then
+							local valueStep = (self:GetParent()):GetValueStep()
+							local m = (valueStep * 10) % 10
+							if m == 0 then
+								value = floor(value)
+							else
+								value = floor(value * 10) / 10
+							end
+							(self:GetParent()).missOnValue = true
+							DCTSlider_EditBoxEnterPressed(self, value)
+							self:SetText(value)
+							if self:GetParent().OnValueChangedFunc then
+								self:GetParent().OnValueChangedFunc(self,(self:GetParent()):GetName(),value)
+							end
+                                                        (self:GetParent()).missOnValue = false
+						end
+					</OnEnterPressed>
+					<OnEscapePressed>
+						self:ClearFocus();
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+		</Frames>
+		<Scripts>
+			<OnMouseUp>
+				getglobal(self:GetName().."EditBox"):SetText(tostring(self:GetValue()))
+			</OnMouseUp>
+			<OnValueChanged>
+				if self.missOnValue then
+					self.missOnValue = false
+				else
+					getglobal(self:GetName().."EditBox"):SetText(tostring(self:GetValue()))
+					if self.OnValueChangedFunc then
+						self.OnValueChangedFunc(self,self:GetName(),self:GetValue())
+					end
+				end
+			</OnValueChanged>
+		</Scripts>
+	</Slider>
+
+	<Frame name="DCT_DStyleButtonTemplate" inherits="DCT_OptionFrameBoxTemplate" virtual="true">
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontHighlight">
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetBackdropBorderColor(0.3, 0.3, 0.3);
+				self:SetBackdropColor(0, 0, 0);
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<!-- CHECKBUTTON TEMPLATE -->
+	<CheckButton name="DCT_CheckTemplate" inherits="UICheckButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="26" y="26"/>
+		</Size>
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Scripts>
+			<OnClick>
+				DCT_OptionsCheckButtonOnClick(self:GetParent():GetName(),self:GetName());
+			</OnClick>
+			<OnEnter>
+				if ( self.tooltipText ) then
+					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</CheckButton>
+
+
+	<Frame name="DCT_ColorPickerTemplate" frameStrata="MEDIUM" virtual="true">
+		<Frames>
+			<Button name="$parent_ColorSwatch">
+				<Size>
+					<AbsDimension x="18" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parent_SwatchBg">
+							<Size>
+								<AbsDimension x="16" y="16"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+							<Color r="1.0" g="1.0" b="1.0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnClick>
+						DCT_OpenColorPicker(self,self:GetParent());
+					</OnClick>
+					<OnEnter>
+						getglobal(self:GetName().."_SwatchBg"):SetVertexColor(NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
+					</OnEnter>
+					<OnLeave>
+						getglobal(self:GetName().."_SwatchBg"):SetVertexColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+					</OnLeave>
+				</Scripts>
+				<NormalTexture name="$parentNormalTexture" file="Interface\ChatFrame\ChatFrameColorSwatch"/>
+			</Button>
+		</Frames>
+	</Frame>
+
+	<Frame name="DCT_ColorPickerExTemplate" frameStrata="MEDIUM" inherits="DCT_ColorPickerTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="18" y="18"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+							<Offset>
+								<AbsDimension x="20" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<!-- EVENT TEMPLATE -->
+	<Frame name="DCT_EventOptionTemplate" inherits="DCT_ColorPickerTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="160" y="22"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parent_Text" inherits="GameFontHighlight">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="82" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parent_Button" inherits="DCT_DStyleButtonTemplate">
+				<Size>
+					<AbsDimension x="40" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ColorSwatch" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="2" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnMouseDown>
+						self.Func(self:GetName(), button);
+					</OnMouseDown>
+					<OnEnter>
+						GameTooltip_AddNewbieTip(self,DCT_EVENT_TIP1, 1.0, 1.0, 1.0);
+						self:SetBackdropBorderColor(0.7, 0.7, 0.7);
+						self:SetBackdropColor(1, 1, 1);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+						self:SetBackdropBorderColor(0.3, 0.3, 0.3);
+						self:SetBackdropColor(0, 0, 0);
+					</OnLeave>
+				</Scripts>
+			</Button>
+			<Button name="$parent_ButtonEx" inherits="DCT_DStyleButtonTemplate">
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Button" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if (self:GetParent()).curFrame > 0 then
+							DCT_CurrentEditEventName = self:GetParent().saveName
+							DCTEventOptionsExtra:Show();
+							local t = self:GetParent():GetName()
+							DCTEventOptionsExtraText:SetText(getglobal(t.."_Text"):GetText())
+						end
+					</OnClick>
+					<OnEnter>
+						GameTooltip_AddNewbieTip(self,DCT_EVENT_TIP2, 1.0, 1.0, 1.0);
+						self:SetBackdropBorderColor(0.7, 0.7, 0.7);
+						self:SetBackdropColor(1, 1, 1);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+						self:SetBackdropBorderColor(0.3, 0.3, 0.3);
+						self:SetBackdropColor(0, 0, 0);
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnEnter>
+				GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Frame>
+
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCT_Options" toplevel="false" frameStrata="LOW" movable="true" enableMouse="true" hidden="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="730" y="540"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" />
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border"
+			tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11" />
+				<Size>
+					<AbsDimension x="128" y="17" />
+				</Size>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32" />
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32" />
+			</EdgeSize>
+		</Backdrop>
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="DCT_FrameTitle" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="360" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString inherits="GameFontNormal" text="DCT_MAIN_OPTION">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="DCT_Options">
+							<Offset>
+								<AbsDimension x="0" y="-3" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+
+		</Layers>
+
+		<Frames>
+			<Frame name="DCT_Event1" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event2" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event3" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event4" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event5" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event6" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event7" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event8" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event9" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event10" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event11" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event12" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event13" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event14" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event15" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event16" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event17" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event18" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event19" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event20" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event21" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event22" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event23" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event24" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event25" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event26" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event27" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event28" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event29" inherits="DCT_EventOptionTemplate"/>
+			<Frame name="DCT_Event30" inherits="DCT_EventOptionTemplate"/>
+
+			<CheckButton name="DCT_Check1" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check2" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check3" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check4" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check5" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check6" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check7" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check8" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check9" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check10" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check11" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check12" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check13" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check14" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check15" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check16" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check17" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check18" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check19" inherits="DCT_CheckTemplate"/>
+			<CheckButton name="DCT_Check20" inherits="DCT_CheckTemplate"/>
+		<!--
+			<Slider name="DCT_Slider1" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider2" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider3" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider4" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider5" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider6" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider7" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider8" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider9" inherits="DCT_SliderTemplate"/>
+			<Slider name="DCT_Slider10" inherits="DCT_SliderTemplate"/>-->>
+
+			<Frame name="DCT_ColorPickerEx1" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx2" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx3" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx4" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx5" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx6" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx7" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx8" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx9" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx10" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx11" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx12" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx13" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx14" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx15" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx16" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx17" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx18" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx19" inherits="DCT_ColorPickerExTemplate"/>
+			<Frame name="DCT_ColorPickerEx20" inherits="DCT_ColorPickerExTemplate"/>
+			<!--
+			<Frame name="DCT_ListFrame1" inherits="DCT_ListTemplate"/>
+			<Frame name="DCT_ListFrame2" inherits="DCT_ListTemplate"/>
+			<Frame name="DCT_ListFrame3" inherits="DCT_ListTemplate"/>
+			<Frame name="DCT_ListFrame4" inherits="DCT_ListTemplate"/>
+			<Frame name="DCT_ListFrame5" inherits="DCT_ListTemplate"/>-->>
+			<!--
+			<CheckButton name="DCT_CHECK_ENABLE" inherits="UICheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						DCT_CHECK_ENABLEText:SetText(DCT_CHECK_ENABLE_LABEL)
+					</OnLoad>
+					<OnShow>
+						this:SetChecked(DCT_Get("DCT_Enable"));
+
+					</OnShow>
+					<OnClick>
+						if this:GetChecked() then
+							DCT_Set("DCT_Enable",1)
+						else
+							DCT_Set("DCT_Enable",0)
+						end
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			-->
+			<Frame name="DCT_Options_BG1" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate"/>
+			<Frame name="DCT_Options_BG2" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate"/>
+			<Frame name="DCT_Options_BG3" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate"/>
+			<Frame name="DCT_Options_BG4" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate"/>
+			<Frame name="DCT_Options_BG5" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate"/>
+
+			<Frame name="DCT_Options_BGBG1" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate">
+				<Size>
+					<AbsDimension x="160" y="200"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-50"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+
+			<Frame name="DCT_Options_BGBG2" frameStrata="LOW" inherits="DCT_OptionsFrameBGTemplate">
+				<Size>
+					<AbsDimension x="160" y="240"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="15" y="-255"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="DCT_Options_Title">
+				<Size>
+					<AbsDimension x="140" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="355" y="-30"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+					<EdgeSize>
+						<AbsValue val="8"/>
+					</EdgeSize>
+					<TileSize>
+						<AbsValue val="8"/>
+					</TileSize>
+					<BackgroundInsets>
+						<AbsInset left="2" right="2" top="2" bottom="2"/>
+					</BackgroundInsets>
+				</Backdrop>
+				<Layers>
+					<Layer>
+						<FontString name="DCT_Options_Title_Text" inherits="GameFontHighlight" text="DCT_EVENT_OPTION">
+							<Anchors>
+								<Anchor point="CENTER">
+									<Offset>
+										<AbsDimension x="0" y="0"/>
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+						self:SetBackdropColor(0.15, 0.15, 0.15);
+					</OnLoad>
+				</Scripts>
+			</Frame>
+
+			<Button name="DCT_OptionsSave" inherits="GameMenuButtonTemplate" text="CLOSE">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" relitiveTo="DCT_Options">
+						<Offset>
+							<AbsDimension x="20" y="20" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK);
+						if ( ColorPickerFrame:IsVisible() ) then
+							ColorPickerFrame:Hide();
+						end
+						DCT_hideMenu();
+						DCT_OnOption = false;
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="DCT_OptionsReset" inherits="OptionsButtonTemplate" text="DCT_BUTTON_RESET_LABEL">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-30" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
+						DCT_Reset();
+						DCT_Opani_CurFrameID = 1;
+						DCT_OptionsResetFuncRun();
+						DCT_Options:Hide();
+						DCT_Options:Show();
+					</OnClick>
+					<OnEnter>
+						GameTooltip_AddNewbieTip(self,DCT_BUTTON_RESET_TIP, 1.0, 1.0, 1.0);
+					</OnEnter>
+					<OnLeave>
+						GameTooltip:Hide();
+					</OnLeave>
+				</Scripts>
+			</Button>
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				DCT_OptionsOnLoad(self)
+			</OnLoad>
+			<OnEvent>
+				DCT_Options_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnMouseUp>
+				DCT_MouseUp(self);
+			</OnMouseUp>
+			<OnMouseDown>
+				DCT_MouseDown(self, button);
+			</OnMouseDown>
+			<OnShow>
+				DCT_OptionsFrame_OnShow(self);
+			</OnShow>
+			<OnHide>
+				DCT_hideMenu();
+				DCTAniOption:Hide()
+				DCT_ShowEventFrame = true
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

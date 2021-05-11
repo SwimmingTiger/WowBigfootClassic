@@ -1,0 +1,198 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+
+	<CheckButton name="DCTSACheckFilterTemplate" inherits="UICheckButtonTemplate" virtual="true">
+		<Scripts>
+			<OnClick>
+				DCT_Opsa_FilterCheckOnClick(self, self:GetName())
+			</OnClick>
+		</Scripts>
+	</CheckButton>
+	<Frame name="DCTSAListTemplate" virtual="true" frameStrata="MEDIUM"  hidden="false">
+		<Size>
+			<AbsDimension x="140" y="25"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontNormal">
+					<Color r="1.0" g="1.0" b="1.0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="0" y="0" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				if ( self.tooltipText ) then
+					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<Frames>
+			<Button name="$parent_P">
+				<Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$parent_Text" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="-40" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCTSA_ButtonToggle(self:GetParent():GetName(),-1);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
+				<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
+				<HighlightTexture file="Interface\Buttons\GlowStar" alphaMode="ADD"/>
+			</Button>
+			<Button name="$parent_N">
+				<Size>
+					<AbsDimension x="24" y="24"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativeTo="$parent_Text" relativePoint="CENTER">
+						<Offset>
+							<AbsDimension x="40" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCTSA_ButtonToggle(self:GetParent():GetName(),1);
+					</OnClick>
+				</Scripts>
+				<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+				<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+				<HighlightTexture file="Interface\Buttons\GlowStar" alphaMode="ADD"/>
+			</Button>
+		</Frames>
+	</Frame>
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTSAOption" hidden="true" frameStrata="MEDIUM">
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="DCTFliterDDC" inherits="UIDropDownMenuTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-270"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+                                    <OnShow function="DCT_Opsa_FilterDDC_OnShow" />
+				</Scripts>
+			</Button>
+			<Frame name="DCTSAList" inherits="DCTSAListTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="50" y="-312"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+
+			<EditBox name="DCTSA_Filter_Edit" autoFocus ="false" frameStrata="HIGH" inherits="InputBoxTemplate">
+				<Size>
+					<AbsDimension x="155" y="30"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="DCTSAList" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="100" y="5" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnShow>
+						self:ClearFocus();
+					</OnShow>
+					<OnEscapePressed>
+						self:ClearFocus();
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+			<Button name="DCTSA_Filter_Add" inherits="GameMenuButtonTemplate" text="ADD">
+				<Size>
+					<AbsDimension x="50" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="DCTSA_Filter_Edit" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="10" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsa_Filter_AddClick(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<CheckButton name="DCTSACheckFilter1" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter2" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter3" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter4" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter5" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter6" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter7" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter8" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter9" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter10" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter11" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter12" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter13" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter14" inherits="DCTSACheckFilterTemplate"/>
+			<CheckButton name="DCTSACheckFilter15" inherits="DCTSACheckFilterTemplate"/>
+		</Frames>
+		<Scripts>
+			<OnEvent>
+				local arg1 = ...;
+				if (event == "VARIABLES_LOADED") or ( event == "ADDON_LOADED" and string.lower(arg1) == "dct_spellalert" ) then
+					DCTSA_Init(event)
+				end
+			</OnEvent>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCTSA_OnLoad(self)
+			</OnLoad>
+			<OnShow>
+				DCT_Opsa_OnShow(self)
+			</OnShow>
+			<OnHide>
+				DCTSA_FilterProc(self)
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

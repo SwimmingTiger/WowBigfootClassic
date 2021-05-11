@@ -1,0 +1,184 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+	
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTSaveOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>	
+
+		<Frames>
+			<Button name="$ParentPreSetAniListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-20"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opsave_PreSetAniListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			<Button name="$ParentPreSetAniLoad" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_PRESETLOAD">
+				<Size>
+					<AbsDimension x="75" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="240" y="-20" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_PreSetAniLoad()
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentPreSetTextListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-70"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opsave_PreSetTextListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentPreSetTextLoad" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_PRESETLOAD">
+				<Size>
+					<AbsDimension x="75" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="240" y="-70" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_PreSetTextLoad(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$ParentSaveListDDC" inherits="DCTUIDropDownMenuTemplate2">				
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-210"/>
+						</Offset>
+					</Anchor>
+				</Anchors>	
+				<Scripts>
+                                    <OnShow function="DCT_Opsave_SaveListDDC_OnShow" />
+				</Scripts>
+			</Button>
+			<Button name="$ParentLoad" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_LOAD">
+				<Size>
+					<AbsDimension x="60" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="240" y="-210" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_Load(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentSave" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_SAVE">
+				<Size>
+					<AbsDimension x="60" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="320" y="-210" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_Save(self)
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentDelete" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_DELETE">
+				<Size>
+					<AbsDimension x="60" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="400" y="-210" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_Delete()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$ParentAdd" inherits="GameMenuButtonTemplate" text="DCT_TEXT_OPSAVE_ADD">
+				<Size>
+					<AbsDimension x="75" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="300" y="-253" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						DCT_Opsave_Add()
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentEdit" inherits="DCTEditBoxTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="25" y="-250" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCT_OptionsRegisterButton(DCT_SAVE_OPTION,DCTSaveOption,nil,4);
+			</OnLoad>
+                        <OnShow function="DCT_Opsave_OnShow" />
+			<OnHide>
+				
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

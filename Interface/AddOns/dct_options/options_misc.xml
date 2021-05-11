@@ -1,0 +1,51 @@
+﻿<!-- MikeyHealthBar V0.1 -->
+<!-- Options Pane Definition -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+
+	<!-- MAIN OPTION FRAME -->
+	<Frame name="DCTMiscOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+		<Size>
+			<AbsDimension x="490" y="360"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="180" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>	
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_MiscTitle" inherits="GameFontNormal">	
+					<Anchors>
+						<Anchor point="TOPLEFT">	
+							<Offset>
+								<AbsDimension x="5" y="-290"/>
+							</Offset>
+						</Anchor>						
+					</Anchors>		
+					<FontHeight>
+						<AbsValue val="14"/>
+					</FontHeight>					
+					<Color r="1" g="1" b="0"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+				self:SetBackdropColor(0.15, 0.15, 0.15);
+				DCT_OptionsRegisterButton(DCT_MISC_OPTION,DCTMiscOption,nil,7,240);
+				DCT_OptionsRegisterButtonExBG(DCT_MISC_OPTION,245,0,260,250,  245,-255,260,170)
+			</OnLoad>
+			<OnShow function="DCT_Opmisc_OnShow" />
+			<OnHide>
+				
+			</OnHide>
+		</Scripts>
+	</Frame>
+</Ui>

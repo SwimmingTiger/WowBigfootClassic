@@ -1,0 +1,51 @@
+<Ui>
+	<!-- Template: CastBar -->
+	<Frame name="DCTCastBarTemplate" hidden="true" parent="UIParent" virtual="true">
+		<Size x="320" y="20"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background">
+			<Color r="0.1" g="0.22" b="0.35" a="1"/>
+			<BackgroundInsets left="-1" right="-1" top="-1" bottom="-1"/>
+		</Backdrop>
+		<Frames>
+			<StatusBar name="$parentStatus">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+				<BarTexture name="$parentTexture" file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="1" g="1" b="0"/>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentBackground">
+							<Color r="0.3" g="0.3" b="0.3" a="0.6"/>
+							<Anchors>
+								<Anchor point="TOPLEFT"/>
+								<Anchor point="BOTTOMRIGHT"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					<!--
+					<Layer level="OVERLAY">
+						<Texture name="$parentSpark" file="Interface\CastingBar\UI-CastingBar-Spark" alphaMode="ADD">
+							<Size>
+								<AbsDimension x="12" y="24"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+					-->
+				</Layers>
+			</StatusBar>
+		</Frames>
+		<Scripts>
+			<OnUpdate>
+				--DCTCastBar_OnUpdate(self,elapsed);
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+</Ui>
