@@ -1,0 +1,24 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<!--
+    <Include file = "..\..\sharedxml\hybridscrollframe.xml"/>
+    <Include file = "template.xml"/>
+-->
+    <script file = "lib\LibStub\LibStub.lua" />
+    <include file = "lib\CallbackHandler-1.0\CallbackHandler-1.0.xml" />
+    <script file = "lib\LibDataBroker-1.1\LibDataBroker-1.1.lua" />
+    <script file = "lib\LibDBIcon-1.0\LibDBIcon-1.0.lua" />
+
+    <script file = "Locale\zhCN.lua" />
+    <script file = "Locale\zhTW.lua" />
+    <script file = "Locale\enUS.lua" />
+    <include file = "alaShared\alaShared.xml" />
+    <script file = "alaTalentData.lua" />
+    <script file = "alaTalentEmu.lua" />
+
+    <include file = "Bindings.xml" />
+    
+
+</Ui>
+
