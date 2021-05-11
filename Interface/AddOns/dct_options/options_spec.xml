@@ -4,7 +4,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
 
 	<!-- MAIN OPTION FRAME -->
-	<Frame name="DCTSpecOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+	<Frame name="DCTSpecOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options" inherits="BackdropTemplate"> 
 		<Size>
 			<AbsDimension x="490" y="360"/>
 		</Size>

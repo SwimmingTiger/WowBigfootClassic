@@ -105,7 +105,7 @@
 	</Frame>
 
 	<!-- MAIN OPTION FRAME -->
-	<Frame name="DCTFontOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+	<Frame name="DCTFontOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options" inherits="BackdropTemplate"> 
 		<Size>
 			<AbsDimension x="490" y="360"/>
 		</Size>

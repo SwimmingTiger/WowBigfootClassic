@@ -5,7 +5,7 @@
 	
 
 	<!-- MAIN OPTION FRAME -->
-	<Frame name="DCTSaveOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options"> 
+	<Frame name="DCTSaveOption" hidden="true" frameStrata="MEDIUM" parent="DCT_Options" inherits="BackdropTemplate"> 
 		<Size>
 			<AbsDimension x="490" y="360"/>
 		</Size>

@@ -10,7 +10,7 @@
 			</OnClick>
 		</Scripts>
 	</CheckButton>
-	<Frame name="DCTSAListTemplate" virtual="true" frameStrata="MEDIUM"  hidden="false">
+	<Frame name="DCTSAListTemplate" virtual="true" frameStrata="MEDIUM"  hidden="false" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="140" y="25"/>
 		</Size>
@@ -83,7 +83,7 @@
 	</Frame>
 
 	<!-- MAIN OPTION FRAME -->
-	<Frame name="DCTSAOption" hidden="true" frameStrata="MEDIUM">
+	<Frame name="DCTSAOption" hidden="true" frameStrata="MEDIUM" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="490" y="360"/>
 		</Size>
