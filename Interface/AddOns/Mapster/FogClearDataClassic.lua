@@ -3,7 +3,7 @@ Copyright (c) 2009-2020, Hendrik "Nevcairiel" Leppkes < h.leppkes@gmail.com >
 All rights reserved.
 ]]
 
-local WoWClassic = select(4, GetBuildInfo()) < 20000
+local WoWClassic = select(4, GetBuildInfo()) < 30000
 if not WoWClassic then return end
 
 -- data
