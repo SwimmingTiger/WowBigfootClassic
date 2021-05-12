@@ -45,7 +45,7 @@ L["CHAN_SHORTNAME_WHISPERFROM"] = "密"
 L["CHAN_SHORTNAME_WHISPERTO"] = "密"
 L["CHAN_SHORTNAME_WORLDDEFENSE"] = "世"
 L["CHAN_SHORTNAME_YELL"] = "喊"
-L["CHAT_MSG_YELL"]="喊"
+L["CHAT_MSG_YELL"] = "喊"
 
 -- MessageClassifier
 L["DISABLE_TIPS"] = "公共頻道/世界頻道消息去重：已停用"

@@ -429,7 +429,7 @@ function MessageClassifierBrowser:updateMsgView()
 
     self.msgView:Clear()
     self.msgView.msgSize = #allMessages
-    self.msgView:SetMaxLines(self.msgView.msgSize)
+    self.msgView:SetMaxLinesSafe(self.msgView.msgSize)
     for i=1, self.msgView.msgSize do
         local msg = allMessages[i].msg
         local content = formatMsg(msg)
@@ -554,8 +554,16 @@ function MessageClassifierBrowser:CreateView()
     self.msgScroll:SetPoint("TOPLEFT", 0, 0)
     self.msgScroll:SetPoint("BOTTOMRIGHT", -20, 0)
 
+    -- fix "Division by zero" error of SetMaxLines()
+    function self.msgView:SetMaxLinesSafe(lines)
+        if not lines or lines < 1 then
+            lines = 1
+        end
+        return self:SetMaxLines(lines)
+    end
+
     self.msgView.msgSize = 0
-    self.msgView:SetMaxLines(self.msgView.msgSize)
+    self.msgView:SetMaxLinesSafe(self.msgView.msgSize)
 
     self.msgScroll.msgView = self.msgView
     self.msgView.msgScroll = self.msgScroll
