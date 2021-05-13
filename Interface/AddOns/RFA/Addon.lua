@@ -93,6 +93,11 @@ f:RegisterEvent('CHAT_MSG_SAY')
 f:RegisterEvent('CHAT_MSG_WHISPER')
 f:RegisterEvent('CHAT_MSG_YELL')
 
+-- PTR 没有举报页面
+if not HelpFrame.report then
+    return
+end
+
 local URL = 'https://www.battlenet.com.cn/support/zh/help/contact/1210/ticket'
 
 local EditBox = CreateFrame('EditBox', nil, HelpFrame.report)
