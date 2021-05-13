@@ -31,7 +31,7 @@ DropList:SetResizing('VERTICAL')
 DropList:SetToplevel(1)
 DropList:Hide()
 
-local BG = DropList.BG or CreateFrame('Frame', nil, DropList)
+local BG = DropList.BG or CreateFrame('Frame', nil, DropList, BackdropTemplateMixin and "BackdropTemplate")
 BG:SetFrameLevel(DropList:GetFrameLevel())
 BG:SetPoint('BOTTOMLEFT', -11, -11)
 BG:SetPoint('TOPRIGHT', 11, 11)

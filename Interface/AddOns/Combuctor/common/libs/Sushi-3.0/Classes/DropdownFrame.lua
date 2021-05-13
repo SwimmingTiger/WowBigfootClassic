@@ -45,7 +45,7 @@ function Drop:OnCreate()
 	self:SetResizing('VERTICAL')
 	self:EnableMouse(true)
 
-	self.bg = CreateFrame('Frame', nil, self)
+	self.bg = CreateFrame('Frame', nil, self, BackdropTemplateMixin and "BackdropTemplate")
 	self.bg:SetFrameLevel(self:GetFrameLevel())
 	self.bg:SetPoint('BOTTOMLEFT', 0, -11)
 	self.bg:SetPoint('TOPRIGHT', 0, 11)

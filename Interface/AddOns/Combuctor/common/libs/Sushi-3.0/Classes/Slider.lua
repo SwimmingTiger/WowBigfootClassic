@@ -64,7 +64,7 @@ function Slider:OnCreate()
 	EditBox:SetScript('OnEscapePressed', self.OnEscapePressed)
 	EditBox:SetScript('OnEnterPressed', self.OnEnterPressed)
 	
-	local EditBG = CreateFrame('Frame', nil, EditBox)
+	local EditBG = CreateFrame('Frame', nil, EditBox, BackdropTemplateMixin and "BackdropTemplate")
 	EditBG:SetPoint('TOP', self, 'BOTTOM', 0, 3)
 	EditBG:SetHeight(18)
 	EditBG:SetBackdrop({
