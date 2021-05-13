@@ -1,0 +1,12 @@
+## Interface: 11302
+## Author: Atlas Team
+## Version: v1.0.0
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+
+## Title: AtlasLoot |cFF0099FF[Maps]|r
+## Notes: AtlasLoot maps module
+
+## X-Curse-Project-ID: 340018
+
+core.lua
