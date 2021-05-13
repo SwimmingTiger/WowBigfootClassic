@@ -1,0 +1,26 @@
+## Interface: 11307
+## Title: HandyNotes
+## Title-zhCN: [大脚][集]地图标记
+## Title-zhTW: [大腳][集]地圖標記
+## Notes: Handy notes for your maps
+## Notes-zhCN: |cff00ff00HandyNotes|r|n|cffbc8f8f使用Alt+鼠标右键快速标记|r
+## Notes-zhTW: |cff00ff00HandyNotes|r
+## Author: Xinhuan
+## Version: v1.6.2
+## X-Category: Map
+## X-eMail: xinhuan @ gmail DOT com
+## OptionalDeps: Ace3, TomTom, HereBeDragons
+## SavedVariables: HandyNotesDB, HandyNotes_HandyNotesDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+# Locale files
+Locales\Locale-enUS.lua
+Locales\Locale-zhCN.lua
+Locales\Locale-zhTW.lua
+
+# Core files
+HandyNotes.lua
+HandyNotes.xml
+HandyNotes_HandyNotes.lua
+HandyNotes_EditFrame.lua
