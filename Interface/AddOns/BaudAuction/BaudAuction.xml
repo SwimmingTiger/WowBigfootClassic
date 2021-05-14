@@ -53,7 +53,7 @@
                     </Frame>
                     <Frame setAllPoints="true">
                         <Frames>
-                            <Frame name="BaudAuctionProgress" enableMouse="true" hidden="true">
+                            <Frame name="BaudAuctionProgress" enableMouse="true" hidden="true" inherits="BackdropTemplate">
                                 <Size>
                                     <AbsDimension x="160" y="60"/>
                                 </Size>
