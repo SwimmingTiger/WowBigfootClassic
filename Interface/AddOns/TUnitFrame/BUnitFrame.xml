@@ -1,0 +1,337 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="BUnitFrame.lua"/>
+
+	<Button name="BUnitFrameBuffButtonTemplate" hidden="true" virtual="true">
+		<Size>
+			<AbsDimension x="17" y="17"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentIcon" setAllPoints="true"/>
+			</Layer>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorder" file="Interface\Buttons\UI-Debuff-Overlays">
+					<Size>
+						<AbsDimension x="17" y="17"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.296875" right="0.5703125" top="0" bottom="0.515625"/>
+				</Texture>
+				<FontString name="$parentCount" inherits="NumberFontNormalSmall">
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-1" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Cooldown name="$parentCooldown" inherits="CooldownFrameTemplate" reverse="true" hidden="true">
+				<Anchors>
+					<Anchor point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Cooldown>
+		</Frames>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 15, -25);
+				GameTooltip:SetUnitDebuff(self:GetParent().unit, self:GetID());
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="BUnitFrameTemplate" inherits="SecureUnitButtonTemplate" toplevel="true" movable="true" hidden="true" virtual="true">
+		<Size>
+			<AbsDimension x="93" y="45"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentBackground">
+					<Size>
+						<AbsDimension x="46" y="15"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="42" y="13"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+				<Texture name="$parentPortraitBackground" file="Interface\AddOns\TUnitFrame\PortraitBackground">
+					<Size>
+						<AbsDimension x="36" y="36"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="23" y="-23"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture name="$parentPortrait">
+					<Size>
+						<AbsDimension x="35" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="22.5" y="-22.5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentSpellTexture">
+					<Size>
+						<AbsDimension x="35" y="35"/>
+					</Size>
+					<Anchors>
+						<Anchor point="CENTER" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="22.5" y="-22.5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<StatusBar name="$parentHealthBar">
+				<Size>
+					<AbsDimension x="46" y="7"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-15"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="0" g="1.0" b="0"/>
+			</StatusBar>
+			<StatusBar name="$parentManaBar">
+				<Size>
+					<AbsDimension x="46" y="7"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-2" y="-23"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="0" g="0" b="1.0"/>
+			</StatusBar>
+			<Frame name="$parentTextureFrame" setAllPoints="true">
+				<Frames>
+					<Frame setAllPoints="true">
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture name="$parentTexture"/>
+								<FontString name="$parentHealthBarText" inherits="TextStatusBarText">
+									<Anchors>
+										<Anchor point="CENTER" x="-50" y="3"/>
+									</Anchors>
+								</FontString>
+								<FontString name="$parentManaBarText" inherits="TextStatusBarText">
+									<Anchors>
+										<Anchor point="CENTER" x="-50" y="-8"/>
+									</Anchors>
+								</FontString>
+								<FontString name="$parentName" inherits="GameFontNormalSmall" justifyH="LEFT">
+									<Size>
+										<AbsDimension x="100" y="10"/>
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOMLEFT">
+											<Offset>
+												<AbsDimension x="42" y="35"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+								<FontString name="$parentDeadText" inherits="GameFontNormalSmall" text="DEAD">
+									<Anchors>
+										<Anchor point="CENTER">
+											<Offset>
+												<AbsDimension x="15" y="1"/>
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</FontString>
+							</Layer>
+							<Layer level="OVERLAY">
+								<Texture name="$parentRaidTargetIcon" file="Interface\TargetingFrame\UI-RaidTargetingIcons" hidden="true">
+									<Size>
+										<AbsDimension x="26" y="26"/>
+									</Size>
+								</Texture>
+							</Layer>
+						</Layers>
+					</Frame>
+				</Frames>
+			</Frame>
+			<Frame name="$parentShineFrame" hidden="true">
+				<Size>
+					<AbsDimension x="36" y="36"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="5" y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Frames>
+					<Frame setAllPoints="true">
+						<Frames>
+							<Frame setAllPoints="true">
+								<Layers>
+									<Layer level="OVERLAY">
+										<Texture name="$parentTexture" file="Interface\Cooldown\star4" alphaMode="ADD">
+											<Size>
+												<AbsDimension x="36" y="36"/>
+											</Size>
+											<Anchors>
+												<Anchor point="CENTER">
+													<Offset>
+														<AbsDimension x="0" y="0"/>
+													</Offset>
+												</Anchor>
+											</Anchors>
+										</Texture>
+									</Layer>
+								</Layers>
+							</Frame>
+						</Frames>
+					</Frame>
+				</Frames>
+			</Frame>
+			<Frame name="$parentDebuff1" inherits="BUnitFrameBuffButtonTemplate" id="1">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="4" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentDebuff2" inherits="BUnitFrameBuffButtonTemplate" id="2">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentDebuff1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentDebuff3" inherits="BUnitFrameBuffButtonTemplate" id="3">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentDebuff1" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+			<Frame name="$parentDebuff4" inherits="BUnitFrameBuffButtonTemplate" id="4">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentDebuff3" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				BUnitFrame_OnLoad(self);
+			</OnLoad>
+			<OnShow>
+				BUnitFrame_OnShow(self);
+			</OnShow>
+			<OnHide>
+				BUnitFrame_OnHide(self);
+			</OnHide>
+			<OnEvent>
+				BUnitFrame_OnEvent(self, event, ...);
+			</OnEvent>
+			<OnEnter>
+				BUnitFrame_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				BUnitFrame_OnLeave(self);
+			</OnLeave>
+			<OnUpdate>
+				BUnitFrame_OnUpdate(self, elapsed);
+			</OnUpdate>
+			<OnMouseDown>
+				BUnitFrame_OnMouseDown(self, button);
+			</OnMouseDown>
+			<OnMouseUp>
+				BUnitFrame_OnMouseUp(self, button);
+			</OnMouseUp>
+			<PostClick>
+				if (button == "RightButton") then
+					BUnitFrame_OnContextMenu(self);
+				end
+			</PostClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="BUnitFrameDropDown" inherits="BDropDownMenuTemplate" hidden="true" parent="UIParent" id="1">
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString inherits="GameFontNormalSmall" text="">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="20" y="10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				BUnitFrameDropDown_OnLoad(self);
+			</OnLoad>
+			<OnShow>
+				BUnitFrameDropDown_OnLoad(self);
+			</OnShow>
+		</Scripts>
+	</Frame>
+
+</Ui>
