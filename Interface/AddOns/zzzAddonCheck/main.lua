@@ -103,7 +103,7 @@ end
 
 local function zzzAddonCheck_Init_alaGearMan()
     -- 为有爱一键换装添加功能函数
-    if not __ala_meta__ then return end
+    if not __ala_meta__ or not __ala_meta__.gear then return end
     local func = __ala_meta__.gear.func
     local ui = __ala_meta__.gear.ui
 
