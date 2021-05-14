@@ -25,9 +25,9 @@ end
 function update_mode(mode)
     _M.mode = mode
 	if mode == ALL_MODE then
-		mode_button:SetText('全部')
+        mode_button:SetBackdropColor(aux.color.content.background())
     else
-        mode_button:SetText('最新')
+        mode_button:SetBackdropColor(aux.color.state.enabled())
 	end
 end
 

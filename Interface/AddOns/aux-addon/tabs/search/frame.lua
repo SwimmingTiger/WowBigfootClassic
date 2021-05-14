@@ -62,6 +62,7 @@ do
 	local btn = gui.button(frame, gui.font_size.small)
 	btn:SetHeight(25)
 	btn:SetWidth(45)
+    btn:SetText('实时')
 	btn:SetScript('OnClick', function(self)
 		update_mode(mode == ALL_MODE and NEW_MODE or ALL_MODE)
 	end)
@@ -431,7 +432,7 @@ do
     button:SetScript('OnClick', add_form_component)
 end
 do
-    local scroll_frame = CreateFrame('ScrollFrame', nil, frame.filter)
+    local scroll_frame = CreateFrame('ScrollFrame', nil, frame.filter, 'BackdropTemplate')
     scroll_frame:SetWidth(395)
     scroll_frame:SetHeight(270)
     scroll_frame:SetPoint('TOPLEFT', 348.5, -47)
@@ -504,7 +505,7 @@ favorite_searches_listing = listing.new(frame.saved.favorite)
 favorite_searches_listing:SetColInfo{{name='状态', width=.07, align='CENTER'}, {name='收藏夹搜索', width=.93}}
 
 recent_searches_listing = listing.new(frame.saved.recent)
-recent_searches_listing:SetColInfo{{name='最新搜索', width=1}}
+recent_searches_listing:SetColInfo{{name='最近搜索', width=1}}
 
 for listing in aux.iter(favorite_searches_listing, recent_searches_listing) do
 	for k, v in pairs(handlers) do

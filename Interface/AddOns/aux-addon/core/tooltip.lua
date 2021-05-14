@@ -97,7 +97,7 @@ function extend_tooltip(tooltip, link, quantity)
     local value = history.value(item_key)
     if auctionable then
         if settings.value then
-            tooltip:AddLine('AH价值: ' .. (value and money.to_string2(value * quantity) or UNKNOWN), aux.color.tooltip.value())
+            tooltip:AddLine('拍卖价: ' .. (value and money.to_string2(value * quantity) or UNKNOWN), aux.color.tooltip.value())
         end
         if settings.daily  then
             local market_value = history.market_value(item_key)

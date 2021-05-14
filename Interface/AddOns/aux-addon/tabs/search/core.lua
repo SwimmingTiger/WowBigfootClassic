@@ -7,7 +7,7 @@ local tab = aux.tab '搜索'
 
 StaticPopupDialogs.AUX_SEARCH_TABLE_FULL = {
     text = '列表已满!\n此搜索的进一步结果仍将被处理，但不再显示在表中',
-    button1 = 'Ok',
+    button1 = '确定',
     showAlert = 1,
     timeout = 0,
     hideOnEscape = 1,
