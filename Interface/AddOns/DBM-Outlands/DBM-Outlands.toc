@@ -1,0 +1,38 @@
+## Interface: 20501
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outlands|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아웃랜드|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Scherbenwelt|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0外域|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Запределье|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMOutlands_AllSavedVars
+## SavedVariablesPerCharacter: DBMOutlands_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Sort: 1006
+## X-DBM-Mod-MapID: 530,565,544
+## X-DBM-Mod-LoadCID: 17711,18728
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 1
+## X-Curse-Project-ID: 16442
+## X-WoWI-ID: 11700
+## X-Wago-ID: 7x61xpN1
+## Version: 2.5.3
+
+localization.en.lua
+localization.de.lua
+localization.es.lua
+localization.tw.lua
+localization.cn.lua
+localization.ru.lua
+localization.kr.lua
+Maulgar.lua
+Gruul.lua
+Magtheridon.lua
+Kazzak.lua
+Doomwalker.lua
