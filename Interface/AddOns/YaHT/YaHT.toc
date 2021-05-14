@@ -1,0 +1,21 @@
+## Interface: 11307
+## Title: YaHT
+## Notes: Yet another Hunter Timer.
+## Author: Avi
+##
+## Dependencies: !!!Libs
+## SavedVariables: YaHTdb
+## OptionalDeps: Ace3
+## X-Category: Hunter
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+locales\enUS.lua
+locales\deDE.lua
+locales\zhTW.lua
+locales\zhCN.lua
+
+YaHT.lua
+defaults.lua
+options.lua
