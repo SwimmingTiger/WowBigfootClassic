@@ -1,0 +1,203 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="bf_infobox.lua"/>
+	<Frame name="ModuleManagerFrame" parent="UIParent" hidden="false">
+		<Scripts>
+			<OnLoad>
+				InfoBox_OnLoad();
+			</OnLoad>
+			<OnUpdate>
+				InfoBox_MainUpdate(self, elapsed);
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+	<Button name="InfoBoxButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="19" y="18"/>
+		</Size>
+		<Scripts>
+			<OnEnter>
+				InfoBoxButton_OnEnter(self);
+			</OnEnter>
+			<OnLeave>
+				InfoBoxButton_OnLeave(self);
+			</OnLeave>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+			</OnLoad>
+			<OnClick>
+				InfoBoxButton_OnClick(self, button);
+			</OnClick>
+		</Scripts>
+		<Frames>
+			<Frame name="$parentDropDown" inherits="BDropDownMenuTemplate" id="1" hidden="true">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="0" y="-5"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						InfoBoxButtonDropDown_OnLoad(self);
+					</OnLoad>
+					<OnShow>
+						InfoBoxButtonDropDown_OnLoad(self);
+					</OnShow>
+				</Scripts>
+			</Frame>
+		</Frames>
+		<HighlightTexture alphaMode="ADD" file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight"/>
+	</Button>
+	<Frame name="InfoBoxToolBar" frameStrata="HIGH" toplevel="true" hidden="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="223" y="32"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="0" y="1"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AddOns\Bartender4_BFMod\media\btnback">
+					<Size>
+						<AbsDimension x="223" y="32"/>
+					</Size>
+					<TexCoords left="0.0" right="0.87109375" top="0.0" bottom="1.0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="InfoBoxButtonUnlockWindow" inherits="InfoBoxButtonTemplate" >
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="33" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.1484375" right="0.2890625" top="0.0" bottom="0.140625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.1484375" right="0.2890625" top="0.28125" bottom="0.421875"/>
+				</PushedTexture>
+			</Button>
+			<Button name="InfoBoxButtonLockWindow" inherits="InfoBoxButtonTemplate" hidden="true">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="33" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.0" right="0.1418375" top="0.0" bottom="0.140625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.0" right="0.1418375" top="0.28125" bottom="0.421875"/>
+				</PushedTexture>
+			</Button>
+			<Button name="InfoBoxButtonLoadTheme" inherits="InfoBoxButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="InfoBoxButtonLockWindow" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="3" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.0" right="0.1418375" top="0.421875" bottom="0.5546875"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.0" right="0.1418375" top="0.703125" bottom="0.84375"/>
+				</PushedTexture>
+			</Button>
+			<Button name="InfoBoxButtonSaveTheme" inherits="InfoBoxButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="InfoBoxButtonLoadTheme" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="3" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.7421875" right="0.890625" top="0.0" bottom="0.140625"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.7421875" right="0.890625" top="0.28125" bottom="0.421875"/>
+				</PushedTexture>
+			</Button>
+			<Button name="InfoBoxButtonDeleteTheme" inherits="InfoBoxButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="InfoBoxButtonSaveTheme" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="3" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.1484375" right="0.2890625" top="0.421875" bottom="0.5546875"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.1484375" right="0.2890625" top="0.703125" bottom="0.84375"/>
+				</PushedTexture>
+			</Button>
+			<Button name="InfoBoxButtonResetTheme" inherits="InfoBoxButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="InfoBoxButtonDeleteTheme" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="3" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.296875" right="0.4375" top="0.421875" bottom="0.5546875"/>
+				</NormalTexture>
+				<PushedTexture file="Interface\AddOns\Bartender4_BFMod\media\buttons">
+					<Size>
+						<AbsDimension x="19" y="18"/>
+					</Size>
+					<TexCoords left="0.296875" right="0.4375" top="0.703125" bottom="0.84375"/>
+				</PushedTexture>
+			</Button>
+		</Frames>
+	</Frame>
+</Ui>
