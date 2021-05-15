@@ -1,0 +1,16 @@
+## Interface: 11307
+## Title: ClassicAuraDurations
+## Author: d87
+## SavedVariables: ClassicAuraDurationsDB
+## Version: 1.13.63
+
+## X-WoWI-ID: 25006
+## X-Curse-Project-ID: 323806
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
+Libs\LibClassicDurations\LibClassicDurations.xml
+Libs\LibAuraTypes\LibAuraTypes.lua
+Libs\LibSpellLocks\LibSpellLocks.lua
+
+code.lua
