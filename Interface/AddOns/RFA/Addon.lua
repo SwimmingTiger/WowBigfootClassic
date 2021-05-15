@@ -67,10 +67,12 @@ hooksecurefunc(PlayerReportFrame, 'InitiateReport', function(frame, type, name, 
     UpdateEditBox(frame.CommentBox, name, playerLocation)
 end)
 
-hooksecurefunc('HelpFrame_ShowReportCheatingDialog', function(playerLocation)
-    UpdateEditBox(ReportCheatingDialog.CommentFrame.EditBox, nil, playerLocation)
-    ReportCheatingDialog.CommentFrame.EditBox.InformationText:Hide()
-end)
+if HelpFrame_ShowReportCheatingDialog then
+    hooksecurefunc('HelpFrame_ShowReportCheatingDialog', function(playerLocation)
+        UpdateEditBox(ReportCheatingDialog.CommentFrame.EditBox, nil, playerLocation)
+        ReportCheatingDialog.CommentFrame.EditBox.InformationText:Hide()
+    end)
+end
 
 local f = CreateFrame('Frame')
 f:SetScript('OnEvent', function(self, event, _, _, _, _, _, _, _, _, _, _, lineId, guid)
