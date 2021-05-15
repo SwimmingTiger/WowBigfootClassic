@@ -1,0 +1,137 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+  <Frame name="TotemTimersFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size>
+      <AbsDimension x="30" y="30" />
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+    <Scripts>
+      <OnLoad>
+        self:RegisterEvent("PLAYER_ENTERING_WORLD")
+      </OnLoad>
+    </Scripts>
+  </Frame>
+  
+  
+  <Frame name="TotemTimers_TrackerFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+  
+  <!-- <Frame name="TotemTimers_EnhanceCDsFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size>
+      <AbsDimension x="1" y="1" />
+    </Size>
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>  
+  
+  <Frame name="TotemTimers_CrowdControlFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+
+  <Frame name="TotemTimers_LongCooldownsFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame> -->
+  
+ <Frame name="TotemTimers_CastBar1" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+ <Frame name="TotemTimers_CastBar2" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+ <Frame name="TotemTimers_CastBar3" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+ <Frame name="TotemTimers_CastBar4" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+    <Size x="1" y="1" />
+    <Anchors>
+      <Anchor point="CENTER" relativePoint="CENTER"/>
+    </Anchors>
+  </Frame>
+  
+    <CheckButton name="TTActionBarButtonTemplate" clampedToScreen="true" movable="true" enableMouse="true" virtual="true"
+    inherits="ActionButtonTemplate, SecureActionButtonTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerAttributeTemplate, SecureHandlerDragTemplate, SecureHandlerShowHideTemplate">
+    <Size x="36" y="36"/>
+    <Layers>
+        <Layer level="BACKGROUND">
+            <Texture name="$parentIcon2">
+                <Size x="18" y="36"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER"/>
+                </Anchors>
+            </Texture>
+        </Layer>
+        <Layer level="ARTWORK">
+            <Texture name="$parentMiniIcon1"/>
+            <Texture name="$parentMiniIcon2"/>
+            <Texture name="$parentMiniIcon3"/>
+            <Texture name="$parentMiniIcon4"/>
+        </Layer>
+    </Layers>
+  </CheckButton>
+  
+  
+	<ScrollFrame name="TotemTimers_DebugScrollFrame" hidden="true" inherits="UIPanelScrollFrameTemplate">
+		<Size>
+			<AbsDimension x="286" y="185"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
+		</Anchors>
+		<ScrollChild>
+			<EditBox name="TotemTimers_Debug" multiLine="true" maxLetters="999999">
+				<Size>
+					<AbsDimension x="286" y="285"/>
+				</Size>
+				<Scripts>
+					<OnEscapePressed>
+						self:ClearFocus();
+					</OnEscapePressed>
+				</Scripts>
+				<FontString inherits="GameFontHighlightSmall"/>
+			</EditBox>
+		</ScrollChild>
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPRIGHT"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Scripts>
+			<OnShow>
+				TotemTimers.ShowDebug()
+			</OnShow>
+		</Scripts>
+	</ScrollFrame>
+
+</Ui>
+
+

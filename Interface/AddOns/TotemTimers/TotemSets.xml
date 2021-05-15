@@ -1,0 +1,75 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+  <Button name="TotemTimers_SetButtonTemplate" frameStrata="HIGH" parent="UIParent" virtual="true" hidden="true" clampedToScreen="true" movable="true" enableMouse="true" inherits="SecureActionButtonTemplate,SecureHandlerEnterLeaveTemplate,ActionButtonTemplate">
+    <Size x="32" y="32"/>
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Layers>
+      <Layer level="OVERLAY">
+	    <Texture name="$parentIcon1">
+          <Size>
+            <AbsDimension x="13" y="13"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+              <Offset x="3" y="-3"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+	    <Texture name="$parentIcon2">
+          <Size>
+            <AbsDimension x="13" y="13"/>
+          </Size>
+          <Anchors>
+            <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+              <Offset x="-3" y="-3"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+	    <Texture name="$parentIcon3">
+          <Size>
+            <AbsDimension x="13" y="13"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT">
+              <Offset x="3" y="3"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+	    <Texture name="$parentIcon4">
+          <Size>
+            <AbsDimension x="13" y="13"/>
+          </Size>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+              <Offset x="-3" y="3"/>
+            </Anchor>
+          </Anchors>
+        </Texture>
+	  </Layer>
+    </Layers>
+	<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+		<Size>
+			<AbsDimension x="52" y="52"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="-1"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</NormalTexture>
+    <PushedTexture file="Interface/Buttons/UI-Quickslot-Depress"/>
+    <HighlightTexture alphaMode="ADD" file="Interface/Buttons/ButtonHilight-Square"/>
+	<Scripts>
+		<OnClick>
+			TotemTimers.SetButton_OnClick(self, button)
+		</OnClick>
+	</Scripts>
+  </Button>
+ 
+</Ui>
+

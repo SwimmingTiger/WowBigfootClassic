@@ -1,0 +1,169 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+  <CheckButton name="XiTimersTemplate" clampedToScreen="true" movable="true" enableMouse="true" virtual="true"
+    inherits="ActionButtonTemplate, SecureActionButtonTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerAttributeTemplate,SecureHandlerDragTemplate,SecureHandlerMouseUpDownTemplate">
+    <Size x="36" y="36"/>
+    <Layers>
+        <Layer level="BACKGROUND">
+            <Texture name="$parentIcon2">
+                <Size x="18" y="36"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER"/>
+                </Anchors>
+            </Texture>
+        </Layer>
+        <Layer level="OVERLAY">
+            <Texture name="$parentFlash2" file="Interface\Buttons\UI-QuickslotRed" hidden="true">
+                 <Size x="18" y="36"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER"/>
+                </Anchors>
+            </Texture>
+            <FontString name="$parentRangeCount" inherits="NumberFontNormalLargeRightRed" justifyH="LEFT">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="2" y="2"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </FontString>            
+        </Layer>
+    </Layers>
+	<Frames>
+      <StatusBar name="$parentBar">
+        <Size>
+          <AbsDimension x="36" y="36"/>
+        </Size>
+        <Anchors>
+          <Anchor point="CENTER" relativePoint="CENTER"/>
+        </Anchors>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/> 
+        <BarColor r="0.0" g="0.8" b="0.0" a="0.7"/>
+        <Scripts>
+          <OnLoad>
+            self:SetMinMaxValues(0,5)
+            self:SetValue(0)
+            self:SetOrientation("VERTICAL")
+          </OnLoad>
+        </Scripts>
+      </StatusBar>
+        <Frame name="$parentMini">
+            <Size x="18" y="18"/>
+            <Layers>
+                <Layer level="BACKGROUND">
+                    <Texture name="$parentIcon"/>
+                </Layer>
+            </Layers>
+            <Anchors>
+                <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+                    <Offset x="2" y="-2"/>
+                </Anchor>
+            </Anchors>
+            <Scripts>
+                <OnLoad>
+                    --self:SetFrameLevel(getglobal(self:GetParent():GetName().."Bar"):GetFrameLevel()+1)
+                </OnLoad>
+            </Scripts>
+        </Frame>
+	</Frames>
+  </CheckButton>
+
+  <CheckButton name="XiTimersUnsecureTemplate" clampedToScreen="true" movable="true" enableMouse="true" virtual="true"
+    inherits="ActionButtonTemplate">
+    <Size x="36" y="36"/>
+    <Layers>
+        <Layer level="BACKGROUND">
+            <Texture name="$parentIcon2">
+                <Size x="18" y="36"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER"/>
+                </Anchors>
+            </Texture>
+        </Layer>
+        <Layer level="OVERLAY">
+            <Texture name="$parentFlash2" file="Interface\Buttons\UI-QuickslotRed" hidden="true">
+                 <Size x="18" y="36"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="CENTER"/>
+                </Anchors>
+            </Texture>
+            <FontString name="$parentRangeCount" inherits="NumberFontNormalLargeRightRed" justifyH="LEFT">
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT">
+                        <Offset>
+                            <AbsDimension x="2" y="2"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+            </FontString>            
+        </Layer>
+    </Layers>
+	<Frames>
+      <StatusBar name="$parentBar">
+        <Size>
+          <AbsDimension x="36" y="36"/>
+        </Size>
+        <Anchors>
+          <Anchor point="CENTER" relativePoint="CENTER"/>
+        </Anchors>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/> 
+        <BarColor r="0.0" g="0.8" b="0.0" a="0.7"/>
+        <Scripts>
+          <OnLoad>
+            self:SetMinMaxValues(0,5)
+            self:SetValue(0)
+            self:SetOrientation("VERTICAL")
+          </OnLoad>
+        </Scripts>
+      </StatusBar>
+    </Frames>
+  </CheckButton>
+
+  
+	<StatusBar name="XiTimersTimerBarTemplate" virtual="true" minValue="0" maxValue="5" defaultValue="0" hidden="true">
+		<Size>
+		  <AbsDimension x="36" y="12"/>
+		</Size>
+		<Anchors>
+		  <Anchor point="TOP" relativePoint="BOTTOM"/>
+		</Anchors>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/> 
+		<BarColor r="0.4" g="0.4" b="1.0" a="1.0"/>
+		<Layers>
+		  <Layer level="OVERLAY">
+            <Texture name="$parentIcon" hidden="false">
+                <Size x="12" y="12"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativePoint="LEFT">
+                        <Offset x="5"/>
+                    </Anchor>
+                </Anchors>
+            </Texture>	
+            <FontString name="$parentTime" inherits="GameFontNormalSmall" justifyH="CENTER">
+			  <Anchors>
+				<Anchor point="CENTER" relativePoint="CENTER"/>
+			  </Anchors>
+			</FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+        	<StatusBar name="$parentBackground" minValue="0" maxValue="1" defaultValue="0" hidden="true">
+        		<Size>
+        		  <AbsDimension x="36" y="12"/>
+        		</Size>
+        		<Anchors>
+        		  <Anchor point="CENTER"/>
+        		</Anchors>
+        		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/> 
+        		<BarColor r="0.7" g="0.7" b="1.0" a="0.4"/>
+                <Scripts>
+                    <OnLoad> self:SetFrameLevel(self:GetParent():GetFrameLevel()-1) </OnLoad>
+                </Scripts>
+            </StatusBar>
+        </Frames>
+	</StatusBar>
+</Ui>
+
+
