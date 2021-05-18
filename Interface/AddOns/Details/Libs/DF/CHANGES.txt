@@ -1,0 +1,87 @@
+lightweight tag bae2e0851e4ccaebbbe16ee5f6bf91072401284f v8.3.0.162
+Author:	Continuity <continuity@gmx.net>
+Date:	Tue Feb 4 15:44:54 2020 +0100
+
+commit bae2e0851e4ccaebbbe16ee5f6bf91072401284f
+Author: Continuity <continuity@gmx.net>
+Date:   Tue Feb 4 15:44:54 2020 +0100
+
+    - increasing CONST_MAX_SPELLS as we are well above the limit in retail...
+
+commit f26dd5d0617ebed1f0f14506001a8f4cb092676e
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Tue Feb 4 11:33:41 2020 -0300
+
+    Fixed vertical scroll bars out of position for regular scroll boxes
+
+commit 9bb18687ff6d7d1e9051297f6ce146ee96c900c4
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Sun Feb 2 17:04:38 2020 -0300
+
+    version bump
+
+commit 70d0bd721a095dc22664a9572e4b7b97f896a8f9
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Wed Jan 29 14:48:47 2020 -0300
+
+    Added support to line numbers on 'NewSpecialLuaEditorEntry', pass true on the 7th parameter to enable
+
+commit 4aadb0d04722ab4158c3c1afc8ddad338173ec6f
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Mon Jan 27 20:39:10 2020 -0300
+
+    New Functions Added
+    
+    DF:IsSpecFromClass(class, specId)
+    DF:GetClassSpecs(class)
+    DF:GetSpecListFromClass(class)
+    DF:GetSpellsForRangeCheck()
+    DF:GetRangeCheckSpellForSpec(specId)
+    DF:IsUnitTapDenied (unitId)
+    DF:CreateStatusBar(f, options)
+    Revamp on the Image Editor
+
+commit 03a6a091a00a349ba01b63c85d77cbba0285b441
+Author: Continuity <continuity@gmx.net>
+Date:   Mon Jan 20 21:48:49 2020 +0100
+
+    - adding cooldown text size setting for buff special
+
+commit 5ee9eb9bb90a8deb8851df14d090946a3c5726df
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Thu Jan 16 12:44:55 2020 -0300
+
+    Slowdown updates on the time line panel, it should update each 0.05 percent moved
+
+commit 9e38eae39f0d91c824359a60a7b88a4bf6c23d97
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Thu Jan 16 12:43:30 2020 -0300
+
+    When nested on a menu, widgets can now have IDs
+    
+    Within the widget table when creating the menu, the entry "id" is now supported, when a widget has an id, the widget it can be retrieved with parentFrame:GetWidgetById(id)
+
+commit 1130d2befdf705d4a76e0e1529868162625482c7
+Author: Tercio Jose <terciob19@hotmail.com>
+Date:   Wed Jan 8 21:36:01 2020 -0300
+
+    Added DF:SetPointOffsets(frame, xOffset, yOffset)
+    
+    - this funtion adjust the x and y offsets without the need to do manually, the offsets passed follow the existing offsets of the frame:
+    frame with -2 on Y offset with a parameter of 3 will set -5
+
+commit 347a1be06a881185ff7209bc13888555bb7cdabf
+Author: Continuity <continuity@gmx.net>
+Date:   Sat Jan 4 01:05:27 2020 +0100
+
+    - updating IconRow functionality
+    
+    Adding stack frame to the icons and the following information as public data: spellId, startTime, duration, count, debuffType, caster, canStealOrPurge
+    The configuration has been enhanced to make the frames a bit more configurable.
+
+commit 0c107f65e5e97830ec1d00152db4a449378f328a
+Author: Continuity <continuity@gmx.net>
+Date:   Tue Dec 31 01:45:31 2019 +0100
+
+    - ensuring slider focus is cleared properly when disabled
+
