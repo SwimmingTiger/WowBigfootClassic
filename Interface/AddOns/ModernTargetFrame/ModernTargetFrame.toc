@@ -1,0 +1,17 @@
+## Interface: 20501
+## Title: Modern TargetFrame v1.9
+## Version: 1.9
+## Author: SDPhantom
+
+## SavedVariables: ModernTargetFrame_Options
+
+## Notes: Re-implements TargetFrame features found in modern WoW
+
+# Core Files
+Localization.lua
+ModernTargetFrame.lua
+
+# Feature Modules - The order these load is the order they show in the options panel
+StatusBarText.lua
+Classification.lua
+ThreatIndicators.lua
