@@ -1,0 +1,660 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+
+<FontFamily name="NeatPlatesFontNormal" virtual="true">
+    <Member alphabet="roman">
+        <Font font="Fonts\FRIZQT__.TTF" height="10"/>
+    </Member>
+    <Member alphabet="korean">
+        <Font font="Fonts\2002.TTF" height="12" spacing="1"/>
+    </Member>
+    <Member alphabet="simplifiedchinese">
+        <Font font="Fonts\ARKai_T.ttf" height="12"/>
+    </Member>
+    <Member alphabet="traditionalchinese">
+        <Font font="Fonts\bKAI00M.TTF" height="12"/>
+    </Member>
+    <Member alphabet="russian">
+        <Font font="Fonts\FRIZQT___CYR.TTF" height="10"/>
+    </Member>
+</FontFamily>
+
+<FontFamily name="NeatPlatesFontSmall" virtual="true">
+    <Member alphabet="roman">
+        <Font font="Fonts\FRIZQT__.TTF" height="8"/>
+    </Member>
+    <Member alphabet="korean">
+        <Font font="Fonts\2002.TTF" height="10" spacing="1"/>
+    </Member>
+    <Member alphabet="simplifiedchinese">
+        <Font font="Fonts\ARKai_T.ttf" height="10"/>
+    </Member>
+    <Member alphabet="traditionalchinese">
+        <Font font="Fonts\bKAI00M.TTF" height="10"/>
+    </Member>
+    <Member alphabet="russian">
+        <Font font="Fonts\FRIZQT___CYR.TTF" height="8"/>
+    </Member>
+</FontFamily>
+
+
+<Button name="NeatPlatesPanelButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="40" y="22"/>
+		</Size>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" urgency="5" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size>
+						<AbsDimension x="12" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.09375" top="0" bottom="0.6875"/>
+				</Texture>
+				<Texture name="$parentRight" urgency="5" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size>
+						<AbsDimension x="12" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.53125" right="0.625" top="0" bottom="0.6875"/>
+				</Texture>
+				<Texture name="$parentMiddle" urgency="5" file="Interface\Buttons\UI-Panel-Button-Up">
+					<Size>
+						<AbsDimension x="12" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentRight" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.09375" right="0.53125" top="0" bottom="0.6875"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				if ( not self:IsEnabled() ) then
+					local name = self:GetName();
+					_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+					_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+					_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+				end
+			</OnLoad>
+			<OnMouseDown>
+				if ( self:IsEnabled() ) then
+					local name = self:GetName();
+					_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down");
+					_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down");
+					_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Down");
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				if ( self:IsEnabled() ) then
+					local name = self:GetName();
+					_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+					_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+					_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+				end
+			</OnMouseUp>
+			<OnShow>
+				if ( self:IsEnabled() ) then
+					-- we need to reset our textures just in case we were hidden before a mouse up fired
+					local name = self:GetName();
+					_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+					_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+					_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+				end
+			</OnShow>
+			<OnDisable>
+				local name = self:GetName();
+				_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+				_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+				_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Disabled");
+			</OnDisable>
+			<OnEnable>
+				local name = self:GetName();
+				_G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+				_G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+				_G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-Panel-Button-Up");
+			</OnEnable>
+			<OnEnter>
+                self.isMouseover = true
+				if(self.tooltipText ~= nil) then
+					C_Timer.After(0.25, function()
+                        if self.isMouseover then
+                            GameTooltip:SetOwner(UIParent, "ANCHOR_NONE");
+                            GameTooltip:ClearAllPoints();
+                            GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true);
+                            GameTooltip:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", -12, -12);
+                        end
+                    end);
+				end
+			</OnEnter>
+			<OnLeave>
+                self.isMouseover = false
+				if(self.tooltipText ~= nil) then
+					GameTooltip:Hide();
+				end
+			</OnLeave>
+		</Scripts>
+		<ButtonText name="$parentText"/>
+		<NormalFont style="GameFontNormal"/>
+		<HighlightFont style="GameFontHighlight"/>
+		<DisabledFont style="GameFontDisable"/>
+		<HighlightTexture>
+            <Texture name="UIPanelButtonHighlightTexture" file="Interface\Buttons\UI-Panel-Button-Highlight" alphaMode="ADD" virtual="true">
+                <Size>
+                    <AbsDimension x="12" y="22"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentLeft" relativePoint="TOPRIGHT"/>
+                    <Anchor point="BOTTOMRIGHT" relativeTo="$parentRight" relativePoint="BOTTOMLEFT"/>
+                </Anchors>
+                <TexCoords left="0.09375" right="0.53125" top="0" bottom="0.6875"/>
+            </Texture>
+        </HighlightTexture>
+	</Button>
+
+
+
+    <CheckButton name="NeatPlatesCheckButtonTemplate" virtual="true" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="GameFontHighlightLeft" parentKey="Text">
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT">
+                            <Offset>
+                                <AbsDimension x="2" y="1"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnEnter>
+                self.isMouseover = true
+                if(self.tooltipText ~= nil) then
+                    C_Timer.After(0.25, function()
+                        if self.isMouseover then
+                            GameTooltip:SetOwner(UIParent, "ANCHOR_NONE");
+                            GameTooltip:ClearAllPoints();
+                            GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true);
+                            GameTooltip:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", -12, -12);
+                        end
+                    end);
+                end
+            </OnEnter>
+            <OnLeave>
+                self.isMouseover = false
+                if(self.tooltipText ~= nil) then
+                    GameTooltip:Hide();
+                end
+            </OnLeave>
+        </Scripts>
+    </CheckButton>
+
+    <Frame name="NeatPlatesPanelTipTemplate" virtual="true">
+        <Size>
+                <AbsDimension x="40" y="32"/>
+        </Size>
+        <Scripts>
+            <OnEnter>
+                self.isMouseover = true
+                if(self.tooltipText ~= nil) then
+                    C_Timer.After(0.25, function()
+                        if self.isMouseover then
+                            --GameTooltip_SetBasicTooltip(GameTooltip, self.tooltipText, 0, 0, true);
+                            GameTooltip:SetOwner(UIParent, "ANCHOR_NONE");
+                            GameTooltip:ClearAllPoints();
+                            GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true);
+                            GameTooltip:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", -12, -12);
+                        end
+                    end);
+                end
+            </OnEnter>
+            <OnLeave>
+                self.isMouseover = false
+                if(self.tooltipText ~= nil) then
+                    GameTooltip:Hide();
+                end
+            </OnLeave>
+        </Scripts>
+        <NormalFont style="GameFontNormal"/>
+    </Frame>
+
+
+    <Frame name="NeatPlatesDropdownDrawerTemplate" virtual="true">
+            <Size>
+                    <AbsDimension x="40" y="32"/>
+            </Size>
+            <Layers>
+                    <Layer level="ARTWORK">
+                            <Texture name="$parentLeft" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                                    <Size>
+                                            <AbsDimension x="25" y="64"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="TOPLEFT">
+                                                    <Offset>
+                                                            <AbsDimension x="0" y="17"/>
+                                                    </Offset>
+                                            </Anchor>
+                                    </Anchors>
+                                    <TexCoords left="0" right="0.1953125" top="0" bottom="1"/>
+                            </Texture>
+                            <Texture name="$parentMiddle" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                                    <Size>
+                                            <AbsDimension x="115" y="64"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+                                    </Anchors>
+                                    <TexCoords left="0.1953125" right="0.8046875" top="0" bottom="1"/>
+                            </Texture>
+                            <Texture name="$parentRight" file="Interface\Glues\CharacterCreate\CharacterCreate-LabelFrame">
+                                    <Size>
+                                            <AbsDimension x="25" y="64"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="LEFT" relativeTo="$parentMiddle" relativePoint="RIGHT"/>
+                                    </Anchors>
+                                    <TexCoords left="0.8046875" right="1" top="0" bottom="1"/>
+                            </Texture>
+                            <FontString name="$parentText" inherits="GameFontHighlightSmall" wordwrap="false" justifyH="RIGHT">
+                                    <Size>
+                                            <AbsDimension x="0" y="10"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="RIGHT" relativeTo="$parentRight">
+                                                    <Offset>
+                                                            <AbsDimension x="-43" y="2"/>
+                                                    </Offset>
+                                            </Anchor>
+                                    </Anchors>
+                            </FontString>
+                    </Layer>
+                    <Layer level="OVERLAY">
+                            <Texture name="$parentIcon" hidden="true">
+                                    <Size>
+                                            <AbsDimension x="16" y="16"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="LEFT">
+                                                    <Offset x="30" y="2"/>
+                                            </Anchor>
+                                    </Anchors>
+                            </Texture>
+                    </Layer>
+            </Layers>
+            <Frames>
+                    <Button name="$parentButton"  motionScriptsWhileDisabled="true" >
+                            <Size>
+                                    <AbsDimension x="24" y="24"/>
+                            </Size>
+                            <Anchors>
+                                    <Anchor point="TOPRIGHT" relativeTo="$parentRight">
+                                            <Offset>
+                                                    <AbsDimension x="-16" y="-18"/>
+                                            </Offset>
+                                    </Anchor>
+                            </Anchors>
+
+                            <NormalTexture name="$parentNormalTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up">
+                                    <Size>
+                                            <AbsDimension x="24" y="24"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="RIGHT"/>
+                                    </Anchors>
+                            </NormalTexture>
+                            <PushedTexture name="$parentPushedTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down">
+                                    <Size>
+                                            <AbsDimension x="24" y="24"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="RIGHT"/>
+                                    </Anchors>
+                            </PushedTexture>
+                            <DisabledTexture name="$parentDisabledTexture" file="Interface\ChatFrame\UI-ChatIcon-ScrollDown-Disabled">
+                                    <Size>
+                                            <AbsDimension x="24" y="24"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="RIGHT"/>
+                                    </Anchors>
+                            </DisabledTexture>
+                            <HighlightTexture name="$parentHighlightTexture" file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+                                    <Size>
+                                            <AbsDimension x="24" y="24"/>
+                                    </Size>
+                                    <Anchors>
+                                            <Anchor point="RIGHT"/>
+                                    </Anchors>
+                            </HighlightTexture>
+                    </Button>
+            </Frames>
+    </Frame>
+
+    <Button name="NeatPlatesTriStateButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="100" y="18"/>
+        </Size>
+        <Frames>
+            <Button name="$parentToggle" hidden="true">
+                <Size>
+                    <AbsDimension x="14" y="14"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="-6" y="-1"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+
+                    </OnLoad>
+                    <OnClick>
+
+                    </OnClick>
+                </Scripts>
+                <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-MinusButton-UP"/>
+                <PushedTexture name="$parentPushedTexture" file="Interface\Buttons\UI-MinusButton-DOWN"/>
+                <HighlightTexture name="$parentHighlightTexture" file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD"/>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                self.UpdateState = function(self, state)
+                    local states = self:GetParent().states;
+
+                    local nextState, newState;
+                    for label, color in pairs(states) do
+                        if nextState or self.state == nil then
+                            newState = label;
+                            break;
+                        elseif self.state == label then
+                            nextState = true;
+                        end
+                    end
+                    self.state = state or newState;
+
+                    self:SetText((states[self.state] or "")..self.Label)
+                end
+            </OnLoad>
+            <OnClick>
+                self:UpdateState()
+            </OnClick>
+            <OnEnter>
+                self.isMouseover = true
+                if(self.tooltipText ~= nil) then
+                    C_Timer.After(0.25, function()
+                        if self.isMouseover then
+                            GameTooltip:SetOwner(UIParent, "ANCHOR_NONE");
+                            GameTooltip:ClearAllPoints();
+                            GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true);
+                            GameTooltip:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", -12, -12);
+                        end
+                    end);
+                end
+            </OnEnter>
+            <OnLeave>
+                self.isMouseover = false
+                if(self.tooltipText ~= nil) then
+                    GameTooltip:Hide();
+                end
+            </OnLeave>
+        </Scripts>
+        <ButtonText name="$parentText" justifyH="MIDDLE" wordwrap="false"/>
+        <NormalFont style="GameFontHighlight"/>
+        <HighlightFont style="GameFontHighlightOutline"/>
+    </Button>
+
+    <Button name="NeatPlatesOptionsListButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="175" y="18"/>
+        </Size>
+        <Frames>
+            <Button name="$parentToggle" hidden="true">
+                <Size>
+                    <AbsDimension x="14" y="14"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+                        <Offset>
+                            <AbsDimension x="-6" y="-1"/>
+                        </Offset>
+                    </Anchor>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+
+                    </OnLoad>
+                    <OnClick>
+
+                    </OnClick>
+                </Scripts>
+                <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-MinusButton-UP"/>
+                <PushedTexture name="$parentPushedTexture" file="Interface\Buttons\UI-MinusButton-DOWN"/>
+                <HighlightTexture name="$parentHighlightTexture" file="Interface\Buttons\UI-PlusButton-Hilight" alphaMode="ADD"/>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+
+            </OnLoad>
+            <OnClick>
+
+            </OnClick>
+            <OnEnter>
+                self.isMouseover = true
+                if(self.tooltipText ~= nil) then
+                    C_Timer.After(0.25, function()
+                        if self.isMouseover then
+                            GameTooltip:SetOwner(UIParent, "ANCHOR_NONE");
+                            GameTooltip:ClearAllPoints();
+                            GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, true);
+                            GameTooltip:SetPoint("BOTTOMLEFT", self, "TOPRIGHT", -12, -12);
+                        end
+                    end);
+                end
+            </OnEnter>
+            <OnLeave>
+                self.isMouseover = false
+                if(self.tooltipText ~= nil) then
+                    GameTooltip:Hide();
+                end
+            </OnLeave>
+        </Scripts>
+        <ButtonText name="$parentText" justifyH="LEFT" wordwrap="false"/>
+        <NormalFont style="GameFontNormal"/>
+        <HighlightFont style="GameFontHighlight"/>
+        <HighlightTexture file="Interface\QuestFrame\UI-QuestLogTitleHighlight" alphaMode="ADD">
+            <Anchors>
+                <Anchor point="TOPLEFT">
+                    <Offset>
+                        <AbsDimension x="0" y="1"/>
+                    </Offset>
+                </Anchor>
+                <Anchor point="BOTTOMRIGHT">
+                    <Offset>
+                        <AbsDimension x="0" y="1"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
+
+    <Frame name="NeatPlatesPromptTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="320" y="72"/>
+        </Size>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" parentKey="text" inherits="GameFontHighlight">
+                    <Size>
+                        <AbsDimension x="290" y="0"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOP">
+                            <Offset>
+                                <AbsDimension x="0" y="-16"/>
+                            </Offset>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="SubText" inherits="GameFontNormalSmall">
+                    <Size x="290" y="0"/>
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.text" relativePoint="BOTTOM" x="0" y="-6"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button name="$parentButton1" inherits="StaticPopupButtonTemplate" parentKey="button1" id="1">
+                <Size>
+                    <AbsDimension x="80" y="20"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOM" x="-40" y="6"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:SetText(YES)
+                    </OnLoad>
+                    <OnClick>
+                        if self.Callback and type(self.Callback) == "function" then self.Callback() end
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button name="$parentButton2" inherits="StaticPopupButtonTemplate" parentKey="button2" id="2">
+                <Size>
+                    <AbsDimension x="80" y="20"/>
+                </Size>
+                <Anchors>
+                    <Anchor point="BOTTOM" x="40" y="6"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:SetText(NO)
+                    </OnLoad>
+                    <OnClick>
+                        if self.Callback and type(self.Callback) == "function" then self.Callback() end
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Frame>
+
+    <Frame name="NeatPlatesUIPanelDialogTemplate" virtual="true" inherits="BackdropTemplate">
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentTopLeft" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="64"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0.501953125" right="0.625" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentTopRight" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="64"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.625" right="0.75" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentTop" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="0" y="64"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentTopLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentTopRight" relativePoint="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.369140625" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentBottomLeft" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="64"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.751953125" right="0.875" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentBottomRight" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="64"/>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentBottom" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="0" y="64"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomLeft" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBottomRight" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.376953125" right="0.498046875" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentLeft" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentTopLeft" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomLeft" relativePoint="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0.001953125" right="0.125" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\PaperDollInfoFrame\UI-GearManager-Border">
+					<Size x="64" y="0"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentTopRight" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBottomRight" relativePoint="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.1171875" right="0.2421875" top="0" bottom="1"/>
+				</Texture>
+				<FontString parentKey="Title" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="12" y="-8"/>
+						<Anchor point="TOPRIGHT" x="-32" y="-8"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentTitleBG" file="Interface\PaperDollInfoFrame\UI-GearManager-Title-Background">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="8" y="-7"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-8" y="-24"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentDialogBG" file="Interface\PaperDollInfoFrame\UI-Character-CharacterTab-L1">
+					<Anchors>
+						<Anchor point="TOPLEFT" x="8" y="-24"/>
+						<Anchor point="BOTTOMRIGHT" x="-6" y="8"/>
+					</Anchors>
+					<TexCoords left="0.255" right="1" top="0.29" bottom="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentClose" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT" x="2" y="1"/>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
+
+    <Script file="NeatPlatesGlobals.lua"/>
+	<Script file="NeatPlatesStatusbar.lua"/>
+    <Script file="NeatPlatesUtility.lua"/>
+	<Script file="NeatPlatesCore.lua"/>
+	<Script file="NeatPlatesTemplate.lua"/>
+	<Script file="NeatPlatesParser.lua"/>
+	<Script file="NeatPlatesPanel.lua"/>
+</Ui>
