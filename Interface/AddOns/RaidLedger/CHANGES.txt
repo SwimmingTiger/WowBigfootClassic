@@ -1,0 +1,22 @@
+lightweight tag fd9bd22fda05f97846158635dd7382f598a2073e v1.8.4
+Author:	Boshi Lian <farmer1992@gmail.com>
+Date:	Tue May 19 06:33:38 2020 -0700
+
+commit fd9bd22fda05f97846158635dd7382f598a2073e
+Author: Boshi Lian <farmer1992@gmail.com>
+Date:   Tue May 19 06:33:38 2020 -0700
+
+    csv support
+
+commit 4d2b9e288c600ccfecd391dbe22f24f3d3d7e46e
+Author: Boshi Lian <farmer1992@gmail.com>
+Date:   Tue May 19 06:01:54 2020 -0700
+
+    template can be applied in main gui
+
+commit 3c2acee81b94382412b58e1e871fa0f5e87fd69d
+Author: Boshi Lian <farmer1992@gmail.com>
+Date:   Sun May 17 04:12:17 2020 -0700
+
+    fix % prefix
+
