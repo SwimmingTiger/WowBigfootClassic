@@ -3,7 +3,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("BigDebuffs")
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
 
 local WarningDebuffs = {}
-if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
     for i = 1, #BigDebuffs.WarningDebuffs do
         local id = BigDebuffs.WarningDebuffs[i]
         local name = GetSpellInfo(id)
@@ -1559,7 +1559,7 @@ function BigDebuffs:SetupOptions()
         }
     }
 
-    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
         self.options.args.raidFrames.args.warning = {
             name = L["Warning Debuffs"],
             order = 30,

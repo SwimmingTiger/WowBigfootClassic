@@ -249,7 +249,9 @@ end
 
 function addon:SetCastbarStatusColorsOnDisplay(castbar, cast, db)
     castbar.Background = castbar.Background or GetStatusBarBackgroundTexture(castbar)
-    castbar.Background:SetColorTexture(unpack(db.statusBackgroundColor))
+    if castbar.Background then
+        castbar.Background:SetColorTexture(unpack(db.statusBackgroundColor))
+    end
 
     if cast.isChanneled then
         castbar:SetStatusBarColor(unpack(db.statusColorChannel))

@@ -3,7 +3,7 @@ LibSpellLocks-1.0
 Author: d87
 Description: Provides information about spell lock status after successful interrupts
 --]================]
-if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then return end
+if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then return end
 
 local MAJOR, MINOR = "LibSpellLocks", 3
 local lib = LibStub:NewLibrary(MAJOR, MINOR)

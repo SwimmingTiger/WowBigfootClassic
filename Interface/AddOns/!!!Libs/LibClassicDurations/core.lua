@@ -17,7 +17,7 @@ Usage example 1:
     end
 
 --]================]
-if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then return end
+if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then return end
 
 local apiLevel = math.floor(select(4,GetBuildInfo())/10000)
 local isClassic = apiLevel <= 2
