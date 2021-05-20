@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+<!-- This file is temporary to smooth the transition from a broken library layout to a fixed one. Delete this entire XML file eventually. -->
+<Script file="LibCandyBar-3.0\LibCandyBar-3.0.lua"/>
+
+</Ui>
+
