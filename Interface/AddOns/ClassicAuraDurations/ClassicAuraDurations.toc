@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 20501
 ## Title: ClassicAuraDurations
 ## Author: d87
 ## SavedVariables: ClassicAuraDurationsDB

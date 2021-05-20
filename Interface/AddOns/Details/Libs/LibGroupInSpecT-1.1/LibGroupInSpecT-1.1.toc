@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: 20501
 ## Title: Lib: GroupInSpecT-1.1
 ## Notes: Keeps track of group members and keeps an up-to-date cache of their specialization and talents.
 ## Version: 1.4.0

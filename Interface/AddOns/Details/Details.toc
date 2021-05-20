@@ -1,4 +1,4 @@
-## Interface: 90005
+## Interface: 20501
 ## Title: Details! Damage Meter
 ## Notes: Essential tool to impress that chick in your raid.
 ## DefaultState: disabled

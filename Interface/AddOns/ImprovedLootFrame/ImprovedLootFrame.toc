@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 20501
 ## Title: Improved Loot Frame
 ## Title-zhCN: 单页拾取（Improved Loot Frame）
 ## Version: 3.7.5

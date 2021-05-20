@@ -1,4 +1,4 @@
-﻿## Interface: 11307
+﻿## Interface: 20501
 ## Title: [BF] GDKP
 ## Title-zhCN: [大脚]金团助手
 ## Title-zhTW: [大腳]金團助手

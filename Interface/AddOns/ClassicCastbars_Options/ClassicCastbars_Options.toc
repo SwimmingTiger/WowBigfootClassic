@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 20501
 ## Title: ClassicCastbars_Options
 ## Notes: Configuration for ClassicCastbars. Type /castbars for options.
 ## Version: v1.3.23

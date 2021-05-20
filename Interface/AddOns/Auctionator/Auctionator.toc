@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 20501
 ## Title: Auctionator |cff00aa00Classicfix
 ## Version: 100.0.9
 ## Author: Borjamacare, Zirco, DaMaGepy, 1010101110

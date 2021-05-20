@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 20501
 ## Title: EventAlertMod
 ## Title-zhCN: [大脚][集]技能触发
 ## Title-zhTW: [大腳][集]技能觸發

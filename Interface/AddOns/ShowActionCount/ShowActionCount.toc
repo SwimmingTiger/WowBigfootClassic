@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 20501
 ## Title: ShowActionCount
 ## Version: 1.00
 ## Author: prozhong
