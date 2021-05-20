@@ -1,0 +1,20 @@
+## Interface: 11307
+## Title: ThreatClassic2
+## Notes: Simple threat meter for WoW Classic and TBCC.
+## Author: Dennis-Florian Herr (dfherr)
+## X-Curse-Project-ID: 355497
+## X-WoWI-ID: 25966
+## X-Wago-ID: pkNM1ONz
+## Version: 2.33
+## SavedVariables: ThreatClassic2DB
+## SavedVariablesPerCharacter: TC2_Options
+
+## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, LibSharedMedia-3.0
+## X-Embeds: LibStub, CallbackHandler-1.0, AceAddon-3.0, AceComm-3.0, AceConfig-3.0, AceDB-3.0, AceDBOptions-3.0, AceGUI-3.0, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0
+
+## X-Category: Combat
+
+## X-License: MIT
+## X-Website: https://github.com/dfherr/ThreatClassic2
+
+ThreatClassic2.xml
