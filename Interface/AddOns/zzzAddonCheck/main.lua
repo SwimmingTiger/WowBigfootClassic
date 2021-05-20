@@ -241,7 +241,7 @@ vZv3pUows9)w4beZinDJTJJDcR4HKBNCV9C7oDtC37DhPwXT)4KeR2XoRTt33EqtEbecXdi4f0(csi0(
 		Details.always_use_profile_name = profileName
 	end
 
-    if CombuctorDB4 and TDPack2Command then
+    if CombuctorDB4 and TDPack2Command and not CombuctorAutoDisplay then
         StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
             text = [[
 你的大脚插件个人整合包已损坏！
