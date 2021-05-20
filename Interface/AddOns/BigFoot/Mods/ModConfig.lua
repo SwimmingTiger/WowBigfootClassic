@@ -10,7 +10,7 @@ if GetLocale()=='zhCN' then
 	L["DBM"] = "首领报警"
 	L["Grid"] = "团队框架"
 	L["GDKP"] = "金团助手"
-	L["Omen"] = "仇恨统计"
+	L["Omen"] = "Omen仇恨"
 	L["Trinkets"] = "饰品管理"
 	L["WorldQuestTracker"] = "世界任务"
 	L["Search"] = "搜索..."

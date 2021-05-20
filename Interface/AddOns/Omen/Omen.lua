@@ -9,7 +9,7 @@ Omen.version = GetAddOnMetadata("Omen", "Version")
 Omen.versionstring = "Omen v"..GetAddOnMetadata("Omen", "Version")
 _G["Omen"] = Omen
 
-local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 
 -----------------------------------------------------------------------------
 -- Keybinding globals
