@@ -219,3 +219,6 @@ RegEvent("ADDON_LOADED", function()
     end)   
     
 end)
+
+-- 老虎会游泳：为了自动关闭战场记分板而添加
+BattleInfoStatWindow = f

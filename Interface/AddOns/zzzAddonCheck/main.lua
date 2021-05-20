@@ -161,6 +161,18 @@ local function zzzAddonCheck_Init_MonkeyLibrary()
     end
 end
 
+local function zzzAddonCheck_Init_BatteInfo()
+    -- 关闭战场记分板
+    local patchVersion = '2021-05-20-20'
+    if BatteInfoSettings and BatteInfoSettings.biPatchVersion ~= patchVersion then
+        BatteInfoSettings.stat_window = false
+        if BattleInfoStatWindow then
+            BattleInfoStatWindow:Hide()
+        end
+        BatteInfoSettings.biPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -190,6 +202,9 @@ local function LoaderEvents(frame, event, arg1)
 
     -- 为有爱一键换装添加功能函数
     zzzAddonCheck_Init_alaGearMan()
+
+    -- 关闭战场记分板
+    zzzAddonCheck_Init_BatteInfo()
 
     -- 禁用DBM的过期提示
     if DBM and DBM.Options and not DBM.Options.DontShowReminders then
