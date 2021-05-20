@@ -80,12 +80,16 @@ do
 			SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
 			SetCVar("lootUnderMouse", "1")						--鼠标位置打开拾取
 			SetCVar("instantQuestText", "1")					--立即显示任务文本
-			SetCVar("nameplateMaxDistance", "6e1")              --扩大姓名板显示范围到60码
 			SetCVar("ShowClassColorInNameplate", "1")			--显示姓名版职业颜色
 			SetCVar("ShowClassColorInFriendlyNameplate", "1")	--显示友方姓名版职业颜色
 			SetCVar("chatClassColorOverride", "0")				--显示聊天职业颜色
 			SetCVar("statusText", "1")				            --显示血量数值
 			SetCVar("statusTextDisplay", "NUMERIC")				--显示血量数值
+
+			-- 目前最大可到41码，但也许以后会变小
+			SetCVar("nameplateMaxDistance", "30")              --扩大姓名板显示范围到30码
+			SetCVar("nameplateMaxDistance", "40")              --扩大姓名板显示范围到40码
+			SetCVar("nameplateMaxDistance", "41")              --扩大姓名板显示范围到41码
 
 			BF_Frames_Config.UtilsPatchVersion = patchVersion
 			print("大脚插件个人整合包：初始化完成")
