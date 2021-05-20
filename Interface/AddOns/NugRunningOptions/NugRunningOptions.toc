@@ -1,0 +1,8 @@
+## Interface: 20501
+## Title: NugRunningOptions
+## Notes: Options for NugRunning
+## Author: d87
+## RequiredDeps: NugRunning
+## LoadOnDemand: 1
+
+..\NugRunning\Options\includes.xml
