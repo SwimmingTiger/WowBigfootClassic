@@ -1,0 +1,13 @@
+## Interface: 20501
+## Title: Wargame
+## Title-zhCN: 战争游戏
+## Title-zhTW: 戰爭遊戲
+## Notes: |cff00ff00Wargame|r
+## Author: Dencer
+## Version: 1.1.10
+## SavedVariables: NETEASE_WARGAME_DB
+## SavedVariablesPerCharacter: NETEASE_WARGAME_DB_CHARACTER
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Load.xml
