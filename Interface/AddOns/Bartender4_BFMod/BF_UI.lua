@@ -31,14 +31,14 @@ local ufdefault ={
 			point="TOPLEFT"
 		},
 	}, Bartender4.UnitBar.defaults),
-	-- ["FocusFrame"] = Bartender4:Merge({
-		-- enabled = true,
-		-- position={
-			-- x = -344,
-			-- y = 143,
-			-- point="CENTER"
-		-- },
-	-- }, Bartender4.UnitBar.defaults),
+	["FocusFrame"] = Bartender4:Merge({
+		enabled = true,
+		position={
+			x = -344,
+			y = 143,
+			point="CENTER"
+		},
+	}, Bartender4.UnitBar.defaults),
 	["BuffFrame"] = Bartender4:Merge({
 		enabled = true,
 		position={
@@ -189,25 +189,26 @@ end
 -- end
 
 function UnitFrames:OnEnable()
-	-- Buff栏移动有副作用，会导致“目标的目标”在战斗中不能更新
-	if Bartender4Features and Bartender4Features.moveBuffBar then
-		table.insert(self.frames, BuffFrame)
-	end
-
-	-- 单位框体移动则没有必要启用，因为暴雪已允许用户解锁并移动框体。并且开启该功能会导致用户(不通过BT4)直接拖动框体位置后不能保存
-	-- 此外，启用玩家框体移动还会导致一键换装按钮无法点击
-	if Bartender4Features and Bartender4Features.moveUintFrame then
-		table.insert(self.frames, PlayerFrame)
-		table.insert(self.frames, TargetFrame)
-	end
+		-- Buff栏移动有副作用，会导致“目标的目标”在战斗中不能更新
+		if Bartender4Features and Bartender4Features.moveBuffBar then
+			table.insert(self.frames, BuffFrame)
+		end
+	
+		-- 单位框体移动则没有必要启用，因为暴雪已允许用户解锁并移动框体。并且开启该功能会导致用户(不通过BT4)直接拖动框体位置后不能保存
+		-- 此外，启用玩家框体移动还会导致一键换装按钮无法点击
+		if Bartender4Features and Bartender4Features.moveUintFrame then
+			table.insert(self.frames, PlayerFrame)
+			table.insert(self.frames, TargetFrame)
+			table.insert(self.frames, FocusFrame)
+		end
 
 	self.vehicle_frame = self.vehicle_frame or CreateFrame("Frame")
-	-- self.vehicle_frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
-	-- self.vehicle_frame:SetScript("OnEvent",function()
-		-- for i,frame in ipairs(self.frames) do
-			-- frame.bar:Show()
-		-- end
-	-- end)
+	self.vehicle_frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
+	self.vehicle_frame:SetScript("OnEvent",function()
+		for i,frame in ipairs(self.frames) do
+			frame.bar:Show()
+		end
+	end)
 	-------------这里为加载移动窗体的地方。标示一下---------------------
 	for i,frame in ipairs(self.frames) do
 		--TODO: enabled?
@@ -223,8 +224,8 @@ function UnitFrames:OnEnable()
 	hooksecurefunc("SetCVar",function(key,val)
 		if key == "uiscale" then
 			self.db.profile.uiScale = val
-		elseif key == "useUiScale" then
-			self.db.profile.useUiScale = val
+		-- elseif key == "useUiScale" then
+			-- self.db.profile.useUiScale = val
 		end
 	end)
 
@@ -252,11 +253,11 @@ function UnitFrames:ApplyConfig()
 		SetCVar("uiscale",1)
 	end
 
-	if self.db.profile.useUiScale and tonumber(self.db.profile.useUiScale)  then
-		SetCVar("useUiScale",self.db.profile.useUiScale)
-	else
-		SetCVar("useUiScale",1)
-	end
+	-- if self.db.profile.useUiScale and tonumber(self.db.profile.useUiScale)  then
+		-- SetCVar("useUiScale",self.db.profile.useUiScale)
+	-- else
+		-- SetCVar("useUiScale",1)
+	-- end
 
 	-- for _name,_setting in pairs(self.db.profile.chatframes) do
 		-- local bShow,bDocked

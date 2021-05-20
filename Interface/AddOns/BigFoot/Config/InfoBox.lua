@@ -5,7 +5,7 @@ function InfoBoxConfigFunc()
 	local frameList = {
 		PlayerFrame,
 		TargetFrame,
-		-- FocusFrame
+		FocusFrame
 	}
 
 	local function getFramePoint(frame)
@@ -22,22 +22,7 @@ function InfoBoxConfigFunc()
 		frame:SetPoint(point,_G[anchor]or UIParent,refPoint,x,y)
 	end
 
-	local function __SaveChatFrameProfile(profile,chatFrame)
-		if chatFrame:IsShown() then
-			profile.chatframes[chatFrame:GetName()]={
-				height = chatFrame:GetHeight(),
-				width = chatFrame:GetWidth(),
-				position = {
-					point = chatFrame:GetPoint(),
-					x = select(4,chatFrame:GetPoint()),
-					y = select(5,chatFrame:GetPoint()),
-				},
-				isDocked = select(9,GetChatWindowInfo(chatFrame:GetID()))
-			}
-		end
-	end
-
-	function BigFoot_SaveUIFrames()
+	local function BigFoot_SaveUIFrames()
 		BigFoot_Config = BigFoot_Config or {}
 		BigFoot_Config.useUiScale = GetCVar("useUiScale")
 		BigFoot_Config.uiscale = GetCVar("uiscale")
@@ -48,7 +33,7 @@ function InfoBoxConfigFunc()
 		BigFoot_Config.frameLoc = frameLoc
 	end
 
-	function BigFoot_ResetUIFrames()
+	local function BigFoot_ResetUIFrames()
 		if BigFoot_Config.useUiScale then
 			SetCVar("useUiScale",BigFoot_Config.useUiScale)
 			BigFoot_Config.useUiScale = nil
@@ -73,41 +58,6 @@ function InfoBoxConfigFunc()
 				setFramePoint(frame,unpack(frameLoc[frame:GetName()]))
 			end
 			BigFoot_Config.frameLoc = nil;
-		end
-	end
-
-	function BigFoot_SaveChatFrames()
-		BigFoot_Config.chatframes = BigFoot_Config.chatframes or {}
-		for i = 1, 10 do
-			if _G["ChatFrame"..i] then
-				__SaveChatFrameProfile(BigFoot_Config,_G["ChatFrame"..i])
-			end
-		end
-	end
-
-	function BigFoot_LoadChatFrames()
-		if not BigFoot_Config.chatframes then return end
-		for _name,_setting in pairs(BigFoot_Config.chatframes) do
-			local bShow,bDocked
-			bShow = _G[_name]:IsShown()--select(7,GetChatWindowInfo(_G[_name]:GetID()))--or _G[_name].isDocked;
-			bDocked = _G[_name].isDocked
-
-			if bShow and not bDocked then
-			-- if  _setting.isDocked and _name~="ChatFrame1" then
-				-- FCF_DockFrame(_G[_name],_G[_name]:GetID())
-			-- else
-
-				FloatingChatFrame_OnLoad(_G[_name])
-				FCF_UnDockFrame(_G[_name])
-				_G[_name]:SetHeight(_setting.height)
-				_G[_name]:SetWidth(_setting.width)
-				_G[_name]:ClearAllPoints()
-				_G[_name]:SetPoint(_setting.position.point,
-					UIParent,
-					_setting.position.point,
-					_setting.position.x,
-					_setting.position.y)
-			end
 		end
 	end
 
@@ -267,7 +217,6 @@ function InfoBoxConfigFunc()
 					end
 					if (not BigFoot_IsAddOnLoaded("Bartender4_BFMod")) then
 						BigFoot_SaveUIFrames()
-						BigFoot_SaveChatFrames()
 						BigFoot_LoadAddOn("Bartender4_BFMod");
 					end
 
@@ -291,7 +240,6 @@ function InfoBoxConfigFunc()
 				else
 					---------插件没有载入的时候重置已设置的窗体-------------
 					BigFoot_ResetUIFrames()
-					-- BigFoot_LoadChatFrames()
 				end
 			end
 		);
@@ -302,6 +250,7 @@ function InfoBoxConfigFunc()
 			function ()
 				if (BigFoot_IsAddOnLoaded("Bartender4_BFMod")) then
 					LibStub("AceConfigDialog-3.0"):Open("Bartender4")
+					HideUIPanel(ModManagementFrame);
 				end
 			end,
 			nil,
@@ -402,7 +351,6 @@ function InfoBoxConfigFunc()
 			nil
 		);
 	end
-
 end
 
 BigFoot_AddCollector(InfoBoxConfigFunc)

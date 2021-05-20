@@ -1020,22 +1020,23 @@
 					</OnShow>
 					<OnLoad>
 						ScrollFrame_OnLoad(self);
-						--local scrollBar = getglobal(self:GetName().."ScrollBar");
-						--scrollBar:SetBackdrop(
-						--{
-						--	bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-						--	tile = true,
-						--	tileSize = 16,
-						--	edgeFile = "Interface\\AddOns\\TheBurningTrade\\ScrollTrack",
-						--	edgeSize = 16,
-						--	insets = {
-						--		left = 4,
-						--		right = 4,
-						--		top = 4,
-						--		bottom = 4},
-						--})
-						--scrollBar:SetBackdropBorderColor(.2, .2, .2, 1)
-						--scrollBar:SetBackdropColor(.1, .1, .1, 1)
+						local scrollBar = getglobal(self:GetName().."ScrollBar");
+						Mixin(scrollBar, BackdropTemplateMixin)
+						scrollBar:SetBackdrop(
+						{
+							bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+							tile = true,
+							tileSize = 16,
+							edgeFile = "Interface\\AddOns\\TheBurningTrade\\ScrollTrack",
+							edgeSize = 16,
+							insets = {
+								left = 4,
+								right = 4,
+								top = 4,
+								bottom = 4},
+						})
+						scrollBar:SetBackdropBorderColor(.2, .2, .2, 1)
+						scrollBar:SetBackdropColor(.1, .1, .1, 1)
 					</OnLoad>
 				</Scripts>
 				<Layers>

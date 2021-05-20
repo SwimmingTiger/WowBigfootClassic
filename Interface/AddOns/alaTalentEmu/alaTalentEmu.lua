@@ -2390,7 +2390,7 @@ end
 		function NS.Emu_ApplyTalents(mainFrame)
 			if NS.playerClassUpper == mainFrame.class then
 				if TalentFrame_Update then
-					TalentFrame_Update();
+					pcall(TalentFrame_Update);
 				end
 				if NS.GetPiontsReqLevel(mainFrame.totalUsedPoints) > UnitLevel('player') then
 					_error_("CANNOT APPLY : NEED MORE TALENT POINTS.")
@@ -3162,7 +3162,7 @@ end
 			end
 		end
 		function NS.CreateEquipmentFrame(mainFrame)
-			local wrap = CreateFrame("FRAME", nil, mainFrame, BackdropTemplateMixin and "BackdropTemplate");
+			local wrap = CreateFrame("FRAME", nil, mainFrame);
 			wrap:SetPoint("TOPRIGHT", mainFrame, "TOPLEFT", 0, 0);
 			wrap:SetPoint("BOTTOMRIGHT", mainFrame, "BOTTOMLEFT", 0, 0);
 			wrap:SetWidth(ui_style.equipmentFrameXSize);
@@ -3378,7 +3378,7 @@ end
 			end
 		end
 		function NS.CreateSpellTabFrame(mainFrame)
-			local wrap = CreateFrame("FRAME", nil, mainFrame, BackdropTemplateMixin and "BackdropTemplate");
+			local wrap = CreateFrame("FRAME", nil, mainFrame);
 			wrap:SetPoint("TOPLEFT", mainFrame, "TOPRIGHT", 0, 0);
 			wrap:SetPoint("BOTTOMLEFT", mainFrame, "BOTTOMRIGHT", 0, 0);
 			wrap:SetWidth(ui_style.spellTabFrameXSize);
@@ -3531,7 +3531,7 @@ end
 			tooltipFrame.tooltip2:Hide();
 		end
 		function NS.CreateTooltipFrame()
-			local tooltipFrame = CreateFrame("FRAME", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate");
+			local tooltipFrame = CreateFrame("FRAME", nil, UIParent);
 			tooltipFrame:SetSize(1, 1);
 			tooltipFrame:SetFrameStrata("FULLSCREEN");
 			tooltipFrame:SetClampedToScreen(true);
@@ -4605,7 +4605,7 @@ end
 		local temp_id = 0;
 		function NS.CreateMainFrame()
 			temp_id = temp_id + 1;
-			local mainFrame = CreateFrame("FRAME", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate");
+			local mainFrame = CreateFrame("FRAME", nil, UIParent);
 			mainFrame.id = temp_id;
 
 			mainFrame:SetPoint("CENTER");
@@ -6824,6 +6824,7 @@ end
 					end
 				end
 
+				local TalentFrame = TalentFrame or PlayerTalentFrame;
 				if TalentFrame then
 					local button = CreateFrame("BUTTON", nil, TalentFrame, "UIPanelButtonTemplate");
 					button:SetSize(80, 20);

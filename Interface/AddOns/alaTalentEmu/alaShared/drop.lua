@@ -45,7 +45,7 @@ local frameToMenu = {  };
 ]]
 --------------------------------------------------
 local function CreateMenu()
-	menu = CreateFrame("BUTTON", nil, UIParent);
+	menu = CreateFrame("BUTTON", nil, UIParent, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
 	menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	menu:SetClampedToScreen(true);
 	menu:Hide();

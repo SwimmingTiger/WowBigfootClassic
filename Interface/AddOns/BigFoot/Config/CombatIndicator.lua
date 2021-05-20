@@ -161,6 +161,7 @@ function CombatIndicatorConfigFunc()
 	end
 
 	if (IsConfigurableAddOn("dct") and (GetLocale() == "zhCN" or GetLocale() == "zhTW")) then
+		local dct_need_reload = false;
 		ModManagement_RegisterCheckBox(
 			"CombatIndicator",
 			COMBAT_INDICATOR_ENABLE_DCT,
@@ -184,6 +185,10 @@ function CombatIndicatorConfigFunc()
 							if DCTSA_Init then
 								BigFoot_DelayCall(DCTSA_Init,3)
 							end
+							-- 如果不重载，提示可能不会显示
+							if dct_need_reload then
+								BigFoot_RequestReloadUI();
+							end
 						end
 
 						if (BigFoot_GetModVariable("CombatIndicator", "EnableCombatIndicator") ~= 0) then
@@ -196,6 +201,7 @@ function CombatIndicatorConfigFunc()
 					if (BigFoot_IsAddOnLoaded("dct")) then
 						if(DCT_Toggle)then
 							DCT_Toggle(false);
+							dct_need_reload = true;
 						end
 					end
 				end

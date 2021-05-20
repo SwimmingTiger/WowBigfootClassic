@@ -319,7 +319,7 @@ local function Center_Update(self, elapsed)
     end
 end
 function CD:CreateCenter()
-    local center = CreateFrame("frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    local center = CreateFrame("frame", nil, UIParent, "BackdropTemplate")
     center:Hide()
     center:SetFrameStrata("HIGH")
     center:SetScript("OnUpdate", Center_Update)
@@ -413,8 +413,8 @@ function CD:StartShine(timer)
             local style = self.style[BFCooldownDB[shine.type].style]
             if BFCooldownDB[shine.type].style == -1 then
                 return
-            elseif not style and icon and icon.GetTexture then
-                shine.icon:SetTexture(icon:GetTexture())
+            elseif not style and icon and button.action then
+                shine.icon:SetTexture(GetActionTexture(button.action))
             else
                 shine.icon:SetTexture(style)
             end
@@ -449,7 +449,7 @@ local function IsSpecialButton(button, type)
     if type == "ACTION" then
         if button.action then
             local charges, maxCharges = GetActionCharges(button.action)
-            if maxCharges ~= 0 and charges < maxCharges and charges ~= 0 then
+            if maxCharges ~= 0 and charges ~= 0 and charges < maxCharges then
                 return true
             end
         end
@@ -458,7 +458,7 @@ local function IsSpecialButton(button, type)
         return false
     end
     if not button:GetName() then
-        return false
+        return true
     end
     return string.find(button:GetName(), "Totem") or string.find(button:GetName(), "Rune")
 end

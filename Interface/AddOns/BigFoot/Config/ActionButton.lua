@@ -10,7 +10,7 @@ function ActionButtonConfigFunc ()
 		BFCD_SHINE_TYPE = {"标准","图标", "大闪光", "雷达","收缩"};
 		BFCD_SHINE_TYPE_TITLE_TOOLTIP="在自己的技能冷却结束时，选择显示的类型：标准(系统默认效果)，图标(技能图标扩大)，大闪光(技能图标高亮闪)，雷达(技能图标高亮微缩)，收缩(技能图标闪烁微缩)";
 
-		BFCD_COOLDOWN_SHAMAN_CD = "显示图腾时间";
+		BFCD_COOLDOWN_SHAMAN_CD = "为其他计时框体显示时间";
 		BFCD_COOLDOWN_SHAMAN_CD_TOOLTIP="在玩家头像下的图腾图标上显示剩余时间";
 
 		BFCD_COOLDOWN_DK_CD = "显示符文冷却时间";
@@ -35,7 +35,7 @@ function ActionButtonConfigFunc ()
 		BFCD_SHINE_TYPE = {"標準", "圖標","大閃光", "雷達","收縮"};
 		BFCD_SHINE_TYPE_TITLE_TOOLTIP= "在自己的技能冷卻結束時，選擇顯示的類型：標準(系統默認效果)，圖標(技能圖標擴大)，大閃光(技能圖標高亮閃)，雷達(技能圖標高亮微縮)，收縮(技能圖標閃爍微縮)";
 
-		BFCD_COOLDOWN_SHAMAN_CD = "顯示圖騰時間";
+		BFCD_COOLDOWN_SHAMAN_CD = "為其他計時框體顯示時間";
 		BFCD_COOLDOWN_SHAMAN_CD_TOOLTIP= "在玩家頭像下的圖騰圖標上顯示剩餘時間";
 
 		BFCD_COOLDOWN_DK_CD = "顯示符文冷卻時間";
@@ -52,7 +52,7 @@ function ActionButtonConfigFunc ()
 	else
 		BF_ACTION_BUTTON_TITLE = "CoolDown Monitor";
 		BFCD_COOLDOWN_COUNT = "Show detail of cooldown";
-		BFCD_COOLDOWN_SHAMAN_CD = "Show Totem remaining time";
+		BFCD_COOLDOWN_SHAMAN_CD = "Display cooldown for special frames";
 		BFCD_COOLDOWN_DK_CD = "Show Rune Cool down";
 		BFCD_SHINE_TYPE_TITLE = "Shine type:";
 		BFCD_SHINE_TYPE = {"Standard", "Icon","Big Shine", "Radar","Collapse"};
@@ -116,29 +116,27 @@ function ActionButtonConfigFunc ()
 				1
 			);
 
-			if select(2,UnitClass('player') )=='SHAMAN' then
-				ModManagement_RegisterCheckBox(
-					"ActionButton",
-					BFCD_COOLDOWN_SHAMAN_CD,
-					BFCD_COOLDOWN_SHAMAN_CD_TOOLTIP,
-					"ShowTotem",
-					0,
-					function (arg)
-						if (arg == 1) then
-							if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BigFoot_LoadAddOn("BFCooldown");
-							end
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(true)
-							end
-						else
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(false)
-							end
-						end
-					end
-				);
-			end
+			-- ModManagement_RegisterCheckBox(
+				-- "ActionButton",
+				-- BFCD_COOLDOWN_SHAMAN_CD,
+				-- nil,
+				-- "ShowTotem",
+				-- 0,
+				-- function (arg)
+					-- if (arg == 1) then
+						-- if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
+							-- BigFoot_LoadAddOn("BFCooldown");
+						-- end
+						-- if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+							-- BFCooldown:ToggleSpecial(true)
+						-- end
+					-- else
+						-- if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+							-- BFCooldown:ToggleSpecial(false)
+						-- end
+					-- end
+				-- end
+			-- );
 
 			if select(2,UnitClass('player') )=='DEATHKNIGHT' then
 				ModManagement_RegisterCheckBox(

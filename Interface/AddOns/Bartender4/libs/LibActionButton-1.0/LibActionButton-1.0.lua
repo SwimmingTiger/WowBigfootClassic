@@ -1,5 +1,5 @@
 --[[
-Copyright (c) 2010-2020, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
+Copyright (c) 2010-2021, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
 
 All rights reserved.
 
@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 80
+local MINOR_VERSION = 81
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -40,11 +40,13 @@ local type, error, tostring, tonumber, assert, select = type, error, tostring, t
 local setmetatable, wipe, unpack, pairs, next = setmetatable, wipe, unpack, pairs, next
 local str_match, format, tinsert, tremove = string.match, format, tinsert, tremove
 
-local WoWClassic = select(4, GetBuildInfo()) < 30000
+local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local WoWBCC = (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
 
 local KeyBound = LibStub("LibKeyBound-1.0", true)
 local CBH = LibStub("CallbackHandler-1.0")
 local LBG = LibStub("LibButtonGlow-1.0", true)
+local Masque = LibStub("Masque", true)
 
 lib.eventFrame = lib.eventFrame or CreateFrame("Frame")
 lib.eventFrame:UnregisterAllEvents()
@@ -656,7 +658,7 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("UPDATE_BINDINGS")
 	lib.eventFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	lib.eventFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
-	if not WoWClassic then
+	if not WoWClassic and not WoWBCC then
 		lib.eventFrame:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
 	end
 
@@ -677,7 +679,7 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("PET_STABLE_SHOW")
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_CHARGES")
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_ICON")
-	if not WoWClassic then
+	if not WoWClassic and not WoWBCC then
 		lib.eventFrame:RegisterEvent("ARCHAEOLOGY_CLOSED")
 		lib.eventFrame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 		lib.eventFrame:RegisterEvent("UNIT_EXITED_VEHICLE")
@@ -940,42 +942,11 @@ function Generic:GetBindingAction()
 	return self.config.keyBoundTarget or "CLICK "..self:GetName()..":LeftButton"
 end
 
-local function GetActionBtnHotKey(id)		--bf.178.com
-	local btn = format("CLICK BT4Button%d:LeftButton", id);
-	local key = GetBindingKey(btn);
-	if not key  then
-		if id<=12 and id>=1 then
-			local btnOld = format("ACTIONBUTTON%d", id);
-			key = GetBindingKey(btnOld);
-		end
-		if id>12 then
-			local bar = math.floor(id/12)+1;
-			local number = mod(id,12);
-			local Btnold ="";
-			if bar == 3 then
-				Btnold = format("MULTIACTIONBAR3BUTTON%d", number);
-			elseif bar == 4 then
-				Btnold = format("MULTIACTIONBAR4BUTTON%d", number);
-			elseif bar == 5 then
-				Btnold = format("MULTIACTIONBAR2BUTTON%d", number);
-			elseif bar == 6 then
-				Btnold = format("MULTIACTIONBAR1BUTTON%d", number);
-			end
-			key = GetBindingKey(Btnold);
-		end
-	end
-	return key;
-end
-
 function Generic:GetHotkey()
 	local name = "CLICK "..self:GetName()..":LeftButton"
 	local key = GetBindingKey(self.config.keyBoundTarget or name)
 	if not key and self.config.keyBoundTarget then
 		key = GetBindingKey(name)
-	end
-	
-	if not key and self.id then		--bf.178.com
-		key = GetActionBtnHotKey(self.id)
 	end
 	if key then
 		return KeyBound and KeyBound:ToShortKey(key) or key
@@ -1187,7 +1158,7 @@ function UpdateUsable(self)
 		end
 	end
 
-	if not WoWClassic and self._state_type == "action" then
+	if not WoWClassic and not WoWBCC and self._state_type == "action" then
 		local isLevelLinkLocked = C_LevelLink.IsActionLocked(self._state_action)
 		if not self.icon:IsDesaturated() then
 			self.icon:SetDesaturated(isLevelLinkLocked)
@@ -1668,7 +1639,7 @@ Custom.GetSpellId              = function(self) return nil end
 Custom.RunCustom               = function(self, unit, button) return self._state_action.func(self, unit, button) end
 
 --- WoW Classic overrides
-if WoWClassic then
+if WoWClassic or WoWBCC then
 	UpdateOverlayGlow = function() end
 end
 

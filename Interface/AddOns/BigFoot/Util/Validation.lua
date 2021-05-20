@@ -45,15 +45,22 @@ local function larger(a,b)
 	end
 
 	for i = 1,4 do
-		-- for classiccheck
+		-- for classic check
 		if i == 1 then
-			if adt[i] > 2 or bdt[i] > 2 then
-				BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
-				return;
+			if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+				if adt[i] ~= 1 or bdt[i] ~= 1 then
+					BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
+					return;
+				end
+			elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+				if adt[i] ~= 2 or bdt[i] ~= 2 then
+					BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
+					return;
+				end
 			end
 		end
+		
 		if adt[i] > bdt[i] then return true end
-		if adt[i] < bdt[i] then return false end
 	end
 	return false
 end

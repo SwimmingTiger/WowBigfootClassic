@@ -29,7 +29,7 @@
 		</Shadow>
 	</FontString>
 
-	<Frame name ="ModStaticBoxTemplate" virtual = "true">
+	<Frame name ="ModStaticBoxTemplate" virtual = "true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x= "244" y ="32"/>
 		</Size>

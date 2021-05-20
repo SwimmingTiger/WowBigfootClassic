@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("z30", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210419223508")
+mod:SetRevision("20210519214524")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",
@@ -25,7 +25,7 @@ do
 			)
 			local assaultID
 			if zoneID == 30 then
-				assaultID = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and 1459 or 91
+				assaultID = WOW_PROJECT_ID ~= (WOW_PROJECT_MAINLINE or 1) and 1459 or 91
 			elseif zoneID == 2197 then
 				assaultID = 1537
 			end
@@ -55,7 +55,7 @@ end
 
 do
 	local ipairs, type = ipairs, type
-	local isNewAPI = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+	local isNewAPI = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC
 	local UnitGUID, GetItemCount, GetNumGossipActiveQuests, SelectGossipActiveQuest, SelectGossipAvailableQuest, IsQuestCompletable, CompleteQuest, GetQuestReward = UnitGUID, GetItemCount, isNewAPI and C_GossipInfo.GetNumActiveQuests or GetNumGossipActiveQuests, isNewAPI and C_GossipInfo.SelectActiveQuest or SelectGossipActiveQuest, isNewAPI and C_GossipInfo.SelectAvailableQuest or SelectGossipAvailableQuest, IsQuestCompletable, CompleteQuest, GetQuestReward
 
 	local quests = {

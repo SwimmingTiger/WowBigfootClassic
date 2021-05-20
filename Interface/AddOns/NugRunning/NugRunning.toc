@@ -5,13 +5,10 @@
 ## SavedVariablesPerCharacter: NRunDB_Char
 ## SavedVariables: NRunDB_Global, NugRunningConfigCustom
 ## Version: 9.1-bcc1
-
 ## X-WoWI-ID: 10440
 ## X-Curse-Project-ID: 27470
-
-Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-Libs\LibSharedMedia-3.0\lib.xml
+## Dependencies: BigFoot
+## X-Revision: BigFoot
 
 helpers.lua
 config.lua

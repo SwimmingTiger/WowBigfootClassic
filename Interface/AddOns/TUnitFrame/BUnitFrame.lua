@@ -503,30 +503,30 @@ function BUnitFrame_UpdateOptions()
 		end
 	end
 
-	-- if (__BUNITFRAME_ENABLED and BUnitFrame_Config["sysFocus_t"]["enabled"]) then
-		-- if (not BFocusTargetFrame) then
-			-- local __theme = BUnitFrame_Config["sysFocus_t"]["theme"];
-			-- __BUnitFrame_Create("BFocusTargetFrame", FocusFrame, "focustarget", __theme);
-			-- BFocusTargetFrame.config_branch = "sysFocus_t";
-			-- BFocusTargetFrame.position = {"BOTTOMRIGHT", FocusFrame, "BOTTOMRIGHT", 0, -18};
-			-- __BUnitFrame_SetPosition(BFocusTargetFrame);
+	if (__BUNITFRAME_ENABLED and BUnitFrame_Config["sysFocus_t"]["enabled"]) then
+		if (not BFocusTargetFrame) then
+			local __theme = BUnitFrame_Config["sysFocus_t"]["theme"];
+			__BUnitFrame_Create("BFocusTargetFrame", FocusFrame, "focustarget", __theme);
+			BFocusTargetFrame.config_branch = "sysFocus_t";
+			BFocusTargetFrame.position = {"BOTTOMRIGHT", FocusFrame, "BOTTOMRIGHT", 0, -18};
+			__BUnitFrame_SetPosition(BFocusTargetFrame);
 
-			-- RegisterForSaveFrame(BFocusTargetFrame);
-		-- end
+			RegisterForSaveFrame(BFocusTargetFrame);
+		end
 
-		-- if (not BFocusTargetFrame.watched) then
-			-- RegisterUnitWatch(BFocusTargetFrame, false);
-			-- BFocusTargetFrame.watched = true;
-		-- end
-	-- else
-		-- __RecoverSysTotFrame()
-		-- if (BFocusTargetFrame and BFocusTargetFrame.watched) then
-			-- UnregisterUnitWatch(BFocusTargetFrame);
-			-- BFocusTargetFrame.watched = false;
+		if (not BFocusTargetFrame.watched) then
+			RegisterUnitWatch(BFocusTargetFrame, false);
+			BFocusTargetFrame.watched = true;
+		end
+	else
+		__RecoverSysTotFrame()
+		if (BFocusTargetFrame and BFocusTargetFrame.watched) then
+			UnregisterUnitWatch(BFocusTargetFrame);
+			BFocusTargetFrame.watched = false;
 
-			-- BFocusTargetFrame:Hide();
-		-- end
-	-- end
+			BFocusTargetFrame:Hide();
+		end
+	end
 
 	if (__BUNITFRAME_ENABLED and BUnitFrame_Config["sysFocus_t"]["enabled"] and BUnitFrame_Config["sysFocus_tt"]["enabled"]) then
 		if (not BFocusTargetTargetFrame) then
@@ -552,29 +552,29 @@ function BUnitFrame_UpdateOptions()
 		end
 	end
 
-	-- if (__BUNITFRAME_ENABLED and BUnitFrame_Config["focus"]["enabled"]) then
-		-- if (not BUFFocusFrame) then
-			-- local __theme = BUnitFrame_Config["focus"]["theme"];
-			-- local __frame = __BUnitFrame_Create("BUFFocusFrame", PlayerFrame, "focus", __theme);
-			-- BUFFocusFrame.config_branch = "focus";
-			-- BUFFocusFrame.position = {"TOPRIGHT", PlayerFrame, "BOTTOMLEFT", 54, 80};
-			-- __BUnitFrame_SetPosition(BUFFocusFrame);
+	if (__BUNITFRAME_ENABLED and BUnitFrame_Config["focus"]["enabled"]) then
+		if (not BUFFocusFrame) then
+			local __theme = BUnitFrame_Config["focus"]["theme"];
+			local __frame = __BUnitFrame_Create("BUFFocusFrame", PlayerFrame, "focus", __theme);
+			BUFFocusFrame.config_branch = "focus";
+			BUFFocusFrame.position = {"TOPRIGHT", PlayerFrame, "BOTTOMLEFT", 54, 80};
+			__BUnitFrame_SetPosition(BUFFocusFrame);
 
-			-- RegisterForSaveFrame(BUFFocusFrame);
-		-- end
+			RegisterForSaveFrame(BUFFocusFrame);
+		end
 
-		-- if (not BUFFocusFrame.watched) then
-			-- RegisterUnitWatch(BUFFocusFrame, false);
-			-- BUFFocusFrame.watched = true;
-		-- end
-	-- else
-		-- if (BUFFocusFrame and BUFFocusFrame.watched) then
-			-- UnregisterUnitWatch(BUFFocusFrame);
-			-- BUFFocusFrame.watched = false;
+		if (not BUFFocusFrame.watched) then
+			RegisterUnitWatch(BUFFocusFrame, false);
+			BUFFocusFrame.watched = true;
+		end
+	else
+		if (BUFFocusFrame and BUFFocusFrame.watched) then
+			UnregisterUnitWatch(BUFFocusFrame);
+			BUFFocusFrame.watched = false;
 
-			-- BUFFocusFrame:Hide();
-		-- end
-	-- end
+			BUFFocusFrame:Hide();
+		end
+	end
 end
 
 function BUnitFrame_OnEnter(self)
@@ -597,7 +597,7 @@ end
 
 function BUnitFrame_OnLoad(self)
 	self:RegisterEvent("PLAYER_TARGET_CHANGED");
-	-- self:RegisterEvent("PLAYER_FOCUS_CHANGED");
+	self:RegisterEvent("PLAYER_FOCUS_CHANGED");
 	self:RegisterEvent("UNIT_NAME_UPDATE");
 	self:RegisterEvent("UNIT_PORTRAIT_UPDATE");
 	self:RegisterEvent("UNIT_DISPLAYPOWER");
@@ -695,10 +695,10 @@ function BUnitFrame_OnEvent(self, event, ...)
 	elseif (event == "UNIT_SPELLCAST_START" or event == "UNIT_SPELLCAST_CHANNEL_START") then
 		local name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID
 		if (event == "UNIT_SPELLCAST_START") then
-			name, text, texture, startTime, endTime, isTradeSkill = CastingInfo(self.unit);
+			name, text, texture, startTime, endTime, isTradeSkill = UnitCastingInfo(self.unit);
 			self.channeling = nil;
 		else
-			name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID = ChannelInfo(self.unit);
+			name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID = UnitChannelInfo(self.unit);
 			self.channeling = true;
 		end
 		self.startTime = startTime;
@@ -723,9 +723,9 @@ function BUnitFrame_OnEvent(self, event, ...)
 		if (self.casting) then
 			local name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID
 			if (event == "UNIT_SPELLCAST_CHANNEL_UPDATE") then
-				name, text, texture, startTime, endTime, isTradeSkill = ChannelInfo(self.unit);
+				name, text, texture, startTime, endTime, isTradeSkill = UnitChannelInfo(self.unit);
 			else
-				name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID = CastingInfo(self.unit);
+				name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellID = UnitCastingInfo(self.unit);
 			end
 			self.startTime = startTime;
 			self.endTime = endTime;
@@ -909,24 +909,24 @@ function BUnitFrameDropDown_Initialize()
 end
 
 --隐藏系统的焦点框体
--- function ToggleDefaultFocusFrame(switch)
-	-- if (switch) then
-		-- FocusFrame:RegisterEvent("PLAYER_FOCUS_CHANGED");
-		-- FocusFrame:RegisterEvent("PLAYER_FLAGS_CHANGED");
-		-- FocusFrame:RegisterEvent("UNIT_CLASSIFICATION_CHANGED");
-		-- TargetFrame_CheckFaction(FocusFrame)
-		-- TargetFrame_CheckLevel(FocusFrame)
-		-- TargetFrame_UpdateAuras(FocusFrame);
-		-- TargetFrame_CheckDead(FocusFrame);
-		-- UnitFrame_Update(FocusFrame);
-		-- if BUFFocusFrame and BUFFocusFrame:IsShown() then
-			-- FocusFrame:Show();
-		-- end
-	-- else
-		-- FocusFrame:UnregisterAllEvents();
-		-- FocusFrame:Hide();
-	-- end
--- end
+function ToggleDefaultFocusFrame(switch)
+	if (switch) then
+		FocusFrame:RegisterEvent("PLAYER_FOCUS_CHANGED");
+		FocusFrame:RegisterEvent("PLAYER_FLAGS_CHANGED");
+		FocusFrame:RegisterEvent("UNIT_CLASSIFICATION_CHANGED");
+		TargetFrame_CheckFaction(FocusFrame)
+		TargetFrame_CheckLevel(FocusFrame)
+		TargetFrame_UpdateAuras(FocusFrame);
+		TargetFrame_CheckDead(FocusFrame);
+		UnitFrame_Update(FocusFrame);
+		if BUFFocusFrame and BUFFocusFrame:IsShown() then
+			FocusFrame:Show();
+		end
+	else
+		FocusFrame:UnregisterAllEvents();
+		FocusFrame:Hide();
+	end
+end
 
 function BUnitFrame_CastingShining_Toggle(__switch)
 	if (__switch) then
@@ -970,17 +970,17 @@ function BUnitFrame_TargetTargetFrame_Toggle(__switch)
 end
 
 --简单模式焦点目标开关
--- function BUnitFrame_FocusFrame_Toggle(__switch)
-	-- if (__switch) then
-		-- BUnitFrame_Config["focus"]["enabled"] = true;
-		-- ToggleDefaultFocusFrame(false);
-	-- else
-		-- BUnitFrame_Config["focus"]["enabled"] = false;
-		-- ToggleDefaultFocusFrame(true);
-	-- end
+function BUnitFrame_FocusFrame_Toggle(__switch)
+	if (__switch) then
+		BUnitFrame_Config["focus"]["enabled"] = true;
+		ToggleDefaultFocusFrame(false);
+	else
+		BUnitFrame_Config["focus"]["enabled"] = false;
+		ToggleDefaultFocusFrame(true);
+	end
 
-	-- BUnitFrame_UpdateOptions();
--- end
+	BUnitFrame_UpdateOptions();
+end
 
 --总开关
 function BUnitFrame_Toggle(__switch)

@@ -130,7 +130,7 @@ local function BuildSimpleProfile()
 	config = Bartender4.db:GetNamespace("UnitFrames").profile
 	SetBarLocation( config.unitframes.PlayerFrame, "BOTTOM", -230, 77)
 	SetBarLocation( config.unitframes.TargetFrame, "BOTTOM", -274, 178 )
-	-- SetBarLocation( config.unitframes.FocusFrame, "BOTTOM", -30, 180 )
+	SetBarLocation( config.unitframes.FocusFrame, "BOTTOM", -30, 180 )
 	SetBarLocation( config.unitframes.BuffFrame, "TOPRIGHT", -265, -35 )
 	SetBarLocation( config.unitframes.MinimapCluster, "TOPRIGHT", -100,-100 )
 	SetBarLocation( config.unitframes.PartyMemberFrame1, "LEFT", 80, 55 )
@@ -140,7 +140,7 @@ local function BuildSimpleProfile()
 	-- SetBarLocation( config.unitframes.WatchFrame, "RIGHT", -112, 133 )
 	SetBarLocation( config.unitframes.CastingBarFrame, "BOTTOMLEFT", 263, 160)
 	SetCVar("uiscale",0.8)
-	SetCVar("useUiScale",1)
+	-- SetCVar("useUiScale",1)
 	config.chatframes = {
 		ChatFrame1={
 			height = 300,
@@ -223,7 +223,7 @@ local function BuildModernProfile()
 	config = Bartender4.db:GetNamespace("UnitFrames").profile
 	SetBarLocation( config.unitframes.PlayerFrame, "BOTTOM", -165, 270)
 	SetBarLocation( config.unitframes.TargetFrame, "BOTTOM", 155, 270 )
-	-- SetBarLocation( config.unitframes.FocusFrame, "BOTTOM", 155, 400 )
+	SetBarLocation( config.unitframes.FocusFrame, "BOTTOM", 155, 400 )
 	SetBarLocation( config.unitframes.BuffFrame, "TOPRIGHT", -35, -35 )
 	SetBarLocation( config.unitframes.MinimapCluster, "TOPRIGHT", -110,-150 )
 	SetBarLocation( config.unitframes.PartyMemberFrame1, "TOPLEFT", 80, -65 )
@@ -233,7 +233,7 @@ local function BuildModernProfile()
 	-- SetBarLocation( config.unitframes.WatchFrame, "RIGHT", -250, 152 )
 	SetBarLocation( config.unitframes.CastingBarFrame, "BOTTOM", 10, 188)
 	SetCVar("uiscale",0.64)
-	SetCVar("useUiScale",1)
+	-- SetCVar("useUiScale",1)
 
 	config.chatframes = {
 		ChatFrame1={
@@ -391,8 +391,6 @@ local function BuildDoubleProfile()
 	else
 		SetBarLocation( config, "BOTTOM", -460, 135 + dy )
 	end
-		--增加unitframes的配置
-
 end
 
 local function BuildBlizzardProfile()
@@ -479,7 +477,7 @@ local function BuildBlizzardProfile()
 	config = Bartender4.db:GetNamespace("UnitFrames").profile
 	SetBarLocation( config.unitframes.PlayerFrame, "TOPLEFT", 129, -66 )
 	SetBarLocation( config.unitframes.TargetFrame, "TOPLEFT", 440, -66 )
-	-- SetBarLocation( config.unitframes.FocusFrame, "CENTER", -344, 143 )
+	SetBarLocation( config.unitframes.FocusFrame, "CENTER", -344, 143 )
 	SetBarLocation( config.unitframes.BuffFrame, "TOPRIGHT", -248, -33 )
 	SetBarLocation( config.unitframes.MinimapCluster, "TOPRIGHT", -108, -107 )
 	SetBarLocation( config.unitframes.PartyMemberFrame1, "LEFT", 92, 235 )
@@ -489,7 +487,7 @@ local function BuildBlizzardProfile()
 	-- SetBarLocation( config.unitframes.WatchFrame, "RIGHT", -259, 142 )
 	SetBarLocation( config.unitframes.CastingBarFrame, "BOTTOM", 4, 127 )
 	SetCVar("uiscale",1)
-	SetCVar("useUiScale",0.9)
+	-- SetCVar("useUiScale",0.9)
 	config.chatframes = {
 		ChatFrame1={
 			height = 300,

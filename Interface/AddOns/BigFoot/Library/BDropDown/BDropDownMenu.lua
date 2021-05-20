@@ -595,8 +595,8 @@ function BToggleDropDownMenu(level, value, dropDownFrame, anchorName, xOffset, y
 	BDropDownMenu_CreateFrames(level, 0);
 	BDROPDOWNMENU_MENU_LEVEL = level;
 	BDROPDOWNMENU_MENU_VALUE = value;
-	local listFrame = getglobal("BDropDownList"..level);
 	local listFrameName = "BDropDownList"..level;
+	local listFrame = getglobal(listFrameName);
 	local tempFrame;
 	local point, relativePoint, relativeTo;
 	if ( not dropDownFrame ) then

@@ -1,8 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
-	<Frame name = "BFGoldFrame" parent="UIParent" movable="true">
+	<Frame name = "BFGoldFrame" parent="UIParent" movable="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="180" y="40"/>
 		</Size>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
 		<Layers>
 			<Layer level = "OVERLAY">
 				<FontString name="$parentCurrent" justifyH="RIGHT" inherits="QuestFont_Large" >
@@ -142,17 +145,6 @@
 				</Scripts>
 			</Button>
 		</Frames>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-                <TileSize>
-                        <AbsValue val="32"/>
-                </TileSize>
-                <EdgeSize>
-                        <AbsValue val="32"/>
-                </EdgeSize>
-                <BackgroundInsets>
-                        <AbsInset left="11" right="12" top="12" bottom="11"/>
-                </BackgroundInsets>
-        </Backdrop>
 		<Animations>
 			<AnimationGroup name="$parentAnimGroupExp" looping="NONE" smoothing ="IN_OUT">
 				<Animation startDelay="0.1" duration="0.2" maxFramerate="180">
@@ -211,7 +203,7 @@
 			</AnimationGroup>
 		</Animations>
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				self:SetPoint("CENTER", UIParent, "CENTER", 100, -80);
 				self:SetClampedToScreen( true );
 				RegisterForSaveFrame(self);

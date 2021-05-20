@@ -2,7 +2,7 @@
 
 	<Frame name="TUF_InfoPanePlayerTemplate" hidden="true" virtual="true" parent="PlayerFrame" inherits="BackdropTemplate">
 		<Size>
-			<AbsDimension x="99" y="48"/>
+			<AbsDimension x="99" y="49"/>
 		</Size>
 		<Anchors>
 			<Anchor point="TOPLEFT">
@@ -11,19 +11,11 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background"  tile="true">
-			<TileSize>
-				<AbsValue val="8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="3" right="3" top="3" bottom="3"/>
-			</BackgroundInsets>
-		</Backdrop>
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture file="Interface\AddOns\TUnitFrame\Media\portrait">
 					<Size>
-						<AbsDimension x="99" y="48"/>
+						<AbsDimension x="99" y="49"/>
 					</Size>
 					<TexCoords left="0.0" right="0.35546875" top="0" bottom="0.75"/>
 				</Texture>
@@ -68,20 +60,26 @@
 				</FontString>
 			</Layer>
 		</Layers>
+		<Scripts>
+			<OnLoad inherit="prepend">
+				local backdropInfo = {
+					bgFile	= "Interface\\Buttons\\UI-SliderBar-Background",
+					tile 	= true,
+					tileSize = 8,
+					insets 	= { left = 3, right = 5, top = 3, bottom = 4 },
+				}
+				self:SetBackdrop(backdropInfo);
+			</OnLoad>
+		</Scripts>
 	</Frame>
 
 	<Frame name="TUF_InfoPanePartyTemplate" frameStrata="LOW" hidden="true" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="86" y="24"/>
 		</Size>
-		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background"  tile="true">
-			<TileSize>
-				<AbsValue val="8"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="3" right="5" top="3" bottom="4"/>
-			</BackgroundInsets>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_SLIDER_8_8" type="global"/>
+        </KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture file="Interface\AddOns\TUnitFrame\Media\portrait">

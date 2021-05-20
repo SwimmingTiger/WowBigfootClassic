@@ -69,8 +69,8 @@ Callbacks:
 local lib = LibStub:NewLibrary('LibInspect', 5);
 if not lib then return end
 if not lib.frame then lib.frame = CreateFrame("Frame"); end
-local GetSpecialization = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and function() return nil end or _G.GetSpecialization
-local GetInspectSpecialization = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and function() return end or _G.GetInspectSpecialization
+local GetSpecialization = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE and function() return nil end or _G.GetSpecialization
+local GetInspectSpecialization = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE and function() return end or _G.GetInspectSpecialization
 
 lib.maxAge = 1800; -- seconds
 lib.rescan = 7; -- What to consider min items
@@ -364,7 +364,7 @@ function lib:GetItems(target, guid)
 end
 
 function lib:GetTalents(target, guid)
-	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+	if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
 		return
 	end
     if CanInspect(target) then

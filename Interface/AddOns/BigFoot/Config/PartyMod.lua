@@ -80,7 +80,7 @@ function PartyModConfigFunc()
 	if (IsConfigurableAddOn("PartyAssist") or IsConfigurableAddOn("Clique") or IsConfigurableAddOn("BFQuest") or IsConfigurableAddOn("BFGuildBar")) then
 		ModManagement_RegisterMod(
 			"PartyToolkit",
-			"Interface\\Icons\\trade_engineering",
+			"Interface\\Icons\\Ability_Warrior_VictoryRush",
 			MOD_PARTY_ASSIST,
 			"",
 			nil,

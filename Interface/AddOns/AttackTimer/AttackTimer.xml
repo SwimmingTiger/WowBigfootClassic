@@ -1,6 +1,6 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 	<Script file="AttackTimer.lua"/>
-	<Frame name="AttackTimerMove" movable="true" enableMouse="true" parent="UIParent" hidden="true">
+	<Frame name="AttackTimerMove" movable="true" enableMouse="true" parent="UIParent" hidden="true" inherits="BackdropTemplate">
 	   	<Size>
 			<AbsDimension x="215" y="33"/>
 		</Size>
@@ -11,18 +11,25 @@
 				</Offset>
 			</Anchor>
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<TileSize>
-				<AbsValue val="16"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-		</Backdrop>
+		<!-- <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true"> -->
+			<!-- <TileSize> -->
+				<!-- <AbsValue val="16"/> -->
+			<!-- </TileSize> -->
+			<!-- <EdgeSize> -->
+				<!-- <AbsValue val="16"/> -->
+			<!-- </EdgeSize> -->
+		<!-- </Backdrop> -->
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				self:RegisterForDrag("LeftButton");
 				RegisterForSaveFrame(self, self:GetName());
+				local backdropInfo = {
+					bgFile		= "Interface\\DialogFrame\\UI-DialogBox-Background",
+					edgeFile	= "Interface\\Glues\\Common\\TextPanel-Border",
+					tile 		= true,
+					tileEdge	= true,
+				}
+				self:SetBackdrop(backdropInfo);
 			</OnLoad>
 			<OnMouseUp>
 				if ( self.isMoving ) then
@@ -56,7 +63,7 @@
 			<Layer level="BACKGROUND">
 				<Texture setAllPoints="true">
 					<Color r="0" g="0" b="0" a="0.5"/>
-				</Texture>		
+				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
 				<FontString name="$parentTextLeft" inherits="GameFontHighlight" text="AIMED">
@@ -121,11 +128,11 @@
 		</Layers>
 		<Scripts>
 			<OnLoad>
-				AttackTimer_OnLoad(self);			
-			</OnLoad>			
+				AttackTimer_OnLoad(self);
+			</OnLoad>
 			<OnUpdate>
 				AttackTimer_OnUpdate(self);
-			</OnUpdate>			
+			</OnUpdate>
 		</Scripts>
 		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
 		<BarColor r="1.0" g="0.7" b="0.0"/>

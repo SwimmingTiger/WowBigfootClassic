@@ -12,7 +12,6 @@ function BuffMasterConfigFunc()
 		BUFFMASTER_SHOW_BUFF_INFO = "显示自身BUFF信息"
 		BUFFMASTER_SHOW_DETAIL_TIMELEFT = "时间精确到秒";
 
-
 		BFCD_COOLDOWN_SHOW_TARGET = "显示目标时间";
 		BFCD_COOLDOWN_SHOW_TARGET_TOOLTIP="显示目标头像下各种(DE)BUFF的持续(剩余)时间";
 
@@ -20,6 +19,9 @@ function BuffMasterConfigFunc()
 		BUFFMASTER_SHOW_PARTY_BUFF_TOOLTIP= "在小队成员头像下显示其身上的BUFF";
 
 		BUFFMASTER_SHOW_MY_BUFF = "仅显示我施放的增益"
+
+		BFCD_COOLDOWN_SHOW_OTHER = "为其他计时框体显示时间";
+		BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP= "为姓名版等倒计时框体显示时间";
 
 	elseif (GetLocale() == "zhTW") then
 		BM_ACTION_BUTTON_TITLE = {"增益法術", "zengyifashu"};
@@ -39,6 +41,9 @@ function BuffMasterConfigFunc()
 		BUFFMASTER_SHOW_PARTY_BUFF = "增強顯示隊友BUFF";
 		BUFFMASTER_SHOW_PARTY_BUFF_TOOLTIP= "在小隊成員頭像下顯示其身上的BUFF";
 		BUFFMASTER_SHOW_MY_BUFF = "僅顯示我施放的增益"
+
+		BFCD_COOLDOWN_SHOW_OTHER = "為其他計時框體顯示時間";
+		BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP= "為姓名版等倒計時框體顯示時間";
 	else
 		BM_ACTION_BUTTON_TITLE = "Buff Adjustments";
 
@@ -50,17 +55,21 @@ function BuffMasterConfigFunc()
 		BFCD_COOLDOWN_SHOW_TARGET = "Show small icon cooldown";
 		BUFFMASTER_SHOW_PARTY_BUFF = "Show party members' buffs";
 		BUFFMASTER_SHOW_MY_BUFF = "Only show my buffs"
+
+		BFCD_COOLDOWN_SHOW_OTHER = "BFCD_COOLDOWN_SHOW_OTHER";
+		BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP= "BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP";
 	end
 
 	if IsConfigurableAddOn("TUnitFrame") or IsConfigurableAddOn("BuffMaster") or IsConfigurableAddOn("BFCooldown") then
 		ModManagement_RegisterMod(
 			"BuffMaster",
-			"Interface\\Icons\\trade_engineering",
+			"Interface\\Icons\\ability_hunter_displacement",
 			BM_ACTION_BUTTON_TITLE,
 			"",
 			nil,
 			nil,
 			{[3]=true}
+
 		);
 	end
 
@@ -157,8 +166,6 @@ function BuffMasterConfigFunc()
 			1
 		);
 
-
-
 		ModManagement_RegisterCheckBox(
 			"BuffMaster",
 			BUFFMASTER_SHOW_BUFF_INFO,	-- text
@@ -181,7 +188,7 @@ function BuffMasterConfigFunc()
 			BUFFMASTER_SHOW_DETAIL_TIMELEFT,	-- text
 			nil,															-- tooltip
 			"BuffMasterShowDetailTimeLeft",								-- variable
-			nil,																-- default
+			1,																-- default
 			function (__arg)
 				if (__arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("BuffMaster")) then
@@ -194,7 +201,6 @@ function BuffMasterConfigFunc()
 			end,
 			1
 		);
-
 	end
 
 	if (IsConfigurableAddOn("BFCooldown")) then
@@ -214,6 +220,25 @@ function BuffMasterConfigFunc()
 					BFCooldown:ToggleSec(false,"BUFF")
 				end
 			end
+		);
+		ModManagement_RegisterCheckBox(
+			"BuffMaster",
+			BFCD_COOLDOWN_SHOW_OTHER,								-- text
+			BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP,						-- tooltip
+			"BFCD_COOLDOWN_SHOW_OTHER",								-- variable
+			0,														-- default
+			function (arg)
+				if (arg == 1) then
+					if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+						BFCooldown:ToggleSpecial(true)
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+						BFCooldown:ToggleSpecial(false)
+					end
+				end
+			end,
+			1
 		);
 	end
 end

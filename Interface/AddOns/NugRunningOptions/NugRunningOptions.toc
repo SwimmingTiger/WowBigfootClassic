@@ -4,5 +4,7 @@
 ## Author: d87
 ## RequiredDeps: NugRunning
 ## LoadOnDemand: 1
+## X-Revision: BigFoot
 
-..\NugRunning\Options\includes.xml
+..\NugRunning\Locales\zhCN.lua
+..\NugRunning\Options\NugRunningOptions.lua

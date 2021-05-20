@@ -1,5 +1,0 @@
-﻿<Bindings>
-	<Binding name="MOVEFRAME" header="BLIZZMOVE">
-		BlizzMove:Toggle()
-	</Binding>
-</Bindings>

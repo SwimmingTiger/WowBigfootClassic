@@ -8,7 +8,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 local error, select, pairs = error, select, pairs
-local WoWClassic = select(4, GetBuildInfo()) < 30000
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 
 -- GLOBALS: LibStub, UnitHasVehicleUI, GetModifiedClick, SetModifiedClick, SaveBindings, GetCurrentBindingSet, InCombatLockdown
 
@@ -94,7 +94,7 @@ local function generateOptions()
 								width = "full",
 								get = getFunc,
 								set = function(info, value)
-									if UnitHasVehicleUI("player") then
+									if UnitHasVehicleUI("player") or UnitInVehicle("player") then	--bf@178.com
 										Bartender4:Print(L["You have to exit the vehicle in order to be able to change the Vehicle UI settings."])
 										return
 									end

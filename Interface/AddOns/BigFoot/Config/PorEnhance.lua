@@ -108,7 +108,7 @@ function PorEnhanceConfigFunc()
 			PORTRAIT_ENHANCEMENT_ENABLE_TEXT,
 			nil,
 			"EnablePorEnhance",
-			1,
+			nil,
 			function(arg)
 				if arg == 1 then
 					if not BigFoot_IsAddOnLoadedFromBigFoot("TUnitFrame") then

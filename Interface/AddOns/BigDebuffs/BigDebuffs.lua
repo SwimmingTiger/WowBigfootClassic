@@ -816,7 +816,7 @@ function BigDebuffs:AttachUnitFrame(unit)
             frame:SetPoint(unpack(self.db.profile.unitFrames[unit].position))
         else
             -- No saved position, anchor to the blizzard position
-            if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then LoadAddOn("Blizzard_ArenaUI") end
+            if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then LoadAddOn("Blizzard_ArenaUI") end
             local relativeFrame = _G[anchors.Blizzard.units[unit]] or UIParent
             frame:SetPoint("CENTER", relativeFrame, "CENTER")
         end
@@ -901,7 +901,7 @@ function BigDebuffs:OnEnable()
         self:PLAYER_TALENT_UPDATE()
     end
 
-    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
         self:RegisterEvent("PLAYER_FOCUS_CHANGED")
     end
 
@@ -909,7 +909,7 @@ function BigDebuffs:OnEnable()
     InsertTestDebuff(408, nil) -- Kidney Shot
     InsertTestDebuff(1766, nil) -- Kick
 
-    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
         InsertTestDebuff(51514, "Curse") -- Hex
         InsertTestDebuff(316099, "Magic") -- Unstable Affliction
         InsertTestDebuff(208086, nil) -- Colossus Smash
@@ -1722,7 +1722,7 @@ function BigDebuffs:ShowBigDebuffs(frame)
             end
 
             -- Set warning debuff
-            if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+            if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
                 local k
                 for j = 1, #self.WarningDebuffs do
                     if id == self.WarningDebuffs[j] and

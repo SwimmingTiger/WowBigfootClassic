@@ -21,7 +21,7 @@ function WhisperPop:IsIgnoredMessage(text)
 end
 
 function WhisperPop:CreateCommonFrame(name, parent, titleText)
-	local frame = CreateFrame("Button", name, parent, BackdropTemplateMixin and "BackdropTemplate")
+	local frame = CreateFrame("Button", name, parent, "BackdropTemplate")
 	frame:Hide()
 	frame:SetWidth(165)
 	frame:SetHeight(262)

@@ -25,7 +25,7 @@ __HealthBarColor[1] = { r = 1.0, g = 0.7, b = 0.2 };
 __HealthBarColor[2] = { r = 1.0, g = 0.0, b = 0.0 };
 
 local __ManaBarColor = {};
-__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- ï¿½ï¿½ï¿½ï¿½É«Ì«ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½ï¿½
+__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- ´¿À¶É«Ì«°µ, ¿´ÆðÀ´Ì«·ÑÁ¦
 __ManaBarColor[1] = PowerBarColor["RAGE"];
 __ManaBarColor[2] = PowerBarColor["FOCUS"];
 __ManaBarColor[3] = PowerBarColor["ENERGY"];
@@ -245,7 +245,7 @@ function InfoPaneClass.prototype:UnregisterAllEvents()
 	self.infoPane:UnregisterAllEvents()
 end
 
---ï¿½ï¿½ï¿½ï¿½
+--¿ª¹Ø
 function InfoPaneClass.prototype:SwitchColorize(flag)
 	self.colorize = flag
 	__Enable_Colorize_HealthBar = flag
@@ -267,13 +267,13 @@ function InfoPaneClass.prototype:SwitchBarText(flag)
 	end
 end
 
---Ö¸ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ÔµÄµï¿½Î»ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½
+--Ö¸¶¨ÐÅÏ¢ÌõÕë¶ÔµÄµ¥Î»ºÍ¸¸¿òÌå
 function InfoPaneClass.prototype:Create(infoType,parent,index)
 	self.infoPane = _G["TUF_"..infoType.."InfoPane"..(index or "")] or
 		CreateFrame("Frame",
 			"TUF_"..infoType.."InfoPane"..(index or ""),
 			parent,
-			"TUF_InfoPane"..infoType.."Template,BackdropTemplate")
+			"TUF_InfoPane"..infoType.."Template")
 	self.infoPane:SetBackdropColor(.6, .6, .6, 1);
 	self.cvar = infoType:lower().."StatusText"
 	self.healthText = _G[self.infoPane:GetName().."HealthText"]

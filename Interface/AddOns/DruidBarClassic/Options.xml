@@ -1,27 +1,15 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	<Frame name="DRUIDBAROptionsFrame" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true" parent="UIParent">
-		<Size>
-			<AbsDimension x="460" y="340"/>
-		</Size>
+	<Frame name="DRUIDBAROptionsFrame" parent="UIParent" inherits="BackdropTemplate" toplevel="true" frameStrata="DIALOG" movable="true" enableMouse="true" hidden="true">
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+		</KeyValues>
+
+		<Size x="460" y="340"/>
 
 		<Anchors>
 			<Anchor point="CENTER"/>
 		</Anchors>
-
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
-			</BackgroundInsets>
-
-			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
-		</Backdrop>
 
 		<Layers>
 			<Layer level="ARTWORK">
@@ -55,7 +43,7 @@
 		<Frames>
 			<!-- BAR OPTIONS SUBFRAME -->
 			<!-- Text Header for 'Bar Options' -->
-			<Frame name="DRUIDBAROptions_Bar" inherits="BackdropTemplate">
+			<Frame name="DRUIDBAROptions_Bar">
 				<Size>
 					<AbsDimension x="420" y="200"/>
 				</Size>
@@ -95,13 +83,6 @@
 						</FontString>
 					</Layer>
 				</Layers>
-
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropBorderColor(0.4, 0.4, 0.4);
-						self:SetBackdropColor(0.1, 0.1, 0.1);
-					</OnLoad>
-				</Scripts>
 			</Frame>
 
 			<!-- IMPORTANT -->
@@ -497,7 +478,7 @@
 
 			<!-- MISC SUBFRAME -->
 			<!-- Text Header for 'Misc' -->
-			<Frame name="DRUIDBAROptions_Misc" inherits="BackdropTemplate">
+			<Frame name="DRUIDBAROptions_Misc">
 				<Size>
 					<AbsDimension x="420" y="60"/>
 				</Size>
@@ -537,13 +518,6 @@
 						</FontString>
 					</Layer>
 				</Layers>
-
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropBorderColor(0.4, 0.4, 0.4);
-						self:SetBackdropColor(0.1, 0.1, 0.1);
-					</OnLoad>
-				</Scripts>
 			</Frame>
 
 			<Button name="DBColorSwatch" hidden="false" virtual="true">
@@ -758,7 +732,7 @@
 		</Frames>
 
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				DRUIDBAROptions_OnLoad();
 				self:RegisterForDrag("LeftButton");
 			</OnLoad>

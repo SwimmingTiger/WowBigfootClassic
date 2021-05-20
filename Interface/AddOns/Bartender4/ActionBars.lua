@@ -8,7 +8,7 @@ local BT4ActionBars = Bartender4:NewModule("ActionBars", "AceEvent-3.0")
 
 local select, ipairs, pairs, tostring, tonumber, min, setmetatable = select, ipairs, pairs, tostring, tonumber, min, setmetatable
 
-local WoWClassic = select(4, GetBuildInfo()) < 30000
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 
 -- GLOBALS: UnitClass, InCombatLockdown, GetBindingKey, ClearOverrideBindings, SetOverrideBindingClick
 
@@ -127,7 +127,6 @@ end
 
 -- Applys the config in the current profile to all active Bars
 function BT4ActionBars:ApplyConfig()
-	if not self.db then return end	--bf@178.com
 	for i=1,10 do
 		local config = self.db.profile.actionbars[i]
 		-- make sure the bar has its current config object if it exists already

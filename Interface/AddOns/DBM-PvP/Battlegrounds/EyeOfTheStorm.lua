@@ -1,9 +1,9 @@
-if WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2) then
+if WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2) then -- Added in TBC
 	return
 end
 local mod	= DBM:NewMod("z566", "DBM-PvP")
 
-mod:SetRevision("20210419223508")
+mod:SetRevision("20210519214524")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",
@@ -17,7 +17,15 @@ do
 		if not bgzone and (zoneID == 566 or zoneID == 968) then
 			bgzone = true
 			local generalMod = DBM:GetModByName("PvPGeneral")
-			generalMod:SubscribeAssault(DBM:GetCurrentArea() == 566 and 112 or 397, 4)
+			local assaultID
+			if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+				assaultID = 1956
+			elseif zoneID == 566 then
+				assaultID = 122
+			elseif zoneID == 968 then
+				assaultID = 397
+			end
+			generalMod:SubscribeAssault(assaultID, 4)
 			generalMod:SubscribeFlags()
 		elseif bgzone and (zoneID ~= 566 and zoneID ~= 968) then
 			bgzone = false

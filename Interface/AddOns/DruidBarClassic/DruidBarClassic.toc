@@ -5,10 +5,12 @@
 ## Notes: Shows mana in bear/cat form.
 ## Notes-zhCN: |cff00ff00DruidBarClassic|r
 ## Notes-zhTW: |cff00ff00DruidBarClassic|r
-## Current Author: Tek (port to WoW Classic Beta)
+## Current Author: Tek (port to WoW Classic)
 ## Original Authors: SkaDemon (GUI: DiabloHu)
 ## SavedVariables: DruidBarKey
-## Version: 0.7.8
+## Version: 0.7.10
+## X-Curse-Project-ID: 334762
+## X-WoWI-ID: 25036
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 

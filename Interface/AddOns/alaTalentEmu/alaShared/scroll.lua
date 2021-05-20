@@ -37,9 +37,9 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 	width = width and max(width, def_inner_size) or def_inner_size;
 	height = height and max(height, def_inner_size) or def_inner_size;
 
-	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
-	local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
-	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
+	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
+	local scrollChild = CreateFrame("FRAME", nil, scrollFrame, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
+	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
 	local buttons = {};
 	local nButtonsShown = 0;
 	local ofsIndex = 0;

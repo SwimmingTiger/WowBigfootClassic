@@ -435,7 +435,7 @@ RegEvent("ADDON_LOADED", function()
     if lib then
         lib.MainFrame = MySlot.MainFrame
     end
-	
+
 	--[ [	bf.178.com
 	MySlot_SavedDb = MySlot_SavedDb
 	if MySlot_SavedDb then
@@ -472,7 +472,6 @@ RegEvent("ADDON_LOADED", function()
 		end)
 	end
 	--]]
-
 end)
 
 SlashCmdList["MYSLOT"] = function(msg, editbox)

@@ -17,7 +17,7 @@ local IsInScenarioGroup = IsInScenarioGroup
 local UnitInRaid = UnitInRaid
 local UnitIsGhost = UnitIsGhost
 
-local WOW_RETAIL = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC and WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local WOW_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
 --[[local TOC
 do

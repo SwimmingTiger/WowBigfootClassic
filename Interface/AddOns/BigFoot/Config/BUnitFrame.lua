@@ -77,25 +77,25 @@ function BUnitFrameConfigFunc()
 			end
 		);
 
-		-- ModManagement_RegisterCheckBox(
-			-- "BUnitFrame",
-			-- ENABLE_FOCUS_UNITFRAME,
-			-- nil,
-			-- "EnableEasyFocusFrame",
-			-- 0,
-			-- function (arg)
-				-- if (arg == 1) then
-					-- if (BigFoot_LoadAddOn("TUnitFrame")) then
-						-- BUnitFrame_FocusFrame_Toggle(true);
-					-- end
-				-- else
-					-- if (BigFoot_IsAddOnLoaded("TUnitFrame")) then
-						-- BUnitFrame_FocusFrame_Toggle(false);
-					-- end
-				-- end
-			-- end,
-			-- 1
-		-- );
+		ModManagement_RegisterCheckBox(
+			"BUnitFrame",
+			ENABLE_FOCUS_UNITFRAME,
+			nil,
+			"EnableEasyFocusFrame",
+			0,
+			function (arg)
+				if (arg == 1) then
+					if (BigFoot_LoadAddOn("TUnitFrame")) then
+						BUnitFrame_FocusFrame_Toggle(true);
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("TUnitFrame")) then
+						BUnitFrame_FocusFrame_Toggle(false);
+					end
+				end
+			end,
+			1
+		);
 
 		ModManagement_RegisterCheckBox(
 			"BUnitFrame",

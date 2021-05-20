@@ -274,7 +274,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Slider name="BigFootReaderPageSlider" orientation="HORIZONTAL" enableMouse="true" hidden="true">
+			<Slider name="BigFootReaderPageSlider" orientation="HORIZONTAL" enableMouse="true" hidden="true" inherits="BackdropTemplate">
 				<Size>
 					<AbsDimension x="140" y="17"/>
 				</Size>
@@ -288,17 +288,9 @@
 				<HitRectInsets>
 					<AbsInset left="0" right="0" top="-10" bottom="-10"/>
 				</HitRectInsets>
-				<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
-					<EdgeSize>
-						<AbsValue val="8"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val="8"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left="3" right="3" top="6" bottom="6"/>
-					</BackgroundInsets>
-				</Backdrop>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_SLIDER_8_8" type="global"/>
+				</KeyValues>
 				<Layers>
 					<Layer level="ARTWORK">
 						<FontString name="BigFootReaderPageText" inherits="GameFontNormal">

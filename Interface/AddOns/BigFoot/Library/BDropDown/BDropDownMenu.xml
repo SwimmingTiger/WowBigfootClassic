@@ -135,8 +135,9 @@
 				end
 				getglobal(self:GetName().."Highlight"):Show();
 				BDropDownMenu_StopCounting(self:GetParent());
-				if ( self.tooltipTitle ) then
-					GameTooltip_AddNewbieTip(self, self.tooltipTitle, 1.0, 1.0, 1.0, self.tooltipText, 1);
+				if self.tooltipTitle then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip_SetTitle(GameTooltip, self.tooltipTitle);
 				end
 			</OnEnter>
 			<OnLeave>
@@ -159,33 +160,17 @@
 
 	<Button name="BDropDownListTemplate" hidden="true" frameStrata="DIALOG" enableMouse="true" virtual="true">
 		<Frames>
-			<Frame name="$parentBackdrop" setAllPoints="true">
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-					<BackgroundInsets>
-						<AbsInset left="11" right="12" top="12" bottom="11"/>
-					</BackgroundInsets>
-					<TileSize>
-						<AbsValue val="32"/>
-					</TileSize>
-					<EdgeSize>
-						<AbsValue val="32"/>
-					</EdgeSize>
-				</Backdrop>
+			<Frame name="$parentBackdrop" setAllPoints="true" inherits="BackdropTemplate">
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+				</KeyValues>
 			</Frame>
 			<Frame name="$parentMenuBackdrop" setAllPoints="true" inherits="BackdropTemplate">
-				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-					<EdgeSize>
-						<AbsValue val="16"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val="16"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left="5" right="5" top="5" bottom="5"/>
-					</BackgroundInsets>
-				</Backdrop>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+				</KeyValues>
 				<Scripts>
-					<OnLoad>
+					<OnLoad inherit="prepend">
 						self:SetBackdropBorderColor(TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g, TOOLTIP_DEFAULT_COLOR.b);
 						self:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b);
 					</OnLoad>

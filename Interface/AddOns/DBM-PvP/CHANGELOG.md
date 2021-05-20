@@ -1,6 +1,9 @@
 # <DBM> PvP
 
-## [r122](https://github.com/DeadlyBossMods/DBM-PvP/tree/r122) (2021-04-21)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r121...r122) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
+## [r123](https://github.com/DeadlyBossMods/DBM-PvP/tree/r123) (2021-05-19)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-PvP/compare/r122...r123) [Previous Releases](https://github.com/DeadlyBossMods/DBM-PvP/releases)
 
-- Bump Classic TOC  
+- Full BCC support. Fixes #100 (#101)  
+- here too  
+- Update ci.yml  
+    update build  

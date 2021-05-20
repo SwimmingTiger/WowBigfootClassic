@@ -55,21 +55,13 @@
 		</Layers>
 	</CheckButton>
 
-	<Slider name="RaidAlerterSliderTemplate" virtual="true" enableMouse="true" orientation="HORIZONTAL">
+	<Slider name="RaidAlerterSliderTemplate" virtual="true" enableMouse="true" orientation="HORIZONTAL" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="100" y="20"/>
 		</Size>
-		<Backdrop bgFile="Interface\Buttons\UI-SliderBar-Background" edgeFile="Interface\Buttons\UI-SliderBar-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="3" right="3" top="6" bottom="6" />
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="6" />
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="6" />
-			</EdgeSize>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_SLIDER_8_8" type="global"/>
+        </KeyValues>
 		<ThumbTexture name="$parentThumb" file="Interface\Buttons\UI-SliderBar-Button-Horizontal">
 			<Size>
 				<AbsDimension x="26" y="26" />
@@ -183,17 +175,12 @@
 
 	<GameTooltip name="RaidAlerterTooltip" inherits="GameTooltipTemplate" parent="UIParent" hidden="true"/>
 
-	<Frame name="RaidAlerter_MainFrame" parent="UIParent" movable="true" frameStrata="DIALOG" toplevel="true" hidden="true" enableMouse="true">
+	<Frame name="RaidAlerter_MainFrame" parent="UIParent" movable="true" frameStrata="DIALOG" toplevel="true" hidden="true" enableMouse="true" inherits="BackdropTemplate">
 		<Size><AbsDimension x="490" y="389"/></Size>
 		<Anchors><Anchor point="CENTER"/></Anchors>
-
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="10" right="10" top="10" bottom="10"/>
-			</BackgroundInsets>
-			<TileSize><AbsValue val="64"/></TileSize>
-			<EdgeSize><AbsValue val="24"/></EdgeSize>
-		</Backdrop>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
@@ -1857,8 +1844,7 @@
 		</Frames>
 
 		<Scripts>
-			<OnLoad>
-<!-- 				RC_OnLoad(); -->
+			<OnLoad inherit="prepend">
 				self:RegisterForDrag("LeftButton");
 			</OnLoad>
 			<OnDragStart>

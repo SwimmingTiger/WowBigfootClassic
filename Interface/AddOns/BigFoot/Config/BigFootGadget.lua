@@ -83,11 +83,12 @@ function BigFootGadgetConfigFunc()
 		SCREEN_MARK_PHOTO_MODE="Hold shift key to taking pure screenshot"
 
 		BIGFOOTGADGET_OLD_TAB="OldTab"
+
 	end
 
 	ModManagement_RegisterMod(
 		"BigFootGadget",
-		"Interface\\Icons\\trade_engineering",
+		"Interface\\Icons\\INV_Gizmo_HardenedAdamantiteTube",
 		BIGFOOTGADGET_TITLE,
 		"",
 		nil,
@@ -118,7 +119,9 @@ function BigFootGadgetConfigFunc()
 			BIGFOOTGADGET_Myslot_PROXMIO,
 			function()
 				if (BigFoot_IsAddOnLoadedFromBigFoot("MySlot")) then
-					MYSLOT_ReportFrame:Show();
+					if SlashCmdList.MYSLOT then
+						SlashCmdList.MYSLOT("")
+					end
 					HideUIPanel(ModManagementFrame);
 				end
 			end,

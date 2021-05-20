@@ -26,7 +26,7 @@ function SpellMonitorConfigFunc()
 	if IsConfigurableAddOn("EventAlertMod") or IsConfigurableAddOn("BigDebuffs") then
 		ModManagement_RegisterMod(
 			"SpellMonitor",
-			"Interface\\Icons\\trade_engineering",
+			"Interface\\Icons\\ability_shaman_watershield",
 			SPELL_MONITOR,
 			"",
 			nil,

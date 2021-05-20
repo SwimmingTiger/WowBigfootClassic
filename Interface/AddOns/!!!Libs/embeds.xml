@@ -38,11 +38,9 @@
 	<Script file="LibQTip-1.0\LibQTip-1.0.lua" /><!-- Archy,Decursive -->
 	<Script file="LibBossIDs-1.0\LibBossIDs-1.0.lua" /><!-- Recount,Skada -->
 	<Script file="LibChatAnims\LibChatAnims.lua"/><!-- 聊天框污染修复 -->
-	<Script file="HereBeDragons\HereBeDragons-2.0.lua" /><!-- ClassicCodex,HandyNotes,TotemTimers -->
-	<Script file="HereBeDragons\HereBeDragons-Pins-2.0.lua" /><!-- ClassicCodex,HandyNotes,TotemTimers -->
-	<Script file="HereBeDragons\HereBeDragons-Migrate.lua" /><!-- HandyNotes -->
+	<Include file="HereBeDragons\widget.xml"/><!-- ClassicCodex,HandyNotes,TotemTimers -->
+	<Script file="LibButtonGlow-1.0\LibButtonGlow-1.0.lua"/><!-- Bartender4,EventAlertMod -->
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
-	<!-- <Include file="LibThreatClassic2\lib.xml"/> -->
 	
 	<!-- GoodLeader，MeetingHorn ，Wargame ~begin~ -->
     <Script file="LibClass-2.0\Class-2.0.lua"/>

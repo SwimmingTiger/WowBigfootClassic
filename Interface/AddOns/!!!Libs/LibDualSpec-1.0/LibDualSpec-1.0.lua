@@ -31,8 +31,8 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
--- just bail out on classic or BC, there is no DualSpec there
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then return end
+-- just bail out on classic, there is no DualSpec there
+if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then return end
 
 local MAJOR, MINOR = "LibDualSpec-1.0", 20
 assert(LibStub, MAJOR.." requires LibStub")
