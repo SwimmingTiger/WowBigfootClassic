@@ -1,0 +1,12 @@
+## Interface: 20501
+## Title: MeetingHorn
+## Title-zhCN: 集结号
+## Title-zhTW: 集結號
+## Notes: |cff00ff00MeetingHorn|r
+## Version: 1.5.2
+## SavedVariables: MEETINGHORN_DB
+## SavedVariablesPerCharacter: MEETINGHORN_DB_CHARACTER_MEMBERS
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Load.xml
