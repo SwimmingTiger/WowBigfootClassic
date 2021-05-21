@@ -74,7 +74,7 @@ do
 	local function LoaderEvents(frame, event, arg1)
 		frame:UnregisterEvent("PLAYER_LOGIN")
 
-		local patchVersion = '2019-09-05-04'
+		local patchVersion = '2021-05-21-14'
 		if (BF_Frames_Config.UtilsPatchVersion ~= patchVersion) then
 
 			SetCVar("autoLootRate", "0")						--移除自动拾取多件物品时的延迟
