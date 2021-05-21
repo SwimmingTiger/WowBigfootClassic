@@ -114,24 +114,28 @@ function MobHealth_Toggle(arg)
 		MobHealth_Display()
 	else
 		MobHealth_Eventer:UnregisterAllEvent();
-		if TargetFrameHealthBar.TextString then
-			TargetFrameHealthBar.TextString:SetAlpha(1);
-		end
-		if TargetFrameManaBar.TextString then
-			TargetFrameManaBar.TextString:SetAlpha(1);
-		end
-		if TargetFrameTextureFrameDeadText then
-			TargetFrameTextureFrameDeadText:SetAlpha(1)
-		end
-		if __healthOb then
-			__healthOb:Hide()
-		end
-		if __manaOb  then
-			__manaOb:Hide()
-		end
-		if __healthPercFrame then
-			__healthPercFrame:Hide()
-		end
+		-- 老虎会游泳: UnregisterAllEvent会延迟执行，所以SetAlpha(1)也必须延迟执行，
+		-- 否则还是会被设为SetAlpha(0)。
+		BigFoot_DelayCall(function()
+			if TargetFrameHealthBar.TextString then
+				TargetFrameHealthBar.TextString:SetAlpha(1);
+			end
+			if TargetFrameManaBar.TextString then
+				TargetFrameManaBar.TextString:SetAlpha(1);
+			end
+			if TargetFrameTextureFrameDeadText then
+				TargetFrameTextureFrameDeadText:SetAlpha(1)
+			end
+			if __healthOb then
+				__healthOb:Hide()
+			end
+			if __manaOb  then
+				__manaOb:Hide()
+			end
+			if __healthPercFrame then
+				__healthPercFrame:Hide()
+			end
+		end, 0.1)
 	end
 end
 
