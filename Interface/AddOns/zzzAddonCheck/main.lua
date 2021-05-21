@@ -44,13 +44,15 @@ local function zzzAddonCheck_Init_DBM()
 end
 
 local function zzzAddonCheck_Init_ClassicCastbars()
-    -- 禁用 ClassicCastbars 的姓名板施法条
-    local patchVersion = '2020-06-27-14'
-    if ClassicCastbars and ClassicCastbars.db and ClassicCastbars.db.nameplate and
-       ClassicCastbars.db.nameplate.castbarPatchVersion ~= patchVersion
+    -- 禁用 ClassicCastbars 的姓名板施法条和目标施法条
+    local patchVersion = '2021-05-21-14'
+    if ClassicCastbars and ClassicCastbars.db and
+       ClassicCastbars.db.nameplate and ClassicCastbars.db.target and
+       ClassicCastbars.db.castbarPatchVersion ~= patchVersion
     then
         ClassicCastbars.db.nameplate.enabled = false
-        ClassicCastbars.db.nameplate.castbarPatchVersion = patchVersion
+        ClassicCastbars.db.target.enabled = false
+        ClassicCastbars.db.castbarPatchVersion = patchVersion
     end
 end
 
