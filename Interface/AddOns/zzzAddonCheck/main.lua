@@ -223,6 +223,23 @@ local function LoaderEvents(frame, event, arg1)
 		BF_Frames_Config.RealMobHealthPatchVersion = patchVersion
 	end
 
+    -- 默认启用目标生命显示
+    local patchVersion = '2021-05-21-15'
+	if (BigFoot_Config and BigFoot_Config.MobHealth and BF_Frames_Config.MobHealthPatchVersion ~= patchVersion) then
+		BF_Frames_Config.MobHealthPatchVersion = patchVersion
+		BigFoot_Config.MobHealth.MobHealthEnable = 1
+        if (not BigFoot_IsAddOnLoaded("MobHealth")) then
+            BigFoot_LoadAddOn("MobHealth")
+        end
+        BigFoot_DelayCall(function()
+            MobHealth_ShowHealth = true
+            MobHealth_UseFormatted = true
+            MobHealth_ShowMana = true
+            MobHealth_Toggle(1)
+            MobHealth_Display()
+        end, 1)
+	end
+
 	-- 防止背包内物品意外保存到银行
 	local patchVersion = '2019-12-18-02'
 	if (TDPack2Command and TDPack2Command.db and TDPack2Command.db.profile and TDPack2Command.db.profile.TDPack2PatchVersion ~= patchVersion) then

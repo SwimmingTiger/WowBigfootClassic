@@ -81,7 +81,7 @@ function MobInfoConfigFunc()
 			MOB_HEALTH_ENABLE_TEXT,
 			MOB_HEALTH_ENABLE_TEXT_TOOLTIP,
 			"MobHealthEnable",
-			0,
+			1,
 			function(arg)
 				if (arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("MobHealth")) then
