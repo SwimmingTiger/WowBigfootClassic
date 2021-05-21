@@ -3,7 +3,7 @@ Copyright (c) 2009-2020, Hendrik "Nevcairiel" Leppkes < h.leppkes@gmail.com >
 All rights reserved.
 ]]
 
-local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 if not WoWClassic then return end
 
 -- data
