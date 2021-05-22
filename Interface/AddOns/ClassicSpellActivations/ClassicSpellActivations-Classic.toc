@@ -1,0 +1,10 @@
+## Interface: 11307
+## Title: ClassicSpellActivations
+## Notes: Shows you the shiny
+## Author: d87
+## OptionalDeps: Bartender4, Dominos, Neuron
+
+## X-WoWI-ID: 25000
+## X-Curse-Project-ID: 323802
+
+ClassicSpellActivations.lua
