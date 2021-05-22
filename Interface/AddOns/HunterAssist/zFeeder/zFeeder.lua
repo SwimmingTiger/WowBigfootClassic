@@ -30,14 +30,14 @@ end
 -- buff effect
 local function zHasFeedEffect()
 	local i = 1;
-	local __name, __rank, __texture, __count, __debuffType, __duration, __expirationTime = UnitAura("pet", i);
-	while (__texture and __duration and __expirationTime and __duration > 0) do
-		local __timeLeft = __expirationTime - GetTime();
-		if ( string.find(__texture, "Ability_Hunter_BeastTraining") ) then
+	local _, _, _, _, __duration, __expirationTime, _, _, _, __spellId  = UnitAura("pet", i);
+	while (__duration and __expirationTime and __spellId and __duration > 0) do
+		if ( __spellId == 1539 ) then
+			local __timeLeft = __expirationTime - GetTime();
 			return true, __duration, __timeLeft;
 		end
 		i = i + 1;
-		__name, __rank, __texture, __count, __debuffType, __duration, __expirationTime = UnitAura("pet", i);
+		_, _, _, _, __duration, __expirationTime, _, _, _, __spellId  = UnitAura("pet", i);
 	end
 	return nil
 end
