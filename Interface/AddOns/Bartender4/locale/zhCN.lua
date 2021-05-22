@@ -259,4 +259,4 @@ Example: [form:1]9;0]=] ] = [=[你可以在自定义字符串里使用任意宏�
 L["You can use the preset defaults as a starting point for setting up your interface. Just choose your preferences here and click the button below to reset your profile to the preset default. Note that not all defaults show all bars."] = "你可以用它作为你的界面设置开始预设的默认值。只要你的喜好选择在这里，点击下面的按钮来重置你的配置文件到预设默认。请注意，并非所有默认显示所有动作条。"
 L["You have to exit the vehicle in order to be able to change the Vehicle UI settings."] = "你已经离开载具并可以改变载具用户界面设置。"
 L["Zoom"] = "缩放"
-
+L["Reputation Bar"] = "声望条"
