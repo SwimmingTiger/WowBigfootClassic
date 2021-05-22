@@ -205,8 +205,9 @@
 				<AbsValue val="16"/>
 			</TileSize>
 			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
 			</BackgroundInsets>
+			<Color r="0" g="0" b="0"/>
 		</Backdrop>
 		<Size>
 			<AbsDimension x="260" y="270"/>
@@ -440,7 +441,11 @@
 				TradeLogFrame_OnLoad(self);
 			</OnLoad>
 			<OnShow>
-				self:RegisterForDrag("LeftButton");
+				self:SetMovable(true);
+        self:EnableMouse(true);
+        self:RegisterForDrag("LeftButton");
+			  self:SetScript("OnDragStart", self.StartMoving);
+			  self:SetScript("OnDragStop", self.StopMovingOrSizing);
 			</OnShow>
 		</Scripts>
 
@@ -481,17 +486,6 @@
 					<TexCoords left="0.90625" right="0.96875" top="0" bottom="0.75"/>
 				</Texture>
 			</Layer>
-			<Layer level="ARTWORK">
-				<FontString name="$parentName" justifyH="LEFT" inherits="GameFontNormalSmall">
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="10" y="-5"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</FontString>
-			</Layer>
 		</Layers>
 		<ButtonText>
 			<Anchors>
@@ -502,7 +496,9 @@
 				</Anchor>
 			</Anchors>
 		</ButtonText>
-		<NormalFont inherits="GameFontHighlightSmall"/>
+		<NormalFont style="GameFontNormal"/>
+		<HighlightFont style="GameFontHighlight"/>
+		<DisabledFont style="GameFontDisable"/>
 	</Button>
 
 	<Button name="TradeListItemButtonTemplate" virtual="true">
@@ -640,10 +636,14 @@
 				self:RegisterForClicks("LeftButtonUp");
 			</OnLoad>
 			<OnClick>
-				TradeListFrame_ShowDetail(TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLog_TradesHistory[self.offset]) then
+					TradeListFrame_ShowDetail(TradeLog_TradesHistory[self.offset]);
+				end
 			</OnClick>
 			<OnEnter>
-				TradeListFrame_TradeTooltip(self, TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLog_TradesHistory[self.offset]) then
+					TradeLog_TradeTooltip(self, TradeLog_TradesHistory[self.offset]);
+				end
 			</OnEnter>
 			<OnLeave>
 				GameTooltip:Hide();
@@ -673,8 +673,9 @@
 				<AbsValue val="16"/>
 			</TileSize>
 			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
+				<AbsInset left="3" right="3" top="3" bottom="3"/>
 			</BackgroundInsets>
+            <Color r="0" g="0" b="0"/>
 		</Backdrop>
 		<Size>
 			<AbsDimension x="543" y="330"/>
@@ -688,7 +689,7 @@
 		</Anchors>
 
 		<Frames>
-			<Button name="TradeListFrameClose" inherits="UIPanelCloseButton">
+			<Button name="$parentClose" inherits="UIPanelCloseButton">
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
@@ -733,20 +734,20 @@
 						getglobal(name.."Text"):SetVertexColor(NORMAL_FONT_COLOR.r , NORMAL_FONT_COLOR.g , NORMAL_FONT_COLOR.b);
 						getglobal(name.."Low"):SetVertexColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 						getglobal(name.."High"):SetVertexColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-
+						
 						self:SetMinMaxValues(0.8, 1.5);
 						self:SetValueStep(0.1);
 						self:SetValue(1);
 						string:SetText(TRADE_LIST_SCALE);
 					</OnLoad>
 					<OnValueChanged>
-						TradeLogFrame:SetScale(self:GetValue());
+						TradeLogFrame:SetScale(self:GetValue());								
 					</OnValueChanged>
 				</Scripts>
 			</Slider>
 
 
-			<CheckButton name="TradeListOnlyCompleteCB" inherits="InterfaceOptionsCheckButtonTemplate">
+			<CheckButton name="TradeListOnlyCompleteCB" inherits="OptionsCheckButtonTemplate">
 				<Size>
 					<AbsDimension x="26" y="26"/>
 				</Size>
@@ -768,7 +769,7 @@
 				</Scripts>
 			</CheckButton>
 <!-- =================== Table Head ======================== -->
-			<Button name="TradeListFrameColumnHeader1" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHEN">
+			<Button name="$parentColumnHeader1" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHEN">
 				<Anchors>
 					<Anchor point="TOPLEFT">
 						<Offset>
@@ -779,13 +780,12 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 138);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_WHEN)
 					</OnLoad>
 				</Scripts>
 			</Button>
-			<Button name="TradeListFrameColumnHeader2" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHO">
+			<Button name="$parentColumnHeader2" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHO">
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeListFrameColumnHeader1" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="$parentColumnHeader1" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="-2" y="0"/>
 						</Offset>
@@ -794,13 +794,12 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 100);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_WHO)
 					</OnLoad>
 				</Scripts>
 			</Button>
-			<Button name="TradeListFrameColumnHeader3" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHERE">
+			<Button name="$parentColumnHeader3" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_WHERE">
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeListFrameColumnHeader2" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="$parentColumnHeader2" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="-2" y="0"/>
 						</Offset>
@@ -809,13 +808,12 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 95);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_WHERE)
 					</OnLoad>
 				</Scripts>
 			</Button>
-			<Button name="TradeListFrameColumnHeader4" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_SEND">
+			<Button name="$parentColumnHeader4" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_SEND">
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeListFrameColumnHeader3" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="$parentColumnHeader3" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="-2" y="0"/>
 						</Offset>
@@ -824,13 +822,12 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 60);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_SEND)
 					</OnLoad>
 				</Scripts>
 			</Button>
-			<Button name="TradeListFrameColumnHeader5" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_RECEIVE">
+			<Button name="$parentColumnHeader5" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_RECEIVE">
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeListFrameColumnHeader4" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="$parentColumnHeader4" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="-2" y="0"/>
 						</Offset>
@@ -839,13 +836,12 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 60);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_RECEIVE)
 					</OnLoad>
 				</Scripts>
 			</Button>
-			<Button name="TradeListFrameColumnHeader6" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_RESULT">
+			<Button name="$parentColumnHeader6" inherits="TradeListFrameColumnHeaderTemplate" text="TRADE_LIST_HEADER_RESULT">
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeListFrameColumnHeader5" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="$parentColumnHeader5" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="-2" y="0"/>
 						</Offset>
@@ -854,30 +850,29 @@
 				<Scripts>
 					<OnLoad>
 						WhoFrameColumn_SetWidth(self, 57);
-						_G[self:GetName().."Name"]:SetText(TRADE_LIST_HEADER_RESULT)
 					</OnLoad>
 				</Scripts>
 			</Button>
 
-			<Button name="TradeListFrameButton1" inherits="TradeListItemButtonTemplate" id="1">
+			<Button name="$parentButton1" inherits="TradeListItemButtonTemplate" id="1">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeListFrameColumnHeader1" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="$parentColumnHeader1" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton2" inherits="TradeListItemButtonTemplate" id="2">
+			<Button name="$parentButton2" inherits="TradeListItemButtonTemplate" id="2">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton1" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="$parentButton1" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton3" inherits="TradeListItemButtonTemplate" id="3">
+			<Button name="$parentButton3" inherits="TradeListItemButtonTemplate" id="3">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton2" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -886,16 +881,16 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton4" inherits="TradeListItemButtonTemplate" id="4">
+			<Button name="$parentButton4" inherits="TradeListItemButtonTemplate" id="4">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton3" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="$parentButton3" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton5" inherits="TradeListItemButtonTemplate" id="5">
+			<Button name="$parentButton5" inherits="TradeListItemButtonTemplate" id="5">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton4" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -904,16 +899,16 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton6" inherits="TradeListItemButtonTemplate" id="6">
+			<Button name="$parentButton6" inherits="TradeListItemButtonTemplate" id="6">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton5" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="$parentButton5" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="0"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton7" inherits="TradeListItemButtonTemplate" id="7">
+			<Button name="$parentButton7" inherits="TradeListItemButtonTemplate" id="7">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton6" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -922,7 +917,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton8" inherits="TradeListItemButtonTemplate" id="8">
+			<Button name="$parentButton8" inherits="TradeListItemButtonTemplate" id="8">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton7" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -931,7 +926,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton9" inherits="TradeListItemButtonTemplate" id="9">
+			<Button name="$parentButton9" inherits="TradeListItemButtonTemplate" id="9">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton8" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -940,7 +935,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton10" inherits="TradeListItemButtonTemplate" id="10">
+			<Button name="$parentButton10" inherits="TradeListItemButtonTemplate" id="10">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton9" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -949,7 +944,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton11" inherits="TradeListItemButtonTemplate" id="11">
+			<Button name="$parentButton11" inherits="TradeListItemButtonTemplate" id="11">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton10" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -958,7 +953,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton12" inherits="TradeListItemButtonTemplate" id="12">
+			<Button name="$parentButton12" inherits="TradeListItemButtonTemplate" id="12">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton11" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -967,7 +962,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton13" inherits="TradeListItemButtonTemplate" id="13">
+			<Button name="$parentButton13" inherits="TradeListItemButtonTemplate" id="13">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton12" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -976,7 +971,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton14" inherits="TradeListItemButtonTemplate" id="14">
+			<Button name="$parentButton14" inherits="TradeListItemButtonTemplate" id="14">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton13" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -985,7 +980,7 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Button name="TradeListFrameButton15" inherits="TradeListItemButtonTemplate" id="15">
+			<Button name="$parentButton15" inherits="TradeListItemButtonTemplate" id="15">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="TradeListFrameButton14" relativePoint="BOTTOMLEFT">
 						<Offset>
@@ -1021,18 +1016,17 @@
 					<OnLoad>
 						ScrollFrame_OnLoad(self);
 						local scrollBar = getglobal(self:GetName().."ScrollBar");
-						Mixin(scrollBar, BackdropTemplateMixin)
-						scrollBar:SetBackdrop(
+						scrollBar:SetBackdrop( 
 						{
-							bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-							tile = true,
+							bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
+							tile = true, 
 							tileSize = 16,
-							edgeFile = "Interface\\AddOns\\TheBurningTrade\\ScrollTrack",
+							edgeFile = "Interface\\AddOns\\TheBurningTrade\\ScrollTrack", 
 							edgeSize = 16,
 							insets = {
-								left = 4,
-								right = 4,
-								top = 4,
+								left = 4, 
+								right = 4, 
+								top = 4, 
 								bottom = 4},
 						})
 						scrollBar:SetBackdropBorderColor(.2, .2, .2, 1)
@@ -1045,93 +1039,15 @@
 		</Frames>
 		<Scripts>
 			<OnShow>
+			    self:SetMovable(true);
+			    self:EnableMouse(true);
+			    self:RegisterForDrag("LeftButton");
+			    self:SetScript("OnDragStart", self.StartMoving);
+			    self:SetScript("OnDragStop", self.StopMovingOrSizing);
 				TradeListScrollFrame_Update(self);
+				self:SetFrameLevel(100);
 			</OnShow>
 		</Scripts>
 	</Frame>
 
-	<Button name="TradeListFrameButton" toplevel="true" frameStrata="LOW" parent="Minimap" enableMouse="true">
-		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
-		<Size>
-			<AbsDimension x="32" y="32"/>
-		</Size>
-		<Anchors>
-			<Anchor point="TOPLEFT" relativeTo="Minimap" relativePoint="RIGHT">
-				<Offset>
-					<AbsDimension x="1" y="0"/>
-				</Offset>
-			</Anchor>
-		</Anchors>
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture name="TBTBackground">
-					<Size>
-						<AbsDimension x="16" y="16"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="7" y="-6"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-					<Color r="0.0" g="0.0" b="0.0" a="0.8"/>
-				</Texture>
-			</Layer>
-			<Layer level="BORDER">
-				<Texture file="Interface\GossipFrame\BankerGossipIcon">
-					<Size>
-						<AbsDimension x="16" y="16"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="7" y="-6"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-			<Layer level="ARTWORK">
-				<Texture file="Interface\Minimap\MiniMap-TrackingBorder">
-					<Size>
-						<AbsDimension x="50" y="50"/>
-					</Size>
-					<Anchors>
-						<Anchor point="TOPLEFT">
-							<Offset>
-								<AbsDimension x="0" y="0"/>
-							</Offset>
-						</Anchor>
-					</Anchors>
-				</Texture>
-			</Layer>
-		</Layers>
-		<Scripts>
-			<OnLoad>
-				InitialMovableMinimapButton(self:GetName(), "TRADE_LOG_BUTTON_POS", nil);
-				if(getglobal(self.POS) == nil) then
-					setglobal(self.POS, 190);
-				end
-				self:MovingPos();
-				self:Show();
-			</OnLoad>
-			<OnClick>
-				if( TradeListFrame:IsVisible() ) then
-					TradeListFrame:Hide();
-				else
-					TradeListFrame:Show();
-				end
-			</OnClick>
-			<OnEnter>
-				GameTooltip:SetOwner(self,"TOPLEFT",30,-80)
-				GameTooltip:AddLine(TBT_MINIMAP_TOOLTIP1)
-				GameTooltip:AddLine(TBT_MINIMAP_TOOLTIP2)
-				GameTooltip:Show()
-			</OnEnter>
-			<OnLeave>
-				GameTooltip:Hide()
-			</OnLeave>
-		</Scripts>
-	</Button>
 </Ui>

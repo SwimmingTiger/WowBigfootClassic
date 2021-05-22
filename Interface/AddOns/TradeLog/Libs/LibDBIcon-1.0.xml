@@ -1,0 +1,6 @@
+<Ui>
+	<Script file="LibStub\LibStub.lua"/>
+	<Script file="CallbackHandler-1.0\CallbackHandler-1.0.lua"/>
+	<Script file="LibDataBroker-1.1\LibDataBroker-1.1.lua"/>
+	<Script file="LibDBIcon-1.0.lua"/>
+</Ui>

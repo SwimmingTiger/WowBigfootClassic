@@ -1,0 +1,12 @@
+commit 69c9b0ea82a49af237020e6c985d909cd69b003c
+Author: wangbei <wangbei@rd.tuan800.com>
+Date:   Thu Apr 20 13:05:29 2017 +0800
+
+    fix support for AuctionUI and toc update to 70200
+
+commit 67c0e72c7c6a3ded670e250db22fa05728c391e6
+Author: wangbei <wangbei@rd.tuan800.com>
+Date:   Thu Apr 20 12:17:53 2017 +0800
+
+    move to git
+
