@@ -1,10 +1,11 @@
-CodexDB = {
-  ["items"] = {},
-  ["meta"] = {},
-  ["objects"] = {},
-  ["professions"] = {},
-  ["quests"] = {},
-  ["refloot"] = {},
-  ["units"] = {},
-  ["zones"] = {},
+CodexDB={
+["items"]={},
+["meta"]={},
+["meta-tbc"]={},
+["objects"]={},
+["professions"]={},
+["quests"]={},
+["refloot"]={},
+["units"]={},
+["zones"]={},
 }

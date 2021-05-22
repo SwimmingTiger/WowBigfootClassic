@@ -1,5 +1,6 @@
 -- Unit coords from WowHead
 local D = CodexDB.units.data
+if select(4, GetAddOnInfo('MergeQuestieToCodexDB')) then return end
 
 -- Chief Murgut <https://classic.wowhead.com/npc=12918/chief-murgut>
 D[12918].coords={

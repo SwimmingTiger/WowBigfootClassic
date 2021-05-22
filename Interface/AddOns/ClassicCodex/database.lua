@@ -1,11 +1,61 @@
 CodexDatabase = {}
 
+CodexDB.locales = {
+    ["enUS"] = "English",
+    ["koKR"] = "Korean",
+    ["frFR"] = "French",
+    ["deDE"] = "German",
+    ["zhCN"] = "Chinese",
+    ["zhTW"] = "Chinese",
+    ["esES"] = "Spanish",
+    ["esMX"] = "Spanish",
+    ["ruRU"] = "Russian",
+}
+
 local loc = GetLocale()
 local dbs = {"items", "quests", "objects", "units", "zones", "professions"}
 
--- build name databases
-for key, value in pairs(dbs) do
-    CodexDB[value]["loc"] = CodexDB[value][loc] or CodexDB[value]["enUS"]
+-- Patch databases to further expansions
+local function patchtable(base, diff)
+    for k, v in pairs(diff) do
+        if base[k] and type(v) == "table" then
+            patchtable(base[k], v)
+        elseif type(v) == "string" and v == "_" then
+            base[k] = nil
+        else
+            base[k] = v
+        end
+    end
+end
+
+-- patch meta data for TBC
+if CodexDB['meta-tbc'] then
+    patchtable(CodexDB["meta"], CodexDB["meta-tbc"])
+    CodexDB["meta-tbc"] = nil
+end
+
+-- build & patch name databases
+for _, db in pairs(dbs) do
+    -- patch data for TBC
+    if CodexDB[db]["data-tbc"] then
+        patchtable(CodexDB[db]["data"], CodexDB[db]["data-tbc"])
+        CodexDB[db]["data-tbc"] = nil
+    end
+
+    -- patch loc for TBC
+    if CodexDB[db][loc] and CodexDB[db][loc.."-tbc"] then
+        local loc_update = CodexDB[db][loc.."-tbc"] or CodexDB[db]["enUS-tbc"]
+        patchtable(CodexDB[db][loc], loc_update)
+    end
+
+    -- select loc
+    CodexDB[db]["loc"] = CodexDB[db][loc] or CodexDB[db]["enUS"]
+
+    -- clear unused loc
+    for loc in pairs(CodexDB.locales) do
+        CodexDB[db][loc] = nil
+        CodexDB[db][loc..'-tbc'] = nil
+    end
 end
 
 -- Create DB Shortcuts
@@ -26,8 +76,8 @@ local bitraces = {
     [32] = "Tauren",
     [64] = "Gnome",
     [128] = "Troll",
-    [512] = "Draenei",
-    [1024] = "BloodElf"
+    [512] = "BloodElf",
+    [1024] = "Draenei"
 }
 
 local bitclasses = {

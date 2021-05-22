@@ -1,4 +1,5 @@
 -- Manually maintained database patches
+if select(4, GetAddOnInfo('MergeQuestieToCodexDB')) then return end
 
 -- Add missing quests
 local D = CodexDB.quests.data

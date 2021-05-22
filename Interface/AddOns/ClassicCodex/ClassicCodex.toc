@@ -1,30 +1,24 @@
 ## Interface: 20501
+## X-Min-Interface: 11303
+
 ## Title: ClassicCodex
-## Title-zhCN: [大脚][集]任务助手
-## TItle-zhTW: [大腳][集]任務助手
-## Notes: |cff00ff00ClassicCodex|r
+## Notes: ClassicCodex
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.3.9
+## Version: v1.4.0
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
-## Dependencies: BigFoot
-## X-Revision: BigFoot
+
+# database init
+db\init.lua
 
 # database index
-db\init.lua
 db\items.lua
 db\units.lua
 db\objects.lua
 db\refloot.lua
 db\quests.lua
 db\meta.lua
-
-# database patches
-db-patches\quests-questie.lua
-db-patches\units-questie.lua
-db-patches\units-wowhead.lua
-db-patches\manual-patch.lua
 
 # database enUS
 db\enUS\items.lua
@@ -50,6 +44,38 @@ db\zhTW\quests.lua
 db\zhTW\zones.lua
 db\zhTW\professions.lua
 
+# TBC database index
+db\items-tbc.lua
+db\units-tbc.lua
+db\objects-tbc.lua
+db\refloot-tbc.lua
+db\quests-tbc.lua
+db\meta-tbc.lua
+
+# TBC database enUS
+db\enUS\items-tbc.lua
+db\enUS\units-tbc.lua
+db\enUS\objects-tbc.lua
+db\enUS\quests-tbc.lua
+db\enUS\zones-tbc.lua
+db\enUS\professions-tbc.lua
+
+# TBC database zhCN
+db\zhCN\items-tbc.lua
+db\zhCN\units-tbc.lua
+db\zhCN\objects-tbc.lua
+db\zhCN\quests-tbc.lua
+db\zhCN\zones-tbc.lua
+db\zhCN\professions-tbc.lua
+
+# TBC database zhTW
+db\zhTW\items-tbc.lua
+db\zhTW\units-tbc.lua
+db\zhTW\objects-tbc.lua
+db\zhTW\quests-tbc.lua
+db\zhTW\zones-tbc.lua
+db\zhTW\professions-tbc.lua
+
 # locales
 locale\enUS.lua
 locale\zhCN.lua
@@ -64,3 +90,9 @@ map.lua
 quest.lua
 ui.lua
 browser.lua
+
+# database patches
+db-patches\quests-questie.lua
+db-patches\units-questie.lua
+db-patches\units-wowhead.lua
+db-patches\manual-patch.lua
