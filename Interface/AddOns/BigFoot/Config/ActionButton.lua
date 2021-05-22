@@ -24,6 +24,7 @@ function ActionButtonConfigFunc ()
 
 		BFCD_CoolLine_SHOW_BAR = "启用流线型法术冷却";
 		BFCD_CoolLine_SHOW_BAR_TOOLTIP="在一个有时间刻度的计时条上显示冷却中的法术";
+		BFCD_CoolLine_UNLOCK = "解锁";
 
 	elseif (GetLocale() == "zhTW") then
 		BF_ACTION_BUTTON_TITLE = {"冷卻監控", "lengquejiankong"};
@@ -49,6 +50,7 @@ function ActionButtonConfigFunc ()
 
 		BFCD_CoolLine_SHOW_BAR = "啟用流線型法術冷卻";
 		BFCD_CoolLine_SHOW_BAR_TOOLTIP="在一個有時間刻度的計時條上顯示冷卻中的法術";
+		BFCD_CoolLine_UNLOCK = "解鎖";
 	else
 		BF_ACTION_BUTTON_TITLE = "CoolDown Monitor";
 		BFCD_COOLDOWN_COUNT = "Show detail of cooldown";
@@ -59,6 +61,7 @@ function ActionButtonConfigFunc ()
 		BFCD_COOLDOWN_SHOW_MIDDLE = "Show Cooldown at Center";
 		BFCD_COOLDOWN_SHOW_SOUND = "Play Sound When Cooldown";
 		BFCD_COOLDOWN_SHOW_BAR = "Display Cooldown Bar";
+		BFCD_CoolLine_UNLOCK = "Unlock";
 	end
 
 	if (IsConfigurableAddOn("BFCooldown") or IsConfigurableAddOn("CoolLine")) then
@@ -253,6 +256,20 @@ function ActionButtonConfigFunc ()
 					end
 				end
 			)
+
+			local BFCD_CoolLine_locked = true
+			ModManagement_RegisterButton(
+				"ActionButton",
+				BFCD_CoolLine_UNLOCK,
+				function ()
+					if CONFIGMODE_CALLBACKS and CONFIGMODE_CALLBACKS.CoolLine then
+						CONFIGMODE_CALLBACKS.CoolLine(BFCD_CoolLine_locked and 'ON' or 'OFF')
+						BFCD_CoolLine_locked = not BFCD_CoolLine_locked
+					end
+				end,
+				nil,
+				1
+			);
 		end
 	end
 end
