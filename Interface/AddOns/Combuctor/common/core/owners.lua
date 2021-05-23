@@ -85,7 +85,10 @@ end
 
 function Addon:GetOwnerIconString(owner, size, x, y)
 	local texture, coords = self:GetOwnerIcon(owner)
-	local a, b, c, d = unpack(coords)
+	local a, b, c, d = 0, 0, 0, 0
+	if coords then
+		a, b, c, d = unpack(coords)
+	end
 
 	return format('|T%s:%s:%s:%s:%s:128:128:%s:%s:%s:%s|t', texture, size, size, x, y, a*128,b*128,c*128,d*128)
 end
