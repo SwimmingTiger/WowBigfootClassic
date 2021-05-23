@@ -147,10 +147,10 @@ function Atr_IsAuctionatorFrame( frame )
 end
 
 function Atr_FrameIsAccessible( frame )
-  if ( not frame:IsForbidden() ) then
+  if ( frame and frame.IsForbidden and not frame:IsForbidden() ) then
     local parent_frame = frame:GetParent()
 
-    if ( parent_frame ) then
+    if ( parent_frame and parent_frame.IsForbidden ) then
       return not parent_frame:IsForbidden()
     end
   end
