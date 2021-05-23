@@ -1,0 +1,21 @@
+## Interface: 11307
+
+## Notes: ClassicCodex-patch
+## Title: ClassicCodex data patch for Classic
+## Title-zhCN: ClassicCodex 数据补丁
+## Title-zhTW: ClassicCodex 數據補丁
+
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: v1.4.2
+
+## Dependencies: ClassicCodex-loader
+## LoadOnDemand: 1
+
+## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
+
+# database patches for Classic
+quests-questie.lua
+units-questie.lua
+units-wowhead.lua
+manual-patch.lua

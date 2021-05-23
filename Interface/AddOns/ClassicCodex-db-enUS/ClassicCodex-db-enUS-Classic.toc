@@ -1,0 +1,23 @@
+## Interface: 11307
+
+## Notes: ClassicCodex-db-enUS
+## Title: ClassicCodex enUS data
+## Title-zhCN: ClassicCodex 英语数据
+## Title-zhTW: ClassicCodex 英語數據
+
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: v1.4.2
+
+## Dependencies: ClassicCodex-loader
+## LoadOnDemand: 1
+
+## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
+
+# database enUS
+items.lua
+units.lua
+objects.lua
+quests.lua
+zones.lua
+professions.lua
