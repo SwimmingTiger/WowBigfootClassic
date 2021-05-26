@@ -78,9 +78,17 @@ do
             self:Enable()
             self:SetBackdropColor(color.state.enabled())
         else
-            self:Disable()
+            self:Enable()
             self:SetBackdropColor(color.content.background())
         end
+    end)
+    btn:SetScript('OnEnter', function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:AddLine("15分钟内只能扫描拍卖行一次。\n由于服务器Bug，你在关闭拍卖行界面前可以无限次扫描，\n但是关闭后必须等15分钟才能扫描。\n如果关闭拍卖行界面后15分钟内想再次扫描，请重启游戏。", 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    btn:SetScript('OnLeave', function(self)
+        GameTooltip:Hide()
     end)
     StaticPopupDialogs["AUX_ADDON_CANNOT_SCAN"] = {
         text = "为了防止扫描时卡死，请先在小地图大脚按键包内取消勾选“拍卖大师”插件",
