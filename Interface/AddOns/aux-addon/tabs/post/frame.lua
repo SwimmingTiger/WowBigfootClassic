@@ -97,7 +97,7 @@ buyout_listing = listing.new(frame.buyout_listing)
 buyout_listing:SetColInfo{
     {name='拍卖数', width=.15, align='CENTER'},
     {name='剩余时间', width=.15, align='CENTER'},
-    {name='堆叠数量', width=.15, align='CENTER'},
+    {name='每组堆叠', width=.15, align='CENTER'},
     {name='一口价\n(每件)', width=.4, align='RIGHT'},
     {name='价格对比', width=.15, align='CENTER'},
 }
@@ -179,7 +179,7 @@ do
     do
         local label = gui.label(editbox, gui.font_size.small)
         label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -46, 1)
-        label:SetText('堆叠数量')
+        label:SetText('每组堆叠')
     end
     do
         local btn = gui.button(editbox, 17)
@@ -427,7 +427,7 @@ function aux.event.AUX_LOADED()
         bid_listing:SetColInfo{
             {name='拍卖数', width=.17, align='CENTER'},
             {name='剩余时间', width=.11, align='CENTER'},
-            {name='堆叠数量', width=.11, align='CENTER'},
+            {name='每组堆叠', width=.11, align='CENTER'},
             {name='一口价\n' .. (aux.account_data.post_bid == 'unit' and '(每件)' or '(每组)'), width=.4, align='RIGHT'},
             {name='价格对比', width=.21, align='CENTER'},
         }
@@ -437,7 +437,7 @@ function aux.event.AUX_LOADED()
         buyout_listing:SetColInfo{
             {name='拍卖数', width=.17, align='CENTER'},
             {name='剩余时间', width=.11, align='CENTER'},
-            {name='堆叠数量', width=.12, align='CENTER'},
+            {name='每组堆叠', width=.12, align='CENTER'},
             {name='一口价\n(每件)', width=.4, align='RIGHT'},
             {name='价格对比', width=.20, align='CENTER'},
         }

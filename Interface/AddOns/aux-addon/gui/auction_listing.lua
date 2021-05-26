@@ -120,7 +120,7 @@ M.search_columns = {
         end,
     },
     {
-        title = '堆叠数量',
+        title = "每组\n堆叠",
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -131,7 +131,7 @@ M.search_columns = {
         end,
     },
     {
-        title = '剩余时间',
+        title = "剩余\n时间",
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
@@ -288,7 +288,7 @@ M.auctions_columns = {
         end,
     },
     {
-        title = '堆叠数量',
+        title = "每组\n堆叠",
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -307,7 +307,7 @@ M.auctions_columns = {
         end,
     },
     {
-        title = '剩余时间',
+        title = "剩余\n时间",
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
@@ -470,7 +470,7 @@ M.bids_columns = {
         end,
     },
     {
-        title = '堆叠数量',
+        title = "每组\n堆叠",
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -481,7 +481,7 @@ M.bids_columns = {
         end,
     },
     {
-        title = '剩余时间',
+        title = "剩余\n时间",
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)

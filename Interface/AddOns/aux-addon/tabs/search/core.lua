@@ -6,7 +6,7 @@ local info = require 'aux.util.info'
 local tab = aux.tab '搜索'
 
 StaticPopupDialogs.AUX_SEARCH_TABLE_FULL = {
-    text = '列表已满!\n后续结果仍会接收，但不在此列表中显示',
+    text = '列表已满!\n后续结果仍会接收，但新物品不会在列表中显示',
     button1 = '确定',
     showAlert = 1,
     timeout = 0,
