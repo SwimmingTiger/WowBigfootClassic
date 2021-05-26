@@ -94,6 +94,16 @@ L["Quest Tracking Method"] = true
 L["Show Quest Name in Unit Tooltip"] = true
 L["Show quest name in mouseover tooltip of units"] = true
 
+-- database.lua
+L["The {locale} locale text of the quest #{id} is missing."] = true
+L["The {locale} locale text of the item #{id} is missing."] = true
+L["The {locale} locale text of the object #{id} is missing."] = true
+L["The {locale} locale text of the profession #{id} is missing."] = true
+L["The {locale} locale text of the unit #{id} is missing."] = true
+L["The {locale} locale text of the zone #{id} is missing."] = true
+L["Please send a report to the developer."] = true
+L['[ClassicCodex] The quest #%s is missing.'] = true
+
 -- map.lua
 L["Buy"] = true
 L["Required"] = true

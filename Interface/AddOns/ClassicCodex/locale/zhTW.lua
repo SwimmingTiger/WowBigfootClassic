@@ -94,6 +94,16 @@ L["Quest Tracking Method"] = "任務追踪方式"
 L["Show Quest Name in Unit Tooltip"] = "在單位鼠標提示中顯示任務名稱"
 L["Show quest name in mouseover tooltip of units"] = "在任務目標的鼠標指向提示中顯示任務名稱"
 
+-- database.lua
+L["The {locale} locale text of the quest #{id} is missing."] = "任務 #{id} 的簡體中文文本遺失。"
+L["The {locale} locale text of the item #{id} is missing."] = "物品 #{id} 的簡體中文文本遺失。"
+L["The {locale} locale text of the object #{id} is missing."] = "對象 #{id} 的簡體中文文本遺失。"
+L["The {locale} locale text of the profession #{id} is missing."] = "專業 #{id} 的簡體中文文本遺失。"
+L["The {locale} locale text of the unit #{id} is missing."] = "單位 #{id} 的簡體中文文本遺失。"
+L["The {locale} locale text of the zone #{id} is missing."] = "區域 #{id} 的簡體中文文本遺失。"
+L["Please send a report to the developer."] = "請向開發者發送一個錯誤報告。"
+L['[ClassicCodex] The quest #%s is missing.'] = "[ClassicCodex 任務助手] 任務 #%s 數據遺失。"
+
 -- map.lua
 L["Buy"] = "購買"
 L["Required"] = "需要"

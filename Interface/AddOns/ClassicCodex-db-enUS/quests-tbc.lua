@@ -12407,4 +12407,94 @@ CodexDB["quests"]["enUS-tbc"]={
 ["O"]="Don Carlos has inadvertently challenged you to defeat his younger self in Old Hillsbrad. Afterwards, bring Don Carlos\' Hat to him in Tanaris as proof.",
 ["T"]="Nice Hat...",
 },
+[63866]={
+["D"]="",
+["O"]="Use the Shimmering Vessel on M'uru to fill it and return to Knight-Lord Bloodvalor in Silvermoon City.",
+["T"]="Claiming the Light",
+},
+[63978]={
+["D"]="As a Rogue, you specialize in striking from the shadows, dispatching foes with a variety of poisons and bleeding attacks. Use Stealth to sneak around and then speak with me when your ready for more training.",
+["O"]="Use Stealth to sneak around.",
+["T"]="Cloak and Daggers",
+},
+[64028]={
+["D"]="",
+["O"]="Meet with your class trainer in Stormwind.",
+["T"]="A New Beginning",
+},
+[64031]={
+["D"]="",
+["O"]="Open the survival kit and equip a weapon.",
+["T"]="Tools for Survival",
+},
+[64034]={
+["D"]="",
+["O"]="Train a spell by speaking to your class trainer.",
+["T"]="Combat Training",
+},
+[64035]={
+["D"]="",
+["O"]="Activate the Talents interface and allocate a Talent Point.",
+["T"]="Talented",
+},
+[64037]={
+["D"]="",
+["O"]="Travel to the Eastern Plaguelands and find Leonid Barthalomew. He awaits your arrival at Light's Hope Chapel. ",
+["T"]="Eastern Plaguelands",
+},
+[64038]={
+["D"]="",
+["O"]="Find Watch Commander Relthorn Netherwane at the Blasted Lands. He awaits your arrival before the Dark Portal.",
+["T"]="The Dark Portal",
+},
+[64047]={
+["D"]="",
+["O"]="Meet with your Druid trainer in Thunderbluff.",
+["T"]="A New Beginning",
+},
+[64048]={
+["D"]="",
+["O"]="Open the survival kit and equip a weapon.",
+["T"]="Tools for Survival",
+},
+[64049]={
+["D"]="",
+["O"]="Open the survival kit and equip a weapon.",
+["T"]="Tools for Survival",
+},
+[64050]={
+["D"]="",
+["O"]="Train a spell by speaking to your class trainer.",
+["T"]="Combat Training",
+},
+[64051]={
+["D"]="",
+["O"]="Train a spell by speaking to your Druid trainer.",
+["T"]="Combat Training",
+},
+[64052]={
+["D"]="",
+["O"]="Activate the Talents interface and allocate five Talent Points.",
+["T"]="Talented",
+},
+[64053]={
+["D"]="",
+["O"]="Activate the Talents interface and allocate five Talent Points.",
+["T"]="Talented",
+},
+[64063]={
+["D"]="",
+["O"]="Find Watch Warlord Dar'toon at the Blasted Lands. He awaits your arrival before the Dark Portal.",
+["T"]="The Dark Portal",
+},
+[64064]={
+["D"]="",
+["O"]="Travel to the Eastern Plaguelands and find Leonid Barthalomew. He awaits your arrival at Light's Hope Chapel. ",
+["T"]="Eastern Plaguelands",
+},
+[64217]={
+["D"]="",
+["O"]="Find Watch Warlord Dar'toon at the Blasted Lands. He awaits your arrival before the Dark Portal.",
+["T"]="The Dark Portal",
+},
 }
