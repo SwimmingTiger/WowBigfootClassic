@@ -96,10 +96,10 @@ end)
 buyout_listing = listing.new(frame.buyout_listing)
 buyout_listing:SetColInfo{
     {name='拍卖数', width=.15, align='CENTER'},
-    {name='剩余\n时间', width=.15, align='CENTER'},
-    {name='堆叠\n数量', width=.15, align='CENTER'},
+    {name='剩余时间', width=.15, align='CENTER'},
+    {name='堆叠数量', width=.15, align='CENTER'},
     {name='一口价\n(每件)', width=.4, align='RIGHT'},
-    {name='价格\n对比', width=.15, align='CENTER'},
+    {name='价格对比', width=.15, align='CENTER'},
 }
 buyout_listing:SetSelection(function(data)
 	return selected_item and (data.record == get_buyout_selection() or data.record.historical_value and get_buyout_selection() and get_buyout_selection().historical_value)
@@ -159,8 +159,8 @@ do
 end
 do
     local editbox = gui.editbox(frame.parameters)
-    editbox:SetPoint('TOPLEFT', 68, -63)
-    editbox:SetWidth(88)
+    editbox:SetPoint('TOPLEFT', 66, -63)
+    editbox:SetWidth(92)
     editbox:SetHeight(22)
     editbox:SetFontSize(17)
     editbox:SetAlignment('CENTER')
@@ -178,12 +178,12 @@ do
     editbox.max_value = 1
     do
         local label = gui.label(editbox, gui.font_size.small)
-        label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -48, 1)
+        label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -46, 1)
         label:SetText('堆叠数量')
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('RIGHT', editbox, 'LEFT', -1, 0)
+        btn:SetPoint('RIGHT', editbox, 'LEFT', 0, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('<')
@@ -193,7 +193,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('RIGHT', editbox, 'LEFT', -24, 0)
+        btn:SetPoint('RIGHT', editbox, 'LEFT', -22, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('<<')
@@ -203,7 +203,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('LEFT', editbox, 'RIGHT', 1, 0)
+        btn:SetPoint('LEFT', editbox, 'RIGHT', 0, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('>')
@@ -213,7 +213,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('LEFT', editbox, 'RIGHT', 24, 0)
+        btn:SetPoint('LEFT', editbox, 'RIGHT', 22, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('>>')
@@ -226,7 +226,7 @@ end
 do
     local editbox = gui.editbox(frame.parameters)
     editbox:SetPoint('TOPLEFT', stack_size_input, 'BOTTOMLEFT', 0, -19)
-    editbox:SetWidth(88)
+    editbox:SetWidth(92)
     editbox:SetHeight(22)
     editbox:SetFontSize(17)
     editbox:SetAlignment('CENTER')
@@ -246,12 +246,12 @@ do
     editbox.max_value = 1
     do
         local label = gui.label(editbox, gui.font_size.small)
-        label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -48, 1)
+        label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -46, 1)
         label:SetText('组数')
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('RIGHT', editbox, 'LEFT', -1, 0)
+        btn:SetPoint('RIGHT', editbox, 'LEFT', -0, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('<')
@@ -261,7 +261,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('RIGHT', editbox, 'LEFT', -24, 0)
+        btn:SetPoint('RIGHT', editbox, 'LEFT', -22, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('<<')
@@ -271,7 +271,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('LEFT', editbox, 'RIGHT', 1, 0)
+        btn:SetPoint('LEFT', editbox, 'RIGHT', 0, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('>')
@@ -281,7 +281,7 @@ do
     end
     do
         local btn = gui.button(editbox, 17)
-        btn:SetPoint('LEFT', editbox, 'RIGHT', 24, 0)
+        btn:SetPoint('LEFT', editbox, 'RIGHT', 22, 0)
         btn:SetWidth(22)
         btn:SetHeight(22)
         btn:SetText('>>')
@@ -296,7 +296,7 @@ do
     dropdown.selection_change = function()
         duration_selection_change()
     end
-    dropdown:SetPoint('TOPLEFT', stack_count_input, 'BOTTOMLEFT', -45, -19)
+    dropdown:SetPoint('TOPLEFT', stack_count_input, 'BOTTOMLEFT', -43, -19)
     dropdown:SetWidth(90)
     dropdown:SetHeight(22)
     dropdown:SetFontSize(17)
@@ -361,7 +361,7 @@ do
     do
         local label = gui.label(editbox, gui.font_size.small)
         label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -2, 1)
-        label:SetText('起始单价')
+        label:SetText('起拍单价')
     end
     do
         local label = gui.label(editbox, 14)
@@ -404,7 +404,7 @@ do
     do
         local label = gui.label(editbox, gui.font_size.small)
         label:SetPoint('BOTTOMLEFT', editbox, 'TOPLEFT', -2, 1)
-        label:SetText('一口价')
+        label:SetText('一口价单价')
     end
     do
         local label = gui.label(editbox, 14)

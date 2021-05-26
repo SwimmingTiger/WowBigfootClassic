@@ -83,7 +83,7 @@ function extend_tooltip(tooltip, link, quantity)
     if settings.merchant_buy then
         local price, limited = info.merchant_buy_info(item_id)
         if price then
-            tooltip:AddLine('卖主 ' .. (limited and '(有限的): ' or ': ') .. money.to_string2(price * quantity), aux.color.tooltip.merchant())
+            tooltip:AddLine('出售者 ' .. (limited and '(有限的): ' or ': ') .. money.to_string2(price * quantity), aux.color.tooltip.merchant())
         end
     end
     if settings.merchant_sell then

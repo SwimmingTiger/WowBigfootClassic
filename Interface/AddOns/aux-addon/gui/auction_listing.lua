@@ -120,7 +120,7 @@ M.search_columns = {
         end,
     },
     {
-        title = '堆叠\n数量',
+        title = '堆叠数量',
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -131,7 +131,7 @@ M.search_columns = {
         end,
     },
     {
-        title = '剩余\n时间',
+        title = '剩余时间',
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
@@ -142,7 +142,7 @@ M.search_columns = {
         end,
     },
     {
-        title = '卖家',
+        title = '出售者',
         width = .13,
         align = 'CENTER',
         fill = function(cell, record)
@@ -227,7 +227,7 @@ M.search_columns = {
         end,
     },
     {
-        title = {'价格\n对比(竞标)', '价格\n对比'},
+        title = {'价格对比\n(竞标)', '价格对比'},
         width = .08,
         align = 'CENTER',
         toggle = 'percentage_for_bid',
@@ -288,7 +288,7 @@ M.auctions_columns = {
         end,
     },
     {
-        title = '堆叠\n数量',
+        title = '堆叠数量',
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -307,7 +307,7 @@ M.auctions_columns = {
         end,
     },
     {
-        title = '剩余\n时间',
+        title = '剩余时间',
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
@@ -470,7 +470,7 @@ M.bids_columns = {
         end,
     },
     {
-        title = '堆叠\n数量',
+        title = '堆叠数量',
         width = .055,
         align = 'CENTER',
         fill = function(cell, record)
@@ -481,7 +481,7 @@ M.bids_columns = {
         end,
     },
     {
-        title = '剩余\n时间',
+        title = '剩余时间',
         width = .04,
         align = 'CENTER',
         fill = function(cell, record)
