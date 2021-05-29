@@ -1266,7 +1266,7 @@ end
 function CSC_SideFrame_SetArmorPenetration(statFrame, unit)
 	local armorPen = GetArmorPenetration();
 	statFrame.tooltip = format(ITEM_MOD_ARMOR_PENETRATION_RATING, armorPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Armor Penetration", armorPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "护甲穿透", armorPen, false);
 end
 
 -- Ranged
@@ -1347,13 +1347,13 @@ end
 function CSC_SideFrame_SetSpellHastePercent(statFrame, unit)
 	local hastePercent = GetCombatRatingBonus(CR_HASTE_SPELL);
 	statFrame.tooltip = format("Increases your spell haste by %d%%", hastePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Haste", hastePercent, true);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "急速", hastePercent, true);
 end
 
 function CSC_SideFrame_SetSpellPenetration(statFrame, unit)
 	local spellPen = GetSpellPenetration();
 	statFrame.tooltip = format(SPELL_PENETRATION_TOOLTIP, spellPen, spellPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Spell Penetration", spellPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "法术穿透", spellPen, false);
 end
 
 -- Defense
@@ -1363,27 +1363,27 @@ function CSC_SideFrame_SetDefenseRating(statFrame, unit)
 	local defense = GetCombatRatingBonus(CR_DEFENSE_SKILL);
 
 	statFrame.tooltip = format(DEFAULT_STATDEFENSE_TOOLTIP, defenseRating, defense, defensePercent, defensePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Defense Rating", defenseRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "防御等级", defenseRating, false);
 end
 
 function CSC_SideFrame_SetDodgeRating(statFrame, unit)
 	local dodgeRating = GetCombatRating(CR_DODGE);
 	local dodgeChance = GetCombatRatingBonus(CR_DODGE);
 	statFrame.tooltip = format(CR_DODGE_TOOLTIP, dodgeRating, dodgeChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Dodge Rating", dodgeRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "躲闪等级", dodgeRating, false);
 end
 
 function CSC_SideFrame_SetParryRating(statFrame, unit)
 	local parryRating = GetCombatRating(CR_PARRY)
 	local parryChance = GetCombatRatingBonus(CR_PARRY);
 	statFrame.tooltip = format(CR_PARRY_TOOLTIP, parryRating, parryChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Parry Rating", parryRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "招架等级", parryRating, false);
 end
 
 function CSC_SideFrame_SetBlockRating(statFrame, unit)
 	local blockRating = GetCombatRating(CR_BLOCK)
 	local blockChance = GetCombatRatingBonus(CR_BLOCK);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Block Rating", blockRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "格挡等级", blockRating, false);
 end
 
 -- SIDE STATS FRAME END ================================================================================================================================================================

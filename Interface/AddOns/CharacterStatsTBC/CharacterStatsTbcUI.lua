@@ -41,22 +41,22 @@ local RightStatsTable = { }
 local SideCategoryStatsMelee = { 
     frames = { };
     numFrames = 5;
-    frameLabel = "Melee";
+    frameLabel = "近战";
 };
 local SideCategoryStatsRanged = {
     frames = { };
     numFrames = 5;
-    frameLabel = "Ranged";
+    frameLabel = "远程";
 };
 local SideCategoryStatsSpell = { 
     frames = { };
     numFrames = 5;
-    frameLabel = "Spell";
+    frameLabel = "法术";
 };
 local SideCategoryStatsDefense = {
     frames = { };
     numFrames = 5;
-    frameLabel = "Defense";
+    frameLabel = "防御";
 };
 
 local function CSC_ResetStatFrames(statFrames)
