@@ -113,7 +113,7 @@ do
 		local sv = BugSackDB
 		sv.profileKeys = nil
 		sv.profiles = nil
-		if type(sv.mute) ~= "boolean" then sv.mute = false end
+		if type(sv.mute) ~= "boolean" then sv.mute = true end
 		if type(sv.auto) ~= "boolean" then sv.auto = false end
 		if type(sv.chatframe) ~= "boolean" then sv.chatframe = false end
 		if type(sv.soundMedia) ~= "string" then sv.soundMedia = "BugSack: Fatality" end
