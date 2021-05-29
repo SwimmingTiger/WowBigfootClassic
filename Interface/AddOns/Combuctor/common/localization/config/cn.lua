@@ -112,3 +112,7 @@ L.FridgeColor = '烹饪颜色'
 -- rulesets
 L.RuleOptions = '物品规则'
 L.RuleOptionsDesc = '这项设置允许选择按照类型显示和排列物品的规则。'
+
+--老虎会游泳：设置界面的“重置背包”按钮
+L.ResetCombuctor = '重置背包'
+L.ResetCombuctorTooltip = "还原背包整合插件的所有设置，清理离线银行。\n在下次访问银行前，离线银行会保持空白。\n如果背包整合插件出问题，可以尝试重置。"

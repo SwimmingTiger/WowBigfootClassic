@@ -96,3 +96,7 @@ L.ReagentColor = '材料銀行顏色'
 L.GlowAlpha = '高亮亮度'
 L.QuiverColor = '箭袋顏色'
 L.SoulColor = '靈魂碎片包顏色'
+
+--老虎会游泳：设置界面的“重置背包”按钮
+L.ResetCombuctor = '重置背包'
+L.ResetCombuctorTooltip = "還原背包整合插件的所有設置，清理離線銀行。\n在下次訪問銀行前，離線銀行會保持空白。\n如果背包整合插件出問題，可以嘗試重置。"

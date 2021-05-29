@@ -24,6 +24,7 @@ function General:Populate()
 	local global = self:Add('Check', L.CharacterSpecific)
 	global:SetChecked(Addon.profile ~= Addon.sets.global)
 	global:SetCall('OnInput', function() self:ToggleGlobals() end)
+	self:ResetButton()
 end
 
 function General:ToggleGlobals()
@@ -40,6 +41,18 @@ function General:ToggleGlobals()
 			end
 		}
 	end
+end
+
+function General:ResetButton()
+	local reset = self:AddLabeled('RedButton', 'ResetCombuctorButton')
+	reset:SetText(L.ResetCombuctor)
+	reset:SetTip(L.ResetCombuctor, L.ResetCombuctorTooltip)
+	reset:SetCall('OnClick', function()
+		Combuctor_Sets = {
+			CombuctorPatchVersion = type(Combuctor_Sets)=='table' and Combuctor_Sets.CombuctorPatchVersion or nil
+		}
+		ReloadUI()
+	end)
 end
 
 function General:SetProfile(profile)
