@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorDialog" virtual="true">
+  <Frame name="AuctionatorDialog" virtual="true" inherits="BackdropTemplate">
     <Backdrop bgFile="Interface\CharacterFrame\UI-Party-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
       <BackgroundInsets><AbsInset left="11" right="12" top="12" bottom="11"/></BackgroundInsets>
       <TileSize><AbsValue val="32"/></TileSize>
@@ -8,6 +8,14 @@
 
     <Scripts>
       <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\CharacterFrame\\UI-Party-Background",
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 32,
+          edgeSize = 32,
+          insets = { left = 11, right = 12, top = 12, bottom = 11, },
+        })
         if (AuctionFrame and AuctionFrame:IsShown()) then
           self:ClearAllPoints ();
           self:SetPoint ("CENTER", "AuctionFrame", "CENTER");

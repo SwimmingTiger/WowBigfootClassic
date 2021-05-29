@@ -74,6 +74,15 @@
           <EdgeSize><AbsValue val="16"/></EdgeSize>
         </Backdrop>
 
+    	<Scripts>
+          <OnShow>
+            self:SetBackdrop({
+              edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", 
+              edgeSize = 16,
+            })
+          </OnShow>
+        </Scripts>
+
         <Layers>
           <Layer level="ARTWORK">
             <FontString name="Atr_FSR_scanned_text" inherits="GameFontNormal" text="AUCTIONATOR_AUCTIONS_SCANNED">

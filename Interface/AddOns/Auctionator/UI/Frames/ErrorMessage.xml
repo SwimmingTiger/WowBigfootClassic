@@ -11,6 +11,14 @@
 
     <Scripts>
       <OnLoad>
+        self:SetBackdrop({
+          bgFile = "Interface\\MERCHANTFRAME\\UI-BuyBack-TopLeft", 
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 256,
+          edgeSize = 32,
+          insets = { left = 2, right = 0, top = 2, bottom = 2, },
+        })
         self:SetBackdropColor( 0.3, 0.3, 0.7 )
       </OnLoad>
       <OnShow>

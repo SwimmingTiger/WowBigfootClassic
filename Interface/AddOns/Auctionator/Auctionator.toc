@@ -1,7 +1,7 @@
 ## Interface: 20501
-## Title: Auctionator |cff00aa00Classicfix
-## Version: 100.0.9
-## Author: Borjamacare, Zirco, DaMaGepy, 1010101110
+## Title: Auctionator |cff00aa00BurningCrusadeClassicfix
+## Version: 100.0.11
+## Author: Borjamacare, Zirco, DaMaGepy, 1010101110, Hotrian
 ## X-Website: https://www.curseforge.com/wow/addons/auctionator-classicfix
 ## X-Localizations: enUS, itIT, deDE, ruRU, svSE, frFR, esES, zhTW
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions

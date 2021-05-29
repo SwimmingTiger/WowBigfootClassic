@@ -67,7 +67,7 @@
   </Frame>
 
   <!-- Template for auctionator options panels -->
-  <Frame name="Atr_OptionsPanelTemplate" virtual="true">
+  <Frame name="Atr_OptionsPanelTemplate" virtual="true" inherits="BackdropTemplate">
     <Backdrop bgFile="Interface\CharacterFrame\UI-Party-Background" tile="true">
       <BackgroundInsets>
         <AbsInset bottom="5" left="5" right="5" top="5"/>
@@ -76,6 +76,16 @@
         <AbsValue val="32"/>
       </TileSize>
     </Backdrop>
+    <Scripts>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\CharacterFrame\\UI-Party-Background", 
+          tile = true,
+          tileSize = 32,
+          insets = { left = 5, right = 5, top = 5, bottom = 5, },
+        })
+      </OnShow>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormalLarge" name="$parent_ATitle">
@@ -97,7 +107,7 @@
     </Layers>
   </Frame>
   <!-- The Mask for the interface options frame -->
-  <Frame enableMouse="true" name="Atr_Mask_StdOptionsTempl" parent="InterfaceOptionsFrame" virtual="true" inherits="BackdropTemplate">
+  <Frame enableMouse="true" name="Atr_Mask_StdOptionsTempl" parent="InterfaceOptionsFrame" virtual="true">
     <Anchors>
       <Anchor point="TOPLEFT">
         <Offset>
@@ -116,8 +126,16 @@
       </TileSize>
     </Backdrop>
     <Scripts>
-      <OnLoad>self:SetBackdropColor(0.2, 0.2, 0.2);
+      <OnLoad>
+        self:SetBackdropColor(0.2, 0.2, 0.2);
       </OnLoad>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", 
+          tile = true,
+          tileSize = 16,
+        })
+      </OnShow>
     </Scripts>
   </Frame>
   <!-- The Basic Options panel -->
@@ -640,7 +658,7 @@
           </OnVerticalScroll>
         </Scripts>
       </ScrollFrame>
-      <Frame name="Atr_Stacking_List">
+      <Frame name="Atr_Stacking_List" inherits="BackdropTemplate">
         <Size>
           <AbsDimension y="240"/>
         </Size>
@@ -661,6 +679,14 @@
             <AbsValue val="16"/>
           </EdgeSize>
         </Backdrop>
+        <Scripts>
+          <OnShow>
+            self:SetBackdrop({
+              edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", 
+              edgeSize = 16,
+            })
+          </OnShow>
+        </Scripts>
       </Frame>
       <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" parent="Atr_StackingOptionsFrame" text="EDIT">
         <Size>
@@ -694,7 +720,7 @@
       </Button>
     </Frames>
   </Frame>
-  <Button hidden="true" name="Atr_StackingEntryTemplate" virtual="true">
+  <Button hidden="true" name="Atr_StackingEntryTemplate" virtual="true" inherits="BackdropTemplate">
     <Size>
       <AbsDimension y="16"/>
     </Size>
@@ -779,6 +805,18 @@
         <AbsValue val="32"/>
       </EdgeSize>
     </Backdrop>
+    <Scripts>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\CharacterFrame\\UI-Party-Background", 
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 32,
+          edgeSize = 32,
+          insets = { left = 11, right = 12, top = 12, bottom = 11, },
+        })
+      </OnShow>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormalSmall" justifyH="LEFT" name="Atr_Mem_itemName_text" text="AUCTIONATOR_ITEM_NAME">
@@ -1095,7 +1133,7 @@
     </Frames>
   </Frame>
   <!-- Are You Sure? screen -->
-  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_ConfirmClear_Frame" parent="InterfaceOptionsFrame" toplevel="true" frameLevel="999">
+  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_ConfirmClear_Frame" parent="InterfaceOptionsFrame" toplevel="true">
     <Size x="430" y="200"/>
     <Anchors>
       <Anchor point="CENTER">
@@ -1115,6 +1153,18 @@
         <AbsValue val="32"/>
       </EdgeSize>
     </Backdrop>
+    <Scripts>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\CharacterFrame\\UI-Party-Background", 
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 32,
+          edgeSize = 32,
+          insets = { left = 11, right = 12, top = 12, bottom = 11, },
+        })
+      </OnShow>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" name="Atr_ClearConfirm_Text1" text="AUCTIONATOR_ARE_YOU_SURE">
@@ -1201,7 +1251,7 @@
           </OnVerticalScroll>
         </Scripts>
       </ScrollFrame>
-      <Frame name="Atr_ShpList_Frame">
+      <Frame name="Atr_ShpList_Frame" inherits="BackdropTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="Atr_ShpList_ScrollFrame">
             <Offset x="-5" y="5"/>
@@ -1215,6 +1265,14 @@
             <AbsValue val="16"/>
           </EdgeSize>
         </Backdrop>
+        <Scripts>
+          <OnShow>
+            self:SetBackdrop({
+              edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", 
+              edgeSize = 16,
+            })
+          </OnShow>
+        </Scripts>
       </Frame>
       <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_DeleteButton" text="Delete">
         <Size x="100" y="22"/>
@@ -1343,6 +1401,18 @@
         <AbsValue val="32"/>
       </EdgeSize>
     </Backdrop>
+    <Scripts>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\MERCHANTFRAME\\UI-BuyBack-TopLeft", 
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 256,
+          edgeSize = 32,
+          insets = { left = 2, right = 0, top = 2, bottom = 2, },
+        })
+      </OnShow>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" name="Atr_ShpList_Edit_Name" text="EDIT">
@@ -1377,6 +1447,16 @@
             <AbsValue val="32"/>
           </TileSize>
         </Backdrop>
+        <Scripts>
+          <OnShow>
+            self:SetBackdrop({
+              bgFile = "Interface\\CharacterFrame\\UI-Party-Background", 
+              tile = true,
+              tileSize = 32,
+              insets = { left = -20, right = -23, top = -3, bottom = -3, },
+            })
+          </OnShow>
+        </Scripts>
         <Layers>
           <Layer level="ARTWORK">
             <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
@@ -1475,6 +1555,18 @@
         <AbsValue val="32"/>
       </EdgeSize>
     </Backdrop>
+    <Scripts>
+      <OnShow>
+        self:SetBackdrop({
+          bgFile = "Interface\\CharacterFrame\\UI-Party-Background", 
+          edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", 
+          tile = true,
+          tileSize = 32,
+          edgeSize = 32,
+          insets = { left = 2, right = 0, top = 2, bottom = 2, },
+        })
+      </OnShow>
+    </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" spacing="3" text="AUCTIONATOR_SHPLIST_ALREADY_EXIST">
