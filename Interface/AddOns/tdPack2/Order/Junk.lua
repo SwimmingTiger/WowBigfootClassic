@@ -20,6 +20,8 @@ local GetItemInfo = GetItemInfo
 local LE_ITEM_QUALITY_POOR = LE_ITEM_QUALITY_POOR
 local CONJURED_ITEM_MATCHS = 'tip:' .. ITEM_CONJURED
 
+local LibJunk = LibStub('LibJunk-1.0')
+
 local JunkOrder = ns.Addon:NewClass('JunkOrder', ns.Order)
 
 function JunkOrder:Constructor()
@@ -45,12 +47,7 @@ end
 
 function JunkOrder:IsJunk(item)
     local itemId = item:GetItemId()
-    if Scrap then
-        return Scrap:IsJunk(itemId)
-    else
-        local _, _, quality, _, _, _, _, _, _, _, price = GetItemInfo(itemId)
-        return quality == LE_ITEM_QUALITY_POOR and price and price > 0
-    end
+    return LibJunk:IsJunk(itemId)
 end
 
 local IsConjuredItem = ns.memorize(function(itemId)

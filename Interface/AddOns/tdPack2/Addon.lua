@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/30/2019, 11:36:34 PM
-
+--
 local select, assert, unpack, wipe = select, assert, table.unpack or unpack, table.wipe or wipe
 local pairs = pairs
 local CopyTable, tInvert = CopyTable, tInvert
@@ -14,33 +14,34 @@ local Addon = LibStub('AceAddon-3.0'):NewAddon(ADDON, 'LibClass-2.0', 'AceEvent-
 ns.Addon = Addon
 ns.L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 ns.ICON = [[Interface\AddOns\tdPack2\Resource\INV_Pet_Broom]]
-ns.IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 ns.UNKNOWN_ICON = 134400
 ns.GUI = LibStub('tdGUI-1.0')
+
+local L = ns.L
 
 function Addon:OnInitialize()
     local defaults = {
         profile = {
             reverse = false,
             console = true,
+            stackTogether = true,
+            stackBankFull = true,
             applyLibItemSearch = false,
             ruleOptionWindow = {point = 'CENTER', width = 637, height = 637},
             actions = {
                 [ns.COMMAND.BAG] = {
-                    [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT',
+                    [ns.CLICK_TOKENS.LEFT] = 'SORT',
                     [ns.CLICK_TOKENS.RIGHT] = 'OPEN_RULE_OPTIONS',
-                    [ns.CLICK_TOKENS.LEFT] = 'SORT_BAG',
+                    [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT_BAG',
                     [ns.CLICK_TOKENS.CONTROL_RIGHT] = 'OPEN_OPTIONS',
-                    -- 老虎会游泳：防止背包内物品意外保存到银行
-                    --[ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
+                    [ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
                 },
                 [ns.COMMAND.BANK] = {
-                    [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT',
+                    [ns.CLICK_TOKENS.LEFT] = 'SORT',
                     [ns.CLICK_TOKENS.RIGHT] = 'OPEN_RULE_OPTIONS',
-                    [ns.CLICK_TOKENS.LEFT] = 'SORT_BANK',
+                    [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT_BANK',
                     [ns.CLICK_TOKENS.CONTROL_RIGHT] = 'OPEN_OPTIONS',
-                    -- 老虎会游泳：防止背包内物品意外保存到银行
-                    --[ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
+                    [ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
                 },
             },
             rules = {},
@@ -54,19 +55,23 @@ function Addon:OnInitialize()
 
     self.db = LibStub('AceDB-3.0'):New('TDDB_PACK2', defaults, true)
 
-    self.db:RegisterCallback('OnProfileChanged', function()
-        self:OnProfileChanged()
-    end)
+    local function SetupProfile()
+        self:SetupProfile()
+    end
+
+    self.db:RegisterCallback('OnProfileChanged', SetupProfile)
+    self.db:RegisterCallback('OnProfileReset', SetupProfile)
 end
 
 function Addon:OnEnable()
     self:InitOptionFrame()
     self:InitCommands()
-    self:OnProfileChanged()
+    self:SetupProfile()
 end
 
-function Addon:OnProfileChanged()
+function Addon:SetupProfile()
     self.db.profile.firstLoad = nil
+    self:UpgradeRules()
     self:SetupRules()
     self:SendMessage('TDPACK_PROFILE_CHANGED')
 end
@@ -78,6 +83,17 @@ function Addon:SetupRules()
             profile[key] = CopyTable(rules)
         end
     end
+end
+
+function Addon:UpgradeRules()
+    if self.db.profile.version and self.db.profile.version >= 20000 then
+        return
+    end
+    self.db.profile.version = ns.VERSION
+    print(ns.VERSION)
+
+    wipe(self.db.profile.rules)
+    self:Print(L['Rules restore to default.'])
 end
 
 function Addon:OnModuleCreated(module)

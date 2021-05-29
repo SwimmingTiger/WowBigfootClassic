@@ -151,6 +151,3 @@ function Addon:RunCommand(bagType, token)
         func()
     end
 end
-
--- 老虎会游泳：暴露给外部使用的全局变量
-TDPack2Command = Addon

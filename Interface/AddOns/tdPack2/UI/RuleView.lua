@@ -172,17 +172,15 @@ function RuleView:CreateCursorCatcher()
         self:StartSorting(button)
     end
 
-    local function OnLeave(catcher)
-        if catcher:IsShown() then
-            self:StopSorting()
-        end
-    end
-
     catcher:SetScript('OnClick', OnClick)
     catcher:SetScript('OnReceiveDrag', OnClick)
     catcher:SetScript('OnEnter', OnEnter)
     catcher:SetScript('OnLeave', OnLeave)
-    self:SetCallback('OnSortingOut', OnLeave)
+    self:SetCallback('OnSortingOut', function()
+        if catcher:IsShown() then
+            self:StopSorting()
+        end
+    end)
 
     self.cursorCatcher = catcher
     return catcher

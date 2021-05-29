@@ -18,6 +18,8 @@ L['Pack finish.'] = '整理完成'
 L['Reverse pack'] = '反向整理'
 L['Enable chat message'] = '启用聊天窗口消息'
 L['Character Specific Settings'] = '角色独立设置'
+L['Restore default Settings'] = '恢复默认设置'
+L['Are you sure you want to restore the current Settings?'] = '你确定要重置当前设置吗？'
 
 L['Left Click'] = '左键'
 L['Right Click'] = '右键'
@@ -43,6 +45,8 @@ L['Select an icon (Optional)'] = '选择一个图标（可选）'
 L['Sorting rules'] = '排序规则'
 L['Saving rules'] = '保存规则'
 L['Save to bank when default packing'] = '默认整理同时保存到银行'
+L['Keep bank items stack full'] = '保持银行物品堆满'
+L['Bank and bag stacking together'] = '银行和背包一起堆叠'
 L['Global'] = '全局'
 L['Add extension filter to LibItemSearch-1.2'] = '将扩展的过滤器添加到LibItemSearch-1.2'
 
@@ -51,6 +55,7 @@ L['Drag to modify the sorting order'] = '拖动以改变规则顺序'
 L['Put in an item to add simple rule'] = '放下一个物品以添加简单规则'
 L['Advancee rules use LibItemSearch-1.2'] = '高级规则使用LibItemSearch-1.2'
 L['Enjoy!'] = '祝你愉快！'
+L['Rules restore to default.'] = '整理规则已恢复到默认。'
 
 -- for actions
 L.None = '无'
@@ -68,13 +73,21 @@ L.OPEN_OPTIONS = '打开设置'
 L.SAVE = '保存到银行'
 
 -- rules comment
-L.COMMENT_MOUNT = '坐骑'
 L.COMMENT_CLASS = '职业物品'
 
 -- for rules
-L.KEYWORD_MOUNT = '使用： 召唤或解散'
 L.KEYWORD_CLASS = '职业：'
 
 L.Tools = '工具'
 
+L['ITEM_TAG: Cloth'] = '布'
+L['ITEM_TAG: Leather'] = '皮'
+L['ITEM_TAG: Metal & Stone'] = '金属和矿石'
+L['ITEM_TAG: Cooking'] = '烹饪'
+L['ITEM_TAG: Herb'] = '草药'
+L['ITEM_TAG: Elemental'] = '元素'
+L['ITEM_TAG: Enchanting'] = '附魔'
+L['ITEM_TAG: Jewelry'] = '宝石'
+L['ITEM_TAG: Mount'] = '坐骑'
+L['ITEM_TAG: Pet'] = '宠物'
 -- @end-import@

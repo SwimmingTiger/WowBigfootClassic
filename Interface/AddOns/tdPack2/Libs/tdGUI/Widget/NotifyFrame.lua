@@ -5,7 +5,7 @@
 
 local MAJOR, MINOR = 'NotifyFrame', 2
 local GUI = LibStub('tdGUI-1.0')
-local NotifyFrame, oldminor, ns = GUI:NewClass(MAJOR, MINOR, 'Button')
+local NotifyFrame, oldminor, ns = GUI:NewClass(MAJOR, MINOR, 'Button', 'Backdrop')
 if not NotifyFrame then return end
 
 NotifyFrame.opts = {}
@@ -32,7 +32,7 @@ function NotifyFrame:Constructor()
     self:SetScript('OnClick', self.OnClick)
     self:SetScript('OnHide', self.OnHide)
 
-    local Close = CreateFrame('Button', nil, self) do
+    local Close = CreateFrame('Button', nil, self, GUI.BackdropTemplate) do
         Close:SetBackdrop(BACKGROP)
         Close:SetBackdropBorderColor(0, 0, 0, 1)
         Close:SetBackdropColor(0, 0, 0, 0.4)
@@ -91,7 +91,7 @@ function NotifyFrame:Constructor()
         Alpha:SetDuration(0.5)
     end
 
-    local IgnoreButton = CreateFrame('Button', nil, self) do
+    local IgnoreButton = CreateFrame('Button', nil, self, GUI.BackdropTemplate) do
         IgnoreButton:SetBackdrop(BACKGROP)
         IgnoreButton:SetBackdropBorderColor(0, 0, 0, 1)
         IgnoreButton:SetBackdropColor(0, 0, 0, 0.4)

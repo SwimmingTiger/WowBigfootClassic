@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/30/2019, 11:54:09 PM
-
 ---@type ns
 local ns = select(2, ...)
 
@@ -63,6 +62,12 @@ end
 function Item:GetItemEquipLoc()
     return self.info.itemEquipLoc
 end
+
+--[[@classic@
+function Item:GetItemTag()
+    return self.info.itemTag
+end
+--@end-classic@]]
 
 function Item:IsEquippable()
     return self.info.itemEquippable

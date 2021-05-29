@@ -15,8 +15,8 @@ function Addon:InitOptionFrame()
         return index
     end
 
-    local function toggle(text)
-        return {type = 'toggle', name = text, width = 'full', order = orderGen()}
+    local function toggle(text, disabled)
+        return {type = 'toggle', name = text, width = 'full', order = orderGen(), disabled = disabled}
     end
 
     local function execute(text, ...)
@@ -40,47 +40,38 @@ function Addon:InitOptionFrame()
     end
 
     local function drop(opts)
-        local old = {}
-        local new = {}
+        local values = opts.values
 
-        local get, set = opts.get, opts.set
-        if opts.values and set then
-            opts.set = function(item, value)
-                return set(item, old[value])
-            end
-        end
-        if opts.values and get then
-            opts.get = function(item)
-                return new[get(item)]
-            end
-        end
+        opts.values = {}
+        opts.sorting = {}
 
-        if opts.values then
-            local values = {}
-            local len = #opts.values
-            local F = format('%%%dd\001%%s', len)
-
-            for i, v in ipairs(opts.values) do
-                local f = format(F, i, tostring(v.value))
-                values[f] = v.name
-                old[f] = v.value
-                new[v.value] = f
-            end
-
-            opts.values = values
+        for i, v in ipairs(values) do
+            opts.values[v.value] = v.name
+            opts.sorting[i] = v.value
         end
 
         opts.type = 'select'
-        opts.order = opts.order or orderGen()
+        opts.order = orderGen()
 
         return opts
     end
 
     local function generateButton(bagType, name)
-        local g = {type = 'group', name = name, args = {}, order = orderGen()}
+        local g = {
+            type = 'group',
+            name = name,
+            args = {},
+            order = orderGen(),
+            get = function(item)
+                return Addon:GetBagClickOption(bagType, tonumber(item[#item]))
+            end,
+            set = function(item, value)
+                Addon:SetBagClickOption(bagType, tonumber(item[#item]), value)
+            end,
+        }
 
         for _, v in ipairs(ns.CLICK_LIST) do
-            g.args[v.name] = drop{
+            g.args[tostring(v.token)] = drop{
                 name = v.name,
                 order = orderGen(),
                 values = {
@@ -98,12 +89,6 @@ function Addon:InitOptionFrame()
                     {name = L.OPEN_RULE_OPTIONS, value = 'OPEN_RULE_OPTIONS'}, --
                     {name = L.OPEN_OPTIONS, value = 'OPEN_OPTIONS'}, --
                 },
-                get = function()
-                    return Addon:GetBagClickOption(bagType, v.token)
-                end,
-                set = function(_, value)
-                    Addon:SetBagClickOption(bagType, v.token, value)
-                end,
             }
         end
 
@@ -136,6 +121,17 @@ function Addon:InitOptionFrame()
                     return self.db:GetCurrentProfile() == charProfileKey
                 end,
             },
+            reset = {
+                type = 'execute',
+                name = L['Restore default Settings'],
+                order = orderGen(),
+                confirm = true,
+                confirmText = L['Are you sure you want to restore the current Settings?'],
+                func = function()
+                    self.db:ResetProfile()
+                end,
+            },
+            line = {type = 'header', name = ''},
             general = {
                 type = 'group',
                 name = GENERAL,
@@ -149,6 +145,10 @@ function Addon:InitOptionFrame()
                         args = { --
                             reverse = toggle(L['Reverse pack']),
                             saving = toggle(L['Save to bank when default packing']),
+                            stackTogether = toggle(L['Bank and bag stacking together']),
+                            stackBankFull = toggle(L['Keep bank items stack full'], function()
+                                return not self:GetOption('stackTogether')
+                            end),
                         },
                     },
                     global = {

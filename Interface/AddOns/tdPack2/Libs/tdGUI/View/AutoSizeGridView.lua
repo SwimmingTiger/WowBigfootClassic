@@ -6,7 +6,7 @@ AutoSizeGridView.lua
 
 local MAJOR, MINOR = 'AutoSizeGridView', 3
 local GUI = LibStub('tdGUI-1.0')
-local AutoSizeGridView = GUI:NewClass(MAJOR, MINOR, 'Frame', 'Refresh', 'View', 'Select', 'Owner')
+local AutoSizeGridView = GUI:NewClass(MAJOR, MINOR, 'Frame', 'Refresh', 'View', 'Select', 'Owner', 'Backdrop')
 if not AutoSizeGridView then return end
 
 function AutoSizeGridView:Constructor()
@@ -155,7 +155,7 @@ function AutoSizeGridView:UpdateItems()
     for i = maxCount + 1, #self._buttons do
         self:GetButton(i):Hide()
     end
-    
+
     local width = 0 do
         for i = 1, columnCount do
             width = width + (columnWidths[i] or 0)

@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/30/2019, 11:46:11 PM
-
 ---@class ns
 ---@field Item Item
 ---@field Bag Bag
@@ -36,6 +35,10 @@ local PickupContainerItem = PickupContainerItem
 
 ---- UI
 local UIParent = UIParent
+
+ns.VERSION = tonumber((GetAddOnMetadata('tdPack2', 'Version'):gsub('(%d+)%.?', function(x)
+    return format('%02d', tonumber(x))
+end))) or 0
 
 ---- ENUM
 ns.BAG_TYPE = {
@@ -147,7 +150,12 @@ end
 
 function ns.GetBagFamily(bag)
     if bag == KEYRING_CONTAINER then
+        --[=[@classic@
         return 9
+        --@end-classic@]=]
+        --@non-classic@
+        return 256
+        --@end-non-classic@
     end
     return select(2, GetContainerNumFreeSlots(bag))
 end
@@ -213,15 +221,17 @@ function ns.PickupBagSlot(bag, slot)
     return PickupContainerItem(bag, slot)
 end
 
-if ns.IsRetail then
-    function ns.IsFamilyContains(bagFamily, itemFamily)
-        return band(bagFamily, itemFamily) > 0
-    end
-else
-    function ns.IsFamilyContains(bagFamily, itemFamily)
-        return bagFamily == itemFamily
-    end
+--[=[@classic@
+function ns.IsFamilyContains(bagFamily, itemFamily)
+    return bagFamily == itemFamily
 end
+--@end-classic@]=]
+
+--@non-classic@
+function ns.IsFamilyContains(bagFamily, itemFamily)
+    return band(bagFamily, itemFamily) > 0
+end
+--@end-non-classic@
 
 function ns.GetClickToken(button, control, shift, alt)
     local key

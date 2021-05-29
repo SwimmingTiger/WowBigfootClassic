@@ -1,5 +1,9 @@
-
+--[=[@debug@
 local L = LibStub('AceLocale-3.0'):NewLocale(..., 'enUS', true)
+--@end-debug@]=]
+--@non-debug@
+local L = LibStub('AceLocale-3.0'):NewLocale(..., 'enUS', true, true)
+--@end-non-debug@
 if not L then
     return
 end
@@ -12,7 +16,9 @@ L["Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?"] = true
 L["Are you sure |cffff191919DELETE|r rule?"] = true
 L["Are you sure to |cffff1919RESET|r saving rules?"] = true
 L["Are you sure to |cffff1919RESET|r sorting rules?"] = true
+L["Are you sure you want to restore the current Settings?"] = true
 L["Bag button features"] = true
+L["Bank and bag stacking together"] = true
 L["Bank button features"] = true
 L["Character Specific Settings"] = true
 L["COMMENT_CLASS"] = "Class items"
@@ -22,6 +28,17 @@ L["Enable chat message"] = true
 L["Enjoy!"] = true
 L["Global"] = true
 L["Help"] = true
+L["ITEM_TAG: Cloth"] = "Cloth"
+L["ITEM_TAG: Cooking"] = "Cooking"
+L["ITEM_TAG: Elemental"] = "Elemental"
+L["ITEM_TAG: Enchanting"] = "Enchanting"
+L["ITEM_TAG: Herb"] = "Herb"
+L["ITEM_TAG: Jewelry"] = "Jewelry"
+L["ITEM_TAG: Leather"] = "Leather"
+L["ITEM_TAG: Metal & Stone"] = "Metal & Stone"
+L["ITEM_TAG: Mount"] = "Mount"
+L["ITEM_TAG: Pet"] = "Pet"
+L["Keep bank items stack full"] = true
 L["KEYWORD_CLASS"] = "Classes"
 L["KEYWORD_MOUNT"] = "Summons and dismisses"
 L["Leave bank, pack cancel."] = true
@@ -40,10 +57,12 @@ L["Put in an item to add simple rule"] = true
 L["Put where?"] = true
 L["Reset saving rules"] = true
 L["Reset sorting rules"] = true
+L["Restore default Settings"] = true
 L["Reverse pack"] = true
 L["Right Click"] = true
 L["Root"] = true
 L["Rule"] = true
+L["Rules restore to default."] = true
 L["SAVE"] = "Save to bank"
 L["Save to bank when default packing"] = true
 L["Saving rules"] = true
@@ -62,7 +81,7 @@ L["Sorting rules"] = true
 L["Tools"] = true
 
 
---[===[@debug@
+--[=[@debug@
 -- @import@
 L['Leave bank, pack cancel.'] = true
 L['Player enter combat, pack cancel.'] = true
@@ -76,6 +95,8 @@ L['Pack finish.'] = true
 L['Reverse pack'] = true
 L['Enable chat message'] = true
 L['Character Specific Settings'] = true
+L['Restore default Settings'] = true
+L['Are you sure you want to restore the current Settings?'] = true
 
 L['Left Click'] = true
 L['Right Click'] = true
@@ -100,6 +121,8 @@ L['Select an icon (Optional)'] = true
 L['Sorting rules'] = true
 L['Saving rules'] = true
 L['Save to bank when default packing'] = true
+L['Keep bank items stack full'] = true
+L['Bank and bag stacking together'] = true
 L['Global'] = true
 L['Add extension filter to LibItemSearch-1.2'] = true
 
@@ -108,6 +131,7 @@ L['Drag to modify the sorting order'] = true
 L['Put in an item to add simple rule'] = true
 L['Advancee rules use LibItemSearch-1.2'] = true
 L['Enjoy!'] = true
+L['Rules restore to default.'] = true
 
 -- for actions
 L.None = true
@@ -125,14 +149,23 @@ L.OPEN_OPTIONS = 'Open options'
 L.SAVE = 'Save to bank'
 
 -- rules comment
-L.COMMENT_MOUNT = 'Mount'
 L.COMMENT_CLASS = 'Class items'
 
 -- for rules
-L.KEYWORD_MOUNT = 'Summons and dismisses'
 L.KEYWORD_CLASS = 'Classes'
 
 L.Tools = true
 
+L['ITEM_TAG: Cloth'] = 'Cloth'
+L['ITEM_TAG: Leather'] = 'Leather'
+L['ITEM_TAG: Metal & Stone'] = 'Metal & Stone'
+L['ITEM_TAG: Cooking'] = 'Cooking'
+L['ITEM_TAG: Herb'] = 'Herb'
+L['ITEM_TAG: Elemental'] = 'Elemental'
+L['ITEM_TAG: Enchanting'] = 'Enchanting'
+L['ITEM_TAG: Jewelry'] = 'Jewelry'
+L['ITEM_TAG: Mount'] = 'Mount'
+L['ITEM_TAG: Pet'] = 'Pet'
+
 -- @end-import@
---@end-debug@]===]
+--@end-debug@]=]

@@ -21,14 +21,7 @@ function CustomOrder:Constructor(noDefault)
             return self.simpleOrders[item:GetItemId()]
         end, function(item)
             return self:GetAdvanceOrder(item:GetItemLink())
-        end,
-        -- function(item)
-        --     return self.simpleOrders['#' .. item:GetItemType() .. '##' .. item:GetItemSubType()]
-        -- end, function(item)
-        --     return self.simpleOrders['##' .. item:GetItemSubType()]
-        -- end, function(item)
-        --     return self.simpleOrders['#' .. item:GetItemType()]
-        -- end,
+        end
     }
 
     self.noDefault = noDefault

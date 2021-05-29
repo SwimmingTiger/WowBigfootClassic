@@ -1,23 +1,23 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
     <Button name="tdPack2RuleItemTemplate" movable="true" enableMouse="true" virtual="true">
-        <Size x="302" y="24" />
+        <Size x="302" y="24"/>
         <Layers>
             <Layer level="ARTWORK">
                 <Texture parentKey="Status" file="Interface\Buttons\UI-MinusButton-UP">
-                    <Size x="16" y="16" />
+                    <Size x="16" y="16"/>
                     <Anchors>
-                        <Anchor point="LEFT" x="5" y="0" />
+                        <Anchor point="LEFT" x="5" y="0"/>
                     </Anchors>
                 </Texture>
                 <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordWrap="false">
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Status" relativePoint="RIGHT" x="2" y="0" />
+                        <Anchor point="LEFT" relativeKey="$parent.Status" relativePoint="RIGHT" x="2" y="0"/>
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Rule" inherits="GameFontDisableSmall" justifyH="RIGHT" wordWrap="false">
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5" y="0" />
-                        <Anchor point="RIGHT" x="-5" y="0" />
+                        <Anchor point="LEFT" relativeKey="$parent.Text" relativePoint="RIGHT" x="5" y="0"/>
+                        <Anchor point="RIGHT" x="-5" y="0"/>
                     </Anchors>
                 </FontString>
             </Layer>
@@ -34,8 +34,8 @@
         <Frames>
             <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-14" />
-                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="13" />
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-14"/>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="13"/>
                 </Anchors>
             </Slider>
         </Frames>

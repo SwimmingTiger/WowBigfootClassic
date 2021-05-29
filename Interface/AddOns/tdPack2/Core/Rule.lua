@@ -25,6 +25,9 @@ function Rule:OnInitialize()
     self.nameOrder = Item.GetItemName
     self.typeOrder = Item.GetItemType
     self.subTypeOrder = Item.GetItemSubType
+    --[[@classic@
+    self.tagOrder = Item.GetItemTag
+    --@end-classic@]]
     self.sortingCustomOrder = ns.CustomOrder:New()
     self.levelQualityOrder = function(item)
         local level = 9999 - item:GetItemLevel()
@@ -46,6 +49,9 @@ function Rule:OnInitialize()
                 self.sortingCustomOrder(item), --
                 self.typeOrder(item), --
                 self.subTypeOrder(item), --
+                --[[@classic@
+                self.tagOrder(item), --
+                --@end-classic@]]
                 self.levelQualityOrder(item), --
                 self.nameOrder(item), --
             }, ',')

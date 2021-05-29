@@ -4,6 +4,7 @@
 -- @Date   : 10/10/2019, 10:38:31 AM
 
 ---- LUA
+local pairs = pairs
 local tinsert, tremove, wipe = table.insert, table.remove, table.wipe or wipe
 
 ---@type ns
@@ -16,48 +17,57 @@ local BAG_TYPE = ns.BAG_TYPE
 local Pack = ns.Pack
 
 ---@class Stacking
----@field private slots Slot[]
+---@field private bags table<string, Slot[]>
 ---@field private stackingSlots table<number, Slot>
 local Stacking = ns.Addon:NewClass('Stacking', ns.Task)
 
 function Stacking:Constructor()
-    self.slots = {}
+    self.bags = {}
     self.stackingSlots = {}
 end
 
 function Stacking:Prepare()
-    -- 老虎会游泳：当银行打开，背包和银行里存在相同物品时，修复背包内物品会意外跑到银行的问题
-    local save = Pack.opts.save and Pack.opts.save()
-    if Pack.opts.bag or save then
-        self:InitBag(Pack:GetBag(BAG_TYPE.BAG))
-    end
-    if Pack.opts.bank or save then
-        self:InitBag(Pack:GetBag(BAG_TYPE.BANK))
-    end
+    self:InitBag(Pack:GetBag(BAG_TYPE.BAG))
+    self:InitBag(Pack:GetBag(BAG_TYPE.BANK))
 end
 
+---@param bag Bag
 function Stacking:InitBag(bag)
     if not bag then
         return
     end
+
+    local key = ns.Addon:GetOption('stackTogether') and '-' or bag
+    self.bags[key] = self.bags[key] or {}
+
     for _, group in bag:IterateGroups() do
         for i = 1, group:GetSlotCount() do
-            tinsert(self.slots, group:GetSlot(i))
+            tinsert(self.bags[key], group:GetSlot(i))
         end
     end
 end
 
 function Stacking:Finish()
-    wipe(self.slots)
+    wipe(self.bags)
     wipe(self.stackingSlots)
 end
 
 function Stacking:Process()
+    local complete = true
+    for _, slots in pairs(self.bags) do
+        if not self:ProcessSlots(slots) then
+            complete = false
+        end
+    end
+    return complete
+end
+
+function Stacking:ProcessSlots(slots)
     wipe(self.stackingSlots)
 
     local complete = true
 
-    for i, slot in ripairs(self.slots) do
+    for i, slot in ripairs(slots) do
         if slot:IsLocked() then
             complete = false
         else
@@ -73,7 +83,7 @@ function Stacking:Process()
                     self.stackingSlots[itemId] = slot
                 end
             else
-                tremove(self.slots, i)
+                tremove(slots, i)
             end
         end
     end
@@ -88,6 +98,10 @@ function Stacking:IsCanStack(slot)
 
     if not slot:IsFull() then
         return true
+    end
+
+    if not ns.Addon:GetOption('stackBankFull') then
+        return false
     end
 
     if not Pack:IsOptionBag(BAG_TYPE.BAG) or not Pack:IsOptionBag(BAG_TYPE.BANK) then

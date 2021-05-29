@@ -5,4 +5,5 @@
     <Script file="Combuctor.lua"/>
     <Script file="Blizzard.lua"/>
     <Script file="Inventorian.lua"/>
+    <Script file="ArkInventory.lua"/>
 </Ui>

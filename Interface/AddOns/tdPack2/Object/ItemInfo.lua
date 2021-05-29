@@ -21,7 +21,7 @@ end
 
 function ItemInfo:Build()
     local itemName, itemLink, itemQuality, itemLevel, _, itemType, itemSubType, itemStackCount, itemEquipLoc,
-          itemTexture = GetItemInfo(self.itemId)
+          itemTexture, itemTypeId, itemSubTypeId = GetItemInfo(self.itemId)
 
     if itemName then
         self.notReady = nil
@@ -34,6 +34,11 @@ function ItemInfo:Build()
         self.itemQuality = itemQuality or 1
         self.itemLevel = itemLevel or 0
         self.itemTexture = itemTexture or 0
+        self.itemTypeId = itemTypeId
+        self.itemSubTypeId = itemSubTypeId
+        --[[@classic@
+        self.itemTag = ns.ITEM_TAG_SETS[self.itemId] or 'UNKNOWN'
+        --@end-classic@]]
         self.itemFamily = ns.GetItemFamily(self.itemId) or 0
         self.itemEquippable = IsEquippableItem(self.itemId) or false
     else
