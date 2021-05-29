@@ -7,7 +7,7 @@ local Display = nil
 -- gatherevents if a flag for wether we are listening to events
 local prevSpell, curSpell, foundTarget, gatherEvents, ga
 
-local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
+local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 
 --[[
 Convert for 2.4 spell IDs
@@ -15,7 +15,7 @@ Convert for 2.4 spell IDs
 local miningSpell = (GetSpellInfo(2575))
 local miningSpell2 = (GetSpellInfo(195122))
 local herbSpell = (GetSpellInfo(2366))
-local herbSkill = WoWClassic and (GetSpellInfo(9134)) or ((GetSpellInfo(170691)) or (string.gsub((GetSpellInfo(9134)),"%A","")))
+local herbSkill = (GetSpellInfo(9134))
 local fishSpell = (GetSpellInfo(7620)) or (GetSpellInfo(131476))
 local gasSpell = (GetSpellInfo(30427))
 --local gasSpell = (GetSpellInfo(48929))  --other gasspell
@@ -37,16 +37,12 @@ local spells = WoWClassic and {
 or
 { -- spellname to "database name"
 	[miningSpell] = "Mining",
-	[miningSpell2] = "Mining",
 	[herbSpell] = "Herb Gathering",
 	[fishSpell] = "Fishing",
 	[gasSpell] = "Extract Gas",
 	[openSpell] = "Treasure",
 	[openNoTextSpell] = "Treasure",
 	[pickSpell] = "Treasure",
-	[archSpell] = "Archaeology",
-	[sandStormSpell] = "Treasure",
-	[loggingSpell] = "Logging",
 }
 local tooltipLeftText1 = _G["GameTooltipTextLeft1"]
 local strfind, stringmatch = string.find, string.match

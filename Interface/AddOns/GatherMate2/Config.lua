@@ -6,7 +6,8 @@ local L = LibStub("AceLocale-3.0"):GetLocale("GatherMate2", false)
 -- Databroker support
 local DataBroker = LibStub:GetLibrary("LibDataBroker-1.1",true)
 
-local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
+local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local WoWBC = (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
 local SaveBindings = SaveBindings or AttemptToSaveBindings
 
 --[[
@@ -106,7 +107,7 @@ local generalOptions = {
 			type = "select",
 			values = prof_options2,
 			arg = "Extract Gas",
-			hidden = WoWClassic,
+			hidden = not WoWBC,
 		},
 		showTreasure = {
 			order = 5,
@@ -115,24 +116,6 @@ local generalOptions = {
 			type = "select",
 			values = prof_options3,
 			arg = "Treasure"
-		},
-		showArchaeology = {
-			order = 6,
-			name = L["Show Archaeology Nodes"],
-			desc = L["Toggle showing archaeology nodes."],
-			type = "select",
-			values = prof_options4,
-			arg = "Archaeology",
-			hidden = WoWClassic,
-		},
-		showTimber = {
-			order = 7,
-			name = L["Show Timber Nodes"],
-			desc = L["Toggle showing timber nodes."],
-			type = "select",
-			values = prof_options3,
-			arg = "Logging",
-			hidden = WoWClassic,
 		},
 	},
 }
@@ -324,7 +307,7 @@ local minimapOptions = {
 					type = "color",
 					hasAlpha = true,
 					arg = "Extract Gas",
-					hidden = WoWClassic,
+					hidden = not WoWBC,
 				},
 				trackingColorTreasure = {
 					order = 6,
@@ -333,15 +316,6 @@ local minimapOptions = {
 					type = "color",
 					hasAlpha = true,
 					arg = "Treasure",
-				},
-				trackingColorArchaelogy = {
-					order = 7,
-					name = L["Archaeology"],
-					desc = L["Color of the tracking circle."],
-					type = "color",
-					hasAlpha = true,
-					arg = "Archaeology",
-					hidden = WoWClassic,
 				},
 				space = {
 					order = 10,
@@ -392,6 +366,8 @@ local sortedFilter = setmetatable({}, {__index = function(t, k)
 		local map = GatherMate.nodeIDs[k]
 		for name in pairs(map) do
 			if WoWClassic and expansion and expansion[map[name]] > 1 then
+				-- skip
+			elseif WoWBC and expansion and expansion[map[name]] > 2 then
 				-- skip
 			else
 				local idx = #new+1
@@ -599,7 +575,7 @@ filterOptions.args.fish = {
 filterOptions.args.gas = {
 	type = "group",
 	name = L["Gas Clouds"],
-	hidden = WoWClassic,
+	hidden = not WoWBC,
 	args = {
 		select_all = {
 			order = 1,
@@ -658,39 +634,6 @@ filterOptions.args.treasure = {
 			set = "SetState",
 			get = "GetState",
 			arg = "Treasure",
-		},
-	},
-}
-filterOptions.args.archaeology = {
-	type = "group",
-	name = L["Archaeology"],
-	hidden = WoWClassic,
-	args = {
-		select_all = {
-			order = 1,
-			name = L["Select All"],
-			desc = L["Select all nodes"],
-			type = "execute",
-			func = "SelectAll",
-			arg = "Archaeology",
-		},
-		select_none = {
-			order = 2,
-			name = L["Select None"],
-			desc = L["Clear node selections"],
-			type = "execute",
-			func = "SelectNone",
-			arg = "Archaeology",
-		},
-		diglist = {
-			order = 3,
-			name = L["Archaeology"],
-			desc = L["Select the archaeology nodes you wish to display."],
-			type = "multiselect",
-			values = sortedFilter["Archaeology"],
-			set = "SetState",
-			get = "GetState",
-			arg = "Archaeology",
 		},
 	},
 }
@@ -766,7 +709,7 @@ local maintenanceOptions = {
 					type = "range",
 					min = 0, max = 100, step = 1,
 					arg = "Extract Gas",
-					hidden = WoWClassic,
+					hidden = not WoWBC,
 				},
 				Treasure = {
 					order = 5,
@@ -775,15 +718,6 @@ local maintenanceOptions = {
 					type = "range",
 					min = 0, max = 30, step = 1,
 					arg = "Treasure",
-				},
-				Archaeology = {
-					order = 5,
-					name = L["Archaeology"],
-					desc = L["Cleanup radius"],
-					type = "range",
-					min = 0, max = 30, step = 1,
-					arg = "Archaeology",
-					hidden = WoWClassic,
 				}
 			},
 		},
@@ -904,7 +838,7 @@ local maintenanceOptions = {
 					arg = "Extract Gas",
 					confirm = true,
 					confirmText = L["Are you sure you want to delete all nodes from this database?"],
-					hidden = WoWClassic,
+					hidden = not WoWBC,
 				},
 				Treasure = {
 					order = 5,
@@ -914,16 +848,6 @@ local maintenanceOptions = {
 					arg = "Treasure",
 					confirm = true,
 					confirmText = L["Are you sure you want to delete all nodes from this database?"],
-				},
-				Archaeology = {
-					order = 5,
-					name = L["Archaeology"],
-					desc = L["Delete Entire Database"],
-					type = "execute",
-					arg = "Archaeology",
-					confirm = true,
-					confirmText = L["Are you sure you want to delete all nodes from this database?"],
-					hidden = WoWClassic,
 				},
 			},
 		},
@@ -970,7 +894,7 @@ local maintenanceOptions = {
 					desc = L["Database locking"],
 					type = "toggle",
 					arg = "Extract Gas",
-					hidden = WoWClassic,
+					hidden = not WoWBC,
 				},
 				Treasure = {
 					order = 5,
@@ -978,14 +902,6 @@ local maintenanceOptions = {
 					desc = L["Database locking"],
 					type = "toggle",
 					arg = "Treasure",
-				},
-				Archaeology = {
-					order = 5,
-					name = L["Archaeology"],
-					desc = L["Database locking"],
-					type = "toggle",
-					arg = "Archaeology",
-					hidden = WoWClassic,
 				}
 			}
 		},
@@ -1020,7 +936,6 @@ or
 	["Gases"] = L["Gas Clouds"],
 	["Fish"] = L["Fishing"],
 	["Treasure"] = L["Treasure"],
-	["Archaeology"] = L["Archaeology"],
 }
 ImportHelper.expac_data = {
 	["TBC"] = L["The Burning Crusades"],
@@ -1133,10 +1048,8 @@ importOptions.args.GatherMateData = {
 				if db["importers"]["GatherMate2_Data"].Databases["Mines"] then cm = 1 end
 				if db["importers"]["GatherMate2_Data"].Databases["Herbs"] then cm = 1 end
 				if db["importers"]["GatherMate2_Data"].Databases["Fish"] then cm = 1 end
-				if not WoWClassic then
+				if WoWBC then
 					if db["importers"]["GatherMate2_Data"].Databases["Gases"] then cm = 1 end
-					if db["importers"]["GatherMate2_Data"].Databases["Treasure"] then cm = 1 end
-					if db["importers"]["GatherMate2_Data"].Databases["Archaeology"] then cm = 1 end
 				end
 				return imported["GatherMate2_Data"] or (cm == 0 and not imported["GatherMate2_Data"])
 			end,
