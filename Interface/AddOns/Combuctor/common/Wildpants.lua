@@ -118,6 +118,7 @@ function Addon:OnEnable()
 		resetPlayer = true,
 		displayBank = true, closeBank = true, displayAuction = true, displayGuild = true, displayMail = true, displayTrade = true, displayCraft = true, displayScrapping = true,
 		flashFind = true, tipCount = true, fading = true, serverSort = true,
+		closeVendor = true, displayGuildbank = true, displayGems = true,
 
 		glowAlpha = 0.5,
 		glowQuality = true, glowNew = true, glowQuest = true, glowSets = true, glowUnusable = true,
