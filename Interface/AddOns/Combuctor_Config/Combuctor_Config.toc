@@ -5,4 +5,4 @@
 ## Dependencies: Combuctor
 ## LoadOnDemand: 1
 
-..\Combuctor\modules\config.xml
+..\Combuctor\addons\config\config.xml

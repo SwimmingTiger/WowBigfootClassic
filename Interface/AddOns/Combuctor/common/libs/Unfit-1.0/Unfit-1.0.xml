@@ -1,0 +1,4 @@
+<Ui>
+	<Script file="Unfit-1.0.lua"/>
+	<Script file="Tests.lua"/>
+</Ui>

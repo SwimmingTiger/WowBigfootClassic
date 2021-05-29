@@ -5,10 +5,15 @@
 
 local Search = LibStub('CustomSearch-1.0')
 local Unfit = LibStub('Unfit-1.0')
-local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 17)
+local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 22)
 if Lib then
-	Lib.Scanner = LibItemSearchTooltipScanner or CreateFrame('GameTooltip', 'LibItemSearchTooltipScanner', UIParent, 'GameTooltipTemplate')
 	Lib.Filters = {}
+	Lib.Scanner = LibItemSearchTooltipScanner or CreateFrame('GameTooltip', 'LibItemSearchTooltipScanner', UIParent, 'GameTooltipTemplate')
+	Lib.Scanner:RegisterEvent('GET_ITEM_INFO_RECEIVED')
+	Lib.Scanner:SetScript('OnEvent', function()
+		Lib.Filters.tipPhrases.keywords[FOLLOWERLIST_LABEL_CHAMPIONS:lower()] = Lib:TooltipLine('item:147556', 2)
+		Lib.Filters.tipPhrases.keywords[GARRISON_FOLLOWERS:lower()] = Lib:TooltipLine('item:147556', 2)
+	end)
 else
 	return
 end
@@ -26,6 +31,14 @@ end
 
 function Lib:TooltipPhrase(link, search)
 	return link and self.Filters.tipPhrases:match(link, nil, search)
+end
+
+function Lib:ForQuest(link)
+	return self:Tooltip(link, GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM):lower())
+end
+
+function Lib:IsReagent(link)
+	return self:TooltipPhrase(link, PROFESSIONS_USED_IN_COOKING)
 end
 
 function Lib:InSet(link, search)
@@ -94,7 +107,7 @@ else
 end
 
 
---[[ General ]]--
+--[[ General Filters ]]--
 
 Lib.Filters.name = {
   tags = {'n', 'name'},
@@ -104,7 +117,7 @@ Lib.Filters.name = {
 	end,
 
 	match = function(self, item, _, search)
-		return Search:Find(search, C_Item.GetItemNameByID(item))
+		return Search:Find(search, C_Item.GetItemNameByID(item) or item:match('%[(.+)%]'))
 	end
 }
 
@@ -176,7 +189,7 @@ Lib.Filters.quality = {
 	end,
 
 	match = function(self, link, operator, num)
-		local quality = link:sub(1, 9) == 'battlepet' and tonumber(link:match('%d+:%d+:(%d+)')) or C_Item.GetItemQualityByID(link)
+		local quality = link:find('battlepet') and tonumber(link:match('%d+:%d+:(%d+)')) or C_Item.GetItemQualityByID(link)
 		return Search:Compare(operator, quality, num)
 	end,
 }
@@ -216,7 +229,7 @@ Lib.Filters.usable = {
 }
 
 
---[[ Modern Keywords ]]--
+--[[ Retail Keywords ]]--
 
 if C_ArtifactUI then
 	Lib.Filters.artifact = {
@@ -316,10 +329,8 @@ Lib.Filters.tipPhrases = {
 		[QUESTS_LABEL:lower()] = ITEM_BIND_QUEST,
 		[GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM):lower()] = ITEM_BIND_QUEST,
 		[PROFESSIONS_USED_IN_COOKING:lower()] = PROFESSIONS_USED_IN_COOKING,
+		[APPEARANCE_LABEL:lower()] = TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN,
 		[TOY:lower()] = TOY,
-
-		[FOLLOWERLIST_LABEL_CHAMPIONS:lower()] = Lib:TooltipLine('item:147556', 2),
-		[GARRISON_FOLLOWERS:lower()] = Lib:TooltipLine('item:147556', 2),
 
   	['bound'] = ITEM_BIND_ON_PICKUP,
   	['bop'] = ITEM_BIND_ON_PICKUP,

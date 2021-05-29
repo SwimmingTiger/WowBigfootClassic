@@ -1,5 +1,5 @@
 --[[
-Copyright 2011-2019 João Cardoso
+Copyright 2011-2021 João Cardoso
 BagBrother is distributed under the terms of the GNU General Public License (Version 3).
 As a special exception, the copyright holders of this addon do not give permission to
 redistribute and/or modify it.
@@ -50,7 +50,7 @@ function Brother:SetupEvents()
 	self:RegisterEvent('BAG_UPDATE')
 	self:RegisterEvent('PLAYER_MONEY')
 	self:RegisterEvent('GUILD_ROSTER_UPDATE')
-	self:RegisterEvent('UNIT_INVENTORY_CHANGED')
+	self:RegisterEvent('PLAYER_EQUIPMENT_CHANGED')
 	self:RegisterEvent('BANKFRAME_OPENED')
 	self:RegisterEvent('BANKFRAME_CLOSED')
 
@@ -71,7 +71,14 @@ function Brother:UpdateData()
 		self:BAG_UPDATE(i)
 	end
 
-	self:UNIT_INVENTORY_CHANGED('player')
+	for i = 1, INVSLOT_LAST_EQUIPPED do
+		self:PLAYER_EQUIPMENT_CHANGED(i)
+	end
+
+	if HasKey and HasKey() then
+		self:BAG_UPDATE(KEYRING_CONTAINER)
+	end
+
 	self:GUILD_ROSTER_UPDATE()
 	self:PLAYER_MONEY()
 end

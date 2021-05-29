@@ -1,0 +1,4 @@
+<Ui>
+	<Script file="LibItemSearch-1.2.lua"/>
+	<Script file="Tests.lua"/>
+</Ui>

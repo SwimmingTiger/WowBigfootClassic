@@ -4,7 +4,7 @@
 --]]
 
 local ADDON, Addon = ...
-local AutoDisplay = Addon:NewModule('AutoDisplay', 'AceEvent-3.0')
+local AutoDisplay = Addon:NewModule('AutoDisplay')
 
 
 --[[ Startup ]]--
@@ -18,18 +18,12 @@ end
 --[[ Game Events ]]--
 
 function AutoDisplay:RegisterGameEvents()
-	-- 老虎会游泳：同步大脚设置
-	BigFoot_Config = BigFoot_Config or {}
-	BigFoot_Config.BagManagement = BigFoot_Config.BagManagement or {}
-	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnBank = CombuctorSettings.sets.displayBank and 1 or 0
-	BigFoot_Config.BagManagement.EnabelOpenAllBagsOnTrading = CombuctorSettings.sets.displayTrade and 1 or 0
-
 	self:UnregisterAllEvents()
 	self:UnregisterAllMessages()
 
 	self:RegisterMessage(ADDON .. 'UPDATE_ALL', 'RegisterGameEvents')
-	self:RegisterMessage('CACHE_BANK_CLOSED')
-	self:RegisterMessage('CACHE_BANK_OPENED')
+	self:RegisterMessage('CACHE_BANK_OPENED', 'ShowBank')
+	self:RegisterMessage('CACHE_BANK_CLOSED', 'HideBank')
 
 	self:RegisterDisplayEvents('displayAuction', 'AUCTION_HOUSE_SHOW', 'AUCTION_HOUSE_CLOSED')
 	self:RegisterDisplayEvents('displayCraft', 'TRADE_SKILL_SHOW', 'TRADE_SKILL_CLOSE')
@@ -60,11 +54,11 @@ function AutoDisplay:RegisterGameEvents()
 
 	WorldMapFrame:HookScript('OnShow', function()
 		if Addon.sets.closeMap then
-			Addon:HideFrame('inventory', true)
+			Addon.Frames:Hide('inventory', true)
 		end
 	end)
 
-	if Addon:IsFrameEnabled('bank') then
+	if Addon.Frames:IsEnabled('bank') then
 		BankFrame:UnregisterAllEvents()
 	else
 		BankFrame:RegisterEvent('BANKFRAME_OPENED')
@@ -85,29 +79,29 @@ function AutoDisplay:RegisterDisplayEvents(setting, showEvent, hideEvent)
 end
 
 function AutoDisplay:ShowInventory()
-	Addon:ShowFrame('inventory')
+	Addon.Frames:Show('inventory')
 end
 
 function AutoDisplay:HideInventory()
-	Addon:HideFrame('inventory')
+	Addon.Frames:Hide('inventory')
 end
 
-function AutoDisplay:CACHE_BANK_OPENED()
-	local bank = Addon:ShowFrame('bank')
+function AutoDisplay:ShowBank()
+	local bank = Addon.Frames:Show('bank')
 	if bank then
 		bank:SetOwner(nil)
 	end
 
 	if Addon.sets.displayBank then
-		Addon:ShowFrame('inventory')
+		Addon.Frames:Show('inventory')
 	end
 end
 
-function AutoDisplay:CACHE_BANK_CLOSED()
-	Addon:HideFrame('bank')
+function AutoDisplay:HideBank()
+	Addon.Frames:Hide('bank')
 
 	if Addon.sets.closeBank then
-		Addon:HideFrame('inventory')
+		Addon.Frames:Hide('inventory')
 	end
 end
 
@@ -118,13 +112,13 @@ function AutoDisplay:HookInterfaceEvents()
 	-- character frame
 	CharacterFrame:HookScript('OnShow', function()
 		if Addon.sets.displayPlayer then
-			Addon:ShowFrame('inventory')
+			Addon.Frames:Show('inventory')
 		end
 	end)
 
 	CharacterFrame:HookScript('OnHide', function()
 		if Addon.sets.displayPlayer then
-			Addon:HideFrame('inventory')
+			Addon.Frames:Hide('inventory')
 		end
 	end)
 
@@ -133,7 +127,7 @@ function AutoDisplay:HookInterfaceEvents()
 	local onMerchantHide = MerchantFrame:GetScript('OnHide')
 	local hideInventory = function()
 		if canHide then
-			Addon:HideFrame('inventory')
+			Addon.Frames:Hide('inventory')
 		end
 	end
 
@@ -149,14 +143,14 @@ function AutoDisplay:HookInterfaceEvents()
 	-- backpack
 	local oToggleBackpack = ToggleBackpack
 	ToggleBackpack = function()
-		if not Addon:ToggleBag('inventory', BACKPACK_CONTAINER) then
+		if not Addon.Frames:ToggleBag('inventory', BACKPACK_CONTAINER) then
 			oToggleBackpack()
 		end
 	end
 
 	local oOpenBackpack = OpenBackpack
 	OpenBackpack = function()
-		if not Addon:ShowBag('inventory', BACKPACK_CONTAINER) then
+		if not Addon.Frames:ShowBag('inventory', BACKPACK_CONTAINER) then
 			oOpenBackpack()
 		end
 	end
@@ -164,14 +158,14 @@ function AutoDisplay:HookInterfaceEvents()
 	-- single bag
 	local oToggleBag = ToggleBag
 	ToggleBag = function(bag)
-		if not Addon:ToggleBag(self:Bag2Frame(bag)) then
+		if not Addon.Frames:ToggleBag(self:Bag2Frame(bag)) then
 			oToggleBag(bag)
 		end
 	end
 
 	local oOpenBag = OpenBag
 	OpenBag = function(bag)
-		if not Addon:ShowBag(self:Bag2Frame(bag)) then
+		if not Addon.Frames:ShowBag(self:Bag2Frame(bag)) then
 			oOpenBag(bag)
 		end
 	end
@@ -179,7 +173,7 @@ function AutoDisplay:HookInterfaceEvents()
 	-- all bags
 	local oOpenAllBags = OpenAllBags
 	OpenAllBags = function(frame)
-		if not Addon:ShowFrame('inventory') then
+		if not Addon.Frames:Show('inventory') then
 			oOpenAllBags(frame)
 		end
 	end
@@ -187,7 +181,7 @@ function AutoDisplay:HookInterfaceEvents()
 	if ToggleAllBags then
 		local oToggleAllBags = ToggleAllBags
 		ToggleAllBags = function()
-			if not Addon:ToggleFrame('inventory') then
+			if not Addon.Frames:Toggle('inventory') then
 				oToggleAllBags()
 			end
 		end
@@ -197,6 +191,3 @@ end
 function AutoDisplay:Bag2Frame(bag)
 	return Addon:IsBankBag(bag) and 'bank' or 'inventory', bag
 end
-
--- 老虎会游泳：暴露给大脚的全局变量
-CombuctorAutoDisplay = AutoDisplay
