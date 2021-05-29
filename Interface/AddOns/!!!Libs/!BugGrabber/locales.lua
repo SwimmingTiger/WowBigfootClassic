@@ -12,10 +12,10 @@ if not addon then return end
 
 function addon:LoadTranslations(locale, L)
 	if locale == "koKR" then
-L["ADDON_CALL_PROTECTED"] = "[%s] 애드온 '%s' 보호된 함수 호출 '%s'."
-L["ADDON_CALL_PROTECTED_MATCH"] = "^%[(.*)%] (애드온 '.*' 보호된 함수 호출 '.*'.)$"
+L["ADDON_CALL_PROTECTED"] = "[%s] 애드온 '%s'|1이;가; 보호된 함수 '%s' 호출을 시도했습니다."
+L["ADDON_CALL_PROTECTED_MATCH"] = "^%[(.*)%] (애드온 '.*'|1이;가; 보호된 함수 '.*' 호출을 시도했습니다.)$"
 L["ADDON_DISABLED"] = "|cffffff00!BugGrabber|r와 %s|1은;는; 함께 사용할 수 없습니다. 따라서 %s|1은;는; 강제로 중지되었습니다. 사용하고 싶다면 접속 종료 후, !BugGrabber를 끄고 %s|1을;를; 사용하세요.|r"
-L["BUGGRABBER_STOPPED"] = "|cffffff00UI에 오류가 너무 많습니다. 결과적으로 게임 환경이 타락했습니다. 이 메시지를 다시 보지 않으려면 오류가 있는 애드온을 사용 중지하거나 업데이트하세요.|r"
+L["BUGGRABBER_STOPPED"] = "|cffffff00UI에 오류가 너무 많습니다. 결과적으로 게임 경험이 저하될 수 있습니다. 이 메시지를 다시 보지 않으려면 오류가 있는 애드온을 사용 중지하거나 업데이트하세요.|r"
 L["ERROR_DETECTED"] = "%s |cffffff00수집됨, 자세한 정보는 링크를 클릭하세요.|r"
 L["ERROR_UNABLE"] = "|cffffff00!BugGrabber는 혼자서 다른 플레이어의 오류를 검색할 수 없습니다. 이 기능을 제공할 수 있는 BugSack이나 비슷한 디스플레이 애드온을 설치해주세요.|r"
 L["NO_DISPLAY_1"] = "|cffffff00당신은 !BugGrabber를 표시 애드온 없이 실행한 것 같습니다. !BugGrabber는 게임 오류 확인을 위한 슬래시 명령어를 제공하고 있지만, 표시 애드온은 당신이 더 편리한 방법으로 이러한 오류를 관리할 수 있게 도와줍니다.|r"
