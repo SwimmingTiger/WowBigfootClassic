@@ -2,7 +2,7 @@
 ## Title: ClassicAuraDurations
 ## Author: d87
 ## SavedVariables: ClassicAuraDurationsDB
-## Version: 2.5.3
+## Version: 2.5.4
 ## X-WoWI-ID: 25006
 ## X-Curse-Project-ID: 323806
 ## Dependencies: BigFoot

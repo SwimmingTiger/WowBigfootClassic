@@ -50,19 +50,34 @@ function Browser:Constructor()
     end
 
     ---@param button Button
-    local function SetupQuickButton(button, id)
+    local function SetupQuickButton(button, mapIdOrName)
+        local id
+        if type(mapIdOrName) == 'number' then
+            mapIdOrName = C_Map.GetAreaInfo(mapIdOrName)
+        end
+        id = ns.NameToId(mapIdOrName)
         local data = ns.GetActivityData(id)
         button:SetText(data.shortName or data.name)
+        button:SetWidth(button:GetTextWidth())
         button:SetScript('OnClick', QuickButtonOnClick)
+        button:Show()
         button.id = id
     end
 
-    SetupQuickButton(self.Quick1, 1)
-    SetupQuickButton(self.Quick2, 6)
-    SetupQuickButton(self.Quick3, 3)
-    SetupQuickButton(self.Quick4, 7)
-    SetupQuickButton(self.Quick5, 4)
-    SetupQuickButton(self.Quick6, 5)
+    --[=[@classic@
+    SetupQuickButton(self.Quick1, 2717)
+    SetupQuickButton(self.Quick2, 1977)
+    SetupQuickButton(self.Quick3, 2677)
+    SetupQuickButton(self.Quick4, 3429)
+    SetupQuickButton(self.Quick5, 3428)
+    SetupQuickButton(self.Quick6, 3456)
+    --@end-classic@]=]
+
+    -- @bcc@
+    SetupQuickButton(self.Quick1, 3457)
+    SetupQuickButton(self.Quick2, 3923)
+    SetupQuickButton(self.Quick4, 3836)
+    -- @end-bcc@
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
     self.Activity:SetDefaultText(ALL)
@@ -130,7 +145,7 @@ function Browser:Constructor()
             button.Instance.Same:Hide()
             button.Instance.Diff:Hide()
         end
-        
+
         button.NormalBg:SetShown(not sameInstance)
         button.SameInstanceBgLeft:SetShown(sameInstance)
         button.SameInstanceBgRight:SetShown(sameInstance)

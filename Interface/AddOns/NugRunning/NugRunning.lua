@@ -284,9 +284,10 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
         table.wipe(tempTable)
         for spellID, opts in pairs(config[category]) do
             if not cloneIDs[spellID] and opts.clones then
+                opts.clones[spellID] = nil -- Removing possible input of original spell ID into clone list
                 for i, additionalSpellID in ipairs(opts.clones) do
                     tempTable[additionalSpellID] = opts
-                    cloneIDs[additionalSpellID] = true
+                    cloneIDs[additionalSpellID] = spellID
                 end
             end
         end
@@ -310,7 +311,7 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
 
     NugRunning:RegisterEvent("PLAYER_TARGET_CHANGED")
     NugRunning:RegisterEvent("UNIT_AURA")
-    if not isClassic then NugRunning:RegisterEvent("UPDATE_MOUSEOVER_UNIT") end
+    if apiLevel > 1 then NugRunning:RegisterEvent("UPDATE_MOUSEOVER_UNIT") end
 
 
     if NRunDB.cooldownsEnabled then
@@ -685,6 +686,8 @@ function NugRunning.ActivateTimer(self,srcGUID,dstGUID,dstName,dstFlags, spellID
     timer.dstGUID = dstGUID
     timer.dstName = dstName
     timer.spellID = spellID
+    timer.spellIDRoot = config.spellClones[spellID] or spellID
+    timer.spellName = spellName
     timer.timerType = timerType
     timer:SetActive(true)
     timer:SetScript("OnUpdate",NugRunning.TimerFunc)
@@ -1532,10 +1535,12 @@ function NugRunning:PreGhost()
             if opts.preghost and not config.spellClones[spellID] then
                 local checkfunc = opts.isknowncheck or IsAvailable
                 if checkfunc(spellID) then
-                    local spellIdOrName = isClassic and GetSpellInfo(spellID) or spellID
-                    local timer = gettimer(active, spellIdOrName, UnitGUID("target"), "DEBUFF")
+                    -- Even on BCC it's required to search by name/opts because spell ranks
+                    -- local spellIdOrName = isClassic and GetSpellInfo(spellID) or spellID
+                    local timer = gettimer(active, opts, UnitGUID("target"), "DEBUFF")
                     if not timer then
-                        timer = self:ActivateTimer(playerGUID, UnitGUID("target"), UnitName("target"), nil, spellID, GetSpellInfo(spellID), opts, "DEBUFF", opts.duration, nil, true)
+                        local someDuration = type(opts.duration) == "number" and opts.duration or 5
+                        timer = self:ActivateTimer(playerGUID, UnitGUID("target"), UnitName("target"), nil, spellID, GetSpellInfo(spellID), opts, "DEBUFF", someDuration, nil, true)
                         if timer then
                             timer:BecomeGhost()
                         end
@@ -1574,7 +1579,7 @@ function NugRunning:UPDATE_MOUSEOVER_UNIT()
 end
 
 function NugRunning:PLAYER_TARGET_CHANGED()
-    if not isClassic then
+    if not apiLevel == 1 then
         NugRunning:CancelSingleTargetTimers()
     end
     UpdateUnitAuras("target")

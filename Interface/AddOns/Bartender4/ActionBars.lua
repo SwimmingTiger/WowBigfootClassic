@@ -30,6 +30,7 @@ local abdefaults = {
 				DRUID = { bear = 9, cat = 7, prowl = 8 },
 				ROGUE = { stealth = 7 },
 				WARRIOR = WoWClassic and { battle = 7, def = 8, berserker = 9 } or nil,
+				PRIEST = WoWClassic and { shadowform = 7 } or nil,
 			},
 		},
 		visibility = {
@@ -172,7 +173,7 @@ end
 
 -- Creates a new bar object based on the id and the specified config
 function BT4ActionBars:Create(id, config)
-	local id = tostring(id)
+	id = tostring(id)
 	local bar = setmetatable(Bartender4.StateBar:Create(id, config, (L["Bar %s"]):format(id)), ActionBar_MT)
 	bar.module = self
 

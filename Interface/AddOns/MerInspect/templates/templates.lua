@@ -20,7 +20,7 @@ end
 
 --创建单条属性按钮框体
 local function CreateStatFrame(parent, index, key, option)
-    local frame = CreateFrame("Frame", nil, parent, "CharacterStatFrameTemplate")
+    local frame = CreateFrame("Frame", nil, parent, "_CharacterStatFrameTemplate")
     frame:EnableMouse(false)
     frame:SetWidth(178)
     frame.key = key

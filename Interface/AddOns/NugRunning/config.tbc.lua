@@ -29,7 +29,6 @@ local isBC = tocVersion >= 20000 and tocVersion < 30000 -- WOW_PROJECT_ID == WOW
 if not isBC then return end
 
 -- RACIALS
-Spell( 23234 ,{ name = "Blood Fury", global = true, duration = 15, scale = 0.75, group = "buffs" })
 -- EventTimer({ spellID = 23234, event = "SPELL_CAST_SUCCESS", name = "Blood Fury", duration = 15, scale = 0.75, group = "buffs" })
 Spell( 26635 ,{ name = "Berserking", global = true, duration = 10 }) -- Berserking
 Spell( 20594 ,{ name = "Stoneform", global = true, duration = 8, shine = true, group = "buffs" })

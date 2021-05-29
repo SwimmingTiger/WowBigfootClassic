@@ -92,12 +92,12 @@ local TotemTimers_Bindings = {
 	["TOTEMTIMERSLIGHTNINGSHIELD"] = function(key)
 		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.LightningShield])
 	end,
-	--[[ ["TOTEMTIMERSWATERSHIELD"] = function(key)
+	["TOTEMTIMERSWATERSHIELD"] = function(key)
 		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.WaterShield])
-	end, --]]
-	--[[ ["TOTEMTIMERSTOTEMICCALL"] = function(key)
+	end,
+	["TOTEMTIMERSTOTEMICCALL"] = function(key)
 		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.TotemicCall])
-	end, --]]
+	end,
 	--[[ ["TOTEMTIMERSEARTHSHIELDLEFT"] = function(key)
 		SetOverrideBindingClick(TotemTimersFrame, false, key, buttonnames["es"])
 	end,

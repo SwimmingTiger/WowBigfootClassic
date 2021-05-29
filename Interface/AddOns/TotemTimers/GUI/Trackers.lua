@@ -150,46 +150,43 @@ TotemTimers.options.args.trackers = {
                             desc = L["Shows shield charges in place of the timer"],
                             set = function(info, val) TotemTimers.ActiveProfile.ShieldChargesOnly = val  TotemTimers.ProcessSetting("ShieldChargesOnly") end,
                             get = function(info) return TotemTimers.ActiveProfile.ShieldChargesOnly end
-                        }
-                        --LeftButton = {
-                        --    order = 2,
-                        --    type = "select",
-                        --    name = L["Leftclick"],
-                        --    values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                        --               [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                        --               [SpellNames[SpellIDs.EarthShield]] = SpellNames[SpellIDs.EarthShield],
-                        --               [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
-                        --             },
-                        --    set = function(info, val) TotemTimers.ActiveProfile.ShieldLeftButton = val
-                        --             TotemTimers.ProcessSetting("ShieldLeftButton") end,
-                        --    get = function(info) return TotemTimers.ActiveProfile.ShieldLeftButton end,
-                        --},
-                        --RightButton = {
-                        --    order = 3,
-                        --    type = "select",
-                        --    name = L["Rightclick"],
-                        --    values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                        --               [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                        --               [SpellNames[SpellIDs.EarthShield]] = SpellNames[SpellIDs.EarthShield],
-                        --               [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
-                        --             },
-                        --    set = function(info, val) TotemTimers.ActiveProfile.ShieldRightButton = val
-                        --             TotemTimers.ProcessSetting("ShieldRightButton") end,
-                        --    get = function(info) return TotemTimers.ActiveProfile.ShieldRightButton end,
-                        --},
-                        --MiddleButton = {
-                        --    order = 4,
-                        --    type = "select",
-                        --    name = L["Middle Button"],
-                        --    values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                        --               [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                        --               [SpellNames[SpellIDs.EarthShield]] = SpellNames[SpellIDs.EarthShield],
-                        --               [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
-                        --             },
-                        --    set = function(info, val) TotemTimers.ActiveProfile.ShieldMiddleButton = val
-                        --             TotemTimers.ProcessSetting("ShieldMiddleButton") end,
-                        --    get = function(info) return TotemTimers.ActiveProfile.ShieldMiddleButton end,
-                        --},
+                        },
+                        LeftButton = {
+                           order = 2,
+                           type = "select",
+                           name = L["Leftclick"],
+                           values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
+                                      [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
+                                      [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+                                    },
+                           set = function(info, val) TotemTimers.ActiveProfile.ShieldLeftButton = val
+                                    TotemTimers.ProcessSetting("ShieldLeftButton") end,
+                           get = function(info) return TotemTimers.ActiveProfile.ShieldLeftButton end,
+                        },
+                        RightButton = {
+                           order = 3,
+                           type = "select",
+                           name = L["Rightclick"],
+                           values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
+                                      [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
+                                      [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+                                    },
+                           set = function(info, val) TotemTimers.ActiveProfile.ShieldRightButton = val
+                                    TotemTimers.ProcessSetting("ShieldRightButton") end,
+                           get = function(info) return TotemTimers.ActiveProfile.ShieldRightButton end,
+                        },
+                        MiddleButton = {
+                           order = 4,
+                           type = "select",
+                           name = L["Middle Button"],
+                           values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
+                                      [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
+                                      [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+                                    },
+                           set = function(info, val) TotemTimers.ActiveProfile.ShieldMiddleButton = val
+                                    TotemTimers.ProcessSetting("ShieldMiddleButton") end,
+                           get = function(info) return TotemTimers.ActiveProfile.ShieldMiddleButton end,
+                        },
                     },
                 },                
                 --earthshield = {

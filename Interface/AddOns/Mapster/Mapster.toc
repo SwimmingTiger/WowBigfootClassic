@@ -8,7 +8,7 @@
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
 ## X-Category: Map
-## Version: 1.9.2-3-ge065a8f
+## Version: 1.9.3
 ## X-Curse-Project-ID: 14376
 ## X-WoWI-ID: 8306
 ## Dependencies: BigFoot
@@ -22,6 +22,6 @@ Config.lua
 Coords.lua
 # GroupIcons.lua
 # BattleMap.lua
-FogClearDataClassic.lua
+FogClearDataBCC.lua
 FogClear.lua
 Scaling.lua

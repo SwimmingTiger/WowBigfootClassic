@@ -21,17 +21,17 @@ RegEvent("PLAYER_ENTERING_WORLD", function()
     timetoleave = 0
 end)
 
-local function AnyPennyLeft()
-    if not BattleZoneHelper:IsInAlterac() then
-        return false
-    end
+-- local function AnyPennyLeft()
+--     if not BattleZoneHelper:IsInAlterac() then
+--         return false
+--     end
 
-    local data = BattleZoneHelper:GetAlteracPOI()
+--     local data = BattleZoneHelper:GetAlteracPOI()
 
-    return (data[BattleZoneHelper.POI_HORDE_TOWER_HALF] or 0) > 0 or
-           (data[BattleZoneHelper.POI_ALLIANCE_TOWER_HALF] or 0) > 0 
+--     return (data[BattleZoneHelper.POI_HORDE_TOWER_HALF] or 0) > 0 or
+--            (data[BattleZoneHelper.POI_ALLIANCE_TOWER_HALF] or 0) > 0 
 
-end
+-- end
 
 RegEvent("ADDON_LOADED", function()
     WorldStateScoreFrameLeaveButton:HookScript("OnUpdate", function()
@@ -39,11 +39,11 @@ RegEvent("ADDON_LOADED", function()
             return
         end
 
-        if AnyPennyLeft() then
-            ADDONSELF.Print(L["Waiting for Bunker/Tower to be destroyed, stopping auto-leave"])
-            timetoleave = 0
-            return
-        end
+        -- if AnyPennyLeft() then
+        --     ADDONSELF.Print(L["Waiting for Bunker/Tower to be destroyed, stopping auto-leave"])
+        --     timetoleave = 0
+        --     return
+        -- end
 
         local left = math.max(0, timetoleave - time())
 

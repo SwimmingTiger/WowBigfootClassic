@@ -245,7 +245,7 @@ SettingsFunctions = {
             end
         end, ]]
             
-    --[[ ShieldLeftButton =
+     ShieldLeftButton =
         function(value, Timers)
     		Timers[6].button:SetAttribute("*spell1",value)
         end,
@@ -258,7 +258,7 @@ SettingsFunctions = {
     ShieldMiddleButton =
         function(value, Timers)
     		Timers[6].button:SetAttribute("*spell3", value)
-        end, ]]
+        end,
 
 
 
@@ -273,14 +273,15 @@ SettingsFunctions = {
             for i = 1,4 do
                 if value and not TotemTimers.ActiveProfile.MenusAlwaysVisible then 
                     Timers[i].button:SetAttribute("OpenMenu", "RightButton")
-                    --Timers[i].button:SetAttribute("*macrotext3", "/script XiTimers.timers["..i.."].stopQuiet = true DestroyTotem("..Timers[i].nr..")")
-					Timers[i].button:SetAttribute("*macrotext3", "/cast Totemic Recall")
+                    Timers[i].button:SetAttribute("*type3", "macro")
+                    Timers[i].button:SetAttribute("*macrotext3", "/script XiTimers.timers["..i.."].stopQuiet = true DestroyTotem("..Timers[i].nr..")")
                     Timers[i].button:SetAttribute("*macrotext2", "")
                 else
                     Timers[i].button:SetAttribute("OpenMenu", "mouseover")
-                    Timers[i].button:SetAttribute("*macrotext3", "/cast Totemic Recall")
-					Timers[i].button:SetAttribute("*macrotext2", "/cast Totemic Recall")
-                    --Timers[i].button:SetAttribute("*macrotext2", "/script XiTimers.timers["..i.."].stopQuiet = true DestroyTotem("..Timers[i].nr..")")
+                    Timers[i].button:SetAttribute("*type2", "macro")
+                    Timers[i].button:SetAttribute("*macrotext2", "/script XiTimers.timers["..i.."].stopQuiet = true DestroyTotem("..Timers[i].nr..")")
+                    Timers[i].button:SetAttribute("*type3", "spell")
+                    Timers[i].button:SetAttribute("*spell3", SpellIDs.TotemicCall)
                 end
             end
         end,

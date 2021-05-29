@@ -15,7 +15,7 @@ function M:ADDON_LOADED(name)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end
--- ���ǵ������װ���봩װ��ʱ�����������ô�����������
+-- 考虑到玩家脱装备与穿装备时的运算量，该处不做处理。
 function M:UNIT_INVENTORY_CHANGED(unit)
 	if (self.Config.MerInspectEnable and (unit == "player" or unit == InspectFrame.unit)) then
 		self:DisplayInvenrotyInfo(unit);

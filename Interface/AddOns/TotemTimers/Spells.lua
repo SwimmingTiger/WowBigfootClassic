@@ -9,7 +9,7 @@ local TotemTimers = TotemTimers
 local SpellNames = TotemTimers.SpellNames
 local SpellIDs = TotemTimers.SpellIDs
 
-local function GetSpellTab(tab)
+--[[ local function GetSpellTab(tab)
     local _, _, offset, numSpells = GetSpellTabInfo(tab)
     local AvailableSpells = TotemTimers.AvailableSpells
     for s = offset + 1, offset + numSpells do 
@@ -18,17 +18,21 @@ local function GetSpellTab(tab)
             AvailableSpells[spell] = true
         end
     end
-end    
+end  ]]
 
 local GetSpellInfo = GetSpellInfo
 local IsPlayerSpell = IsPlayerSpell
+
 function TotemTimers.GetSpells()
     local AvailableSpells = TotemTimers.AvailableSpells
     wipe(AvailableSpells)
     for _,s in pairs(SpellIDs) do
-		AvailableSpells[s] = IsPlayerSpell(s)
-		if AvailableSpells[s] then
-			AvailableSpells[s] = GetSpellInfo(SpellNames[s]) == SpellNames[s]
+        -- get spell info by name, returns spell info of the spell with the highest rank,
+        -- if that spell is learned; check with IsPlayerSpell probably not necessary anymore
+        -- but stays in just in case
+        local _,_,_,_,_,_,id = GetSpellInfo(SpellNames[s])
+        if id ~= nil then
+		    AvailableSpells[s] = IsPlayerSpell(id)
 		end
     end
     --[[if AvailableSpells[TotemTimers.SpellIDs.PrimalStrike] and UnitLevel("player") > 10 then

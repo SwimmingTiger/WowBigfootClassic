@@ -115,7 +115,9 @@ L['CHANNEL: Port'] = '传送频道'
 L['CHANNEL: Trade'] = '交易'
 L['CHANNEL: Group'] = 'MeetingHorn'
 L['CHANNEL: Recruit'] = '公会招募'
-
+L['Arena (5v5)'] = '竞技场（5v5）'
+L['Arena (3v3)'] = '竞技场（3v3）'
+L['Arena (2v2)'] = '竞技场（2v2）'
 L['Wild PvP'] = '野外PvP'
 L['Dire Maul - North'] = '厄运之槌 - 北' -- 厄运之槌 - 北
 L['Dire Maul - West'] = '厄运之槌 - 西' -- 厄运之槌 - 西
@@ -177,6 +179,16 @@ L['SHORT: Ysondre'] = '' -- 伊森德雷
 L['SHORT: Taerar'] = '' -- 泰拉尔
 L['SHORT: Emeriss'] = '' -- 艾莫莉丝
 L['SHORT: Lethon'] = '' -- 莱索恩
+
+L.TIP_SUMMARY = [[1. 尽量和熟悉的团长一起游戏。
+2. 团长的个人信息越多，就越值得信任。
+3. 尽量不要在没拿到装备的时候产生任何交易。
+4. 一般来说，大公会的团长更值得依赖。
+5. 经常开团的团长装备不会太差。
+6. 如果您遇到了被黑金黑装备的情况，
+   请及时联系游戏内GM进行举报。]]
+
+L.TIP_TITLE = [[温馨提示：]]
 
 L['玛丁雷少校'] = true
 L['暴风城的城民和盟友们'] = true

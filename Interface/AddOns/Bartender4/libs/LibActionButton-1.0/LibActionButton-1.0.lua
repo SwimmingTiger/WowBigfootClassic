@@ -942,11 +942,42 @@ function Generic:GetBindingAction()
 	return self.config.keyBoundTarget or "CLICK "..self:GetName()..":LeftButton"
 end
 
+local function GetActionBtnHotKey(id)		--bf.178.com
+	local btn = format("CLICK BT4Button%d:LeftButton", id);
+	local key = GetBindingKey(btn);
+	if not key  then
+		if id<=12 and id>=1 then
+			local btnOld = format("ACTIONBUTTON%d", id);
+			key = GetBindingKey(btnOld);
+		end
+		if id>12 then
+			local bar = math.floor(id/12)+1;
+			local number = mod(id,12);
+			local Btnold ="";
+			if bar == 3 then
+				Btnold = format("MULTIACTIONBAR3BUTTON%d", number);
+			elseif bar == 4 then
+				Btnold = format("MULTIACTIONBAR4BUTTON%d", number);
+			elseif bar == 5 then
+				Btnold = format("MULTIACTIONBAR2BUTTON%d", number);
+			elseif bar == 6 then
+				Btnold = format("MULTIACTIONBAR1BUTTON%d", number);
+			end
+			key = GetBindingKey(Btnold);
+		end
+	end
+	return key;
+end
+
 function Generic:GetHotkey()
 	local name = "CLICK "..self:GetName()..":LeftButton"
 	local key = GetBindingKey(self.config.keyBoundTarget or name)
 	if not key and self.config.keyBoundTarget then
 		key = GetBindingKey(name)
+	end
+	
+	if not key and self.id then		--bf.178.com
+		key = GetActionBtnHotKey(self.id)
 	end
 	if key then
 		return KeyBound and KeyBound:ToShortKey(key) or key

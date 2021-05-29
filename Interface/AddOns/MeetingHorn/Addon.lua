@@ -62,6 +62,9 @@ function Addon:OnInitialize()
                 chatfilter = true,
                 activityfilter = true,
             },
+            goodleader = {
+                cache = {}
+            }
         },
         global = { --
             activity = { --
@@ -72,7 +75,7 @@ function Addon:OnInitialize()
 
     _G.MEETINGHORN_DB_CHARACTER_MEMBERS = _G.MEETINGHORN_DB_CHARACTER_MEMBERS or {}
 
-    self.MainPanel = ns.UI.MainPanel:Bind(MeetingHornMainPanel)
+    self.MainPanel = ns.UI.MainPanel:Bind(CreateFrame('Button', nil, UIParent, 'MeetingHornMainPanelTemplate'))
     self.DataBroker = ns.UI.DataBroker:Bind(MeetingHornDataBroker)
 
     self:RegisterMessage('MEETINGHORN_OPTION_CHANGED_CHATFILTER')
@@ -153,8 +156,8 @@ function Addon:MEETINGHORN_WORLDBUFF_STATUS_CHANGED(_, enable)
 end
 
 function Addon:ZoneChanged(ev)
-    --[===[@debug@
+    --[[@debug@
     print(ev)
-    --@end-debug@]===]
+    --@end-debug@]]
     ns.WorldBuff:CheckEnable()
 end

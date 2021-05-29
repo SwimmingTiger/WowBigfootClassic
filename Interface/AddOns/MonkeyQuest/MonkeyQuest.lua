@@ -69,7 +69,7 @@ function MonkeyQuest_OnLoad(self)
 	MonkeyQuest_OLD_aftt_setName = aftt_setName;
 	aftt_setName = MonkeyQuest_NEW_aftt_setName;
     
-	if (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC) then
+	if (_G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_MAINLINE) then
 		-- this will catch mobs needed for quests (not needed on retail)
 		self:RegisterEvent('UPDATE_MOUSEOVER_UNIT');
 	end

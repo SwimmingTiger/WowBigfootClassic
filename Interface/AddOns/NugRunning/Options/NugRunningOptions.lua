@@ -282,6 +282,7 @@ function NugRunningGUI.CreateCommonForm(self)
         -- fill up spell clones of the new version
         local originalSpell = NugRunningConfigMerged[category][spellID]
         if originalSpell.clones then
+            originalSpell.clones[spellID] = nil -- Removing possible input of original spell ID into clone list
             for i, additionalSpellID in ipairs(originalSpell.clones) do
                 NugRunningConfigMerged[category][additionalSpellID] = originalSpell
                 NugRunningConfigMerged.spellClones[additionalSpellID] = true

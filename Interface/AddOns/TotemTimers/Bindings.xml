@@ -7,9 +7,9 @@
 	<Binding name="TOTEMTIMERSAIRMENU" description="Open air totem menu">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSFIREMENU" description="Open fire totem menu">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSWATERMENU" description="Open water totem menu">--[[dummy]]</Binding>
-	<Binding name="TOTEMTIMERSLIGHTNINGSHIELD" description="Lightning Shie">--[[dummy]]</Binding>
-	<Binding name="TOTEMTIMERSTOTEMICCALL">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLIGHTNINGSHIELD" description="Lightning Shield">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSWATERSHIELD"> --[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSTOTEMICCALL">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSEARTHSHIELDLEFT">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSEARTHSHIELDRIGHT">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSEARTHSHIELDMIDDLE">--[[dummy]]</Binding>

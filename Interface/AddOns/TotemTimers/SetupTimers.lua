@@ -41,9 +41,6 @@ function TotemTimers.CreateTimers()
 		tt.button:RegisterForClicks("AnyDown")
 		tt.button:SetAttribute("*type2", "macro")
 		tt.button:SetAttribute("*type3", "macro")
-		--tt.button:SetAttribute("*macrotext2", "/script DestroyTotem("..e..")")		
-		tt.button:SetAttribute("*macrotext2", "/cast Totemic Recall")
-		tt.button:SetAttribute("*macrotext3", "/cast Totemic Recall")
 		tt.button:SetAttribute("*type1", "spell")
         tt.button.bar:SetStatusBarColor(0.7,1,0.7,0.8)
 		tt.button.UpdateMiniIconAndProfile = function(self)
@@ -150,9 +147,7 @@ local Cooldowns = {
     },
 }
 
-local TotemicCall = TotemTimers.SpellNames[TotemTimers.SpellIDs.TotemicCall]
-local LightningBolt = TotemTimers.SpellNames[TotemTimers.SpellIDs.LightningBolt]
-local FireElemental = TotemTimers.SpellNames[TotemTimers.SpellIDs.FireElemental]
+local TotemicCall = TotemTimers.SpellIDs.TotemicCall
 
 function TotemTimers:TotemEvent(event, arg1, arg2, arg3)
     local settings = TotemTimers.ActiveProfile
@@ -223,12 +218,12 @@ function TotemTimers:TotemEvent(event, arg1, arg2, arg3)
                 self.timer:Stop(i)
             end
         end
-    elseif (event == "UNIT_SPELLCAST_SUCCEEDED" and arg2 == TotemicCall)
+    elseif (event == "UNIT_SPELLCAST_SUCCEEDED" and arg3 == TotemicCall)
         or event == "PLAYER_ENTERING_WORLD" then
-        self.timer.StopQuiet = true
+        self.timer.stopQuiet = true
         self.timer:Stop(1)
         --self.rangeCount:SetText("")
-    elseif event == "UNIT_SPELLCAST_SUCCEEDED" and self.timer.nr == 3 and arg3 == SpellIDs.EnamoredWaterSpirit then
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" and self.timer.nr == 3 and arg3 == 24854 then --SpellIDs.EnamoredWaterSpirit
         self.timer:Start(1,24,24)
     end
 end

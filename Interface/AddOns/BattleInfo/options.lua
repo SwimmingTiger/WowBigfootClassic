@@ -42,6 +42,7 @@ local function SetConfig(key, value)
 
     triggerCallback(key, value)
 end
+ADDONSELF.SetConfig = SetConfig
 
 
 local f = CreateFrame("Frame", nil, UIParent)
@@ -112,10 +113,10 @@ RegEvent("PLAYER_LOGIN", function()
         b:SetPoint("TOPLEFT", f, 15, nextpos())
     end
 
-    do
-        local b = createCheckbox(L["Show Alterac Valley score bar created by BattleInfo"], "show_alterac", true)
-        b:SetPoint("TOPLEFT", f, 15, nextpos())
-    end
+    -- do
+    --     local b = createCheckbox(L["Show Alterac Valley score bar created by BattleInfo"], "show_alterac", true)
+    --     b:SetPoint("TOPLEFT", f, 15, nextpos())
+    -- end
 
     do
         local b = createCheckbox(L["Replace Enter Battle Button with count down"], "replace_enter_battle", true)
@@ -178,9 +179,38 @@ RegEvent("PLAYER_LOGIN", function()
     end    
 
     do
-        local b = createCheckbox(L["Show statistics panel"], "stat_window", false)
+        local b = createCheckbox(L["Show statistics panel"], "stat_window", true)
         b:SetPoint("TOPLEFT", f, 15, nextpos())
     end    
+
+    do
+        -- local s = CreateFrame("Slider", f, f, "OptionsSliderTemplate")
+        -- s:SetOrientation('HORIZONTAL')
+        -- s:SetHeight(14)
+        -- s:SetWidth(160)
+        -- s:SetMinMaxValues(0, 30)
+        -- s:SetValueStep(1)
+        -- s.Low:SetText(L["AUTO"])
+        -- s.High:SetText(30)
+
+        -- local l = s:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        -- l:SetPoint("RIGHT", s, "LEFT", -20, 1)
+        -- l:SetText(L["Label font size"])
+        
+        -- s:SetPoint("TOPLEFT", f, 40 + l:GetStringWidth(), nextpos(45))
+
+        local key = "label_size"
+
+        -- s:SetScript("OnValueChanged", function(self, value)
+        --     SetConfig(key, value)
+        -- end)
+
+        -- RegisterKeyChangedCallback(key, function(v)
+        --     s:SetValue(v)
+        -- end)
+
+        triggerCallback(key, GetConfigOrDefault(key, 0))
+    end
 
     do
         local b = CreateFrame("Button", nil, f, "GameMenuButtonTemplate")

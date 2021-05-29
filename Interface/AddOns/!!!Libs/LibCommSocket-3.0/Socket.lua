@@ -1,5 +1,4 @@
-
-local MAJOR, MINOR = 'LibCommSocket-3.0', 2
+local MAJOR, MINOR = 'LibCommSocket-3.0', 3
 
 ---@class NSSocket
 ---@field contexts table<string, NSSocketContext>
@@ -143,6 +142,25 @@ function Lib:ListenSocket(prefix)
     self.SendServer = Lib.SendServer
 end
 
+local _server
+local function getServer()
+    if not _server then
+        local realms = GetAutoCompleteRealms()
+        if not realms or not realms[1] then
+            _server = GetRealmName():gsub('%s+', '')
+        else
+            _server = realms[1]
+        end
+    end
+    return _server
+end
+
+local function formatTarget(target)
+    if target then
+        return Ambiguate(target .. '-' .. getServer(), 'none')
+    end
+end
+
 function Lib:ConnectServer(target)
     if not prefixes[self] then
         error('Not found prefix', 2)
@@ -153,7 +171,7 @@ function Lib:ConnectServer(target)
         return
     end
 
-    ctx.rawTarget = target
+    ctx.rawTarget = formatTarget(target)
     ctx.connectKey = tostring(random(0x100000, 0xFFFFFF))
     ctx.timer = C_Timer.NewTicker(30, function()
         return self:SendServer('COMMSOCKET_CONNECT', ctx.connectKey)

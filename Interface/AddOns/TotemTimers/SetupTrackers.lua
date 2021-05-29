@@ -74,6 +74,8 @@ function TotemTimers.CreateTrackers()
     shield.button:SetAttribute("*unit*", "player")
 	shield.button:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
     shield.button:SetAttribute("*spell1", SpellNames[SpellIDs.LightningShield])
+    shield.button:SetAttribute("*spell2", SpellNames[SpellIDs.WaterShield])
+    shield.button:SetAttribute("*spell3", SpellNames[SpellIDs.TotemicCall])
     shield.button:SetScript("OnDragStop", function(self)
         XiTimers.StopMoving(self)
     end)
@@ -208,6 +210,7 @@ end
 
 --local shieldtable = {SpellNames[SpellIDs.LightningShield], SpellNames[SpellIDs.WaterShield], SpellNames[SpellIDs.EarthShield]}
 local LightningShield = SpellNames[SpellIDs.LightningShield]
+local WaterShield = SpellNames[SpellIDs.WaterShield]
 local ShieldChargesOnly = false
 
 function TotemTimers.ShieldEvent(self, event, unit)
@@ -222,7 +225,7 @@ function TotemTimers.ShieldEvent(self, event, unit)
         local hasBuff = false
         for i=1,40 do
             name,texture,count,_,duration,endtime = UnitBuff("player", i)
-            if name == LightningShield then
+            if name == LightningShield or name == WaterShield then
                 hasBuff = true
                 local timeleft = endtime - GetTime()
                 if name ~= self.shield or timeleft>self.timer.timers[1] then

@@ -126,7 +126,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			for _, _Type in next, {
 				'BROWSER',
 				'CHECKOUT',
-				'FOGOFWARFRAME',
+				-- 'FOGOFWARFRAME',
 				'CINEMATICMODEL',
 				'MODELSCENE',
 				'OFFSCREENFRAME',
@@ -141,7 +141,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			for _, _Type in next, {
 				'BROWSER',
 				'CHECKOUT',
-				'FOGOFWARFRAME',
+				-- 'FOGOFWARFRAME',
 				'CINEMATICMODEL',
 				'MODELSCENE',
 				'OFFSCREENFRAME',

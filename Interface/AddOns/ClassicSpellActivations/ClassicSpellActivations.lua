@@ -167,6 +167,7 @@ local function FindAura(unit, spellID, filter)
 end
 
 local hadShadowTrance
+local hadBacklash
 function f:SPELLS_CHANGED()
     if class == "WARRIOR" then
         self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -249,19 +250,35 @@ function f:SPELLS_CHANGED()
         end
     elseif class == "WARLOCK" then
         self:SetScript("OnUpdate", self.timerOnUpdate)
-        if IsPlayerSpell(18094) or IsPlayerSpell(18095) then
+        local hasNightfallTalent = IsPlayerSpell(18094) or IsPlayerSpell(18095)
+        local hasBacklashTalent = IsPlayerSpell(34939) or IsPlayerSpell(34938) or IsPlayerSpell(34935)
+        if hasNightfallTalent or hasBacklashTalent then
             self:RegisterUnitEvent("UNIT_AURA", "player")
             self:SetScript("OnUpdate", self.timerOnUpdate)
             self.UNIT_AURA = function(self, event, unit)
-                local name, _, _, _, duration, expirationTime = FindAura(unit, 17941, "HELPFUL") -- Shadow Trance
-                local haveShadowTrance = name ~= nil
-                if hadShadowTrance ~= haveShadowTrance then
-                    if haveShadowTrance then
-                        f:Activate("ShadowBolt", duration, true)
-                    else
-                        f:Deactivate("ShadowBolt")
+                if hasNightfallTalent then
+                    local name, _, _, _, duration, expirationTime = FindAura(unit, 17941, "HELPFUL") -- Shadow Trance
+                    local haveShadowTrance = name ~= nil
+                    if hadShadowTrance ~= haveShadowTrance then
+                        if haveShadowTrance then
+                            f:Activate("ShadowBolt", duration, true)
+                        else
+                            f:Deactivate("ShadowBolt")
+                        end
+                        hadShadowTrance = haveShadowTrance
                     end
-                    hadShadowTrance = haveShadowTrance
+                end
+                if hasBacklashTalent then
+                    local name, _, _, _, duration, expirationTime = FindAura(unit, 34936, "HELPFUL") -- Backlash
+                    local haveBacklash = name ~= nil
+                    if hadBacklash ~= haveBacklash then
+                        if haveBacklash then
+                            f:Activate("ShadowBolt", duration, true)
+                        else
+                            f:Deactivate("ShadowBolt")
+                        end
+                        hadBacklash = haveBacklash
+                    end
                 end
             end
         else
