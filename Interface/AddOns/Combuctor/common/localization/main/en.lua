@@ -81,3 +81,8 @@ L.AskMafia = 'Ask Mafia'
 L.ConfirmTransfer = 'Depositing any items will remove all modifications and make them non-tradeable and non-refundable.|n|nDo you wish to continue?'
 L.CannotPurchaseVault = 'You do not have enough money to unlock the Void Storage service|n|n|cffff2020Cost: %s|r'
 L.PurchaseVault = 'Would you like to unlock the Void Storage service?|n|n|cffffd200Cost:|r %s'
+
+--老虎会游泳：背包左上角的额外按钮
+L.inventoryExtraButton = 'Offline Bank'
+L.bankExtraButton = 'Save Reagent'
+L.ExtraButtonFontSize = 11

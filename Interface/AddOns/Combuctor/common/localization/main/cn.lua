@@ -83,3 +83,8 @@ L.AskMafia = '问问大佬'
 L.ConfirmTransfer = '存入任一物品将移除全部修改并使其不可交易和不可退款。|n|n希望继续？'
 L.CannotPurchaseVault = '没有足够的货币解锁虚空仓库服务|n|n|cffff2020花费：%s|r'
 L.PurchaseVault = '希望解锁虚空仓库？|n|n|cffffd200花费：|r %s'
+
+--老虎会游泳：背包左上角的额外按钮
+L.inventoryExtraButton = '离线银行'
+L.bankExtraButton = '材料存放'
+L.ExtraButtonFontSize = 15

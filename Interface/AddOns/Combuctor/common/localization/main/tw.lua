@@ -75,3 +75,8 @@ L.TipDelimiter = '|'
 L.TipShowInventory = '<左鍵點擊>切換背包。'
 L.TipShowBank = '<右鍵點擊>切換銀行。'
 L.TipShowOptions = '<Shift-左鍵點擊>開啟設定選單。'
+
+--老虎会游泳：背包左上角的额外按钮
+L.inventoryExtraButton = '離線倉庫'
+L.bankExtraButton = '材料存放'
+L.ExtraButtonFontSize = 15

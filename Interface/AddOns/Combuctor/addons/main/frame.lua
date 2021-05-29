@@ -47,6 +47,29 @@ function Frame:New(id)
 	f.itemGroup = Addon.ItemGroup:New(f, self.Bags)
 	f.itemGroup:SetPoint('TOPLEFT', 12, -66)
 
+	-- 老虎会游泳：在左侧添加一个按钮
+	f.searchBox:SetPoint('TOPLEFT', 146, -32)
+	f.extraButton = CreateFrame("Button", "$parentExtraButton", f, "UIPanelButtonTemplate")
+	f.extraButton:ClearAllPoints()
+	f.extraButton:SetPoint("TOPLEFT", 58, -29)
+	f.extraButton:SetSize(80, 25)
+	f.extraButton:SetText(L[id.."ExtraButton"])
+	f.extraButton.text = f.extraButton:GetFontString()
+	f.extraButton.text:SetFont(STANDARD_TEXT_FONT, L['ExtraButtonFontSize'])
+	if id == "inventory" then
+		f.extraButton:SetScript("OnClick", function()
+			f.bagToggle:OnClick("RightButton")
+		end)
+	elseif id == "bank" then
+		f.extraButton:SetScript("OnClick", function()
+			if TDPack2Command and TDPack2Command.commands and TDPack2Command.commands.SAVE then
+				PlaySound(SOUNDKIT.UI_BAG_SORTING_01)
+				TDPack2Command.commands.SAVE()
+			end
+		end)
+	end
+	f.extraButton:Show()
+
 	tinsert(UISpecialFrames, f:GetName())
 	return f
 end
