@@ -27,6 +27,14 @@ function NWB:setRealmData()
 			["Kromcrush"] = true,
 			["Bloodsail Buccaneers"] = true,
 			["Netherwind"] = true,
+			["Skeram"] = true,
+			["Kromcrush"] = true,
+			["Myzrael"] = true,
+			["Rattlegore"] = true,
+			["Windseeker"] = true,
+			["Blaumeux"] = true,
+			["Ashkandi"] = true,
+			["Heartseeker"] = true,
 		}
 		
 		NWB.euRealms = {
@@ -54,6 +62,17 @@ function NWB:setRealmData()
 			["Transcendence"] = true,
 			["Nethergarde Keep"] = true,
 			["Everlook"] = true,
+			["Heartstriker"] = true,
+			["Mandokir"] = true,
+			["Amnennar"] = true,
+			["Blaumeux"] = true,
+			["Zandalar Tribe"] = true,
+			["Dragon's Call"] = true,
+			["Finkle"] = true,
+			["Lucifron"] = true,
+			["Dreadmist"] = true,
+			["Heartstriker"] = true,
+			["Bloodfang"] = true,
 		}
 		
 		NWB.krRealms = {

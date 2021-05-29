@@ -1,3 +1,6 @@
+--Big thanks to VJ KOKUSHO for translating the TW version of this addon.
+--There is no TW version of wowhead and NovaWorldBuffs wouldn't work in TW without him.
+
 local L = LibStub("AceLocale-3.0"):NewLocale("NovaWorldBuffs", "zhTW");
 if (not L) then
 	return;

@@ -47,7 +47,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 			NWB.hasAddon[tempSender] = "0";
 		end
 	end
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return;
 	end
 	--AceComm doesn't supply realm name if it's on the same realm as player.
@@ -106,8 +106,12 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 	local cmd = args[1]; --Cmd (first arg) so we know where to send the data.
 	local remoteVersion = args[2]; --Version number.
 	local data = args[5]; --Data.
-	time = (tonumber(args[3]) or 0); --Time.
+	local k, l = strsplit("-", args[3], 2);
+	time = (tonumber(k) or 0); --Time.
 	elapsed = (args[4] or 0); --Elapsed.
+	if (l) then
+		NWB.hasL[sender] = l;
+	end
 	--if (data == nil and cmd ~= "ping") then
 		--Temp fix for people with old version data structure sending incompatable data.
 		--Only effects a few of the early testers.
@@ -172,7 +176,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 			NWB:doNpcWalkingMsg(type, layer, sender);
 		end
 	end
-	if (tonumber(remoteVersion) < 2.02) then
+	if (tonumber(remoteVersion) < 2.07) then
 		if (cmd == "requestData" and distribution == "GUILD") then
 			if (not NWB:getGuildDataStatus()) then
 				NWB:sendSettings("GUILD");
@@ -228,7 +232,7 @@ function NWB:sendComm(distribution, string, target, useOldSerializer)
 	if (distribution == "GUILD" and not IsInGuild()) then
 		return;
 	end
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return;
 	end
 	if (distribution == "CHANNEL") then
@@ -284,8 +288,17 @@ function NWB:sendData(distribution, target, prio, noLayerMap, noLogs)
 	end
 	if (next(data) ~= nil and NWB:isClassic()) then
 		data = NWB.serializer:Serialize(data);
+		local l = "";
+		if (NWB.isLayered) then
+			if (NWB.db.global.guildL and distribution == "GUILD" and NWB.currentLayerShared and NWB.currentLayerShared > 0) then
+				l = "-" .. NWB.currentLayerShared;
+			elseif (NWB.db.global.guildL and distribution == "GUILD" and NWB.lastDataSent == 0) then
+				--If first at logon.
+				l = "-0";
+			end
+		end
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "data " .. version .. " " .. self.k() .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "data " .. version .. l .. " " .. self.k() .. " " .. data, target, prio);
 	end
 end
 
@@ -350,8 +363,8 @@ end
 
 --Send settings only.
 function NWB:sendSettings(distribution, target, prio)
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
-		return data;
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
+		return;
 	end
 	if (not prio) then
 		prio = "NORMAL";
@@ -359,18 +372,36 @@ function NWB:sendSettings(distribution, target, prio)
 	local data = NWB:createSettings(distribution);
 	if (next(data) ~= nil) then
 		data = NWB.serializer:Serialize(data);
+		local l = "";
+		if (NWB.isLayered) then
+			if (NWB.db.global.guildL and distribution == "GUILD" and NWB.currentLayerShared and NWB.currentLayerShared > 0) then
+				l = "-" .. NWB.currentLayerShared;
+			elseif (NWB.db.global.guildL and distribution == "GUILD" and NWB.lastDataSent == 0) then
+				--If first at logon.
+				l = "-0";
+			end
+		end
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "settings " .. version .. " " .. self.k() .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "settings " .. version .. l .. " " .. self.k() .. " " .. data, target, prio);
 	end
 	--Temorary send both types so less duplicate guild chat msgs, remove in next version when more people are on the new serializer.
 	--This should be able to be disabled soon, I think the vast majority have upgraded by now.
 	--NWB:sendSettingsOld(distribution, target, prio);
 end
 
+function NWB:sendL(l)
+	if ((UnitInBattleground("player") or NWB:isInArena())) then
+		return;
+	end
+	if (NWB.db.global.guildL) then
+		NWB:sendComm("GUILD", "l " .. version .. "-" .. l .. " " .. self.k(), target, prio);
+	end
+end
+
 --Temporary send old serializaton type, remove in later version when more people are on the new serializer.
 --Removed, no longer in use.
-function NWB:sendSettingsOld(distribution, target, prio)
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+--[[function NWB:sendSettingsOld(distribution, target, prio)
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
 	if (not prio) then
@@ -382,7 +413,7 @@ function NWB:sendSettingsOld(distribution, target, prio)
 		NWB.lastDataSent = GetServerTime();
 		NWB:sendComm(distribution, "settings " .. version .. " " .. data, target, prio);
 	end
-end
+end]]
 
 --Send buff dropped msg.
 function NWB:sendBuffDropped(distribution, type, target, layer)
@@ -520,7 +551,7 @@ end
 --Create data table for sending.
 function NWB:createData(distribution, noLogs)
 	local data = {};
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
 	if (NWB.data.rendTimer > (GetServerTime() - NWB.db.global.rendRespawnTime)) then
@@ -599,7 +630,7 @@ local lastSendLayerMap = {};
 local lastSendLayerMapID = {};
 function NWB:createDataLayered(distribution, noLayerMap, noLogs)
 	local data = {};
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
 	if (not lastSendLayerMap[distribution]) then
@@ -739,8 +770,15 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs)
 				if (not data.layers[layer]) then
 					data.layers[layer] = {};
 				end
-				--NWB:debug("sending layer map data", distribution);
-				data.layers[layer].layerMap = NWB.data.layers[layer].layerMap;
+				local count = 0;
+				for k, v in pairs(NWB.data.layers[layer].layerMap) do
+					count = count + 1;
+				end
+				--Incase anything goes wrong with arenas or other new zones etc in TBC, don't send large number of layer id's.
+				if (count < 60) then
+					--NWB:debug("sending layer map data", distribution);
+					data.layers[layer].layerMap = NWB.data.layers[layer].layerMap;
+				end
 				--Don't share created time for now.
 				data.layers[layer].layerMap.created = nil;
 			end
@@ -804,7 +842,7 @@ end
 
 function NWB:createTimerLogData(distribution, entries)
 	local data = {};
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
 	if (not entries) then
@@ -916,7 +954,7 @@ end
 --Create settings for sending.
 function NWB:createSettings(distribution)
 	local data = {};
-	if (UnitInBattleground("player") and distribution ~= "GUILD") then
+	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
 	if (distribution == "GUILD") then
@@ -989,6 +1027,19 @@ NWB.validKeys = {
 	["timerLog"] = true,
 };
 
+local validSettings = {
+	["disableAllGuildMsgs"] = true,
+	["guildBuffDropped"] = true,
+	["guildNpcDialogue"] = true,
+	["guildZanDialogue"] = true,
+	["guildNpcKilled"] = true,
+	["guildSongflower"] = true,
+	["guildCommand"] = true,
+	["guild10"] = true,
+	["guild1"] = true,
+	["guildNpcWalking"] = true,
+};
+
 function NWB:extractSettings(dataReceived, sender, distribution)
 	if (distribution ~= "GUILD") then
 		return;
@@ -1012,6 +1063,8 @@ function NWB:extractSettings(dataReceived, sender, distribution)
 		if (type(v) == "table" and string.match(k, nameOnly) and string.match(k, "%-") and next(v)) then
 			--NWB:debug("Extracted settings from:", sender);
 			NWB.data[k] = v;
+			--Keep a timestamp for data cleanup funcs.
+			NWB.data[k].updated = GetServerTime();
 		end
 	end
 end
@@ -1069,7 +1122,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 	end
 	local hasNewData, newFlowerData;
 	--Insert our layered data here.
-	if (NWB.isLayered and data.layers and self.j(elapsed)) then
+	if (NWB.isLayered and data.layers and self.j(elapsed) and time > 50) then
 		--There's a lot of ugly shit in this function trying to quick fix timer bugs for this layered stuff...
 		for layer, vv in NWB:pairsByKeys(data.layers) do
 			--Temp fix, this can be removed soon.
@@ -1307,6 +1360,10 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 					NWB:debug("Invalid key received:", k, v);
 				else
 					NWB.data[k] = v;
+					if (type(v) == "table" and k == sender and string.match(k, "%-") and next(v)) then
+						--Keep a timestamp for data cleanup funcs.
+						NWB.data[k].updated = GetServerTime();
+					end
 				end
 			end
 		end
@@ -1352,7 +1409,8 @@ function NWB:receivedNpcDied(type, timestamp, distribution, layer, sender)
 	if (type == "nefNpcDied") then
 		npc = "nef";
 	end
-	if (NWB.db.global.ignoreKillData or (type == "nefNpcDied" and NWB.faction == "Horde")
+	--if (NWB.db.global.ignoreKillData or (type == "nefNpcDied" and NWB.faction == "Horde")
+	if (NWB.db.global.ignoreKillData
 			or (NWB.data[type] and  NWB.data[npc .. "Timer"] and NWB.data[type] > NWB.data[npc .. "Timer"])) then
 		return;
 	end
@@ -1392,7 +1450,12 @@ function NWB:receivedNpcDied(type, timestamp, distribution, layer, sender)
 				--Small delay at logon to let the UI load properly.
 				C_Timer.After(10, function()
 					local timeAgoString =  NWB:getTimeString(timeAgo, true);
-					local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago.";
+					local layerMsg = "";
+					if (layer) then
+						local layerNum = NWB:GetLayerNum(layer);
+						layerMsg = " (Layer " .. layerNum .. ")";
+					end
+					local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago" .. layerMsg .. ".";
 					if (NWB.db.global.middleNpcKilled) then
 						NWB:middleScreenMsg("npcKilled", msg, nil, 5);
 					end
@@ -1400,7 +1463,12 @@ function NWB:receivedNpcDied(type, timestamp, distribution, layer, sender)
 				end)
 			else
 				local timeAgoString =  NWB:getTimeString(timeAgo, true);
-				local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago.";
+				local layerMsg = "";
+				if (layer) then
+					local layerNum = NWB:GetLayerNum(layer);
+					layerMsg = " (Layer " .. layerNum .. ")";
+				end
+				local msg = "New recently killed " .. typeString .. " NPC timer received, died " .. timeAgoString .. " ago" .. layerMsg .. ".";
 				if (NWB.db.global.middleNpcKilled) then
 					NWB:middleScreenMsg("npcKilled", msg, nil, 5);
 				end
@@ -1458,7 +1526,7 @@ function NWB:yellTicker()
 		--Msg inside the timer so it doesn't send first tick at logon, player entering world does that.
 		NWB:removeOldLayers();
 		local inInstance, instanceType = IsInInstance();
-		if (not UnitInBattleground("player") and not inInstance) then
+		if (not UnitInBattleground("player") and not NWB:isInArena() and not inInstance) then
 			NWB:sendData("YELL");
 		end
 		NWB:yellTicker();
@@ -1782,6 +1850,17 @@ end
 
 function NWB:resetTimerLog()
 	NWB.data.timerLog = {};
+end
+
+function NWB:cleanupSettingsData()
+	for k, v in pairs(NWB.data) do
+		if (string.match(k, "%-") and v.guild1 ~= nil) then
+			if (not v.updated or not tonumber(v.updated) or GetServerTime() - v.updated > 2592000) then
+				--Remove data older than a month.
+				NWB.data[k] = nil;
+			end
+		end
+	end
 end
 
 local NWBTimerLogFrame = CreateFrame("ScrollFrame", "NWBTimerLogFrame", UIParent, NWB:addBackdrop("InputScrollFrameTemplate"));
@@ -2689,4 +2768,210 @@ function NWB:getBagSlots()
 		end
 	end
 	return freeSlots, totalSlots;
+end
+
+local NWBLFrame = CreateFrame("ScrollFrame", "NWBLFrame", UIParent, NWB:addBackdrop("InputScrollFrameTemplate"));
+NWBLFrame:Hide();
+NWBLFrame:SetToplevel(true);
+NWBLFrame:SetMovable(true);
+NWBLFrame:EnableMouse(true);
+tinsert(UISpecialFrames, "NWBLFrame");
+NWBLFrame:SetPoint("CENTER", UIParent, 0, 100);
+NWBLFrame:SetBackdrop({bgFile = "Interface\\Buttons\\WHITE8x8",insets = {top = 0, left = 0, bottom = 0, right = 0}});
+NWBLFrame:SetBackdropColor(0,0,0,.7);
+NWBLFrame.CharCount:Hide();
+NWBLFrame:SetFrameStrata("HIGH");
+NWBLFrame.EditBox:SetAutoFocus(false);
+NWBLFrame.EditBox:SetScript("OnKeyDown", function(self, arg)
+	--If control key is down keep focus for copy/paste to work.
+	--Otherwise remove focus so "enter" can be used to open chat and not have a stuck cursor on this edit box.
+	if (not IsControlKeyDown()) then
+		NWBLFrame.EditBox:ClearFocus();
+	end
+end)
+NWBLFrame.EditBox:SetScript("OnShow", function(self, arg)
+	NWBLFrame:SetVerticalScroll(0);
+end)
+local lUpdateTime = 0;
+NWBLFrame:HookScript("OnUpdate", function(self, arg)
+	--Only update once per second.
+	if (GetServerTime() - lUpdateTime > 0 and self:GetVerticalScrollRange() == 0) then
+		lUpdateTime = GetServerTime();
+		NWB:recalcLFrame();
+	end
+end)
+NWBLFrame.fs = NWBLFrame:CreateFontString("NWBLFrameFS", "HIGH");
+NWBLFrame.fs:SetPoint("TOP", 0, -0);
+NWBLFrame.fs:SetFont(NWB.regionFont, 14);
+NWBLFrame.fs:SetText("|cFFFFFF00Guild Layers|r");
+
+local NWBLDragFrame = CreateFrame("Frame", "NWBLDragFrame", NWBLFrame);
+NWBLDragFrame:SetToplevel(true);
+NWBLDragFrame:EnableMouse(true);
+NWBLDragFrame:SetWidth(205);
+NWBLDragFrame:SetHeight(38);
+NWBLDragFrame:SetPoint("TOP", 0, 4);
+NWBLDragFrame:SetFrameLevel(131);
+NWBLDragFrame.tooltip = CreateFrame("Frame", "NWBLDragTooltip", NWBLDragFrame, "TooltipBorderedFrameTemplate");
+NWBLDragFrame.tooltip:SetPoint("CENTER", NWBLDragFrame, "TOP", 0, 12);
+NWBLDragFrame.tooltip:SetFrameStrata("TOOLTIP");
+NWBLDragFrame.tooltip:SetFrameLevel(9);
+NWBLDragFrame.tooltip:SetAlpha(.8);
+NWBLDragFrame.tooltip.fs = NWBLDragFrame.tooltip:CreateFontString("NWBLDragTooltipFS", "HIGH");
+NWBLDragFrame.tooltip.fs:SetPoint("CENTER", 0, 0.5);
+NWBLDragFrame.tooltip.fs:SetFont(NWB.regionFont, 12);
+NWBLDragFrame.tooltip.fs:SetText("Hold to drag");
+NWBLDragFrame.tooltip:SetWidth(NWBLDragFrame.tooltip.fs:GetStringWidth() + 16);
+NWBLDragFrame.tooltip:SetHeight(NWBLDragFrame.tooltip.fs:GetStringHeight() + 10);
+NWBLDragFrame:SetScript("OnEnter", function(self)
+	NWBLDragFrame.tooltip:Show();
+end)
+NWBLDragFrame:SetScript("OnLeave", function(self)
+	NWBLDragFrame.tooltip:Hide();
+end)
+NWBLDragFrame.tooltip:Hide();
+NWBLDragFrame:SetScript("OnMouseDown", function(self, button)
+	if (button == "LeftButton" and not self:GetParent().isMoving) then
+		self:GetParent().EditBox:ClearFocus();
+		self:GetParent():StartMoving();
+		self:GetParent().isMoving = true;
+		--self:GetParent():SetUserPlaced(false);
+	end
+end)
+NWBLDragFrame:SetScript("OnMouseUp", function(self, button)
+	if (button == "LeftButton" and self:GetParent().isMoving) then
+		self:GetParent():StopMovingOrSizing();
+		self:GetParent().isMoving = false;
+	end
+end)
+NWBLDragFrame:SetScript("OnHide", function(self)
+	if (self:GetParent().isMoving) then
+		self:GetParent():StopMovingOrSizing();
+		self:GetParent().isMoving = false;
+	end
+end)
+
+--Top right X close button.
+local NWBLFrameClose = CreateFrame("Button", "NWBLFrameClose", NWBLFrame, "UIPanelCloseButton");
+--[[NWBLFrameClose:SetPoint("TOPRIGHT", -5, 8.6);
+NWBLFrameClose:SetWidth(31);
+NWBLFrameClose:SetHeight(31);]]
+NWBLFrameClose:SetPoint("TOPRIGHT", -12, 3.75);
+NWBLFrameClose:SetWidth(20);
+NWBLFrameClose:SetHeight(20);
+NWBLFrameClose:SetFrameLevel(3);
+NWBLFrameClose:SetScript("OnClick", function(self, arg)
+	NWBLFrame:Hide();
+end)
+--Adjust the X texture so it fits the entire frame and remove the empty clickable space around the close button.
+--Big thanks to Meorawr for this.
+NWBLFrameClose:GetNormalTexture():SetTexCoord(0.1875, 0.8125, 0.1875, 0.8125);
+NWBLFrameClose:GetHighlightTexture():SetTexCoord(0.1875, 0.8125, 0.1875, 0.8125);
+NWBLFrameClose:GetPushedTexture():SetTexCoord(0.1875, 0.8125, 0.1875, 0.8125);
+NWBLFrameClose:GetDisabledTexture():SetTexCoord(0.1875, 0.8125, 0.1875, 0.8125);
+
+--Config button.
+local NWBLFrameRefreshButton = CreateFrame("Button", "NWBLFrameRefreshButton", NWBLFrame.EditBox, "UIPanelButtonTemplate");
+NWBLFrameRefreshButton:SetPoint("TOPRIGHT", -8, 3);
+NWBLFrameRefreshButton:SetWidth(90);
+NWBLFrameRefreshButton:SetHeight(17);
+NWBLFrameRefreshButton:SetText(L["Refresh"]);
+NWBLFrameRefreshButton:SetNormalFontObject("GameFontNormalSmall");
+NWBLFrameRefreshButton:SetScript("OnClick", function(self, arg)
+	NWB:recalcLFrame()
+end)
+NWBLFrameRefreshButton:SetScript("OnMouseDown", function(self, button)
+	if (button == "LeftButton" and not self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent().EditBox:ClearFocus();
+		self:GetParent():GetParent():StartMoving();
+		self:GetParent():GetParent().isMoving = true;
+	end
+end)
+NWBLFrameRefreshButton:SetScript("OnMouseUp", function(self, button)
+	if (button == "LeftButton" and self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent():StopMovingOrSizing();
+		self:GetParent():GetParent().isMoving = false;
+	end
+end)
+NWBLFrameRefreshButton:SetScript("OnHide", function(self)
+	if (self:GetParent():GetParent().isMoving) then
+		self:GetParent():GetParent():StopMovingOrSizing();
+		self:GetParent():GetParent().isMoving = false;
+	end
+end)
+
+function NWB:openLFrame()
+	NWBLFrame.fs:SetFont(NWB.regionFont, 14);
+	if (NWBLFrame:IsShown()) then
+		NWBLFrame:Hide();
+	else
+		if (not NWB.db.global.guildL) then
+			NWB:print("You have disabled guild layer sharing.");
+		end
+		NWBLFrame:SetHeight(400);
+		NWBLFrame:SetWidth(400);
+		local fontSize = false
+		NWBLFrame.EditBox:SetFont(NWB.regionFont, 14);
+		NWBLFrame.EditBox:SetWidth(NWBLFrame:GetWidth() - 30);
+		NWBLFrame:Show();
+		NWB:recalcLFrame();
+		--Changing scroll position requires a slight delay.
+		--Second delay is a backup.
+		C_Timer.After(0.05, function()
+			NWBLFrame:SetVerticalScroll(0);
+		end)
+		C_Timer.After(0.3, function()
+			NWBLFrame:SetVerticalScroll(0);
+		end)
+		--So interface options and this frame will open on top of each other.
+		if (InterfaceOptionsFrame:IsShown()) then
+			NWBLFrame:SetFrameStrata("DIALOG")
+		else
+			NWBLFrame:SetFrameStrata("HIGH")
+		end
+	end
+end
+
+function NWB:recalcLFrame()
+	NWBLFrame.EditBox:SetText("\n\n");
+	if (not IsInGuild()) then
+		NWBLFrame.EditBox:Insert("|cffFFFF00You have no guild, this command shows guild members only.\n");
+	else
+		GuildRoster();
+		local numTotalMembers = GetNumGuildMembers();
+		local onlineMembers = {};
+		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
+		local sorted = {};
+		local guild = {};
+		for i = 1, numTotalMembers do
+			local name, _, _, _, class, zone, _, _, online, _, classEnglish, _, _, isMobile = GetGuildRosterInfo(i);
+			if (online and not isMobile) then
+				name = string.gsub(string.gsub(name, "'", ""), " ", "");
+				guild[name] = {
+					class = classEnglish,
+					zone = zone,
+				};
+			end
+		end
+		--Sort by name.
+		for k, v in pairs(NWB.hasL) do
+			if (guild[k] and tonumber(v) and tonumber(v) > 0) then
+				local who, realm = strsplit("-", k, 2);
+				sorted[who] = guild[k];
+				sorted[who].layer = v;
+			else
+				--Remove if they go offline.
+				NWB.hasL[k] = nil;
+			end
+		end
+		local found;
+		for k, v in NWB:pairsByKeys(sorted) do
+			found = true;
+			local _, _, _, classColor = GetClassColor(v.class);
+			NWBLFrame.EditBox:Insert("|c" .. classColor .. k .. "|r  |cff00ff00[Layer " .. v.layer .. "]|r  |cff9CD6DE(" .. v.zone .. ")|r\n");
+		end
+		if (not found) then
+			NWBLFrame.EditBox:Insert("|cffFFFF00No guild members online sharing layer data found.");
+		end
+	end
 end

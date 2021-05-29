@@ -199,11 +199,19 @@ NWB.options = {
 			get = "getShowUnbuffedAlts",
 			set = "setShowUnbuffedAlts",
 		},
+		guildL = {
+			type = "toggle",
+			name = L["guildLTitle"],
+			desc = L["guildLDesc"],
+			order = 126,
+			get = "getGuildL",
+			set = "setGuildL",
+		},
 		timerWindowWidth = {
 			type = "range",
 			name = L["timerWindowWidthTitle"],
 			desc = L["timerWindowWidthDesc"],
-			order = 126,
+			order = 127,
 			get = "getTimerWindowWidth",
 			set = "setTimerWindowWidth",
 			min = 350,
@@ -217,7 +225,7 @@ NWB.options = {
 			type = "range",
 			name = L["timerWindowHeightTitle"],
 			desc = L["timerWindowHeightDesc"],
-			order = 127,
+			order = 128,
 			get = "getTimerWindowHeight",
 			set = "setTimerWindowHeight",
 			min = 150,
@@ -231,7 +239,7 @@ NWB.options = {
 			type = "range",
 			name = L["buffWindowWidthTitle"],
 			desc = L["buffWindowWidthDesc"],
-			order = 128,
+			order = 129,
 			get = "getBuffWindowWidth",
 			set = "setBuffWindowWidth",
 			min = 350,
@@ -245,7 +253,7 @@ NWB.options = {
 			type = "range",
 			name = L["buffWindowHeightTitle"],
 			desc = L["buffWindowHeightDesc"],
-			order = 129,
+			order = 130,
 			get = "getBuffWindowHeight",
 			set = "setBuffWindowHeight",
 			min = 150,
@@ -259,7 +267,7 @@ NWB.options = {
 			type = "toggle",
 			name = L["showNaxxWorldmapMarkersTitle"],
 			desc = L["showNaxxWorldmapMarkersDesc"],
-			order = 130,
+			order = 131,
 			get = "getShowNaxxWorldmapMarkers",
 			set = "setShowNaxxWorldmapMarkers",
 		},
@@ -267,7 +275,7 @@ NWB.options = {
 			type = "toggle",
 			name = L["showNaxxMinimapMarkersTitle"],
 			desc = L["showNaxxMinimapMarkersDesc"],
-			order = 131,
+			order = 132,
 			get = "getShowNaxxMinimapMarkers",
 			set = "setShowNaxxMinimapMarkers",
 		},
@@ -275,7 +283,7 @@ NWB.options = {
 			type = "toggle",
 			name = L["bigWigsSupportTitle"],
 			desc = L["bigWigsSupportDesc"],
-			order = 132,
+			order = 133,
 			get = "getBigWigsSupport",
 			set = "setBigWigsSupport",
 		},
@@ -1389,7 +1397,9 @@ function NWB:loadSpecificOptions()
 			fontSize = "medium",
 			order = 25,
 		};
-		NWB.optionDefaults.global.minimapIcon = {["minimapPos"] = 182, ["hide"] = false};
+	end
+	if (NWB.isTBC or NWB.realmsTBC) then
+		NWB.optionDefaults.global.minimapIcon = {["minimapPos"] = 139, ["hide"] = false};
 	end
 	if (NWB.faction == "Alliance") then
 		NWB.options.args["allianceEnableRend"] = {
@@ -1553,7 +1563,7 @@ NWB.optionDefaults = {
 		soundsNpcWalking = "NWB - MGS2",
 		showExpiredTimers = true,
 		expiredTimersDuration = 5,
-		minimapIcon = {["minimapPos"] = 180, ["hide"] = false},
+		minimapIcon = {["minimapPos"] = 160, ["hide"] = false},
 		minimapButton = true,
 		flashOneMin = true,
 		flashFirstYell = true,
@@ -1610,6 +1620,7 @@ NWB.optionDefaults = {
 		resetLayerMaps = true,
 		convertSettings = true,
 		wipeSingleLayer = true,
+		guildL = true,
 		
 		--TBC options
 		disableSoundsAboveMaxBuffLevel = true,
@@ -3480,4 +3491,16 @@ end
 
 function NWB:getDisableLogonAllLevels(info)
 	return self.db.global.disableLogonAllLevels;
+end
+
+--Guild Layers.
+function NWB:setGuildL(info, value)
+	self.db.global.guildL = value;
+	if (not value and NWBLFrame:IsShown()) then
+		NWBLFrame:Hide();
+	end
+end
+
+function NWB:getGuildL(info)
+	return self.db.global.guildL;
 end
