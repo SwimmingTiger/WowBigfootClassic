@@ -12,8 +12,12 @@ local function IsClassic()
     return WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 end
 
-local function IsBCClassic()
-    return WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local function IsBCC()
+  return WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+end
+
+local function IsRetail()
+  return WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 end
 
 AdvancedInterfaceOptionsSaved = {}
@@ -367,25 +371,6 @@ local fadeMap = not IsClassic() and newCheckbox(AIO, 'mapFade')
 local secureToggle = newCheckbox(AIO, 'secureAbilityToggle')
 local luaErrors = newCheckbox(AIO, 'scriptErrors')
 local targetDebuffFilter = newCheckbox(AIO, 'noBuffDebuffFilterOnTarget')
-local reverseCleanupBags
-if not IsClassic() then
-    reverseCleanupBags = newCheckbox(AIO, 'reverseCleanupBags',
-        function(self)
-            return GetSortBagsRightToLeft()
-        end,
-        function(self, checked)
-            SetSortBagsRightToLeft(checked)
-        end
-    )
-end
-local lootLeftmostBag = newCheckbox(AIO, 'lootLeftmostBag',
-	function(self)
-		return GetInsertItemsLeftToRight()
-	end,
-	function(self, checked)
-		SetInsertItemsLeftToRight(checked)
-	end
-)
 local enableWoWMouse = newCheckbox(AIO, 'enableWoWMouse')
 
 local questSortingLabel = AIO:CreateFontString(nil, 'ARTWORK', 'GameFontHighlightSmall')
@@ -453,13 +438,33 @@ secureToggle:SetPoint("TOPLEFT", IsClassic() and playerGuildTitles or fadeMap, "
 luaErrors:SetPoint("TOPLEFT", secureToggle, "BOTTOMLEFT", 0, -4)
 targetDebuffFilter:SetPoint("TOPLEFT", luaErrors, "BOTTOMLEFT", 0, -4)
 
-if not IsClassic() then
+local reverseCleanupBags = GetSortBagsRightToLeft and SetSortBagsRightToLeft and newCheckbox(AIO, 'reverseCleanupBags',
+	function(self)
+		return GetSortBagsRightToLeft()
+	end,
+	function(self, checked)
+		SetSortBagsRightToLeft(checked)
+	end
+)
+
+local lootLeftmostBag = GetInsertItemsLeftToRight and SetInsertItemsLeftToRight and newCheckbox(AIO, 'lootLeftmostBag',
+	function(self)
+		return GetInsertItemsLeftToRight()
+	end,
+	function(self, checked)
+		SetInsertItemsLeftToRight(checked)
+	end
+)
+
+if reverseCleanupBags then
     reverseCleanupBags:SetPoint("TOPLEFT", targetDebuffFilter, "BOTTOMLEFT", 0, -4)
     lootLeftmostBag:SetPoint("TOPLEFT", reverseCleanupBags, "BOTTOMLEFT", 0, -4)
     enableWoWMouse:SetPoint("TOPLEFT", lootLeftmostBag, "BOTTOMLEFT", 0, -4)
-else
+elseif lootLeftmostBag then
     lootLeftmostBag:SetPoint("TOPLEFT", targetDebuffFilter, "BOTTOMLEFT", 0, -4)
     enableWoWMouse:SetPoint("TOPLEFT", lootLeftmostBag, "BOTTOMLEFT", 0, -4)
+else
+    enableWoWMouse:SetPoint("TOPLEFT", targetDebuffFilter, "BOTTOMLEFT", 0, -4)
 end
 
 -- Checkbox to enforce all settings through reloads
@@ -500,7 +505,8 @@ StaticPopupDialogs['AIO_RESET_EVERYTHING'] = {
 		self:GetParent().button1:SetEnabled(self:GetText():lower() == 'irreversible')
 	end,
 	OnAccept = function()
-		for cvar in pairs(addon.hiddenOptions) do
+		for _, info in ipairs(addon:GetCVars()) do
+			local cvar = info.command
 			local current, default = GetCVarInfo(cvar)
 			if current ~= default then
 				print(format('|cffaaaaff%s|r reset from |cffffaaaa%s|r to |cffaaffaa%s|r', tostring(cvar), tostring(current), tostring(default)))
@@ -519,12 +525,114 @@ StaticPopupDialogs['AIO_RESET_EVERYTHING'] = {
 }
 
 local resetButton = CreateFrame('button', nil, AIO, 'UIPanelButtonTemplate')
-resetButton:SetSize(120, 20)
-resetButton:SetText("Load Defaults")
+resetButton:SetSize(120, 22)
+resetButton:SetText("Reset Settings")
 resetButton:SetPoint('BOTTOMRIGHT', -10, 10)
 resetButton:SetScript('OnClick', function(self)
 	StaticPopup_Show('AIO_RESET_EVERYTHING')
 end)
+
+-- Backup Settings
+local function BackupSettings()
+	--[[
+		FIXME: We probably don't actually want to back up every CVar
+		Some CVars use bitfields to track progress that the player likely isn't expecting to be undone by a restore
+		We may need to manually create a list of CVars to ignore, I don't know if there's a way to automate this
+	--]]
+	local cvarBackup = {}
+	local settingCount = 0
+	for _, info in ipairs(addon:GetCVars()) do
+		-- Only record CVars that don't match their default value
+		-- NOTE: Defaults can potentially change, should we store every cvar?
+		local currentValue, defaultValue = GetCVarInfo(info.command)
+		if currentValue ~= defaultValue then
+			-- Normalize casing to simplify lookups
+			local cvar = info.command:lower()
+			cvarBackup[cvar] = currentValue
+			settingCount = settingCount + 1
+		end
+	end
+
+	-- TODO: Support multiple backups (save & restore named cvar profiles)
+	if not AdvancedInterfaceOptionsSaved.Backups then
+		AdvancedInterfaceOptionsSaved.Backups = {}
+	end
+	AdvancedInterfaceOptionsSaved.Backups[1] = {
+		timestamp = GetServerTime(),
+		cvars = cvarBackup,
+	}
+
+	print(format("AIO: Backed up %d customized CVar settings!", settingCount))
+end
+
+StaticPopupDialogs["AIO_BACKUP_SETTINGS"] = {
+	text = "Save current CVar settings to restore later?",
+	button1 = "Backup Settings",
+	button2 = "Cancel",
+	OnAccept = BackupSettings,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+}
+
+local backupButton = CreateFrame("button", nil, AIO, "UIPanelButtonTemplate")
+backupButton:SetSize(120, 22)
+backupButton:SetText("Backup Settings")
+backupButton:SetPoint("BOTTOMLEFT", resetButton, "TOPLEFT", 0, 50)
+backupButton:SetScript("OnClick", function(self)
+	StaticPopup_Show("AIO_BACKUP_SETTINGS")
+end)
+
+-- Restore Settings
+local function RestoreSettings()
+	local backup = AdvancedInterfaceOptionsSaved.Backups and AdvancedInterfaceOptionsSaved.Backups[1]
+	if backup then
+		for _, info in ipairs(addon:GetCVars()) do
+			local cvar = info.command
+			local backupValue = backup.cvars[cvar:lower()] -- Always lowercase cvar names
+			local currentValue, defaultValue = GetCVarInfo(cvar)
+			if backupValue then
+				-- Restore value from backup
+				if currentValue ~= backupValue then
+					print(format('|cffaaaaff%s|r changed from |cffffaaaa%s|r to |cffaaffaa%s|r', cvar, tostring(currentValue), tostring(backupValue)))
+					addon:SetCVar(cvar, backupValue)
+				end
+			else
+				-- CHECKME: If CVar isn't in backup and isn't set to default value, should we reset to default or ignore it?
+				if currentValue ~= defaultValue then
+					print(format('|cffaaaaff%s|r changed from |cffffaaaa%s|r to |cffaaffaa%s|r', cvar, tostring(currentValue), tostring(defaultValue)))
+					addon:SetCVar(cvar, defaultValue)
+				end
+			end
+		end
+	end
+end
+
+StaticPopupDialogs["AIO_RESTORE_SETTINGS"] = {
+	text = "Restore CVar settings from backup?\nNote: This can't be undone!",
+	button1 = "Restore Settings",
+	button2 = "Cancel",
+	OnAccept = RestoreSettings,
+	OnShow = function(self)
+		-- Disable accept button if we don't have any backups
+		self.button1:SetEnabled(AdvancedInterfaceOptionsSaved.Backups and AdvancedInterfaceOptionsSaved.Backups[1])
+	end,
+	timeout = 0,
+	whileDead = true,
+	hideOnEscape = true,
+	preferredIndex = 3,
+	showAlert = true,
+}
+
+local restoreButton = CreateFrame("button", nil, AIO, "UIPanelButtonTemplate")
+restoreButton:SetSize(120, 22)
+restoreButton:SetText("Restore Settings")
+restoreButton:SetPoint("TOPLEFT", backupButton, "BOTTOMLEFT", 0, -2)
+restoreButton:SetScript("OnClick", function(self)
+	StaticPopup_Show("AIO_RESTORE_SETTINGS")
+end)
+
 
 -- Chat section
 local AIO_Chat = CreateFrame('Frame', nil, InterfaceOptionsFramePanelContainer)
@@ -550,14 +658,11 @@ SubText_Chat:SetText('These options allow you to modify various chat settings th
 
 local chatMouseScroll = newCheckbox(AIO_Chat, 'chatMouseScroll')
 local chatDelay = newCheckbox(AIO_Chat, 'removeChatDelay')
-local classColors
-if IsClassic() then
-    classColors = newCheckbox(AIO_Chat, 'chatClassColorOverride')
-end
-
 chatDelay:SetPoint('TOPLEFT', SubText_Chat, 'BOTTOMLEFT', 0, -8)
 chatMouseScroll:SetPoint('TOPLEFT', chatDelay, 'BOTTOMLEFT', 0, -4)
+
 if IsClassic() then
+    local classColors = newCheckbox(AIO_Chat, 'chatClassColorOverride')
     classColors:SetPoint('TOPLEFT', chatMouseScroll, 'BOTTOMLEFT', 0, -4)
 end
 
@@ -848,11 +953,8 @@ SubText_NP:SetPoint('TOPLEFT', Title_NP, 'BOTTOMLEFT', 0, -8)
 SubText_NP:SetPoint('RIGHT', -32, 0)
 SubText_NP:SetText('These options allow you to modify Nameplate Options.')
 
-local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 10, IsClassic() and 20 or IsBCClassic() and 41 or 100)
-nameplateDistance:SetPoint('TOPLEFT', SubText_NP, 'BOTTOMLEFT', 0, -20)
-
 local nameplateAtBase = newCheckbox(AIO_NP, 'nameplateOtherAtBase')
-nameplateAtBase:SetPoint("TOPLEFT", nameplateDistance, "BOTTOMLEFT", 0, -16)
+nameplateAtBase:SetPoint("TOPLEFT", SubText_NP, "BOTTOMLEFT", 0, -20)
 nameplateAtBase:SetScript('OnClick', function(self)
 	local checked = self:GetChecked()
 	PlaySound(checked and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
@@ -865,11 +967,15 @@ nameplateColor:SetPoint("TOPLEFT", nameplateAtBase, "BOTTOMLEFT", 0, -8)
 local nameplateColorFriendly = newCheckbox(AIO_NP, 'ShowClassColorInFriendlyNameplate')
 nameplateColorFriendly:SetPoint("TOPLEFT", nameplateColor, "BOTTOMLEFT", 0, -8)
 
+local nameplateDistance = newSlider(AIO_NP, 'nameplateMaxDistance', 0, IsClassic() and 20 or IsBCC() and 41 or 100)
+nameplateDistance:SetPoint('TOPLEFT', nameplateColorFriendly, 'BOTTOMLEFT', 10, -30)
+
+
 -- Combat section
 local AIO_C = CreateFrame('Frame', nil, InterfaceOptionsFramePanelContainer)
 AIO_C:Hide()
 AIO_C:SetAllPoints()
-AIO_C.name = "Combat & Loot"
+AIO_C.name = "Combat"
 AIO_C.parent = addonName
 
 local Title_C = AIO_C:CreateFontString(nil, 'ARTWORK', 'GameFontNormalLarge')
@@ -901,12 +1007,6 @@ spellStartRecovery:SetPoint('TOPLEFT', castOnKeyDown, 'BOTTOMLEFT', 24, -12)
 spellStartRecovery.minMaxValues = {spellStartRecovery:GetMinMaxValues()}
 spellStartRecovery.minText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[1], MILLISECONDS_ABBR)
 spellStartRecovery.maxText:SetFormattedText("%d %s", spellStartRecovery.minMaxValues[2], MILLISECONDS_ABBR)
-
-local autoLootRate = newSlider(AIO_C, 'autoLootRate', 0, 400)
-autoLootRate:SetPoint('TOPLEFT', spellStartRecovery, 'BOTTOMLEFT', 0, -48)
-autoLootRate.minMaxValues = {autoLootRate:GetMinMaxValues()}
-autoLootRate.minText:SetFormattedText("%d %s", autoLootRate.minMaxValues[1], MILLISECONDS_ABBR)
-autoLootRate.maxText:SetFormattedText("%d %s", autoLootRate.minMaxValues[2], MILLISECONDS_ABBR)
 
 -- Hook up options to addon panel
 InterfaceOptions_AddCategory(AIO, addonName)

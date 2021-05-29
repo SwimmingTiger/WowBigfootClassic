@@ -179,7 +179,7 @@ addon.hiddenOptions = {
 	["autoClearAFK"] = { prettyName = nil, description = OPTION_TOOLTIP_CLEAR_AFK, type = "boolean" },
 	["colorblindWeaknessFactor"] = { prettyName = nil, description = OPTION_TOOLTIP_ADJUST_COLORBLIND_STRENGTH, type = "boolean" },
 	["autoLootDefault"] = { prettyName = nil, description = OPTION_TOOLTIP_AUTO_LOOT_DEFAULT, type = "boolean" },
-	["autoLootRate"] = { prettyName = "自动拾取速率", description = "记录自动拾取的速率（以毫秒为单位）", type = "number" },
+	["autoLootRate"] = { prettyName = "自动拾取速率", description = "尝试自动拾取的速率（以毫秒为单位）", type = "number" },
 	["ChatAmbienceVolume"] = { prettyName = nil, description = "", type = "boolean" },
 	["threatShowNumeric"] = { prettyName = nil, description = OPTION_TOOLTIP_SHOW_NUMERIC_THREAT, type = "boolean" },
 	["rightActionBar"] = { prettyName = nil, description = OPTION_TOOLTIP_SHOW_MULTIBAR3, type = "boolean" },
@@ -1029,14 +1029,28 @@ local CategoryNames = { -- not sure how meaningful these really are (/Blizzard_C
 		help: cvar description text
 --]]
 
-for _, info in pairs(C_Console.GetAllCommands()) do
-	if not addon.hiddenOptions[info.command]
-	  and info.commandType == 0 -- cvar, rather than script
-	  and info.category ~= 0 -- ignore debug category
-	  and not strfind(info.command:lower(), 'debug') -- a number of commands with "debug" in their name are inexplicibly not in the "debug" category
-	  and info.category ~= 8 -- ignore GM category
-	then
-		local value = GetCVar(info.command)
+function addon:CVarExists(cvar)
+	return not not select(2, pcall(function() return GetCVarInfo(cvar) end))
+end
+
+-- Returns filtered list of CVars
+function addon:GetCVars()
+	local cvars = {}
+	for _, info in ipairs(C_Console.GetAllCommands()) do
+		if info.commandType == 0 -- cvar, rather than script
+		  and info.category ~= 0 -- ignore debug category
+		  and not strfind(info.command:lower(), 'debug') -- a number of commands with "debug" in their name are inexplicibly not in the "debug" category
+		  and info.category ~= 8 -- ignore GM category
+		  and addon:CVarExists(info.command) -- real cvar?
+		then
+			table.insert(cvars, info)
+		end
+	end
+	return cvars
+end
+
+for _, info in pairs(addon:GetCVars()) do
+	if not addon.hiddenOptions[info.command] then
 		local optionTable = {
 			-- prettyName = info.command, -- the api doesn't provide pretty names, so the only way to keep these would be to create a table for them
 			description = info.help,
