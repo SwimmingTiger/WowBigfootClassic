@@ -663,7 +663,7 @@
 		</HighlightTexture>
 	</Button>
 
-	<Frame name="TradeListFrame" parent="UIParent" movable="true" enableMouse="true" hidden="true">
+	<Frame name="TradeListFrame" parent="UIParent" movable="true" enableMouse="true" hidden="true" inherits="BackdropTemplate">
 		<TitleRegion setAllPoints="true"/>
 		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<EdgeSize>
@@ -1047,6 +1047,22 @@
 				TradeListScrollFrame_Update(self);
 				self:SetFrameLevel(100);
 			</OnShow>
+			<OnLoad inherit="prepend">
+				local backdropInfo = {
+					bgFile		= "Interface\\DialogFrame\\UI-DialogBox-Background",
+					edgeFile	= "Interface\\DialogFrame\\UI-DialogBox-Border",
+					tile 		= true,
+					tileSize    = 16,
+					edgeSize    = 16, 
+                    insets      = {
+						left    = 3,
+						right   = 3,
+						top     = 3,
+						bottom  = 3
+					}
+				}
+				self:SetBackdrop(backdropInfo);
+			</OnLoad>
 		</Scripts>
 	</Frame>
 
