@@ -25,7 +25,8 @@ function Addon:OnInitialize()
             reverse = false,
             console = true,
             stackTogether = true,
-            stackBankFull = true,
+            -- 老虎会游泳：防止背包内物品意外保存到银行
+            stackBankFull = false,
             applyLibItemSearch = false,
             ruleOptionWindow = {point = 'CENTER', width = 637, height = 637},
             actions = {
@@ -34,14 +35,16 @@ function Addon:OnInitialize()
                     [ns.CLICK_TOKENS.RIGHT] = 'OPEN_RULE_OPTIONS',
                     [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT',
                     [ns.CLICK_TOKENS.CONTROL_RIGHT] = 'OPEN_OPTIONS',
-                    [ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
+                    -- 老虎会游泳：防止背包内物品意外保存到银行
+                    --[ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
                 },
                 [ns.COMMAND.BANK] = {
                     [ns.CLICK_TOKENS.LEFT] = 'SORT_BANK',
                     [ns.CLICK_TOKENS.RIGHT] = 'OPEN_RULE_OPTIONS',
                     [ns.CLICK_TOKENS.CONTROL_LEFT] = 'SORT',
                     [ns.CLICK_TOKENS.CONTROL_RIGHT] = 'OPEN_OPTIONS',
-                    [ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
+                    -- 老虎会游泳：防止背包内物品意外保存到银行
+                    --[ns.CLICK_TOKENS.SHIFT_LEFT] = 'SAVE',
                 },
             },
             rules = {},
