@@ -1,0 +1,16 @@
+lightweight tag 9093e0d8664a7cc6476a4810576e64e52bc44b86 1.1
+Author:	GitHub <noreply@github.com>
+Date:	Sat Aug 8 00:37:40 2020 -0400
+
+commit ae71384013a86eca44f29f3d8996d5b1f30c2a6d
+Author: Jákup I. Hansen <jakupih@programmer.net>
+Date:   Wed Aug 5 21:12:42 2020 +0100
+
+    Add trim to ProcessWhisper to better match keyword
+
+commit ae71384013a86eca44f29f3d8996d5b1f30c2a6d
+Author: Jákup I. Hansen <jakupih@programmer.net>
+Date:   Wed Aug 5 21:12:42 2020 +0100
+
+    Add trim to ProcessWhisper to better match keyword
+

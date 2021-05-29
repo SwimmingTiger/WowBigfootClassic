@@ -704,11 +704,9 @@ local function __AddBottomFrames()
 		check = __CreateCustomCheckBox("AutoInvite", L["AutoInvite-tooltip"], AutoInviteSettings.AutoInviteEnabled,
 			function()
 				SlashCmdList.AUTOINVITE("enable")
-				print(string.format("密语自动邀请进组已启用，其他人密我%s即可自动进组", AutoInviteSettings.AutoInviteKeyword or ""))
 			end,
 			function()
 				SlashCmdList.AUTOINVITE("disable")
-				print("密语自动邀请进组已关闭")
 			end,
 			function()
 				StaticPopupDialogs["AutoInvite_Input_Keywords"] = {

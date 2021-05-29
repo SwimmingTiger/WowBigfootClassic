@@ -33,8 +33,7 @@ function AutoInvite:ProcessWhisper(text, playerName)
 		return
 	end
 
-	-- 老虎会游泳：允许空白密语关键字
-	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) or (text == AutoInviteSettings.AutoInviteKeyword) then
+	if AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) or text:gsub("^%s*(.-)%s*$", "%1") == AutoInviteSettings.AutoInviteKeyword then
 		InviteUnit(playerName)
 	end
 end
@@ -43,12 +42,13 @@ SLASH_AUTOINVITE1 = "/autoinvite"
 SLASH_AUTOINVITE2 = "/autoinvite help"
 SLASH_AUTOINVITE3 = "/autoinvite enable"
 SLASH_AUTOINVITE4 = "/autoinvite disable"
-SLASH_AUTOINVITE5 = "/autoinvite b"
-SLASH_AUTOINVITE6 = "/autoinvite broadcast"
-SLASH_AUTOINVITE7 = "/autoinvite k"
-SLASH_AUTOINVITE8 = "/autoinvite keyword"
-SLASH_AUTOINVITE9 = "/autoinvite c"
-SLASH_AUTOINVITE10 = "/autoinvite channel"
+SLASH_AUTOINVITE5 = "/autoinvite toggle"
+SLASH_AUTOINVITE6 = "/autoinvite b"
+SLASH_AUTOINVITE7 = "/autoinvite broadcast"
+SLASH_AUTOINVITE8 = "/autoinvite k"
+SLASH_AUTOINVITE9 = "/autoinvite keyword"
+SLASH_AUTOINVITE10 = "/autoinvite c"
+SLASH_AUTOINVITE11 = "/autoinvite channel"
 
 SlashCmdList["AUTOINVITE"] = function(msg)
 	if AutoInvite:StringIsNullOrEmpty(msg) then
@@ -67,12 +67,26 @@ SlashCmdList["AUTOINVITE"] = function(msg)
 		AutoInvite:PrintHelpInformation()
 	end
 
+	if subCommand == "toggle" then
+		if AutoInviteSettings.AutoInviteEnabled then
+			subCommand = "disable"
+		else
+			subCommand = "enable"
+		end
+	end
+
 	if subCommand == "enable" then
 		AutoInvite:SetEnableDisable(true)
+		local keyword = AutoInviteSettings.AutoInviteKeyword
+		if keyword == "" then
+			keyword = "任意内容"
+		end
+		print("密语自动邀请进组：已启用。其他人密我" .. keyword .. "即可自动进组。右击小地图大脚按钮中的“密我进组”可修改关键词。")
 	end
 
 	if subCommand == "disable" then
 		AutoInvite:SetEnableDisable(false)
+		print("密语自动邀请进组：已禁用。可在小地图大脚按钮中勾选“密我进组”启用，右击设置关键词。")
 	end
 
 	if subCommand == "broadcast" or subCommand == "b" then
@@ -93,6 +107,7 @@ function AutoInvite:PrintHelpInformation()
 	print("/autoinvite, /autoinvite help -- 显示帮助信息")
 	print("/autoinvite enable -- 启用自动邀请")
 	print("/autoinvite disable -- 停用自动邀请")
+	print("/autoinvite toggle -- 开关自动邀请")
 	print("/autoinvite broadcast [keyword], /autoinvite b [keyword] -- 把邀请关键词发送到指定的公共频道并启用自动邀请")
 	print("/autoinvite keyword [keyword], /autoinvite k [keyword] -- 更改邀请关键词")
 	print("/autoinvite channel [channel], /autoinvite c [channel] -- 更改上面说的“指定的公共频道”，可设为 'SAY', 'YELL', 'PARTY', 'GUILD', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'")
@@ -122,9 +137,15 @@ end
 
 function AutoInvite:ProcessKeyword(keyword)
 	-- 老虎会游泳：允许空白密语关键字
-	if AutoInvite:StringIsNullOrEmpty(keyword) then keyword = '' end
+	if AutoInvite:StringIsNullOrEmpty(keyword) then
+		keyword = ''
+	end
 	AutoInvite:SetInviteKeyword(keyword, 0)
-	print("自动邀请关键词已设为 '" .. AutoInviteSettings.AutoInviteKeyword .. "'")
+	if not AutoInvite:StringIsNullOrEmpty(AutoInviteSettings.AutoInviteKeyword) then
+		print("自动邀请关键词已设为" .. AutoInviteSettings.AutoInviteKeyword .. '，密我' .. AutoInviteSettings.AutoInviteKeyword .. '可进组')
+	else
+		print("自动邀请关键词已清空，密我任何内容都可进组")
+	end
 end
 
 function AutoInvite:ProcessChannel(channel)
