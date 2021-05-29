@@ -47,11 +47,20 @@ local FrameDefaults = {
 	spacing = 2,
 
 	brokerObject = Addon.Name .. 'Launcher',
-	hiddenRules = {contain = true},
+	hiddenRules = {
+		contain = true,
+		-- 老虎会游泳：隐藏底部的“交易”、“箭袋”、“灵魂碎片”等按钮
+		['all/souls'] = true,
+		['all/normal'] = true,
+		['all/trade'] = true,
+		['all/quiver'] = true,
+	},
 	hiddenBags = {},
 
 	rules = AsArray({
-		'all', 'all/normal', 'all/trade', 'all/reagent', 'all/keys', 'all/quiver',
+		'all',
+		-- 老虎会游泳：隐藏底部的“交易”、“箭袋”、“灵魂碎片”等按钮
+		--'all/normal', 'all/trade', 'all/reagent', 'all/keys', 'all/quiver',
 		'equip', 'equip/armor', 'equip/weapon', 'equip/trinket',
 		'use', 'use/consume', 'use/enhance',
 		'trade', 'trade/goods', 'trade/gem', 'trade/glyph', 'trade/recipe',
@@ -61,7 +70,7 @@ local FrameDefaults = {
 
 local ProfileDefaults = {
 	inventory = SetDefaults({
-		reversedTabs = true,
+		--reversedTabs = true,
 		borderColor = {1, 1, 1, 1},
 		point = 'BOTTOMRIGHT',
 		x = -50, y = 100,
