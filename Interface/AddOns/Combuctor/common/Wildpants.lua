@@ -160,3 +160,6 @@ function Addon:ShowOptions()
 		Addon.GeneralOptions:Open()
 	end
 end
+
+-- 老虎会游泳：暴露给大脚的全局变量
+CombuctorSettings = Addon
