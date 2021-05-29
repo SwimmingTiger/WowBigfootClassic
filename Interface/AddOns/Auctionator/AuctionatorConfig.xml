@@ -1133,7 +1133,7 @@
     </Frames>
   </Frame>
   <!-- Are You Sure? screen -->
-  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_ConfirmClear_Frame" parent="InterfaceOptionsFrame" toplevel="true">
+  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_ConfirmClear_Frame" parent="InterfaceOptionsFrame" toplevel="true" frameLevel="999">
     <Size x="430" y="200"/>
     <Anchors>
       <Anchor point="CENTER">
