@@ -6,33 +6,37 @@
 local ADDON, Addon = ...
 local ItemGroup = Addon.ItemGroup
 
+-- 老虎会游泳：新增函数
+local function round(n)
+	return math.floor((math.floor(n*2) + 1)/2)
+end
+
+-- 老虎会游泳：重新实现，防止背包边框与物品格子之间产生空隙
 function ItemGroup:LayoutTraits()
 	local profile = self:GetProfile()
+	self.scale = profile.itemScale or 1
 
-	local n = self:NumButtons()
-	local w, h = self:GetFrame():GetSize()
-	w = w - (profile.showBags and 59 or 23)
-	h = h - 100
+	self.minColumns = 7
+	if self.scale < 1 then
+		-- 缩放比例太小可能会导致界面太窄，所以列数要适当扩大
+		self.minColumns = round(self.minColumns / self.scale)
+	end
+	self.columns = max(profile.columns or self.minColumns, self.minColumns)
 
-	local r = w/h
-	local guess = ceil(sqrt(n*r))
-
-	if self:BagBreak() then
-		n = 0
-
-		for i, bag in ipairs(self.bags) do
-			n = n + (self:IsShowingBag(bag.id) and ceil(self:NumSlots(bag.id) / guess) * guess or 0)
-		end
-
-		guess = ceil(sqrt(n*r))
+	self.numItems = 0
+	for _, items in pairs(self.buttons) do
+		self.numItems = self.numItems + #items
 	end
 
-	local guessV = guess * h/w
-	local bestFit = guess > 0 and (((floor(guessV) * guess) < n) and h/ceil(guessV) or w/guess) or 1
+	local minHeight, borderTopBottom, borderLeftRight = self:GetParent():GetMinHeightAndBorder()
 
-	local size = self:GetButtonSize()
-	local scale = min(bestFit / size, profile.itemScale)
-	local cols = floor(w / (scale * size))
+	-- 宽度不能拉的太长
+	self.maxColumns = max(self.minColumns, ceil(
+		self.numItems / floor(
+			(minHeight - borderTopBottom) / self:GetParent():GetButtonScaleSize()
+		)
+	)) + 10
+	self.columns = min(self.columns, self.maxColumns)
 
-	return cols, scale
+	return self.columns, self.scale
 end
