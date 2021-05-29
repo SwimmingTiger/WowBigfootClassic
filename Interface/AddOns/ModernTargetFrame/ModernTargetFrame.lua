@@ -123,12 +123,14 @@ function AddOn.RegisterFeature(key,callback)
 	button:SetPoint("TOPLEFT",32,-48-(FeatureCount*24));
 
 --	Initialize
-	button.Key,button.Callback=key,callback;
 	button:SetFontString(button.text);
 	button:SetNormalFontObject(GameFontNormalSmall);
 	button:SetDisabledFontObject(GameFontDisableSmall);
 	button:SetText(AddOn.Localization["Options_FeatureName_"..key]);
-	button:SetScript("OnClick",FeatureButton_OnClick);
+	if callback then
+		button.Key,button.Callback=key,callback;
+		button:SetScript("OnClick",FeatureButton_OnClick);
+	end
 
 --	Link to Panel & Increment Counter
 	FeatureButtons[key],FeatureCount=button,FeatureCount+1;

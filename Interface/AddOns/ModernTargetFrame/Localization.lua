@@ -13,6 +13,7 @@ local Localization={
 		Options_ByAuthor_Format="by %s";
 
 --		Options Panel (Feature List)
+		Options_FeatureName_BCCHealthPatch="Show Real NPC Health";
 		Options_FeatureName_StatusBarText="Show Health & Mana Text";
 		Options_FeatureName_ClassificationTexture="Enable Rare-Elite Texture";
 		Options_FeatureName_ThreatIndicatorGlow="Enable Threat Glow";
@@ -49,15 +50,16 @@ local Localization={
 		Options_FeatureName_ThreatIndicatorGlow="Отображать свечение от угрозы";
 		Options_FeatureName_ThreatIndicatorNumber="Отображать показатель угрозы";
 	};
-	zhCN={--	Translated by Junlin Zhou
+	zhCN={--	Translated by 颜颜@莫格莱尼
 --		Options Panel
 		Options_ByAuthor_Format="作者 %s";
 
 --		Options Panel (Feature List)
+		Options_FeatureName_BCCHealthPatch="显示 NPC 生命值";
 		Options_FeatureName_StatusBarText="显示生命值和法力值";
-		Options_FeatureName_ClassificationTexture="显示稀有/精英边框";
-		Options_FeatureName_ThreatIndicatorGlow="启用仇恨提示";
-		Options_FeatureName_ThreatIndicatorNumber="显示仇恨数值";
+		Options_FeatureName_ClassificationTexture="显示稀有精英头像框";
+		Options_FeatureName_ThreatIndicatorGlow="开启仇恨发光";
+		Options_FeatureName_ThreatIndicatorNumber="显示仇恨值";
 	};
 }
 

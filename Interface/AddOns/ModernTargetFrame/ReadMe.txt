@@ -1,4 +1,4 @@
-Modern TargetFrame
+﻿Modern TargetFrame
 by SDPhantom
 https://www.wowinterface.com/forums/member.php?u=34145
 https://www.curseforge.com/members/sdphantomgamer/projects
@@ -9,6 +9,13 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.10.1 (2021-05-22)
+	-Updated zhCN localization by 颜颜@莫格莱尼
+
+v1.10 (2021-05-21)
+	-Multi-ToC build implemented
+	-Patched Blizzard forcing percentage health displayed on NPCs
+
 v1.9 (2020-05-15)
 	-Burning Crusade Classic support
 	-Added TargetFrame handling to FocusFrame

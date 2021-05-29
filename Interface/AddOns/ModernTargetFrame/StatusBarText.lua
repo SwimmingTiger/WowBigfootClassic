@@ -10,9 +10,6 @@
 local AddOn=select(2,...);
 AddOn.Options=AddOn.Options or {};
 
---	Later clients have this built-in
-if not AddOn.IsVanillaClient then return; end
-
 ----------------------------------
 --[[	Options Defaults	]]
 ----------------------------------
