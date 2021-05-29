@@ -1185,33 +1185,33 @@ function CSC_SideFrame_SetMissChance(statFrame, unit, ratingIndex)
 	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, totalHit);
 
 	if (ratingIndex == CR_HIT_MELEE) then
-		statFrame.tooltip = format("Miss Chance vs Level 73 NPC/Boss: %.2F%%", missChanceVsBoss)..CSC_SYMBOL_TAB..format("(Dual wield: %.2F%%)", dwMissChanceVsBoss);
-		local missChanceNPCLineOne = format("Miss Chance vs Level %d NPC:     %.2F%%", playerLevel, missChanceVsNPC);
-		local missChanceNPCLineTwo = format("(Dual wield: %.2F%%)", dwMissChanceVsNpc);
+		statFrame.tooltip = format("攻击73级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss)..CSC_SYMBOL_TAB..format("(双持: %.2F%%)", dwMissChanceVsBoss);
+		local missChanceNPCLineOne = format("攻击%d级NPC时的未命中率:     %.2F%%", playerLevel, missChanceVsNPC);
+		local missChanceNPCLineTwo = format("(双持: %.2F%%)", dwMissChanceVsNpc);
 
-		local missChancePlayerLineOne = format("Miss Chance vs Level %d Player:  %.2F%%", playerLevel, missChanceVsPlayer);
-		local missChancePlayerLineTwo = format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer);
+		local missChancePlayerLineOne = format("攻击%d级玩家时的未命中率:  %.2F%%", playerLevel, missChanceVsPlayer);
+		local missChancePlayerLineTwo = format("(双持: %.2F%%)", dwMissChanceVsPlayer);
 		statFrame.tooltip2 = missChanceNPCLineOne..CSC_SYMBOL_TAB..missChanceNPCLineTwo.."\n"..missChancePlayerLineOne..CSC_SYMBOL_TAB..missChancePlayerLineTwo;
 	else
-		statFrame.tooltip = format("Miss Chance vs Level 73 NPC/Boss: %.2F%%", missChanceVsBoss);
-		statFrame.tooltip2 = format("Miss Chance vs Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC).."\n"..format("Miss Chance vs Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer);
+		statFrame.tooltip = format("攻击73级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss);
+		statFrame.tooltip2 = format("攻击%d级NPC时的未命中率: %.2F%%", playerLevel, missChanceVsNPC).."\n"..format("攻击%d级玩家时的未命中率: %.2F%%", playerLevel, missChanceVsPlayer);
 	end
 
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Miss Chance", missChanceVsBoss, true);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "未命中率", missChanceVsBoss, true);
 end
 
 function CSC_SideFrame_SetCritCap(statFrame, unit, ratingIndex)
 	local critCap, dwCritCap = CSC_GetPlayerCritCap(unit, ratingIndex);
 
-	statFrame.tooltip = format("Crit cap vs Level 73 NPC/Boss: %.2F%%", critCap);
+	statFrame.tooltip = format("攻击73级NPC/Boss时的暴击上限: %.2F%%", critCap);
 	if (ratingIndex == CR_HIT_MELEE) then
 		local offhandItemId = GetInventoryItemID(unit, INVSLOT_OFFHAND);
 		if (offhandItemId) then
-			statFrame.tooltip2 = format("Dual wield crit cap: %.2F%%", dwCritCap);
+			statFrame.tooltip2 = format("双持爆击上限: %.2F%%", dwCritCap);
 		end
 	end
 
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Crit Cap", critCap, true);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "爆击上限", critCap, true);
 end
 
 -- Melee
@@ -1235,7 +1235,7 @@ end
 
 function CSC_SideFrame_SetMeleeCritRating(statFrame, unit)
 	local critRating = GetCombatRating(CR_CRIT_MELEE);
-	statFrame.tooltip = "Your crit rating.";
+	statFrame.tooltip = "你的暴击等级.";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, COMBAT_RATING_NAME9, critRating, false);
 end
 
@@ -1248,7 +1248,7 @@ end
 function CSC_SideFrame_SetArmorPenetration(statFrame, unit)
 	local armorPen = GetArmorPenetration();
 	statFrame.tooltip = format(ITEM_MOD_ARMOR_PENETRATION_RATING, armorPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Armor Penetration", armorPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "护甲穿透", armorPen, false);
 end
 
 -- Ranged
@@ -1287,7 +1287,7 @@ function CSC_SideFrame_SetRangedCritRating(statFrame, unit)
 	end
 
 	local critRating = GetCombatRating(CR_CRIT_RANGED);
-	statFrame.tooltip = "Your crit rating.";
+	statFrame.tooltip = "你的暴击等级.";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, COMBAT_RATING_NAME9, critRating, false);
 end
 
@@ -1324,20 +1324,20 @@ end
 
 function CSC_SideFrame_SetSpellCritRating(statFrame, unit)
 	local critRating = GetCombatRating(CR_CRIT_SPELL);
-	statFrame.tooltip = "Your crit rating.";
+	statFrame.tooltip = "你的暴击等级.";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, COMBAT_RATING_NAME11, critRating, false);
 end
 
 function CSC_SideFrame_SetSpellHastePercent(statFrame, unit)
 	local hastePercent = GetCombatRatingBonus(CR_HASTE_SPELL);
-	statFrame.tooltip = format("Increases your spell haste by %d%%", hastePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Haste", hastePercent, true);
+	statFrame.tooltip = format("使你的法术急速提高 %d%%", hastePercent);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "急速", hastePercent, true);
 end
 
 function CSC_SideFrame_SetSpellPenetration(statFrame, unit)
 	local spellPen = GetSpellPenetration();
 	statFrame.tooltip = format(SPELL_PENETRATION_TOOLTIP, spellPen, spellPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Spell Penetration", spellPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "法术穿透", spellPen, false);
 end
 
 -- Defense
@@ -1347,27 +1347,27 @@ function CSC_SideFrame_SetDefenseRating(statFrame, unit)
 	local defense = GetCombatRatingBonus(CR_DEFENSE_SKILL);
 
 	statFrame.tooltip = format(DEFAULT_STATDEFENSE_TOOLTIP, defenseRating, defense, defensePercent, defensePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Defense Rating", defenseRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "防御等级", defenseRating, false);
 end
 
 function CSC_SideFrame_SetDodgeRating(statFrame, unit)
 	local dodgeRating = GetCombatRating(CR_DODGE);
 	local dodgeChance = GetCombatRatingBonus(CR_DODGE);
 	statFrame.tooltip = format(CR_DODGE_TOOLTIP, dodgeRating, dodgeChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Dodge Rating", dodgeRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "躲闪等级", dodgeRating, false);
 end
 
 function CSC_SideFrame_SetParryRating(statFrame, unit)
 	local parryRating = GetCombatRating(CR_PARRY)
 	local parryChance = GetCombatRatingBonus(CR_PARRY);
 	statFrame.tooltip = format(CR_PARRY_TOOLTIP, parryRating, parryChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Parry Rating", parryRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "招架等级", parryRating, false);
 end
 
 function CSC_SideFrame_SetBlockRating(statFrame, unit)
 	local blockRating = GetCombatRating(CR_BLOCK)
 	local blockChance = GetCombatRatingBonus(CR_BLOCK);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Block Rating", blockRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "格挡等级", blockRating, false);
 end
 
 -- SIDE STATS FRAME END ================================================================================================================================================================

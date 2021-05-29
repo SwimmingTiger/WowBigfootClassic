@@ -41,22 +41,22 @@ local RightStatsTable = { }
 local SideCategoryStatsMelee = { 
     frames = { };
     numFrames = 7;
-    frameLabel = "Melee";
+    frameLabel = "近战";
 };
 local SideCategoryStatsRanged = {
     frames = { };
     numFrames = 7;
-    frameLabel = "Ranged";
+    frameLabel = "远程";
 };
 local SideCategoryStatsSpell = { 
     frames = { };
     numFrames = 5;
-    frameLabel = "Spell";
+    frameLabel = "法术";
 };
 local SideCategoryStatsDefense = {
     frames = { };
     numFrames = 5;
-    frameLabel = "Defense";
+    frameLabel = "防御";
 };
 
 local function CSC_ResetStatFrames(statFrames)
@@ -413,7 +413,7 @@ function UIConfig:SetupConfigInterface()
     -- Checkboxes
     CSC_ConfigFrame.chkBtnUseBlizzardBlockValue = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetPoint("TOPLEFT", 20, -30);
-    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue.text:SetText("Use alternative Block Value calculation (Blizzard function)");
+    CSC_ConfigFrame.chkBtnUseBlizzardBlockValue.text:SetText("使用暴雪提供的格挡值算法");
     CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetChecked(UISettingsGlobal.useBlizzardBlockValue);
     CSC_ConfigFrame.chkBtnUseBlizzardBlockValue:SetScript("OnClick", 
     function()
@@ -422,7 +422,7 @@ function UIConfig:SetupConfigInterface()
 
     CSC_ConfigFrame.chkBtnShowADStats = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnShowADStats:SetPoint("TOPLEFT", 20, -55);
-    CSC_ConfigFrame.chkBtnShowADStats.text:SetText("Show AP and SP stats from Argent Dawn items.");
+    CSC_ConfigFrame.chkBtnShowADStats.text:SetText("显示银色黎明物品的攻击强度和法术强度数据");
     CSC_ConfigFrame.chkBtnShowADStats:SetChecked(UISettingsCharacter.showStatsFromArgentDawnItems);
     CSC_ConfigFrame.chkBtnShowADStats:SetScript("OnClick", 
     function()
@@ -432,7 +432,7 @@ function UIConfig:SetupConfigInterface()
     -- Side Stats frame options
     CSC_ConfigFrame.chkBtnShowSideStatsMelee = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnShowSideStatsMelee:SetPoint("TOPLEFT", 20, -110);
-    CSC_ConfigFrame.chkBtnShowSideStatsMelee.text:SetText("Show Melee Category in the side stats window (Requires UI reload)");
+    CSC_ConfigFrame.chkBtnShowSideStatsMelee.text:SetText("在侧面统计面板中显示近战类别（需要重载界面）");
     CSC_ConfigFrame.chkBtnShowSideStatsMelee:SetChecked(UISettingsCharacter.showSideStatsMelee);
     CSC_ConfigFrame.chkBtnShowSideStatsMelee:SetScript("OnClick", 
     function()
@@ -440,7 +440,7 @@ function UIConfig:SetupConfigInterface()
     end);
     CSC_ConfigFrame.chkBtnShowSideStatsRanged = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnShowSideStatsRanged:SetPoint("TOPLEFT", 20, -135);
-    CSC_ConfigFrame.chkBtnShowSideStatsRanged.text:SetText("Show Ranged Category in the side stats window (Requires UI reload)");
+    CSC_ConfigFrame.chkBtnShowSideStatsRanged.text:SetText("在侧面统计面板中显示远程类别（需要重载界面）");
     CSC_ConfigFrame.chkBtnShowSideStatsRanged:SetChecked(UISettingsCharacter.showSideStatsRanged);
     CSC_ConfigFrame.chkBtnShowSideStatsRanged:SetScript("OnClick", 
     function()
@@ -448,7 +448,7 @@ function UIConfig:SetupConfigInterface()
     end);
     CSC_ConfigFrame.chkBtnShowSideStatsSpell = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnShowSideStatsSpell:SetPoint("TOPLEFT", 20, -160);
-    CSC_ConfigFrame.chkBtnShowSideStatsSpell.text:SetText("Show Spell Category in the side stats window (Requires UI reload)");
+    CSC_ConfigFrame.chkBtnShowSideStatsSpell.text:SetText("在侧面统计面板中显示法术类别（需要重载界面）");
     CSC_ConfigFrame.chkBtnShowSideStatsSpell:SetChecked(UISettingsCharacter.showSideStatsSpell);
     CSC_ConfigFrame.chkBtnShowSideStatsSpell:SetScript("OnClick", 
     function()
@@ -456,7 +456,7 @@ function UIConfig:SetupConfigInterface()
     end);
     CSC_ConfigFrame.chkBtnShowSideStatsDefense = CreateFrame("CheckButton", "default", CSC_ConfigFrame, "UICheckButtonTemplate");
     CSC_ConfigFrame.chkBtnShowSideStatsDefense:SetPoint("TOPLEFT", 20, -185);
-    CSC_ConfigFrame.chkBtnShowSideStatsDefense.text:SetText("Show Defense Category in the side stats window (Requires UI reload)");
+    CSC_ConfigFrame.chkBtnShowSideStatsDefense.text:SetText("在侧面统计面板中显示防御类别（需要重载界面）");
     CSC_ConfigFrame.chkBtnShowSideStatsDefense:SetChecked(UISettingsCharacter.showSideStatsDefense);
     CSC_ConfigFrame.chkBtnShowSideStatsDefense:SetScript("OnClick", 
     function()

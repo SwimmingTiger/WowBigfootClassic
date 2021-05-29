@@ -29,7 +29,7 @@ function CSC_CharacterSpellDamageFrame_OnEnter(self)
 	end
 
 	if (self.spVsUndead ~= nil and UISettingsCharacter.showStatsFromArgentDawnItems) then
-		GameTooltip:AddDoubleLine(DAMAGE.." vs Undead: ", format("%.2F", self.spVsUndead), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+		GameTooltip:AddDoubleLine(DAMAGE.."攻击亡灵: ", format("%.2F", self.spVsUndead), NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	end
 	GameTooltip:Show();
 end
@@ -60,9 +60,9 @@ end
 function CSC_CharacterManaRegenFrame_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetText(format(MANA_REGEN_TOOLTIP, self.mp5NotCasting, self.mp5Casting), HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-	GameTooltip:AddDoubleLine(MANA_REGEN.." (From Gear):", self.mp5FromGear);
-	GameTooltip:AddDoubleLine(MANA_REGEN.." (While Casting):", self.mp5Casting);
-	GameTooltip:AddDoubleLine(MANA_REGEN.." (While Not Casting):", self.mp5NotCasting);
+	GameTooltip:AddDoubleLine(MANA_REGEN.." (来自护甲):", self.mp5FromGear);
+	GameTooltip:AddDoubleLine(MANA_REGEN.." (施法时):", self.mp5Casting);
+	GameTooltip:AddDoubleLine(MANA_REGEN.." (未施法时):", self.mp5NotCasting);
 	GameTooltip:Show();
 end
 
@@ -98,13 +98,13 @@ function CSC_CharacterHitChanceFrame_OnEnter(self)
 
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetText(STAT_HIT_CHANCE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-	GameTooltip:AddLine("Reduces your chance to miss.");
+	GameTooltip:AddLine("减少你的攻击未命中率.");
 
 	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-	GameTooltip:AddLine("Miss Chance vs.");
-	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 60 NPC: %.2F%%", missChanceVsNPC), format("(Dual wield: %.2F%%)", dwMissChanceVsNpc));
-	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 60 Player: %.2F%%", missChanceVsPlayer), format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer));
-	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 63 NPC/Boss: %.2F%%", missChanceVsBoss), format("(Dual wield: %.2F%%)", dwMissChanceVsBoss));
+	GameTooltip:AddLine("攻击未命中率");
+	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击60级NPC: %.2F%%", missChanceVsNPC), format("(双持: %.2F%%)", dwMissChanceVsNpc));
+	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击60级玩家: %.2F%%", missChanceVsPlayer), format("(双持: %.2F%%)", dwMissChanceVsPlayer));
+	GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击63级NPC/Boss: %.2F%%", missChanceVsBoss), format("(双持: %.2F%%)", dwMissChanceVsBoss));
 	GameTooltip:Show();
 end
 
@@ -116,13 +116,13 @@ function CSC_CharacterRangedHitChanceFrame_OnEnter(self)
 
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetText(STAT_HIT_CHANCE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-	GameTooltip:AddLine("Reduces your chance to miss.");
+	GameTooltip:AddLine("减少你的攻击未命中率.");
 
 	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-	GameTooltip:AddLine("Miss Chance vs.");
-	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."Level 60 NPC: %.2F%%", missChanceVsNPC));
-	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."Level 60 Player: %.2F%%", missChanceVsPlayer));
-	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."Level 63 NPC/Boss: %.2F%%", missChanceVsBoss));
+	GameTooltip:AddLine("攻击未命中率");
+	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."攻击60级NPC: %.2F%%", missChanceVsNPC));
+	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."攻击60级玩家: %.2F%%", missChanceVsPlayer));
+	GameTooltip:AddLine(format(CSC_SYMBOL_TAB.."攻击63级NPC/Boss: %.2F%%", missChanceVsBoss));
 	GameTooltip:Show();
 end
 
@@ -200,17 +200,17 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 	elseif (ratingIndex == CR_HIT_MELEE) then
 		local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, ratingBonus);
 		GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-		GameTooltip:AddLine("Miss Chance vs.");
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC), format("(Dual wield: %.2F%%)", dwMissChanceVsNpc));
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer), format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer));
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: %.2F%%", missChanceVsBoss), format("(Dual wield: %.2F%%)", dwMissChanceVsBoss));
+		GameTooltip:AddLine("攻击未命中率");
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击%d级NPC: %.2F%%", playerLevel, missChanceVsNPC), format("(双持: %.2F%%)", dwMissChanceVsNpc));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击%d级玩家: %.2F%%", playerLevel, missChanceVsPlayer), format("(双持: %.2F%%)", dwMissChanceVsPlayer));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击73级NPC/Boss: %.2F%%", missChanceVsBoss), format("(双持: %.2F%%)", dwMissChanceVsBoss));
 	elseif (ratingIndex == CR_HIT_RANGED) then
 		local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, _, _, _ = CSC_GetPlayerMissChances(unit, ratingBonus);
 		GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-		GameTooltip:AddLine("Miss Chance vs.");
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC));
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer));
-		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: %.2F%%", missChanceVsBoss));
+		GameTooltip:AddLine("攻击未命中率");
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击%d级NPC: %.2F%%", playerLevel, missChanceVsNPC));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击%d级玩家: %.2F%%", playerLevel, missChanceVsPlayer));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."攻击73级NPC/Boss: %.2F%%", missChanceVsBoss));
 	end
 	
 	GameTooltip:Show();
@@ -226,7 +226,7 @@ function CSC_CharacterMeleeCritFrame_OnEnter(self)
 	GameTooltip:AddLine(critRatingTxt);
 	
 	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-	GameTooltip:AddLine("Crit cap vs.");
+	GameTooltip:AddLine("暴击上限");
 	local critCap, dwCritCap = CSC_GetPlayerCritCap(self.unit, CR_HIT_MELEE);
 	
 	local CRITCAP_COLOR_CODE = GREEN_FONT_COLOR_CODE;
@@ -239,9 +239,9 @@ function CSC_CharacterMeleeCritFrame_OnEnter(self)
 		if self.critChance > dwCritCap then DWCRITCAP_COLOR_CODE = ORANGE_FONT_COLOR_CODE end
 
 		local critCapDwTxt = DWCRITCAP_COLOR_CODE..format("%.2F%%", dwCritCap)..FONT_COLOR_CODE_CLOSE;
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt, "(Dual wield: "..critCapDwTxt..")");
+		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."攻击73级NPC/Boss: "..critCapTxt, "(双持: "..critCapDwTxt..")");
 	else
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt);
+		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."攻击73级NPC/Boss: "..critCapTxt);
 	end
 
 	GameTooltip:Show();
@@ -256,13 +256,13 @@ function CSC_CharacterRangedCritFrame_OnEnter(self)
 	GameTooltip:AddLine(critRatingTxt);
 
 	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-	GameTooltip:AddLine("Crit cap vs.");
+	GameTooltip:AddLine("暴击上限");
 	local critCap, _ = CSC_GetPlayerCritCap(self.unit, CR_HIT_RANGED);
 	
 	local CRITCAP_COLOR_CODE = GREEN_FONT_COLOR_CODE;
 	if self.critChance > critCap then CRITCAP_COLOR_CODE = ORANGE_FONT_COLOR_CODE end
 	local critCapTxt = CRITCAP_COLOR_CODE..format("%.2F%%", critCap)..FONT_COLOR_CODE_CLOSE;
-	GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt);
+	GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."攻击73级NPC/Boss: "..critCapTxt);
 
 	GameTooltip:Show();
 end
@@ -281,7 +281,7 @@ end
 function CSC_CharacterMeleeHitChanceSideFrame_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetText(STAT_HIT_CHANCE, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
-	GameTooltip:AddLine("Your total hit rating converted to hit chance (including gear and talents)");
+	GameTooltip:AddLine("由你的总命中等级转换来的命中率（包括装备和天赋）");
 	GameTooltip:Show();
 end
 -- SIDE FRAME CALLBACKS END
