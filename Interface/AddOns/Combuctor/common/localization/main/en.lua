@@ -86,3 +86,6 @@ L.PurchaseVault = 'Would you like to unlock the Void Storage service?|n|n|cffffd
 L.inventoryExtraButton = 'Offline Bank'
 L.bankExtraButton = 'Save Reagent'
 L.ExtraButtonFontSize = 11
+
+--老虎会游泳：品质过滤器的鼠标提示
+L.ItemQualityTooltip = 'Click again to uncheck'

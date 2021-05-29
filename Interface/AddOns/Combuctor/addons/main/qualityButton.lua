@@ -4,6 +4,7 @@
 --]]
 
 local ADDON, Addon = ...
+local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 local QualityButton = Addon.Tipped:NewClass('QualityButton', 'Checkbutton', 'UIRadioButtonTemplate')
 QualityButton.SIZE = 18
 
@@ -65,9 +66,20 @@ function QualityButton:OnClick()
 	self:SendFrameSignal('FILTERS_CHANGED')
 end
 
+-- 老虎会游泳：给物品品质按钮添加“再次点击取消”提示语
+function QualityButton:UpdateTooltip()
+	local tooltip = _G['ITEM_QUALITY'..self.quality..'_DESC']
+	if self:IsSelected() then
+		tooltip = string.format("%s\n|cffffffff%s|r", tooltip, L.ItemQualityTooltip)
+	end
+	GameTooltip:SetText(tooltip, GetItemQualityColor(self.quality))
+end
+
 function QualityButton:OnEnter()
 	GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-	GameTooltip:SetText(_G['ITEM_QUALITY'..self.quality..'_DESC'], GetItemQualityColor(self.quality))
+	-- 老虎会游泳：给物品品质按钮添加“再次点击取消”提示语
+	--GameTooltip:SetText(_G['ITEM_QUALITY'..self.quality..'_DESC'], GetItemQualityColor(self.quality))
+	self:UpdateTooltip()
 	GameTooltip:Show()
 end
 
