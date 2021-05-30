@@ -6,7 +6,7 @@ local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Class
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
 local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 
-mod:SetRevision("20210419223755")
+mod:SetRevision("20210520134703")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -480,7 +480,7 @@ do
 		-- retail av
 		[91]    = 243,
 		-- classic av
-		[1459]  = 304,
+		[1459]  = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 243 or 304,
 		-- korrak
 		[1537]  = 243
 	}

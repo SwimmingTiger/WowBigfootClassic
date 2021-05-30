@@ -21,10 +21,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnMark		= "징표 알림 보기",
-	WarnPhase		= "단계 전환 알림 보기",
-	SpecWarnMark	= "징표 피해가 100%를 넘을 경우 특수 경고 보기",
-	TimerMark		= "다음 징표 바 보기"
+	WarnMark		= "징표 경고 보기",
+	WarnPhase		= "다음 단계 경고 보기",
+	SpecWarnMark	= "징표 디버프 피해가 100%를 넘으면 경고 보기",
+	TimerMark		= "다음 징표 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -47,15 +47,15 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSubmerge		= "잠수",
-	TimerEmerge			= "재등장"
+	TimerSubmerge		= "잠수 쿨타임",
+	TimerEmerge			= "재등장 쿨타임"
 }
 
 L:SetOptionLocalization{
-	WarnSubmerge		= "잠수 알림 보기",
-	WarnEmerge			= "재등장 알림 보기",
-	TimerSubmerge		= "다음 잠수 바 보기",
-	TimerEmerge			= "다음 재등장 바 보기"
+	WarnSubmerge		= "잠수시 경고 보기",
+	WarnEmerge			= "재등장시 경고 보기",
+	TimerSubmerge		= "잠수 타이머 바 보기",
+	TimerEmerge			= "재등장 타이머 바 보기"
 }
 
 --------------------------
@@ -76,8 +76,8 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "단계 전환 알림 보기",
-	TimerPhase		= "다음 단계 바 보기"
+	WarnPhase		= "다음 단계 경고 보기",
+	TimerPhase		= "다음 단계 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -112,18 +112,16 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnMurlocs		= "멀록 소환",
-	SpecWarnMurlocs	= "멀록 소환!"
+	SpecWarnMurlocs	= "멀록 등장!"
 }
 
 L:SetTimerLocalization{
-	TimerMurlocs	= "다음 멀록 소환"
+	TimerMurlocs	= "멀록"
 }
 
 L:SetOptionLocalization{
-	WarnMurlocs		= "멀록 소환 알림 보기",
-	SpecWarnMurlocs	= "멀록 소환 특수 경고 보기",
-	TimerMurlocs	= "다음 멀록 소환 바 보기"
+	SpecWarnMurlocs	= "멀록 등장 특수 경고 보기",
+	TimerMurlocs	= "멀록 등장 타이머 바 보기"
 }
 
 -----------------
@@ -136,37 +134,36 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnElemental			= "곧 오염된 정령 등장 (%s)",
-	WarnStrider				= "곧 포자손 등장 (%s)",
-	WarnNaga				= "곧 나가 등장 (%s)",
-	WarnShield				= "보호막 %d/4 남음",
+	WarnElemental			= "곧 오염된 정령 (%s)",
+	WarnStrider				= "곧 포자손 (%s)",
+	WarnNaga				= "곧 나가 (%s)",
+	WarnShield				= "보호막 %d/4 깨짐",
 	WarnLoot				= "오염된 핵: >%s<",
-	SpecWarnElemental		= "오염된 정령 - 대상 전환!"
+	SpecWarnElemental		= "오염된 정령 - 점사!"
 }
 
 L:SetTimerLocalization{
-	TimerElementalActive	= "오염된 정령 활성화",
-	TimerElemental			= "오염된 정령 가능 (%d)",
+	TimerElementalActive	= "정령 활성화",
+	TimerElemental			= "정령 쿨타임 (%d)",
 	TimerStrider			= "다음 포자손 (%d)",
 	TimerNaga				= "다음 나가 (%d)"
 }
 
 L:SetOptionLocalization{
-	WarnElemental			= "오염된 정령 등장 이전에 알림 보기",
-	WarnStrider				= "포자손 등장 이전에 알림 보기",
-	WarnNaga				= "나가 등장 이전에 알림 보기",
-	WarnShield				= "보호막 사라짐 알림 보기",
-	WarnLoot				= "오염된 핵 획득 대상 알림 보기",
-	TimerElementalActive	= "오염된 정령 활성화 시간 바 보기",
-	TimerElemental			= "오염된 정령 대기시간 바 보기",
-	TimerStrider			= "다음 포자손 바 보기",
-	TimerNaga				= "다음 나가 바 보기",
+	WarnElemental			= "다음 오염된 정령 사전 경고 보기",
+	WarnStrider				= "다음 포자손 사전 경고 보기",
+	WarnNaga				= "다음 나가 사전 경고 보기",
+	WarnShield				= "2단계 보호막 해제 경고 보기",
+	WarnLoot				= "오염된 핵 획득자 경고 보기",
+	TimerElementalActive	= "오염된 정령 활성화 시간 타이머 바 보기",
+	TimerElemental			= "오염된 정령 쿨타임 타이머 바 보기",
+	TimerStrider			= "다음 포자손 타이머 바 보기",
+	TimerNaga				= "다음 나가 타이머 바 보기",
 	SpecWarnElemental		= "오염된 정령 등장 특수 경고 보기",
-	AutoChangeLootToFFA		= "2 단계에서 전리품 획득 설정 자동으로 변경"
+	AutoChangeLootToFFA		= "2단계에서 전리품 획득 설정을 자유로 자동 변경"
 }
 
 L:SetMiscLocalization{
 	DBM_VASHJ_YELL_PHASE2	= "때가 왔다! 한 놈도 살려두지 마라!",
 	DBM_VASHJ_YELL_PHASE3	= "숨을 곳이나 마련해 둬라!",
-	LootMsg					= "([^%s]+).*Hitem:(%d+)"
 }

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Sapphiron", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403083254")
+mod:SetRevision("20210525105043")
 mod:SetCreatureID(15989)
 mod:SetEncounterID(1119)
 --mod:SetModelID(16033)--Scales incorrectly
@@ -115,7 +115,7 @@ end
 
 function mod:SPELL_CAST_START(args)
 	--if args:IsSpellID(28542, 55665) then -- Life Drain
-	if args.spellId == 28542 and args:IsSrcTypeHostile() then -- Frost Breath
+	if args.spellId == 28524 and args:IsSrcTypeHostile() then -- Frost Breath
 		timerIceBlast:Start()
 		timerLanding:Update(16.3, 28.5)--Probably not even needed, if base timer is more accurate
 		self:Schedule(12.2, Landing, self)

@@ -9,7 +9,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	DBM_ATH_YELL_1		= "이랴! 이 오합지졸을 데리고 실컷 놀아보자!"
 }
 
 
@@ -21,11 +20,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	DBM_MOROES_VANISH_FADED	= "등장"
+	DBM_MOROES_VANISH_FADED	= "소멸 끝"
 }
 
 L:SetOptionLocalization{
-	DBM_MOROES_VANISH_FADED	= "등장 알림 보기"
+	DBM_MOROES_VANISH_FADED	= "소멸 끝 경고 보기"
 }
 
 
@@ -88,8 +87,8 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	AnnounceBosses			= "우두머리 등장 알림 보기",
-	ShowBossTimers			= "우두머리 등장 바 보기"
+	AnnounceBosses			= "우두머리 등장 경고 보기",
+	ShowBossTimers			= "우두머리 등장 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -109,11 +108,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	warnAdd		= "별의 섬광"
+	warnAdd		= "쫄 등장"
 }
 
 L:SetOptionLocalization{
-	warnAdd		= "별의 섬광 알림 보기"
+	warnAdd		= "쫄 등장 경고 보기"
 }
 
 
@@ -142,11 +141,11 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	timerSpecial			= "다음 신폭/고리/눈보라"
+	timerSpecial			= "특수 기술 쿨타임"
 }
 
 L:SetOptionLocalization{
-	timerSpecial			= "다음 $spell:30004 또는 $spell:29973 또는 $spell:29969 바 보기",
+	timerSpecial			= "특수 기술 쿨타임 타이머 바 보기",
 	DBM_ARAN_DO_NOT_MOVE	= "$spell:30004 특수 경고 보기"
 }
 
@@ -159,19 +158,19 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	warningPortal			= "차원문 단계",
-	warningBanish			= "소멸 단계"
+	warningBanish			= "추방 단계"
 }
 
 L:SetTimerLocalization{
 	timerPortalPhase	= "차원문 단계 종료",
-	timerBanishPhase	= "소멸 단계 종료"
+	timerBanishPhase	= "추방 단계 종료"
 }
 
 L:SetOptionLocalization{
 	warningPortal			= "차원문 단계 알림 보기",
-	warningBanish			= "소멸 단계 알림 보기",
-	timerPortalPhase		= "차원문 단계 유지시간 바 보기",
-	timerBanishPhase		= "소멸 단계 유지시간 바 보기"
+	warningBanish			= "추방 단계 알림 보기",
+	timerPortalPhase		= "차원문 단계 지속시간 타이머 바 보기",
+	timerBanishPhase		= "추방 단계 지속시간 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -187,11 +186,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	timerCheat	= "속임수 가능"
+	timerCheat	= "속임수 쿨타임"
 }
 
 L:SetOptionLocalization{
-	timerCheat	= "속임수 대기시간 바 보기"
+	timerCheat	= "속임수 쿨타임 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -225,12 +224,12 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	timerAirPhase			= "공중 단계 종료"
+	timerAirPhase			= "공중 단계"
 }
 
 L:SetOptionLocalization{
-	DBM_NB_AIR_WARN			= "공중 단계 알림 보기",
-	timerAirPhase			= "공중 단계 유지시간 바 보기"
+	DBM_NB_AIR_WARN			= "공중 단계 경고 보기",
+	timerAirPhase			= "공중 단계 지속시간 타이머 바 보기"
 }
 
 L:SetMiscLocalization{

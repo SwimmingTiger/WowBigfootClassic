@@ -577,6 +577,19 @@ L:SetGeneralLocalization{
 	name 		= "Selin Fireheart"
 }
 
+L:SetWarningLocalization({
+    warningFelCrystal	= "Fel Crystal - Switch Targets"
+})
+
+L:SetTimerLocalization({
+	timerFelCrystal		= "~Fel Crystal"
+})
+
+L:SetOptionLocalization({
+	warningFelCrystal	= "Show special warning to switch targets for Fel Crystal",
+    timerFelCrystal		= "Show timer for Fel Crystal"
+})
+
 ----------------
 --  Vexallus  --
 ----------------

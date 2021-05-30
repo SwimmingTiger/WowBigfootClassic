@@ -1,20 +1,41 @@
 # Deadly Boss Mods Core
 
-## [2.5.3](https://github.com/DeadlyBossMods/DBM-TBC-Classic/tree/2.5.3) (2021-04-27)
-[Full Changelog](https://github.com/DeadlyBossMods/DBM-TBC-Classic/compare/2.5.2...2.5.3) [Previous Releases](https://github.com/DeadlyBossMods/DBM-TBC-Classic/releases)
+## [2.5.4](https://github.com/DeadlyBossMods/DBM-TBC-Classic/tree/2.5.4) (2021-05-27)
+[Full Changelog](https://github.com/DeadlyBossMods/DBM-TBC-Classic/compare/2.5.3...2.5.4) [Previous Releases](https://github.com/DeadlyBossMods/DBM-TBC-Classic/releases)
 
-- Prep a new release for new kara testing  
-- Sync fix  
-- Boring sync  
-- Remove usage of "boss" unit Ids in tbc raids and dungeons and rely on scanning all units for matching GUID instead or all valid UNITs that tbc does support.  
-    Also added sync blockers to avoid issues with some bosses if you are sitting out.  
-    Also improved prince mod a little  
-- Word change  
-- Fixed several invalid spellids on gruul  
-- Clarify timers on netherspite  
-    Fixed nova warning on prince to only go off if affected by enfeeble, as intended  
-- Fix bugs  
-- Added missing Classic TBC encounter Ids. This will improve combat and wipe detection considerably  
-    Minor updates to karazhan bottom half  
-- Re-enable evocate bar for TBC Classic, the old bar should be correct-ish, even if it isn't on retail anymore.  
-- bump alpha  
+- prep tag  
+- Sync profile fixes.  
+- All Rights Reserved license  
+- Actually fix Loathab properly  
+- fix onyxia auto logging  
+- Fix Frost Breath spellID. Closes #13  
+- Update koKR (BCC) (#14)  
+    * Update koKR (TBCC)  
+    * Update koKR (BCC)  
+- Fix Corrupted Mind. Closes #12  
+- Update localization.en.lua  
+- Fix CLASSIC\_ONLY message  
+    It was referencing to install retail ??  
+- BCC terminology.  
+- Make the message more clear about Classic Era on TBC  
+- it's 2021, not 2020  
+- Fix Skeram kill detection to ignore CID going forward do to changes in BCC  
+- Made guild boss engage/defeat/wipe more robust against seeing multiple messages  
+- Update koKR (TBCC) (#10)  
+- Niche bugs.  
+- Separate huge and small bar height option.  
+    - While I was at it, renamed Bar Alpha to Alpha, as it was too long.  
+- Fixed a bug where a nil error could be thrown by hudmap on hearthing. Seems new to BCC client as this wasn't happening on Classic vanilla client, so data probably returns slower now on loading screen.  
+    Fixed a bug where Fel crystal warning/timer was not localized on BCC client in Magisters terrace  
+- Update ci.yml  
+    update  build for packager  
+- Merge pull request #8 from venuatu/escorttimers  
+    add quest escort timers (shattrath and caverns of time)  
+- add quest escort timers (shattrath and caverns of time)  
+- Merge pull request #7 from venuatu/attumen  
+    kara/attumen: update curse timers from logs  
+- kara/attumen: update curse timers from logs  
+- kara/moroes: add gouge cd timer for tanks and update vanish cd (#6)  
+- kara/attumen: switch monster yell to spell summon event (#5)  
+- update luacheck  
+- GetDungeonInfo Forward compat  

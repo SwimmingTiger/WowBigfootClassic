@@ -1,5 +1,4 @@
 if GetLocale() ~= "koKR" then return end
-
 local L
 
 --Maulgar
@@ -17,10 +16,6 @@ L:SetGeneralLocalization{
 	name = "용 학살자 그룰"
 }
 
-L:SetWarningLocalization{
-	WarnGrowth	= "%s (%d)"
-}
-
 L:SetOptionLocalization{
 	WarnGrowth	= "$spell:36300 알림 보기"
 }
@@ -34,15 +29,15 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	timerP2	= "2 단계"
+	timerP2	= "2단계"
 }
 
 L:SetOptionLocalization{
-	timerP2	= "2 단계 시작 바 보기"
+	timerP2	= "2단계 시작 바 보기"
 }
 
 L:SetMiscLocalization{
-	DBM_MAG_EMOTE_PULL		= "%s의 속박이 약해지기 시작합니다!",--확인필요
+	DBM_MAG_EMOTE_PULL		= "%s의 속박이 약해지기 시작합니다!",
 	DBM_MAG_YELL_PHASE2		= "내가... 풀려났도다!",
 	DBM_MAG_YELL_PHASE3		= "그렇게 쉽게"
 }
@@ -55,7 +50,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	DBM_KAZZAK_EMOTE_ENRAGE		= "%s|1이;가; 분노에 휩싸입니다!"--확인필요
+	DBM_KAZZAK_EMOTE_ENRAGE		= "%s|1이;가; 분노에 휩싸입니다!"--Probalby won't be used, at least not long. Once spellid replaces it
 }
 
 -- Doomwalker
@@ -66,5 +61,16 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	DBM_DOOMW_EMOTE_ENRAGE	= "%s|1이;가; 분노에 휩싸입니다!"--확인필요
+	DBM_DOOMW_EMOTE_ENRAGE	= "%s|1이;가; 분노에 휩싸입니다!"----Probalby won't be used, at least not long. Once spellid replaces it
+}
+
+-- Quest
+L = DBM:GetModLocalization("Quest")
+
+L:SetGeneralLocalization{
+	name = "퀘스트",
+}
+
+L:SetOptionLocalization{
+	Timers = "몇가지 호위 퀘스트의 타이머 바 보기"
 }

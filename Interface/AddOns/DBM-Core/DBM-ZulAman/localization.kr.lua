@@ -12,23 +12,23 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnBear		= "곰 형상",
-	WarnBearSoon	= "곧 곰 형상",
-	WarnNormal		= "인간 형상",
-	WarnNormalSoon	= "곧 인간 형상"
+	WarnBearSoon	= "5초 후 곰 형상",
+	WarnNormal		= "일반 형상",
+	WarnNormalSoon	= "5초 후 일반 형상"
 }
 
 L:SetTimerLocalization{
-	TimerBear		= "다음 곰 형상",
-	TimerNormal		= "다음 인간 형상"
+	TimerBear		= "곰 형상",
+	TimerNormal		= "일반 형상"
 }
 
 L:SetOptionLocalization{
 	WarnBear		= "곰 형상 경고 보기",
-	WarnBearSoon	= "곰 형상 사전 경고 보기(soon)",
-	WarnNormal		= "인간 형상 경고 보기",
-	WarnNormalSoon	= "인간 형상 사전 경고 보기(soon)",
-	TimerBear		= "다음 곰 형상 타이머 보기",
-	TimerNormal		= "다음 인간 형상 타이머 보기"
+	WarnBearSoon	= "곰 형상 사전 경고 보기",
+	WarnNormal		= "일반 형상 경고 보기",
+	WarnNormalSoon	= "일반 형상 사전 경고 보기",
+	TimerBear		= "곰 형상 타이머 바 보기",
+	TimerNormal		= "일반 형상 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -70,12 +70,12 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnSpirit	= "영혼 단계",
-	WarnNormal	= "보통 단계"
+	WarnNormal	= "일반 단계"
 }
 
 L:SetOptionLocalization{
 	WarnSpirit	= "영혼 단계 경고 보기",
-	WarnNormal	= "보통 단계 경고 보기"
+	WarnNormal	= "일반 단계 경고 보기"
 }
 
 L:SetMiscLocalization{

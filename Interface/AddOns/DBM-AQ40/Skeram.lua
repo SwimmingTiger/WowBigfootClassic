@@ -1,11 +1,14 @@
 local mod	= DBM:NewMod("Skeram", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210402014659")
+mod:SetRevision("20210523005243")
 mod:SetCreatureID(15263)
 mod:SetEncounterID(709)
 mod:SetModelID(15345)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
+mod.noBossDeathKill = true
+mod:SetHotfixNoticeRev(20210522000000)--2021-05-22
+mod:SetMinSyncRevision(20210522000000)
 
 mod:RegisterCombat("combat")
 

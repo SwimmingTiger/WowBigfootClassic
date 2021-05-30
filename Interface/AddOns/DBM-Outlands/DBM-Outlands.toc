@@ -15,14 +15,14 @@
 ## X-DBM-Mod-World-Boss: 1
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-Sort: 1006
-## X-DBM-Mod-MapID: 530,565,544
-## X-DBM-Mod-LoadCID: 17711,18728
+## X-DBM-Mod-MapID: 530,565,544,1
+## X-DBM-Mod-LoadCID: 17711,18728,18166,20130
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-MinExpansion: 1
 ## X-Curse-Project-ID: 16442
 ## X-WoWI-ID: 11700
 ## X-Wago-ID: 7x61xpN1
-## Version: 2.5.3
+## Version: 2.5.4
 
 localization.en.lua
 localization.de.lua
@@ -36,3 +36,4 @@ Gruul.lua
 Magtheridon.lua
 Kazzak.lua
 Doomwalker.lua
+Quest.lua

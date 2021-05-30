@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Attumen", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210513170051")
 mod:SetCreatureID(16151, 16152)--15550
 mod:SetEncounterID(652, 2444)
 mod:SetModelID(16416)
@@ -11,7 +11,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 29711 29833",
-	"CHAT_MSG_MONSTER_YELL",
+	"SPELL_SUMMON 29714 29799",
 	"UNIT_DIED"
 )
 
@@ -32,15 +32,16 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnKnockdown:Show()
 	elseif args.spellId == 29833 then
 		warningCurse:Show()
-		timerCurseCD:Start(self.vb.phase == 2 and 30.5 or 27)
+		timerCurseCD:Start(self.vb.phase == 2 and 30.5 or 27.8)
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if msg == L.DBM_ATH_YELL_1 then
+function mod:SPELL_SUMMON(args)
+	if args.spellId == 29799 then
 		self.vb.phase = 2
 		warnPhase2:Show()
-		timerCurseCD:Start(25)
+		timerCurseCD:Start(20.2)
+	-- elseif args.spellId == 29714 then -- when attument arrives
 	end
 end
 

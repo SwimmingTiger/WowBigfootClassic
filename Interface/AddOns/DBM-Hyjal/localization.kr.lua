@@ -52,11 +52,7 @@ L:SetGeneralLocalization{
 L = DBM:GetModLocalization("HyjalWaveTimers")
 
 L:SetGeneralLocalization{
-	name 		= "하이잘: 일반구간"
-}
-
-L:SetWarningLocalization{
-	WarnWave	= "%s",
+	name 		= "일반몹 구간"
 }
 
 L:SetTimerLocalization{
@@ -64,20 +60,20 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnWave		= "다음 공격 알림 보기",
-	DetailedWave	= "다음 공격 알림시 적 조합까지 자세히 보기",
-	TimerWave		= "다음 공격 바 보기"
+	WarnWave		= "다음 공격시 경고 보기",
+	DetailedWave	= "다음 공격의 상세 내역 경고 보기 (몹 구성)",
+	TimerWave		= "다음 공격 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
 	HyjalZoneName	= "하이잘 정상",
 	Thrall			= "스랄",
 	Jaina			= "제이나 프라우드무어",
-	GeneralBoss		= "곧 우두머리",
-	RageWinterchill	= "곧 격노한 윈터칠",
-	Anetheron		= "곧 아네테론",
-	Kazrogal		= "곧 카즈로갈",
-	Azgalor			= "곧 아즈갈로",
+	GeneralBoss		= "우두머리 등장",
+	RageWinterchill	= "격노한 윈터칠 등장",
+	Anetheron		= "아네테론 등장",
+	Kazrogal		= "카즈로갈 등장",
+	Azgalor			= "아즈갈로 등장",
 	WarnWave_0		= "공격 %s/8",
 	WarnWave_1		= "공격 %s/8 - %s %s",
 	WarnWave_2		= "공격 %s/8 - %s %s, %s %s",

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Moroes", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210513152743")
 mod:SetCreatureID(15687)--Moroes
 mod:SetEncounterID(653, 2445)
 mod:SetModelID(16540)
@@ -26,13 +26,15 @@ local warningHolyLight		= mod:NewCastAnnounce(29562, 3, nil, nil, "HasInterrupt"
 local specWarnGreaterHeal	= mod:NewSpecialWarningInterrupt(35096, "HasInterrupt", nil, nil, 1, 2)
 local specWarnHolyLight		= mod:NewSpecialWarningInterrupt(29562, "HasInterrupt", nil, nil, 1, 2)
 
-local timerVanishCD			= mod:NewCDTimer(31, 29448, nil, nil, nil, 6)--35-42
+local timerVanishCD			= mod:NewCDTimer(35.1, 29448, nil, nil, nil, 6)--35.1-51.8
+local timerGougeCD			= mod:NewCDTimer(22.6, 29448, nil, "Tank", nil, 6)--22.6-43.6
 local timerGouge			= mod:NewTargetTimer(6, 29425, nil, false, nil, 3)
 local timerBlind			= mod:NewTargetTimer(10, 34694, nil, false, nil, 3)
 local timerMortalStrike		= mod:NewTargetTimer(5, 29572, nil, "Tank|Healer", nil, 5)
 
 function mod:OnCombatStart(delay)
 	timerVanishCD:Start(-delay)
+	timerGougeCD:Start(-delay)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -62,6 +64,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 29425 then
 		warningGouge:Show(args.destName)
 		timerGouge:Show(args.destName)
+		timerGougeCD:Start()
 	elseif args.spellId == 34694 then
 		warningBlind:Show(args.destName)
 		timerBlind:Show(args.destName)

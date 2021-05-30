@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20210427031752"),
-	DisplayVersion = "2.5.3", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2021, 4, 26) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20210527040033"),
+	DisplayVersion = "2.5.4", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2021, 5, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -479,7 +479,7 @@ local instanceDifficultyBylevel = {
 --	[1220]={110, 1},[1779]={45, 1},--Legion World bosses
 --	[1643]={120, 1},[1642]={50, 1},[1718]={50, 1},[1943]={50, 1},[1876]={50, 1},[2105]={50, 1},[2111]={50, 1},[2275]={50, 1},--Bfa World bosses and warfronts
 	--Raids
-	[509]={60, 3},[531]={60, 3},[469]={60, 3},[409]={60, 3},[533]={60, 3},[309]={60, 3},--Classic Raids (309 is legacy ZG)
+	[509]={60, 3},[531]={60, 3},[469]={60, 3},[409]={60, 3},[533]={60, 3},[309]={60, 3},[249]={60, 3},--Classic Raids (309 is legacy ZG)
 	[564]={70, 3},[534]={70, 3},[532]={70, 3},[565]={70, 3},[544]={70, 3},[548]={70, 3},[580]={70, 3},[550]={70, 3},[568]={70, 3},--BC Raids (568 is legacy ZA)
 --	[615]={80, 3},[724]={80, 3},[649]={80, 3},[616]={80, 3},[631]={80, 3},[533]={80, 3},[249]={80, 3},[603]={80, 3},[624]={80, 3},--Wrath Raids
 --	[757]={85, 3},[671]={85, 3},[669]={85, 3},[967]={85, 3},[720]={85, 3},[951]={85, 3},[754]={85, 3},--Cata Raids
@@ -532,7 +532,7 @@ local IsInRaid, IsInGroup, IsInInstance = IsInRaid, IsInGroup, IsInInstance
 local UnitAffectingCombat, InCombatLockdown, IsFalling, IsEncounterInProgress, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty = UnitAffectingCombat, InCombatLockdown, IsFalling, IsEncounterInProgress, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty
 local UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura = UnitGUID, UnitHealth, UnitHealthMax, UnitBuff, UnitDebuff, UnitAura
 local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit
-local GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown = GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown
+local GetSpellInfo, GetDungeonInfo, GetSpellTexture, GetSpellCooldown = GetSpellInfo, C_LFGInfo and C_LFGInfo.GetDungeonInfo or GetDungeonInfo, GetSpellTexture, GetSpellCooldown
 --local EJ_GetEncounterInfo, EJ_GetCreatureInfo, EJ_GetSectionInfo, GetSectionIconFlags = EJ_GetEncounterInfo, EJ_GetCreatureInfo, C_EncounterJournal.GetSectionInfo, C_EncounterJournal.GetSectionIconFlags
 local GetInstanceInfo = GetInstanceInfo
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
@@ -4765,6 +4765,7 @@ do
 	do
 		local accessList = {}
 		local savedSender
+		local bossesEngaged = {}
 
 		local inspopup = CreateFrame("Frame", "DBMPopupLockout", UIParent, DBM:IsShadowlands() and "BackdropTemplate")
 		inspopup.backdropInfo = {
@@ -4880,7 +4881,8 @@ do
 		syncHandlers["GCB"] = function(sender, modId, ver, difficulty, name)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "5") then return end--Ignore old versions
-			if DBM:AntiSpam(10, "GCB") then
+			if not bossesEngaged[modId] then
+				bossesEngaged[modId] = true
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				--difficulty = tonumber(difficulty)--Will be used in WoTLK
 				modId = tonumber(modId)
@@ -4892,7 +4894,8 @@ do
 		syncHandlers["GCE"] = function(sender, modId, ver, wipe, time, difficulty, name, wipeHP)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
 			if not ver or not (ver == "8") then return end--Ignore old versions
-			if DBM:AntiSpam(5, "GCE") then
+			if bossesEngaged[modId] then
+				bossesEngaged[modId] = nil
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				--difficulty = tonumber(difficulty)--Will be used in WoTLK
 				modId = tonumber(modId)
@@ -11808,7 +11811,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20210427031752" then
+	if not revision or revision == "20210527040033" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

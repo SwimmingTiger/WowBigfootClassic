@@ -32,7 +32,7 @@
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
 ## X-Wago-ID: Xb6Xe0Kp
-## Version: r123
+## Version: r124
 
 localization.en.lua
 localization.br.lua

@@ -10,7 +10,6 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	DBM_ATH_YELL_1		= "Viens, Minuit, allons disperser cette insignifiante racaille !"
 }
 
 

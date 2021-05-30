@@ -11,33 +11,33 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPortal			= "정신 세계 #%d : >%s< (%d 파티)",
+	WarnPortal			= "차원문 #%d : >%s< (%d 파티)",
 	SpecWarnWildMagic	= "마법 폭주 - %s!"
 }
 
 L:SetOptionLocalization{
-	WarnPortal			= "$spell:46021 대상 알림 보기",
-	SpecWarnWildMagic	= "마법 폭주 대상이 된 경우 특수 경고 보기",
-	ShowFrame			= "정신 세계에 있는 공격대원을 별도 창으로 보기" ,
-	FrameClassColor		= "정신 세계 창 직업 색상 사용",
-	FrameUpwards		= "정신 세계 창 바를 위쪽으로 확장",
-	FrameLocked			= "정신 세계 창 고정(이동불가로 설정)"
+	WarnPortal			= "$spell:46021 대상 경고 보기",
+	SpecWarnWildMagic	= "마법 폭주 특수 경고 보기",
+	ShowFrame			= "정신 세계 공대원 창 보기" ,
+	FrameClassColor		= "정신 세계 창에 직업 색상 사용",
+	FrameUpwards		= "정신 세계 창을 위쪽으로 확장",
+	FrameLocked			= "정신 세계 창 위치 고정"
 }
 
 L:SetMiscLocalization{
 	Demon				= "타락의 사스로바르",
-	Heal				= "치유량 100% 증가",
-	Haste				= "시전속도 100% 증가",
-	Hit					= "물리 적중률 50% 감소",
-	Crit				= "치명타 대미지 100% 증가",
-	Aggro				= "위협수준 생성 100% 증가",
-	Mana				= "마나 소모량 50% 감소",
+	Heal				= "치유량 + 100%",
+	Haste				= "가속 + 100%",
+	Hit					= "근접 적중률 - 50%",
+	Crit				= "치명타 + 100%",
+	Aggro				= "어그로 + 100%",
+	Mana				= "마나 소비 - 50%",
 	FrameTitle			= "정신 세계",
-	FrameLock			= "프레임 잠금",
+	FrameLock			= "창 위치 고정",
 	FrameClassColor		= "직업 색상 사용",
 	FrameOrientation	= "위로 확장",
-	FrameHide			= "프레임 숨김",
-	FrameClose			= "메뉴 닫기"
+	FrameHide			= "창 숨김",
+	FrameClose			= "닫기"
 }
 
 ----------------
@@ -71,8 +71,8 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "단계 전환 알림 보기",
-	TimerPhase		= "다음 단계 바 보기"
+	WarnPhase		= "다음 단계 경고 보기",
+	TimerPhase		= "다음 단계 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -108,24 +108,24 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnHuman		= "타락한 엘프 (%d)",
+	WarnHuman		= "엘프 (%d)",
 	WarnVoid		= "공허의 파수병 (%d)",
-	WarnFiend		= "어둠 마귀"
+	WarnFiend		= "어둠 마귀 등장"
 }
 
 L:SetTimerLocalization{
-	TimerHuman		= "다음 타락한 엘프 (%s)",
-	TimerVoid		= "다음 공허의 파수병 (%s)",
+	TimerHuman		= "다음 엘프 (%s)",
+	TimerVoid		= "다음 보이드 (%s)",
 	TimerPhase		= "엔트로피우스"
 }
 
 L:SetOptionLocalization{
-	WarnHuman		= "타락한 엘프 알림 보기",
-	WarnVoid		= "공허의 파수병 알림 보기",
-	WarnFiend		= "어둠 마귀 알림 보기",
-	TimerHuman		= "다음 타락한 엘프 바 보기",
-	TimerVoid		= "다음 공허의 파수병 바 보기",
-	TimerPhase		= "2 단계 바 보기"
+	WarnHuman		= "엘프 경고 보기",
+	WarnVoid		= "공허의 파수병 경고 보기",
+	WarnFiend		= "2단계 마귀 경고 보기",
+	TimerHuman		= "엘프 타이머 바 보기",
+	TimerVoid		= "공허의 파수병 타이머 바 보기",
+	TimerPhase		= "2단계 전환 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -142,10 +142,10 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnDarkOrb		= "보호의 구슬 생성",
-	WarnBlueOrb		= "푸른용의 수정구",
-	SpecWarnDarkOrb	= "보호의 구슬 생성!",
-	SpecWarnBlueOrb	= "푸른용의 수정구 활성화!"
+	WarnDarkOrb		= "보호의 구슬 등장",
+	WarnBlueOrb		= "푸른용의 수정구 활성화",
+	SpecWarnDarkOrb		= "보호의 구슬 등장!",
+	SpecWarnBlueOrb		= "푸른용의 수정구 활성화!"
 }
 
 L:SetTimerLocalization{
@@ -153,11 +153,11 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnDarkOrb		= "보호의 구슬 생성 알림 보기",
+	WarnDarkOrb		= "보호의 구슬 등장 알림 보기",
 	WarnBlueOrb		= "푸른용의 수정구 알림 보기",
-	SpecWarnDarkOrb	= "보호의 구슬 생성 특수 경고 보기",
+	SpecWarnDarkOrb	= "보호의 구슬 등장 특수 경고 보기",
 	SpecWarnBlueOrb	= "푸른용의 수정구 활성화 특수 경고 보기",
-	TimerBlueOrb	= "푸른용의 수정구 활성화 바 보기"
+	TimerBlueOrb	= "푸른용의 수정구 활성화 타이머 바 보기"
 }
 
 L:SetMiscLocalization{

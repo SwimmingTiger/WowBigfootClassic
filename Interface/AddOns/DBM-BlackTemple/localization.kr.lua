@@ -10,12 +10,8 @@ L:SetGeneralLocalization{
 	name = "대장군 나젠투스"
 }
 
-L:SetOptionLocalization{
-	InfoFrame	= "체력이 낮은 대상을 정보 창으로 보기(8800 미만)"
-}
-
 L:SetMiscLocalization{
-	HealthInfo	= "체력 정보"
+	HealthInfo	= "생명력 정보"
 }
 
 ----------------
@@ -28,8 +24,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s 단계",
-	WarnKite		= "추적 : >%s<"
+	WarnPhase		= "%s 단계"
 }
 
 L:SetTimerLocalization{
@@ -37,17 +32,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "단계 전환 알림 보기",
-	WarnKite		= "추적 대상 알림 보기",
-	TimerPhase		= "다음 단계 바 보기",
-	KiteIcon		= "추적 대상에게 전술 목표 아이콘 설정"
+	WarnPhase		= "다음 단계 경고 보기",
+	TimerPhase		= "다음 단계 타이머 바 보기",
+	KiteIcon		= "드리블 대상에 공격대 징표 설정"
 }
 
 L:SetMiscLocalization{
-	PhaseTank		= "땅이 갈라져서 열리기 시작합니다!",--Check if Backwards
-	PhaseKite		= "분노하여 땅을 내리찍습니다!",--Check if Backwards
+	PhaseTank		= "땅이 갈라져서 열리기 시작합니다!",
+	PhaseKite		= "분노하여 땅을 내리찍습니다!",
 	ChangeTarget	= "새로운 대상이 필요합니다!",
-	Kite			= "추적",
+	Kite			= "드리블",
 	Tank			= "일반"
 }
 
@@ -74,7 +68,7 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	TimerVengefulSpirit		= "유령 유지시간 바 보기"
+	TimerVengefulSpirit		= "유령 지속시간 타이머 바 보기"
 }
 
 ----------------------------
@@ -104,14 +98,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnMana		= "2 단계 에서 마나 0 이 되기 30초 전에 알림 보기",
-	TimerMana		= "마나 0까지 남은시간 바 보기"
+	WarnMana		= "2단계에서 마나 0이 되기 30초 전에 경고 보기",
+	TimerMana		= "2단계 마나 0 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
 	Suffering		= "고뇌의 정수",
 	Desire			= "욕망의 정수",
-	Anger			= "격노의 정수"
+	Anger			= "격노의 정수",
+	Phase1End		= "나 안 돌아갈래!",
+	Phase2End		= "멀리 가진 않겠다!"
 }
 
 -----------------------
@@ -123,12 +119,8 @@ L:SetGeneralLocalization{
 	name = "대모 샤라즈"
 }
 
-L:SetTimerLocalization{
-	timerAura	= "%s"
-}
-
 L:SetOptionLocalization{
-	timerAura	= "변위의 오라 바 보기"
+	timerAura	= "변위의 오라 타이머 바 보기"
 }
 
 ----------------------
@@ -141,7 +133,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	Immune			= "말란데 - 15초간 %s 면역!"
+	Immune			= "말란데 - %s 면역 15초"
 }
 
 L:SetOptionLocalization{
@@ -167,21 +159,21 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnHuman		= "인간 형상",
-	WarnDemon		= "악마 형상"
+	WarnHuman		= "인간 단계",
+	WarnDemon		= "악마 단계"
 }
 
 L:SetTimerLocalization{
-	TimerNextHuman		= "다음 인간 형상",
-	TimerNextDemon		= "다음 악마 형상"
+	TimerNextHuman		= "다음 인간 단계",
+	TimerNextDemon		= "다음 악마 단계"
 }
 
 L:SetOptionLocalization{
-	WarnHuman		= "인간 형상 알림 보기",
-	WarnDemon		= "악마 형상 알림 보기",
-	TimerNextHuman	= "다음 인간 형상 바 보기",
-	TimerNextDemon	= "다음 악마 형상 바 보기",
-	RangeFrame		= "3, 4 단계에서 거리 창 보기(10m)"
+	WarnHuman		= "인간 단계 경고 보기",
+	WarnDemon		= "악마 단계 경고 보기",
+	TimerNextHuman	= "다음 인간 단계 타이머 바 보기",
+	TimerNextDemon	= "다음 악마 단계 타이머 바 보기",
+	RangeFrame		= "3, 4단계에서 거리 창 보기 (10m)"
 }
 
 L:SetMiscLocalization{

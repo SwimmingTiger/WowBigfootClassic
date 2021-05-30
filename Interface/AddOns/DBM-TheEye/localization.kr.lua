@@ -11,11 +11,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	NextPlatform	= "단상 머무름"
+	NextPlatform	= "최대 단상 시간"
 }
 
 L:SetOptionLocalization{
-	NextPlatform	= "단상 머무름 바 보기(더 빨리 떠날수는 있으나 더 늦게 떠나진 않습니다.)"
+	NextPlatform	= "알라르가 단상에 머무를 수 있는 시간 타이머 바 보기 (더 빨리 떠날수는 있지만 더 늦게 떠나진 않음)"
 }
 
 ------------------
@@ -38,24 +38,26 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnSplit		= "분리",
-	WarnAgent		= "요원",
-	WarnPriest		= "사제/솔라리안",
+	WarnSplitSoon	= "5초 후 분리",
+	WarnAgent		= "요원 등장",
+	WarnPriest		= "사제와 솔라리안 등장",
 
 }
 
 L:SetTimerLocalization{
 	TimerSplit		= "다음 분리",
-	TimerAgent		= "다음 요원",
-	TimerPriest		= "다음 사제/솔라리안"
+	TimerAgent		= "요원 등장",
+	TimerPriest		= "사제와 솔라리안 등장"
 }
 
 L:SetOptionLocalization{
-	WarnSplit		= "분리 알림 보기",
-	WarnAgent		= "요원 등장 알림 보기",
-	WarnPriest		= "사제/솔라리안 등장 알림 보기",
-	TimerSplit		= "다음 분리 바 보기",
-	TimerAgent		= "다음 요원 바 보기",
-	TimerPriest		= "다음 사제/솔라리안 바 보기"
+	WarnSplit		= "분리 경고 보기",
+	WarnSplitSoon	= "분리 사전 경고 보기",
+	WarnAgent		= "요원 등장 경고 보기",
+	WarnPriest		= "사제와 솔라리안 등장 경고 보기",
+	TimerSplit		= "분리 타이머 바 보기",
+	TimerAgent		= "요원 등장 타이머 바 보기",
+	TimerPriest		= "사제와 솔라리안 등장 타이머 바 보기"
 }
 
 L:SetMiscLocalization{
@@ -74,31 +76,30 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnGaze		= "추적: >%s<",
+	WarnGaze		= "주시: >%s<",
 	WarnMobDead		= "%s 처치",
 	WarnEgg			= "불사조 알 생성",
-	SpecWarnGaze	= "당신을 추적 - 도망치세요!",
-	SpecWarnEgg		= "불사조 알 생성 - 대상 전환!"
+	SpecWarnGaze	= "당신을 주시 - 도망치세요!",
+	SpecWarnEgg		= "불사조 알 생성 - 점사!"
 }
 
 L:SetTimerLocalization{
 	TimerPhase		= "다음 단계",
-	TimerPhase1mob	= "%s",
-	TimerNextGaze	= "추적 대상 변경",
-	TimerRebirth	= "불사조 환생 가능"
+	TimerNextGaze	= "새 주시 대상",
+	TimerRebirth	= "불사조 환생"
 }
 
 L:SetOptionLocalization{
-	WarnGaze		= "탈라드레드 추적 대상 알림 보기",
-	WarnMobDead		= "무기 처치 알림 보기",
-	WarnEgg			= "불사조 알 생성 알림 보기",
-	SpecWarnGaze	= "탈라드레드 추적 대상이 된 경우 특수 경고 보기",
-	SpecWarnEgg		= "불사조 알 생성 특수 경고 보기",
-	TimerPhase		= "다음 단계 바 보기",
-	TimerPhase1mob	= "1단계 조언가 등장 바 보기",
-	TimerNextGaze	= "탈라드레드 추적 대상 변경 바 보기",
-	TimerRebirth	= "불사조 알 환생 가능 바 보기",
-	GazeIcon		= "탈라드레드 추적 대상에게 전술 목표 아이콘 설정"
+	WarnGaze		= "탈라드레드의 주시 대상 경고 보기",
+	WarnMobDead		= "2단계 무기 처치 경고 보기",
+	WarnEgg			= "불사조 알 생성시 경고 보기",
+	SpecWarnGaze	= "주시 대상일 때 특수 경고 보기",
+	SpecWarnEgg		= "불사조 알 생성시 특수 경고 보기",
+	TimerPhase		= "다음 단계 타이머 바 보기",
+	TimerPhase1mob	= "1단계 조언가 활성화 타이머 바 보기",
+	TimerNextGaze	= "탈라드레드의 주시 대상 변경 타이머 바 보기",
+	TimerRebirth	= "불사조 알 환생 남은 시간 타이머 바 보기",
+	GazeIcon		= "탈라드레드의 주시 대상에 공격대 징표 설정"
 }
 
 L:SetMiscLocalization{

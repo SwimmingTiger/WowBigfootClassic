@@ -8,15 +8,27 @@ local L
 -----------------------------
 L = DBM:GetModLocalization(527)
 
+L:SetGeneralLocalization{
+	name 		= "감시자 가르골마르"
+}
+
 --------------------------
 --  Omor the Unscarred  --
 --------------------------
 L = DBM:GetModLocalization(528)
 
+L:SetGeneralLocalization{
+	name 		= "무적의 오모르"
+}
+
 ------------------------
 --  Nazan & Vazruden  --
 ------------------------
 L = DBM:GetModLocalization(529)
+
+L:SetGeneralLocalization{
+	name 		= "나잔과 바즈루덴"
+}
 
 -------------------------
 --  The Blood Furnace  --
@@ -25,15 +37,27 @@ L = DBM:GetModLocalization(529)
 -----------------
 L = DBM:GetModLocalization(555)
 
+L:SetGeneralLocalization{
+	name 		= "재앙의 창조자"
+}
+
 ---------------
 --  Broggok  --
 ---------------
 L = DBM:GetModLocalization(556)
 
+L:SetGeneralLocalization{
+	name 		= "브로고크"
+}
+
 ----------------------------
 --  Keli'dan the Breaker  --
 ----------------------------
 L = DBM:GetModLocalization(557)
+
+L:SetGeneralLocalization{
+	name 		= "파괴자 켈리단"
+}
 
 ---------------------------
 --  The Shattered Halls  --
@@ -42,20 +66,36 @@ L = DBM:GetModLocalization(557)
 --------------------------------
 L = DBM:GetModLocalization(566)
 
+L:SetGeneralLocalization{
+	name 		= "대흑마법사 네더쿠르스"
+}
+
 --------------------------
 --  Blood Guard Porung  --
 --------------------------
 L = DBM:GetModLocalization(728)
+
+L:SetGeneralLocalization{
+	name 		= "혈투사 포룽"
+}
 
 --------------------------
 --  Warbringer O'mrogg  --
 --------------------------
 L = DBM:GetModLocalization(568)
 
+L:SetGeneralLocalization{
+	name 		= "전쟁인도자 오므로그"
+}
+
 ----------------------------------
 --  Warchief Kargath Bladefist  --
 ----------------------------------
 L = DBM:GetModLocalization(569)
+
+L:SetGeneralLocalization{
+	name 		= "대족장 카르가스 블레이드피스트"
+}
 
 ------------------
 --  Slave Pens  --
@@ -64,15 +104,27 @@ L = DBM:GetModLocalization(569)
 --------------------------
 L = DBM:GetModLocalization(570)
 
+L:SetGeneralLocalization{
+	name 		= "배반자 멘누"
+}
+
 ---------------------------
 --  Rokmar the Crackler  --
 ---------------------------
 L = DBM:GetModLocalization(571)
 
+L:SetGeneralLocalization{
+	name 		= "딱딱이 로크마르"
+}
+
 ------------------
 --  Quagmirran  --
 ------------------
 L = DBM:GetModLocalization(572)
+
+L:SetGeneralLocalization{
+	name 		= "쿠아그미란"
+}
 
 --------------------
 --  The Underbog  --
@@ -81,20 +133,36 @@ L = DBM:GetModLocalization(572)
 -----------------
 L = DBM:GetModLocalization(576)
 
+L:SetGeneralLocalization{
+	name 		= "헝가르펜"
+}
+
 ---------------
 --  Ghaz'an  --
 ---------------
 L = DBM:GetModLocalization(577)
+
+L:SetGeneralLocalization{
+	name 		= "가즈안"
+}
 
 --------------------------
 --  Swamplord Musel'ek  --
 --------------------------
 L = DBM:GetModLocalization(578)
 
+L:SetGeneralLocalization{
+	name 		= "늪군주 뮤즐레크"
+}
+
 -------------------------
 --  The Black Stalker  --
 -------------------------
 L = DBM:GetModLocalization(579)
+
+L:SetGeneralLocalization{
+	name 		= "검은 추적자"
+}
 
 ----------------------
 --  The Steamvault  --
@@ -103,10 +171,18 @@ L = DBM:GetModLocalization(579)
 ---------------------------
 L = DBM:GetModLocalization(573)
 
+L:SetGeneralLocalization{
+	name 		= "풍수사 세스피아"
+}
+
 -----------------------------
 --  Mekgineer Steamrigger  --
 -----------------------------
 L = DBM:GetModLocalization(574)
+
+L:SetGeneralLocalization{
+	name 		= "기계박사 스팀리거"
+}
 
 L:SetMiscLocalization({
 	Mechs	= "얘들아, 쟤네들을 부드럽게 만져줘라!"
@@ -117,6 +193,10 @@ L:SetMiscLocalization({
 --------------------------
 L = DBM:GetModLocalization(575)
 
+L:SetGeneralLocalization{
+	name 		= "장군 칼리스레쉬"
+}
+
 -----------------------
 --  Auchenai Crypts  --
 --------------------------------
@@ -124,10 +204,18 @@ L = DBM:GetModLocalization(575)
 --------------------------------
 L = DBM:GetModLocalization(523)
 
+L:SetGeneralLocalization{
+	name 		= "죽음의 감시인 쉴라크"
+}
+
 -----------------------
 --  Exarch Maladaar  --
 -----------------------
 L = DBM:GetModLocalization(524)
+
+L:SetGeneralLocalization{
+	name 		= "총독 말라다르"
+}
 
 ------------------
 --  Mana-Tombs  --
@@ -136,20 +224,36 @@ L = DBM:GetModLocalization(524)
 -------------------
 L = DBM:GetModLocalization(534)
 
+L:SetGeneralLocalization{
+	name 		= "팬더모니우스"
+}
+
 ---------------
 --  Tavarok  --
 ---------------
 L = DBM:GetModLocalization(535)
+
+L:SetGeneralLocalization{
+	name 		= "타바로크"
+}
 
 ----------------------------
 --  Nexus-Prince Shaffar  --
 ----------------------------
 L = DBM:GetModLocalization(537)
 
+L:SetGeneralLocalization{
+	name 		= "연합왕자 샤파르"
+}
+
 -----------
 --  Yor  --
 -----------
 L = DBM:GetModLocalization(536)
+
+L:SetGeneralLocalization{
+	name 		= "요르"
+}
 
 ---------------------
 --  Sethekk Halls  --
@@ -158,17 +262,25 @@ L = DBM:GetModLocalization(536)
 -----------------------
 L = DBM:GetModLocalization(541)
 
+L:SetGeneralLocalization{
+	name 		= "흑마술사 시스"
+}
+
 ------------
 --  Anzu  --
 ------------
 L = DBM:GetModLocalization(542)
 
+L:SetGeneralLocalization{
+	name 		= "안주"
+}
+
 L:SetWarningLocalization({
-	warnStoned	= "돌로 돌아옴 : %s"--확인필요
+	warnStoned	= "%s|1;이;가; 돌로 돌아감"
 })
 
 L:SetOptionLocalization({
-	warnStoned	= "영혼이 돌로 되돌아 올때 알림 보기"--확인필요
+	warnStoned	= "영혼이 돌로 되돌아가면 경고 보기"
 })
 
 L:SetMiscLocalization({
@@ -180,6 +292,10 @@ L:SetMiscLocalization({
 ------------------------
 L = DBM:GetModLocalization(543)
 
+L:SetGeneralLocalization{
+	name 		= "갈퀴대왕 이키스"
+}
+
 ------------------------
 --  Shadow Labyrinth  --
 --------------------------
@@ -187,20 +303,36 @@ L = DBM:GetModLocalization(543)
 --------------------------
 L = DBM:GetModLocalization(544)
 
+L:SetGeneralLocalization{
+	name 		= "사자 지옥아귀"
+}
+
 ------------------------------
 --  Blackheart the Inciter  --
 ------------------------------
 L = DBM:GetModLocalization(545)
+
+L:SetGeneralLocalization{
+	name 		= "선동자 검은심장"
+}
 
 --------------------------
 --  Grandmaster Vorpil  --
 --------------------------
 L = DBM:GetModLocalization(546)
 
+L:SetGeneralLocalization{
+	name 		= "단장 보르필"
+}
+
 --------------
 --  Murmur  --
 --------------
 L = DBM:GetModLocalization(547)
+
+L:SetGeneralLocalization{
+	name 		= "울림"
+}
 
 -------------------------------
 --  Old Hillsbrad Foothills  --
@@ -209,15 +341,27 @@ L = DBM:GetModLocalization(547)
 ------------------------
 L = DBM:GetModLocalization(538)
 
+L:SetGeneralLocalization{
+	name 		= "부관 드레이크"
+}
+
 -----------------------
 --  Captain Skarloc  --
 -----------------------
 L = DBM:GetModLocalization(539)
 
+L:SetGeneralLocalization{
+	name 		= "경비대장 스칼록"
+}
+
 --------------------
 --  Epoch Hunter  --
 --------------------
 L = DBM:GetModLocalization(540)
+
+L:SetGeneralLocalization{
+	name 		= "시대의 사냥꾼"
+}
 
 ------------------------
 --  The Black Morass  --
@@ -226,15 +370,27 @@ L = DBM:GetModLocalization(540)
 ------------------------
 L = DBM:GetModLocalization(552)
 
+L:SetGeneralLocalization{
+	name 		= "시간의 군주 데자"
+}
+
 ----------------
 --  Temporus  --
 ----------------
 L = DBM:GetModLocalization(553)
 
+L:SetGeneralLocalization{
+	name 		= "템퍼루스"
+}
+
 --------------
 --  Aeonus  --
 --------------
 L = DBM:GetModLocalization(554)
+
+L:SetGeneralLocalization{
+	name 		= "아에누스"
+}
 
 L:SetMiscLocalization({
     AeonusFrenzy	= "%s|1이;가; 광란의 상태에 빠집니다!"--확인필요
@@ -246,30 +402,29 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("PT")
 
 L:SetGeneralLocalization({
-	name = "검은 늪: 차원문"
+	name = "차원문 타이머 (시동)"
 })
 
 L:SetWarningLocalization({
-    WarnWavePortalSoon	= "곧 다음 차원문",
-    WarnWavePortal		= "차원문 #%d",
+    WarnWavePortalSoon	= "곧 새 차원문",
+    WarnWavePortal		= "%d번 차원문",
     WarnBossPortal		= "우두머리 등장"
 })
 
 L:SetTimerLocalization({
-	TimerNextPortal		= "차원문 #%d"
+	TimerNextPortal		= "%d번 차원문"
 })
 
 L:SetOptionLocalization({
-    WarnWavePortalSoon	= "다음 차원문 이전에 알림 보기",
-    WarnWavePortal		= "차원문 알림 보기",
-    WarnBossPortal		= "우두머리 등장 알림 보기",
-	TimerNextPortal		= "우두머리 처치 이후 다음 차원문 바 보기",
-	ShowAllPortalTimers	= "모든 차원문 바 보기(부정확함)"
+    WarnWavePortalSoon	= "새 차원문 사전 경고 보기",
+    WarnWavePortal		= "새 차원문 경고 보기",
+    WarnBossPortal		= "우두머리 등장 경고 보기",
+	TimerNextPortal		= "다음 차원문 타이머 바 보기 (우두머리 잡은 후)",
+	ShowAllPortalTimers	= "모든 차원문 타이머 바 보기 (부정확함)"
 })
 
 L:SetMiscLocalization({
-	PortalCheck			= "시간의 균열 열림: (%d+)/18",
-	Shielddown			= "No! Damn this feeble, mortal coil!"--확인필요
+	Shielddown			= "안 돼! 이런 나약한 무리에게 당하다니!"
 })
 
 --------------------
@@ -277,7 +432,7 @@ L:SetMiscLocalization({
 -----------------------------
 --  Gatewatcher Gyro-Kill  --
 -----------------------------
-L = DBM:GetModLocalization("Gyrokill")
+L = DBM:GetModLocalization("Gyrokill")--Not in EJ
 
 L:SetGeneralLocalization({
 	name = "문지기 회전톱날"
@@ -286,14 +441,14 @@ L:SetGeneralLocalization({
 -----------------------------
 --  Gatewatcher Iron-Hand  --
 -----------------------------
-L = DBM:GetModLocalization("Ironhand")
+L = DBM:GetModLocalization("Ironhand")--Not in EJ
 
 L:SetGeneralLocalization({
 	name = "문지기 무쇠주먹"
 })
 
 L:SetMiscLocalization({
-	JackHammer				= "%s|1이;가; 자신의 망치를 위협적으로 치켜듭니다..."--확인필요
+	JackHammer			= "%s|1이;가; 자신의 망치를 위협적으로 치켜듭니다..."
 })
 
 ------------------------------
@@ -301,15 +456,27 @@ L:SetMiscLocalization({
 ------------------------------
 L = DBM:GetModLocalization(563)
 
+L:SetGeneralLocalization{
+	name 		= "기계군주 캐퍼시투스"
+}
+
 ------------------------------
 --  Nethermancer Sepethrea  --
 ------------------------------
 L = DBM:GetModLocalization(564)
 
+L:SetGeneralLocalization{
+	name 		= "황천술사 세페스레아"
+}
+
 --------------------------------
 --  Pathaleon the Calculator  --
 --------------------------------
 L = DBM:GetModLocalization(565)
+
+L:SetGeneralLocalization{
+	name 		= "철두철미한 파탈리온"
+}
 
 --------------------
 --  The Botanica  --
@@ -318,25 +485,45 @@ L = DBM:GetModLocalization(565)
 --------------------------
 L = DBM:GetModLocalization(558)
 
+L:SetGeneralLocalization{
+	name 		= "지휘관 새래니스"
+}
+
 ------------------------------
 --  High Botanist Freywinn  --
 ------------------------------
 L = DBM:GetModLocalization(559)
+
+L:SetGeneralLocalization{
+	name 		= "고위 식물학자 프레이윈"
+}
 
 -----------------------------
 --  Thorngrin the Tender  --
 -----------------------------
 L = DBM:GetModLocalization(560)
 
+L:SetGeneralLocalization{
+	name 		= "감시인 쏜그린"
+}
+
 -----------
 --  Laj  --
 -----------
 L = DBM:GetModLocalization(561)
 
+L:SetGeneralLocalization{
+	name 		= "라즈"
+}
+
 ---------------------
 --  Warp Splinter  --
 ---------------------
 L = DBM:GetModLocalization(562)
+
+L:SetGeneralLocalization{
+	name 		= "차원의 분리자"
+}
 
 --------------------
 --  The Arcatraz  --
@@ -345,20 +532,36 @@ L = DBM:GetModLocalization(562)
 ----------------------------
 L = DBM:GetModLocalization(548)
 
+L:SetGeneralLocalization{
+	name 		= "속박 풀린 제레케스"
+}
+
 -----------------------------
 --  Dalliah the Doomsayer  --
 -----------------------------
 L = DBM:GetModLocalization(549)
+
+L:SetGeneralLocalization{
+	name 		= "파멸의 예언자 달리아"
+}
 
 ---------------------------------
 --  Wrath-Scryer Soccothrates  --
 ---------------------------------
 L = DBM:GetModLocalization(550)
 
+L:SetGeneralLocalization{
+	name 		= "격노의 점술사 소코드라테스"
+}
+
 -------------------------
 --  Harbinger Skyriss  --
 -------------------------
 L = DBM:GetModLocalization(551)
+
+L:SetGeneralLocalization{
+	name 		= "선구자 스키리스"
+}
 
 L:SetMiscLocalization({
 	Split			= "밤하늘의 무한한 별처럼 온 우주를 덮으리라!"
@@ -371,18 +574,42 @@ L:SetMiscLocalization({
 -----------------------
 L = DBM:GetModLocalization(530)
 
+L:SetGeneralLocalization{
+	name 		= "셀린 파이어하트"
+}
+
+L:SetWarningLocalization({
+    warningFelCrystal	= "지옥 수정 - 점사"
+})
+
+L:SetTimerLocalization({
+	timerFelCrystal		= "~지옥 수정"
+})
+
+L:SetOptionLocalization({
+	warningFelCrystal	= "지옥 수정 점사 특수 경고 보기",
+    timerFelCrystal		= "지옥 수정 타이머 바 보기"
+})
+
 ----------------
 --  Vexallus  --
 ----------------
 L = DBM:GetModLocalization(531)
+
+L:SetGeneralLocalization{
+	name 		= "벡살루스"
+}
 
 --------------------------
 --  Priestess Delrissa  --
 --------------------------
 L = DBM:GetModLocalization(532)
 
+L:SetGeneralLocalization{
+	name 		= "여사제 델리사"
+}
+
 L:SetMiscLocalization({
---	DelrissaPull	= "저들을 밟아줘라.",
 	DelrissaEnd		= "뭔가... 잘못됐어..."
 })
 
@@ -390,6 +617,10 @@ L:SetMiscLocalization({
 --  Kael'thas Sunstrider (Party)  --
 ------------------------------------
 L = DBM:GetModLocalization(533)
+
+L:SetGeneralLocalization{
+	name 		= "캘타스 선스트라이더 (던전)"
+}
 
 L:SetMiscLocalization({
 	KaelP2				= "세상을... 거꾸로... 뒤집어주마."
