@@ -1,12 +1,10 @@
-
+﻿
 -- --------------------------
 -- Improved Loot Frame
 -- By Cybeloras of Detheroc/Mal'Ganis
 -- --------------------------
 
 local LovelyLootLoaded = IsAddOnLoaded("LovelyLoot")
-
-local wow_classic = WOW_PROJECT_ID and WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
 -- LOOTFRAME_AUTOLOOT_DELAY = 0.5;
 -- LOOTFRAME_AUTOLOOT_RATE = 0.1;
@@ -93,7 +91,7 @@ hooksecurefunc("LootFrame_Show", function(self, ...)
 		if i > LOOTFRAME_NUMBUTTONS then
 			local button = _G["LootButton"..i]
 			if not button then
-				button = CreateFrame(wow_classic and "Button" or "ItemButton", "LootButton"..i, LootFrame, "LootButtonTemplate", i)
+				button = CreateFrame(ItemButtonMixin and "ItemButton" or "Button", "LootButton"..i, LootFrame, "LootButtonTemplate", i)
 			end
 			LOOTFRAME_NUMBUTTONS = i
 		end

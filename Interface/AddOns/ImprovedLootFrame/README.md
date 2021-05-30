@@ -3,7 +3,7 @@
 
 # ImprovedLootFrame
 
-Reposity for World of Warcraft interface addon Improved Loot Frame
+Repository for World of Warcraft interface addon Improved Loot Frame
 
 Displays all items in the default loot frame on one page
 
