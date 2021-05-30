@@ -65,11 +65,19 @@ fb:SetScript("OnEvent", fb.OnEvent)
 
 local f = CreateFrame("Frame")
 function f:OnEvent(event, key, state)
-	if state == SPELL_FAILED_NOT_STANDING then
+	if     state == SPELL_FAILED_NOT_STANDING
+		or state == ERR_CANTATTACK_NOTSTANDING
+		or state == ERR_LOOT_NOTSTANDING
+		or state == ERR_TAXINOTSTANDING
+	then
 		if BigFoot_SysTemSetTab.DoEmote_stand then
 			DoEmote("stand")
 		end
-	elseif state == SPELL_FAILED_NOT_MOUNTED or state == ERR_ATTACK_MOUNTED then
+	elseif state == SPELL_FAILED_NOT_MOUNTED
+		or state == ERR_ATTACK_MOUNTED
+		or state == ERR_NOT_WHILE_MOUNTED
+		or state == ERR_TAXIPLAYERALREADYMOUNTED
+	then
 		if BigFoot_SysTemSetTab.Dismount then
 			Dismount()
 		end
