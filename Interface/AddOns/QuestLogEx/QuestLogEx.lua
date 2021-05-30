@@ -36,7 +36,7 @@ function QuestLogEx:ToggleExtended(extend)
 		QuestLogExDetailHideButton:Hide()
 		QuestLogExDetailShowButton:Hide()
 	
-		HideUIPanel(QuestLogExFrameDescription)
+		QuestLogExFrameDescription:Hide()
 	else
 		QuestLogExTopRightExtended:Show()
 		QuestLogExTopRightNormal:Hide()
@@ -60,7 +60,7 @@ function QuestLogEx:ToggleExtended(extend)
 			QuestLogExDetailShowButton:Hide()
 		end
 		
-		ShowUIPanel(QuestLogExFrameDescription)
+		QuestLogExFrameDescription:Show()
 	end
 end
 
@@ -92,9 +92,9 @@ Array-style table to keep track of watched quests and how long we've been watchi
 
 function QuestLogEx:ToggleQuestLog()
 	if ( QuestLogExFrame:IsVisible() ) then
-		HideUIPanel(QuestLogExFrame);
+		QuestLogExFrame:Hide();
 	else
-		ShowUIPanel(QuestLogExFrame);
+		QuestLogExFrame:Show();
 	end
 end
 
@@ -131,7 +131,7 @@ function QuestLogEx:QuestLog_OnEvent(self, event, ...)
 end
 
 function QuestLogEx:QuestLog_OnShow(self)
-	ShowUIPanel(QuestLogExFrame)
+	QuestLogExFrame:Show();
 
 	UpdateMicroButtons();
 	PlaySound(SOUNDKIT.IG_QUEST_LOG_OPEN);
@@ -140,7 +140,7 @@ function QuestLogEx:QuestLog_OnShow(self)
 end
 
 function QuestLogEx:QuestLog_OnHide(self)
-	HideUIPanel(QuestLogExFrame)
+	QuestLogExFrame:Hide();
 
 	UpdateMicroButtons();
 	PlaySound(SOUNDKIT.IG_QUEST_LOG_CLOSE);

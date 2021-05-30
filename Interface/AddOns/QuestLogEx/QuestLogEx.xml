@@ -428,7 +428,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            HideUIPanel(QuestLogExFrame);
+            QuestLogExFrame:Hide();
           </OnClick>
         </Scripts>
       </Button>
@@ -1337,7 +1337,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            HideUIPanel(QuestLogExFrame);
+            QuestLogExFrame:Hide();
           </OnClick>
         </Scripts>
       </Button>
