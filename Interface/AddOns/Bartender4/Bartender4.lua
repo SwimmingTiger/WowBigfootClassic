@@ -205,10 +205,9 @@ function Bartender4:HideBlizzard()
 		end
 	end
 
-	-- 老虎会游泳: 修复按需加载时经验条和声望条不显示
 	hideActionBarFrame(MainMenuBarPerformanceBarFrame, false, false, true)
-	--hideActionBarFrame(MainMenuExpBar, false, false, true)
-	--hideActionBarFrame(ReputationWatchBar, false, false, true)
+	hideActionBarFrame(MainMenuExpBar, false, false, true)
+	hideActionBarFrame(ReputationWatchBar, false, false, true)
 	hideActionBarFrame(MainMenuBarMaxLevelBar, false, false, true)
 
 	self:RegisterPetBattleDriver()
