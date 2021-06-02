@@ -154,7 +154,7 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 	local statName = self.statName;
 	local rating = self.rating;
 	local ratingBonus = self.ratingBonus;
-
+	local playerLevel = UnitLevel(unit);
 	local unitClassId = select(3, UnitClass(unit));
 
 	-- Set the tooltip text
@@ -162,9 +162,9 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 	local tooltip2 = " ";
 
 	if ( ratingIndex == CR_HIT_MELEE ) then
-		tooltip2 = format(CR_HIT_MELEE_TOOLTIP, UnitLevel(unit), ratingBonus, GetArmorPenetration());
+		tooltip2 = format(CR_HIT_MELEE_TOOLTIP, playerLevel, ratingBonus, GetArmorPenetration());
 	elseif ( ratingIndex == CR_HIT_RANGED ) then
-		tooltip2 = format(CR_HIT_RANGED_TOOLTIP, UnitLevel(unit), ratingBonus, GetArmorPenetration());
+		tooltip2 = format(CR_HIT_RANGED_TOOLTIP, playerLevel, ratingBonus, GetArmorPenetration());
 	elseif ( ratingIndex == CR_HIT_SPELL ) then
 		-- spell hit from talents
 		if unitClassId == CSC_MAGE_CLASS_ID then
@@ -175,7 +175,7 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 		elseif unitClassId == CSC_WARLOCK_CLASS_ID then
 			self.afflictionHit = CSC_GetWarlockSpellHitFromTalents();
 		end
-		tooltip2 = format(CR_HIT_SPELL_TOOLTIP, UnitLevel(unit), ratingBonus, GetSpellPenetration(), GetSpellPenetration());
+		tooltip2 = format(CR_HIT_SPELL_TOOLTIP, playerLevel, ratingBonus, GetSpellPenetration(), GetSpellPenetration());
 	else
 		tooltip2 = HIGHLIGHT_FONT_COLOR_CODE..getglobal("COMBAT_RATING_NAME"..ratingIndex).." "..rating;	
 	end
@@ -184,17 +184,33 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 	GameTooltip:SetText(tooltip, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	GameTooltip:AddLine(tooltip2);
 
-	if unitClassId == CSC_MAGE_CLASS_ID then
+	if (ratingIndex == CR_HIT_SPELL) then
+		if unitClassId == CSC_MAGE_CLASS_ID then
+			GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
+			GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_ARCANE_SPELL_HIT_TXT, (self.arcaneHit + self.spellHitGearTalents).."%");
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FIRE_SPELL_HIT_TXT, (self.fireHit + self.spellHitGearTalents).."%");
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FROST_SPELL_HIT_TXT, (self.frostHit + self.spellHitGearTalents).."%");
+		elseif unitClassId == CSC_WARLOCK_CLASS_ID then
+			GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
+			GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_DESTRUCTION_SPELL_HIT_TXT, self.spellHitGearTalents.."%");
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_AFFLICTION_SPELL_HIT_TXT, (self.afflictionHit + self.spellHitGearTalents).."%");
+		end
+	elseif (ratingIndex == CR_HIT_MELEE) then
+		local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, ratingBonus);
 		GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-		GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_ARCANE_SPELL_HIT_TXT, (self.arcaneHit + self.spellHitGearTalents).."%");
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FIRE_SPELL_HIT_TXT, (self.fireHit + self.spellHitGearTalents).."%");
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FROST_SPELL_HIT_TXT, (self.frostHit + self.spellHitGearTalents).."%");
-	elseif unitClassId == CSC_WARLOCK_CLASS_ID then
+		GameTooltip:AddLine("Miss Chance vs.");
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC), format("(Dual wield: %.2F%%)", dwMissChanceVsNpc));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer), format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: %.2F%%", missChanceVsBoss), format("(Dual wield: %.2F%%)", dwMissChanceVsBoss));
+	elseif (ratingIndex == CR_HIT_RANGED) then
+		local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, _, _, _ = CSC_GetPlayerMissChances(unit, ratingBonus);
 		GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
-		GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_DESTRUCTION_SPELL_HIT_TXT, self.spellHitGearTalents.."%");
-		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_AFFLICTION_SPELL_HIT_TXT, (self.afflictionHit + self.spellHitGearTalents).."%");
+		GameTooltip:AddLine("Miss Chance vs.");
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer));
+		GameTooltip:AddDoubleLine(format(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: %.2F%%", missChanceVsBoss));
 	end
 	
 	GameTooltip:Show();
@@ -208,6 +224,46 @@ function CSC_CharacterMeleeCritFrame_OnEnter(self)
 	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 	GameTooltip:SetText(critChanceTxt, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
 	GameTooltip:AddLine(critRatingTxt);
+	
+	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
+	GameTooltip:AddLine("Crit cap vs.");
+	local critCap, dwCritCap = CSC_GetPlayerCritCap(self.unit, CR_HIT_MELEE);
+	
+	local CRITCAP_COLOR_CODE = GREEN_FONT_COLOR_CODE;
+	if self.critChance > critCap then CRITCAP_COLOR_CODE = ORANGE_FONT_COLOR_CODE end
+	local critCapTxt = CRITCAP_COLOR_CODE..format("%.2F%%", critCap)..FONT_COLOR_CODE_CLOSE;
+
+	local offhandItemId = GetInventoryItemID("player", INVSLOT_OFFHAND);
+	if (offhandItemId) then
+		local DWCRITCAP_COLOR_CODE = GREEN_FONT_COLOR_CODE;
+		if self.critChance > dwCritCap then DWCRITCAP_COLOR_CODE = ORANGE_FONT_COLOR_CODE end
+
+		local critCapDwTxt = DWCRITCAP_COLOR_CODE..format("%.2F%%", dwCritCap)..FONT_COLOR_CODE_CLOSE;
+		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt, "(Dual wield: "..critCapDwTxt..")");
+	else
+		GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt);
+	end
+
+	GameTooltip:Show();
+end
+
+function CSC_CharacterRangedCritFrame_OnEnter(self)
+	local critChanceTxt = HIGHLIGHT_FONT_COLOR_CODE..RANGED_CRIT_CHANCE.." "..format("%.2F%%", self.critChance)..FONT_COLOR_CODE_CLOSE;
+	local critRatingTxt = format(CR_CRIT_RANGED_TOOLTIP, GetCombatRating(CR_CRIT_RANGED), GetCombatRatingBonus(CR_CRIT_RANGED));
+
+	GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+	GameTooltip:SetText(critChanceTxt, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b);
+	GameTooltip:AddLine(critRatingTxt);
+
+	GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
+	GameTooltip:AddLine("Crit cap vs.");
+	local critCap, _ = CSC_GetPlayerCritCap(self.unit, CR_HIT_RANGED);
+	
+	local CRITCAP_COLOR_CODE = GREEN_FONT_COLOR_CODE;
+	if self.critChance > critCap then CRITCAP_COLOR_CODE = ORANGE_FONT_COLOR_CODE end
+	local critCapTxt = CRITCAP_COLOR_CODE..format("%.2F%%", critCap)..FONT_COLOR_CODE_CLOSE;
+	GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB.."Level 73 NPC/Boss: "..critCapTxt);
+
 	GameTooltip:Show();
 end
 

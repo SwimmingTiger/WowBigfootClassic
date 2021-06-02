@@ -10,87 +10,6 @@ local g_lastSeenBaseManaRegen = 0;
 local g_lastSeenCastingManaRegen = 0;
 g_APFromADItems = 0;
 
--- GENERAL UTIL FUNCTIONS --
-local function CSC_GetAppropriateDamage(unit, category)
-	if category == PLAYERSTAT_MELEE_COMBAT then
-		return UnitDamage(unit);
-	elseif category == PLAYERSTAT_RANGED_COMBAT then
-		local attackTime, minDamage, maxDamage, bonusPos, bonusNeg, percent = UnitRangedDamage(unit);
-		return minDamage, maxDamage, nil, nil, bonusPos, bonusNeg, percent;
-	end
-end
-
-local function CSC_GetAppropriateAttackSpeed(unit, category)
-	if category == PLAYERSTAT_MELEE_COMBAT then
-		return UnitAttackSpeed(unit);
-	elseif category == PLAYERSTAT_RANGED_COMBAT then
-		local attackSpeed = select(1, UnitRangedDamage(unit))
-		return attackSpeed, 0;
-	end
-end
-
-local function CSC_GetAppropriateAttackRaiting(unit, category)
-	local attackBase = 0;
-	local attackModifier = 0;
-
-	if category == PLAYERSTAT_MELEE_COMBAT then
-		attackBase, attackModifier = UnitAttackBothHands(unit);
-	elseif category == PLAYERSTAT_RANGED_COMBAT then
-		attackBase, attackModifier = UnitRangedAttack(unit)
-	end
-
-	local attackWithModifier = attackBase + attackModifier;
-	return attackWithModifier;
-end
-
-local function CSC_PaperDollFrame_SetLabelAndText(statFrame, label, text, isPercentage)
-	if ( isPercentage ) then
-		text = format("%.2f%%", text);
-	end
-	
-	if ( statFrame.Label ) then
-		if (statFrame.Value) then
-			statFrame.Value:SetText(text);
-		end
-
-		statFrame.Label:SetText(format(STAT_FORMAT, label));
-		statFrame.Label:SetWidth(statFrame:GetWidth() - 20);
-		statFrame.Label:SetHeight(statFrame:GetHeight());
-		statFrame.Label:SetJustifyH("LEFT");
-	end
-end
-
-local function CSC_PaperDollFormatStat(name, base, posBuff, negBuff)
-	local effective = max(0,base + posBuff + negBuff);
-	local text = HIGHLIGHT_FONT_COLOR_CODE..name.." "..effective;
-	if ( ( posBuff == 0 ) and ( negBuff == 0 ) ) then
-		text = text..FONT_COLOR_CODE_CLOSE;
-	else 
-		if ( posBuff > 0 or negBuff < 0 ) then
-			text = text.." ("..base..FONT_COLOR_CODE_CLOSE;
-		end
-		if ( posBuff > 0 ) then
-			text = text..FONT_COLOR_CODE_CLOSE..GREEN_FONT_COLOR_CODE.."+"..posBuff..FONT_COLOR_CODE_CLOSE;
-		end
-		if ( negBuff < 0 ) then
-			text = text..RED_FONT_COLOR_CODE.." "..negBuff..FONT_COLOR_CODE_CLOSE;
-		end
-		if ( posBuff > 0 or negBuff < 0 ) then
-			text = text..HIGHLIGHT_FONT_COLOR_CODE..")"..FONT_COLOR_CODE_CLOSE;
-		end
-
-		-- if there is a negative buff then show the main number in red, even if there are
-		-- positive buffs. Otherwise show the number in green
-		if ( negBuff < 0 ) then
-			effective = RED_FONT_COLOR_CODE..effective..FONT_COLOR_CODE_CLOSE;
-		elseif (posBuff > 0) then
-			effective = GREEN_FONT_COLOR_CODE..effective..FONT_COLOR_CODE_CLOSE;
-		end
-	end
-    
-    return effective, text;
-end
-
 local function CSC_GetMP5FromGear(unit)
 	local mp5 = 0;
 	for i=1,18 do
@@ -192,50 +111,57 @@ function CSC_GetPlayerWeaponSkill(unit, weaponSlotId)
 	return totalWeaponSkill;
 end
 
-function CSC_GetPlayerMissChances(unit, playerHit, totalWeaponSkill)
-	local hitChance = playerHit;
-	local missChanceVsNPC = 5; -- Level 60 npcs with 300 def
+function CSC_GetPlayerMissChances(unit, playerHitChance)
+	local missChanceVsNPC = 5;
 	local missChanceVsBoss = 9;
-	local missChanceVsPlayer = 5; -- Level 60 player def is 300 base
+	local missChanceVsPlayer = 5;
+	
+	local hitChance = playerHitChance;
+	local level = UnitLevel(unit);
+	local bossLevel = 73;
+	local playerWeaponSkill = level * 5;
+	local bossDefense = bossLevel * 5;
 
-	if totalWeaponSkill then
-		local bossDefense = 315; -- level 63
-		local playerBossDeltaSkill = bossDefense - totalWeaponSkill;
-		
-		if (playerBossDeltaSkill > 10) then
-			if (hitChance >= 1) then
-				hitChance = hitChance - 1;
-			end
-
-			missChanceVsBoss = 5 + (playerBossDeltaSkill * 0.2);
-		else
-			missChanceVsBoss = 5 + (playerBossDeltaSkill * 0.1);
-		end
+	-- Boss (level 73)
+	if (bossDefense - playerWeaponSkill >= 11) then
+		missChanceVsBoss = 5 + (bossDefense - playerWeaponSkill) * 0.2;
+	end
+	if (bossDefense - playerWeaponSkill <= 10) then
+		missChanceVsBoss = 5 + (bossDefense - playerWeaponSkill) * 0.1;
 	end
 
-	local dwMissChanceVsNpc = math.max(0, (missChanceVsNPC*0.8 + 20) - playerHit);
-	local dwMissChanceVsBoss = math.max(0, (missChanceVsBoss*0.8 + 20) - hitChance);
-	local dwMissChanceVsPlayer = math.max(0, (missChanceVsPlayer*0.8 + 20) - playerHit);
+	local dwMissChanceVsNpc = math.max(missChanceVsNPC + 19 - hitChance);
+	local dwMissChanceVsBoss = math.max(missChanceVsBoss + 19 - hitChance);
+	local dwMissChanceVsPlayer = math.max(missChanceVsPlayer + 19 - hitChance);
 
-	missChanceVsNPC = math.max(0, missChanceVsNPC - playerHit);
+	missChanceVsNPC = math.max(0, missChanceVsNPC - hitChance);
 	missChanceVsBoss = math.max(0, missChanceVsBoss - hitChance);
-	missChanceVsPlayer = math.max(0, missChanceVsPlayer - playerHit);
+	missChanceVsPlayer = math.max(0, missChanceVsPlayer - hitChance);
 
 	return missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer;
 end
 
-function CSC_HasEnchant(unit, slotId, enchantId)
-	local itemLink = GetInventoryItemLink(unit, slotId);
-	if itemLink then
-		local itemId, enchant = itemLink:match("item:(%d+):(%d*)");
-		if enchant then
-			if tonumber(enchant) == enchantId then
-				return true;
-			end
-		end
+function CSC_GetPlayerCritCap(unit, ratingIndex)
+	local hitChance = GetHitModifier();
+	
+	if not hitChance then
+		hitChance = 0;
 	end
 
-	return false;
+	local hitRatingBonus = GetCombatRatingBonus(ratingIndex); -- hit rating in % (hit chance) (from gear sources, doesn't seem to include talents);
+	local totalHit = hitChance + hitRatingBonus;
+	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, totalHit);
+	
+	local playerWeaponSkill = UnitLevel(unit) * 5;
+	local bossDefense = 73 * 5;
+	local critSuppression = 4.8;
+	local dodgeChance = 5 + (bossDefense - playerWeaponSkill) * 0,1;
+	local glancingChance = math.max(0, 6 + (bossDefense - playerWeaponSkill) * 1.2);
+
+	local critCap = 100 - missChanceVsBoss - dodgeChance - glancingChance + critSuppression;
+	local dwCritCap = 100 - dwMissChanceVsBoss - dodgeChance - glancingChance + critSuppression;
+
+	return critCap, dwCritCap;
 end
 
 function CSC_GetAttackPowerFromArgentDawnItems(unit)
@@ -681,6 +607,7 @@ function CSC_PaperDollFrame_SetCritChance(statFrame, unit)
 
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, MELEE_CRIT_CHANCE, critChance, true);
 	statFrame.critChance = critChance;
+	statFrame.unit = unit;
 end
 
 function CSC_PaperDollFrame_SetRangedCritChance(statFrame, unit)
@@ -690,10 +617,15 @@ function CSC_PaperDollFrame_SetRangedCritChance(statFrame, unit)
 		return;
 	end
 
-	local critChance = GetRangedCritChance();
+	statFrame:SetScript("OnEnter", CSC_CharacterRangedCritFrame_OnEnter)
+	statFrame:SetScript("OnLeave", function()
+		GameTooltip:Hide()
+    end)
 
-	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..RANGED_CRIT_CHANCE.." "..format("%.2F%%", critChance)..FONT_COLOR_CODE_CLOSE;
-	statFrame.tooltip2 = format(CR_CRIT_RANGED_TOOLTIP, GetCombatRating(CR_CRIT_RANGED), GetCombatRatingBonus(CR_CRIT_RANGED));
+	local critChance = GetRangedCritChance();
+	statFrame.critChance = critChance;
+	statFrame.unit = unit;
+
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, RANGED_CRIT_CHANCE, critChance, true);
 end
 
@@ -794,22 +726,30 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 
 	if ( ratingIndex == CR_HIT_MELEE ) then
 		local hitChance = GetHitModifier(); -- includes talents, doesn't include hit raiting from gear
+		local combatRatingMult = CSC_GetCombatRatingPerUnitBonus(unit, CSC_COMBAT_RATING_HIT);
+
 		if not hitChance then
 			hitChance = 0;
 		end
 		
 		ratingBonus = ratingBonus + hitChance;
-		rating = rating + (10*hitChance);
+		rating = rating + (combatRatingMult*hitChance);
 	elseif ( ratingIndex == CR_HIT_SPELL ) then
 		local spellHitChance = GetSpellHitModifier();
+		local combatRatingMult = CSC_GetCombatRatingPerUnitBonus(unit, CSC_COMBAT_RATING_SPELL_HIT);
+
 		if not spellHitChance then
 			spellHitChance = 0;
 		end
+
+		spellHitChance = spellHitChance / 7; -- BUG ON BLIZZARD's side. returns 7 for each 1% hit. Dirty fix for now
 		
 		ratingBonus = ratingBonus + spellHitChance;
 		statFrame.spellHitGearTalents = ratingBonus;
-		rating = rating + (10*spellHitChance);
+		rating = rating + (combatRatingMult*spellHitChance);
 	end
+
+	rating = format("%.2f", rating);
 
 	statFrame.unit = unit;
 	statFrame.ratingIndex = ratingIndex;
@@ -1232,6 +1172,48 @@ function CSC_PaperDollFrame_SetResilience(statFrame)
 end
 
 -- SIDE STATS FRAME ================================================================================================================================================================
+function CSC_SideFrame_SetMissChance(statFrame, unit, ratingIndex)
+	local playerLevel = UnitLevel(unit);
+	local hitChance = GetHitModifier();
+	
+	if not hitChance then
+		hitChance = 0;
+	end
+
+	local hitRatingBonus = GetCombatRatingBonus(ratingIndex); -- hit rating in % (hit chance) (from gear sources, doesn't seem to include talents);
+	local totalHit = hitChance + hitRatingBonus;
+	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, totalHit);
+
+	if (ratingIndex == CR_HIT_MELEE) then
+		statFrame.tooltip = format("Miss Chance vs Level 73 NPC/Boss: %.2F%%", missChanceVsBoss)..CSC_SYMBOL_TAB..format("(Dual wield: %.2F%%)", dwMissChanceVsBoss);
+		local missChanceNPCLineOne = format("Miss Chance vs Level %d NPC:     %.2F%%", playerLevel, missChanceVsNPC);
+		local missChanceNPCLineTwo = format("(Dual wield: %.2F%%)", dwMissChanceVsNpc);
+
+		local missChancePlayerLineOne = format("Miss Chance vs Level %d Player:  %.2F%%", playerLevel, missChanceVsPlayer);
+		local missChancePlayerLineTwo = format("(Dual wield: %.2F%%)", dwMissChanceVsPlayer);
+		statFrame.tooltip2 = missChanceNPCLineOne..CSC_SYMBOL_TAB..missChanceNPCLineTwo.."\n"..missChancePlayerLineOne..CSC_SYMBOL_TAB..missChancePlayerLineTwo;
+	else
+		statFrame.tooltip = format("Miss Chance vs Level 73 NPC/Boss: %.2F%%", missChanceVsBoss);
+		statFrame.tooltip2 = format("Miss Chance vs Level %d NPC: %.2F%%", playerLevel, missChanceVsNPC).."\n"..format("Miss Chance vs Level %d Player: %.2F%%", playerLevel, missChanceVsPlayer);
+	end
+
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Miss Chance", missChanceVsBoss, true);
+end
+
+function CSC_SideFrame_SetCritCap(statFrame, unit, ratingIndex)
+	local critCap, dwCritCap = CSC_GetPlayerCritCap(unit, ratingIndex);
+
+	statFrame.tooltip = format("Crit cap vs Level 73 NPC/Boss: %.2F%%", critCap);
+	if (ratingIndex == CR_HIT_MELEE) then
+		local offhandItemId = GetInventoryItemID(unit, INVSLOT_OFFHAND);
+		if (offhandItemId) then
+			statFrame.tooltip2 = format("Dual wield crit cap: %.2F%%", dwCritCap);
+		end
+	end
+
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Crit Cap", critCap, true);
+end
+
 -- Melee
 function CSC_SideFrame_SetMeleeHitChance(statFrame, unit)
 	
@@ -1266,7 +1248,7 @@ end
 function CSC_SideFrame_SetArmorPenetration(statFrame, unit)
 	local armorPen = GetArmorPenetration();
 	statFrame.tooltip = format(ITEM_MOD_ARMOR_PENETRATION_RATING, armorPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "护甲穿透", armorPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Armor Penetration", armorPen, false);
 end
 
 -- Ranged
@@ -1333,6 +1315,8 @@ function CSC_SideFrame_SetSpellHitChance(statFrame, unit)
 		spellHitChance = 0;
 	end
 
+	spellHitChance = spellHitChance / 7; -- BUG ON BLIZZARD's side. returns 7 for each 1% hit. Dirty fix for now
+
 	local hitRatingBonus = GetCombatRatingBonus(CR_HIT_SPELL); -- hit rating in % (hit chance) (from gear sources, doesn't seem to include talents)
 	local totalHit = spellHitChance + hitRatingBonus;
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_HIT_CHANCE, totalHit, true);
@@ -1347,13 +1331,13 @@ end
 function CSC_SideFrame_SetSpellHastePercent(statFrame, unit)
 	local hastePercent = GetCombatRatingBonus(CR_HASTE_SPELL);
 	statFrame.tooltip = format("Increases your spell haste by %d%%", hastePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "急速", hastePercent, true);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Haste", hastePercent, true);
 end
 
 function CSC_SideFrame_SetSpellPenetration(statFrame, unit)
 	local spellPen = GetSpellPenetration();
 	statFrame.tooltip = format(SPELL_PENETRATION_TOOLTIP, spellPen, spellPen);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "法术穿透", spellPen, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Spell Penetration", spellPen, false);
 end
 
 -- Defense
@@ -1363,27 +1347,27 @@ function CSC_SideFrame_SetDefenseRating(statFrame, unit)
 	local defense = GetCombatRatingBonus(CR_DEFENSE_SKILL);
 
 	statFrame.tooltip = format(DEFAULT_STATDEFENSE_TOOLTIP, defenseRating, defense, defensePercent, defensePercent);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "防御等级", defenseRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Defense Rating", defenseRating, false);
 end
 
 function CSC_SideFrame_SetDodgeRating(statFrame, unit)
 	local dodgeRating = GetCombatRating(CR_DODGE);
 	local dodgeChance = GetCombatRatingBonus(CR_DODGE);
 	statFrame.tooltip = format(CR_DODGE_TOOLTIP, dodgeRating, dodgeChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "躲闪等级", dodgeRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Dodge Rating", dodgeRating, false);
 end
 
 function CSC_SideFrame_SetParryRating(statFrame, unit)
 	local parryRating = GetCombatRating(CR_PARRY)
 	local parryChance = GetCombatRatingBonus(CR_PARRY);
 	statFrame.tooltip = format(CR_PARRY_TOOLTIP, parryRating, parryChance);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "招架等级", parryRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Parry Rating", parryRating, false);
 end
 
 function CSC_SideFrame_SetBlockRating(statFrame, unit)
 	local blockRating = GetCombatRating(CR_BLOCK)
 	local blockChance = GetCombatRatingBonus(CR_BLOCK);
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "格挡等级", blockRating, false);
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "Block Rating", blockRating, false);
 end
 
 -- SIDE STATS FRAME END ================================================================================================================================================================

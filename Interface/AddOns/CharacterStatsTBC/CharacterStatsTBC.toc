@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Author: Peter Getov
-## Version: 0.0.6b
+## Version: 1.1.0
 ## Title: |cff00aeffCharacterStatsTBC|r
 ## Title-zhCN: [大脚][集]人物详细属性
 ## Title-zhTW: [大腳][集]人物詳細屬性
@@ -17,6 +17,7 @@ Localization\Localization_tw.lua
 CharacterStatsTbcConstants.lua
 CharacterStatsTbcUI.lua
 CharacterStatsTbcMain.lua
+CharacterStatsTbcUtils.lua
 CharacterStatsTbcCore.lua
 CharacterStatsTbcClassUtils.lua
 CharacterStatsTbcCallbacks.lua
