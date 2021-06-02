@@ -1,0 +1,444 @@
+<!-- $Id: EJLoot.xml 368 2021-05-20 15:03:14Z arithmandar $ -->
+<!--
+
+	Atlas, a World of Warcraft instance map browser
+	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
+	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
+	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+
+	This file is part of Atlas.
+
+	Atlas is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	Atlas is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with Atlas; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="EJLoot.lua"/>
+
+	<!-- Tiled textures size=64,512-->
+	<Texture name="_FilterButtonUp-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+		<Size x="64" y="26"/>
+		<TexCoords left="0.00000000" right="1.00000000" top="0.00195313" bottom="0.05273438"/>
+	</Texture>
+	<Texture name="_FilterButtonDown-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+		<Size x="64" y="26"/>
+		<TexCoords left="0.00000000" right="1.00000000" top="0.05664063" bottom="0.10742188"/>
+	</Texture>
+	<Texture name="_FilterButtonHighlight-Mid" file="Interface\EncounterJournal\UI-EncounterJournalTextures_Tile" virtual="true" horizTile="true" >
+		<Size x="64" y="26"/>
+		<TexCoords left="0.00000000" right="1.00000000" top="0.11132813" bottom="0.16210938"/>
+	</Texture>
+
+	<!--size=512,1024-->
+	<Texture name="UI-EJ-FilterButtonDown" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="26" y="26"/>
+		<TexCoords left="0.63476563" right="0.68554688" top="0.06738281" bottom="0.09277344"/>
+	</Texture>
+	<Texture name="UI-EJ-FilterButtonHighlight" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="26" y="26"/>
+		<TexCoords left="0.72656250" right="0.77734375" top="0.06738281" bottom="0.09277344"/>
+	</Texture>
+	<Texture name="UI-EJ-FilterButtonUp" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="26" y="26"/>
+		<TexCoords left="0.90039063" right="0.95117188" top="0.04980469" bottom="0.07519531"/>
+	</Texture>
+	<Texture name="UI-EJ-DungeonLootFrame" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="369" y="64"/>
+		<TexCoords left="0.00195313" right="0.72265625" top="0.52441406" bottom="0.58691406"/>
+	</Texture>
+	<Texture name="UI-EJ-FilterBar" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="320" y="28"/>
+		<TexCoords left="0.00195313" right="0.62695313" top="0.58886719" bottom="0.61621094"/>
+	</Texture>
+	<Texture name="UI-EJ-LootFrame" file="Interface\EncounterJournal\UI-EncounterJournalTextures" virtual="true" >
+		<Size x="321" y="45"/>
+		<TexCoords left="0.00195313" right="0.62890625" top="0.61816406" bottom="0.66210938"/>
+	</Texture>
+
+	<Button name="AtlasEJButtonTemplate" virtual="true">
+		<Size x="75" y="26"/>
+		<HitRectInsets>
+			<AbsInset left="-13" right="-13" top="0" bottom="0"/>
+		</HitRectInsets>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture inherits="UI-EJ-FilterButtonUp" parentKey="UpLeft">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture inherits="UI-EJ-FilterButtonUp" parentKey="UpRight">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture inherits="UI-EJ-FilterButtonDown" parentKey="DownLeft" hidden="true">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture inherits="UI-EJ-FilterButtonDown" parentKey="DownRight" hidden="true">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="HIGHLIGHT">
+				<Texture inherits="UI-EJ-FilterButtonHighlight" parentKey="HighLeft">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="RIGHT" relativePoint="LEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture inherits="UI-EJ-FilterButtonHighlight" parentKey="HighRight">
+					<Size x="13" y="26"/>
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<NormalTexture inherits="_FilterButtonUp-Mid"/>
+		<PushedTexture inherits="_FilterButtonDown-Mid"/>
+		<HighlightTexture inherits="_FilterButtonHighlight-Mid"/>
+		<NormalFont style="GameFontNormalSmall"/>
+		<ButtonText>
+			<Size x="0" y="12"/>
+			<Anchors>
+				<Anchor point="LEFT" x="-3" y="0"/>
+				<Anchor point="RIGHT" x="3" y="0"/>
+			</Anchors>
+			<Color r="0.973" g="0.902" b="0.581"/>
+		</ButtonText>
+		<Scripts>
+			<OnLoad>
+				local l, t, _, b, r = self.UpLeft:GetTexCoord();
+				self.UpLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+				l, t, _, b, r = self.UpRight:GetTexCoord();
+				self.UpRight:SetTexCoord(l + (r-l)/2, r, t, b);
+
+				l, t, _, b, r = self.DownLeft:GetTexCoord();
+				self.DownLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+				l, t, _, b, r = self.DownRight:GetTexCoord();
+				self.DownRight:SetTexCoord(l + (r-l)/2, r, t, b);
+
+				l, t, _, b, r = self.HighLeft:GetTexCoord();
+				self.HighLeft:SetTexCoord(l, l + (r-l)/2, t, b);
+				l, t, _, b, r = self.HighRight:GetTexCoord();
+				self.HighRight:SetTexCoord(l + (r-l)/2, r, t, b);
+			</OnLoad>
+			<OnMouseDown>
+				self.UpLeft:Hide();
+				self.UpRight:Hide();
+
+				self.DownLeft:Show();
+				self.DownRight:Show();
+			</OnMouseDown>
+			<OnMouseUp>
+				self.UpLeft:Show();
+				self.UpRight:Show();
+
+				self.DownLeft:Hide();
+				self.DownRight:Hide();
+			</OnMouseUp>
+		</Scripts>
+	</Button>
+
+	<Button name="AtlasEncounterItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" virtual="true">
+		<Size x="321" y="45"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentIcon" parentKey="icon">
+					<Size x="42" y="42"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="2" y="-2"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="BORDER">
+				<Texture inherits="UI-EJ-DungeonLootFrame" parentKey="bossTexture">
+					<Anchors>
+						<Anchor point="CENTER" x="24" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture inherits="UI-EJ-LootFrame" parentKey="bosslessTexture">
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+				<FontString name="$parentName" inherits="GameFontNormalMed3" justifyH="LEFT" parentKey="name">
+					<Size x="350" y="12"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$parentIcon" x="7" y="-7"/>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentArmorClass" inherits="GameFontBlack" justifyH="RIGHT" parentKey="armorType">
+					<Size x="0" y="12"/>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentName" relativePoint="TOPLEFT" x="264" y="-30"/>
+					</Anchors>
+					<Color r="0.25" g="0.1484375" b=".02" a="1"/>
+				</FontString>
+				<FontString name="$parentSlot" inherits="GameFontBlack" justifyH="LEFT" parentKey="slot">
+					<Size x="0" y="12"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" relativeTo="$parentIcon" x="7" y="5"/>
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeTo="$parentArmorClass" x="-15" y="0"/>
+					</Anchors>
+					<Color r="0.25" g="0.1484375" b=".02" a="1"/>
+				</FontString>
+				<FontString name="$parentBoss" inherits="GameFontBlack" justifyH="LEFT" parentKey="boss">
+					<Size x="0" y="12"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentIcon" relativePoint="BOTTOMLEFT" y="-3"/>
+					</Anchors>
+					<Color r="0.25" g="0.1484375" b=".02" a="1"/>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="1">
+				<Texture parentKey="IconBorder" file="Interface\Common\WhiteIconFrame" hidden="true">
+					<Size x="37" y="37"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.icon"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.icon"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY" textureSubLevel="2">
+				<Texture parentKey="IconOverlay" hidden="true">
+					<Size x="37" y="37"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.icon"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.icon"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+				Atlas_EncounterJournal_SetTooltip(self.link);
+				self.showingTooltip = true;
+				self:SetScript("OnUpdate", Atlas_EncounterJournal_Loot_OnUpdate);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+				self.showingTooltip = false;
+				self:SetScript("OnUpdate", nil);
+				ResetCursor();
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Frame name="AtlasEJLootFrame" toplevel="true" enableMouse="true" parent="AtlasFrame" hidden="true" frameStrata="HIGH">
+		<Size>
+			<AbsDimension x="475" y="380"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="536" y="-203"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parent_Back">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.75"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Size x="30" y="30"/>
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativeTo="$parent" x="8" y="8"/>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						AtlasEJLootFrame:Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<ScrollFrame name="$parentLootScrollFrame" parentKey="lootScroll" inherits="HybridScrollFrameTemplate">
+				<Size x="455" y="260"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="20" y="-45"/>
+				</Anchors>
+				<Frames>
+					<Frame name="$parentClassFilterClearFrame" parentKey="classClearFilter" hidden="true" enableMouse="true">
+						<Size x="455" y="28"/>
+						<Anchors>
+							<Anchor point="BOTTOM" relativePoint="TOP" x="0" y="-5"/>
+						</Anchors>
+						<Layers>
+							<Layer level="BACKGROUND">
+								<Texture inherits="UI-EJ-FilterBar">
+									<Size x="380" y="28"/>
+									<Anchors>
+										<Anchor point="CENTER" x="-5" y="0"/>
+									</Anchors>
+								</Texture>
+							</Layer>
+							<Layer level="OVERLAY">
+								<FontString inherits="GameFontNormalSmall" parentKey="text">
+									<Size x="0" y="0"/>
+									<Anchors>
+										<Anchor point="LEFT" x="25" y="2"/>
+									</Anchors>
+									<Color r="0.973" g="0.902" b="0.581"/>
+								</FontString>
+							</Layer>
+						</Layers>
+						<Frames>
+							<Button name="$parentExitButton">
+								<Size x="20" y="20"/>
+								<Anchors>
+									<Anchor point="RIGHT" x="-20" y="2"/>
+								</Anchors>
+								<Layers>
+									<Layer level="ARTWORK">
+										<Texture file="Interface\FriendsFrame\ClearBroadcastIcon" alpha="0.8" parentKey="texture">
+											<Size x="17" y="17"/>
+											<Anchors>
+												<Anchor point="TOPLEFT" x="0" y="0"/>
+											</Anchors>
+										</Texture>
+									</Layer>
+								</Layers>
+								<Scripts>
+									<OnEnter>
+										self.texture:SetAlpha(1.0);
+									</OnEnter>
+									<OnLeave>
+										self.texture:SetAlpha(0.8);
+									</OnLeave>
+									<OnMouseDown>
+										self.texture:SetPoint("TOPLEFT", 1, -1);
+									</OnMouseDown>
+									<OnMouseUp>
+										self.texture:SetPoint("TOPLEFT", 0, 0);
+									</OnMouseUp>
+									<OnClick>
+										PlaySound(856);
+										Atlas_EJ_ResetLootFilter();
+										Atlas_EncounterJournal_LootUpdate();
+										self:GetParent():Hide();
+									</OnClick>
+								</Scripts>
+							</Button>
+						</Frames>
+					</Frame>
+					<Button name="$parentFilterToggle" parentKey="filter" text="GEAR_FILTER" inherits="AtlasEJButtonTemplate">
+						<Scripts>
+							<OnClick>
+								L_ToggleDropDownMenu(1, nil, self:GetParent().lootFilter, self, 5, 0);
+								PlaySound(852);
+							</OnClick>
+							<OnLoad inherit="prepend">
+								self:SetPoint("TOPLEFT", self:GetParent():GetParent(), "TOPRIGHT", -380, -0);
+							</OnLoad>
+						</Scripts>
+					</Button>
+					<Button name="$parentSlotFilterToggle" parentKey="slotFilter" text="ALL_INVENTORY_SLOTS" inherits="AtlasEJButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativeKey="$parent.filter" relativePoint="RIGHT" x="10" y="0"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								L_ToggleDropDownMenu(1, nil, self:GetParent().lootSlotFilter, self, 5, 0);
+								PlaySound(852);
+							</OnClick>
+							<OnLoad inherit="prepend">
+								self:SetPoint("TOPLEFT", self:GetParent():GetParent(), "TOPRIGHT", -270, -0);
+							</OnLoad>
+						</Scripts>
+					</Button>
+					<Button name="$parentDifficulty" parentKey="difficulty" inherits="AtlasEJButtonTemplate" frameLevel="10">
+						<Size x="75" y="26"/>
+						<Anchors>
+							<Anchor point="LEFT" relativeKey="$parent.slotFilter" relativePoint="RIGHT" x="10" y="0"/>
+						</Anchors>
+						<Scripts>
+							<OnClick>
+								L_ToggleDropDownMenu(1, nil, self:GetParent().difficultyDD, self, 5, 0);
+								PlaySound(856);
+							</OnClick>
+							<OnLoad inherit="prepend">
+								self:SetPoint("TOPLEFT", self:GetParent():GetParent(), "TOPRIGHT", -160, -0);
+							</OnLoad>
+						</Scripts>
+					</Button>
+<!--					<Frame name="$parentDifficultyDD" parentKey="difficultyDD" inherits="L_UIDropDownMenuTemplate" clampedToScreen="true" hidden="true">
+						<Scripts>
+							<OnLoad>
+								L_UIDropDownMenu_Initialize(self, Atlas_EncounterJournal_DifficultyInit, "MENU");
+							</OnLoad>
+						</Scripts>
+					</Frame>
+					<Frame name="$parentLootFilter" inherits="L_UIDropDownMenuTemplate" parentKey="lootFilter" hidden="true"/>
+					<Frame name="$parentLootSlotFilter" inherits="L_UIDropDownMenuTemplate" parentKey="lootSlotFilter" hidden="true"/>-->
+					<Slider name="$parentScrollBar" inherits="MinimalHybridScrollBarTemplate" parentKey="scrollBar">
+						<Anchors>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" x="0" y="-18"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$parent" x="0" y="55"/>
+						</Anchors>
+						<Scripts>
+							<OnLoad>
+								self.trackBG:SetVertexColor(0.2, 0.13, 0.08, 0.25);
+							</OnLoad>
+						</Scripts>
+					</Slider>
+				</Frames>
+				<Scripts>
+					<OnShow>
+--						Atlas_EncounterJournal_LootUpdate(self);
+					</OnShow>
+				</Scripts>
+			</ScrollFrame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+				self.lootScroll.difficultyDD = LibDD:Create_UIDropDownMenu("AtlasEJLootFrameDifficultyDD", AtlasEJLootFrameLootScrollFrame)
+				LibDD:UIDropDownMenu_Initialize(self.lootScroll.difficultyDD, Atlas_EncounterJournal_DifficultyInit, "MENU")
+				
+				self.lootScroll.lootFilter = LibDD:Create_UIDropDownMenu("AtlasEJLootFrameLootFilter", AtlasEJLootFrameLootScrollFrame)
+				self.lootScroll.lootSlotFilter = LibDD:Create_UIDropDownMenu("AtlasEJLootFrameLootSlotFilter", AtlasEJLootFrameLootScrollFrame)
+				Atlas_EncounterJournal_OnLoad(self, encounterID);
+				-- HybridScrollFrame_CreateButtons(self.lootScroll, "AtlasEncounterItemTemplate", 0, 0);
+			</OnLoad>
+			<OnShow>
+				Atlas_EncounterJournal_OnShow(self);
+			</OnShow>
+			<OnLeave>
+				Atlas_EncounterJournal_OnLeave(self);
+			</OnLeave>
+			<OnEvent function="Atlas_EncounterJournal_OnEvent"/>
+		</Scripts>
+	</Frame>
+
+</Ui>

@@ -1,0 +1,697 @@
+<!-- $Id: Templates.xml 368 2021-05-20 15:03:14Z arithmandar $ -->
+<!--
+
+	Atlas, a World of Warcraft instance map browser
+	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
+	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
+	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+
+	This file is part of Atlas.
+
+	Atlas is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
+
+	Atlas is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with Atlas; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+-->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+	<Button name="AtlasEntryTemplate" hidden="true" virtual="true" toplevel="false">
+		<Size>
+			<AbsDimension x="440" y="15" />
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" parentKey="Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="440" y="15" />
+					</Size>
+				</FontString>
+			</Layer>
+		</Layers>
+		<HighlightTexture name="$parentHightlight" file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size x="440" y="15"/>
+			<Anchors>
+				<Anchor point="TOPLEFT"/>
+			</Anchors>
+		</HighlightTexture>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+			</OnLoad>
+			<OnUpdate>
+				AtlasEntry_OnUpdate(self);
+			</OnUpdate>
+			<OnLeave>
+				GameTooltip:Hide();
+				GameTooltip:SetScale(ATLAS_GAMETOOLTIP_ORIGINAL_SCALE);
+			</OnLeave>
+			<OnClick>
+				AtlasEntry_OnClick(self, button);
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Frame name="AtlasHeaderTextTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="450" y="20" />
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontHighlightLarge" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="450" y="20"/>
+					</Size>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				AtlasEntry_OnUpdate(self);
+			</OnUpdate>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Frame>
+	<Frame name="AtlasSubHeaderTextTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="450" y="15" />
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parent_Text" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="450" y="15"/>
+					</Size>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnUpdate>
+				AtlasEntry_OnUpdate(self);
+			</OnUpdate>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+	</Frame>
+
+	<!-- Atlas Frame Button Templates -->
+	<Button name="AtlasFrameCloseButtonTemplate" inherits="UIPanelCloseButton" virtual="true">
+		<Anchors>
+			<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+				<Offset>
+					<AbsDimension x="5" y="-7"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="AtlasFrameLockButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="32" y="32"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="10" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+				GameTooltip:SetText(ATLAS_OPTIONS_LOCK_TIP, nil, nil, nil, nil, 1);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+			<OnClick>
+				Atlas:ToggleLock();
+			</OnClick>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" AlphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameOptionsButtonTemplate" virtual="true" inherits="UIPanelButtonTemplate" text="ATLAS_OPTIONS_BUTTON">
+		<Size>
+			<AbsDimension x="80" y="20"/>
+		</Size>
+		<Anchors>
+			<Anchor point="RIGHT" relativeTo="$parentLockButton" relativePoint="LEFT">
+				<Offset>
+					<AbsDimension x="6" y="1"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:OpenOptions();
+			</OnClick>
+		</Scripts>
+	</Button>
+	<Button name="AtlasFramePrevNextMapButtonTemplate" hidden="true" virtual="true" >
+		<Size x="32" y="32"/>
+		<Scripts>
+			<OnClick>
+				PlaySound(856);
+				Atlas:PrevNextMap_OnClick(self);
+			</OnClick>
+		</Scripts>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameNextMapButtonTemplate" virtual="true" inherits="AtlasFramePrevNextMapButtonTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent">
+				<Offset>
+					<AbsDimension x="502" y="-599"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+		<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+	</Button>
+	<Button name="AtlasFramePrevMapButtonTemplate" virtual="true" inherits="AtlasFramePrevNextMapButtonTemplate">
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent">>
+				<Offset>
+					<AbsDimension x="13" y="-599"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
+		<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Disabled"/>
+	</Button>
+	<Button name="AtlasFrameAdventureJournalMapButtonTemplate" virtual="true" hidden="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parentNextMapButton" relativePoint="TOPLEFT" x="-24" y="0"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:AdventureJournal_MapButton_OnClick(self);
+			</OnClick>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+				GameTooltip:SetText(ATLAS_OPEN_WOWMAP_WINDOW, 0.5, 0.5, 1, nil, false);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\AddOns\Atlas\Images\UI-WorldMap-Icon"/>
+		<PushedTexture file="Interface\AddOns\Atlas\Images\UI-WorldMap-Icon"/>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD" setAllPoints="true">
+			<Size x="48" y="48"/>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	<Button name="AtlasFrameAdventureJournalButtonTemplate" virtual="true" hidden="true" toplevel="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parentAdventureJournalMapButton" relativePoint="TOPLEFT" x="-24" y="0"/>
+		</Anchors>
+		<Scripts>
+			<OnEnter>
+				Atlas:AdventureJournalButton_OnEnter(self);
+			</OnEnter>
+			<OnClick>
+				Atlas:AdventureJournalButton_OnClick(self);
+			</OnClick>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\AddOns\Atlas\Images\UI-EJ-PortraitIcon"/>
+		<PushedTexture file="Interface\AddOns\Atlas\Images\UI-EJ-PortraitIcon"/>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD" setAllPoints="true">
+			<Size x="48" y="48"/>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	<Button name="AtlasFrameAtlasLootButtonTemplate" virtual="true" hidden="true" toplevel="true">
+		<Size x="22" y="22"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parentAdventureJournalButton" relativePoint="TOPLEFT" x="-19" y="-5"/>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+			</OnLoad>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+				GameTooltip:SetText(ATLAS_OPEN_ATLASLOOT_WINDOW.."\n"..ATLAS_CLOSE_ATLASLOOT_WINDOW, 0.5, 0.5, 1, nil, false);
+			</OnEnter>
+			<OnClick>
+				Atlas:AtlasLootButton_OnClick(self, button);
+			</OnClick>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\Icons\INV_Box_01"/>
+		<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD" setAllPoints="true">
+			<Size x="48" y="48"/>
+			<Anchors>
+				<Anchor point="CENTER"/>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	<Button name="AtlasFrameSizeUpButtonTemplate" hidden="true" virtual="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent" x="505" y="-76"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:ToggleWindowSize()
+			</OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down"/>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameSizeDownButtonTemplate" virtual="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-28" y="-77"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:ToggleWindowSize()
+			</OnClick>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-Panel-SmallerButton-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-Panel-SmallerButton-Down"/>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameCollapseButtonTemplate" virtual="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent" x="505" y="-570"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:ToggleLegendPanel()
+			</OnClick>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+				GameTooltip:SetText(ATLAS_COLLAPSE_BUTTON, nil, nil, nil, nil, 1);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\AddOns\Atlas\Images\UI-Panel-CollapseButton-Up"/>
+		<PushedTexture file="Interface\AddOns\Atlas\Images\UI-Panel-CollapseButton-Up"/>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameExpandButtonTemplate" virtual="true">
+		<Size x="32" y="32"/>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="$parent" x="505" y="-570"/>
+		</Anchors>
+		<Scripts>
+			<OnClick>
+				Atlas:ToggleLegendPanel()
+			</OnClick>
+			<OnEnter>
+				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT");
+				GameTooltip:SetText(ATLAS_EXPAND_BUTTON, nil, nil, nil, nil, 1);
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+			</OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\AddOns\Atlas\Images\UI-Panel-ExpandButton-Up"/>
+		<PushedTexture file="Interface\AddOns\Atlas\Images\UI-Panel-ExpandButton-Up"/>
+		<HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight" alphaMode="ADD"/>
+	</Button>
+	<Button name="AtlasFrameMapZoneNameTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="100" y="60"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOP" relativeTo="$parent" relativePoint="TOPLEFT">
+				<Offset>
+					<AbsDimension x="272" y="-88"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parent_Text" parentKey="Text" inherits="AtlasSubZoneTextFont" justifyH="CENTER" justifyV="BOTTOM">
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Button>
+<!--	<Button name="AtlasFrameDropDownTypeTemplate" inherits="L_UIDropDownMenuTemplate" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentLabel" inherits="GameFontNormalSmall" text="ATLAS_STRING_SELECT_CAT">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="21" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Anchors>
+			<Anchor point="TOPLEFT">
+				<Offset>
+					<AbsDimension x="60" y="-50"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>
+	<Button name="AtlasFrameDropDownTemplate" inherits="L_UIDropDownMenuTemplate" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentLabel" inherits="GameFontNormalSmall" text="ATLAS_STRING_SELECT_MAP">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="21" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Anchors>
+			<Anchor point="LEFT" relativeTo="$parentDropDownType" relativePoint="RIGHT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+	</Button>-->
+	<!-- End of Atlas Frame Button Templates -->
+
+	<Button name="AtlasMapButtonTemplate" virtual="true">
+		<Scripts>
+			<OnEnter>
+				if (self.tooltiptitle) then
+					GameTooltip:SetOwner(self, "ANCHOR_LEFT");
+					GameTooltip:SetBackdropColor(0, 0, 0, 1 * Atlas.db.profile.options.frames.alpha);
+					GameTooltip:SetText(self.tooltiptitle, 1, 1, 1, nil, false);
+					GameTooltip:AddLine(self.tooltiptext, nil, nil, nil, true);
+					if (self.overviewDescription) then
+						GameTooltip:AddLine("\n"..OVERVIEW, 1, 1, 1, 1)
+						GameTooltip:AddLine(self.overviewDescription, nil, nil, nil, 1);
+						if (self.roleOverview) then
+							GameTooltip:AddLine("\n"..self.roleOverview, nil, nil, nil, 1);
+						end
+					end
+					if (self.encounterID and C_AdventureJournal) then
+						local disabled = not C_AdventureJournal.CanBeShown();
+						if (not disabled) then
+							GameTooltip:AddLine(ATLAS_OPEN_ADVENTURE, 0.5, 0.5, 1, true);
+							GameTooltip:AddLine(ATLAS_TOGGLE_LOOT, 0.5, 0.5, 1, true);
+						end
+					end
+					GameTooltip:SetScale(Atlas.db.profile.options.frames.boss_description_scale * Atlas.db.profile.options.frames.scale);
+					GameTooltip:Show();
+				end
+			</OnEnter>
+			<OnLeave>
+				GameTooltip:Hide();
+				GameTooltip:SetScale(ATLAS_GAMETOOLTIP_ORIGINAL_SCALE);
+			</OnLeave>
+			<OnShow>
+				self:SetFrameLevel(self:GetParent():GetFrameLevel() + 10);
+			</OnShow>
+		</Scripts>
+	</Button>
+	<Button name="AtlasMapNPCButtonTemplate" inherits="AtlasMapButtonTemplate" virtual="true">
+		<Size x="12" y="12"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentImage" parentKey="bgImage">
+					<Size x="32" y="32"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="-5" y="5"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentTaxiImage" parentKey="TaxiImage">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<HighlightTexture name="$parentTaxiImageHightlight" parentKey="TaxiHighlight" alphaMode="ADD" setAllPoints="true">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</HighlightTexture>
+				<Texture name="$parentLImage" parentKey="LetterImage">
+					<Size x="20" y="20"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Button>
+
+	<Button name="AtlasFrameBossButtonTemplate" inherits="AtlasMapButtonTemplate" virtual="true">
+		<Size x="50" y="49"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentbgImage" parentKey="bgImage">
+					<Size x="36" y="36"/>
+					<Anchors>
+						<Anchor point="CENTER" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<NormalTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+			<TexCoords left="0.84960938" right="0.97070313" top="0.42871094" bottom="0.48828125"/>
+		</NormalTexture>
+		<PushedTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+			<TexCoords left="0.77734375" right="0.89843750" top="0.26953125" bottom="0.32910156"/>
+		</PushedTexture>
+		<HighlightTexture file="Interface\EncounterJournal\UI-EncounterJournalTextures">
+			<TexCoords left="0.68945313" right="0.81054688" top="0.33300781" bottom="0.39257813"/>
+		</HighlightTexture>
+		<Scripts>
+			<OnLoad>
+				self:RegisterForClicks("LeftButtonDown", "RightButtonDown");
+			</OnLoad>
+			<OnClick>
+				if (IsShiftKeyDown() and self.link) then
+					if (IsModifiedClick("CHATLINK") and ChatEdit_GetActiveWindow()) then
+						ChatEdit_InsertLink(self.link);
+					end
+				elseif (C_AdventureJournal) then
+					local disabled = not C_AdventureJournal.CanBeShown();
+					if (disabled) then return end
+					if (button == "RightButton") then
+						if (AtlasFrameSmall:IsVisible()) then
+							Atlas:ToggleLegendPanel();
+						end
+						if (AtlasEJLootFrame:IsShown()) then
+							AtlasEJLootFrame:Hide();
+						else
+							Atlas:AdventureJournal_EncounterButton_OnClick(self.instanceID, self.encounterID, true);
+							ToggleEncounterJournal();
+							Atlas_EncounterJournal_DisplayLoot(self.instanceID, self.encounterID);
+						end
+					elseif (button == "LeftButton") then
+						Atlas:AdventureJournal_EncounterButton_OnClick(self.instanceID, self.encounterID);
+					else
+					end
+				else
+				end
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<!-- Atlas Marks - Letters1 -->
+	<Texture name="Atlas_Letter_Blue_A" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>
+		<TexCoords left="0.00000000" right="0.15625000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_B" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>
+		<TexCoords left="0.15625000" right="0.31250000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_C" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.31250000" right="0.46875000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_D" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.46875000" right="0.62500000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_E" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.62500000" right="0.78125000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_F" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.78125000" right="0.93750000" top="0.00000000" bottom="0.15625000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_G" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.00000000" right="0.15625000" top="0.15625000" bottom="0.3125000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_H" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.15625000" right="0.31250000" top="0.15625000" bottom="0.3125000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_I" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.31250000" right="0.46875000" top="0.15625000" bottom="0.3125000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_J" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>	
+		<TexCoords left="0.46875000" right="0.62500000" top="0.15625000" bottom="0.3125000"/>	
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_K" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000"  right="0.78125000"  top="0.15625000"  bottom="0.31250000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_L" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.78125000"  right="0.93750000"  top="0.15625000"  bottom="0.31250000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_M" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.00000000"  right="0.15625000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_N" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.15625000"  right="0.31250000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_O" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.31250000"  right="0.46875000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_P" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.46875000"  right="0.62500000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_Q" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000"  right="0.78125000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_R" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.78125000"  right="0.93750000"  top="0.31250000"  bottom="0.46875000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_S" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.00000000"  right="0.15625000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_T" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.15625000"  right="0.31250000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_U" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.31250000"  right="0.46875000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Blue_V" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.46875000"  right="0.62500000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_A" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000"  right="0.78125000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_B" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.78125000"  right="0.93750000"  top="0.46875000"  bottom="0.62500000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_C" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.00000000"  right="0.15625000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_D" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.15625000"  right="0.31250000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_E" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.31250000"  right="0.46875000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_F" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.46875000"  right="0.62500000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_G" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000"  right="0.78125000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_H" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.78125000"  right="0.93750000"  top="0.62500000"  bottom="0.78125000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_I" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.00000000"  right="0.15625000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_J" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.15625000"  right="0.31250000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_K" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.31250000"  right="0.46875000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_L" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.46875000"  right="0.62500000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_M" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000"  right="0.78125000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+	<Texture name="Atlas_Letter_Purple_N" file="Interface\AddOns\Atlas\Images\Atlas_Marks_Letters1" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.78125000"  right="0.93750000"  top="0.78125000"  bottom="0.93750000"/>
+	</Texture>
+
+	<!-- POI -->
+	<Texture name="AtlasPOI_TaxiNeutral" file="Interface\AddOns\Atlas\Images\POIICONS" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.00000000" right="0.31250000" top="0.00000000" bottom="0.31250000"/>
+	</Texture>
+	<Texture name="AtlasPOI_TaxiHorde" file="Interface\AddOns\Atlas\Images\POIICONS" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.31250000" right="0.62500000" top="0.00000000" bottom="0.31250000"/>
+	</Texture>
+	<Texture name="AtlasPOI_TaxiAlliance" file="Interface\AddOns\Atlas\Images\POIICONS" virtual="true">
+		<Size x="20" y="20"/>								
+		<TexCoords left="0.62500000" right="0.93750000" top="0.00000000" bottom="0.31250000"/>
+	</Texture>
+</Ui>

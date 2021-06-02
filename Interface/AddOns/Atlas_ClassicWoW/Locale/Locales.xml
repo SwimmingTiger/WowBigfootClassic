@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="Atlas_ClassicWoW-enUS.lua"/>
+	<Script file="Atlas_ClassicWoW-ruRU.lua"/>
+	<Script file="Atlas_ClassicWoW-deDE.lua"/>
+	<Script file="Atlas_ClassicWoW-frFR.lua"/>
+	<Script file="Atlas_ClassicWoW-zhCN.lua"/>
+	<Script file="Atlas_ClassicWoW-esES.lua"/>
+	<Script file="Atlas_ClassicWoW-esMX.lua"/>
+	<Script file="Atlas_ClassicWoW-zhTW.lua"/>
+	<Script file="Atlas_ClassicWoW-ptBR.lua"/>
+	<Script file="Atlas_ClassicWoW-itIT.lua"/>
+	<Script file="Atlas_ClassicWoW-koKR.lua"/>
+</Ui>

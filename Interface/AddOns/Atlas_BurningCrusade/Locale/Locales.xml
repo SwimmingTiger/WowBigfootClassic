@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="Atlas_BurningCrusade-enUS.lua"/>
+	<Script file="Atlas_BurningCrusade-ruRU.lua"/>
+	<Script file="Atlas_BurningCrusade-deDE.lua"/>
+	<Script file="Atlas_BurningCrusade-frFR.lua"/>
+	<Script file="Atlas_BurningCrusade-zhCN.lua"/>
+	<Script file="Atlas_BurningCrusade-esES.lua"/>
+	<Script file="Atlas_BurningCrusade-esMX.lua"/>
+	<Script file="Atlas_BurningCrusade-zhTW.lua"/>
+	<Script file="Atlas_BurningCrusade-ptBR.lua"/>
+	<Script file="Atlas_BurningCrusade-itIT.lua"/>
+	<Script file="Atlas_BurningCrusade-koKR.lua"/>
+</Ui>
