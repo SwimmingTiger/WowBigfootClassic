@@ -199,9 +199,9 @@ local defaults = {
     dotticks = true,
     textureName = "Aluminium",
     nptextureName = "Aluminium",
-    nameFont = { font = defaultFont, size = 10, alpha = 0.5 },
-    timeFont = { font = defaultFont, size = 8, alpha = 1 },
-    stackFont = { font = defaultFont, size = 12 },
+    nameFont = { font = defaultFont, size = 10, alpha = 0.5, outline = false },
+    timeFont = { font = defaultFont, size = 8, alpha = 1, outline = false },
+    stackFont = { font = defaultFont, size = 12, outline = true },
 }
 
 

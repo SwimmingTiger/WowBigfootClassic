@@ -39,7 +39,7 @@
 	<Include file="HereBeDragons\widget.xml"/><!-- ClassicCodex,HandyNotes,TotemTimers -->
 	<Script file="LibButtonGlow-1.0\LibButtonGlow-1.0.lua"/><!-- Bartender4,EventAlertMod -->
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
-	
+
 	<!-- GoodLeader，MeetingHorn ，Wargame ~begin~ -->
     <Script file="LibClass-2.0\Class-2.0.lua"/>
     <Script file="LibLog-1.0\LibLog-1.0.lua"/>

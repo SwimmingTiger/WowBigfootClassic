@@ -58,7 +58,7 @@
             </Layers>
             <Anchors>
                 <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
-                    <Offset x="2" y="-2"/>
+                    <Offset x="0" y="0"/>
                 </Anchor>
             </Anchors>
             <Scripts>

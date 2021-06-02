@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "2.5.1."
-local minor = "93"
+local minor = "94"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,12 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2021/06/01 (2.5.1.94)")
+	BigFootChangelog_ar("大脚插件","添加竞技助手(sArena)。")
+	BigFootChangelog_ar("大脚插件","修复部分已知问题(感谢NGA网友-hu60)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2021/05/26 (2.5.1.93)")
 	BigFootChangelog_ar("大脚插件","修复部分已知问题。")
@@ -448,4 +454,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "13"
+BF_VERSION_CHECKSUM = "10"

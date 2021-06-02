@@ -230,7 +230,7 @@ SettingsFunctions = {
         
        
      
-    --[[ HideBlizzTimers =
+     HideBlizzTimers =
         function(value)
             if value then
                 TotemFrame:UnregisterEvent("PLAYER_TOTEM_UPDATE")
@@ -243,7 +243,7 @@ SettingsFunctions = {
                 TotemFrame:Show()
                 TotemFrame:SetScript("OnShow", TotemFrameScript)
             end
-        end, ]]
+        end,
             
      ShieldLeftButton =
         function(value, Timers)
@@ -322,7 +322,7 @@ SettingsFunctions = {
                 for i=1,4 do 
                     if (Timers[i].nr == FIRE_TOTEM_SLOT and AvailableSpells[SpellIDs.Searing])
                       or (Timers[i].nr == EARTH_TOTEM_SLOT and (AvailableSpells[SpellIDs.Stoneskin] or AvailableSpells[SpellIDs.Earthbind] or AvailableSpells[SpellIDs.StoneBulwark]))
-                      or (Timers[i].nr == WATER_TOTEM_SLOT and AvailableSpells[SpellIDs.HealingStream])
+                      or (Timers[i].nr == WATER_TOTEM_SLOT and (AvailableSpells[SpellIDs.HealingStream] or AvailableSpells[SpellIDs.ManaSpring]))
                       or (Timers[i].nr == AIR_TOTEM_SLOT and (AvailableSpells[SpellIDs.Grounding] or AvailableSpells[SpellIDs.NatureResistance] or AvailableSpells[SpellIDs.Windfury])) then
                         Timers[i]:Activate()
                     end

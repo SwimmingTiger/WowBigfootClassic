@@ -208,12 +208,8 @@ function XiTimers:new(nroftimers, unclickable)
     self.manaCheckCount = 0
 	self.warningPoint = 10
 	
-	if not IsAddOnLoaded("rActionButtonStyler") then
-		self:HideNormalTexture()
-	else
-		ActionButton_Update(self.button)
-	end
-    
+    self:HideNormalTexture()
+
     self.animation = XiTimersAnimations:new(self.button)
     
 	self.anchors = {}
@@ -847,7 +843,8 @@ function XiTimers:Hide()
 end
 
 function XiTimers:HideNormalTexture()
-	-- self.button.normalTexture:SetTexture(1,1,1,0)
+	--self.button.normalTexture:SetTexture(1,1,1,0)
+	self.button.normalTexture:SetTexture(nil)
 end
 
 

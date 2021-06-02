@@ -17,10 +17,10 @@ end
 local getFont = function(labelName)
 	if not NugRunningConfig.overrideFonts then
 		local s = NugRunning.db[labelName]
-		return LSM:Fetch("font", s.font), s.size, s.alpha
+		return LSM:Fetch("font", s.font), s.size, s.alpha, s.outline
 	else
 		local s = NugRunningConfig[labelName]
-		return s.font, s.size, s.alpha
+		return s.font, s.size, s.alpha, s.outline
 	end
 end
 
@@ -262,15 +262,15 @@ function TimerBar.Resize1(self, width, height)
 end
 
 function TimerBar.UpdateFonts(f)
-    local nameFont, nameSize, nameAlpha = getFont("nameFont")
-    f.spellText:SetFont(nameFont, nameSize)
+    local nameFont, nameSize, nameAlpha, nameOutline = getFont("nameFont")
+    f.spellText:SetFont(nameFont, nameSize, nameOutline and "OUTLINE")
     f.spellText:SetAlpha(nameAlpha or 1)
 
     local stackFont, stackSize, _stackAlpha = getFont("stackFont")
     f.stacktext:SetFont(stackFont, stackSize, "OUTLINE")
 
-    local timeFont, timeSize, timeAlpha = getFont("timeFont")
-    f.timeText:SetFont(timeFont, timeSize)
+    local timeFont, timeSize, timeAlpha, timeOutline = getFont("timeFont")
+    f.timeText:SetFont(timeFont, timeSize, timeOutline and "OUTLINE")
     f.timeText:SetJustifyH("RIGHT")
     f.timeText:SetAlpha(timeAlpha or 1)
 end
@@ -540,8 +540,8 @@ NugRunning.ConstructTimerBar = function(width, height)
 
     f.timeText = f.bar:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
     f.timeText:SetTextColor(1,1,1)
-    local timeFont, timeSize, timeAlpha = getFont("timeFont")
-    f.timeText:SetFont(timeFont, timeSize)
+    local timeFont, timeSize, timeAlpha, timeOutline = getFont("timeFont")
+    f.timeText:SetFont(timeFont, timeSize, timeOutline and "OUTLINE")
     f.timeText:SetJustifyH("RIGHT")
     f.timeText:SetAlpha(timeAlpha or 1)
     f.timeText:SetVertexColor(1,1,1)
@@ -549,8 +549,8 @@ NugRunning.ConstructTimerBar = function(width, height)
 
     f.spellText = f.bar:CreateFontString(nil, "ARTWORK", "GameFontNormal");
     f.spellText:SetTextColor(1,1,1)
-    local nameFont, nameSize, nameAlpha = getFont("nameFont")
-    f.spellText:SetFont(nameFont, nameSize)
+    local nameFont, nameSize, nameAlpha, nameOutline = getFont("nameFont")
+    f.spellText:SetFont(nameFont, nameSize, nameOutline and "OUTLINE")
     f.spellText:SetWidth(f.bar:GetWidth()*0.8)
     f.spellText:SetHeight(height/2+1)
     f.spellText:SetJustifyH("CENTER")

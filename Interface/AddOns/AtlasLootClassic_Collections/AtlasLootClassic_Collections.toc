@@ -1,6 +1,6 @@
 ﻿## Interface: 20501
 ## Author: Lag
-## Version: v2.2.0-bcc
+## Version: v2.2.1-bcc
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Collections]|r

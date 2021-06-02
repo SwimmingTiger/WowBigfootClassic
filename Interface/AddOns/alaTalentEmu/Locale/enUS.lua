@@ -58,7 +58,7 @@ L.maxRank = "Top Rank";
 L.reqPoints = "%d/%d in %s";
 
 L.level_60 = "Lv60 Talents. |cffff0000And ReloadUI.|r";
-L.level_70 = "Lv60 Talents. |cffff0000And ReloadUI.|r";
+L.level_70 = "Lv70 Talents. |cffff0000And ReloadUI.|r";
 L.resizable_border_TRUE = "Enable Draging border to resize";
 L.resizable_border_FALSE = "Disable dragging border to resize";
 L.SetWinStyle_BLZ = "Make it blz style";

@@ -43,6 +43,7 @@ local L = addon.L
 function addon:Initialize()
     -- Are we running on release rather than classic?
     self.versionIsRelease = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+    self.versionIsTbcClassic = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 
     -- Create an AceDB, but it needs to be cleared first
     self.db = LibStub("AceDB-3.0"):New("CliqueDB3", self.defaults)
@@ -528,7 +529,7 @@ function addon:GetClickAttributes(global)
                     -- Do not include @mouseover
                     macrotext = string.format("/click %s\n/cast %s", self.stopbutton.name, spellText)
                 else
-                    macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, entry.spell)
+                    macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, spellText)
                 end
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, "macro")
                 bits[#bits + 1] = ATTR(indent, prefix, "macrotext", suffix, macrotext)

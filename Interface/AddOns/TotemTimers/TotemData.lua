@@ -50,22 +50,21 @@ TotemTimers.SpellIDs = {
     TotemicCall = 36936,
     LightningShield = 324,
     WaterShield = 24398,
+    EarthShield = 974,
 
     RockbiterWeapon = 8017,
     FlametongueWeapon = 8024,
     FrostbrandWeapon = 8033,
     WindfuryWeapon = 8232,
 
-    --EnamoredWaterSpirit = 24854 -- Water Totem trinket
-    --[[ WaterShield = 52127,
-    EarthShield = 974,
-    TotemicCall = 36936,
-    
-    StormStrike = 17364,
-    PrimalStrike = 73899,
     EarthShock = 8042,
     FrostShock = 8056,
     FlameShock = 8050,
+    StormStrike = 17364,
+
+    --EnamoredWaterSpirit = 24854 -- Water Totem trinket
+    --[[
+    PrimalStrike = 73899,
     LavaLash = 60103,
     LightningBolt = 403,
     ChainLightning = 421,

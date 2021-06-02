@@ -1543,7 +1543,7 @@ local function MakeGeneralOptions()
                         end,
                         min = 80,
                         max = 400,
-                        step = 5,
+                        step = 1,
                         order = 1,
                     },
                     height = {
@@ -1674,6 +1674,7 @@ local function MakeGeneralOptions()
                     },
                     nameSize = {
                         name = L"Name Size",
+                        width = 0.70,
                         type = "range",
                         get = function(info) return NugRunning.db.nameFont.size end,
                         set = function(info, v)
@@ -1687,6 +1688,7 @@ local function MakeGeneralOptions()
                     },
                     nameAlpha = {
                         name = L"Name Alpha",
+                        width = 0.70,
                         type = "range",
                         get = function(info) return NugRunning.db.nameFont.alpha end,
                         set = function(info, v)
@@ -1697,6 +1699,17 @@ local function MakeGeneralOptions()
                         max = 1,
                         step = 0.01,
                         order = 3,
+                    },
+                    nameOutline = {
+                        name = L"Outline",
+                        width = 0.5,
+                        type = "toggle",
+                        get = function(info) return NugRunning.db.nameFont.outline end,
+                        set = function(info, v)
+                            NugRunning.db.nameFont.outline = not NugRunning.db.nameFont.outline
+                            NugRunning:UpdateAllFonts()
+                        end,
+                        order = 3.1,
                     },
 
                     timefont = {
@@ -1713,6 +1726,7 @@ local function MakeGeneralOptions()
                     },
                     timeSize = {
                         name = L"Time Size",
+                        width = 0.7,
                         type = "range",
                         get = function(info) return NugRunning.db.timeFont.size end,
                         set = function(info, v)
@@ -1726,6 +1740,7 @@ local function MakeGeneralOptions()
                     },
                     timeAlpha = {
                         name = L"Time Alpha",
+                        width = 0.7,
                         type = "range",
                         get = function(info) return NugRunning.db.timeFont.alpha end,
                         set = function(info, v)
@@ -1736,6 +1751,17 @@ local function MakeGeneralOptions()
                         max = 1,
                         step = 0.01,
                         order = 6,
+                    },
+                    timeOutline = {
+                        name = L"Outline",
+                        width = 0.5,
+                        type = "toggle",
+                        get = function(info) return NugRunning.db.timeFont.outline end,
+                        set = function(info, v)
+                            NugRunning.db.timeFont.outline = not NugRunning.db.timeFont.outline
+                            NugRunning:UpdateAllFonts()
+                        end,
+                        order = 6.1,
                     },
 
                     stackfont = {
@@ -1790,7 +1816,20 @@ local function MakeGeneralOptions()
                         type = "toggle",
                         desc = L"Display spell name on timers",
                         get = function(info) return NugRunning.db.spellTextEnabled end,
-                        set = function(info, v) NugRunning.db.spellTextEnabled = not NugRunning.db.spellTextEnabled end,
+                        set = function(info, v)
+                            NugRunning.db.spellTextEnabled = not NugRunning.db.spellTextEnabled
+                            NugRunning.db.targetTextEnabled = false
+                        end,
+                        order = 1,
+                    },
+                    targetNameText = {
+                        name = L"Show Target Names",
+                        type = "toggle",
+                        get = function(info) return NugRunning.db.targetTextEnabled end,
+                        set = function(info, v)
+                            NugRunning.db.targetTextEnabled = not NugRunning.db.targetTextEnabled
+                            NugRunning.db.spellTextEnabled = false
+                        end,
                         order = 1,
                     },
                     localNames = {

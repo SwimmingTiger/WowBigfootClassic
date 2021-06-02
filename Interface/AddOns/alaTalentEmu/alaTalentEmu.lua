@@ -403,7 +403,7 @@ local curPhase = 6;
 	local _talentTabIcon = NS._talentTabIcon;
 	local _BG0 = NS._BG0;
 	local _BG1 = NS._BG1;
-	local _preset_talent = NS._preset_talent;
+	local _preset_talent = nil;
 	local _PRESET = {  };
 	local _talentSpellData = nil;
 	local _talentStr = nil;
@@ -1279,7 +1279,8 @@ end
 				mainFrame.data = data;
 				local talentFrames = mainFrame.talentFrames;
 				local pos = 1;
-				local retry = {  };
+				local tabstart = 0;
+				-- local retry = {  };
 				for i = 1, 3 do
 					local talentFrame = talentFrames[i];
 					local icons = talentFrame.talentIcons;
@@ -1292,24 +1293,32 @@ end
 						pos = pos + 1;
 						d = tonumber(d);
 						if d ~= 0 then
+							local depindex = db[j][11];
+							if depindex ~= nil then
+								local depd = strsub(data, tabstart + depindex, tabstart + depindex);
+								if depd ~= "" and depd ~= "0" then
+									NS.EmuCore_ChangePoint(icons[db[depindex][10]], tonumber(depd));
+								end
+							end
 							local ret = NS.EmuCore_ChangePoint(icons[db[j][10]], d);
 							if ret < 0 then
-								tinsert(retry, { i, j, d, });
+								-- tinsert(retry, { i, j, d, });
 								_log_("EmuCore_SetData", 5, "tab", i, "tier", db[j][1], "col", db[j][2], "maxPoints", db[j][4], "set", d, data, pos);
 							elseif ret > 0 then
 								_log_("EmuCore_SetData", 6, "tab", i, "tier", db[j][1], "col", db[j][2], "maxPoints", db[j][4], "set", d, data, pos);
 							end
 						end
 					end
+					tabstart = pos;
 				end
-				for i, v in next, retry do
-					local ret = NS.EmuCore_ChangePoint(talentFrames[v[1]].talentIcons[talentFrames[v[1]].db[v[2]][10]], tonumber(v[3]));
-					if ret < 0 then
-						_log_("EmuCore_SetData", 7, "tab", retry[i][1], "mainFrames", retry[i][2], "set", retry[i][3]);
-					elseif ret > 0 then
-						_log_("EmuCore_SetData", 8, "tab", retry[i][1], "mainFrames", retry[i][2], "set", retry[i][3]);
-					end
-				end
+				-- for i, v in next, retry do
+				-- 	local ret = NS.EmuCore_ChangePoint(talentFrames[v[1]].talentIcons[talentFrames[v[1]].db[v[2]][10]], tonumber(v[3]));
+				-- 	if ret < 0 then
+				-- 		_log_("EmuCore_SetData", 7, "tab", retry[i][1], "mainFrames", retry[i][2], "set", retry[i][3]);
+				-- 	elseif ret > 0 then
+				-- 		_log_("EmuCore_SetData", 8, "tab", retry[i][1], "mainFrames", retry[i][2], "set", retry[i][3]);
+				-- 	end
+				-- end
 			end
 
 			return true;
@@ -6249,6 +6258,7 @@ do	-- initialize
 		_spellDB = DATA._spellDB_P;
 		_talentSpellData = DATA._talentSpellData;
 		_talentStr = DATA._talentStr;
+		_preset_talent = DATA._preset_talent;
 		ui_style.talentFrameXSizeSingle = ui_style.talentIconSize * MAX_NUM_COL + ui_style.talentIconXGap * (MAX_NUM_COL - 1) + ui_style.talentIconXToBorder * 2;
 		ui_style.talentFrameXSizeTriple = ui_style.talentFrameXSizeSingle * 3;
 		ui_style.talentFrameYSize = ui_style.talentFrameHeaderYSize + ui_style.talentIconYToTop + ui_style.talentIconSize * MAX_NUM_TIER + ui_style.talentIconYGap * (MAX_NUM_TIER - 1) + ui_style.talentIconYToBottom+ ui_style.talentFrameFooterYSize;
@@ -6396,9 +6406,9 @@ do	-- initialize
 				alaTalentEmuSV.set.savedTalent = nil;
 				alaTalentEmuSV._version = 200615.0;
 			end
-			if alaTalentEmuSV._version < 210313.1 then
+			if alaTalentEmuSV._version < 210524.0 then
 				alaTalentEmuSV.set.level = NS.defaultLevel;
-				alaTalentEmuSV._version = 210313.1;
+				alaTalentEmuSV._version = 210524.0;
 			end
 		else
 			_G.alaTalentEmuSV = {
@@ -6410,7 +6420,7 @@ do	-- initialize
 				},
 			};
 		end
-		alaTalentEmuSV._version = 210313.1;
+		alaTalentEmuSV._version = 210524.0;
 		SET = setmetatable(alaTalentEmuSV.set, { __index = default_set, });
 		VAR = alaTalentEmuSV.var;
 	end

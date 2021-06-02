@@ -126,7 +126,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			for _, _Type in next, {
 				'BROWSER',
 				'CHECKOUT',
-				-- 'FOGOFWARFRAME',
+				'FOGOFWARFRAME',
 				'CINEMATICMODEL',
 				'MODELSCENE',
 				'OFFSCREENFRAME',
@@ -141,7 +141,7 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 			for _, _Type in next, {
 				'BROWSER',
 				'CHECKOUT',
-				-- 'FOGOFWARFRAME',
+				'FOGOFWARFRAME',
 				'CINEMATICMODEL',
 				'MODELSCENE',
 				'OFFSCREENFRAME',
@@ -893,6 +893,9 @@ local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
 				end
 			end
 			function __inst_meta.StartCapturing(instanceID, instanceType)
+				if UnitInBattleground('player') ~= nil then
+					return;
+				end
 				__inst_meta._var_muted = false;
 				__inst_meta:RegEvent("UNIT_TARGET");
 				__inst_meta:RegEvent("UPDATE_MOUSEOVER_UNIT");

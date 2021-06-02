@@ -1,4 +1,4 @@
-﻿
+
 function MobInfoConfigFunc()
 	if (GetLocale() == "zhCN") then
 		MOD_MOB_HEALTH_TITLE = {"目标信息", "guaiwuxinxi"};
@@ -89,9 +89,9 @@ function MobInfoConfigFunc()
 					end
 				end
 
-					if (BigFoot_IsAddOnLoaded("MobHealth")) then
-						MobHealth_Toggle(arg);
-					end
+				if (BigFoot_IsAddOnLoaded("MobHealth")) then
+					MobHealth_Toggle(arg);
+				end
 			end
 		);
 

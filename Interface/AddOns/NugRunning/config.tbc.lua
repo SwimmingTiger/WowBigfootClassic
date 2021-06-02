@@ -447,6 +447,13 @@ Spell( 6136 , { name = "Chilled", scale = 0.6,  color = colors.CHILL, multiTarge
     end
 })
 
+Spell({ 12484, 12485, 12486 }, { name = "Blizzard Slow", scale = 0.6,  color = colors.CHILL, multiTarget = true,
+    duration = function(timer)
+        local permafrost = Talent(11175, 12569, 12571)
+        return 1.5 + permafrost
+    end
+})
+
 
 Spell({ 116, 205, 837, 7322, 8406, 8407, 8408, 10179, 10180, 10181, 25304 }, { name = "Frostbolt", scale = 0.6, color = colors.CHILL,
     duration = function(timer)
@@ -463,7 +470,7 @@ Spell({ 116, 205, 837, 7322, 8406, 8407, 8408, 10179, 10180, 10181, 25304 }, { n
 }) -- varies
 
 
-Spell( 12494 ,{ name = "Frostbite", duration = 5, color = colors.FROZEN, shine = true })
+Spell( 12494 ,{ name = "Frostbite", duration = 5, maxtimers = 1, color = colors.FROZEN, shine = true })
 Spell({ 122, 865, 6131, 10230, 27088 } ,{ name = "Frost Nova", duration = 8, color = colors.FROZEN, multiTarget = true })
 
 Spell( 12536 ,{ name = "Clearcasting", shine = true, group = "buffs", duration = 15, color = colors.CHIM })

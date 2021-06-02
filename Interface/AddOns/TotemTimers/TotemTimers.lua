@@ -140,7 +140,7 @@ function TotemTimers.SetupGlobals()
         -- TotemTimersFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 
         --TotemTimers_UpdateRaid()
-		--TotemTimers.InitButtonFacade()
+		TotemTimers.InitMasque()
 		-- TotemTimers.RangeFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
         -- TotemTimers.RangeFrame:Show()
         TotemTimers.SetCastButtonSpells()
@@ -248,12 +248,13 @@ function TotemTimers.ShowDebug()
 	TotemTimers_Debug:HighlightText()
 end
 
-local skin = IsAddOnLoaded("Masque") or IsAddOnLoaded("rActionButtonStyler")
+local skin = false
+local mask = nil
 
 local DoubleIcons = {}
 
 function TotemTimers.SetDoubleTexCoord(button, flash) 
-    --[[ if DoubleIcons[button] then
+    if DoubleIcons[button] then
         button.icons[1]:ClearAllPoints()
         button.icons[1]:SetPoint("RIGHT", button, "CENTER")
         button.icons[2]:Show()
@@ -271,12 +272,12 @@ function TotemTimers.SetDoubleTexCoord(button, flash)
         else
             local icon = XiTimers.timers[1].button.icons[1]
             local flash = XiTimers.timers[1].button.flash[1]
-			--local width = icon:GetWidth() / 2
+			local width = icon:GetWidth() / 2
 			--local height = icon:GetHeight() / 2
-            --button.icons[1]:SetWidth(width)
-            --button.icons[2]:SetWidth(width)
+            button.icons[1]:SetWidth(width)
+            button.icons[2]:SetWidth(width)
             --button.icons[1]:SetHeight(height)
-           -- button.icons[2]:SetHeight(height)
+            --button.icons[2]:SetHeight(height)
             local ULx, ULy, LLx, LLy, URx, URy, LRx, LRy = icon:GetTexCoord()
             button.icons[1]:SetTexCoord(ULx, ULy, LLx, LLy, URx/2, URy, LRx/2, LRy)
             button.icons[2]:SetTexCoord((1-ULx)/2, ULy, (1-LLx)/2, LLy, URx, URy, LRx, LRy)
@@ -308,7 +309,7 @@ function TotemTimers.SetDoubleTexCoord(button, flash)
                 button.flash[1]:SetTexCoord(XiTimers.timers[1].button.flash[1]:GetTexCoord())
             end
         end
-    end ]]
+    end
 end
 
 function TotemTimers.SetDoubleTexture(button, isdouble, flash)
@@ -320,8 +321,8 @@ function TotemTimers.SetDoubleTexture(button, isdouble, flash)
     TotemTimers.SetDoubleTexCoord(button, flash)
 end
 
-function TotemTimers.ApplySkin(newskin)
-    if newskin then skin = newskin end
+function TotemTimers.ApplySkin(hasSkin, newMask)
+    skin = hasSkin
     for k,v in pairs(DoubleIcons) do
         TotemTimers.SetDoubleTexCoord(k, k == XiTimers.timers[8].button)
     end
@@ -371,9 +372,8 @@ function TotemTimers.UpdateMacro()
         if free==18 and nr==0 then return end
         local sequence = "/castsequence reset=combat/60  "
         local timers = XiTimers.timers
-        local order = TotemTimers.ActiveProfile.Order
         for i=1,4 do
-        local timer = timers[order[i]]
+            local timer = timers[i]
             if timer.active then
                 local spell = timer.button:GetAttribute("*spell1")
                 if spell then

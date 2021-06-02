@@ -4,10 +4,8 @@
 ## Title-zhTW: [大腳][集]薩滿圖騰助手
 ## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
-## Version: 1.10
+## Version: 1.12
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
-## OptionalDeps: cyCircled, Masque, !ClassColors, rActionButtonStyler
-## LoadManagers: AddonLoader
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602
 ## X-WoWI-ID: 25223
@@ -39,6 +37,7 @@ SetupTrackers.lua
 TotemTimers.xml
 TotemTimers.lua
 Warnings.lua
+Masque.lua
 
 GUI\localization.lua
 GUI\localization.tw.lua

@@ -73,7 +73,10 @@ function panel:CreateOptions()
     table.insert(bits, self.TargetFrame)
 	table.insert(bits, self.TargetFrameToT)
 
-    if addon.versionIsRelease then
+    if addon.versionIsTbcClassic then
+        table.insert(bits, self.FocusFrame)
+        table.insert(bits, self.FocusFrameToT)
+    elseif addon.versionIsRelease then
         table.insert(bits, self.FocusFrame)
         table.insert(bits, self.FocusFrameToT)
         table.insert(bits, self.arena)
@@ -113,7 +116,10 @@ function panel.refresh()
     panel.TargetFrame:SetChecked(opt.TargetFrame)
     panel.TargetFrameToT:SetChecked(opt.TargetFrameToT)
 
-    if addon.versionIsRelease then
+    if addon.versionIsTbcClassic then
+        panel.FocusFrame:SetChecked(opt.FocusFrame)
+        panel.FocusFrameToT:SetChecked(opt.FocusFrameToT)
+    elseif addon.versionIsRelease then
         panel.FocusFrame:SetChecked(opt.FocusFrame)
         panel.FocusFrameToT:SetChecked(opt.FocusFrameToT)
         panel.arena:SetChecked(opt.arena)
@@ -133,7 +139,10 @@ function panel.okay()
     opt.TargetFrame = not not panel.TargetFrame:GetChecked()
     opt.TargetFrameToT = not not panel.TargetFrameToT:GetChecked()
 
-    if addon.versionIsRelease then
+    if addon.versionIsTbcClassic then
+        opt.FocusFrame = not not panel.FocusFrame:GetChecked()
+        opt.FocusFrameToT = not not panel.FocusFrameToT:GetChecked()
+    elseif addon.versionIsRelease then
         opt.FocusFrame = not not panel.FocusFrame:GetChecked()
         opt.FocusFrameToT = not not panel.FocusFrameToT:GetChecked()
         opt.arena = not not panel.arena:GetChecked()
@@ -227,7 +236,7 @@ function addon:Enable_BlizzSelfFrames()
         "TargetFrameToT",
     }
 
-    if addon.versionIsRelease then
+    if addon.versionIsTbcClassic or addon.versionIsRelease then
         table.insert(frames, "FocusFrame")
         table.insert(frames, "FocusFrameToT")
     end
