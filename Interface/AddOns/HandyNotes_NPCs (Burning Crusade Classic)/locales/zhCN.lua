@@ -8338,3 +8338,6 @@ L["Crossbows"] = "弩"
 L["One-Handed Axes"] = "单手斧"
 L["Two-Handed Axes"] = "双手斧"
 L["Guns"] = "枪械"
+
+-- 老虎会游泳：完善汉化
+L["Show Battlemasters"] = "战场军官"
