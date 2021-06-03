@@ -16,4 +16,4 @@ locale\locale.cn.lua
 locale\locale.tw.lua
 
 frame.xml
-offline.xml
+#offline.xml
