@@ -173,9 +173,9 @@ end
 local function MailMod_FrameItem_OnEnter(self)
 	if (MailMod_Enable) then
 		if ( self.hasItem and self.itemCount > 1) then
-			local name, itemTexture, count, quality, canUse;
+			local name, itemID, itemTexture, count, quality, canUse;
 			for i=1, ATTACHMENTS_MAX_RECEIVE do
-				name, itemTexture, count, quality, canUse = GetInboxItem(self.index, i);
+				name, itemID, itemTexture, count, quality, canUse = GetInboxItem(self.index, i);
 				if (name and count) then
 					local itemLink = GetInboxItemLink(self.index, i)
 					if itemLink then
