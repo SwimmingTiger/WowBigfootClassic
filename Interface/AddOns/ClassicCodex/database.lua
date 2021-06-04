@@ -66,7 +66,37 @@ for _, db in pairs(dbs) do
     end
 end
 
--- add meta table for database
+-- add meta table for database to solve Lua errors caused by data loss
+-- for base data
+setmetatable(CodexDB['quests']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The quest #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['items']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The item #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['objects']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The object #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['units']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The unit #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+-- for locales
 setmetatable(CodexDB['quests']["loc"], {
 	__index = function(self, key)
         local notice = L["The {locale} locale text of the quest #{id} is missing."]
@@ -235,44 +265,38 @@ function CodexDatabase:GetRaceMaskById(id, db)
     local factionMap = {["A"] = 77, ["H"] = 178, ["AH"] = 255, ["HA"] = 255}
     local raceMask = 0
 
-    if db == "quests" then
-        if not id or id == 0 then
-            return raceMask
-        end
-        if not quests[id] then
-            print(L['[ClassicCodex] The quest #%s is missing.']:format(id)
-                .."\n"..L["Please send a report to the developer."])
-            return raceMask
-        end
-        if quests[id]["race"] ~= nil then
-            return quests[id]["race"]
-        end
+    if not id or id == 0 or db ~= "quests" then
+        return raceMask
+    end
 
-        if quests[id]["start"] then
-            local questStartRaceMask = 0
+    if quests[id]["race"] ~= nil then
+        return quests[id]["race"]
+    end
 
-            -- Get Quest starter faction
-            if quests[id]["start"]["U"] then
-                for _, unitId in pairs(quests[id]["start"]["U"]) do
-                    if units[unitId]["fac"] and factionMap[units[unitId]["fac"]] then
-                        questStartRaceMask = bit.bor(factionMap[units[unitId]["fac"]])
-                    end
+    if quests[id]["start"] then
+        local questStartRaceMask = 0
+
+        -- Get Quest starter faction
+        if quests[id]["start"]["U"] then
+            for _, unitId in pairs(quests[id]["start"]["U"]) do
+                if units[unitId]["fac"] and factionMap[units[unitId]["fac"]] then
+                    questStartRaceMask = bit.bor(factionMap[units[unitId]["fac"]])
                 end
             end
+        end
 
-            -- Get Quest object starter faction
-            if quests[id]["start"]["O"] then
-                for _, objectId in pairs(quests[id]["start"]["O"]) do
-                    if objects[objectId]["fac"] and factionMap[objects[objectId]["fac"]] then
-                        questStartRaceMask = bit.bor(factionMap[objects[objectId]["fac"]])
-                    end
+        -- Get Quest object starter faction
+        if quests[id]["start"]["O"] then
+            for _, objectId in pairs(quests[id]["start"]["O"]) do
+                if objects[objectId]["fac"] and factionMap[objects[objectId]["fac"]] then
+                    questStartRaceMask = bit.bor(factionMap[objects[objectId]["fac"]])
                 end
             end
+        end
 
-            -- Apply starter faction as racemask
-            if questStartRaceMask > 0 and questStartRaceMask ~= raceMask then
-                raceMask = questStartRaceMask
-            end
+        -- Apply starter faction as racemask
+        if questStartRaceMask > 0 and questStartRaceMask ~= raceMask then
+            raceMask = questStartRaceMask
         end
     end
 
@@ -395,7 +419,11 @@ end
 -- Scans for all mobs with specified ID
 -- Adds map nodes for each and returns its map table
 function CodexDatabase:SearchUnitById(id, meta, maps)
-    if not units[id] or not units[id]["coords"] then return maps end
+    if  not id or id == 0 or
+        not units[id] or not units[id]["coords"]
+    then
+        return maps
+    end
 
     local maps = maps or {}
 
@@ -444,7 +472,11 @@ function CodexDatabase:SearchUnitByName(name, meta, partial)
 end
 
 function CodexDatabase:SearchObjectById(id, meta, maps)
-    if not objects[id] or not objects[id]["coords"] then return maps end
+    if  not id or id == 0 or
+        not objects[id] or not objects[id]["coords"]
+    then
+        return maps
+    end
 
     local maps = maps or {}
 
@@ -493,7 +525,9 @@ function CodexDatabase:SearchObjectByName(name, meta, partial)
 end
 
 function CodexDatabase:SearchItemById(id, meta, maps, allowedTypes)
-    if not items[id] then return maps end
+    if not id or id == 0 or not items[id] then
+        return maps
+    end
 
     local maps = maps or {}
     local meta = meta or {}
@@ -603,11 +637,6 @@ end
 
 function CodexDatabase:SearchQuestById(id, meta, maps)
     if not id or id == 0 then
-        return
-    end
-    if not quests[id] then
-        print(L['[ClassicCodex] The quest #%s is missing.']:format(id)
-            .."\n"..L["Please send a report to the developer."])
         return
     end
 

@@ -103,6 +103,9 @@ L["The {locale} locale text of the unit #{id} is missing."] = "单位 #{id} 的�
 L["The {locale} locale text of the zone #{id} is missing."] = "区域 #{id} 的简体中文文本遗失。"
 L["Please send a report to the developer."] = "请向开发者发送一个错误报告。"
 L['[ClassicCodex] The quest #%s is missing.'] = "[ClassicCodex 任务助手] 任务 #%s 数据遗失。"
+L['[ClassicCodex] The item #%s is missing.'] = "[ClassicCodex 任务助手] 物品 #%s 数据遗失。"
+L['[ClassicCodex] The object #%s is missing.'] = "[ClassicCodex 任务助手] 对象 #%s 数据遗失。"
+L['[ClassicCodex] The unit #%s is missing.'] = "[ClassicCodex 任务助手] 单位 #%s 数据遗失。"
 
 -- map.lua
 L["Buy"] = "购买"
