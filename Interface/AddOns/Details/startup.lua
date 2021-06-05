@@ -486,7 +486,7 @@ function Details:StartMeUp() --I'll never stop!
 	
 	--show warning message about classic beta
 	if (not DetailsFramework.IsClassicWow()) then
-		--print ("|CFFFFFF00[Details!]: Details! now has a separated version for Classic, Twitch app should give the right version, any issues report at Discord (/details discord).")
+
 	else
 		print ("|CFFFFFF00[Details!]: you're using Details! for RETAIL on Classic WOW, please get the classic version (Details! Damage Meter Classic WoW), if you need help see our Discord (/details discord).")
 	end
@@ -531,10 +531,6 @@ function Details:StartMeUp() --I'll never stop!
 				end
 			end
 		end)
-	end
-
-	if (DetailsFramework.IsTimewalkWoW()) then
-		Details:Msg("TBC Beta Version: 0013")
 	end
 
 	if (DetailsFramework.IsTBCWow()) then

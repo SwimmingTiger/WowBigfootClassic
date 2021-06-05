@@ -189,54 +189,60 @@
 	}
 	
 	--> spellIds override
-	local override_spellId = {
-		[184707] = 218617, --warrior rampage
-		[184709] = 218617, --warrior rampage
-		[201364] = 218617, --warrior rampage
-		[201363] = 218617, --warrior rampage
-		[85384] = 96103, --warrior raging blow
-		[85288] = 96103, --warrior raging blow
-		[280849] = 5308, --warrior execute
-		[163558] = 5308, --warrior execute
-		[217955] = 5308, --warrior execute
-		[217956] = 5308, --warrior execute
-		[217957] = 5308, --warrior execute
-		[224253] = 5308, --warrior execute
-		[199850] = 199658, --warrior whirlwind
-		[190411] = 199658, --warrior whirlwind
-		[44949] = 199658, --warrior whirlwind
-		[199667] = 199658, --warrior whirlwind
-		[199852] = 199658, --warrior whirlwind
-		[199851] = 199658, --warrior whirlwind
-		
-		[222031] = 199547, --deamonhunter ChaosStrike
-		[200685] = 199552, --deamonhunter Blade Dance
-		[210155] = 210153, --deamonhunter Death Sweep
-		[227518] = 201428, --deamonhunter Annihilation
-		[187727] = 178741, --deamonhunter Immolation Aura
-		[201789] = 201628, --deamonhunter Fury of the Illidari
-		[225921] = 225919, --deamonhunter Fracture talent
-		
-		[205164] = 205165, --death knight Crystalline Swords
-		
-		[193315] = 197834, --rogue Saber Slash
-		[202822] = 202823, --rogue greed
-		[280720] = 282449, --rogue Secret Technique
-		[280719] = 282449, --rogue Secret Technique
-		[27576] = 5374, --rogue mutilate
-		
-		[233496] = 233490, --warlock Unstable Affliction
-		[233497] = 233490, --warlock Unstable Affliction
-		[233498] = 233490, --warlock Unstable Affliction
-		[233499] = 233490, --warlock Unstable Affliction
-		
-		[261947] = 261977, --monk fist of the white tiger talent
+	local override_spellId
 
-		[32175] = 17364, -- shaman Stormstrike (from Turkar on github)
-		[32176] = 17364, -- shaman Stormstrike
-		[45284] = 188196, --shaman lightining bolt overloaded
-		
-	}
+	if (DetailsFramework.IsTBCWow()) then
+		override_spellId = {}
+
+	else --retail
+		override_spellId = {
+			[184707] = 218617, --warrior rampage
+			[184709] = 218617, --warrior rampage
+			[201364] = 218617, --warrior rampage
+			[201363] = 218617, --warrior rampage
+			[85384] = 96103, --warrior raging blow
+			[85288] = 96103, --warrior raging blow
+			[280849] = 5308, --warrior execute
+			[163558] = 5308, --warrior execute
+			[217955] = 5308, --warrior execute
+			[217956] = 5308, --warrior execute
+			[217957] = 5308, --warrior execute
+			[224253] = 5308, --warrior execute
+			[199850] = 199658, --warrior whirlwind
+			[190411] = 199658, --warrior whirlwind
+			[44949] = 199658, --warrior whirlwind
+			[199667] = 199658, --warrior whirlwind
+			[199852] = 199658, --warrior whirlwind
+			[199851] = 199658, --warrior whirlwind
+			
+			[222031] = 199547, --deamonhunter ChaosStrike
+			[200685] = 199552, --deamonhunter Blade Dance
+			[210155] = 210153, --deamonhunter Death Sweep
+			[227518] = 201428, --deamonhunter Annihilation
+			[187727] = 178741, --deamonhunter Immolation Aura
+			[201789] = 201628, --deamonhunter Fury of the Illidari
+			[225921] = 225919, --deamonhunter Fracture talent
+			
+			[205164] = 205165, --death knight Crystalline Swords
+			
+			[193315] = 197834, --rogue Saber Slash
+			[202822] = 202823, --rogue greed
+			[280720] = 282449, --rogue Secret Technique
+			[280719] = 282449, --rogue Secret Technique
+			[27576] = 5374, --rogue mutilate
+			
+			[233496] = 233490, --warlock Unstable Affliction
+			[233497] = 233490, --warlock Unstable Affliction
+			[233498] = 233490, --warlock Unstable Affliction
+			[233499] = 233490, --warlock Unstable Affliction
+			
+			[261947] = 261977, --monk fist of the white tiger talent
+
+			[32175] = 17364, -- shaman Stormstrike (from Turkar on github)
+			[32176] = 17364, -- shaman Stormstrike
+			[45284] = 188196, --shaman lightining bolt overloaded
+		}
+	end
 	
 	local bitfield_debuffs_ids = _detalhes.BitfieldSwapDebuffsIDs
 	local bitfield_debuffs = {}
