@@ -344,6 +344,19 @@ Bagnon_Forever
 	end
 end
 
+function zzzAddonCheck_Init_aux()
+    -- 给aux的鼠标提示开启金币图标显示
+    local patchVersion = '2021-06-05-16'
+    if aux and aux.character and aux.auxPatchVersion ~= patchVersion then
+        for _, v in pairs(aux.character) do
+            if v.tooltip then
+                v.tooltip.money_icons = true
+            end
+        end
+        aux.auxPatchVersion = patchVersion
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -362,6 +375,7 @@ local function LoaderEvents(frame, event, arg1)
     zzzAddonCheck_Init_MobHealth()
     zzzAddonCheck_Init_tdPack2()
     zzzAddonCheck_Init_Combuctor()
+    zzzAddonCheck_Init_aux()
 end
 
 local LoaderFrame = CreateFrame("FRAME")
