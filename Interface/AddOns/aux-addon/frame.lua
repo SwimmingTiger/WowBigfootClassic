@@ -95,7 +95,8 @@ do
         button1 = "我知道了",
         showAlert = 1,
         timeout = 0,
-        hideOnEscape = 1
+        hideOnEscape = 1,
+        preferredIndex = STATICPOPUP_NUMDIALOGS
     }
     btn:SetScript('OnClick', function()
         if IsAddOnLoaded("Auctionator") then

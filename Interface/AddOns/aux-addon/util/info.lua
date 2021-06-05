@@ -222,11 +222,13 @@ do
 		[20746] = 5,
 		[20750] = 5,
 		[20749] = 5,
+        [22522] = 5,
 
 		-- mana oil
 		[20745] = 5,
 		[20747] = 5,
 		[20748] = 5,
+        [22521] = 5,
 
 		-- discombobulator
 		[4388] = 5,
@@ -255,7 +257,7 @@ function M.parse_link(link)
     if not link then
         return
     end
-    local _, _, item_id, enchant_id, suffix_id, unique_id, name = strfind(link, '|Hitem:(%d*):(%d*):::::(%-?%d*):(%-?%d*)[:0-9]*|h%[(.-)%]|h')
+    local _, _, item_id, enchant_id, suffix_id, unique_id, name = strfind(link, '|Hitem:(%d*):(%d*):%d*:%d*:%d*:%d*:(%-?%d*):(%-?%d*)[:0-9]*|h%[(.-)%]|h')
     return tonumber(item_id) or 0, tonumber(suffix_id) or 0, tonumber(unique_id) or 0, tonumber(enchant_id) or 0, name
 end
 

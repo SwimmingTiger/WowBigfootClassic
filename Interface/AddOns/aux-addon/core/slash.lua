@@ -51,6 +51,9 @@ function SlashCmdList.AUX(command)
     elseif arguments[1] == 'tooltip' and arguments[2] == 'disenchant' and arguments[3] == 'distribution' then
 	    tooltip_settings.disenchant_distribution = not tooltip_settings.disenchant_distribution
         aux.print('tooltip disenchant distribution ' .. status(tooltip_settings.disenchant_distribution))
+    elseif arguments[1] == 'tooltip' and arguments[2] == 'money'  and arguments[3] == 'icons' then
+	    tooltip_settings.money_icons = not tooltip_settings.money_icons
+        aux.print('鼠标提示显示金币图标 ' .. status(tooltip_settings.money_icons))
     elseif arguments[1] == 'clear' and arguments[2] == 'item' and arguments[3] == 'cache' then
 	    aux.account_data.items = {}
         aux.account_data.item_ids = {}
@@ -74,6 +77,7 @@ function SlashCmdList.AUX(command)
 		aux.print('- tooltip merchant sell [' .. status(tooltip_settings.merchant_sell) .. '] - 鼠标提示商店出售价')
 		aux.print('- tooltip disenchant value [' .. status(tooltip_settings.disenchant_value) .. '] - 鼠标提示分解价值')
 		aux.print('- tooltip disenchant distribution [' .. status(tooltip_settings.disenchant_distribution) .. '] - 鼠标提示分解信息')
+        aux.print('- tooltip money icons [' .. status(tooltip_settings.money_icons) .. '] - 鼠标提示显示金币图标')
 		aux.print('- clear item cache - 清除物品缓存')
         aux.print('- clear post - 清除出售')
     end
