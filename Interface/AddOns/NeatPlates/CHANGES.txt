@@ -1,12 +1,13 @@
-lightweight tag 67971c83481c5e7cbf72e36292670bab7a673644 2.5.1.17
+lightweight tag 2b65fc0832fe0a6dbde0a4c5943d25c740d87174 2.5.1.18
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Mon May 24 18:43:24 2021 +0200
+Date:	Tue Jun 1 18:42:19 2021 +0200
 
-commit 67971c83481c5e7cbf72e36292670bab7a673644
+commit 2b65fc0832fe0a6dbde0a4c5943d25c740d87174
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Mon May 24 18:43:24 2021 +0200
+Date:   Tue Jun 1 18:42:19 2021 +0200
 
-    Fixed clickable size not being set correctly at startup
+    Added new CVar slider for Non-selected alpha
     
-    - Fixed clickable size not being set correctly at startup
+    - Added new CVar slider for Non-selected alpha
+    - Updated locale
 
