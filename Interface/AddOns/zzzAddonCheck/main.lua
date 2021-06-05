@@ -1,10 +1,11 @@
-local LoaderFrame = CreateFrame("FRAME")
-LoaderFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+--------------- 整合包插件初始化和完整性检测 ---------------
 
-local function IsAddOnLoadable(name)
-    return GetAddOnEnableState(nil, name) == 2
-end
+------ 立即执行的初始化操作 ------
 
+-- 完善 MonkeyQuest 汉化
+MONKEYQUESTLOG_TITLE = '任务日志'
+
+-- 防止首次使用时弹出“背包整合插件已更新”
 local CombuctorPatchVersion = '2019-12-12-13'
 local function isCombuctorNeedReset()
     return type(Combuctor_Sets) == 'table' and Combuctor_Sets.CombuctorPatchVersion ~= CombuctorPatchVersion
@@ -14,9 +15,14 @@ local function resetCombuctor()
         CombuctorPatchVersion = CombuctorPatchVersion
     }
 end
--- 防止首次使用时弹出“背包整合插件已更新”
 if Combuctor_Sets == nil and CombuctorAutoDisplay then
     resetCombuctor()
+end
+
+------ 进游戏后执行的初始化操作 ------
+
+local function IsAddOnLoadable(name)
+    return GetAddOnEnableState(nil, name) == 2
 end
 
 -- 全局函数，被 BigFoot/Config/RaidToolkit.lua 使用
@@ -40,6 +46,11 @@ local function zzzAddonCheck_Init_DBM()
         DBM.Options.CountdownVoice2 = 'VP:Yike'
         DBM.Options.CountdownVoice3 = 'VP:Yike'
         DBM.Options.DBMPatchVersion = patchVersion
+    end
+
+    -- 禁用DBM的过期提示
+    if DBM and DBM.Options and not DBM.Options.DontShowReminders then
+        DBM.Options.DontShowReminders = true
     end
 end
 
@@ -175,74 +186,11 @@ local function zzzAddonCheck_Init_BatteInfo()
     end
 end
 
-local function LoaderEvents(frame, event, arg1)
-    frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-
-    -- 防止NugRunning计时条挡住玩家角色
-    zzzAddonCheck_Init_NugRunning()
-
-    -- 禁止Decursive在聊天窗口和屏幕中央显示信息
-    zzzAddonCheck_Init_Decursive()
-
-    -- 为DBM选择夏一可语音包
-    zzzAddonCheck_Init_DBM()
-
-    -- 禁用 ClassicCastbars 的姓名板施法条
-    zzzAddonCheck_Init_ClassicCastbars()
-
-    -- 姓名板：打开目标高亮和友方施法条，禁用仇恨指示器
-    zzzAddonCheck_Init_NeatPlates()
-
-    -- 重新打开公会频道世界Buff信息发送
-    zzzAddonCheck_Init_NovaWorldBuffs()
-
-    -- 调整 MonkeyQuest 任务说明的字体
-    zzzAddonCheck_Init_MonkeyLibrary()
-
-    -- 设置MonkeyQuest初始样式
-    zzzAddonCheck_Init_MonkeyQuest()
-
-    -- 为有爱一键换装添加功能函数
-    zzzAddonCheck_Init_alaGearMan()
-
-    -- 关闭战场记分板
-    zzzAddonCheck_Init_BatteInfo()
-
-    -- 禁用DBM的过期提示
-    if DBM and DBM.Options and not DBM.Options.DontShowReminders then
-        DBM.Options.DontShowReminders = true
-    end
-
+local function zzzAddonCheck_Init_Details()
     -- 禁止Details弹出天赋面板
     if Details and not Details.disable_talent_feature then
         Details.disable_talent_feature = true
     end
-
-    -- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
-	local patchVersion = '2019-12-17-23'
-	if (type(RealMobHealth_Options) == 'table' and BF_Frames_Config.RealMobHealthPatchVersion ~= patchVersion) then
-		RealMobHealth_Options.EnablePeerCache = false
-		BF_Frames_Config.RealMobHealthPatchVersion = patchVersion
-	end
-
-    -- 默认禁用大脚的目标生命显示，以便 ModernTargetFrame 进行更好的生命值显示
-    local patchVersion = '2021-05-30-15'
-	if (BigFoot_Config and BigFoot_Config.MobHealth and BF_Frames_Config.MobHealthPatchVersion ~= patchVersion) then
-		BF_Frames_Config.MobHealthPatchVersion = patchVersion
-		BigFoot_Config.MobHealth.MobHealthEnable = 0
-        if (BigFoot_IsAddOnLoaded("MobHealth")) then
-            BigFoot_DelayCall(function()
-                MobHealth_Toggle(0)
-            end, 1)
-        end
-	end
-
-	-- 防止背包内物品意外保存到银行
-	local patchVersion = '2019-12-18-02'
-	if (TDPack2Command and TDPack2Command.db and TDPack2Command.db.profile and TDPack2Command.db.profile.TDPack2PatchVersion ~= patchVersion) then
-		TDPack2Command.db.profile.saving = false
-		TDPack2Command.db.profile.TDPack2PatchVersion = patchVersion
-	end
 
 	-- 为Details添加默认配置文件
 	local profileName = '默认-2020-01-02'
@@ -254,7 +202,41 @@ vZv3pUows9)w4beZinDJTJJDcR4HKBNCV9C7oDtC37DhPwXT)4KeR2XoRTt33EqtEbecXdi4f0(csi0(
 		Details.always_use_profile = true
 		Details.always_use_profile_name = profileName
 	end
+end
 
+local function zzzAddonCheck_Init_RealMobHealth()
+    -- 默认禁用RealMobHealth的血量共享，避免发送太多消息导致聊天窗口提示刷屏
+	local patchVersion = '2019-12-17-23'
+	if (type(RealMobHealth_Options) == 'table' and BF_Frames_Config.RealMobHealthPatchVersion ~= patchVersion) then
+		RealMobHealth_Options.EnablePeerCache = false
+		BF_Frames_Config.RealMobHealthPatchVersion = patchVersion
+	end
+end
+
+local function zzzAddonCheck_Init_MobHealth()
+    -- 默认禁用大脚的目标生命显示，以便 ModernTargetFrame 进行更好的生命值显示
+    local patchVersion = '2021-05-30-15'
+	if (BigFoot_Config and BigFoot_Config.MobHealth and BF_Frames_Config.MobHealthPatchVersion ~= patchVersion) then
+		BF_Frames_Config.MobHealthPatchVersion = patchVersion
+		BigFoot_Config.MobHealth.MobHealthEnable = 0
+        if (BigFoot_IsAddOnLoaded("MobHealth")) then
+            BigFoot_DelayCall(function()
+                MobHealth_Toggle(0)
+            end, 1)
+        end
+	end
+end
+
+local function zzzAddonCheck_Init_tdPack2()
+	-- 防止背包内物品意外保存到银行
+	local patchVersion = '2019-12-18-02'
+	if (TDPack2Command and TDPack2Command.db and TDPack2Command.db.profile and TDPack2Command.db.profile.TDPack2PatchVersion ~= patchVersion) then
+		TDPack2Command.db.profile.saving = false
+		TDPack2Command.db.profile.TDPack2PatchVersion = patchVersion
+	end
+end
+
+local function zzzAddonCheck_Init_Combuctor()
     if CombuctorDB4 and TDPack2Command and not CombuctorAutoDisplay then
         StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
             text = [[
@@ -362,8 +344,26 @@ Bagnon_Forever
 	end
 end
 
-LoaderFrame:SetScript("OnEvent", LoaderEvents)
+local function LoaderEvents(frame, event, arg1)
+    frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
--- 立即执行的初始化操作
--- 完善 MonkeyQuest 汉化
-MONKEYQUESTLOG_TITLE = '任务日志'
+    zzzAddonCheck_Init_NugRunning()
+    zzzAddonCheck_Init_Decursive()
+    zzzAddonCheck_Init_DBM()
+    zzzAddonCheck_Init_ClassicCastbars()
+    zzzAddonCheck_Init_NeatPlates()
+    zzzAddonCheck_Init_NovaWorldBuffs()
+    zzzAddonCheck_Init_MonkeyLibrary()
+    zzzAddonCheck_Init_MonkeyQuest()
+    zzzAddonCheck_Init_alaGearMan()
+    zzzAddonCheck_Init_BatteInfo()
+    zzzAddonCheck_Init_Details()
+    zzzAddonCheck_Init_RealMobHealth()
+    zzzAddonCheck_Init_MobHealth()
+    zzzAddonCheck_Init_tdPack2()
+    zzzAddonCheck_Init_Combuctor()
+end
+
+local LoaderFrame = CreateFrame("FRAME")
+LoaderFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+LoaderFrame:SetScript("OnEvent", LoaderEvents)
