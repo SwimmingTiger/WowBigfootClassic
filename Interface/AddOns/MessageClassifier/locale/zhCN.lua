@@ -1202,7 +1202,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3051,
-        ["class"] = "副本/70 格鲁尔的巢穴/{author}",
+        ["class"] = "副本/65-70 格鲁尔的巢穴/{author}",
         ["conditions"] = {
             {
                 ["value"] = "格鲁尔",
