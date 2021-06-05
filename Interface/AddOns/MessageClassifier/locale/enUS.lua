@@ -52,6 +52,8 @@ L["OPTION_CONDITION_OPERATOR"] = "Operator"
 L["OPTION_CONDITION_VALUE"] = "Value"
 L["OPTION_COND_CASESENSITIVE"] = "Case Sensitive"
 L["OPTION_SELECT_ALL"] = "Select All"
+L["OPTION_RULE_SETS_FILTER"] = "Filter by Class"
+L["OPTION_RULE_SETS_FILTER_ALL"] = "Show All Classes"
 
 -- Rule Fields
 L["author"] = true
@@ -183,6 +185,17 @@ MessageClassifierDefaultRules = {
         },
     },
     {
+        id = 2003,
+        ["class"] = "World Boss/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "world%s+boss",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
         id = 3001,
         ["conditions"] = {
             {
@@ -196,11 +209,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
         },
-        ["class"] = "Instance/Ragefire Chasm/{author}",
+        ["class"] = "Instance/13-18 Ragefire Chasm/{author}",
     },
     {
         id = 3002,
-        ["class"] = "Instance/Wailing Caverns/{author}",
+        ["class"] = "Instance/17-24 Wailing Caverns/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]wc%f[%A]",
@@ -211,7 +224,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3003,
-        ["class"] = "Instance/The Deadmines/{author}",
+        ["class"] = "Instance/17-26 The Deadmines/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]vc%f[%A]",
@@ -232,7 +245,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3103,
-        ["class"] = "Instance/The Deadmines/{author}",
+        ["class"] = "Instance/17-26 The Deadmines/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]dm%f[%A]",
@@ -259,7 +272,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3004,
-        ["class"] = "Instance/Shadowfang Keep/{author}",
+        ["class"] = "Instance/22-30 Shadowfang Keep/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]sfk%f[%A]",
@@ -280,7 +293,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3105,
-        ["class"] = "Instance/Blackfathom Deeps/{author}",
+        ["class"] = "Instance/24-32 Blackfathom Deeps/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]bfd%f[%A]",
@@ -291,7 +304,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3005,
-        ["class"] = "Instance/The Stockades/{author}",
+        ["class"] = "Instance/24-32 The Stockades/{author}",
         ["conditions"] = {
             {
                 ["value"] = "stockades",
@@ -312,7 +325,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3006,
-        ["class"] = "Instance/Gnomeregan/{author}",
+        ["class"] = "Instance/29-38 Gnomeregan/{author}",
         ["conditions"] = {
             {
                 ["value"] = "gnome",
@@ -323,7 +336,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3007,
-        ["class"] = "Instance/Razorfen Kraul/{author}",
+        ["class"] = "Instance/29-38 Razorfen Kraul/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]rfk%f[%A]",
@@ -339,7 +352,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3008,
-        ["class"] = "Instance/The Scarlet Monastery/{author}",
+        ["class"] = "Instance/26-45 The Scarlet Monastery/{author}",
         ["conditions"] = {
             {
                 ["value"] = "scarlet",
@@ -355,7 +368,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3009,
-        ["class"] = "Instance/The Scarlet Monastery: Graveyard/{author}",
+        ["class"] = "Instance/26-36 The Scarlet Monastery: Graveyard/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]sm%f[%A]",
@@ -376,7 +389,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3010,
-        ["class"] = "Instance/The Scarlet Monastery: Library/{author}",
+        ["class"] = "Instance/29-39 The Scarlet Monastery: Library/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]lib%f[%A]",
@@ -397,7 +410,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3011,
-        ["class"] = "Instance/The Scarlet Monastery: Armory/{author}",
+        ["class"] = "Instance/32-42 The Scarlet Monastery: Armory/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]arm%f[%A]",
@@ -423,7 +436,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3012,
-        ["class"] = "Instance/The Scarlet Monastery: Cathedral/{author}",
+        ["class"] = "Instance/35-45 The Scarlet Monastery: Cathedral/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]cath%f[%A]",
@@ -449,7 +462,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3013,
-        ["class"] = "Instance/Razorfen Downs/{author}",
+        ["class"] = "Instance/37-46 Razorfen Downs/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]rfd%f[%A]",
@@ -460,7 +473,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3014,
-        ["class"] = "Instance/Uldaman/{author}",
+        ["class"] = "Instance/41-51 Uldaman/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]ulda%f[%A]",
@@ -476,7 +489,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3015,
-        ["class"] = "Instance/Zul'Farak/{author}",
+        ["class"] = "Instance/44-54 Zul'Farak/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]zf%f[%A]",
@@ -497,7 +510,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3016,
-        ["class"] = "Instance/Maraudon/{author}",
+        ["class"] = "Instance/46-55 Maraudon/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]mara",
@@ -513,7 +526,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3017,
-        ["class"] = "Instance/Temple of Atal'Hakkar/{author}",
+        ["class"] = "Instance/50-60 Temple of Atal'Hakkar/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]st%f[%A]",
@@ -539,7 +552,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3018,
-        ["class"] = "Instance/Blackrock Depths/{author}",
+        ["class"] = "Instance/52-60 Blackrock Depths/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]brd%f[%A]",
@@ -550,7 +563,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3019,
-        ["class"] = "Instance/Blackrock Spire/{author}",
+        ["class"] = "Instance/55-60 Blackrock Spire/{author}",
         ["conditions"] = {
             {
                 ["value"] = "blackrock",
@@ -566,7 +579,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3020,
-        ["class"] = "Instance/Lower Blackrock Spire/{author}",
+        ["class"] = "Instance/55-60 Lower Blackrock Spire/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]lbrs%f[%A]",
@@ -577,7 +590,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3021,
-        ["class"] = "Instance/Upper Blackrock Spire/{author}",
+        ["class"] = "Instance/55-60 Upper Blackrock Spire/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]ubrs%f[%A]",
@@ -588,7 +601,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3022,
-        ["class"] = "Instance/Dire Maul/{author}",
+        ["class"] = "Instance/55-60 Dire Maul/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]dm%s+e",
@@ -608,8 +621,41 @@ MessageClassifierDefaultRules = {
         },
     },
     {
+        id = 3122,
+        ["class"] = "Instance/55-60 Dire Maul (East)/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]dm%s+e",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3222,
+        ["class"] = "Instance/58-60 Dire Maul (West)/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]dm%s+w",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3322,
+        ["class"] = "Instance/58-60 Dire Maul (North)/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]dm%s+n",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
         id = 3023,
-        ["class"] = "Instance/Stratholme/{author}",
+        ["class"] = "Instance/58-60 Stratholme/{author}",
         ["conditions"] = {
             {
                 ["value"] = "strat",
@@ -620,7 +666,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3024,
-        ["class"] = "Instance/Scholomance/{author}",
+        ["class"] = "Instance/58-60 Scholomance/{author}",
         ["conditions"] = {
             {
                 ["value"] = "scholo",
@@ -631,7 +677,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3025,
-        ["class"] = "Instance/Molten Core/{author}",
+        ["class"] = "Instance/60 Molten Core/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]mc%f[%A]",
@@ -642,7 +688,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3026,
-        ["class"] = "Instance/Onyxia's Lair/{author}",
+        ["class"] = "Instance/60 Onyxia's Lair/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]ony%f[%A]",
@@ -658,7 +704,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3027,
-        ["class"] = "Instance/Blackwing Lair/{author}",
+        ["class"] = "Instance/60 Blackwing Lair/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]bwl%f[%A]",
@@ -679,7 +725,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3028,
-        ["class"] = "Instance/Zul'Gurub/{author}",
+        ["class"] = "Instance/55-60 Zul'Gurub/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]zg%f[%A]",
@@ -700,7 +746,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3029,
-        ["class"] = "Instance/The Temple of Ahn'Qiraj/{author}",
+        ["class"] = "Instance/60 The Temple of Ahn'Qiraj/{author}",
         ["conditions"] = {
             {
                 ["value"] = "aq40",
@@ -716,7 +762,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3030,
-        ["class"] = "Instance/Ruins of Ahn'Qiraj/{author}",
+        ["class"] = "Instance/60 Ruins of Ahn'Qiraj/{author}",
         ["conditions"] = {
             {
                 ["value"] = "aq20",
