@@ -723,7 +723,8 @@ local function __AddBottomFrames()
 					OnAccept = function(self)
 						local keywords = self.editBox:GetText() or ""
 						SlashCmdList.AUTOINVITE("k "..keywords)
-					end
+					end,
+					preferredIndex = STATICPOPUP_NUMDIALOGS,
 				}
 				StaticPopup_Show("AutoInvite_Input_Keywords")
 			end)

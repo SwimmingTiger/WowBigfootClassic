@@ -105,7 +105,8 @@ StaticPopupDialogs["BFC_COPYTEXT"] = {
     end,
     timeout = 0,
     whileDead = 1,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 local function generateIconMap()
     for BFChat_63a9ce6f1eeac72ef41293b7d0303335, BFChat_8d0644c92128c1ff68223fd74ba63b56 in pairs(BFC_IconTable) do

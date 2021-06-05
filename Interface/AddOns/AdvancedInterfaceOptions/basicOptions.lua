@@ -520,7 +520,7 @@ StaticPopupDialogs['AIO_RESET_EVERYTHING'] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = 3,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 	showAlert = true,
 }
 
@@ -573,7 +573,7 @@ StaticPopupDialogs["AIO_BACKUP_SETTINGS"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = 3,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 local backupButton = CreateFrame("button", nil, AIO, "UIPanelButtonTemplate")
@@ -621,7 +621,7 @@ StaticPopupDialogs["AIO_RESTORE_SETTINGS"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = 3,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 	showAlert = true,
 }
 

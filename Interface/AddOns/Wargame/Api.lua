@@ -242,6 +242,7 @@ function ns.InputBox(title, accept, letters, data)
         accept(self:GetText(), dialog.data)
         dialog:Hide()
     end
+    dlg.preferredIndex = STATICPOPUP_NUMDIALOGS
     StaticPopup_Show('NETEASE_WARGAME_MSG_BOX', nil, nil, data)
 end
 
@@ -266,6 +267,7 @@ function ns.CopyBox(title, text, accept, data)
             editBox:SetFocus()
         end
     end
+    dlg.preferredIndex = STATICPOPUP_NUMDIALOGS
 
     StaticPopup_Show('NETEASE_WARGAME_MSG_BOX', nil, nil, data)
 end
@@ -280,6 +282,7 @@ function ns.MsgBox(text, accept, data, timeout, button1Text, button2Text, editBo
     dlg.timeout = timeout or 0
     dlg.exclusive = 1
     dlg.whileDead = 1
+    dlg.preferredIndex = STATICPOPUP_NUMDIALOGS
 
     StaticPopup_Show('NETEASE_WARGAME_MSG_BOX', nil, nil, data)
 end

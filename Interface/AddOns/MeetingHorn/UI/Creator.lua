@@ -90,6 +90,7 @@ function Creator:OnCreateClick()
                         timeout = 0,
                         exclusive = 1,
                         whileDead = 1,
+                        preferredIndex = STATICPOPUP_NUMDIALOGS,
                     }
             end
             StaticPopup_Show('MEETINGHORN_INSTANCE_EXISTS', instanceName, nil,

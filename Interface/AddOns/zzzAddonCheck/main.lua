@@ -262,6 +262,7 @@ local function zzzAddonCheck_Init_Combuctor()
             timeout = 0,
             hideOnEscape = true,
             whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }
         BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
         return
@@ -290,6 +291,7 @@ local function zzzAddonCheck_Init_Combuctor()
             timeout = 0,
             hideOnEscape = true,
             whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }
         BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
         return
@@ -318,6 +320,7 @@ Bagnon_Forever
             timeout = 0,
             hideOnEscape = true,
             whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }
         BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
         return
@@ -338,6 +341,7 @@ Bagnon_Forever
 			timeout = 0,
 			hideOnEscape = false,
             whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
 		}
         BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
         return

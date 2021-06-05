@@ -493,7 +493,8 @@ function TrinketMenu.ResetSettings()
 			TrinketMenuPerOptions = nil
 			TrinketMenuQueue = nil
 			ReloadUI()
-		end
+		end,
+		preferredIndex = STATICPOPUP_NUMDIALOGS,
 	}
 	StaticPopup_Show("TRINKETMENURESET")
 end

@@ -56,7 +56,8 @@ do
 		timeout = 0,
 		exclusive = 1,
 		whileDead = 1,
-		hideOnEscape = 1
+		hideOnEscape = 1,
+		preferredIndex = STATICPOPUP_NUMDIALOGS,
 	};
 
 	local f = CreateFrame("Frame")

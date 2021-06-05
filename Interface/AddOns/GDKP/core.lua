@@ -194,11 +194,21 @@ local EM = T:NewModule("EventManager")
 if not EM then
     return
 end
-StaticPopupDialogs["GDKP_RESET_DATA"] = {text = GDKP_RESET_DATA, button1 = YES, button2 = NO, OnAccept = function()
+StaticPopupDialogs["GDKP_RESET_DATA"] = {
+    text = GDKP_RESET_DATA,
+    button1 = YES,
+    button2 = NO,
+    OnAccept = function()
         T:Reset()
-    end, OnCancel = function()
-    end, OnShow = function()
-    end, timeout = 0, hideOnEscape = 1}
+    end,
+    OnCancel = function()
+    end,
+    OnShow = function()
+    end,
+    timeout = 0,
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
+}
 StaticPopupDialogs["GDKP_DELETE_RECORD"] = {
     text = GDKP_DELETE_RECORD,
     button1 = YES,
@@ -215,7 +225,8 @@ StaticPopupDialogs["GDKP_DELETE_RECORD"] = {
     end,
     timeout = 0,
     hideOnEscape = 1,
-    enterClicksFirstButton = 1
+    enterClicksFirstButton = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 local function GDKP_9336171702a6bc3810b21190594210d9(
     GDKP_acd18e5e4cc047ed8d218397986e9dc2,
@@ -1113,17 +1124,23 @@ end
 local GDKPLauncher =
     LDB:NewDataObject(
     "GDKP",
-    {type = "launcher", icon = "Interface\\Icons\\inv_misc_coin_17", label = GDKP_TOGGLE_TEXT, OnClick = function()
+    {
+        type = "launcher",
+        icon = "Interface\\Icons\\inv_misc_coin_17",
+        label = GDKP_TOGGLE_TEXT,
+        OnClick = function()
             if GDKPMainFrame:IsShown() then
                 HideGDKPPanel()
             else
                 GDKPMainFrame:SetClampedToScreen(true)
                 ShowGDKPPanel()
             end
-        end, OnTooltipShow = function(tt)
+        end,
+        OnTooltipShow = function(tt)
             tt:AddLine(GDKP_TEXT_TITLE)
             tt:AddLine(GDKP_TOGGLE_TEXT)
-        end}
+        end
+    }
 )
 local GDKPLDBIcon = LibStub("LibDBIcon-1.0", true)
 if not GDKPLDBIcon then

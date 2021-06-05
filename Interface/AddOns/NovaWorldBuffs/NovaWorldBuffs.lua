@@ -7210,7 +7210,7 @@ NWBbuffListFrameWipeButton:SetScript("OnClick", function(self, arg)
 	  timeout = 0,
 	  whileDead = true,
 	  hideOnEscape = true,
-	  preferredIndex = 3,
+	  preferredIndex = STATICPOPUP_NUMDIALOGS,
 	};
 	StaticPopup_Show("NWB_BUFFDATARESET");
 end)

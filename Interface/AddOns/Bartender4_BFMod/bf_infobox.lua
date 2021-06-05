@@ -120,6 +120,7 @@ StaticPopupDialogs["RESTORE_THEME"] = {
 	end,
 	showAlert = 1,
 	timeout = 0,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 StaticPopupDialogs["REPLACE_THEME"] = {
@@ -134,6 +135,7 @@ StaticPopupDialogs["REPLACE_THEME"] = {
 	end,
 	showAlert = 1,
 	timeout = 0,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 StaticPopupDialogs["NAME_THEME"] = {
@@ -156,7 +158,8 @@ StaticPopupDialogs["NAME_THEME"] = {
 	end,
 	EditBoxOnEscapePressed = function (self)
 		self:GetParent():Hide();
-	end
+	end,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 StaticPopupDialogs["DELETE_THEME"] = {
@@ -171,6 +174,7 @@ StaticPopupDialogs["DELETE_THEME"] = {
 	end,
 	showAlert = 1,
 	timeout = 0,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 local function CanDisplayProfile(name)

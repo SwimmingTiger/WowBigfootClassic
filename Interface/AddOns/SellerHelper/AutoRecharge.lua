@@ -42,7 +42,8 @@ StaticPopupDialogs["AUTOSELL_AUTOBUY_ITEM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 StaticPopupDialogs["AUTOSELL_AUTRECHARGE_ITEM"] = {
     text = AUTOSELL_AUTRECHARGE_ITEM_TEXT,
@@ -56,7 +57,8 @@ StaticPopupDialogs["AUTOSELL_AUTRECHARGE_ITEM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 StaticPopupDialogs["AUTOSELL_AUTOBUY_ITEM_CONFIRM"] = {
     text = AUTOSELL_AUTOBUY_ITEM_ACCEPTTEXT,
@@ -67,7 +69,8 @@ StaticPopupDialogs["AUTOSELL_AUTOBUY_ITEM_CONFIRM"] = {
         AR_UpdatePanel()
     end,
     timeout = 30,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 local function SellerHelper_4f9ef689ec2dcfa9d769b6932187e054()
     if AR_ItemInfo and AR_ItemInfo.version ~= "4.01" then

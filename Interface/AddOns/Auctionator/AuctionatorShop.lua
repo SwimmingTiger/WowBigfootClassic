@@ -588,7 +588,8 @@ StaticPopupDialogs["ATR_NEW_SHOPPING_LIST"] = {
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 
@@ -1037,7 +1038,8 @@ StaticPopupDialogs["ATR_SL_REQUEST_SHARING"] = {
   timeout = 20,
   exclusive = 1,
   whileDead = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 -----------------------------------------
@@ -1059,7 +1061,8 @@ StaticPopupDialogs["ATR_SL_REQUEST_DENIED"] = {
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 

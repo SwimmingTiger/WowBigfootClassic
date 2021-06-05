@@ -607,7 +607,8 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 function Atr_Memorize_Save()
@@ -1147,7 +1148,8 @@ StaticPopupDialogs["ATR_DEL_SHOPPING_LIST"] = {
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 -----------------------------------------
@@ -1187,7 +1189,8 @@ StaticPopupDialogs["ATR_RENAME_SHOPPING_LIST"] = {
   hasEditBox = 1,
   timeout = 0,
   exclusive = 1,
-  hideOnEscape = 1
+  hideOnEscape = 1,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 -----------------------------------------
 

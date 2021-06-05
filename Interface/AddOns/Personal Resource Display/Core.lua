@@ -69,7 +69,8 @@ StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
   button1 = OKAY,
   hideOnEscape = 1,
   timeout = 0,
-  OnAccept = function(self, data) HideUIPanel(self) end
+  OnAccept = function(self, data) HideUIPanel(self) end,
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 local function PRD_round(num, decimals)

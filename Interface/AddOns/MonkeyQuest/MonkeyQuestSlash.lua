@@ -10,7 +10,8 @@ StaticPopupDialogs["MONKEYQUEST_RESET"] = {
 		end
 	end,
 	timeout = 0,
-	exclusive = 1
+	exclusive = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 StaticPopupDialogs["MONKEYQUEST_RESET_TO_BLIZZARD_STYLE"] = {
@@ -24,7 +25,8 @@ StaticPopupDialogs["MONKEYQUEST_RESET_TO_BLIZZARD_STYLE"] = {
 		end
 	end,
 	timeout = 0,
-	exclusive = 1
+	exclusive = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 -- function to register all the slash commands

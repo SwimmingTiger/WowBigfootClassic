@@ -81,9 +81,18 @@ BigFoot_SysTemSetTab = {BigFoot_LoadBefore = 1}
 BigFoot_Config = {}
 BigFoot_Error = {}
 BigFoot_Character = {}
-StaticPopupDialogs["RELOADUI_CONFIRM"] = {text = BF_RELOADUI_CONFIRM, button1 = YES, button2 = NO, OnAccept = function()
+StaticPopupDialogs["RELOADUI_CONFIRM"] = {
+    text = BF_RELOADUI_CONFIRM,
+    button1 = YES,
+    button2 = NO,
+    OnAccept = function()
         ReloadUI()
-    end, showAlert = 1, timeout = 0, hideOnEscape = 1}
+    end,
+    showAlert = 1,
+    timeout = 0,
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
+}
 local function BigFoot_fff18c914a5b3a8d509f2dff0f3fc382()
     local BigFoot_9e83872083ad957c8f380801be754171
     for BigFoot_e914904fab9d05d3f54d52bfc31a0f3f = 1, 4, 1 do

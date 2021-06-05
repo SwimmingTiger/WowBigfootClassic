@@ -108,6 +108,7 @@ function QuestEnhanceConfigFunc()
 				BigFoot_SetModVariable("QuestEnhancement", "EnableWholly", 0);
 				ModManagement_Refresh();
 			end,
+			preferredIndex = STATICPOPUP_NUMDIALOGS,
 		};
 
 		local check = CreateFrame("CheckButton", "WhollyLoaderCheckButton", WorldMapFrame.ScrollContainer, "InterfaceOptionsBaseCheckButtonTemplate");

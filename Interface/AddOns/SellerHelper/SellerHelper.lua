@@ -269,7 +269,8 @@ StaticPopupDialogs["SellerHelper_ADDNotSellList"] = {
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 SellerHelper_NotSellList = {}
 function SellerHelper_LoadAutoSet()
@@ -313,7 +314,8 @@ StaticPopupDialogs["AUTOSELL_ADD_ITEM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 StaticPopupDialogs["AUTOSELL_REMOVE_ITEM"] = {
     text = SellerHelper_0757a2ad28711b534d755f653dd912fe,
@@ -324,7 +326,8 @@ StaticPopupDialogs["AUTOSELL_REMOVE_ITEM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 StaticPopupDialogs["AUTONOTSELL_REMOVE_ITEM"] = {
     text = SellerHelper_02fab265990c6eeebae0deb5ec386e4c,
@@ -335,7 +338,8 @@ StaticPopupDialogs["AUTONOTSELL_REMOVE_ITEM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 function SellerHelper_50cf45b94a10b7bdc8ae915538dd90d6(
     SellerHelper_45d3d4ac2d1ffdc6f36613ad11674205,

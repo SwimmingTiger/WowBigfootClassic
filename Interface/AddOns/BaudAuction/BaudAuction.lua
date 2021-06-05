@@ -50,6 +50,7 @@ StaticPopupDialogs["AFFIRM_DISABLE_BA"] = {
 	timeout = 0,
 	exclusive = true,
 	hideOnEscape = true,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 local function BaudAuctionToMoney(Money)

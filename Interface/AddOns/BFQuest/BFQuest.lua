@@ -357,7 +357,8 @@ StaticPopupDialogs["TEAMNOTICE_PARTY_COMMENT"] = {
 	timeout = 0,
 	exclusive = 1,
 	whileDead = 1,
-	hideOnEscape = 1
+	hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 --团队公告设置
 StaticPopupDialogs["TEAMNOTICE_SET_COMMENT"] = {
@@ -396,5 +397,6 @@ StaticPopupDialogs["TEAMNOTICE_SET_COMMENT"] = {
 	timeout = 0,
 	exclusive = 1,
 	whileDead = 1,
-	hideOnEscape = 1
+	hideOnEscape = 1,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 };

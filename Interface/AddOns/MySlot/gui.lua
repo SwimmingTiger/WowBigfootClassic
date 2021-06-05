@@ -462,6 +462,7 @@ RegEvent("ADDON_LOADED", function()
 				MySlot_SavedDb = nil
 			end,
 			showAlert = 1,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
 		};
 		StaticPopupDialogs["bf_UPDATE_TODO"].text = "旧按键配置已自动导入至新版本配置中,点击【确定】删除老配置。"
 		f:SetScript("OnShow", function()
@@ -509,6 +510,7 @@ StaticPopupDialogs["MYSLOT_MSGBOX"] = {
     whileDead = 1,
     hideOnEscape = 1,
     multiple = 0,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs["MYSLOT_EXPORT_TITLE"] = {
@@ -524,6 +526,7 @@ StaticPopupDialogs["MYSLOT_EXPORT_TITLE"] = {
     end,
     OnShow = function()
     end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs["MYSLOT_CONFIRM_DELETE"] = {
@@ -534,4 +537,5 @@ StaticPopupDialogs["MYSLOT_CONFIRM_DELETE"] = {
     whileDead = 1,
     hideOnEscape = 1,
     multiple = 0,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

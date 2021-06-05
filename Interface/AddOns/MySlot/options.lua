@@ -118,4 +118,5 @@ StaticPopupDialogs["MYSLOT_CONFIRM_CLEAR"] = {
         end
         
     end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

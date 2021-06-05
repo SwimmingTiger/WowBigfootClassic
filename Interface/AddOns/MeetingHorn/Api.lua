@@ -369,6 +369,7 @@ function ns.OpenUrlDialog(url)
                     editBox:SetFocus()
                 end
             end,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }
     end
 
