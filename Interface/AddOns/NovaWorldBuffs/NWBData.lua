@@ -389,11 +389,12 @@ function NWB:sendSettings(distribution, target, prio)
 	--NWB:sendSettingsOld(distribution, target, prio);
 end
 
-function NWB:sendL(l)
-	if ((UnitInBattleground("player") or NWB:isInArena())) then
+function NWB:sendL(l, type)
+	if (UnitInBattleground("player") or NWB:isInArena() or not IsInGuild()) then
 		return;
 	end
 	if (NWB.db.global.guildL) then
+		NWB:debug("sending layer", l, type);
 		NWB:sendComm("GUILD", "l " .. version .. "-" .. l .. " " .. self.k(), target, prio);
 	end
 end
@@ -842,6 +843,10 @@ end
 
 function NWB:createTimerLogData(distribution, entries)
 	local data = {};
+	if (NWB.isTBC) then
+		--No logs once TBC launches.
+		return data;
+	end
 	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
 		return data;
 	end
@@ -2957,20 +2962,31 @@ function NWB:recalcLFrame()
 		for k, v in pairs(NWB.hasL) do
 			if (guild[k] and tonumber(v) and tonumber(v) > 0) then
 				local who, realm = strsplit("-", k, 2);
-				sorted[who] = guild[k];
-				sorted[who].layer = v;
+				--sorted[who] = guild[k];
+				--sorted[who].layer = v;
+				if (not sorted[v]) then
+					sorted[v] = {};
+				end
+				sorted[v][who] = guild[k];
 			else
 				--Remove if they go offline.
 				NWB.hasL[k] = nil;
 			end
 		end
 		local found;
-		for k, v in NWB:pairsByKeys(sorted) do
-			found = true;
-			local _, _, _, classColor = GetClassColor(v.class);
-			NWBLFrame.EditBox:Insert("|c" .. classColor .. k .. "|r  |cff00ff00[Layer " .. v.layer .. "]|r  |cff9CD6DE(" .. v.zone .. ")|r\n");
+		local text = "";
+		for layer, data in NWB:pairsByKeys(sorted) do
+			text = text .. "|cff00ff00[Layer " .. layer .. "]|r\n";
+			for k, v in NWB:pairsByKeys(data) do
+				found = true;
+				local _, _, _, classColor = GetClassColor(v.class);
+				text = text .. "   |c" .. classColor .. k .. "|r  |cff9CD6DE(" .. v.zone .. ")|r\n"
+			end
+			text = text .. "\n";
 		end
-		if (not found) then
+		if (found) then
+			NWBLFrame.EditBox:Insert(text);
+		else
 			NWBLFrame.EditBox:Insert("|cffFFFF00No guild members online sharing layer data found.");
 		end
 	end

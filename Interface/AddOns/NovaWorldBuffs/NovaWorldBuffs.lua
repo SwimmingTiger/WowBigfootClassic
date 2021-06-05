@@ -7,19 +7,18 @@
 local addonName, addon = ...;
 addon.a = LibStub("AceAddon-3.0"):NewAddon("NovaWorldBuffs", "AceComm-3.0");
 local NWB = addon.a;
-local tbcRelease = 1622548800; --A few hours before TBC release, we want to leave classic stuff working during prepatch.
-local utcTime = time(date("!*t", GetServerTime()));
 if (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC) then
 	NWB.isClassic = true;
-elseif (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC and utcTime > tbcRelease) then
+elseif (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC) then
 	NWB.isTBC = true;
 elseif (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE) then
 	NWB.isRetail = true;
 end
 --Temporary until actual launch.
-if (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC) then
-	NWB.realmsTBC = true;
-end
+--if (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC) then
+	--This basically meant prepatch, some things were still enabled.
+--	NWB.realmsTBC = true;
+--end
 NWB.LSM = LibStub("LibSharedMedia-3.0");
 NWB.dragonLib = LibStub("HereBeDragons-2.0");
 NWB.dragonLibPins = LibStub("HereBeDragons-Pins-2.0");
@@ -31,7 +30,7 @@ NWB.realm = GetRealmName();
 NWB.faction = UnitFactionGroup("player");
 NWB.maxBuffLevel = 63;
 NWB.loadTime = 0;
-NWB.limitLayerCount = 99;
+NWB.limitLayerCount = 12;
 NWB.sharedLayerBuffs = true;
 NWB.doLayerMsg = false;
 NWB.noGUID = false;
@@ -661,7 +660,7 @@ function NWB:ticker()
 			lastDmfTick = NWB.data.myChars[UnitName("player")].dmfCooldown;
 		end
 	end
-	_G["\78\87\66"] = {};
+	--_G["\78\87\66"] = {};
 	NWB.db.global.lo = GetServerTime();
 	C_Timer.After(1, function()
 		NWB:ticker();
@@ -7829,18 +7828,19 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 				else
 					text = "|c" .. classColorHex .. player .. "|r";
 				end
-				text = text .. "\n" .. color1 .. L["guild"] .. ": " .. color2 .. (data.guild or "none");
-				text = text .. "\n" .. color1 .. L["level"] .. ":|r " .. color2 .. data.level;
+				text = text .. "\n" .. color1 .. L["guild"] .. ":|r " .. color2 .. (data.guild or "none") .. "|r";
+				text = text .. "\n" .. color1 .. L["level"] .. ":|r " .. color2 .. data.level .. "|r";
 				if (data.freeBagSlots and data.totalBagSlots) then
 					local displayFreeSlots = color2 .. data.freeBagSlots .. "|r";
 					if (data.freeBagSlots < (data.totalBagSlots * 0.10)) then
 						--Display in red when less than 10% of bag space left.
 						displayFreeSlots = "|cffff0000" .. data.freeBagSlots .. "|r";
 					end
-					text = text .. "\n" .. color1 .. L["bagSlots"] .. ":|r " .. displayFreeSlots .. color1 .. "/" .. color2 .. data.totalBagSlots;
+					text = text .. "\n" .. color1 .. L["bagSlots"] .. ":|r " .. displayFreeSlots .. "|r" .. color1 .. "\|r"
+							.. color2 .. data.totalBagSlots .. "|r";
 				end
 				if (data.gold) then
-					text = text .. "\n" .. color1 .. L["Gold"] .. ":|r " .. color2 .. GetCoinTextureString(data.gold, 10);
+					text = text .. "\n" .. color1 .. L["Gold"] .. ":|r " .. color2 .. GetCoinTextureString(data.gold, 10) .. "|r";
 				end
 				local durabilityAverage = data.durabilityAverage or 100;
 				local displayDurability;
@@ -7869,7 +7869,7 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 				end
 				local itemString = "\n\n|cFFFFFF00" .. L["items"] .. "|r";
 				itemString = itemString .. "\n  |TInterface\\Icons\\inv_misc_enggizmos_21:12:12:0:0|t|c"
-						.. classColorHex .. " Chronoboon:|r " .. color2 .. (data.chronoCount or 0);
+						.. classColorHex .. " Chronoboon:|r " .. color2 .. (data.chronoCount or 0) .. "|r";
 				if (data.englishClass == "PRIEST" or data.englishClass == "MAGE" or data.englishClass == "DRUID"
 						or data.englishClass == "WARLOCK" or data.englishClass == "SHAMAN" or data.englishClass == "PALADIN"
 								or data.englishClass == "HUNTER") then
@@ -7884,7 +7884,8 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 								ammoTypeString = " (" .. itemName .. " " .. ammoTexture .. ")";
 							end
 						end
-						itemString = itemString .. "\n  |c" .. classColorHex .. L["ammunition"] .. ":|r " .. color2 .. (data.ammo or 0) .. ammoTypeString;
+						itemString = itemString .. "\n  |c" .. classColorHex .. L["ammunition"] .. ":|r "
+								.. color2 .. (data.ammo or 0) .. ammoTypeString .. "|r";
 						foundItems = true;
 					end
 					if (NWB["trackItems" .. data.englishClass]) then
@@ -7900,7 +7901,8 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 								if (not itemName) then
 									itemName = v.name;
 								end
-								itemString = itemString .. "\n  " .. texture .. "|c" .. classColorHex .. itemName .. ":|r " .. color2 .. (data[tostring(v.id)] or 0);
+								itemString = itemString .. "\n  " .. texture .. "|c" .. classColorHex .. itemName .. ":|r "
+										.. color2 .. (data[tostring(v.id)] or 0) .. "|r";
 								foundItems = true;
 							end
 						end
@@ -7913,71 +7915,71 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 				local attunements = "\n\n|cFFFFFF00" .. L["attunements"] .. "|r";
 				local foundAttune;
 				if (data.mcAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Molten Core";
+					attunements = attunements .. "\n  " .. color1 .. "Molten Core|r";
 					foundAttune = true;
 				end
 				if (data.onyAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Onyxia's Lair";
+					attunements = attunements .. "\n  " .. color1 .. "Onyxia's Lair|r";
 					foundAttune = true;
 				end
 				if (data.bwlAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Blackwing Lair";
+					attunements = attunements .. "\n  " .. color1 .. "Blackwing Lair|r";
 					foundAttune = true;
 				end
 				if (data.naxxAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Naxxramas";
+					attunements = attunements .. "\n  " .. color1 .. "Naxxramas|r";
 					foundAttune = true;
 				end
 				if (data.karaAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Karazhan";
+					attunements = attunements .. "\n  " .. color1 .. "Karazhan|r";
 					foundAttune = true;
 				end
 				if (data.shatteredHallsAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "The Shattered Halls"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "The Shattered Halls|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.serpentshrineAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Serpentshrine Cavern";
+					attunements = attunements .. "\n  " .. color1 .. "Serpentshrine Cavern|r";
 					foundAttune = true;
 				end
 				if (data.arcatrazAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "The Arcatraz"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "The Arcatraz|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.blackMorassAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Black Morass";
+					attunements = attunements .. "\n  " .. color1 .. "Black Morass|r";
 					foundAttune = true;
 				end
 				if (data.hyjalAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Battle of Mount Hyjal";
+					attunements = attunements .. "\n  " .. color1 .. "Battle of Mount Hyjal|r";
 					foundAttune = true;
 				end
 				if (data.blackTempleAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Black Temple";
+					attunements = attunements .. "\n  " .. color1 .. "Black Temple|r";
 					foundAttune = true;
 				end
 				if (data.hellfireCitadelAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Hellfire Citadel"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "Hellfire Citadel|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.coilfangAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Coilfang Reservoir"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "Coilfang Reservoir|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.shadowLabAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Shadow Labyrinth"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "Shadow Labyrinth|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.auchindounAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Auchindoun"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "Auchindoun|r"; --Key.
 					foundAttune = true;
 				end
 				if (data.tempestKeepAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Tempest Keep"; --Key
+					attunements = attunements .. "\n  " .. color1 .. "Tempest Keep|r"; --Key
 					foundAttune = true;
 				end
 				if (data.cavernAttune) then
-					attunements = attunements .. "\n  " .. color1 .. "Caverns of Time"; --Key.
+					attunements = attunements .. "\n  " .. color1 .. "Caverns of Time|r"; --Key.
 					foundAttune = true;
 				end
 				if (foundAttune) then
@@ -7996,22 +7998,22 @@ function NWB:recalcBuffsLineFramesTooltip(obj)
 					for k, v in NWB:pairsByKeys(data.savedInstances) do
 						if (v.locked and v.resetTime and v.resetTime > GetServerTime()) then
 							local timeString = "(" .. NWB:getTimeString(v.resetTime - GetServerTime(), true, NWB.db.global.timeStringType) .. " " .. L["left"] .. ")";
-							lockoutString = lockoutString .. "\n  " .. color1 .. v.name .. " " .. color2 .. timeString;
+							lockoutString = lockoutString .. "\n  " .. color1 .. v.name .. "|r " .. color2 .. timeString .. "|r";
 							foundLockout = true;
 						end
 					end
 				end
 				if (not foundLockout) then
-					text = text .. "\n  " .. color2 .. L["none"];
+					text = text .. "\n  " .. color2 .. L["none"] .. "|r";
 				else
 					text = text .. lockoutString;
 				end
 				obj.tooltip.fs:SetText(text);
 			else
-				obj.tooltip.fs:SetText("|CffDEDE42No data found for this character yet.\nMaybe not logged on since addon install?");
+				obj.tooltip.fs:SetText("|CffDEDE42No data found for this character yet.\nMaybe not logged on since addon install?|r");
 			end
 		else
-			obj.tooltip.fs:SetText("|CffDEDE42No data found for this tooltip.");
+			obj.tooltip.fs:SetText("|CffDEDE42No data found for this tooltip.|r");
 		end
 	else
 		obj.tooltip.fs:SetText("");
@@ -8602,18 +8604,16 @@ function NWB.j(d)
 end
 
 function NWB:createNewLayer(zoneID, GUID, isFromNpc)
+	if (NWB:GetLayerCount() >= NWB.limitLayerCount) then
+		--Hard cap at 12 layers, who knows what chain creashing will happen at TBC launch.
+		--And we don't want to end up sending massive data around the server, better to have layer tracking not working until it settles.
+		--NWB:debug("Could not create new layer", zoneID, "already at limit", NWB.limitLayerCount);
+		return;
+	end
 	if (tonumber(zoneID) == 0) then
 		return;
 	end
 	zoneID = tonumber(zoneID);
-	local count, remoteCount = 0, 0;
-	for k, v in pairs(NWB.data.layers) do
-		count = count + 1;
-	end
-	if (count >= NWB.limitLayerCount) then
-		NWB:debug("Could not create new layer", zoneID, "already at limit", NWB.limitLayerCount);
-		return;
-	end
 	if (GUID and GUID ~= "other" and GUID ~= "none") then
 		--Creating layers anywhere but from other users data requires npc validation here.
 		local unitType, _, _, _, zoneID, npcID = strsplit("-", GUID);
@@ -9385,10 +9385,10 @@ f:SetScript('OnEvent', function(self, event, ...)
 		--But seems ok way to find if you join a team to phase.
 		--Seems to fire even when you are in the same phase, guess it will still do for now to reset the phase frame and make user retarget a npc.
 		if (UnitIsGroupLeader(unit)) then
-			if (NWB.currentLayerShared ~= 0) then
-				NWB:sendL(0);
-				NWB.currentLayerShared = 0;
-			end
+			--if (NWB.currentLayerShared ~= 0) then
+			--	NWB:sendL(0, "UNIT_PHASE");
+			--	NWB.currentLayerShared = 0;
+			--end
 			NWB.currentLayer = 0;
 			NWB_CurrentLayer =  0;
 			NWB.currentZoneID = 0;
@@ -9460,7 +9460,7 @@ function NWB:setCurrentLayerText(unit)
 		if (k == tonumber(zoneID)) then
 			NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00[Layer " .. count .. "]|cFF9CD6DE.|r");
 			if (NWB.currentLayerShared ~= count) then
-				NWB:sendL(count);
+				NWB:sendL(count, "set current layer text");
 				NWB.currentLayerShared = count;
 			end
 			NWB.currentLayer = count;
@@ -10252,7 +10252,7 @@ function NWB:recalcMinimapLayerFrame(zoneID)
 			if (k == NWB.lastKnownLayerMapID) then
 				NWBlayerFrame.fs2:SetText("|cFF9CD6DE" .. L["You are currently on"] .. " |cff00ff00[Layer " .. count .. "]|cFF9CD6DE.|r");
 				if (NWB.currentLayerShared ~= count) then
-					NWB:sendL(count);
+					NWB:sendL(count, "recalc minimap");
 					NWB.currentLayerShared = count;
 				end
 				NWB.currentLayer = count;
@@ -10302,7 +10302,7 @@ function NWB:recalcMinimapLayerFrame(zoneID)
 							foundBackup = true;
 							NWB_CurrentLayer = backupCount;
 							if (NWB.currentLayerShared ~= backupCount) then
-								NWB:sendL(backupCount);
+								NWB:sendL(backupCount, "recalc minimap backup");
 								NWB.currentLayerShared = backupCount;
 							end
 						end
@@ -10311,7 +10311,7 @@ function NWB:recalcMinimapLayerFrame(zoneID)
 			end
 		else
 			if (NWB.currentLayerShared ~= 0) then
-				NWB:sendL(0);
+				NWB:sendL(0, "recalc minimap no zoneid");
 				NWB.currentLayerShared = 0;
 			end
 			NWB_CurrentLayer = 0;

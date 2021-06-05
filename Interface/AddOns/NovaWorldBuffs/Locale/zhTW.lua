@@ -149,19 +149,19 @@ L["second"] = "秒"; --Second (singular).
 L["seconds"] = "秒"; --Seconds (plural).
 L["minute"] = "分"; --Minute (singular).
 L["minutes"] = "分"; --Minutes (plural).
-L["hour"] = "時"; --Hour (singular).
-L["hours"] = "時"; --Hours (plural).
+L["hour"] = "小時"; --Hour (singular).
+L["hours"] = "小時"; --Hours (plural).
 L["day"] = "天"; --Day (singular).
 L["days"] = "天"; --Days (plural).
 L["secondShort"] = "秒"; --Used in short timers like 1m30s (single letter only, usually the first letter of seconds).
 L["minuteShort"] = "分"; --Used in short timers like 1m30s (single letter only, usually the first letter of minutes).
-L["hourShort"] = "時"; --Used in short timers like 1h30m (single letter only, usually the first letter of hours).
+L["hourShort"] = "小時"; --Used in short timers like 1h30m (single letter only, usually the first letter of hours).
 L["dayShort"] = "天"; --Used in short timers like 1d8h (single letter only, usually the first letter of days).
 L["startsIn"] = "在 %s 後開始"; --"Starts in 1hour".
 L["endsIn"] = "在 %s 後結束"; --"Ends in 1hour".
 L["versionOutOfDate"] = "你的<Nova World Buffs>插件已經過期了，請上https://www.curseforge.com/wow/addons/nova-world-buffs 更新，或通過twitch客戶端更新。";
-L["Your Current World Buffs"] = "你擁有的世界buff";
-L["Options"] = " 選項";
+L["Your Current World Buffs"] = "目前已有的世界增益";
+L["Options"] = " 設定";
 
 ---New stuff---
 
@@ -191,14 +191,14 @@ L["North-West of Irontree Woods"] = "鐵木森林西北邊";
 L["South of Irontree Woods"] = "鐵木森林南邊";
 
 L["worldMapBuffsMsg"] = "輸入 /buffs 可以看到你\n所有角色的世界增益。";
-L["cityMapLayerMsgHorde"] = "正確 %s\n選取奧格瑪的任何NPC\n用來在傳換區域後更新鏡像。|r";
-L["cityMapLayerMsgAlliance"] = "正確 %s\n選取暴風城的任何NPC\n用來在傳換區域後更新鏡像。|r";
-L["noLayerYetHorde"] = "請點選奧格瑪的任何NPC\n去找到你的鏡像。";
-L["noLayerYetAlliance"] = "請點選暴風城的任何NPC\n去找到你的鏡像。";
+L["cityMapLayerMsgHorde"] = "正確 %s\n選取奧格瑪的任何NPC\n 來更新鏡像資訊。|r";
+L["cityMapLayerMsgAlliance"] = "正確 %s\n選取暴風城的任何NPC\n 來更新鏡像資訊。|r";
+L["noLayerYetHorde"] = "請點選奧格瑪的任何NPC\n來取得鏡像資訊。";
+L["noLayerYetAlliance"] = "請點選暴風城的任何NPC\n來取得鏡像資訊。";
 L["Reset Data"] = "重置資料"; --A button to Reset buffs window data.
 
-L["layerFrameMsgOne"] = "伺服器重開後舊的鏡像依然會顯示幾個小時。"; --Msg at bottom of layer timers frame.
-L["layerFrameMsgTwo"] = "沒有計時器後的六個小時靜像會消失。"; --Msg at bottom of layer timers frame.
+L["layerFrameMsgOne"] = "伺服器重啟後，舊的鏡像依會保持顯示幾個小時。"; --Msg at bottom of layer timers frame.
+L["layerFrameMsgTwo"] = "沒有計時器後的六個小時鏡像會消失。"; --Msg at bottom of layer timers frame.
 L["You are currently on"] = "你目前正在"; --You are currently on [Layer 2]
 
 
@@ -210,17 +210,17 @@ L["You are currently on"] = "你目前正在"; --You are currently on [Layer 2]
 --Desc can be any length.
 
 ---Description at the top---
-L["mainTextDesc"] = "輸入 /wb 對你顯示計時器視窗。 \n輸入 /wb <頻道名> 隊指定頻道顯示計時器。 \n往下滾動滑鼠有更多選項。";
+L["mainTextDesc"] = "輸入 /wb 對你顯示計時器視窗。 \n輸入 /wb <頻道名> 對指定頻道顯示計時器。 \n往下滾動滑鼠有更多選項。";
 
 ---Show Buffs Button
 L["showBuffsTitle"] = "單擊以顯示您當前的世界增益";
-L["showBuffsDesc"] = "顯示你所有角色當前的世界增益， 這個功能同樣可輸入/buffs 開啟，或點擊聊天頻道開始的 [WorldBuffs] 。";
+L["showBuffsDesc"] = "顯示你所有角色當前的世界增益， 這個功能同樣可輸入/buffs 開啟，或點擊聊天頻道開頭的 [WorldBuffs] 。";
 
 ---General Options---
 L["generalHeaderDesc"] = "一般選項";
 
 L["showWorldMapMarkersTitle"] = "城市計時器";
-L["showWorldMapMarkersDesc"] = "顯示計時圖標在世界地圖上的奧格瑪/暴風城。";
+L["showWorldMapMarkersDesc"] = "在世界地圖上的奧格瑪/暴風城顯示計時圖標。";
 
 L["receiveGuildDataOnlyTitle"] = "只接受公會數據";
 L["receiveGuildDataOnlyDesc"] = "這會讓你不向公會以外的任何人取得計時資料。 僅當您認為有人故意製造錯誤的計時器數據時，才應啟用此功能，因為這樣做會降低計時器的準確性，減少了從中提取數據的人員。因為它們很短，所以很難獲得輕歌花計時器。公會中的每個人都需要啟用此功能才能正常工作。";
@@ -250,7 +250,7 @@ L["showAllAltsTitle"] = "所有分身";
 L["showAllAltsDesc"] = "在 /buffs 視窗中顯示所有分身，即使它們沒有作用中的增益。";
 
 L["minimapButtonTitle"] = "顯示小地圖按鈕";
-L["minimapButtonDesc"] = "顯示NWB的按鈕在小地圖。";
+L["minimapButtonDesc"] = "在小地圖顯示NWB的按鈕。";
 
 ---Logon Messages---
 L["logonHeaderDesc"] = "登入訊息";
@@ -292,28 +292,28 @@ L["chat1Title"] = "1 分";
 L["chat1Desc"] = "在聊天視窗顯示還剩下 1 分。";
 
 L["chatResetTitle"] = "增益重置時間";
-L["chatResetDesc"] = "在增益重置跟可獲得新的時，在聊天視窗顯示提示警告。";
+L["chatResetDesc"] = "在增益重置及可獲得新的時，在聊天視窗顯示提示警告。";
 
 L["chatZanTitle"] = "贊達拉增益警告";
-L["chatZanDesc"] = "在贊達拉npc開始喊話，在增益施放前30秒，在聊天視窗出現訊息警告。";
+L["chatZanDesc"] = "在贊達拉npc開始喊話及增益施放前30秒，在聊天視窗出現訊息警告。";
 
 ---Middle Of The Screen Timer Warnings---
 L["middleWarningHeaderDesc"] = "螢幕中間計時器警告";
 
 L["middle30Title"] = "30 分";
-L["middle30Desc"] = "在剩30分鐘時，在螢幕中間出現團隊警告樣式的警告訊息。";
+L["middle30Desc"] = "當剩餘時間為30分時，在螢幕中間出現團隊警告樣式的警告訊息。";
 
 L["middle15Title"] = "15 分";
-L["middle15Desc"] = "在剩15分鐘時，在螢幕中間出現團隊警告樣式的警告訊息。";
+L["middle15Desc"] = "當剩餘時間為15分時，在螢幕中間出現團隊警告樣式的警告訊息。";
 
 L["middle10Title"] = "10 分";
-L["middle10Desc"] = "在剩10分鐘時，在螢幕中間出現團隊警告樣式的警告訊息。";
+L["middle10Desc"] = "當剩餘時間為10分時，在螢幕中間出現團隊警告樣式的警告訊息。";
 
 L["middle5Title"] = "5 分";
-L["middle5Desc"] = "在剩5分鐘時，在螢幕中間出現團隊警告樣式的警告訊息。";
+L["middle5Desc"] = "當剩餘時間為5分時，在螢幕中間出現團隊警告樣式的警告訊息。";
 
 L["middle1Title"] = "1 分";
-L["middle1Desc"] = "在剩1分鐘時，在螢幕中間出現團隊警告樣式的警告訊息。";
+L["middle1Desc"] = "當剩餘時間為1分時，在螢幕中間出現團隊警告樣式的警告訊息。";
 
 L["middleResetTitle"] = "增益已經重置";
 L["middleResetDesc"] = "當增益已經重置可施放新的增益的時候，在螢幕中間出現團隊警告樣式的警告訊息。";
@@ -331,37 +331,37 @@ L["middleHideRaidDesc"] = "在團隊副本中隱藏螢幕警告訊息(普通副�
 L["guildWarningHeaderDesc"] = "公會訊息";
 
 L["guild10Title"] = "10 分";
-L["guild10Desc"] = "當剩下10分鐘時傳送公會訊息。";
+L["guild10Desc"] = "當剩餘時間為10分時傳送公會訊息。";
 
 L["guild1Title"] = "1 分";
-L["guild1Desc"] = "當剩下1分鐘時傳送公會訊息。";
+L["guild1Desc"] = "當剩餘時間為1分時傳送公會訊息。";
 
 L["guildNpcDialogueTitle"] = "NPC喊話開始";
 L["guildNpcDialogueDesc"] = "當有人掛頭的時候傳送公會訊息，在NPC第一句喊話時，你仍然有時間去重登如果你夠快。";
 
 L["guildBuffDroppedTitle"] = "新的增益施放";
-L["guildBuffDroppedDesc"] = "傳送一個訊息給公會，當施放增益時。 這個訊息會在NPC完成喊話及你時記得到增益的幾秒後。(雷德第一句喊話後6秒, 奧妮14秒, 奈法15秒)";
+L["guildBuffDroppedDesc"] = "當新的增益施放時，傳送一個訊息給公會。 這個訊息會在NPC完成喊話及你時記得到增益的幾秒後。(雷德第一句喊話後6秒, 奧妮14秒, 奈法15秒)";
 
 L["guildZanDialogueTitle"] = "ZG增益警告";
-L["guildZanDialogueDesc"] = "傳送一個訊息當贊達拉之魂將要施放時。 (如果你想要沒有顯示這個增益那公會的所有人都需要關閉這個選項)。";
+L["guildZanDialogueDesc"] = "當贊達拉之魂將要施放時，傳送一個訊息。 (如果你想要沒有顯示這個增益那公會的所有人都需要關閉這個選項)。";
 
 L["guildNpcKilledTitle"] = "NPC被殺了";
-L["guildNpcKilledDesc"] = "傳送一個公會訊息當NPC在奧格瑪或暴風城被殺時。 (心控重置).";
+L["guildNpcKilledDesc"] = "當NPC在奧格瑪或暴風城被殺時，傳送公會訊息。 (心控重置).";
 
 L["guildCommandTitle"] = "公會指令";
-L["guildCommandDesc"] = "當有人打!wb 及 !dmf 指令時船傳送公會訊息。 你應該開啟這個功能去幫助你的公會, 如果你真的要關閉所有公會訊息只保留此指令，應在公會訊息中選取其他選項，不要在上面打勾 關閉所有公會訊息 選項。 ";
+L["guildCommandDesc"] = "當有人打!wb 及 !dmf 指令時，傳送公會訊息。 你應該開啟這個功能去幫助你的公會, 如果你真的要關閉所有公會訊息只保留此指令，應在公會訊息中選取其他選項，不要在上面打勾 關閉所有公會訊息 選項。 ";
 
 L["disableAllGuildMsgsTitle"] = "關閉所有公會訊息";
-L["disableAllGuildMsgsDesc"] = "關閉所有公會訊息包刮計時與增益施放。 筆記: 您可以一個一個停用所有訊息，如果願意，可以僅啟用一部分功能來幫助你的公會。";
+L["disableAllGuildMsgsDesc"] = "關閉所有公會訊息，包刮計時與增益施放。 注意: 您可以一個一個停用所有訊息，如果願意，可以僅啟用一部分功能來幫助你的公會。";
 
 ---Songflowers---
 L["songflowersHeaderDesc"] = "輕歌花";
 
 L["guildSongflowerTitle"] = "當拾取時告訴公會";
-L["guildSongflowerDesc"] = "當拾取輕歌花時告訴公會與下一個重生時間。";
+L["guildSongflowerDesc"] = "當拾取輕歌花時，傳送公會訊息與下一個重生時間。";
 
 L["mySongflowerOnlyTitle"] = "只有當自己拾取時";
-L["mySongflowerOnlyDesc"] = "只有當自己拾取時紀錄輕歌花的時間。 這個選項只有在你遇別人傳送假的計時才使用。 目前沒有辦法判定其他玩家的增益是否是新的，如果有玩家在你面前登入並帶有輕歌花的增益時，有極少機會造成錯誤的時間。 ";
+L["mySongflowerOnlyDesc"] = "只有當自己拾取時，紀錄輕歌花的時間。 這個選項只有在你遇有人傳送假的計時才使用。 目前沒有辦法判定其他玩家的增益是否是新的，如果有玩家在你面前登入並帶有輕歌花的增益時，有極少機會造成錯誤的時間。 ";
 
 L["syncFlowersAllTitle"] = "跟所有人同步輕歌花的時間";
 L["syncFlowersAllDesc"] = "打開這選項可以跟公會以外的人分享輕歌花的時間，但不會分享其他世界增益。";
@@ -388,7 +388,7 @@ L["showDragonMinimapMarkersTitle"] = "夜龍之息";
 L["showDragonMinimapMarkersDesc"] = "在小地圖顯示夜龍之息。";
 
 L["showExpiredTimersTitle"] = "顯示過期計時器";
-L["showExpiredTimersDesc"] = "在費伍德顯示過期計時器。 它們將以紅色文字計時器顯示過期多長時間，默認時間是5分鐘 (有人說重生時會保持五分鐘乾淨的輕歌花。).";
+L["showExpiredTimersDesc"] = "在費伍德顯示過期計時器。 它們將以紅色文字計時器顯示過期多長時間，默認時間為5分鐘 (有人說重生時會保持五分鐘乾淨的輕歌花。).";
 
 L["expiredTimersDurationTitle"] = "過期計時器長短";
 L["expiredTimersDurationDesc"] = "在廢伍德計時器過期後，顯示多久過期計時器時間。";
@@ -410,7 +410,7 @@ L["showDmfMapDesc"] = "在莫高雷及艾爾文森林顯示暗月馬戲團地圖
 ---Guild Chat Filter---
 L["guildChatFilterHeaderDesc"] = "公會聊天過濾";
 
-L["guildChatFilterTextDesc"] = "這將會阻擋所有從這個插件送的公會訊息，你選了所以你看不到它。 這將會停止你自己看到訊息及公會其他人使用這個插件的訊息。";
+L["guildChatFilterTextDesc"] = "這將會阻擋所有從這個插件發送的公會訊息，如果你選了你將看不到它。 這將會停止你自己看到訊息及公會其他人使用這個插件的訊息。";
 
 L["filterYellsTitle"] = "過濾增益警告";
 L["filterYellsDesc"] = "過濾掉這個增益要施放時的訊息 (奧妮克西婭的頭顱已插，閃電將在14秒後施放。)。";
@@ -419,7 +419,7 @@ L["filterDropsTitle"] = "過濾增益施放警告";
 L["filterDropsDesc"] = "過濾掉增益施放時的訊息 (屠龍者的咆嘯 (奧妮克西婭) 以施放)。";
 
 L["filterTimersTitle"] = "過濾計時器訊息";
-L["filterTimersDesc"] = "過濾掉計時器 (奧妮克西婭增益重置在1分鐘)。";
+L["filterTimersDesc"] = "過濾掉計時器 (奧妮克西婭增益重置在1分鐘後)。";
 
 L["filterCommandTitle"] = "過濾 !wb 命令";
 L["filterCommandDesc"] = "當有公會的人打 !wb 及 !dmf 指令，會被過濾掉。";
@@ -431,7 +431,7 @@ L["filterSongflowersTitle"] = "過濾輕歌花";
 L["filterSongflowersDesc"] = "過濾當花被拾取的訊息";
 
 L["filterNpcKilledTitle"] = "過濾NPC被殺訊息";
-L["filterNpcKilledDesc"] = "'當你的主城有人殺掉NPC時訊息會被過濾'";
+L["filterNpcKilledDesc"] = "'當你的主城有人殺掉NPC時訊息會被過濾。'";
 
 ---Sounds---
 L["soundsHeaderDesc"] = "聲音";
@@ -439,7 +439,7 @@ L["soundsHeaderDesc"] = "聲音";
 L["soundsTextDesc"] = "將聲音設定成 \"None\" 來停用。";
 
 L["disableAllSoundsTitle"] = "關閉所有聲音";
-L["disableAllSoundsDesc"] = "關閉所以從這個插件來的聲音";
+L["disableAllSoundsDesc"] = "關閉所以從這個插件來的聲音。";
 
 L["extraSoundOptionsTitle"] = "額外聲音選項";
 L["extraSoundOptionsDesc"] = "開啟這個選項在下拉選單顯示所有插件的音效。";
@@ -448,10 +448,10 @@ L["soundOnlyInCityTitle"] = "只有城市裡";
 L["soundOnlyInCityDesc"] = "只有在你主城(有增益施放的地方)才撥放增益音效(包括贊達拉)。";
 
 L["soundsDisableInInstancesTitle"] = "出團停用";
-L["soundsDisableInInstancesDesc"] = "在打團隊副本時停用";
+L["soundsDisableInInstancesDesc"] = "打團隊副本時停用。";
 
 L["soundsFirstYellTitle"] = "增益準備施放";
-L["soundsFirstYellDesc"] = "當增益準備施放 (第一句NPC的喊話時).";
+L["soundsFirstYellDesc"] = "當增益準備施放 (第一句 NPC 的喊話時).";
 
 L["soundsOneMinuteTitle"] = "一分鐘警告";
 L["soundsOneMinuteDesc"] = "音效在剩下一分鐘時警告。";
@@ -486,10 +486,10 @@ L["allianceEnableRendTitle"] = "開啟聯盟雷德";
 L["allianceEnableRendDesc"] = "啟動選項聯盟可以追蹤雷德,為公會心控取得雷德增益。 如果你使用這個功能那公會使用此插件應該開啟，但是公會訊息可能不會顯示。 (個人計時器顯示正常)。";
 
 L["minimapLayerFrameTitle"] = "顯示小地圖鏡像";
-L["minimapLayerFrameDesc"] = "當你在主城，顯示一個鏡像框在小地圖上告訴你，你的鏡像。";
+L["minimapLayerFrameDesc"] = "當你在主城，在小地圖上出現一個鏡像框架，顯示你的鏡像。";
 
 L["minimapLayerFrameResetTitle"] = "重置小地圖鏡像";
-L["minimapLayerFrameResetDesc"] = "重置小地圖鏡像框到預設位置 (按住SHIFT可以拖曳鏡像框).";
+L["minimapLayerFrameResetDesc"] = "重置小地圖鏡像框到預設位置 (按住 SHIFT 可以拖曳鏡像框).";
 
 L["dispelsHeaderDesc"] = "驅散";
 
@@ -517,7 +517,7 @@ L["middleHideBattlegroundsDesc"] = "在戰場時隱藏螢幕中間的警告?";
 L["soundsDisableInBattlegroundsTitle"] = "在戰場時關閉。";
 L["soundsDisableInBattlegroundsDesc"] = "在戰場時關閉音效。";
 
-L["autoBuffsHeaderDesc"] = "從NPC自動取得增益";
+L["autoBuffsHeaderDesc"] = "自動從NPC取得增益";
 
 L["autoDmfBuffTitle"] = "自動取得暗月增益";
 L["autoDmfBuffDesc"] = "你想跟賽吉講話時自動對話選擇你要的增益嗎? 確定你選擇你想要哪種增益。";
@@ -534,14 +534,13 @@ L["autoBwlPortalDesc"] = "你想要插件幫你在你點擊寶珠時自動進入
 L["showBuffStatsTitle"] = "顯示增益次數";
 L["showBuffStatsDesc"] = "在/buff 框架顯示你獲得每個增益的次數?";
 
-L["buffResetButtonTooltip"] = "這將會重置所有增益\n增益次數資料不會被重置."; --/buff 框架的重置按鈕的提示。
+L["buffResetButtonTooltip"] = "這將會重置所有增益\n但增益次數資料不會被重置."; --/buff 框架的重置按鈕的提示。
 L["time"] = "(%s 次)"; --Singular - This shows how many timers you got a buff. Example: (1 time)
 L["times"] = "(%s 次)"; --Plural - This shows how many timers you got a buff. Example: (5 times)
 L["flowerWarning"] = "輕歌花的鏡像紀錄已啟動，但是你沒有在到達費伍德時先點擊NPC，所以沒有計時器被記錄。";
 
-L["mmColorTitle"] = "小地圖Layer顏色";
-L["mmColorDesc"] = "小地圖的Layer要用什麼色? (Layer 1)";
-
+L["mmColorTitle"] = "小地圖鏡像顏色";
+L["mmColorDesc"] = "小地圖的鏡像要用什麼色? (Layer 1)";
 
 L["layerHasBeenDisabled"] = "關閉鏡像 %s, 直到你再次開啟或是再次偵測之前，鏡像仍會在資料庫中。";
 L["layerHasBeenEnabled"] = "啟用鏡像 %s, 現在回到計時與鏡像運算。";
@@ -550,6 +549,14 @@ L["enableLayerButton"] = "啟動鏡像";
 L["disableLayerButton"] = "關閉鏡像";
 L["enableLayerButtonTooltip"] = "點擊以重新啟動鏡像,\n這將會將鏡像計時及圖層計算放回去。";
 L["disableLayerButtonTooltip"] = "在伺服器重開之後，後點擊取消舊的鏡像。\n這將會忽略這個插件移除鏡像。";
+
+L["minimapLayerHoverTitle"] = "滑鼠滑過小地圖顯示";
+L["minimapLayerHoverDesc"] = "只有當你滑鼠滑過時顯示小地圖的鏡像框架。";
+
+
+
+
+
 
 L["Blackrock Mountain"] = "黑石山";
 
@@ -577,7 +584,38 @@ L["chatNpcKilledDesc"] = "當黑妹或是奈法NPC被殺重置增益時間時，
 L["flashNpcKilledTitle"] = "NPC被殺時閃爍";
 L["flashNpcKilledDesc"] = "當NPC被殺時，閃爍魔獸視窗?";
 
+L["trimDataHeaderDesc"] = "清理資料";
 
+L["trimDataBelowLevelTitle"] = "要移除的最高等級";
+L["trimDataBelowLevelDesc"] = "選擇要從資料庫中移除的角色最高等級，所有等於或低於這個等級一下的角色都會被刪除。";
+
+L["trimDataBelowLevelButtonTitle"] = "移除角色";
+L["trimDataBelowLevelButtonDesc"] = "點一下按鈕來移除等於或低於所選等級的所有角色。注意: 將會永久性的移除增益次數資料。";
+
+L["trimDataTextDesc"] = "從增益資料庫中移除多個角色:";
+L["trimDataText2Desc"] = "從增益資料庫中移除一個角色:";
+
+L["trimDataCharInputTitle"] = "輸入要移除的角色";
+L["trimDataCharInputDesc"] = "在這裡輸入要移除的角色，格式為: 角色ID-伺服器名稱 (英文大小寫有區別)。注意: 將會永久性的移除增益次數資料。";
+
+L["trimDataBelowLevelButtonConfirm"] = "是否確定要從資料庫中移除等級低於 %s 的所有角色?";
+L["trimDataCharInputConfirm"] = "是否確定要從資料庫中移除這個角色: %s?";
+
+L["trimDataMsg1"] = "增益記錄已經重置。"
+L["trimDataMsg2"] = "正在移除等級低於 %s 的所有角色。";
+L["trimDataMsg3"] = "已移除: %s。";
+L["trimDataMsg4"] = "完成，沒有找到任何角色。";
+L["trimDataMsg5"] = "完成，已移除 %s 個角色。";
+L["trimDataMsg6"] = "請輸入要從資料庫中移除的正確 角色ID-伺服器名稱。";
+L["trimDataMsg7"] = "此角色ID %s 沒有包含伺服器名稱，請輸入 角色ID-伺服器名稱。";
+L["trimDataMsg8"] = "從資料庫中移除 %s 發生錯誤，無法找到該角色 (英文大小寫有區別)。";
+L["trimDataMsg9"] = "已從資料庫中移除 %s 。";
+
+L["serverTime"] = "伺服器時間";
+L["serverTimeShort"] = "st";
+
+L["showUnbuffedAltsTitle"] = "顯示沒有增益的分身";
+L["showUnbuffedAltsDesc"] = "是否要在增益視窗中顯示沒有任何增益效果的分身? 這樣一來便能知道哪些分身還沒增益。";
 L["timerWindowWidthTitle"] = "計時器視窗寬度";
 L["timerWindowWidthDesc"] = "計時器的視窗寬度。";
 
@@ -595,18 +633,85 @@ L["dmfSettingsListDesc"] = "點擊這個顯示你的暗月增益設定哪個種�
 
 L["ignoreKillDataTitle"] = "忽略殺死NPC的訊息";
 L["ignoreKillDataDesc"] = "忽略任何NPC被殺死的資料。";
-
 L["noOverwriteTitle"] = "不要覆蓋計時器";
 L["noOverwriteDesc"] = "你可以開啟此選項，所以當你已經有一個計時器時，將不會再覆蓋新的計時，直到你的計時器結束。";
 
 L["layerMsg1"] = "你在一個Layer區域。";
 L["layerMsg2"] = "點擊這裡以觀看正確的計時器。";
-L["layerMsg3"] = "目標任何NPC以觀看你正確的Layer。";
-L["layerMsg4"] = "目標任何NPC在 %s 以觀看你正確的Layer。"; --Target any NPC in Orgrimmar to see your current layer.
-
+L["layerMsg3"] = "點擊任何NPC以取得鏡像資料。";
+L["layerMsg4"] = "點擊任何在 %s 的NPC以取得鏡像資料。"; --Target any NPC in Orgrimmar to see your current layer.
 --NOTE: Darkmoon Faire buff type is now a character specific setting, changing buff type will only change it for this character.
 L["note"] = "註記:";
 L["dmfConfigWarning"] = "暗月馬戲團的增益種類特定設定，更改增益類型只會對此腳色進行修改。";
+---New---
+								  
+										 
+L["onyNpcMoving"] = "奧尼克西亞NPC開始移動了！";
+L["nefNpcMoving"] = "奈法利安NPC開始移動了！";
+
+L["buffHelpersHeaderDesc"] = "PVP伺服器增益助手";
+
+L["buffHelpersTextDesc"] = "PVP伺服器增益助手 (如果你在取得增益的設定秒數內執行其中一項操作，即觸發以下操作，你可以調整以下秒數).";
+L["buffHelpersTextDesc2"] = "\n贊達拉增益";
+L["buffHelpersTextDesc3"] = "暗月馬戲團增益";
+--L["buffHelpersTextDesc4"] = "Enter Battleground Macro (這只是阻擋他，你需要按兩下才能運作，如果你還沒有跳出，請小心不要提前按下。).\n|cFF9CD6DE/click DropDownList1Button2\n/click MiniMapBatlefieldFrame RightButton";
+
+L["takeTaxiZGTitle"] = "自動點選飛行路線";
+L["takeTaxiZGDesc"] = "從藏寶海灣一施放增益後， 與飛行管理員交談，或是曾是施放時以打開飛行管理員視窗都可以使用。|cFF00C800(你可以用鬼魂取得增益，所以我建議用鬼魂等待增益施放後復活點選飛行管理員自動飛走)";
+
+L["takeTaxiNodeTitle"] = "飛行路線";
+L["takeTaxiNodeDesc"] = "如果你有設定自動飛行路線，將自動選擇飛行";
+			
+L["dmfVanishSummonTitle"] = "消失招喚";
+L["dmfVanishSummonDesc"] = "盜賊: 在取得暗月增益後，使用消失即自動接受招喚？";
+
+L["dmfFeignSummonTitle"] = "假死招喚";
+L["dmfFeignSummonDesc"] = "獵人: 在取得暗月增益後，使用假死即自動接受招喚？";
+			
+L["dmfCombatSummonTitle"] = "戰鬥結束時招喚";
+L["dmfCombatSummonDesc"] = "在取得暗月增益後，離開戰鬥即自動接受招喚？";
+			
+L["dmfLeaveBGTitle"] = "自動離開戰場";
+L["dmfLeaveBGDesc"] = "取得暗月增益後自動離開你的戰場群組？";
+
+L["dmfGotBuffSummonTitle"] = "暗月增益招喚";
+L["dmfGotBuffSummonDesc"] = "在取得暗月馬戲團增益後，自動接受招喚。";
+
+L["zgGotBuffSummonTitle"] = "贊達拉增益招喚";
+L["zgGotBuffSummonDesc"] = "在取得贊達拉增益後，自動接受招喚。";
+
+L["buffHelperDelayTitle"] = "設定增益助手運作秒數";
+L["buffHelperDelayDesc"] = "你取得增益後增益助手運作多少秒? 你可以設定這個選項，他只會在你取得增益後運作多少秒。";
+
+L["showNaxxWorldmapMarkersTitle"] = "世界地圖－納克薩瑪斯";
+L["showNaxxWorldmapMarkersDesc"] = "在世界地圖上顯示納克薩馬斯記號？";
+
+L["showNaxxMinimapMarkersTitle"] = "小地圖－納克薩瑪斯";
+L["showNaxxMinimapMarkersDesc"] = "在小地圖顯示納克薩瑪斯記號？這在你出團死在副本裡的時候，將顯示返回naxx的方向。";
+
+L["bigWigsSupportTitle"] = "BigWigs 支援";
+L["bigWigsSupportDesc"] = "在你有安裝BigWigs時，在增益施放時啟用一個時間條，像DBM的樣式。";
+
+L["soundsNpcWalkingTitle"] = "NPC開始移動";
+L["soundsNpcWalkingDesc"] = "當奧格瑪的增益NPC開始移動時撥放音效?";
+
+L["buffHelpersTextDesc4"] = "輕歌花增益";
+L["songflowerGotBuffSummonTitle"] = "輕歌花招換";
+L["songflowerGotBuffSummonDesc"] = "當你取得輕歌花增益後，自動接受招喚。";
+
+L["buffHelpersTextDesc5"] = "龍頭/雷德 增益";
+L["cityGotBuffSummonTitle"] = "龍頭/雷德 招喚";
+L["cityGotBuffSummonDesc"] = "取得黑妹/奈法/雷德增益後，自動接受招喚";
+
+L["heraldFoundCrossroads"] = "前鋒發現! 十字路口雷德增益將在20秒施放。";
+L["heraldFoundTimerMsg"] = "十字路口-雷德"; --DBM/Bigwigs timer bar text.
+
+L["guildNpcWalkingTitle"] = "NPC移動";
+L["guildNpcWalkingDesc"] = "當你啟動NPC移動警報時，傳送公會訊息及播放音效? (打開聊天室窗當奧格黑妹/奈法NPC開始移動時，等待大家一起觸發這個早期通報。).";
+
+L["buffHelpersTextDesc6"] = "暗月馬戲團幫助視窗";
+L["dmfFrameTitle"] = "DMF幫助視窗";
+L["dmfFrameDesc"] = "當你以鬼魂姿態接近賽格時彈出視窗，解決暴雪卡住的問題。";
 
 L["Sheen of Zanza"] = "贊札之光";
 L["Spirit of Zanza"] = "贊札之魂";
@@ -614,6 +719,40 @@ L["Swiftness of Zanza"] = "贊札之速";
 
 L["Mind Control"] = "心靈控制";
 L["Gnomish Mind Control Cap"] = "地精洗腦帽";
+
+
+L["tbcHeaderText"] = "燃燒的遠征選項";
+L["tbcNoteText"] = "注意: 所有公會提醒在TBC的鏡像下關閉。.";
+
+L["disableSoundsAboveMaxBuffLevelTitle"] = "在64級以上關閉音效";
+L["disableSoundsAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益音效?";
+
+L["disableSoundsAllLevelsTitle"] = "所有級別角色關閉音效";
+L["disableSoundsAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益音效。";
+
+L["disableMiddleAboveMaxBuffLevelTitle"] = "64級以上關閉螢幕提示";
+L["disableMiddleAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益螢幕提示。";
+
+L["disableMiddleAllLevelsTitle"] = "所有級別角色關閉螢幕提示";
+L["disableMiddleAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益螢幕提示。";
+
+L["disableChatAboveMaxBuffLevelTitle"] = "在64級以上關閉聊天提示";
+L["disableChatAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益聊天提示。";
+
+L["disableChatAllLevelsTitle"] = "所有級別角色關閉聊天提示";
+L["disableChatAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益聊天提醒示窗。";
+
+L["disableFlashAboveMaxBuffLevelTitle"] = "在64級以上關閉螢幕閃爍";
+L["disableFlashAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色關閉螢幕閃爍。";
+
+L["disableFlashAllLevelsTitle"] = "所有級別角色關閉螢幕閃爍";
+L["disableFlashAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉螢幕閃爍。";
+
+L["disableLogonAboveMaxBuffLevelTitle"] = "在64級以上關閉登錄計時器 ";
+L["disableLogonAboveMaxBuffLevelDesc"] = "當您在 TBC 領域登錄 63 級以上的角色時，在聊天中關閉計時器？";
+
+L["disableLogonAllLevelsTitle"] = "所有級別角色關閉登入計時器";
+L["disableLogonAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉登入計時器。";
 
 L["Flask of Fortification"] = "Flask of Fortification";
 L["Flask of Pure Death"] = "Flask of Pure Death";
@@ -634,19 +773,26 @@ L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
 L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
 L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
 
-L["Chronoboon Displacer"] = "Chronoboon Displacer";
+L["Chronoboon Displacer"] = "時光祝福置換器";
 
 L["Silithyst"] = "水晶塵";
 
-L["Gold"] = "Gold";
-L["level"] = "Level";
-L["realmGold"] = "Realm gold for";
-L["total"] = "Total";
-L["guild"] = "Guild";
-L["bagSlots"] = "Bag slots";
-L["durability"] = "Durability";
-L["items"] = "Items";
-L["ammunition"] = "Ammo";
+L["Gold"] = "金錢";
+L["level"] = "等級";
+L["realmGold"] = "伺服器金錢 - ";
+L["total"] = "總計";
+L["guild"] = "公會";
+L["bagSlots"] = "背包欄位";
+L["durability"] = "耐久度";
+L["items"] = "物品";
+L["ammunition"] = "彈藥";
 L["attunements"] = "Attunements";
-L["currentRaidLockouts"] = "Current Raid Lockouts";
-L["none"] = "None.";
+L["currentRaidLockouts"] = "當前副本進度";
+L["none"] = "無";
+
+
+
+L["dmfDamagePercent"] = "這個新的暗夜增益是 %s%% 傷害。";
+L["dmfDamagePercentTooltip"] = "NWB檢測到這個 %s 傷害。";
+L["guildLTitle"] = "分享公會鏡像"
+L["guildLDesc"] = "跟你的公會分享你在哪個鏡像? 輸入 /wb guild 指令，你可以看到妳的公會鏡像列表。";										 
