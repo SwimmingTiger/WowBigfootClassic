@@ -99,4 +99,16 @@ L["Portal to Silvermoon"] = true
 L["Portal to Undercity"] = true
 L["Orb of translocation"] = true
 
+L["Shattrath Portal to Thunder Bluff"] = true
+L["Shattrath Portal to Orgrimmar"] = true
+L["Shattrath Portal to Undercity"] = true
+L["Shattrath Portal to Silvermoon"] = true
+
+L["Boat to Exodar"] = true
+L["Shattrath Portal to Exodar"] = true
+L["Shattrath Portal to Darnassus"] = true
+L["Shattrath Portal to Stormwind"] = true
+L["Shattrath Portal to Ironforge"] = true
+
+L["Shattrath Portal to Isle of Quel'Danas"] = true
 end

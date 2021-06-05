@@ -15,6 +15,31 @@ addon.constants = private.constants
 _G.HandyNotes_TravelGuide = addon
 
 ----------------------------------------------------------------------------------------------------
+----------------------------------------------FUNCTIONS---------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+-- workaround to prepare the multilabels with and without notes
+-- because the game displays the first line in 14px and
+-- the following lines in 13px with a normal for loop.
+local function PrepareLabel(label, note)
+    local t = {}
+    for i, name in ipairs(label) do
+        if (label and private.db.show_note) then
+            if label[i] and note[i] then
+                t[i] = name.." ("..note[i]..")"
+             else
+            -- if there is no note for this Portal
+                t[i] = name
+            end
+        else
+        -- if the private.db.show_note == false
+            t[i] = name
+        end
+    end
+    return table.concat(t, "\n")
+end
+
+----------------------------------------------------------------------------------------------------
 ------------------------------------------------ICON------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -49,9 +74,9 @@ end
 local GetPointInfo = function(point)
     local icon
     if point then
-        local label = point.label or point.label2 or UNKNOWN
+        local label = point.label or point.multilabel and table.concat(point.multilabel, "\n") or UNKNOWN
             icon = SetIcon(point)
-        return label, label2, icon, point.icon, point.scale, point.alpha
+        return label, icon, point.icon, point.scale, point.alpha
     end
 end
 
@@ -68,13 +93,17 @@ local function SetTooltip(tooltip, point)
         if (point.label) then
             tooltip:AddLine(point.label)
         end
-        if (point.label1 and profile.show_note) then
-            tooltip:AddDoubleLine(point.label1)
-        else
-            tooltip:AddLine(point.label2)
+        if (point.multilabel) then
+            tooltip:AddLine(PrepareLabel(point.multilabel, point.multinote))
         end
         if (point.note and profile.show_note) then
             tooltip:AddLine("("..point.note..")")
+        end
+        if (point.reputation) then
+            local name, _, standing, _, _, value = GetFactionInfoByID(point.reputation[1])
+            if standing < point.reputation[2] then
+                tooltip:AddLine(requires.."Reputation "..value.." / 31000 "..name, 1) -- red
+            end
         end
     else
         tooltip:SetText(UNKNOWN)
@@ -215,7 +244,7 @@ local currentMapID = nil
         local state, value = next(t, prestate)
         while state do
             if value and private:ShouldShow(state, value, currentMapID) then
-                local _, _, icon, iconname, scale, alpha = GetPointInfo(value)
+                local _, icon, iconname, scale, alpha = GetPointInfo(value)
                     scale = (scale or 1) * GetIconScale(iconname)
                     alpha = (alpha or 1) * GetIconAlpha(iconname)
                 return state, nil, icon, scale, alpha
