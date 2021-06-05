@@ -325,6 +325,21 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
+            {
+                ["value"] = "能源舰",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "生态船",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "风暴",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
         },
     },
     {
@@ -1109,6 +1124,57 @@ MessageClassifierDefaultRules = {
         ["conditions"] = {
             {
                 ["value"] = "禁魔",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3144,
+        ["class"] = "副本/69-70 禁魔监狱/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "能源舰",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3244,
+        ["class"] = "副本/69-70 禁魔监狱/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "生态船",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3344,
+        ["class"] = "副本/69-70 禁魔监狱/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "风暴",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
