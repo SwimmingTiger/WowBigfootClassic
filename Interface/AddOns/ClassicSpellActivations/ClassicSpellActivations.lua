@@ -45,6 +45,8 @@ local spellNamesByID = {
     [30030] = "Rampage",
     [30033] = "Rampage",
 
+    [34428] = "VictoryRush",
+
     [14251] = "Riposte",
 
     [19306] = "Counterattack",
@@ -176,6 +178,7 @@ function f:SPELLS_CHANGED()
         local hasOverpower = ns.findHighestRank("Overpower")
         local hasRevenge = ns.findHighestRank("Revenge")
         local hasRampage = ns.findHighestRank("Rampage")
+        local hasVictoryRush = ns.findHighestRank("VictoryRush")
 
         local CheckOverpower = ns.CheckOverpower
         local CheckRevenge = ns.CheckRevenge
@@ -195,6 +198,22 @@ function f:SPELLS_CHANGED()
         if not hasOverpower and not hasRevenge and not hasRampage then
             self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
             self:SetScript("OnUpdate", nil)
+        end
+
+        if hasVictoryRush then
+            self:RegisterEvent("SPELL_UPDATE_USABLE")
+            local wasUsable = IsUsableSpell(34428)
+            self.SPELL_UPDATE_USABLE = function()
+                local isUsable = IsUsableSpell(34428)
+                if wasUsable ~= isUsable then
+                    if isUsable then
+                        f:Activate("VictoryRush", 20, true)
+                    else
+                        f:Deactivate("VictoryRush")
+                    end
+                    wasUsable = isUsable
+                end
+            end
         end
 
         if ns.findHighestRank("Execute") then
@@ -274,8 +293,10 @@ function f:SPELLS_CHANGED()
                     if hadBacklash ~= haveBacklash then
                         if haveBacklash then
                             f:Activate("ShadowBolt", duration, true)
+                            f:Activate("Incinerate", duration, true)
                         else
                             f:Deactivate("ShadowBolt")
+                            f:Deactivate("Incinerate")
                         end
                         hadBacklash = haveBacklash
                     end
@@ -343,15 +364,17 @@ end
 
 local reverseSpellRanks = {
     Overpower = { 11585, 11584, 7887, 7384 },
-    Revenge = { 30357, 5269, 25288, 11601, 11600, 7379, 6574, 6572 },
+    Revenge = { 30357, 25269, 5269, 25288, 11601, 11600, 7379, 6574, 6572 },
     Rampage = { 30033, 30030, 29801},
     Riposte = { 14251 },
     Counterattack = { 27067, 20910, 20909, 19306 },
     Execute = { 25236, 25234, 20662, 20661, 20660, 20658, 5308 },
     ShadowBolt = { 27209, 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686 },
+    Incinerate = { 32231, 29722 },
     MongooseBite = { 36916, 14271, 14270, 14269, 1495 },
     Exorcism = { 27138, 10314, 10313, 10312, 5615, 5614, 879 },
     HammerOfWrath = { 27180, 24239, 24274, 24275 },
+    VictoryRush = { 34428 },
 }
 function ns.findHighestRank(spellName)
     for _, spellID in ipairs(reverseSpellRanks[spellName]) do
