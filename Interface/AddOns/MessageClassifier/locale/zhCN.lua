@@ -881,11 +881,6 @@ MessageClassifierDefaultRules = {
         ["class"] = "副本/63-70 法力陵墓/{author}",
         ["conditions"] = {
             {
-                ["value"] = "法力",
-                ["field"] = "content",
-                ["operator"] = "contain",
-            },
-            {
                 ["value"] = "陵墓",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -894,6 +889,23 @@ MessageClassifierDefaultRules = {
                 ["value"] = "fl",
                 ["operator"] = "contain",
                 ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3135,
+        ["logic"] = "and",
+        ["class"] = "副本/63-70 法力陵墓/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "法力",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "源生法力",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
