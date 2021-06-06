@@ -135,19 +135,63 @@ MessageClassifierDefaultRules = {
         ["class"] = "商業/收布/{author}",
         ["conditions"] = {
             {
+                ["value"] = "丝绸",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "絲綢",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
             {
-                ["value"] = "布",
-                ["operator"] = "contain",
+                ["value"] = "毛料",
                 ["field"] = "content",
+                ["operator"] = "contain",
             },
         },
     },
     {
         id = 1102,
+        ["class"] = "商業/收布/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "布",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "布莱德",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "布萊德",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 1003,
+        ["class"] = "商業/礦石/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "矿",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "矿工",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 1103,
         ["class"] = "商業/礦石/{author}",
         ["conditions"] = {
             {
@@ -164,10 +208,31 @@ MessageClassifierDefaultRules = {
         ["logic"] = "and",
     },
     {
-        id = 1003,
+        id = 1203,
+        ["class"] = "商業/礦石/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "锭",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "錠",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 1004,
         ["conditions"] = {
             {
                 ["value"] = "航",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "飞",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
@@ -195,6 +260,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "任務/{author}",
         ["conditions"] = {
             {
+                ["value"] = "任务",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "任務",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -210,10 +280,16 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
+            {
+                ["value"] = "世界王",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
         },
     },
     {
         id = 3001,
+        ["class"] = "地城/13-18 怒焰裂谷/{author}",
         ["conditions"] = {
             {
                 ["value"] = "怒焰",
@@ -226,7 +302,6 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
         },
-        ["class"] = "地城/13-18 怒焰裂谷/{author}",
     },
     {
         id = 3002,
@@ -248,6 +323,16 @@ MessageClassifierDefaultRules = {
         id = 3003,
         ["class"] = "地城/17-26 死亡礦坑/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "矿井",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "死矿",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
             {
                 ["value"] = "礦坑",
                 ["field"] = "content",
@@ -286,6 +371,16 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/24-32 黑澗深淵/{author}",
         ["conditions"] = {
             {
+                ["value"] = "黑暗深渊",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "黑暗深淵",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "黑澗",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -293,13 +388,85 @@ MessageClassifierDefaultRules = {
         },
     },
     {
+        id = 3205,
+        ["class"] = "地城/24-32 黑澗深淵/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "深渊",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "黑石",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3305,
+        ["class"] = "地城/24-32 黑澗深淵/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "深淵",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "黑石",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
         id = 3005,
         ["class"] = "地城/24-32 監獄/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "禁魔",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "能源舰",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "生态船",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "风暴",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3105,
+        ["class"] = "地城/24-32 監獄/{author}",
+        ["logic"] = "and",
         ["conditions"] = {
             {
                 ["value"] = "監獄",
                 ["field"] = "content",
                 ["operator"] = "contain",
+            },
+            {
+                ["value"] = "奴隸",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -307,6 +474,11 @@ MessageClassifierDefaultRules = {
         id = 3006,
         ["class"] = "地城/29-38 諾姆瑞根/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "诺莫",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "諾姆",
                 ["field"] = "content",
@@ -327,19 +499,48 @@ MessageClassifierDefaultRules = {
     {
         id = 3007,
         ["class"] = "地城/29-38 剃刀沼澤/{author}",
+        ["logic"] = "and",
         ["conditions"] = {
             {
                 ["value"] = "剃刀",
-                ["field"] = "content",
                 ["operator"] = "contain",
+                ["field"] = "content",
             },
+            {
+                ["value"] = "高地",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3107,
+        ["class"] = "地城/29-38 剃刀沼澤/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "沼泽",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "幽暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "黑色",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3207,
+        ["class"] = "地城/29-38 剃刀沼澤/{author}",
+        ["conditions"] = {
             {
                 ["value"] = "沼澤",
-                ["operator"] = "contain",
-                ["field"] = "content",
-            },
-            {
-                ["value"] = "ZZ",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
@@ -372,6 +573,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/29-39 血色修道院：圖書館/{author}",
         ["conditions"] = {
             {
+                ["value"] = "图书馆",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "圖書館",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -382,6 +588,11 @@ MessageClassifierDefaultRules = {
         id = 3011,
         ["class"] = "地城/32-42 血色修道院：軍械庫/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "军械库",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "軍械庫",
                 ["field"] = "content",
@@ -405,12 +616,7 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/37-46 剃刀高地/{author}",
         ["conditions"] = {
             {
-                ["value"] = "剃刀",
-                ["field"] = "content",
-                ["operator"] = "contain",
-            },
-            {
-                ["value"] = "高地",
+                ["value"] = "剃刀高地",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
@@ -419,10 +625,49 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
+        },
+    },
+    {
+        id = 3113,
+        ["class"] = "地城/37-46 剃刀高地/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
             {
-                ["value"] = "GD",
+                ["value"] = "剃刀",
                 ["operator"] = "contain",
                 ["field"] = "content",
+            },
+            {
+                ["value"] = "沼泽",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "沼澤",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3213,
+        ["class"] = "地城/37-46 剃刀高地/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "高地",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "太阳",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "太陽",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -430,6 +675,11 @@ MessageClassifierDefaultRules = {
         id = 3014,
         ["class"] = "地城/41-51 奧達曼/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "奥达曼",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "奧達曼",
                 ["field"] = "content",
@@ -447,6 +697,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/44-54 祖爾法拉克/{author}",
         ["conditions"] = {
             {
+                ["value"] = "祖尔法拉克",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "祖爾法拉克",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -462,6 +717,11 @@ MessageClassifierDefaultRules = {
         id = 3016,
         ["class"] = "地城/46-55 瑪拉頓/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "玛拉顿",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "瑪拉頓",
                 ["field"] = "content",
@@ -479,9 +739,41 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/50-60 阿塔哈卡神廟/{author}",
         ["conditions"] = {
             {
+                ["value"] = "阿塔",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "哈卡",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "神庙",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3117,
+        ["class"] = "地城/50-60 阿塔哈卡神廟/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
                 ["value"] = "神廟",
                 ["field"] = "content",
                 ["operator"] = "contain",
+            },
+            {
+                ["value"] = "黑暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "安其拉",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -490,9 +782,53 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/52-60 黑石深淵/{author}",
         ["conditions"] = {
             {
-                ["value"] = "深淵",
+                ["value"] = "黑石深渊",
                 ["field"] = "content",
                 ["operator"] = "contain",
+            },
+            {
+                ["value"] = "黑石深淵",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3118,
+        ["class"] = "地城/52-60 黑石深淵/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "深渊",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "黑暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3218,
+        ["class"] = "地城/52-60 黑石深淵/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "深淵",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "黑暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "黑澗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -534,6 +870,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/55-60 厄運之槌/{author}",
         ["conditions"] = {
             {
+                ["value"] = "厄运",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "厄運",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -544,6 +885,11 @@ MessageClassifierDefaultRules = {
         id = 3122,
         ["class"] = "地城/55-60 厄運之槌(東)/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "厄运东",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "厄運東",
                 ["field"] = "content",
@@ -556,6 +902,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/58-60 厄運之槌(西)/{author}",
         ["conditions"] = {
             {
+                ["value"] = "厄运东",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "厄運西",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -566,6 +917,11 @@ MessageClassifierDefaultRules = {
         id = 3322,
         ["class"] = "地城/58-60 厄運之槌(北)/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "厄运东",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "厄運北",
                 ["field"] = "content",
@@ -593,6 +949,11 @@ MessageClassifierDefaultRules = {
         id = 3024,
         ["class"] = "地城/58-60 通靈學院/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "通灵",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "通靈",
                 ["field"] = "content",
@@ -626,6 +987,11 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/60 奧妮克希亞的巢穴/{author}",
         ["conditions"] = {
             {
+                ["value"] = "奥妮克希亚",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "奧妮克希亞",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -636,9 +1002,19 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
             {
+                ["value"] = "黑龙",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
                 ["value"] = "黑龍",
                 ["operator"] = "contain",
                 ["field"] = "content",
+            },
+            {
+                ["value"] = "龙妹",
+                ["field"] = "content",
+                ["operator"] = "contain",
             },
             {
                 ["value"] = "龍妹",
@@ -649,7 +1025,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3027,
-        ["class"] = "副本/60 黑翼之巢/{author}",
+        ["class"] = "地城/60 黑翼之巢/{author}",
         ["conditions"] = {
             {
                 ["value"] = "黑翼",
@@ -670,8 +1046,13 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3028,
-        ["class"] = "副本/55-60 祖爾格拉布/{author}",
+        ["class"] = "地城/55-60 祖爾格拉布/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "祖尔格拉布",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "祖爾格拉布",
                 ["field"] = "content",
@@ -696,7 +1077,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3029,
-        ["class"] = "副本/60 安其拉神殿/{author}",
+        ["class"] = "地城/60 安其拉神殿/{author}",
         ["conditions"] = {
             {
                 ["value"] = "安其拉",
@@ -722,8 +1103,13 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3030,
-        ["class"] = "副本/60 安其拉廢墟/{author}",
+        ["class"] = "地城/60 安其拉廢墟/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "废墟",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
             {
                 ["value"] = "廢墟",
                 ["field"] = "content",
@@ -743,6 +1129,860 @@ MessageClassifierDefaultRules = {
                 ["value"] = "aq20",
                 ["operator"] = "contain",
                 ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3031,
+        ["class"] = "地城/60+ 納克薩瑪斯/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "纳克萨玛斯",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "納克薩瑪斯",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "naxx",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3032,
+        ["class"] = "地城/59-67 地獄火壁壘/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "城墙",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "壁壘",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "cq",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3033,
+        ["class"] = "地城/60-68 血熔爐/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "熔炉",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "熔爐",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "rl",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3034,
+        ["class"] = "地城/69-70 破碎大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "破碎",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3134,
+        ["class"] = "地城/69-70 破碎大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "大厅",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "塞泰克",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 3234,
+        ["class"] = "地城/69-70 破碎大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "大廳",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "塞司克",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 3035,
+        ["class"] = "地城/63-70 法力墓地/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "陵墓",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "墓地",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "fl",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3135,
+        ["logic"] = "and",
+        ["class"] = "地城/63-70 法力墓地/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "法力",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "源生法力",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3036,
+        ["class"] = "地城/64-70 奧奇奈地穴/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "奥金尼",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "奧奇奈",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "地穴",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "dx",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3037,
+        ["class"] = "地城/66-70 塞司克大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "塞泰克",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "塞司克",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "stk",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3137,
+        ["class"] = "地城/66-70 塞司克大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "大厅",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "破碎",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 3237,
+        ["class"] = "地城/66-70 塞司克大廳/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "大廳",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "破碎",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+        ["logic"] = "and",
+    },
+    {
+        id = 3038,
+        ["class"] = "地城/69-70 暗影迷宮/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "暗影",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "迷宫",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "迷宮",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "mg",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3039,
+        ["class"] = "地城/61-69 奴隸監獄/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "奴隶",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "奴隸",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "围栏",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "wl",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3040,
+        ["class"] = "地城/62-70 深幽泥沼/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "幽暗沼泽",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "深幽",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "泥沼",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "ub",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3140,
+        ["logic"] = "and",
+        ["class"] = "地城/62-70 深幽泥沼/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "沼泽",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "剃刀",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "黑色",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3240,
+        ["logic"] = "and",
+        ["class"] = "地城/62-70 深幽泥沼/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "幽暗",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "幽暗城",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3041,
+        ["class"] = "地城/69-70 蒸汽洞窟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "蒸汽",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "地窖",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "地窟",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "洞窟",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3042,
+        ["class"] = "地城/66-70 希爾斯布萊德丘陵舊址/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "丘陵",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "丘陵",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "舊址",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "%f[%a]ql",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3043,
+        ["class"] = "地城/68-70 黑色沼澤/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "黑色",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3143,
+        ["logic"] = "and",
+        ["class"] = "地城/68-70 黑色沼澤/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "沼泽",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "剃刀",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "幽暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3243,
+        ["logic"] = "and",
+        ["class"] = "地城/68-70 黑色沼澤/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "沼澤",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "剃刀",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3044,
+        ["class"] = "地城/69-70 亞克崔茲/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "禁魔",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "亞克崔茲",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3144,
+        ["class"] = "地城/69-70 亞克崔茲/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "能源舰",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3244,
+        ["class"] = "地城/69-70 亞克崔茲/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "生态船",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3344,
+        ["class"] = "地城/69-70 亞克崔茲/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "监狱",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "风暴",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3045,
+        ["class"] = "地城/68-70 麥克納爾/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "能源舰",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "麥克納爾",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3046,
+        ["class"] = "地城/69-70 波塔尼卡/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "生态船",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "波塔尼卡",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3047,
+        ["class"] = "地城/69-70 博學者殿堂/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "魔导",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "平台",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "博學",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "殿堂",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3048,
+        ["class"] = "地城/68-70 卡拉贊/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "卡拉赞",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "卡拉贊",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "klz",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3049,
+        ["class"] = "地城/68-70 祖阿曼/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "祖阿曼",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "zam",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3050,
+        ["class"] = "地城/70 瑪瑟里頓的巢穴/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "玛瑟里顿",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "瑪瑟里頓",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 3150,
+        ["logic"] = "and",
+        ["class"] = "地城/70 瑪瑟里頓的巢穴/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "巢穴",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "格鲁尔",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3051,
+        ["class"] = "地城/65-70 戈魯爾之巢/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "格鲁尔",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "戈魯爾",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3151,
+        ["logic"] = "and",
+        ["class"] = "地城/65-70 戈魯爾之巢/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "巢穴",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "玛瑟里顿",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3052,
+        ["class"] = "地城/70 毒蛇神殿洞穴/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "毒蛇",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3152,
+        ["logic"] = "and",
+        ["class"] = "地城/70 毒蛇神殿洞穴/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "神殿",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "黑暗",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3053,
+        ["class"] = "地城/70 風暴核心/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "风暴",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "要塞",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "風暴",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "核心",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3054,
+        ["class"] = "地城/70 海加爾山之戰/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "海加尔",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "海加爾",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3055,
+        ["class"] = "地城/70 黑暗神廟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "黑暗神殿",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3155,
+        ["logic"] = "and",
+        ["class"] = "地城/70 黑暗神廟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "神殿",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "毒蛇",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "安其拉",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3255,
+        ["logic"] = "and",
+        ["class"] = "地城/70 黑暗神廟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "神廟",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "阿塔",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "哈卡",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "安其拉",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3355,
+        ["logic"] = "and",
+        ["class"] = "地城/70 黑暗神廟/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "黑暗",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "深渊",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 3056,
+        ["class"] = "地城/70 太陽之井高地/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "太阳",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "太陽",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3156,
+        ["logic"] = "and",
+        ["class"] = "地城/70 太陽之井高地/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "高地",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "剃刀",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },

@@ -136,7 +136,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 1003,
+        id = 1004,
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]air",
@@ -150,28 +150,6 @@ MessageClassifierDefaultRules = {
             },
         },
         ["class"] = "Airplane/{author}",
-    },
-    {
-        id = 2001,
-        ["class"] = "Instance/Dungeon/{author}",
-        ["conditions"] = {
-            {
-                ["value"] = "dungeon",
-                ["field"] = "content",
-                ["operator"] = "contain",
-            },
-        },
-    },
-    {
-        id = 2001,
-        ["class"] = "Instance/Raid/{author}",
-        ["conditions"] = {
-            {
-                ["value"] = "raid",
-                ["field"] = "content",
-                ["operator"] = "contain",
-            },
-        },
     },
     {
         id = 2002,
@@ -196,7 +174,30 @@ MessageClassifierDefaultRules = {
         },
     },
     {
+        id = 2004,
+        ["class"] = "Instance/Dungeon/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "dungeon",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2005,
+        ["class"] = "Instance/Raid/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "raid",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
         id = 3001,
+        ["class"] = "Instance/13-18 Ragefire Chasm/{author}",
         ["conditions"] = {
             {
                 ["value"] = "ragefire",
@@ -209,7 +210,6 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
         },
-        ["class"] = "Instance/13-18 Ragefire Chasm/{author}",
     },
     {
         id = 3002,
@@ -217,6 +217,11 @@ MessageClassifierDefaultRules = {
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]wc%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]wailing%f[%A]",
                 ["field"] = "content",
                 ["operator"] = "match",
             },
@@ -232,7 +237,12 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
             {
-                ["value"] = "deadmines",
+                ["value"] = "%f[%a]dmvc%f[%A]",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "deadmine",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
@@ -299,6 +309,11 @@ MessageClassifierDefaultRules = {
                 ["value"] = "%f[%a]bfd%f[%A]",
                 ["field"] = "content",
                 ["operator"] = "match",
+            },
+            {
+                ["value"] = "blackfathom",
+                ["field"] = "content",
+                ["operator"] = "contain",
             },
         },
     },
@@ -382,6 +397,11 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "friedhof",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "graveyard",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
@@ -469,12 +489,22 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "match",
             },
+            {
+                ["value"] = "razorfen%s+downs",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
         },
     },
     {
         id = 3014,
         ["class"] = "Instance/41-51 Uldaman/{author}",
         ["conditions"] = {
+            {
+                ["value"] = "%f[%a]uld%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
             {
                 ["value"] = "%f[%a]ulda%f[%A]",
                 ["field"] = "content",
@@ -489,7 +519,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 3015,
-        ["class"] = "Instance/44-54 Zul'Farak/{author}",
+        ["class"] = "Instance/44-54 Zul'Farrak/{author}",
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]zf%f[%A]",
@@ -503,6 +533,11 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "farak",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "farrak",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
@@ -544,9 +579,36 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "match",
             },
             {
-                ["value"] = "%f[%a]temple",
+                ["value"] = "hakkar%f[%A]",
                 ["field"] = "content",
                 ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3117,
+        ["class"] = "Instance/50-60 Temple of Atal'Hakkar/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "temple",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "ahn",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "qiraj",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "black",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -559,6 +621,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "match",
             },
+            {
+                ["value"] = "blackrock%s+depth",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
         },
     },
     {
@@ -567,6 +634,11 @@ MessageClassifierDefaultRules = {
         ["conditions"] = {
             {
                 ["value"] = "blackrock",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "spire",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
@@ -616,6 +688,11 @@ MessageClassifierDefaultRules = {
             {
                 ["value"] = "%f[%a]dm%s+n",
                 ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "dire maul",
+                ["operator"] = "contain",
                 ["field"] = "content",
             },
         },
@@ -684,6 +761,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "match",
             },
+            {
+                ["value"] = "molten%s+core",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
         },
     },
     {
@@ -692,6 +774,11 @@ MessageClassifierDefaultRules = {
         ["conditions"] = {
             {
                 ["value"] = "%f[%a]ony%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]onx%f[%A]",
                 ["field"] = "content",
                 ["operator"] = "match",
             },
@@ -758,6 +845,16 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "match",
                 ["field"] = "content",
             },
+            {
+                ["value"] = "%f[%a]ahn",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "qiraj",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
         },
     },
     {
@@ -772,7 +869,427 @@ MessageClassifierDefaultRules = {
             {
                 ["value"] = "%f[%a]raq%f[%A]",
                 ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]ahn",
+                ["operator"] = "match",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "qiraj",
                 ["operator"] = "contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 3031,
+        ["class"] = "Instance/60+ Naxxramas/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]naxx",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },{
+        id = 3032,
+        ["class"] = "Instance/59-67 Hellfire Ramparts/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]ramp",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3033,
+        ["class"] = "Instance/60-68 The Blood Furnace/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]bf%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]furnace%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3034,
+        ["class"] = "Instance/69-70 The Shattered Halls/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]sh%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+        {
+            ["value"] = "%f[%a]shattered%s+hall",
+            ["field"] = "content",
+            ["operator"] = "match",
+        },
+    },
+    {
+        id = 3035,
+        ["class"] = "Instance/63-70 Mana-Tombs/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]mt%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]tombs%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3036,
+        ["class"] = "Instance/64-70 Auchenai Crypts/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]ac%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]crypts%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3037,
+        ["class"] = "Instance/66-70 Sethekk Halls/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]seth",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3038,
+        ["class"] = "Instance/69-70 Shadow Labyrinth/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]sl%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]shadow%s+lab",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]lab%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]slab",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3039,
+        ["class"] = "Instance/61-69 The Slave Pens/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]sp%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]slave%s+pen",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3040,
+        ["class"] = "Instance/62-70 The Underbog/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "bog%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]ub%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3041,
+        ["class"] = "Instance/69-70 The Steamvault/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]sv%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]vault",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]steam%s*vault",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3042,
+        ["class"] = "Instance/66-70 Old Hillsbrad Foothills/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]ohf%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]old%s+hills",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3043,
+        ["class"] = "Instance/68-70 The Black Morass/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]bm%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]morass%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3044,
+        ["class"] = "Instance/69-70 The Arcatraz/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]arca",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]az%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3045,
+        ["class"] = "Instance/68-70 The Mechanar/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]mech",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3046,
+        ["class"] = "Instance/69-70 The Botanica/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]bot",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3047,
+        ["class"] = "Instance/69-70 Magisters' Terrace/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]terrace%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]mgt%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]mst%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]magterr%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]mt%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]qt5%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3048,
+        ["class"] = "Instance/68-70 Karazhan/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]kara",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3049,
+        ["class"] = "Instance/68-70 Zul'Aman/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]zul'?%s*aman%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3050,
+        ["class"] = "Instance/70 Magtheridon's Lair/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]mag",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3051,
+        ["class"] = "Instance/65-70 Gruul's Lair/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]gruul",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3052,
+        ["class"] = "Instance/70 Serpentshrine Cavern/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]ssc%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]serpentshrine",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3053,
+        ["class"] = "Instance/70 The Eye/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]the%s+eye%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]te%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]tk%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3054,
+        ["class"] = "Instance/70 The Battle for Mount Hyjal/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]hyjal%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3055,
+        ["class"] = "Instance/70 Black Temple/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]black%s+temple%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]bt%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+        },
+    },
+    {
+        id = 3056,
+        ["class"] = "Instance/70 Sunwell Plateau/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "%f[%a]qd25%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]swp%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
+            },
+            {
+                ["value"] = "%f[%a]sunwell%f[%A]",
+                ["field"] = "content",
+                ["operator"] = "match",
             },
         },
     },

@@ -1,10 +1,10 @@
-﻿## Interface: 20501
+## Interface: 20501
 
 ## Title: Message Classifier
 ## Title-zhCN: 聊天消息分类去重
 ## Title-zhTW: 聊天消息分类去重
 ## Notes: MessageClassifier
-## Version: v0.4.3
+## Version: v0.4.5b
 ## Author: SwimmingTiger (NGA: hu60)
 ## SavedVariables: MessageClassifierConfig
 ## X-Curse-Project-ID: 348875
