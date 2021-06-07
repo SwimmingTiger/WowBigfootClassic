@@ -54,6 +54,8 @@ local spellNamesByID = {
     [20910] = "Counterattack",
     [27067] = "Counterattack",
 
+    [34026] = "KillCommand",
+
     [20662] = "Execute",
     [20661] = "Execute",
     [20660] = "Execute",
@@ -252,17 +254,28 @@ function f:SPELLS_CHANGED()
         end
 
     elseif class == "HUNTER" then
+
+        local hasMongooseBite = ns.findHighestRank("MongooseBite")
+        local hasCounterattack = ns.findHighestRank("Counterattack")
+        local hasKillCommand = ns.findHighestRank("KillCommand")
+
         self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
         self:SetScript("OnUpdate", self.timerOnUpdate)
-        if ns.findHighestRank("Counterattack") and ns.findHighestRank("MongooseBite") then
+        if hasMongooseBite or hasCounterattack or hasKillCommand then
             local CheckCounterattack = ns.CheckCounterattack
             local CheckMongooseBite = ns.CheckMongooseBite
+            local CheckKillCommand = ns.CheckKillCommand
             procCombatLog = function(...)
-                CheckCounterattack(...)
-                CheckMongooseBite(...)
+                if hasCounterattack then
+                    CheckCounterattack(...)
+                end
+                if hasMongooseBite then
+                    CheckMongooseBite(...)
+                end
+                if hasKillCommand then
+                    CheckKillCommand(...)
+                end
             end
-        elseif ns.findHighestRank("MongooseBite") then
-            procCombatLog = ns.CheckMongooseBite
         else
             self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
             self:SetScript("OnUpdate", nil)
@@ -368,6 +381,7 @@ local reverseSpellRanks = {
     Rampage = { 30033, 30030, 29801},
     Riposte = { 14251 },
     Counterattack = { 27067, 20910, 20909, 19306 },
+    KillCommand = { 34026 },
     Execute = { 25236, 25234, 20662, 20661, 20660, 20658, 5308 },
     ShadowBolt = { 27209, 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686 },
     Incinerate = { 32231, 29722 },
@@ -605,6 +619,26 @@ function ns.CheckMongooseBite(eventType, isSrcPlayer, isDstPlayer, ...)
         local spellName = select(2, ...)
         if spellName == LocalizedMongooseBite then
             f:Deactivate("MongooseBite", 5)
+        end
+    end
+end
+
+
+function ns.CheckKillCommand(eventType, isSrcPlayer, isDstPlayer, ...)
+    if isSrcPlayer then
+        if eventType == "RANGE_DAMAGE" or eventType == "SWING_DAMAGE" or eventType == "SPELL_DAMAGE" then
+            local isCrit
+            if eventType == "SWING_DAMAGE" then
+                isCrit = select(7, ...)
+            elseif eventType == "RANGE_DAMAGE" then
+                isCrit = select(10, ...)
+            elseif eventType == "SPELL_DAMAGE" then
+                isCrit = select(10, ...)
+            end
+            if isCrit == true then
+                f:Activate("KillCommand", 5)
+            end
+
         end
     end
 end
