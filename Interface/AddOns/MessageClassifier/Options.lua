@@ -264,7 +264,7 @@ function MessageClassifierConfigFrame:loadConfig()
                                 get = function(info)
                                     local ruleSets = MessageClassifierConfig.classificationRules
                                     for _, rule in ipairs(ruleSets) do
-                                        if rule.enabled == false then
+                                        if not self:isHiddenRule(rule) and rule.enabled == false then
                                             return false
                                         end
                                     end
@@ -273,7 +273,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 set = function(info, val)
                                     local ruleSets = MessageClassifierConfig.classificationRules
                                     for _, rule in ipairs(ruleSets) do
-                                        rule.enabled = val
+                                        if not self:isHiddenRule(rule) then
+                                            rule.enabled = val
+                                        end
                                     end
                                     MessageClassifierBrowser:updateAllMessages()
                                 end,
@@ -286,7 +288,7 @@ function MessageClassifierConfigFrame:loadConfig()
                                 get = function(info)
                                     local ruleSets = MessageClassifierConfig.classificationRules
                                     for _, rule in ipairs(ruleSets) do
-                                        if rule.hideFromChatWindow ~= true then
+                                        if not self:isHiddenRule(rule) and rule.hideFromChatWindow ~= true then
                                             return false
                                         end
                                     end
@@ -295,7 +297,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 set = function(info, val)
                                     local ruleSets = MessageClassifierConfig.classificationRules
                                     for _, rule in ipairs(ruleSets) do
-                                        rule.hideFromChatWindow = val
+                                        if not self:isHiddenRule(rule) then
+                                            rule.hideFromChatWindow = val
+                                        end
                                     end
                                     MessageClassifierBrowser:updateAllMessages()
                                 end,
@@ -337,7 +341,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 get = function(info)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        if MessageClassifierConfig.enabledDefaultRules[rule.id] == false then
+                                        if not self:isHiddenRule(rule) and
+                                            MessageClassifierConfig.enabledDefaultRules[rule.id] == false
+                                        then
                                             return false
                                         end
                                     end
@@ -346,7 +352,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 set = function(info, val)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        MessageClassifierConfig.enabledDefaultRules[rule.id] = val
+                                        if not self:isHiddenRule(rule) then
+                                            MessageClassifierConfig.enabledDefaultRules[rule.id] = val
+                                        end
                                     end
                                     MessageClassifierBrowser:updateAllMessages()
                                 end,
@@ -359,7 +367,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 get = function(info)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        if MessageClassifierConfig.defRulHideFromChatWindow[rule.id] ~= true then
+                                        if not self:isHiddenRule(rule) and
+                                            MessageClassifierConfig.defRulHideFromChatWindow[rule.id] ~= true
+                                        then
                                             return false
                                         end
                                     end
@@ -368,7 +378,9 @@ function MessageClassifierConfigFrame:loadConfig()
                                 set = function(info, val)
                                     local ruleSets = MessageClassifierDefaultRules
                                     for _, rule in ipairs(ruleSets) do
-                                        MessageClassifierConfig.defRulHideFromChatWindow[rule.id] = val
+                                        if not self:isHiddenRule(rule) then
+                                            MessageClassifierConfig.defRulHideFromChatWindow[rule.id] = val
+                                        end
                                     end
                                     MessageClassifierBrowser:updateAllMessages()
                                 end,
@@ -454,6 +466,10 @@ function MessageClassifierConfigFrame:removeRuleSet(index)
     --AceConfigRegistry:NotifyChange(ADDON_NAME)
 end
 
+function MessageClassifierConfigFrame:isHiddenRule(rule)
+    return self.ruleSetsFilter ~= "" and self.ruleSetsFilter ~= rule.class
+end
+
 function MessageClassifierConfigFrame:addRuleSetToView(index, ruleSet)
     local group = self.configTable.args.ruleSets
     local option = {
@@ -462,7 +478,7 @@ function MessageClassifierConfigFrame:addRuleSetToView(index, ruleSet)
         order = index,
         name = "",
         hidden = function()
-            return self.ruleSetsFilter ~= "" and self.ruleSetsFilter ~= ruleSet.class
+            return self:isHiddenRule(ruleSet)
         end,
         args = {
             enabled = {
@@ -809,7 +825,7 @@ function MessageClassifierConfigFrame:addDefaultRuleSetToView(index, ruleSet)
         order = index,
         name = "",
         hidden = function()
-            return self.ruleSetsFilter ~= "" and self.ruleSetsFilter ~= ruleSet.class
+            return self:isHiddenRule(ruleSet)
         end,
         args = {
             enabled = {

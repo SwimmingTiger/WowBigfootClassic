@@ -225,6 +225,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 1004,
+        ["class"] = "航空/{author}",
         ["conditions"] = {
             {
                 ["value"] = "航",
@@ -242,22 +243,10 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
             },
         },
-        ["class"] = "航空/{author}",
-    },
-    {
-        id = 2001,
-        ["class"] = "地城/AA/{author}",
-        ["conditions"] = {
-            {
-                ["value"] = "AA",
-                ["field"] = "content",
-                ["operator"] = "contain",
-            },
-        },
     },
     {
         id = 2002,
-        ["class"] = "任務/{author}",
+        ["class"] = "組隊/任务/{author}",
         ["conditions"] = {
             {
                 ["value"] = "任务",
@@ -273,7 +262,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 2003,
-        ["class"] = "世界BOSS/{author}",
+        ["class"] = "組隊/世界BOSS/{author}",
         ["conditions"] = {
             {
                 ["value"] = "世界BOSS",
@@ -284,6 +273,229 @@ MessageClassifierDefaultRules = {
                 ["value"] = "世界王",
                 ["field"] = "content",
                 ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2004,
+        ["class"] = "組隊/AA/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "AA",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2005,
+        ["class"] = "組隊/菜刀/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "菜刀",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2006,
+        ["class"] = "組隊/消費/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "老板",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "老闆",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "消费",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "消費",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2007,
+        ["class"] = "組隊/打工/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "打工",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2008,
+        ["class"] = "組隊/练级/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "练级",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "練級",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "升级",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "升級",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "带",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "帶",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "免费",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "免費",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2009,
+        ["class"] = "組隊/求組/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "求组",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "求組",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2010,
+        ["class"] = "組隊/經驗寶寶/{author}",
+        ["conditions"] = {
+            {
+                ["value"] = "经验宝宝",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "經驗寶寶",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+        },
+    },
+    {
+        id = 2110,
+        ["class"] = "組隊/經驗寶寶/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "宝宝",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "猎人",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "lr",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "抓",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 2210,
+        ["class"] = "组队/经验宝宝/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "寶寶",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "獵人",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "lr",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "抓",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+        },
+    },
+    {
+        id = 2310,
+        ["class"] = "组队/经验宝宝/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
+                ["value"] = "bb",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "猎人",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "獵人",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "lr",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "抓",
+                ["field"] = "content",
+                ["operator"] = "not contain",
             },
         },
     },
@@ -367,7 +579,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 3105,
+        id = 3005,
         ["class"] = "地城/24-32 黑澗深淵/{author}",
         ["conditions"] = {
             {
@@ -388,7 +600,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 3205,
+        id = 3105,
         ["class"] = "地城/24-32 黑澗深淵/{author}",
         ["logic"] = "and",
         ["conditions"] = {
@@ -405,7 +617,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 3305,
+        id = 3205,
         ["class"] = "地城/24-32 黑澗深淵/{author}",
         ["logic"] = "and",
         ["conditions"] = {
@@ -422,7 +634,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 3005,
+        id = 3305,
         ["class"] = "地城/24-32 監獄/{author}",
         ["logic"] = "and",
         ["conditions"] = {
@@ -454,7 +666,7 @@ MessageClassifierDefaultRules = {
         },
     },
     {
-        id = 3105,
+        id = 3405,
         ["class"] = "地城/24-32 監獄/{author}",
         ["logic"] = "and",
         ["conditions"] = {
@@ -775,6 +987,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
+            {
+                ["value"] = "安琪拉",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
         },
     },
     {
@@ -1085,6 +1302,11 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "contain",
             },
             {
+                ["value"] = "安琪拉",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "aql",
                 ["field"] = "content",
                 ["operator"] = "contain",
@@ -1220,6 +1442,16 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
+            {
+                ["value"] = "赛泰克",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "stk",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
         },
         ["logic"] = "and",
     },
@@ -1234,6 +1466,11 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "塞司克",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "賽司克",
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
@@ -1272,7 +1509,7 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "contain",
             },
             {
-                ["value"] = "源生法力",
+                ["value"] = "源生",
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
@@ -1315,6 +1552,16 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "塞司克",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "赛泰克",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "賽司克",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
@@ -1885,6 +2132,11 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
+            {
+                ["value"] = "黑暗神廟",
+                ["operator"] = "contain",
+                ["field"] = "content",
+            },
         },
     },
     {
@@ -1904,6 +2156,11 @@ MessageClassifierDefaultRules = {
             },
             {
                 ["value"] = "安其拉",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
+            {
+                ["value"] = "安琪拉",
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
@@ -1934,20 +2191,8 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
-        },
-    },
-    {
-        id = 3355,
-        ["logic"] = "and",
-        ["class"] = "地城/70 黑暗神廟/{author}",
-        ["conditions"] = {
             {
-                ["value"] = "黑暗",
-                ["operator"] = "contain",
-                ["field"] = "content",
-            },
-            {
-                ["value"] = "深渊",
+                ["value"] = "安琪拉",
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },

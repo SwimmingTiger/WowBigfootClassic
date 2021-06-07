@@ -153,7 +153,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 2002,
-        ["class"] = "Quest/{author}",
+        ["class"] = "Group/Quest/{author}",
         ["conditions"] = {
             {
                 ["value"] = "quest",
@@ -164,7 +164,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 2003,
-        ["class"] = "World Boss/{author}",
+        ["class"] = "Group/World Boss/{author}",
         ["conditions"] = {
             {
                 ["value"] = "world%s+boss",
@@ -175,10 +175,15 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 2004,
-        ["class"] = "Instance/Dungeon/{author}",
+        ["class"] = "Group/Dungeon/{author}",
         ["conditions"] = {
             {
                 ["value"] = "dungeon",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "instance",
                 ["field"] = "content",
                 ["operator"] = "contain",
             },
@@ -186,7 +191,7 @@ MessageClassifierDefaultRules = {
     },
     {
         id = 2005,
-        ["class"] = "Instance/Raid/{author}",
+        ["class"] = "Group/Raid/{author}",
         ["conditions"] = {
             {
                 ["value"] = "raid",
