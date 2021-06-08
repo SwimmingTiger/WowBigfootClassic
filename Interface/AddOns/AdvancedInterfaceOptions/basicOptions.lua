@@ -661,7 +661,7 @@ local chatDelay = newCheckbox(AIO_Chat, 'removeChatDelay')
 chatDelay:SetPoint('TOPLEFT', SubText_Chat, 'BOTTOMLEFT', 0, -8)
 chatMouseScroll:SetPoint('TOPLEFT', chatDelay, 'BOTTOMLEFT', 0, -4)
 
-if IsClassic() then
+if IsClassic() or IsBCC() then
     local classColors = newCheckbox(AIO_Chat, 'chatClassColorOverride')
     classColors:SetPoint('TOPLEFT', chatMouseScroll, 'BOTTOMLEFT', 0, -4)
 end

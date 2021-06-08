@@ -288,7 +288,7 @@ addon.hiddenOptions = {
 	["deselectOnClick"] = { prettyName = nil, description = OPTION_TOOLTIP_GAMEFIELD_DESELECT, type = "boolean" },
 	["autoQuestProgress"] = { prettyName = nil, description = OPTION_TOOLTIP_AUTO_QUEST_PROGRESS, type = "boolean" },
     ["UberTooltips"] = { prettyName = USE_UBERTOOLTIPS, description = OPTION_TOOLTIP_USE_UBERTOOLTIPS, type = "boolean" },
-    ["chatClassColorOverride"] = { prettyName = "禁用职业颜色", description = "禁用聊天窗口内角色名称的职业颜色", type = "boolean" },
+    ["chatClassColorOverride"] = { prettyName = "禁用聊天职业颜色", description = "禁用聊天窗口内角色名称的职业颜色", type = "boolean" },
 	-- Sound
 	["Sound_EnableAllSound"] = { prettyName = ENABLE_SOUND, description = OPTION_TOOLTIP_ENABLE_SOUND, type = "boolean" },
 	["Sound_EnableDSPEffects"] = { prettyName = ENABLE_DSP_EFFECTS, description = OPTION_TOOLTIP_ENABLE_DSP_EFFECTS, type = "boolean" },
