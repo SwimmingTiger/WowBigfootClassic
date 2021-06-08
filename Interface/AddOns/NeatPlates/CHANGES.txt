@@ -1,13 +1,12 @@
-lightweight tag 2b65fc0832fe0a6dbde0a4c5943d25c740d87174 2.5.1.18
+lightweight tag 4d3fd9bd540065ad69fb7dce26ed0d6d2a070873 2.5.1.19
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Tue Jun 1 18:42:19 2021 +0200
+Date:	Tue Jun 8 11:30:21 2021 +0200
 
-commit 2b65fc0832fe0a6dbde0a4c5943d25c740d87174
+commit 4d3fd9bd540065ad69fb7dce26ed0d6d2a070873
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Tue Jun 1 18:42:19 2021 +0200
+Date:   Tue Jun 8 11:29:59 2021 +0200
 
-    Added new CVar slider for Non-selected alpha
+    Locale update
     
-    - Added new CVar slider for Non-selected alpha
-    - Updated locale
+    Locale update
 
