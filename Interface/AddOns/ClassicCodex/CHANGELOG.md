@@ -1,8 +1,8 @@
 # ClassicCodex core
 
-## [v1.4.3](https://github.com/SwimmingTiger/ClassicCodex/tree/v1.4.3) (2021-05-26)
-[Full Changelog](https://github.com/SwimmingTiger/ClassicCodex/compare/v1.4.2...v1.4.3) 
+## [v1.4.6](https://github.com/SwimmingTiger/ClassicCodex/tree/v1.4.6) (2021-06-11)
+[Full Changelog](https://github.com/SwimmingTiger/ClassicCodex/compare/v1.4.5...v1.4.6) 
 
-- Add quest texts about character boost  
-- Add notice for missing quest and avoid Lua errors  
-- Unused data will not be cleared when the addon MergeQuestieToCodexDB is detected  
+- Avoid automatic selection of any reward items even if only one is available. Because auto turnin chose the wrong ring for some players in Karazhan.  
+- Avoid auto turnin of the quest "Allegiance to the Aldor" or "Allegiance to the Scryers"  
+- Remove an unnecessary manual patch data  

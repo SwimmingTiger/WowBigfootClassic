@@ -123,6 +123,7 @@ L["All Quests"] = "顯示所有任務"
 L["Tracked Quests"] = "顯示追蹤的任務"
 L["Manual Selection"] = "顯示手動選擇的任務"
 L["Hide Quests"] = "不顯示任務"
+L['[ClassicCodex] Auto accept/turnin has been suspended to avoid making irreparable wrong choices. Please make your own choice.'] = '[ClassicCodex] 為了避免做出無法挽回的錯誤選擇，自動交接任務已暫停。請您手動做出選擇。 '
 
 -- ui.lua
 L["DEFAULT_FONT"] = "Fonts\\bLEI00D.TTF"

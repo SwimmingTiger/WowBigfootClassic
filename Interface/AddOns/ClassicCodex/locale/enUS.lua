@@ -123,6 +123,7 @@ L["All Quests"] = true
 L["Tracked Quests"] = true
 L["Manual Selection"] = true
 L["Hide Quests"] = true
+L['[ClassicCodex] Auto accept/turnin has been suspended to avoid making irreparable wrong choices. Please make your own choice.'] = true
 
 -- ui.lua
 L["DEFAULT_FONT"] = "Fonts\\ARIALN.TTF"

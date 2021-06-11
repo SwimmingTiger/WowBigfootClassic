@@ -8,4 +8,5 @@ CodexDB={
 ["refloot"]={},
 ["units"]={},
 ["zones"]={},
+["exclude"]={},
 }

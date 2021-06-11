@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 任務助手 (核心)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.4.3
+## Version: v1.4.6
 
 ## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## Dependencies: ClassicCodex-loader

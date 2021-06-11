@@ -4169,13 +4169,6 @@ D[8025].coords={
 {53.6,66.8,47,0},
 }
 
--- Edana Hatetalon <https://classic.wowhead.com/npc=8075/edana-hatetalon>
-D[8075].coords={
-{40.4,8.6,357,0},
-{40.6,8.4,357,0},
-{40.6,8.6,357,0},
-}
-
 -- Ziggle Sparks <https://classic.wowhead.com/npc=8116/ziggle-sparks>
 D[8116].coords={
 {27.6,77.6,33,0},

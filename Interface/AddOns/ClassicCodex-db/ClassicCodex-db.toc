@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 數據庫
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.4.3
+## Version: v1.4.6
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
@@ -24,6 +24,7 @@ objects.lua
 refloot.lua
 quests.lua
 meta.lua
+exclude.lua
 
 # TBC database index
 items-tbc.lua
