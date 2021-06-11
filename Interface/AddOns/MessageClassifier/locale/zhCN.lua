@@ -171,6 +171,11 @@ MessageClassifierDefaultRules = {
                 ["field"] = "content",
                 ["operator"] = "not contain",
             },
+            {
+                ["value"] = "塔布",
+                ["field"] = "content",
+                ["operator"] = "not contain",
+            },
         },
         ["logic"] = "and",
     },
@@ -233,14 +238,38 @@ MessageClassifierDefaultRules = {
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
+        },
+    },
+    {
+        id = 1104,
+        ["class"] = "航空/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
             {
                 ["value"] = "飞",
                 ["operator"] = "contain",
                 ["field"] = "content",
             },
             {
+                ["value"] = "会飞",
+                ["operator"] = "not contain",
+                ["field"] = "content",
+            },
+        },
+    },
+    {
+        id = 1204,
+        ["class"] = "航空/{author}",
+        ["logic"] = "and",
+        ["conditions"] = {
+            {
                 ["value"] = "飛",
                 ["operator"] = "contain",
+                ["field"] = "content",
+            },
+            {
+                ["value"] = "會飛",
+                ["operator"] = "not contain",
                 ["field"] = "content",
             },
         },
