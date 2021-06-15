@@ -1783,6 +1783,26 @@ MessageClassifierDefaultRules = {
         ["class"] = "地城/66-70 希爾斯布萊德丘陵舊址/{author}",
         ["conditions"] = {
             {
+                ["value"] = "萨尔",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "索爾",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "敦霍尔德",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
+                ["value"] = "敦霍爾德",
+                ["field"] = "content",
+                ["operator"] = "contain",
+            },
+            {
                 ["value"] = "丘陵",
                 ["field"] = "content",
                 ["operator"] = "contain",
