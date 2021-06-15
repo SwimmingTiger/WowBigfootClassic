@@ -6,10 +6,12 @@
 ## Title-zhTW: ClassicCodex 加载器
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.4.6
+## Version: v1.4.7
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
+
+## Dependencies: !!!Libs
 
 # locales
 locale\enUS.lua

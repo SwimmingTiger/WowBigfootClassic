@@ -1,6 +1,6 @@
 -- A script to merge Questie questDB to ClassicCodex
 -- ClassicCodex version: @project-version@, unit num: 18799
--- Questie version: 6.3.12, unit num: 18165
+-- Questie version: 6.3.15, unit num: 18802
 if select(4, GetAddOnInfo('MergeQuestieToCodexDB')) then return end
 local D = CodexDB.units.data
 D[46].coords={
@@ -70,7 +70,6 @@ D[46].coords={
 {78.6,43.2,12,300},
 {78.6,42.1,12,300},
 }
--- Questie missing unit 67
 D[68].coords={
 {32.1,49.9,12,900},
 {32.5,49.5,12,900},
@@ -104,10 +103,6 @@ D[68].coords={
 {51.5,27.9,1519,25000},
 }
 D[69].fac="AH" --old: nil
--- Questie missing unit 70
--- Questie missing unit 72
--- Questie missing unit 75
--- Questie missing unit 81
 D[89].coords={
 --{78.2,51.9,3483,300}, --del
 --{78.1,48,3483,300}, --del
@@ -290,12 +285,7 @@ D[119].coords={
 --{67.1,22.5,40,300}, --del
 }
 D[119].fac="AH" --old: nil
--- Questie missing unit 149
--- Questie missing unit 150
 D[157].fac="AH" --old: nil
--- Questie missing unit 161
--- Questie missing unit 163
--- Questie missing unit 165
 D[199].coords={
 --{16.6,77.1,12,300}, --del
 {53.7,43.9,40,300},
@@ -336,10 +326,6 @@ D[199].coords={
 {50.6,16.3,40,300},
 {58.8,13.9,40,300},
 }
--- Questie missing unit 204
--- Questie missing unit 207
--- Questie missing unit 208
--- Questie missing unit 209
 D[213].coords={
 {12.6,66.8,10,300},
 {10.7,47.9,10,300},
@@ -385,8 +371,6 @@ D[213].coords={
 --{48.1,93.1,12,300}, --del
 --{87.3,89.3,12,300}, --del
 }
--- Questie missing unit 219
--- Questie missing unit 220
 D[222].coords={
 --{67.4,91.5,11,300}, --del
 {42.9,9.9,38,300},
@@ -395,10 +379,6 @@ D[232].coords={
 --{27.8,98.7,36,300}, --del
 {33.2,34.8,267,300},
 }
--- Questie missing unit 243
--- Questie missing unit 260
--- Questie missing unit 296
--- Questie missing unit 298
 D[299].fac="AH" --old: nil
 D[300].coords={
 {36.8,83.8,10,300},
@@ -406,18 +386,9 @@ D[300].coords={
 {35,80,10,300}, --add
 {38,80,10,300}, --add
 }
--- Questie missing unit 301
 D[314].coords={
 {28.82,30.91,10,0}, --add
 }
--- Questie missing unit 318
--- Questie missing unit 319
--- Questie missing unit 320
--- Questie missing unit 321
--- Questie missing unit 322
--- Questie missing unit 323
--- Questie missing unit 324
--- Questie missing unit 326
 D[329].coords={
 --{18.5,84.9,1377,300}, --del
 --{18.8,84.8,1377,300}, --del
@@ -446,9 +417,6 @@ D[329].coords={
 }
 D[329].fac="AH" --old: nil
 D[330].fac="AH" --old: nil
--- Questie missing unit 333
--- Questie missing unit 336
--- Questie missing unit 339
 D[347].coords={
 --{74.2,12,130,300}, --del
 {56.1,85.3,1497,300},
@@ -457,9 +425,6 @@ D[349].coords={
 {28.4,12.6,44,600},
 --{65.6,88.4,46,600}, --del
 }
--- Questie missing unit 354
--- Questie missing unit 380
--- Questie missing unit 386
 D[390].fac="AH" --old: nil
 D[412].coords={
 {74.45,47.86,10,0}, --add
@@ -539,7 +504,7 @@ D[442].coords={
 {22.4,66.4,44,300},
 {20.1,65.4,44,300},
 }
--- Questie missing unit 444
+D[444].fac="AH" --old: nil
 D[446].coords={
 {28.5,31.5,44,300},
 {29.9,31.2,44,300},
@@ -628,7 +593,6 @@ D[454].coords={
 {58.4,12.4,40,300},
 }
 D[454].fac="AH" --old: nil
--- Questie missing unit 470
 D[478].coords={
 {25.3,96.4,12,360},
 {24.5,96,12,360},
@@ -701,15 +665,7 @@ D[478].coords={
 --{66.6,24.8,40,360}, --del
 --{65.9,24.7,40,360}, --del
 }
--- Questie missing unit 496
--- Questie missing unit 497
--- Questie missing unit 498
--- Questie missing unit 509
--- Questie missing unit 516
 D[524].fac="AH" --old: nil
--- Questie missing unit 535
--- Questie missing unit 536
--- Questie missing unit 538
 D[539].coords={
 {13.2,70.3,10,300},
 {11.9,68.9,10,300},
@@ -826,20 +782,9 @@ D[584].coords={
 --{70.4,85.2,46,18000}, --del
 --{70.5,84.1,46,18000}, --del
 }
--- Questie missing unit 586
--- Questie missing unit 592
 D[598].coords={
 {-1,-1,1581,0}, --add
 }
--- Questie missing unit 605
--- Questie missing unit 606
--- Questie missing unit 607
--- Questie missing unit 609
--- Questie missing unit 610
--- Questie missing unit 611
--- Questie missing unit 612
--- Questie missing unit 613
--- Questie missing unit 614
 D[615].coords={
 {39.2,14.8,44,300},
 {39,14.4,44,300},
@@ -1989,7 +1934,6 @@ D[721].coords={
 }
 D[721].fac="AH" --old: nil
 D[724].fac="AH" --old: nil
--- Questie missing unit 725
 D[727].coords={
 {43.3,65.1,1,250},
 {38,61.9,1,250},
@@ -2272,7 +2216,6 @@ D[752].coords={
 {60.48,86.56,8,300}, --add
 {62.76,87.05,8,300}, --add
 }
--- Questie missing unit 753
 D[756].coords={
 --{45,44.1,33,300}, --del
 --{45.8,43.5,33,300}, --del
@@ -2875,7 +2818,6 @@ D[773].fac="AH" --old: nil
 D[775].coords={
 {40.38,8.35,33,0}, --add
 }
--- Questie missing unit 809
 D[822].coords={
 --{42.5,90.7,12,300}, --del
 --{25.5,89.9,12,300}, --del
@@ -3435,14 +3377,11 @@ D[883].coords={
 }
 D[883].fac="AH" --old: nil
 D[890].fac="AH" --old: nil
--- Questie missing unit 897
--- Questie missing unit 904
 D[907].coords={
 --{29.3,54.7,141,300}, --del
 {58,37.3,1657,300},
 }
 D[908].fac="AH" --old: nil
--- Questie missing unit 919
 D[920].coords={
 {63.6,84.2,10,300},
 {63.5,83.7,10,300},
@@ -3461,7 +3400,6 @@ D[920].coords={
 --{48.7,1.5,33,300}, --del
 }
 D[922].fac="AH" --old: nil
--- Questie missing unit 924
 D[950].coords={
 --{72.2,18,4,300}, --del
 {60.4,84.4,8,300}, --add
@@ -3565,7 +3503,6 @@ D[1052].coords={
 {50.93,8,11,300}, --add
 {50.85,8.24,11,300}, --add
 }
--- Questie missing unit 1058
 D[1068].coords={
 {2.9,45.6,3,300},
 --{82,36.7,51,300}, --del
@@ -4310,9 +4247,7 @@ D[1197].coords={
 {36.77,93.89,38,300}, --add
 }
 D[1216].fac="AH" --old: nil
--- Questie missing unit 1230
--- Questie missing unit 1233
--- Questie missing unit 1235
+D[1233].fac="AH" --old: nil
 D[1251].coords={
 {37.3,84.2,10,300},
 {37.1,82.4,10,300},
@@ -4337,9 +4272,6 @@ D[1282].coords={
 --{89.1,56.3,1,300}, --del
 {21.4,67.3,38,300},
 }
--- Questie missing unit 1288
--- Questie missing unit 1290
--- Questie missing unit 1306
 D[1322].coords={
 {67.9,8.3,405,300},
 --{42.3,83.3,406,300}, --del
@@ -4348,11 +4280,6 @@ D[1340].coords={
 --{34.3,47.7,38,300}, --del
 {32.63,49.74,38,300}, --add
 }
-D[1356].coords={
---{74.6,11.7,1537,310}, --del
-{74.6,12,1537,310}, --add
-}
--- Questie missing unit 1361
 D[1364].coords={
 {62.5,28.4,11,300},
 {47,17,11,300}, --add
@@ -5656,9 +5583,6 @@ D[1423].coords={
 --{63.1,16.6,40,300}, --del
 --{62.9,16.3,40,300}, --del
 }
--- Questie missing unit 1455
--- Questie missing unit 1467
--- Questie missing unit 1485
 D[1487].coords={
 {37.8,84.3,10,300},
 {35,81.3,10,300},
@@ -5806,7 +5730,6 @@ D[1538].coords={
 {79.5,26,85,300},
 {79.3,24.6,85,300},
 }
--- Questie missing unit 1546
 D[1548].coords={
 --{20.3,61.2,28,300}, --del
 --{18.8,60.9,28,300}, --del
@@ -6210,7 +6133,6 @@ D[1554].coords={
 {73.3,29.2,85,300},
 {68.6,28.3,85,300},
 }
--- Questie missing unit 1567
 D[1572].coords={
 --{96.1,47.1,1,600}, --del
 {33.9,51,38,600},
@@ -6275,16 +6197,12 @@ D[1638].fac="AH" --old: nil
 D[1639].fac="AH" --old: nil
 D[1640].fac="AH" --old: nil
 D[1641].fac="AH" --old: nil
--- Questie missing unit 1643
--- Questie missing unit 1644
--- Questie missing unit 1659
 D[1663].coords={
 {-1,-1,717,0}, --add
 }
 D[1666].coords={
 {-1,-1,717,0}, --add
 }
--- Questie missing unit 1677
 D[1689].coords={
 {70.9,61.3,1,180},
 {74.9,60.8,1,180},
@@ -6642,7 +6560,6 @@ D[1855].coords={
 --{67.4,24.2,28,610}, --del
 {7.6,43.6,139,610},
 }
--- Questie missing unit 1859
 D[1860].coords={
 --{25.3,60.7,331,300}, --del
 --{61.5,17.7,406,300}, --del
@@ -7515,7 +7432,7 @@ D[2067].coords={
 D[2068].coords={
 {46.51,74.05,130,0}, --add
 }
--- Questie missing unit 2087
+D[2087].fac="AH" --old: "A"
 D[2098].coords={
 {56.4,84.2,11,300},
 {50.6,74.8,11,300},
@@ -7635,7 +7552,6 @@ D[2120].coords={
 --{8.7,25,267,275}, --del
 }
 D[2120].fac="AH" --old: "A"
--- Questie missing unit 2133
 D[2138].fac="AH" --old: nil
 D[2149].coords={
 {63.12,65.93,38,0}, --add
@@ -7836,9 +7752,6 @@ D[2180].coords={
 --{40.9,8.8,361,275}, --del
 --{41.8,8.6,361,275}, --del
 }
--- Questie missing unit 2197
--- Questie missing unit 2199
--- Questie missing unit 2200
 D[2207].coords={
 {31.1,87.9,148,275},
 {31,87.7,148,275},
@@ -7863,8 +7776,6 @@ D[2216].coords={
 --{60.1,80.7,36,300}, --del
 {61.4,19.1,267,300},
 }
--- Questie missing unit 2220
--- Questie missing unit 2223
 D[2225].coords={
 {50.08,82.15,2597,0}, --add
 }
@@ -8564,7 +8475,6 @@ D[2278].coords={
 --{61.5,82.5,36,300}, --del
 {62.6,20.6,267,300},
 }
--- Questie missing unit 2282
 D[2284].coords={
 --{61.7,80.8,36,90}, --del
 --{61.5,80.3,36,90}, --del
@@ -8601,12 +8511,6 @@ D[2287].coords={
 {36.8,49.1,36,300},
 --{43.2,0.5,267,300}, --del
 }
--- Questie missing unit 2293
--- Questie missing unit 2295
--- Questie missing unit 2296
--- Questie missing unit 2297
--- Questie missing unit 2300
--- Questie missing unit 2301
 D[2302].coords={
 --{29.5,54.6,141,600}, --del
 {59,37,1657,600},
@@ -8621,8 +8525,6 @@ D[2306].coords={
 {57.8,29.8,36,300}, --add
 {61,43,36,300}, --add
 }
--- Questie missing unit 2312
--- Questie missing unit 2313
 D[2318].coords={
 --{32.9,93.6,28,300}, --del
 --{32.1,91.5,28,300}, --del
@@ -10220,7 +10122,6 @@ D[2440].coords={
 --{60.7,9.5,267,300}, --del
 --{60.2,7.2,267,300}, --del
 }
--- Questie missing unit 2441
 D[2442].coords={
 {20.7,69.2,11,60},
 {19.3,69.1,11,60},
@@ -10938,7 +10839,6 @@ D[2614].coords={
 {35.8,63.8,3522,300},
 }
 D[2616].fac="AH" --old: nil
--- Questie missing unit 2617
 D[2620].coords={
 {43.2,81.6,17,275},
 {41.4,79.9,17,275},
@@ -11876,8 +11776,6 @@ D[2806].coords={
 --{50.4,74.2,148,300}, --del
 {34.8,53.2,361,300},
 }
--- Questie missing unit 2813
--- Questie missing unit 2815
 D[2817].fac="AH" --old: nil
 D[2832].fac="AH" --old: nil
 D[2833].fac="AH" --old: nil
@@ -11907,19 +11805,6 @@ D[2866].fac="AH" --old: nil
 D[2867].fac="AH" --old: nil
 D[2868].fac="AH" --old: nil
 D[2869].fac="AH" --old: nil
--- Questie missing unit 2870
--- Questie missing unit 2871
--- Questie missing unit 2872
--- Questie missing unit 2873
--- Questie missing unit 2874
--- Questie missing unit 2875
--- Questie missing unit 2877
--- Questie missing unit 2880
--- Questie missing unit 2881
--- Questie missing unit 2883
--- Questie missing unit 2885
--- Questie missing unit 2896
--- Questie missing unit 2899
 D[2908].coords={
 {3.1,45.9,3,300},
 --{82.2,37.1,51,300}, --del
@@ -12542,13 +12427,11 @@ D[2932].coords={
 --{39.1,19.7,3,600}, --del
 {38.37,93.97,38,600}, --add
 }
--- Questie missing unit 2935
 D[2937].coords={
 --{59.6,9.3,15,0}, --del
 --{66.4,58.8,17,0}, --del
 {59.71,10.06,15,0}, --add
 }
--- Questie missing unit 2940
 D[2950].coords={
 {53.2,74.1,215,250},
 {48.7,73.3,215,250},
@@ -14251,9 +14134,6 @@ D[3058].coords={
 {53,14,215,60},
 }
 D[3058].fac="AH" --old: nil
--- Questie missing unit 3070
--- Questie missing unit 3071
--- Questie missing unit 3082
 D[3083].coords={
 --{42.2,28,215,250}, --del
 --{42.3,27.6,215,250}, --del
@@ -15477,7 +15357,6 @@ D[3140].coords={
 --{54.2,73.3,14,300}, --del
 {54.4,75,14,300}, --add
 }
--- Questie missing unit 3148
 D[3159].coords={
 {40.5,68,14,300},
 --{66.4,32.6,17,300}, --del
@@ -15490,8 +15369,6 @@ D[3161].coords={
 {40.5,67.8,14,300},
 --{66.4,32.5,17,300}, --del
 }
--- Questie missing unit 3176
--- Questie missing unit 3202
 D[3205].coords={
 {67.6,87.8,14,300},
 --{80.5,42.9,17,300}, --del
@@ -16570,7 +16447,6 @@ D[3296].coords={
 {75.4,15.8,1637,300},
 {74.8,15.3,1637,300},
 }
--- Questie missing unit 3299
 D[3300].coords={
 {54.2,77.8,14,120},
 {57.8,72.1,14,120},
@@ -16771,9 +16647,6 @@ D[3300].coords={
 {-1,-1,3791,120}, --add
 }
 D[3300].fac="AH" --old: nil
--- Questie missing unit 3302
--- Questie missing unit 3303
--- Questie missing unit 3307
 D[3313].coords={
 --{45.3,8.2,14,300}, --del
 {48.1,80.5,1637,300},
@@ -16983,7 +16856,6 @@ D[3419].coords={
 --{88,48.3,405,250}, --del
 {22.8,20.9,1638,250},
 }
--- Questie missing unit 3420
 D[3421].coords={
 --{26,62.4,15,60}, --del
 {49,86.3,17,60},
@@ -17050,9 +16922,7 @@ D[3426].coords={
 --{88.1,98.3,406,275}, --del
 }
 D[3426].fac="AH" --old: nil
--- Questie missing unit 3427
 D[3439].fac="AH" --old: nil
--- Questie missing unit 3440
 D[3441].coords={
 --{42.3,33.3,215,250}, --del
 {61.5,80.9,1638,250},
@@ -17180,7 +17050,6 @@ D[3517].coords={
 --{25.1,51.4,141,300}, --del
 {38.2,21.6,1657,300},
 }
--- Questie missing unit 3525
 D[3529].coords={
 {46.48,72.22,130,0}, --add
 }
@@ -17209,7 +17078,6 @@ D[3544].coords={
 --{60.2,81.9,36,300}, --del
 {61.5,20.1,267,300},
 }
--- Questie missing unit 3558
 D[3560].coords={
 --{69.3,81.5,45,400}, --del
 --{67.3,80.5,45,400}, --del
@@ -17385,7 +17253,6 @@ D[3562].coords={
 --{25.3,62.4,141,300}, --del
 {39,74.3,1657,300},
 }
--- Questie missing unit 3565
 D[3566].coords={
 --{37.5,57.5,17,250}, --del
 --{35.4,43,17,250}, --del
@@ -17619,7 +17486,6 @@ D[3619].coords={
 {60.19,16.36,148,0}, --add
 {57.6,18.13,148,0}, --add
 }
--- Questie missing unit 3623
 D[3630].coords={
 --{46.1,35.3,17,275}, --del
 --{46.2,34.7,17,275}, --del
@@ -17655,7 +17521,6 @@ D[3637].coords={
 D[3640].coords={
 {-1,-1,718,0}, --add
 }
--- Questie missing unit 3651
 D[3653].coords={
 {-1,-1,718,0}, --add
 }
@@ -17893,7 +17758,6 @@ D[3717].coords={
 {14.1,15.2,331,300},
 {13.6,14.5,331,300},
 }
--- Questie missing unit 3718
 D[3721].coords={
 --{29.3,99.5,148,300}, --del
 --{31,98.9,148,300}, --del
@@ -18708,7 +18572,6 @@ D[3825].coords={
 {57.3,34.2,331,300},
 --{56.4,98.4,361,300}, --del
 }
--- Questie missing unit 3831
 D[3834].coords={
 {62,44.5,331,300},
 {61.5,43.3,331,300},
@@ -19140,7 +19003,6 @@ D[4008].coords={
 }
 D[4018].fac="AH" --old: nil
 D[4019].fac="AH" --old: nil
--- Questie missing unit 4045
 D[4046].coords={
 --{44,23.1,215,250}, --del
 {69.9,30.9,1638,250},
@@ -19850,7 +19712,6 @@ D[4114].coords={
 {36.3,45.8,400,300},
 {29,29.2,400,300},
 }
--- Questie missing unit 4115
 D[4116].coords={
 --{91.9,49,357,300}, --del
 --{92.7,43.9,357,300}, --del
@@ -20860,9 +20721,6 @@ D[4311].coords={
 {46,12.9,14,300},
 --{51,98.5,1637,300}, --del
 }
--- Questie missing unit 4313
--- Questie missing unit 4315
--- Questie missing unit 4318
 D[4319].coords={
 {89.5,45.9,357,600},
 --{7.8,17.9,400,600}, --del
@@ -22880,7 +22738,6 @@ D[4437].coords={
 D[4438].coords={
 {-1,-1,491,0}, --add
 }
--- Questie missing unit 4439
 D[4440].coords={
 {-1,-1,491,0}, --add
 }
@@ -23073,7 +22930,6 @@ D[4575].coords={
 --{65.4,68.4,85,300}, --del
 {82.8,15.8,1497,300},
 }
--- Questie missing unit 4579
 D[4593].coords={
 --{57.8,68.3,85,300}, --del
 {46.9,15.2,1497,300},
@@ -24446,7 +24302,6 @@ D[4879].coords={
 {36.7,31,15,360},
 --{54.5,70,17,360}, --del
 }
--- Questie missing unit 4882
 D[4883].coords={
 {36.4,30.8,15,360},
 --{54.4,69.9,17,360}, --del
@@ -24508,8 +24363,6 @@ D[5047].coords={
 D[5048].coords={
 {-1,-1,718,0}, --add
 }
--- Questie missing unit 5050
--- Questie missing unit 5051
 D[5053].coords={
 {-1,-1,718,0}, --add
 }
@@ -24596,10 +24449,6 @@ D[5058].coords={
 D[5081].coords={
 {40.62,91.83,1519,0}, --add
 }
-D[5082].coords={
---{8.4,61.8,11,300}, --del
-{10.8,60.4,11,300}, --add
-}
 D[5087].coords={
 {36.5,30.8,15,360},
 --{54.4,69.9,17,360}, --del
@@ -24613,12 +24462,10 @@ D[5091].fac="A" --old: nil
 D[5092].fac="A" --old: nil
 D[5093].fac="A" --old: nil
 D[5094].fac="A" --old: nil
--- Questie missing unit 5098
 D[5118].coords={
 --{29.5,54.4,141,600}, --del
 {59.3,35.8,1657,600},
 }
--- Questie missing unit 5131
 D[5134].coords={
 --{43.9,19,2597,430}, --del
 {43.08,17.49,2597,430}, --add
@@ -24646,7 +24493,6 @@ D[5191].coords={
 --{31.8,51.8,141,300}, --del
 {70.4,23.4,1657,300},
 }
--- Questie missing unit 5192
 D[5202].fac="AH" --old: nil
 D[5226].coords={
 {-1,-1,1477,0}, --add
@@ -25720,27 +25566,8 @@ D[5543].coords={
 --{28.9,26.4,1638,250}, --del
 {27.2,24.4,1638,250}, --add
 }
--- Questie missing unit 5544
--- Questie missing unit 5548
--- Questie missing unit 5549
--- Questie missing unit 5550
--- Questie missing unit 5551
--- Questie missing unit 5552
--- Questie missing unit 5553
--- Questie missing unit 5554
--- Questie missing unit 5555
--- Questie missing unit 5556
--- Questie missing unit 5557
--- Questie missing unit 5558
--- Questie missing unit 5559
--- Questie missing unit 5560
--- Questie missing unit 5561
--- Questie missing unit 5562
--- Questie missing unit 5563
--- Questie missing unit 5587
--- Questie missing unit 5588
--- Questie missing unit 5589
--- Questie missing unit 5590
+D[5551].fac="AH" --old: nil
+D[5553].fac="AH" --old: nil
 D[5594].fac="AH" --old: nil
 D[5595].coords={
 {48.5,41.9,1,300},
@@ -25827,7 +25654,6 @@ D[5602].coords={
 --{43.6,1,357,300}, --del
 {40.5,95.5,405,300},
 }
--- Questie missing unit 5604
 D[5624].coords={
 --{7.7,65.6,28,300}, --del
 --{8.1,64.7,28,300}, --del
@@ -25901,16 +25727,14 @@ D[5650].coords={
 {-1,-1,1176,0}, --add
 }
 D[5652].fac="AH" --old: nil
--- Questie missing unit 5671
--- Questie missing unit 5672
 D[5674].fac="H" --old: nil
 D[5676].coords={
 --{86.6,27.1,1497,0}, --del
 --{49.3,50,1637,0}, --del
 {25.1,77.4,1519,0},
---{27,15.2,3433,0}, --del
-{86.51,26.94,1497,0}, --add
+{27,15.2,3433,0},
 {49.66,50.14,1637,0}, --add
+{86.51,26.94,1497,0}, --add
 }
 D[5677].coords={
 --{86.6,27.1,1497,0}, --del
@@ -25920,7 +25744,6 @@ D[5677].coords={
 {25.2,77.52,1519,0}, --add
 {49.73,50.14,1637,0}, --add
 }
--- Questie missing unit 5678
 D[5683].coords={
 {49.9,12.6,11,300},
 --{44.1,98.4,45,300}, --del
@@ -26075,7 +25898,6 @@ D[5797].coords={
 --{47.6,79,17,420}, --del
 {46,70,17,420}, --add
 }
--- Questie missing unit 5801
 D[5806].coords={
 --{35.4,15.3,406,300}, --del
 --{37.5,13.1,406,300}, --del
@@ -26087,12 +25909,10 @@ D[5806].coords={
 --{24.4,48.9,141,7200}, --del
 --{34.8,9.3,1657,7200}, --del
 }
--- Questie missing unit 5813
 D[5817].coords={
 --{45.2,8.1,14,300}, --del
 {47.9,80.3,1637,300},
 }
--- Questie missing unit 5818
 D[5827].fac="AH" --old: nil
 D[5831].fac="AH" --old: nil
 D[5843].fac="AH" --old: nil
@@ -26107,8 +25927,6 @@ D[5851].coords={
 D[5866].fac="AH" --old: nil
 D[5867].fac="AH" --old: nil
 D[5868].fac="AH" --old: nil
--- Questie missing unit 5876
--- Questie missing unit 5877
 D[5881].fac="AH" --old: nil
 D[5882].coords={
 --{42.7,9.5,14,300}, --del
@@ -26148,7 +25966,6 @@ D[5900].coords={
 {38.6,59,14,300},
 --{65.4,27.9,17,300}, --del
 }
--- Questie missing unit 5904
 D[5906].coords={
 --{34.9,21,215,250}, --del
 --{88.5,48.2,405,250}, --del
@@ -26916,7 +26733,6 @@ D[6020].coords={
 {65.8,36.3,17,300},
 {65.5,35.9,17,300},
 }
--- Questie missing unit 6032
 D[6033].coords={
 --{8.8,52.5,36,300}, --del
 {11.5,52.3,36,300},
@@ -26968,7 +26784,6 @@ D[6034].coords={
 D[6035].coords={
 {-1,-1,491,0}, --add
 }
--- Questie missing unit 6046
 D[6066].coords={
 --{60.4,22.4,8,300}, --del
 --{65.1,20.4,8,300}, --del
@@ -26984,7 +26799,6 @@ D[6066].coords={
 --{29.4,63.9,440,300}, --del
 --{28.9,61.9,440,300}, --del
 }
--- Questie missing unit 6067
 D[6069].coords={
 {29.63,52.36,405,0}, --add
 }
@@ -27292,7 +27106,6 @@ D[6176].coords={
 D[6180].coords={
 {42.15,88.43,40,0}, --add
 }
--- Questie missing unit 6183
 D[6187].coords={
 {38.3,32.5,16,333},
 {38.5,32.4,16,333},
@@ -27874,10 +27687,6 @@ D[6567].coords={
 --{53.7,69.9,17,360}, --del
 }
 D[6568].fac="AH" --old: nil
-D[6569].coords={
---{69.2,50.6,1537,190}, --del
-{69.5,50.6,1537,190}, --add
-}
 D[6571].fac="AH" --old: nil
 D[6572].fac="AH" --old: nil
 D[6573].fac="AH" --old: nil
@@ -27948,8 +27757,8 @@ D[6768].coords={
 --{84.1,17.5,267,300}, --del
 }
 D[6768].fac="AH" --old: nil
--- Questie missing unit 6769
--- Questie missing unit 6770
+D[6769].fac="AH" --old: nil
+D[6770].fac="AH" --old: nil
 D[6771].coords={
 {85,80.6,36,300},
 {84.8,80.6,36,300},
@@ -27983,7 +27792,6 @@ D[6779].coords={
 --{84.2,18.1,267,300}, --del
 }
 D[6779].fac="AH" --old: nil
--- Questie missing unit 6783
 D[6788].coords={
 {51.5,38.3,148,275},
 --{36,12.3,361,275}, --del
@@ -28516,7 +28324,6 @@ D[7290].coords={
 D[7291].coords={
 {-1,-1,1337,0}, --add
 }
--- Questie missing unit 7293
 D[7296].coords={
 --{24.8,48.3,141,300}, --del
 {36.5,6.7,1657,300},
@@ -29757,7 +29564,6 @@ D[8534].coords={
 {24.4,18.7,139,345},
 {22.6,18,139,345},
 }
--- Questie missing unit 8549
 D[8555].coords={
 --{67.7,21.1,28,345}, --del
 --{67.7,19.9,28,345}, --del
@@ -31826,13 +31632,11 @@ D[9554].coords={
 {-1,-1,1585,0}, --add
 }
 D[9554].fac="AH" --old: nil
--- Questie missing unit 9557
 D[9558].fac="AH" --old: nil
 D[9559].fac="AH" --old: nil
 D[9568].coords={
 {-1,-1,1583,0}, --add
 }
--- Questie missing unit 9577
 D[9583].coords={
 {-1,-1,1583,0}, --add
 }
@@ -31844,7 +31648,6 @@ D[9598].coords={
 {49.4,31,361,0}, --add
 }
 D[9600].fac="AH" --old: nil
--- Questie missing unit 9617
 D[9619].coords={
 --{27.5,42.7,440,300}, --del
 {71.6,76,490,300},
@@ -31936,7 +31739,6 @@ D[9684].coords={
 --{79.4,49.9,490,0}, --del
 {79.65,49.83,490,0}, --add
 }
--- Questie missing unit 9686
 D[9692].coords={
 {-1,-1,1583,0}, --add
 }
@@ -32123,7 +31925,6 @@ D[9818].coords={
 D[9819].coords={
 {-1,-1,1583,0}, --add
 }
--- Questie missing unit 9820
 D[9857].fac="AH" --old: nil
 D[9858].fac="AH" --old: nil
 D[9916].coords={
@@ -32377,7 +32178,6 @@ D[10042].fac="AH" --old: nil
 D[10043].coords={
 {-1,-1,1585,0}, --add
 }
--- Questie missing unit 10044
 D[10054].coords={
 --{39,29.1,215,250}, --del
 {45.1,60.2,1638,250},
@@ -32446,12 +32246,11 @@ D[10177].coords={
 }
 D[10181].coords={
 --{74.6,13.4,130,7200}, --del
---{58.1,91.8,1497,7200}, --del
-{57.8,91.6,1497,7200}, --add
+{58.1,91.8,1497,7200},
 }
 D[10182].coords={
 --{46.4,18.2,357,550}, --del
-{54,2,405,550}, --add
+{25.6,70,405,550}, --add
 }
 D[10183].coords={
 --{39.4,44.7,618,333}, --del
@@ -32486,7 +32285,6 @@ D[10220].coords={
 D[10221].coords={
 {-1,-1,1583,0}, --add
 }
--- Questie missing unit 10256
 D[10257].coords={
 {-1,-1,1583,0}, --add
 }
@@ -32509,7 +32307,6 @@ D[10263].coords={
 D[10264].coords={
 {-1,-1,7307,0}, --add
 }
--- Questie missing unit 10265
 D[10267].fac="AH" --old: nil
 D[10268].coords={
 {-1,-1,1583,0}, --add
@@ -32563,11 +32360,9 @@ D[10360].coords={
 --{41.3,32.4,215,300}, --del
 {56.7,76.5,1638,300},
 }
--- Questie missing unit 10362
 D[10363].coords={
 {-1,-1,1583,0}, --add
 }
--- Questie missing unit 10365
 D[10366].coords={
 {-1,-1,1583,0}, --add
 }
@@ -32575,8 +32370,6 @@ D[10367].coords={
 --{48.3,80.3,2597,430}, --del
 {48.53,80.47,2597,430}, --add
 }
--- Questie missing unit 10368
--- Questie missing unit 10370
 D[10371].coords={
 {-1,-1,1583,0}, --add
 }
@@ -32644,10 +32437,6 @@ D[10399].coords={
 D[10400].coords={
 {-1,-1,2017,0}, --add
 }
--- Questie missing unit 10401
--- Questie missing unit 10402
--- Questie missing unit 10403
--- Questie missing unit 10404
 D[10405].coords={
 {-1,-1,2017,0}, --add
 }
@@ -32752,15 +32541,10 @@ D[10440].coords={
 D[10441].coords={
 {-1,-1,2017,0}, --add
 }
--- Questie missing unit 10443
--- Questie missing unit 10444
 D[10445].fac="AH" --old: nil
--- Questie missing unit 10446
 D[10447].coords={
 {-1,-1,7307,0}, --add
 }
--- Questie missing unit 10448
--- Questie missing unit 10450
 D[10460].fac="AH" --old: nil
 D[10463].coords={
 {-1,-1,2017,0}, --add
@@ -32905,7 +32689,6 @@ D[10596].coords={
 }
 D[10599].fac="AH" --old: "H"
 D[10600].fac="AH" --old: "H"
--- Questie missing unit 10607
 D[10617].coords={
 --{47.3,96.9,17,300}, --del
 {39.4,33.1,400,300},
@@ -33220,7 +33003,6 @@ D[10808].coords={
 D[10809].coords={
 {-1,-1,2017,0}, --add
 }
--- Questie missing unit 10810
 D[10811].coords={
 {-1,-1,2017,0}, --add
 }
@@ -33329,12 +33111,6 @@ D[10925].coords={
 D[10928].coords={
 {28.54,82.09,33,0}, --add
 }
-D[10931]={}
-D[10931].coords={
-{48.33,21.84,139,0}, --add
-}
-D[10931].lvl="nil" --old: nil
-D[10931].rnk="nil" --old: nil
 D[10936].coords={
 {39.2,91.33,139,0}, --add
 }
@@ -33570,7 +33346,6 @@ D[11077].coords={
 D[11078].coords={
 {62.18,59.06,28,0}, --add
 }
--- Questie missing unit 11080
 D[11081].coords={
 --{30.7,51.5,141,300}, --del
 {64.8,21.8,1657,300},
@@ -33691,7 +33466,6 @@ D[11323].coords={
 D[11324].coords={
 {-1,-1,2437,0}, --add
 }
--- Questie missing unit 11337
 D[11338].coords={
 {-1,-1,1977,0}, --add
 }
@@ -33701,18 +33475,12 @@ D[11339].coords={
 D[11340].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11341
--- Questie missing unit 11342
--- Questie missing unit 11343
--- Questie missing unit 11344
--- Questie missing unit 11345
 D[11347].coords={
 {-1,-1,1977,0}, --add
 }
 D[11348].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11349
 D[11350].coords={
 {-1,-1,1977,0}, --add
 }
@@ -33725,14 +33493,12 @@ D[11352].coords={
 D[11353].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11354
 D[11356].coords={
 {-1,-1,1977,0}, --add
 }
 D[11357].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11358
 D[11359].coords={
 {-1,-1,1977,0}, --add
 }
@@ -33742,16 +33508,12 @@ D[11360].coords={
 D[11361].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11364
 D[11365].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11366
--- Questie missing unit 11367
 D[11368].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11369
 D[11370].coords={
 {-1,-1,1977,0}, --add
 }
@@ -33767,19 +33529,12 @@ D[11373].coords={
 D[11374].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11375
--- Questie missing unit 11376
--- Questie missing unit 11377
--- Questie missing unit 11379
 D[11380].coords={
 {-1,-1,1977,0}, --add
 }
 D[11382].coords={
 {-1,-1,1977,0}, --add
 }
--- Questie missing unit 11384
--- Questie missing unit 11385
--- Questie missing unit 11386
 D[11387].coords={
 {-1,-1,1977,0}, --add
 }
@@ -33968,7 +33723,6 @@ D[11447].coords={
 D[11448].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11449
 D[11450].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34008,7 +33762,6 @@ D[11461].coords={
 D[11462].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11463
 D[11464].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34022,7 +33775,6 @@ D[11466].fac="AH" --old: nil
 D[11467].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11468
 D[11469].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34047,11 +33799,9 @@ D[11476].coords={
 D[11477].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11478
 D[11480].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11481
 D[11483].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34080,8 +33830,6 @@ D[11491].coords={
 D[11492].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 11493
--- Questie missing unit 11495
 D[11496].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34092,8 +33840,6 @@ D[11498].coords={
 --{62.8,28.6,357,21600}, --del
 {62.5,30.37,357,21600}, --add
 }
--- Questie missing unit 11499
--- Questie missing unit 11500
 D[11501].coords={
 {-1,-1,2557,0}, --add
 }
@@ -34357,7 +34103,6 @@ D[11658].coords={
 D[11659].coords={
 {-1,-1,2717,0}, --add
 }
--- Questie missing unit 11660
 D[11661].coords={
 {-1,-1,2717,0}, --add
 }
@@ -34385,7 +34130,6 @@ D[11668].coords={
 D[11669].coords={
 {-1,-1,2717,0}, --add
 }
--- Questie missing unit 11670
 D[11671].coords={
 {-1,-1,2717,0}, --add
 }
@@ -35847,7 +35591,6 @@ D[11921].coords={
 {54.6,72,406,300}, --add
 {54.6,72.8,406,300}, --add
 }
--- Questie missing unit 11926
 D[11937].coords={
 {49.4,76,405,0}, --add
 {49.6,76,405,0}, --add
@@ -35884,8 +35627,9 @@ D[11939].fac="AH" --old: nil
 D[11956].fac="AH" --old: nil
 D[11957].fac="AH" --old: nil
 D[11958].fac="AH" --old: nil
--- Questie missing unit 11959
--- Questie missing unit 11978
+D[11980].coords={
+{71,62.2,3520,0}, --add
+}
 D[11981].coords={
 {-1,-1,2677,0}, --add
 }
@@ -35919,7 +35663,6 @@ D[12024].fac="AH" --old: nil
 D[12025].fac="AH" --old: nil
 D[12026].fac="AH" --old: nil
 D[12029].fac="AH" --old: nil
--- Questie missing unit 12038
 D[12042].fac="AH" --old: nil
 D[12047].coords={
 {68.7,18.6,1,300},
@@ -36555,8 +36298,6 @@ D[12396].coords={
 --{72.6,19.3,33,900}, --del
 --{72.4,19.3,33,900}, --del
 }
--- Questie missing unit 12417
--- Questie missing unit 12421
 D[12426].fac="AH" --old: nil
 D[12433].coords={
 {35,13.6,130,5400},
@@ -36583,7 +36324,6 @@ D[12460].coords={
 D[12461].coords={
 {-1,-1,2677,0}, --add
 }
--- Questie missing unit 12462
 D[12463].coords={
 {-1,-1,2677,0}, --add
 }
@@ -36593,15 +36333,12 @@ D[12464].coords={
 D[12465].coords={
 {-1,-1,2677,0}, --add
 }
--- Questie missing unit 12466
 D[12467].coords={
 {-1,-1,2677,0}, --add
 }
 D[12468].coords={
 {-1,-1,2677,0}, --add
 }
--- Questie missing unit 12469
--- Questie missing unit 12470
 D[12557].coords={
 {-1,-1,2677,0}, --add
 }
@@ -36684,7 +36421,7 @@ D[12795].coords={
 D[12796].coords={
 {-1,-1,2917,0}, --add
 }
--- Questie missing unit 12804
+D[12804].fac="AH" --old: nil
 D[12818].coords={
 {41.5,34.5,331,300},
 --{40.6,98.8,361,300}, --del
@@ -36966,7 +36703,6 @@ D[13022].coords={
 D[13036].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 13056
 D[13076].coords={
 {68.1,56.3,1,250},
 {68.9,55,1,250},
@@ -38993,7 +38729,6 @@ D[14122].coords={
 --{52,84.1,3521,300}, --del
 }
 D[14123].fac="AH" --old: nil
--- Questie missing unit 14181
 D[14185].coords={
 --{50,83,2597,490}, --del
 {49.95,83.42,2597,490}, --add
@@ -39006,7 +38741,6 @@ D[14188].coords={
 --{43.5,15.4,2597,490}, --del
 {43.64,15.48,2597,490}, --add
 }
--- Questie missing unit 14201
 D[14222].coords={
 {39,94.2,36,86400},
 {38.9,93.4,36,86400},
@@ -39070,7 +38804,6 @@ D[14237].coords={
 --{53.6,90.7,17,172800}, --del
 --{54.2,86.6,17,172800}, --del
 }
--- Questie missing unit 14242
 D[14275].coords={
 --{10.6,51,45,18000}, --del
 --{10.1,50.2,45,18000}, --del
@@ -39419,7 +39152,6 @@ D[14492].fac="AH" --old: nil
 D[14500].coords={
 {-1,-1,2057,0}, --add
 }
--- Questie missing unit 14501
 D[14502].coords={
 {-1,-1,2557,0}, --add
 }
@@ -39576,10 +39308,6 @@ D[14640].coords={
 {41.05,22.62,357,0}, --add
 {39.62,22.23,357,0}, --add
 }
--- Questie missing unit 14641
--- Questie missing unit 14642
--- Questie missing unit 14643
--- Questie missing unit 14644
 D[14646].coords={
 {-1,-1,2017,0}, --add
 }
@@ -39589,7 +39317,6 @@ D[14693].coords={
 {-1,-1,796,0}, --add
 }
 D[14697].fac="AH" --old: nil
--- Questie missing unit 14719
 D[14720].coords={
 --{46,6.9,14,600}, --del
 {51,75.7,1637,600},
@@ -39608,7 +39335,6 @@ D[14728].coords={
 }
 D[14742].fac="AH" --old: nil
 D[14743].fac="AH" --old: nil
--- Questie missing unit 14746
 D[14748].coords={
 --{84.1,40.7,47,0}, --del
 --{84.1,41,47,0}, --del
@@ -40081,7 +39807,6 @@ D[15073].fac="AH" --old: nil
 D[15074].fac="AH" --old: nil
 D[15076].fac="AH" --old: nil
 D[15080].fac="AH" --old: nil
--- Questie missing unit 15081
 D[15086].fac="AH" --old: nil
 D[15087].fac="AH" --old: nil
 D[15088].fac="AH" --old: nil
@@ -40541,7 +40266,7 @@ D[15164].coords={
 }
 D[15164].fac="AH" --old: nil
 D[15165].fac="AH" --old: nil
--- Questie missing unit 15167
+D[15167].fac="AH" --old: nil
 D[15168].coords={
 {-1,-1,3429,0}, --add
 }
@@ -40647,61 +40372,39 @@ D[15219].fac="AH" --old: nil
 D[15220].coords={
 {37.47,45.02,1377,0}, --add
 }
--- Questie missing unit 15223
--- Questie missing unit 15226
--- Questie missing unit 15227
--- Questie missing unit 15228
 D[15229].coords={
 {-1,-1,3428,0}, --add
 }
 D[15230].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15231
--- Questie missing unit 15232
 D[15233].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15234
 D[15235].coords={
 {-1,-1,3428,0}, --add
 }
 D[15236].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15237
--- Questie missing unit 15238
--- Questie missing unit 15239
 D[15240].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15243
--- Questie missing unit 15244
--- Questie missing unit 15245
 D[15246].coords={
 {-1,-1,3428,0}, --add
 }
 D[15247].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15248
 D[15249].coords={
 {-1,-1,3428,0}, --add
 }
 D[15250].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15251
 D[15252].coords={
 {-1,-1,3428,0}, --add
 }
--- Questie missing unit 15253
--- Questie missing unit 15254
--- Questie missing unit 15255
--- Questie missing unit 15256
--- Questie missing unit 15257
--- Questie missing unit 15258
--- Questie missing unit 15259
 D[15262].coords={
 {-1,-1,3428,0}, --add
 }
@@ -40823,7 +40526,6 @@ D[15319].coords={
 D[15320].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15322
 D[15323].coords={
 {-1,-1,3429,0}, --add
 }
@@ -40833,14 +40535,9 @@ D[15324].coords={
 D[15325].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15326
 D[15327].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15329
--- Questie missing unit 15330
--- Questie missing unit 15331
--- Questie missing unit 15332
 D[15333].coords={
 {-1,-1,3429,0}, --add
 }
@@ -40851,7 +40548,6 @@ D[15335].coords={
 D[15336].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15337
 D[15338].coords={
 {-1,-1,3429,0}, --add
 }
@@ -40864,16 +40560,12 @@ D[15340].coords={
 D[15341].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15342
 D[15343].coords={
 {-1,-1,3429,0}, --add
 }
 D[15344].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15345
--- Questie missing unit 15346
--- Questie missing unit 15347
 D[15348].coords={
 {-1,-1,3429,0}, --add
 }
@@ -41142,7 +40834,6 @@ D[15391].coords={
 D[15392].coords={
 {-1,-1,3429,0}, --add
 }
--- Questie missing unit 15393
 D[15395].coords={
 {64.8,8.1,361,300},
 --{24.9,36.2,618,300}, --del
@@ -41238,7 +40929,6 @@ D[15471].coords={
 {-1,-1,3429,0}, --add
 }
 D[15471].fac="AH" --old: nil
--- Questie missing unit 15472
 D[15473].fac="AH" --old: nil
 D[15475].coords={
 {-1,-1,3428,0}, --add
@@ -41466,10 +41156,6 @@ D[15580].coords={
 --{44.6,21.6,215,180}, --del
 {73,23.4,1638,180},
 }
-D[15584].coords={
---{45.3,50,400,25}, --del
-{45.43,50.08,400,25}, --add
-}
 D[15586].coords={
 --{51.6,27,440,25}, --del
 {51.47,27.85,440,25}, --add
@@ -41486,12 +41172,7 @@ D[15593].coords={
 }
 D[15598].coords={
 --{24.2,49.9,141,25}, --del
---{33.6,14.5,1657,25}, --del
-{33.46,14.29,1657,25}, --add
-}
-D[15603].coords={
---{37.6,53,361,25}, --del
-{37.72,53.01,361,25}, --add
+{33.6,14.5,1657,25},
 }
 D[15604].coords={
 --{79.7,77.3,400,25}, --del
@@ -41699,7 +41380,6 @@ D[15644].coords={
 --{21.2,32.6,3487,300}, --del
 --{18.2,28.9,3487,300}, --del
 }
--- Questie missing unit 15646
 D[15649].coords={
 {48.1,67.6,3430,300},
 {47.1,66.3,3430,300},
@@ -42107,7 +41787,6 @@ D[15670].coords={
 {27.3,55.4,3430,300},
 {26.9,55.3,3430,300},
 }
--- Questie missing unit 15672
 D[15677].fac="AH" --old: nil
 D[15678].coords={
 --{29.1,58.1,141,300}, --del
@@ -42495,8 +42174,6 @@ D[15980].coords={
 D[15981].coords={
 {-1,-1,3456,0}, --add
 }
--- Questie missing unit 15982
--- Questie missing unit 15983
 D[15984].coords={
 {-1,-1,3428,0}, --add
 }
@@ -42536,7 +42213,6 @@ D[16024].coords={
 D[16025].coords={
 {-1,-1,3456,0}, --add
 }
--- Questie missing unit 16026
 D[16028].coords={
 {-1,-1,3456,0}, --add
 }
@@ -42592,15 +42268,12 @@ D[16033].coords={
 D[16034].coords={
 {-1,-1,3456,0}, --add
 }
--- Questie missing unit 16035
 D[16036].coords={
 {-1,-1,3456,0}, --add
 }
 D[16037].coords={
 {-1,-1,3456,0}, --add
 }
--- Questie missing unit 16039
--- Questie missing unit 16040
 D[16042].coords={
 {-1,-1,7307,0}, --add
 }
@@ -42676,7 +42349,6 @@ D[16075].coords={
 {60.9,50.3,1638,300},
 {38.1,80.5,1657,300},
 }
--- Questie missing unit 16077
 D[16078].fac="AH" --old: nil
 D[16079].coords={
 {-1,-1,1585,0}, --add
@@ -42701,7 +42373,6 @@ D[16092].fac="AH" --old: nil
 D[16097].coords={
 {-1,-1,2557,0}, --add
 }
--- Questie missing unit 16099
 D[16100].coords={
 {-1,-1,2017,0}, --add
 }
@@ -42736,9 +42407,7 @@ D[16137].coords={
 {-1,-1,3456,0}, --add
 }
 D[16137].fac="AH" --old: nil
--- Questie missing unit 16138
 D[16139].fac="AH" --old: nil
--- Questie missing unit 16140
 D[16141].fac="AH" --old: nil
 D[16143].coords={
 {44.13,71.5,28,0}, --add
@@ -42827,7 +42496,6 @@ D[16186].coords={
 {47.9,47.8,3430,300},
 --{36.7,84.3,3487,300}, --del
 }
--- Questie missing unit 16188
 D[16191].coords={
 --{52.1,44.5,3430,300}, --del
 {53.9,71,3487,300},
@@ -44041,7 +43709,6 @@ D[16604].coords={
 {-1,-1,2677,0}, --add
 }
 D[16604].fac="AH" --old: nil
--- Questie missing unit 16608
 D[16610].coords={
 --{58.2,47.9,3430,300}, --del
 {78.6,84.7,3487,300},
@@ -45039,7 +44706,6 @@ D[16899].coords={
 {49,45.7,3519,300},
 }
 D[16899].fac="AH" --old: nil
--- Questie missing unit 16914
 D[16916].coords={
 {47.7,46.5,3430,300},
 --{36.1,79.4,3487,300}, --del
@@ -45362,7 +45028,6 @@ D[17000].coords={
 --{40.1,30.8,3483,0}, --del
 {40.22,31.09,3483,0}, --add
 }
--- Questie missing unit 17001
 D[17005].coords={
 {48.3,45.9,3430,300},
 --{38.6,76.9,3487,300}, --del
@@ -45455,15 +45120,20 @@ D[17066].coords={
 {35.7,51.1,3521,300},
 {62.5,33.3,3703,300},
 }
+D[17076].coords={
+{92.2,36.4,3487,0}, --add
+}
 D[17083].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
+}
+D[17085].coords={
+{28.94,81.46,3483,0}, --add
 }
 D[17087].coords={
 --{71.3,39.1,3524,300}, --del
 {71.8,40.2,3524,300}, --add
 }
--- Questie missing unit 17091
 D[17092].coords={
 --{61.4,82.7,36,300}, --del
 {62.6,20.8,267,300},
@@ -46525,7 +46195,6 @@ D[17159].coords={
 D[17161].coords={
 {-1,-1,3457,0}, --add
 }
--- Questie missing unit 17163
 D[17168].coords={
 {-1,-1,3457,0}, --add
 }
@@ -47064,7 +46733,9 @@ D[17207].coords={
 --{19.8,22.6,33,0}, --del
 }
 D[17207].fac="AH" --old: nil
--- Questie missing unit 17208
+D[17208].coords={
+{-1,-1,3457,0}, --add
+}
 D[17211].coords={
 {-1,-1,3457,0}, --add
 }
@@ -47363,8 +47034,6 @@ D[17231].fac="AH" --old: nil
 D[17233].coords={
 --{52.1,83.5,28,0}, --del
 }
--- Questie missing unit 17234
--- Questie missing unit 17239
 D[17243].coords={
 {49.8,69.9,3524,300},
 --{18.6,83,3524,0}, --del
@@ -47407,7 +47076,6 @@ D[17280].coords={
 D[17281].coords={
 {-1,-1,3562,0}, --add
 }
--- Questie missing unit 17284
 D[17286].coords={
 {-1,-1,3456,0}, --add
 }
@@ -47421,7 +47089,9 @@ D[17302].coords={
 {-1,-1,3714,0}, --add
 }
 D[17302].fac="AH" --old: nil
--- Questie missing unit 17305
+D[17305].coords={
+{-1,-1,3457,0}, --add
+}
 D[17306].coords={
 {-1,-1,3562,0}, --add
 }
@@ -47442,8 +47112,12 @@ D[17314].coords={
 --{38.2,92,3430,300}, --del
 {32.9,11.2,3433,300},
 }
--- Questie missing unit 17316
--- Questie missing unit 17317
+D[17316].coords={
+{-1,-1,3457,0}, --add
+}
+D[17317].coords={
+{-1,-1,3457,0}, --add
+}
 D[17318].coords={
 --{18.7,85.5,3524,0}, --del
 {18.48,84.35,3524,0}, --add
@@ -47908,9 +47582,11 @@ D[17453].fac="AH" --old: nil
 D[17455].coords={
 {-1,-1,3562,0}, --add
 }
--- Questie missing unit 17456
--- Questie missing unit 17457
--- Questie missing unit 17459
+D[17456].fac="AH" --old: nil
+D[17457].fac="AH" --old: nil
+D[17459].coords={
+{-1,-1,3457,0}, --add
+}
 D[17461].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
@@ -47920,7 +47596,6 @@ D[17462].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
 }
--- Questie missing unit 17463
 D[17464].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
@@ -48021,7 +47696,6 @@ D[17520].coords={
 --{20.2,40.4,3524,300}, --del
 {24.3,39.7,3557,300},
 }
--- Questie missing unit 17529
 D[17530].coords={
 --{35,43.5,3524,300}, --del
 --{34.9,42,3524,300}, --del
@@ -48061,7 +47735,6 @@ D[17584].coords={
 --{35.1,43.4,3524,300}, --del
 {81.49,51.44,3557,300}, --add
 }
--- Questie missing unit 17590
 D[17591].coords={
 {28.5,78.6,3524,60},
 {33.9,70.8,3524,60},
@@ -48099,10 +47772,19 @@ D[17592].coords={
 --{73.8,29.6,3525,30}, --del
 {72.81,20.83,3525,30}, --add
 }
--- Questie missing unit 17597
 D[17611].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
+}
+D[17612].coords={
+{31.8,25.4,3524,0}, --add
+{34,25.4,3524,0}, --add
+{34.4,22.8,3524,0}, --add
+{34,20.8,3524,0}, --add
+{34.6,17.6,3524,0}, --add
+{34.2,14.6,3524,0}, --add
+{35.2,12.6,3524,0}, --add
+{35.6,11.6,3524,0}, --add
 }
 D[17613].fac="AH" --old: nil
 D[17620].fac="AH" --old: nil
@@ -48237,7 +47919,6 @@ D[17731].coords={
 D[17732].coords={
 {-1,-1,3716,0}, --add
 }
--- Questie missing unit 17733
 D[17734].coords={
 {-1,-1,3716,0}, --add
 }
@@ -48350,7 +48031,6 @@ D[17809].fac="AH" --old: nil
 D[17810].fac="AH" --old: nil
 D[17811].fac="AH" --old: nil
 D[17812].fac="AH" --old: nil
--- Questie missing unit 17813
 D[17814].coords={
 {-1,-1,2367,0}, --add
 }
@@ -48381,7 +48061,6 @@ D[17826].coords={
 D[17827].coords={
 {-1,-1,3716,0}, --add
 }
--- Questie missing unit 17828
 D[17829].fac="AH" --old: nil
 D[17830].coords={
 {-1,-1,2437,0}, --add
@@ -48415,7 +48094,10 @@ D[17846].coords={
 {-1,-1,2367,0}, --add
 }
 D[17846].fac="AH" --old: nil
--- Questie missing unit 17847
+D[17847].coords={
+--{61.6,36.3,3430,300}, --del
+{92.6,37.5,3487,300},
+}
 D[17849].coords={
 {42,35.7,3430,120},
 --{12.9,35,3487,120}, --del
@@ -48448,7 +48130,6 @@ D[17885].coords={
 {-1,-1,3716,0}, --add
 }
 D[17885].fac="AH" --old: nil
--- Questie missing unit 17886
 D[17890].coords={
 {-1,-1,3717,0}, --add
 }
@@ -48472,7 +48153,10 @@ D[17900].fac="AH" --old: nil
 D[17901].fac="AH" --old: nil
 D[17904].fac="AH" --old: nil
 D[17909].fac="AH" --old: nil
--- Questie missing unit 17915
+D[17915].coords={
+{-1,-1,2017,0}, --add
+}
+D[17915].fac="AH" --old: nil
 D[17917].coords={
 {-1,-1,3715,0}, --add
 }
@@ -48517,7 +48201,6 @@ D[17937].coords={
 D[17938].coords={
 {-1,-1,3717,0}, --add
 }
--- Questie missing unit 17939
 D[17940].coords={
 {-1,-1,3717,0}, --add
 }
@@ -48541,7 +48224,7 @@ D[17948].coords={
 {-1,-1,3606,0}, --add
 }
 D[17949].fac="AH" --old: nil
--- Questie missing unit 17950
+D[17950].fac="AH" --old: nil
 D[17951].coords={
 {-1,-1,3715,0}, --add
 }
@@ -48581,7 +48264,6 @@ D[17964].coords={
 }
 D[17964].fac="AH" --old: nil
 D[17965].fac="AH" --old: nil
--- Questie missing unit 17966
 D[17967].coords={
 --{67.7,21.1,28,345}, --del
 --{67.7,19.9,28,345}, --del
@@ -49388,7 +49070,6 @@ D[18151].fac="AH" --old: nil
 D[18152].coords={
 {26.4,22,3521,0}, --add
 }
--- Questie missing unit 18153
 D[18156].fac="AH" --old: nil
 D[18157].fac="AH" --old: nil
 D[18158].fac="AH" --old: nil
@@ -49682,7 +49363,6 @@ D[18327].coords={
 D[18328].coords={
 {-1,-1,3791,0}, --add
 }
--- Questie missing unit 18329
 D[18331].coords={
 {-1,-1,3792,0}, --add
 }
@@ -49753,9 +49433,7 @@ D[18350].coords={
 --{25.7,41.5,3524,120}, --del
 {45.3,43.9,3557,120},
 }
--- Questie missing unit 18355
 D[18358].fac="AH" --old: nil
--- Questie missing unit 18367
 D[18371].coords={
 {-1,-1,3790,0}, --add
 }
@@ -49768,6 +49446,21 @@ D[18392].fac="AH" --old: nil
 D[18396].coords={
 --{46.6,25,3518,0}, --del
 --{46.6,25.2,3518,0}, --del
+}
+D[18398].coords={
+{43.7,20.4,3518,0}, --add
+}
+D[18399].coords={
+{43.7,20.4,3518,0}, --add
+}
+D[18400].coords={
+{43.7,20.4,3518,0}, --add
+}
+D[18401].coords={
+{43.7,20.4,3518,0}, --add
+}
+D[18402].coords={
+{43.7,20.4,3518,0}, --add
 }
 D[18409].coords={
 {-1,-1,3716,0}, --add
@@ -50280,7 +49973,7 @@ D[18673].coords={
 {-1,-1,2367,0}, --add
 }
 D[18673].fac="AH" --old: nil
--- Questie missing unit 18674
+D[18674].fac="AH" --old: nil
 D[18675].fac="AH" --old: nil
 D[18682].fac="AH" --old: nil
 D[18683].fac="AH" --old: nil
@@ -50606,6 +50299,12 @@ D[18815].coords={
 {80.04,66.99,3557,300}, --add
 {79.56,67.9,3557,300}, --add
 }
+D[18816].coords={
+{41.2,44.2,3518,0}, --add
+}
+D[18817].coords={
+{41.2,44.2,3518,0}, --add
+}
 D[18818].fac="AH" --old: nil
 D[18823].coords={
 --{22.1,37.6,3524,300}, --del
@@ -50918,9 +50617,6 @@ D[18929].coords={
 --{35,74.6,3487,300}, --del
 }
 D[18933].fac="AH" --old: nil
--- Questie missing unit 18935
--- Questie missing unit 18936
--- Questie missing unit 18941
 D[18943].coords={
 {41.9,30.1,3521,300},
 {41.5,29.9,3521,300},
@@ -51037,10 +50733,6 @@ D[19055].coords={
 --{61.2,66.7,3518,0}, --del
 }
 D[19055].fac="AH" --old: nil
--- Questie missing unit 19057
--- Questie missing unit 19058
--- Questie missing unit 19059
--- Questie missing unit 19060
 D[19063].fac="AH" --old: nil
 D[19064].fac="AH" --old: nil
 D[19065].fac="AH" --old: nil
@@ -51052,48 +50744,6 @@ D[19074].fac="AH" --old: nil
 D[19075].fac="AH" --old: nil
 D[19076].fac="AH" --old: nil
 D[19077].fac="AH" --old: nil
--- Questie missing unit 19078
--- Questie missing unit 19079
--- Questie missing unit 19080
--- Questie missing unit 19081
--- Questie missing unit 19082
--- Questie missing unit 19083
--- Questie missing unit 19084
--- Questie missing unit 19085
--- Questie missing unit 19086
--- Questie missing unit 19087
--- Questie missing unit 19088
--- Questie missing unit 19089
--- Questie missing unit 19090
--- Questie missing unit 19091
--- Questie missing unit 19092
--- Questie missing unit 19093
--- Questie missing unit 19094
--- Questie missing unit 19095
--- Questie missing unit 19096
--- Questie missing unit 19097
--- Questie missing unit 19098
--- Questie missing unit 19099
--- Questie missing unit 19100
--- Questie missing unit 19101
--- Questie missing unit 19102
--- Questie missing unit 19103
--- Questie missing unit 19104
--- Questie missing unit 19105
--- Questie missing unit 19106
--- Questie missing unit 19107
--- Questie missing unit 19108
--- Questie missing unit 19109
--- Questie missing unit 19110
--- Questie missing unit 19111
--- Questie missing unit 19112
--- Questie missing unit 19113
--- Questie missing unit 19114
--- Questie missing unit 19115
--- Questie missing unit 19116
--- Questie missing unit 19117
--- Questie missing unit 19118
--- Questie missing unit 19119
 D[19120].coords={
 --{35.8,26.5,3519,300}, --del
 {75.3,55.3,3703,300},
@@ -51106,18 +50756,6 @@ D[19120].coords={
 {73.6,24.2,3703,300},
 }
 D[19120].fac="AH" --old: nil
--- Questie missing unit 19121
--- Questie missing unit 19122
--- Questie missing unit 19123
--- Questie missing unit 19124
--- Questie missing unit 19125
--- Questie missing unit 19126
--- Questie missing unit 19127
--- Questie missing unit 19128
--- Questie missing unit 19129
--- Questie missing unit 19130
--- Questie missing unit 19131
--- Questie missing unit 19132
 D[19138].coords={
 --{80.7,48.5,3518,300}, --del
 --{80.9,48.5,3518,300}, --del
@@ -51445,7 +51083,6 @@ D[19289].coords={
 D[19289].fac="AH" --old: nil
 D[19293].fac="AH" --old: nil
 D[19294].fac="AH" --old: nil
--- Questie missing unit 19297
 D[19300].fac="AH" --old: nil
 D[19301].fac="AH" --old: nil
 D[19302].fac="AH" --old: nil
@@ -51709,7 +51346,6 @@ D[19433].coords={
 }
 D[19456].coords={
 --{37.8,86.4,3430,0}, --del
-{37.4,86.2,3430,0}, --add
 }
 D[19466].fac="AH" --old: nil
 D[19467].fac="AH" --old: nil
@@ -51723,6 +51359,7 @@ D[19485].coords={
 D[19485].fac="AH" --old: nil
 D[19493].coords={
 --{41,72.4,3523,0}, --del
+{40.8,72.6,3523,0}, --add
 }
 D[19496].fac="AH" --old: nil
 D[19502].fac="AH" --old: nil
@@ -51794,7 +51431,6 @@ D[19640].coords={
 }
 D[19648].fac="AH" --old: nil
 D[19649].fac="AH" --old: nil
--- Questie missing unit 19650
 D[19651].fac="AH" --old: nil
 D[19652].fac="AH" --old: nil
 D[19654].fac="AH" --old: nil
@@ -51875,7 +51511,6 @@ D[19688].fac="AH" --old: nil
 D[19696].fac="AH" --old: nil
 D[19700].fac="AH" --old: nil
 D[19702].fac="AH" --old: nil
--- Questie missing unit 19708
 D[19715].fac="AH" --old: nil
 D[19717].fac="AH" --old: nil
 D[19718].fac="AH" --old: nil
@@ -52073,12 +51708,9 @@ D[19802].coords={
 {29.9,46.3,3520,300},
 {29.3,46.2,3520,300},
 }
--- Questie missing unit 19819
--- Questie missing unit 19838
 D[19839].fac="AH" --old: nil
 D[19840].fac="AH" --old: nil
 D[19845].fac="AH" --old: nil
--- Questie missing unit 19846
 D[19848].coords={
 {-1,-1,2918,0}, --add
 }
@@ -52112,7 +51744,6 @@ D[19882].coords={
 --{71.6,97.4,3487,300}, --del
 }
 D[19883].fac="AH" --old: nil
--- Questie missing unit 19896
 D[19902].fac="AH" --old: nil
 D[19904].fac="AH" --old: nil
 D[19907].coords={
@@ -52146,6 +51777,9 @@ D[19935].fac="AH" --old: nil
 D[19936].fac="AH" --old: nil
 D[19938].coords={
 --{58.4,86.3,3523,0}, --del
+}
+D[19942].coords={
+{58.2,55,4,0}, --add
 }
 D[19942].fac="AH" --old: nil
 D[19950].fac="AH" --old: nil
@@ -52282,11 +51916,6 @@ D[20102].coords={
 {49.2,31.5,3703,120},
 {49.2,31.5,3703,300},
 }
--- Questie missing unit 20103
--- Questie missing unit 20104
--- Questie missing unit 20105
--- Questie missing unit 20106
--- Questie missing unit 20107
 D[20112].fac="AH" --old: nil
 D[20115].coords={
 --{34.9,3.1,3519,300}, --del
@@ -52362,7 +51991,6 @@ D[20160].coords={
 --{43.8,31.6,3483,300}, --del
 }
 D[20162].fac="AH" --old: nil
--- Questie missing unit 20172
 D[20194].fac="AH" --old: nil
 D[20201].coords={
 {-1,-1,2366,0}, --add
@@ -52685,7 +52313,7 @@ D[20499].coords={
 D[20499].fac="H" --old: "AH"
 D[20518].coords={
 --{71.1,39,3523,0}, --del
-{60.98,41.52,3523,0}, --add
+{71.2,38.8,3523,0}, --add
 }
 D[20518].fac="AH" --old: nil
 D[20536].fac="AH" --old: nil
@@ -52785,6 +52413,9 @@ D[20674].coords={
 {33.7,54,3557,300},
 {32.5,53.4,3557,300},
 }
+D[20680].coords={
+{14.32,62.18,3483,0}, --add
+}
 D[20709].coords={
 {-1,-1,3535,0}, --add
 {-1,-1,3714,0}, --add
@@ -52838,7 +52469,6 @@ D[20724].coords={
 }
 D[20725].fac="AH" --old: nil
 D[20733].fac="AH" --old: nil
--- Questie missing unit 20735
 D[20747].fac="AH" --old: nil
 D[20748].fac="AH" --old: nil
 D[20774].fac="AH" --old: nil
@@ -53000,7 +52630,6 @@ D[21019].coords={
 {30.1,33.8,3557,300},
 }
 D[21029].fac="AH" --old: nil
--- Questie missing unit 21031
 D[21034].fac="AH" --old: nil
 D[21036].fac="AH" --old: nil
 D[21037].fac="AH" --old: nil
@@ -53085,19 +52714,16 @@ D[21159].coords={
 D[21160].coords={
 {-1,-1,3457,0}, --add
 }
--- Questie missing unit 21163
 D[21165].fac="AH" --old: nil
 D[21167].fac="AH" --old: nil
 D[21172].fac="AH" --old: nil
 D[21174].coords={
 {-1,-1,3713,0}, --add
 }
--- Questie missing unit 21187
--- Questie missing unit 21190
--- Questie missing unit 21191
+D[21181].coords={
+{43.2,46.2,3520,0}, --add
+}
 D[21195].fac="AH" --old: nil
--- Questie missing unit 21206
--- Questie missing unit 21208
 D[21210].coords={
 --{91.9,65.7,3519,480}, --del
 {37.7,39.4,3520,480},
@@ -53155,8 +52781,6 @@ D[21238].coords={
 {39.8,83.4,3522,600},
 --{46.9,74.4,3522,0}, --del
 }
--- Questie missing unit 21240
--- Questie missing unit 21243
 D[21246].coords={
 {-1,-1,3607,0}, --add
 }
@@ -53252,7 +52876,6 @@ D[21267].coords={
 --{26.6,36.4,3523,300}, --del
 }
 D[21275].fac="AH" --old: nil
--- Questie missing unit 21278
 D[21288].fac="AH" --old: nil
 D[21294].coords={
 --{46.9,74.4,3522,0}, --del
@@ -53358,7 +52981,6 @@ D[21323].coords={
 --{20.5,77.2,3523,300}, --del
 }
 D[21331].fac="AH" --old: nil
--- Questie missing unit 21333
 D[21334].coords={
 --{82.7,84.8,3519,120}, --del
 {29.2,57.4,3520,120},
@@ -53404,13 +53026,8 @@ D[21345].coords={
 D[21348].fac="AH" --old: nil
 D[21353].fac="AH" --old: nil
 D[21355].fac="AH" --old: nil
--- Questie missing unit 21356
--- Questie missing unit 21358
--- Questie missing unit 21361
 D[21363].fac="AH" --old: nil
 D[21366].fac="AH" --old: nil
--- Questie missing unit 21367
--- Questie missing unit 21371
 D[21373].coords={
 --{74.4,77.3,3522,300}, --del
 --{74.3,77.2,3522,300}, --del
@@ -53445,9 +53062,6 @@ D[21373].coords={
 --{72.6,63.3,3522,300}, --del
 }
 D[21376].fac="AH" --old: nil
--- Questie missing unit 21378
--- Questie missing unit 21388
--- Questie missing unit 21401
 D[21402].fac="AH" --old: nil
 D[21403].coords={
 --{75.1,69.1,3519,300}, --del
@@ -53470,8 +53084,6 @@ D[21409].coords={
 D[21410].coords={
 --{50.2,57.5,3520,0}, --del
 }
--- Questie missing unit 21415
--- Questie missing unit 21421
 D[21428].coords={
 --{49.8,23.1,3520,300}, --del
 --{50,23,3520,300}, --del
@@ -53498,7 +53110,6 @@ D[21452].coords={
 {47,77.8,3522,0}, --add
 {46.6,79.2,3522,0}, --add
 }
--- Questie missing unit 21457
 D[21463].fac="AH" --old: nil
 D[21464].fac="AH" --old: nil
 D[21497].fac="AH" --old: nil
@@ -53506,7 +53117,6 @@ D[21504].coords={
 --{13.6,39.3,3483,0}, --del
 --{92.3,53.9,3521,0}, --del
 }
--- Questie missing unit 21511
 D[21517].coords={
 --{31.1,32.5,3519,300}, --del
 {56,80,3703,300},
@@ -53699,7 +53309,7 @@ D[21652].coords={
 --{21.4,52.9,3520,300}, --del
 --{22.2,52.8,3520,300}, --del
 }
--- Questie missing unit 21653
+D[21653].fac="AH" --old: nil
 D[21654].coords={
 {72.2,88.2,3519,300},
 {74.8,87.5,3519,300},
@@ -53727,7 +53337,6 @@ D[21656].coords={
 {29.5,48.2,3520,300},
 }
 D[21657].fac="AH" --old: nil
--- Questie missing unit 21658
 D[21659].fac="AH" --old: nil
 D[21664].coords={
 {-1,-1,3457,0}, --add
@@ -53772,10 +53381,6 @@ D[21708].coords={
 --{51.3,52.8,3520,300}, --del
 --{51.1,52.7,3520,300}, --del
 }
--- Questie missing unit 21713
--- Questie missing unit 21714
--- Questie missing unit 21715
--- Questie missing unit 21716
 D[21723].coords={
 {77,73.6,3519,300},
 {75.8,73.6,3519,300},
@@ -53812,6 +53417,9 @@ D[21723].coords={
 }
 D[21726].coords={
 {-1,-1,3457,0}, --add
+}
+D[21735].coords={
+{37.8,38.73,3520,0}, --add
 }
 D[21744].fac="AH" --old: nil
 D[21746].fac="AH" --old: nil
@@ -54048,7 +53656,6 @@ D[21846].coords={
 --{33.3,73.2,3519,180}, --del
 }
 D[21846].fac="AH" --old: nil
--- Questie missing unit 21848
 D[21850].fac="AH" --old: nil
 D[21854].coords={
 {37.8,37.5,3519,300},
@@ -54247,6 +53854,41 @@ D[21936].coords={
 D[21953].fac="AH" --old: nil
 D[21954].fac="AH" --old: nil
 D[21955].fac="AH" --old: nil
+D[21959].coords={
+{23.04,40.74,3520,0}, --add
+{23.18,40.73,3520,0}, --add
+{22.43,40.72,3520,0}, --add
+{22.72,40.95,3520,0}, --add
+{22.59,40.96,3520,0}, --add
+{23.18,41.21,3520,0}, --add
+{22.74,41.19,3520,0}, --add
+{23.03,41.2,3520,0}, --add
+{22.89,41.21,3520,0}, --add
+{22.42,41.19,3520,0}, --add
+{22.9,40.96,3520,0}, --add
+{23.18,40.97,3520,0}, --add
+{22.58,41.19,3520,0}, --add
+{23.04,40.96,3520,0}, --add
+{22.44,40.96,3520,0}, --add
+{22.13,40.27,3520,0}, --add
+{21.97,40.27,3520,0}, --add
+{22.14,40.04,3520,0}, --add
+{22.14,39.37,3520,0}, --add
+{22.16,38.92,3520,0}, --add
+{21.97,39.6,3520,0}, --add
+{21.81,39.39,3520,0}, --add
+{21.83,40.07,3520,0}, --add
+{21.99,38.92,3520,0}, --add
+{21.82,39.83,3520,0}, --add
+{21.82,39.61,3520,0}, --add
+{21.98,39.83,3520,0}, --add
+{21.97,40.06,3520,0}, --add
+{21.98,39.14,3520,0}, --add
+{21.97,39.38,3520,0}, --add
+{21.82,40.29,3520,0}, --add
+{21.82,39.16,3520,0}, --add
+{21.81,38.93,3520,0}, --add
+}
 D[21962].fac="AH" --old: nil
 D[21963].fac="AH" --old: nil
 D[21964].coords={
@@ -54644,11 +54286,30 @@ D[22022].coords={
 --{51.8,58.7,3520,180}, --del
 --{51.4,58.5,3520,300}, --del
 }
--- Questie missing unit 22023
 D[22026].fac="AH" --old: nil
--- Questie missing unit 22039
--- Questie missing unit 22040
--- Questie missing unit 22041
+D[22039].coords={
+--{68.7,26.3,3521,300}, --del
+--{68.2,24.5,3521,300}, --del
+--{67.7,23.1,3521,300}, --del
+--{69.1,22.7,3521,300}, --del
+{51.6,91.1,3522,300},
+{51.1,89.8,3522,300},
+{52.5,89.4,3522,300},
+{33.9,89.2,3522,300},
+{34.4,88.4,3522,300},
+{52.5,87.4,3522,300},
+{34.8,87.2,3522,300},
+{34.8,85.8,3522,300},
+{52.4,85.3,3522,300},
+{35.2,84.9,3522,300},
+{36.2,84.8,3522,300},
+{52,84.3,3522,300},
+{52.2,82.8,3522,300},
+{52,82.3,3522,300},
+{52.1,92.79,3522,300}, --add
+}
+D[22039].fac="AH" --old: nil
+D[22040].fac="AH" --old: nil
 D[22044].coords={
 --{69,29,3521,300}, --del
 --{69.1,29,3521,300}, --del
@@ -54711,9 +54372,19 @@ D[22044].coords={
 {52.12,91.74,3522,300}, --add
 {51.2,91.7,3522,300}, --add
 }
--- Questie missing unit 22046
+D[22046].coords={
+--{68.7,26.3,3521,300}, --del
+--{67.9,23.5,3521,300}, --del
+{51.3,90.2,3522,300},
+{52.3,89.1,3522,300},
+{52.5,87.4,3522,300},
+{52.3,85.3,3522,300},
+{51.9,82.9,3522,300},
+{52.09,92.76,3522,300}, --add
+}
+D[22046].fac="AH" --old: nil
 D[22047].fac="AH" --old: nil
--- Questie missing unit 22048
+D[22048].fac="AH" --old: nil
 D[22053].fac="AH" --old: nil
 D[22057].coords={
 {-1,-1,3607,0}, --add
@@ -54810,9 +54481,6 @@ D[22115].coords={
 --{52,31.1,3520,180}, --del
 --{50.7,30.7,3520,180}, --del
 }
--- Questie missing unit 22116
--- Questie missing unit 22117
--- Questie missing unit 22118
 D[22121].fac="AH" --old: nil
 D[22122].fac="AH" --old: nil
 D[22124].fac="AH" --old: nil
@@ -54864,7 +54532,6 @@ D[22144].coords={
 {25.5,6.3,3519,180},
 --{75,94.3,3521,180}, --del
 }
--- Questie missing unit 22145
 D[22148].coords={
 --{78.2,44,3518,180}, --del
 --{77.8,44,3518,180}, --del
@@ -54881,10 +54548,7 @@ D[22148].coords={
 D[22151].fac="AH" --old: nil
 D[22152].fac="AH" --old: nil
 D[22181].fac="AH" --old: nil
--- Questie missing unit 22185
 D[22189].fac="AH" --old: "H"
--- Questie missing unit 22190
--- Questie missing unit 22192
 D[22199].coords={
 --{77.9,46,3518,600}, --del
 {20.2,18.1,3519,600},
@@ -54992,9 +54656,7 @@ D[22266].fac="AH" --old: nil
 D[22270].fac="AH" --old: nil
 D[22271].fac="AH" --old: nil
 D[22272].fac="AH" --old: nil
--- Questie missing unit 22276
 D[22278].fac="AH" --old: nil
--- Questie missing unit 22284
 D[22285].fac="AH" --old: nil
 D[22292].fac="AH" --old: nil
 D[22298].coords={
@@ -55190,14 +54852,10 @@ D[22344].coords={
 --{78.3,29.3,3522,21600}, --del
 --{62,19.2,3522,43200}, --del
 }
--- Questie missing unit 22345
 D[22348].fac="AH" --old: nil
--- Questie missing unit 22349
 D[22350].fac="AH" --old: nil
 D[22351].fac="AH" --old: nil
--- Questie missing unit 22353
 D[22354].fac="AH" --old: nil
--- Questie missing unit 22356
 D[22358].fac="AH" --old: nil
 D[22360].fac="AH" --old: nil
 D[22362].coords={
@@ -55224,8 +54882,6 @@ D[22362].coords={
 }
 D[22364].fac="AH" --old: nil
 D[22365].fac="AH" --old: nil
--- Questie missing unit 22367
--- Questie missing unit 22368
 D[22370].fac="AH" --old: nil
 D[22371].fac="AH" --old: nil
 D[22373].fac="AH" --old: nil
@@ -55233,14 +54889,14 @@ D[22374].coords={
 --{48.5,50.2,3483,0}, --del
 }
 D[22377].fac="AH" --old: nil
--- Questie missing unit 22383
 D[22386].fac="AH" --old: nil
 D[22389].fac="AH" --old: nil
--- Questie missing unit 22395
 D[22400].fac="AH" --old: nil
 D[22407].fac="AH" --old: nil
+D[22408].coords={
+{35.6,66.6,3523,0}, --add
+}
 D[22410].fac="AH" --old: nil
--- Questie missing unit 22417
 D[22418].coords={
 {-1,-1,3606,0}, --add
 }
@@ -55301,17 +54957,46 @@ D[22421].coords={
 {-1,-1,3717,0}, --add
 }
 D[22421].fac="AH" --old: nil
+D[22423].coords={
+--{64.5,71.7,3522,1}, --del
+--{65.1,70.7,3522,1}, --del
+--{63.8,70.7,3522,1}, --del
+--{64.4,69.8,3522,1}, --del
+--{63.8,68.9,3522,1}, --del
+--{65.1,68.8,3522,1}, --del
+--{64.5,68,3522,1}, --del
+--{63.8,67.1,3522,1}, --del
+--{64.6,66.5,3522,1}, --del
+--{63.2,66.1,3522,1}, --del
+--{63.7,65.3,3522,1}, --del
+--{62.6,65.3,3522,1}, --del
+--{63.2,64.3,3522,1}, --del
+--{62.6,63.4,3522,1}, --del
+--{63.2,62.5,3522,1}, --del
+--{62,62.3,3522,1}, --del
+--{62.6,61.5,3522,1}, --del
+--{62,60.6,3522,1}, --del
+--{63.2,60.6,3522,1}, --del
+--{63.5,59.7,3522,1}, --del
+--{62.6,59.7,3522,1}, --del
+{61.4,59.9,3522,1}, --add
+{64.9,68.1,3522,1}, --add
+}
 D[22423].fac="AH" --old: nil
 D[22425].fac="AH" --old: nil
 D[22426].fac="AH" --old: nil
 D[22427].fac="AH" --old: nil
 D[22429].fac="AH" --old: nil
--- Questie missing unit 22434
--- Questie missing unit 22435
+D[22434].coords={
+{30.59,22.19,3522,0}, --add
+}
 D[22436].fac="AH" --old: nil
+D[22441].coords={
+--{46.9,70.5,3519,300}, --del
+{48.7,67.2,3519,300}, --add
+}
 D[22442].fac="AH" --old: nil
 D[22446].fac="AH" --old: nil
--- Questie missing unit 22447
 D[22448].coords={
 --{64.2,20.1,3522,0}, --del
 }
@@ -55352,7 +55037,6 @@ D[22499].fac="AH" --old: nil
 D[22502].fac="AH" --old: nil
 D[22503].fac="AH" --old: nil
 D[22504].fac="AH" --old: nil
--- Questie missing unit 22505
 D[22515].coords={
 {-1,-1,3562,0}, --add
 {42.36,13.25,2597,0}, --add
@@ -55373,7 +55057,6 @@ D[22519].coords={
 D[22520].coords={
 {-1,-1,3457,0}, --add
 }
--- Questie missing unit 22521
 D[22522].fac="AH" --old: nil
 D[22523].coords={
 {-1,-1,3457,0}, --add
@@ -55395,10 +55078,6 @@ D[22579].fac="AH" --old: nil
 D[22587].fac="AH" --old: nil
 D[22592].fac="AH" --old: nil
 D[22593].fac="AH" --old: nil
--- Questie missing unit 22600
--- Questie missing unit 22601
--- Questie missing unit 22602
--- Questie missing unit 22603
 D[22607].fac="AH" --old: nil
 D[22609].fac="AH" --old: nil
 D[22620].fac="AH" --old: nil
@@ -55432,10 +55111,6 @@ D[22774].fac="AH" --old: nil
 D[22775].fac="AH" --old: nil
 D[22776].fac="AH" --old: nil
 D[22777].fac="AH" --old: nil
--- Questie missing unit 22798
--- Questie missing unit 22799
--- Questie missing unit 22800
--- Questie missing unit 22801
 D[22807].coords={
 {44.67,89.33,3519,0}, --add
 {43.06,90.04,3519,0}, --add
@@ -55510,11 +55185,9 @@ D[22851].coords={
 --{28.5,40.6,3524,300}, --del
 {56.4,40.6,3557,300},
 }
--- Questie missing unit 22852
 D[22853].coords={
 {-1,-1,3959,0}, --add
 }
--- Questie missing unit 22854
 D[22855].coords={
 {-1,-1,3959,0}, --add
 }
@@ -55590,6 +55263,9 @@ D[22905].coords={
 --{22,37.9,3524,300}, --del
 {31,30.1,3557,300},
 }
+D[22911].coords={
+{77.5,31.1,3522,0}, --add
+}
 D[22913].fac="AH" --old: nil
 D[22914].fac="AH" --old: nil
 D[22917].coords={
@@ -55607,7 +55283,6 @@ D[22939].coords={
 {-1,-1,3959,0}, --add
 }
 D[22943].fac="AH" --old: nil
--- Questie missing unit 22944
 D[22945].coords={
 {-1,-1,3959,0}, --add
 }
@@ -55653,7 +55328,6 @@ D[22959].coords={
 D[22960].coords={
 {-1,-1,3959,0}, --add
 }
--- Questie missing unit 22961
 D[22962].coords={
 {-1,-1,3959,0}, --add
 }
@@ -55905,7 +55579,6 @@ D[23076].coords={
 {36.5,38.3,3522,300},
 {37.6,38.1,3522,300},
 }
--- Questie missing unit 23077
 D[23079].fac="AH" --old: nil
 D[23084].coords={
 {-1,-1,3959,0}, --add
@@ -55953,8 +55626,6 @@ D[23115].fac="AH" --old: nil
 D[23120].fac="AH" --old: nil
 D[23121].fac="AH" --old: nil
 D[23122].fac="AH" --old: nil
--- Questie missing unit 23126
--- Questie missing unit 23138
 D[23147].coords={
 {-1,-1,3959,0}, --add
 }
@@ -56058,7 +55729,6 @@ D[23236].coords={
 D[23237].coords={
 {-1,-1,3959,0}, --add
 }
--- Questie missing unit 23238
 D[23239].coords={
 {-1,-1,3959,0}, --add
 }
@@ -56073,7 +55743,6 @@ D[23271].fac="AH" --old: nil
 D[23272].fac="AH" --old: nil
 D[23273].fac="AH" --old: nil
 D[23274].fac="AH" --old: nil
--- Questie missing unit 23276
 D[23288].coords={
 {-1,-1,3959,0}, --add
 }
@@ -56086,10 +55755,7 @@ D[23297].fac="AH" --old: nil
 D[23298].fac="AH" --old: nil
 D[23299].fac="AH" --old: nil
 D[23300].fac="AH" --old: nil
--- Questie missing unit 23314
--- Questie missing unit 23315
 D[23316].fac="AH" --old: nil
--- Questie missing unit 23317
 D[23320].fac="AH" --old: nil
 D[23330].coords={
 {-1,-1,3959,0}, --add
@@ -56197,8 +55863,6 @@ D[23472].coords={
 }
 D[23472].fac="AH" --old: nil
 D[23473].fac="AH" --old: nil
--- Questie missing unit 23479
--- Questie missing unit 23480
 D[23482].coords={
 {48.9,39.8,1,180},
 {34.2,50.9,12,180},
@@ -56243,7 +55907,6 @@ D[23511].coords={
 D[23529].fac="AH" --old: nil
 D[23530].fac="AH" --old: nil
 D[23531].fac="AH" --old: nil
--- Questie missing unit 23532
 D[23533].coords={
 {43.6,17.4,14,43200},
 --{62.3,66.9,85,43200}, --del
@@ -56252,8 +55915,244 @@ D[23533].coords={
 {29.5,62.2,1638,43200},
 {56.5,51.7,3430,180},
 }
--- Questie missing unit 23537
--- Questie missing unit 23540
+D[23537].coords={
+{47.3,57.4,1,120},
+{47.2,57.3,1,120},
+{47.3,57.2,1,120},
+{47.4,57.1,1,120},
+{47.3,57,1,120},
+{47.1,52.8,1,120},
+{47,52.8,1,120},
+{47,52.7,1,120},
+{47,52.6,1,120},
+{47,52.5,1,120},
+{47,52.4,1,120},
+{45.7,52.3,1,120},
+{47,52.3,1,120},
+{46.9,52.3,1,120},
+{46.9,52.2,1,120},
+{45.8,52.2,1,120},
+{47,52.2,1,120},
+{46.8,52.2,1,120},
+{45.9,52.1,1,120},
+{46,52.1,1,120},
+{46,51.9,1,120},
+{47.2,51.9,1,120},
+{47.3,51.9,1,120},
+{46.8,51.8,1,120},
+{47.1,51.8,1,120},
+{46.9,51.8,1,120},
+{46,51.8,1,120},
+{47.3,51.8,1,120},
+{47.1,51.7,1,120},
+{46.9,51.7,1,120},
+{47.2,51.7,1,120},
+{47,51.7,1,120},
+{46,51.7,1,120},
+{45.9,51.6,1,120},
+{45.8,51.5,1,120},
+{45.6,51.4,1,120},
+{45.7,51.4,1,120},
+{45.6,51.3,1,120},
+{43.4,66.6,12,120},
+{43.1,66.5,12,120},
+{43,66.5,12,120},
+{43.3,66.5,12,120},
+{43.4,66.5,12,120},
+{43.2,66.5,12,120},
+{43.1,66.2,12,120},
+{42.9,66.2,12,120},
+{43.1,66.1,12,120},
+{41.4,66.1,12,120},
+{41.7,66.1,12,120},
+{41.8,66.1,12,120},
+{41.6,66,12,120},
+{41.5,66,12,120},
+{41.3,66,12,120},
+{41.9,65.9,12,120},
+{43.1,65.8,12,120},
+{41.2,65.8,12,120},
+{41.8,65.8,12,120},
+{43,65.7,12,120},
+{41.9,65.7,12,120},
+{43.1,65.6,12,120},
+{43.2,65.5,12,120},
+{41.9,65.4,12,120},
+{43.1,65.4,12,120},
+{43.1,65.3,12,120},
+{41.8,65.3,12,120},
+{41.7,65.3,12,120},
+{42.7,65.3,12,120},
+{41.4,65.2,12,120},
+{41.6,65.2,12,120},
+{41.5,65.1,12,120},
+{42.6,60,12,120},
+{42.4,59.7,12,120},
+{42.9,59.4,12,120},
+{42.7,59.4,12,120},
+{42.5,59.3,12,120},
+{52.1,43.7,14,120},
+{52.2,43.6,14,120},
+{52.1,43.5,14,120},
+{52,43.5,14,120},
+{51.7,43.4,14,120},
+{49.3,43.4,14,120},
+{51.9,43.3,14,120},
+{51.8,43.3,14,120},
+{51.8,43.2,14,120},
+{49.2,43.2,14,120},
+{49.3,43.1,14,120},
+{53.1,43,14,120},
+{49.1,43,14,120},
+{51.9,43,14,120},
+{49.2,42.9,14,120},
+{53.2,42.8,14,120},
+{53.2,42.7,14,120},
+{51.6,42.5,14,120},
+{53.2,42.5,14,120},
+{53.1,42.4,14,120},
+{51.8,42.4,14,120},
+{53.2,42.4,14,120},
+{53.1,42.3,14,120},
+{51.6,42.3,14,120},
+{51.7,42.2,14,120},
+{53.1,42.1,14,120},
+{51.8,42,14,120},
+{53,42,14,120},
+{51.9,41.7,14,120},
+{52,41.7,14,120},
+{51.9,41.6,14,120},
+{52,41.5,14,120},
+{60.5,53.4,85,120},
+{56.6,53.4,85,300},
+{60.5,53.2,85,120},
+{61.6,53.1,85,120},
+{56.3,53,85,300},
+{57,53,85,120},
+{61.9,53,85,120},
+{60.4,53,85,120},
+{61.8,53,85,120},
+{61.5,53,85,120},
+{61.7,52.9,85,120},
+{60.3,52.9,85,120},
+{61.5,52.9,85,120},
+{61.4,52.8,85,120},
+{60.2,52.8,85,120},
+{60.1,52.7,85,120},
+{61.2,52.5,85,120},
+{59.9,52.4,85,120},
+{60.1,52.4,85,120},
+{61.1,52.4,85,120},
+{59.8,52.3,85,120},
+{60.1,52.3,85,120},
+{61,52.3,85,120},
+{59.7,52.2,85,120},
+{60.7,51.8,85,120},
+{61,51.7,85,120},
+{61.1,51.7,85,120},
+{60.8,51.7,85,120},
+{61,51.6,85,120},
+{60.7,51.5,85,120},
+{61,51.5,85,120},
+{60.8,51.5,85,120},
+{61.6,51.4,85,120},
+{61.4,51.4,85,120},
+{61.1,51.4,85,120},
+{61.3,51.4,85,120},
+{61.6,51.3,85,120},
+{60.7,51.2,85,120},
+{60.5,51.1,85,120},
+{60.3,51,85,120},
+{60.3,50.9,85,120},
+{46.5,55.4,3430,300},
+{46.4,55.3,3430,300},
+{46.2,55.3,3430,300},
+{46.6,55.2,3430,300},
+{46.6,55,3430,120},
+{47.7,47.4,3430,120},
+{47.6,47.4,3430,120},
+{47.8,47.3,3430,120},
+{47.7,47.3,3430,120},
+{47.8,47.2,3430,120},
+{47.9,47.2,3430,120},
+{47.9,47.1,3430,120},
+{47.8,47.1,3430,120},
+{48.2,46.5,3430,120},
+{48.2,46.4,3430,120},
+{48.2,46.3,3430,120},
+{48.2,46.2,3430,120},
+{48.2,46.1,3430,120},
+{48.2,46,3430,120},
+{48.2,45.9,3430,120},
+--{35.9,83,3487,120}, --del
+--{35.8,83,3487,120}, --del
+--{35.9,82.9,3487,120}, --del
+--{36.1,82.7,3487,120}, --del
+--{36,82.7,3487,120}, --del
+--{36.2,82.5,3487,120}, --del
+--{36.3,82.4,3487,120}, --del
+--{36.2,82.4,3487,120}, --del
+--{36.4,82.3,3487,120}, --del
+--{36.3,82.1,3487,120}, --del
+--{36.5,82,3487,120}, --del
+--{36.6,81.9,3487,120}, --del
+--{36.7,81.8,3487,120}, --del
+--{36.6,81.8,3487,120}, --del
+--{36.7,81.7,3487,120}, --del
+--{38.1,79,3487,120}, --del
+--{38.1,78.8,3487,120}, --del
+--{38,78.6,3487,120}, --del
+--{38.1,78.5,3487,120}, --del
+--{38,78.3,3487,120}, --del
+--{38.1,78.2,3487,120}, --del
+--{38.1,78.1,3487,120}, --del
+--{38,77.8,3487,120}, --del
+--{38.1,77.8,3487,120}, --del
+--{38,77.5,3487,120}, --del
+--{38.1,77.5,3487,120}, --del
+--{38.1,77.3,3487,120}, --del
+--{38.1,77.2,3487,120}, --del
+--{38,77,3487,120}, --del
+--{38.1,77,3487,120}, --del
+--{38.1,76.7,3487,120}, --del
+{49.3,52.7,3524,120},
+{49.8,52.7,3524,120},
+{49.4,52.7,3524,120},
+{49.9,52.7,3524,120},
+{49.3,52.6,3524,120},
+{49.8,52.6,3524,120},
+{49.4,52.6,3524,120},
+{49.3,52.5,3524,120},
+{49.7,52.4,3524,120},
+{49.8,52.4,3524,120},
+{49.4,52.4,3524,120},
+{49.5,52.4,3524,120},
+{49.4,52.3,3524,120},
+{49.7,52.3,3524,120},
+{49.5,52.3,3524,120},
+{49.6,52.3,3524,120},
+{43.6,52.1,3524,120},
+{43.8,51.9,3524,120},
+{43.5,51.9,3524,120},
+{43.3,51.8,3524,120},
+{43.4,51.5,3524,120},
+{48.6,50,3524,120},
+{48.7,50,3524,120},
+{48.5,50,3524,120},
+{48.5,49.9,3524,120},
+{48.8,49.9,3524,2},
+{48.8,49.8,3524,120},
+{48.9,49.7,3524,120},
+{48.9,49.6,3524,120},
+{48.8,49.6,3524,120},
+{48.9,49.5,3524,120},
+{48.8,49.5,3524,120},
+{48.8,49.4,3524,120},
+{48.8,49.3,3524,120},
+{48.8,49.2,3524,120},
+{48.7,49.1,3524,120},
+{48.7,49,3524,2},
+}
 D[23542].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56336,16 +56235,7 @@ D[23596].coords={
 D[23597].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 23599
--- Questie missing unit 23607
--- Questie missing unit 23608
--- Questie missing unit 23609
--- Questie missing unit 23610
--- Questie missing unit 23611
 D[23612].fac="AH" --old: nil
--- Questie missing unit 23613
--- Questie missing unit 23614
--- Questie missing unit 23615
 D[23619].coords={
 {36.3,33.9,3519,25},
 {76.5,31.2,3703,300},
@@ -56371,12 +56261,12 @@ D[23626].coords={
 {76.5,32,3703,300},
 {-1,-1,1585,25}, --add
 }
--- Questie missing unit 23629
--- Questie missing unit 23630
--- Questie missing unit 23631
--- Questie missing unit 23632
--- Questie missing unit 23633
--- Questie missing unit 23634
+D[23629].fac="AH" --old: nil
+D[23630].fac="AH" --old: nil
+D[23631].fac="AH" --old: nil
+D[23632].fac="AH" --old: nil
+D[23633].fac="AH" --old: nil
+D[23634].fac="AH" --old: nil
 D[23636].fac="AH" --old: nil
 D[23637].coords={
 {76.3,56.8,15,120},
@@ -56406,7 +56296,6 @@ D[23686].coords={
 D[23697].fac="AH" --old: nil
 D[23700].fac="AH" --old: nil
 D[23702].fac="AH" --old: nil
--- Questie missing unit 23703
 D[23706].fac="AH" --old: nil
 D[23709].fac="AH" --old: nil
 D[23714].coords={
@@ -56472,9 +56361,36 @@ D[23769].coords={
 D[23774].coords={
 {-1,-1,3805,0}, --add
 }
+D[23786].coords={
+{40.6,68,15,0}, --add
+{41.4,67,15,0}, --add
+{42.2,65.8,15,0}, --add
+{42.2,67.8,15,0}, --add
+{42.4,67.2,15,0}, --add
+{42.6,67.8,15,0}, --add
+{43,65.4,15,0}, --add
+{43,65.6,15,0}, --add
+{43.4,67,15,0}, --add
+{43.6,66.8,15,0}, --add
+{43.8,67.6,15,0}, --add
+{44,63.6,15,0}, --add
+{44,65.2,15,0}, --add
+{44.2,66.2,15,0}, --add
+{44.6,65.6,15,0}, --add
+{44.8,65.4,15,0}, --add
+{44.8,66.6,15,0}, --add
+{45.2,63.6,15,0}, --add
+{45.6,68.4,15,0}, --add
+{45.8,64.8,15,0}, --add
+{46,66.2,15,0}, --add
+{46,67.2,15,0}, --add
+{46.2,69,15,0}, --add
+{46.6,65.8,15,0}, --add
+}
 D[23787].fac="AH" --old: nil
 D[23789].coords={
 --{52.4,76.4,15,0}, --del
+{52.2,76.2,15,0}, --add
 }
 D[23790].coords={
 {-1,-1,3805,0}, --add
@@ -56483,7 +56399,7 @@ D[23797].fac="AH" --old: nil
 D[23807].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 23808
+D[23808].fac="AH" --old: nil
 D[23813].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56496,20 +56412,83 @@ D[23815].coords={
 D[23817].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 23819
--- Questie missing unit 23820
--- Questie missing unit 23824
--- Questie missing unit 23825
--- Questie missing unit 23830
+D[23830].coords={
+{76.4,31.8,3703,300},
+{-1,-1,1585,300}, --add
+}
 D[23834].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 23845
--- Questie missing unit 23850
--- Questie missing unit 23852
--- Questie missing unit 23853
--- Questie missing unit 23854
--- Questie missing unit 23855
+D[23845].coords={
+{76.5,31.2,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23850].coords={
+{76.4,31.8,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23852].coords={
+{76.7,32.3,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23853].coords={
+{76.4,31.6,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23854].coords={
+{76.5,32,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23855].coords={
+{76.6,31.7,3703,300},
+{-1,-1,1585,300}, --add
+}
+D[23861].coords={
+{52.2,22.2,15,0}, --add
+{52.4,24.2,15,0}, --add
+{52.4,24.6,15,0}, --add
+{52.4,27.4,15,0}, --add
+{52.8,27.6,15,0}, --add
+{53,21.6,15,0}, --add
+{53,23.6,15,0}, --add
+{53,27.2,15,0}, --add
+{53.4,20.8,15,0}, --add
+{53.6,27.8,15,0}, --add
+{54,23,15,0}, --add
+{54,29,15,0}, --add
+{54.4,25,15,0}, --add
+{55,21.4,15,0}, --add
+{55.2,22.6,15,0}, --add
+{55.4,22,15,0}, --add
+{55.4,24,15,0}, --add
+{55.8,21,15,0}, --add
+{55.8,22.6,15,0}, --add
+{56,24,15,0}, --add
+{56,28.2,15,0}, --add
+{56,28.6,15,0}, --add
+{56.4,22.4,15,0}, --add
+{56.4,27.4,15,0}, --add
+{56.8,22.4,15,0}, --add
+{56.8,23.4,15,0}, --add
+{56.8,25,15,0}, --add
+{57,23.8,15,0}, --add
+{57,26.2,15,0}, --add
+{57,30.4,15,0}, --add
+{57.2,21,15,0}, --add
+{57.2,26.8,15,0}, --add
+{57.2,28.2,15,0}, --add
+{57.4,30.6,15,0}, --add
+{57.6,21.4,15,0}, --add
+{57.6,23.2,15,0}, --add
+{57.6,27.8,15,0}, --add
+{57.6,28.8,15,0}, --add
+{58.2,22,15,0}, --add
+{58.2,26.4,15,0}, --add
+{58.6,22.4,15,0}, --add
+{58.6,26,15,0}, --add
+{58.8,23.4,15,0}, --add
+{59.2,25,15,0}, --add
+}
 D[23863].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56536,13 +56515,12 @@ D[23880].coords={
 D[23889].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 23894
 D[23897].coords={
 {-1,-1,3805,0}, --add
 }
 D[23899].fac="AH" --old: nil
 D[23909].fac="AH" --old: nil
--- Questie missing unit 23936
+D[23936].fac="AH" --old: nil
 D[23948].fac="AH" --old: nil
 D[23971].coords={
 {52.5,41.2,14,120},
@@ -56595,11 +56573,9 @@ D[24064].coords={
 D[24065].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24109
 D[24138].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24171
 D[24175].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56609,15 +56585,10 @@ D[24179].coords={
 D[24180].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24202
--- Questie missing unit 24203
--- Questie missing unit 24204
--- Questie missing unit 24205
 D[24208].coords={
 {36.9,32.4,15,360},
 --{54.6,70.7,17,360}, --del
 }
--- Questie missing unit 24220
 D[24222].coords={
 {63.9,91.3,3518,300},
 {55.1,80.3,3518,300},
@@ -56689,29 +56660,9 @@ D[24222].fac="AH" --old: nil
 D[24223].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24263
--- Questie missing unit 24264
--- Questie missing unit 24265
--- Questie missing unit 24292
--- Questie missing unit 24293
--- Questie missing unit 24294
--- Questie missing unit 24295
--- Questie missing unit 24296
--- Questie missing unit 24297
--- Questie missing unit 24298
--- Questie missing unit 24299
--- Questie missing unit 24300
--- Questie missing unit 24301
--- Questie missing unit 24302
--- Questie missing unit 24303
--- Questie missing unit 24304
--- Questie missing unit 24305
--- Questie missing unit 24306
--- Questie missing unit 24307
--- Questie missing unit 24308
--- Questie missing unit 24309
--- Questie missing unit 24310
--- Questie missing unit 24311
+D[24263].fac="AH" --old: nil
+D[24264].fac="AH" --old: nil
+D[24265].fac="AH" --old: nil
 D[24312].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56719,14 +56670,9 @@ D[24319].fac="AH" --old: nil
 D[24325].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24337
--- Questie missing unit 24351
--- Questie missing unit 24352
 D[24358].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24360
--- Questie missing unit 24361
 D[24363].coords={
 {-1,-1,3805,0}, --add
 }
@@ -56736,12 +56682,6 @@ D[24373].fac="AH" --old: nil
 D[24374].coords={
 {-1,-1,3805,0}, --add
 }
--- Questie missing unit 24377
--- Questie missing unit 24378
--- Questie missing unit 24382
--- Questie missing unit 24383
--- Questie missing unit 24384
--- Questie missing unit 24386
 D[24388].fac="AH" --old: nil
 D[24389].fac="AH" --old: nil
 D[24396].coords={
@@ -56752,7 +56692,6 @@ D[24416].fac="AH" --old: nil
 D[24417].fac="AH" --old: nil
 D[24436].fac="AH" --old: nil
 D[24437].fac="AH" --old: nil
--- Questie missing unit 24470
 D[24480].fac="AH" --old: nil
 D[24483].fac="AH" --old: nil
 D[24484].coords={
@@ -56931,10 +56870,6 @@ D[24501].coords={
 }
 D[24503].fac="AH" --old: nil
 D[24505].fac="AH" --old: nil
--- Questie missing unit 24506
--- Questie missing unit 24507
--- Questie missing unit 24508
--- Questie missing unit 24509
 D[24520].coords={
 {-1,-1,2917,0}, --add
 }
@@ -56951,7 +56886,6 @@ D[24551].coords={
 D[24560].coords={
 {-1,-1,4131,0}, --add
 }
--- Questie missing unit 24658
 D[24664].coords={
 {-1,-1,4131,0}, --add
 }
@@ -56982,9 +56916,6 @@ D[24689].coords={
 D[24690].coords={
 {-1,-1,4131,0}, --add
 }
--- Questie missing unit 24692
--- Questie missing unit 24693
--- Questie missing unit 24695
 D[24696].coords={
 {-1,-1,4131,0}, --add
 }
@@ -56994,7 +56925,6 @@ D[24697].coords={
 D[24698].coords={
 {-1,-1,4131,0}, --add
 }
--- Questie missing unit 24699
 D[24722].coords={
 {-1,-1,4131,0}, --add
 }
@@ -57011,7 +56941,6 @@ D[24761].coords={
 D[24762].coords={
 {-1,-1,4131,0}, --add
 }
--- Questie missing unit 24766
 D[24777].coords={
 {-1,-1,4131,0}, --add
 }
@@ -57020,6 +56949,9 @@ D[24781].coords={
 {-1,-1,4131,0}, --add
 }
 D[24781].fac="AH" --old: nil
+D[24782].coords={
+{16.9,33.4,10,0}, --add
+}
 D[24792].fac="AH" --old: nil
 D[24808].coords={
 {-1,-1,4131,0}, --add
@@ -57491,7 +57423,6 @@ D[25135].fac="AH" --old: nil
 D[25136].fac="AH" --old: nil
 D[25137].fac="AH" --old: nil
 D[25138].fac="AH" --old: nil
--- Questie missing unit 25139
 D[25140].fac="AH" --old: nil
 D[25141].fac="AH" --old: nil
 D[25142].fac="AH" --old: nil
@@ -57561,7 +57492,6 @@ D[25213].coords={
 {-1,-1,3457,0}, --add
 }
 D[25213].fac="AH" --old: nil
--- Questie missing unit 25218
 D[25223].coords={
 --{61.5,36.6,3430,180}, --del
 {92,38.8,3487,180},
@@ -57622,19 +57552,12 @@ D[25508].coords={
 D[25509].coords={
 {-1,-1,4075,0}, --add
 }
--- Questie missing unit 25515
 D[25518].fac="AH" --old: nil
--- Questie missing unit 25535
--- Questie missing unit 25536
 D[25538].fac="AH" --old: nil
 D[25539].fac="AH" --old: nil
 D[25540].fac="AH" --old: nil
--- Questie missing unit 25542
--- Questie missing unit 25544
 D[25552].fac="AH" --old: nil
 D[25557].fac="AH" --old: nil
--- Questie missing unit 25559
--- Questie missing unit 25561
 D[25588].coords={
 {-1,-1,4075,0}, --add
 }
@@ -57699,8 +57622,12 @@ D[25710].coords={
 D[25741].coords={
 {-1,-1,4075,0}, --add
 }
--- Questie missing unit 25745
--- Questie missing unit 25746
+D[25745].coords={
+{-1,-1,3717,0}, --add
+}
+D[25746].coords={
+{-1,-1,3717,0}, --add
+}
 D[25754].coords={
 {-1,-1,3717,0}, --add
 }
@@ -58002,7 +57929,6 @@ D[26089].fac="AH" --old: nil
 D[26090].fac="AH" --old: nil
 D[26091].fac="AH" --old: nil
 D[26092].fac="AH" --old: nil
--- Questie missing unit 26102
 D[26111].coords={
 --{43.1,15.6,15,360}, --del
 --{42.5,14.4,15,360}, --del
@@ -58038,10 +57964,6 @@ D[26124].coords={
 {47.4,39.2,1637,300},
 {20.9,24.2,1638,300},
 }
--- Questie missing unit 26176
--- Questie missing unit 26177
--- Questie missing unit 26188
--- Questie missing unit 26190
 D[26207].fac="AH" --old: nil
 D[26221].coords={
 --{62,67.9,85,300}, --del
@@ -58055,7 +57977,6 @@ D[26221].coords={
 {60.7,30.6,3703,300},
 }
 D[26240].fac="AH" --old: nil
--- Questie missing unit 26241
 D[26242].fac="AH" --old: nil
 D[26244].fac="AH" --old: nil
 D[26246].coords={
@@ -58071,7 +57992,34 @@ D[26253].fac="AH" --old: nil
 D[26254].coords={
 {-1,-1,4075,0}, --add
 }
--- Questie missing unit 26258
+D[26258].coords={
+{46.6,46.5,1,300},
+{59,17.2,4,300},
+{73.3,54.9,10,300},
+{13.3,47.2,11,300},
+{43.1,62.8,12,300},
+{62,40.3,15,300},
+{33.8,73.3,33,300},
+{32.6,40.5,38,300},
+{56.1,53.9,40,300},
+{24.9,59.3,44,300},
+{50.2,44.8,45,300},
+{14.5,49.8,47,300},
+{56.6,92.2,141,300},
+{54.9,60.4,141,300},
+{37.1,45.9,148,300},
+{50.4,47.1,267,300},
+--{100,9.9,267,300}, --del
+{37.8,55,331,300},
+{65.9,16.9,405,300},
+{52.7,29.1,440,300},
+{62.7,35.4,618,300},
+{57.7,34.8,1377,300},
+{38.9,62.2,1519,300},
+{64.5,24.6,1537,300},
+{61.9,58.3,3483,300},
+{61.7,31.8,3703,300},
+}
 D[26259].coords={
 {-1,-1,4075,0}, --add
 }
@@ -58492,8 +58440,39 @@ D[26332].coords={
 }
 D[26353].fac="AH" --old: nil
 D[26354].fac="AH" --old: nil
--- Questie missing unit 26355
--- Questie missing unit 26391
+D[26355].coords={
+{4.9,49.1,3,300},
+{46.9,46.5,8,300},
+{33.3,30.8,15,300},
+--{52.7,69.9,17,300}, --del
+{52.2,27.9,17,300},
+{33,75.4,33,300},
+--{56.6,87.6,36,300}, --del
+{74,41.7,45,300},
+{62.1,29,46,300},
+{76.7,74.6,47,300},
+--{84.2,40.6,51,300}, --del
+--{62.3,66.9,85,300}, --del
+{49.6,38.5,130,300},
+--{34.1,22,215,300}, --del
+{58.4,25.1,267,300},
+{70,69.2,331,300},
+{72.4,47.6,357,300},
+{42.4,52.7,400,300},
+{26.2,77.2,405,300},
+--{87.5,49.3,405,300}, --del
+{50.6,60.3,406,300},
+{49.8,27.1,440,300},
+{59.9,35.5,618,300},
+{46.4,44.8,1377,300},
+{68.1,8.5,1497,300},
+{46.8,38.6,1637,300},
+{21,25.4,1638,300},
+{57.1,41.8,3483,300},
+{51.1,34,3518,300},
+{51.9,43.1,3519,300},
+{35.6,51.7,3521,300},
+}
 D[26395].coords={
 {-1,-1,2918,0}, --add
 }
@@ -58554,35 +58533,976 @@ D[26520].coords={
 }
 D[26520].fac="AH" --old: nil
 D[26560].fac="AH" --old: nil
--- Questie missing unit 26576
 D[26579].coords={
 {-1,-1,4131,0}, --add
 }
 D[26719].coords={
 {-1,-1,1585,0}, --add
 }
--- Questie missing unit 26724
--- Questie missing unit 26738
--- Questie missing unit 26739
--- Questie missing unit 26740
--- Questie missing unit 26741
--- Questie missing unit 26742
--- Questie missing unit 26743
--- Questie missing unit 26744
--- Questie missing unit 26745
--- Questie missing unit 26747
--- Questie missing unit 26748
--- Questie missing unit 26749
--- Questie missing unit 26750
--- Questie missing unit 26751
--- Questie missing unit 26752
--- Questie missing unit 26753
--- Questie missing unit 26754
--- Questie missing unit 26755
--- Questie missing unit 26756
--- Questie missing unit 26757
--- Questie missing unit 26758
--- Questie missing unit 26759
+D[26724].coords={
+{30.2,72.3,1,180},
+{46.3,53.8,1,180},
+{42.1,67.1,12,180},
+{47.3,44.7,12,180},
+{43.6,67.8,14,180},
+{52.7,42,14,180},
+--{60.8,67.2,85,180}, --del
+{31.6,65.1,85,180},
+{60.3,52,85,180},
+{54.5,58.6,141,180},
+--{31.7,55.5,141,180}, --del
+{57.8,42.6,141,180},
+{44.9,79,215,180},
+{47.7,60.3,215,180},
+--{37.8,27.3,215,180}, --del
+{61.4,10.3,1497,180},
+{57.2,59.5,1519,180},
+{26.3,58.9,1537,180},
+{47.3,73.8,1637,180},
+{39.4,51.5,1638,180},
+{69.8,41.3,1657,180},
+{46.5,46.4,3430,180},
+--{56.7,44.6,3430,180}, --del
+{39.2,21.4,3430,180},
+--{30.9,78.7,3487,180}, --del
+{72.7,71.5,3487,180},
+{48.7,51.8,3524,180},
+{79.9,49.3,3524,180},
+--{35.6,42.8,3524,180}, --del
+{83.46,49.12,3557,180}, --add
+}
+D[26738].coords={
+{30.2,72.2,1,180},
+{30.1,72.1,1,180},
+{30.1,71.9,1,180},
+{46.3,53.2,1,180},
+{46.3,53.1,1,180},
+{46.3,52.9,1,180},
+{42.4,67.3,12,180},
+{42.3,67.2,12,180},
+{42.2,67.2,12,180},
+{47.3,44.6,12,180},
+{47.4,44.4,12,180},
+{47.4,44.2,12,180},
+{43.5,67.8,14,180},
+{43.5,67.7,14,180},
+{43.4,67.7,14,180},
+{52.9,42.3,14,180},
+{52.8,42.2,14,180},
+{52.8,42.1,14,180},
+--{45.2,6.6,14,180}, --del
+--{45.1,6.5,14,180}, --del
+--{60.8,67.7,85,180}, --del
+--{60.8,67.5,85,180}, --del
+--{60.8,67.4,85,180}, --del
+{31.5,65.6,85,180},
+{31.5,65.4,85,180},
+{31.5,65.3,85,180},
+{60.6,52.2,85,180},
+{60.5,52.1,85,180},
+{60.4,52,85,180},
+{54.6,58.6,141,180},
+{54.8,58.6,141,180},
+{54.7,58.6,141,180},
+--{31.6,55.5,141,180}, --del
+--{31.4,55.5,141,180}, --del
+--{31.5,55.5,141,180}, --del
+{57.9,43,141,180},
+{57.9,42.8,141,180},
+{57.8,42.7,141,180},
+{44.9,78.9,215,180},
+{44.9,78.8,215,180},
+{44.9,78.6,215,180},
+{47.7,60.2,215,180},
+{47.7,60,215,180},
+{47.7,59.9,215,180},
+--{37.7,27.3,215,180}, --del
+--{37.5,27.2,215,180}, --del
+{61.4,12.4,1497,180},
+{61.4,11.7,1497,180},
+{61.4,11,1497,180},
+{53.9,63.4,1519,180},
+{54.1,63.2,1519,180},
+{54.4,62.8,1519,180},
+{26.5,58.1,1537,180},
+{27,57.8,1537,180},
+{27.5,57.5,1537,180},
+{48,74.5,1637,180},
+{47.7,74.3,1637,180},
+{47.5,74.1,1637,180},
+{39,51.2,1638,180},
+{38.1,51,1638,180},
+{69.3,41.3,1657,180},
+{68.5,41.3,1657,180},
+{68.9,41.3,1657,180},
+{46.4,47,3430,180},
+{46.4,46.9,3430,180},
+{46.4,46.7,3430,180},
+--{56.7,45,3430,180}, --del
+--{56.7,44.9,3430,180}, --del
+--{56.7,44.8,3430,180}, --del
+{39.3,20.2,3430,180},
+{39.2,20.1,3430,180},
+{39.1,20.1,3430,180},
+--{30.7,81.1,3487,180}, --del
+--{30.8,80.6,3487,180}, --del
+--{30.9,80.1,3487,180}, --del
+{72.7,73.2,3487,180},
+{72.7,72.7,3487,180},
+{72.7,72.1,3487,180},
+{48.9,52.1,3524,180},
+{48.9,52,3524,180},
+{48.8,51.9,3524,180},
+{80,49.3,3524,180},
+{80.1,49.2,3524,180},
+--{35.5,43.4,3524,180}, --del
+--{35.6,43.2,3524,180}, --del
+--{35.6,43,3524,180}, --del
+{83.42,49.88,3557,180}, --add
+{83.38,50.69,3557,180}, --add
+{83.33,51.49,3557,180}, --add
+}
+D[26739].coords={
+{30,71.4,1,180},
+{30,71.3,1,180},
+{29.9,71.2,1,180},
+{46.5,53.5,1,180},
+{46.5,53.4,1,180},
+{46.5,53.3,1,180},
+{42.2,66.2,12,180},
+{42.2,66,12,180},
+{42.2,65.8,12,180},
+{47.4,43.4,12,180},
+{47.4,43.3,12,180},
+{47.4,43.1,12,180},
+{42.9,67.8,14,180},
+{43,67.7,14,180},
+{43.1,67.7,14,180},
+{52.8,43,14,180},
+{52.9,42.9,14,180},
+{52.9,42.8,14,180},
+--{45.6,6.9,14,180}, --del
+--{45.6,6.8,14,180}, --del
+--{45.5,6.8,14,180}, --del
+--{60.8,68.6,85,180}, --del
+--{60.8,68.4,85,180}, --del
+--{60.8,68.3,85,180}, --del
+{31.6,66.4,85,180},
+{31.6,66.3,85,180},
+{31.6,66.1,85,180},
+{61.1,52.6,85,180},
+{60.9,52.4,85,180},
+{55.1,58.6,141,180},
+{55.3,58.6,141,180},
+{55.2,58.6,141,180},
+--{30.9,55.5,141,180}, --del
+--{31.1,55.5,141,180}, --del
+--{31,55.5,141,180}, --del
+{58.4,43.8,141,180},
+{58.4,43.7,141,180},
+{58.3,43.6,141,180},
+{44.9,78.1,215,180},
+{44.9,78,215,180},
+{44.9,77.9,215,180},
+{47.5,59.5,215,180},
+{47.4,59.4,215,180},
+{47.4,59.3,215,180},
+--{37.2,27.7,215,180}, --del
+--{37.2,27.5,215,180}, --del
+--{37.3,27.4,215,180}, --del
+{61.3,16.5,1497,180},
+{61.3,15.9,1497,180},
+{61.3,15.2,1497,180},
+{55,64.8,1519,180},
+{54.9,64.4,1519,180},
+{54.9,63.9,1519,180},
+{29.8,60,1537,180},
+{29.5,59.3,1537,180},
+{49.6,75.8,1637,180},
+{49.3,75.5,1637,180},
+{49.1,75.2,1637,180},
+{36.3,53.2,1638,180},
+{36.5,52.6,1638,180},
+{36.7,52.1,1638,180},
+{66,41.3,1657,180},
+{66.8,41.3,1657,180},
+{66.4,41.2,1657,180},
+{46.9,47.5,3430,180},
+{47,47.5,3430,180},
+{47.1,47.4,3430,180},
+--{56.7,45.8,3430,180}, --del
+--{56.7,45.7,3430,180}, --del
+--{56.7,45.6,3430,180}, --del
+{38.7,20.4,3430,180},
+{38.8,20.3,3430,180},
+{38.8,20.2,3430,180},
+--{32.8,83.3,3487,180}, --del
+--{33.2,83.3,3487,180}, --del
+--{33.4,83,3487,180}, --del
+{72.6,76.3,3487,180},
+{72.6,75.8,3487,180},
+{72.7,75.3,3487,180},
+{49.4,52.1,3524,180},
+{49.5,52.1,3524,180},
+{49.6,52,3524,180},
+{79.8,47.9,3524,180},
+{79.9,47.9,3524,180},
+{80,47.9,3524,180},
+--{35.2,44.5,3524,180}, --del
+--{35.4,44.2,3524,180}, --del
+{81.95,55.45,3557,180}, --add
+{82.68,54.47,3557,180}, --add
+}
+D[26740].coords={
+{30.1,71.8,1,180},
+{30.1,71.7,1,180},
+{30,71.5,1,180},
+{46.5,53.9,1,180},
+{46.5,53.8,1,180},
+{46.5,53.7,1,180},
+{42,66.6,12,180},
+{42.1,66.5,12,180},
+{42.2,66.4,12,180},
+{47.4,44,12,180},
+{47.4,43.8,12,180},
+{47.4,43.6,12,180},
+{43.2,67.7,14,180},
+{43.3,67.7,14,180},
+{52.9,42.7,14,180},
+{52.9,42.6,14,180},
+{52.9,42.4,14,180},
+--{45.5,6.7,14,180}, --del
+--{45.4,6.7,14,180}, --del
+--{45.3,6.6,14,180}, --del
+--{60.8,68.1,85,180}, --del
+--{60.8,68,85,180}, --del
+--{60.8,67.8,85,180}, --del
+{31.6,66,85,180},
+{31.6,65.8,85,180},
+{31.6,65.7,85,180},
+{60.9,52.4,85,180},
+{60.8,52.3,85,180},
+{60.7,52.2,85,180},
+{54.8,58.6,141,180},
+{54.9,58.6,141,180},
+{55,58.6,141,180},
+--{31.4,55.5,141,180}, --del
+--{31.3,55.5,141,180}, --del
+--{31.2,55.5,141,180}, --del
+{58.3,43.5,141,180},
+{58.2,43.4,141,180},
+{58.1,43.3,141,180},
+{44.9,78.5,215,180},
+{44.9,78.4,215,180},
+{44.9,78.2,215,180},
+{47.7,59.8,215,180},
+{47.6,59.7,215,180},
+{47.6,59.5,215,180},
+--{37.3,27.4,215,180}, --del
+--{37.4,27.3,215,180}, --del
+--{37.5,27.2,215,180}, --del
+{61.3,14.4,1497,180},
+{61.3,13.8,1497,180},
+{61.4,13,1497,180},
+{53.9,64.9,1519,180},
+{53.8,64.5,1519,180},
+{53.6,64.1,1519,180},
+{29,57.9,1537,180},
+{28.6,57.4,1537,180},
+{28.1,57.4,1537,180},
+{48.9,75,1637,180},
+{48.6,74.8,1637,180},
+{48.3,74.7,1637,180},
+{37,51.7,1638,180},
+{37.3,51.4,1638,180},
+{37.7,51.1,1638,180},
+{68,41.3,1657,180},
+{67.7,41.3,1657,180},
+{67.2,41.3,1657,180},
+{46.4,47.4,3430,180},
+{46.4,47.2,3430,180},
+{46.4,47.1,3430,180},
+--{56.7,45.4,3430,180}, --del
+--{56.7,45.3,3430,180}, --del
+--{56.7,45.2,3430,180}, --del
+{39,20.1,3430,180},
+{39.1,20.1,3430,180},
+--{30.8,82.7,3487,180}, --del
+--{30.6,82.2,3487,180}, --del
+--{30.7,81.7,3487,180}, --del
+{72.7,74.8,3487,180},
+{72.7,74.2,3487,180},
+{72.7,73.7,3487,180},
+{49.2,52.2,3524,180},
+{49.3,52.2,3524,180},
+{49,52.2,3524,180},
+{79.6,48.3,3524,180},
+{79.7,48,3524,180},
+--{35.5,44,3524,180}, --del
+--{35.5,43.8,3524,180}, --del
+--{35.5,43.6,3524,180}, --del
+{83.03,53.78,3557,180}, --add
+{83.26,52.28,3557,180}, --add
+{83.19,53.04,3557,180}, --add
+}
+D[26741].coords={
+{29.7,71.4,1,180},
+{29.7,71.3,1,180},
+{29.8,71.2,1,180},
+{46.5,53.2,1,180},
+{46.5,53,1,180},
+{46.5,52.9,1,180},
+{42.2,65.6,12,180},
+{42.2,65.4,12,180},
+{42.2,65.3,12,180},
+{47.4,42.9,12,180},
+{47.5,42.5,12,180},
+{42.8,68.1,14,180},
+{42.8,68,14,180},
+{42.9,67.9,14,180},
+{52.7,43.3,14,180},
+{52.7,43.2,14,180},
+{52.8,43.1,14,180},
+--{45.8,7.1,14,180}, --del
+--{45.8,7,14,180}, --del
+--{45.7,7,14,180}, --del
+--{60.8,69,85,180}, --del
+--{60.8,68.9,85,180}, --del
+--{60.8,68.7,85,180}, --del
+{31.8,66.8,85,180},
+{31.7,66.7,85,180},
+{31.6,66.6,85,180},
+{61.3,52.9,85,180},
+{61.2,52.8,85,180},
+{61.1,52.7,85,180},
+{55.5,58.6,141,180},
+{55.4,58.6,141,180},
+--{30.8,55.5,141,180}, --del
+{58.6,44.1,141,180},
+{58.6,44,141,180},
+{58.5,43.9,141,180},
+{44.9,77.7,215,180},
+{44.9,77.6,215,180},
+{44.9,77.5,215,180},
+{47.1,59.4,215,180},
+{47.2,59.4,215,180},
+{47.3,59.3,215,180},
+--{37.2,28.1,215,180}, --del
+--{37.2,27.9,215,180}, --del
+--{37.2,27.8,215,180}, --del
+{61.3,18.8,1497,180},
+{61.3,18,1497,180},
+{61.3,17.3,1497,180},
+{55.1,63.5,1519,180},
+{55.3,63.3,1519,180},
+{55.6,63.1,1519,180},
+{30.8,61.9,1537,180},
+{30.5,61.2,1537,180},
+{30.1,60.6,1537,180},
+{50.3,76.5,1637,180},
+{50,76.2,1637,180},
+{49.8,76,1637,180},
+{36.2,55.1,1638,180},
+{36.2,54.5,1638,180},
+{36.2,53.9,1638,180},
+{65.2,41.3,1657,180},
+{65.6,41.3,1657,180},
+{47.2,47.4,3430,180},
+{47.3,47.3,3430,180},
+--{56.7,46.2,3430,180}, --del
+--{56.7,46,3430,180}, --del
+--{56.7,45.9,3430,180}, --del
+{38.6,20.7,3430,180},
+{38.7,20.6,3430,180},
+{38.7,20.5,3430,180},
+--{33.8,82.9,3487,180}, --del
+--{34.1,82.8,3487,180}, --del
+--{34.4,82.5,3487,180}, --del
+{72.6,77.9,3487,180},
+{72.6,77.3,3487,180},
+{72.6,76.8,3487,180},
+{49.6,51.9,3524,180},
+{49.7,51.9,3524,180},
+{49.8,51.8,3524,180},
+{80.3,48.4,3524,180},
+{80.3,48.3,3524,180},
+{80.3,48.1,3524,180},
+--{34.9,44.8,3524,180}, --del
+--{35,44.7,3524,180}, --del
+--{35.1,44.6,3524,180}, --del
+{80.65,56.76,3557,180}, --add
+{81.54,55.95,3557,180}, --add
+{81.1,56.4,3557,180}, --add
+}
+D[26742].coords={
+{30.3,72.4,1,180},
+{46.3,53.9,1,180},
+{41.9,67.1,12,180},
+{47.2,44.8,12,180},
+{43.7,67.9,14,180},
+{52.7,41.9,14,180},
+--{60.8,67.1,85,180}, --del
+{31.6,65,85,180},
+{60.3,51.9,85,180},
+{54.4,58.5,141,180},
+--{31.8,55.5,141,180}, --del
+{57.7,42.5,141,180},
+{44.8,79.1,215,180},
+{47.6,60.4,215,180},
+--{37.9,27.4,215,180}, --del
+{61.4,9.5,1497,180},
+{57.5,59.2,1519,180},
+{26.1,59.8,1537,180},
+{47.1,73.4,1637,180},
+{39.8,51.9,1638,180},
+{70.2,41.3,1657,180},
+{46.4,46.3,3430,180},
+--{56.7,44.5,3430,180}, --del
+{39.1,21.4,3430,180},
+--{30.8,78.2,3487,180}, --del
+{72.7,71,3487,180},
+{48.6,51.7,3524,180},
+{79.8,49.2,3524,180},
+--{35.6,42.6,3524,180}, --del
+{83.44,48.41,3557,180}, --add
+}
+D[26743].coords={
+{30.4,72.4,1,180},
+{46.3,54.1,1,180},
+{41.8,67,12,180},
+{47.1,45,12,180},
+{43.7,68,14,180},
+{52.6,41.8,14,180},
+--{60.9,66.9,85,180}, --del
+{31.7,65,85,180},
+{60.2,51.8,85,180},
+{54.3,58.5,141,180},
+--{31.9,55.5,141,180}, --del
+{57.7,42.4,141,180},
+{44.8,79.3,215,180},
+{47.6,60.5,215,180},
+{61.5,8.8,1497,180},
+{57.7,58.9,1519,180},
+{26.1,60.7,1537,180},
+{47,72.9,1637,180},
+{70.7,41.3,1657,180},
+{46.4,46.1,3430,180},
+--{56.7,44.4,3430,180}, --del
+{39,21.4,3430,180},
+--{30.7,77.7,3487,180}, --del
+{72.7,70.5,3487,180},
+{48.6,51.6,3524,180},
+{79.7,49.1,3524,180},
+--{35.6,42.4,3524,180}, --del
+{83.4,47.71,3557,180}, --add
+}
+D[26744].coords={
+{30.5,72.4,1,180},
+{46.3,54.2,1,180},
+{41.7,67,12,180},
+{47,45.1,12,180},
+{43.7,68.1,14,180},
+{52.5,41.7,14,180},
+--{60.8,66.8,85,180}, --del
+{31.8,64.9,85,180},
+{60.1,51.8,85,180},
+{54.2,58.4,141,180},
+--{32,55.5,141,180}, --del
+{57.6,42.3,141,180},
+{44.8,79.4,215,180},
+{47.5,60.6,215,180},
+--{38,27.6,215,180}, --del
+{61.4,8.1,1497,180},
+{58,58.5,1519,180},
+{26.4,61.5,1537,180},
+{46.9,72.5,1637,180},
+{40.5,52.8,1638,180},
+{71.1,41.3,1657,180},
+{46.4,46,3430,180},
+--{56.7,44.2,3430,180}, --del
+{38.9,21.4,3430,180},
+--{30.5,77.2,3487,180}, --del
+{72.7,69.9,3487,180},
+{48.5,51.4,3524,180},
+{79.6,49,3524,180},
+--{35.6,42.3,3524,180}, --del
+{83.4,46.99,3557,180}, --add
+}
+D[26745].coords={
+{30.6,72.4,1,180},
+{30.7,72.3,1,180},
+{46.5,54.3,1,180},
+{46.5,54.2,1,180},
+{46.5,54.1,1,180},
+{41.6,67,12,180},
+{41.4,67,12,180},
+{41.3,66.9,12,180},
+{46.7,45.5,12,180},
+{46.8,45.4,12,180},
+{43.8,68.4,14,180},
+{43.8,68.3,14,180},
+{43.8,68.2,14,180},
+{52.5,41.6,14,180},
+{52.5,41.4,14,180},
+{52.5,41.3,14,180},
+--{60.9,66.6,85,180}, --del
+--{60.9,66.5,85,180}, --del
+--{60.9,66.3,85,180}, --del
+{32.1,65.3,85,180},
+{32.1,65.2,85,180},
+{32.1,65,85,180},
+{60,51.7,85,180},
+{59.9,51.7,85,180},
+{59.8,51.6,85,180},
+{54,58.3,141,180},
+{53.9,58.3,141,180},
+--{32.3,55.5,141,180}, --del
+--{32.2,55.5,141,180}, --del
+--{32.1,55.5,141,180}, --del
+{57.6,42.2,141,180},
+{57.6,42,141,180},
+{57.6,41.9,141,180},
+{44.7,79.8,215,180},
+{44.7,79.7,215,180},
+{44.7,79.5,215,180},
+{47.3,60.6,215,180},
+{47.4,60.6,215,180},
+{47.2,60.6,215,180},
+--{38.2,27.9,215,180}, --del
+--{38.2,27.8,215,180}, --del
+--{38.1,27.7,215,180}, --del
+{61.5,7.3,1497,180},
+{61.5,6.6,1497,180},
+{61.5,5.9,1497,180},
+{57.2,60.9,1519,180},
+{57.4,60.4,1519,180},
+{57.6,60,1519,180},
+{27.2,63.8,1537,180},
+{26.9,63,1537,180},
+{26.7,62.2,1537,180},
+{46.7,72.2,1637,180},
+{46.6,71.8,1637,180},
+{46.4,71.4,1637,180},
+{41.5,54.2,1638,180},
+{41.2,53.7,1638,180},
+{40.9,53.2,1638,180},
+{72.5,41.3,1657,180},
+{72,41.3,1657,180},
+{71.6,41.3,1657,180},
+{46.7,45.8,3430,180},
+{46.6,45.7,3430,180},
+--{56.7,44.1,3430,180}, --del
+--{56.7,44,3430,180}, --del
+--{56.7,43.8,3430,180}, --del
+{38.9,21.3,3430,180},
+{38.8,21.2,3430,180},
+{38.7,21.2,3430,180},
+--{32.1,76.3,3487,180}, --del
+--{31.8,76.2,3487,180}, --del
+--{31.4,75.9,3487,180}, --del
+{72.7,69.4,3487,180},
+{72.7,68.9,3487,180},
+{72.7,68.4,3487,180},
+{48.5,51.3,3524,180},
+{48.4,51.1,3524,180},
+{48.4,51,3524,180},
+{79.4,49.3,3524,180},
+{79.4,49.1,3524,180},
+{79.3,48.9,3524,180},
+--{35.6,42.1,3524,180}, --del
+{35.5,41.9,3524,180},
+{35.5,41.7,3524,180},
+{83.35,46.3,3557,180}, --add
+}
+D[26747].coords={
+{28.9,69.9,1,180},
+{46.5,52.6,1,180},
+{42.8,65.8,12,180},
+{48.1,42.3,12,180},
+{42.5,68.3,14,180},
+{52.3,42.3,14,180},
+{52.5,42.2,14,180},
+--{46.3,6.9,14,180}, --del
+--{61.7,67.2,85,180}, --del
+{32.1,64.6,85,180},
+{61.6,53.2,85,180},
+{55.8,58.6,141,180},
+--{30.1,55.3,141,180}, --del
+{58.7,44.7,141,180},
+{44.5,76.3,215,180},
+--{37.5,29.3,215,180}, --del
+{65.4,10.3,1497,180},
+{56.1,60.7,1519,180},
+{32.8,64.9,1537,180},
+{52,75.9,1637,180},
+{38.1,61.5,1638,180},
+{61.9,40,1657,180},
+{47.6,47.2,3430,180},
+--{57.2,46.5,3430,180}, --del
+{39,20.9,3430,180},
+--{35.6,82.2,3487,180}, --del
+{74.6,79.2,3487,180},
+{48.9,50,3524,180},
+{80.1,47.5,3524,180},
+--{33.8,44.4,3524,180}, --del
+{76.8,55.2,3557,180},
+}
+D[26748].coords={
+{28.5,70.6,1,180},
+{46.3,51.7,1,180},
+{42.6,66.4,12,180},
+{48.6,42.8,12,180},
+{43,69.2,14,180},
+{52.7,43.7,14,180},
+--{46.5,6.6,14,180}, --del
+--{62.8,67.1,85,180}, --del
+{32.1,66.6,85,180},
+{60.6,53,85,180},
+{56.3,58,141,180},
+--{30.1,54.8,141,180}, --del
+{58,44.5,141,180},
+{44.6,76.9,215,180},
+{46.4,59.2,215,180},
+--{37.9,29.7,215,180}, --del
+{70.8,9.6,1497,180},
+{54.8,60.7,1519,180},
+{34.4,67.9,1537,180},
+{52.9,74.6,1637,180},
+{39.7,63.3,1638,180},
+{61.9,37.9,1657,180},
+--{57.5,45.9,3430,180}, --del
+{47.3,45.5,3430,180},
+{38.9,20.3,3430,180},
+{75.9,76.9,3487,180},
+--{34.4,75.2,3487,180}, --del
+{49.6,50,3524,180},
+{79.9,47.1,3524,180},
+--{34.2,45.5,3524,180}, --del
+{78.08,59.61,3557,180}, --add
+}
+D[26749].coords={
+{28.7,69.9,1,180},
+{46.5,52.4,1,180},
+{42.8,65.5,12,180},
+{48,42,12,180},
+{42.5,68.5,14,180},
+{52.2,42.5,14,180},
+--{46.2,7,14,180}, --del
+--{62,67.2,85,180}, --del
+{31.9,64.5,85,180},
+{61.5,53.2,85,180},
+{56,58.5,141,180},
+--{30.1,55.5,141,180}, --del
+{58.8,44.5,141,180},
+{44.4,76.4,215,180},
+{47,60.4,215,180},
+--{37.5,29.1,215,180}, --del
+{66.8,10.2,1497,180},
+{55.6,61.3,1519,180},
+{32.2,63.6,1537,180},
+{51.5,76.3,1637,180},
+{37.6,60.5,1638,180},
+{61.9,41.2,1657,180},
+{47.7,47.1,3430,180},
+--{57,46.5,3430,180}, --del
+{39,20.7,3430,180},
+--{36.1,81.5,3487,180}, --del
+{73.9,79.2,3487,180},
+{48.8,50.2,3524,180},
+{80.3,47.7,3524,180},
+--{33.7,44.7,3524,180}, --del
+{76.3,56.3,3557,180},
+}
+D[26751].coords={
+{28.6,70.4,1,180},
+{46.3,51.5,1,180},
+{42.6,66,12,180},
+{48.4,42.6,12,180},
+{43.1,69.2,14,180},
+{52.7,43.4,14,180},
+--{46.5,6.8,14,180}, --del
+{32,66.9,85,180},
+--{62.8,66.8,85,180}, --del
+{60.8,53,85,180},
+{56.2,58.2,141,180},
+--{30.1,55,141,180}, --del
+{58.2,44.7,141,180},
+{44.7,77.1,215,180},
+{46.4,59.4,215,180},
+--{37.7,29.7,215,180}, --del
+{70.8,8.3,1497,180},
+{54.9,61.7,1519,180},
+{33.7,66.5,1537,180},
+{52.7,75.4,1637,180},
+{38.9,63.3,1638,180},
+{61.9,38.9,1657,180},
+--{57.5,46.2,3430,180}, --del
+{47.1,45.5,3430,180},
+{38.8,20.2,3430,180},
+{75.9,78,3487,180},
+--{33.7,75.3,3487,180}, --del
+{49.5,50,3524,180},
+{79.9,47.4,3524,180},
+--{34.1,45.2,3524,180}, --del
+{77.7,58.3,3557,180},
+}
+D[26752].coords={
+{28.6,70.5,1,180},
+{46.3,51.6,1,180},
+{42.6,66.2,12,180},
+{48.5,42.7,12,180},
+{43.1,69.2,14,180},
+{52.7,43.6,14,180},
+--{46.5,6.7,14,180}, --del
+--{62.8,66.9,85,180}, --del
+{32,66.7,85,180},
+{60.7,53,85,180},
+{56.2,58.1,141,180},
+--{30.1,54.9,141,180}, --del
+{58.1,44.6,141,180},
+{44.6,77,215,180},
+{46.4,59.3,215,180},
+--{37.8,29.7,215,180}, --del
+{70.8,8.9,1497,180},
+{54.8,61.2,1519,180},
+{34,67.2,1537,180},
+{52.8,75,1637,180},
+{39.3,63.4,1638,180},
+{61.9,38.4,1657,180},
+--{57.5,46.1,3430,180}, --del
+{47.2,45.5,3430,180},
+{38.8,20.2,3430,180},
+{75.9,77.4,3487,180},
+--{34,75.2,3487,180}, --del
+{49.5,50,3524,180},
+{79.9,47.2,3524,180},
+--{34.1,45.4,3524,180}, --del
+{77.9,58.97,3557,180}, --add
+}
+D[26753].coords={
+{28.5,70.7,1,180},
+{46.3,51.9,1,180},
+{42.7,66.7,12,180},
+{48.7,43,12,180},
+{42.9,69.1,14,180},
+{52.7,43.8,14,180},
+--{46.6,6.5,14,180}, --del
+--{62.8,67.2,85,180}, --del
+{32.1,66.4,85,180},
+{60.6,53,85,180},
+{56.4,57.9,141,180},
+--{30.1,54.7,141,180}, --del
+{58,44.4,141,180},
+{44.6,76.7,215,180},
+{46.5,59.1,215,180},
+--{38,29.7,215,180}, --del
+{70.8,10.4,1497,180},
+{54.9,60.2,1519,180},
+{34.7,68.6,1537,180},
+{53.1,74.4,1637,180},
+{40.1,63,1638,180},
+{61.9,37.4,1657,180},
+--{57.5,45.8,3430,180}, --del
+{47.4,45.5,3430,180},
+{39,20.2,3430,180},
+{75.9,76.4,3487,180},
+--{34.7,75.2,3487,180}, --del
+{49.7,50.1,3524,180},
+{79.9,47,3524,180},
+--{34.2,45.7,3524,180}, --del
+{78.12,60.26,3557,180}, --add
+}
+D[26754].coords={
+{28.4,70.8,1,180},
+{46.4,51.5,1,180},
+{42.7,66.8,12,180},
+{42.9,69.1,14,180},
+{52.7,43.9,14,180},
+--{46.7,6.5,14,180}, --del
+--{62.8,67.4,85,180}, --del
+{32.1,66.3,85,180},
+{60.5,52.9,85,180},
+{56.4,57.8,141,180},
+--{30.1,54.6,141,180}, --del
+{57.9,44.3,141,180},
+{44.7,76.5,215,180},
+{46.5,58.9,215,180},
+--{38,29.6,215,180}, --del
+{70.8,11.1,1497,180},
+{55,59.7,1519,180},
+{35,69.2,1537,180},
+{53.4,74.1,1637,180},
+{40.5,62.7,1638,180},
+{61.9,36.8,1657,180},
+--{57.5,45.7,3430,180}, --del
+{47.5,45.5,3430,180},
+{39,20.2,3430,180},
+{75.9,75.8,3487,180},
+--{35.1,75.3,3487,180}, --del
+{49.8,50.2,3524,180},
+{80,46.9,3524,180},
+--{34.2,45.9,3524,180}, --del
+{78.12,60.94,3557,180}, --add
+}
+D[26755].coords={
+{46.4,51.6,1,180},
+{42.8,66.9,12,180},
+{48.8,43.3,12,180},
+{42.8,69.1,14,180},
+{52.7,44,14,180},
+--{62.8,67.6,85,180}, --del
+{32.1,66.1,85,180},
+{60.4,52.8,85,180},
+{56.5,57.7,141,180},
+--{30.1,54.5,141,180}, --del
+{57.9,44.2,141,180},
+{44.8,76.5,215,180},
+{46.5,58.8,215,180},
+--{38.1,29.5,215,180}, --del
+{70.8,11.8,1497,180},
+{55.3,59.5,1519,180},
+{35.4,69.9,1537,180},
+{53.7,74,1637,180},
+{40.8,62.3,1638,180},
+{61.8,36.3,1657,180},
+{47.6,45.6,3430,180},
+--{57.5,45.5,3430,180}, --del
+{39.1,20.1,3430,180},
+--{35.4,75.5,3487,180}, --del
+{75.9,75.2,3487,180},
+{49.9,50.3,3524,180},
+{80.1,46.8,3524,180},
+--{34.2,46.1,3524,180}, --del
+{78.1,61.66,3557,180}, --add
+}
+D[26756].coords={
+{28.1,70.9,1,180},
+{46.4,51.7,1,180},
+{42.9,67,12,180},
+{48.8,43.5,12,180},
+{42.8,69,14,180},
+{52.6,44.1,14,180},
+--{62.8,67.7,85,180}, --del
+{32.1,66,85,180},
+{60.3,52.7,85,180},
+{56.6,57.6,141,180},
+--{30.1,54.4,141,180}, --del
+{57.9,44,141,180},
+{44.9,76.5,215,180},
+{46.6,58.8,215,180},
+--{38.2,29.4,215,180}, --del
+{70.8,12.6,1497,180},
+{55.6,59.2,1519,180},
+{54,73.9,1637,180},
+{41.2,61.8,1638,180},
+{61.8,35.7,1657,180},
+{47.6,45.7,3430,180},
+--{57.5,45.4,3430,180}, --del
+{38.7,19.4,3430,180},
+--{35.7,75.8,3487,180}, --del
+{75.9,74.6,3487,180},
+{49.9,50.5,3524,180},
+{80.5,47,3524,180},
+--{34.2,46.2,3524,180}, --del
+{78.02,62.33,3557,180}, --add
+}
+D[26757].coords={
+{28,70.8,1,180},
+{46.5,51.8,1,180},
+{43,67.1,12,180},
+{48.8,43.7,12,180},
+{42.7,69,14,180},
+{52.6,44.2,14,180},
+--{62.8,67.9,85,180}, --del
+{32.1,65.9,85,180},
+{60.3,52.6,85,180},
+{56.6,57.6,141,180},
+--{30,54.2,141,180}, --del
+{57.9,43.9,141,180},
+{45,76.6,215,180},
+{46.7,58.8,215,180},
+--{38.2,29.3,215,180}, --del
+{70.8,13.3,1497,180},
+{56,59.2,1519,180},
+{36.2,71.3,1537,180},
+{54.3,74,1637,180},
+{41.5,61.3,1638,180},
+{61.8,35.1,1657,180},
+{47.7,45.8,3430,180},
+--{57.5,45.2,3430,180}, --del
+{38.7,19.2,3430,180},
+--{36,76.2,3487,180}, --del
+{75.9,74.1,3487,180},
+{49.9,50.6,3524,180},
+{80.5,47.1,3524,180},
+--{34.1,46.4,3524,180}, --del
+{77.91,62.95,3557,180}, --add
+}
+D[26758].coords={
+{27.9,70.7,1,180},
+{46.5,52,1,180},
+{43.1,67.2,12,180},
+{48.8,43.9,12,180},
+{42.6,68.9,14,180},
+{52.6,44.3,14,180},
+--{46.9,6.5,14,180}, --del
+--{62.8,68,85,180}, --del
+{32.1,65.7,85,180},
+{60.3,52.5,85,180},
+{56.7,57.5,141,180},
+--{30,54.1,141,180}, --del
+{57.9,43.8,141,180},
+{45,76.7,215,180},
+{46.8,58.8,215,180},
+--{38.3,29.2,215,180}, --del
+{70.8,14.1,1497,180},
+{56.3,59.4,1519,180},
+{36.3,72.2,1537,180},
+{54.5,74.3,1637,180},
+{41.8,60.9,1638,180},
+{61.7,34.5,1657,180},
+{47.7,45.9,3430,180},
+--{57.5,45.1,3430,180}, --del
+--{36.2,76.7,3487,180}, --del
+{76,73.5,3487,180},
+{49.9,50.8,3524,180},
+{80.5,47.3,3524,180},
+--{34.1,46.6,3524,180}, --del
+{77.79,63.61,3557,180}, --add
+}
+D[26759].coords={
+{27.8,70.7,1,180},
+{46.5,52.1,1,180},
+{43.2,67.2,12,180},
+{48.7,44.1,12,180},
+{42.6,68.9,14,180},
+{52.5,44.4,14,180},
+--{47,6.6,14,180}, --del
+--{62.8,68.2,85,180}, --del
+{32.1,65.6,85,180},
+{60.3,52.4,85,180},
+{56.8,57.5,141,180},
+--{30,54,141,180}, --del
+{57.9,43.6,141,180},
+{45,76.8,215,180},
+{46.9,58.8,215,180},
+--{38.4,29.2,215,180}, --del
+{70.8,14.8,1497,180},
+{56.6,59.7,1519,180},
+{36.1,73.1,1537,180},
+{54.7,74.7,1637,180},
+{42.1,60.6,1638,180},
+{61.7,33.9,1657,180},
+{47.8,46,3430,180},
+--{57.5,45,3430,180}, --del
+{38.9,19.3,3430,180},
+--{36.3,77.2,3487,180}, --del
+{76,72.9,3487,180},
+{49.9,50.9,3524,180},
+{80.5,47.4,3524,180},
+--{34,46.7,3524,180}, --del
+{77.57,64.21,3557,180}, --add
+}
 D[26760].coords={
 {28.8,69.9,1,180},
 {46.5,52.5,1,180},
@@ -58616,9 +59536,40 @@ D[26760].coords={
 --{33.8,44.5,3524,180}, --del
 {76.5,55.7,3557,180},
 }
--- Questie missing unit 26765
+D[26765].coords={
+{28.8,69.9,1,180},
+{46.5,52.5,1,180},
+{42.8,65.6,12,180},
+{48.1,42.1,12,180},
+{42.5,68.4,14,180},
+{52.3,42.4,14,180},
+--{46.2,7,14,180}, --del
+--{61.9,67.2,85,180}, --del
+{32,64.5,85,180},
+{61.5,53.2,85,180},
+{55.9,58.5,141,180},
+--{30.1,55.4,141,180}, --del
+{58.7,44.6,141,180},
+{44.4,76.4,215,180},
+{46.9,60.3,215,180},
+--{37.5,29.3,215,180}, --del
+{66.2,9.9,1497,180},
+{55.9,61,1519,180},
+{32.6,64.2,1537,180},
+{51.8,76.1,1637,180},
+{37.9,61,1638,180},
+{61.9,40.6,1657,180},
+{47.7,47.2,3430,180},
+--{57.1,46.5,3430,180}, --del
+{39,20.8,3430,180},
+--{35.9,81.8,3487,180}, --del
+{74.3,79.2,3487,180},
+{48.9,50.1,3524,180},
+{80.2,47.6,3524,180},
+--{33.8,44.5,3524,180}, --del
+{76.5,55.7,3557,180},
+}
 D[26776].fac="AH" --old: nil
--- Questie missing unit 26781
 D[27217].fac="AH" --old: nil
 D[27346].fac="AH" --old: nil
 D[27489].coords={
@@ -58634,7 +59585,10 @@ D[27711].coords={
 {27.9,47.6,3703,25},
 }
 D[27711].fac="AH" --old: nil
--- Questie missing unit 27723
+D[27723].coords={
+--{81.9,52.4,3518,120}, --del
+{28,47.5,3703,120},
+}
 D[27806].coords={
 --{42.5,9.4,14,300}, --del
 {18.8,52.5,1537,300},
@@ -58707,7 +59661,10 @@ D[28067].fac="AH" --old: nil
 D[28132].coords={
 {-1,-1,2367,0}, --add
 }
--- Questie missing unit 28206
+D[28206].coords={
+{76.6,31.7,3703,1020},
+{-1,-1,1585,1020}, --add
+}
 D[28209].coords={
 {-1,-1,1585,0}, --add
 }
@@ -58749,5 +59706,12 @@ D[40002].coords={
 D[40002].fac="" --old: nil
 D[40002].lvl="10-12" --old: nil
 D[40002].rnk="nil" --old: nil
+D[178420]={}
+D[178420].coords={
+{92.3,36.5,3487,0}, --add
+}
+D[178420].fac="H" --old: nil
+D[178420].lvl="60" --old: nil
+D[178420].rnk="nil" --old: nil
 CodexDB.questiePatchVersion = CodexDB.questiePatchVersion or {}
-CodexDB.questiePatchVersion.unit = '6.3.12'
+CodexDB.questiePatchVersion.unit = '6.3.15'
