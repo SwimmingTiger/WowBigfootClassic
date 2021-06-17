@@ -5,6 +5,7 @@
 	local _tempo = time()
 	local _
 	local DetailsFramework = DetailsFramework
+	local isTBC = DetailsFramework.IsTBCWow()
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --> local pointers
@@ -191,7 +192,7 @@
 	--> spellIds override
 	local override_spellId
 
-	if (DetailsFramework.IsTBCWow()) then
+	if (isTBC) then
 		override_spellId = {}
 
 	else --retail
@@ -254,13 +255,20 @@
 			bitfield_debuffs [spellid] = true
 		end
 	end
-	
+
+	--tbc prayer of mending cache
+	local TBC_PrayerOfMendingCache = {}
+	--tbc earth shield cache
+	local TBC_EarthShieldCache = {}
+	--tbc life bloom cache
+	local TBC_LifeBloomLatestHeal
+
 	--expose the override spells table to external scripts
 	_detalhes.OverridedSpellIds = override_spellId
 
 	--> list of ignored npcs by the user
 	local ignored_npcids = {}
-	
+
 	--> ignore soul link (damage from the warlock on his pet - current to demonology only)
 	local SPELLID_WARLOCK_SOULLINK = 108446
 	--> when checking if can start a new combat, ignore the damage from warlock's burning rush
@@ -279,6 +287,23 @@
 	local SPELLID_KYRIAN_DRUID_DAMAGE = 338411
 	local SPELLID_KYRIAN_DRUID_HEAL = 327149
 	local SPELLID_KYRIAN_DRUID_TANK = 327037
+
+	--> shaman earth shield (bcc)
+	local SPELLID_SHAMAN_EARTHSHIELD_HEAL = 379
+	local SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK1 = 974
+	local SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK2 = 32593
+	local SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK3 = 32594
+	local SHAMAN_EARTHSHIELD_BUFF = {
+		[SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK1] = true,
+		[SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK2] = true,
+		[SPELLID_SHAMAN_EARTHSHIELD_BUFF_RANK3] = true,
+	}
+	--> holy priest prayer of mending (bcc)
+	local SPELLID_PRIEST_POM_BUFF = 41635
+	local SPELLID_PRIEST_POM_HEAL = 33110
+	--> druid lifebloom explosion (bcc)
+	local SPELLID_DRUID_LIFEBLOOM_BUFF = 33763
+	local SPELLID_DRUID_LIFEBLOOM_HEAL = 33778
 
 	local SPELLID_SANGUINE_HEAL = 226510
 
@@ -1836,6 +1861,8 @@
 		if (is_using_spellId_override) then
 			spellid = override_spellId [spellid] or spellid
 		end
+		
+
 
 		--sanguine ichor mythic dungeon affix (heal enemies)
 		if (spellid == SPELLID_SANGUINE_HEAL) then 
@@ -1854,7 +1881,31 @@
 			--cura_efetiva = absorbed + amount - overhealing
 			cura_efetiva = cura_efetiva + amount - overhealing
 		end
-		
+
+		if (isTBC) then
+			--earth shield
+			if (spellid == SPELLID_SHAMAN_EARTHSHIELD_HEAL) then
+				--get the information of who placed the buff into this actor
+				local sourceData = TBC_EarthShieldCache[who_name]
+				if (sourceData) then
+					who_serial, who_name, who_flags = unpack(sourceData)
+				end
+
+			--prayer of mending
+			elseif (spellid == SPELLID_PRIEST_POM_HEAL) then
+				local sourceData = TBC_PrayerOfMendingCache[who_name]
+				if (sourceData) then
+					who_serial, who_name, who_flags = unpack(sourceData)
+					TBC_PrayerOfMendingCache[who_name] = nil
+				end
+
+			--life bloom explosion (second part of the heal)
+			elseif (spellid == SPELLID_DRUID_LIFEBLOOM_HEAL) then 
+				TBC_LifeBloomLatestHeal = cura_efetiva
+				return
+			end
+		end
+
 		_current_heal_container.need_refresh = true
 	
 		if (spellid == SPELLID_KYRIAN_DRUID_HEAL) then
@@ -2134,35 +2185,6 @@
 		end
 
 	------------------------------------------------------------------------------------------------
-	-->
-
---[=[
---druid_kyrian_bounds
-
---damager on damager
-
-SPELL_CAST_SUCCESS,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,326434,"Kindred Spirits",0x40,Player-3209-065BAEDE,0000000000000000,28240,28240,1233,448,472,0,0,10000,10000,200,-3298.34,5440.53,1525,5.8081,177
-SPELL_AURA_APPLIED,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,326434,"Kindred Spirits",0x40,BUFF
-SPELL_AURA_REMOVED,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,326434,"Kindred Spirits",0x40,BUFF
-
-12/15 10:03:51.702  SPELL_CAST_SUCCESS,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,0000000000000000,nil,0x80000000,0x80000000,326446,"Empower Bond",0x40,Player-3209-065BAEDE,0000000000000000,28240,28240,1234,448,472,0,3,100,100,0,-3294.17,5437.12,1525,0.7611,177
-
-12/15 10:03:51.702  SPELL_AURA_APPLIED,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,327139,"Kindred Empowerment",0x40,BUFF
-12/15 10:03:51.702  SPELL_AURA_APPLIED,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,327022,"Kindred Empowerment",0x40,BUFF,1
-12/15 10:03:51.702  SPELL_AURA_APPLIED,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,327139,"Kindred Empowerment",0x40,BUFF
-12/15 10:03:51.702  SPELL_AURA_APPLIED,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,327022,"Kindred Empowerment",0x40,BUFF,1
-
-SPELL_DAMAGE,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Creature-0-4217-2222-22679-166718-000058B14F,"Manifestation of Envy",0x10a48,0x0,338411,"Kindred Empowerment",0x40,Creature-0-4217-2222-22679-166718-000058B14F,0000000000000000,4218,5895,0,0,651,0,0,2289,2289,0,-3290.46,5445.37,1525,4.1809,58,31,30,-1,64,0,0,0,nil,nil,nil
-SPELL_DAMAGE,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Creature-0-4217-2222-22679-166718-000058B14F,"Manifestation of Envy",0x10a48,0x0,338411,"Kindred Empowerment",0x40,Creature-0-4217-2222-22679-166718-000058B14F,0000000000000000,867,5895,0,0,651,0,0,2289,2289,0,-3289.84,5446.94,1525,4.3379,58,89,89,-1,64,0,0,0,nil,nil,nil
-
-SPELL_HEAL,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x10512,0x0,327149,"Kindred Focus",0x40,Player-3209-065BAEDE,0000000000000000,50058,50058,1575,448,1510,8832,1,1000,1000,0,-2640.65,5656.60,1525,3.3950,177,485,485,485,0,nil
-
-12/15 10:04:01.739  SPELL_AURA_REMOVED,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,327139,"Kindred Empowerment",0x40,BUFF
-12/15 10:04:01.739  SPELL_AURA_REMOVED,Player-3209-065BAEDE,"Bullcéfalo-Azralon",0x512,0x0,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,327139,"Kindred Empowerment",0x40,BUFF
-
---]=]
-
-	------------------------------------------------------------------------------------------------
 	--> handle shields
 
 		if (tipo == "BUFF") then
@@ -2180,6 +2202,15 @@ SPELL_HEAL,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAED
 				
 				elseif (spellid == SPELLID_NECROMANCER_CHEAT_DEATH) then
 					necro_cheat_deaths[who_serial] = true
+				end
+
+				if (isTBC) then
+					if (SHAMAN_EARTHSHIELD_BUFF[spellid]) then
+						TBC_EarthShieldCache[alvo_name] = {who_serial, who_name, who_flags}
+
+					elseif (spellid == SPELLID_PRIEST_POM_BUFF) then
+						TBC_PrayerOfMendingCache [alvo_name] = {who_serial, who_name, who_flags}
+					end
 				end
 
 				if (_recording_buffs_and_debuffs) then
@@ -2435,7 +2466,7 @@ SPELL_HEAL,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAED
 						parser:add_buff_uptime (token, time, alvo_serial, alvo_name, alvo_flags, alvo_serial, alvo_name, alvo_flags, alvo_flags2, spellid, spellname, "BUFF_UPTIME_REFRESH")
 					end
 				end
-		
+
 			------------------------------------------------------------------------------------------------
 			--> healing done (shields)
 				if (absorb_spell_list [spellid] and _recording_healing and amount) then
@@ -2453,7 +2484,17 @@ SPELL_HEAL,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAED
 							return parser:heal (token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, alvo_flags2, spellid, spellname, nil, 0, _math_ceil (overheal), 0, 0, nil, true)
 						end
 					end
-					
+				
+			--buff refresh
+			if (isTBC) then
+				if (SHAMAN_EARTHSHIELD_BUFF[spellid]) then
+					TBC_EarthShieldCache[alvo_name] = {who_serial, who_name, who_flags}
+
+				elseif (spellid == SPELLID_PRIEST_POM_BUFF) then
+					TBC_PrayerOfMendingCache[alvo_name] = {who_serial, who_name, who_flags}
+				end
+			end
+
 			------------------------------------------------------------------------------------------------
 			--> recording buffs
 
@@ -2577,7 +2618,23 @@ SPELL_HEAL,Player-3209-0A79112C,"Symantec-Azralon",0x511,0x0,Player-3209-065BAED
 				
 				elseif (spellid == SPELLID_NECROMANCER_CHEAT_DEATH) then --remove on 10.0
 					necro_cheat_deaths[who_serial] = nil
+				end
 
+				if (isTBC) then
+					--shaman earth shield
+					if (SHAMAN_EARTHSHIELD_BUFF[spellid]) then
+						TBC_EarthShieldCache[alvo_name] = nil
+					end
+
+					--druid life bloom
+					if (spellid == SPELLID_DRUID_LIFEBLOOM_BUFF) then
+						local healAmount = TBC_LifeBloomLatestHeal
+						if (healAmount) then
+							--award the heal to the buff caster name
+							parser:heal("SPELL_HEAL", time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, alvo_flags2, spellid, spellname, spellschool, healAmount, 0, 0, false, false)
+							TBC_LifeBloomLatestHeal = nil
+						end
+					end
 				end
 
 				--druid kyrian empower bounds (9.0 kyrian covenant - probably remove on 10.0)
@@ -3133,6 +3190,8 @@ local SPELL_POWER_PAIN = SPELL_POWER_PAIN or (PowerEnum and PowerEnum.Pain) or 1
 	------------------------------------------------------------------------------------------------
 	--> check if is energy or resource
 	
+		--Details:Dump({token, time, who_serial, who_name, who_flags, alvo_serial, alvo_name, alvo_flags, alvo_flags2, spellid, spellname, spelltype, amount, overpower, powertype, altpower})
+
 		--> get resource type
 		local is_resource, resource_amount, resource_id = resource_power_type [powertype], amount, powertype
 	
@@ -5828,7 +5887,7 @@ local SPELL_POWER_PAIN = SPELL_POWER_PAIN or (PowerEnum and PowerEnum.Pain) or 1
 
 		for i = 1, players do
 			local name, killingBlows, honorableKills, deaths, honorGained, faction, race, rank, class, classToken, damageDone, healingDone, bgRating, ratingChange, preMatchMMR, mmrChange, talentSpec
-			if (DetailsFramework.IsTBCWow()) then
+			if (isTBC) then
 				name, killingBlows, honorableKills, deaths, honorGained, faction, rank, race, class, classToken, damageDone, healingDone, bgRating, ratingChange, preMatchMMR, mmrChange, talentSpec = GetBattlefieldScore(i)
 			else
 				name, killingBlows, honorableKills, deaths, honorGained, faction, race, class, classToken, damageDone, healingDone, bgRating, ratingChange, preMatchMMR, mmrChange, talentSpec = GetBattlefieldScore(i)
