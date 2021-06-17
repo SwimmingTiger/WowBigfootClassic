@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt 368 2021-05-20 15:03:14Z arithmandar $
+$Id: ChangeLog.txt 370 2021-06-14 08:42:27Z arithmandar $
 Atlas, a World of Warcraft instance map browser
 Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
@@ -14,6 +14,10 @@ Known Issues:
 ==============
 = Change Log =
 ==============
+
+v1.49.01 (Jun. 14, 2021)
+------------------------
+- Library update: LibUIDropDownMenu
 
 v1.49.00 (May 20, 2021)
 ------------------------
