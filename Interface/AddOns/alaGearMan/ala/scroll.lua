@@ -10,7 +10,15 @@
 	scroll:CallButtonFuncByDataIndex(index, func, ...)		button:func(...)
 	button:GetDataIndex()
 ]]
+local __version = 2;
 
+local ScrollList = _G.alaScrollList;
+if ScrollList ~= nil and ScrollList.__minor ~= nil and ScrollList.__minor >= __version then
+	return;
+end
+ScrollList = ScrollList or {  };
+ScrollList.__minor = __version;
+_G.alaScrollList = ScrollList;
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
@@ -23,8 +31,6 @@ local _G = _G;
 local _ = nil;
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------main
-if alaScrollList then return; end
-alaScrollList = {};
 local function _error_(key, msg, ...)
 	print("\124cffff0000" .. key .. "\124r", msg and "\124cffff0000" .. msg .. "\124r", ...);
 end
@@ -33,7 +39,7 @@ end
 
 local def_inner_size = 64;
 
-function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, funcToCreateButton, functToSetButton)
+function ScrollList.CreateScrollFrame(parent, width, height, buttonHeight, funcToCreateButton, functToSetButton)
 	width = width and max(width, def_inner_size) or def_inner_size;
 	height = height and max(height, def_inner_size) or def_inner_size;
 
@@ -273,5 +279,5 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 end
 
 
-_G["ALASCR"] = alaScrollList.CreateScrollFrame;
+_G["ALASCR"] = ScrollList.CreateScrollFrame;
 

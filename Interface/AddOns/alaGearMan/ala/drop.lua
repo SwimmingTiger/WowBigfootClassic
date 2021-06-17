@@ -1,6 +1,15 @@
 ﻿--[[--
 	alex@0
 --]]--
+local __version = 2;
+
+local DropMenu = _G.alaDropMenu;
+if DropMenu ~= nil and DropMenu.__minor ~= nil and DropMenu.__minor >= __version then
+	return;
+end
+DropMenu = DropMenu or {  };
+DropMenu.__minor = __version;
+_G.alaDropMenu = DropMenu;
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
@@ -13,9 +22,6 @@ local _G = _G;
 local _ = nil;
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------main
-if alaDropMenu then return; end
-alaDropMenu = {};
-local DropMenu = alaDropMenu;
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",

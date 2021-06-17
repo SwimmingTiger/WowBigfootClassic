@@ -1,6 +1,15 @@
 ﻿--[[--
 	alex@0
 --]]--
+local __version = 2;
+
+local Popup = _G.alaPopup;
+if Popup ~= nil and Popup.__minor ~= nil and Popup.__minor >= __version then
+	return;
+end
+Popup = Popup or {  };
+Popup.__minor = __version;
+_G.alaPopup = Popup;
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
@@ -26,10 +35,6 @@ end
 local function _log_(...)
 	print(...);
 end
---------------------------------------------------
-if alaPopup then return; end
-alaPopup = {};
---------------------------------------------------
 --------------------------------------------------
 --------------------------------------------------
 local DropDownList1 = DropDownList1;
@@ -253,11 +258,11 @@ local function sub_list(which, key)
 	end
 end
 
-alaPopup.add_meta = add_meta;
-alaPopup.sub_meta = sub_meta;
-alaPopup.add_list = add_list;
-alaPopup.sub_list = sub_list;
+Popup.add_meta = add_meta;
+Popup.sub_meta = sub_meta;
+Popup.add_list = add_list;
+Popup.sub_list = sub_list;
 _G["ALAPOPUP"] = showMenu;
-alaPopup.func = func;
-alaPopup.menu = menu;
+Popup.func = func;
+Popup.menu = menu;
 

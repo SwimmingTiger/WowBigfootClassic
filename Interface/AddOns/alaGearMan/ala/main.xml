@@ -5,7 +5,11 @@
 	<Include file = "..\..\sharedxml\hybridscrollframe.xml"/>
 	<Include file = "template.xml"/>
 -->
-	<script file = "core.lua" />
+	<!-- <script file = "core.lua" /> -->
+	<script file = "fix.lua" />
+	<script file = "talent.lua" />
+	<script file = "instlock.lua" />
+	<script file = "map.lua" />
 	<script file = "drop.lua" />
 	<script file = "popup.lua" />
 	<script file = "scroll.lua" />
