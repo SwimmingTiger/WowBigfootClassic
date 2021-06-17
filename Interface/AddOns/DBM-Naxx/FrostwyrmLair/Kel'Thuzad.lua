@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210216215535")
+mod:SetRevision("20210614195601")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 --mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
@@ -49,7 +49,6 @@ mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
 mod:AddSetIconOption("SetIconOnFrostTomb2", 27808, false, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(10, 27819)
 
-mod.vb.phase = 1
 mod.vb.warnedAdds = false
 mod.vb.MCIcon1 = 1
 mod.vb.MCIcon2 = 5
@@ -74,7 +73,7 @@ local function RangeToggle(show)
 end
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
 	self.vb.MCIcon1 = 1
@@ -184,7 +183,7 @@ function mod:UNIT_TARGETABLE_CHANGED()
 	if self.vb.phase == 1 then
 		self:Unschedule(RangeToggle)
 		warnPhase2:Cancel()
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		if self.Options.RangeFrame then

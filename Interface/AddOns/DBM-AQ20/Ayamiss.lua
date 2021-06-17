@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ayamiss", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20200630205417")
+mod:SetRevision("20210614195601")
 mod:SetCreatureID(15369)
 mod:SetEncounterID(722)
 mod:SetModelID(15431)
@@ -19,10 +19,8 @@ local warnEnrage	= mod:NewTargetNoFilterAnnounce(8269, 3)
 
 local timerParalyze	= mod:NewTargetTimer(10, 25725, nil, nil, nil, 3)
 
-mod.vb.phase = 1
-
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 do
@@ -47,7 +45,7 @@ end
 
 function mod:UNIT_HEALTH(uId)
 	if self.vb.phase < 2 and self:GetUnitCreatureId(uId) == 15369 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.70 then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 	end
 end

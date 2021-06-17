@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210419014244")
+mod:SetRevision("20210614195601")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
@@ -43,7 +43,6 @@ mod:AddRangeFrameOption("10")
 mod:AddSetIconOption("SetIconOnEyeBeam2", 26134, false, false, {1})
 mod:AddInfoFrameOption(nil, true)
 
-mod.vb.phase = 1
 local firstBossMod = DBM:GetModByName("AQ40Trash")
 local playersInStomach = {}
 local fleshTentacles, diedTentacles = {}, {}
@@ -93,7 +92,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(playersInStomach)
 	table.wipe(fleshTentacles)
 	table.wipe(diedTentacles)
-	self.vb.phase = 1
+	self:SetStage(1)
 	timerClawTentacle:Start(9-delay) -- Combatlog told me, the first Claw Tentacle spawn in 00:00:09, but need more test.
 	timerEyeTentacle:Start(45-delay)
 	timerDarkGlareCD:Start(46-delay)
@@ -215,7 +214,7 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 15589 then -- Eye of C'Thun
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		timerDarkGlareCD:Stop()
 		timerEyeTentacle:Stop()

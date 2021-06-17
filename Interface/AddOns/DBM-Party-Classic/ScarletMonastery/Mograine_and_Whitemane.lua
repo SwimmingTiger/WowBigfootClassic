@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mograine_and_Whitemane", "DBM-Party-Classic", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20190810222722")
+mod:SetRevision("20210614195601")
 mod:SetCreatureID(3977, 3976, 99999)--Whitemane, Mograine
 --mod:SetEncounterID(585)
 
@@ -19,10 +19,8 @@ local specWarnHeal				= mod:NewSpecialWarningInterrupt(12039, "HasInterrupt", ni
 
 local timerDeepSleep			= mod:NewBuffFadesTimer(10, 9256, nil, nil, nil, 6)
 
-mod.vb.phase = 1
-
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 do
@@ -44,7 +42,7 @@ do
 	function mod:SPELL_CAST_SUCCESS(args)
 		--if args.spellId == 9256 then--Phase 3
 		if args.spellName == DeepSleep then--Phase 3
-			self.vb.phase = 3
+			self:SetStage(3)
 			warnDeepSleep:Show()
 			timerDeepSleep:Start()
 		end
@@ -56,7 +54,7 @@ function mod:UNIT_DIED(args)
 		if self.vb.phase == 3 then--Fight is over on 2nd death
 			DBM:EndCombat(self)
 		else--it's first death, he's down and whiteman is taking over
-			self.vb.phase = 2
+			self:SetStage(2)
 		end
 	end
 end

@@ -20,7 +20,7 @@
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 24921
 ## X-Wago-ID: qv633o6b
-## Version: 1.13.72
+## Version: 1.13.75
 
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
