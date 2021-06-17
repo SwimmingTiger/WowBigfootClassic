@@ -145,6 +145,9 @@ function ns.GetItemFamily(itemId)
     if select(4, GetItemInfoInstant(itemId)) == 'INVTYPE_BAG' then
         return 0
     end
+    if ns.ITEM_FAMILIES then
+        return ns.ITEM_FAMILIES[itemId] or 0
+    end
     return GetItemFamily(itemId)
 end
 
