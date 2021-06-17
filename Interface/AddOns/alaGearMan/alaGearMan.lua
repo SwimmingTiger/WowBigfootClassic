@@ -840,7 +840,7 @@ StaticPopupDialogs["alaGearMan_DelSet"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = 1,
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
 };
 
 function func.gm_CreateButton(parent, index, buttonHeight)

@@ -42,7 +42,7 @@ if not T._FatalError then
         whileDead = 1,
         hideOnEscape = 1,
         showAlert = 1,
-        preferredIndex = 3,
+        preferredIndex = STATICPOPUP_NUMDIALOGS,
     }; -- }}}
     T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end
@@ -1131,7 +1131,7 @@ function D:OnDisable() -- When the addon is disabled by Ace -- {{{
         whileDead = 1,
         hideOnEscape = false,
         showAlert = 1,
-        preferredIndex = 3,
+        preferredIndex = STATICPOPUP_NUMDIALOGS,
     }; -- }}}
 
     LibStub("AceConfigRegistry-3.0"):NotifyChange(D.name);
