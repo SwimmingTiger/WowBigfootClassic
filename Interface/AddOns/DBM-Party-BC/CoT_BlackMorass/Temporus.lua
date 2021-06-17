@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod(553, "DBM-Party-BC", 12, 255)
 local L		= mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210401043939")
+mod:SetRevision("20210612174048")
 mod:SetCreatureID(17880)
 mod:SetEncounterID(1921)
-
+mod:SetModelID(19066)
+mod:SetModelOffset(0, 50, 0)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -13,15 +13,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 31458"
 )
 
---TODO, actual CD timers
-local specWarnSpellReflect	= mod:NewSpecialWarningReflect(38592, "SpellCaster", nil, 2, 1, 2)
+local specWarnSpellReflect	= mod:NewSpecialWarningReflect(38592, nil, nil, 2, 1, 2)
 local specWarnHasten		= mod:NewSpecialWarningDispel(31458, "MagicDispeller", nil, nil, 1, 2)
 
-local timerSpellReflect		= mod:NewBuffActiveTimer(6, 38592, nil, "SpellCaster", 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
+local timerSpellReflect		= mod:NewBuffActiveTimer(6, 38592, nil, nil, 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
 local timerHasten			= mod:NewTargetTimer(10, 31458, nil, "MagicDispeller|Healer|Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 31458 and not args:IsDestTypePlayer() then     --Hasten
+	if args.spellId == 31458 and not args:IsDestTypePlayer() then
 		specWarnHasten:Show(args.destName)
 		specWarnHasten:Play("dispelboss")
 		timerHasten:Start(args.destName)

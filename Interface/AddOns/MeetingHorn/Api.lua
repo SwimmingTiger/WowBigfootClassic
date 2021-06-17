@@ -31,29 +31,54 @@ ns.ADDON_TAG = '<' .. L.ADDON_NAME .. '>'
 
 ns.APPLICANT_STATUS = {Normal = 1, Invited = 2, Declined = 3, Joined = 4}
 
-ns.RAID_LOGO = {
-    [C_Map.GetAreaInfo(2717)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Ragnaros]], -- 熔火之心
-    [C_Map.GetAreaInfo(2159)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Onyxia]], -- 奥妮克希亚的巢穴
-    [C_Map.GetAreaInfo(2677)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Nefarian]], -- 黑翼之巢
-    [C_Map.GetAreaInfo(3428)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-CThun]], -- 安其拉神殿
-    [C_Map.GetAreaInfo(3456)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-KelThuzad]], -- 纳克萨玛斯
-    [C_Map.GetAreaInfo(1977)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Avatar of Hakkar]], -- 祖尔格拉布
-    [C_Map.GetAreaInfo(3429)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Ossirian the Unscarred]], -- 安其拉废墟
-
-    -- @bcc@
-    [C_Map.GetAreaInfo(3457)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Prince Malchezaar]],
-    [C_Map.GetAreaInfo(3923)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Gruul the Dragonkiller]],
-    [C_Map.GetAreaInfo(3836)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Magtheridon]],
-    [C_Map.GetAreaInfo(3607)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Lady Vashj]],
-    [C_Map.GetAreaInfo(3845)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-KaelThas Sunstrider]],
-    [C_Map.GetAreaInfo(3606)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Archimonde]],
-    [C_Map.GetAreaInfo(3959)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Illidan Stormrage]],
-    [C_Map.GetAreaInfo(3805)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Daakara]],
-    [C_Map.GetAreaInfo(4075)] = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-Kiljaeden]],
-    -- @end-bcc@
+local INSTANCE_DATA = {
+    [2717] = {projectId = 2, logo = 'Ragnaros'}, -- 熔火之心
+    [2159] = {projectId = 2, logo = 'Onyxia'}, -- 奥妮克希亚的巢穴
+    [2677] = {projectId = 2, logo = 'Nefarian'}, -- 黑翼之巢
+    [3428] = {projectId = 2, logo = 'CThun', instanceName = L['Ahn\'Qiraj Temple']}, -- 安其拉神殿
+    [3456] = {projectId = 2, logo = 'KelThuzad'}, -- 纳克萨玛斯
+    [1977] = {projectId = 2, logo = 'Avatar of Hakkar'}, -- 祖尔格拉布
+    [3429] = {projectId = 2, logo = 'Ossirian the Unscarred'}, -- 安其拉废墟
+    [3457] = {projectId = 5, logo = 'Prince Malchezaar'}, -- 卡拉赞
+    [3923] = {projectId = 5, logo = 'Gruul the Dragonkiller'}, -- 格鲁尔的巢穴
+    [3836] = {projectId = 5, logo = 'Magtheridon'}, -- 玛瑟里顿的巢穴
+    [3607] = {projectId = 5, logo = 'Lady Vashj'}, -- 毒蛇神殿
+    [3845] = {projectId = 5, logo = 'KaelThas Sunstrider'}, -- 风暴要塞
+    [3606] = {projectId = 5, logo = 'Archimonde'}, -- 海加尔山
+    [3959] = {projectId = 5, logo = 'Illidan Stormrage'}, -- 黑暗神庙
+    [3805] = {projectId = 5, logo = 'Daakara'}, -- 祖阿曼
+    [4075] = {projectId = 5, logo = 'Kiljaeden'}, -- 太阳井
 }
 
+ns.INSTANCE_DATA = {}
+ns.CURRENT_RELEASE_INSTANCES = {}
+
+for mapId, v in pairs(INSTANCE_DATA) do
+    local name = C_Map.GetAreaInfo(mapId)
+    if name then
+        v.logo = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-]] .. v.logo
+        ns.INSTANCE_DATA[name] = v
+
+        if v.projectId == WOW_PROJECT_ID then
+            ns.CURRENT_RELEASE_INSTANCES[v.instanceName or name] = true
+        end
+    end
+end
+
+function ns.GetInstanceName(mapName)
+    local data = ns.INSTANCE_DATA[mapName]
+    if data then
+        return data.instanceName or mapName
+    end
+end
+
+function ns.GetInstanceLogo(mapName)
+    local data = ns.INSTANCE_DATA[mapName]
+    return data and data.logo
+end
+
 ns.GOODLEADER_INSTANCES = {
+    ---- classic
     {projectId = 2, mapId = 2717, bossId = 672, image = 'moltencore'}, --
     {projectId = 2, mapId = 2159, bossId = 1084, image = 'onyxia'}, --
     {projectId = 2, mapId = 2677, bossId = 617, image = 'blackwinglair'}, --
@@ -65,16 +90,16 @@ ns.GOODLEADER_INSTANCES = {
     {projectId = 2, mapId = 3456, bossId = 1120, name = L['构造区'], image = 'naxxramas'}, --
     {projectId = 2, mapId = 1977, bossId = 793, image = 'zulgurub'}, --
     {projectId = 2, mapId = 3429, bossId = 723, image = 'ruinsofahnqiraj'}, --
-    --
-    {projectId = 5, mapId = 3457, bossId = 661, image = 'Karazha'}, -- A.卡拉赞（P1-2.04版本-T4）
-    {projectId = 5, mapId = 3923, bossId = 650, image = 'GruulsLair'}, -- B.格鲁尔的巢穴（P1-2.04版本-T4）
-    {projectId = 5, mapId = 3836, bossId = 651, image = 'MagtheridonsLair'}, -- C.玛瑟里顿的巢穴（P1-2.04版本-T4）
-    {projectId = 5, mapId = 3607, bossId = 628, image = 'CoilfangReservoir'}, -- D.毒蛇神殿（P2-2.1版本-T4）
-    {projectId = 5, mapId = 3845, bossId = 733, image = 'TempestKeep'}, -- E.风暴要塞（P2-2.1版本-T5）
-    {projectId = 5, mapId = 3606, bossId = 622, image = 'CavernsOfTime'}, -- F.海加尔山（P2-2.1版本-T6）
-    {projectId = 5, mapId = 3959, bossId = 609, image = 'BlackTemple'}, -- G.黑暗神庙（P2-2.1版本-T6）
-    {projectId = 5, mapId = 3805, bossId = 1189, image = 'ZulAman'}, -- H.祖阿曼（P3-2.3版本-T5~T6级别散件）
-    {projectId = 5, mapId = 4075, bossId = 729, image = 'SunwellPlateau'}, -- I.太阳井（P4-2.4版本-T6~T6.5）
+    ---- bcc
+    {projectId = 5, mapId = 3457, bossId = 661, image = 'Karazhan'}, -- 卡拉赞
+    {projectId = 5, mapId = 3923, bossId = 650, image = 'GruulsLair'}, -- 格鲁尔的巢穴
+    {projectId = 5, mapId = 3836, bossId = 651, image = 'MagtheridonsLair'}, -- 玛瑟里顿的巢穴
+    {projectId = 5, mapId = 3607, bossId = 628, image = 'CoilfangReservoir'}, -- 毒蛇神殿
+    {projectId = 5, mapId = 3845, bossId = 733, image = 'TempestKeep'}, -- 风暴要塞
+    {projectId = 5, mapId = 3606, bossId = 622, image = 'CavernsOfTime'}, -- 海加尔山
+    {projectId = 5, mapId = 3959, bossId = 609, image = 'BlackTemple'}, -- 黑暗神庙
+    {projectId = 5, mapId = 3805, bossId = 1189, image = 'ZulAman'}, -- 祖阿曼
+    {projectId = 5, mapId = 4075, bossId = 729, image = 'SunwellPlateau'}, -- 太阳井
 }
 
 local CLASS_INFO = FillLocalizedClassList {}
@@ -195,13 +220,21 @@ function ns.IterateGroup()
     end
 end
 
+function ns.UnitFullName(unit)
+    local name, realm = UnitFullName(unit)
+    if not name then
+        return
+    end
+    return format('%s-%s', name, realm or GetRealmName():gsub('%s+', ''))
+end
+
 function ns.GetGroupLeader()
     for unit in ns.IterateGroup() do
         if UnitIsGroupLeader(unit) then
-            return UnitName(unit), UnitGUID(unit)
+            return ns.UnitFullName(unit), UnitGUID(unit)
         end
     end
-    return UnitName('player'), UnitGUID('player')
+    return ns.UnitFullName('player'), UnitGUID('player')
 end
 
 function ns.GetGroupLooter()
@@ -209,7 +242,7 @@ function ns.GetGroupLooter()
         for i = 1, 40 do
             local name, _, _, _, _, _, _, _, _, _, isML = GetRaidRosterInfo(i)
             if isML then
-                return UnitName(name), UnitGUID(name)
+                return ns.UnitFullName(name), UnitGUID(name)
             end
         end
     end
@@ -284,8 +317,17 @@ function ns.RandomCall(sec, func, ...)
     --@end-debug@]=]
 end
 
+local function SplitName(fullName)
+    local name, realm = fullName:match('(.+)%-(.+)')
+    if name then
+        return name, realm
+    end
+    return fullName, GetRealmName():gsub('%s+', '')
+end
+
 function ns.MakeQRCode(leader)
-    return format('https://tavern.blizzard.cn/miniprogram/goodLeader/detail?%s-%s', GetRealmName(), leader or '')
+    local name, realm = SplitName(leader)
+    return format('https://tavern.blizzard.cn/miniprogram/goodLeader/detail?%s-%s-%s', realm, name, WOW_PROJECT_ID)
 end
 
 function ns.memorize(func)
@@ -351,6 +393,7 @@ end
 function ns.OpenUrlDialog(url)
     if not StaticPopupDialogs['MEETINGHORN_COPY_URL'] then
         StaticPopupDialogs['MEETINGHORN_COPY_URL'] = {
+			preferredIndex = STATICPOPUP_NUMDIALOGS,
             text = '请按<|cff00ff00Ctrl+C|r>复制网址到浏览器打开',
             button1 = OKAY,
             timeout = 0,
@@ -369,7 +412,6 @@ function ns.OpenUrlDialog(url)
                     editBox:SetFocus()
                 end
             end,
-            preferredIndex = STATICPOPUP_NUMDIALOGS,
         }
     end
 

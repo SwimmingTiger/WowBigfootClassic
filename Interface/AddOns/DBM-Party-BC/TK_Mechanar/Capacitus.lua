@@ -1,10 +1,10 @@
 local mod = DBM:NewMod(563, "DBM-Party-BC", 13, 258)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
-
+mod:SetRevision("20210612174048")
 mod:SetCreatureID(19219)
 mod:SetEncounterID(1932)
+mod:SetModelID(19162)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -22,7 +22,7 @@ local timerDamageShield     = mod:NewBuffActiveTimer(10, 35159, nil, nil, nil, 5
 local enrageTimer			= mod:NewBerserkTimer(180)
 
 function mod:OnCombatStart(delay)
-	if not self:IsDifficulty("normal5") then
+	if self:IsHeroic() then
         enrageTimer:Start(-delay)
     end
 end

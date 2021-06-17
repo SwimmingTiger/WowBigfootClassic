@@ -46,7 +46,7 @@ function NugRunningNameplates.NAME_PLATE_UNIT_ADDED(self, event, unit)
     local pGUID = UnitGUID(unit)
     local frame = GetNamePlateForUnit(unit)
     if pGUID == UnitGUID("player") then playerNameplate = frame end
-    local guidTimers = NugRunning:GetTimersByDstGUID(pGUID)
+    local guidTimers = NugRunning:GetActiveTimersByGUID(pGUID)
     NugRunningNameplates:UpdateNPTimers(frame, guidTimers)
 end
 
@@ -166,14 +166,7 @@ function NugRunningNameplates:Resize()
     end
 end
 
-function NugRunningNameplates:Update(targetTimers, guidTimers, targetSwapping)
-    if targetSwapping then
-        local tGUID = UnitGUID("target")
-        if tGUID then
-            guidTimers[tGUID] = targetTimers
-        end
-    end
-
+function NugRunningNameplates:Update(guidTimers)
     for unit in pairs(activeNameplates) do
         local np = GetNamePlateForUnit(unit)
         if np then
@@ -186,19 +179,23 @@ function NugRunningNameplates:Update(targetTimers, guidTimers, targetSwapping)
     end
 end
 
+local sortfunc = NugRunning.sortfunc
+local orderedTimers = {}
+local wipe = table.wipe
+local tinsert = table.insert
+local math_max = math.max
 function NugRunningNameplates:UpdateNPTimers(np, nrunTimers, nameplateUnit)
     if nrunTimers then
-        local i = 1
-        while i <= #nrunTimers do
-            local timer = nrunTimers[i]
-            if not timer.opts.nameplates or timer.isGhost then
-                table_remove(nrunTimers, i)
-            else
-                i = i + 1
+        wipe(orderedTimers)
+        for timer,v in pairs(nrunTimers) do
+            if timer.opts.nameplates and not timer.isGhost then
+                tinsert(orderedTimers, timer)
             end
         end
+        table.sort(orderedTimers, sortfunc)
+        nrunTimers = orderedTimers
 
-        local max = math.max(#nrunTimers, #np.timers)
+        local max = math_max(#nrunTimers, #np.timers)
         for i=1, max do
             local npt = np.timers[i]
             local nrunt = nrunTimers[i]

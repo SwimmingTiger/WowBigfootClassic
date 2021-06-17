@@ -40,7 +40,7 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.FlashRed end,
                 }, 
                 stoppulse = {
-                    order = 2,
+                    order = 3,
                     type = "toggle",
                     name = L["Stop Pulse"],
                     desc = L["Stop Pulse Desc"],
@@ -48,7 +48,7 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.StopPulse end,
                 },
                 showTimerBars = {
-                    order = 2,
+                    order = 4,
                     type = "toggle",
                     name = L["Show Timer Bars"],
                     desc = L["Displays timer bars underneath times"],
@@ -56,7 +56,7 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.ShowTimerBars end,
                 },
                 timersonbuttons = {
-                    order = 2,
+                    order = 5,
                     type = "toggle",
                     name = L["Timers On Buttons"],
                     desc = L["Timers On Buttons Desc"],
@@ -70,13 +70,13 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.TimersOnButtons end,
                 },
                 hideblizztimers = {
-                    order = 3,
+                    order = 6,
                     type = "toggle",
                     name = L["Hide Blizzard Timers"],
                     set = function(info, val) TotemTimers.ActiveProfile.HideBlizzTimers = val TotemTimers.ProcessSetting("HideBlizzTimers") end,
                     get = function(info) return TotemTimers.ActiveProfile.HideBlizzTimers end,
                 },                  
-                hidedefaulttotembar = {
+                --[[]hidedefaulttotembar = {
                     order = 3,
                     type = "toggle",
                     name = L["Hide Default Totem Bar"],
@@ -84,9 +84,9 @@ TotemTimers.options = {
                     set = function(info, val) TotemTimers.ActiveProfile.HideDefaultTotemBar = val
                             TotemTimers.ProcessSetting("HideDefaultTotemBar") end,
                     get = function(info) return TotemTimers.ActiveProfile.HideDefaultTotemBar  end,
-                },                  
+                }, ]]
                 tooltips = {
-                    order = 3,
+                    order = 8,
                     type = "toggle",
                     name = L["Show Tooltips"],
                     desc = L["Shows tooltips on timer and totem buttons"],
@@ -94,7 +94,7 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.Tooltips end,
                 },  
                 tooltipsatbuttons = {
-                    order = 3,
+                    order = 9,
                     type = "toggle",
                     name = L["Tooltips At Buttons"],
                     desc = L["Tooltips At Buttons Desc"],
@@ -102,15 +102,15 @@ TotemTimers.options = {
                     get = function(info) return TotemTimers.ActiveProfile.TooltipsAtButtons end,
                 },
                 HideInVehicle = {
-                    order = 3,
+                    order = 10,
                     type = "toggle",
                     name = L["Hide In Vehicles"],
                     desc = L["Hide In Vehicles Desc"],
                     set = function(info, val) TotemTimers.ActiveProfile.HideInVehicle = val TotemTimers.ProcessSetting("HideInVehicle") end,
                     get = function(info) return TotemTimers.ActiveProfile.HideInVehicle end,
-                },                
+                },
                 Keybinds = {
-                     order = 4,
+                     order = 11,
                    type = "toggle",
                     name = L["Show Key Bindings"],
                     desc = L["Shows key bindings on totem timers"],
@@ -223,6 +223,19 @@ TotemTimers.options = {
                                                 TotemTimers.ActiveProfile.TimerBarColor.a
                           end,
                 },
+                CooldownAlpha = {
+                    order = 38,
+                    type = "range",
+                    name = L["Cooldown Opacity"],
+                    desc = L["Opacity of the cooldown swirls"],
+                    min = 0,
+                    max = 1,
+                    step = 0.1,
+                    set = function(info, val)
+                                TotemTimers.ActiveProfile.CooldownAlpha = val  TotemTimers.ProcessSetting("CooldownAlpha")
+                          end,
+                    get = function(info) return TotemTimers.ActiveProfile.CooldownAlpha end,
+                },
                 h2 = {
                     order = 70,
                     type = "header",
@@ -246,7 +259,7 @@ local frame = ACD:AddToBlizOptions("TotemTimers", "TotemTimers", nil, "general")
 frame:SetScript("OnEvent", function(self) InterfaceOptionsFrame:Hide() end)
 frame:HookScript("OnShow", function(self) if InCombatLockdown() then InterfaceOptionsFrame:Hide() end TotemTimers.LastGUIPanel = self end)
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-TotemTimers.LastGUIPanel = frame
+
 
 
 

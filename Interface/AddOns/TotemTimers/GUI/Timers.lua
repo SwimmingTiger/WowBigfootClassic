@@ -21,6 +21,7 @@ local function SetOrder(nr, value)
 	TotemTimers.ActiveProfile.Order[fromnr] = TotemTimers.ActiveProfile.Order[nr]
 	TotemTimers.ActiveProfile.Order[nr] = value
 	TotemTimers.ProcessSetting("Order")
+    TotemTimers.UpdateMacro()
 end
 
 TotemTimers.options.args.timers = {
@@ -141,7 +142,7 @@ TotemTimers.options.args.timers = {
                         end
                      end,
             set = function(info, val)
-                        TotemTimers.ActiveProfile.CastBarDirection = val  TotemTimers.ProcessSetting("CastBarDirection")
+                        TotemTimers.ActiveProfile.CastBarDirection = val  TotemTimers.PositionCastButtons()
                   end,
             get = function(info) return TotemTimers.ActiveProfile.CastBarDirection end,
         },
@@ -252,6 +253,7 @@ TotemTimers.options.args.timers = {
                       TotemTimers.ActiveProfile.MenusAlwaysVisible = val
                       TotemTimers.ProcessSetting("OpenOnRightclick")
                       TotemTimers.ProcessSetting("MenusAlwaysVisible")
+                      TotemTimers.ProcessSetting("BarBindings")
                   end,
             get = function(info) return TotemTimers.ActiveProfile.MenusAlwaysVisible end,
         },            
@@ -310,28 +312,80 @@ TotemTimers.options.args.timers = {
             desc = L["Player Range Desc"],
             set = function(info, val) TotemTimers.ActiveProfile.CheckPlayerRange = val  TotemTimers.ProcessSetting("CheckPlayerRange") end,
             get = function(info) return TotemTimers.ActiveProfile.CheckPlayerRange end,                          
-        },                                               
-        RaidRange = {
+        },
+        PartyRange = {
+            order = 40,
+            type = "toggle",
+            name = L["Party Range"],
+            desc = L["Party Range Desc"],
+            set = function(info, val) TotemTimers.ActiveProfile.CheckRaidRange = val  TotemTimers.ProcessSetting("CheckRaidRange") end,
+            get = function(info) return TotemTimers.ActiveProfile.CheckRaidRange end,
+        },
+        PartyRangePosition = {
+            order = 41,
+            type = "select",
+            name = L["Party Range Position"],
+            desc = L["Party Range Position Desc"],
+            values = {	["LEFT"] = L["Left"], ["RIGHT"] = L["Right"], ["TOP"] = L["Top"], ["BOTTOM"] = L["Bottom"],},
+            set = function(info, val)
+                TotemTimers.ActiveProfile.PartyRangePosition = val  TotemTimers.ProcessSetting("PartyRangePosition")
+            end,
+            get = function(info) return TotemTimers.ActiveProfile.PartyRangePosition end,
+        },
+        --[[ RaidRange = {
             order = 40,
             type = "toggle",
             name = L["Raid Member Range"],
             desc = L["Range Desc"],
             set = function(info, val) TotemTimers.ActiveProfile.CheckRaidRange = val  TotemTimers.ProcessSetting("CheckRaidRange") end,
-            get = function(info) return TotemTimers.ActiveProfile.CheckRaidRange end,                          
-        },                                               
+            get = function(info) return TotemTimers.ActiveProfile.CheckRaidRange end,
+        },
         RaidRangeTooltip = {
             order = 41,
             type = "toggle",
             name = L["Raid Range Tooltip"],
             desc = L["RR Tooltip Desc"],
             set = function(info, val) TotemTimers.ActiveProfile.ShowRaidRangeTooltip = val  TotemTimers.ProcessSetting("ShowRaidRangeTooltip") end,
-            get = function(info) return TotemTimers.ActiveProfile.ShowRaidRangeTooltip end,                          
-        },                                               
+            get = function(info) return TotemTimers.ActiveProfile.ShowRaidRangeTooltip end,
+        }, ]]
+         macro = {
+             order = 50,
+             type = "header",
+             name = "Macro",
+         },
+         macroreset = {
+             order = 55,
+             type = "range",
+             name = L["Reset"],
+             desc = L["Reset /castsequence after x seconds"],
+             min = 10,
+             max = 60,
+             step = 5,
+             set = function(info, val)
+                 TotemTimers.ActiveProfile.MacroReset = val
+                 TotemTimers.UpdateMacro()
+             end,
+             get = function(info) return TotemTimers.ActiveProfile.MacroReset end,
+         },
     },
 }
+
+for i = 1,4 do
+    TotemTimers.options.args.timers.args['macro'..i] =
+    {
+        order = 50+i,
+        type = "toggle",
+        name = ElementValues[i],
+        arg = i,
+        width = 0.8,
+        set = function(info, val) TotemTimers.ActiveProfile.IncludeInMacro[info.arg] = val TotemTimers.UpdateMacro() end,
+        get = function(info) return TotemTimers.ActiveProfile.IncludeInMacro[info.arg] end,
+    }
+end
 
 local ACD = LibStub("AceConfigDialog-3.0")
 local frame = ACD:AddToBlizOptions("TotemTimers", L["Timers"], "TotemTimers", "timers")
 frame:SetScript("OnEvent", function(self) InterfaceOptionsFrame:Hide() end)
 frame:HookScript("OnShow", function(self) if InCombatLockdown() then InterfaceOptionsFrame:Hide() end TotemTimers.LastGUIPanel = self end)
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
+TotemTimers.TimersGUIPanel = frame

@@ -35,7 +35,7 @@ local PRICE_INFO = {
 	["burningblossom"] 	= { itemID = 23247 }, -- Burning Blossom
 	["ancestrycoin"] 	= { itemID = 21100 }, -- Coin of Ancestry
 	-- others
-	["money"] 		= { func = GetCoinTextureString },
+	["money"] 			= { func = GetCoinTextureString },
 
 	--- BC
 	["holydust"] = { itemID = 29735 }, -- Holy Dust (Aldor)
@@ -46,14 +46,18 @@ local PRICE_INFO = {
 	["MarkOfThrallmar"] = { itemID = 24581 }, -- Mark of Thrallmar
 	["MarkOfHonorHold"] = { itemID = 24579 }, -- Mark of Honor Hold
 	["BoJ"] = { itemID = 29434 }, -- Badge of Justice
+	["glowcap"] = { itemID = 24245 }, -- Glowcap
+	["ApexisC"] = { itemID = 32572 }, -- Apexis Crystal
+	["ApexisS"] = { itemID = 32569 }, -- Apexis Shard
 	-- pvp
-	["honor"] =  { currencyID = 1901 }, -- Honor
-	["honorH"] =  { currencyID = 1901 }, -- Honor / Horde
-	["honorA"] =  { currencyID = 1901 }, -- Honor / Alli
-	["pvpAlterac"] =  { itemID = 20560 }, -- Alterac Valley Mark of Honor
-	["pvpWarsong"] =  { itemID = 20558 }, -- Warsong Gulch Mark of Honor
-	["pvpArathi"] =  { itemID = 20559 }, -- Arathi Basin Mark of Honor
-	["pvpEye"] =  { itemID = 29024 }, -- Eye of the Storm Mark of Honor
+	["honor"] = { currencyID = 1901 }, -- Honor
+	["arena"] = { currencyID = 1900 },  -- Arena
+	["honorH"] = { currencyID = 1901 }, -- Honor / Horde
+	["honorA"] = { currencyID = 1901 }, -- Honor / Alli
+	["pvpAlterac"] = { itemID = 20560 }, -- Alterac Valley Mark of Honor
+	["pvpWarsong"] = { itemID = 20558 }, -- Warsong Gulch Mark of Honor
+	["pvpArathi"] = { itemID = 20559 }, -- Arathi Basin Mark of Honor
+	["pvpEye"] = { itemID = 29024 }, -- Eye of the Storm Mark of Honor
 }
 
 local ICON_REPLACE = {

@@ -36,6 +36,10 @@ function Grade:ENCOUNTER_END(_, bossId, _, _, _, success)
         return
     end
 
+    if not ns.CURRENT_RELEASE_INSTANCES[raidName] then
+        return
+    end
+
     local data = self.db[raidName]
     if not data then
         data = {}
@@ -50,8 +54,12 @@ end
 function Grade:PickRaidData()
     local best
     for k, v in pairs(self.db) do
-        if not best or v.timestamp < best.timestamp then
-            best = v
+        if not v.raidName then
+            self.db[k] = nil
+        else
+            if not best or v.timestamp < best.timestamp then
+                best = v
+            end
         end
     end
     if best then
@@ -70,7 +78,7 @@ function Grade:ShowPanel()
         return
     end
 
-    if UnitIsUnit('player', raid.leader) then
+    if UnitIsUnit('player', Ambiguate(raid.leader, 'none')) then
         return self:ShowPanel()
     end
 
@@ -92,17 +100,3 @@ function Grade:Grade(raid, scores, tags)
     ns.GoodLeader:SendServer('SRS', raid.leader, raid.leaderGuid, raid.raidName, scores, tags)
     ns.Message(ns.L['感谢您的评价。'])
 end
-
---[[@debug@
-function GG()
-    for n in pairs(ns.RAID_LOGO) do
-        Grade.db[n] = {
-            raidName = n,
-            leader = UnitName('player') .. '1',
-            leaderGuid = UnitGUID('player'),
-            timestamp = time(),
-        }
-    end
-    Grade:GROUP_ROSTER_UPDATE()
-end
---@end-debug@]]

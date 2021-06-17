@@ -1,6 +1,6 @@
 ﻿## Interface: 20501
 ## Author: Lag
-## Version: v2.2.1-bcc
+## Version: v2.3.1-bcc
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -50,6 +50,7 @@ Data\AutoSelect.lua
 Data\Requirements.lua
 Data\ClassFilter.lua
 Data\ItemSet.lua
+Data\VendorPrice.lua
 
 ItemDB\ItemDB.lua
 ItemDB\SoundData.lua

@@ -1,4 +1,3 @@
-
 ---@class UI
 ---@field MainPanel MeetingHornUIMainPanel
 ---@field Browser MeetingHornUIBrowser
@@ -8,7 +7,6 @@
 ---@field ApplicantItem MeetingHornUIApplicantItem
 ---@field Encounter MeetingHornUIEncounter
 ---@field Challenge MeetingHornUIChallenge
-
 ---@class ns
 ---@field UI UI
 ---@field Addon MeetingHorn
@@ -33,6 +31,7 @@ ns.Addon = Addon
 ns.L = L
 ns.UI = {}
 ns.GUI = LibStub('tdGUI-1.0')
+ns.Stats = LibStub('LibNeteaseStats-1.0'):New(...)
 
 local L = ns.L
 _G.BINDING_NAME_MEETINGHORN_TOGGLE = L['Toggle MeetingHorn']
@@ -62,9 +61,7 @@ function Addon:OnInitialize()
                 chatfilter = true,
                 activityfilter = true,
             },
-            goodleader = {
-                cache = {}
-            }
+            goodleader = {cache = {}},
         },
         global = { --
             activity = { --
@@ -79,11 +76,13 @@ function Addon:OnInitialize()
     self.DataBroker = ns.UI.DataBroker:Bind(MeetingHornDataBroker)
 
     self:RegisterMessage('MEETINGHORN_OPTION_CHANGED_CHATFILTER')
+    --[[@classic@
     self:RegisterMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED')
     self:RegisterEvent('ZONE_CHANGED_NEW_AREA', 'ZoneChanged')
     self:RegisterEvent('PLAYER_ENTERING_WORLD', 'ZoneChanged')
     self:RegisterEvent('GROUP_JOINED', 'ZoneChanged')
     self:RegisterEvent('UNIT_PHASE', 'ZoneChanged')
+    --@end-classic@]]
 
     self:SetupHyperlink()
 end
@@ -151,13 +150,12 @@ function Addon:OpenEncounter(...)
     self.MainPanel.Encounter:Open(...)
 end
 
+--[[@classic@
 function Addon:MEETINGHORN_WORLDBUFF_STATUS_CHANGED(_, enable)
     ns.WorldBuff:SetStatus(enable)
 end
 
 function Addon:ZoneChanged(ev)
-    --[[@debug@
-    print(ev)
-    --@end-debug@]]
     ns.WorldBuff:CheckEnable()
 end
+--@end-classic@]]

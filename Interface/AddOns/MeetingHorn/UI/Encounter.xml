@@ -378,6 +378,24 @@
                     <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT"/>
                 </Anchors>
             </Frame>
+            <Frame parentKey="FootOverview" hidden="true" inherits="InlineHyperlinkFrameTemplate">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                            <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="20" y="-5"/>
+                                <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
         </Frames>
     </Frame>
     <Frame name="MeetingHornEncounterInfoSummaryTemplate" hidden="true" virtual="true">
@@ -435,6 +453,24 @@
                     <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT"/>
                 </Anchors>
             </Frame>
+            <Frame parentKey="FootOverview" hidden="true" inherits="InlineHyperlinkFrameTemplate">
+                <Size y="1"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                            <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="20" y="-5"/>
+                                <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+            </Frame>
         </Frames>
     </Frame>
     <ScrollFrame name="MeetingHornEncounterInfoPanelTemplate" inherits="UIPanelScrollFrameTemplate" virtual="true">
@@ -467,12 +503,31 @@
                             <Anchor point="TOPRIGHT" relativeKey="$parent.Overview" relativePoint="BOTTOMRIGHT" x="0" y="-10"/>
                         </Anchors>
                     </Frame>
+                    <Frame parentKey="FootOverview" inherits="InlineHyperlinkFrameTemplate">
+                        <Size y="1"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Children" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="TOPRIGHT" relativeKey="$parent.Children" relativePoint="BOTTOMRIGHT"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <FontString parentKey="Text" inherits="GameFontBlack" wordwrap="true" nonspacewrap="true" justifyH="LEFT" justifyV="TOP">
+                                    <Color r="0.25" g="0.1484375" b=".02" a="1"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="20" y="-5"/>
+                                        <Anchor point="TOPRIGHT" x="-10" y="-5"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
                 </Frames>
                 <Scripts>
                     <OnLoad>
                         local parent = self:GetParent()
                         parent.Overview = self.Overview
                         parent.Children = self.Children
+                        parent.FootOverview = self.FootOverview
                     </OnLoad>
                 </Scripts>
             </Frame>

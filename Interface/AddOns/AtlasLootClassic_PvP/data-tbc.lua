@@ -270,33 +270,35 @@ data["BCCReputationSet"] = {
 	},
 }
 
-local PVP_MOUNT_PRICE = "pvpAlterac:30:pvpArathi:30:pvpWarsong:30"
 data["PvPMountsBCC"] = {
 	name = ALIL["Mounts"],
 	ContentType = GENERAL_CONTENT,
 	LoadDifficulty = LOAD_DIFF,
+	CorrespondingFields = {
+		[1] = "Mounts",
+	},
 	items = {
 		{ -- PvPMountsPvP
 			name = ALIL["Mounts"],
 			[ALLIANCE_DIFF] = {
-				{ 1,  19030, [PRICE_EXTRA_ITTYPE] = "pvpAlterac:50" }, -- Stormpike Battle Charger
-				{ 3,  18244, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Black War Ram
-				{ 4,  18243, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Black Battlestrider
-				{ 5,  18241, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Black War Steed Bridle
-				{ 6,  18242, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Reins of the Black War Tiger
-				{ 7,  35906, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Reins of the Black War Elekk
+				{ 1,  19030 }, -- Stormpike Battle Charger
+				{ 3,  29467 }, -- Black War Ram
+				{ 4,  29465 }, -- Black Battlestrider
+				{ 5,  29468 }, -- Black War Steed Bridle
+				{ 6,  29471 }, -- Reins of the Black War Tiger
+				{ 7,  35906 }, -- Reins of the Black War Elekk
 				{ 16,  30609 }, -- Swift Nether Drake
 				{ 17,  37676 }, -- Vengeful Nether Drake
 				{ 18,  34092 }, -- Merciless Nether Drake
 				--{ 19,  43516 }, -- Brutal Nether Drake NYI
 			},
 			[HORDE_DIFF] = {
-				{ 1, 19029, [PRICE_EXTRA_ITTYPE] = "pvpAlterac:50"  }, -- Horn of the Frostwolf Howler
-				{ 3, 18245, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Horn of the Black War Wolf
-				{ 4, 18247, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Black War Kodo
-				{ 5, 18246, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Whistle of the Black War Raptor
-				{ 6, 18248, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Red Skeletal Warhorse
-				{ 7, 34129, [PRICE_EXTRA_ITTYPE] = PVP_MOUNT_PRICE }, -- Swift Warstrider
+				{ 1, 19029  }, -- Horn of the Frostwolf Howler
+				{ 3, 29469 }, -- Horn of the Black War Wolf
+				{ 4, 29466 }, -- Black War Kodo
+				{ 5, 29472 }, -- Whistle of the Black War Raptor
+				{ 6, 29470 }, -- Red Skeletal Warhorse
+				{ 7, 34129 }, -- Swift Warstrider
 				{ 16,  30609 }, -- Swift Nether Drake
 				{ 17,  37676 }, -- Vengeful Nether Drake
 				{ 18,  34092 }, -- Merciless Nether Drake
@@ -1290,24 +1292,24 @@ data["TerokkarPvP"] = {
 		{
 			MapID = 3519,
 			[NORMAL_DIFF] = {
-				{ 1, 28553, [PRICE_EXTRA_ITTYPE] = "SpiritShard:50" }, -- Band of the Exorcist
-				{ 2, 28557, [PRICE_EXTRA_ITTYPE] = "SpiritShard:8" }, -- Swift Starfire Diamond
-				{ 3, 28759, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Dreadweave Hood
-				{ 4, 28574, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Dragonhide Helm
-				{ 5, 28575, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Wyrmhide Helm
-				{ 6, 28577, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Linked Helm
-				{ 7, 28560, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Lamellar Helm
-				{ 8, 28761, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Scaled Helm
-				{ 10, 32947, [PRICE_EXTRA_ITTYPE] = "SpiritShard:2" }, -- Auchenai Healing Potion
+				{ 1, 28553 }, -- Band of the Exorcist
+				{ 2, 28557}, -- Swift Starfire Diamond
+				{ 3, 28759 }, -- Exorcist's Dreadweave Hood
+				{ 4, 28574 }, -- Exorcist's Dragonhide Helm
+				{ 5, 28575 }, -- Exorcist's Wyrmhide Helm
+				{ 6, 28577 }, -- Exorcist's Linked Helm
+				{ 7, 28560 }, -- Exorcist's Lamellar Helm
+				{ 8, 28761 }, -- Exorcist's Scaled Helm
+				{ 10, 32947 }, -- Auchenai Healing Potion
 				{ 12, 28558 }, -- Spirit Shard
-				{ 16, 28555, [PRICE_EXTRA_ITTYPE] = "SpiritShard:50" }, -- Seal of the Exorcist
-				{ 17, 28556, [PRICE_EXTRA_ITTYPE] = "SpiritShard:8" }, -- Swift Windfire Diamond
-				{ 18, 28760, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Silk Hood
-				{ 19, 28561, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Leather Helm
-				{ 20, 28576, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Chain Helm
-				{ 21, 28758, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Mail Helm
-				{ 22, 28559, [PRICE_EXTRA_ITTYPE] = "SpiritShard:18" }, -- Exorcist's Plate Helm
-				{ 25, 32948, [PRICE_EXTRA_ITTYPE] = "SpiritShard:2" }, -- Auchenai Mana Potion
+				{ 16, 28555 }, -- Seal of the Exorcist
+				{ 17, 28556 }, -- Swift Windfire Diamond
+				{ 18, 28760 }, -- Exorcist's Silk Hood
+				{ 19, 28561 }, -- Exorcist's Leather Helm
+				{ 20, 28576 }, -- Exorcist's Chain Helm
+				{ 21, 28758 }, -- Exorcist's Mail Helm
+				{ 22, 28559 }, -- Exorcist's Plate Helm
+				{ 25, 32948 }, -- Auchenai Mana Potion
 			}
 		}
 	}

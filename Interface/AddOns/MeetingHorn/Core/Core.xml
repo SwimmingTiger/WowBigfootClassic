@@ -5,7 +5,7 @@
     <Script file="Timer.lua"/>
     <Script file="LFG.lua"/>
     <Script file="Channel.lua"/>
-    <Script file="WorldBuff.lua"/>
+    
     <Script file="ErrorCode.lua"/>
     <Script file="Challenge.lua"/>
     <Script file="Grade.lua"/>

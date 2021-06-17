@@ -4,7 +4,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
 local Sink = LibStub:GetLibrary("LibSink-2.0")
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
 
-local Warnings = nil
+local Warnings = TotemTimers.DefaultProfile.Warnings
 
 local lastWarning = nil
 local lastWarningTime = nil

@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Taerar", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210402015445")
+mod:SetRevision("20210611232013")
 mod:SetCreatureID(14890)--121911 TW ID, 14890 classic ID
 --mod:SetModelID(17887)
+mod:EnableWBEngageSync()--Enable syncing engage in outdoors
 
 mod:RegisterCombat("combat_yell", L.Pull)
 

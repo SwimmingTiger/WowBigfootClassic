@@ -113,7 +113,7 @@ end
 
 function CSC_GetPlayerMissChances(unit, playerHitChance)
 	local missChanceVsNPC = 5;
-	local missChanceVsBoss = 9;
+	local missChanceVsBoss = 8;
 	local missChanceVsPlayer = 5;
 	
 	local hitChance = playerHitChance;
@@ -129,6 +129,7 @@ function CSC_GetPlayerMissChances(unit, playerHitChance)
 	if (bossDefense - playerWeaponSkill <= 10) then
 		missChanceVsBoss = 5 + (bossDefense - playerWeaponSkill) * 0.1;
 	end
+	missChanceVsBoss = missChanceVsBoss + 1; -- hit suppression
 
 	local dwMissChanceVsNpc = math.max(missChanceVsNPC + 19 - hitChance);
 	local dwMissChanceVsBoss = math.max(missChanceVsBoss + 19 - hitChance);
@@ -720,6 +721,8 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 		GameTooltip:Hide()
 	end)
 
+	local unitClassId = select(3, UnitClass(unit));
+
 	local statName = getglobal("COMBAT_RATING_NAME"..ratingIndex);
 	local rating = GetCombatRating(ratingIndex);
 	local ratingBonus = GetCombatRatingBonus(ratingIndex); -- hit rating in % (hit chance) (from gear sources, doesn't seem to include talents)
@@ -743,6 +746,11 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 		end
 
 		spellHitChance = spellHitChance / 7; -- BUG ON BLIZZARD's side. returns 7 for each 1% hit. Dirty fix for now
+
+		if (unitClassId == CSC_SHAMAN_CLASS_ID) then
+			local hitFromElementalPrecision = CSC_GetShamanHitFromElementalPrecision();
+			spellHitChance = spellHitChance + hitFromElementalPrecision;
+		end
 		
 		ratingBonus = ratingBonus + spellHitChance;
 		statFrame.spellHitGearTalents = ratingBonus;

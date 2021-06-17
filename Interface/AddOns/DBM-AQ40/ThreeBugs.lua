@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ThreeBugs", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210402014837")
+mod:SetRevision("20210613212942")
 mod:SetCreatureID(15544, 15511, 15543)
 mod:SetEncounterID(710)
 mod:SetModelID(15657)
@@ -26,7 +26,7 @@ local timerFearCD		= mod:NewCDTimer(20.5, 26580, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)
 	timerFearCD:Start(10-delay)
-	if self:IsDifficulty("event40") or not self:IsTrivial(75) then--Only want to warn if it's a threat
+	if self:IsEvent() or not self:IsTrivial() then
 		self:RegisterShortTermEvents(
 			"SPELL_AURA_APPLIED 25786 25989",
 			"SPELL_PERIODIC_DAMAGE 25786 25989",

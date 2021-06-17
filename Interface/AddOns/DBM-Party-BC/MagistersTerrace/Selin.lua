@@ -1,12 +1,10 @@
 local mod = DBM:NewMod(530, "DBM-Party-BC", 16, 249)
 local L = mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210519165845")
-
+mod:SetRevision("20210610003707")
 mod:SetCreatureID(24723)
 mod:SetEncounterID(1897)
-
+mod:SetModelID(22731)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -22,7 +20,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 69029 then--Mana Rage, triggers right before CHAT_MSG_RAID_BOSS_EMOTE
+	if args.spellId == 44320 then--Mana Rage, triggers right before CHAT_MSG_RAID_BOSS_EMOTE
 		specWarnChannel:Show()
 		specWarnChannel:Play("targetchange")
 		timerChannelCD:Start()

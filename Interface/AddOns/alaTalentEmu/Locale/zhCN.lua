@@ -36,7 +36,7 @@ L.resetToSetButton = "重置到初始状态";
 L.readOnlyButton = "\124cff00ff00点击\124r设置";
 L.closeButton = "关闭窗口";
 
-L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
+L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00";
 L.inspectTargetButton = "观察目标天赋";
 L.spellTabButton = "技能列表窗口";
 L.spellAvailable = "\124cff00ff00技能可用\124r";

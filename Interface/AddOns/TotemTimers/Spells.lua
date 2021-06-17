@@ -41,12 +41,15 @@ function TotemTimers.GetSpells()
     return true
 end
 
---[[function TotemTimers.GetTalents()
+function TotemTimers.GetTalents()
     wipe(TotemTimers.AvailableTalents)
-    if select(5, GetTalentInfo(2,17))>0 then TotemTimers.AvailableTalents.Maelstrom = true end
-    if select(5, GetTalentInfo(1,18))>0 then TotemTimers.AvailableTalents.LavaSurge = true end
-    if select(5, GetTalentInfo(1,13))>0 then TotemTimers.AvailableTalents.Fulmination = true end
-end]]
+    TotemTimers.AvailableTalents.TotemicMastery = select(5, GetTalentInfo(3,8)) * 10
+    TotemTimers.AvailableTalents.DualWield = select(5, GetTalentInfo(2, 18)) > 0
+
+    --if select(5, GetTalentInfo(2,17))>0 then TotemTimers.AvailableTalents.Maelstrom = true end
+    --if select(5, GetTalentInfo(1,18))>0 then TotemTimers.AvailableTalents.LavaSurge = true end
+    --if select(5, GetTalentInfo(1,13))>0 then TotemTimers.AvailableTalents.Fulmination = true end
+end
 
 
 function TotemTimers.LearnedSpell(spell,tab)
@@ -65,6 +68,7 @@ end
 
 function TotemTimers.ChangedTalents()
 	TotemTimers.GetSpells()
+    TotemTimers.GetTalents()
     TotemTimers.SelectActiveProfile()
     TotemTimers.ExecuteProfile()
 end

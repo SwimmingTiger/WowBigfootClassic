@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403075439")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -36,7 +36,6 @@ local timerPhase			= mod:NewPhaseTimer(15)
 local timerClassCall		= mod:NewTimer(30, "TimerClassCall", "136116", nil, nil, 5)
 local timerFearNext			= mod:NewCDTimer(26.7, 22686, nil, nil, 3, 2)--26-42.5
 
-mod.vb.phase = 1
 mod.vb.addLeft = 42
 local addsGuidCheck = {}
 local firstBossMod = DBM:GetModByName("Razorgore")
@@ -44,11 +43,7 @@ local firstBossMod = DBM:GetModByName("Razorgore")
 function mod:OnCombatStart(delay, yellTriggered)
 	table.wipe(addsGuidCheck)
 	self.vb.addLeft = 42
-	--if yellTriggered then--Triggered by Phase 1 yell from talking to Nefarian (uncomment if ENCOUNTER_START isn't actually fixed with weekly reset)
-		self.vb.phase = 1
-	--else--Blizz can't seem to figure out ENCOUNTER_START, so any pull not triggered by yell will be treated as if it's already phase 2
-	--	self.vb.phase = 2
-	--end
+	self:SetStage(1)
 end
 
 function mod:OnCombatEnd(wipe)
@@ -100,8 +95,6 @@ function mod:UNIT_DIED(args)
 	local guid = args.destGUID
 	local cid = self:GetCIDFromGUID(guid)
 	if cid == 14264 or cid == 14263 or cid == 14261 or cid == 14265 or cid == 14262 or cid == 14302 then--Red, Bronze, Blue, Black, Green, Chromatic
-		--self:SendSync("AddDied", guid)--Send sync it died do to combat log range and size of room
-		--We're in range of event, no reason to wait for sync, especially in a raid that might not have many DBM users
 		if not addsGuidCheck[guid] then
 			addsGuidCheck[guid] = true
 			self.vb.addLeft = self.vb.addLeft - 1
@@ -116,7 +109,7 @@ end
 function mod:UNIT_HEALTH(uId)
 	if UnitHealth(uId) / UnitHealthMax(uId) <= 0.25 and self:GetUnitCreatureId(uId) == 11583 and self.vb.phase < 2.5 then
 		warnPhase3Soon:Show()
-		self.vb.phase = 2.5
+		self:SetStage(2.5)
 	end
 end
 
@@ -158,11 +151,11 @@ do
 		if msg == "Phase" and arg then
 			local phase = tonumber(arg) or 0
 			if phase == 2 then
-				self.vb.phase = 2
+				self:SetStage(2)
 				timerPhase:Start(15)--15 til encounter start fires, not til actual land?
 				--timerFearNext:Start(46.6)
 			elseif phase == 3 then
-				self.vb.phase = 3
+				self:SetStage(3)
 			end
 			warnPhase:Show(DBM_CORE_L.AUTO_ANNOUNCE_TEXTS.stage:format(arg))
 		end
@@ -176,13 +169,6 @@ do
 				warnClassCall:Show(className)
 			end
 			timerClassCall:Start(30, className)
-		--[[elseif msg == "AddDied" and arg and not addsGuidCheck[arg] then
-			--A unit died we didn't detect ourselves, so we correct our adds counter from sync
-			addsGuidCheck[arg] = true
-			self.vb.addLeft = self.vb.addLeft - 1
-			if self.vb.addLeft >= 1 and (self.vb.addLeft % 3 == 0) then
-				WarnAddsLeft:Show(self.vb.addLeft)
-			end--]]
 		end
 	end
 end

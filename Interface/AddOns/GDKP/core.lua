@@ -195,6 +195,7 @@ if not EM then
     return
 end
 StaticPopupDialogs["GDKP_RESET_DATA"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = GDKP_RESET_DATA,
     button1 = YES,
     button2 = NO,
@@ -206,10 +207,10 @@ StaticPopupDialogs["GDKP_RESET_DATA"] = {
     OnShow = function()
     end,
     timeout = 0,
-    hideOnEscape = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    hideOnEscape = 1
 }
 StaticPopupDialogs["GDKP_DELETE_RECORD"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = GDKP_DELETE_RECORD,
     button1 = YES,
     button2 = NO,
@@ -225,8 +226,7 @@ StaticPopupDialogs["GDKP_DELETE_RECORD"] = {
     end,
     timeout = 0,
     hideOnEscape = 1,
-    enterClicksFirstButton = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    enterClicksFirstButton = 1
 }
 local function GDKP_9336171702a6bc3810b21190594210d9(
     GDKP_acd18e5e4cc047ed8d218397986e9dc2,

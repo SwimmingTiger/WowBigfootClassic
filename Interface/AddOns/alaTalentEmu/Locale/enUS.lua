@@ -36,7 +36,7 @@ L.resetToSetButton = "Reset to initial state";
 L.readOnlyButton = "\124cff00ff00RClick\124r to set";
 L.closeButton = "Close this win";
 
-L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to import build-in talents\n    (Copied from \124cffff0000wowhead\124r).";
+L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00";
 L.inspectTargetButton = "Inspect target's talents.";
 L.spellTabButton = "Spell List Window";
 L.spellAvailable = "\124cff00ff00Available\124r";

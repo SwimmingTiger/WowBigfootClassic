@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(21215)
 mod:SetEncounterID(625, 2460)
 mod:SetModelID(20514)
@@ -41,7 +41,6 @@ local warnMCTargets = {}
 mod.vb.binderKill = 0
 mod.vb.demonIcon = 8
 mod.vb.whirlCount = 0
-mod.vb.phase = 1
 
 local function humanWarns(self)
 	self.vb.whirlCount = 0
@@ -65,6 +64,12 @@ end
 function mod:OnCombatStart(delay)
 	self.vb.demonIcon = 8
 	self.vb.whirlCount = 0
+	self:SetStage(1)
+	table.wipe(warnMCTargets)
+	table.wipe(warnDemonTargets)
+	timerWhirlCD:Start(15)
+	timerPhase:Start(60, L.Demon)
+	berserkTimer:Start()
 end
 
 function mod:OnCombatEnd(delay)
@@ -117,7 +122,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerPhase:Start(nil, L.Human)
 		self:Schedule(60, humanWarns, self)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		self:Unschedule(humanWarns)
 		timerPhase:Cancel()
 		timerWhirl:Cancel()
@@ -128,20 +133,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
+--TODO, with ENCOUNTER_START this may not be needed anymore, but also have to make sure ES is in right place too, it wasn't on retail which is why this method exists
 function mod:UNIT_DIED(args)
 	local cId = self:GetCIDFromGUID(args.destGUID)
 	if cId == 21806 then
 		self.vb.binderKill = self.vb.binderKill + 1
 		if self.vb.binderKill == 3 and not self:IsInCombat() then
 			DBM:StartCombat(self, 0)
-			self.vb.demonIcon = 8
-			self.vb.whirlCount = 0
-			self.vb.phase = 1
-			table.wipe(warnMCTargets)
-			table.wipe(warnDemonTargets)
-			timerWhirlCD:Start(15)
-			timerPhase:Start(nil, L.Demon)
-			berserkTimer:Start()
 		end
 	end
 end

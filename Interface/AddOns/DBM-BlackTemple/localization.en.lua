@@ -45,13 +45,30 @@ L:SetMiscLocalization{
 }
 
 -------------------------
---  Shape of Akama  --
+--  Shade of Akama  --
 -------------------------
 L = DBM:GetModLocalization("Akama")
 
 L:SetGeneralLocalization{
 	name = "Shade of Akama"
 }
+
+L:SetWarningLocalization({
+	warnAshtongueDefender	= "Ashtongue Defender",
+	warnAshtongueSorcerer	= "Ashtongue Sorcerer"
+})
+
+L:SetTimerLocalization({
+	timerAshtongueDefender	= "Ashtongue Defender: %s",
+	timerAshtongueSorcerer	= "Ashtongue Sorcerer: %s"
+})
+
+L:SetOptionLocalization({
+	warnAshtongueDefender	= "Show warning for Ashtongue Defender",
+	warnAshtongueSorcerer	= "Show warning for Ashtongue Sorcerer",
+	timerAshtongueDefender	= "Show timer for Ashtongue Defender",
+	timerAshtongueSorcerer	= "Show timer for Ashtongue Sorcerer"
+})
 
 -------------------------
 --  Teron Gorefiend  --

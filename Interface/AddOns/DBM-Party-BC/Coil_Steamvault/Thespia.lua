@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod(573, "DBM-Party-BC", 6, 261)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
+mod:SetRevision("20210605024644")
 mod:SetCreatureID(17797)
 mod:SetEncounterID(1942)
-
-mod:SetModelID(11268)--Custom ID for a reason?
+mod:SetModelScale(0.95)
+mod:SetModelID(11268)
 
 mod:RegisterCombat("combat")
 

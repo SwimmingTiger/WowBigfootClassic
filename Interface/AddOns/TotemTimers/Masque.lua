@@ -65,8 +65,10 @@ function TotemTimers.SkinCallback(arg, SkinID)
     if SkinID then
         local skin = masque:GetSkin(SkinID)
         local buttons = {XiTimers.timers[8].button}
-        for i = 1, #XiTimers.timers[8].bar.buttons do
-            table.insert(buttons, XiTimers.timers[8].bar.buttons[i])
+        local actionBarButtons = XiTimers.timers[8].actionBar.buttons
+
+        for i = 1, #actionBarButtons do
+            table.insert(buttons, actionBarButtons[i])
         end
         for k,button in pairs(buttons) do
             local xScale, yScale = GetScale(button)

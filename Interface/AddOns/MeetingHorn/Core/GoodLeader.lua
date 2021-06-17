@@ -30,7 +30,9 @@ function GoodLeader:OnInitialize()
     self:RegisterServer('SGT')
 
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
-    self:GROUP_ROSTER_UPDATE()
+    C_Timer.After(5, function()
+        self:GROUP_ROSTER_UPDATE()
+    end)
 
     self.defaultTags = {
         strsplit(',', '幽默风趣,效率,飙车司机,萌妹,磁性嗓音,段子手,欧皇,良心团长'),
@@ -82,6 +84,9 @@ function GoodLeader:SGL(_, name, code, msg, activeness, itemPercent, raidData, s
 end
 
 function GoodLeader:SGT(_, tags)
+    --[=[@debug@
+    dump(tags)
+    --@end-debug@]=]
     tags = tags and {strsplit(',', tags)} or nil
     if tags and #tags == 0 then
         tags = nil

@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod(555, "DBM-Party-BC", 2, 256)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
+mod:SetRevision("20210608100307")
 mod:SetCreatureID(17381)
 mod:SetEncounterID(1922)
-
+mod:SetModelID(18369)
+mod:SetModelOffset(-4, 0, -0.4)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -12,9 +13,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 30923"
 )
 
-local warnMindControl      = mod:NewTargetAnnounce(30923, 4)
+local warnMindControl	= mod:NewTargetAnnounce(30923, 4)
 
-local timerMindControl     = mod:NewTargetTimer(10, 30923, nil, nil, nil, 3)
+local timerMindControl	= mod:NewTargetTimer(10, 30923, nil, nil, nil, 3)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 30923 then

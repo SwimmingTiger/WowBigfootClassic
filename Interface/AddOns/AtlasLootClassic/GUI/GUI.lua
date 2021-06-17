@@ -70,16 +70,20 @@ local function UpdateFrames(noPageUpdate, forceContentUpdate)
 		GUI.frame.contentFrame.mapButton:Hide()
 	end
 	]]--
-	if IsMapsModuleAviable() then
-		if moduleData[dataID] and moduleData[dataID].AtlasMapFile then
-			GUI.frame.contentFrame.mapButton.atlasMapFile = moduleData[dataID].items[bossID].AtlasMapFile or moduleData[dataID].AtlasMapFile
-			GUI.frame.contentFrame.mapButton:Show()
+	if moduleData[dataID] and moduleData[dataID].AtlasMapFile and IsMapsModuleAviable(moduleData[dataID].items[bossID].AtlasModule or moduleData[dataID].AtlasModule) then
+		GUI.frame.contentFrame.map.atlasMapModule = moduleData[dataID].items[bossID].AtlasModule or moduleData[dataID].AtlasModule
+		if GUI.frame.contentFrame.map.atlasMapModule then
+			GUI.frame.contentFrame.map.atlasMapFile = moduleData[dataID].items[bossID].AtlasMapFile or moduleData[dataID].AtlasMapFile
 		else
-			GUI.frame.contentFrame.mapButton.atlasMapFile = nil
-			GUI.frame.contentFrame.mapButton:Hide()
+			GUI.frame.contentFrame.map.atlasMapFile = moduleData[dataID].items[bossID].AtlasMapFile_AL or moduleData[dataID].AtlasMapFile_AL or moduleData[dataID].items[bossID].AtlasMapFile or moduleData[dataID].AtlasMapFile
 		end
-		contentFrame.map:SetMap(GUI.frame.contentFrame.mapButton.atlasMapFile)
+		GUI.frame.contentFrame.mapButton:Show()
+	else
+		GUI.frame.contentFrame.map.atlasMapFile = nil
+		GUI.frame.contentFrame.map.atlasMapModule = nil
+		GUI.frame.contentFrame.mapButton:Hide()
 	end
+	contentFrame.map:SetMap(GUI.frame.contentFrame.map.atlasMapFile)
 
 	-- MODEL
 	if moduleData[dataID].items[bossID].DisplayIDs then
@@ -464,22 +468,34 @@ local function SearchBoxOnTextChanged(self, pI)
 end
 
 -- AtlasMaps
-local ATLAS_MAPS_PATH = "Interface\\AddOns\\AtlasLootClassic_Maps\\"
+local ATLAS_MAPS_PATH = "Interface\\AddOns\\AtlasLootClassic_Maps\\%s"
+local ATLAS_MODULE_MAP_PATH_FORMAT = "Interface\\AddOns\\%s\\Images\\%s"
+local function AtlasMaps_GetMapPath(mapName, atlasModule)
+	if atlasModule then
+		return format(ATLAS_MODULE_MAP_PATH_FORMAT, atlasModule, mapName)
+	else
+		return format(ATLAS_MAPS_PATH, mapName)
+	end
+end
+
 local function AtlasMaps_SetMaps(self, map, entranceMap)
 	if map == self.map and self.entranceMap == entranceMap then
 		self:ShowOverlay(true)
 		return
 	end
-	if not map or not IsMapsModuleAviable() then
+	if not map or not IsMapsModuleAviable(self.atlasMapModule) then
 		self:Hide()
 		self.overlay:Hide()
 		return
+	else
+		self:Show()
 	end
 	if type(map) == "table" then
 		return AtlasMaps_SetMaps(self, unpack(map))
 	end
 
 	self.map = map
+	self.atlasModule = self.atlasMapModule
 	self.entranceMap = entranceMap
 
 	self:ShowEntranceMap(false, true, true)
@@ -487,10 +503,10 @@ end
 
 local function AtlasMaps_ShowEntranceMap(self, flag, showOverlay, force)
 	if (self.isEntranceMap and not flag) or (not flag and force) then
-		self:SetTexture(ATLAS_MAPS_PATH..self.map)
+		self:SetTexture(AtlasMaps_GetMapPath(self.map, self.atlasModule))
 		self.isEntranceMap = false
 	elseif (not self.isEntranceMap and flag and self.entranceMap) or (flag and self.entranceMap and force) then
-		self:SetTexture(ATLAS_MAPS_PATH..self.entranceMap)
+		self:SetTexture(AtlasMaps_GetMapPath(self.entranceMap, self.atlasModule))
 		self.isEntranceMap = true
 	end
 	self:Show()
@@ -955,13 +971,41 @@ function GUI:Create()
 	frame.titleFrame.newVersion:SetFont(_G["SystemFont_Tiny"]:GetFont(), 10)
 	frame.titleFrame.newVersion:SetJustifyH("LEFT")
 	frame.titleFrame.newVersion:SetJustifyV("MIDDLE")
-	frame.titleFrame.newVersion:SetText(AL["New version aviable!"])
+	frame.titleFrame.newVersion:SetText(AL["New version available!"])
 
 	frame.gameVersionButton = CreateFrame("Button", frameName.."-gameVersionButton", frame)
-	frame.gameVersionButton:SetPoint("TOPLEFT", frame, "TOPLEFT", 258, -37)
+	frame.gameVersionButton:SetPoint("TOPLEFT", frame, "TOPLEFT", 258, -33)
 	frame.gameVersionButton:SetWidth(64)
 	frame.gameVersionButton:SetHeight(32)
+	frame.gameVersionButton:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
 	frame.gameVersionButton:SetScript("OnClick", GameVersionSwitch_OnClick)
+
+	frame.gameVersionButton.Box = {}
+
+	local function CreateLineForGameVersion()
+		local l = frame.gameVersionButton:CreateLine()
+		l:SetThickness(1)
+		l:SetColorTexture(1,0.82,0,0.4)
+		frame.gameVersionButton.Box[#frame.gameVersionButton.Box+1] = l
+		return l
+	end
+
+	local lineGap = 1
+	local l = CreateLineForGameVersion()
+	l:SetStartPoint("TOPLEFT",-lineGap,lineGap)
+	l:SetEndPoint("TOPRIGHT",lineGap,lineGap)
+
+	l = CreateLineForGameVersion()
+	l:SetStartPoint("TOPRIGHT",lineGap,lineGap)
+	l:SetEndPoint("BOTTOMRIGHT",lineGap,-lineGap)
+
+	l = CreateLineForGameVersion()
+	l:SetStartPoint("BOTTOMRIGHT",lineGap,-lineGap)
+	l:SetEndPoint("BOTTOMLEFT",-lineGap,-lineGap)
+
+	l = CreateLineForGameVersion()
+	l:SetStartPoint("BOTTOMLEFT",-lineGap,-lineGap)
+	l:SetEndPoint("TOPLEFT",-lineGap,lineGap)
 
 	frame.gameVersionLogo = frame:CreateTexture(frameName.."-downBG", "ARTWORK")
 	frame.gameVersionLogo:SetTexture(538639)
@@ -969,14 +1013,14 @@ function GUI:Create()
 	frame.gameVersionButton.texture = frame.gameVersionLogo
 
 	frame.moduleSelect = GUI:CreateDropDown()
-	frame.moduleSelect:SetParPoint("RIGHT", frame.gameVersionButton, "LEFT", -5, 0)
+	frame.moduleSelect:SetParPoint("RIGHT", frame.gameVersionButton, "LEFT", -5, -4)
 	frame.moduleSelect:SetWidth(245)
 	frame.moduleSelect:SetTitle(AL["Select Module"])
 	frame.moduleSelect:SetText("Select Module")
 	frame.moduleSelect:SetButtonOnClick(ModuleSelectFunction)
 
 	frame.subCatSelect = GUI:CreateDropDown()
-	frame.subCatSelect:SetParPoint("LEFT", frame.gameVersionButton, "RIGHT", 5, 0)
+	frame.subCatSelect:SetParPoint("LEFT", frame.gameVersionButton, "RIGHT", 5, -4)
 	frame.subCatSelect:SetWidth(245)
 	frame.subCatSelect:SetTitle(AL["Select Subcategory"])
 	frame.subCatSelect:SetText("Select Subcategory")
@@ -1043,7 +1087,7 @@ function GUI:Create()
 	frame.contentFrame.map.overlay = frame.contentFrame:CreateTexture(frameName.."-map3","BACKGROUND")
 	frame.contentFrame.map.overlay:SetAllPoints(frame.contentFrame.itemBG)
 	frame.contentFrame.map.overlay:SetDrawLayer(frame.contentFrame.itemBG:GetDrawLayer(), 4)
-	frame.contentFrame.map.overlay:SetColorTexture(0, 0, 0, 0.4)
+	frame.contentFrame.map.overlay:SetColorTexture(0, 0, 0, 0.7)
 	frame.contentFrame.map.overlay:Hide()
 
 	frame.contentFrame.map.maxWidth = frame.contentFrame.map:GetWidth()

@@ -7,11 +7,12 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "1.1.2"
+Spy.Version = "2.0.1"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
 Spy.MaximumPlayerLevel = MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()]
+--Spy.MaximumPlayerLevel = GetMaxLevelForLatestExpansion()
 Spy.MapNoteLimit = 20
 Spy.MapProximityThreshold = 0.02
 Spy.CurrentMapNote = 1
@@ -94,7 +95,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
---[[				EnabledInArenas = {
+				EnabledInArenas = {
 					name = L["EnabledInArenas"],
 					desc = L["EnabledInArenasDescription"],
 					type = "toggle",
@@ -108,7 +109,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
-				EnabledInWintergrasp = {
+--[[				EnabledInWintergrasp = {
 					name = L["EnabledInWintergrasp"],
 					desc = L["EnabledInWintergraspDescription"],
 					type = "toggle",
@@ -121,7 +122,7 @@ Spy.options = {
 						Spy.db.profile.EnabledInWintergrasp = value
 						Spy:ZoneChangedEvent()
 					end,
-				}, ]]--
+				},]]--
 				DisableWhenPVPUnflagged = {
 					name = L["DisableWhenPVPUnflagged"],
 					desc = L["DisableWhenPVPUnflaggedDescription"],
@@ -153,8 +154,8 @@ Spy.options = {
 						["Gadgetzan"] = L["Gadgetzan"],
 						["Ratchet"] = L["Ratchet"],
 						["The Salty Sailor Tavern"] = L["The Salty Sailor Tavern"],
---						["Shattrath City"] = L["Shattrath City"],
---						["Area 52"] = L["Area 52"],
+						["Shattrath City"] = L["Shattrath City"],
+						["Area 52"] = L["Area 52"],
 --						["Dalaran"] = L["Dalaran"],
 --						["Dalaran (Northrend)"] = L["Dalaran (Northrend)"],
 --						["Bogpaddle"] = L["Bogpaddle"],
@@ -162,6 +163,8 @@ Spy.options = {
 --						["Krasus' Landing"] = L["Krasus' Landing"],
 --						["The Violet Gate"] = L["The Violet Gate"],		
 --						["Magni's Encampment"] = L["Magni's Encampment"],
+--						["Rustbolt"] = L["Rustbolt"],
+--						["Oribos"] = L["Oribos"],
 					},
 				},
 				ShowOnDetection = {
@@ -751,7 +754,7 @@ Spy.options = {
 								["Dwarf"] = L["Dwarf"],		
 								["Night Elf"] = L["Night Elf"],			
 								["Gnome"] = L["Gnome"],	
---								["Draenei"] = L["Draenei"],
+								["Draenei"] = L["Draenei"],
 --								["Worgen"] = L["Worgen"],
 --								["Pandaren"] = L["Pandaren"],	
 --								["Lightforged Draenei"] = L["Lightforged Draenei"],
@@ -766,7 +769,7 @@ Spy.options = {
 								["Tauren"] = L["Tauren"],
 								["Troll"] = L["Troll"],	
 								["Undead"] = L["Undead"],				
---								["Blood Elf"] = L["Blood Elf"],
+								["Blood Elf"] = L["Blood Elf"],
 --								["Goblin"] = L["Goblin"],			
 --								["Pandaren"] = L["Pandaren"],
 --								["Highmountain Tauren"] = L["Highmountain Tauren"],
@@ -1324,7 +1327,7 @@ local Default_Profile = {
 				["SHAMAN"] = { r = 0.14, g = 0.35, b = 1.0, a = 0.6 },
 				["WARRIOR"] = { r = 0.78, g = 0.61, b = 0.43, a = 0.6 },
 --				["DEATHKNIGHT"] = { r = 0.77, g = 0.12, b = 0.23, a = 0.6 },
---				["MONK"] = { r = 0.00, g = 1.00, b = 0.59, a = 0.6 },
+--              ["MONK"] = { r = 0.00, g = 1.00, b = 0.59, a = 0.6 },
 --				["DEMONHUNTER"] = { r = 0.64, g = 0.19, b = 0.79, a = 0.6 },
 				["PET"] = { r = 0.09, g = 0.61, b = 0.55, a = 0.6 },
 				["MOB"] = { r = 0.58, g = 0.24, b = 0.63, a = 0.6 },
@@ -1427,8 +1430,8 @@ local Default_Profile = {
 			["Ratchet"] = false,
 			["Everlook"] = false,
 			["The Salty Sailor Tavern"] = false,
---			["Shattrath City"] = false,
---			["Area 52"] = false,
+			["Shattrath City"] = false,
+			["Area 52"] = false,
 --			["Dalaran"] = false,
 --			["Dalaran (Northrend)"] = false,
 --			["Bogpaddle"] = false,			
@@ -1436,6 +1439,8 @@ local Default_Profile = {
 --			["Krasus' Landing"] = false,
 --			["The Violet Gate"] = false,
 --			["Magni's Encampment"] = false,
+--			["Rustbolt"] = false,
+--			["Oribos"] = false,
 		},
 	},
 }
@@ -1505,9 +1510,9 @@ function Spy:CheckDatabase()
 	if Spy.db.profile.Colors["Class"]["DRUID"] == nil then Spy.db.profile.Colors["Class"]["DRUID"] = Default_Profile.profile.Colors["Class"]["DRUID"] end
 	if Spy.db.profile.Colors["Class"]["SHAMAN"] == nil then Spy.db.profile.Colors["Class"]["SHAMAN"] = Default_Profile.profile.Colors["Class"]["SHAMAN"] end
 	if Spy.db.profile.Colors["Class"]["WARRIOR"] == nil then Spy.db.profile.Colors["Class"]["WARRIOR"] = Default_Profile.profile.Colors["Class"]["WARRIOR"] end
---	if Spy.db.profile.Colors["Class"]["DEATHKNIGHT"] == nil then Spy.db.profile.Colors["Class"]["DEATHKNIGHT"] = Default_Profile.profile.Colors["Class"]["DEATHKNIGHT"] end
---	if Spy.db.profile.Colors["Class"]["MONK"] == nil then Spy.db.profile.Colors["Class"]["MONK"] = Default_Profile.profile.Colors["Class"]["MONK"] end
---	if Spy.db.profile.Colors["Class"]["DEMONHUNTER"] == nil then Spy.db.profile.Colors["Class"]["DEMONHUNTER"] = Default_Profile.profile.Colors["Class"]["DEMONHUNTER"] end	
+	if Spy.db.profile.Colors["Class"]["DEATHKNIGHT"] == nil then Spy.db.profile.Colors["Class"]["DEATHKNIGHT"] = Default_Profile.profile.Colors["Class"]["DEATHKNIGHT"] end
+	if Spy.db.profile.Colors["Class"]["MONK"] == nil then Spy.db.profile.Colors["Class"]["MONK"] = Default_Profile.profile.Colors["Class"]["MONK"] end
+	if Spy.db.profile.Colors["Class"]["DEMONHUNTER"] == nil then Spy.db.profile.Colors["Class"]["DEMONHUNTER"] = Default_Profile.profile.Colors["Class"]["DEMONHUNTER"] end	
 	if Spy.db.profile.Colors["Class"]["PET"] == nil then Spy.db.profile.Colors["Class"]["PET"] = Default_Profile.profile.Colors["Class"]["PET"] end
 	if Spy.db.profile.Colors["Class"]["MOB"] == nil then Spy.db.profile.Colors["Class"]["MOB"] = Default_Profile.profile.Colors["Class"]["MOB"] end
 	if Spy.db.profile.Colors["Class"]["UNKNOWN"] == nil then Spy.db.profile.Colors["Class"]["UNKNOWN"] = Default_Profile.profile.Colors["Class"]["UNKNOWN"] end
@@ -1777,8 +1782,8 @@ function Spy:OnInitialize()
 		["NightElf"] = true,
 		["Scourge"] = true,		
 		["Gnome"] = true,
---		["BloodElf"] = true,		
---		["Draenei"] = true,
+		["BloodElf"] = true,		
+		["Draenei"] = true,
 --		["Goblin"] = true,		
 --		["Worgen"] = true,
 --		["Pandaren"] = true,
@@ -1831,7 +1836,7 @@ function Spy:OnInitialize()
 	Spy:ClampToScreen(Spy.db.profile.ClampToScreen)	
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", Spy.FilterNotInParty)
 	Spy.WoWBuildInfo = select(4, GetBuildInfo())
-	if Spy.WoWBuildInfo > 30000 then
+	if Spy.WoWBuildInfo < 20000 and Spy.WoWBuildInfo > 30000 then
 		DEFAULT_CHAT_FRAME:AddMessage(L["VersionCheck"])
 	end
 end

@@ -217,7 +217,7 @@ TotemTimers.options.args.messages = {
                         },
                     },
                 },
-                --[[ EarthShieldMsg = {
+                EarthShieldMsg = {
                     order = 5,
                     type = "group",
                     name = L["EarthShield warnings"],
@@ -261,7 +261,7 @@ TotemTimers.options.args.messages = {
                             func = function(info) TotemTimers.ActiveProfile.Warnings.EarthShield.sound = "" end,
                         },
                     },
-                }, --]]
+                },
                 --[[ MaelstromMsg = {
                     order = 7,
                     type = "group",

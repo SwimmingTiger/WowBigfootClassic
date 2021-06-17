@@ -96,6 +96,27 @@ L:SetGeneralLocalization{
 	name 		= "Warchief Kargath Bladefist"
 }
 
+L:SetWarningLocalization({
+	warnHeathen			= "Heathen Guard",
+	warnReaver			= "Reaver Guard",
+	warnSharpShooter	= "Sharpshooter Guard",
+})
+
+L:SetTimerLocalization({
+	timerHeathen		= "Heathen Guard: %s",
+	timerReaver			= "Reaver Guard: %s",
+	timerSharpShooter	= "Sharpshooter Guard: %s"
+})
+
+L:SetOptionLocalization({
+	warnHeathen			= "Show warning for Heathen Guard",
+	timerHeathen		= "Show timer for Heathen Guard",
+	warnReaver			= "Show warning for Reaver Guard",
+	timerReaver			= "Show timer for Reaver Guard",
+	warnSharpShooter	= "Show warning for Sharpshooter Guard",
+	timerSharpShooter	= "Show timer for Sharpshooter Guard"
+})
+
 ------------------
 --  Slave Pens  --
 --------------------------
@@ -183,6 +204,14 @@ L:SetGeneralLocalization{
 	name 		= "Mekgineer Steamrigger"
 }
 
+L:SetWarningLocalization({
+	warnSummon	= "Steamrigger Mechanics - Switch Targets"
+})
+
+L:SetOptionLocalization({
+	warnSummon	= "Show warning for Steamrigger Mechanics"
+})
+
 L:SetMiscLocalization({
 	Mechs	= "Tune 'em up good boys!"
 })
@@ -218,6 +247,15 @@ L:SetGeneralLocalization{
 
 ------------------
 --  Mana-Tombs  --
+------------------
+--    Trash     --
+------------------
+L = DBM:GetModLocalization("AuctTombsTrash")
+
+L:SetGeneralLocalization{
+	name 		= "Trash"
+}
+
 -------------------
 --  Pandemonius  --
 -------------------
@@ -265,6 +303,14 @@ L:SetGeneralLocalization{
 	name 		= "Darkweaver Syth"
 }
 
+L:SetWarningLocalization({
+	warnSummon	= "Summon Elementals"
+})
+
+L:SetOptionLocalization({
+	warnSummon	= "Show warning for summoned elementals"
+})
+
 ------------
 --  Anzu  --
 ------------
@@ -275,10 +321,12 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization({
+	warnBrood	= "Brood of Anzu",
 	warnStoned	= "%s returned to stone"
 })
 
 L:SetOptionLocalization({
+	warnBrood	= "Show warning for Brood of Anzu",
 	warnStoned	= "Show warning for spirits returning to stone"
 })
 
@@ -390,10 +438,6 @@ L = DBM:GetModLocalization(554)
 L:SetGeneralLocalization{
 	name 		= "Aeonus"
 }
-
-L:SetMiscLocalization({
-    AeonusFrenzy	= "%s goes into a frenzy!"
-})
 
 ---------------------
 --  Portal Timers  --
@@ -562,6 +606,16 @@ L:SetGeneralLocalization{
 	name 		= "Harbinger Skyriss"
 }
 
+L:SetWarningLocalization({
+	warnSplitSoon	= "Harbinger's Illusion Soon",
+	warnSplit		= "Harbinger's Illusion"
+})
+
+L:SetOptionLocalization({
+	warnSplitSoon	= "Show warning for Harbinger's Illusion soon",
+	warnSplit		= "Show warning for Harbinger's Illusion"
+})
+
 L:SetMiscLocalization({
 	Split	= "We span the universe, as countless as the stars!"
 })
@@ -598,6 +652,14 @@ L = DBM:GetModLocalization(531)
 L:SetGeneralLocalization{
 	name 		= "Vexallus"
 }
+
+L:SetWarningLocalization({
+	warnEnergy	= "Pure Energy - Switch Targets"
+})
+
+L:SetOptionLocalization({
+	warnEnergy	= "Show warning for Pure Energy"
+})
 
 --------------------------
 --  Priestess Delrissa  --

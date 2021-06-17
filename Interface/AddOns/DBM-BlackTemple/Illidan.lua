@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Illidan", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210422205657")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(22917)
 mod:SetEncounterID(609, 2481)
 mod:SetModelID(21135)
@@ -72,7 +72,6 @@ mod.vb.flamesDown = 0
 mod.vb.flameBursts = 0
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP4 = false
-mod.vb.phase = 1
 
 local function humanForms(self)
 	warnHuman:Show()
@@ -84,7 +83,7 @@ local function humanForms(self)
 end
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	self.vb.flamesDown = 0
 	self.vb.flameBursts = 0
 	self.vb.warned_preP2 = false
@@ -165,7 +164,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnShadowDemon:Show()
 		specWarnShadowDemon:Play("killmob")
 	elseif spellId == 39849 then--Throw Glaive
-		self.vb.phase = 2
+		self:SetStage(2)
 		self.vb.flamesDown = 0
 		self.vb.warned_preP2 = true
 		warnPhase2:Show()
@@ -182,7 +181,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerNextFlameBurst:Start()
 		end
 	elseif spellId == 40647 and self.vb.phase < 4 then
-		self.vb.phase = 4
+		self:SetStage(4)
 		self.vb.warned_preP4 = true
 		self:Unschedule(humanForms)
 		timerParasite:Cancel()
@@ -210,7 +209,7 @@ function mod:UNIT_DIED(args)
 	if cid == 22997 then
 		self.vb.flamesDown = self.vb.flamesDown + 1
 		if self.vb.flamesDown >= 2 then
-			self.vb.phase = 3
+			self:SetStage(3)
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(6)
 			end
@@ -234,7 +233,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerShadowDemon:Start()
 		self:Schedule(74, humanForms, self)
 	elseif (msg == L.Phase4 or msg:find(L.Phase4)) and self.vb.phase < 4 then
-		self.vb.phase = 4
+		self:SetStage(4)
 		self.vb.warned_preP4 = true
 		self:Unschedule(humanForms)
 		timerParasite:Cancel()

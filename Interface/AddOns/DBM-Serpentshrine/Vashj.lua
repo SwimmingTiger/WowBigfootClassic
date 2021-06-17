@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vashj", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210422205657")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(21212)
 mod:SetEncounterID(628, 2463)
 mod:SetModelID(20748)
@@ -44,7 +44,6 @@ mod:AddRangeFrameOption(10, 38280)
 mod:AddSetIconOption("ChargeIcon", 38280, false, false, {1})
 --mod:AddBoolOption("AutoChangeLootToFFA", true)
 
-mod.vb.phase = 1
 mod.vb.shieldLeft = 4
 mod.vb.nagaCount = 1
 mod.vb.striderCount = 1
@@ -68,7 +67,7 @@ end
 
 function mod:OnCombatStart(delay)
 	table.wipe(elementals)
-	self.vb.phase = 1
+	self:SetStage(1)
 	self.vb.shieldLeft = 4
 	self.vb.nagaCount = 1
 	self.vb.striderCount = 1
@@ -159,7 +158,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.DBM_VASHJ_YELL_PHASE2 or msg:find(L.DBM_VASHJ_YELL_PHASE2) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		self.vb.nagaCount = 1
 		self.vb.striderCount = 1
 		self.vb.elementalCount = 1
@@ -177,7 +176,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 --			SetLootMethod("freeforall")
 --		end
 	elseif msg == L.DBM_VASHJ_YELL_PHASE3 or msg:find(L.DBM_VASHJ_YELL_PHASE3) then
-		self.vb.phase = 3
+		self:SetStage(3)
 		warnPhase3:Show()
 		timerNaga:Cancel()
 		warnNaga:Cancel()

@@ -91,7 +91,7 @@ StaticPopupDialogs["CLOSE_BAR"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    preferredIndex = STATICPOPUP_NUMDIALOGS
 }
 function BigFootBarButton_OnLoad(self)
     self.buttonType = "BigFootBarFrame1ActionButton1"

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Attumen", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210513170051")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(16151, 16152)--15550
 mod:SetEncounterID(652, 2444)
 mod:SetModelID(16416)
@@ -21,10 +21,8 @@ local warnPhase2	= mod:NewPhaseAnnounce(2)
 
 local timerCurseCD	= mod:NewCDTimer(27, 43127, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
 
-mod.vb.phase = 1
-
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
@@ -38,7 +36,7 @@ end
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 29799 then
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		timerCurseCD:Start(20.2)
 	-- elseif args.spellId == 29714 then -- when attument arrives

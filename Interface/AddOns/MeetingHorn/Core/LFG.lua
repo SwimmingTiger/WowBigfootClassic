@@ -77,7 +77,9 @@ function LFG:OnEnable()
     self:RegisterSocket('JOIN', 'OnSocketJoin')
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
+    --[[@classic@
     self:RegisterServer('SWORLDBUFF')
+    --@end-classic@]]
     self:RegisterServer('SNOTICE')
 
     self:RegisterChallenge('SGA', 'SGETACTIVITY')
@@ -184,7 +186,7 @@ function LFG:CreateActivity(activity, userInput)
     self.currentCache.comment = activity:GetComment()
     self.activtyTimer:Start(self:GetCooldown())
 
-    self.current = self:RecvActivity(activity:GetChannelName(), UnitGUID('player'), UnitName('player'),
+    self.current = self:RecvActivity(activity:GetChannelName(), UnitGUID('player'), ns.UnitFullName('player'),
                                      activity:ToProto())
 
     if userInput then
@@ -453,12 +455,14 @@ function LFG:SNOTICE(_, text)
     ns.SystemMessage(format('|cff00ffff集结号温馨提示|r: |cff47e53d%s|r', text))
 end
 
+--[[@classic@
 function LFG:SWORLDBUFF(_, enable, data)
     if type(data) == 'table' then
         ns.WorldBuff:SetPos(data)
     end
     self:SendMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED', enable)
 end
+--@end-classic@]]
 
 ---- Challenge
 
@@ -783,7 +787,7 @@ function LFG:SaveInstanceMembers(id)
 
     for unit in ns.IterateGroup() do
         if UnitExists(unit) then
-            local name = UnitName(unit)
+            local name = ns.UnitFullName(unit)
 
             if not members.leader and UnitIsGroupLeader(unit) then
                 members.leader = name
@@ -884,6 +888,7 @@ function LFG:IsFilter(text)
     end
 end
 
+--[[@classic@
 function LFG:WorldBuff(instanceId, npcId, spellId)
     ns.RandomCall(30, self.SendServer, self, 'SWB', instanceId, npcId, spellId, GetServerTime())
 end
@@ -891,3 +896,4 @@ end
 function LFG:KillWorldBuffNpc(instanceId, npcId)
     ns.RandomCall(30, self.SendServer, self, 'SKN', instanceId, npcId, GetServerTime())
 end
+--@end-classic@]]

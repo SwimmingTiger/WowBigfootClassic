@@ -165,10 +165,18 @@ function CSC_GetShapeshiftForm()
 	return shapeIndex;
 end
 
+-- already included by default
 -- returns the bonus hit from Nature's Guidance talent (counts as melee and spell hit)
 function CSC_GetShamanHitFromTalents()
 	-- Nature's Guidance
 	local spellRank = select(5, GetTalentInfo(3, 6));
+	return spellRank;
+end
+
+function CSC_GetShamanHitFromElementalPrecision()
+	local spellRank = select(5, GetTalentInfo(1, 15));
+	spellRank = 2 * spellRank; -- increased by 2% for each rank
+
 	return spellRank;
 end
 

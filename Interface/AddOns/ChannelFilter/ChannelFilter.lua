@@ -967,6 +967,7 @@ function ChannelFilterList_Update()
     end
 end
 StaticPopupDialogs["CHANNEL_FILTER_ADD_WORD"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = CHANNEL_FILTER_ADD_WORD_TEXT,
     button1 = ACCEPT,
     button2 = CANCEL,
@@ -997,10 +998,10 @@ StaticPopupDialogs["CHANNEL_FILTER_ADD_WORD"] = {
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
-    hideOnEscape = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    hideOnEscape = 1
 }
 StaticPopupDialogs["CHANNEL_FILTER_ADD_ORDERWORD"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = CHANNEL_FILTER_ADD_ORDERWORD_TEXT,
     button1 = ACCEPT,
     button2 = CANCEL,
@@ -1031,8 +1032,7 @@ StaticPopupDialogs["CHANNEL_FILTER_ADD_ORDERWORD"] = {
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
-    hideOnEscape = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    hideOnEscape = 1
 }
 function ChannelFilterAddButton_OnClick(self)
     StaticPopup_Show("CHANNEL_FILTER_ADD_WORD")

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Onyxia", "DBM-Onyxia")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403080613")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(10184)
 mod:SetEncounterID(1084)
 mod:SetModelID(8570)
@@ -57,11 +57,10 @@ mod:AddSetIconOption("SetIconOnFireball", 18392, true, false, {8})
 
 mod.vb.warned_preP2 = false
 mod.vb.warned_preP3 = false
-mod.vb.phase = 0
 --mod.vb.whelpsCount = 0
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	--self.vb.whelpsCount = 0
     self.vb.warned_preP2 = false
 	self.vb.warned_preP3 = false
@@ -181,7 +180,7 @@ function mod:OnSync(msg, guid)
 		timerBreath:Start()
 		--timerNextDeepBreath:Start()
 	elseif msg == "Phase2" then
-		self.vb.phase = 2
+		self:SetStage(2)
 		self.vb.whelpsCount = 0
 		warnPhase2:Show()
 		--timerBigAddCD:Start(65)
@@ -198,7 +197,7 @@ function mod:OnSync(msg, guid)
 			self:Schedule(18, DBM.PlaySoundFile, DBM, "Interface\\AddOns\\DBM-Onyxia\\sounds\\whelps-left-side-even-side-handle-it.ogg")
 		end
 	elseif msg == "Phase3" then
-		self.vb.phase = 3
+		self:SetStage(3)
 		warnPhase3:Show()
 		--self:UnscheduleMethod("Whelps")
 		--timerWhelps:Stop()

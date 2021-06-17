@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210422205657")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(19622)
 mod:SetEncounterID(733, 2467)
 mod:SetModelID(20023)
@@ -65,7 +65,6 @@ mod:AddInfoFrameOption(36815, true)
 mod.vb.mcIcon = 8
 local warnConflagTargets = {}
 local warnMCTargets = {}
-mod.vb.phase = 1
 
 local function showConflag()
 	warnConflag:Show(table.concat(warnConflagTargets, "<, >"))
@@ -82,7 +81,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(warnConflagTargets)
 	table.wipe(warnMCTargets)
 	self.vb.mcIcon = 8
-	self.vb.phase = 1
+	self:SetStage(1)
 	timerPhase1mob:Start(32, L.Thaladred)
 end
 
@@ -236,12 +235,12 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	elseif msg == L.YellTelo or msg:find(L.YellTelo) then
 		timerPhase1mob:Start(8.4, L.Telonicus)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerPhase:Start(105)
 		warnPhase2:Show()
 		warnPhase3:Schedule(105)
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
-		self.vb.phase = 3
+		self:SetStage(3)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(10)
 		end
@@ -249,13 +248,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			timerPhase:Start(173)
 		end)
 	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then
-		self.vb.phase = 4
+		self:SetStage(4)
 		warnPhase4:Show()
 		timerPhase:Cancel()
 		timerPhoenixCD:Start(50)
 		timerShieldCD:Start(60)
 	elseif msg == L.YellPhase5 or msg:find(L.YellPhase5) then
-		self.vb.phase = 5
+		self:SetStage(5)
 		timerPhoenixCD:Cancel()
 		timerShieldCD:Cancel()
 		timerPhase:Start(45)

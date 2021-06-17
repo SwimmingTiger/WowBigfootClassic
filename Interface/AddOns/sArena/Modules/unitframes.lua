@@ -56,38 +56,29 @@ module.optionsTable = {
 	},
 }
 
--- Blizzard's ArenaEnemyFrames frame gets moved around a lot, so we'll create our own
-local sArenaEnemyFrames = CreateFrame("Frame", nil, UIParent)
-sArenaEnemyFrames:SetSize(1,1)
-sArenaEnemyFrames:SetMovable(true)
-module.sArenaEnemyFrames = sArenaEnemyFrames
-
 local hiddenFrame = CreateFrame("Frame", nil, UIParent)
 hiddenFrame:Hide()
 
--- attach unit frames to our own sArenaEnemyFrames
-for i = 1, MAX_ARENA_ENEMIES do
-	local arenaFrame = _G["ArenaEnemyFrame"..i]
+local dummyFrame = CreateFrame("Frame", nil, UIParent)
 
-	if i == 1 then
-		arenaFrame:SetPoint("TOP", sArenaEnemyFrames)
-	end
+local sArenaEnemyFrames = ArenaEnemyFrames
+sArenaEnemyFrames:Show()
+sArenaEnemyFrames:SetMovable(true)
 
-	arenaFrame:SetParent(sArenaEnemyFrames)
-	arenaFrame:SetPoint("RIGHT", sArenaEnemyFrames, "RIGHT", -2, 0)
-
-	addon:SetupDrag(module, false, arenaFrame, sArenaEnemyFrames)
-	addon:SetupDrag(module, false, arenaFrame.healthbar, sArenaEnemyFrames)
-	addon:SetupDrag(module, false, arenaFrame.manabar, sArenaEnemyFrames)
-
-	arenaFrame.texture = _G["ArenaEnemyFrame"..i.."Texture"]
-	arenaFrame.background = _G["ArenaEnemyFrame"..i.."Background"]
-end
-
-ArenaEnemyBackground:SetParent(hiddenFrame)
+ArenaEnemyFrames = dummyFrame
 
 function module:OnEvent(event, ...)
 	if event == "ADDON_LOADED" then
+		for i = 1, MAX_ARENA_ENEMIES do
+			local arenaFrame = _G["ArenaEnemyFrame"..i]
+
+			addon:SetupDrag(module, false, arenaFrame, sArenaEnemyFrames)
+			addon:SetupDrag(module, false, arenaFrame.healthbar, sArenaEnemyFrames)
+			addon:SetupDrag(module, false, arenaFrame.manabar, sArenaEnemyFrames)
+		end
+
+		ArenaEnemyBackground:SetParent(hiddenFrame)
+
 		self:OnEvent("UPDATE_SETTINGS")
 	elseif event == "TEST_MODE" then
 		for i = 1, MAX_ARENA_ENEMIES do

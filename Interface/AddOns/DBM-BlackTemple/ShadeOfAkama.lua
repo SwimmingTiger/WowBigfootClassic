@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210422205657")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(22841)
 mod:SetEncounterID(603, 2475)
 mod:SetModelID(21357)
@@ -18,17 +18,16 @@ mod:RegisterEvents(
 )
 
 local warnPhase2		= mod:NewPhaseAnnounce(2)
-local warnDefender		= mod:NewSpellAnnounce("ej15615", 2, 41180)
-local warnSorc			= mod:NewSpellAnnounce("ej15606", 2, 40520)
+local warnDefender		= mod:NewAnnounce("warnAshtongueDefender", 2, 41180)
+local warnSorc			= mod:NewAnnounce("warnAshtongueSorcerer", 2, 40520)
 
 local specWarnAdds		= mod:NewSpecialWarningAddsCustom(216726, "-Healer", nil, nil, 1, 2)
 
 local timerCombatStart	= mod:NewCombatTimer(12)
 local timerAddsCD		= mod:NewAddsCustomTimer(25, 216726)--NewAddsCustomTimer
-local timerDefenderCD	= mod:NewNextTimer(25, "ej15615", nil, nil, nil, 1, 41180)
-local timerSorcCD		= mod:NewNextTimer(25, "ej15606", nil, nil, nil, 1, 40520)
+local timerDefenderCD	= mod:NewTimer(25, "timerAshtongueDefender", 41180, nil, nil, 1)
+local timerSorcCD		= mod:NewTimer(25, "timerAshtongueSorcerer", 40520, nil, nil, 1)
 
-mod.vb.phase = 1
 mod.vb.AddsWestCount = 0
 
 local function addsWestLoop(self)
@@ -66,7 +65,7 @@ local function defenderLoop(self)
 end
 
 function mod:OnCombatStart(delay)
-	self.vb.phase = 1
+	self:SetStage(1)
 	self.vb.AddsWestCount = 0
 	self:RegisterShortTermEvents(
 		"SWING_DAMAGE",
@@ -95,7 +94,7 @@ end
 function mod:SWING_DAMAGE(_, sourceName)
 	if sourceName == L.name and self.vb.phase == 1 then
 		self:UnregisterShortTermEvents()
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		timerAddsCD:Stop()
 		timerDefenderCD:Stop()
@@ -111,7 +110,7 @@ mod.SWING_MISSED = mod.SWING_DAMAGE
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if (spellId == 40607 or spellId == 40955) and self.vb.phase == 1 and self:AntiSpam(3, 1) then--Fixate/Summon Shade of Akama Trigger
 		self:UnregisterShortTermEvents()
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		timerAddsCD:Stop()
 		timerDefenderCD:Stop()

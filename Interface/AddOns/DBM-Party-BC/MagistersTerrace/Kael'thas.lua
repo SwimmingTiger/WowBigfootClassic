@@ -1,12 +1,10 @@
 local mod = DBM:NewMod(533, "DBM-Party-BC", 16, 249)
 local L = mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210422205657")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(24664)
 mod:SetEncounterID(1894)
-mod:SetModelID(22906)--Here for a reason?
-
+mod:SetModelID(22906)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -31,12 +29,11 @@ local timerGravityLapse		= mod:NewBuffActiveTimer(35, 44194, nil, nil, nil, 6)
 local timerGravityLapseCD	= mod:NewNextTimer(13.5, 44194, nil, nil, nil, 6)
 
 mod.vb.interruptable = false
-mod.vb.phase = 1
 
 function mod:OnCombatStart(delay)
 	self.vb.interruptable = false
-	self.vb.phase = 1
-	if not self:IsDifficulty("normal5") then
+	self:SetStage(1)
+	if self:IsHeroic() then
         timerShockBarrior:Start(-delay)
     end
 end
@@ -51,7 +48,7 @@ function mod:SPELL_CAST_START(args)
 		timerGravityLapse:Start()
 		timerGravityLapseCD:Schedule(35)--Show after current lapse has ended
 		if self.vb.phase < 2 then
-			self.vb.phase = 2
+			self:SetStage(2)
 			timerShockBarrior:Stop()
 			timerPhoenix:Stop()
 		end
@@ -82,12 +79,9 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
---TODO, switch to these events if blizzard enables boss1
---	"<231.31 20:53:15> [UNIT_SPELLCAST_SUCCEEDED] Kael'thas Sunstrider(Omegal) [[target:Clear Flight::0:44232]]", -- [530]
---	"<231.31 20:53:15> [UNIT_SPELLCAST_SUCCEEDED] Kael'thas Sunstrider(Omegal) [[target:Power Feedback::0:47109]]", -- [531]
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(_, _, spellId)
 	if spellId == 47109 and self.vb.phase < 2 then--Power Feedback
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerShockBarrior:Stop()
 		timerPhoenix:Stop()
 	end
@@ -95,7 +89,7 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.KaelP2 and self.vb.phase < 2 then
-		self.vb.phase = 2
+		self:SetStage(2)
 		timerShockBarrior:Stop()
 		timerPhoenix:Stop()
 	end

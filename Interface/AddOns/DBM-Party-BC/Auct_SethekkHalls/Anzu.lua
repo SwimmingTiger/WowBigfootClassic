@@ -3,11 +3,12 @@ local L = mod:GetLocalizedStrings()
 
 mod.statTypes = "heroic"
 
-mod:SetRevision("20210422205657")
-
+mod:SetRevision("20210605024644")
 mod:SetCreatureID(23035)
 mod:SetEncounterID(1904)
-
+mod:SetModelID(21492)
+mod:SetModelScale(0.5)
+mod:SetModelOffset(0, 1, 3)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -18,7 +19,7 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_EMOTE"
 )
 
-local warnBirds             = mod:NewSpellAnnounce("ej5253", 2, 32038)
+local warnBirds             = mod:NewAnnounce("warnBrood", 2, 32038)
 local warnStoned            = mod:NewAnnounce("warnStoned", 1, 32810, false)
 local warnCyclone           = mod:NewTargetAnnounce(40321, 2)
 local warnSpellBomb         = mod:NewTargetAnnounce(40303, 2)

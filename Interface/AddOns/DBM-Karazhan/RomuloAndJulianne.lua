@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("RomuloAndJulianne", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210614225835")
 mod:SetCreatureID(17534, 17533, 99999)--99999 bogus creature id to keep mod from pre mature combat end.
 --mod:SetEncounterID(655, 2447)--used by all 3 of them, so not usuable
 mod:SetModelID(17068)
@@ -32,19 +32,13 @@ local timerDaring		= mod:NewTargetTimer(8, 30841, nil, "Tank|MagicDispeller", 2,
 local timerDevotion		= mod:NewTargetTimer(10, 30887, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.MAGIC_ICON)
 local timerCombatStart	= mod:NewCombatTimer(55)
 
-mod.vb.phase = 0
 mod.vb.JulianneDied = 0
 mod.vb.RomuloDied = 0
-
-local function NextPhase(self)
-	self.vb.phase = self.vb.phase + 1
-end
 
 function mod:OnCombatStart(delay)
 	self.vb.JulianneDied = 0
 	self.vb.RomuloDied = 0
-	self.vb.phase = 0
-	NextPhase(self)
+	self:SetStage(1)
 end
 
 function mod:SPELL_CAST_START(args)
@@ -78,7 +72,7 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.DBM_RJ_PHASE2_YELL or msg:find(L.DBM_RJ_PHASE2_YELL) then
 		warnPhase3:Show()
-		NextPhase(self)--Trigger Phase 3
+		self:SetStage(3)
 	elseif msg == L.Event or msg:find(L.Event) then
 		timerCombatStart:Start()
 	end
@@ -95,7 +89,7 @@ function mod:UNIT_DIED(args)
 			end
 		else
 			warnPhase2:Show()
-			NextPhase(self)--Trigger phase 2
+			self:SetStage(2)
 		end
 	elseif cid == 17533 and self:IsInCombat() then
 		if self.vb.phase == 3 then--kill only in phase 3.

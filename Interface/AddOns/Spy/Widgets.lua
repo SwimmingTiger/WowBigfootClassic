@@ -3,7 +3,8 @@ local L = AceLocale:GetLocale("Spy")
 local _
 
 function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
-	local theFrame = CreateFrame("Frame", Name, UIParent)
+--	local theFrame = CreateFrame("Frame", Name, UIParent)
+	local theFrame = CreateFrame("Frame", Name, UIParent, "BackdropTemplate")
 
 	theFrame:ClearAllPoints()
 	theFrame:SetPoint("CENTER", UIParent)
@@ -65,7 +66,8 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 		Spy.Colors:RegisterBackground("Other Windows", "Background", theFrame)
 	end
 
-	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame)	
+--	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame)	
+	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame, "BackdropTemplate")	
 	theFrame.TitleBar:SetFrameStrata("BACKGROUND")
 	if not Spy.db.profile.InvertSpy then	
 		theFrame.TitleBar:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -11)

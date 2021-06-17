@@ -44,7 +44,7 @@ L:SetOptionLocalization{
 L:SetMiscLocalization{
 	DBM_MAG_EMOTE_PULL		= "%s的禁锢开始变弱！",
 	DBM_MAG_YELL_PHASE2		= "我……自由了！",
-	DBM_MAG_YELL_PHASE3		= "I will not be taken so easily! Let the walls of this prison tremble... and fall!"
+	DBM_MAG_YELL_PHASE3		= "我是不会轻易倒下的！让这座牢狱的墙壁颤抖并崩塌吧！"
 }
 
 -- Doom Lord Kazzak

@@ -1,11 +1,10 @@
 local mod = DBM:NewMod(549, "DBM-Party-BC", 15, 254)
 local L = mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210401043939")
-
+mod:SetRevision("20210612174048")
 mod:SetCreatureID(20885)
 mod:SetEncounterID(1913)
+mod:SetModelID(19888)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -28,7 +27,7 @@ function mod:SPELL_CAST_START(args)
 		specwarnHeal:Play("kickcast")
 	elseif args:IsSpellID(36175, 36142) then
 		specwarnWhirlwind:Show()
-		specwarnWhirlwind:Play("whirlwind")--Probably get this sound file renamed to "whirlwind" in 7.0
+		specwarnWhirlwind:Play("whirlwind")
 	end
 end
 

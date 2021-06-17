@@ -1,10 +1,10 @@
 local mod	= DBM:NewMod("Ironhand", "DBM-Party-BC", 13)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
+mod:SetRevision("20210605024644")
 mod:SetCreatureID(19710)
 mod:SetEncounterID(1934)
-mod:SetModelID(21191)--Bad angle, but not terrible enough to disable i guess
+mod:SetModelID(21191)
 
 mod:RegisterCombat("combat")
 

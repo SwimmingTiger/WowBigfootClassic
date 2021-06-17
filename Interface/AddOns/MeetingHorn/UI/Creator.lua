@@ -78,6 +78,7 @@ function Creator:OnCreateClick()
             if not StaticPopupDialogs['MEETINGHORN_INSTANCE_EXISTS'] then
                 StaticPopupDialogs['MEETINGHORN_INSTANCE_EXISTS'] =
                     {
+						preferredIndex = STATICPOPUP_NUMDIALOGS,
                         text = L['|cff00ffff%s|r instance already exists, continue to create?'],
                         button1 = YES,
                         button2 = NO,
@@ -90,7 +91,6 @@ function Creator:OnCreateClick()
                         timeout = 0,
                         exclusive = 1,
                         whileDead = 1,
-                        preferredIndex = STATICPOPUP_NUMDIALOGS,
                     }
             end
             StaticPopup_Show('MEETINGHORN_INSTANCE_EXISTS', instanceName, nil,

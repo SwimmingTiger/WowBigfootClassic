@@ -82,6 +82,7 @@ BigFoot_Config = {}
 BigFoot_Error = {}
 BigFoot_Character = {}
 StaticPopupDialogs["RELOADUI_CONFIRM"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = BF_RELOADUI_CONFIRM,
     button1 = YES,
     button2 = NO,
@@ -90,8 +91,7 @@ StaticPopupDialogs["RELOADUI_CONFIRM"] = {
     end,
     showAlert = 1,
     timeout = 0,
-    hideOnEscape = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    hideOnEscape = 1
 }
 local function BigFoot_fff18c914a5b3a8d509f2dff0f3fc382()
     local BigFoot_9e83872083ad957c8f380801be754171

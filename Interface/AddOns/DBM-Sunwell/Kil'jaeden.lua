@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kil", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(25315)
 mod:SetEncounterID(729, 2493)
 mod:SetModelID(23200)
@@ -47,7 +47,6 @@ mod:AddBoolOption("RangeFrame", true)
 local warnBloomTargets = {}
 local orbGUIDs = {}
 mod.vb.bloomIcon = 8
-mod.vb.phase = 1
 
 local function showBloomTargets(self)
 	warnBloom:Show(table.concat(warnBloomTargets, "<, >"))
@@ -60,7 +59,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(warnBloomTargets)
 	table.wipe(orbGUIDs)
 	self.vb.bloomIcon = 8
-	self.vb.phase = 1
+	self:SetStage(1)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show()
@@ -130,7 +129,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 45848 then
 		warnShield:Show()
 	elseif args.spellId == 45892 then
-		self.vb.phase = self.vb.phase + 1
+		self:SetStage(0)
 		if self.vb.phase == 2 then
 			warnPhase2:Show()
 			timerBlueOrb:Start()

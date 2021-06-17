@@ -800,7 +800,7 @@ local EnchantSpellDB = {
 }
 
 function lib:GetEnchantSpellID(ItemLink)
-    local enchant = tonumber(string.match(ItemLink, "item:%d+:(%d+):"))
+    local enchant = tonumber(strmatch(ItemLink, "item:%d+:(%d+):"))
     if (enchant and EnchantSpellDB[enchant]) then
         return EnchantSpellDB[enchant], enchant
     end
@@ -808,9 +808,18 @@ function lib:GetEnchantSpellID(ItemLink)
 end
 
 function lib:GetEnchantItemID(ItemLink)
-    local enchant = tonumber(string.match(ItemLink, "item:%d+:(%d+):"))
+    local enchant = tonumber(strmatch(ItemLink, "item:%d+:(%d+):"))
     if (enchant and EnchantItemDB[enchant]) then
         return EnchantItemDB[enchant], enchant
     end
     return nil, enchant
 end
+
+function lib:GetEnchant(ItemLink)
+    local enchant = tonumber(strmatch(ItemLink, "item:%d+:(%d+):"))
+    if enchant then
+        return enchant, EnchantSpellDB[enchant], EnchantItemDB[enchant]
+    end
+    return nil
+end
+

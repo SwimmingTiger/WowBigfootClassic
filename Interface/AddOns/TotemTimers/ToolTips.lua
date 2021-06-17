@@ -66,6 +66,7 @@ end
 
 
 function TotemTimers.TotemTooltip(self)
+    if not self:GetAttribute("tooltip") then return end
     local spell = self:GetAttribute("*spell1")
     if spell and type(spell) == "string" then spell = TotemTimers.NameToSpellID[spell] end
     TotemTimers.PositionTooltip(self)
@@ -75,17 +76,13 @@ function TotemTimers.TotemTooltip(self)
 
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(L["Leftclick to cast spell"],r,g,b,1)
-    local button = L["Fire Button"]
-    if self.bar.order == 2 then button = L["Earth Button"]
-    elseif self.bar.order == 3 then button = L["Water Button"]
-    elseif self.bar.order == 4 then button = L["Air Button"] end
     GameTooltip:AddLine(L["Rightclick to assign totem to timer button"],r,g,b,1)
     GameTooltip:Show()
 end
 
 
 function TotemTimers.SetTooltip(self)
-    if not TotemTimers.ActiveProfile.Tooltips then return end
+    if not self:GetAttribute("tooltip") then return end
     TotemTimers.PositionTooltip(self)
     GameTooltip:AddLine(L["Leftclick to open totem set menu"],r,g,b,1)
     GameTooltip:AddLine(L["Rightclick to save active totem configuration as set"],r,g,b,1)
@@ -100,27 +97,22 @@ function TotemTimers.SetButtonTooltip(self)
 end
 
 function TotemTimers.WeaponButtonTooltip(self)
-    if not TotemTimers.ActiveProfile.Tooltips then return end
+    if not self:GetAttribute("tooltip")  then return end
+
     GameTooltip:ClearLines()
     TotemTimers.PositionTooltip(self)
-    local text = "-"
-    if self.timer.timers[1]>0 and TotemTimers.ActiveProfile.LastMainEnchants[TotemTimers.MainHand] then
-        text = TotemTimers.ActiveProfile.LastMainEnchants[TotemTimers.MainHand][1] or "?"
-    end
-    if self.timer.nrOfTimers == 2 and self.timer.timers[2] > 0 and TotemTimers.ActiveProfile.LastOffEnchants[TotemTimers.OffHand] then
-        text = text..", "..(TotemTimers.ActiveProfile.LastOffEnchants[TotemTimers.OffHand][1])
-    elseif self.timer.nrOfTimers > 1 then
-        text = text..", ?"
-    end
-    if not text then text = " " end
-    GameTooltip:AddLine(text)
-    local s = self:GetAttribute("spell1")
-    if s and not self:GetAttribute("doublespell1") then
-        local n = GetSpellInfo(s)
-        if n ~= nil then
-            text = format(L["Leftclick to cast %s"], n)
-            GameTooltip:AddLine(text,r,g,b,1)
+
+    for i = 1, 2 do
+        if self.timer.timers[i] > 0 then
+            GameTooltip:AddLine(self.timer["enchant"..i])
         end
+    end
+
+    GameTooltip:AddLine(" ")
+
+    local spell= self:GetAttribute("spell1")
+    if spell and not self:GetAttribute("doublespell1") then
+        GameTooltip:AddLine(format(L["Leftclick to cast %s"], spell),r,g,b,1)
     else
         local ds = self:GetAttribute("ds")
         if ds then
@@ -133,6 +125,10 @@ function TotemTimers.WeaponButtonTooltip(self)
             end
         end
     end
+    local spell2 = self:GetAttribute("spell2")
+    if spell2 then
+        GameTooltip:AddLine(format(L["Rightclick to cast %s"], spell2),r,g,b,1)
+    end
     --[[s = self:GetAttribute("spell2")
     if s then GameTooltip:AddLine(format(L["Rightclick to cast %s"],s),r,g,b,1)
     else
@@ -140,6 +136,34 @@ function TotemTimers.WeaponButtonTooltip(self)
         GameTooltip:AddLine(format(L["Middleclick to cast %s"],s),r,g,b,1)
     end --]]
     --GameTooltip:AddLine(L["Ctrl-Leftclick to remove weapon buffs"],r,g,b,1)
+    GameTooltip:Show()
+end
+
+function TotemTimers.WeaponBarTooltip(self)
+    if not self:GetAttribute("tooltip") then return end
+
+    local spell = self:GetAttribute("*spell1")
+    local doublespell = self:GetAttribute("doublespell1")
+
+    TotemTimers.PositionTooltip(self)
+
+    if not doublespell then
+        if spell and type(spell) == "string" then spell = TotemTimers.NameToSpellID[spell] end
+        if spell and spell > 0 then
+            SetTooltipSpellID(spell)
+        end
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(L["Leftclick to cast spell"],r,g,b,1)
+        GameTooltip:AddLine(L["Rightclick to assign to weapon button leftclick"],r,g,b,1)
+        GameTooltip:AddLine(L["Shift-Rightclick to assign to weapon button leftclick"],r,g,b,1)
+    else
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(doublespell,1,1,1)
+        GameTooltip:AddLine(self:GetAttribute("doublespell2"),1,1,1)
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine(L["Rightclick to assign to weapon button rightclick"],r,g,b,1)
+    end
+
     GameTooltip:Show()
 end
 

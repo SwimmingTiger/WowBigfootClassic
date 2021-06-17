@@ -171,17 +171,11 @@ function frame:DisplayFrame(frame)
 				bossPreview.currentMod = mod
 				bossPreview:Show()
 				bossPreview:ClearModel()
-				bossPreview:SetDisplayInfo(mod.modelId or 0)
-				if mod.modelScale then
-					bossPreview:SetModelScale(mod.modelScale)
-				end
-				if mod.modelOffsetX then
-					bossPreview:SetPosition(mod.modelOffsetX, mod.modelOffsetY, mod.modelOffsetZ)
-				end
-				if mod.modelRotation then
-					bossPreview:SetFacing(mod.modelRotation)
-				end
+				bossPreview:SetModelScale(1)
+				bossPreview:SetPosition(mod.modelOffsetX or 0, mod.modelOffsetY or 0, mod.modelOffsetZ or 0)
+				bossPreview:SetFacing(mod.modelRotation or 0)
 				bossPreview:SetSequence(mod.modelSequence or 4)
+				bossPreview:SetDisplayInfo(mod.modelId or 0)
 				if mod.modelSoundShort and DBM.Options.ModelSoundValue == "Short" then
 					DBM:PlaySoundFile(mod.modelSoundShort)
 				elseif mod.modelSoundLong and DBM.Options.ModelSoundValue == "Long" then

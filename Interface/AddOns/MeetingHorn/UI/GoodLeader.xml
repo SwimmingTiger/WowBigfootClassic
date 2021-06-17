@@ -1,9 +1,12 @@
 <Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <Frame name="GoodLeaderRaidTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_12_12_4444" type="global"/>
+        </KeyValues>
         <Size x="90" y="62"/>
         <Layers>
-            <Layer level="BACKGROUND">
+            <Layer level="BACKGROUND" textureSubLevel="1">
                 <Texture parentKey="Image">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="3" y="-3"/>
@@ -39,17 +42,7 @@
                 </FontString>
             </Layer>
         </Layers>
-        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-            <EdgeSize>
-                <AbsValue val="12"/>
-            </EdgeSize>
-            <TileSize>
-                <AbsValue val="12"/>
-            </TileSize>
-            <BackgroundInsets>
-                <AbsInset left="5" right="5" top="5" bottom="5"/>
-            </BackgroundInsets>
-        </Backdrop>
+        
         <Scripts>
             <OnLoad>
                 LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')

@@ -24,9 +24,7 @@ function TotemTimers.InitSetButtons()
     TotemTimers.ProgramSetButtons()
     ankh:WrapScript(XiTimers.timers[5].button, "OnClick",
                                                             [[ if button == "LeftButton" then
-                                                                local open = self:GetAttribute("open")
-                                                                control:ChildUpdate("show", not open)
-																self:SetAttribute("open", not open)
+                                                                control:ChildUpdate("toggle")
                                                             end ]])
     ankh.HideTooltip = TotemTimers.HideTooltip
     ankh.ShowTooltip = TotemTimers.SetTooltip
@@ -52,6 +50,7 @@ function TotemTimers.ProgramSetButtons()
         if not b then
             b = CreateFrame("Button", "TotemTimers_SetButton"..i, XiTimers.timers[5].button, "TotemTimers_SetButtonTemplate")
             b:SetAttribute("_childupdate-show", [[ if message and not self:GetAttribute("inactive") then self:Show() else self:Hide() end ]])
+            b:SetAttribute("_childupdate-toggle", [[ if not self:GetAttribute("inactive") then if self:IsVisible() then self:Hide() else self:Show() end end ]])
             b:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip")  ]]) 
             b:SetAttribute("_onenter", [[ control:CallMethod("ShowTooltip") ]])
             b.nr = i
@@ -96,7 +95,8 @@ end
 
 function TotemTimers.SetButton_OnClick(self, button)
     if InCombatLockdown() then return end
-    XiTimers.timers[5].button:SetAttribute("hide", true)
+    --XiTimers.timers[5].button:SetAttribute("hide", true)
+    self:GetParent():Execute([[ owner:ChildUpdate("show", false) ]])
 	if button == "RightButton" then
 		local popup = StaticPopup_Show("TOTEMTIMERS_DELETESET", self.nr)
 		popup.data = self.nr
@@ -125,5 +125,4 @@ StaticPopupDialogs["TOTEMTIMERS_DELETESET"] = {
   hideOnEscape = 1,
   timeout = 0,
   OnAccept = TotemTimers_DeleteSet,
-  preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

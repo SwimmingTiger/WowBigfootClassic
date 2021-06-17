@@ -83,15 +83,6 @@ local SHORT_NAMES = {
     -- P(5, 3):raid(3805) -- 祖阿曼
     -- P(5, 4):raid(4075) -- 太阳井
 }
-local INSTANCE_NAMES = {
-    [C_Map.GetAreaInfo(2717)] = C_Map.GetAreaInfo(2717), -- 熔火之心
-    [C_Map.GetAreaInfo(2159)] = C_Map.GetAreaInfo(2159), -- 奥妮克希亚的巢穴
-    [C_Map.GetAreaInfo(2677)] = C_Map.GetAreaInfo(2677), -- 黑翼之巢
-    [C_Map.GetAreaInfo(3428)] = L['Ahn\'Qiraj Temple'], -- 安其拉神殿
-    [C_Map.GetAreaInfo(3456)] = C_Map.GetAreaInfo(3456), -- 纳克萨玛斯
-    [C_Map.GetAreaInfo(1977)] = C_Map.GetAreaInfo(1977), -- 祖尔格拉布
-    [C_Map.GetAreaInfo(3429)] = C_Map.GetAreaInfo(3429), -- 安其拉废墟
-}
 
 local PROJECTS = {[2] = {[2] = true}, [5] = {[2] = true, [5] = true}}
 
@@ -148,7 +139,7 @@ function InstanceBuilder:base(name, path, minLevel, members, class)
         category = CATEGORY_DATA[path],
         minLevel = minLevel or 0,
         class = class,
-        instanceName = INSTANCE_NAMES[name],
+        instanceName = ns.GetInstanceName(name),
         id = id,
     })
 

@@ -14,9 +14,7 @@ function MainPanel:Constructor()
     self:SetupTabs({
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
-        --[=[@classic@
         {'好团长', self.GoodLeader}, --
-        --@end-classic@]=]
         {L['Encounter'], self.Encounter}, --
         {L['Recent members'], self.Recent}, --
         --[=[@classic@

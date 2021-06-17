@@ -1,11 +1,10 @@
 local mod = DBM:NewMod(532, "DBM-Party-BC", 16, 249)
 local L = mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210401043939")
-
+mod:SetRevision("20210605024644")
 mod:SetCreatureID(24560)--24560 is main boss.
 mod:SetEncounterID(1895)
+mod:SetModelID(22596)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(

@@ -76,6 +76,7 @@ local joinChannelFunc = function(channel)
     end
 end
 StaticPopupDialogs["BFC_COPYTEXT"] = {
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Press Ctrl-C to Copy the text"],
     hasEditBox = 1,
     maxLetters = 255,
@@ -105,8 +106,7 @@ StaticPopupDialogs["BFC_COPYTEXT"] = {
     end,
     timeout = 0,
     whileDead = 1,
-    hideOnEscape = 1,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
+    hideOnEscape = 1
 }
 local function generateIconMap()
     for BFChat_63a9ce6f1eeac72ef41293b7d0303335, BFChat_8d0644c92128c1ff68223fd74ba63b56 in pairs(BFC_IconTable) do

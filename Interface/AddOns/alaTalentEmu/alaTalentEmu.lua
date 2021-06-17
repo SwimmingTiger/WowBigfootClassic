@@ -1,10 +1,5 @@
 ﻿--[[--
 	by ALA @ 163UI
-	DATA FROM WEB SOURCE CODE OF WOWHEAD
-	数据来源于wowhead网页源代码
-	Please Keep WOW Addon open-source & Reduce barriers for others.
-	复用代码请在显著位置标注来源【ALA@网易有爱】
-	请勿加密、乱码、删除空格tab换行符、设置加载依赖
 --]]--
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
@@ -27,7 +22,7 @@ do
 	end
 	setfenv(1, NS.__fenv);
 end
-local __rt = __ala_meta__.__rt;
+local __emulib = __ala_meta__.__emulib;
 
 local L = NS.L;
 if not L then return; end
@@ -74,7 +69,7 @@ local curPhase = 6;
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------local
 	local function _log_(...)
-		-- print(date('\124cff00ff00%H:%M:%S\124r'), ...);
+		print(date('\124cff00ff00%H:%M:%S\124r'), ...);
 	end
 	local function _error_(...)
 		print(date('\124cffff0000%H:%M:%S\124r'), ...);
@@ -397,8 +392,8 @@ local curPhase = 6;
 	};
 	--------------------------------------------------
 	local _talentDB = nil;
-	local _indexToClass = __rt.classList;
-	local _classToIndex = __rt.classHash;
+	local _indexToClass = __emulib.classList;
+	local _classToIndex = __emulib.classHash;
 	local _classTab = NS._classTab;
 	local _talentTabIcon = NS._talentTabIcon;
 	local _BG0 = NS._BG0;
@@ -457,13 +452,13 @@ Mixin(NS, {
 	mainFrames = { num = 0, used = 0, },
 	inspectButtonKeyFunc = IsAltKeyDown,
 	applyingMainFrame = false,
-	playerFactionGroup = UnitFactionGroup('player'),
-	playerClassUpper = UnitClassBase('player'),
-	playerClassLower = strlower(UnitClassBase('player')),
-	playerGUID = UnitGUID('player'),
-	playerName = UnitName('player'),
-	realm = GetRealmName(),
-	playerFullName = UnitName('player') .. "-" .. GetRealmName(),
+	CPlayerFactionGroup = UnitFactionGroup('player'),
+	CPlayerClassUpper = UnitClassBase('player'),
+	CPlayerClassLower = strlower(UnitClassBase('player')),
+	CPlayerGUID = UnitGUID('player'),
+	CPlayerName = UnitName('player'),
+	CRealmName = GetRealmName(),
+	CPlayerFullName = UnitName('player') .. "-" .. GetRealmName(),
 	POPUP_ON_RECV = {  },
 	PREV_QUERY_SENT_TIME = {  },
 	specializedMainFrameInspect = {  },
@@ -475,7 +470,7 @@ Mixin(NS, {
 	INSPECT_WAIT_TIME = 10,
 	TOOLTIP_UPDATE_DELAY = 0.02,
 });
-NS.playerFullName_Len = #(NS.playerFullName);
+NS.CPlayerFullName_Len = #(NS.CPlayerFullName);
 
 local SET, VAR = nil, nil;
 
@@ -849,8 +844,8 @@ end
 				local _detalhes = { realversion = 140, };
 				extern.addon[CONST_DETAILS_PREFIX] = {
 					addon = "Details",
-					msg = "^S" .. CONST_ASK_TALENTS .. NS.playerName .. "^S" .. NS.realm .. "^N" ..  _detalhes.realversion .. "^S" .. NS.playerGUID .. "^^",
-					fmt = "^S" .. CONST_ANSWER_TALENTS .. "^S" .. NS.playerName .. "^S" .. NS.realm .. "^N" .. _detalhes.realversion .. "^S" .. NS.playerGUID .. "^N0^S(.+)^N(%d)+";
+					msg = "^S" .. CONST_ASK_TALENTS .. NS.CPlayerName .. "^S" .. NS.CRealmName .. "^N" ..  _detalhes.realversion .. "^S" .. NS.CPlayerGUID .. "^^",
+					fmt = "^S" .. CONST_ANSWER_TALENTS .. "^S" .. NS.CPlayerName .. "^S" .. NS.CRealmName .. "^N" .. _detalhes.realversion .. "^S" .. NS.CPlayerGUID .. "^N0^S(.+)^N(%d)+";
 					handler = function(meta, code)
 						-- "^N"
 					end
@@ -998,7 +993,7 @@ end
 					return class, data, level;
 				end
 			end
-			return __rt.DecodeTalentData(code, not useCodeLevel and MAX_LEVEL)
+			return __emulib.DecodeTalentData(code, not useCodeLevel and MAX_LEVEL)
 		end
 		-- arg			[mainFrame] or [class, data, level]
 		-- return		code
@@ -1012,7 +1007,7 @@ end
 							type(talentFrames[3]) == 'table' and type(talentFrames[3].talentSet) == 'table'
 					then
 					--
-					return __rt.EncodeTalentData(_classToIndex[mainFrame.class], mainFrame.level,
+					return __emulib.EncodeTalentData(_classToIndex[mainFrame.class], mainFrame.level,
 								talentFrames[1].talentSet, talentFrames[2].talentSet, talentFrames[3].talentSet,
 								#talentFrames[1].db, #talentFrames[2].db, #talentFrames[3].db
 							);
@@ -1034,12 +1029,12 @@ end
 				end
 				if type(data) == 'string' then
 					local DB = _talentDB[class];
-					__rt.EncodeTalentData(classIndex, (level and tonumber(level)) or MAX_LEVEL,
+					return __emulib.EncodeTalentData(classIndex, (level and tonumber(level)) or MAX_LEVEL,
 								data,
 								#DB[classTalent[1]], #DB[classTalent[2]], #DB[classTalent[3]]);
 				elseif type(data) == 'table' and type(data[1]) == 'table' and type(data[2]) == 'table' and type(data[3]) == 'table' then
 					local DB = _talentDB[class];
-					__rt.EncodeTalentData(classIndex, (level and tonumber(level)) or MAX_LEVEL,
+					return __emulib.EncodeTalentData(classIndex, (level and tonumber(level)) or MAX_LEVEL,
 								data[1], data[2], data[3],
 								#DB[classTalent[1]], #DB[classTalent[2]], #DB[classTalent[3]]);
 				else
@@ -1058,7 +1053,7 @@ end
 			if name then
 				local objects = mainFrame.objects;
 				objects.label:SetText(name);
-				local info = __rt.DecodeAddonPackData(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack);
+				local info = __emulib.DecodeAddonPackData(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack);
 				if info then
 					objects.pack_label:SetText(info);
 					objects.pack_label:Show();
@@ -1246,7 +1241,7 @@ end
 				mainFrame.DB = DB;
 				mainFrame.initialized = true;
 
-				if NS.playerClassUpper == class then
+				if NS.CPlayerClassUpper == class then
 					mainFrame.applyTalentsButton:Show();
 				else
 					mainFrame.applyTalentsButton:Hide();
@@ -2011,7 +2006,7 @@ end
 			local cache = NS.queryCache[name];
 			if cache ~= nil then
 				local readOnly = false;
-				if name ~= NS.playerName then
+				if name ~= NS.CPlayerName then
 					readOnly = true;
 				end
 				if NS.POPUP_ON_RECV[name] then
@@ -2041,24 +2036,24 @@ end
 	end
 
 	do	-- communication func
-		local ADDON_PREFIX = __rt.__emu_meta.ADDON_PREFIX;
-		local ADDON_MSG_CONTROL_CODE_LEN = __ala_meta__.ADDON_MSG_CONTROL_CODE_LEN;
-		local ADDON_MSG_QUERY_TALENTS = __rt.__emu_meta.ADDON_MSG_QUERY_TALENTS;
-		local ADDON_MSG_REPLY_TALENTS = __rt.__emu_meta.ADDON_MSG_REPLY_TALENTS;
-		local ADDON_MSG_PUSH = __rt.__emu_meta.ADDON_MSG_PUSH;
-		local ADDON_MSG_PUSH_RECV = __rt.__emu_meta.ADDON_MSG_PUSH_RECV;
-		local ADDON_MSG_PULL = __rt.__emu_meta.ADDON_MSG_PULL;
+		local ADDON_PREFIX = __emulib.ADDON_PREFIX;
+		local ADDON_MSG_CONTROL_CODE_LEN = __emulib.ADDON_MSG_CONTROL_CODE_LEN;
+		local ADDON_MSG_QUERY_TALENTS = __emulib.ADDON_MSG_QUERY_TALENTS;
+		local ADDON_MSG_REPLY_TALENTS = __emulib.ADDON_MSG_REPLY_TALENTS;
+		local ADDON_MSG_PUSH = __emulib.ADDON_MSG_PUSH;
+		local ADDON_MSG_PUSH_RECV = __emulib.ADDON_MSG_PUSH_RECV;
+		local ADDON_MSG_PULL = __emulib.ADDON_MSG_PULL;
 		--
-		local ADDON_MSG_QUERY_EQUIPMENTS = __rt.__emu_meta.ADDON_MSG_QUERY_EQUIPMENTS;
-		local ADDON_MSG_REPLY_EQUIPMENTS = __rt.__emu_meta.ADDON_MSG_REPLY_EQUIPMENTS;
-		local ADDON_MSG_REPLY_ADDON_PACK = __rt.__emu_meta.ADDON_MSG_REPLY_ADDON_PACK;
+		local ADDON_MSG_QUERY_EQUIPMENTS = __emulib.ADDON_MSG_QUERY_EQUIPMENTS;
+		local ADDON_MSG_REPLY_EQUIPMENTS = __emulib.ADDON_MSG_REPLY_EQUIPMENTS;
+		local ADDON_MSG_REPLY_ADDON_PACK = __emulib.ADDON_MSG_REPLY_ADDON_PACK;
 		----------------
-		local ADDON_MSG_QUERY_TALENTS_ = __rt.__emu_meta.ADDON_MSG_QUERY_TALENTS_;
-		local ADDON_MSG_REPLY_TALENTS_ = __rt.__emu_meta.ADDON_MSG_REPLY_TALENTS_;
+		local ADDON_MSG_QUERY_TALENTS_ = __emulib.ADDON_MSG_QUERY_TALENTS_;
+		local ADDON_MSG_REPLY_TALENTS_ = __emulib.ADDON_MSG_REPLY_TALENTS_;
 		--	old version compatibility
-		local ADDON_MSG_QUERY_EQUIPMENTS_ = __rt.__emu_meta.ADDON_MSG_QUERY_EQUIPMENTS_;
-		local ADDON_MSG_REPLY_EQUIPMENTS_ = __rt.__emu_meta.ADDON_MSG_REPLY_EQUIPMENTS_;
-		local ADDON_MSG_REPLY_ADDON_PACK_ = __rt.__emu_meta.ADDON_MSG_REPLY_ADDON_PACK_;
+		local ADDON_MSG_QUERY_EQUIPMENTS_ = __emulib.ADDON_MSG_QUERY_EQUIPMENTS_;
+		local ADDON_MSG_REPLY_EQUIPMENTS_ = __emulib.ADDON_MSG_REPLY_EQUIPMENTS_;
+		local ADDON_MSG_REPLY_ADDON_PACK_ = __emulib.ADDON_MSG_REPLY_ADDON_PACK_;
 		--------------------------------------------------
 		function NS.push_recv_msg(code, sender, GUID, title, colored_title)
 			for i = 1, #NS.recv_msg do
@@ -2152,7 +2147,7 @@ end
 		function NS.EmuSub_SendMessage(channel, target, _1, _2, _3)
 			local code = NS.EmuCore_Encoder(_1, _2, _3);
 			if code then
-				local GUID = NS.playerGUID;
+				local GUID = NS.CPlayerGUID;
 				SendAddonMessage(ADDON_PREFIX, ADDON_MSG_PUSH .. code .. "#" .. GUID, channel, target);
 			end
 		end
@@ -2163,31 +2158,31 @@ end
 				--[[if control_code == ADDON_MSG_QUERY_TALENTS then			--	moved to ala/core.lua
 					if channel == "INSTANCE_CHAT" then
 						local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-						if target ~= NS.playerFullName then
+						if target ~= NS.CPlayerFullName then
 							return;
 						end
 					end
-					local code = __rt.GetEncodedPlayerTalentData(MAX_LEVEL);
+					local code = __emulib.GetEncodedPlayerTalentData(MAX_LEVEL);
 					if code then
 						if channel == "INSTANCE_CHAT" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __rt.GetAddonPackData(), "INSTANCE_CHAT");
+							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "INSTANCE_CHAT");
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
 						else--if channel == "WHISPER" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __rt.GetAddonPackData(), "WHISPER", sender);
+							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "WHISPER", sender);
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
 						end
 					end
 				elseif control_code == ADDON_MSG_QUERY_EQUIPMENTS then
 					if channel == "INSTANCE_CHAT" then
 						local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-						if target ~= NS.playerFullName then
+						if target ~= NS.CPlayerFullName then
 							return;
 						end
 					end
-					local data = __rt.EncodeEquipmentData();
+					local data = __emulib.EncodeEquipmentData();
 					for _, msg in next, data do
 						if channel == "INSTANCE_CHAT" then
-							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. NS.realm, "INSTANCE_CHAT");
+							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. NS.CRealmName, "INSTANCE_CHAT");
 						else--if channel == "WHISPER" then
 							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
 						end
@@ -2196,7 +2191,7 @@ end
 					local code = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
 					if code and code ~= "" then
 						local _1, _2 = strsplit("#", code);
-						if not _2 or _2 == NS.playerName or _2 == NS.playerFullName or strsub(_2, 1, NS.playerFullName_Len) == NS.playerFullName then	-- OLDVERSION
+						if not _2 or _2 == NS.CPlayerName or _2 == NS.CPlayerFullName or strsub(_2, 1, NS.CPlayerFullName_Len) == NS.CPlayerFullName then	-- OLDVERSION
 							code = _1;
 						else
 							return;
@@ -2223,7 +2218,7 @@ end
 					-- NS.specializedMainFrameInspect
 					if code and code ~= "" then
 						local _1, _2 = strsplit("#", code);
-						if not _2 or _2 == NS.playerName or _2 == NS.playerFullName or strsub(_2, 1, NS.playerFullName_Len) == NS.playerFullName then	-- OLDVERSION
+						if not _2 or _2 == NS.CPlayerName or _2 == NS.CPlayerFullName or strsub(_2, 1, NS.CPlayerFullName_Len) == NS.CPlayerFullName then	-- OLDVERSION
 							code = _1;
 						else
 							return;
@@ -2235,7 +2230,7 @@ end
 							cache = {  };
 							NS.queryCache[name] = cache;
 						end
-						if __rt.DecodeEquipmentData(cache, code) then
+						if __emulib.DecodeEquipmentData(cache, code) then
 							_EventHandler:FireEvent("USER_EVENT_DATA_RECV", name);
 							_EventHandler:FireEvent("USER_EVENT_INVENTORY_DATA_RECV", name);
 						end
@@ -2270,11 +2265,11 @@ end
 									MSG(channel, name, NS.EmuSub_GenerateLink(GUID, title, class, code), zoneChannelID, GUID);
 									NS.push_recv_msg(code, name, GUID, title, NS.EmuSub_GenerateTitleFromRawData(data, class));
 									if channel == "WHISPER" then
-										SendAddonMessage(ADDON_PREFIX, ADDON_MSG_PUSH_RECV .. code .. "#" .. NS.playerGUID, "WHISPER", sender);
+										SendAddonMessage(ADDON_PREFIX, ADDON_MSG_PUSH_RECV .. code .. "#" .. NS.CPlayerGUID, "WHISPER", sender);
 									end
 									GetPlayerInfoByGUID(GUID);
 								elseif control_code == ADDON_MSG_PUSH_RECV then
-									MSG("WHISPER_INFORM", name, NS.EmuSub_GenerateLink(NS.playerGUID, title, class, code), zoneChannelID, GUID);
+									MSG("WHISPER_INFORM", name, NS.EmuSub_GenerateLink(NS.CPlayerGUID, title, class, code), zoneChannelID, GUID);
 								end
 							end
 						end
@@ -2288,8 +2283,8 @@ end
 						_EventHandler:FireEvent("USER_EVENT_DATA_RECV", name);
 					end
 				end
-				-- local msg = _detalhes:Serialize (CONST_ANSWER_TALENTS, NS.playerName, NS.realm, _detalhes.realversion, UnitGUID ("player"), 0, compressedTalents, Details.playerClassUppericSpec.specs)
-				-- local msg = CONST_ANSWER_TALENTS .. NS.playerName .. NS.realm .. _detalhes.realversion .. UnitGUID ("player") .. 0 .. compressedTalents .. Details.playerClassUppericSpec.specs
+				-- local msg = _detalhes:Serialize (CONST_ANSWER_TALENTS, NS.CPlayerName, NS.CRealmName, _detalhes.realversion, UnitGUID ("player"), 0, compressedTalents, Details.CPlayerClassUppericSpec.specs)
+				-- local msg = CONST_ANSWER_TALENTS .. NS.CPlayerName .. NS.CRealmName .. _detalhes.realversion .. UnitGUID ("player") .. 0 .. compressedTalents .. Details.CPlayerClassUppericSpec.specs
 				-- (CONST_DETAILS_PREFIX, msg, "WHISPER", targetPlayer)
 			end
 		end
@@ -2301,10 +2296,10 @@ end
 					name = n;
 					realm = r;
 				elseif realm == nil or realm == "" then
-					realm = NS.realm;
+					realm = NS.CRealmName;
 				end
 				local target = name .. "-" .. realm;
-				if realm ~= NS.realm then
+				if realm ~= NS.CRealmName then
 					name = name .. "-" .. realm;
 				end
 				NS.POPUP_ON_RECV[name] = not mute;
@@ -2314,7 +2309,7 @@ end
 				local update_inv = force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_inv == nil or (t - (NS.queryCache[name].time_inv or (-DATA_VALIDITY))) > DATA_VALIDITY));
 				if update_tal or update_inv then
 					NS.PREV_QUERY_SENT_TIME[name] = t;
-					if UnitInBattleground('player') and realm ~= NS.realm then
+					if UnitInBattleground('player') and realm ~= NS.CRealmName then
 						if update_tal then
 							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_QUERY_TALENTS .. "#" .. target, "INSTANCE_CHAT");
 						end
@@ -2332,7 +2327,7 @@ end
 						end
 					end
 					for _, val in next, extern.addon do
-						if UnitInBattleground('player') and realm ~= NS.realm then
+						if UnitInBattleground('player') and realm ~= NS.CRealmName then
 						else
 							if val.msg then
 								SendAddonMessage(val.prefix, val.msg, "WHISPER", target);
@@ -2397,7 +2392,7 @@ end
 			NS.EmuSub_InventoryDataRecv(name);
 		end
 		function NS.Emu_ApplyTalents(mainFrame)
-			if NS.playerClassUpper == mainFrame.class then
+			if NS.CPlayerClassUpper == mainFrame.class then
 				if TalentFrame_Update then
 					pcall(TalentFrame_Update);
 				end
@@ -2456,7 +2451,7 @@ end
 					end
 				end
 				if not mainFrame.initialized then
-					class = NS.playerClassUpper;
+					class = NS.CPlayerClassUpper;
 					if not NS.Emu_Set(mainFrame, class, nil, MAX_LEVEL, nil, nil) then
 						mainFrame:Hide();
 						return nil;
@@ -2464,7 +2459,7 @@ end
 				end
 			else
 				if not class or class == "" then
-					class = NS.playerClassUpper;
+					class = NS.CPlayerClassUpper;
 				end
 				if not NS.Emu_Set(mainFrame, class, data, tonumber(level) or MAX_LEVEL, readOnly, name, free_edit) then
 					mainFrame:Hide();
@@ -3276,7 +3271,7 @@ end
 				elseif data[1] > 0 then
 					GameTooltip:AddLine(L.spellTabGTTReqLevel .. data[1], 1.0, 0.75, 0.5);
 				end
-				if NS.playerClassUpper == self.list.class then
+				if NS.CPlayerClassUpper == self.list.class then
 					if not data[6] then
 						if FindSpellBookSlotBySpellID(data[2]) then
 							GameTooltip:AddLine(L.spellAvailable);
@@ -3920,10 +3915,10 @@ end
 			NS.Emu_ToggleSpellTab(self.mainFrame);
 		end
 		local function inspectTargetButton_OnClick(self)
-			if UnitExists('target') and UnitIsPlayer('target') and UnitIsConnected('target') and UnitFactionGroup('target') == NS.playerFactionGroup then
+			if UnitExists('target') and UnitIsPlayer('target') and UnitIsConnected('target') and UnitFactionGroup('target') == NS.CPlayerFactionGroup then
 				local name, realm = UnitName('target');
 				if name then
-					if realm ~= nil and realm ~= "" and realm ~= NS.realm then
+					if realm ~= nil and realm ~= "" and realm ~= NS.CRealmName then
 						NS.specializedMainFrameInspect[name .. "-" .. realm] = { GetTime(), self.mainFrame, };
 					else
 						NS.specializedMainFrameInspect[name] = { GetTime(), self.mainFrame, };
@@ -3945,7 +3940,7 @@ end
 			timeout = 0,
 			whileDead = true,
 			hideOnEscape = true,
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			preferredIndex = 1,
 		};
 		local function applyTalentsButton_OnClick(self)
 			if UnitLevel('player') >= 10 then
@@ -4742,7 +4737,7 @@ end
 			mainFrame.curTab = 1;
 			NS.EmuCore_SetName(mainFrame, nil);
 			NS.EmuCore_SetLevel(mainFrame, nil);
-			NS.EmuCore_SetClass(mainFrame, NS.playerClassUpper);
+			NS.EmuCore_SetClass(mainFrame, NS.CPlayerClassUpper);
 			NS.EmuCore_SetData(mainFrame, nil);
 			NS.EmuCore_SetReadOnly(mainFrame, false);
 			mainFrame.initialized = false;
@@ -6075,7 +6070,7 @@ do	--	tooltip unit talents
 				end
 				tip:AddLine(line);
 				if SET.supreme and cache.pack then
-					local info = __rt.DecodeAddonPackData(cache.pack, true);
+					local info = __emulib.DecodeAddonPackData(cache.pack, true);
 					if info then
 						tip:AddLine("\124cffffffffPack\124r: " .. info, 0.75, 1.0, 0.25);
 					end
@@ -6108,7 +6103,7 @@ do	--	tooltip unit talents
 		if SET.talents_in_tip then
 			prev_name[tip] = nil;
 			local _, unit = tip:GetUnit();
-			if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == NS.playerFactionGroup then
+			if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == NS.CPlayerFactionGroup then
 				local name, realm = UnitName(unit);
 				NS.Emu_Query(name, realm, true);
 			end
@@ -6493,7 +6488,7 @@ do	-- SLASH and _G
 	end
 	ALATEMU.Query = function(unit)
 		unit = unit or 'target';
-		if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == NS.playerFactionGroup then
+		if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == NS.CPlayerFactionGroup then
 			local name, realm = UnitName(unit);
 			if name then
 				NS.Emu_Query(name, realm);
@@ -6808,7 +6803,7 @@ end
 			if IsShiftKeyDown() then
 				local specIndex, id = PanelTemplates_GetSelectedTab(TalentFrame or PlayerTalentFrame), self:GetID();
 				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, id);
-				local sId = ALATEMU.QueryIdFromDB(NS.playerClassUpper, specIndex, id, rank);
+				local sId = ALATEMU.QueryIdFromDB(NS.CPlayerClassUpper, specIndex, id, rank);
 				local link = _GetSpellLink(sId, name);
 				if link then
 					local editBox = ChatEdit_ChooseBoxForSend();
@@ -6947,7 +6942,7 @@ end
 
 do	-- dev
 	function NS.display_pack(meta)
-		local info = __rt.DecodeAddonPackData(meta);
+		local info = __emulib.DecodeAddonPackData(meta);
 		if info then
 			print("Packed: ", info);
 		else
@@ -6959,9 +6954,9 @@ do	-- dev
 		local function display(result)
 			print("------------");
 			local total = 0;
-			for i = 1, #knownPacks do
+			for i = 1, #__emulib.CKnownAddOnPacks do
 				if result[i] > 0 then
-					print(knownPacks[i], result[i]);
+					print(__emulib.CKnownAddOnPacks[i], result[i]);
 					total = total + result[i];
 				end
 			end
@@ -6982,7 +6977,7 @@ do	-- dev
 						end
 					end
 				end
-				for i = 0, #knownPacks do
+				for i = 0, #__emulib.CKnownAddOnPacks do
 					result[i] = 0;
 				end
 				for _, name in ipairs(cache) do
@@ -6990,7 +6985,7 @@ do	-- dev
 					if meta then
 						local pack = tonumber(meta.pack);
 						if pack then
-							local index = #knownPacks - 1;
+							local index = #__emulib.CKnownAddOnPacks - 1;
 							local magic = 2 ^ index;
 							while magic >= 1 do
 								if pack >= magic then

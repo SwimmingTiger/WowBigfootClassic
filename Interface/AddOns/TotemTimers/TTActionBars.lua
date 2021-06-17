@@ -51,21 +51,8 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
 		b:SetWidth(36)
 		b:SetHeight(36)
         
-        --for rActionButtonStyler
-        --b.action = 0
-        --b.SetCheckedTexture = function() end
         b:SetNormalTexture(nil)
         b.icon:Show()
-		
-		--[[b.ConfigAutoHide = function(self)
-			RegisterAutoHide(self, 0)
-			for i = 1,self.bar.numspells do
-				--if self.bar.buttons[i] ~= self then
-					AddToAutoHide(self, self.bar.buttons[i])
-				--end
-			end
-			AddToAutoHide(self, self:GetParent())
-		end]]
 
 		b:SetAttribute("_childupdate-show", [[if self:GetAttribute("alwaysshow") or self:GetAttribute("inactive") then return end
                                                if message then 
@@ -73,28 +60,52 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                                else
                                                    self:Hide()
                                                end ]])
+		b:SetAttribute("_childupdate-toggle", [[if self:GetAttribute("alwaysshow") or self:GetAttribute("inactive") then return end
+                                               if self:IsVisible() then
+                                                   self:Hide()
+                                               else
+                                                   self:Show()
+                                               end ]])
+
+
 		b:SetAttribute("_onshow", [[if self:GetAttribute("alwaysshow") or self:GetAttribute("inactive") then return end
-		                            self:RegisterAutoHide(0)
-								    for _,v in pairs(actionbuttons) do
-										if v:IsProtected() and not v:GetAttribute("inactive") then self:AddToAutoHide(v) end
-									end
-									self:AddToAutoHide(self:GetParent())
 									local b = self:GetAttribute("binding")
                                     if b then
                                         self:SetBindingClick(true, b, self:GetName())
                                     end
                                     control:CallMethod("OnShow")]])
 
+        parent:SetAttribute("_onenter", [[ control:CallMethod("ShowTooltip")
+                                              if self:GetAttribute("OpenMenu") == "mouseover" then
+                                                  control:ChildUpdate("show", true)
+                                              end ]])
+
+        parent:SetAttribute("_onleave", [[ owner:CallMethod("HideTooltip")
+            if not self:IsUnderMouse(true) then
+                owner:ChildUpdate("show", false)
+            end]])
+
+        parent:WrapScript(parent, "OnClick", [[ if button == self:GetAttribute("OpenMenu") then
+                                                       control:ChildUpdate("show", true)
+                                                   elseif button == "close" or button == "Button5" then
+                                                       control:ChildUpdate("show", false)
+                                                   end
+                                                 ]])
+
         b:SetAttribute("_onhide", [[self:ClearBindings() self:GetParent():SetAttribute("open", false) control:CallMethod("HideTooltip")]])
         b:SetAttribute("_onenter", [[ if self:GetAttribute("tooltip") then control:CallMethod("ShowTooltip") end]])
-        b:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip")]])
+        b:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip") if not self:GetParent():IsUnderMouse(true) then self:GetParent():ChildUpdate("show", false) end]])
         b.OnShow = function(self) end -- override if button should do additional stuff on show
         
 		b:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		b:SetAttribute("*type1", "spell")
         b:SetAttribute("*type2", nil)
 		
-        b.ShowTooltip = TotemTimers.TotemTooltip		 
+        if bartype ~= "weapontimer" then
+            b.ShowTooltip = TotemTimers.TotemTooltip
+        else
+            b.ShowTooltip = TotemTimers.WeaponBarTooltip
+        end
 		
         b.HideTooltip = function(self) GameTooltip:Hide() end
         
@@ -145,7 +156,7 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                                     end
                                                 end
                                                 if not self:GetAttribute("alwaysshow") then
-                                                    self:GetParent():SetAttribute("hide", true)
+                                                    self:GetParent():ChildUpdate("show", false)
                                                 end]])
         else
             parent:WrapScript(b, "OnClick", [[  if button ~= "LeftButton" then
@@ -172,13 +183,10 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                                     end
                                                 end
                                                 if not self:GetAttribute("alwaysshow") then
-                                                    self:GetParent():SetAttribute("hide", true)
+                                                    self:GetParent():ChildUpdate("show", true)
                                                 end]])
         end
             
-	end
-	for i = 1,numbuttons do
-		self.buttons[i]:Execute([[ actionbuttons = newtable()  self:GetParent():GetChildList(actionbuttons) ]])
 	end
 	table.insert(TTActionBars.bars, self)
 	return self
@@ -320,6 +328,7 @@ function TTActionBars:CalcDirection(dir, parentdir, freenotself)
     if dir == "auto" then
         local p,_,_,x,y = self.directionanchor:GetPoint()
         if parentdir == "free" and not freenotself then p,_,_,x,y = self.parent:GetPoint() end
+        if not p then return "up" end
 		if parentdir == "horizontal" then
             if ((p == "LEFT" or p == "RIGHT" or p == "CENTER") and y < 0)
               or (string.sub(p,1,6) == "BOTTOM") then

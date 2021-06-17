@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod(575, "DBM-Party-BC", 6, 261)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
+mod:SetRevision("20210605024644")
 mod:SetCreatureID(17798)
 mod:SetEncounterID(1944)
-
+mod:SetModelID(20235)
+mod:SetModelScale(0.95)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -12,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 31534"
 )
 
-local WarnChannel		= mod:NewSpellAnnounce("ej6001", 2, 31543)
+local WarnChannel		= mod:NewSpellAnnounce(31543, 2)
 
 local specWarnReflect	= mod:NewSpecialWarningReflect(31534, "-Melee", nil, nil, 1, 2)--CasterDps after new core
 

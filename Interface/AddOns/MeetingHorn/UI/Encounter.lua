@@ -75,6 +75,12 @@ function Encounter:Constructor()
     self.Panel3.Label:SetText('PC查看视频及站位请按<Ctrl+C>复制地址到浏览器打开')
 
     self:Open(ns.DEFAULT_ENCOUNTER_INSTANCE_ID)
+
+    self:SetScript('OnShow', self.OnShow)
+end
+
+function Encounter:OnShow()
+    ns.Stats:Send('EncounterOpen')
 end
 
 function Encounter:SetZoneFilter(zone)

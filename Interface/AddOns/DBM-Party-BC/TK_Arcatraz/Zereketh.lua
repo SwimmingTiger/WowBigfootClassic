@@ -1,11 +1,10 @@
 local mod = DBM:NewMod(548, "DBM-Party-BC", 15, 254)
 local L = mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210401043939")
-
+mod:SetRevision("20210613145646")
 mod:SetCreatureID(20870)
 mod:SetEncounterID(1916)
+mod:SetModelID(19882)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
@@ -15,11 +14,11 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 39367 32863"
 )
 
---TODO, GTFO for void zones
 local warnVoid      = mod:NewSpellAnnounce(36119, 3)
 
 local specwarnNova	= mod:NewSpecialWarningSpell(39005, nil, nil, nil, 2, 2)
 local specwarnSoC	= mod:NewSpecialWarningDispel(39367, "Healer", nil, nil, 1, 2)
+local specWarnGTFO	= mod:NewSpecialWarningGTFO(36121, nil, nil, nil, 1, 8)
 
 local timerSoC      = mod:NewTargetTimer(18, 39367, nil, "Healer", 2, 3, nil, DBM_CORE_L.MAGIC_ICON)
 
@@ -34,6 +33,18 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(36119, 30533) then
 		warnVoid:Show()
 	end
+end
+
+do
+	local player = UnitGUID("player")
+
+	function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
+		if (spellId == 36121 or spellId == 39004) and destGUID == player and self:AntiSpam(4, 1) then--Flame Crash
+			specWarnGTFO:Show(spellName)
+			specWarnGTFO:Play("watchfeet")
+		end
+	end
+	mod.SPELL_MISSED = mod.SPELL_DAMAGE
 end
 
 function mod:SPELL_AURA_APPLIED(args)

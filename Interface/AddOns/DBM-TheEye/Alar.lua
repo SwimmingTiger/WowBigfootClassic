@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Alar", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210414181517")
+mod:SetRevision("20210614184914")
 mod:SetCreatureID(19514)
 mod:SetEncounterID(730, 2464)
 mod:SetModelID(18945)
@@ -33,7 +33,6 @@ local UnitGUID = UnitGUID
 local UnitName = UnitName
 mod.vb.phase2Start = 0
 mod.vb.flying = false
-mod.vb.phase = 1
 
 --Loop doesn't work do to varying travel time between platforms. We just need to do target scanning and start next platform timer when Al'ar reaches a platform and starts targeting player again
 --Still semi inaccurate. Sometimes Al'ar changes platforms 5-8 seconds early with no explanation. I have a feeling it's just tied to Al'ars behavior being buggy with one person.
@@ -51,7 +50,7 @@ end
 function mod:OnCombatStart(delay)
 	self:AntiSpam(30, 1)--Prevent it thinking add spawn on pull and messing up first platform timer
 	self.vb.flying = false
-	self.vb.phase = 1
+	self:SetStage(1)
 	self.vb.phase2Start = 0
 	timerNextPlatform:Start(35-delay)
 	self:RegisterOnUpdateHandler(function(self)
@@ -117,7 +116,7 @@ end
 function mod:SPELL_HEAL(_, _, _, _, _, _, _, _, spellId)
 	if spellId == 34342 then
 		self.vb.phase2Start = GetTime()
-		self.vb.phase = 2
+		self:SetStage(2)
 		warnPhase2:Show()
 		berserkTimer:Start()
 		timerMeteor:Start(30)--This seems to vary slightly depending on where in room he shoots it.

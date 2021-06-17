@@ -41,6 +41,7 @@ TotemTimers.DefaultProfile = {
         LavaSurgeGlow = true,
         FulminationAura = true,
         FulminationGlow = true,
+        CooldownAlpha = 0.8,
         
         LastTotems = {
             [WATER_TOTEM_SLOT] = SpellNames[SpellIDs.HealingStream],
@@ -71,9 +72,12 @@ TotemTimers.DefaultProfile = {
         ColorTimerBars = false,
         ShowCooldowns = true,
         CheckPlayerRange = true,
-        CheckRaidRange = true,	
+        CheckRaidRange = true,
+        PartyRangePosition = "TOP",
         ShowRaidRangeTooltip = true,
         Timer_Clickthrough = false,
+        IncludeInMacro = {[1] = true, [2] = true, [3] = true, [4] = true,},
+        MacroReset = 15,
         
     --Trackers
         TrackerArrange = "horizontal",

@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00sArena|r|n|cffbc8f8f竞技场敌对头像插件。|r
 ## Notes-zhTW: |cff00ff00sArena|r|n|cffbc8f8f競技場敵对頭像插件。|r
 ## Author: Stako
-## Version: 1.7
+## Version: 1.8
 ## Dependencies: Blizzard_ArenaUI
 ## SavedVariables: sArenaDB
 ## Dependencies: !!!Libs

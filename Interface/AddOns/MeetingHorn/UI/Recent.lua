@@ -158,7 +158,7 @@ function Recent:UpdateQRCode()
     --[[@debug@
     if id == -1 and not members then
         members = {}
-        members.leader = UnitName('player')
+        members.leader = ns.UnitFullName('player')
     end
     --@end-debug@]]
 

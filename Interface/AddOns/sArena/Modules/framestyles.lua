@@ -45,7 +45,10 @@ function module:OnEvent(event, ...)
 	for i = 1, MAX_ARENA_ENEMIES do
 		local arenaFrame = _G["ArenaEnemyFrame"..i]
 
-		if event == "UPDATE_SETTINGS" then
+		if event == "ADDON_LOADED" then
+			arenaFrame.texture = _G["ArenaEnemyFrame"..i.."Texture"]
+			arenaFrame.background = _G["ArenaEnemyFrame"..i.."Background"]
+		elseif event == "UPDATE_SETTINGS" then
 			self:SetFrameStyle(arenaFrame, self.db.frameStyle, self.db.mirroredFrames)
 			
 			arenaFrame.healthbar:SetStatusBarTexture(self.db.barTexture)
