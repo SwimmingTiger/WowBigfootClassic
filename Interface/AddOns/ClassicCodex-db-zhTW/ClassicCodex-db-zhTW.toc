@@ -1,0 +1,31 @@
+## Interface: 20501
+
+## Notes: ClassicCodex-db-zhTW
+## Title: ClassicCodex zhTW data
+## Title-zhCN: ClassicCodex 繁体中文数据
+## Title-zhTW: ClassicCodex 繁體中文數據
+
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: v1.4.7
+
+## Dependencies: ClassicCodex-loader
+## LoadOnDemand: 1
+
+## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
+
+# database zhTW
+items.lua
+units.lua
+objects.lua
+quests.lua
+zones.lua
+professions.lua
+
+# database zhTW for TBC
+items-tbc.lua
+units-tbc.lua
+objects-tbc.lua
+quests-tbc.lua
+zones-tbc.lua
+professions-tbc.lua

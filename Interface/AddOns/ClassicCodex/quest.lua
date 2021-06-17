@@ -6,6 +6,8 @@ CodexQuest.queue = {}
 CodexQuest.questLog = {}
 CodexQuest.questLogTemp = {}
 CodexQuest.updateNodes = false
+CodexQuest.pauseAutoAccept = false
+CodexQuest.excludeUnitName = nil
 
 CodexQuest:RegisterEvent("QUEST_WATCH_UPDATE")
 CodexQuest:RegisterEvent("QUEST_LOG_UPDATE")
@@ -21,9 +23,24 @@ CodexQuest:RegisterEvent("QUEST_COMPLETE")
 CodexQuest:RegisterEvent("QUEST_GREETING")
 CodexQuest:RegisterEvent("QUEST_REMOVED")
 CodexQuest:RegisterEvent("GOSSIP_SHOW")
+CodexQuest:RegisterEvent("GOSSIP_CLOSED")
 CodexQuest:RegisterEvent("NAME_PLATE_UNIT_ADDED")
 CodexQuest:RegisterEvent("NAME_PLATE_UNIT_REMOVED")
 CodexQuest:RegisterEvent("ADDON_LOADED")
+
+function CodexQuest:IsExcludeQuest()
+    local questID = GetQuestID()
+    if not questID then return nil end
+    if CodexDB["exclude"]["quests"][questID] then
+        CodexQuest.pauseAutoAccept = true
+        CodexQuest.excludeUnitName = UnitName('target')
+        DeclineQuest()
+        print(L['[ClassicCodex] Auto accept/turnin has been suspended to avoid making irreparable wrong choices. Please make your own choice.'])
+        return true
+    end
+    return false
+end
+
 CodexQuest:SetScript("OnEvent", function(self, event, ...)
     if event == "ADDON_LOADED" then
         arg1 = ...
@@ -37,7 +54,11 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         CodexQuest.updateQuestGivers = true
 
     elseif (event == "GOSSIP_SHOW") then
-        if not CodexConfig.autoAccept or IsControlKeyDown() then
+        if CodexQuest.pauseAutoAccept and CodexQuest.excludeUnitName ~= UnitName('target') then
+            -- The target has changed. Resume auto accept / turnin
+            CodexQuest.pauseAutoAccept = false
+        end
+        if not CodexConfig.autoAccept or CodexQuest.pauseAutoAccept or IsControlKeyDown() then
             return 
         end
 
@@ -68,38 +89,45 @@ CodexQuest:SetScript("OnEvent", function(self, event, ...)
         -- end
 
     elseif (event == "QUEST_DETAIL") then
-        if not CodexConfig.autoAccept or IsControlKeyDown() then
+        if not CodexConfig.autoAccept or CodexQuest.pauseAutoAccept
+            or IsControlKeyDown() or CodexQuest:IsExcludeQuest()
+        then
             return
         end
-
         AcceptQuest()
 
     elseif (event == "QUEST_PROGRESS") then
-        if not CodexConfig.autoTurnin or IsControlKeyDown() then
+        if not CodexConfig.autoTurnin or CodexQuest.pauseAutoAccept
+            or IsControlKeyDown() or CodexQuest:IsExcludeQuest()
+        then
             return
         end
-
         CompleteQuest()
         
     elseif (event == "QUEST_COMPLETE") then
-        if not CodexConfig.autoTurnin or IsControlKeyDown() then
+        if not CodexConfig.autoTurnin or CodexQuest.pauseAutoAccept
+            or IsControlKeyDown() or CodexQuest:IsExcludeQuest()
+        then
             return
         end
-
-        if (GetNumQuestChoices() <= 1) then
-            GetQuestReward(1)
+        -- Avoid automatic selection of any reward items even if only one is available.
+        -- Because auto turnin chose the wrong ring for some players in Karazhan.
+        if (GetNumQuestChoices() == 0) then
+            GetQuestReward(0)
         end
 
     elseif (event == "QUEST_GREETING") then
-        if not CodexConfig.autoAccept or IsControlKeyDown() then
+        if CodexQuest.pauseAutoAccept and CodexQuest.excludeUnitName ~= UnitName('target') then
+            -- The target has changed. Resume auto accept / turnin
+            CodexQuest.pauseAutoAccept = false
+        end
+        if not CodexConfig.autoAccept or CodexQuest.pauseAutoAccept or IsControlKeyDown() then
             return
         end
 
         local availableQuestCount = GetNumAvailableQuests()
-        local lastAvailableQuest = 0
         local activeQuestCount = GetNumActiveQuests()
-        local lastActiveQuest = 0
-        
+
         if activeQuestCount > 0 then
             for index = 1, activeQuestCount do
                 for questLogId = 1, 40 do

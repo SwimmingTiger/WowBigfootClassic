@@ -113,7 +113,7 @@ if not CodexUI then
       local border = tonumber(border) - 1
       local backdrop = CodexUI.backdrop
       if border < 1 then backdrop = CodexUI.backdrop_small end
-        local b = CreateFrame("Frame", nil, f)
+        local b = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate")
         b:SetPoint("TOPLEFT", f, "TOPLEFT", -border, border)
         b:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", border, -border)
   

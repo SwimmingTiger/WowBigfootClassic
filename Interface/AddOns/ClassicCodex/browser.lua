@@ -608,13 +608,13 @@ local function CreateBrowseWindow(fname, name, parent, anchor, x, y)
     parent.tabs[fname]:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -10, 45)
     parent.tabs[fname].buttons = { }
   
-    parent.tabs[fname].backdrop = CreateFrame("Frame", name .. "Backdrop", parent.tabs[fname])
+    parent.tabs[fname].backdrop = CreateFrame("Frame", name .. "Backdrop", parent.tabs[fname], BackdropTemplateMixin and "BackdropTemplate")
     parent.tabs[fname].backdrop:SetFrameLevel(1)
     parent.tabs[fname].backdrop:SetPoint("TOPLEFT", parent.tabs[fname], "TOPLEFT", -5, 5)
     parent.tabs[fname].backdrop:SetPoint("BOTTOMRIGHT", parent.tabs[fname], "BOTTOMRIGHT", 5, -5)
     CodexUI.api.CreateBackdrop(parent.tabs[fname].backdrop, nil, true)
   
-    parent.tabs[fname].button = CreateFrame("Button", name .. "Button", parent)
+    parent.tabs[fname].button = CreateFrame("Button", name .. "Button", parent, BackdropTemplateMixin and "BackdropTemplate")
     parent.tabs[fname].button:SetPoint(anchor, x, y)
     parent.tabs[fname].button:SetWidth(153)
     parent.tabs[fname].button:SetHeight(30)
@@ -687,7 +687,7 @@ CodexBrowserIcon.icon:SetTexCoord(0.05, 0.95, 0.05, 0.95)
 CodexBrowserIcon.icon:SetPoint('CENTER',1,1)
 
 -- Browser window
-CodexBrowser = CreateFrame("Frame", "CodexBrowser", UIParent)
+CodexBrowser = CreateFrame("Frame", "CodexBrowser", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 CodexBrowser:Hide()
 CodexBrowser:SetWidth(640)
 CodexBrowser:SetHeight(480)
@@ -756,7 +756,7 @@ CodexBrowser.title:SetJustifyH("LEFT")
 CodexBrowser.title:SetFont(CodexUI.defaultFont, 14)
 CodexBrowser.title:SetText(L["ClassicCodex"])
 
-CodexBrowser.close = CreateFrame("Button", "CodexBrowserClose", CodexBrowser)
+CodexBrowser.close = CreateFrame("Button", "CodexBrowserClose", CodexBrowser, BackdropTemplateMixin and "BackdropTemplate")
 CodexBrowser.close:SetPoint("TOPRIGHT", -5, -5)
 CodexBrowser.close:SetHeight(12)
 CodexBrowser.close:SetWidth(12)
@@ -771,7 +771,7 @@ CodexBrowser.close:SetScript("OnClick", function(self)
     self:GetParent():RestoreCVars()
 end)
 
-CodexBrowser.clean = CreateFrame("Button", "CodexBrowserClean", CodexBrowser)
+CodexBrowser.clean = CreateFrame("Button", "CodexBrowserClean", CodexBrowser, BackdropTemplateMixin and "BackdropTemplate")
 CodexBrowser.clean:SetPoint("TOPLEFT", CodexBrowser, "TOPLEFT", 545, -30)
 CodexBrowser.clean:SetPoint("BOTTOMRIGHT", CodexBrowser, "TOPRIGHT", -5, -55)
 CodexBrowser.clean:SetScript("OnClick", function()
@@ -793,7 +793,7 @@ CreateBrowseWindow("quests", "CodexBrowserQuests", CodexBrowser, "BOTTOMRIGHT", 
 
 SelectView(CodexBrowser.tabs["units"])
 
-CodexBrowser.input = CreateFrame("EditBox", "CodexBrowserSearch", CodexBrowser)
+CodexBrowser.input = CreateFrame("EditBox", "CodexBrowserSearch", CodexBrowser, BackdropTemplateMixin and "BackdropTemplate")
 CodexBrowser.input:SetFont(CodexUI.defaultFont, CodexUIConfig.global.fontSize, "OUTLINE")
 CodexBrowser.input:SetAutoFocus(false)
 CodexBrowser.input:SetText(L["Search"])

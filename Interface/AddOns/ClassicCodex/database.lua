@@ -1,12 +1,149 @@
+local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
 CodexDatabase = {}
+
+CodexDB.locales = {
+    ["enUS"] = "English",
+    ["koKR"] = "Korean",
+    ["frFR"] = "French",
+    ["deDE"] = "German",
+    ["zhCN"] = "Chinese",
+    ["zhTW"] = "Chinese",
+    ["esES"] = "Spanish",
+    ["esMX"] = "Spanish",
+    ["ruRU"] = "Russian",
+}
 
 local loc = GetLocale()
 local dbs = {"items", "quests", "objects", "units", "zones", "professions"}
+local devMode = select(4, GetAddOnInfo('MergeQuestieToCodexDB'))
 
--- build name databases
-for key, value in pairs(dbs) do
-    CodexDB[value]["loc"] = CodexDB[value][loc] or CodexDB[value]["enUS"]
+-- Patch databases to further expansions
+local function patchtable(base, diff)
+    for k, v in pairs(diff) do
+        if base[k] and type(v) == "table" then
+            patchtable(base[k], v)
+        elseif type(v) == "string" and v == "_" then
+            base[k] = nil
+        else
+            base[k] = v
+        end
+    end
 end
+
+-- patch meta data for TBC
+if CodexDB['meta-tbc'] then
+    patchtable(CodexDB["meta"], CodexDB["meta-tbc"])
+    if not devMode then
+        CodexDB["meta-tbc"] = nil
+    end
+end
+
+-- build & patch name databases
+for _, db in pairs(dbs) do
+    -- patch data for TBC
+    if CodexDB[db]["data-tbc"] then
+        patchtable(CodexDB[db]["data"], CodexDB[db]["data-tbc"])
+        if not devMode then
+            CodexDB[db]["data-tbc"] = nil
+        end
+    end
+
+    -- patch loc for TBC
+    if CodexDB[db][loc] and CodexDB[db][loc.."-tbc"] then
+        local loc_update = CodexDB[db][loc.."-tbc"] or CodexDB[db]["enUS-tbc"]
+        patchtable(CodexDB[db][loc], loc_update)
+    end
+
+    -- select loc
+    CodexDB[db]["loc"] = CodexDB[db][loc] or CodexDB[db]["enUS"]
+
+    -- clear unused loc
+    if not devMode then
+        for loc in pairs(CodexDB.locales) do
+            CodexDB[db][loc] = nil
+            CodexDB[db][loc..'-tbc'] = nil
+        end
+    end
+end
+
+-- add meta table for database to solve Lua errors caused by data loss
+-- for base data
+setmetatable(CodexDB['quests']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The quest #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['items']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The item #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['objects']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The object #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+setmetatable(CodexDB['units']["data"], {
+	__index = function(self, key)
+        print(L['[ClassicCodex] The unit #%s is missing.']:format(key)
+            .."\n"..L["Please send a report to the developer."])
+		return {}
+	end
+})
+-- for locales
+setmetatable(CodexDB['quests']["loc"], {
+	__index = function(self, key)
+        local notice = L["The {locale} locale text of the quest #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+		return {
+            ["D"] = notice,
+            ["O"] = notice,
+            ["T"] = notice
+        }
+	end
+})
+setmetatable(CodexDB['items']["loc"], {
+	__index = function(self, key)
+		return L["The {locale} locale text of the item #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+	end
+})
+setmetatable(CodexDB['objects']["loc"], {
+	__index = function(self, key)
+		return L["The {locale} locale text of the object #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+	end
+})
+setmetatable(CodexDB['professions']["loc"], {
+	__index = function(self, key)
+		return L["The {locale} locale text of the profession #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+	end
+})
+setmetatable(CodexDB['units']["loc"], {
+	__index = function(self, key)
+		return L["The {locale} locale text of the unit #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+	end
+})
+setmetatable(CodexDB['zones']["loc"], {
+	__index = function(self, key)
+		return L["The {locale} locale text of the zone #{id} is missing."]
+            :gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+	end
+})
 
 -- Create DB Shortcuts
 local items = CodexDB["items"]["data"]
@@ -25,9 +162,11 @@ local bitraces = {
     [16] = "Scourge",
     [32] = "Tauren",
     [64] = "Gnome",
-    [128] = "Troll"
+    [128] = "Troll",
+    [512] = "BloodElf",
+    [1024] = "Draenei"
 }
-  
+
 local bitclasses = {
     [1] = "WARRIOR",
     [2] = "PALADIN",
@@ -126,36 +265,38 @@ function CodexDatabase:GetRaceMaskById(id, db)
     local factionMap = {["A"] = 77, ["H"] = 178, ["AH"] = 255, ["HA"] = 255}
     local raceMask = 0
 
-    if db == "quests" then
-        if quests[id]["race"] ~= nil then
-            return quests[id]["race"]
+    if not id or id == 0 or db ~= "quests" then
+        return raceMask
+    end
+
+    if quests[id]["race"] ~= nil then
+        return quests[id]["race"]
+    end
+
+    if quests[id]["start"] then
+        local questStartRaceMask = 0
+
+        -- Get Quest starter faction
+        if quests[id]["start"]["U"] then
+            for _, unitId in pairs(quests[id]["start"]["U"]) do
+                if units[unitId]["fac"] and factionMap[units[unitId]["fac"]] then
+                    questStartRaceMask = bit.bor(factionMap[units[unitId]["fac"]])
+                end
+            end
         end
 
-        if quests[id]["start"] then
-            local questStartRaceMask = 0
-
-            -- Get Quest starter faction
-            if quests[id]["start"]["U"] then
-                for _, unitId in pairs(quests[id]["start"]["U"]) do
-                    if units[unitId]["fac"] and factionMap[units[unitId]["fac"]] then
-                        questStartRaceMask = bit.bor(factionMap[units[unitId]["fac"]])
-                    end
+        -- Get Quest object starter faction
+        if quests[id]["start"]["O"] then
+            for _, objectId in pairs(quests[id]["start"]["O"]) do
+                if objects[objectId]["fac"] and factionMap[objects[objectId]["fac"]] then
+                    questStartRaceMask = bit.bor(factionMap[objects[objectId]["fac"]])
                 end
             end
+        end
 
-            -- Get Quest object starter faction
-            if quests[id]["start"]["O"] then
-                for _, objectId in pairs(quests[id]["start"]["O"]) do
-                    if objects[objectId]["fac"] and factionMap[objects[objectId]["fac"]] then
-                        questStartRaceMask = bit.bor(factionMap[objects[objectId]["fac"]])
-                    end
-                end
-            end
-
-            -- Apply starter faction as racemask
-            if questStartRaceMask > 0 and questStartRaceMask ~= raceMask then
-                raceMask = questStartRaceMask
-            end
+        -- Apply starter faction as racemask
+        if questStartRaceMask > 0 and questStartRaceMask ~= raceMask then
+            raceMask = questStartRaceMask
         end
     end
 
@@ -278,7 +419,11 @@ end
 -- Scans for all mobs with specified ID
 -- Adds map nodes for each and returns its map table
 function CodexDatabase:SearchUnitById(id, meta, maps)
-    if not units[id] or not units[id]["coords"] then return maps end
+    if  not id or id == 0 or
+        not units[id] or not units[id]["coords"]
+    then
+        return maps
+    end
 
     local maps = maps or {}
 
@@ -327,7 +472,11 @@ function CodexDatabase:SearchUnitByName(name, meta, partial)
 end
 
 function CodexDatabase:SearchObjectById(id, meta, maps)
-    if not objects[id] or not objects[id]["coords"] then return maps end
+    if  not id or id == 0 or
+        not objects[id] or not objects[id]["coords"]
+    then
+        return maps
+    end
 
     local maps = maps or {}
 
@@ -376,7 +525,9 @@ function CodexDatabase:SearchObjectByName(name, meta, partial)
 end
 
 function CodexDatabase:SearchItemById(id, meta, maps, allowedTypes)
-    if not items[id] then return maps end
+    if not id or id == 0 or not items[id] then
+        return maps
+    end
 
     local maps = maps or {}
     local meta = meta or {}
@@ -485,6 +636,10 @@ function CodexDatabase:SearchVendorByItemName(item, meta)
 end
 
 function CodexDatabase:SearchQuestById(id, meta, maps)
+    if not id or id == 0 then
+        return
+    end
+
     local maps = maps or {}
     local meta = meta or {}
 
