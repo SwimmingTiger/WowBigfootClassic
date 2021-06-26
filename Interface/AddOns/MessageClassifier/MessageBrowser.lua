@@ -358,9 +358,9 @@ function MessageClassifierBrowser:ruleMatch(msg, rule)
             elseif operator == "not equal" then
                 match = field ~= value
             elseif operator == "contain" then
-                match = field:find(value) ~= nil
+                match = field:find(value, 1, true) ~= nil
             elseif operator == "not contain" then
-                match = field:find(value) == nil
+                match = field:find(value, 1, true) == nil
             elseif operator == "match" then
                 match = field:match(value) ~= nil
             elseif operator == "not match" then

@@ -4,7 +4,7 @@
 ## Title-zhCN: 聊天消息分类去重
 ## Title-zhTW: 聊天消息分类去重
 ## Notes: MessageClassifier
-## Version: v0.4.6
+## Version: v0.4.7
 ## Author: SwimmingTiger (NGA: hu60)
 ## SavedVariables: MessageClassifierConfig
 ## X-Curse-Project-ID: 348875
