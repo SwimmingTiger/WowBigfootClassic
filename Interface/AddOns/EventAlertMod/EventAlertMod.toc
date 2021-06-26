@@ -10,8 +10,8 @@
 ## Notes-zhCN: 监控的法术触发时, 以大型法术图示来提示玩家, 法术设定指令:/eam opt. 指令说明:/eam help.
 ## Notes-zhKR: 모니터링 된 주문이 발동되면 플레이어에게 큰 주문 아이콘이 표시됩니다. 주문 설정 명령 : / eam opt. 명령 설명 : / eam help.
 ## Notes-enUS: To notice or warning the specific Spells/Skills in large icon for the player. Command: /eam opt. By |cff69ccf0ACDACD@TW-REALM|r
-## X-Revision: BigFoot
-## LoadOnDemand: 1
+## DefaultState: Disabled
+## LoadOnDemand: 0
 ## OptionalDeps: LibStub
 ## RequiredDeps: !Lib_ZYF
 ## SavedVariables: EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos
