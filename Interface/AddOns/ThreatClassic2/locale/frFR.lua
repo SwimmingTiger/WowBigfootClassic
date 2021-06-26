@@ -98,7 +98,7 @@ L.font_shadow = "Dropshadow"
 L.warnings = "Avertissements"
 L.warnings_flash = "Activer le clignotement de l'écran."
 L.warnings_sound = "Activer les sons"
-L.warnings_threshold = "Seuil d'avertissement (agro = 100%)"
+L.warnings_threshold = "Seuil d'avertissement (100% = agro)"
 L.warnings_minThreatAmount = "Menace minimale pour déclencher des avertissements"
 L.warnings_minThreatAmount_desc = "La valeur dépend du paramètre 'Général -> Échelle des valeurs de menace' et correspond à la menace affichée. Des nombres plus grands peuvent être définis avec la zone de saisie."
 

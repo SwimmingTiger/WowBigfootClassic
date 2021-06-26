@@ -81,7 +81,7 @@ L.font_shadow			= "字體陰影"
 L.warnings				= "警報"
 L.warnings_flash        = "啟用屏幕閃爍"
 L.warnings_sound		= "啟用聲音"
-L.warnings_threshold	= "警報仇恨閾值 (aggro = 100%)"
+L.warnings_threshold	= "警報仇恨閾值 (100% = aggro)"
 L.warnings_minThreatAmount = "觸發警告的最小威脅"
 L.warnings_minThreatAmount_desc = "該值取決於'常規->標定威脅值'設置，並與顯示的威脅相匹配。可以在輸入框中設置更大的數字。"
 

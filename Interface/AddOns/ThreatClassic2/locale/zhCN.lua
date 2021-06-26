@@ -97,7 +97,7 @@ L.font_shadow			= "字体阴影"
 L.warnings				= "警报"
 L.warnings_flash		= "启用屏幕闪烁"
 L.warnings_sound		= "启用声音"
-L.warnings_threshold	= "警报仇恨阈值 (仇恨 = 100%)"
+L.warnings_threshold	= "警报仇恨阈值 (100% = 仇恨)"
 L.warnings_minThreatAmount = "触发警告的最小威胁"
 L.warnings_minThreatAmount_desc = "该值取决于'常规->标定威胁值'设置，并与显示的威胁相匹配。 可以在输入框中设置更大的数字。"
 

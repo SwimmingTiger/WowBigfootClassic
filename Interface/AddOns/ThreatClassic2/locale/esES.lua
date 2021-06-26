@@ -96,7 +96,7 @@ L.font_shadow			= "Dropshadow"
 L.warnings				= "Advertencias"
 L.warnings_flash		= "Activar el parpadeo de la pantalla."
 L.warnings_sound		= "Activar sonidos"
-L.warnings_threshold	= "Umbral de advertencia (agro = 100%)"
+L.warnings_threshold	= "Umbral de advertencia (100% = agro)"
 L.warnings_minThreatAmount = "Amenaza mínima para activar advertencias"
 L.warnings_minThreatAmount_desc = "El valor depende de la configuración 'General -> Escalar valores de amenaza' y coincide con la amenaza mostrada. Se pueden configurar números más grandes con el cuadro de entrada."
 
