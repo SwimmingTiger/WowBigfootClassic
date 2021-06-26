@@ -27,6 +27,7 @@ local actorInformation = {}
 local actorInformationIndexes = {}
 local actorDamageInfo = {}
 local actorHealInfo = {}
+local actorUtilityInfo = {}
 
 --flags
 local REACTION_HOSTILE	=	0x00000040
@@ -81,6 +82,7 @@ function Details.packFunctions.PackCombatData(combatObject, flags)
     table.wipe(actorInformationIndexes)
     table.wipe(actorDamageInfo)
     table.wipe(actorHealInfo)
+    table.wipe(actorUtilityInfo)
 
     --reset the serial counter
     entitySerialCounter = 0
@@ -138,6 +140,14 @@ function Details.packFunctions.PackCombatData(combatObject, flags)
         if (bit.band(flags, 0x2) ~= 0) then
             exportedString = exportedString .. "!H" .. ","
             for index, data in ipairs(actorHealInfo) do
+                exportedString = exportedString .. data .. ","
+            end
+        end
+
+        --add the utility actors data
+        if (bit.band(flags, 0x8) ~= 0) then
+            exportedString = exportedString .. "!U" .. ","
+            for index, data in ipairs(actorUtilityInfo) do
                 exportedString = exportedString .. data .. ","
             end
         end
@@ -894,6 +904,266 @@ function Details.packFunctions.UnPackHeal(currentCombat, combatData, tablePositi
 
     return tablePosition
 end
+
+--------------------------------------------------------------------------------------------------
+--> pack utility data
+
+--pack utility passes the player utility info + pets the player own
+--each player will also send an enemy, the enemy will be in order of raidIndex of the player
+function Details.packFunctions.PackUtility(combatObject)
+
+    if (isDebugging) then
+        print("PackUtility(): start.")
+    end
+
+    --store actorObjects to pack
+    local actorsToPack = {}
+
+    --get the player object from the combat > utility container
+    local playerName = UnitName("player")
+    local playerObject = combatObject:GetActor(DETAILS_ATTRIBUTE_MISC, playerName)
+    if (not playerObject) then
+        if (isDebugging) then
+            print("PackUtility(): return | no player object.")
+        end
+        return
+    end
+
+    tinsert(actorsToPack, playerObject)
+
+    --get the list of pets the player own
+    local playerPets = playerObject.pets
+    for _, petName in ipairs(playerPets) do
+        local petObject = combatObject:GetActor(DETAILS_ATTRIBUTE_MISC, petName)
+        if (petObject) then
+            tinsert(actorsToPack, petObject)
+        end
+    end
+
+    local playerIndex = _G.UnitInRaid("player")
+
+    if (not playerIndex) then --no player index
+        if (isDebugging) then
+            print("PackUtility(): return | no player index found.")
+        end
+        return
+    end
+
+    --get all npc enemies and sort them by their respaw id
+    local allActors = combatObject[DETAILS_ATTRIBUTE_MISC]._ActorTable
+    local allEnemies = {} --this have subtables, format: {actorObject, spawnId}
+
+    for i = 1, #allActors do
+        --get the actor object
+        local actor = allActors[i]
+        --check if is an enemy or neutral
+        if (actor:IsNeutralOrEnemy()) then
+            --get the spawnId
+            local spawnId = select(7, strsplit("-", actor.serial))
+            if (spawnId) then
+                --convert hex to number
+                spawnId = tonumber(spawnId:sub(1, 10), 16)
+                if (spawnId) then
+                    --first index is the actorObject, the second index is the spawnId to sort enemies
+                    tinsert(allEnemies, {actor, spawnId})
+                end
+            end
+        end
+    end
+    --sort enemies by their spawnId
+    table.sort(allEnemies, Details.Sort2)
+
+    local allPlayerNames = {}
+    for i = 1, 20 do
+        local name, _, subgroup = GetRaidRosterInfo(i)
+        if (name) then --maybe the group has less than 20 players
+            name = _G.Ambiguate(name, "none")
+            if (name and subgroup <= 4) then
+                tinsert(allPlayerNames, name)
+            end
+        end
+    end
+    table.sort(allPlayerNames, function(t1, t2) return t1 < t2 end)
+
+    local playerName = UnitName("player")
+    for i = 1, #allPlayerNames do
+        if (playerName == allPlayerNames[i]) then
+            playerIndex = i
+            break
+        end
+    end
+
+    --this is the enemy that this player has to send
+    local enemyObjectToSend = allEnemies[playerIndex] and allEnemies[playerIndex][1]
+    if (enemyObjectToSend) then
+        tinsert(actorsToPack, enemyObjectToSend)
+    end
+
+    --add the actors to actor information table
+    for _, actorObject in ipairs(actorsToPack) do
+        --check if already has the actor information
+        local indexToActorInfo = actorInformationIndexes[actorObject.nome] --actor name
+        if (not indexToActorInfo) then
+            --need to add the actor general information into the actor information table
+            indexToActorInfo = Details.packFunctions.AddActorInformation(actorObject)
+        end
+    end
+
+    for i = 1, #actorsToPack do
+        --get the actor object
+        local actor = actorsToPack[i]
+        local indexToActorInfo = actorInformationIndexes[actor.nome]
+
+        --where the information of this actor starts
+        local currentIndex = #actorUtilityInfo + 1
+
+        --[1] index where is stored the this actor info like name, class, spec, etc
+        actorUtilityInfo[currentIndex] = indexToActorInfo  --[1]
+
+        --[=[
+        what information to pack with the utility packager
+            debuff_uptime_spells._ActorTable [spellId] = {
+                ["appliedamt"] = 1,
+                ["targets"] = {
+                },
+                ["activedamt"] = 1,
+                ["uptime"] = 10,
+                ["id"] = 41425,
+                ["refreshamt"] = 0,
+                ["actived"] = false,
+                ["counter"] = 0,
+            }
+
+            ["buff_uptime_spells"] = {
+                ["_ActorTable"] = {
+                    [327704] = {
+                        ["appliedamt"] = 1,
+                        ["targets"] = {
+                        },
+                        ["activedamt"] = 1,
+                        ["uptime"] = 111,
+                        ["id"] = 327704,
+                        ["refreshamt"] = 0,
+                        ["actived"] = false,
+                        ["counter"] = 0,
+                    },
+                }
+            }
+
+            ["debuff_uptime"] = 126,
+
+            interrupt_spells._ActorTable [spellId] = {
+                [2139] = {
+                    ["id"] = 2139,
+                    ["interrompeu_oque"] = {
+                        [337110] = 1,
+                    },
+                    ["targets"] = {
+                        ["Baroness Frieda"] = 1,
+                    },
+                    ["counter"] = 1,
+                },
+            }
+
+            ["interrompeu_oque"] = {
+                [337110] = 1,
+            },
+
+            ["cooldowns_defensive_spells"] = {
+                ["_ActorTable"] = {
+                    [45438] = {
+                        ["id"] = 45438,
+                        ["targets"] = {
+                            ["Relune-Tichondrius"] = 1,
+                        },
+                        ["counter"] = 1,
+                    },
+                },
+                ["tipo"] = 9,
+            },
+
+            ["cooldowns_defensive"] = 1.005112,
+            ["buff_uptime"] = 344,
+
+            ["last_cooldown"] = {
+                1623694994.154, -- [1]
+                45438, -- [2]
+            },
+
+            ["cooldowns_defensive_targets"] = {
+                ["Relune-Tichondrius"] = 1,
+            },
+
+            ["spell_cast"] = {
+                [108853] = 10,
+                [116011] = 1,
+                [133] = 17,
+                [257541] = 3,
+                [235313] = 5,
+                [314791] = 1,
+                [325130] = 4,
+                [190319] = 2,
+                [45438] = 1,
+                [11366] = 5,
+                [2139] = 2,
+                [116014] = 3,
+            },
+
+            ["debuff_uptime_targets"] = {
+            },
+            ["buff_uptime_targets"] = {
+            },
+
+            
+
+        --]=]
+
+        --[2 - 6]
+        actorUtilityInfo [currentIndex + 1] = floor(actor.total)              --[2]
+        actorUtilityInfo [currentIndex + 2] = floor(actor.totalabsorbed)      --[3]
+        actorUtilityInfo [currentIndex + 3] = floor(actor.damage_taken)       --[4]
+        actorUtilityInfo [currentIndex + 4] = floor(actor.friendlyfire_total) --[5]
+        actorUtilityInfo [currentIndex + 5] = floor(actor.total_without_pet)  --[6]
+
+        local spellContainer = actor.spells._ActorTable
+
+        --reserve an index to tell the length of spells
+        actorUtilityInfo [#actorUtilityInfo + 1] = 0
+        local reservedSpellSizeIndex = #actorUtilityInfo
+        local totalSpellIndexes = 0
+
+        for spellId, spellInfo in pairs(spellContainer) do
+            local spellDamage = spellInfo.total
+            local spellHits = spellInfo.counter
+            local spellTargets = spellInfo.targets
+
+            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellDamage)
+            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellHits)
+            totalSpellIndexes = totalSpellIndexes + 3
+
+            --build targets
+            local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+            actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+            totalSpellIndexes = totalSpellIndexes + 1
+
+            for actorName, damageDone in pairs(spellTargets) do
+                actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                actorUtilityInfo [#actorUtilityInfo + 1] = floor(damageDone)
+                totalSpellIndexes = totalSpellIndexes + 2
+            end
+        end
+
+        --amount of indexes spells are using
+        actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+    end
+
+    if (isDebugging) then
+        print("PackUtility(): done.")
+    end
+end
+
+
 
 --this function does the same as the function above but does not create a new combat, it just add new information
 function Details.packFunctions.DeployPackedCombatData(packedCombatData)

@@ -662,7 +662,7 @@ function DF:NewPanel (parent, container, name, member, w, h, backdrop, backdropc
 					["OnEnter"] = {0.3, 0.3, 0.3, 0.5},
 					["OnLeave"] = {0.9, 0.7, 0.7, 1}
 	}
-	PanelObject.frame:SetBackdrop ({bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]], edgeFile = "Interface\DialogFrame\UI-DialogBox-Border", edgeSize = 10, tileSize = 64, tile = true})
+	PanelObject.frame:SetBackdrop ({bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]], edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border", edgeSize = 10, tileSize = 64, tile = true})
 	
 	PanelObject.widget = PanelObject.frame
 	

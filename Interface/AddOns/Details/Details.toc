@@ -8,8 +8,6 @@
 Libs\libs.xml
 #@end-no-lib-strip@
 
-## DefaultState: disabled
-
 locales\Details-enUS.lua
 locales\Details-deDE.lua
 locales\Details-esES.lua
