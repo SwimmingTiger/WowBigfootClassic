@@ -308,7 +308,7 @@ end
 --I've tried my best to keep the data short and only send the first few log entries at a time.
 --I will remove this log system if the rend drop is ever fixed so it can work like ony/nef and not send the yell msgs on every layer.
 function NWB:sendTimerLogData(distribution, entries)
-	if (not enableLogging) then
+	if (not enableLogging or NWB.isTBC) then
 		return;
 	end
 	if (logLayeredServersOnly and not NWB.isLayered) then
@@ -610,7 +610,7 @@ function NWB:createData(distribution, noLogs)
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
-	if (enableLogging and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+	if (enableLogging and not NWB.isTBC and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
 		local timerLog = NWB:createTimerLogData(distribution);
 		if (next(timerLog)) then
 			data.timerLog = timerLog;
@@ -829,7 +829,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs)
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
-	if (enableLogging and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+	if (enableLogging and not NWB.isTBC and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
 		local timerLog = NWB:createTimerLogData(distribution);
 		if (next(timerLog)) then
 			data.timerLog = timerLog;

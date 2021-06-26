@@ -3999,6 +3999,13 @@ function NWB:getShortestTimerLayerBuff(type)
 	return lowestLayerID, lowestLayerNum;
 end
 
+function NWB:isInArena()
+	--Check if the func exists for classic.
+	if (IsActiveBattlefieldArena and IsActiveBattlefieldArena()) then
+		return true;
+	end
+end
+
 local lastFlash = 0;
 function NWB:startFlash(type)
 	if (NWB.isTBC and (NWB.db.global.disableFlashAllLevels
@@ -4646,7 +4653,7 @@ function NWB:registerOtherAddons()
 	C_ChatInfo.RegisterAddonMessagePrefix("NIT");
 end
 
---For NovaInstanceTracker, this is shared compatability with my another of my addons.
+--For NovaInstanceTracker, this is shared compatability with another of my addons.
 --Basically this just tells the instance tracker if an instance is reset to increase accuracy across groups.
 local f = CreateFrame("Frame")
 f:RegisterEvent("CHAT_MSG_SYSTEM")
@@ -4676,7 +4683,7 @@ f:SetScript('OnEvent', function(self, event, msg)
 	end
 end)
 
---We listen the DBM msgs as a backup for guilds with low user counts that may not have many online with NWB installed.
+--We listen to the DBM msgs as a backup for guilds with low user counts that may not have many online with NWB installed.
 local dbmLastRend, dbmLastOny, dbmLastNef, dbmLastZan = 0, 0, 0, 0;
 function NWB:parseDBM(prefix, msg, distribution, sender)
 	if (NWB.isLayered) then
@@ -4749,13 +4756,23 @@ function NWB:parseDBM(prefix, msg, distribution, sender)
 end
 
 --Requested by some users, start BigWigs timer bars if installed.
-function NWB:sendBigWigs(time, msg)
+--[[function NWB:sendBigWigs(time, msg)
 	if (IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
 		if (not SlashCmdList.BIGWIGSLOCALBAR) then
 			LoadAddOn("BigWigs_Plugins");
 		end
 		if (SlashCmdList.BIGWIGSLOCALBAR) then
 			SlashCmdList.BIGWIGSLOCALBAR(time .. " " .. msg);
+		end
+	end
+end]]
+
+function NWB:sendBigWigs(time, msg)
+	if (NWB.db.global.bigWigsSupport and not NWB.isTBC) then
+		if SlashCmdList.BIGWIGSLOCALBAR then --BigWigs exists and is fully loaded.
+			SlashCmdList.BIGWIGSLOCALBAR(time .. " " .. msg);
+		elseif (SlashCmdList["/LOCALBAR"]) then --BigWigs exists but is not yet fully loaded.
+			SlashCmdList["/LOCALBAR"](time .. " " .. msg);
 		end
 	end
 end
@@ -7210,7 +7227,7 @@ NWBbuffListFrameWipeButton:SetScript("OnClick", function(self, arg)
 	  timeout = 0,
 	  whileDead = true,
 	  hideOnEscape = true,
-	  preferredIndex = STATICPOPUP_NUMDIALOGS,
+	  preferredIndex = 3,
 	};
 	StaticPopup_Show("NWB_BUFFDATARESET");
 end)
@@ -8562,6 +8579,12 @@ function NWB:openLayerFrame()
 		if (NWBlayerFrameTimerLogButton) then
 			NWBlayerFrameTimerLogButton:SetPoint("CENTER", -58, -28);
 		end
+	elseif (NWB.isTBC) then
+		--If layered and is TBC.
+		--Disable rend log button and move guild layers to it's spot on TBC realms.
+		NWBlayerFrameTimerLogButton:Hide();
+		NWBlayerFrameTimerLogButton:SetText("");
+		NWBGuildLayersButton:SetPoint("CENTER", -58, -42);
 	end
 	NWB:setLayerFrameTimerLogButtonText();
 	NWB:removeOldLayers();
@@ -8697,8 +8720,8 @@ function NWB:createNewLayer(zoneID, GUID, isFromNpc)
 end
 
 function NWB:removeOldLayers()
-	--local expireTime = 21600;
-	local expireTime = 10800; --Seems to be a lot of world crashes during tbc launch, shorten old layer expire time for a few weeks.
+	local expireTime = 21600;
+	--local expireTime = 10800; --Seems to be a lot of world crashes during tbc launch, shorten old layer expire time for a few weeks.
 	local removed;
 	if (NWB.data.layers and next(NWB.data.layers)) then
 		for k, v in pairs(NWB.data.layers) do
@@ -9390,9 +9413,9 @@ f:SetScript('OnEvent', function(self, event, ...)
 			--	NWB.currentLayerShared = 0;
 			--end
 			NWB.currentLayer = 0;
-			NWB_CurrentLayer =  0;
+			NWB_CurrentLayer = 0;
 			NWB.currentZoneID = 0;
-			NWB:recalcMinimapLayerFrame();
+			NWB:recalcMinimapLayerFrame(nil, event, unit);
 		end
 	end
 end)
@@ -10231,7 +10254,7 @@ end)
 
 --zoneID only get passed to this function when we're on team join cooldown from NWB:mapCurrentLayer().
 NWB.currentLayer = 0;
-function NWB:recalcMinimapLayerFrame(zoneID)
+function NWB:recalcMinimapLayerFrame(zoneID, event, unit)
 	if ((GetServerTime() - NWB.lastJoinedGroup) < 5) then
 		--Don't update minimap frame for a few seconds after joining group.
 		NWB:toggleMinimapLayerFrame("hide");
@@ -10311,7 +10334,7 @@ function NWB:recalcMinimapLayerFrame(zoneID)
 			end
 		else
 			if (NWB.currentLayerShared ~= 0) then
-				NWB:sendL(0, "recalc minimap no zoneid");
+				NWB:sendL(0, "recalc minimap no zoneid", event, unit);
 				NWB.currentLayerShared = 0;
 			end
 			NWB_CurrentLayer = 0;
@@ -10330,7 +10353,10 @@ end
 --It will still only show when a layer is known on mouseover for the minimapLayerHover setting.
 NWB.minimapLayerFrameState = nil;
 function NWB:toggleMinimapLayerFrame(type)
-	if (type == "show") then
+	if (NWB:isInArena()) then
+		MinimapLayerFrame:Hide();
+		NWB.minimapLayerFrameState = nil;
+	elseif (type == "show") then
 		if (not NWB.db.global.minimapLayerHover) then
 			MinimapLayerFrame:Show();
 		end
@@ -11684,17 +11710,18 @@ function NWB:heraldFound(sender, layer)
 			senderMsg = " (" .. sender .. ")";
 		end
 		NWB:print(msg .. senderMsg);
-		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer) then
+		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and not NWB.isTBC) then
 			_G["DBM"]:CreatePizzaTimer(time, timerMsg);
 		end
-		if (IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
+		--[[if (IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
 			if (not SlashCmdList.BIGWIGSLOCALBAR) then
 				LoadAddOn("BigWigs_Plugins");
 			end
 			if (SlashCmdList.BIGWIGSLOCALBAR) then
 				SlashCmdList.BIGWIGSLOCALBAR(time .. " " .. timerMsg);
 			end
-		end
+		end]]
+		NWB:sendBigWigs(time, timerMsg);
 	end
 end
 
@@ -11716,17 +11743,18 @@ function NWB:heraldYell()
 		local timerMsg = "Crossroads Rend";
 		local time = 6;
 		local layerMsg = "";
-		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer) then
+		if (_G["DBM"] and _G["DBM"].CreatePizzaTimer and not NWB.isTBC) then
 			_G["DBM"]:CreatePizzaTimer(time, timerMsg);
 		end
-		if (IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
+		--[[if (IsAddOnLoaded("BigWigs") and NWB.db.global.bigWigsSupport) then
 			if (not SlashCmdList.BIGWIGSLOCALBAR) then
 				LoadAddOn("BigWigs_Plugins");
 			end
 			if (SlashCmdList.BIGWIGSLOCALBAR) then
 				SlashCmdList.BIGWIGSLOCALBAR(time .. " " .. timerMsg);
 			end
-		end
+		end]]
+		NWB:sendBigWigs(time, timerMsg);
 	end
 	lastHeraldYell = GetServerTime();
 end

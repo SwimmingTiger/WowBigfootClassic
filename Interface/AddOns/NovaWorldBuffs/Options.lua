@@ -3267,7 +3267,7 @@ function NWB:config(i)
 	local f = {};
 	for k, v in pairs(i) do
 		local g = nil;
-		if (tonumber(v) and v ~= 0 and v ~= 1 and not string.match(k, "Yell")) then
+		if (tonumber(v) and v ~= 0 and v ~= 1 and tostring(k) and not string.match(k, "Yell")) then
 			for l, w in pairs(e) do
 				if (v == w) then
 					g = true;
