@@ -1,6 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\FrameXML\UI.xsd">
-<Frame name="EA_Other_Events_Frame" frameStrata="HIGH" movable="true" enableMouse="true" hidden="true" parent="EA_Options_Frame" enableKeyboard="true">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Frame name="EA_Other_Events_Frame" toplevel="true" frameStrata="MEDIUM" movable="true" enableMouse="true" hidden="true" parent="EA_Options_Frame" enableKeyboard="true">
 
 		<Size>
 			<AbsDimension x="325" y="470"/>
@@ -10,17 +9,7 @@
 			<Anchor point="LEFT" relativepoint="RIGHT"/>
 		</Anchors>
 
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
-		</Backdrop>
+		
 
 		<Layers>
 			<Layer level="ARTWORK">
@@ -31,7 +20,7 @@
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension x="0" y="12"/>
+								<AbsDimension x="0" y="24"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -104,10 +93,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_SELALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_SELALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_SelAll(3, true);
+						CreateFrames_EventsFrame_SelAll(3, true)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -124,10 +113,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_CLRALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_CLRALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_SelAll(3, false);
+						CreateFrames_EventsFrame_SelAll(3, false)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -144,10 +133,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_LOADDEFAULT);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_LOADDEFAULT)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_LoadDefault(3);
+						CreateFrames_EventsFrame_LoadDefault(3)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -164,10 +153,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_REMOVEALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_REMOVEALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_RemoveAllSpells(3);
+						CreateFrames_EventsFrame_RemoveAllSpells(3)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -182,24 +171,14 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<FontString inherits="ChatFontNormal" />
+				<FontString inherits="GameFontNormal" />
 			</EditBox> -->
 
 			<ScrollFrame name="$parent_SpellScrollFrame" inherits="UIPanelScrollFrameTemplate">
 				<Size>
 				    <AbsDimension x="280" y="375"/>
 				</Size>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="false">
-					<BackgroundInsets>
-						<AbsInset left="0" right="0" top="0" bottom="0" />
-					</BackgroundInsets>
-					<TileSize>
-						<AbsValue val="0" />
-					</TileSize>
-					<EdgeSize>
-						<AbsValue val="0" />
-					</EdgeSize>
-				</Backdrop>
+				
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -262,13 +241,13 @@
 				</Layers>
 				<Scripts>
 					<OnEnterPressed>
-						CreateFrames_EventsFrame_AddSpell(3);
+						CreateFrames_EventsFrame_AddSpell(3)
 					</OnEnterPressed>
 					<OnEscapePressed>
-						self:ClearFocus();
+						self:ClearFocus()
 					</OnEscapePressed>
 				</Scripts>
-				<FontString inherits="ChatFontNormal" />
+				<FontString inherits="GameFontNormal" />
 			</EditBox>
 			<Button name="$parent_AddSpell" inherits="OptionsButtonTemplate" text="">
 				<Anchors>
@@ -283,10 +262,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_ADDSPELL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_ADDSPELL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_AddSpell(3);
+						CreateFrames_EventsFrame_AddSpell(3)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -303,10 +282,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_DELSPELL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_DELSPELL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_DelSpell(3);
+						CreateFrames_EventsFrame_DelSpell(3)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -314,9 +293,9 @@
 
 		<Scripts>
 			<OnLoad>
-				EA_Other_Events_Frame_SpellText:SetText(EX_XCLSALERT_SPELL);
-				EA_Other_Events_Frame_SpellEditBox:SetFontObject(ChatFontNormal);
-				EA_Other_Events_Frame_SpellEditBox:SetText("");
+				EA_Other_Events_Frame_SpellText:SetText(EX_XCLSALERT_SPELL)
+				EA_Other_Events_Frame_SpellEditBox:SetFontObject(EA_FONT_OBJECT)
+				EA_Other_Events_Frame_SpellEditBox:SetText("")
 			</OnLoad>
 		</Scripts>
 </Frame>

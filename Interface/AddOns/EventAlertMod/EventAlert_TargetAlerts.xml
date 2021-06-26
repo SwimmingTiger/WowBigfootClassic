@@ -1,6 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\FrameXML\UI.xsd">
-<Frame name="EA_Target_Events_Frame" frameStrata="HIGH" movable="true" enableMouse="true" hidden="true" parent="EA_Options_Frame" enableKeyboard="true">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+<Frame name="EA_Target_Events_Frame" toplevel="true" frameStrata="MEDIUM" movable="true" enableMouse="true" hidden="true" parent="EA_Options_Frame" enableKeyboard="true">
 
 		<Size>
 			<AbsDimension x="325" y="470"/>
@@ -10,18 +9,7 @@
 			<Anchor point="LEFT" relativepoint="RIGHT"/>
 		</Anchors>
 
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
-		</Backdrop>
-
+		
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture name="$parent_Header" file="Interface\DialogFrame\UI-DialogBox-Header">
@@ -31,7 +19,7 @@
 					<Anchors>
 						<Anchor point="TOP">
 							<Offset>
-								<AbsDimension x="0" y="12"/>
+								<AbsDimension x="0" y="24"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -104,10 +92,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_SELALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_SELALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_SelAll(4, true);
+						CreateFrames_EventsFrame_SelAll(4, true)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -124,10 +112,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_CLRALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_CLRALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_SelAll(4, false);
+						CreateFrames_EventsFrame_SelAll(4, false)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -144,10 +132,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_LOADDEFAULT);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_LOADDEFAULT)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_LoadDefault(4);
+						CreateFrames_EventsFrame_LoadDefault(4)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -164,14 +152,14 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_REMOVEALL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_REMOVEALL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_RemoveAllSpells(4);
+						CreateFrames_EventsFrame_RemoveAllSpells(4)
 					</OnClick>
 				</Scripts>
 			</Button>
-			<CheckButton name="$parent_Target_MyDebuff" inherits="InterfaceOptionsCheckButtonTemplate">
+			<CheckButton name="$parent_Target_MyDebuff" inherits="OptionsCheckButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent_SelAll" relativePoint="BOTTONLEFT">
 						<Offset>
@@ -181,22 +169,22 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						-- _G[self:GetName().."Text"]:SetText(EA_XTARALERT_TARGET_MYDEBUFF);
-						self:Hide();
+						-- _G[self:GetName().."Text"]:SetText(EA_XTARALERT_TARGET_MYDEBUFF)
+						self:Hide()
 					</OnLoad>
 					<OnClick>
 						if (self:GetChecked()) then
-							EA_Config.Target_MyDebuff = true;
+							EA_Config.Target_MyDebuff = true
 						else
-							EA_Config.Target_MyDebuff = false;
+							EA_Config.Target_MyDebuff = false
 						end
 					</OnClick>
 					<OnEnter>
-						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-						GameTooltip:SetText(EA_TTIP_TARGET_MYDEBUFF);
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+						GameTooltip:SetText(EA_TTIP_TARGET_MYDEBUFF)
 					</OnEnter>
 					<OnLeave>
-						GameTooltip:Hide();
+						GameTooltip:Hide()
 					</OnLeave>
 				</Scripts>
 			</CheckButton>
@@ -211,24 +199,14 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<FontString inherits="ChatFontNormal" />
+				<FontString inherits="GameFontNormal" />
 			</EditBox> -->
 
 			<ScrollFrame name="$parent_SpellScrollFrame" inherits="UIPanelScrollFrameTemplate">
 				<Size>
 				    <AbsDimension x="280" y="375"/>
 				</Size>
-				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="" tile="false">
-					<BackgroundInsets>
-						<AbsInset left="0" right="0" top="0" bottom="0" />
-					</BackgroundInsets>
-					<TileSize>
-						<AbsValue val="0" />
-					</TileSize>
-					<EdgeSize>
-						<AbsValue val="0" />
-					</EdgeSize>
-				</Backdrop>
+				
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -291,13 +269,13 @@
 				</Layers>
 				<Scripts>
 					<OnEnterPressed>
-						CreateFrames_EventsFrame_AddSpell(4);
+						CreateFrames_EventsFrame_AddSpell(4)
 					</OnEnterPressed>
 					<OnEscapePressed>
-						self:ClearFocus();
+						self:ClearFocus()
 					</OnEscapePressed>
 				</Scripts>
-				<FontString inherits="ChatFontNormal" />
+				<FontString inherits="GameFontNormal" />
 			</EditBox>
 			<Button name="$parent_AddSpell" inherits="OptionsButtonTemplate" text="">
 				<Anchors>
@@ -312,10 +290,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_ADDSPELL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_ADDSPELL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_AddSpell(4);
+						CreateFrames_EventsFrame_AddSpell(4)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -332,10 +310,10 @@
 				</Size>
 				<Scripts>
 					<OnLoad>
-						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_DELSPELL);
+						_G[self:GetName().."Text"]:SetText(EX_XCLSALERT_DELSPELL)
 					</OnLoad>
 					<OnClick>
-						CreateFrames_EventsFrame_DelSpell(4);
+						CreateFrames_EventsFrame_DelSpell(4)
 					</OnClick>
 				</Scripts>
 			</Button>
@@ -343,9 +321,9 @@
 
 		<Scripts>
 			<OnLoad>
-				EA_Target_Events_Frame_SpellText:SetText(EX_XCLSALERT_SPELL);
-				EA_Target_Events_Frame_SpellEditBox:SetFontObject(ChatFontNormal);
-				EA_Target_Events_Frame_SpellEditBox:SetText("");
+				EA_Target_Events_Frame_SpellText:SetText(EX_XCLSALERT_SPELL)
+				EA_Target_Events_Frame_SpellEditBox:SetFontObject(EA_FONT_OBJECT)
+				EA_Target_Events_Frame_SpellEditBox:SetText("")
 			</OnLoad>
 		</Scripts>
 </Frame>

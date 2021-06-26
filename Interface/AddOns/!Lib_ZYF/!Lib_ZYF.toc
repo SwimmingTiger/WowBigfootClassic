@@ -1,0 +1,8 @@
+## Interface: 20501
+## Title: ZYF's Lib
+## Notes: ZYF's Lib
+## DefaultState: Enabled
+## Author: ZYF
+## SavedVariables: ZYF
+## Version: 0.01
+Lib_ZYF.lua
