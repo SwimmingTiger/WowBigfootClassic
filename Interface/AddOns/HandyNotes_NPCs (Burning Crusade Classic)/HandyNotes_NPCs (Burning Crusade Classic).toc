@@ -1,16 +1,20 @@
 ## Interface: 20501
 ## Title: HandyNotes_NPCs (Burning Crusade Classic)
-## Version: 1.06
+## Version: 1.07
 ## Notes: Shows locations of various npcs
 ## Author: Cali
 ## RequiredDeps: HandyNotes
+## OptionalDeps: LibStub, !LibUIDropDownMenu
 ## SavedVariables: HandyNotes_NPCsBurningCrusadeClassicDB
-## X-Revision: BigFoot
 
+libs\AceHook-3.0\AceHook-3.0.lua
 libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
-
+libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
+libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua
+libs\AceGUI-3.0-SharedMediaWidgets\widget.xml
+libs\LibQTip-1.0\LibQTip-1.0.lua
 locales\Locales.xml
-
 data.lua
 vendorData.lua
 itemData.lua

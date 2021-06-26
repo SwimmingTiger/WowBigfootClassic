@@ -4,7 +4,7 @@ local nodes = data["nodes"]
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_NPCs (Burning Crusade Classic)")
 
 nodes[1954] = {
-	[92605840] = {
+	[92605820] = {
 		name = L["Ithillan"],
 		category = "auctioneers",
 		description = L["Auctioneer"],
@@ -94,7 +94,7 @@ nodes[1954] = {
 		description = L["Warsong Gulch Battlemaster"],
 		faction = "Neutral",
 	},
-	[95603740] = {
+	[95403740] = {
 		name = L["Bipp Glizzitor"],
 		category = "battlemasters",
 		description = L["Arena Battlemaster"],
@@ -129,6 +129,16 @@ nodes[1954] = {
 		category = "mailboxes",
 		faction = "Neutral",
 	},
+	[67902920] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[71307940] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
 	[82504300] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
@@ -139,7 +149,7 @@ nodes[1954] = {
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[88105120] = {
+	[88105110] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -185,7 +195,7 @@ nodes[1954] = {
 		description = L["Plate Armor Merchant"],
 		faction = "Neutral",
 	},
-	[65204720] = {
+	[65204740] = {
 		name = L["Andra"],
 		npcID = 16631,
 		category = "repair",
@@ -217,7 +227,7 @@ nodes[1954] = {
 		name = L["Eriden"],
 		npcID = 16670,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -235,7 +245,7 @@ nodes[1954] = {
 		description = L["Leather Armor Merchant"],
 		faction = "Horde",
 	},
-	[59808640] = {
+	[59608640] = {
 		name = L["Winthren"],
 		npcID = 16693,
 		category = "repair",
@@ -246,7 +256,7 @@ nodes[1954] = {
 		name = L["Shalenn"],
 		category = "stablemasters",
 		description = L["Stable Master"],
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[91003860] = {
 		name = L["Ileda"],
@@ -279,7 +289,7 @@ nodes[1954] = {
 		description = L["Alchemy Trainer"],
 		faction = "Horde",
 	},
-	[67401860] = {
+	[67201860] = {
 		name = L["Botanist Nathera"],
 		category = "primaryProfession",
 		profession = "Herbalism",
@@ -421,7 +431,7 @@ nodes[1954] = {
 	[77607120] = {
 		name = L["Alestus"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -432,7 +442,7 @@ nodes[1954] = {
 		description = L["Mining Trainer"],
 		faction = "Horde",
 	},
-	[76804100] = {
+	[76804080] = {
 		name = L["Danwe"],
 		category = "primaryProfession",
 		profession = "Engineering",
@@ -470,7 +480,7 @@ nodes[1954] = {
 		},
 		faction = "Horde",
 	},
-	[84402780] = {
+	[84402760] = {
 		name = L["Zandine"],
 		category = "trainers",
 		subcategories = {
@@ -480,7 +490,7 @@ nodes[1954] = {
 		classes = {
 			HUNTER = true,
 		},
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[82402800] = {
 		name = L["Halthenis"],
@@ -567,7 +577,7 @@ nodes[1954] = {
 		},
 		faction = "Horde",
 	},
-	[84808060] = {
+	[84608040] = {
 		name = L["Lynalis"],
 		category = "primaryProfession",
 		profession = "Leatherworking",
@@ -647,7 +657,7 @@ nodes[1954] = {
 		name = L["Gelanthis"],
 		npcID = 16624,
 		category = "vendors",
-		profession = "Jewelcrafting",
+		profession = "jewelcrafting",
 		description = L["Jewelcrafting Supplies"],
 		faction = "Horde",
 	},
@@ -655,7 +665,7 @@ nodes[1954] = {
 		name = L["Lyna"],
 		npcID = 16635,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Horde",
 	},
@@ -663,7 +673,7 @@ nodes[1954] = {
 		name = L["Deynna"],
 		npcID = 16638,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -671,7 +681,7 @@ nodes[1954] = {
 		name = L["Melaris"],
 		npcID = 16641,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Horde",
 	},
@@ -688,7 +698,7 @@ nodes[1954] = {
 		},
 		faction = "Horde",
 	},
-	[62005120] = {
+	[61605180] = {
 		name = L["Bithrus"],
 		npcID = 16650,
 		category = "vendors",
@@ -699,7 +709,7 @@ nodes[1954] = {
 		name = L["Zelan"],
 		npcID = 16664,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Horde",
 	},
@@ -724,7 +734,7 @@ nodes[1954] = {
 		name = L["Zaralda"],
 		npcID = 16689,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -739,7 +749,7 @@ nodes[1954] = {
 		name = L["Yatheon"],
 		npcID = 16782,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Horde",
 	},
@@ -747,13 +757,13 @@ nodes[1954] = {
 		name = L["Olirea"],
 		npcID = 18347,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
 }
 nodes[1947] = {
-	[63405820] = {
+	[63405840] = {
 		name = L["Eoch"],
 		category = "auctioneers",
 		description = L["Auctioneer"],
@@ -777,7 +787,7 @@ nodes[1947] = {
 		description = L["Banker"],
 		faction = "Alliance",
 	},
-	[45404440] = {
+	[45604440] = {
 		name = L["Ossco"],
 		category = "bankers",
 		description = L["Banker"],
@@ -789,11 +799,16 @@ nodes[1947] = {
 		description = L["Banker"],
 		faction = "Alliance",
 	},
-	[58801660] = {
+	[58801680] = {
 		name = L["Miglik Blotstrom"],
 		category = "battlemasters",
 		description = L["Arena Battlemaster"],
-		faction = "Neutral",
+		faction = "Alliance",
+	},
+	[53004260] = {
+		name = L["Eye of the Storm Emissary"],
+		category = "battlemasters",
+		faction = "Alliance",
 	},
 	[68606340] = {
 		name = L["Stephanos"],
@@ -820,7 +835,7 @@ nodes[1947] = {
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[60205180] = {
+	[60005140] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -866,7 +881,7 @@ nodes[1947] = {
 		description = L["Gunsmith"],
 		faction = "Alliance",
 	},
-	[70009260] = {
+	[70009240] = {
 		name = L["Mahri"],
 		npcID = 16747,
 		category = "repair",
@@ -962,10 +977,10 @@ nodes[1947] = {
 		description = L["Tailoring Trainer"],
 		faction = "Alliance",
 	},
-	[39402240] = {
+	[39202240] = {
 		name = L["Nus"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -1000,7 +1015,7 @@ nodes[1947] = {
 		},
 		faction = "Alliance",
 	},
-	[59808780] = {
+	[60008800] = {
 		name = L["Muaat"],
 		category = "primaryProfession",
 		profession = "Mining",
@@ -1223,7 +1238,7 @@ nodes[1947] = {
 		},
 		faction = "Alliance",
 	},
-	[35000820] = {
+	[35000840] = {
 		name = L["Hobahken"],
 		category = "trainers",
 		subcategories = {
@@ -1265,7 +1280,7 @@ nodes[1947] = {
 		name = L["Feera"],
 		npcID = 16657,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Alliance",
 	},
@@ -1273,7 +1288,7 @@ nodes[1947] = {
 		name = L["Altaa"],
 		npcID = 16705,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -1288,7 +1303,7 @@ nodes[1947] = {
 		name = L["Dekin"],
 		npcID = 16708,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -1303,7 +1318,7 @@ nodes[1947] = {
 		name = L["Arras"],
 		npcID = 16713,
 		category = "vendors",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -1318,7 +1333,7 @@ nodes[1947] = {
 		name = L["Egomis"],
 		npcID = 16722,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Alliance",
 	},
@@ -1336,15 +1351,15 @@ nodes[1947] = {
 		name = L["Haferet"],
 		npcID = 16748,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
-	[60008840] = {
+	[60008820] = {
 		name = L["Merran"],
 		npcID = 16751,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Alliance",
 	},
@@ -1369,7 +1384,7 @@ nodes[1947] = {
 		name = L["Neii"],
 		npcID = 16767,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -1384,7 +1399,7 @@ nodes[1947] = {
 		name = L["Arred"],
 		npcID = 17512,
 		category = "vendors",
-		profession = "Jewelcrafting",
+		profession = "jewelcrafting",
 		description = L["Jewelcrafting Supplies"],
 		faction = "Alliance",
 	},
@@ -1411,6 +1426,2172 @@ nodes[1947] = {
 		category = "vendors",
 		description = L["Moth Keeper"],
 		faction = "Alliance",
+	},
+}
+nodes[1446] = {
+	[52002960] = {
+		name = L["Auctioneer Beardo"],
+		category = "auctioneers",
+		faction = "Neutral",
+	},
+	[52202880] = {
+		name = L["Gimblethorn"],
+		category = "bankers",
+		description = L["Banker"],
+		faction = "Neutral",
+	},
+	[52402880] = {
+		name = L["Qizzik"],
+		category = "bankers",
+		description = L["Banker"],
+		faction = "Neutral",
+	},
+	[52002700] = {
+		name = L["Max Luna"],
+		category = "battlemasters",
+		description = L["Arena Battlemaster"],
+		faction = "Neutral",
+	},
+	[51002920] = {
+		name = L["Bera Stonehammer"],
+		category = "flightmasters",
+		fpName = L["Gadgetzan, Tanaris"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[51602540] = {
+		name = L["Bulkrek Ragefist"],
+		category = "flightmasters",
+		fpName = L["Gadgetzan, Tanaris"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[52402780] = {
+		name = L["Innkeeper Fizzgrimble"],
+		npcID = 7733,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Neutral",
+	},
+	[52302780] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[51402880] = {
+		name = L["Krinkle Goodsteel"],
+		npcID = 5411,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Neutral",
+	},
+	[50802760] = {
+		name = L["Wrinkle Goodsteel"],
+		npcID = 8129,
+		category = "repair",
+		description = L["Superior Armorer"],
+		faction = "Neutral",
+	},
+	[50802765] = {
+		name = L["Blizrik Buckshot"],
+		npcID = 8131,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Gunsmith"],
+		faction = "Neutral",
+	},
+	[63805660] = {
+		name = L["Yarley"],
+		npcID = 20082,
+		category = "repair",
+		description = L["Armorer"],
+		faction = "Neutral",
+	},
+	[49405900] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[54002860] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[52202800] = {
+		name = L["Laziphus"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Neutral",
+	},
+	[52402720] = {
+		name = L["Nixx Sprocketspring"],
+		category = "primaryProfession",
+		profession = "Engineering",
+		description = L["Goblin Engineering Trainer"],
+		faction = "Neutral",
+	},
+	[51002800] = {
+		name = L["Pikkle"],
+		category = "primaryProfession",
+		profession = "Mining",
+		description = L["Mining Trainer"],
+		faction = "Neutral",
+	},
+	[52202760] = {
+		name = L["Buzzek Bracketswing"],
+		category = "primaryProfession",
+		profession = "Engineering",
+		description = L["Engineering Trainer"],
+		faction = "Neutral",
+	},
+	[50802700] = {
+		name = L["Alchemist Pestlezugg"],
+		npcID = 5594,
+		category = "vendors",
+		profession = "alchemy",
+		description = L["Alchemy Supplies"],
+		faction = "Neutral",
+	},
+	[51002740] = {
+		name = L["Vizzklick"],
+		npcID = 6568,
+		category = "vendors",
+		profession = "tailoring",
+		description = L["Tailoring Supplies"],
+		faction = "Neutral",
+	},
+	[51802860] = {
+		name = L["Marin Noggenfogger"],
+		npcID = 7564,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[52602800] = {
+		name = L["Dirge Quikcleave"],
+		npcID = 8125,
+		category = "vendors",
+		description = L["Butcher"],
+		faction = "Neutral",
+	},
+	[66602200] = {
+		name = L["Gikkix"],
+		npcID = 8137,
+		category = "vendors",
+		description = L["Fisherman"],
+		faction = "Neutral",
+	},
+	[67002200] = {
+		name = L["Jabbey"],
+		npcID = 8139,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Neutral",
+	},
+	[66602220] = {
+		name = L["Haughty Modiste"],
+		npcID = 15165,
+		category = "vendors",
+		description = L["Fashion Designer"],
+		faction = "Neutral",
+	},
+	[67204960] = {
+		name = L["Alexston Chrome"],
+		npcID = 18542,
+		category = "vendors",
+		description = L["Tavern of Time"],
+		faction = "Neutral",
+	},
+	[57605900] = {
+		name = L["Andormu"],
+		npcID = 19932,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Keepers of Time"],
+		faction = "Neutral",
+	},
+	[63805780] = {
+		name = L["Galgrom"],
+		npcID = 20080,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Provisioner"],
+		faction = "Neutral",
+	},
+	[63805740] = {
+		name = L["Bortega"],
+		npcID = 20081,
+		category = "vendors",
+		description = L["Reagents & Poison Supplies"],
+		faction = "Neutral",
+	},
+	[63605760] = {
+		name = L["Alurmi"],
+		npcID = 21643,
+		category = "vendors",
+		description = L["Keepers of Time Quartermaster"],
+		faction = "Neutral",
+	},
+	[51402700] = {
+		name = L["Evee Copperspring"],
+		npcID = 25177,
+		category = "vendors",
+		description = L["Arena Vendor"],
+		faction = "Neutral",
+	},
+	[36402420] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36802460] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37002420] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38002520] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38602420] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39802740] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40402840] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40402860] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40602640] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41002740] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42002360] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42402300] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42602280] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42602440] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43002540] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43802380] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44202480] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37002440] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37002480] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37802480] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39802960] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40002860] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40602900] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42202240] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42202260] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35405920] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37205760] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405460] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405620] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37605780] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38005340] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38205200] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38205460] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38207260] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405120] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405420] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38605180] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38805060] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39007320] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39205820] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39205860] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39207160] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39405000] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39407400] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39607460] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39807100] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39807160] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40004980] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40005800] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40005900] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40205080] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40407340] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40407400] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40805120] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41005160] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41007480] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41207240] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41207300] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41407400] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41607220] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41607440] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41805180] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42005140] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42005300] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42007320] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42207520] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42405640] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42605380] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42805240] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42805580] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43405520] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44006500] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44006640] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44206420] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44606500] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44606580] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45006420] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45206320] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45606360] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45806200] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46006280] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46206760] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46406140] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46406700] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46606180] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46806280] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46806680] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47006360] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48006400] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48206700] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48406520] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48406560] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48606360] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48806520] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48806720] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39005400] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39405300] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40207260] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40407220] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40607240] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40607280] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41605480] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41805420] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44806620] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45806680] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46006540] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46006620] = {
+		name = L["Cyclok the Mad"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72404640] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72404680] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74404740] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74804740] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74804760] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76004500] = {
+		name = L["Kregg Keelhaul"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31404500] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31404560] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31604500] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32404440] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32604420] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33404240] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33404300] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34203980] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34804220] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34804540] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34804600] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35204340] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35204360] = {
+		name = L["Soriid the Devourer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53407020] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53607020] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54007060] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54407280] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54607320] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54607360] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56207300] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56207360] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56407140] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56407200] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56607200] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56807000] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57006880] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57007140] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57607200] = {
+		name = L["Haarka the Ravenous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41203520] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41803660] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42003440] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42203640] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42203820] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43203560] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43403500] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43603500] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44203620] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44603560] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44803540] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45403320] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45403360] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46403300] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46403360] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46803360] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003460] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003640] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003780] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003880] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47403700] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47603900] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47803980] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48003560] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003920] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49403480] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49603840] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50403940] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50603900] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803840] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51803960] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52403900] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52603800] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52803980] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53403940] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47203040] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47402520] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47402560] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47602580] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47603100] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47802840] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47803000] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48002700] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48603160] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003140] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49603180] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50003260] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51203260] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51603200] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52203280] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53403220] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53403280] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003240] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003500] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54203440] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54403260] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54603620] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55003340] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55003380] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55403660] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55603620] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56403660] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405880] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29605740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30205840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30205960] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30405920] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30605760] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30805720] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31005860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32205760] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33406440] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34006500] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406220] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406440] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34606400] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34606560] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34806520] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35405780] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35805740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005760] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405640] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605700] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47603120] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48002860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48003000] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48202820] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48602840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48602940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48603080] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48803020] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003260] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50203780] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50204980] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50403860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50404680] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50603980] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803680] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803845] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50804940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51003860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51005020] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51603940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51604840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52004940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52005500] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52005600] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52005680] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52204960] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52205060] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52403320] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52605620] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53004780] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53004940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53005700] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53403240] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003040] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003120] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54403180] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54803140] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55003020] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55003160] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56005240] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56805200] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57205360] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405520] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57605300] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57805380] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58205200] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58605220] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59205300] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59405120] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30005860] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30405720] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30405780] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30605720] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34206480] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406420] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34606380] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35006520] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35205720] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35405760] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005700] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205800] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205880] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48003005] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48402880] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48602820] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48603020] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50203880] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50403780] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803780] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803880] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51203740] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52004900] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52004960] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52005700] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52405580] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52805640] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54203140] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54403200] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54603140] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54603160] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57005400] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405280] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57605260] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58005360] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28605600] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29005780] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405745] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30005760] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30405725] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30405960] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30605740] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30605820] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30805860] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33006380] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406340] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406380] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34406460] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34605720] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34606405] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34806460] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35005760] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35006340] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005720] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005780] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205900] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805660] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37005640] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47603080] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48202960] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48402920] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48802880] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48803040] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003060] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003180] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50003800] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50603700] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50803860] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51003820] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51003960] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51005500] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51204920] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51604980] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51803700] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51804840] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52003840] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52205660] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52404860] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52405600] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52805540] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52805645] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53005720] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53204760] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53403200] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003020] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003140] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54003260] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54403160] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55003080] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55203240] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55603480] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56204940] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56405540] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56805420] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405200] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405260] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405480] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57605160] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57805320] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57805360] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58605225] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58605340] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37002380] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35205780] = {
+		name = L["Bone Witch"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40002880] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40402680] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42402320] = {
+		name = L["Warleader Krazzilak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44603620] = {
+		name = L["Greater Firebird"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47802620] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39005060] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36002620] = {
+		name = L["Jin'Zallah the Sandbringer"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48606540] = {
+		name = L["Omgorn the Lost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51203360] = {
+		name = L["Murderous Blisterpaw"],
+		category = "rares",
+		faction = "Neutral",
 	},
 }
 nodes[1452] = {
@@ -1526,7 +3707,7 @@ nodes[1452] = {
 		name = L["Xizzer Fizzbolt"],
 		npcID = 11185,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -1534,7 +3715,7 @@ nodes[1452] = {
 		name = L["Lunnix Sprocketslip"],
 		npcID = 11186,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Neutral",
 	},
@@ -1549,7 +3730,7 @@ nodes[1452] = {
 		name = L["Evie Whirlbrew"],
 		npcID = 11188,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Neutral",
 	},
@@ -3553,2162 +5734,6 @@ nodes[1452] = {
 		faction = "Neutral",
 	},
 }
-nodes[1446] = {
-	[52002960] = {
-		name = L["Auctioneer Beardo"],
-		category = "auctioneers",
-		faction = "Neutral",
-	},
-	[52202880] = {
-		name = L["Gimblethorn"],
-		category = "bankers",
-		description = L["Banker"],
-		faction = "Neutral",
-	},
-	[52402880] = {
-		name = L["Qizzik"],
-		category = "bankers",
-		description = L["Banker"],
-		faction = "Neutral",
-	},
-	[52002700] = {
-		name = L["Max Luna"],
-		category = "battlemasters",
-		description = L["Arena Battlemaster"],
-		faction = "Neutral",
-	},
-	[51002920] = {
-		name = L["Bera Stonehammer"],
-		category = "flightmasters",
-		fpName = L["Gadgetzan, Tanaris"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[51602540] = {
-		name = L["Bulkrek Ragefist"],
-		category = "flightmasters",
-		fpName = L["Gadgetzan, Tanaris"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[52402780] = {
-		name = L["Innkeeper Fizzgrimble"],
-		npcID = 7733,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Neutral",
-	},
-	[52302780] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Neutral",
-	},
-	[51402880] = {
-		name = L["Krinkle Goodsteel"],
-		npcID = 5411,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Neutral",
-	},
-	[50802760] = {
-		name = L["Wrinkle Goodsteel"],
-		npcID = 8129,
-		category = "repair",
-		description = L["Superior Armorer"],
-		faction = "Neutral",
-	},
-	[50802765] = {
-		name = L["Blizrik Buckshot"],
-		npcID = 8131,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Gunsmith"],
-		faction = "Neutral",
-	},
-	[63805660] = {
-		name = L["Yarley"],
-		npcID = 20082,
-		category = "repair",
-		description = L["Armorer"],
-		faction = "Neutral",
-	},
-	[49405900] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[54002860] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[52202800] = {
-		name = L["Laziphus"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Neutral",
-	},
-	[52402720] = {
-		name = L["Nixx Sprocketspring"],
-		category = "primaryProfession",
-		profession = "Engineering",
-		description = L["Goblin Engineering Trainer"],
-		faction = "Neutral",
-	},
-	[51002800] = {
-		name = L["Pikkle"],
-		category = "primaryProfession",
-		profession = "Mining",
-		description = L["Mining Trainer"],
-		faction = "Neutral",
-	},
-	[52202760] = {
-		name = L["Buzzek Bracketswing"],
-		category = "primaryProfession",
-		profession = "Engineering",
-		description = L["Engineering Trainer"],
-		faction = "Neutral",
-	},
-	[50802700] = {
-		name = L["Alchemist Pestlezugg"],
-		npcID = 5594,
-		category = "vendors",
-		profession = "Alchemy",
-		description = L["Alchemy Supplies"],
-		faction = "Neutral",
-	},
-	[51002740] = {
-		name = L["Vizzklick"],
-		npcID = 6568,
-		category = "vendors",
-		profession = "Tailoring",
-		description = L["Tailoring Supplies"],
-		faction = "Neutral",
-	},
-	[51802860] = {
-		name = L["Marin Noggenfogger"],
-		npcID = 7564,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[52602800] = {
-		name = L["Dirge Quikcleave"],
-		npcID = 8125,
-		category = "vendors",
-		description = L["Butcher"],
-		faction = "Neutral",
-	},
-	[66602200] = {
-		name = L["Gikkix"],
-		npcID = 8137,
-		category = "vendors",
-		description = L["Fisherman"],
-		faction = "Neutral",
-	},
-	[67002200] = {
-		name = L["Jabbey"],
-		npcID = 8139,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[66602220] = {
-		name = L["Haughty Modiste"],
-		npcID = 15165,
-		category = "vendors",
-		description = L["Fashion Designer"],
-		faction = "Neutral",
-	},
-	[67204960] = {
-		name = L["Alexston Chrome"],
-		npcID = 18542,
-		category = "vendors",
-		description = L["Tavern of Time"],
-		faction = "Neutral",
-	},
-	[57605880] = {
-		name = L["Andormu"],
-		npcID = 19932,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Keepers of Time"],
-		faction = "Neutral",
-	},
-	[63805780] = {
-		name = L["Galgrom"],
-		npcID = 20080,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Provisioner"],
-		faction = "Neutral",
-	},
-	[63805740] = {
-		name = L["Bortega"],
-		npcID = 20081,
-		category = "vendors",
-		description = L["Reagents & Poison Supplies"],
-		faction = "Neutral",
-	},
-	[63605760] = {
-		name = L["Alurmi"],
-		npcID = 21643,
-		category = "vendors",
-		description = L["Keepers of Time Quartermaster"],
-		faction = "Neutral",
-	},
-	[51402700] = {
-		name = L["Evee Copperspring"],
-		npcID = 25177,
-		category = "vendors",
-		description = L["Arena Vendor"],
-		faction = "Neutral",
-	},
-	[36402420] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36802460] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37002420] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38002520] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38602420] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39802740] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40402840] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40402860] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40602640] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41002740] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42002360] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42402300] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42602280] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42602440] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43002540] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43802380] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44202480] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37002440] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37002480] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37802480] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39802960] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40002860] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40602900] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42202240] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42202260] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35405920] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37205760] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37405460] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37405620] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37605780] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38005340] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38205200] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38205460] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38207260] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405120] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405420] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38605180] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38805060] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39007320] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39205820] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39205860] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39207160] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39405000] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39407400] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39607460] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39807100] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39807160] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40004980] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40005800] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40005900] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40205080] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40407340] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40407400] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40805120] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41005160] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41007480] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41207240] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41207300] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41407400] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41607220] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41607440] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41805180] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42005140] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42005300] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42007320] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42207520] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42405640] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42605380] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42805240] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42805580] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43405520] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44006500] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44006640] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44206420] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44606500] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44606580] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45006420] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45206320] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45606360] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45806200] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46006280] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46206760] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46406140] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46406700] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46606180] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46806280] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46806680] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47006360] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48006400] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48206700] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48406520] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48406560] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48606360] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48806520] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48806720] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39005400] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39405300] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40207260] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40407220] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40607240] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40607280] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41605480] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41805420] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44806620] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45806680] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46006540] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46006620] = {
-		name = L["Cyclok the Mad"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72404640] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72404680] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74404740] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74804740] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74804760] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76004500] = {
-		name = L["Kregg Keelhaul"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31404500] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31404560] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31604500] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32404440] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32604420] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33404240] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33404300] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34203980] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34804220] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34804540] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34804600] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35204340] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35204360] = {
-		name = L["Soriid the Devourer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53407020] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53607020] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54007060] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54407280] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54607320] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54607360] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56207300] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56207360] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56407140] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56407200] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56607200] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56807000] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57006880] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57007140] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57607200] = {
-		name = L["Haarka the Ravenous"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41203520] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41803660] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42003440] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42203640] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42203820] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43203560] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43403500] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43603500] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44203620] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44603560] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44803540] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45403320] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45403360] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46403300] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46403360] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46803360] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003460] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003640] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003780] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003880] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47403700] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47603900] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47803980] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48003560] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003920] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49403480] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49603840] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50403940] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50603900] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803840] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51803960] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52403900] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52603800] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52803980] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53403940] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47203040] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47402520] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47402560] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47602580] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47603100] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47802840] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47803000] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48002700] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48603160] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003140] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49603180] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50003260] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51203260] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51603200] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52203280] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53403220] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53403280] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003240] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003500] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54203440] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54403260] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54603620] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55003340] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55003380] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55403660] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55603620] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56403660] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29405740] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29405840] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29405880] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29605740] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30205840] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30205960] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30405920] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30605760] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30805720] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31005860] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32205760] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33406440] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34006500] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406220] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406440] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34606400] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34606560] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34806520] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35405780] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35805740] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36005760] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405640] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605700] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605840] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47603120] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48002860] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48003000] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48202820] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48602840] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48602940] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48603080] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48803020] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003260] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50203780] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50204980] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50403860] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50404680] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50603980] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803680] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803845] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50804940] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51003860] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51005020] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51603940] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51604840] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52004940] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52005500] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52005600] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52005680] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52204960] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52205060] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52403320] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52605620] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53004780] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53004940] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53005700] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53403240] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003040] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003120] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54403180] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54803140] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55003020] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55003160] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56005240] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56805200] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57205360] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57405520] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57605300] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57805380] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58205200] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58605220] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59205300] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59405120] = {
-		name = L["Lumbering Horror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30005860] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30405720] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30405780] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30605720] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34206480] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406420] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34606380] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35006520] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35205720] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35405760] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36005700] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36205800] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36205880] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48003005] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48402880] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48602820] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48603020] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50203880] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50403780] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803780] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803880] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51203740] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52004900] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52004960] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52005700] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52405580] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52805640] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54203140] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54403200] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54603140] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54603160] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57005400] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57405280] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57605260] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58005360] = {
-		name = L["Spirit of the Damned"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28605600] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29005780] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29405745] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30005760] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30405725] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30405960] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30605740] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30605820] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30805860] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33006380] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406340] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406380] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34406460] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34605720] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34606405] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34806460] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35005760] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35006340] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36005720] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36005780] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36205900] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805660] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37005640] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47603080] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48202960] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48402920] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48802880] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48803040] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003060] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003180] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50003800] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50603700] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50803860] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51003820] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51003960] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51005500] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51204920] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51604980] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51803700] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51804840] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52003840] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52205660] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52404860] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52405600] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52805540] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52805645] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53005720] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53204760] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53403200] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003020] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003140] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54003260] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54403160] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55003080] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55203240] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55603480] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56204940] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56405540] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56805420] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57405200] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57405260] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57405480] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57605160] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57805320] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57805360] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58605225] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58605340] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37002380] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35205780] = {
-		name = L["Bone Witch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40002880] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40402680] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42402320] = {
-		name = L["Warleader Krazzilak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44603620] = {
-		name = L["Greater Firebird"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47802620] = {
-		name = L["Murderous Blisterpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39005060] = {
-		name = L["Omgorn the Lost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36002620] = {
-		name = L["Jin'Zallah the Sandbringer"],
-		category = "rares",
-		faction = "Neutral",
-	},
-}
 nodes[1434] = {
 	[27807700] = {
 		name = L["Auctioneer Kresky"],
@@ -5846,7 +5871,7 @@ nodes[1434] = {
 		name = L["Hurklor"],
 		npcID = 2844,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Neutral",
 	},
@@ -5861,7 +5886,7 @@ nodes[1434] = {
 		name = L["Jansen Underwood"],
 		npcID = 2847,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Neutral",
 	},
@@ -6042,7 +6067,7 @@ nodes[1434] = {
 		name = L["Old Man Heming"],
 		npcID = 2626,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Neutral",
 	},
@@ -6065,7 +6090,7 @@ nodes[1434] = {
 		name = L["Xizk Goodstitch"],
 		npcID = 2670,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Neutral",
 	},
@@ -6073,7 +6098,7 @@ nodes[1434] = {
 		name = L["Cowardly Crosby"],
 		npcID = 2672,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Neutral",
 	},
@@ -6081,7 +6106,10 @@ nodes[1434] = {
 		name = L["Mazk Snipeshot"],
 		npcID = 2685,
 		category = "vendors",
-		profession = "Engineering",
+		vendors = {
+			ammo = true,
+		},
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -6089,7 +6117,7 @@ nodes[1434] = {
 		name = L["Gnaz Blunderflame"],
 		npcID = 2687,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -6097,7 +6125,7 @@ nodes[1434] = {
 		name = L["Rikqiz"],
 		npcID = 2699,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Neutral",
 	},
@@ -6126,7 +6154,7 @@ nodes[1434] = {
 		name = L["Blixrez Goodstitch"],
 		npcID = 2846,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Neutral",
 	},
@@ -6134,7 +6162,7 @@ nodes[1434] = {
 		name = L["Glyx Brewright"],
 		npcID = 2848,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Neutral",
 	},
@@ -6149,7 +6177,7 @@ nodes[1434] = {
 		name = L["Knaz Blunderflame"],
 		npcID = 8679,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -6879,6 +6907,11 @@ nodes[1434] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[36403040] = {
+		name = L["Roloch"],
+		category = "rares",
+		faction = "Alliance",
+	},
 }
 nodes[1453] = {
 	[53206060] = {
@@ -7174,7 +7207,7 @@ nodes[1453] = {
 		name = L["Kaita Deepforge"],
 		npcID = 5512,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -7293,7 +7326,7 @@ nodes[1453] = {
 	[42802640] = {
 		name = L["Shaina Fuller"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -7748,7 +7781,7 @@ nodes[1453] = {
 		name = L["Maria Lumere"],
 		npcID = 1313,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -7763,7 +7796,7 @@ nodes[1453] = {
 		name = L["Jessara Cordell"],
 		npcID = 1318,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Alliance",
 	},
@@ -7803,7 +7836,7 @@ nodes[1453] = {
 		name = L["Alexandra Bolero"],
 		npcID = 1347,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -7849,7 +7882,7 @@ nodes[1453] = {
 		name = L["Catherine Leland"],
 		npcID = 5494,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -7864,7 +7897,7 @@ nodes[1453] = {
 		name = L["Brooke Stonebraid"],
 		npcID = 5514,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Alliance",
 	},
@@ -7872,7 +7905,7 @@ nodes[1453] = {
 		name = L["Billibub Cogspinner"],
 		npcID = 5519,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Alliance",
 	},
@@ -7893,7 +7926,7 @@ nodes[1453] = {
 		name = L["Jillian Tanner"],
 		npcID = 5565,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -8806,6 +8839,16 @@ nodes[1453] = {
 		category = "rares",
 		faction = "Horde",
 	},
+	[67005540] = {
+		name = L["Sewer Beast"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50202260] = {
+		name = L["Sewer Beast"],
+		category = "rares",
+		faction = "Horde",
+	},
 }
 nodes[1454] = {
 	[55606280] = {
@@ -8865,7 +8908,7 @@ nodes[1454] = {
 		description = L["Arena Battlemaster"],
 		faction = "Horde",
 	},
-	[50206540] = {
+	[50606540] = {
 		name = L["Eye of the Storm Envoy"],
 		category = "battlemasters",
 		faction = "Horde",
@@ -8977,7 +9020,7 @@ nodes[1454] = {
 		name = L["Sumi"],
 		npcID = 3356,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -9226,7 +9269,7 @@ nodes[1454] = {
 	[34008440] = {
 		name = L["Arnok"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -9527,7 +9570,7 @@ nodes[1454] = {
 		name = L["Shankys"],
 		npcID = 3333,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -9562,7 +9605,7 @@ nodes[1454] = {
 		name = L["Kithas"],
 		npcID = 3346,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Horde",
 	},
@@ -9570,7 +9613,7 @@ nodes[1454] = {
 		name = L["Kor'geld"],
 		npcID = 3348,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Horde",
 	},
@@ -9598,7 +9641,7 @@ nodes[1454] = {
 		name = L["Gorina"],
 		npcID = 3358,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Horde",
 	},
@@ -9613,7 +9656,7 @@ nodes[1454] = {
 		name = L["Borya"],
 		npcID = 3364,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -9621,7 +9664,7 @@ nodes[1454] = {
 		name = L["Tamar"],
 		npcID = 3366,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -9664,7 +9707,7 @@ nodes[1454] = {
 		name = L["Sovik"],
 		npcID = 3413,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Horde",
 	},
@@ -9842,7 +9885,7 @@ nodes[1455] = {
 		category = "mailboxes",
 		faction = "Alliance",
 	},
-	[72004840] = {
+	[72004950] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
@@ -9851,7 +9894,7 @@ nodes[1455] = {
 		name = L["Thurgrum Deepforge"],
 		npcID = 4259,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -10214,7 +10257,7 @@ nodes[1455] = {
 	[54805860] = {
 		name = L["Nissa Firestone"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -10253,7 +10296,7 @@ nodes[1455] = {
 		description = L["Armorsmith Trainer"],
 		faction = "Alliance",
 	},
-	[51601480] = {
+	[51601460] = {
 		name = L["Hulfdan Blackbeard"],
 		category = "trainers",
 		subcategories = {
@@ -10426,7 +10469,7 @@ nodes[1455] = {
 		name = L["Golnir Bouldertoe"],
 		npcID = 4256,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Alliance",
 	},
@@ -10490,7 +10533,7 @@ nodes[1455] = {
 		name = L["Bombus Finespindle"],
 		npcID = 5128,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -10530,7 +10573,7 @@ nodes[1455] = {
 		name = L["Poranna Snowbraid"],
 		npcID = 5154,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -10538,7 +10581,7 @@ nodes[1455] = {
 		name = L["Tilli Thistlefuzz"],
 		npcID = 5158,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Alliance",
 	},
@@ -10553,7 +10596,7 @@ nodes[1455] = {
 		name = L["Tansy Puddlefizz"],
 		npcID = 5162,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -10575,7 +10618,7 @@ nodes[1455] = {
 		name = L["Gearcutter Cogspinner"],
 		npcID = 5175,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Alliance",
 	},
@@ -10583,7 +10626,7 @@ nodes[1455] = {
 		name = L["Soolie Berryfizz"],
 		npcID = 5178,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -10628,7 +10671,7 @@ nodes[1455] = {
 		description = L["Speciality Tailoring Supplies"],
 		faction = "Alliance",
 	},
-	[49605680] = {
+	[50005700] = {
 		name = L["Sraaz"],
 		npcID = 9099,
 		category = "vendors",
@@ -10689,11 +10732,6 @@ nodes[1456] = {
 		description = L["Arena Battlemaster"],
 		faction = "Neutral",
 	},
-	[36206160] = {
-		name = L["Eye of the Storm Envoy"],
-		category = "battlemasters",
-		faction = "Horde",
-	},
 	[46805000] = {
 		name = L["Tal"],
 		category = "flightmasters",
@@ -10733,7 +10771,7 @@ nodes[1456] = {
 		name = L["Taur Stonehoof"],
 		npcID = 2999,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -10855,7 +10893,7 @@ nodes[1456] = {
 	[29402140] = {
 		name = L["Pand Stonebinder"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -11177,7 +11215,7 @@ nodes[1456] = {
 		name = L["Kurm Stonehoof"],
 		npcID = 3002,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Horde",
 	},
@@ -11199,7 +11237,7 @@ nodes[1456] = {
 		name = L["Mani Winterhoof"],
 		npcID = 3010,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Horde",
 	},
@@ -11207,7 +11245,7 @@ nodes[1456] = {
 		name = L["Nata Dawnstrider"],
 		npcID = 3012,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Horde",
 	},
@@ -11250,7 +11288,7 @@ nodes[1456] = {
 		name = L["Sewa Mistrunner"],
 		npcID = 3029,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -11816,6 +11854,11 @@ nodes[1457] = {
 		description = L["Arena Battlemaster"],
 		faction = "Neutral",
 	},
+	[38207280] = {
+		name = L["Eye of the Storm Emissary"],
+		category = "battlemasters",
+		faction = "Alliance",
+	},
 	[67201580] = {
 		name = L["Innkeeper Saelienne"],
 		npcID = 6735,
@@ -11824,6 +11867,11 @@ nodes[1457] = {
 		faction = "Alliance",
 	},
 	[41404210] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[66901650] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
@@ -12108,7 +12156,7 @@ nodes[1457] = {
 	[51601260] = {
 		name = L["Dannelor"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -12259,7 +12307,7 @@ nodes[1457] = {
 		name = L["Elynna"],
 		npcID = 4168,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -12315,7 +12363,7 @@ nodes[1457] = {
 		name = L["Voloren"],
 		npcID = 4222,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -12330,7 +12378,7 @@ nodes[1457] = {
 		name = L["Saenorion"],
 		npcID = 4225,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -12338,7 +12386,7 @@ nodes[1457] = {
 		name = L["Ulthir"],
 		npcID = 4226,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -12346,7 +12394,7 @@ nodes[1457] = {
 		name = L["Vaean"],
 		npcID = 4228,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Alliance",
 	},
@@ -12485,7 +12533,7 @@ nodes[1458] = {
 		description = L["Arena Battlemaster"],
 		faction = "Horde",
 	},
-	[65805520] = {
+	[66005520] = {
 		name = L["Eye of the Storm Envoy"],
 		category = "battlemasters",
 		faction = "Horde",
@@ -12582,7 +12630,7 @@ nodes[1458] = {
 		name = L["Samuel Van Brunt"],
 		npcID = 4597,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -12827,7 +12875,7 @@ nodes[1458] = {
 	[73405560] = {
 		name = L["Mary Edras"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -13026,7 +13074,7 @@ nodes[1458] = {
 		name = L["Lizbeth Cromwell"],
 		npcID = 4574,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -13044,7 +13092,7 @@ nodes[1458] = {
 		name = L["Millie Gregorian"],
 		npcID = 4577,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -13069,7 +13117,7 @@ nodes[1458] = {
 		name = L["Elizabeth Van Talen"],
 		npcID = 4587,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Horde",
 	},
@@ -13077,7 +13125,7 @@ nodes[1458] = {
 		name = L["Joseph Moore"],
 		npcID = 4589,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -13092,7 +13140,7 @@ nodes[1458] = {
 		name = L["Sarah Killian"],
 		npcID = 4599,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Horde",
 	},
@@ -13100,7 +13148,7 @@ nodes[1458] = {
 		name = L["Algernon"],
 		npcID = 4610,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Horde",
 	},
@@ -13115,7 +13163,7 @@ nodes[1458] = {
 		name = L["Thaddeus Webb"],
 		npcID = 4617,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Horde",
 	},
@@ -13200,11 +13248,11 @@ nodes[1953] = {
 		description = L["Banker"],
 		faction = "Neutral",
 	},
-	[32206700] = {
+	[32206720] = {
 		name = L["Meeda"],
 		category = "bankers",
 		description = L["Banker"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[33806400] = {
 		name = L["Krexcil"],
@@ -13234,14 +13282,14 @@ nodes[1953] = {
 		description = L["Innkeeper"],
 		faction = "Neutral",
 	},
-	[32006420] = {
+	[32006440] = {
 		name = L["Innkeeper Remi Dodoso"],
 		npcID = 19571,
 		category = "innkeepers",
 		description = L["Innkeeper"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[32306460] = {
+	[32206460] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -13262,7 +13310,7 @@ nodes[1953] = {
 		name = L["Qiff"],
 		npcID = 19575,
 		category = "repair",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -13284,7 +13332,7 @@ nodes[1953] = {
 		name = L["Apprentice Andrethan"],
 		npcID = 20463,
 		category = "repair",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[66006720] = {
 		name = L["Kerpow Blastwrench"],
@@ -13294,14 +13342,30 @@ nodes[1953] = {
 			ammo = true,
 		},
 		description = L["Weapon Merchant"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[32406440] = {
 		name = L["Blazzle"],
 		npcID = 28344,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
+		faction = "Neutral",
+	},
+	[33806540] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[42602920] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[32006480] = {
+		name = L["Liza Cutlerflix"],
+		category = "stablemasters",
+		description = L["Stable Master"],
 		faction = "Neutral",
 	},
 	[44403400] = {
@@ -13309,7 +13373,7 @@ nodes[1953] = {
 		category = "primaryProfession",
 		profession = "Jewelcrafting",
 		description = L["Master Jewelcrafting Trainer"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[44203360] = {
 		name = L["Asarnan"],
@@ -13330,7 +13394,7 @@ nodes[1953] = {
 		npcID = 19533,
 		category = "vendors",
 		description = L["Trade Goods"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[43403500] = {
 		name = L["Dealer Digriz"],
@@ -13340,20 +13404,20 @@ nodes[1953] = {
 			ammo = true,
 		},
 		description = L["General Goods"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[43803520] = {
 		name = L["Dealer Zijaad"],
 		npcID = 19535,
 		category = "vendors",
 		description = L["Arcane Goods"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[44203400] = {
 		name = L["Dealer Malij"],
 		npcID = 19537,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Neutral",
 	},
@@ -13361,16 +13425,16 @@ nodes[1953] = {
 		name = L["Dealer Senzik"],
 		npcID = 19538,
 		category = "vendors",
-		profession = "Jewelcrafting",
+		profession = "jewelcrafting",
 		description = L["Gems & Jewelcrafting Supplies"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[32606400] = {
 		name = L["Gant"],
 		npcID = 19572,
 		category = "vendors",
 		description = L["Food & Drink"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[32406320] = {
 		name = L["Dash"],
@@ -13404,7 +13468,7 @@ nodes[1953] = {
 			ammo = true,
 		},
 		description = L["General Provisioner"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[46805660] = {
 		name = L["Dealer Dunar"],
@@ -13414,21 +13478,21 @@ nodes[1953] = {
 			ammo = true,
 		},
 		description = L["General Provisioner"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[33006420] = {
 		name = L["Vixton Pinchwhistle"],
 		npcID = 20278,
 		category = "vendors",
 		description = L["Arena Vendor"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[43403520] = {
 		name = L["Dealer Rashaad"],
 		npcID = 20980,
 		category = "vendors",
 		description = L["Exotic Creatures"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[45003640] = {
 		name = L["Dealer Najeeb"],
@@ -13456,7 +13520,7 @@ nodes[1953] = {
 		npcID = 26352,
 		category = "vendors",
 		description = L["Arena Vendor"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[26404240] = {
 		name = L["Chief Engineer Lorthander"],
@@ -13488,9 +13552,109 @@ nodes[1953] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[48208180] = {
+		name = L["Chief Engineer Lorthander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61006560] = {
+		name = L["Chief Engineer Lorthander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23007580] = {
+		name = L["Ever-Core the Punisher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60003300] = {
+		name = L["Ever-Core the Punisher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31207840] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44807260] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45407220] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46008060] = {
+		name = L["Chief Engineer Lorthander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58606380] = {
+		name = L["Chief Engineer Lorthander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60006660] = {
+		name = L["Chief Engineer Lorthander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[20407340] = {
+		name = L["Ever-Core the Punisher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30404300] = {
+		name = L["Ever-Core the Punisher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34402120] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34402220] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34802940] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36402200] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36402260] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56005980] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63605960] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64805900] = {
+		name = L["Nuramoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1955] = {
-	[49202860] = {
+	[49202840] = {
 		name = L["Mendorn"],
 		category = "bankers",
 		description = L["Banker"],
@@ -13514,7 +13678,7 @@ nodes[1955] = {
 		description = L["Banker"],
 		faction = "Neutral",
 	},
-	[66405720] = {
+	[66405700] = {
 		name = L["Montok Redhands"],
 		category = "battlemasters",
 		description = L["Warsong Gulch Battlemaster"],
@@ -13532,7 +13696,7 @@ nodes[1955] = {
 		description = L["Warsong Gulch Battlemaster"],
 		faction = "Alliance",
 	},
-	[67003340] = {
+	[67203340] = {
 		name = L["Adam Eternum"],
 		category = "battlemasters",
 		description = L["Arathi Basin Battlemaster"],
@@ -13544,13 +13708,19 @@ nodes[1955] = {
 		description = L["Arathi Basin Battlemaster"],
 		faction = "Horde",
 	},
-	[66605700] = {
+	[66605680] = {
 		name = L["Wolf-Sister Maka"],
 		category = "battlemasters",
 		description = L["Alterac Valley Battlemaster"],
 		faction = "Horde",
 	},
-	[67205560] = {
+	[66803340] = {
+		name = L["Iravar"],
+		category = "battlemasters",
+		description = L["Eye of the Storm Battlemaster"],
+		faction = "Alliance",
+	},
+	[67005560] = {
 		name = L["Yula the Fair"],
 		category = "battlemasters",
 		description = L["Eye of the Storm Battlemaster"],
@@ -13562,7 +13732,7 @@ nodes[1955] = {
 		description = L["Arena Battlemaster"],
 		faction = "Neutral",
 	},
-	[75604220] = {
+	[74603300] = {
 		name = L["Eye of the Storm Emissary"],
 		category = "battlemasters",
 		faction = "Alliance",
@@ -13576,7 +13746,7 @@ nodes[1955] = {
 		name = L["Kixi the Shiv"],
 		category = "battlemasters",
 		description = L["Arena Battlemaster"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[63804100] = {
 		name = L["Nutral"],
@@ -13599,12 +13769,12 @@ nodes[1955] = {
 		description = L["Innkeeper"],
 		faction = "Neutral",
 	},
-	[28204730] = {
+	[28104720] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[47102560] = {
+	[47102570] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -13619,24 +13789,24 @@ nodes[1955] = {
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[73503440] = {
+	[73403420] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[74504860] = {
+	[74404870] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
 	},
-	[34201920] = {
+	[34201940] = {
 		name = L["Ahemen"],
 		npcID = 19043,
 		category = "repair",
 		description = L["Staff Vendor"],
 		faction = "Neutral",
 	},
-	[52001720] = {
+	[51801780] = {
 		name = L["Lissaf"],
 		npcID = 19047,
 		category = "repair",
@@ -13669,13 +13839,13 @@ nodes[1955] = {
 		npcID = 19240,
 		category = "repair",
 		description = L["Sword Vendor"],
-		faction = "Horde",
+		faction = "Neutral",
 	},
 	[64007160] = {
 		name = L["Aaron Hollman"],
 		npcID = 19662,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Neutral",
 	},
@@ -13707,11 +13877,11 @@ nodes[1955] = {
 		name = L["Technician Halmaha"],
 		npcID = 27711,
 		category = "repair",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
-	[55808040] = {
+	[55807980] = {
 		name = L["Ilthuril"],
 		category = "stablemasters",
 		description = L["Stable Master"],
@@ -13723,7 +13893,7 @@ nodes[1955] = {
 		description = L["Stable Master"],
 		faction = "Neutral",
 	},
-	[45602120] = {
+	[45802120] = {
 		name = L["Lorokeem"],
 		category = "primaryProfession",
 		profession = "Alchemy",
@@ -13737,17 +13907,17 @@ nodes[1955] = {
 		description = L["Master Jewelcrafting Trainer"],
 		faction = "Neutral",
 	},
-	[64006580] = {
+	[63406550] = {
 		name = L["Seymour"],
 		category = "primaryProfession",
 		profession = "Skinning",
 		description = L["Master Skinning Trainer"],
 		faction = "Neutral",
 	},
-	[66601340] = {
+	[66401340] = {
 		name = L["Mildred Fletcher"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["Physician"],
 		faction = "Neutral",
 	},
@@ -13786,7 +13956,7 @@ nodes[1955] = {
 		description = L["Master Enchanting Trainer"],
 		faction = "Neutral",
 	},
-	[43009300] = {
+	[43209300] = {
 		name = L["Mi'irku Farstep"],
 		category = "trainers",
 		subcategories = {
@@ -13796,7 +13966,7 @@ nodes[1955] = {
 		classes = {
 			MAGE = true,
 		},
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[69604320] = {
 		name = L["Kradu Grimblade"],
@@ -13805,7 +13975,7 @@ nodes[1955] = {
 		description = L["Weaponsmith Trainer"],
 		faction = "Neutral",
 	},
-	[70004200] = {
+	[70004220] = {
 		name = L["Zula Slagfury"],
 		category = "primaryProfession",
 		profession = "Blacksmithing",
@@ -13830,7 +14000,7 @@ nodes[1955] = {
 		category = "vendors",
 		faction = "Neutral",
 	},
-	[50804240] = {
+	[50804220] = {
 		name = L["G'eras"],
 		npcID = 18525,
 		category = "vendors",
@@ -13871,7 +14041,7 @@ nodes[1955] = {
 		name = L["Inessera"],
 		npcID = 19065,
 		category = "vendors",
-		profession = "Jewelcrafting",
+		profession = "jewelcrafting",
 		description = L["Jewelcrafting Supplies Vendor"],
 		faction = "Neutral",
 	},
@@ -13879,7 +14049,7 @@ nodes[1955] = {
 		name = L["Skreah"],
 		npcID = 19074,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Neutral",
 	},
@@ -13908,7 +14078,7 @@ nodes[1955] = {
 		name = L["Cro Threadstrong"],
 		npcID = 19196,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Neutral",
 	},
@@ -13922,14 +14092,14 @@ nodes[1955] = {
 		description = L["General Goods"],
 		faction = "Neutral",
 	},
-	[66206860] = {
+	[66206880] = {
 		name = L["Eiin"],
 		npcID = 19213,
 		category = "vendors",
 		description = L["Specialty Tailoring Supplies"],
 		faction = "Neutral",
 	},
-	[63806860] = {
+	[63806880] = {
 		name = L["Granny Smith"],
 		npcID = 19223,
 		category = "vendors",
@@ -13947,11 +14117,11 @@ nodes[1955] = {
 		name = L["Yurial Soulwater"],
 		npcID = 19234,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Neutral",
 	},
-	[44009740] = {
+	[43809740] = {
 		name = L["Amshesha Stilldark"],
 		npcID = 19235,
 		category = "vendors",
@@ -13959,9 +14129,9 @@ nodes[1955] = {
 			reagent = true,
 		},
 		description = L["Reagents"],
-		faction = "Horde",
+		faction = "Neutral",
 	},
-	[51608020] = {
+	[51808020] = {
 		name = L["Nalama the Merchant"],
 		npcID = 19243,
 		category = "vendors",
@@ -13978,12 +14148,12 @@ nodes[1955] = {
 		description = L["Trade Goods"],
 		faction = "Neutral",
 	},
-	[42809680] = {
+	[43009700] = {
 		name = L["Vinemaster Alamaro"],
 		npcID = 19245,
 		category = "vendors",
 		description = L["Wine Vendor"],
-		faction = "Horde",
+		faction = "Neutral",
 	},
 	[47802620] = {
 		name = L["Quartermaster Endarin"],
@@ -14006,11 +14176,11 @@ nodes[1955] = {
 		description = L["Scryers: Quartermaster"],
 		faction = "Neutral",
 	},
-	[64806920] = {
+	[64806940] = {
 		name = L["Viggz Shinesparked"],
 		npcID = 19661,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -14018,7 +14188,7 @@ nodes[1955] = {
 		name = L["Madame Ruby"],
 		npcID = 19663,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Neutral",
 	},
@@ -14053,7 +14223,7 @@ nodes[1955] = {
 		description = L["Scryer Inscriptions"],
 		faction = "Neutral",
 	},
-	[51004200] = {
+	[51204180] = {
 		name = L["Almaador"],
 		npcID = 21432,
 		category = "vendors",
@@ -14208,7 +14378,7 @@ nodes[1413] = {
 		name = L["Hraq"],
 		npcID = 3477,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -14311,6 +14481,11 @@ nodes[1413] = {
 		category = "spirithealers",
 		faction = "Neutral",
 	},
+	[45608260] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
 	[50603260] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
@@ -14397,7 +14572,7 @@ nodes[1413] = {
 		name = L["Gagsprocket"],
 		npcID = 3495,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -14441,7 +14616,7 @@ nodes[1413] = {
 		name = L["Wrahk"],
 		npcID = 3485,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -14494,7 +14669,7 @@ nodes[1413] = {
 		name = L["Zizzek"],
 		npcID = 3572,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Neutral",
 	},
@@ -16978,7 +17153,7 @@ nodes[1413] = {
 		faction = "Alliance",
 	},
 	[48206085] = {
-		name = L["Hannah Bladeleaf"],
+		name = L["Aean Swiftriver"],
 		category = "rares",
 		description = L["Alliance Outrunner"],
 		faction = "Alliance",
@@ -20141,6 +20316,30 @@ nodes[1413] = {
 		category = "rares",
 		faction = "Alliance",
 	},
+	[46206245] = {
+		name = L["Hannah Bladeleaf"],
+		category = "rares",
+		description = L["Alliance Outrunner"],
+		faction = "Alliance",
+	},
+	[48006100] = {
+		name = L["Hannah Bladeleaf"],
+		category = "rares",
+		description = L["Alliance Outrunner"],
+		faction = "Alliance",
+	},
+	[45006420] = {
+		name = L["Aean Swiftriver"],
+		category = "rares",
+		description = L["Alliance Outrunner"],
+		faction = "Alliance",
+	},
+	[47006020] = {
+		name = L["Thora Feathermoon"],
+		category = "rares",
+		description = L["Alliance Outrunner"],
+		faction = "Alliance",
+	},
 	[51503034] = {
 		name = L["Devrak"],
 		category = "flightmasters",
@@ -20154,7 +20353,7 @@ nodes[1951] = {
 		name = L["Ear-Biter"],
 		category = "battlemasters",
 		description = L["Arena Battlemaster"],
-		faction = "Alliance",
+		faction = "Neutral",
 	},
 	[54207500] = {
 		name = L["Furgu"],
@@ -20184,7 +20383,7 @@ nodes[1951] = {
 		description = L["Innkeeper"],
 		faction = "Alliance",
 	},
-	[54507370] = {
+	[54407360] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
@@ -20193,7 +20392,7 @@ nodes[1951] = {
 		name = L["Pilot Marsha"],
 		npcID = 18278,
 		category = "repair",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -20204,7 +20403,7 @@ nodes[1951] = {
 		description = L["Armorsmith & Blacksmithing Supplies"],
 		faction = "Horde",
 	},
-	[53206980] = {
+	[53007020] = {
 		name = L["Sparik"],
 		npcID = 19012,
 		category = "repair",
@@ -20232,11 +20431,16 @@ nodes[1951] = {
 		description = L["Consortium Quartermaster"],
 		faction = "Neutral",
 	},
+	[40203060] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
 	[41204420] = {
 		name = L["Quartermaster Jaffrey Noreliqe"],
 		npcID = 18821,
 		category = "vendors",
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[41204425] = {
 		name = L["Quartermaster Davian Vaclav"],
@@ -20249,7 +20453,7 @@ nodes[1951] = {
 		npcID = 18897,
 		category = "vendors",
 		description = L["Arena Organizer"],
-		faction = "Neutral",
+		faction = "Alliance",
 	},
 	[55003580] = {
 		name = L["Vanteg"],
@@ -20265,7 +20469,7 @@ nodes[1951] = {
 		description = L["Reagents & Poison Supplies"],
 		faction = "Alliance",
 	},
-	[56403800] = {
+	[56803840] = {
 		name = L["Mathar G'ochar"],
 		npcID = 19015,
 		category = "vendors",
@@ -20287,7 +20491,7 @@ nodes[1951] = {
 			ammo = true,
 		},
 		description = L["General Goods"],
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[55207060] = {
 		name = L["Nancila"],
@@ -20306,7 +20510,7 @@ nodes[1951] = {
 		description = L["Cooking Supplies"],
 		faction = "Alliance",
 	},
-	[58003580] = {
+	[58003560] = {
 		name = L["Nula the Butcher"],
 		npcID = 20097,
 		category = "vendors",
@@ -20342,16 +20546,16 @@ nodes[1951] = {
 		npcID = 21484,
 		category = "vendors",
 		description = L["Food & Drink"],
-		faction = "Neutral",
+		faction = "Horde",
 	},
 	[42004305] = {
 		name = L["Cendrii"],
 		npcID = 21487,
 		category = "vendors",
 		description = L["Food & Drink"],
-		faction = "Neutral",
+		faction = "Alliance",
 	},
-	[41604360] = {
+	[41604380] = {
 		name = L["Banro"],
 		npcID = 21488,
 		category = "vendors",
@@ -20399,6 +20603,36 @@ nodes[1951] = {
 		faction = "Neutral",
 	},
 	[68207220] = {
+		name = L["Bro'Gaz the Clanless"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45204360] = {
+		name = L["Goretooth"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32205240] = {
+		name = L["Goretooth"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76207680] = {
+		name = L["Goretooth"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34206620] = {
+		name = L["Voidhunter Yar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37806620] = {
+		name = L["Voidhunter Yar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50206040] = {
 		name = L["Bro'Gaz the Clanless"],
 		category = "rares",
 		faction = "Neutral",
@@ -20527,7 +20761,7 @@ nodes[1417] = {
 		name = L["Drovnar Strongbrew"],
 		npcID = 2812,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -20542,7 +20776,7 @@ nodes[1417] = {
 		name = L["Androd Fadran"],
 		npcID = 2816,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -20550,7 +20784,7 @@ nodes[1417] = {
 		name = L["Tunkk"],
 		npcID = 2819,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -20582,7 +20816,7 @@ nodes[1417] = {
 		name = L["Jun'ha"],
 		npcID = 6574,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -21575,6 +21809,22 @@ nodes[1417] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[63606860] = {
+		name = L["Nimar the Slayer"],
+		category = "rares",
+		description = L["Warband Leader"],
+		faction = "Neutral",
+	},
+	[85203160] = {
+		name = L["Geomancer Flintdagger"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33402780] = {
+		name = L["Singer"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1416] = {
 	[66805160] = {
@@ -21625,7 +21875,7 @@ nodes[1416] = {
 		name = L["Bro'kin"],
 		npcID = 2480,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Neutral",
 	},
@@ -21633,7 +21883,7 @@ nodes[1416] = {
 		name = L["Rizz Loosebolt"],
 		npcID = 2684,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -25021,6 +25271,1160 @@ nodes[1416] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[26006480] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60004040] = {
+		name = L["Gravis Slipknot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57206780] = {
+		name = L["Jimmy the Bleeder"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[75804660] = {
+		name = L["Stone Fury"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23606160] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25604600] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405960] = {
+		name = L["Skhowl"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31207220] = {
+		name = L["Araga"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32007080] = {
+		name = L["Araga"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30603500] = {
+		name = L["Cranky Benj"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1952] = {
+	[49204340] = {
+		name = L["Kerna"],
+		category = "flightmasters",
+		fpName = L["Stonebreaker Hold, Terokkar Forest"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[59405540] = {
+		name = L["Furnan Skysoar"],
+		category = "flightmasters",
+		fpName = L["Allerian Stronghold, Terokkar Forest"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[48804500] = {
+		name = L["Innkeeper Grilka"],
+		npcID = 18957,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[56605320] = {
+		name = L["Innkeeper Biribi"],
+		npcID = 19296,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[49404490] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Horde",
+	},
+	[56905370] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[49204560] = {
+		name = L["Bar Talet"],
+		npcID = 18962,
+		category = "repair",
+		description = L["Bowyer"],
+		faction = "Horde",
+	},
+	[56405480] = {
+		name = L["Cecil Meyers"],
+		npcID = 19056,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Alliance",
+	},
+	[34606600] = {
+		name = L["Horvon the Armorer"],
+		npcID = 19879,
+		category = "repair",
+		description = L["Armorsmith"],
+		faction = "Neutral",
+	},
+	[37605120] = {
+		name = L["Siflaed Coldhammer"],
+		npcID = 20890,
+		category = "repair",
+		description = L["Tinker"],
+		faction = "Neutral",
+	},
+	[31007640] = {
+		name = L["Aundro"],
+		npcID = 22476,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Neutral",
+	},
+	[64206620] = {
+		name = L["Grella"],
+		npcID = 23367,
+		category = "repair",
+		description = L["Skyguard Quartermaster"],
+		faction = "Neutral",
+	},
+	[39802180] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[44607120] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[59604260] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[49404460] = {
+		name = L["Trag"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[56805380] = {
+		name = L["Leassian"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
+	},
+	[30807600] = {
+		name = L["Anchorite Ensham"],
+		category = "secondaryProfession",
+		profession = "First Aid",
+		description = L["First Aid Trainer"],
+		faction = "Neutral",
+	},
+	[50004540] = {
+		name = L["Dod'ss"],
+		npcID = 18959,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Horde",
+	},
+	[48804600] = {
+		name = L["Rungor"],
+		npcID = 18960,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Horde",
+	},
+	[55805300] = {
+		name = L["Supply Officer Mills"],
+		npcID = 19038,
+		category = "vendors",
+		description = L["Rations"],
+		faction = "Alliance",
+	},
+	[57605340] = {
+		name = L["Leeli Longhaggle"],
+		npcID = 19042,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[57605345] = {
+		name = L["Fabian Lanzonelli"],
+		npcID = 19053,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods & Bags"],
+		faction = "Alliance",
+	},
+	[39205880] = {
+		name = L["\"Slim\""],
+		npcID = 19679,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Shady Dealer"],
+		faction = "Neutral",
+	},
+	[39607000] = {
+		name = L["Provisioner Tsaalt"],
+		npcID = 19718,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[49804660] = {
+		name = L["Spirit Sage Gartok"],
+		npcID = 19772,
+		category = "vendors",
+		faction = "Horde",
+	},
+	[56005360] = {
+		name = L["Spirit Sage Zran"],
+		npcID = 19773,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[37605125] = {
+		name = L["Morula"],
+		npcID = 20893,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Neutral",
+	},
+	[39407000] = {
+		name = L["Dealer Tariq"],
+		npcID = 20986,
+		category = "vendors",
+		description = L["Shady Dealer"],
+		faction = "Neutral",
+	},
+	[30604400] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35805540] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35805460] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49401780] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58602380] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38804740] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45406220] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45605320] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46405420] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48205540] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48405600] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49601680] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49601820] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59202440] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31004300] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31604260] = {
+		name = L["Okrek"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35603820] = {
+		name = L["Doomsayer Jurim"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63803860] = {
+		name = L["Doomsayer Jurim"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31606320] = {
+		name = L["Crippler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1948] = {
+	[37605540] = {
+		name = L["Brubeck Stormfoot"],
+		category = "flightmasters",
+		fpName = L["Wildhammer Stronghold, Shadowmoon Valley"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[30202920] = {
+		name = L["Drek'Gol"],
+		category = "flightmasters",
+		fpName = L["Shadowmoon Village, Shadowmoon Valley"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[30202780] = {
+		name = L["Innkeeper Darg Bloodclaw"],
+		npcID = 19319,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[37005820] = {
+		name = L["Dreg Cloudsweeper"],
+		npcID = 19352,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[56205980] = {
+		name = L["Roldemar"],
+		npcID = 21744,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Neutral",
+	},
+	[61002820] = {
+		name = L["Caretaker Aluuro"],
+		npcID = 21746,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Neutral",
+	},
+	[30102840] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[37205740] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[56305820] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[61402900] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[29803120] = {
+		name = L["Grokom Deatheye"],
+		npcID = 19333,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Horde",
+	},
+	[30003120] = {
+		name = L["Korthul"],
+		npcID = 19339,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Bowyer & Gunsmith"],
+		faction = "Horde",
+	},
+	[29403080] = {
+		name = L["Krek Cragcrush"],
+		npcID = 19342,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Horde",
+	},
+	[36805440] = {
+		name = L["Daggle Ironshaper"],
+		npcID = 19351,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Guns & Ammunition"],
+		faction = "Alliance",
+	},
+	[36805480] = {
+		name = L["Ordinn Thunderfist"],
+		npcID = 19370,
+		category = "repair",
+		description = L["Hammersmith"],
+		faction = "Alliance",
+	},
+	[36805500] = {
+		name = L["Mari Stonehand"],
+		npcID = 19373,
+		category = "repair",
+		description = L["Armorsmith"],
+		faction = "Alliance",
+	},
+	[55405900] = {
+		name = L["Alorra"],
+		npcID = 19517,
+		category = "repair",
+		description = L["Armorer"],
+		faction = "Neutral",
+	},
+	[55405920] = {
+		name = L["Lelagar"],
+		npcID = 19520,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Neutral",
+	},
+	[63203060] = {
+		name = L["Dunaman"],
+		npcID = 19526,
+		category = "repair",
+		description = L["Weapons Vendor"],
+		faction = "Neutral",
+	},
+	[61002960] = {
+		name = L["Darmend"],
+		npcID = 19530,
+		category = "repair",
+		profession = "blacksmithing",
+		description = L["Blacksmithing Supplies"],
+		faction = "Neutral",
+	},
+	[53802340] = {
+		name = L["Oronok Torn-heart"],
+		npcID = 21183,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Hermit & Trader"],
+		faction = "Neutral",
+	},
+	[32202860] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[39405620] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[65804560] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[37405600] = {
+		name = L["Crinn Pathfinder"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
+	},
+	[29603140] = {
+		name = L["Grutah"],
+		category = "primaryProfession",
+		profession = "Blacksmithing",
+		description = L["Master Blacksmithing Trainer"],
+		faction = "Horde",
+	},
+	[37205840] = {
+		name = L["Celie Steelwing"],
+		category = "secondaryProfession",
+		profession = "Cooking",
+		description = L["Cook"],
+		faction = "Alliance",
+	},
+	[29202920] = {
+		name = L["Olrokk"],
+		npcID = 20500,
+		category = "mountTrainer",
+		description = L["Riding Trainer"],
+		faction = "Horde",
+	},
+	[37405620] = {
+		name = L["Ilsa Blusterbrew"],
+		npcID = 20511,
+		category = "mountTrainer",
+		description = L["Riding Trainer"],
+		faction = "Alliance",
+	},
+	[36605500] = {
+		name = L["Niobe Whizzlespark"],
+		category = "primaryProfession",
+		profession = "Engineering",
+		description = L["Master Engineering Trainer"],
+		faction = "Alliance",
+	},
+	[29202860] = {
+		name = L["Jonathan Garrett"],
+		category = "primaryProfession",
+		profession = "Engineering",
+		description = L["Master Engineering Trainer"],
+		faction = "Horde",
+	},
+	[29202620] = {
+		name = L["Trop Rendlimb"],
+		npcID = 19343,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Horde",
+	},
+	[29402620] = {
+		name = L["Kalara"],
+		npcID = 19345,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Horde",
+	},
+	[28202700] = {
+		name = L["Targrom"],
+		npcID = 19348,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Horde",
+	},
+	[37005840] = {
+		name = L["Dalin Stouthammer"],
+		npcID = 19371,
+		category = "vendors",
+		description = L["Cooking Supplies"],
+		faction = "Alliance",
+	},
+	[36805620] = {
+		name = L["Oran Blusterbrew"],
+		npcID = 19372,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[36205540] = {
+		name = L["Salle Sunforge"],
+		npcID = 19374,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Alliance",
+	},
+	[55805820] = {
+		name = L["Feranin"],
+		npcID = 19518,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Neutral",
+	},
+	[55805825] = {
+		name = L["Arrond"],
+		npcID = 19521,
+		category = "vendors",
+		profession = "tailoring",
+		description = L["Tailoring Supplies"],
+		faction = "Neutral",
+	},
+	[62402820] = {
+		name = L["Nanomah"],
+		npcID = 19528,
+		category = "vendors",
+		description = L["Provisions Merchant"],
+		faction = "Neutral",
+	},
+	[61602860] = {
+		name = L["Dearny"],
+		npcID = 19532,
+		category = "vendors",
+		description = L["Leatherworking Merchant"],
+		faction = "Neutral",
+	},
+	[55405925] = {
+		name = L["Alorya"],
+		npcID = 19625,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Neutral",
+	},
+	[61002800] = {
+		name = L["Dorni"],
+		npcID = 19649,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Neutral",
+	},
+	[29202940] = {
+		name = L["Dama Wildmane"],
+		npcID = 20494,
+		category = "vendors",
+		description = L["Windrider Keeper"],
+		faction = "Horde",
+	},
+	[37605600] = {
+		name = L["Brunn Flamebeard"],
+		npcID = 20510,
+		category = "vendors",
+		description = L["Gryphon Keeper"],
+		faction = "Alliance",
+	},
+	[41804700] = {
+		name = L["Collidus the Warp-Watcher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607020] = {
+		name = L["Collidus the Warp-Watcher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47802720] = {
+		name = L["Ambassador Jerrikar"],
+		category = "rares",
+		description = L["Servant of Illidan"],
+		faction = "Neutral",
+	},
+	[32004460] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59604640] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47406460] = {
+		name = L["Ambassador Jerrikar"],
+		category = "rares",
+		description = L["Servant of Illidan"],
+		faction = "Neutral",
+	},
+	[30204480] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42406860] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58807080] = {
+		name = L["Collidus the Warp-Watcher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66602580] = {
+		name = L["Collidus the Warp-Watcher"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45206680] = {
+		name = L["Ambassador Jerrikar"],
+		category = "rares",
+		description = L["Servant of Illidan"],
+		faction = "Neutral",
+	},
+	[42406820] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58804660] = {
+		name = L["Kraator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1949] = {
+	[37806140] = {
+		name = L["Amerun Leafshade"],
+		category = "flightmasters",
+		fpName = L["Sylvanaar, Blade's Edge Mountains"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[52005420] = {
+		name = L["Unoke Tenderhoof"],
+		category = "flightmasters",
+		fpName = L["Thunderlord Stronghold, Blade's Edge Mountains"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[61007040] = {
+		name = L["Rip Pedalslam"],
+		category = "flightmasters",
+		fpName = L["Toshley's Station, Blade's Edge Mountains"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[61603960] = {
+		name = L["Fhyn Leafshadow"],
+		category = "flightmasters",
+		fpName = L["Evergrove, Blade's Edge Mountains"],
+		description = L["Flight Master"],
+		faction = "Neutral",
+	},
+	[76406580] = {
+		name = L["Sky-Master Maxxor"],
+		category = "flightmasters",
+		fpName = L["Mok'Nathal Village, Blade's Edge Mountains"],
+		description = L["Flight Master"],
+		faction = "Horde",
+	},
+	[53205540] = {
+		name = L["Gholah"],
+		npcID = 19470,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[35806380] = {
+		name = L["Innkeeper Shaunessy"],
+		npcID = 19495,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[76006040] = {
+		name = L["Matron Varah"],
+		npcID = 21088,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[60806820] = {
+		name = L["Fizit \"Doc\" Clocktock"],
+		npcID = 21110,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[62803820] = {
+		name = L["Innkeeper Aelerya"],
+		npcID = 22922,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Neutral",
+	},
+	[36306430] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[52705570] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[60806840] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[62603840] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[75706080] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Neutral",
+	},
+	[53005900] = {
+		name = L["Raiza"],
+		npcID = 19473,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Throwing Weapons & Ammunition"],
+		faction = "Horde",
+	},
+	[51405840] = {
+		name = L["Orgatha"],
+		npcID = 19479,
+		category = "repair",
+		description = L["Axesmith"],
+		faction = "Horde",
+	},
+	[37606380] = {
+		name = L["Cahill"],
+		npcID = 19499,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Alliance",
+	},
+	[61603840] = {
+		name = L["Zinyen Swiftstrider"],
+		npcID = 20917,
+		category = "repair",
+		description = L["Weapon Vendor"],
+		faction = "Neutral",
+	},
+	[75205960] = {
+		name = L["Ruka"],
+		npcID = 21086,
+		category = "repair",
+		description = L["Smashing Weapons"],
+		faction = "Horde",
+	},
+	[60606900] = {
+		name = L["Bossi Pentapiston"],
+		npcID = 21112,
+		category = "repair",
+		profession = "engineering",
+		description = L["Engineering Supplies"],
+		faction = "Alliance",
+	},
+	[33803440] = {
+		name = L["Wyrmcult Provisioner"],
+		npcID = 22099,
+		category = "repair",
+		faction = "Neutral",
+	},
+	[52006060] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[53405320] = {
+		name = L["Lor"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[53805500] = {
+		name = L["Fera Palerunner"],
+		category = "secondaryProfession",
+		profession = "First Aid",
+		description = L["First Aid Trainer"],
+		faction = "Horde",
+	},
+	[76806540] = {
+		name = L["Grikka"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Master Leatherworking Trainer"],
+		faction = "Horde",
+	},
+	[52805360] = {
+		name = L["Pol Snowhoof"],
+		npcID = 19450,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Horde",
+	},
+	[53005440] = {
+		name = L["Old Orok"],
+		npcID = 19471,
+		category = "vendors",
+		description = L["Fruit & Fungus"],
+		faction = "Horde",
+	},
+	[52005720] = {
+		name = L["Threlc"],
+		npcID = 19472,
+		category = "vendors",
+		description = L["Fishmonger"],
+		faction = "Horde",
+	},
+	[51405740] = {
+		name = L["Karnaze"],
+		npcID = 19474,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Horde",
+	},
+	[38206480] = {
+		name = L["Caoileann"],
+		npcID = 19497,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[37606580] = {
+		name = L["Tanaide"],
+		npcID = 19498,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Alliance",
+	},
+	[51005780] = {
+		name = L["Daga Ramba"],
+		npcID = 19837,
+		category = "vendors",
+		description = L["Potions"],
+		faction = "Horde",
+	},
+	[61203920] = {
+		name = L["Cymbre Starsong"],
+		npcID = 20249,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Neutral",
+	},
+	[62803880] = {
+		name = L["Rashere Pridehoof"],
+		npcID = 20250,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Neutral",
+	},
+	[62204040] = {
+		name = L["Noko Moonwhisper"],
+		npcID = 20915,
+		category = "vendors",
+		subcategories = {
+			reagent = true,
+		},
+		description = L["Reagents"],
+		faction = "Neutral",
+	},
+	[62404020] = {
+		name = L["Xerintha Ravenoak"],
+		npcID = 20916,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Neutral",
+	},
+	[74606140] = {
+		name = L["Krugash"],
+		npcID = 21082,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Horde",
+	},
+	[76006180] = {
+		name = L["Erool"],
+		npcID = 21083,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Horde",
+	},
+	[76006020] = {
+		name = L["Braagor"],
+		npcID = 21084,
+		category = "vendors",
+		description = L["Butcher"],
+		faction = "Horde",
+	},
+	[76406560] = {
+		name = L["Ragar"],
+		npcID = 21085,
+		category = "vendors",
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
+		faction = "Horde",
+	},
+	[61206900] = {
+		name = L["Bembil Knockhammer"],
+		npcID = 21111,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Alliance",
+	},
+	[61206880] = {
+		name = L["Sassa Weldwell"],
+		npcID = 21113,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[28605680] = {
+		name = L["Ogri'la Trader"],
+		npcID = 22271,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Neutral",
+	},
+	[28005880] = {
+		name = L["Jho'nass"],
+		npcID = 23428,
+		category = "vendors",
+		description = L["Ogri'la Quartermaster"],
+		faction = "Neutral",
+	},
+	[52804200] = {
+		name = L["Frixee Brasstumbler"],
+		npcID = 25179,
+		category = "vendors",
+		description = L["Arena Vendor"],
+		faction = "Neutral",
+	},
+	[61405460] = {
+		name = L["Morcrush"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41205100] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65202100] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66402460] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41004920] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47007680] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59202440] = {
+		name = L["Morcrush"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60002380] = {
+		name = L["Morcrush"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68206940] = {
+		name = L["Morcrush"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29405020] = {
+		name = L["Hemathion"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41404800] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41805100] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44607540] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45007680] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46207880] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46607960] = {
+		name = L["Speaker Mar'grom"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1944] = {
 	[56203620] = {
@@ -25113,7 +26517,7 @@ nodes[1944] = {
 		description = L["Innkeeper"],
 		faction = "Alliance",
 	},
-	[23403740] = {
+	[23403730] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
@@ -25237,7 +26641,7 @@ nodes[1944] = {
 		description = L["Gem Vendor"],
 		faction = "Alliance",
 	},
-	[22803780] = {
+	[22803760] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
@@ -25253,6 +26657,21 @@ nodes[1944] = {
 		faction = "Neutral",
 	},
 	[57403820] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[60007980] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[68602700] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[87205020] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
@@ -25333,7 +26752,7 @@ nodes[1944] = {
 		description = L["Master Skinning Trainer"],
 		faction = "Horde",
 	},
-	[54206400] = {
+	[54006400] = {
 		name = L["Brumman"],
 		category = "primaryProfession",
 		profession = "Leatherworking",
@@ -25597,6 +27016,62 @@ nodes[1944] = {
 		description = L["Herald of Doom Lord Kazzak"],
 		faction = "Neutral",
 	},
+	[46605900] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46805960] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405100] = {
+		name = L["Fulgorge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48407000] = {
+		name = L["Fulgorge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48807120] = {
+		name = L["Fulgorge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45206000] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45404460] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46204440] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46805900] = {
+		name = L["Mekthorg the Wild"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30006480] = {
+		name = L["Fulgorge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73805900] = {
+		name = L["Vorakem Doomspeaker"],
+		category = "rares",
+		description = L["Herald of Doom Lord Kazzak"],
+		faction = "Neutral",
+	},
 }
 nodes[1946] = {
 	[67805140] = {
@@ -25668,7 +27143,7 @@ nodes[1946] = {
 		category = "mailboxes",
 		faction = "Alliance",
 	},
-	[67504920] = {
+	[67404920] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
@@ -25735,7 +27210,22 @@ nodes[1946] = {
 		category = "repair",
 		faction = "Neutral",
 	},
-	[36604740] = {
+	[17004800] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[36804740] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[65005100] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[77206400] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
@@ -25789,7 +27279,7 @@ nodes[1946] = {
 		name = L["Haalrun"],
 		npcID = 18005,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -25853,7 +27343,7 @@ nodes[1946] = {
 		name = L["Juno Dufrain"],
 		npcID = 18911,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Neutral",
 	},
@@ -25861,7 +27351,7 @@ nodes[1946] = {
 		name = L["Muheru the Weaver"],
 		npcID = 19722,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -25922,855 +27412,33 @@ nodes[1946] = {
 		category = "rares",
 		faction = "Neutral",
 	},
-}
-nodes[1952] = {
-	[49204340] = {
-		name = L["Kerna"],
-		category = "flightmasters",
-		fpName = L["Stonebreaker Hold, Terokkar Forest"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[59405540] = {
-		name = L["Furnan Skysoar"],
-		category = "flightmasters",
-		fpName = L["Allerian Stronghold, Terokkar Forest"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[48804500] = {
-		name = L["Innkeeper Grilka"],
-		npcID = 18957,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[56605320] = {
-		name = L["Innkeeper Biribi"],
-		npcID = 19296,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[49404490] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Horde",
-	},
-	[56905370] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[49204560] = {
-		name = L["Bar Talet"],
-		npcID = 18962,
-		category = "repair",
-		description = L["Bowyer"],
-		faction = "Horde",
-	},
-	[56405480] = {
-		name = L["Cecil Meyers"],
-		npcID = 19056,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Alliance",
-	},
-	[34606600] = {
-		name = L["Horvon the Armorer"],
-		npcID = 19879,
-		category = "repair",
-		description = L["Armorsmith"],
-		faction = "Horde",
-	},
-	[37605120] = {
-		name = L["Siflaed Coldhammer"],
-		npcID = 20890,
-		category = "repair",
-		description = L["Tinker"],
-		faction = "Neutral",
-	},
-	[31007640] = {
-		name = L["Aundro"],
-		npcID = 22476,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Neutral",
-	},
-	[64206620] = {
-		name = L["Grella"],
-		npcID = 23367,
-		category = "repair",
-		description = L["Skyguard Quartermaster"],
-		faction = "Neutral",
-	},
-	[49404460] = {
-		name = L["Trag"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Horde",
-	},
-	[30807600] = {
-		name = L["Anchorite Ensham"],
-		category = "secondaryProfession",
-		profession = "First aid",
-		description = L["First Aid Trainer"],
-		faction = "Neutral",
-	},
-	[50004540] = {
-		name = L["Dod'ss"],
-		npcID = 18959,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Horde",
-	},
-	[48804600] = {
-		name = L["Rungor"],
-		npcID = 18960,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Horde",
-	},
-	[55805300] = {
-		name = L["Supply Officer Mills"],
-		npcID = 19038,
-		category = "vendors",
-		description = L["Rations"],
-		faction = "Alliance",
-	},
-	[57605340] = {
-		name = L["Leeli Longhaggle"],
-		npcID = 19042,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[57605345] = {
-		name = L["Fabian Lanzonelli"],
-		npcID = 19053,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods & Bags"],
-		faction = "Alliance",
-	},
-	[39205880] = {
-		name = L["\"Slim\""],
-		npcID = 19679,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Shady Dealer"],
-		faction = "Neutral",
-	},
-	[39607000] = {
-		name = L["Provisioner Tsaalt"],
-		npcID = 19718,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[49804660] = {
-		name = L["Spirit Sage Gartok"],
-		npcID = 19772,
-		category = "vendors",
-		faction = "Horde",
-	},
-	[56005360] = {
-		name = L["Spirit Sage Zran"],
-		npcID = 19773,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[37605125] = {
-		name = L["Morula"],
-		npcID = 20893,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Neutral",
-	},
-	[39407000] = {
-		name = L["Dealer Tariq"],
-		npcID = 20986,
-		category = "vendors",
-		description = L["Shady Dealer"],
-		faction = "Neutral",
-	},
-	[30604400] = {
-		name = L["Okrek"],
+	[73408260] = {
+		name = L["Coilfang Emissary"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35805540] = {
-		name = L["Crippler"],
+	[27002020] = {
+		name = L["Bog Lurker"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35805460] = {
-		name = L["Crippler"],
+	[42205940] = {
+		name = L["Bog Lurker"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49401780] = {
-		name = L["Okrek"],
+	[15204400] = {
+		name = L["Marticar"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58602380] = {
-		name = L["Okrek"],
+	[37403640] = {
+		name = L["Marticar"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38804740] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45406220] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45605320] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46405420] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48205540] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48405600] = {
-		name = L["Crippler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-}
-nodes[1949] = {
-	[37806140] = {
-		name = L["Amerun Leafshade"],
-		category = "flightmasters",
-		fpName = L["Sylvanaar, Blade's Edge Mountains"],
-		description = L["Hippogryph Master"],
-		faction = "Alliance",
-	},
-	[52005420] = {
-		name = L["Unoke Tenderhoof"],
-		category = "flightmasters",
-		fpName = L["Thunderlord Stronghold, Blade's Edge Mountains"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[61007040] = {
-		name = L["Rip Pedalslam"],
-		category = "flightmasters",
-		fpName = L["Toshley's Station, Blade's Edge Mountains"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[61603960] = {
-		name = L["Fhyn Leafshadow"],
-		category = "flightmasters",
-		fpName = L["Evergrove, Blade's Edge Mountains"],
-		description = L["Flight Master"],
-		faction = "Neutral",
-	},
-	[76406580] = {
-		name = L["Sky-Master Maxxor"],
-		category = "flightmasters",
-		fpName = L["Mok'Nathal Village, Blade's Edge Mountains"],
-		description = L["Flight Master"],
-		faction = "Horde",
-	},
-	[53205540] = {
-		name = L["Gholah"],
-		npcID = 19470,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[35806380] = {
-		name = L["Innkeeper Shaunessy"],
-		npcID = 19495,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[61006800] = {
-		name = L["Fizit \"Doc\" Clocktock"],
-		npcID = 21110,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[62803820] = {
-		name = L["Innkeeper Aelerya"],
-		npcID = 22922,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Neutral",
-	},
-	[60806840] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[53005900] = {
-		name = L["Raiza"],
-		npcID = 19473,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Throwing Weapons & Ammunition"],
-		faction = "Horde",
-	},
-	[51405840] = {
-		name = L["Orgatha"],
-		npcID = 19479,
-		category = "repair",
-		description = L["Axesmith"],
-		faction = "Horde",
-	},
-	[37606380] = {
-		name = L["Cahill"],
-		npcID = 19499,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Alliance",
-	},
-	[61603840] = {
-		name = L["Zinyen Swiftstrider"],
-		npcID = 20917,
-		category = "repair",
-		description = L["Weapon Vendor"],
-		faction = "Alliance",
-	},
-	[75205960] = {
-		name = L["Ruka"],
-		npcID = 21086,
-		category = "repair",
-		description = L["Smashing Weapons"],
-		faction = "Neutral",
-	},
-	[60606900] = {
-		name = L["Bossi Pentapiston"],
-		npcID = 21112,
-		category = "repair",
-		profession = "Engineering",
-		description = L["Engineering Supplies"],
-		faction = "Alliance",
-	},
-	[33803440] = {
-		name = L["Wyrmcult Provisioner"],
-		npcID = 22099,
-		category = "repair",
-		faction = "Neutral",
-	},
-	[52006060] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[53805500] = {
-		name = L["Fera Palerunner"],
-		category = "secondaryProfession",
-		profession = "First aid",
-		description = L["First Aid Trainer"],
-		faction = "Horde",
-	},
-	[52805360] = {
-		name = L["Pol Snowhoof"],
-		npcID = 19450,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[53005440] = {
-		name = L["Old Orok"],
-		npcID = 19471,
-		category = "vendors",
-		description = L["Fruit & Fungus"],
-		faction = "Horde",
-	},
-	[52005720] = {
-		name = L["Threlc"],
-		npcID = 19472,
-		category = "vendors",
-		description = L["Fishmonger"],
-		faction = "Horde",
-	},
-	[51405740] = {
-		name = L["Karnaze"],
-		npcID = 19474,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Horde",
-	},
-	[38206480] = {
-		name = L["Caoileann"],
-		npcID = 19497,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[37606580] = {
-		name = L["Tanaide"],
-		npcID = 19498,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[51005780] = {
-		name = L["Daga Ramba"],
-		npcID = 19837,
-		category = "vendors",
-		description = L["Potions"],
-		faction = "Horde",
-	},
-	[61203920] = {
-		name = L["Cymbre Starsong"],
-		npcID = 20249,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Alliance",
-	},
-	[62803900] = {
-		name = L["Rashere Pridehoof"],
-		npcID = 20250,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[62204040] = {
-		name = L["Noko Moonwhisper"],
-		npcID = 20915,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-		},
-		description = L["Reagents"],
-		faction = "Neutral",
-	},
-	[62404020] = {
-		name = L["Xerintha Ravenoak"],
-		npcID = 20916,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Neutral",
-	},
-	[74606140] = {
-		name = L["Krugash"],
-		npcID = 21082,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[76006180] = {
-		name = L["Erool"],
-		npcID = 21083,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[76006020] = {
-		name = L["Braagor"],
-		npcID = 21084,
-		category = "vendors",
-		description = L["Butcher"],
-		faction = "Neutral",
-	},
-	[76406560] = {
-		name = L["Ragar"],
-		npcID = 21085,
-		category = "vendors",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Neutral",
-	},
-	[61206900] = {
-		name = L["Bembil Knockhammer"],
-		npcID = 21111,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Alliance",
-	},
-	[61206880] = {
-		name = L["Sassa Weldwell"],
-		npcID = 21113,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[28605680] = {
-		name = L["Ogri'la Trader"],
-		npcID = 22271,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[28005880] = {
-		name = L["Jho'nass"],
-		npcID = 23428,
-		category = "vendors",
-		description = L["Ogri'la Quartermaster"],
-		faction = "Neutral",
-	},
-	[52804180] = {
-		name = L["Frixee Brasstumbler"],
-		npcID = 25179,
-		category = "vendors",
-		description = L["Arena Vendor"],
-		faction = "Neutral",
-	},
-	[61405460] = {
-		name = L["Morcrush"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41205100] = {
-		name = L["Speaker Mar'grom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65202100] = {
-		name = L["Speaker Mar'grom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66402460] = {
-		name = L["Speaker Mar'grom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-}
-nodes[1948] = {
-	[37605540] = {
-		name = L["Brubeck Stormfoot"],
-		category = "flightmasters",
-		fpName = L["Wildhammer Stronghold, Shadowmoon Valley"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[30202920] = {
-		name = L["Drek'Gol"],
-		category = "flightmasters",
-		fpName = L["Shadowmoon Village, Shadowmoon Valley"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[29803120] = {
-		name = L["Grokom Deatheye"],
-		npcID = 19333,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Horde",
-	},
-	[30003120] = {
-		name = L["Korthul"],
-		npcID = 19339,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer & Gunsmith"],
-		faction = "Neutral",
-	},
-	[29403080] = {
-		name = L["Krek Cragcrush"],
-		npcID = 19342,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Neutral",
-	},
-	[36805440] = {
-		name = L["Daggle Ironshaper"],
-		npcID = 19351,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Guns & Ammunition"],
-		faction = "Neutral",
-	},
-	[36805480] = {
-		name = L["Ordinn Thunderfist"],
-		npcID = 19370,
-		category = "repair",
-		description = L["Hammersmith"],
-		faction = "Alliance",
-	},
-	[36805500] = {
-		name = L["Mari Stonehand"],
-		npcID = 19373,
-		category = "repair",
-		description = L["Armorsmith"],
-		faction = "Alliance",
-	},
-	[55405900] = {
-		name = L["Alorra"],
-		npcID = 19517,
-		category = "repair",
-		description = L["Armorer"],
-		faction = "Neutral",
-	},
-	[55405920] = {
-		name = L["Lelagar"],
-		npcID = 19520,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Neutral",
-	},
-	[63203060] = {
-		name = L["Dunaman"],
-		npcID = 19526,
-		category = "repair",
-		description = L["Weapons Vendor"],
-		faction = "Alliance",
-	},
-	[61002960] = {
-		name = L["Darmend"],
-		npcID = 19530,
-		category = "repair",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Supplies"],
-		faction = "Neutral",
-	},
-	[53802340] = {
-		name = L["Oronok Torn-heart"],
-		npcID = 21183,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Hermit & Trader"],
-		faction = "Neutral",
-	},
-	[37405600] = {
-		name = L["Crinn Pathfinder"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Alliance",
-	},
-	[37205840] = {
-		name = L["Celie Steelwing"],
-		category = "secondaryProfession",
-		profession = "Cooking",
-		description = L["Cook"],
-		faction = "Neutral",
-	},
-	[29202940] = {
-		name = L["Olrokk"],
-		npcID = 20500,
-		category = "mountTrainer",
-		description = L["Riding Trainer"],
-		faction = "Horde",
-	},
-	[37405620] = {
-		name = L["Ilsa Blusterbrew"],
-		npcID = 20511,
-		category = "mountTrainer",
-		description = L["Riding Trainer"],
-		faction = "Alliance",
-	},
-	[36605500] = {
-		name = L["Niobe Whizzlespark"],
-		category = "primaryProfession",
-		profession = "Engineering",
-		description = L["Master Engineering Trainer"],
-		faction = "Neutral",
-	},
-	[29202860] = {
-		name = L["Jonathan Garrett"],
-		category = "primaryProfession",
-		profession = "Engineering",
-		description = L["Master Engineering Trainer"],
-		faction = "Neutral",
-	},
-	[29202620] = {
-		name = L["Trop Rendlimb"],
-		npcID = 19343,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[29402620] = {
-		name = L["Kalara"],
-		npcID = 19345,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[28202700] = {
-		name = L["Targrom"],
-		npcID = 19348,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Neutral",
-	},
-	[37005820] = {
-		name = L["Dreg Cloudsweeper"],
-		npcID = 19352,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Neutral",
-	},
-	[37005840] = {
-		name = L["Dalin Stouthammer"],
-		npcID = 19371,
-		category = "vendors",
-		description = L["Cooking Supplies"],
-		faction = "Neutral",
-	},
-	[36805620] = {
-		name = L["Oran Blusterbrew"],
-		npcID = 19372,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Neutral",
-	},
-	[36205540] = {
-		name = L["Salle Sunforge"],
-		npcID = 19374,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[55805820] = {
-		name = L["Feranin"],
-		npcID = 19518,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Neutral",
-	},
-	[55805825] = {
-		name = L["Arrond"],
-		npcID = 19521,
-		category = "vendors",
-		profession = "Tailoring",
-		description = L["Tailoring Supplies"],
-		faction = "Neutral",
-	},
-	[62402820] = {
-		name = L["Nanomah"],
-		npcID = 19528,
-		category = "vendors",
-		description = L["Provisions Merchant"],
-		faction = "Neutral",
-	},
-	[61602860] = {
-		name = L["Dearny"],
-		npcID = 19532,
-		category = "vendors",
-		description = L["Leatherworking Merchant"],
-		faction = "Neutral",
-	},
-	[55405925] = {
-		name = L["Alorya"],
-		npcID = 19625,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[61002800] = {
-		name = L["Dorni"],
-		npcID = 19649,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[29202945] = {
-		name = L["Dama Wildmane"],
-		npcID = 20494,
-		category = "vendors",
-		description = L["Windrider Keeper"],
-		faction = "Horde",
-	},
-	[37605600] = {
-		name = L["Brunn Flamebeard"],
-		npcID = 20510,
-		category = "vendors",
-		description = L["Gryphon Keeper"],
-		faction = "Alliance",
-	},
-	[56205980] = {
-		name = L["Roldemar"],
-		npcID = 21744,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Neutral",
-	},
-	[61002820] = {
-		name = L["Caretaker Aluuro"],
-		npcID = 21746,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Neutral",
-	},
-	[41804700] = {
-		name = L["Collidus the Warp-Watcher"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607020] = {
-		name = L["Collidus the Warp-Watcher"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47802720] = {
-		name = L["Ambassador Jerrikar"],
-		category = "rares",
-		description = L["Servant of Illidan"],
-		faction = "Neutral",
-	},
-	[32004460] = {
-		name = L["Kraator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59604640] = {
-		name = L["Kraator"],
+	[71803540] = {
+		name = L["Marticar"],
 		category = "rares",
 		faction = "Neutral",
 	},
@@ -26790,7 +27458,7 @@ nodes[1950] = {
 		description = L["Innkeeper"],
 		faction = "Alliance",
 	},
-	[55205920] = {
+	[55105920] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -26831,7 +27499,7 @@ nodes[1950] = {
 	[54605400] = {
 		name = L["Anchorite Paetheus"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -27238,6 +27906,66 @@ nodes[1950] = {
 		category = "rares",
 		faction = "Horde",
 	},
+	[19204980] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24205520] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24805200] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25005320] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[38206320] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[39006340] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[39406160] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[39406360] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[40005840] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[41005900] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[18004900] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[36806400] = {
+		name = L["Fenissa the Assassin"],
+		category = "rares",
+		faction = "Horde",
+	},
 }
 nodes[1942] = {
 	[45403060] = {
@@ -27254,7 +27982,7 @@ nodes[1942] = {
 		description = L["Innkeeper"],
 		faction = "Horde",
 	},
-	[47703130] = {
+	[47803130] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Neutral",
@@ -27279,7 +28007,7 @@ nodes[1942] = {
 		name = L["Blacksmith Frances"],
 		npcID = 17655,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -27291,6 +28019,11 @@ nodes[1942] = {
 		faction = "Horde",
 	},
 	[43802580] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[61205680] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
@@ -27458,6 +28191,16 @@ nodes[1942] = {
 		faction = "Alliance",
 	},
 	[41404700] = {
+		name = L["Dr. Whitherlimb"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[41804620] = {
+		name = L["Dr. Whitherlimb"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[40204980] = {
 		name = L["Dr. Whitherlimb"],
 		category = "rares",
 		faction = "Alliance",
@@ -27748,7 +28491,7 @@ nodes[1941] = {
 	[48404760] = {
 		name = L["Kanaria"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -27790,7 +28533,7 @@ nodes[1941] = {
 		description = L["Cooking Trainer"],
 		faction = "Horde",
 	},
-	[53605100] = {
+	[53605120] = {
 		name = L["Sathein"],
 		category = "primaryProfession",
 		profession = "Leatherworking",
@@ -27927,7 +28670,7 @@ nodes[1941] = {
 		name = L["Kinamisa"],
 		npcID = 18277,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -28289,1319 +29032,20 @@ nodes[1941] = {
 		category = "rares",
 		faction = "Alliance",
 	},
-}
-nodes[1440] = {
-	[34404800] = {
-		name = L["Daelyshia"],
-		category = "flightmasters",
-		fpName = L["Astranaar, Ashenvale"],
-		description = L["Hippogryph Master"],
+	[69804940] = {
+		name = L["Eldinarcus"],
+		category = "rares",
 		faction = "Alliance",
 	},
-	[12203380] = {
-		name = L["Andruk"],
-		category = "flightmasters",
-		fpName = L["Zoram'gar Outpost, Ashenvale"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[73206160] = {
-		name = L["Vhulgra"],
-		category = "flightmasters",
-		fpName = L["Splintertree Post, Ashenvale"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[85004340] = {
-		name = L["Suralais Farwind"],
-		category = "flightmasters",
-		fpName = L["Forest Song, Ashenvale"],
-		description = L["Hippogryph Master"],
+	[69607400] = {
+		name = L["Tregla"],
+		category = "rares",
 		faction = "Alliance",
 	},
-	[37004920] = {
-		name = L["Innkeeper Kimlya"],
-		npcID = 6738,
-		category = "innkeepers",
-		description = L["Innkeeper"],
+	[68604560] = {
+		name = L["Eldinarcus"],
+		category = "rares",
 		faction = "Alliance",
-	},
-	[74006060] = {
-		name = L["Innkeeper Kaylisk"],
-		npcID = 12196,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[36305030] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[73606090] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Horde",
-	},
-	[50206720] = {
-		name = L["Bhaldaran Ravenshade"],
-		npcID = 3951,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer"],
-		faction = "Alliance",
-	},
-	[34404960] = {
-		name = L["Aeolynn"],
-		npcID = 3952,
-		category = "repair",
-		description = L["Clothier"],
-		faction = "Alliance",
-	},
-	[34604980] = {
-		name = L["Tandaan Lightmane"],
-		npcID = 3953,
-		category = "repair",
-		description = L["Leather Armor Merchant"],
-		faction = "Alliance",
-	},
-	[73406040] = {
-		name = L["Burkrum"],
-		npcID = 6028,
-		category = "repair",
-		description = L["Heavy Armor Merchant"],
-		faction = "Horde",
-	},
-	[35805200] = {
-		name = L["Xai'ander"],
-		npcID = 11137,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Alliance",
-	},
-	[61408380] = {
-		name = L["Illiyana Moonblaze"],
-		npcID = 14753,
-		category = "repair",
-		description = L["Silverwing Supply Officer"],
-		faction = "Alliance",
-	},
-	[86604420] = {
-		name = L["Phaedra"],
-		npcID = 17412,
-		category = "repair",
-		description = L["Weapon Merchant"],
-		faction = "Alliance",
-	},
-	[40205300] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[80605800] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[36405040] = {
-		name = L["Maluressian"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Alliance",
-	},
-	[73406100] = {
-		name = L["Qeeju"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Horde",
-	},
-	[50006780] = {
-		name = L["Danlaar Nightstride"],
-		category = "trainers",
-		subcategories = {
-			classTrainer = true,
-		},
-		description = L["Hunter Trainer"],
-		classes = {
-			HUNTER = true,
-		},
-		faction = "Alliance",
-	},
-	[50806700] = {
-		name = L["Kylanna"],
-		category = "primaryProfession",
-		profession = "Alchemy",
-		description = L["Alchemy Trainer"],
-		faction = "Alliance",
-	},
-	[50606700] = {
-		name = L["Cylania Rootstalker"],
-		category = "primaryProfession",
-		profession = "Herbalism",
-		description = L["Herbalism Trainer"],
-		faction = "Alliance",
-	},
-	[35805205] = {
-		name = L["Aayndia Floralwind"],
-		category = "primaryProfession",
-		profession = "Leatherworking",
-		description = L["Leatherworking Trainer"],
-		faction = "Alliance",
-	},
-	[49806700] = {
-		name = L["Caelyb"],
-		category = "trainers",
-		description = L["Pet Trainer"],
-		faction = "Alliance",
-	},
-	[50006720] = {
-		name = L["Jayla"],
-		category = "primaryProfession",
-		profession = "Skinning",
-		description = L["Skinning Trainer"],
-		faction = "Alliance",
-	},
-	[10803360] = {
-		name = L["Kil'Hiwana"],
-		category = "secondaryProfession",
-		profession = "Fishing",
-		description = L["Fishing Trainer"],
-		faction = "Horde",
-	},
-	[35005200] = {
-		name = L["Dalria"],
-		npcID = 3954,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[49406700] = {
-		name = L["Shandrina"],
-		npcID = 3955,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[50806705] = {
-		name = L["Harklan Moongrove"],
-		npcID = 3956,
-		category = "vendors",
-		profession = "Alchemy",
-		description = L["Alchemy Supplies"],
-		faction = "Alliance",
-	},
-	[34804980] = {
-		name = L["Lardan"],
-		npcID = 3958,
-		category = "vendors",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Alliance",
-	},
-	[37004980] = {
-		name = L["Nantar"],
-		npcID = 3959,
-		category = "vendors",
-		description = L["Baker"],
-		faction = "Alliance",
-	},
-	[50006660] = {
-		name = L["Ulthaan"],
-		npcID = 3960,
-		category = "vendors",
-		description = L["Butcher"],
-		faction = "Alliance",
-	},
-	[36604980] = {
-		name = L["Maliynn"],
-		npcID = 3961,
-		category = "vendors",
-		description = L["Food & Drink Vendor"],
-		faction = "Alliance",
-	},
-	[34805080] = {
-		name = L["Haljan Oakheart"],
-		npcID = 3962,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Alliance",
-	},
-	[36404940] = {
-		name = L["Fahran Silentblade"],
-		npcID = 3969,
-		category = "vendors",
-		description = L["Tools & Supplies"],
-		faction = "Alliance",
-	},
-	[35004840] = {
-		name = L["Llana"],
-		npcID = 3970,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-		},
-		description = L["Reagent Supplies"],
-		faction = "Alliance",
-	},
-	[18206000] = {
-		name = L["Harlown Darkweave"],
-		npcID = 6731,
-		category = "vendors",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Alliance",
-	},
-	[11803400] = {
-		name = L["Wik'Tar"],
-		npcID = 12962,
-		category = "vendors",
-		description = L["Fish Merchant & Supplies"],
-		faction = "Horde",
-	},
-	[33202100] = {
-		name = L["Apothecary Falthis"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[33202180] = {
-		name = L["Apothecary Falthis"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25206040] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25406080] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25606100] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27406280] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27406400] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27606300] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27606400] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28206160] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28206520] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28405980] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28406140] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28606140] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28606200] = {
-		name = L["Akkrilus"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50003960] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50203860] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50403840] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50603840] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50603900] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[50803680] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[51003960] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[52003780] = {
-		name = L["Terrowulf Packlord"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[9201440] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[9401520] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[9401580] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[9601540] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[9601560] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[10402940] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[10403000] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[10803060] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[11002980] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[11202820] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[11202940] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[11602840] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[11802880] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12002980] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12401840] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12401880] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12401960] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12601840] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12601860] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[12601960] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13601960] = {
-		name = L["Lady Vespia"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34003660] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34403480] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35203220] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35403280] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35403360] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35603280] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35603360] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35803200] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36403520] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36403600] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36403680] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36603540] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36603620] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36603660] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37003380] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37203340] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37803420] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37803500] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38003620] = {
-		name = L["Rorgish Jowl"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48806540] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49206020] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49206320] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49406160] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806040] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806100] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806160] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50005900] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50806000] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51006140] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51006160] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52206260] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53205940] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53406320] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53606100] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53606360] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54006300] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54406220] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54606220] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55406320] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56206240] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56206280] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56406400] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56606240] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56606280] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57606200] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43204560] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44204540] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44204560] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45204520] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45204640] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45204700] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45604740] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45604760] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45604860] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45804640] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46204420] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46404460] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46604900] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47204420] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47404500] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47404620] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47404660] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47404800] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47604460] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47604600] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47604660] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47604820] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45207140] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45207160] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45607120] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45807240] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47407040] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47807060] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48206920] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48407000] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48606980] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52406920] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52807000] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52807100] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54206940] = {
-		name = L["Eck'alom"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17803680] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18404140] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18604120] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18803800] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19204420] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19404180] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19404280] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19404460] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19804560] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20004040] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20004420] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20004520] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20204240] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20204260] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20404120] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20604500] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20804400] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21004080] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21004180] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21204260] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21404040] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21604040] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21604180] = {
-		name = L["Mugglefin"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[17003020] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18203020] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18403060] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18802940] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[19203000] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[19802960] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[20603080] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22003060] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22003560] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22202940] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22203000] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22203400] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22403520] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22602920] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22602960] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22603400] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[22803540] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23003060] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23403560] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23603500] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23803720] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25601960] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26201740] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26201820] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26401880] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26601500] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26601740] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26601780] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26601860] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29201680] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29201780] = {
-		name = L["Mist Howler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77204620] = {
-		name = L["Prince Raze"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[78404240] = {
-		name = L["Prince Raze"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[78404260] = {
-		name = L["Prince Raze"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[78804540] = {
-		name = L["Prince Raze"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[79004560] = {
-		name = L["Prince Raze"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82204620] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82404740] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82404800] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82604960] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82804740] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82804800] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82805520] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[82805820] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[83004900] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[83005680] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[83205620] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[83406040] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[84205600] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[87006860] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[88406720] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[88406840] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[88406860] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[88606740] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[88606840] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56406240] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44804720] = {
-		name = L["Branch Snapper"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[87206860] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806060] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56006260] = {
-		name = L["Oakpaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[81804860] = {
-		name = L["Ursol'lok"],
-		category = "rares",
-		faction = "Neutral",
 	},
 }
 nodes[1445] = {
@@ -29739,6 +29183,11 @@ nodes[1445] = {
 		category = "spirithealers",
 		faction = "Neutral",
 	},
+	[46405700] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
 	[63404300] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
@@ -29761,7 +29210,7 @@ nodes[1445] = {
 		name = L["Uma Bartulm"],
 		npcID = 4899,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Herbalism & Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -29877,7 +29326,7 @@ nodes[1445] = {
 		name = L["Ghok'kah"],
 		npcID = 6567,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Horde",
 	},
@@ -31293,1010 +30742,1347 @@ nodes[1445] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[45608220] = {
+		name = L["Brimgore"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55006560] = {
+		name = L["Hayoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41807580] = {
+		name = L["Brimgore"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52006600] = {
+		name = L["Hayoc"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
-nodes[1444] = {
-	[89404580] = {
-		name = L["Thyssiana"],
+nodes[1440] = {
+	[34404800] = {
+		name = L["Daelyshia"],
 		category = "flightmasters",
-		fpName = L["Thalanaar, Feralas"],
+		fpName = L["Astranaar, Ashenvale"],
 		description = L["Hippogryph Master"],
 		faction = "Alliance",
 	},
-	[30204320] = {
-		name = L["Fyldren Moonfeather"],
+	[12203380] = {
+		name = L["Andruk"],
 		category = "flightmasters",
-		fpName = L["Feathermoon, Feralas"],
-		description = L["Hippogryph Master"],
-		faction = "Alliance",
-	},
-	[75404420] = {
-		name = L["Shyn"],
-		category = "flightmasters",
-		fpName = L["Camp Mojache, Feralas"],
+		fpName = L["Zoram'gar Outpost, Ashenvale"],
 		description = L["Wind Rider Master"],
 		faction = "Horde",
 	},
-	[31004340] = {
-		name = L["Innkeeper Shyria"],
-		npcID = 7736,
+	[73206160] = {
+		name = L["Vhulgra"],
+		category = "flightmasters",
+		fpName = L["Splintertree Post, Ashenvale"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[85004340] = {
+		name = L["Suralais Farwind"],
+		category = "flightmasters",
+		fpName = L["Forest Song, Ashenvale"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[37004920] = {
+		name = L["Innkeeper Kimlya"],
+		npcID = 6738,
 		category = "innkeepers",
 		description = L["Innkeeper"],
 		faction = "Alliance",
 	},
-	[74804500] = {
-		name = L["Innkeeper Greul"],
-		npcID = 7737,
+	[74006060] = {
+		name = L["Innkeeper Kaylisk"],
+		npcID = 12196,
 		category = "innkeepers",
 		description = L["Innkeeper"],
 		faction = "Horde",
 	},
-	[31204380] = {
+	[36305030] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Alliance",
 	},
-	[74904400] = {
+	[73606090] = {
 		name = L["Mailbox"],
 		category = "mailboxes",
 		faction = "Horde",
 	},
-	[89404585] = {
-		name = L["Rendow"],
-		npcID = 1695,
-		category = "vendors",
-		description = L["Leather Armor Merchant"],
-		faction = "Alliance",
-	},
-	[30604260] = {
-		name = L["Pratt McGrubben"],
-		npcID = 7852,
-		category = "repair",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Alliance",
-	},
-	[74604260] = {
-		name = L["Worb Strongstitch"],
-		npcID = 8159,
-		category = "repair",
-		description = L["Light Armor Merchant"],
-		faction = "Horde",
-	},
-	[74804560] = {
-		name = L["Cawind Trueaim"],
-		npcID = 9548,
+	[50206720] = {
+		name = L["Bhaldaran Ravenshade"],
+		npcID = 3951,
 		category = "repair",
 		vendors = {
 			ammo = true,
 		},
-		description = L["Gunsmith & Bowyer"],
-		faction = "Horde",
+		description = L["Bowyer"],
+		faction = "Alliance",
 	},
-	[30804320] = {
-		name = L["Dulciea Frostmoon"],
-		npcID = 10293,
+	[34404960] = {
+		name = L["Aeolynn"],
+		npcID = 3952,
 		category = "repair",
-		description = L["Cloth Armor Merchant"],
+		description = L["Clothier"],
 		faction = "Alliance",
 	},
-	[31404800] = {
+	[34604980] = {
+		name = L["Tandaan Lightmane"],
+		npcID = 3953,
+		category = "repair",
+		description = L["Leather Armor Merchant"],
+		faction = "Alliance",
+	},
+	[73406040] = {
+		name = L["Burkrum"],
+		npcID = 6028,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Heavy Armor Merchant"],
+		faction = "Horde",
+	},
+	[35805200] = {
+		name = L["Xai'ander"],
+		npcID = 11137,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Alliance",
+	},
+	[61408380] = {
+		name = L["Illiyana Moonblaze"],
+		npcID = 14753,
+		category = "repair",
+		description = L["Silverwing Supply Officer"],
+		faction = "Alliance",
+	},
+	[86604420] = {
+		name = L["Phaedra"],
+		npcID = 17412,
+		category = "repair",
+		description = L["Weapon Merchant"],
+		faction = "Alliance",
+	},
+	[40205300] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[54804740] = {
+	[80605800] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[73004480] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
+	[36405040] = {
+		name = L["Maluressian"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
 	},
-	[74404320] = {
-		name = L["Shyrka Wolfrunner"],
+	[73406100] = {
+		name = L["Qeeju"],
 		category = "stablemasters",
 		description = L["Stable Master"],
 		faction = "Horde",
 	},
-	[31404320] = {
-		name = L["Antarius"],
-		category = "stablemasters",
-		description = L["Stable Master"],
+	[50006780] = {
+		name = L["Danlaar Nightstride"],
+		category = "trainers",
+		subcategories = {
+			classTrainer = true,
+		},
+		description = L["Hunter Trainer"],
+		classes = {
+			HUNTER = true,
+		},
 		faction = "Alliance",
 	},
-	[89404640] = {
-		name = L["Caryssia Moonhunter"],
-		category = "primaryProfession",
-		profession = "Leatherworking",
-		description = L["Tribal Leatherworking Trainer"],
-		faction = "Alliance",
-	},
-	[32204160] = {
-		name = L["Brannock"],
-		category = "secondaryProfession",
-		profession = "Fishing",
-		description = L["Fishing Trainer"],
-		faction = "Alliance",
-	},
-	[32604380] = {
-		name = L["Kylanna Windwhisper"],
+	[50806700] = {
+		name = L["Kylanna"],
 		category = "primaryProfession",
 		profession = "Alchemy",
 		description = L["Alchemy Trainer"],
 		faction = "Alliance",
 	},
-	[31604420] = {
-		name = L["Xylinnia Starshine"],
-		category = "primaryProfession",
-		profession = "Enchanting",
-		description = L["Enchanting Trainer"],
-		faction = "Alliance",
-	},
-	[76004220] = {
-		name = L["Jannos Lighthoof"],
-		category = "trainers",
-		subcategories = {
-			classTrainer = true,
-		},
-		description = L["Druid Trainer"],
-		classes = {
-			DRUID = true,
-		},
-		faction = "Horde",
-	},
-	[74404300] = {
-		name = L["Kulleg Stonehorn"],
-		category = "primaryProfession",
-		profession = "Skinning",
-		description = L["Skinning Trainer"],
-		faction = "Horde",
-	},
-	[76004340] = {
-		name = L["Ruw"],
+	[50606700] = {
+		name = L["Cylania Rootstalker"],
 		category = "primaryProfession",
 		profession = "Herbalism",
 		description = L["Herbalism Trainer"],
-		faction = "Horde",
+		faction = "Alliance",
 	},
-	[74404305] = {
-		name = L["Hahrana Ironhide"],
+	[35805205] = {
+		name = L["Aayndia Floralwind"],
 		category = "primaryProfession",
 		profession = "Leatherworking",
 		description = L["Leatherworking Trainer"],
-		faction = "Horde",
-	},
-	[74604480] = {
-		name = L["Tarhus"],
-		npcID = 3500,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-		},
-		description = L["Reagents"],
-		faction = "Horde",
-	},
-	[30804200] = {
-		name = L["Jadenvis Seawatcher"],
-		npcID = 3700,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-		},
-		description = L["Reagents"],
 		faction = "Alliance",
 	},
-	[89004580] = {
-		name = L["Brienna Starglow"],
-		npcID = 6576,
-		category = "vendors",
-		profession = "Tailoring",
-		description = L["Tailoring Supplies"],
+	[49806700] = {
+		name = L["Caelyb"],
+		category = "trainers",
+		description = L["Pet Trainer"],
 		faction = "Alliance",
 	},
-	[49201980] = {
-		name = L["Kalin Windflight"],
-		npcID = 7772,
-		category = "vendors",
-		faction = "Neutral",
+	[50006720] = {
+		name = L["Jayla"],
+		category = "primaryProfession",
+		profession = "Skinning",
+		description = L["Skinning Trainer"],
+		faction = "Alliance",
 	},
-	[45002540] = {
-		name = L["Gregan Brewspewer"],
-		npcID = 7775,
-		category = "vendors",
-		faction = "Neutral",
+	[10803360] = {
+		name = L["Kil'Hiwana"],
+		category = "secondaryProfession",
+		profession = "Fishing",
+		description = L["Fishing Trainer"],
+		faction = "Horde",
 	},
-	[74404280] = {
-		name = L["Jangdor Swiftstrider"],
-		npcID = 7854,
+	[35005200] = {
+		name = L["Dalria"],
+		npcID = 3954,
 		category = "vendors",
-		profession = "Leatherworking",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[49406700] = {
+		name = L["Shandrina"],
+		npcID = 3955,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[50806705] = {
+		name = L["Harklan Moongrove"],
+		npcID = 3956,
+		category = "vendors",
+		profession = "alchemy",
+		description = L["Alchemy Supplies"],
+		faction = "Alliance",
+	},
+	[34804980] = {
+		name = L["Lardan"],
+		npcID = 3958,
+		category = "vendors",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
-		faction = "Horde",
-	},
-	[32404380] = {
-		name = L["Quintis Jonespyre"],
-		npcID = 7879,
-		category = "vendors",
 		faction = "Alliance",
 	},
-	[31004320] = {
-		name = L["Mardrack Greenwell"],
-		npcID = 7941,
+	[37004980] = {
+		name = L["Nantar"],
+		npcID = 3959,
 		category = "vendors",
-		description = L["Food & Drink"],
+		description = L["Baker"],
 		faction = "Alliance",
 	},
-	[30604340] = {
-		name = L["Faralorn"],
-		npcID = 7942,
+	[50006660] = {
+		name = L["Ulthaan"],
+		npcID = 3960,
+		category = "vendors",
+		description = L["Butcher"],
+		faction = "Alliance",
+	},
+	[36604980] = {
+		name = L["Maliynn"],
+		npcID = 3961,
+		category = "vendors",
+		description = L["Food & Drink Vendor"],
+		faction = "Alliance",
+	},
+	[34805080] = {
+		name = L["Haljan Oakheart"],
+		npcID = 3962,
 		category = "vendors",
 		vendors = {
 			ammo = true,
 		},
-		description = L["General Supplies"],
+		description = L["General Goods"],
 		faction = "Alliance",
 	},
-	[31004620] = {
-		name = L["Harklane"],
-		npcID = 7943,
+	[36404940] = {
+		name = L["Fahran Silentblade"],
+		npcID = 3969,
 		category = "vendors",
-		description = L["Fish Vendor"],
+		description = L["Tools & Supplies"],
 		faction = "Alliance",
 	},
-	[31004600] = {
-		name = L["Savanne"],
-		npcID = 7945,
+	[35004840] = {
+		name = L["Llana"],
+		npcID = 3970,
 		category = "vendors",
-		profession = "Fishing",
-		description = L["Fishing Supplies"],
+		subcategories = {
+			reagent = true,
+		},
+		description = L["Reagent Supplies"],
 		faction = "Alliance",
 	},
-	[31204340] = {
-		name = L["Vivianna"],
-		npcID = 7947,
+	[18206000] = {
+		name = L["Harlown Darkweave"],
+		npcID = 6731,
 		category = "vendors",
-		description = L["Trade Supplies"],
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
-	[75404380] = {
-		name = L["Loorana"],
-		npcID = 8143,
+	[11803400] = {
+		name = L["Wik'Tar"],
+		npcID = 12962,
 		category = "vendors",
-		description = L["Food & Drink"],
+		description = L["Fish Merchant & Supplies"],
 		faction = "Horde",
 	},
-	[74404285] = {
-		name = L["Sheendra Tallgrass"],
-		npcID = 8145,
-		category = "vendors",
-		description = L["Trade Supplies"],
+	[33202100] = {
+		name = L["Apothecary Falthis"],
+		category = "rares",
 		faction = "Horde",
 	},
-	[32604400] = {
-		name = L["Logannas"],
-		npcID = 8157,
-		category = "vendors",
-		profession = "Alchemy",
-		description = L["Alchemy Supplies"],
-		faction = "Alliance",
+	[33202180] = {
+		name = L["Apothecary Falthis"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[76004345] = {
-		name = L["Snarler"],
+	[25206040] = {
+		name = L["Akkrilus"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44804340] = {
-		name = L["Zorbin Fandazzle"],
-		npcID = 14637,
-		category = "vendors",
-		faction = "Neutral",
+	[25406080] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[24807280] = {
-		name = L["Lady Szallah"],
+	[25606100] = {
+		name = L["Akkrilus"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
+	},
+	[27406280] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27406400] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27606300] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27606400] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28206160] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28206520] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28405980] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28406140] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28606140] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28606200] = {
+		name = L["Akkrilus"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50003960] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50203860] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50403840] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50603840] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50603900] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[50803680] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[51003960] = {
+		name = L["Terrowulf Packlord"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[25207240] = {
-		name = L["Lady Szallah"],
+	[52003780] = {
+		name = L["Terrowulf Packlord"],
 		category = "rares",
+		faction = "Horde",
+	},
+	[9201440] = {
+		name = L["Lady Vespia"],
+		category = "rares",
 		faction = "Neutral",
 	},
-	[26006720] = {
-		name = L["Lady Szallah"],
+	[9401520] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26406580] = {
-		name = L["Lady Szallah"],
+	[9401580] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26606580] = {
-		name = L["Lady Szallah"],
+	[9601540] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27206880] = {
-		name = L["Lady Szallah"],
+	[9601560] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27406820] = {
-		name = L["Lady Szallah"],
+	[10402940] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27606900] = {
-		name = L["Lady Szallah"],
+	[10403000] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28006780] = {
-		name = L["Lady Szallah"],
+	[10803060] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28206740] = {
-		name = L["Lady Szallah"],
+	[11002980] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[21205020] = {
-		name = L["Diamond Head"],
+	[11202820] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[21605000] = {
-		name = L["Diamond Head"],
+	[11202940] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[21605520] = {
-		name = L["Diamond Head"],
+	[11602840] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22405800] = {
-		name = L["Diamond Head"],
+	[11802880] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22605800] = {
-		name = L["Diamond Head"],
+	[12002980] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35005800] = {
-		name = L["Diamond Head"],
+	[12401840] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36005440] = {
-		name = L["Diamond Head"],
+	[12401880] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51005980] = {
-		name = L["Bloodroar the Stalker"],
+	[12401960] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51605940] = {
-		name = L["Bloodroar the Stalker"],
+	[12601840] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51806040] = {
-		name = L["Bloodroar the Stalker"],
+	[12601860] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51806060] = {
-		name = L["Bloodroar the Stalker"],
+	[12601960] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52005820] = {
-		name = L["Bloodroar the Stalker"],
+	[13601960] = {
+		name = L["Lady Vespia"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52605940] = {
-		name = L["Bloodroar the Stalker"],
+	[34003660] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52605960] = {
-		name = L["Bloodroar the Stalker"],
+	[34403480] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52606060] = {
-		name = L["Bloodroar the Stalker"],
+	[35203220] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53406880] = {
-		name = L["Antilus the Soarer"],
+	[35403280] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[53407100] = {
-		name = L["Antilus the Soarer"],
+	[35403360] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[53606920] = {
-		name = L["Antilus the Soarer"],
+	[35603280] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54006840] = {
-		name = L["Antilus the Soarer"],
+	[35603360] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54007180] = {
-		name = L["Antilus the Soarer"],
+	[35803200] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54207000] = {
-		name = L["Antilus the Soarer"],
+	[36403520] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54207360] = {
-		name = L["Antilus the Soarer"],
+	[36403600] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54407080] = {
-		name = L["Antilus the Soarer"],
+	[36403680] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54407260] = {
-		name = L["Antilus the Soarer"],
+	[36603540] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54606960] = {
-		name = L["Antilus the Soarer"],
+	[36603620] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54607260] = {
-		name = L["Antilus the Soarer"],
+	[36603660] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54807420] = {
-		name = L["Antilus the Soarer"],
+	[37003380] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[54807480] = {
-		name = L["Antilus the Soarer"],
+	[37203340] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[55007160] = {
-		name = L["Antilus the Soarer"],
+	[37803420] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[55607420] = {
-		name = L["Antilus the Soarer"],
+	[37803500] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[55607460] = {
-		name = L["Antilus the Soarer"],
+	[38003620] = {
+		name = L["Rorgish Jowl"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[56807560] = {
-		name = L["Antilus the Soarer"],
+	[48806540] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[57207360] = {
-		name = L["Antilus the Soarer"],
+	[49206020] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[57207460] = {
-		name = L["Antilus the Soarer"],
+	[49206320] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[58207360] = {
-		name = L["Antilus the Soarer"],
+	[49406160] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[58207460] = {
-		name = L["Antilus the Soarer"],
+	[49806040] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[58807340] = {
-		name = L["Antilus the Soarer"],
+	[49806100] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[58807420] = {
-		name = L["Antilus the Soarer"],
+	[49806160] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[59807340] = {
-		name = L["Antilus the Soarer"],
+	[50005900] = {
+		name = L["Oakpaw"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Neutral",
 	},
-	[41802480] = {
-		name = L["Arash-ethis"],
+	[50806000] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46002380] = {
-		name = L["Arash-ethis"],
+	[51006140] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46002560] = {
-		name = L["Arash-ethis"],
+	[51006160] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46202540] = {
-		name = L["Arash-ethis"],
+	[52206260] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[71806340] = {
-		name = L["Qirot"],
+	[53205940] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72406440] = {
-		name = L["Qirot"],
+	[53406320] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72606460] = {
-		name = L["Qirot"],
+	[53606100] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73406380] = {
-		name = L["Qirot"],
+	[53606360] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73806440] = {
-		name = L["Qirot"],
+	[54006300] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74006280] = {
-		name = L["Qirot"],
+	[54406220] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74006460] = {
-		name = L["Qirot"],
+	[54606220] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74206220] = {
-		name = L["Qirot"],
+	[55406320] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76606140] = {
-		name = L["Qirot"],
+	[56206240] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76806540] = {
-		name = L["Qirot"],
+	[56206280] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76806560] = {
-		name = L["Qirot"],
+	[56406400] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77806200] = {
-		name = L["Qirot"],
+	[56606240] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77806480] = {
-		name = L["Qirot"],
+	[56606280] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78206260] = {
-		name = L["Qirot"],
+	[57606200] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
+	},
+	[43204560] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[44204540] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[44204560] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45204520] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45204640] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45204700] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45604740] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45604760] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45604860] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45804640] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[46204420] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[46404460] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[46604900] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47204420] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47404500] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47404620] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[78406400] = {
-		name = L["Qirot"],
+	[47404660] = {
+		name = L["Branch Snapper"],
 		category = "rares",
+		faction = "Horde",
+	},
+	[47404800] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47604460] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47604600] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47604660] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[47604820] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[45207140] = {
+		name = L["Eck'alom"],
+		category = "rares",
 		faction = "Neutral",
 	},
-	[78606320] = {
-		name = L["Qirot"],
+	[45207160] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78606380] = {
-		name = L["Qirot"],
+	[45607120] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78606460] = {
-		name = L["Qirot"],
+	[45807240] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57405700] = {
-		name = L["Old Grizzlegut"],
+	[47407040] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57805740] = {
-		name = L["Old Grizzlegut"],
+	[47807060] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57805800] = {
-		name = L["Old Grizzlegut"],
+	[48206920] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58605620] = {
-		name = L["Old Grizzlegut"],
+	[48407000] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58605900] = {
-		name = L["Old Grizzlegut"],
+	[48606980] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59205840] = {
-		name = L["Old Grizzlegut"],
+	[52406920] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59406020] = {
-		name = L["Old Grizzlegut"],
+	[52807000] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[60006060] = {
-		name = L["Old Grizzlegut"],
+	[52807100] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[60405940] = {
-		name = L["Old Grizzlegut"],
+	[54206940] = {
+		name = L["Eck'alom"],
 		category = "rares",
 		faction = "Neutral",
+	},
+	[17803680] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[18404140] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[18604120] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[18803800] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[60406000] = {
-		name = L["Old Grizzlegut"],
+	[19204420] = {
+		name = L["Mugglefin"],
 		category = "rares",
+		faction = "Horde",
+	},
+	[19404180] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[19404280] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[19404460] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[19804560] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20004040] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20004420] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20004520] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20204240] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20204260] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20404120] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20604500] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[20804400] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21004080] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21004180] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21204260] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21404040] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21604040] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[21604180] = {
+		name = L["Mugglefin"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[17003020] = {
+		name = L["Mist Howler"],
+		category = "rares",
 		faction = "Neutral",
 	},
-	[60606020] = {
-		name = L["Old Grizzlegut"],
+	[18203020] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[60606080] = {
-		name = L["Old Grizzlegut"],
+	[18403060] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66204740] = {
-		name = L["Old Grizzlegut"],
+	[18802940] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67004780] = {
-		name = L["Old Grizzlegut"],
+	[19203000] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68004800] = {
-		name = L["Old Grizzlegut"],
+	[19802960] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68204860] = {
-		name = L["Old Grizzlegut"],
+	[20603080] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68804880] = {
-		name = L["Old Grizzlegut"],
+	[22003060] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69004760] = {
-		name = L["Old Grizzlegut"],
+	[22003560] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69204440] = {
-		name = L["Old Grizzlegut"],
+	[22202940] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69404500] = {
-		name = L["Old Grizzlegut"],
+	[22203000] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69404580] = {
-		name = L["Old Grizzlegut"],
+	[22203400] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69404700] = {
-		name = L["Old Grizzlegut"],
+	[22403520] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69604240] = {
-		name = L["Old Grizzlegut"],
+	[22602920] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69604520] = {
-		name = L["Old Grizzlegut"],
+	[22602960] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69604600] = {
-		name = L["Old Grizzlegut"],
+	[22603400] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69604780] = {
-		name = L["Old Grizzlegut"],
+	[22803540] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68005760] = {
-		name = L["Gnarl Leafbrother"],
+	[23003060] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68405740] = {
-		name = L["Gnarl Leafbrother"],
+	[23403560] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68605720] = {
-		name = L["Gnarl Leafbrother"],
+	[23603500] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69605740] = {
-		name = L["Gnarl Leafbrother"],
+	[23803720] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[70405780] = {
-		name = L["Gnarl Leafbrother"],
+	[25601960] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[70605780] = {
-		name = L["Gnarl Leafbrother"],
+	[26201740] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[71605800] = {
-		name = L["Gnarl Leafbrother"],
+	[26201820] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72405940] = {
-		name = L["Gnarl Leafbrother"],
+	[26401880] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73005820] = {
-		name = L["Gnarl Leafbrother"],
+	[26601500] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74205860] = {
-		name = L["Gnarl Leafbrother"],
+	[26601740] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74405840] = {
-		name = L["Gnarl Leafbrother"],
+	[26601780] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74805880] = {
-		name = L["Gnarl Leafbrother"],
+	[26601860] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75605880] = {
-		name = L["Gnarl Leafbrother"],
+	[29201680] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75203580] = {
-		name = L["Snarler"],
+	[29201780] = {
+		name = L["Mist Howler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75403740] = {
-		name = L["Snarler"],
+	[77204620] = {
+		name = L["Prince Raze"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75403880] = {
-		name = L["Snarler"],
+	[78404240] = {
+		name = L["Prince Raze"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75803740] = {
-		name = L["Snarler"],
+	[78404260] = {
+		name = L["Prince Raze"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76003620] = {
-		name = L["Snarler"],
+	[78804540] = {
+		name = L["Prince Raze"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76203820] = {
-		name = L["Snarler"],
+	[79004560] = {
+		name = L["Prince Raze"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76203860] = {
-		name = L["Snarler"],
+	[82204620] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76203960] = {
-		name = L["Snarler"],
+	[82404740] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76603820] = {
-		name = L["Snarler"],
+	[82404800] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76603980] = {
-		name = L["Snarler"],
+	[82604960] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76803900] = {
-		name = L["Snarler"],
+	[82804740] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77603720] = {
-		name = L["Snarler"],
+	[82804800] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78003860] = {
-		name = L["Snarler"],
+	[82805520] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78403840] = {
-		name = L["Snarler"],
+	[82805820] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78803840] = {
-		name = L["Snarler"],
+	[83004900] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[79403880] = {
-		name = L["Snarler"],
+	[83005680] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[79603900] = {
-		name = L["Snarler"],
+	[83205620] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80403980] = {
-		name = L["Snarler"],
+	[83406040] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80804060] = {
-		name = L["Snarler"],
+	[84205600] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81003960] = {
-		name = L["Snarler"],
+	[87006860] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81203920] = {
-		name = L["Snarler"],
+	[88406720] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81603940] = {
-		name = L["Snarler"],
+	[88406840] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[82204060] = {
-		name = L["Snarler"],
+	[88406860] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[82403960] = {
-		name = L["Snarler"],
+	[88606740] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[82803880] = {
-		name = L["Snarler"],
+	[88606840] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[83004160] = {
-		name = L["Snarler"],
+	[56406240] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
+	},
+	[44804720] = {
+		name = L["Branch Snapper"],
+		category = "rares",
+		faction = "Horde",
 	},
-	[83803840] = {
-		name = L["Snarler"],
+	[87206860] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[84403860] = {
-		name = L["Snarler"],
+	[49806060] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[84603800] = {
-		name = L["Snarler"],
+	[56006260] = {
+		name = L["Oakpaw"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[85403700] = {
-		name = L["Snarler"],
+	[81804860] = {
+		name = L["Ursol'lok"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53807120] = {
-		name = L["Antilus the Soarer"],
+	[47004860] = {
+		name = L["Branch Snapper"],
 		category = "rares",
-		faction = "Alliance",
+		faction = "Horde",
 	},
 }
 nodes[1448] = {
@@ -32383,7 +32169,7 @@ nodes[1448] = {
 	[65600280] = {
 		name = L["Meilosh"],
 		category = "primaryProfession",
-		profession = "Tailoring",
+		profession = "tailoring",
 		faction = "Neutral",
 	},
 	[62202560] = {
@@ -33412,1734 +33198,4834 @@ nodes[1448] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[43204220] = {
+		name = L["Immolatus"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56408900] = {
+		name = L["Death Howl"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
-nodes[1449] = {
-	[45200580] = {
-		name = L["Gryfe"],
+nodes[1444] = {
+	[89404580] = {
+		name = L["Thyssiana"],
 		category = "flightmasters",
-		fpName = L["Marshal's Refuge, Un'Goro Crater"],
-		description = L["Flight Master"],
-		faction = "Neutral",
+		fpName = L["Thalanaar, Feralas"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
 	},
-	[44000720] = {
-		name = L["Gibbert"],
-		npcID = 3000,
+	[30204320] = {
+		name = L["Fyldren Moonfeather"],
+		category = "flightmasters",
+		fpName = L["Feathermoon, Feralas"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[75404420] = {
+		name = L["Shyn"],
+		category = "flightmasters",
+		fpName = L["Camp Mojache, Feralas"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[31004340] = {
+		name = L["Innkeeper Shyria"],
+		npcID = 7736,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[74804500] = {
+		name = L["Innkeeper Greul"],
+		npcID = 7737,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[31204380] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[74904400] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Horde",
+	},
+	[89404585] = {
+		name = L["Rendow"],
+		npcID = 1695,
+		category = "vendors",
+		description = L["Leather Armor Merchant"],
+		faction = "Alliance",
+	},
+	[30604260] = {
+		name = L["Pratt McGrubben"],
+		npcID = 7852,
 		category = "repair",
-		description = L["Weapon Merchant"],
-		faction = "Neutral",
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
+		faction = "Alliance",
 	},
-	[45200780] = {
+	[74604260] = {
+		name = L["Worb Strongstitch"],
+		npcID = 8159,
+		category = "repair",
+		description = L["Light Armor Merchant"],
+		faction = "Horde",
+	},
+	[74804560] = {
+		name = L["Cawind Trueaim"],
+		npcID = 9548,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Gunsmith & Bowyer"],
+		faction = "Horde",
+	},
+	[30804320] = {
+		name = L["Dulciea Frostmoon"],
+		npcID = 10293,
+		category = "repair",
+		description = L["Cloth Armor Merchant"],
+		faction = "Alliance",
+	},
+	[31404800] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[80004980] = {
+	[54804740] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[43200780] = {
-		name = L["Nergal"],
-		npcID = 12959,
+	[73004480] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[74404320] = {
+		name = L["Shyrka Wolfrunner"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[31404320] = {
+		name = L["Antarius"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
+	},
+	[89404640] = {
+		name = L["Caryssia Moonhunter"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Tribal Leatherworking Trainer"],
+		faction = "Alliance",
+	},
+	[32204160] = {
+		name = L["Brannock"],
+		category = "secondaryProfession",
+		profession = "Fishing",
+		description = L["Fishing Trainer"],
+		faction = "Alliance",
+	},
+	[32604380] = {
+		name = L["Kylanna Windwhisper"],
+		category = "primaryProfession",
+		profession = "Alchemy",
+		description = L["Alchemy Trainer"],
+		faction = "Alliance",
+	},
+	[31604420] = {
+		name = L["Xylinnia Starshine"],
+		category = "primaryProfession",
+		profession = "Enchanting",
+		description = L["Enchanting Trainer"],
+		faction = "Alliance",
+	},
+	[76004220] = {
+		name = L["Jannos Lighthoof"],
+		category = "trainers",
+		subcategories = {
+			classTrainer = true,
+		},
+		description = L["Druid Trainer"],
+		classes = {
+			DRUID = true,
+		},
+		faction = "Horde",
+	},
+	[74404300] = {
+		name = L["Kulleg Stonehorn"],
+		category = "primaryProfession",
+		profession = "Skinning",
+		description = L["Skinning Trainer"],
+		faction = "Horde",
+	},
+	[76004340] = {
+		name = L["Ruw"],
+		category = "primaryProfession",
+		profession = "Herbalism",
+		description = L["Herbalism Trainer"],
+		faction = "Horde",
+	},
+	[74404305] = {
+		name = L["Hahrana Ironhide"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Leatherworking Trainer"],
+		faction = "Horde",
+	},
+	[74604480] = {
+		name = L["Tarhus"],
+		npcID = 3500,
+		category = "vendors",
+		subcategories = {
+			reagent = true,
+		},
+		description = L["Reagents"],
+		faction = "Horde",
+	},
+	[30804200] = {
+		name = L["Jadenvis Seawatcher"],
+		npcID = 3700,
+		category = "vendors",
+		subcategories = {
+			reagent = true,
+		},
+		description = L["Reagents"],
+		faction = "Alliance",
+	},
+	[89004580] = {
+		name = L["Brienna Starglow"],
+		npcID = 6576,
+		category = "vendors",
+		profession = "tailoring",
+		description = L["Tailoring Supplies"],
+		faction = "Alliance",
+	},
+	[49201980] = {
+		name = L["Kalin Windflight"],
+		npcID = 7772,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[45002540] = {
+		name = L["Gregan Brewspewer"],
+		npcID = 7775,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[74404280] = {
+		name = L["Jangdor Swiftstrider"],
+		npcID = 7854,
+		category = "vendors",
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
+		faction = "Horde",
+	},
+	[32404380] = {
+		name = L["Quintis Jonespyre"],
+		npcID = 7879,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[31004320] = {
+		name = L["Mardrack Greenwell"],
+		npcID = 7941,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Alliance",
+	},
+	[30604340] = {
+		name = L["Faralorn"],
+		npcID = 7942,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Supplies"],
+		faction = "Alliance",
+	},
+	[31004620] = {
+		name = L["Harklane"],
+		npcID = 7943,
+		category = "vendors",
+		description = L["Fish Vendor"],
+		faction = "Alliance",
+	},
+	[31004600] = {
+		name = L["Savanne"],
+		npcID = 7945,
+		category = "vendors",
+		profession = "fishing",
+		description = L["Fishing Supplies"],
+		faction = "Alliance",
+	},
+	[31204340] = {
+		name = L["Vivianna"],
+		npcID = 7947,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Alliance",
+	},
+	[75404380] = {
+		name = L["Loorana"],
+		npcID = 8143,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Horde",
+	},
+	[74404285] = {
+		name = L["Sheendra Tallgrass"],
+		npcID = 8145,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Horde",
+	},
+	[32604400] = {
+		name = L["Logannas"],
+		npcID = 8157,
+		category = "vendors",
+		profession = "alchemy",
+		description = L["Alchemy Supplies"],
+		faction = "Alliance",
+	},
+	[76004345] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44804340] = {
+		name = L["Zorbin Fandazzle"],
+		npcID = 14637,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[24807280] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25207240] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26006720] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26406580] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26606580] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27206880] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27406820] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27606900] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28006780] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28206740] = {
+		name = L["Lady Szallah"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[21205020] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[21605000] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[21605520] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22405800] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22605800] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35005800] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005440] = {
+		name = L["Diamond Head"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51005980] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51605940] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51806040] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51806060] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52005820] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52605940] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52605960] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52606060] = {
+		name = L["Bloodroar the Stalker"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53406880] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[53407100] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[53606920] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54006840] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54007180] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54207000] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54207360] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54407080] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54407260] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54606960] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54607260] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54807420] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[54807480] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[55007160] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[55607420] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[55607460] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[56807560] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[57207360] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[57207460] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[58207360] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[58207460] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[58807340] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[58807420] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59807340] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[41802480] = {
+		name = L["Arash-ethis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002380] = {
+		name = L["Arash-ethis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002560] = {
+		name = L["Arash-ethis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46202540] = {
+		name = L["Arash-ethis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71806340] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72406440] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72606460] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73406380] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73806440] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74006280] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74006460] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74206220] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76606140] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76806540] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76806560] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77806200] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77806480] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78206260] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78406400] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78606320] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78606380] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78606460] = {
+		name = L["Qirot"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57405700] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57805740] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57805800] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58605620] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58605900] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59205840] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59406020] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60006060] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60405940] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60406000] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60606020] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60606080] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66204740] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67004780] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68004800] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68204860] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68804880] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69004760] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69204440] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69404500] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69404580] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69404700] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69604240] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69604520] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69604600] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69604780] = {
+		name = L["Old Grizzlegut"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68005760] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68405740] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68605720] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69605740] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70405780] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70605780] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71605800] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72405940] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73005820] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74205860] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74405840] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74805880] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75605880] = {
+		name = L["Gnarl Leafbrother"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75203580] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75403740] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75403880] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75803740] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76003620] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76203820] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76203860] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76203960] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76603820] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76603980] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76803900] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77603720] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78003860] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78403840] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78803840] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[79403880] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[79603900] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80403980] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80804060] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81003960] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81203920] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81603940] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82204060] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82403960] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82803880] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[83004160] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[83803840] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84403860] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84603800] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[85403700] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53807120] = {
+		name = L["Antilus the Soarer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[75603620] = {
+		name = L["Snarler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1443] = {
+	[64601040] = {
+		name = L["Baritanas Skyriver"],
+		category = "flightmasters",
+		fpName = L["Nijel's Point, Desolace"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[21607400] = {
+		name = L["Thalon"],
+		category = "flightmasters",
+		fpName = L["Shadowprey Village, Desolace"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[66200660] = {
+		name = L["Innkeeper Lyshaerya"],
+		npcID = 11103,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[24006820] = {
+		name = L["Innkeeper Sikewa"],
+		npcID = 11106,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[24806880] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Horde",
+	},
+	[65400690] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[67800840] = {
+		name = L["Maxton Strang"],
+		npcID = 1322,
+		category = "repair",
+		description = L["Mail Armor Merchant"],
+		faction = "Alliance",
+	},
+	[55605640] = {
+		name = L["Muuran"],
+		npcID = 8878,
+		category = "repair",
+		description = L["Superior Macecrafter"],
+		faction = "Horde",
+	},
+	[25807100] = {
+		name = L["Hae'Wilani"],
+		npcID = 12045,
+		category = "repair",
+		description = L["Axecrafter"],
+		faction = "Horde",
+	},
+	[50206280] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[65600780] = {
+		name = L["Shelgrayn"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
+	},
+	[24806885] = {
+		name = L["Aboda"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[55205620] = {
+		name = L["Narv Hidecrafter"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Leatherworking Trainer"],
+		faction = "Horde",
+	},
+	[23206980] = {
+		name = L["Malux"],
+		category = "primaryProfession",
+		profession = "Skinning",
+		description = L["Skinning Trainer"],
+		faction = "Horde",
+	},
+	[22607240] = {
+		name = L["Lui'Mala"],
+		category = "secondaryProfession",
+		profession = "Fishing",
+		description = L["Fishing Trainer"],
+		faction = "Horde",
+	},
+	[66200665] = {
+		name = L["Janet Hommers"],
+		npcID = 8150,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Alliance",
+	},
+	[51205320] = {
+		name = L["Harnor"],
+		npcID = 8152,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Horde",
+	},
+	[51005340] = {
+		name = L["Kireena"],
+		npcID = 9636,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Horde",
+	},
+	[25007180] = {
+		name = L["Tukk"],
+		npcID = 12027,
 		category = "vendors",
 		vendors = {
 			ammo = true,
 		},
 		description = L["General Goods"],
-		faction = "Neutral",
-	},
-	[58207160] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607180] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59207320] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59807100] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60207360] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60407040] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60407220] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60407280] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60607240] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60807320] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61206500] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61207120] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61806520] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62006440] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62006660] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62006780] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62007020] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62007360] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62206340] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62206560] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62407120] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62606400] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62606700] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62607140] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62806520] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62806640] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63406240] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63406300] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63806060] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63806260] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63806420] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64006460] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64206920] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64406160] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64606240] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64606360] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64606460] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65006740] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65406260] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65406760] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65806060] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65806260] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[65806440] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
+	[23007160] = {
+		name = L["Lah'Mawhani"],
+		npcID = 12028,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Horde",
 	},
-	[65806640] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
+	[22607200] = {
+		name = L["Mai'Lahii"],
+		npcID = 12031,
+		category = "vendors",
+		profession = "fishing",
+		description = L["Fishing Supplies"],
+		faction = "Horde",
 	},
-	[66006760] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
+	[26206980] = {
+		name = L["Wulan"],
+		npcID = 12033,
+		category = "vendors",
+		description = L["Cooking Supplies"],
+		faction = "Horde",
 	},
-	[66206720] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
+	[60203820] = {
+		name = L["Vendor-Tron 1000"],
+		npcID = 12245,
+		category = "vendors",
 		faction = "Neutral",
 	},
-	[66405880] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
+	[40407920] = {
+		name = L["Super-Seller 680"],
+		npcID = 12246,
+		category = "vendors",
 		faction = "Neutral",
 	},
-	[66406160] = {
-		name = L["Ravasaur Matriarch"],
-		category = "rares",
-		faction = "Neutral",
+	[66600680] = {
+		name = L["Christi Galvanis"],
+		npcID = 12960,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Alliance",
 	},
-	[66406500] = {
-		name = L["Ravasaur Matriarch"],
+	[29606240] = {
+		name = L["Cursed Centaur"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66406880] = {
-		name = L["Ravasaur Matriarch"],
+	[29806260] = {
+		name = L["Cursed Centaur"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66606140] = {
-		name = L["Ravasaur Matriarch"],
+	[74201240] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66606640] = {
-		name = L["Ravasaur Matriarch"],
+	[74201380] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66606680] = {
-		name = L["Ravasaur Matriarch"],
+	[74401260] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66606820] = {
-		name = L["Ravasaur Matriarch"],
+	[74601200] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66805980] = {
-		name = L["Ravasaur Matriarch"],
+	[74601340] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66806200] = {
-		name = L["Ravasaur Matriarch"],
+	[74801060] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66806540] = {
-		name = L["Ravasaur Matriarch"],
+	[75401880] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67006260] = {
-		name = L["Ravasaur Matriarch"],
+	[76001740] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67206860] = {
-		name = L["Ravasaur Matriarch"],
+	[76001840] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67406360] = {
-		name = L["Ravasaur Matriarch"],
+	[76401860] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67606180] = {
-		name = L["Ravasaur Matriarch"],
+	[76601740] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67606380] = {
-		name = L["Ravasaur Matriarch"],
+	[76601920] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67806280] = {
-		name = L["Ravasaur Matriarch"],
+	[76601980] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68006660] = {
-		name = L["Ravasaur Matriarch"],
+	[77202220] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68406000] = {
-		name = L["Ravasaur Matriarch"],
+	[77202400] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68806480] = {
-		name = L["Ravasaur Matriarch"],
+	[77402300] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69206620] = {
-		name = L["Ravasaur Matriarch"],
+	[77602220] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[69606920] = {
-		name = L["Ravasaur Matriarch"],
+	[77602380] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43408100] = {
-		name = L["Clutchmother Zavas"],
+	[78002280] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44008100] = {
-		name = L["Clutchmother Zavas"],
+	[48807000] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44408160] = {
-		name = L["Clutchmother Zavas"],
+	[48807580] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44608160] = {
-		name = L["Clutchmother Zavas"],
+	[49007080] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45208280] = {
-		name = L["Clutchmother Zavas"],
+	[49007180] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46408500] = {
-		name = L["Clutchmother Zavas"],
+	[49407260] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46408600] = {
-		name = L["Clutchmother Zavas"],
+	[49408140] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46608320] = {
-		name = L["Clutchmother Zavas"],
+	[49606880] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46808400] = {
-		name = L["Clutchmother Zavas"],
+	[49807220] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46808460] = {
-		name = L["Clutchmother Zavas"],
+	[50207560] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47008760] = {
-		name = L["Clutchmother Zavas"],
+	[50208200] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47208580] = {
-		name = L["Clutchmother Zavas"],
+	[50407660] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47408680] = {
-		name = L["Clutchmother Zavas"],
+	[50408140] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47608580] = {
-		name = L["Clutchmother Zavas"],
+	[50607520] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47808680] = {
-		name = L["Clutchmother Zavas"],
+	[50808000] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48208500] = {
-		name = L["Clutchmother Zavas"],
+	[50808180] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48408440] = {
-		name = L["Clutchmother Zavas"],
+	[50808420] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48608240] = {
-		name = L["Clutchmother Zavas"],
+	[51007620] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48808500] = {
-		name = L["Clutchmother Zavas"],
+	[51008080] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49208420] = {
-		name = L["Clutchmother Zavas"],
+	[51207660] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49208560] = {
-		name = L["Clutchmother Zavas"],
+	[51208460] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49408340] = {
-		name = L["Clutchmother Zavas"],
+	[51408600] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49608320] = {
-		name = L["Clutchmother Zavas"],
+	[51608500] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49608360] = {
-		name = L["Clutchmother Zavas"],
+	[51807740] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49808180] = {
-		name = L["Clutchmother Zavas"],
+	[52008580] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28406400] = {
-		name = L["Gruff"],
+	[55007540] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29605780] = {
-		name = L["Gruff"],
+	[55007620] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30007880] = {
-		name = L["Gruff"],
+	[55207740] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30407520] = {
-		name = L["Gruff"],
+	[55207760] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30807600] = {
-		name = L["Gruff"],
+	[55807660] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31007520] = {
-		name = L["Gruff"],
+	[56407500] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31207040] = {
-		name = L["Gruff"],
+	[56607480] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31207280] = {
-		name = L["Gruff"],
+	[57407440] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31207980] = {
-		name = L["Gruff"],
+	[57607500] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31407200] = {
-		name = L["Gruff"],
+	[41004680] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31407840] = {
-		name = L["Gruff"],
+	[41006160] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31407880] = {
-		name = L["Gruff"],
+	[41204580] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31408060] = {
-		name = L["Gruff"],
+	[41204820] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31607180] = {
-		name = L["Gruff"],
+	[41606060] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31607900] = {
-		name = L["Gruff"],
+	[41804720] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31807140] = {
-		name = L["Gruff"],
+	[41804780] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31807640] = {
-		name = L["Gruff"],
+	[42004520] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31807960] = {
-		name = L["Gruff"],
+	[42006020] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31808080] = {
-		name = L["Gruff"],
+	[42404220] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32007820] = {
-		name = L["Gruff"],
+	[42404620] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32207320] = {
-		name = L["Gruff"],
+	[42604400] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32207700] = {
-		name = L["Gruff"],
+	[42804600] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32607040] = {
-		name = L["Gruff"],
+	[42804740] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32607140] = {
-		name = L["Gruff"],
+	[43004140] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32607900] = {
-		name = L["Gruff"],
+	[43005100] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33006380] = {
-		name = L["Gruff"],
+	[43204200] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33607560] = {
-		name = L["Gruff"],
+	[43204840] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33607900] = {
-		name = L["Gruff"],
+	[43404280] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34206740] = {
-		name = L["Gruff"],
+	[43406100] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34407040] = {
-		name = L["Gruff"],
+	[43406160] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34806340] = {
-		name = L["Gruff"],
+	[43604240] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35006700] = {
-		name = L["Gruff"],
+	[43604260] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35206540] = {
-		name = L["Gruff"],
+	[43605100] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35406600] = {
-		name = L["Gruff"],
+	[43606120] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35606600] = {
-		name = L["Gruff"],
+	[43804440] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35806520] = {
-		name = L["Gruff"],
+	[43806180] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35806740] = {
-		name = L["Gruff"],
+	[44004120] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35807800] = {
-		name = L["Gruff"],
+	[44806020] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36206820] = {
-		name = L["Gruff"],
+	[45004140] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36606660] = {
-		name = L["Gruff"],
+	[45405240] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37006540] = {
-		name = L["Gruff"],
+	[45405400] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37006940] = {
-		name = L["Gruff"],
+	[45405460] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37007640] = {
-		name = L["Gruff"],
+	[45805340] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37206580] = {
-		name = L["Gruff"],
+	[46005560] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37206960] = {
-		name = L["Gruff"],
+	[46205520] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37407440] = {
-		name = L["Gruff"],
+	[46405360] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37407520] = {
-		name = L["Gruff"],
+	[46605320] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37607440] = {
-		name = L["Gruff"],
+	[46605360] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37607500] = {
-		name = L["Gruff"],
+	[46805520] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37807560] = {
-		name = L["Gruff"],
+	[53805060] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39007580] = {
-		name = L["Gruff"],
+	[54804980] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39407720] = {
-		name = L["Gruff"],
+	[55404840] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[40007840] = {
-		name = L["Gruff"],
+	[55404860] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[42607600] = {
-		name = L["Gruff"],
+	[55604800] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24604180] = {
-		name = L["King Mosh"],
+	[55604980] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25004580] = {
-		name = L["King Mosh"],
+	[56004940] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25803280] = {
-		name = L["King Mosh"],
+	[49400740] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26203400] = {
-		name = L["King Mosh"],
+	[50200720] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26203760] = {
-		name = L["King Mosh"],
+	[50400600] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26402960] = {
-		name = L["King Mosh"],
+	[50400840] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26603440] = {
-		name = L["King Mosh"],
+	[50800700] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26604700] = {
-		name = L["King Mosh"],
+	[50800800] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26604780] = {
-		name = L["King Mosh"],
+	[50800920] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[26803520] = {
-		name = L["King Mosh"],
+	[52400860] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27003580] = {
-		name = L["King Mosh"],
+	[57000940] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27203040] = {
-		name = L["King Mosh"],
+	[57400840] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27203200] = {
-		name = L["King Mosh"],
+	[57401000] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27404540] = {
-		name = L["King Mosh"],
+	[57600760] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27404600] = {
-		name = L["King Mosh"],
+	[57600940] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27604440] = {
-		name = L["King Mosh"],
+	[57800980] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27604600] = {
-		name = L["King Mosh"],
+	[58402440] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[27804500] = {
-		name = L["King Mosh"],
+	[58802160] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28004340] = {
-		name = L["King Mosh"],
+	[59002420] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28203900] = {
-		name = L["King Mosh"],
+	[59202320] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28204700] = {
-		name = L["King Mosh"],
+	[59402480] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28204780] = {
-		name = L["King Mosh"],
+	[59602320] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28204940] = {
-		name = L["King Mosh"],
+	[60202360] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403080] = {
-		name = L["King Mosh"],
+	[60202480] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403320] = {
-		name = L["King Mosh"],
+	[60202580] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403420] = {
-		name = L["King Mosh"],
+	[60602500] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403540] = {
-		name = L["King Mosh"],
+	[60602660] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403600] = {
-		name = L["King Mosh"],
+	[60802440] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28403660] = {
-		name = L["King Mosh"],
+	[61002320] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28603460] = {
-		name = L["King Mosh"],
+	[61202100] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28803380] = {
-		name = L["King Mosh"],
+	[62403300] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28803740] = {
-		name = L["King Mosh"],
+	[62403400] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28804500] = {
-		name = L["King Mosh"],
+	[62602120] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28804640] = {
-		name = L["King Mosh"],
+	[62803280] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[28805000] = {
-		name = L["King Mosh"],
+	[63003500] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29003760] = {
-		name = L["King Mosh"],
+	[63403440] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29004860] = {
-		name = L["King Mosh"],
+	[63403560] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29203100] = {
-		name = L["King Mosh"],
+	[63603300] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29203260] = {
-		name = L["King Mosh"],
+	[63803440] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29203600] = {
-		name = L["King Mosh"],
+	[63803480] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29204800] = {
-		name = L["King Mosh"],
+	[64203580] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29403160] = {
-		name = L["King Mosh"],
+	[64601820] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29404740] = {
-		name = L["King Mosh"],
+	[65003320] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29602700] = {
-		name = L["King Mosh"],
+	[65201720] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29603520] = {
-		name = L["King Mosh"],
+	[65402480] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29603600] = {
-		name = L["King Mosh"],
+	[65602440] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29603680] = {
-		name = L["King Mosh"],
+	[66001760] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29603880] = {
-		name = L["King Mosh"],
+	[66002320] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29604000] = {
-		name = L["King Mosh"],
+	[66201720] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29604060] = {
-		name = L["King Mosh"],
+	[66401940] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29604800] = {
-		name = L["King Mosh"],
+	[66402520] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29803060] = {
-		name = L["King Mosh"],
+	[66601740] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29803160] = {
-		name = L["King Mosh"],
+	[66602480] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29803280] = {
-		name = L["King Mosh"],
+	[66802380] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29804420] = {
-		name = L["King Mosh"],
+	[67202340] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29804540] = {
-		name = L["King Mosh"],
+	[67401580] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[29804880] = {
-		name = L["King Mosh"],
+	[67402860] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30004660] = {
-		name = L["King Mosh"],
+	[28201460] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30005160] = {
-		name = L["King Mosh"],
+	[28401380] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30203040] = {
-		name = L["King Mosh"],
+	[28801440] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30403840] = {
-		name = L["King Mosh"],
+	[28801500] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30404620] = {
-		name = L["King Mosh"],
+	[29601300] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30405120] = {
-		name = L["King Mosh"],
+	[29601920] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30602280] = {
-		name = L["King Mosh"],
+	[29801440] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30603600] = {
-		name = L["King Mosh"],
+	[29801800] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30603660] = {
-		name = L["King Mosh"],
+	[30801940] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30604640] = {
-		name = L["King Mosh"],
+	[30801980] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30604680] = {
-		name = L["King Mosh"],
+	[31201800] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30802980] = {
-		name = L["King Mosh"],
+	[31801760] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30803360] = {
-		name = L["King Mosh"],
+	[35000380] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[30804760] = {
-		name = L["King Mosh"],
+	[35400480] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31002520] = {
-		name = L["King Mosh"],
+	[35600460] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31003260] = {
-		name = L["King Mosh"],
+	[35800380] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31004860] = {
-		name = L["King Mosh"],
+	[40001220] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31202800] = {
-		name = L["King Mosh"],
+	[40001260] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31203140] = {
-		name = L["King Mosh"],
+	[40601120] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31203200] = {
-		name = L["King Mosh"],
+	[40601200] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31203520] = {
-		name = L["King Mosh"],
+	[40601280] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31204520] = {
-		name = L["King Mosh"],
+	[42401160] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31205220] = {
-		name = L["King Mosh"],
+	[43601020] = {
+		name = L["Accursed Slitherblade"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31402880] = {
-		name = L["King Mosh"],
+	[46005340] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31603640] = {
-		name = L["King Mosh"],
+	[41804620] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31604800] = {
-		name = L["King Mosh"],
+	[30002660] = {
+		name = L["Crusty"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31803140] = {
-		name = L["King Mosh"],
+	[49808080] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31803360] = {
-		name = L["King Mosh"],
+	[43404180] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31804520] = {
-		name = L["King Mosh"],
+	[45805560] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31804700] = {
-		name = L["King Mosh"],
+	[60602360] = {
+		name = L["Giggler"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32002820] = {
-		name = L["King Mosh"],
+	[32003080] = {
+		name = L["Crusty"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32003520] = {
-		name = L["King Mosh"],
+	[34401700] = {
+		name = L["Crusty"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32004640] = {
-		name = L["King Mosh"],
+	[73401200] = {
+		name = L["Prince Kellen"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32202680] = {
-		name = L["King Mosh"],
+	[56807440] = {
+		name = L["Kaskk"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32202880] = {
-		name = L["King Mosh"],
+	[40404820] = {
+		name = L["Hissperak"],
 		category = "rares",
 		faction = "Neutral",
 	},
 	[32203020] = {
-		name = L["King Mosh"],
+		name = L["Crusty"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32203240] = {
-		name = L["King Mosh"],
+}
+nodes[1447] = {
+	[22004960] = {
+		name = L["Kroum"],
+		category = "flightmasters",
+		fpName = L["Valormok, Azshara"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[11807740] = {
+		name = L["Jarrodenus"],
+		category = "flightmasters",
+		fpName = L["Talrendis Point, Azshara"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[22205120] = {
+		name = L["Gruul Darkblade"],
+		npcID = 10361,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Horde",
+	},
+	[12007820] = {
+		name = L["Brinna Valanaar"],
+		npcID = 14301,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Bowyer"],
+		faction = "Alliance",
+	},
+	[14407860] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[54207140] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[70401560] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[37406540] = {
+		name = L["Peter Galen"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Dragonscale Leatherworking Trainer"],
+		faction = "Alliance",
+	},
+	[21805200] = {
+		name = L["Kurll"],
+		npcID = 3621,
+		category = "vendors",
+		description = L["Food & Drink"],
+		faction = "Horde",
+	},
+	[45209080] = {
+		name = L["Jubie Gadgetspring"],
+		npcID = 8678,
+		category = "vendors",
+		profession = "engineering",
+		description = L["Engineering Supplies"],
+		faction = "Neutral",
+	},
+	[45209085] = {
+		name = L["Blimo Gadgetspring"],
+		npcID = 12957,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Neutral",
+	},
+	[13207120] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13207360] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13407220] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13407300] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13407480] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13607240] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13607260] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14207440] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14407120] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14607240] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14607360] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14807300] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15406740] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15406980] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15407140] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15807380] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16006600] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16006680] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16207100] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16406800] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16406880] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16407040] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16407220] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16407280] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16606440] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16606840] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16607100] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16607180] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16607260] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16806520] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16806720] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17206620] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17206920] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17407000] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606640] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606680] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606840] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606920] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606960] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17607060] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17607160] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17806540] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606720] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606920] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18607120] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19006800] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19007020] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19207200] = {
+		name = L["Varo'then's Ghost"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52608260] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53208360] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54208140] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54408340] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54608240] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54608480] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55007980] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55008340] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55208640] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55408060] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55408400] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55608020] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55608440] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55808320] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55808620] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55808740] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56007920] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56407820] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56408480] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56408780] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56607920] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56608440] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56608460] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56807840] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57007740] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57008580] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57008660] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57207640] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57208100] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57208820] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57208860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57608680] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57808780] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58008480] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58207980] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58408080] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58408380] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58408860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607640] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607900] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59008080] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59207740] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59208860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59407760] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59409000] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59607700] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59608900] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59807840] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59807900] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59808060] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70802180] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70802480] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71002040] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71202080] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71802280] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72001840] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72202360] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72401740] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72401980] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602000] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602120] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602280] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602460] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72801920] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73402220] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73402380] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73602140] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73801860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73802160] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74002560] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74202020] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74202420] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74601580] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74602040] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74802120] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75202160] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75401860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75601880] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75802160] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76001680] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76201760] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76202260] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76401640] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76402120] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76601500] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76802340] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76802380] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77001560] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77601640] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[77602340] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78201700] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78401780] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[78601740] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[79401780] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[79601700] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80201760] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80401860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80801840] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[80801860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81001700] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81001960] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[81601800] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82001860] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[83002240] = {
+		name = L["Monnos the Elder"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56402920] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56602840] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56802860] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56803000] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59403120] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59603120] = {
+		name = L["Magister Hawkhelm"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15805000] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16205260] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16405100] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16605200] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005100] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005320] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005460] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17006400] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17206000] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17405360] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17406260] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17605280] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805380] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805520] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805720] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17806180] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17806280] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18005240] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18005640] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18005940] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18006040] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18206060] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18405800] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18605400] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18605680] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18605760] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18805940] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401880] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401980] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47402180] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47802020] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48001920] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48202160] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48402340] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48602320] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48802360] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49002600] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49802460] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49802720] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50002560] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50202840] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50202860] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50602840] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50603060] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50802920] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51002960] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51003240] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51603220] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51803460] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52002940] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52203300] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52203680] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52402720] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52402760] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52402960] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52403080] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52602920] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52603300] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52803060] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53202540] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53202620] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53202660] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53202960] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53602520] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54002580] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54802300] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54802420] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55402040] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55402100] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55402160] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55801840] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55802000] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56002120] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56201940] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56601940] = {
+		name = L["Antilos"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33005880] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34005860] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34405740] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34405780] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34605760] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35005700] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35405580] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35605700] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36004800] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205500] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405320] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405380] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405600] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405760] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405900] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605260] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605800] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605900] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605960] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36804840] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805120] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805200] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805440] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805460] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805700] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37004900] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37005020] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405620] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37605180] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38205600] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405480] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39005560] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39204860] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39205540] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39404560] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39404660] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39404840] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39404980] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39405060] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39604840] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39604980] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39605060] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39605540] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39804640] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39804720] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39804860] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39805560] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40204420] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40204540] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40604540] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40604560] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40604960] = {
+		name = L["Lady Sesspira"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40205240] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40205300] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40205360] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40805140] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41205180] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41205420] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41605180] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41605300] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41605400] = {
+		name = L["General Fangferror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38203220] = {
+		name = L["Gatekeeper Rageroar"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[60402480] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60602400] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61202620] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61602660] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61802380] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61802540] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61802560] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64401720] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65401740] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65401780] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65601740] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65801760] = {
+		name = L["Master Feardred"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15405300] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16805400] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005340] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17205460] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17605400] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17806660] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18406540] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18406560] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606540] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18806600] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22405560] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22805520] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23205560] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23405440] = {
+		name = L["The Evalcharr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52004940] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52804940] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54004960] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54204740] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54204860] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54404840] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54604840] = {
+		name = L["Scalebeard"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14805140] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[15805440] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16205460] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16405180] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16606600] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16805240] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16805480] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005440] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17205300] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17206740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17605405] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606580] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17606820] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805525] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18006520] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18205280] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18406720] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606620] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18806480] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19006740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19806640] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19806660] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[21206660] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23005880] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23206040] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24206080] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24405940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24405960] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24606120] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24805880] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24805960] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25006160] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25405740] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25405840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25606000] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25805840] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42204820] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43404940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43405020] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44004960] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44404920] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44405700] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44604940] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44605100] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44605160] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44804820] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44804980] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44805980] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45205660] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45205900] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45405780] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45605520] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45605720] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45605800] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45606000] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45606080] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46405860] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46805480] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47205180] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47205300] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47205440] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47405620] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47605620] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47804800] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005400] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005480] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48205140] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48405240] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48405260] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49005340] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49005480] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49205380] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50205460] = {
+		name = L["Lumbering Horror"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[16805220] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17005300] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17205440] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17405480] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805280] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[17805385] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18206620] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18206700] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18206800] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606520] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[18606725] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[19206640] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[20006680] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23005820] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23605900] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23806040] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24605920] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44204840] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44204880] = {
+		name = L["Spirit of the Damned"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44405000] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32203680] = {
-		name = L["King Mosh"],
+	[44405100] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32403260] = {
-		name = L["King Mosh"],
+	[44805940] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32403920] = {
-		name = L["King Mosh"],
+	[45004940] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32602980] = {
-		name = L["King Mosh"],
+	[45005020] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32803060] = {
-		name = L["King Mosh"],
+	[45205740] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32803320] = {
-		name = L["King Mosh"],
+	[45405840] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32804120] = {
-		name = L["King Mosh"],
+	[45605000] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33004260] = {
-		name = L["King Mosh"],
+	[45805820] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33004760] = {
-		name = L["King Mosh"],
+	[47205420] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33202860] = {
-		name = L["King Mosh"],
+	[47405220] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33203220] = {
-		name = L["King Mosh"],
+	[47805280] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33203360] = {
-		name = L["King Mosh"],
+	[47805460] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33203680] = {
-		name = L["King Mosh"],
+	[48205440] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33203760] = {
-		name = L["King Mosh"],
+	[48805300] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33203920] = {
-		name = L["King Mosh"],
+	[49005380] = {
+		name = L["Spirit of the Damned"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33403540] = {
-		name = L["King Mosh"],
+	[15805480] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33403560] = {
-		name = L["King Mosh"],
+	[16405420] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33404740] = {
-		name = L["King Mosh"],
+	[16605240] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33602980] = {
-		name = L["King Mosh"],
+	[16805500] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33603400] = {
-		name = L["King Mosh"],
+	[17005305] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33603460] = {
-		name = L["King Mosh"],
+	[17206640] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33604900] = {
-		name = L["King Mosh"],
+	[17405365] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[33803760] = {
-		name = L["King Mosh"],
+	[17805285] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34003340] = {
-		name = L["King Mosh"],
+	[17805400] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34003560] = {
-		name = L["King Mosh"],
+	[17805460] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34003980] = {
-		name = L["King Mosh"],
+	[17806680] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34203080] = {
-		name = L["King Mosh"],
+	[18005220] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34204160] = {
-		name = L["King Mosh"],
+	[18005645] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34403160] = {
-		name = L["King Mosh"],
+	[18007160] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34403660] = {
-		name = L["King Mosh"],
+	[18206520] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34403880] = {
-		name = L["King Mosh"],
+	[18406565] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34602800] = {
-		name = L["King Mosh"],
+	[18406820] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34802680] = {
-		name = L["King Mosh"],
+	[18605180] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34803000] = {
-		name = L["King Mosh"],
+	[18605380] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[34803520] = {
-		name = L["King Mosh"],
+	[18606640] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35002900] = {
-		name = L["King Mosh"],
+	[18606680] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35003600] = {
-		name = L["King Mosh"],
+	[19006500] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35203700] = {
-		name = L["King Mosh"],
+	[19006840] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35203780] = {
-		name = L["King Mosh"],
+	[19405280] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35403100] = {
-		name = L["King Mosh"],
+	[20005420] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35403180] = {
-		name = L["King Mosh"],
+	[22005980] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35404220] = {
-		name = L["King Mosh"],
+	[22806020] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35603420] = {
-		name = L["King Mosh"],
+	[23405940] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35603500] = {
-		name = L["King Mosh"],
+	[23605980] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35603600] = {
-		name = L["King Mosh"],
+	[24206060] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36003700] = {
-		name = L["King Mosh"],
+	[24405920] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36003820] = {
-		name = L["King Mosh"],
+	[24605720] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36202920] = {
-		name = L["King Mosh"],
+	[24605925] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36203000] = {
-		name = L["King Mosh"],
+	[24805965] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36203080] = {
-		name = L["King Mosh"],
+	[25405845] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36203320] = {
-		name = L["King Mosh"],
+	[25605820] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36402820] = {
-		name = L["King Mosh"],
+	[25605900] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36403160] = {
-		name = L["King Mosh"],
+	[25606005] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36603400] = {
-		name = L["King Mosh"],
+	[43205060] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36802980] = {
-		name = L["King Mosh"],
+	[43405000] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36803220] = {
-		name = L["King Mosh"],
+	[43604960] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37003120] = {
-		name = L["King Mosh"],
+	[44004720] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37003320] = {
-		name = L["King Mosh"],
+	[44004840] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37003680] = {
-		name = L["King Mosh"],
+	[44204920] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37003900] = {
-		name = L["King Mosh"],
+	[44205780] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37202880] = {
-		name = L["King Mosh"],
+	[44405105] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37203520] = {
-		name = L["King Mosh"],
+	[44605920] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37402840] = {
-		name = L["King Mosh"],
+	[44605960] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37603820] = {
-		name = L["King Mosh"],
+	[44804985] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37803060] = {
-		name = L["King Mosh"],
+	[44805140] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38002800] = {
-		name = L["King Mosh"],
+	[44805600] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38003000] = {
-		name = L["King Mosh"],
+	[44805740] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38003240] = {
-		name = L["King Mosh"],
+	[45004780] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38003320] = {
-		name = L["King Mosh"],
+	[45004920] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38202900] = {
-		name = L["King Mosh"],
+	[45005820] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38203360] = {
-		name = L["King Mosh"],
+	[45406060] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38603000] = {
-		name = L["King Mosh"],
+	[45605820] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38603060] = {
-		name = L["King Mosh"],
+	[45606020] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38603620] = {
-		name = L["King Mosh"],
+	[45804980] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38803280] = {
-		name = L["King Mosh"],
+	[46205600] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39002680] = {
-		name = L["King Mosh"],
+	[46205880] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39003180] = {
-		name = L["King Mosh"],
+	[46605240] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39202640] = {
-		name = L["King Mosh"],
+	[46605500] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39202800] = {
-		name = L["King Mosh"],
+	[47405320] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39202880] = {
-		name = L["King Mosh"],
+	[47405380] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39802820] = {
-		name = L["King Mosh"],
+	[47605460] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[40202860] = {
-		name = L["King Mosh"],
+	[47805340] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[40203040] = {
-		name = L["King Mosh"],
+	[48205200] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[41802980] = {
-		name = L["King Mosh"],
+	[48205360] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[42803700] = {
-		name = L["King Mosh"],
+	[48405620] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68401320] = {
-		name = L["Uhk'loc"],
+	[48605360] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68401440] = {
-		name = L["Uhk'loc"],
+	[48605480] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68601220] = {
-		name = L["Uhk'loc"],
+	[49005345] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68601300] = {
-		name = L["Uhk'loc"],
+	[49805520] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68601400] = {
-		name = L["Uhk'loc"],
+	[25205660] = {
+		name = L["Bone Witch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68601460] = {
-		name = L["Uhk'loc"],
+	[42005280] = {
+		name = L["General Fangferror"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[32203200] = {
-		name = L["King Mosh"],
+	[16407100] = {
+		name = L["Varo'then's Ghost"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47008580] = {
-		name = L["Clutchmother Zavas"],
+	[16607060] = {
+		name = L["Varo'then's Ghost"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61206580] = {
-		name = L["Ravasaur Matriarch"],
+	[36405740] = {
+		name = L["Lady Sesspira"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49008500] = {
-		name = L["Clutchmother Zavas"],
+	[37005640] = {
+		name = L["Lady Sesspira"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[31607260] = {
-		name = L["Gruff"],
+	[39405520] = {
+		name = L["Lady Sesspira"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[38007560] = {
-		name = L["Gruff"],
+	[34005840] = {
+		name = L["Lady Sesspira"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[68601320] = {
-		name = L["Uhk'loc"],
+	[49602720] = {
+		name = L["Antilos"],
 		category = "rares",
 		faction = "Neutral",
 	},
@@ -35206,7 +38092,7 @@ nodes[1451] = {
 		name = L["Zannok Hidepiercer"],
 		npcID = 12956,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Neutral",
 	},
@@ -35237,7 +38123,7 @@ nodes[1451] = {
 		name = L["Kania"],
 		npcID = 15419,
 		category = "vendors",
-		profession = "Enchanting",
+		profession = "enchanting",
 		description = L["Enchanting Supplies"],
 		faction = "Neutral",
 	},
@@ -39255,95 +42141,75 @@ nodes[1451] = {
 		description = L["Twilight's Hammer"],
 		faction = "Neutral",
 	},
+	[21408900] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[21808920] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22008980] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[22809080] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23208580] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24809140] = {
+		name = L["Setis"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57807100] = {
+		name = L["Lapress"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28802820] = {
+		name = L["Huricanian"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
-nodes[1450] = {
-	[48006720] = {
-		name = L["Sindrayl"],
+nodes[1449] = {
+	[45200580] = {
+		name = L["Gryfe"],
 		category = "flightmasters",
-		fpName = L["Moonglade"],
-		description = L["Hippogryph Master"],
-		faction = "Alliance",
-	},
-	[32206640] = {
-		name = L["Faustron"],
-		category = "flightmasters",
-		fpName = L["Moonglade"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[51803300] = {
-		name = L["Geenia Sunshadow"],
-		npcID = 4184,
-		category = "repair",
-		description = L["Speciality Dress Maker"],
+		fpName = L["Marshal's Refuge, Un'Goro Crater"],
+		description = L["Flight Master"],
 		faction = "Neutral",
 	},
-	[56403000] = {
-		name = L["Kharedon"],
-		npcID = 12023,
+	[44000720] = {
+		name = L["Gibbert"],
+		npcID = 3000,
 		category = "repair",
-		description = L["Light Armor Merchant"],
+		description = L["Weapon Merchant"],
 		faction = "Neutral",
 	},
-	[51204240] = {
-		name = L["Meliri"],
-		npcID = 12024,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Neutral",
-	},
-	[53204260] = {
-		name = L["Narianna"],
-		npcID = 12029,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer"],
-		faction = "Neutral",
-	},
-	[62006940] = {
+	[45200780] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[45404700] = {
-		name = L["Malvor"],
-		category = "primaryProfession",
-		profession = "Herbalism",
-		description = L["Herbalism Trainer"],
+	[80004980] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[52404040] = {
-		name = L["Loganaar"],
-		category = "trainers",
-		subcategories = {
-			classTrainer = true,
-		},
-		description = L["Druid Trainer"],
-		classes = {
-			DRUID = true,
-		},
-		faction = "Neutral",
-	},
-	[51603320] = {
-		name = L["Darnall"],
-		npcID = 7940,
-		category = "vendors",
-		profession = "Tailoring",
-		description = L["Tailoring Supplies"],
-		faction = "Neutral",
-	},
-	[48603920] = {
-		name = L["Dargon"],
-		npcID = 12019,
-		category = "vendors",
-		description = L["Food & Drink Merchant"],
-		faction = "Neutral",
-	},
-	[45203460] = {
-		name = L["Daeolyn Summerleaf"],
-		npcID = 12021,
+	[43200780] = {
+		name = L["Nergal"],
+		npcID = 12959,
 		category = "vendors",
 		vendors = {
 			ammo = true,
@@ -39351,3820 +42217,1703 @@ nodes[1450] = {
 		description = L["General Goods"],
 		faction = "Neutral",
 	},
-	[48204000] = {
-		name = L["Lorelae Wintersong"],
-		npcID = 12022,
-		category = "vendors",
-		description = L["Trade Supplies"],
-		faction = "Neutral",
-	},
-	[44403400] = {
-		name = L["My'lanna"],
-		npcID = 12026,
-		category = "vendors",
-		description = L["Food & Drink Merchant"],
-		faction = "Neutral",
-	},
-	[53603540] = {
-		name = L["Valadar Starsong"],
-		npcID = 15864,
-		category = "vendors",
-		description = L["Coin of Ancestry Collector"],
-		faction = "Neutral",
-	},
-	[44404540] = {
-		name = L["Bunthen Plainswind"],
-		category = "flightmasters",
-		fpName = L["Thunder Bluff Flight Master"],
-		description = L["Thunder Bluff Flight Master"],
-		classes = {
-			DRUID = true,
-		},
-		faction = "Horde",
-	},
-	[44204520] = {
-		name = L["Silva Fil'naveth"],
-		category = "flightmasters",
-		fpName = L["Darnassus Flight Master"],
-		description = L["Darnassus Flight Master"],
-		classes = {
-			DRUID = true,
-		},
-		faction = "Alliance",
-	},
-}
-nodes[1443] = {
-	[64601040] = {
-		name = L["Baritanas Skyriver"],
-		category = "flightmasters",
-		fpName = L["Nijel's Point, Desolace"],
-		description = L["Hippogryph Master"],
-		faction = "Alliance",
-	},
-	[21607400] = {
-		name = L["Thalon"],
-		category = "flightmasters",
-		fpName = L["Shadowprey Village, Desolace"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[66200660] = {
-		name = L["Innkeeper Lyshaerya"],
-		npcID = 11103,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[24006820] = {
-		name = L["Innkeeper Sikewa"],
-		npcID = 11106,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[24806880] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Horde",
-	},
-	[65400690] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[67800840] = {
-		name = L["Maxton Strang"],
-		npcID = 1322,
-		category = "repair",
-		description = L["Mail Armor Merchant"],
-		faction = "Alliance",
-	},
-	[55605640] = {
-		name = L["Muuran"],
-		npcID = 8878,
-		category = "repair",
-		description = L["Superior Macecrafter"],
-		faction = "Horde",
-	},
-	[25807100] = {
-		name = L["Hae'Wilani"],
-		npcID = 12045,
-		category = "repair",
-		description = L["Axecrafter"],
-		faction = "Horde",
-	},
-	[50206280] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[65600780] = {
-		name = L["Shelgrayn"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Alliance",
-	},
-	[24806885] = {
-		name = L["Aboda"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Horde",
-	},
-	[55205620] = {
-		name = L["Narv Hidecrafter"],
-		category = "primaryProfession",
-		profession = "Leatherworking",
-		description = L["Leatherworking Trainer"],
-		faction = "Horde",
-	},
-	[23206980] = {
-		name = L["Malux"],
-		category = "primaryProfession",
-		profession = "Skinning",
-		description = L["Skinning Trainer"],
-		faction = "Horde",
-	},
-	[22607240] = {
-		name = L["Lui'Mala"],
-		category = "secondaryProfession",
-		profession = "Fishing",
-		description = L["Fishing Trainer"],
-		faction = "Horde",
-	},
-	[66200665] = {
-		name = L["Janet Hommers"],
-		npcID = 8150,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Alliance",
-	},
-	[51205320] = {
-		name = L["Harnor"],
-		npcID = 8152,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Horde",
-	},
-	[51005340] = {
-		name = L["Kireena"],
-		npcID = 9636,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Horde",
-	},
-	[25007180] = {
-		name = L["Tukk"],
-		npcID = 12027,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Horde",
-	},
-	[23007160] = {
-		name = L["Lah'Mawhani"],
-		npcID = 12028,
-		category = "vendors",
-		description = L["Trade Supplies"],
-		faction = "Horde",
-	},
-	[22607200] = {
-		name = L["Mai'Lahii"],
-		npcID = 12031,
-		category = "vendors",
-		profession = "Fishing",
-		description = L["Fishing Supplies"],
-		faction = "Horde",
-	},
-	[26206980] = {
-		name = L["Wulan"],
-		npcID = 12033,
-		category = "vendors",
-		description = L["Cooking Supplies"],
-		faction = "Horde",
-	},
-	[60203820] = {
-		name = L["Vendor-Tron 1000"],
-		npcID = 12245,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[40407920] = {
-		name = L["Super-Seller 680"],
-		npcID = 12246,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[66600680] = {
-		name = L["Christi Galvanis"],
-		npcID = 12960,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Alliance",
-	},
-	[29606240] = {
-		name = L["Cursed Centaur"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29806260] = {
-		name = L["Cursed Centaur"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74201240] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74201380] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74401260] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74601200] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74601340] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74801060] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75401880] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76001740] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76001840] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76401860] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76601740] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76601920] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76601980] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77202220] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77202400] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77402300] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77602220] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[77602380] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[78002280] = {
-		name = L["Prince Kellen"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48807000] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48807580] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49007080] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49007180] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49407260] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49408140] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49606880] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49807220] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50207560] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50208200] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50407660] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50408140] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50607520] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50808000] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50808180] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50808420] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51007620] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51008080] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51207660] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51208460] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51408600] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51608500] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51807740] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52008580] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55007540] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55007620] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55207740] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55207760] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55807660] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56407500] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56607480] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57407440] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57607500] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41004680] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41006160] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41204580] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41204820] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41606060] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41804720] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41804780] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42004520] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42006020] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42404220] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42404620] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42604400] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42804600] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42804740] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43004140] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43005100] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43204200] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43204840] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43404280] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43406100] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43406160] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43604240] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43604260] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43605100] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43606120] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43804440] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43806180] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44004120] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44806020] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45004140] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405240] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405400] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405460] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45805340] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46005560] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46205520] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46405360] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46605320] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46605360] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46805520] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53805060] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54804980] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55404840] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55404860] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55604800] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55604980] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56004940] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49400740] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50200720] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50400600] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50400840] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50800700] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50800800] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50800920] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52400860] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57000940] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57400840] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57401000] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57600760] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57600940] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57800980] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58402440] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58802160] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59002420] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59202320] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59402480] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59602320] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60202360] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60202480] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60202580] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60602500] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60602660] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60802440] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61002320] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61202100] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62403300] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62403400] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62602120] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62803280] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63003500] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63403440] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63403560] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63603300] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63803440] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63803480] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64203580] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64601820] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65003320] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65201720] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65402480] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65602440] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66001760] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66002320] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66201720] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66401940] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66402520] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66601740] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66602480] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66802380] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67202340] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67401580] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67402860] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28201460] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28401380] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28801440] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28801500] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29601300] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29601920] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29801440] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29801800] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30801940] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30801980] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31201800] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31801760] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35000380] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35400480] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35600460] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35800380] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40001220] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40001260] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40601120] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40601200] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40601280] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42401160] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43601020] = {
-		name = L["Accursed Slitherblade"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46005340] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41804620] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30002660] = {
-		name = L["Crusty"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49808080] = {
-		name = L["Kaskk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43404180] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45805560] = {
-		name = L["Hissperak"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60602360] = {
-		name = L["Giggler"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32003080] = {
-		name = L["Crusty"],
-		category = "rares",
-		faction = "Neutral",
-	},
-}
-nodes[1447] = {
-	[22004960] = {
-		name = L["Kroum"],
-		category = "flightmasters",
-		fpName = L["Valormok, Azshara"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[11807740] = {
-		name = L["Jarrodenus"],
-		category = "flightmasters",
-		fpName = L["Talrendis Point, Azshara"],
-		description = L["Hippogryph Master"],
-		faction = "Alliance",
-	},
-	[22205120] = {
-		name = L["Gruul Darkblade"],
-		npcID = 10361,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Horde",
-	},
-	[12007820] = {
-		name = L["Brinna Valanaar"],
-		npcID = 14301,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer"],
-		faction = "Alliance",
-	},
-	[14407860] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[54207140] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[70401560] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[37406540] = {
-		name = L["Peter Galen"],
-		category = "primaryProfession",
-		profession = "Leatherworking",
-		description = L["Dragonscale Leatherworking Trainer"],
-		faction = "Alliance",
-	},
-	[21805200] = {
-		name = L["Kurll"],
-		npcID = 3621,
-		category = "vendors",
-		description = L["Food & Drink"],
-		faction = "Horde",
-	},
-	[45209080] = {
-		name = L["Jubie Gadgetspring"],
-		npcID = 8678,
-		category = "vendors",
-		profession = "Engineering",
-		description = L["Engineering Supplies"],
-		faction = "Neutral",
-	},
-	[45209085] = {
-		name = L["Blimo Gadgetspring"],
-		npcID = 12957,
-		category = "vendors",
-		description = L["Trade Supplies"],
-		faction = "Neutral",
-	},
-	[13207120] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13207360] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13407220] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13407300] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13407480] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13607240] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[13607260] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[14207440] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[14407120] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[14607240] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[14607360] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[14807300] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[15406740] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[15406980] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[15407140] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[15807380] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16006600] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16006680] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16207100] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16406800] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16406880] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16407040] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16407220] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16407280] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16606440] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16606840] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16607100] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16607180] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16607260] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16806520] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[16806720] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17206620] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17206920] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17407000] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17606640] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17606680] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17606840] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17606920] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17606960] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17607060] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17607160] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[17806540] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18606720] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18606920] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[18607120] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[19006800] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[19007020] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[19207200] = {
-		name = L["Varo'then's Ghost"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52608260] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53208360] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54208140] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54408340] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54608240] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54608480] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55007980] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55008340] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55208640] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55408060] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55408400] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55608020] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55608440] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55808320] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55808620] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55808740] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56007920] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56407820] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56408480] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56408780] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56607920] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56608440] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56608460] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56807840] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57007740] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57008580] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57008660] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57207640] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57208100] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57208820] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57208860] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57608680] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57808780] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58008480] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58207980] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58408080] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58408380] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58408860] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607640] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607900] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59008080] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59207740] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59208860] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59407760] = {
-		name = L["Monnos the Elder"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59409000] = {
-		name = L["Monnos the Elder"],
+	[58207160] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59607700] = {
-		name = L["Monnos the Elder"],
+	[58607180] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59608900] = {
-		name = L["Monnos the Elder"],
+	[59207320] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59807840] = {
-		name = L["Monnos the Elder"],
+	[59807100] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59807900] = {
-		name = L["Monnos the Elder"],
+	[60207360] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59808060] = {
-		name = L["Monnos the Elder"],
+	[60407040] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[70802180] = {
-		name = L["Monnos the Elder"],
+	[60407220] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[70802480] = {
-		name = L["Monnos the Elder"],
+	[60407280] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[71002040] = {
-		name = L["Monnos the Elder"],
+	[60607240] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[71202080] = {
-		name = L["Monnos the Elder"],
+	[60807320] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[71802280] = {
-		name = L["Monnos the Elder"],
+	[61206500] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72001840] = {
-		name = L["Monnos the Elder"],
+	[61207120] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72202360] = {
-		name = L["Monnos the Elder"],
+	[61806520] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72401740] = {
-		name = L["Monnos the Elder"],
+	[62006440] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72401980] = {
-		name = L["Monnos the Elder"],
+	[62006660] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72602000] = {
-		name = L["Monnos the Elder"],
+	[62006780] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72602120] = {
-		name = L["Monnos the Elder"],
+	[62007020] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72602280] = {
-		name = L["Monnos the Elder"],
+	[62007360] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72602460] = {
-		name = L["Monnos the Elder"],
+	[62206340] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[72801920] = {
-		name = L["Monnos the Elder"],
+	[62206560] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73402220] = {
-		name = L["Monnos the Elder"],
+	[62407120] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73402380] = {
-		name = L["Monnos the Elder"],
+	[62606400] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73602140] = {
-		name = L["Monnos the Elder"],
+	[62606700] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73801860] = {
-		name = L["Monnos the Elder"],
+	[62607140] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[73802160] = {
-		name = L["Monnos the Elder"],
+	[62806520] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74002560] = {
-		name = L["Monnos the Elder"],
+	[62806640] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74202020] = {
-		name = L["Monnos the Elder"],
+	[63406240] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74202420] = {
-		name = L["Monnos the Elder"],
+	[63406300] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74601580] = {
-		name = L["Monnos the Elder"],
+	[63806060] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74602040] = {
-		name = L["Monnos the Elder"],
+	[63806260] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[74802120] = {
-		name = L["Monnos the Elder"],
+	[63806420] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75202160] = {
-		name = L["Monnos the Elder"],
+	[64006460] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75401860] = {
-		name = L["Monnos the Elder"],
+	[64206920] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75601880] = {
-		name = L["Monnos the Elder"],
+	[64406160] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[75802160] = {
-		name = L["Monnos the Elder"],
+	[64606240] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76001680] = {
-		name = L["Monnos the Elder"],
+	[64606360] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76201760] = {
-		name = L["Monnos the Elder"],
+	[64606460] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76202260] = {
-		name = L["Monnos the Elder"],
+	[65006740] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76401640] = {
-		name = L["Monnos the Elder"],
+	[65406260] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76402120] = {
-		name = L["Monnos the Elder"],
+	[65406760] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76601500] = {
-		name = L["Monnos the Elder"],
+	[65806060] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76802340] = {
-		name = L["Monnos the Elder"],
+	[65806260] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[76802380] = {
-		name = L["Monnos the Elder"],
+	[65806440] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77001560] = {
-		name = L["Monnos the Elder"],
+	[65806640] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77601640] = {
-		name = L["Monnos the Elder"],
+	[66006760] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[77602340] = {
-		name = L["Monnos the Elder"],
+	[66206720] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78201700] = {
-		name = L["Monnos the Elder"],
+	[66405880] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78401780] = {
-		name = L["Monnos the Elder"],
+	[66406160] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[78601740] = {
-		name = L["Monnos the Elder"],
+	[66406500] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[79401780] = {
-		name = L["Monnos the Elder"],
+	[66406880] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[79601700] = {
-		name = L["Monnos the Elder"],
+	[66606140] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80201760] = {
-		name = L["Monnos the Elder"],
+	[66606640] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80401860] = {
-		name = L["Monnos the Elder"],
+	[66606680] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80801840] = {
-		name = L["Monnos the Elder"],
+	[66606820] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[80801860] = {
-		name = L["Monnos the Elder"],
+	[66805980] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81001700] = {
-		name = L["Monnos the Elder"],
+	[66806200] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81001960] = {
-		name = L["Monnos the Elder"],
+	[66806540] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[81601800] = {
-		name = L["Monnos the Elder"],
+	[67006260] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[82001860] = {
-		name = L["Monnos the Elder"],
+	[67206860] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[83002240] = {
-		name = L["Monnos the Elder"],
+	[67406360] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56402920] = {
-		name = L["Magister Hawkhelm"],
+	[67606180] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56602840] = {
-		name = L["Magister Hawkhelm"],
+	[67606380] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56802860] = {
-		name = L["Magister Hawkhelm"],
+	[67806280] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56803000] = {
-		name = L["Magister Hawkhelm"],
+	[68006660] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59403120] = {
-		name = L["Magister Hawkhelm"],
+	[68406000] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[59603120] = {
-		name = L["Magister Hawkhelm"],
+	[68806480] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[15805000] = {
-		name = L["Antilos"],
+	[69206620] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16205260] = {
-		name = L["Antilos"],
+	[69606920] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16405100] = {
-		name = L["Antilos"],
+	[43408100] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16605200] = {
-		name = L["Antilos"],
+	[44008100] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005100] = {
-		name = L["Antilos"],
+	[44408160] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005320] = {
-		name = L["Antilos"],
+	[44608160] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005460] = {
-		name = L["Antilos"],
+	[45208280] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17006400] = {
-		name = L["Antilos"],
+	[46408500] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17206000] = {
-		name = L["Antilos"],
+	[46408600] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17405360] = {
-		name = L["Antilos"],
+	[46608320] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17406260] = {
-		name = L["Antilos"],
+	[46808400] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17605280] = {
-		name = L["Antilos"],
+	[46808460] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805380] = {
-		name = L["Antilos"],
+	[47008760] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805520] = {
-		name = L["Antilos"],
+	[47208580] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805720] = {
-		name = L["Antilos"],
+	[47408680] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17806180] = {
-		name = L["Antilos"],
+	[47608580] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17806280] = {
-		name = L["Antilos"],
+	[47808680] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18005240] = {
-		name = L["Antilos"],
+	[48208500] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18005640] = {
-		name = L["Antilos"],
+	[48408440] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18005940] = {
-		name = L["Antilos"],
+	[48608240] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18006040] = {
-		name = L["Antilos"],
+	[48808500] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18206060] = {
-		name = L["Antilos"],
+	[49208420] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18405800] = {
-		name = L["Antilos"],
+	[49208560] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18605400] = {
-		name = L["Antilos"],
+	[49408340] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18605680] = {
-		name = L["Antilos"],
+	[49608320] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18605760] = {
-		name = L["Antilos"],
+	[49608360] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18805940] = {
-		name = L["Antilos"],
+	[49808180] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47401880] = {
-		name = L["Antilos"],
+	[28406400] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47401980] = {
-		name = L["Antilos"],
+	[29605780] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47402180] = {
-		name = L["Antilos"],
+	[30007880] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47802020] = {
-		name = L["Antilos"],
+	[30407520] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48001920] = {
-		name = L["Antilos"],
+	[30807600] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48202160] = {
-		name = L["Antilos"],
+	[31007520] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48402340] = {
-		name = L["Antilos"],
+	[31207040] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48602320] = {
-		name = L["Antilos"],
+	[31207280] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48802360] = {
-		name = L["Antilos"],
+	[31207980] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49002600] = {
-		name = L["Antilos"],
+	[31407200] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49802460] = {
-		name = L["Antilos"],
+	[31407840] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49802720] = {
-		name = L["Antilos"],
+	[31407880] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50002560] = {
-		name = L["Antilos"],
+	[31408060] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50202840] = {
-		name = L["Antilos"],
+	[31607180] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50202860] = {
-		name = L["Antilos"],
+	[31607900] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50602840] = {
-		name = L["Antilos"],
+	[31807140] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50603060] = {
-		name = L["Antilos"],
+	[31807640] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50802920] = {
-		name = L["Antilos"],
+	[31807960] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51002960] = {
-		name = L["Antilos"],
+	[31808080] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51003240] = {
-		name = L["Antilos"],
+	[32007820] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51603220] = {
-		name = L["Antilos"],
+	[32207320] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51803460] = {
-		name = L["Antilos"],
+	[32207700] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52002940] = {
-		name = L["Antilos"],
+	[32607040] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52203300] = {
-		name = L["Antilos"],
+	[32607140] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
-	},
-	[52203680] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52402720] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52402760] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52402960] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52403080] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52602920] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52603300] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52803060] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53202540] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53202620] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53202660] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53202960] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53602520] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54002580] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54802300] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54802420] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55402040] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55402100] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55402160] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55801840] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55802000] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56002120] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56201940] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56601940] = {
-		name = L["Antilos"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33005880] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34005860] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34405740] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34405780] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34605760] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35005700] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35405580] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35605700] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36004800] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36205500] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405320] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405380] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405600] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405760] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36405900] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605260] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605800] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605900] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605960] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36804840] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805120] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805200] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805440] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805460] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36805700] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37004900] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37005020] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37405620] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37605180] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38205600] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405480] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39005560] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39204860] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39205540] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39404560] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39404660] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39404840] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39404980] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39405060] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39604840] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39604980] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39605060] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39605540] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39804640] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39804720] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39804860] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39805560] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40204420] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40204540] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40604540] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40604560] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40604960] = {
-		name = L["Lady Sesspira"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40205240] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40205300] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40205360] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40805140] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41205180] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41205420] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41605180] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41605300] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41605400] = {
-		name = L["General Fangferror"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38203220] = {
-		name = L["Gatekeeper Rageroar"],
-		category = "rares",
-		faction = "Alliance",
 	},
-	[60402480] = {
-		name = L["Master Feardred"],
+	[32607900] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[60602400] = {
-		name = L["Master Feardred"],
+	[33006380] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61202620] = {
-		name = L["Master Feardred"],
+	[33607560] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61602660] = {
-		name = L["Master Feardred"],
+	[33607900] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61802380] = {
-		name = L["Master Feardred"],
+	[34206740] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61802540] = {
-		name = L["Master Feardred"],
+	[34407040] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[61802560] = {
-		name = L["Master Feardred"],
+	[34806340] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[64401720] = {
-		name = L["Master Feardred"],
+	[35006700] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65401740] = {
-		name = L["Master Feardred"],
+	[35206540] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65401780] = {
-		name = L["Master Feardred"],
+	[35406600] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65601740] = {
-		name = L["Master Feardred"],
+	[35606600] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65801760] = {
-		name = L["Master Feardred"],
+	[35806520] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[15405300] = {
-		name = L["The Evalcharr"],
+	[35806740] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16805400] = {
-		name = L["The Evalcharr"],
+	[35807800] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005340] = {
-		name = L["The Evalcharr"],
+	[36206820] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17205460] = {
-		name = L["The Evalcharr"],
+	[36606660] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17605400] = {
-		name = L["The Evalcharr"],
+	[37006540] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17806660] = {
-		name = L["The Evalcharr"],
+	[37006940] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18406540] = {
-		name = L["The Evalcharr"],
+	[37007640] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18406560] = {
-		name = L["The Evalcharr"],
+	[37206580] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606540] = {
-		name = L["The Evalcharr"],
+	[37206960] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18806600] = {
-		name = L["The Evalcharr"],
+	[37407440] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22405560] = {
-		name = L["The Evalcharr"],
+	[37407520] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22805520] = {
-		name = L["The Evalcharr"],
+	[37607440] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23205560] = {
-		name = L["The Evalcharr"],
+	[37607500] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23405440] = {
-		name = L["The Evalcharr"],
+	[37807560] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52004940] = {
-		name = L["Scalebeard"],
+	[39007580] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[52804940] = {
-		name = L["Scalebeard"],
+	[39407720] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54004960] = {
-		name = L["Scalebeard"],
+	[40007840] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54204740] = {
-		name = L["Scalebeard"],
+	[42607600] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54204860] = {
-		name = L["Scalebeard"],
+	[24604180] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54404840] = {
-		name = L["Scalebeard"],
+	[25004580] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54604840] = {
-		name = L["Scalebeard"],
+	[25803280] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[14805140] = {
-		name = L["Lumbering Horror"],
+	[26203400] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[15805440] = {
-		name = L["Lumbering Horror"],
+	[26203760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16205460] = {
-		name = L["Lumbering Horror"],
+	[26402960] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16405180] = {
-		name = L["Lumbering Horror"],
+	[26603440] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16606600] = {
-		name = L["Lumbering Horror"],
+	[26604700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16805240] = {
-		name = L["Lumbering Horror"],
+	[26604780] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16805480] = {
-		name = L["Lumbering Horror"],
+	[26803520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005440] = {
-		name = L["Lumbering Horror"],
+	[27003580] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17205300] = {
-		name = L["Lumbering Horror"],
+	[27203040] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17206740] = {
-		name = L["Lumbering Horror"],
+	[27203200] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17605405] = {
-		name = L["Lumbering Horror"],
+	[27404540] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17606580] = {
-		name = L["Lumbering Horror"],
+	[27404600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17606820] = {
-		name = L["Lumbering Horror"],
+	[27604440] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805525] = {
-		name = L["Lumbering Horror"],
+	[27604600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18006520] = {
-		name = L["Lumbering Horror"],
+	[27804500] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18205280] = {
-		name = L["Lumbering Horror"],
+	[28004340] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18406720] = {
-		name = L["Lumbering Horror"],
+	[28203900] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606620] = {
-		name = L["Lumbering Horror"],
+	[28204700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606860] = {
-		name = L["Lumbering Horror"],
+	[28204780] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18806480] = {
-		name = L["Lumbering Horror"],
+	[28204940] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19006740] = {
-		name = L["Lumbering Horror"],
+	[28403080] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19806640] = {
-		name = L["Lumbering Horror"],
+	[28403320] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19806660] = {
-		name = L["Lumbering Horror"],
+	[28403420] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[21206660] = {
-		name = L["Lumbering Horror"],
+	[28403540] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23005880] = {
-		name = L["Lumbering Horror"],
+	[28403600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23206040] = {
-		name = L["Lumbering Horror"],
+	[28403660] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24206080] = {
-		name = L["Lumbering Horror"],
+	[28603460] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24405940] = {
-		name = L["Lumbering Horror"],
+	[28803380] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24405960] = {
-		name = L["Lumbering Horror"],
+	[28803740] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24606120] = {
-		name = L["Lumbering Horror"],
+	[28804500] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24805880] = {
-		name = L["Lumbering Horror"],
+	[28804640] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24805960] = {
-		name = L["Lumbering Horror"],
+	[28805000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25006160] = {
-		name = L["Lumbering Horror"],
+	[29003760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25405740] = {
-		name = L["Lumbering Horror"],
+	[29004860] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25405840] = {
-		name = L["Lumbering Horror"],
+	[29203100] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25606000] = {
-		name = L["Lumbering Horror"],
+	[29203260] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25805840] = {
-		name = L["Lumbering Horror"],
+	[29203600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[42204820] = {
-		name = L["Lumbering Horror"],
+	[29204800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43404940] = {
-		name = L["Lumbering Horror"],
+	[29403160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43405020] = {
-		name = L["Lumbering Horror"],
+	[29404740] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44004960] = {
-		name = L["Lumbering Horror"],
+	[29602700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44404920] = {
-		name = L["Lumbering Horror"],
+	[29603520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44405700] = {
-		name = L["Lumbering Horror"],
+	[29603600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44604940] = {
-		name = L["Lumbering Horror"],
+	[29603680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44605100] = {
-		name = L["Lumbering Horror"],
+	[29603880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44605160] = {
-		name = L["Lumbering Horror"],
+	[29604000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44804820] = {
-		name = L["Lumbering Horror"],
+	[29604060] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44804980] = {
-		name = L["Lumbering Horror"],
+	[29604800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44805980] = {
-		name = L["Lumbering Horror"],
+	[29803060] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45205660] = {
-		name = L["Lumbering Horror"],
+	[29803160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45205900] = {
-		name = L["Lumbering Horror"],
+	[29803280] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45405780] = {
-		name = L["Lumbering Horror"],
+	[29804420] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45605520] = {
-		name = L["Lumbering Horror"],
+	[29804540] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45605720] = {
-		name = L["Lumbering Horror"],
+	[29804880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45605800] = {
-		name = L["Lumbering Horror"],
+	[30004660] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45606000] = {
-		name = L["Lumbering Horror"],
+	[30005160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45606080] = {
-		name = L["Lumbering Horror"],
+	[30203040] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46405860] = {
-		name = L["Lumbering Horror"],
+	[30403840] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46805480] = {
-		name = L["Lumbering Horror"],
+	[30404620] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47205180] = {
-		name = L["Lumbering Horror"],
+	[30405120] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47205300] = {
-		name = L["Lumbering Horror"],
+	[30602280] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47205440] = {
-		name = L["Lumbering Horror"],
+	[30603600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47405620] = {
-		name = L["Lumbering Horror"],
+	[30603660] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47605620] = {
-		name = L["Lumbering Horror"],
+	[30604640] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47804800] = {
-		name = L["Lumbering Horror"],
+	[30604680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48005400] = {
-		name = L["Lumbering Horror"],
+	[30802980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48005480] = {
-		name = L["Lumbering Horror"],
+	[30803360] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48205140] = {
-		name = L["Lumbering Horror"],
+	[30804760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48405240] = {
-		name = L["Lumbering Horror"],
+	[31002520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48405260] = {
-		name = L["Lumbering Horror"],
+	[31003260] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49005340] = {
-		name = L["Lumbering Horror"],
+	[31004860] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49005480] = {
-		name = L["Lumbering Horror"],
+	[31202800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49205380] = {
-		name = L["Lumbering Horror"],
+	[31203140] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50205460] = {
-		name = L["Lumbering Horror"],
+	[31203200] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16805220] = {
-		name = L["Spirit of the Damned"],
+	[31203520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005300] = {
-		name = L["Spirit of the Damned"],
+	[31204520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17205440] = {
-		name = L["Spirit of the Damned"],
+	[31205220] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17405480] = {
-		name = L["Spirit of the Damned"],
+	[31402880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805280] = {
-		name = L["Spirit of the Damned"],
+	[31603640] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805385] = {
-		name = L["Spirit of the Damned"],
+	[31604800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18206620] = {
-		name = L["Spirit of the Damned"],
+	[31803140] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18206700] = {
-		name = L["Spirit of the Damned"],
+	[31803360] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18206800] = {
-		name = L["Spirit of the Damned"],
+	[31804520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606520] = {
-		name = L["Spirit of the Damned"],
+	[31804700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606725] = {
-		name = L["Spirit of the Damned"],
+	[32002820] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19206640] = {
-		name = L["Spirit of the Damned"],
+	[32003520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[20006680] = {
-		name = L["Spirit of the Damned"],
+	[32004640] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23005820] = {
-		name = L["Spirit of the Damned"],
+	[32202680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23605900] = {
-		name = L["Spirit of the Damned"],
+	[32202880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23806040] = {
-		name = L["Spirit of the Damned"],
+	[32203020] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24605920] = {
-		name = L["Spirit of the Damned"],
+	[32203240] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44204840] = {
-		name = L["Spirit of the Damned"],
+	[32203680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44204880] = {
-		name = L["Spirit of the Damned"],
+	[32403260] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44405000] = {
-		name = L["Spirit of the Damned"],
+	[32403920] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44405100] = {
-		name = L["Spirit of the Damned"],
+	[32602980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44805940] = {
-		name = L["Spirit of the Damned"],
+	[32803060] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45004940] = {
-		name = L["Spirit of the Damned"],
+	[32803320] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45005020] = {
-		name = L["Spirit of the Damned"],
+	[32804120] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45205740] = {
-		name = L["Spirit of the Damned"],
+	[33004260] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45405840] = {
-		name = L["Spirit of the Damned"],
+	[33004760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45605000] = {
-		name = L["Spirit of the Damned"],
+	[33202860] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45805820] = {
-		name = L["Spirit of the Damned"],
+	[33203220] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47205420] = {
-		name = L["Spirit of the Damned"],
+	[33203360] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47405220] = {
-		name = L["Spirit of the Damned"],
+	[33203680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47805280] = {
-		name = L["Spirit of the Damned"],
+	[33203760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47805460] = {
-		name = L["Spirit of the Damned"],
+	[33203920] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48205440] = {
-		name = L["Spirit of the Damned"],
+	[33403540] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48805300] = {
-		name = L["Spirit of the Damned"],
+	[33403560] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49005380] = {
-		name = L["Spirit of the Damned"],
+	[33404740] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[15805480] = {
-		name = L["Bone Witch"],
+	[33602980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16405420] = {
-		name = L["Bone Witch"],
+	[33603400] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16605240] = {
-		name = L["Bone Witch"],
+	[33603460] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16805500] = {
-		name = L["Bone Witch"],
+	[33604900] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17005305] = {
-		name = L["Bone Witch"],
+	[33803760] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17206640] = {
-		name = L["Bone Witch"],
+	[34003340] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17405365] = {
-		name = L["Bone Witch"],
+	[34003560] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805285] = {
-		name = L["Bone Witch"],
+	[34003980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805400] = {
-		name = L["Bone Witch"],
+	[34203080] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17805460] = {
-		name = L["Bone Witch"],
+	[34204160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[17806680] = {
-		name = L["Bone Witch"],
+	[34403160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18005220] = {
-		name = L["Bone Witch"],
+	[34403660] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18005645] = {
-		name = L["Bone Witch"],
+	[34403880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18007160] = {
-		name = L["Bone Witch"],
+	[34602800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18206520] = {
-		name = L["Bone Witch"],
+	[34802680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18406565] = {
-		name = L["Bone Witch"],
+	[34803000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18406820] = {
-		name = L["Bone Witch"],
+	[34803520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18605180] = {
-		name = L["Bone Witch"],
+	[35002900] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18605380] = {
-		name = L["Bone Witch"],
+	[35003600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606640] = {
-		name = L["Bone Witch"],
+	[35203700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[18606680] = {
-		name = L["Bone Witch"],
+	[35203780] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19006500] = {
-		name = L["Bone Witch"],
+	[35403100] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19006840] = {
-		name = L["Bone Witch"],
+	[35403180] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[19405280] = {
-		name = L["Bone Witch"],
+	[35404220] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[20005420] = {
-		name = L["Bone Witch"],
+	[35603420] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22005980] = {
-		name = L["Bone Witch"],
+	[35603500] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[22806020] = {
-		name = L["Bone Witch"],
+	[35603600] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23405940] = {
-		name = L["Bone Witch"],
+	[36003700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[23605980] = {
-		name = L["Bone Witch"],
+	[36003820] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24206060] = {
-		name = L["Bone Witch"],
+	[36202920] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24405920] = {
-		name = L["Bone Witch"],
+	[36203000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24605720] = {
-		name = L["Bone Witch"],
+	[36203080] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24605925] = {
-		name = L["Bone Witch"],
+	[36203320] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[24805965] = {
-		name = L["Bone Witch"],
+	[36402820] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25405845] = {
-		name = L["Bone Witch"],
+	[36403160] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25605820] = {
-		name = L["Bone Witch"],
+	[36603400] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25605900] = {
-		name = L["Bone Witch"],
+	[36802980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25606005] = {
-		name = L["Bone Witch"],
+	[36803220] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43205060] = {
-		name = L["Bone Witch"],
+	[37003120] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43405000] = {
-		name = L["Bone Witch"],
+	[37003320] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[43604960] = {
-		name = L["Bone Witch"],
+	[37003680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44004720] = {
-		name = L["Bone Witch"],
+	[37003900] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44004840] = {
-		name = L["Bone Witch"],
+	[37202880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44204920] = {
-		name = L["Bone Witch"],
+	[37203520] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44205780] = {
-		name = L["Bone Witch"],
+	[37402840] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44405105] = {
-		name = L["Bone Witch"],
+	[37603820] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44605920] = {
-		name = L["Bone Witch"],
+	[37803060] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44605960] = {
-		name = L["Bone Witch"],
+	[38002800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44804985] = {
-		name = L["Bone Witch"],
+	[38003000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44805140] = {
-		name = L["Bone Witch"],
+	[38003240] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44805600] = {
-		name = L["Bone Witch"],
+	[38003320] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44805740] = {
-		name = L["Bone Witch"],
+	[38202900] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45004780] = {
-		name = L["Bone Witch"],
+	[38203360] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45004920] = {
-		name = L["Bone Witch"],
+	[38603000] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45005820] = {
-		name = L["Bone Witch"],
+	[38603060] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45406060] = {
-		name = L["Bone Witch"],
+	[38603620] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45605820] = {
-		name = L["Bone Witch"],
+	[38803280] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45606020] = {
-		name = L["Bone Witch"],
+	[39002680] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[45804980] = {
-		name = L["Bone Witch"],
+	[39003180] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46205600] = {
-		name = L["Bone Witch"],
+	[39202640] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46205880] = {
-		name = L["Bone Witch"],
+	[39202800] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46605240] = {
-		name = L["Bone Witch"],
+	[39202880] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46605500] = {
-		name = L["Bone Witch"],
+	[39802820] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47405320] = {
-		name = L["Bone Witch"],
+	[40202860] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47405380] = {
-		name = L["Bone Witch"],
+	[40203040] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47605460] = {
-		name = L["Bone Witch"],
+	[41802980] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47805340] = {
-		name = L["Bone Witch"],
+	[42803700] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48205200] = {
-		name = L["Bone Witch"],
+	[68401320] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48205360] = {
-		name = L["Bone Witch"],
+	[68401440] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48405620] = {
-		name = L["Bone Witch"],
+	[68601220] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48605360] = {
-		name = L["Bone Witch"],
+	[68601300] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48605480] = {
-		name = L["Bone Witch"],
+	[68601400] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49005345] = {
-		name = L["Bone Witch"],
+	[68601460] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49805520] = {
-		name = L["Bone Witch"],
+	[32203200] = {
+		name = L["King Mosh"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[25205660] = {
-		name = L["Bone Witch"],
+	[47008580] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[42005280] = {
-		name = L["General Fangferror"],
+	[61206580] = {
+		name = L["Ravasaur Matriarch"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16407100] = {
-		name = L["Varo'then's Ghost"],
+	[49008500] = {
+		name = L["Clutchmother Zavas"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[16607060] = {
-		name = L["Varo'then's Ghost"],
+	[31607260] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36405740] = {
-		name = L["Lady Sesspira"],
+	[38007560] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37005640] = {
-		name = L["Lady Sesspira"],
+	[68601320] = {
+		name = L["Uhk'loc"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[39405520] = {
-		name = L["Lady Sesspira"],
+	[31407240] = {
+		name = L["Gruff"],
 		category = "rares",
 		faction = "Neutral",
 	},
@@ -43283,7 +44032,7 @@ nodes[1441] = {
 		name = L["Jinky Twizzlefixxit"],
 		npcID = 6730,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -47349,6 +48098,148 @@ nodes[1442] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[36806840] = {
+		name = L["Sister Riven"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1450] = {
+	[48006720] = {
+		name = L["Sindrayl"],
+		category = "flightmasters",
+		fpName = L["Moonglade"],
+		description = L["Hippogryph Master"],
+		faction = "Alliance",
+	},
+	[32206640] = {
+		name = L["Faustron"],
+		category = "flightmasters",
+		fpName = L["Moonglade"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[51803300] = {
+		name = L["Geenia Sunshadow"],
+		npcID = 4184,
+		category = "repair",
+		description = L["Speciality Dress Maker"],
+		faction = "Neutral",
+	},
+	[56403000] = {
+		name = L["Kharedon"],
+		npcID = 12023,
+		category = "repair",
+		description = L["Light Armor Merchant"],
+		faction = "Neutral",
+	},
+	[51204240] = {
+		name = L["Meliri"],
+		npcID = 12024,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Neutral",
+	},
+	[53204260] = {
+		name = L["Narianna"],
+		npcID = 12029,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Bowyer"],
+		faction = "Neutral",
+	},
+	[62006940] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[45404700] = {
+		name = L["Malvor"],
+		category = "primaryProfession",
+		profession = "Herbalism",
+		description = L["Herbalism Trainer"],
+		faction = "Neutral",
+	},
+	[52404040] = {
+		name = L["Loganaar"],
+		category = "trainers",
+		subcategories = {
+			classTrainer = true,
+		},
+		description = L["Druid Trainer"],
+		classes = {
+			DRUID = true,
+		},
+		faction = "Neutral",
+	},
+	[51603320] = {
+		name = L["Darnall"],
+		npcID = 7940,
+		category = "vendors",
+		profession = "tailoring",
+		description = L["Tailoring Supplies"],
+		faction = "Neutral",
+	},
+	[48603920] = {
+		name = L["Dargon"],
+		npcID = 12019,
+		category = "vendors",
+		description = L["Food & Drink Merchant"],
+		faction = "Neutral",
+	},
+	[45203460] = {
+		name = L["Daeolyn Summerleaf"],
+		npcID = 12021,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Neutral",
+	},
+	[48204000] = {
+		name = L["Lorelae Wintersong"],
+		npcID = 12022,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Neutral",
+	},
+	[44403400] = {
+		name = L["My'lanna"],
+		npcID = 12026,
+		category = "vendors",
+		description = L["Food & Drink Merchant"],
+		faction = "Neutral",
+	},
+	[53603540] = {
+		name = L["Valadar Starsong"],
+		npcID = 15864,
+		category = "vendors",
+		description = L["Coin of Ancestry Collector"],
+		faction = "Neutral",
+	},
+	[44404540] = {
+		name = L["Bunthen Plainswind"],
+		category = "flightmasters",
+		fpName = L["Thunder Bluff Flight Master"],
+		description = L["Thunder Bluff Flight Master"],
+		classes = {
+			DRUID = true,
+		},
+		faction = "Horde",
+	},
+	[44204520] = {
+		name = L["Silva Fil'naveth"],
+		category = "flightmasters",
+		fpName = L["Darnassus Flight Master"],
+		description = L["Darnassus Flight Master"],
+		classes = {
+			DRUID = true,
+		},
+		faction = "Alliance",
+	},
 }
 nodes[1439] = {
 	[36404560] = {
@@ -47402,7 +48293,7 @@ nodes[1439] = {
 		name = L["Elisa Steelhand"],
 		npcID = 6300,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -47457,7 +48348,7 @@ nodes[1439] = {
 		name = L["Valdaron"],
 		npcID = 4189,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -47514,7 +48405,7 @@ nodes[1439] = {
 		name = L["Thelgrum Stonehammer"],
 		npcID = 6298,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Alliance",
 	},
@@ -48676,6 +49567,11 @@ nodes[1439] = {
 		category = "rares",
 		faction = "Horde",
 	},
+	[39403740] = {
+		name = L["Shadowclaw"],
+		category = "rares",
+		faction = "Horde",
+	},
 }
 nodes[1438] = {
 	[58409400] = {
@@ -48953,7 +49849,7 @@ nodes[1438] = {
 	[55205680] = {
 		name = L["Byancie"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -49023,7 +49919,7 @@ nodes[1438] = {
 		name = L["Nessa Shadowsong"],
 		npcID = 10118,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -49756,7 +50652,7 @@ nodes[1425] = {
 		name = L["Harggan"],
 		npcID = 8161,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -49764,7 +50660,7 @@ nodes[1425] = {
 		name = L["Smith Slagtree"],
 		npcID = 14737,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -49808,7 +50704,7 @@ nodes[1425] = {
 		name = L["Ruppo Zipcoil"],
 		npcID = 2688,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Neutral",
 	},
@@ -49823,7 +50719,7 @@ nodes[1425] = {
 		name = L["Nioma"],
 		npcID = 8160,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -52008,6 +52904,26 @@ nodes[1425] = {
 	},
 	[32005760] = {
 		name = L["Zul'arek Hatefowler"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49205140] = {
+		name = L["The Reak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66204820] = {
+		name = L["Grimungous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69805920] = {
+		name = L["Grimungous"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36407140] = {
+		name = L["Witherheart the Stalker"],
 		category = "rares",
 		faction = "Neutral",
 	},
@@ -54951,6 +55867,3337 @@ nodes[1423] = {
 		faction = "Neutral",
 	},
 }
+nodes[1424] = {
+	[60201860] = {
+		name = L["Zarise"],
+		category = "flightmasters",
+		fpName = L["Tarren Mill, Hillsbrad"],
+		description = L["Bat Handler"],
+		faction = "Horde",
+	},
+	[49405220] = {
+		name = L["Darla Harris"],
+		category = "flightmasters",
+		fpName = L["Southshore, Hillsbrad"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[51005880] = {
+		name = L["Innkeeper Anderson"],
+		npcID = 2352,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Alliance",
+	},
+	[62601900] = {
+		name = L["Innkeeper Shay"],
+		npcID = 2388,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[50405860] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[62401980] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Horde",
+	},
+	[80003900] = {
+		name = L["Kris Legace"],
+		npcID = 3536,
+		category = "repair",
+		description = L["Freewheeling Tradeswoman"],
+		faction = "Neutral",
+	},
+	[60801980] = {
+		name = L["Zixil"],
+		npcID = 3537,
+		category = "repair",
+		description = L["Merchant Supreme"],
+		faction = "Neutral",
+	},
+	[60402600] = {
+		name = L["Ott"],
+		npcID = 3539,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Horde",
+	},
+	[51205700] = {
+		name = L["Robert Aebischer"],
+		npcID = 3543,
+		category = "repair",
+		description = L["Superior Armorsmith"],
+		faction = "Alliance",
+	},
+	[51605240] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[63401940] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[50205880] = {
+		name = L["Wesley"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Alliance",
+	},
+	[62201980] = {
+		name = L["Theodore Mont Claire"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[50606100] = {
+		name = L["Donald Rabonne"],
+		category = "secondaryProfession",
+		profession = "Fishing",
+		description = L["Fishing Trainer"],
+		faction = "Alliance",
+	},
+	[61601960] = {
+		name = L["Aranae Venomblood"],
+		category = "primaryProfession",
+		profession = "Herbalism",
+		description = L["Herbalism Trainer"],
+		faction = "Horde",
+	},
+	[61601920] = {
+		name = L["Serge Hinott"],
+		category = "primaryProfession",
+		profession = "Alchemy",
+		description = L["Alchemy Trainer"],
+		faction = "Horde",
+	},
+	[63602080] = {
+		name = L["Daryl Stack"],
+		category = "primaryProfession",
+		profession = "Tailoring",
+		description = L["Tailoring Trainer"],
+		faction = "Horde",
+	},
+	[36404440] = {
+		name = L["Hillsbrad Tailor"],
+		npcID = 2264,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[32004560] = {
+		name = L["Hillsbrad Apprentice Blacksmith"],
+		npcID = 2265,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[52005560] = {
+		name = L["Merideth Carlson"],
+		npcID = 2357,
+		category = "vendors",
+		description = L["Horse Breeder"],
+		faction = "Alliance",
+	},
+	[51005900] = {
+		name = L["Neema"],
+		npcID = 2364,
+		category = "vendors",
+		description = L["Waitress"],
+		faction = "Alliance",
+	},
+	[48805720] = {
+		name = L["Bront Coldcleave"],
+		npcID = 2365,
+		category = "vendors",
+		description = L["Butcher"],
+		faction = "Alliance",
+	},
+	[51405860] = {
+		name = L["Barkeep Kelly"],
+		npcID = 2366,
+		category = "vendors",
+		description = L["Bartender"],
+		faction = "Alliance",
+	},
+	[50805700] = {
+		name = L["Nandar Branson"],
+		npcID = 2380,
+		category = "vendors",
+		profession = "alchemy",
+		description = L["Alchemy Supplies"],
+		faction = "Alliance",
+	},
+	[49005500] = {
+		name = L["Micha Yance"],
+		npcID = 2381,
+		category = "vendors",
+		description = L["Trade Goods"],
+		faction = "Alliance",
+	},
+	[50606105] = {
+		name = L["Lindea Rabonne"],
+		npcID = 2383,
+		category = "vendors",
+		profession = "fishing",
+		description = L["Fishing Supplies"],
+		faction = "Alliance",
+	},
+	[62201900] = {
+		name = L["Christoph Jeffcoat"],
+		npcID = 2393,
+		category = "vendors",
+		description = L["Tradesman"],
+		faction = "Horde",
+	},
+	[62002100] = {
+		name = L["Mallen Swain"],
+		npcID = 2394,
+		category = "vendors",
+		profession = "tailoring",
+		description = L["Tailoring Supplies"],
+		faction = "Horde",
+	},
+	[63001940] = {
+		name = L["Derak Nightfall"],
+		npcID = 2397,
+		category = "secondaryProfession",
+		profession = "Cooking",
+		description = L["Cook"],
+		faction = "Horde",
+	},
+	[62401985] = {
+		name = L["Kayren Soothallow"],
+		npcID = 2401,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Horde",
+	},
+	[92003820] = {
+		name = L["George Candarte"],
+		npcID = 2698,
+		category = "vendors",
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
+		faction = "Horde",
+	},
+	[49806220] = {
+		name = L["Hal McAllister"],
+		npcID = 3540,
+		category = "vendors",
+		description = L["Fish Merchant"],
+		faction = "Alliance",
+	},
+	[49005520] = {
+		name = L["Sarah Raycroft"],
+		npcID = 3541,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Goods"],
+		faction = "Alliance",
+	},
+	[50805900] = {
+		name = L["Jaysin Lanyda"],
+		npcID = 3542,
+		category = "vendors",
+		subcategories = {
+			reagent = true,
+			poison = true,
+		},
+		description = L["Poisons & Reagents"],
+		faction = "Alliance",
+	},
+	[61402000] = {
+		name = L["Jason Lemieux"],
+		npcID = 3544,
+		category = "vendors",
+		description = L["Mushroom Seller"],
+		faction = "Horde",
+	},
+	[50005720] = {
+		name = L["Sergeant Hartman"],
+		npcID = 15199,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[50605960] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51605660] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55201000] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60002040] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60002940] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62601720] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63401520] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63800560] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63800880] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65000580] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65000740] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65401920] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66200740] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66400940] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66402200] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66600760] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68601340] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69201600] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70001000] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70600900] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71200800] = {
+		name = L["Narillasanz"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64806540] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65006620] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66807560] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68207720] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68407800] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68607780] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[69007940] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[69407620] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[69407720] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[69607880] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70407520] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70407600] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70407720] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70407760] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70607600] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70607740] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70607760] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[70807020] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71007900] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71008040] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71008080] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71207540] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71807380] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71807840] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[71808020] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72007520] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72007860] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72208060] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72208260] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72408220] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72806860] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[72808160] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[73008040] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[73208080] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[73608100] = {
+		name = L["Tamra Stormpike"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[22206760] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23406400] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23406460] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23406560] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23406660] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[23606440] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24206540] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24406580] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24406680] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24606360] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24606600] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24806660] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25006500] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25206760] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25207120] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25606340] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25806600] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25807080] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26006540] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26007020] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26207160] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26207300] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26406440] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26607140] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26807180] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27007020] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27407260] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28207260] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28407200] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28407440] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28607400] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28807300] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28807480] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29007200] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29207140] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29607240] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29607300] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31407220] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56207360] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57407280] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57606820] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57806920] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58007000] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58007100] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58407240] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58407260] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607040] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607100] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607240] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58607260] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59207460] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59407360] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59607220] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59607400] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59807340] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60207480] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60407600] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60407680] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60607440] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60607520] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61007600] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61407660] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61607560] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62007760] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62207720] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62407540] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62607620] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62607680] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62607760] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63608020] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63807780] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64207660] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64207880] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64607940] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64807700] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65007820] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65008100] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65408040] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65408220] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65408280] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65607780] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65608160] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65608340] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65608740] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65808020] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65808500] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66208640] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66408440] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66408760] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66608720] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66808320] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67008480] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67408760] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67808760] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68008720] = {
+		name = L["Lady Zephris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61006080] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[61405980] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[61806060] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[62406020] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[62406160] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[62606160] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63005920] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63205820] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63206140] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63206340] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63406040] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63606200] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63805840] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63805860] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63806020] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[63806080] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64005680] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64006300] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64006480] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64205600] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64206360] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64805120] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64805920] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65005840] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65006020] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65205480] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65206200] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65206280] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65206360] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65406080] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65605960] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65606280] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65806080] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65806240] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65806580] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66205860] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66206480] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66606180] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66606300] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66606380] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[67005700] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68405460] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[69406140] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[23405600] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24005520] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24405320] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24405360] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24605300] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24805460] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25205440] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25405200] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25605600] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25805460] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26205400] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27005160] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27206520] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27406340] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28006140] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28206400] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28206460] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28406340] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28806740] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29006340] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29006500] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29206600] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29406420] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29606380] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30006480] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33605620] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33805860] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34205840] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34605780] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34606060] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34805860] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35205960] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35605960] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35805760] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36005940] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205020] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36605900] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37205360] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37206000] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405040] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37405200] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38005120] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38205180] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405040] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405260] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38405360] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38605080] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38805160] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38805300] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38805360] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39605300] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39605400] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39805020] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40005160] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40605500] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71402820] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71402880] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71802840] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72003000] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72202860] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72402740] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602760] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[72602900] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73002720] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73803200] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74603200] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74603520] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75003280] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75203020] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75203140] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75602820] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75603080] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[75803160] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[76202960] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84004700] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84204620] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84404780] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[84604720] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[85004760] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[85403960] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[85603980] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[85803840] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86203720] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86204780] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86403920] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86404600] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86603820] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86603960] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[87003880] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[87204140] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[87603940] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[87604100] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[24806740] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60806020] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[85004700] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25206920] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66406360] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[38605300] = {
+		name = L["Creepthess"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[74403240] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[86403880] = {
+		name = L["Big Samras"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63206060] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65406040] = {
+		name = L["Ro'Bark"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[25407080] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30607320] = {
+		name = L["Scargil"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
+nodes[1422] = {
+	[42808500] = {
+		name = L["Bibilfaz Featherwhistle"],
+		category = "flightmasters",
+		fpName = L["Chillwind Camp, Western Plaguelands"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[42808380] = {
+		name = L["Argent Quartermaster Lightspark"],
+		npcID = 10857,
+		category = "repair",
+		description = L["The Argent Dawn"],
+		faction = "Neutral",
+	},
+	[68007760] = {
+		name = L["Magnus Frostwake"],
+		npcID = 11278,
+		category = "repair",
+		faction = "Neutral",
+	},
+	[43008420] = {
+		name = L["Leonard Porter"],
+		npcID = 12942,
+		category = "repair",
+		profession = "leatherworking",
+		description = L["Leatherworking Supplies"],
+		faction = "Alliance",
+	},
+	[45408540] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[59605320] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[65407480] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[39406680] = {
+		name = L["Chromie"],
+		npcID = 10667,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[42608380] = {
+		name = L["Alchemist Arbington"],
+		npcID = 11056,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[69407940] = {
+		name = L["Baker Masterson"],
+		npcID = 11287,
+		category = "vendors",
+		faction = "Neutral",
+	},
+	[42201820] = {
+		name = L["Scarlet Judge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42401880] = {
+		name = L["Scarlet Judge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42601840] = {
+		name = L["Scarlet Judge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42601860] = {
+		name = L["Scarlet Judge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44001860] = {
+		name = L["Scarlet Judge"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43001420] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43001500] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43401580] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43601580] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43601660] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44201440] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44201860] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44401480] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401340] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401420] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401460] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201340] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201460] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46401440] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46401560] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46601400] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801320] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801620] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801680] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47001460] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47001760] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47201220] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47202040] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401880] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47402080] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47601380] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47801880] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47802100] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48201260] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48201500] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49202260] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49602420] = {
+		name = L["Scarlet Interrogator"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54402380] = {
+		name = L["Scarlet High Clerist"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55002340] = {
+		name = L["Scarlet High Clerist"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55002360] = {
+		name = L["Scarlet High Clerist"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44201840] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44201865] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44801900] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201720] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201800] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201980] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45601840] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801860] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801960] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45802100] = {
+		name = L["Scarlet Executioner"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41001520] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44601480] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44601900] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44801440] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44801680] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201020] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201300] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45400940] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401060] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401560] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45600940] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801120] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801200] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801320] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46001420] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201540] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201560] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201700] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46201760] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46601140] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46601540] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801600] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801660] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47001220] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47201280] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47201840] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47201880] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401400] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401960] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47601320] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47601385] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47601920] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47602100] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47801760] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48002160] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49402300] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50002360] = {
+		name = L["Foreman Jerris"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43603480] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44003320] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44003600] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44403420] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44603500] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44603840] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44803280] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44803400] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45003560] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45203740] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45603860] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46203380] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46403460] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46404200] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003420] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47003640] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47203320] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47403220] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47803140] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47803320] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47803360] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48003640] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48403180] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48403460] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48603040] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48603100] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49003180] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50003180] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50203000] = {
+		name = L["Foreman Marcrid"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41805320] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43205460] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44005300] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44205040] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44205200] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45005020] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45205100] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45405220] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45405280] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45405360] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45604980] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45805240] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45805480] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45805640] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46005100] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46204860] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46205420] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46405340] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46605140] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46605180] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46605700] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47005260] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47005380] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47205520] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47405040] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47604540] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005320] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005380] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005460] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49405080] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44008140] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44608120] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47608120] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48407200] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48407740] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48607720] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48808040] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48808100] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49007540] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49207340] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49207640] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49207820] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49207860] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49607800] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49607860] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49807440] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49808160] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50207500] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50207560] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50407660] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50408000] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50607420] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50607680] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50607980] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50807460] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51007840] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51207640] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51407940] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52207860] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52208040] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53007880] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54008040] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54008060] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54407940] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54608000] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54608080] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36006480] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37806480] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37806700] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38407080] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38606900] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38607040] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[38806820] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39006600] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39007080] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39406700] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39407260] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39606740] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39606860] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39607020] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39607060] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39607200] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39607420] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39806800] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40006400] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40406640] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40606740] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40806600] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41806820] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42006640] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42007420] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42206700] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42606180] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43007360] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43206560] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43406440] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43406780] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43606520] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43606600] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43606760] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43807440] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44006740] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44007340] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44206360] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44406340] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44606400] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44806280] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44807320] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45607280] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45807380] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46607520] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47007060] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47207040] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47207180] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47207300] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47406260] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47607100] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48007280] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48206400] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48407180] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49206460] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49206980] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49207060] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49806700] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50607780] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61203540] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61203600] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61403760] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61803640] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62003660] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62003760] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62403460] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62603480] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62603740] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62803760] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63003240] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63003600] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63403320] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63403420] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64003720] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64003800] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64203240] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64203340] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64803380] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64803600] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65003860] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66604260] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67604480] = {
+		name = L["The Husk"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41401340] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42201240] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42601240] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43001280] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43201500] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43401400] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44001100] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44001460] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44201240] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44401340] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44401360] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44801140] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44801340] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201040] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201360] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45201480] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45401220] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45601320] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45601360] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45601460] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801040] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801140] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45801240] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46401565] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46601280] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46601545] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801640] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801665] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47001200] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47001780] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47401405] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47402000] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47601325] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48201380] = {
+		name = L["Scarlet Smith"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43605280] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47407140] = {
+		name = L["Putridius"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49407720] = {
+		name = L["Lord Maldazzar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44205440] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46205220] = {
+		name = L["Foulmane"],
+		category = "rares",
+		faction = "Neutral",
+	},
+}
 nodes[1419] = {
 	[65402440] = {
 		name = L["Alexandra Constantine"],
@@ -54987,7 +59234,7 @@ nodes[1419] = {
 		name = L["Nina Lightbrew"],
 		npcID = 8178,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Alliance",
 	},
@@ -58276,3314 +62523,23 @@ nodes[1419] = {
 		category = "rares",
 		faction = "Neutral",
 	},
-}
-nodes[1424] = {
-	[60201860] = {
-		name = L["Zarise"],
-		category = "flightmasters",
-		fpName = L["Tarren Mill, Hillsbrad"],
-		description = L["Bat Handler"],
-		faction = "Horde",
-	},
-	[49405220] = {
-		name = L["Darla Harris"],
-		category = "flightmasters",
-		fpName = L["Southshore, Hillsbrad"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[51005880] = {
-		name = L["Innkeeper Anderson"],
-		npcID = 2352,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[62601900] = {
-		name = L["Innkeeper Shay"],
-		npcID = 2388,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[50405860] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[62401980] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Horde",
-	},
-	[80003900] = {
-		name = L["Kris Legace"],
-		npcID = 3536,
-		category = "repair",
-		description = L["Freewheeling Tradeswoman"],
-		faction = "Neutral",
-	},
-	[60801980] = {
-		name = L["Zixil"],
-		npcID = 3537,
-		category = "repair",
-		description = L["Merchant Supreme"],
-		faction = "Neutral",
-	},
-	[60402600] = {
-		name = L["Ott"],
-		npcID = 3539,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Horde",
-	},
-	[51205700] = {
-		name = L["Robert Aebischer"],
-		npcID = 3543,
-		category = "repair",
-		description = L["Superior Armorsmith"],
-		faction = "Alliance",
-	},
-	[51605240] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[63401940] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[50205880] = {
-		name = L["Wesley"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Alliance",
-	},
-	[62201980] = {
-		name = L["Theodore Mont Claire"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Horde",
-	},
-	[50606100] = {
-		name = L["Donald Rabonne"],
-		category = "secondaryProfession",
-		profession = "Fishing",
-		description = L["Fishing Trainer"],
-		faction = "Alliance",
-	},
-	[61601960] = {
-		name = L["Aranae Venomblood"],
-		category = "primaryProfession",
-		profession = "Herbalism",
-		description = L["Herbalism Trainer"],
-		faction = "Horde",
-	},
-	[61601920] = {
-		name = L["Serge Hinott"],
-		category = "primaryProfession",
-		profession = "Alchemy",
-		description = L["Alchemy Trainer"],
-		faction = "Horde",
-	},
-	[63602080] = {
-		name = L["Daryl Stack"],
-		category = "primaryProfession",
-		profession = "Tailoring",
-		description = L["Tailoring Trainer"],
-		faction = "Horde",
-	},
-	[36404440] = {
-		name = L["Hillsbrad Tailor"],
-		npcID = 2264,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[32004560] = {
-		name = L["Hillsbrad Apprentice Blacksmith"],
-		npcID = 2265,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[52005560] = {
-		name = L["Merideth Carlson"],
-		npcID = 2357,
-		category = "vendors",
-		description = L["Horse Breeder"],
-		faction = "Alliance",
-	},
-	[51005900] = {
-		name = L["Neema"],
-		npcID = 2364,
-		category = "vendors",
-		description = L["Waitress"],
-		faction = "Alliance",
-	},
-	[48805720] = {
-		name = L["Bront Coldcleave"],
-		npcID = 2365,
-		category = "vendors",
-		description = L["Butcher"],
-		faction = "Alliance",
-	},
-	[51405860] = {
-		name = L["Barkeep Kelly"],
-		npcID = 2366,
-		category = "vendors",
-		description = L["Bartender"],
-		faction = "Alliance",
-	},
-	[50805700] = {
-		name = L["Nandar Branson"],
-		npcID = 2380,
-		category = "vendors",
-		profession = "Alchemy",
-		description = L["Alchemy Supplies"],
-		faction = "Alliance",
-	},
-	[49005500] = {
-		name = L["Micha Yance"],
-		npcID = 2381,
-		category = "vendors",
-		description = L["Trade Goods"],
-		faction = "Alliance",
-	},
-	[50606105] = {
-		name = L["Lindea Rabonne"],
-		npcID = 2383,
-		category = "vendors",
-		profession = "Fishing",
-		description = L["Fishing Supplies"],
-		faction = "Alliance",
-	},
-	[62201900] = {
-		name = L["Christoph Jeffcoat"],
-		npcID = 2393,
-		category = "vendors",
-		description = L["Tradesman"],
-		faction = "Horde",
-	},
-	[62002100] = {
-		name = L["Mallen Swain"],
-		npcID = 2394,
-		category = "vendors",
-		profession = "Tailoring",
-		description = L["Tailoring Supplies"],
-		faction = "Horde",
-	},
-	[63001940] = {
-		name = L["Derak Nightfall"],
-		npcID = 2397,
-		category = "secondaryProfession",
-		profession = "Cooking",
-		description = L["Cook"],
-		faction = "Horde",
-	},
-	[62401985] = {
-		name = L["Kayren Soothallow"],
-		npcID = 2401,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Horde",
-	},
-	[92003820] = {
-		name = L["George Candarte"],
-		npcID = 2698,
-		category = "vendors",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Horde",
-	},
-	[49806220] = {
-		name = L["Hal McAllister"],
-		npcID = 3540,
-		category = "vendors",
-		description = L["Fish Merchant"],
-		faction = "Alliance",
-	},
-	[49005520] = {
-		name = L["Sarah Raycroft"],
-		npcID = 3541,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Goods"],
-		faction = "Alliance",
-	},
-	[50805900] = {
-		name = L["Jaysin Lanyda"],
-		npcID = 3542,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-			poison = true,
-		},
-		description = L["Poisons & Reagents"],
-		faction = "Alliance",
-	},
-	[61402000] = {
-		name = L["Jason Lemieux"],
-		npcID = 3544,
-		category = "vendors",
-		description = L["Mushroom Seller"],
-		faction = "Horde",
-	},
-	[50005720] = {
-		name = L["Sergeant Hartman"],
-		npcID = 15199,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[50605960] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51605660] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55201000] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60002040] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60002940] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62601720] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63401520] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63800560] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63800880] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65000580] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65000740] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65401920] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66200740] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66400940] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66402200] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66600760] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[68601340] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[69201600] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70001000] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70600900] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[71200800] = {
-		name = L["Narillasanz"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64806540] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65006620] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66807560] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68207720] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68407800] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68607780] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[69007940] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[69407620] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[69407720] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[69607880] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70407520] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70407600] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70407720] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70407760] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70607600] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70607740] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70607760] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[70807020] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71007900] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71008040] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71008080] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71207540] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71807380] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71807840] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[71808020] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72007520] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72007860] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72208060] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72208260] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72408220] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72806860] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[72808160] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[73008040] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[73208080] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[73608100] = {
-		name = L["Tamra Stormpike"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[22206760] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23406400] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23406460] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23406560] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23406660] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[23606440] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24206540] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24406580] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24406680] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24606360] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24606600] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24806660] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25006500] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25206760] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25207120] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25606340] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25806600] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25807080] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26006540] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26007020] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26207160] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26207300] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26406440] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26607140] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26807180] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[27007020] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[27407260] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28207260] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28407200] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28407440] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28607400] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28807300] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28807480] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29007200] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29207140] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29607240] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29607300] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31407220] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56207360] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57407280] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57606820] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57806920] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58007000] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58007100] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58407240] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58407260] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607040] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607100] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607240] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58607260] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59207460] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59407360] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59607220] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59607400] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59807340] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60207480] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60407600] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60407680] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60607440] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60607520] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61007600] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61407660] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61607560] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62007760] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62207720] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62407540] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62607620] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62607680] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62607760] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63608020] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63807780] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64207660] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64207880] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64607940] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64807700] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65007820] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65008100] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65408040] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65408220] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65408280] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65607780] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65608160] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65608340] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65608740] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65808020] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65808500] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66208640] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66408440] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66408760] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66608720] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66808320] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67008480] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67408760] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67808760] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[68008720] = {
-		name = L["Lady Zephris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61006080] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[61405980] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[61806060] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[62406020] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[62406160] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[62606160] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63005920] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63205820] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63206140] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63206340] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63406040] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63606200] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63805840] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63805860] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63806020] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[63806080] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64005680] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64006300] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64006480] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64205600] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64206360] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64805120] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64805920] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65005840] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65006020] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65205480] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65206200] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65206280] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65206360] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65406080] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65605960] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65606280] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65806080] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65806240] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65806580] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66205860] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66206480] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66606180] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66606300] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66606380] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[67005700] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68405460] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[69406140] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[23405600] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24005520] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24405320] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24405360] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24605300] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24805460] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25205440] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25405200] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25605600] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25805460] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[26205400] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[27005160] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[27206520] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[27406340] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28006140] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28206400] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28206460] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28406340] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[28806740] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29006340] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29006500] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29206600] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29406420] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29606380] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30006480] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33605620] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33805860] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34205840] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34605780] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34606060] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34805860] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35205960] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35605960] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35805760] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36005940] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36205020] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36605900] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37205360] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37206000] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37405040] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37405200] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38005120] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38205180] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405040] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405260] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38405360] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38605080] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38805160] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38805300] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38805360] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39605300] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39605400] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39805020] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40005160] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40605500] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[71402820] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[71402880] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[71802840] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72003000] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72202860] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72402740] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72602760] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[72602900] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[73002720] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[73803200] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74603200] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74603520] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75003280] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75203020] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75203140] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75602820] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75603080] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[75803160] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[76202960] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[84004700] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[84204620] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[84404780] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[84604720] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[85004760] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[85403960] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[85603980] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[85803840] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86203720] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86204780] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86403920] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86404600] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86603820] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86603960] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[87003880] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[87204140] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[87603940] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[87604100] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[24806740] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60806020] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[85004700] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[25206920] = {
-		name = L["Scargil"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66406360] = {
-		name = L["Ro'Bark"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[38605300] = {
-		name = L["Creepthess"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[74403240] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[86403880] = {
-		name = L["Big Samras"],
-		category = "rares",
-		faction = "Neutral",
-	},
-}
-nodes[1422] = {
-	[42808500] = {
-		name = L["Bibilfaz Featherwhistle"],
-		category = "flightmasters",
-		fpName = L["Chillwind Camp, Western Plaguelands"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[42808380] = {
-		name = L["Argent Quartermaster Lightspark"],
-		npcID = 10857,
-		category = "repair",
-		description = L["The Argent Dawn"],
-		faction = "Neutral",
-	},
-	[68007760] = {
-		name = L["Magnus Frostwake"],
-		npcID = 11278,
-		category = "repair",
-		faction = "Neutral",
-	},
-	[43008420] = {
-		name = L["Leonard Porter"],
-		npcID = 12942,
-		category = "repair",
-		profession = "Leatherworking",
-		description = L["Leatherworking Supplies"],
-		faction = "Alliance",
-	},
-	[45408540] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[59605320] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[65407480] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[39406680] = {
-		name = L["Chromie"],
-		npcID = 10667,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[42608380] = {
-		name = L["Alchemist Arbington"],
-		npcID = 11056,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[69407940] = {
-		name = L["Baker Masterson"],
-		npcID = 11287,
-		category = "vendors",
-		faction = "Neutral",
-	},
-	[42201820] = {
-		name = L["Scarlet Judge"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42401880] = {
-		name = L["Scarlet Judge"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42601840] = {
-		name = L["Scarlet Judge"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42601860] = {
-		name = L["Scarlet Judge"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44001860] = {
-		name = L["Scarlet Judge"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43001420] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43001500] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43401580] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43601580] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43601660] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44201440] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44201860] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44401480] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401340] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401420] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401460] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201340] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201460] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46401440] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46401560] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46601400] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801320] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801620] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801680] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47001460] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47001760] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47201220] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47202040] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47401880] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47402080] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47601380] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47801880] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47802100] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48201260] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48201500] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49202260] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49602420] = {
-		name = L["Scarlet Interrogator"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54402380] = {
-		name = L["Scarlet High Clerist"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55002340] = {
-		name = L["Scarlet High Clerist"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55002360] = {
-		name = L["Scarlet High Clerist"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44201840] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44201865] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44801900] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201720] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201800] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201980] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45601840] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801860] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801960] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45802100] = {
-		name = L["Scarlet Executioner"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41001520] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44601480] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44601900] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44801440] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44801680] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201020] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201300] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45400940] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401060] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401560] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45600940] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801120] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801200] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801320] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46001420] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201540] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201560] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201700] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46201760] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46601140] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46601540] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801600] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801660] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47001220] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47201280] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47201840] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47201880] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47401400] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47401960] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47601320] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47601385] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47601920] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47602100] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47801760] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48002160] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49402300] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50002360] = {
-		name = L["Foreman Jerris"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43603480] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44003320] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44003600] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44403420] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44603500] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44603840] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44803280] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44803400] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45003560] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45203740] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45603860] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46203380] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46403460] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46404200] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003420] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47003640] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47203320] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47403220] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47803140] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47803320] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47803360] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48003640] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48403180] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48403460] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48603040] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48603100] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49003180] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50003180] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50203000] = {
-		name = L["Foreman Marcrid"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41805320] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43205460] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44005300] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44205040] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44205200] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45005020] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45205100] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405220] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405280] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45405360] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45604980] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45805240] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45805480] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45805640] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46005100] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46204860] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46205420] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46405340] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46605140] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46605180] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46605700] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47005260] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47005380] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47205520] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47405040] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47604540] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48005320] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48005380] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48005460] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49405080] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44008140] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44608120] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47608120] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48407200] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48407740] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48607720] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48808040] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48808100] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49007540] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49207340] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49207640] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49207820] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49207860] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49607800] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49607860] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49807440] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49808160] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50207500] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50207560] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50407660] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50408000] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50607420] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50607680] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50607980] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50807460] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51007840] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51207640] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51407940] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52207860] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52208040] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53007880] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54008040] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54008060] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54407940] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54608000] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54608080] = {
-		name = L["Lord Maldazzar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36006480] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37806480] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37806700] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38407080] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38606900] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38607040] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[38806820] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39006600] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39007080] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39406700] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39407260] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39606740] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39606860] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39607020] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39607060] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39607200] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39607420] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[39806800] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40006400] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40406640] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40606740] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[40806600] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41806820] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42006640] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42007420] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42206700] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42606180] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43007360] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43206560] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43406440] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43406780] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43606520] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43606600] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43606760] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43807440] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44006740] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44007340] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44206360] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44406340] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44606400] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44806280] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44807320] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45607280] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45807380] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46607520] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47007060] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47207040] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47207180] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47207300] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47406260] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47607100] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48007280] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48206400] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48407180] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49206460] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49206980] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49207060] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806700] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50607780] = {
-		name = L["Putridius"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61203540] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61203600] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61403760] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61803640] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62003660] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62003760] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62403460] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62603480] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62603740] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62803760] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63003240] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63003600] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63403320] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63403420] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64003720] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64003800] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64203240] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64203340] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64803380] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64803600] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[65003860] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[66604260] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67604480] = {
-		name = L["The Husk"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41401340] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42201240] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42601240] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43001280] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43201500] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43401400] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44001100] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44001460] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44201240] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44401340] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44401360] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44801140] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44801340] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201040] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201360] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45201480] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45401220] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45601320] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45601360] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45601460] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801040] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801140] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45801240] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46401565] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46601280] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46601545] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801640] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801665] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47001200] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47001780] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47401405] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47402000] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47601325] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48201380] = {
-		name = L["Scarlet Smith"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43605280] = {
-		name = L["Foulmane"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47407140] = {
-		name = L["Putridius"],
+	[44002560] = {
+		name = L["Deatheye"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49407720] = {
-		name = L["Lord Maldazzar"],
+	[44803540] = {
+		name = L["Dreadscorn"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[44205440] = {
-		name = L["Foulmane"],
+	[45003080] = {
+		name = L["Dreadscorn"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46205220] = {
-		name = L["Foulmane"],
+	[39003280] = {
+		name = L["Dreadscorn"],
 		category = "rares",
 		faction = "Neutral",
 	},
@@ -61633,7 +62589,7 @@ nodes[1435] = {
 		name = L["Gharash"],
 		npcID = 8176,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Horde",
 	},
@@ -61746,7 +62702,7 @@ nodes[1435] = {
 		name = L["Rartar"],
 		npcID = 8177,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Horde",
 	},
@@ -65335,6 +66291,1886 @@ nodes[1435] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[70403720] = {
+		name = L["Lord Captain Wyrmak"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62601980] = {
+		name = L["Lost One Chieftain"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63208880] = {
+		name = L["Fingat"],
+		category = "rares",
+		faction = "Alliance",
+	},
+}
+nodes[1427] = {
+	[37803060] = {
+		name = L["Lanie Reed"],
+		category = "flightmasters",
+		fpName = L["Thorium Point, Searing Gorge"],
+		description = L["Gryphon Master"],
+		faction = "Alliance",
+	},
+	[34803080] = {
+		name = L["Grisha"],
+		category = "flightmasters",
+		fpName = L["Thorium Point, Searing Gorge"],
+		description = L["Wind Rider Master"],
+		faction = "Horde",
+	},
+	[41407480] = {
+		name = L["Graw Cornerstone"],
+		npcID = 11703,
+		category = "repair",
+		description = L["Mail Armor Merchant"],
+		faction = "Alliance",
+	},
+	[38602840] = {
+		name = L["Master Smith Burninate"],
+		npcID = 14624,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["The Thorium Brotherhood"],
+		faction = "Neutral",
+	},
+	[35402240] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[63607580] = {
+		name = L["Sarah Tanner"],
+		category = "primaryProfession",
+		profession = "Leatherworking",
+		description = L["Elemental Leatherworking Trainer"],
+		faction = "Alliance",
+	},
+	[28807140] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29407040] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29407180] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30007100] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30007220] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30007280] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30407040] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31207060] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31207220] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31407260] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34402620] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35002540] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35202640] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35202660] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35402360] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35402820] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35602520] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35802580] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36402660] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36802700] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37602900] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50207080] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50807100] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51206780] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51206920] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52007020] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52406840] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52406880] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52407080] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52407320] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52606820] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52806920] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52807120] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53007240] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53607140] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56802520] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56802700] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57002580] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57802640] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58202460] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58202680] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58202820] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58602320] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58602600] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58802660] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61207100] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61207160] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61607140] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61807300] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61807360] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62207460] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62407180] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62607280] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62807160] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63207380] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68207880] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[68607140] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69207600] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[69607580] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70207360] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70407540] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70607340] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70607540] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70607560] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[70807360] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[71607280] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29206080] = {
+		name = L["Smoldar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30005080] = {
+		name = L["Smoldar"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30806020] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31206120] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31804960] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32004720] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32004760] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32004860] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32006120] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32204440] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32204480] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32406040] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32406160] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32406260] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32604680] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32604920] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32605960] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32606120] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32606180] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[32606460] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33004780] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33006300] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33204440] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33204540] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33204560] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33206380] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33405860] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33406860] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33604560] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33604700] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33606180] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33606340] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33606380] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33606520] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33804880] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34004320] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34004420] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34004480] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34004780] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34005880] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34604840] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34604960] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41403780] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42404120] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42804180] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43204340] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43404080] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43404360] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43604040] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43604200] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43604480] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43804060] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43804320] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44404380] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44604240] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45004260] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45004440] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45204120] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45403940] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45804280] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46204360] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46206940] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47206720] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47206920] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47206960] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47406600] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47406820] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48206660] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48206960] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48406560] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48406820] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48406860] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48606620] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48606700] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48606760] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48806920] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48807060] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49807200] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57005480] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58005500] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58005900] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58205600] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58405680] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58805600] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59005820] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59205460] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59405740] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59405900] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59605500] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59605620] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59605980] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59606240] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60005760] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60405680] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60405920] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60605500] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60605680] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60605860] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60806500] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61405600] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62406020] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47406340] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49405980] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49406060] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49806080] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50606140] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50806420] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53006020] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53206260] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54205960] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54805600] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54805820] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55005680] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55005960] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55006100] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55205320] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55205440] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55205540] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55605880] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55805140] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55805780] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56205400] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56605140] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58405200] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59005320] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59605520] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61005240] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61205280] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61405100] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62803320] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62805360] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63205120] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63405220] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63605120] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64003820] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64204860] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64403700] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64605300] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64803660] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64803760] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[64804800] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65004500] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65004680] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65404400] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65603820] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65604480] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65604600] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65604780] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65804440] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[65804660] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66003740] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66203940] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66404340] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66603820] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66603900] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66604260] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66804060] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[66804180] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67003960] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[67804000] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35205660] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35405600] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[35805600] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36205540] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805440] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36805500] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[37605540] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46404800] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46404960] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46604860] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47204820] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47205040] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[48005040] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49204940] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49204960] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49604960] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50004860] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50204700] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50204820] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[50604760] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51404540] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51404720] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51604640] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51604780] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53204320] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53204400] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53404460] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53604520] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53804440] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54804560] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55404520] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56204280] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56204400] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56204500] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56604380] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57204460] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57404200] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57604360] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57804240] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58204140] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58404020] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58404460] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58804160] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59004320] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59004420] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[59404140] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13004060] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14004060] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14403620] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14403740] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14403780] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14403860] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14403960] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14603520] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14603640] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14603700] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14603780] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[14603940] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[25602700] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[26403020] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[27002620] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28202580] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[28602640] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29402480] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29402660] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29802660] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29802820] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[29802920] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30003300] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30202600] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30602580] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30602680] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30603200] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31002800] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31202940] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31602660] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[31802640] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33402720] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[33802560] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[39202480] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40004500] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40402420] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40402460] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40403540] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40403620] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[40404440] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41002440] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41002500] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41003540] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41003560] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41004320] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41202260] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41202580] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41204460] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41402660] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41404440] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41602520] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41603540] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41604440] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41604480] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41802300] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[41802400] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42002620] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42003560] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42203300] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42203420] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42603540] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42802420] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[42803560] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[43002320] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44003260] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44403100] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44403740] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44802620] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44802680] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45403840] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45403860] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[45603880] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002540] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002560] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002680] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46002760] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46003020] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46602520] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47204160] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49404620] = {
+		name = L["Slave Master Blackheart"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46606880] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[57605220] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63804780] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62207320] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61405840] = {
+		name = L["Faulty War Golem"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[49006180] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62805040] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[36405500] = {
+		name = L["Scald"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[13404000] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[30202620] = {
+		name = L["Highlord Mastrogonde"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55605460] = {
+		name = L["Shleipnarr"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[61207300] = {
+		name = L["Rekk'tilac"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1418] = {
 	[4004480] = {
@@ -65367,7 +68203,7 @@ nodes[1418] = {
 		name = L["Jazzrik"],
 		npcID = 9179,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Neutral",
 	},
@@ -72563,6 +75399,26 @@ nodes[1418] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[39802800] = {
+		name = L["Shadowforge Commander"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44405200] = {
+		name = L["Anathemus"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[58006120] = {
+		name = L["Anathemus"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53601680] = {
+		name = L["Broken Tooth"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1428] = {
 	[84406820] = {
@@ -79752,1860 +82608,1470 @@ nodes[1428] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[75003360] = {
+		name = L["Deathmaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82406040] = {
+		name = L["Volchan"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[82406240] = {
+		name = L["Volchan"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73005780] = {
+		name = L["Volchan"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[73405480] = {
+		name = L["Volchan"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[89803220] = {
+		name = L["Volchan"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
-nodes[1427] = {
-	[37803060] = {
-		name = L["Lanie Reed"],
+nodes[1437] = {
+	[9405960] = {
+		name = L["Shellei Brondir"],
 		category = "flightmasters",
-		fpName = L["Thorium Point, Searing Gorge"],
+		fpName = L["Menethil Harbor, Wetlands"],
 		description = L["Gryphon Master"],
 		faction = "Alliance",
 	},
-	[34803080] = {
-		name = L["Grisha"],
-		category = "flightmasters",
-		fpName = L["Thorium Point, Searing Gorge"],
-		description = L["Wind Rider Master"],
-		faction = "Horde",
-	},
-	[41407480] = {
-		name = L["Graw Cornerstone"],
-		npcID = 11703,
-		category = "repair",
-		description = L["Mail Armor Merchant"],
+	[10606080] = {
+		name = L["Innkeeper Helbrek"],
+		npcID = 1464,
+		category = "innkeepers",
+		description = L["Innkeeper"],
 		faction = "Alliance",
 	},
-	[38602840] = {
-		name = L["Master Smith Burninate"],
-		npcID = 14624,
+	[10805970] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Alliance",
+	},
+	[11405960] = {
+		name = L["Brak Durnad"],
+		npcID = 1441,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Alliance",
+	},
+	[11405965] = {
+		name = L["Murndan Derth"],
+		npcID = 1461,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Gunsmith"],
+		faction = "Alliance",
+	},
+	[8005580] = {
+		name = L["Jennabink Powerseam"],
+		npcID = 1454,
+		category = "repair",
+		description = L["Tailoring Supplies & Specialty Goods"],
+		faction = "Alliance",
+	},
+	[11205840] = {
+		name = L["Naela Trance"],
+		npcID = 1459,
 		category = "repair",
 		vendors = {
 			ammo = true,
 		},
-		description = L["The Thorium Brotherhood"],
-		faction = "Neutral",
+		description = L["Bowyer"],
+		faction = "Alliance",
 	},
-	[35402240] = {
+	[11005840] = {
+		name = L["Edwina Monzor"],
+		npcID = 1462,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Fletcher"],
+		faction = "Alliance",
+	},
+	[25602580] = {
+		name = L["Wenna Silkbeard"],
+		npcID = 2679,
+		category = "repair",
+		description = L["Special Goods Dealer"],
+		faction = "Alliance",
+	},
+	[11404340] = {
 		name = L["Spirit Healer"],
 		category = "spirithealers",
 		faction = "Neutral",
 	},
-	[63607580] = {
-		name = L["Sarah Tanner"],
-		category = "primaryProfession",
-		profession = "Leatherworking",
-		description = L["Elemental Leatherworking Trainer"],
+	[49404140] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[10405960] = {
+		name = L["Bethaine Flinthammer"],
+		category = "stablemasters",
+		description = L["Stable Master"],
 		faction = "Alliance",
 	},
-	[28807140] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29407040] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29407180] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30007100] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30007220] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30007280] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30407040] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31207060] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31207220] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31407260] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34402620] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35002540] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35202640] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35202660] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35402360] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35402820] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35602520] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[35802580] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36402660] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[36802700] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[37602900] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50207080] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50807100] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51206780] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51206920] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52007020] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52406840] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52406880] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52407080] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52407320] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52606820] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52806920] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52807120] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53007240] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53607140] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56802520] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56802700] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57002580] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57802640] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58202460] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58202680] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58202820] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58602320] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58602600] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58802660] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61207100] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61207160] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61607140] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61807300] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61807360] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62207460] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62407180] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62607280] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62807160] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63207380] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[68207880] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[68607140] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[69207600] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[69607580] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70207360] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70407540] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70607340] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70607540] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70607560] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[70807360] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[71607280] = {
-		name = L["Rekk'tilac"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[29206080] = {
-		name = L["Smoldar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30005080] = {
-		name = L["Smoldar"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[30806020] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31206120] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[31804960] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32004720] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32004760] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32004860] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32006120] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32204440] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32204480] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32406040] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32406160] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32406260] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32604680] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32604920] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32605960] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32606120] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32606180] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[32606460] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33004780] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33006300] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33204440] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33204540] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33204560] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33206380] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33405860] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33406860] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33604560] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33604700] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33606180] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33606340] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33606380] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33606520] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[33804880] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34004320] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34004420] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34004480] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34004780] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34005880] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34604840] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34604960] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[41403780] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42404120] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42804180] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43204340] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43404080] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43404360] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43604040] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43604200] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43604480] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43804060] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
+	[8005585] = {
+		name = L["Telurinon Moonshadow"],
+		category = "primaryProfession",
+		profession = "Herbalism",
+		description = L["Herbalism Trainer"],
+		faction = "Alliance",
+	},
+	[8205860] = {
+		name = L["Harold Riggs"],
+		category = "secondaryProfession",
+		profession = "Fishing",
+		description = L["Fishing Trainer"],
+		faction = "Alliance",
+	},
+	[10806120] = {
+		name = L["Fremal Doohickey"],
+		category = "secondaryProfession",
+		profession = "First Aid",
+		description = L["First Aid Trainer"],
+		faction = "Alliance",
+	},
+	[10605680] = {
+		name = L["Neal Allen"],
+		npcID = 1448,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Engineering Supplies & General Goods"],
+		faction = "Alliance",
+	},
+	[12005780] = {
+		name = L["Gruham Rumdnul"],
+		npcID = 1452,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Supplies"],
+		faction = "Alliance",
+	},
+	[8005620] = {
+		name = L["Dewin Shimmerdawn"],
+		npcID = 1453,
+		category = "vendors",
+		profession = "alchemy",
+		description = L["Alchemy Supplies"],
+		faction = "Alliance",
 	},
-	[43804320] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44404380] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44604240] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45004260] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45004440] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45204120] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45403940] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45804280] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46204360] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46206940] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47206720] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47206920] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47206960] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47406600] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47406820] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48206660] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48206960] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48406560] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48406820] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48406860] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48606620] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48606700] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48606760] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48806920] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48807060] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49807200] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[57005480] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58005500] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58005900] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58205600] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58405680] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58805600] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59005820] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59205460] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59405740] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59405900] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59605500] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59605620] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59605980] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59606240] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60005760] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60405680] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60405920] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
+	[10406060] = {
+		name = L["Kersok Prond"],
+		npcID = 1456,
+		category = "vendors",
+		description = L["Tradesman"],
+		faction = "Alliance",
 	},
-	[60605500] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60605680] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60605860] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60806500] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61405600] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62406020] = {
-		name = L["Faulty War Golem"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47406340] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49405980] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49406060] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49806080] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50606140] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50806420] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53006020] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53206260] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54205960] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54805600] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54805820] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55005680] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55005960] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55006100] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55205320] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55205440] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55205540] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55605880] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55805140] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55805780] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56205400] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56605140] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[58405200] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59005320] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[59605520] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61005240] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61205280] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[61405100] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62803320] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62805360] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63205120] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63405220] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63605120] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
+	[10406020] = {
+		name = L["Samor Festivus"],
+		npcID = 1457,
+		category = "vendors",
+		description = L["Shady Dealer"],
+		faction = "Alliance",
 	},
-	[64003820] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[64204860] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
+	[8605440] = {
+		name = L["Unger Statforth"],
+		npcID = 1460,
+		category = "vendors",
+		description = L["Horse Breeder"],
+		faction = "Alliance",
 	},
-	[64403700] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
+	[8405640] = {
+		name = L["Falkan Armonis"],
+		npcID = 1463,
+		category = "vendors",
+		subcategories = {
+			reagent = true,
+		},
+		description = L["Reagents"],
+		faction = "Alliance",
 	},
-	[64605300] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
+	[26402580] = {
+		name = L["Fradd Swiftgear"],
+		npcID = 2682,
+		category = "vendors",
+		profession = "engineering",
+		description = L["Engineering Supplies"],
+		faction = "Alliance",
 	},
-	[64803660] = {
-		name = L["Shleipnarr"],
-		category = "rares",
-		faction = "Neutral",
+	[8005820] = {
+		name = L["Stuart Fleming"],
+		npcID = 3178,
+		category = "vendors",
+		profession = "fishing",
+		description = L["Fishing Supplies"],
+		faction = "Alliance",
 	},
-	[64803760] = {
-		name = L["Shleipnarr"],
-		category = "rares",
+	[46601820] = {
+		name = L["Dark Iron Entrepreneur"],
+		npcID = 3180,
+		category = "vendors",
+		description = L["Speciality Goods"],
 		faction = "Neutral",
 	},
-	[64804800] = {
-		name = L["Shleipnarr"],
-		category = "rares",
+	[50203780] = {
+		name = L["Kixxle"],
+		npcID = 8305,
+		category = "vendors",
+		description = L["Potions & Herbs"],
 		faction = "Neutral",
 	},
-	[65004500] = {
-		name = L["Shleipnarr"],
+	[42204080] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65004680] = {
-		name = L["Shleipnarr"],
+	[42204460] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65404400] = {
-		name = L["Shleipnarr"],
+	[42404280] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65603820] = {
-		name = L["Shleipnarr"],
+	[42404440] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65604480] = {
-		name = L["Shleipnarr"],
+	[42804260] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65604600] = {
-		name = L["Shleipnarr"],
+	[42804380] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65604780] = {
-		name = L["Shleipnarr"],
+	[43004060] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65804440] = {
-		name = L["Shleipnarr"],
+	[43004240] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[65804660] = {
-		name = L["Shleipnarr"],
+	[44204320] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66003740] = {
-		name = L["Shleipnarr"],
+	[44204400] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66203940] = {
-		name = L["Shleipnarr"],
+	[44404480] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66404340] = {
-		name = L["Shleipnarr"],
+	[44604280] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66603820] = {
-		name = L["Shleipnarr"],
+	[44604380] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66603900] = {
-		name = L["Shleipnarr"],
+	[45404460] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66604260] = {
-		name = L["Shleipnarr"],
+	[45804380] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66804060] = {
-		name = L["Shleipnarr"],
+	[45804460] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[66804180] = {
-		name = L["Shleipnarr"],
+	[47004300] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67003960] = {
-		name = L["Shleipnarr"],
+	[47004420] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[67804000] = {
-		name = L["Shleipnarr"],
+	[47004600] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35205660] = {
-		name = L["Scald"],
+	[47404540] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35405600] = {
-		name = L["Scald"],
+	[47404660] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[35805600] = {
-		name = L["Scald"],
+	[47604600] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36205540] = {
-		name = L["Scald"],
+	[48004420] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36805440] = {
-		name = L["Scald"],
+	[48204520] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[36805500] = {
-		name = L["Scald"],
+	[48404660] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[37605540] = {
-		name = L["Scald"],
+	[48404760] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46404800] = {
-		name = L["Scald"],
+	[48404880] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46404960] = {
-		name = L["Scald"],
+	[48604740] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[46604860] = {
-		name = L["Scald"],
+	[48804580] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47204820] = {
-		name = L["Scald"],
+	[48804840] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[47205040] = {
-		name = L["Scald"],
+	[49004520] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[48005040] = {
-		name = L["Scald"],
+	[49004940] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49204940] = {
-		name = L["Scald"],
+	[49204200] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
 	[49204960] = {
-		name = L["Scald"],
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[49604960] = {
-		name = L["Scald"],
+	[50004820] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50004860] = {
-		name = L["Scald"],
+	[50004940] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50204700] = {
-		name = L["Scald"],
+	[50205220] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50204820] = {
-		name = L["Scald"],
+	[50405000] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[50604760] = {
-		name = L["Scald"],
+	[50405120] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51404540] = {
-		name = L["Scald"],
+	[50805060] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51404720] = {
-		name = L["Scald"],
+	[51405000] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51604640] = {
-		name = L["Scald"],
+	[51405240] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[51604780] = {
-		name = L["Scald"],
+	[51405260] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53204320] = {
-		name = L["Scald"],
+	[51604880] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53204400] = {
-		name = L["Scald"],
+	[51605240] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53404460] = {
-		name = L["Scald"],
+	[51605260] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53604520] = {
-		name = L["Scald"],
+	[52405360] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[53804440] = {
-		name = L["Scald"],
+	[52604940] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[54804560] = {
-		name = L["Scald"],
+	[52605280] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[55404520] = {
-		name = L["Scald"],
+	[53005360] = {
+		name = L["Dragonmaw Battlemaster"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56204280] = {
-		name = L["Scald"],
+	[45606320] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56204400] = {
-		name = L["Scald"],
+	[45606380] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56204500] = {
-		name = L["Scald"],
+	[46006220] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[56604380] = {
-		name = L["Scald"],
+	[46206480] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57204460] = {
-		name = L["Scald"],
+	[46606400] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57404200] = {
-		name = L["Scald"],
+	[46606540] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57604360] = {
-		name = L["Scald"],
+	[46806140] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[57804240] = {
-		name = L["Scald"],
+	[46806280] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58204140] = {
-		name = L["Scald"],
+	[46806580] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58404020] = {
-		name = L["Scald"],
+	[47006160] = {
+		name = L["Leech Widow"],
 		category = "rares",
 		faction = "Neutral",
 	},
-	[58404460] = {
-		name = L["Scald"],
+	[67202920] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[58804160] = {
-		name = L["Scald"],
+	[67402840] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[59004320] = {
-		name = L["Scald"],
+	[67403040] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[59004420] = {
-		name = L["Scald"],
+	[67403080] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[59404140] = {
-		name = L["Scald"],
+	[67403160] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[13004060] = {
-		name = L["Highlord Mastrogonde"],
+	[67603200] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14004060] = {
-		name = L["Highlord Mastrogonde"],
+	[67802780] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14403620] = {
-		name = L["Highlord Mastrogonde"],
+	[69002840] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14403740] = {
-		name = L["Highlord Mastrogonde"],
+	[69202880] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14403780] = {
-		name = L["Highlord Mastrogonde"],
+	[69802900] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14403860] = {
-		name = L["Highlord Mastrogonde"],
+	[70003180] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14403960] = {
-		name = L["Highlord Mastrogonde"],
+	[70202960] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14603520] = {
-		name = L["Highlord Mastrogonde"],
+	[70203140] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14603640] = {
-		name = L["Highlord Mastrogonde"],
+	[70603080] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14603700] = {
-		name = L["Highlord Mastrogonde"],
+	[70803040] = {
+		name = L["Razormaw Matriarch"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[14603780] = {
-		name = L["Highlord Mastrogonde"],
+	[47807460] = {
+		name = L["Ma'ruk Wyrmscale"],
 		category = "rares",
-		faction = "Neutral",
+		description = L["Dragonmaw Warlord"],
+		faction = "Horde",
 	},
-	[14603940] = {
-		name = L["Highlord Mastrogonde"],
+	[48007420] = {
+		name = L["Ma'ruk Wyrmscale"],
 		category = "rares",
-		faction = "Neutral",
+		description = L["Dragonmaw Warlord"],
+		faction = "Horde",
 	},
-	[25602700] = {
-		name = L["Highlord Mastrogonde"],
+	[37004400] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[26403020] = {
-		name = L["Highlord Mastrogonde"],
+	[37004640] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[27002620] = {
-		name = L["Highlord Mastrogonde"],
+	[38204540] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[28202580] = {
-		name = L["Highlord Mastrogonde"],
+	[38404600] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[28602640] = {
-		name = L["Highlord Mastrogonde"],
+	[38604620] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[29402480] = {
-		name = L["Highlord Mastrogonde"],
+	[39004760] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[29402660] = {
-		name = L["Highlord Mastrogonde"],
+	[39204660] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[29802660] = {
-		name = L["Highlord Mastrogonde"],
+	[39204900] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[29802820] = {
-		name = L["Highlord Mastrogonde"],
+	[39403720] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[29802920] = {
-		name = L["Highlord Mastrogonde"],
+	[39804660] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30003300] = {
-		name = L["Highlord Mastrogonde"],
+	[40004640] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30202600] = {
-		name = L["Highlord Mastrogonde"],
+	[40603740] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30602580] = {
-		name = L["Highlord Mastrogonde"],
+	[40804680] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30602680] = {
-		name = L["Highlord Mastrogonde"],
+	[41204600] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30603200] = {
-		name = L["Highlord Mastrogonde"],
+	[41404540] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[31002800] = {
-		name = L["Highlord Mastrogonde"],
+	[41604540] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[31202940] = {
-		name = L["Highlord Mastrogonde"],
+	[41604560] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[31602660] = {
-		name = L["Highlord Mastrogonde"],
+	[41804260] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[31802640] = {
-		name = L["Highlord Mastrogonde"],
+	[42404420] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[33402720] = {
-		name = L["Highlord Mastrogonde"],
+	[42604020] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[33802560] = {
-		name = L["Highlord Mastrogonde"],
+	[43204300] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[39202480] = {
-		name = L["Slave Master Blackheart"],
+	[43204420] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40004500] = {
-		name = L["Slave Master Blackheart"],
+	[44404340] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40402420] = {
-		name = L["Slave Master Blackheart"],
+	[44404420] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40402460] = {
-		name = L["Slave Master Blackheart"],
+	[44804540] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40403540] = {
-		name = L["Slave Master Blackheart"],
+	[45404440] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40403620] = {
-		name = L["Slave Master Blackheart"],
+	[46004380] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[40404440] = {
-		name = L["Slave Master Blackheart"],
+	[46204480] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41002440] = {
-		name = L["Slave Master Blackheart"],
+	[46804340] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41002500] = {
-		name = L["Slave Master Blackheart"],
+	[46804420] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41003540] = {
-		name = L["Slave Master Blackheart"],
+	[47004860] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41003560] = {
-		name = L["Slave Master Blackheart"],
+	[47204620] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41004320] = {
-		name = L["Slave Master Blackheart"],
+	[47604900] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41202260] = {
-		name = L["Slave Master Blackheart"],
+	[48004520] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41202580] = {
-		name = L["Slave Master Blackheart"],
+	[48004640] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41204460] = {
-		name = L["Slave Master Blackheart"],
+	[48004760] = {
+		name = L["Garneg Charskull"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41402660] = {
-		name = L["Slave Master Blackheart"],
+	[17202860] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41404440] = {
-		name = L["Slave Master Blackheart"],
+	[17402680] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41602520] = {
-		name = L["Slave Master Blackheart"],
+	[17402800] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41603540] = {
-		name = L["Slave Master Blackheart"],
+	[18002620] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41604440] = {
-		name = L["Slave Master Blackheart"],
+	[18002680] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41604480] = {
-		name = L["Slave Master Blackheart"],
+	[18202760] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41802300] = {
-		name = L["Slave Master Blackheart"],
+	[18402920] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[41802400] = {
-		name = L["Slave Master Blackheart"],
+	[18403060] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42002620] = {
-		name = L["Slave Master Blackheart"],
+	[18602740] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42003560] = {
-		name = L["Slave Master Blackheart"],
+	[18602940] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42203300] = {
-		name = L["Slave Master Blackheart"],
+	[18803100] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42203420] = {
-		name = L["Slave Master Blackheart"],
+	[19002760] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42603540] = {
-		name = L["Slave Master Blackheart"],
+	[19003040] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42802420] = {
-		name = L["Slave Master Blackheart"],
+	[19603220] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[42803560] = {
-		name = L["Slave Master Blackheart"],
+	[19603280] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[43002320] = {
-		name = L["Slave Master Blackheart"],
+	[20003060] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44003260] = {
-		name = L["Slave Master Blackheart"],
+	[20202780] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44403100] = {
-		name = L["Slave Master Blackheart"],
+	[20202880] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44403740] = {
-		name = L["Slave Master Blackheart"],
+	[20402740] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44802620] = {
-		name = L["Slave Master Blackheart"],
+	[20403000] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[44802680] = {
-		name = L["Slave Master Blackheart"],
+	[20603060] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[45403840] = {
-		name = L["Slave Master Blackheart"],
+	[20802840] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[45403860] = {
-		name = L["Slave Master Blackheart"],
+	[20803200] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[45603880] = {
-		name = L["Slave Master Blackheart"],
+	[20803280] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46002540] = {
-		name = L["Slave Master Blackheart"],
+	[21002920] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46002560] = {
-		name = L["Slave Master Blackheart"],
+	[21003360] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46002680] = {
-		name = L["Slave Master Blackheart"],
+	[21202980] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46002760] = {
-		name = L["Slave Master Blackheart"],
+	[21203560] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46003020] = {
-		name = L["Slave Master Blackheart"],
+	[21403520] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46602520] = {
-		name = L["Slave Master Blackheart"],
+	[21603080] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[47204160] = {
-		name = L["Slave Master Blackheart"],
+	[21802920] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[49404620] = {
-		name = L["Slave Master Blackheart"],
+	[22003540] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[46606880] = {
-		name = L["Faulty War Golem"],
+	[22003580] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[57605220] = {
-		name = L["Shleipnarr"],
+	[22202140] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[63804780] = {
-		name = L["Shleipnarr"],
+	[22402160] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[62207320] = {
-		name = L["Rekk'tilac"],
+	[22402260] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[61405840] = {
-		name = L["Faulty War Golem"],
+	[22402380] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[49006180] = {
-		name = L["Shleipnarr"],
+	[22402960] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[62805040] = {
-		name = L["Shleipnarr"],
+	[22403680] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[36405500] = {
-		name = L["Scald"],
+	[22602820] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[13404000] = {
-		name = L["Highlord Mastrogonde"],
+	[22802240] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
 	},
-	[30202620] = {
-		name = L["Highlord Mastrogonde"],
+	[22802260] = {
+		name = L["Mirelow"],
 		category = "rares",
-		faction = "Neutral",
+		faction = "Horde",
+	},
+	[22802420] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[22802460] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[22803140] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23002140] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23203440] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23402900] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23403020] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23403580] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23602520] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23603480] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23803080] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23803620] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24002440] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24002960] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24202620] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24203660] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24402660] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24602520] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24602560] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24603700] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24803560] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25003800] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25203040] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25203060] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25203220] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25402800] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25403860] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25602780] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25602860] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[25803200] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26003380] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26403120] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26403280] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26602940] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26603000] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26603120] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26603360] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27003320] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27403180] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27603200] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[27603280] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[28203140] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[30003060] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[30203000] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[30403300] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[30603000] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[30603120] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32003420] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32203140] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32603380] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32802900] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32803040] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[33003100] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[33003260] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[33602980] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[33803140] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[34203420] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[34403600] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[34803020] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[35003500] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[35203440] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[35403720] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[35603500] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[35802960] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[36003740] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[36802940] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[36803440] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[37803460] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[38402980] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[38403640] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[38802960] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[39002900] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[39003060] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[11207140] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[11406960] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[11806940] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[11806960] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[12007060] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[13206800] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[13606840] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[13806860] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[14206640] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[14206660] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[14606720] = {
+		name = L["Sludginn"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[67202880] = {
+		name = L["Razormaw Matriarch"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[44004260] = {
+		name = L["Garneg Charskull"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[26002920] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[32802980] = {
+		name = L["Gnawbone"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[24403540] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[23803040] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[67603060] = {
+		name = L["Razormaw Matriarch"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[22403580] = {
+		name = L["Mirelow"],
+		category = "rares",
+		faction = "Horde",
 	},
 }
 nodes[1431] = {
@@ -81724,7 +84190,7 @@ nodes[1431] = {
 		name = L["Lohgan Eva"],
 		npcID = 1672,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -81742,7 +84208,7 @@ nodes[1431] = {
 		name = L["Bliztik"],
 		npcID = 2481,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy Supplies"],
 		faction = "Neutral",
 	},
@@ -81750,7 +84216,7 @@ nodes[1431] = {
 		name = L["Danielle Zipstitch"],
 		npcID = 2668,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -81758,7 +84224,7 @@ nodes[1431] = {
 		name = L["Sheri Zipstitch"],
 		npcID = 2669,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -83453,1438 +85919,8 @@ nodes[1431] = {
 		category = "rares",
 		faction = "Horde",
 	},
-}
-nodes[1437] = {
-	[9405960] = {
-		name = L["Shellei Brondir"],
-		category = "flightmasters",
-		fpName = L["Menethil Harbor, Wetlands"],
-		description = L["Gryphon Master"],
-		faction = "Alliance",
-	},
-	[10606080] = {
-		name = L["Innkeeper Helbrek"],
-		npcID = 1464,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Alliance",
-	},
-	[10805970] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Alliance",
-	},
-	[11405960] = {
-		name = L["Brak Durnad"],
-		npcID = 1441,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Alliance",
-	},
-	[11405965] = {
-		name = L["Murndan Derth"],
-		npcID = 1461,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Gunsmith"],
-		faction = "Alliance",
-	},
-	[8005580] = {
-		name = L["Jennabink Powerseam"],
-		npcID = 1454,
-		category = "repair",
-		description = L["Tailoring Supplies & Specialty Goods"],
-		faction = "Alliance",
-	},
-	[11205840] = {
-		name = L["Naela Trance"],
-		npcID = 1459,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer"],
-		faction = "Alliance",
-	},
-	[11005840] = {
-		name = L["Edwina Monzor"],
-		npcID = 1462,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Fletcher"],
-		faction = "Alliance",
-	},
-	[25602580] = {
-		name = L["Wenna Silkbeard"],
-		npcID = 2679,
-		category = "repair",
-		description = L["Special Goods Dealer"],
-		faction = "Alliance",
-	},
-	[11404340] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[49404140] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[10405960] = {
-		name = L["Bethaine Flinthammer"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Alliance",
-	},
-	[8005585] = {
-		name = L["Telurinon Moonshadow"],
-		category = "primaryProfession",
-		profession = "Herbalism",
-		description = L["Herbalism Trainer"],
-		faction = "Alliance",
-	},
-	[8205860] = {
-		name = L["Harold Riggs"],
-		category = "secondaryProfession",
-		profession = "Fishing",
-		description = L["Fishing Trainer"],
-		faction = "Alliance",
-	},
-	[10806120] = {
-		name = L["Fremal Doohickey"],
-		category = "secondaryProfession",
-		profession = "First aid",
-		description = L["First Aid Trainer"],
-		faction = "Alliance",
-	},
-	[10605680] = {
-		name = L["Neal Allen"],
-		npcID = 1448,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Engineering Supplies & General Goods"],
-		faction = "Alliance",
-	},
-	[12005780] = {
-		name = L["Gruham Rumdnul"],
-		npcID = 1452,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Supplies"],
-		faction = "Alliance",
-	},
-	[8005620] = {
-		name = L["Dewin Shimmerdawn"],
-		npcID = 1453,
-		category = "vendors",
-		profession = "Alchemy",
-		description = L["Alchemy Supplies"],
-		faction = "Alliance",
-	},
-	[10406060] = {
-		name = L["Kersok Prond"],
-		npcID = 1456,
-		category = "vendors",
-		description = L["Tradesman"],
-		faction = "Alliance",
-	},
-	[10406020] = {
-		name = L["Samor Festivus"],
-		npcID = 1457,
-		category = "vendors",
-		description = L["Shady Dealer"],
-		faction = "Alliance",
-	},
-	[8605440] = {
-		name = L["Unger Statforth"],
-		npcID = 1460,
-		category = "vendors",
-		description = L["Horse Breeder"],
-		faction = "Alliance",
-	},
-	[8405640] = {
-		name = L["Falkan Armonis"],
-		npcID = 1463,
-		category = "vendors",
-		subcategories = {
-			reagent = true,
-		},
-		description = L["Reagents"],
-		faction = "Alliance",
-	},
-	[26402580] = {
-		name = L["Fradd Swiftgear"],
-		npcID = 2682,
-		category = "vendors",
-		profession = "Engineering",
-		description = L["Engineering Supplies"],
-		faction = "Alliance",
-	},
-	[8005820] = {
-		name = L["Stuart Fleming"],
-		npcID = 3178,
-		category = "vendors",
-		profession = "Fishing",
-		description = L["Fishing Supplies"],
-		faction = "Alliance",
-	},
-	[46601820] = {
-		name = L["Dark Iron Entrepreneur"],
-		npcID = 3180,
-		category = "vendors",
-		description = L["Speciality Goods"],
-		faction = "Neutral",
-	},
-	[50203780] = {
-		name = L["Kixxle"],
-		npcID = 8305,
-		category = "vendors",
-		description = L["Potions & Herbs"],
-		faction = "Neutral",
-	},
-	[42204080] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42204460] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42404280] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42404440] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42804260] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[42804380] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43004060] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[43004240] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44204320] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44204400] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44404480] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44604280] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[44604380] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45404460] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45804380] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45804460] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47004300] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47004420] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47004600] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47404540] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47404660] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47604600] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48004420] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48204520] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48404660] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48404760] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48404880] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48604740] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48804580] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[48804840] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49004520] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49004940] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49204200] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[49204960] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50004820] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50004940] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50205220] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50405000] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50405120] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[50805060] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51405000] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51405240] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51405260] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51604880] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51605240] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51605260] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52405360] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52604940] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52605280] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53005360] = {
-		name = L["Dragonmaw Battlemaster"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45606320] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[45606380] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46006220] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46206480] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46606400] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46606540] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46806140] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46806280] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46806580] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[47006160] = {
-		name = L["Leech Widow"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[67202920] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67402840] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67403040] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67403080] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67403160] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67603200] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67802780] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[69002840] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[69202880] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[69802900] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[70003180] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[70202960] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[70203140] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[70603080] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[70803040] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47807460] = {
-		name = L["Ma'ruk Wyrmscale"],
-		category = "rares",
-		description = L["Dragonmaw Warlord"],
-		faction = "Horde",
-	},
-	[48007420] = {
-		name = L["Ma'ruk Wyrmscale"],
-		category = "rares",
-		description = L["Dragonmaw Warlord"],
-		faction = "Horde",
-	},
-	[37004400] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[37004640] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38204540] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38404600] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38604620] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39004760] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39204660] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39204900] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39403720] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39804660] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[40004640] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[40603740] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[40804680] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[41204600] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[41404540] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[41604540] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[41604560] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[41804260] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[42404420] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[42604020] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[43204300] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[43204420] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44404340] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44404420] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44804540] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[45404440] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46004380] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46204480] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46804340] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[46804420] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47004860] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47204620] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[47604900] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[48004520] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[48004640] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[48004760] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[17202860] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[17402680] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[17402800] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18002620] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18002680] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18202760] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18402920] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18403060] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18602740] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18602940] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[18803100] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19002760] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19003040] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19603220] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[19603280] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20003060] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20202780] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20202880] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20402740] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20403000] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20603060] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20802840] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20803200] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[20803280] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21002920] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21003360] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21202980] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21203560] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21403520] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21603080] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[21802920] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22003540] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22003580] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22202140] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22402160] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22402260] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22402380] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22402960] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22403680] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22602820] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22802240] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22802260] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22802420] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22802460] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22803140] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23002140] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23203440] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23402900] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23403020] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23403580] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23602520] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23603480] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23803080] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23803620] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24002440] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24002960] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24202620] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24203660] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24402660] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24602520] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24602560] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24603700] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24803560] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25003800] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25203040] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25203060] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25203220] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25402800] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25403860] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25602780] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25602860] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[25803200] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26003380] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26403120] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26403280] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26602940] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26603000] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26603120] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26603360] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27003320] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27403180] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27603200] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[27603280] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[28203140] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[30003060] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[30203000] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[30403300] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[30603000] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[30603120] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32003420] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32203140] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32603380] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32802900] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32803040] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[33003100] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[33003260] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[33602980] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[33803140] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[34203420] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[34403600] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[34803020] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[35003500] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[35203440] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[35403720] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[35603500] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[35802960] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[36003740] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[36802940] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[36803440] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[37803460] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38402980] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38403640] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[38802960] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39002900] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[39003060] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[11207140] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[11406960] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[11806940] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[11806960] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[12007060] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[13206800] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[13606840] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[13806860] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[14206640] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[14206660] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[14606720] = {
-		name = L["Sludginn"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67202880] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[44004260] = {
-		name = L["Garneg Charskull"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[26002920] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[32802980] = {
-		name = L["Gnawbone"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[24403540] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[23803040] = {
-		name = L["Mirelow"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[67603060] = {
-		name = L["Razormaw Matriarch"],
-		category = "rares",
-		faction = "Horde",
-	},
-	[22403580] = {
-		name = L["Mirelow"],
+	[25002780] = {
+		name = L["Lupos"],
 		category = "rares",
 		faction = "Horde",
 	},
@@ -85031,7 +86067,7 @@ nodes[1433] = {
 		name = L["Vernon Hale"],
 		npcID = 1678,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -85039,7 +86075,7 @@ nodes[1433] = {
 		name = L["Clyde Ranthal"],
 		npcID = 2697,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Alliance",
 	},
@@ -85078,7 +86114,7 @@ nodes[1433] = {
 		name = L["Franklin Hamar"],
 		npcID = 3091,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -85086,7 +86122,7 @@ nodes[1433] = {
 		name = L["Captured Servant of Azora"],
 		npcID = 3096,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Specialist Tailoring Supplies"],
 		faction = "Neutral",
 	},
@@ -88631,6 +89667,875 @@ nodes[1433] = {
 		name = L["Ribchaser"],
 		category = "rares",
 		faction = "Horde",
+	},
+	[37005580] = {
+		name = L["Squiddic"],
+		category = "rares",
+		faction = "Horde",
+	},
+}
+nodes[1421] = {
+	[45604240] = {
+		name = L["Karos Razok"],
+		category = "flightmasters",
+		fpName = L["The Sepulcher, Silverpine Forest"],
+		description = L["Bat Handler"],
+		faction = "Horde",
+	},
+	[43204120] = {
+		name = L["Innkeeper Bates"],
+		npcID = 6739,
+		category = "innkeepers",
+		description = L["Innkeeper"],
+		faction = "Horde",
+	},
+	[43404140] = {
+		name = L["Mailbox"],
+		category = "mailboxes",
+		faction = "Horde",
+	},
+	[46407180] = {
+		name = L["Pyrewood Armorer"],
+		npcID = 3528,
+		category = "repair",
+		faction = "Alliance",
+	},
+	[46407185] = {
+		name = L["Moonrage Armorer"],
+		npcID = 3529,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[46607240] = {
+		name = L["Pyrewood Tailor"],
+		npcID = 3530,
+		category = "repair",
+		faction = "Alliance",
+	},
+	[46607260] = {
+		name = L["Moonrage Tailor"],
+		npcID = 3531,
+		category = "repair",
+		faction = "Neutral",
+	},
+	[44007380] = {
+		name = L["Pyrewood Leatherworker"],
+		npcID = 3532,
+		category = "repair",
+		faction = "Alliance",
+	},
+	[44007385] = {
+		name = L["Moonrage Leatherworker"],
+		npcID = 3533,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[46408640] = {
+		name = L["Wallace the Blind"],
+		npcID = 3534,
+		category = "repair",
+		description = L["Weaponsmith"],
+		faction = "Neutral",
+	},
+	[44603920] = {
+		name = L["Alexandre Lefevre"],
+		npcID = 3552,
+		category = "repair",
+		description = L["Leather Armor Merchant"],
+		faction = "Horde",
+	},
+	[43204125] = {
+		name = L["Sebastian Meloche"],
+		npcID = 3553,
+		category = "vendors",
+		description = L["Armorer"],
+		faction = "Horde",
+	},
+	[44603925] = {
+		name = L["Andrea Boynton"],
+		npcID = 3554,
+		category = "vendors",
+		description = L["Clothier"],
+		faction = "Horde",
+	},
+	[45003940] = {
+		name = L["Nadia Vernon"],
+		npcID = 9553,
+		category = "repair",
+		vendors = {
+			ammo = true,
+		},
+		description = L["Bowyer"],
+		faction = "Horde",
+	},
+	[44204140] = {
+		name = L["Spirit Healer"],
+		category = "spirithealers",
+		faction = "Neutral",
+	},
+	[43404120] = {
+		name = L["Sarah Goode"],
+		category = "stablemasters",
+		description = L["Stable Master"],
+		faction = "Horde",
+	},
+	[43404040] = {
+		name = L["Johan Focht"],
+		category = "primaryProfession",
+		profession = "Mining",
+		description = L["Mining Trainer"],
+		faction = "Horde",
+	},
+	[43204100] = {
+		name = L["Guillaume Sorouy"],
+		category = "primaryProfession",
+		profession = "Blacksmithing",
+		description = L["Blacksmithing Trainer"],
+		faction = "Horde",
+	},
+	[44004000] = {
+		name = L["Edwin Harly"],
+		npcID = 2140,
+		category = "vendors",
+		vendors = {
+			ammo = true,
+		},
+		description = L["General Supplies"],
+		faction = "Horde",
+	},
+	[43004180] = {
+		name = L["Patrice Dwyer"],
+		npcID = 3551,
+		category = "vendors",
+		subcategories = {
+			poison = true,
+		},
+		description = L["Poison Supplies"],
+		faction = "Horde",
+	},
+	[43204060] = {
+		name = L["Andrew Hilbert"],
+		npcID = 3556,
+		category = "vendors",
+		description = L["Trade Supplies"],
+		faction = "Horde",
+	},
+	[62606480] = {
+		name = L["Dalaran Brewmaster"],
+		npcID = 3577,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[62606260] = {
+		name = L["Dalaran Miner"],
+		npcID = 3578,
+		category = "vendors",
+		faction = "Alliance",
+	},
+	[33001780] = {
+		name = L["Killian Sanatha"],
+		npcID = 5748,
+		category = "vendors",
+		description = L["Fisherman"],
+		faction = "Horde",
+	},
+	[43005080] = {
+		name = L["Lilly"],
+		npcID = 5757,
+		category = "vendors",
+		profession = "enchanting",
+		description = L["Enchanting Supplies"],
+		faction = "Horde",
+	},
+	[54008220] = {
+		name = L["Leo Sarn"],
+		npcID = 5758,
+		category = "vendors",
+		profession = "enchanting",
+		description = L["Enchanting Supplies"],
+		faction = "Horde",
+	},
+	[44003980] = {
+		name = L["Gwyn Farrow"],
+		npcID = 5886,
+		category = "vendors",
+		description = L["Mushroom Merchant"],
+		faction = "Horde",
+	},
+	[60406420] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[60606440] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62006480] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62206400] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[62806220] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63006360] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63006560] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63406340] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63406520] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63606540] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63606560] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63806320] = {
+		name = L["Dalaran Spellscribe"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[63402220] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64402340] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64402420] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64602420] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64802220] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64802260] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[64802460] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65002140] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65202040] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65601920] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65602300] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65603020] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65801960] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66002700] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66202600] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66402540] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66802340] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66802600] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66802660] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[67002380] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[67002480] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[67602440] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68202500] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[68202560] = {
+		name = L["Rot Hide Bruiser"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65002320] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65202500] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65402400] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65802320] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[65802380] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66202500] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[66202700] = {
+		name = L["Snarlmane"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[57207080] = {
+		name = L["Ravenclaw Regent"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[57406980] = {
+		name = L["Ravenclaw Regent"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[57606980] = {
+		name = L["Ravenclaw Regent"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[45401700] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[45802420] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46201700] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46201800] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46401860] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46402540] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46402640] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46402700] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46602540] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46602580] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46602780] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[46801740] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47001780] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47001880] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47002660] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47202420] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47401980] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47601640] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47601760] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47601860] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47602340] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[47802500] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[48002000] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[48002580] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[48802100] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[49401900] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50401780] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50401880] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50601800] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50601860] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50601960] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[51001740] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[51801820] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[51801960] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[52002260] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59000860] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59200740] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59200840] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59601060] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59800740] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59800800] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[59800860] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[60201000] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[60601000] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[61000780] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[50806480] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51006240] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51206360] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51406340] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51406600] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51806320] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[51806360] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52006240] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52405320] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52405400] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52805420] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[52806340] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53205100] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53405220] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53405340] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53605260] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53805140] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[53805180] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54406160] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[54605200] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55204960] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55406040] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55406080] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55406160] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55406260] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55606020] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55606120] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[55606220] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56606000] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[56606400] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[34601040] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[34601080] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35200800] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35400900] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35401220] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35401480] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35600820] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35601440] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35801460] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[35801560] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[36401340] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[37001540] = {
+		name = L["Krethis Shadowspinner"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[51606360] = {
+		name = L["Old Vicejaw"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[46801780] = {
+		name = L["Gorefang"],
+		category = "rares",
+		faction = "Alliance",
 	},
 }
 nodes[1436] = {
@@ -93012,869 +94917,15 @@ nodes[1436] = {
 		category = "rares",
 		faction = "Horde",
 	},
-}
-nodes[1421] = {
-	[45604240] = {
-		name = L["Karos Razok"],
-		category = "flightmasters",
-		fpName = L["The Sepulcher, Silverpine Forest"],
-		description = L["Bat Handler"],
+	[27805480] = {
+		name = L["Brack"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[44403520] = {
+		name = L["Foe Reaper 4000"],
+		category = "rares",
 		faction = "Horde",
-	},
-	[43204120] = {
-		name = L["Innkeeper Bates"],
-		npcID = 6739,
-		category = "innkeepers",
-		description = L["Innkeeper"],
-		faction = "Horde",
-	},
-	[43404140] = {
-		name = L["Mailbox"],
-		category = "mailboxes",
-		faction = "Horde",
-	},
-	[46407180] = {
-		name = L["Pyrewood Armorer"],
-		npcID = 3528,
-		category = "repair",
-		faction = "Alliance",
-	},
-	[46407185] = {
-		name = L["Moonrage Armorer"],
-		npcID = 3529,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[46607240] = {
-		name = L["Pyrewood Tailor"],
-		npcID = 3530,
-		category = "repair",
-		faction = "Alliance",
-	},
-	[46607260] = {
-		name = L["Moonrage Tailor"],
-		npcID = 3531,
-		category = "repair",
-		faction = "Neutral",
-	},
-	[44007380] = {
-		name = L["Pyrewood Leatherworker"],
-		npcID = 3532,
-		category = "repair",
-		faction = "Alliance",
-	},
-	[44007385] = {
-		name = L["Moonrage Leatherworker"],
-		npcID = 3533,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[46408640] = {
-		name = L["Wallace the Blind"],
-		npcID = 3534,
-		category = "repair",
-		description = L["Weaponsmith"],
-		faction = "Neutral",
-	},
-	[44603920] = {
-		name = L["Alexandre Lefevre"],
-		npcID = 3552,
-		category = "repair",
-		description = L["Leather Armor Merchant"],
-		faction = "Horde",
-	},
-	[43204125] = {
-		name = L["Sebastian Meloche"],
-		npcID = 3553,
-		category = "vendors",
-		description = L["Armorer"],
-		faction = "Horde",
-	},
-	[44603925] = {
-		name = L["Andrea Boynton"],
-		npcID = 3554,
-		category = "vendors",
-		description = L["Clothier"],
-		faction = "Horde",
-	},
-	[45003940] = {
-		name = L["Nadia Vernon"],
-		npcID = 9553,
-		category = "repair",
-		vendors = {
-			ammo = true,
-		},
-		description = L["Bowyer"],
-		faction = "Horde",
-	},
-	[44204140] = {
-		name = L["Spirit Healer"],
-		category = "spirithealers",
-		faction = "Neutral",
-	},
-	[43404120] = {
-		name = L["Sarah Goode"],
-		category = "stablemasters",
-		description = L["Stable Master"],
-		faction = "Horde",
-	},
-	[43404040] = {
-		name = L["Johan Focht"],
-		category = "primaryProfession",
-		profession = "Mining",
-		description = L["Mining Trainer"],
-		faction = "Horde",
-	},
-	[43204100] = {
-		name = L["Guillaume Sorouy"],
-		category = "primaryProfession",
-		profession = "Blacksmithing",
-		description = L["Blacksmithing Trainer"],
-		faction = "Horde",
-	},
-	[44004000] = {
-		name = L["Edwin Harly"],
-		npcID = 2140,
-		category = "vendors",
-		vendors = {
-			ammo = true,
-		},
-		description = L["General Supplies"],
-		faction = "Horde",
-	},
-	[43004180] = {
-		name = L["Patrice Dwyer"],
-		npcID = 3551,
-		category = "vendors",
-		subcategories = {
-			poison = true,
-		},
-		description = L["Poison Supplies"],
-		faction = "Horde",
-	},
-	[43204060] = {
-		name = L["Andrew Hilbert"],
-		npcID = 3556,
-		category = "vendors",
-		description = L["Trade Supplies"],
-		faction = "Horde",
-	},
-	[62606480] = {
-		name = L["Dalaran Brewmaster"],
-		npcID = 3577,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[62606260] = {
-		name = L["Dalaran Miner"],
-		npcID = 3578,
-		category = "vendors",
-		faction = "Alliance",
-	},
-	[33001780] = {
-		name = L["Killian Sanatha"],
-		npcID = 5748,
-		category = "vendors",
-		description = L["Fisherman"],
-		faction = "Horde",
-	},
-	[43005080] = {
-		name = L["Lilly"],
-		npcID = 5757,
-		category = "vendors",
-		profession = "Enchanting",
-		description = L["Enchanting Supplies"],
-		faction = "Horde",
-	},
-	[54008220] = {
-		name = L["Leo Sarn"],
-		npcID = 5758,
-		category = "vendors",
-		profession = "Enchanting",
-		description = L["Enchanting Supplies"],
-		faction = "Horde",
-	},
-	[44003980] = {
-		name = L["Gwyn Farrow"],
-		npcID = 5886,
-		category = "vendors",
-		description = L["Mushroom Merchant"],
-		faction = "Horde",
-	},
-	[60406420] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[60606440] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62006480] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62206400] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[62806220] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63006360] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63006560] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63406340] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63406520] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63606540] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63606560] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63806320] = {
-		name = L["Dalaran Spellscribe"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[63402220] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64402340] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64402420] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64602420] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64802220] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64802260] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[64802460] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65002140] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65202040] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65601920] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65602300] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65603020] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65801960] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66002700] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66202600] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66402540] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66802340] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66802600] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66802660] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[67002380] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[67002480] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[67602440] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68202500] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[68202560] = {
-		name = L["Rot Hide Bruiser"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65002320] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65202500] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65402400] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65802320] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[65802380] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66202500] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[66202700] = {
-		name = L["Snarlmane"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[57207080] = {
-		name = L["Ravenclaw Regent"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[57406980] = {
-		name = L["Ravenclaw Regent"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[57606980] = {
-		name = L["Ravenclaw Regent"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[45401700] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[45802420] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46201700] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46201800] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46401860] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46402540] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46402640] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46402700] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46602540] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46602580] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46602780] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[46801740] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47001780] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47001880] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47002660] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47202420] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47401980] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47601640] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47601760] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47601860] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47602340] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[47802500] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[48002000] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[48002580] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[48802100] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[49401900] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50401780] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50401880] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50601800] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50601860] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50601960] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[51001740] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[51801820] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[51801960] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[52002260] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59000860] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59200740] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59200840] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59601060] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59800740] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59800800] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[59800860] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[60201000] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[60601000] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[61000780] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[50806480] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51006240] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51206360] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51406340] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51406600] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51806320] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[51806360] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52006240] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52405320] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52405400] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52805420] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[52806340] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53205100] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53405220] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53405340] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53605260] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53805140] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[53805180] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54406160] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[54605200] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55204960] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55406040] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55406080] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55406160] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55406260] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55606020] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55606120] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[55606220] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56606000] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[56606400] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[34601040] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[34601080] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35200800] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35400900] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35401220] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35401480] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35600820] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35601440] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35801460] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[35801560] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[36401340] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[37001540] = {
-		name = L["Krethis Shadowspinner"],
-		category = "rares",
-		faction = "Alliance",
-	},
-	[51606360] = {
-		name = L["Old Vicejaw"],
-		category = "rares",
-		faction = "Neutral",
-	},
-	[46801780] = {
-		name = L["Gorefang"],
-		category = "rares",
-		faction = "Alliance",
 	},
 }
 nodes[1432] = {
@@ -94030,7 +95081,7 @@ nodes[1432] = {
 		name = L["Karm Ironquill"],
 		npcID = 372,
 		category = "vendors",
-		profession = "Mining",
+		profession = "mining",
 		description = L["Mining Supplies"],
 		faction = "Alliance",
 	},
@@ -94045,7 +95096,7 @@ nodes[1432] = {
 		name = L["Rann Flamespinner"],
 		npcID = 1474,
 		category = "vendors",
-		profession = "Tailoring",
+		profession = "tailoring",
 		description = L["Tailoring Supplies"],
 		faction = "Alliance",
 	},
@@ -94063,7 +95114,7 @@ nodes[1432] = {
 		name = L["Khara Deepwater"],
 		npcID = 1684,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -95373,6 +96424,21 @@ nodes[1432] = {
 		category = "rares",
 		faction = "Horde",
 	},
+	[65201940] = {
+		name = L["Emogg the Crusher"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[66202040] = {
+		name = L["Emogg the Crusher"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[73402320] = {
+		name = L["Emogg the Crusher"],
+		category = "rares",
+		faction = "Horde",
+	},
 }
 nodes[1943] = {
 	[48404920] = {
@@ -95516,7 +96582,7 @@ nodes[1943] = {
 		},
 		faction = "Alliance",
 	},
-	[79204900] = {
+	[79404900] = {
 		name = L["Firmanvaar"],
 		category = "trainers",
 		subcategories = {
@@ -95559,10 +96625,10 @@ nodes[1943] = {
 		},
 		faction = "Alliance",
 	},
-	[48405180] = {
+	[48405160] = {
 		name = L["Anchorite Fateema"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Alliance",
 	},
@@ -95625,7 +96691,7 @@ nodes[1943] = {
 		},
 		faction = "Alliance",
 	},
-	[48404940] = {
+	[48404925] = {
 		name = L["Guvan"],
 		category = "trainers",
 		subcategories = {
@@ -95637,7 +96703,7 @@ nodes[1943] = {
 		},
 		faction = "Alliance",
 	},
-	[48404945] = {
+	[48404940] = {
 		name = L["Tullas"],
 		category = "trainers",
 		subcategories = {
@@ -95945,7 +97011,7 @@ nodes[1412] = {
 	[46806080] = {
 		name = L["Vira Younghoof"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -95976,7 +97042,7 @@ nodes[1412] = {
 		description = L["General Goods"],
 		faction = "Horde",
 	},
-	[46005820] = {
+	[46205820] = {
 		name = L["Wunna Darkmane"],
 		npcID = 3081,
 		category = "vendors",
@@ -96008,7 +97074,7 @@ nodes[1412] = {
 		name = L["Harn Longcast"],
 		npcID = 5940,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -98186,6 +99252,21 @@ nodes[1412] = {
 		category = "rares",
 		faction = "Alliance",
 	},
+	[48607160] = {
+		name = L["Snagglespear"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[31802560] = {
+		name = L["Ghost Howl"],
+		category = "rares",
+		faction = "Neutral",
+	},
+	[47404480] = {
+		name = L["Mazzranache"],
+		category = "rares",
+		faction = "Neutral",
+	},
 }
 nodes[1411] = {
 	[51604160] = {
@@ -98500,7 +99581,7 @@ nodes[1411] = {
 	[54004200] = {
 		name = L["Rawrk"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -98587,7 +99668,7 @@ nodes[1411] = {
 		name = L["Zansoa"],
 		npcID = 5942,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -99451,6 +100532,16 @@ nodes[1411] = {
 		category = "rares",
 		faction = "Alliance",
 	},
+	[36605240] = {
+		name = L["Death Flayer"],
+		category = "rares",
+		faction = "Alliance",
+	},
+	[37604940] = {
+		name = L["Death Flayer"],
+		category = "rares",
+		faction = "Alliance",
+	},
 }
 nodes[1429] = {
 	[43806580] = {
@@ -99757,7 +100848,7 @@ nodes[1429] = {
 	[43406565] = {
 		name = L["Michelle Belle"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["Physician"],
 		faction = "Alliance",
 	},
@@ -101069,6 +102160,11 @@ nodes[1429] = {
 		category = "rares",
 		faction = "Horde",
 	},
+	[66404040] = {
+		name = L["Fedfennel"],
+		category = "rares",
+		faction = "Horde",
+	},
 }
 nodes[1420] = {
 	[61605200] = {
@@ -101280,6 +102376,18 @@ nodes[1420] = {
 		},
 		faction = "Horde",
 	},
+	[61805245] = {
+		name = L["Austil de Mon"],
+		category = "trainers",
+		subcategories = {
+			classTrainer = true,
+		},
+		description = L["Warrior Trainer"],
+		classes = {
+			WARRIOR = true,
+		},
+		faction = "Horde",
+	},
 	[59405220] = {
 		name = L["Carolai Anise"],
 		category = "primaryProfession",
@@ -101325,7 +102433,7 @@ nodes[1420] = {
 	[61805280] = {
 		name = L["Nurse Neela"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["First Aid Trainer"],
 		faction = "Horde",
 	},
@@ -101374,7 +102482,7 @@ nodes[1420] = {
 		name = L["Selina Weston"],
 		npcID = 3548,
 		category = "vendors",
-		profession = "Alchemy",
+		profession = "alchemy",
 		description = L["Alchemy & Herbalism Supplies"],
 		faction = "Horde",
 	},
@@ -101382,7 +102490,7 @@ nodes[1420] = {
 		name = L["Martine Tramblay"],
 		npcID = 3550,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Horde",
 	},
@@ -101429,7 +102537,7 @@ nodes[1420] = {
 		name = L["Werg Thickblade"],
 		npcID = 12943,
 		category = "vendors",
-		profession = "Leatherworking",
+		profession = "leatherworking",
 		description = L["Leatherworking Supplies"],
 		faction = "Horde",
 	},
@@ -103334,6 +104442,11 @@ nodes[1420] = {
 		category = "rares",
 		faction = "Neutral",
 	},
+	[42406800] = {
+		name = L["Ressan the Needler"],
+		category = "rares",
+		faction = "Alliance",
+	},
 }
 nodes[1426] = {
 	[47405240] = {
@@ -103404,7 +104517,7 @@ nodes[1426] = {
 		name = L["Thrawn Boltar"],
 		npcID = 1690,
 		category = "repair",
-		profession = "Blacksmithing",
+		profession = "blacksmithing",
 		description = L["Blacksmithing Supplies"],
 		faction = "Alliance",
 	},
@@ -103651,7 +104764,7 @@ nodes[1426] = {
 	[47205265] = {
 		name = L["Thamner Pol"],
 		category = "secondaryProfession",
-		profession = "First aid",
+		profession = "First Aid",
 		description = L["Physician"],
 		faction = "Alliance",
 	},
@@ -103745,7 +104858,7 @@ nodes[1426] = {
 		name = L["Loslor Rudge"],
 		npcID = 1694,
 		category = "vendors",
-		profession = "Engineering",
+		profession = "engineering",
 		description = L["Engineering Supplies"],
 		faction = "Alliance",
 	},
@@ -103793,7 +104906,7 @@ nodes[1426] = {
 		name = L["Gretta Ganter"],
 		npcID = 8508,
 		category = "vendors",
-		profession = "Fishing",
+		profession = "fishing",
 		description = L["Fishing Supplies"],
 		faction = "Alliance",
 	},
@@ -104684,6 +105797,11 @@ nodes[1426] = {
 	},
 	[27203660] = {
 		name = L["Gibblewilt"],
+		category = "rares",
+		faction = "Horde",
+	},
+	[57005960] = {
+		name = L["Bjarn"],
 		category = "rares",
 		faction = "Horde",
 	},
