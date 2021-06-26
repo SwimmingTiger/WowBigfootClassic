@@ -393,7 +393,6 @@ end
 function ns.OpenUrlDialog(url)
     if not StaticPopupDialogs['MEETINGHORN_COPY_URL'] then
         StaticPopupDialogs['MEETINGHORN_COPY_URL'] = {
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
             text = '请按<|cff00ff00Ctrl+C|r>复制网址到浏览器打开',
             button1 = OKAY,
             timeout = 0,

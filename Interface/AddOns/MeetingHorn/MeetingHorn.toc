@@ -6,7 +6,5 @@
 ## Version: 1.6.1
 ## SavedVariables: MEETINGHORN_DB
 ## SavedVariablesPerCharacter: MEETINGHORN_DB_CHARACTER_MEMBERS
-## Dependencies: BigFoot
-## X-Revision: BigFoot
 
 Load.xml
