@@ -1,5 +1,5 @@
 # ThreatClassic2 [!["Open Issues"](https://img.shields.io/github/issues-raw/dfherr/ThreatClassic2.svg)](https://github.com/dfherr/ThreatClassic2/issues)
-ThreatClassic2 is a threat meter for WoW Classic and TBC Classic using the built in Blizzard API.
+ThreatClassic2 is a threat meter for WoW Classic and TBC Classic.
 
 ## Bugs and feature requests
 
@@ -7,7 +7,7 @@ Please submit all feature requests and bugs in this projects [issue tracker](htt
 
 Please check for bugs and feature requests before submitting the same request and participate in the dicussion. Please **do not** email me, comment on commits or raise issues in any other channel, so there is a single place for discussions everyone can see and participate. Thank you for your consideration.
 
-Like the project? Leave a star :)
+Like the project? Add a star :)
 
 ## Download
  - [CurseForge](https://www.curseforge.com/wow/addons/ThreatClassic2)
@@ -22,7 +22,7 @@ ClassicThreatMeter is outdated and should no longer be used.
 
 **Q: Why am I not seeing other players in the beginning of combat?**
  
-A: You can not see a monsters threat data before you are on the monsters threat table (i.e. did damage to it or caused any kind of aoe threat like healing or buffing). This is a restriction of the Blizzard API and cannot be changed.
+A: You can not see a monster's threat data before you are on the monster's threat table (i.e. did damage to it or caused any kind of aoe threat like healing or buffing). This is a restriction of the Blizzard API and cannot be changed.
 
 **Q: Is this addon under active development and will get more features?**
 

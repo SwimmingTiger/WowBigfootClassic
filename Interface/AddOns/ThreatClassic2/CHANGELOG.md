@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.37
+
+* Release chinese localization
+
 ## v2.36
 
 Major update!
