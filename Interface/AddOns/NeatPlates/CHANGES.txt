@@ -1,12 +1,10 @@
-lightweight tag 4d3fd9bd540065ad69fb7dce26ed0d6d2a070873 2.5.1.19
+lightweight tag 235574ba104e7073940c747554f140392aa7936f 2.5.1.20
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Tue Jun 8 11:30:21 2021 +0200
+Date:	Sun Jul 4 08:47:59 2021 +0200
 
-commit 4d3fd9bd540065ad69fb7dce26ed0d6d2a070873
+commit 235574ba104e7073940c747554f140392aa7936f
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Tue Jun 8 11:29:59 2021 +0200
+Date:   Sun Jul 4 08:47:59 2021 +0200
 
-    Locale update
-    
-    Locale update
+    'cursefix'
 

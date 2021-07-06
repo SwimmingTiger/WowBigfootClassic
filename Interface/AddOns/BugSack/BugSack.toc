@@ -1,5 +1,5 @@
 ## Interface: 20501
-## Version: v9.0.3
+## Version: v9.1.0
 ## Title: BugSack
 ## Title-zhCN: BugSack 错误信息查看器
 ## Notes: Toss those bugs inna sack.
