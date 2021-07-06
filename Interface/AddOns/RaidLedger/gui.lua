@@ -2269,6 +2269,7 @@ RegEvent("ADDON_LOADED", function()
 end)
 
 StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Remove all records?"],
     button1 = ACCEPT,
     button2 = CANCEL,
@@ -2282,6 +2283,7 @@ StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
 }
 
 StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Remove this record?"],
     button1 = ACCEPT,
     button2 = CANCEL,

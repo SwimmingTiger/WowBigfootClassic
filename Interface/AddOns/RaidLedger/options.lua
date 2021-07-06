@@ -520,6 +520,7 @@ end)
 
 
 StaticPopupDialogs["RAIDLEDGER_DEBIT_TEMPLATE_NAME"] = {
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Name of Debit template"],
     button1 = ACCEPT,
     button2 = CANCEL,

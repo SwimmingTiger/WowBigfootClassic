@@ -62,7 +62,7 @@ StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
     whileDead = 1,
     hideOnEscape = 1,
     showAlert = 1,
-    preferredIndex = 3,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
     }; -- }}}
 T._FatalError = function (TheError) StaticPopup_Show ("DECURSIVE_ERROR_FRAME", TheError); end
 end

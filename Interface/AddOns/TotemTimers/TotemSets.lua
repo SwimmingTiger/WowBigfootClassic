@@ -119,6 +119,7 @@ local function TotemTimers_DeleteSet(self, nr)
 end
 
 StaticPopupDialogs["TOTEMTIMERS_DELETESET"] = {
+  preferredIndex = STATICPOPUP_NUMDIALOGS,
   text = L["Delete Set"],
   button1 = OKAY,
   button2 = CANCEL,

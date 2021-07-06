@@ -83,6 +83,7 @@ local PRD_InterfaceSettingsTexture = "Interface\\AddOns\\Personal Resource Displ
 
 
 StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
+	preferredIndex = STATICPOPUP_NUMDIALOGS,
   text = "Syntax is: |cff3FD42A/prd <value>|r\nValue must be a number.\nDefault value is: |cff3FD42A"..personalResourceBarBaseTopPadding.."|r\nUse |cff3FD42A/prd reset|r to reset the frames.",
   button1 = OKAY,
   hideOnEscape = 1,
