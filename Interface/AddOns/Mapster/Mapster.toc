@@ -8,7 +8,8 @@
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
 ## X-Category: Map
-## Version: 1.9.3
+## Version: 1.9.5
+## X-License: All rights reserved.
 ## X-Curse-Project-ID: 14376
 ## X-WoWI-ID: 8306
 ## Dependencies: BigFoot

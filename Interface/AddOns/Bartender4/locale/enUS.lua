@@ -38,6 +38,7 @@ L["Bartender4 was written by Nevcairiel of EU-Antonidas. He will accept cookies 
 L["Blizzard Art"] = true
 L["Blizzard Art Bar"] = true
 L["Blizzard interface"] = true
+L["Both"] = true
 L["Button %s"] = true
 L["Button Grid"] = true
 L["Button Lock"] = true

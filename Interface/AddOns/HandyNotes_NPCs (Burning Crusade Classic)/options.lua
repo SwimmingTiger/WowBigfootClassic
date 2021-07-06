@@ -67,7 +67,7 @@ function Addon:OnInitialize()
 						desc = L["Places button back in default position"],
 						type = "execute",
 						order = 10,
-						func = function() self.db.profile.button.x = -933 self.db.profile.button.y = -30 Main.button:ClearAllPoints() Main.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", self.db.profile.button.x, self.db.profile.button.y)end,
+						func = function() self.db.profile.button.x = -40 self.db.profile.button.y = -30 Main.button:ClearAllPoints() Main.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", self.db.profile.button.x, self.db.profile.button.y)end,
 					},
 				},
 			},

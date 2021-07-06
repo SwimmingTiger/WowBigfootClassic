@@ -77,6 +77,7 @@ function LFG:OnEnable()
     self:RegisterSocket('JOIN', 'OnSocketJoin')
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
+    self:RegisterServer('ANNOUNCEMENT')
     --[[@classic@
     self:RegisterServer('SWORLDBUFF')
     --@end-classic@]]
@@ -439,11 +440,11 @@ function LFG:Search(path, activityId, modeId, search)
 end
 
 function LFG:SERVER_CONNECTED()
-    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'))
+    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'), ns.GetAddonSource())
     self:SendMessage('MEETINGHORN_SERVER_CONNECTED')
 
     --[[@debug@
-    print('Connected')
+    print('Connected', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'), ns.GetAddonSource())
     --@end-debug@]]
 end
 
@@ -897,3 +898,7 @@ function LFG:KillWorldBuffNpc(instanceId, npcId)
     ns.RandomCall(30, self.SendServer, self, 'SKN', instanceId, npcId, GetServerTime())
 end
 --@end-classic@]]
+
+function LFG:ANNOUNCEMENT(eventName, ...)
+    self:SendMessage("MEETINGHORN_ANNOUNCEMENT", ...)
+end

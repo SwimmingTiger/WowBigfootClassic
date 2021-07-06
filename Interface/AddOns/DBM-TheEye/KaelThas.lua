@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210614184914")
+mod:SetRevision("20210623162544")
 mod:SetCreatureID(19622)
-mod:SetEncounterID(733, 2467)
+mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 733 or 2467)
 mod:SetModelID(20023)
 
 mod:RegisterCombat("combat")

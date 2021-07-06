@@ -47,14 +47,14 @@ TotemTimers.options = {
                     set = function(info, val) TotemTimers.ActiveProfile.StopPulse = val TotemTimers.ProcessSetting("StopPulse") end,
                     get = function(info) return TotemTimers.ActiveProfile.StopPulse end,
                 },
-                showTimerBars = {
+               --[[ showTimerBars = {
                     order = 4,
                     type = "toggle",
                     name = L["Show Timer Bars"],
                     desc = L["Displays timer bars underneath times"],
                     set = function(info, val) TotemTimers.ActiveProfile.ShowTimerBars = val TotemTimers.ProcessSetting("ShowTimerBars") end,
                     get = function(info) return TotemTimers.ActiveProfile.ShowTimerBars end,
-                },
+                },]]
                 timersonbuttons = {
                     order = 5,
                     type = "toggle",
@@ -193,16 +193,19 @@ TotemTimers.options = {
                     order = 36,
                     type = "color",
                     name = L["Time Color"],
-                    set = function(info, r,g,b)
+                    hasAlpha = true,
+                    set = function(info, r,g,b,a)
                         TotemTimers.ActiveProfile.TimeColor.r = r
                         TotemTimers.ActiveProfile.TimeColor.g = g
                         TotemTimers.ActiveProfile.TimeColor.b = b
+                        TotemTimers.ActiveProfile.TimeColor.a = a
                         TotemTimers.ProcessSetting("TimeColor")
                     end,
                     get = function(info) return TotemTimers.ActiveProfile.TimeColor.r,
                                                 TotemTimers.ActiveProfile.TimeColor.g,
                                                 TotemTimers.ActiveProfile.TimeColor.b,
-                                                1
+                                                TotemTimers.ActiveProfile.TimeColor.a
+
                           end,
                 },
                 TimerBarColor = {
@@ -236,7 +239,7 @@ TotemTimers.options = {
                           end,
                     get = function(info) return TotemTimers.ActiveProfile.CooldownAlpha end,
                 },
-                h2 = {
+               --[[ h2 = {
                     order = 70,
                     type = "header",
                     name = "",
@@ -246,7 +249,7 @@ TotemTimers.options = {
                     type = "execute",
                     name = L["Debug"] ,
                     func = function() HideUIPanel(InterfaceOptionsFrame) TotemTimers_DebugScrollFrame:Show() end
-                },                
+                }, ]]
             },
         },
     },

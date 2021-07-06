@@ -35,12 +35,6 @@ local function TotemTimers_OnEvent(self, event, ...)
             return
         end
 		TotemTimers.SetupGlobals()
-    elseif event == "LEARNED_SPELL_IN_TAB" then 
-        if InCombatLockdown() then
-			updateAfterCombat = true
-		else
-			TotemTimers.LearnedSpell(...)
-		end
     elseif event == "PLAYER_REGEN_ENABLED" then
         --TotemTimers_ProcessQueue()
 		if updateAfterCombat then
@@ -60,7 +54,6 @@ local function TotemTimers_OnEvent(self, event, ...)
         if nr > 1 then
             TotemTimers.ChangedTalents()
         elseif nr == -1 then
-            TotemTimers.LearnedSpell()
             TotemTimers.GetTalents()
         end]]
 	--[[ elseif event == "PLAYER_TALENT_UPDATE" or event == "PLAYER_SPECIALIZATION_CHANGED" or event == "SPELLS_CHANGED" then
@@ -133,7 +126,6 @@ function TotemTimers.SetupGlobals()
         TotemTimersFrame:RegisterEvent("SPELLS_CHANGED")
         TotemTimersFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
         TotemTimersFrame:RegisterEvent("ADDON_LOADED")
-        TotemTimersFrame:RegisterEvent("LEARNED_SPELL_IN_TAB")
         TotemTimersFrame:RegisterEvent("CHARACTER_POINTS_CHANGED")
 		-- TotemTimersFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
         TotemTimersFrame:RegisterEvent("PLAYER_LEAVING_WORLD")

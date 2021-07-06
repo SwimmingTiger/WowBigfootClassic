@@ -14,9 +14,8 @@
 ## X-Curse-Project-ID: 3358
 ## X-Wago-ID: qv633o6b
 ## X-WoWI-ID: 25929
-## Version: 2.5.7
+## Version: 2.5.8
 ## X-Revision: BigFoot
-## LoadOnDemand: 0
 
 Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua

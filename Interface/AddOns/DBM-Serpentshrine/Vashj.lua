@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Vashj", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210614184914")
+mod:SetRevision("20210623162544")
 mod:SetCreatureID(21212)
-mod:SetEncounterID(628, 2463)
+mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 628 or 2463)
 mod:SetModelID(20748)
 mod:SetUsedIcons(1)
 

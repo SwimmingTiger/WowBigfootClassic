@@ -504,6 +504,18 @@
                     <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
                 </Anchors>
             </Frame>
+            <Frame parentKey="Announcement" hidden="true" inherits="AnnouncementTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="2" y="-25"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="MissionGuidance" hidden="true" inherits="MissionGuidanceTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-65"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+                </Anchors>
+            </Frame>
             <Frame parentKey="Help" inherits="InsetFrameTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="4" y="-70"/>

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(569, "DBM-Party-BC", 3, 259)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210613145646")
+mod:SetRevision("20210619073053")
 mod:SetCreatureID(16808)
 mod:SetEncounterID(1938)
 mod:SetModelID(19799)
@@ -12,16 +12,16 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_START"
 )
 
---186782 Some Random Orc Icon. Could not find red fel orc icon. Only green orcs or brown orcs. Brown closer to red than green is.
-local warnHeathenGuard			= mod:NewAnnounce("warnHeathen", 2, 186782)
-local warnReaverGuard			= mod:NewAnnounce("warnReaver", 2, 186782)
-local warnSharpShooterGuard		= mod:NewAnnounce("warnSharpShooter", 2, 186782)
+--134170 Some Random Orc Icon. Could not find red fel orc icon. Only green orcs or brown orcs. Brown closer to red than green is.
+local warnHeathenGuard			= mod:NewAnnounce("warnHeathen", 2, 134170)
+local warnReaverGuard			= mod:NewAnnounce("warnReaver", 2, 134170)
+local warnSharpShooterGuard		= mod:NewAnnounce("warnSharpShooter", 2, 134170)
 
 local specWarnBladeDance		= mod:NewSpecialWarningSpell(30739, nil, nil, nil, 2, 2)
 
-local timerHeathenCD			= mod:NewTimer(21, "timerHeathen", 186782, nil, nil, 1)
-local timerReaverCD				= mod:NewTimer(21, "timerReaver", 186782, nil, nil, 1)
-local timerSharpShooterCD		= mod:NewTimer(21, "timerSharpShooter", 186782, nil, nil, 1)
+local timerHeathenCD			= mod:NewTimer(21, "timerHeathen", 134170, nil, nil, 1)
+local timerReaverCD				= mod:NewTimer(21, "timerReaver", 134170, nil, nil, 1)
+local timerSharpShooterCD		= mod:NewTimer(21, "timerSharpShooter", 134170, nil, nil, 1)
 local timerBladeDanceCD			= mod:NewCDTimer(35, 30739, nil, nil, nil, 2)
 
 mod.vb.addSet = 0

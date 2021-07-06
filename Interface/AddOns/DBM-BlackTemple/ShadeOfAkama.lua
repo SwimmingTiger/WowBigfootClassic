@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210614184914")
+mod:SetRevision("20210623162544")
 mod:SetCreatureID(22841)
-mod:SetEncounterID(603, 2475)
+mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 603 or 2475)
 mod:SetModelID(21357)
 
 mod:RegisterCombat("combat")

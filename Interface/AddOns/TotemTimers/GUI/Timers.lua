@@ -24,6 +24,9 @@ local function SetOrder(nr, value)
     TotemTimers.UpdateMacro()
 end
 
+local SpellIDs = TotemTimers.SpellIDs
+local SpellNames = TotemTimers.SpellNames
+
 TotemTimers.options.args.timers = {
     type = "group",
     name = "Timers",
@@ -331,6 +334,14 @@ TotemTimers.options.args.timers = {
                 TotemTimers.ActiveProfile.PartyRangePosition = val  TotemTimers.ProcessSetting("PartyRangePosition")
             end,
             get = function(info) return TotemTimers.ActiveProfile.PartyRangePosition end,
+        },
+        TwistingTimer = {
+            order = 42,
+            type = "toggle",
+            name = L["Twisting Timer"],
+            desc = string.format(L["Shows twisting timer fpr %s"], SpellNames[SpellIDs.Windfury]),
+            set = function(info, val) TotemTimers.ActiveProfile.TwistingTimer = val  TotemTimers.ProcessSetting("TwistingTimer") end,
+            get = function(info) return TotemTimers.ActiveProfile.TwistingTimer end,
         },
         --[[ RaidRange = {
             order = 40,

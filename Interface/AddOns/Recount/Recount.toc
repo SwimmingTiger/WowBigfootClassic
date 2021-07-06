@@ -1,5 +1,5 @@
 ## Interface: 20501
-## Version: v2.5.1a
+## Version: v2.5.1b
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計

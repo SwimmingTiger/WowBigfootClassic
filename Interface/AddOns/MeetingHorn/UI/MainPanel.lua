@@ -15,6 +15,8 @@ function MainPanel:Constructor()
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
         {'好团长', self.GoodLeader}, --
+        {L['Announcement'], self.Announcement}, --
+        {L['MissionGuidance'], self.MissionGuidance}, --
         {L['Encounter'], self.Encounter}, --
         {L['Recent members'], self.Recent}, --
         --[=[@classic@
@@ -50,7 +52,8 @@ function MainPanel:Constructor()
     ns.UI.Recent:Bind(self.Recent)
     ns.UI.Challenge:Bind(self.Challenge)
     ns.UI.GoodLeaderFrame:Bind(self.GoodLeader)
-
+    ns.UI.Announcement:Bind(self.Announcement)
+    ns.UI.MissionGuidance:Bind(self.MissionGuidance)
     self.Manage.Applicant:Hide()
 
     local FeedBack = ns.GUI:GetClass('BlockDialog'):New(self)

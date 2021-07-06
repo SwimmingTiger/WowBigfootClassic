@@ -48,7 +48,7 @@ end
 
 
 SettingsFunctions = {
-    ShowTimerBars =
+    --[[ShowTimerBars =
     function(value, Timers)
         for _,timer in pairs(Timers) do
             timer.visibleTimerBars = value
@@ -61,11 +61,7 @@ SettingsFunctions = {
                 end
             end
         end
-        --[[ TotemTimers.fs.visibleTimerBars = true
-        if TotemTimers.fs.timers[1]>0 then
-            TotemTimers.fs:ShowTimerBar(1)
-        end --]]
-    end,
+    end,]]
 
     FlashRed =
     function(value, Timers)
@@ -423,6 +419,14 @@ SettingsFunctions = {
         end
     end,
 
+    TwistingTimer = function(value, Timers)
+        for i = 1,4 do
+            if XiTimers.timers[i].nr == AIR_TOTEM_SLOT then
+                XiTimers.timers[i].twisting = value
+            end
+        end
+    end,
+
 
     --[[ EnhanceCDs =
         function(value)
@@ -591,10 +595,10 @@ SettingsFunctions = {
     TimeColor =
     function(value, Timers)
         for i=1,#Timers do
-            Timers[i].button.time:SetTextColor(value.r, value.g, value.b, 1)
-            Timers[1].timeColor = value
+            Timers[i].button.time:SetTextColor(value.r, value.g, value.b, value.a)
+            Timers[i].timeColor = value
             for j=1,#Timers[i].timerBars do
-                Timers[i].timerBars[j].time:SetTextColor(value.r,value.g,value.b,1)
+                Timers[i].timerBars[j].time:SetTextColor(value.r,value.g,value.b,value.a)
             end
         end
     end,
@@ -612,7 +616,7 @@ SettingsFunctions = {
             end
         else
             for i = 1,4 do
-                if not checkRaid then Timer[i].button:UnregisterEvent("UNIT_AURA") end
+                if not checkRaid then Timers[i].button:UnregisterEvent("UNIT_AURA") end
                 Timers[i].button.playerRange:Hide()
             end
         end

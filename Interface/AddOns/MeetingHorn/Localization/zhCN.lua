@@ -39,7 +39,8 @@ L['Feedback was submitted successfully.'] = '提交反馈成功。'
 L['Requires Level %s'] = '需要等级%s'
 L['Requires Class %s'] = '需要职业%s'
 L['Requires Zone City'] = '需要处于城市中'
-
+L['Announcement'] = '最新公告'
+L['MissionGuidance'] = '任务指引'
 -- 活动
 
 L.CATEGORY_QUEST = '任务'
@@ -129,6 +130,7 @@ L['Scarlet Monastery - Armory'] = '血色修道院 - 军械库' -- 血色修道�
 L['Scarlet Monastery - Library'] = '血色修道院 - 图书馆' -- 血色修道院 - 图书馆
 L['Scarlet Monastery - Graveyard'] = '血色修道院 - 墓地' -- 血色修道院 - 墓地
 
+L['Doomwalker'] = '末日行者' -- 末日行者
 L['Lord Kazzak'] = '卡扎克' -- 卡扎克
 L['Azuregos'] = '艾索雷葛斯' -- 艾索雷葛斯
 L['Ysondre'] = '伊森德雷' -- 伊森德雷
@@ -173,6 +175,7 @@ L['SHORT: Ragefire Chasm'] = '' -- 怒焰裂谷
 L['SHORT: Alterac Valley'] = '奥山' -- 奥特兰克山谷
 L['SHORT: Warsong Gulch'] = '战歌' -- 战歌峡谷
 L['SHORT: Arathi Basin'] = '阿拉希' -- 阿拉希盆地
+L['SHORT: Doomwalker'] = '' -- 末日行者
 L['SHORT: Lord Kazzak'] = '' -- 卡扎克
 L['SHORT: Azuregos'] = '蓝龙' -- 艾索雷葛斯
 L['SHORT: Ysondre'] = '' -- 伊森德雷
@@ -236,3 +239,4 @@ L['Activities List'] = '活动列表'
 L['Current Activity'] = '当前活动'
 L['Last Activity'] = '往期活动'
 L['Last Activity %s'] = '往期活动%s'
+L['DialogCopyUrl'] = '请按<|cff00ff00Ctrl+C|r>复制网址到浏览器打开'

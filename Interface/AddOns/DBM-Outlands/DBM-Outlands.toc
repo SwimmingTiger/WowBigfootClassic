@@ -20,7 +20,7 @@
 ## X-Curse-Project-ID: 16442
 ## X-WoWI-ID: 11700
 ## X-Wago-ID: 7x61xpN1
-## Version: 2.5.7
+## Version: 2.5.8
 ## X-Revision: BigFoot
 
 localization.en.lua

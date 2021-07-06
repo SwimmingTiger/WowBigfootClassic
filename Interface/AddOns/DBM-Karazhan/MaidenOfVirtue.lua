@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Maiden", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210613032915")
+mod:SetRevision("20210623160950")
 mod:SetCreatureID(16457)
-mod:SetEncounterID(654, 2446)
+mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 654 or 2446)
 mod:SetModelID(16198)
 mod:RegisterCombat("combat")
 
@@ -32,6 +32,7 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)
 	end
+	DBM:AddMsg("Repentance timer is not broken. This is an ability that has a 29 second minimum cooldown window, but after coming off CD can be delayed up to 20 seconds on when it's cast. Basically it's a 29-49sec window. DBM shows timer for the start of that window, but cannot control whether or not the boss casts it at 29, 39, or 49. Use this knowledge to inform you of when the ability can NOT be cast, not when it will be.")
 end
 
 function mod:OnCombatEnd()
@@ -44,7 +45,7 @@ function mod:SPELL_CAST_START(args)
 	if args.spellId == 29511 then
 		warningRepentance:Show()
 		timerRepentance:Start()
-		timerRepentanceCD:Start()
+--		timerRepentanceCD:Start()
 	end
 end
 

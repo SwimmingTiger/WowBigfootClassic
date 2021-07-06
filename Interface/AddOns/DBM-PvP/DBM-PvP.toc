@@ -18,7 +18,7 @@
 ## X-DBM-Mod-Sort: 1500
 ## X-Curse-Project-ID: 61882
 ## X-Wago-ID: Xb6Xe0Kp
-## Version: r124
+## Version: r125
 ## X-Revision: BigFoot
 
 localization.en.lua

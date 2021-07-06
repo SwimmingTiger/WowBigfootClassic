@@ -66,6 +66,7 @@ addon.Spells = {
 
     -- Other
 
+    [33961] = { type = IMMUNITY_SPELL }, -- Spell Reflection (Sethekk Initiate)
     [23451] = { type = BUFF_OFFENSIVE }, -- Battleground Speed buff
     [23493] = { type = BUFF_DEFENSIVE }, -- Battleground Heal buff
     [23505] = { type = BUFF_OFFENSIVE }, -- Battleground Damage buff
@@ -98,6 +99,8 @@ addon.Spells = {
     [9774] = { type = BUFF_OFFENSIVE }, -- Spider Belt & Ornate Mithril Boots
     [18798] = { type = CROWD_CONTROL }, -- Freezing Band
     [22734] = { type = BUFF_OTHER }, -- Drink
+        [46755] = { parent = 22734 }, -- Drink
+        [27089] = { parent = 22734 }, -- Drink
     [23605] = { type = BUFF_OTHER }, -- Nightfall, Spell Vulnerability
     [13494] = { type = BUFF_OFFENSIVE }, -- Manual Crowd Pummeler Haste buff
 
@@ -116,7 +119,7 @@ addon.Spells = {
         [25454] = { parent = 8042 },
     [13491] = { type = INTERRUPT, duration = 5 }, -- Iron Knuckles
     [16979] = { type = INTERRUPT, duration = 4 }, -- Feral Charge (Druid)
-    [2139] = { type = INTERRUPT, duration = 10 }, -- Counterspell (Mage)
+    [2139] = { type = INTERRUPT, duration = 8 }, -- Counterspell (Mage)
     [1766] = { type = INTERRUPT, duration = 5 }, -- Kick (Rogue)
         [1767] = { parent = 1766 },
         [1768] = { parent = 1766 },
@@ -135,6 +138,10 @@ addon.Spells = {
     -- Priest
 
     [17] = { type = BUFF_DEFENSIVE }, -- Power Word: Shield
+    [453] = { type = BUFF_OTHER }, -- Mind Soothe
+        [8192] = { parent = 453 },
+        [10953] = { parent = 453 },
+        [25596] = { parent = 453 },
     [592] = { parent = 17 }, -- Power Word: Shield
         [600] = { parent = 17 },
         [3747] = { parent = 17 },
@@ -208,6 +215,7 @@ addon.Spells = {
         [30413] = { parent = 30283 },
         [30414] = { parent = 30283 },
     [43523] = { type = CROWD_CONTROL }, -- Unstable Affliction
+        [31117] = { parent = 43523 },
     [30300] = { type = IMMUNITY_SPELL }, -- Nether Protection
     [18708] = { type = BUFF_DEFENSIVE }, -- Fel Domination
     [32752] = { type = CROWD_CONTROL }, -- Summoning Disorientation
@@ -220,7 +228,7 @@ addon.Spells = {
 
     -- Shaman
 
-    [8178] = { type = IMMUNITY }, -- Grounding Totem Effect
+    [8178] = { type = IMMUNITY_SPELL }, -- Grounding Totem Effect
     [16188] = { type = BUFF_DEFENSIVE }, -- Nature's Swiftness
     [12548] = { type = ROOT }, -- Frost Shock
     [39796] = { type = CROWD_CONTROL }, -- Stoneclaw Totem
@@ -255,6 +263,7 @@ addon.Spells = {
 
     -- Hunter
 
+    [27046] = { type = BUFF_DEFENSIVE }, -- Mend Pet
     [13159] = { type = BUFF_OFFENSIVE }, -- Aspect of the Pack
         [5118] = { parent = 13159 }, -- Aspect of the Cheetah
     [1513] = { type = CROWD_CONTROL }, -- Scare Beast
@@ -423,7 +432,7 @@ addon.Spells = {
     [20230] = { type = IMMUNITY }, -- Retaliation
     [1719] = { type = BUFF_OFFENSIVE }, -- Recklessness
     [871] = { type = BUFF_DEFENSIVE }, -- Shield Wall
-    [12328] = { type = BUFF_OFFENSIVE }, -- Death Wish
+    [12292] = { type = BUFF_OFFENSIVE }, -- Death Wish
     [23694] = { type = ROOT }, -- Improved Hamstring
     [18499] = { type = BUFF_OFFENSIVE }, -- Berserker Rage
     [20253] = { type = CROWD_CONTROL }, -- Intercept Stun

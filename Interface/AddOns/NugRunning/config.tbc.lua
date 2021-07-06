@@ -38,7 +38,10 @@ Spell( 4068 , { name = "Iron Grenade", global = true, maxtimers = 1, color = col
 -- Cast({ 746, 1159, 3267, 3268, 7926, 7927, 10838, 10839, 18608, 18610, 23567, 23568, 23569, 23696, 24412, 24413, 24414 },
     -- { name = "First Aid", global = true, tick = 1, tickshine = true, overlay = {"tick", "tickend", 0.4 }, color = colors.LGREEN })
 
-
+Spell( 2825  ,{ name = "Bloodlust", group = "buffs", global = true, duration = 40, color = colors.DRED, shine = true, affiliation = "raid", target = "player" })
+Spell( 32182 ,{ name = "Heroism", group = "buffs", global = true, duration = 40, color = colors.DRED, shine = true, affiliation = "raid", target = "player" })
+Spell({ 29528, 351360},{ name = "Drums of War", group = "buffs", global = true, duration = 30, color = colors.DRED, shine = true, affiliation = "raid", target = "player" })
+Spell({ 35476, 351355},{ name = "Drums of Battle", group = "buffs", global = true, duration = 30, color = colors.DRED, shine = true, affiliation = "raid", target = "player" })
 
 if class == "WARLOCK" then
 -- Interrupt(119910, "Spell Lock", 6) -- Felhunter spell from action bar
@@ -108,7 +111,6 @@ Spell({ 7812, 19438, 19440, 19441, 19442, 19443, 27273 }, { name = "Sacrifice", 
 Spell({ 17767, 17850, 17851, 17852, 17853, 17854, 27272 }, { name = "Consume Shadows", duration = 10, color = colors.LRED, target = "pet" })
 
 end
-
 
 
 if class == "SHAMAN" then
@@ -541,6 +543,8 @@ end
 
 if class == "ROGUE" then
 Interrupt({ 1766, 1767, 1768, 1769, 38768 }, "Kick", 5)
+
+Spell({ 2818, 2819, 11353, 11354, 25349, 26968, 27187 },{ name = "Deadly Poison", duration = 12, shine = true, charged = true, maxcharge = 5, color = colors.GREEN }) -- Deadly Poison
 
 Spell( 18425 ,{ name = "Silence", duration = 2, color = colors.PINK }) -- Improved Kick
 

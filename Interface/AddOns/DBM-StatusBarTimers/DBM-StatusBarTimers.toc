@@ -10,6 +10,5 @@
 ## X-Website: http://www.deadlybossmods.com
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-## LoadOnDemand: 1
 
 DBT.lua

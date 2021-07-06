@@ -107,6 +107,7 @@ function TotemTimers.SetButton_OnClick(self, button)
                 XiTimers.timers[i].button:SetAttribute("*spell1", set[XiTimers.timers[i].nr])
             end            
         end
+        TotemTimers.UpdateSpellRanks()
 	end
 end
 
@@ -125,5 +126,4 @@ StaticPopupDialogs["TOTEMTIMERS_DELETESET"] = {
   hideOnEscape = 1,
   timeout = 0,
   OnAccept = TotemTimers_DeleteSet,
-  preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

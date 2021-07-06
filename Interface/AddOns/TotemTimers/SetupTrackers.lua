@@ -15,6 +15,7 @@ local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 local AvailableSpells = TotemTimers.AvailableSpells
 local AvailableTalents = TotemTimers.AvailableTalents
+local NameToSpellID = TotemTimers.NameToSpellID
 
 local earthShieldTarget = UnitName("player")
 local earthShieldTargetGUID = nil
@@ -64,12 +65,12 @@ function TotemTimers.CreateTrackers()
         XiTimers.Activate(self)
         TotemTimers.AnkhEvent(ankh.button, "SPELL_UPDATE_COOLDOWN")
         TotemTimers.AnkhEvent(ankh.button, "BAG_UPDATE")
-        TotemTimers.ProcessSetting("TimerSize")
+        --TotemTimers.ProcessSetting("TimerSize")
     end
     ankh.button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     ankh.Deactivate = function(self)
         XiTimers.Deactivate(self)
-        TotemTimers.ProcessSetting("TimerSize")
+        --TotemTimers.ProcessSetting("TimerSize")
     end
     ankh.button.cooldown.noCooldownCount = true
     ankh.button.cooldown.noOCC = true
@@ -189,14 +190,13 @@ function TotemTimers.CreateTrackers()
 
 
 
-
     weapon.button.icons[1]:SetTexture(SpellTextures[SpellIDs.RockbiterWeapon])
     if TotemTimers.ActiveProfile.LastWeaponEnchant == 5 or TotemTimers.ActiveProfile.LastWeaponEnchant == 6 then
         weapon.button.icons[1]:SetTexture(SpellTextures[SpellIDs.WindfuryWeapon])
         weapon.button.icons[2]:SetTexture(SpellTextures[TotemTimers.ActiveProfile.LastWeaponEnchant == 5 and SpellIDs.FlametongueWeapon or SpellIDs.FrostbrandWeapon])
     else
         if TotemTimers.ActiveProfile.LastWeaponEnchant then
-            local texture = SpellTextures[TotemTimers.NameToSpellID[TotemTimers.ActiveProfile.LastWeaponEnchant]]
+            local texture = SpellTextures[NameToSpellID[TotemTimers.StripRank(TotemTimers.ActiveProfile.LastWeaponEnchant)]]
             weapon.button.icons[1]:SetTexture(texture)
             weapon.button.icons[2]:SetTexture(texture)
         end
@@ -244,19 +244,18 @@ function TotemTimers.CreateTrackers()
                                                              control:CallMethod("SaveLastEnchant", name)
                                                          end]])
 
--- choosing a weapon for a buff seems not to be working in tbc classic
---     weapon.button:WrapScript(weapon.button, "PostClick", [[ if button == "LeftButton" then
---                                                                 local ds1 = self:GetAttribute("doublespell1")
---                                                                 if ds1 then
---                                                                     if IsControlKeyDown() or self:GetAttribute("ds") ~= 1 then
---                                                                         self:SetAttribute("macrotext", "/cast "..ds1.."\n/use 16")
--- 																		self:SetAttribute("ds",1)
---                                                                     else
---                                                                         self:SetAttribute("macrotext", "/cast "..self:GetAttribute("doublespell2").."\n/use 17")
--- 																		self:SetAttribute("ds",2)
---                                                                     end
---                                                                 end
---                                                            end]])
+    weapon.button:WrapScript(weapon.button, "PostClick", [[ if button == "LeftButton" then
+                                                                 local ds1 = self:GetAttribute("doublespell1")
+                                                                 if ds1 then
+                                                                     if IsControlKeyDown() or self:GetAttribute("ds") ~= 1 then
+                                                                         self:SetAttribute("macrotext", "/cast "..ds1)
+ 																		self:SetAttribute("ds",1)
+                                                                     else
+                                                                         self:SetAttribute("macrotext", "/cast "..self:GetAttribute("doublespell2"))
+ 																		self:SetAttribute("ds",2)
+                                                                     end
+                                                                 end
+                                                            end]])
 
     weapon.button:SetAttribute("ctrl-type1", "cancelaura")
     weapon.button:SetAttribute("ctrl-target-slot1", GetInventorySlotInfo("MainHandSlot"))
@@ -309,8 +308,8 @@ function TotemTimers.AnkhEvent(self, event)
 end
 
 --local shieldtable = {SpellNames[SpellIDs.LightningShield], SpellNames[SpellIDs.WaterShield], SpellNames[SpellIDs.EarthShield]}
-local LightningShield = SpellNames[SpellIDs.LightningShield]
-local WaterShield = SpellNames[SpellIDs.WaterShield]
+local LightningShield = TotemTimers.StripRank(SpellNames[SpellIDs.LightningShield])
+local WaterShield = TotemTimers.StripRank(SpellNames[SpellIDs.WaterShield])
 local ShieldChargesOnly = false
 
 function TotemTimers.ShieldEvent(self, event, unit)
@@ -328,7 +327,10 @@ function TotemTimers.ShieldEvent(self, event, unit)
             if name == LightningShield or name == WaterShield then
                 hasBuff = true
                 local timeleft = endtime - GetTime()
-                if name ~= self.shield or timeleft > self.timer.timers[1] then
+                if name ~= self.shield
+                 or (not ShieldChargesOnly and timeleft > self.timer.timers[1])
+                 or ShieldChargesOnly
+                  then
                     self.icons[1]:SetTexture(texture)
                     self.timer.expirationMsgs[1] = "Shield"
                     self.timer.earlyExpirationMsgs[1] = "Shield"
@@ -336,8 +338,10 @@ function TotemTimers.ShieldEvent(self, event, unit)
                     self.timer.warningSpells[1] = name
                     self.shield = name
                     if not ShieldChargesOnly then
+                        self.timer.warningPoint = 10
                         self.timer:Start(1, timeleft, duration)
                     else
+                        self.timer.warningPoint = 0
                         self.timer:Start(1, count, 3)
                     end
                 end
@@ -506,13 +510,13 @@ function TotemTimers.SetEarthShieldButtons()
         if Settings[v] == "recast" then
             recastbutton = k
             earthShieldRecast = true
-            earthshieldTimer.button:SetAttribute("*spell"..k, SpellIDs.EarthShield)
+            earthshieldTimer.button:SetAttribute("*spell"..k, SpellNames[SpellIDs.EarthShield])
         elseif Settings[v] == "menu" and not menubutton then
             menubutton = k
             earthshieldTimer.button:SetAttribute("*spell"..k, nil)
         else
             earthshieldTimer.button:SetAttribute("*unit"..k, Settings[v])
-            earthshieldTimer.button:SetAttribute("*spell"..k, SpellIDs.EarthShield)
+            earthshieldTimer.button:SetAttribute("*spell"..k, SpellNames[SpellIDs.EarthShield])
         end
     end
 
@@ -594,7 +598,7 @@ function TotemTimers.ChangeEarthShieldTarget()
     end
 end
 
-local EarthShieldSpellName = SpellNames[SpellIDs.EarthShield]
+local EarthShieldSpellName = TotemTimers.StripRank(SpellNames[SpellIDs.EarthShield])
 
 local ESChargesOnly = false
 
@@ -618,7 +622,9 @@ local function checkESBuff(self)
             if not ESChargesOnly then
                 self.count:SetText(count)
             end
-            if timeleft - self.timer.timers[1] > 0.1 then
+            if timeleft - self.timer.timers[1] > 0.1 or ESChargesOnly then
+                self.timer.expirationMsgs[1] = "EarthShield"
+                self.timer.earlyExpirationMsgs[1] = "EarthShield"
                 if not ESChargesOnly then
                     self.timer:Start(1, timeleft, duration)
                 else

@@ -178,12 +178,12 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                                         self:GetParent():SetAttribute("doublespell1", self:GetAttribute("doublespell1"))
                                                         self:GetParent():SetAttribute("doublespell2", self:GetAttribute("doublespell2"))
                                                         self:GetParent():SetAttribute("type1", "macro")
-                                                        self:GetParent():SetAttribute("macrotext", "/cast "..self:GetAttribute("doublespell1").."\n/use 16")
+                                                        self:GetParent():SetAttribute("macrotext", "/cast "..self:GetAttribute("doublespell1"))
                                                         self:GetParent():SetAttribute("ds",1)
                                                     end
                                                 end
                                                 if not self:GetAttribute("alwaysshow") then
-                                                    self:GetParent():ChildUpdate("show", true)
+                                                    self:GetParent():ChildUpdate("show", false)
                                                 end]])
         end
             

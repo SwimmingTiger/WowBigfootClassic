@@ -159,3 +159,10 @@ function Addon:ZoneChanged(ev)
     ns.WorldBuff:CheckEnable()
 end
 --@end-classic@]]
+
+function Addon:GetEncouterDataByKey(key)
+    if key == 'ENCOUNTER_BOSSES' or key == 'ENCOUNTER_INSTANCES' or key == 'ENCOUNTER_DATA' or key ==
+        'DEFAULT_ENCOUNTER_INSTANCE_ID' then
+        return ns[key]
+    end
+end

@@ -552,9 +552,8 @@ function BigFoot_DisableAllAddons()
         bLoadOnDemand = IsAddOnLoadOnDemand(i)
         revision = GetAddOnMetadata(i, "X-Revision")
         if
-            name:lower() ~= "bigfoot" and name:lower() ~= "acp" and name:lower() ~= "bigfootbot" and
-                revision == "BigFoot" and
-                reason ~= "DISABLED" and
+            name:lower() ~= "bigfoot" and revision == "BigFoot" and reason ~= "DISABLED" and
+                not string.find(name, "DBM") and
                 not string.find(name, "AtlasLootClassic") and
                 not string.find(name, "ClassicCodex")
          then

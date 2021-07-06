@@ -1,8 +1,7 @@
 local mod	= DBM:NewMod("PT", "DBM-Party-BC", 12)
 local L		= mod:GetLocalizedStrings()
 
-
-mod:SetRevision("20210610002638")
+mod:SetRevision("20210626101434")
 
 mod:RegisterEvents(
 	"UPDATE_UI_WIDGET",
@@ -32,7 +31,9 @@ end
 
 function mod:UPDATE_UI_WIDGET(table)
 	local id = table.widgetID
-	if id ~= 527 then return end
+	if id ~= (WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 527 or 3120) then
+		return
+	end
 	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
 	local text = widgetInfo.text
 	if not text then return end

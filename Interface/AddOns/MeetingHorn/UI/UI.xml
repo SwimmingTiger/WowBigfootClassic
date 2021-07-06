@@ -29,4 +29,6 @@
     <Script file="TagsContainer.lua"/>
     <Script file="ScoreWidget.lua"/>
     <Script file="GradePanel.lua"/>
+    <Script file="Announcement.lua"/>
+    <Script file="MissionGuidance.lua"/>
 </Ui>

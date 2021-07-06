@@ -623,4 +623,229 @@
             <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
         </HighlightTexture>
     </Frame>
+    <Frame name="MeetingHornNoticeActivityTemplete" parentArray="notices" virtual="true">
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <Size x="258" y="218"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Header" file="Interface\AddOns\MeetingHorn\Media\uiframenecrolord" setAllPoints="true">
+                    <TexCoords left="0.250977" right="0.753906" top="0.148438" bottom="0.576172"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture file="interface\archeology\archrare-clockworkgnome" parentKey="ImageTitle">
+                    <Size x="172" y="86"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-13"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Text" inherits="QuestFont" justifyH="LEFT" justifyV="TOP">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.ImageTitle" relativePoint="BOTTOM" y="-5"/>
+                        <Anchor point="LEFT" x="38"/>
+                        <Anchor point="RIGHT" x="-34"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="LookDetail" text="[查看详情]">
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-37" y="26"/>
+                </Anchors>
+                <Size x="59" y="11"/>
+                <ButtonText parentKey="Text" inherits="GameFontNormal">
+                </ButtonText>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                if self.texture then
+                    self.ImageTitle:SetTexture(self.texture)
+                end
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <Frame name="LoadindProgressTemplate" frameLevel="100" virtual="true" inherits="InsetFrameTemplate">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString inherits="GameFontHighlight" text="正在加载...">
+                    <Anchors>
+                        <Anchor point="TOP" relativePoint="CENTER" x="0" y="-5"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame inherits="LoadingSpinnerTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOM" relativePoint="CENTER" x="0" y="5"/>
+                </Anchors>
+                <Scripts>
+                    <OnShow>
+                            self.Anim:Play()
+                            </OnShow>
+                    <OnHide>
+                            self.Anim:Stop()
+                            </OnHide>
+                </Scripts>
+            </Frame>
+        </Frames>
+    </Frame>
+    <Frame name="AnnouncementTemplate" virtual="true" setAllPoints="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="TLCorner" file="Interface\Common\bluemenu-main">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0.00390625" right="0.25390625" top="0.00097656" bottom="0.06347656"/>
+                </Texture>
+                <Texture parentKey="TRCorner" file="Interface\Common\bluemenu-main">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="TOPRight" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.51953125" right="0.76953125" top="0.00097656" bottom="0.06347656"/>
+                </Texture>
+                <Texture parentKey="BRCorner" file="Interface\Common\bluemenu-main">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.00390625" right="0.25390625" top="0.06542969" bottom="0.12792969"/>
+                </Texture>
+                <Texture parentKey="BLCorner" file="Interface\Common\bluemenu-main">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="0" y="0"/>
+                    </Anchors>
+                    <TexCoords left="0.26171875" right="0.51171875" top="0.00097656" bottom="0.06347656"/>
+                </Texture>
+                <Texture parentKey="LLVert" file="Interface\Common\bluemenu-vert" vertTile="true">
+                    <!-- left line -->
+                    <Size x="43" y="270"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="-64"/>
+                    </Anchors>
+                    <TexCoords left="0.06250000" right="0.39843750" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="RLVert" file="Interface\Common\bluemenu-vert" vertTile="true">
+                    <!-- right line -->
+                    <Size x="43" y="270"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" x="0" y="-64"/>
+                    </Anchors>
+                    <TexCoords left="0.41406250" right="0.75000000" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BottomLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">
+                    <!-- bottom line -->
+                    <Size y="43"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BLCorner" relativePoint="BOTTOMRIGHT"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BRCorner" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0" right="1" top="0.35937500" bottom="0.69531250"/>
+                </Texture>
+                <Texture parentKey="TopLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">
+                    <Size y="43"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.TLCorner" relativePoint="TOPRIGHT"/>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.TRCorner" relativePoint="TOPLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0" right="1" top="0.00781250" bottom="0.34375000"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame parentKey="container">
+                <Size x="793" y="349"/>
+                <Anchors>
+                    <Anchor point="CENTER"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Header" file="Interface\AddOns\MeetingHorn\Media\uiframenecrolord">
+                            <Size x="140" y="42"/>
+                            <Anchors>
+                                <Anchor point="TOP" x="0" y="0"/>
+                            </Anchors>
+                            <TexCoords left="0.250977" right="0.525391" top="0.782227" bottom="0.864258"/>
+                        </Texture>
+                        <FontString text="游戏公告" inherits="QuestTitleFont">
+                            <Anchors>
+                                <Anchor point="CENTER" relativeKey="$parent.Header" relativePoint="CENTER"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="NoticeContainer">
+                        <Anchors>
+                            <Anchor point="CENTER" x="0" y="5"/>
+                        </Anchors>
+                        <Size x="793" y="218"/>
+                        <Frames>
+                            <Frame parentKey="notice1" inherits="MeetingHornNoticeActivityTemplete">
+                                <KeyValues>
+                                    <KeyValue key="texture" value="interface\archeology\archrare-chalicemountainkings" type="string"/>
+                                </KeyValues>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT"/>
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="notice2" inherits="MeetingHornNoticeActivityTemplete">
+                                <KeyValues>
+                                    <KeyValue key="texture" value="interface\archeology\archrare-clockworkgnome" type="string"/>
+                                </KeyValues>
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.notice1" relativePoint="TOPRIGHT" x="10"/>
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="notice3" inherits="MeetingHornNoticeActivityTemplete">
+                                <KeyValues>
+                                    <KeyValue key="texture" value="interface\archeology\archrare-chalicemountainkings" type="string"/>
+                                </KeyValues>
+                                <Anchors>
+                                    <Anchor point="TOPRIGHT"/>
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="loading" inherits="LoadindProgressTemplate" setAllPoints="true"/>
+        </Frames>
+    </Frame>
+    <Frame name="MissionGuidanceTemplate" virtual="true" inherits="InsetFrameTemplate">
+        <Frames>
+            <ScrollFrame parentKey="MissionGuidanceScrollFrame" inherits="UIPanelScrollFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="BOTTOMRIGHT" x="-25" y="0"/>
+                </Anchors>
+                <ScrollChild>
+                    <Frame parentKey="container">
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="title1" text="燃烧的远征任务链" inherits="PVPInfoTextFont">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="5" y="-10"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="title2" text="点击对应链接查看当前游戏版本所有任务图文指引" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.title1" relativePoint="BOTTOMLEFT" y="-10"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </ScrollChild>
+            </ScrollFrame>
+        </Frames>
+    </Frame>
 </Ui>

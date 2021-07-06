@@ -63,6 +63,7 @@ local SHORT_NAMES = {
     [2597] = L['SHORT: Alterac Valley'], -- 奥特兰克山谷
     [3277] = L['SHORT: Warsong Gulch'], -- 战歌峡谷
     [3358] = L['SHORT: Arathi Basin'], -- 阿拉希盆地
+    ['Doomwalker'] = L['SHORT: Doomwalker'], -- 末日行者
     ['Lord Kazzak'] = L['SHORT: Lord Kazzak'], -- 卡扎克
     ['Azuregos'] = L['SHORT: Azuregos'], -- 艾索雷葛斯
     ['Ysondre'] = L['SHORT: Ysondre'], -- 伊森德雷
@@ -175,8 +176,8 @@ function InstanceBuilder:quest(key, minLevel)
     return self:base(names(key), 'Quest', minLevel, 40)
 end
 
-function InstanceBuilder:boss(key)
-    return self:base(names(key), 'Boss', 60, 40)
+function InstanceBuilder:boss(key, minLevel)
+    return self:base(names(key), 'Boss', minLevel, 40)
 end
 
 function InstanceBuilder:new(obj)

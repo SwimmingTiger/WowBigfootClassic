@@ -21,7 +21,7 @@ StaticPopupDialogs["IMPORTPROFILE_ERROR"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
+	preferredIndex = 3,
 }
 
 do

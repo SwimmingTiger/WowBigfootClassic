@@ -155,13 +155,13 @@ TotemTimers.options.args.trackers = {
                            order = 2,
                            type = "select",
                            name = L["Leftclick"],
-                           values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
+                           values = function() return { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
                                       [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
                                       [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
-                                    },
+                                    } end,
                            set = function(info, val) TotemTimers.ActiveProfile.ShieldLeftButton = val
                                     TotemTimers.ProcessSetting("ShieldLeftButton") end,
-                           get = function(info) return TotemTimers.ActiveProfile.ShieldLeftButton end,
+                           get = function(info) return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldLeftButton) end,
                         },
                         RightButton = {
                            order = 3,
@@ -173,7 +173,7 @@ TotemTimers.options.args.trackers = {
                                     },
                            set = function(info, val) TotemTimers.ActiveProfile.ShieldRightButton = val
                                     TotemTimers.ProcessSetting("ShieldRightButton") end,
-                           get = function(info) return TotemTimers.ActiveProfile.ShieldRightButton end,
+                           get = function(info) return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldRightButton) end,
                         },
                         MiddleButton = {
                            order = 4,
@@ -185,7 +185,7 @@ TotemTimers.options.args.trackers = {
                                     },
                            set = function(info, val) TotemTimers.ActiveProfile.ShieldMiddleButton = val
                                     TotemTimers.ProcessSetting("ShieldMiddleButton") end,
-                           get = function(info) return TotemTimers.ActiveProfile.ShieldMiddleButton end,
+                           get = function(info) return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldMiddleButton) end,
                         },
                     },
                 },                
