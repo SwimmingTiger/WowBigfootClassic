@@ -313,10 +313,25 @@ function Display:SKILL_LINES_CHANGED()
 end
 
 function Display:MINIMAP_UPDATE_TRACKING()
-	table.wipe(active_tracking)
-	local texture = GetTrackingTexture()
-	if tracking_spells[texture] then
-		active_tracking[tracking_spells[texture]] = true
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		table.wipe(active_tracking)
+		local texture = GetTrackingTexture()
+		if tracking_spells[texture] then
+			active_tracking[tracking_spells[texture]] = true
+		end
+	else
+		local count = GetNumTrackingTypes();
+		local info;
+		for id=1, count do
+			local name, texture, active, category  = GetTrackingInfo(id);
+			if tracking_spells[name] and active then
+				active_tracking[tracking_spells[name]] = true
+			else
+				if tracking_spells[name] and not active then
+					active_tracking[tracking_spells[name]] = false
+				end
+			end
+		end
 	end
 	self:UpdateMaps()
 end
@@ -351,7 +366,11 @@ end
 function Display:SetTrackingSpell(skill,spell)
 	local spellName, _, texture = GetSpellInfo(spell)
 	if not spellName then return end
-	tracking_spells[texture] = skill
+	if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+		tracking_spells[texture] = skill
+	else
+		tracking_spells[spellName] = skill
+	end
 	if fullInit then self:MINIMAP_UPDATE_TRACKING() end
 end
 

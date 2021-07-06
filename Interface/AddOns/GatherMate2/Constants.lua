@@ -464,6 +464,7 @@ local rare_spawns = {
 	[271] = {[270]=true}, -- rich osmenite deposit
 	[564] = {[563]=true}, -- large jelly deposit
 }
+GatherMate.rareNodes = rare_spawns
 Collector.rareNodes = rare_spawns
 -- Format zone = { "Database", "new node id"}
 local nodeRemap = {
