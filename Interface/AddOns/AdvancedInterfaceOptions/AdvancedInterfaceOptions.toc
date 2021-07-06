@@ -1,7 +1,7 @@
 ## Interface: 20501
 ## Title: Advanced Interface Options
 ## Author: Stanzilla, Semlar
-## Version: 1.5.0
+## Version: 1.6.0
 ## Notes: Restores access to removed interface options in Legion
 ## X-Category: Interface Enhancements
 ## X-Website: https://www.curseforge.com/wow/addons/advancedinterfaceoptions

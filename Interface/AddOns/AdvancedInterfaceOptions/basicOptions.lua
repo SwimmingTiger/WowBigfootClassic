@@ -425,8 +425,36 @@ actionCamModeDropdown.initialize = function(dropdown)
 end
 actionCamModeDropdown:HookScript("OnShow", actionCamModeDropdown.initialize)
 
-local cameraFactor = newSlider(AIO, 'cameraDistanceMaxZoomFactor', 1, IsClassic() and 3.4 or 2.6, 0.1)
+local function cameraFactor_SetValue(self, value, userInput)
+	if userInput then
+		addon:SetCVar(self.cvar, value)
+		if not IsRetail() then
+			setCustomVar(InterfaceOptionsCameraPanelMaxDistanceSlider, value)
+		end
+	end
+end
+
+local cameraFactor = newSlider(AIO, 'cameraDistanceMaxZoomFactor', 1, not IsRetail() and 3.4 or 2.6, 0.1, nil, cameraFactor_SetValue)
 cameraFactor:SetPoint('TOPLEFT', actionCamModeDropdown, 'BOTTOMLEFT', 20, -20)
+
+if not IsRetail() then
+	-- blizzard options overwrites this cvar at start and is capped to 2.0
+	hooksecurefunc("BlizzardOptionsPanel_SetupControl", function(control)
+		if control == InterfaceOptionsCameraPanelMaxDistanceSlider then
+			SetCVar("cameraDistanceMaxZoomFactor", getCustomVar(control))
+			control:SetMinMaxValues(1, 3.4)
+			local text = control.Text
+			text:SetText(text:GetText().." |cffffffff(15-50)|r")
+		end
+	end)
+
+	-- also update from the blizzard slider otherwise it can lead to confusing behavior where it gets overwritten
+	InterfaceOptionsCameraPanelMaxDistanceSlider:HookScript("OnValueChanged", function(self, value, userInput)
+		if userInput then
+			setCustomVar(InterfaceOptionsCameraPanelMaxDistanceSlider, value)
+		end
+	end)
+end
 
 playerTitles:SetPoint("TOPLEFT", subText, "BOTTOMLEFT", 0, -8)
 playerGuilds:SetPoint("TOPLEFT", playerTitles, "BOTTOMLEFT", 0, -4)
@@ -730,7 +758,7 @@ local uvars = {
 	enableFloatingCombatText = "SHOW_COMBAT_TEXT",
 	floatingCombatTextLowManaHealth = "COMBAT_TEXT_SHOW_LOW_HEALTH_MANA",
 	floatingCombatTextAuras = "COMBAT_TEXT_SHOW_AURAS",
-	floatingCombatTextAuras = "COMBAT_TEXT_SHOW_AURA_FADE",
+	floatingCombatTextAuraFade = "COMBAT_TEXT_SHOW_AURA_FADE",
 	floatingCombatTextCombatState = "COMBAT_TEXT_SHOW_COMBAT_STATE",
 	floatingCombatTextDodgeParryMiss = "COMBAT_TEXT_SHOW_DODGE_PARRY_MISS",
 	floatingCombatTextDamageReduction = "COMBAT_TEXT_SHOW_RESISTANCES",
@@ -742,7 +770,6 @@ local uvars = {
 	floatingCombatTextPeriodicEnergyGains = "COMBAT_TEXT_SHOW_PERIODIC_ENERGIZE",
 	floatingCombatTextFloatMode = "COMBAT_TEXT_FLOAT_MODE",
 	floatingCombatTextHonorGains = "COMBAT_TEXT_SHOW_HONOR_GAINED",
-	alwaysShowActionBars = "ALWAYS_SHOW_MULTIBARS",
 	showCastableBuffs = "SHOW_CASTABLE_BUFFS",
 	showDispelDebuffs = "SHOW_DISPELLABLE_DEBUFFS",
 	showArenaEnemyFrames = "SHOW_ARENA_ENEMY_FRAMES",
@@ -1012,9 +1039,7 @@ spellStartRecovery.maxText:SetFormattedText("%d %s", spellStartRecovery.minMaxVa
 InterfaceOptions_AddCategory(AIO, addonName)
 InterfaceOptions_AddCategory(AIO_Chat, addonName)
 InterfaceOptions_AddCategory(AIO_C, addonName)
-if not IsClassic() then
     InterfaceOptions_AddCategory(AIO_FCT, addonName)
-end
 -- InterfaceOptions_AddCategory(AIO_ST, addonName)
 InterfaceOptions_AddCategory(AIO_NP, addonName)
 
