@@ -87,6 +87,7 @@ function NWB:OnInitialize()
 	self:resetSongFlowers();
 	self:resetLayerData();
 	self:resetLayerMaps();
+	self:wipeTerokkarData();
 	self:removeOldLayers();
 	self:ticker();
 	self:yellTicker();
@@ -98,6 +99,10 @@ function NWB:OnInitialize()
 	self:setLayerFrameText();
 	self:logonCheckGuildMasterSetting();
 	self:createNaxxMarkers();
+	self:timerCleanup();
+	if (NWB.isTBC) then
+		self:createTerokkarMarkers();
+	end
 end
 
 --Set font used in fontstrings on frames.
@@ -590,6 +595,27 @@ function NWB:ticker()
 					NWB.data.layers[layer][v .. "30"] = nil;
 					NWB:doWarning(v, 30, secondsLeft, layer);
 				end
+				if (NWB.data.layers[layer]["terokTowers10"] and NWB.data.layers[layer]["terokTowers"]) then
+					--This timer drifts 3 seconds forward per minute.
+					local endTime = NWB.data.layers[layer]["terokTowers"] + NWB:round((((NWB.data.layers[layer]["terokTowers"]  - GetServerTime()) / 60) * 3));
+					local secondsLeft = endTime - GetServerTime()
+					if (secondsLeft <= 600 and secondsLeft >= 599) then
+						NWB.data.layers[layer]["terokTowers10"] = nil;
+						local layer = NWB:GetLayerNum(layer);
+						local layerMsg = " (Layer " .. layer .. ")";
+						if (NWB.db.global.terokkarChat10) then
+							NWB:print(string.format(L["terokkarWarning"], "10 minutes") .. layerMsg .. ".");
+						end
+						if (NWB.db.global.terokkarMiddle10) then
+							NWB:middleScreenMsgTBC("middle30", string.format(L["terokkarWarning"], "10 minutes") .. layerMsg .. ".", nil, 5);
+						end
+					end
+					if (secondsLeft < 0) then
+						NWB.data.layers[layer]["terokTowers"] = nil;
+						NWB.data.layers[layer]["terokFaction"] = nil;
+						NWB:debug("terrok timer ended on layer", layer);
+					end
+				end
 				if (NWB.data.layers[layer][v .. "NpcDied"] and ((GetServerTime() - NWB.data.layers[layer][v .. "NpcDied"]) == npcRespawnTime
 						or (GetServerTime() - NWB.data.layers[layer][v .. "NpcDied"]) == (npcRespawnTime - 1))) then
 					NWB:doNpcRespawnMsg(v, layer);
@@ -618,6 +644,20 @@ function NWB:ticker()
 			elseif (NWB.data[v .. "30"] and secondsLeft <= 1800 and secondsLeft >= 1799) then
 				NWB.data[v .. "30"] = nil;
 				NWB:doWarning(v, 30, secondsLeft);
+			end
+			if (NWB.data["terokTowers10"] and NWB.data["terokTowers"]) then
+				--This timer drifts 3 seconds forward per minute.
+				local endTime = NWB.data["terokTowers"] + NWB:round((((NWB.data["terokTowers"]  - GetServerTime()) / 60) * 3));
+				local secondsLeft = endTime - GetServerTime()
+				if (secondsLeft <= 600 and secondsLeft >= 599) then
+					NWB.data["terokTowers10"] = nil;
+					if (NWB.db.global.terokkarChat10) then
+						NWB:print(string.format(L["terokkarWarning"], "10 minutes") .. ".");
+					end
+					if (NWB.db.global.terokkarMiddle10) then
+						NWB:middleScreenMsgTBC("middle30", string.format(L["terokkarWarning"], "10 minutes") .. ".", nil, 5);
+					end
+				end
 			end
 			if (NWB.data[v .. "NpcDied"] and ((GetServerTime() - NWB.data[v .. "NpcDied"]) == npcRespawnTime
 					or (GetServerTime() - NWB.data[v .. "NpcDied"]) == (npcRespawnTime - 1))) then
@@ -1121,6 +1161,26 @@ function NWB:monsterYell(...)
 		--Second yell right before drops "All Hail <name>, slayer of Hakkar, and hero of Azeroth!".
 		--Booty Bay yell (Zandalarian Emissary yells: All Hail <name>, slayer of Hakkar, and hero of Azeroth!)
 		NWB.data.zanYell2 = GetServerTime();
+	elseif ((NWB.faction == "Horde" and name == L["Nazgrel"] and string.match(msg, L["Hellfire Citadel is ours"]))
+			or (NWB.faction == "Alliance" and name == L["Force Commander Danath Trollbane"]
+			and string.match(msg, L["The feast of corruption is no more"]))) then
+		--NWB:debug(...)
+		if (NWB.isLayered) then
+			local layer, layerNum;
+			if (NWB.isLayered and NWB.lastKnownLayerMapID and NWB.lastKnownLayerMapID > 0
+					and NWB.lastKnownLayer and NWB.lastKnownLayer > 0) then
+				layer = NWB.lastKnownLayerMapID;
+				layerNum = NWB.lastKnownLayer;
+			end
+			if (not layer or layer == 0) then
+				layer = NWB.lastKnownLayerMapIDBackup;
+			end
+			if (layer and layer > 0) then
+				NWB.data.layers[layer].hellfireRep = GetServerTime();
+			end
+		else
+			NWB.data.hellfireRep = GetServerTime();
+		end
 	end
 end
 
@@ -3307,6 +3367,19 @@ function NWB:timerCleanup()
 			end
 		end
 	end
+	if (NWB.isTBC) then
+		if (NWB.isLayered) then
+			for layer, value in NWB:pairsByKeys(NWB.data.layers) do
+				if (NWB.data.layers[layer]["terokTowers"] and NWB.data.layers[layer]["terokTowers"] - GetServerTime() > 900) then
+					NWB.data.layers[layer]["terokTowers10"] = true;
+				end
+			end
+		else
+			if (NWB.data["terokTowers"] and NWB.data["terokTowers"] - GetServerTime() > 900) then
+				NWB.data["terokTowers10"] = true;
+			end
+		end
+	end
 end
 
 --Reset and enable all warning msgs for specified timer.
@@ -4083,6 +4156,24 @@ function NWB:middleScreenMsg(type, msg, colorTable, time)
 	RaidNotice_AddMessage(RaidWarningFrame, NWB:stripColors(msg), colorTable, time);
 end
 
+function NWB:middleScreenMsgTBC(type, msg, colorTable, time)
+	if (InCombatLockdown() and NWB.db.global.middleHideCombat) then
+		return;
+	end
+	local inInstance, instanceType = IsInInstance();
+	if (inInstance and instanceType == "raid" and NWB.db.global.middleHideRaid) then
+		return;
+	end
+	if ((UnitInBattleground("player") or NWB:isInArena()) and NWB.db.global.middleHideBattlegrounds) then
+		return;
+	end
+	if (not colorTable) then
+		colorTable = {r = self.db.global.middleColorR, g = self.db.global.middleColorG, 
+				b = self.db.global.middleColorB, id = 41, sticky = 0};
+	end
+	RaidNotice_AddMessage(RaidWarningFrame, NWB:stripColors(msg), colorTable, time);
+end
+
 function NWB:addBackdrop(string)
 	if (BackdropTemplateMixin) then
 		if (string) then
@@ -4549,6 +4640,35 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 				end
 				tooltip:AddLine(NWB.chatColor .. msg);
 				msg = "";
+				if (NWB.isTBC and v.terokTowers) then
+					if (v.terokTowers > GetServerTime()) then
+						local texture = "";
+						if (v.terokFaction == 2) then
+							--5242
+							texture = "|TInterface\\worldstateframe\\alliancetower.blp:12:12:-2:1:32:32:1:18:1:18|t";
+						elseif (v.terokFaction == 3) then
+							--5243
+							texture = "|TInterface\\worldstateframe\\hordetower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+						elseif (v.terokFaction == 1) then
+							--5387
+							texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+						end
+						local endTime = v.terokTowers + NWB:round((((v.terokTowers  - GetServerTime()) / 60) * 3));
+						msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
+						if (NWB.db.global.showTimeStamp) then
+							local timeStamp = NWB:getTimeFormat(endTime);
+							msg = msg .. " (" .. timeStamp .. ")";
+						end
+						tooltip:AddLine(NWB.chatColor .. msg);
+					else
+						--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+						--tooltip:AddLine(NWB.chatColor .. msg);
+					end
+				else
+					--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+					--tooltip:AddLine(NWB.chatColor .. msg);
+				end
+				msg = "";
 				if ((v.rendTimer + 3600) > (GetServerTime() - NWB.db.global.rendRespawnTime)
 						or (v.onyTimer + 3600) > (GetServerTime() - NWB.db.global.onyRespawnTime)
 						or (v.nefTimer + 3600) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
@@ -4628,6 +4748,35 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 				msg = L["nefarian"] .. ": " .. L["noCurrentTimer"] .. ".";
 			end
 			tooltip:AddLine(NWB.chatColor .. msg);
+			if (NWB.isTBC and NWB.data.terokTowers) then
+				if (NWB.data.terokTowers > GetServerTime()) then
+					local texture = "";
+					if (NWB.data.terokFaction == 2) then
+						--5242
+						texture = "|TInterface\\worldstateframe\\alliancetower.blp:12:12:-2:1:32:32:1:18:1:18|t";
+					elseif (NWB.data.terokFaction == 3) then
+						--5243
+						texture = "|TInterface\\worldstateframe\\hordetower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+					elseif (NWB.data.terokFaction == 1) then
+						--5387
+						--texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+					end
+					local endTime = NWB.data.terokTowers + NWB:round((((NWB.data.terokTowers  - GetServerTime()) / 60) * 3));
+					msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
+					if (NWB.db.global.showTimeStamp) then
+						local timeStamp = NWB:getTimeFormat(endTime);
+						msg = msg .. " (" .. timeStamp .. ")";
+					end
+					tooltip:AddLine(NWB.chatColor .. msg);
+				else
+					--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+					--tooltip:AddLine(NWB.chatColor .. msg);
+				end
+			else
+				--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+				--tooltip:AddLine(NWB.chatColor .. msg);
+			end
+			msg = "";
 		end
 		tooltip:AddLine("|cFF9CD6DELeft-Click|r Timers");
 		tooltip:AddLine("|cFF9CD6DERight-Click|r Buffs");
@@ -6587,7 +6736,7 @@ local staticDmfDates = {};
 function NWB:setDmfDates()
 	if (NWB.isTBC or NWB.realmsTBC) then
 		staticDmfDates = {
-			[1] = { --Manually started DMF by Blizzard for prepatch.
+			--[[[1] = { --Manually started DMF by Blizzard for prepatch.
 				day = 21,
 				month = 5,
 				year = 2021,
@@ -6604,11 +6753,11 @@ function NWB:setDmfDates()
 				month = 10,
 				year = 2021,
 				zone = "Elwynn Forest",
-			},
+			},]]
 		}
 	else
 		staticDmfDates = {
-			[1] = { --July 30th setup, August 1st start 2021.
+			--[[[1] = { --July 30th setup, August 1st start 2021.
 				day = 30,
 				month = 7,
 				year = 2021,
@@ -6619,7 +6768,7 @@ function NWB:setDmfDates()
 				month = 10,
 				year = 2021,
 				zone = "Elwynn Forest",
-			},
+			},]]
 		}
 	end
 end
@@ -6854,9 +7003,18 @@ function NWB:getDmfData()
 			startMonth = startMonth + 1;
 		end
 		if (startMonth % 2 == 0) then
-    		zone = "Mulgore";
+			if (NWB.isTBC or NWB.realmsTBC) then
+				zone = "Elwynn Forest";
+			else
+    			zone = "Mulgore";
+    		end
 		else
-    		zone = "Elwynn Forest";
+			if (NWB.isTBC or NWB.realmsTBC) then
+				zone = "Mulgore";
+			else
+    			zone = "Elwynn Forest";
+    		end
+ 
 		end
 		--Zone override for static dates.
 		if (dmfZoneStatic ~= "") then
@@ -8716,6 +8874,7 @@ function NWB:createNewLayer(zoneID, GUID, isFromNpc)
 		end
 		NWB:debug("created new layer", zoneID);
 		NWB:createWorldbuffMarkers();
+		NWB:createTerokkarMarkers();
 	end
 end
 
@@ -8742,6 +8901,9 @@ function NWB:removeOldLayers()
 				validTimer = true;
 			elseif (v.nefTimer and (v.nefTimer + expireTime) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then]]
 			if (v.nefTimer and (v.nefTimer + expireTime) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
+				validTimer = true;
+			end
+			if (v.terokTowers and v.terokTowers + 3600 > GetServerTime()) then
 				validTimer = true;
 			end
 			if (not v.created) then
@@ -8780,6 +8942,9 @@ function NWB:removeOldLayers()
 					(v.nefNpcDied > (GetServerTime() - NWB.db.global.nefRespawnTime))) then
 				validTimer = true;
 			elseif (v.nefTimer and (v.nefTimer + expireTime) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
+				validTimer = true;
+			end
+			if (v.terokTowers and v.terokTowers + 3600 > GetServerTime()) then
 				validTimer = true;
 			end
 			if (not v.created) then
@@ -9071,6 +9236,37 @@ function NWB:recalclayerFrame(isLogon, copyPaste)
 			end
 			--NWBlayerFrame.EditBox:Insert(NWB.chatColor .. msg .. "\n");
 			text = text .. msg .. "\n";
+			if (NWB.isTBC and v.terokTowers) then
+				msg = "";
+				if (v.terokTowers > GetServerTime()) then
+					local texture = "";
+					if (v.terokFaction == 2) then
+						--5242
+						texture = "|TInterface\\worldstateframe\\alliancetower.blp:12:12:-3:0:32:32:1:18:1:18|t";
+					elseif (v.terokFaction == 3) then
+						--5243
+						texture = "|TInterface\\worldstateframe\\hordetower.blp:12:12:-3:0:32:32:1:18:1:18|t";
+					elseif (v.terokFaction == 1) then
+						--5387
+						--texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+					end
+					local endTime = v.terokTowers + NWB:round((((v.terokTowers  - GetServerTime()) / 60) * 3));
+					msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
+					if (NWB.db.global.showTimeStamp) then
+						local timeStamp = NWB:getTimeFormat(endTime);
+						msg = msg .. " (" .. timeStamp .. ")";
+					end
+					--tooltip:AddLine(NWB.chatColor .. msg);
+				else
+					--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+					--tooltip:AddLine(NWB.chatColor .. msg);
+				end
+				text = text .. msg .. "\n";
+			else
+				--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+				--tooltip:AddLine(NWB.chatColor .. msg);
+				--text = text .. msg .. "\n";
+			end
 			if ((v.rendTimer + 3600) > (GetServerTime() - NWB.db.global.rendRespawnTime)
 					or (v.onyTimer + 3600) > (GetServerTime() - NWB.db.global.onyRespawnTime)
 					or (v.nefTimer + 3600) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then
@@ -9173,6 +9369,37 @@ function NWB:recalclayerFrame(isLogon, copyPaste)
 				end
 				--NWBlayerFrame.EditBox:Insert(msg .. "\n");
 				text = text .. msg .. "\n";
+				if (NWB.isTBC and v.terokTowers) then
+					msg = "";
+					if (v.terokTowers > GetServerTime()) then
+						local texture = "";
+						if (v.terokFaction == 2) then
+							--5242
+							texture = "|TInterface\\worldstateframe\\alliancetower.blp:12:12:-2:1:32:32:1:18:1:18|t";
+						elseif (v.terokFaction == 3) then
+							--5243
+							texture = "|TInterface\\worldstateframe\\hordetower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+						elseif (v.terokFaction == 1) then
+							--5387
+							texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
+						end
+						local endTime = v.terokTowers + NWB:round((((v.terokTowers  - GetServerTime()) / 60) * 3));
+						msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
+						if (NWB.db.global.showTimeStamp) then
+							local timeStamp = NWB:getTimeFormat(endTime);
+							msg = msg .. " (" .. timeStamp .. ")";
+						end
+						--tooltip:AddLine(NWB.chatColor .. msg);
+					else
+						--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+						--tooltip:AddLine(NWB.chatColor .. msg);
+					end
+					text = text .. msg .. "\n";
+				else
+					--msg = msg .. L["terokkarTimer"] .. ": " .. L["noCurrentTimer"] .. ".";
+					--tooltip:AddLine(NWB.chatColor .. msg);
+					--text = text .. msg .. "\n";
+				end
 				if ((v.rendTimer + 3600) > (GetServerTime() - NWB.db.global.rendRespawnTime)
 						or (v.onyTimer + 3600) > (GetServerTime() - NWB.db.global.onyRespawnTime)
 						or (v.nefTimer + 3600) > (GetServerTime() - NWB.db.global.nefRespawnTime)) then

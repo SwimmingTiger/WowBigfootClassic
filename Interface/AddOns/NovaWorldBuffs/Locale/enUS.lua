@@ -153,6 +153,14 @@ L["hour"] = "hour"; --Hour (singular).
 L["hours"] = "hours"; --Hours (plural).
 L["day"] = "day"; --Day (singular).
 L["days"] = "days"; --Days (plural).
+L["secondMedium"] = "sec"; --Second (singular).
+L["secondsMedium"] = "secs"; --Seconds (plural).
+L["minuteMedium"] = "min"; --Minute (singular).
+L["minutesMedium"] = "mins"; --Minutes (plural).
+L["hourMedium"] = "hour"; --Hour (singular).
+L["hoursMedium"] = "hours"; --Hours (plural).
+L["dayMedium"] = "day"; --Day (singular).
+L["daysMedium"] = "days"; --Days (plural).
 L["secondShort"] = "s"; --Used in short timers like 1m30s (single letter only, usually the first letter of seconds).
 L["minuteShort"] = "m"; --Used in short timers like 1m30s (single letter only, usually the first letter of minutes).
 L["hourShort"] = "h"; --Used in short timers like 1h30m (single letter only, usually the first letter of hours).
@@ -795,3 +803,19 @@ L["dmfDamagePercentTooltip"] = "NWB detected this as %s damage.";
 
 L["guildLTitle"] = "Guild Layer Sharing";
 L["guildLDesc"] = "Share what layer you are on with your guild? You can see your guilds layer list with /wb guild";
+
+L["terokkarTimer"] = "Terokkar";
+L["terokkarWarning"] = "Terokkar Forest spirit towers reset in %s";
+
+L["Nazgrel"] = "Nazgrel";
+L["Hellfire Citadel is ours"] = "Hellfire Citadel is ours";
+L["The time for us to rise"] = "The time for us to rise";
+L["Force Commander Danath Trollbane"] = "Force Commander Danath Trollbane";
+L["The feast of corruption is no more"] = "The feast of corruption is no more";
+L["Hear me brothers"] = "Hear me brothers";
+
+L["terokkarChat10Title"] = "Terokkar 10 Minutes";
+L["terokkarChat10Desc"] = "Print a msg in chat when 10 minutes left on terokkar spirit towers.";
+
+L["terokkarMiddle10Title"] = "Terokkar 10 Minutes";
+L["terokkarMiddle10Desc"] = "Show a raid warning style msg in the middle of the screen when 10 minutes left on terokkar spirit towers.";
