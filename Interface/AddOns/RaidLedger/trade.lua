@@ -6,7 +6,7 @@ local Database = ADDONSELF.db
 local Print = ADDONSELF.print
 local RegEvent = ADDONSELF.regevent
 
-local f = CreateFrame("Frame", nil, TradeFrame, BackdropTemplateMixin and "BackdropTemplate")
+local f = CreateFrame("Frame", nil, TradeFrame, BackdropTemplateMixin and "BackdropTemplate" or nil)
 f:SetWidth(172)
 f:SetHeight(40)
 f:SetBackdrop({

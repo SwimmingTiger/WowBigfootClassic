@@ -171,7 +171,7 @@ end
 function GUI:Init()
 
 
-    local f = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
+    local f = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
     f:SetWidth(650)
     f:SetHeight(550)
     f:SetBackdrop({
@@ -252,7 +252,7 @@ function GUI:Init()
 
     -- bid
     do
-        local bf = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate")
+        local bf = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
         bf:SetWidth(290)
         bf:SetHeight(310)
         bf:SetBackdrop({
@@ -1668,7 +1668,7 @@ function GUI:Init()
             local type = entry["costtype"] or "GOLD"
 
             if type == "PROFIT_PERCENT" then
-                cellFrame.text:SetText(GREEN_FONT_COLOR:WrapTextInColorCode("%"))
+                cellFrame.text:SetText(DIM_GREEN_FONT_COLOR:WrapTextInColorCode("%"))
             elseif type == "REVENUE_PERCENT" then
                 cellFrame.text:SetText(LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("%"))
             elseif type == "MUL_AVG" then
@@ -2279,7 +2279,6 @@ StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
     OnAccept = function()
         Database:NewLedger()
     end,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
@@ -2290,5 +2289,4 @@ StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
     whileDead = 1,
     hideOnEscape = 1,
     multiple = 0,
-    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

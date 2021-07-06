@@ -619,18 +619,14 @@ elseif locale == 'frFR' then
 --[[ L["# one item per line, can be item name or item id"] = "# one item per line, can be item name or item id"--]] 
 --[[Translation missing --]]
 --[[ L["#Try to convert to item link"] = "#Try to convert to item link"--]] 
---[[Translation missing --]]
---[[ L["/raidledger"] = "/raidledger"--]] 
---[[Translation missing --]]
---[[ L["[Unknown]"] = "[Unknown]"--]] 
+L["/raidledger"] = "/raidledger"
+L["[Unknown]"] = "[Inconnu]"
 --[[Translation missing --]]
 --[[ L["0 credit items"] = "0 credit items"--]] 
---[[Translation missing --]]
---[[ L["Add to"] = "Add to"--]] 
+L["Add to"] = "Ajouter à"
 --[[Translation missing --]]
 --[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot"] = "Auto recording loot"--]] 
+L["Auto recording loot"] = "Enregistrement automatique des loots"
 --[[Translation missing --]]
 --[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
 --[[Translation missing --]]
@@ -639,8 +635,7 @@ elseif locale == 'frFR' then
 --[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
---[[Translation missing --]]
---[[ L["Beneficiary"] = "Beneficiary"--]] 
+L["Beneficiary"] = "Bénéficiaire"
 --[[Translation missing --]]
 --[[ L["Bid accept"] = "Bid accept"--]] 
 --[[Translation missing --]]
@@ -655,58 +650,42 @@ elseif locale == 'frFR' then
 --[[ L["Bid price"] = "Bid price"--]] 
 --[[Translation missing --]]
 --[[ L["Cannot find any debit entry in template, please check your template in options"] = "Cannot find any debit entry in template, please check your template in options"--]] 
---[[Translation missing --]]
---[[ L["Clear"] = "Clear"--]] 
---[[Translation missing --]]
---[[ L["Click here to clear ledger"] = "Click here to clear ledger"--]] 
---[[Translation missing --]]
---[[ L["Close text export"] = "Close text export"--]] 
---[[Translation missing --]]
---[[ L["Compensation"] = "Compensation"--]] 
---[[Translation missing --]]
---[[ L["Compensation added"] = "Compensation added"--]] 
---[[Translation missing --]]
---[[ L["Compensation: DPS"] = "Compensation: DPS"--]] 
---[[Translation missing --]]
---[[ L["Compensation: Healer"] = "Compensation: Healer"--]] 
---[[Translation missing --]]
---[[ L["Compensation: Other"] = "Compensation: Other"--]] 
---[[Translation missing --]]
---[[ L["Compensation: Repait Bot"] = "Compensation: Repait Bot"--]] 
---[[Translation missing --]]
---[[ L["Compensation: Tank"] = "Compensation: Tank"--]] 
+L["Clear"] = "Réinitialiser"
+L["Click here to clear ledger"] = "Cliquer ici pour réinitialiser le registre"
+L["Close text export"] = "Fermer l'export texte"
+L["Compensation"] = "Compensation"
+L["Compensation added"] = "Compensation ajoutée"
+L["Compensation: DPS"] = "Compensation: DPS"
+L["Compensation: Healer"] = "Compensation: Heal"
+L["Compensation: Other"] = "Compensation: Autre"
+L["Compensation: Repait Bot"] = "Compensation: Robot réparateur"
+L["Compensation: Tank"] = "Compensation: Tank"
 --[[Translation missing --]]
 --[[ L["convert failed, text can be either item id or item name"] = "convert failed, text can be either item id or item name"--]] 
 --[[Translation missing --]]
 --[[ L["Count down time"] = "Count down time"--]] 
---[[Translation missing --]]
---[[ L["Credit"] = "Credit"--]] 
+L["Credit"] = "Crédit"
 --[[Translation missing --]]
 --[[ L["CTRL + click for summary mode"] = "CTRL + click for summary mode"--]] 
 --[[Translation missing --]]
 --[[ L["CTRL + Click to apply debit template"] = "CTRL + Click to apply debit template"--]] 
 --[[Translation missing --]]
 --[[ L["CTRL + Click to start and then pause timer"] = "CTRL + Click to start and then pause timer"--]] 
---[[Translation missing --]]
---[[ L["Current price"] = "Current price"--]] 
+L["Current price"] = "Prix actuel"
 --[[Translation missing --]]
 --[[ L["Debit"] = "Debit"--]] 
 --[[Translation missing --]]
 --[[ L["Debit Template"] = "Debit Template"--]] 
---[[Translation missing --]]
---[[ L["Entry"] = "Entry"--]] 
---[[Translation missing --]]
---[[ L["Expense"] = "Expense"--]] 
---[[Translation missing --]]
---[[ L["Export as text"] = "Export as text"--]] 
+L["Entry"] = "Entrée"
+L["Expense"] = "Dépense"
+L["Export as text"] = "Exporter en texte"
 --[[Translation missing --]]
 --[[ L["Feedback"] = "Feedback"--]] 
 --[[Translation missing --]]
 --[[ L["Go"] = "Go"--]] 
 --[[Translation missing --]]
 --[[ L["Hammer Price"] = "Hammer Price"--]] 
---[[Translation missing --]]
---[[ L["Hide locked items"] = "Hide locked items"--]] 
+L["Hide locked items"] = "Cacher les items verrouillés"
 --[[Translation missing --]]
 --[[ L["Import from ledger"] = "Import from ledger"--]] 
 --[[Translation missing --]]
@@ -715,8 +694,7 @@ elseif locale == 'frFR' then
 --[[ L["Input only"] = "Input only"--]] 
 --[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
---[[Translation missing --]]
---[[ L["Item added"] = "Item added"--]] 
+L["Item added"] = "Objet ajouté"
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
 --[[Translation missing --]]
@@ -729,30 +707,20 @@ elseif locale == 'frFR' then
 --[[ L["Name of Debit template"] = "Name of Debit template"--]] 
 --[[Translation missing --]]
 --[[ L["Net Profit"] = "Net Profit"--]] 
---[[Translation missing --]]
---[[ L["Other"] = "Other"--]] 
---[[Translation missing --]]
---[[ L["Pause"] = "Pause"--]] 
---[[Translation missing --]]
---[[ L["Per Member"] = "Per Member"--]] 
---[[Translation missing --]]
---[[ L["Per Member credit"] = "Per Member credit"--]] 
+L["Other"] = "Autre"
+L["Pause"] = "Pause"
+L["Per Member"] = "Par Membre"
+L["Per Member credit"] = "Crédit par membre"
 --[[Translation missing --]]
 --[[ L["Raid Frame Button"] = "Raid Frame Button"--]] 
 --[[Translation missing --]]
 --[[ L["Raid Ledger"] = "Raid Ledger"--]] 
---[[Translation missing --]]
---[[ L["Remove all records?"] = "Remove all records?"--]] 
---[[Translation missing --]]
---[[ L["Remove ALL SAME record?"] = "Remove ALL SAME record?"--]] 
---[[Translation missing --]]
---[[ L["Remove this record?"] = "Remove this record?"--]] 
---[[Translation missing --]]
---[[ L["Rename"] = "Rename"--]] 
---[[Translation missing --]]
---[[ L["Report"] = "Report"--]] 
---[[Translation missing --]]
---[[ L["Revenue"] = "Revenue"--]] 
+L["Remove all records?"] = "Retirer toutes les entrées ?"
+L["Remove ALL SAME record?"] = "Retirer toutes les entrées IDENTIQUES ?"
+L["Remove this record?"] = "Retirer cette entrée ?"
+L["Rename"] = "Renommer"
+L["Report"] = "Rapport"
+L["Revenue"] = "Revenus"
 --[[Translation missing --]]
 --[[ L["Right click to choose channel"] = "Right click to choose channel"--]] 
 --[[Translation missing --]]
@@ -761,8 +729,7 @@ elseif locale == 'frFR' then
 --[[ L["Right click to remove record"] = "Right click to remove record"--]] 
 --[[Translation missing --]]
 --[[ L["Round down"] = "Round down"--]] 
---[[Translation missing --]]
---[[ L["Round per member credit down"] = "Round per member credit down"--]] 
+L["Round per member credit down"] = "Arrondir la part membre (vers le bas)"
 --[[Translation missing --]]
 --[[ L["Set split into number when team size changes automatically"] = "Set split into number when team size changes automatically"--]] 
 --[[Translation missing --]]
@@ -771,32 +738,22 @@ elseif locale == 'frFR' then
 --[[ L["Shift + Right click to remove ALL SAME record"] = "Shift + Right click to remove ALL SAME record"--]] 
 --[[Translation missing --]]
 --[[ L["Special Members"] = "Special Members"--]] 
---[[Translation missing --]]
---[[ L["Split into"] = "Split into"--]] 
---[[Translation missing --]]
---[[ L["Split into (Current %d)"] = "Split into (Current %d)"--]] 
---[[Translation missing --]]
---[[ L["Start bid"] = "Start bid"--]] 
---[[Translation missing --]]
---[[ L["Starting price"] = "Starting price"--]] 
---[[Translation missing --]]
---[[ L["Subgroup total"] = "Subgroup total"--]] 
---[[Translation missing --]]
---[[ L["Summary"] = "Summary"--]] 
---[[Translation missing --]]
---[[ L["Time left"] = "Time left"--]] 
+L["Split into"] = "Divisé en"
+L["Split into (Current %d)"] = "Diviser en (actuel : %d)"
+L["Start bid"] = "Début des enchères"
+L["Starting price"] = "Prix de départ"
+L["Subgroup total"] = "Total du sous-groupe"
+L["Summary"] = "Résumé"
+L["Time left"] = "Temps restant"
 --[[Translation missing --]]
 --[[ L["TITLE"] = "Raid Ledger"--]] 
 --[[Translation missing --]]
 --[[ L["TOC_NOTES"] = "A ledger for GDKP/gold run raid. Feedback: farmer1992@gmail.com"--]] 
---[[Translation missing --]]
---[[ L["toggle Auto recording on/off"] = "toggle Auto recording on/off"--]] 
+L["toggle Auto recording on/off"] = "activer/désactiver enregistrement automatique des loots"
 --[[Translation missing --]]
 --[[ L["Top [%d] contributors"] = "Top [%d] contributors"--]] 
---[[Translation missing --]]
---[[ L["Value"] = "Value"--]] 
---[[Translation missing --]]
---[[ L["Winner"] = "Winner"--]] 
+L["Value"] = "Valeur"
+L["Winner"] = "Gagnant"
 
 elseif locale == 'itIT' then
 --[[Translation missing --]]
@@ -1007,8 +964,8 @@ L["Bid increment"] = "입찰 증가"
 L["Bid mode"] = "경매 모드"
 L["Bid price"] = "입찰 가격"
 L["Cannot find any debit entry in template, please check your template in options"] = "템플릿에서 지출 항목을 찾을 수 없습니다. 옵션에서 템플릿을 확인하십시오."
-L["Clear"] = "지우기"
-L["Click here to clear ledger"] = "클릭하여 장부 클리어"
+L["Clear"] = "장부 초기화"
+L["Click here to clear ledger"] = "클릭하면 장부가 초기화됩니다."
 L["Close text export"] = "문자 내보내기 닫기"
 L["Compensation"] = "보상"
 L["Compensation added"] = "보상 추가"
@@ -1037,28 +994,28 @@ L["Import from ledger"] = "장부에서 가져오기"
 L["In Raid Only"] = "공격대에서만"
 L["Input only"] = "수동 입력"
 L["is bought in"] = "구매함"
-L["Item added"] = "추가된 아이템"
+L["Item added"] = "장부에 등록"
 L["Last used"] = "마지막 사용됨"
 L["Member credit for subgroup"] = "하위 그룹의 회원 수입"
 L["Minimap Icon"] = "미니맵 아이콘"
 L["Must bid higher than"] = "상위 입찰 필요"
 L["Name of Debit template"] = "지출 템플릿의 이름"
-L["Net Profit"] = "순이익"
+L["Net Profit"] = "순수입"
 L["Other"] = "기타"
 L["Pause"] = "정지"
-L["Per Member"] = "회원 당"
-L["Per Member credit"] = "회원 당 수입"
+L["Per Member"] = "개인당"
+L["Per Member credit"] = "개인당"
 L["Raid Frame Button"] = "공격대 프레임 버튼"
 L["Raid Ledger"] = "공격대 장부"
-L["Remove all records?"] = "모든 기록을 삭제 하시겠습니까?"
+L["Remove all records?"] = "경고: 모든 기록이 삭제됩니다."
 L["Remove ALL SAME record?"] = "모든 SAME 레코드를 제거하시겠습니까?"
-L["Remove this record?"] = "이 기록을 삭제 하시겠습니까?"
+L["Remove this record?"] = "해당 내역을 삭제하시겠습니까?"
 L["Rename"] = "이름 변경"
 L["Report"] = "보고"
 L["Revenue"] = "총수입"
 L["Right click to choose channel"] = "우클릭 : 채널 선택"
 L["Right click to fine-tune"] = "우클릭 : 미세조정 "
-L["Right click to remove record"] = "우클릭으로 기록 제거"
+L["Right click to remove record"] = "우클릭시 해당품목을 삭제"
 L["Round down"] = "절삭"
 L["Round per member credit down"] = "실버 단위 절삭"
 L["Set split into number when team size changes automatically"] = "수동으로 분배 수 설정하기"
@@ -1066,7 +1023,7 @@ L["Shift + item/name to add to record"] = "Shift + 아이템/이름으로 기록
 L["Shift + Right click to remove ALL SAME record"] = "Shift + 우클릭으로 모든 SAME 레코드 제거"
 L["Special Members"] = "특별 회원"
 L["Split into"] = "돈을 나눈 사람 수"
-L["Split into (Current %d)"] = "돈을 나눈 사람 수 (지금 %d)"
+L["Split into (Current %d)"] = "돈을 나눌 사람 수 (지금 %d)"
 L["Start bid"] = "입찰 시작"
 L["Starting price"] = "시작 금액"
 L["Subgroup total"] = "하위 그룹 합계"

@@ -1,5 +1,5 @@
 local _, ADDONSELF = ...
--- local MAJOR, MINOR = "ScrollingTable", tonumber("1589895218") or 40300;
+-- local MAJOR, MINOR = "ScrollingTable", tonumber("1621704963") or 40300;
 -- local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR);
 -- if not lib then
 -- 	return; -- Already loaded and no upgrade necessary.
@@ -623,7 +623,7 @@ do
 
 	function lib:CreateST(cols, numRows, rowHeight, highlight, parent)
 		local st = {};
-		local f = CreateFrame("Frame", nil, parent, BackdropTemplateMixin and "BackdropTemplate");
+		local f = CreateFrame("Frame", nil, parent, BackdropTemplateMixin and "BackdropTemplate" or nil);
 		st.showing = true;
 		st.frame = f;
 
