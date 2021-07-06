@@ -341,6 +341,7 @@ end
 -------------
 
 local function getCustomVar(self)
+	if not AdvancedInterfaceOptionsSaved.CustomVars then return nil end
 	return AdvancedInterfaceOptionsSaved.CustomVars[self.cvar]
 end
 
