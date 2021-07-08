@@ -246,6 +246,35 @@ function CSC_GetMP5FromSetBonus(unit)
     return mp5;
 end
 
+function CSC_GetMP5ModifierFromSetBonus(unit)
+	local unitClassId = select(3, UnitClass(unit));
+	local modifier = 0;
+
+	if unitClassId ~= CSC_DRUID_CLASS_ID and unitClassId ~= CSC_PRIEST_CLASS_ID  and unitClassId ~= CSC_PALADIN_CLASS_ID and unitClassId ~= CSC_SHAMAN_CLASS_ID then
+		return modifier;
+	end
+
+	local firstItemslotIndex = 1;
+	local lastItemslotIndex = 18;
+
+	local equippedSetItems = 0;
+    for itemSlot = firstItemslotIndex, lastItemslotIndex do
+        local itemId = GetInventoryItemID(unit, itemSlot);
+		
+		if (itemId) then
+			if (itemId == g_PrimalMooncloth[itemId]) then
+				equippedSetItems = equippedSetItems + 1;
+			end
+		end
+    end
+
+    if equippedSetItems >= 3 then
+        modifier = 0.05;
+	end
+
+    return modifier;
+end
+
 function CSC_GetShamanT2SpellCrit(unit)
 	local spellCritFromSet = 0;
 	local firstItemslotIndex = 1;

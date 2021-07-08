@@ -188,14 +188,14 @@ function CSC_CharacterHitRatingFrame_OnEnter(self)
 		if unitClassId == CSC_MAGE_CLASS_ID then
 			GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
 			GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
-			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_ARCANE_SPELL_HIT_TXT, (self.arcaneHit + self.spellHitGearTalents).."%");
-			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FIRE_SPELL_HIT_TXT, (self.fireHit + self.spellHitGearTalents).."%");
-			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FROST_SPELL_HIT_TXT, (self.frostHit + self.spellHitGearTalents).."%");
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_ARCANE_SPELL_HIT_TXT, format("%.2F%%", self.arcaneHit + self.spellHitGearTalents));
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FIRE_SPELL_HIT_TXT, format("%.2F%%", self.fireHit + self.spellHitGearTalents));
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_FROST_SPELL_HIT_TXT, format("%.2F%%", self.frostHit + self.spellHitGearTalents));
 		elseif unitClassId == CSC_WARLOCK_CLASS_ID then
 			GameTooltip:AddLine(CSC_SYMBOL_SPACE); -- Blank line.
 			GameTooltip:AddLine(CSC_SPELL_HIT_SUBTOOLTIP_TXT);
-			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_DESTRUCTION_SPELL_HIT_TXT, self.spellHitGearTalents.."%");
-			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_AFFLICTION_SPELL_HIT_TXT, (self.afflictionHit + self.spellHitGearTalents).."%");
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_DESTRUCTION_SPELL_HIT_TXT, format("%.2F%%", self.spellHitGearTalents));
+			GameTooltip:AddDoubleLine(CSC_SYMBOL_TAB..CSC_AFFLICTION_SPELL_HIT_TXT, format("%.2F%%", self.afflictionHit + self.spellHitGearTalents));
 		end
 	elseif (ratingIndex == CR_HIT_MELEE) then
 		local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, ratingBonus);

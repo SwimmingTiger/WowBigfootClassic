@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Author: Peter Getov
-## Version: 1.1.1
+## Version: 1.1.2
 ## Title: |cff00aeffCharacterStatsTBC|r
 ## Title-zhCN: [大脚][集]人物详细属性
 ## Title-zhTW: [大腳][集]人物詳細屬性

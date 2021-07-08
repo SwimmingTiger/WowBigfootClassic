@@ -1129,7 +1129,7 @@ function CSC_PaperDollFrame_SetManaRegen(statFrame, unit)
 	g_lastSeenCastingManaRegen = casting;
 
 	local mp5FromGear = CSC_GetMP5FromGear(unit) + CSC_GetMP5FromSetBonus(unit);
-	local mp5ModifierCasting = CSC_GetMP5ModifierFromTalents(unit);
+	local mp5ModifierCasting = CSC_GetMP5ModifierFromTalents(unit) + CSC_GetMP5ModifierFromSetBonus(unit);
 
 	local mp5FromAuras, mp5CombatModifier = CSC_GetMP5FromAuras();
 	if mp5CombatModifier > 0 then

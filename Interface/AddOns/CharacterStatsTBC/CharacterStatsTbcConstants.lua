@@ -102,6 +102,12 @@ g_TheTenStormsIds = {
     [16950] = 16950
 };
 
+g_PrimalMooncloth = {
+    [21875] = 21875, 
+    [21874] = 21874, 
+    [21873] = 21873
+};
+
 g_AuraIdToMp5 = {
 	-- BOW
 	[19742] = 10,
