@@ -405,7 +405,7 @@ local defaults = {
 		alwaysShowFlightmastersOnContinent = true,
 		undiscoveredFlightmasters = true,
 		show = true, -- Controls visibility of all nodes
-		mapButton = false,
+		mapButton = true,
 		search = {
 			x = 0,
 			y = 0,
@@ -432,7 +432,7 @@ local defaults = {
 			hide = false,
 		},
 		button = {
-			x = -40,
+			x = -933,
 			y = -30,
 		},
 	},
@@ -680,7 +680,7 @@ function Addon:PLAYER_LOGIN()
 	desc = L["Places button back in default position"],
 	type = "execute",
 	order = 10,
-	func = function() db.button.x = -40 db.button.y = -30 self.button:ClearAllPoints() self.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", db.button.x, db.button.y)end,
+	func = function() db.button.x = -933 db.button.y = -30 self.button:ClearAllPoints() self.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", db.button.x, db.button.y)end,
   },
   searchHeader = {
 	name = L["Search Options"], -- ADD TO LOCALIZATION
