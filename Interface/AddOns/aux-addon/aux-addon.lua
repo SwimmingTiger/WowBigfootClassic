@@ -74,7 +74,9 @@ function event.AUX_LOADED()
                 daily = false,
                 disenchant_value = false,
                 disenchant_distribution = false,
-                money_icons = true
+                prospecting_value = false,
+                prospecting_distribution = false,
+                money_icons = false
             }
         })
     end

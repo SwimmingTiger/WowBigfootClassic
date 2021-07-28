@@ -4,6 +4,7 @@ local aux = require 'aux'
 local info = require 'aux.util.info'
 local money =  require 'aux.util.money'
 local disenchant = require 'aux.core.disenchant'
+local prospecting = require 'aux.core.prospecting'
 local history = require 'aux.core.history'
 local gui = require 'aux.gui'
 
@@ -67,7 +68,7 @@ function extend_tooltip(tooltip, link, quantity)
     quantity = IsShiftKeyDown() and quantity or 1
     local item_info = info.item(item_id)
     if item_info then
-        local distribution = disenchant.distribution(item_info.slot, item_info.quality, item_info.level)
+        local distribution = disenchant.distribution(item_id, item_info.slot, item_info.quality, item_info.level)
         if #distribution > 0 then
             if settings.disenchant_distribution then
                 tooltip:AddLine('分解信息:', aux.color.tooltip.disenchant.distribution())
@@ -77,7 +78,7 @@ function extend_tooltip(tooltip, link, quantity)
                 end
             end
             if settings.disenchant_value then
-                local disenchant_value = disenchant.value(item_info.slot, item_info.quality, item_info.level)
+                local disenchant_value = disenchant.value(item_id, item_info.slot, item_info.quality, item_info.level)
                 if settings.money_icons then
                     tooltip:AddLine('分解价值: ' .. (disenchant_value and GetCoinTextureString(disenchant_value) or UNKNOWN), aux.color.tooltip.disenchant.value())
                 else
@@ -86,13 +87,31 @@ function extend_tooltip(tooltip, link, quantity)
             end
         end
     end
+    local distribution = prospecting.distribution(item_id)
+    if #distribution > 0 then
+        if settings.prospecting_distribution then
+            tooltip:AddLine('采矿信息:', aux.color.tooltip.prospecting.distribution())
+            sort(distribution, function(a,b) return a.probability > b.probability end)
+            for _, event in ipairs(distribution) do
+                tooltip:AddLine(format('  %s%% %s (%s-%s)', event.probability * 100, info.display_name(event.item_id, true) or 'item:' .. event.item_id, event.min_quantity, event.max_quantity), aux.color.tooltip.prospecting.distribution())
+            end
+        end
+        if settings.prospecting_value then
+            local prospecting_value = prospecting.value(item_id)
+            if settings.money_icons then
+                tooltip:AddLine('采矿价值: ' .. (prospecting_value and GetCoinTextureString(prospecting_value) or UNKNOWN), aux.color.tooltip.prospecting.value())
+            else
+                tooltip:AddLine('采矿价值: ' .. (prospecting_value and money.to_string2(prospecting_value) or UNKNOWN), aux.color.tooltip.prospecting.value())
+            end
+        end
+    end
     if settings.merchant_buy then
         local price, limited = info.merchant_buy_info(item_id)
         if price then 
             if settings.money_icons then
-                tooltip:AddLine('出售者 ' .. (limited and '(部分): ' or ': ') .. GetCoinTextureString(price * quantity), aux.color.tooltip.merchant())
+                tooltip:AddLine('商店购买' .. (limited and '(部分): ' or ': ') .. GetCoinTextureString(price * quantity), aux.color.tooltip.merchant())
             else
-                tooltip:AddLine('出售者 ' .. (limited and '(部分): ' or ': ') .. money.to_string2(price * quantity), aux.color.tooltip.merchant())
+                tooltip:AddLine('商店购买' .. (limited and '(部分): ' or ': ') .. money.to_string2(price * quantity), aux.color.tooltip.merchant())
             end
         end
     end
@@ -100,9 +119,9 @@ function extend_tooltip(tooltip, link, quantity)
         local price = item_info and item_info.sell_price
         if price ~= 0 then
             if settings.money_icons then
-                tooltip:AddLine('商店价: ' .. (price and GetCoinTextureString(price * quantity) or UNKNOWN),aux.color.tooltip.merchant())
+                tooltip:AddLine('商店出售: ' .. (price and GetCoinTextureString(price * quantity) or UNKNOWN),aux.color.tooltip.merchant())
             else
-                tooltip:AddLine('商店价: ' .. (price and money.to_string2(price * quantity) or UNKNOWN), aux.color.tooltip.merchant())
+                tooltip:AddLine('商店出售: ' .. (price and money.to_string2(price * quantity) or UNKNOWN), aux.color.tooltip.merchant())
             end    
         end
     end
@@ -112,17 +131,17 @@ function extend_tooltip(tooltip, link, quantity)
     if auctionable then
         if settings.value then
             if settings.money_icons then
-                tooltip:AddLine('拍卖价: ' .. (value and GetCoinTextureString(value * quantity) or UNKNOWN), aux.color.tooltip.value())
+                tooltip:AddLine('拍卖价格: ' .. (value and GetCoinTextureString(value * quantity) or UNKNOWN), aux.color.tooltip.value())
             else
-                tooltip:AddLine('拍卖价: ' .. (value and money.to_string2(value * quantity) or UNKNOWN), aux.color.tooltip.value())
+                tooltip:AddLine('拍卖价格: ' .. (value and money.to_string2(value * quantity) or UNKNOWN), aux.color.tooltip.value())
             end
         end
         if settings.daily  then
             local market_value = history.market_value(item_key)
             if settings.money_icons then
-                tooltip:AddLine('今日: ' .. (market_value and GetCoinTextureString(market_value * quantity) .. ' (' .. gui.percentage_historical(aux.round(market_value / value * 100)) .. ')' or UNKNOWN))
+                tooltip:AddLine('今日价格: ' .. (market_value and GetCoinTextureString(market_value * quantity) .. ' (' .. gui.percentage_historical(aux.round(market_value / value * 100)) .. ')' or UNKNOWN))
             else
-                tooltip:AddLine('今日: ' .. (market_value and money.to_string2(market_value * quantity) .. ' (' .. gui.percentage_historical(aux.round(market_value / value * 100)) .. ')' or UNKNOWN), aux.color.tooltip.value())
+                tooltip:AddLine('今日价格: ' .. (market_value and money.to_string2(market_value * quantity) .. ' (' .. gui.percentage_historical(aux.round(market_value / value * 100)) .. ')' or UNKNOWN), aux.color.tooltip.value())
             end
         end
     end

@@ -1,0 +1,620 @@
+commit 5e93cd0c87636b87a44fa9428ce91836f3f041fd
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Jul 12 19:08:07 2021 +0200
+
+    version tag instead of hardcoded version
+
+commit 5fa6d94e2b0e217d1b354e5c60bbf84ec103aae5
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Jul 12 18:56:01 2021 +0200
+
+    version bump
+
+commit 840f27de4a52dcd83e7f231bd53c281b0a2044ec
+Author: Artur <Artur91425@gmail.com>
+Date:   Mon Jul 12 18:54:53 2021 +0300
+
+    fix disenchant filters
+
+commit 840f27de4a52dcd83e7f231bd53c281b0a2044ec
+Author: Artur <Artur91425@gmail.com>
+Date:   Mon Jul 12 18:54:53 2021 +0300
+
+    fix disenchant filters
+
+commit 3df9d3de8017454f027fb97fd7b821753bb80227
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Fri Jul 9 23:22:24 2021 +0200
+
+    version bump
+
+commit dd8ba75d7503e6f79b122a083acc78d004c7e62b
+Author: Artur <Artur91425@gmail.com>
+Date:   Thu Jul 8 15:53:54 2021 +0300
+
+    fix the print for prospecting slash command
+
+commit dd8ba75d7503e6f79b122a083acc78d004c7e62b
+Author: Artur <Artur91425@gmail.com>
+Date:   Thu Jul 8 15:53:54 2021 +0300
+
+    fix the print for prospecting slash command
+
+commit 1a8228e6bba1f26484c7df46e836ff6c70a9d6dc
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu Jul 8 12:12:41 2021 +0200
+
+    version bump
+
+commit a292ce6461fbe12ce392d457aed94c93c135997e
+Author: Artur <Artur91425@gmail.com>
+Date:   Wed Jul 7 23:19:54 2021 +0300
+
+    fix item_id arg
+
+commit a292ce6461fbe12ce392d457aed94c93c135997e
+Author: Artur <Artur91425@gmail.com>
+Date:   Wed Jul 7 23:19:54 2021 +0300
+
+    fix item_id arg
+
+commit f3919ca23efd44c5b10646385f6c424a46909fb2
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Jul 7 21:40:39 2021 +0200
+
+    version bump
+
+commit 78de6fc3fe50a42101de5543c464f32f9a92f647
+Author: Artur <Artur91425@gmail.com>
+Date:   Tue Jul 6 17:10:49 2021 +0300
+
+    fix color
+    
+    oops, sorry
+
+commit 6041ff7094d2bed15886dff43258831b8d62dd1d
+Author: Artur <Artur91425@gmail.com>
+Date:   Tue Jul 6 20:29:55 2021 +0300
+
+    add ignore for non disenchantable items
+
+commit 78de6fc3fe50a42101de5543c464f32f9a92f647
+Author: Artur <Artur91425@gmail.com>
+Date:   Tue Jul 6 17:10:49 2021 +0300
+
+    fix color
+    
+    oops, sorry
+
+commit 17f5e11cc4883c296e6d56dd6c593d2fba3712b2
+Author: Artur <Artur91425@gmail.com>
+Date:   Tue Jul 6 17:01:15 2021 +0300
+
+    add prospecting information
+
+commit 58e938b53a228460ee83ded2a91da90e1fc96550
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu Jul 1 20:55:19 2021 +0200
+
+    reverting deposit formula change
+
+commit 4ab7a2992a2185c8f726e8a6894aac2e09ba9412
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Jun 16 13:29:36 2021 +0200
+
+    minor tooltip bugfix
+
+commit a65d4ec0f3e6132ca3c413dde37e1937deb2d03f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Fri Jun 4 19:21:49 2021 +0200
+
+    itemstring parsing fix
+
+commit 88945aab328d46a6011bb91c30ffe381f8182bc2
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Jun 1 08:41:39 2021 +0200
+
+    version bump
+
+commit 9a74dbcb1488eee00745407cd469194d3e670e30
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Jun 1 08:34:55 2021 +0200
+
+    taint safeguard, tbc charge item support, post tab inventory fix
+
+commit 1b45e17f69ffd82b7fcfb8dc22907a0d5ecaf43e
+Author: Marco <marco.kloehn@icloud.com>
+Date:   Tue Jun 1 08:30:50 2021 +0200
+
+    fixed missing quantity modifier
+
+commit 1b45e17f69ffd82b7fcfb8dc22907a0d5ecaf43e
+Author: Marco <marco.kloehn@icloud.com>
+Date:   Tue Jun 1 08:30:50 2021 +0200
+
+    fixed missing quantity modifier
+
+commit 8413ff74fb151a8f290f3e04f54b8ba877fbe225
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon May 24 19:15:03 2021 +0200
+
+    deposit formula fix, live scan fix, minor post style change
+
+commit 9b7eef231695ecf4002ef676345dfd3f98fba4bd
+Author: Marco <marco.kloehn@icloud.com>
+Date:   Sun May 30 14:20:08 2021 +0200
+
+    fixed missing color formatting
+
+commit 6b342a85cc9518fceb73f8653fcc8ecbe0b598fd
+Author: Marco <marco.kloehn@icloud.com>
+Date:   Sun May 30 13:55:18 2021 +0200
+
+    added money icons option to tooltips
+
+commit 8413ff74fb151a8f290f3e04f54b8ba877fbe225
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon May 24 19:15:03 2021 +0200
+
+    deposit formula fix, live scan fix, minor post style change
+
+commit fd5b9d671a0a5450f534389285d2aa25132eac5f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 22 09:45:15 2021 +0200
+
+    fix for scanning
+
+commit 01602d8e22185d5fb79bbd143f1a41524136a8f6
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed May 19 21:47:31 2021 +0200
+
+    autocomplete fix for tbc items
+
+commit 5fd72ed226838680d7a7755329ffbf6bd6920318
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed May 19 21:39:37 2021 +0200
+
+    proper tbc interface version
+
+commit bbea0a837d61001e1f251efab96688cb7b0c3466
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed May 19 20:18:26 2021 +0200
+
+    small style change
+
+commit a87f2941f70f467a32bf96157bcb8f5f9c1088ba
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Fri May 14 01:52:38 2021 +0200
+
+    client version update
+
+commit 4c77b95943e4ac1f4188cb30437f3da30ad37afe
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Fri May 14 01:12:18 2021 +0200
+
+    fix for negative uniqueids
+
+commit 1a3cc4505fe98fb41bdc630168db5d897a9c97fb
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu May 13 20:39:08 2021 +0200
+
+    tbc update
+
+commit 676c0540dd44cf6e8b0b33530aad1cae9ebd5d3f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Dec 13 16:02:32 2020 +0100
+
+    search slowness bugfix
+
+commit 7c1aa34bdbc9fc01cb6afc1b84328071ba173e4b
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Dec 2 22:46:00 2020 +0100
+
+    client version bump
+
+commit 02dacf41feeebbd6efc6c6e8a6cc1d36e0dced72
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Nov 22 21:16:22 2020 +0100
+
+    post saving duration bugfix
+
+commit 62a1600e33f0cba3992cf1c9d47079f29a44f29e
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 24 20:59:53 2020 +0200
+
+    removing some obsolete code related to charges and flashing client icon
+    on alert
+
+commit 6e2f037f4ec50cb55ded478c29f944be9b360326
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Oct 18 12:42:05 2020 +0200
+
+    minor post tab fixes
+
+commit d7daf22ea2e40f9eee2ba76c44602ac20acb7f2f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 19:24:31 2020 +0200
+
+    undercut fix for own and market value
+
+commit 274d6bfdbb088bdecb48f28e2c77398fe5fc6ac8
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 11:35:12 2020 +0200
+
+    version bump
+
+commit 7dae7b92b0f9c40e094978e4b3b71a922f8fd244
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 11:34:42 2020 +0200
+
+    self undercut fix
+
+commit 94732ddc20393c298382cfce59ffed7cc2fa28a7
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 11:19:54 2020 +0200
+
+    disabling posting when user cannot afford deposit
+
+commit 3148ed5e93428f54446ffbcf0eaf47858d11a714
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 10:56:45 2020 +0200
+
+    removing charges as stack size
+
+commit 6dcc9559d2b0e9646dff921f1c82602ffa822c8d
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 17 10:10:23 2020 +0200
+
+    minor saved search reordering fix
+
+commit a7754675bad33622511e1f4ccd52f4cacaa5359f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu Oct 15 21:30:55 2020 +0200
+
+    tooltip filter fix
+
+commit a9411620d328849418bbf02e36160dbba69862b9
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Jul 8 17:07:38 2020 +0200
+
+    posting bugfix
+
+commit b638af6b561d54581cd983f4a3de7dffcd39d3bf
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Jul 8 07:29:07 2020 +0200
+
+    client version update and bugfixes
+
+commit 5ec32887c606109c3a72e4d78e6b898b9629e7bd
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 16:00:28 2020 +0200
+
+    minor status bar change
+
+commit c095e18c61817a580fc57c476a952044dc8b4687
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 16:00:28 2020 +0200
+
+    minor status bar change
+
+commit 7ebc5879aeba4a4a6ce36eeb5b5dc29a8e7a073c
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 15:34:09 2020 +0200
+
+    version bump
+
+commit d2d08f59f6abad7e336d7176ceb53f5c7b5d22e5
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 15:32:23 2020 +0200
+
+    status bar style fix
+
+commit fd4a2a3c757796312ee74d90be82607b89a06536
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 15:28:16 2020 +0200
+
+    version bump
+
+commit 8dc8d846ef17bfe3d27482c5e6fda343d756cb7d
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 15:27:14 2020 +0200
+
+    coroutine error bugfix
+
+commit df5e2093945dc1ed0abb2f2d6952ebabc725131a
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 15:23:17 2020 +0200
+
+    added missing tooltip hooks
+
+commit de6c36b96d130e80347c87e3edb8bda687c9230d
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat May 30 11:25:18 2020 +0200
+
+    item charges vendor price fix
+
+commit b95dc379b8465ae346e5d3132ebc6ed422ad78bc
+Author: Brandon Presley <brandonp2412@gmail.com>
+Date:   Tue Mar 17 18:47:38 2020 +1300
+
+    Fix tooltip value for inventory items
+    
+    Previously, when holding shift while hovering an
+    inventory item, the total value wouldn't change.
+    This is because the quantity was always being
+    passed as 1. Now we pass the actual item count.
+
+commit 70ce93eee0b6f226e84f15ce951aacbf95b7ca53
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Mar 11 06:22:27 2020 +0100
+
+    client version change
+
+commit 7ebf6e3e373fa20156996802cd23d0b987ec4eb6
+Author: Elliott Linder <elliott.darfink@gmail.com>
+Date:   Thu Jan 2 18:13:49 2020 +0100
+
+    add GameTooltip.SetItemByID hook
+
+commit 7ebf6e3e373fa20156996802cd23d0b987ec4eb6
+Author: Elliott Linder <elliott.darfink@gmail.com>
+Date:   Thu Jan 2 18:13:49 2020 +0100
+
+    add GameTooltip.SetItemByID hook
+
+commit 68bdb70b1470b10abc5cd400ea12b9b8d7473d64
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Dec 21 08:37:44 2019 +0100
+
+    Client version bump
+
+commit 4c51b4f1c2ed76f42c36feda924a626ca472642b
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Nov 23 13:57:17 2019 +0100
+
+    Scanning improvements
+
+commit eac7ecebd492485b422993d871f2f7230cf80ccc
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Nov 19 19:41:10 2019 +0100
+
+    faster item data scanning
+
+commit 58a74de52f1b82ce7899416b7cc05201f3bcae5c
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Nov 19 19:02:49 2019 +0100
+
+    version bump
+
+commit aedcb1e570a8f89f30930aa622a2fa28919a049f
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Nov 19 19:01:44 2019 +0100
+
+    bugfix for item data scanning
+
+commit 64d69e12eaa6fc43f41a751312faeb1df9acfdb0
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Nov 19 07:23:15 2019 +0100
+
+    bugfix for posting charge items
+
+commit f6e56b867b82ab0c2064b221ce8693c929deb62e
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Nov 16 09:49:30 2019 +0100
+
+    some nullptr fixes
+
+commit 54a010f88112614e509b2f0add00cf0b89a0c902
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Nov 12 21:04:57 2019 +0100
+
+    font fix for chinese
+
+commit 2e9e9405faf912b363dff52ccf3f2c72540cbce8
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu Nov 7 15:22:35 2019 +0100
+
+    auctions tab grouping fix
+
+commit 4d3ff119433fa040fbc47d3b6b54360680d35449
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Nov 2 09:09:26 2019 +0100
+
+    trade frame highlight fix
+
+commit 2294c1eda0c3fd938041441102972cb5c669a815
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 19 13:15:36 2019 +0200
+
+    inventory scanning bugfix
+
+commit 68aedf8bf36e2bb6c019cac1d731978090eb1bc4
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 19 10:31:35 2019 +0200
+
+    getall for post, setting for alt shortcuts, toggle for bid/buyout hist value
+
+commit 96cfba89f56850dfc6a111984be401c3d93f182a
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Oct 15 19:13:03 2019 +0200
+
+    disenchant value fix
+
+commit fb15d6cff54cfe50d12da5358ea728b75cdf4acd
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Thu Oct 10 07:52:18 2019 +0200
+
+    temporary charges fix
+
+commit 76333b2d74725e4841daf3c608a70f920c703b4e
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Oct 7 22:23:22 2019 +0200
+
+    removing range inputs
+
+commit 6a968dfac8a0b18d2cb122fd2d3ef68bec6e32dc
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 23:46:38 2019 +0200
+
+    post optimization
+
+commit eae3c6f953c565ba15e70a58f838443e545ed107
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 23:03:02 2019 +0200
+
+    minor bugfix
+
+commit 07bb07d9f5a540b04fe1e3cafbbd3b40b6e702b1
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 15:24:19 2019 +0200
+
+    dropdown fix
+
+commit f8da1f1eaacf3a6d666071ca9df95ddaa9a201e3
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 15:04:06 2019 +0200
+
+    added scan button
+
+commit 0d2e2e6cf712f3401a888c602f233dde6b5392e0
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 14:36:40 2019 +0200
+
+    status bar simplification and style change
+
+commit b47312b413c57002d5c530a360cf9b2282da1ad7
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Oct 5 13:30:07 2019 +0200
+
+    created my own dropdowns
+
+commit 7d096c0439cb76430e6d3b54746cd015bd97b4b3
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Wed Oct 2 21:54:50 2019 +0200
+
+    alt-click fix
+
+commit 5ebee2880a4e9785de25ca3e40bf60c814b4e767
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Sep 29 13:31:43 2019 +0200
+
+    localized duration text
+
+commit 1e8b221d71f8df94c24b5a6591977ddb902e1634
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Sep 29 13:04:24 2019 +0200
+
+    charge item fix
+
+commit c62e61940dfb21e1d8efb8afbf6a57f0e2d2f680
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Sep 29 12:28:21 2019 +0200
+
+    scan button
+
+commit 28ee40f386dc20a511f45659093d9cf50be8328a
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sun Sep 29 00:49:10 2019 +0200
+
+    bag item alt click fix
+
+commit 1d1666caf261b8e38bdbde13fc1f7997988d0c60
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 23:56:59 2019 +0200
+
+    version bump
+
+commit 086eb87cb43328cb7e035a122bc4c141bb2942f9
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 23:55:45 2019 +0200
+
+    removed debug print
+
+commit d2409f9eedf443d1307354527434f50086390186
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 20:55:06 2019 +0200
+
+    post tab error fix
+
+commit d562d9087135dcd94c2790ff7d6ee4b237d25f56
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 20:27:36 2019 +0200
+
+    version bump
+
+commit f07f3b1098f7a32c551df7e6135d0820e0aa504a
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 20:26:50 2019 +0200
+
+    duration label fix
+
+commit ea0693003077f1c890e63660cb30c1afdb888d80
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 20:23:25 2019 +0200
+
+    tooltip and duration label fix
+
+commit df85713e62a858b8d8bd149f5c87502cf603590c
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 15:27:45 2019 +0200
+
+    refactoring
+
+commit fc29a991bc8956d97bf9dbe7b0ef19fbcb9ad5fc
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 15:20:32 2019 +0200
+
+    added nil check, not sure if necessary
+
+commit 79631c8eb39333eb180edc9772e528fa6f4486e3
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 15:05:09 2019 +0200
+
+    font fix for chinese
+
+commit 79631c8eb39333eb180edc9772e528fa6f4486e3
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 15:05:09 2019 +0200
+
+    font fix for chinese
+
+commit 6a979a0bdd70e8a994e8091d20892aa5d56e72f4
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Sat Sep 28 14:09:20 2019 +0200
+
+    removed dropdowns to fix taint issues
+
+commit ba029a8054560da572912d859fb42a5aa7cd8bfe
+Author: Petteri Turtiainen <petteri.turtiainen@iki.fi>
+Date:   Sat Sep 28 11:20:17 2019 +0300
+
+    Fixed disenchant filters
+    
+    The auction_record does not contain slot or level fields. The item info must fetched separately.
+    
+    Fixes https://github.com/shirsig/aux-addon/issues/227
+
+commit 1c505c891562816900a37e8e0b314e8c42a4929a
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Tue Sep 24 23:14:24 2019 +0200
+
+    row highlight fix
+
+commit 5c9d837403aee8e9c2714500daf60b4bd28cf703
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Sep 23 21:18:41 2019 +0200
+
+    minor scan improvement
+
+commit bd0ceebf9a15c358aa503777b8d82a1f7b44ac2c
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Sep 23 20:07:52 2019 +0200
+
+    scan bugfix
+
+commit 31be1dd88fdece2fa81cb15fe66f02712287b567
+Author: Simon Hirsig <simon.hirsig@gmail.com>
+Date:   Mon Sep 23 19:59:38 2019 +0200
+
+    minor tooltip fix
+
