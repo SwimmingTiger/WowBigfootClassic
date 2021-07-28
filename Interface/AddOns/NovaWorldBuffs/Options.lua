@@ -1631,7 +1631,7 @@ NWB.optionDefaults = {
 		dmfChatCountdown = true,
 		resetLayers5 = true, --Reset layers one time (sometimes needed when upgrading from old version.
 		resetSongflowers = true, --Reset songflowers one time.
-		experimental = false, --Enable features being tested on occasion.
+		beta = false, --Enable features being tested on occasion.
 		resetTimerData1 = true,
 		resetLayerMaps = true,
 		convertSettings = true,
@@ -3181,6 +3181,17 @@ function NWBToggleHandIn(value)
 	else
 		NWB.db.global.handInMsg = false;
 		print("Hand In Disabled.");
+	end
+end
+
+--In testing.
+function NWBToggleBeta(value)
+	if (value == true) then
+		NWB.db.global.guildNpcWalking = true;
+		print("NWB in testing features enabled.");
+	else
+		NWB.db.global.guildNpcWalking = true;
+		print("NWB in testing features disabled.");
 	end
 end
 
