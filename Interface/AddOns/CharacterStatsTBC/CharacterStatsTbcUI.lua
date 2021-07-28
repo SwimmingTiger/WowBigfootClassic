@@ -55,7 +55,7 @@ local SideCategoryStatsSpell = {
 };
 local SideCategoryStatsDefense = {
     frames = { };
-    numFrames = 5;
+    numFrames = 10;
     frameLabel = "防御";
 };
 
@@ -258,9 +258,14 @@ function UIConfig:SetCharacterSideStats()
 
     if UISettingsCharacter.showSideStatsDefense and SideCategoryStatsDefense.frames[1] then
         CSC_SideFrame_SetDefenseRating(SideCategoryStatsDefense.frames[2], unit);
-        CSC_SideFrame_SetDodgeRating(SideCategoryStatsDefense.frames[3], unit);
-        CSC_SideFrame_SetParryRating(SideCategoryStatsDefense.frames[4], unit);
-        CSC_SideFrame_SetBlockRating(SideCategoryStatsDefense.frames[5], unit);
+        CSC_SideFrame_SetDefenseUncritableCap(SideCategoryStatsDefense.frames[3], unit);
+        CSC_SideFrame_SetResilienceUncritableCap(SideCategoryStatsDefense.frames[4], unit);
+        CSC_SideFrame_SetChanceToBeCrittedBy73(SideCategoryStatsDefense.frames[5], unit);
+        CSC_SideFrame_SetChanceToBeCrittedBy70(SideCategoryStatsDefense.frames[6], unit);
+        CSC_SideFrame_SetAvoidance(SideCategoryStatsDefense.frames[7], unit);
+        CSC_SideFrame_SetDodgeRating(SideCategoryStatsDefense.frames[8], unit);
+        CSC_SideFrame_SetParryRating(SideCategoryStatsDefense.frames[9], unit);
+        CSC_SideFrame_SetBlockRating(SideCategoryStatsDefense.frames[10], unit);
     end
 end
 

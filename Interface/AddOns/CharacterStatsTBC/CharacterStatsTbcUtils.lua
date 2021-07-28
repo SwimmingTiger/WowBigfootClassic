@@ -19,6 +19,46 @@ function CSC_GetCombatRatingPerUnitBonus(unit, combatRatingType)
     return result;
 end
 
+-- My own GetSpellHitModifier since Blizzard are breaking their API so often I can't rely on them
+function CSC_GetSpellHitModifier(unit)
+	local spellHit = 0;
+	local unitClassId = select(3, UnitClass(unit));
+
+	if unitClassId == CSC_PALADIN_CLASS_ID then
+		local spellRank = select(5, GetTalentInfo(2, 3)); -- Precision
+		spellHit = spellRank; -- 1% per rank
+	elseif unitClassId == CSC_SHAMAN_CLASS_ID then
+		local spellRank = select(5, GetTalentInfo(3, 6)); -- Nature's Guidance
+		spellHit = spellRank; -- 1% per rank
+	elseif unitClassId == CSC_DRUID_CLASS_ID then
+		local spellRank = select(5, GetTalentInfo(1, 16)); -- Balance of power
+		spellHit = spellRank * 2; -- 2% per rank
+	end
+
+	local spellHitFromAuras = 0;
+	local hasInspiringPresenceAura = false;
+	
+	for i = 1, 40 do
+		local spellId = select(10, UnitAura(unit, i, "HELPFUL"));
+		if spellId then
+			if spellId == 28878 then -- Inspiring Presence
+				spellHitFromAuras = spellHitFromAuras + 1;
+				hasInspiringPresenceAura = true;
+			end
+
+			if spellId == 30708 then -- Totem of Wrath
+				spellHitFromAuras = spellHitFromAuras + 3;
+			end
+		end
+	end
+
+	if not hasInspiringPresenceAura and IsSpellKnown(28878) then
+		spellHitFromAuras = spellHitFromAuras + 1;
+	end
+
+	return spellHit + spellHitFromAuras;
+end
+
 -- GENERAL UTIL FUNCTIONS BEGIN--
 function CSC_GetAppropriateDamage(unit, category)
 	if category == PLAYERSTAT_MELEE_COMBAT then

@@ -1,18 +1,22 @@
 ## Interface: 20501
 ## Author: Peter Getov
-## Version: 1.1.2
+## Version: 1.2.1
 ## Title: |cff00aeffCharacterStatsTBC|r
-## Title-zhCN: [大脚][集]人物详细属性
-## Title-zhTW: [大腳][集]人物詳細屬性
-## Notes: |cff00ff00CharacterStatsTBC|r|n|cffbc8f8fAdvanced Character Stats|r
+## Notes: Advanced Character Stats
+## DefaultState:  enabled
 ## SavedVariables: CharacterStatsTbcDB
 ## SavedVariablesPerCharacter: CharacterStatsTbcCharacterDB
-## Dependencies: BigFoot
-## X-Revision: BigFoot
 
 Localization\Localization_en.lua
+Localization\Localization_de.lua
 Localization\Localization_cn.lua
+Localization\Localization_ru.lua
+Localization\Localization_fr.lua
+Localization\Localization_it.lua
 Localization\Localization_tw.lua
+Localization\Localization_kr.lua
+Localization\Localization_es.lua
+Localization\Localization_br.lua
 
 CharacterStatsTbcConstants.lua
 CharacterStatsTbcUI.lua

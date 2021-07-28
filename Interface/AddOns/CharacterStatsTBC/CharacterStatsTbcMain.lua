@@ -18,6 +18,7 @@ CharacterStatsTbcFrame:RegisterEvent("UNIT_MAXHEALTH");
 CharacterStatsTbcFrame:RegisterEvent("UNIT_ATTACK_POWER");
 CharacterStatsTbcFrame:RegisterEvent("UNIT_RANGED_ATTACK_POWER");
 CharacterStatsTbcFrame:RegisterEvent("COMBAT_RATING_UPDATE");
+CharacterStatsTbcFrame:RegisterEvent("GROUP_ROSTER_UPDATE");
 
 CharacterStatsTbcFrame:SetScript("OnEvent",
     function(self, event, ...)
@@ -42,7 +43,8 @@ CharacterStatsTbcFrame:SetScript("OnEvent",
 				event == "UNIT_ATTACK_POWER" or
 				event == "UNIT_RANGED_ATTACK_POWER" or
 				event == "SKILL_LINES_CHANGED" or
-                event == "COMBAT_RATING_UPDATE") then
+                event == "COMBAT_RATING_UPDATE" or
+                event == "GROUP_ROSTER_UPDATE") then
                 self:SetScript("OnUpdate", CSC_QueuedUpdate);
             end
         end
