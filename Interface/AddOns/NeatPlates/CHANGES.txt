@@ -1,10 +1,12 @@
-lightweight tag 235574ba104e7073940c747554f140392aa7936f 2.5.1.20
+lightweight tag 052f5c7a4359132537b67b69c2fa461d26147bbe 2.5.1.23
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Sun Jul 4 08:47:59 2021 +0200
+Date:	Wed Jul 21 10:49:17 2021 +0200
 
-commit 235574ba104e7073940c747554f140392aa7936f
+commit 052f5c7a4359132537b67b69c2fa461d26147bbe
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Sun Jul 4 08:47:59 2021 +0200
+Date:   Wed Jul 21 10:49:17 2021 +0200
 
-    'cursefix'
+    Re-add spell cast school coloring
+    
+    - Re-add spell cast school coloring that was removed with the merge of TBC and Retail versions
 

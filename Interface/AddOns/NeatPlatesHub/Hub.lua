@@ -77,7 +77,7 @@ local function BuildHubPanel(panel)
 	local AlignmentColumn = panel.AlignmentColumn
 	local OffsetColumnB = 200						-- 240
 	local F = nil									-- Cache for anchoring
-	local ColumnTop, ColumnEnd
+	local ColumnTop, ColumnEnd, Label
 
 	panel.StyleLabel, F = CreateQuickHeadingLabel(nil, L["Nameplate Style"], AlignmentColumn, F, 0, 5)
 
@@ -98,8 +98,6 @@ local function BuildHubPanel(panel)
 	panel.StyleEnemyBarsClickThrough, F = CreateQuickCheckbutton(objectName.."StyleEnemyBarsClickThrough", L["Clickthrough"], AlignmentColumn, F, 16, 0)
 	panel.StyleEnemyBarsClickThrough.tooltipText = L["Makes the Nameplates non-interactable"]
 
-	ColumnEnd = F
-
 	panel.StyleFriendlyBarsLabel, F = CreateQuickItemLabel(nil, cFriendly..L["Friendly Health Bars"]..':', AlignmentColumn, ColumnTop, OffsetColumnB, 2)
 	panel.StyleFriendlyBarsOnNPC, F = CreateQuickCheckbutton(objectName.."StyleFriendlyBarsOnNPC", L["All NPCs"], AlignmentColumn, F, OffsetColumnB+16, 0)
 	panel.StyleFriendlyBarsInstanceMode, F = CreateQuickCheckbutton(objectName.."StyleFriendlyBarsInstanceMode", L["Exclude Instances"], AlignmentColumn, F, (OffsetColumnB+32)*(1/.8), 0)
@@ -116,7 +114,6 @@ local function BuildHubPanel(panel)
 	panel.StyleFriendlyBarsClickThrough, F = CreateQuickCheckbutton(objectName.."StyleFriendlyBarsClickThrough", L["Clickthrough"], AlignmentColumn, F, OffsetColumnB+16, 0)
 	panel.StyleFriendlyBarsClickThrough.tooltipText = L["Makes the Nameplates non-interactable"]
 
-	F =  ColumnEnd
 	--panel.HealthBarStyleLabel, F = CreateQuickItemLabel(nil, L["Health Bar View"]..':', AlignmentColumn, F, 0, 2)
 	--panel.StyleForceBarsOnTargets, F = CreateQuickCheckbutton(objectName.."StyleForceBarsOnTargets", L["Force Bars on Targets"], AlignmentColumn, F, 16, 2)
 
@@ -125,11 +122,18 @@ local function BuildHubPanel(panel)
 	panel.StyleHeadlineOutOfCombat, F = CreateQuickCheckbutton(objectName.."StyleHeadlineOutOfCombat", L["Force Headline while Out-of-Combat"], AlignmentColumn, F, 16, 0)
 	panel.StyleHeadlineMiniMobs, F = CreateQuickCheckbutton(objectName.."StyleHeadlineMiniMobs", L["Force Headline on Mini-Mobs"], AlignmentColumn, F, 16, 0)
 
+	panel.DefaultNameplatesLabel, F = CreateQuickItemLabel(nil, L["Force Default Nameplates"]..':', AlignmentColumn, F, 0, 2)
+	panel.DefaultEnemyNameplatesOnPlayers, F = CreateQuickCheckbutton(objectName.."DefaultEnemyNameplatesOnPlayers", L["Enemy Players"], AlignmentColumn, F, 16, 0)
+	panel.DefaultFriendlyNameplatesOnPlayers, F = CreateQuickCheckbutton(objectName.."DefaultFriendlyNameplatesOnPlayers", L["Friendly Players"], AlignmentColumn, F, 16, 0)
+	panel.DefaultEnemyNameplatesOnNPCs, F = CreateQuickCheckbutton(objectName.."DefaultEnemyNameplatesOnNPCs", L["Enemy NPCs"], AlignmentColumn, F, 16, 0)
+	panel.DefaultFriendlyNameplatesOnNPCs, F = CreateQuickCheckbutton(objectName.."DefaultFriendlyNameplatesOnNPCs", L["Friendly NPCs"], AlignmentColumn, F, 16, 0)
+	panel.DefaultNeutralNameplatesOnNPCs, F = CreateQuickCheckbutton(objectName.."DefaultNeutralNameplatesOnNPCs", L["Neutral NPCs"], AlignmentColumn, F, 16, 0)
+
 	------------------------------
     -- Health Bars
 	------------------------------
 
-    panel.HealthBarLabel, F = CreateQuickHeadingLabel(nil, L["Health Bar View"], AlignmentColumn, F, 0, 5)
+  panel.HealthBarLabel, F = CreateQuickHeadingLabel(nil, L["Health Bar View"], AlignmentColumn, F, 0, 5)
 
     -- Enemy
 	panel.EnemyBarColorMode, F =  CreateQuickDropdown(objectName.."EnemyBarColorMode", cEnemy..L["Enemy Bar Color"]..':', EnemyBarModes, 1, AlignmentColumn, F)
@@ -531,7 +535,8 @@ local function BuildHubPanel(panel)
   panel.SpellCastLabel, F = CreateQuickHeadingLabel(nil, L["Cast Bars"], AlignmentColumn, F, 0, 5)
   panel.CastbarDurationMode, F =  CreateQuickDropdown(objectName.."CastbarDurationMode", L["Castbar Duration Style"]..':', CastbarDurationModes, 1, AlignmentColumn, F )
   panel.SpellIconEnable, F = CreateQuickCheckbutton(objectName.."SpellIconEnable", L["Show Spell Icon"], AlignmentColumn, F)
-  panel.SpellTargetEnable, F = CreateQuickCheckbutton(objectName.."SpellTargetEnable", L["Show Target of Spell"], AlignmentColumn, F)
+		panel.SpellTargetEnable, F = CreateQuickCheckbutton(objectName.."SpellTargetEnable", L["Show Target of Spell"], AlignmentColumn, F)
+	panel.ColorCastBySchool, F = CreateQuickCheckbutton(objectName.."ColorCastBySchool", L["Color Cast Bars by School"], AlignmentColumn, F)
   panel.SpellCastEnableEnemy, F = CreateQuickCheckbutton(objectName.."SpellCastEnableEnemy", L["Show Enemy Cast Bars"], AlignmentColumn, F)
   panel.SpellCastEnableFriendly, F = CreateQuickCheckbutton(objectName.."SpellCastEnableFriendly", L["Show Friendly Cast Bars"], AlignmentColumn, F)
   panel.IntCastEnable, F = CreateQuickCheckbutton(objectName.."IntCastEnable", L["Show Interrupted Cast Bar"], AlignmentColumn, F)
@@ -540,6 +545,15 @@ local function BuildHubPanel(panel)
 	panel.ColorNormalSpellCast, F = CreateQuickColorbox(objectName.."ColorNormalSpellCast", L["Normal"], nil, AlignmentColumn, F , 16)
 	panel.ColorUnIntpellCast, F = CreateQuickColorbox(objectName.."ColorUnIntpellCast", L["Un-interruptible"], nil, AlignmentColumn, F , 16)
 	panel.ColorIntpellCast, F = CreateQuickColorbox(objectName.."ColorIntpellCast", L["Interrupted"], nil, AlignmentColumn, F , 16)
+
+	panel.SpellSchoolColorLabel, F = CreateQuickItemLabel(nil, L["Spell School Colors"]..':', AlignmentColumn, panel.IntCastWhoEnable, OffsetColumnB, 2)
+	panel.ColorSchoolPhysical, F = CreateQuickColorbox(objectName.."ColorSchoolPhysical", L["Physical"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolHoly, F = CreateQuickColorbox(objectName.."ColorSchoolHoly", L["Holy"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolFire, F = CreateQuickColorbox(objectName.."ColorSchoolFire", L["Fire"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolNature, F = CreateQuickColorbox(objectName.."ColorSchoolNature", L["Nature"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolFrost, F = CreateQuickColorbox(objectName.."ColorSchoolFrost", L["Frost"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolShadow, F = CreateQuickColorbox(objectName.."ColorSchoolShadow", L["Shadow"], nil, AlignmentColumn, F , OffsetColumnB + 16)
+	panel.ColorSchoolArcane, F = CreateQuickColorbox(objectName.."ColorSchoolArcane", L["Arcane"], nil, AlignmentColumn, F , OffsetColumnB + 16)
 
 
 	------------------------------
@@ -1075,7 +1089,7 @@ StaticPopupDialogs["NeatPlatesHUB_RESETCHECK"] = {
   timeout = 0,
   whileDead = true,
   hideOnEscape = true,
-  preferredIndex = STATICPOPUP_NUMDIALOGS,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
+  preferredIndex = 3,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
 }
 
 --StaticPopup_Show ("NeatPlatesHUB_RESETCHECK")

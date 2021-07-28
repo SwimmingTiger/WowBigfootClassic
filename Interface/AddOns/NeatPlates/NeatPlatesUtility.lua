@@ -272,7 +272,7 @@ local function GetPetOwner(petName)
 	if not ownerText then return nil, nil end
 	local owner, _ = string.split("'",ownerText)
 	local ownerGUID = UnitGUID(string.split("-",owner))
-	local ownerIsPlayer = string.split("-",ownerGUID)
+	local ownerIsPlayer = ownerGUID == UnitGUID("player")
 
 	return ownerGUID, owner, ownerIsPlayer -- This is the pet's owner
 end
@@ -291,7 +291,8 @@ local function GetTotemOwner(unitid)
 	if not ownerText then return nil, nil end
 	local owner, _ = string.split("'",ownerText)
 	local ownerGUID = UnitGUID(string.split("-",owner))
-	local ownerIsPlayer = string.split("-",ownerGUID)
+	if not ownerGUID then return nil, nil end
+	local ownerIsPlayer = ownerGUID == UnitGUID("player")
 
 	return ownerGUID, owner, ownerIsPlayer -- This is the pet's owner
 end
@@ -1328,7 +1329,7 @@ local function CreateScrollList(parent, name, lists, buttonFunc, width, height)
 				button.actions = {}
 				if item.buttons then
 					for _, action in pairs(item.buttons) do
-						local actionFrame = _G[name..item.value.."_Action_"..action] or CreateFrame("Button", name..button.index.."_Action_"..action, button, 'NeatPlatesOptionsListButtonTemplate')
+						local actionFrame = _G[name..button.index.."_Action_"..action] or CreateFrame("Button", name..button.index.."_Action_"..action, button, 'NeatPlatesOptionsListButtonTemplate')
 						actionFrame:SetWidth(15)
 						actionFrame:SetHeight(15)
 						table.insert(button.actions, actionFrame)
