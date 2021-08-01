@@ -30,10 +30,10 @@ function Rule:OnInitialize()
     --@end-classic@]]
     self.sortingCustomOrder = ns.CustomOrder:New()
     self.levelQualityOrder = function(item)
-        local level = 9999 - item:GetItemLevel()
-        local quality = 99 - item:GetItemQuality()
+        local level = 9999 - (item.GetItemLevel and item:GetItemLevel() or 0)
+        local quality = 99 - (item.GetItemQuality and item:GetItemQuality() or 0)
 
-        if item:IsEquippable() then
+        if item.IsEquippable and item:IsEquippable() then
             return format('%04d,%02d', level, quality)
         else
             return format('%02d,%04d', quality, level)
