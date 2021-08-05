@@ -54,6 +54,7 @@ local ignored = {
 	["LibDBIcon10_HandyNotes_NPCs"] = true,
 	["QuestieFrame"] = true,
 	["MessageClassifierBrowserIcon"] = true,
+	["SexyMap"] = true,
 }
 
 local options = {
