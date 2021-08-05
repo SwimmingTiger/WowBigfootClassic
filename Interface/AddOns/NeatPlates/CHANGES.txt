@@ -1,12 +1,13 @@
-lightweight tag 052f5c7a4359132537b67b69c2fa461d26147bbe 2.5.1.23
+lightweight tag def9c9929aa666427775736f5b8707555302c2aa 2.5.1.24
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Wed Jul 21 10:49:17 2021 +0200
+Date:	Wed Aug 4 19:27:28 2021 +0200
 
-commit 052f5c7a4359132537b67b69c2fa461d26147bbe
+commit def9c9929aa666427775736f5b8707555302c2aa
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Wed Jul 21 10:49:17 2021 +0200
+Date:   Wed Aug 4 19:27:28 2021 +0200
 
-    Re-add spell cast school coloring
+    Some aura option fixes
     
-    - Re-add spell cast school coloring that was removed with the merge of TBC and Retail versions
+    - Fixed 'Emphasized Aura Slot' option not working for all aura scales
+    - Fixed auras not displaying as normal auras if all the emphasized aura slots were full
 
