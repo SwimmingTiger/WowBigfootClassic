@@ -12447,6 +12447,11 @@ CodexDB["quests"]["enUS-tbc"]={
 ["O"]="Find Watch Commander Relthorn Netherwane at the Blasted Lands. He awaits your arrival before the Dark Portal.",
 ["T"]="The Dark Portal",
 },
+[64046]={
+["D"]="",
+["O"]="Meet with your class trainer in Orgrimmar.",
+["T"]="A New Beginning",
+},
 [64047]={
 ["D"]="",
 ["O"]="Meet with your Druid trainer in Thunderbluff.",
@@ -12492,9 +12497,59 @@ CodexDB["quests"]["enUS-tbc"]={
 ["O"]="Travel to the Eastern Plaguelands and find Leonid Barthalomew. He awaits your arrival at Light's Hope Chapel. ",
 ["T"]="Eastern Plaguelands",
 },
+[64128]={
+["D"]="",
+["O"]="Travel to the Eastern Plaguelands and find Leonid Barthalomew. He awaits your arrival at Light's Hope Chapel. ",
+["T"]="Eastern Plaguelands",
+},
+[64139]={
+["D"]="",
+["O"]="Speak with Lady Liadrin in Silvermoon City.",
+["T"]="A Summons from Lady Liadrin",
+},
+[64140]={
+["D"]="",
+["O"]="Speak with Lady Liadrin again to accept her offer of sponsorship.",
+["T"]="The Master's Path",
+},
+[64141]={
+["D"]="",
+["O"]="Bring 40 Runecloth, 6 Arcanite Bars, 10 Sungrass, 5 Dark Runes, and 150 Gold to Lady Liadrin in Silvermoon City. ",
+["T"]="A Gesture of Commitment",
+},
+[64142]={
+["D"]="",
+["O"]="Lady Liadrin in Silvermoon City wants you to destroy 3 Scourge Meat Wagons and kill 15 Scourge Siege Engineers. ",
+["T"]="A Demonstration of Loyalty",
+},
+[64143]={
+["D"]="",
+["O"]="Lady Liadrin in Silvermoon City wants you to bring her a vial of Tyr's Hand Holy Water. ",
+["T"]="True Masters of the Light",
+},
+[64144]={
+["D"]="",
+["O"]="Lady Liadrin in Silvermoon City wants you to bring him 1 Arcane Catalyst, 1 Crepuscular Powder, 1 Azerothian Diamond, and 1 Pristine Black Diamond.",
+["T"]="True Masters of the Light",
+},
+[64145]={
+["D"]="",
+["O"]="Use the Extinguishing Mixture near the eternal flame in the Alonsus Chapel to remove the Light's protection. Be prepared to fight anyone who may attempt to defend the chapel.",
+["T"]="True Masters of the Light",
+},
 [64217]={
 ["D"]="",
 ["O"]="Find Watch Warlord Dar'toon at the Blasted Lands. He awaits your arrival before the Dark Portal.",
 ["T"]="The Dark Portal",
+},
+[64319]={
+["D"]="",
+["O"]="Speak with Magister Astalor Bloodsworn in the hidden chamber beneath Blood Knight headquarters.",
+["T"]="A Study in Power",
+},
+[64845]={
+["D"]="",
+["O"]="Win a battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+["T"]="Alliance War Effort",
 },
 }
