@@ -101,16 +101,13 @@ local UnitDetailedThreatSituation = _G.UnitDetailedThreatSituation
 -- FUNCTIONS
 -----------------------------
 
-local function CreateBackdrop(parent, cfg)
+local function CreateEdgeBackdrop(parent, cfg)
     local f = CreateFrame("Frame", nil, parent, BackdropTemplateMixin and "BackdropTemplate")
     f:SetPoint("TOPLEFT", parent, "TOPLEFT", -cfg.inset, cfg.inset)
     f:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", cfg.inset, -cfg.inset)
     -- Backdrop Settings
-    local backdrop = {
-        bgFile = LSM:Fetch("statusbar", cfg.bgTexture),
+    local edgeBackdrop = {
         edgeFile = LSM:Fetch("border", cfg.edgeTexture),
-        tile = cfg.tile,
-        tileSize = cfg.tileSize,
         edgeSize = cfg.edgeSize,
         insets = {
             left = cfg.inset,
@@ -119,11 +116,11 @@ local function CreateBackdrop(parent, cfg)
             bottom = cfg.inset,
         },
     }
-    f:SetBackdrop(backdrop)
-    f:SetBackdropColor(unpack(cfg.bgColor))
+    f:SetBackdrop(edgeBackdrop)
+    f:SetBackdropColor(0, 0, 0, 0) -- hide backdrop area. this is just for the edge
     f:SetBackdropBorderColor(unpack(cfg.edgeColor))
 
-    parent.backdrop = f
+    parent.edgeBackdrop = f
 end
 
 local function CreateFS(parent)
@@ -134,10 +131,25 @@ end
 
 local function CreateStatusBar(parent, header)
     -- StatusBar
-    local bar = CreateFrame("StatusBar", nil, parent)
+    local bar = CreateFrame("StatusBar", nil, parent, BackdropTemplateMixin and "BackdropTemplate")
     bar:SetMinMaxValues(0, 100)
     -- Backdrop
-    CreateBackdrop(bar, C.backdrop)
+    local backdrop = {
+        bgFile = LSM:Fetch("statusbar", C.backdrop.bgTexture),
+        tile = C.backdrop.tile,
+        tileSize = C.backdrop.tileSize,
+        insets = {
+            left = C.backdrop.inset,
+            right = C.backdrop.inset,
+            top = C.backdrop.inset,
+            bottom = C.backdrop.inset,
+        },
+    }
+    bar:SetBackdrop(backdrop)
+    bar:SetBackdropColor(unpack(C.backdrop.bgColor)) -- hide backdrop area. this backdrop is just for the edge
+    bar:SetBackdropBorderColor(0, 0, 0, 0) -- no edge on regular backdrop
+    -- Edge
+    CreateEdgeBackdrop(bar, C.backdrop)
 
     if not header then
         -- BG
@@ -299,8 +311,6 @@ function TC2:UpdateThreatBars()
             local color = GetColor(data.unit, data.isTanking, hasActiveIgnite)
             bar:SetStatusBarColor(unpack(color))
             bar.bg:SetVertexColor(color[1] * C.bar.colorMod, color[2] * C.bar.colorMod, color[3] * C.bar.colorMod, C.bar.alpha)
-            bar.backdrop:SetBackdropColor(unpack(C.backdrop.bgColor))
-            bar.backdrop:SetBackdropBorderColor(unpack(C.backdrop.edgeColor))
 
             bar:Show()
         else
@@ -329,8 +339,6 @@ function TC2:UpdateThreatBars()
                     local color = GetColor(data.unit, data.isTanking, hasActiveIgnite)
                     bar:SetStatusBarColor(unpack(color))
                     bar.bg:SetVertexColor(color[1] * C.bar.colorMod, color[2] * C.bar.colorMod, color[3] * C.bar.colorMod, C.bar.alpha)
-                    bar.backdrop:SetBackdropColor(unpack(C.backdrop.bgColor))
-                    bar.backdrop:SetBackdropBorderColor(unpack(C.backdrop.edgeColor))
 
                     bar:Show()
                     break
@@ -369,8 +377,8 @@ local function UpdateThreatData(unit)
     if not UnitIsUnit(unit, "player") then
         -- target list disabled or target in filter targetlist
         if not C.filter.useTargetList or C.filter.targetList[UnitName(TC2.playerTarget)] then
-            -- melee range filter
-            if C.filter.outOfMelee and rawThreatPercent and rawThreatPercent / threatPercent > 1.2 then
+            -- melee range filter; threatPercent > 0 to avoid divison by zero on fucked up api response
+            if C.filter.outOfMelee and rawThreatPercent and threatPercent > 0 and rawThreatPercent / threatPercent > 1.2 then
                 return
             end
         end
@@ -649,8 +657,10 @@ function TC2:UpdateFrame()
         frame.header:SetPoint("TOPLEFT", frame, 0, C.bar.height - 1)
         frame.header:SetStatusBarColor(unpack(C.frame.headerColor))
 
-        frame.header.backdrop:SetBackdropColor(0, 0, 0, 0) -- ugly, but okay for now
-        frame.header.backdrop:SetBackdropBorderColor(0, 0, 0, C.frame.headerColor[4]) -- adjust alpha for border
+        frame.header:SetBackdropColor(0, 0, 0, 0)
+        frame.header:SetBackdropBorderColor(0, 0, 0, 0)
+        frame.header.edgeBackdrop:SetBackdropColor(0, 0, 0, 0)
+        frame.header.edgeBackdrop:SetBackdropBorderColor(0, 0, 0, C.frame.headerColor[4]) -- adjust alpha for border
 
         frame.header.text:SetText(format("%s%s", L.gui_threat, ""))
 
@@ -665,12 +675,20 @@ function TC2:UpdateFrame()
 end
 
 function TC2:UpdateBars()
-    -- get up-to-date backdrop settings
+    -- get up-to-date backdrop and edgeBackdrop settings
     local backdrop = {
         bgFile = LSM:Fetch("statusbar", C.backdrop.bgTexture),
-        edgeFile = LSM:Fetch("border", C.backdrop.edgeTexture),
         tile = C.backdrop.tile,
         tileSize = C.backdrop.tileSize,
+        insets = {
+            left = C.backdrop.inset,
+            right = C.backdrop.inset,
+            top = C.backdrop.inset,
+            bottom = C.backdrop.inset,
+        },
+    }
+    local edgeBackdrop = {
+        edgeFile = LSM:Fetch("border", C.backdrop.edgeTexture),
         edgeSize = C.backdrop.edgeSize,
         insets = {
             left = C.backdrop.inset,
@@ -686,7 +704,12 @@ function TC2:UpdateBars()
 
         local bar = self.bars[i]
 
-        bar.backdrop:SetBackdrop(backdrop)
+        bar:SetBackdrop(backdrop)
+        bar:SetBackdropColor(unpack(C.backdrop.bgColor))
+        bar:SetBackdropBorderColor(0,0,0,0)
+        bar.edgeBackdrop:SetBackdrop(edgeBackdrop)
+        bar.edgeBackdrop:SetBackdropColor(0,0,0,0)
+        bar.edgeBackdrop:SetBackdropBorderColor(unpack(C.backdrop.edgeColor))
         
         if i == 1 then
             bar:SetPoint("TOP", 0, 0)
@@ -1418,7 +1441,7 @@ TC2.configTable = {
                             dialogControl = 'LSM30_Statusbar',
                             values = AceGUIWidgetLSMlists.statusbar,
                             get = function(info)
-                                return C.backdrop.edgeTexture
+                                return C.backdrop.bgTexture
                             end,
                             set = function(info, value)
                                 C.backdrop.bgTexture = value
@@ -1615,6 +1638,7 @@ TC2.configTable = {
                 targetList = {
                     order = 3,
                     name = L.filter_targetList,
+                    desc = L.filter_targetList_desc,
                     type = "input",
                     width = "full",
                     multiline = 8,

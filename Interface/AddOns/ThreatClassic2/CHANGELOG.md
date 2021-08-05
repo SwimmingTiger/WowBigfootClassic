@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.38
+
+* Fixed a bug that made it impossible to change the backdrop texture
+* Fixed a lua error that could occur when filtering range players
+* Fixed backdrop being incorrectly drawn above bars. Backdrop now draws behind bars, while the edge still draws above. This removes the faint white taint on your bars with the default settings.
+
 ## v2.37
 
 * Release chinese localization

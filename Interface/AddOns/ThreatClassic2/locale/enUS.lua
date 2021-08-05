@@ -103,8 +103,9 @@ L.font_shadow       = "Dropshadow"
 
 L.filter                = "Filter"
 L.filter_outOfMelee     = "Hide players out of melee range"
-L.filter_useTargetList  = "Filter players only for listed targets"
-L.filter_targetList     = "Filter players for these targets (newline separated)"
+L.filter_useTargetList  = "Filter players only for the targets listed below"
+L.filter_targetList     = "Filter target list (newline separated)"
+L.filter_targetList_desc  = "Enter the name of bosses or other units where you want to apply the filter. One per line. Use exact spelling and full names, e.g. Gruul the Dragonkiller"
 
 L.warnings                      = "Warnings"
 L.warnings_disableWhileTanking  = "Disable while tanking"
