@@ -69,40 +69,58 @@ end
 -- add meta table for database to solve Lua errors caused by data loss
 -- for base data
 if not devMode then
+    CodexDB.missingReport = {}
+    local function reportMissing(name, key, notice)
+        if not CodexDB.missingReport[name] then
+            CodexDB.missingReport[name] = {}
+        end
+        if not CodexDB.missingReport[name][key] then
+            CodexDB.missingReport[name][key] = true
+            print(notice:format(key).."\n"..L["Please send a report to the developer."])
+        end
+    end
+    local function reportLocalMissing(name, key, notice)
+        name = name .. '-loc'
+        notice = notice:gsub("{locale}", GetLocale()):gsub("{id}", key)
+            .."\n"..L["Please send a report to the developer."]
+        if not CodexDB.missingReport[name] then
+            CodexDB.missingReport[name] = {}
+        end
+        if not CodexDB.missingReport[name][key] then
+            CodexDB.missingReport[name][key] = true
+            print(notice)
+        end
+        return notice
+    end
+
     setmetatable(CodexDB['quests']["data"], {
         __index = function(self, key)
-            print(L['[ClassicCodex] The quest #%s is missing.']:format(key)
-                .."\n"..L["Please send a report to the developer."])
+            reportMissing('quests', key, L['[ClassicCodex] The quest #%s is missing.'])
             return {}
         end
     })
     setmetatable(CodexDB['items']["data"], {
         __index = function(self, key)
-            print(L['[ClassicCodex] The item #%s is missing.']:format(key)
-                .."\n"..L["Please send a report to the developer."])
+            reportMissing('items', key, L['[ClassicCodex] The item #%s is missing.'])
             return {}
         end
     })
     setmetatable(CodexDB['objects']["data"], {
         __index = function(self, key)
-            print(L['[ClassicCodex] The object #%s is missing.']:format(key)
-                .."\n"..L["Please send a report to the developer."])
+            reportMissing('objects', key, L['[ClassicCodex] The object #%s is missing.'])
             return {}
         end
     })
     setmetatable(CodexDB['units']["data"], {
         __index = function(self, key)
-            print(L['[ClassicCodex] The unit #%s is missing.']:format(key)
-                .."\n"..L["Please send a report to the developer."])
+            reportMissing('units', key, L['[ClassicCodex] The unit #%s is missing.'])
             return {}
         end
     })
     -- for locales
     setmetatable(CodexDB['quests']["loc"], {
         __index = function(self, key)
-            local notice = L["The {locale} locale text of the quest #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            local notice = reportLocalMissing('quests', key, L["The {locale} locale text of the quest #{id} is missing."])
             return {
                 ["D"] = notice,
                 ["O"] = notice,
@@ -112,37 +130,27 @@ if not devMode then
     })
     setmetatable(CodexDB['items']["loc"], {
         __index = function(self, key)
-            return L["The {locale} locale text of the item #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            return reportLocalMissing('items', key, L["The {locale} locale text of the item #{id} is missing."])
         end
     })
     setmetatable(CodexDB['objects']["loc"], {
         __index = function(self, key)
-            return L["The {locale} locale text of the object #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            return reportLocalMissing('objects', key, L["The {locale} locale text of the object #{id} is missing."])
         end
     })
     setmetatable(CodexDB['professions']["loc"], {
         __index = function(self, key)
-            return L["The {locale} locale text of the profession #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            return reportLocalMissing('professions', key, L["The {locale} locale text of the profession #{id} is missing."])
         end
     })
     setmetatable(CodexDB['units']["loc"], {
         __index = function(self, key)
-            return L["The {locale} locale text of the unit #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            return reportLocalMissing('units', key, L["The {locale} locale text of the unit #{id} is missing."])
         end
     })
     setmetatable(CodexDB['zones']["loc"], {
         __index = function(self, key)
-            return L["The {locale} locale text of the zone #{id} is missing."]
-                :gsub("{locale}", GetLocale()):gsub("{id}", key)
-                .."\n"..L["Please send a report to the developer."]
+            return reportLocalMissing('zones', key, L["The {locale} locale text of the zone #{id} is missing."])
         end
     })
 end

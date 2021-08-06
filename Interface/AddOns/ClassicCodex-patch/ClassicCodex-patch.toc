@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 數據補丁
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.4.8
+## Version: v0.4.9
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
@@ -18,4 +18,6 @@
 quests-questie-tbc.lua
 units-questie-tbc.lua
 units-wowhead-tbc.lua
+objects-questie-tbc.lua
+objects-loc-tbc.lua
 manual-patch-tbc.lua
