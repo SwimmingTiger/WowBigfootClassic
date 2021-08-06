@@ -597,7 +597,8 @@ function NWB:ticker()
 					NWB.data.layers[layer][v .. "30"] = nil;
 					NWB:doWarning(v, 30, secondsLeft, layer);
 				end
-				if (NWB.data.layers[layer]["terokTowers10"] and NWB.data.layers[layer]["terokTowers"]) then
+				if (NWB.data.layers[layer]["terokTowers10"] and NWB.data.layers[layer]["terokTowers"]
+						and tonumber(NWB.data.layers[layer]["terokTowers"])) then
 					--This timer drifts 3 seconds forward per minute.
 					local endTime = NWB.data.layers[layer]["terokTowers"] + NWB:round((((NWB.data.layers[layer]["terokTowers"]  - GetServerTime()) / 60) * 3));
 					local secondsLeft = endTime - GetServerTime()
@@ -1075,6 +1076,12 @@ function NWB:monsterYell(...)
 		end
 	end
 	local msg, name = ...;
+	if (name == L["Field Marshal Stonebridge"]) then
+		--Don't check yell string matches for the new NPC.
+		--Any yell will do for now to set a timestamp until languages are done properly.
+		
+		skipStringCheck = true;
+	end
 	if ((name == L["Thrall"] or (name == L["Herald of Thrall"] and (not NWB.isLayered or NWB.faction == "Alliance")))
 			and (string.match(msg, L["Rend Blackhand, has fallen"]) or skipStringCheck)) then
 		--6 seconds between first rend yell and buff applied.
@@ -1131,7 +1138,7 @@ function NWB:monsterYell(...)
 		--Second yell right before drops "Be lifted by the rallying cry of your dragon slayers".
 		NWB.data.onyYell2 = GetServerTime();
 	elseif ((NWB.faction == "Horde" and name == L["High Overlord Saurfang"] and (string.match(msg, L["NEFARIAN IS SLAIN"]) or skipStringCheck))
-		 	or (NWB.faction == "Alliance" and name == L["Field Marshal Afrasiabi"]
+		 	or (NWB.faction == "Alliance" and (name == L["Field Marshal Afrasiabi"] or name == L["Field Marshal Stonebridge"])
 		 	and (string.match(msg, L["the Lord of Blackrock is slain"]) or skipStringCheck))) then
 		--15 seconds between first nef yell and buff applied.
 		NWB.data.nefYell = GetServerTime();
@@ -1139,7 +1146,7 @@ function NWB:monsterYell(...)
 		--Send first yell msg to guild so people in org see it, needed because 1 person online only will send msg.
 		NWB:sendYell("GUILD", "nef", nil, layerNum);
 	elseif ((NWB.faction == "Horde" and name == L["High Overlord Saurfang"] and string.match(msg, L["Revel in his rallying cry"]))
-			or (NWB.faction == "Alliance" and name == L["Field Marshal Afrasiabi"] 
+			or (NWB.faction == "Alliance" and (name == L["Field Marshal Afrasiabi"] or name == L["Field Marshal Stonebridge"])
 			and string.match(msg, L["Revel in the rallying cry"]))) then
 		--Second yell right before drops "Be lifted by PlayerName's accomplishment! Revel in his rallying cry!".
 		NWB.data.nefYell2 = GetServerTime();
@@ -1512,7 +1519,8 @@ function NWB:combatLogEventUnfiltered(...)
 				NWB:sendData("GUILD");
 				NWB:sendData("YELL"); --Yell is further than npc view range.
 			end)
-		elseif ((zone == 1453 or zone == 1429) and destName == L["Field Marshal Afrasiabi"] and NWB.faction == "Alliance") then
+		elseif ((zone == 1453 or zone == 1429) and (destName == L["Field Marshal Afrasiabi"]
+				or destName == L["Field Marshal Stonebridge"] or npcID == "14721") and NWB.faction == "Alliance") then
 			local layerNum;
 			if (NWB.isLayered and NWB:checkLayerCount() and NWB.lastKnownLayerMapID and NWB.lastKnownLayerMapID > 0
 					and NWB.lastKnownLayer and NWB.lastKnownLayer > 0) then
@@ -3372,12 +3380,14 @@ function NWB:timerCleanup()
 	if (NWB.isTBC) then
 		if (NWB.isLayered) then
 			for layer, value in NWB:pairsByKeys(NWB.data.layers) do
-				if (NWB.data.layers[layer]["terokTowers"] and NWB.data.layers[layer]["terokTowers"] - GetServerTime() > 900) then
+				if (NWB.data.layers[layer]["terokTowers"] and tonumber(NWB.data.layers[layer]["terokTowers"])
+						and NWB.data.layers[layer]["terokTowers"] - GetServerTime() > 900) then
 					NWB.data.layers[layer]["terokTowers10"] = true;
 				end
 			end
 		else
-			if (NWB.data["terokTowers"] and NWB.data["terokTowers"] - GetServerTime() > 900) then
+			if (NWB.data["terokTowers"] and tonumber(NWB.data["terokTowers"])
+					and NWB.data["terokTowers"] - GetServerTime() > 900) then
 				NWB.data["terokTowers10"] = true;
 			end
 		end
@@ -3488,7 +3498,9 @@ f:SetScript("OnEvent", function(self, event, ...)
 				if (GetTime() - logonYell > 30) then
 					--Ghost check, no need to spam addon comms when a 40 man raid wipes.
 					if (not UnitIsGhost("player") and GetTime() - logonYell > 30) then
-						NWB:sendData("YELL");
+						if (doLogon or not NWB.isTBC) then
+							NWB:sendData("YELL");
+						end
 					end
 					if (logonYell == 0) then
 						logonYell = GetTime();
@@ -4826,6 +4838,7 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 			    tooltip.NWBSeparator:SetPoint("RIGHT", -10, 0);
 			end
 			tooltip.NWBSeparator:SetPoint("TOP", _G[tooltip:GetName() .. "TextLeft" .. tooltip:NumLines()], "CENTER");
+			tooltip.NWBSeparator:Show();
 			if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
 				local questData = NWB:getTbcDungeonDailyData(NWB.data.tbcDD);
 				if (questData) then
@@ -4857,6 +4870,10 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 		C_Timer.After(0.1, function()
 			NWB:updateMinimapButton(tooltip, usingPanel);
 		end)
+	else
+		if (tooltip.NWBSeparator) then
+			tooltip.NWBSeparator:Hide();
+		end
 	end
 end
 
@@ -7454,7 +7471,7 @@ NWBbuffListFrameWipeButton:SetScript("OnClick", function(self, arg)
 	  timeout = 0,
 	  whileDead = true,
 	  hideOnEscape = true,
-	  preferredIndex = STATICPOPUP_NUMDIALOGS,
+	  preferredIndex = 3,
 	};
 	StaticPopup_Show("NWB_BUFFDATARESET");
 end)

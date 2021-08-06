@@ -279,11 +279,12 @@ NWB.options = {
 			get = "getShowNaxxMinimapMarkers",
 			set = "setShowNaxxMinimapMarkers",
 		},
+		--Shat world markers TBC order = 133.
 		bigWigsSupport = {
 			type = "toggle",
 			name = L["bigWigsSupportTitle"],
 			desc = L["bigWigsSupportDesc"],
-			order = 133,
+			order = 134,
 			get = "getBigWigsSupport",
 			set = "setBigWigsSupport",
 		},
@@ -1413,6 +1414,14 @@ function NWB:loadSpecificOptions()
 			fontSize = "medium",
 			order = 25,
 		};
+		NWB.options.args["showShatWorldmapMarkers"] = {
+			type = "toggle",
+			name = L["showShatWorldmapMarkersTitle"],
+			desc = L["showShatWorldmapMarkersDesc"],
+			order = 133,
+			get = "getShowShatWorldmapMarkers",
+			set = "setShowShatWorldmapMarkers",
+		};
 	end
 	if (NWB.isTBC or NWB.realmsTBC) then
 		NWB.optionDefaults.global.minimapIcon = {["minimapPos"] = 139, ["hide"] = false};
@@ -1640,6 +1649,7 @@ NWB.optionDefaults = {
 		terokkarChat10 = true,
 		terokkarMiddle10 = false,
 		wipeTerokkarData = true,
+		showShatWorldmapMarkers = true,
 		
 		--TBC options
 		disableSoundsAboveMaxBuffLevel = true,
@@ -3359,6 +3369,16 @@ end
 
 function NWB:getShowNaxxMinimapMarkers(info)
 	return self.db.global.showNaxxMinimapMarkers;
+end
+
+--Show world map Shat dailies marker.
+function NWB:setShowShatWorldmapMarkers(info, value)
+	self.db.global.showShatWorldmapMarkers = value;
+	NWB:updateShatDailyMarkers();
+end
+
+function NWB:getShowShatWorldmapMarkers(info)
+	return self.db.global.showShatWorldmapMarkers;
 end
 
 --Bigwigs support.

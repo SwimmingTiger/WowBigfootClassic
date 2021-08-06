@@ -604,20 +604,22 @@ function NWB:createData(distribution, noLogs)
 			data[k] = NWB.data[k];
 		end
 	end
-	if (NWB.isTBC and NWB.data.terokFaction and NWB.data.terokTowers and NWB.data.terokTowers > GetServerTime()
-			and NWB.data.terokTowers < GetServerTime() + 20700) then
+	if (NWB.isTBC and NWB.data.terokFaction and NWB.data.terokTowers and tonumber(NWB.data.terokTowers)
+			and NWB.data.terokTowers > GetServerTime() and NWB.data.terokTowers < GetServerTime() + 20700) then
 		data.terokTowers = NWB.data.terokTowers;
 		data.terokFaction = NWB.data.terokFaction;
 	end
-	if (NWB.isTBC and NWB.data.hellfireRep and NWB.data.hellfireRep > GetServerTime()
-			and NWB.data.hellfireRep < GetServerTime() + 23400) then
-		data.hellfireRep = NWB.data.hellfireRep;
-	end
-	if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
+	--if (NWB.isTBC and NWB.data.hellfireRep and tonumber(NWB.data.hellfireRep) and NWB.data.hellfireRep > GetServerTime()
+	--		and NWB.data.hellfireRep < GetServerTime() + 23400) then
+	--	data.hellfireRep = NWB.data.hellfireRep;
+	--end
+	if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
+			and GetServerTime() - NWB.data.tbcHDT < 86400) then
 		data.tbcHD = NWB.data.tbcHD;
 		data.tbcHDT = NWB.data.tbcHDT;
 	end
-	if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
+	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
+			and GetServerTime() - NWB.data.tbcDDT < 86400) then
 		data.tbcDD = NWB.data.tbcDD;
 		data.tbcDDT = NWB.data.tbcDDT;
 	end
@@ -646,6 +648,7 @@ end
 
 local lastSendLayerMap = {};
 local lastSendLayerMapID = {};
+--local firstLayeredYell = true;
 function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 	local data = {};
 	if ((UnitInBattleground("player") or NWB:isInArena()) and distribution ~= "GUILD") then
@@ -654,11 +657,21 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 	if (not lastSendLayerMap[distribution]) then
 		lastSendLayerMap[distribution] = 0;
 	end
+	if (NWB.isTBC) then
+		noLogs = true;
+	end
+	--if (NWB.isTBC and firstLayeredYell and distribution == "YELL") then
+		--Don't send full yell data at logon.
+	--	noLayerMap = true;
+	--	noLogs = true;
+	--	firstLayeredYell = false;
+	--end
 	--Send layer info only every 2nd yell to lower data sent.
-	local sendLayerMapDelay = 640;
+	--[[local sendLayerMapDelay = 640;
 	if (NWB.cnRealms[NWB.realm] or NWB.twRealms[NWB.realm] or NWB.krRealms[NWB.realm]) then
 		sendLayerMapDelay = 1260;
-	end
+	end]]
+	local sendLayerMapDelay = 1840;
 	local sendLayerMap, foundTimer;
 	if (not noLayerMap and (GetServerTime() - lastSendLayerMap[distribution]) > sendLayerMapDelay
 			and distribution ~= "PARTY" and distribution ~= "RAID") then
@@ -778,7 +791,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 				end
 			end
 		end
-		if (NWB.isTBC and v.terokFaction and v.terokTowers and v.terokTowers > GetServerTime()
+		if (NWB.isTBC and v.terokFaction and v.terokTowers and tonumber(v.terokTowers) and v.terokTowers > GetServerTime()
 				and v.terokTowers < GetServerTime() + 20700 and (not type or type == "terokkar")) then
 			if (not data.layers) then
 				data.layers = {};
@@ -790,7 +803,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 			data.layers[layer].terokFaction = v.terokFaction;
 			foundTimer = true;
 		end
-		if (NWB.isTBC and v.hellfireRep and v.hellfireRep < GetServerTime()
+		--[[if (NWB.isTBC and v.hellfireRep and tonumber(v.hellfireRep) and v.hellfireRep < GetServerTime()
 				and v.hellfireRep > GetServerTime() - 23400 and (not type or type == "hellfire")) then
 			if (not data.layers) then
 				data.layers = {};
@@ -800,7 +813,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 			end
 			data.layers[layer].hellfireRep = v.hellfireRep;
 			foundTimer = true;
-		end
+		end]]
 		if ((sendLayerMap and foundTimer) or not lastSendLayerMapID[layer]
 				or (lastSendLayerMapID[layer] and GetServerTime() - lastSendLayerMapID[layer] > 3600)) then
 			if (NWB.data.layers[layer].layerMap and next(NWB.data.layers[layer].layerMap)) then
@@ -865,12 +878,14 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 			data[k] = NWB.data[k];
 		end
 	end]]
-	if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400
+	if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
+			and GetServerTime() - NWB.data.tbcHDT < 86400
 		and (not type or type == "tbcHeroicDailies")) then
 		data.tbcHD = NWB.data.tbcHD;
 		data.tbcHDT = NWB.data.tbcHDT;
 	end
-	if (NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400
+	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
+			and GetServerTime() - NWB.data.tbcDDT < 86400
 		and (not type or type == "tbcHeroicDailies")) then
 		data.tbcDD = NWB.data.tbcDD;
 		data.tbcDDT = NWB.data.tbcDDT;
@@ -1394,7 +1409,10 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 						--Like if onyTimeWho is a number, not sure how this is possible but it happens on rare occasion.
 						--This will correct it by resetting thier timestamp to 0.
 						--NWB:debug("Local data error:", k, v, NWB.data[k])
-						NWB.data[k] = 0;
+						if (k ~= "tbcDD" and k ~= "tbcHD") then
+							--If it's not a daily type, we never want to set those to 0 they should be nil if not valid.
+							NWB.data[k] = 0;
+						end
 					end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v, k) and k ~= "terokFaction"
@@ -1417,22 +1435,34 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								NWB:receivedNpcDied(k, v, distribution, nil, sender);
 							end
 							if (k ~= "nefNpcDied" or NWB.faction ~= "Horde") then
-								NWB.data[k] = v;
+								local skip;
 								if (k == "terokTowers" and data.terokFaction) then
 									NWB.data.terokFaction = data.terokFaction;
 								end
-								if (k == "tbcHDT" and data.tbcHD) then
-									NWB.data.tbcHD = data.tbcHD;
+								if (k == "tbcHDT" and data.tbcHD and tonumber(data.tbcHD) and data.tbcHD > 0) then
+									--Rare bug it gets received as 0.
+									if (tonumber(data.tbcHD) and data.tbcHD > 0) then
+										NWB.data.tbcHD = data.tbcHD;
+									else
+										skip = true;
+									end
 								end
 								if (k == "tbcDDT" and data.tbcDD) then
-									NWB.data.tbcDD = data.tbcDD;
+									if (tonumber(data.tbcDD) and data.tbcDD > 0) then
+										NWB.data.tbcDD = data.tbcDD;
+									else
+										skip = true;
+									end
 								end
-								if (not string.match(k, "terokTowers") and not string.match(k, "hellfireRep")
-										and not string.match(k, "tbcHDT")) then
-									hasNewData = true;
-								end
-								if (not NWB.isLayered) then
-									NWB:timerLog(k, v, nil, nil, nil, distribution);
+								if (not skip) then
+									NWB.data[k] = v;
+									if (not string.match(k, "terokTowers") and not string.match(k, "hellfireRep")
+											and not string.match(k, "tbcHDT")) then
+										hasNewData = true;
+									end
+									if (not NWB.isLayered) then
+										NWB:timerLog(k, v, nil, nil, nil, distribution);
+									end
 								end
 							end
 						end
@@ -1612,11 +1642,11 @@ function NWB:yellTicker()
 		--Also this shorter interval may help a songflower timer issue there.
 		yellDelay = 900;
 	end
-	--if (NWB.isLayered) then
+	if (NWB.isLayered) then
 		--Longer yell delay on high pop servers, no need for as many.
 		--Increased to 10 minutes on layered realms.
-		--yellDelay = 600;
-	--end
+		yellDelay = 1200;
+	end
 	C_Timer.After(yellDelay, function()
 		--Msg inside the timer so it doesn't send first tick at logon, player entering world does that.
 		NWB:removeOldLayers();
@@ -3111,6 +3141,7 @@ f:SetScript('OnEvent', function(self, event, ...)
 					and (GetServerTime() - lastPew) > 120) then
 				NWB:getTerokkarData();
 			end
+			NWB:getTerokkarData();
 		end
 	end
 end)
@@ -3217,16 +3248,61 @@ function NWB:getTerokkarData()
 		--Horde controlled.
 		controlType = 3;
 	end
-	local hours, minutes = 0, 0;
+	local hours, minutes;
 	if (controlType > 0) then
 		if (controlType == 1) then
-			hours, minutes = string.match(neutral.text, "(%d+):(%d+)");
+			hours, minutes = string.match(neutral.text, "(%d+):%s*(%d+)");
+			if (not hours or not minutes) then
+				--Chinese colon, only explicit matches on chinese characters work in lua.
+				--hours, minutes = string.match(neutral.text, "(%d+)：(%d+)");
+				--Changed to match any type of colon as a backup insteadhardware.
+				--There should only ever be 2 numbers in this string I think?
+				local numbers = {};
+				for num in string.gmatch(alliance.text, "%d+") do
+					table.insert(numbers, num);
+				end
+				if (#numbers == 2) then
+					hours = numbers[1];
+					minutes = numbers[2];
+				end
+			end
+			if (not hours or not minutes) then
+				return;
+			end
 			timestamp = GetServerTime() + (hours * 3600) + (minutes * 60);
 		elseif (controlType == 2) then
-			hours, minutes = string.match(alliance.text, "(%d+):(%d+)"); --/tinspect string.match("2:30", "(%d+):(%d+)")
+			hours, minutes = string.match(alliance.text, "(%d+):%s*(%d+)");
+			if (not hours or not minutes) then
+				--hours, minutes = string.match(alliance.text, "(%d+)：(%d+)");
+				local numbers = {};
+				for num in string.gmatch(alliance.text, "%d+") do
+					table.insert(numbers, num);
+				end
+				if (#numbers == 2) then
+					hours = numbers[1];
+					minutes = numbers[2];
+				end
+			end
+			if (not hours or not minutes) then
+				return;
+			end
 			timestamp = GetServerTime() + (hours * 3600) + (minutes * 60);
 		elseif (controlType == 3) then
 			hours, minutes = string.match(horde.text, "(%d+):(%d+)");
+			if (not hours or not minutes) then
+				--hours, minutes = string.match(alliance.text, "(%d+)：(%d+)");
+				local numbers = {};
+				for num in string.gmatch(horde.text, "%d+") do
+					table.insert(numbers, num);
+				end
+				if (#numbers == 2) then
+					hours = numbers[1];
+					minutes = numbers[2];
+				end
+			end
+			if (not hours or not minutes) then
+				return;
+			end
 			timestamp = GetServerTime() + (hours * 3600) + (minutes * 60);
 		end
 		if (timestamp > 0 and ((hours * 3600) + (minutes * 60)) < 22000) then
@@ -3362,6 +3438,12 @@ function NWB:updateTerokkarMarkers(type, layer)
 	    else
 	    	_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
 	    end
+	    if (timeString == L["noTimer"]) then
+	    	_G[type .. layer .. "NWBTerokkarMap"].timerMsg = nil;
+	    else
+	    	local msg = NWB:getTimeString(time, true) .. " (Layer " .. count .. ")";
+	    	_G[type .. layer .. "NWBTerokkarMap"].timerMsg = msg;
+	    end
 		return timeString;
 	else
 		local timeString = L["noTimer"];
@@ -3382,6 +3464,12 @@ function NWB:updateTerokkarMarkers(type, layer)
 	    	end
 	    else
 	    	_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+	    end
+	    if (timeString == L["noTimer"]) then
+	    	_G[type .. "NWBTerokkarMap"].timerMsg = nil;
+	    else
+	    	local msg = NWB:getTimeString(time, true);
+	    	_G[type .. "NWBTerokkarMap"].timerMsg = msg;
 	    end
 		return timeString;
 	end
@@ -3453,6 +3541,63 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 				NWB:openBuffListFrame();
 			end)]]
 			mapMarkers[type .. layer .. "NWBTerokkarMap"] = true;
+			obj.lastChatMsgSay = 0;
+			obj.lastChatMsgGuild = 0;
+			obj:SetScript("OnMouseDown", function(self, button)
+				if (IsShiftKeyDown() and obj.timerMsg) then
+					if (button == "RightButton") then
+						if (GetServerTime() - obj.lastChatMsgSay > 5) then
+							obj.lastChatMsgSay = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "say");
+						end
+					else
+						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
+							obj.lastChatMsgGuild = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "guild");
+						end
+					end
+				end
+			end)
+			obj.timerFrame:SetScript("OnMouseDown", function(self, button)
+				if (IsShiftKeyDown() and obj.timerMsg) then
+					if (button == "RightButton") then
+						if (GetServerTime() - obj.lastChatMsgSay > 5) then
+							obj.lastChatMsgSay = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "say");
+						end
+					else
+						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
+							obj.lastChatMsgGuild = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "guild");
+						end
+					end
+				end
+			end)
+			obj.tooltip = CreateFrame("Frame", type .. layer .. "NWBTerokkarDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
+			obj.tooltip:SetPoint("BOTTOM", obj, "TOP", 0, 35);
+			--obj.tooltip:SetPoint("CENTER", obj, "CENTER", 0, -26);
+			obj.tooltip:SetFrameStrata("TOOLTIP");
+			obj.tooltip:SetFrameLevel(9999);
+			obj.tooltip.fs = obj.tooltip:CreateFontString("NWBTerokkarDailyMapTextTooltipFS", "ARTWORK");
+			obj.tooltip.fs:SetPoint("CENTER", 0, 0);
+			obj.tooltip.fs:SetFont(NWB.regionFont, 14);
+			obj.tooltip.fs:SetJustifyH("LEFT")
+			obj.tooltip.fs:SetText("|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			obj.tooltip:SetWidth(obj.tooltip.fs:GetStringWidth() + 18);
+			obj.tooltip:SetHeight(obj.tooltip.fs:GetStringHeight() + 12);
+			obj.tooltip:Hide();
+			obj:SetScript("OnEnter", function(self)
+				obj.tooltip:Show();
+			end)
+			obj:SetScript("OnLeave", function(self)
+				obj.tooltip:Hide();
+			end)
+			obj.timerFrame:SetScript("OnEnter", function(self)
+				obj.tooltip:Show();
+			end)
+			obj.timerFrame:SetScript("OnLeave", function(self)
+				obj.tooltip:Hide();
+			end)
 		end
 	else
 		if (not _G[type .. "NWBTerokkarMap"]) then
@@ -3493,6 +3638,62 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 				obj.timerFrame:Show();
 			end)
 			mapMarkers[type .. "NWBTerokkarMap"] = true;
+			obj.lastChatMsg = 0;
+			obj:SetScript("OnMouseDown", function(self, button)
+				if (IsShiftKeyDown() and obj.timerMsg) then
+					if (button == "RightButton") then
+						if (GetServerTime() - obj.lastChatMsgSay > 5) then
+							obj.lastChatMsgSay = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "say");
+						end
+					else
+						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
+							obj.lastChatMsgGuild = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "guild");
+						end
+					end
+				end
+			end)
+			obj.timerFrame:SetScript("OnMouseDown", function(self, button)
+				if (IsShiftKeyDown() and obj.timerMsg) then
+					if (button == "RightButton") then
+						if (GetServerTime() - obj.lastChatMsgSay > 5) then
+							obj.lastChatMsgSay = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "say");
+						end
+					else
+						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
+							obj.lastChatMsgGuild = GetServerTime();
+							SendChatMessage("[Terokkar] Towers reset in " .. obj.timerMsg .. ".", "guild");
+						end
+					end
+				end
+			end)
+			obj.tooltip = CreateFrame("Frame", type .. "NWBTerokkarDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
+			obj.tooltip:SetPoint("BOTTOM", obj, "TOP", 0, 35);
+			--obj.tooltip:SetPoint("CENTER", obj, "CENTER", 0, -26);
+			obj.tooltip:SetFrameStrata("TOOLTIP");
+			obj.tooltip:SetFrameLevel(9999);
+			obj.tooltip.fs = obj.tooltip:CreateFontString("NWBTerokkarDailyMapTextTooltipFS", "ARTWORK");
+			obj.tooltip.fs:SetPoint("CENTER", 0, 0);
+			obj.tooltip.fs:SetFont(NWB.regionFont, 14);
+			obj.tooltip.fs:SetJustifyH("LEFT")
+			obj.tooltip.fs:SetText("|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			obj.tooltip:SetWidth(obj.tooltip.fs:GetStringWidth() + 18);
+			obj.tooltip:SetHeight(obj.tooltip.fs:GetStringHeight() + 12);
+			obj.tooltip:Hide();
+			obj:SetScript("OnEnter", function(self)
+				obj.tooltip:Show();
+			end)
+			obj:SetScript("OnLeave", function(self)
+				obj.tooltip:Hide();
+			end)
+			obj.timerFrame:SetScript("OnEnter", function(self)
+				obj.tooltip:Show();
+			end)
+			obj.timerFrame:SetScript("OnLeave", function(self)
+				obj.tooltip:Hide();
+			end)
 		end
 	end
 end
@@ -3834,63 +4035,70 @@ end)
 
 --Update timers for worldmap when the map is open.
 function NWB:updateShatDailyMarkers()
-	if (_G["NWBShatDailyMap"] and NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
-		local questData = NWB:getTbcDungeonDailyData(NWB.data.tbcDD);
-		if (questData) then
-			local name = questData.nameLocale or questData.name;
-			_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
-					.. name .. " (" .. questData.abbrev .. ")");
+	if (NWB.db.global.showShatWorldmapMarkers) then
+		_G["NWBShatDailyMap"]:Show();
+		_G["NWBShatHeroicMap"]:Show();
+		if (_G["NWBShatDailyMap"] and NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
+			local questData = NWB:getTbcDungeonDailyData(NWB.data.tbcDD);
+			if (questData) then
+				local name = questData.nameLocale or questData.name;
+				_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
+						.. name .. " (" .. questData.abbrev .. ")");
+				_G["NWBShatDailyMap"].textFrame:SetWidth(_G["NWBShatDailyMap"].textFrame.fs:GetStringWidth() + 18);
+				_G["NWBShatDailyMap"].textFrame:SetHeight(_G["NWBShatDailyMap"].textFrame.fs:GetStringHeight() + 12);
+				if (questData.desc and questData.desc ~= "") then
+					_G["NWBShatDailyMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
+					_G["NWBShatDailyMap"].tooltip:SetWidth(_G["NWBShatDailyMap"].tooltip.fs:GetStringWidth() + 18);
+					_G["NWBShatDailyMap"].tooltip:SetHeight(_G["NWBShatDailyMap"].tooltip.fs:GetStringHeight() + 12);
+					_G["NWBShatDailyMap"].tooltip.enable = true;
+				else
+					_G["NWBShatDailyMap"].tooltip.fs:SetText("");
+					_G["NWBShatDailyMap"].tooltip:SetWidth(1);
+					_G["NWBShatDailyMap"].tooltip:SetHeight(1);
+					_G["NWBShatDailyMap"].tooltip.enable = false;
+				end
+			end
+		else
+			_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
 			_G["NWBShatDailyMap"].textFrame:SetWidth(_G["NWBShatDailyMap"].textFrame.fs:GetStringWidth() + 18);
 			_G["NWBShatDailyMap"].textFrame:SetHeight(_G["NWBShatDailyMap"].textFrame.fs:GetStringHeight() + 12);
-			if (questData.desc and questData.desc ~= "") then
-				_G["NWBShatDailyMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
-				_G["NWBShatDailyMap"].tooltip:SetWidth(_G["NWBShatDailyMap"].tooltip.fs:GetStringWidth() + 18);
-				_G["NWBShatDailyMap"].tooltip:SetHeight(_G["NWBShatDailyMap"].tooltip.fs:GetStringHeight() + 12);
-				_G["NWBShatDailyMap"].tooltip.enable = true;
-			else
-				_G["NWBShatDailyMap"].tooltip.fs:SetText("");
-				_G["NWBShatDailyMap"].tooltip:SetWidth(1);
-				_G["NWBShatDailyMap"].tooltip:SetHeight(1);
-				_G["NWBShatDailyMap"].tooltip.enable = false;
-			end
+			_G["NWBShatDailyMap"].tooltip.fs:SetText("");
+			_G["NWBShatDailyMap"].tooltip:SetWidth(1);
+			_G["NWBShatDailyMap"].tooltip:SetHeight(1);
+			_G["NWBShatDailyMap"].tooltip.enable = false;
 		end
-	else
-		_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
-		_G["NWBShatDailyMap"].textFrame:SetWidth(_G["NWBShatDailyMap"].textFrame.fs:GetStringWidth() + 18);
-		_G["NWBShatDailyMap"].textFrame:SetHeight(_G["NWBShatDailyMap"].textFrame.fs:GetStringHeight() + 12);
-		_G["NWBShatDailyMap"].tooltip.fs:SetText("");
-		_G["NWBShatDailyMap"].tooltip:SetWidth(1);
-		_G["NWBShatDailyMap"].tooltip:SetHeight(1);
-		_G["NWBShatDailyMap"].tooltip.enable = false;
-	end
-	if (_G["NWBShatHeroicMap"] and NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
-		local questData = NWB:getTbcHeroicDailyData(NWB.data.tbcHD);
-		if (questData) then
-			local name = questData.nameLocale or questData.name;
-			_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
-					.. name .. " (" .. questData.abbrev .. ")");
+		if (_G["NWBShatHeroicMap"] and NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
+			local questData = NWB:getTbcHeroicDailyData(NWB.data.tbcHD);
+			if (questData) then
+				local name = questData.nameLocale or questData.name;
+				_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
+						.. name .. " (" .. questData.abbrev .. ")");
+				_G["NWBShatHeroicMap"].textFrame:SetWidth(_G["NWBShatHeroicMap"].textFrame.fs:GetStringWidth() + 18);
+				_G["NWBShatHeroicMap"].textFrame:SetHeight(_G["NWBShatHeroicMap"].textFrame.fs:GetStringHeight() + 12);
+				if (questData.desc and questData.desc ~= "") then
+					_G["NWBShatHeroicMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
+					_G["NWBShatHeroicMap"].tooltip:SetWidth(_G["NWBShatHeroicMap"].tooltip.fs:GetStringWidth() + 18);
+					_G["NWBShatHeroicMap"].tooltip:SetHeight(_G["NWBShatHeroicMap"].tooltip.fs:GetStringHeight() + 12);
+					_G["NWBShatHeroicMap"].tooltip.enable = true;
+				else
+					_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
+					_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
+					_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
+					_G["NWBShatHeroicMap"].tooltip.enable = false;
+				end
+			end
+		else
+			_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
 			_G["NWBShatHeroicMap"].textFrame:SetWidth(_G["NWBShatHeroicMap"].textFrame.fs:GetStringWidth() + 18);
 			_G["NWBShatHeroicMap"].textFrame:SetHeight(_G["NWBShatHeroicMap"].textFrame.fs:GetStringHeight() + 12);
-			if (questData.desc and questData.desc ~= "") then
-				_G["NWBShatHeroicMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
-				_G["NWBShatHeroicMap"].tooltip:SetWidth(_G["NWBShatHeroicMap"].tooltip.fs:GetStringWidth() + 18);
-				_G["NWBShatHeroicMap"].tooltip:SetHeight(_G["NWBShatHeroicMap"].tooltip.fs:GetStringHeight() + 12);
-				_G["NWBShatHeroicMap"].tooltip.enable = true;
-			else
-				_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
-				_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
-				_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
-				_G["NWBShatHeroicMap"].tooltip.enable = false;
-			end
+			_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
+			_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
+			_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
+			_G["NWBShatHeroicMap"].tooltip.enable = false;
 		end
 	else
-		_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
-		_G["NWBShatHeroicMap"].textFrame:SetWidth(_G["NWBShatHeroicMap"].textFrame.fs:GetStringWidth() + 18);
-		_G["NWBShatHeroicMap"].textFrame:SetHeight(_G["NWBShatHeroicMap"].textFrame.fs:GetStringHeight() + 12);
-		_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
-		_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
-		_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
-		_G["NWBShatHeroicMap"].tooltip.enable = false;
+		_G["NWBShatDailyMap"]:Hide();
+		_G["NWBShatHeroicMap"]:Hide();
 	end
 end
 
@@ -3934,7 +4142,7 @@ function NWB:createShatDailyMarkers()
 		obj:SetScript("OnLeave", function(self)
 			if (obj.tooltip.enable) then
 				obj.tooltip:Hide();
-				end
+			end
 		end)
 		obj.textFrame:SetScript("OnEnter", function(self)
 			if (obj.tooltip.enable) then
@@ -3951,7 +4159,7 @@ function NWB:createShatDailyMarkers()
 			--Update timer when map is open.
 			if (GetServerTime() - obj.lastUpdate > 0) then
 				obj.lastUpdate = GetServerTime();
-				NWB:updateShatDailyMarkers(o);
+				NWB:updateShatDailyMarkers();
 			end
 		end)
 		--Make it act like pin is the parent and not WorldMapFrame.
@@ -4001,7 +4209,7 @@ function NWB:createShatDailyMarkers()
 		obj:SetScript("OnLeave", function(self)
 			if (obj.tooltip.enable) then
 				obj.tooltip:Hide();
-				end
+			end
 		end)
 		obj.textFrame:SetScript("OnEnter", function(self)
 			if (obj.tooltip.enable) then

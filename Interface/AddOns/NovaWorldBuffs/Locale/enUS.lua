@@ -66,6 +66,7 @@ L["Onyxia, hangs from the arches"] = true;
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = true;
+L["Field Marshal Stonebridge"] = true;
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = true;
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
@@ -819,3 +820,6 @@ L["terokkarChat10Desc"] = "Print a msg in chat when 10 minutes left on terokkar 
 
 L["terokkarMiddle10Title"] = "Terokkar 10 Minutes";
 L["terokkarMiddle10Desc"] = "Show a raid warning style msg in the middle of the screen when 10 minutes left on terokkar spirit towers.";
+
+L["showShatWorldmapMarkersTitle"] = "Shattrath Worldmap";
+L["showShatWorldmapMarkersDesc"] = "Show dungeon daily markers on the Shattrath world map?";

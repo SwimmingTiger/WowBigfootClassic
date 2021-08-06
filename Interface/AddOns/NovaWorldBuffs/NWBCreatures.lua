@@ -302,7 +302,8 @@ NWB.stormwindCreatures = {
 	[1310] = "Evan Larson",
 	[16106] = "Evert Sorisam",
 	[1303] = "Felicia Gump",
-	[14721] = "Field Marshal Afrasiabi",
+	--[14721] = "Field Marshal Afrasiabi",
+	[14721] = "Field Marshal Stonebridge",
 	[1419] = "Fizzles",
 	--[2044] = "Forlorn Spirit",
 	[1298] = "Frederick Stover",
@@ -506,6 +507,7 @@ NWB.stormwindCreatures = {
 }
 
 NWB.companionCreatures = {
+	--Classic
 	[9662] = "Sprite Darter Hatchling",
 	[7392] = "Prairie Chicken",
 	[8376] = "Mechanical Chicken",
@@ -570,4 +572,45 @@ NWB.companionCreatures = {
 	[9936] = "Corrupted Kitten",
 	[17254] = "White Tiger Cub", --Not ingame?
 	--[999999999] = "Snapjaw", --Turtle Egg (Albino), never made it into game? No ID found.
+	
+	---TBC
+	[21055] = "Golden Dragonhawk Hatchling",
+	[21064] = "Red Dragonhawk Hatchling",
+	[21063] = "Silver Dragonhawk Hatchling",
+	[21008] = "Yellow Moth",
+	[21010] = "Blue Moth",
+	[21018] = "White Moth",
+	[21009] = "Red Moth",
+	[21056] = "Blue Dragonhawk Hatchling",
+	[20472] = "Brown Rabbit",
+	[20408] = "Mana Wyrmling",
+	[25706] = "Scorchling",
+	[23231] = "Willy",
+	[23266] = "Peanut",
+	[23258] = "Egbert",
+	[23909] = "Sinister Squashling",
+	[24968] = "Clockwork Rocket Bot",
+	[22943] = "Wolpertinger",
+	[18839] = "Magical Crawdad",
+	[26050] = "Snarly",
+	[26056] = "Chuck",
+	[24389] = "Muckbreath",
+	[24388] = "Toothy",
+	[25062] = "Tiny Sporebat",
+	[28470] = "Nether Ray Fry",
+	[18381] = "Netherwhelp",
+	[22445] = "Miniwing",
+	[21076] = "Firefly",
+	[26119] = "Phoenix Hatchling",
+	[24480] = "Mojo",
+	[27914] = "Ethereal Soul-Trader",
+	[23234] = "Bananas",
+	[29089] = "Mini Tyrael",
+	[25109] = "Rocket Chicken",
+	[27217] = "Spirit of Competition",
+	[25110] = "Dragon Kite",
+	[23198] = "Lucky",
+	[16456] = "Poley",
+	[17255] = "Hippogryph Hatchling",
+	[27346] = "Essence of Competition",
 }
