@@ -33,7 +33,7 @@ local function DefaultItemStatsFrame(frame, unit)
         statsFrame:SetSize(180, 157)
         statsFrame:SetPoint("TOPLEFT", frame, "TOPRIGHT", 0, -1)
         for i = 1, 32 do
-            statsFrame["stat"..i] = CreateFrame("FRAME", nil, statsFrame, "_CharacterStatFrameTemplate")
+            statsFrame["stat"..i] = CreateFrame("FRAME", nil, statsFrame, "CharacterStatFrameTemplate")
             statsFrame["stat"..i]:EnableMouse(false)
             statsFrame["stat"..i]:SetWidth(180)
             statsFrame["stat"..i]:SetPoint("TOPLEFT", 0, -17*i+13)
