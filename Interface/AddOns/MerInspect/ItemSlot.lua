@@ -118,7 +118,7 @@ if (PaperDollItemSlotButton_OnEvent) then
     end)
 end
  ]]
- 
+
 --[[观察成功后,设置slot文字]]
 LibEvent:attachTrigger("UNIT_INSPECT_READY", function(self, data)
     if (InspectFrame and InspectFrame.unit and UnitGUID(InspectFrame.unit) == data.guid) then
@@ -153,7 +153,7 @@ LibEvent:attachEvent("ADDON_LOADED", function(self, addonName)
     end
 end)
 
-
+--[[
 ----------------------
 --  Chat ItemSlot  --
 ----------------------
@@ -207,3 +207,4 @@ ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", filter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_GUILD", filter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_BATTLEGROUND", filter)
 ChatFrame_AddMessageEventFilter("CHAT_MSG_LOOT", filter)
+]]
