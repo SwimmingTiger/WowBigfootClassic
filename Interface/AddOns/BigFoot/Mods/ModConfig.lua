@@ -37,6 +37,7 @@ if GetLocale()=='zhCN' then
 	L["NovaWorldBuffs-tooltip"] ="勾选启用，右击打开世界Buff信息面板。"
 	L["EventAlertMod"] = "技能触发"
 	L["EventAlertMod-tooltip"] ="勾选启用EventAlertMod，右击打开设置面板。"
+	L["MerInspect"] = "装备属性"
 
 	masque_t = {"          默 认          ","     大脚中国风     ","       粗 边 框        ","       无 边 框        ","     无边框放大     ","          雅 黑          ","     圆形白边框     ","       凯 蒂 猫        ","          自 定 义      "}
 
@@ -75,6 +76,7 @@ elseif GetLocale()=='zhTW' then
 	L["NovaWorldBuffs-tooltip"] ="勾選啟用，右擊打開世界Buff信息面板。"
 	L["EventAlertMod"] = "技能觸發"
 	L["EventAlertMod-tooltip"] ="勾選啟用EventAlertMod，右擊打開設置面板。"
+	L["MerInspect"] = "裝備屬性"
 
 	masque_t = {"          默 認          ","     大腳中國風     ","       粗 邊 框        ","       無 邊 框        ","     無邊框放大     ","          雅 黑          ","     圓形白邊框     ","       凱 蒂 貓        ","          自 定 義      "}
 
@@ -100,6 +102,7 @@ else
 	L ["NovaWorldBuffs-tooltip"] = "Check to enable NovaWorldBuffs, right-click to open the world buff information panel."
 	L["EventAlertMod"] = "EventAlert"
 	L["EventAlertMod-tooltip"] ="Check to enable EventAlertMod, right-click to open its setting panel."
+	L["MerInspect"] = "MerInspect"
 
 end
 
@@ -748,6 +751,11 @@ local function __AddBottomFrames()
 			EA_Options_Frame:Show()
 		end
 	end)
+
+	if IsConfigurableAddOn('MerInspect') then
+		check = __CreateEnableAddonCheckBox('MerInspect', nil, true, true)
+		M:AddBottomButton(check)
+	end
 
 	if pcall(GetCVarDefault, "targetnearestuseold") then
 	    check = __CreateOldTabCheckBox()
