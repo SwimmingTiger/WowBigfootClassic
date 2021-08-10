@@ -14,32 +14,30 @@ __ala_meta__.__instlib = __instlib;
 
 local _G = _G;
 do
-	if __instlib.__fenv == nil then
-		__instlib.__fenv = setmetatable({  },
-				{
-					__index = _G,
-					__newindex = function(t, key, value)
-						rawset(t, key, value);
-						print("instlib assign global", key, value);
-						return value;
-					end,
-				}
-			);
-	end
-	setfenv(1, __instlib.__fenv);
+	-- if __instlib.__fenv == nil then
+	-- 	__instlib.__fenv = setmetatable({  },
+	-- 			{
+	-- 				__index = _G,
+	-- 				__newindex = function(t, key, value)
+	-- 					rawset(t, key, value);
+	-- 					print("instlib assign global", key, value);
+	-- 					return value;
+	-- 				end,
+	-- 			}
+	-- 		);
+	-- end
+	-- setfenv(1, __instlib.__fenv);
 end
 
 -->			upvalue
-local setmetatable, tinsert, tremove, unpack, next, wipe = setmetatable, tinsert, tremove, unpack, next, wipe;
-local type, tostring, tonumber = type, tostring, tonumber;
-local floor = floor;
-local strsplit, strsub, strfind, strrep, format = strsplit, strsub, strfind, strrep, format;
-local bit = bit;
+local setmetatable, tinsert, next = setmetatable, tinsert, next;
+local type, tonumber = type, tonumber;
+local strsplit, strsub = strsplit, strsub;
 local _ = nil;
-local RegisterAddonMessagePrefix = RegisterAddonMessagePrefix or C_ChatInfo.RegisterAddonMessagePrefix;
-local IsAddonMessagePrefixRegistered = IsAddonMessagePrefixRegistered or C_ChatInfo.IsAddonMessagePrefixRegistered;
-local GetRegisteredAddonMessagePrefixes = GetRegisteredAddonMessagePrefixes or C_ChatInfo.GetRegisteredAddonMessagePrefixes;
-local SendAddonMessage = SendAddonMessage or C_ChatInfo.SendAddonMessage;
+local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
+local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
+local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
+local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
 local IsInRaid, IsInGroup, GetNumGroupMembers = IsInRaid, IsInGroup, GetNumGroupMembers;
 local UnitName, UnitIsVisible, UnitGUID = UnitName, UnitIsVisible, UnitGUID;
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo;

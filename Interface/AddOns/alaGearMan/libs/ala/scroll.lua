@@ -22,9 +22,6 @@ _G.alaScrollList = ScrollList;
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
-local type, tonumber, tostring = type, tonumber, tostring;
-local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
 local ceil, floor, max, min = ceil, floor, max, min;
 ----------------------------------------------------------------------------------------------------
 local _G = _G;

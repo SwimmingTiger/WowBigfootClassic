@@ -13,17 +13,8 @@ _G.alaPopup = Popup;
 ----------------------------------------------------------------------------------------------------
 local ADDON, NS = ...;
 ----------------------------------------------------------------------------------------------------upvalue LUA
-local math, table, string, bit = math, table, string, bit;
-local type, tonumber, tostring = type, tonumber, tostring;
-local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
-local abs, ceil, floor, max, min, random, sqrt = abs, ceil, floor, max, min, random, sqrt;
-local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat =
-		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat;
-local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-local ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
-local tConcat = table.concat;
-local select = select;
-local date, time = date, time;
+local type = type;
+local ipairs, pairs, tinsert, tremove = ipairs, pairs, tinsert, tremove;
 ----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;

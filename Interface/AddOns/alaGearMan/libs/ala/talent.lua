@@ -1,45 +1,55 @@
 --[[--
 	ALA@163UI
 --]]--
-local __version = 3;
+local __version = 4;
 
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __emulib = __ala_meta__.__emulib;
 if __emulib ~= nil and __emulib.__minor >= __version then
 	return;
 end
-__emulib = __emulib or CreateFrame('FRAME');
+if __emulib ~= nil then
+	__emulib:UnregisterAllEvents();
+	__emulib:SetScript("OnEvent", nil);
+	if __emulib.Halt ~= nil then
+		__emulib:Halt();
+	end
+else
+	__emulib = CreateFrame('FRAME');
+end
 __emulib.__minor = __version;
 __ala_meta__.__emulib = __emulib;
 
 local _G = _G;
 do
-	if __emulib.__fenv == nil then
-		__emulib.__fenv = setmetatable({  },
-				{
-					__index = _G,
-					__newindex = function(t, key, value)
-						rawset(t, key, value);
-						print("emulib assign global", key, value);
-						return value;
-					end,
-				}
-			);
-	end
-	setfenv(1, __emulib.__fenv);
+	-- if __emulib.__fenv == nil then
+	-- 	__emulib.__fenv = setmetatable({  },
+	-- 			{
+	-- 				__index = _G,
+	-- 				__newindex = function(t, key, value)
+	-- 					rawset(t, key, value);
+	-- 					print("emulib assign global", key, value);
+	-- 					return value;
+	-- 				end,
+	-- 			}
+	-- 		);
+	-- end
+	-- setfenv(1, __emulib.__fenv);
 end
 
 -->			upvalue
-local tinsert, tremove, next, wipe = tinsert, tremove, next, wipe;
+local time = time;
+local tinsert, next, wipe = tinsert, next, wipe;
 local type, tostring, tonumber = type, tostring, tonumber;
 local floor = floor;
 local strsub, strfind, strrep = strsub, strfind, strrep;
 local bit = bit;
 local _ = nil;
-local RegisterAddonMessagePrefix = RegisterAddonMessagePrefix or C_ChatInfo.RegisterAddonMessagePrefix;
-local IsAddonMessagePrefixRegistered = IsAddonMessagePrefixRegistered or C_ChatInfo.IsAddonMessagePrefixRegistered;
-local GetRegisteredAddonMessagePrefixes = GetRegisteredAddonMessagePrefixes or C_ChatInfo.GetRegisteredAddonMessagePrefixes;
-local SendAddonMessage = SendAddonMessage or C_ChatInfo.SendAddonMessage;
+local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
+local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
+local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
+local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
+local C_Timer_After = C_Timer.After;
 local Ambiguate = Ambiguate;
 local GetNumTalents, GetTalentInfo = GetNumTalents, GetTalentInfo;
 local UnitLevel = UnitLevel;
@@ -69,6 +79,14 @@ __emulib.classList, __emulib.classHash = { "DRUID", "HUNTER", "MAGE", "PALADIN",
 		__emulib.classHash[strupper(class)] = index;
 		__emulib.classHash[strlower(class)] = index;
 	end
+--
+if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+	__emulib.DEFAULT_LEVEL = 60;
+elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+	__emulib.DEFAULT_LEVEL = 70;
+else
+	__emulib.DEFAULT_LEVEL = 80;
+end
 __emulib.CPlayerFactionGroup = UnitFactionGroup('player');
 __emulib.CPlayerClass = UnitClassBase('player');
 __emulib.CPlayerClassUpper = strupper(__emulib.CPlayerClass);
@@ -106,6 +124,72 @@ __emulib.ADDON_MSG_QUERY_EQUIPMENTS_ = "_queeq";
 __emulib.ADDON_MSG_REPLY_EQUIPMENTS_ = "_repeq";
 __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 
+
+-->		NetBuffer
+	local MAX_PER_SLICE = 21;
+	local MAX_PER_BLOCK = 210;
+	local LEN_SLICE = 0.5;
+	local LEN_BLOCK = 10.0;
+	local Buffer = {  };
+	local Pos = 1;
+	local Top = 0;
+	--
+	local BlockSent = MAX_PER_BLOCK;
+	local isFlushBlockTimerIdle = true;
+	local function _BlockFlush()
+		BlockSent = MAX_PER_BLOCK;
+		if Top >= Pos then
+			C_Timer_After(LEN_BLOCK, _BlockFlush);
+		else
+			isFlushBlockTimerIdle = true;
+		end
+	end
+	--
+	local SliceSent = MAX_PER_SLICE;
+	local isFlushSliceTimerIdle = true;
+	local function _SliceFlush()
+		SliceSent = MAX_PER_SLICE;
+		if Top >= Pos then
+			while BlockSent > 0 and SliceSent > 0 do
+				local b = Buffer[Pos];
+				Buffer[Pos] = nil;
+				SendAddonMessage(__emulib.ADDON_PREFIX, b[1], b[2], b[3]);
+				SliceSent = SliceSent - 1;
+				BlockSent = BlockSent - 1;
+				Pos = Pos + 1;
+				if Top < Pos then
+					Pos = 1;
+					Top = 0;
+					break;
+				end
+			end
+		end
+		if SliceSent > 0 then
+			isFlushSliceTimerIdle = true;
+		else
+			C_Timer_After(LEN_SLICE, _SliceFlush);
+		end
+	end
+	--
+	local function _SendFunc(msg, channel, target)
+		if BlockSent > 0 and SliceSent > 0 then
+			SliceSent = SliceSent - 1;
+			BlockSent = BlockSent - 1;
+			SendAddonMessage(__emulib.ADDON_PREFIX, msg, channel, target);
+		else
+			Top = Top + 1;
+			Buffer[Top] = { msg, channel, target, };
+		end
+		if isFlushSliceTimerIdle then
+			isFlushSliceTimerIdle = false;
+			C_Timer_After(LEN_SLICE, _SliceFlush);
+		end
+		if isFlushBlockTimerIdle then
+			isFlushBlockTimerIdle = false;
+			C_Timer_After(LEN_BLOCK, _BlockFlush);
+		end
+	end
+	_SliceFlush();
 -->		Talent
 	--	return 			UPPER_CLASS, data, level
 	function __emulib.GetPlayerTalentData(DEFAULT_LEVEL)
@@ -120,6 +204,22 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 			end
 		end
 		return __emulib.CPlayerClassIndex, data, type(DEFAULT_LEVEL) == 'number' and DEFAULT_LEVEL or UnitLevel('player'), len;
+	end
+	--	arg			code
+	--	return		class
+	function __emulib.GetClass(code)
+		local __debase64 = __emulib.__debase64;
+		local classIndex = __debase64[strsub(code, 1, 1)];
+		if not classIndex then
+			_log_("DecodeTalent", 1, code);
+			return nil;
+		end
+		local class = __emulib.classList[classIndex];
+		if not class then
+			_log_("DecodeTalent", 2, classIndex, code);
+			return nil;
+		end
+		return class;
 	end
 	--	arg			code, useCodeLevel
 	--	return		class, data, level
@@ -206,7 +306,7 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 			end
 		end
 		local __base64 = __emulib.__base64;
-		level = level and tonumber(level) or 60;
+		level = level and tonumber(level) or __emulib.DEFAULT_LEVEL;
 		local pos = 0;
 		local raw = 0;
 		local magic = 1;
@@ -365,50 +465,66 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 		return got_data, cache;
 	end
 -->
+local _EThrottle = {  };		--	Equipment	--	15s lock
+local _TThrottle = {  };		--	Talent		--	1s lock
 local function CHAT_MSG_ADDON(prefix, msg, channel, sender)
 	local name = Ambiguate(sender, 'none');
 	local control_code = strsub(msg, 1, __emulib.ADDON_MSG_CONTROL_CODE_LEN);
 	if control_code == __emulib.ADDON_MSG_QUERY_TALENTS then
+		local now = time();
+		local prev = _TThrottle[name];
+		if prev ~= nil and now - prev <= 1 then
+			return;
+		end
+		--
 		if channel == "INSTANCE_CHAT" then
 			local target = strsub(msg, __emulib.ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
 			if target ~= __emulib.CPlayerFullName then
 				return;
 			end
 		end
-		local code = __emulib.GetEncodedPlayerTalentData(60);
+		_TThrottle[name] = now;
+		local code = __emulib.GetEncodedPlayerTalentData(__emulib.DEFAULT_LEVEL);
 		if code then
 			if channel == "INSTANCE_CHAT" then
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "INSTANCE_CHAT");
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
+				_SendFunc(__emulib.ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "INSTANCE_CHAT");
+				_SendFunc(__emulib.ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
 			else--if channel == "WHISPER" then
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "WHISPER", sender);
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
+				_SendFunc(__emulib.ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "WHISPER", sender);
+				_SendFunc(__emulib.ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
 			end
 		end
 	-- elseif control_code == __emulib.ADDON_MSG_QUERY_TALENTS_ then
-	-- 	local code = __emulib.GetEncodedPlayerTalentData(60);
+	-- 	local code = __emulib.GetEncodedPlayerTalentData(__emulib.DEFAULT_LEVEL);
 	-- 	if code then
-	-- 		SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_TALENTS_ .. code, "WHISPER", sender);
+	-- 		_SendFunc(__emulib.ADDON_MSG_REPLY_TALENTS_ .. code, "WHISPER", sender);
 	-- 	end
 	elseif control_code == __emulib.ADDON_MSG_QUERY_EQUIPMENTS then
+		local now = time();
+		local prev = _EThrottle[name];
+		if prev ~= nil and now - prev <= 15 then
+			return;
+		end
+		--
 		if channel == "INSTANCE_CHAT" then
 			local target = strsub(msg, __emulib.ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
 			if target ~= __emulib.CPlayerFullName then
 				return;
 			end
 		end
+		_EThrottle[name] = now;
 		local data = __emulib.EncodeEquipmentData();
 		for _, msg in next, data do
 			if channel == "INSTANCE_CHAT" then
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. __emulib.CRealmName, "INSTANCE_CHAT");
+				_SendFunc(__emulib.ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. __emulib.CRealmName, "INSTANCE_CHAT");
 			else--if channel == "WHISPER" then
-				SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
+				_SendFunc(__emulib.ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
 			end
 		end
 	-- elseif control_code == __emulib.ADDON_MSG_QUERY_EQUIPMENTS_ then
 	-- 	local data = __emulib.EncodeEquipmentData();
 	-- 	for _, msg in next, data do
-	-- 		SendAddonMessage(prefix, __emulib.ADDON_MSG_REPLY_EQUIPMENTS_ .. msg, "WHISPER", sender);
+	-- 		_SendFunc(__emulib.ADDON_MSG_REPLY_EQUIPMENTS_ .. msg, "WHISPER", sender);
 	-- 	end
 	end
 end
@@ -416,7 +532,9 @@ end
 __emulib:RegisterEvent("LOADING_SCREEN_DISABLED");
 __emulib:SetScript("OnEvent", function(self, event, prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID)
 	if event == "CHAT_MSG_ADDON" then
-		CHAT_MSG_ADDON(prefix, msg, channel, sender);
+		if prefix == __emulib.ADDON_PREFIX then
+			CHAT_MSG_ADDON(prefix, msg, channel, sender);
+		end
 	elseif event == "LOADING_SCREEN_DISABLED" then
 		__emulib:UnregisterEvent("LOADING_SCREEN_DISABLED");
 		if RegisterAddonMessagePrefix(__emulib.ADDON_PREFIX) then
@@ -424,3 +542,8 @@ __emulib:SetScript("OnEvent", function(self, event, prefix, msg, channel, sender
 		end
 	end
 end);
+
+function __emulib:Halt()
+	Pos = 1;
+	Top = 0;
+end
