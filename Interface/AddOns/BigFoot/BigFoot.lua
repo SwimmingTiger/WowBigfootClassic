@@ -538,7 +538,7 @@ function BigFoot_ShowKeyBindingFrame(BigFoot_7739b813d90aed43ab9d0eb84ec1c1ae)
                 local BigFoot_d28056e4bcd8f214a25daeabfe052d6e = GetBinding(eleVal)
                 if (BigFoot_d28056e4bcd8f214a25daeabfe052d6e == BigFoot_7739b813d90aed43ab9d0eb84ec1c1ae) then
                     ShowUIPanel(KeyBindingFrame)
-                    v:OnClick("LeftButton")
+                    v:Click("LeftButton")
                     KeyBindingFrameScrollFrameScrollBar:SetValue((eleNo - 1) * KEY_BINDING_HEIGHT)
                 end
             end
