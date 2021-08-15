@@ -50,11 +50,11 @@ local ignored = {
 	["MiniMapLFGFrame"] = true,
 	["BFGPSButton"]=true,
 	["GatherMate"] = true,
+	["SexyMapZoneTextButton"] = true,
 	["LibDBIcon10_bfModelChange"] = true,
 	["LibDBIcon10_HandyNotes_NPCs"] = true,
 	["QuestieFrame"] = true,
 	["MessageClassifierBrowserIcon"] = true,
-	["SexyMap"] = true,
 }
 
 local options = {

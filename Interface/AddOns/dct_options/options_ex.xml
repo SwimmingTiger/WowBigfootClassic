@@ -2,12 +2,12 @@
 <!-- Options Pane Definition -->
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
-
 	<Slider name="DCTSliderTemplateExtra" frameStrata="MEDIUM" inherits="DCTSliderIncludeEditBoxTemplate" virtual="true">
 		<Scripts>
 			<OnEnter>
 				if ( self.tooltipText ) then
-					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip_SetTitle(GameTooltip, self.tooltipText);
 				end
 			</OnEnter>
 			<OnLeave>
@@ -21,9 +21,10 @@
 
 	<CheckButton name="DCT_OPEX_InheritsCheckBox" inherits="UICheckButtonTemplate" virtual="true">
 		<Scripts>
-                    <OnClick function="DCT_Opex_InheritsCheckBoxClick" />
+            <OnClick function="DCT_Opex_InheritsCheckBoxClick" />
 			<OnEnter>
-				GameTooltip_AddNewbieTip(self,DCT_TEXT_OPEX_CHECK_TIP, 1.0, 1.0, 1.0);
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip_SetTitle(GameTooltip, DCT_TEXT_OPEX_CHECK_TIP);
 			</OnEnter>
 			<OnLeave>
 				GameTooltip:Hide();
@@ -126,7 +127,6 @@
 				<FontString name="$parentHelp10" inherits="GameFontNormal"/>
 			</Layer>
 		</Layers>
-
 		<Frames>
 			<Frame name="DCTPreviewBG" inherits="DCT_OptionFrameBoxTemplate">
 				<Size>
@@ -140,8 +140,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-					<OnLoad>
-						--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+					<OnLoad inherit="prepend">
 						self:SetBackdropColor(0.15, 0.15, 0.15);
 					</OnLoad>
 				</Scripts>
@@ -321,12 +320,9 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-
 		</Frames>
-
 		<Scripts>
-			<OnLoad>
-				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+			<OnLoad inherit="prepend">
 				self:SetBackdropColor(0.15, 0.15, 0.15);
 			</OnLoad>
 			<OnShow>

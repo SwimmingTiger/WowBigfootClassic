@@ -9,7 +9,7 @@ function DCT_Opani_Refresh()
 	DCTAniOptionparam1DDC:Hide()
 	DCTAniOptionparam2DDC:Hide()
 	DCTAniOption:Hide()
-	DCTAniOption:Show()	
+	DCTAniOption:Show()
 end
 
 function DCT_Opani_FrameBoxRefresh()
@@ -45,10 +45,10 @@ function DCT_Opani_OnShow()
     local obj,objname
 	local key,val
 	if not DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID].active then DCT_Opani_CurFrameID = 1;end
-	for key, val in pairs(DCT_Opani_Config.Sliders) do	
+	for key, val in pairs(DCT_Opani_Config.Sliders) do
 		objname = "DCTAniOption".."Slider_"..key
 		obj = getglobal(objname)
-		if obj then			
+		if obj then
 			DCT_InitSliders(obj,objname,key,val)
 		end
 	end
@@ -59,21 +59,21 @@ function DCT_Opani_OnShow()
 	DCTAniOptionSlider_param4:Hide()
 	DCTAniOptionSlider_param5:Hide()
 	DCTAniOptionSlider_param6:Hide()
-	
+
 	local startY = -60
 	local p = DCT_AniModeParamsSliders[DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID].aniType].Sliders
 	if p then
-		for i = 1,6 do			
+		for i = 1,6 do
 			if p["param"..i] then
 				key = "param"..i
 				objname = "DCTAniOption".."Slider_"..key
 				obj = getglobal(objname)
-				
+
 				obj:SetPoint("TOPLEFT", "DCTAniOptionAniTypeDDC", "TOPLEFT", 20, startY)
-				
+
 				startY = startY - 50
 				obj:Show()
-				
+
 				DCT_InitSliders(obj,objname,key,p[key])
 			end
 		end
@@ -84,15 +84,15 @@ function DCT_Opani_OnShow()
 		local i
 		for i = 1,c do
 			getglobal("DCTAniOptionparam"..i.."DDC"):Show()
-			getglobal("DCTAniOptionparam"..i.."DDC"):SetPoint("TOPLEFT", "DCTAniOptionAniTypeDDC", "TOPLEFT", 0, startY)			
+			getglobal("DCTAniOptionparam"..i.."DDC"):SetPoint("TOPLEFT", "DCTAniOptionAniTypeDDC", "TOPLEFT", 0, startY)
 			startY = startY - 40
 		end
 	end
-	
+
 	for i = 1,DCT_Ani_MaxFrame do
 		getglobal("DCTAniOptionFrameBox"..i.."_Title1"):SetText(DCT_TEXT_OPANI_FRAME.." "..i)
 	end
-	
+
 	DCT_Opani_FrameBoxRefresh()
 end
 
@@ -109,9 +109,9 @@ function DCT_Opani_AddFrame()
 		tp[newId].alpha = 100
 		tp[newId].x = 0
 		tp[newId].y = 0
-		tp[newId].fEn = 2		
+		tp[newId].fEn = 2
 		tp[newId].fCh = 2
-		tp[newId].fSizeEn = 18		
+		tp[newId].fSizeEn = 18
 		tp[newId].fSizeCh = 18
 		tp[newId].fEff = 1
 		DCT_SetFrameAniDefault(newId)
@@ -129,12 +129,12 @@ function DCT_Opani_BatFont()
 			p[i].fEn = p[DCT_Opani_CurFrameID].fEn
 			p[i].fCh = p[DCT_Opani_CurFrameID].fCh
 		end
-	end	
+	end
 end
 
 function DCT_Opani_DeleteFrame()
 	local tp = DCT_Get("DCT_FRAME_CONFIG")
-	
+
 	if DCT_Opani_CurFrameID ~= 1 then
 		tp[DCT_Opani_CurFrameID].active = false
 		DCT_ReLoadFrame()
@@ -158,7 +158,7 @@ function DCT_Opani_FrameDDC_Initialize()
 		if not DCT_Ani_FrameIsActive(i) then
 			UIDropDownMenu_DisableButton(1, i)
 		end
-	end	
+	end
 end
 function DCT_Opani_FrameDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_FrameDDC_Initialize)
@@ -170,7 +170,7 @@ function DCT_Opani_FrameDDC_OnClick(self)
 	local thisID = self:GetID()
 	UIDropDownMenu_SetSelectedID(DCTAniOptionFrameDDC, thisID)
 	DCT_Opani_CurFrameID = thisID
-	
+
 	DCT_Opani_Refresh()
 end
 
@@ -187,7 +187,7 @@ function DCT_Opani_FontEnDDC_Initialize()
 		if not DCT_Font[i].active then
 			UIDropDownMenu_DisableButton(1, i)
 		end
-	end	
+	end
 end
 function DCT_Opani_FontEnDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_FontEnDDC_Initialize)
@@ -213,7 +213,7 @@ function DCT_Opani_FontChDDC_Initialize()
 		if not DCT_Font[i].active then
 			UIDropDownMenu_DisableButton(1, i)
 		end
-	end	
+	end
 end
 function DCT_Opani_FontChDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_FontChDDC_Initialize)
@@ -235,7 +235,7 @@ function DCT_Opani_FontEffDDC_Initialize()
 			func = DCT_Opani_FontEffDDC_OnClick;
 		};
 		UIDropDownMenu_AddButton(info);
-	end	
+	end
 end
 function DCT_Opani_FontEffDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_FontEffDDC_Initialize)
@@ -258,7 +258,7 @@ function DCT_Opani_AnchorDDC_Initialize()
 			func = DCT_Opani_AnchorDDC_OnClick;
 		};
 		UIDropDownMenu_AddButton(info);
-	end	
+	end
 end
 function DCT_Opani_AnchorDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_AnchorDDC_Initialize)
@@ -285,7 +285,7 @@ function DCT_Opani_AniTypeDDC_Initialize()
 			func = DCT_Opani_AniTypeDDC_OnClick;
 		}
 		UIDropDownMenu_AddButton(info)
-	end	
+	end
 end
 function DCT_Opani_AniTypeDDC_OnShow(self)
 	UIDropDownMenu_Initialize(self, DCT_Opani_AniTypeDDC_Initialize)
@@ -297,7 +297,7 @@ function DCT_Opani_AniTypeDDC_OnClick(self)
 	local thisID = self:GetID()
 	UIDropDownMenu_SetSelectedID(DCTAniOptionAniTypeDDC, thisID)
 	DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID].aniType = thisID
-	
+
 	DCT_SetFrameAniDefault(DCT_Opani_CurFrameID)
 	DCT_Opani_Refresh()
 end
@@ -309,9 +309,9 @@ function DCT_Opani_param1DDC_Initialize()
 		info = {
 			text = ddcl[i];
 			func = DCT_Opani_param1DDC_OnClick;
-		};			
+		};
 		UIDropDownMenu_AddButton(info);
-	end	
+	end
 end
 function DCT_Opani_param1DDC_OnShow(self)
 	local ddcp = DCT_AniModeParamsSliders[DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID].aniType].Ddc[1]
@@ -320,7 +320,7 @@ function DCT_Opani_param1DDC_OnShow(self)
 		return
 	end
 	DCTAniOptionparam1DDC:Show()
-	UIDropDownMenu_Initialize(self, DCT_Opani_param1DDC_Initialize)	
+	UIDropDownMenu_Initialize(self, DCT_Opani_param1DDC_Initialize)
 	UIDropDownMenu_SetSelectedID(self, DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID][ddcp.param])
 	UIDropDownMenu_SetWidth(self,120)
 	getglobal(self:GetName().."Label"):SetText(ddcp.name)
@@ -341,7 +341,7 @@ function DCT_Opani_param2DDC_Initialize()
 			func = DCT_Opani_param2DDC_OnClick;
 		};
 		UIDropDownMenu_AddButton(info);
-	end	
+	end
 end
 function DCT_Opani_param2DDC_OnShow(self)
 	local ddcp = DCT_AniModeParamsSliders[DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID].aniType].Ddc[2]
@@ -350,7 +350,7 @@ function DCT_Opani_param2DDC_OnShow(self)
 		return
 	end
 	DCTAniOptionparam2DDC:Show()
-	UIDropDownMenu_Initialize(self, DCT_Opani_param2DDC_Initialize)	
+	UIDropDownMenu_Initialize(self, DCT_Opani_param2DDC_Initialize)
 	UIDropDownMenu_SetSelectedID(self, DCT_Get("DCT_FRAME_CONFIG")[DCT_Opani_CurFrameID][ddcp.param])
 	UIDropDownMenu_SetWidth(self,120)
 	getglobal(self:GetName().."Label"):SetText(ddcp.name)
@@ -375,7 +375,7 @@ function DCT_Opani_SliderValueChange(self,objname,val)
 	else
 		theval = floor(val * 10) / 10
 	end
-	
+
 	DCT_Player["DCT_FRAME_CONFIG"][DCT_Opani_CurFrameID][key] = theval
 	if key == "angle" then
 		DCT_Ani_FrameSetAngle(DCT_Opani_CurFrameID,theval)
@@ -387,10 +387,10 @@ function DCT_Opani_SliderValueChange(self,objname,val)
 end
 
 
-function DCTFrameBoxMouseDown(self, button)	
+function DCTFrameBoxMouseDown(self, button)
 	local c = string.len(self:GetName())
 	local fId = tonumber(string.sub(self:GetName(),21,c))
-	if button == "RightButton" then		
+	if button == "RightButton" then
 		DCT_Opani_CurFrameID = fId
 		DCT_Opani_Refresh()
 	elseif button == "LeftButton" then

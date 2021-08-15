@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "2.5.1."
-local minor = "102"
+local minor = "103"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,12 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2021/08/12 (2.5.1.103)")
+	BigFootChangelog_ar("大脚插件","添加竞技语音(GladiatorlosSA2)。")
+	BigFootChangelog_ar("大脚插件","添加战场目标(BattleGroundEnemies)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2021/07/05 (2.5.1.102)")
 	BigFootChangelog_ar("首领报警","修复无法正常加载模块的问题。")
@@ -488,4 +494,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "52"
+BF_VERSION_CHECKSUM = "53"

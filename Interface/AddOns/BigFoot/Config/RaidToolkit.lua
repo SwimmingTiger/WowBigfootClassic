@@ -244,48 +244,43 @@ function RaidToolkitConfigFunc()
 
 	end
 
-	-- 老虎会游泳：这里的代码无法禁用DBM，因为DBM-VPYike未被设为按需加载，而DBM-Core是它的依赖项，所以DBM-Core总是会自动加载。
-	-- 此外，DBM注册了PLAYER_ENTERING_WORLD事件，如果不修改，无法安全转换为按需加载（某些功能可能会不正常）。
-	-- 所以，干脆放弃这部分代码得了。
-	--[[
-	if (IsConfigurableAddOn("DBM-Core")) then
-		ModManagement_RegisterCheckBox(
-			"RaidToolkit",
-			DBM_ENABLE_TEXT,
-			nil,
-			"EnableDBM",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("DBM-StatusBarTimers")) then
-						BigFoot_LoadAddOn("DBM-StatusBarTimers");
-					end
-					if (not BigFoot_IsAddOnLoaded("DBM-Core")) then
-						BigFoot_LoadAddOn("DBM-Core");
-						BigFoot_DelayCall(function() if DBM then DBM.Options.SettingsMessageShown = true end end,5)
-					end
-					if (not BigFoot_IsAddOnLoaded("DBM-RaidLeadTools")) then
-						BigFoot_LoadAddOn("DBM-RaidLeadTools");
-					end
-					if (not BigFoot_IsAddOnLoaded("DBM-SpellTimers")) then
-						BigFoot_LoadAddOn("DBM-SpellTimers");
-					end
-					if (not BigFoot_IsAddOnLoaded("DBM-DefaultSkin")) then
-						BigFoot_LoadAddOn("DBM-DefaultSkin");
-					end
-				else
-					if (BigFoot_IsAddOnLoadedFromBigFoot("DBM-Core")) then
-						BigFoot_RequestReloadUI(function() BigFoot_Print(DBM_DISABLE_DELAY_TEXT); end);
-					end
-				end
-			end,
-			nil,
-			nil,
-			DBMString.Name or DBMString.colorText
+	-- if (IsConfigurableAddOn("DBM-Core")) then
+		-- ModManagement_RegisterCheckBox(
+			-- "RaidToolkit",
+			-- DBM_ENABLE_TEXT,
+			-- nil,
+			-- "EnableDBM",
+			-- 1,
+			-- function (arg)
+				-- if (arg == 1) then
+					-- if (not BigFoot_IsAddOnLoaded("DBM-StatusBarTimers")) then
+						-- BigFoot_LoadAddOn("DBM-StatusBarTimers");
+					-- end
+					-- if (not BigFoot_IsAddOnLoaded("DBM-Core")) then
+						-- BigFoot_LoadAddOn("DBM-Core");
+						-- BigFoot_DelayCall(function() if DBM then DBM.Options.SettingsMessageShown = true end end,5)
+					-- end
+					-- if (not BigFoot_IsAddOnLoaded("DBM-RaidLeadTools")) then
+						-- BigFoot_LoadAddOn("DBM-RaidLeadTools");
+					-- end
+					-- if (not BigFoot_IsAddOnLoaded("DBM-SpellTimers")) then
+						-- BigFoot_LoadAddOn("DBM-SpellTimers");
+					-- end
+					-- if (not BigFoot_IsAddOnLoaded("DBM-DefaultSkin")) then
+						-- BigFoot_LoadAddOn("DBM-DefaultSkin");
+					-- end
+				-- else
+					-- if (BigFoot_IsAddOnLoadedFromBigFoot("DBM-Core")) then
+						-- BigFoot_RequestReloadUI(function() BigFoot_Print(DBM_DISABLE_DELAY_TEXT); end);
+					-- end
+				-- end
+			-- end,
+			-- nil,
+			-- nil,
+			-- DBMString.Name or DBMString.colorText
 
-		);
-	end
-	]]
+		-- );
+	-- end
 
 	if (IsConfigurableAddOn("Grid")) then
 		ModManagement_RegisterCheckBox(

@@ -164,7 +164,6 @@ function DCTSA_ProcCombatUnfiltered(gevent, timestamp, combatevent, hideCaster, 
 		if (--[[pvpType == "friendly" or]]pvpType == "sanctuary") then return end
 	end
 
-	-- local dct_spellId, dct_spellName, dct_spellSchool
 	if combatevent == "SPELL_INTERRUPT" then
 		dct_spellId = select(1,...)
 		dct_extraSpellID,dct_extraSpellName = select(4,...)

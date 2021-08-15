@@ -3,32 +3,24 @@
 
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 	<Frame name="DCT_OptionFrameBoxTemplate" virtual="true" inherits="BackdropTemplate">
-			<Layers>
-				<Layer level="BACKGROUND">
-					<FontString name="$parentTitle" inherits="GameFontHighlightSmall">
-						<Anchors>
-							<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
-								<Offset>
-									<AbsDimension x="5" y="0"/>
-								</Offset>
-							</Anchor>
-						</Anchors>
-					</FontString>
-				</Layer>
-			</Layers>
-			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-				<EdgeSize>
-					<AbsValue val="16"/>
-				</EdgeSize>
-				<TileSize>
-					<AbsValue val="16"/>
-				</TileSize>
-				<BackgroundInsets>
-					<AbsInset left="5" right="5" top="5" bottom="5"/>
-				</BackgroundInsets>
-			</Backdrop>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<FontString name="$parentTitle" inherits="GameFontHighlightSmall">
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+        </KeyValues>
 			<Scripts>
-				<OnLoad>
+				<OnLoad inherit="prepend">
 					self:SetBackdropBorderColor(0.4, 0.4, 0.4);
 					self:SetBackdropColor(0.5, 0.5, 0.5);
 				</OnLoad>
@@ -59,7 +51,7 @@
 
 	<Frame name="DCT_OptionsFrameBGTemplate" frameStrata="LOW" inherits="DCT_OptionFrameBoxTemplate" virtual="true">
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				self:SetBackdropBorderColor(0.4, 0.4, 0.4);
 				self:SetBackdropColor(0.1, 0.1, 0.1);
 			</OnLoad>
@@ -146,7 +138,7 @@
 			</Layer>
 		</Layers>
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				self:SetBackdropBorderColor(0.3, 0.3, 0.3);
 				self:SetBackdropColor(0, 0, 0);
 			</OnLoad>
@@ -166,8 +158,9 @@
 				DCT_OptionsCheckButtonOnClick(self:GetParent():GetName(),self:GetName());
 			</OnClick>
 			<OnEnter>
-				if ( self.tooltipText ) then
-					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				if self.tooltipText then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip_SetTitle(GameTooltip, self.tooltipText);
 				end
 			</OnEnter>
 			<OnLeave>
@@ -175,7 +168,6 @@
 			</OnLeave>
 		</Scripts>
 	</CheckButton>
-
 
 	<Frame name="DCT_ColorPickerTemplate" frameStrata="MEDIUM" virtual="true">
 		<Frames>
@@ -277,7 +269,8 @@
 						self.Func(self:GetName(), button);
 					</OnMouseDown>
 					<OnEnter>
-						GameTooltip_AddNewbieTip(self,DCT_EVENT_TIP1, 1.0, 1.0, 1.0);
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip_SetTitle(GameTooltip, DCT_EVENT_TIP1);
 						self:SetBackdropBorderColor(0.7, 0.7, 0.7);
 						self:SetBackdropColor(1, 1, 1);
 					</OnEnter>
@@ -309,7 +302,8 @@
 						end
 					</OnClick>
 					<OnEnter>
-						GameTooltip_AddNewbieTip(self,DCT_EVENT_TIP2, 1.0, 1.0, 1.0);
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip_SetTitle(GameTooltip, DCT_EVENT_TIP2);
 						self:SetBackdropBorderColor(0.7, 0.7, 0.7);
 						self:SetBackdropColor(1, 1, 1);
 					</OnEnter>
@@ -323,14 +317,14 @@
 		</Frames>
 		<Scripts>
 			<OnEnter>
-				GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+				GameTooltip_SetTitle(GameTooltip, self.tooltipText);
 			</OnEnter>
 			<OnLeave>
 				GameTooltip:Hide();
 			</OnLeave>
 		</Scripts>
 	</Frame>
-
 
 	<!-- MAIN OPTION FRAME -->
 	<Frame name="DCT_Options" toplevel="false" frameStrata="LOW" movable="true" enableMouse="true" hidden="true" parent="UIParent" inherits="BackdropTemplate">
@@ -340,22 +334,9 @@
 		<Anchors>
 			<Anchor point="CENTER" />
 		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border"
-			tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11" />
-				<Size>
-					<AbsDimension x="128" y="17" />
-				</Size>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32" />
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32" />
-			</EdgeSize>
-		</Backdrop>
-
+		<KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture name="DCT_FrameTitle" file="Interface\DialogFrame\UI-DialogBox-Header">
@@ -380,7 +361,6 @@
 					</Anchors>
 				</FontString>
 			</Layer>
-
 		</Layers>
 
 		<Frames>
@@ -542,17 +522,9 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-					<EdgeSize>
-						<AbsValue val="8"/>
-					</EdgeSize>
-					<TileSize>
-						<AbsValue val="8"/>
-					</TileSize>
-					<BackgroundInsets>
-						<AbsInset left="2" right="2" top="2" bottom="2"/>
-					</BackgroundInsets>
-				</Backdrop>
+				<KeyValues>
+					<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global"/>
+				</KeyValues>
 				<Layers>
 					<Layer>
 						<FontString name="DCT_Options_Title_Text" inherits="GameFontHighlight" text="DCT_EVENT_OPTION">
@@ -567,7 +539,7 @@
 					</Layer>
 				</Layers>
 				<Scripts>
-					<OnLoad>
+					<OnLoad inherit="prepend">
 						self:SetBackdropBorderColor(0.4, 0.4, 0.4);
 						self:SetBackdropColor(0.15, 0.15, 0.15);
 					</OnLoad>
@@ -612,7 +584,8 @@
 						DCT_Options:Show();
 					</OnClick>
 					<OnEnter>
-						GameTooltip_AddNewbieTip(self,DCT_BUTTON_RESET_TIP, 1.0, 1.0, 1.0);
+						GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+						GameTooltip_SetTitle(GameTooltip, DCT_BUTTON_RESET_TIP);
 					</OnEnter>
 					<OnLeave>
 						GameTooltip:Hide();
@@ -622,15 +595,8 @@
 		</Frames>
 
 		<Scripts>
-			<OnLoad>
+			<OnLoad inherit="prepend">
 				DCT_OptionsOnLoad(self)
-
-				self:SetBackdrop({
-					bgFile = "Interface/DialogFrame/UI-DialogBox-Background",
-					edgeFile = "Interface/DialogFrame/UI-DialogBox-Border",
-					tile = true, tileSize = 32, edgeSize = 32,
-					insets = { left = 11, right = 12, top = 12, bottom = 11 }
-				});
 			</OnLoad>
 			<OnEvent>
 				DCT_Options_OnEvent(self, event, ...);

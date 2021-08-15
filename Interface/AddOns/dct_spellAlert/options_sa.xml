@@ -10,7 +10,7 @@
 			</OnClick>
 		</Scripts>
 	</CheckButton>
-	<Frame name="DCTSAListTemplate" virtual="true" frameStrata="MEDIUM"  hidden="false" inherits="BackdropTemplate">
+	<Frame name="DCTSAListTemplate" virtual="true" frameStrata="MEDIUM"  hidden="false">
 		<Size>
 			<AbsDimension x="140" y="25"/>
 		</Size>
@@ -30,8 +30,9 @@
 		</Layers>
 		<Scripts>
 			<OnEnter>
-				if ( self.tooltipText ) then
-					GameTooltip_AddNewbieTip(self,self.tooltipText, 1.0, 1.0, 1.0);
+				if self.tooltipText then
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip_SetTitle(GameTooltip, self.tooltipText);
 				end
 			</OnEnter>
 			<OnLeave>
@@ -108,7 +109,7 @@
 					</Anchor>
 				</Anchors>
 				<Scripts>
-                                    <OnShow function="DCT_Opsa_FilterDDC_OnShow" />
+					<OnShow function="DCT_Opsa_FilterDDC_OnShow" />
 				</Scripts>
 			</Button>
 			<Frame name="DCTSAList" inherits="DCTSAListTemplate">
@@ -182,8 +183,7 @@
 					DCTSA_Init(event)
 				end
 			</OnEvent>
-			<OnLoad>
-				--self:SetBackdropBorderColor(0.4, 0.4, 0.4);
+			<OnLoad inherit="prepend">
 				self:SetBackdropColor(0.15, 0.15, 0.15);
 				DCTSA_OnLoad(self)
 			</OnLoad>

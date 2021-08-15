@@ -49,7 +49,7 @@ function ArenaModConfigFunc()
 		GLADIUS_DISABLE_DELAY_TEXT = "|cff00c0c0<Gladius>|r Proximo has been disabled. This setting will be available next time.";
 	end
 
-	if (IsConfigurableAddOn("Gladius") or IsConfigurableAddOn("GladiatorlosSA") or IsConfigurableAddOn("BattleHapper")) then
+	if (IsConfigurableAddOn("Gladius") or IsConfigurableAddOn("GladiatorlosSA2") or IsConfigurableAddOn("BattleHapper")) then
 		ModManagement_RegisterMod(
 			"ArenaMod",
 			"Interface\\Icons\\INV_Jewelry_Necklace_14",
@@ -95,7 +95,7 @@ function ArenaModConfigFunc()
 			);
 		end
 
-		if (IsConfigurableAddOn("GladiatorlosSA")) then
+		if (IsConfigurableAddOn("GladiatorlosSA2")) then
 			ModManagement_RegisterCheckBox(
 				"ArenaMod",
 				MOD_ARENA_GLADIATORLOSSA_ENABLE_TEXT,
@@ -104,14 +104,14 @@ function ArenaModConfigFunc()
 				0,
 				function (arg)
 					if ( arg == 1 ) then
-						if (not BigFoot_IsAddOnLoaded("GladiatorlosSA")) then
-							BigFoot_LoadAddOn("GladiatorlosSA");
+						if (not BigFoot_IsAddOnLoaded("GladiatorlosSA2")) then
+							BigFoot_LoadAddOn("GladiatorlosSA2");
 						end
-						if (BigFoot_IsAddOnLoaded("GladiatorlosSA")) then
+						if (BigFoot_IsAddOnLoaded("GladiatorlosSA2")) then
 							GladiatorlosSA:Toggle(true);
 						end
 					else
-						if (BigFoot_IsAddOnLoaded("GladiatorlosSA")) then
+						if (BigFoot_IsAddOnLoaded("GladiatorlosSA2")) then
 							GladiatorlosSA:Toggle(false);
 						end
 					end
@@ -122,7 +122,7 @@ function ArenaModConfigFunc()
 				"ArenaMod",
 				MOD_ARENA_PROXMIO,
 				function ()
-					if BigFoot_IsAddOnLoaded("GladiatorlosSA")  then
+					if BigFoot_IsAddOnLoaded("GladiatorlosSA2")  then
 						GladiatorlosSA:ShowConfig();
 						HideUIPanel(ModManagementFrame);
 					end
