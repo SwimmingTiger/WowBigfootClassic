@@ -25,7 +25,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	DBM_MOROES_VANISH_FADED	= "Show vanish fade warning"
+	DBM_MOROES_VANISH_FADED	= "显示消失警报"
 }
 
 
@@ -46,8 +46,8 @@ L:SetGeneralLocalization{
 
 L:SetMiscLocalization{
 	DBM_RJ_PHASE2_YELL	= "来吧，可爱的黑颜的夜，把我的罗密欧给我！",
-	Romulo				= "Romulo",
-	Julianne			= "Julianne"
+	Romulo				= "罗密欧",
+	Julianne			= "朱丽叶"
 }
 
 
@@ -79,8 +79,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	Kilrek					= "Kil'rek",
-	DChains					= "Demon Chains"
+	Kilrek					= "基尔里克",
+	DChains					= "恶魔之链"
 }
 
 
@@ -96,7 +96,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	DBM_ARAN_DO_NOT_MOVE	= "Show special warning for $spell:30004"
+	DBM_ARAN_DO_NOT_MOVE	= "显示特殊警告  $spell:30004"
 }
 
 --Netherspite
@@ -119,12 +119,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	DBM_NS_WARN_PORTAL_SOON	= "Show pre-warning for Portal phase",
-	DBM_NS_WARN_BANISH_SOON	= "Show pre-warning for Banish phase",
-	warningPortal			= "Show warning for Portal phase",
-	warningBanish			= "Show warning for Banish phase",
-	timerPortalPhase		= "Show timer for Portal Phase duration",
-	timerBanishPhase		= "Show timer for Banish Phase duration"
+	DBM_NS_WARN_PORTAL_SOON	= "显示进入虚空门阶段的警报",
+	DBM_NS_WARN_BANISH_SOON	= "显示进入放逐阶段的警报",
+	warningPortal			= "显示虚空门阶段的警报",
+	warningBanish			= "显示放逐阶段的警报",
+	timerPortalPhase		= "显示虚空门阶段的持续时间",
+	timerBanishPhase		= "显示放逐阶段的持续时间"
 }
 
 L:SetMiscLocalization{
@@ -167,10 +167,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	DBM_NB_AIR_WARN			= "Show warning for Air Phase",
-	PrewarnGroundPhase		= "Show pre-warnings for Ground Phase",
-	timerNightbane			= "Show timer for Nightbane summon",
-	timerAirPhase			= "Show timer for Air Phase duration"
+	DBM_NB_AIR_WARN			= "显示空中阶段的警报",
+	PrewarnGroundPhase		= "显示落地阶段的警报",
+	timerNightbane			= "显示召唤夜之魇的时间",
+	timerAirPhase			= "显示空中阶段的持续时间"
 }
 
 L:SetMiscLocalization{
@@ -189,8 +189,8 @@ L:SetGeneralLocalization{
 }
 
 L:SetOptionLocalization{
-	AnnounceBosses			= "Show warnings for boss spawns",
-	ShowBossTimers			= "Show timers for boss spawns"
+	AnnounceBosses			= "显示出现首领警报",
+	ShowBossTimers			= "显示首领出现时间"
 }
 
 L:SetMiscLocalization{

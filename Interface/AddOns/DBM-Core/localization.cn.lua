@@ -184,7 +184,8 @@ L.CLASSIC_ONLY						= "警告: 你所用的 " .. L.DBM .. " 是正式服的版�
 
 L.MOVABLE_BAR				        = "拖动我！"
 
-L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个" .. L.DBM .. "计时条"
+L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个倒计时：'%2$s'\n|Hgarrmission:DBM:cancel:%2$s:nil|h|cff3588ff[取消该计时]|r|h  |Hgarrmission:DBM:ignore:%2$s:%1$s|h|cff3588ff[忽略来自%1$s的计时]|r|h"
+--L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h向你发送了一个" .. L.DBM .. "计时条"
 L.PIZZA_CONFIRM_IGNORE			    = "是否要在该次游戏连接中屏蔽来自%s的计时条？"
 L.PIZZA_ERROR_USAGE				    = "命令：/dbm [broadcast] timer <时间（秒）> <文本>"
 

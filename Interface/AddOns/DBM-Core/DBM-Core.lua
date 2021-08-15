@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20210629150342"),
-	DisplayVersion = "2.5.8", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2021, 6, 29) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20210810120354"),
+	DisplayVersion = "2.5.9", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2021, 8, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -2778,14 +2778,14 @@ do
 	end
 
 	local function linkHook(self, link, string, button, ...)
-		local linkType, arg1, arg2, arg3, arg4, arg5, arg6 = strsplit(":", link)
+		local _, linkType, arg1, arg2, arg3, arg4, arg5, arg6 = strsplit(":", link)
 		if linkType ~= "DBM" then
 			return
 		end
 		if arg1 == "cancel" then
-			DBT:CancelBar(link:match("DBM:cancel:(.+):nil$"))
+			DBT:CancelBar(link:match("garrmission:DBM:cancel:(.+):nil$"))
 		elseif arg1 == "ignore" then
-			cancel = link:match("DBM:ignore:(.+):[^%s:]+$")
+			cancel = link:match("garrmission:DBM:ignore:(.+):[^%s:]+$")
 			ignore = link:match(":([^:]+)$")
 			showPopupConfirmIgnore(ignore, cancel)
 		elseif arg1 == "update" then
@@ -2812,16 +2812,6 @@ do
 			_G["ChatFrame" .. i]:HookScript("OnHyperlinkClick", linkHook)
 		end
 		i = i + 1
-	end
-end
-
-do
-	local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
-	function ItemRefTooltip:SetHyperlink(link, ...)
-		if link and link:sub(0, 4) == "DBM:" then
-			return
-		end
-		return old(self, link, ...)
 	end
 end
 
@@ -4375,7 +4365,7 @@ do
 		if mod and modvar and text and text ~= "" then
 			if DBM:AntiSpam(5, modvar) then--Don't allow calling same note more than once per 5 seconds
 				DBM:AddMsg(L.NOTE_SHARE_SUCCESS:format(sender, abilityName))
-				DBM:AddMsg(("|HDBM:noteshare:%s:%s:%s:%s:%s|h|cff3588ff[%s]|r|h"):format(modid, modvar, ability, text, sender, L.NOTE_SHARE_LINK))
+				DBM:AddMsg(("|Hgarrmission:DBM:noteshare:%s:%s:%s:%s:%s|h|cff3588ff[%s]|r|h"):format(modid, modvar, ability, text, sender, L.NOTE_SHARE_LINK))
 				--DBM:ShowNoteEditor(mod, modvar, ability, text, sender)
 			else
 				DBM:Debug(sender.." is attempting to send too many notes so notes are being throttled")
@@ -6293,13 +6283,13 @@ function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, difficultyName, _, _, _, _, instanceGroupSize = GetInstanceInfo()
 	if difficulty == 0 or difficulty == 172 or (difficulty == 1 and instanceType == "none") then--draenor field returns 1, causing world boss mod bug.
 		return "worldboss", RAID_INFO_WORLD_BOSS.." - ", difficulty, instanceGroupSize
-	elseif difficulty == 1 then--5 man Normal Dungeon
+	elseif difficulty == 1 or difficulty == 173 then--5 man Normal Dungeon
 		return "normal5", difficultyName.." - ", difficulty, instanceGroupSize
-	elseif difficulty == 2 then--5 man Heroic Dungeon
+	elseif difficulty == 2 or difficulty == 174 then--5 man Heroic Dungeon
 		return "heroic5", difficultyName.." - ", difficulty, instanceGroupSize
-	elseif difficulty == 3 then--Legacy 10 man Normal Raid
+	elseif difficulty == 3 or difficulty == 175 then--Legacy 10 man Normal Raid
 		return "normal10", difficultyName.." - ", difficulty, instanceGroupSize
-	elseif difficulty == 4 then--Legacy 25 man Normal Raid
+	elseif difficulty == 4 or difficulty == 176 then--Legacy 25 man Normal Raid
 		return "normal25", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 5 then--Legacy 10 man Heroic Raid
 		return "heroic10", difficultyName.." - ", difficulty, instanceGroupSize
@@ -6654,6 +6644,9 @@ do
 				mod.vb[name] = false
 			else
 				mod.vb[name] = value
+				if name == "phase" then
+					mod:SetStage(value)--Fire stage callback for 3rd party mods when stage is recovered
+				end
 			end
 		end
 	end
@@ -7870,7 +7863,7 @@ do
 	local rangeCache = {}
 	local rangeUpdated = {}
 
-	function bossModPrototype:CheckBossDistance(cidOrGuid, onlyBoss, itemId, defaultReturn)
+	function bossModPrototype:CheckBossDistance(cidOrGuid, onlyBoss, itemId, distance, defaultReturn)
 		if not DBM.Options.DontShowFarWarnings then return true end--Global disable.
 		cidOrGuid = cidOrGuid or self.creatureId
 		local uId = DBM:GetUnitIdFromGUID(cidOrGuid, onlyBoss)
@@ -7881,7 +7874,7 @@ do
 				return inRange
 			else--IsItemInRange doesn't work on all bosses/npcs, but tank checks do
 				DBM:Debug("CheckBossDistance failed on IsItemInRange for: "..cidOrGuid, 2)
-				return self:CheckTankDistance(cidOrGuid, nil, onlyBoss, defaultReturn)--Return tank distance check fallback
+				return self:CheckTankDistance(cidOrGuid, distance, onlyBoss, defaultReturn)--Return tank distance check fallback
 			end
 		end
 		DBM:Debug("CheckBossDistance failed on uId for: "..cidOrGuid, 2)
@@ -9710,9 +9703,12 @@ do
 		if voiceSessionDisabled or voice == "None" then return end
 		if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
 		if ((not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabed then
+			local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
+			--Mute VP if SW sound is set to None in the boss mod.
+			if soundId == "None" then return end
 			local path = customPath or "Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg"
 			DBM:PlaySoundFile(path)
 		end
@@ -9964,6 +9960,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningSoak(text, optionDefault, ...)
 		return newSpecialWarning(self, "soak", text, nil, optionDefault, ...)
+	end
+
+	function bossModPrototype:NewSpecialWarningSoakCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "soakcount", text, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningJump(text, optionDefault, ...)
@@ -10791,6 +10791,10 @@ do
 		return newTimer(self, "target", ...)
 	end
 
+	function bossModPrototype:NewTargetCountTimer(...)
+		return newTimer(self, "targetcount", ...)
+	end
+
 	function bossModPrototype:NewBuffActiveTimer(...)
 		return newTimer(self, "active", ...)
 	end
@@ -11515,7 +11519,7 @@ end
 
 function bossModPrototype:SetRevision(revision)
 	revision = parseCurseDate(revision or "")
-	if not revision or revision == "20210629150342" then
+	if not revision or type(revision) == "string" then
 		-- bad revision: either forgot the svn keyword or using github
 		revision = DBM.Revision
 	end

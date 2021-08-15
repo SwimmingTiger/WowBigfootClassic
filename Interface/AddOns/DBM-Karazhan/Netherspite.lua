@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Netherspite", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623160950")
+mod:SetRevision("20210808140214")
 mod:SetCreatureID(15689)
 mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 659 or 2451)
 mod:SetModelID(15363)
@@ -21,7 +21,7 @@ local warningVoid			= mod:NewSpellAnnounce(37063, 4)
 local specWarnVoid			= mod:NewSpecialWarningGTFO(30533, nil, nil, nil, 1, 6)
 
 local timerPortalPhase		= mod:NewTimer(61.5, "timerPortalPhase", "135743", nil, nil, 6)
-local timerBanishPhase		= mod:NewTimer(40, "timerBanishPhase", "136135", nil, nil, 6)
+local timerBanishPhase		= mod:NewTimer(30, "timerBanishPhase", "136135", nil, nil, 6)
 local timerBreathCast		= mod:NewCastTimer(2.5, 38523, nil, nil, nil, 3)
 
 local berserkTimer			= mod:NewBerserkTimer(540)

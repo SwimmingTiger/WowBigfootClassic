@@ -34,11 +34,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	timerP2	= "Phase 2"
+	timerP2	= "2 阶段"
 }
 
 L:SetOptionLocalization{
-	timerP2	= "Show timer for start of phase 2"
+	timerP2	= "显示2阶段计时器"
 }
 
 L:SetMiscLocalization{

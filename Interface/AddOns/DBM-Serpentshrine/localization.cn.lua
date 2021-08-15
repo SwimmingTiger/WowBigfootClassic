@@ -12,19 +12,19 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnMark 		= "%s : %s",
-	WarnPhase		= "%s Phase",--Translate
+	WarnPhase		= "%s 阶段",--Translate
 	SpecWarnMark	= "%s : %s"
 }
 
 L:SetTimerLocalization{
-	TimerMark	= "Next %s : %s"--Translate
+	TimerMark	= "下一次 %s : %s"--Translate
 }
 
 L:SetOptionLocalization{
 	WarnMark		= "警报印记",
 	WarnPhase		= "警报阶段变化",
-	SpecWarnMark	= "Show warning when Marks debuff damage over 100%",--Translate
-	TimerMark		= "Show timer for next Marks"--Translate
+	SpecWarnMark	= "显示：当印记到100%时警报",--Translate
+	TimerMark		= "显示下一次印记时间"--Translate
 }
 
 L:SetMiscLocalization{
@@ -43,9 +43,9 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnSubmerge		= "下潜",
-	WarnSubmergeSoon	= "Submerge in 10 sec",--Translate
+	WarnSubmergeSoon	= "下潜 10 秒",--Translate
 	WarnEmerge			= "重新出现",
-	WarnEmergeSoon		= "Emerge in 10 sec"--Translate
+	WarnEmergeSoon		= "重新出现 10 秒"--Translate
 }
 
 L:SetTimerLocalization{
@@ -54,12 +54,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnSubmerge		= "Show warning when submerge",--Translate
-	WarnSubmergeSoon	= "Show pre-warning for submerge",--Translate
-	WarnEmerge			= "Show warning when emerge",--Translate
-	WarnEmergeSoon		= "Show pre-warning for emerge",--Translate
-	TimerSubmerge		= "Show time for submerge",--Translate
-	TimerEmerge			= "Show time for emerge"--Translate
+	WarnSubmerge		= "显示下潜警报",--Translate
+	WarnSubmergeSoon	= "显示下潜预警",--Translate
+	WarnEmerge			= "显示重新出现警报",--Translate
+	WarnEmergeSoon		= "显示重新出现预警",--Translate
+	TimerSubmerge		= "显示下潜时间",--Translate
+	TimerEmerge			= "显示重新出现时间"--Translate
 }
 
 L:SetMiscLocalization{
@@ -76,23 +76,23 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s Phase",--Translate
-	WarnPhaseSoon	= "%s Phase in 5 sec"--Translate
+	WarnPhase		= "%s 阶段",--Translate
+	WarnPhaseSoon	= "%s 阶段转换 5 秒"--Translate
 }
 
 L:SetTimerLocalization{
-	TimerPhase	= "Next %s Phase"--Translate
+	TimerPhase	= "下一次 %s 阶段"--Translate
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "Show warning for next phase",--Translate
-	WarnPhaseSoon	= "Show pre-warning for next phase",--Translate
-	TimerPhase		= "Show time for next phase"--Translate
+	WarnPhase		= "显示下一阶段的警报",--Translate
+	WarnPhaseSoon	= "显示下一阶段预警",--Translate
+	TimerPhase		= "显示下一阶段时间"--Translate
 }
 
 L:SetMiscLocalization{
-	Human		= "Human",--Translate
-	Demon		= "Demon",--Translate
+	Human		= "人形态",--Translate
+	Demon		= "恶魔形态",--Translate
 	YellDemon	= "滚开吧，脆弱的精灵。现在我说了算！",
 	YellPhase2	= "不……不！你在干什么？我才是主宰！你听到没有？我……啊啊啊啊！控制……不住了。"
 }
@@ -116,9 +116,9 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	Caribdis	= "Fathom-Guard Caribdis",--Translate
-	Tidalvess	= "Fathom-Guard Tidalvess",--Translate
-	Sharkkis	= "Fathom-Guard Sharkkis"--Translate
+	Caribdis	= "深水卫士卡莉蒂丝",--Translate
+	Tidalvess	= "深水卫士泰达维斯 ",--Translate
+	Sharkkis	= "深水卫士沙克基斯"--Translate
 }
 
 --------------------------
@@ -141,8 +141,8 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnMurlocs		= "警报鱼人群",
-	SpecWarnMurlocs	= "Show special warning when Murlocs spawning",--Translate
-	TimerMurlocs	= "Show timer for Murlocs spawning",--Translate
+	SpecWarnMurlocs	= "鱼人群出现时显示特殊警报",--Translate
+	TimerMurlocs	= "显示鱼人群出现计时",--Translate
 	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38049)
 }
 
@@ -174,15 +174,15 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnElemental		= "Show pre-warning for next Tainted Elemental",--Translate
-	WarnStrider			= "Show pre-warning for next Strider",--Translate
-	WarnNaga			= "Show pre-warning for next Naga",--Translate
-	WarnShield			= "Show warning for Phase 2 shield down",--Translate
+	WarnElemental		= "显示被污染的元素出现的预警",--Translate
+	WarnStrider			= "显示盘牙巡逻者出现的预警",--Translate
+	WarnNaga			= "显示盘牙精英出现的预警",--Translate
+	WarnShield			= "显示第2阶段护盾警报 ",--Translate
 	WarnLoot			= "警报是谁拾取了污染之核",
-	TimerElemental		= "Show time for next Tainted Elemental",--Translate
-	TimerStrider		= "Show time for next Strider",--Translate
-	TimerNaga			= "Show time for next Strider",--Translate
-	SpecWarnElemental	= "Show special warning when Tainted Elemental coming",--Translate
+	TimerElemental		= "显示下一个被污染的元素出现的时间",--Translate
+	TimerStrider		= "显示下一个盘牙巡逻者出现的时间",--Translate
+	TimerNaga			= "显示盘牙精英出现的时间",--Translate
+	SpecWarnElemental	= "显示特别警报：当被污染的元素到来时",--Translate
 	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280),
 	AutoChangeLootToFFA	= "第3阶段自动转换拾取方式为自由拾取"
 }

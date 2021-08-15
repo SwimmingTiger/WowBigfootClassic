@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210809020557")
 mod:SetCreatureID(21216)
 mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 623 or 2458)
 mod:SetModelID(20162)
@@ -14,6 +14,11 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 38215 38216 38217 38219 38220 38221 38218 38231 40584 38222 38230 40583 25035"
 )
 
+--[[
+(ability.id = 38215 or ability.id = 38216 or ability.id = 38217 or ability.id = 38219 or ability.id = 38220 or ability.id = 38221
+ or ability.id = 38218 or ability.id = 38231 or ability.id = 40584 or ability.id = 38222 or ability.id = 38230 or ability.id = 40583
+ or ability.id = 25035) and type = "cast"
+--]]
 local warnMark		= mod:NewAnnounce("WarnMark", 3, 38215)
 local warnPhase		= mod:NewAnnounce("WarnPhase", 4)
 local warnTomb		= mod:NewTargetNoFilterAnnounce(38235, 3)
@@ -69,11 +74,11 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(38215, 38216, 38217) or args:IsSpellID(38219, 38220, 38221) then
+	if args:IsSpellID(38215, 38216, 38217, 38219, 38220, 38221) then
 		warnMark:Show(args.spellName, damage[args.spellId] or "10%")
 		timerMark:Cancel()
 		timerMark:Show(args.spellName, damageNext[args.spellId] or "10%")
-	elseif args:IsSpellID(38218, 38231, 40584) or args:IsSpellID(38222, 38230, 40583) then
+	elseif args:IsSpellID(38218, 38231, 40584, 38222, 38230, 40583) then
 		warnMark:Show(args.spellName, damage[args.spellId] or "10%")
 		specWarnMark:Show(args.spellName, damage[args.spellId] or "10%")
 		timerMark:Cancel()
@@ -82,10 +87,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerMark:Cancel()
 		if args:GetSrcCreatureID() == 22035 then
 			warnPhase:Show(L.Frost)
-			timerMark:Start(16, markOfH, "10%")
+			timerMark:Start(15.4, markOfH, "10%")
 		elseif args:GetSrcCreatureID() == 22036 then
 			warnPhase:Show(L.Nature)
-			timerMark:Start(16, markOfC, "10%")
+			timerMark:Start(15.4, markOfC, "10%")
 		end
 	end
 end
