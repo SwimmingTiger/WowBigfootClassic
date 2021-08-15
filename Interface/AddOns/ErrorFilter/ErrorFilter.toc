@@ -1,0 +1,19 @@
+## Interface: 20501
+## Title: ErrorFilter
+## Title-zhCN: [大脚][集]红色信息过滤
+## Title-zhTW: [大腳][集]紅色信息過濾
+## Notes: |cffbc8f8fFilters the errors displayed in the UIErrorsFrame.|r
+## Notes-zhCN: |cff00ff00ErrorFilter|r|n|cffbc8f8f过滤显示界面中上方部分的系统红字提示，可以自行设置想要屏蔽的信息。|r
+## Notes-zhTW: |cff00ff00ErrorFilter|r|n|cffbc8f8f過濾顯示介面中上方部份的系統紅字提示，可以自行設置想要屏蔽的信息。|r
+## Version: v3.7
+## Author: iceeagle
+## SavedVariables: ErrorFilterDB
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+Locales\enUS.lua
+Locales\zhTW.lua
+Locales\zhCN.lua
+
+ErrorFilter.lua
