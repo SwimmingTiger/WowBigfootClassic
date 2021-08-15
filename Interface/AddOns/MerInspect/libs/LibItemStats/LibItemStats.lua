@@ -40,7 +40,7 @@ local function SetStaticValue(stats, value, ...)
             stats.static[select(i,...)] = { value = 0, final = nil }
         end
         stats.static[select(i,...)].value = stats.static[select(i,...)].value + (tonumber(value) or 0)
-	end
+    end
 end
 
 --静态值并设置为完整值
@@ -101,11 +101,11 @@ local function GetStats(text, r, g, b, stats, link)
     if r < 0.6 and g < 0.6 and b < 0.6 then return end
     --不用统计的先排除
     for _, p in ipairs(patterns.ignore) do
-		if strfind(text, p) then return end
-	end
+        if strfind(text, p) then return end
+    end
     --多属性
     for _, p in ipairs(patterns.multiple) do
-		if strfind(text, p.pattern) then
+        if strfind(text, p.pattern) then
             v1, v2, txt = strmatch(text, p.pattern)
             SetStaticValue(stats, v1, strsplit("|",p.key1))
             SetStaticValue(stats, v2, strsplit("|",p.key2))
@@ -114,96 +114,96 @@ local function GetStats(text, r, g, b, stats, link)
             end
             return
         end
-	end
+    end
     --递归的
     for _, p in ipairs(patterns.recursive) do
-		if strfind(text, p) then
+        if strfind(text, p) then
             txt1, txt2 = strmatch(text, p)
             GetStats(txt1, r, g, b, stats, link)
             GetStats(txt2, r, g, b, stats, link)
             return
         end
-	end
+    end
     --常规属性 +xx
-    if strfind(text, "%+(%d+)") then		
-		v = strmatch(text, "%+(%d+)")
-		for _, p in ipairs(patterns.general) do
-			if strfind(text, p.pattern) then
-				SetStaticValue(stats, v, strsplit("|",p.key))
-				break
-			end
-		end
-		return
-	end
+    if strfind(text, "%+(%d+)") then        
+        v = strmatch(text, "%+(%d+)")
+        for _, p in ipairs(patterns.general) do
+            if strfind(text, p.pattern) then
+                SetStaticValue(stats, v, strsplit("|",p.key))
+                break
+            end
+        end
+        return
+    end
     --描述属性
     for _, p in ipairs(patterns.extra) do
-		if strfind(text, p.pattern) then
+        if strfind(text, p.pattern) then
             v = strmatch(text, p.pattern)
             SetStaticValue(stats, v, strsplit("|",p.key))
             return
         end
-	end
+    end
     --百分比属性
     for _, p in ipairs(patterns.percent) do
-		if strfind(text, p.pattern) then
-			v = strmatch(text, p.pattern)
+        if strfind(text, p.pattern) then
+            v = strmatch(text, p.pattern)
             SetPercentValue(stats, v, p.baseon, p.key)
-			return
-		end
-	end
+            return
+        end
+    end
     --特殊值属性
     for _, p in ipairs(patterns.special) do
-		if strfind(text, p.pattern) then
+        if strfind(text, p.pattern) then
             SetStaticValue(stats, p.value, strsplit("|",p.key))
             if (not p.continue) then break end
         end
         return
-	end
+    end
 end
 
 --BUFF属性: 逐条解析
 local function GetBuffStats(text, stats)
     local v, txt1, txt2
     for _, p in ipairs(patterns.buff.convert or {}) do
-		text = gsub(text, p.from, p.to)
-	end
-	if strfind(text, ",") then
+        text = gsub(text, p.from, p.to)
+    end
+    if strfind(text, ",") then
         for txt1 in string.gmatch(text, "[^,]+") do
             GetBuffStats(txt1 or "", stats)
         end
-		return
-	end
-	for _, p in ipairs(patterns.buff) do
-		if strfind(text, p.pattern) then
-			v = strmatch(text, p.pattern)
-			if (v and tonumber(v) > 0) then
-				for key in string.gmatch(p.key, "[^|]+") do
-					if p.percent then
+        return
+    end
+    for _, p in ipairs(patterns.buff) do
+        if strfind(text, p.pattern) then
+            v = strmatch(text, p.pattern)
+            if (v and tonumber(v) > 0) then
+                for key in string.gmatch(p.key, "[^|]+") do
+                    if p.percent then
                         SetPercentValue(stats, v, p.baseon or key, key)
-					else
-						SetStaticValue(stats, v, key)
-					end
-				end
-			end
-		end
-	end	
+                    else
+                        SetStaticValue(stats, v, key)
+                    end
+                end
+            end
+        end
+    end    
 end
 
 --读取UNIT的Buff加成
 function lib:GetUnitBuffStats(unit, stats)
     if (type(stats) ~= "table") then stats = {} end
     local text
-	local i = 1
-	while UnitBuff(unit, i) do
-		tooltip:SetOwner(UIParent, "ANCHOR_NONE")
-		tooltip:ClearLines()
-		tooltip:SetUnitBuff(unit, i)
-		for j = 2, tooltip:NumLines() do			
-			text = _G[tooltip:GetName() .."TextLeft" .. j]:GetText()
-			GetBuffStats(text, stats)
-		end	
-		i = i + 1;
-	end
+    local i = 1
+    while UnitBuff(unit, i) do
+        tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+        tooltip:ClearLines()
+        tooltip:SetUnitBuff(unit, i)
+        for j = 2, tooltip:NumLines() do            
+            text = _G[tooltip:GetName() .."TextLeft" .. j]:GetText()
+            GetBuffStats(text, stats)
+        end    
+        i = i + 1;
+    end
 end
 
 --读取天赋加成 @todo

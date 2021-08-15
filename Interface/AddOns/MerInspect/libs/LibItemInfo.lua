@@ -11,7 +11,7 @@ if not lib then return end
 local locale = GetLocale()
 
 --Toolip
--- local tooltip = CreateFrame("GameTooltip", "ClassicLibItemLevelTooltip1", UIParent, "GameTooltipTemplate")
+local tooltip = CreateFrame("GameTooltip", "ClassicLibItemLevelTooltip1", UIParent, "GameTooltipTemplate")
 local unittip = CreateFrame("GameTooltip", "ClassicLibItemLevelTooltip2", UIParent, "GameTooltipTemplate")
 
 --獲取物品绿字屬性 (中文用LibItemStats库)
@@ -47,13 +47,7 @@ end
 --獲取容器物品裝等
 function lib:GetContainerItemLevel(pid, id)
     local link = GetContainerItemLink(pid, id)
-    if link then
-        local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
-            = GetItemInfo(link);
-        return itemLevel or 0, itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
-    else
-        return -1;
-    end
+    return self:GetItemLevel(link), GetItemInfo(link)
 end
 
 --獲取UNIT對應部位的物品LINK
@@ -71,9 +65,7 @@ function lib:GetUnitItemIndexLevel(unit, index, stats)
     unittip:SetInventoryItem(unit, index)
     local link = GetInventoryItemLink(unit, index) or select(2, unittip:GetItem())
     if (link) then
-        local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
-            = GetItemInfo(link);
-        return itemLevel or 0, itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, sellPrice, classID, subclassID, bindType, expacID, setID, isCraftingReagent
+        return self:GetItemLevel(link, stats), GetItemInfo(link)
     else
         return -1
     end
