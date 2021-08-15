@@ -186,21 +186,38 @@ function TotemTimers_Slash(msg)
 end
 
 
+local function pairsByKeys (t, f)
+      local a = {}
+      for n in pairs(t) do table.insert(a, n) end
+      table.sort(a, f)
+      local i = 0      -- iterator variable
+      local iter = function ()   -- iterator function
+        i = i + 1
+        if a[i] == nil then return nil
+        else return a[i], t[a[i]]
+        end
+      end
+      return iter
+    end
+
+
 local text
 
 local function addVar(var, indent)
+    local text = ""
     if type(var) == "table" then
         text = text.." {|n"
         for k,v in pairs(var) do
             for i=1,indent+4 do text = text.." " end
             text = text..'["'..k..'"] = '
-            addVar(v, indent+4)
+            text = text..addVar(v, indent+4)
         end
         for i=1,indent do text = text.." " end
         text = text.."}|n"
     else
         text = text..tostring(var).."|n"
     end
+    return text
 end
 
 local DebugText = ""
@@ -212,19 +229,32 @@ function TotemTimers.AddDebug(text)
     DebugText = DebugText..text.."|n"
 end
 
+local AceGUI = LibStub('AceGUI-3.0')
+local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
+local debugframe = AceGUI:Create("Frame")
+debugframe:Hide()
+debugframe:SetTitle("TotemTimers Debug")
+debugframe:SetStatusText(L["Ctrl-C to copy text"])
+debugframe:SetLayout("Fill")
+debugframe.editbox = AceGUI:Create("MultiLineEditBox")
+debugframe.editbox:SetLabel(nil)
+debugframe.editbox:DisableButton(true)
+debugframe:AddChild(debugframe.editbox)
+
+
 function TotemTimers.ShowDebug()
-	--text = ""
-	--[[text = text.."Settings:|n"
-	for k,v in pairs(TotemTimers_Settings) do
+	local text = ""
+	text = text.."Settings:|n"
+	for k,v in pairsByKeys(TotemTimers.ActiveProfile) do
 		text = text..'    ["'..k..'"] = '
-        addVar(v, 4)
+        text = text .. addVar(v, 4)
 	end
 	text=text.."|n|n"
     text=text.."Available spells:|n"
-	for k,v in pairs(TotemTimers_Spells) do
+	for k,v in pairsByKeys(TotemTimers.AvailableSpells) do
 		text = text..'    ["'..k..'"] = '
-        addVar(v, 4)
-	end  ]]
+        text = text..addVar(v, 4)
+	end
 	--[[text = "EnhanceCDs option: "..tostring(TotemTimers_Settings["EnhanceCDs"]).."|n"
 	local name,_,_,_,rank = GetTalentInfo(2,28)
 	text = text..tostring(name)..": "..tostring(rank).."|n"
@@ -243,9 +273,11 @@ function TotemTimers.ShowDebug()
 		text = text..tostring(c).." "..tostring(d).." "..tostring(e)
 	end
 	text=text.."|n"]]
-	TotemTimers_Debug:SetText(DebugText)
-	TotemTimers_Debug:HighlightText()
+	debugframe.editbox:SetText(text)
+	debugframe.editbox:HighlightText()
+	debugframe:Show()
 end
+
 
 local skin = false
 local mask = nil

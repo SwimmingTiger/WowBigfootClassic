@@ -14,8 +14,8 @@ function XiTimersAnimations:new(AnchoredButton)
     self.button =  CreateFrame("CheckButton", "XiTimers_Animation"..NumAnimations, UIParent, "ActionButtonTemplate")
     self.icon = _G["XiTimers_Animation"..NumAnimations.."Icon"]
 	self.button.normalTexture = _G["XiTimers_Animation"..NumAnimations.."NormalTexture"]
-    self.button.normalTexture:Hide()
-    self.icon:SetTexCoord(0.07,0.93,0.07,0.93)
+    self.button.normalTexture:SetTexture(nil)
+    --self.icon:SetTexCoord(0.07,0.93,0.07,0.93)
     self.AnimGroup = self.button:CreateAnimationGroup()
     self.AnimGroup.button = self.button
     self.AnimGroup:SetLooping("NONE")
@@ -28,7 +28,8 @@ function XiTimersAnimations:new(AnchoredButton)
     self.Translation:SetOffset(200,200)
     self.Alpha = self.AnimGroup:CreateAnimation("Alpha")
     self.Alpha:SetDuration(0.7)
-    --self.Alpha:SetChange(-1)
+    self.Alpha:SetFromAlpha(1)
+    self.Alpha:SetToAlpha(0)
     self.Scale = self.AnimGroup:CreateAnimation("Scale")
     self.Scale:SetDuration(0.7)
     self.Scale:SetScale(10,10)
@@ -47,6 +48,7 @@ function XiTimersAnimations:Play()
     local x,y = self.button:GetCenter()
     local uicx, uicy = UIParent:GetCenter()
     self.Translation:SetOffset(uicx-x, uicy+50-y)
+    self.button:Show()
     self.AnimGroup:Play()
 end
 

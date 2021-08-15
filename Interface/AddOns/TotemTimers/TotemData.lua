@@ -170,8 +170,8 @@ end
 TotemData = {
 	[SpellIDs.Tremor] = {
         element = EARTH_TOTEM_SLOT,
-        flashInterval = 4,
-        warningPoint = 2,
+        flashInterval = 3,
+        warningPoint = 0,
         rangeCheck = 30,
     },
     [SpellIDs.Stoneskin] = {
@@ -189,7 +189,7 @@ TotemData = {
     [SpellIDs.EarthBind] = {
         element = EARTH_TOTEM_SLOT,
         flashInterval = 3,
-        flashDelay = 1,
+        flashDelay = 0,
         warningPoint = 5,
     },
     [SpellIDs.EarthElemental] = {

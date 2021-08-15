@@ -239,17 +239,35 @@ TotemTimers.options = {
                           end,
                     get = function(info) return TotemTimers.ActiveProfile.CooldownAlpha end,
                 },
-               --[[ h2 = {
-                    order = 70,
+                h2 = {
+                    order = -10,
                     type = "header",
-                    name = "",
+                    name = "Debug",
+                },
+                DebugDescription = {
+                    type = "description",
+                    name = "If you have any errors, please create an issue at CurseForge, https://www.curseforge.com/wow/addons/totemtimers-classic/issues.|n"
+                        .."If you encoutern a lua error, please include it. Please also include the contents of the TotemTimers debug window.",
+                    order = -3
                 },
                 Debug = {
                     order = -1,
                     type = "execute",
                     name = L["Debug"] ,
-                    func = function() HideUIPanel(InterfaceOptionsFrame) TotemTimers_DebugScrollFrame:Show() end
-                }, ]]
+                    func = function()
+                        HideUIPanel(InterfaceOptionsFrame) --TotemTimers_DebugScrollFrame:Show()
+                        TotemTimers.ShowDebug()
+                    end
+                },
+                DebugUrl = {
+                    order = -2,
+                    type = "input",
+                    name = 'Curse-Url for copying',
+                    desc = "Use Ctrl-A, Ctrl-C to copy url",
+                    width = "full",
+                    set = function() end,
+                    get = function() return "https://www.curseforge.com/wow/addons/totemtimers-classic/issues" end
+                },
             },
         },
     },
@@ -262,7 +280,4 @@ local frame = ACD:AddToBlizOptions("TotemTimers", "TotemTimers", nil, "general")
 frame:SetScript("OnEvent", function(self) InterfaceOptionsFrame:Hide() end)
 frame:HookScript("OnShow", function(self) if InCombatLockdown() then InterfaceOptionsFrame:Hide() end TotemTimers.LastGUIPanel = self end)
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-
-
-
 

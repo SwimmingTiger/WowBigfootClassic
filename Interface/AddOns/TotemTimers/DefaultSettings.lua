@@ -7,10 +7,10 @@ if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local SpellIDs = TotemTimers.SpellIDs
 local SpellNames = TotemTimers.SpellNames
-local Version = 11.0
+local Version = 11.1
 
 TotemTimers.DefaultGlobalSettings = {
-	Version = 11.0,
+	Version = 11.1,
     Profiles = {},
     Sink = {}
 }
@@ -35,7 +35,7 @@ TotemTimers.DefaultProfile = {
         TimerBarColor = {r=0.5,g=0.5,b=1.0,a=1.0},
         ShowKeybinds = true,
         HideInVehicle = true,
-        StopPulse = true,
+        StopPulse = false,
         TimersOnButtons = false,
         LavaSurgeAura = true,
         LavaSurgeGlow = true,
@@ -407,6 +407,12 @@ function TotemTimers.ExecuteProfile()
 end
 
 local SettingsConverters = {
+    [11.0] = function()
+        for k,profile in pairs(TotemTimers_Profiles) do
+            profile.StopPulse = false
+        end
+        TotemTimers_GlobalSettings.Version = 11.1
+    end,
 }
 
 	

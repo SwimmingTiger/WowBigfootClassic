@@ -91,46 +91,6 @@
         </Layer>
     </Layers>
   </CheckButton>
-  
-  
-	<ScrollFrame name="TotemTimers_DebugScrollFrame" hidden="true" inherits="UIPanelScrollFrameTemplate">
-		<Size>
-			<AbsDimension x="286" y="185"/>
-		</Size>
-		<Anchors>
-			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
-		</Anchors>
-		<ScrollChild>
-			<EditBox name="TotemTimers_Debug" multiLine="true" maxLetters="999999">
-				<Size>
-					<AbsDimension x="286" y="285"/>
-				</Size>
-				<Scripts>
-					<OnEscapePressed>
-						self:ClearFocus();
-					</OnEscapePressed>
-				</Scripts>
-				<FontString inherits="GameFontHighlightSmall"/>
-			</EditBox>
-		</ScrollChild>
-		<Frames>
-			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
-				<Anchors>
-					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPRIGHT"/>
-				</Anchors>
-				<Scripts>
-					<OnClick>
-						self:GetParent():Hide();
-					</OnClick>
-				</Scripts>
-			</Button>
-		</Frames>
-		<Scripts>
-			<OnShow>
-				TotemTimers.ShowDebug()
-			</OnShow>
-		</Scripts>
-	</ScrollFrame>
 
 </Ui>
 
