@@ -56,7 +56,8 @@ local isDebugging = false
 
 function Details.packFunctions.GetAllData()
     local combat = Details:GetCurrentCombat()
-    local packedData = Details.packFunctions.PackCombatData(combat, 0x13)
+    local packedData = Details.packFunctions.PackCombatData(combat, 0x1B)
+    --local packedData = Details.packFunctions.PackCombatData(combat, 0x13)
     return packedData
 end
 
@@ -106,11 +107,18 @@ function Details.packFunctions.PackCombatData(combatObject, flags)
     end
 
     if (bit.band(flags, 0x1) ~= 0) then
+        ---print("pack damage")
         Details.packFunctions.PackDamage(combatObject)
     end
 
     if (bit.band(flags, 0x2) ~= 0) then
+        --print("pack heal")
         Details.packFunctions.PackHeal(combatObject)
+    end
+
+    if (bit.band(flags, 0x8) ~= 0) then
+        --print("pack utility")
+        Details.packFunctions.PackUtility(combatObject)
     end
 
     --> prepare data to send over network
@@ -164,13 +172,15 @@ function Details.packFunctions.PackCombatData(combatObject, flags)
 
         --Details:Dump({exportedString})
 
+        --print("EXPORTING STRING FINAL:", exportedString)
+
         --compress
         local LibDeflate = _G.LibStub:GetLibrary("LibDeflate")
         local dataCompressed = LibDeflate:CompressDeflate(exportedString, {level = 9})
         local dataEncoded = LibDeflate:EncodeForWoWAddonChannel(dataCompressed)
 
         --print("encoded for WowAddonChannel (debug):", format("%.2f", #dataEncoded/1024), "KBytes")
-
+        
         return dataEncoded
 end
 
@@ -1017,145 +1027,329 @@ function Details.packFunctions.PackUtility(combatObject)
         --where the information of this actor starts
         local currentIndex = #actorUtilityInfo + 1
 
-        --[1] index where is stored the this actor info like name, class, spec, etc
+        --[1] index where is stored the actor info like name, class, spec, etc
         actorUtilityInfo[currentIndex] = indexToActorInfo  --[1]
 
         --[=[
-        what information to pack with the utility packager
-            debuff_uptime_spells._ActorTable [spellId] = {
-                ["appliedamt"] = 1,
-                ["targets"] = {
+        interrupt_spells._ActorTable [spellId] = {
+            [2139] = {
+                ["id"] = 2139,
+                ["interrompeu_oque"] = {
+                    [337110] = 1,
                 },
-                ["activedamt"] = 1,
-                ["uptime"] = 10,
-                ["id"] = 41425,
-                ["refreshamt"] = 0,
-                ["actived"] = false,
-                ["counter"] = 0,
-            }
+                ["targets"] = {
+                    ["Baroness Frieda"] = 1,
+                },
+                ["counter"] = 1,
+            },
+        }
 
-            ["buff_uptime_spells"] = {
-                ["_ActorTable"] = {
-                    [327704] = {
-                        ["appliedamt"] = 1,
-                        ["targets"] = {
-                        },
-                        ["activedamt"] = 1,
-                        ["uptime"] = 111,
-                        ["id"] = 327704,
-                        ["refreshamt"] = 0,
-                        ["actived"] = false,
-                        ["counter"] = 0,
-                    },
-                }
-            }
-
-            ["debuff_uptime"] = 126,
-
-            interrupt_spells._ActorTable [spellId] = {
-                [2139] = {
-                    ["id"] = 2139,
-                    ["interrompeu_oque"] = {
-                        [337110] = 1,
-                    },
+        cooldowns_defensive
+        cooldowns_defensive_targets
+        ["cooldowns_defensive_spells"] = {
+            ["_ActorTable"] = {
+                [45438] = {
+                    ["id"] = 45438,
                     ["targets"] = {
-                        ["Baroness Frieda"] = 1,
+                        ["Relune-Tichondrius"] = 1,
                     },
                     ["counter"] = 1,
                 },
-            }
-
-            ["interrompeu_oque"] = {
-                [337110] = 1,
             },
+            ["tipo"] = 9,
+        },
 
-            ["cooldowns_defensive_spells"] = {
-                ["_ActorTable"] = {
-                    [45438] = {
-                        ["id"] = 45438,
-                        ["targets"] = {
-                            ["Relune-Tichondrius"] = 1,
-                        },
-                        ["counter"] = 1,
+        cc_break
+        cc_break_oque
+        cc_break_targets
+        ["cc_break_spells"] = {
+            ["_ActorTable"] = {
+                [42223] = {
+                    ["cc_break_oque"] = {
+                        [197214] = 2,
                     },
+                    ["id"] = 42223,
+                    ["targets"] = {
+                        ["Castellan Niklaus"] = 1,
+                        ["Baroness Frieda"] = 1,
+                    },
+                    ["cc_break"] = 2,
+                    ["counter"] = 0,
                 },
-                ["tipo"] = 9,
             },
+        },
 
-            ["cooldowns_defensive"] = 1.005112,
-            ["buff_uptime"] = 344,
-
-            ["last_cooldown"] = {
-                1623694994.154, -- [1]
-                45438, -- [2]
+        ["cc_done_spells"] = {
+            ["_ActorTable"] = {
+                [127797] = {
+                    ["id"] = 127797,
+                    ["targets"] = {
+                        ["Castellan Niklaus"] = 1,
+                        ["Lord Stavros"] = 1,
+                        ["Baroness Frieda"] = 1,
+                    },
+                    ["counter"] = 3,
+                },
             },
+            ["tipo"] = 9,
+        },
 
-            ["cooldowns_defensive_targets"] = {
-                ["Relune-Tichondrius"] = 1,
+        ["dispell_spells"] = {
+            ["_ActorTable"] = {
+                [77130] = {
+                    ["targets"] = {
+                        ["Magicgreenie-BleedingHollow"] = 1,
+                    },
+                    ["id"] = 77130,
+                    ["dispell_oque"] = {
+                        [337110] = 1,
+                    },
+                    ["dispell"] = 1,
+                    ["counter"] = 0,
+                },
             },
+            ["tipo"] = 9,
+        },
 
-            ["spell_cast"] = {
-                [108853] = 10,
-                [116011] = 1,
-                [133] = 17,
-                [257541] = 3,
-                [235313] = 5,
-                [314791] = 1,
-                [325130] = 4,
-                [190319] = 2,
-                [45438] = 1,
-                [11366] = 5,
-                [2139] = 2,
-                [116014] = 3,
+        ress
+        ress_targets
+        ["ress_spells"] = {
+            ["_ActorTable"] = {
+                [212048] = {
+                    ["id"] = 212048,
+                    ["ress"] = 7,
+                    ["targets"] = {
+                        ["Freezerbeef-Illidan"] = 1,
+                        ["Jilkari-ThoriumBrotherhood"] = 1,
+                        ["Ditador"] = 1,
+                        ["Caller-Thrall"] = 1,
+                        ["Thebappo-Tichondrius"] = 1,
+                        ["Superskourge-Area52"] = 1,
+                        ["Rorschak-Area52"] = 1,
+                    },
+                    ["counter"] = 0,
+                },
             },
-
-            ["debuff_uptime_targets"] = {
-            },
-            ["buff_uptime_targets"] = {
-            },
-
-            
+            ["tipo"] = 9,
+        },
 
         --]=]
 
-        --[2 - 6]
-        actorUtilityInfo [currentIndex + 1] = floor(actor.total)              --[2]
-        actorUtilityInfo [currentIndex + 2] = floor(actor.totalabsorbed)      --[3]
-        actorUtilityInfo [currentIndex + 3] = floor(actor.damage_taken)       --[4]
-        actorUtilityInfo [currentIndex + 4] = floor(actor.friendlyfire_total) --[5]
-        actorUtilityInfo [currentIndex + 5] = floor(actor.total_without_pet)  --[6]
+        --> cooldowns, pack player cooldowns used
+            actorUtilityInfo [#actorUtilityInfo + 1] = "C"
+            local cooldownContainer = actor.cooldowns_defensive_spells and actor.cooldowns_defensive_spells._ActorTable
+            local totalSpellIndexes = 0
 
-        local spellContainer = actor.spells._ActorTable
+            if (cooldownContainer) then
+                --reserve an index to tell the length of spells
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+                local reservedSpellSizeIndex = #actorUtilityInfo
 
-        --reserve an index to tell the length of spells
-        actorUtilityInfo [#actorUtilityInfo + 1] = 0
-        local reservedSpellSizeIndex = #actorUtilityInfo
-        local totalSpellIndexes = 0
+                for spellId, spellInfo in pairs(cooldownContainer) do
+                    local spellCounter = spellInfo.counter
+                    local spellTargets = spellInfo.targets
 
-        for spellId, spellInfo in pairs(spellContainer) do
-            local spellDamage = spellInfo.total
-            local spellHits = spellInfo.counter
-            local spellTargets = spellInfo.targets
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellCounter)
+                    totalSpellIndexes = totalSpellIndexes + 2
 
-            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
-            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellDamage)
-            actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellHits)
-            totalSpellIndexes = totalSpellIndexes + 3
+                    --build targets
+                    local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
 
-            --build targets
-            local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
-            actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
-            totalSpellIndexes = totalSpellIndexes + 1
+                    for actorName, totalDone in pairs(spellTargets) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+                end
 
-            for actorName, damageDone in pairs(spellTargets) do
-                actorUtilityInfo [#actorUtilityInfo + 1] = actorName
-                actorUtilityInfo [#actorUtilityInfo + 1] = floor(damageDone)
-                totalSpellIndexes = totalSpellIndexes + 2
+                --amount of indexes spells are using
+                actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+            else
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
             end
-        end
 
-        --amount of indexes spells are using
-        actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+        --> interrupts, pack player interrupts
+            actorUtilityInfo [#actorUtilityInfo + 1] = "I"
+            local interruptsContainer = actor.interrupt_spells and actor.interrupt_spells._ActorTable
+            local totalSpellIndexes = 0
+
+            if (interruptsContainer) then
+                --reserve an index to tell the length of spells
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+                local reservedSpellSizeIndex = #actorUtilityInfo
+
+                for spellId, spellInfo in pairs(interruptsContainer) do
+                    local spellCounter = spellInfo.counter
+                    local spellTargets = spellInfo.targets
+                    local whatGotInterrupted = spellInfo.interrompeu_oque
+
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellCounter) --spellCounter is nil
+                    totalSpellIndexes = totalSpellIndexes + 2
+
+                    --build targets
+                    local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for actorName, totalDone in pairs(spellTargets) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+
+                    --build what was interrupted by the spell
+                    local interruptedSize = Details.packFunctions.CountTableEntriesValid(whatGotInterrupted) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = interruptedSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for spellId, totalDone in pairs(whatGotInterrupted) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = spellId
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+                end
+
+                --amount of indexes spells are using
+                actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+            else
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+            end
+
+        --> cc break, pack player crowd control breaks
+            actorUtilityInfo [#actorUtilityInfo + 1] = "B"
+            local ccBreakContainer = actor.cc_break_spells and actor.cc_break_spells._ActorTable
+            local totalSpellIndexes = 0
+
+            if (ccBreakContainer) then
+                --reserve an index to tell the length of spells
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+                local reservedSpellSizeIndex = #actorUtilityInfo
+
+                for spellId, spellInfo in pairs(ccBreakContainer) do
+                    local spellCounter = spellInfo.cc_break
+                    local spellTargets = spellInfo.targets
+                    local whatGotCCBroken = spellInfo.cc_break_oque
+
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellCounter)
+                    totalSpellIndexes = totalSpellIndexes + 2
+
+                    --build targets
+                    local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for actorName, totalDone in pairs(spellTargets) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+
+                    --build what was interrupted by the spell
+                    local ccBrokenSize = Details.packFunctions.CountTableEntriesValid(whatGotCCBroken) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = ccBrokenSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for spellId, totalDone in pairs(whatGotCCBroken) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = spellId
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+                end
+
+                --amount of indexes spells are using
+                actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+            else
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+            end
+
+        --> dispel, pack player dispels done
+            actorUtilityInfo [#actorUtilityInfo + 1] = "D"
+            local dispelsContainer = actor.dispell_spells and actor.dispell_spells._ActorTable
+            local totalSpellIndexes = 0
+
+            if (dispelsContainer) then
+                --reserve an index to tell the length of spells
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+                local reservedSpellSizeIndex = #actorUtilityInfo
+            
+                for spellId, spellInfo in pairs(dispelsContainer) do
+                    local spellTotal = spellInfo.dispell
+                    local spellTargets = spellInfo.targets
+                    local whatGotDispelled = spellInfo.dispell_oque
+
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellTotal)
+                    totalSpellIndexes = totalSpellIndexes + 2
+
+                    --build targets
+                    local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for actorName, totalDone in pairs(spellTargets) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+
+                    --build what was dispelled by the spell
+                    local dispelsSize = Details.packFunctions.CountTableEntriesValid(whatGotDispelled) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = dispelsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for spellId, totalDone in pairs(whatGotDispelled) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = spellId
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+                end
+
+                --amount of indexes spells are using
+                actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+            else
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+            end
+
+        --> ress, pack player ress performed
+            actorUtilityInfo [#actorUtilityInfo + 1] = "R"
+            local ressContainer = actor.ress_spells and actor.ress_spells._ActorTable
+            local totalSpellIndexes = 0
+
+            if (ressContainer) then
+                --reserve an index to tell the length of spells
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+                local reservedSpellSizeIndex = #actorUtilityInfo
+            
+                for spellId, spellInfo in pairs(ressContainer) do
+                    local spellTotal = spellInfo.ress
+                    local spellTargets = spellInfo.targets
+
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellId)
+                    actorUtilityInfo [#actorUtilityInfo + 1] = floor(spellTotal)
+                    totalSpellIndexes = totalSpellIndexes + 2
+
+                    --build targets
+                    local targetsSize = Details.packFunctions.CountTableEntriesValid(spellTargets) * 2
+                    actorUtilityInfo [#actorUtilityInfo + 1] = targetsSize
+                    totalSpellIndexes = totalSpellIndexes + 1
+
+                    for actorName, totalDone in pairs(spellTargets) do
+                        actorUtilityInfo [#actorUtilityInfo + 1] = actorName
+                        actorUtilityInfo [#actorUtilityInfo + 1] = floor(totalDone)
+                        totalSpellIndexes = totalSpellIndexes + 2
+                    end
+                end
+
+                --amount of indexes spells are using
+                actorUtilityInfo[reservedSpellSizeIndex] = totalSpellIndexes
+            else
+                actorUtilityInfo [#actorUtilityInfo + 1] = 0
+            end
     end
 
     if (isDebugging) then
@@ -1163,6 +1357,323 @@ function Details.packFunctions.PackUtility(combatObject)
     end
 end
 
+function Details.packFunctions.UnPackUtility(currentCombat, combatData, tablePosition)
+        if (isDebugging) then
+            print("UnPackUtility(): start.")
+        end
+
+        --get the utility container
+        local utilityContainer = currentCombat[DETAILS_ATTRIBUTE_MISC]
+
+        --loop from 1 to 199, the amount of actors store is unknown
+        --todo: it's only unpacking the first actor from the table, e.g. theres izimode and eye of corruption, after export it only shows the eye of corruption
+        --table position does not move forward
+        for i = 1, 199 do
+            --actor information index in the combatData table
+            --this index gives the position where the actor name, class, spec are stored
+            local actorReference = tonumber(combatData[tablePosition]) --[1]
+            local actorName, actorFlag, serialNumber, class, spec = Details.packFunctions.RetriveActorInformation(combatData, actorReference)
+
+            if (isDebugging) then
+                print("UnPackUtility(): Retrivied Data From " .. (actorReference or "nil") .. ":", actorName, actorFlag, serialNumber, class, spec)
+            end
+
+            --check if all utility actors has been processed
+            --if there's no actor name it means it reached the end
+            if (not actorName) then
+                if (isDebugging) then
+                    print("UnPackUtiliyu(): break | Utility loop has been stopped", "index:", i, "tablePosition:", tablePosition, "value:", combatData[tablePosition])
+                end
+                break
+            end
+
+            --get or create the actor object
+            local actorObject = utilityContainer:GetOrCreateActor(serialNumber, actorName, actorFlag, true)
+
+            --set the actor class, spec and group
+            actorObject.classe = class
+            actorObject.spec = spec
+            actorObject.grupo = isActorInGroup(class, actorFlag)
+            actorObject.flag_original = actorFlag
+            --finished utility actor setup
+            --C - cooldowns
+            --I - interrupts
+            --B - cc break
+            --D - dispels
+            --R - ress
+
+            --> copy back the actor cooldowns spells
+                tablePosition = tablePosition + 1
+                tablePosition = tablePosition + 1
+
+                --amount of indexes used to store cooldowns spells for this actor
+                local spellsSize = tonumber(combatData[tablePosition]) --[7]
+                if (isDebugging) then
+                    print("cooldowns size unpack:", spellsSize)
+                end
+
+                tablePosition = tablePosition + 1
+
+                --check if there's cooldown data
+                if (spellsSize > 0) then
+                    local newTotal = 0
+                    local newTargetsTable = {}
+
+                    local spellIndex = tablePosition
+                    while(spellIndex < tablePosition + spellsSize) do
+                        local spellId =          tonumber(combatData[spellIndex]) --[1]
+                        local spellTotal =       tonumber(combatData[spellIndex+1]) --[2]
+                        local targetsSize =      tonumber(combatData[spellIndex+2]) --[3]
+
+                        local targetTable = Details.packFunctions.UnpackTable(combatData, spellIndex+2, true)
+
+                        if (not actorObject.cooldowns_defensive_spells) then
+                            actorObject.cooldowns_defensive_spells = Details.container_habilidades:NovoContainer(Details.container_type.CONTAINER_MISC_CLASS)
+                        end
+
+                        local spellObject = actorObject.cooldowns_defensive_spells:GetOrCreateSpell(spellId, true)
+
+                        spellObject.counter = spellTotal
+                        spellObject.targets = targetTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetsTable[targetName] = (newTargetsTable[targetName] or 0) + amount
+                            newTotal = newTotal + amount
+                        end
+
+                        spellIndex = spellIndex + targetsSize + 3
+                    end
+
+                    actorObject.cooldowns_defensive = newTotal
+                    actorObject.cooldowns_defensive_targets = newTargetsTable
+                    tablePosition = tablePosition + spellsSize --increase table position
+                end
+
+            --> copy back the actor interrupts spells
+                --tablePosition = tablePosition + 1
+                local startInterrupt = combatData[tablePosition]
+                tablePosition = tablePosition + 1
+
+                --amount of indexes used to store interrupt spells for this actor
+                local spellsSize = tonumber(combatData[tablePosition]) --[7]
+                if (isDebugging) then
+                    print("interrupt size unpack:", spellsSize)
+                end
+                tablePosition = tablePosition + 1
+
+                if (spellsSize > 0) then
+                    local newTotal = 0
+                    local newTargetsTable = {}
+                    local newTargetWhatTable = {}
+
+                    local spellIndex = tablePosition
+                    while(spellIndex < tablePosition + spellsSize) do
+                        local spellId =          tonumber(combatData[spellIndex]) --[1]
+                        local spellTotal =       tonumber(combatData[spellIndex+1]) --[2]
+                        local targetsSize =      tonumber(combatData[spellIndex+2]) --[3]
+
+                        local targetTable = Details.packFunctions.UnpackTable(combatData, spellIndex+2, true)
+
+                        if (not actorObject.interrupt_spells) then
+                            actorObject.interrupt_spells = Details.container_habilidades:NovoContainer(Details.container_type.CONTAINER_MISC_CLASS)
+                        end
+                        local spellObject = actorObject.interrupt_spells:GetOrCreateSpell(spellId, true)
+
+                        spellObject.counter = spellTotal
+                        spellObject.targets = targetTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetsTable[targetName] = (newTargetsTable[targetName] or 0) + amount
+                            newTotal = newTotal + amount
+                        end
+
+                        --interrupt what
+                        spellIndex = spellIndex + targetsSize + 3
+                        local interruptWhatTableSize = combatData[spellIndex]
+                        local interruptWhatTable = Details.packFunctions.UnpackTable(combatData, spellIndex, true) --table[index] is nil
+                        spellObject.interrompeu_oque = interruptWhatTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetWhatTable[targetName] = (newTargetWhatTable[targetName] or 0) + amount
+                        end
+
+                        spellIndex = spellIndex + interruptWhatTableSize + 1
+                    end
+
+                    actorObject.interrupt = newTotal
+                    actorObject.interrupt_targets = newTargetsTable
+                    actorObject.interrompeu_oque = newTargetWhatTable
+                    tablePosition = tablePosition + spellsSize --increase table position
+                end
+
+           --> copy back the actor cc break spells
+                --tablePosition = tablePosition + 1
+                local startCCBreak = combatData[tablePosition]
+                tablePosition = tablePosition + 1
+
+                --amount of indexes used to store cc break spells for this actor
+                local spellsSize = tonumber(combatData[tablePosition]) --[7]
+                if (isDebugging) then
+                    print("cc break size unpack:", spellsSize)
+                end
+                tablePosition = tablePosition + 1
+
+                if (spellsSize > 0) then
+                    local newTotal = 0
+                    local newTargetsTable = {}
+                    local newTargetWhatTable = {}
+
+                    local spellIndex = tablePosition
+                    while(spellIndex < tablePosition + spellsSize) do
+                        local spellId =          tonumber(combatData[spellIndex]) --[1]
+                        local spellTotal =       tonumber(combatData[spellIndex+1]) --[2]
+                        local targetsSize =      tonumber(combatData[spellIndex+2]) --[3]
+
+                        local targetTable = Details.packFunctions.UnpackTable(combatData, spellIndex+2, true)
+
+                        if (not actorObject.cc_break_spells) then
+                            actorObject.cc_break_spells = Details.container_habilidades:NovoContainer(Details.container_type.CONTAINER_MISC_CLASS)
+                        end
+                        local spellObject = actorObject.cc_break_spells:GetOrCreateSpell(spellId, true)
+
+                        spellObject.cc_break = spellTotal
+                        spellObject.targets = targetTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetsTable[targetName] = (newTargetsTable[targetName] or 0) + amount
+                            newTotal = newTotal + amount
+                        end
+
+                        --cc broke what
+                        spellIndex = spellIndex + targetsSize + 3
+                        local ccBrokeWhatTableSize = combatData[spellIndex]
+
+                        local ccBrokeWhatTable = Details.packFunctions.UnpackTable(combatData, spellIndex, true)
+                        spellObject.cc_break_oque = ccBrokeWhatTable
+
+                        for targetName, amount in pairs (spellObject.cc_break_oque) do
+                            newTargetWhatTable[targetName] = (newTargetWhatTable[targetName] or 0) + amount
+                        end
+
+                        spellIndex = spellIndex + ccBrokeWhatTableSize + 1
+                    end
+
+                    actorObject.cc_break = newTotal
+                    actorObject.cc_break_targets = newTargetsTable
+                    actorObject.cc_break_oque = newTargetWhatTable
+                    tablePosition = tablePosition + spellsSize --increase table position
+                end
+
+            --> copy back the actor dispel spells
+                --tablePosition = tablePosition + 1
+                tablePosition = tablePosition + 1
+
+                --amount of indexes used to store dispel spells for this actor
+                local spellsSize = tonumber(combatData[tablePosition]) --[7]
+                if (isDebugging) then
+                    print("dispel size unpack:", spellsSize)
+                end
+                tablePosition = tablePosition + 1
+
+                if (spellsSize > 0) then
+                    local newTotal = 0
+                    local newTargetsTable = {}
+                    local newTargetWhatTable = {}
+
+                    local spellIndex = tablePosition
+                    while(spellIndex < tablePosition + spellsSize) do
+                        local spellId =          tonumber(combatData[spellIndex]) --[1]
+                        local spellTotal =       tonumber(combatData[spellIndex+1]) --[2]
+                        local targetsSize =      tonumber(combatData[spellIndex+2]) --[3]
+
+                        local targetTable = Details.packFunctions.UnpackTable(combatData, spellIndex+2, true)
+
+                        if (not actorObject.dispell_spells) then
+                            actorObject.dispell_spells = Details.container_habilidades:NovoContainer(Details.container_type.CONTAINER_MISC_CLASS)
+                        end
+                        local spellObject = actorObject.dispell_spells:GetOrCreateSpell(spellId, true)
+
+                        spellObject.dispell = spellTotal
+                        spellObject.targets = targetTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetsTable[targetName] = (newTargetsTable[targetName] or 0) + amount
+                            newTotal = newTotal + amount
+                        end
+                        spellIndex = spellIndex + targetsSize + 3
+
+                        --dispel what
+                        local dispelWhatTableSize = combatData[spellIndex]
+                        local dispelWhatTable = Details.packFunctions.UnpackTable(combatData, spellIndex, true)
+                        spellObject.dispell_oque = dispelWhatTable
+
+                        for spellId, amount in pairs (spellObject.dispell_oque) do
+                            newTargetWhatTable[spellId] = (newTargetWhatTable[spellId] or 0) + amount
+                        end
+
+                        spellIndex = spellIndex + dispelWhatTableSize + 1
+                    end
+
+                    actorObject.dispell = newTotal
+                    actorObject.dispell_targets = newTargetsTable
+                    actorObject.dispell_oque = newTargetWhatTable
+                    tablePosition = tablePosition + spellsSize --increase table position
+                end
+
+            --ress
+            --ress_targets
+            --ress_spells
+            --> copy back the actor ress spells
+                --tablePosition = tablePosition + 1
+                tablePosition = tablePosition + 1
+
+                --amount of indexes used to store ress spells for this actor
+                local spellsSize = tonumber(combatData[tablePosition]) --[7]
+                if (isDebugging) then
+                    print("ress size unpack:", spellsSize)
+                end
+                tablePosition = tablePosition + 1
+
+                if (spellsSize > 0) then
+                    local newTotal = 0
+                    local newTargetsTable = {}
+
+                    local spellIndex = tablePosition
+                    while(spellIndex < tablePosition + spellsSize) do
+                        local spellId =          tonumber(combatData[spellIndex]) --[1]
+                        local spellTotal =       tonumber(combatData[spellIndex+1]) --[2]
+                        local targetsSize =      tonumber(combatData[spellIndex+2]) --[3]
+
+                        local targetTable = Details.packFunctions.UnpackTable(combatData, spellIndex+2, true)
+
+                        if (not actorObject.ress_spells) then
+                            actorObject.ress_spells = Details.container_habilidades:NovoContainer(Details.container_type.CONTAINER_MISC_CLASS)
+                        end
+                        local spellObject = actorObject.ress_spells:GetOrCreateSpell(spellId, true)
+
+                        spellObject.ress = spellTotal
+                        spellObject.targets = targetTable
+
+                        for targetName, amount in pairs (spellObject.targets) do
+                            newTargetsTable[targetName] = (newTargetsTable[targetName] or 0) + amount
+                            newTotal = newTotal + amount
+                        end
+
+                        spellIndex = spellIndex + targetsSize + 3
+                    end
+
+                    actorObject.ress = newTotal
+                    actorObject.ress_targets = newTargetsTable
+                    tablePosition = tablePosition + spellsSize --increase table position
+                end
+        end
+
+        if (isDebugging) then
+            print("UnPackUtility(): done.")
+        end
+
+        return tablePosition
+end
 
 
 --this function does the same as the function above but does not create a new combat, it just add new information
@@ -1250,6 +1761,23 @@ function Details.packFunctions.DeployPackedCombatData(packedCombatData)
 
         --unpack heal
         Details.packFunctions.UnPackHeal(currentCombat, combatData, tablePosition)
+    end
+
+    if (bit.band(flags, 0x8) ~= 0) then
+        --find the index where the utility information start
+        for i = tablePosition, #combatData do
+            if (combatData[i] == "!U") then
+                tablePosition = i + 1
+                break
+            end
+        end
+
+        if (isDebugging) then
+            print("DeployPackedCombatData(): data has utility info, Utility Index:", tablePosition)
+        end
+
+        --unpack utility
+        Details.packFunctions.UnPackUtility(currentCombat, combatData, tablePosition)
     end
 
     if (bit.band(flags, 0x10) == 0) then

@@ -1,14 +1,14 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --> global name declaration
 		
-		_ = nil --removing underscore from the global namespace before loading Details!
+		_ = nil
 		_detalhes = LibStub("AceAddon-3.0"):NewAddon("_detalhes", "AceTimer-3.0", "AceComm-3.0", "AceSerializer-3.0", "NickTag-1.0")
 		
 		local version, build, date, tocversion = GetBuildInfo()
 
-		_detalhes.build_counter = 8516
-		_detalhes.alpha_build_counter = 8516 --if this is higher than the regular counter, use it instead
-		_detalhes.bcc_counter = 22
+		_detalhes.build_counter = 8783
+		_detalhes.alpha_build_counter = 8783 --if this is higher than the regular counter, use it instead
+		_detalhes.bcc_counter = 27
 		_detalhes.dont_open_news = true
 		_detalhes.game_version = version
 		_detalhes.userversion = version .. _detalhes.build_counter
@@ -33,6 +33,19 @@ do
 	local Loc = _G.LibStub("AceLocale-3.0"):GetLocale( "Details" )
 
 	local news = {
+		{"v9.1.0.8782.145", "August 11th, 2021"},
+		"Clicking on the minimap while the options panel is open will close it.",
+		"Fixed Raid Check plugin position when the window is anchored at the top of the monitor.",
+		"Shadow priest Void Erruption spells got merged into only one.",
+		"Added settings to adjust the scale or font size of the title bar menu (right click): /run Details.all_switch_config.font_size = 12; /run Details.all_switch_config.scale = 1.0;",
+		"Added transliteration to healing done.",
+		"Tiny Threat (plugin): added options to Hide the Pull Bar and Use Focus Target.",
+
+		{"v9.0.5.8637.144", "June 22nd, 2021"},
+		"Major update on Vanguard plugin.",
+		"Added utility module to Coach, this module will send interrupt, dispel, cc breaks, cooldown usege and battle resses to the Coach.",
+		"Added plugins into the title bar display menu.",
+
 		{"v9.0.5.8502.144", "May 21th, 2021"},
 		"Added options to change the color of each team during an arena match.",
 		"Fixed One Segment Battleground.",
@@ -191,8 +204,10 @@ do
 		--> current instances of the exp (need to maintain)
 			_detalhes.InstancesToStoreData = { --mapId
 				[2296] = true, --castle narnia
+				[2450] = true, --sanctum of domination
+				[2450] = true,
 			}
-			
+
 		--> armazena os escudos - Shields information for absorbs
 			_detalhes.escudos = {}
 		--> armazena as fun��es dos frames - Frames functions

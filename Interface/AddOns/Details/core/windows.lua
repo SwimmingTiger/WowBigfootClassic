@@ -1000,9 +1000,9 @@
 		
 			self:ChangeIcon ([[Interface\GossipFrame\ActiveQuestIcon]])
 		
-			if (WaitForPluginFrame:IsShown() and WaitForPluginFrame:GetParent() == self.baseframe) then
-				self.waiting_pid = self:ScheduleTimer ("ExecDelayedPlugin1", 5, self)
-			end
+			--if (WaitForPluginFrame:IsShown() and WaitForPluginFrame:GetParent() == self.baseframe) then
+			--	self.waiting_pid = self:ScheduleTimer ("ExecDelayedPlugin1", 5, self)
+			--end
 		
 			WaitForPluginFrame:SetParent (self.baseframe)
 			WaitForPluginFrame:SetAllPoints (self.baseframe)
@@ -1347,6 +1347,14 @@
 						end
 						--> 1 = open options panel
 						if (_detalhes.minimap.onclick_what_todo == 1) then
+
+							if (_G.DetailsOptionsWindow) then
+								if (_G.DetailsOptionsWindow:IsShown()) then
+									_G.DetailsOptionsWindow:Hide()
+									return
+								end
+							end
+
 							local lower_instance = _detalhes:GetLowerInstanceNumber()
 							if (not lower_instance) then
 								local instance = _detalhes:GetInstance (1)

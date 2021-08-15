@@ -534,7 +534,6 @@ function Details:StartMeUp() --I'll never stop!
 	end
 
 	if (DetailsFramework.IsTBCWow()) then
-
 		--remover isso em versões mais atualizadas
 		if (_detalhes.bcc_counter == 18 or _detalhes.bcc_counter == 19) then
 			_detalhes.trash_auto_remove = false
@@ -564,7 +563,7 @@ function Details:StartMeUp() --I'll never stop!
 	
 					taintWarning:Show()
 					taintWarning:SetPoint ("topleft", StaticPopup1, "bottomleft", 0, -10)
-					if (MiniMapBattlefieldFrame:IsShown())then
+					if (MiniMapBattlefieldFrame:IsShown() and not Details.DontMoveMinimapIconOnBattlegroundError)then
 
 						if (not originalPosition) then
 							local a = {}
