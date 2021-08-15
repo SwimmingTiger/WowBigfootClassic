@@ -16,7 +16,7 @@ local BAG_TYPE = ns.BAG_TYPE
 ---@type Pack
 local Pack = ns.Pack
 
----@class Stacking
+---@class Stacking: Task
 ---@field private bags table<string, Slot[]>
 ---@field private stackingSlots table<number, Slot>
 local Stacking = ns.Addon:NewClass('Stacking', ns.Task)

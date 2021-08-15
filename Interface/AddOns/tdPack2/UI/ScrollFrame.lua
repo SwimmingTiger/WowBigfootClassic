@@ -13,7 +13,7 @@ local tinsert, tremove, tIndexOf = table.insert, table.remove, tIndexOf
 ---- WOW
 local CreateFrame = CreateFrame
 
----@class ScrollFrame
+---@class _ScrollFrame: ScrollFrame
 local ScrollFrame = UI:NewClass('ScrollFrame', 'ScrollFrame')
 
 ScrollFrame.GetOffset = HybridScrollFrame_GetOffset

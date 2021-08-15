@@ -1,6 +1,6 @@
 --[[
 Name: LibWindow-1.1
-Revision: $Rev: 8 $
+Revision: $Rev: 18 $
 Author(s): Mikk (dpsgnome@mail.com)
 Website: http://old.wowace.com/wiki/LibWindow-1.1
 Documentation: http://old.wowace.com/wiki/LibWindow-1.1
@@ -11,7 +11,7 @@ License: Public Domain
 ]]
 
 local MAJOR = "LibWindow-1.1"
-local MINOR = tonumber(("$Revision: 8 $"):match("(%d+)"))
+local MINOR = tonumber(("$Revision: 18 $"):match("(%d+)"))
 
 local lib = LibStub:NewLibrary(MAJOR,MINOR)
 if not lib then return end
@@ -26,8 +26,8 @@ local function print(msg) ChatFrame1:AddMessage(MAJOR..": "..tostring(msg)) end
 
 lib.utilFrame = lib.utilFrame or CreateFrame("Frame")
 lib.delayedSavePosition = lib.delayedSavePosition or {}
-lib.windowData = lib.windowData or {}
-  --[frameref]={
+lib.windowData = lib.windowData or {} 
+  --[frameref]={ 
   --  names={optional names data from .RegisterConfig()}
   --  storage= -- tableref where config data is read/written
   --  altEnable=true/false
@@ -92,7 +92,7 @@ function lib.RegisterConfig(frame, storage, names)
 	end
 	lib.windowData[frame].names = names
 	lib.windowData[frame].storage = storage
-
+	
 	--[[ debug
 	frame.tx = frame:CreateTexture()
 	frame.tx:SetTexture(0,0,0, 0.4)
@@ -115,7 +115,7 @@ local nilParent = {
 	GetHeight = function()
 		return GetScreenHeight() * UIParent:GetScale()
 	end,
-	GetScale = function()
+	GetScale = function() 
 		return 1
 	end,
 }
@@ -125,6 +125,7 @@ function lib.SavePosition(frame)
 	local parent = frame:GetParent() or nilParent
 	-- No, this won't work very well with frames that aren't parented to nil or UIParent
 	local s = frame:GetScale()
+	if not s then return end
 	local left,top = frame:GetLeft()*s, frame:GetTop()*s
 	local right,bottom = frame:GetRight()*s, frame:GetBottom()*s
 	local pwidth, pheight = parent:GetWidth(), parent:GetHeight()
@@ -140,7 +141,7 @@ function lib.SavePosition(frame)
 		x = (left+right)/2 - pwidth/2;
 		point="";
 	end
-
+	
 	if bottom < (pheight-top) and bottom < abs((bottom+top)/2 - pheight/2) then
 		y = bottom;
 		point="BOTTOM"..point;
@@ -151,16 +152,16 @@ function lib.SavePosition(frame)
 		y = (bottom+top)/2 - pheight/2;
 		-- point=""..point;
 	end
-
+	
 	if point=="" then
 		point = "CENTER"
 	end
-
+	
 	setStorage(frame, "x", x)
 	setStorage(frame, "y", y)
 	setStorage(frame, "point", point)
 	setStorage(frame, "scale", s)
-
+	
 	frame:ClearAllPoints()
 	frame:SetPoint(point, frame:GetParent(), point, x/s, y/s);
 end
@@ -171,33 +172,33 @@ function lib.RestorePosition(frame)
 	local x = getStorage(frame, "x")
 	local y = getStorage(frame, "y")
 	local point = getStorage(frame, "point")
-
+	
 	local s = getStorage(frame, "scale")
 	if s then
 		(frame.lw11origSetScale or frame.SetScale)(frame,s)
 	else
 		s = frame:GetScale()
 	end
-
+	
 	if not x or not y then		-- nothing stored in config yet, smack it in the center
 		x=0; y=0; point="CENTER"
 	end
 
 	x = x/s
 	y = y/s
-
+	
 	frame:ClearAllPoints()
 	if not point and y==0 then	-- errr why did i do this check again? must have been a reason, but i can't remember it =/
 		point="CENTER"
 	end
-
+		
 	if not point then	-- we have position, but no point, which probably means we're going from data stored by the addon itself before LibWindow was added to it. It was PROBABLY topleft->bottomleft anchored. Most do it that way.
 		frame:SetPoint("TOPLEFT", frame:GetParent(), "BOTTOMLEFT", x, y)
 		-- make it compute a better attachpoint (on next update)
 		queueSavePosition(frame)
 		return
 	end
-
+	
 	frame:SetPoint(point, frame:GetParent(), point, x, y)
 end
 

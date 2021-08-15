@@ -10,6 +10,7 @@ end
 
 L["Add advance rule"] = true
 L["Add extension filter to LibItemSearch-1.2"] = true
+L["Add rule"] = true
 L["Advancee rules use LibItemSearch-1.2"] = true
 L["Already exists"] = true
 L["Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?"] = true
@@ -24,6 +25,7 @@ L["Character Specific Settings"] = true
 L["COMMENT_CLASS"] = "Class items"
 L["COMMENT_MOUNT"] = "Mount"
 L["Drag to modify the sorting order"] = true
+L["Edit rule"] = true
 L["Enable chat message"] = true
 L["Enjoy!"] = true
 L["Global"] = true
@@ -79,6 +81,12 @@ L["SORT_BANK_DESC"] = "Pack bank desc"
 L["SORT_DESC"] = "Pack desc"
 L["Sorting rules"] = true
 L["Tools"] = true
+L["UPDATE_RULES_CONFIRM"] = [=[The current version of tdPack2 updates a large number of rules. Do you want to reset the rules to the default settings?
+
+Help to choose:
+1. I know what this prompt is saying: choose for yourself
+2. I don’t know how to choose: Accept
+]=]
 
 
 --[=[@debug@
@@ -132,6 +140,17 @@ L['Put in an item to add simple rule'] = true
 L['Advancee rules use LibItemSearch-1.2'] = true
 L['Enjoy!'] = true
 L['Rules restore to default.'] = true
+
+L['Add rule'] = true
+L['Edit rule'] = true
+
+L.UPDATE_RULES_CONFIRM =
+    [[The current version of tdPack2 updates a large number of rules. Do you want to reset the rules to the default settings?
+
+Help to choose:
+1. I know what this prompt is saying: choose for yourself
+2. I don’t know how to choose: Accept
+]]
 
 -- for actions
 L.None = true

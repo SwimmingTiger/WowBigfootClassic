@@ -13,7 +13,7 @@ local tinsert, tremove, wipe = table.insert, table.remove, wipe or table.wipe
 ---- NS
 local Group = ns.Group
 
----@class Bag
+---@class Bag: Object
 ---@field private groups Group[]
 local Bag = ns.Addon:NewClass('Bag')
 

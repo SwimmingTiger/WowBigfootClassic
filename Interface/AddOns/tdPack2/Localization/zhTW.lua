@@ -4,6 +4,8 @@ if not L then return end
 
 L["Add advance rule"] = "添加高級規則"
 L["Add extension filter to LibItemSearch-1.2"] = "將擴展的過濾器添加到LibItemSearch-1.2"
+--[[Translation missing --]]
+--[[ L["Add rule"] = ""--]] 
 L["Advancee rules use LibItemSearch-1.2"] = "高級規則使用LibItemSearch-1.2"
 L["Already exists"] = "已經存在"
 L["Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?"] = "確定|cffff1919刪除|r規則和它的|cffff1919子規則|r嗎？"
@@ -18,6 +20,8 @@ L["Character Specific Settings"] = "角色獨立設置"
 L["COMMENT_CLASS"] = "職業物品"
 L["COMMENT_MOUNT"] = "坐騎"
 L["Drag to modify the sorting order"] = "拖動以改變規則順序"
+--[[Translation missing --]]
+--[[ L["Edit rule"] = ""--]] 
 L["Enable chat message"] = "啟用聊天窗口消息"
 L["Enjoy!"] = true
 L["Global"] = "全局"
@@ -74,4 +78,6 @@ L["SORT_BANK_DESC"] = "逆序整理銀行"
 L["SORT_DESC"] = "逆序整理背包"
 L["Sorting rules"] = "排序規則"
 L["Tools"] = "工具"
+--[[Translation missing --]]
+--[[ L["UPDATE_RULES_CONFIRM"] = ""--]] 
 

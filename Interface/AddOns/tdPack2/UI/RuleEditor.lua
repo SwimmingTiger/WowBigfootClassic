@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/29/2019, 12:25:28 AM
-
+--
 ---- LUA
 local tinsert, tremove = table.insert, table.remove
 local pairs, ipairs, setmetatable = pairs, ipairs, setmetatable
@@ -23,6 +23,7 @@ local Search = ns.Search
 
 local ICON_SIZE = 32
 
+---@class RuleEditor: UIPrototype
 local RuleEditor = UI:NewModule('RuleEditor')
 
 local function GetText(editbox)
@@ -31,119 +32,42 @@ local function GetText(editbox)
 end
 
 function RuleEditor:OnSetup()
-    local Frame = CreateFrame('Frame', nil, UI.RuleOption.Frame)
-    Frame:SetPoint('TOPLEFT', 3, -22)
-    Frame:SetPoint('BOTTOMRIGHT', -3, 3)
-    Frame:SetFrameLevel(UI.RuleOption.Frame:GetFrameLevel() + 100)
-    Frame:EnableMouse(true)
+    ---@type tdPack2RuleEditorTemplate
+    local Frame = CreateFrame('Frame', nil, UIParent, 'tdPack2RuleEditorTemplate')
+    Frame:SetBackdrop{
+        bgFile = 'Interface\\DialogFrame\\UI-DialogBox-Background',
+        edgeFile = 'Interface\\DialogFrame\\UI-DialogBox-Border',
+        tile = true,
+        tileEdge = true,
+        tileSize = 32,
+        edgeSize = 32,
+        insets = {left = 11, right = 12, top = 12, bottom = 11},
+    }
 
-    do
-        local Bg = Frame:CreateTexture(nil, 'BACKGROUND')
-        Bg:SetAllPoints(true)
-        Bg:SetTexture([[Interface\FrameGeneral\UI-Background-Marble]])
-
-        local TLCorner = Frame:CreateTexture(nil, 'ARTWORK')
-        TLCorner:SetSize(64, 64)
-        TLCorner:SetPoint('TOPLEFT', Bg, 'TOPLEFT')
-        TLCorner:SetTexture([[Interface\Common\bluemenu-main]])
-        TLCorner:SetTexCoord(0.00390625, 0.25390625, 0.00097656, 0.06347656)
-
-        local TRCorner = Frame:CreateTexture(nil, 'ARTWORK')
-        TRCorner:SetSize(64, 64)
-        TRCorner:SetPoint('TOPRIGHT', Bg, 'TOPRIGHT')
-        TRCorner:SetTexture([[Interface\Common\bluemenu-main]])
-        TRCorner:SetTexCoord(0.51953125, 0.76953125, 0.00097656, 0.06347656)
-
-        local BRCorner = Frame:CreateTexture(nil, 'ARTWORK')
-        BRCorner:SetSize(64, 64)
-        BRCorner:SetPoint('BOTTOMRIGHT', Bg, 'BOTTOMRIGHT')
-        BRCorner:SetTexture([[Interface\Common\bluemenu-main]])
-        BRCorner:SetTexCoord(0.00390625, 0.25390625, 0.06542969, 0.12792969)
-
-        local BLCorner = Frame:CreateTexture(nil, 'ARTWORK')
-        BLCorner:SetSize(64, 64)
-        BLCorner:SetPoint('BOTTOMLEFT', Bg, 'BOTTOMLEFT')
-        BLCorner:SetTexture([[Interface\Common\bluemenu-main]])
-        BLCorner:SetTexCoord(0.26171875, 0.51171875, 0.00097656, 0.06347656)
-
-        local LLine = Frame:CreateTexture(nil, 'ARTWORK')
-        LLine:SetWidth(43)
-        LLine:SetPoint('TOPLEFT', TLCorner, 'BOTTOMLEFT')
-        LLine:SetPoint('BOTTOMLEFT', BLCorner, 'TOPLEFT')
-        LLine:SetTexture([[Interface\Common\bluemenu-vert]])
-        LLine:SetTexCoord(0.06250000, 0.39843750, 0.00000000, 1.00000000)
-
-        local RLine = Frame:CreateTexture(nil, 'ARTWORK')
-        RLine:SetWidth(43)
-        RLine:SetPoint('TOPRIGHT', TRCorner, 'BOTTOMRIGHT')
-        RLine:SetPoint('BOTTOMRIGHT', BRCorner, 'TOPRIGHT')
-        RLine:SetTexture([[Interface\Common\bluemenu-vert]])
-        RLine:SetTexCoord(0.41406250, 0.75000000, 0.00000000, 1.00000000)
-
-        local BLine = Frame:CreateTexture(nil, 'ARTWORK')
-        BLine:SetHeight(43)
-        BLine:SetPoint('BOTTOMLEFT', BLCorner, 'BOTTOMRIGHT')
-        BLine:SetPoint('BOTTOMRIGHT', BRCorner, 'BOTTOMLEFT')
-        BLine:SetTexture([[Interface\Common\bluemenu-goldborder-horiz]])
-        BLine:SetTexCoord(0.00000000, 1.00000000, 0.35937500, 0.69531250)
-
-        local TLine = Frame:CreateTexture(nil, 'ARTWORK')
-        TLine:SetHeight(43)
-        TLine:SetPoint('TOPLEFT', TLCorner, 'TOPRIGHT')
-        TLine:SetPoint('TOPRIGHT', TRCorner, 'TOPLEFT')
-        TLine:SetTexture([[Interface\Common\bluemenu-goldborder-horiz]])
-        TLine:SetTexCoord(0.00000000, 1.00000000, 0.00781250, 0.34375000)
-    end
-
-    local RuleInput = ns.GUI:GetClass('InputBox'):New(Frame)
-    RuleInput:SetPoint('TOPLEFT', 20, -60)
-    RuleInput:SetPoint('TOPRIGHT', -20, -60)
-    RuleInput:SetHeight(22)
-    RuleInput:HookScript('OnTextChanged', function()
+    Frame.RuleInput:SetScript('OnTextChanged', function()
         self:OnRuleChanged()
     end)
-    self:CreateLabel(RuleInput, L['Rule'])
-
-    local WhereDropDown = ns.GUI:GetClass('Dropdown'):New(Frame)
-    WhereDropDown:SetPoint('TOPLEFT', RuleInput, 'BOTTOMLEFT', 0, -30)
-    WhereDropDown:SetPoint('TOPRIGHT', RuleInput, 'BOTTOMRIGHT', 0, -30)
-    WhereDropDown:SetHeight(22)
-    WhereDropDown:SetMaxItem(30)
-    WhereDropDown:SetMenuTable(function()
-        return self:CreateWhereItemTable()
-    end)
-    self:CreateLabel(WhereDropDown, L['Put where?'])
-
-    local CommentInput = ns.GUI:GetClass('InputBox'):New(Frame)
-    CommentInput:SetPoint('TOPLEFT', WhereDropDown, 'BOTTOMLEFT', 0, -30)
-    CommentInput:SetPoint('TOPRIGHT', WhereDropDown, 'BOTTOMRIGHT', 0, -30)
-    CommentInput:SetHeight(22)
-    CommentInput:HookScript('OnTextChanged', function()
+    Frame.CommentInput:SetScript('OnTextChanged', function()
         self:UpdateValid()
     end)
-    self:CreateLabel(CommentInput, L['Name (Optional)'])
-
-    local IconsFrame = CreateFrame('Frame', nil, Frame)
-    IconsFrame:SetPoint('TOPLEFT', CommentInput, 'BOTTOMLEFT', 0, -30)
-    IconsFrame:SetPoint('TOPRIGHT', CommentInput, 'BOTTOMRIGHT', 0, -30)
-    IconsFrame:SetPoint('BOTTOM', 0, 50)
-    self:CreateLabel(IconsFrame, L['Select an icon (Optional)'])
-
-    local ExecButton = CreateFrame('Button', nil, Frame, 'UIPanelButtonTemplate')
-    ExecButton:SetSize(80, 22)
-    ExecButton:SetPoint('BOTTOMRIGHT', Frame, 'BOTTOM', 0, 20)
-    ExecButton:SetText(SAVE)
-    ExecButton:SetScript('OnClick', function()
+    Frame.ExecButton:SetScript('OnClick', function()
         self:OnSaveClick()
     end)
 
-    local CancelButton = CreateFrame('Button', nil, Frame, 'UIPanelButtonTemplate')
-    CancelButton:SetSize(80, 22)
-    CancelButton:SetPoint('BOTTOMLEFT', Frame, 'BOTTOM', 0, 20)
-    CancelButton:SetText(CANCEL)
-    CancelButton:SetScript('OnClick', function()
-        Frame:Hide()
-    end)
+    Frame.WhereDropDown.initialize = function(_, level, menuList)
+        local list = menuList or self:CreateWhereItemTable()
+        if type(list) == 'function' then
+            list = list()
+        end
+        for _, v in ipairs(list) do
+            UIDropDownMenu_AddButton(v, level)
+        end
+    end
+
+    Frame.LabelRule:SetText(L['Rule'])
+    Frame.LabelWhere:SetText(L['Put where?'])
+    Frame.LabelComment:SetText(L['Name (Optional)'])
+    Frame.LabelIcons:SetText(L['Select an icon (Optional)'])
 
     local function OnClick(button)
         for _, v in pairs(self.iconButtons) do
@@ -154,7 +78,7 @@ function RuleEditor:OnSetup()
 
     self.iconButtons = setmetatable({}, {
         __index = function(t, i)
-            local icon = CreateFrame('CheckButton', nil, IconsFrame)
+            local icon = CreateFrame('CheckButton', nil, Frame.IconsFrame)
             icon:SetSize(ICON_SIZE, ICON_SIZE)
             icon:SetHighlightTexture([[Interface\Buttons\ButtonHilight-Square]])
             icon:SetCheckedTexture([[Interface\Buttons\CheckButtonHilight]])
@@ -164,37 +88,41 @@ function RuleEditor:OnSetup()
         end,
     })
 
-    self.IconsFrame = IconsFrame
-    self.RuleInput = RuleInput
-    self.CommentInput = CommentInput
-    self.WhereDropDown = WhereDropDown
-    self.ExecButton = ExecButton
+    self.IconsFrame = Frame.IconsFrame
+    self.RuleInput = Frame.RuleInput
+    self.CommentInput = Frame.CommentInput
+    self.WhereDropDown = Frame.WhereDropDown
+    self.ExecButton = Frame.ExecButton
     self.Frame = Frame
 
     Frame:SetScript('OnShow', function()
         self:OnShow()
     end)
-    Frame:SetScript('OnHide', Frame.Hide)
+    Frame:SetScript('OnHide', function()
+        self:OnHide()
+    end)
 end
 
 function RuleEditor:OnShow()
+    UIDropDownMenu_SetWidth(self.WhereDropDown, self.WhereDropDown:GetWidth() - 36, 0)
+
     if self.rule then
+        self.Frame.Title:SetText(L['Edit rule'])
         self.RuleInput:SetText(self.rule.rule or '')
         self.CommentInput:SetText(self.rule.comment or '')
-        self.WhereDropDown:SetValue(self.rule)
-        self.WhereDropDown:Disable()
+        self:SetWhereDropdownValue(self.rule)
+        UIDropDownMenu_DisableDropDown(self.WhereDropDown)
     else
+        self.Frame.Title:SetText(L['Add rule'])
         self.RuleInput:SetText('')
         self.CommentInput:SetText('')
-        self.WhereDropDown:SetValue(self.root)
-        self.WhereDropDown:Enable()
+        self:SetWhereDropdownValue(self.root)
+        UIDropDownMenu_EnableDropDown(self.WhereDropDown)
     end
 end
 
-function RuleEditor:CreateLabel(widget, text)
-    local label = widget:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-    label:SetPoint('BOTTOMLEFT', widget, 'TOPLEFT', 0, 5)
-    label:SetText(text)
+function RuleEditor:OnHide()
+    StaticPopupSpecial_Hide(self.Frame)
 end
 
 function RuleEditor:OnRuleChanged()
@@ -213,7 +141,7 @@ function RuleEditor:OnSaveClick()
         local where = self.rule
         ns.CopyFrom(wipe(where), item)
     else
-        local where = self.WhereDropDown:GetValue()
+        local where = UIDropDownMenu_GetSelectedValue(self.WhereDropDown)
         where.children = where.children or {}
         tinsert(where.children, item)
     end
@@ -224,20 +152,28 @@ function RuleEditor:OnSaveClick()
     end
 end
 
+function RuleEditor:SetWhereDropdownValue(value)
+    local name = ns.GetRuleInfo(value)
+    UIDropDownMenu_SetSelectedValue(self.WhereDropDown, value)
+    UIDropDownMenu_SetText(self.WhereDropDown, name or L['Root'])
+end
+
 function RuleEditor:CreateWhereItemTable(profile)
     local menuTable = {}
+
+    local function OnSelect(button)
+        self:SetWhereDropdownValue(button.value)
+        CloseDropDownMenus()
+    end
+
+    local function IsChecked(item)
+        return item.value == UIDropDownMenu_GetSelectedValue(self.WhereDropDown)
+    end
 
     if not profile then
         profile = self.root.children
 
-        tinsert(menuTable, {
-            checkable = true,
-            text = L['Root'],
-            value = self.root,
-            checked = function(item, owner)
-                return item.value == owner:GetValue()
-            end,
-        })
+        tinsert(menuTable, {checkable = true, text = L['Root'], value = self.root, checked = IsChecked, func = OnSelect})
     end
 
     for i, v in ipairs(profile) do
@@ -249,13 +185,12 @@ function RuleEditor:CreateWhereItemTable(profile)
                 checkable = true,
                 text = name,
                 value = v,
-                checked = function(item, owner)
-                    return item.value == owner:GetValue()
-                end,
                 hasArrow = hasArrow,
-                menuTable = hasArrow and function()
+                menuList = hasArrow and function()
                     return self:CreateWhereItemTable(v.children)
                 end or nil,
+                checked = IsChecked,
+                func = OnSelect,
             })
         end
     end
@@ -347,5 +282,13 @@ function RuleEditor:Open(rule, root, callback)
     self.rule = rule
     self.callback = callback
     self.root = {children = root}
-    self:Show()
+    self:Setup()
+    self.Frame:Hide()
+    StaticPopupSpecial_Show(self.Frame)
+end
+
+function RuleEditor:Close()
+    if self.Frame then
+        StaticPopupSpecial_Hide(self.Frame)
+    end
 end

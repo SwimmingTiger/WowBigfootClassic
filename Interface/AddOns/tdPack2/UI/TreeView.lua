@@ -20,6 +20,7 @@ local WHERE_AFTER = 1
 local WHERE_BEFORE = 2
 local WHERE_IN = 3
 
+---@class TreeStatus: Object
 local TreeStatus = UI:NewClass('TreeStatus')
 
 function TreeStatus:Constructor()
@@ -59,7 +60,7 @@ function TreeStatus:GetCount()
     return GetCount(self.itemTree, 1)
 end
 
----@class TreeView: ScrollFrame
+---@class TreeView: Object, ScrollFrame
 local TreeView = UI:NewClass('TreeView', UI.ScrollFrame)
 
 LibStub('AceTimer-3.0'):Embed(TreeView)
@@ -182,7 +183,12 @@ function TreeView:CommitSorting()
         return
     end
     self:StopSorting()
-    self:Fire('OnListChanged')
+
+    if self.OnListChanged then
+        self:OnListChanged()
+    else
+        self:Fire('OnListChanged')
+    end
 end
 
 function TreeView:OnTimer()

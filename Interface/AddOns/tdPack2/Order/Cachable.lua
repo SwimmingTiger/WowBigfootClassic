@@ -9,6 +9,7 @@ local ns = select(2, ...)
 ---- LUA
 local wipe = table.wipe or wipe
 
+---@class CachableOrder: Order
 local CachableOrder = ns.Addon:NewClass('CachableOrder', ns.Order)
 
 function CachableOrder:Constructor(opts)

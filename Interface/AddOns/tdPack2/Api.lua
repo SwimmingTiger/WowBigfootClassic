@@ -2,8 +2,11 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/30/2019, 11:46:11 PM
+--
 ---@class ns
----@field Item Item
+---@field UI UI
+---@field Base Base
+---@field Item _Item
 ---@field Bag Bag
 ---@field Slot Slot
 ---@field Group Group
@@ -13,6 +16,11 @@
 ---@field Task Task
 ---@field CachableOrder CachableOrder
 ---@field CustomOrder CustomOrder
+---@field ItemInfoCache ItemInfoCache
+---@field Saving Saving
+---@field Stacking Stacking
+---@field Sorting Sorting
+---@field Search Search
 local ns = select(2, ...)
 
 ---- LUA
@@ -135,7 +143,7 @@ function ns.GetBags(bagType)
     return BAGS[bagType]
 end
 
---@bcc@
+-- @bcc@
 local VALID_FAMILIES = (function()
     local r = {}
     for i = 1, 32 do
@@ -143,7 +151,7 @@ local VALID_FAMILIES = (function()
     end
     return r
 end)()
---@end-bcc@
+-- @end-bcc@
 
 function ns.GetItemFamily(itemId)
     if not itemId then
@@ -156,11 +164,11 @@ function ns.GetItemFamily(itemId)
         return 0
     end
     local itemFamily = GetItemFamily(itemId)
-    --@bcc@
+    -- @bcc@
     if VALID_FAMILIES and not VALID_FAMILIES[itemFamily] then
         return 0
     end
-    --@end-bcc@
+    -- @end-bcc@
     return itemFamily
 end
 
@@ -307,4 +315,34 @@ end
 
 function ns.IsAdvanceRule(item)
     return type(item) == 'table'
+end
+
+local function Initialize(_, level, menuList)
+    for i, v in ipairs(menuList) do
+        if v.isSeparator then
+            UIDropDownMenu_AddSeparator(level)
+        elseif v.text then
+            v.index = i;
+            UIDropDownMenu_AddButton(v, level);
+        end
+    end
+end
+
+local function CreateGlobalMenuFrame()
+    local menuFrame = CreateFrame('Frame', 'tdGlobalMenuFrame', UIParent, 'UIDropDownMenuTemplate')
+    menuFrame.initialize = Initialize
+    menuFrame.displayMode = 'MENU'
+    return menuFrame
+end
+
+function ns.ToggleMenu(owner, menuList)
+    local menuFrame = tdGlobalMenuFrame or CreateGlobalMenuFrame()
+
+    if DropDownList1:IsShown() and UIDROPDOWNMENU_OPEN_MENU == menuFrame and menuFrame.LastOwner == owner then
+        CloseDropDownMenus()
+    else
+        menuFrame.LastOwner = owner
+        CloseDropDownMenus()
+        ToggleDropDownMenu(1, nil, menuFrame, owner, 0, 0, menuList)
+    end
 end

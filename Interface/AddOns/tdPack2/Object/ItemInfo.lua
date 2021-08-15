@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/27/2019, 12:15:26 AM
-
 ---@type ns
 local ns = select(2, ...)
 
@@ -21,7 +20,8 @@ end
 
 function ItemInfo:Build()
     local itemName, itemLink, itemQuality, itemLevel, _, itemType, itemSubType, itemStackCount, itemEquipLoc,
-          itemTexture, itemTypeId, itemSubTypeId = GetItemInfo(self.itemId)
+          itemTexture, sellPrice, itemTypeId, itemSubTypeId, bindType, expacId, setId, isCraftingReagent = GetItemInfo(
+                                                                                                               self.itemId)
 
     if itemName then
         self.notReady = nil
@@ -36,6 +36,7 @@ function ItemInfo:Build()
         self.itemTexture = itemTexture or 0
         self.itemTypeId = itemTypeId
         self.itemSubTypeId = itemSubTypeId
+        self.itemSetId = setId or 0
         --[[@classic@
         self.itemTag = ns.ITEM_TAG_SETS[self.itemId] or 'UNKNOWN'
         --@end-classic@]]

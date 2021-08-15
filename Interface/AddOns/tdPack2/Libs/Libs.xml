@@ -11,8 +11,9 @@
   <Include file="AceGUI-3.0\AceGUI-3.0.xml"/>
   <Include file="AceConfig-3.0\AceConfig-3.0.xml"/>
   <Include file="AceConsole-3.0\AceConsole-3.0.xml"/>
-  <Include file="tdGUI\Load.xml"/>
+  <Include file="LibClass-2.0\LibClass-2.0.xml"/>
 
+  <Script file="LibWindow-1.1\LibWindow-1.1.lua"/>
   <Script file="Unfit-1.0\Unfit-1.0.lua"/>
   <Script file="CustomSearch-1.0\CustomSearch-1.0.lua"/>
   <Script file="LibItemSearch-1.2\LibItemSearch-1.2.lua"/>

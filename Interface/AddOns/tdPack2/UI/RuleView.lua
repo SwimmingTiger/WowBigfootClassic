@@ -2,7 +2,6 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/28/2019, 1:35:42 PM
-
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
@@ -29,8 +28,20 @@ local UIParent = UIParent
 local DELETE, EDIT, CANCEL = DELETE, EDIT, CANCEL
 
 local RuleView = UI:NewClass('RuleView', UI.TreeView)
-
 LibStub('AceEvent-3.0'):Embed(RuleView)
+
+local DIALOG = {
+    button1 = ACCEPT,
+    button2 = CANCEL,
+    text = '%s',
+    OnAccept = function(_, data)
+        local self, parent, index = data[1], data[2], data[3]
+        tremove(parent, index)
+        self:OnListChanged()
+    end,
+}
+
+StaticPopupDialogs['TDPACK2_DELETE_RULES'] = DIALOG
 
 function RuleView:Constructor()
     self:SetItemTemplate('tdPack2RuleItemTemplate')
@@ -52,6 +63,7 @@ end
 
 function RuleView:OnHide()
     self:UnregisterAllEvents()
+    StaticPopup_Hide('TDPACK2_DELETE_RULES', self)
 end
 
 function RuleView:CURSOR_UPDATE()
@@ -189,34 +201,46 @@ end
 function RuleView:ShowRuleMenu(button, item)
     local name, icon, rule, hasChild = ns.GetRuleInfo(item)
 
-    ns.GUI:ToggleMenu(button, {
+    ns.ToggleMenu(button, {
         { --
             text = format('|T%s:14|t %s', icon, name),
             isTitle = true,
+            notCheckable = true,
         }, {isSeparator = true}, {
             text = DELETE,
-            func = function(...)
-                UI.BlockDialog:Open({
-                    text = hasChild and L['Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?'] or
-                        L['Are you sure |cffff191919DELETE|r rule?'],
-                    OnAccept = function()
-                        tremove(button.parent, button.index)
-                        self:Fire('OnListChanged')
-                    end,
-                })
+            notCheckable = true,
+            func = function()
+                UI.RuleEditor:Close()
+
+                local text
+                if hasChild then
+                    text = L['Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?']
+                else
+                    text = L['Are you sure |cffff191919DELETE|r rule?']
+                end
+
+                StaticPopup_Show('TDPACK2_DELETE_RULES', text, nil, {self, button.parent, button.index})
             end,
         }, {
             text = EDIT,
+            notCheckable = true,
             disabled = not ns.IsAdvanceRule(button.item),
             func = function()
                 self:OpenEditor(button.item)
             end,
-        }, {text = CANCEL},
+        }, {text = CANCEL, notCheckable = true},
     })
 end
 
 function RuleView:OpenEditor(item)
+    StaticPopup_Hide('TDPACK2_DELETE_RULES')
+
     UI.RuleEditor:Open(item, self:GetItemTree(), function()
         self:Fire('OnListChanged')
     end)
+end
+
+function RuleView:OnListChanged()
+    StaticPopup_Hide('TDPACK2_DELETE_RULES', self)
+    self:Fire('OnListChanged')
 end

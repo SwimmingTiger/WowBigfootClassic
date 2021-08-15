@@ -5,7 +5,7 @@
 ---@type ns
 local ns = select(2, ...)
 
----@class Item: Base
+---@class _Item: Base
 local Item = ns.Addon:NewClass('Item', ns.Base)
 
 function Item:Constructor(parent, bag, slot)
@@ -71,4 +71,8 @@ end
 
 function Item:IsEquippable()
     return self.info.itemEquippable
+end
+
+function Item:GetItemSetId()
+    return self.info.itemSetId
 end

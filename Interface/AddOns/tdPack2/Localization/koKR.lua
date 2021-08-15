@@ -4,6 +4,8 @@ if not L then return end
 
 L["Add advance rule"] = "고급 규칙 추가"
 L["Add extension filter to LibItemSearch-1.2"] = "LibItemSearch-1.2에 확장 필터 추가"
+--[[Translation missing --]]
+--[[ L["Add rule"] = ""--]] 
 L["Advancee rules use LibItemSearch-1.2"] = "고급 규칙에 LibItemSearch-1.2를 사용합니다."
 L["Already exists"] = "이미 존재함"
 L["Are you sure |cffff191919DELETE|r rule and its |cffff1919SUBRULES|r?"] = "규칙과 |cffff1919하위 규칙|r을 |cffff1919삭제|r 하시겠습니까?"
@@ -18,6 +20,8 @@ L["Character Specific Settings"] = "캐릭터 개별 설정"
 L["COMMENT_CLASS"] = "직업 아이템"
 L["COMMENT_MOUNT"] = "탈것"
 L["Drag to modify the sorting order"] = "정리 순서를 수정하려면 드래그 합니다."
+--[[Translation missing --]]
+--[[ L["Edit rule"] = ""--]] 
 L["Enable chat message"] = "대화 메세지 사용"
 L["Enjoy!"] = "즐기세요!"
 L["Global"] = "전역"
@@ -74,4 +78,6 @@ L["SORT_BANK_DESC"] = "은행 내림차순 정리"
 L["SORT_DESC"] = "내림차순 정리"
 L["Sorting rules"] = "정리 규칙"
 L["Tools"] = "도구"
+--[[Translation missing --]]
+--[[ L["UPDATE_RULES_CONFIRM"] = ""--]] 
 

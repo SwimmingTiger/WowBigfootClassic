@@ -6,7 +6,7 @@
 ---@type ns
 local ns = select(2, ...)
 
----@class Task
+---@class Task: Object
 local Task = ns.Addon:NewClass('Task')
 
 function Task._Meta:__call()

@@ -3,19 +3,21 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/30/2019, 11:36:34 PM
 --
-local select, assert, unpack, wipe = select, assert, table.unpack or unpack, table.wipe or wipe
+local assert, wipe = assert, table.wipe or wipe
 local pairs = pairs
-local CopyTable, tInvert = CopyTable, tInvert
+
+local CopyTable = CopyTable
 
 ---@type ns
 local ADDON, ns = ...
+
+---@class Addon: AceAddon-3.0, LibClass-2.0, AceEvent-3.0
 local Addon = LibStub('AceAddon-3.0'):NewAddon(ADDON, 'LibClass-2.0', 'AceEvent-3.0', 'AceConsole-3.0')
 
 ns.Addon = Addon
 ns.L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 ns.ICON = [[Interface\AddOns\tdPack2\Resource\INV_Pet_Broom]]
 ns.UNKNOWN_ICON = 134400
-ns.GUI = LibStub('tdGUI-1.0')
 
 local L = ns.L
 
@@ -62,8 +64,14 @@ function Addon:OnInitialize()
         self:SetupProfile()
     end
 
+    local function CleanRules()
+        self:CleanRules()
+    end
+
     self.db:RegisterCallback('OnProfileChanged', SetupProfile)
     self.db:RegisterCallback('OnProfileReset', SetupProfile)
+    self.db:RegisterCallback('OnProfileShutdown', CleanRules)
+    self.db:RegisterCallback('OnDatabaseShutdown', CleanRules)
 end
 
 function Addon:OnEnable()
@@ -88,15 +96,50 @@ function Addon:SetupRules()
     end
 end
 
-function Addon:UpgradeRules()
-    if self.db.profile.version and self.db.profile.version >= 20000 then
-        return
+local function compare(lhs, rhs)
+    if type(lhs) ~= type(rhs) then
+        return false
     end
-    self.db.profile.version = ns.VERSION
-    print(ns.VERSION)
+    if type(lhs) ~= 'table' then
+        return false
+    end
+    return tCompare(lhs, rhs, 10)
+end
 
+function Addon:CleanRules()
+    local profile = self.db.profile.rules
+    for key, rules in pairs(self.defaultRules) do
+        if compare(rules, profile[key]) then
+            profile[key] = nil
+        end
+    end
+end
+
+function Addon:UpgradeRules()
+    if self.db.profile.version then
+        if self.db.profile.version < 20000 then
     wipe(self.db.profile.rules)
     self:Print(L['Rules restore to default.'])
+        elseif self.db.profile.version < 20004 then
+
+            if self.db.profile.rules.saving or self.db.profile.rules.sorting then
+                if not StaticPopupDialogs['TDPACK2_UPDATE_RULES'] then
+                    StaticPopupDialogs['TDPACK2_UPDATE_RULES'] = {
+                        button1 = ACCEPT,
+                        button2 = CANCEL,
+                        text = L.UPDATE_RULES_CONFIRM,
+                        OnAccept = function()
+                            self:ResetRules(ns.SORT_TYPE.SORTING)
+                            self:ResetRules(ns.SORT_TYPE.SAVING)
+                        end,
+                    }
+                end
+
+                StaticPopup_Show('TDPACK2_UPDATE_RULES')
+            end
+        end
+    end
+    self.db.profile.version = ns.VERSION
 end
 
 function Addon:OnModuleCreated(module)

@@ -2,9 +2,9 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/29/2019, 12:49:28 AM
-
 local ns = select(2, ...)
 
+---@class UI: AceAddon-3.0, LibClass-2.0
 local UI = ns.Addon:NewModule('UI', 'LibClass-2.0')
 
 function UI:OnModuleCreated(module)
@@ -47,18 +47,24 @@ local function CreateShower(module)
     shower.module = module
 end
 
+---@class UIPrototype
+---@field Frame Frame
 local Prototype = {}
 
 function Prototype:Show()
+    self:Setup()
+
+    if self.Frame then
+        ShowUIPanel(self.Frame)
+    end
+end
+
+function Prototype:Setup()
     if self.OnSetup then
         self:OnSetup()
         self.OnSetup = nil
         self.AfterSetup = nil
         CreateShower(self)
-    end
-
-    if self.Frame then
-        ShowUIPanel(self.Frame)
     end
 end
 

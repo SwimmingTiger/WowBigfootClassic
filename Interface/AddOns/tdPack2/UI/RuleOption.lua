@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 9/22/2019, 10:42:28 PM
-
+--
 ---- LUA
 local tinsert = table.insert
 local ipairs = ipairs
@@ -32,22 +32,34 @@ function RuleOption:OnInitialize()
 end
 
 function RuleOption:OnSetup()
-    local Frame = ns.GUI:GetClass('BasicPanel'):New(UIParent)
-    Frame:ShowPortrait()
-    Frame:SetPortrait(ns.ICON)
-    Frame:SetText('tdPack2')
-    Frame:SetMovable(true)
-    Frame:SetResizable(true)
+    local Frame = CreateFrame('Frame', 'tdPack2RuleOptionFrame', UIParent, 'tdPack2RuleOptionTemplate')
+    LibStub('LibWindow-1.1'):Embed(Frame)
+    ButtonFrameTemplate_ShowPortrait(Frame)
+
+    Frame.portrait:SetTexture(ns.ICON)
+    Frame.portrait:SetMask([[Interface\Minimap\UI-Minimap-Background]])
+    Frame.TitleText:SetText('tdPack2')
+
     Frame:SetMinResize(337, 423)
     Frame.Tabs = self.tabs
     Frame.selectedTab = 1
 
-    local Inset = CreateFrame('Frame', nil, Frame, 'InsetFrameTemplate')
-    Inset:SetPoint('TOPLEFT', 4, -60)
-    Inset:SetPoint('BOTTOMRIGHT', -6, 26)
+    local window = ns.Addon:GetOption('ruleOptionWindow')
+    Frame:RegisterConfig(window)
+    Frame:MakeDraggable()
+    Frame.window = window
+
+    Frame.Resize:SetOnResizeStoppedCallback(function()
+        window.width, window.height = Frame:GetSize()
+        Frame:SavePosition()
+    end)
+
+    -- local Inset = CreateFrame('Frame', nil, Frame, 'InsetFrameTemplate')
+    -- Inset:SetPoint('TOPLEFT', 4, -60)
+    -- Inset:SetPoint('BOTTOMRIGHT', -6, 26)
 
     local Help = CreateFrame('Button', nil, Frame)
-    Help:SetPoint('BOTTOMRIGHT', Inset, 'TOPRIGHT', 0, 0)
+    Help:SetPoint('BOTTOMRIGHT', Frame.Inset, 'TOPRIGHT', 0, 0)
     Help:SetSize(32, 32)
     Help:SetNormalTexture([[Interface\Common\Help-i]])
     Help:SetHighlightTexture([[Interface\Common\portrait-ring-withbg-highlight]], 'ADD')
@@ -62,21 +74,13 @@ function RuleOption:OnSetup()
     end)
     Help:SetScript('OnLeave', GameTooltip_Hide)
 
-    local BlockDialog = ns.GUI:GetClass('BlockDialog'):New(Frame)
-    BlockDialog:SetPoint('TOPLEFT', 3, -22)
-    BlockDialog:SetPoint('BOTTOMRIGHT', -3, 3)
-    BlockDialog:SetFrameLevel(Frame:GetFrameLevel() + 100)
-
     local name = 'tdPackRuleOption'
     _G[name] = Frame
     tinsert(UISpecialFrames, name)
 
-    self.Inset = Inset
+    self.Inset = Frame.Inset
     self.Frame = Frame
-    self.BlockDialog = BlockDialog
     self:Refresh()
-
-    UI.BlockDialog = BlockDialog
 end
 
 function RuleOption:OnEnable()
@@ -86,9 +90,9 @@ function RuleOption:OnEnable()
 end
 
 function RuleOption:Refresh()
-    self.Frame:RegisterConfig(ns.Addon:GetOption('ruleOptionWindow'))
-    self.Frame:RestoreSize()
+    local window = self.Frame.window
     self.Frame:RestorePosition()
+    self.Frame:SetSize(window.width, window.height)
 end
 
 function RuleOption:AddTab(text, module)

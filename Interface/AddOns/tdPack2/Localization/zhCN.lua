@@ -1,4 +1,3 @@
-
 ---@class L
 local L = LibStub('AceLocale-3.0'):NewLocale(..., 'zhCN')
 if not L then
@@ -56,6 +55,16 @@ L['Put in an item to add simple rule'] = '放下一个物品以添加简单规�
 L['Advancee rules use LibItemSearch-1.2'] = '高级规则使用LibItemSearch-1.2'
 L['Enjoy!'] = '祝你愉快！'
 L['Rules restore to default.'] = '整理规则已恢复到默认。'
+
+L['Add rule'] = '添加规则'
+L['Edit rule'] = '修改规则'
+
+L.UPDATE_RULES_CONFIRM = [[当前版本的tdPack2更新了大量规则，是否重置规则到默认设置？
+
+帮助选择：
+1. 我知道这个提示在说什么：自行选择
+2. 我不知道怎么选：接受
+]]
 
 -- for actions
 L.None = '无'

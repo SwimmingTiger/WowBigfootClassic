@@ -99,7 +99,59 @@ Filters.tdPackEquippable = {
     end,
 }
 
---[=[@classic@
+Filters.tdPackBlizzardHasSet = {
+    keyword1 = 'bset',
+
+    canSearch = function(self, operator, search)
+        return self.keyword1 == search:lower()
+    end,
+
+    match = function(self, link, _, search)
+        local setId = select(16, GetItemInfo(link))
+        return setId
+    end,
+}
+
+Filters.tdPackBlizzardSet = {
+    tags = {'bset'},
+    onlyTags = true,
+
+    canSearch = function(self, operator, search)
+        return search
+    end,
+
+    match = function(self, item, _, search)
+        local setId = select(16, GetItemInfo(item))
+        if setId and setId ~= 0 then
+            local setName = GetItemSetInfo(setId)
+            return CustomSearch:Find(search, setName)
+        end
+    end,
+}
+
+Filters.tdPackInvtype = {
+    tags = {'inv'},
+    onlyTags = true,
+
+    canSearch = function(self, operator, search)
+        return search
+    end,
+
+    match = function(self, item, _, search)
+        local equipLoc = select(9, GetItemInfo(item))
+        if not equipLoc then
+            return
+        end
+        local text = CustomSearch:Clean(search)
+        if text == equipLoc:lower() then
+            return true
+        end
+
+        local localeLoc = _G[equipLoc]
+        return localeLoc and text == localeLoc:lower()
+    end,
+}
+
 Filters.tdPackTags = {
     tags = {'tag'},
 
@@ -130,9 +182,10 @@ Filters.tdPackTags = {
                 ids[id] = true
             end
             items[k:lower()] = ids
-            items[L['ITEM_TAG: ' .. k]] = ids
+            if ids.locale then
+                items[L['ITEM_TAG: ' .. k]] = ids
+            end
         end
         return items
     end)(),
 }
---@end-classic@]=]

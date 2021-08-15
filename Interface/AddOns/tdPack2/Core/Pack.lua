@@ -25,6 +25,7 @@ local GetCursorInfo = GetCursorInfo
 local InCombatLockdown = InCombatLockdown
 local UnitIsDead = UnitIsDead
 
+---@alias STATUS number
 local STATUS = {
     FREE = 0, --
     READY = 1, --
@@ -35,8 +36,8 @@ local STATUS = {
     CANCEL = 6, --
 }
 
----@class Pack
----@field private bags table<BAG_TYPE, Bag>
+---@class Pack: AceAddon-3.0, AceEvent-3.0, AceTimer-3.0
+---@field private bags table<number, Bag>
 ---@field private Stacking Stacking
 ---@field private Saving Saving
 ---@field private Sorting Sorting

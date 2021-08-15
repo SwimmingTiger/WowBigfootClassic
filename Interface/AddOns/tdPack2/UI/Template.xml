@@ -123,4 +123,105 @@
             </Anchors>
         </HighlightTexture>
     </Button>
+
+    <Frame name="tdPack2RuleOptionTemplate" inherits="ButtonFrameTemplate" toplevel="true" enableMouse="true" movable="true" resizable="true" virtual="true">
+        <Frames>
+            <Button parentKey="Resize" inherits="PanelResizeButtonTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:Init(self:GetParent(), 337, 423)
+                    </OnLoad>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Frame>
+
+    <Frame name="tdPack2RuleEditorTemplate" frameStrata="DIALOG" enableMouse="true" inherits="BackdropTemplate" virtual="true">
+        <Size x="395" y="400"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Header" file="Interface\DialogFrame\UI-DialogBox-Header">
+                    <Size x="300" y="68"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="12"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Title" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.Header" x="0" y="-14"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="LabelRule" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="20" y="-40"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="LabelWhere" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.LabelRule" relativePoint="BOTTOMLEFT" x="0" y="-30"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="LabelComment" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.LabelWhere" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="LabelIcons" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.LabelComment" relativePoint="BOTTOMLEFT" x="0" y="-30"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <EditBox parentKey="RuleInput" autoFocus="false" inherits="InputBoxTemplate">
+                <Size y="22"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.LabelRule" relativePoint="BOTTOMLEFT" x="3" y="-2"/>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+            </EditBox>
+            <Frame name="tdPack2WhereDropdown" parentKey="WhereDropDown" inherits="UIDropDownMenuTemplate">
+                <Size y="22"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.LabelWhere" relativePoint="BOTTOMLEFT" x="-20" y="-2"/>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+            </Frame>
+            <EditBox parentKey="CommentInput" autoFocus="false" inherits="InputBoxTemplate">
+                <Size y="22"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.LabelComment" relativePoint="BOTTOMLEFT" x="3" y="-2"/>
+                    <Anchor point="RIGHT" x="-20" y="0"/>
+                </Anchors>
+            </EditBox>
+            <Frame parentKey="IconsFrame">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.CommentInput" relativePoint="BOTTOMLEFT" x="-3" y="-30"/>
+                    <Anchor point="TOPRIGHT" relativeKey="$parent.CommentInput" relativePoint="BOTTOMRIGHT" x="0" y="-30"/>
+                    <Anchor point="BOTTOM" x="0" y="50"/>
+                </Anchors>
+            </Frame>
+            <Button parentKey="ExecButton" inherits="UIPanelButtonTemplate" text="SAVE">
+                <Size x="80" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="0" y="20"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="CancelButton" inherits="UIPanelButtonTemplate" text="CANCEL">
+                <Size x="80" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="0" y="20"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        self:GetParent():Hide()
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Frame>
 </Ui>

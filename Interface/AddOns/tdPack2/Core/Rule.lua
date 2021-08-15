@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/31/2019, 12:00:28 AM
-
+--
 ---@type ns
 local ns = select(2, ...)
 
@@ -30,14 +30,18 @@ function Rule:OnInitialize()
     --@end-classic@]]
     self.sortingCustomOrder = ns.CustomOrder:New()
     self.levelQualityOrder = function(item)
-        local level = 9999 - (item.GetItemLevel and item:GetItemLevel() or 0)
-        local quality = 99 - (item.GetItemQuality and item:GetItemQuality() or 0)
+        local level = 9999 - item:GetItemLevel()
+        local quality = 99 - item:GetItemQuality()
 
-        if item.IsEquippable and item:IsEquippable() then
+        if item:IsEquippable() then
             return format('%04d,%02d', level, quality)
         else
             return format('%02d,%04d', quality, level)
         end
+    end
+
+    self.setOrder = function(item)
+        return 99999 - item:GetItemSetId()
     end
 
     self.staticOrder = ns.CachableOrder:New({
@@ -47,6 +51,7 @@ function Rule:OnInitialize()
         GetOrder = function(item)
             return tconcat({
                 self.sortingCustomOrder(item), --
+                self.setOrder(item), --
                 self.typeOrder(item), --
                 self.subTypeOrder(item), --
                 --[[@classic@

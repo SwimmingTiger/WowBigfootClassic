@@ -16,7 +16,7 @@ local Pack = ns.Pack
 local Rule = ns.Rule
 local Item = ns.Item
 
----@class Saving
+---@class Saving: Task
 ---@field private slots Slot[]
 local Saving = ns.Addon:NewClass('Saving', ns.Task)
 
