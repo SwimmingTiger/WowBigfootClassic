@@ -45,6 +45,8 @@ function Spy:RefreshCurrentList(player, source)
 				if L[class] and type(L[class]) == "string" then
 					description = description..L[class]
 				end
+			elseif Spy.db.profile.DisplayListData == "NameLevelGuild" then
+				description = level.." "..guild
 			elseif Spy.db.profile.DisplayListData == "NameLevelOnly" then
 				description = level.." "
 			elseif Spy.db.profile.DisplayListData == "NameGuild" then
@@ -1519,6 +1521,7 @@ Spy_AbilityList = {
 	[33601]={ class = "DRUID", level = 41, },
 	[33602]={ class = "DRUID", level = 42, },
 	[34297]={ class = "DRUID", level = 41, },
+	[34299]={ class = "DRUID", level = 41, },
 	[34300]={ class = "DRUID", level = 42, },
 	[17050]={ class = "DRUID", level = 10, },
 	[17051]={ class = "DRUID", level = 11, },
@@ -1546,6 +1549,7 @@ Spy_AbilityList = {
 	[17107]={ class = "DRUID", level = 21, },
 	[17108]={ class = "DRUID", level = 22, },
 	[17007]={ class = "DRUID", level = 40, },
+	[24932]={ class = "DRUID", level = 40, },
 	[34151]={ class = "DRUID", level = 40, },
 	[34152]={ class = "DRUID", level = 41, },
 	[34153]={ class = "DRUID", level = 42, },
@@ -2007,6 +2011,7 @@ Spy_AbilityList = {
 	[19258]={ class = "HUNTER", level = 23, },
 	[19259]={ class = "HUNTER", level = 24, },
 	[34692]={ class = "HUNTER", level = 50, },
+	[34471]={ class = "HUNTER", level = 50, },
 	[19609]={ class = "HUNTER", level = 15, },
 	[19610]={ class = "HUNTER", level = 16, },
 	[19612]={ class = "HUNTER", level = 17, },
@@ -4670,4 +4675,19 @@ Spy_AbilityList = {
 	[30330]={ class = "WARRIOR", level = 70, },
 	[30033]={ class = "WARRIOR", level = 70, },
 	[30356]={ class = "WARRIOR", level = 70, },
+--++++++++++	
+	[2580]={ level = 1, },
+	[8388]={ level = 1, },
+	[43308]={ level = 1, },
+	[2383]={ level = 1, },
+	[29175]={ level = 1, },
+	[46352]={ level = 1, },
+	[45444]={ level = 1, },
+	[39913]={ level = 1, },
+	[39911]={ level = 1, },
+	[17538]={ level = 46, },
+	[22789]={ level = 56, },
+	[23041]={ level = 60, },
+	[23042]={ level = 60, },
+	[35166]={ level = 70, },
 };

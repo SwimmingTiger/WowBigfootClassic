@@ -12,29 +12,32 @@ L["Profiles"] = "Profiles"
 L["About"] = "About"
 L["SpyDescription1"] = [[
 Spy is an addon that will alert you to the presence of nearby enemy players. These are some of the main features.
+
 ]]
+
 L["SpyDescription2"] = [[
-|cffffd000Nearby List|cffffffff
+|cffffd000 Nearby List |cffffffff
 Displays enemy players that have been detected nearby. Players are removed from the list if they have not been detected after a period of time.
 
-|cffffd000Last Hour List|cffffffff
+|cffffd000 Last Hour List |cffffffff
 Displays all enemies that have been detected in the last hour.
 
-|cffffd000Ignore List|cffffffff
+|cffffd000 Ignore List |cffffffff
 Players that are added to the Ignore list will not be reported by Spy. You can add and remove players to/from this list by using the button's drop down menu or by holding the Control key while clicking the button.
 
-|cffffd000Kill On Sight List|cffffffff
-Players on your Kill On Sight list cause an alarm to sound when detected. You can add and remove players to/from this list by using the button's drop down menu or by holding the Shift key while clicking the button.
+|cffffd000 Kill On Sight List |cffffffff
+Players on your Kill On Sight list cause an alarm to sound when detected. You can add and remove players to/from this list by using the button's drop down menu or by holding the Shift key while clicking the button. The drop down menu can also be used to set the reasons why you have added someone to the Kill On Sight list. If you want to enter a specific reason that is not in the list, then use the "Enter your own reason..." in the Other list.
 
-The drop down menu can also be used to set the reasons why you have added someone to the Kill On Sight list. If you want to enter a specific reason that is not in the list, then use the "Enter your own reason..." in the Other list.
+]]
 
-|cffffd000Statistics Window|cffffffff
+L["SpyDescription3"] = [[
+|cffffd000 Statistics Window |cffffffff
 The Statistics Window contains a list of all enemy encounters which can be sorted by name, level, guild, wins, losses and the last time an enemy was detected. It also provides the ability to search for a specific enemy by name or guild and has filters to show only enemies that are marked as Kill on Sight, with a Win/Loss or entered Reasons.
 
-|cffffd000Kill On Sight Button|cffffffff
+|cffffd000 Kill On Sight Button |cffffffff
 If enabled, this button will be located on the enemy players target frame. Clicking on this button will add/remove the enemy target to/from the Kill On Sight list. Right clicking on the button will allow you to enter Kill on Sight reasons.
 
-|cffffd000Author: Slipjack|cffffffff
+|cffffd000 Author:|cffffffff Slipjack
 ]]
 
 -- General Settings
