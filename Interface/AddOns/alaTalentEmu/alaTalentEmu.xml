@@ -1,10 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <include file = "libs\ala\main.xml" />
+    <include file = "libs\libs.xml" />
+
     <script file = "Locale\zhCN.lua" />
     <script file = "Locale\zhTW.lua" />
     <script file = "Locale\enUS.lua" />
-    <script file = "alaTalentData.lua" />
+    <script file = "data-classic.lua" />
+    <script file = "data-bcc.lua" />
     <script file = "alaTalentEmu.lua" />
 </Ui>
 

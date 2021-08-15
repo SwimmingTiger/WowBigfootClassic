@@ -26,7 +26,7 @@ local __emulib = __ala_meta__.__emulib;
 
 local L = NS.L;
 if not L then return; end
-local curPhase = 6;
+local curPhase = 1;
 ----------------------------------------------------------------------------------------------------upvalue
 	----------------------------------------------------------------------------------------------------LUA
 	local math, table, string, bit = math, table, string, bit;
@@ -63,7 +63,6 @@ local curPhase = 6;
 	local GetRegisteredAddonMessagePrefixes = GetRegisteredAddonMessagePrefixes or C_ChatInfo.GetRegisteredAddonMessagePrefixes;
 	local SendAddonMessage = SendAddonMessage or C_ChatInfo.SendAddonMessage;
 	local SendAddonMessageLogged = SendAddonMessageLogged or C_ChatInfo.SendAddonMessageLogged;
-	local MAX_NUM_TALENTS = nil;
 	local RAID_CLASS_COLORS = RAID_CLASS_COLORS;
 	local CLASS_ICON_TCOORDS = CLASS_ICON_TCOORDS;
 ----------------------------------------------------------------------------------------------------
@@ -76,17 +75,29 @@ local curPhase = 6;
 	end
 	local function _noop_()
 	end
-	_G.ALA_GetSpellLink = _G.ALA_GetSpellLink or function(id, name)
-		--\124cff71d5ff\124Hspell:id\124h[name]\124h\124r
-		name = name or GetSpellInfo(id);
-		if name then
-			if __ala_meta__.chat and __ala_meta__.chat.alac_hyperLink and __ala_meta__.chat.alac_hyperLink() then
+	if NS.BUILD == "CLASSIC" then
+		_G.ALA_GetSpellLink = _G.ALA_GetSpellLink or function(id, name)
+			--\124cff71d5ff\124Hspell:id\124h[name]\124h\124r
+			name = name or GetSpellInfo(id);
+			if name then
+				if __ala_meta__.chat and __ala_meta__.chat.alac_hyperLink and __ala_meta__.chat.alac_hyperLink() then
+					return "\124cff71d5ff\124Hspell:" .. id .. "\124h[" .. name .. "]\124h\124r";
+				else
+					return name;
+				end
+			else
+				return nil;
+			end
+		end
+	elseif NS.BUILD == "BCC" then
+		_G.ALA_GetSpellLink = _G.ALA_GetSpellLink or function(id, name)
+			--\124cff71d5ff\124Hspell:id\124h[name]\124h\124r
+			name = name or GetSpellInfo(id);
+			if name then
 				return "\124cff71d5ff\124Hspell:" .. id .. "\124h[" .. name .. "]\124h\124r";
 			else
-				return name;
+				return nil;
 			end
-		else
-			return nil;
 		end
 	end
 	local _GetSpellLink = _G.ALA_GetSpellLink;
@@ -96,10 +107,6 @@ local curPhase = 6;
 	NS.ARTWORK_PATH = ARTWORK_PATH;
 	local LOCALE = GetLocale();
 	--------------------------------------------------
-	local MAX_LEVEL = nil;
-	local MAX_NUM_TIER = nil;
-	local MAX_NUM_COL = nil;
-	local MAX_NUM_ICONS_PER_SPEC = nil;
 	local NUM_POINTS_NEXT_TIER = 5;
 	local DATA_VALIDITY = 30;
 	--------------------------------------------------
@@ -258,7 +265,7 @@ local curPhase = 6;
 		raidToolUIFrameYSize = 320,
 		raidToolUIFrameButtonHeight = 24,
 
-		controlButtonSize = 20,
+		controlButtonSize = 18,
 		editBoxXSize = 240,
 		editBoxYSize = 32,
 		tabButtonSize = 28,
@@ -292,9 +299,10 @@ local curPhase = 6;
 		SEP_HORIZONTAL_COORD = { 0.25, 0.3125, 0.0, 1.0, },
 		SEP_VERTICAL = ARTWORK_PATH .. "UI-ChatFrame-BorderTop",
 		SEP_VERTICAL_COORD = { 0.0, 1.0, 0.25, 0.3125, },
+		CONTROL_NORMAL_COLOR = { 1.0, 1.0, 1.0, 1.0, },
 		CONTROL_PUSHED_COLOR = { 0.5, 0.5, 0.5, 1.0, },
 		CONTROL_DISABLED_COLOR = { 0.25, 0.25, 0.25, 1.0, },
-		CONTROL_HIGHLIGHT_COLOR = { 0.25, 0.25, 0.75, 1.0, },
+		CONTROL_HIGHLIGHT_COLOR = { 0.25, 0.25, 0.5, 0.5, },
 
 		ARROW = ARTWORK_PATH .. "ui-talentarrows",
 		ARROW_COORD = {
@@ -325,11 +333,13 @@ local curPhase = 6;
 		TALENT_RESET_HIGHLIGHT = ARTWORK_PATH .. "arcane_circular_flash",
 		TALENT_RESET_HIGHLIGHT_COORD = { 12 / 128, 118 / 128, 12 / 128, 118 / 128, },
 
-		LOCK = ARTWORK_PATH .. "minimap_shield_elite",
-		LOCK_LOCKED_COLOR = { 0.75, 0.75, 0.75, 1.0, },
-		LOCK_UNLOCKED_COLOR = { 1.0, 1.0, 1.0, 1.0 },
-		CLOSE = ARTWORK_PATH .. "indicator-red",
-		CLOSE_COORD = { 4 / 32, 28 / 32, 3 / 32, 28 / 32, },
+		LOCK = "Interface\\Buttons\\UI-OptionsButton",	--ARTWORK_PATH .. "Config",
+		LOCK_NORMAL_COLOR = { 1.0, 1.0, 1.0, 1.0, },
+		LOCK_LOCKED_COLOR = { 0.5, 0.5, 0.5, 1.0, },
+		LOCK_UNLOCKED_COLOR = { 1.0, 1.0, 1.0, 1.0, },
+		CLOSE = ARTWORK_PATH .. "Close",
+		CLOSE_COORD = { 0.0, 1.0, 0.0, 1.0, },
+		CLOSE_NORMAL_COLOR = { 1.0, 1.0, 1.0, 1.0, },
 		RESET = ARTWORK_PATH .. "characterundelete",
 		RESET_COORD = { 7 / 32, 25 / 32, 7 / 32, 25 / 32, },
 		SPEC_NORMAL_COLOR = { 1.0, 1.0, 1.0, 0.5 },
@@ -391,19 +401,23 @@ local curPhase = 6;
 		};
 	};
 	--------------------------------------------------
-	local _talentDB = nil;
 	local _indexToClass = __emulib.classList;
 	local _classToIndex = __emulib.classHash;
+	local MAX_NUM_TIER = NS.MAX_NUM_TIER;
+	local MAX_NUM_COL = NS.MAX_NUM_COL;
+	local MAX_NUM_TALENTS = NS.MAX_NUM_TALENTS;
+	local MAX_LEVEL = NS.MAX_LEVEL;
+	local MAX_NUM_ICONS_PER_SPEC = MAX_NUM_TIER * MAX_NUM_COL;
+	local _talentDB = NS._talentDB;
+	local _spellDB = NS._spellDB_P;
+	local _talentSpellData = NS._talentSpellData;
+	local _preset_talent = NS._preset_talent;
 	local _classTab = NS._classTab;
 	local _talentTabIcon = NS._talentTabIcon;
 	local _BG0 = NS._BG0;
 	local _BG1 = NS._BG1;
-	local _preset_talent = nil;
 	local _PRESET = {  };
-	local _talentSpellData = nil;
-	local _talentStr = nil;
 	--------------------------------------------------
-	local _spellDB = nil;
 	local _spellLevelHash = {  };
 	--------------------------------------------------
 	--[[
@@ -695,6 +709,7 @@ end
 			end
 			return nil;
 		end
+		--[==[
 		function extern.import.yxrank(url)
 			--https://www.yxrank.com/classic/talent/warrior?count=333015011130012011111010010000000000000000000000000000000000000000000000000000000000
 			local _, _, class, temp = strfind(url, "yxrank%.com/classic/talent/([a-zA-Z]+)%?count=(%d+)");
@@ -707,7 +722,7 @@ end
 					for i = 1, 3 do
 						local db = DB[classTalent[i]];
 						for j, val in ipairs(db) do
-							local pos = (i - 1) * 28 + val[1] * 4 + val[2] + 1;
+							local pos = (i - 1) * MAX_NUM_TALENTS + val[1] * 4 + val[2] + 1;
 							local v = strsub(temp, pos, pos);
 							if v == "" then
 								break;
@@ -724,6 +739,7 @@ end
 			end
 			return nil;
 		end
+		--]==]
 		function extern.export.wowhead(mainFrame)
 			local talentFrames = mainFrame.talentFrames;
 			local DB = _talentDB[mainFrame.class];
@@ -765,7 +781,11 @@ end
 			elseif LOCALE == "koKR" then
 				LOC = "ko.";
 			end
-			return LOC .. "classic.wowhead.com/talent-calc/" .. strlower(mainFrame.class) .. "/" .. data;
+			if NS.BUILD == "BCC" then
+				return LOC .. "tbc.wowhead.com/talent-calc/" .. strlower(mainFrame.class) .. "/" .. data;
+			elseif NS.BUILD == "CLASSIC" then
+				return LOC .. "classic.wowhead.com/talent-calc/" .. strlower(mainFrame.class) .. "/" .. data;
+			end
 		end
 		function extern.export.nfu(mainFrame)
 			local talentFrames = mainFrame.talentFrames;
@@ -778,8 +798,13 @@ end
 					data = data .. talentSet[i];
 				end
 			end
-			return "www.nfuwow.com/talents/60/" .. strlower(mainFrame.class) .. "/tal/" .. data;
+			if NS.BUILD == "BCC" then
+				return "www.nfuwow.com/talents/" .. strlower(mainFrame.class) .. "/index.html?" .. data;
+			elseif NS.BUILD == "CLASSIC" then
+				return "www.nfuwow.com/talents/60/" .. strlower(mainFrame.class) .. "/tal/" .. data;
+			end
 		end
+		--[==[
 		function extern.export.yxrank(mainFrame)
 			local talentFrames = mainFrame.talentFrames;
 			local DB = _talentDB[mainFrame.class];
@@ -791,13 +816,14 @@ end
 				for j, val in ipairs(DB[classTalent[i]]) do
 					temp[ofs + val[1] * 4 + val[2] + 1] = talentSet[j];
 				end
-				for j = 1, 28 do
+				for j = 1, MAX_NUM_TALENTS do
 					temp[ofs + j] = temp[ofs + j] or 0;
 				end
-				ofs = ofs + 28;
+				ofs = ofs + MAX_NUM_TALENTS;
 			end
 			return "www.yxrank.com/classic/talent/" .. mainFrame.class .. "?count=" .. tConcat(temp);
 		end
+		--]==]
 		extern.addon["D4C"] = {
 			addon = "DBM",
 			list = {  },
@@ -904,9 +930,6 @@ end
 			NS.UpdateApplying(nil);
 		end
 		function NS.processApplyTalents(mainFrame)
-			if SET.level ~= NS.defaultLevel then
-				return;
-			end
 			NS.UpdateApplying(mainFrame);
 			NS.applyingSpecIndex = 1;
 			NS.applyingTalentIndex = 1;
@@ -1044,8 +1067,8 @@ end
 			end
 		end
 
-		function NS.EmuSub_GetIconIndex(data)
-			return data[1] * MAX_NUM_COL + data[2] + 1;
+		function NS.EmuSub_GetIconIndex(def)
+			return def[1] * MAX_NUM_COL + def[2] + 1;
 		end
 
 		function NS.EmuCore_SetName(mainFrame, name)			-- NAME CHANGED HERE ONLY	-- and NS.EmuSub_UpdateLabelText
@@ -1183,48 +1206,32 @@ end
 					talentFrame.specLabel:SetText(L.DATA[specId]);
 					if db then
 						for dbIndex = 1, #db do
-							local data = db[dbIndex];
-							local icon = talentIcons[data[10]];
+							local def = db[dbIndex];
+							local icon = talentIcons[def[10]];
 							icon.dbIndex = dbIndex;
 							icon:Show();
-							if NS._innerStr then
-								if data[9] then
-									icon:SetNormalTexture("Interface\\AddOns\\alaTalentEmu\\ExternalIcons\\" .. data[9]);
-									icon:SetPushedTexture("Interface\\AddOns\\alaTalentEmu\\ExternalIcons\\" .. data[9]);
-								else
-									local texture = select(3, GetSpellInfo(data[8][1]));
-									if texture then
-										icon:SetNormalTexture(texture);
-										icon:SetPushedTexture(texture);
-									else
-										icon:SetNormalTexture(TEXTURE_SET.UNK);
-										icon:SetPushedTexture(TEXTURE_SET.UNK);
-									end
-								end
+							local texture = select(3, GetSpellInfo(def[8][1]));
+							if texture then
+								icon:SetNormalTexture(texture);
+								icon:SetPushedTexture(texture);
+							elseif def[9] then
+								icon:SetNormalTexture(def[9]);
+								icon:SetPushedTexture(def[9]);
 							else
-								local texture = select(3, GetSpellInfo(data[8][1]));
-								if texture then
-									icon:SetNormalTexture(texture);
-									icon:SetPushedTexture(texture);
-								elseif data[9] then
-									icon:SetNormalTexture(data[9]);
-									icon:SetPushedTexture(data[9]);
-								else
-									icon:SetNormalTexture(TEXTURE_SET.UNK);
-									icon:SetPushedTexture(TEXTURE_SET.UNK);
-								end
+								icon:SetNormalTexture(TEXTURE_SET.UNK);
+								icon:SetPushedTexture(TEXTURE_SET.UNK);
 							end
-							icon.maxVal:SetText(data[4]);
+							icon.maxVal:SetText(def[4]);
 							icon.curVal:SetText("0");
 
-							if data[11] then
+							if def[11] then
 								local arrow = NS.EmuSub_GetReqArrow(talentFrame);
-								NS.EmuSub_SetReqArrow(arrow, arrow.branch, arrow.branch2, data[1] - data[5], data[2] - data[6], false, icon, talentIcons[db[data[11]][10]]);
-								tinsert(talentFrame.reqByArrowSet[data[11]], arrow);
+								NS.EmuSub_SetReqArrow(arrow, arrow.branch, arrow.branch2, def[1] - def[5], def[2] - def[6], false, icon, talentIcons[db[def[11]][10]]);
+								tinsert(talentFrame.reqByArrowSet[def[11]], arrow);
 							end
 
-							if data[1] == 0 then
-								if not data[5] then
+							if def[1] == 0 then
+								if not def[5] then
 									NS.EmuSub_ActivateIcon(icon);
 								end
 							end
@@ -1280,7 +1287,8 @@ end
 					local talentFrame = talentFrames[i];
 					local icons = talentFrame.talentIcons;
 					local db = talentFrame.db;
-					for j = 1, #db do
+					local talentSet = talentFrame.talentSet;
+					for dbIndex = 1, #db do
 						local d = strsub(data, pos, pos);
 						if d == "" then
 							return false;
@@ -1288,19 +1296,27 @@ end
 						pos = pos + 1;
 						d = tonumber(d);
 						if d ~= 0 then
-							local depindex = db[j][11];
-							if depindex ~= nil then
-								local depd = strsub(data, tabstart + depindex, tabstart + depindex);
+							local def = db[dbIndex];
+							local debdbIndex = def[11];
+							if debdbIndex ~= nil then
+								local depd = strsub(data, tabstart + debdbIndex, tabstart + debdbIndex);
 								if depd ~= "" and depd ~= "0" then
-									NS.EmuCore_ChangePoint(icons[db[depindex][10]], tonumber(depd));
+									depd = tonumber(depd);
+									local deppts = depd - talentSet[debdbIndex];
+									if deppts > 0 then
+										NS.EmuCore_ChangePoint(icons[db[debdbIndex][10]], deppts);
+									end
 								end
 							end
-							local ret = NS.EmuCore_ChangePoint(icons[db[j][10]], d);
-							if ret < 0 then
-								-- tinsert(retry, { i, j, d, });
-								_log_("EmuCore_SetData", 5, "tab", i, "tier", db[j][1], "col", db[j][2], "maxPoints", db[j][4], "set", d, data, pos);
-							elseif ret > 0 then
-								_log_("EmuCore_SetData", 6, "tab", i, "tier", db[j][1], "col", db[j][2], "maxPoints", db[j][4], "set", d, data, pos);
+							local pts = d - talentSet[dbIndex];
+							if pts > 0 then
+								local ret = NS.EmuCore_ChangePoint(icons[def[10]], pts);
+								if ret < 0 then
+									-- tinsert(retry, { i, dbIndex, d, });
+									_log_("EmuCore_SetData", 5, ret, "tab", i, "tier", def[1], "col", def[2], "maxPoints", def[4], "set", d, def, pos);
+								elseif ret > 0 then
+									_log_("EmuCore_SetData", 6, ret, "tab", i, "tier", def[1], "col", def[2], "maxPoints", def[4], "set", d, def, pos);
+								end
 							end
 						end
 					end
@@ -1352,8 +1368,8 @@ end
 					local db = talentFrame.db;
 					for dbIndex = 1, #db do
 						if talentSet[dbIndex] == 0 then
-							local data = db[dbIndex];
-							NS.EmuSub_SetIconTextColor_Unavailable(talentIcons[data[10]]);
+							local def = db[dbIndex];
+							NS.EmuSub_SetIconTextColor_Unavailable(talentIcons[def[10]]);
 						end
 					end
 				end
@@ -1363,10 +1379,10 @@ end
 					local talentIcons = talentFrame.talentIcons;
 					local db = talentFrame.db;
 					for dbIndex = 1, #db do
-						local data = db[dbIndex];
-						if data[1] == 0 then
-							if not data[5] then
-								NS.EmuSub_SetIconTextColor_Available(talentIcons[data[10]]);
+						local def = db[dbIndex];
+						if def[1] == 0 then
+							if not def[5] then
+								NS.EmuSub_SetIconTextColor_Available(talentIcons[def[10]]);
 							end
 						else
 							break;
@@ -1399,22 +1415,22 @@ end
 
 			local dbIndex = self.dbIndex;
 			local db = talentFrame.db;
-			local data = db[dbIndex];
+			local def = db[dbIndex];
 			local talentSet = talentFrame.talentSet;
 
-			if (numPoints > 0 and talentSet[dbIndex] == data[4]) or (numPoints < 0 and talentSet[dbIndex] == 0) then	-- inc max_rank OR dec min_rank
+			if (numPoints > 0 and talentSet[dbIndex] == def[4]) or (numPoints < 0 and talentSet[dbIndex] == 0) then	-- inc max_rank OR dec min_rank
 				return 2;
 			end
 
 			if self.free_edit then
 				local ret = 0;
 
-				if talentSet[dbIndex] + numPoints >= data[4] then
-					if talentSet[dbIndex] + numPoints > data[4] then
+				if talentSet[dbIndex] + numPoints >= def[4] then
+					if talentSet[dbIndex] + numPoints > def[4] then
 						ret = 4;
 					end
-					numPoints = data[4] - talentSet[dbIndex];
-					talentSet[dbIndex] = data[4];
+					numPoints = def[4] - talentSet[dbIndex];
+					talentSet[dbIndex] = def[4];
 					NS.EmuSub_SetIconTextColor_MaxRank(self);
 					NS.EmuSub_LightIcon(self);
 				elseif talentSet[dbIndex] + numPoints <= 0 then
@@ -1437,11 +1453,11 @@ end
 
 				return ret;
 			else
-				local tier = data[1];
+				local tier = def[1];
 				if numPoints < 0 then	--	whethe it can be decreased
-					if data[12] then	-- dec talent required
-						for i = 1, #data[12] do
-							if talentSet[data[12][i]] > 0 then
+					if def[12] then	-- dec talent required
+						for i = 1, #def[12] do
+							if talentSet[def[12][i]] > 0 then
 								return 3;
 							end
 						end
@@ -1462,17 +1478,17 @@ end
 
 				local ret = 0;
 
-				if talentSet[dbIndex] + numPoints >= data[4] then
-					if talentSet[dbIndex] + numPoints > data[4] then
+				if talentSet[dbIndex] + numPoints >= def[4] then
+					if talentSet[dbIndex] + numPoints > def[4] then
 						ret = 4;
 					end
-					numPoints = data[4] - talentSet[dbIndex];
-					talentSet[dbIndex] = data[4];
+					numPoints = def[4] - talentSet[dbIndex];
+					talentSet[dbIndex] = def[4];
 					NS.EmuSub_SetIconTextColor_MaxRank(self);
 					NS.EmuSub_LightIcon(self);
-					if data[12] then
-						for i = 1, #data[12] do
-							NS.EmuSub_ActivateIcon_RecheckPoint(talentFrame.talentIcons[db[data[12][i]][10]]);
+					if def[12] then
+						for i = 1, #def[12] do
+							NS.EmuSub_ActivateIcon_RecheckPoint(talentFrame.talentIcons[db[def[12][i]][10]]);
 						end
 						local arrow = talentFrame.reqByArrowSet[dbIndex];
 						for i = 1, #arrow do
@@ -1496,9 +1512,9 @@ end
 				end
 				self.curVal:SetText(talentSet[dbIndex]);
 
-				if numPoints < 0 and data[12] then	--deactive talents that require this after dec
-					for i = 1, #data[12] do
-						NS.EmuSub_DeactiveIcon(talentFrame.talentIcons[db[data[12][i]][10]]);
+				if numPoints < 0 and def[12] then	--deactive talents that require this after dec
+					for i = 1, #def[12] do
+						NS.EmuSub_DeactiveIcon(talentFrame.talentIcons[db[def[12][i]][10]]);
 					end
 					local arrow = talentFrame.reqByArrowSet[dbIndex];
 					for i = 1, #arrow do
@@ -1511,7 +1527,7 @@ end
 				-- curCheckedTier		begin from 0
 				talentSet.total = talentSet.total + numPoints;
 				talentFrame.curTabPoints:SetText(talentSet.total);
-				talentSet.totalPerTier[data[1]] = talentSet.totalPerTier[data[1]] + numPoints;
+				talentSet.totalPerTier[def[1]] = talentSet.totalPerTier[def[1]] + numPoints;
 
 				local curAvailableTopTier = min(floor(talentSet.total / NUM_POINTS_NEXT_TIER), MAX_NUM_TIER - 1);	--begin from 0
 				if curAvailableTopTier > talentSet.curAvailableTopTier then
@@ -1567,7 +1583,7 @@ end
 
 				NS.EmuSub_UpdateLabelText(mainFrame);
 				if GetMouseFocus() == self then
-					NS.EmuSub_TooltipSetTalent(NS.tooltipFrame, self, talentFrame.specId, data[1] * 5, talentFrame.talentSet.total, data[8], talentSet[dbIndex], data[4])
+					NS.EmuSub_TooltipSetTalent(NS.tooltipFrame, self, talentFrame.specId, def[1] * 5, talentFrame.talentSet.total, def[8], talentSet[dbIndex], def[4])
 				end
 
 				return ret;
@@ -1615,7 +1631,7 @@ end
 			NS.EmuCore_SetClass(mainFrame, nil);
 			NS.EmuCore_SetLevel(mainFrame, nil);
 			NS.EmuCore_SetData(mainFrame, nil);
-			NS.EmuCore_SetReadOnly(mainFrame, false);
+			-- NS.EmuCore_SetReadOnly(mainFrame, false);
 			NS.EmuCore_SetFreeEdit(mainFrame, false);
 			NS.EmuCore_SetName(mainFrame, nil);
 
@@ -1662,127 +1678,6 @@ end
 			end
 		end
 
-		function NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip, id, notnew, addid)
-			--[==[
-				name			subText
-				power			range
-				castingTime		cooldown
-			]==]
-			--	_talentSpellData
-			--[==[
-				1	=	PowerType				--	aj
-				2	=	PowerPercent			--	gn
-				3	=	Power					--	ak
-				4	=	PowerPerLevel			--	al
-				5	=	PowerPerSecond			--	am
-				6	=	PowerPerSecondPerLevel	--	an
-				7	=	MinRange	*index		--	ao
-				8	=	MaxRange	*index		--	ao
-				9	=	BaseCastingTime		*index	--	w
-				10	=	CastingTimePerLevel		*index	--	w
-				11	=	MinCastingTime		*index	--	w
-				12	=	RecoveryTime			--	x
-				13	=	CategoryRecoveryTime	--	y
-				14	=	Usable Spell
-				15, 16, 17	=	trigger spell	--	dm, 3
-			]==]
-			--	_talentStr
-			--[==[
-				1	=	name,
-				2	=	subText,
-				3	=	desc,
-				4	=	auraDesc,
-			]==]
-			local data = _talentSpellData[id];
-			local str = _talentStr[id];
-			if data ~= nil and data[18] and data[15] ~= nil then
-				NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip, data[15], notnew, true);
-				if data[16] ~= nil then
-					tooltip:AddLine(" ");
-					NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip, data[16], true, true);
-					if data[17] ~= nil then
-						tooltip:AddLine(" ");
-						NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip, data[17], true, true);
-					end
-				end
-				notnew = true;
-			end
-			if data ~= nil and str ~= nil then
-				if notnew then
-					if str[2] ~= nil then
-						tooltip:AddDoubleLine(str[1], str[2], 1.0, 1.0, 1.0, 0.5, 0.5, 0.5);
-					else
-						tooltip:AddLine(str[1], 1.0, 1.0, 1.0);
-					end
-				else
-					tooltip:SetText(str[1], 1.0, 1.0, 1.0);
-					if str[2] ~= nil then
-						tooltip.TextRight1:SetText(str[2]);
-						tooltip.TextRight1:SetVertexColor(0.5, 0.5, 0.5);
-						tooltip.TextRight1:Show();
-					end
-				end
-				local L2L, L2R = nil, nil;
-				if data[2] > 0 or data[3] > 0 or data[5] > 0 then
-					local powerType = L.POWERTYPE[data[1]] or L.POWERTYPE[0];
-					L2L = (data[2] > 0 and (format(L.POWERPERCENT, data[2], powerType)) or "")
-							.. ((data[2] > 0 and data[3] > 0) and "+" or "")
-							.. (data[3] > 0 and format(L.POWERPOINT, data[3], powerType) or "")
-							.. (((data[2] > 0 or data[3] > 0) and data[5] > 0) and " + " or "")
-							.. (data[5] > 0 and format(L.POWERPOINTPERSECOND, data[5], powerType) or "");
-				end
-				if data[14] then
-					if data[7] ~= data[8] and data[7] > 0 and data[8] > 0 then
-						L2R = format(L.RANGEYARD2, data[7], data[8]);
-					elseif data[7] > 0 then
-						L2R = format(L.RANGEYARD, data[7]);
-					elseif data[8] > 0 then
-						L2R = format(L.RANGEYARD, data[8]);
-					else
-						L2R = L.RANGE0;
-					end
-				end
-				if L2L ~= nil and L2R ~= nil then
-					tooltip:AddDoubleLine(L2L, L2R, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75);
-				elseif L2L ~= nil then
-					tooltip:AddLine(L2L, 0.75, 0.75, 0.75);
-				elseif L2R ~= nil then
-					tooltip:AddLine(L2R, 0.75, 0.75, 0.75);
-				end
-				if data[14] then
-					local L3L, L3R = nil, nil;
-					if data[9] > 0 then
-						L3L = format(L.CASTINGTIME, data[9] / 1000);
-					else
-						L3L = L.CASTINGTIMEINSTANT;
-					end
-					local cd = max(data[12], data[13]);
-					if cd > 0 then
-						cd = cd / 1000;
-						if cd < 60 then
-							L3R = format(L.CDSECOND, cd - cd % 0.1);
-						else
-							cd = cd / 60;
-							L3R = format(L.CDMINUTE, cd - cd % 0.1);
-						end
-					end
-					if L3L ~= nil and L3R ~= nil then
-						tooltip:AddDoubleLine(L3L, L3R, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75);
-					elseif L3L ~= nil then
-						tooltip:AddLine(L3L, 0.75, 0.75, 0.75);
-					elseif L3R ~= nil then
-						tooltip:AddLine(L3R, 0.75, 0.75, 0.75);
-					end
-				end
-				if str[3] ~= nil then
-					tooltip:AddLine(str[3], 1.0, 0.8, 0.0, 1);
-				end
-			end
-			if addid then
-				tooltip:AddDoubleLine("id", id, 0.25, 0.5, 1.0, 0.25, 0.5, 1.0);
-			end
-			tooltip:Show();
-		end
 		function NS.EmuSub_TooltipSetTalent(tooltipFrame, icon, specId, reqPts, pts, spellTable, curRank, maxRank)
 			local fontString1h1 = tooltipFrame.fontString1h1;
 			local fontString1h2 = tooltipFrame.fontString1h2;
@@ -1828,11 +1723,7 @@ end
 				tooltip1:SetBackdrop(ui_style.tooltipBackdrop);
 				tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
 				tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
-				if NS._innerStr then
-					NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip1, spellTable[1]);
-				else
-					tooltip1:SetSpellByID(spellTable[1]);
-				end
+				tooltip1:SetSpellByID(spellTable[1]);
 				fontString1f2:SetText(tostring(spellTable[1]));
 				tooltip1:SetAlpha(0.0);
 
@@ -1871,11 +1762,7 @@ end
 				tooltip1:SetBackdrop(ui_style.tooltipBackdrop);
 				tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
 				tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
-				if NS._innerStr then
-					NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip1, spellTable[maxRank]);
-				else
-					tooltip1:SetSpellByID(spellTable[maxRank]);
-				end
+				tooltip1:SetSpellByID(spellTable[maxRank]);
 				fontString1f2:SetText(tostring(spellTable[maxRank]));
 				tooltip1:SetAlpha(0.0);
 
@@ -1913,11 +1800,7 @@ end
 				tooltip1:SetBackdrop(ui_style.tooltipBackdrop);
 				tooltip1:SetOwner(tooltipFrame, "ANCHOR_NONE");
 				tooltip1:SetPoint("TOPLEFT", fontString1h1, "BOTTOMLEFT", 0, 6);
-				if NS._innerStr then
-					NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip1, spellTable[curRank]);
-				else
-					tooltip1:SetSpellByID(spellTable[curRank]);
-				end
+				tooltip1:SetSpellByID(spellTable[curRank]);
 				fontString1f2:SetText(tostring(spellTable[curRank]));
 				tooltip1:SetAlpha(0.0);
 
@@ -1932,11 +1815,7 @@ end
 				tooltip2:SetBackdrop(ui_style.tooltipBackdrop);
 				tooltip2:SetOwner(tooltipFrame, "ANCHOR_NONE");
 				tooltip2:SetPoint("TOPLEFT", fontString2h1, "BOTTOMLEFT", 0, 6);
-				if NS._innerStr then
-					NS.EmuSub_TooltipSetSpellByID_InnerStr(tooltip2, spellTable[curRank + 1]);
-				else
-					tooltip2:SetSpellByID(spellTable[curRank + 1]);
-				end
+				tooltip2:SetSpellByID(spellTable[curRank + 1]);
 				fontString2f2:SetText(tostring(spellTable[curRank + 1]));
 				tooltip2:SetAlpha(0.0);
 
@@ -2155,39 +2034,7 @@ end
 			local name = Ambiguate(sender, 'none');
 			if prefix == ADDON_PREFIX then
 				local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
-				--[[if control_code == ADDON_MSG_QUERY_TALENTS then			--	moved to ala/core.lua
-					if channel == "INSTANCE_CHAT" then
-						local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-						if target ~= NS.CPlayerFullName then
-							return;
-						end
-					end
-					local code = __emulib.GetEncodedPlayerTalentData(MAX_LEVEL);
-					if code then
-						if channel == "INSTANCE_CHAT" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "INSTANCE_CHAT");
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code .. "#" .. sender, "INSTANCE_CHAT");
-						else--if channel == "WHISPER" then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_ADDON_PACK .. __emulib.GetAddonPackData(), "WHISPER", sender);
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY_TALENTS .. code, "WHISPER", sender);
-						end
-					end
-				elseif control_code == ADDON_MSG_QUERY_EQUIPMENTS then
-					if channel == "INSTANCE_CHAT" then
-						local target = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-						if target ~= NS.CPlayerFullName then
-							return;
-						end
-					end
-					local data = __emulib.EncodeEquipmentData();
-					for _, msg in next, data do
-						if channel == "INSTANCE_CHAT" then
-							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg .. "#" .. sender .. "-" .. NS.CRealmName, "INSTANCE_CHAT");
-						else--if channel == "WHISPER" then
-							SendAddonMessage(prefix, ADDON_MSG_REPLY_EQUIPMENTS .. msg, "WHISPER", sender);
-						end
-					end
-				else]]if control_code == ADDON_MSG_REPLY_TALENTS or control_code == ADDON_MSG_REPLY_TALENTS_ then
+				if control_code == ADDON_MSG_REPLY_TALENTS or control_code == ADDON_MSG_REPLY_TALENTS_ then
 					local code = strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1, - 1);
 					if code and code ~= "" then
 						local _1, _2 = strsplit("#", code);
@@ -2289,7 +2136,7 @@ end
 			end
 		end
 		NS.CHAT_MSG_ADDON_LOGGED = NS.CHAT_MSG_ADDON;
-		function NS.Emu_Query(name, realm, mute, force_update)
+		function NS.Emu_Query(name, realm, mute, force_update, talent, equitment)
 			if name then
 				local n, r = strsplit("-", name);
 				if r ~= nil and r ~= "" then
@@ -2305,8 +2152,8 @@ end
 				NS.POPUP_ON_RECV[name] = not mute;
 				local t = time();
 				local counter_expired = NS.PREV_QUERY_SENT_TIME[name] == nil or (t - NS.PREV_QUERY_SENT_TIME[name] > 1);
-				local update_tal = force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_tal == nil or (t - (NS.queryCache[name].time_tal or (-DATA_VALIDITY))) > DATA_VALIDITY));
-				local update_inv = force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_inv == nil or (t - (NS.queryCache[name].time_inv or (-DATA_VALIDITY))) > DATA_VALIDITY));
+				local update_tal = talent ~= false and (force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_tal == nil or (t - (NS.queryCache[name].time_tal or (-DATA_VALIDITY))) > DATA_VALIDITY)));
+				local update_inv = equitment ~= false and (force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_inv == nil or (t - (NS.queryCache[name].time_inv or (-DATA_VALIDITY))) > DATA_VALIDITY)));
 				if update_tal or update_inv then
 					NS.PREV_QUERY_SENT_TIME[name] = t;
 					if UnitInBattleground('player') and realm ~= NS.CRealmName then
@@ -2364,7 +2211,7 @@ end
 				NS.EmuCore_SetData(mainFrame, data);
 			end
 			NS.EmuCore_SetLevel(mainFrame, level);
-			NS.EmuCore_SetReadOnly(mainFrame, readOnly);
+			-- NS.EmuCore_SetReadOnly(mainFrame, readOnly);
 			NS.EmuCore_SetFreeEdit(mainFrame, free_edit);
 			NS.EmuCore_SetName(mainFrame, name);
 
@@ -2378,7 +2225,7 @@ end
 			NS.EmuCore_SetName(mainFrame, nil);
 			NS.EmuCore_SetData(mainFrame, nil);
 			NS.EmuCore_SetLevel(mainFrame, MAX_LEVEL);
-			NS.EmuCore_SetReadOnly(mainFrame, false);
+			-- NS.EmuCore_SetReadOnly(mainFrame, false);
 		end
 		function NS.Emu_ResetToSet(mainFrame)
 			local class = mainFrame.class;
@@ -2397,7 +2244,7 @@ end
 					pcall(TalentFrame_Update);
 				end
 				if NS.GetPiontsReqLevel(mainFrame.totalUsedPoints) > UnitLevel('player') then
-					_error_("CANNOT APPLY : NEED MORE TALENT POINTS.")
+					_error_(L["CANNOT APPLY : NEED MORE TALENT POINTS."])
 					return;
 				end
 				local talentFrames = mainFrame.talentFrames;
@@ -2411,8 +2258,8 @@ end
 							canApply = false;
 							break;
 						end
-						local data = db[id];
-						if tier ~= data[1] + 1 or column ~= data[2] + 1 or maxRank ~= data[4] then
+						local def = db[id];
+						if tier ~= def[1] + 1 or column ~= def[2] + 1 or maxRank ~= def[4] then
 							canApply = false;
 							break;
 						end
@@ -2424,7 +2271,7 @@ end
 				if canApply then
 					NS.processApplyTalents(mainFrame);
 				else
-					_error_("CANNOT APPLY : TALENTS IN CONFLICT.");
+					_error_(L["CANNOT APPLY : TALENTS IN CONFLICT."]);
 				end
 			end
 		end
@@ -2587,25 +2434,6 @@ end
 		function NS.Emu_Menu(parent, mainFrame)
 			if ALADROP then
 				local drop_menu_table = { handler = _noop_, elements = {  }, };
-				if SET.level == 60 then
-					tinsert(drop_menu_table.elements, {
-							handler = function(button)
-								NS.emu_set_config("level", 70);
-							end,
-							para = {  },
-							text = L.level_70,
-						}
-					);
-				else
-					tinsert(drop_menu_table.elements, {
-							handler = function(button)
-								NS.emu_set_config("level", 60);
-							end,
-							para = {  },
-							text = L.level_60,
-						}
-					);
-				end
 				if SET.resizable_border then
 					tinsert(drop_menu_table.elements, {
 							handler = function(button)
@@ -2863,8 +2691,8 @@ end
 			if dbIndex then
 				local talentFrame = icon:GetParent();
 				local db = talentFrame.db;
-				local data = db[dbIndex];
-				if (not data[11]) or (data[11] and talentFrame.talentSet[data[11]] == db[data[11]][4]) then
+				local def = db[dbIndex];
+				if def[11] == nil or talentFrame.talentSet[def[11]] == db[def[11]][4] then
 					NS.EmuSub_ActivateIcon(icon);
 				end
 			end
@@ -2875,15 +2703,15 @@ end
 				local talentFrame = icon:GetParent();
 				local db = talentFrame.db;
 				local talentSet = talentFrame.talentSet;
-				local data = db[dbIndex];
-				if data[1] == 0 then
+				local def = db[dbIndex];
+				if def[1] == 0 then
 					NS.EmuSub_ActivateIcon(icon);
 				end
 				local numPointsLowerTier = 0;
-				for i = data[1] - 1, 0, - 1 do
+				for i = def[1] - 1, 0, - 1 do
 					numPointsLowerTier = numPointsLowerTier + talentSet.totalPerTier[i];
 				end
-				if numPointsLowerTier >= data[1] * NUM_POINTS_NEXT_TIER then
+				if numPointsLowerTier >= def[1] * NUM_POINTS_NEXT_TIER then
 					NS.EmuSub_ActivateIcon(icon);
 				end
 			end
@@ -2925,12 +2753,12 @@ end
 					elseif talentSet[i] > 0 or db[i][1] == 0 then
 						NS.EmuSub_SetIconTextColor_Available(icons[NS.EmuSub_GetIconIndex(db[i])]);
 					else
-						local data = db[i];
+						local def = db[i];
 						local numPointsLowerTier = 0;
-						for j = data[1] - 1, 0, - 1 do
+						for j = def[1] - 1, 0, - 1 do
 							numPointsLowerTier = numPointsLowerTier + talentSet.totalPerTier[j];
 						end
-						if numPointsLowerTier >= data[1] * NUM_POINTS_NEXT_TIER then
+						if numPointsLowerTier >= def[1] * NUM_POINTS_NEXT_TIER then
 							NS.EmuSub_ActivateIcon_RecheckReq(icons[NS.EmuSub_GetIconIndex(db[i])]);
 						end
 					end
@@ -3525,8 +3353,8 @@ end
 		function NS.Emu_SetTooltip(icon)
 			local talentFrame = icon:GetParent();
 			local dbIndex = icon.dbIndex;
-			local data = talentFrame.db[dbIndex];
-			NS.EmuSub_TooltipSetTalent(NS.tooltipFrame, icon, talentFrame.specId, data[1] * 5, talentFrame.talentSet.total, data[8], talentFrame.talentSet[dbIndex], data[4]);
+			local def = talentFrame.db[dbIndex];
+			NS.EmuSub_TooltipSetTalent(NS.tooltipFrame, icon, talentFrame.specId, def[1] * 5, talentFrame.talentSet.total, def[8], talentFrame.talentSet[dbIndex], def[4]);
 		end
 		function NS.Emu_TooltipHide(icon)
 			local tooltipFrame = NS.tooltipFrame;
@@ -3728,7 +3556,7 @@ end
 			local mainFrame = talentFrame:GetParent();
 			local specIndex = talentFrame.id;
 			NS.EmuCore_ResetTalentAllSingleTab(mainFrame, specIndex);
-			NS.EmuCore_SetReadOnly(mainFrame, false);
+			-- NS.EmuCore_SetReadOnly(mainFrame, false);
 		end
 		function NS.CreateTalentFrames(mainFrame)
 			local talentFrames = {  };
@@ -3879,21 +3707,33 @@ end
 					objects.curClassIndicator:SetPoint("CENTER", mainFrame.classButtons[_classToIndex[mainFrame.class]]);
 				end
 			elseif button == "RightButton" then
-				local preset = _PRESET[self.class];
-				if preset and #preset > 0 then
-					local menu = {
-						handler = function(button, code)
-							NS.Emu_Set(self.mainFrame, self.class, code, MAX_LEVEL, false);
-						end;
-						elements = {  },
-					};
-					for i = 1, #preset do
-						tinsert(menu.elements, {
-							para = { preset[i].code, },
-							text = preset[i].title,
-						})
+				local class = self.class;
+				--	__emulib.GetClass
+				if next(VAR.savedTalent) == nil then
+					return;
+				end
+				local mainFrame = self.mainFrame;
+				local drop_menu_table = {
+					handler = function(button, title, code)
+						if IsShiftKeyDown() then
+							VAR.savedTalent[title] = nil;
+						else
+							NS.Emu_Import(mainFrame, code);
+						end
+					end,
+					elements = {  },
+				};
+				for title, code in next, VAR.savedTalent do
+					if __emulib.GetClass(code) == class then
+						tinsert(drop_menu_table.elements, {
+								para = { title, code, },
+								text = title,
+							}
+						);
 					end
-					ALADROP(self, "TOPRIGHT", menu);
+				end
+				if drop_menu_table.elements[1] ~= nil then
+					ALADROP(self, "TOPRIGHT", drop_menu_table);
 				end
 			end
 		end
@@ -3908,7 +3748,7 @@ end
 		end
 		local function resetAllButton_OnClick(self)
 			NS.EmuCore_ResetTalentAll(self:GetParent());
-			NS.EmuCore_SetReadOnly(self:GetParent(), false);
+			-- NS.EmuCore_SetReadOnly(self:GetParent(), false);
 		end
 		--	side
 		local function spellTabButton_OnClick(self)
@@ -3940,7 +3780,7 @@ end
 			timeout = 0,
 			whileDead = true,
 			hideOnEscape = true,
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			preferredIndex = 1,
 		};
 		local function applyTalentsButton_OnClick(self)
 			if UnitLevel('player') >= 10 then
@@ -4156,10 +3996,12 @@ end
 				readOnlyButton:SetSize(ui_style.controlButtonSize, ui_style.controlButtonSize);
 				readOnlyButton:SetNormalTexture(TEXTURE_SET.LOCK);
 				readOnlyButton:GetNormalTexture():SetVertexColor(TEXTURE_SET.LOCK_UNLOCKED_COLOR[1], TEXTURE_SET.LOCK_UNLOCKED_COLOR[2], TEXTURE_SET.LOCK_UNLOCKED_COLOR[3], TEXTURE_SET.LOCK_UNLOCKED_COLOR[4]);
+				-- readOnlyButton:GetNormalTexture():SetVertexColor(TEXTURE_SET.LOCK_NORMAL_COLOR[1], TEXTURE_SET.LOCK_NORMAL_COLOR[2], TEXTURE_SET.LOCK_NORMAL_COLOR[3], TEXTURE_SET.LOCK_NORMAL_COLOR[4]);
 				readOnlyButton:SetPushedTexture(TEXTURE_SET.LOCK);
 				readOnlyButton:GetPushedTexture():SetVertexColor(TEXTURE_SET.CONTROL_PUSHED_COLOR[1], TEXTURE_SET.CONTROL_PUSHED_COLOR[2], TEXTURE_SET.CONTROL_PUSHED_COLOR[3], TEXTURE_SET.CONTROL_PUSHED_COLOR[4]);
-				readOnlyButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
-				readOnlyButton:SetPoint("TOPLEFT", mainFrame, (ui_style.mainFrameHeaderYSize - ui_style.controlButtonSize) * 0.5, - (ui_style.mainFrameHeaderYSize - ui_style.controlButtonSize) * 0.5);
+				readOnlyButton:SetHighlightTexture(TEXTURE_SET.LOCK);
+				readOnlyButton:GetHighlightTexture():SetVertexColor(TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[1], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[2], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[3], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[4]);
+				readOnlyButton:SetPoint("CENTER", mainFrame, "TOPLEFT", ui_style.mainFrameHeaderYSize * 0.5, -ui_style.mainFrameHeaderYSize * 0.5);
 				readOnlyButton:Show();
 				readOnlyButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
 				readOnlyButton:SetScript("OnClick", readOnlyButton_OnClick);
@@ -4172,11 +4014,14 @@ end
 				closeButton:SetSize(ui_style.controlButtonSize, ui_style.controlButtonSize);
 				closeButton:SetNormalTexture(TEXTURE_SET.CLOSE);
 				closeButton:GetNormalTexture():SetTexCoord(TEXTURE_SET.CLOSE_COORD[1], TEXTURE_SET.CLOSE_COORD[2], TEXTURE_SET.CLOSE_COORD[3], TEXTURE_SET.CLOSE_COORD[4]);
+				closeButton:GetNormalTexture():SetVertexColor(TEXTURE_SET.CLOSE_NORMAL_COLOR[1], TEXTURE_SET.CLOSE_NORMAL_COLOR[2], TEXTURE_SET.CLOSE_NORMAL_COLOR[3], TEXTURE_SET.CLOSE_NORMAL_COLOR[4]);
 				closeButton:SetPushedTexture(TEXTURE_SET.CLOSE);
 				closeButton:GetPushedTexture():SetTexCoord(TEXTURE_SET.CLOSE_COORD[1], TEXTURE_SET.CLOSE_COORD[2], TEXTURE_SET.CLOSE_COORD[3], TEXTURE_SET.CLOSE_COORD[4]);
 				closeButton:GetPushedTexture():SetVertexColor(TEXTURE_SET.CONTROL_PUSHED_COLOR[1], TEXTURE_SET.CONTROL_PUSHED_COLOR[2], TEXTURE_SET.CONTROL_PUSHED_COLOR[3], TEXTURE_SET.CONTROL_PUSHED_COLOR[4]);
-				closeButton:SetHighlightTexture(TEXTURE_SET.NORMAL_HIGHLIGHT);
-				closeButton:SetPoint("TOPRIGHT", - (ui_style.mainFrameHeaderYSize - ui_style.controlButtonSize) * 0.5, - (ui_style.mainFrameHeaderYSize - ui_style.controlButtonSize) * 0.5);
+				closeButton:SetHighlightTexture(TEXTURE_SET.CLOSE);
+				closeButton:GetHighlightTexture():SetTexCoord(TEXTURE_SET.CLOSE_COORD[1], TEXTURE_SET.CLOSE_COORD[2], TEXTURE_SET.CLOSE_COORD[3], TEXTURE_SET.CLOSE_COORD[4]);
+				closeButton:GetHighlightTexture():SetVertexColor(TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[1], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[2], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[3], TEXTURE_SET.CONTROL_HIGHLIGHT_COLOR[4]);
+				closeButton:SetPoint("CENTER", mainFrame, "TOPRIGHT", - ui_style.mainFrameHeaderYSize * 0.5, -ui_style.mainFrameHeaderYSize * 0.5);
 				closeButton:Show();
 				closeButton:SetScript("OnClick", function(self, button)
 						mainFrame:Hide();
@@ -4447,9 +4292,6 @@ end
 					applyTalentsButton.information = L.applyTalentsButton;
 					applyTalentsButton.mainFrame = mainFrame;
 					mainFrame.applyTalentsButton = applyTalentsButton;
-					if NS.defaultLevel ~= SET.level then
-						applyTalentsButton:Hide();
-					end
 
 					local editBox = CreateFrame("EDITBOX", nil, mainFrame);
 					editBox:SetSize(ui_style.editBoxXSize, ui_style.editBoxYSize);
@@ -4739,7 +4581,7 @@ end
 			NS.EmuCore_SetLevel(mainFrame, nil);
 			NS.EmuCore_SetClass(mainFrame, NS.CPlayerClassUpper);
 			NS.EmuCore_SetData(mainFrame, nil);
-			NS.EmuCore_SetReadOnly(mainFrame, false);
+			-- NS.EmuCore_SetReadOnly(mainFrame, false);
 			mainFrame.initialized = false;
 
 			NS.mainFrameSetStyle(mainFrame, SET.style);
@@ -6105,7 +5947,7 @@ do	--	tooltip unit talents
 			local _, unit = tip:GetUnit();
 			if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == NS.CPlayerFactionGroup then
 				local name, realm = UnitName(unit);
-				NS.Emu_Query(name, realm, true);
+				NS.Emu_Query(name, realm, true, nil, nil, false);
 			end
 		end
 	end
@@ -6122,9 +5964,9 @@ do	-- initialize
 	function NS.DB_PreLoad(_talentDB)	--	unnecessary
 		for _, DB in next, _talentDB do
 			for _, db in next, DB do
-				for dataIndex, data in next, db do
-					for i = 1, #data[8] do
-						C_Spell.RequestLoadSpellData(data[8][i]);
+				for dbIndex, def in next, db do
+					for i = 1, #def[8] do
+						C_Spell.RequestLoadSpellData(def[8][i]);
 					end
 				end
 			end
@@ -6143,22 +5985,22 @@ do	-- initialize
 		--tier, col, id, maxPoint, reqTier, reqCol, reqId, Spell[5], texture, icon-index, req-index[] in db, { req-by-index } in db
 		for _, DB in next, _talentDB do
 			for _, db in next, DB do
-				for dataIndex, data in next, db do
-					data[10] = data[1] * MAX_NUM_COL + data[2] + 1;
-					if data[5] and data[6] then
+				for dbIndex, def in next, db do
+					def[10] = def[1] * MAX_NUM_COL + def[2] + 1;
+					if def[5] and def[6] then
 						for pIndex, p in next, db do
-							if p[1] == data[5] and p[2] == data[6] then
-								data[11] = pIndex;
+							if p[1] == def[5] and p[2] == def[6] then
+								def[11] = pIndex;
 								if p[12] then
-									tinsert(p[12], dataIndex);
+									tinsert(p[12], dbIndex);
 								else
-									p[12] = { dataIndex, };
+									p[12] = { dbIndex, };
 								end
 								break;
 							end
 						end
-						if not data[11] then
-							_log_("DB_PreProc", 1, "req of ", data[1], data[2], data[5], data[6], "missing");
+						if not def[11] then
+							_log_("DB_PreProc", 1, "req of ", def[1], def[2], def[5], def[6], "missing");
 						end
 					end
 				end
@@ -6216,10 +6058,10 @@ do	-- initialize
 						if v.requireIndex then
 							break;
 						end
-						for index, data in next, db do
-							if data[8][1] == rid then
+						for dbIndex, def in next, db do
+							if def[8][1] == rid then
 								v.requireSpecIndex = specIndex;
-								v.requireIndex = index;
+								v.requireIndex = dbIndex;
 								break;
 							end
 						end
@@ -6242,18 +6084,6 @@ do	-- initialize
 	end
 
 	local function init()
-		NS._innerStr = NS.defaultLevel ~= (SET.level or 60);
-		local DATA = NS[SET.level or 60];
-		MAX_NUM_TIER = DATA.MAX_NUM_TIER;
-		MAX_NUM_COL = DATA.MAX_NUM_COL;
-		MAX_NUM_TALENTS = DATA.MAX_NUM_TALENTS;
-		MAX_LEVEL = DATA.MAX_LEVEL;
-		MAX_NUM_ICONS_PER_SPEC = MAX_NUM_TIER * MAX_NUM_COL;
-		_talentDB = DATA._talentDB;
-		_spellDB = DATA._spellDB_P;
-		_talentSpellData = DATA._talentSpellData;
-		_talentStr = DATA._talentStr;
-		_preset_talent = DATA._preset_talent;
 		ui_style.talentFrameXSizeSingle = ui_style.talentIconSize * MAX_NUM_COL + ui_style.talentIconXGap * (MAX_NUM_COL - 1) + ui_style.talentIconXToBorder * 2;
 		ui_style.talentFrameXSizeTriple = ui_style.talentFrameXSizeSingle * 3;
 		ui_style.talentFrameYSize = ui_style.talentFrameHeaderYSize + ui_style.talentIconYToTop + ui_style.talentIconSize * MAX_NUM_TIER + ui_style.talentIconYGap * (MAX_NUM_TIER - 1) + ui_style.talentIconYToBottom+ ui_style.talentFrameFooterYSize;
@@ -6359,9 +6189,9 @@ do	-- initialize
 		C_Timer.After(8.0, function() NS.DB_PreLoad(_talentDB); end);
 		-- C_Timer.After(2.0, function()
 		-- 	if GetLocale() == 'zhCN' or GetLocale() == 'zhTW' then
-		-- 		print([[|cff00ff00alaTalentEmu|r增加70级天赋预览，点击左上角|TInterface\AddOns\alaTalentEmu\ARTWORK\minimap_shield_elite:24|t切换70级预览版本【将自动重载界面】]]);
+		-- 		print([[|cff00ff00alaTalentEmu|r增加70级天赋预览，点击左上角|TInterface\AddOns\alaTalentEmu\ARTWORK\Config:24|t切换70级预览版本【将自动重载界面】]]);
 		-- 	else
-		-- 		print([[Preview talents of tbc in |cff00ff00alaTalentEmu|r! Click the |TInterface\AddOns\alaTalentEmu\ARTWORK\minimap_shield_elite:24|t icon on the topleft]]);
+		-- 		print([[Preview talents of tbc in |cff00ff00alaTalentEmu|r! Click the |TInterface\AddOns\alaTalentEmu\ARTWORK\Config:24|t icon on the topleft]]);
 		-- 	end
 		-- end);
 	end
@@ -6402,13 +6232,11 @@ do	-- initialize
 				alaTalentEmuSV._version = 200615.0;
 			end
 			if alaTalentEmuSV._version < 210524.0 then
-				alaTalentEmuSV.set.level = NS.defaultLevel;
 				alaTalentEmuSV._version = 210524.0;
 			end
 		else
 			_G.alaTalentEmuSV = {
 				set = {
-					level = NS.defaultLevel,
 				},
 				var = {
 					savedTalent = {  },
@@ -6427,7 +6255,7 @@ do	-- initialize
 	function NS.PLAYER_ENTERING_WORLD()
 		_EventHandler:UnregEvent("PLAYER_ENTERING_WORLD");
 		if not NS.initialized then
-			NS.defaultLevel = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
+			NS.MAXLEVEL = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
 			modify_saved_var();
 			local _, tag = BNGetInfo();
 			SET.supreme = not not __ala_meta__.supreme[tag];
@@ -6519,11 +6347,11 @@ do	-- SLASH and _G
 					local db = DB[specId];
 					if db then
 						for i = 1, #db do
-							local data = db[i];
+							local def = db[i];
 							for j = 1, 5 do
-								if data[8][j] then
-									if data[8][j] == spellId then
-										return class, specIndex, specId, i, data[1], data[2], j;
+								if def[8][j] then
+									if def[8][j] == spellId then
+										return class, specIndex, specId, i, def[1], def[2], j;
 									end
 								else
 									break;
@@ -6536,11 +6364,11 @@ do	-- SLASH and _G
 						local specId = talentRef[specIndex];
 						local db = DB[specId];
 						for i = 1, #db do
-							local data = db[i];
+							local def = db[i];
 							for j = 1, 5 do
-								if data[8][j] then
-									if data[8][j] == spellId then
-										return class, specIndex, specId, i, data[1], data[2], j;
+								if def[8][j] then
+									if def[8][j] == spellId then
+										return class, specIndex, specId, i, def[1], def[2], j;
 									end
 								else
 									break;
@@ -6558,11 +6386,11 @@ do	-- SLASH and _G
 					local specId = talentRef[specIndex];
 					local db = DB[specId];
 					for i = 1, #db do
-						local data = db[i];
+						local def = db[i];
 						for j = 1, 5 do
-							if data[8][j] then
-								if data[8][j] == spellId then
-									return c, specIndex, specId, i, data[1], data[2], j;
+							if def[8][j] then
+								if def[8][j] == spellId then
+									return c, specIndex, specId, i, def[1], def[2], j;
 								end
 							else
 								break;
@@ -6590,12 +6418,12 @@ do	-- SLASH and _G
 					if specIndex then
 						local index = _classTab[class][specIndex];
 						if DB[index] then
-							local data = DB[index][id];
-							if data then
+							local def = DB[index][id];
+							if def then
 								if not level or level <= 0 or level > 5 then
 									level = 1;
 								end
-								return data[8][level];
+								return def[8][level];
 							end
 						end
 					end
@@ -6608,17 +6436,7 @@ end
 
 -->		<misc
 	function NS.emu_set_config(key, value)
-		if key == "level" then
-			value = tonumber(value);
-			if value ~= nil and NS[value] then
-				SET[key] = value;
-				ReloadUI();
-			else
-				print("|cffff0000Invalid Param");
-			end
-		else
-			SET[key] = value;
-		end
+		SET[key] = value;
 		local func = NS.callback[key];
 		if func then
 			func(value);
@@ -7077,5 +6895,3 @@ if select(2, GetAddOnInfo('\33\33\33\49\54\51\85\73\33\33\33')) then
 	_G._163_ALAEMU_SETCONFIG = NS.emu_set_config;
 	_G._163_ALAEMU_GETCONFIG = NS.emu_get_config;
 end
-
--- NS.emu_set_config("show_equipment", true);		-- experimental, default disabled

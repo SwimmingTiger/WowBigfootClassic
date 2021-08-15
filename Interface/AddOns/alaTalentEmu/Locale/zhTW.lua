@@ -40,7 +40,7 @@ L.resetToSetButton = "重置到初始狀態";
 L.readOnlyButton = "\124cff00ff00點擊\124r設置";
 L.closeButton = "關閉窗體";
 
-L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00";
+L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除保存的天赋";
 L.inspectTargetButton = "觀察目標天賦";
 L.spellTabButton = "技能列表窗口";
 L.spellAvailable = "\124cff00ff00技能可用\124r";
@@ -50,8 +50,8 @@ L.applyTalentsButton = "應用當前天賦仿真";
 L.applyTalentsButton_Notify = "确定應用當前天賦吗？";
 L.importButton = "導入字符串或wowhead/nfu/yxrank链接";
 L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右鍵\124r导出到\124cffff0000wowhead/nfu/yxrank\124r网页链接";
-L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右鍵\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
-L.sendButton = "\124cff00ff00左键\124r点击发送天赋到聊天\n\124cff00ff00右键\124r点击查看最近聊天中的天赋";
+L.saveButton = "\124cff00ff00左键\124r保存天赋设置\n\124cff00ff00右鍵\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
+L.sendButton = "\124cff00ff00左键\124r发送天赋到聊天\n\124cff00ff00右键\124r查看最近聊天中的天赋";
 L.equipmentButton = "打开装备查看";
 
 L.TalentFrameCallButton = "開啓ala天賦仿真器";
@@ -196,3 +196,6 @@ L.CASTINGTIME = "%d sec cast";
 L.CASTINGTIMEINSTANT = "instant";
 L.CDSECOND = "%d sec cd";
 L.CDMINUTE = "%d min cd";
+
+L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "无法应用天赋: 需要更多天赋点数";
+L["CANNOT APPLY : TALENTS IN CONFLICT."] = "无法应用天赋: 跟当前天赋存在冲突";
