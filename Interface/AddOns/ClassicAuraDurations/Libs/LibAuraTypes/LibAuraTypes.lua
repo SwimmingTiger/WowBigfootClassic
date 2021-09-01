@@ -5,7 +5,7 @@ Description: Provides aura classification and priority
 --]================]
 
 
-local MAJOR, MINOR = "LibAuraTypes", 28
+local MAJOR, MINOR = "LibAuraTypes", 29
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
 
@@ -833,7 +833,7 @@ A( 5116 ,{ SLOW, effect = E_SLOW }) -- Concussive Shot
 A( 19410,{ STUN, effect = E_STUN }) -- Concussive Shot Stun
 A({ 1130, 14323, 14324, 14325 },  DAMAGE_VULNERABILITY) -- Hunter's Mark
 A( 3045 , DAMAGE_INCREASE) -- Rapid Fire
--- A( 19574 , DAMAGE_INCREASE) -- Bestial Wrath
+A( 19574 , DAMAGE_INCREASE) -- Bestial Wrath
 A( 19263 , DAMAGE_REDUCTION) -- Deterrence
 A( 13810,{ SLOW, effect = E_SLOW }) -- Frost Trap Aura
 A({ 3355, 14308, 14309 },  CROWD_CONTROL) -- Freezing Trap
@@ -933,7 +933,7 @@ A({ 1715, 7372, 7373 }, { SLOW, effect = E_SLOW }) -- Hamstring
 A( 23694, { ROOT, effect = E_ROOT }) -- Improved Hamstring
 A( 12323, { SLOW, effect = E_SLOW }) -- Piercing Howl
 -- Thunder Clap?
-A( 18499,  EFFECT_IMMUNITY) -- Berserker Rage
+A( 18499, { EFFECT_IMMUNITY, FEAR_IMMUNITY }) -- Berserker Rage
 A({ 20253, 20614, 20615 }, { STUN, effect = E_STUN }) -- Intercept Stun
 A({ 5246, 20511 }, { CROWD_CONTROL, effect = E_FEAR }) -- Intimidating Shout
 A( 676, { DAMAGE_DECREASE, effect = E_DISARM }) -- Disarm
@@ -1017,6 +1017,7 @@ A({ 2983, 8696, 11305 },  SPEED_BOOST) -- Sprint
 A({ 5277, 26669 }, DAMAGE_REDUCTION2) -- Evasion
 A({ 1776, 1777, 8629, 11285, 11286, 38764 }, { INCAP, effect = E_INCAP }) -- Gouge
 A({ 3409, 11201 }, { HEAVY_SLOW, effect = E_SLOW })
+A( 31224 , SPELL_IMMUNITY) -- Cloak of Shadows
 A( 14251 , DAMAGE_DECREASE) -- Riposte (Disarm)
 A( 14278 , DAMAGE_REDUCTION) -- Ghostly Strike
 A( 1330 , { SILENCE, effect = E_SILENCE }) -- Garrote Silence
@@ -1029,12 +1030,12 @@ A( 18498, { SILENCE, effect = E_SILENCE }) -- Improved Shield Bash
 A( 20230 , PHYSICAL_IMMUNITY) -- Retaliation
 A( 1719 , { DAMAGE_INCREASE2, FEAR_IMMUNITY }) -- Recklessness, Fear immunity, Damage Vuln
 A( 871,  DAMAGE_REDUCTION2) -- Shield Wall
-A( 12328, { DAMAGE_INCREASE, FEAR_IMMUNITY }) -- Death Wish, Fear immunity
+A( 12292, { DAMAGE_INCREASE, FEAR_IMMUNITY }) -- Death Wish, Fear immunity
 A({ 1715, 7372, 7373, 25212 }, { SLOW, effect = E_SLOW }) -- Hamstring
 A( 23694, { ROOT, effect = E_ROOT }) -- Improved Hamstring
 A( 12323, { SLOW, effect = E_SLOW }) -- Piercing Howl
 -- Thunder Clap?
-A( 18499,  EFFECT_IMMUNITY) -- Berserker Rage, (Fear/Incap)
+A( 18499, { EFFECT_IMMUNITY, FEAR_IMMUNITY }) -- Berserker Rage, (Fear/Incap)
 A({ 20253, 20614, 20615, 25273, 25274 }, { STUN, effect = E_STUN }) -- Intercept Stun
 A({ 5246, 20511 }, { CROWD_CONTROL, effect = E_FEAR }) -- Intimidating Shout
 A( 676, { DAMAGE_DECREASE, effect = E_DISARM }) -- Disarm
@@ -1055,7 +1056,7 @@ A( 5116 ,{ SLOW, effect = E_SLOW }) -- Concussive Shot
 A( 19410,{ STUN, effect = E_STUN }) -- Concussive Shot Stun
 A({ 1130, 14323, 14324, 14325 },  DAMAGE_VULNERABILITY) -- Hunter's Mark
 A( 3045 , DAMAGE_INCREASE) -- Rapid Fire
--- A( 19574 , DAMAGE_INCREASE) -- Bestial Wrath
+A( 19574 , { FEAR_IMMUNITY, DAMAGE_INCREASE2 }) -- Bestial Wrath
 A( 19263 , DAMAGE_REDUCTION) -- Deterrence
 A( 13810,{ SLOW, effect = E_SLOW }) -- Frost Trap Aura
 A({ 3355, 14308, 14309 }, { CROWD_CONTROL, effect = E_INCAP }) -- Freezing Trap
@@ -1111,8 +1112,10 @@ A({ 1022, 5599, 10278 },  PHYSICAL_IMMUNITY) -- Blessing of Protection
 A({ 498, 5573, 642, 1020 },  IMMUNITY) -- Divine Shield
 A({ 853, 5588, 5589, 10308 }, { STUN, effect = E_STUN }) -- Hammer of Justice
 A( 1044 , SPEED_BOOST) -- Blessing of Freedom
+A( 31842 , DAMAGE_INCREASE) -- Divine Illumination
+A( 31884 , DAMAGE_INCREASE2) -- Avenging Wrath
 A( 20066 , { INCAP, effect = E_INCAP }) -- Repentance
-A( 20170 , { STUN, effect = E_STUN }) -- Seal of Justice stun
+A( 20170 , { STUN, effect = E_STUN }) -- Seal of Justice stun (from both ranks)
 
 end
 
