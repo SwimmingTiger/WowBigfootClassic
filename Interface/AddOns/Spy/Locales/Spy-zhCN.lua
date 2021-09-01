@@ -434,7 +434,7 @@ Spy_KOSReasonList = {
 }
  
 StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
-    preferredIndex=STATICPOPUPS_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
+    preferredIndex=STATICPOPUP_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
     text = "输入 %s 的KOS原因:",
     button1 = "设置",
     button2 = "取消",

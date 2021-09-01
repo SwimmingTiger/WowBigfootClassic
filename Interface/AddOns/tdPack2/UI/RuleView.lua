@@ -39,6 +39,7 @@ local DIALOG = {
         tremove(parent, index)
         self:OnListChanged()
     end,
+    preferredIndex = STATICPOPUP_NUMDIALOGS,
 }
 
 StaticPopupDialogs['TDPACK2_DELETE_RULES'] = DIALOG

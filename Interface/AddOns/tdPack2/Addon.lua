@@ -132,6 +132,7 @@ function Addon:UpgradeRules()
                             self:ResetRules(ns.SORT_TYPE.SORTING)
                             self:ResetRules(ns.SORT_TYPE.SAVING)
                         end,
+                        preferredIndex = STATICPOPUP_NUMDIALOGS,
                     }
                 end
 
