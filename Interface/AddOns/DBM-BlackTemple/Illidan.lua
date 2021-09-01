@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Illidan", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(22917)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 609 or 2481)
+mod:SetEncounterID(609, 2481)
 mod:SetModelID(21135)
 mod:SetUsedIcons(8)
 

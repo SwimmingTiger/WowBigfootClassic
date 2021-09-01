@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Rage", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(17767)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 618 or 2468)
+mod:SetEncounterID(618, 2468)
 mod:SetModelID(17444)
 mod:SetUsedIcons(8)
 

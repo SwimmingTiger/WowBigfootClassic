@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210809020557")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(21216)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 623 or 2458)
+mod:SetEncounterID(623, 2458)
 mod:SetModelID(20162)
 
 mod:RegisterCombat("combat")

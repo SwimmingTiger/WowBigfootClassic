@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ysondre", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210611232013")
+mod:SetRevision("20210813165936")
 mod:SetCreatureID(14887)--121912 TW ID, 14887 classic ID
 --mod:SetModelID(17887)
 mod:EnableWBEngageSync()--Enable syncing engage in outdoors
@@ -17,13 +17,13 @@ mod:RegisterEventsInCombat(
 
 --TODO, maybe taunt special warnings for classic version when it matters more.
 local warnNoxiousBreath			= mod:NewStackAnnounce(24818, 2, nil, "Tank", 2)
---local warningLightningWave		= mod:NewSpellAnnounce(24819, 3)
+local warningLightningWave		= mod:NewSpellAnnounce(24819, 3)
 
 local specWarnSleepingFog		= mod:NewSpecialWarningDodge(24814, nil, nil, nil, 2, 2)
 
 --local timerNoxiousBreathCD		= mod:NewCDTimer(19.4, 24818, nil, "Tank", nil, 5, nil, DBM_CORE_L.TANK_ICON)--Iffy
 local timerSleepingFogCD		= mod:NewCDTimer(16.0, 24814, nil, nil, nil, 3)
---local timerLightningWaveCD		= mod:NewCDTimer(13.4, 24819, nil, nil, nil, 3)
+local timerLightningWaveCD		= mod:NewCDTimer(13.4, 24819, nil, nil, nil, 3)
 
 --mod:AddReadyCheckOption(48620, false)
 
@@ -66,8 +66,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 --Probably won't work in classic, unit_spellcast events disabled there for all but "player"
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if spellId == 24819 and self:AntiSpam(5, 2) then--Lightning Wave
-		DBM:AddMsg("UNIT_SPELLCAST_SUCCEEDED is working on this boss, tell DBM author")
-		--warningLightningWave:Show()
-		--timerLightningWaveCD:Start()
+		warningLightningWave:Show()
+		timerLightningWaveCD:Start()
 	end
 end

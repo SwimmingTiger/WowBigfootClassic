@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Muru", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(25741)--25741 Muru, 25840 Entropius
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 728 or 2492)
+mod:SetEncounterID(728, 2492)
 mod:SetModelID(23404)
 
 mod:RegisterCombat("combat")

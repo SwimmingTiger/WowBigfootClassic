@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Anetheron", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(17808)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 619 or 2469)
+mod:SetEncounterID(619, 2469)
 mod:SetModelID(21069)
 
 mod:RegisterCombat("combat")

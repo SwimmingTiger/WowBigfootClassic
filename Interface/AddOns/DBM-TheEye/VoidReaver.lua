@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("VoidReaver", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(19516)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 731 or 2465)
+mod:SetEncounterID(731, 2465)
 mod:SetModelID(18951)
 
 mod:RegisterCombat("combat")

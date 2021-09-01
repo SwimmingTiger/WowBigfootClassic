@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("NightbaneRaid", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623164018")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(17225)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 662 or 2454)
+mod:SetEncounterID(662, 2454)
 mod:SetModelID(18062)
 mod:RegisterCombat("combat")
 

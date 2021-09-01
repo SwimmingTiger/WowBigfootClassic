@@ -1,8 +1,12 @@
-## Interface: 20501
+## Interface: 20502
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Mount Hyjal|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0하이잘 정상|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Die Schlacht um den Hyjal|r
+## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0La Batalla del Monte Hyjal|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0海加尔山之战|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0海加爾山之戰|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Битва за гору Хиджал|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMHyjal_AllSavedVars
@@ -17,13 +21,15 @@
 ## X-DBM-Mod-MinExpansion: 1
 ## X-Curse-Project-ID: 16442
 ## X-WoWI-ID: 11700
-## Version: 2.5.9
-## X-Revision: BigFoot
+## Version: 2.5.11
 
 localization.en.lua
+localization.de.lua
 localization.cn.lua
 localization.tw.lua
-
+localization.ru.lua
+localization.es.lua
+localization.kr.lua
 RageWinterchill.lua
 Anetheron.lua
 Kazrogal.lua

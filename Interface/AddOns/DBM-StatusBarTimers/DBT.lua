@@ -1,5 +1,6 @@
 DBT = {
-	bars = {}
+	bars = {},
+	numBars = 0
 }
 local DBT = DBT
 
@@ -86,6 +87,7 @@ DBT.DefaultOptions = {
 	ExpandUpwards = false,
 	FillUpBars = true,
 	TimerPoint = "TOPRIGHT",
+	Sort = "Sort",
 	-- Huge bar
 	EnlargeBarTime = 11,
 	HugeBarXOffset = 0,
@@ -100,6 +102,7 @@ DBT.DefaultOptions = {
 	FillUpLargeBars = true,
 	HugeBarsEnabled = true,
 	HugeTimerPoint = "CENTER",
+	HugeSort = "Sort",
 	-- Misc
 	TextColorR = 1,
 	TextColorG = 1,
@@ -108,7 +111,6 @@ DBT.DefaultOptions = {
 	FontSize = 10,
 	FlashBar = false,
 	Spark = true,
-	Sort = "Sort",
 	ColorByType = true,
 	NoBarFade = false,
 	InlineIcons = true,
@@ -127,7 +129,7 @@ DBT.DefaultOptions = {
 	Skin = ""
 }
 
-local barPrototype, unusedBars, unusedBarObjects, barIsAnimating = {}, {}, {}, false
+local barPrototype, unusedBarObjects, barIsAnimating = {}, {}, false
 local smallBars, largeBars = {}, {}
 
 local smallBarsAnchor, largeBarsAnchor = CreateFrame("Frame", nil, UIParent), CreateFrame("Frame", nil, UIParent)
@@ -200,47 +202,42 @@ do
 	local fCounter = 1
 
 	local function createBarFrame(self)
-		local frame
-		if #unusedBars > 0 then
-			frame = unusedBars[#unusedBars]
-			unusedBars[#unusedBars] = nil
-		else
-			frame = CreateFrame("Frame", "DBT_Bar_" .. fCounter, smallBarsAnchor)
-			frame:SetSize(195, 20)
-			frame:SetScript("OnUpdate", onUpdate)
-			frame:SetScript("OnMouseDown", onMouseDown)
-			frame:SetScript("OnMouseUp", onMouseUp)
-			frame:SetScript("OnHide", onHide)
-			local bar = CreateFrame("StatusBar", "$parentBar", frame)
-			bar:SetPoint("CENTER", frame, "CENTER")
-			bar:SetSize(195, 20)
-			bar:SetMinMaxValues(0, 1)
-			bar:SetStatusBarTexture(self.Options.Texture)
-			bar:SetStatusBarColor(1, 0.7, 0)
-			local background = bar:CreateTexture(nil, "BACKGROUND")
-			background:SetAllPoints()
-			background:SetColorTexture(0, 0, 0, 0.3)
-			local spark = bar:CreateTexture("$parentSpark", "OVERLAY")
-			spark:SetPoint("CENTER", bar, "CENTER")
-			spark:SetSize(32, 64)
-			spark:SetTexture("Interface\\AddOns\\DBM-Core\\textures\\Spark.blp")
-			spark:SetBlendMode("ADD")
-			local timer = bar:CreateFontString("$parentTimer", "OVERLAY", "GameFontHighlightSmall")
-			timer:SetPoint("RIGHT", bar, "RIGHT", -1, 0.5)
-			local name = bar:CreateFontString("$parentName", "OVERLAY", "GameFontHighlightSmall")
-			name:SetPoint("LEFT", bar, "LEFT", 7, 0.5)
-			name:SetPoint("RIGHT", timer, "LEFT", -7, 0)
-			name:SetWordWrap(false)
-			name:SetJustifyH("LEFT")
-			local icon1 = bar:CreateTexture("$parentIcon1", "OVERLAY")
-			icon1:SetPoint("RIGHT", bar, "LEFT")
-			icon1:SetSize(20, 20)
-			local icon2 = bar:CreateTexture("$parentIcon2", "OVERLAY")
-			icon2:SetPoint("LEFT", bar, "RIGHT")
-			icon2:SetSize(20, 20)
+		local frame = CreateFrame("Frame", "DBT_Bar_" .. fCounter, smallBarsAnchor)
+		frame:SetSize(195, 20)
+		frame:SetScript("OnUpdate", onUpdate)
+		frame:SetScript("OnMouseDown", onMouseDown)
+		frame:SetScript("OnMouseUp", onMouseUp)
+		frame:SetScript("OnHide", onHide)
+		local bar = CreateFrame("StatusBar", "$parentBar", frame)
+		bar:SetPoint("CENTER", frame, "CENTER")
+		bar:SetSize(195, 20)
+		bar:SetMinMaxValues(0, 1)
+		bar:SetStatusBarTexture(self.Options.Texture)
+		bar:SetStatusBarColor(1, 0.7, 0)
+		local background = bar:CreateTexture(nil, "BACKGROUND")
+		background:SetAllPoints()
+		background:SetColorTexture(0, 0, 0, 0.3)
+		local spark = bar:CreateTexture("$parentSpark", "OVERLAY")
+		spark:SetPoint("CENTER", bar, "CENTER")
+		spark:SetSize(32, 64)
+		spark:SetTexture("Interface\\AddOns\\DBM-Core\\textures\\Spark.blp")
+		spark:SetBlendMode("ADD")
+		local timer = bar:CreateFontString("$parentTimer", "OVERLAY", "GameFontHighlightSmall")
+		timer:SetPoint("RIGHT", bar, "RIGHT", -1, 0.5)
+		local name = bar:CreateFontString("$parentName", "OVERLAY", "GameFontHighlightSmall")
+		name:SetPoint("LEFT", bar, "LEFT", 7, 0.5)
+		name:SetPoint("RIGHT", timer, "LEFT", -7, 0)
+		name:SetWordWrap(false)
+		name:SetJustifyH("LEFT")
+		local icon1 = bar:CreateTexture("$parentIcon1", "OVERLAY")
+		icon1:SetPoint("RIGHT", bar, "LEFT")
+		icon1:SetSize(20, 20)
+		local icon2 = bar:CreateTexture("$parentIcon2", "OVERLAY")
+		icon2:SetPoint("LEFT", bar, "RIGHT")
+		icon2:SetSize(20, 20)
 
-			fCounter = fCounter + 1
-		end
+		fCounter = fCounter + 1
+
 		frame:EnableMouse(not self.Options.ClickThrough or self.movable)
 		return frame
 	end
@@ -248,7 +245,7 @@ do
 	local mt = {__index = barPrototype}
 
 	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, inlineIcon, keep, fade, countdown, countdownMax)
-		if (not timer or type(timer) == "string" or timer <= 0) or ((self.numBars or 0) >= 15 and not isDummy) then
+		if (not timer or type(timer) == "string" or timer <= 0) or (self.numBars >= 15 and not isDummy) then
 			return
 		end
 		-- Most efficient place to block it, nil colorType instead of checking option every update
@@ -272,17 +269,14 @@ do
 			newBar:SetText(id)
 			newBar:SetIcon(icon)
 		else -- Create a new bar
-			newBar = next(unusedBarObjects, nil)
-			local newFrame = createBarFrame(self)
+			newBar = next(unusedBarObjects)
 			if newBar then
 				newBar.lastUpdate = GetTime()
 				unusedBarObjects[newBar] = nil
 				newBar.dead = nil -- Resurrected it :)
-				newBar.frame = newFrame
 				newBar.id = id
 				newBar.timer = timer
 				newBar.totalTime = timer
-				newBar.owner = self
 				newBar.moving = nil
 				newBar.enlarged = nil
 				newBar.fadingIn = 0
@@ -296,6 +290,7 @@ do
 				newBar.countdown = countdown
 				newBar.countdownMax = countdownMax
 			else -- Duplicate code ;(
+				local newFrame = createBarFrame(self)
 				newBar = setmetatable({
 					frame = newFrame,
 					id = id,
@@ -316,9 +311,9 @@ do
 					countdownMax = countdownMax,
 					lastUpdate = GetTime()
 				}, mt)
+				newFrame.obj = newBar
 			end
-			newFrame.obj = newBar
-			self.numBars = (self.numBars or 0) + 1
+			self.numBars = self.numBars + 1
 			if ((colorType and colorType == 7 and self.Options.Bar7ForceLarge) or (timer <= (self.Options.EnlargeBarTime or 11) or huge)) and self.Options.HugeBarsEnabled then -- Start enlarged
 				newBar.enlarged = true
 				newBar.huge = true
@@ -343,7 +338,7 @@ do
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not DBT_AllPersistentOptions[DBM_UsedProfile] then
 			DBT_AllPersistentOptions[DBM_UsedProfile] = {}
 		end
@@ -370,7 +365,7 @@ do
 			self:AddMsg(DBM_CORE_L.PROFILE_CREATE_ERROR)
 			return
 		end
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end
@@ -392,7 +387,7 @@ do
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not id or not DBT_AllPersistentOptions[DBM_UsedProfile] or not DBT_AllPersistentOptions[DBM_UsedProfile][id] then
 			DBM:AddMsg(DBM_CORE_L.PROFILE_APPLY_ERROR:format(id or DBM_CORE_L.UNKNOWN))
 			return
@@ -409,7 +404,7 @@ do
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not hasPrinted then
 			if not name or not DBT_AllPersistentOptions[name] then
 				DBM:AddMsg(DBM_CORE_L.PROFILE_COPY_ERROR:format(name or DBM_CORE_L.UNKNOWN))
@@ -442,7 +437,8 @@ do
 			return
 		end
 		DBT_AllPersistentOptions[name] = nil
-		self.Options = DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id]
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
+		self.Options = DBT_AllPersistentOptions[DBM_UsedProfile][id]
 		self:Rearrange()
 	end
 
@@ -536,9 +532,7 @@ do
 		dummy:SetText(text or "Dummy", inlineIcon)
 		dummy:Cancel()
 		self.bars[dummy] = true
-		unusedBars[#unusedBars] = nil
 		unusedBarObjects[dummy] = nil
-		dummy.frame.obj = dummy
 		dummy.frame:SetParent(UIParent)
 		dummy.frame:ClearAllPoints()
 		dummy.frame:SetScript("OnUpdate", nil)
@@ -594,7 +588,7 @@ end
 function DBT:UpdateBars(sortBars)
 	if sortBars and self.Options.Sort ~= "None" then
 		tsort(largeBars, function(x, y)
-			if self.Options.Sort == "Invert" then
+			if self.Options.HugeSort == "Invert" then
 				return x.timer < y.timer
 			end
 			return x.timer > y.timer
@@ -744,7 +738,6 @@ function barPrototype:Update(elapsed)
 	local bar = _G[frame_name .. "Bar"]
 	local spark = _G[frame_name .. "BarSpark"]
 	local timer = _G[frame_name .. "BarTimer"]
-	local obj = self.owner
 	local paused = self.paused
 	self.timer = self.timer - (paused and 0 or elapsed)
 	local timerValue = self.timer
@@ -905,14 +898,12 @@ function barPrototype:RemoveFromList()
 end
 
 function barPrototype:Cancel()
-	tinsert(unusedBars, self.frame)
 	self.frame:Hide()
-	self.frame.obj = nil
 	self:RemoveFromList()
-	self.owner.bars[self] = nil
+	DBT.bars[self] = nil
 	unusedBarObjects[self] = self
 	self.dead = true
-	self.owner.numBars = (self.owner.numBars or 1) - 1
+	DBT.numBars = DBT.numBars - 1
 end
 
 function barPrototype:ApplyStyle()
@@ -1009,8 +1000,8 @@ do
 
 	function barPrototype:Announce()
 		local msg
-		if self.owner.announceHook then
-			msg = self.owner.announceHook(self)
+		if DBT.announceHook then
+			msg = DBT.announceHook(self)
 		end
 		msg = msg or ("%s %d:%02d"):format(tostring(_G[self.frame:GetName().."BarName"]:GetText()):gsub("|T.-|t", ""), mfloor(self.timer / 60), self.timer % 60)
 		local chatWindow = ChatEdit_GetActiveWindow()
@@ -1130,8 +1121,7 @@ do
 		if not skin then
 			error("Skin '" .. id .. "' doesn't exist", 2)
 		end
-		unusedBars = {}
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end
@@ -1152,7 +1142,7 @@ do
 	end
 
 	function DBT:ResetSkin()
-		local DBM_UsedProfile = DBM_UsedProfile
+		local DBM_UsedProfile = DBM_UsedProfile or "Default"
 		if not DBT_AllPersistentOptions then
 			DBT_AllPersistentOptions = {}
 		end

@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Maiden", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210708063123")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(16457)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 654 or 2446)
+mod:SetEncounterID(654, 2446)
 mod:SetModelID(16198)
 mod:RegisterCombat("combat")
 

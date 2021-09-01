@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Tidewalker", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(21213)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 627 or 2462)
+mod:SetEncounterID(627, 2462)
 mod:SetModelID(20739)
 mod:SetUsedIcons(5, 6, 7, 8)
 

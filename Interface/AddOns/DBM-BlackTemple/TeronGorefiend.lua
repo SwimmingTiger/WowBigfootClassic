@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("TeronGorefiend", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(22871)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 604 or 2476)
+mod:SetEncounterID(604, 2476)
 mod:SetModelID(21254)
 mod:SetUsedIcons(4, 5, 6, 7, 8)
 

@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Azgalor", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(17842)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 621 or 2471)
+mod:SetEncounterID(621, 2471)
 mod:SetModelID(18526)
 mod:SetUsedIcons(8)
 

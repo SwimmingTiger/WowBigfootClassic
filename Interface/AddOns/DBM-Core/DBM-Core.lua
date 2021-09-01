@@ -71,9 +71,9 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20210810120354"),
-	DisplayVersion = "2.5.9", -- the string that is shown as version
-	ReleaseRevision = releaseDate(2021, 8, 10) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	Revision = parseCurseDate("20210831171746"),
+	DisplayVersion = "2.5.11", -- the string that is shown as version
+	ReleaseRevision = releaseDate(2021, 8, 31) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -137,10 +137,10 @@ DBM.DefaultOptions = {
 	SpecialWarningSound4 = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\HoodWolfTransformPlayer01.ogg",
 	SpecialWarningSound5 = "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\LOA_NAXX_AGGRO02.ogg",
 	ModelSoundValue = "Short",
-	CountdownVoice = "VP:Yike",					--bf@178.com
-	CountdownVoice2 = "VP:Yike",				--bf@178.com
-	CountdownVoice3 = "VP:Yike",				--bf@178.com
-	ChosenVoicePack = "Yike",					--bf@178.com
+	CountdownVoice = "Corsica",
+	CountdownVoice2 = "Kolt",
+	CountdownVoice3 = "Smooth",
+	ChosenVoicePack = "None",
 	VoiceOverSpecW2 = "DefaultOnly",
 	AlwaysPlayVoice = false,
 	EventSoundVictory2 = "None",
@@ -161,7 +161,7 @@ DBM.DefaultOptions = {
 	WarningAlphabetical = true,
 	WarningShortText = true,
 	StripServerName = true,
-	ShowAllVersions = false,					--bf@178.com	2
+	ShowAllVersions = true,
 	ShowReminders = true,
 	ShowPizzaMessage = true,
 	ShowEngageMessage = true,
@@ -7393,9 +7393,14 @@ function bossModPrototype:SetStage(stage)
 		self.vb.phase = stage
 	end
 	if self.inCombat then--Safety, in event mod manages to run any phase change calls out of combat/during a wipe we'll just safely ignore it
-		fireEvent("DBM_SetStage", self, self.id, self.vb.phase, self.encounterId)--Mod, modId, Stage, Encounter Id (if available).
-		--Note, in Wrath dungeons some encounters return multiple Ids years ago, but blizzard consolidated them recently such as 217, 265 consolidated to just 1972
-		--TODO, see if Wrath Classic uses consolidated Ids or original dual Id system. if wrath classic uses dual Ids, DBM_SetStage using self.encounterId will need to be fixed
+		local returnEID
+		if self.multiEncounterPullDetection then
+			returnEID = self.multiEncounterPullDetection[1]
+		else
+			returnEID = self.encounterId
+		end
+		fireEvent("DBM_SetStage", self, self.id, self.vb.phase, returnEID)--Mod, modId, Stage, Encounter Id (if available).
+		--Note, some encounters have more than one encounter Id, for these encounters, the first ID from mod is always returned regardless of actual engage ID triggered fight
 	end
 end
 
@@ -10339,7 +10344,9 @@ do
 				end
 			end
 			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id, self.keep, self.fade, self.name, guid)
-			tinsert(self.startedTimers, id)
+			if not findEntry(self.startedTimers, id) then--Make sure timer doesn't exist already before adding it
+				tinsert(self.startedTimers, id)
+			end
 			if not self.keep then--Don't ever remove startedTimers on a schedule, if it's a keep timer
 				self.mod:Unschedule(removeEntry, self.startedTimers, id)
 				self.mod:Schedule(timer, removeEntry, self.startedTimers, id)

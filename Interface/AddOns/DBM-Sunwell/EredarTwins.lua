@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(25165, 25166)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 727 or 2491)
+mod:SetEncounterID(727, 2491)
 mod:SetModelID(23334)
 mod:SetUsedIcons(7, 8)
 

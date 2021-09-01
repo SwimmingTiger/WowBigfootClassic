@@ -46,7 +46,7 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerSubmerge		= "Sumberge CD",
+	TimerSubmerge		= "Submerge CD",
 	TimerEmerge			= "Emerge CD"
 }
 

@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(558, "DBM-Party-BC", 14, 257)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20210613135327")
+mod:SetRevision("20210829141230")
 mod:SetCreatureID(17976)
 mod:SetEncounterID(1925)
 mod:SetModelID(18929)
@@ -16,7 +16,7 @@ function mod:OnCombatStart(delay)
 	if self:IsNormal() then
 		self:RegisterShortTermEvents("UNIT_HEALTH")
 	else
-		self:RegisterShortTermEvnts("UNIT_SPELLCAST_SUCCEEDED")
+		self:RegisterShortTermEvents("UNIT_SPELLCAST_SUCCEEDED")
 		timerReinforcements:Start(60 - delay)
 		warnReinforcementsSoon:Schedule(55 - delay)
 	end

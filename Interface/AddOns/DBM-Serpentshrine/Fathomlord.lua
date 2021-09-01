@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Fathomlord", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(21214)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 626 or 2461)
+mod:SetEncounterID(626, 2461)
 mod:SetModelID(20662)
 
 mod:RegisterCombat("combat")

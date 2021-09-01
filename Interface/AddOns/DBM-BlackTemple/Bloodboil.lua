@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Bloodboil", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(22948)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 605 or 2477)
+mod:SetEncounterID(605, 2477)
 mod:SetModelID(21443)
 
 mod:RegisterCombat("combat")

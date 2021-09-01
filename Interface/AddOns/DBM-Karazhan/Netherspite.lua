@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Netherspite", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210808140214")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(15689)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 659 or 2451)
+mod:SetEncounterID(659, 2451)
 mod:SetModelID(15363)
 mod:RegisterCombat("combat")
 

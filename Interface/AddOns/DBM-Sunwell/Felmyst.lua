@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(25038)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 726 or 2490)
+mod:SetEncounterID(726, 2490)
 mod:SetModelID(22838)
 mod:SetUsedIcons(8, 7)
 

@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Magtheridon", "DBM-Outlands")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623160950")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(17257)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 651 or 2457)
+mod:SetEncounterID(651, 2457)
 mod:SetModelID(18527)
 mod:RegisterCombat("combat_emote", L.DBM_MAG_EMOTE_PULL)
 

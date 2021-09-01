@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Maulgar", "DBM-Outlands")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623160950")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(18831, 18832, 18834, 18835, 18836)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 649 or 2455)
+mod:SetEncounterID(649, 2455)
 mod:SetModelID(18649)
 mod:RegisterCombat("combat")
 

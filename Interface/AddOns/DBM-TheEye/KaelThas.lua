@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623162544")
+mod:SetRevision("20210827172833")
 mod:SetCreatureID(19622)
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 733 or 2467)
+mod:SetEncounterID(733, 2467)
 mod:SetModelID(20023)
 
 mod:RegisterCombat("combat")
@@ -107,9 +107,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		self.vb.mcIcon = self.vb.mcIcon - 1
 		if #warnMCTargets >= 3 then
-			showMC()
+			showMC(self)
 		else
-			self:Schedule(0.3, showMC)
+			self:Schedule(0.3, showMC, self)
 		end
 	elseif args.spellId == 37027 then
 		timerToy:Start(args.destName)
@@ -236,16 +236,16 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		timerPhase1mob:Start(8.4, L.Telonicus)
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
 		self:SetStage(2)
-		timerPhase:Start(105)
+		timerPhase:Start(105)--105
 		warnPhase2:Show()
-		warnPhase3:Schedule(105)
+		warnPhase3:Schedule(105)--210
 	elseif msg == L.YellPhase3 or msg:find(L.YellPhase3) then
 		self:SetStage(3)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(10)
 		end
 		self:Schedule(10, function()
-			timerPhase:Start(173)
+			timerPhase:Start(73)--83 pre nerf, 183 post nerf
 		end)
 	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then
 		self:SetStage(4)

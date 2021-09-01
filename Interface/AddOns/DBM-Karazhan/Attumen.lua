@@ -1,9 +1,9 @@
 local mod	= DBM:NewMod("Attumen", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210623160950")
+mod:SetRevision("20210813015935")
 mod:SetCreatureID(16151, 16152)--15550
-mod:SetEncounterID(WOW_PROJECT_ID ~= (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 652 or 2444)
+mod:SetEncounterID(652, 2444)
 mod:SetModelID(16416)
 mod:SetBossHPInfoToHighest()
 
