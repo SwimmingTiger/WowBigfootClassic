@@ -1,4 +1,9 @@
 CodexDB["quests"]["enUS"]={
+[0]={
+["D"]="",
+["O"]="",
+["T"]="",
+},
 [2]={
 ["D"]="The mighty hippogryph Sharptalon has been slain, with the claw of the felled beast serving as a testament to your victory.  Senani Thunderheart at the Splintertree Post will no doubt be interested in seeing this trophy as proof of your deeds.",
 ["O"]="Bring Sharptalon\'s Claw to Senani Thunderheart at Splintertree Post, Ashenvale.",
