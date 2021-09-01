@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Author: Lag
 ## Version: v2.3.2-bcc
 ## Dependencies: AtlasLootClassic

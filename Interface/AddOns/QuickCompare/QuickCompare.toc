@@ -1,4 +1,4 @@
-﻿## Interface: 20501
+﻿## Interface: 20502
 ## Title: [BF] QuickCompare
 ## Title-zhCN: [大脚]快速比较
 ## Title-zhTW: [大腳]快速比較

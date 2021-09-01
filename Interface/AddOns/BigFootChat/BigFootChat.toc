@@ -1,4 +1,4 @@
-﻿## Interface: 20501
+﻿## Interface: 20502
 ## Title: [BF] BigFootChat
 ## Title-zhCN: [大脚]聊天增强条
 ## Title-zhTW: [大腳]聊天增強條

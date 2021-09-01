@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: [BF] BFQuest
 ## Title-zhCN: [大脚]任务增强
 ## Title-zhTW: [大腳]任務增強

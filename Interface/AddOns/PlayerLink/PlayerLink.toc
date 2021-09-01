@@ -1,4 +1,4 @@
-﻿## Interface: 20501
+﻿## Interface: 20502
 ## Title: [BF] PlayerLink
 ## Title-zhCN: [大脚]链接增强
 ## Title-zhTW: [大腳]鏈接增強

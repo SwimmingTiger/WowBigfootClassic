@@ -1,4 +1,4 @@
-﻿## Interface: 20501
+﻿## Interface: 20502
 ## Title: [BF] RepairHelper
 ## Title-zhCN: [大脚]修理助手
 ## Title-zhTW: [大腳]修理助手

@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: ala's Talent Emu
 ## Title-zhCN: [大脚][集]天赋模拟器
 ## Title-zhTW: [大腳][集]天賦模擬器

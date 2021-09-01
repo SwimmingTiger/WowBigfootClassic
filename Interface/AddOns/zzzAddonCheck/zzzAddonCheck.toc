@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: 整合包插件初始化和完整性检测 (zzzAddonCheck)
 ## Notes: 给整合包插件设置合适的默认参数，在整合包插件遭到破坏时给出提示
 ## Version: 0.1

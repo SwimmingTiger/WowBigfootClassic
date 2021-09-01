@@ -1,4 +1,4 @@
-﻿## Interface: 20501
+﻿## Interface: 20502
 ## Title: [BF] BigFootBot
 ## Title-zhCN: [大脚]信息收集
 ## Title-zhTW: [大腳]信息收集

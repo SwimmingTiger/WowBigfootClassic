@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: Wargame
 ## Title-zhCN: 战争游戏
 ## Title-zhTW: 戰爭遊戲

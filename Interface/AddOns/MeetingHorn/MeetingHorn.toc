@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: MeetingHorn
 ## Title-zhCN: 集结号
 ## Title-zhTW: 集結號
