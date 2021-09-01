@@ -27,13 +27,8 @@ local updateAfterCombat = false
 local macroNeedsUpdate = false
 
 local function TotemTimers_OnEvent(self, event, ...)
-    if zoning and event ~= "PLAYER_ENTERING_WORLD" then return
-	elseif event == "PLAYER_ENTERING_WORLD" then 
-        if zoning then
-            TotemTimersFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
-            zoning = false
-            return
-        end
+	if event == "PLAYER_ENTERING_WORLD" then
+        TotemTimersFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 		TotemTimers.SetupGlobals()
     elseif event == "PLAYER_REGEN_ENABLED" then
         --TotemTimers_ProcessQueue()
@@ -68,12 +63,11 @@ local function TotemTimers_OnEvent(self, event, ...)
         else
             TotemTimers.ChangedTalents()
         end
-    elseif event == "PLAYER_LEAVING_WORLD" then
-        zoning = true
-        TotemTimersFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
     elseif event == "UPDATE_BINDINGS" then
         ClearOverrideBindings(TotemTimersFrame)
         TotemTimers.InitializeBindings()
+    elseif event == "PLAYER_LOGOUT" then
+        TotemTimers.SaveFramePositions()
 	end
 
 end
@@ -99,7 +93,7 @@ function TotemTimers.SetupGlobals()
 		TotemTimers.CreateTimers()
 		TotemTimers.CreateTrackers()
         TotemTimers.SetWeaponTrackerSpells()
-        -- TotemTimers.CreateEnhanceCDs()
+        TotemTimers.CreateEnhanceCDs()
         -- TotemTimers.CreateCrowdControl()
 		-- TotemTimers.CreateLongCooldowns()
         
@@ -128,7 +122,7 @@ function TotemTimers.SetupGlobals()
         TotemTimersFrame:RegisterEvent("ADDON_LOADED")
         TotemTimersFrame:RegisterEvent("CHARACTER_POINTS_CHANGED")
 		-- TotemTimersFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
-        TotemTimersFrame:RegisterEvent("PLAYER_LEAVING_WORLD")
+        TotemTimersFrame:RegisterEvent("PLAYER_LOGOUT")
         TotemTimersFrame:RegisterEvent("UPDATE_BINDINGS")
         -- TotemTimersFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 
@@ -401,7 +395,7 @@ function TotemTimers.UpdateMacro()
         local _, free = GetNumMacros()
         local nr = GetMacroIndexByName("TT Cast")
         if free==18 and nr==0 then return end
-        local sequence = "/castsequence reset=combat/"..TotemTimers.ActiveProfile.MacroReset.." ";
+        local sequence = "#showtooltips\n/castsequence reset=combat/"..TotemTimers.ActiveProfile.MacroReset.." ";
         local timers = XiTimers.timers
         for i=1,4 do
             local timer = timers[i]

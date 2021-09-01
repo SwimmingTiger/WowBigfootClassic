@@ -74,6 +74,9 @@ function TotemTimers.CreateTimers()
             if spell and spell ~= 0 then
                 local _, _, texture = GetSpellInfo(self:GetAttribute("*spell1"))
                 self.miniIcon:SetTexture(texture)
+                if (not self.timer.timersRunning[1]) then
+                    self.icons[1]:SetTexture(texture)
+                end
                 TotemTimers.TotemEvent(self, "SPELL_UPDATE_COOLDOWN", self.timer.nr)
                 self.timer.manaCheck = spell
                 TotemTimers.ActiveProfile.LastTotems[self.timer.nr] = spell

@@ -23,7 +23,7 @@
     </Anchors>
   </Frame>
   
-  <!-- <Frame name="TotemTimers_EnhanceCDsFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+  <Frame name="TotemTimers_EnhanceCDsFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
     <Size>
       <AbsDimension x="1" y="1" />
     </Size>
@@ -32,7 +32,7 @@
     </Anchors>
   </Frame>  
   
-  <Frame name="TotemTimers_CrowdControlFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+  <!-- <Frame name="TotemTimers_CrowdControlFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
     <Size x="1" y="1" />
     <Anchors>
       <Anchor point="CENTER" relativePoint="CENTER"/>

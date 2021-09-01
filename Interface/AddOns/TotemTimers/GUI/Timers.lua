@@ -107,7 +107,7 @@ TotemTimers.options.args.timers = {
                   end,
             get = function(info) return TotemTimers.ActiveProfile.Arrange end,
         },
-       --[[ time = {
+        --[[ time = {
             order = 8,
             type = "select",
             name = L["Time Style"],
@@ -126,7 +126,7 @@ TotemTimers.options.args.timers = {
             desc = L["Timer Bar Position Desc"],
             values = {	["LEFT"] = L["Left"], ["RIGHT"] = L["Right"], ["TOP"] = L["Top"], ["BOTTOM"] = L["Bottom"],},
             set = function(info, val)
-                        TotemTimers.ActiveProfile.TimerTimePos = val  TotemTimers.ProcessSetting("TimerTimePos")	
+                        TotemTimers.ActiveProfile.TimerTimePos = val  TotemTimers.ProcessSetting("TimerTimePos")
                   end,
             get = function(info) return TotemTimers.ActiveProfile.TimerTimePos end,
         },
@@ -339,7 +339,7 @@ TotemTimers.options.args.timers = {
             order = 42,
             type = "toggle",
             name = L["Twisting Timer"],
-            desc = string.format(L["Shows twisting timer fpr %s"], SpellNames[SpellIDs.Windfury]),
+            desc = string.format(L["Shows twisting timer for %s"], SpellNames[SpellIDs.Windfury]),
             set = function(info, val) TotemTimers.ActiveProfile.TwistingTimer = val  TotemTimers.ProcessSetting("TwistingTimer") end,
             get = function(info) return TotemTimers.ActiveProfile.TwistingTimer end,
         },
@@ -359,32 +359,54 @@ TotemTimers.options.args.timers = {
             set = function(info, val) TotemTimers.ActiveProfile.ShowRaidRangeTooltip = val  TotemTimers.ProcessSetting("ShowRaidRangeTooltip") end,
             get = function(info) return TotemTimers.ActiveProfile.ShowRaidRangeTooltip end,
         }, ]]
-         macro = {
-             order = 50,
-             type = "header",
-             name = "Macro",
-         },
-         macroreset = {
-             order = 55,
-             type = "range",
-             name = L["Reset"],
-             desc = L["Reset /castsequence after x seconds"],
-             min = 10,
-             max = 60,
-             step = 5,
-             set = function(info, val)
-                 TotemTimers.ActiveProfile.MacroReset = val
-                 TotemTimers.UpdateMacro()
-             end,
-             get = function(info) return TotemTimers.ActiveProfile.MacroReset end,
-         },
+        stoppulseheader = {
+            order = 50,
+            type = "header",
+            name = "Stop Pulse",
+        },
+        stoppulse = {
+            order = 51,
+            type = "toggle",
+            name = L["Stop Pulse Animation"],
+            desc = L["Stop Pulse Desc"],
+            set = function(info, val) TotemTimers.ActiveProfile.StopPulse = val TotemTimers.ProcessSetting("StopPulse") end,
+            get = function(info) return TotemTimers.ActiveProfile.StopPulse end,
+        },
+        stoppulsedemo = {
+            order = 52,
+            type = "execute",
+            name = L["Demo"] ,
+            func = function()
+                XiTimers.timers[1].animation:SetTexture(XiTimers.timers[1].button.icons[1]:GetTexture())
+                XiTimers.timers[1].animation:Play()
+            end
+        },
+        macro = {
+            order = 60,
+            type = "header",
+            name = "Macro",
+        },
+        macroreset = {
+            order = 65,
+            type = "range",
+            name = L["Reset"],
+            desc = L["Reset /castsequence after x seconds"],
+            min = 10,
+            max = 60,
+            step = 5,
+            set = function(info, val)
+                TotemTimers.ActiveProfile.MacroReset = val
+                TotemTimers.UpdateMacro()
+            end,
+            get = function(info) return TotemTimers.ActiveProfile.MacroReset end,
+        },
     },
 }
 
 for i = 1,4 do
     TotemTimers.options.args.timers.args['macro'..i] =
     {
-        order = 50+i,
+        order = 60+i,
         type = "toggle",
         name = ElementValues[i],
         arg = i,

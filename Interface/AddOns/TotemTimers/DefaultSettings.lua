@@ -7,10 +7,10 @@ if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local SpellIDs = TotemTimers.SpellIDs
 local SpellNames = TotemTimers.SpellNames
-local Version = 11.1
+local Version = 11.2
 
 TotemTimers.DefaultGlobalSettings = {
-	Version = 11.1,
+	Version = 11.2,
     Profiles = {},
     Sink = {}
 }
@@ -36,6 +36,8 @@ TotemTimers.DefaultProfile = {
         ShowKeybinds = true,
         HideInVehicle = true,
         StopPulse = false,
+        TrackerStopPulse = false,
+        EnhanceCDsStopPulse = false,
         TimersOnButtons = false,
         LavaSurgeAura = true,
         LavaSurgeGlow = true,
@@ -266,6 +268,9 @@ TotemTimers.DefaultProfile = {
                 [9] = 9, -- Wind Shear
                 [10] = 10, -- Unleash Elements
                 [11] = 11, -- Spiritwalker's Grace
+                [10] = 10,
+                [11] = 11,
+                [12] = 12,
             },
             [3] = {
                 [1] = 1, 
@@ -277,6 +282,9 @@ TotemTimers.DefaultProfile = {
                 [7] = 7,
 				[8] = 8,
 				[9] = 9,
+                [10] = 10,
+                [11] = 11,
+                [12] = 12,
             },
         },
         EnhanceCDs = true,
@@ -287,7 +295,9 @@ TotemTimers.DefaultProfile = {
         EnhanceCDsOOCAlpha = 0.4,
         CDTimersOnButtons = true,
         FlameShockDurationOnTop = false,
-        EnhanceCDs_Clickthrough = false,
+        EnhanceCDsClickthrough = false,
+        EnhanceCDsFlameShockDuration = true,
+        EnhanceCDsTotemTwisting = true,
 		
 		
 		-- LongCooldowns = true,
@@ -412,6 +422,12 @@ local SettingsConverters = {
             profile.StopPulse = false
         end
         TotemTimers_GlobalSettings.Version = 11.1
+    end,
+    [11.1] = function()
+        for k,profile in pairs(TotemTimers_Profiles) do
+            profile.TrackerStopPulse = profile.StopPulse
+        end
+        TotemTimers_GlobalSettings.Version = 11.2
     end,
 }
 
@@ -539,7 +555,7 @@ local GeneralList = {
     HideBlizzTimers, Tooltips, TooltipsAtButtons,
     TimeFont, TimeColor, TimerBarTexture,
     TimerBarColor, ShowKeybinds, HideInVehicle,
-    StopPulse, TimersOnButtons, LavaSurgeAura,
+    TimersOnButtons, LavaSurgeAura,
     LavaSurgeGlow, FulminationAura, FulminationGlow,
 }
 

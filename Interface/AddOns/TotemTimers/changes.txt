@@ -1,0 +1,450 @@
+2.0
+    - Readded Combat Cooldowns/Buttons
+    - Fixed saving frame positions
+    - Stop Pulse animation can be enabled separately for totem timers, trackers and combat cooldowns
+    - Added #showtooltips to macro
+1.19.1
+    - Changed Erathbind and Tremor Totems to pulse every 3 seconds
+    - Changed "Stop Pulse" option to be off by default
+1.19
+    - Fixed red flash for expiring timers
+    - Fixed big pulse animations for expired timers
+    - Readded debug window for copying addon settings, if you create an issue/post a comment
+1.18.10
+    - Fixed shield charges
+1.18.9
+    - Possible fix for Earth Shield warning firing only once
+1.18.8
+    - Read spell ranks from spell book, hopefully fixes ranks for boosted characters
+1.18.7
+    - Fixed totem timers changing when switching main hand weapons
+1.18.6
+    - Fixed missing textures on game start
+1.18.5
+    - Fixed Water Shield
+1.18.4
+    - Fixed Shield trackers not working after relog/reload
+1.18.3
+    - Fixed wrong totems loaded at first login
+1.18.2
+    - Fixed weapon tracker double spells
+    - Possible fix for downranked spells for boosted characters
+1.18.1
+    - Fix error message when totem player range is enabled and player is in instance
+1.18
+    - Weapon buff tracker recognizes Windfury Totem and Flametongue Totem
+    - Added Windfury Totem twisting timer (disabled by default, can be enabled in Options -> Timers)
+    - Fixed time text color on buttons
+    - Time text color transparency can be set
+    - Timer bar color transparency can be set
+    - Removed "Show Timer Bars" setting, to hide timerbars set their color to transparent
+1.17.3
+    - Fixed tooltip bug
+1.17.2
+    - Fixed "Show Timer Bars" setting
+1.17.1
+    - Fixed a bug when not using default timer order
+1.17
+    - Changed code for showing/hiding button menus. Menus should not stay open any longer when dragging the mouse over them too fast
+    - Fixed weapon tracker tooltips
+    - Automatic totem bar bindings are set for all buttons instead of the first 5
+    - Shift-rightclick a weapon buff to set it to weapon tracker's rightclick
+1.16.1
+    - Fix error in groups and party range dots enabled
+1.16
+    - Added player range dot again, range is checked by buffs for totem with buffs, by coordinates (not in instances) for totems without buffs like Tremor Totem
+    - Added party range dots again
+    - Fixed Earth Shield keybinds
+    - Fixed /totemtimers and /tt slash command
+    - Fixed a bug when trying to move Earth Shield and weapon tracker with tracker arrangement set to loose
+    - Fixed totem menu direction applying only after reload
+1.15.2
+    - Fixed error when using Earth Shield and focus targets
+    - Added cooldown for Grounding Totem
+1.15.1
+    - Bugfix for Earth Shield tracker when in groups/raid
+1.15
+    - Added options to choose which totem elements to include in castsequence macro
+    - Added option for after how many seconds the castsequence resets
+1.14
+    - Added Earth Shield tracker
+    - Fixed totem detection in spanish and probably other non-english clients
+    - Added keybind to close all open button menus
+    - Added more keybinds for totems
+1.13.1
+    - Fixed error message
+    - Added one more button for air totems
+1.13
+    - Fixed weapon tracker cooldown swirl
+    - Added option to set opacity of cooldown swirls
+1.12
+    - Moved key binds in Key Bindings menu from category "Other" to "TotemTimers"
+1.11
+    - Weapon tracker shows main and offhand enchants
+    - Fixed not hiding blizzard totem timers
+    - Removed border from buttons
+    - Added support for Masque
+    - Fixed totem order in macro
+1.10
+    - Added Totemic Call and destroying single totems to totem timer buttons
+      Destroy a totem on rightclick, Totemic Call on middleclick
+      If totem menus are opened on rightclick, middleclick destroys a totem, no Totemic Call
+    - Suppress totem destroyed warning when using Totemic Call
+1.09.1
+    - Bugfix for Mana Spring Totem
+1.09
+    - Added Spells for TBC Classic
+    - Changed spell detection, boosted shamans should work
+1.08
+    - Fixed Reincarnation maximum duration display
+    - Added pulse for Grounding Totem
+    - Changed pulse color to be more opaque and more visible
+1.07
+    - Added support for Enamored Water Spirit trinket, still needs testing
+    - Added castsequence macro
+    - Show number of ankhs in inventory on Reincarnation timer
+1.06
+    - Fixed Frostbrand Weapon for weapon tracker
+1.05
+    - Removed Masque support for now
+    - Fix pulse for Earthbind Totem, add pulse for Poison and Disease Cleansing Totems
+1.04
+    - Show air timer when learned either Grounding, Nature Resistance or Windfury Totem
+1.03
+    - Tooltips show correct spell ranks
+1.02
+    - Shield tracker can show charges instead of timer
+    - Fixed localization issues
+    - Can choose between timer formats again
+1.01
+    - Weapon buff tracker now shows as soon as Rockbiter Weapon is learned
+    - Added weapon buff tracker options
+    - Fixed missing lib
+1.0
+	- Fixes for WoW Classic
+11.1.15
+	- Fixes for 6.2
+11.1.14
+	- Fixed Lua Error on 12 active enhancement timers (thx to Vialuny)
+	- Fixed Searing Totem timer keeping wrong textures after using Fire Elemental or Magma Totem
+	- Feral Spirit timer should update correctly with T17 2pc, untested since I do not have T17 pcs
+11.1.13
+	- Fixed Ascendance for 6.1
+11.1.12
+	- Small bugfix
+11.1.11
+	- Added Fire Elemental on right button and Magma Totem on middle button to Searing Totem timer
+	- Changed Capacitor Totem warning to 2 seconds
+11.1.10
+	- Fixed clickthrough not working for first totem timer
+11.1.9
+	- New totems should show up without having to reset settings
+	- May contain fix for long cooldown timers getting tiny
+11.1.8
+	- Fix typo
+11.1.7
+	- Add totems to cooldown bars
+11.1.6
+	- Removed debug message
+11.1.5
+	- Added new WoD spells
+11.1.4
+	- Added Unleash Flame for Elemental
+11.1.3
+	- Bugfix
+11.1.2
+	- Timer text on buttons is now independent again from new blizz cooldown text
+	- Lightning Shield shows charges again for Elemental
+11.1.1
+	- Fixed Flame Shock bar
+	- Fixed Water Shield tracker
+	- Fixed Unleash Life
+	- Fixed Ascendance
+11.1
+	- Changes for patch 6.0.2
+11.0.18
+	- Added Chain Heal for Resto
+	- Sounds should play through the master sound channel
+11.0.17
+	- Added Lava Lash overlay glow on 5 Searing Flame stacks
+	- Fixed loading totems
+11.0.16
+	- Ascendance cd updates for Ele T15 4pc
+	- Cooldown clickthrough option now also works for long cooldown bar
+	- Fixed earth and wind totems not showing for low level shamans if only totems from talents are learned
+11.0.15
+	- Fixed tooltip errors
+11.0.14
+	- Fixed scenario errors
+11.0.13
+	- The Flame Shock button in Elemental spec now casts Earth Shock and Frost Shock (rightclick/middle button) properly
+	- The Earth Shock button in Resto Spec now also casts Flame Shock and Frost Shock (rightlick/middle button)
+11.0.12
+	- Fixed totem sets
+11.0.11
+	- Fixed casting/reordering Earthgrab Totem
+11.0.10
+	- Fixed wonky timers
+	- Fixed Earthgrab/Earthbind
+11.0.9
+	- Corrected opacity for some buttons
+	- Replaced destroying single totems with Totemic Recall
+11.0.8
+	- Better hiding in pet battles, vehicles and out of combat
+11.0.7
+	- Fixed timers disappearing in CRZs
+	- Hide properly in pet battles
+11.0.6
+	- Allow negative totem timer spacing
+11.0.5
+	- Long cooldown's ability durations are not clickable
+	- Fixed "loose" arrangement of totem timers
+	- Fixed Call of the Elements
+	- Adjusted flash and warning times for totems with short duration
+	- Fixed timers disappearing in scenarios
+	- Fixed errors when leveling up in combat
+	- Added Spirit Walk to Enhancement cooldowns
+	- Middle mouse button on a totem timer casts Totemic Recall
+	- Stormlash Totem and Capacitor Totem cooldowns display properly
+	- Fixed Lava Burst and Flame/Earth Shock buttons to glow on Lava Surge and Fulmination procs
+	- Purify Spirit is no longer displayed as on cooldown when it does not dispel anything
+	- Timers should color properly again when out of range or out of mana
+11.0.4
+	- Fixed more leaking globals
+	- Fixed textures
+11.0.3
+	- Fixed totem menus not draggable
+	- Fixed glyph ui taint
+	- Fixed Searing Totem and Lightning Shield
+11.0.2
+	- Fixed options for cooldowns
+	- Fixed long cooldown buttons not casting spells
+	- Removed Chain Lightning and Fire Nova from Elemental cooldowns, added Purify Spirit to Restoration cooldowns
+11.0.1
+	- Fixed timers stopping randomly
+	- Removed Water Shield count
+	- Fixed weapon buff timers
+	- Fixed lock up when changing specs
+	- Fixed "loose" timer and tracker arrangements
+11.0
+    - Added profiles
+    - Added bar containing spells with longer cooldowns
+    - Added new totems and spells
+    - Removed multicast bar/spells
+    - Removed buff checking for determining totem range, now uses coordinates only
+    - Removed small totem cast buttons
+    - Removed dot for player totem range, will color whole icon instead
+    - Added more localizations
+	- Hide in pet battles
+	- Added single options for enabling Hex/Bind Elemental
+	- Show Hex/Bind Elemental only if these spells are available
+	- Added keybindings for most buttons
+
+10.4.10
+    - Fixed wrong texture coordinates on active totem timers when using Masque. Requires Masque ver. 4.3.378 or higher.
+10.4.9
+    - Fixed weapon buff tracker only showing one buff
+    - Added cooldown for Spirit Link Totem
+10.4.8
+    - Fixed timer bars    
+10.4.6
+    - Fixed time on buttons disappearing if totem cooldown is shown
+    - Totem range now properly accounts for buffs overwriting totem buffs
+10.4.5
+    - Fixed taint
+    - Fixed Lava Surge aura display for T12 4pc
+    - Flame Shock updates on target change
+    - Fixed time text color
+    - Fix for new T12 2pc
+    - Tooltip fix
+    - Fix for Masque
+    - 4.3 update
+10.4.3
+    - Fixed Flame Shock bar
+10.4.2
+    - Bugfixes
+10.4
+    - Fixes for Patch 4.2
+10.4 Beta 2
+    - Added buttons/timers for Hex and Bind Elemental:
+      Both buttons work as follows:
+      Left Button: Hex target
+      Right Button: Hex focus
+      Middle Button: Focus target
+    - Added "border timers", small vertical bars to the side of a button, for specific spells, currently Hex cooldown and Unleash Flame duration (shown at Earth/Flame Shock CD timer).
+      Can be changed in width or enabled/disabled in TT General Config.
+      If you use ButtonFacade or smth similar to display round buttons check "Round Buttons" in TT General Config      
+10.4 Beta 1
+    - Loads through AddonLoader (untested)
+    - Fixed totem bars not movable if set to "always visible"
+    - Fixed range check for Stoneskin Totem
+    - Enabled CD for Tremor Totem
+    - Added Spirit Link Totem
+    - Fixed combat log parsing for 4.1.
+    
+10.3.15
+    - Fixed error messages on loading localization files
+10.3.14
+    - Fixed other timers not working if the four totem timers are disabled
+    - Timer positions are now saved separately for each spec
+10.3.13
+    - Bugfixes
+10.3.12
+    - Added clickthrough options for Timers and Trackers
+    - Added option for ES Tracker to show only charges instead of a timer
+    - Fixed keybind for second weapon enchant
+10.3.11
+    - Added back canceling weapon enchants by crtl-clicking the weapon buff tracker: left button for mainhand, right button for offhand
+    - Cooldown order is now changed by shift-dragging one cooldown onto another
+    - Added Unleash Elements and Spiritwalker's Grace to cooldowns for all specs
+    - Added Searing Totem to Elemental cooldowns
+    - Added shocks and Flame Shock duration to Restoration cooldowns
+    - Cooldown spells and order had to be reset for above changes
+    - Improved cooldown layout code
+    - Added option to show Flame Shock duration and Maelstrom above cooldowns
+    - Added option to make cooldown buttons clickthrough
+    - Added main tank menu to Earth Shock tracker and several options for it     
+10.3.10
+    - Fix for totem menu keybinds
+    - Bugfix for inspecting group members
+    - Removed settings for Fulmination aura display since it is now built-in
+    - Fixed reordering totems in totem menus by shift-dragging
+    - Fixed dragging totem menus if totem menus set to be permanently visible
+10.3.9
+    - Bugfix for range check
+10.3.8
+    - Fixed error on load
+    - Maelstrom bar is no longer active without the talent
+    - Removed some outdated keybinds
+    - Fixed keybinds for opening totem menus
+    - Fixed detecting new spells on learning them
+    - Enabled totem range check for group
+10.3.7
+    - Bugfix for weapon buff menu direction
+10.3.6
+    - Bugfixes
+10.3.5
+    - Added options for Wind Shear on Elemental and Resto Cooldowns
+    - Fixed multicast menu
+    - Fixed Earth Shield target name not hiding
+10.3.4
+    - Earth Shield target name is now better visible and can be turned off
+    - Fixed Maelstrom stack display on weapon tracker
+    - Added aura for Fulmination
+    - Lava Surge aura and Fulmination aura are not tied to Elemental cooldowns, moved options to general options
+    - "Glow" option for auras now extends to action buttons on the default action bar, Bartender4, and Dominos
+    - Fix for applying totems set by RaidTotems    
+10.3.3
+    - Fix weapon tracker for shamans below lvl 75
+    - Lava Surge: Lava Burst cooldown timer resets on proc, can optionally glow and show an aura around your character using the built-in aura alert
+10.3.2
+    - Several bugfixes
+10.3.1
+    - Bugfix
+10.3
+    - Updated for Patch 4.0.1
+    - Added Cooldowns for Restoration: Riptide, Healing Rain, Water Shield Charges
+    - Changed Magma Totem for Enhancement cooldowns to Searing Totem
+    - Temporarily disabled checks for party totem range
+
+    
+10.2.4
+    - Bugfixes
+10.2.3
+    - Fixed trackers sometimes showing while being disabled
+10.2.2
+    - Fixed hiding cooldowns out of combat
+10.2.1
+    - Added Flame Shock bar to Enhance CDs
+    - Added Fire Nova, Magma Totem, Shamanistic Rage, Lightning Shield, Feral Spirit Duration and Wind Shear to Enhancement Cooldowns
+    - Added Cooldowns for Elemental: Flame Shock (+duration), Lava Burst, Chain Lightning, Thunderstorm, Elemental Mastery, Fire Nova
+    - The option to show the Shield Tracker is now separate for each spec, so you can avoid redundancy with enh. cds
+    - Cooldowns can be toggled individually
+    - Cooldown order can be changed
+    - Changed Shock CD Button to have Flame Shock on rightclick and Frost Shock on Middle Click
+    - All Cooldown options are now separate for each spec (except frame position)    
+    - changed totem range detection:
+        Totems that give buffs are still checked for their or a similar buff
+        For totems that dont give buffs range is calculated by coordinates if coordinates are available
+        Range is not checked for totems that only affect mobs and not players
+    - Buttons in totem menus indicate to which multicast spell totems are assigned
+    - Multispell menu buttons show totems assigned to their sets
+    - Colors of warnings can be changed
+    - Sounds can be assigned to warnings
+    - Optional big pulse effect if timer expires
+    - Timers continue flashing for 5 secs after expiring
+
+    
+10.1.11
+    - Temporary 3.3.3 bugfix
+10.1.10
+    - Yet another ES bugfix
+10.1.9
+    - Additional small ES bugfix
+10.1.8
+    - Bugfix for ES tracker
+10.1.7
+    - Small bugfix and localization update
+10.1.6
+    - Changed Reincarnation max cd to 30 min
+    - Removed Fire Nova from internal totem list,
+      that may or may not fix the problems some people are reporting regarding the fire totem timer
+    - String splitting for Earth Shield target display should now be unicode aware    
+10.1.5
+    - Fixed some maelstrom bar scaling issues
+    - Added self-only Icy Talons buff of DKs to Windfury buff check
+10.1.4
+    - Fixed Earth Shield tracker
+10.1.3
+    - toc update for 3.3
+10.1.2
+    - Bugfix for weapon tracker
+10.1.1
+    - Bugfix, added missing file
+10.1
+    - Introducing new cast buttons which change their spells according to selected totems, configurable in options gui.
+      Manual on curse and wowinterface.
+    - Added option to hide TT in vehicles    
+    - Added name of the person having your Earth Shield to tracker    
+    - Readded hiding of totems from the menus
+    - Readded rightclick spell to weapon tracker (refer to tooltips on how to set it up)
+    - Ctrl-Leftclick removes weapon buffs
+    - Added option to show timers on buttons instead of separate bars
+    - Readded additional totem sets to ankh tracker
+    - Added usage info to tooltips
+    - If enhanced/detailed tooltips are enabled (wow interface options) the whole spell information is shown
+      else only spell names are shown
+    - Tooltip placement at buttons is now optional, if turned off, tooltips show in the lower right corner
+    - Hopefully fixed "you aren't in a party" spam
+    - Fixed weapon tracker showing wrong buffs with two equal weapons equipped
+    - Hopefully fixed ankh tracker showing its cooldown frame while reincarnation is not on cd
+    - Added options to change timer font colors and timer bar colors       
+    - Added PARTY_LEADER_CHANGED-event to Earth Shield Tracker unit update for recast    
+    - Localization moved to CurseForge.com localization system
+    - Added French localization, thx to ckeurk
+
+10.0.2
+	- Fixed menus not closing in combat
+10.0.1
+	- Several bugfixes
+	- Updated zhTW locale, thx to a9012456
+10.0
+    - TT can replace the new totem bar, you select one of the new multicast spells with the new multicast button,
+      Totems selected by rightclick in the totem menus are assigned to the selected multicast spell.
+      A rightclick on the multicast button casts Totemic Recall (middleclick if menu is set to open on rightclick.)
+    - Weapon Buff button now has a menu to choose buffs with a rightclick from
+      instead of its old GUI settings, atm this menu opens on rightclick only
+      (choose a weapon buff by rightclicking, cast it by leftclicking the weapon buff tracker,
+       if you selected one of the buff combos (wf/fl, wf/fb) cast twice).
+    - Spell assigned to the Weapon Buff button is saved for each talent spec and is changed on
+      talent spec switch
+    - Set totem order by shift-dragging, you should even be able to drag a totem onto your actionbars   
+    - Frame positions saved in settings instead of cache only
+    - Reenabled textures for warnings
+    - Warnings now sent through LibSink
+    - The range checker should consider buffs with the same effect as the active totem's buff
+      (e.g. a player with Horn of Winter buff is considered to be in range of Strength Totem)
+    - Updated ruRU, koKR, and zhTW localization, thanks to StingerSoft, Sayclub, and a9012456
+    - Removed TT-Macro, the new multicast spells do a better job
+    - Removed "Recast last totem", totems are chosen by rightclick only (would be awkward to select a totem by casting it
+      when you're selecting it to be cast with other totems at once)

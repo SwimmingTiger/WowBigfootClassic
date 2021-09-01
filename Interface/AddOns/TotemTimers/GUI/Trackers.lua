@@ -111,6 +111,28 @@ TotemTimers.options.args.trackers = {
                   end,
             get = function(info) return TotemTimers.ActiveProfile.TrackerTimerBarWidth end,
         },
+        stoppulseheader = {
+            order = 20,
+            type = "header",
+            name = "Stop Pulse",
+        },
+        stoppulse = {
+            order = 21,
+            type = "toggle",
+            name = L["Stop Pulse Animation"],
+            desc = L["Stop Pulse Desc"],
+            set = function(info, val) TotemTimers.ActiveProfile.TrackerStopPulse = val TotemTimers.ProcessSetting("TrackerStopPulse") end,
+            get = function(info) return TotemTimers.ActiveProfile.TrackerStopPulse end,
+        },
+        stoppulsedemo = {
+            order = 22,
+            type = "execute",
+            name = L["Demo"] ,
+            func = function()
+                XiTimers.timers[6].animation:SetTexture(XiTimers.timers[6].button.icons[1]:GetTexture())
+                XiTimers.timers[6].animation:Play()
+            end
+        },
         individual = {
             name = L["Trackers"] ,
             type = "group",

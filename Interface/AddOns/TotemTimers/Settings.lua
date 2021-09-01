@@ -428,7 +428,7 @@ SettingsFunctions = {
     end,
 
 
-    --[[ EnhanceCDs =
+    EnhanceCDs =
         function(value)
             if value then
                 TotemTimers.ActivateEnhanceCDs() 
@@ -440,35 +440,41 @@ SettingsFunctions = {
     EnhanceCDsSize =
         function(value)
 			local Timers = TotemTimers.EnhanceCDs
-            for i=1,#Timers-1 do
+            for i=1,#Timers do
                 Timers[i]:SetScale(value/36)
             end
-            TotemTimers.maelstrom.background:SetWidth(value*3+10)
-            TotemTimers.maelstrom:SetWidth(value*3+10)
-            TotemTimers.maelstrombutton:SetWidth(value*3+10)
-            Timers[#Timers-1]:SetTimeWidth(value*3+10)
+            --TotemTimers.maelstrom.background:SetWidth(value*3+10)
+            --TotemTimers.maelstrom:SetWidth(value*3+10)
+            --TotemTimers.maelstrombutton:SetWidth(value*3+10)
+            --TotemTimers.FlameShockDuration:SetTimeWidth(value*3+10)
+            TotemTimers.FlameShockDuration:SetScale(value/36)
             TotemTimers.LayoutEnhanceCDs()
-			for i = 1,#TotemTimers.LongCooldowns do
+			--[[for i = 1,#TotemTimers.LongCooldowns do
 				TotemTimers.LongCooldowns[i]:SetScale(value/36)
-			end
+			end ]]
         end,
         
-    EnhanceCDsTimeHeight = 
+    EnhanceCDsTimeHeight =
          function(value)
-			local AllTimers = {TotemTimers.EnhanceCDs, TotemTimers.LongCooldowns}
-			for t=1,2 do
+			local AllTimers = {TotemTimers.EnhanceCDs} --TotemTimers.LongCooldowns}
+			for t=1,#AllTimers do
 				local Timers = AllTimers[t]
-				for e=1,#Timers-1 do
-					Timers[e]:SetTimeHeight(value)
-					local font, _ = Timers[e].button.time:GetFont()
-					Timers[e].button.time:SetFont(font, value+5, "OUTLINE")
+				for e=1,#Timers do
+				    local timer = TotemTimers.EnhanceCDs[e]
+					timer:SetTimeHeight(value)
+					local font = timer.button.time:GetFont()
+					timer.button.time:SetFont(font, value+5, "OUTLINE")
 				end 
 			end
+            TotemTimers.FlameShockDuration:SetTimeHeight(value*1.2)
+            local font = TotemTimers.FlameShockDuration.button.time:GetFont()
+            TotemTimers.FlameShockDuration.button.time:SetFont(font, value*1.2+5, "OUTLINE")
+			TotemTimers.FlameShockDuration.button:SetSize(value*1.2, value*1.2)
             TotemTimers.LayoutEnhanceCDs()
-			TotemTimers.LayoutLongCooldowns()
+			--TotemTimers.LayoutLongCooldowns()
         end,
         
-    EnhanceCDsMaelstromHeight = 
+    --[[EnhanceCDsMaelstromHeight =
         function(value, Timers)
             TotemTimers.maelstrom:SetHeight(value)
             TotemTimers.maelstrom.background:SetHeight(value)
@@ -581,16 +587,24 @@ SettingsFunctions = {
 
     TimersOnButtons =
     function(value, Timers)
-        for i=1,#Timers do
-            if i ~= 21 then
-                Timers[i].timerOnButton = value
-                if not value and i > 8 and TotemTimers.ActiveProfile.CDTimersOnButtons then Timers[i].timerOnButton = true end
-                if Timers[i].timers[1] > 0 then Timers[i]:ShowTimer() end
-                if Timers[i].nrOfTimers > 1 and Timers[i].timers[2] > 0 then Timers[i]:Start(2, Timers[i].timers[2], Timers[i].durations[1]) end
-            end
+        for i=1,8 do
+            local timer = Timers[i]
+            timer.timerOnButton = value
+            if timer.timers[1] > 0 then timer:ShowTimer() end
+            if timer.nrOfTimers > 1 and timer.timers[2] > 0 then timer:Start(2, timer.timers[2], timer.durations[1]) end
         end
-        TotemTimers.ProcessSetting("EnhanceCDsMaelstromHeight")
     end,
+
+    CDTimersOnButtons =
+    function(value, Timers)
+        for i=1,#TotemTimers.EnhanceCDs do
+            local timer = TotemTimers.EnhanceCDs[i]
+            timer.timerOnButton = value
+            if timer.timers[1] > 0 then timer:ShowTimer() end
+        end
+        --TotemTimers.ProcessSetting("EnhanceCDsMaelstromHeight")
+    end,
+
 
     TimeColor =
     function(value, Timers)
@@ -695,8 +709,17 @@ SettingsFunctions = {
             for i = 1,4 do
                 Timers[i].StopPulse = value
             end
-            for i = 6,TRACKER_END do
+        end,
+    TrackerStopPulse =
+        function(value, Timers)
+            for i = 6,8 do
                 Timers[i].StopPulse = value
+            end
+        end,
+    EnhanceCDsStopPulse =
+        function(value, Timers)
+            for _,timer in pairs(TotemTimers.EnhanceCDs) do
+                timer.StopPulse = value
             end
         end,
         
@@ -720,19 +743,19 @@ SettingsFunctions = {
             end
         end,
         
-    --[[ EnhanceCDs_Clickthrough =
+     EnhanceCDs_Clickthrough =
         function(value)
 			local Timers = TotemTimers.EnhanceCDs
             for i = 1,#Timers do
                 Timers[i].button:EnableMouse(not value)
             end
-			Timers = TotemTimers.LongCooldowns
+			--[[ Timers = TotemTimers.LongCooldowns
             for i = 1,#Timers do
                 Timers[i].button:EnableMouse(not value)
-            end
-            TotemTimers.maelstrom:EnableMouse(not value)
-            TotemTimers.maelstrombutton:EnableMouse(not value)
-        end, --]]
+            end ]]
+            --TotemTimers.maelstrom:EnableMouse(not value)
+            --TotemTimers.maelstrombutton:EnableMouse(not value)
+        end,
         
     Timer_Clickthrough = 
         function(value, Timers)
@@ -793,17 +816,17 @@ SettingsFunctions = {
 	LongCooldownsArrange =
 		function(value, Timers)
 			TotemTimers.LayoutLongCooldowns()
-		end,
+		end, ]]
 		
 	CooldownSpacing = 
         function(value, Timers)
-    		for k,v in pairs(TotemTimers.LongCooldowns) do
+    		--[[for k,v in pairs(TotemTimers.LongCooldowns) do
     			v:SetSpacing(value)
-    		end
+    		end]]
 			for k,v in pairs(TotemTimers.EnhanceCDs) do
 				v:SetSpacing(value)
 			end
-        end, --]]
+        end,
 
     CooldownAlpha =
         function(value, Timers)

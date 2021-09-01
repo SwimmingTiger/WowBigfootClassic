@@ -739,6 +739,7 @@ function XiTimers:SetBarTexture(texture)
 end
 
 function XiTimers:SetBarColor(r,g,b,a)
+    if not a then a = 1 end
     local backgroundAlpha = math.max(0, a - 0.6)
     for _,bar in pairs(self.timerBars) do 
 		bar:SetStatusBarColor(r,g,b,a)

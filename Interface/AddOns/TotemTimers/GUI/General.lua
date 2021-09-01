@@ -39,22 +39,6 @@ TotemTimers.options = {
                     set = function(info, val) TotemTimers.ActiveProfile.FlashRed = val TotemTimers.ProcessSetting("FlashRed") end,
                     get = function(info) return TotemTimers.ActiveProfile.FlashRed end,
                 }, 
-                stoppulse = {
-                    order = 3,
-                    type = "toggle",
-                    name = L["Stop Pulse"],
-                    desc = L["Stop Pulse Desc"],
-                    set = function(info, val) TotemTimers.ActiveProfile.StopPulse = val TotemTimers.ProcessSetting("StopPulse") end,
-                    get = function(info) return TotemTimers.ActiveProfile.StopPulse end,
-                },
-               --[[ showTimerBars = {
-                    order = 4,
-                    type = "toggle",
-                    name = L["Show Timer Bars"],
-                    desc = L["Displays timer bars underneath times"],
-                    set = function(info, val) TotemTimers.ActiveProfile.ShowTimerBars = val TotemTimers.ProcessSetting("ShowTimerBars") end,
-                    get = function(info) return TotemTimers.ActiveProfile.ShowTimerBars end,
-                },]]
                 timersonbuttons = {
                     order = 5,
                     type = "toggle",
