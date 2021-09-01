@@ -219,7 +219,9 @@ function NWB:printBuffTimers(isLogon)
 			zone = L["elwynnForest"];
 		end
 		msg = NWB:getDmfTimeString() .. " (" .. zone .. ")";
-		NWB:print("|HNWBCustomLink:timers|h" .. msg .. "|h", nil, "[DMF]");
+		if (not NWB.isTBC) then
+			NWB:print("|HNWBCustomLink:timers|h" .. msg .. "|h", nil, "[DMF]");
+		end
 	end
 	if (NWB.isDmfUp and NWB.data.myChars[UnitName("player")].buffs) then
 		local dmfCooldown, noMsgs = NWB:getDmfCooldown();
@@ -3475,7 +3477,6 @@ f:SetScript("OnEvent", function(self, event, ...)
 			C_Timer.After(5, function()
 				NWB:refreshFelwoodMarkers();
 				NWB:refreshWorldbuffMarkers();
-				--_G["NWB"] = {self, doLogon};
 			end)
 			GuildRoster();
 			if (NWB.db.global.logonPrint) then
@@ -4404,6 +4405,47 @@ function NWB:isInArena()
 	end
 end
 
+SLASH_NOVALUACMD1 = '/lua';
+function SlashCmdList.NOVALUACMD(msg, editBox, msg2)
+	if (msg and (string.lower(msg) == "on" or string.lower(msg) == "enable")) then
+		if (GetCVar("ScriptErrors") == "1") then
+			print("Lua errors are already enabled.")
+		else
+			SetCVar("ScriptErrors","1")
+			print("Lua errors enabled.")
+		end
+	elseif (msg and (string.lower(msg) == "off" or string.lower(msg) == "disable")) then
+		if (GetCVar("ScriptErrors") == "0") then
+			print("Lua errors are already off.")
+		else
+			SetCVar("ScriptErrors","0")
+			print("Lua errors disabled.")
+		end
+	else
+		print("Valid args are \"on\" and \"off\".");
+	end
+end
+
+SLASH_NOVALUAONCMD1 = '/luaon';
+function SlashCmdList.NOVALUAONCMD(msg, editBox, msg2)
+	if (GetCVar("ScriptErrors") == "1") then
+		print("Lua errors are already enabled.")
+	else
+		SetCVar("ScriptErrors","1")
+		print("Lua errors enabled.")
+	end
+end
+
+SLASH_NOVALUAOFFCMD1 = '/luaoff';
+function SlashCmdList.NOVALUAOFFCMD(msg, editBox)
+	if (GetCVar("ScriptErrors") == "0") then
+		print("Lua errors are already off.")
+	else
+		SetCVar("ScriptErrors","0")
+		print("Lua errors disabled.")
+	end
+end
+
 function NWB:debug(...)
 	local data = ...;
 	if (data and NWB.isDebug) then
@@ -4541,6 +4583,8 @@ function NWB:resetTimerData(silent)
 	NWB.data.tbcHDT = nil;
 	NWB.data.tbcDD = nil;
 	NWB.data.tbcDDT = nil;
+	NWB.data.tbcPD = nil;
+	NWB.data.tbcPDT = nil;
 	--zanTimer = 0;
 	NWB.data.zanYell = 0;
 	NWB.data.zanYell2 = 0;
@@ -4858,6 +4902,20 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 				end
 			else
 				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
+			end
+			local texture = "|TInterface\\TargetingFrame\\UI-PVP-Horde:12:12:-1:0:64:64:7:36:1:36|t";
+			if (NWB.faction == "Alliance") then
+				texture = "|TInterface\\TargetingFrame\\UI-PVP-Alliance:12:12:0:0:64:64:7:36:1:36|t";
+			end
+			if (NWB.data.tbcPD and NWB.data.tbcPDT and GetServerTime() - NWB.data.tbcPDT < 86400) then
+				local questData = NWB:getTbcPvpDailyData(NWB.data.tbcPD);
+				if (questData) then
+					local name = questData.nameLocale or questData.name;
+					tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
+							.. name);
+				end
+			else
+				tooltip:AddLine(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r Unknown.");
 			end
 		end
 		tooltip:AddLine("|cFF9CD6DELeft-Click|r Timers");
@@ -5842,7 +5900,7 @@ function NWB:createSongflowerMarkers()
 		obj.texture = bg;
 		obj:SetSize(15, 15);
 		--World map tooltip.
-		obj.tooltip = CreateFrame("Frame", k.. "Tooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
+		obj.tooltip = CreateFrame("Frame", k .. "Tooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
 		obj.tooltip:SetPoint("CENTER", obj, "CENTER", 0, -36);
 		obj.tooltip:SetFrameStrata("TOOLTIP");
 		obj.tooltip:SetFrameLevel(9);
@@ -8443,7 +8501,7 @@ NWBlayerFrame.fs2:SetFont(NWB.regionFont, 14);
 NWBlayerFrame.fs2:SetText("|cFF9CD6DETarget any NPC to see your current layer.|r");
 NWBlayerFrame.fs3 = NWBlayerFrame:CreateFontString("NWBbuffListFrameFS", "HIGH");
 --NWBlayerFrame.fs3 = NWBlayerFrame.EditBox:CreateFontString("NWBbuffListFrameFS", "HIGH");
-NWBlayerFrame.fs3:SetPoint("BOTTOM", 0, 2);
+NWBlayerFrame.fs3:SetPoint("BOTTOM", 0, 20);
 NWBlayerFrame.fs3:SetFont(NWB.regionFont, 14);
 NWBlayerFrame.fs3:SetText("|cFFDEDE42" .. L["layerFrameMsgOne"] .. "\n" .. L["layerFrameMsgTwo"]);
 --Set text after locales load.
@@ -9615,21 +9673,35 @@ function NWB:recalclayerFrame(isLogon, copyPaste)
 			local questData = NWB:getTbcDungeonDailyData(NWB.data.tbcDD);
 			if (questData) then
 				local name = questData.nameLocale or questData.name;
-				text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Dungeon Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
+				text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
 						.. name .. " (" .. questData.abbrev .. ")";
 			end
 		else
-			text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Dungeon Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.";
+			text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.";
 		end
 		if (NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
 			local questData = NWB:getTbcHeroicDailyData(NWB.data.tbcHD);
 			if (questData) then
 				local name = questData.nameLocale or questData.name;
-				text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Dungeon Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
+				text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
 						.. name .. " (" .. questData.abbrev .. ")";
 			end
 		else
-			text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Dungeon Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.";
+			text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.";
+		end
+		local texture = "|TInterface\\TargetingFrame\\UI-PVP-Horde:12:12:-1:-1:64:64:7:36:1:36|t";
+		if (NWB.faction == "Alliance") then
+			texture = "|TInterface\\TargetingFrame\\UI-PVP-Alliance:12:12:-0.6:-1:64:64:7:36:1:36|t";
+		end
+		if (NWB.data.tbcPD and NWB.data.tbcPDT and GetServerTime() - NWB.data.tbcPDT < 86400) then
+			local questData = NWB:getTbcPvpDailyData(NWB.data.tbcPD);
+			if (questData) then
+				local name = questData.nameLocale or questData.name;
+				text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r "
+						.. name;
+			end
+		else
+			text = text .. "\n" .. NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r" .. texture .. "|cFF9CD6DE)|r Unknown.";
 		end
 	end
 	if (copyPaste) then
@@ -9681,10 +9753,10 @@ function NWB:recalclayerFrame(isLogon, copyPaste)
 	NWBlayerFrame.EditBox:Insert("\n\n\n");
 	--Set the bottom text position depending on if there's a scrollable area or not.
 	if (NWBlayerFrame.EditBox:GetHeight() > (NWBlayerFrame:GetHeight() - NWBlayerFrame.fs3:GetHeight())) then
-		NWBlayerFrame.fs3:SetPoint("BOTTOM", NWBlayerFrame.EditBox, 0, 2);
+		NWBlayerFrame.fs3:SetPoint("BOTTOM", NWBlayerFrame.EditBox, 0, -8);
 		NWBlayerFrame.fs3:SetParent(NWBlayerFrame.EditBox);
 	else
-		NWBlayerFrame.fs3:SetPoint("BOTTOM", NWBlayerFrame, 0, 2);
+		NWBlayerFrame.fs3:SetPoint("BOTTOM", NWBlayerFrame, 0, -1);
 		NWBlayerFrame.fs3:SetParent(NWBlayerFrame);
 	end
 end
@@ -10154,7 +10226,7 @@ function NWB:validateZoneID(zoneID, layerID, mapID)
 	return true;
 end
 
-function NWB:isClassic()
+function NWB:isClassicCheck()
 	--Get current WoW client version and TOC number to check if we're playing classic or TBC.
 	local version, build, date, tocVersion = GetBuildInfo();
 	for k, v in pairs(NWB.data[mc]) do

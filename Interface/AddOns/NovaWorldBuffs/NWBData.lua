@@ -60,10 +60,14 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 		return;
 	end
 	local _, realm = strsplit("-", sender, 2);
-	--If realm found then it's not my realm, but just incase acecomm changes and starts supplying realm also check if realm exists.
-	if (realm ~= nil or (realm and realm ~= GetRealmName() and realm ~= GetNormalizedRealmName())) then
-		--Ignore data from other realms (in bgs).
-		return;
+	if (not NWB.isClassic) then
+		--Ignore this check on classic era because of connected realms.
+		--It should be ok because of the in bg checks.
+		--If realm found then it's not my realm, but just incase acecomm changes and starts supplying realm also check if realm exists.
+		if (realm ~= nil or (realm and realm ~= GetRealmName() and realm ~= GetNormalizedRealmName())) then
+			--Ignore data from other realms (in bgs).
+			return;
+		end
 	end
 	if (commPrefix == "D4C") then
 		--Parse DBM.
@@ -225,7 +229,7 @@ function NWB:versionCheck(remoteVersion, distribution, sender)
 end
 
 --Send to specified addon channel.
-function NWB:sendComm(distribution, string, target, useOldSerializer)
+function NWB:sendComm(distribution, string, target, prio, useOldSerializer)
 	if (target == UnitName("player") or NWB:debug()) then
 		return;
 	end
@@ -245,12 +249,13 @@ function NWB:sendComm(distribution, string, target, useOldSerializer)
 		target = nil;
 	end
 	local data, serialized;
-	if (useOldSerializer) then
+	--Disable sending with old serializer 21 aug 2012, remove receiving old serialized data in a later update.
+	--if (useOldSerializer) then
 		--For settings to older versions.
-		serialized = NWB.serializerOld:Serialize(string);
-	else
+	--	serialized = NWB.serializerOld:Serialize(string);
+	--else
 		serialized = NWB.serializer:Serialize(string);
-	end
+	--end
 	local compressed = NWB.libDeflate:CompressDeflate(serialized, {level = 9});
 	if (distribution == "YELL" or distribution == "SAY") then
 		data = NWB.libDeflate:EncodeForWoWChatChannel(compressed);
@@ -286,7 +291,8 @@ function NWB:sendData(distribution, target, prio, noLayerMap, noLogs, type)
 	else
 		data = NWB:createData(distribution, noLogs);
 	end
-	if (next(data) ~= nil and NWB:isClassic()) then
+	--NWB:debug(data)
+	if (next(data) ~= nil and NWB:isClassicCheck()) then
 		data = NWB.serializer:Serialize(data);
 		local l = "";
 		if (NWB.isLayered) then
@@ -320,12 +326,12 @@ function NWB:sendTimerLogData(distribution, entries)
 	end
 	local data = {};
 	data.timerLog = NWB:createTimerLogData(distribution, entries);
-	if (next(data) ~= nil and NWB:isClassic()) then
+	if (next(data) ~= nil and NWB:isClassicCheck()) then
 		data = NWB:convertKeys(data, true, distribution);
 		--NWB:debug(data);
 		data = NWB.serializer:Serialize(data);
 		NWB.lastDataSent = GetServerTime();
-		NWB:sendComm(distribution, "data " .. version .. " " .. self.k() .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "data " .. version .. " " .. self.k() .. " " .. data);
 	end
 end
 
@@ -395,7 +401,7 @@ function NWB:sendL(l, type)
 	end
 	if (NWB.db.global.guildL) then
 		NWB:debug("sending layer", l, type);
-		NWB:sendComm("GUILD", "l " .. version .. "-" .. l .. " " .. self.k(), target, prio);
+		NWB:sendComm("GUILD", "l " .. version .. "-" .. l .. " " .. self.k());
 	end
 end
 
@@ -418,10 +424,10 @@ end]]
 
 --Send buff dropped msg.
 function NWB:sendBuffDropped(distribution, type, target, layer)
-	if (tonumber(layer) and NWB:isClassic()) then
+	if (tonumber(layer) and NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "drop " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
 		--NWB:sendComm(distribution, "drop " .. version2 .. " " .. type .. " " .. layer, target);
-	elseif (NWB:isClassic()) then
+	elseif (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "drop " .. version .. " " .. self.k() .. " " .. type, target);
 		--NWB:sendComm(distribution, "drop " .. version2 .. "  " .. type, target);
 	end
@@ -432,7 +438,7 @@ function NWB:sendYell(distribution, type, target, layer, arg)
 	if (NWB.sharedLayerBuffs) then
 		layer = nil;
 	end
-	if (NWB:isClassic()) then
+	if (NWB:isClassicCheck()) then
 		if (arg) then
 			if (tonumber(layer)) then
 				NWB:sendComm(distribution, "yell " .. version .. " " .. self.k() .. " " .. type .. " " .. layer .. " " .. arg, target);
@@ -453,36 +459,36 @@ end
 
 --Send npc killed msg.
 function NWB:sendNpcKilled(distribution, type, target, layer)
-	if (tonumber(layer) and NWB:isClassic()) then
+	if (tonumber(layer) and NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
-	elseif (NWB:isClassic()) then
+	elseif (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "npcKilled " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
 
 --Send flower msg.
 function NWB:sendFlower(distribution, type, target, layer)
-	if (tonumber(layer) and NWB:isClassic()) then
+	if (tonumber(layer) and NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "flower " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
-	elseif (NWB:isClassic()) then
+	elseif (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "flower " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
 
 --Testing hand in earlier warnings.
 function NWB:sendHandIn(distribution, type, target, layer)
-	if (tonumber(layer) and NWB:isClassic()) then
+	if (tonumber(layer) and NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "handIn " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
-	elseif (NWB:isClassic()) then
+	elseif (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "handIn " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
 
 --Send npc walking msg.
 function NWB:sendNpcWalking(distribution, type, target, layer)
-	if (tonumber(layer) and NWB:isClassic()) then
+	if (tonumber(layer) and NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "npcWalking " .. version .. " " .. self.k() .. " " .. type .. " " .. layer, target);
-	elseif (NWB:isClassic()) then
+	elseif (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "npcWalking " .. version .. " " .. self.k() .. " " .. type, target);
 	end
 end
@@ -521,7 +527,7 @@ function NWB:requestData(distribution, target, prio)
 	end
 	data = NWB.serializer:Serialize(data);
 	NWB.lastDataSent = GetServerTime();
-	if (NWB:isClassic()) then
+	if (NWB:isClassicCheck()) then
 		NWB:sendComm(distribution, "requestData " .. version .. " " .. self.k() .. " " .. data, target, prio);
 	else
 		NWB:requestSettings(distribution, target, prio);
@@ -635,13 +641,12 @@ function NWB:createData(distribution, noLogs)
 			data.timerLog = timerLog;
 		end
 	end
-	--NWB:debug(data);
 	--data['faction'] = NWB.faction;
 	--NWB:debug("Before key convert:", string.len(NWB.serializer:Serialize(data)));
 	data = NWB:convertKeys(data, true, distribution);
 	--NWB:debug("After key convert:", string.len(NWB.serializer:Serialize(data)));
-	if (NWB.tar("player") == nil and distribution ~= "GUILD") then
-		data = {};
+	if (NWB.isClassic and NWB.tar("player") == nil and distribution ~= "GUILD") then
+		--data = {};
 	end
 	return data;
 end
@@ -878,17 +883,23 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 			data[k] = NWB.data[k];
 		end
 	end]]
+	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
+			and GetServerTime() - NWB.data.tbcDDT < 86400
+		and (not type or type == "tbcHeroicDailies")) then
+		data.tbcDD = NWB.data.tbcDD;
+		data.tbcDDT = NWB.data.tbcDDT;
+	end
 	if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
 			and GetServerTime() - NWB.data.tbcHDT < 86400
 		and (not type or type == "tbcHeroicDailies")) then
 		data.tbcHD = NWB.data.tbcHD;
 		data.tbcHDT = NWB.data.tbcHDT;
 	end
-	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
-			and GetServerTime() - NWB.data.tbcDDT < 86400
-		and (not type or type == "tbcHeroicDailies")) then
-		data.tbcDD = NWB.data.tbcDD;
-		data.tbcDDT = NWB.data.tbcDDT;
+	if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
+			and GetServerTime() - NWB.data.tbcPDT < 86400
+		and (not type or type == "tbcPvpDailies")) then
+		data.tbcPD = NWB.data.tbcPD;
+		data.tbcPDT = NWB.data.tbcPDT;
 	end
 	if (distribution == "GUILD") then
 		--Include settings with timer data for guild.
@@ -1102,6 +1113,8 @@ NWB.validKeys = {
 	["tbcHDT"] = true,
 	["tbcDD"] = true,
 	["tbcDDT"] = true,
+	["tbcPD"] = true,
+	["tbcPDT"] = true,
 	["faction"] = true,
 	["GUID"] = true,
 	["lastSeenNPC"] = true,
@@ -1203,7 +1216,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 	end
 	local hasNewData, newFlowerData;
 	--Insert our layered data here.
-	if (NWB.isLayered and data.layers and self.j(elapsed) and time > 50) then
+	if (NWB.isLayered and data.layers and self.j(elapsed) and (NWB.isClassic or distribution == "GUILD" or time > 50)) then
 		--There's a lot of ugly shit in this function trying to quick fix timer bugs for this layered stuff...
 		for k, _ in pairs(data.layers) do
 			if (type(k) ~= "number") then
@@ -1304,7 +1317,8 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 							for k, v in pairs(vv) do
 								if ((type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 										or (not NWB.db.global.receiveGuildDataOnly)
-										or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) and time > 50) then
+										or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD"))
+										and (NWB.isClassic or distribution == "GUILD" or time > 50)) then
 									if (NWB.validKeys[k] and tonumber(v)) then
 										--If data is numeric (a timestamp) then check it's newer than our current timer.
 										if (v ~= nil) then
@@ -1399,7 +1413,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 		--bad argument #1 to 'match' (string expected, got table)
 		if (self.j(elapsed) and (type(k) == "string" and (string.match(k, "flower") and NWB.db.global.syncFlowersAll)
 				or (not NWB.db.global.receiveGuildDataOnly)
-				or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) and time > 50) then
+				or (NWB.db.global.receiveGuildDataOnly and distribution == "GUILD")) and (NWB.isClassic or time > 50)) then
 			if (NWB.validKeys[k] and tonumber(v)) then
 				--If data is numeric (a timestamp) then check it's newer than our current timer.
 				if (v ~= nil) then
@@ -1409,14 +1423,14 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 						--Like if onyTimeWho is a number, not sure how this is possible but it happens on rare occasion.
 						--This will correct it by resetting thier timestamp to 0.
 						--NWB:debug("Local data error:", k, v, NWB.data[k])
-						if (k ~= "tbcDD" and k ~= "tbcHD") then
+						if (k ~= "tbcDD" and k ~= "tbcHD" and k ~= "tbcPD") then
 							--If it's not a daily type, we never want to set those to 0 they should be nil if not valid.
 							NWB.data[k] = 0;
 						end
 					end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 					if (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v, k) and k ~= "terokFaction"
-							and k ~= "tbcHD" and k ~= "tbcDD") then
+							and k ~= "tbcHD" and k ~= "tbcDD" and k ~= "tbcPD") then
 						if ((NWB.isLayered and string.match(k, "flower") and (GetServerTime()) < 1500)
 							or (string.match(k, "flower") and v > (GetServerTime() + 1530))
 							or (string.match(k, "tuber") and v > (GetServerTime() + 1530))
@@ -1450,6 +1464,13 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								if (k == "tbcDDT" and data.tbcDD) then
 									if (tonumber(data.tbcDD) and data.tbcDD > 0) then
 										NWB.data.tbcDD = data.tbcDD;
+									else
+										skip = true;
+									end
+								end
+								if (k == "tbcPDT" and data.tbcPD) then
+									if (tonumber(data.tbcPD) and data.tbcPD > 0) then
+										NWB.data.tbcPD = data.tbcPD;
 									else
 										skip = true;
 									end
@@ -1711,6 +1732,8 @@ local shortKeys = {
 	["P"] = "tbcHDT",
 	["Q"] = "tbcDD",
 	["R"] = "tbcDDT",
+	["S"] = "tbcPD",
+	["T"] = "tbcPDT",
 	["f1"] = "flower1",
 	["f2"] = "flower2",
 	["f3"] = "flower3",
@@ -3949,6 +3972,50 @@ NWB.tbcHeroicDailies = {
 	},
 };
 
+NWB.tbcPvpDailies = {
+	--Horde.
+	[11342] = {
+		id = 1,
+		name = "Call to Arms: Warsong Gulch",
+		desc = "Win a Warsong Gulch battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+	},
+	[11339] = {
+		id = 2,
+		name = "Call to Arms: Arathi Basin",
+		desc = "Win an Arathi Basin battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+	},
+	[11340] = {
+		id = 3,
+		name = "Call to Arms: Alterac Valley",
+		desc = "Win an Alterac Valley battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+	},
+	[11341] = {
+		id = 4,
+		name = "Call to Arms: Eye of the Storm",
+		desc = "Win an Eye of the Storm battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+	},
+	--Alliance.
+	[11338] = {
+		id = 5,
+		name = "Call to Arms: Warsong Gulch",
+		desc = "Win a Warsong Gulch battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+	},
+	[11335] = {
+		id = 6,
+		name = "Call to Arms: Arathi Basin",
+		desc = "Win an Arathi Basin battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+	},
+	[11336] = {
+		id = 7,
+		name = "Call to Arms: Alterac Valley",
+		desc = "Win an Alterac Valley battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+	},
+	[11337] = {
+		id = 8,
+		name = "Call to Arms: Eye of the Storm",
+		desc = "Win an Eye of the Storm battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+	},
+};
 --Update data with localized names.
 function NWB:populateTbcDailyData()
 	for k, v in pairs(NWB.tbcHeroicDailies) do
@@ -3963,6 +4030,12 @@ function NWB:populateTbcDailyData()
 			NWB.tbcDungeonDailies[k].nameLocale = name;
 		end
 	end
+	for k, v in pairs(NWB.tbcPvpDailies) do
+		local name = C_QuestLog.GetQuestInfo(k);
+		if (name) then
+			NWB.tbcPvpDailies[k].nameLocale = name;
+		end
+	end
 end
 
 function NWB:getTbcDungeonDailyData(id)
@@ -3975,6 +4048,14 @@ end
 
 function NWB:getTbcHeroicDailyData(id)
 	for k, v in pairs(NWB.tbcHeroicDailies) do
+		if (v.id == id) then
+			return v;
+		end
+	end
+end
+
+function NWB:getTbcPvpDailyData(id)
+	for k, v in pairs(NWB.tbcPvpDailies) do
 		if (v.id == id) then
 			return v;
 		end
@@ -4004,7 +4085,7 @@ f:SetScript('OnEvent', function(self, event, ...)
 		lastNpcID = npcID;
 		lastGossipOpen = GetTime();
 	elseif (event == "QUEST_FINISHED") then
-		if (lastNpcID == "24370" or lastNpcID == "24369") then
+		if (lastNpcID == "24370" or lastNpcID == "24369" or lastNpcID == "15350" or lastNpcID == "15351") then
 			lastGossipClosed = GetTime();
 		end
 	elseif (event == "QUEST_ACCEPTED") then
@@ -4028,6 +4109,15 @@ f:SetScript('OnEvent', function(self, event, ...)
 				NWB.data.tbcHDT = GetServerTime();
 				NWB:sendData("YELL", nil, nil, true, true, "tbcHeroicDailies");
 				NWB:sendData("GUILD", nil, nil, true, true, "tbcHeroicDailies");
+			end
+		end
+		if ((lastNpcID == "15350" or lastNpcID == "15351") and GetTime() - lastGossipClosed < 2) then
+			if (NWB.tbcPvpDailies[questID]) then
+				NWB:debug("got pvp daily", NWB.tbcPvpDailies[questID].name);
+				NWB.data.tbcPD = NWB.tbcPvpDailies[questID].id;
+				NWB.data.tbcPDT = GetServerTime();
+				NWB:sendData("YELL", nil, nil, true, true, "tbcPvpDailies");
+				NWB:sendData("GUILD", nil, nil, true, true, "tbcPvpDailies");
 			end
 		end
 	end
