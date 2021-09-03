@@ -410,7 +410,6 @@ local curPhase = 1;
 	local MAX_NUM_ICONS_PER_SPEC = MAX_NUM_TIER * MAX_NUM_COL;
 	local _talentDB = NS._talentDB;
 	local _spellDB = NS._spellDB_P;
-	local _talentSpellData = NS._talentSpellData;
 	local _preset_talent = NS._preset_talent;
 	local _classTab = NS._classTab;
 	local _talentTabIcon = NS._talentTabIcon;
@@ -2152,8 +2151,8 @@ end
 				NS.POPUP_ON_RECV[name] = not mute;
 				local t = time();
 				local counter_expired = NS.PREV_QUERY_SENT_TIME[name] == nil or (t - NS.PREV_QUERY_SENT_TIME[name] > 1);
-				local update_tal = talent ~= false and (force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_tal == nil or (t - (NS.queryCache[name].time_tal or (-DATA_VALIDITY))) > DATA_VALIDITY)));
-				local update_inv = equitment ~= false and (force_update or (counter_expired and (NS.queryCache[name] == nil or NS.queryCache[name].time_inv == nil or (t - (NS.queryCache[name].time_inv or (-DATA_VALIDITY))) > DATA_VALIDITY)));
+				local update_tal = talent ~= false and counter_expired and (force_update or (NS.queryCache[name] == nil or NS.queryCache[name].time_tal == nil or (t - (NS.queryCache[name].time_tal or (-DATA_VALIDITY))) > DATA_VALIDITY));
+				local update_inv = equitment ~= false and counter_expired and (force_update or (NS.queryCache[name] == nil or NS.queryCache[name].time_inv == nil or (t - (NS.queryCache[name].time_inv or (-DATA_VALIDITY))) > DATA_VALIDITY));
 				if update_tal or update_inv then
 					NS.PREV_QUERY_SENT_TIME[name] = t;
 					if UnitInBattleground('player') and realm ~= NS.CRealmName then
@@ -3780,7 +3779,7 @@ end
 			timeout = 0,
 			whileDead = true,
 			hideOnEscape = true,
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			preferredIndex = 1,
 		};
 		local function applyTalentsButton_OnClick(self)
 			if UnitLevel('player') >= 10 then

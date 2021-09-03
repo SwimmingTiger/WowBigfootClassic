@@ -23,6 +23,11 @@ local _patch_version, _build_number, _build_date, _toc_version = GetBuildInfo();
 
 NS.BUILD = "CLASSIC";
 NS.MAXLEVEL = 60;
+NS.MAX_NUM_TIER = 7;
+NS.MAX_NUM_COL = 4;
+NS.MAX_NUM_TALENTS = 28;
+NS.MAX_LEVEL = 60;
+--
 NS._classTab = {
 	DRUID =
 	{
@@ -87,12 +92,6 @@ NS._classTab = {
 	--	_spellDB_P
 	--	 1_level, 2_id, 3_cost, 4_phase, name, passive, talent, class
 --
---	_spellDB_P = { { { level, id, cost } } }
---
-NS.MAX_NUM_TIER = 7;
-NS.MAX_NUM_COL = 4;
-NS.MAX_NUM_TALENTS = 28;
-NS.MAX_LEVEL = 60;
 NS._talentDB = {
 	MAGE =
 	{
@@ -636,6 +635,7 @@ NS._talentDB = {
 		},
 	},
 };
+--	_spellDB_P = { { { level, id, cost } } }
 NS._spellDB_P = {
 	DRUID = {
 		{ name = "愤怒", { 1, 5176, 0, }, { 6, 5177, 100, }, { 14, 5178, 900, }, { 22, 5179, 3000, }, { 30, 5180, 6000, }, { 38, 6780, 12000, }, { 46, 8905, 20000, }, { 54, 9912, 28000, }, },
@@ -1124,8 +1124,10 @@ NS._spellDB_P = {
 		{ name = "盾牌猛击", { -1, 23922, 0, }, { 48, 23923, 200, }, { 54, 23924, 2800, }, { 60, 23925, 3100, }, talent = true, },
 	},
 };
+--[==[
 NS._talentSpellData = {  };
 
+--]==]
 NS._talentTabIcon = {
 	[41] = "Interface\\Icons\\spell_fire_firebolt02",
 	[61] = "Interface\\Icons\\spell_frost_frostbolt02",

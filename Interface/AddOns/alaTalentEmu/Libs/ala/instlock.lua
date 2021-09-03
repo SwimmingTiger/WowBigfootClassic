@@ -1,7 +1,7 @@
 --[[--
 	ALA@163UI
 --]]--
-local __version = 2;
+local __version = 3;
 
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __instlib = __ala_meta__.__instlib
@@ -290,6 +290,7 @@ __instlib.InstanceIDHash = {
 			[2217] = true,		--	Ny’alotha
 };
 
+local ADDON_MSG_CONTROL_CODE_LEN = 6;
 __instlib.ADDON_PREFIX = "ILTADD";
 __instlib.ADDON_MSG_PUSH_ZONEUID = "_push_";
 __instlib.ADDON_MSG_QUERY_ZONEUID = "_q_uid";

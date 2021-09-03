@@ -23,6 +23,11 @@ local _patch_version, _build_number, _build_date, _toc_version = GetBuildInfo();
 
 NS.BUILD = "BCC";
 NS.MAXLEVEL = 70;
+NS.MAX_NUM_TIER = 9;
+NS.MAX_NUM_COL = 4;
+NS.MAX_NUM_TALENTS = 36;
+NS.MAX_LEVEL = 70;
+--
 NS._classTab = {
 	DRUID =
 	{
@@ -87,12 +92,6 @@ NS._classTab = {
 	--	_spellDB_P
 	--	 1_level, 2_id, 3_cost, 4_phase, name, passive, talent, class
 --
---	_spellDB_P = { { { level, id, cost } } }
---
-NS.MAX_NUM_TIER = 9;
-NS.MAX_NUM_COL = 4;
-NS.MAX_NUM_TALENTS = 36;
-NS.MAX_LEVEL = 70;
 NS._talentDB = {
 	HUNTER = {
 		[361] = {
@@ -746,6 +745,7 @@ NS._talentDB = {
 		},
 	},
 };
+--	_spellDB_P = { { { level, id, cost } } }
 NS._spellDB_P = {  };
 --[==[
 	1	=	PowerType				--	aj
@@ -769,7 +769,6 @@ NS._spellDB_P = {  };
 	14	=	Usable Spell
 	15, 16, 17	=	trigger spell	--	dm, 3
 	18	=	use trigger spell
-]==]
 NS._talentSpellData = {
 	[67]    = { 0,  0,    0,    0,    0,    0,  0,   100,     0,     0,     0,      0,      0,  true,   nil,   nil,  nil, },
 	[674]   = { 0,  0,    0,    0,    0,    0,  0,     0,     0,     0,     0,      0,      0,   nil,   nil,   nil,  nil, },
@@ -2680,6 +2679,7 @@ NS._talentSpellData = {
 	[46989] = { 0,  0,    0,    0,    0,    0,  0,     0,     0,     0,     0,      0,      0,   nil,   nil,   nil,  nil, },
 	[47000] = { 0,  0,    0,    0,    0,    0,  0,     0,     0,     0,     0,      0,      0,   nil,   nil,   nil,  nil, },
 };
+--]==]
 
 NS._talentTabIcon = {
 	[41] = "Interface\\Icons\\spell_fire_firebolt02",

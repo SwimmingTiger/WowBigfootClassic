@@ -1,7 +1,7 @@
 --[[--
 	ALA@163UI
 --]]--
-local __version = 3;
+local __version = 4;
 
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __mapshare = __ala_meta__.__mapshare
@@ -38,6 +38,7 @@ local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or Se
 local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit;
 local UnitPosition = UnitPosition;
 
+local ADDON_MSG_CONTROL_CODE_LEN = 6;
 __mapshare.ADDON_PREFIX = "AMSADD";
 __mapshare.ADDON_MSG_MAP_PULL = "_pull_";
 __mapshare.ADDON_MSG_MAP_PUSH = "_push_";

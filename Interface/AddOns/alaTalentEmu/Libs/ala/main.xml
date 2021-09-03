@@ -13,6 +13,8 @@
 	<script file = "drop.lua" />
 	<script file = "popup.lua" />
 	<script file = "scroll.lua" />
+	<script file = "comm.lua" />
+	<script file = "coder.lua" />
 
 	<!-- <include file = "Bindings.xml" /> -->
 
