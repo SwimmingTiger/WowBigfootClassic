@@ -24,12 +24,14 @@ function Browser:Constructor()
     self.Header4:SetText(L['Leader'])
     self.Header5:SetText(L['Comment'])
     self.Header6:SetText(L['Operation'])
+    self.Header7:SetText(L['Certification'])
     -- self.Header1:Disable()
     self.Header2:Disable()
     self.Header3:Disable()
     self.Header4:Disable()
     self.Header5:Disable()
     self.Header6:Disable()
+    self.Header7:Disable()
 
     -- self.CreateButton:SetText(L['Create Activity'])
     self.ActivityLabel:SetText(L['Activity'])
@@ -37,7 +39,18 @@ function Browser:Constructor()
     self.SearchLabel:SetText(SEARCH .. L['(Include channel message)'])
     self.ProgressBar.Loading:SetText(L['Receiving active data, please wait patiently'])
     self.ProgressBar:SetMinMaxValues(0, 1)
-
+    self.IconTip:SetText(L['图示'])
+    self.IconTip:SetNormalFontObject('GameFontHighlightSmall')
+    self.IconTip:SetHighlightFontObject('GameFontNormalSmall')
+    self.IconTip:SetScript('OnEnter', function()
+        GameTooltip:SetOwner(self.IconTip, 'ANCHOR_RIGHT')
+        GameTooltip:SetText(L['图示'])
+        GameTooltip:AddLine(format(
+                                [[|TInterface\AddOns\MeetingHorn\Media\certification_icon:20:20:0:0:32:32:0:32:0:32|t %s]],
+                                L['星团长（按开团次数获取，仅供参考）']), 1, 1, 1)
+        GameTooltip:Show()
+    end)
+    self.IconTip:SetScript('OnLeave', GameTooltip_Hide)
     ns.GUI:GetClass('Dropdown'):Bind(self.Activity)
     ns.GUI:GetClass('Dropdown'):Bind(self.Mode)
 
@@ -110,13 +123,19 @@ function Browser:Constructor()
         elseif inApplicant then
             state = L['Applicanted']
         end
-
         button.Name:SetText(item:GetTitle())
         button.Leader:SetText(item:GetLeader())
         button.Comment:SetText(item:GetComment())
         button.Mode:SetText(item:GetMode())
         button.Leader:SetTextColor(GetClassColor(item:GetLeaderClass()))
+        --[=[@classic@
         button.Comment:SetWidth(item:IsActivity() and 290 or 360)
+        --@end-classic@]=]
+
+        -- @bcc@
+        button.Icon:SetShown(item:IsCertification())
+        button.Comment:SetWidth(item:IsActivity() and 250 or 320)
+        -- @end-bcc@
         local members = item:GetMembers()
         if members then
             members = format('%d/%d', members, item.data.members)
@@ -159,6 +178,11 @@ function Browser:Constructor()
             self.QRTooltip.QRCode:SetValue(ns.MakeQRCode(item:GetLeader()))
             self.QRTooltip:Show()
         end)
+        --[=[@classic@
+        button.Instance:ClearAllPoints()
+        button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
+        button.Name:SetPoint('LEFT', 5, 0)
+        --@end-classic@]=]
     end)
     ---@param item MeetingHornActivity
     self.ActivityList:SetCallback('OnItemSignupClick', function(_, button, item)
@@ -222,6 +246,13 @@ function Browser:Constructor()
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
     -- self:Show()
+
+    --[=[@classic@
+    self.Header1:ClearAllPoints()
+    self.Header1:SetPoint('BOTTOMLEFT', self.ActivityList, 'TOPLEFT', 2, 5)
+    self.Header7:SetShown(false)
+    self.Header5:SetWidth(290)
+    --@end-classic@]=]
 end
 
 function Browser:OnShow()
@@ -253,6 +284,10 @@ function Browser:UpdateProgress()
         self.ProgressBar:Show()
         self.ProgressBar:SetValue(0)
     end
+
+    -- @bcc@
+    self.IconTip:SetShown(not self.ProgressBar:IsShown())
+    -- @end-bcc@
 end
 
 function Browser:OnClick(id)
@@ -266,8 +301,13 @@ function Browser:OnClick(id)
 end
 
 function Browser:Sort()
-    if self.sortId then
+    local sortCall = function()
         sort(self.ActivityList:GetItemList(), function(a, b)
+            -- @bcc@
+            if a:IsCertification() ~= b:IsCertification() then
+                return a:IsCertification()
+            end
+            -- @end-bcc@
             local aid, bid = a:GetActivityId(), b:GetActivityId()
             if aid == bid then
                 return a:GetTick() < b:GetTick()
@@ -286,7 +326,15 @@ function Browser:Sort()
             end
         end)
         self.ActivityList:Refresh()
+    end
 
+    -- @bcc@
+    sortCall()
+    -- @end-bcc@
+    if self.sortId then
+        --[=[@classic@
+        sortCall()
+        --@end-classic@]=]
         self.Sorter:Show()
         self.Sorter:SetParent(self['Header' .. self.sortId])
         self.Sorter:ClearAllPoints()

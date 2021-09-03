@@ -98,10 +98,21 @@
                             </Layer>
                         </Layers>
                     </Frame>
+                    <Button parentKey="Header7" inherits="ColumnDisplayButtonTemplate" id="6">
+                        <Size x="40" y="24"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5"/>
+                        </Anchors>
+                        <ButtonText>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </ButtonText>
+                    </Button>
                     <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate" id="1">
                         <Size x="145" y="24"/>
                         <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5"/>
+                            <Anchor point="LEFT" relativeKey="$parent.Header7" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate" id="2">
@@ -123,7 +134,7 @@
                         </Anchors>
                     </Button>
                     <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate" id="5">
-                        <Size x="290" y="24"/>
+                        <Size x="250" y="24"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT"/>
                         </Anchors>
@@ -223,7 +234,7 @@
                             <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" />
                         </Anchors>
                     </Button> -->
-                    <StatusBar parentKey="ProgressBar">
+                    <StatusBar parentKey="ProgressBar" frameLevel="100">
                         <Size x="260" y="17"/>
                         <Anchors>
                             <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
@@ -257,6 +268,24 @@
                             <Anchor point="BOTTOM" relativePoint="BOTTOM" x="0" y="-22" />
                         </Anchors>
                     </Button> -->
+                    <Button parentKey="IconTip" hidden="true">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" x="10" y="-20"/>
+                        </Anchors>
+                        <Size x="50" y="20"/>
+                        <NormalTexture parentKey="Icon" file="Interface\AddOns\MeetingHorn\Media\Icons">
+                            <Anchors>
+                                <Anchor point="LEFT"/>
+                            </Anchors>
+                            <Size x="20" y="20"/>
+                            <TexCoords left="0" right="0.125" x="0" y="1"/>
+                        </NormalTexture>
+                        <ButtonText parentKey="text">
+                            <Anchors>
+                                <Anchor relativeKey="$parent.Icon" relativePoint="RIGHT" point="LEFT"/>
+                            </Anchors>
+                        </ButtonText>
+                    </Button>
                 </Frames>
             </Frame>
             <Frame parentKey="Manage">
@@ -846,21 +875,24 @@
                                     </Anchors>
                                     <TexCoords left="0.26171875" right="0.51171875" top="0.00097656" bottom="0.06347656"/>
                                 </Texture>
-                                <Texture parentKey="LLVert" file="Interface\Common\bluemenu-vert" vertTile="true">                                    <!-- left line -->
+                                <Texture parentKey="LLVert" file="Interface\Common\bluemenu-vert" vertTile="true">
+                                    <!-- left line -->
                                     <Size x="43" y="270"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="7" y="-87"/>
                                     </Anchors>
                                     <TexCoords left="0.06250000" right="0.39843750" top="0" bottom="1"/>
                                 </Texture>
-                                <Texture parentKey="RLVert" file="Interface\Common\bluemenu-vert" vertTile="true">                                    <!-- right line -->
+                                <Texture parentKey="RLVert" file="Interface\Common\bluemenu-vert" vertTile="true">
+                                    <!-- right line -->
                                     <Size x="43" y="270"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" x="172" y="-87"/>
                                     </Anchors>
                                     <TexCoords left="0.41406250" right="0.75000000" top="0" bottom="1"/>
                                 </Texture>
-                                <Texture parentKey="BottomLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">                                    <!-- bottom line -->
+                                <Texture parentKey="BottomLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">
+                                    <!-- bottom line -->
                                     <Size x="80" y="43"/>
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" relativeKey="$parent.BLCorner" relativePoint="BOTTOMRIGHT"/>
@@ -876,14 +908,16 @@
                                 </Texture>
                             </Layer>
                             <Layer level="BORDER">
-                                <Texture parentKey="TopFiligree" file="Interface\Common\bluemenu-main">                                    <!-- top filigree -->
+                                <Texture parentKey="TopFiligree" file="Interface\Common\bluemenu-main">
+                                    <!-- top filigree -->
                                     <Size x="185" y="55"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeKey="$parent.BlueBg" x="12" y="-6"/>
                                     </Anchors>
                                     <TexCoords left="0.00390625" right="0.72656250" top="0.12988281" bottom="0.18359375"/>
                                 </Texture>
-                                <Texture parentKey="BottomFiligree" file="Interface\Common\bluemenu-main">                                    <!-- bottom filigree -->
+                                <Texture parentKey="BottomFiligree" file="Interface\Common\bluemenu-main">
+                                    <!-- bottom filigree -->
                                     <Size x="185" y="55"/>
                                     <Anchors>
                                         <Anchor point="BOTTOMLEFT" relativeKey="$parent.BlueBg" x="12" y="4"/>

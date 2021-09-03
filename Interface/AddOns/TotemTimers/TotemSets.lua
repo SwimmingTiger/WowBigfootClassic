@@ -126,5 +126,4 @@ StaticPopupDialogs["TOTEMTIMERS_DELETESET"] = {
   hideOnEscape = 1,
   timeout = 0,
   OnAccept = TotemTimers_DeleteSet,
-  preferredIndex = STATICPOPUP_NUMDIALOGS,
 }

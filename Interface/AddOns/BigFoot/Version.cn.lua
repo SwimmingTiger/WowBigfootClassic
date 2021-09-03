@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
-local main= "2.5.1."
-local minor = "103"
+local main= "2.5.2."
+local minor = "106"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,19 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2021/09/02 (2.5.2.106)")
+	BigFootChangelog_ar("大脚插件","版本号同步至游戏版本。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/08/18 (2.5.1.105)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.6.3)。")
+
+
+	BigFootChangelog_at("2021/08/16 (2.5.1.104)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2021/08/12 (2.5.1.103)")
 	BigFootChangelog_ar("大脚插件","添加竞技语音(GladiatorlosSA2)。")
@@ -494,4 +507,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "53"
+BF_VERSION_CHECKSUM = "51"

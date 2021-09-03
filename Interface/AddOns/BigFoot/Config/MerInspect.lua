@@ -50,7 +50,7 @@ function MerInspectConfigFunc()
 		QUICK_COMPARE_ENABLE = "Enable Quick Compare";
 	end
 
-	if (IsConfigurableAddOn("QuickCompare") or IsConfigurableAddOn("GearStatsSummary") or IsConfigurableAddOn("ReforgeLite")) then
+	if (IsConfigurableAddOn("QuickCompare") or IsConfigurableAddOn("MerInspect") or IsConfigurableAddOn("ReforgeLite")) then
 		ModManagement_RegisterMod(
 			"InfoStat",
 			"Interface\\Icons\\INV_Jewelry_Necklace_22",
@@ -152,7 +152,7 @@ function MerInspectConfigFunc()
 			);
 		end
 
-		if IsConfigurableAddOn("GearStatsSummary") then
+		if IsConfigurableAddOn("MerInspect") then
 			ModManagement_RegisterCheckBox(
 				"InfoStat",
 				MOD_INFO_COMPARISON_TIPFRAME,
@@ -161,13 +161,12 @@ function MerInspectConfigFunc()
 				1,
 				function (arg)
 					if ( arg == 1 ) then
-						if (not BigFoot_IsAddOnLoaded("GearStatsSummary")) then
-							BigFoot_LoadAddOn("GearStatsSummary");
-							GearStatsSummary_Toogle(true)
+						if (not BigFoot_IsAddOnLoaded("MerInspect")) then
+							BigFoot_LoadAddOn("MerInspect");
 						end
 					else
-						if (BigFoot_IsAddOnLoaded("GearStatsSummary")) then
-							GearStatsSummary_Toogle(false);
+						if (BigFoot_IsAddOnLoaded("MerInspect")) then
+							BigFoot_RequestReloadUI(function() BigFoot_Print("MerInspect"); end);
 						end
 					end
 				end

@@ -421,3 +421,13 @@ end
 function ns.GetAddonSource()
     return 0
 end
+
+function ns.ListToMap(list)
+    local map = {}
+    do
+        for i, v in pairs(list) do
+            map[v] = true
+        end
+    end
+    return map
+end

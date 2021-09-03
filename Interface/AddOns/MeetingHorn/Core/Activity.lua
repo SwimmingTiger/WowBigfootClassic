@@ -90,6 +90,11 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
         return
     end
 
+    local leaderFullName = leader
+    if not strmatch(leaderFullName, '-') then
+        leaderFullName = leaderFullName .. '-' .. GetRealmName()
+    end
+
     self.raidId = raidId
     self.sameInstance = raidId and ns.GetRaidId(ns.GetActivityData(id).instanceName) == raidId
     self.modeId = modeId
@@ -101,6 +106,7 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
     self:SetMembers(members)
     self:SetLineId(lineId)
     self:UpdateTick()
+    self:SetCertification(not not ns.CERTIFICATION_MAP[leaderFullName])
     return true
 end
 
@@ -294,4 +300,12 @@ function Activity:GetLeaderPlayerLocation()
     else
         return PlayerLocation:CreateFromGUID(self.guid)
     end
+end
+
+function Activity:IsCertification()
+    return self.isCertification
+end
+
+function Activity:SetCertification(isCertification)
+    self.isCertification = isCertification
 end

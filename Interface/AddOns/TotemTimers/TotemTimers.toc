@@ -1,30 +1,25 @@
 ## Interface: 20502
 ## Title: TotemTimers
+## Title-zhCN: [大脚][集]萨满图腾助手
+## Title-zhTW: [大腳][集]薩滿圖騰助手
+## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
 ## Version: 2.0
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
-## OptionalDeps: Masque
-## LoadManagers: AddonLoader
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602
 ## X-WoWI-ID: 25223
-
-
+## Dependencies: BigFoot
+## X-Revision: BigFoot
 
 embeds.xml
 
 TotemData.lua
+
 localization\localization.lua
-localization\localization.ge.lua
-localization\localization.fr.lua
-localization\localization.es.lua
-localization\localization.ru.lua
 localization\localization.cn.lua
 localization\localization.tw.lua
-localization\localization.ko.lua
-localization\localization.br.lua
-localization\localization.it.lua
-localization\localization.esmx.lua
+
 Animation.lua
 Bindings.lua
 XiTimers.lua
@@ -44,17 +39,11 @@ TotemTimers.xml
 TotemTimers.lua
 Warnings.lua
 Masque.lua
+
 GUI\localization.lua
-GUI\localization.ge.lua
-GUI\localization.ru.lua
 GUI\localization.tw.lua
 GUI\localization.cn.lua
-GUI\localization.ko.lua
-GUI\localization.fr.lua
-GUI\localization.es.lua
-GUI\localization.br.lua
-GUI\localization.it.lua
-GUI\localization.esmx.lua
+
 GUI\General.lua
 GUI\Timers.lua
 GUI\Trackers.lua

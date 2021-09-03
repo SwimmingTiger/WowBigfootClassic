@@ -95,7 +95,7 @@
             <Frame parentKey="Instance">
                 <Size x="16" y="16"/>
                 <Anchors>
-                    <Anchor point="RIGHT" relativePoint="LEFT" x="145" y="0"/>
+                    <Anchor point="RIGHT" relativePoint="LEFT" x="190" y="0"/>
                 </Anchors>
                 <Layers>
                     <Layer level="ARTWORK">
@@ -140,10 +140,16 @@
                 </Texture>
             </Layer>
             <Layer level="ARTWORK">
+                <Texture parentKey="Icon" file="Interface\AddOns\MeetingHorn\Media\certification_icon" hidden="true">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                    </Anchors>
+                    <Size x="20" y="20"/>
+                </Texture>
                 <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
                     <!-- <Size x="145" /> -->
                     <Anchors>
-                        <Anchor point="LEFT" x="5" y="0"/>
+                        <Anchor point="LEFT" x="45" y="0"/>
                         <Anchor point="RIGHT" relativeKey="$parent.Instance" relativePoint="LEFT" x="-5" y="0"/>
                     </Anchors>
                 </FontString>
@@ -166,7 +172,7 @@
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Comment" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="400"/>
+                    <Size x="20"/>
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Leader" relativePoint="RIGHT"/>
                     </Anchors>
@@ -288,11 +294,7 @@
     <Button name="MeetingHornActivityTooltipTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
         <Size x="175" y="215"/>
         
-        <KeyValues>
-            <KeyValue key="backdropInfo" value="TOOLTIP_BACKDROP_STYLE_DEFAULT" type="global"/>
-            <KeyValue key="backdropColor" value="TOOLTIP_DEFAULT_BACKGROUND_COLOR" type="global"/>
-            <KeyValue key="backdropBorderColor" value="TOOLTIP_DEFAULT_COLOR" type="global"/>
-        </KeyValues>
+        
         <Frames>
             <Button parentKey="Close" inherits="UIPanelCloseButtonNoScripts">
                 <HitRectInsets left="6" right="6" top="6" bottom="6"/>
