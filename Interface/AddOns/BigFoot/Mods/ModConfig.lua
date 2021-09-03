@@ -752,10 +752,10 @@ local function __AddBottomFrames()
 		end
 	end)
 
-	if IsConfigurableAddOn('MerInspect') then
+	--[[if IsConfigurableAddOn('MerInspect') then
 		check = __CreateEnableAddonCheckBox('MerInspect', nil, true, true)
 		M:AddBottomButton(check)
-	end
+	end]]
 
 	if pcall(GetCVarDefault, "targetnearestuseold") then
 	    check = __CreateOldTabCheckBox()
