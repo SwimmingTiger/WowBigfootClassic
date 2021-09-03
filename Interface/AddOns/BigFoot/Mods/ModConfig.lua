@@ -642,10 +642,10 @@ local function __AddBottomFrames()
 		M:AddBottomButton(check)
 	end
 
-	if IsConfigurableAddOn("DBM-Core") then
+	--[[if IsConfigurableAddOn("DBM-Core") then
 		check = __CreateCheckBox(L["DBM"], "RaidToolkit","EnableDBM",nil,"DBM-Core")
 		M:AddBottomButton(check)
-	end
+	end]]
 
 	if IsConfigurableAddOn("Grid") then
 		check = __CreateCheckBox(L["Grid"],"RaidToolkit","EnableGrid",nil,"Grid")
