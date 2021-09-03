@@ -1,32 +1,32 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<!-- Init -->
-	<Script file="core\init.lua"/>
+    <!-- Init -->
+    <Script file="core\init.lua"/>
 
-	<!-- Libraries -->
-	<Script file="Libs\LibStub\LibStub.lua"/>
-	<Script file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua"/>
-	<Include file="Libs\LibSharedMedia-3.0\lib.xml"/>
-	<Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml"/>
-	<Include file="Libs\AceComm-3.0\AceComm-3.0.xml"/>
-	<Include file="Libs\AceDB-3.0\AceDB-3.0.xml"/>
-	<Include file="Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml"/>
-	<Include file="Libs\AceGUI-3.0\AceGUI-3.0.xml"/>
-	<Include file="Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
-	<Include file="Libs\AceConfig-3.0\AceConfig-3.0.xml"/>
+    <!-- Libraries -->
+    <Script file="Libs\LibStub\LibStub.lua"/>
+    <Script file="Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua"/>
+    <Include file="Libs\LibSharedMedia-3.0\lib.xml"/>
+    <Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml"/>
+    <Include file="Libs\AceComm-3.0\AceComm-3.0.xml"/>
+    <Include file="Libs\AceDB-3.0\AceDB-3.0.xml"/>
+    <Include file="Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml"/>
+    <Include file="Libs\AceGUI-3.0\AceGUI-3.0.xml"/>
+    <Include file="Libs\AceGUI-3.0-SharedMediaWidgets\widget.xml"/>
+    <Include file="Libs\AceConfig-3.0\AceConfig-3.0.xml"/>
 
-	<!-- Locales -->
-	<Script file="locale\enUS.lua"/>
-	<Script file="locale\deDE.lua"/>
-	<Script file="locale\esES.lua"/>
-	<Script file="locale\frFR.lua"/>
-	<Script file="locale\itIT.lua"/>
-	<Script file="locale\koKR.lua"/>
-	<Script file="locale\ptBR.lua"/>
-	<Script file="locale\ruRU.lua"/>
-	<Script file="locale\zhCN.lua"/>
-	<Script file="locale\zhTW.lua"/>
+    <!-- Locales -->
+    <Script file="locale\enUS.lua"/>
+    <Script file="locale\deDE.lua"/>
+    <Script file="locale\esES.lua"/>
+    <Script file="locale\frFR.lua"/>
+    <Script file="locale\itIT.lua"/>
+    <Script file="locale\koKR.lua"/>
+    <Script file="locale\ptBR.lua"/>
+    <Script file="locale\ruRU.lua"/>
+    <Script file="locale\zhCN.lua"/>
+    <Script file="locale\zhTW.lua"/>
 
-	<!-- Core -->
-	<Script file="core\config.lua"/>
-	<Script file="core\core.lua"/>
+    <!-- Core -->
+    <Script file="core\config.lua"/>
+    <Script file="core\core.lua"/>
 </Ui>

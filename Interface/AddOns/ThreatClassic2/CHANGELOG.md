@@ -1,4 +1,6 @@
 # Changelog
+## v2.39
+* Updated translations and bump interface version
 
 ## v2.38
 

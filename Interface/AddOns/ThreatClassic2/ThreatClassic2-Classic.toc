@@ -5,7 +5,7 @@
 ## X-Curse-Project-ID: 355497
 ## X-WoWI-ID: 25966
 ## X-Wago-ID: pkNM1ONz
-## Version: 2.38
+## Version: 2.39
 ## SavedVariables: ThreatClassic2DB
 ## SavedVariablesPerCharacter: TC2_Options
 
