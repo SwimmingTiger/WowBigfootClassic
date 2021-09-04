@@ -152,7 +152,7 @@ function MerInspectConfigFunc()
 			);
 		end
 
-		if IsConfigurableAddOn("MerInspect") then
+		--[[if IsConfigurableAddOn("MerInspect") then
 			ModManagement_RegisterCheckBox(
 				"InfoStat",
 				MOD_INFO_COMPARISON_TIPFRAME,
@@ -171,7 +171,7 @@ function MerInspectConfigFunc()
 					end
 				end
 			);
-		end
+		end]]
 
 		if IsConfigurableAddOn("ReforgeLite") then
 			ModManagement_RegisterCheckBox(
