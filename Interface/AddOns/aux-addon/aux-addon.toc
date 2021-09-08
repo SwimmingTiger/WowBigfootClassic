@@ -1,9 +1,10 @@
-## Interface: 20502
+## Interface: 20501
 ## Author: shirsig
 ## Title: aux
-## Version: v2.1.9
+## Version: v2.1.10
 ## Notes: Auction House replacement
 ## SavedVariables: aux
+## DefaultState: disabled
 
 libs\package.lua
 

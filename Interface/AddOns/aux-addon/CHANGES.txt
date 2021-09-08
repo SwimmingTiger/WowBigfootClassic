@@ -1,10 +1,10 @@
-lightweight tag 15cc29317c010ea68d8348544182e8d50ee5ef52 v2.1.9
-Author:	GitHub <noreply@github.com>
-Date:	Fri Aug 20 15:55:06 2021 +0200
+lightweight tag 44e768f3b16cd9663bd538f3d1031ae0a46a6892 v2.1.10
+Author:	Simon Hirsig <simon.hirsig@gmail.com>
+Date:	Wed Sep 1 17:47:08 2021 +0200
 
-commit 2c66423ca9380d5072cf13012cffbee154b54b12
+commit 44e768f3b16cd9663bd538f3d1031ae0a46a6892
 Author: Simon Hirsig <simon.hirsig@gmail.com>
-Date:   Sat Jul 31 13:13:03 2021 +0200
+Date:   Wed Sep 1 17:47:08 2021 +0200
 
-    fix for changed popup api
+    disabling stack count when posting suffix items because the api ignores them
 
