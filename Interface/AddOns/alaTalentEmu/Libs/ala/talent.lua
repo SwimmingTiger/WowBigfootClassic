@@ -467,7 +467,8 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 -->
 local _EThrottle = {  };		--	Equipment	--	15s lock
 local _TThrottle = {  };		--	Talent		--	1s lock
-local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID)	if prefix == __emulib.ADDON_PREFIX then
+local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID)
+	if prefix == __emulib.ADDON_PREFIX then
 		local name = Ambiguate(sender, 'none');
 		local control_code = strsub(msg, 1, __emulib.ADDON_MSG_CONTROL_CODE_LEN);
 		if control_code == __emulib.ADDON_MSG_QUERY_TALENTS then

@@ -904,27 +904,50 @@ end
 				end
 			end
 		end
-		function NS.tickerApplyTalents()
-			local talentFrames = NS.applyingMainFrame.talentFrames;
-			local applyingSpecIndex = NS.applyingSpecIndex;
-			local talentSet = talentFrames[applyingSpecIndex].talentSet;
-			for id = NS.applyingTalentIndex, #talentSet do
-				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(applyingSpecIndex, id);
-				for k = rank + 1, talentSet[id] do
-					LearnTalent(applyingSpecIndex, id);
-					return;
+		local function TryLearn(specIndex, id, talentSet, DB)
+			local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, id);
+			if talentSet[id] > rank then
+				local req = DB[id][11];
+				if req ~= nil then
+					local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, req);
+					if talentSet[req] > rank then
+						LearnTalent(specIndex, req);
+						return true;
+					end
+				end
+				if talentSet[id] > rank then
+				-- for k = rank + 1, talentSet[id] do
+					LearnTalent(specIndex, id);
+					return true;
 				end
 			end
-			for specIndex = applyingSpecIndex, 3 do
+			return false;
+		end
+		function NS.tickerApplyTalents()
+			local TalentDB = _talentDB[NS.CPlayerClassUpper];
+			local talentFrames = NS.applyingMainFrame.talentFrames;
+			do
+				local specIndex = NS.applyingSpecIndex;
 				local talentSet = talentFrames[specIndex].talentSet;
-				for id = 1, #talentSet do
-					local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, id);
-					for k = rank + 1, talentSet[id] do
-						LearnTalent(specIndex, id);
+				local DB = TalentDB[_classTab[specIndex]];
+				for id = NS.applyingTalentIndex, #talentSet do
+					if TryLearn(specIndex, id, talentSet, DB) then
+						NS.applyingTalentIndex = id;
 						return;
 					end
 				end
 			end
+			for specIndex = NS.applyingSpecIndex, 3 do
+				local talentSet = talentFrames[specIndex].talentSet;
+				local DB = TalentDB[_classTab[specIndex]];
+				for id = 1, #talentSet do
+					if TryLearn(specIndex, id, talentSet, DB) then
+						NS.applyingTalentIndex = id;
+						return;
+					end
+				end
+			end
+			--
 			NS.applyTicker:Cancel();
 			NS.UpdateApplying(nil);
 		end
@@ -3779,7 +3802,7 @@ end
 			timeout = 0,
 			whileDead = true,
 			hideOnEscape = true,
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			preferredIndex = 1,
 		};
 		local function applyTalentsButton_OnClick(self)
 			if UnitLevel('player') >= 10 then
@@ -6193,6 +6216,29 @@ do	-- initialize
 		-- 		print([[Preview talents of tbc in |cff00ff00alaTalentEmu|r! Click the |TInterface\AddOns\alaTalentEmu\ARTWORK\Config:24|t icon on the topleft]]);
 		-- 	end
 		-- end);
+
+		VAR[NS.CPlayerGUID] = __emulib.GetEncodedPlayerTalentData();
+		_EventHandler:RegEvent("CONFIRM_TALENT_WIPE");
+		--	Fires when the user selects the "Yes, I do." confirmation prompt after speaking to a class trainer and choosing to unlearn their talents.
+		--	Payload	number:cost	number:respecType
+		--	inexistent	_EventHandler:RegEvent("PLAYER_TALENT_UPDATE");
+		--	inexistent	_EventHandler:RegEvent("PLAYER_LEARN_TALENT_FAILED");
+		--	inexistent	_EventHandler:RegEvent("TALENTS_INVOLUNTARILY_RESET");
+		--	inexistent	_EventHandler:RegEvent("PLAYER_SPECIALIZATION_CHANGED");
+		_EventHandler:RegEvent("CHARACTER_POINTS_CHANGED");
+		--	Fired when the player's available talent points change.
+		--	Payload	number:change	-1 indicates one used (learning a talent)	1 indicates one gained (leveling)
+		--	SPELLS_CHANGED
+		--	Fires when spells in the spellbook change in any way. Can be trivial (e.g.: icon changes only), or substantial (e.g.: learning or unlearning spells/skills).
+		--	Payload	none
+	end
+
+	function NS.CONFIRM_TALENT_WIPE(...)
+		-- print("CONFIRM_TALENT_WIPE", ...);
+	end
+	function NS.CHARACTER_POINTS_CHANGED(...)
+		VAR[NS.CPlayerGUID] = __emulib.GetEncodedPlayerTalentData();
+		-- print("CHARACTER_POINTS_CHANGED", ...);
 	end
 
 	local default_set = {
@@ -6869,25 +6915,6 @@ do	-- dev
 		--
 	end
 	--
-	function NS.CONFIRM_TALENT_WIPE(...)
-		-- print("CONFIRM_TALENT_WIPE", ...);
-	end
-	function NS.CHARACTER_POINTS_CHANGED(...)
-		-- print("CHARACTER_POINTS_CHANGED", ...);
-	end
-	_EventHandler:RegEvent("CONFIRM_TALENT_WIPE");
-	--	Fires when the user selects the "Yes, I do." confirmation prompt after speaking to a class trainer and choosing to unlearn their talents.
-	--	Payload	number:cost	number:respecType
-	--	inexistent	_EventHandler:RegEvent("PLAYER_TALENT_UPDATE");
-	--	inexistent	_EventHandler:RegEvent("PLAYER_LEARN_TALENT_FAILED");
-	--	inexistent	_EventHandler:RegEvent("TALENTS_INVOLUNTARILY_RESET");
-	--	inexistent	_EventHandler:RegEvent("PLAYER_SPECIALIZATION_CHANGED");
-	_EventHandler:RegEvent("CHARACTER_POINTS_CHANGED");
-	--	Fired when the player's available talent points change.
-	--	Payload	number:change	-1 indicates one used (learning a talent)	1 indicates one gained (leveling)
-	--	SPELLS_CHANGED
-	--	Fires when spells in the spellbook change in any way. Can be trivial (e.g.: icon changes only), or substantial (e.g.: learning or unlearning spells/skills).
-	--	Payload	none
 end
 
 if select(2, GetAddOnInfo('\33\33\33\49\54\51\85\73\33\33\33')) then
