@@ -9,4 +9,4 @@
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
-ChannelFilter.xml
+#ChannelFilter.xml
