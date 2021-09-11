@@ -925,11 +925,12 @@ end
 		end
 		function NS.tickerApplyTalents()
 			local TalentDB = _talentDB[NS.CPlayerClassUpper];
+			local ClassTab = _classTab[NS.CPlayerClassUpper];
 			local talentFrames = NS.applyingMainFrame.talentFrames;
 			do
 				local specIndex = NS.applyingSpecIndex;
 				local talentSet = talentFrames[specIndex].talentSet;
-				local DB = TalentDB[_classTab[specIndex]];
+				local DB = TalentDB[ClassTab[specIndex]];
 				for id = NS.applyingTalentIndex, #talentSet do
 					if TryLearn(specIndex, id, talentSet, DB) then
 						NS.applyingTalentIndex = id;
@@ -939,7 +940,7 @@ end
 			end
 			for specIndex = NS.applyingSpecIndex, 3 do
 				local talentSet = talentFrames[specIndex].talentSet;
-				local DB = TalentDB[_classTab[specIndex]];
+				local DB = TalentDB[ClassTab[specIndex]];
 				for id = 1, #talentSet do
 					if TryLearn(specIndex, id, talentSet, DB) then
 						NS.applyingTalentIndex = id;

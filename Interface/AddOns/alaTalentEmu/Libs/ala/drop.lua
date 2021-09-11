@@ -1,7 +1,7 @@
 ﻿--[[--
 	ALA@163UI
 --]]--
-local __version = 5;
+local __version = 6;
 
 local DropMenu = _G.alaDropMenu;
 if DropMenu ~= nil and DropMenu.__minor ~= nil and DropMenu.__minor >= __version then
@@ -27,12 +27,13 @@ local MenuButtonHeight = 16;
 local MenuButtonInterval = 0;
 local MenuButtonToHBorder = 2;
 local MenuButtonToVBorder = 2;
+
 local toc = select(4, GetBuildInfo());
 local isRetail = toc >= 80300;
 local isBCC = toc >= 20500 and toc < 30000;
 
 local MenuList = { total = 0, used = 0, prev = nil, };
-local frameToMenu = {  };
+local frameToMenu = setmetatable({  }, { __mode = 'k', });
 
 --[=[
 	data
@@ -42,6 +43,9 @@ local frameToMenu = {  };
 										para		(table)for parameter
 										text		(string)
 										--info		(string)
+										show/hide
+										__onshow
+										__onhide
 ]=]
 
 local function SetBackdrop(_F, inset, dr, dg, db, da, width, rr, rg, rb, ra)	--	inset > 0 : inner	--	inset < 0 : outter
@@ -77,71 +81,84 @@ end
 -->		Creator
 local MenuOnEvent = nil;
 if isRetail then
-	function MenuOnEvent(self, event)
-		if self.__flag == "show" then
-			self.__flag = nil;
+	function MenuOnEvent(Menu, event)
+		if Menu.__flag == "show" then
+			Menu.__flag = nil;
 		else
-			self:SetScript("OnEvent", nil);
-			self:Hide();
+			Menu:SetScript("OnEvent", nil);
+			Menu:Hide();
 		end
 	end
 else
-	function MenuOnEvent(self, event)
-		self:SetScript("OnEvent", nil);
-		self:Hide();
+	function MenuOnEvent(Menu, event)
+		Menu:SetScript("OnEvent", nil);
+		Menu:Hide();
 	end
 end
-local function MenuOnUpdate(self, elasped)
-	self.CountingDownTimer = self.CountingDownTimer - elasped;
-	if self.CountingDownTimer <= 0 then
-		self:Hide();
+local function MenuOnUpdate(Menu, elasped)
+	Menu.CountingDownTimer = Menu.CountingDownTimer - elasped;
+	if Menu.CountingDownTimer <= 0 then
+		Menu:Hide();
 	end
 end
-local function MenuOnClick(self, button)
-	self:Hide();
+local function MenuOnClick(Menu, button)
+	Menu:Hide();
 end
-local function MenuOnEnter(self)
-	self:SetScript("OnUpdate", nil);
-	self:SetScript("OnEvent", nil);
+local function MenuOnEnter(Menu)
+	Menu:SetScript("OnUpdate", nil);
+	Menu:SetScript("OnEvent", nil);
 end
-local function MenuOnLeave(self)
-	self.CountingDownTimer = COUNTING_DOWN_TIMER_PERIOD;
-	self:SetScript("OnUpdate", MenuOnUpdate);
-	self:SetScript("OnEvent", MenuOnEvent);
+local function MenuOnLeave(Menu)
+	Menu.CountingDownTimer = COUNTING_DOWN_TIMER_PERIOD;
+	Menu:SetScript("OnUpdate", MenuOnUpdate);
+	Menu:SetScript("OnEvent", MenuOnEvent);
 end
-local function MenuOnShow(self)
-	self.CountingDownTimer = COUNTING_DOWN_TIMER_PERIOD + 1.0;
-	self:SetScript("OnUpdate", MenuOnUpdate);
-	self:SetScript("OnEvent", MenuOnEvent);
-	if MenuList.prev ~= self then
+local function MenuOnShow(Menu)
+	Menu.CountingDownTimer = COUNTING_DOWN_TIMER_PERIOD + 1.0;
+	Menu:SetScript("OnUpdate", MenuOnUpdate);
+	Menu:SetScript("OnEvent", MenuOnEvent);
+	if MenuList.prev ~= Menu then
 		if MenuList.prev then
 			MenuList.prev:Hide();
 		end
-		MenuList.prev = self;
+		MenuList.prev = Menu;
 	end
 end
-local function MenuOnHide(self)
-	self:SetScript("OnUpdate", nil);
-	self:SetScript("OnEvent", nil);
+local function MenuOnHide(Menu)
+	Menu:SetScript("OnUpdate", nil);
+	Menu:SetScript("OnEvent", nil);
 	for i = 1, MenuList.used do
-		if self == MenuList[i] then
+		if Menu == MenuList[i] then
 			MenuList[i] = MenuList[MenuList.used]
-			MenuList[MenuList.used] = self;
-			self.used = MenuList.used - 1;
-			frameToMenu[self.parent] = nil;
+			MenuList[MenuList.used] = Menu;
+			Menu.used = MenuList.used - 1;
+			frameToMenu[Menu.parent] = nil;
 			break;
 		end
 	end
-	if self == MenuList.prev then
+	if Menu == MenuList.prev then
 		MenuList.prev = nil;
 	end
+	local Buttons = Menu.Buttons;
+	for index = 1, Menu.__numbuttons do
+		local Button = Buttons[index];
+		if Button.__onhide ~= nil then
+			Button:__onhide(Button.meta);
+		end
+	end
+	if Menu.__onhide ~= nil then
+		Menu:__onhide();
+	end
+end
+local function SetMenu(Menu)
+	SetBackdrop(Menu, -1, MenuBackdropColor[1], MenuBackdropColor[2], MenuBackdropColor[3], MenuBackdropColor[4], 1, MenuBorderColor[1], MenuBorderColor[2], MenuBorderColor[3], MenuBorderColor[4]);
 end
 local function CreateMenu()
 	Menu = CreateFrame("BUTTON", nil, UIParent);
 	Menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	Menu:SetClampedToScreen(true);
 	Menu:Hide();
-	SetBackdrop(Menu, -1, MenuBackdropColor[1], MenuBackdropColor[2], MenuBackdropColor[3], MenuBackdropColor[4], 1, MenuBorderColor[1], MenuBorderColor[2], MenuBorderColor[3], MenuBorderColor[4]);
+	SetMenu(Menu);
 	Menu:SetScript("OnClick", MenuOnClick);
 	Menu:SetScript("OnEnter", MenuOnEnter);
 	Menu:SetScript("OnLeave", MenuOnLeave);
@@ -157,63 +174,70 @@ local function CreateMenu()
 	else
 		Menu:RegisterEvent("CURSOR_UPDATE");
 	end
-	Menu.buttons = {  };
+	Menu.Buttons = {  };
 
 	return Menu;
 end
 
-local function MenuButtonOnClick(self, button)
-	if self.handler then
-		self.handler(button, unpack(self.para));
+local function MenuButtonOnClick(Button, button)
+	if Button.handler then
+		Button.handler(button, unpack(Button.para));
 	else
-		self.Menu.handler(button, unpack(self.para));
+		Button.Menu.handler(button, unpack(Button.para));
 	end
-	self.Menu:Hide();
+	Button.Menu:Hide();
 end
-local function MenuButtonOnEnter(self)
-	MenuOnEnter(self.Menu);
+local function MenuButtonOnEnter(Button)
+	MenuOnEnter(Button.Menu);
 end
-local function MenuButtonOnLeave(self)
-	MenuOnLeave(self.Menu);
+local function MenuButtonOnLeave(Button)
+	MenuOnLeave(Button.Menu);
 end
-local function MenuCloseOnClick(button, Menu)
+local function MenuCloseOnClick(Button, Menu)
 	Menu:Hide();
 end
-local function CreateMenuButton(Menu, x, y)
-	local button = CreateFrame("BUTTON", nil, Menu);
-	-- button:SetFrameStrata("FULLSCREEN_DIALOG");
-	button:SetHeight(MenuButtonHeight);
-	-- button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
-	-- button:SetPushedTexture("Interface\\Buttons\\UI-StopButton");
-	-- button:SetHighlightTexture("Interface\\TargetingFrame\\UI-StatusBar");
-	-- button:GetHighlightTexture():SetVertexColor(0.5, 0.5, 0.0, 0.75);
-	local HT = button:CreateTexture(nil, "HIGHLIGHT");
+local function SetButton(Button)
+	-- Button:SetFrameStrata("FULLSCREEN_DIALOG");
+	Button:SetHeight(MenuButtonHeight);
+	-- Button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
+	-- Button:SetPushedTexture("Interface\\Buttons\\UI-StopButton");
+	-- Button:SetHighlightTexture("Interface\\TargetingFrame\\UI-StatusBar");
+	-- Button:GetHighlightTexture():SetVertexColor(0.5, 0.5, 0.0, 0.75);
+	local HT = Button.HT;
 	HT:SetColorTexture(0.0, 0.25, 0.5, 1.0);
 	HT:SetBlendMode("ADD");
 	HT:SetAllPoints();
-	button:SetHighlightTexture(HT);
-	button:SetPoint("TOP", Menu, "TOP", x, y);
+	Button:SetHighlightTexture(HT);
 
-	local text = button:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
-	text:SetPoint("LEFT", 2, 0);
-	text:SetTextColor(0.9, 0.9, 0.9, 0.9);
-	button.text = text;
+	local Text = Button.Text;
+	Text:SetPoint("LEFT", 2, 0);
+	Text:SetTextColor(0.9, 0.9, 0.9, 0.9);
 
-	-- local texture = button:CreateTexture(nil, "ARTWORK");
-	-- texture:SetSize(MenuButtonHeight / 2, MenuButtonHeight);
-	-- texture:SetPoint("RIGHT", -2, 0);
-	-- texture:SetTexture("interface\\buttons\\ui-colorpicker-buttons");
-	-- texture:SetTexCoord(0.25, 0.375, 0.0, 1.0);
-	-- texture:SetVertexColor(1.0, 1.0, 0.25, 1.0);
-	-- button.texture = texture;
-	
-	button:SetScript("OnClick", MenuButtonOnClick);
-	button:SetScript("OnEnter", MenuButtonOnEnter);
-	button:SetScript("OnLeave", MenuButtonOnLeave);
+	-- local Texture = Button.Texture;
+	-- Texture:SetSize(MenuButtonHeight / 2, MenuButtonHeight);
+	-- Texture:SetPoint("RIGHT", -2, 0);
+	-- Texture:SetTexture("interface\\buttons\\ui-colorpicker-buttons");
+	-- Texture:SetTexCoord(0.25, 0.375, 0.0, 1.0);
+	-- Texture:SetVertexColor(1.0, 1.0, 0.25, 1.0);
 
-	button.Menu = Menu;
+end
+local function CreateMenuButton(Menu, x, y)
+	local Button = CreateFrame("BUTTON", nil, Menu);
+	Button:SetPoint("TOP", Menu, "TOP", x, y);
 
-	return button;
+	Button.HT = Button:CreateTexture(nil, "HIGHLIGHT");
+	Button.Text = Button:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
+	-- Button.Texture = Button:CreateTexture(nil, "ARTWORK");
+
+	SetButton(Button);
+
+	Button:SetScript("OnClick", MenuButtonOnClick);
+	Button:SetScript("OnEnter", MenuButtonOnEnter);
+	Button:SetScript("OnLeave", MenuButtonOnLeave);
+
+	Button.Menu = Menu;
+
+	return Button;
 end
 
 -->		Method
@@ -286,49 +310,78 @@ local function ShowMenu(parent, anchor, data, useMousePosition)
 	end
 	Menu = GetMenu(parent, anchor, useMousePosition);
 	Menu.handler = data.handler;
-	local buttons = Menu.buttons;
-	local elements = data.elements;
-	local numButtons = #elements + 1;
-	if #buttons < numButtons then
-		for i = #buttons + 1, numButtons do
-			buttons[i] = CreateMenuButton(Menu, 0, -((i - 1) * (MenuButtonHeight + MenuButtonInterval) + MenuButtonToVBorder));
-		end
-	elseif #buttons > numButtons then
-		for i = numButtons + 1, #buttons do
-			buttons[i]:Hide();
-		end
+
+	if data.__onshowprepend ~= nil then
+		data.__onshowprepend(Menu);
+		Menu.__onhide = data.__onhide or SetMenu;
 	end
+
+	local Buttons = Menu.Buttons;
+	local elements = data.elements;
 
 	local width = -1;
+	local numButtons = 0;
 	for i = 1, #elements do
-		local button = buttons[i];
+		local ele = elements[i];
+		if ele.show ~= false and not ele.hide then
+			numButtons = numButtons + 1;
+			local Button = Buttons[numButtons];
+			if Button == nil then
+				Button = CreateMenuButton(Menu, 0, -((numButtons - 1) * (MenuButtonHeight + MenuButtonInterval) + MenuButtonToVBorder));
+				Buttons[numButtons] = Button;
+			end
 
-		button.handler = elements[i].handler;
-		button.para = elements[i].para;
-		button:Show();
+			Button.meta = ele;
+			Button.handler = ele.handler;
+			Button.para = ele.para;
+			Button:Show();
 
-		button.text:SetText(elements[i].text);
-		local w = button.text:GetWidth();
-		if w > width then
-			width = w;
+			Button.Text:SetText(ele.text);
+			local __onshow = ele.__onshow or elements.__onshowbuttons;
+			if __onshow ~= nil then
+				__onshow(Button, ele);
+				Button.__onhide = ele.__onhide or elements.__onhidebuttons or SetButton;
+			end
+
+			local w = Button.Text:GetWidth();
+			if w > width then
+				width = w;
+			end
 		end
 	end
-	local button = buttons[numButtons];
-	button.handler = MenuCloseOnClick;
-	button.para = { Menu, };
-	button:Show();
-	button.text:SetText("close");
-	local w = button.text:GetWidth();
+	numButtons = numButtons + 1;
+	local Button = Buttons[numButtons];
+	if Button == nil then
+		Button = CreateMenuButton(Menu, 0, -((numButtons - 1) * (MenuButtonHeight + MenuButtonInterval) + MenuButtonToVBorder));
+		Buttons[numButtons] = Button;
+	end
+	Button.handler = MenuCloseOnClick;
+	Button.para = { Menu, };
+	Button:Show();
+	Button.Text:SetText("close");
+	local w = Button.Text:GetWidth();
 	if w > width then
 		width = w;
 	end
 
+	Menu.__numbuttons = numButtons;
+	if #Buttons > numButtons then
+		for i = numButtons + 1, #Buttons do
+			Buttons[i]:Hide();
+		end
+	end
+
 	width = width + 4;
 	for i = 1, numButtons do
-		buttons[i]:SetWidth(width);
+		Buttons[i]:SetWidth(width);
 	end
 	Menu:SetWidth(width + MenuButtonToHBorder * 2);
 	Menu:SetHeight(MenuButtonHeight * numButtons + MenuButtonInterval * (numButtons - 1) + MenuButtonToVBorder * 2);
+
+	if data.__onshowappend ~= nil then
+		data.__onshowappend(Menu);
+		Menu.__onhide = data.__onhide or SetMenu;
+	end
 
 	Menu.__flag = "show";
 	Menu:Show();
@@ -348,8 +401,12 @@ DropMenu.ShowMenu = ShowMenu;
 
 function DropMenu:Halt()
 	for index = 1, MenuList.total do
-		MenuOnEvent(MenuList[index], isRetail and "GLOBAL_MOUSE_UP" or (isBCC and "PLAYER_STARTED_LOOKING" or "CURSOR_UPDATE"));
+		-- MenuOnEvent(MenuList[index], isRetail and "GLOBAL_MOUSE_UP" or (isBCC and "PLAYER_STARTED_LOOKING" or "CURSOR_UPDATE"));
+		MenuList[index]:Hide();
 		MenuList[index]:SetScript("OnUpdate", nil);
+		MenuList[index]:UnregisterAllEvents();
+		MenuList[index]:SetScript("OnEvent", nil);
+		wipe(frameToMenu);
 	end
 end
 
