@@ -9,5 +9,3 @@
 ## SavedVariablesPerCharacter: NETEASE_WARGAME_DB_CHARACTER
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-
-Load.xml
