@@ -43,8 +43,8 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	DBM_MAG_EMOTE_PULL		= "%s的束縛開始變弱!",
-	DBM_MAG_YELL_PHASE2		= "我...被...釋放了!",
-	DBM_MAG_YELL_PHASE3		= "我不會這麼輕易就被擊敗!讓這座監獄的牆壁震顫...然後崩塌!"
+	DBM_MAG_YELL_PHASE2		= "我......被......釋放了!",
+	DBM_MAG_YELL_PHASE3		= "我不會這麼輕易就被擊敗!讓這座監獄的牆壁震顫......然後崩塌!"
 }
 
 -- Doom Lord Kazzak

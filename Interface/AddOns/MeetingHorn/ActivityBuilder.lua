@@ -71,8 +71,10 @@ local SHORT_NAMES = {
     ['Emeriss'] = L['SHORT: Emeriss'], -- 艾莫莉丝
     ['Lethon'] = L['SHORT: Lethon'], -- 莱索恩
     [3457] = 'KLZ',
-    [3923] = '格鲁尔',
-    [3836] = '玛瑟里顿',
+    [3923] = 'GLR',
+    [3836] = 'MSLD',
+    [3607] = 'DS',
+    [3845] = 'FB',
 
     -- P(5, 1):raid(3457) -- 卡拉赞
     -- P(5, 1):raid(3923) -- 格鲁尔的巢穴
@@ -84,6 +86,9 @@ local SHORT_NAMES = {
     -- P(5, 3):raid(3805) -- 祖阿曼
     -- P(5, 4):raid(4075) -- 太阳井
 }
+
+local SEARCH_MATCH = {['5H'] = {activityId = 'Dungeon', search = '英雄', input = '5H', name = '5H'}}
+local AVAILABLE_ACTIVITY = {}
 
 local PROJECTS = {[2] = {[2] = true}, [5] = {[2] = true, [5] = true}}
 
@@ -105,6 +110,26 @@ local function names(key, normalAndHero, isHero)
         end
     end
     return r
+end
+
+
+function InitAvailableActivity()
+    local categories = C_LFGList.GetAvailableCategories();
+    for k, v in ipairs(categories) do
+        local activities = C_LFGList.GetAvailableActivities(v);
+        local category = {categoryId = v, activities = {}}
+        for k1, v1 in ipairs(activities) do
+            local name = C_LFGList.GetActivityInfo(v1);
+            local name1, name2
+            local s, e = strfind(name, '-')
+            if s then
+                name1 = strsub(name, 0, s - 2)
+                name2 = strsub(name, e + 2)
+            end
+            tinsert(category.activities, {activityId = v1, name = name, name1 = name1, name2 = name2})
+        end
+        tinsert(AVAILABLE_ACTIVITY, category)
+    end
 end
 
 function InstanceBuilder:base(name, path, minLevel, members, class)
@@ -297,6 +322,8 @@ function Builder.End()
         tinsert(ns.MODE_MENU, menuItem)
         tinsert(ns.MODE_FILTER_MENU, menuItem)
     end
+
+    InitAvailableActivity()
 end
 
 ns.Builder = Builder
@@ -334,4 +361,25 @@ end
 ---@return MeetingHornCategoryData
 function ns.GetCategoryData(path)
     return CATEGORY_DATA[path]
+end
+
+function ns.GetMatchSearch(match)
+    return SEARCH_MATCH[match]
+end
+
+function ns.GetMatchAvailableActivity(activityId)
+    if #AVAILABLE_ACTIVITY == 0 then
+        InitAvailableActivity()
+    end
+    local activityData = ns.GetActivityData(activityId)
+    local activityName = activityData.name
+    local index = strfind(activityName, '（普通）')
+    activityName = strsub(activityName, 1, index and index - 1)
+    for k, v in ipairs(AVAILABLE_ACTIVITY) do
+        for k1, v1 in ipairs(v.activities) do
+            if v1.name == activityName or v1.name1 == activityName or v1.name2 == activityName then
+                return v.categoryId, v1.activityId
+            end
+        end
+    end
 end

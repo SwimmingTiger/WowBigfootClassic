@@ -14,9 +14,10 @@
 ## X-Curse-Project-ID: 3358
 ## X-Wago-ID: qv633o6b
 ## X-WoWI-ID: 25929
-## Version: 2.5.11
+## Version: 2.5.12
 ## X-Revision: BigFoot
 
+Libs\LibFrameFade\LibFrameFade.lua
 Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua
 Libs\LibDeflate\LibDeflate.lua

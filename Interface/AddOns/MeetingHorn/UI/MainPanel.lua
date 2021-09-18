@@ -14,7 +14,7 @@ function MainPanel:Constructor()
     self:SetupTabs({
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
-        {'好团长', self.GoodLeader}, --
+        {'星团长', self.GoodLeader}, --
         {L['Announcement'], self.Announcement}, --
         {L['MissionGuidance'], self.MissionGuidance}, --
         {L['Encounter'], self.Encounter}, --
@@ -167,3 +167,4 @@ function MainPanel:CreateTabButton(id)
     button:SetID(id)
     return button
 end
+

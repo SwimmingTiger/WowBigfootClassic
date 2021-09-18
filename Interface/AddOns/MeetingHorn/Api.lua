@@ -431,3 +431,21 @@ function ns.ListToMap(list)
     end
     return map
 end
+
+function ns.ApplyLeaderBtnClick(Btn)
+    function OnBtnClick()
+        if not Btn.QRApplyLeaderTooltip then
+            Btn.QRApplyLeaderTooltip = CreateFrame('Frame', nil, Btn, 'MeetingHornActivityTooltipTemplate')
+            Btn.QRApplyLeaderTooltip:ClearAllPoints()
+            Btn.QRApplyLeaderTooltip:SetPoint('BOTTOMLEFT', Btn, 'BOTTOMRIGHT', 20, -8)
+            Btn.QRApplyLeaderTooltip.Text:SetText('微信扫码 申请星团长')
+            local qrCode = Btn.QRApplyLeaderTooltip.QRCode:CreateTexture(nil, 'ARTWORK')
+            qrCode:SetTexture('Interface/AddOns/MeetingHorn/Media/ApplyLeaderQR')
+            qrCode:SetAllPoints()
+            Btn.QRApplyLeaderTooltip:Hide()
+        end
+        Btn.QRApplyLeaderTooltip:SetShown(not Btn.QRApplyLeaderTooltip:IsShown())
+    end
+
+    Btn:SetScript("OnClick", OnBtnClick)
+end

@@ -161,6 +161,12 @@
                                 </DisabledTexture>
                                 <ButtonText inherits="GameFontHighlightSmall"/>
                             </Button>
+                            <Button parentKey="ApplyLeaderBtn" inherits="UIPanelButtonTemplate">
+                                <Size x="120" y="22"/>
+                                <Anchors>
+                                    <Anchor point="TOP" relativeKey="$parent.Search" relativePoint="BOTTOM" x="0" y="2"/>
+                                </Anchors>
+                            </Button>
                         </Frames>
                     </Frame>
                     <Frame parentKey="Footer" inherits="InsetFrameTemplate">
@@ -348,10 +354,11 @@
             </OnLoad>
         </Scripts>
     </CheckButton>
-    <Frame name="GoodLeaderGradePanelTemplate" toplevel="true" hidden="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" virtual="true">
+    <Frame name="GoodLeaderGradePanelTemplate" inherits="BackdropTemplate" toplevel="true" hidden="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" virtual="true">
         <Size x="350" y="1"/>
-        
-        
+        <KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
         <Layers>
             <Layer level="OVERLAY">
                 <Texture parentKey="Logo">
@@ -514,10 +521,5 @@
                 </Scripts>
             </Button>
         </Frames>
-        <Scripts>
-            <OnLoad>
-                LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
-            </OnLoad>
-        </Scripts>
     </Frame>
 </Ui>

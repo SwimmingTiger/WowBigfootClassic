@@ -1,7 +1,7 @@
 ## Interface: 20502
 ## X-Max-Interface: 90100
 ## X-Min-Interface: 11302
-## Title: Decursive |cffff00ff -Ace3-|r
+## Title: Decursive
 ## Title-zhCN: [大脚][集]一键驱散
 ## Title-zhTW: [大腳][集]一鍵驅散
 ## Notes: |cffbc8f8fAfflictions display and cleaning for solo, group and raid with advanced filtering and priority system.|r

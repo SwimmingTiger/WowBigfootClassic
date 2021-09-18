@@ -107,6 +107,7 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
     self:SetLineId(lineId)
     self:UpdateTick()
     self:SetCertification(not not ns.CERTIFICATION_MAP[leaderFullName])
+    self:SetOurAddonCreate((channelName == L['CHANNEL: Group'] or channelName == L['CHANNEL: Recruit']) and data.path == "Raid")
     return true
 end
 
@@ -308,4 +309,12 @@ end
 
 function Activity:SetCertification(isCertification)
     self.isCertification = isCertification
+end
+
+function Activity:SetOurAddonCreate(isOurAddonCreate)
+    self.isOurAddonCreate = isOurAddonCreate
+end
+
+function Activity:IsOurAddonCreate()
+    return self.isOurAddonCreate
 end

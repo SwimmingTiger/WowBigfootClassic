@@ -25,6 +25,7 @@ function Browser:Constructor()
     self.Header5:SetText(L['Comment'])
     self.Header6:SetText(L['Operation'])
     self.Header7:SetText(L['Certification'])
+    self.Header8:SetText(L['LeaderQrCode'])
     -- self.Header1:Disable()
     self.Header2:Disable()
     self.Header3:Disable()
@@ -32,6 +33,7 @@ function Browser:Constructor()
     self.Header5:Disable()
     self.Header6:Disable()
     self.Header7:Disable()
+    self.Header8:Disable()
 
     -- self.CreateButton:SetText(L['Create Activity'])
     self.ActivityLabel:SetText(L['Activity'])
@@ -51,6 +53,8 @@ function Browser:Constructor()
         GameTooltip:Show()
     end)
     self.IconTip:SetScript('OnLeave', GameTooltip_Hide)
+    self.ApplyLeaderBtn:SetText(L['申请星团长'])
+    ns.ApplyLeaderBtnClick(self.ApplyLeaderBtn)
     ns.GUI:GetClass('Dropdown'):Bind(self.Activity)
     ns.GUI:GetClass('Dropdown'):Bind(self.Mode)
 
@@ -76,6 +80,20 @@ function Browser:Constructor()
         button:Show()
         button.id = id
     end
+    local forbidCallBack = false
+    local function SetupQuickButton2(button, name)
+        local matchInfo = ns.GetMatchSearch(name) or {}
+        button:SetText(matchInfo.name or name)
+        button:SetWidth(button:GetTextWidth())
+        button:SetScript('OnClick', function()
+            forbidCallBack = true
+            self.Activity:SetValue(matchInfo.activityId)
+            self.Input:SetText(matchInfo.input or '')
+            self:Search()
+            forbidCallBack = false
+        end)
+        button:Show()
+    end
 
     --[=[@classic@
     SetupQuickButton(self.Quick1, 2717)
@@ -87,14 +105,20 @@ function Browser:Constructor()
     --@end-classic@]=]
 
     -- @bcc@
-    SetupQuickButton(self.Quick1, 3457)
-    SetupQuickButton(self.Quick2, 3923)
-    SetupQuickButton(self.Quick4, 3836)
+    SetupQuickButton(self.Quick1, 3607)
+    SetupQuickButton(self.Quick2, 3845)
+    SetupQuickButton2(self.Quick3, L['5H'])
+    SetupQuickButton(self.Quick4, 3457)
+    SetupQuickButton(self.Quick5, 3836)
+    SetupQuickButton(self.Quick6, 3923)
     -- @end-bcc@
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
     self.Activity:SetDefaultText(ALL)
     self.Activity:SetCallback('OnSelectChanged', function()
+        if forbidCallBack then
+            return
+        end
         local activityId = tonumber(self.Activity:GetValue())
         local activityData = activityId and ns.GetActivityData(activityId)
         self.Input:SetText(activityData and activityData.shortName or '')
@@ -168,16 +192,19 @@ function Browser:Constructor()
         button.NormalBg:SetShown(not sameInstance)
         button.SameInstanceBgLeft:SetShown(sameInstance)
         button.SameInstanceBgRight:SetShown(sameInstance)
-
-        button.QRIcon:SetScript('OnClick', function()
-            if not self.QRTooltip then
-                self.QRTooltip = CreateFrame('Frame', nil, self, 'MeetingHornActivityTooltipTemplate')
-                self.QRTooltip:SetPoint('TOPLEFT', self.Header5, 'BOTTOMLEFT', 0, 0)
-                ns.UI.QRCodeWidget:Bind(self.QRTooltip.QRCode)
-            end
-            self.QRTooltip.QRCode:SetValue(ns.MakeQRCode(item:GetLeader()))
-            self.QRTooltip:Show()
-        end)
+        button.QRIcon:SetShown(item:IsOurAddonCreate())
+        if item:IsOurAddonCreate() then
+            button.QRIcon:SetScript('OnClick', function()
+                if not self.QRTooltip then
+                    self.QRTooltip = CreateFrame('Frame', nil, self, 'MeetingHornActivityTooltipTemplate')
+                    self.QRTooltip:SetPoint('TOPLEFT', self.Header5, 'BOTTOMLEFT', 0, 0)
+                    ns.UI.QRCodeWidget:Bind(self.QRTooltip.QRCode)
+                end
+                self.QRTooltip.QRCode:SetValue(ns.MakeQRCode(item:GetLeader()))
+                self.QRTooltip:Show()
+            end)
+        end
+        
         --[=[@classic@
         button.Instance:ClearAllPoints()
         button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
@@ -253,6 +280,8 @@ function Browser:Constructor()
     self.Header7:SetShown(false)
     self.Header5:SetWidth(290)
     --@end-classic@]=]
+
+    
 end
 
 function Browser:OnShow()
@@ -307,6 +336,9 @@ function Browser:Sort()
             if a:IsCertification() ~= b:IsCertification() then
                 return a:IsCertification()
             end
+            if not self.sortId then
+                return false
+            end
             -- @end-bcc@
             local aid, bid = a:GetActivityId(), b:GetActivityId()
             if aid == bid then
@@ -359,11 +391,16 @@ function Browser:Search()
     local modeId = self.Mode:GetValue()
     local search = self.Input:GetText()
     local path, activityId
+    local matchInfo = ns.GetMatchSearch(search)
 
     if type(activityFilter) == 'string' then
         path = activityFilter
     else
         activityId = activityFilter
+    end
+
+    if matchInfo then
+        search = matchInfo.search
     end
 
     local result = ns.LFG:Search(path, activityId, modeId, search)
@@ -462,3 +499,4 @@ function Browser:CreateActivityMenu(activity)
         }, {isSeparator = true}, {text = CANCEL},
     }
 end
+

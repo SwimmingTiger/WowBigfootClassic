@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Maulgar", "DBM-Outlands")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20210906210313")
 mod:SetCreatureID(18831, 18832, 18834, 18835, 18836)
 mod:SetEncounterID(649, 2455)
 mod:SetModelID(18649)
@@ -28,7 +28,7 @@ local specWarnWhirlwind		= mod:NewSpecialWarningRun(33238, "Melee", nil, nil, 4,
 local specWarnPoH			= mod:NewSpecialWarningInterrupt(33152, "HasInterrupt", nil, nil, 1, 2)
 local specWarnHeal			= mod:NewSpecialWarningInterrupt(33144, "HasInterrupt", nil, nil, 1, 2)
 
-local timerWhirlwindCD		= mod:NewCDTimer(55, 33238, nil, nil, nil, 2)
+local timerWhirlwindCD		= mod:NewCDTimer(55, 33238, nil, nil, nil, 2, nil, nil, true)
 local timerWhirlwind		= mod:NewBuffActiveTimer(15, 33238, nil, nil, nil, 2)
 local timerFelhunter		= mod:NewCDTimer(48.5, 33131, nil, nil, nil, 1)--Buff Active or Cd timer?
 local timerPoH				= mod:NewCastTimer(4, 33152, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)

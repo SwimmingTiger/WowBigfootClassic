@@ -37,7 +37,6 @@
         if not T._FatalError then
         -- the beautiful error popup : {{{ -
         StaticPopupDialogs["DECURSIVE_ERROR_FRAME"] = {
-        preferredIndex = STATICPOPUP_NUMDIALOGS,
         text = "|cFFFF0000Decursive Error:|r\n%s",
         button1 = "OK",
         OnAccept = function()

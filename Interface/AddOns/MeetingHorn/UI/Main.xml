@@ -116,21 +116,27 @@
                         </Anchors>
                     </Button>
                     <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate" id="2">
-                        <Size x="60" y="24"/>
+                        <Size x="50" y="24"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate" id="3">
-                        <Size x="110" y="24"/>
+                        <Size x="80" y="24"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
-                    <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate" id="4">
-                        <Size x="110" y="24"/>
+                    <Button parentKey="Header8" inherits="ColumnDisplayButtonTemplate" id="3">
+                        <Size x="60" y="24"/>
                         <Anchors>
                             <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate" id="4">
+                        <Size x="90" y="24"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeKey="$parent.Header8" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate" id="5">
@@ -191,13 +197,13 @@
                     <Button parentKey="Quick5" inherits="MeetingHornQuickTemplate">
                         <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="BOTTOM" relativeKey="$parent.Quick2" relativePoint="TOP" x="5" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.Quick4" relativePoint="RIGHT" x="5" y="0"/>
                         </Anchors>
-                    </Button>
+                    </Button>d
                     <Button parentKey="Quick6" inherits="MeetingHornQuickTemplate">
                         <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="BOTTOM" relativeKey="$parent.Quick3" relativePoint="TOP" x="5" y="0"/>
+                            <Anchor point="LEFT" relativeKey="$parent.Quick5" relativePoint="RIGHT" x="5" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Refresh" inherits="UIPanelButtonTemplate" text="REFRESH">
@@ -286,6 +292,12 @@
                             </Anchors>
                         </ButtonText>
                     </Button>
+                    <Button parentKey="ApplyLeaderBtn" inherits="UIPanelButtonTemplate">
+                        <Size x="120" y="22"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT" x="-20" y="-22"/>
+                        </Anchors>
+                    </Button>
                 </Frames>
             </Frame>
             <Frame parentKey="Manage">
@@ -326,6 +338,12 @@
                                 <Size x="120" y="22"/>
                                 <Anchors>
                                     <Anchor point="BOTTOMLEFT" relativeKey="$parent.$parent" x="0" y="-22"/>
+                                </Anchors>
+                            </Button>
+                            <Button parentKey="RecruitButton" inherits="MagicButtonTemplate">
+                                <Size x="120" y="22"/>
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.CreateButton" relativePoint="Right" x="0" y="0"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="CloseButton" inherits="MagicButtonTemplate">

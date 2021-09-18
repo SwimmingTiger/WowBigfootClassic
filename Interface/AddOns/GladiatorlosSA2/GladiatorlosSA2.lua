@@ -6,7 +6,7 @@
  local LSM = LibStub("LibSharedMedia-3.0")
  local self, GSA, PlaySoundFile = GladiatorlosSA, GladiatorlosSA, PlaySoundFile
  local GSA_TEXT = "|cff69CCF0GladiatorlosSA2|r (|cffFFF569/gsa|r)"
- local GSA_VERSION = "|cffFF7D0A TBC-1.0 |r(|cff4DFF4D2.5.1 Burning Crusade (Classic)|r)"
+ local GSA_VERSION = "|cffFF7D0A TBC-1.1 |r(|cff4DFF4D2.5.1 Burning Crusade (Classic)|r)"
  local GSA_TEST_BRANCH = ""
  local GSA_AUTHOR = " "
  local gsadb
@@ -311,7 +311,7 @@ end
  function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 	 -- Checks if alerts should occur here.
 	 local isSanctuary = GetZonePVPInfo()
-	 --if (isSanctuary == "sanctuary") then return end	-- Checks for Sanctuary
+	 if (isSanctuary == "sanctuary") then return end	-- Checks for Sanctuary
 	 if (not canSpeakHere) then return end				-- Checks result for everywhere else
 
 	 -- Area check passed, fetch combat event payload.

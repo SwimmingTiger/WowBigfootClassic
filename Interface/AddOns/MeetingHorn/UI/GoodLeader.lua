@@ -27,7 +27,7 @@ function GoodLeader:Constructor(p)
         end
     end
 
-    self.First.Header.Disconnect:SetText(L['好团长查询正在维护中'])
+    self.First.Header.Disconnect:SetText(L['星团长查询正在维护中'])
     self:UpdateButton()
 
     self.First.Header.Search:SetScript('OnClick', function(button)
@@ -91,6 +91,10 @@ function GoodLeader:Constructor(p)
 
         self.Result.Raids:SetHeight((y + 1) * (buttonHeight + spacing) + 60)
     end)
+
+    local ApplyLeaderBtn = self.First.Header.ApplyLeaderBtn
+    ApplyLeaderBtn:SetText(L['申请星团长'])
+    ns.ApplyLeaderBtnClick(ApplyLeaderBtn)
 
     self:SetScript('OnShow', self.OnShow)
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
@@ -170,7 +174,7 @@ function GoodLeader:GOODLEADER_LEADERINFO_UPDATE()
 
     if not user.itemPercent then
         self.Result.Info.ItemLevel:SetFormattedText(
-            L['|cff808080物品等级：|r当前团长未安装好团长插件，需要自行查看。'])
+            L['|cff808080物品等级：|r当前团长未安装星团长插件，需要自行查看。'])
     else
         self.Result.Info.ItemLevel:SetFormattedText(
             L['|cff808080物品等级：|r当前团长的装备超过|cffffd100%s%%|r的玩家。'], user.itemPercent)

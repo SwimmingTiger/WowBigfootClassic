@@ -10,6 +10,7 @@ L['Leader'] = '队长'
 L['Comment'] = '说明'
 L['Operation'] = '操作'
 
+L['LeaderQrCode'] = '二维码'
 L['Certification'] = '@'
 L['Activity'] = '活动类型'
 L['Activity Mode'] = '活动模式'
@@ -42,6 +43,7 @@ L['Requires Class %s'] = '需要职业%s'
 L['Requires Zone City'] = '需要处于城市中'
 L['Announcement'] = '最新公告'
 L['MissionGuidance'] = '任务指引'
+L['Recruit members'] = '招募队员'
 -- 活动
 
 L.CATEGORY_QUEST = '任务'

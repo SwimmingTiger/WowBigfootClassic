@@ -160,7 +160,7 @@
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Members" wordwrap="false" inherits="GameFontHighlightSmallLeft">
-                    <Size x="110"/>
+                    <Size x="90"/>
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Mode" relativePoint="RIGHT"/>
                     </Anchors>
@@ -168,7 +168,7 @@
                 <FontString parentKey="Leader" wordwrap="false" inherits="GameFontHighlightSmallLeft">
                     <Size x="90"/>
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" x="20"/>
+                        <Anchor point="LEFT" relativeKey="$parent.Members" relativePoint="RIGHT" x="40"/>
                     </Anchors>
                 </FontString>
                 <FontString parentKey="Comment" wordwrap="false" inherits="GameFontHighlightSmallLeft">
@@ -291,15 +291,16 @@
             <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
         </HighlightTexture>
     </Button>
-    <Button name="MeetingHornActivityTooltipTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
-        <Size x="175" y="215"/>
-        
-        
+    <Button name="MeetingHornActivityTooltipTemplate" inherits="BackdropTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
+        <Size x="215" y="215"/>
+        <KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
         <Frames>
             <Button parentKey="Close" inherits="UIPanelCloseButtonNoScripts">
                 <HitRectInsets left="6" right="6" top="6" bottom="6"/>
                 <Anchors>
-                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT"/>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-3" y="-3"/>
                 </Anchors>
                 <Scripts>
                     <OnClick>
@@ -325,18 +326,8 @@
                 </FontString>
             </Layer>
         </Layers>
-        <Scripts>
-            <OnLoad>
-                LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
-            </OnLoad>
-            <OnShow>
-                if GameTooltip then
-                    self:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
-                    self:SetBackdropColor(GameTooltip:GetBackdropColor())
-                end
-            </OnShow>
-        </Scripts>
     </Button>
+    
     <Button name="MeetingHornAcitivityButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
         <Size x="203" y="60"/>
         <Layers>

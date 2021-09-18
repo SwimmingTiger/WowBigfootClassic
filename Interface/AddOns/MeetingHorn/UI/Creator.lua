@@ -1,4 +1,3 @@
-
 ---@type ns
 local ns = select(2, ...)
 local L = ns.L
@@ -52,6 +51,11 @@ function Creator:Constructor()
         return self:OnCloseClick()
     end)
 
+    self.RecruitButton:SetText(L['Recruit members'])
+    self.RecruitButton:SetScript('OnClick', function()
+        return self:OnRecruitClick()
+    end)
+
     self:RegisterMessage('MEETINGHORN_CURRENT_CREATED', 'Update')
     self:RegisterMessage('MEETINGHORN_CURRENT_CLOSED')
     self:RegisterEvent('GROUP_ROSTER_UPDATE', 'Update')
@@ -76,22 +80,20 @@ function Creator:OnCreateClick()
         local raidId = ns.GetRaidId(instanceName)
         if raidId ~= -1 then
             if not StaticPopupDialogs['MEETINGHORN_INSTANCE_EXISTS'] then
-                StaticPopupDialogs['MEETINGHORN_INSTANCE_EXISTS'] =
-                    {
-						preferredIndex = STATICPOPUP_NUMDIALOGS,
-                        text = L['|cff00ffff%s|r instance already exists, continue to create?'],
-                        button1 = YES,
-                        button2 = NO,
-                        OnAccept = function(_, data)
-                            self.CreateButton:SetCountdown(10)
-                            ns.LFG:CreateActivity(ns.Activity:New(data.activityId, data.modeId, data.comment), true)
-                            ns.Message(hasActivity and L['Update activity success.'] or L['Create acitivty success.'])
-                        end,
-                        hideOnEscape = 1,
-                        timeout = 0,
-                        exclusive = 1,
-                        whileDead = 1,
-                    }
+                StaticPopupDialogs['MEETINGHORN_INSTANCE_EXISTS'] = {
+                    text = L['|cff00ffff%s|r instance already exists, continue to create?'],
+                    button1 = YES,
+                    button2 = NO,
+                    OnAccept = function(_, data)
+                        self.CreateButton:SetCountdown(10)
+                        ns.LFG:CreateActivity(ns.Activity:New(data.activityId, data.modeId, data.comment), true)
+                        ns.Message(hasActivity and L['Update activity success.'] or L['Create acitivty success.'])
+                    end,
+                    hideOnEscape = 1,
+                    timeout = 0,
+                    exclusive = 1,
+                    whileDead = 1,
+                }
             end
             StaticPopup_Show('MEETINGHORN_INSTANCE_EXISTS', instanceName, nil,
                              {activityId = activityId, modeId = modeId, comment = comment})
@@ -125,10 +127,12 @@ function Creator:Update()
         self.Activity:SetValue(activity:GetActivityId())
         self.Mode:SetValue(activity:GetModeId())
         self.Comment:SetText(activity:GetComment())
+        self.RecruitButton:Enable()
     else
         self.CloseButton:Disable()
         self.CreateButton:SetText(L['Create Activity'])
         self:UpdateControls()
+        self.RecruitButton:Disable()
     end
 end
 
@@ -137,4 +141,26 @@ function Creator:UpdateControls()
     local activityData = ns.GetActivityData(activityId)
     self.CreateButton:SetEnabled(ns.IsGroupLeader() and activityId and self.Mode:GetValue() and
                                      (not activityData.category.inCity or ns.LFG:IsInCity()))
+end
+
+function Creator:OnRecruitClick()
+    local activityId = self.Activity:GetValue()
+    local cId, aId = ns.GetMatchAvailableActivity(activityId)
+    ShowUIPanel(LFGParentFrame);
+    LFGParentFrameTab2_OnClick();
+    if cId and aId then
+        if cId ~= UIDropDownMenu_GetSelectedValue(LFMFrame.TypeDropDown) then
+            UIDropDownMenu_ClearAll(LFMFrame.TypeDropDown);
+            LFMFrameTypeDropDown_Initialize(LFMFrame.TypeDropDown)
+            UIDropDownMenu_SetSelectedValue(LFMFrame.TypeDropDown, cId);
+            UIDropDownMenu_ClearAll(LFMFrame.ActivityDropDown);
+            LFMFrameActivityDropDown_Initialize(LFMFrame.ActivityDropDown)
+
+        end
+        UIDropDownMenu_SetSelectedValue(LFMFrame.ActivityDropDown, aId)
+    else
+        UIDropDownMenu_ClearAll(LFMFrame.ActivityDropDown);
+        LFMFrameActivityDropDown_Initialize(LFMFrame.ActivityDropDown)
+    end
+    SendLFMQuery();
 end

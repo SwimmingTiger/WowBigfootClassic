@@ -17,7 +17,7 @@
 ## X-DBM-Mod-MinExpansion: 1
 ## X-Curse-Project-ID: 16442
 ## X-WoWI-ID: 11700
-## Version: 2.5.11
+## Version: 2.5.12
 ## X-Revision: BigFoot
 
 localization.en.lua
