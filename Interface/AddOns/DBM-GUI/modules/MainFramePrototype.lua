@@ -1,3 +1,5 @@
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
+
 local select, ipairs, mfloor, mmax = select, pairs, math.floor, math.max
 local CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal = CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal
 local DBM, DBM_GUI = DBM, DBM_GUI
@@ -75,42 +77,47 @@ local function resize(frame, first)
 			if not child.isStats then
 				local neededHeight, lastObject = 25, nil
 				for _, child2 in ipairs({ child:GetChildren() }) do
-					if child2.mytype == "textblock" then
-						if child2.autowidth then
-							child2:SetWidth(width)
-						end
-						neededHeight = neededHeight + (child2.myheight or child2:GetStringHeight())
-					elseif child2.mytype == "checkbutton" then
-						local buttonText = _G[child2:GetName() .. "Text"]
-						buttonText:SetWidth(width - buttonText.widthPad - 57)
-						buttonText:SetText(buttonText.text)
-						if not child2.customPoint then
-							-- Classic fix: SimpleHTML needs its height reset
-							local oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5 = buttonText:GetPoint()
-							buttonText:SetHeight(1)
-							buttonText:SetPoint("TOPLEFT", UIParent)
-							local height = buttonText:GetContentHeight()
-							buttonText:SetPoint(oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5)
-							-- End classic fix
-							if lastObject and lastObject.myheight then
-								child2:SetPointOld("TOPLEFT", lastObject, "TOPLEFT", 0, -lastObject.myheight)
-							else
-								child2:SetPointOld("TOPLEFT", 10, -12)
+					if child2.mytype then
+						if child2.mytype == "textblock" then
+							if child2.autowidth then
+								child2:SetWidth(width)
 							end
-							child2.myheight = mmax(height + 12, 25)
-							buttonText:SetHeight(child2.myheight)
+							neededHeight = neededHeight + (child2.myheight or child2:GetStringHeight())
+						elseif child2.mytype == "checkbutton" then
+							local buttonText = _G[child2:GetName() .. "Text"]
+							buttonText:SetWidth(width - buttonText.widthPad - 57)
+							buttonText:SetText(buttonText.text)
+							if not child2.customPoint then
+								local height = buttonText:GetContentHeight()
+								if not isRetail then
+									-- Classic fix: SimpleHTML needs its height reset
+									local oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5 = buttonText:GetPoint()
+									buttonText:SetHeight(1)
+									buttonText:SetPoint("TOPLEFT", UIParent)
+									height = buttonText:GetContentHeight()
+									buttonText:SetPoint(oldPoint1, oldPoint2, oldPoint3, oldPoint4, oldPoint5)
+									-- End classic fix
+								end
+								if lastObject and lastObject.myheight then
+									child2:SetPointOld("TOPLEFT", lastObject, "TOPLEFT", 0, -lastObject.myheight)
+								else
+									child2:SetPointOld("TOPLEFT", 10, -12)
+								end
+								child2.myheight = mmax(height + 12, 25)
+								buttonText:SetHeight(child2.myheight)
+							end
+							lastObject = child2
+						elseif child2.mytype == "line" then
+							child2:SetWidth(width - 20)
+							if lastObject and lastObject.myheight then
+								child2:ClearAllPoints()
+								child2:SetPoint("TOPLEFT", lastObject, "TOPLEFT", 0, -lastObject.myheight)
+								_G[child2:GetName() .. "BG"]:SetWidth(width - _G[child2:GetName() .. "Text"]:GetWidth() - 25)
+							end
+							lastObject = child2
 						end
-						lastObject = child2
-					elseif child2.mytype == "line" then
-						child2:SetWidth(width - 20)
-						if lastObject and lastObject.myheight then
-							child2:ClearAllPoints()
-							child2:SetPoint("TOPLEFT", lastObject, "TOPLEFT", 0, -lastObject.myheight)
-							_G[child2:GetName() .. "BG"]:SetWidth(width - _G[child2:GetName() .. "Text"]:GetWidth() - 25)
-						end
-						lastObject = child2
+						neededHeight = neededHeight + (child2.myheight or child2:GetHeight())
 					end
-					neededHeight = neededHeight + (child2.myheight or child2:GetHeight())
 				end
 				child:SetHeight(neededHeight)
 			end

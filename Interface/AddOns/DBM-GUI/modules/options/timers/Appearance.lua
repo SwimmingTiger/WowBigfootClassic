@@ -119,10 +119,10 @@ StyleDropDown.myheight = 0
 local Textures = DBM_GUI:MixinSharedMedia3("statusbar", {
 	{
 		text	= DEFAULT,
-		value	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp"
+		value	= "Interface\\AddOns\\DBM-StatusBarTimers\\textures\\default.blp"
 	},
 	{
-		text	= "Blizzad",
+		text	= "Blizzard",
 		value	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar" -- 136570
 	},
 	{
@@ -197,10 +197,9 @@ local FontFlags = {
 	}
 }
 
-local FontFlagDropDown = BarSetup:CreateDropdown(L.FontStyle, FontFlags, "DBT", "FontFlag",
-	function(value)
-		DBT:SetOption("FontFlag", value)
-	end)
+local FontFlagDropDown = BarSetup:CreateDropdown(L.FontStyle, FontFlags, "DBT", "FontFlag", function(value)
+	DBT:SetOption("FontFlag", value)
+end)
 FontFlagDropDown:SetPoint("TOPLEFT", FontDropDown, "BOTTOMLEFT", 0, -10)
 FontFlagDropDown.myheight = 0
 
@@ -244,8 +243,6 @@ local DisableBarFade = BarSetup:CreateCheckButton(L.NoBarFade, false, nil, nil, 
 DisableBarFade:SetPoint("TOPLEFT", FontSizeSlider, "BOTTOMLEFT", 0, -85)
 DisableBarFade.myheight = 75 -- Extra padding because right buttons are offset from sliders
 
---[[
-Temporarily disabled while skinning system is being worked on.
 local skins = {}
 for id, skin in pairs(DBT:GetSkins()) do
 	table.insert(skins, {
@@ -255,13 +252,26 @@ for id, skin in pairs(DBT:GetSkins()) do
 end
 if #skins > 1 then
 	local BarSkin = BarSetup:CreateDropdown(L.BarSkin, skins, "DBT", "Skin", function(value)
-		DBT:SetOption("Skin", value)
 		DBT:SetSkin(value)
 	end, 210)
 	BarSkin:SetPoint("TOPLEFT", DisableBarFade, "BOTTOMLEFT", -20, -10)
 	BarSkin.myheight = 45
 end
-]]--
+
+local Sorts = {
+	{
+		text	= "None",
+		value	= "None"
+	},
+	{
+		text	= "Highest at top",
+		value	= "Sort"
+	},
+	{
+		text	= "Lowest at top",
+		value	= "Invert"
+	}
+}
 
 local BarSetupSmall = BarSetupPanel:CreateArea(L.AreaTitle_BarSetupSmall)
 
@@ -292,6 +302,11 @@ local BarScaleSlider = BarSetupSmall:CreateSlider(L.Slider_BarScale, 0.75, 2, 0.
 BarScaleSlider:SetPoint("TOPLEFT", BarHeightSlider, "BOTTOMLEFT", 0, -10)
 BarScaleSlider:SetValue(DBT.Options.Scale)
 BarScaleSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("Scale"))
+
+local SortDropDown = BarSetupSmall:CreateDropdown(L.BarSort, Sorts, "DBT", "Sort", function(value)
+	DBT:SetOption("Sort", value)
+end)
+SortDropDown:SetPoint("TOPLEFT", BarScaleSlider, "BOTTOMLEFT", -20, -25)
 
 local BarOffsetXSlider = BarSetupSmall:CreateSlider(L.Slider_BarOffSetX, -50, 50, 1, 120)
 BarOffsetXSlider:SetPoint("TOPLEFT", BarSetupSmall.frame, "TOPLEFT", 350, -90)
@@ -358,6 +373,11 @@ local HugeBarScaleSlider = BarSetupHuge:CreateSlider(L.Slider_BarScale, 0.75, 2,
 HugeBarScaleSlider:SetPoint("TOPLEFT", HugeBarHeightSlider, "BOTTOMLEFT", 0, -10)
 HugeBarScaleSlider:SetValue(DBT.Options.HugeScale)
 HugeBarScaleSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("HugeScale"))
+
+local SortDropDownLarge = BarSetupHuge:CreateDropdown(L.BarSort, Sorts, "DBT", "HugeSort", function(value)
+	DBT:SetOption("HugeSort", value)
+end)
+SortDropDownLarge:SetPoint("TOPLEFT", HugeBarScaleSlider, "BOTTOMLEFT", -20, -25)
 
 local HugeBarOffsetXSlider = BarSetupHuge:CreateSlider(L.Slider_BarOffSetX, -50, 50, 1, 120)
 HugeBarOffsetXSlider:SetPoint("TOPLEFT", BarSetupHuge.frame, "TOPLEFT", 350, -105)

@@ -6,6 +6,8 @@ DBM.InfoFrame = {}
 -------------------
 -- Local Globals --
 -------------------
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
+
 local DBM = DBM
 local L = DBM_CORE_L
 local UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex, UnitExists, UnitGetTotalAbsorbs, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton = UnitClass, GetTime, GetPartyAssignment, UnitGroupRolesAssigned, GetRaidTargetIndex, UnitExists, UnitGetTotalAbsorbs, UnitName, UnitHealth, UnitPower, UnitPowerMax, UnitIsDeadOrGhost, UnitThreatSituation, UnitPosition, UnitIsUnit, UIDropDownMenu_CreateInfo, UIDropDownMenu_AddButton
@@ -164,10 +166,10 @@ do
 				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
-				info.text = L.INFOFRAME_LINES_TO:format(40)
+				info.text = L.INFOFRAME_LINES_TO:format(isRetail and 30 or 40)
 				info.func = setLines
-				info.arg1 = 40
-				info.checked = (DBM.Options.InfoFrameLines == 40)
+				info.arg1 = isRetail and 30 or 40 -- Use 40 in classic for full man raids
+				info.checked = (DBM.Options.InfoFrameLines == 30)
 				UIDropDownMenu_AddButton(info, 2)
 			elseif menu == "cols" then
 				info = UIDropDownMenu_CreateInfo()
@@ -411,56 +413,68 @@ local function updateEnemyPower()
 	local specificUnit = value[3]
 	if powerType then -- Only do power type defined
 		if specificUnit then
-			local usedUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
-			if UnitExists(usedUnit) then--Double check I know. Has to be kinda hacky for TBC
-				local currentPower, maxPower = UnitPower(usedUnit, powerType), UnitPowerMax(usedUnit, powerType)
+			if not isRetail then
+				specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
+			end
+			if UnitExists(specificUnit) then
+				local currentPower, maxPower = UnitPower(specificUnit, powerType), UnitPowerMax(specificUnit, powerType)
 				if maxPower and maxPower > 0 then
 					local percent = currentPower / maxPower * 100
 					if percent >= threshold then
-						lines[UnitName(usedUnit)] = mfloor(percent) .. "%"
+						lines[UnitName(specificUnit)] = mfloor(percent) .. "%"
 					end
 				end
 			end
 		else
-			if specificUnit then
-				local usedUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
-				if UnitExists(usedUnit) then--Double check I know. Has to be kinda hacky for TBC
-					local currentPower, maxPower = UnitPower(usedUnit), UnitPowerMax(usedUnit)
-					if maxPower and maxPower > 0 then
-						local percent = currentPower / maxPower * 100
-						if percent >= threshold then
-							lines[UnitName(usedUnit)] = mfloor(percent) .. "%"
-						end
-					end
-				end
-			else--useless in TBC, don't use frames with no specified unit
-				for i = 1, 5 do
-					local uId = "boss" .. i
-					local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
-					if maxPower and maxPower > 0 then
-						local percent = currentPower / maxPower * 100
-						if percent >= threshold then
-							lines[UnitName(uId)] = mfloor(percent) .. "%"
-						end
+			for i = 1, 5 do
+				local uId = "boss" .. i
+				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
+				if maxPower and maxPower > 0 then
+					local percent = currentPower / maxPower * 100
+					if percent >= threshold then
+						lines[UnitName(uId)] = mfloor(percent) .. "%"
 					end
 				end
 			end
 		end
 	else -- Check primary power type and alternate power types together. This should only be used if BOTH power types exist on same boss, else fix your shit MysticalOS
-		for i = 1, 5 do
-			local uId = "boss" .. i
-			-- Primary Power
-			local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
-			if maxPower and maxPower > 0 then
-				if currentPower / maxPower * 100 >= threshold then
-					lines[UnitName(uId)] = currentPower
+		if specificUnit then
+			if not isRetail then
+				specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
+			end
+			if UnitExists(specificUnit) then
+				-- Primary Power
+				local currentPower, maxPower = UnitPower(specificUnit), UnitPowerMax(specificUnit)
+				if maxPower and maxPower > 0 then
+					local percent = currentPower / maxPower * 100
+					if percent >= threshold then
+						lines[UnitName(specificUnit)] = mfloor(percent) .. "%"
+					end
+				end
+				-- Alternate Power
+				local currentAltPower, maxAltPower = UnitPower(specificUnit, 10), UnitPowerMax(specificUnit, 10)
+				if maxAltPower and maxAltPower > 0 then
+					if currentAltPower / maxAltPower * 100 >= threshold then
+						lines[UnitName(specificUnit)] = L.INFOFRAME_ALT .. currentAltPower
+					end
 				end
 			end
-			-- Alternate Power
-			local currentAltPower, maxAltPower = UnitPower(uId, 10), UnitPowerMax(uId, 10)
-			if maxAltPower and maxAltPower > 0 then
-				if currentAltPower / maxAltPower * 100 >= threshold then
-					lines[UnitName(uId)] = L.INFOFRAME_ALT .. currentAltPower
+		else
+			for i = 1, 5 do
+				local uId = "boss" .. i
+				-- Primary Power
+				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
+				if maxPower and maxPower > 0 then
+					if currentPower / maxPower * 100 >= threshold then
+						lines[UnitName(uId)] = currentPower
+					end
+				end
+				-- Alternate Power
+				local currentAltPower, maxAltPower = UnitPower(uId, 10), UnitPowerMax(uId, 10)
+				if maxAltPower and maxAltPower > 0 then
+					if currentAltPower / maxAltPower * 100 >= threshold then
+						lines[UnitName(uId)] = L.INFOFRAME_ALT .. currentAltPower
+					end
 				end
 			end
 		end
@@ -475,26 +489,28 @@ local function updateEnemyAbsorb()
 	local totalAbsorb = value[2]
 	local specificUnit = value[3]
 	if specificUnit then
-		local usedUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
-		if UnitExists(usedUnit) then--Double check I know. Has to be kinda hacky for TBC
+		if not isRetail then
+			specificUnit = UnitExists(specificUnit) or DBM:GetUnitIdFromGUID(specificUnit)--unitID already passed or GUID we convert into unitID
+		end
+		if UnitExists(specificUnit) then
 			local absorbAmount
 			if spellInput then -- Get specific spell absorb
-				absorbAmount = select(16, DBM:UnitBuff(usedUnit, spellInput)) or select(16, DBM:UnitDebuff(usedUnit, spellInput))
+				absorbAmount = select(16, DBM:UnitBuff(specificUnit, spellInput)) or select(16, DBM:UnitDebuff(specificUnit, spellInput))
 			else -- Get all of them
-				absorbAmount = UnitGetTotalAbsorbs(usedUnit)
+				absorbAmount = UnitGetTotalAbsorbs(specificUnit)
 			end
 			if absorbAmount and absorbAmount > 0 then
 				local text
 				if totalAbsorb then
 					text = absorbAmount / totalAbsorb * 100
-					lines[UnitName(usedUnit)] = mfloor(text) .. "%"
+					lines[UnitName(specificUnit)] = mfloor(text) .. "%"
 				else
 					text = absorbAmount
-					lines[UnitName(usedUnit)] = mfloor(text)
+					lines[UnitName(specificUnit)] = mfloor(text)
 				end
 			end
 		end
-	else--Effectively useless for TBC, without a GUID can't use this frame in TBC
+	else
 		for i = 1, 5 do
 			local uId = "boss" .. i
 			if UnitExists(uId) then

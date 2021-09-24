@@ -2,17 +2,20 @@ DBM_CORE_L = {}
 
 local L = DBM_CORE_L
 
-L.DEADLY_BOSS_MODS					= "Deadly Boss Mods"
-L.DBM								= "DBM"
+L.DEADLY_BOSS_MODS					= "Deadly Boss Mods" -- NO TRANSLATE
+L.DBM								= "DBM" -- NO TRANSLATE
 
 local dateTable = date("*t")
 if dateTable.day and dateTable.month and dateTable.day == 1 and dateTable.month == 4 then
-	L.DEADLY_BOSS_MODS				= "Harmless Boss Mods"
-	L.DBM							= "HBM"
+	L.DEADLY_BOSS_MODS			= "Harmless Boss Mods"
+	L.DBM						= "HBM"
 end
 
-L.HOW_TO_USE_MOD					= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. DBM will setup defaults for your spec, but you may want to fine tune these."
+L.HOW_TO_USE_MOD					= "Welcome to " .. L.DBM .. ". Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. " .. L.DBM .. " will setup defaults for your spec, but you may want to fine tune these."
 L.SILENT_REMINDER					= "Reminder: " .. L.DBM .. " is still in silent mode."
+L.NEWS_UPDATE						= "|h|c11ff1111News|r|h: This update is basically a re-release of 9.1.9 to clear a false malware detection on the hash of the previous file release. Read more about it |Hgarrmission:DBM:news|h|cff3588ff[here]|r|h"
+
+L.COPY_URL_DIALOG_NEWS				= "To read latest news, visit link below"
 
 L.LOAD_MOD_ERROR					= "Error while loading boss mods for %s: %s"
 L.LOAD_MOD_SUCCESS					= "Loaded '%s' mods. For more options such as custom alert sounds and personalized warning notes, type /dbm."
@@ -20,9 +23,9 @@ L.LOAD_MOD_COMBAT					= "Loading of '%s' delayed until you leave combat"
 L.LOAD_GUI_ERROR					= "Could not load GUI: %s"
 L.LOAD_GUI_COMBAT					= "GUI cannot be initially loaded in combat. GUI will be loaded out of combat. After GUI loaded, you can open GUI in combat."
 L.BAD_LOAD							= L.DBM .. " has detected your mod for this instance failed to fully load correctly because of combat. As soon as you are out of combat, please do /console reloadui as soon as possible."
-L.LOAD_MOD_VER_MISMATCH				= "%s could not be loaded because your " .. L.DBM .. "-Core does not meet requirements. An updated version is required"
+L.LOAD_MOD_VER_MISMATCH				= "%s could not be loaded because your DBM-Core does not meet requirements. An updated version is required"
 L.LOAD_MOD_EXP_MISMATCH				= "%s could not be loaded because it is designed for a WoW expansion that's not currently available. When expansion becomes available, this mod will automatically work."
-L.LOAD_MOD_TOC_MISMATCH				= "%s could not be loaded because it is not designed for Burning Crusade Classic WoW. You likely installed a retail or Classic Era version of a module. Remove this module and use only addons designed for Burning Crusade Classic WoW."
+L.LOAD_MOD_TOC_MISMATCH				= "%s could not be loaded because it is designed for a WoW patch (%s) that's not currently available. When patch becomes available, this mod will automatically work."
 L.LOAD_MOD_DISABLED					= "%s is installed but currently disabled. This mod will not be loaded unless you enable it."
 L.LOAD_MOD_DISABLED_PLURAL			= "%s are installed but currently disabled. These mods will not be loaded unless you enable them."
 
@@ -46,6 +49,8 @@ L.MOD_AVAILABLE						= "%s is available for this zone. You can find download on 
 L.COMBAT_STARTED					= "%s engaged. Good luck and have fun! :)"
 L.COMBAT_STARTED_IN_PROGRESS		= "Engaged an in progress fight against %s. Good luck and have fun! :)"
 L.GUILD_COMBAT_STARTED				= "%s has been engaged by guild"
+L.SCENARIO_STARTED					= "%s started. Good luck and have fun! :)"
+L.SCENARIO_STARTED_IN_PROGRESS		= "Joined %s a scenario that's in progress. Good luck and have fun! :)"
 L.BOSS_DOWN							= "%s down after %s!"
 L.BOSS_DOWN_I						= "%s down! You have %d total victories."
 L.BOSS_DOWN_L						= "%s down after %s! Your last kill took %s and your fastest kill took %s. You have %d total victories."
@@ -54,14 +59,21 @@ L.RAID_DOWN							= "%s cleared after %s!"
 L.RAID_DOWN_L						= "%s cleared after %s! Your fastest clear took %s."
 L.RAID_DOWN_NR						= "%s cleared after %s! This is a new record! (Old record was %s)."
 L.GUILD_BOSS_DOWN					= "%s has been defeated by guild after %s!"
+L.SCENARIO_COMPLETE					= "%s completed after %s!"
+L.SCENARIO_COMPLETE_I				= "%s completed! You have %d total clears."
+L.SCENARIO_COMPLETE_L				= "%s completed after %s! Your last clear took %s and your fastest clear took %s. You have %d total clears."
+L.SCENARIO_COMPLETE_NR				= "%s completed after %s! This is a new record! (Old record was %s). You have %d total clears."
 L.COMBAT_ENDED_AT					= "Combat against %s (%s) ended after %s."
 L.COMBAT_ENDED_AT_LONG				= "Combat against %s (%s) ended after %s. You have %d total wipe(s) on this difficulty."
 L.GUILD_COMBAT_ENDED_AT				= "Guild has wiped on %s (%s) after %s."
-L.COMBAT_STATE_RECOVERED			= "%s was engaged %s ago, recovering timers..."
+L.SCENARIO_ENDED_AT					= "%s ended after %s."
+L.SCENARIO_ENDED_AT_LONG			= "%s ended after %s. You have %d total incompletes on this difficulty."
+L.COMBAT_STATE_RECOVERED			= "%s was engaged %s ago, recovering timers... "
 L.TRANSCRIPTOR_LOG_START			= "Transcriptor logging started."
 L.TRANSCRIPTOR_LOG_END				= "Transcriptor logging ended."
 
 L.MOVIE_SKIPPED						= L.DBM .. " has attempted to skip a cut scene automatically."
+L.BONUS_SKIPPED						= L.DBM .. " has automatically closed bonus loot frame. If you need to get this frame back, type /dbmbonusroll within 3 minutes"
 
 L.AFK_WARNING						= "You are AFK and in combat (%d percent health remaining), firing sound alert. If you are not AFK, clear your AFK flag or disable this option in 'extra features'."
 
@@ -91,7 +103,7 @@ L.MPROFILE_DELETE_S_ERROR			= "Source is corrupted. Settings not deleted or part
 
 L.NOTE_SHARE_SUCCESS				= "%s has shared their note for %s"
 L.NOTE_SHARE_LINK					= "Click Here to Open Note"
-L.NOTE_SHARE_FAIL					= "%s attempted to share note text with you for %s. However, mod associated with this ability is not uninstalled or is not loaded. If you need this note, make sure you load the mod they are sharing notes for and ask them to share again"
+L.NOTE_SHARE_FAIL					= "%s attempted to share note text with you for %s. However, mod associated with this ability is not installed or is not loaded. If you need this note, make sure you load the mod they are sharing notes for and ask them to share again"
 
 L.NOTEHEADER						= "Enter your note text here for %s. Enclosing a players name with >< class colors it. For alerts with multiple counts, separate notes with '/'"
 L.NOTEFOOTER						= "Press 'Okay' to accept changes or 'Cancel' to decline changes"
@@ -105,11 +117,9 @@ L.NOTESHAREERRORALREADYOPEN			= "Cannot open a shared note link while note edito
 L.ALLMOD_DEFAULT_LOADED				= "Default options for all mods in this instance have been loaded."
 L.ALLMOD_STATS_RESETED				= "All mod stats have been reset."
 L.MOD_DEFAULT_LOADED				= "Default options for this fight have been loaded."
-L.SOUNDKIT_MIGRATION				= "One or more of your warning/special warning sounds were reset to defaults do to incompatability with patch 8.2 and later (sound must reside in interface folder to play by path, or use SoundKit ID)"
 
 L.WORLDBOSS_ENGAGED					= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 L.WORLDBOSS_DEFEATED				= "%s was possibly defeated on your realm (Sent by %s)."
-L.WORLDBUFF_STARTED					= "%s buff has started on your realm for %s faction (Sent by %s)."
 
 L.TIMER_FORMAT_SECS					= "%.2f |4second:seconds;"
 L.TIMER_FORMAT_MINS					= "%d |4minute:minutes;"
@@ -151,6 +161,12 @@ L.WHISPER_COMBAT_END_KILL			= "%s has defeated %s!"
 L.WHISPER_COMBAT_END_KILL_STATS		= "%s has defeated %s! They have %d total victories."
 L.WHISPER_COMBAT_END_WIPE_AT		= "%s has wiped on %s at %s"
 L.WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s has wiped on %s at %s. They have %d total wipes on this difficulty."
+--Scenarios (no percents. words like "fighting" or "wipe" changed to better fit scenarios)
+L.AUTO_RESPOND_WHISPER_SCENARIO		= "%s is busy in %s (%d/%d people alive)"
+L.WHISPER_SCENARIO_END_KILL			= "%s has completed %s!"
+L.WHISPER_SCENARIO_END_KILL_STATS	= "%s has completed %s! They have %d total victories."
+L.WHISPER_SCENARIO_END_WIPE			= "%s did not complete %s"
+L.WHISPER_SCENARIO_END_WIPE_STATS	= "%s did not complete %s. They have %d total incompletes on this difficulty."
 
 L.VERSIONCHECK_HEADER				= "Boss Mod - Versions"
 L.VERSIONCHECK_ENTRY				= "%s: %s (%s) %s"--One Boss mod
@@ -159,38 +175,38 @@ L.VERSIONCHECK_ENTRY_NO_DBM			= "%s: No boss mod installed"
 L.VERSIONCHECK_FOOTER				= "Found %d player(s) with " .. L.DBM .. " & %d player(s) with Bigwigs"
 L.VERSIONCHECK_OUTDATED				= "Following %d player(s) have outdated boss mod version: %s"
 L.YOUR_VERSION_OUTDATED     		= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date. Please download the latest version through Curse, WoWI, or from the GitHub Releases page."
-L.VOICE_PACK_OUTDATED				= "Your selected " .. L.DBM .. " voice pack is missing some sounds supported by " .. L.DBM .. ". Some warning sounds will still play default sounds. Please download a newer version of voice pack or pack contact author for an update that contains missing audio"
+L.VOICE_PACK_OUTDATED				= "Your selected " .. L.DBM .. " voice pack is missing some sounds supported by " .. L.DBM .. ". Some warning sounds will still play default sounds. Please download a newer version of voice pack or contact pack author for an update that contains missing audio"
 L.VOICE_MISSING						= "You have a " .. L.DBM .. " voice pack selected that could not be found. If this is an error, make sure your voice pack is properly installed and enabled in addons."
 L.VOICE_DISABLED					= "You currently have at least one " .. L.DBM .. " voice pack installed but none enabled. If you intend to use a voice pack, make sure it's chosen in 'Spoken Alerts', else uninstall unused voice packs to hide this message"
-L.VOICE_COUNT_MISSING				= "Countdown voice %d is set to a voice/count pack that could not be found. It has be reset to default setting: %s."
+L.VOICE_COUNT_MISSING				= "Countdown voice %d is set to a voice/count pack that could not be found. It has been reset to default setting: %s."
 L.BIG_WIGS							= "BigWigs"
 
-L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS .. " is out-of-date.\n Version %s (%s) is available for download through Curse, WoWI, or from the GitHub Releases page"
+L.UPDATEREMINDER_HEADER				= "Your version of " .. L.DEADLY_BOSS_MODS.. " is out-of-date.\n Version %s (%s) is available for download through Curse, WoWI, or from GitHub Releases page"
 L.UPDATEREMINDER_FOOTER				= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
 L.UPDATEREMINDER_FOOTER_GENERIC		= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
-L.UPDATEREMINDER_DISABLE			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS .. " being too out of date it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
+L.UPDATEREMINDER_DISABLE			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being too out of date, it has been force disabled and cannot be used until updated. This is to ensure outdated or incompatible mods do not cause poor play experience for yourself or fellow group members."
 L.UPDATEREMINDER_HOTFIX				= L.DBM .. " version you are on has known issues during this boss encounter that are corrected if you update to latest release"
 L.UPDATEREMINDER_HOTFIX_ALPHA		= L.DBM .. " version you are on has known issues during this boss encounter that are corrected in an upcoming release (or latest alpha version)"
-L.UPDATEREMINDER_MAJORPATCH			= "WARNING: Do to your " .. L.DEADLY_BOSS_MODS .. " being out of date, " .. L.DBM .. " has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from deadlybossmods.com or curse as soon as possible."
-L.VEM								= "WARNING: You are running both " .. L.DEADLY_BOSS_MODS .. " and Voice Encounter Mods. " .. L.DBM .. " will not run in this configuration and therefore will not be loaded."
-L.OUTDATEDPROFILES					= "WARNING: DBM-Profiles not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
+L.UPDATEREMINDER_MAJORPATCH			= "WARNING: Due to your " .. L.DEADLY_BOSS_MODS.. " being out of date, " .. L.DBM .. " has been disabled until updated, since this is a major game patch. This is to ensure old and incompatible code doesn't cause poor play experience for yourself or fellow group members. Make sure you download a newer version from Curse, WoWI, or from GitHub Releases page as soon as possible."
+L.VEM								= "WARNING: You are running both " .. L.DEADLY_BOSS_MODS.. " and Voice Encounter Mods. DBM will not run in this configuration and therefore will not be loaded."
+L.OUTDATEDPROFILES					= "WARNING: DBM-Profiles not compatible with this version of " .. L.DBM .. ". It must be removed before DBM can proceed, to avoid conflict."
 L.OUTDATEDSPELLTIMERS				= "WARNING: DBM-SpellTimers breaks " .. L.DBM .. " and must be disabled for " .. L.DBM .. " to function properly."
 L.OUTDATEDRLT						= "WARNING: DBM-RaidLeadTools breaks " .. L.DBM .. ". DBM-RaidLeadTools is no longer supported and must be removed for " .. L.DBM .. " to function properly."
-L.VICTORYSOUND						= "WARNING: DBM-VictorySound not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
+L.VICTORYSOUND						= "WARNING: DBM-VictorySound is not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
 L.DPMCORE							= "WARNING: Deadly PvP mods is discontinued and not compatible with this version of " .. L.DBM .. ". It must be removed before " .. L.DBM .. " can proceed, to avoid conflict."
 L.DBMLDB							= "WARNING: DBM-LDB is now built into DBM-Core. While it won't do any harm, it's recommended to remove 'DBM-LDB' from your addons folder"
+L.DBMLOOTREMINDER					= "WARNING: 3rd party mod DBM-LootReminder is installed. This addon is no longer compatible with Retail WoW client and will cause " .. L.DBM .. " to break and not be able to send pull timers. Uninstall of this addon recommended"
 L.UPDATE_REQUIRES_RELAUNCH			= "WARNING: This " .. L.DBM .. " update will not work correctly if you don't fully restart your game client. This update contains new files or .toc file changes that cannot be loaded via ReloadUI. You may encounter broken functionality or errors if you continue without a client restart."
 L.OUT_OF_DATE_NAG					= "Your version of " .. L.DBM.. " is out-of-date and this specific fight mod has newer features or bug fixes. It is recommended you update for this fight to improve your experience."
-L.CLASSIC_ONLY						= "WARNING: This version of " .. L.DBM .. " is only meant to be used with WoW Burning Crusade Classic. Uninstall this version and install correct version of " .. L.DBM .. " for your WoW version."
 
 L.MOVABLE_BAR						= "Drag me!"
 
 L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer: '%2$s'\n|Hgarrmission:DBM:cancel:%2$s:nil|h|cff3588ff[Cancel this timer]|r|h  |Hgarrmission:DBM:ignore:%2$s:%1$s|h|cff3588ff[Ignore timers from %1$s]|r|h"
 --L.PIZZA_SYNC_INFO					= "|Hplayer:%1$s|h[%1$s]|h sent you a " .. L.DBM .. " timer"
 L.PIZZA_CONFIRM_IGNORE				= "Do you really want to ignore " .. L.DBM .. " timers from %s for this session?"
-L.PIZZA_ERROR_USAGE					= "Usage: /dbm [broadcast] timer <time> <text>. <time> must be greater than 1."
+L.PIZZA_ERROR_USAGE					= "Usage: /dbm [broadcast] timer <time> <text>. <time> must be 3 or greater."
 
-L.MINIMAP_TOOLTIP_HEADER			= L.DEADLY_BOSS_MODS
+L.MINIMAP_TOOLTIP_HEADER			= L.DEADLY_BOSS_MODS --Technically redundant
 L.MINIMAP_TOOLTIP_FOOTER			= "Hold shift and drag to move"
 
 L.RANGECHECK_HEADER					= "Range Check (%dy)"
@@ -229,7 +245,7 @@ L.INFOFRAME_ALT						= "Alt:"--Alternate Power
 
 L.LFG_INVITE						= "LFG Invite"
 
-L.SLASHCMD_HELP				= {
+L.SLASHCMD_HELP						= {
 	"Available slash commands:",
 	"-----------------",
 	"/dbm unlock: Shows a movable status bar timer (alias: move).",
@@ -240,7 +256,7 @@ L.SLASHCMD_HELP				= {
 	"/dbm hud: Shows the " .. L.DBM .. " hud, see '/dbm hud' for details.",
 	"/dbm help2: Shows raid management slash commands"
 }
-L.SLASHCMD_HELP2				= {
+L.SLASHCMD_HELP2					= {
 	"Available slash commands:",
 	"-----------------",
 	"/dbm pull <sec>: Sends a pull timer for <sec> seconds to the raid (requires promoted. alias: pull).",
@@ -250,8 +266,8 @@ L.SLASHCMD_HELP2				= {
 	"/dbm lag: Performs a raid-wide latency check.",
 	"/dbm durability: Performs a raid-wide durability check."
 }
-L.TIMER_USAGE	= {
-	"DBM timer commands:",
+L.TIMER_USAGE						= {
+	L.DBM .. " timer commands:",
 	"-----------------",
 	"/dbm timer <sec> <text>: Starts a <sec> second timer with your <text>.",
 	"/dbm ltimer <sec> <text>: Starts a timer that also automatically loops until canceled.",
@@ -285,6 +301,8 @@ L.SOUTH								= "South"
 L.INTERMISSION						= "Intermission"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
 L.ORB								= "Orb"
 L.ORBS								= "Orbs"
+L.RING								= "Ring"
+L.RINGS								= "Rings"
 L.CHEST								= "Chest"--As in Treasure 'Chest'. Not Chest as in body part.
 L.NO_DEBUFF							= "Not %s"--For use in places like info frame where you put "Not Spellname"
 L.ALLY								= "Ally"--Such as "Move to Ally"
@@ -344,10 +362,11 @@ L.AUTO_ANNOUNCE_TEXTS = {
 	stage							= "Stage %s",
 	prestage						= "Stage %s soon",
 	count							= "%s (%%s)",
-	stack							= "%s on >%%s< (%%d)"
+	stack							= "%s on >%%s< (%%d)",
+	moveto							= "%s - move to >%%s<"
 }
 
-local prewarnOption 				= "Show pre-warning for $spell:%s"
+local prewarnOption					= "Show pre-warning for $spell:%s"
 L.AUTO_ANNOUNCE_OPTIONS = {
 	you								= "Announce when $spell:%s on you",
 	target							= "Announce $spell:%s targets",
@@ -369,7 +388,8 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	stagechange						= "Announce stage changes",
 	prestage						= "Show a prewarning for Stage %s",
 	count							= "Show warning for $spell:%s (with count)",
-	stack							= "Announce $spell:%s stacks"
+	stack							= "Announce $spell:%s stacks",
+	moveto							= "Show warning to move to someone or some place for $spell:%s"
 }
 
 L.AUTO_SPEC_WARN_TEXTS = {
@@ -501,7 +521,7 @@ L.AUTO_TIMER_TEXTS = {
 	addsshort						= "Adds",
 	addscustom						= "Incoming Adds (%%s)",
 	addscustomshort					= "Adds (%%s)",
-	roleplay						= "Roleplay"
+	roleplay						= GUILD_INTEREST_RP or "Roleplay"
 }
 
 L.AUTO_TIMER_OPTIONS = {
@@ -534,13 +554,6 @@ L.AUTO_ICONS_OPTION_TEXT2			= "Set icons on $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT			= "Show " .. L.DBM .. " Arrow to move toward target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT2			= "Show " .. L.DBM .. " Arrow to move away from target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT3			= "Show " .. L.DBM .. " Arrow to move toward specific location for $spell:%s"
-L.AUTO_VOICE_OPTION_TEXT			= "Play spoken alerts for $spell:%s"
-L.AUTO_VOICE2_OPTION_TEXT			= "Play spoken alerts for stage changes"
-L.AUTO_VOICE3_OPTION_TEXT			= "Play spoken alerts for incoming adds"
-L.AUTO_VOICE4_OPTION_TEXT			= "Play spoken alerts for bad stuff on ground"
-L.AUTO_COUNTDOWN_OPTION_TEXT		= "Play countdown sound for $spell:%s cooldown"
-L.AUTO_COUNTDOWN_OPTION_TEXT2		= "Play countdown sound for when $spell:%s fades"
-L.AUTO_COUNTOUT_OPTION_TEXT			= "Play countout sound for $spell:%s duration"
 L.AUTO_YELL_OPTION_TEXT = {
 	shortyell						= "Yell when you are affected by $spell:%s",
 	yell							= "Yell (with player name) when you are affected by $spell:%s",
@@ -550,7 +563,9 @@ L.AUTO_YELL_OPTION_TEXT = {
 	iconfade						= "Yell (with countdown and icon) when $spell:%s is fading",
 	position						= "Yell (with position and player name) when you are affected by $spell:%s",
 	shortposition					= "Yell (with position) when you are affected by $spell:%s",
-	combo							= "Yell (with custom text) when you are affected by $spell:%s and other spells at same time"
+	combo							= "Yell (with custom text) when you are affected by $spell:%s and other spells at same time",
+	repeatplayer					= "Yell repeatedly (with player name) when you are affected by $spell:%s",
+	repeaticon						= "Yell repeatedly (with icon) when you are affected by $spell:%s"
 }
 L.AUTO_YELL_ANNOUNCE_TEXT = {
 	shortyell						= "%s",
@@ -559,12 +574,14 @@ L.AUTO_YELL_ANNOUNCE_TEXT = {
 	fade							= "%s fading in %%d",
 	shortfade						= "%%d",
 	iconfade						= "{rt%%2$d}%%1$d",
-	position 						= "%s %%s on {rt%%d}"..UnitName("player").."{rt%%d}",
+	position 						= "%s %%s on {rt%%d}" ..UnitName("player").. "{rt%%d}",
 	shortposition 					= "{rt%%1$d}%s %%2$d",--Icon, Spellname, number
-	combo							= "%s and %%s"--Spell name (from option, plus spellname given in arg)
+	combo							= "%s and %%s",--Spell name (from option, plus spellname given in arg)
+	repeatplayer					= UnitName("player"),--Doesn't need translation, it's just player name spam
+	repeaticon						= "{rt%%1$d}"--Doesn't need translation. It's just icon spam
 }
-L.AUTO_YELL_CUSTOM_POSITION			= "{rt%d}%s{"--Doesn't need translating. Has no strings
-L.AUTO_YELL_CUSTOM_POSITION2		= "{rt%d}%s{rt%d}"--Doesn't need translating. Has no strings
+L.AUTO_YELL_CUSTOM_POSITION			= "{rt%d}%s"--Doesn't need translating. Has no strings (Used in niche situations such as icon repeat yells)
+L.AUTO_YELL_CUSTOM_POSITION2		= "{rt%d}%s{rt%d}"--Doesn't need translating. Has no strings (Deprecated, will be removed soon)
 L.AUTO_YELL_CUSTOM_FADE				= "%s faded"
 L.AUTO_HUD_OPTION_TEXT				= "Show HudMap for $spell:%s (Retired)"
 L.AUTO_HUD_OPTION_TEXT_MULTI		= "Show HudMap for various mechanics (Retired)"
@@ -589,8 +606,8 @@ L.HUD_INVALID_TARGET				= "No valid target given for HUD"
 L.HUD_INVALID_SELF					= "Cannot use self as target for HUD"
 L.HUD_INVALID_ICON					= "Cannot use icon method for HUD on a target with no icon"
 L.HUD_SUCCESS						= "HUD successful started with your parameters. This will cancel after %s, or by calling '/dbm hud hide'."
-L.HUD_USAGE	= {
-	 L.DBM .. "-HudMap usage:",
+L.HUD_USAGE							= {
+	L.DBM .. "-HudMap usage:",
 	"-----------------",
 	"/dbm hud <type> <target> <duration>: Creates a HUD that points to a player for the desired duration",
 	"Valid types: arrow, dot, red, blue, green, yellow, icon (requires a target with raid icon)",
@@ -602,7 +619,7 @@ L.HUD_USAGE	= {
 L.ARROW_MOVABLE						= "Arrow movable"
 L.ARROW_WAY_USAGE					= "/dway <x> <y>: Creates an arrow that points to a specific location (using local zone map coordinates)"
 L.ARROW_WAY_SUCCESS					= "To hide arrow, do '/dbm arrow hide' or reach arrow"
-L.ARROW_ERROR_USAGE	= {
+L.ARROW_ERROR_USAGE					= {
 	L.DBM .. "-Arrow usage:",
 	"-----------------",
 	"/dbm arrow <x> <y>: Creates an arrow that points to a specific location (using world coordinates)",
@@ -617,52 +634,48 @@ L.SPEED_CLEAR_TIMER_TEXT			= "Best Clear"
 L.COMBAT_RES_TIMER_TEXT				= "Next CR Charge"
 L.TIMER_RESPAWN						= "%s Respawn"
 
-L.LAG_CHECKING						= "Checking raid Latency..."
-L.LAG_HEADER						= L.DEADLY_BOSS_MODS .. " - Latency Results"
+L.LAG_CHECKING						= "Checking raid Latency... "
+L.LAG_HEADER						= L.DEADLY_BOSS_MODS.. " - Latency Results"
 L.LAG_ENTRY							= "%s: World delay [%d ms] / Home delay [%d ms]"
 L.LAG_FOOTER						= "No Response: %s"
 
-L.DUR_CHECKING						= "Checking raid Durability..."
-L.DUR_HEADER						= L.DEADLY_BOSS_MODS .. " - Durability Results"
+L.DUR_CHECKING						= "Checking raid Durability... "
+L.DUR_HEADER						= L.DEADLY_BOSS_MODS.. " - Durability Results"
 L.DUR_ENTRY							= "%s: Durability [%d percent] / Gear broken [%s]"
 L.LAG_FOOTER						= "No Response: %s"
 
+local EJIconPath = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1) and "EncounterJournal" or "AddOns\\DBM-Core\\textures"
 --Role Icons
-L.TANK_ICON							= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:7:27|t"
-L.DAMAGE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:7:27|t"
-L.HEALER_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:7:27|t"
+L.TANK_ICON							= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:7:27|t" -- NO TRANSLATE
+L.DAMAGE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:7:27|t" -- NO TRANSLATE
+L.HEALER_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:7:27|t" -- NO TRANSLATE
 
-L.TANK_ICON_SMALL					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:12:12:0:0:255:66:6:21:7:27|t"
-L.DAMAGE_ICON_SMALL					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:12:12:0:0:255:66:39:55:7:27|t"
-L.HEALER_ICON_SMALL					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:12:12:0:0:255:66:70:86:7:27|t"
+L.TANK_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:6:21:7:27|t" -- NO TRANSLATE
+L.DAMAGE_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:39:55:7:27|t" -- NO TRANSLATE
+L.HEALER_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:70:86:7:27|t" -- NO TRANSLATE
 --Importance Icons
-L.HEROIC_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:22:22:0:0:255:66:102:118:7:27|t"
-L.DEADLY_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:7:27|t"
-L.IMPORTANT_ICON					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:7:27|t"
-L.MYTHIC_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:40:58|t"
+L.HEROIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:102:118:7:27|t" -- NO TRANSLATE
+L.DEADLY_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:7:27|t" -- NO TRANSLATE
+L.IMPORTANT_ICON					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:7:27|t" -- NO TRANSLATE
+L.MYTHIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:40:58|t" -- NO TRANSLATE
 
-L.HEROIC_ICON_SMALL					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:14:14:0:0:255:66:102:118:7:27|t"
-L.DEADLY_ICON_SMALL					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:14:14:0:0:255:66:133:153:7:27|t"
-L.IMPORTANT_ICON_SMALL				= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:12:12:0:0:255:66:168:182:7:27|t"
+L.HEROIC_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:14:14:0:0:255:66:102:118:7:27|t" -- NO TRANSLATE
+L.DEADLY_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:14:14:0:0:255:66:133:153:7:27|t" -- NO TRANSLATE
+L.IMPORTANT_ICON_SMALL				= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:168:182:7:27|t" -- NO TRANSLATE
 --Type Icons
-L.INTERRUPT_ICON					= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:198:214:7:27|t"
-L.MAGIC_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:229:247:7:27|t"
-L.CURSE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:40:58|t"
-L.POISON_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:40:58|t"
-L.DISEASE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:40:58|t"
-L.ENRAGE_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:102:118:40:58|t"
-L.BLEED_ICON						= "|TInterface\\AddOns\\DBM-Core\\textures\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:40:58|t"
+L.INTERRUPT_ICON					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:198:214:7:27|t" -- NO TRANSLATE
+L.MAGIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:229:247:7:27|t" -- NO TRANSLATE
+L.CURSE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:40:58|t" -- NO TRANSLATE
+L.POISON_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:40:58|t" -- NO TRANSLATE
+L.DISEASE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:40:58|t" -- NO TRANSLATE
+L.ENRAGE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:102:118:40:58|t" -- NO TRANSLATE
+L.BLEED_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:40:58|t" -- NO TRANSLATE
 
 --LDB
 L.LDB_TOOLTIP_HELP1					= "Click to open " .. L.DBM
 L.LDB_TOOLTIP_HELP2					= "Alt+right click to toggle Silent Mode"
-L.SILENTMODE_IS                     = "SilentMode is "
+L.SILENTMODE_IS						= "SilentMode is "
 
-L.LDB_LOAD_MODS						= "Load boss mods"
-
-L.LDB_ENABLE_BOSS_MOD				= "Enable boss mod"
-
---Localizers, do not copy entire table, follow same guidelines as other tables, overwrite each entry with L.WORLD_BUFFS.hordeOny = "stuff" for example.
 L.WORLD_BUFFS = {
 	hordeOny						= "People of the Horde, citizens of Orgrimmar, come, gather round and celebrate a hero of the Horde",
 	allianceOny						= "Citizens and allies of Stormwind, on this day, history has been made.",

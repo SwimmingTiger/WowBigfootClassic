@@ -151,7 +151,8 @@ L:SetWarningLocalization{
 	WarnNaga			= "Naga Soon (%s)",
 	WarnShield			= "Shield %d/4 down",
 	WarnLoot			= "Tainted Core on >%s<",
-	SpecWarnElemental	= "Tainted Elemental - Switch!"
+	SpecWarnElemental	= "Tainted Elemental - Switch!",
+	SpecWarnCore		= "Tainted Core on you!"
 }
 
 L:SetTimerLocalization{
@@ -172,8 +173,8 @@ L:SetOptionLocalization{
 	TimerStrider		= "Show timer for next Strider",
 	TimerNaga			= "Show timer for next Naga",
 	SpecWarnElemental	= "Show special warning when Tainted Elemental coming",
-	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280),
-	AutoChangeLootToFFA	= "Switch loot mode to Free for All in Phase 2"
+	SpecWarnCore		= "Show special warning when Tainted Core is on you",
+	ChargeIcon			= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38280)
 }
 
 L:SetMiscLocalization{

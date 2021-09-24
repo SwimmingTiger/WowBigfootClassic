@@ -1,8 +1,7 @@
 -- Diablohu(diablohudream@gmail.com)
 -- yleaf(yaroot@gmail.com)
 -- sunlcy@NGA
--- Mini Dragon(projecteurs@gmail.com)
--- Last update: 2020/09/08
+-- Mini Dragon <流浪者酒馆-Brilla@金色平原> 20210202
 
 if GetLocale() ~= "zhCN" then return end
 if not DBM_GUI_L then DBM_GUI_L = {} end
@@ -11,35 +10,36 @@ local L = DBM_GUI_L
 
 L.MainFrame 				= "Deadly Boss Mods"
 
-L.TranslationByPrefix		= "翻译: "
-L.TranslationBy 			= "Mini_Dragon(Brilla@金色平原) 枫聖@阿什坎迪 原翻译：Diablohu & yleaf & sunlcy"
+L.TranslationByPrefix		= "翻译:"
+L.TranslationBy 			= "Mini_Dragon(Brilla@金色平原) 原翻译：Diablohu & yleaf & sunlcy"
 L.Website					= "拜访我们的Discord |cFF73C2FBhttps://discord.gg/deadlybossmods|r. 在Twitter上关注 @deadlybossmods 或 @MysticalOS"
 L.WebsiteButton				= "网页"
 
 L.OTabBosses	            = "模块"--Deprecated and will be deleted once tabs no longer use this
-L.OTabRaids		            = "团队副本"--Raids & PVP
-L.OTabDungeons	            = "地下城/个人场景"--1-5人的副本内容（地下城，MoP场景，世界事件，要塞战役，试验场等）
-L.OTabPlugins	            = "核心插件"
+L.OTabRaids		            = "副本 & PVP"--Raids & PVP
+L.OTabDungeons	            = "地下城"--Might still need editing since it doesn't mention scenarios
+L.OTabPlugins	            = "插件"
 L.OTabOptions	            = "选项"
 L.OTabAbout		            = "关于"
 
 L.TabCategory_OTHER    		= "其它"
 
-L.BossModLoaded 			= "%s 状态"
+L.BossModLoaded 			= "%s状态"
 L.BossModLoad_now 			= [[该模块尚未启动。
 当你进入相应副本时其会自动加载。
 你也可以点击开启模块按钮手动启动该模块。]]
 
-L.PosX						= "X 坐标"
-L.PosY						= "Y 坐标"
+L.PosX 						= "X坐标"
+L.PosY 						= "Y坐标"
 
-L.MoveMe 					= "移动我"
+L.MoveMe					= "移动我"
 L.Button_OK 				= "确定"
 L.Button_Cancel 			= "取消"
 L.Button_LoadMod 			= "加载模块"
 L.Mod_Enabled				= "开启模块"
 L.Mod_Reset					= "恢复默认设置"
 L.Reset 					= "重置"
+L.Import					= "导入"
 
 L.Enable  					= "开启"
 L.Disable					= "关闭"
@@ -74,6 +74,7 @@ L.Latency_Text				= "设定团队之间DBM最高延迟阈值：%d"
 L.Button_RangeFrame			= "显示/隐藏距离雷达框体"
 L.Button_InfoFrame			= "显示/隐藏信息框体"
 L.Button_TestBars			= "测试计时条"
+L.Button_MoveBars			= "移动计时条"
 L.Button_ResetInfoRange		= "重置信息/距离雷达框体"
 
 L.ModelOptions				= "3D模型选项"
@@ -82,34 +83,33 @@ L.ModelSoundOptions			= "为模型查看器设置声音选项"
 L.ModelSoundShort			= "短"
 L.ModelSoundLong			= "长"
 
-L.ResizeOptions			 	= "调整窗口大小"
-L.Button_ResetWindowSize	= "重置窗口大小"
-L.Editbox_WindowWidth		= "宽度"
-L.Editbox_WindowHeight		= "高度"
+L.ResizeOptions			 	= "调整窗口选项"
+L.ResizeInfo				= "您可以通过拖动右下角来调整GUI窗口大小"
+L.Button_ResetWindowSize	= "重置GUI窗口大小"
+L.Editbox_WindowWidth		= "GUI宽度"
+L.Editbox_WindowHeight		= "GUI高度"
 
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "其他功能"
-
 L.Area_SoundAlerts			= "语音/闪烁警报选项"
 L.LFDEnhance				= "当发起角色检查或随机团队/战场就绪时，在主声道播放准备音效(即使关闭了音效而且很大声！)并闪烁图标"
 L.WorldBossNearAlert		= "当世界附近的Boss进入战斗时播放准备音效(覆盖单独BOSS设置)并闪烁图标"
-L.RLReadyCheckSound			= "在主声道/对话声道播放检查准备音效并闪烁图标"
+L.RLReadyCheckSound			= "在主声道/对话声道播放检查准备音效并闪烁图标。"
 L.AFKHealthWarning			= "当你在挂机/暂离受到伤害时播放音效并闪烁图标(你会死)"
 --
 L.TimerGeneral 				= "计时器选项"
 L.SKT_Enabled				= "总是显示最速胜利计时条(覆盖单独BOSS设置)"
 L.ShowRespawn				= "Boss战斗未完成时显示Boss刷新计时条"
-L.ShowQueuePop				= "显示PVP战场确认计时条"
+L.ShowQueuePop				= "显示随机小队/团队查找器确认计时条"
 --
 L.Area_AutoLogging			= "自动战斗日志选项"
 L.AutologBosses				= "自动采用官方格式记录日志。"
 L.AdvancedAutologBosses		= "自动采用 Transcriptor 记录日志"
 L.RecordOnlyBosses			= "只记录团队BOSS数据 (不记录其他数据，使用 /dbm pull 可提前记录并使得记录更准确，如提前偷药水或是召唤大军。)"
-L.LogOnlyNonTrivial			= "只记录团队Boss，而不记录随机团队/5人本/场景战役。"
+L.LogOnlyNonTrivial			= "只记录团队Boss，而不记录随机团队/5人本/场景战役"
 --
---L.Area_3rdParty				= "第三方插件选项"
---L.ShowBBOnCombatStart		= "战斗开始时使用Big Brother的buff检测"
---L.BigBrotherAnnounceToRaid	= "报告Big Brother的检测结果给团队"
+L.Area_3rdParty				= "第三方插件选项"
+L.oRA3AnnounceConsumables	= "在战斗开始时通告oRA3消耗品检查"
 L.Area_Invite				= "组队邀请选项"
 L.AutoAcceptFriendInvite	= "自动接受来自好友列表里的好友的组队邀请"
 L.AutoAcceptGuildInvite		= "自动接受同公会成员的组队邀请"
@@ -138,6 +138,11 @@ L.SelectModProfileCopy		= "复制所有选项："
 L.SelectModProfileCopySound	= "只复制声音选项："
 L.SelectModProfileCopyNote	= "只复制自定义注记："
 L.SelectModProfileDelete	= "删除 Boss 模块设置："
+
+L.Area_ImportExportProfile	= "导入导出配置"
+L.ImportExportInfo			= "导入会覆盖你当前的配置，请小心使用"
+L.ButtonImportProfile		= "导入配置"
+L.ButtonExportProfile		= "导出配置"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "警报"
@@ -203,10 +208,13 @@ L.CombatMessages			= "战斗信息设置"
 L.ShowEngageMessage 		= "在聊天窗口中显示开战信息"
 L.ShowDefeatMessage 		= "在聊天窗口中显示击杀信息"
 L.ShowGuildMessages 		= "在聊天窗口中显示公会开战/击杀/灭团信息"
+L.ShowGuildMessagesPlus		= "在聊天窗口中显示公会中的M+以上难度的开战/击杀/灭团信息(需要团队选项)"
+
 
 L.Area_ChatAlerts			= "其他警报选项"
-L.WorldBossAlert			= "当世界Boss进入战斗后发送警报，这个信息可能是你的朋友或者同公会成员发送的。 (由于跨服，位面等因素，可能不准确)"
-L.WorldBuffAlert			= "当世界增益BUFF激活后发送警报，这个信息可能是你的朋友或者同公会成员发送的。 (由于跨服，位面等因素，可能不准确)"
+L.RoleSpecAlert				= "当进入团队时，如果拾取专精与当前角色专精不同，则显示警告。"
+L.CheckGear					= "当你身上的装备装等低于背包装等40点时显示警告。(可能没有装备某物品或装备了低等级的任务道具或没有装备主武器)"
+L.WorldBossAlert			= "当世界Boss进入战斗后发送警告，这个信息可能是你的朋友或者同公会成员发送的。 (由于跨服，卡位面等因素，可能不准确)"
 
 L.Area_BugAlerts			= "错误报告选项"
 L.BadTimerAlert				= "在聊天窗口中显示DBM检测到计时器错误且至少有1秒不正确的信息"
@@ -245,6 +253,8 @@ L.EventEngageMusic			= "设置战斗过程中的音乐"
 L.Area_EventSoundsExtras	= "事件音效选项"
 L.EventMusicCombined		= "允许在副本内播放在音乐选项中的全部音效(需要/reload 才能加载)"
 L.Area_EventSoundsFilters	= "事件音效过滤条件"
+L.EventFilterDungMythicMusic= "不要在M/M+难度下播放副本音乐"
+L.EventFilterMythicMusic	= "不要在M/M+难度下播放战斗音乐"
 
 -- Tab: Timers
 L.TabCategory_Timers		= "计时条"
@@ -282,7 +292,6 @@ L.BarEndColorUI				= "结束颜色 (自定义)"
 L.Bar7Header				= "自定义计时条选项"
 L.Bar7ForceLarge			= "总是使用大型计时条"
 L.Bar7CustomInline			= "使用自定义 '!' 图标"
-L.Bar7Footer				= "(测试用计时条)"
 --Dropdown Options
 L.CBTGeneric				= "通用"
 L.CBTAdd					= "小怪"
@@ -323,6 +332,7 @@ L.StripTimerText			= "分离 CD/下一次 计时条"
 L.KeepBar					= "保持计时条显示直到技能被释放"
 L.KeepBar2					= "(当被模组支持时)"
 L.FadeBar					= "隐藏超出技能范围的计时条"
+L.BarSkin					= "计时条外观"
 
 -- Tab: Global Disables & Filters
 L.TabCategory_Filters	 	= "禁用及过滤选项"
@@ -358,6 +368,7 @@ L.SpamBlockNoRangeRestore	= "当Boss模块隐藏距离窗体时不重置窗体�
 L.Area_SpamFilter			= "信息过滤选项"
 L.DontShowFarWarnings		= "不为过远的事件显示计时条/警报"
 L.StripServerName			= "警报和计时器中不显示服务器名"
+L.FilterVoidFormSay			= "当在虚无状态下，不播发位置或报数喊叫"
 
 L.Area_SpecFilter			= "角色过滤选项"
 L.FilterTankSpec			= "当非坦克专精时，过滤掉给予坦克的专用信息"
@@ -375,22 +386,24 @@ L.DontShowPTNoID			= "不显示不同区域发送的倒计时"
 L.DontShowPT				= "不显示开怪和倒计时条"
 L.DontShowPTText			= "不显示开怪和倒计时文字"
 L.DontPlayPTCountdown		= "不播放开怪倒计时语音"
+L.DontShowPTCountdownText	= "不显示开怪倒计时动画"
 L.PT_Threshold				= "不显示高于 %d 秒的倒计时动画"
 
 -- Panel: Blizzard Features
 L.Panel_HideBlizzard		= "隐藏游戏自带内容"
 L.Area_HideBlizzard			= "隐藏游戏自带提示选项"
-L.HideBossEmoteFrame		= "Boss战斗中隐藏Boss表情框体"
+L.HideBossEmoteFrame		= "Boss 战斗中隐藏Boss表情框体"
 L.HideWatchFrame			= "在没有成就追踪的情况下，Boss战斗中隐藏任务追踪框体"
---L.HideQuestTooltips			= "Boss战斗中隐藏鼠标提示窗体中的任务进度"
+L.HideGarrisonUpdates		= "Boss 战斗中隐藏要塞队列完成提示"
+L.HideGuildChallengeUpdates	= "Boss 战斗中隐藏公会挑战成功信息"
+L.HideQuestTooltips			= "Boss 战斗中隐藏鼠标提示窗体中的任务进度"
 L.HideTooltips				= "Boss 战斗中完全隐藏鼠标提示窗体"
-L.DisableSFX				= "Boss战斗中关闭音效"
---L.DisableCinematics			= "自动跳过游戏内过场动画"
---L.OnlyFight					= "只有在战斗中，每部动画播放了一次之后跳过"
---L.AfterFirst				= "仅第一次播放"
-L.Always					= "总是跳过"
-L.CombatOnly				= "在战斗中隐藏 (任何)"
-L.RaidCombat				= "在战斗中隐藏 (boss 战隐藏)"
+L.DisableSFX				= "Boss 战斗中关闭音效(注意：如果你开启了这个选项，即使你在战斗开始时已关闭音效，战斗接叔后音效也会被开启)"
+L.DisableCinematics			= "自动跳过游戏内过场动画"
+L.OnlyFight					= "只有在战斗中，每部动画播放了一次之后跳过"
+L.AfterFirst				= "仅第一次播放"
+L.CombatOnly				= "在任何战斗中隐藏"
+L.RaidCombat				= "在BOSS战斗中隐藏 "
 
 -- Panel: Privacy
 L.Tab_Privacy 				= "密语设置"
@@ -415,7 +428,7 @@ L.Panel_Range				= "距离框"
 L.Panel_Nameplates			= "姓名板"
 L.UseNameplateHandoff		= "将姓名板上显示技能图标移交给支持的插件（KuiNameplates，Threat Plates，Plater），而不是DBM处理。 推荐使用此选项，因为能通过姓名板插件完成更高级的功能和配置。"
 L.Area_NPStyle				= "样式(注意：仅能使用DBM配置支持的样式。)"
-L.NPAuraSize				= "技能图标大小(比例): %d"
+L.NPAuraSize				= "技能图标大小 (比例): %d"
 
 -- Misc
 L.Area_General				= "一般"
@@ -428,4 +441,5 @@ L.FontColor					= "字体颜色"
 L.FontShadow				= "字体阴影"
 L.FontType					= "选择字体"
 
-L.FontHeight	= 16
+
+L.FontHeight	= 20

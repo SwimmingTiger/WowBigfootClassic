@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Solarian", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210822023059")
+mod:SetRevision("20210922025841")
 mod:SetCreatureID(18805)
 mod:SetEncounterID(732, 2466)
 mod:SetModelID(18239)
@@ -26,7 +26,6 @@ local specWarnDomination= mod:NewSpecialWarningInterrupt(37135, "HasInterrupt", 
 local specWarnWrath		= mod:NewSpecialWarningMoveAway(42783, nil, nil, nil, 1, 2)
 local yellWrath			= mod:NewYell(42783)
 
-local timerWrath		= mod:NewTargetTimer(8, 33045)--42783 (and 6 seconds) later
 local timerSplit		= mod:NewTimer(90, "TimerSplit", 39414, nil, nil, 6)
 local timerAgent		= mod:NewTimer(4, "TimerAgent", 39414, nil, nil, 1)
 local timerPriest		= mod:NewTimer(20, "TimerPriest", 39414, nil, nil, 1)
@@ -56,8 +55,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 42783 or args.spellId == 33045 then
-		timerWrath:Start(args.destName)
+	if (args.spellId == 42783 or args.spellId == 33045) and self:AntiSpam(1, args.destName) then
 		if args:IsPlayer() then
 			specWarnWrath:Show()
 			specWarnWrath:Play("runout")
@@ -76,7 +74,6 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 42783 or args.spellId == 33045 then
-		timerWrath:Stop(args.destName)
 		if args:IsPlayer() then
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Hide()

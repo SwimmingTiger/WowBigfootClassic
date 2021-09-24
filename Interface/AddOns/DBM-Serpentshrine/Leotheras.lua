@@ -1,11 +1,13 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20210920013054")
 mod:SetCreatureID(21215)
 mod:SetEncounterID(625, 2460)
 mod:SetModelID(20514)
 mod:SetUsedIcons(5, 6, 7, 8)
+mod:SetHotfixNoticeRev(20210919000000)
+mod:SetMinSyncRevision(20210919000000)
 
 mod:RegisterCombat("combat")
 
@@ -114,22 +116,9 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellDemon or msg:find(L.YellDemon) then
-		warnPhase:Show(L.Demon)
-		timerWhirl:Cancel()
-		timerWhirlCD:Cancel()
-		timerPhase:Cancel()
-		timerDemonCD:Start()
-		timerPhase:Start(nil, L.Human)
-		self:Schedule(60, humanWarns, self)
+		self:SendSync("Demon")
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
-		self:SetStage(2)
-		self:Unschedule(humanWarns)
-		timerPhase:Cancel()
-		timerWhirl:Cancel()
-		timerWhirlCD:Cancel()
-		timerDemonCD:Cancel()
-		warnPhase2:Show()
-		timerWhirlCD:Start(22.5)
+		self:SendSync("Phase2")
 	end
 end
 
@@ -141,5 +130,27 @@ function mod:UNIT_DIED(args)
 		if self.vb.binderKill == 3 and not self:IsInCombat() then
 			DBM:StartCombat(self, 0)
 		end
+	end
+end
+
+function mod:OnSync(msg, playerName)
+	if not self:IsInCombat() then return end
+	if msg == "Demon" then
+		warnPhase:Show(L.Demon)
+		timerWhirl:Cancel()
+		timerWhirlCD:Cancel()
+		timerPhase:Cancel()
+		timerDemonCD:Start()
+		timerPhase:Start(nil, L.Human)
+		self:Schedule(60, humanWarns, self)
+	elseif msg == "Phase2" and self.vb.phase < 2 then
+		self:SetStage(2)
+		self:Unschedule(humanWarns)
+		timerPhase:Cancel()
+		timerWhirl:Cancel()
+		timerWhirlCD:Cancel()
+		timerDemonCD:Cancel()
+		warnPhase2:Show()
+		timerWhirlCD:Start(22.5)
 	end
 end

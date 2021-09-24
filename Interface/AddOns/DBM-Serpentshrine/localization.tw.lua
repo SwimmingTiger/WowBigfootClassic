@@ -159,8 +159,7 @@ L:SetOptionLocalization{
 	TimerElemental		= "為下一次污染的元素顯示計時器",
 	TimerStrider		= "為下一次盤牙旅行者顯示計時器",
 	TimerNaga			= "為下一次盤牙精英顯示計時器",
-	SpecWarnElemental	= "為污染的元素出現顯示特別警告",
-	AutoChangeLootToFFA	= "第2階段自動轉換拾取方式為自由拾取"
+	SpecWarnElemental	= "為污染的元素出現顯示特別警告"
 }
 
 L:SetMiscLocalization{

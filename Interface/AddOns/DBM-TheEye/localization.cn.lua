@@ -64,9 +64,9 @@ L:SetOptionLocalization{
 
 L:SetMiscLocalization{
 	WrathWhisper	= "星术师之怒！",
-	YellSplit1		= "我要让你们自以为是的错觉荡然无存！",--Translate
-	YellSplit2		= "你们势单力薄！",--Translate
-	YellPhase2		= "我受够了！"--Translate
+	YellSplit1		= "我要让你们自以为是的错觉荡然无存！",
+	YellSplit2		= "你们势单力薄！",
+	YellPhase2		= "我受够了！"
 }
 
 ---------------------------
@@ -79,30 +79,30 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnGaze		= "*** 萨拉德雷注视着>%s< ***",
-	WarnMobDead		= "%s down",--Translate
+	WarnGaze		= "*** 萨拉德雷凝视着>%s< ***",
+	WarnMobDead		= "%s 倒下",
 	WarnEgg			= "*** 凤凰倒下 - 卵出现 ***",
-	SpecWarnGaze	= "快跑！",
+	SpecWarnGaze	= "快跑！凝视你了！",
 	SpecWarnEgg		= "*** 凤凰倒下 - 卵出现 ***"
 }
 
 L:SetTimerLocalization{
-	TimerPhase		= "下一次阶段",--Translate
+	TimerPhase		= "下一阶段",
 	TimerPhase1mob	= "%s",
 	TimerNextGaze	= "凝视冷却",
-	TimerRebirth	= "复生"
+	TimerRebirth	= "重生"
 }
 
 L:SetOptionLocalization{
-	WarnGaze		= "显示萨拉德雷凝视玩家时发出警报",--Translate
-	WarnMobDead		= "显示第二阶段的警报",--Translate
-	WarnEgg			= "显示凤凰卵重生的警报",--Translate
-	SpecWarnGaze	= "显示特别警报：凝视你时",--Translate
-	SpecWarnEgg		= "显示特殊警告：凤凰卵重生时",--Translate
-	TimerPhase		= "显示下一阶段的时间",--Translate
-	TimerPhase1mob	= "显示第一阶段首领的时间",--Translate
-	TimerNextGaze	= "显示萨拉德雷凝视玩家的时间",--Translate
-	TimerRebirth	= "显示剩余凤凰卵重生的时间",--Translate
+	WarnGaze		= "显示萨拉德雷凝视玩家时发出警报",
+	WarnMobDead		= "显示第二阶段的警报",
+	WarnEgg			= "显示凤凰卵重生的警报",
+	SpecWarnGaze	= "显示特别警报：凝视你",
+	SpecWarnEgg		= "显示特殊警告：凤凰卵重生时",
+	TimerPhase		= "显示下一阶段的时间",
+	TimerPhase1mob	= "显示第一阶段首领的时间",
+	TimerNextGaze	= "显示萨拉德雷凝视玩家的时间",
+	TimerRebirth	= "显示剩余凤凰卵重生的时间",
 	GazeWhisper		= "对萨拉德雷的目标发送密语",
 	GazeIcon		= "对萨拉德雷的目标添加标注"
 }
@@ -116,7 +116,7 @@ L:SetMiscLocalization{
 	YellCaper	= "卡波妮娅会很快解决你们的。",
 	YellTelo	= "干得不错。看来你们有能力挑战我的首席技师，塔隆尼库斯。",
 	EmoteGaze	= "凝视着([^%s]+)！",
-	GazeWhisper	= "萨拉德雷注视着你！快跑！",
+	GazeWhisper	= "萨拉德雷凝视着你！快跑！",
 	Thaladred	= "萨拉德雷",
 	Sanguinar	= "萨古纳尔",
 	Capernian	= "卡波妮娅",
