@@ -36,9 +36,7 @@
 			<OnLeave>
 				GameTooltip:Hide();
 			</OnLeave>
-			<OnUpdate>
-				WhisperPopOutButton_OnUpdate(self, elapsed);
-			</OnUpdate>
+			<OnUpdate function="WhisperPopOutButton_OnUpdate" />
 		</Scripts>
 		<NormalTexture file="Interface\AddOns\WhisperPop\Texture\normal-up"/>
 		<PushedTexture file="Interface\AddOns\WhisperPop\Texture\normal-down"/>

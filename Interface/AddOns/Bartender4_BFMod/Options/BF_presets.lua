@@ -391,8 +391,6 @@ local function BuildDoubleProfile()
 	else
 		SetBarLocation( config, "BOTTOM", -460, 135 + dy )
 	end
-		--增加unitframes的配置
-
 end
 
 local function BuildBlizzardProfile()

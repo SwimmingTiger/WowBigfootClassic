@@ -8,7 +8,7 @@ _G.Bartender4 = Bartender4
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 
-local WoWClassic = select(4, GetBuildInfo()) < 20000
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 
 local LDB = LibStub("LibDataBroker-1.1", true)
 local LDBIcon = LibStub("LibDBIcon-1.0", true)
@@ -288,7 +288,7 @@ function Bartender4:UpdateBlizzardVehicle()
 	if self.db.profile.blizzardVehicle then
 		--MainMenuBar:SetParent(UIParent)
 		OverrideActionBar:SetParent(UIParent)
-		if CURRENT_ACTION_BAR_STATE ~= LE_ACTIONBAR_STATE_OVERRIDE then
+		if ActionBarController_GetCurrentActionBarState() ~= LE_ACTIONBAR_STATE_OVERRIDE then
 			OverrideActionBar:Hide()
 		end
 		if not self.vehicleController then

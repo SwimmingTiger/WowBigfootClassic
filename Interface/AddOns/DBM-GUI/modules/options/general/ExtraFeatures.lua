@@ -7,9 +7,10 @@ soundAlertsArea:CreateCheckButton(L.LFDEnhance, true, nil, "LFDEnhance")
 soundAlertsArea:CreateCheckButton(L.WorldBossNearAlert, true, nil, "WorldBossNearAlert")
 soundAlertsArea:CreateCheckButton(L.RLReadyCheckSound, true, nil, "RLReadyCheckSound")
 soundAlertsArea:CreateCheckButton(L.AFKHealthWarning, true, nil, "AFKHealthWarning")
+soundAlertsArea:CreateCheckButton(L.AutoReplySound, true, nil, "AutoReplySound")
 
 local generaltimeroptions	= extraFeaturesPanel:CreateArea(L.TimerGeneral)
-generaltimeroptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer")
+generaltimeroptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer2")
 generaltimeroptions:CreateCheckButton(L.ShowRespawn, true, nil, "ShowRespawn")
 generaltimeroptions:CreateCheckButton(L.ShowQueuePop, true, nil, "ShowQueuePop")
 
@@ -21,15 +22,10 @@ end
 bossLoggingArea:CreateCheckButton(L.RecordOnlyBosses, true, nil, "RecordOnlyBosses")
 bossLoggingArea:CreateCheckButton(L.LogOnlyNonTrivial, true, nil, "LogOnlyNonTrivial")
 
---[[
-local thirdPartyArea
-local bigBrother = _G["BigBrother"]
-if BigBrother and type(BigBrother.ConsumableCheck) == "function" then
-	thirdPartyArea			= extraFeaturesPanel:CreateArea(L.Area_3rdParty)
-	thirdPartyArea:CreateCheckButton(L.ShowBBOnCombatStart, true, nil, "ShowBigBrotherOnCombatStart")
-	thirdPartyArea:CreateCheckButton(L.BigBrotherAnnounceToRaid, true, nil, "BigBrotherAnnounceToRaid")
+if _G["oRA3Frame"] then
+	local thirdPartyArea = extraFeaturesPanel:CreateArea(L.Area_3rdParty)
+	thirdPartyArea:CreateCheckButton(L.oRA3AnnounceConsumables, true, nil, "oRA3AnnounceConsumables")
 end
-]]--
 
 local inviteArea			= extraFeaturesPanel:CreateArea(L.Area_Invite)
 inviteArea:CreateCheckButton(L.AutoAcceptFriendInvite, true, nil, "AutoAcceptFriendInvite")

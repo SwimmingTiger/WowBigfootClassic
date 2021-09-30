@@ -197,7 +197,7 @@ function Activity:GetLeaderLevel()
 end
 
 function Activity:IsSelf()
-    return self.leader == UnitName('player')
+    return self.leader == ns.UnitFullName('player')
 end
 
 function Activity:IsTimeOut()

@@ -358,3 +358,9 @@ AL["Wushoolay"] = "乌苏雷"
 AL["Ysondre"] = "绿龙"
 AL["Zerillis"] = "泽雷利斯"
 AL["Zevrim Thornhoof"] = "瑟雷姆·刺蹄"
+
+if _G.AtlasLoot:GetGameVersion() < 2 then return end
+-- DungeonsAndRaidsTBC
+AL["Akil'zon"] = "埃基尔松"
+AL["Al'ar"] = "奥"
+AL["Kil'jaeden"] = "基尔加丹"

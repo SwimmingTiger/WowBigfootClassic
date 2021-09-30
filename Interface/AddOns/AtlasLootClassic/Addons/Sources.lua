@@ -21,7 +21,7 @@ local format = format
 -- locals
 local TT_F = "%s |cFF00ccff%s|r"
 local DUMMY_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
-local TEXTURE_ICON_F, ATLAS_ICON_F = "|T%s:0|t ", "|A:%s:0:0|a "
+local TEXTURE_ICON_F, TEXTURE_ICON_FN, ATLAS_ICON_F = "|T%s:0|t ", "|T%d:0|t ", "|A:%s:0:0|a "
 local RECIPE_ICON = format(TEXTURE_ICON_F, "134939")
 local ICON_TEXTURE = {
     [0]  = format(TEXTURE_ICON_F, DUMMY_ICON),	            -- UNKNOWN
@@ -41,6 +41,7 @@ local ICON_TEXTURE = {
 	[14] = format(TEXTURE_ICON_F, GetSpellTexture(7732)),   -- Fishing
     [15] = format(TEXTURE_ICON_F, GetSpellTexture(8618)),   -- Skinning
     [16] = format(TEXTURE_ICON_F, GetSpellTexture(2842)),   -- Rogue: Poisons
+    [17] = format(TEXTURE_ICON_F, 134071),                  -- Jewelcrafting
 }
 local SOURCE_TYPES = {
     [0]  = UNKNOWN,	                    -- UNKNOWN
@@ -60,8 +61,9 @@ local SOURCE_TYPES = {
 	[14] = ALIL["Fishing"],             -- Fishing
     [15] = ALIL["Skinning"],            -- Skinning
     [16] = ALIL["ROGUE"]..": "..ALIL["Poisons"],             -- Rogue: Poisons
+    [17] = ALIL["Jewelcrafting"],       -- Jewelcrafting
 }
-local SOURCE_DATA
+local SOURCE_DATA = {}
 local KEY_WEAK_MT = {__mode="k"}
 local AL_MODULE = "AtlasLootClassic_DungeonsAndRaids"
 
@@ -81,25 +83,40 @@ Sources.DbDefaults = {
 }
 
 --Sources.GlobalDbDefaults = {}
-local function BuildSource(ini, boss, typ, item)
+local function BuildSource(ini, boss, typ, item, isHeroic)
     if typ and typ > 3 then
         -- Profession
         local src = ""
         --RECIPE_ICON
         if Sources.db.showRecipeSource then
             local recipe = Recipe.GetRecipeForSpell(item)
-            if recipe and SOURCE_DATA.ItemData[recipe] then
-                local data = SOURCE_DATA.ItemData[recipe]
-                src = format(TT_F, RECIPE_ICON, BuildSource(SOURCE_DATA.AtlasLootIDs[data[1]],data[2],data[3],data[4] or item))
-                src = "\n"..src
+            local sourceData
+            for i = #SOURCE_DATA, 1, -1 do
+                if recipe and SOURCE_DATA[i].ItemData[recipe] then
+                    sourceData = SOURCE_DATA[i]
+                end
+            end
+            if recipe and sourceData then
+                if type(sourceData.ItemData[item]) == "number" then
+                    sourceData.ItemData[item] = sourceData.ItemData[sourceData.ItemData[item]]
+                end
+
+                local data = sourceData.ItemData[recipe]
+                if type(data[1]) == "table" then
+                    for i = 1, #data do
+                        src = src..format(TT_F, RECIPE_ICON, BuildSource(sourceData.AtlasLootIDs[data[i][1]],data[i][2],data[i][3],data[i][4] or item))..(i==#data and "" or "\n")
+                    end
+                else
+                    src = src..format(TT_F, RECIPE_ICON, BuildSource(sourceData.AtlasLootIDs[data[1]],data[2],data[3],data[4] or item))
+                end
             end
         end
         if Sources.db.showProfRank then
             local prof = Profession.GetProfessionData(item)
             if prof and prof[3] > 1 then
-                return SOURCE_TYPES[typ].." ("..prof[3]..")"..src
+                return SOURCE_TYPES[typ].." ("..prof[3]..")"..(src ~= "" and "\n"..src or src)
             else
-                return SOURCE_TYPES[typ]..src
+                return SOURCE_TYPES[typ]..(src ~= "" and "\n"..src or src)
             end
         else
             return SOURCE_TYPES[typ]..src
@@ -112,6 +129,9 @@ local function BuildSource(ini, boss, typ, item)
             local npcID = AtlasLoot.ItemDB:GetNpcID_UNSAFE(AL_MODULE, ini, boss)
             if type(npcID) == "table" then npcID = npcID[1] end
             dropRate = Droprate:GetData(npcID, item)
+        end
+        if bossName and isHeroic then
+            bossName = bossName.." <"..AL["Heroic"]..">"
         end
         if iniName and bossName then
             if dropRate then
@@ -139,25 +159,40 @@ local function OnTooltipSetItem_Hook(self)
     end
 
     item = TooltipCache[item]
-    if item and SOURCE_DATA.ItemData[item] then
+
+    local sourceData
+    for i = #SOURCE_DATA, 1, -1 do
+        if item and SOURCE_DATA[i].ItemData[item] then
+            sourceData = SOURCE_DATA[i]
+        end
+    end
+
+    if item and sourceData then
         if TooltipTextCache[item] ~= false then
             if not TooltipTextCache[item] then
+                local iconTexture, baseItem
+                if type(sourceData.ItemData[item]) == "number" then
+                    iconTexture = format(TEXTURE_ICON_FN, GetItemIcon(sourceData.ItemData[item]))
+                    baseItem = sourceData.ItemData[item]
+                end
                 TooltipTextCache[item] = {}
-                if type(SOURCE_DATA.ItemData[item][1]) == "table" then
-                    for i = 1, #SOURCE_DATA.ItemData[item] do
-                        local data = SOURCE_DATA.ItemData[item][i]
+                if type(sourceData.ItemData[baseItem or item][1]) == "table" then
+                    for i = 1, #sourceData.ItemData[baseItem or item] do
+                        local data = sourceData.ItemData[baseItem or item][i]
                         if data[3] and Sources.db.Sources[data[3]] then
-                            TooltipTextCache[item][i] = format(TT_F, ICON_TEXTURE[data[3] or 0], BuildSource(SOURCE_DATA.AtlasLootIDs[data[1]],data[2],data[3],data[4] or item))
+                            TooltipTextCache[item][i] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or baseItem or item, data[5]))
                         end
                     end
                 else
-                    local data = SOURCE_DATA.ItemData[item]
+                    local data = sourceData.ItemData[baseItem or item]
                     if data[3] and Sources.db.Sources[data[3]] then
-                        TooltipTextCache[item][1] = format(TT_F, ICON_TEXTURE[data[3] or 0], BuildSource(SOURCE_DATA.AtlasLootIDs[data[1]],data[2],data[3],data[4] or item))
+                        TooltipTextCache[item][1] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or baseItem or item, data[5]))
                     end
                 end
                 if #TooltipTextCache[item] < 1 then
                     TooltipTextCache[item] = false
+                else
+                    TooltipTextCache[item][1] = "\n"..TooltipTextCache[item][1]
                 end
             end
             if TooltipTextCache[item] then
@@ -202,8 +237,7 @@ function Sources:OnStatusChanged()
 end
 
 function Sources:SetData(dataTable)
-    if SOURCE_DATA then return end
-    SOURCE_DATA = dataTable
+    SOURCE_DATA[#SOURCE_DATA+1] = dataTable
 end
 
 function Sources:GetSourceTypes()

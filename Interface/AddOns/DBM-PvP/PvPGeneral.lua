@@ -6,7 +6,7 @@ local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Class
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
 local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 
-mod:SetRevision("20210520134703")
+mod:SetRevision("20210815041049")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -413,7 +413,7 @@ do
 		local gameTime = getGametime()
 		local allyTime = mfloor(mmin(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1]))
 		local hordeTime = mfloor(mmin(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1]))
-		if allyTime == hordeTime then
+		if allyTime == hordeTime or allyTime == 0 or hordeTime == 0 then
 			winTimer:Stop()
 			if scoreFrame1Text then
 				scoreFrame1Text:SetText("")
@@ -586,7 +586,10 @@ do
 						capTimer:Stop(infoName)
 						objectivesStore[infoName] = (atlasName and atlasName or infoTexture)
 						if not ignoredAtlas[subscribedMapID] and (isAllyCapping or isHordeCapping) then
-							capTimer:Start(GetAreaPOITimeLeft and GetAreaPOITimeLeft(areaPOIID) and GetAreaPOITimeLeft(areaPOIID) * 60 or overrideTimers[subscribedMapID] or 60, infoName)
+							local capTime = GetAreaPOITimeLeft and GetAreaPOITimeLeft(areaPOIID) and GetAreaPOITimeLeft(areaPOIID) * 60 or overrideTimers[subscribedMapID] or 60
+							if capTime ~= 0 then
+								capTimer:Start(GetAreaPOITimeLeft and GetAreaPOITimeLeft(areaPOIID) and GetAreaPOITimeLeft(areaPOIID) * 60 or overrideTimers[subscribedMapID] or 60, infoName)
+							end
 							if isAllyCapping then
 								capTimer:SetColor({r=0, g=0, b=1}, infoName)
 								capTimer:UpdateIcon("132486", infoName) -- Interface\\Icons\\INV_BannerPVP_02.blp

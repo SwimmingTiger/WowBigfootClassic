@@ -24,7 +24,7 @@ function DKPConfigFunc()
 	if IsConfigurableAddOn("GDKP") or IsConfigurableAddOn("MiDKP") then
 		ModManagement_RegisterMod(
 			"MiDKP",
-			"Interface\\Icons\\INV_Misc_Toy_05",
+			"Interface\\Icons\\Trade_Engineering",
 			{ADDON_TITLE,"tuanduiDKP",2},
 			"",
 			nil,

@@ -262,9 +262,8 @@ RegEvent("ADDON_LOADED", function()
         end
 
         local create = function(name)
-            if #exports >= MAX_PROFILES_COUNT then
-                MySlot:Print(L["Too many saved profiles, please use '/myslot trim' to clean up"])
-                return
+            while #exports > MAX_PROFILES_COUNT do
+                table.remove(exports, 1)
             end
 
             local txt = {
@@ -435,7 +434,7 @@ RegEvent("ADDON_LOADED", function()
     if lib then
         lib.MainFrame = MySlot.MainFrame
     end
-	
+
 	--[ [	bf.178.com
 	MySlot_SavedDb = MySlot_SavedDb
 	if MySlot_SavedDb then
@@ -472,7 +471,6 @@ RegEvent("ADDON_LOADED", function()
 		end)
 	end
 	--]]
-
 end)
 
 SlashCmdList["MYSLOT"] = function(msg, editbox)

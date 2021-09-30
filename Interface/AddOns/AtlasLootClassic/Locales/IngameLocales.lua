@@ -86,6 +86,7 @@ local IngameLocales = {
 	["Fishing"] = GetSpellInfo(7732),
 	["Skinning"] = GetSpellInfo(8618),
 	["Poisons"] = GetSpellInfo(2842),
+	["Jewelcrafting"] = GetSpellInfo(353970) or UNKNOWN,
 
 	-- ######################################################################
 	-- Months
@@ -168,6 +169,7 @@ local IngameLocales = {
 	["Runes Per 5 Sec."] = _G["ITEM_MOD_POWER_REGEN5_SHORT"],
 	["Hit (Melee)"] = _G["ITEM_MOD_HIT_MELEE_RATING_SHORT"],
 	["Dodge"] = _G["ITEM_MOD_DODGE_RATING_SHORT"],
+	["Attack Power"] = _G["ITEM_MOD_ATTACK_POWER_SHORT"],
 
 	-- ######################################################################
 	-- Slots
@@ -228,7 +230,17 @@ local IngameLocales = {
 	["Bullet"] = GetItemSubClassInfo(6,3),
 	["Explosives"] = GetItemSubClassInfo(7,2),
 
-
+	-- ######################################################################
+	-- Gems
+	-- ######################################################################
+--[====[@version-bc@
+	["Socket Gems"]	 	= _G["SOCKET_GEMS"],
+	["Gems"]			= _G["AUCTION_CATEGORY_GEMS"],
+	["Meta"]	 		= _G["META_GEM"],
+	["Red"]	 			= _G["RED_GEM"],
+	["Yellow"]	 		= _G["YELLOW_GEM"],
+	["Blue"]	 		= _G["BLUE_GEM"],
+--@end-version-bc@]====]
 	-- ######################################################################
 	-- Zones
 	-- ######################################################################

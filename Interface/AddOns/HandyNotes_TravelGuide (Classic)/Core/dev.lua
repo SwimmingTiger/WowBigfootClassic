@@ -10,7 +10,9 @@ local L = private.locale
 -------------------------------------------DEV CONFIG TAB-------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
--- activates the devmode ["dev"] = true,
+-- Activate the developer mode with:
+-- /script HandyNotes_TravelGuideClassicDB.global.dev = true
+-- /reload
 
 local function devmode()
     private.config.options.args["DEV"] = {
@@ -40,13 +42,11 @@ local function devmode()
         print("TravelGuide refreshed")
     end
 
-    SLASH_TGWARFRONTS1 = "/tgwarfronts"
-    SlashCmdList["TGWARFRONTS"] = function(msg)
-        print("~~~~~~~~~~~~~~~~~~~~~~")
-        print("TravelGuide: Warfronts")
-        print("Arathi: "..C_ContributionCollector.GetState(11)) --Battle for Stromgarde
-        print("Darkshore: "..C_ContributionCollector.GetState(118)) --Battle for Darkshore
-        print("~~~~~~~~~~~~~~~~~~~~~~")
+    SLASH_TG1 = "/tg"
+    SlashCmdList["TG"] = function(msg)
+        InterfaceOptionsFrame_Show()
+        InterfaceOptionsFrame_OpenToCategory('HandyNotes')
+        LibStub('AceConfigDialog-3.0'):SelectGroup('HandyNotes', 'plugins', 'TravelGuide (Classic)')
     end
 end
 

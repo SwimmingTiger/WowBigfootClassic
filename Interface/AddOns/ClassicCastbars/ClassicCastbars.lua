@@ -1,3 +1,7 @@
+if _G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_CLASSIC then
+    return print("|cFFFF0000[ERROR] You're using the Vanilla version of ClassicCastbars on a non-vanilla client. Please download the correct version.|r") -- luacheck: ignore
+end
+
 local _, namespace = ...
 local PoolManager = namespace.PoolManager
 
@@ -8,11 +12,6 @@ local activeFrames = {} -- visible castbar frames
 local npcCastTimeCacheStart = {}
 local npcCastTimeCache = {}
 local npcCastUninterruptibleCache = {}
-
-if not _G.WOW_PROJECT_ID or (_G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_CLASSIC) then
-    -- luacheck: ignore
-    return print("|cFFFF0000[ERROR] ClassicCastbars only supports Classic WoW.|r")
-end
 
 local addon = CreateFrame("Frame", "ClassicCastbars")
 addon:RegisterEvent("PLAYER_LOGIN")
@@ -414,8 +413,11 @@ function addon:PLAYER_LOGIN()
     -- Reset certain stuff on game locale switched
     if self.db.locale ~= GetLocale() then
         self.db.locale = GetLocale()
-        self.db.target.castFont = _G.STANDARD_TEXT_FONT -- Font here only works for certain locales
+        self.db.target.castFont = _G.STANDARD_TEXT_FONT
         self.db.nameplate.castFont = _G.STANDARD_TEXT_FONT
+        self.db.focus.castFont = _G.STANDARD_TEXT_FONT
+        self.db.arena.castFont = _G.STANDARD_TEXT_FONT
+        self.db.party.castFont = _G.STANDARD_TEXT_FONT
         self.db.npcCastUninterruptibleCache = CopyTable(namespace.defaultConfig.npcCastUninterruptibleCache)
     end
 

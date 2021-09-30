@@ -3,16 +3,16 @@ LibSpellLocks-1.0
 Author: d87
 Description: Provides information about spell lock status after successful interrupts
 --]================]
-if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then return end
 
-local MAJOR, MINOR = "LibSpellLocks", 3
+
+local MAJOR, MINOR = "LibSpellLocks", 5
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
 
 
 lib.callbacks = lib.callbacks or LibStub("CallbackHandler-1.0"):New(lib)
 lib.frame = lib.frame or CreateFrame("Frame")
-lib.activeSpellLocks = lib.activeSpellLocks or setmetatable({}, { __mode = "k" })
+lib.activeSpellLocks = lib.activeSpellLocks or setmetatable({}, { __mode = "v" })
 lib.interrupts = lib.interrupts or  {}
 
 local f = lib.frame
@@ -44,28 +44,69 @@ local function Interrupt( id, name, duration )
     end
 end
 
+if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+    -------------------
+    -- LIVE
+    -------------------
+    Interrupt(212619, "Call Felhunter", 6) -- pvp talent
+    Interrupt(119910, "Spell Lock", 6) -- Felhunter spell from action bar
+    Interrupt(19647, "Spell Lock", 6) -- Felhunter spell from pet bar
+    Interrupt(132409, "Spell Lock", 6) -- Command Demon after sacrificing Felhunter
+    Interrupt(89766, "Axe Toss", 4) -- Axe Toss (Felguard)
+    Interrupt(1766, "Kick", 5)
+    Interrupt(6552, "Pummel", 4)
+    Interrupt(116705, "Spear Hand Strike", 4)
+    Interrupt(47528, "Mind Freeze", 3)
+    Interrupt(2139, "Counterspell", 6)
+    Interrupt(96231, "Rebuke", 4)
+    Interrupt(93985, "Skull Bash", 4) -- Unlike most classes Skull bash interrupt id is different from spellbook id
+    Interrupt(183752, "Disrupt", 3)
+    Interrupt(187707, "Muzzle", 3)
+    Interrupt(147362, "Counter Shot", 3)
+    Interrupt(57994, "Wind Shear", 3)
 
--------------------
--- CLASSIC
--------------------
--- Interrupt(19244, "Spell Lock", 6) -- Rank 1
-Interrupt(19647, "Spell Lock", 8) -- Rank 2
-Interrupt({ 8042, 8044, 8045, 8046, 10412, 10413, 10414 }, "Earth Shock", 2)
-Interrupt(16979, "Feral Charge", 4)
-Interrupt(2139, "Counterspell", 10)
-Interrupt({ 1766, 1767, 1768, 1769 }, "Kick", 5)
-Interrupt({ 6552, 6554 }, "Pummel", 4)
-Interrupt({ 72, 1671, 1672 }, "Shield Bash", 6)
+    -- PVE
+    Interrupt(240448, "QuakingAffix", 5)
+    Interrupt(257732, "Shattering Bellow", 5) -- Freehold
+    Interrupt(266106, "Sonic Screech", 5) -- Underrot, Feral Bloodswarmer
+    Interrupt(267257, "Thundering Crash", 4) -- King's Rest
+    Interrupt(296084, "Mind Fracture", 1.5) -- Za'qul, The Eternal Palace
 
-local spellNameToID = {
-    [GetSpellInfo(19647)] = 19647,
-    [GetSpellInfo(10414)] = 10414,
-    [GetSpellInfo(16979)] = 16979,
-    [GetSpellInfo(2139)] = 2139,
-    [GetSpellInfo(1769)] = 1769,
-    [GetSpellInfo(6554)] = 6554,
-    [GetSpellInfo(1672)] = 1672,
-}
+    -- Interrupt(288917, "Deafening Screech", 5) -- Screeching Phantasm, Battle of Dazar'Alor
+    -- Interrupt(146367, "Rumbling Stomp", 3) -- Char'golm, Battle of Dazar'Alor
+    -- Interrupt(263307, "Mind-Numbing Chatter", 5) -- Uldir
+
+
+
+    -- Trial of Crusader Champions
+    -- Interrupt(65973, "Earth Shock", 3)
+
+elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+    ----------------------------
+    -- BURNING CRUSADE CLASSIC
+    ----------------------------
+    Interrupt(19244, "Spell Lock", 6) -- Rank 1
+    Interrupt(19647, "Spell Lock", 8) -- Rank 2
+    Interrupt({ 8042, 8044, 8045, 8046, 10412, 10413, 10414, 25454 }, "Earth Shock", 2)
+    Interrupt(16979, "Feral Charge", 4)
+    Interrupt(2139, "Counterspell", 8)
+    Interrupt({ 1766, 1767, 1768, 1769, 38768 }, "Kick", 5)
+    Interrupt({ 6552, 6554 }, "Pummel", 4)
+    Interrupt({ 72, 1671, 1672, 29704 }, "Shield Bash", 6)
+
+elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+    -------------------
+    -- CLASSIC
+    -------------------
+    Interrupt(19244, "Spell Lock", 6) -- Rank 1
+    Interrupt(19647, "Spell Lock", 8) -- Rank 2
+    Interrupt({ 8042, 8044, 8045, 8046, 10412, 10413, 10414 }, "Earth Shock", 2)
+    Interrupt(16979, "Feral Charge", 4)
+    Interrupt(2139, "Counterspell", 10)
+    Interrupt({ 1766, 1767, 1768, 1769 }, "Kick", 5)
+    Interrupt({ 6552, 6554 }, "Pummel", 4)
+    Interrupt({ 72, 1671, 1672 }, "Shield Bash", 6)
+end
 
 
 
@@ -106,14 +147,9 @@ function f:COMBAT_LOG_EVENT_UNFILTERED(event)
     local timestamp, eventType, hideCaster,
     srcGUID, srcName, srcFlags, srcFlags2,
     dstGUID, dstName, dstFlags, dstFlags2,
-    spellID, spellName, arg3, arg4, arg5 = CombatLogGetCurrentEventInfo()
+    spellID, arg2, arg3, arg4, arg5 = CombatLogGetCurrentEventInfo()
 
     if eventType == "SPELL_INTERRUPT" then
-
-        if spellID == 0 then
-            spellID = spellNameToID[spellName]
-        end
-
         local spellData = interrupts[spellID]
         if not spellData then return end
         -- if spellData.originalID then spellID = spellData.originalID end

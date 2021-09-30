@@ -4,6 +4,7 @@ local ns = select(2, ...)
 
 ---@class InputDialog: Frame
 local InputDialog = ns.Addon:NewClass('UI.InputDialog', 'Frame')
+ns.GUI:Embed(InputDialog, 'Backdrop')
 
 function InputDialog:Constructor()
     self:Hide()

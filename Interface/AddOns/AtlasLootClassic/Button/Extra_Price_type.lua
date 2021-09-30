@@ -14,6 +14,7 @@ local AtlasLoot = _G.AtlasLoot
 local Price = AtlasLoot.Button:AddExtraType("Price")
 local AL = AtlasLoot.Locales
 
+local ItemButtonType = AtlasLoot.Button:GetType("Item")
 
 local FIRST_RUN = true
 local ITEMS_NOT_FOUND = true
@@ -29,11 +30,21 @@ local STRING_RED = "|cffff0000"
 local STRING_GREEN = "|cff1eff00"
 
 local PRICE_INFO = {
+	--- Classic
 	-- items
 	["burningblossom"] 	= { itemID = 23247 }, -- Burning Blossom
 	["ancestrycoin"] 	= { itemID = 21100 }, -- Coin of Ancestry
 	-- others
 	["money"] 		= { func = GetCoinTextureString },
+
+	--- BC
+	["holydust"] = { itemID = 29735 }, -- Holy Dust (Aldor)
+	["arcanerune"] = { itemID = 29736 }, -- Holy Dust (Scryers)
+	["SpiritShard"] = { itemID = 28558 }, -- Spirit Shard
+	["HalaaRT"] = { itemID = 26044 }, -- Halaa Research Token
+	["HalaaBT"] = { itemID = 26045 }, -- Halaa Battle Token
+	["MarkOfThrallmar"] = { itemID = 24581 }, -- Mark of Thrallmar
+	["MarkOfHonorHold"] = { itemID = 24579 }, -- Mark of Honor Hold
 }
 
 local Cache = {}
@@ -100,6 +111,9 @@ function Price.OnSet(mainButton, descFrame)
 		for i = 1, #info, 2 do
 			SetContentInfo(descFrame, info[i], info[i+1], i+1 == #info and STRING_DELIMITER_END or STRING_DELIMITER_AND)
 		end
+	end
+	if mainButton.ItemID then
+		descFrame:AddText(" | "..ItemButtonType.GetDescription(mainButton.ItemID))
 	end
 
 	descFrame.info = info

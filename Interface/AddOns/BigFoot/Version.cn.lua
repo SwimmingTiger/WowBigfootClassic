@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "1.13.7."
-local minor = "87"
+local minor = "96"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,42 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2021/09/29 (1.13.7.96)")
+	BigFootChangelog_ar("首领报警","升级至最新版本(1.13.82)。")
+
+
+	BigFootChangelog_at("2021/09/24 (1.13.7.95)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/09/22 (1.13.7.94)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/09/01 (1.13.7.93)")
+	BigFootChangelog_ar("首领报警","升级至最新版本(1.13.78)。")
+
+
+	BigFootChangelog_at("2021/08/16 (1.13.7.92)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/07/01 (1.13.7.91)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/06/15 (1.13.7.90)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/06/01 (1.13.7.89)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2021/05/25 (1.13.7.88)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2021/04/23 (1.13.7.87)")
 	BigFootChangelog_ar("大脚插件","版本号同步至游戏版本。")

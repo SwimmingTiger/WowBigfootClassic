@@ -14,9 +14,14 @@ local frame, duration, elapsed, totalRepeat
 --------------------
 frame = CreateFrame("Frame", "DBMFlash", UIParent, DBM:IsShadowlands() and "BackdropTemplate")
 frame:Hide()
-frame:SetBackdrop({
+frame.backdropInfo = {
 	bgFile	= "Interface\\Tooltips\\UI-Tooltip-Background" -- 137056
-})
+}
+if DBM:IsShadowlands() then
+	frame:ApplyBackdrop()
+else
+	frame:SetBackdrop(frame.backdropInfo)
+end
 frame:SetAllPoints(UIParent)
 frame:SetFrameStrata("BACKGROUND")
 frame:Hide()

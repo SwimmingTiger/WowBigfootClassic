@@ -8,8 +8,12 @@ CoolLine:SetScript("OnEvent", function(this, event, ...)
 	this[event](this, ...)
 end)
 
-local IS_WOW_8 = GetBuildInfo():match("^8")
-local IS_WOW_CLASSIC = GetBuildInfo():match("^1")
+local IS_WOW_Retail,IS_WOW_CLASSIC;
+if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+	IS_WOW_Retail = true
+else
+	IS_WOW_CLASSIC = true
+end
 
 local smed = LibStub("LibSharedMedia-3.0")
 
@@ -298,9 +302,10 @@ function CoolLine:PLAYER_LOGIN()
 	self:RegisterEvent("SPELL_UPDATE_CHARGES")
 	self.SPELL_UPDATE_CHARGES = self.SPELL_UPDATE_COOLDOWN
 	self:SPELL_UPDATE_COOLDOWN()
+	self:SPELLS_CHANGED()
 
 	-- IF WOW RETAIL THEN
-	if not IS_WOW_CLASSIC then
+	if IS_WOW_Retail then
 		self:RegisterEvent("PET_BATTLE_OPENING_START")
 		self:RegisterEvent("PET_BATTLE_CLOSE")
 		self.PET_BATTLE_OPENING_START = self.Hide
@@ -468,8 +473,8 @@ do  -- cache spells that have a cooldown
 		local spellType, spellID
 		local sb = spells[btype]
 
-		if IS_WOW_8 then
-			local _, _, offset, numSpells = GetSpellTabInfo(2)
+		if IS_WOW_Retail then
+			local _, _, offset, numSpells = GetSpellTabInfo(3)
 			for i = 1, offset + numSpells do
 				spellName = GetSpellBookItemName(i, btype)
 				if not spellName then break end
@@ -517,9 +522,9 @@ do  -- cache spells that have a cooldown
 		elseif IS_WOW_CLASSIC then
 			local offsets, numTabs
 			numTabs = GetNumSpellTabs()
-			for i=1, numTabs do
+			for i = 1, numTabs do
 				local _, _, offset, numSpells = GetSpellTabInfo(i)
-				for j=1, offset + numSpells do
+				for j = offset, offset + numSpells do
 					local spellName, spellRank, spellId = GetSpellBookItemName(j, btype)
 					if not spellName then break end
 					local spellType, spellID = GetSpellBookItemInfo(j, btype)
@@ -665,7 +670,7 @@ function CoolLine:PET_BAR_UPDATE_COOLDOWN()
 		local start, duration, enable = GetPetActionCooldown(i)
 		if enable == 1 then
 			local name, _, texture
-			if IS_WOW_8 then
+			if IS_WOW_Retail then
 				name, texture = GetPetActionInfo(i)
 			else
 				name, _, texture = GetPetActionInfo(i)
@@ -736,7 +741,7 @@ local failborder
 ----------------------------------------------------
 function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell, id8)
 ----------------------------------------------------
-	if IS_WOW_8 then
+	if IS_WOW_Retail then
 		spell = GetSpellInfo(id8) -- TEMPORARY, need to switch to using spell IDs throughout
 	end
 

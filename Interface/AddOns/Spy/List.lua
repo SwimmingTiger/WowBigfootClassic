@@ -45,6 +45,8 @@ function Spy:RefreshCurrentList(player, source)
 				if L[class] and type(L[class]) == "string" then
 					description = description..L[class]
 				end
+			elseif Spy.db.profile.DisplayListData == "NameLevelGuild" then
+				description = level.." "..guild
 			elseif Spy.db.profile.DisplayListData == "NameLevelOnly" then
 				description = level.." "
 			elseif Spy.db.profile.DisplayListData == "NameGuild" then

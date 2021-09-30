@@ -1,4 +1,4 @@
---[[--
+﻿--[[--
 	alex@0
 --]]--
 ----------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ L.resetToSetButton = "Reset to initial state";
 L.readOnlyButton = "\124cff00ff00RClick\124r to set";
 L.closeButton = "Close this win";
 
-L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to import build-in talents\n    (Copied from \124cffff0000wowhead\124r).";
+L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to load saved talents.\n\124cff00ff00Shift and Left-click\124r to del saved talent";
 L.inspectTargetButton = "Inspect target's talents.";
 L.spellTabButton = "Spell List Window";
 L.spellAvailable = "\124cff00ff00Available\124r";
@@ -57,6 +57,8 @@ L.nextRank = "Next Rank";
 L.maxRank = "Top Rank";
 L.reqPoints = "%d/%d in %s";
 
+L.level_60 = "Lv60 Talents. |cffff0000And ReloadUI.|r";
+L.level_70 = "Lv70 Talents. |cffff0000And ReloadUI.|r";
 L.resizable_border_TRUE = "Enable Draging border to resize";
 L.resizable_border_FALSE = "Disable dragging border to resize";
 L.SetWinStyle_BLZ = "Make it blz style";
@@ -171,3 +173,29 @@ L.SLOT = {
 };
 L.EMTPY_SLOT = "\124cffff0000Empty\124r";
 L.MISS_ENCHANT = "\124cffff0000Miss enchant\124r";
+
+
+
+
+
+
+L.POWERTYPE = {
+	[-2] = "health",
+	[0] = "mana",
+	[1] = "rage",
+	[2] = "focus",
+	[3] = "enery",
+};
+L.POWERPERCENT = "%d%% of %s";
+L.POWERPOINT = "%d %s";
+L.POWERPOINTPERSECOND = "%d %s per sec";
+L.RANGEYARD = "%d yrd";
+L.RANGEYARD2 = "%d to %d yrd";
+L.RANGE0 = "melee";
+L.CASTINGTIME = "%d sec cast";
+L.CASTINGTIMEINSTANT = "instant";
+L.CDSECOND = "%d sec cd";
+L.CDMINUTE = "%d min cd";
+
+L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "CANNOT APPLY : NEED MORE TALENT POINTS.";
+L["CANNOT APPLY : TALENTS IN CONFLICT."] = "CANNOT APPLY : TALENTS IN CONFLICT.";

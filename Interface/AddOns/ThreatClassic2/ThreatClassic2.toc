@@ -2,14 +2,18 @@
 ## Title: ThreatClassic2
 ## Title-zhCN: [大脚][集]仇恨统计
 ## Title-zhTW: [大腳][集]仇恨統計
-## Notes: |cff00ff00ThreatClassic2|r|n|cffbc8f8fSimple threat meter for WoW Classic.|r
+## Notes: |cff00ff00ThreatClassic2|r|n|cffbc8f8fSimple threat meter for WoW Classic and TBCC.|r
 ## Author: Dennis-Florian Herr (dfherr)
 ## X-Curse-Project-ID: 355497
 ## X-WoWI-ID: 25966
-## Version: 2.31
+## X-Wago-ID: pkNM1ONz
+## Version: 2.39
 ## SavedVariables: ThreatClassic2DB
 ## SavedVariablesPerCharacter: TC2_Options
-
+## X-Category: Combat
+## X-License: MIT
 ## X-Website: https://github.com/dfherr/ThreatClassic2
+## Dependencies: BigFoot
+## X-Revision: BigFoot
 
 ThreatClassic2.xml

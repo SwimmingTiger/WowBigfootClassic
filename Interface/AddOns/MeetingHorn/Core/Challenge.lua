@@ -112,9 +112,9 @@ function Challenge:Constructor(proto)
         return
     end
 
-    --[===[@debug@
+    --[[@debug@
     dump(proto)
-    --@end-debug@]===]
+    --@end-debug@]]
 
     self.id = proto[1]
     self.type = proto[2]
@@ -154,9 +154,9 @@ function Challenge:UpdateProgress(proto)
         return
     end
 
-    --[===[@debug@
+    --[[@debug@
     dump(proto)
-    --@end-debug@]===]
+    --@end-debug@]]
 
     self.finished = proto[2]
     self.rewardFetched = proto[3]

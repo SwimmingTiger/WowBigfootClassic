@@ -34,6 +34,8 @@ local function OnDragStop(self)
     local unit = self.unitID
     if strfind(unit, "nameplate") then
         unit = "nameplate" -- make it match our DB key
+    elseif strfind(unit, "arena") then
+        unit = "arena"
     elseif strfind(unit, "party") then
         unit = "party"
     end
@@ -53,6 +55,8 @@ end
 function TestMode:OnOptionChanged(unitID)
     if unitID == "nameplate" then
         unitID = "nameplate-testmode"
+    elseif unitID == "arena" then
+        unitID = "arena-testmode"
     elseif unitID == "party" then
         unitID = "party-testmode"
     end
@@ -72,8 +76,14 @@ end
 function TestMode:ToggleCastbarMovable(unitID)
     if unitID == "nameplate" then
         unitID = "nameplate-testmode"
+    elseif unitID == "arena" then
+        unitID = "arena-testmode"
     elseif unitID == "party" then
         unitID = "party-testmode"
+    end
+
+    if unitID == "arena-testmode" and not IsAddOnLoaded("Blizzard_ArenaUI") then
+        LoadAddOn("Blizzard_ArenaUI")
     end
 
     if self.isTesting[unitID] then
@@ -96,26 +106,27 @@ end
 function TestMode:SetCastbarMovable(unitID, parent)
     local parentFrame = parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)
     if not parentFrame then
-        if unitID == "target" or unitID == "nameplate-testmode" then
-            -- luacheck: ignore
-            print(format("|cFFFF0000[ClassicCastbars] %s|r", _G.ERR_GENERIC_NO_TARGET))
+        if unitID == "target" or unitID == "nameplate-testmode" or unitID == "focus" then
+            print(format("|cFFFF0000[ClassicCastbars] %s|r", _G.ERR_GENERIC_NO_TARGET)) -- luacheck: ignore
         end
         return false
     end
 
     local castbar = ClassicCastbars:GetCastbarFrame(unitID)
-    castbar:EnableMouse(true)
-    castbar:SetMovable(true)
-    castbar:SetClampedToScreen(true)
+    if unitID ~= "nameplate-testmode" then -- Blizzard broke drag functionality for frames that are anchored to restricted frames in TBC :(
+        castbar:SetMovable(true)
+        castbar:SetClampedToScreen(true)
+        castbar:EnableMouse(true)
 
-    castbar.tooltip = castbar.tooltip or castbar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-    castbar.tooltip:SetPoint("TOP", castbar, 0, 15)
-    castbar.tooltip:SetText(L.TEST_MODE_DRAG)
-    castbar.tooltip:Show()
+        castbar.tooltip = castbar.tooltip or castbar:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+        castbar.tooltip:SetPoint("TOP", castbar, 0, 15)
+        castbar.tooltip:SetText(L.TEST_MODE_DRAG)
+        castbar.tooltip:Show()
 
-    -- Note: we use OnMouseX instead of OnDragX as it's more precise when dragging small distances
-    castbar:SetScript("OnMouseDown", castbar.StartMoving)
-    castbar:SetScript("OnMouseUp", OnDragStop)
+        -- Note: we use OnMouseX instead of OnDragX as it's more precise when dragging small distances
+        castbar:SetScript("OnMouseDown", castbar.StartMoving)
+        castbar:SetScript("OnMouseUp", OnDragStop)
+    end
 
     castbar._data = CopyTable(dummySpellData) -- Set test data for :DisplayCastbar()
     castbar.parent = parentFrame
@@ -134,7 +145,8 @@ function TestMode:SetCastbarMovable(unitID, parent)
         castbar._data.isUninterruptible = false
     end
 
-    if unitID == "party-testmode" then
+    if unitID == "party-testmode" or unitID == "arena-testmode" then
+        if unitID == "arena-testmode" and ArenaEnemyFrames then ArenaEnemyFrames:Show() end
         parentFrame:SetAlpha(1)
         parentFrame:Show()
     end
@@ -180,6 +192,12 @@ function TestMode:SetCastbarImmovable(unitID)
     if unitID == "party-testmode" then
         local parentFrame = castbar.parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)
         if parentFrame and not UnitExists("party1") then
+            parentFrame:Hide()
+        end
+    elseif unitID == "arena-testmode" then
+        local parentFrame = castbar.parent or ClassicCastbars.AnchorManager:GetAnchor(unitID)
+        if parentFrame and not UnitExists("arena1") then
+            if ArenaEnemyFrames then ArenaEnemyFrames:Hide() end
             parentFrame:Hide()
         end
     end

@@ -42,9 +42,18 @@ function EncounterInfoBase:AdjustHeight()
     end
 
     if self.Children:IsVisible() then
+        local h = 0
         for i, child in ipairs(self.children) do
-            height = height + child:AdjustHeight()
+            h = h + child:AdjustHeight()
         end
+        self.Children:SetHeight(h)
+        height = height + h
+    end
+
+    if self.FootOverview:IsVisible() then
+        local h = self.FootOverview.Text:GetStringHeight() + (self.overviewFixedHeight or 0)
+        self.FootOverview:SetHeight(h)
+        height = height + h
     end
 
     self:SetHeight(height)
@@ -53,7 +62,6 @@ end
 
 function EncounterInfoBase:SetInfo(info, sortChildren)
     self.info = info
-
     if self.Overview then
         if info.desc then
             self.desc = true
@@ -65,7 +73,16 @@ function EncounterInfoBase:SetInfo(info, sortChildren)
             self.Overview:SetHeight(5)
         end
     end
-
+    if self.FootOverview then
+        if info.footDesc then
+            self.footDesc = true
+            self.FootOverview.Text:SetText(info.footDesc)
+            self.FootOverview:Show()
+        else
+            self.footDesc = nil
+            self.FootOverview:Hide()
+        end
+    end
     if self.Button then
         self.Button.IconButton:Hide()
         if info.role then

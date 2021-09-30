@@ -10,6 +10,7 @@ local Token = AtlasLoot.Data.Token
 local Recipe = AtlasLoot.Data.Recipe
 local Profession = AtlasLoot.Data.Profession
 local Sets = AtlasLoot.Data.Sets
+local ItemSet = AtlasLoot.Data.ItemSet
 local Mount = AtlasLoot.Data.Mount
 local ContentPhase = AtlasLoot.Data.ContentPhase
 local Droprate = AtlasLoot.Data.Droprate
@@ -23,7 +24,7 @@ local next, wipe, tab_remove = _G.next, _G.wipe, _G.table.remove
 local format, split, sfind, slower = _G.string.format, _G.string.split, _G.string.find, _G.string.lower
 
 -- WoW
-local GetItemInfo, IsEquippableItem = _G.GetItemInfo, _G.IsEquippableItem
+local GetItemInfo, IsEquippableItem, GetItemInfoInstant = _G.GetItemInfo, _G.IsEquippableItem, _G.GetItemInfoInstant
 local LOOT_BORDER_BY_QUALITY = _G["LOOT_BORDER_BY_QUALITY"]
 
 -- AL
@@ -96,7 +97,7 @@ function Item.OnSet(button, second)
 			end
 		end
 		button.secButton.Droprate = button.__atlaslootinfo.Droprate
-		button.secButton.SetID = Sets:GetItemSetForItemID(button.secButton.ItemID)
+		button.secButton.SetID = ItemSet.GetSetIDforItemID(button.secButton.ItemID)
 
 		Item.Refresh(button.secButton)
 	else
@@ -138,9 +139,9 @@ function Item.OnMouseAction(button, mouseButton)
 		elseif Recipe.IsRecipe(button.ItemID) then
 			button.ExtraFrameShown = true
 			AtlasLoot.Button:ExtraItemFrame_GetFrame(button, Recipe.GetRecipeDataForExtraFrame(button.ItemID))
-		elseif button.type ~= "secButton" and ( button.SetData or Sets:GetItemSetForItemID(button.ItemID) ) then -- sec buttons should not be clickable for sets
+		elseif button.type ~= "secButton" and ( button.SetData or ItemSet.GetSetIDforItemID(button.ItemID) ) then -- sec buttons should not be clickable for sets
 			if not button.SetData then
-				button.SetData = Sets:GetSetItems(Sets:GetItemSetForItemID(button.ItemID))
+				button.SetData = ItemSet.GetSetDataForExtraFrame(ItemSet.GetSetIDforItemID(button.ItemID))
 			end
 			button.ExtraFrameShown = true
 			AtlasLoot.Button:ExtraItemFrame_GetFrame(button, button.SetData)
@@ -271,6 +272,22 @@ function Item.OnClear(button)
 	end
 end
 
+function Item.GetDescription(itemID, itemEquipLoc, itemType, itemSubType)
+	if not itemEquipLoc then
+		local _
+		_, itemType, itemSubType, itemEquipLoc = GetItemInfoInstant(itemID)
+	end
+	local ret = Token.GetTokenDescription(itemID) or
+	Recipe.GetRecipeDescriptionWithRank(itemID) or
+	Profession.GetColorSkillRankItem(itemID) or
+	(Mount.IsMount(itemID) and ALIL["Mount"] or nil) or
+	( ItemSet.GetSetIDforItemID(itemID) and AL["|cff00ff00Set item:|r "] or "")..GetItemDescInfo(itemEquipLoc, itemType, itemSubType)
+	if Requirements.HasRequirements(itemID) then
+		ret = Requirements.GetReqString(itemID)..ret
+	end
+	return ret
+end
+
 function Item.Refresh(button)
 	if not button.ItemID then return end
 	local itemID = button.ItemID
@@ -305,16 +322,7 @@ function Item.Refresh(button)
 		-- ##################
 		-- description
 		-- ##################
-		button.extra:SetText(
-			Token.GetTokenDescription(itemID) or
-			Recipe.GetRecipeDescriptionWithRank(itemID) or
-			Profession.GetColorSkillRankItem(itemID) or
-			(Mount.IsMount(button.ItemID) and ALIL["Mount"] or nil) or
-			( Sets:GetItemSetForItemID(itemID) and AL["|cff00ff00Set item:|r "] or "")..GetItemDescInfo(itemEquipLoc, itemType, itemSubType)
-		)
-		if Requirements.HasRequirements(itemID) then
-			button.extra:SetText(Requirements.GetReqString(itemID)..button.extra:GetText())
-		end
+		button.extra:SetText(Item.GetDescription(itemID, itemEquipLoc, itemType, itemSubType))
 	end
 	if Favourites and Favourites:IsFavouriteItemID(itemID) then
 		Favourites:SetFavouriteIcon(itemID, button.favourite)
@@ -352,7 +360,7 @@ function Item.ShowQuickDressUp(itemLink, ttFrame)
 	if not itemLink or not ttFrame or ( not IsEquippableItem(itemLink) and not Mount.IsMount(itemLink) ) then return end
 	if not Item.previewTooltipFrame then
 		local name = "AtlasLoot-SetToolTip"
-		local frame = CreateFrame("Frame", name)
+		local frame = CreateFrame("Frame", name, nil, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
 		frame:SetClampedToScreen(true)
 		frame:SetSize(230, 280)
 		frame:SetBackdrop(ALPrivate.BOX_BORDER_BACKDROP)

@@ -6,10 +6,11 @@
 ## Notes-zhCN: |cff00ff00HandyNotes|r|n|cffbc8f8f使用Alt+鼠标右键快速标记|r
 ## Notes-zhTW: |cff00ff00HandyNotes|r
 ## Author: Xinhuan
-## Version: v1.6.2
+## Version: v1.6.4
 ## X-Category: Map
 ## X-eMail: xinhuan @ gmail DOT com
-## OptionalDeps: Ace3, TomTom, HereBeDragons
+## X-Curse-Project-ID: 14154
+## X-WoWI-ID: 15716
 ## SavedVariables: HandyNotesDB, HandyNotes_HandyNotesDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot

@@ -7,10 +7,6 @@ local L = ns.L
 ---@field private Manage MeetingHornManage
 local MainPanel = ns.Addon:NewClass('UI.MainPanel', 'Frame')
 
-local function TabOnClick(self)
-    self:GetParent():UpdateTabFrames()
-end
-
 function MainPanel:Constructor()
     self.selectedTab = 1
     self.TitleText:SetText(L.ADDON_NAME .. ' ' .. ns.ADDON_VERSION)
@@ -18,9 +14,12 @@ function MainPanel:Constructor()
     self:SetupTabs({
         {L['Search Activity'], self.Browser}, --
         {L['Create Activity'], self.Manage}, --
+        {'好团长', self.GoodLeader}, --
         {L['Encounter'], self.Encounter}, --
         {L['Recent members'], self.Recent}, --
+        -- @classic@
         {L['Challenge'], self.Challenge}, --
+        -- @end-classic@
         {L['Options'], self.Options}, --
         {L['Help'], self.Help}, --
     })
@@ -50,6 +49,7 @@ function MainPanel:Constructor()
     ns.UI.Encounter:Bind(self.Encounter)
     ns.UI.Recent:Bind(self.Recent)
     ns.UI.Challenge:Bind(self.Challenge)
+    ns.UI.GoodLeaderFrame:Bind(self.GoodLeader)
 
     self.Manage.Applicant:Hide()
 

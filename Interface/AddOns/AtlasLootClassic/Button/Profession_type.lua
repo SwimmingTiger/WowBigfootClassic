@@ -92,17 +92,15 @@ function Prof.OnLeave(button)
 	GetAlTooltip():Hide()
 end
 
-local PROF_STRING = "|cffffffff|Henchant:%d|h[%s]|h|r"
 function Prof.OnMouseAction(button, mouseButton)
 	if not mouseButton then return end
 	mouseButton = ProfClickHandler:Get(mouseButton)
 	if mouseButton == "ChatLink" then
-		if button.ItemID then
+		if button.ItemID and button.type ~= "secButton" then
 			local itemInfo, itemLink = GetItemInfo(button.ItemID)
 			AtlasLoot.Button:AddChatLink(itemLink)
 		elseif button.SpellID then
-			local spellName = GetSpellInfo(button.SpellID)
-			AtlasLoot.Button:AddChatLink(string.format(PROF_STRING, button.SpellID, spellName))
+			AtlasLoot.Button:AddChatLink(Profession.GetChatLink(button.SpellID))
 		end
 	elseif mouseButton == "WoWHeadLink" then
 		AtlasLoot.Button:OpenWoWHeadLink(button, "spell", button.SpellID)
@@ -140,13 +138,14 @@ function Prof.Refresh(button)
 
 		button.overlay:Show()
 		-- enchanting border
-		if not button.ItemID then
+		if not button.ItemID or button.type == "secButton" then
 			itemQuality = "gold"
 		end
 		button.overlay:SetQualityBorder(itemQuality)
 
 		if button.type == "secButton" then
-
+			itemTexture = nil
+			itemCount = nil
 		else
 			if itemName then
 				button.name:SetText("|c"..ITEM_COLORS[itemQuality or 0]..(spellName or itemName))

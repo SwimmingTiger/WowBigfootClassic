@@ -102,6 +102,7 @@ function EncounterInfo:UpdateState()
     hidetex.down[3]:Hide()
 
     self.Overview:SetShown(self.expanded and self.desc)
+    self.FootOverview:SetShown(self.expanded and self.footDesc)
     self.Children:SetShown(self.expanded)
 
     self.Button.ExpandedIcon:SetText(self.expanded and '-' or '+')

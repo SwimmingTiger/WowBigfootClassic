@@ -7,6 +7,7 @@ spamAnnounces:CreateCheckButton(L.SpamBlockNoShowAnnounce, true, nil, "DontShowB
 spamAnnounces:CreateCheckButton(L.SpamBlockNoShowTgtAnnounce, true, nil, "DontShowTargetAnnouncements")
 spamAnnounces:CreateCheckButton(L.SpamBlockNoSpecWarnText, true, nil, "DontShowSpecialWarningText")
 spamAnnounces:CreateCheckButton(L.SpamBlockNoSpecWarnFlash, true, nil, "DontShowSpecialWarningFlash")
+spamAnnounces:CreateCheckButton(L.SpamBlockNoSpecWarnVibrate, true, nil, "DontDoSpecialWarningVibrate")
 spamAnnounces:CreateCheckButton(L.SpamBlockNoSpecWarnSound, true, nil, "DontPlaySpecialWarningSound")
 spamAnnounces:CreateCheckButton(L.SpamBlockNoTrivialSpecWarnSound, true, nil, "DontPlayTrivialSpecialWarningSound")
 
@@ -52,9 +53,11 @@ end, 410)
 interruptDropDown:SetPoint("TOPLEFT", _G[FilterInterruptNote:GetName() .. "Text"], "BOTTOMLEFT", -26, -5)
 interruptDropDown.myheight = 50
 
-local spamPTArea = spamPanel:CreateArea(L.Area_PullTimer, 180)
+local spamPTArea = spamPanel:CreateArea(L.Area_PullTimer)
 spamPTArea:CreateCheckButton(L.DontShowPTNoID, true, nil, "DontShowPTNoID")
 spamPTArea:CreateCheckButton(L.DontShowPT, true, nil, "DontShowPT2")
+spamPTArea:CreateCheckButton(L.DontShowPTText, true, nil, "DontShowPTText")
+spamPTArea:CreateCheckButton(L.DontShowPTCountdownText, true, nil, "DontShowPTCountdownText")
 local SPTCDA = spamPTArea:CreateCheckButton(L.DontPlayPTCountdown, true, nil, "DontPlayPTCountdown")
 
 local PTSlider = spamPTArea:CreateSlider(L.PT_Threshold, 1, 10, 1, 300)

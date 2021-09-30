@@ -104,12 +104,12 @@ function Recent:UpdateInstances()
         end
     end
 
-    --[===[@debug@
+    --[[@debug@
     tinsert(menu, {text = 'Debug', value = -1})
     if not value then
         value = -1
     end
-    --@end-debug@]===]
+    --@end-debug@]]
 
     self.Instance:SetMenuTable(menu)
     self.Instance:SetValue(value)
@@ -121,7 +121,7 @@ function Recent:UpdateMembers()
 
     local r = {}
 
-    --[===[@debug@
+    --[[@debug@
     if id == -1 and not members then
         tinsert(r, {name = 'Test1', class = 'PALADIN'})
         tinsert(r, {name = 'Test2', class = 'MAGE'})
@@ -131,7 +131,7 @@ function Recent:UpdateMembers()
         tinsert(r, {name = 'Test6', class = 'SHAMAN'})
         tinsert(r, {name = 'Test7', class = 'HUNTER'})
     end
-    --@end-debug@]===]
+    --@end-debug@]]
 
     if members then
         for k, v in pairs(members) do
@@ -155,12 +155,12 @@ function Recent:UpdateQRCode()
     local id = self.Instance:GetValue()
     local members = ns.LFG:GetInstanceMembers(id)
 
-    --[===[@debug@
+    --[[@debug@
     if id == -1 and not members then
         members = {}
-        members.leader = UnitName('player')
+        members.leader = ns.UnitFullName('player')
     end
-    --@end-debug@]===]
+    --@end-debug@]]
 
     if members then
         self.QRCode:SetValue(ns.MakeQRCode(members.leader))

@@ -16,13 +16,23 @@ local nonLSMBorders = {
     ["Interface\\CastingBar\\UI-CastingBar-Border"] = true,
 }
 
+local isClassic = _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC
+
 local function GetStatusBarBackgroundTexture(statusbar)
     if statusbar.Background then return statusbar.Background end
 
     for _, v in pairs({ statusbar:GetRegions() }) do
+        --@version-classic@
         if v.GetTexture and strfind(v:GetTexture() or "", "Color-") then
             return v
         end
+        --@end-version-classic@
+
+        --[====[@version-bcc@
+        if v.GetTexture and strfind("UI-StatusBar", v:GetTexture() or "") then -- TODO: test on classic
+            return v
+        end
+        --@end-version-bcc@]====]
     end
 end
 
@@ -40,15 +50,37 @@ function addon:GetCastbarFrame(unitID)
 end
 
 function addon:SetTargetCastbarPosition(castbar, parentFrame)
-    local auraRows = parentFrame.auraRows or 0
-
-    if parentFrame.buffsOnTop or auraRows <= 1 then
-        castbar:SetPoint("CENTER", parentFrame, -18, -75)
-    else
-        if castbar.BorderShield:IsShown() then
-            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -43 * auraRows), -150))
+    if not isClassic and parentFrame:GetName() == "TargetFrame" then
+        if ( parentFrame.haveToT ) then
+            if ( parentFrame.buffsOnTop or parentFrame.auraRows <= 1 ) then
+                castbar:SetPoint("TOPLEFT", parentFrame, "BOTTOMLEFT", 25, -21 )
+            else
+                castbar:SetPoint("TOPLEFT", parentFrame.spellbarAnchor, "BOTTOMLEFT", 20, -15)
+            end
+        elseif ( parentFrame.haveElite ) then
+            if ( parentFrame.buffsOnTop or parentFrame.auraRows <= 1 ) then
+                castbar:SetPoint("TOPLEFT", parentFrame, "BOTTOMLEFT", 25, -5 )
+            else
+                castbar:SetPoint("TOPLEFT", parentFrame.spellbarAnchor, "BOTTOMLEFT", 20, -15)
+            end
         else
-            castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -39 * auraRows), -150))
+            if ( (not parentFrame.buffsOnTop) and parentFrame.auraRows > 0 ) then
+                castbar:SetPoint("TOPLEFT", parentFrame.spellbarAnchor, "BOTTOMLEFT", 20, -15)
+            else
+                castbar:SetPoint("TOPLEFT", parentFrame, "BOTTOMLEFT", 25, 7 )
+            end
+        end
+    else -- for classic era or unknown parent frame
+        local auraRows = parentFrame.auraRows or 0
+
+        if parentFrame.buffsOnTop or auraRows <= 1 then
+            castbar:SetPoint("CENTER", parentFrame, -18, -75)
+        else
+            if castbar.BorderShield:IsShown() then
+                castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -43 * auraRows), -150))
+            else
+                castbar:SetPoint("CENTER", parentFrame, -18, max(min(-75, -39 * auraRows), -150))
+            end
         end
     end
 end
@@ -315,13 +347,13 @@ function addon:HideCastbar(castbar, unitID, skipFadeOut)
 
         if cast.isCastComplete then -- SPELL_CAST_SUCCESS
             if castbar.Border:GetAlpha() == 1 or cast.isUninterruptible then
-                if castbar.BorderShield:IsShown() or nonLSMBorders[castbar.Border:GetTexture() or ""] then
+                if castbar.BorderShield:IsShown() or nonLSMBorders[castbar.Border:GetTextureFilePath() or ""] then
                     if cast.isUninterruptible then
                         castbar.Flash:SetVertexColor(0.7, 0.7, 0.7, 1)
                     elseif cast.isChanneled then
-                        castbar.Flash:SetVertexColor(0, 1, 0)
+                        castbar.Flash:SetVertexColor(0, 1, 0, 1)
                     else
-                        castbar.Flash:SetVertexColor(1, 1, 1)
+                        castbar.Flash:SetVertexColor(1, 1, 1, 1)
                     end
                     castbar.Flash:Show()
                 end
@@ -333,7 +365,7 @@ function addon:HideCastbar(castbar, unitID, skipFadeOut)
                 if cast.isUninterruptible then
                     castbar:SetStatusBarColor(0.7, 0.7, 0.7, 1)
                 else
-                    castbar:SetStatusBarColor(0, 1, 0)
+                    castbar:SetStatusBarColor(unpack(self.db[self:GetUnitType(unitID)].statusColorSuccess))
                 end
                 castbar:SetValue(1)
             else
@@ -343,15 +375,22 @@ function addon:HideCastbar(castbar, unitID, skipFadeOut)
     end
 
     if castbar:GetAlpha() > 0 and castbar.fade then
-        castbar.fade:SetStartDelay(0) -- reset
-        if cast then
-            if cast.isInterrupted or cast.isFailed then
-                castbar.fade:SetStartDelay(0.5)
+        if not castbar.fade:IsPlaying() then
+            castbar.fade:SetStartDelay(0) -- reset
+            if cast then
+                if cast.isInterrupted or cast.isFailed then
+                    castbar.fade:SetStartDelay(0.5)
+                end
             end
-        end
 
-        castbar.fade:SetDuration(cast and cast.isInterrupted and 1.2 or 0.3)
-        castbar.animationGroup:Play()
+            --@version-classic@
+            castbar.fade:SetDuration(cast and cast.isInterrupted and 1.2 or 0.3)
+            --@end-version-classic@
+            --[====[@version-bcc@
+            castbar.fade:SetDuration(0.6)
+            --@end-version-bcc@]====]
+            castbar.animationGroup:Play()
+        end
     end
 end
 
@@ -371,6 +410,10 @@ local function ColorPlayerCastbar(db)
         CastingBarFrame:SetStatusBarColor(unpack(db.statusColor))
     --end
 
+    CastingBarFrame_SetFinishedCastColor(CastingBarFrame, unpack(db.statusColorSuccess))
+    CastingBarFrame_SetUseStartColorForFinished(CastingBarFrame, false)
+	CastingBarFrame_SetUseStartColorForFlash(CastingBarFrame, false)
+
     CastingBarFrame.Background = CastingBarFrame.Background or GetStatusBarBackgroundTexture(CastingBarFrame)
     CastingBarFrame.Background:SetColorTexture(unpack(db.statusBackgroundColor))
 end
@@ -380,8 +423,7 @@ function addon:SkinPlayerCastbar()
     if not db.enabled then return end
 
     if not CastingBarFrame:IsEventRegistered("UNIT_SPELLCAST_START") then
-        -- luacheck: ignore
-        print("|cFFFF0000[ClassicCastbars] Incompatibility detected for player castbar. You most likely have another addon disabling the Blizzard castbar.|r")
+        print("|cFFFF0000[ClassicCastbars] Incompatibility detected for player castbar. You most likely have another addon disabling the Blizzard castbar.|r") -- luacheck: ignore
     end
 
     if not CastingBarFrame.Timer then
@@ -432,6 +474,13 @@ function addon:SkinPlayerCastbar()
         hooksecurefunc("PlayerFrame_AttachCastBar", function()
             addon:SkinPlayerCastbar()
         end)
+
+        hooksecurefunc("PlayerFrame_AdjustAttachments", function()
+            if _G.PLAYER_FRAME_CASTBARS_SHOWN and not db.autoPosition then
+                CastingBarFrame:ClearAllPoints()
+                CastingBarFrame:SetPoint(db.position[1], UIParent, db.position[2], db.position[3])
+            end
+        end)
         CastingBarFrame.CC_isHooked = true
     end
 
@@ -456,7 +505,11 @@ function addon:SkinPlayerCastbar()
         CastingBarFrame:ClearAllPoints()
         CastingBarFrame:SetPoint(db.position[1], UIParent, db.position[2], db.position[3])
     else
-        if not _G.PLAYER_FRAME_CASTBARS_SHOWN then
+        if _G.PLAYER_FRAME_CASTBARS_SHOWN then
+            CastingBarFrame.ignoreFramePositionManager = true
+            CastingBarFrame:ClearAllPoints()
+            PlayerFrame_AdjustAttachments()
+        else
             CastingBarFrame.ignoreFramePositionManager = false
             CastingBarFrame:ClearAllPoints()
             CastingBarFrame:SetPoint("BOTTOM", UIParent, 0, 150)
@@ -466,6 +519,8 @@ function addon:SkinPlayerCastbar()
     self:SetCastbarStyle(CastingBarFrame, nil, db, "player")
     self:SetCastbarFonts(CastingBarFrame, nil, db)
 end
+
+--@version-classic@
 
 function addon:CreateOrUpdateSecureFocusButton(text)
     if not self.FocusButton then
@@ -573,3 +628,5 @@ function addon:SetFocusDisplay(text, unitID)
     self.FocusFrame.Text:SetText(isInCombat and text .. " (|cffff0000P|r)" or text)
     self.FocusFrame:SetAllPoints(activeFrames.focus)
 end
+
+--@end-version-classic@

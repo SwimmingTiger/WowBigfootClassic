@@ -3,7 +3,7 @@ if IsAddOnLoaded('ClassicSpellActivations') then return; end		--bf@178.com
 
 local addonName, ns = ...
 
-local f = CreateFrame("Frame", nil) --, UIParent)
+local f = CreateFrame("Frame", "ClassicSpellActivations") --, UIParent)
 
 f:SetScript("OnEvent", function(self, event, ...)
 	if not BigFoot_SysTemSetTab.SpellActivations then return end
@@ -41,18 +41,23 @@ local spellNamesByID = {
     [11600] = "Revenge",
     [11601] = "Revenge",
     [25288] = "Revenge",
+    [25269] = "Revenge",
+    [30357] = "Revenge",
 
     [14251] = "Riposte",
 
     [19306] = "Counterattack",
     [20909] = "Counterattack",
     [20910] = "Counterattack",
+    [27067] = "Counterattack",
 
     [20662] = "Execute",
     [20661] = "Execute",
     [20660] = "Execute",
     [20658] = "Execute",
     [5308] = "Execute",
+    [25234] = "Execute",
+    [25236] = "Execute",
 
     [686] = "ShadowBolt",
     [695] = "ShadowBolt",
@@ -64,11 +69,13 @@ local spellNamesByID = {
     [11660] = "ShadowBolt",
     [11661] = "ShadowBolt",
     [25307] = "ShadowBolt",
+    [27209] = "ShadowBolt",
 
     [1495] = "MongooseBite",
     [14269] = "MongooseBite",
     [14270] = "MongooseBite",
     [14271] = "MongooseBite",
+    [36916] = "MongooseBite",
 
     [879] = "Exorcism",
     [5614] = "Exorcism",
@@ -76,10 +83,12 @@ local spellNamesByID = {
     [10312] = "Exorcism",
     [10313] = "Exorcism",
     [10314] = "Exorcism",
+    [27138] = "Exorcism",
 
     [24275] = "HammerOfWrath",
     [24274] = "HammerOfWrath",
     [24239] = "HammerOfWrath",
+    [27180] = "HammerOfWrath",
 }
 
 f:RegisterEvent("PLAYER_LOGIN")
@@ -118,6 +127,16 @@ function f:PLAYER_LOGIN()
                 ns.LAB_UpdateOverlayGlow(self)
             end)
         end
+
+        -- if Neuron then
+        --     for i,bar in ipairs(Neuron.BARIndex) do
+        --         for btnID, btn in pairs(bar.buttons) do
+        --             if btn.objType == "ACTIONBUTTON" then
+        --                 self:RegisterForActivations(btn)
+        --             end
+        --         end
+        --     end
+        -- end
     end
     -- self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
@@ -208,14 +227,16 @@ function f:SPELLS_CHANGED()
             self:SetScript("OnUpdate", nil)
         end
     elseif class == "WARLOCK" then
+        self:SetScript("OnUpdate", self.timerOnUpdate)
         if IsPlayerSpell(18094) or IsPlayerSpell(18095) then
             self:RegisterUnitEvent("UNIT_AURA", "player")
+            self:SetScript("OnUpdate", self.timerOnUpdate)
             self.UNIT_AURA = function(self, event, unit)
                 local name, _, _, _, duration, expirationTime = FindAura(unit, 17941, "HELPFUL") -- Shadow Trance
                 local haveShadowTrance = name ~= nil
                 if hadShadowTrance ~= haveShadowTrance then
                     if haveShadowTrance then
-                        f:Activate("ShadowBolt", duration)
+                        f:Activate("ShadowBolt", duration, true)
                     else
                         f:Deactivate("ShadowBolt")
                     end
@@ -223,6 +244,7 @@ function f:SPELLS_CHANGED()
                 end
             end
         else
+            self:SetScript("OnUpdate", nil)
             self:UnregisterEvent("UNIT_AURA")
         end
     end
@@ -273,23 +295,25 @@ function ns.LAB_UpdateOverlayGlow(self)
 end
 
 function f:FanoutEvent(event, ...)
+	if not BigFoot_SysTemSetTab.SpellActivations then return end
     for frame, _ in pairs(registeredFrames) do
         local eventHandler = frame:GetScript("OnEvent")
-		if not BigFoot_SysTemSetTab.SpellActivations then return end
-        eventHandler(frame, event, ...)
+        if eventHandler then
+            eventHandler(frame, event, ...)
+        end
     end
 end
 
 local reverseSpellRanks = {
     Overpower = { 11585, 11584, 7887, 7384 },
-    Revenge = { 25288, 11601, 11600, 7379, 6574, 6572 },
+    Revenge = { 30357, 5269, 25288, 11601, 11600, 7379, 6574, 6572 },
     Riposte = { 14251 },
-    Counterattack = { 20910, 20909, 19306 },
-    Execute = { 20662, 20661, 20660, 20658, 5308 },
-    ShadowBolt = { 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686 },
-    MongooseBite = { 14271, 14270, 14269, 1495 },
-    Exorcism = { 10314, 10313, 10312, 5615, 5614, 879 },
-    HammerOfWrath = { 24239, 24274, 24275 },
+    Counterattack = { 27067, 20910, 20909, 19306 },
+    Execute = { 25236, 25234, 20662, 20661, 20660, 20658, 5308 },
+    ShadowBolt = { 27209, 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686 },
+    MongooseBite = { 36916, 14271, 14270, 14269, 1495 },
+    Exorcism = { 27138, 10314, 10313, 10312, 5615, 5614, 879 },
+    HammerOfWrath = { 27180, 24239, 24274, 24275 },
 }
 function ns.findHighestRank(spellName)
     for _, spellID in ipairs(reverseSpellRanks[spellName]) do
@@ -298,7 +322,7 @@ function ns.findHighestRank(spellName)
 end
 local findHighestRank = ns.findHighestRank
 
-function f:Activate(spellName, duration)
+function f:Activate(spellName, duration, keepExpiration)
     local state = activations[spellName]
     if not state then
         activations[spellName] = {}
@@ -310,7 +334,7 @@ function f:Activate(spellName, duration)
 
         local highestRankSpellID = findHighestRank(spellName)
         self:FanoutEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW", highestRankSpellID)
-    else
+    elseif not keepExpiration then
         state.expirationTime = duration and GetTime() + duration
     end
 end
@@ -365,7 +389,9 @@ function ns.ExecuteCheck(self, event, unit)
     if UnitExists("target") and not UnitIsFriend("player", "target") then
         local h = UnitHealth("target")
         local hm = UnitHealthMax("target")
-        if h > 0 and h/hm <= 0.2 then
+        local executeID = ns.findHighestRank("Execute")
+
+        if h > 0 and (h/hm < 0.2 or IsUsableSpell(executeID)) then
             f:Activate("Execute", 10)
         else
             f:Deactivate("Execute")

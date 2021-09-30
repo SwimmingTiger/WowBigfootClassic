@@ -1,3 +1,5 @@
+local ALName, ALPrivate = ...
+
 local _G = _G
 local AtlasLoot = _G.AtlasLoot
 local ItemDB = {}
@@ -45,14 +47,27 @@ ItemDB.mt = {
 		contentList[t.__atlaslootdata.addonName][k] = t.__atlaslootdata.contentCount
 		v.__atlaslootdata = t.__atlaslootdata
 		AtlasLoot.Data.AutoSelect:AddInstanceTable(t.__atlaslootdata.addonName, k, v)
+		v.gameVersion = v.gameVersion or t.__atlaslootdata.__gameVersion
+		if not t.__atlaslootdata.gameVersions[v.gameVersion] then
+			t.__atlaslootdata.gameVersions[v.gameVersion] = true
+		end
 		rawset(t, k, v)
 	end
 }
 
+local function GetContentPhaseFromTable(tab)
+	if ALPrivate.IS_BC then
+		return tab.ContentPhaseBC
+	elseif ALPrivate.IS_CLASSIC then
+		return tab.ContentPhase
+	end
+end
+
 --- Adds/Gets the table for a item database
 -- @param	addonName		<string> full name of the addon folder (eg "AtlasLoot_MistsofPandaria")
 -- @param	tierID			<number> the tier id of the EJ
-function ItemDB:Add(addonName, tierID)
+function ItemDB:Add(addonName, tierID, gameVersion)
+	gameVersion = gameVersion or 0
 	if not ItemDB.Storage[addonName] then
 		ItemDB.Storage[addonName] = {}
 		for k,v in pairs(ItemDB.Proto) do
@@ -61,11 +76,14 @@ function ItemDB:Add(addonName, tierID)
 		ItemDB.Storage[addonName].__atlaslootdata = {
 			addonName = addonName,
 			contentCount = 0,
-			tierID = tierID
+			tierID = tierID,
+			gameVersions = {}
 		}
 		setmetatable(ItemDB.Storage[addonName], ItemDB.mt)
 		contentList[addonName] = {}
 	end
+	ItemDB.Storage[addonName].__atlaslootdata.gameVersions[gameVersion] = true
+	ItemDB.Storage[addonName].__atlaslootdata.__gameVersion = gameVersion
 	return ItemDB.Storage[addonName]
 end
 
@@ -245,14 +263,22 @@ function ItemDB:GetModuleList(addonName)
 end
 
 -- iniName, bossName
-function ItemDB:GetNameData_UNSAFE(addonName, contentName, boss)
+function ItemDB:GetNameData_UNSAFE(addonName, contentName, boss, diff)
 	if not ItemDB.Storage[addonName] or not ItemDB.Storage[addonName][contentName] then return end
-	return ItemDB.Storage[addonName][contentName]:GetName(true), ItemDB.Storage[addonName][contentName]:GetNameForItemTable(boss, true)
+	return ItemDB.Storage[addonName][contentName]:GetName(true), ItemDB.Storage[addonName][contentName]:GetNameForItemTable(boss, true), ItemDB.Storage[addonName]:GetDifficultyName(diff)
 end
 
 function ItemDB:GetNpcID_UNSAFE(addonName, contentName, boss)
 	if not ItemDB.Storage[addonName] or not ItemDB.Storage[addonName][contentName] or not ItemDB.Storage[addonName][contentName].items[boss] then return end
 	return ItemDB.Storage[addonName][contentName].items[boss].npcID
+end
+
+function ItemDB:GetCorrespondingField(addonName, contentName, newGameVersion)
+	if ItemDB.Storage[addonName] and ItemDB.Storage[addonName][contentName] and ItemDB.Storage[addonName][contentName].CorrespondingFields then
+		return ItemDB.Storage[addonName][contentName].CorrespondingFields[newGameVersion] or contentName
+	else
+		return contentName
+	end
 end
 
 -- ##################################################
@@ -367,6 +393,11 @@ local extra_iTable_types = {}
 
 function ItemDB.Proto:AddExtraItemTableType(typ)
 	if not extra_iTable_types[self.__atlaslootdata.addonName] then extra_iTable_types[self.__atlaslootdata.addonName] = {} end
+	for i = 1, #extra_iTable_types[self.__atlaslootdata.addonName] do
+		if extra_iTable_types[self.__atlaslootdata.addonName][i] == type then
+			return i + 100
+		end
+	end
 	extra_iTable_types[self.__atlaslootdata.addonName][#extra_iTable_types[self.__atlaslootdata.addonName]+1] = typ
 	return #extra_iTable_types[self.__atlaslootdata.addonName] + 100
 end
@@ -401,6 +432,20 @@ end
 function ItemDB.Proto:GetDifficulty(dataID, boss, dif)
 	return ItemDB:GetDifficulty(self.__atlaslootdata.addonName, dataID, boss, dif)
 end
+
+function ItemDB.Proto:IsGameVersionAviable(version)
+	return self.__atlaslootdata.gameVersions[version] and true or false
+end
+
+function ItemDB.Proto:GetAviableGameVersion(version)
+	if self.__atlaslootdata.gameVersions[version] then
+		return version
+	elseif self.__atlaslootdata.gameVersions[AtlasLoot:GetGameVersion()] then
+		return AtlasLoot:GetGameVersion()
+	else
+		return self.__atlaslootdata.__gameVersion
+	end
+end
 -- ##################################################
 --	ContentProto
 -- ##################################################
@@ -411,6 +456,9 @@ local SpecialMobList = {
 	quest = format(ATLAS_TEXTURE, "QuestNormal"),
 	questTurnIn = format(ATLAS_TEXTURE, "QuestTurnin"),
 	boss = format(PATH_TEXTURE, "Interface\\TargetingFrame\\UI-TargetingFrame-Skull"),
+	vendor = format(ATLAS_TEXTURE, "auctioneer"),
+	summon = format(ATLAS_TEXTURE, "poi-rift1"),
+	scourgeInvasion = format(PATH_TEXTURE, "133446"),
 }
 
 --- Get the content Type
@@ -437,16 +485,24 @@ function ItemDB.ContentProto:GetName(raw)
 				addEnd = format(LEVEL_RANGE_FORMAT2, self.LevelRange[2] or 0, self.LevelRange[3] or 0 )
 			end
 		end
-		if AtlasLoot.db.ContentPhase.enableOnLootTable and self.ContentPhase and not ContentPhase:IsActive(self.ContentPhase) then
-			addEnd = addEnd.."  "..format(CONTENT_PHASE_FORMAT, self.ContentPhase)
+		if AtlasLoot.db.ContentPhase.enableOnLootTable and not ContentPhase:IsActive(GetContentPhaseFromTable(self), self.gameVersion) then
+			addEnd = addEnd.."  "..format(CONTENT_PHASE_FORMAT, GetContentPhaseFromTable(self))
 		end
 	end
 	if self.name then
 		return self.name..addEnd
 	elseif self.MapID then
-		return C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID
+		if self.nameFormat then
+			return format(self.nameFormat, C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID)
+		else
+			return C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID
+		end
 	elseif self.FactionID then
-		return AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd
+		if self.nameFormat then
+			return format(self.nameFormat, AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd)
+		else
+			return AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd
+		end
 	else
 		return UNKNOWN
 	end
@@ -467,8 +523,8 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 	index = self.items[index]
 	local addStart, addEnd = "", ""
 	if not raw then
-		if AtlasLoot.db.ContentPhase.enableOnLootTable and index.ContentPhase and not ContentPhase:IsActive(index.ContentPhase) then
-			addEnd = addEnd.." "..format(CONTENT_PHASE_FORMAT, index.ContentPhase)
+		if AtlasLoot.db.ContentPhase.enableOnLootTable and not ContentPhase:IsActive(GetContentPhaseFromTable(index), index.gameVersion or self.gameVersion) then
+			addEnd = addEnd.." "..format(CONTENT_PHASE_FORMAT, GetContentPhaseFromTable(index))
 		end
 		if IsMapsModuleAviable() and index.AtlasMapBossID then
 			addStart = addStart.."|cffffffff"..index.AtlasMapBossID..")|r "
@@ -487,9 +543,23 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 		end
 	end
 	if index.name then
-		return addStart..index.name..addEnd
+		if index.nameFormat then
+			return format(addStart..index.nameFormat, index.name..addEnd)
+		else
+			return addStart..index.name..addEnd
+		end
 	elseif index.FactionID then
-		return addStart..GetFactionInfoByID(index.FactionID)..addEnd --or "Faction "..self.items[index].FactionID
+		if index.nameFormat then
+			return format(addStart..index.nameFormat, GetFactionInfoByID(index.FactionID)..addEnd)
+		else
+			return addStart..GetFactionInfoByID(index.FactionID)..addEnd
+		end
+	elseif index.MapID then
+		if index.nameFormat then
+			return format(index.nameFormat, C_Map.GetAreaInfo(index.MapID)..addEnd or "MapID:"..index.MapID)
+		else
+			return C_Map.GetAreaInfo(index.MapID)..addEnd or "MapID:"..index.MapID
+		end
 	else
 		return UNKNOWN
 	end

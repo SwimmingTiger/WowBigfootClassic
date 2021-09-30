@@ -37,6 +37,8 @@ ATLASLOOT_WORLD_BOSS_COLOR 		= {0.74, 0.0, 0.28, 1}
 ATLASLOOT_COLLECTIONS_COLOR		= {0.64, 0.21, 0.93, 1}
 ATLASLOOT_CLASSPROFESSION_COLOR = ATLASLOOT_FACTION_COLOR
 ATLASLOOT_UNKNOWN_COLOR 		= {0, 0, 0, 1}
+ATLASLOOT_HORDE_COLOR			= {1, 0, 0, 0.8}
+ATLASLOOT_ALLIANCE_COLOR		= {0, 0, 1, 0.8}
 
 ATLASLOOT_ITEM_BACKGROUND_ALPHA = 0.9
 
@@ -44,8 +46,13 @@ ATLASLOOT_ITEM_BACKGROUND_ALPHA = 0.9
 -- AtlasLoot Private things
 -- ##############################
 
+-- GameVersion
+ALPrivate.IS_CLASSIC = AtlasLoot:GetGameVersion() == 1
+ALPrivate.IS_BC = AtlasLoot:GetGameVersion() == 2
+
 -- Account specific
 ALPrivate.ACCOUNT_LOCALE = GetLocale()
+ALPrivate.PLAYER_NAME = UnitName("player")
 
 -- Image path
 ALPrivate.IMAGE_PATH = "Interface\\AddOns\\"..ALName.."\\Images\\"
@@ -85,3 +92,29 @@ ALPrivate.CLASS_ICON_PATH = {
 	WARLOCK 	= 	ICONS_PATH.."classicon_warlock",
 	DRUID 		= 	ICONS_PATH.."classicon_druid",
 }
+
+ALPrivate.CLASS_BITS = {
+    --NONE 			= 0,
+    WARRIOR 		= 1,
+    PALADIN 		= 2,
+    HUNTER 			= 4,
+    ROGUE 			= 8,
+    PRIEST 			= 16,
+    --DEATHKNIGHT 	= 32,
+    SHAMAN 			= 64,
+    MAGE 			= 128,
+    WARLOCK 		= 256,
+    --MONK	 		= 512,
+    DRUID 			= 1024,
+    --DEMONHUNTER 	= 2048,
+}
+ALPrivate.CLASS_BIT_TO_CLASS = {}
+for k,v in pairs(ALPrivate.CLASS_BITS) do ALPrivate.CLASS_BIT_TO_CLASS[v] = k end
+ALPrivate.CLASS_SORT = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+ALPrivate.CLASS_NAME_TO_ID = {}
+for classID = 1, #ALPrivate.CLASS_SORT do ALPrivate.CLASS_NAME_TO_ID[ALPrivate.CLASS_SORT[classID]] = classID end
+
+ALPrivate.LOC_CLASSES = {}
+FillLocalizedClassList(ALPrivate.LOC_CLASSES)
+
+ALPrivate.ADDON_MSG_PREFIX = "ATLASLOOT_MSG"

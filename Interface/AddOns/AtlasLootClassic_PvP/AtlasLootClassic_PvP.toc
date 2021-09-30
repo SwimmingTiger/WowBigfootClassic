@@ -1,6 +1,6 @@
 ﻿## Interface: 11307
 ## Author: Lag
-## Version: v1.5.9
+## Version: v2.1.0
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[PvP]|r

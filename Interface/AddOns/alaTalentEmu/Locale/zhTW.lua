@@ -1,4 +1,4 @@
---[[--
+﻿--[[--
 	alex@0
 --]]--
 ----------------------------------------------------------------------------------------------------
@@ -27,6 +27,8 @@ L.curPointsReqLevel = "等級";
 L.message = "信息: ";
 L.me = "我";
 
+L.level_60 = "切换到60级天赋 |cffff0000自动重载插件|r";
+L.level_70 = "切换到70级天赋 |cffff0000自动重载插件|r";
 L.resizable_border_TRUE = "拖動窗口邊緣改變大小";
 L.resizable_border_FALSE = "禁止拖動窗口邊緣改變大小";
 L.readOnly = "\124cffff0000只讀\124r";
@@ -38,7 +40,7 @@ L.resetToSetButton = "重置到初始狀態";
 L.readOnlyButton = "\124cff00ff00點擊\124r設置";
 L.closeButton = "關閉窗體";
 
-L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
+L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除保存的天赋";
 L.inspectTargetButton = "觀察目標天賦";
 L.spellTabButton = "技能列表窗口";
 L.spellAvailable = "\124cff00ff00技能可用\124r";
@@ -48,8 +50,8 @@ L.applyTalentsButton = "應用當前天賦仿真";
 L.applyTalentsButton_Notify = "确定應用當前天賦吗？";
 L.importButton = "導入字符串或wowhead/nfu/yxrank链接";
 L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右鍵\124r导出到\124cffff0000wowhead/nfu/yxrank\124r网页链接";
-L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右鍵\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
-L.sendButton = "\124cff00ff00左键\124r点击发送天赋到聊天\n\124cff00ff00右键\124r点击查看最近聊天中的天赋";
+L.saveButton = "\124cff00ff00左键\124r保存天赋设置\n\124cff00ff00右鍵\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
+L.sendButton = "\124cff00ff00左键\124r发送天赋到聊天\n\124cff00ff00右键\124r查看最近聊天中的天赋";
 L.equipmentButton = "打开装备查看";
 
 L.TalentFrameCallButton = "開啓ala天賦仿真器";
@@ -171,3 +173,29 @@ L.SLOT = {
 };
 L.EMTPY_SLOT = "\124cffff0000未裝備\124r";
 L.MISS_ENCHANT = "\124cffff0000缺少附魔\124r";
+
+
+
+
+
+
+L.POWERTYPE = {
+	[-2] = "health",
+	[0] = "mana",
+	[1] = "rage",
+	[2] = "focus",
+	[3] = "enery",
+};
+L.POWERPERCENT = "%d%% of %s";
+L.POWERPOINT = "%d %s";
+L.POWERPOINTPERSECOND = "%d %s per sec";
+L.RANGEYARD = "%d yrd";
+L.RANGEYARD2 = "%d to %d yrd";
+L.RANGE0 = "melee";
+L.CASTINGTIME = "%d sec cast";
+L.CASTINGTIMEINSTANT = "instant";
+L.CDSECOND = "%d sec cd";
+L.CDMINUTE = "%d min cd";
+
+L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "无法应用天赋: 需要更多天赋点数";
+L["CANNOT APPLY : TALENTS IN CONFLICT."] = "无法应用天赋: 跟当前天赋存在冲突";

@@ -12,7 +12,7 @@ local ButtonBar = Bartender4.ButtonBar.prototype
 
 local pairs, setmetatable, table_insert = pairs, setmetatable, table.insert
 
-local WoWClassic = select(4, GetBuildInfo()) < 20000
+local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 
 -- GLOBALS: CharacterMicroButton, SpellbookMicroButton, TalentMicroButton, AchievementMicroButton, QuestLogMicroButton, GuildMicroButton
 -- GLOBALS: LFDMicroButton, CollectionsMicroButton, EJMicroButton, MainMenuMicroButton
@@ -112,7 +112,7 @@ function MicroMenuMod:PET_BATTLE_CLOSE()
 end
 
 function MicroMenuMod:ActionBarController_UpdateAll()
-	if self.ownedByUI and CURRENT_ACTION_BAR_STATE == LE_ACTIONBAR_STATE_MAIN and not (C_PetBattles and C_PetBattles.IsInBattle()) then
+	if self.ownedByUI and ActionBarController_GetCurrentActionBarState() == LE_ACTIONBAR_STATE_MAIN and not (C_PetBattles and C_PetBattles.IsInBattle()) then
 		UpdateMicroButtonsParent(self.bar)
 		self:MicroMenuBarShow()
 	end

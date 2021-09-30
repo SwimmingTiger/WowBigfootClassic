@@ -1,13 +1,12 @@
 if GetLocale() ~= "zhTW" then return end
 if not DBM_GUI_L then DBM_GUI_L = {} end
 local L = DBM_GUI_L
--- Last update: 2020/09/10
 
 L.MainFrame	= "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "翻譯:"
-L.TranslationBy 				= "三皈依@暗影之月 & Imbav@聖光之願"
-L.Website					= "拜訪討論/支援論壇:|cFF73C2FBwww.deadlybossmods.com|r 請在推特上關注@deadlybossmods或@MysticalOS"
+L.TranslationBy 			= "三皈依@暗影之月 & Imbav@聖光之願"
+L.Website					= "拜訪討論/支援論壇:|cFF73C2Fhttps://discord.gg/deadlybossmods|r. 請在推特上關注@deadlybossmods或@MysticalOS"
 L.WebsiteButton				= "論壇"
 
 L.OTabBosses	            = "模組"
@@ -17,7 +16,6 @@ L.OTabPlugins	            = "核心插件"
 L.OTabOptions	            = "選項"
 L.OTabAbout		            = "關於"
 
-L.TabCategory_Options		= "綜合設置"
 L.TabCategory_OTHER			= "其它模組"
 
 L.BossModLoaded				= "%s狀態"
@@ -35,6 +33,7 @@ L.Button_LoadMod 			= "載入模組"
 L.Mod_Enabled				= "啟用首領模組"
 L.Mod_Reset					= "讀取預設值"
 L.Reset 					= "重置"
+L.Import					= "匯入"
 
 L.Enable  					= "啟用"
 L.Disable					= "停用"
@@ -67,8 +66,9 @@ L.UseSFXChannel				= "音效聲道"
 L.Latency_Text				= "設定最高延遲同步門檻:%d"
 
 L.Button_RangeFrame			= "顯示/隱藏距離監視器"
-L.Button_InfoFrame			= "顯示/隱藏訊息監視器"
+L.Button_InfoFrame			= "顯示/隱藏訊息框架"
 L.Button_TestBars			= "測試計時條"
+L.Button_MoveBars			= "移動計時條"
 L.Button_ResetInfoRange		= "重置訊息/距離監視器"
 
 L.ModelOptions				= "3D模型預覽選項"
@@ -78,17 +78,20 @@ L.ModelSoundShort			= SHORT
 L.ModelSoundLong			= TOAST_DURATION_LONG
 
 L.ResizeOptions			 	= "尺寸調整選項"
+L.ResizeInfo				= "您可以通過點擊右下角並拖動來調整GUI的大小。"
 L.Button_ResetWindowSize	= "重設GUI視窗大小"
 L.Editbox_WindowWidth		= "GUI視窗寬度"
 L.Editbox_WindowHeight		= "GUI視窗高度"
 
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "額外功能"
+
 L.Area_SoundAlerts			= "聲音/閃爍警告選項"
 L.LFDEnhance				= "使用主要或對話聲音頻道播放準備確認音效和閃爍應用程式圖示給角色確認和戰場/隨機團隊進場(I.E. 即使音效被關閉了也會發出音效而且很大聲!)"
 L.WorldBossNearAlert		= "當你需要的世界首領在你附近開戰播放準備確認音效和閃爍應用程式圖示"
 L.RLReadyCheckSound			= "從主要或對話音效頻道播放準備確認音效和閃爍應用程式圖示"
 L.AFKHealthWarning			= "播放警告聲音和閃爍應用程式圖示假如你在暫離時被攻擊"
+L.AutoReplySound			= "當接收到DBM自動回覆密語時播放警告聲和閃爍應用程式圖示"
 --
 L.TimerGeneral 				= "計時器選項"
 L.SKT_Enabled				= "顯示目前戰鬥的最佳紀錄勝利計時器"
@@ -101,9 +104,8 @@ L.AdvancedAutologBosses		= "自動使用Transcriptor紀錄地城/團隊戰鬥"
 L.RecordOnlyBosses			= "只記錄首領的戰鬥 (排除所有小怪。請於首領開打前使用 /dbm pull 以獲取數據)"
 L.LogOnlyNonTrivial			= "只記錄重要內容 (普通或更難的當前內容團隊副本 & 傳奇+ 地下城)"
 --
---L.Area_3rdParty				= "協力插件選項"
---L.ShowBBOnCombatStart		= "戰鬥開始時顯示BigBrother(檢查團隊 增益/精煉UI)"
---L.BigBrotherAnnounceToRaid	= "通告BigBrother的結果給團隊"
+L.Area_3rdParty				= "協力插件選項"
+L.oRA3AnnounceConsumables	= "在戰鬥開始時通告oRA3消耗品檢查"
 L.Area_Invite				= "邀請選項"
 L.AutoAcceptFriendInvite	= "自動接受來自朋友的隊伍邀請"
 L.AutoAcceptGuildInvite		= "自動接受來自公會成員的隊伍邀請"
@@ -132,6 +134,11 @@ L.SelectModProfileCopy		= "複製所有設定"
 L.SelectModProfileCopySound	= "只複製音效設定"
 L.SelectModProfileCopyNote	= "只複製註記設定"
 L.SelectModProfileDelete	= "刪除模組設定"
+
+L.Area_ImportExportProfile	= "匯入/匯出 設定檔"
+L.ImportExportInfo			= "匯入會覆寫您當前的設定檔，後果請自負。"
+L.ButtonImportProfile		= "匯入設定檔"
+L.ButtonExportProfile		= "匯出設定檔"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "警告"
@@ -197,13 +204,15 @@ L.CombatMessages			= "戰鬥訊息選項"
 L.ShowEngageMessage 		= "在聊天視窗顯示開戰訊息"
 L.ShowDefeatMessage 		= "在聊天視窗顯示戰勝/滅團訊息"
 L.ShowGuildMessages 		= "在聊天視窗顯示公會的開戰/戰勝/滅團的訊息"
+L.ShowGuildMessagesPlus		= "同時也顯示公會史詩鑰石的開戰/戰勝/滅團的訊息(需要團隊選項)"
 
 L.Area_ChatAlerts			= "額外警告選項"
+L.RoleSpecAlert				= "當你加入團隊時拾取專精不符合你目前專精顯示警告訊息"
 L.CheckGear					= "開怪時顯示裝備警告訊息 (當你裝備的裝備等級低於包包裡40等以上或主手武器沒有裝備時顯示警告訊息)"
 L.WorldBossAlert			= "當你的公會成員或是朋友可能在你的伺服器上開戰世界首領時顯示警告訊息(如果發送者是被戰復的會不準確)"
 
 L.Area_BugAlerts			= "錯誤回報警報選項"
-L.BadTimerAlert				= "當DBM檢測到計時器錯誤且至少有2秒不正確時顯示聊天訊息"
+L.BadTimerAlert				= "當DBM檢測到計時器錯誤且至少有1秒不正確時顯示聊天訊息"
 L.BadIDAlert				= "當DBM檢測到使用的是無效法術或紀錄ID時顯示聊天訊息"
 
 -- Panel: Spoken Alerts Frame
@@ -229,22 +238,25 @@ L.Area_BrowseOtherCT		= "在Curse上瀏覽倒數包"
 L.BrowseOtherCTs			= "|cFF73C2FBhttps://www.curseforge.com/wow/addons/search?search=dbm+count+pack|r"
 
 -- Panel: Event Sounds
-L.Panel_EventSounds			= "事件音效"
-L.Area_SoundSelection		= "音效選擇 (使用滑鼠滾輪捲動選單)"
-L.EventVictorySound			= "設定戰鬥勝利時的音效"
-L.EventWipeSound			= "設定滅團或重置時的音效"
-L.EventEngageSound			= "設定戰鬥開戰時的音效"
-L.EventDungeonMusic			= "設定在地城/團隊中播放的音樂"
-L.EventEngageMusic			= "設置戰鬥期間播放的音樂"
-L.Area_EventSoundsExtras	= "事件音效選項"
-L.EventMusicCombined		= "允許在地城和戰鬥選擇的所有音效選項（更改此選項需要UI重載以生效）"
-L.Area_EventSoundsFilters	= "事件音效過濾條件"
+L.Panel_EventSounds				= "事件音效"
+L.Area_SoundSelection			= "音效選擇 (使用滑鼠滾輪捲動選單)"
+L.EventVictorySound				= "設定戰鬥勝利時的音效"
+L.EventWipeSound				= "設定滅團或重置時的音效"
+L.EventEngageSound				= "設定戰鬥開戰時的音效"
+L.EventDungeonMusic				= "設定在地城/團隊中播放的音樂"
+L.EventEngageMusic				= "設置戰鬥期間播放的音樂"
+L.Area_EventSoundsExtras		= "事件音效選項"
+L.EventMusicCombined			= "允許在地城和戰鬥選擇的所有音效選項（更改此選項需要UI重載以生效）"
+L.Area_EventSoundsFilters		= "事件音效過濾條件"
+L.EventFilterDungMythicMusic	= "不要在傳奇/傳奇+難度播放地城音樂"
+L.EventFilterMythicMusic		= "不要在傳奇/傳奇+難度播放戰鬥音樂"
 
 -- Tab: Timers
 L.TabCategory_Timers		= "計時條"
+L.Area_ColorBytype			= "計時條分類著色指南"
 -- Panel: Color by Type
-L.Panel_ColorByType	 		= "各類型顏色"
-L.AreaTitle_BarColors		= "根據計時器類型上色"
+L.Panel_ColorByType	 		= "計時條類型顏色"
+L.AreaTitle_BarColors		= "根據計時條類型上色"
 L.BarTexture 				= "計時條材質"
 L.BarStyle					= "計時條動作"
 L.BarDBM					= "經典 (現有的小計時條滑到大條的錨點)"
@@ -314,20 +326,21 @@ L.ShortTimerText			= "使用較短的計時器文字(如果可用時)"
 L.StripTimerText			= "剝離 冷卻/下次 計時器"
 L.KeepBar					= "保持計時器啟用直到技能施放"
 L.KeepBar2					= "(當有支援的模組時)"
-L.FadeBar					= "淡出已超出距離技能的計時器"
+L.FadeBar					= "隱藏已超出距離技能的計時器"
+L.BarSkin					= "計時條外觀"
 
 -- Tab: Global Disables & Filters
 L.TabCategory_Filters	 	= "全局禁用及過濾"
 L.Area_DBMFiltersSetup		= "DBM過濾器指南"
 L.Area_BlizzFiltersSetup	= "暴雪過濾器指南"
 -- Panel: DBM Features
-L.Panel_SpamFilter			= "DBM特性"
-L.Area_SpamFilter_Anounces	= "全局警告禁用及過濾選項"
-L.SpamBlockNoShowAnnounce	= "不顯示任何提示文字或播放警告音效"
-L.SpamBlockNoShowTgtAnnounce= "不顯示目標的提示文字或播放警告音效 (上列選項會覆蓋此選項)"
-L.SpamBlockNoSpecWarnText	= "不顯示特別警告文字"
-L.SpamBlockNoSpecWarnFlash	= "不顯示特別警告螢幕閃爍"
-L.SpamBlockNoSpecWarnSound	= "不播放特別警告音效 (如果在“語音警告”面板中啟用了語音包，則仍允許語音包)"
+L.Panel_SpamFilter					= "DBM功能設置"
+L.Area_SpamFilter_Anounces			= "全局警告禁用及過濾選項"
+L.SpamBlockNoShowAnnounce			= "不顯示任何提示文字或播放警告音效"
+L.SpamBlockNoShowTgtAnnounce		= "不顯示目標的提示文字或播放警告音效 (上列選項會覆蓋此選項)"
+L.SpamBlockNoSpecWarnText			= "不顯示特別警告文字"
+L.SpamBlockNoSpecWarnFlash			= "不顯示特別警告螢幕閃爍"
+L.SpamBlockNoSpecWarnSound			= "不播放特別警告音效 (如果在“語音警告”面板中啟用了語音包，則仍允許語音包)"
 L.SpamBlockNoTrivialSpecWarnSound	= "如果相對你等級是不重要的內容則不要播放特別警告音效 (播放使用者選擇的標準警告音效替代)"
 
 L.Area_SpamFilter_Timers	= "全局計時禁用及過濾選項"
@@ -351,6 +364,7 @@ L.SpamBlockNoRangeRestore	= "不因模組預設值還原距離框架的狀態"
 L.Area_SpamFilter			= "垃圾過濾選項"
 L.DontShowFarWarnings		= "不發送距離過遠的事件提示/計時器"
 L.StripServerName			= "隱藏警告、計時器、距離檢測以及資訊框架的玩家伺服器名稱"
+L.FilterVoidFormSay			= "在虛空型態時不要發送圖示/倒數計時聊天喊話(仍會發送標準聊天喊話)"
 
 L.Area_SpecFilter			= "角色職責過濾選項"
 L.FilterTankSpec			= "非坦克角色職責時過濾掉坦克專精的特定警告 (註:不建議玩家關閉此選項因大多數的坦克嘲諷警告都是預設開啟。)"
@@ -367,21 +381,23 @@ L.Area_PullTimer			= "開怪、休息、戰鬥和自定義計時器過濾器選�
 L.DontShowPTNoID			= "阻擋與你不同區域ID送出的開怪倒數計時條"
 L.DontShowPT				= "不要顯示開怪/休息倒數計時條"
 L.DontShowPTText			= "不要顯示開怪/休息提示文字"
+L.DontShowPTCountdownText	= "不要顯示開怪計時倒數文字"
 L.DontPlayPTCountdown		= "完全不要播放開怪/休息/開戰/自訂計時器倒數音效"
 L.PT_Threshold				= "不要播放高於%d秒以上的休息/開戰/自訂倒數計時器音效"
 
 -- Panel: Blizzard Features
-L.Panel_HideBlizzard		= "暴雪特性"
+L.Panel_HideBlizzard		= "暴雪內建功能設置"
 L.Area_HideBlizzard			= "禁用及隱藏暴雪功能選項"
 L.HideBossEmoteFrame		= "首領戰鬥時隱藏團隊首領表情框架"
 L.HideWatchFrame			= "首領戰鬥時隱藏任務目標框架。如果沒有追蹤中的成就，或是不在傳奇+。"
---L.HideQuestTooltips			= "首領戰鬥時隱藏任務目標提示"
+L.HideGarrisonUpdates		= "首領戰鬥時隱藏追隨者任務完成提示"
+L.HideGuildChallengeUpdates	= "首領戰鬥時隱藏公會挑戰完成提示"
+L.HideQuestTooltips			= "首領戰鬥時隱藏任務目標提示"
 L.HideTooltips				= "首領戰鬥時完全地隱藏滑鼠提示"
-L.DisableSFX				= "首領戰鬥時禁用音效頻道"
---L.DisableCinematics			= "禁用遊戲中的過場動畫"
---L.OnlyFight					= "只有戰鬥中，每次動畫播放一次之後"
---L.AfterFirst				= "在副本中，每次動畫播放一次之後"
-L.Always					= ALWAYS
+L.DisableSFX				= "首領戰鬥時禁用音效頻道（注意：如果啟用此選項，則即使戰鬥進入時音效未打開，戰鬥結束時也會打開聲音效果）"
+L.DisableCinematics			= "禁用遊戲中的過場動畫"
+L.OnlyFight					= "只有戰鬥中，每次動畫播放一次之後"
+L.AfterFirst				= "在副本中，每次動畫播放一次之後"
 L.CombatOnly				= "在任何戰鬥中停用"
 L.RaidCombat				= "只在首領戰鬥中停用"
 
@@ -420,4 +436,5 @@ L.FontStyle					= "字型風格"
 L.FontColor					= "文字顏色"
 L.FontShadow				= "陰影"
 L.FontType					= "選擇字型"
+
 L.FontHeight	= 18

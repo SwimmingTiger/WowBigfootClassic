@@ -1,6 +1,6 @@
-<Ui xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+<Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <Button name="MeetingHornMainPanel" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate">
+    <Button name="MeetingHornMainPanelTemplate" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate" virtual="true">
         <Size x="818" y="424"/>
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
@@ -26,173 +26,173 @@
             <Button parentKey="FeedBackButton">
                 <Size x="16" y="16"/>
                 <Anchors>
-                    <Anchor point="TOPRIGHT" x="-32" y="-3" />
+                    <Anchor point="TOPRIGHT" x="-32" y="-3"/>
                 </Anchors>
                 <NormalTexture file="Interface\HelpFrame\reportlagicon-mail">
-                    <TexCoords left="0.2" right="0.8" top="0.2" bottom="0.8" />
+                    <TexCoords left="0.2" right="0.8" top="0.2" bottom="0.8"/>
                 </NormalTexture>
                 <HighlightTexture file="Interface\HelpFrame\reportlagicon-mail" alphaMode="ADD">
-                    <TexCoords left="0.2" right="0.8" top="0.2" bottom="0.8" />
+                    <TexCoords left="0.2" right="0.8" top="0.2" bottom="0.8"/>
                 </HighlightTexture>
             </Button>
             <Button inherits="MeetingHornTabButtonTemplate" hidden="true" id="1">
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" />
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT"/>
                 </Anchors>
             </Button>
             <Frame parentKey="Browser" inherits="InsetFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-105" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="TOPLEFT" x="4" y="-105"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
                 </Anchors>
                 <Layers>
                     <Layer level="ARTWORK">
                         <FontString parentKey="ActivityLabel" inherits="GameFontNormalSmallLeft">
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativeKey="$parent.$parent" x="70" y="-30" />
+                                <Anchor point="TOPLEFT" relativeKey="$parent.$parent" x="70" y="-30"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="ModeLabel" inherits="GameFontNormalSmallLeft">
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" x="200" y="0" />
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" x="200" y="0"/>
                             </Anchors>
                         </FontString>
                         <FontString parentKey="SearchLabel" inherits="GameFontNormalSmallLeft">
                             <Anchors>
-                                <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" x="110" y="0" />
+                                <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" x="110" y="0"/>
                             </Anchors>
                         </FontString>
                         <Texture parentKey="Sorter" hidden="true" file="Interface\Buttons\ui-sortarrow">
-                            <Size x="8" y="8" />
-                            <TexCoords left="0" right="0.5" x="0" y="1" />
+                            <Size x="8" y="8"/>
+                            <TexCoords left="0" right="0.5" x="0" y="1"/>
                         </Texture>
                     </Layer>
                 </Layers>
                 <Frames>
                     <ScrollFrame parentKey="ActivityList" inherits="HybridScrollFrameTemplate" virtual="true">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="5" y="-5" />
-                            <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                            <Anchor point="TOPLEFT" x="5" y="-5"/>
+                            <Anchor point="BOTTOMRIGHT" x="-20" y="5"/>
                         </Anchors>
                         <Frames>
                             <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
-                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13"/>
+                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12"/>
                                 </Anchors>
                             </Slider>
                         </Frames>
                     </ScrollFrame>
                     <Frame parentKey="Empty">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="5" y="-5" />
-                            <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                            <Anchor point="TOPLEFT" x="5" y="-5"/>
+                            <Anchor point="BOTTOMRIGHT" x="-20" y="5"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Text" spacing="5" inherits="GameFontDisable">
                                     <Anchors>
-                                        <Anchor point="CENTER" />
+                                        <Anchor point="CENTER"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                     </Frame>
                     <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate" id="1">
-                        <Size x="145" y="24" />
+                        <Size x="145" y="24"/>
                         <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5" />
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate" id="2">
-                        <Size x="60" y="24" />
+                        <Size x="60" y="24"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT" />
+                            <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate" id="3">
-                        <Size x="110" y="24" />
+                        <Size x="110" y="24"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT" />
+                            <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate" id="4">
-                        <Size x="110" y="24" />
+                        <Size x="110" y="24"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT" />
+                            <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate" id="5">
-                        <Size x="290" y="24" />
+                        <Size x="290" y="24"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT" />
+                            <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Header6" inherits="ColumnDisplayButtonTemplate" id="6">
-                        <Size x="150" y="24" />
+                        <Size x="150" y="24"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Header5" relativePoint="RIGHT" />
-                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ActivityList" relativePoint="TOPRIGHT" x="0" y="5" />
+                            <Anchor point="LEFT" relativeKey="$parent.Header5" relativePoint="RIGHT"/>
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ActivityList" relativePoint="TOPRIGHT" x="0" y="5"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Activity">
-                        <Size x="190" y="24" />
+                        <Size x="190" y="24"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ActivityLabel" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Mode">
-                        <Size x="100" y="24" />
+                        <Size x="100" y="24"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.ModeLabel" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
                         </Anchors>
                     </Button>
                     <EditBox parentKey="Input" inherits="SearchBoxTemplate">
-                        <Size x="180" y="22" />
+                        <Size x="180" y="22"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
                         </Anchors>
                     </EditBox>
                     <Button parentKey="Quick1" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Input" relativePoint="RIGHT" x="5" y="-5" />
+                            <Anchor point="LEFT" relativeKey="$parent.Input" relativePoint="RIGHT" x="5" y="-5"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick2" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Quick1" relativePoint="RIGHT" x="5" y="0" />
+                            <Anchor point="LEFT" relativeKey="$parent.Quick1" relativePoint="RIGHT" x="5" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick3" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Quick2" relativePoint="RIGHT" x="5" y="0" />
+                            <Anchor point="LEFT" relativeKey="$parent.Quick2" relativePoint="RIGHT" x="5" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick4" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="BOTTOM" relativeKey="$parent.Quick1" relativePoint="TOP" x="5" y="0" />
+                            <Anchor point="BOTTOMLEFT" relativeKey="$parent.Quick1" relativePoint="TOPLEFT" x="0" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick5" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="BOTTOM" relativeKey="$parent.Quick2" relativePoint="TOP" x="5" y="0" />
+                            <Anchor point="BOTTOM" relativeKey="$parent.Quick2" relativePoint="TOP" x="5" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Quick6" inherits="MeetingHornQuickTemplate">
-                        <Size x="35" y="22" />
+                        <Size x="35" y="22"/>
                         <Anchors>
-                            <Anchor point="BOTTOM" relativeKey="$parent.Quick3" relativePoint="TOP" x="5" y="0" />
+                            <Anchor point="BOTTOM" relativeKey="$parent.Quick3" relativePoint="TOP" x="5" y="0"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="Refresh" inherits="UIPanelButtonTemplate" text="REFRESH">
-                        <Size x="60" y="22" />
+                        <Size x="60" y="22"/>
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Quick6" relativePoint="RIGHT" x="10" y="-1" />
+                            <Anchor point="LEFT" relativeKey="$parent.Quick6" relativePoint="RIGHT" x="10" y="-1"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY" textureSubLevel="1">
@@ -212,9 +212,9 @@
                         </Animations>
                     </Button>
                     <Button parentKey="Reset" inherits="UIPanelButtonTemplate" text="RESET">
-                        <Size x="60" y="22" />
+                        <Size x="60" y="22"/>
                         <Anchors>
-                            <Anchor point="TOP" relativeKey="$parent.Refresh" relativePoint="BOTTOM" x="0" y="-1" />
+                            <Anchor point="TOP" relativeKey="$parent.Refresh" relativePoint="BOTTOM" x="0" y="-1"/>
                         </Anchors>
                     </Button>
                     <!-- <Button parentKey="CreateButton" inherits="MagicButtonTemplate">
@@ -224,21 +224,21 @@
                         </Anchors>
                     </Button> -->
                     <StatusBar parentKey="ProgressBar">
-                        <Size x="260" y="17" />
+                        <Size x="260" y="17"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-3" />
+                            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
                                 <Texture file="Interface\PaperDollInfoFrame\UI-Character-Skills-BarBorder">
-                                    <Size x="270" y="44" />
+                                    <Size x="270" y="44"/>
                                     <Anchors>
-                                        <Anchor point="LEFT" x="-5" y="0" />
+                                        <Anchor point="LEFT" x="-5" y="0"/>
                                     </Anchors>
                                 </Texture>
                                 <FontString parentKey="Loading" inherits="GameFontHighlightSmallLeft">
                                     <Anchors>
-                                        <Anchor point="LEFT" x="5" y="0" />
+                                        <Anchor point="LEFT" x="5" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -261,48 +261,48 @@
             </Frame>
             <Frame parentKey="Manage">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-80" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="TOPLEFT" x="4" y="-80"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
                 </Anchors>
                 <Frames>
                     <Frame parentKey="Creator" inherits="InsetFrameTemplate">
-                        <Size x="220" />
+                        <Size x="220"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" />
-                            <Anchor point="BOTTOMLEFT" />
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMLEFT"/>
                         </Anchors>
                         <Frames>
                             <Button parentKey="Activity">
-                                <Size y="25" />
+                                <Size y="25"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="10" y="-40" />
-                                    <Anchor point="TOPRIGHT" x="-10" y="-40" />
+                                    <Anchor point="TOPLEFT" x="10" y="-40"/>
+                                    <Anchor point="TOPRIGHT" x="-10" y="-40"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="Mode">
-                                <Size y="25" />
+                                <Size y="25"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.Activity" relativePoint="BOTTOMLEFT" x="0" y="-40" />
-                                    <Anchor point="TOPRIGHT" relativeKey="$parent.Activity" relativePoint="BOTTOMRIGHT" x="0" y="-40" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Activity" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
+                                    <Anchor point="TOPRIGHT" relativeKey="$parent.Activity" relativePoint="BOTTOMRIGHT" x="0" y="-40"/>
                                 </Anchors>
                             </Button>
                             <Frame parentKey="Comment">
-                                <Size y="25" />
+                                <Size y="25"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.Mode" relativePoint="BOTTOMLEFT" x="0" y="-40" />
-                                    <Anchor point="BOTTOMRIGHT" x="-10" y="20" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Mode" relativePoint="BOTTOMLEFT" x="0" y="-40"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-10" y="20"/>
                                 </Anchors>
                             </Frame>
                             <Button parentKey="CreateButton" inherits="MagicButtonTemplate">
-                                <Size x="120" y="22" />
+                                <Size x="120" y="22"/>
                                 <Anchors>
-                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.$parent" x="0" y="-22" />
+                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.$parent" x="0" y="-22"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="CloseButton" inherits="MagicButtonTemplate">
-                                <Size x="120" y="22" />
+                                <Size x="120" y="22"/>
                                 <Anchors>
-                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.$parent" x="0" y="-22" />
+                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.$parent" x="0" y="-22"/>
                                 </Anchors>
                             </Button>
                         </Frames>
@@ -310,22 +310,22 @@
                             <Layer level="ARTWORK">
                                 <FontString parentKey="ActivityLabel" inherits="GameFontNormalSmall">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Activity" relativePoint="TOPLEFT" x="0" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Activity" relativePoint="TOPLEFT" x="0" y="3"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="ModeLabel" inherits="GameFontNormalSmall">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Mode" relativePoint="TOPLEFT" x="0" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Mode" relativePoint="TOPLEFT" x="0" y="3"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="CommentLabel" inherits="GameFontNormalSmall">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Comment" relativePoint="TOPLEFT" x="0" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Comment" relativePoint="TOPLEFT" x="0" y="3"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="TitleLabel" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -333,14 +333,14 @@
                     </Frame>
                     <Frame parentKey="Applicant" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Creator" relativePoint="TOPRIGHT" />
-                            <Anchor point="BOTTOMRIGHT" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Creator" relativePoint="TOPRIGHT"/>
+                            <Anchor point="BOTTOMRIGHT"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="TitleLabel" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -348,61 +348,61 @@
                         <Frames>
                             <ScrollFrame parentKey="ApplicantList" inherits="HybridScrollFrameTemplate" virtual="true">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="5" y="-5" />
-                                    <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                                    <Anchor point="TOPLEFT" x="5" y="-5"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-20" y="5"/>
                                 </Anchors>
                                 <Frames>
                                     <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
-                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13"/>
+                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12"/>
                                         </Anchors>
                                     </Slider>
                                 </Frames>
                             </ScrollFrame>
                             <Button parentKey="Header1" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="150" y="24" />
+                                <Size x="150" y="24"/>
                                 <Anchors>
-                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.ApplicantList" relativePoint="TOPLEFT" x="2" y="5" />
+                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.ApplicantList" relativePoint="TOPLEFT" x="2" y="5"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header2" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="100" y="24" />
+                                <Size x="100" y="24"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Header1" relativePoint="RIGHT"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header3" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="100" y="24" />
+                                <Size x="100" y="24"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Header2" relativePoint="RIGHT"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header4" inherits="ColumnDisplayButtonTemplate">
-                                <Size x="100" y="24" />
+                                <Size x="100" y="24"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Header3" relativePoint="RIGHT"/>
                                 </Anchors>
                             </Button>
                             <Button parentKey="Header5" inherits="ColumnDisplayButtonTemplate">
-                                <Size y="24" />
+                                <Size y="24"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT" />
-                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ApplicantList" relativePoint="TOPRIGHT" x="0" y="5" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Header4" relativePoint="RIGHT"/>
+                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ApplicantList" relativePoint="TOPRIGHT" x="0" y="5"/>
                                 </Anchors>
                             </Button>
                         </Frames>
                     </Frame>
                     <Frame parentKey="Chat">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Creator" relativePoint="TOPRIGHT" />
-                            <Anchor point="BOTTOMRIGHT" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Creator" relativePoint="TOPRIGHT"/>
+                            <Anchor point="BOTTOMRIGHT"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="TitleLabel" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="3" y="3"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -410,8 +410,8 @@
                         <Frames>
                             <Frame parentKey="ChatBg" inherits="InsetFrameTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" />
-                                    <Anchor point="BOTTOMRIGHT" />
+                                    <Anchor point="TOPLEFT"/>
+                                    <Anchor point="BOTTOMRIGHT"/>
                                 </Anchors>
                             </Frame>
                             <!-- <Frame parentKey="EditBoxBg" inherits="InsetFrameTemplate">
@@ -422,14 +422,14 @@
                             </Frame> -->
                             <ScrollingMessageFrame parentKey="ChatFrame" enableMouse="true" enableMouseWheel="true">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.ChatBg" relativePoint="TOPLEFT" x="5" y="-5" />
-                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ChatBg" relativePoint="BOTTOMRIGHT" x="-20" y="5" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.ChatBg" relativePoint="TOPLEFT" x="5" y="-5"/>
+                                    <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ChatBg" relativePoint="BOTTOMRIGHT" x="-20" y="5"/>
                                 </Anchors>
                                 <Frames>
                                     <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
-                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13"/>
+                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12"/>
                                         </Anchors>
                                         <Scripts>
                                             <OnValueChanged>
@@ -498,17 +498,23 @@
                     </Frame>
                 </Frames>
             </Frame>
+            <Frame parentKey="GoodLeader" hidden="true" inherits="GoodLeaderTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-65"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
+                </Anchors>
+            </Frame>
             <Frame parentKey="Help" inherits="InsetFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-70" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="TOPLEFT" x="4" y="-70"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
                 </Anchors>
                 <Layers>
                     <Layer level="ARTWORK">
                         <FontString parentKey="Text" spacing="15" justifyH="LEFT" inherits="GameFontDisableLarge">
                             <Anchors>
-                                <Anchor point="LEFT" x="30" y="10" />
-                                <Anchor point="RIGHT" x="-30" y="10" />
+                                <Anchor point="LEFT" x="30" y="10"/>
+                                <Anchor point="RIGHT" x="-30" y="10"/>
                             </Anchors>
                         </FontString>
                     </Layer>
@@ -516,8 +522,8 @@
             </Frame>
             <Frame parentKey="Encounter" inherits="InsetFrameTemplate">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-60" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="6" />
+                    <Anchor point="TOPLEFT" x="4" y="-60"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
                 </Anchors>
                 <Layers>
                     <Layer level="BACKGROUND">
@@ -565,14 +571,14 @@
                 <Frames>
                     <ScrollFrame parentKey="BossList" inherits="HybridScrollFrameTemplate" virtual="true">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="5" y="-47" />
-                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-20" y="5" />
+                            <Anchor point="TOPLEFT" x="5" y="-47"/>
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-20" y="5"/>
                         </Anchors>
                         <Frames>
                             <Slider parentKey="scrollBar" inherits="MinimalHybridScrollBarTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
-                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13"/>
+                                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnLoad>
@@ -583,49 +589,49 @@
                         </Frames>
                     </ScrollFrame>
                     <Button parentKey="Instance">
-                        <Size x="160" y="24" />
+                        <Size x="160" y="24"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="60" y="28" />
+                            <Anchor point="TOPLEFT" x="60" y="28"/>
                         </Anchors>
                     </Button>
                     <Button parentKey="ZoneButton" inherits="MeetingHornEncounterDifficultyTemplate">
                         <Anchors>
-                            <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="RIGHT" x="30" y="0" />
+                            <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="RIGHT" x="30" y="0"/>
                         </Anchors>
                     </Button>
                     <ScrollFrame parentKey="Panel1" inherits="MeetingHornEncounterInfoPanelTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-27" y="-44" />
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2" />
+                            <Anchor point="TOPRIGHT" x="-27" y="-44"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2"/>
                         </Anchors>
                     </ScrollFrame>
                     <ScrollFrame parentKey="Panel2" inherits="MeetingHornEncounterInfoPanelTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-27" y="-44" />
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2" />
+                            <Anchor point="TOPRIGHT" x="-27" y="-44"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2"/>
                         </Anchors>
                     </ScrollFrame>
                     <Frame parentKey="Panel3">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" x="-27" y="-44" />
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2" />
+                            <Anchor point="TOPRIGHT" x="-27" y="-44"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="20" y="2"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Label" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="TOP" x="0" y="-20" />
-                                        <Anchor point="LEFT" x="10" y="0" />
-                                        <Anchor point="RIGHT" x="-10" y="0" />
+                                        <Anchor point="TOP" x="0" y="-20"/>
+                                        <Anchor point="LEFT" x="10" y="0"/>
+                                        <Anchor point="RIGHT" x="-10" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                         <Frames>
                             <EditBox parentKey="Url" autoFocus="false" inherits="InputBoxTemplate">
-                                <Size x="300" y="20" />
+                                <Size x="300" y="20"/>
                                 <Anchors>
-                                    <Anchor point="TOP" relativeKey="$parent.Label" relativePoint="BOTTOM" x="0" y="-20" />
+                                    <Anchor point="TOP" relativeKey="$parent.Label" relativePoint="BOTTOM" x="0" y="-20"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnEditFocusGained>
@@ -641,7 +647,7 @@
                     </Frame>
                     <Button parentKey="Tab1" inherits="MeetingHornEncounterTabTemplate" id="1">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-15" y="-37" />
+                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-15" y="-37"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
@@ -664,7 +670,7 @@
                     </Button>
                     <Button parentKey="Tab2" inherits="MeetingHornEncounterTabTemplate" id="2">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab1" relativePoint="BOTTOMLEFT" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab1" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
@@ -687,14 +693,14 @@
                     </Button>
                     <Button parentKey="Tab3" inherits="MeetingHornEncounterTabTemplate" id="3">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab2" relativePoint="BOTTOMLEFT" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Tab2" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                         <Layers>
                             <Layer level="OVERLAY">
                                 <Texture parentKey="Unselected" file="Interface\AddOns\MeetingHorn\Media\Tab3">
                                     <Size x="36" y="36"/>
                                     <Anchors>
-                                        <Anchor point="CENTER" x="2" y="0" />
+                                        <Anchor point="CENTER" x="2" y="0"/>
                                     </Anchors>
                                 </Texture>
                                 <Texture parentKey="Selected" file="Interface\AddOns\MeetingHorn\Media\Tab3">
@@ -715,86 +721,86 @@
             </Frame>
             <Frame parentKey="Recent">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-90" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="TOPLEFT" x="4" y="-90"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
                 </Anchors>
                 <Frames>
                     <Frame parentKey="Left" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" />
-                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="20" y="0" />
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="20" y="0"/>
                         </Anchors>
                         <Frames>
                         </Frames>
                     </Frame>
                     <Frame parentKey="Right" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT" />
-                            <Anchor point="BOTTOMRIGHT" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT"/>
+                            <Anchor point="BOTTOMRIGHT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Members">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" x="5" y="-4" />
-                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Left" x="-3" y="1" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Left" x="5" y="-4"/>
+                            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Left" x="-3" y="1"/>
                         </Anchors>
                     </Frame>
                     <Button parentKey="QRCode" hidden="true">
-                        <Size x="180" y="180" />
+                        <Size x="180" y="180"/>
                         <Anchors>
-                            <Anchor point="TOP" relativeKey="$parent.Right" x="0" y="-20" />
+                            <Anchor point="TOP" relativeKey="$parent.Right" x="0" y="-20"/>
                         </Anchors>
                         <Layers>
                             <Layer>
                                 <FontString parentKey="Label" inherits="GameFontNormalSmall">
-                                    <Size x="300" />
+                                    <Size x="300"/>
                                     <Anchors>
-                                        <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-20" />
+                                        <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-20"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                     </Button>
                     <Button parentKey="Instance">
-                        <Size x="160" y="24" />
+                        <Size x="160" y="24"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="60" y="38" />
+                            <Anchor point="TOPLEFT" x="60" y="38"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Label" inherits="GameFontNormalSmall">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                     </Button>
                     <Button parentKey="Invite" inherits="MagicButtonTemplate">
-                        <Size x="120" y="22" />
+                        <Size x="120" y="22"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" />
+                            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Button>
                 </Frames>
             </Frame>
             <Frame parentKey="Challenge" hidden="true">
                 <Anchors>
-                    <Anchor point="TOPLEFT" />
-                    <Anchor point="BOTTOMRIGHT" />
+                    <Anchor point="TOPLEFT"/>
+                    <Anchor point="BOTTOMRIGHT"/>
                 </Anchors>
                 <Frames>
                     <Frame parentKey="Left">
                         <Size x="222" y="428"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="-3" y="0" />
+                            <Anchor point="TOPLEFT" x="-3" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="BORDER" textureSubLevel="-1">
                                 <Texture parentKey="BlueBg" file="Interface\Common\bluemenu-main">
                                     <Size x="209" y="397"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="7" y="-23" />
+                                        <Anchor point="TOPLEFT" x="7" y="-23"/>
                                     </Anchors>
                                     <TexCoords left="0.00390625" right="0.82421875" top="0.18554688" bottom="0.58984375"/>
                                 </Texture>
@@ -831,28 +837,28 @@
                                 <Texture parentKey="LLVert" file="Interface\Common\bluemenu-vert" vertTile="true">                                    <!-- left line -->
                                     <Size x="43" y="270"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="7" y="-87" />
+                                        <Anchor point="TOPLEFT" x="7" y="-87"/>
                                     </Anchors>
                                     <TexCoords left="0.06250000" right="0.39843750" top="0" bottom="1"/>
                                 </Texture>
                                 <Texture parentKey="RLVert" file="Interface\Common\bluemenu-vert" vertTile="true">                                    <!-- right line -->
                                     <Size x="43" y="270"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="172" y="-87" />
+                                        <Anchor point="TOPLEFT" x="172" y="-87"/>
                                     </Anchors>
                                     <TexCoords left="0.41406250" right="0.75000000" top="0" bottom="1"/>
                                 </Texture>
                                 <Texture parentKey="BottomLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">                                    <!-- bottom line -->
                                     <Size x="80" y="43"/>
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BLCorner" relativePoint="BOTTOMRIGHT" />
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BLCorner" relativePoint="BOTTOMRIGHT"/>
                                     </Anchors>
                                     <TexCoords left="0" right="1" top="0.35937500" bottom="0.69531250"/>
                                 </Texture>
                                 <Texture parentKey="TopLine" file="Interface\Common\bluemenu-goldborder-horiz" horizTile="true">
                                     <Size x="80" y="43"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.TLCorner" relativePoint="TOPRIGHT" />
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.TLCorner" relativePoint="TOPRIGHT"/>
                                     </Anchors>
                                     <TexCoords left="0" right="1" top="0.00781250" bottom="0.34375000"/>
                                 </Texture>
@@ -861,14 +867,14 @@
                                 <Texture parentKey="TopFiligree" file="Interface\Common\bluemenu-main">                                    <!-- top filigree -->
                                     <Size x="185" y="55"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.BlueBg" x="12" y="-6" />
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.BlueBg" x="12" y="-6"/>
                                     </Anchors>
                                     <TexCoords left="0.00390625" right="0.72656250" top="0.12988281" bottom="0.18359375"/>
                                 </Texture>
                                 <Texture parentKey="BottomFiligree" file="Interface\Common\bluemenu-main">                                    <!-- bottom filigree -->
                                     <Size x="185" y="55"/>
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BlueBg" x="12" y="4" />
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.BlueBg" x="12" y="4"/>
                                     </Anchors>
                                     <TexCoords left="0.26171875" right="0.98437500" top="0.06542969" bottom="0.11914063"/>
                                 </Texture>
@@ -877,21 +883,21 @@
                                 <Texture file="Interface\Common\bluemenu-shadowcovers">
                                     <Size x="84" y="324"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="8" y="-61" />
+                                        <Anchor point="TOPLEFT" x="8" y="-61"/>
                                     </Anchors>
                                     <TexCoords left="0.00781250" right="0.66406250" top="0.00097656" bottom="0.34960938"/>
                                 </Texture>
                                 <Texture file="Interface\Common\bluemenu-shadowcovers">
                                     <Size x="84" y="324"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="131" y="-61" />
+                                        <Anchor point="TOPLEFT" x="131" y="-61"/>
                                     </Anchors>
                                     <TexCoords left="0.00781250" right="0.66406250" top="0.35156250" bottom="0.70019531"/>
                                 </Texture>
                                 <Texture file="Interface\Common\bluemenu-vert" vertTile="true">
                                     <Size x="5" y="403"/>
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="215" y="-22" />
+                                        <Anchor point="TOPLEFT" x="215" y="-22"/>
                                     </Anchors>
                                     <TexCoords left="0.00781250" right="0.04687500" top="0" bottom="1"/>
                                 </Texture>
@@ -899,15 +905,15 @@
                         </Layers>
                         <Frames>
                             <Button parentKey="Groups">
-                                <Size x="150" y="24" />
+                                <Size x="150" y="24"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="60" y="-50" />
+                                    <Anchor point="TOPLEFT" x="60" y="-50"/>
                                 </Anchors>
                                 <Layers>
                                     <Layer level="ARTWORK">
                                         <FontString parentKey="Label" inherits="GameFontNormalSmall">
                                             <Anchors>
-                                                <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" />
+                                                <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
                                             </Anchors>
                                         </FontString>
                                     </Layer>
@@ -917,52 +923,52 @@
                     </Frame>
                     <Frame parentKey="Body" inherits="InsetFrameTemplate,MeetingHornChallengeBodyTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="220" y="-60" />
-                            <Anchor point="BOTTOMRIGHT" x="-6" y="136" />
+                            <Anchor point="TOPLEFT" x="220" y="-60"/>
+                            <Anchor point="BOTTOMRIGHT" x="-6" y="136"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString inherits="GameFontNormalLarge" text="活动简介">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="10" y="10" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="10" y="10"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="Title" inherits="GameFontNormalHuge2">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="20" y="-15" />
+                                        <Anchor point="TOPLEFT" x="20" y="-15"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="SubTitle" inherits="GameFontHighlightHuge">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.Title" relativePoint="BOTTOMLEFT" x="0" y="-10" />
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.Title" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="ProgressLabel" inherits="GameFontHighlight">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-20" />
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-20"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="QuestLabel" inherits="GameFontHighlight" text="任务目标：">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-65" />
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-65"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="Time" inherits="GameFontHighlightSmall">
                                     <Anchors>
-                                        <Anchor point="TOPRIGHT" x="-10" y="-10" />
+                                        <Anchor point="TOPRIGHT" x="-10" y="-10"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame parentKey="AddonFrame" />
-                            <Frame parentKey="WebFrame" />
+                            <Frame parentKey="AddonFrame"/>
+                            <Frame parentKey="WebFrame"/>
                             <Frame parentKey="MultiReward" inherits="InsetFrameTemplate,MeetingHornChallengeBodyTemplate" setAllPoints="true" enableMouse="true" hidden="true" frameLevel="100">
                                 <Layers>
                                     <Layer level="ARTWORK">
                                         <FontString inherits="GameFontHighlight" text="请选择奖励">
                                             <Anchors>
-                                                <Anchor point="TOP" x="0" y="-10" />
+                                                <Anchor point="TOP" x="0" y="-10"/>
                                             </Anchors>
                                         </FontString>
                                         <FontString parentKey="FetchedCount" inherits="GameFontHighlight">
@@ -983,9 +989,9 @@
                                             </OnClick>
                                         </Scripts>
                                     </Button>
-                                    <Frame parentKey="Rewards" setAllPoints="true" />
+                                    <Frame parentKey="Rewards" setAllPoints="true"/>
                                     <Button parentKey="Exchange" inherits="UIPanelButtonTemplate" text="领取奖励">
-                                        <Size x="120" y="22" />
+                                        <Size x="120" y="22"/>
                                         <Anchors>
                                             <Anchor point="BOTTOM" x="0" y="10"/>
                                         </Anchors>
@@ -998,27 +1004,27 @@
                                 </Frames>
                             </Frame>
                             <Button parentKey="WebButton" inherits="UIPanelButtonTemplate" text="页面地址">
-                                <Size x="120" y="26" />
+                                <Size x="120" y="26"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-20" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.SubTitle" relativePoint="BOTTOMLEFT" x="0" y="-20"/>
                                 </Anchors>
                             </Button>
                             <StatusBar parentKey="ProgressBar">
-                                <Size x="160" y="10" />
+                                <Size x="160" y="10"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.ProgressLabel" relativePoint="BOTTOMLEFT" x="0" y="-10" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.ProgressLabel" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
                                 </Anchors>
                                 <Layers>
                                     <Layer level="OVERLAY">
                                         <Texture file="Interface\PaperDollInfoFrame\UI-Character-Skills-BarBorder">
-                                            <Size x="168" y="22" />
+                                            <Size x="168" y="22"/>
                                             <Anchors>
-                                                <Anchor point="LEFT" x="-5" y="0" />
+                                                <Anchor point="LEFT" x="-5" y="0"/>
                                             </Anchors>
                                         </Texture>
                                         <FontString parentKey="TextString" inherits="NumberFontNormal">
                                             <Anchors>
-                                                <Anchor point="CENTER" />
+                                                <Anchor point="CENTER"/>
                                             </Anchors>
                                         </FontString>
                                     </Layer>
@@ -1036,14 +1042,14 @@
                             <Button parentKey="UpdateButton">
                                 <Size x="32" y="32"/>
                                 <Anchors>
-                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.ProgressBar" relativePoint="BOTTOMRIGHT" x="10" y="0" />
+                                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.ProgressBar" relativePoint="BOTTOMRIGHT" x="10" y="0"/>
                                 </Anchors>
                                 <Layers>
                                     <Layer level="ARTWORK" textureSubLevel="5">
                                         <Texture parentKey="Icon" file="Interface\Buttons\UI-RefreshButton">
                                             <Size x="16" y="16"/>
                                             <Anchors>
-                                                <Anchor point="CENTER" />
+                                                <Anchor point="CENTER"/>
                                             </Anchors>
                                         </Texture>
                                     </Layer>
@@ -1073,49 +1079,49 @@
                                 </Scripts>
                             </Button>
                             <Frame parentKey="FormText" hyperlinksEnabled="true">
-                                <Size x="1" y="1" />
+                                <Size x="1" y="1"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.QuestLabel" relativePoint="BOTTOMLEFT" x="0" y="-5" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.QuestLabel" relativePoint="BOTTOMLEFT" x="0" y="-5"/>
                                 </Anchors>
                             </Frame>
                             <Frame parentKey="Reward" inherits="MeetingHornChallengeRewardTemplate">
-                                <Size x="160" y="120" />
+                                <Size x="160" y="120"/>
                                 <Anchors>
-                                    <Anchor point="CENTER" relativePoint="TOPRIGHT" x="-145" y="-110" />
+                                    <Anchor point="CENTER" relativePoint="TOPRIGHT" x="-145" y="-110"/>
                                 </Anchors>
                                 <Layers>
                                     <Layer level="ARTWORK">
                                         <Texture parentKey="Banner" inherits="store-card-splash-banner">
                                             <Size x="154" y="34"/>
                                             <Anchors>
-                                                <Anchor point="CENTER" relativePoint="TOP" x="0" y="-3" />
+                                                <Anchor point="CENTER" relativePoint="TOP" x="0" y="-3"/>
                                             </Anchors>
                                         </Texture>
                                     </Layer>
                                     <Layer level="OVERLAY">
                                         <FontString inherits="GameFontBlackSmall" text="活动奖励">
                                             <Anchors>
-                                                <Anchor point="CENTER" relativeKey="$parent.Banner" relativePoint="CENTER" x="0" y="7" />
+                                                <Anchor point="CENTER" relativeKey="$parent.Banner" relativePoint="CENTER" x="0" y="7"/>
                                             </Anchors>
                                         </FontString>
                                         <FontString parentKey="FetchedCount" inherits="GameFontHighlightSmall">
                                             <Anchors>
-                                                <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-38" />
+                                                <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-38"/>
                                             </Anchors>
                                         </FontString>
                                     </Layer>
                                 </Layers>
                                 <Frames>
                                     <Button parentKey="Exchange" inherits="UIPanelButtonTemplate">
-                                        <Size x="100" y="26" />
+                                        <Size x="100" y="26"/>
                                         <Anchors>
-                                            <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-10" />
+                                            <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-10"/>
                                         </Anchors>
                                     </Button>
                                     <Button parentKey="View" inherits="UIPanelButtonTemplate" text="查看奖励">
-                                        <Size x="100" y="26" />
+                                        <Size x="100" y="26"/>
                                         <Anchors>
-                                            <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-10" />
+                                            <Anchor point="TOP" relativePoint="BOTTOM" x="0" y="-10"/>
                                         </Anchors>
                                     </Button>
                                 </Frames>
@@ -1124,20 +1130,20 @@
                     </Frame>
                     <Frame parentKey="Summary" hyperlinksEnabled="true" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.Body" relativePoint="BOTTOMLEFT" x="0" y="-30" />
-                            <Anchor point="BOTTOMRIGHT" x="-6" y="6" />
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Body" relativePoint="BOTTOMLEFT" x="0" y="-30"/>
+                            <Anchor point="BOTTOMRIGHT" x="-6" y="6"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString inherits="GameFontNormalLarge" text="活动说明">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="10" y="5" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="10" y="5"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="Text" justifyV="TOP" inherits="GameFontHighlightLeft">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" x="10" y="-10" />
-                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10" />
+                                        <Anchor point="TOPLEFT" x="10" y="-10"/>
+                                        <Anchor point="BOTTOMRIGHT" x="-10" y="10"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -1152,14 +1158,14 @@
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Title" inherits="GameFontNormalHuge2" text="规则说明">
                                     <Anchors>
-                                        <Anchor point="TOP" x="0" y="-40" />
+                                        <Anchor point="TOP" x="0" y="-40"/>
                                     </Anchors>
                                 </FontString>
                                 <FontString parentKey="Content" justifyH="LEFT" inherits="GameFontHighlight">
                                     <Anchors>
-                                        <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-20" />
-                                        <Anchor point="LEFT" x="40" y="0" />
-                                        <Anchor point="RIGHT" x="-40" y="0" />
+                                        <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-20"/>
+                                        <Anchor point="LEFT" x="40" y="0"/>
+                                        <Anchor point="RIGHT" x="-40" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -1168,7 +1174,7 @@
                             <Button inherits="UIPanelButtonTemplate" text="CLOSE">
                                 <Size x="120" y="32"/>
                                 <Anchors>
-                                    <Anchor point="BOTTOM" x="0" y="40" />
+                                    <Anchor point="BOTTOM" x="0" y="40"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnClick>
@@ -1182,20 +1188,20 @@
             </Frame>
             <Frame parentKey="Options">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-80" />
-                    <Anchor point="BOTTOMRIGHT" x="-6" y="26" />
+                    <Anchor point="TOPLEFT" x="4" y="-80"/>
+                    <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
                 </Anchors>
                 <Frames>
                     <Frame parentKey="Options" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" />
-                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-3" y="0" />
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="-3" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="Title" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -1203,14 +1209,14 @@
                     </Frame>
                     <Frame parentKey="Filters" inherits="InsetFrameTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" />
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="3" y="0" />
+                            <Anchor point="TOPRIGHT"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="3" y="0"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
                                 <FontString parentKey="FilterTitle" inherits="GameFontNormal">
                                     <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0" />
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="6" y="0"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -1218,22 +1224,22 @@
                         <Frames>
                             <ScrollFrame parentKey="FilterList" inherits="HybridScrollFrameTemplate">
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" x="5" y="-5" />
-                                    <Anchor point="BOTTOMRIGHT" x="-20" y="5" />
+                                    <Anchor point="TOPLEFT" x="5" y="-5"/>
+                                    <Anchor point="BOTTOMRIGHT" x="-20" y="5"/>
                                 </Anchors>
                                 <Frames>
                                     <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13" />
-                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12" />
+                                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="0" y="-13"/>
+                                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="12"/>
                                         </Anchors>
                                     </Slider>
                                 </Frames>
                             </ScrollFrame>
                             <Button parentKey="Add" inherits="UIPanelButtonTemplate" text="ADD">
-                                <Size x="60" y="22" />
+                                <Size x="60" y="22"/>
                                 <Anchors>
-                                    <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" x="0" y="-1" />
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" x="0" y="-1"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnClick>
@@ -1243,9 +1249,9 @@
                                 </Scripts>
                             </Button>
                             <Button parentKey="Import" inherits="UIPanelButtonTemplate">
-                                <Size x="60" y="22" />
+                                <Size x="60" y="22"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Add" relativePoint="RIGHT" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Add" relativePoint="RIGHT"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnClick>
@@ -1255,9 +1261,9 @@
                                 </Scripts>
                             </Button>
                             <Button parentKey="Export" inherits="UIPanelButtonTemplate">
-                                <Size x="60" y="22" />
+                                <Size x="60" y="22"/>
                                 <Anchors>
-                                    <Anchor point="LEFT" relativeKey="$parent.Import" relativePoint="RIGHT" />
+                                    <Anchor point="LEFT" relativeKey="$parent.Import" relativePoint="RIGHT"/>
                                 </Anchors>
                                 <Scripts>
                                     <OnClick>
@@ -1338,7 +1344,7 @@
             </Layer>
             <Layer level="BACKGROUND">
                 <Texture file="Interface\AddOns\MeetingHorn\Media\DataBrokerBg">
-                    <TexCoords left="0" right="0.890625" top="0" bottom="0.890625" />
+                    <TexCoords left="0" right="0.890625" top="0" bottom="0.890625"/>
                 </Texture>
             </Layer>
         </Layers>
@@ -1346,14 +1352,14 @@
             <Frame parentKey="Flash" hidden="true">
                 <Size y="30"/>
                 <Anchors>
-                    <Anchor point="BOTTOM" x="0" y="9" />
-                    <Anchor point="LEFT" x="45" y="0" />
-                    <Anchor point="RIGHT" x="-10" y="0" />
+                    <Anchor point="BOTTOM" x="0" y="9"/>
+                    <Anchor point="LEFT" x="45" y="0"/>
+                    <Anchor point="RIGHT" x="-10" y="0"/>
                 </Anchors>
                 <Layers>
                     <Layer level="BACKGROUND">
                         <Texture file="INTERFACE\CHATFRAME\ChatFrameTab-NewMessage" alphaMode="ADD" setAllPoints="true">
-                            <Color r="1" g="0.89" b="0.18" />
+                            <Color r="1" g="0.89" b="0.18"/>
                         </Texture>
                     </Layer>
                 </Layers>

@@ -1,13 +1,19 @@
 ## Interface: 11307
-## Title: Decursive
+## Title: Decursive |cffff00ff -Ace3-|r
 ## Title-zhCN: [大脚][集]一键驱散
 ## Title-zhTW: [大腳][集]一鍵驅散
 ## Notes: |cffbc8f8fAfflictions display and cleaning for solo, group and raid with advanced filtering and priority system.|r
 ## Notes-zhCN: |cff00ff00Decursive|r|n|cffbc8f8f当单独、小队和团队时清除有害状态，并可使用高级过滤和优先等级系统。|r
 ## Notes-zhTW: |cff00ff00Decursive|r|n|cffbc8f8f當單獨、小隊和團隊時清除有害狀態，並可使用高級過濾和優先等級系統。|r
 ## SavedVariables: DecursiveDB
-## Version: 2.7.8.1
+## Version: 2.7.8.3
 ## Author: John Wellesz
+## X-LoadOn-Class: Mage, Priest, Paladin, Druid, Hunter, Warlock, Shaman, Monk, Deathknight
+## X-LoadOn-Slash: /decursive, /dcr
+## X-Website: http://www.2072productions.com/to/decursive.php
+## X-Credits: Sylvin (Full french translation), Peter Sun, Ananhaid (ZhTW and zhCN translation), Fenlis, Chkid (koKR translation), Hemathio, Swix, Athariel, StingerSoft (Russian Translation), Freydis88, Floyddotnet, Vilogity, Dessa, Farook (German translation)
+## X-Curse-Project-ID: 2154
+## X-AceForum: 4195
 ## X-eMail: Decursive@2072productions.com
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot

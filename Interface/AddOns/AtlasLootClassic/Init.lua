@@ -50,3 +50,9 @@ _G.AtlasLoot.Init = {}
 
 -- Data table
 _G.AtlasLoot.Data = {}
+
+-- Version
+local CurrentGameVersion = tonumber(string.sub(GetBuildInfo(), 0, 1))
+function AtlasLoot:GetGameVersion()
+	return CurrentGameVersion
+end

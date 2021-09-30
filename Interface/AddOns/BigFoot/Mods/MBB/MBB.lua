@@ -34,22 +34,22 @@ local ignored = {
 	["TDial_TrackButton"]=true,
 	["MiniMapTracking"]=true,
 	["GatherMatePin"]=true,
-	["HandyNotesPin"] = true,
+	["HandyNotes.*Pin"] = true,
 	["TimeManagerClockButton"] = true,
 	["GameTimeFrame"] = true,
 	["DA_Minimap"] = true,
 	["ElvConfigToggle"] = true,
 	["TimeManagerClockButton"]=true,
-	["GatherMate"] = true,
-	["MiniMapLFGFrame"] = true,
+	["MinimapZoneTextButton"] = true,
+	["GuildInstanceDifficulty"]=true,
 	["MiniMapVoiceChatFrame"] = true,
 	["QueueStatusMinimapButton"] = true,
-	["MinimapZoneTextButton"] = true,
-	["BFGPSButton"]=true,
-	["GuildInstanceDifficulty"]=true,
 	["GatherArchNote"]=true,
 	["ZGVMarker"]=true,
 	["QuestPointerPOI"] = true,
+	["MiniMapLFGFrame"] = true,
+	["BFGPSButton"]=true,
+	["GatherMate"] = true,
 	["LibDBIcon10_bfModelChange"] = true,
 	["LibDBIcon10_HandyNotes_NPCs"] = true,
 	["QuestieFrame"] = true,
@@ -526,15 +526,13 @@ function M:addignored(frame)
 end
 
 do
-	local MBB = LibStub("AceAddon-3.0"):GetAddon("MBB");
-
 	BigFoot_DelayCall(function()
 		if GarrisonLandingPageMinimapButton then
 			GarrisonLandingPageMinimapButton:RegisterForClicks("LeftButtonDown","RightButtonDown");		--注册左右键点击事件
 			if BigFoot_SysTemSetTab.showGarrisonMinimapButton then		--按默认的打开
-				MBB:addignored("GarrisonLandingPageMinimapButton");
+				M:addignored("GarrisonLandingPageMinimapButton");
 			else
-				MBB:removeignored("GarrisonLandingPageMinimapButton");
+				M:removeignored("GarrisonLandingPageMinimapButton");
 			end
 			if GarrisonLandingPageMinimapButton:HasScript("OnClick") then
 				local script = GarrisonLandingPageMinimapButton:GetScript("OnClick");
@@ -543,9 +541,9 @@ do
 					if button == "RightButton" then		--按右键则变动图标位置
 						BigFoot_SysTemSetTab.showGarrisonMinimapButton = not BigFoot_SysTemSetTab.showGarrisonMinimapButton;
 						if BigFoot_SysTemSetTab.showGarrisonMinimapButton then
-							MBB:addignored("GarrisonLandingPageMinimapButton");
+							M:addignored("GarrisonLandingPageMinimapButton");
 						else
-							MBB:removeignored("GarrisonLandingPageMinimapButton");
+							M:removeignored("GarrisonLandingPageMinimapButton");
 						end
 					else
 						if script then

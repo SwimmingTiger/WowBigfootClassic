@@ -9,7 +9,6 @@ local ipairs = ipairs
 local pairs = pairs
 local C_Map = C_Map
 local CombatLogGetCurrentEventInfo = CombatLogGetCurrentEventInfo
-local UnitName = UnitName
 
 ---@type ns
 local ADDON_NAME, ns = ...
@@ -24,7 +23,7 @@ local NPC_DATA = {
         },
         [L['艾法希比元帅']] = {
             id = 22888,
-            npc = 14721, -- 
+            npc = 14721, --
         },
     },
     Horde = {
@@ -52,23 +51,23 @@ function WorldBuff:OnEnable()
     self.data = {}
     self:RegisterEvent('CHAT_MSG_MONSTER_YELL')
     self:RegisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
-    --[===[@debug@
+    --[=[@debug@
     print('buff enable')
-    --@end-debug@]===]
+    --@end-debug@]=]
 end
 
 function WorldBuff:OnDisable()
     self:UnregisterAllEvents()
-    --[===[@debug@
+    --[=[@debug@
     print('buff disable')
-    --@end-debug@]===]
+    --@end-debug@]=]
 end
 
 function WorldBuff:SetStatus(enable)
     self.enable = enable
-    --[===[@debug@
+    --[=[@debug@
     print('SetStatus', enable, self:IsZoneUsable())
-    --@end-debug@]===]
+    --@end-debug@]=]
     self:CheckEnable()
 end
 
@@ -116,9 +115,9 @@ function WorldBuff:CHAT_MSG_MONSTER_YELL(_, msg, name)
     local item = data and data[name] or nil
     if item then
         self:RecordYell(item, name)
-        --[===[@debug@
+        --[=[@debug@
         print('Record Yell', name, msg)
-        --@end-debug@]===]
+        --@end-debug@]=]
     end
 end
 
@@ -129,9 +128,9 @@ function WorldBuff:SetPos(data)
             self.pos[v[1]] = {x = v[2], y = v[3], distance = v[4]}
         end
     end
-    --[===[@debug@
+    --[=[@debug@
     print(self.pos)
-    --@end-debug@]===]
+    --@end-debug@]=]
 end
 
 function WorldBuff:TestPlayerPos(npc)
@@ -141,31 +140,31 @@ function WorldBuff:TestPlayerPos(npc)
     local pos = self.pos[npc]
     local x, y = UnitPosition('player')
     local distance = math.abs(((pos.x - x) ^ 2 + (pos.y - y) ^ 2) ^ 0.5)
-    --[===[@debug@
+    --[=[@debug@
     print('Test distance', distance <= pos.distance)
-    --@end-debug@]===]
+    --@end-debug@]=]
     return distance <= pos.distance
 end
 
 function WorldBuff:CheckValidBuff(spellName, id, data)
     local spellId = select(10, AuraUtil.FindAuraByName(spellName, 'player'))
     if spellId ~= id then
-        --[===[@debug@
+        --[=[@debug@
         print('Not found buff')
-        --@end-debug@]===]
+        --@end-debug@]=]
         return
     end
     for npc, t in pairs(data) do
-        --[===[@debug@
+        --[=[@debug@
         print('Test npc Yell time', GetServerTime(), t, GetServerTime() - t)
-        --@end-debug@]===]
+        --@end-debug@]=]
         if self:TestPlayerPos(npc) and GetServerTime() - t <= 10 then
             return npc
         end
     end
 end
 
---[===[@debug@
+--[=[@debug@
 function WorldBuff:Test()
     local data = self:GetData()
     if not data then
@@ -198,7 +197,7 @@ C_Timer.After(3, function()
         end
     end
 end)
---@end-debug@]===]
+--@end-debug@]=]
 
 function WorldBuff:COMBAT_LOG_EVENT_UNFILTERED()
     local timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
@@ -220,23 +219,23 @@ function WorldBuff:COMBAT_LOG_EVENT_UNFILTERED()
 
         ns.LFG:KillWorldBuffNpc(zoneId, npcId)
     elseif subEvent == 'SPELL_AURA_APPLIED' or subEvent == 'SPELL_AURA_REFRESH' then
-        if destName ~= UnitName('player') then
+        if destName ~= ns.UnitFullName('player') then
             return
         end
 
-        --[===[@debug@
+        --[=[@debug@
         print(timestamp, subEvent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName,
               destFlags, destRaidFlags, _, spellName)
-        --@end-debug@]===]
+        --@end-debug@]=]
 
         local unitType, _, _, _, zoneId, npcId = strsplit('-', sourceGUID)
         if unitType ~= 'Creature' then
             return
         end
 
-        --[===[@debug@
+        --[=[@debug@
         print('Instance id', zoneId)
-        --@end-debug@]===]
+        --@end-debug@]=]
 
         for spellId, v in pairs(self.data) do
             local npc = self:CheckValidBuff(spellName, spellId, v)

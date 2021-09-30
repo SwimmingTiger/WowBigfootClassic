@@ -1,5 +1,5 @@
 ## Interface: 11307
-## Version: v1.13.6d
+## Version: v1.13.7c
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計

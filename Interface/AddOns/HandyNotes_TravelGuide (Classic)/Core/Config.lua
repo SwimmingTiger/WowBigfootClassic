@@ -85,8 +85,8 @@ config.options = {
                 },
                 show_tram = {
                     type = "toggle",
-                    name = L["config_deeprun_tram"],
-                    desc = L["config_deeprun_tram_desc"],
+                    name = L["config_tram"],
+                    desc = L["config_tram_desc"],
                     order = 16,
                 },
                 show_note = {
@@ -103,8 +103,8 @@ config.options = {
                 easy_waypoint = {
                     type = "toggle",
                     width = "full",
-                    name = function() 
-                        if TomTom then 
+                    name = function()
+                        if TomTom then
                             return L["config_easy_waypoints"]
                         else
                             return L["config_easy_waypoints"].." |cFFFF0000("..L["config_easy_waypoints_requires"].." TomTom)|r"
@@ -138,13 +138,13 @@ config.options = {
 --      desc = L["config_scale_alpha_desc"],
         order = 1,
         args = {
-        
+
         },
     },
     },
 }
 
-for i, icongroup in ipairs({"boat", "zeppelin", "deeprun_tram"}) do
+for i, icongroup in ipairs({"boat", "zeppelin", "tram"}) do
 
     config.options.args.SCALEALPHA.args["name_"..icongroup] = {
         type = "header",

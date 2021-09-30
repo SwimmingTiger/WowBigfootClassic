@@ -1,5 +1,6 @@
 --191104 bakup
 local _, NS = ...;
+	--	 S:		1_level, 2_id, 3_name, 4_rank, 5_cost, 6_passive, 7_talent, 8_require_id/prev_rank_id, 9_actually_require_id/first_rank_id
 NS._spellDB = {
 	druid = {
 		{ 1, 5185, "治疗之触", 1, 0, },
@@ -1310,6 +1311,7 @@ NS._spellDB = {
 		-- { 60, 25289, "战斗怒吼", 7, 0, nil, nil, 11551, 6673, },
 	},
 };
+	--	 P:		1_level, 2_id, 3_cost, 4_phase, name, passive, talent, class
 NS._spellDB_P = {
 	druid = {
 		{ name = "愤怒", { 1, 5176, 0, }, { 6, 5177, 100, }, { 14, 5178, 900, }, { 22, 5179, 3000, }, { 30, 5180, 6000, }, { 38, 6780, 12000, }, { 46, 8905, 20000, }, { 54, 9912, 28000, }, },

@@ -1,4 +1,4 @@
---[[--
+﻿--[[--
 	alex@0
 --]]--
 ----------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ L.resetToSetButton = "重置到初始状态";
 L.readOnlyButton = "\124cff00ff00点击\124r设置";
 L.closeButton = "关闭窗口";
 
-L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r载入预设天赋树\n    (拷自\124cffff0000wowhead\124r)";
+L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除保存的天赋";
 L.inspectTargetButton = "观察目标天赋";
 L.spellTabButton = "技能列表窗口";
 L.spellAvailable = "\124cff00ff00技能可用\124r";
@@ -46,8 +46,8 @@ L.applyTalentsButton = "应用当前天赋模拟";
 L.applyTalentsButton_Notify = "确定应用当前天赋？";
 L.importButton = "导入字符串或wowhead/nfu/yxrank链接";
 L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右键\124r导出到\124cffff0000wowhead/nfu/yxrank\124r网页链接";
-L.saveButton = "\124cff00ff00左键\124r点击保存天赋设置\n\124cff00ff00右键\124r点击加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
-L.sendButton = "\124cff00ff00左键\124r点击发送天赋到聊天\n\124cff00ff00右键\124r点击查看最近聊天中的天赋";
+L.saveButton = "\124cff00ff00左键\124r保存天赋设置\n\124cff00ff00右键\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
+L.sendButton = "\124cff00ff00左键\124r发送天赋到聊天\n\124cff00ff00右键\124r查看最近聊天中的天赋";
 L.equipmentButton = "打开装备查看";
 
 L.TalentFrameCallButton = "打开ala天赋模拟器";
@@ -57,6 +57,8 @@ L.nextRank = "下一等级";
 L.maxRank = "最高等级";
 L.reqPoints = "%d/%d点%s";
 
+L.level_60 = "切换到60级天赋 |cffff0000自动重载插件|r";
+L.level_70 = "切换到70级天赋 |cffff0000自动重载插件|r";
 L.resizable_border_TRUE = "拖动窗口边缘可改变大小";
 L.resizable_border_FALSE = "禁止拖动窗口边缘来改变大小";
 L.SetWinStyle_BLZ = "设置窗口为暴雪风格";
@@ -171,3 +173,29 @@ L.SLOT = {
 };
 L.EMTPY_SLOT = "\124cffff0000未装备\124r";
 L.MISS_ENCHANT = "\124cffff0000缺少附魔\124r";
+
+
+
+
+
+
+L.POWERTYPE = {
+	[-2] = "生命值",
+	[0] = "法力值",
+	[1] = "怒气",
+	[2] = "集中值",
+	[3] = "能量",
+};
+L.POWERPERCENT = "%d%%基础%s";
+L.POWERPOINT = "%d点%s";
+L.POWERPOINTPERSECOND = "%d点%s每秒";
+L.RANGEYARD = "%d码";
+L.RANGEYARD2 = "%d至%d码";
+L.RANGE0 = "近战范围";
+L.CASTINGTIME = "%d秒施法时间";
+L.CASTINGTIMEINSTANT = "瞬发技能";
+L.CDSECOND = "%d秒冷却时间";
+L.CDMINUTE = "%d分钟冷却时间";
+
+L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "无法应用天赋: 需要更多天赋点数";
+L["CANNOT APPLY : TALENTS IN CONFLICT."] = "无法应用天赋: 跟当前天赋存在冲突";

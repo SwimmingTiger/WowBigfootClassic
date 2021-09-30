@@ -1,0 +1,541 @@
+<Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="GoodLeaderRaidTemplate" virtual="true">
+        
+        <Size x="90" y="62"/>
+        <Layers>
+            <Layer level="BACKGROUND" textureSubLevel="1">
+                <Texture parentKey="Image">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="3" y="-3"/>
+                        <Anchor point="BOTTOMRIGHT" x="-3" y="3"/>
+                    </Anchors>
+                    <TexCoords left="0.05" right="0.63359375" top="0.05" bottom="0.6921875"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Mask" file="Interface\Tooltips\ui-tooltip-background">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="-2"/>
+                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-2" y="-32"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Name" inherits="GameFontHighlightSmallLeft">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="7" y="-7"/>
+                        <Anchor point="TOPRIGHT" x="-7" y="-7"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="CountLabel" inherits="GameFontHighlightSmallRight" text="VOICEMACRO_LABEL_CHARGE1">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Count" inherits="GameFontHighlightLarge" text="0">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.CountLabel" relativePoint="LEFT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize>
+                <AbsValue val="12"/>
+            </EdgeSize>
+            <TileSize>
+                <AbsValue val="12"/>
+            </TileSize>
+            <BackgroundInsets>
+                <AbsInset left="5" right="5" top="5" bottom="5"/>
+            </BackgroundInsets>
+        </Backdrop>
+        <Scripts>
+            <OnLoad>
+                LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
+                self:SetBackdropBorderColor(0.5,0.5,0.5)
+                self.Mask:SetBlendMode('ADD')
+                self.Mask:SetGradientAlpha('VERTICAL',0,0,0,0,1,1,1,0.8)
+            </OnLoad>
+        </Scripts>
+    </Frame>
+    <Frame name="GoodLeaderScoreItemTemplate" virtual="true">
+        <Size x="200" y="36"/>
+        <Frames>
+            <Frame parentKey="Score">
+                <Size x="100" y="20"/>
+                <Anchors>
+                    <Anchor point="RIGHT"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        LibStub('AceAddon-3.0'):GetAddon('MeetingHorn'):GetClass('UI.ScoreWidget'):Bind(self)
+                        self:SetValue(1)
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Texture">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                    </Anchors>
+                    <Size x="26" y="26"/>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Texture" relativePoint="RIGHT" x="10" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Overlay" file="Interface\AchievementFrame\UI-Achievement-IconFrame">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.Texture" relativePoint="CENTER"/>
+                    </Anchors>
+                    <Size x="38" y="38"/>
+                    <TexCoords left="0" right="0.5625" top="0" bottom="0.5625"/>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame>
+    <Frame name="GoodLeaderScoreResultTemplate" virtual="true">
+        <Size x="150" y="36"/>
+        <Frames>
+            <Frame parentKey="Score">
+                <Size x="100" y="20"/>
+                <Anchors>
+                    <Anchor point="RIGHT"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        LibStub('AceAddon-3.0'):GetAddon('MeetingHorn'):GetClass('UI.ScoreWidget'):Bind(self)
+                        self:SetValue(5)
+                        self:SetReadOnly(true)
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Text" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.Score" relativePoint="LEFT" x="-10" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+    <Frame name="GoodLeaderTemplate" virtual="true">
+        <Frames>
+            <Frame parentKey="First" setAllPoints="true">
+                <Frames>
+                    <Frame parentKey="Header" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMRIGHT" relativePoint="RIGHT" x="0" y="10"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Name" inherits="GameFontNormalLarge">
+                                    <Anchors>
+                                        <Anchor point="TOP" x="0" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="Disconnect" hidden="true" inherits="GameFontNormal">
+                                    <Anchors>
+                                        <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-50"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Button parentKey="Search">
+                                <Size x="140" y="64"/>
+                                <Anchors>
+                                    <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-30"/>
+                                </Anchors>
+                                <NormalTexture file="Interface\AddOns\MeetingHorn\Media\btn_gl_search_normal">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </NormalTexture>
+                                <PushedTexture file="Interface\AddOns\MeetingHorn\Media\btn_gl_search_pressed">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </PushedTexture>
+                                <HighlightTexture file="Interface\AddOns\MeetingHorn\Media\btn_gl_search_hover" alphaMode="ADD">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </HighlightTexture>
+                                <DisabledTexture file="Interface\AddOns\MeetingHorn\Media\btn_gl_search_disable">
+                                    <TexCoords left="0" right="0.546875" top="0" bottom="1"/>
+                                </DisabledTexture>
+                                <ButtonText inherits="GameFontHighlightSmall"/>
+                            </Button>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Footer" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Header" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="BOTTOMRIGHT" x="-173"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Text" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="16" y="-30"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="Title" inherits="GameFontNormalLeft">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.Text" relativePoint="TOPLEFT" x="0" y="5"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <Frame parentKey="Inset" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Footer" relativePoint="TOPRIGHT"/>
+                            <Anchor point="BOTTOMRIGHT"/>
+                        </Anchors>
+                        <Frames>
+                            <Button parentKey="QRCode">
+                                <Size x="152" y="152"/>
+                                <Anchors>
+                                    <Anchor point="TOP" x="0" y="-10"/>
+                                </Anchors>
+                            </Button>
+                        </Frames>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString inherits="GameFontNormalSmall" text="微信扫码 查询团长">
+                                    <Anchors>
+                                        <Anchor point="TOP" relativeKey="$parent.QRCode" relativePoint="BOTTOM" x="0" y="-5"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+            <Frame parentKey="Result" hidden="true" setAllPoints="true">
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Name" inherits="GameFontNormalLarge">
+                            <Anchors>
+                                <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="20"/>
+                            </Anchors>
+                        </FontString>
+                        <FontString parentKey="Tags" inherits="GameFontGreen">
+                            <Anchors>
+                                <Anchor point="TOP" relativeKey="$parent.Name" relativePoint="BOTTOM" x="0" y="-2"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Score" inherits="InsetFrameTemplate">
+                        <Size y="50"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="TOPRIGHT"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="NoResult" inherits="GameFontNormal">
+                                    <Anchors>
+                                        <Anchor point="CENTER"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame parentKey="Score2" inherits="GoodLeaderScoreResultTemplate">
+                                <Anchors>
+                                    <Anchor point="CENTER"/>
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Score1" inherits="GoodLeaderScoreResultTemplate">
+                                <Anchors>
+                                    <Anchor point="RIGHT" relativeKey="$parent.Score2" relativePoint="LEFT" x="-10" y="0"/>
+                                </Anchors>
+                            </Frame>
+                            <Frame parentKey="Score3" inherits="GoodLeaderScoreResultTemplate">
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeKey="$parent.Score2" relativePoint="RIGHT" x="10" y="0"/>
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Raids" inherits="InsetFrameTemplate">
+                        <Size y="160"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Score" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="TOPRIGHT"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="Title" inherits="GameFontNormalLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="20" y="-20"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame inherits="GoodLeaderRaidTemplate" parentArray="instances">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT" relativeKey="$parent.Title" relativePoint="BOTTOMLEFT" x="0" y="-20"/>
+                                </Anchors>
+                            </Frame>
+                        </Frames>
+                    </Frame>
+                    <Frame parentKey="Info" inherits="InsetFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Raids" relativePoint="BOTTOMLEFT"/>
+                            <Anchor point="BOTTOMRIGHT"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="ItemLevel" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="20" y="-15"/>
+                                    </Anchors>
+                                </FontString>
+                                <FontString parentKey="Guild" inherits="GameFontHighlightLeft">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevel" relativePoint="BOTTOMLEFT" x="0" y="-13"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+    <CheckButton name="GoodLeaderTagLabelTemplate" virtual="true">
+        <Size x="100" y="20"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="BgLeft" file="Interface\AddOns\MeetingHorn\Media\bg">
+                    <Size x="4"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0" right="0.2" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BgRight" file="Interface\AddOns\MeetingHorn\Media\bg">
+                    <Size x="4"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
+                    </Anchors>
+                    <TexCoords left="0.8" right="1" top="0" bottom="1"/>
+                </Texture>
+                <Texture parentKey="BgMiddle" file="Interface\AddOns\MeetingHorn\Media\bg">
+                    <Size x="4"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.BgLeft" relativePoint="TOPRIGHT"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BgRight" relativePoint="BOTTOMLEFT"/>
+                    </Anchors>
+                    <TexCoords left="0.2" right="0.8" top="0" bottom="1"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <ButtonText parentKey="Text"/>
+        <NormalFont style="GameFontHighlightSmall"/>
+        <HighlightFont style="GameFontNormalSmall"/>
+        <CheckFont style="GameFontNormalSmall"/>
+        <DisabledFont style="GameFontHighlightSmall"/>
+        <Scripts>
+            <OnLoad>
+                LibStub('AceAddon-3.0'):GetAddon('MeetingHorn'):GetClass('UI.TagLabel'):Bind(self)
+                self.BgLeft:SetVertexColor(0.5,0.5,0.5,0.3)
+                self.BgRight:SetVertexColor(0.5,0.5,0.5,0.3)
+                self.BgMiddle:SetVertexColor(0.5,0.5,0.5,0.3)
+            </OnLoad>
+        </Scripts>
+    </CheckButton>
+    <Frame name="GoodLeaderGradePanelTemplate" toplevel="true" hidden="true" frameStrata="DIALOG" enableMouse="true" parent="UIParent" virtual="true">
+        <Size x="350" y="1"/>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+            <BackgroundInsets left="11" right="11" top="11" bottom="11"/>
+            <TileSize val="32"/>
+            <EdgeSize val="32"/>
+        </Backdrop>
+        
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="Logo">
+                    <Size x="128" y="64"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="-20"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="Title" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-30"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="SubTitle" inherits="GameFontHighlight">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-5"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Label1" inherits="GameFontHighlightSmall">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-35"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="Label2" inherits="GameFontHighlightSmall">
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.Title" relativePoint="BOTTOM" x="0" y="-200"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="ARTWORK" textureSubLevel="-1">
+                <Texture parentKey="TextBackground" atlas="AdventureMapLabel-Large">
+                    <Size y="30"/>
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Title" relativePoint="LEFT" x="-40" y="0"/>
+                        <Anchor point="RIGHT" relativeKey="$parent.Title" relativePoint="RIGHT" x="40" y="0"/>
+                    </Anchors>
+                </Texture>
+                <Texture file="Interface\Common\UI-TooltipDivider-Transparent">
+                    <Size y="8"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Label1" relativePoint="BOTTOMLEFT" x="-5" y="-2"/>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.Label1" relativePoint="BOTTOMRIGHT" x="5" y="-2"/>
+                    </Anchors>
+                </Texture>
+                <Texture file="Interface\Common\UI-TooltipDivider-Transparent">
+                    <Size y="8"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Label2" relativePoint="BOTTOMLEFT" x="-5" y="-2"/>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.Label2" relativePoint="BOTTOMRIGHT" x="5" y="-2"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame parentKey="Score1" inherits="GoodLeaderScoreItemTemplate" id="1">
+                <Anchors>
+                    <Anchor point="TOP" relativeKey="$parent.Label1" relativePoint="BOTTOM" x="0" y="-15"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Score2" inherits="GoodLeaderScoreItemTemplate" id="2">
+                <Anchors>
+                    <Anchor point="TOP" relativeKey="$parent.Score1" relativePoint="BOTTOM" x="0" y="-5"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Score3" inherits="GoodLeaderScoreItemTemplate" id="3">
+                <Anchors>
+                    <Anchor point="TOP" relativeKey="$parent.Score2" relativePoint="BOTTOM" x="0" y="-5"/>
+                </Anchors>
+            </Frame>
+            <Frame parentKey="Tags">
+                <Size y="10"/>
+                <Anchors>
+                    <Anchor point="TOP" relativeKey="$parent.Label2" relativePoint="BOTTOM" x="0" y="-15"/>
+                    <Anchor point="LEFT" x="50" y="0"/>
+                    <Anchor point="RIGHT" x="-50" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Text" inherits="GameFontHighlight">
+                            <Anchors>
+                                <Anchor point="TOP" x="0" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad>
+                        LibStub('AceAddon-3.0'):GetAddon('MeetingHorn'):GetClass('UI.TagsContainer'):Bind(self)
+                    </OnLoad>
+                    <OnSizeChanged>
+                        C_Timer.After(0, function()
+                            self:GetParent():SetHeight(self:GetHeight() + 340)
+                        end)
+                    </OnSizeChanged>
+                </Scripts>
+            </Frame>
+            <Button parentKey="Commit" inherits="UIPanelButtonTemplate" text="SUBMIT">
+                <Size x="100" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" x="0" y="30"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="Cancel" inherits="UIPanelButtonTemplate" text="CANCEL">
+                <Size x="100" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOM" x="0" y="30"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick function="HideParentPanel"/>
+                </Scripts>
+            </Button>
+            <Frame parentKey="QrCodeFrame" hidden="true">
+                <Size x="189" y="189"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background-Dark" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+                    <BackgroundInsets left="11" right="11" top="11" bottom="11"/>
+                    <TileSize val="32"/>
+                    <EdgeSize val="32"/>
+                </Backdrop>
+                
+                <Frames>
+                    <Button parentKey="QRCode">
+                        <Size x="152" y="152"/>
+                        <Anchors>
+                            <Anchor point="CENTER"/>
+                        </Anchors>
+                    </Button>
+                </Frames>
+                <Scripts>
+                    <OnLoad>
+                        LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
+                    </OnLoad>
+                </Scripts>
+            </Frame>
+            <Button>
+                <Size x="48" y="48"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-11" y="11"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString inherits="GameFontNormalSmall" text="微信扫码 查询团长">
+                            <Anchors>
+                                <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="-5" y="0"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <NormalTexture file="Interface\AddOns\MeetingHorn\Media\goodleader_icon_qrcoad_normal">
+                </NormalTexture>
+                <HighlightTexture file="Interface\AddOns\MeetingHorn\Media\goodleader_icon_qrcoad_hover" alphaMode="ADD">
+                </HighlightTexture>
+                <Scripts>
+                    <OnEnter>
+                        self:GetParent().QrCodeFrame:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        self:GetParent().QrCodeFrame:Hide()
+                    </OnLeave>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
+            </OnLoad>
+        </Scripts>
+    </Frame>
+</Ui>

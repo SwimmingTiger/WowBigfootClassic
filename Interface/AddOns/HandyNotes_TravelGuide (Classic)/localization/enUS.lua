@@ -30,8 +30,8 @@ L["config_zeppelin_desc"] = "Show the Zeppelin locations."
 L["config_zeppelin_horde"] = "Horde Zeppelin"
 L["config_zeppelin_horde_desc"] = "Show the Horde Zeppelin locations."
 
-L["config_deeprun_tram"] = "Deerun Tram"
-L["config_deeprun_tram_desc"] = "Show the Deeprun Tram locations in Stormwind and Ironforge."
+L["config_tram"] = "Deerun Tram"
+L["config_tram_desc"] = "Show the Deeprun Tram locations in Stormwind and Ironforge."
 
 L["config_note"] = "Note"
 L["config_note_desc"] = "Show the node's additional notes when it's available."
@@ -70,38 +70,25 @@ L["handler_context_menu_hide_node"] = "Hide this node"
 ----------------------------------------------DATABASE----------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-L["Eastern Kingdoms"] = true
-L["Eastern Kingdoms, Wetlands"] = true
 L["Boat to Menethil Harbor"] = true
 
-L["Eastern Kingdoms, Tirisfal Glades"] = true
 L["Zeppelin to Undercity"] = true
 
-L["Eastern Kingdoms, Stranglethorn Vale"] = true
-L["Eastern Kingdoms, Grom'gol Base Camp"] = true
 L["Zeppelin to Stranglethorn Vale"] = true
 L["Boat to Booty Bay"] = true
 
-L["Eastern Kingdoms, Elwynn Forest"] = true
 L["Deeprun Tram to Stormwind"] = true
 
-L["Eastern Kingdoms, Dun Morogh"] = true
 L["Deeprun Tram to Ironforge"] = true
 
-L["Kalimdor"] = true
-L["Kalimdor, Durotar"] = true
 L["Zeppelin to Orgrimmar"] = true
 
-L["Kalimdor, Teldrassil"] = true
 L["Boat to Darnassus"] = true
 
-L["Kalimdor, The Barrens"] = true
 L["Boat to Ratchet"] = true
 
-L["Kalimdor, Dustwallow Marsh"] = true
 L["Boat to Theramore"] = true
 
-L["Kalimdor, Darkshore"] = true
 L["Boat to Auberdine"] = true
 
 end

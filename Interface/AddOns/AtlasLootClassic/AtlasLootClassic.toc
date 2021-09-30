@@ -1,6 +1,6 @@
 ﻿## Interface: 11307
 ## Author: Lag
-## Version: v1.5.9
+## Version: v2.1.0
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -13,11 +13,9 @@
 ## X-License: GPL v2
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
-## X-WoWI-ID: 25185
+## X-Wago-ID: RXKqzoGy
 ## Dependencies: !!!Libs
 ## X-Revision: BigFoot
-
-embeds.xml
 
 Init.lua
 Constants.lua
@@ -43,7 +41,6 @@ Core\TargetScan.lua
 MiniMapButton.lua
 
 Data\Token.lua
-Data\Sets.lua
 Data\Profession.lua
 Data\Recipe.lua
 Data\Mount.lua
@@ -51,6 +48,8 @@ Data\ContentPhase.lua
 Data\Droprate.lua
 Data\AutoSelect.lua
 Data\Requirements.lua
+Data\ClassFilter.lua
+Data\ItemSet.lua
 
 ItemDB\ItemDB.lua
 ItemDB\SoundData.lua

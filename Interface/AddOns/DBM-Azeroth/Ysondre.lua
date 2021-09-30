@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Ysondre", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210402020426")
+mod:SetRevision("20210721040603")
 mod:SetCreatureID(14887)--121912 TW ID, 14887 classic ID
 --mod:SetModelID(17887)
+mod:EnableWBEngageSync()--Enable syncing engage in outdoors
 
 mod:RegisterCombat("combat_yell", L.Pull)
 

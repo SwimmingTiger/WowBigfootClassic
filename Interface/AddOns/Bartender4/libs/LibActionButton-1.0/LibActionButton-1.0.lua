@@ -1,5 +1,5 @@
 --[[
-Copyright (c) 2010-2020, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
+Copyright (c) 2010-2021, Hendrik "nevcairiel" Leppkes <h.leppkes@gmail.com>
 
 All rights reserved.
 
@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 80
+local MINOR_VERSION = 82
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -40,11 +40,13 @@ local type, error, tostring, tonumber, assert, select = type, error, tostring, t
 local setmetatable, wipe, unpack, pairs, next = setmetatable, wipe, unpack, pairs, next
 local str_match, format, tinsert, tremove = string.match, format, tinsert, tremove
 
-local WoWClassic = select(4, GetBuildInfo()) < 20000
+local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local WoWBCC = (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
 
 local KeyBound = LibStub("LibKeyBound-1.0", true)
 local CBH = LibStub("CallbackHandler-1.0")
 local LBG = LibStub("LibButtonGlow-1.0", true)
+local Masque = LibStub("Masque", true)
 
 lib.eventFrame = lib.eventFrame or CreateFrame("Frame")
 lib.eventFrame:UnregisterAllEvents()
@@ -656,7 +658,7 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("UPDATE_BINDINGS")
 	lib.eventFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 	lib.eventFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
-	if not WoWClassic then
+	if not WoWClassic and not WoWBCC then
 		lib.eventFrame:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
 	end
 
@@ -677,7 +679,7 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("PET_STABLE_SHOW")
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_CHARGES")
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_ICON")
-	if not WoWClassic then
+	if not WoWClassic and not WoWBCC then
 		lib.eventFrame:RegisterEvent("ARCHAEOLOGY_CLOSED")
 		lib.eventFrame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 		lib.eventFrame:RegisterEvent("UNIT_EXITED_VEHICLE")
@@ -1187,7 +1189,7 @@ function UpdateUsable(self)
 		end
 	end
 
-	if not WoWClassic and self._state_type == "action" then
+	if not WoWClassic and not WoWBCC and self._state_type == "action" then
 		local isLevelLinkLocked = C_LevelLink.IsActionLocked(self._state_action)
 		if not self.icon:IsDesaturated() then
 			self.icon:SetDesaturated(isLevelLinkLocked)
@@ -1583,7 +1585,9 @@ if WoWClassic then
 		-- if we don't have the library, only show count for items, like the default UI
 		Action.IsConsumableOrStackable = function(self) return IsItemAction(self._state_action) and (IsConsumableAction(self._state_action) or IsStackableAction(self._state_action)) end
 	end
+end
 
+if WoWClassic or WoWBCC then
 	-- disable loss of control cooldown on classic
 	Action.GetLossOfControlCooldown = function(self) return 0,0 end
 end
@@ -1668,7 +1672,7 @@ Custom.GetSpellId              = function(self) return nil end
 Custom.RunCustom               = function(self, unit, button) return self._state_action.func(self, unit, button) end
 
 --- WoW Classic overrides
-if WoWClassic then
+if WoWClassic or WoWBCC then
 	UpdateOverlayGlow = function() end
 end
 

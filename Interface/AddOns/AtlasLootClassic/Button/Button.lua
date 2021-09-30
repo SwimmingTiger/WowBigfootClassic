@@ -32,7 +32,12 @@ local CreateFrame = CreateFrame
 
 -- UnitFactionGroup("player")		"Alliance", "Horde", "Neutral" or nil.
 -- :SetAtlas()
-local WOW_HEAD_LINK, WOW_HEAD_LINK_LOC = "https://classic.wowhead.com/%s=%d", "https://%s.classic.wowhead.com/%s=%d"
+local WOW_HEAD_LINK, WOW_HEAD_LINK_LOC
+if AtlasLoot:GetGameVersion() == 2 then
+	WOW_HEAD_LINK, WOW_HEAD_LINK_LOC = "https://tbc.wowhead.com/%s=%d", "https://%s.tbc.wowhead.com/%s=%d"
+else
+	WOW_HEAD_LINK, WOW_HEAD_LINK_LOC = "https://classic.wowhead.com/%s=%d", "https://%s.classic.wowhead.com/%s=%d"
+end
 local WOW_HEAD_LOCALE
 local FACTION_INFO_IS_SET_ID = 998
 local IGNORE_THIS_BUTTON_ID = 999
@@ -1008,7 +1013,7 @@ local function ExtraItemFrame_Refresh(self, triggerButton)
 end
 
 function Button:ExtraItemFrame_GetFrame(button, itemList)
-	if button and button.IsExtraItemFrameButton then return end -- skip own buttons
+	if not itemList or (button and button.IsExtraItemFrameButton) then return end -- skip own buttons
 	local frame = ExtraItemFrame_Frame
 	if frame and frame.ItemList then
 		if frame.button == button then
@@ -1017,7 +1022,7 @@ function Button:ExtraItemFrame_GetFrame(button, itemList)
 			ExtraItemFrame_Frame:Clear()
 		end
 	elseif not frame then
-		frame = CreateFrame("frame")
+		frame = CreateFrame("frame", nil, nil, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
 		frame:SetClampedToScreen(true)
 		frame:SetHeight(ITEM_ICON_SIZE+(BORDER_DISTANCE*2))
 		frame:SetWidth(BORDER_DISTANCE*2)
@@ -1064,7 +1069,7 @@ function Button:ExtraItemFrame_GetFrame(button, itemList)
 		end
 
 		if not skipScaling then
-			if fixedCounter > MAX_ITEMS_PER_LINE and fixedCounter % (MAX_ITEMS_PER_LINE+1) == 0 then
+			if fixedCounter > MAX_ITEMS_PER_LINE and fixedCounter % (MAX_ITEMS_PER_LINE) == 1 then
 				frame:SetHeight(frame:GetHeight() + ITEM_ICON_SIZE + ITEM_DISTANCE)
 			elseif fixedCounter == 1 then
 				frame:SetWidth(frame:GetWidth() + ITEM_ICON_SIZE)

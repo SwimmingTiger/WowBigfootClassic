@@ -85,6 +85,7 @@ if not lib.new then
 	end
 	lib.new, lib.del = new, del
 end
+new, del = lib.new, lib.del
 
 -- Make the frame match the tooltip
 local function InitializeFrame(frame)

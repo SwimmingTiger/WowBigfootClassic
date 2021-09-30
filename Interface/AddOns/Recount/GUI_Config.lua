@@ -32,7 +32,7 @@ local GameTooltip = GameTooltip
 
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
-local WOW_RETAIL = WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC
+local WOW_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
 FillLocalizedClassList(BC, false) -- We are sexist here but not much of a choice, when there is no neutral
 
