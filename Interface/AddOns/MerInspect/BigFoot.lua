@@ -85,7 +85,7 @@ M.shownlist = {
 };
 -- Create Frames
 function M:CreateCompareFrame(name)
-	local f = CreateFrame("Frame", name, UIParent);
+	local f = CreateFrame("Frame", name, UIParent, BackdropTemplateMixin and "BackdropTemplate");
 	f:Hide();
 	f:SetToplevel(true);
 	f:SetMovable(true);
@@ -406,7 +406,7 @@ M:Init{
 			CreateBorder("Inspect", s);
 		end
 		M.moneyFrame = CreateFrame("Frame", "MerRepairMoneyFrame", PaperDollFrame, "SmallMoneyFrameTemplate");
-		M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 11);
+		M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 24);
 
 		M.moneyFrame:SetScript("OnShow", function(self)
 			MoneyFrame_SetType(self,"STATIC");

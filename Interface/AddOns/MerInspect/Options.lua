@@ -81,7 +81,7 @@ end
 local function CreateSubtypeFrame(list, parent)
     if (not list) then return end
     if (not parent.SubtypeFrame) then
-        parent.SubtypeFrame = CreateFrame("Frame", nil, parent)
+        parent.SubtypeFrame = CreateFrame("Frame", nil, parent, "BackdropTemplate")
         parent.SubtypeFrame:SetScale(0.92)
         parent.SubtypeFrame:SetPoint("TOPLEFT", 333, 0)
         parent.SubtypeFrame:SetBackdrop({
@@ -136,6 +136,7 @@ local function CreateAnchorFrame(anchorkey, parent)
     end
     local frame = CreateFrame("Frame", nil, parent.SubtypeFrame or parent, "ThinBorderTemplate")
     frame.anchorkey = anchorkey
+    Mixin(frame, BackdropTemplateMixin)
     frame:SetBackdrop(GameTooltip:GetBackdrop())
     frame:SetBackdropColor(GameTooltip:GetBackdropColor())
     frame:SetBackdropBorderColor(1, 1, 1, 0)
@@ -196,7 +197,7 @@ frame.name = addon
 
 CreateCheckbox(options, frame, frame.title, 18, 9)
 
-LibEvent:attachEvent("VARIABLES_LOADED", function()
+LibEvent:attachEvent("ADDON_LOADED", function()
     if (not MerInspectDB or not MerInspectDB.version) then
         MerInspectDB = DefaultDB
     elseif (MerInspectDB.version <= DefaultDB.version) then

@@ -15,7 +15,7 @@ function M:ADDON_LOADED(name)
 		self:UnregisterEvent("ADDON_LOADED")
 	end
 end
--- ¿¼ÂÇµ½Íæ¼ÒÍÑ×°±¸Óë´©×°±¸Ê±µÄÔËËãÁ¿£¬¸Ã´¦²»×ö´¦Àí¡£
+-- è€ƒè™‘åˆ°ç©å®¶è„±è£…å¤‡ä¸ç©¿è£…å¤‡æ—¶çš„è¿ç®—é‡ï¼Œè¯¥å¤„ä¸åšå¤„ç†ã€‚
 function M:UNIT_INVENTORY_CHANGED(unit)
 	if (self.Config.MerInspectEnable and (unit == "player" or unit == InspectFrame.unit)) then
 		self:DisplayInvenrotyInfo(unit);
@@ -49,7 +49,7 @@ end
 function M:CreateFrame(frameName, parentFrame, width, height, textNum, textL, textY)
 	local textNum = textNum or 1;
 	local textL = textL or 0; local textY = textY or -1; 
-	local frame = CreateFrame("Frame", frameName, parentFrame or UIParent);
+	local frame = CreateFrame("Frame", frameName, parentFrame or UIParent, BackdropTemplateMixin and "BackdropTemplate");
 	frame:SetWidth(width);  frame:SetHeight(height);
 	frame:SetBackdrop({bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
 		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",

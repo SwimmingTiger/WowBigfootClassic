@@ -20,11 +20,29 @@ end
 
 --创建单条属性按钮框体
 local function CreateStatFrame(parent, index, key, option)
-    local frame = CreateFrame("Frame", nil, parent, "CharacterStatFrameTemplate")
+    -- local frame = CreateFrame("Frame", nil, parent, "CharacterStatFrameTemplate")
+    local frame = CreateFrame("Frame", nil, parent)
     frame:EnableMouse(false)
     frame:SetWidth(178)
+    frame:SetHeight(15);
+    frame.Background = frame:CreateTexture(nil, "BACKGROUND");
+    frame.Background:SetAtlas("UI-Character-Info-Line-Bounce", true);
+    frame.Background:SetAlpha(0.3);
+    frame.Background:SetPoint("CENTER");
+    frame.Label = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
+    frame.Label:SetPoint("LEFT", 11, 0);
+    frame.Value = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall");
+    frame.Value:SetPoint("RIGHT", -8, 0);
     frame.key = key
     frame.Background:SetShown((index%2) ~= 1)
+    frame:SetScript("OnEnter", function(self)
+        if ( self.onEnterFunc ) then
+            self:onEnterFunc();
+        else
+            PaperDollStatTooltip(self);
+        end
+    end);
+    frame:SetScript("OnLeave", GameTooltip_Hide);
     parent["stat" .. index] = frame
     return frame
 end
@@ -66,8 +84,8 @@ local function HandlePortraitFrame(self)
     self:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
-
 function ClassicStatsFrameTemplate_Onload(self)
+    Mixin(self, BackdropTemplateMixin)
     self.backdrop = {
         bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
         edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -151,7 +169,8 @@ function ClassicStatsFrameTemplate_OnShow(self)
             offset = offset + 36
         end
         self.SuitCategory:Show()
-        self.SuitCategory:SetPoint("TOPLEFT", self.EnhancementsCategory, "BOTTOMLEFT", 0, offset)
+        --self.SuitCategory:SetPoint("TOPLEFT", self.EnhancementsCategory, "BOTTOMLEFT", 0, offset)
+        self.SuitCategory:SetPoint("TOPLEFT", button, "BOTTOMLEFT", 0, 0)
         height = height + 36
         offset = offset - 36
         for _, v in ipairs(self.data.suit) do
