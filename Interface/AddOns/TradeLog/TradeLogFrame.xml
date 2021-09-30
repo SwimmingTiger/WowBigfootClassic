@@ -1015,7 +1015,7 @@
 					</OnShow>
 					<OnLoad>
 						ScrollFrame_OnLoad(self);
-						local scrollBar = getglobal(self:GetName().."ScrollBar");
+						--[[local scrollBar = getglobal(self:GetName().."ScrollBar");
 						scrollBar:SetBackdrop( 
 						{
 							bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
@@ -1030,7 +1030,7 @@
 								bottom = 4},
 						})
 						scrollBar:SetBackdropBorderColor(.2, .2, .2, 1)
-						scrollBar:SetBackdropColor(.1, .1, .1, 1)
+						scrollBar:SetBackdropColor(.1, .1, .1, 1)]]
 					</OnLoad>
 				</Scripts>
 				<Layers>
