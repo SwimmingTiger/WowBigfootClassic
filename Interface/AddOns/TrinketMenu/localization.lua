@@ -1,4 +1,4 @@
- 
+
 -- luyi7338 汉化
 -- Sharak@BigFoot 增加繁体版数据
 
@@ -24,6 +24,7 @@ if (GetLocale() == "zhCN") then
 		{"StopOnSwap","OFF","被动饰品停止排队","当换上一个被动饰品时停止自动排队.  选中这个选项时, 当一个可点击饰品通过 TrinketMenu 被手动换上时同样会停止自动排队. 当频繁标记饰品为优先时这个选项尤其有用"},
 		{"HideOnLoad","OFF","当配置载入时关闭","当你载入一个配置时关闭这个窗口."},
 		{"RedRange","OFF","射程警告","当有效目标在饰品的射程外时饰品变红警告.  例如, 侏儒死亡射线和侏儒捕网器."},
+		{"HidePetBattle", "ON", "Hide in Pet Battles", "Check this auto hide the frame while in a pet battle."},
 		{"MenuOnRight","OFF","右击菜单","防止菜单出现除非一个警告饰品被右击.\n\n提示: 战斗中不能改变这个选项."}
 	}
 
@@ -53,13 +54,13 @@ if (GetLocale() == "zhCN") then
 	TrinketMenu_Tab2:SetText("下面      ");
 	TrinketMenu_Tab3:SetText("上面      ");
 
-	TrinketMenu_SortDelayText1:SetText("延迟");
-	TrinketMenu_SortDelayText2:SetText("秒");
-	TrinketMenu_ProfileNameText:SetText("配置");
-	TrinketMenu_ProfilesDelete:SetText("删除");
-	TrinketMenu_ProfilesLoad:SetText("载入");
-	TrinketMenu_ProfilesSave:SetText("保存");
-	TrinketMenu_ProfilesCancel:SetText("取消");
+	-- TrinketMenu_SortDelayText1:SetText("延迟");
+	-- TrinketMenu_SortDelayText2:SetText("秒");
+	-- TrinketMenu_ProfileNameText:SetText("配置");
+	-- TrinketMenu_ProfilesDelete:SetText("删除");
+	-- TrinketMenu_ProfilesLoad:SetText("载入");
+	-- TrinketMenu_ProfilesSave:SetText("保存");
+	-- TrinketMenu_ProfilesCancel:SetText("取消");
 	--TrinketMenu_OptBindButton:SetText("热键绑定");
 
 	TrinketMenu.Message1 = "|cFFFFFF00TrinketMenu 缩放:";
@@ -132,8 +133,8 @@ elseif (GetLocale() == "zhTW") then
 	TrinketMenu_Tab2:SetText("下麵      ");
 	TrinketMenu_Tab3:SetText("上面      ");
 
-	TrinketMenu_SortDelayText1:SetText("延遲");
-	TrinketMenu_SortDelayText2:SetText("秒");
+	-- TrinketMenu_SortDelayText1:SetText("延遲");
+	-- TrinketMenu_SortDelayText2:SetText("秒");
 	TrinketMenu_ProfileNameText:SetText("配置");
 	TrinketMenu_ProfilesDelete:SetText("刪除");
 	TrinketMenu_ProfilesLoad:SetText("載入");
