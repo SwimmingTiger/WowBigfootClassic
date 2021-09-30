@@ -1,12 +1,10 @@
 ## Interface: 11307
-## Title: GoodLeader
-## Title-zhCN: 好团长
-## Title-zhTW: 好團長
+## Title: GoodLeader (discarded)
+## Title-zhCN: 好团长 (已废弃)
+## Title-zhTW: 好團長 (已廢棄)
 ## Notes: |cff00ff00GoodLeader|r
 ## Author: NetEase
 ## Version: 0.0.23
 ## SavedVariables: GOODLEADER_DB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-
-Load.xml
