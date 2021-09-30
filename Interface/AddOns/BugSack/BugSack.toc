@@ -1,10 +1,11 @@
-## Interface: 11307
-## Version: v8.2.0
+## Interface: 20502
+## Version: v9.1.0
 ## Title: BugSack
+## Title-zhCN: BugSack 错误信息查看器
 ## Notes: Toss those bugs inna sack.
 ## Notes-deDE: Werft den Fehler in einen Sack.
 ## Notes-ruRU: Аддон ловит текущие ошибки в мешок.
-## Notes-zhCN: 错误信息收集器。
+## Notes-zhCN: 可查看由错误信息搜集器搜集到的游戏插件错误。
 ## Notes-zhTW: 集中顯示錯誤訊息，避免中斷遊戲。
 ## Notes-koKR: Toss those bugs inna sack.
 ## Notes-frFR: Toss those bugs inna sack.
