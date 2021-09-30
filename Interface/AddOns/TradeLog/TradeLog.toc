@@ -1,0 +1,16 @@
+﻿## Interface: 20502
+## LoadOnDemand: 0
+## Title: TradeLog
+## Notes: trade history log, recent trade list by Warbaby@163.com
+## Notes-zhCN: 交易记录 by Warbaby (三月十二@聖光之願<冰封十字軍>)
+## SavedVariablesPerCharacter: TradeLog_TradesHistory, TradeLog_Announce_Checked, TradeLog_AnnounceChannel
+
+Libs\LibDBIcon-1.0.xml
+
+localization-enUS.lua
+localization-zhCN.lua
+localization-zhTW.lua
+localization-koKR.lua
+TradeLog.lua
+RecentTradeFrame.xml
+TradeLogFrame.xml
