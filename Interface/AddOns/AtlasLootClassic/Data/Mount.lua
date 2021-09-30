@@ -119,8 +119,36 @@ local MOUNT_LIST = {
     [23720] = 17158, -- Riding Turtle
     [21176] = 15677, -- Black Qiraji Resonating Crystal
     [20221] = 15293, -- Foror's Fabled Steed
---[====[@version-bc@
-    -- BC
+--@version-bcc@
+    -- factionMounts
+    [29745] = 19871, -- Great Blue Elekk
+    [29746] = 19873, -- Great Green Elekk
+    [29747] = 19872, -- Great Purple Elekk
+    [28481] = 17063, -- Brown Elekk
+    [29743] = 19870, -- Purple Elekk
+    [29744] = 19869, -- Gray Elekk
+    [25527] = 17718, -- Swift Red Gryphon
+    [25528] = 17703, -- Swift Green Gryphon
+    [25529] = 17717, -- Swift Purple Gryphon
+    [25473] = 17759, -- Swift Blue Gryphon
+    [25470] = 17697, -- Golden Gryphon
+    [25471] = 17694, -- Ebon Gryphon
+    [25472] = 17696, -- Snowy Gryphon
+    [29223] = 19484, -- Swift Green Hawkstrider
+    [29224] = 19482, -- Swift Purple Hawkstrider
+    [28936] = 18697, -- Swift Pink Hawkstrider
+    [29220] = 19480, -- Blue Hawkstrider
+    [29221] = 19478, -- Black Hawkstrider
+    [29222] = 19479, -- Purple Hawkstrider
+    [28927] = 18696, -- Red Hawkstrider
+    [25531] = 17720, -- Swift Green Windrider
+    [25532] = 17722, -- Swift Yellow Windrider
+    [25533] = 17721, -- Swift Purple Windrider
+    [25477] = 17719, -- Swift Red Windrider
+    [25474] = 17699, -- Tawny Windrider
+    [25475] = 17700, -- Blue Windrider
+    [25476] = 17701, -- Green Windrider
+    -- end-factionMounts
     [32768] = 21473, -- Swift Raven Lord Mount
     [35513] = 19483, -- Swift White Hawkstrider
     [32458] = 17890, -- Ashes of Al'ar
@@ -158,7 +186,37 @@ local MOUNT_LIST = {
     [34061] = 22720, -- Turbo-Charged Flying Machine Control
     [28915] = 21074, -- Reins of the Dark Riding Talbuk
     [29228] = 19303, -- Reins of the Dark War Talbuk
---@end-version-bc@]====]
+    [35906] = 23928, -- Reins of the Black War Elekk
+    [34129] = 20359, -- Swift Warstrider
+    [30609] = 20344, -- Swift Nether Drake
+    [37676] = 24725, -- Vengeful Nether Drake
+    [34092] = 22620, -- Merciless Nether Drake
+    [43516] = 27507, -- Brutal Nether Drake
+    [29471] = 14330, -- Black War Tiger
+    [29468] = 14337, -- Black War Steed
+    [29465] = 14372, -- Black Battlestrider
+    [29467] = 14577, -- Black War Ram
+    [29470] = 10719, -- Red Skeletal Warhorse
+    [29472] = 14388, -- Black War Raptor
+    [29466] = 14348, -- Black War Kodo
+    [29469] = 14334, -- Black War Wolf
+
+    [33225] = 21974, -- Reins of the Swift Spectral Tiger
+    [33224] = 21973, -- Reins of the Spectral Tiger
+    [38576] = 25335, -- Big Battle Bear
+    [35226] = 23647, -- X-51 Nether-Rocket X-TREME
+    [35225] = 23656, -- X-51 Nether-Rocket
+    [33977] = 22350, -- Swift Brewfest Ram
+    [33976] = 22265, -- Brewfest Ram
+    [37828] = 24757, -- Great Brewfest Kodo
+    [37012] = 25159, -- The Horseman's Reins
+    [33182] = 21939, -- Swift Flying Broom
+    [33184] = 21939, -- Swift Magic Broom
+    [33176] = 21939, -- Flying Broom
+    [37011] = 21939, -- Magic Broom
+    [33183] = 21939, -- Old Magic Broom
+    [33189] = 21939, -- Rickety Magic Broom
+--@end-version-bcc@
 }
 
 

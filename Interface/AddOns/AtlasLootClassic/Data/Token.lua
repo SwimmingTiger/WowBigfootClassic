@@ -294,7 +294,7 @@ local TOKEN = {
 	[21187] = 21178, -- Earthweave Cloak
 	[21179] = 21178, -- Band of Earthen Wrath
 
---[====[@version-bc@
+--@version-bcc@
 
 	--- T4
 	-- Head
@@ -326,7 +326,7 @@ local TOKEN = {
 	-- Shoulder
 	[30248] = { ICONS.PALADIN, 30127, 30133, 30138, 0, ICONS.ROGUE, 30149, 0, ICONS.SHAMAN, 30168, 30173, 30194, type = 6 }, -- Pauldrons of the Vanquished Champion
 	[30249] = { ICONS.WARRIOR, 30117, 30122, 0, ICONS.PRIEST, 30154, 30163, 0, ICONS.DRUID, 30221, 30230, 30235, type = 6 }, -- Pauldrons of the Vanquished Defender
-	[30250] = { ICONS.HUNTER, 30143, 0, ICONS.MAGE, 32047, 0, ICONS.WARLOCK, 30215, type = 6 }, -- Pauldrons of the Vanquished Hero
+	[30250] = { ICONS.HUNTER, 30143, 0, ICONS.MAGE, 30210, 0, ICONS.WARLOCK, 30215, type = 6 }, -- Pauldrons of the Vanquished Hero
 	-- Chest
 	[30236] = { ICONS.PALADIN, 30123, 30129, 30134, 0, ICONS.ROGUE, 30144, 0, ICONS.SHAMAN, 30164, 30169, 30185, type = 6 }, -- Chestguard of the Vanquished Champion
 	[30237] = { ICONS.WARRIOR, 30113, 30118, 0, ICONS.PRIEST, 30150, 30159, 0, ICONS.DRUID, 30216, 30222, 30231, type = 6 }, -- Chestguard of the Vanquished Defender
@@ -409,7 +409,7 @@ local TOKEN = {
 	-- Lunacy Deck / Darkmoon Card: Madness
 	[31914] = { 31914, 31859, 0, 31910, 31918, 31917, 31913, 31912, 31916, 31915, 31911 },
 	[31910] = 31914, [31918] = 31914, [31917] = 31914, [31913] = 31914, [31912] = 31914, [31916] = 31914, [31915] = 31914, [31911] = 31914,
---@end-version-bc@]====]
+--@end-version-bcc@
 }
 
 local function Init()

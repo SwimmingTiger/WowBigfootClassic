@@ -15,6 +15,7 @@ local Mount = AtlasLoot.Data.Mount
 local ContentPhase = AtlasLoot.Data.ContentPhase
 local Droprate = AtlasLoot.Data.Droprate
 local Requirements = AtlasLoot.Data.Requirements
+local VendorPrice = AtlasLoot.Data.VendorPrice
 local ItemFrame, Favourites
 
 -- lua
@@ -113,6 +114,11 @@ function Item.OnSet(button, second)
 		button.Droprate = Droprate:GetData(button.__atlaslootinfo.npcID, button.ItemID)-- button.__atlaslootinfo.Droprate
 
 		Item.Refresh(button)
+
+		-- Set Vendor price is aviable
+		if VendorPrice.ItemHasVendorPrice(button.ItemID) then
+			button:SetExtraType("Price", VendorPrice.GetVendorPriceForItem(button.ItemID))
+		end
 	end
 end
 
@@ -453,12 +459,9 @@ local function EventFrame_OnEvent(frame, event, arg1, arg2)
 					local typFunc = button:GetTypeFunctions()
 					if typFunc then
 						typFunc.Refresh(button)
-						if ItemFrame and ItemFrame.SearchString then
-							local text = button.RawName or button.name:GetText()
-							if text and not sfind(slower(text), ItemFrame.SearchString, 1, true) then
-								button:SetAlpha(0.33)
-							end
-						end
+					end
+					if ItemFrame then
+						ItemFrame.UpdateFilterItem(button)
 					end
 				end
 			end
