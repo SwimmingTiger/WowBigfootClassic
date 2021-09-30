@@ -1,8 +1,8 @@
---[[--
-	alex@0
+﻿--[[--
+	ALA@163UI
 --]]--
 --[[
-	scroll = ALASCR(parent, width, height, buttonHeight, funcToCreateButton(parent, index, buttonHeight), functToSetButton(button, data_index))
+	scroll = ALASCR(parent, width, height, buttonHeight, funcToCreateButton(parent: ScrollFrame.ScrollChild, index, buttonHeight), functToSetButton(button, data_index))
 	scroll:SetNumValue(num)
 	scroll:HandleButtonByDataIndex(index, func, ...)		func(button, ...)
 	scroll:HandleButtonByRawIndex(index, func, ...)			func(button, ...)
@@ -10,36 +10,36 @@
 	scroll:CallButtonFuncByDataIndex(index, func, ...)		button:func(...)
 	button:GetDataIndex()
 ]]
+local __version = 2;
 
-----------------------------------------------------------------------------------------------------
+local ScrollList = _G.alaScrollList;
+if ScrollList ~= nil and ScrollList.__minor ~= nil and ScrollList.__minor >= __version then
+	return;
+end
+ScrollList = ScrollList or {  };
+ScrollList.__minor = __version;
+_G.alaScrollList = ScrollList;
+
 local ADDON, NS = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
-local type, tonumber, tostring = type, tonumber, tostring;
-local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
+
 local ceil, floor, max, min = ceil, floor, max, min;
-----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------main
-if alaScrollList then return; end
-alaScrollList = {};
+
 local function _error_(key, msg, ...)
 	print("\124cffff0000" .. key .. "\124r", msg and "\124cffff0000" .. msg .. "\124r", ...);
 end
---------------------------------------------------
---------------------------------------------------
+
 
 local def_inner_size = 64;
 
-function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, funcToCreateButton, functToSetButton)
+function ScrollList.CreateScrollFrame(parent, width, height, buttonHeight, funcToCreateButton, functToSetButton)
 	width = width and max(width, def_inner_size) or def_inner_size;
 	height = height and max(height, def_inner_size) or def_inner_size;
 
-	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
-	local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
-	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
+	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
+	local scrollChild = CreateFrame("FRAME", nil, scrollFrame, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
+	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
 	local buttons = {};
 	local nButtonsShown = 0;
 	local ofsIndex = 0;
@@ -273,5 +273,5 @@ function alaScrollList.CreateScrollFrame(parent, width, height, buttonHeight, fu
 end
 
 
-_G["ALASCR"] = alaScrollList.CreateScrollFrame;
+_G["ALASCR"] = ScrollList.CreateScrollFrame;
 

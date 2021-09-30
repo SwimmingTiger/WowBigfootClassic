@@ -5,7 +5,8 @@
     <Include file = "..\..\sharedxml\hybridscrollframe.xml"/>
     <Include file = "template.xml"/>
 -->
-    <include file = "alaShared\alaShared.xml" />
+    <include file = "libs\libs.xml" />
+    <script file = "locale.lua" />
     <script file = "alaGearMan.lua" />
 
     <!-- <include file = "Bindings.xml" /> -->

@@ -1,37 +1,25 @@
---[[--
-	alex@0
+﻿--[[--
+	ALA@163UI
 --]]--
-----------------------------------------------------------------------------------------------------
+local __version = 2;
+
+local Popup = _G.alaPopup;
+if Popup ~= nil and Popup.__minor ~= nil and Popup.__minor >= __version then
+	return;
+end
+Popup = Popup or {  };
+Popup.__minor = __version;
+_G.alaPopup = Popup;
+
 local ADDON, NS = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
-local math, table, string, bit = math, table, string, bit;
-local type, tonumber, tostring = type, tonumber, tostring;
-local getfenv, setfenv, pcall, xpcall, assert, error, loadstring = getfenv, setfenv, pcall, xpcall, assert, error, loadstring;
-local abs, ceil, floor, max, min, random, sqrt = abs, ceil, floor, max, min, random, sqrt;
-local format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat =
-		format, gmatch, gsub, strbyte, strchar, strfind, strlen, strlower, strmatch, strrep, strrev, strsub, strupper, strtrim, strsplit, strjoin, strconcat;
-local getmetatable, setmetatable, rawget, rawset = getmetatable, setmetatable, rawget, rawset;
-local ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack = ipairs, pairs, sort, tContains, tinsert, tremove, wipe, unpack;
-local tConcat = table.concat;
-local select = select;
-local date, time = date, time;
-----------------------------------------------------------------------------------------------------
+
+local type = type;
+local ipairs, pairs, tinsert, tremove = ipairs, pairs, tinsert, tremove;
 local _G = _G;
 local _ = nil;
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------main
-local function _debug_(...)
-	print("\124cffff0000alaChat addon:\124r", ...);
-end
-local function _log_(...)
-	print(...);
-end
---------------------------------------------------
-if alaPopup then return; end
-alaPopup = {};
---------------------------------------------------
---------------------------------------------------
---------------------------------------------------
+
+
+
 local DropDownList1 = DropDownList1;
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",	-- "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -48,7 +36,7 @@ local height = 16;
 local interval = 0;
 local v_to_border = 8;
 local h_to_border = 8;
-local menu = CreateFrame("BUTTON", nil, DropDownList1);
+local menu = CreateFrame("BUTTON", nil, DropDownList1, BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil);
 menu:SetFrameStrata("FULLSCREEN_DIALOG");
 menu:SetClampedToScreen(false);
 menu:Show();
@@ -253,11 +241,11 @@ local function sub_list(which, key)
 	end
 end
 
-alaPopup.add_meta = add_meta;
-alaPopup.sub_meta = sub_meta;
-alaPopup.add_list = add_list;
-alaPopup.sub_list = sub_list;
+Popup.add_meta = add_meta;
+Popup.sub_meta = sub_meta;
+Popup.add_list = add_list;
+Popup.sub_list = sub_list;
 _G["ALAPOPUP"] = showMenu;
-alaPopup.func = func;
-alaPopup.menu = menu;
+Popup.func = func;
+Popup.menu = menu;
 
