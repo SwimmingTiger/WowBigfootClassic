@@ -67,10 +67,12 @@ hooksecurefunc(PlayerReportFrame, 'InitiateReport', function(frame, type, name, 
     UpdateEditBox(frame.CommentBox, name, playerLocation)
 end)
 
-hooksecurefunc('HelpFrame_ShowReportCheatingDialog', function(playerLocation)
-    UpdateEditBox(ReportCheatingDialog.CommentFrame.EditBox, nil, playerLocation)
-    ReportCheatingDialog.CommentFrame.EditBox.InformationText:Hide()
-end)
+if HelpFrame_ShowReportCheatingDialog then
+    hooksecurefunc('HelpFrame_ShowReportCheatingDialog', function(playerLocation)
+        UpdateEditBox(ReportCheatingDialog.CommentFrame.EditBox, nil, playerLocation)
+        ReportCheatingDialog.CommentFrame.EditBox.InformationText:Hide()
+    end)
+end
 
 local f = CreateFrame('Frame')
 f:SetScript('OnEvent', function(self, event, _, _, _, _, _, _, _, _, _, _, lineId, guid)
@@ -92,6 +94,11 @@ f:RegisterEvent('CHAT_MSG_RAID_WARNING')
 f:RegisterEvent('CHAT_MSG_SAY')
 f:RegisterEvent('CHAT_MSG_WHISPER')
 f:RegisterEvent('CHAT_MSG_YELL')
+
+-- PTR 没有举报页面
+if not HelpFrame.report then
+    return
+end
 
 local URL = 'https://www.battlenet.com.cn/support/zh/help/contact/1210/ticket'
 
