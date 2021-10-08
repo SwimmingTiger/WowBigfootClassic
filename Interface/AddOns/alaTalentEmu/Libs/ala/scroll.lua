@@ -2,7 +2,7 @@
 	ALA@163UI
 --]]--
 --[[
-	scroll = ALASCR(parent, width, height, buttonHeight, funcToCreateButton(parent, index, buttonHeight), functToSetButton(button, data_index))
+	scroll = ALASCR(parent, width, height, buttonHeight, funcToCreateButton(parent: ScrollFrame.ScrollChild, index, buttonHeight), functToSetButton(button, data_index))
 	scroll:SetNumValue(num)
 	scroll:HandleButtonByDataIndex(index, func, ...)		func(button, ...)
 	scroll:HandleButtonByRawIndex(index, func, ...)			func(button, ...)
@@ -19,20 +19,17 @@ end
 ScrollList = ScrollList or {  };
 ScrollList.__minor = __version;
 _G.alaScrollList = ScrollList;
-----------------------------------------------------------------------------------------------------
+
 local ADDON, NS = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
+
 local ceil, floor, max, min = ceil, floor, max, min;
-----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------main
+
 local function _error_(key, msg, ...)
 	print("\124cffff0000" .. key .. "\124r", msg and "\124cffff0000" .. msg .. "\124r", ...);
 end
---------------------------------------------------
---------------------------------------------------
+
 
 local def_inner_size = 64;
 

@@ -1722,6 +1722,13 @@ end
 function Recount:OnInitialize()
 	local acedb = LibStub:GetLibrary("AceDB-3.0")
 	Recount.db = acedb:New("RecountDB", Default_Profile)
+	
+	--Terry@bf
+	if BFRecountLDBIcon and RecountLauncher then
+		BFRecountLDBIcon:Register("Recount", RecountLauncher, Recount.db.profile.MiniMap)
+	end
+	--end Terry@bf
+
 	--Recount.db2 = acedb:New("RecountPerCharDB", DefaultConfig)
 	RecountPerCharDB = RecountPerCharDB or { }
 	Recount.db2 = RecountPerCharDB

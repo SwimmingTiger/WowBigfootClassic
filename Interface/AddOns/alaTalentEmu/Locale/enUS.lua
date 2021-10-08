@@ -135,12 +135,18 @@ L.DATA = {
 };
 
 L.RACE = "RACE";
-L.HUMAN = "HUMAN";
-L.DWARF = "DWARF";
-L["HUMAN|DWARF"] = "HUMAN|DWARF";
-L.NIGHTELF = "NIGHTELF";
-L.SCOURGE = "SCOURGE";
-L.TROLL = "TROLL";
+L["HUMAN|DWARF|NIGHTELF|GNOME|DRAENEI"] = "Alliance";
+L["ORC|SCOURGE|TAUREN|TROLL|BLOODELF"] = "Horde";
+L["HUMAN"] = "Human";
+L["DWARF"] = "Dwarf";
+L["NIGHTELF"] = "NightElf";
+L["GNOME"] = "Gnome";
+L["DRAENEI"] = "Draenei";
+L["ORC"] = "Orc";
+L["SCOURGE"] = "Scourge";
+L["TAUREN"] = "Tauren";
+L["TROLL"] = "Troll";
+L["BLOODELF"] = "BloodElf";
 
 
 L.label_itemLevel = "ItemLv";

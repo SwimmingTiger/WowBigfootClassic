@@ -135,12 +135,16 @@ L.DATA = {
 };
 
 L.RACE = "种族";
-L.HUMAN = "人类";
-L.DWARF = "矮人";
-L["HUMAN|DWARF"] = "人类|矮人";
-L.NIGHTELF = "暗夜精灵";
-L.SCOURGE = "亡灵";
-L.TROLL = "巨魔";
+L["HUMAN"] = "人類";
+L["DWARF"] = "矮人";
+L["NIGHTELF"] = "暗夜精靈";
+L["GNOME"] = "侏儒";
+L["DRAENEI"] = "德萊尼";
+L["ORC"] = "獸族";
+L["SCOURGE"] = "亡靈";
+L["TAUREN"] = "牛頭人";
+L["TROLL"] = "巨魔";
+L["BLOODELF"] = "血精靈";
 
 
 L.label_itemLevel = "裝等";

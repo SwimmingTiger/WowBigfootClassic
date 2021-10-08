@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(536, "DBM-Party-BC", 8, 250)
 
 mod.statTypes = "heroic"
 
-mod:SetRevision("20210605024644")
+mod:SetRevision("20210922152526")
 mod:SetCreatureID(22930)
 mod:SetEncounterID(250)
 mod:SetModelID(14173)
@@ -11,7 +11,7 @@ mod:SetModelOffset(0, 1, 2)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_SUCCESS"
+	"SPELL_CAST_SUCCESS 36405"
 )
 
 local warnStomp	= mod:NewSpellAnnounce(36405, 2)

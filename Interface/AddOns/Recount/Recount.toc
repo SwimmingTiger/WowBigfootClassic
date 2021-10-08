@@ -1,26 +1,20 @@
 ## Interface: 20502
 ## Version: v2.5.2a
 ## Title: Recount
-## Notes: Records Damage and Healing for Graph Based Display.
-## Notes-ruRU: Записывает урон и исцеления и отоброжает различные графики.
-## Notes-zhCN: 基于 Graph 裤开发的伤害/治疗统计插件.
-## Notes-zhTW: 圖形化顯示的傷害/治療統計插件.
+## Title-zhCN: [大脚][集]伤害统计
+## Title-zhTW: [大腳][集]傷害統計
+## Notes: |cffbc8f8fRecords Damage and Healing for Graph Based Display.|r
+## Notes-zhCN: |cff00ff00Recount|r|n|cffbc8f8f图形化显示的伤害/治疗统计插件。|r
+## Notes-zhTW: |cff00ff00Recount|r|n|cffbc8f8f圖形化顯示的傷害/治療統計插件。|r
 ## Author: Cryect, ported to 2.4 by Elsia, maintained by Resike from 5.4
-## OptionalDeps: Ace3, LibDropdown-1.0, LibSharedMedia-3.0, LibBossIDs-1.0, LibGraph-2.0
 ## SavedVariables: RecountDB
 ## SavedVariablesPerCharacter: RecountPerCharDB
 ## DefaultState: disabled
 
-embeds.xml
+Libs\LibDropDown-1.0\LibDropdown-1.0.lua
+Libs\LibGraph-2.0\LibGraph-2.0.lua
 
 locales\Recount-enUS.lua
-locales\Recount-deDE.lua
-locales\Recount-esES.lua
-locales\Recount-esMX.lua
-locales\Recount-frFR.lua
-locales\Recount-ptBR.lua
-locales\Recount-ruRU.lua
-locales\Recount-koKR.lua
 locales\Recount-zhTW.lua
 locales\Recount-zhCN.lua
 
@@ -53,3 +47,5 @@ GUI_Reset.lua
 GUI_Report.lua
 GUI_Config.lua
 GUI_Realtime.lua
+
+BFRecount.lua

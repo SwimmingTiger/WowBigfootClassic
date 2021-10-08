@@ -64,18 +64,18 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20210922141438"),
+	Revision = parseCurseDate("20210928004514"),
 }
 -- The string that is shown as version
 if isRetail then
-	DBM.DisplayVersion = "9.1.15 alpha"
-	DBM.ReleaseRevision = releaseDate(2021, 9, 21) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "9.1.15"
+	DBM.ReleaseRevision = releaseDate(2021, 9, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 elseif isClassic then
-	DBM.DisplayVersion = "1.13.80"
-	DBM.ReleaseRevision = releaseDate(2021, 9, 22) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "1.13.82"
+	DBM.ReleaseRevision = releaseDate(2021, 9, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 elseif isBCC then
-	DBM.DisplayVersion = "2.5.14"
-	DBM.ReleaseRevision = releaseDate(2021, 9, 22) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "2.5.15"
+	DBM.ReleaseRevision = releaseDate(2021, 9, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 end
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -146,10 +146,10 @@ DBM.DefaultOptions = {
 	SpecialWarningSound4 = isRetail and 9278 or "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\HoodWolfTransformPlayer01.ogg",--"Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg"
 	SpecialWarningSound5 = isRetail and 128466 or "Interface\\AddOns\\DBM-Core\\sounds\\ClassicSupport\\LOA_NAXX_AGGRO02.ogg",--"Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.ogg"
 	ModelSoundValue = "Short",
-	CountdownVoice = "Corsica",
-	CountdownVoice2 = "Kolt",
-	CountdownVoice3 = "Smooth",
-	ChosenVoicePack = "None",
+	CountdownVoice = "VP:Yike",					--bf@178.com
+	CountdownVoice2 = "VP:Yike",				--bf@178.com
+	CountdownVoice3 = "VP:Yike",				--bf@178.com
+	ChosenVoicePack = "Yike",					--bf@178.com
 	VoiceOverSpecW2 = "DefaultOnly",
 	AlwaysPlayVoice = false,
 	EventSoundVictory2 = "Interface\\AddOns\\DBM-Core\\sounds\\Victory\\SmoothMcGroove_Fanfare.ogg",
@@ -169,7 +169,7 @@ DBM.DefaultOptions = {
 	WarningAlphabetical = true,
 	WarningShortText = true,
 	StripServerName = true,
-	ShowAllVersions = true,
+	ShowAllVersions = false,					--bf@178.com	2
 	ShowReminders = true,
 	ShowPizzaMessage = true,
 	ShowEngageMessage = true,
@@ -2141,7 +2141,7 @@ do
 		end
 	end
 	local function Break(timer)
-		if IsInGroup() and (DBM:GetRaidRank(playerName) == 0 or (not isRetail or IsPartyLFG())) or IsEncounterInProgress() or select(2, IsInInstance()) == "pvp" then--No break timers if not assistant or if it's dungeon/raid finder/BG
+		if IsInGroup() and (DBM:GetRaidRank(playerName) == 0 or (isRetail and IsPartyLFG())) or IsEncounterInProgress() or select(2, IsInInstance()) == "pvp" then--No break timers if not assistant or if it's dungeon/raid finder/BG
 			DBM:AddMsg(L.ERROR_NO_PERMISSION)
 			return
 		end
@@ -5522,17 +5522,17 @@ do
 			if isRetail then
 				ObjectiveTracker_Expand()
 			else
-				ObjectiveTrackerFrame:Show()
+				QuestWatchFrame:Show()
+				local QuestieLoader = _G["QuestieLoader"]
+				if QuestieLoader then
+					local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
+					if QuestieTracker and questieWatchRestore and QuestieTracker.Enable then
+						QuestieTracker:Enable()
+						questieWatchRestore = false
+					end
+				end
 			end
 			watchFrameRestore = false
-		end
-		local QuestieLoader = _G["QuestieLoader"]
-		if QuestieLoader then
-			local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
-			if QuestieTracker and questieWatchRestore and QuestieTracker.Enable then
-				QuestieTracker:Enable()
-				questieWatchRestore = false
-			end
 		end
 	end
 
@@ -6003,15 +6003,15 @@ do
 						QuestWatchFrame:Hide()
 						watchFrameRestore = true
 					end
-				end
-				local QuestieLoader = _G["QuestieLoader"]
-				if QuestieLoader then
-					local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
-					local Questie = _G["Questie"] or QuestieLoader:ImportModule("Questie")
-					if QuestieTracker and Questie and Questie.db.global.trackerEnabled and QuestieTracker.Disable then
-						--Will only hide questie tracker if it's not already hidden.
-						QuestieTracker:Disable()
-						questieWatchRestore = true
+					local QuestieLoader = _G["QuestieLoader"]
+					if QuestieLoader then
+						local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
+						local Questie = _G["Questie"] or QuestieLoader:ImportModule("Questie")
+						if QuestieTracker and Questie and Questie.db.global.trackerEnabled and QuestieTracker.Disable then
+							--Will only hide questie tracker if it's not already hidden.
+							QuestieTracker:Disable()
+							questieWatchRestore = true
+						end
 					end
 				end
 			end
@@ -6430,16 +6430,16 @@ do
 							ObjectiveTracker_Expand()
 						else
 							QuestWatchFrame:Show()
+							local QuestieLoader = _G["QuestieLoader"]
+							if QuestieLoader then
+								local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
+								if QuestieTracker and questieWatchRestore and QuestieTracker.Enable then
+									QuestieTracker:Enable()
+									questieWatchRestore = false
+								end
+							end
 						end
 						watchFrameRestore = false
-					end
-					local QuestieLoader = _G["QuestieLoader"]
-					if QuestieLoader then
-						local QuestieTracker = _G["QuestieTracker"] or QuestieLoader:ImportModule("QuestieTracker")--Might be a global in some versions, but not a global in others
-						if QuestieTracker and questieWatchRestore and QuestieTracker.Enable then
-							QuestieTracker:Enable()
-							questieWatchRestore = false
-						end
 					end
 				end
 				if tooltipsHidden then
@@ -7686,7 +7686,7 @@ do
 			elseif type(nameModifier) == "function" then--custom name modify function
 				t = nameModifier(t or name)
 			else--default name modify
-				t = string.split(",", t or name)
+				t = string.split(",", t or obj.localization.general.name or name)
 			end
 			obj.localization.general.name = t or name
 		else

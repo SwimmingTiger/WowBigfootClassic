@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210907173746")
+mod:SetRevision("20210926022029")
 mod:SetCreatureID(19622)
 mod:SetEncounterID(733, 2467)
 mod:SetModelID(20023)
@@ -245,7 +245,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 			DBM.RangeCheck:Show(10)
 		end
 		self:Schedule(10, function()
-			timerPhase:Start(123)--123 pre nerf, 183 post nerf
+			timerPhase:Start(113)--123 pre nerf, 183 post nerf
 		end)
 	elseif msg == L.YellPhase4 or msg:find(L.YellPhase4) then
 		self:SetStage(4)

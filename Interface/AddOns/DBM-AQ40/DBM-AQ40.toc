@@ -1,13 +1,6 @@
-## Interface: 20502
+﻿## Interface: 20502
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple of Ahn'Qiraj|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Tempel von Ahn'Qiraj|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo de Ahn'Qiraj|r
-## Title-esMX:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo de Ahn'Qiraj|r
-## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Temple d'Ahn'Qiraj|r
-## Title-ptBR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Templo de Ahn'Qiraj|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Храм Ан'Киража|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0안퀴라즈 사원|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉神殿|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0安其拉神廟|r
 ## LoadOnDemand: 1
@@ -22,16 +15,12 @@
 ## X-DBM-Mod-Sort: 1102
 ## X-DBM-Mod-MinCoreRevision: 12473
 ## X-DBM-Mod-MinExpansion: 0
+## X-Revision: BigFoot
+
 localization.en.lua
-localization.de.lua
-localization.br.lua
-localization.fr.lua
-localization.es.lua
-localization.mx.lua
-localization.ru.lua
-localization.kr.lua
 localization.tw.lua
 localization.cn.lua
+
 AQ40Trash.lua
 Skeram.lua
 ThreeBugs.lua

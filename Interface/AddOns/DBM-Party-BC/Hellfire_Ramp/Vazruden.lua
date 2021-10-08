@@ -1,10 +1,12 @@
 local mod	= DBM:NewMod(529, "DBM-Party-BC", 1, 248)
 
-mod:SetRevision("20210605024644")
+mod:SetRevision("20210922152526")
 mod:SetCreatureID(17537, 17307)
 mod:SetEncounterID(1892)
+mod:SetBossHPInfoToHighest()
 mod:SetModelID(18407)
 mod:SetModelOffset(-0.2, 0, -0.3)
+
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(

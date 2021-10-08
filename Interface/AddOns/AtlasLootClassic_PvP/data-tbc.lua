@@ -87,7 +87,7 @@ local PVP_INSIGNIA = {	-- Insignias
 	},
 }
 
-local PVP_GEMS = {	-- Insignias
+local PVP_GEMS = {	-- Gems
 	name = ALIL["Gems"],
 	NORMAL_ITTYPE = ICON_ITTYPE,
 	ExtraList = true,
@@ -238,11 +238,11 @@ data["BCCHonorSet"] = {
 			name = ALIL["Back"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 28377 }, -- Sergeant's Heavy Cloak
-				{ 2, 28378 }, --Sergeant's Heavy Cloak
+				{ 2, 28378 }, -- Sergeant's Heavy Cape
 			},
 			[HORDE_DIFF] = {
 				{ 1, 28377 }, -- Sergeant's Heavy Cloak
-				{ 2, 28378 }, --Sergeant's Heavy Cloak
+				{ 2, 28378 }, -- Sergeant's Heavy Cape
 			},
 		},
 		PVP_INSIGNIA,
@@ -449,7 +449,7 @@ data["ArenaS1PvP"] = {
 			},
 			[ALLIANCE_DIFF] = {
 				{ 1, 29002 }, -- Marshal's Silk Cuffs
-				{ 2, 28409 }, -- Marshal's Silk Belt
+				{ 2, 29001 }, -- Marshal's Silk Belt
 				{ 3, 29003 }, -- Marshal's Silk Footguards
 
 				{ 5, 28981 }, -- Marshal's Dreadweave Cuffs
@@ -665,6 +665,8 @@ data["ArenaS2PvP"] = {
 			name = AL["Weapons"].." - "..ALIL["Off Hand"],
 			[NORMAL_DIFF] = {
 				{ 1, 32045 }, -- Gladiator's Shield Wall
+				{ 3, 33309 }, -- Merciless Gladiator's Redoubt
+				{ 4, 33313 }, -- Merciless Gladiator's Barrier
 				{ 16, 31978 }, -- Gladiator's Endgame
 				{ 17, 32961 }, -- Gladiator's Repriev
 			},

@@ -1,6 +1,6 @@
 local mod	= DBM:NewMod(579, "DBM-Party-BC", 5, 262)
 
-mod:SetRevision("20210605024644")
+mod:SetRevision("20210922152526")
 mod:SetCreatureID(17882)
 mod:SetEncounterID(1948)
 mod:SetModelID(18194)
@@ -12,8 +12,8 @@ mod:RegisterEventsInCombat(
 )
 
 local warnStaticCharge		= mod:NewTargetAnnounce(31715, 3)
-
 local warnLevitate			= mod:NewTargetNoFilterAnnounce(31704, 2, nil, "RemoveMagic|Healer")
+
 local specWarnStaticCharge	= mod:NewSpecialWarningMoveAway(31715, nil, nil, nil, 1, 2)
 
 function mod:SPELL_AURA_APPLIED(args)

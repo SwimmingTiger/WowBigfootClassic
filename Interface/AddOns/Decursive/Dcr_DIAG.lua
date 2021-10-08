@@ -73,7 +73,7 @@ T._FatalError = function (TheError)
             whileDead = 1,
             hideOnEscape = 1,
             showAlert = 1,
-            preferredIndex = STATICPOPUP_NUMDIALOGS,
+            preferredIndex = 3,
         };
     end
 
@@ -785,7 +785,7 @@ T._ShowNotice = function (notice)
             whileDead = 1,
             hideOnEscape = false,
             showAlert = 1,
-            preferredIndex = STATICPOPUP_NUMDIALOGS,
+            preferredIndex = 3,
         }; -- }}}
 
         if T.Dcr.L and T.Dcr.L["NOTICE_FRAME_TEMPLATE"] and T.Dcr.L["NOTICE_FRAME_TEMPLATE"]:find("%s") then

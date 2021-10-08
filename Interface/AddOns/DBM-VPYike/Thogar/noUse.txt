@@ -1,0 +1,17 @@
+Thogar\B2
+Thogar\B2A4
+Thogar\BX
+Thogar\C2
+Thogar\C3
+Thogar\CX
+Thogar\D2
+Thogar\D2B3
+Thogar\DX
+Thogar\E2
+
+backward
+com_go
+di
+findgather
+mobout
+otherin

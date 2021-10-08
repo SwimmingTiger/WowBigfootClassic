@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(540, "DBM-Party-BC", 11, 251)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210608100307")
+mod:SetRevision("20210922152526")
 mod:SetCreatureID(18096)
 mod:SetEncounterID(1906)
 mod:SetModelID(19135)
@@ -10,7 +10,7 @@ mod:SetModelOffset(0, 0, 8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 33834"
+	"SPELL_AURA_APPLIED 33834 31914"
 )
 
 local warnSandBreath		= mod:NewSpellAnnounce(31914, 2)

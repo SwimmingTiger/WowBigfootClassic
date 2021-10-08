@@ -1099,7 +1099,7 @@ end
 			if name then
 				local objects = mainFrame.objects;
 				objects.label:SetText(name);
-				local info = __emulib.DecodeAddonPackData(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack);
+				local info = __emulib.DecodeAddonPackData(SET.inspect_pack and NS.queryCache[name] and NS.queryCache[name].pack or nil);
 				if info then
 					objects.pack_label:SetText(info);
 					objects.pack_label:Show();
@@ -3132,7 +3132,11 @@ end
 					end
 				end
 				if data.race then
-					GameTooltip:AddLine(L.RACE .. ": " .. L[data.race], 1.0, 0.5, 0.25);
+					local str = nil;
+					for _, v in next, { strsplit("|", data.race) } do
+						str = str == nil and (L[v] or v) or (str .. ", " .. (L[v] or v));
+					end
+					GameTooltip:AddLine(L.RACE .. ": " .. str, 1.0, 0.5, 0.25);
 				end
 				GameTooltip:Show();
 			end);
@@ -3803,7 +3807,7 @@ end
 			timeout = 0,
 			whileDead = true,
 			hideOnEscape = true,
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			preferredIndex = 1,
 		};
 		local function applyTalentsButton_OnClick(self)
 			if UnitLevel('player') >= 10 then
@@ -5935,7 +5939,7 @@ do	--	tooltip unit talents
 				end
 				tip:AddLine(line);
 				if SET.supreme and cache.pack then
-					local info = __emulib.DecodeAddonPackData(cache.pack, true);
+					local info = __emulib.DecodeAddonPackData(cache.pack or nil, true);
 					if info then
 						tip:AddLine("\124cffffffffPack\124r: " .. info, 0.75, 1.0, 0.25);
 					end
@@ -6806,7 +6810,7 @@ end
 
 do	-- dev
 	function NS.display_pack(meta)
-		local info = __emulib.DecodeAddonPackData(meta);
+		local info = __emulib.DecodeAddonPackData(meta or nil);
 		if info then
 			print("Packed: ", info);
 		else

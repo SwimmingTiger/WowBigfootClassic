@@ -10,24 +10,16 @@ end
 Popup = Popup or {  };
 Popup.__minor = __version;
 _G.alaPopup = Popup;
-----------------------------------------------------------------------------------------------------
+
 local ADDON, NS = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
+
 local type = type;
 local ipairs, pairs, tinsert, tremove = ipairs, pairs, tinsert, tremove;
-----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------main
-local function _debug_(...)
-	print("\124cffff0000alaChat addon:\124r", ...);
-end
-local function _log_(...)
-	print(...);
-end
---------------------------------------------------
---------------------------------------------------
+
+
+
 local DropDownList1 = DropDownList1;
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",	-- "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",

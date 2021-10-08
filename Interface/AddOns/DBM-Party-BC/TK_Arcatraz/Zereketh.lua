@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(548, "DBM-Party-BC", 15, 254)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20210613145646")
+mod:SetRevision("20210922152526")
 mod:SetCreatureID(20870)
 mod:SetEncounterID(1916)
 mod:SetModelID(19882)
@@ -21,6 +21,19 @@ local specwarnSoC	= mod:NewSpecialWarningDispel(39367, "Healer", nil, nil, 1, 2)
 local specWarnGTFO	= mod:NewSpecialWarningGTFO(36121, nil, nil, nil, 1, 8)
 
 local timerSoC      = mod:NewTargetTimer(18, 39367, nil, "Healer", 2, 3, nil, DBM_CORE_L.MAGIC_ICON)
+
+function mod:OnCombatStart(delay)
+	if not self:IsTrivial() then
+		self:RegisterShortTermEvents(
+			"SPELL_DAMAGE 36121 39004",
+			"SPELL_MISSED 36121 39004"
+		)
+	end
+end
+
+function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
+end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(36127, 39005) then

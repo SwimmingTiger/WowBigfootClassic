@@ -1,12 +1,8 @@
 ## Interface: 20502
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
-## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0태양샘 고원|r
-## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Der Sonnenbrunnen|r
-## Title-esES:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Meseta de La Fuente del Sol|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太阳之井|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太陽之井|r
-## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Плато Солнечного Колодца|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMSunwell_AllSavedVars
@@ -19,14 +15,12 @@
 ## X-DBM-Mod-Sort: 1001
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-MinExpansion: 1
+## X-Revision: BigFoot
 
 localization.en.lua
 localization.cn.lua
-localization.de.lua
-localization.es.lua
-localization.kr.lua
-localization.ru.lua
 localization.tw.lua
+
 Kalecgos.lua
 KalecgosFrame.lua
 KalecgosFrame.xml

@@ -1,7 +1,7 @@
 --[[--
 	ALA@163UI
 --]]--
-local __version = 1;
+local __version = 2;
 
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __commlib = __ala_meta__.__commlib;
@@ -186,7 +186,7 @@ local function UNIT_GUID(channel, target)
 	local str = str0;
 	local len = len0;
 	for GUID, _ in next, T_GUID do
-		if strsub(GUID, 1, 6) == "Player" then
+		if strsub(GUID, 1, 7) == "Player-" then
 			str = str .. "`" .. GUID;
 			len = len + 24;
 			if len >= 240 then

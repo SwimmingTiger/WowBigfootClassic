@@ -5,6 +5,10 @@ local L
 ----------------------------
 L = DBM:GetModLocalization("d286")
 
+L:SetGeneralLocalization{
+	name = "Ahune"
+}
+
 L:SetWarningLocalization({
 	Emerged			= "Emerged",
 	specWarnAttack	= "Ahune is vulnerable - Attack now!"
@@ -31,6 +35,10 @@ L:SetMiscLocalization({
 ----------------------
 L = DBM:GetModLocalization("d287")
 
+L:SetGeneralLocalization{
+	name = "Coren Direbrew"
+}
+
 L:SetWarningLocalization({
 	specWarnBrew		= "Get rid of the brew before she tosses you another one!",
 	specWarnBrewStun	= "HINT: You were bonked, remember to drink the brew next time!"
@@ -49,6 +57,10 @@ L:SetMiscLocalization({
 --  The Headless Horseman  --
 -----------------------------
 L = DBM:GetModLocalization("d285")
+
+L:SetGeneralLocalization{
+	name = "Headless Horseman"
+}
 
 L:SetWarningLocalization({
 	WarnPhase				= "Phase %d",

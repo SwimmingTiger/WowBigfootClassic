@@ -610,6 +610,8 @@ data["EngineeringBC"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 30563 }, -- Goblin Rocket Launcher (360)
 				{ 2, 30569 }, -- Gnomish Poultryizer (360)
+				{ 16, 36955 }, -- Ultrasafe Transporter - Toshley's Station (350)
+				{ 17, 36954 }, -- Dimensional Ripper - Area 52 (350)
 			}
 		},
 		{
@@ -683,23 +685,14 @@ data["EngineeringBC"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 44157 }, -- Turbo-Charged Flying Machine (385)
 				{ 2, 44155 }, -- Flying Machine (375)
-
 				{ 4, 30349 }, -- Khorium Toolbox (350)
 				{ 5, 30348 }, -- Fel Iron Toolbox (325)
-
-				{ 7, 36955 }, -- Ultrasafe Transporter - Toshley's Station (350)
-				{ 8, 36954 }, -- Dimensional Ripper - Area 52 (350)
-
-				{ 10, 30552 }, -- Mana Potion Injector (345)
-				{ 11, 30551 }, -- Healing Potion Injector (330)
-
-				{ 13, 23078 }, -- Goblin Jumper Cables XL (265) (got updated from classic-era and is not a trinket anymore)
-				{ 14, 9273 },  -- Goblin Jumper Cables (165) (got updated from classic-era and is not a trinket anymore)
-
+				{ 7, 30552 }, -- Mana Potion Injector (345)
+				{ 8, 30551 }, -- Healing Potion Injector (330)
+				{ 10, 23078 }, -- Goblin Jumper Cables XL (265) (got updated from classic-era and is not a trinket anymore)
+				{ 11, 9273 },  -- Goblin Jumper Cables (165) (got updated from classic-era and is not a trinket anymore)
 				{ 16, 30548 }, -- Zapthrottle Mote Extractor (305)
-
 				{ 18, 44391 }, -- Field Repair Bot 110G (360)
-
 				{ 20, 30547 }, -- Elemental Seaforium Charge (350)
 
 				-- The following Items were in the Beta but never made it into the game
@@ -1402,21 +1395,28 @@ data["JewelcraftingBC"] = {
 		{
 			name = format(GEM_FORMAT1, ALIL["Purple"]),
 			[NORMAL_DIFF] = {
-				{ 1, 39462 }, -- Infused Nightseye (350)
-				{ 2, 39458 }, -- Infused Shadow Draenite (325)
-				{ 4, 39463 }, -- Balanced Nightseye (350)
-				{ 5, 39455 }, -- Balanced Shadow Draenite (325)
-				{ 7, 31102 }, -- Sovereign Nightseye (350)
-				{ 8, 28936 }, -- Sovereign Shadow Draenite (325)
-				{ 10, 46803 }, -- Regal Nightseye (350)
-				{ 16, 31103 }, -- Shifting Nightseye (350)
-				{ 17, 28933 }, -- Shifting Shadow Draenite (315)
-				{ 19, 31105 }, -- Royal Nightseye (350)
-				{ 20, 28927 }, -- Royal Shadow Draenite (305)
-				{ 22, 31104 }, -- Glowing Nightseye (350)
-				{ 23, 28925 }, -- Glowing Shadow Draenite (300)
+				{ 1, 39728 }, -- Shifting Shadowsong Amethyst (375)
+				{ 2, 31103 }, -- Shifting Nightseye (350)
+				{ 3, 28933 }, -- Shifting Shadow Draenite (315)
+				{ 5, 39727 }, -- Sovereign Shadowsong Amethyst (375)
+				{ 6, 31102 }, -- Sovereign Nightseye (350)
+				{ 7, 28936 }, -- Sovereign Shadow Draenite (325)
+				{ 9, 39729 }, -- Balanced Shadowsong Amethyst (375)
+				{ 10, 39463 }, -- Balanced Nightseye (350)
+				{ 11, 39455 }, -- Balanced Shadow Draenite (325)
+				{ 13, 39730 }, -- Infused Shadowsong Amethyst (375)
+				{ 14, 39462 }, -- Infused Nightseye (350)
+				{ 15, 39458 }, -- Infused Shadow Draenite (325)
+				{ 16, 39731 }, -- Glowing Nightseye (375)
+				{ 17, 31104 }, -- Glowing Nightseye (350)
+				{ 18, 28925 }, -- Glowing Shadow Draenite (300)
+				{ 20, 39732 }, -- Royal Shadowsong Amethyst (375)
+				{ 21, 31105 }, -- Royal Nightseye (350)
+				{ 22, 28927 }, -- Royal Shadow Draenite (305)
+				{ 24, 48789 }, -- Purified Shadowsong Amethyst (375)
 				{ 25, 41429 }, -- Purified Shadow Pearl (350)
 				{ 26, 41420 }, -- Purified Jaggal Pearl (325)
+				{ 28, 46803 }, -- Regal Nightseye (350)
 			}
 		},
 		{
@@ -1606,15 +1606,15 @@ data["CookingBC"] = {
 			},
 		},
 		{
-			name = ALIL["Hit"],
+			name = ALIL["Stamina"].." + "..ALIL["Mana Per 5 Sec."],
 			[NORMAL_DIFF] = {
-				{ 1, 43765 }, -- Spicy Hot Talbuk (325)
+				{ 1, 33292 }, -- Blackened Sporefish (310)
 			},
 		},
 		{
-			name = ALIL["Mana Per 5 Sec."],
+			name = ALIL["Hit"].." + "..ALIL["Spirit"],
 			[NORMAL_DIFF] = {
-				{ 1, 33292 }, -- Blackened Sporefish (310)
+				{ 1, 43765 }, -- Spicy Hot Talbuk (325)
 			},
 		},
 		{
@@ -1639,9 +1639,21 @@ data["CookingBC"] = {
 			},
 		},
 		{
+			name = AL["Misc"],
+			[NORMAL_DIFF] = {
+				{ 1, 46684 }, -- Charred Bear Kabobs (250)
+				{ 2, 46688 }, -- Juicy Bear Burger (250)
+				{ 4, 28267 }, -- Crunchy Spider Surprise (60)
+				{ 5, 33278 }, -- Bat Bites (50)
+				{ 16, 33277 }, -- Roasted Moongraze Tenderloin (1)
+				{ 17, 33276 }, --Lynx Steak (1)
+			},
+		},
+		{
 			name = AL["Special"],
 			[NORMAL_DIFF] = {
 				{ 1, 43779 }, -- Delicious Chocolate Cake (1)
+				{ 3, 45695 }, -- Captain Rumsey's Lager (100)
 				{ 16, 43758 }, -- Stormchops (300)
 			},
 		},
