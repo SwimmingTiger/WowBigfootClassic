@@ -89,6 +89,18 @@ local function Spell(id, icon, children)
     return Rule(spellName, icon, 'spell:' .. spellName, children)
 end
 
+local function SpellId(id, icon, name, ...)
+    local children
+    if type(name) == 'table' then
+        name, children = nil, name
+    else
+        children = ...
+    end
+
+    local spellName = GetSpellInfo(id)
+    return Rule(spellName .. ' - ' .. (name or id), icon, 'spell:' .. id, children)
+end
+
 local function TypeOrTag(type, subType, icon, children)
     local name = GetItemSubClassInfo(type, subType)
     return Rule(name, icon, format('type:%s | tag:%s', name, name), children)
@@ -102,7 +114,9 @@ local MOUNT = GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLAN
 
 ns.DEFAULT_SORTING_RULES = {
     HEARTHSTONE_ITEM_ID, -- 炉石
+    -- @bcc@
     184871, -- 黑暗之门
+    -- @end-bcc@
     --[[@classic@
     Tag('Mount', 132261), -- 坐骑
     Tag('Pet', 132598), -- 宠物
@@ -113,9 +127,6 @@ ns.DEFAULT_SORTING_RULES = {
     -- @end-bcc@
     Group(L['Tools'], 134065, {
         5060, -- 潜行者工具
-        2901, -- 矿工锄
-        5956, -- 铁匠锤
-        7005, -- 剥皮刀
         9149, -- 点金石
         -- @bcc@
         22463, -- 符文恒金棒
@@ -127,6 +138,9 @@ ns.DEFAULT_SORTING_RULES = {
         11130, -- 符文金棒
         6339, -- 符文银棒
         6218, -- 符文铜棒
+        7005, -- 剥皮刀
+        2901, -- 矿工锄
+        5956, -- 铁匠锤
         6219, -- 扳手
         10498, -- 侏儒微调器
         19727, -- 血镰刀
@@ -183,13 +197,24 @@ ns.DEFAULT_SORTING_RULES = {
         Consumable(7, 133692), -- 绷带
         Consumable(3, 134742), -- 合剂
         Consumable(2, 134773), -- 药剂
-        Consumable(1, 134729, {
-            Spell(439, 134830), -- 治疗药水
-            Spell(438, 134851), -- 法力药水
-        }), -- 药水
+        Spell(439, 134830), -- 治疗药水
+        Spell(438, 134851), -- 法力药水
+        Consumable(1, 134729), -- 药水
         Consumable(4, 134937), -- 卷轴
         Consumable(5, 133953, {
             Spell(44166, 134051), -- 恢复体能
+            SpellId(33262, 134034, SPELL_STAT2_NAME), -- 敏捷
+            SpellId(33255, 134016, SPELL_STAT1_NAME), -- 力量
+            SpellId(33260, 134009, ATTACK_POWER_TOOLTIP), -- AP
+            SpellId(33264, 134044, STAT_SPELLDAMAGE), -- 法伤
+            SpellId(43763, 134040, STAT_HIT_CHANCE), -- 命中
+            SpellId(33269, 134904, STAT_SPELLHEALING), -- 治疗
+            SpellId(43706, 134019, SPELL_CRIT_CHANCE), -- 法暴
+            SpellId(33266, 134035, MANA_REGEN), -- 5回
+            SpellId(33258, 133902, SPELL_STAT3_NAME), -- 耐力
+            SpellId(35271, 134004, SPELL_STAT3_NAME), -- 耐力
+            SpellId(33253, 134030, SPELL_STAT3_NAME), -- 耐力
+            SpellId(45618, 133915, STAT_CATEGORY_RESISTANCE), -- 抗性
             Spell(433, 133945), -- 进食
             Spell(430, 132794), -- 喝水
         }), -- 食物和饮料
@@ -223,6 +248,7 @@ ns.DEFAULT_SORTING_RULES = {
         Trade(13, 132850), -- 原料
         -- @end-bcc@
     }), -- 商品
+    -- @bcc@
     Type(LE_ITEM_CLASS_GEM, 133272, {
         SubType(LE_ITEM_CLASS_GEM, 0, 134083), -- 红
         SubType(LE_ITEM_CLASS_GEM, 2, 134114), -- 黄
@@ -234,8 +260,11 @@ ns.DEFAULT_SORTING_RULES = {
         SubType(LE_ITEM_CLASS_GEM, 6, 134098), -- 多彩
         SubType(LE_ITEM_CLASS_GEM, 7, 134087), -- 简易
     }), -- 珠宝
+    -- @end-bcc@
     Rule(MISC, 134237, 'type:!' .. QUEST .. ' & tip:!' .. QUEST, {
+        -- @bcc@
         Misc(LE_ITEM_MISCELLANEOUS_REAGENT, 133587), -- 材料
+        -- @end-bcc@
         Type(LE_ITEM_CLASS_CONSUMABLE, 134420), -- 消耗品
         Type(LE_ITEM_CLASS_MISCELLANEOUS, 134400), -- 其它
         Type(LE_ITEM_CLASS_KEY, 134237), -- 钥匙
@@ -247,6 +276,7 @@ ns.DEFAULT_SORTING_RULES = {
 }
 
 ns.DEFAULT_SAVING_RULES = { --
+    -- @bcc@
     16885, -- 重垃圾箱
     Trade(1, 133025), -- 零件
     Trade(5, 132903), -- 布料
@@ -258,5 +288,6 @@ ns.DEFAULT_SAVING_RULES = { --
     Trade(12, 132864), -- 附魔
     Trade(4, 134379), -- 珠宝加工
     Trade(13, 132850), -- 原料
-    Type(LE_ITEM_CLASS_GEM, 133272)
+    Type(LE_ITEM_CLASS_GEM, 133272),
+    -- @end-bcc@
 }

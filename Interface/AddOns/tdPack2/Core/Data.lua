@@ -160,7 +160,11 @@ ns.ITEM_TAG_SETS = {}
 do
     for tag, items in pairs(ns.ITEM_TAGS) do
         for _, id in ipairs(items) do
-            ns.ITEM_TAG_SETS[id] = tag
+            if items.locale then
+                ns.ITEM_TAG_SETS[id] = L['ITEM_TAG: ' .. tag]
+            else
+                ns.ITEM_TAG_SETS[id] = tag
+            end
         end
     end
 end

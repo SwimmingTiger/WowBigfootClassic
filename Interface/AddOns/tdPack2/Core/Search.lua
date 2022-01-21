@@ -76,8 +76,13 @@ Filters.tdpackSpellName = {
     end,
 
     match = function(self, item, _, search)
+        local searchId = tonumber(search)
         local spellName, spellId = GetItemSpell(item)
-        return CustomSearch:Find(search, spellName or '')
+        if searchId then
+            return searchId == spellId
+        else
+            return CustomSearch:Find(search, spellName or '')
+        end
     end,
 }
 

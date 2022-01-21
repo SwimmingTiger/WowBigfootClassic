@@ -143,16 +143,6 @@ function ns.GetBags(bagType)
     return BAGS[bagType]
 end
 
--- @bcc@
-local VALID_FAMILIES = (function()
-    local r = {}
-    for i = 1, 32 do
-        r[bit.lshift(1, i - 1)] = true
-    end
-    return r
-end)()
--- @end-bcc@
-
 function ns.GetItemFamily(itemId)
     if not itemId then
         return 0
@@ -164,11 +154,6 @@ function ns.GetItemFamily(itemId)
         return 0
     end
     local itemFamily = GetItemFamily(itemId)
-    -- @bcc@
-    if VALID_FAMILIES and not VALID_FAMILIES[itemFamily] then
-        return 0
-    end
-    -- @end-bcc@
     return itemFamily
 end
 
