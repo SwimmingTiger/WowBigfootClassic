@@ -1,10 +1,54 @@
-lightweight tag 44e768f3b16cd9663bd538f3d1031ae0a46a6892 v2.1.10
-Author:	Simon Hirsig <simon.hirsig@gmail.com>
-Date:	Wed Sep 1 17:47:08 2021 +0200
+lightweight tag dd360af22fc8846c7ee264a49bc864e47f9458e2 v2.1.12
+Author:	GitHub <noreply@github.com>
+Date:	Mon Sep 27 20:29:47 2021 +0200
 
-commit 44e768f3b16cd9663bd538f3d1031ae0a46a6892
-Author: Simon Hirsig <simon.hirsig@gmail.com>
-Date:   Wed Sep 1 17:47:08 2021 +0200
+commit 8c5c4d9acd2aace99ebdc85f9cbd93e731608997
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:32:16 2021 +0300
 
-    disabling stack count when posting suffix items because the api ignores them
+    fix color for quality dropdown
+    
+    rewrite with new code
+
+commit 2f7b7c25d3669e51bea54ebe2a5e769393ec6c87
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:13:55 2021 +0300
+
+    fix the tab-switching focus feature
+    
+    for new dynamic filter dropdown
+
+commit 8c5c4d9acd2aace99ebdc85f9cbd93e731608997
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:32:16 2021 +0300
+
+    fix color for quality dropdown
+    
+    rewrite with new code
+
+commit fa90c361459b6a47dce094f22eaad944e865a67e
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:27:25 2021 +0300
+
+    gui: add feature to set colors for dropdown items
+
+commit c5e4adbab69eaca850ae8ae6d058c78a421545d3
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:21:02 2021 +0300
+
+    gui: add quick access to fontstring obj from button obj
+
+commit 2f7b7c25d3669e51bea54ebe2a5e769393ec6c87
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:13:55 2021 +0300
+
+    fix the tab-switching focus feature
+    
+    for new dynamic filter dropdown
+
+commit 26efa0bd93b37e2e3658af844050545c46931daf
+Author: Artur <Artur91425@gmail.com>
+Date:   Sun Sep 19 19:10:33 2021 +0300
+
+    add missing OnEnter script function for Blizzard filter
 
