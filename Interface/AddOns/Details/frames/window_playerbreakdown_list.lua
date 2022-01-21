@@ -31,6 +31,7 @@
 				if (playerObject) then
 					local line = self:GetLine(i)
 					line.playerObject = playerObject
+					line.index = index
 					line:UpdateLine(topResult)
 				end
 			end
@@ -58,9 +59,8 @@
 			self.specIcon:SetBlendMode("BLEND")
 			self.roleIcon:SetBlendMode("BLEND")
 		end
-		
-		local updatePlayerLine = function(self, topResult)
 
+		local updatePlayerLine = function(self, topResult)
 			local playerSelected = Details:GetPlayerObjectFromBreakdownWindow()
 			if (playerSelected and playerSelected == self.playerObject) then
 				self:SetBackdropColor(unpack(scrollbox_line_backdrop_color_selected))
@@ -69,22 +69,29 @@
 				self:SetBackdropColor(unpack(scrollbox_line_backdrop_color))
 				self.isSelected = nil
 			end
-			
-			--adjust the player icon
-			local specIcon, L, R, T, B = Details:GetSpecIcon(self.playerObject.spec, false)
-			local specId, specName, specDescription, specIconId, specRole, specClass
-			
-			if (specIcon) then
-				self.specIcon:SetTexture(specIcon)
-				self.specIcon:SetTexCoord(L, R, T, B)
 
-				if (DetailsFramework.IsTimewalkWoW()) then
-					specRole = "NONE"
-				else
-					specId, specName, specDescription, specIconId, specRole, specClass = _G.GetSpecializationInfoByID(self.playerObject.spec)
-				end
+			local specRole
+
+			--adjust the player icon
+			if (self.playerObject.spellicon) then
+				self.specIcon:SetTexture(self.playerObject.spellicon)
+				self.specIcon:SetTexCoord(.1, .9, .1, .9)
 			else
-				self.specIcon:SetTexture(nil)
+				local specIcon, L, R, T, B = Details:GetSpecIcon(self.playerObject.spec, false)
+				local specId, specName, specDescription, specIconId, specClass
+
+				if (specIcon) then
+					self.specIcon:SetTexture(specIcon)
+					self.specIcon:SetTexCoord(L, R, T, B)
+
+					if (DetailsFramework.IsTimewalkWoW()) then
+						specRole = "NONE"
+					else
+						specId, specName, specDescription, specIconId, specRole, specClass = _G.GetSpecializationInfoByID(self.playerObject.spec)
+					end
+				else
+					self.specIcon:SetTexture(nil)
+				end
 			end
 
 			--adjust the role icon
@@ -105,6 +112,7 @@
 			
 			--set the player name
 			self.playerName:SetText(Details:GetOnlyName(self.playerObject.nome))
+			self.rankText:SetText(self.index)
 			
 			--set the player class name
 			self.className:SetText(string.lower(_G.UnitClass(self.playerObject.nome) or self.playerObject:Class()))
@@ -145,6 +153,10 @@
 			className.textcolor = {.95, .8, .2, 0}
 			className.textsize = 9
 
+			local rankText = DF:CreateLabel(line, "", "GameFontNormal")
+			rankText.textcolor = {.3, .3, .3, .7}
+			rankText.textsize = 13
+
 			local totalStatusBar = CreateFrame("statusbar", nil, line)
 			totalStatusBar:SetSize(scrollbox_size[1]-19-player_line_height, 4)
 			totalStatusBar:SetMinMaxValues(0, 100)
@@ -154,15 +166,16 @@
 			--setup anchors
 			specIcon:SetPoint("topleft", line, "topleft", 0, 0)
 			roleIcon:SetPoint("topleft", specIcon, "topright", 2, 0)
-			--playerName:SetPoint("left", roleIcon, "right", 2, 0)
-			playerName:SetPoint("topleft", specIcon, "topright", 2, -1)
+			playerName:SetPoint("topleft", specIcon, "topright", 2, -3)
 			className:SetPoint("topleft", roleIcon, "bottomleft", 0, -2)
+			rankText:SetPoint("right", line, "right", -2, 0)
 			totalStatusBar:SetPoint("bottomleft", specIcon, "bottomright", 0, 0)
 
 			line.specIcon = specIcon
 			line.roleIcon = roleIcon
 			line.playerName = playerName
 			line.className = className
+			line.rankText = rankText
 			line.totalStatusBar = totalStatusBar
 
 			line.UpdateLine = updatePlayerLine
@@ -201,13 +214,12 @@
 			DRUID = 11,
 			DEMONHUNTER = 12,
 		}
-		
+
 		--get the player list from the segment and build a table compatible with the scroll box
 		function breakdownWindowPlayerList.BuildPlayerList()
 			local segment = Details:GetCombatFromBreakdownWindow()
 			local playerTable = {}
 			if (segment) then
-				--need to know if this is showing damage or heal
 				local displayType = Details:GetDisplayTypeFromBreakdownWindow()
 				local containerType = displayType == 1 and DETAILS_ATTRIBUTE_DAMAGE or DETAILS_ATTRIBUTE_HEAL
 				local container = segment:GetContainer(containerType)
@@ -220,25 +232,28 @@
 					end
 				end
 			end
-			
-			table.sort (playerTable, DF.SortOrder3)
-			
+
+			table.sort(playerTable, DF.SortOrder3)
+
 			local resultTable = {}
 			for i = 1, #playerTable do
-				resultTable [#resultTable+1] = playerTable[i][1]
+				resultTable[#resultTable+1] = playerTable[i][1]
 			end
-			
+
 			return resultTable
 		end
-		
+
+		local updatePlayerList = function()
+			local playerList = breakdownWindowPlayerList.BuildPlayerList()
+			playerScroll:SetData (playerList)
+			playerScroll:Refresh()
+			playerScroll:Show()
+		end
+
 		function Details:UpdateBreakdownPlayerList()
 			--run the update on the next tick
-			C_Timer.After(0, function()
-				local playerList = breakdownWindowPlayerList.BuildPlayerList()
-				playerScroll:SetData (playerList)
-				playerScroll:Refresh()
-				playerScroll:Show()
-			end)
+			C_Timer.After(0, updatePlayerList)
+			--DF.Schedules.RunNextTick(updatePlayerList)
 		end
 
 		f:HookScript("OnShow", function()
