@@ -233,6 +233,7 @@ NeatPlatesHubDefaults = {
 	ColorCastBySchool = false,
 	SpellCastEnableEnemy = true,
 	SpellCastEnableFriendly = false,
+	CastSpellNameEnable = true,
 	IntCastEnable = true,
 	IntCastWhoEnable = true,
 	SpellIconEnable = true,
@@ -333,6 +334,7 @@ NeatPlatesHubDefaults = {
 	HideAuraDuration = false,
 	HideAuraStacks = false,
 	HideAuraInHeadline = false,
+	BlizzardStyleIcons = false,
 
 	-- Frame
 	---------------------------------------

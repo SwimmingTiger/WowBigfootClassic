@@ -1,13 +1,12 @@
-lightweight tag def9c9929aa666427775736f5b8707555302c2aa 2.5.1.24
+lightweight tag 08eb35624379a853ead41c46abece303e79b1307 2.5.2.3
 Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Wed Aug 4 19:27:28 2021 +0200
+Date:	Mon Oct 18 22:04:20 2021 +0200
 
-commit def9c9929aa666427775736f5b8707555302c2aa
+commit 1401200e16123945a247182f6d033a4fb2a504a0
 Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Wed Aug 4 19:27:28 2021 +0200
+Date:   Mon Oct 18 22:04:08 2021 +0200
 
-    Some aura option fixes
+    Fix "who interrupted" not working since last update
     
-    - Fixed 'Emphasized Aura Slot' option not working for all aura scales
-    - Fixed auras not displaying as normal auras if all the emphasized aura slots were full
+    - Fix "who interrupted" not working since last update
 

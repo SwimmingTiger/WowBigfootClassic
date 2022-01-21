@@ -264,10 +264,11 @@ L["Hide Aura Widget in Headline Mode"] = true
 L["Icon Style"] = true
 	-- Icon Style Dropdown
 	L["Wide"] = true
-	L["Compact (May require UI reload to take effect)"] = true
+	L["Compact"] = true
+	L["Blizzlike"] = true
 
 L["Sorting Mode"] = true
-	-- Aura Sorting Dropdown
+		-- Aura Sorting Dropdown
 	L["By Duration"] = true
 
 L["Aura Alignment"] = true
@@ -481,6 +482,7 @@ L["Castbar Duration Style"] = true
 	L["Time Elapsed"] = true
 	L["Time Elapsed/Cast Time"] = true
 L["Show Spell Icon"] = true
+L["Show Name of Spell"] = true
 L["Show Target of Spell"] = true
 L["Show Enemy Cast Bars"] = true
 L["Show Friendly Cast Bars"] = true

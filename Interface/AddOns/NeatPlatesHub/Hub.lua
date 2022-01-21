@@ -535,7 +535,8 @@ local function BuildHubPanel(panel)
   panel.SpellCastLabel, F = CreateQuickHeadingLabel(nil, L["Cast Bars"], AlignmentColumn, F, 0, 5)
   panel.CastbarDurationMode, F =  CreateQuickDropdown(objectName.."CastbarDurationMode", L["Castbar Duration Style"]..':', CastbarDurationModes, 1, AlignmentColumn, F )
   panel.SpellIconEnable, F = CreateQuickCheckbutton(objectName.."SpellIconEnable", L["Show Spell Icon"], AlignmentColumn, F)
-		panel.SpellTargetEnable, F = CreateQuickCheckbutton(objectName.."SpellTargetEnable", L["Show Target of Spell"], AlignmentColumn, F)
+	panel.CastSpellNameEnable, F = CreateQuickCheckbutton(objectName.."CastSpellNameEnable", L["Show Name of Spell"], AlignmentColumn, F)
+	panel.SpellTargetEnable, F = CreateQuickCheckbutton(objectName.."SpellTargetEnable", L["Show Target of Spell"], AlignmentColumn, F)
 	panel.ColorCastBySchool, F = CreateQuickCheckbutton(objectName.."ColorCastBySchool", L["Color Cast Bars by School"], AlignmentColumn, F)
   panel.SpellCastEnableEnemy, F = CreateQuickCheckbutton(objectName.."SpellCastEnableEnemy", L["Show Enemy Cast Bars"], AlignmentColumn, F)
   panel.SpellCastEnableFriendly, F = CreateQuickCheckbutton(objectName.."SpellCastEnableFriendly", L["Show Friendly Cast Bars"], AlignmentColumn, F)
@@ -939,12 +940,13 @@ HubHandler:SetScript("OnEvent", function(...)
 	local TPCEnabled = GetAddOnEnableState(player, "TidyPlatesContinued") ~= 0
 	local TPCHubEnabled = GetAddOnEnableState(player, "TidyPlatesContinuedHub") ~= 0
 
-	-- Determine which client we are on (Retail or Classic)
-	if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC then
-		VersionWarning()
-		HubHandler:UnregisterEvent("ADDON_LOADED")
-		return
-	end
+	-- No longer needed as of Classic Era servers
+	-- -- Determine which client we are on (Retail or Classic)
+	-- if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC then
+	-- 	VersionWarning()
+	-- 	HubHandler:UnregisterEvent("ADDON_LOADED")
+	-- 	return
+	-- end
 
 	if addon == "NeatPlatesHub" and (not TPCEnabled or not TPCHubEnabled) then
 		LoadProfiles(NeatPlatesHubSettings.profiles)
@@ -1089,7 +1091,7 @@ StaticPopupDialogs["NeatPlatesHUB_RESETCHECK"] = {
   timeout = 0,
   whileDead = true,
   hideOnEscape = true,
-  preferredIndex = STATICPOPUP_NUMDIALOGS,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
+  preferredIndex = 3,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
 }
 
 --StaticPopup_Show ("NeatPlatesHUB_RESETCHECK")
