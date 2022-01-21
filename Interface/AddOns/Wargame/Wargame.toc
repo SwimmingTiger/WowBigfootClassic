@@ -1,8 +1,8 @@
-## Interface: 20502
-## Title: Wargame
-## Title-zhCN: 战争游戏
-## Title-zhTW: 戰爭遊戲
-## Notes: |cff00ff00Wargame|r
+## Interface: 20503
+## Title: Wargame (Disabled by packager)
+## Title-zhCN: 战争游戏 (打包者停用)
+## Title-zhTW: 戰爭遊戲 (打包者停用)
+## Notes: |cff00ff00Wargame|r 老虎会游泳：永远显示“服务器连接中”，所以停用了。
 ## Author: Dencer
 ## Version: 1.1.10
 ## SavedVariables: NETEASE_WARGAME_DB
