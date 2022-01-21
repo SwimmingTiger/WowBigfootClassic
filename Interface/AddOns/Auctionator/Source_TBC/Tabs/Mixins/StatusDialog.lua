@@ -16,8 +16,12 @@ end
 function AuctionatorPageStatusDialogMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.AH.Events.ScanPageStart then
     local page = ...
+    local text = AUCTIONATOR_L_SCANNING_PAGE_X:format(page + 1)
+    if IsAddOnLoaded("aux-addon") then
+      text = text .. "若卡住请取消勾选AUX拍卖插件"
+    end
     self:Show()
-    self.StatusText:SetText(AUCTIONATOR_L_SCANNING_PAGE_X:format(page + 1))
+    self.StatusText:SetText(text)
 
   elseif eventName == Auctionator.AH.Events.ScanResultsUpdate then
     local _, isComplete = ...
