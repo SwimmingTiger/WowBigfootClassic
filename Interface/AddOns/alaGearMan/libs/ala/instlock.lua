@@ -1,9 +1,11 @@
 --[[--
 	ALA@163UI
 --]]--
-local __version = 2;
+
+local __version = 5;
 
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
+local __ala_meta__ = _G.__ala_meta__;
 local __instlib = __ala_meta__.__instlib
 if __instlib ~= nil and __instlib.__minor >= __version then
 	return;
@@ -13,21 +15,6 @@ __instlib.__minor = __version;
 __ala_meta__.__instlib = __instlib;
 
 local _G = _G;
-do
-	-- if __instlib.__fenv == nil then
-	-- 	__instlib.__fenv = setmetatable({  },
-	-- 			{
-	-- 				__index = _G,
-	-- 				__newindex = function(t, key, value)
-	-- 					rawset(t, key, value);
-	-- 					print("instlib assign global", key, value);
-	-- 					return value;
-	-- 				end,
-	-- 			}
-	-- 		);
-	-- end
-	-- setfenv(1, __instlib.__fenv);
-end
 
 -->			upvalue
 local setmetatable, tinsert, next = setmetatable, tinsert, next;
@@ -290,6 +277,7 @@ __instlib.InstanceIDHash = {
 			[2217] = true,		--	Ny’alotha
 };
 
+local ADDON_MSG_CONTROL_CODE_LEN = 6;
 __instlib.ADDON_PREFIX = "ILTADD";
 __instlib.ADDON_MSG_PUSH_ZONEUID = "_push_";
 __instlib.ADDON_MSG_QUERY_ZONEUID = "_q_uid";

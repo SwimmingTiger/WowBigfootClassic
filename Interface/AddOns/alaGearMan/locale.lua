@@ -42,6 +42,7 @@ if LOCALE == 'zhCN' then
 	L["IN_BAG"] = "在背包中"
 	L["CURRENT_OUTFIT"] = "当前装备中";
 	L["SHOULD_TAKE_OFF"] = "应脱下";
+	L["UP_TO_120_MACROS"] = "当前帐号有超过|cff00ff00120|r个宏，[|cffff7f00alaGearMan|r]不会创建装备切换宏(不影响插件功能)。";
 
 	L.slot = {
 		[0] = "子弹",
@@ -111,6 +112,7 @@ elseif LOCALE == 'zhTW' then
 	L["IN_BAG"] = "在背包中"
 	L["CURRENT_OUTFIT"] = "當前裝備中";
 	L["SHOULD_TAKE_OFF"] = "應脫下";
+	L["UP_TO_120_MACROS"] = "當前賬號有超過|cff00ff00120|r個宏，[|cffff7f00alaGearMan|r]不會創建裝備切換宏(不影響插件功能)。";
 
 	L.slot = {
 		[0] = "子彈",
@@ -180,6 +182,7 @@ elseif LOCALE == "ruRU" then
 	L["IN_BAG"] = "in bag"
 	L["CURRENT_OUTFIT"] = "Current Equiped";
 	L["SHOULD_TAKE_OFF"] = "Should take off";
+	L["UP_TO_120_MACROS"] = "There are more than |cff00ff00120|r macors.[|cffff7f00alaGearMan|r] won't create macro of set switch.";
 
 	L.slot = {
 		[0] = "Ammo",
@@ -215,6 +218,76 @@ elseif LOCALE == "ruRU" then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "The 8th outfit";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "Снять все снаряжение";
+elseif LOCALE == "koKR" then
+	L["INVENTORY_IS_FULL"] = "가방이 꽉 찼습니다.";
+	L["IN_COMBAT"] = "전투중!";
+	L["BE_DEAD"] = "당신은 죽었습니다.!";
+	L["Add a new outfit"] = "새로운 세트 추가";
+	L["Delete this outfit?"] = "이 조합를 삭제하시겠습니까?";
+	L["OK"] = "OK";
+	L["Cancel"] = "취소";
+	L["Save"] = "저장";
+	L["Equip"] = "착용";
+	L["Style"] = "모양";
+	L["useBar"] = "버튼 표시";
+	L["useBar_false"] = "버튼 숨기기";
+	L["Style_TC"] = "글자 & 아이콘";
+	L["Style_T"] = "아이콘 스타일";
+	L["Style_C"] = "숫자 스타일";
+	L["Take_Off_All"] = "장비 벗기";
+	L["Take_Off_All_ButtonText"] = "С";
+	L["Take-off-all On Right"] = "장비 벗기 아이콘-\124cffff0000끝으로\124r";
+	L["Take-off-all On Left"] = "장비 벗기 아이콘-\124cffff0000앞으로\124r";
+	L["takeoffAll_include_neck_finger_and_trinket"] = "[장비 벗기] 선택시 내구도 0%인 장비도 <반지, 장신구, 망토 등>\124cffff0000같이 벗기\124r";
+	L["takeoffAll_include_neck_finger_and_trinket_false"] = "[장비 벗기] 선택시 내구도 0%인 장비는 <반지, 장신구, 망토 등>-\124cffff0000빼고 벗기\124r";
+	L["show_outfit_in_tooltip"] = "\124cffff0000툴팁의 복장 정보\124r 보임";
+	L["show_outfit_in_tooltip_false"] = "\124cffff0000툴팁의 복장 정보\124r 안보임";
+	L["multi_lines"] = "단축버튼 여러줄로 배치";
+	L["multi_lines_false"] = "단축버튼을 한 줄에 배치";
+	L["reset_pos"] = "단축아이콘 위치 재설정";
+	L["CTRL-DRAG-TO-MOVE"] = "\124cffff40ffCtrl+왼쪽 드래그 - 계정 전체 위치저장\124r\n\124cffff40ffShift+왼쪽 이동 - 케릭별 위치 저장\124r\n\124cffff40ffCtrl+휠 - 아이콘 크기\124r";
+	L["WAITING_FOR_REGEN_ENABLED"] = "전투 후 업데이트";
+	L["IN_OUTFIT"] = "장비 세트: ";
+	L["TOOLTIP_MISSING"] = " 없음";
+	L["IN_BAG"] = "|cff00ff00-가방에|r"
+	L["CURRENT_OUTFIT"] = "착용중";
+	L["SHOULD_TAKE_OFF"] = "|cff00ff00_|r|cffff00cc장비(방패)없음|r";
+	L["UP_TO_120_MACROS"] = "There are more than |cff00ff00120|r macors.[|cffff7f00alaGearMan|r] won't create macro of set switch.";
+
+	L.slot = {
+		[0] = "투사체",
+		[1] = "머리",
+		[2] = "목",
+		[3] = "어께",
+		[4] = "속옷",
+		[5] = "가슴",
+		[6] = "허리",
+		[7] = "다리",
+		[8] = "신발",
+		[9] = "손목",
+		[10] = "장갑",
+		[11] = "반지1",
+		[12] = "반지2",
+		[13] = "장신구1",
+		[14] = "장신구2",
+		[15] = "망토",
+		[16] = "주장비",
+		[17] = "보조장비",
+		[18] = "원거리",
+		[19] = "겉옷",
+	};
+
+	_G.BINDING_HEADER_ALAGEARMAN_QUICK = "<\124cff00ff00alaGearMan\124r>";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_1 = "1번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_2 = "2번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_3 = "3번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_4 = "4번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_5 = "5번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_6 = "6번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_7 = "7번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_8 = "8번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "9번";
+	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "장비벗기";		
 else
 	L["INVENTORY_IS_FULL"] = "Inventory is full";
 	L["IN_COMBAT"] = "In Combat";
@@ -249,6 +322,7 @@ else
 	L["IN_BAG"] = "in bag"
 	L["CURRENT_OUTFIT"] = "Current Equiped";
 	L["SHOULD_TAKE_OFF"] = "Should take off";
+	L["UP_TO_120_MACROS"] = "There are more than |cff00ff00120|r macors.[|cffff7f00alaGearMan|r] won't create macro of set switch.";
 
 	L.slot = {
 		[0] = "Ammo",

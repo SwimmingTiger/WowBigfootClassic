@@ -20,7 +20,7 @@ if (not select(2, GetAddOnInfo("!!!163ui!!!")) or not IsAddOnLoaded("!!!163ui!!!
 			'COLORSELECT',
 			'COOLDOWN',
 			'EDITBOX',
-			-- 'FOGOFWARFRAME',					--	no method Hide	for classic
+			-- 'FOGOFWARFRAME',					--	no method Hide for classic
 			'GAMETOOLTIP',
 			'MESSAGEFRAME',
 			-- 'MINIMAP',

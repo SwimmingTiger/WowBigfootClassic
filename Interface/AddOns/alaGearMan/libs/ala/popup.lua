@@ -1,33 +1,28 @@
 ﻿--[[--
-	alex@0
+	ALA@163UI
 --]]--
-local __version = 2;
+local __version = 3;
 
 local Popup = _G.alaPopup;
 if Popup ~= nil and Popup.__minor ~= nil and Popup.__minor >= __version then
 	return;
+elseif Popup ~= nil then
+	if Popup.menu ~= nil then
+		Popup.menu:Hide();
+	end
+else
+	Popup = {  };
 end
-Popup = Popup or {  };
 Popup.__minor = __version;
 _G.alaPopup = Popup;
-----------------------------------------------------------------------------------------------------
-local ADDON, NS = ...;
-----------------------------------------------------------------------------------------------------upvalue LUA
+
+
 local type = type;
 local ipairs, pairs, tinsert, tremove = ipairs, pairs, tinsert, tremove;
-----------------------------------------------------------------------------------------------------
 local _G = _G;
 local _ = nil;
-----------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------main
-local function _debug_(...)
-	print("\124cffff0000alaChat addon:\124r", ...);
-end
-local function _log_(...)
-	print(...);
-end
---------------------------------------------------
---------------------------------------------------
+
+
 local DropDownList1 = DropDownList1;
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",	-- "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -66,8 +61,8 @@ end);
 
 local func = {  };
 local buttons = {  };
-local meta = {  };
-local list = {  };
+local meta = Popup.meta or {  };
+local list = Popup.list or {  };
 local target = nil;
 local which = nil;
 local function dropMenuButtonOnClick(self)
@@ -256,4 +251,30 @@ Popup.sub_list = sub_list;
 _G["ALAPOPUP"] = showMenu;
 Popup.func = func;
 Popup.menu = menu;
+Popup.meta = meta;
+Popup.list = list;
 
+
+local flat = {
+	bgFile = "Interface\\Buttons\\WHITE8X8",
+	edgeFile = "Interface\\Buttons\\WHITE8X8",
+	tile = false,
+	tileSize = 16,
+	edgeSize = 1,
+	insets = { left = 1, right = 1, top = 1, bottom = 1, },	
+};
+if IsAddOnLoaded("ElvUI") or IsAddOnLoaded("TuKUI") or IsAddOnLoaded("NDUI") then
+	menu:SetBackdrop(flat);
+	menu:SetBackdropColor(0, 0, 0, 0.75);
+	menu:SetBackdropBorderColor(0, 0, 0, 0.9);
+else
+	menu:RegisterEvent("ADDON_LOADED");
+	menu:SetScript("OnEvent", function(self, event, addon)
+		addon = addon:lower();
+		if addon == "elvui" or addon == "tukui" or addon == "ndui" then
+			menu:SetBackdrop(flat);
+			menu:SetBackdropColor(0, 0, 0, 0.75);
+			menu:SetBackdropBorderColor(0, 0, 0, 0.9);
+		end
+	end);
+end

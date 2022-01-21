@@ -38,6 +38,7 @@ end
 	local tConcat = table.concat;
 	local select = select;
 	local date, time = date, time;
+	local C_Timer = C_Timer;
 	----------------------------------------------------------------------------------------------------
 	local _ = nil;
 	local GameTooltip = GameTooltip;
@@ -171,6 +172,22 @@ local btn_SizeY = 36;
 local _EventHandler = CreateFrame("FRAME");
 _EventHandler:SetSize(4, 4);
 _EventHandler:EnableMouse(false);
+
+local T_Scheduler = setmetatable({  }, { __mode = 'k', })
+function NS.F_ScheduleDelayCall(func, delay)
+	local sch = T_Scheduler[func];
+	if sch == nil then
+		sch = {  };
+		sch[1] = function()
+			func();
+			sch[2] = false;
+		end;
+	elseif sch[2] then
+		return;
+	end
+	sch[2] = true;
+	C_Timer.After(delay or 0.2, sch[1]);
+end
 
 --EquipItemByName(id/name/link, slot)
 --RepairAllItems
@@ -562,12 +579,12 @@ StaticPopupDialogs["alaGearMan_DelSet"] = {
 	timeout = 0,
 	whileDead = true,
 	hideOnEscape = true,
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
+	preferredIndex = 1,
 };
 
 function func.gm_CreateButton(parent, index, buttonHeight)
 	-- print("CREATE", index)
-	local button = CreateFrame("BUTTON", nil, parent);
+	local button = CreateFrame("BUTTON", nil, parent, "BackdropTemplate");
 	button:SetHeight(buttonHeight);
 	button:SetBackdrop(buttonBackdrop);
 	button:SetBackdropColor(buttonBackdropColor[1], buttonBackdropColor[2], buttonBackdropColor[3], buttonBackdropColor[4]);
@@ -881,7 +898,7 @@ function func.initUI()
 	ui.open:SetScript("OnClick", func.open_onclick);
 
 	do	--win
-		ui.gearWin = CreateFrame("FRAME", nil, PaperDollFrame);
+		ui.gearWin = CreateFrame("FRAME", nil, PaperDollFrame, "BackdropTemplate");
 		ui.gearWin:SetFrameStrata("FULLSCREEN");
 		ui.gearWin:SetBackdrop({
 			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
@@ -1403,14 +1420,22 @@ function func.initUI()
 			if GetMacroInfo(MACRO_NAME_PREFIX .. 0) then
 				EditMacro(MACRO_NAME_PREFIX .. 0, MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
 			else
-				CreateMacro(MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
+				if GetMacroInfo(120) == nil then
+					CreateMacro(MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
+				else
+					print(L["UP_TO_120_MACROS"]);
+				end
 			end
 			for i = 1, #saved_sets do
 				local macro_name = MACRO_NAME_PREFIX .. i;
 				if GetMacroInfo(macro_name) then
 					EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
 				else
-					CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+					if GetMacroInfo(120) == nil then
+						CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+					else
+						print(L["UP_TO_120_MACROS"]);
+					end
 				end
 			end
 			for i = 1, N do
@@ -1473,7 +1498,7 @@ function func.initUI()
 			end
 		end
 		ui.secureButtons = secureButtons;
-		ui.secure:Create(1);	--for take_off_all button
+		-- ui.secure:Create(1);	--for take_off_all button
 		ui.secure:Update();
 		-- ui.secure:Hide();
 		if not alaGearManSV.useBar then
@@ -1482,7 +1507,7 @@ function func.initUI()
 	end
 
 	do	--customize
-		ui.custom = CreateFrame("FRAME", nil, ui.gearWin);
+		ui.custom = CreateFrame("FRAME", nil, ui.gearWin, "BackdropTemplate");
 		ui.custom:SetFrameStrata("FULLSCREEN");
 		ui.custom:SetBackdrop({
 			bgFile = "Interface/Tooltips/UI-Tooltip-Background",
@@ -1538,7 +1563,7 @@ function func.initUI()
 			end
 		end
 
-		ui.customEdit = CreateFrame("EDITBOX", nil, ui.custom);
+		ui.customEdit = CreateFrame("EDITBOX", nil, ui.custom, "BackdropTemplate");
 		ui.customEdit:SetSize(220, 24);
 		ui.customEdit:SetFontObject(GameFontHighlightSmall);
 		ui.customEdit:SetAutoFocus(false);
@@ -1780,7 +1805,7 @@ function func.delete(set)
 		ui.scroll:SetNumValue(#saved_sets + 1);
 		-- ui.quick:Update();
 		ui.secure:Update();
-		_EventHandler:run_on_next_tick(func.refreshAppearance);
+		NS.F_ScheduleDelayCall(func.refreshAppearance);
 	end
 end
 function func.save(set)
@@ -2094,7 +2119,7 @@ function func.equip(set)
 		ShowHelm(set.helmet);
 		ShowCloak(set.cloak);
 		func.Sound_Equip();
-		_EventHandler:run_on_next_tick(func.refreshAppearance);
+		NS.F_ScheduleDelayCall(func.refreshAppearance);
 	end
 end
 function func.customOK()
@@ -2114,7 +2139,7 @@ function func.customOK()
 		func.save(index);
 		-- ui.quick:Update();
 		-- ui.secure:Update();	--func.save will always update securequick
-		-- _EventHandler:run_on_next_tick(func.refreshAppearance);
+		-- NS.F_ScheduleDelayCall(func.refreshAppearance);
 	end
 	func.pdf_hide_mask();
 	ui.custom:Hide();
@@ -2319,7 +2344,7 @@ function func.init_hook_tooltip()
 end
 
 function func.PLAYER_EQUIPMENT_CHANGED()
-	_EventHandler:run_on_next_tick(func.refreshAppearance);
+	NS.F_ScheduleDelayCall(func.refreshAppearance);
 end
 function func.UPDATE_BINDINGS(...)
 	-- print("UPDATE_BINDINGS", ...)
@@ -2376,49 +2401,6 @@ _EventHandler:SetScript("OnEvent", function(self, event, ...)
 	func[event](...);
 end);
 
-do	--	run_on_next_tick	--	execute two ticks later
-	local min_ticker_duration = 0.1;
-	local run_on_next_tick_func_1 = {  };
-	local run_on_next_tick_func_2 = {  };
-	local timer = 0.0;
-	local function run_on_next_tick_handler(self, elasped)
-		timer = timer + elasped;
-		if timer >= min_ticker_duration * 2 then
-			timer = 0.0;
-			while true do
-				local func = tremove(run_on_next_tick_func_1, 1);
-				if func then
-					func();
-				else
-					break;
-				end
-			end
-			if #run_on_next_tick_func_1 + #run_on_next_tick_func_2 == 0 then
-				_EventHandler:SetScript("OnUpdate", nil);
-			else
-				run_on_next_tick_func_1, run_on_next_tick_func_2 = run_on_next_tick_func_2, run_on_next_tick_func_1;
-			end
-		end
-	end
-	function _EventHandler:run_on_next_tick(func)
-		for index = 1, #run_on_next_tick_func_1 do
-			if func == run_on_next_tick_func_1[index] then
-				tremove(run_on_next_tick_func_1, index);
-				break;
-			end
-		end
-		for index = 1, #run_on_next_tick_func_2 do
-			if func == run_on_next_tick_func_2[index] then
-				return;
-			end
-		end
-		tinsert(run_on_next_tick_func_2, func);
-		_EventHandler:SetScript("OnUpdate", run_on_next_tick_handler);
-	end
-	function _EventHandler:frame_update_on_next_tick(frame)
-		_EventHandler:run_on_next_tick(frame.update_func);
-	end
-end
 
 do	--	SLASH
 	_G.SLASH_ALAGEARMAN1 = "/alaGearMan";
