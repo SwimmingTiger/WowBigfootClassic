@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 
 ## Notes: ClassicCodex-patch
 ## Title: ClassicCodex data patch for TBC

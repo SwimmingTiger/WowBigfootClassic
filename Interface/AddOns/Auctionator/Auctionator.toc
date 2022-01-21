@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: Auctionator |cff00aa00BurningCrusadeClassicfix
 ## Version: 100.0.11
 ## Author: Borjamacare, Zirco, DaMaGepy, 1010101110, Hotrian

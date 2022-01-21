@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: Advanced Interface Options
 ## Author: Stanzilla, Semlar
 ## Version: 1.6.0
