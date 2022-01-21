@@ -259,7 +259,7 @@ L["showAllAltsTitle"] = "Show All Buff Stats";
 L["showAllAltsDesc"] = "Show all alts with buff stats in the buffs window even if they don't have an active buff?";
 
 L["minimapButtonTitle"] = "Show Minimap Button";
-L["minimapButtonDesc"] = "Show the NWB button the minimap?";
+L["minimapButtonDesc"] = "Show NWB button on the minimap?";
 
 ---Logon Messages---
 L["logonHeaderDesc"] = "Logon Messages";

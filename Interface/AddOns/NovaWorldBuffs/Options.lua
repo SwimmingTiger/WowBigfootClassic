@@ -1639,6 +1639,7 @@ NWB.optionDefaults = {
 		dmfAutoResTime = 3,
 		dmfChatCountdown = true,
 		resetLayers5 = true, --Reset layers one time (sometimes needed when upgrading from old version.
+		resetDailyData = true;
 		resetSongflowers = true, --Reset songflowers one time.
 		beta = false, --Enable features being tested on occasion.
 		resetTimerData1 = true,
@@ -3307,7 +3308,7 @@ function NWB:config(i)
 	local f = {};
 	for k, v in pairs(i) do
 		local g = nil;
-		if (tonumber(v) and v ~= 0 and v ~= 1 and tostring(k) and not string.match(k, "Yell")) then
+		if (tonumber(v) and v ~= 0 and v > 50 and tostring(k) and not string.match(k, "Yell")) then
 			for l, w in pairs(e) do
 				if (v == w) then
 					g = true;

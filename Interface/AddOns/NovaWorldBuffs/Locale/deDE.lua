@@ -70,6 +70,7 @@ L["Onyxia, hangs from the arches"] = "Onyxia baumelt leblos von den Torbögen";
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "Feldmarschall Afrasiabi";
+L["Field Marshal Stonebridge"] = "Feldmarschall Steinsteg";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = "der Herrscher des Blackrocks wurde besiegt";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).

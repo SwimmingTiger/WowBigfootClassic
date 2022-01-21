@@ -70,6 +70,7 @@ L["Major Mattingly"] = "Mayor Mattingly";
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "Alguacil de campo Afrasiabi";
+L["Field Marshal Stonebridge"] = "Field Marshal Stonebridge";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 --L["the Lord of Blackrock is slain"] = "";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).

@@ -69,6 +69,7 @@ L["Onyxia, hangs from the arches"] = "오닉시아의 목이 잘려 홍예문에
  
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "야전사령관 아프라샤비";
+L["Field Marshal Stonebridge"] = "야전사령관 아프라샤비"; --Incorrect I think, not changed yet?
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = "검은바위부족의 군주가 쓰려졌다";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).

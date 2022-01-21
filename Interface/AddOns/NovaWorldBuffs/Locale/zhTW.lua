@@ -86,6 +86,7 @@ L["Onyxia, hangs from the arches"] = "看看強大的聯盟吧";
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "艾法希比元帥";
+L["Field Marshal Stonebridge"] = "戰場元帥石橋";
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = "聯盟的人民們";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
@@ -810,4 +811,7 @@ L["terokkarChat10Title"] = "泰洛卡10分鐘";
 L["terokkarChat10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，在聊天視窗顯示訊息。";
 
 L["terokkarMiddle10Title"] = "泰洛卡10分鐘";
-L["terokkarMiddle10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，顯示一個團隊警告式樣的訊息在螢幕中間。";		 
+L["terokkarMiddle10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，顯示一個團隊警告式樣的訊息在螢幕中間。";
+
+L["showShatWorldmapMarkersTitle"] = "顯示每日副本";
+L["showShatWorldmapMarkersDesc"] = "在世界地圖上顯示每日副本?"; 

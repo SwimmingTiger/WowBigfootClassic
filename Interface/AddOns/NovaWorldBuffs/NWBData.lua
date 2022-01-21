@@ -100,10 +100,11 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 			--NWB:debug("decompression failed found from", sender);
 			return;
 		end
+		--NWB:debug("Trying old deserialize:", distribution);
 		deserializeResult, deserialized = NWB.serializerOld:Deserialize(decompressed);
 	end
 	if (not deserializeResult) then
-		NWB:debug("Error deserializing:", distribution);
+		NWB:debug("Error deserializing:", distribution, sender);
 		return;
 	end
 	local args = NWB:explode(" ", deserialized, 4);
@@ -180,7 +181,7 @@ function NWB:OnCommReceived(commPrefix, string, distribution, sender)
 			NWB:doNpcWalkingMsg(type, layer, sender);
 		end
 	end
-	if (tonumber(remoteVersion) < 2.11) then
+	if (tonumber(remoteVersion) < 2.16) then
 		if (cmd == "requestData" and distribution == "GUILD") then
 			if (not NWB:getGuildDataStatus()) then
 				NWB:sendSettings("GUILD");
@@ -230,6 +231,9 @@ end
 
 --Send to specified addon channel.
 function NWB:sendComm(distribution, string, target, prio, useOldSerializer)
+	if (useOldSerializer) then
+		NWB:debug("useOldSerializer", useOldSerializer);
+	end
 	if (target == UnitName("player") or NWB:debug()) then
 		return;
 	end
@@ -629,6 +633,11 @@ function NWB:createData(distribution, noLogs)
 		data.tbcDD = NWB.data.tbcDD;
 		data.tbcDDT = NWB.data.tbcDDT;
 	end
+	if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
+			and GetServerTime() - NWB.data.tbcPDT < 86400) then
+		data.tbcPD = NWB.data.tbcPD;
+		data.tbcPDT = NWB.data.tbcPDT;
+	end
 	if (distribution == "GUILD") then
 		--Include settings with timer data for guild.
 		local settings = NWB:createSettings(distribution);
@@ -860,6 +869,20 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
 			end]]
 		end
+		if (foundTimer and NWB.data.layers[layer].lastSeenNPC and NWB.data.layers[layer].lastSeenNPC > GetServerTime() - 86400) then
+			--=Attemtping to fix a bug that sometimes makes last weeks layer stick around if a zone in layermaps have the same zoneid.
+			if (not data.layers) then
+				data.layers = {};
+			end
+			if (not data.layers[layer]) then
+				data.layers[layer] = {};
+			end
+			data.layers[layer]['lastSeenNPC'] = NWB.data.layers[layer].lastSeenNPC;
+			--[[if (NWB.data.layers[layer].GUID and not NWB.cnRealms[NWB.realm] and not NWB.twRealms[NWB.realm]
+					and not NWB.krRealms[NWB.realm]) then
+				data.layers[layer]['GUID'] = NWB.data.layers[layer].GUID;
+			end]]
+		end
 	end
 	if (not NWB.layeredSongflowers) then
 		for k, v in pairs(NWB.songFlowers) do
@@ -913,6 +936,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type)
 			data.timerLog = timerLog;
 		end
 	end
+	--NWB:debug(data);
 	--data['faction'] = NWB.faction;
 	data = NWB:convertKeys(data, true, distribution);
 	--NWB:debug(data);
@@ -1187,6 +1211,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 	if (not NWB:isValidPlayer(sender)) then
 		return;
 	end
+	--NWB:debug(data);
 	if (data.rendTimer and tonumber(data.rendTimer) and (not data.rendYell or data.rendTimer < NWB.data.rendTimer or
 			data.rendYell < (data.rendTimer - 120) or data.rendYell > (data.rendTimer + 120))) then
 		--NWB:debug("invalid rend timer from", sender, "npcyell:", data.rendYell, "buffdropped:", data.rendTimer);
@@ -1349,11 +1374,21 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 														NWB:receivedNpcDied(k, v, distribution, layer, sender);
 													end
 													if (NWB:validateCloseTimestamps(layer, k, v)) then
-														NWB.data.layers[layer][k] = v;
-														--Only insert facton if we have a tower timer update.
-														--Faction is ignored everywhere else in this func.
-														if (k == "terokTowers" and vv.terokFaction) then
-															NWB.data.layers[layer].terokFaction = vv.terokFaction;
+														if (k == "terokTowers") then
+															--Testing some timer drift issues.
+															--Only update towers timer if it's more than 30mins later than current timestamp.
+															--This should stop timers drifting a few mins between people.
+															--if (not NWB.data.layers[layer].terokTowers or
+															--		v - NWB.data.layers[layer].terokTowers > 1800) then
+																--Only insert facton if we have a tower timer update.
+																--Faction is ignored everywhere else in this func.
+																if (vv.terokFaction) then
+																	NWB.data.layers[layer].terokFaction = vv.terokFaction;
+																end
+																NWB.data.layers[layer][k] = v;
+															--end
+														else
+															NWB.data.layers[layer][k] = v;
 														end
 														if (not string.match(k, "lastSeenNPC") and not string.match(k, "terokTowers")
 																and not string.match(k, "hellfireRep")) then
@@ -1453,27 +1488,33 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								if (k == "terokTowers" and data.terokFaction) then
 									NWB.data.terokFaction = data.terokFaction;
 								end
-								if (k == "tbcHDT" and data.tbcHD and tonumber(data.tbcHD) and data.tbcHD > 0) then
-									--Rare bug it gets received as 0.
-									if (tonumber(data.tbcHD) and data.tbcHD > 0) then
-										NWB.data.tbcHD = data.tbcHD;
-									else
-										skip = true;
+								if (k == "tbcHDT") then
+									if (data.tbcHD and tonumber(data.tbcHD) and data.tbcHD > 0) then
+										--Old version bug it can come as 0.
+										if (tonumber(data.tbcHD) and data.tbcHD > 0) then
+											NWB.data.tbcHD = data.tbcHD;
+											NWB.data.tbcHDT = data.tbcHDT;
+										end
 									end
+									skip = true;
 								end
-								if (k == "tbcDDT" and data.tbcDD) then
-									if (tonumber(data.tbcDD) and data.tbcDD > 0) then
-										NWB.data.tbcDD = data.tbcDD;
-									else
-										skip = true;
+								if (k == "tbcDDT") then
+									if (data.tbcDD and tonumber(data.tbcDD) and data.tbcDD > 0) then
+										if (tonumber(data.tbcDD) and data.tbcDD > 0) then
+											NWB.data.tbcDD = data.tbcDD;
+											NWB.data.tbcDDT = data.tbcDDT;
+										end
 									end
+									skip = true;
 								end
-								if (k == "tbcPDT" and data.tbcPD) then
-									if (tonumber(data.tbcPD) and data.tbcPD > 0) then
-										NWB.data.tbcPD = data.tbcPD;
-									else
-										skip = true;
+								if (k == "tbcPDT") then
+									if (data.tbcPD and tonumber(data.tbcPD) and data.tbcPD > 0) then
+										if (tonumber(data.tbcPD) and data.tbcPD > 0) then
+											NWB.data.tbcPD = data.tbcPD;
+											NWB.data.tbcPDT = data.tbcPDT;
+										end
 									end
+									skip = true;
 								end
 								if (not skip) then
 									NWB.data[k] = v;
@@ -3210,11 +3251,11 @@ function NWB:getTerokkarData()
 	local captureAlliance = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3111);
 	local captureHorde = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(3112);
 	if (not neutral or not alliance or not horde) then
-		NWB:debug("missing widget");
+		--NWB:debug("missing widget");
 		return;
 	end
 	if (not UIWidgetTopCenterContainerFrame:IsShown()) then
-		NWB:debug("missing widget2");
+		--NWB:debug("missing widget2");
 		return;
 	end
 	--Make sure the child being shown is a matching widget, incase the state is ever set wrong.
@@ -3226,7 +3267,7 @@ function NWB:getTerokkarData()
 		end
 	end
 	if (not child) then
-		NWB:debug("missing child frame");
+		--NWB:debug("missing child frame");
 		return;
 	end
 	local controlType, timestamp = 0, 0;

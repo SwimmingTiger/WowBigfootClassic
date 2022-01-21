@@ -70,6 +70,7 @@ L["Major Mattingly"] = "Major Valadão";
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "Marechal de Campo Afrasiabi";
+L["Field Marshal Stonebridge"] = "Marechal-de-campo Pontepedra"; --Wowhead translation, not sure if the hyphens should be here?
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 --L["the Lord of Blackrock is slain"] = "";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).

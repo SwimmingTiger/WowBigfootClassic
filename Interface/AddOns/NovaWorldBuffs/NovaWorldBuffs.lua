@@ -2659,7 +2659,7 @@ local spellTypes = {
 	[28520] = "flaskRelent",
 	[28521] = "flaskBlinding",
 	[28519] = "flaskMighty",
-	[0] = "flaskChromatic", --This is not recorded by wowhead yet.
+	[42735] = "flaskChromatic",
 	--Shat flasks have 2 or 3 spells the same, have to test after launch which is correct for each.
 	[41607] = "shattrathFlaskFort",
 	[41609] = "shattrathFlaskFort",
@@ -3248,6 +3248,10 @@ end
 function NWB:setLayered()
 	if (NWB.usRealms[NWB.realm] or NWB.euRealms[NWB.realm] or NWB.krRealms[NWB.realm] or NWB.twRealms[NWB.realm]
 			or NWB.cnRealms[NWB.realm]) then
+		NWB.isLayered = true;
+	end
+	--Blanket enable season of mastery realms for now.
+	if (C_Seasons and C_Seasons.HasActiveSeason()) then
 		NWB.isLayered = true;
 	end
 end
@@ -4725,6 +4729,7 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 				end
 				tooltip:AddLine(NWB.chatColor .. msg);
 				msg = "";
+				local texture = "";
 				if (NWB.isTBC) then
 					if (v.terokTowers) then
 						if (v.terokTowers > GetServerTime()) then
@@ -4739,7 +4744,8 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 								--5387
 								texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
 							end
-							local endTime = v.terokTowers + NWB:round((((v.terokTowers  - GetServerTime()) / 60) * 3));
+							--Offset was 3 seconds per minute because of drift, trying 0 offset now as it may be fixed on Blizzards end.
+							local endTime = v.terokTowers + NWB:round((((v.terokTowers  - GetServerTime()) / 60) * 0));
 							msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
 							if (NWB.db.global.showTimeStamp) then
 								local timeStamp = NWB:getTimeFormat(endTime);
@@ -4852,7 +4858,8 @@ function NWB:updateMinimapButton(tooltip, usingPanel)
 							--5387
 							texture = "|TInterface\\worldstateframe\\neutraltower.blp:12:12:-2:0:32:32:1:18:1:18|t";
 						end
-						local endTime = NWB.data.terokTowers + NWB:round((((NWB.data.terokTowers  - GetServerTime()) / 60) * 3));
+						--Offset was 3 seconds per minute because of drift, trying 0 offset now as it may be fixed on Blizzards end.
+						local endTime = NWB.data.terokTowers + NWB:round((((NWB.data.terokTowers  - GetServerTime()) / 60) * 0));
 						msg = msg .. texture .. L["terokkarTimer"] .. ": " .. NWB:getTimeString(endTime - GetServerTime(), true) .. ".";
 						if (NWB.db.global.showTimeStamp) then
 							local timeStamp = NWB:getTimeFormat(endTime);
@@ -7147,17 +7154,18 @@ function NWB:getDmfData()
 			startMonth = startMonth + 1;
 		end
 		if (startMonth % 2 == 0) then
-			if (NWB.isTBC or NWB.realmsTBC) then
-				zone = "Elwynn Forest";
-			else
+			--These were swapped around manually by Blizzard but now it seems to be swapped back to be in sync with era realms.
+			--if (NWB.isTBC or NWB.realmsTBC) then
+			--	zone = "Elwynn Forest";
+			--else
     			zone = "Mulgore";
-    		end
+    		--end
 		else
-			if (NWB.isTBC or NWB.realmsTBC) then
-				zone = "Mulgore";
-			else
+			--if (NWB.isTBC or NWB.realmsTBC) then
+			--	zone = "Mulgore";
+			--else
     			zone = "Elwynn Forest";
-    		end
+    		--end
  
 		end
 		--Zone override for static dates.
@@ -7529,7 +7537,7 @@ NWBbuffListFrameWipeButton:SetScript("OnClick", function(self, arg)
 	  timeout = 0,
 	  whileDead = true,
 	  hideOnEscape = true,
-	  preferredIndex = STATICPOPUP_NUMDIALOGS,
+	  preferredIndex = 3,
 	};
 	StaticPopup_Show("NWB_BUFFDATARESET");
 end)
@@ -10450,6 +10458,16 @@ end
 --Reset layers one time, needed when upgrading from old version.
 --Old version copys over the whole table from new version users and prevents a proper new layer being created with that id.
 function NWB:resetLayerData()
+	if (NWB.db.global.resetDailyData) then
+		--Only run during v2.16 after a daily bug fix, will be removed after.
+		NWB.data.tbcDD = nil;
+		NWB.data.tbcDDT = nil;
+		NWB.data.tbcHD = nil;
+		NWB.data.tbcHDT = nil;
+		NWB.data.tbcPD = nil;
+		NWB.data.tbcPDT = nil;
+		NWB.db.global.resetDailyData = false;
+	end
 	if (NWB.db.global.resetLayers5) then
 		NWB:debug("resetting layer data");
 		NWB.data.layers = {};

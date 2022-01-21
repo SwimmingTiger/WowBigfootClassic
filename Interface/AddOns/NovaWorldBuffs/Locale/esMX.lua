@@ -51,6 +51,7 @@ L["Overlord Runthak"] = "Señor Supremo Runthak";
 
 --Horde Nefarian buff NPC.
 L["High Overlord Saurfang"] = "Alto señor supremo Colmillosauro";
+L["Field Marshal Stonebridge"] = "Field Marshal Stonebridge";
 --Horde Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 --L["NEFARIAN IS SLAIN"] = "";
 --Horde Nefarian buff NPC second yell string (part of his second yell msg before before buff).

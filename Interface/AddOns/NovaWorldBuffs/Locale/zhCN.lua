@@ -69,6 +69,7 @@ L["Onyxia, hangs from the arches"] = "看看强大的联盟吧";
 
 --Alliance Nefarian buff NPC.
 L["Field Marshal Afrasiabi"] = "艾法希比元帅";
+L["Field Marshal Stonebridge"] = "艾法希比元帅"; --Incorrect I think, not changed yet?
 --Alliance Nefarian buff NPC first yell string (part of his first yell msg before before buff).
 L["the Lord of Blackrock is slain"] = "联盟的人民们";
 --Alliance Nefarian buff NPC second yell string (part of his second yell msg before before buff).
