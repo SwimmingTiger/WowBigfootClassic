@@ -183,25 +183,28 @@ RegEvent("ADDON_LOADED", function()
 
     local editDebitTemplate
     do
-        local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+        local t = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
         t:SetPoint("TOPLEFT", f, 25, -180)
         t:SetWidth(550)
         t:SetHeight(200)
-        -- t:SetBackdrop({ 
-        --     bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-        --     edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-        --     tile = true,
-        --     tileEdge = true,
-        --     tileSize = 16,
-        --     edgeSize = 16,
-        --     insets = { left = 2, right = 2, top = 2, bottom = 2 },    
-        -- })
-        -- t:SetBackdropColor(0, 0, 0);
+        t:SetBackdrop({ 
+            bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+            edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+            tile = true,
+            tileEdge = true,
+            tileSize = 16,
+            edgeSize = 16,
+            insets = { left = 2, right = 2, top = 2, bottom = 2 },    
+        })
+        t:SetBackdropColor(0, 0, 0);
     
+        local s = CreateFrame("ScrollFrame", nil, t, "UIPanelScrollFrameTemplate")
+        s:SetWidth(510)
+        s:SetHeight(175)
+        s:SetPoint("TOPLEFT", 10, -10)        
 
-        local edit = CreateFrame("EditBox", nil, t)
+        local edit = CreateFrame("EditBox", nil, s)
         edit.cursorOffset = 0
-        edit:SetTextInsets(20, 20, 20, 20)
         edit:SetWidth(500)
         edit:SetHeight(150)
         edit:SetAutoFocus(false)
@@ -210,12 +213,12 @@ RegEvent("ADDON_LOADED", function()
         edit:SetMultiLine(true)
         edit:SetFontObject(GameTooltipText)
         edit:SetScript("OnTextChanged", function(self)
-            ScrollingEdit_OnTextChanged(self, t)
+            ScrollingEdit_OnTextChanged(self, s)
         end)
         edit:SetScript("OnCursorChanged", ScrollingEdit_OnCursorChanged)
         edit:SetScript("OnEscapePressed", edit.ClearFocus)
 
-        t:SetScrollChild(edit)
+        s:SetScrollChild(edit)
 
         editDebitTemplate = edit
     end    
@@ -470,7 +473,7 @@ RegEvent("ADDON_LOADED", function()
 
         local editDebitTemplate
         do
-            local t = CreateFrame("ScrollFrame", nil, f, "UIPanelScrollFrameTemplate")
+            local t = CreateFrame("Frame", nil, f, BackdropTemplateMixin and "BackdropTemplate" or nil)
 
             local tt = t:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
             tt:SetPoint("BOTTOMLEFT", t, "TOPLEFT", 10, 0)
@@ -479,21 +482,24 @@ RegEvent("ADDON_LOADED", function()
             t:SetPoint("TOPLEFT", f, 25, -400)
             t:SetWidth(550)
             t:SetHeight(100)
-            -- t:SetBackdrop({ 
-            --     bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-            --     edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-            --     tile = true,
-            --     tileEdge = true,
-            --     tileSize = 16,
-            --     edgeSize = 16,
-            --     insets = { left = 2, right = 2, top = 2, bottom = 2 },    
-            -- })
-            -- t:SetBackdropColor(0, 0, 0);
+            t:SetBackdrop({ 
+                bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+                edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+                tile = true,
+                tileEdge = true,
+                tileSize = 16,
+                edgeSize = 16,
+                insets = { left = 2, right = 2, top = 2, bottom = 2 },    
+            })
+            t:SetBackdropColor(0, 0, 0);
         
+            local s = CreateFrame("ScrollFrame", nil, t, "UIPanelScrollFrameTemplate")
+            s:SetWidth(510)
+            s:SetHeight(75)
+            s:SetPoint("TOPLEFT", 10, -10)        
     
-            local edit = CreateFrame("EditBox", nil, t)
+            local edit = CreateFrame("EditBox", nil, s)
             edit.cursorOffset = 0
-            edit:SetTextInsets(20, 20, 20, 20)
             edit:SetWidth(500)
             edit:SetHeight(150)
             edit:SetAutoFocus(false)
@@ -502,13 +508,13 @@ RegEvent("ADDON_LOADED", function()
             edit:SetMultiLine(true)
             edit:SetFontObject(GameTooltipText)
             edit:SetScript("OnTextChanged", function(self)
-                ScrollingEdit_OnTextChanged(self, t)
+                ScrollingEdit_OnTextChanged(self, s)
                 Database:SetConfig("filteritems", edit:GetText())
             end)
             edit:SetScript("OnCursorChanged", ScrollingEdit_OnCursorChanged)
             edit:SetScript("OnEscapePressed", edit.ClearFocus)
     
-            t:SetScrollChild(edit)
+            s:SetScrollChild(edit)
             edit:SetText(Database:GetConfigOrDefault("filteritems", L["# one item per line, can be item name or item id"] .. "\n" .. L["# line starts with # will be ignored"] .. "\n"))
         end    
     
@@ -520,7 +526,6 @@ end)
 
 
 StaticPopupDialogs["RAIDLEDGER_DEBIT_TEMPLATE_NAME"] = {
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Name of Debit template"],
     button1 = ACCEPT,
     button2 = CANCEL,

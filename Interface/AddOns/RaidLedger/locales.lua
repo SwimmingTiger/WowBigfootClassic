@@ -27,9 +27,6 @@ L["0 credit items"] = true
 L["Add to"] = true
 L["Auto recording blacklist"] = true
 L["Auto recording loot"] = true
-L["Auto recording loot: In Raid Only"] = true
-L["Auto recording loot: Off"] = true
-L["Auto recording loot: On"] = true
 L["Auto recording quality"] = true
 L["Beneficiary"] = true
 L["Bid accept"] = true
@@ -59,6 +56,7 @@ L["Current price"] = true
 L["Debit"] = true
 L["Debit Template"] = true
 L["Entry"] = true
+L["Excel csv"] = true
 L["Expense"] = true
 L["Export as text"] = true
 L["Feedback"] = true
@@ -67,16 +65,19 @@ L["Hammer Price"] = true
 L["Hide locked items"] = true
 L["Import from ledger"] = true
 L["In Raid Only"] = true
-L["Input only"] = true
 L["is bought in"] = true
 L["Item added"] = true
 L["Last used"] = true
+L["Mark as outstanding payment"] = true
 L["Member credit for subgroup"] = true
 L["Minimap Icon"] = true
 L["Must bid higher than"] = true
 L["Name of Debit template"] = true
 L["Net Profit"] = true
 L["Other"] = true
+L["outstanding balance"] = true
+L["Outstanding Payment"] = true
+L["owes"] = true
 L["Pause"] = true
 L["Per Member"] = true
 L["Per Member credit"] = true
@@ -110,6 +111,7 @@ L["toggle Auto recording on/off"] = true
 L["Top [%d] contributors"] = true
 L["Value"] = true
 L["Winner"] = true
+L["You can send messages to this channel when you are in an instance only"] = true
 
 elseif locale == 'deDE' then
 --[[Translation missing --]]
@@ -126,9 +128,6 @@ L["[Unknown]"] = "[Unbekannt]"
 --[[Translation missing --]]
 --[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
 L["Auto recording loot"] = "Loot automatisch speichern"
-L["Auto recording loot: In Raid Only"] = "Loot automatisch speichern: Nur im Raid"
-L["Auto recording loot: Off"] = "Loot automatisch speichern: Aus"
-L["Auto recording loot: On"] = "Loot automatisch speichern: An"
 --[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 L["Beneficiary"] = "Begünstigster"
@@ -170,6 +169,8 @@ L["CTRL + Click to apply debit template"] = "STRG + Click um die Lastpostenvorla
 L["Debit"] = "Lastposten"
 L["Debit Template"] = "Lastpostenvorlage"
 L["Entry"] = "Eintrag"
+--[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
 L["Expense"] = "Ausgabe"
 L["Export as text"] = "Als Text exportieren"
 L["Feedback"] = "Feedback"
@@ -182,11 +183,11 @@ L["Feedback"] = "Feedback"
 L["Import from ledger"] = "Aus dem Buch importieren"
 L["In Raid Only"] = "Nur im Raid"
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 L["Item added"] = "Item hinzugefügt"
 L["Last used"] = "Letztes Mal benutzt"
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 L["Member credit for subgroup"] = "Teilnehmerguthaben pro Untergruppe"
 --[[Translation missing --]]
 --[[ L["Minimap Icon"] = "Minimap Icon"--]] 
@@ -195,6 +196,12 @@ L["Member credit for subgroup"] = "Teilnehmerguthaben pro Untergruppe"
 L["Name of Debit template"] = "Name der Lastpostenvorlage"
 L["Net Profit"] = "Netto Gewinn"
 L["Other"] = "Andere"
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 --[[Translation missing --]]
 --[[ L["Pause"] = "Pause"--]] 
 L["Per Member"] = "Pro Teilnehmer"
@@ -239,6 +246,8 @@ L["Top [%d] contributors"] = "Top [%d] Spender"
 L["Value"] = "Wert"
 --[[Translation missing --]]
 --[[ L["Winner"] = "Winner"--]] 
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'esES' then
 --[[Translation missing --]]
@@ -260,12 +269,6 @@ elseif locale == 'esES' then
 --[[Translation missing --]]
 --[[ L["Auto recording loot"] = "Auto recording loot"--]] 
 --[[Translation missing --]]
---[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: Off"] = "Auto recording loot: Off"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
---[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 --[[Translation missing --]]
 --[[ L["Beneficiary"] = "Beneficiary"--]] 
@@ -324,6 +327,8 @@ elseif locale == 'esES' then
 --[[Translation missing --]]
 --[[ L["Entry"] = "Entry"--]] 
 --[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
+--[[Translation missing --]]
 --[[ L["Expense"] = "Expense"--]] 
 --[[Translation missing --]]
 --[[ L["Export as text"] = "Export as text"--]] 
@@ -340,13 +345,13 @@ elseif locale == 'esES' then
 --[[Translation missing --]]
 --[[ L["In Raid Only"] = "In Raid Only"--]] 
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 --[[Translation missing --]]
 --[[ L["Item added"] = "Item added"--]] 
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 --[[Translation missing --]]
 --[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
 --[[Translation missing --]]
@@ -359,6 +364,12 @@ elseif locale == 'esES' then
 --[[ L["Net Profit"] = "Net Profit"--]] 
 --[[Translation missing --]]
 --[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 --[[Translation missing --]]
 --[[ L["Pause"] = "Pause"--]] 
 --[[Translation missing --]]
@@ -425,6 +436,8 @@ elseif locale == 'esES' then
 --[[ L["Value"] = "Value"--]] 
 --[[Translation missing --]]
 --[[ L["Winner"] = "Winner"--]] 
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'esMX' then
 --[[Translation missing --]]
@@ -446,12 +459,6 @@ elseif locale == 'esMX' then
 --[[Translation missing --]]
 --[[ L["Auto recording loot"] = "Auto recording loot"--]] 
 --[[Translation missing --]]
---[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: Off"] = "Auto recording loot: Off"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
---[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 --[[Translation missing --]]
 --[[ L["Beneficiary"] = "Beneficiary"--]] 
@@ -510,6 +517,8 @@ elseif locale == 'esMX' then
 --[[Translation missing --]]
 --[[ L["Entry"] = "Entry"--]] 
 --[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
+--[[Translation missing --]]
 --[[ L["Expense"] = "Expense"--]] 
 --[[Translation missing --]]
 --[[ L["Export as text"] = "Export as text"--]] 
@@ -526,13 +535,13 @@ elseif locale == 'esMX' then
 --[[Translation missing --]]
 --[[ L["In Raid Only"] = "In Raid Only"--]] 
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 --[[Translation missing --]]
 --[[ L["Item added"] = "Item added"--]] 
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 --[[Translation missing --]]
 --[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
 --[[Translation missing --]]
@@ -545,6 +554,12 @@ elseif locale == 'esMX' then
 --[[ L["Net Profit"] = "Net Profit"--]] 
 --[[Translation missing --]]
 --[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 --[[Translation missing --]]
 --[[ L["Pause"] = "Pause"--]] 
 --[[Translation missing --]]
@@ -611,6 +626,8 @@ elseif locale == 'esMX' then
 --[[ L["Value"] = "Value"--]] 
 --[[Translation missing --]]
 --[[ L["Winner"] = "Winner"--]] 
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'frFR' then
 --[[Translation missing --]]
@@ -627,12 +644,6 @@ L["Add to"] = "Ajouter à"
 --[[Translation missing --]]
 --[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
 L["Auto recording loot"] = "Enregistrement automatique des loots"
---[[Translation missing --]]
---[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: Off"] = "Auto recording loot: Off"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 L["Beneficiary"] = "Bénéficiaire"
@@ -677,6 +688,8 @@ L["Current price"] = "Prix actuel"
 --[[Translation missing --]]
 --[[ L["Debit Template"] = "Debit Template"--]] 
 L["Entry"] = "Entrée"
+--[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
 L["Expense"] = "Dépense"
 L["Export as text"] = "Exporter en texte"
 --[[Translation missing --]]
@@ -691,12 +704,12 @@ L["Hide locked items"] = "Cacher les items verrouillés"
 --[[Translation missing --]]
 --[[ L["In Raid Only"] = "In Raid Only"--]] 
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 L["Item added"] = "Objet ajouté"
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 --[[Translation missing --]]
 --[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
 --[[Translation missing --]]
@@ -708,6 +721,12 @@ L["Item added"] = "Objet ajouté"
 --[[Translation missing --]]
 --[[ L["Net Profit"] = "Net Profit"--]] 
 L["Other"] = "Autre"
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 L["Pause"] = "Pause"
 L["Per Member"] = "Par Membre"
 L["Per Member credit"] = "Crédit par membre"
@@ -754,6 +773,8 @@ L["toggle Auto recording on/off"] = "activer/désactiver enregistrement automati
 --[[ L["Top [%d] contributors"] = "Top [%d] contributors"--]] 
 L["Value"] = "Valeur"
 L["Winner"] = "Gagnant"
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'itIT' then
 --[[Translation missing --]]
@@ -774,12 +795,6 @@ elseif locale == 'itIT' then
 --[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording loot"] = "Auto recording loot"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: Off"] = "Auto recording loot: Off"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 --[[Translation missing --]]
@@ -839,6 +854,8 @@ elseif locale == 'itIT' then
 --[[Translation missing --]]
 --[[ L["Entry"] = "Entry"--]] 
 --[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
+--[[Translation missing --]]
 --[[ L["Expense"] = "Expense"--]] 
 --[[Translation missing --]]
 --[[ L["Export as text"] = "Export as text"--]] 
@@ -855,13 +872,13 @@ elseif locale == 'itIT' then
 --[[Translation missing --]]
 --[[ L["In Raid Only"] = "In Raid Only"--]] 
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 --[[Translation missing --]]
 --[[ L["Item added"] = "Item added"--]] 
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 --[[Translation missing --]]
 --[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
 --[[Translation missing --]]
@@ -874,6 +891,12 @@ elseif locale == 'itIT' then
 --[[ L["Net Profit"] = "Net Profit"--]] 
 --[[Translation missing --]]
 --[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 --[[Translation missing --]]
 --[[ L["Pause"] = "Pause"--]] 
 --[[Translation missing --]]
@@ -940,6 +963,8 @@ elseif locale == 'itIT' then
 --[[ L["Value"] = "Value"--]] 
 --[[Translation missing --]]
 --[[ L["Winner"] = "Winner"--]] 
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'koKR' then
 L["# line starts with # will be ignored"] = "# 무시 될 라인 시작"
@@ -952,9 +977,6 @@ L["[Unknown]"] = "[알 수 없음]"
 L["Add to"] = "추가"
 L["Auto recording blacklist"] = "블랙리스트 자동 기록"
 L["Auto recording loot"] = "전리품 자동 기록"
-L["Auto recording loot: In Raid Only"] = "전리품 자동 기록: 공격대에서만"
-L["Auto recording loot: Off"] = "전리품 자동 기록: 끔"
-L["Auto recording loot: On"] = "전리품 자동 기록: 켬"
 L["Auto recording quality"] = "품질 자동 기록"
 L["Beneficiary"] = "수익자"
 L["Bid accept"] = "입찰 승인"
@@ -984,6 +1006,8 @@ L["Current price"] = "현재 금액"
 L["Debit"] = "지출"
 L["Debit Template"] = "지출 템플릿"
 L["Entry"] = "항목"
+--[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
 L["Expense"] = "총지출"
 L["Export as text"] = "문자로 내보내기"
 L["Feedback"] = "피드백"
@@ -992,16 +1016,23 @@ L["Hammer Price"] = "낙찰가"
 L["Hide locked items"] = "잠금 아이템 감추기"
 L["Import from ledger"] = "장부에서 가져오기"
 L["In Raid Only"] = "공격대에서만"
-L["Input only"] = "수동 입력"
 L["is bought in"] = "구매함"
 L["Item added"] = "장부에 등록"
 L["Last used"] = "마지막 사용됨"
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 L["Member credit for subgroup"] = "하위 그룹의 회원 수입"
 L["Minimap Icon"] = "미니맵 아이콘"
 L["Must bid higher than"] = "상위 입찰 필요"
 L["Name of Debit template"] = "지출 템플릿의 이름"
 L["Net Profit"] = "순수입"
 L["Other"] = "기타"
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 L["Pause"] = "정지"
 L["Per Member"] = "개인당"
 L["Per Member credit"] = "개인당"
@@ -1035,6 +1066,8 @@ L["toggle Auto recording on/off"] = "자동 기록 켬/끔 전환"
 L["Top [%d] contributors"] = "상위 [%d] 기부"
 L["Value"] = "가격"
 L["Winner"] = "낙찰"
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'ptBR' then
 --[[Translation missing --]]
@@ -1055,12 +1088,6 @@ elseif locale == 'ptBR' then
 --[[ L["Auto recording blacklist"] = "Auto recording blacklist"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording loot"] = "Auto recording loot"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: In Raid Only"] = "Auto recording loot: In Raid Only"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: Off"] = "Auto recording loot: Off"--]] 
---[[Translation missing --]]
---[[ L["Auto recording loot: On"] = "Auto recording loot: On"--]] 
 --[[Translation missing --]]
 --[[ L["Auto recording quality"] = "Auto recording quality"--]] 
 --[[Translation missing --]]
@@ -1120,6 +1147,8 @@ elseif locale == 'ptBR' then
 --[[Translation missing --]]
 --[[ L["Entry"] = "Entry"--]] 
 --[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
+--[[Translation missing --]]
 --[[ L["Expense"] = "Expense"--]] 
 --[[Translation missing --]]
 --[[ L["Export as text"] = "Export as text"--]] 
@@ -1136,13 +1165,13 @@ elseif locale == 'ptBR' then
 --[[Translation missing --]]
 --[[ L["In Raid Only"] = "In Raid Only"--]] 
 --[[Translation missing --]]
---[[ L["Input only"] = "Input only"--]] 
---[[Translation missing --]]
 --[[ L["is bought in"] = "is bought in"--]] 
 --[[Translation missing --]]
 --[[ L["Item added"] = "Item added"--]] 
 --[[Translation missing --]]
 --[[ L["Last used"] = "Last used"--]] 
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 --[[Translation missing --]]
 --[[ L["Member credit for subgroup"] = "Member credit for subgroup"--]] 
 --[[Translation missing --]]
@@ -1155,6 +1184,12 @@ elseif locale == 'ptBR' then
 --[[ L["Net Profit"] = "Net Profit"--]] 
 --[[Translation missing --]]
 --[[ L["Other"] = "Other"--]] 
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 --[[Translation missing --]]
 --[[ L["Pause"] = "Pause"--]] 
 --[[Translation missing --]]
@@ -1221,6 +1256,8 @@ elseif locale == 'ptBR' then
 --[[ L["Value"] = "Value"--]] 
 --[[Translation missing --]]
 --[[ L["Winner"] = "Winner"--]] 
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'ruRU' then
 L["# line starts with # will be ignored"] = "# строка, начинающаяся с #, будет проигнорирована"
@@ -1232,9 +1269,6 @@ L["0 credit items"] = "0 заслуженных предметов"
 L["Add to"] = "Добавить к"
 L["Auto recording blacklist"] = "Автоматическая запись черного списка"
 L["Auto recording loot"] = "Автоматическая запись добычи"
-L["Auto recording loot: In Raid Only"] = "Автоматическая запись добычи: только в рейде"
-L["Auto recording loot: Off"] = "Автоматическая запись добычи: Выкл."
-L["Auto recording loot: On"] = "Автоматическая запись добычи: Вкл."
 L["Auto recording quality"] = "Авто качество записи"
 L["Beneficiary"] = "Бенефициарий"
 L["Bid accept"] = "Заявка принята"
@@ -1264,6 +1298,8 @@ L["Current price"] = "Текущая цена"
 L["Debit"] = "Дебит"
 L["Debit Template"] = "Дебетовый Шаблон"
 L["Entry"] = "Вход"
+--[[Translation missing --]]
+--[[ L["Excel csv"] = "Excel csv"--]] 
 L["Expense"] = "Расход"
 L["Export as text"] = "Экспорт в виде текста"
 L["Feedback"] = "Обратная связь"
@@ -1272,16 +1308,23 @@ L["Hammer Price"] = "Окончательная цена"
 L["Hide locked items"] = "Скрыть заблокированные предметы"
 L["Import from ledger"] = "Импорт из книги учета"
 L["In Raid Only"] = "Только в Рейде"
-L["Input only"] = "Только ввод данных"
 L["is bought in"] = "покупается в"
 L["Item added"] = "Пункт добавлен"
 L["Last used"] = "Последнее использование"
+--[[Translation missing --]]
+--[[ L["Mark as outstanding payment"] = "Mark as outstanding payment"--]] 
 L["Member credit for subgroup"] = "Заслуги для членов подгруппы"
 L["Minimap Icon"] = "Значок на Миникарте"
 L["Must bid higher than"] = "Должен предложить цену выше, чем"
 L["Name of Debit template"] = "Название дебетового шаблона"
 L["Net Profit"] = "Чистая прибыль"
 L["Other"] = "Другое"
+--[[Translation missing --]]
+--[[ L["outstanding balance"] = "outstanding balance"--]] 
+--[[Translation missing --]]
+--[[ L["Outstanding Payment"] = "Outstanding Payment"--]] 
+--[[Translation missing --]]
+--[[ L["owes"] = "owes"--]] 
 L["Pause"] = "Пауза"
 L["Per Member"] = "на одного члена"
 L["Per Member credit"] = "По заслугам участника"
@@ -1315,6 +1358,8 @@ L["toggle Auto recording on/off"] = "включение/выключение а�
 L["Top [%d] contributors"] = "Лучшие [%d] участники"
 L["Value"] = "Значение"
 L["Winner"] = "Победитель"
+--[[Translation missing --]]
+--[[ L["You can send messages to this channel when you are in an instance only"] = "You can send messages to this channel when you are in an instance only"--]] 
 
 elseif locale == 'zhCN' then
 L["# line starts with # will be ignored"] = "# 以 # 开头的行自动被忽略"
@@ -1326,9 +1371,6 @@ L["0 credit items"] = "0 收入物品"
 L["Add to"] = "添加到"
 L["Auto recording blacklist"] = "自动拾取黑名单"
 L["Auto recording loot"] = "自动拾取记录"
-L["Auto recording loot: In Raid Only"] = "自动拾取记录: 仅团队中"
-L["Auto recording loot: Off"] = "自动拾取记录关闭"
-L["Auto recording loot: On"] = "自动拾取记录开启"
 L["Auto recording quality"] = "自动拾取记录品质"
 L["Beneficiary"] = "获取人"
 L["Bid accept"] = "拍卖被接受"
@@ -1358,6 +1400,7 @@ L["Current price"] = "当前价格"
 L["Debit"] = "支出"
 L["Debit Template"] = "支出模板"
 L["Entry"] = "条目"
+L["Excel csv"] = "Excel CSV"
 L["Expense"] = "总支出"
 L["Export as text"] = "导出战报"
 L["Feedback"] = "反馈"
@@ -1366,16 +1409,19 @@ L["Hammer Price"] = "成交价格"
 L["Hide locked items"] = "隐藏锁定物品"
 L["Import from ledger"] = "从账本中提取"
 L["In Raid Only"] = "仅团队中"
-L["Input only"] = "仅输入"
 L["is bought in"] = "流拍"
 L["Item added"] = "已添加物品"
 L["Last used"] = "上次使用"
+L["Mark as outstanding payment"] = "标记为未结清"
 L["Member credit for subgroup"] = "小队收入明细"
 L["Minimap Icon"] = "小地图图标"
 L["Must bid higher than"] = "出价必须高于"
 L["Name of Debit template"] = "支出模板的标题"
 L["Net Profit"] = "净收入"
 L["Other"] = "其他"
+L["outstanding balance"] = "未结清金额"
+L["Outstanding Payment"] = "未结清"
+L["owes"] = "有"
 L["Pause"] = "暂停"
 L["Per Member"] = "平均每人"
 L["Per Member credit"] = "平均每人收入"
@@ -1409,6 +1455,7 @@ L["toggle Auto recording on/off"] = "开启/关闭自动拾取记录"
 L["Top [%d] contributors"] = "贡献钱 [%d] 的老板"
 L["Value"] = "费用"
 L["Winner"] = "赢家"
+L["You can send messages to this channel when you are in an instance only"] = "你仅可以在副本中使用这个频道"
 
 elseif locale == 'zhTW' then
 L["# line starts with # will be ignored"] = "# 以 # 開頭的行自動被忽略"
@@ -1420,9 +1467,6 @@ L["0 credit items"] = "0 收入物品"
 L["Add to"] = "添加到"
 L["Auto recording blacklist"] = "自動拾取黑名單"
 L["Auto recording loot"] = "自動拾取記錄"
-L["Auto recording loot: In Raid Only"] = "自動拾取記錄: 僅團隊中"
-L["Auto recording loot: Off"] = "自動拾取記錄關閉"
-L["Auto recording loot: On"] = "自動拾取記錄開啟"
 L["Auto recording quality"] = "自動拾取記錄品質"
 L["Beneficiary"] = "獲取人"
 L["Bid accept"] = "拍賣被接受"
@@ -1452,6 +1496,7 @@ L["Current price"] = "當前價格"
 L["Debit"] = "支出"
 L["Debit Template"] = "支出模板"
 L["Entry"] = "條目"
+L["Excel csv"] = "Excel CSV"
 L["Expense"] = "總支出"
 L["Export as text"] = "導出戰報"
 L["Feedback"] = "反饋"
@@ -1460,16 +1505,19 @@ L["Hammer Price"] = "成交價格"
 L["Hide locked items"] = "隱藏鎖定物品"
 L["Import from ledger"] = "從賬本中提取"
 L["In Raid Only"] = "僅團隊中"
-L["Input only"] = "僅輸入"
 L["is bought in"] = "流拍"
 L["Item added"] = "已添加物品"
 L["Last used"] = "上次使用"
+L["Mark as outstanding payment"] = "標記為未結清"
 L["Member credit for subgroup"] = "小隊收入明細"
 L["Minimap Icon"] = "小地圖圖標"
 L["Must bid higher than"] = "出價必須高於"
 L["Name of Debit template"] = "支出模板的標題"
 L["Net Profit"] = "淨收入"
 L["Other"] = "其他"
+L["outstanding balance"] = "未結清金額"
+L["Outstanding Payment"] = "未結清"
+L["owes"] = "有"
 L["Pause"] = "暫停"
 L["Per Member"] = "平均每人"
 L["Per Member credit"] = "平均每人收入"
@@ -1503,5 +1551,6 @@ L["toggle Auto recording on/off"] = "開啟/關閉自動拾取記錄"
 L["Top [%d] contributors"] = "貢獻錢 [%d] 的老板"
 L["Value"] = "費用"
 L["Winner"] = "贏家"
+L["You can send messages to this channel when you are in an instance only"] = "你僅可以在副本中使用這個頻道"
 
 end

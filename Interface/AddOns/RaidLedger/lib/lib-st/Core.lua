@@ -1,5 +1,5 @@
 local _, ADDONSELF = ...
--- local MAJOR, MINOR = "ScrollingTable", tonumber("1621704963") or 40300;
+-- local MAJOR, MINOR = "ScrollingTable", tonumber("1641327758") or 40300;
 -- local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR);
 -- if not lib then
 -- 	return; -- Already loaded and no upgrade necessary.

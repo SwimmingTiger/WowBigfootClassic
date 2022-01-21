@@ -49,6 +49,12 @@ local function SendToCurrrentChannel(msg)
     elseif chatType == "BN_WHISPER" then
         BNSendWhisper(BNet_GetBNetIDAccount(whisperTo), msg)
     else
+        if chatType == "SAY" or chatType "YELL" or chatType == "CHANNEL" then
+            if not IsInInstance() then
+                ADDONSELF.print(L["You can send messages to this channel when you are in an instance only"])
+                return
+            end
+        end
         SendChatMessage(msg, chatType)
     end
 end
@@ -405,7 +411,7 @@ ADDONSELF.genreport = function(items, n, channel, conf)
         for i = 1, c do
             if looter[i] then
                 local l = looter[i]
-                table.insert(lines, i .. ". " .. L["Credit"] .. " " .. l["looter"] .. " [" .. GetMoneyStringL(l["cost"]) .. "]")
+                table.insert(lines, i .. ". {rt4} " .. L["Credit"] .. " " .. l["looter"] .. " [" .. GetMoneyStringL(l["cost"]) .. "]")
 
                 for j, item in pairs(l["items"]) do
                     table.insert(lines, "... " .. j .. ". " .. l["looter"] .. " " .. item)
@@ -425,7 +431,7 @@ ADDONSELF.genreport = function(items, n, channel, conf)
 
         for i = 1, c do
             local l = compensation[i]
-            table.insert(lines, i .. ". " .. L["Debit"] .. " " .. l["beneficiary"] .. " [" .. GetMoneyStringL(l["compensation"]) .. "]")
+            table.insert(lines, i .. ". {rt7} " .. L["Debit"] .. " " .. l["beneficiary"] .. " [" .. GetMoneyStringL(l["compensation"]) .. "]")
             for _, item in pairs(l["citems"]) do
                 table.insert(lines, "... " .. l["beneficiary"] .. " " .. item)
             end

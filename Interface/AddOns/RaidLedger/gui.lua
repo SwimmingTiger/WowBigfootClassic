@@ -156,23 +156,11 @@ local clearAllFocus = (function()
     end
 end)()
 
-local function CreateBidFrame()
-
-    f:EnableMouse(true)
-    f:SetMovable(true)
-    f:RegisterForDrag("LeftButton")
-    f:SetScript("OnDragStart", f.StartMoving)
-    f:SetScript("OnDragStop", f.StopMovingOrSizing)
-    f:SetScript("OnMouseDown", clearAllFocus)
-    f:Hide()
-
-end
-
 function GUI:Init()
 
 
     local f = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate" or nil)
-    f:SetWidth(650)
+    f:SetWidth(690)
     f:SetHeight(550)
     f:SetBackdrop({
         bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
@@ -269,6 +257,10 @@ function GUI:Init()
         bf:SetToplevel(true)
         bf:EnableMouse(true)
         bf:SetFrameLevel(f:GetFrameLevel() + 10)
+        bf:SetMovable(true)
+        bf:RegisterForDrag("LeftButton")
+        bf:SetScript("OnDragStart", bf.StartMoving)
+        bf:SetScript("OnDragStop", bf.StopMovingOrSizing)
 
         do
             local b = CreateFrame("Button", nil, bf, "UIPanelCloseButton")
@@ -1371,12 +1363,13 @@ function GUI:Init()
                 cellFrame.lockcheck:SetScript("OnClick", function()
                     
                     for _, c in pairs(rowFrame.cols) do
-                        if c.textBox then
+                        local uiobj = c.textbox and c.textbox or c.checkbox
+                        if uiobj then
                             if cellFrame.lockcheck:GetChecked() then
-                                c.textBox:Disable()
+                                uiobj:Disable()
                                 cellFrame.curEntry["lock"] = true
                             else
-                                c.textBox:Enable()
+                                uiobj:Enable()
                                 cellFrame.curEntry["lock"] = false
                             end
                         end
@@ -1418,11 +1411,12 @@ function GUI:Init()
             cellFrame.lockcheck:SetChecked(entry["lock"])
 
             for _, c in pairs(rowFrame.cols) do
-                if c.textBox then
+                local uiobj = c.textbox and c.textbox or c.checkbox
+                if uiobj then
                     if cellFrame.lockcheck:GetChecked() then
-                        c.textBox:Disable()
+                        uiobj:Disable()
                     else
-                        c.textBox:Enable()
+                        uiobj:Enable()
                     end
                 end
             end
@@ -1668,7 +1662,7 @@ function GUI:Init()
             local type = entry["costtype"] or "GOLD"
 
             if type == "PROFIT_PERCENT" then
-                cellFrame.text:SetText(DIM_GREEN_FONT_COLOR:WrapTextInColorCode("%"))
+                cellFrame.text:SetText(GREEN_FONT_COLOR:WrapTextInColorCode("%"))
             elseif type == "REVENUE_PERCENT" then
                 cellFrame.text:SetText(LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("%"))
             elseif type == "MUL_AVG" then
@@ -1724,6 +1718,47 @@ function GUI:Init()
 
         end)
 
+        local outstandingUpdate = CreateCellUpdate(function (cellFrame, entry, idx, rowFrame)
+            local tooltip = self.commtooltip
+            cellFrame.curEntry = entry
+            if not cellFrame.checkbox then
+                cellFrame.checkbox = CreateFrame("CheckButton", nil, cellFrame, "UICheckButtonTemplate")
+                cellFrame.checkbox:SetPoint("RIGHT", cellFrame, "RIGHT")
+                cellFrame.checkbox:SetScript("OnClick", function ()
+                    for _, c in pairs(rowFrame.cols) do
+                        if cellFrame.checkbox:GetChecked() then
+                            cellFrame.curEntry["outstanding"] = true
+                        else
+                            cellFrame.curEntry["outstanding"] = false
+                        end
+                    end
+                    GUI:UpdateLootTableFromDatabase()
+                end)
+
+                cellFrame.checkbox:SetScript("OnEnter", function()
+                    tooltip:SetOwner(cellFrame, "ANCHOR_RIGHT")
+                    tooltip:SetText(L["Mark as outstanding payment"])
+                    tooltip:Show()
+                end)
+
+                cellFrame.checkbox:SetScript("OnLeave", function()
+                    tooltip:Hide()
+                    tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+                end)
+            end
+            cellFrame.checkbox:SetChecked(entry["outstanding"])
+
+            if entry["lock"] then
+                cellFrame.checkbox:Disable()
+            end
+
+            if entry["type"] == "CREDIT" then
+                cellFrame.checkbox:Show()
+            else
+                cellFrame.checkbox:Hide()
+            end
+        end)
+
         self.lootLogFrame = ScrollingTable:CreateST({
             {
                 ["name"] = "",
@@ -1749,6 +1784,12 @@ function GUI:Init()
                 ["width"] = 100,
                 ["align"] = "RIGHT",
                 ["DoCellUpdate"] = valueUpdate,
+            },
+            {
+                ["name"] = "|TInterface\\Common\\Icon-NoLoot:0:0:2:0|t  ",
+                ["width"] = 50,
+                ["align"] = "RIGHT",
+                ["DoCellUpdate"] = outstandingUpdate,
             }
         }, 12, 30, nil, f)
 
@@ -2030,6 +2071,44 @@ function GUI:Init()
                 notCheckable = true,
             },
             {
+                text = L["Outstanding Payment"],
+                func = function ()
+                    local items = Database:GetCurrentLedger()["items"]
+                    local lines = {}
+                    local debtor = {}
+
+                    for _, item in pairs(items or {}) do
+                        if item["outstanding"] then
+                            local b = item["beneficiary"]
+                            local c = item["cost"]
+                            local i = item["detail"]["item"] or ""
+                            local d = item["detail"]["displayname"] or ""
+                            if not GetItemInfoFromHyperlink(i) then
+                                i = d
+                            end
+                            if not debtor[b] then
+                                debtor[b] = {
+                                    amount = 0,
+                                    items = {},
+                                }
+                            end
+                            debtor[b]["amount"] = debtor[b]["amount"] + c
+                            table.insert(debtor[b]["items"], {i, c})
+                        end
+                    end
+
+                    for k, p in pairs(debtor) do
+                        table.insert(lines, k .. L["owes"] .. GetMoneyStringL(p["amount"] * 10000) .. L["outstanding balance"] .. ":")
+                        for _, i in pairs(p["items"]) do
+                            table.insert(lines, i[1] .. " " .. GetMoneyStringL(i[2] * 10000))
+                        end
+                    end
+
+                    SendToChatSlowly(lines, optctx.channel)
+                end,
+                notCheckable = true,
+            },
+            {
                 isTitle = true,
                 text = OPTIONS,
                 notCheckable = true,
@@ -2269,7 +2348,6 @@ RegEvent("ADDON_LOADED", function()
 end)
 
 StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Remove all records?"],
     button1 = ACCEPT,
     button2 = CANCEL,
@@ -2283,7 +2361,6 @@ StaticPopupDialogs["RAIDLEDGER_CLEARMSG"] = {
 }
 
 StaticPopupDialogs["RAIDLEDGER_DELETE_ITEM"] = {
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
     text = L["Remove this record?"],
     button1 = ACCEPT,
     button2 = CANCEL,

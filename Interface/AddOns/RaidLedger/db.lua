@@ -159,10 +159,29 @@ local function GetFilteritemsSet(s)
 
     end
 
+    -- kael'thas 7 weapons
+    for _, line in pairs({
+        30311,
+        30312,
+        30313,
+        30314,
+        30316,
+        30317,
+        30318,
+        30319,
+        30320,
+    }) do
+        local itemName = GetItemInfo(line)
+
+        if itemName then
+            set[itemName] = true
+        end
+    end
+
     return set
 end
 
-function db:AddOrUpdateLoot(item, count, beneficiary, cost)
+function db:AddOrUpdateLoot(item, count, beneficiary, cost, isoutstanding)
     local itemName, itemLink, itemRarity, _, _, _, _, itemStackCount = GetItemInfo(item)
 
     local ledger = self:GetCurrentLedger()
@@ -171,6 +190,7 @@ function db:AddOrUpdateLoot(item, count, beneficiary, cost)
             if entry.detail.item == itemLink and entry.cost == 0 and entry.detail.count == count then
                 entry.beneficiary = beneficiary
                 entry.cost = cost
+                entry.outstanding= isoutstanding
                 self:OnLedgerItemsChange()
                 return
             end

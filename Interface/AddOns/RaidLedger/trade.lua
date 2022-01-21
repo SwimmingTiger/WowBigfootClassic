@@ -83,18 +83,21 @@ RegEvent("TRADE_ACCEPT_UPDATE", function(p, t)
     end
 end)
 
-local function AddLootFromTrade(beneficiary, cost, items) 
+local function AddLootFromTrade(beneficiary, cost, items)
+    local isoutstanding = false
+    -- if cost is 0, may it is outstanding payment
     if cost == 0 then
-        return
+        isoutstanding = true
     end
 
-    for i, item in ipairs(items) do
-        if i > 1 then
-            cost = 0
-        end
-
-        Database:AddOrUpdateLoot(item.item, item.count, beneficiary, cost / 10000)
-        Print(L["Item added"] .. " " .. item.item .. " " .. L["Beneficiary"] .. " " .. beneficiary .. " " .. GetMoneyString(cost))
+    for _, item in ipairs(items) do
+        -- only record item in database
+        Database:AddOrUpdateLoot(item.item, item.count, beneficiary, cost / 10000, isoutstanding)
+        Print(L["Item added"] .. " " .. item.item .. " " .. L["Beneficiary"] .. " " .. beneficiary .. " " ..
+                  GetMoneyString(cost))
+        -- only first item will be update cost and outstanding payment
+        cost = 0
+        isoutstanding = false
     end
 end
 

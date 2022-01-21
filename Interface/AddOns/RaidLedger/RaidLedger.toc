@@ -13,10 +13,7 @@
 ## Notes-zhTW: 金團賬本，幫你在金團中記賬 反饋問題 farmer1992@gmail.com
 ## SavedVariablesPerCharacter: RaidLedgerDatabase
 ## Author: Boshi Lian(farmer1992@gmail.com)
-## Version: v1.8.4-tbc
-## Dependencies: BigFoot
-## X-Revision: BigFoot
-## LoadOnDemand: 1
+## Version: v1.9.5-v2.5.2
 
 lib\LibStub\LibStub.lua
 lib\CallbackHandler-1.0\CallbackHandler-1.0.lua
