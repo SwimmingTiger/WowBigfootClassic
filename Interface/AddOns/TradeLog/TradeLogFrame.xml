@@ -1016,6 +1016,9 @@
 					<OnLoad>
 						ScrollFrame_OnLoad(self);
 						local scrollBar = getglobal(self:GetName().."ScrollBar");
+						if not scrollBar.SetBackdrop then
+							return
+						end
 						scrollBar:SetBackdrop( 
 						{
 							bgFile = "Interface\\ChatFrame\\ChatFrameBackground", 
