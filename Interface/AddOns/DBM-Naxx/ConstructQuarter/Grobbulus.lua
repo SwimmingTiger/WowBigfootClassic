@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403083254")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(15931)
 mod:SetEncounterID(1111)
 mod:SetUsedIcons(1, 2, 3, 4)
@@ -22,7 +22,7 @@ local specWarnInjection	= mod:NewSpecialWarningYou(28169, nil, nil, nil, 1, 2)
 local yellInjection		= mod:NewYell(28169, nil, false)
 
 local timerInjection	= mod:NewTargetTimer(10, 28169, nil, nil, nil, 3)
-local timerCloud		= mod:NewCDTimer(15, 28240, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerCloud		= mod:NewCDTimer(15, 28240, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local enrageTimer		= mod:NewBerserkTimer(720)
 
 mod:AddSetIconOption("SetIconOnInjectionTarget", 28169, false, false, {1, 2, 3, 4})

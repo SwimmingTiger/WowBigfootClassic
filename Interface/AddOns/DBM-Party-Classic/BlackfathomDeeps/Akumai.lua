@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akumai", "DBM-Party-Classic", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(4829)
 --mod:SetEncounterID(1672)
 
@@ -16,7 +16,7 @@ local warningPoisonCloud		= mod:NewSpellAnnounce(3815, 4)
 local warningFrenziedRage		= mod:NewSpellAnnounce(3490, 4)
 
 local timerPoisonCloudCD		= mod:NewAITimer(180, 3815, nil, nil, nil, 3)
-local timerFrenziedRageCD		= mod:NewAITimer(180, 3490, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerFrenziedRageCD		= mod:NewAITimer(180, 3490, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerPoisonCloudCD:Start(1-delay)

@@ -575,17 +575,17 @@ function TotemTimers.SetEarthShieldMainTankList()
                 if GetPartyAssignment("MAINTANK", unit)
                         --[[or UnitGroupRolesAssigned(unit) == "TANK")]] and b < 4 then
                     b = b + 1
-                    earthshieldTimer.actionBar:AddSpell(SpellIDs.EarthShield)
+                    earthshieldTimer.actionBar:AddSpell(SpellNames[SpellIDs.EarthShield])
                     SetUnit(unit, earthshieldTimer.actionBar.buttons[b])
                 end
             end
         end
         if b < 4 then
-            earthshieldTimer.actionBar:AddSpell(SpellIDs.EarthShield)
+            earthshieldTimer.actionBar:AddSpell(SpellNames[SpellIDs.EarthShield])
             SetUnit("player", earthshieldTimer.actionBar.buttons[b + 1])
         end
     else
-        earthshieldTimer.actionBar:AddSpell(SpellIDs.EarthShield)
+        earthshieldTimer.actionBar:AddSpell(SpellNames[SpellIDs.EarthShield])
         SetUnit("player", earthshieldTimer.actionBar.buttons[1])
     end
 end

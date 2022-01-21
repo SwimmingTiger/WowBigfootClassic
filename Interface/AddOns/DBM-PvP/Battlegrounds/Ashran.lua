@@ -3,7 +3,7 @@ if WOW_PROJECT_ID ~= (WOW_PROJECT_MAINLINE or 1) then -- Added in BfA
 end
 local mod	= DBM:NewMod("z1191", "DBM-PvP")
 
-mod:SetRevision("20210519214524")
+mod:SetRevision("20211120060122")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",
@@ -24,9 +24,15 @@ do
 				"QUEST_PROGRESS",
 				"QUEST_COMPLETE"
 			)
+			local generalMod = DBM:GetModByName("PvPGeneral")
+			generalMod:TrackHealth(82876, "Tremblade")
+			generalMod:TrackHealth(82877, "Volrath")
+			generalMod:TrackHealth(81859, "Fangraal")
+			generalMod:TrackHealth(82201, "Kronus")
 		elseif bgzone and zoneID ~= 1191 then
 			bgzone = false
 			self:UnregisterShormTermEvents()
+			DBM:GetModByName("PvPGeneral"):StopTrackHealth()
 		end
 	end
 
@@ -46,7 +52,7 @@ do
 			return
 		end
 		local cid = self:GetCIDFromGUID(UnitGUID("target") or "")
-		if cid == 81870 or cid == 82204 then -- Anenga (Alliance) | Atomik (Horde)
+		if cid == 81870 or cid == 82204 or cid == 183198 then -- Anenga (Alliance) | Atomik/Narduke (Horde)
 			local _, currency = GetCurrencyInfo(944) -- Artifact Fragment
 			if currency > 0 and GetNumGossipOptions() == 3 then -- If boss isn't already summoned
 				SelectGossipOption(1)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Magmadar", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403080347")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(11982)
 mod:SetEncounterID(664)
 mod:SetModelID(10193)
@@ -26,7 +26,7 @@ local warnConflagration	= mod:NewTargetNoFilterAnnounce(19428, 2, nil , false)
 local specWarnEnrage	= mod:NewSpecialWarningDispel(19451, "RemoveEnrage", nil, nil, 1, 6)
 
 local timerPanicCD		= mod:NewCDTimer(30, 19408, nil, nil, nil, 2)--30-40
-local timerEnrage		= mod:NewBuffActiveTimer(8, 19451, nil, nil, nil, 5, nil, DBM_CORE_L.ENRAGE_ICON)
+local timerEnrage		= mod:NewBuffActiveTimer(8, 19451, nil, nil, nil, 5, nil, DBM_COMMON_L.ENRAGE_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 19451 and args:IsDestTypeHostile() then

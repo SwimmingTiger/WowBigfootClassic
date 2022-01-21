@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("MinerJohnson", "DBM-Party-Classic", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(3586)
 --mod:SetEncounterID(1144)
 
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 
 local warningPierceArmor			= mod:NewTargetNoFilterAnnounce(12097, 2)
 
-local timerPierceArmorCD			= mod:NewAITimer(180, 12097, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerPierceArmorCD			= mod:NewAITimer(180, 12097, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerPierceArmorCD:Start(1-delay)

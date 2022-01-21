@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Hazzas", "DBM-Party-Classic", 17)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(5722)
 mod:SetEncounterID(491)
 
@@ -15,8 +15,8 @@ mod:RegisterEventsInCombat(
 local warnWingFlap						= mod:NewSpellAnnounce(12882, 2)
 local warnAcidBreath					= mod:NewSpellAnnounce(12884, 2)
 
-local timerWingFlapCD					= mod:NewAITimer(180, 12882, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
-local timerAcidBreathCD					= mod:NewAITimer(180, 12884, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerWingFlapCD					= mod:NewAITimer(180, 12882, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local timerAcidBreathCD					= mod:NewAITimer(180, 12884, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerWingFlapCD:Start(1-delay)

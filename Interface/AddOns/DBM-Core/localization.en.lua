@@ -120,6 +120,7 @@ L.MOD_DEFAULT_LOADED				= "Default options for this fight have been loaded."
 
 L.WORLDBOSS_ENGAGED					= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 L.WORLDBOSS_DEFEATED				= "%s was possibly defeated on your realm (Sent by %s)."
+L.WORLDBUFF_STARTED					= "%s buff has started on your realm for %s faction (Sent by %s)."
 
 L.TIMER_FORMAT_SECS					= "%.2f |4second:seconds;"
 L.TIMER_FORMAT_MINS					= "%d |4minute:minutes;"
@@ -145,6 +146,7 @@ L.OPTION_CATEGORY_WARNINGS			= "General Announces"
 L.OPTION_CATEGORY_WARNINGS_YOU		= "Personal Announces"
 L.OPTION_CATEGORY_WARNINGS_OTHER	= "Target Announces"
 L.OPTION_CATEGORY_WARNINGS_ROLE		= "Role Announces"
+L.OPTION_CATEGORY_SPECWARNINGS		= "Special Announces"
 
 L.OPTION_CATEGORY_SOUNDS			= "Sounds"
 --Misc object broken down into sub cats
@@ -278,52 +280,6 @@ L.TIMER_USAGE						= {
 L.ERROR_NO_PERMISSION				= "You don't have the required permission to do this."
 L.TIME_TOO_SHORT					= "Pull timer must be longer than 3 seconds."
 
---Common Locals
-L.NONE								= "None"
-L.RANDOM							= "Random"
-L.NEXT								= "Next %s"
-L.COOLDOWN							= "%s CD"
-L.UNKNOWN							= "Unknown"--UNKNOWN which is "Unknown" (does u vs U matter?)
-L.LEFT								= "Left"
-L.RIGHT								= "Right"
-L.BOTH								= "Both"
-L.BEHIND							= "Behind"
-L.BACK								= "Back"--BACK
-L.SIDE								= "Side"
-L.TOP								= "Top"
-L.BOTTOM							= "Bottom"
-L.MIDDLE							= "Middle"
-L.FRONT								= "Front"
-L.EAST								= "East"
-L.WEST								= "West"
-L.NORTH								= "North"
-L.SOUTH								= "South"
-L.INTERMISSION						= "Intermission"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
-L.ORB								= "Orb"
-L.ORBS								= "Orbs"
-L.RING								= "Ring"
-L.RINGS								= "Rings"
-L.CHEST								= "Chest"--As in Treasure 'Chest'. Not Chest as in body part.
-L.NO_DEBUFF							= "Not %s"--For use in places like info frame where you put "Not Spellname"
-L.ALLY								= "Ally"--Such as "Move to Ally"
-L.ALLIES							= "Allies"--Such as "Move to Allies"
-L.ADD								= "Add"--A fight Add as in "boss spawned extra adds"
-L.ADDS								= "Adds"
-L.BIG_ADD							= "Big Add"
-L.BOSS								= "Boss"
-L.EDGE								= "Room Edge"
-L.FAR_AWAY							= "Far Away"
-L.BREAK_LOS							= "Break LOS"
-L.RESTORE_LOS						= "Restore/Maintain LOS"
-L.SAFE								= "Safe"
-L.NOTSAFE							= "Not Safe"
-L.SHIELD							= "Shield"
-L.PILLAR							= "Pillar"
-L.INCOMING							= "%s Incoming"
-L.BOSSTOGETHER						= "Bosses Together"
-L.BOSSAPART							= "Bosses Apart"
---Common Locals end
-
 L.BREAK_USAGE						= "Break timer cannot be longer than 60 minutes. Make sure you're inputting time in minutes and not seconds."
 L.BREAK_START						= "Break starting now -- you have %s! (Sent by %s)"
 L.BREAK_MIN							= "Break ends in %s minute(s)!"
@@ -373,12 +329,12 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	targetNF						= "Announce $spell:%s targets (ignores global target filter)",
 	targetsource					= "Announce $spell:%s targets (with source)",
 	targetcount						= "Announce $spell:%s targets (with count)",
-	spell							= "Show warning for $spell:%s",
-	ends							= "Show warning when $spell:%s has ended",
-	endtarget						= "Show warning when $spell:%s has ended",
-	fades							= "Show warning when $spell:%s has faded",
+	spell							= "Announce when $spell:%s has been cast",
+	ends							= "Announce when $spell:%s has ended",
+	endtarget						= "Announce when $spell:%s has ended (with target)",
+	fades							= "Announce when $spell:%s has faded",
 	adds							= "Announce how many $spell:%s remain",
-	cast							= "Show warning when $spell:%s is being cast",
+	cast							= "Announce when $spell:%s begins casting",
 	soon							= prewarnOption,
 	sooncount						= prewarnOption,
 	countdown						= "Show pre-warning countdown spam for $spell:%s",
@@ -387,9 +343,9 @@ L.AUTO_ANNOUNCE_OPTIONS = {
 	stage							= "Announce Stage %s",
 	stagechange						= "Announce stage changes",
 	prestage						= "Show a prewarning for Stage %s",
-	count							= "Show warning for $spell:%s (with count)",
+	count							= "Announce when $spell:%s has been cast (with count)",
 	stack							= "Announce $spell:%s stacks",
-	moveto							= "Show warning to move to someone or some place for $spell:%s"
+	moveto							= "Announce when to move to someone or some place for $spell:%s"
 }
 
 L.AUTO_SPEC_WARN_TEXTS = {
@@ -440,49 +396,49 @@ L.AUTO_SPEC_WARN_TEXTS = {
 
 -- Auto-generated Special Warning Localizations
 L.AUTO_SPEC_WARN_OPTIONS = {
-	spell 							= "Show special warning for $spell:%s",
-	ends 							= "Show special warning when $spell:%s has ended",
-	fades 							= "Show special warning when $spell:%s has faded",
-	soon 							= "Show pre-special warning for $spell:%s",
-	sooncount						= "Show pre-special warning (with count) for $spell:%s",
-	bait							= "Show pre-special warning (to bait) for $spell:%s",
-	prewarn 						= "Show pre-special warning %s seconds before $spell:%s",
-	dispel 							= "Show special warning to dispel/spellsteal $spell:%s",
-	interrupt						= "Show special warning to interrupt $spell:%s",
-	interruptcount					= "Show special warning (with count) to interrupt $spell:%s",
-	you 							= "Show special warning when you are affected by $spell:%s",
-	youcount						= "Show special warning (with count) when you are affected by $spell:%s",
-	youpos							= "Show special warning (with position) when you are affected by $spell:%s",
-	soakpos							= "Show special warning (with position) to help soak others affected by $spell:%s",
-	target 							= "Show special warning when someone is affected by $spell:%s",
-	targetcount 					= "Show special warning (with count) when someone is affected by $spell:%s",
-	defensive 						= "Show special warning to use defensive abilites for $spell:%s",
-	taunt 							= "Show special warning to taunt when other tank affected by $spell:%s",
-	close 							= "Show special warning when someone close to you is affected by $spell:%s",
-	move 							= "Show special warning to move out from $spell:%s",
-	keepmove 						= "Show special warning to keep moving for $spell:%s",
-	stopmove 						= "Show special warning to stop moving for $spell:%s",
-	dodge 							= "Show special warning to dodge $spell:%s",
-	dodgecount						= "Show special warning (with count) to dodge $spell:%s",
-	dodgeloc						= "Show special warning (with location) to dodge $spell:%s",
-	moveaway						= "Show special warning to move away from others for $spell:%s",
-	moveawaycount					= "Show special warning (with count) to move away from others for $spell:%s",
-	moveto							= "Show special warning to move to someone or some place for $spell:%s",
-	soak							= "Show special warning to soak for $spell:%s",
-	soakcount						= "Show special warning (with count) to soak for $spell:%s",
-	jump							= "Show special warning to move to jump for $spell:%s",
-	run 							= "Show special warning to run away from $spell:%s",
-	cast 							= "Show special warning to stop casting for $spell:%s",--Spell Interrupt
-	lookaway						= "Show special warning to look away for $spell:%s",
-	reflect 						= "Show special warning to stop attacking $spell:%s",--Spell Reflect
-	count 							= "Show special warning (with count) for $spell:%s",
-	stack 							= "Show special warning when you are affected by >=%d stacks of $spell:%s",
-	switch							= "Show special warning to switch targets for $spell:%s",
-	switchcount						= "Show special warning (with count) to switch targets for $spell:%s",
-	gtfo 							= "Show special warning to move out of bad stuff on ground",
-	adds							= "Show special warning to switch targets for incoming adds",
-	addscustom						= "Show special warning for incoming adds",
-	targetchange					= "Show special warning for priority target changes"
+	spell 							= "Show special announce for $spell:%s",
+	ends 							= "Show special announce when $spell:%s has ended",
+	fades 							= "Show special announce when $spell:%s has faded",
+	soon 							= "Show pre-special announce for $spell:%s",
+	sooncount						= "Show pre-special announce (with count) for $spell:%s",
+	bait							= "Show pre-special announce (to bait) for $spell:%s",
+	prewarn 						= "Show pre-special announce %s seconds before $spell:%s",
+	dispel 							= "Show special announce to dispel/spellsteal $spell:%s",
+	interrupt						= "Show special announce to interrupt $spell:%s",
+	interruptcount					= "Show special announce (with count) to interrupt $spell:%s",
+	you 							= "Show special announce when you are affected by $spell:%s",
+	youcount						= "Show special announce (with count) when you are affected by $spell:%s",
+	youpos							= "Show special announce (with position) when you are affected by $spell:%s",
+	soakpos							= "Show special announce (with position) to help soak others affected by $spell:%s",
+	target 							= "Show special announce when someone is affected by $spell:%s",
+	targetcount 					= "Show special announce (with count) when someone is affected by $spell:%s",
+	defensive 						= "Show special announce to use defensive abilites for $spell:%s",
+	taunt 							= "Show special announce to taunt when other tank affected by $spell:%s",
+	close 							= "Show special announce when someone close to you is affected by $spell:%s",
+	move 							= "Show special announce to move out from $spell:%s",
+	keepmove 						= "Show special announce to keep moving for $spell:%s",
+	stopmove 						= "Show special announce to stop moving for $spell:%s",
+	dodge 							= "Show special announce to dodge $spell:%s",
+	dodgecount						= "Show special announce (with count) to dodge $spell:%s",
+	dodgeloc						= "Show special announce (with location) to dodge $spell:%s",
+	moveaway						= "Show special announce to move away from others for $spell:%s",
+	moveawaycount					= "Show special announce (with count) to move away from others for $spell:%s",
+	moveto							= "Show special announce to move to someone or some place for $spell:%s",
+	soak							= "Show special announce to soak for $spell:%s",
+	soakcount						= "Show special announce (with count) to soak for $spell:%s",
+	jump							= "Show special announce to move to jump for $spell:%s",
+	run 							= "Show special announce to run away from $spell:%s",
+	cast 							= "Show special announce to stop casting for $spell:%s",--Spell Interrupt
+	lookaway						= "Show special announce to look away for $spell:%s",
+	reflect 						= "Show special announce to stop attacking $spell:%s",--Spell Reflect
+	count 							= "Show special announce (with count) for $spell:%s",
+	stack 							= "Show special announce when you are affected by >=%d stacks of $spell:%s",
+	switch							= "Show special announce to switch targets for $spell:%s",
+	switchcount						= "Show special announce (with count) to switch targets for $spell:%s",
+	gtfo 							= "Show special announce to move out of bad stuff on ground",
+	adds							= "Show special announce to switch targets for incoming adds",
+	addscustom						= "Show special announce for incoming adds",
+	targetchange					= "Show special announce for priority target changes"
 }
 
 -- Auto-generated Timer Localizations
@@ -490,37 +446,23 @@ L.AUTO_TIMER_TEXTS = {
 	target							= "%s: %%s",
 	targetcount						= "%s (%%2$s): %%1$s",
 	cast							= "%s",
-	castshort						= "%s ",--if short timers enabled, cast and next are same timer text, this is a conflict. the space resolves it
 	castcount						= "%s (%%s)",
-	castcountshort					= "%s (%%s) ",--Resolve short timer conflict with next timers
 	castsource						= "%s: %%s",
-	castsourceshort					= "%s: %%s ",--Resolve short timer conflict with next timers
 	active							= "%s ends",--Buff/Debuff/event on boss
 	fades							= "%s fades",--Buff/Debuff on players
 	ai								= "%s AI",
-	cd								= "%s CD",
-	cdshort							= "~%s",
-	cdcount							= "%s (%%s) CD",
-	cdcountshort					= "~%s (%%s)",
-	cdsource						= "%s CD: >%%s<",
-	cdsourceshort					= "~%s: >%%s<",
-	cdspecial						= "Special CD",
-	cdspecialshort					= "~Special",
-	next							= "Next %s",
-	nextshort						= "%s",
-	nextcount						= "Next %s (%%s)",
-	nextcountshort					= "%s (%%s)",
-	nextsource						= "Next %s: %%s",
-	nextsourceshort					= "%s: %%s",
-	nextspecial						= "Next Special",
-	nextspecialshort				= "Special",
+	cd								= "~%s",
+	cdcount							= "~%s (%%s)",
+	cdsource						= "~%s: >%%s<",
+	cdspecial						= "~Special",
+	next							= "%s",
+	nextcount						= "%s (%%s)",
+	nextsource						= "%s: %%s",
+	nextspecial						= "Special",
 	achievement						= "%s",
-	stage							= "Next Stage",
-	stageshort						= "Stage",
-	adds							= "Incoming Adds",
-	addsshort						= "Adds",
-	addscustom						= "Incoming Adds (%%s)",
-	addscustomshort					= "Adds (%%s)",
+	stage							= "Stage",
+	adds							= "Adds",
+	addscustom						= "Adds (%%s)",
 	roleplay						= GUILD_INTEREST_RP or "Roleplay"
 }
 
@@ -551,6 +493,7 @@ L.AUTO_TIMER_OPTIONS = {
 
 L.AUTO_ICONS_OPTION_TEXT			= "Set icons on $spell:%s targets"
 L.AUTO_ICONS_OPTION_TEXT2			= "Set icons on $spell:%s"
+L.AUTO_ICONS_OPTION_CONFLICT		= " (May conflict with other options)"
 L.AUTO_ARROW_OPTION_TEXT			= "Show " .. L.DBM .. " Arrow to move toward target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT2			= "Show " .. L.DBM .. " Arrow to move away from target affected by $spell:%s"
 L.AUTO_ARROW_OPTION_TEXT3			= "Show " .. L.DBM .. " Arrow to move toward specific location for $spell:%s"
@@ -592,6 +535,7 @@ L.AUTO_RRANGE_OPTION_TEXT			= "Show reverse range frame (%s) for $spell:%s"--Rev
 L.AUTO_RRANGE_OPTION_TEXT_SHORT		= "Show reverse range frame (%s)"
 L.AUTO_INFO_FRAME_OPTION_TEXT		= "Show info frame for $spell:%s"
 L.AUTO_INFO_FRAME_OPTION_TEXT2		= "Show info frame for encounter overview"
+L.AUTO_INFO_FRAME_OPTION_TEXT3		= "Show info frame for $spell:%s (when threshold of %%s is met)"
 L.AUTO_READY_CHECK_OPTION_TEXT		= "Play ready check sound when boss is pulled (even if it's not targeted)"
 L.AUTO_SPEEDCLEAR_OPTION_TEXT		= "Show timer for fastest clear of %s"
 
@@ -643,33 +587,6 @@ L.DUR_CHECKING						= "Checking raid Durability... "
 L.DUR_HEADER						= L.DEADLY_BOSS_MODS.. " - Durability Results"
 L.DUR_ENTRY							= "%s: Durability [%d percent] / Gear broken [%s]"
 L.LAG_FOOTER						= "No Response: %s"
-
-local EJIconPath = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1) and "EncounterJournal" or "AddOns\\DBM-Core\\textures"
---Role Icons
-L.TANK_ICON							= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:7:27|t" -- NO TRANSLATE
-L.DAMAGE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:7:27|t" -- NO TRANSLATE
-L.HEALER_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:7:27|t" -- NO TRANSLATE
-
-L.TANK_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:6:21:7:27|t" -- NO TRANSLATE
-L.DAMAGE_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:39:55:7:27|t" -- NO TRANSLATE
-L.HEALER_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:70:86:7:27|t" -- NO TRANSLATE
---Importance Icons
-L.HEROIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:102:118:7:27|t" -- NO TRANSLATE
-L.DEADLY_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:7:27|t" -- NO TRANSLATE
-L.IMPORTANT_ICON					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:7:27|t" -- NO TRANSLATE
-L.MYTHIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:22:22:0:0:255:66:133:153:40:58|t" -- NO TRANSLATE
-
-L.HEROIC_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:14:14:0:0:255:66:102:118:7:27|t" -- NO TRANSLATE
-L.DEADLY_ICON_SMALL					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:14:14:0:0:255:66:133:153:7:27|t" -- NO TRANSLATE
-L.IMPORTANT_ICON_SMALL				= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:12:12:0:0:255:66:168:182:7:27|t" -- NO TRANSLATE
---Type Icons
-L.INTERRUPT_ICON					= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:198:214:7:27|t" -- NO TRANSLATE
-L.MAGIC_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:229:247:7:27|t" -- NO TRANSLATE
-L.CURSE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:6:21:40:58|t" -- NO TRANSLATE
-L.POISON_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:39:55:40:58|t" -- NO TRANSLATE
-L.DISEASE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:70:86:40:58|t" -- NO TRANSLATE
-L.ENRAGE_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:102:118:40:58|t" -- NO TRANSLATE
-L.BLEED_ICON						= "|TInterface\\" .. EJIconPath .. "\\UI-EJ-Icons.blp:20:20:0:0:255:66:168:182:40:58|t" -- NO TRANSLATE
 
 --LDB
 L.LDB_TOOLTIP_HELP1					= "Click to open " .. L.DBM

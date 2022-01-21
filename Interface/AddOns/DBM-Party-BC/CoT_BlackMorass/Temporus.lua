@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(553, "DBM-Party-BC", 12, 255)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210612174048")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(17880)
 mod:SetEncounterID(1921)
 mod:SetModelID(19066)
@@ -16,8 +16,8 @@ mod:RegisterEventsInCombat(
 local specWarnSpellReflect	= mod:NewSpecialWarningReflect(38592, nil, nil, 2, 1, 2)
 local specWarnHasten		= mod:NewSpecialWarningDispel(31458, "MagicDispeller", nil, nil, 1, 2)
 
-local timerSpellReflect		= mod:NewBuffActiveTimer(6, 38592, nil, nil, 2, 5, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerHasten			= mod:NewTargetTimer(10, 31458, nil, "MagicDispeller|Healer|Tank", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerSpellReflect		= mod:NewBuffActiveTimer(6, 38592, nil, nil, 2, 5, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerHasten			= mod:NewTargetTimer(10, 31458, nil, "MagicDispeller|Healer|Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 31458 and not args:IsDestTypePlayer() then

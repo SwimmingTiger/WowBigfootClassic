@@ -1,7 +1,7 @@
 <Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <Button name="MeetingHornMainPanelTemplate" toplevel="true" parent="UIParent" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" inherits="PortraitFrameTemplate" virtual="true">
-        <Size x="818" y="424"/>
+        <Size x="838" y="424"/>
         <Layers>
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture name="$parentBtnCornerLeft" inherits="UI-Frame-BtnCornerLeft">
@@ -99,7 +99,7 @@
                         </Layers>
                     </Frame>
                     <Button parentKey="Header7" inherits="ColumnDisplayButtonTemplate" id="6">
-                        <Size x="40" y="24"/>
+                        <Size x="60" y="24"/>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeKey="$parent.ActivityList" relativePoint="TOPLEFT" x="2" y="5"/>
                         </Anchors>
@@ -296,6 +296,12 @@
                         <Size x="120" y="22"/>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" x="-20" y="-22"/>
+                        </Anchors>
+                    </Button>
+                    <Button parentKey="RechargeBtn" inherits="UIPanelButtonTemplate">
+                        <Size x="120" y="22"/>
+                        <Anchors>
+                            <Anchor relativeKey="$parent.ApplyLeaderBtn" relativePoint="LEFT" point="RIGHT"/>
                         </Anchors>
                     </Button>
                 </Frames>
@@ -652,6 +658,25 @@
                         <Anchors>
                             <Anchor point="TOPLEFT" x="60" y="28"/>
                         </Anchors>
+                    </Button>
+                    <Button parentKey="LookFall">
+                        <Size x="160" y="16"/>
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-60" y="25"/>
+                        </Anchors>
+                        <NormalTexture parentKey="Icon" alphaMode="ADD" file="Interface\AddOns\MeetingHorn\Media\QRIcon">
+                            <Anchors>
+                                <Anchor point="LEFT"/>
+                            </Anchors>
+                            <Size x="14" y="14"/>
+                            <TexCoords left="0.390625" right="0.8" top="0" bottom="0.78125"/>
+                        </NormalTexture>
+                        
+                        <ButtonText inherits="GameFontNormalLeft">
+                            <Anchors>
+                                <Anchor relativeKey="$parent.Icon" relativePoint="RIGHT" point="LEFT" x="8"/>
+                            </Anchors>
+                        </ButtonText>
                     </Button>
                     <Button parentKey="ZoneButton" inherits="MeetingHornEncounterDifficultyTemplate">
                         <Anchors>

@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: BattleGroundEnemies
 ## Title-zhCN: [大脚][集]战场目标助手
 ## Title-zhTW: [大腳][集]戰場目標助手

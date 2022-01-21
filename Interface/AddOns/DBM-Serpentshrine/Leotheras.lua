@@ -1,22 +1,26 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210920013054")
+mod:SetRevision("20220114081402")
 mod:SetCreatureID(21215)
 mod:SetEncounterID(625, 2460)
 mod:SetModelID(20514)
 mod:SetUsedIcons(5, 6, 7, 8)
-mod:SetHotfixNoticeRev(20210919000000)
-mod:SetMinSyncRevision(20210919000000)
+mod:SetHotfixNoticeRev(20220114000000)--01-14-22
+mod:SetMinSyncRevision(20220114000000)--01-14-22
+mod:DisableRegenDetection()--Disable Player regen pull detection
+--mod:DisableESCombatDetection()--Disable ENCOUNTER_START
 
 mod:RegisterCombat("combat")
 
+--TODO, possibly adjust timers for unit died P1 trigger method. Yell method should primarily be a backup, not primary, but kept around for now
 --Not using RegisterEventsInCombat on purpose because it uses weird combat rules
-mod:RegisterEvents(
-	"UNIT_DIED"
-)
+--mod:RegisterEvents(
+--	"UNIT_DIED"
+--)
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 37640 37676 37749",
+	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
@@ -47,8 +51,8 @@ mod.vb.whirlCount = 0
 local function humanWarns(self)
 	self.vb.whirlCount = 0
 	warnPhase:Show(L.Human)
-	timerWhirlCD:Start(15)
-	timerPhase:Start(nil, L.Demon)
+	--timerWhirlCD:Start(15)
+	timerPhase:Start(45, L.Demon)
 end
 
 local function showDemonTargets(self)
@@ -64,14 +68,12 @@ local function showMCTargets()
 end
 
 function mod:OnCombatStart(delay)
+	self.vb.phase = 0
+	self.vb.binderKill = 0
 	self.vb.demonIcon = 8
 	self.vb.whirlCount = 0
-	self:SetStage(1)
 	table.wipe(warnMCTargets)
 	table.wipe(warnDemonTargets)
-	timerWhirlCD:Start(15)
-	timerPhase:Start(60, L.Demon)
-	berserkTimer:Start()
 end
 
 function mod:OnCombatEnd(delay)
@@ -117,23 +119,27 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.YellDemon or msg:find(L.YellDemon) then
 		self:SendSync("Demon")
+    elseif msg == L.YellPhase1 or msg:find(L.YellPhase1) then
+        self:SendSync("Phase1")
 	elseif msg == L.YellPhase2 or msg:find(L.YellPhase2) then
 		self:SendSync("Phase2")
 	end
 end
 
---TODO, with ENCOUNTER_START this may not be needed anymore, but also have to make sure ES is in right place too, it wasn't on retail which is why this method exists
 function mod:UNIT_DIED(args)
 	local cId = self:GetCIDFromGUID(args.destGUID)
 	if cId == 21806 then
 		self.vb.binderKill = self.vb.binderKill + 1
-		if self.vb.binderKill == 3 and not self:IsInCombat() then
-			DBM:StartCombat(self, 0)
+		if self.vb.binderKill == 3 and self.vb.phase == 0  then
+			self:SetStage(1)
+			timerWhirlCD:Start(15)
+			timerPhase:Start(60, L.Demon)
+			berserkTimer:Start()
 		end
 	end
 end
 
-function mod:OnSync(msg, playerName)
+function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "Demon" then
 		warnPhase:Show(L.Demon)
@@ -152,5 +158,10 @@ function mod:OnSync(msg, playerName)
 		timerDemonCD:Cancel()
 		warnPhase2:Show()
 		timerWhirlCD:Start(22.5)
+    elseif msg == "Phase1" and self.vb.phase == 0 then
+		self:SetStage(1)
+		timerWhirlCD:Start(15)
+		timerPhase:Start(60, L.Demon)
+		berserkTimer:Start()
 	end
 end

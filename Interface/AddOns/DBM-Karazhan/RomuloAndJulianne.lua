@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("RomuloAndJulianne", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(17534, 17533, 99999)--99999 bogus creature id to keep mod from pre mature combat end.
 --mod:SetEncounterID(655, 2447)--used by all 3 of them, so not usuable
 mod:SetModelID(17068)
@@ -28,8 +28,8 @@ local warningDevotion	= mod:NewTargetNoFilterAnnounce(30887, 3, nil, "Tank|Magic
 local warningPoison		= mod:NewStackAnnounce(30830, 2, nil, "Tank|Healer")
 
 local timerHeal			= mod:NewCastTimer(2.5, 30878)
-local timerDaring		= mod:NewTargetTimer(8, 30841, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.MAGIC_ICON)
-local timerDevotion		= mod:NewTargetTimer(10, 30887, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_CORE_L.TANK_ICON..DBM_CORE_L.MAGIC_ICON)
+local timerDaring		= mod:NewTargetTimer(8, 30841, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
+local timerDevotion		= mod:NewTargetTimer(10, 30887, nil, "Tank|MagicDispeller", 2, 5, nil, DBM_COMMON_L.TANK_ICON..DBM_COMMON_L.MAGIC_ICON)
 local timerCombatStart	= mod:NewCombatTimer(55)
 
 mod.vb.JulianneDied = 0

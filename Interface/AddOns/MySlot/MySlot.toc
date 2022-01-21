@@ -1,4 +1,4 @@
-﻿## Interface: 20502
+﻿## Interface: 20503
 ## Title: MySlot
 ## Title-zhCN: [大脚][集]按键设置保存
 ## Title-zhTW: [大腳][集]按鍵設置保存
@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以帮助你在账号之间共享配置。反馈：farmer1992@gmail.com|r
 ## Notes-zhTW: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以跨帳號綁定技能與按鍵設置。反饋通道：farmer1992@gmail.com|r
 ## Author: Boshi Lian(farmer1992@gmail.com)
-## Version: v5.7.0-v2.5.2
+## Version: v5.8.0-v2.5.2
 ## SavedVariables: MyslotExports,MySlot_SavedDb
 ## SavedVariablesPerCharacter: MyslotSettings
 ## Dependencies: BigFoot

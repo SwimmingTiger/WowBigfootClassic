@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HyjalWaveTimers", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210605153940")
+mod:SetRevision("20220109074627")
 
 mod:RegisterEvents(
 	"GOSSIP_SHOW",
@@ -33,9 +33,14 @@ function mod:GOSSIP_SHOW()
 	if not GetRealZoneText() == L.HyjalZoneName then return end
 	local target = UnitName("target")
 	if target == L.Thrall or target == L.Jaina then
-		local table = C_GossipInfo.GetOptions()
-		if table[1] and table[1].name then
-			local selection = table[1].name
+		local table = C_GossipInfo and C_GossipInfo.GetOptions and C_GossipInfo.GetOptions()
+		local selection
+		if table and table[1] and table[1].name then
+			selection = table[1].name
+		else
+			selection = GetGossipOptions()
+		end
+		if selection then
 			if selection == L.RageGossip then
 				boss = 1
 				self:SendSync("boss", 1)
@@ -56,7 +61,7 @@ mod.QUEST_PROGRESS = mod.GOSSIP_SHOW
 
 function mod:UPDATE_UI_WIDGET(table)
 	local id = table.widgetID
-	if id ~= 528 then return end
+	if not (id == 528 or id == 3121) then return end
 	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
 	local text = widgetInfo.text
 	if not text then return end

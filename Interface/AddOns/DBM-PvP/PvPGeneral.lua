@@ -6,7 +6,7 @@ local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Class
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
 local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 
-mod:SetRevision("20210815041049")
+mod:SetRevision("20211117210231")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -20,6 +20,7 @@ mod:RegisterEvents(
 mod:AddBoolOption("HideBossEmoteFrame", false)
 mod:AddBoolOption("AutoSpirit", false)
 mod:AddBoolOption("ShowRelativeGameTime", true)
+mod:AddBoolOption("ShowBasesToWin", false)
 
 do
 	local IsInInstance, RepopMe, GetSelfResurrectOptions = IsInInstance, RepopMe, C_DeathInfo.GetSelfResurrectOptions
@@ -29,67 +30,6 @@ do
 		if instanceType == "pvp" and #GetSelfResurrectOptions() == 0 and self.Options.AutoSpirit then
 			RepopMe()
 		end
-	end
-end
-
--- Utility functions
-local CreateFrame, AlwaysUpFrame1, AlwaysUpFrame2 = CreateFrame, AlwaysUpFrame1, AlwaysUpFrame2
-local scoreFrame1, scoreFrame2, scoreFrameToWin, scoreFrame1Text, scoreFrame2Text, scoreFrameToWinText
-
-local function ShowEstimatedPoints()
-	if AlwaysUpFrame1 and AlwaysUpFrame2 then
-		if not scoreFrame1 then
-			scoreFrame1 = CreateFrame("Frame", nil, AlwaysUpFrame1)
-			scoreFrame1:SetHeight(10)
-			scoreFrame1:SetWidth(100)
-			scoreFrame1:SetPoint("LEFT", "AlwaysUpFrame1DynamicIconButton", "RIGHT", 4, 0)
-			scoreFrame1Text = scoreFrame1:CreateFontString(nil, nil, "GameFontNormalSmall")
-			scoreFrame1Text:SetAllPoints(scoreFrame1)
-			scoreFrame1Text:SetJustifyH("LEFT")
-		end
-		if not scoreFrame2 then
-			scoreFrame2 = CreateFrame("Frame", nil, AlwaysUpFrame2)
-			scoreFrame2:SetHeight(10)
-			scoreFrame2:SetWidth(100)
-			scoreFrame2:SetPoint("LEFT", "AlwaysUpFrame2DynamicIconButton", "RIGHT", 4, 0)
-			scoreFrame2Text = scoreFrame2:CreateFontString(nil, nil, "GameFontNormalSmall")
-			scoreFrame2Text:SetAllPoints(scoreFrame2)
-			scoreFrame2Text:SetJustifyH("LEFT")
-		end
-		scoreFrame1Text:SetText("")
-		scoreFrame1:Show()
-		scoreFrame2Text:SetText("")
-		scoreFrame2:Show()
-	end
-end
-
-local function ShowBasesToWin()
-	if not AlwaysUpFrame2 then
-		return
-	end
-	if not scoreFrameToWin then
-		scoreFrameToWin = CreateFrame("Frame", nil, AlwaysUpFrame2)
-		scoreFrameToWin:SetHeight(10)
-		scoreFrameToWin:SetWidth(200)
-		scoreFrameToWin:SetPoint("TOPLEFT", "AlwaysUpFrame2", "BOTTOMLEFT", 22, 2)
-		scoreFrameToWinText = scoreFrameToWin:CreateFontString(nil, nil, "GameFontNormalSmall")
-		scoreFrameToWinText:SetAllPoints(scoreFrameToWin)
-		scoreFrameToWinText:SetJustifyH("LEFT")
-	end
-	scoreFrameToWinText:SetText("")
-	scoreFrameToWin:Show()
-end
-
-local function HideEstimatedPoints()
-	if scoreFrame1 and scoreFrame2 then
-		scoreFrame1:Hide()
-		scoreFrame2:Hide()
-	end
-end
-
-local function HideBasesToWin()
-	if scoreFrameToWin then
-		scoreFrameToWin:Hide()
 	end
 end
 
@@ -114,30 +54,9 @@ do
 	end
 end
 
-local subscribedMapID, prevAScore, prevHScore, warnAtEnd, hasWarns = 0, 0, 0, {}, false
-local numObjectives, objectivesStore
+local subscribedMapID, numObjectives, objectivesStore
 
 function mod:SubscribeAssault(mapID, objectsCount)
-	self:AddBoolOption("ShowEstimatedPoints", true, nil, function()
-		if self.Options.ShowEstimatedPoints then
-			ShowEstimatedPoints()
-		else
-			HideEstimatedPoints()
-		end
-	end)
-	self:AddBoolOption("ShowBasesToWin", false, nil, function()
-		if self.Options.ShowBasesToWin then
-			ShowBasesToWin()
-		else
-			HideBasesToWin()
-		end
-	end)
-	if self.Options.ShowEstimatedPoints then
-		ShowEstimatedPoints()
-	end
-	if self.Options.ShowBasesToWin then
-		ShowBasesToWin()
-	end
 	self:RegisterShortTermEvents(
 		"AREA_POIS_UPDATED",
 		"UPDATE_UI_WIDGET",
@@ -158,8 +77,7 @@ function mod:SubscribeFlags()
 end
 
 do
-	local pairs = pairs
-	local IsInInstance, SendAddonMessage, GetMapInfo = IsInInstance, C_ChatInfo.SendAddonMessage, C_Map.GetMapInfo
+	local IsInInstance, SendAddonMessage = IsInInstance, C_ChatInfo.SendAddonMessage
 	local bgzone = false
 
 	local function Init(self)
@@ -175,23 +93,9 @@ do
 			bgzone = true
 		elseif bgzone then
 			bgzone = false
-			if hasWarns then
-				local map = GetMapInfo(subscribedMapID)
-				DBM:AddMsg("DBM-PvP missing data, please report to our discord.")
-				DBM:AddMsg("Battleground: " .. (map and map.name or "Unknown"))
-				for k, v in pairs(warnAtEnd) do
-					DBM:AddMsg(v .. "x " .. k)
-				end
-				DBM:AddMsg("Thank you for making DBM-PvP a better addon.")
-			end
 			self:UnregisterShortTermEvents()
 			self:Stop()
-			warnAtEnd = {}
-			hasWarns = false
-			HideEstimatedPoints()
-			HideBasesToWin()
-			subscribedMapID = 0
-			prevAScore, prevHScore = 0, 0
+			subscribedMapID = nil
 			if mod.Options.HideBossEmoteFrame then
 				DBM:HideBlizzardEvents(0, true)
 			end
@@ -298,8 +202,7 @@ do
 		if timerType ~= 1 then -- Only capture type 1 events (PvP)
 			return
 		end
-		local _, instanceType = IsInInstance()
-		if not self.Options.TimerRemaining or (instanceType ~= "pvp" and instanceType ~= "arena" and instanceType ~= "scenario") then
+		if self.Options.TimerStart then
 			if TimerTracker then
 				for _, bar in ipairs(TimerTracker.timerList) do
 					bar.bar:Hide()
@@ -308,13 +211,21 @@ do
 			if not startTimer:IsStarted() then
 				startTimer:Update(timeSeconds, 120)
 			end
+		end
+		if self.Options.TimerRemaining then
+			if TimerTracker then
+				for _, bar in ipairs(TimerTracker.timerList) do
+					bar.bar:Hide()
+				end
+			end
 			self:Schedule(timeSeconds + 1, function()
+				local _, instanceType = IsInInstance()
 				if not isClassic and not isTBC and instanceType == "arena" then
 					timerShadow:Start()
 					timerDamp:Start()
 				end
 				local info = GetIconAndTextWidgetVisualizationInfo(6)
-				if info and info.state == 1 and self.Options.TimerRemaining then
+				if info and info.state == 1 then
 					local minutes, seconds = info.text:match("(%d+):(%d+)")
 					if minutes and seconds then
 						remainingTimer:Update(119 - tonumber(seconds) - (tonumber(minutes) * 60), 120)
@@ -324,7 +235,10 @@ do
 		end
 	end
 
-	local function updateflagcarrier(_, msg)
+	local function updateflagcarrier(self, msg)
+		if not self.Options.TimerFlag then
+			return
+		end
 		if msg == L.ExprFlagCaptured or msg:match(L.ExprFlagCaptured) then
 			flagTimer:Start()
 			if msg:find(FACTION_ALLIANCE) then
@@ -349,11 +263,11 @@ do
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
-		if msg == L.BgStart120 or msg:find(L.BgStart120) then
+		if self.Options.TimerStart and msg == L.BgStart120 or msg:find(L.BgStart120) then
 			remainingTimer:Update(isClassic and 1.5 or 0, 120)
-		elseif msg == L.BgStart60 or msg:find(L.BgStart60) then
+		elseif self.Options.TimerStart and msg == L.BgStart60 or msg:find(L.BgStart60) then
 			remainingTimer:Update(isClassic and 61.5 or 60, 120)
-		elseif msg == L.BgStart30 or msg:find(L.BgStart30) then
+		elseif self.Options.TimerStart and msg == L.BgStart30 or msg:find(L.BgStart30) then
 			remainingTimer:Update(isClassic and 91.5 or 90, 120)
 		elseif not isClassic and (msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2)) then
 			vulnerableTimer:Start()
@@ -362,7 +276,7 @@ do
 end
 
 do
-	local ipairs, pairs, tonumber, type, mfloor, mmin, sformat, smatch = ipairs, pairs, tonumber, type, math.floor, math.min, string.format, string.match
+	local ipairs, pairs, tonumber, type, mfloor, mmin, smatch = ipairs, pairs, tonumber, type, math.floor, math.min, string.match
 	local GetAreaPOIInfo, GetAreaPOITimeLeft, GetAreaPOIForMap, GetDoubleStatusBarWidgetVisualizationInfo, GetIconAndTextWidgetVisualizationInfo, GetDoubleStateIconRowVisualizationInfo = C_AreaPoiInfo.GetAreaPOIInfo, C_AreaPoiInfo.GetAreaPOITimeLeft, C_AreaPoiInfo.GetAreaPOIForMap, C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo, C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo, C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo
 	local FACTION_HORDE, FACTION_ALLIANCE = FACTION_HORDE, FACTION_ALLIANCE
 
@@ -380,60 +294,18 @@ do
 
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
 		local resPerSec = resourcesPerSec[numObjectives]
-		-- Start debug
-		if prevAScore ~= allianceScore then
-			if resPerSec[allianceBases + 1] == 1000 then
-				local key = sformat("%d,%d", allianceScore - prevAScore, allianceBases)
-				local warnCount = warnAtEnd[key] or 0
-				warnAtEnd[key] = warnCount + 1
-				if warnCount > 2 then
-					hasWarns = true
-				end
-			end
-			if allianceScore < maxScore then
-				DBM:Debug(sformat("Alliance: +%d (%d)", allianceScore - prevAScore, allianceBases), 3)
-			end
-			prevAScore = allianceScore
-		end
-		if prevHScore ~= hordeScore then
-			if resPerSec[hordeBases + 1] == 1000 then
-				local key = sformat("%d,%d", hordeScore - prevHScore, hordeBases)
-				local warnCount = warnAtEnd[key] or 0
-				warnAtEnd[key] = warnCount + 1
-				if warnCount > 2 then
-					hasWarns = true
-				end
-			end
-			if hordeScore < maxScore then
-				DBM:Debug(sformat("Horde: +%d (%d)", hordeScore - prevHScore, hordeBases), 3)
-			end
-			prevHScore = hordeScore
-		end
-		-- End debug
 		local gameTime = getGametime()
 		local allyTime = mfloor(mmin(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1]))
 		local hordeTime = mfloor(mmin(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1]))
 		if allyTime == hordeTime or allyTime == 0 or hordeTime == 0 then
 			winTimer:Stop()
-			if scoreFrame1Text then
-				scoreFrame1Text:SetText("")
-				scoreFrame2Text:SetText("")
-			end
 		elseif allyTime > hordeTime then
-			if scoreFrame1Text and scoreFrame2Text then
-				scoreFrame1Text:SetText("(" .. mfloor(mfloor(((hordeTime * resPerSec[allianceBases + 1]) + allianceScore) / 10) * 10) .. ")")
-				scoreFrame2Text:SetText("(" .. maxScore .. ")")
-			end
 			winTimer:Update(gameTime, gameTime + hordeTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(FACTION_HORDE))
 			winTimer:SetColor({r=1, g=0, b=0})
 			winTimer:UpdateIcon("132485") -- Interface\\Icons\\INV_BannerPVP_01.blp
 		elseif hordeTime > allyTime then
-			if scoreFrame1Text and scoreFrame2Text then
-				scoreFrame2Text:SetText("(" .. mfloor(mfloor(((allyTime * resPerSec[hordeBases + 1]) + hordeScore) / 10) * 10) .. ")")
-				scoreFrame1Text:SetText("(" .. maxScore .. ")")
-			end
 			winTimer:Update(gameTime, gameTime + allyTime)
 			winTimer:DisableEnlarge()
 			winTimer:UpdateName(L.WinBarText:format(FACTION_ALLIANCE))
@@ -441,34 +313,7 @@ do
 			winTimer:UpdateIcon("132486") -- Interface\\Icons\\INV_BannerPVP_02.blp
 		end
 		if self.Options.ShowBasesToWin then
-			local friendlyLast, enemyLast, friendlyBases, enemyBases
-			if GetPlayerFactionGroup("player") == "Alliance" then
-				friendlyLast = allianceScore
-				enemyLast = hordeScore
-				friendlyBases = allianceBases
-				enemyBases = hordeBases
-			else
-				friendlyLast = hordeScore
-				enemyLast = allianceScore
-				friendlyBases = hordeBases
-				enemyBases = allianceBases
-			end
-			if (maxScore - friendlyLast) / resPerSec[friendlyBases + 1] > (maxScore - enemyLast) / resPerSec[enemyBases + 1] then
-				local enemyTime, friendlyTime, baseLowest, enemyFinal, friendlyFinal
-				for i = 1, numObjectives do
-					enemyTime = (maxScore - enemyLast) / resPerSec[numObjectives - i]
-					friendlyTime = (maxScore - friendlyLast) / resPerSec[i]
-					baseLowest = friendlyTime < enemyTime and friendlyTime or enemyTime
-					enemyFinal = mfloor((enemyLast + mfloor(baseLowest * resPerSec[numObjectives - 3] + 0.5)) / 10) * 10
-					friendlyFinal = mfloor((friendlyLast + mfloor(baseLowest * resPerSec[i] + 0.5)) / 10) * 10
-					if friendlyFinal >= maxScore and enemyFinal < maxScore then
-						scoreFrameToWinText:SetText(L.BasesToWin:format(i))
-						break
-					end
-				end
-			else
-				scoreFrameToWinText:SetText("")
-			end
+			-- TODO
 		end
 	end
 
@@ -567,7 +412,7 @@ do
 	function mod:AREA_POIS_UPDATED(widget)
 		local allyBases, hordeBases = 0, 0
 		local widgetID = widget and widget.widgetID
-		if subscribedMapID ~= 0 then
+		if subscribedMapID then
 			local isAtlas = false
 			for _, areaPOIID in ipairs(GetAreaPOIForMap(subscribedMapID)) do
 				local areaPOIInfo = GetAreaPOIInfo(subscribedMapID, areaPOIID)

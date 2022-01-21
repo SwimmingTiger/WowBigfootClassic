@@ -48,7 +48,7 @@ function Browser:Constructor()
         GameTooltip:SetOwner(self.IconTip, 'ANCHOR_RIGHT')
         GameTooltip:SetText(L['图示'])
         GameTooltip:AddLine(format(
-                                [[|TInterface\AddOns\MeetingHorn\Media\certification_icon:20:20:0:0:32:32:0:32:0:32|t %s]],
+                                [[|TInterface\AddOns\MeetingHorn\Media\certification_icon:16:46:0:0:64:64:0:64:19:41|t %s]],
                                 L['星团长（按开团次数获取，仅供参考）']), 1, 1, 1)
         GameTooltip:Show()
     end)
@@ -57,6 +57,14 @@ function Browser:Constructor()
     ns.ApplyLeaderBtnClick(self.ApplyLeaderBtn)
     ns.GUI:GetClass('Dropdown'):Bind(self.Activity)
     ns.GUI:GetClass('Dropdown'):Bind(self.Mode)
+
+    self.RechargeBtn:SetText(L['直充专区'])
+    ns.ApplyLeaderBtnClick(self.ApplyLeaderBtn,{
+        tip = "支付宝/微信扫码登录充值更便捷时时有特惠",
+        qrTexture = 'Interface/AddOns/MeetingHorn/Media/RechargeQR',
+        clickTarget = self.RechargeBtn,
+        height = 235
+    })
 
     local function Search()
         return self:Search()

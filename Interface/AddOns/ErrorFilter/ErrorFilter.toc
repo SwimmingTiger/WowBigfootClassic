@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: ErrorFilter
 ## Title-zhCN: [大脚][集]红色信息过滤
 ## Title-zhTW: [大腳][集]紅色信息過濾

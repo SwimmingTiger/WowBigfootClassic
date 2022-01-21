@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ArchmageArugal", "DBM-Party-Classic", 14)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(4275)
 
 mod:RegisterCombat("combat")
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local warningArugalsCurse			= mod:NewTargetNoFilterAnnounce(7621, 2)
 local warningShadowPort				= mod:NewSpellAnnounce(7587, 2)
 
-local timerArugalsCurseCD			= mod:NewAITimer(180, 7621, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
+local timerArugalsCurseCD			= mod:NewAITimer(180, 7621, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 local timerShadowPortCD				= mod:NewAITimer(180, 7587, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)

@@ -77,6 +77,13 @@ function Encounter:Constructor()
     self:Open(ns.DEFAULT_ENCOUNTER_INSTANCE_ID)
 
     self:SetScript('OnShow', self.OnShow)
+
+    self.LookFall:SetText('点击扫码查看副本掉落')
+    ns.ApplyLeaderBtnClick(self.LookFall, {
+        tip = '',
+        qrTexture = 'Interface/AddOns/MeetingHorn/Media/LookFall',
+        point = {'TOP', self.LookFall, 'BOTTOM', 0, -20},
+    })
 end
 
 function Encounter:OnShow()

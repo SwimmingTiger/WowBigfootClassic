@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Malacrass", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(24239)
 mod:SetEncounterID(1193, 2486)
 mod:SetZone()
@@ -32,8 +32,8 @@ local specWarnHeal4	= mod:NewSpecialWarningDispel(43421, "MagicDispeller", nil, 
 local specWarnTotem	= mod:NewSpecialWarningSwitch(43436, "Dps", nil, nil, 1, 2)
 
 local timerSiphon	= mod:NewTargetTimer(30, 43501, nil, nil, nil, 6)
-local timerBoltCD	= mod:NewCDTimer(41, 43383, nil, nil, nil, 2, nil, DBM_CORE_L.HEALER_ICON)
-local timerBolt		= mod:NewCastTimer(10, 43383, nil, nil, nil, 5, nil, DBM_CORE_L.HEALER_ICON)
+local timerBoltCD	= mod:NewCDTimer(41, 43383, nil, nil, nil, 2, nil, DBM_COMMON_L.HEALER_ICON)
+local timerBolt		= mod:NewCastTimer(10, 43383, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerPatch	= mod:NewCastTimer(20, 43429, nil, nil, nil, 3)
 
 function mod:OnCombatStart(delay)

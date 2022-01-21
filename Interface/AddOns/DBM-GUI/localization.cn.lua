@@ -1,7 +1,7 @@
 -- Diablohu(diablohudream@gmail.com)
 -- yleaf(yaroot@gmail.com)
 -- sunlcy@NGA
--- Mini Dragon <流浪者酒馆-Brilla@金色平原> 20210202
+-- Mini Dragon <流浪者酒馆-Brilla@金色平原> 20211214
 
 if GetLocale() ~= "zhCN" then return end
 if not DBM_GUI_L then DBM_GUI_L = {} end
@@ -15,14 +15,14 @@ L.TranslationBy 			= "Mini_Dragon(Brilla@金色平原) 原翻译：Diablohu & yl
 L.Website					= "拜访我们的Discord |cFF73C2FBhttps://discord.gg/deadlybossmods|r. 在Twitter上关注 @deadlybossmods 或 @MysticalOS"
 L.WebsiteButton				= "网页"
 
-L.OTabBosses	            = "模块"--Deprecated and will be deleted once tabs no longer use this
-L.OTabRaids		            = "副本 & PVP"--Raids & PVP
-L.OTabDungeons	            = "地下城"--Might still need editing since it doesn't mention scenarios
-L.OTabPlugins	            = "插件"
-L.OTabOptions	            = "选项"
-L.OTabAbout		            = "关于"
+L.OTabBosses				= "模块"--Deprecated and will be deleted once tabs no longer use this
+L.OTabRaids					= "副本 & PVP"--Raids & PVP
+L.OTabDungeons				= "地下城"--Might still need editing since it doesn't mention scenarios
+L.OTabPlugins				= "核心插件"
+L.OTabOptions				= "选项"
+L.OTabAbout					= "关于"
 
-L.TabCategory_OTHER    		= "其它"
+L.TabCategory_OTHER			= "其它"
 
 L.BossModLoaded 			= "%s状态"
 L.BossModLoad_now 			= [[该模块尚未启动。
@@ -41,7 +41,7 @@ L.Mod_Reset					= "恢复默认设置"
 L.Reset 					= "重置"
 L.Import					= "导入"
 
-L.Enable  					= "开启"
+L.Enable					= "开启"
 L.Disable					= "关闭"
 
 L.NoSound					= "静音"
@@ -144,6 +144,9 @@ L.Area_ImportExportProfile	= "导入导出配置"
 L.ImportExportInfo			= "导入会覆盖你当前的配置，请小心使用"
 L.ButtonImportProfile		= "导入配置"
 L.ButtonExportProfile		= "导出配置"
+
+L.ImportErrorOn				= "自定义语音缺失: %s"
+L.ImportVoiceMissing		= "找不要语音包: %s"
 
 -- Tab: Alerts
 L.TabCategory_Alerts	 	= "警报"
@@ -331,7 +334,6 @@ L.BarColorByType			= "按类着色"
 L.NoBarFade					= "使用开始/结束颜色作为长/短计时条颜色，而不是颜色渐变"
 L.BarInlineIcons			= "显示条内图标"
 L.ShortTimerText			= "使用更短的计时条文字 (当可行时)"
-L.StripTimerText			= "分离 CD/下一次 计时条"
 L.KeepBar					= "保持计时条显示直到技能被释放"
 L.KeepBar2					= "(当被模组支持时)"
 L.FadeBar					= "隐藏超出技能范围的计时条"
@@ -403,7 +405,7 @@ L.HideGarrisonUpdates		= "Boss 战斗中隐藏要塞队列完成提示"
 L.HideGuildChallengeUpdates	= "Boss 战斗中隐藏公会挑战成功信息"
 L.HideQuestTooltips			= "Boss 战斗中隐藏鼠标提示窗体中的任务进度"
 L.HideTooltips				= "Boss 战斗中完全隐藏鼠标提示窗体"
-L.DisableSFX				= "Boss 战斗中关闭音效(注意：如果你开启了这个选项，即使你在战斗开始时已关闭音效，战斗接叔后音效也会被开启)"
+L.DisableSFX				= "Boss 战斗中关闭音效(注意：如果你开启了这个选项，即使你在战斗开始时已关闭音效，战斗结束后音效也会被开启)"
 L.DisableCinematics			= "自动跳过游戏内过场动画"
 L.OnlyFight					= "只有在战斗中，每部动画播放了一次之后跳过"
 L.AfterFirst				= "仅第一次播放"

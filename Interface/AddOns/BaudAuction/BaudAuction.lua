@@ -1,4 +1,6 @@
 
+AuctionFrame_LoadUI()
+
 --[[Ideas:
   Auctioning multiple items at once
   ...ace\AddOns\Blizzard_AuctionUI\Blizzard_AuctionUI.lua:1404: attempt to compare number with nil
@@ -258,7 +260,7 @@ local EventFuncs = {
 			SearchDelay = GetTime() + 1;
 			--6.0 QueryAuctionItems(text, minLevel, maxLevel, invType, class, subclass, page, usable, rarity, false, exactMatch);
 			--7.0 QueryAuctionItems(text, minLevel, maxLevel, page, usable, rarity, false, exactMatch, filterData);
-			if (select(4, ...) == 0 and SelectedItem == nil) then
+			if (not select(7, ...) and select(4, ...) == 0 and SelectedItem == nil) then
 				SearchResults = {};
 				SelectedItem = nil;
 				ScanPage = 0;

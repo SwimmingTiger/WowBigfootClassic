@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(457, "DBM-Party-Classic", 17, 237)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(8443)
 mod:SetEncounterID(492)
 
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 local warningCurseofTongues			= mod:NewTargetNoFilterAnnounce(12889, 2, nil, "RemoveCurse")
 local warningCauseInsanity			= mod:NewTargetNoFilterAnnounce(12888, 4)
 
-local timerCurseofTonguesCD			= mod:NewAITimer(180, 12889, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
+local timerCurseofTonguesCD			= mod:NewAITimer(180, 12889, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
 local timerCauseInsanityCD			= mod:NewAITimer(180, 12888, nil, nil, nil, 3)
 
 function mod:OnCombatStart(delay)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jindo", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403082144")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(11380)
 mod:SetEncounterID(792)
 mod:RegisterCombat("combat")
@@ -22,8 +22,8 @@ local specWarnHealingWard	= mod:NewSpecialWarningSwitch(24309, "Dps", nil, nil, 
 local specWarnBrainTotem	= mod:NewSpecialWarningSwitch(24262, "Dps", nil, nil, 1, 2)
 local specWarnDelusion		= mod:NewSpecialWarningYou(24306, nil, nil, nil, 1, 2)--Don't remember why this has special warning, but trusting 2011 me
 
-local timerHex				= mod:NewTargetTimer(5, 17172, nil, "RemoveMagic|Healer", nil, 5, nil, DBM_CORE_L.MAGIC_ICON)
-local timerDelusion			= mod:NewTargetTimer(20, 24306, nil, "RemoveCurse", nil, 5, nil, DBM_CORE_L.CURSE_ICON)
+local timerHex				= mod:NewTargetTimer(5, 17172, nil, "RemoveMagic|Healer", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
+local timerDelusion			= mod:NewTargetTimer(20, 24306, nil, "RemoveCurse", nil, 5, nil, DBM_COMMON_L.CURSE_ICON)
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 24306 then

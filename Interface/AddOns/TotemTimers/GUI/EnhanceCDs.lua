@@ -52,7 +52,7 @@ TotemTimers.options.args.enhancecds = {
             get = function(info) return TotemTimers.ActiveProfile.EnhanceCDs_Clickthrough end,
         },
         CDTimersOnButtons = {
-            order = 11,
+            order = 5,
             type = "toggle",
             name = L["Timers On Buttons"],
             set = function(info, val)
@@ -70,15 +70,50 @@ TotemTimers.options.args.enhancecds = {
             set = function(info, val) TotemTimers.ActiveProfile.HideEnhanceCDsOOC = val  TotemTimers.ProcessSetting("HideEnhanceCDsOOC") end,
             get = function(info) return TotemTimers.ActiveProfile.HideEnhanceCDsOOC end,
         },]]
-        FlameShockOnTop = {
-            order = 12,
-            type = "toggle", 
-            name = L["Flame Shock on top"],
-            desc = L["Flame Shock on top desc"],
-            set = function(info, val) TotemTimers.ActiveProfile.FlameShockDurationOnTop = val  TotemTimers.LayoutEnhanceCDs() end,
-            get = function(info) return TotemTimers.ActiveProfile.FlameShockDurationOnTop end, 
+        OOCAlpha = {
+            order = 8,
+            type="range",
+            min = 0,
+            max = 1,
+            step = 0.1,
+            name = L["OOC Alpha"], 
+            desc = L["OOC Alpha Desc"],
+            set = function(info, val)
+                        TotemTimers.ActiveProfile.EnhanceCDsOOCAlpha = val  TotemTimers.ProcessSetting("EnhanceCDsOOCAlpha")	
+                  end,
+            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsOOCAlpha end,
         },
-		spacing = {
+        scalingheader = {
+            order = 10,
+            type = "header",
+            name = L["Scaling"],
+        },
+        ECDSize = {
+            order = 11,
+            type = "range",
+            name = L["Button Size"] ,
+            min = 16,
+            max = 96,
+            step = 1,
+            bigStep = 2,
+            set = function(info, val)
+                        TotemTimers.ActiveProfile.EnhanceCDsSize = val  TotemTimers.ProcessSetting("EnhanceCDsSize")	
+                  end,
+            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsSize end,
+        },
+        ECDFontSize = {
+            order = 12,
+            type = "range",
+            name = L["Time Size"],
+            min = 6,
+            max = 40,
+            step = 1,
+            set = function(info, val)
+                        TotemTimers.ActiveProfile.EnhanceCDsTimeHeight = val  TotemTimers.ProcessSetting("EnhanceCDsTimeHeight")	
+                  end,
+            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsTimeHeight end,
+        },
+        spacing = {
             order = 13,
             type = "range",
             name = L["Spacing"] ,
@@ -93,48 +128,29 @@ TotemTimers.options.args.enhancecds = {
                   end,
             get = function(info) return TotemTimers.ActiveProfile.CooldownSpacing end,
         },
-        OOCAlpha = {
-            order = 13,
-            type="range",
-            min = 0,
-            max = 1,
-            step = 0.1,
-            name = L["OOC Alpha"], 
-            desc = L["OOC Alpha Desc"],
-            set = function(info, val)
-                        TotemTimers.ActiveProfile.EnhanceCDsOOCAlpha = val  TotemTimers.ProcessSetting("EnhanceCDsOOCAlpha")	
-                  end,
-            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsOOCAlpha end,
-        },
-        --[[scaling = {
+        flameshockheader = {
             order = 20,
             type = "header",
-            name = "Scaling",
-        },]]
-        ECDSize = {
-            order = 21,
-            type = "range",
-            name = L["Button Size"] ,
-            min = 16,
-            max = 96,
-            step = 1,
-            bigStep = 2,
-            set = function(info, val)
-                        TotemTimers.ActiveProfile.EnhanceCDsSize = val  TotemTimers.ProcessSetting("EnhanceCDsSize")	
-                  end,
-            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsSize end,
+            name = SpellNames[SpellIDs.FlameShock],
         },
-        ECDfontSize = {
-            order = 22,
-            type = "range",
-            name = L["Time Size"],
-            min = 6,
-            max = 40,
-            step = 1,
+        FlameShockDuration = {
+            order = 21,
+            type = "toggle",
+            name = L["Flame Shock duration"],
             set = function(info, val)
-                        TotemTimers.ActiveProfile.EnhanceCDsTimeHeight = val  TotemTimers.ProcessSetting("EnhanceCDsTimeHeight")	
-                  end,
-            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsTimeHeight end,
+                TotemTimers.ActiveProfile.EnhanceCDsFlameShockDuration = val
+                TotemTimers.ConfigEnhanceCDs()
+                TotemTimers.LayoutEnhanceCDs()
+            end,
+            get = function(info) return TotemTimers.ActiveProfile.EnhanceCDsFlameShockDuration end,
+        },
+        FlameShockOnTop = {
+            order = 22,
+            type = "toggle",
+            name = L["Flame Shock on top"],
+            desc = L["Flame Shock on top desc"],
+            set = function(info, val) TotemTimers.ActiveProfile.FlameShockDurationOnTop = val  TotemTimers.LayoutEnhanceCDs() end,
+            get = function(info) return TotemTimers.ActiveProfile.FlameShockDurationOnTop end,
         },
         --[[maelstromheight = {
             order = 23,
@@ -290,7 +306,7 @@ for spec=1,3 do
         TotemTimers.options.args.enhancecds.args[tostring(spec)].args[tostring(index)] = {
             order = index,
             type = "toggle",
-            name = TotemTimers.SpellNames[spell],
+            name = SpellNames[spell],
             width = "full",
             set = function(info, val)
                 TotemTimers.ActiveProfile.EnhanceCDs_Spells[spec][index] = val

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Jergosh", "DBM-Party-Classic", 9)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(11518)
 --mod:SetEncounterID(1444)
 
@@ -15,8 +15,8 @@ mod:RegisterEventsInCombat(
 local warningCurseofWeakness			= mod:NewTargetNoFilterAnnounce(18267, 2)
 local warningImmolate					= mod:NewTargetNoFilterAnnounce(20800, 2, nil, "Healer|RemoveMagic")
 
-local timerCurseofWeaknessCD			= mod:NewAITimer(180, 18267, nil, nil, nil, 3, nil, DBM_CORE_L.CURSE_ICON)
-local timerImmolateCD					= mod:NewAITimer(180, 20800, nil, "Healer|RemoveMagic", nil, 5, nil, DBM_CORE_L.MAGIC_ICON)
+local timerCurseofWeaknessCD			= mod:NewAITimer(180, 18267, nil, nil, nil, 3, nil, DBM_COMMON_L.CURSE_ICON)
+local timerImmolateCD					= mod:NewAITimer(180, 20800, nil, "Healer|RemoveMagic", nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 
 function mod:OnCombatStart(delay)
 	timerCurseofWeaknessCD:Start(1-delay)

@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: HandyNotes: TravelGuide (BCC)
 ## Notes: Shows the boat and zeppelin locations on the World Map and the MiniMap.
 ## Notes-zhCN: 在世界地图和小地图上显示船和飞艇的位置.

@@ -1,0 +1,20 @@
+## Interface: 20503
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFSpell Timers|r
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0冷却助手|r
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0冷卻助手|r
+## Notes: Creates bars for Long term cooldowns or durations
+## Notes-zhCN: |cff00ff00DBM-SpellTimers|r
+## Notes-zhTW: |cff00ff00DBM-SpellTimers|r
+## RequiredDeps: DBM-Core
+## Author: Nitram and Tandanu and QartemisT
+## URL: http://www.deadlybossmods.com
+## SavedVariables: DBM_SpellTimers_Settings
+## X-Curse-Project-ID: 18712
+## Version: r137
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+SpellTimers.lua

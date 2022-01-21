@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: sArena
 ## Title-zhCN: [大脚][集]竞技助手
 ## Title-zhTW: [大腳][集]競技助手
@@ -12,4 +12,4 @@
 ## Dependencies: !!!Libs
 ## X-Revision: BigFoot
 
-#sArena.xml
+sArena.xml

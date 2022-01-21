@@ -40,6 +40,12 @@ function GradePanel:Constructor()
 
     self:SetScript('OnShow', self.OnShow)
     self:SetScript('OnHide', self.OnHide)
+    self.QrCodeFrame:SetScript('OnShow', function()
+        if not self.QrCodeFrame.QRCode:IsDone() then
+            self.QrCodeFrame.QRCode:Refresh()
+        end
+    end)
+
 end
 
 function GradePanel:OnShow()

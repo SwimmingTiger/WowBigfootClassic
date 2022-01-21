@@ -1,4 +1,4 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: HandyNotes_NPCs (Burning Crusade Classic)
 ## Version: 1.07
 ## Notes: Shows locations of various npcs

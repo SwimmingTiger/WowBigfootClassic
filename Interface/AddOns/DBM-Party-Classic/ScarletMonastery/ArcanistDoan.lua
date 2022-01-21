@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ArcanistDoan", "DBM-Party-Classic", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(6487)
 --mod:SetEncounterID(585)
 
@@ -20,7 +20,7 @@ local warningArcaneExplosion		= mod:NewSpellAnnounce(9433, 2, nil, false, 2)--Ca
 local specWarnDetonation			= mod:NewSpecialWarningRun(9435, nil, nil, nil, 4, 2)
 
 --local timerDetonationCD			= mod:NewCDTimer(180, 9435, nil, nil, nil, 2)
-local timerSilenceCD				= mod:NewCDTimer(15.5, 8988, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)--15-19
+local timerSilenceCD				= mod:NewCDTimer(15.5, 8988, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)--15-19
 
 function mod:OnCombatStart(delay)
 	--timerDetonationCD:Start(17.5-delay)--17.5-24

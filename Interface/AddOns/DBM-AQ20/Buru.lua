@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Buru", "DBM-AQ20", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210909024013")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(15370)
 mod:SetEncounterID(721)
 mod:SetModelID(15654)
@@ -19,7 +19,7 @@ local specWarnDismember			= mod:NewSpecialWarningStack(96, nil, 5, nil, nil, 1, 
 local specWarnDismemberTaunt	= mod:NewSpecialWarningTaunt(96, nil, nil, nil, 1, 2)
 local specWarnPursue			= mod:NewSpecialWarning("SpecWarnPursue", nil, nil, nil, 4, 2)
 
-local timerDismember			= mod:NewTargetTimer(10, 96, nil, "Tank", 3, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerDismember			= mod:NewTargetTimer(10, 96, nil, "Tank", 3, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	if not self:IsTrivial(80) then

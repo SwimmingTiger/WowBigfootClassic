@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("Hydross", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20211021122254")
 mod:SetCreatureID(21216)
 mod:SetEncounterID(623, 2458)
+mod:DisableEEKillDetection()--EE always fires wipe
 mod:SetModelID(20162)
 
 mod:RegisterCombat("combat")

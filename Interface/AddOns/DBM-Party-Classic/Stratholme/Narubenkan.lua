@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(452, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(10437)
 mod:SetEncounterID(480)
 
@@ -18,7 +18,7 @@ local warningRaiseUndeadScarab		= mod:NewSpellAnnounce(17235, 2)
 local warningPierceArmor			= mod:NewTargetNoFilterAnnounce(6016, 2, nil, "Tank|Healer", 2)
 
 local timerRaiseUndeadScarabCD		= mod:NewAITimer(180, 17235, nil, nil, nil, 1)
-local timerPierceArmorCD			= mod:NewAITimer(180, 6016, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerPierceArmorCD			= mod:NewAITimer(180, 6016, nil, "Tank|Healer", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
 
 function mod:OnCombatStart(delay)
 	timerRaiseUndeadScarabCD:Start(1-delay)

@@ -1,4 +1,4 @@
-﻿## Interface: 20502
+﻿## Interface: 20503
 ## Title: MonkeyQuest v2.11.0c
 ## Notes: Displays your quests for quick viewing.
 ## Title-zhTW: |cff00FFFF[任務]|r MQ 任務清單-主程式

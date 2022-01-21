@@ -36,11 +36,7 @@ frame.backdropInfo = {
 	insets		= { left = 11, right = 12, top = 12, bottom = 11 }
 }
 
-if DBM:IsShadowlands() then
-	frame:ApplyBackdrop()
-else
-	frame:SetBackdrop(frame.backdropInfo)
-end
+frame:ApplyBackdrop()
 frame.firstshow = true
 frame:SetScript("OnShow", function(self)
 	if self.firstshow then
@@ -100,6 +96,22 @@ else
 	frameRevision:SetText(CL.DEADLY_BOSS_MODS.. " " .. DBM.DisplayVersion.. " (" .. DBM:ShowRealDate(DBM.Revision) .. ")")
 end
 
+do
+	local count = 0
+
+	local frameHeaderButton = CreateFrame("Frame", nil, frame)
+	frameHeaderButton:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 20, 18)
+	frameHeaderButton:SetSize(frameRevision:GetSize())
+	frameHeaderButton:EnableMouse(true)
+	frameHeaderButton:SetScript("OnMouseUp", function()
+		count = count + 1
+		if count == 3 then
+			count = 0
+			DBM:PlaySound("1304911", true)
+		end
+	end)
+end
+
 local frameTranslation = frame:CreateFontString("$parentTranslation", "ARTWORK", "GameFontDisableSmall")
 frameTranslation:SetPoint("LEFT", frameRevision, "RIGHT", 20, 0)
 if L.TranslationBy then
@@ -155,7 +167,7 @@ function OptionsList_OnLoad(self, ...)
 		hack(self, ...)
 	end
 end
-local frameList = CreateFrame("Frame", "$parentList", frame, DBM:IsShadowlands() and "BackdropTemplate,OptionsFrameListTemplate" or "OptionsFrameListTemplate")
+local frameList = CreateFrame("Frame", "$parentList", frame, "BackdropTemplate,OptionsFrameListTemplate")
 frameList:SetWidth(205)
 frameList:SetPoint("TOPLEFT", 22, -40)
 frameList:SetPoint("BOTTOMLEFT", frameWebsite, "TOPLEFT", 0, 5)
@@ -207,12 +219,8 @@ frameListList.backdropInfo = {
 	edgeSize	= 12,
 	insets		= { left = 0, right = 0, top = 5, bottom = 5 }
 }
-if DBM:IsShadowlands() then
-	Mixin(frameListList, BackdropTemplateMixin)
-	frameListList:ApplyBackdrop()
-else
-	frameListList:SetBackdrop(frameListList.backdropInfo)
-end
+Mixin(frameListList, BackdropTemplateMixin)
+frameListList:ApplyBackdrop()
 frameListList:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.6)
 frameListList:SetScript("OnVerticalScroll", function(self, offset)
 	local scrollbar = _G[self:GetName() .. "ScrollBar"]
@@ -241,7 +249,7 @@ scrollDownButton:SetScript("OnClick", function(self)
 	self:GetParent():SetValue(self:GetParent():GetValue() + 18)
 end)
 
-local frameContainer = CreateFrame("ScrollFrame", "$parentPanelContainer", frame, DBM:IsShadowlands() and "BackdropTemplate")
+local frameContainer = CreateFrame("ScrollFrame", "$parentPanelContainer", frame, "BackdropTemplate")
 frameContainer:SetPoint("TOPLEFT", frameList, "TOPRIGHT", 16, 0)
 frameContainer:SetPoint("BOTTOMLEFT", frameList, "BOTTOMRIGHT", 16, 0)
 frameContainer:SetPoint("RIGHT", -22, 0)
@@ -250,11 +258,7 @@ frameContainer.backdropInfo = {
 	edgeSize	= 16,
 	tileEdge	= true
 }
-if DBM:IsShadowlands() then
-	frameContainer:ApplyBackdrop()
-else
-	frameContainer:SetBackdrop(frameContainer.backdropInfo)
-end
+frameContainer:ApplyBackdrop()
 frameContainer:SetBackdropBorderColor(0.6, 0.6, 0.6, 1)
 
 local frameContainerFOV = CreateFrame("ScrollFrame", "$parentFOV", frameContainer, "FauxScrollFrameTemplate")
@@ -270,7 +274,7 @@ frameContainerScrollBar:ClearAllPoints()
 frameContainerScrollBar:SetPoint("TOPRIGHT", -4, -15)
 frameContainerScrollBar:SetPoint("BOTTOMRIGHT", 0, 15)
 
-local frameContainerScrollBarBackdrop = CreateFrame("Frame", nil, frameContainerScrollBar, DBM:IsShadowlands() and "BackdropTemplate")
+local frameContainerScrollBarBackdrop = CreateFrame("Frame", nil, frameContainerScrollBar, "BackdropTemplate")
 frameContainerScrollBarBackdrop:SetPoint("TOPLEFT", -4, 20)
 frameContainerScrollBarBackdrop:SetPoint("BOTTOMRIGHT", 4, -20)
 frameContainerScrollBarBackdrop.backdropInfo = {
@@ -280,9 +284,5 @@ frameContainerScrollBarBackdrop.backdropInfo = {
 	edgeSize	= 16,
 	insets		= { left = 0, right = 0, top = 5, bottom = 5 }
 }
-if DBM:IsShadowlands() then
-	frameContainerScrollBarBackdrop:ApplyBackdrop()
-else
-	frameContainerScrollBarBackdrop:SetBackdrop(frameContainerScrollBarBackdrop.backdropInfo)
-end
+frameContainerScrollBarBackdrop:ApplyBackdrop()
 frameContainerScrollBarBackdrop:SetBackdropBorderColor(0.6, 0.6, 0.6, 0.6)

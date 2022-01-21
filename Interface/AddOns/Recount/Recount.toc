@@ -1,5 +1,5 @@
-## Interface: 20502
-## Version: v2.5.2a
+## Interface: 20503
+## Version: v2.5.2c
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計
@@ -9,6 +9,7 @@
 ## Author: Cryect, ported to 2.4 by Elsia, maintained by Resike from 5.4
 ## SavedVariables: RecountDB
 ## SavedVariablesPerCharacter: RecountPerCharDB
+## Dependencies: BigFoot
 ## DefaultState: disabled
 
 Libs\LibDropDown-1.0\LibDropdown-1.0.lua

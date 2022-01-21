@@ -30,6 +30,7 @@ function Creator:Constructor()
     self.TitleLabel:SetText(L['Manage Activity'])
 
     self.Comment:SetMaxBytes(128)
+    self.Comment:SetCallback('OnTextChanged', UpdateControls)
 
     self.Activity:SetMenuTable(ns.ACTIVITY_MENU)
     self.Activity:SetDefaultText(L['Choice Activity...'])
@@ -140,6 +141,7 @@ function Creator:UpdateControls()
     local activityId = self.Activity:GetValue()
     local activityData = ns.GetActivityData(activityId)
     self.CreateButton:SetEnabled(ns.IsGroupLeader() and activityId and self.Mode:GetValue() and
+                                     self.Comment:GetText():trim() ~= '' and
                                      (not activityData.category.inCity or ns.LFG:IsInCity()))
 end
 

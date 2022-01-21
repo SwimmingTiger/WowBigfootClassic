@@ -1118,34 +1118,17 @@ function CSC_PaperDollFrame_SetManaRegen(statFrame, unit)
 		GameTooltip:Hide()
     end)
 
-	-- There is a bug in GetManaRegen() so I have to manually calculate mp5
-	-- base == casting always and this is wrong
+	-- It looks like Blizzard fixed this. It also takes into account mana regen from talents and gear
 	local base, casting = GetManaRegen();
-	
-	-- to avoid the wrongly reported "0" regen after an update
-	if base < 1 then base = g_lastSeenBaseManaRegen end
-	if casting < 1 then casting = g_lastSeenBaseManaRegen end
-	g_lastSeenBaseManaRegen = base;
-	g_lastSeenCastingManaRegen = casting;
+	local mp5FromGear = CSC_GetMP5FromGear(unit) + CSC_GetMP5FromSetBonus(unit); -- gems not included
 
-	local mp5FromGear = CSC_GetMP5FromGear(unit) + CSC_GetMP5FromSetBonus(unit);
-	local mp5ModifierCasting = CSC_GetMP5ModifierFromTalents(unit) + CSC_GetMP5ModifierFromSetBonus(unit);
+	-- Convert mana per sec to mp5
+	base = base * 5.0;
+	casting = casting * 5.0;
 
-	local mp5FromAuras, mp5CombatModifier = CSC_GetMP5FromAuras();
-	if mp5CombatModifier > 0 then
-		mp5ModifierCasting = mp5ModifierCasting + mp5CombatModifier;
-	end
-	
-	-- All mana regen stats are displayed as mana/5 sec.
-	local regenWhenNotCasting = (base * 5.0) + mp5FromGear + mp5FromAuras;
-	casting = mp5FromGear + mp5FromAuras; -- if GetManaRegen() gets fixed ever, this should be changed
-
-	if mp5ModifierCasting > 0 then
-		casting = casting + base * mp5ModifierCasting * 5.0;
-	end
-
-	local regenWhenNotCastingText = BreakUpLargeNumbers(regenWhenNotCasting);
+	local regenWhenNotCastingText = BreakUpLargeNumbers(base);
 	local castingText = BreakUpLargeNumbers(casting);
+	
 	-- While Casting mana regen is most important to the player, so we display it as the main value
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, MANA_REGEN, castingText, false);
 	statFrame.mp5FromGear = BreakUpLargeNumbers(mp5FromGear);

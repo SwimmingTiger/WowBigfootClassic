@@ -197,7 +197,7 @@ frame.name = addon
 
 CreateCheckbox(options, frame, frame.title, 18, 9)
 
-LibEvent:attachEvent("ADDON_LOADED", function()
+LibEvent:attachEvent("VARIABLES_LOADED", function()
     if (not MerInspectDB or not MerInspectDB.version) then
         MerInspectDB = DefaultDB
     elseif (MerInspectDB.version <= DefaultDB.version) then

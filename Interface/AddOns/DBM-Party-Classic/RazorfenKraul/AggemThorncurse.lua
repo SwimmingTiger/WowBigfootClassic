@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("AggemThorncurse", "DBM-Party-Classic", 11)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(4424)
 --mod:SetEncounterID(438)
 
@@ -16,8 +16,8 @@ local warningSummonBoar		= mod:NewSpellAnnounce(8286, 2)
 
 local specWarnHeal			= mod:NewSpecialWarningInterrupt(14900, "HasInterrupt", nil, nil, 1, 2)
 
-local timerSummonBoarCD		= mod:NewAITimer(180, 8286, nil, nil, nil, 1, nil, DBM_CORE_L.DAMAGE_ICON)
-local timerHealCD			= mod:NewAITimer(180, 14900, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerSummonBoarCD		= mod:NewAITimer(180, 8286, nil, nil, nil, 1, nil, DBM_COMMON_L.DAMAGE_ICON)
+local timerHealCD			= mod:NewAITimer(180, 14900, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 	--timerSummonBoarCD:Start(7-delay)

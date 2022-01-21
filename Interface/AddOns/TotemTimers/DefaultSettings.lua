@@ -417,12 +417,6 @@ function TotemTimers.ExecuteProfile()
 end
 
 local SettingsConverters = {
-    [11.0] = function()
-        for k,profile in pairs(TotemTimers_Profiles) do
-            profile.StopPulse = false
-        end
-        TotemTimers_GlobalSettings.Version = 11.1
-    end,
     [11.1] = function()
         for k,profile in pairs(TotemTimers_Profiles) do
             profile.TrackerStopPulse = profile.StopPulse

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(455, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(10439)
 mod:SetEncounterID(483)
 
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 local warningKnockout			= mod:NewSpellAnnounce(17307, 2)
 local warningTrample			= mod:NewSpellAnnounce(5568, 2)
 
-local timerKnockoutCD			= mod:NewAITimer(180, 17307, nil, nil, nil, 5, nil, DBM_CORE_L.TANK_ICON)
+local timerKnockoutCD			= mod:NewAITimer(180, 17307, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
 local timerTrampleCD			= mod:NewAITimer(180, 5568, nil, nil, nil, 2)
 
 mod:AddBoolOption("TimerGuards", true, "timer", nil, 1)

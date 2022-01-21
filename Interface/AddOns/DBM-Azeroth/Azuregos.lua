@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Azuregos", "DBM-Azeroth")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210611232013")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(6109)--121820 TW ID, 6109 classic ID
 --mod:SetModelID(17887)
 mod:EnableWBEngageSync()--Enable syncing engage in outdoors
@@ -19,7 +19,7 @@ local specWarnArcaneVacuum		= mod:NewSpecialWarningSpell(21147, nil, nil, nil, 2
 local specWarnReflection		= mod:NewSpecialWarningSpell(22067, "CasterDps", nil, nil, 1, 2)
 
 --Timers too variable, if the max is more than double the min time, a timer for min time is more misleading than helpful
---local timerReflectionCD		= mod:NewCDTimer(15.7, 22067, nil, "CasterDps", nil, 5, nil, DBM_CORE_L.DAMAGER_ICON)--15.7-33
+--local timerReflectionCD		= mod:NewCDTimer(15.7, 22067, nil, "CasterDps", nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON)--15.7-33
 --local timerFrostBreathCD		= mod:NewCDTimer(10, 21099, nil, nil, nil, 3)--10-40 (lovely)
 --local timerArcaneVacuumCD		= mod:NewCDTimer(16, 21147, nil, nil, nil, 2)--16-35
 

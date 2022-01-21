@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(448, "DBM-Party-Classic", 16, 236)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(10811)
 mod:SetEncounterID(477)
 
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 local warningBurningWinds			= mod:NewTargetNoFilterAnnounce(17293, 2)
 local warningFireNova				= mod:NewSpellAnnounce(17366, 2)
 
-local timerBurningWindsCD			= mod:NewAITimer(180, 17293, nil, nil, nil, 3, nil, DBM_CORE_L.MAGIC_ICON)
+local timerBurningWindsCD			= mod:NewAITimer(180, 17293, nil, nil, nil, 3, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerFireNovaCD				= mod:NewAITimer(180, 17366, nil, nil, nil, 2)
 
 function mod:OnCombatStart(delay)

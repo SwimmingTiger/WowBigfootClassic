@@ -20,7 +20,6 @@ end
 						
 local function addStaticPopupForPlayerTypeConfigImport(playerType, oppositePlayerType)
 	StaticPopupDialogs["CONFIRM_OVERRITE_"..addonName..playerType] = {
-	  preferredIndex = STATICPOPUP_NUMDIALOGS,
 	  text = L.ConfirmProfileOverride:format(L[playerType], L[oppositePlayerType]),
 	  button1 = YES,
 	  button2 = NO,
@@ -43,7 +42,6 @@ addStaticPopupForPlayerTypeConfigImport("Allies", "Enemies")
 
 local function addStaticPopupBGTypeConfigImport(playerType, oppositePlayerType, BGSize)
 	StaticPopupDialogs["CONFIRM_OVERRITE_"..addonName..playerType..BGSize] = {
-	  preferredIndex = STATICPOPUP_NUMDIALOGS,
 	  text = L.ConfirmProfileOverride:format(L[playerType]..": "..L["BGSize_"..BGSize], L[oppositePlayerType]..": "..L["BGSize_"..BGSize]),
 	  button1 = YES,
 	  button2 = NO,

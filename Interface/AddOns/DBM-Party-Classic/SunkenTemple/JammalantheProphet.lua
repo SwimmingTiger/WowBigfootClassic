@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(458, "DBM-Party-Classic", 17, 237)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403094344")
+mod:SetRevision("20220116041726")
 mod:SetCreatureID(5710)--5711 Ogom the Wretched
 mod:SetEncounterID(488)
 
@@ -33,7 +33,7 @@ local specWarnShadowBolt				= mod:NewSpecialWarningInterrupt(12471, "HasInterrup
 local timerEarthgrabTotemCD				= mod:NewAITimer(180, 8376, nil, nil, nil, 1)
 local timerHexofJammalanCD				= mod:NewAITimer(180, 12479, nil, nil, nil, 3)
 --Ogom
-local timerShadowBoltCD					= mod:NewAITimer(180, 12479, nil, nil, nil, 4, nil, DBM_CORE_L.INTERRUPT_ICON)
+local timerShadowBoltCD					= mod:NewAITimer(180, 12479, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)
 
 function mod:OnCombatStart(delay)
 --	timerHealingWaveCD:Start(1-delay)

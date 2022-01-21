@@ -1,4 +1,4 @@
-﻿## Interface: 20502
+﻿## Interface: 20503
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFOptions GUI|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF设置界面|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF使用者介面|r
@@ -8,7 +8,7 @@
 ## Dependencies: DBM-Core
 ## LoadOnDemand: 1
 ## Author: MysticalOS, QartemisT
-## Version: 8ed2049
+## Version: 99722e9
 ## X-Website: https://deadlybossmods.com
 ## X-Revision: BigFoot
 

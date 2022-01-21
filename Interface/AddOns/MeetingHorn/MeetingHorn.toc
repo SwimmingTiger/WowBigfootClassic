@@ -1,9 +1,9 @@
-## Interface: 20502
+## Interface: 20503
 ## Title: MeetingHorn
 ## Title-zhCN: 集结号
 ## Title-zhTW: 集結號
 ## Notes: |cff00ff00MeetingHorn|r
-## Version: 1.6.4
+## Version: 1.6.10
 ## SavedVariables: MEETINGHORN_DB
 ## SavedVariablesPerCharacter: MEETINGHORN_DB_CHARACTER_MEMBERS
 ## Dependencies: BigFoot
