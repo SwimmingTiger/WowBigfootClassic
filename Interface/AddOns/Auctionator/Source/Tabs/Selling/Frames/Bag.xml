@@ -1,0 +1,34 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSellingBagFrame"
+    virtual="true"
+    parentKey="BagListing"
+    mixin="AuctionatorSellingBagFrameMixin"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="ItemIconDropDown" inherits="AuctionatorItemIconDropDownTemplate" hidden="true"/>
+
+      <ScrollFrame inherits="AuctionatorSellingBagScrollFrame">
+        <ScrollChild>
+          <Frame parentKey="ItemListingFrame">
+            <Frames>
+              <Frame parentKey="Favourites" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="title" value="AUCTIONATOR_L_FAVOURITES" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+                </Anchors>
+              </Frame>
+            </Frames>
+          </Frame>
+        </ScrollChild>
+      </ScrollFrame>
+    </Frames>
+  </Frame>
+</Ui>

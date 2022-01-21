@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="CoreFrameLoaded.lua"/>
+  <Script file="Handler.lua"/>
+
+  <Script file="VariablesLoaded.lua"/>
+</Ui>

@@ -1,0 +1,30 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="EventBusMixin.lua" />
+
+  <Script file="DBKeyFromLink.lua"/>
+  <Script file="IsPetDBKey.lua"/>
+  <Script file="Message.lua"/>
+  <Script file="ReverseArray.lua"/>
+  <Script file="Table.lua" />
+  <Script file="Debug.lua"/>
+  <Script file="Slice.lua"/>
+  <Script file="CreateCountString.lua"/>
+  <Script file="CreateMoneyString.lua"/>
+  <Script file="CreatePaddedMoneyString.lua"/>
+  <Script file="RemoveTextColor.lua"/>
+  <Script file="PrettyDate.lua"/>
+  <Script file="DelimitThousands.lua"/>
+  <Script file="IsShortcutActive.lua"/>
+  <Script file="GetQualityColorFromLink.lua"/>
+  <Script file="GetNameFromLink.lua"/>
+  <Script file="FormatTime.lua"/>
+  <Script file="StringJoin.lua"/>
+  <Script file="SplitCommand.lua"/>
+
+  <Script file="VerifyListTypes.lua"/>
+  <Script file="ValidatePercentage.lua"/>
+  <Script file="TableKeys.lua"/>
+  <Script file="Pool.lua"/>
+
+  <Script file="Sorting.lua" />
+</Ui>
