@@ -122,7 +122,7 @@ do
 		if type(sv.chatframe) ~= "boolean" then sv.chatframe = false end
 		if type(sv.soundMedia) ~= "string" then sv.soundMedia = "BugSack: Fatality" end
 		if type(sv.fontSize) ~= "string" then sv.fontSize = "GameFontHighlight" end
-		if type(sv.altwipe) ~= "boolean" then sv.altwipe = false end
+		if type(sv.altwipe) ~= "boolean" then sv.altwipe = true end
 		if type(sv.useMaster) ~= "boolean" then sv.useMaster = false end
 		addon.db = sv
 
