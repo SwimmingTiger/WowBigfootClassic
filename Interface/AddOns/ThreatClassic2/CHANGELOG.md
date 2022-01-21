@@ -1,4 +1,13 @@
 # Changelog
+## v2.42
+* adjust toc for Hyjal/BT BCC
+
+## v2.41
+* adjust toc for Season of Mastery
+
+## v2.40
+* Added new option to grow bars bottom up
+
 ## v2.39
 * Updated translations and bump interface version
 

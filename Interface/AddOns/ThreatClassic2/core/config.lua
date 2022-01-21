@@ -40,6 +40,7 @@ defaultConfig.frame = {
     color               = {0, 0, 0, 0.35},                          -- frame background color
     headerShow          = true,                                     -- show frame header
     headerColor         = {0, 0, 0, 0.8},                           -- frame header color
+    growUp              = false,                                    -- grow header and bar upwards
 }
 
 -- backdrop settings
