@@ -25,7 +25,7 @@ __HealthBarColor[1] = { r = 1.0, g = 0.7, b = 0.2 };
 __HealthBarColor[2] = { r = 1.0, g = 0.0, b = 0.0 };
 
 local __ManaBarColor = {};
-__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- ´¿À¶É«Ì«°µ, ¿´ÆğÀ´Ì«·ÑÁ¦
+__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- çº¯è“è‰²å¤ªæš—, çœ‹èµ·æ¥å¤ªè´¹åŠ›
 __ManaBarColor[1] = PowerBarColor["RAGE"];
 __ManaBarColor[2] = PowerBarColor["FOCUS"];
 __ManaBarColor[3] = PowerBarColor["ENERGY"];
@@ -61,7 +61,7 @@ local function __GetOnVehicleUnit(unit)
 end
 
 local function __UpdateUnit(unit)
-	if UnitUsingVehicle(__GetRealUnit(unit)) then
+	if UnitUsingVehicle and UnitUsingVehicle(__GetRealUnit(unit)) then
 		return __GetOnVehicleUnit(unit)
 	else
 		return __GetRealUnit(unit)
@@ -245,7 +245,7 @@ function InfoPaneClass.prototype:UnregisterAllEvents()
 	self.infoPane:UnregisterAllEvents()
 end
 
---¿ª¹Ø
+--å¼€å…³
 function InfoPaneClass.prototype:SwitchColorize(flag)
 	self.colorize = flag
 	__Enable_Colorize_HealthBar = flag
@@ -267,7 +267,7 @@ function InfoPaneClass.prototype:SwitchBarText(flag)
 	end
 end
 
---Ö¸¶¨ĞÅÏ¢ÌõÕë¶ÔµÄµ¥Î»ºÍ¸¸¿òÌå
+--æŒ‡å®šä¿¡æ¯æ¡é’ˆå¯¹çš„å•ä½å’Œçˆ¶æ¡†ä½“
 function InfoPaneClass.prototype:Create(infoType,parent,index)
 	self.infoPane = _G["TUF_"..infoType.."InfoPane"..(index or "")] or
 		CreateFrame("Frame",

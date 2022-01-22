@@ -41,7 +41,7 @@ end
 
 local function __UpdateFrameUnit()
 	for i = 1, MAX_PARTY_MEMBERS do
-		if UnitUsingVehicle("party"..i) then
+		if UnitUsingVehicle and UnitUsingVehicle("party"..i) then
 			BFSecureCall(frames[i].SetAttribute,frames[i],"unit", "partypet"..i.."target")
 		else
 			BFSecureCall(frames[i].SetAttribute,frames[i],"unit", "party"..i.."target")
