@@ -1,54 +1,16 @@
-lightweight tag dd360af22fc8846c7ee264a49bc864e47f9458e2 v2.1.12
+lightweight tag ea63d81d169ab16c570b9062e1a57db810434506 v2.1.14
 Author:	GitHub <noreply@github.com>
-Date:	Mon Sep 27 20:29:47 2021 +0200
+Date:	Sun Jan 23 20:23:03 2022 +0100
 
-commit 8c5c4d9acd2aace99ebdc85f9cbd93e731608997
+commit 41226b22dd990c7c77443a1e55d3e80aa5b2d637
 Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:32:16 2021 +0300
+Date:   Sun Jan 23 20:47:26 2022 +0300
 
-    fix color for quality dropdown
-    
-    rewrite with new code
+    use assertion for check first mandatory argument
 
-commit 2f7b7c25d3669e51bea54ebe2a5e769393ec6c87
+commit 41226b22dd990c7c77443a1e55d3e80aa5b2d637
 Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:13:55 2021 +0300
+Date:   Sun Jan 23 20:47:26 2022 +0300
 
-    fix the tab-switching focus feature
-    
-    for new dynamic filter dropdown
-
-commit 8c5c4d9acd2aace99ebdc85f9cbd93e731608997
-Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:32:16 2021 +0300
-
-    fix color for quality dropdown
-    
-    rewrite with new code
-
-commit fa90c361459b6a47dce094f22eaad944e865a67e
-Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:27:25 2021 +0300
-
-    gui: add feature to set colors for dropdown items
-
-commit c5e4adbab69eaca850ae8ae6d058c78a421545d3
-Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:21:02 2021 +0300
-
-    gui: add quick access to fontstring obj from button obj
-
-commit 2f7b7c25d3669e51bea54ebe2a5e769393ec6c87
-Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:13:55 2021 +0300
-
-    fix the tab-switching focus feature
-    
-    for new dynamic filter dropdown
-
-commit 26efa0bd93b37e2e3658af844050545c46931daf
-Author: Artur <Artur91425@gmail.com>
-Date:   Sun Sep 19 19:10:33 2021 +0300
-
-    add missing OnEnter script function for Blizzard filter
+    use assertion for check first mandatory argument
 

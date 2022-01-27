@@ -315,7 +315,7 @@ do
             max_level_input:SetFocus()
         else
             if subclass_dropdown:IsVisible() then
-            subclass_dropdown:SetFocus()
+                subclass_dropdown:SetFocus()
             else
                 quality_dropdown:SetFocus()
             end
@@ -337,7 +337,7 @@ do
             class_dropdown:SetFocus()
         else
             if slot_dropdown:IsVisible() then
-            slot_dropdown:SetFocus()
+                slot_dropdown:SetFocus()
             else
                 quality_dropdown:SetFocus()
             end
@@ -373,7 +373,7 @@ do
     dropdown:SetScript('OnTabPressed', function()
         if IsShiftKeyDown() then
             if slot_dropdown:IsVisible() then
-            slot_dropdown:SetFocus()
+                slot_dropdown:SetFocus()
             elseif subclass_dropdown:IsVisible() then
                 subclass_dropdown:SetFocus()
             else

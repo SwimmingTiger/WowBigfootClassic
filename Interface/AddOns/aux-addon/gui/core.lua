@@ -85,13 +85,13 @@ function M.button(parent, text_height)
     highlight:SetColorTexture(1, 1, 1, .2)
     button.highlight = highlight
 
-        local label = button:CreateFontString()
-        label:SetFont(font, text_height)
-        label:SetAllPoints(button)
-        label:SetJustifyH('CENTER')
-        label:SetJustifyV('CENTER')
-        label:SetTextColor(aux.color.text.enabled())
-        button:SetFontString(label)
+    local label = button:CreateFontString()
+    label:SetFont(font, text_height)
+    label:SetAllPoints(button)
+    label:SetJustifyH('CENTER')
+    label:SetJustifyV('CENTER')
+    label:SetTextColor(aux.color.text.enabled())
+    button:SetFontString(label)
 
     button.default_Enable = button.Enable
     function button:Enable()
