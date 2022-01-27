@@ -4,6 +4,7 @@
 
 local __version = 6;
 
+local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
 local __commlib = __ala_meta__.__commlib;
@@ -22,7 +23,6 @@ end
 __commlib.__minor = __version;
 __ala_meta__.__commlib = __commlib;
 
-local _G = _G;
 
 -->			upvalue
 local time = time;

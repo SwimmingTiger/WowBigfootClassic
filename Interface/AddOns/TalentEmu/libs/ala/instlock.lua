@@ -4,6 +4,7 @@
 
 local __version = 5;
 
+local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
 local __instlib = __ala_meta__.__instlib
@@ -14,7 +15,6 @@ local __instlib = __instlib or CreateFrame('FRAME');
 __instlib.__minor = __version;
 __ala_meta__.__instlib = __instlib;
 
-local _G = _G;
 
 -->			upvalue
 local setmetatable, tinsert, next = setmetatable, tinsert, next;

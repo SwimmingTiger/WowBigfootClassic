@@ -10,7 +10,11 @@
 	scroll:CallButtonFuncByDataIndex(index, func, ...)		button:func(...)
 	button:GetDataIndex()
 ]]
-local __version = 2;
+local __version = 3;
+
+local _G = _G;
+_G.__ala_meta__ = _G.__ala_meta__ or {  };
+local __ala_meta__ = _G.__ala_meta__;
 
 local ScrollList = _G.alaScrollList;
 if ScrollList ~= nil and ScrollList.__minor ~= nil and ScrollList.__minor >= __version then
@@ -23,9 +27,7 @@ _G.alaScrollList = ScrollList;
 local ADDON, NS = ...;
 
 local ceil, floor, max, min = ceil, floor, max, min;
-local _G = _G;
 local _ = nil;
-local Template = BackdropTemplateMixin ~= nil and "BackdropTemplate" or nil;
 
 local function _error_(key, msg, ...)
 	print("\124cffff0000" .. key .. "\124r", msg and "\124cffff0000" .. msg .. "\124r", ...);
@@ -38,9 +40,9 @@ function ScrollList.CreateScrollFrame(parent, width, height, buttonHeight, funcT
 	width = width and max(width, def_inner_size) or def_inner_size;
 	height = height and max(height, def_inner_size) or def_inner_size;
 
-	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent, Template);
-	local scrollChild = CreateFrame("FRAME", nil, scrollFrame, Template);
-	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame, Template);
+	local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
+	local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
+	local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
 	local buttons = {};
 	local nButtonsShown = 0;
 	local ofsIndex = 0;

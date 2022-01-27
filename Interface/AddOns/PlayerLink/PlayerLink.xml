@@ -34,7 +34,8 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 			<OnEnter>
 				getglobal(self:GetName().."Highlight"):Show();
 				if ( self.tooltipTitle ) then
-					GameTooltip_AddNewbieTip(self, self.tooltipTitle, 1.0, 1.0, 1.0, self.tooltipText, 1);
+					GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+					GameTooltip_SetTitle(GameTooltip, self.tooltipTitle);
 				end
 				PlayerLink_StopCount();
 			</OnEnter>
@@ -54,7 +55,7 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 		<Frames>
 			<Frame name="$parentMenuBackdrop" setAllPoints="true" inherits="BackdropTemplate">
 				<KeyValues>
-					<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+					<KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
 				</KeyValues>
 				<Scripts>
 					<OnLoad inherit="prepend">

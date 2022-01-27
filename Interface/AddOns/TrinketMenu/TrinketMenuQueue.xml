@@ -190,7 +190,7 @@
 			</Anchor>
 		</Anchors>
         <KeyValues>
-            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_0_16" type="global"/>
+            <KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
         </KeyValues>
 		<Layers>
 			<Layer level = "BACKGROUND">
@@ -451,7 +451,7 @@
 					</Anchor>
 				</Anchors>
                 <KeyValues>
-                    <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_0_16" type="global"/>
+                    <KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
                 </KeyValues>
 				<Layers>
 					<Layer level = "BACKGROUND">
@@ -579,7 +579,7 @@
 					</Anchor>
 				</Anchors>
                 <KeyValues>
-                    <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_0_16" type="global"/>
+                    <KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
                 </KeyValues>
 				<Layers>
 					<Layer level = "BACKGROUND">
@@ -730,7 +730,7 @@
 							</Anchor>
 						</Anchors>
                         <KeyValues>
-                            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_0_16" type="global"/>
+                            <KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
                         </KeyValues>
 						<Layers>
 							<Layer level = "BACKGROUND">

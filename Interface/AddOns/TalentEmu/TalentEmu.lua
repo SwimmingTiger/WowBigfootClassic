@@ -2,12 +2,13 @@
 	by ALA @ 163UI
 --]]--
 ----------------------------------------------------------------------------------------------------
-local ADDON, NS = ...;
 local _G = _G;
-_G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
-__ala_meta__.emu = NS;
+local uireimp = __ala_meta__.uireimp;
 local __emulib = __ala_meta__.__emulib;
+
+local ADDON, NS = ...;
+__ala_meta__.emu = NS;
 local L = NS.L;
 if not L then return; end
 
@@ -2954,7 +2955,7 @@ NS:BuildEnv("emu");
 			wrap:SetPoint("TOPRIGHT", mainFrame, "TOPLEFT", 0, 0);
 			wrap:SetPoint("BOTTOMRIGHT", mainFrame, "BOTTOMLEFT", 0, 0);
 			wrap:SetWidth(ui_style.equipmentFrameXSize);
-			__ala_meta__._SetBackdrop(wrap, 0, 0.25, 0.25, 0.25, 1.0, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(wrap, 0, 1, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0);
 			wrap:Hide();
 			local frame = CreateFrame("FRAME", nil, wrap);
 			frame:SetWidth(ui_style.equipmentFrameXSize);
@@ -3135,7 +3136,7 @@ NS:BuildEnv("emu");
 		local function funcToCreateButton(parent, index, buttonHeight)
 			local button = CreateFrame("BUTTON", nil, parent);
 			button:SetHeight(buttonHeight);
-			__ala_meta__._SetBackdrop(button, 0, 0.25, 0.25, 0.25, 0.75, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(button, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 			button:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar");
 			button:EnableMouse(true);
 			button:Show();
@@ -3180,7 +3181,7 @@ NS:BuildEnv("emu");
 			wrap:SetPoint("TOPLEFT", mainFrame, "TOPRIGHT", 0, 0);
 			wrap:SetPoint("BOTTOMLEFT", mainFrame, "BOTTOMRIGHT", 0, 0);
 			wrap:SetWidth(ui_style.spellTabFrameXSize);
-			__ala_meta__._SetBackdrop(wrap, 0, 0.25, 0.25, 0.25, 0.75, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(wrap, 0, 1, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0);
 			wrap:Hide();
 			local frame = CreateFrame("FRAME", nil, wrap);	-- mainFrame:GetName() .. "SpellTab"
 			frame:SetPoint("CENTER", wrap);
@@ -3326,7 +3327,7 @@ NS:BuildEnv("emu");
 			tooltipFrame:SetFrameStrata("FULLSCREEN");
 			tooltipFrame:SetClampedToScreen(true);
 			tooltipFrame:EnableMouse(false);
-			__ala_meta__._SetBackdrop(tooltipFrame, 0, 0.15, 0.15, 0.15, 1.0, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(tooltipFrame, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 			tooltipFrame:Hide();
 			tooltipFrame:Show();
 
@@ -4415,7 +4416,7 @@ NS:BuildEnv("emu");
 			mainFrame:SetPoint("CENTER");
 			mainFrame:SetMinResize(ui_style.mainFrameXSizeMin_Style1, ui_style.mainFrameYSizeMin_Style1);
 			mainFrame:SetFrameStrata("HIGH");
-			__ala_meta__._SetBackdrop(mainFrame, 0, 0.25, 0.25, 0.25, 1.0, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(mainFrame, 0, 1, 0.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0);
 
 			if SET.style == 1 then
 				mainFrame:SetSize(ui_style.mainFrameXSizeDefault_Style1, ui_style.mainFrameYSizeDefault_Style1);
@@ -6167,7 +6168,7 @@ do	-- raid_tool
 	local function funcToCreateButton(parent, index, buttonHeight)
 		local button = CreateFrame("BUTTON", nil, parent);
 		button:SetHeight(buttonHeight);
-		__ala_meta__._SetBackdrop(button, 0, 0.25, 0.25, 0.25, 0.75, 1, 0.0, 0.0, 0.0, 1.0);
+		uireimp._SetSimpleBackdrop(button, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 		button:SetHighlightTexture("Interface\\FriendsFrame\\UI-FriendsFrame-HighlightBar");
 		button:EnableMouse(true);
 		button:Show();
@@ -6290,7 +6291,7 @@ do	-- raid_tool
 					button.itemLevel:SetText(nil);
 				end
 				if refresh_again then
-					NS.F_ScheduleDelayCall(frame.update_scroll);
+					NS.F_ScheduleDelayCall(button.frame.update_scroll);
 				end
 				local missItems, missEnchants, items, enchants = summary_items(class, cache);
 				if missItems then
@@ -6337,7 +6338,7 @@ do	-- raid_tool
 		--	frame
 			local frame = CreateFrame("FRAME", "ALA_RAID_TOOL_UI", UIParent);
 			tinsert(UISpecialFrames, "ALA_RAID_TOOL_UI");
-			__ala_meta__._SetBackdrop(frame, 0, 0.25, 0.25, 0.25, 1.0, 1, 0.0, 0.0, 0.0, 1.0);
+			uireimp._SetSimpleBackdrop(frame, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 			frame:SetSize(ui_style.raidToolUIFrameXSize, ui_style.raidToolUIFrameYSize);
 			frame:SetFrameStrata("HIGH");
 			frame:SetPoint("CENTER", 0, 0);

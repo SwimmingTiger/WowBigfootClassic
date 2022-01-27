@@ -216,7 +216,7 @@ local UnitPowerMax = UnitPowerMax;
 --事件注册
 local RaidAlerter_EVENT_LIST = {
 	"ADDON_LOADED",
-	"VARIABLES_LOADED",
+	-- "VARIABLES_LOADED",
 	"PLAYER_ENTERING_WORLD",
 	"CHAT_MSG_ADDON",
 	"CHAT_MSG_WHISPER_INFORM",

@@ -17,7 +17,7 @@
 			</Layer>
 		</Layers>
 		<KeyValues>
-            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+            <KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
         </KeyValues>
 			<Scripts>
 				<OnLoad inherit="prepend">
@@ -523,7 +523,7 @@
 					</Anchor>
 				</Anchors>
 				<KeyValues>
-					<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global"/>
+					<KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
 				</KeyValues>
 				<Layers>
 					<Layer>

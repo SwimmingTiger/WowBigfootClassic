@@ -4,6 +4,7 @@
 
 local __version = 8;
 
+local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
 local __coder = __ala_meta__.__coder;

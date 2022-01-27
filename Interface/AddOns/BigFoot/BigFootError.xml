@@ -9,7 +9,7 @@
 			<AbsDimension x="500" y="370"/>
 		</Size>
 		<KeyValues>
-			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+			<KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
         </KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">
@@ -157,7 +157,7 @@
 					</Anchor>
 				</Anchors>
 				<KeyValues>
-					<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+					<KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
 				</KeyValues>
 				<Scripts>
 					<OnLoad inherit="prepend">
@@ -249,7 +249,7 @@
 			<AbsDimension x="150" y="100"/>
 		</Size>
 		<KeyValues>
-			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_16_16_5555" type="global"/>
+			<KeyValue key="backdropInfo" value="BACKDROP_TUTORIAL_16_16" type="global"/>
         </KeyValues>
 		<Layers>
 			<Layer level="ARTWORK">

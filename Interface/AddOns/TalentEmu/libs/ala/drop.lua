@@ -3,6 +3,7 @@
 --]]--
 local __version = 6;
 
+local _G = _G;
 local DropMenu = _G.alaDropMenu;
 if DropMenu ~= nil and DropMenu.__minor ~= nil and DropMenu.__minor >= __version then
 	return;
@@ -16,7 +17,6 @@ DropMenu.__minor = __version;
 
 local type = type;
 local unpack = unpack;
-local _G = _G;
 local _ = nil;
 
 

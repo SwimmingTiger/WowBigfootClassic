@@ -4,6 +4,7 @@
 
 local __version = 8;
 
+local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
 local __emulib = __ala_meta__.__emulib;
@@ -22,7 +23,6 @@ end
 __emulib.__minor = __version;
 __ala_meta__.__emulib = __emulib;
 
-local _G = _G;
 
 -->			upvalue
 local time = time;

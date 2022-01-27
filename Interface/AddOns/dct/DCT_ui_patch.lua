@@ -1,5 +1,4 @@
 
-local GameTooltip_AddNewbieTip_org = GameTooltip_AddNewbieTip
 local UIDropDownMenu_SetWidth_org = UIDropDownMenu_SetWidth
 
 function GetPlayerBuff(buffId, buffFilter)

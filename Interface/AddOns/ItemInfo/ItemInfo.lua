@@ -2,7 +2,6 @@ local _
 local ItemInfo_27564b0f8fc08d6bd0345695785ce4b6 = BLocal("ItemInfo")
 local ItemInfo_01df612d60ced2cfa8ff3c8d1a39e47d = BLibrary("BSecureHook")
 local ItemInfo_bec6b2696ec890fdca8ddd42fbd09040 = BLibrary("BEvent")
-ItemInfo_bec6b2696ec890fdca8ddd42fbd09040:RegisterEvent("ADDON_LOADED")
 if (GetLocale() == "zhCN") then
     ItemInfo_27564b0f8fc08d6bd0345695785ce4b6["Item Info"] = "物品信息"
     ItemInfo_27564b0f8fc08d6bd0345695785ce4b6["Unit Price"] = "单价"
@@ -631,6 +630,13 @@ local function ItemInfo_OnAutionEnable(switch)
             end
         end
     end
+end
+if IsAddOnLoaded("Blizzard_AuctionUI") then
+    ItemInfo_648afc4e523bce211ef4a10aead7bc38()
+    ItemInfo_HookAuctionUI()
+    ItemInfo_OnAutionEnable(ItemInfo_f924ef2a8da54a3e2af4e2f83c870fe6)
+else
+    ItemInfo_bec6b2696ec890fdca8ddd42fbd09040:RegisterEvent("ADDON_LOADED")
 end
 function ItemInfo_bec6b2696ec890fdca8ddd42fbd09040:ADDON_LOADED(addon)
     if (addon == "Blizzard_AuctionUI") then

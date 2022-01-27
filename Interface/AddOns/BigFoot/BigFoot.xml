@@ -59,7 +59,4 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 			</OnEvent>
 		</Scripts>
 	</Frame>
-
-	<GameTooltip name="BigFootTenTonHammerTooltip" frameStrata="TOOLTIP" hidden="false" parent="UIParent" inherits="GameTooltipTemplate"/>
-	<GameTooltip name="BigFootTenTonHammerTooltip2" frameStrata="TOOLTIP" hidden="false" parent="UIParent" inherits="GameTooltipTemplate"/>
 </Ui>
