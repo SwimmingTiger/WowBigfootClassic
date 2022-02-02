@@ -13,14 +13,14 @@ L.ToggleGuild = 'Attiva la Banca di Gilda'
 L.ToggleVault = 'Attiva la Banca Eterea'
 
 --terminal
-L.Commands = 'Comandi:'
+L.Commands = 'lista comandi:'
 L.CmdShowInventory = 'Mostra il tuo Inventario'
 L.CmdShowBank = 'Mostra la tua Banca'
 L.CmdShowGuild = 'Mostra la tua Banca di Gilda'
 L.CmdShowVault = 'Mostra la tua Banca Eterea'
 L.CmdShowVersion = 'Mostra la versione attuale'
 L.CmdShowOptions = 'Apri il menù di configurazione'
-L.Updated = 'Aggiornato alla v%s'
+L.Updated = 'Aggiornato a v%s'
 
 --frame titles
 L.TitleBags = 'Inventario di %s'
@@ -28,9 +28,9 @@ L.TitleBank = 'Banca di %s'
 L.TitleVault = 'Banca Eterea di %s'
 
 --dropdowns
-L.TitleFrames = '%s Frames'
-L.SelectCharacter = 'Select Character'
-L.ConfirmDelete = 'Are you sure you want to delete   %s\'s cached data?'
+L.TitleFrames = 'Riquadro di %s'
+L.SelectCharacter = 'Seleziona Personaggio'
+L.ConfirmDelete = 'Sei sicuro di eliminare i dati di   %s\?'
 
 --interactions
 L.Click = 'Clicca'

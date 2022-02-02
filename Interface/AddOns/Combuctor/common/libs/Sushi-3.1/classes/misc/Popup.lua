@@ -52,7 +52,6 @@ end
 function Popup:New(input)
 	local info = type(input) == 'table' and input or CopyTable(StaticPopupDialogs[input])
 	local id = info.id or input
-  info.preferredIndex = STATICPOPUP_NUMDIALOGS
 
   if UnitIsDeadOrGhost('player') and not info.whileDead then
     return info.OnCancel and info.OnCancel(nil, 'dead')

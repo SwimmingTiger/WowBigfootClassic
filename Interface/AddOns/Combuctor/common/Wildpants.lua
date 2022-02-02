@@ -132,11 +132,11 @@ function Addon:OnEnable()
 		leatherColor = {1, .6, .45},
 		enchantColor = {0.64, 0.83, 1},
 		inscribeColor = {.64, 1, .82},
-		engineerColor = {.68, .63, .25},
+		engineerColor = {0.36, 0.68, 0.52},
 		tackleColor = {0.42, 0.59, 1},
 		fridgeColor = {1, .5, .5},
 		gemColor = {1, .65, .98},
-		mineColor = {1, .81, .38},
+		mineColor = {0.65, 0.53, 0.25},
 		herbColor = {.5, 1, .5},
 	})
 

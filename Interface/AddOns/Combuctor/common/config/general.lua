@@ -24,6 +24,7 @@ function General:Populate()
 	local global = self:Add('Check', L.CharacterSpecific)
 	global:SetChecked(Addon.profile ~= Addon.sets.global)
 	global:SetCall('OnInput', function() self:ToggleGlobals() end)
+	-- 老虎会游泳：添加重置背包按钮
 	self:ResetButton()
 end
 
@@ -43,6 +44,7 @@ function General:ToggleGlobals()
 	end
 end
 
+-- 老虎会游泳：添加重置背包按钮
 function General:ResetButton()
 	local reset = self:AddLabeled('RedButton', 'ResetCombuctorButton')
 	reset:SetText(L.ResetCombuctor)
