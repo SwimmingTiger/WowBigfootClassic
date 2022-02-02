@@ -418,7 +418,8 @@ function Recount:SetDeathDetails(Who, Data)
 	me:RefreshDeathDetails()
 
 	Recount.DetailWindow.DeathMode.WhosDeaths = Who
-	Recount.DetailWindow.Title:SetText(L["Detail Window"].." - "..L["Death Details for"].." "..Who)
+	Recount.DetailWindow.CurTitle = L["Detail Window"].." - "..L["Death Details for"].." "..Who
+	Recount.DetailWindow.Title:SetText(Recount.DetailWindow.CurTitle)
 
 
 	Recount.DetailWindow:Show()

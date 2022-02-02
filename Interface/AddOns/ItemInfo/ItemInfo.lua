@@ -564,7 +564,9 @@ local function ItemInfo_0c52d557e2660c2afbb6a0ff84149692(...)
     end
 end
 local function ItemInfo_6cab35024b87790a8a354e65a303109a(frame, scriptName, func)
-    if func == nil then return end
+    if func == nil then
+        return
+    end
     if (frame:GetScript(scriptName)) then
         frame:HookScript(scriptName, func)
     else
