@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("KaelThas", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20211215001915")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(19622)
 mod:SetEncounterID(733, 2467)
 mod:SetModelID(20023)
@@ -270,7 +270,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	end
 end
 
-function mod:OnSync(event, arg)
+function mod:OnSync(event)
 	if not self:IsInCombat() then return end
 	if event == "Flamestrike" then
 		warnFlamestrike:Show()

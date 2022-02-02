@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rage", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220120014830")
 mod:SetCreatureID(17767)
 mod:SetEncounterID(618, 2468)
 mod:SetModelID(17444)
@@ -15,13 +15,14 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 31258"
 )
 
+--ability.id = 31258 and type = "begincast"
 local warnIceBolt		= mod:NewSpellAnnounce(31249, 3)
 local warnDnd			= mod:NewSpellAnnounce(31258, 3)
 
 local specWarnIceBolt	= mod:NewSpecialWarningYou(31249, nil, nil, nil, 1, 2)
 local specWarnDnD		= mod:NewSpecialWarningGTFO(31258, nil, nil, nil, 1, 8)
 
-local timerDndCD		= mod:NewCDTimer(46, 31258, nil, nil, nil, 3)
+local timerDndCD		= mod:NewCDTimer(32, 31258, nil, nil, nil, 3)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Viscidus", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(15299)
 mod:SetEncounterID(713)
 mod:SetModelID(15686)
@@ -62,11 +62,11 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg)
 	end
 end
 
-function mod:OnSync(msg, count)
-	if msg == "Shatter" and count then
+function mod:OnSync(msg, count, sender)
+	if msg == "Shatter" and sender then
 		count = tonumber(count)
 		warnShatter:Show(count)
-	elseif msg == "Freeze" and count then
+	elseif msg == "Freeze" and sender then
 		count = tonumber(count)
 		warnFreeze:Show(count)
 		if count == 3 then

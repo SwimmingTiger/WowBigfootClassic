@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Souls", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220120065515")
 mod:SetCreatureID(23420)
 mod:SetEncounterID(606, 2478)
 mod:SetModelID(21483)
@@ -10,16 +10,20 @@ mod:SetUsedIcons(4, 5, 6, 7, 8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
+	"SPELL_CAST_START 41410 41426",
+	"SPELL_CAST_SUCCESS 41350 41337 41431 41545",
 	"SPELL_AURA_APPLIED 41305 41431 41376 41303 41294 41410",
 	"SPELL_AURA_REMOVED 41305",
-	"SPELL_CAST_START 41410 41426",
-	"SPELL_CAST_SUCCESS 41350 41337",
-	"SPELL_DAMAGE 41545",
-	"SPELL_MISSED 41545",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
+--[[
+ability.id = 41410 and type = "begincast"
+ or (ability.id = 41350 or ability.id = 41337 or ability.id = 41431 or ability.id = 41545) and type = "cast"
+ or ability.id = 41305 and type = "removebuff"
+--]]
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 --maybe a warning for Seethe if tanks mess up in phase 3
 local warnFixate		= mod:NewTargetNoFilterAnnounce(41294, 3, nil, "Tank|Healer", 2)
 local warnDrain			= mod:NewTargetNoFilterAnnounce(41303, 3, nil, "Healer", 2)
@@ -30,7 +34,6 @@ local warnFrenzyEnd		= mod:NewEndAnnounce(41305, 1, nil, "Tank|Healer", 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2, 2)
 local warnMana			= mod:NewAnnounce("WarnMana", 4, 41350)
 local warnDeaden		= mod:NewTargetNoFilterAnnounce(41410, 1)
-local specWarnShock		= mod:NewSpecialWarningInterrupt(41426, "HasInterrupt", nil, 2)
 
 local warnPhase3		= mod:NewPhaseAnnounce(3, 2)
 local warnSoul			= mod:NewSpellAnnounce(41545, 2, nil, "Tank", 2)
@@ -38,6 +41,7 @@ local warnSpite			= mod:NewTargetAnnounce(41376, 3)
 
 local specWarnShield	= mod:NewSpecialWarningDispel(41431, "MagicDispeller", nil, 2, 1, 2)
 local specWarnSpite		= mod:NewSpecialWarningYou(41376, nil, nil, nil, 1, 2)
+local specWarnShock		= mod:NewSpecialWarningInterrupt(41426, isRetail and "HasInterrupt" or false, nil, 3, 1, 2)--In Classic warning spams like fuck, opt in, not opt out
 
 --Phase 1
 local timerPhaseChange	= mod:NewPhaseTimer(41)
@@ -47,7 +51,10 @@ local timerNextFrenzy	= mod:NewNextTimer(40, 41305, nil, "Tank|Healer", 2, 5, ni
 local timerDeaden		= mod:NewTargetTimer(10, 41410, nil, nil, nil, 5, nil, DBM_COMMON_L.DAMAGE_ICON, nil, mod:IsTank() and select(2, UnitClass("player")) == "WARRIOR" and 2, 4)
 local timerNextDeaden	= mod:NewCDTimer(31, 41410, nil, nil, nil, 5)--Roll timer because I don't want to assign it interrupt one when many groups will use prot warrior
 local timerMana			= mod:NewTimer(160, "TimerMana", 41350)
-local timerNextShock	= mod:NewCDTimer(12, 41426, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)--Blizz lied, this is a 12-15 second cd. you can NOT solo interrupt these with most classes
+local timerNextShock--On retail it has a CD, in TBC it has 0 cooldown, only spell lockout from interrupts
+if isRetail then
+	timerNextShock	= mod:NewCDTimer(12, 41426, nil, nil, nil, 4, nil, DBM_COMMON_L.INTERRUPT_ICON)--Blizz lied, this is a 12-15 second cd. you can NOT solo interrupt these with most classes
+end
 --Phase 3
 local timerNextShield	= mod:NewCDTimer(15, 41431, nil, "MagicDispeller", 2, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerNextSoul		= mod:NewCDTimer(10, 41545, nil, "Tank", 2, 5, nil, DBM_COMMON_L.TANK_ICON)
@@ -63,12 +70,43 @@ function mod:OnCombatStart(delay)
 	warnFrenzySoon:Schedule(44-delay)
 end
 
+function mod:SPELL_CAST_START(args)
+	if args.spellId == 41410 then
+		timerNextDeaden:Start()
+	elseif args.spellId == 41426 then
+		if timerNextShock then
+			timerNextShock:Start()
+		end
+		if self:CheckInterruptFilter(args.sourceGUID, false, true) then
+			specWarnShock:Show(args.sourceName)
+			specWarnShock:Play("kickcast")
+		end
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 41350 then --Aura of Desire
+		warnPhase2:Show()
+		warnMana:Schedule(130)
+		timerMana:Start()
+		timerNextShield:Start(13)
+		timerNextDeaden:Start(28)
+	elseif args.spellId == 41337 then --Aura of Anger
+		warnPhase3:Show()
+		timerNextSoul:Start()
+	elseif args.spellId == 41431 then
+		timerNextShield:Start()
+	elseif args.spellId == 41545 then
+		warnSoul:Show()
+		timerNextSoul:Start()
+	end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 41305 then
 		warnFrenzy:Show()
 		timerFrenzy:Start()
 	elseif args.spellId == 41431 and not args:IsDestTypePlayer() then
-		timerNextShield:Start()
 		specWarnShield:Show(args.destName)
 		specWarnShield:Play("dispelboss")
 	elseif args.spellId == 41376 then
@@ -104,37 +142,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_CAST_START(args)
-	if args.spellId == 41410 then
-		timerNextDeaden:Start()
-	elseif args.spellId == 41426 then
-		timerNextShock:Start()
-		specWarnShock:Show(args.sourceName)
-	end
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 41350 then --Aura of Desire
-		warnPhase2:Show()
-		warnMana:Schedule(130)
-		timerMana:Start()
-		timerNextShield:Start(13)
-		timerNextDeaden:Start(28)
-	elseif args.spellId == 41337 then --Aura of Anger
-		warnPhase3:Show()
-		timerNextSoul:Start()
-	end
-end
-
-function mod:SPELL_DAMAGE(_, _, _, _, _, _, _, _, spellId)
-	if spellId == 41545 and self:AntiSpam(3, 1) then
-		warnSoul:Show()
-		timerNextSoul:Start()
-	end
-end
-mod.SPELL_MISSED = mod.SPELL_DAMAGE
-
---Boss Unit IDs stilln ot present in 7.2.5 so mouseover/target and antispam required
+--Boss Unit IDs  not present in classic so mouseover/target and antispam required
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if spellId == 28819 and self:AntiSpam(2, 2) then--Submerge Visual
 		self:SendSync("PhaseEnd")
@@ -159,7 +167,9 @@ function mod:OnSync(msg)
 		timerMana:Stop()
 		timerNextShield:Stop()
 		timerNextDeaden:Stop()
-		timerNextShock:Stop()
+		if timerNextShock then
+			timerNextShock:Stop()
+		end
 		timerPhaseChange:Start()--41
 	end
 end

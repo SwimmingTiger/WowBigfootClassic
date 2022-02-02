@@ -1,7 +1,7 @@
 ## Interface: 20503
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Aman|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0祖阿曼|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0줄아만|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariablesPerCharacter: DBMZulAman_SavedVars, DBMZulAman_SavedStats
@@ -10,12 +10,13 @@
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-MapID: 568
 ## X-DBM-Mod-Sort: 1005
-## X-Revision: BigFoot
-
 localization.en.lua
 localization.cn.lua
+localization.de.lua
+localization.es.lua
+localization.kr.lua
+localization.ru.lua
 localization.tw.lua
-
 Akil'zon.lua
 Nalorakk.lua
 Jan'alai.lua

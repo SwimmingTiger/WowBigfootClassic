@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Nefarian-Classic", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210614184914")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(11583)
 mod:SetEncounterID(617)
 mod:SetModelID(11380)
@@ -144,11 +144,11 @@ end
 do
 	local playerClass = UnitClass("player")
 
-	function mod:OnSync(msg, arg)
+	function mod:OnSync(msg, arg, sender)
 		if self:AntiSpam(5, msg) then
 			--Do nothing, this is just an antispam threshold for syncing
 		end
-		if msg == "Phase" and arg then
+		if msg == "Phase" and sender then
 			local phase = tonumber(arg) or 0
 			if phase == 2 then
 				self:SetStage(2)
@@ -160,7 +160,7 @@ do
 			warnPhase:Show(DBM_CORE_L.AUTO_ANNOUNCE_TEXTS.stage:format(arg))
 		end
 		if not self:IsInCombat() then return end
-		if msg == "ClassCall" and arg then
+		if msg == "ClassCall" and sender then
 			local className = LOCALIZED_CLASS_NAMES_MALE[arg]
 			if playerClass == className then
 				specwarnClassCall:Show()

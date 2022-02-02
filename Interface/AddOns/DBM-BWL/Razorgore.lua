@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razorgore", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(12435, 99999)--Bogus detection to prevent invalid kill detection if razorgore happens to die in phase 1
 mod:SetEncounterID(610)--BOSS_KILL is valid, but ENCOUNTER_END is not
 mod:DisableEEKillDetection()--So disable only EE
@@ -94,7 +94,7 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:OnSync(msg, name)
+function mod:OnSync(msg)
 	if msg == "Phase2" and self.vb.phase < 2 then
 		warnPhase2:Show()
 		self:SetStage(2)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("PT", "DBM-Party-BC", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210626101434")
+mod:SetRevision("20220131033455")
 
 mod:RegisterEvents(
 	"UPDATE_UI_WIDGET",
@@ -66,7 +66,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, arg)
+function mod:OnSync(msg)
 	if msg == "Wipe" then
 		warnWavePortalSoon:Cancel()
 		timerNextPortal:Cancel()

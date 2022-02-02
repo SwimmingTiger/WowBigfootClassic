@@ -773,9 +773,9 @@ local function updatePlayerDebuffStacks()
 	twipe(lines)
 	local spellInput = value[1]
 	for uId in DBM:GetGroupMembers() do
-		local spellName, _, count = DBM:UnitDebuff(uId, spellInput)
-		if spellName and count then
-			lines[DBM:GetUnitFullName(uId)] = count
+		local spellName, _, count, _, _, _, _, _, _, _, _, _, _, _, _, count2 = DBM:UnitDebuff(uId, spellInput)
+		if spellName and (count or count2) then
+			lines[DBM:GetUnitFullName(uId)] = count2 or count
 		end
 	end
 	updateIcons()

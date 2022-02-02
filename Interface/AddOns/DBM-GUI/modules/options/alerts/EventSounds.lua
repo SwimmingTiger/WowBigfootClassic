@@ -92,12 +92,19 @@ end, 180)
 MusicDropDown:SetPoint("TOPLEFT", VictorySoundDropdown2, "TOPLEFT", 0, -45)
 MusicDropDown.myheight = 0
 
-local VictorySoundDropdown3 = eventSoundsGeneralArea:CreateDropdown(L.EventEngageSound, Sounds, "DBM", "EventSoundEngage2", function(value)
+local PullTimerSoundDropdown = eventSoundsGeneralArea:CreateDropdown(L.EventEngagePT, Sounds, "DBM", "EventSoundPullTimer", function(value)
+	DBM.Options.EventSoundPullTimer = value
+	DBM:PlaySoundFile(DBM.Options.EventSoundPullTimer)
+end, 180)
+PullTimerSoundDropdown:SetPoint("TOPLEFT", DungeonMusicDropDown, "TOPLEFT", 0, -45)
+PullTimerSoundDropdown.myheight = 50
+
+local EngageSoundDropdown = eventSoundsGeneralArea:CreateDropdown(L.EventEngageSound, Sounds, "DBM", "EventSoundEngage2", function(value)
 	DBM.Options.EventSoundEngage2 = value
 	DBM:PlaySoundFile(DBM.Options.EventSoundEngage2)
 end, 180)
-VictorySoundDropdown3:SetPoint("TOPLEFT", DungeonMusicDropDown, "TOPLEFT", 0, -45)
-VictorySoundDropdown3.myheight = 50
+EngageSoundDropdown:SetPoint("LEFT", PullTimerSoundDropdown, "RIGHT", 45, 0)
+EngageSoundDropdown.myheight = 50
 
 local eventSoundsExtrasArea	= eventSoundsPanel:CreateArea(L.Area_EventSoundsExtras)
 eventSoundsExtrasArea:CreateCheckButton(L.EventMusicCombined, true, nil, "EventSoundMusicCombined")
