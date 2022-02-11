@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Solarian", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210922025841")
+mod:SetRevision("20220208063318")
 mod:SetCreatureID(18805)
 mod:SetEncounterID(732, 2466)
 mod:SetModelID(18239)
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
-local warnWrath			= mod:NewTargetNoFilterAnnounce(33045, 2)--42783 used later
+local warnWrath			= mod:NewTargetNoFilterAnnounce(42783, 2)
 local warnSplit			= mod:NewAnnounce("WarnSplit", 4, 39414)
 local warnAgent			= mod:NewAnnounce("WarnAgent", 1, 39414)
 local warnPriest		= mod:NewAnnounce("WarnPriest", 1, 39414)
@@ -32,16 +32,16 @@ local timerPriest		= mod:NewTimer(20, "TimerPriest", 39414, nil, nil, 1)
 
 local berserkTimer		= mod:NewBerserkTimer(600)
 
-mod:AddRangeFrameOption(8, 33045)--Range may be larger pre nerf. it was 8 post nerf
-mod:AddSetIconOption("WrathIcon", 33045, true, false, {8})--42783 used later
-mod:AddInfoFrameOption(33044)
+mod:AddRangeFrameOption(8, 42783)--Range may be larger pre nerf. it was 8 post nerf
+mod:AddSetIconOption("WrathIcon", 42783, true, false, {8})
+mod:AddInfoFrameOption(42783)
 
 function mod:OnCombatStart(delay)
 	timerSplit:Start(50-delay)
 	berserkTimer:Start(-delay)
 	if self.Options.InfoFrame then
-		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(33044))
-		DBM.InfoFrame:Show(10, "playerdebuffremaining", 33044)
+		DBM.InfoFrame:SetHeader(DBM:GetSpellInfo(42783))
+		DBM.InfoFrame:Show(10, "playerdebuffremaining", 42783)
 	end
 end
 

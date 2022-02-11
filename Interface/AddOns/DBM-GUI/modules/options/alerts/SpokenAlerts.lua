@@ -27,7 +27,7 @@ end, 180)
 CountSoundDropDown3:SetPoint("TOPLEFT", CountSoundDropDown, "TOPLEFT", 0, -45)
 
 local voices = DBM.Voices
-if not DBM.VoiceVersions[DBM.Options.ChosenVoicePack2] then -- Sound pack is missing, add a custom entry of "missing"
+if DBM.Options.ChosenVoicePack2 ~= "None" and not DBM.VoiceVersions[DBM.Options.ChosenVoicePack2] then -- Sound pack is missing, add a custom entry of "missing"
 	table.insert(voices, { text = L.MissingVoicePack:format(DBM.Options.ChosenVoicePack2), value = DBM.Options.ChosenVoicePack2 })
 end
 local VoiceDropDown = spokenGeneralArea:CreateDropdown(L.VoicePackChoice, voices, "DBM", "ChosenVoicePack2", function(value)
@@ -73,19 +73,19 @@ voiceAdvancedArea:CreateCheckButton(L.SpecWarn_AlwaysVoice, true, nil, "AlwaysPl
 voiceAdvancedArea:CreateCheckButton(L.VPDontMuteSounds, true, nil, "VPDontMuteSounds")
 
 local VPUrlArea1		= spokenAlertsPanel:CreateArea(L.Area_VPLearnMore)
-VPUrlArea1:CreateText(L.VPLearnMore, nil, true, nil, "LEFT")
+VPUrlArea1:CreateText(L.VPLearnMore, nil, true, nil, "LEFT", 0)
 VPUrlArea1.frame:SetScript("OnMouseUp", function()
 	DBM:ShowUpdateReminder(nil, nil, L.Area_VPLearnMore, "https://github.com/DeadlyBossMods/DBM-Retail/wiki/%5BGuide%5D-DBM-&-Voicepacks#2022-update")
 end)
 
 local VPUrlArea2		= spokenAlertsPanel:CreateArea(L.Area_BrowseOtherVP)
-VPUrlArea2:CreateText(L.BrowseOtherVPs, nil, true, nil, "LEFT")
+VPUrlArea2:CreateText(L.BrowseOtherVPs, nil, true, nil, "LEFT", 0)
 VPUrlArea2.frame:SetScript("OnMouseUp", function()
 	DBM:ShowUpdateReminder(nil, nil, L.Area_BrowseOtherVP, "https://www.curseforge.com/wow/addons/search?search=dbm+voice")
 end)
 
 local VPUrlArea3		= spokenAlertsPanel:CreateArea(L.Area_BrowseOtherCT)
-VPUrlArea3:CreateText(L.BrowseOtherCTs, nil, true, nil, "LEFT")
+VPUrlArea3:CreateText(L.BrowseOtherCTs, nil, true, nil, "LEFT", 0)
 VPUrlArea3.frame:SetScript("OnMouseUp", function()
 	DBM:ShowUpdateReminder(nil, nil, L.Area_BrowseOtherCT, "https://www.curseforge.com/wow/addons/search?search=dbm+count+pack")
 end)

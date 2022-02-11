@@ -23,12 +23,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBear		= "Show warning for Bear form",--Translate
-	WarnBearSoon	= "Show pre-warning for Bear form",--Translate
-	WarnNormal		= "Show warning for Normal form",--Translate
-	WarnNormalSoon	= "Show pre-warning for Normal form",--Translate
-	TimerBear		= "Show timer for Bear form",--Translate
-	TimerNormal		= "Show timer for Normal form"--Translate
+	WarnBear		= "警报：熊形态",
+	WarnBearSoon	= "预警：熊形态",
+	WarnNormal		= "警报：人形态",
+	WarnNormalSoon	= "预警：人形态",
+	TimerBear		= "计时条：熊形态",
+	TimerNormal		= "计时条：人形态"
 }
 
 L:SetMiscLocalization{
@@ -74,8 +74,8 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnSpirit	= "Show warning for Spirit phase",--Translate
-	WarnNormal	= "Show warning for Normal phase"--Translate
+	WarnSpirit	= "警报：灵魂阶段",
+	WarnNormal	= "警报：正常阶段"
 }
 
 L:SetMiscLocalization{

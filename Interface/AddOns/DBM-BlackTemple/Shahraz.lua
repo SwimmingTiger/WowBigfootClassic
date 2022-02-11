@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Shahraz", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220131033455")
+mod:SetRevision("20220208063729")
 mod:SetCreatureID(22947)
 mod:SetEncounterID(607, 2478)
 mod:SetModelID(21252)
@@ -36,7 +36,7 @@ local timerFACD			= mod:NewCDTimer(20.7, 41001, nil, nil, nil, 3)--20-51
 local timerAura			= mod:NewTimer(15, "timerAura", 22599)
 local timerShriekCD		= mod:NewCDTimer(15.8, 40823, nil, nil, nil, 2)--15-46.9
 
-mod:AddSetIconOption("FAIcons", 41001, true)
+mod:AddSetIconOption("FAIcons", 41001, true, false, {1, 2, 3})
 mod:AddInfoFrameOption(41001, true)
 mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
 mod:AddDropdownOption("FAHelper", {"North", "South", "None"}, "North", "misc")

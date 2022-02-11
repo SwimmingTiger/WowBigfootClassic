@@ -15,19 +15,14 @@ L:SetWarningLocalization{
 	SpecWarnWildMagic	= "狂野魔法 - %s!"
 }
 
-L:SetTimerLocalization{
-	TimerNextPortal		= "传送 (%d)"
-}
-
 L:SetOptionLocalization{
-	WarnPortal			= "Show warning for $spell:46021 target",--Translate
-	SpecWarnWildMagic	= "Show special warning for Wild Magic",--Translate
-	TimerNextPortal		= "Show timer for portals",--Translate
-	RangeFrame			= "Show range frame (10 yards)",--Translate
-	ShowFrame			= "Show Spectral Realm frame" ,--Translate
-	FrameClassColor		= "Use class colors in Spectral Realm frame",--Translate
-	FrameUpwards		= "Expand Spectral Realm frame upwards",--Translate
-	FrameLocked			= "Set Spectral Realm frame not movable"--Translate
+	WarnPortal			= "显示 $spell:46021 的目标",
+	SpecWarnWildMagic	= "特殊警报：狂野魔法",
+	ShowFrame			= "显示灵魂世界框体" ,
+	FrameClassColor		= "灵魂世界框体内使用职业颜色",
+	FrameUpwards		= "灵魂世界框体向上扩展",
+	FrameLocked			= "设置灵魂世界框体不可移动",
+	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
 }
 
 L:SetMiscLocalization{
@@ -43,7 +38,7 @@ L:SetMiscLocalization{
 	FrameClassColor		= "使用职业颜色",
 	FrameOrientation	= "灵魂世界框体向上延伸",
 	FrameHide			= "隐藏框体",
-	FrameClose			= "Close"--Translate
+	FrameClose			= "关闭"
 }
 
 ----------------
@@ -69,33 +64,25 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s阶段",
-	WarnPhaseSoon	= "%s阶段 in 10 sec",
-	WarnBreath		= "深呼吸 (%d)"
+	WarnPhase		= "%s 阶段"
 }
 
 L:SetTimerLocalization{
-	TimerPhase		= "%s阶段",
-	TimerBreath		= "深呼吸"
+	TimerPhase		= "下一次 %s 阶段"
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "Show warning for next phase",--Translate
-	WarnPhaseSoon	= "Show pre-warning for next phase",--Translate
-	WarnBreath		= "Show warning for Deep Breath",--Translate
-	TimerPhase		= "Show time for next phase",--Translate
-	TimerBreath		= "Show timer for Deep Breath cooldown",--Translate
+	WarnPhase		= "警报：下一阶段",
+	TimerPhase		= "计时条：下一阶段",
 	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665),
-	YellOnEncaps	= "Yell on $spell:45665"
+	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665)
 }
 
 L:SetMiscLocalization{
 	Air				= "空中",
 	Ground			= "地面",
-	YellEncaps		= "Encapsulate on me! Run away!",--Change to generic so we don't have to translate?
-	AirPhase		= "I am stronger than ever before!",--Translate
-	Breath			= "%s深深地吸了一口气。"
+	AirPhase		= "我比以前更强大了！",
+	Breath			= "%s 深深地吸了一口气。"
 }
 
 -----------------------
@@ -107,25 +94,17 @@ L:SetGeneralLocalization{
 	name = "艾瑞达双子"
 }
 
-L:SetWarningLocalization{
-}
-
-L:SetTimerLocalization{
-}
-
 L:SetOptionLocalization{
 	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
 	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= "Show range frame (10 yards)",--Translate
-	NovaWhisper		= "Send whisper to $spell:45329 target (requires Raid Leader)",--Translate
-	ConflagWhisper	= "Send whisper to $spell:45333 target (requires Raid Leader)",--Translate
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333)
 }
 
 L:SetMiscLocalization{
-	NovaWhisper		= "暗影新星！",
-	ConflagWhisper	= "燃烧！",
-	Nova			= "萨洛拉丝向([^%s]+)施放暗影新星。",--Verify
-	Conflag			= "奥蕾塞丝向([^%s]+)施放燃烧。"--Verify
+	Nova			= "萨洛拉丝女王向 (.+)% 施放暗影新星。",
+	Conflag			= "高阶术士奥蕾塞丝向 (.+)% 施放燃烧",
+	Sacrolash		= "萨洛拉丝女王",
+	Alythess		= "高阶术士奥蕾塞丝"
 }
 
 ------------
@@ -139,9 +118,7 @@ L:SetGeneralLocalization{
 
 L:SetWarningLocalization{
 	WarnHuman		= "暗誓精灵 (%d)",
-	WarnHumanSoon	= "暗誓精灵 - 5秒后出现 (%d)",
 	WarnVoid		= "虚空戒卫 (%d)",
-	WarnVoidSoon	= "虚空戒卫 - 5秒后出现 (%d)",
 	WarnFiend		= "黑暗魔出现"
 }
 
@@ -152,14 +129,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnHuman		= "Show warning for Humanoids",--Translate
-	WarnHumanSoon	= "Show pre-warning for Humanoids",--Translate
-	WarnVoid		= "Show warning for Void Sentinels",--Translate
-	WarnVoidSoon	= "Show pre-warning for Void Sentinels",--Translate
-	WarnFiend		= "Show warning for Fiends in phase 2",--Translate
-	TimerHuman		= "Show timer for Humanoids",--Translate
-	TimerVoid		= "Show timer for Void Sentinels",--Translate
-	TimerPhase		= "Show time for Phase 2 transition"--Translate
+	WarnHuman		= "警报：暗誓精灵",
+	WarnVoid		= "警报：虚空戒卫",
+	WarnFiend		= "警报：2阶段黑暗魔",
+	TimerHuman		= "计时条：暗誓精灵",
+	TimerVoid		= "计时条：虚空戒卫",
+	TimerPhase		= "显示阶段转换的过渡时间"
 }
 
 L:SetMiscLocalization{
@@ -176,35 +151,30 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnDarkOrb		= "Dark Orbs Spawned",--Translate
-	WarnBlueOrb		= "Dragon Orb activated",--Translate
-	SpecWarnDarkOrb	= "Dark Orbs Spawned!",--Translate
-	SpecWarnBlueOrb	= "Dragon Orbs Activated!"--Translate
+	WarnDarkOrb		= "生成的护盾宝珠",
+	WarnBlueOrb		= "蓝龙宝珠",
+	SpecWarnDarkOrb	= "护盾宝珠出现！",
+	SpecWarnBlueOrb	= "蓝龙宝珠已准备好！"
 }
 
 L:SetTimerLocalization{
-	TimerBlueOrb	= "Dragon Orbs activate"--Translate
+	TimerBlueOrb	= "蓝龙宝珠"
 }
 
 L:SetOptionLocalization{
-	WarnDarkOrb		= "Show warning for Dark Orbs",--Translate
-	WarnBlueOrb		= "Show warning for Dragon Orbs",--Translate
-	SpecWarnDarkOrb	= "Show special warning for Dark Orbs",--Translate
-	SpecWarnBlueOrb	= "Show special warning for Dragon Orbs",--Translate
-	TimerBlueOrb	= "Show timer form Dragon Orbs activate",--Translate
-	RangeFrame		= "Show range frame (10 yards)",--Translate
-	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641),
-	YellOnBloom		= "Yell on $spell:45641",--Translate
-	BloomWhisper	= "Send whisper to $spell:45641 target (requires Raid Leader)"--Translate
+	WarnDarkOrb		= "警报：护盾宝珠 ",
+	WarnBlueOrb		= "警报：蓝龙宝珠",
+	SpecWarnDarkOrb	= "特殊警报：护盾宝珠",
+	SpecWarnBlueOrb	= "特殊警报：蓝龙宝珠",
+	TimerBlueOrb	= "计时条：蓝龙宝珠",
+	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
+	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
 }
 
 L:SetMiscLocalization{
-	YellPull		= "这个消耗品已经没用了，不管她了！现在我已经做到了连萨格拉斯都没有做到的事情！我要彻底毁灭这个世界，真正成",
-	YellBloom		= "我中了火焰之花！",
-	BloomWhisper	= "火焰之花！",
-	OrbYell1		= "I will channel my powers into the orbs! Be ready!",--Translate
-	OrbYell2		= "I have empowered another orb! Use it quickly!",--Translate
-	OrbYell3		= "Another orb is ready! Make haste!",--Translate
-	OrbYell4		= "I have channeled all I can! The power is in your hands!"--Translate
-
+	YellPull		= "这个消耗品已经没用了！不管它了！现在我已经做到了连萨格拉斯都没有做到的事情！我要彻底毁灭这个世界，真正成为燃烧军团的主宰者！末日已经到来啦！让这个世界就此支离破碎吧！",
+	OrbYell1		= "我会将我的力量导入宝珠中！准备好！",
+	OrbYell2		= "我又将能量灌入了另一颗宝珠！快去使用它！",
+	OrbYell3		= "又有一颗宝珠准备好了！快点行动！",
+	OrbYell4		= "这是我所能做的一切了！力量现在掌握在你们的手中！"
 }

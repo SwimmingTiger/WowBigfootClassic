@@ -6,7 +6,9 @@ local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Class
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
 local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 
-mod:SetRevision("20211117210231")
+local playerFaction = GetPlayerFactionGroup("player")
+
+mod:SetRevision("20220127194831")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -33,16 +35,16 @@ do
 	end
 end
 
-local getGametime, updateGametime
+local GetGametime, UpdateGametime
 do
 	local time, GetTime, GetBattlefieldInstanceRunTime = time, GetTime, GetBattlefieldInstanceRunTime
 	local gameTime = 0
 
-	function updateGametime()
+	function UpdateGametime()
 		gameTime = time()
 	end
 
-	function getGametime()
+	function GetGametime()
 		if mod.Options.ShowRelativeGameTime then
 			local sysTime = GetBattlefieldInstanceRunTime()
 			if sysTime and sysTime > 0 then
@@ -65,7 +67,7 @@ function mod:SubscribeAssault(mapID, objectsCount)
 	subscribedMapID = mapID
 	objectivesStore = {}
 	numObjectives = objectsCount
-	updateGametime()
+	UpdateGametime()
 end
 
 function mod:SubscribeFlags()
@@ -115,7 +117,7 @@ do
 	local UnitGUID, UnitHealth, UnitHealthMax, SendAddonMessage, RegisterAddonMessagePrefix, IsAddonMessagePrefixRegistered, NewTicker = UnitGUID, UnitHealth, UnitHealthMax, C_ChatInfo.SendAddonMessage, C_ChatInfo.RegisterAddonMessagePrefix, C_ChatInfo.IsAddonMessagePrefixRegistered, C_Timer.NewTicker
 	local healthScan, trackedUnits, trackedUnitsCount, syncTrackedUnits = nil, {}, 0, {}
 
-	local function updateInfoFrame()
+	local function UpdateInfoFrame()
 		local lines, sortedLines = {}, {}
 		for cid, health in pairs(syncTrackedUnits) do
 			if trackedUnits[cid] then
@@ -126,7 +128,7 @@ do
 		return lines, sortedLines
 	end
 
-	local function healthScanFunc()
+	local function HealthScanFunc()
 		local syncs, syncCount = {}, 0
 		for i = 1, 40 do
 			if syncCount >= trackedUnitsCount then -- We've already scanned all our tracked units, exit out to save CPU
@@ -147,7 +149,7 @@ do
 
 	function mod:TrackHealth(cid, name)
 		if not healthScan then
-			healthScan = NewTicker(1, healthScanFunc)
+			healthScan = NewTicker(1, HealthScanFunc)
 			RegisterAddonMessagePrefix("DBM-PvP")
 			if not IsAddonMessagePrefixRegistered("Capping") then
 				RegisterAddonMessagePrefix("Capping") -- Listen to capping for extra data
@@ -158,7 +160,7 @@ do
 		self:RegisterShortTermEvents("CHAT_MSG_ADDON")
 		if not DBM.InfoFrame:IsShown() then
 			DBM.InfoFrame:SetHeader(L.InfoFrameHeader)
-			DBM.InfoFrame:Show(42, "function", updateInfoFrame, false, false)
+			DBM.InfoFrame:Show(42, "function", UpdateInfoFrame, false, false)
 			DBM.InfoFrame:SetColumns(1)
 		end
 	end
@@ -184,13 +186,12 @@ do
 end
 
 do
-	local tonumber, ipairs = tonumber, ipairs
-	local TimerTracker, IsInInstance, GetIconAndTextWidgetVisualizationInfo = TimerTracker, IsInInstance, C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo
+	local ipairs = ipairs
+	local TimerTracker, IsInInstance = TimerTracker, IsInInstance
 	local FACTION_ALLIANCE = FACTION_ALLIANCE
 
 	local flagTimer			= mod:NewTimer(12, "TimerFlag", "132483") -- Interface\\icons\\inv_banner_02.blp
-	local startTimer		= mod:NewTimer(120, "TimerStart", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485") -- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
-	local remainingTimer	= mod:NewTimer(780, "TimerRemaining", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485") -- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
+	local startTimer		= mod:NewTimer(120, "TimerStart", playerFaction == "Alliance" and "132486" or "132485") -- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local vulnerableTimer, timerShadow, timerDamp
 	if not isClassic and not isTBC then
 		vulnerableTimer	= mod:NewNextTimer(60, 46392)
@@ -212,30 +213,16 @@ do
 				startTimer:Update(timeSeconds, 120)
 			end
 		end
-		if self.Options.TimerRemaining then
-			if TimerTracker then
-				for _, bar in ipairs(TimerTracker.timerList) do
-					bar.bar:Hide()
-				end
-			end
+		local _, instanceType = IsInInstance()
+		if not isClassic and not isTBC and instanceType == "arena" then
 			self:Schedule(timeSeconds + 1, function()
-				local _, instanceType = IsInInstance()
-				if not isClassic and not isTBC and instanceType == "arena" then
-					timerShadow:Start()
-					timerDamp:Start()
-				end
-				local info = GetIconAndTextWidgetVisualizationInfo(6)
-				if info and info.state == 1 then
-					local minutes, seconds = info.text:match("(%d+):(%d+)")
-					if minutes and seconds then
-						remainingTimer:Update(119 - tonumber(seconds) - (tonumber(minutes) * 60), 120)
-					end
-				end
+				timerShadow:Start()
+				timerDamp:Start()
 			end, self)
 		end
 	end
 
-	local function updateflagcarrier(self, msg)
+	local function Updateflagcarrier(self, msg)
 		if not self.Options.TimerFlag then
 			return
 		end
@@ -255,20 +242,20 @@ do
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_ALLIANCE(...)
-		updateflagcarrier(self, ...)
+		Updateflagcarrier(self, ...)
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_HORDE(...)
-		updateflagcarrier(self, ...)
+		Updateflagcarrier(self, ...)
 	end
 
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
 		if self.Options.TimerStart and msg == L.BgStart120 or msg:find(L.BgStart120) then
-			remainingTimer:Update(isClassic and 1.5 or 0, 120)
+			startTimer:Update(isClassic and 1.5 or 0, 120)
 		elseif self.Options.TimerStart and msg == L.BgStart60 or msg:find(L.BgStart60) then
-			remainingTimer:Update(isClassic and 61.5 or 60, 120)
+			startTimer:Update(isClassic and 61.5 or 60, 120)
 		elseif self.Options.TimerStart and msg == L.BgStart30 or msg:find(L.BgStart30) then
-			remainingTimer:Update(isClassic and 91.5 or 90, 120)
+			startTimer:Update(isClassic and 91.5 or 90, 120)
 		elseif not isClassic and (msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2)) then
 			vulnerableTimer:Start()
 		end
@@ -280,7 +267,7 @@ do
 	local GetAreaPOIInfo, GetAreaPOITimeLeft, GetAreaPOIForMap, GetDoubleStatusBarWidgetVisualizationInfo, GetIconAndTextWidgetVisualizationInfo, GetDoubleStateIconRowVisualizationInfo = C_AreaPoiInfo.GetAreaPOIInfo, C_AreaPoiInfo.GetAreaPOITimeLeft, C_AreaPoiInfo.GetAreaPOIForMap, C_UIWidgetManager.GetDoubleStatusBarWidgetVisualizationInfo, C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo, C_UIWidgetManager.GetDoubleStateIconRowVisualizationInfo
 	local FACTION_HORDE, FACTION_ALLIANCE = FACTION_HORDE, FACTION_ALLIANCE
 
-	local winTimer = mod:NewTimer(30, "TimerWin", GetPlayerFactionGroup("player") == "Alliance" and "132486" or "132485") -- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
+	local winTimer = mod:NewTimer(30, "TimerWin", playerFaction == "Alliance" and "132486" or "132485") -- Interface\\Icons\\INV_BannerPVP_02.blp || Interface\\Icons\\INV_BannerPVP_01.blp
 	local resourcesPerSec = {
 		[3] = {1e-300, 0.5, 1.5, 2}, -- Gilneas
 		[4] = {1e-300, 1, 1.5, 2, 6}, -- TempleOfKotmogu/EyeOfTheStorm
@@ -292,9 +279,21 @@ do
 		resourcesPerSec[5] = {1e-300, 10/12, 10/9, 10/6, 10/3, 30}
 	end
 
+	--[[
+	local basesToWin = {}
+	local function UpdateInfoFrame()
+		local lines, sortedLines = {}, {}
+		for bases, seconds in pairs(basesToWin) do
+			lines[bases] = seconds
+			sortedLines[#sortedLines + 1] = bases
+		end
+		return lines, sortedLines
+	end
+	]]--
+
 	function mod:UpdateWinTimer(maxScore, allianceScore, hordeScore, allianceBases, hordeBases)
 		local resPerSec = resourcesPerSec[numObjectives]
-		local gameTime = getGametime()
+		local gameTime = GetGametime()
 		local allyTime = mfloor(mmin(maxScore, (maxScore - allianceScore) / resPerSec[allianceBases + 1]))
 		local hordeTime = mfloor(mmin(maxScore, (maxScore - hordeScore) / resPerSec[hordeBases + 1]))
 		if allyTime == hordeTime or allyTime == 0 or hordeTime == 0 then
@@ -312,9 +311,45 @@ do
 			winTimer:SetColor({r=0, g=0, b=1})
 			winTimer:UpdateIcon("132486") -- Interface\\Icons\\INV_BannerPVP_02.blp
 		end
-		if self.Options.ShowBasesToWin then
-			-- TODO
+		--[[
+		CODE IS STILL TOO EXPERIMENTAL
+
+		local isAlliance = playerFaction == "Alliance"
+		if self.Options.ShowBasesToWin and (isAlliance and (allyTime > hordeTime) or (hordeTime > allyTime)) then
+			if not DBM.InfoFrame:IsShown() then
+				DBM.InfoFrame:SetHeader("Bases to win")
+				DBM.InfoFrame:Show(42, "function", UpdateInfoFrame, false, false)
+				DBM.InfoFrame:SetColumns(1)
+			end
+			-- X = us, Y = opposite faction
+			local lowerLimit, basesX, basesY, scoreX, scoreY, upperLimit = 1 -- lowerLimit is 1, everything else is nil
+			if isAlliance then
+				basesX, basesY, scoreX, scoreY, upperLimit = allianceBases, hordeBases, allianceScore, hordeScore, hordeTime
+			else
+				basesX, basesY, scoreX, scoreY, upperLimit = hordeBases, allianceBases, hordeScore, allianceScore, allyTime
+			end
+			for y = 1, numObjectives - basesX do
+				-- Opposite faction will either own their current basecount, or 5 - however many you own (aka whats left)
+				local _basesY = mmin(basesY, 5 - basesY)
+				for x = upperLimit, lowerLimit, -1 do
+					-- Calculate score x seconds in the future
+					local scoreX1, scoreY1 = resPerSec[basesX] * x + scoreX, resPerSec[basesY] * x + scoreY
+					-- Assume capping time
+					local scoreX2, scoreY2 = resPerSec[basesX] * 60 + scoreX1, resPerSec[_basesY] * 60 + scoreY1
+					-- Calculate time till max (with capping times)
+					local ttmX, ttmY = (maxScore - scoreX2) / resPerSec[basesX + y], (maxScore - scoreY2) / resPerSec[_basesY]
+					if ttmX < ttmY then
+						-- More bases will never have a "longer" time than less bases, efficiency for loops
+						lowerLimit = x
+						basesToWin[basesX + y] = ttmX
+						break
+					end
+				end
+			end
+		else
+			DBM.InfoFrame:Hide()
 		end
+		--]]
 	end
 
 	local ignoredAtlas = {
@@ -325,7 +360,7 @@ do
 		-- retail av
 		[91]    = 243,
 		-- classic av
-		[1459]  = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and 243 or 304,
+		[1459]  = isTBC and 243 or 304,
 		-- korrak
 		[1537]  = 243
 	}

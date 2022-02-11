@@ -83,6 +83,13 @@ L.Button_ResetWindowSize	= "Reset GUI window size"
 L.Editbox_WindowWidth		= "GUI window width"
 L.Editbox_WindowHeight		= "GUI window height"
 
+L.UIGroupingOptions			= "UI Grouping Options (changing these require UI reload for any mod that's already loaded)"
+L.GroupOptionsBySpell		= "Group mod options by spell (for mods that support it)"
+L.GroupOptionsExcludeIcon	= "Exclude 'Set Icon on' options from getting grouped by spell (they will be grouped together in 'icons' category like before)"
+L.AutoExpandSpellGroups		= "Auto expand options that are grouped by spell"
+--L.ShowSpellDescWhenExpanded	= "Continue showing spell description when groups are expanded"--Might not be used
+L.NoDescription				= "This ability has no description"
+
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "Extra Features"
 

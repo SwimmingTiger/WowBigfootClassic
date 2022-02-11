@@ -81,7 +81,7 @@ local function actuallyImport(importTable)
 end
 
 local importExportProfilesArea = profilePanel:CreateArea(L.Area_ImportExportProfile)
-importExportProfilesArea:CreateText(L.ImportExportInfo, nil, true)
+importExportProfilesArea:CreateText(L.ImportExportInfo, nil, true, nil, nil, 0)
 local exportProfile = importExportProfilesArea:CreateButton(L.ButtonExportProfile, 120, 20, function()
 	DBM_GUI:CreateExportProfile({
 		DBM		= DBM.Options,

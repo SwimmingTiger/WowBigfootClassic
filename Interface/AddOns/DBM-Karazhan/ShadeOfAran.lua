@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Aran", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220208063318")
 mod:SetCreatureID(16524)
 mod:SetEncounterID(658, 2450)
 mod:SetModelID(16621)
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON 29962 37051 37052 37053"
 )
 
-local warningFlameCast		= mod:NewCastAnnounce(30004, 4)
+local warningFlameCast		= mod:NewCastAnnounce(29946, 4)
 local warningFlameTargets	= mod:NewTargetNoFilterAnnounce(29946, 4)
 local warningBlizzard		= mod:NewSpellAnnounce(29969, 3)
 local warningElementals		= mod:NewSpellAnnounce(37053, 3)
@@ -27,7 +27,7 @@ local specWarnArcane		= mod:NewSpecialWarningRun(29973, nil, nil, nil, 4, 7)
 local specWarnBlizzard		= mod:NewSpecialWarningGTFO(29951, nil, nil, nil, 1, 6)
 
 local timerSpecial			= mod:NewTimer(28.9, "timerSpecial", "132866", nil, nil, 2)
-local timerFlameCast		= mod:NewCastTimer(5, 30004, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerFlameCast		= mod:NewCastTimer(5, 29946, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerArcaneExplosion	= mod:NewCastTimer(10, 29973, nil, nil, nil, 2)
 local timerFlame			= mod:NewBuffActiveTimer(20.2, 29946, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)
 local timerBlizzad			= mod:NewBuffActiveTimer(30, 29951, nil, nil, nil, 3)
