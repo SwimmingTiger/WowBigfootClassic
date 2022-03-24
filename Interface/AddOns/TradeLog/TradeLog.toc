@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## LoadOnDemand: 0
 ## Title: TradeLog
 ## Notes: trade history log, recent trade list by Warbaby@163.com

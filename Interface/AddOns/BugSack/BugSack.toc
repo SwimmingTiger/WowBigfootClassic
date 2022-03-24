@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Version: v9.1.1
 ## Title: BugSack
 ## Title-zhCN: BugSack 错误信息查看器

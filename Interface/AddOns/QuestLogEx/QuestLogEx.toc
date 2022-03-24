@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: QuestLog Extended
 ## Title-zhCN: 双栏任务日志
 ## Notes: QuestLog Extended

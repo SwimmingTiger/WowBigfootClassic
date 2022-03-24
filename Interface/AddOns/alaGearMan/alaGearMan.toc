@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: alaGearMan
 ## Title-zhCN: |cff880303[网易有爱]|r 一键换装
 ## Title-zhTW: |cff880303[网易有爱]|r 一键换装

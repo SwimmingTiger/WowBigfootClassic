@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: ThreatClassic2
 ## Notes: Simple threat meter for WoW Classic and TBCC.
 ## Author: Dennis-Florian Herr (dfherr)

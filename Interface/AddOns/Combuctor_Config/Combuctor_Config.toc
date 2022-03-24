@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: Combuctor Config
 ## Author: Tuller and Jaliborc (João Cardoso)
 ## Notes: An options menu for Combuctor

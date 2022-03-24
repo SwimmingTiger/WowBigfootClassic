@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 
 ## Notes: ClassicCodex-db-zhTW
 ## Title: ClassicCodex zhTW data

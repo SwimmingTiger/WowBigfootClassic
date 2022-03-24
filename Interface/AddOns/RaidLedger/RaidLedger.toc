@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: Raid Ledger
 ## Title-deDE: Titel
 ## Title-koKR: 공격대 장부

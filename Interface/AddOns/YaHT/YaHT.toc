@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: YaHT
 ## Notes: Yet another Hunter Timer.
 ## Author: Avi
