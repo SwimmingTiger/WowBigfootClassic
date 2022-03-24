@@ -1,0 +1,76 @@
+<Bindings>
+	<Binding name="TOTEMTIMERSEARTH" description="Drop active earth totem" header="TOTEMTIMERSHEADER" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSAIR" description="Drop active air totem" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFIRE" description="Drop active fire totem" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATER" description="Drop active water totem" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHMENU" description="Open earth totem menu" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSAIRMENU" description="Open air totem menu" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFIREMENU" description="Open fire totem menu" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATERMENU" description="Open water totem menu" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCLOSE" description="Close all menus" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLIGHTNINGSHIELD" description="Lightning Shield" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWATERSHIELD" category="TotemTimers "> --[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSTOTEMICCALL" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDLEFT" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDRIGHT" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDMIDDLE" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHIELDBUTTON4" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWEAPONBUFF1" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSWEAPONBUFF2" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSEARTHSHOCK" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFLAMESHOCK" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSFROSTSHOCK" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN1" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN2" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN3" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN4" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN5" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN6" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN7" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN8" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN9" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCOOLDOWN10" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN1" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN2" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN3" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN4" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN5" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN6" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN7" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSLONGCOOLDOWN8" category="TotemTimers ">--[[dummy]]</Binding>	
+    <Binding name="TOTEMTIMERSSET1" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET2" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET3" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET4" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET5" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET6" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET7" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSSET8" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST11" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST12" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST13" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST14" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST15" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST16" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST17" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST21" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST22" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST23" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST24" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST25" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST26" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST31" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST32" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST33" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST34" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST35" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST36" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST41" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST42" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST43" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST44" category="TotemTimers ">--[[dummy]]</Binding>
+    <Binding name="TOTEMTIMERSCAST45" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST46" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST47" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSCAST48" category="TotemTimers ">--[[dummy]]</Binding>
+</Bindings>

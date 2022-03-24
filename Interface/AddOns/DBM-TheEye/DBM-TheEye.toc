@@ -1,0 +1,27 @@
+## Interface: 20503
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0The Eye|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0风暴要塞|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0風暴要塞|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMTheEye_AllSavedVars
+## SavedVariablesPerCharacter: DBMTheEye_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal25
+## X-DBM-Mod-MapID: 550
+## X-DBM-Mod-Sort: 1004
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 1
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+Alar.lua
+VoidReaver.lua
+Solarian.lua
+KaelThas.lua

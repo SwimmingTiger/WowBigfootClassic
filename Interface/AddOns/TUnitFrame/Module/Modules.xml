@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Include file="Focus\Focus.xml"/>
+	<Include file="Player\Player.xml"/>
+	<Include file="Target\Target.xml"/>
+	<Include file="Party\Party.xml"/>
+	<Script file="config.lua"/>
+</Ui>

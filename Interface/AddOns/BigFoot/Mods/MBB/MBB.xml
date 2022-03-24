@@ -1,0 +1,226 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="locale\enUS.lua"/>
+	<Script file="locale\zhTW.lua"/>
+	<Script file="locale\zhCN.lua"/>
+	<Script file="MBB.lua"/>
+	<Script file="config.lua"/>
+
+	<Button name="MBBFrame" hidden="true" parent="UIParent" frameStrata="MEDIUM" topLevel="true" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="305" y="200"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGTopLeft">
+					<TexCoords left="0.0" top="0.0" right="0.039" bottom="0.199"/>
+					<Size>
+						<AbsDimension x="10" y="51"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGTopRight">
+					<TexCoords left="0.820" top="0.0" right="1.0" bottom="0.199"/>
+					<Size>
+						<AbsDimension x="44" y="51"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGBottomLeft">
+					<TexCoords left="0.0" top="0.961" right="0.039" bottom="1.0"/>
+					<Size>
+						<AbsDimension x="10" y="10"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGBottomRight">
+					<TexCoords left="0.820" top="0.961" right="1.0" bottom="1.0"/>
+					<Size>
+						<AbsDimension x="44" y="10"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
+					</Anchors>
+				</Texture>
+
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGTopMiddle">
+					<TexCoords left="0.039" top="0.0" right="0.820" bottom="0.199"/>
+					<Size>
+						<AbsDimension x="40" y="51"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentBGTopLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentBGTopRight" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGCenterLeft">
+					<TexCoords left="0.0" top="0.199" right="0.039" bottom="0.961"/>
+					<Size>
+						<AbsDimension x="10" y="80"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentBGTopLeft" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBGBottomLeft" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGCenterRight">
+					<TexCoords left="0.820" top="0.199" right="1.0" bottom="0.961"/>
+					<Size>
+						<AbsDimension x="44" y="80"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parentBGTopRight" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBGBottomRight" relativePoint="TOPRIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGBottomMiddle">
+					<TexCoords left="0.039" top="0.961" right="0.820" bottom="1.0"/>
+					<Size>
+						<AbsDimension x="40" y="10"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBGBottomLeft" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBGBottomRight" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\Panel-BG" name="$parentBGCenterMiddle">
+					<TexCoords left="0.039" top="0.199" right="0.820" bottom="0.961"/>
+					<Size>
+						<AbsDimension x="40" y="80"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentBGTopLeft" relativePoint="BOTTOMRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentBGTopRight" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMLEFT" relativeTo="$parentBGBottomLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeTo="$parentBGBottomRight" relativePoint="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame name="$parentBottomPanel2">
+				<Size>
+					<AbsDimension x="15" y="50"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="9" y="9"/>
+						</Offset>
+					</Anchor>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-43" y="9"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+				<Layer level="ARTWORK">
+					<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\BottomPanel" name="$parentPanelTop">
+						<TexCoords left="0.0" top="0.0" right="1.0" bottom="0.094"/>
+						<Size>
+							<AbsDimension x="15" y="1"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT"/>
+						</Anchors>
+					</Texture>
+					<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\BottomPanel" name="$parentPanelTop">
+						<TexCoords left="0.0" top="0.094" right="1.0" bottom="0.98"/>
+						<Size>
+							<AbsDimension x="15" y="15"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentPanelTop" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPanelTop" relativePoint="BOTTOMRIGHT"/>
+							<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+					</Texture>
+				</Layer>
+				</Layers>
+			</Frame>
+			<Frame name="$parentBottomPanel1">
+				<Size>
+					<AbsDimension x="160" y="10"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parentBottomPanel2" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+				<Layer level="ARTWORK">
+					<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\BottomPanel" name="$parentPanelTop">
+						<TexCoords left="0.0" top="0.0" right="1.0" bottom="0.094"/>
+						<Size>
+							<AbsDimension x="15" y="1"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT"/>
+						</Anchors>
+					</Texture>
+					<Texture file="Interface\AddOns\BigFoot\Mods\MBB\res\BottomPanel" name="$parentPanelTop">
+						<TexCoords left="0.0" top="0.094" right="1.0" bottom="0.98"/>
+						<Size>
+							<AbsDimension x="15" y="15"/>
+						</Size>
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="$parentPanelTop" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="TOPRIGHT" relativeTo="$parentPanelTop" relativePoint="BOTTOMRIGHT"/>
+							<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT"/>
+							<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT"/>
+						</Anchors>
+					</Texture>
+				</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self:SetAlpha(0.9)
+			</OnLoad>
+		</Scripts>
+	</Button>
+
+	<Button name="MBB_ButtonAdd" hidden="true" frameStrata="HIGH" >
+		<Size>
+			<AbsDimension x="21" y="21"/>
+		</Size>
+		<NormalTexture file="Interface\Minimap\UI-Minimap-ZoomInButton-Up"/>
+		<PushedTexture file="Interface\Minimap\UI-Minimap-ZoomInButton-Down"/>
+		<DisabledTexture file="Interface\Minimap\UI-Minimap-ZoomInButton-Disabled"/>
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+	</Button>
+
+	<Button name="MBB_ButtonRemove" hidden="true" frameStrata="HIGH"  >
+		<Size>
+			<AbsDimension x="21" y="21"/>
+		</Size>
+		<NormalTexture file="Interface\Minimap\UI-Minimap-ZoomOutButton-Up"/>
+		<PushedTexture file="Interface\Minimap\UI-Minimap-ZoomOutButton-Down"/>
+		<DisabledTexture file="Interface\Minimap\UI-Minimap-ZoomOutButton-Disabled"/>
+		<HighlightTexture alphaMode="ADD" file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+	</Button>
+
+	<GameTooltip name="BFMBB_Tooltip" frameStrata="TOOLTIP" hidden="false"  inherits="GameTooltipTemplate"/>
+
+</Ui>

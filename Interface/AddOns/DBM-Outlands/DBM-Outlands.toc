@@ -1,0 +1,35 @@
+## Interface: 20503
+## X-Min-Interface: 20501
+## Version: 2.5.24
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outlands|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领(外域)|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领(外域)|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMOutlands_AllSavedVars
+## SavedVariablesPerCharacter: DBMOutlands_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Sort: 1006
+## X-DBM-Mod-MapID: 530,565,544,1
+## X-DBM-Mod-LoadCID: 17711,18728,18166,20130
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 1
+## X-Curse-Project-ID: 3358
+## X-WoWI-ID: 8814
+## X-Wago-ID: qv633o6b
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+Maulgar.lua
+Gruul.lua
+Magtheridon.lua
+Kazzak.lua
+Doomwalker.lua
+Quest.lua

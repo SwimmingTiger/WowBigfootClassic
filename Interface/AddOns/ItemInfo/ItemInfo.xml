@@ -1,0 +1,112 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Frame name="ItemInfoMoneyFrameTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="128" y="13"/>
+		</Size>
+		<Frames>
+			<Button name="$parentCopperButton">
+				<Size>
+					<AbsDimension x="32" y="13"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT">
+						<Offset>
+							<AbsDimension x="-13" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<NormalTexture file="Interface\MoneyFrame\UI-MoneyIcons">
+					<Size>
+						<AbsDimension x="13" y="13"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.5" right="0.75" top="0" bottom="1"/>
+				</NormalTexture>
+				<ButtonText name="$parentText">
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-13" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</ButtonText>
+				<NormalFont style="NumberFontNormalRight"/>
+				<PushedTextOffset>
+					<AbsDimension x="0" y="0"/>
+				</PushedTextOffset>
+			</Button>
+			<Button name="$parentSilverButton">
+				<Size>
+					<AbsDimension x="32" y="13"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="$parentCopperButton" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="-4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>				
+				<NormalTexture file="Interface\MoneyFrame\UI-MoneyIcons">
+					<Size>
+						<AbsDimension x="13" y="13"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0.25" right="0.5" top="0" bottom="1"/>
+				</NormalTexture>
+				<ButtonText name="$parentText">
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-13" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</ButtonText>
+				<NormalFont style="NumberFontNormalRight"/>
+				<PushedTextOffset>
+					<AbsDimension x="0" y="0"/>
+				</PushedTextOffset>
+			</Button>
+			<Button name="$parentGoldButton">
+				<Size>
+					<AbsDimension x="32" y="13"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="$parentSilverButton" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="-4" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>				
+				<NormalTexture file="Interface\MoneyFrame\UI-MoneyIcons">
+					<Size>
+						<AbsDimension x="13" y="13"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="1"/>
+				</NormalTexture>
+				<ButtonText name="$parentText">
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="-13" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</ButtonText>
+				<NormalFont style= "NumberFontNormalRight"/>
+				<PushedTextOffset>
+					<AbsDimension x="0" y="0"/>
+				</PushedTextOffset>
+			</Button>
+		</Frames>
+	</Frame>
+</Ui>

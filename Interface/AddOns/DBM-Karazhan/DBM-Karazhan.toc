@@ -1,0 +1,37 @@
+## Interface: 20503
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Karazhan|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉赞|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0卡拉贊|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMKarazhan_AllSavedVars
+## SavedVariablesPerCharacter: DBMKarazhan_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-MapID: 532
+## X-DBM-Mod-Sort: 1007
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 1
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+Attumen.lua
+Moroes.lua
+MaidenOfVirtue.lua
+BigBadWolf.lua
+RomuloAndJulianne.lua
+WizardOfOz.lua
+Curator.lua
+TerestianIllhoof.lua
+ShadeOfAran.lua
+Netherspite.lua
+Chess.lua
+PrinceMalchezaar.lua
+Nightbane.lua
+NamedBeasts.lua

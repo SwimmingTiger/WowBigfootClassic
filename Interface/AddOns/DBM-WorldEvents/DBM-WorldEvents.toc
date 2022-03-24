@@ -1,0 +1,29 @@
+## Interface: 20503
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0World Events|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界事件|r
+## Author: MysticalOS
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMWorldEvents_AllSavedVars
+## SavedVariablesPerCharacter: DBMWorldEvents_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: OTHER
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-Mod-Name: World Events
+## X-DBM-Mod-Name-zhTW: 世界事件
+## X-DBM-Mod-Name-zhCN: 世界事件
+## X-DBM-Mod-MapID: 230,189,547
+## X-DBM-Mod-Sort: 1054
+## X-DBM-Mod-MinCoreRevision: 12473
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+Holidays\Ahune.lua
+Holidays\CorenDirebrew.lua
+Holidays\HeadlessHorseman.lua

@@ -1,0 +1,1618 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+	<Script file="core.lua"/>
+	<Script file="objects.lua"/>
+	<Font name="GDKPLargeNumberFont" font="Fonts\ARKai_T.TTF" virtual="true">
+		<Shadow>
+			<Offset>
+				<AbsDimension x="1" y="-1"/>
+			</Offset>
+			<Color r="0" g="0" b="0"/>
+		</Shadow>
+		<FontHeight>
+			<AbsValue val="26"/>
+		</FontHeight>
+	</Font>
+
+	<Font name="GDKPFontSmallDisable" inherits="NumberFont_Shadow_Small" virtual="true">
+		<Color r="0.62" g="0.62" b="0.62"/>
+	</Font>
+
+	<Font name="GDKPFontSmall" inherits="NumberFont_Shadow_Small" virtual="true">
+		<Color r="1" g="0.82" b="0"/>
+	</Font>
+
+	<Font name="GDKPFontNormalGray" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="0.62" g="0.62" b="0.62"/>
+	</Font>
+
+	<Font name="GDKPFontNormalGreen" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="0.54" g="0.76" b="0.16"/>
+	</Font>
+
+	<Font name="GDKPFontNormal" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="1" g="0.82" b="0"/>
+	</Font>
+
+	<Font name="GDKPFontNormalHilight" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="1" g="1" b="1"/>
+	</Font>
+
+	<Font name="GDKPFontNormalUnit" inherits="NumberFont_Shadow_Med" virtual="true">
+		<Color r="0.08" g="0.79" b="0.83"/>
+	</Font>
+
+	<Button name="GDKPEditButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x= "29" y="20"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentUnderline">
+					<Size>
+						<AbsDimension x="29" y="1"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="0" y ="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentText" inherits="NumberFont_Shadow_Med" text="GDKP_LABEL_EDIT"  justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="35" y="20"/>
+					</Size>
+					<Color r="0.5" g="0.8" b="0.1"/>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</FontString>
+
+
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				_G[self:GetName().."Underline"]:SetTexture(0.5,0.8,0.1)
+				_G[self:GetName().."Underline"]:Hide()
+			</OnLoad>
+			<OnEnter>
+				_G[self:GetName().."Underline"]:Show()
+			</OnEnter>
+			<OnLeave>
+				_G[self:GetName().."Underline"]:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<Button name="GDKPDeleteButtonTemplate" virtual="true">
+		<Size>
+			<AbsDimension x= "29" y="20"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentText" inherits="NumberFont_Shadow_Med" text="GDKP_LABEL_DEL" setAllPoints="true" justifyH="RIGHT">
+					<Color r="0.8" g="0.1" b="0.1"/>
+					<Size>
+						<AbsDimension x="35" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentUnderline">
+					<Size>
+						<AbsDimension x="2" y="1"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT">
+							<Offset>
+								<AbsDimension x="0" y ="0"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="0" y ="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				_G[self:GetName().."Underline"]:SetTexture(0.8,0.1,0.1)
+				_G[self:GetName().."Underline"]:Hide()
+			</OnLoad>
+			<OnEnter>
+				_G[self:GetName().."Underline"]:Show()
+			</OnEnter>
+			<OnLeave>
+				_G[self:GetName().."Underline"]:Hide()
+			</OnLeave>
+		</Scripts>
+	</Button>
+
+	<CheckButton name="GDKPOptionsCheckButtonTemplate" virtual="true" inherits="OptionsBaseCheckButtonTemplate">
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentText" inherits="GDKPFontNormal">
+					<Anchors>
+						<Anchor point="LEFT" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="1"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</CheckButton>
+
+	<EditBox name="GDKPLargeInputBoxTemplate" enableMouse="true" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="8" y="36"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-10" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.0625" top="1" bottom="0"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="8" y="36"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.9375" right="1.0" top="1" bottom="0"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="10" y="36"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9375" top="1" bottom="0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+
+
+
+	</EditBox>
+
+	<EditBox name="GDKPInputBoxTemplate" enableMouse="true" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="4" y="28"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="-5" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="1" bottom="0"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="4" y="28"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="0" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1.0" top="1" bottom="0"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\AddOns\GDKP\img\input-border">
+					<Size>
+						<AbsDimension x="10" y="28"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.125" right="0.875" top="1" bottom="0"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+
+				self:SetTextInsets(1, 4, 10, 0)
+			</OnLoad>
+			<OnEscapePressed>
+				EditBox_ClearFocus(self);
+			</OnEscapePressed>
+			<OnEditFocusLost>
+				EditBox_ClearHighlight(self);
+			</OnEditFocusLost>
+			<OnEditFocusGained>
+				EditBox_HighlightText(self);
+			</OnEditFocusGained>
+		</Scripts>
+		<FontString inherits="GDKPFontNormalHilight"/>
+
+	</EditBox>
+
+	<Frame name="GDKPFrameTemplate" hidden="true" parent="UIParent" movable="true" virtual="true" topLevel="true" enableKeyboard="true" >
+		<Scripts>
+			<OnLoad>
+				GDKP_Frame_OnLoad(self)
+				self:RegisterForDrag("LeftButton")
+
+			</OnLoad>
+
+			<OnDragStart>
+				self:StartMoving()
+			</OnDragStart>
+			<OnDragStop>
+				self:StopMovingOrSizing()
+			</OnDragStop>
+		</Scripts>
+	</Frame>
+
+	<Frame name = "GDKPMainFrameTemplate" virtual="true" inherits="GDKPFrameTemplate" >
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\AddOns\GDKP\img\title">
+					<Size>
+						<AbsDimension x="128" y="32"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+	</Frame>
+
+	<Frame name="GDKPTabTemplate" hidden="true" virtual="true" >
+
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture name="$parentHeaderColorLeft" file="Interface\AddOns\GDKP\img\tab-bg" >
+					<Size>
+						<AbsDimension x="5" y="25"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.125" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentHeaderColorRight" file="Interface\AddOns\GDKP\img\tab-bg" >
+					<Size>
+						<AbsDimension x="4" y="25"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-5" y="-5"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.875" right="1" top="0" bottom="1"/>
+				</Texture>
+				<Texture name="$parentHeaderColorCenter" file="Interface\AddOns\GDKP\img\tab-bg" >
+					<Size>
+						<AbsDimension x="5" y="25"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentHeaderColorLeft" relativePoint="TOPRIGHT"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentHeaderColorRight" relativePoint="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0.125" right="0.875" top="0" bottom="1"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				GDKP_InnerFrame_OnLoad(self)
+			</OnLoad>
+		</Scripts>
+	</Frame>
+
+	<Frame name="GDKPMainFrame"  inherits="GDKPMainFrameTemplate" clampedToScreen="true">
+		<Size>
+			<AbsDimension x="290" y="115"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<Frames>
+			<EditBox name="$parentMemberEditBox" letters="2" autoFocus="false"  numeric="true" inherits="GDKPLargeInputBoxTemplate" enableMouse="true" frameStrata="MEDIUM">
+				<Size>
+					<AbsDimension x="40" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" >
+						<Offset>
+							<AbsDimension x="150" y="-38"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						if GetLocale()=='zhCN' then
+							self:SetFont("Fonts\\ARKai_T.TTF",26)
+						elseif GetLocale()=='zhTW' then
+							self:SetFont("Fonts\\blei00d.TTF",26)
+						else
+							self:SetFont("Fonts\\FRIZQT__.TTF",26)
+						end
+						self:SetTextInsets(1, 4, 13, -1)
+					</OnLoad>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+					<OnEnterPressed>
+						self:ClearFocus()
+					</OnEnterPressed>
+					<OnEditFocusGained>
+						self:HighlightText(0,self:GetNumLetters())
+					</OnEditFocusGained>
+					<OnEditFocusLost>
+						self:HighlightText(0,0)
+					</OnEditFocusLost>
+				</Scripts>
+			</EditBox>
+			<Button name="$parentPlusButton" frameStrata="MEDIUM">
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parentMemberEditBox" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-12" y="-8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentTexture" file="Interface\AddOns\GDKP\img\triangle" >
+							<Size>
+								<AbsDimension x="15" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="22" y="17"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP"/>
+					</Anchors>
+				</HighlightTexture>
+
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Texture"]:SetRotation(-math.pi*3/4)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<Button name="$parentMinusButton"  frameStrata="MEDIUM">
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parentPlusButton" relativePoint="BOTTOM">
+						<Offset>
+							<AbsDimension x="0" y="6"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentTexture" file="Interface\AddOns\GDKP\img\triangle" >
+							<Size>
+								<AbsDimension x="15" y="15"/>
+							</Size>
+							<Anchors>
+								<Anchor point="CENTER"/>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD">
+					<Size>
+						<AbsDimension x="22" y="17"/>
+					</Size>
+					<Anchors>
+						<Anchor point="BOTTOM"/>
+					</Anchors>
+				</HighlightTexture>
+
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."Texture"]:SetRotation(math.pi/4)
+					</OnLoad>
+				</Scripts>
+			</Button>
+			<Button name="$parentExpandButton"  frameStrata="MEDIUM">
+				<Size>
+					<AbsDimension x="22" y="22"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-5" y="8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentExpandTexture" file="Interface\AddOns\GDKP\img\arrow" setAllPoints="true" />
+					</Layer>
+				</Layers>
+				<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+				<Scripts>
+					<OnLoad>
+						_G[self:GetName().."ExpandTexture"]:SetRotation(0)
+					</OnLoad>
+					<OnClick>
+						if not self.expand then
+							GDKPMainFrameAnimGroupExp:Play()
+						else
+							GDKPMainFrameAnimGroupCol:Play()
+						end
+						self.expand = not self.expand
+
+					</OnClick>
+				</Scripts>
+			</Button>
+
+		</Frames>
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\AddOns\GDKP\img\smallbutton-bg">
+					<Size>
+						<AbsDimension x="17" y="30"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="180" y="-50"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9325" top="0.865" bottom="0.125"/>
+				</Texture>
+			</Layer>
+			<Layer level="OVERLAY">
+
+
+				<FontString inherits="NumberFont_Shadow_Med" text="GDKP_TEXT_NUM_MEMBER" justifyH="RIGHT">
+					<FontHeight>
+						<AbsValue val="20"/>
+					</FontHeight>
+					<Size>
+						<AbsDimension x="50" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="97" y="-57"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString inherits="GDKPFontSmallDisable" text="GDKP_TEXT_TOTAL_INCOME" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-85"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentIncomeText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="100" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-85"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString inherits="GDKPFontSmallDisable" text="GDKP_TEXT_AVE_PROFIT" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-85"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentAveProfitText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="120" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-85"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentProfitLabel" inherits="GDKPFontSmallDisable" text="GDKP_TEXT_TOTAL_PROFIT" justifyH="RIGHT" hidden="true">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-107"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentProfitText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT" hidden="true">
+					<Size>
+						<AbsDimension x="120" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-107"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentExpenseLabel" inherits="GDKPFontSmallDisable" text="GDKP_TEXT_TOTAL_EXPENSE" justifyH="RIGHT" hidden="true">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-107"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentExpenseText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT" hidden="true">
+					<Size>
+						<AbsDimension x="120" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-107"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentTankSubsideLabel" inherits="GDKPFontSmallDisable" text="GDKP_TEXT_TANK_SUBSIDE" justifyH="RIGHT" hidden="true">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-129"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentTankSubsideText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT" hidden="true">
+					<Size>
+						<AbsDimension x="120" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="67" y="-129"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentHealerSubsideLabel" inherits="GDKPFontSmallDisable" text="GDKP_TEXT_HEALER_SUBSIDE" justifyH="RIGHT" hidden="true">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-129"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentHealerSubsideText" inherits="GameFontNormalSmall" text="0" justifyH="LEFT" hidden="true">
+					<Size>
+						<AbsDimension x="120" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="200" y="-129"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+			</Layer>
+		</Layers>
+
+		<Animations>
+			<AnimationGroup name="$parentAnimGroupExp" looping="NONE" smoothing ="IN_OUT">
+			<!--	<Animation  duration="0.1" maxFramerate="180">
+					<Scripts>
+						<OnPlay>
+							self.regionParent = self:GetRegionParent()
+							self.expandButton = _G["GDKPMainFrameExpandButton"]
+							self.startpointy = 30
+							self.endpointy = 7
+						</OnPlay>
+						<OnUpdate>
+							local update = self:GetProgress()
+							local cury = self.startpointy - update*(self.startpointy-self.endpointy)
+							local point,ui,refPoint,x = self.expandButton:GetPoint(1)
+							self.expandButton:ClearAllPoints()
+							self.expandButton:SetPoint(point,ui,refPoint,x,cury)
+						</OnUpdate>
+					</Scripts>
+				</Animation>-->
+				<Animation  duration="0.2" maxFramerate="180">
+					<Scripts>
+						<OnLoad>
+							self.regionParent = self:GetRegionParent()
+							self.maxy = 190
+							self.miny = 115
+						</OnLoad>
+						<OnPlay>
+							self.regionParent:SetMovable(false)
+							_G[self.regionParent:GetName().."ExpandButton"]:Disable()
+						</OnPlay>
+						<OnUpdate>
+							local update = self:GetProgress()
+							local cury = update*(self.maxy-self.miny)+ self.miny
+							self.regionParent:SetHeight(cury);
+						</OnUpdate>
+						<OnFinished>
+							GDKP_MainFrameShowButtons()
+							self:GetRegionParent():SetMovable(true)
+							_G[self.regionParent:GetName().."ExpandButton"]:Enable()
+							_G[self.regionParent:GetName().."ExpandButtonExpandTexture"]:SetRotation(math.pi)
+
+						</OnFinished>
+					</Scripts>
+				</Animation>
+			</AnimationGroup>
+			<AnimationGroup name="$parentAnimGroupCol" looping="NONE" smoothing ="IN_OUT">
+				<Animation  duration="0.2" maxFramerate="180">
+					<Scripts>
+						<OnLoad>
+							self.regionParent = self:GetRegionParent()
+							self.maxy = 190
+							self.miny = 115
+						</OnLoad>
+						<OnPlay>
+							GDKP_MainFrameHideButtons()
+							self.regionParent:SetMovable(false)
+							_G[self.regionParent:GetName().."ExpandButton"]:Disable()
+						</OnPlay>
+						<OnUpdate>
+							local update = self:GetProgress()
+							local cury = self.maxy - (self.maxy - self.miny)*update
+							self.regionParent:SetHeight(cury);
+						</OnUpdate>
+						<OnFinished>
+							self:GetRegionParent():SetMovable(true)
+							_G[self.regionParent:GetName().."ExpandButton"]:Enable()
+							_G[self.regionParent:GetName().."ExpandButtonExpandTexture"]:SetRotation(0)
+							self.regionParent:SetHeight(115);
+						</OnFinished>
+					</Scripts>
+				</Animation>
+
+			</AnimationGroup>
+		</Animations>
+
+	</Frame>
+
+	<Frame name="GDKPNewIncomePanel" inherits="GDKPMainFrameTemplate" >
+		<Size>
+			<AbsDimension x="490" y="402"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString text="GDKP_TEXT_NEWINCOME_DESC" inherits="GDKPFontSmallDisable" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="445" y="50"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="13" y="-48"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="-100" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+	</Frame>
+
+	<Button name="GDKPTabButtonTemplate" virtual="true" >
+		<Size>
+            <AbsDimension x="130" y="32"/>
+        </Size>
+        <Layers>
+        	<Layer level="BACKGROUND">
+        		<Texture name="$parentLeftDisabled" file="Interface\AddOns\GDKP\img\tabbutton-active">
+        			<Size>
+        				<AbsDimension x="8" y="35"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="BOTTOMLEFT">
+        					<Offset>
+        						<AbsDimension x="0" y="-8"/>
+        					</Offset>
+        				</Anchor>
+        			</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="1.0"/>
+        		</Texture>
+				<Texture name="$parentRightDisabled" file="Interface\AddOns\GDKP\img\tabbutton-active">
+        			<Size>
+        				<AbsDimension x="8" y="35"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="BOTTOMRIGHT">
+							<Offset>
+        						<AbsDimension x="0" y="-8"/>
+        					</Offset>
+						</Anchor>
+        			</Anchors>
+					<TexCoords left="0.75" right="1.0" top="0" bottom="1.0"/>
+        		</Texture>
+				<Texture name="$parentMiddleDisabled" file="Interface\AddOns\GDKP\img\tabbutton-active">
+        			<Size>
+        				<AbsDimension x="32" y="35"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="LEFT" relativeTo="$parentLeftDisabled" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRightDisabled" relativePoint="LEFT"/>
+        			</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1.0"/>
+        		</Texture>
+
+				<Texture name="$parentLeft" file="Interface\AddOns\GDKP\img\tabbutton-inactive">
+        			<Size>
+        				<AbsDimension x="8" y="32"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="BOTTOMLEFT">
+        					<Offset>
+        						<AbsDimension x="0" y="-7"/>
+        					</Offset>
+        				</Anchor>
+        			</Anchors>
+					<TexCoords left="0" right="0.25" top="0" bottom="1.0"/>
+        		</Texture>
+				<Texture name="$parentMiddle" file="Interface\AddOns\GDKP\img\tabbutton-inactive">
+        			<Size>
+        				<AbsDimension x="32" y="32"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+        			</Anchors>
+					<TexCoords left="0.25" right="0.75" top="0" bottom="1.0"/>
+        		</Texture>
+				<Texture name="$parentRight" file="Interface\AddOns\GDKP\img\tabbutton-inactive">
+        			<Size>
+        				<AbsDimension x="8" y="32"/>
+        			</Size>
+        			<Anchors>
+        				<Anchor point="LEFT" relativeTo="$parentMiddle" relativePoint="RIGHT"/>
+        			</Anchors>
+					<TexCoords left="0.75" right="1.0" top="0" bottom="1.0"/>
+        		</Texture>
+        	</Layer>
+        </Layers>
+		<Scripts>
+			<OnLoad>
+				PanelTemplates_TabResize(self, 0);
+				_G[self:GetName().."HighlightTexture"]:SetWidth(self:GetTextWidth() + 15);
+			</OnLoad>
+		</Scripts>
+		<ButtonText name="$parentText">
+			<Size>
+				<AbsDimension x="0" y="13"/>
+			</Size>
+			<Anchors>
+				<Anchor point="BOTTOM">
+					<Offset>
+						<AbsDimension x="0" y="5"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</ButtonText>
+		<NormalFont style="GameFontNormalSmall"/>
+		<HighlightFont style="GameFontHighlightSmall"/>
+		<DisabledFont style="GameFontDisableSmall"/>
+		<HighlightTexture name="$parentHighlightTexture" file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="5" y="32"/>
+			</Size>
+			<Anchors>
+				<Anchor point="BOTTOM">
+					<Offset>
+						<AbsDimension x="2" y="-8"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+    </Button>
+
+	<Frame name="GDKPManageFrame"  inherits="GDKPMainFrameTemplate"  >
+		<Size>
+			<AbsDimension x="490" y="422"/>
+		</Size>
+		<Frames>
+			<Button name="$parentTab1" inherits="GDKPTabButtonTemplate" id="1" text="GDKP_TAB_INCOME" >
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="24" y="-34"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GDKPManageFrameTab_OnClick(self, 1);
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentTab2" inherits="GDKPTabButtonTemplate" id="2" text="GDKP_TAB_EXPENSE" >
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="5" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GDKPManageFrameTab_OnClick(self, 2);
+					</OnClick>
+				</Scripts>
+			</Button>
+			<Button name="$parentTab3" inherits="GDKPTabButtonTemplate" id="3" text="GDKP_TAB_LOG" >
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTab2" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="5" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						GDKPManageFrameTab_OnClick(self, 3);
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Anchors>
+			<Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="-100" y="-10"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+	</Frame>
+
+	<CheckButton name="GDKPLogCellTemplate" virtual="true" >
+		<Size>
+			<AbsDimension x="450" y="38"/>
+		</Size>
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name ="$parentCTimeText" inherits="GDKPFontSmallDisable" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="17" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentDescText" inherits="GDKPFontNormalGreen" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="200" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="87" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentIncomeText" inherits="GDKPFontNormalGray" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-92" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentExpenseText" inherits="GDKPFontNormalGray" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-22" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+	</CheckButton>
+
+	<CheckButton name="GDKPIncomeCellTemplate" virtual="true" >
+		<Size>
+			<AbsDimension x="450" y="40"/>
+		</Size>
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name ="$parentCTimeText" inherits="GDKPFontSmallDisable" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="17" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentDescText" inherits="GDKPFontNormalGreen" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="160" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" >
+							<Offset>
+								<AbsDimension x="87" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentIncomeText" inherits="GDKPFontNormalGray" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="-101" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GDKPFontNormalGray" justifyH="RIGHT" text="/">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="-96" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentUnitText" inherits="GDKPFontNormalUnit" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" >
+							<Offset>
+								<AbsDimension x="214" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentEditButton" inherits="GDKPEditButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-67" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentDeleteButton" inherits="GDKPDeleteButtonTemplate" >
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-10" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+
+	</CheckButton>
+
+	<CheckButton name="GDKPExpenseCellTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="450" y="40"/>
+		</Size>
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name ="$parentCTimeText" inherits="GDKPFontSmallDisable" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="17" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentDescText" inherits="GDKPFontNormalGreen" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="200" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="87" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name ="$parentExpenseText" inherits="GDKPFontNormalGray" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-127" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentEditButton" inherits="GDKPEditButtonTemplate">
+
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-70" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentDeleteButton" inherits="GDKPDeleteButtonTemplate">
+
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-10" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+
+	</CheckButton>
+
+	<CheckButton name="GDKPNewIncomeCellTemplate" virtual="true">
+		<Size>
+			<AbsDimension x="450" y="40"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString name ="$parentCTimeText" inherits="GDKPFontSmallDisable" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="17" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentDescText" inherits="GDKPFontNormalGreen" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="160" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="72" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString inherits="GDKPFontNormalGray" justifyH="RIGHT" text="/">
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="-100" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentIncomeText" inherits="GDKPFontNormalGray" justifyH="RIGHT">
+
+					<Size>
+						<AbsDimension x="60" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-105" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name ="$parentUnitText" inherits="GDKPFontNormalUnit" justifyH="RIGHT">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="214" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentEditButton"  inherits="GDKPEditButtonTemplate">
+
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-70" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentDeleteButton"  inherits="GDKPDeleteButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPRIGHT" >
+						<Offset>
+							<AbsDimension x="-10" y="-10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+	</CheckButton>
+
+	<Frame name="GDKPItemEditableTemplate" hidden="true" virtual="true" frameStrata="HIGH" topLevel="true" inherits="GDKPFrameTemplate">
+		<Size>
+			<AbsDimension x="250" y="120"/>
+		</Size>
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString text="GDKP_TEXT_INCOME_DESC" inherits="GDKPFontNormal">
+					<Size>
+						<AbsDimension x="230" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-20"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<EditBox name = "$parentDescText" letters="30" inherits="GDKPInputBoxTemplate">
+				<Size>
+					<AbsDimension x="200" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-40"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$parentProceedButton" inherits="UIPanelButtonTemplate" text="OKAY">
+				<Size>
+					<AbsDimension x="80" y="28"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCancelButton" inherits="UIPanelButtonTemplate" text="CANCEL">
+				<Size>
+					<AbsDimension x="80" y="28"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
+
+	<Frame name="GDKPGoldEditableTemplate" hidden="true"  virtual="true" frameStrata="HIGH" topLevel="true" inherits="GDKPFrameTemplate">
+		<Size>
+			<AbsDimension x="180" y="100"/>
+		</Size>
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString text="GDKP_TEXT_GOLD_DESC" inherits="GDKPFontNormal">
+					<Size>
+						<AbsDimension x="40" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT">
+							<Offset>
+								<AbsDimension x="-10" y="-28"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<EditBox name="$parentGoldText" letters="6"  numeric="true" inherits="GDKPInputBoxTemplate" enableMouse="true">
+				<Size>
+					<AbsDimension x="120" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" refPoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-17"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$parentProceedButton" inherits="UIPanelButtonTemplate" text="OKAY">
+				<Size>
+					<AbsDimension x="60" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCancelButton" inherits="UIPanelButtonTemplate" text="CANCEL">
+				<Size>
+					<AbsDimension x="60" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+
+
+	</Frame>
+
+	<Frame name="GDKPExpenseEditableTemplate" hidden="true" virtual="true" frameStrata="HIGH" topLevel="true" inherits="GDKPFrameTemplate">
+		<Size>
+			<AbsDimension x="380" y="200"/>
+		</Size>
+
+		<Layers>
+			<Layer level="OVERLAY">
+				<FontString text="GDKP_TEXT_GOLD_EXPENSE" inherits="GDKPFontNormal">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-18"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+				<FontString text="GDKP_TEXT_GOLD_DESC" inherits="GDKPFontNormal">
+					<Size>
+						<AbsDimension x="40" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="110" y="-42"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+				<FontString text="GDKP_TEXT_EXPENSE_DESC" inherits="GDKPFontNormal">
+					<Size>
+						<AbsDimension x="80" y="20"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="-78"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<EditBox name="$parentGoldText" letters="6" numeric="true" inherits="GDKPInputBoxTemplate" enableMouse="true">
+				<Size>
+					<AbsDimension x="100" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" refPoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-29"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<CheckButton name="$parentGeneralCheck" inherits="GDKPOptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" refPoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-98"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parentTankCheck" inherits="GDKPOptionsCheckButtonTemplate">
+
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentGeneralCheck" refPoint="RIGHT">
+						<Offset>
+							<AbsDimension x="118" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+			<CheckButton name="$parentHealerCheck" inherits="GDKPOptionsCheckButtonTemplate">
+
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parentTankCheck" refPoint="RIGHT">
+						<Offset>
+							<AbsDimension x="118" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</CheckButton>
+
+
+			<EditBox name="$parentDescText" letters="20" autoFocus="false"  inherits="GDKPInputBoxTemplate" enableMouse="true">
+				<Size>
+					<AbsDimension x="280" y="40"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="$parent" refPoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="20" y="-117"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</EditBox>
+			<Button name="$parentProceedButton" inherits="UIPanelButtonTemplate" text="OKAY">
+				<Size>
+					<AbsDimension x="60" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMLEFT">
+						<Offset>
+							<AbsDimension x="18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+			<Button name="$parentCancelButton" inherits="UIPanelButtonTemplate" text="CANCEL">
+				<Size>
+					<AbsDimension x="60" y="20"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
+						<Offset>
+							<AbsDimension x="-18" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			</Button>
+		</Frames>
+	</Frame>
+
+	<Button name="GDKPAddRecordButtonTemplate" virtual="true" inherits="UIPanelButtonTemplate" frameStrata="HIGH">
+		<Size>
+			<AbsDimension x="100" y="25"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<Button name="GDKPColumnHeaderTemplate" virtual="true" >
+		<Size>
+			<AbsDimension x="10" y="28"/>
+		</Size>
+		<Layers>
+		<!--	<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="5" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.078125" top="0" bottom="0.75"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="4" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPRIGHT" />
+					</Anchors>
+					<TexCoords left="0.90625" right="0.96875" top="0" bottom="0.75"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\FriendsFrame\WhoFrame-ColumnTabs">
+					<Size>
+						<AbsDimension x="53" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+					</Anchors>
+
+					<TexCoords left="0.078125" right="0.90625" top="0" bottom="0.75"/>
+				</Texture>
+
+			</Layer>-->
+			<Layer level="ARTWORK">
+				<FontString name="$parentName" inherits="GDKPFontSmall">
+					<Size>
+						<AbsDimension x="360" y="22"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-6"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+
+		</Layers>
+		<NormalFont inherits="GDKPFontSmall"/>
+		<HighlightFont inherits="GDKPFontNormalHilight"/>
+		<HighlightTexture name="$parentHighlightTexture" file="Interface\PaperDollInfoFrame\UI-Character-Tab-Highlight" alphaMode="ADD">
+			<Anchors>
+				<Anchor point="TOPLEFT">
+					<Offset>
+						<AbsDimension x="0" y="5"/>
+					</Offset>
+				</Anchor>
+				<Anchor point="BOTTOMRIGHT">
+					<Offset>
+						<AbsDimension x="0" y="-12"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+
+</Ui>

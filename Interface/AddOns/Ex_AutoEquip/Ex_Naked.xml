@@ -1,0 +1,85 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Frame name="NakedObj" hidden="true">
+		<Scripts>
+			<OnLoad>
+
+
+	SLASH_NAKED1="/Naked";
+	SLASH_DRESSED1="/Dressed";
+	SLASH_NAKEDTOGGLE1 = "/Nakedtoggle";
+
+
+				NakedObj.NoDur = {[2] = true, [4] = true, [11] = true, [12] = true, [13] = true, [14] = true, [15] = true, [19] = true}
+<!--
+				BINDING_HEADER_NAKED= "Naked";
+				BINDING_NAME_NAKED= "Naked";
+				BINDING_NAME_DRESSED= "Dressed";
+				BINDING_NAME_RENAKED = "Toggle Naked";
+-->
+				NakedObj.Nakie = false;
+				SlashCmdList["NAKED"] = function()
+					NakedObj.Nakie = true;
+					local e = {};
+					NakedObj.NakedInv = {};
+					for o=0,4 do
+						e[o] = 0;
+						for p=1,GetContainerNumSlots(o) do
+							if (not GetContainerItemInfo(o,p)) then
+								e[o] = e[o]+1;
+							end; 
+						end;
+					end;
+					for i=1,19 do
+						if (not NakedObj.NoDur[i]) then
+							PickupInventoryItem(i);
+							if (CursorHasItem()) then
+								d = false;
+								for o=0,4 do
+									if (e[o] > 0) then
+										local _,a = string.find(GetInventoryItemLink("player",i),"|h",3);
+										local b = string.find(GetInventoryItemLink("player",i),"|h",a);
+										local name = string.sub(GetInventoryItemLink("player",i),a+2,b-2);
+										NakedObj.NakedInv[name] = 1;
+										if (o==0) then
+											PutItemInBackpack(); 
+										else
+											PutItemInBag(19+o);
+										end;
+										e[o] = e[o] - 1;
+										d = true;
+										break;
+									end;
+								end;
+								if (not d) then AutoEquipCursorItem(); break; end;
+							end;
+						end;
+					end;
+				end;
+				SlashCmdList["DRESSED"] = function()
+					NakedObj.Nakie = false;
+					for o=0,4 do
+						for p=1,GetContainerNumSlots(o) do
+							if (GetContainerItemLink(o,p)) then
+								local _,a = string.find(GetContainerItemLink(o,p),"|h",3);
+								local b = string.find(GetContainerItemLink(o,p),"|h",a);
+								local name = string.sub(GetContainerItemLink(o,p),a+2,b-2);
+								if (NakedObj.NakedInv[name] == 1) then
+									PickupContainerItem(o,p);
+									AutoEquipCursorItem();
+								end;
+							end;
+						end;
+					end;
+				end;
+				SlashCmdList["NAKEDTOGGLE"] = function()
+					if (NakedObj.Nakie == true) then
+						SlashCmdList.DRESSED();
+					else
+						SlashCmdList.NAKED();
+					end;
+				end;
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="localization\localization.lua"/>
+	<Script file="localization\localization.zhTW.lua"/>
+	<Script file="localization\localization.zhCN.lua"/>
+	<Script file="Combuctor.lua"/>
+	<Script file="inventoryData.lua"/>
+	<Script file="itemSearch.lua"/>
+	<Script file="events.lua"/>
+	<Script file="sets.lua"/>
+	<Script file="item.lua"/>
+	<Script file="itemFrameEvents.lua"/>
+	<Script file="itemFrame.lua"/>
+	<Script file="bag.lua"/>
+	<Script file="money.lua"/>
+	<Script file="qualityFilter.lua"/>
+	<Script file="sideFilter.lua"/>
+	<Script file="bottomFilter.lua"/>
+	<Script file="frame.lua"/>
+	<!-- <Script file="VoidStorage.lua"/> -->
+	<Include file="Combuctor.xml"/>
+</Ui>

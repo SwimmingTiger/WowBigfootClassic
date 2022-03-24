@@ -1,0 +1,5 @@
+<Bindings>
+    <Binding name="MEETINGHORN_TOGGLE" category="ADDONS" header="MEETINGHORN">
+        LibStub('AceAddon-3.0'):GetAddon('MeetingHorn'):Toggle()
+    </Binding>
+</Bindings>

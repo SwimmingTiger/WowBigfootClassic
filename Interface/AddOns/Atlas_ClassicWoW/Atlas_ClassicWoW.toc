@@ -1,0 +1,14 @@
+## Interface: 20503
+## Title: Atlas |r|cFF0099FF[Classic WoW]|r
+## Title-zhCN: Atlas |r|cFF0099FF经典旧世副本地图|r
+## Title-zhTW: Atlas |r|cFF0099FF艾澤拉斯副本地圖|r
+## Notes: |cff00ff00Atlas_ClassicWoW|r
+## Version: v1.49.00
+## Author: arith, Dynaletik, dubcat
+## X-Date: 2021-05-20T15:17:09Z
+## X-Credits: Dan Gilbert, Lothaer
+## X-Email: atlas.addon at gmail.com
+## X-Website: http://www.atlasmod.com
+## X-Category: Map
+## Dependencies: AtlasLootClassic
+## X-Revision: BigFoot

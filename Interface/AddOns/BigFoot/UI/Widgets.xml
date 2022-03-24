@@ -1,0 +1,244 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+	<Script file="Widgets.lua"/>
+
+	<GameTooltip name="BigFootTooltip" frameStrata="TOOLTIP" hidden="true" inherits="GameTooltipTemplate">
+		<Scripts>
+			<OnLoad>
+				self:SetOwner(UIParent, "ANCHOR_NONE");
+			</OnLoad>
+		</Scripts>
+	</GameTooltip>
+
+	<!-- <Frame name="Bigfoot_ArtifactBox" parent="UIParent" inherits="GlowBoxTemplate" frameStrata="HIGH" hidden="true">
+		<Size x="122" y="20"/>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Text" inherits="GameFontHighlightLeft" justifyV="TOP">
+					<Size x="188" y="0"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="16" y="-12"/>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Frame parentKey="Arrow" inherits="GlowBoxArrowTemplate">
+				<Anchors>
+					<Anchor point="RIGHT" relativePoint="LEFT" x="-2" y="16"/>
+				</Anchors>
+			</Frame>
+		</Frames>
+		<Scripts>
+			<OnLoad>
+				self.Text:SetSpacing(4);
+				SetClampedTextureRotation(self.Arrow.Arrow, 270);
+				SetClampedTextureRotation(self.Arrow.Glow, 270);
+				self.Arrow.Glow:ClearAllPoints();
+			</OnLoad>
+			<OnShow>
+				self:SetHeight(self.Text:GetHeight()+20);
+			</OnShow>
+		</Scripts>
+	</Frame>
+	<Frame name="Bigfoot_ArtifactMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Anchors>
+			<Anchor point="BOTTOMLEFT" relativeTo="Bigfoot_Artifact" relativePoint="TOPRIGHT"/>
+		</Anchors>
+		<Scripts>
+			<OnLoad function="Bigfoot_ArtifactMenu_OnLoad"/>
+			<OnShow function="Bigfoot_ArtifactMenu_Show"/>
+		</Scripts>
+	</Frame>
+	<Frame name="WARRIORMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="WARRIORMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="PALADINMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="PALADINMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="DEATHKNIGHTMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="DEATHKNIGHTMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="HUNTERMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="HUNTERMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="SHAMANMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="SHAMANMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="ROGUEMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="ROGUEMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="DRUIDMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="DRUIDMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="MONKMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="MONKMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="DEMONHUNTERMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="DEMONHUNTERMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="MAGEMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="MAGEMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="PRIESTMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="PRIESTMenu_OnLoad"/>
+		</Scripts>
+	</Frame>
+	<Frame name="WARLOCKMenu" inherits="UIMenuTemplate" hidden="true" clampedToScreen="true" parent="Bigfoot_Artifact">
+		<Scripts>
+			<OnLoad function="WARLOCKMenu_OnLoad"/>
+		</Scripts>
+	</Frame> -->
+
+	<!-- <Frame name="BigFootURLFrame" toplevel="true" frameStrata="HIGH" parent="UIParent" enableMouse="true" hidden="true">
+		<Size>
+			<AbsDimension x="400" y="150"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOP" relativeTo="UIParent" realtivePoint="TOP">
+				<Offset>
+					<AbsDimension x="0" y="-100"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString name="$parentTitle" inherits="GameFontHighlight">
+					<Size>
+						<AbsDimension x="290" y="0"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="-16"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentText" inherits="GameFontNormal" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="300" y="0"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="BigFootURLFrame" relativePoint="TOPLEFT">
+							<Offset>
+								<AbsDimension x="80" y="-40"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<Texture name="$parentAlertIcon" file="Interface\DialogFrame\DialogAlertIcon">
+					<Size>
+						<AbsDimension x="64" y="64"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="12" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="-3" y="-3"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						self:GetParent():Hide();
+					</OnClick>
+				</Scripts>
+			</Button>
+			<EditBox name="$parentURL" multiLine="true" letters="65535" autoFocus="true">
+				<Size>
+					<AbsDimension x="450" y="1"/>
+				</Size>
+				<Scripts>
+					<OnTextChanged>
+						BigFootURLFrameURL:SetText(self.url);
+						BigFootURLFrameURL:HighlightText();
+					</OnTextChanged>
+					<OnEscapePressed>
+						BigFootURLFrame:Hide();
+					</OnEscapePressed>
+					<OnCursorChanged>
+						BigFootURLFrameURL:HighlightText();
+					</OnCursorChanged>
+					<OnEditFocusLost>
+						BigFootURLFrame:Hide();
+					</OnEditFocusLost>
+				</Scripts>
+				<FontString inherits="GameFontHighlightSmall"/>
+			</EditBox>
+		</Frames>
+	</Frame> -->
+
+	<!-- <Frame name ="BigFootPanel" frameStrata="DIALOG" toplevel="true" enableMouse="true" hidden="true" parent="UIParent">
+		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<BackgroundInsets>
+				<AbsInset left="11" right="12" top="12" bottom="11"/>
+			</BackgroundInsets>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<EdgeSize>
+				<AbsValue val="32"/>
+			</EdgeSize>
+		</Backdrop>
+		<Size>
+			<AbsDimension x="400" y="150"/>
+		</Size>
+		<Layers>
+			<Layer level="ARTWORK">
+			</Layer>
+			<Layer level="OVERLAY">
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+			</OnLoad>
+			<OnShow>
+			</OnShow>
+		</Scripts>
+	</Frame> -->
+
+</Ui>

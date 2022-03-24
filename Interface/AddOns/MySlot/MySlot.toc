@@ -1,0 +1,27 @@
+﻿## Interface: 20503
+## Title: MySlot
+## Title-zhCN: [大脚][集]按键设置保存
+## Title-zhTW: [大腳][集]按鍵設置保存
+## Notes: |cffbc8f8fMyslot is for transferring settings between accounts. Feedback farmer1992@gmail.com|r
+## Notes-zhCN: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以帮助你在账号之间共享配置。反馈：farmer1992@gmail.com|r
+## Notes-zhTW: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以跨帳號綁定技能與按鍵設置。反饋通道：farmer1992@gmail.com|r
+## Author: Boshi Lian(farmer1992@gmail.com)
+## Version: v5.8.0-v2.5.2
+## SavedVariables: MyslotExports,MySlot_SavedDb
+## SavedVariablesPerCharacter: MyslotSettings
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+libs\base64.lua
+libs\crc32.lua
+libs\lua-pb\lua-pb.xml
+
+protobuf\Myslot.lua
+
+event.lua
+locales.lua
+keys.lua
+Myslot.lua
+gui.lua
+options.lua

@@ -1,0 +1,13 @@
+<Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Activity.lua"/>
+    <Script file="Applicant.lua"/>
+    <Script file="Timer.lua"/>
+    <Script file="LFG.lua"/>
+    <Script file="Channel.lua"/>
+    
+    <Script file="ErrorCode.lua"/>
+    <Script file="Challenge.lua"/>
+    <Script file="Grade.lua"/>
+    <Script file="GoodLeader.lua"/>
+</Ui>

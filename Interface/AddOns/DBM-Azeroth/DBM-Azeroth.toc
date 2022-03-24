@@ -1,0 +1,34 @@
+﻿## Interface: 20503
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Azeroth (Classic)|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0艾澤拉斯 (經典)|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领 (经典)|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMAzeroth_AllSavedVars
+## SavedVariablesPerCharacter: DBMAzeroth_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: Classic
+## X-DBM-Mod-World-Boss: 1
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Name: Azeroth (Classic)
+## X-DBM-Mod-Name-zhTW: 艾澤拉斯 (經典)
+## X-DBM-Mod-Name-zhCN: 世界首领 (经典)
+## X-DBM-Mod-Sort: 1106
+## X-DBM-Mod-MapID: 0, 1
+## X-DBM-Mod-LoadCID: 14889,14888,14887,14890,12397,6109
+## X-DBM-Mod-MinCoreRevision: 12473
+## X-DBM-Mod-MinExpansion: 0
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+KazzakClassic.lua
+Azuregos.lua
+Taerar.lua
+Ysondre.lua
+Lethon.lua
+Emeriss.lua

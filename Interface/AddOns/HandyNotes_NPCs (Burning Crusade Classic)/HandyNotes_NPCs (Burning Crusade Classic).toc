@@ -1,0 +1,21 @@
+## Interface: 20503
+## Title: HandyNotes_NPCs (Burning Crusade Classic)
+## Version: 1.07
+## Notes: Shows locations of various npcs
+## Author: Cali
+## RequiredDeps: HandyNotes
+## SavedVariables: HandyNotes_NPCsBurningCrusadeClassicDB
+## X-Revision: BigFoot
+
+libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
+
+locales\Locales.xml
+
+data.lua
+vendorData.lua
+itemData.lua
+weaponskills.lua
+HandyNotes_NPCs (Burning Crusade Classic).lua
+options.lua
+search.lua
+altrecipes.lua

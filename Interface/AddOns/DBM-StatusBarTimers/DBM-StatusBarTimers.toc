@@ -1,0 +1,15 @@
+﻿## Interface: 20503
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFStatus Bar Timers|r
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF狀態條計時器|r
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF状态条计时器|r
+## Notes: |cffbc8f8fstatus bar timer library.|r
+## Notes-zhCN: |cff00ff00DBM-StatusBarTimers|r
+## Notes-zhTW: |cff00ff00DBM-StatusBarTimers|r
+## SavedVariables: DBT_AllPersistentOptions
+## Author: MysticalOS, QartemisT
+## Version: 99722e9
+## X-Website: https://deadlybossmods.com
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+DBT.lua

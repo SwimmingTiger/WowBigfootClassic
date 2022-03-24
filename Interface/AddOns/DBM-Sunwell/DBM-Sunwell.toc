@@ -1,0 +1,31 @@
+## Interface: 20503
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Sunwell|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太阳之井|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0太陽之井|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMSunwell_AllSavedVars
+## SavedVariablesPerCharacter: DBMSunwell_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: BC
+## X-DBM-StatTypes: normal25
+## X-DBM-Mod-MapID: 580
+## X-DBM-Mod-Sort: 1001
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 1
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+Kalecgos.lua
+KalecgosFrame.lua
+KalecgosFrame.xml
+Brutallus.lua
+Felmyst.lua
+EredarTwins.lua
+M'uru.lua
+Kil'jaeden.lua

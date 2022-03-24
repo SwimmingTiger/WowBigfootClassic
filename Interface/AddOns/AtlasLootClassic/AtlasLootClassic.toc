@@ -1,0 +1,83 @@
+﻿## Interface: 20503
+## Author: Lag
+## Version: v2.4.1-bcc
+## SavedVariables: AtlasLootClassicDB
+## Title: AtlasLootClassic |cFF22B14C[Core]|r
+## Notes: Shows the possible loot from the bosses
+## Title-zhCN: AtlasLoot经典版 |cFF22B14C[主程序]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[主程式]|r
+## Notes-zhCN: 显示首领可能的掉落物品
+## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等資訊。
+## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
+## X-Category: Map
+## X-License: GPL v2
+## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
+## X-Curse-Project-ID: 326516
+## X-Wago-ID: RXKqzoGy
+## Dependencies: !!!Libs
+## X-Revision: BigFoot
+
+Init.lua
+Constants.lua
+db.lua
+
+Locales\Locales.xml
+
+AtlasLoot.xml
+AtlasLoot.lua
+Loader.lua
+
+Core\SlashCommands.lua
+Core\ClickHandler.lua
+Core\Tooltip.lua
+Core\ItemInfo.lua
+Core\TooltipScan.lua
+Core\ItemQuery.lua
+Core\ItemString.lua
+Core\TargetScan.lua
+#Core\AtlasIntegration.lua
+#Core\WorldMapIntegration.xml
+
+MiniMapButton.lua
+
+Data\Token.lua
+Data\Profession.lua
+Data\Recipe.lua
+Data\Mount.lua
+Data\ContentPhase.lua
+Data\Droprate.lua
+Data\AutoSelect.lua
+Data\Requirements.lua
+Data\ClassFilter.lua
+Data\ItemSet.lua
+Data\VendorPrice.lua
+
+ItemDB\ItemDB.lua
+ItemDB\SoundData.lua
+
+Button\Button.lua
+Button\Item_type.lua
+Button\Link_type.lua
+Button\Profession_type.lua
+Button\Dummy_type.lua
+Button\Faction_type.lua
+Button\Set_type.lua
+Button\Extra_Price_type.lua
+#Button\Extra_Quest_type.lua
+
+GUI\GUI.xml
+GUI\GUI.lua
+GUI\Template_CheckBox.lua
+GUI\Template_Button.lua
+GUI\Template_Select.lua
+GUI\Template_DropDown.lua
+GUI\Template_TextWithBg.lua
+GUI\Template_Model.lua
+GUI\ItemFrame.lua
+GUI\ModelFrame.lua
+GUI\SoundFrame.lua
+
+Addons\Addons.lua
+Addons\Sources.lua
+Addons\Favourites.lua
+Addons\Favourites_GUI.lua

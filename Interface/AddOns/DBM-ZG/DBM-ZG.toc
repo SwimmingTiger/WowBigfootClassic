@@ -1,0 +1,32 @@
+﻿## Interface: 20503
+## X-Min-Interface: 20501
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Gurub|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0祖尔格拉布|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0祖爾格拉布|r
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMZG_AllSavedVars
+## SavedVariablesPerCharacter: DBMZG_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Category: Classic
+## X-DBM-StatTypes: normal
+## X-DBM-Mod-Sort: 1104
+## X-DBM-Mod-MapID: 309
+## X-DBM-Mod-MinCoreRevision: 12473
+## X-DBM-Mod-MinExpansion: 0
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+Venoxis.lua
+Jeklik.lua
+Marli.lua
+Thekal.lua
+Arlokk.lua
+Hakkar.lua
+Bloodlord.lua
+EdgeOfMadness.lua
+Gahzranka.lua
+Jindo.lua

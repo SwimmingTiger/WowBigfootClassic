@@ -1,0 +1,13 @@
+## Interface: 20503
+## Title: Atlas |r|cFF0099FF[Burning Crusade]|r
+## Title-zhCN: Atlas |r|cFF0099FF燃烧远征副本地图|r
+## Notes: |cff00ff00Atlas_BurningCrusade|r
+## Version: v1.49.00
+## Author: arith, Dynaletik, dubcat
+## X-Date: 2021-05-23T7:36:10Z
+## X-Credits: Dan Gilbert, Lothaer
+## X-Email: atlas.addon at gmail.com
+## X-Website: http://www.atlasmod.com
+## X-Category: Map
+## Dependencies: AtlasLootClassic
+## X-Revision: BigFoot

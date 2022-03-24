@@ -1,0 +1,32 @@
+## Interface: 20503
+## Notes: ClassicCodex-db
+## Title: ClassicCodex database
+## Title-zhCN: ClassicCodex 数据库
+## Title-zhTW: ClassicCodex 數據庫
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: v0.4.9
+## Dependencies: ClassicCodex-loader
+## LoadOnDemand: 1
+## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
+## X-Revision: BigFoot
+
+# database init
+init.lua
+
+# database index
+items.lua
+units.lua
+objects.lua
+refloot.lua
+quests.lua
+meta.lua
+exclude.lua
+
+# TBC database index
+items-tbc.lua
+units-tbc.lua
+objects-tbc.lua
+refloot-tbc.lua
+quests-tbc.lua
+meta-tbc.lua

@@ -1,0 +1,34 @@
+<Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Include file="Encounter.xml"/>
+    <Include file="Template.xml"/>
+    <Include file="GoodLeader.xml"/>
+    <Include file="Main.xml"/>
+    <Script file="ListView.lua"/>
+    <Script file="CountdownButton.lua"/>
+    <Script file="InputDialog.lua"/>
+    <Script file="QRCodeWidget.lua"/>
+    <Script file="MainPanel.lua"/>
+    <Script file="Browser.lua"/>
+    <Script file="Applicant.lua"/>
+    <Script file="Chat.lua"/>
+    <Script file="Creator.lua"/>
+    <Script file="DataBroker.lua"/>
+    <Script file="Options.lua"/>
+    <Script file="Filters.lua"/>
+    <Script file="EncounterInfoBase.lua"/>
+    <Script file="EncounterInfo.lua"/>
+    <Script file="EncounterInfoSummary.lua"/>
+    <Script file="EncounterInfoPanel.lua"/>
+    <Script file="Encounter.lua"/>
+    <Script file="Recent.lua"/>
+    <Script file="Challenge.lua"/>
+
+    <Script file="GoodLeader.lua"/>
+    <Script file="TagLabel.lua"/>
+    <Script file="TagsContainer.lua"/>
+    <Script file="ScoreWidget.lua"/>
+    <Script file="GradePanel.lua"/>
+    <Script file="Announcement.lua"/>
+    <Script file="MissionGuidance.lua"/>
+</Ui>

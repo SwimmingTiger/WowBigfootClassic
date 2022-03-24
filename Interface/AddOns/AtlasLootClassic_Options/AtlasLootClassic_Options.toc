@@ -1,0 +1,23 @@
+﻿## Interface: 20503
+## Author: Lag
+## Version: v2.4.1-bcc
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+## Title: AtlasLoot Classic |cFF22B14C[Options]|r
+## Title-zhCN: AtlasLoot经典版 |cFF22B14C[选项]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[設定選項]|r
+## Notes: AtlasLoot options module
+## Notes-zhCN: AtlasLoot选项模块
+## Notes-zhTW: 副本戰利品查詢的選項設定。
+## X-Category: Map
+## X-License: GPL v2
+## X-Revision: BigFoot
+
+Locales\constants.cn.lua
+Locales\constants.tw.lua
+
+Core.lua
+Main.lua
+Windows.lua
+MiniMapButton.lua
+Addons.lua

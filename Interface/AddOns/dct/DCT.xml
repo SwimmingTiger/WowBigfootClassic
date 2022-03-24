@@ -1,0 +1,26 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+
+	<Frame name="DCT_TEXT" toplevel="true" enableMouse="false" parent="UIParent" frameStrata="HIGH">
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+
+		<Scripts>
+			<OnLoad function="DCT_OnLoad"/>
+			<OnEvent>
+				if not DCT_OnOption then
+					local func = DCT_EVENT_FUNC[event]
+					if func then
+						func(self, event, ...)
+					end
+				end
+			</OnEvent>
+			<OnUpdate function="DCT_GameUpdate" />
+		</Scripts>
+	</Frame>
+</Ui>
+

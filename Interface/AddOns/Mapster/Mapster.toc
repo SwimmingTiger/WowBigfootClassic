@@ -1,0 +1,28 @@
+## Interface: 20503
+## Notes: |cffbc8f8fSimple Map Mod.|r
+## Notes-zhCN: |cff00ff00Mapster|r|n|cffbc8f8f简单实用的地图模块。|r
+## Notes-zhTW: |cff00ff00Mapster|r|n|cffbc8f8f簡單實用的地圖增強。|r
+## Title: Mapster
+## Title-zhCN: [大脚][集]地图专家
+## Title-zhTW: [大腳][集]地圖專家
+## Author: Nevcairiel
+## SavedVariables: MapsterDB
+## X-Category: Map
+## Version: 1.9.5
+## X-License: All rights reserved.
+## X-Curse-Project-ID: 14376
+## X-WoWI-ID: 8306
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+
+Locale\locale.xml
+
+Mapster.lua
+Config.lua
+
+Coords.lua
+# GroupIcons.lua
+# BattleMap.lua
+FogClearDataBCC.lua
+FogClear.lua
+Scaling.lua

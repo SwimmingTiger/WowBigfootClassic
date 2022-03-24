@@ -1,0 +1,18 @@
+## Interface: 20503
+## Notes: ClassicCodex-loader
+## Title: ClassicCodex loader
+## Title-zhCN: ClassicCodex 加载器
+## Title-zhTW: ClassicCodex 加载器
+## Author: Pgarneau, Shagu, SwimmingTiger
+## Version: v0.4.9
+## X-Curse-Project-ID: 351302
+## X-WoWI-ID: 25442
+## X-Revision: BigFoot
+
+# locales
+locale\enUS.lua
+locale\zhCN.lua
+locale\zhTW.lua
+
+# loader
+loader.lua

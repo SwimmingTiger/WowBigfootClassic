@@ -1,0 +1,4 @@
+<Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="LibNeteaseStats-1.0\Stats.lua"/>
+</Ui>
