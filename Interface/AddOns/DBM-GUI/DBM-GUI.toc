@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFOptions GUI|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF设置界面|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF使用者介面|r

@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Notes: Simple Map Mod
 ## Notes-zhCN: |cff00ff00Mapster|r|n|cffbc8f8f简单实用的地图模块。|r
 ## Notes-zhTW: |cff00ff00Mapster|r|n|cffbc8f8f簡單實用的地圖增強。|r

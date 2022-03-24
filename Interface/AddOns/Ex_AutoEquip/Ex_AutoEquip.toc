@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: Enigma Auto Equip
 ## Title-zhCN: [大脚][集]装备管理
 ## Title-zhTW: [大腳][集]裝備管理

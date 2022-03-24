@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: HandyNotes: DungeonLocations (Classic)
 ## Version: 1.05-bcc
 ## Notes: Shows locations of dungeon and raid entrances

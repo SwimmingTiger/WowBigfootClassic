@@ -223,6 +223,7 @@ function NugRunningGUI.CreateCommonForm(self)
             clean(opts, default_opts, "ghost", false)
             clean(opts, default_opts, "preghost", false)
             clean(opts, default_opts, "timeless", false)
+            clean(opts, default_opts, "charged", false)
             clean(opts, default_opts, "singleTarget", false)
             clean(opts, default_opts, "multiTarget", false)
             clean(opts, default_opts, "scale", 1)
@@ -989,6 +990,16 @@ function NugRunningGUI.CreateCommonForm(self)
     Form:AddChild(timeless)
     AddTooltip(timeless, L"Marks bar as infinite, for spells with indefinite duration.")
 
+    local charged = AceGUI:Create("CheckBox")
+    charged:SetLabel(L"Show Charges")
+    charged:SetRelativeWidth(0.9)
+    charged:SetCallback("OnValueChanged", function(self, event, value)
+        self.parent.opts["charged"] = value
+    end)
+    Form.controls.charged = charged
+    Form:AddChild(charged)
+    AddTooltip(charged, L"Bar shows charges instead of duration")
+
     local clones = AceGUI:Create("EditBox")
     clones:SetLabel(L"Additional Spell IDs")
     clones:SetRelativeWidth(0.9)
@@ -1088,6 +1099,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
     controls.singleTarget:SetValue(opts.singleTarget)
     controls.multiTarget:SetValue(opts.multiTarget)
     controls.timeless:SetValue(opts.timeless)
+    controls.charged:SetValue(opts.charged)
 
     controls.color:SetColor(fillAlpha(opts.color or {0.8, 0.1, 0.7} ))
     controls.color2:SetColor(fillAlpha(opts.color2 or {1,1,1,0} ))
@@ -1163,6 +1175,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
         controls.hide_until:SetDisabled(true)
         controls.clones:SetDisabled(false)
         controls.timeless:SetDisabled(false)
+        controls.charged:SetDisabled(false)
     else
         controls.duration:SetDisabled(true)
         controls.maxtimers:SetDisabled(true)
@@ -1173,6 +1186,7 @@ function NugRunningGUI.FillForm(self, Form, class, category, id, opts, isEmptyFo
         controls.hide_until:SetDisabled(false)
         controls.clones:SetDisabled(true)
         controls.timeless:SetDisabled(true)
+        controls.charged:SetDisabled(true)
     end
 
     if category == "event_timers" then

@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: sArena
 ## Title-zhCN: [大脚][集]竞技助手
 ## Title-zhTW: [大腳][集]競技助手

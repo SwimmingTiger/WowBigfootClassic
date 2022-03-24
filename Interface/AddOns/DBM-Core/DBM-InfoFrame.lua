@@ -38,7 +38,6 @@ local maxLines, modLines, maxCols, modCols, prevLines = 5, 5, 1, 1, 0
 local sortMethod = 1--1 Default, 2 SortAsc, 3 GroupId
 local lines, sortedLines, icons, value = {}, {}, {}, {}
 local playerName = UnitName("player")
-local maxIcon = 8
 
 ---------------------
 --  Dropdown Menu  --
@@ -354,14 +353,14 @@ local function updateIcons()
 	for uId in DBM:GetGroupMembers() do
 		local icon = GetRaidTargetIndex(uId)
 		local icon2 = GetRaidTargetIndex(uId .. "target")
-		if icon and icon <= maxIcon then
+		if icon and icon <= 8 then
 			icons[DBM:GetUnitFullName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
 		end
-		if icon2 and icon2 <= maxIcon then
+		if icon2 and icon2 <= 8 then
 			icons[DBM:GetUnitFullName(uId .. "target")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon2)
 		end
 	end
-	for i = 1, 5 do
+	for i = 1, 10 do
 		local icon = GetRaidTargetIndex("boss" .. i)
 		if icon then
 			icons[UnitName("boss" .. i)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(icon)
@@ -423,7 +422,7 @@ local function updateEnemyPower()
 				end
 			end
 		else
-			for i = 1, 5 do
+			for i = 1, 10 do
 				local uId = "boss" .. i
 				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
 				if maxPower and maxPower > 0 then
@@ -457,7 +456,7 @@ local function updateEnemyPower()
 				end
 			end
 		else
-			for i = 1, 5 do
+			for i = 1, 10 do
 				local uId = "boss" .. i
 				-- Primary Power
 				local currentPower, maxPower = UnitPower(uId), UnitPowerMax(uId)
@@ -503,7 +502,7 @@ local function updateEnemyAbsorb()
 			end
 		end
 	else--Generic absorbs for bosses. Not to be mistaken for updateMultiEnemyAbsorb, which supports checking multiple units that might or might not be bosses
-		for i = 1, 5 do
+		for i = 1, 10 do
 			local uId = "boss" .. i
 			if UnitExists(uId) then
 				local absorbAmount
@@ -535,7 +534,7 @@ local function updateMultiEnemyAbsorb()
 	local totalAbsorb = value[2]
 	local guidTable = value[3]--Multi target by table
 	local guidTracked = {}
-	for i = 1, 5 do
+	for i = 1, 10 do
 		if #guidTable == #guidTracked then--Stop searching, found everything we're looking for.
 			break
 		end
@@ -591,7 +590,7 @@ local function updateAllAbsorb()
 	twipe(lines)
 	local spellInput = value[1]
 	local totalAbsorb = value[2]
-	for i = 1, 5 do
+	for i = 1, 10 do
 		local uId = "boss" .. i
 		if UnitExists(uId) then
 			local absorbAmount
@@ -1107,7 +1106,6 @@ function infoFrame:Show(modMaxLines, event, ...)
 	else
 		maxLines = modMaxLines or 5
 	end
-	maxIcon = DBM.Options.ExtendIcons and 16 or 8--Updated on show, because we don't want to literally spam DBM.Options table in on update function
 	if DBM.Options.InfoFrameCols and DBM.Options.InfoFrameCols ~= 0 then
 		maxCols = DBM.Options.InfoFrameCols
 	else

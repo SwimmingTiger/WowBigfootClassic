@@ -1,6 +1,7 @@
 --[[--
 	ALA@163UI
 --]]--
+do return end
 
 local __version = 5;
 

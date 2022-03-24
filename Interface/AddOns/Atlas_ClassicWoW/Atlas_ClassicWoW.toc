@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: Atlas |r|cFF0099FF[Classic WoW]|r
 ## Title-zhCN: Atlas |r|cFF0099FF经典旧世副本地图|r
 ## Title-zhTW: Atlas |r|cFF0099FF艾澤拉斯副本地圖|r

@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: [BF] GoldFrame
 ## Title-zhCN: [大脚]金钱提示
 ## Title-zhTW: [大腳]金錢提示

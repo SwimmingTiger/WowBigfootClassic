@@ -1,10 +1,15 @@
 --[[--
 	alex/ALA @ 163UI
 --]]--
+local __version = 2;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
+if __ala_meta__.__minor ~= nil and __ala_meta__.__minor >= __version then
+	return;
+end
+__ala_meta__.__minor = __version;
 
 local _;
 
@@ -48,7 +53,8 @@ local gsub = string.gsub;
 local max = math.max;
 local Font, FontSize = GameFontNormal:GetFont();
 
-local _alamodulecommand = {  };
+local _alamodulecommand = __ala_meta__.__alamodulecommand or {  };
+__ala_meta__.__alamodulecommand = _alamodulecommand;
 _G.SLASH_ALAMODULE1 = "/alamodule";
 _G.SLASH_ALAMODULE2 = "/alamod";
 _G.SLASH_ALAMODULE3 = "/alamdl";

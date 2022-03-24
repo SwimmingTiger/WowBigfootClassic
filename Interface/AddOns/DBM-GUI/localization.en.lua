@@ -119,7 +119,6 @@ L.AutoAcceptGuildInvite		= "Automatically accept group invites from guild member
 L.Area_Advanced				= "Advanced Options"
 L.FakeBW					= "Pretend to be BigWigs in version checks instead of DBM (Useful for guilds that force using BigWigs)"
 L.AITimer					= "Automatically generate timers for never before seen fights using DBM's built in timer AI (Useful for pulling a test boss for the very first time such as beta or PTR). Recommended to always leave this turned ON"
-L.ExtendIcons				= "Extend the raid target icons API to use up to 16 icons (instead of 8). IMPORTANT: These icons will NOT be visible to anyone who hasn't installed custom 'UI-RaidTargetingIcons.blp' texture file that supports 16 icons. Must reload UI after enabling or disabling this feature"
 
 -- Panel: Profiles
 L.Panel_Profile				= "Profiles"
@@ -234,6 +233,7 @@ L.Area_VoiceSelection		= "Voice Selections"
 L.CountdownVoice			= "Set primary voice for count sounds"
 L.CountdownVoice2			= "Set secondary voice for count sounds"
 L.CountdownVoice3			= "Set tertiary voice for count sounds"
+L.PullVoice					= "Set voice for pull timers"
 L.VoicePackChoice			= "Set voice pack for spoken alerts"
 L.MissingVoicePack			= "Missing Voice Pack (%s)"
 L.Area_CountdownOptions		= "Countdown Options"

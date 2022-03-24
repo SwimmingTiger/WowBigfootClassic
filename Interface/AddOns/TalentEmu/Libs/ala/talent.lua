@@ -2,7 +2,7 @@
 	ALA@163UI
 --]]--
 
-local __version = 8;
+local __version = 9;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -29,7 +29,7 @@ local time = time;
 local type, tostring, tonumber = type, tostring, tonumber;
 local tinsert, next, wipe = table.insert, next, wipe;
 local floor = math.floor;
-local strchar, strupper, strlower, strsplit, strlen, strsub, strfind, strrep = string.char, string.upper, string.lower, string.split, string.len, string.sub, string.find, string.rep;
+local strchar, strupper, strlower, strsplit, strsub, strfind, strrep = string.char, string.upper, string.lower, string.split, string.sub, string.find, string.rep;
 local bit = bit;
 local _ = nil;
 local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
@@ -38,7 +38,7 @@ local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRe
 local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
 local C_Timer_After = C_Timer.After;
 local Ambiguate = Ambiguate;
-local GetNumTalents, GetTalentInfo = GetNumTalents, GetTalentInfo;
+local GetNumTalentTabs, GetNumTalents, GetTalentInfo = GetNumTalentTabs, GetNumTalents, GetTalentInfo;
 local UnitLevel = UnitLevel;
 local GetInventoryItemLink = GetInventoryItemLink;
 local GetItemInfo = GetItemInfo;
@@ -65,6 +65,7 @@ __emulib.classList, __emulib.classHash = { "DRUID", "HUNTER", "MAGE", "PALADIN",
 		__emulib.classHash[class] = index;
 		__emulib.classHash[strupper(class)] = index;
 		__emulib.classHash[strlower(class)] = index;
+		__emulib.classHash[strupper(strsub(class, 1, 1)) .. strlower(strsub(class, 2))] = index;
 	end
 --
 __emulib.CPlayerClassIndex = __emulib.classHash[__ala_meta__.CPlayerClassUpper];
@@ -161,11 +162,21 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 	function __emulib.GetTalentData(inspect)
 		local data = "";
 		local len = 0;
-		for specIndex = 1, 3 do
-			local numTalents = GetNumTalents(specIndex);
+		local numTabs = GetNumTalentTabs(inspect);
+		if numTabs == nil then
+			return nil, 0;
+		end
+		for specIndex = 1, numTabs do
+			local numTalents = GetNumTalents(specIndex, inspect);
+			if numTalents == nil then
+				return nil, 0;
+			end
 			len = len + numTalents;
 			for index = 1, numTalents do
 				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, index, inspect);
+				if rank == nil then
+					return nil, 0;
+				end
 				data = data .. rank;
 			end
 		end
@@ -247,7 +258,10 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 	--	64^5 = 1,073,741,824
 	--	6^12 = 2,176,782,336
 	function __emulib.EncodeTalentData(classIndex, level, data, len)
-		len = len or strlen(data);
+		if data == nil then
+			return nil;
+		end
+		len = len or #data;
 		local __base64 = __emulib.__base64;
 		level = level and tonumber(level) or __ala_meta__.MAX_LEVEL;
 		local pos = 0;
@@ -257,7 +271,6 @@ __emulib.ADDON_MSG_REPLY_ADDON_PACK_ = "_reppk";
 		for index = 1, len do
 			local d = tonumber(data:sub(index, index));			--	table or string
 			if not d then
-				_G.ala=data;
 				_log_("EncodeTalentData", 1, classIndex, data, len);
 				return nil;
 			end
