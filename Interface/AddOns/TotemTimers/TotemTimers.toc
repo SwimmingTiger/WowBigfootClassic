@@ -4,7 +4,7 @@
 ## Title-zhTW: [大腳][集]薩滿圖騰助手
 ## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
-## Version: 2.0.2
+## Version: 2.0.3
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602

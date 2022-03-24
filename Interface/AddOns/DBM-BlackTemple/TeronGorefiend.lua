@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("TeronGorefiend", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120062612")
+mod:SetRevision("20220216083714")
 mod:SetCreatureID(22871)
 mod:SetEncounterID(604, 2476)
 mod:SetModelID(21254)
-mod:SetUsedIcons(4, 5, 6, 7, 8)
+mod:SetUsedIcons(1, 2, 3, 4, 5)
 
 mod:RegisterCombat("combat")
 
@@ -32,15 +32,15 @@ local timerDeathCD			= mod:NewCDTimer(32, 40251, nil, nil, nil, 3)--32-40 (small
 local timerDeath			= mod:NewTargetTimer(55, 40251, nil, nil, nil, 5)
 local timerVengefulSpirit	= mod:NewTimer(60, "TimerVengefulSpirit", 40325, nil, nil, 1)
 
-mod:AddBoolOption("CrushIcon", false)
+mod:AddSetIconOption("CrushIcon", 40243, false, false, {1, 2, 3, 4, 5})
 
 local CrushedTargets = {}
-mod.vb.crushIcon = 8
+mod.vb.crushIcon = 1
 
 local function showCrushedTargets(self)
 	warnCrushed:Show(table.concat(CrushedTargets, "<, >"))
 	table.wipe(CrushedTargets)
-	self.vb.crushIcon = 8
+	self.vb.crushIcon = 1
 end
 
 function mod:OnCombatStart(delay)
@@ -55,7 +55,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:Unschedule(showCrushedTargets)
 		if self.Options.CrushIcon then
 			self:SetIcon(args.destName, self.vb.crushIcon, 15)
-			self.vb.crushIcon = self.vb.crushIcon - 1
+			self.vb.crushIcon = self.vb.crushIcon + 1
 		end
 		self:Schedule(0.5, showCrushedTargets, self)
 	elseif args.spellId == 40251 then

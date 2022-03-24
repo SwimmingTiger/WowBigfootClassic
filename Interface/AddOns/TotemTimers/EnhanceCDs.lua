@@ -195,25 +195,7 @@ function TotemTimers.ConfigEnhanceCDs()
         cds[4].events[2] = "PLAYER_TOTEM_UPDATE"
 		cds[4].Stop = TotemTimers.SearingTotemStop
     end
-    
-    if role == 1 then
-	    local fs = cds[1]
-        fs.button:SetAttribute("*spell1", SpellNames[SpellIDs.FlameShock])
-        fs.button:SetAttribute("*spell2", SpellNames[SpellIDs.EarthShock])
-        fs.button:SetAttribute("*spell3", SpellNames[SpellIDs.FrostShock])
-    
-        cds[1].playerEvents[1] = "UNIT_AURA"
-		cds[1].events[2] = "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW"
-		cds[1].events[3] = "SPELL_ACTIVATION_OVERLAY_GLOW_HIDE" 
-		cds[1].button.glowSpell = SpellIDs.EarthShock
-        cds[1].button:SetScript("OnEvent", TotemTimers.UnleashFlameEvent)
-		
-		cds[2].events[2] = "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW"
-		cds[2].events[3] = "SPELL_ACTIVATION_OVERLAY_GLOW_HIDE" 
-		cds[2].button.glowSpell = SpellIDs.LavaBurst
-    end
 
-    
     if AvailableSpells[SpellIDs.FlameShock] and TotemTimers.ActiveProfile.EnhanceCDsFlameShockDuration then
         FlameShockDuration:Activate()
     end

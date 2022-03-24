@@ -75,7 +75,7 @@ function Spy:RefreshCurrentList(player, source)
 	if Spy.db.profile.ResizeSpy then
 		Spy:AutomaticallyResize()
 	else
-		if not Spy.db.profile.InvertSpy then 		
+		if not Spy.db.profile.InvertSpy then
 			if not InCombatLockdown() and Spy.MainWindow:GetHeight()< 34 then
 				Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), 34)
 			end
@@ -260,7 +260,7 @@ end
 
 function Spy:ClearList()
 	if IsShiftKeyDown () then
-		Spy:EnableSound(not Spy.db.profile.EnableSound, false)		
+		Spy:EnableSound(not Spy.db.profile.EnableSound, false)
 	else	
 		Spy.NearbyList = {}
 		Spy.ActiveList = {}
@@ -653,13 +653,13 @@ function Spy:SendKoStoGuild(player)
 		if playerData.level and playerData.isGuess == false then level = playerData.level end
 		if playerData.race then race = playerData.race end
 		if playerData.zone then zone = playerData.zone end
-		if playerData.mapID then mapID = playerData.mapID end					
+		if playerData.mapID then mapID = playerData.mapID end
 		if playerData.subZone then subZone = playerData.subZone end
 		if playerData.mapX then mapX = playerData.mapX end
 		if playerData.mapY then mapY = playerData.mapY end
 		if playerData.guild then guild = playerData.guild end
 	end
-	local details = Spy.Version.."|"..player.."|"..class.."|"..level.."|"..race.."|"..zone.."|"..subZone.."|"..mapX.."|"..mapY.."|"..guild.."|"..mapID	
+	local details = Spy.Version.."|"..player.."|"..class.."|"..level.."|"..race.."|"..zone.."|"..subZone.."|"..mapX.."|"..mapY.."|"..guild.."|"..mapID
 	if strlen(details) < 240 then
 		if Spy.InInstance == false and GetGuildInfo("player") ~= nil then
 			Spy:SendCommMessage(Spy.Signature, details, "GUILD")
@@ -696,7 +696,7 @@ function Spy:ToggleKOSPlayer(kos, player)
 		if player ~= SpyPerCharDB.PlayerData[name] then
 --			Spy:UpdatePlayerData(player, nil, nil, nil, nil, true, nil)
 			Spy:UpdatePlayerStatus(player, nil, nil, nil, nil, true, nil)
-			SpyPerCharDB.PlayerData[player].kos = 1 
+			SpyPerCharDB.PlayerData[player].kos = 1
 		end	
 		if Spy.db.profile.EnableSound then
 			PlaySoundFile("Interface\\AddOns\\Spy\\Sounds\\list-add.mp3", Spy.db.profile.SoundChannel)
@@ -1079,7 +1079,7 @@ function Spy:AddDetected(player, timestamp, learnt, source)
 		Spy:AddDetectedToLists(player, timestamp, learnt, source)
 	end
 --[[if Spy.db.profile.ShowOnlyPvPFlagged then
-		if UnitIsPVP("target") then		
+		if UnitIsPVP("target") then
 			Spy:AddDetectedToLists(player, timestamp, learnt, source)
 		end	
 	else
@@ -1142,7 +1142,7 @@ function Spy:AddDetectedToLists(player, timestamp, learnt, source)
 		else
 			if Spy.db.profile.CurrentList == 1 then
 				Spy:RefreshCurrentList()
-				Spy:UpdateActiveCount()						
+				Spy:UpdateActiveCount()
 			end
 		end
 	else
@@ -1150,7 +1150,7 @@ function Spy:AddDetectedToLists(player, timestamp, learnt, source)
 		Spy.LastHourList[player] = timestamp
 		if learnt and Spy.db.profile.CurrentList == 1 then
 			Spy:RefreshCurrentList()
-			Spy:UpdateActiveCount()	
+			Spy:UpdateActiveCount()
 		end
 	end
 end
@@ -1158,12 +1158,12 @@ end
 function Spy:AppendUnitNames()
 	for key, unit in pairs(SpyPerCharDB.PlayerData) do	
 		-- find any units without a name
-		if not unit.name then			
+		if not unit.name then
 			local name = key
 		-- if unit.name does not exist update info
 			if (not unit.name) and name then
 				unit.name = key
-			end		
+			end
 		end
     end
 	-- set profile so it only runs once
@@ -1171,14 +1171,14 @@ function Spy:AppendUnitNames()
 end
 
 function Spy:AppendUnitKoS()
-	for kosName, value in pairs(SpyPerCharDB.KOSData) do	
+	for kosName, value in pairs(SpyPerCharDB.KOSData) do
 		if kosName then	
 			local playerData = SpyPerCharDB.PlayerData[kosName]
 			if not playerData then 
 				Spy:UpdatePlayerData(kosName, nil, nil, nil, nil, true, nil) 
-				SpyPerCharDB.PlayerData[kosName].kos = 1 
-				SpyPerCharDB.PlayerData[kosName].time = value			
-			end		
+				SpyPerCharDB.PlayerData[kosName].kos = 1
+				SpyPerCharDB.PlayerData[kosName].time = value
+			end
 		end
     end
 	-- set profile so it only runs once
