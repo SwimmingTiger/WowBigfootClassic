@@ -210,6 +210,7 @@ DB.points = {
         [59184833] = { icon="portal", label=SPtoSM, note=EversongWoods, faction="Horde" },
         [59554665] = { icon="portal", label=SPtoExodar, note=AzuremystIsle, faction="Alliance" },
         [48584203] = { icon="portal", label=SPtoIoQD, note=EasternKingdoms },
+        -- [74803160] = { icon="portal", label=PtoCavernsofTime, note=Tanaris..")\n("..L["Speak with Zephyr"], requirements={reputation={989,7} } } added in patch 2.4
         },
     [1952] = { -- Terokkar Forest
         [30612399] = { icon="portal", multilabel={SPtoTB, SPtoOG, SPtoUC, SPtoSM, SPtoIoQD}, multinote={Mulgore, Durotar, Tirisfal, EversongWoods, EasternKingdoms}, faction="Horde" },

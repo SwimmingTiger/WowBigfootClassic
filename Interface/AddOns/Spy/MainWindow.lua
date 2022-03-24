@@ -90,18 +90,18 @@ local function SpyFrameFlash(frame, fadeInTime, fadeOutTime, flashDuration, show
         local index = 1;
         -- If frame is already set to flash then return
         while SPYFLASHFRAMES[index] do		
-            if ( SPYFLASHFRAMES[index] == frame ) then			
+            if ( SPYFLASHFRAMES[index] == frame ) then
                 return;
             end
             index = index + 1;
         end
         if (syncId) then
             frame.syncId = syncId;
-            if (SpyFrameFlashTimers[syncId] == nil) then			
+            if (SpyFrameFlashTimers[syncId] == nil) then
                 SpyFrameFlashTimers[syncId] = 0;
                 SpyFrameFlashTimerRefCount[syncId] = 0;
             end
-            SpyFrameFlashTimerRefCount[syncId] = SpyFrameFlashTimerRefCount[syncId]+1;			
+            SpyFrameFlashTimerRefCount[syncId] = SpyFrameFlashTimerRefCount[syncId]+1;
         else
             frame.syncId = nil;
         end
@@ -137,7 +137,7 @@ function Spy:CreateMapNote(num)
 		return
 	end
 
-	local worldIcon = CreateFrame("Button", "Spy_MapNoteList_world"..num, WorldMapFrame)	
+	local worldIcon = CreateFrame("Button", "Spy_MapNoteList_world"..num, WorldMapFrame)
 	worldIcon:SetFrameStrata(WorldMapFrame:GetFrameStrata())
 	worldIcon:SetParent(WorldMapFrame)
 	worldIcon:SetFrameLevel(WorldMapFrame:GetFrameLevel() + 5)	
@@ -177,8 +177,8 @@ function Spy:CreateMapNote(num)
 
 	Spy.MapNoteList[num] = {}
 	Spy.MapNoteList[num].displayed = false
-	Spy.MapNoteList[num].continentID = 0	
-	Spy.MapNoteList[num].MapID = 0  
+	Spy.MapNoteList[num].continentID = 0
+	Spy.MapNoteList[num].MapID = 0
 	Spy.MapNoteList[num].mapX = 0
 	Spy.MapNoteList[num].mapY = 0
 	Spy.MapNoteList[num].worldIcon = worldIcon
@@ -214,7 +214,7 @@ function Spy:SetupBar(row)
 	end
 
 	if not BarTexture then
-		BarTexture = SM:Fetch("statusbar", "flat")		
+		BarTexture = SM:Fetch("statusbar", "flat")
 	else
 		BarTexture = SM:Fetch("statusbar", BarTexture)
 	end
@@ -225,7 +225,7 @@ function Spy:SetupBar(row)
 	row.StatusBar:Show()
 
 	row.LeftText = row.StatusBar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	row.LeftText:SetPoint("LEFT", row.StatusBar, "LEFT", 2, 0)	
+	row.LeftText:SetPoint("LEFT", row.StatusBar, "LEFT", 2, 0)
 	row.LeftText:SetJustifyH("LEFT")
 	row.LeftText:SetHeight(Spy.db.profile.MainWindow.TextHeight)
 	row.LeftText:SetTextColor(1, 1, 1, 1)
@@ -762,14 +762,14 @@ function Spy:CreateMainWindow()
 		
 		theFrame.CountFrame = CreateFrame("Frame", "CountFrame", theFrame)
 		theFrame.CountFrame:SetPoint("RIGHT", theFrame.StatsButton,"LEFT", -4, 0)
-		theFrame.CountFrame:SetHeight(Spy.db.profile.MainWindow.RowHeight)		
+		theFrame.CountFrame:SetHeight(Spy.db.profile.MainWindow.RowHeight)
 		theFrame.CountFrame.Text = CountFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 		theFrame.CountFrame.Text:SetPoint("RIGHT", theFrame.StatsButton,"LEFT", -4, 0)
 		theFrame.CountFrame.Text:SetFont("GameFontNormal", Spy.db.profile.MainWindow.RowHeight * 0.85, "OUTLINE")
 		theFrame.CountFrame.Text:SetJustifyH("RIGHT")
 		theFrame.CountFrame.Text:SetJustifyV("MIDDLE")
 		theFrame.CountFrame.Text:SetTextColor(1, 1, 1, 1)
-		theFrame.CountFrame.Text:SetText("|cFF0070DE0|r")			
+		theFrame.CountFrame.Text:SetText("|cFF0070DE0|r")
 		theFrame.CountFrame.Text:SetScale(1)
 	
 		theFrame.CountButton = CreateFrame("Button", nil, theFrame)
@@ -789,7 +789,7 @@ function Spy:CreateMainWindow()
 		theFrame.CountButton:SetScript("OnLeave", function(self)
 			GameTooltip:Hide()
 		end)
-		theFrame.CountButton:SetFrameLevel(theFrame.CountButton:GetFrameLevel() + 1) 		
+		theFrame.CountButton:SetFrameLevel(theFrame.CountButton:GetFrameLevel() + 1)
 		
 		Spy.MainWindow.Rows = {}
 		Spy.MainWindow.CurRows = 0
@@ -898,7 +898,7 @@ function Spy:AutomaticallyResize()
 	if detected > Spy.db.profile.ResizeSpyLimit then detected = Spy.db.profile.ResizeSpyLimit end
 	local height = 35 + (detected * (Spy.db.profile.MainWindow.RowHeight + Spy.db.profile.MainWindow.RowSpacing))
 	Spy.MainWindow.CurRows = detected
-	if not Spy.db.profile.InvertSpy then 		
+	if not Spy.db.profile.InvertSpy then
 		if not InCombatLockdown() then 
 			Spy:RestoreMainWindowPosition(Spy.MainWindow:GetLeft(), Spy.MainWindow:GetTop(), Spy.MainWindow:GetWidth(), height)
 		end
@@ -923,7 +923,7 @@ function Spy:ManageBarsDisplayed()
 	if not InCombatLockdown() then
 		for i,row in pairs(Spy.MainWindow.Rows) do	
 			if i <= Spy.MainWindow.CurRows then
-				row:Show()				
+				row:Show()
 			else
 				row:Hide()
 			end
@@ -992,7 +992,7 @@ function Spy:SaveMainWindowPosition()
 		Spy.db.profile.MainWindow.Position.y = Spy.MainWindow:GetBottom()
     end
 	Spy.db.profile.MainWindow.Position.w = Spy.MainWindow:GetWidth()
-	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()	
+	Spy.db.profile.MainWindow.Position.h = Spy.MainWindow:GetHeight()
 	local h = Spy.MainWindow:GetHeight()
 end
 
@@ -1022,14 +1022,14 @@ end
 
 function Spy:UpdateMainWindow()
 	if Spy.InInstance then
-		Spy.MainWindow:SetAlpha(Spy.db.profile.MainWindow.AlphaBG)		
+		Spy.MainWindow:SetAlpha(Spy.db.profile.MainWindow.AlphaBG)
 	else	
 		Spy.MainWindow:SetAlpha(Spy.db.profile.MainWindow.Alpha)
 	end	
 end
 
 function Spy:UpdateAlertWindow()
-	if Spy.db.profile.DisplayWarnings == "Moveable" then	
+	if Spy.db.profile.DisplayWarnings == "Moveable" then
 		Spy.AlertWindow:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", Spy.db.profile.AlertWindow.Position.x, Spy.db.profile.AlertWindow.Position.y)
 		Spy.AlertWindow:SetMovable(true)
 		Spy.AlertWindow:EnableMouse(true)
@@ -1263,7 +1263,7 @@ function Spy:ShowAlert(type, name, source, location)
 
 		SpyFrameFlashStop(Spy.AlertWindow)
 		SpyFrameFlash(Spy.AlertWindow, 0, 1, 5, false, 4, 0)
-		Spy.AlertType = type		
+		Spy.AlertType = type
 	elseif (type == "kosaway" or type == "kosguildaway") and Spy.AlertType ~= "kos" and Spy.AlertType ~= "kosguild" and Spy.AlertType ~= "stealth" then
 		local realmSeparator = strfind(source, "-")
 		if realmSeparator and realmSeparator > 1 then

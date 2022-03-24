@@ -25,7 +25,7 @@
                 <Offset x="8" y="0" />
             </Anchor>
         </Anchors>
-        <Size x="54" y="15" />		
+        <Size x="54" y="15" />
     </FontString>
     <FontString name="SpyStatsGuildTemplate" inherits="SpyStatsStringTemplate" virtual="true">
         <Anchors>
@@ -127,10 +127,10 @@
                 </Anchor>
             </Anchors>
         </ButtonText>
-        <NormalFont style="GameFontNormal" />		
+        <NormalFont style="GameFontNormal" />
         <Scripts>
             <OnClick>
-                SpyStats:SetSortColumn(self:GetName())				
+                SpyStats:SetSortColumn(self:GetName())
             </OnClick>
         </Scripts>
     </Button>
@@ -215,13 +215,13 @@
         <Size x="40" y="15"></Size>
     </Button>	
     <Frame name="SpyStatsFrame" parent="UIParent" frameStrata="MEDIUM" movable="true" toplevel="true" enableMouse="true" hidden="true">
-        <Size x="1100" y="610" />		
+        <Size x="1100" y="610" />
         <Anchors>
             <Anchor point="CENTER" />
         </Anchors>
- <!--       <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">		
+<!--	<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
             <EdgeSize>
-                <AbsValue val="32"></AbsValue>				
+                <AbsValue val="32"></AbsValue>
             </EdgeSize>
             <TileSize>
                 <AbsValue val="32" />
@@ -249,14 +249,14 @@
 						<Anchor point="TOP">
 						</Anchor>
 					</Anchors>	
-                    <Color r="1" g="1" b="0" a="1" />					
+                    <Color r="1" g="1" b="0" a="1" />
 				</FontString>
 			</Layer>		
             <Layer>
                 <FontString name="$parentFilterText" font="GameFontNormal" text="L_FILTER">
                     <Anchors>
                         <Anchor point="BOTTOMLEFT">
-                            <Offset x="14" y="16" />
+                            <Offset x="20" y="16" />
                         </Anchor>
                     </Anchors>
                     <Color r="1" g="1" b="1" a="1" />
@@ -264,7 +264,7 @@
                 <FontString name="$parentShowOnlyText" font="GameFontNormal" text="L_SHOWONLY">
                     <Anchors>
                         <Anchor point="BOTTOMLEFT">
-                            <Offset x="260" y="16" />
+                            <Offset x="210" y="16" />
                         </Anchor>
                     </Anchors>
                     <Color r="1" g="1" b="1" a="1" />
@@ -316,8 +316,8 @@
             <Button name="$parentTopCloseButton" inherits="UIPanelCloseButton">
                 <Anchors>
                     <Anchor point="TOPRIGHT">
-                        <Offset x="-8" y="-6" />						
-                    </Anchor>					
+                        <Offset x="-8" y="-6" />
+                    </Anchor>
                 </Anchors>
                 <Scripts>
                     <OnLoad>
@@ -331,7 +331,7 @@
             <Frame name="SpyStatsTabFrame">
                 <Anchors>
                     <Anchor point="TOPLEFT">
-                        <Offset x="12" y="-12" />						
+                        <Offset x="12" y="-12" />
                     </Anchor>
                     <Anchor point="BOTTOMRIGHT">
                         <Offset x="-12" y="34" />
@@ -403,7 +403,7 @@
                             <ScrollFrame name="$parentScrollFrame" inherits="FauxScrollFrameTemplate">
                                 <Anchors>
                                     <Anchor point="TOPLEFT">
-                                        <Offset x="0" y="-24" />								
+                                        <Offset x="0" y="-24" />
                                     </Anchor>
                                     <Anchor point="BOTTOMRIGHT">
                                         <Offset x="-30" y="10" />
@@ -435,8 +435,8 @@
                                             <Button name="SpyStatsPlayersWinsSort" inherits="SpyStatsPlayersWinsSortTemplate"/>
                                             <Button name="SpyStatsPlayersLosesSort" inherits="SpyStatsPlayersLosesSortTemplate"/>
                                             <Button name="SpyStatsPlayersReasonSort" inherits="SpyStatsPlayersReasonSortTemplate"/>
-                                            <Button name="SpyStatsListSort" inherits="SpyStatsListSortTemplate"/>								
-                                            <Button name="SpyStatsTimeSort" inherits="SpyStatsTimeSortTemplate"/>											
+                                            <Button name="SpyStatsListSort" inherits="SpyStatsListSortTemplate"/>
+                                            <Button name="SpyStatsTimeSort" inherits="SpyStatsTimeSortTemplate"/>
                                             <Button name="SpyStatsZoneSort" inherits="SpyStatsZoneSortTemplate"/> 
                                         </Frames>
                                     </Frame>
@@ -672,13 +672,13 @@
 										bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
 										tile = true, tileSize = 32,
 										edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-										edgeSize = 16,			
-										insets = {left = 4, right = 4, top = 4, bottom = 4},			
-									})							
+										edgeSize = 16,
+										insets = {left = 4, right = 4, top = 4, bottom = 4},
+									})
 									self.ContentFrame:SetFrameLevel(self:GetFrameLevel()-1)
 									self.ContentFrame:SetBackdropColor(0,0,0,.5)
-								end							
-<!--                            self:SetBackdropColor(0,0,0,.5) 
+								end
+<!--							self:SetBackdropColor(0,0,0,.5)
                                 self:SetFrameLevel(self:GetParent():GetFrameLevel() - 1) -->
                             </OnLoad>
                         </Scripts>
@@ -696,9 +696,9 @@
                     <Anchor point="LEFT" relativeTo="$parentFilterText" relativePoint="RIGHT" />
                 </Anchors>
                 <Size>
-                    <AbsDimension x="200" y="26" />
+                    <AbsDimension x="150" y="26" />
                 </Size>
-<!--                <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+<!--			<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
                     <EdgeSize>
                         <AbsValue val="16"></AbsValue>
                     </EdgeSize>
@@ -708,7 +708,7 @@
                     <BackgroundInsets>
                         <AbsInset left="4" right="4" top="4" bottom="4" />
                     </BackgroundInsets>
-                </Backdrop> -->
+                </Backdrop>  -->
                 <Scripts>
                     <OnLoad>
 						if BackdropTemplateMixin then
@@ -719,7 +719,7 @@
 								tile = true, tileSize = 32,
 								edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 								edgeSize = 16,			
-								insets = {left = 4, right = 4, top = 4, bottom = 4},			
+								insets = {left = 4, right = 4, top = 4, bottom = 4},
 							})							
 							self.FilterBox:SetFrameLevel(self:GetFrameLevel())
 							self.FilterBox:SetBackdropColor(0,0,0,.65)
@@ -759,12 +759,31 @@
                     </OnClick>
                 </Scripts>
             </CheckButton>
+            <CheckButton name="SpyStatsRealmCheckbox" inherits="OptionsCheckButtonTemplate">
+                <Size>
+                    <AbsDimension x="24" y="24" />
+                </Size>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="SpyStatsKosCheckboxText" relativePoint="RIGHT">
+                        <Offset x="4" y="-2" />
+                    </Anchor>
+                </Anchors>
+                <HitRectInsets>
+                    <AbsInset left="0" right="0" top="0" bottom="0" />
+                </HitRectInsets>
+                <Scripts>
+                    <OnClick>
+<!--                        PlaySound("igMainMenuOptionCheckBoxOn") Error in v7.3 -->
+                        SpyStats:Filter()
+                    </OnClick>
+                </Scripts>
+            </CheckButton>
             <CheckButton name="SpyStatsWinsLosesCheckbox" inherits="OptionsCheckButtonTemplate">
                 <Size>
                     <AbsDimension x="24" y="24" />
                 </Size>
                 <Anchors>
-            <Anchor point="LEFT" relativeTo="SpyStatsKosCheckboxText" relativePoint="RIGHT"> 				
+            <Anchor point="LEFT" relativeTo="SpyStatsRealmCheckboxText" relativePoint="RIGHT"> 				
                         <Offset x="12" y="-1" />
                     </Anchor>
                 </Anchors>
@@ -778,12 +797,12 @@
                     </OnClick>
                 </Scripts>
             </CheckButton>
-            <CheckButton name="SpyStatsReasonCheckbox" inherits="OptionsCheckButtonTemplate">			
+            <CheckButton name="SpyStatsReasonCheckbox" inherits="OptionsCheckButtonTemplate">
                 <Size>
                     <AbsDimension x="24" y="24" />
                 </Size>
                 <Anchors>
-                    <Anchor point="LEFT" relativeTo="SpyStatsWinsLosesCheckboxText" relativePoint="RIGHT">					
+                    <Anchor point="LEFT" relativeTo="SpyStatsWinsLosesCheckboxText" relativePoint="RIGHT">
                         <Offset x="12" y="-1" />
                     </Anchor>
                 </Anchors>
@@ -807,13 +826,13 @@
 						bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
 						tile = true, tileSize = 32,
 						edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-						edgeSize = 32,			
-						insets = {left = 4, right = 4, top = 4, bottom = 4},			
-					})							
+						edgeSize = 32,
+						insets = {left = 4, right = 4, top = 4, bottom = 4},
+					})
 					self.StatsFrame:SetFrameLevel(self:GetFrameLevel())
 					self.StatsFrame:SetBackdropColor(0,0,0,.95)
-				end			
- <!--               self:SetBackdropColor(0,0,0,.95) -->
+				end
+<!--			self:SetBackdropColor(0,0,0,.95)  -->
             </OnLoad>
             <OnShow>
 <!--                PlaySound("igCharacterInfoTab") Error in v7.3 -->

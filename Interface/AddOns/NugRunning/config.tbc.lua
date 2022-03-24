@@ -544,8 +544,6 @@ end
 if class == "ROGUE" then
 Interrupt({ 1766, 1767, 1768, 1769, 38768 }, "Kick", 5)
 
-Spell({ 2818, 2819, 11353, 11354, 25349, 26968, 27187 },{ name = "Deadly Poison", duration = 12, shine = true, charged = true, maxcharge = 5, color = colors.GREEN }) -- Deadly Poison
-
 Spell( 18425 ,{ name = "Silence", duration = 2, color = colors.PINK }) -- Improved Kick
 
 -- Premedi doesn't work because UnitAura scan kills it

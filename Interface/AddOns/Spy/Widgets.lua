@@ -49,10 +49,10 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	theFrame.Background:SetTexture("Interface\\CHARACTERFRAME\\UI-Party-Background")
 	if not Spy.db.profile.InvertSpy then
 		theFrame.Background:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -32)
-		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 2)	
+		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 2)
 	else
 		theFrame.Background:SetPoint("TOPLEFT", theFrame, "TOPLEFT", 0, -34)
-		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 0)		
+		theFrame.Background:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", 0, 0)
 	end
 	theFrame.Background:SetHeight(Height)
 	theFrame.Background:SetWidth(Width)	
@@ -66,7 +66,7 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 		Spy.Colors:RegisterBackground("Other Windows", "Background", theFrame)
 	end
 
---	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame)	
+--	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame)
 	theFrame.TitleBar = CreateFrame("Frame", "TestFrame", theFrame, "BackdropTemplate")	
 	theFrame.TitleBar:SetFrameStrata("BACKGROUND")
 	if not Spy.db.profile.InvertSpy then	
@@ -79,8 +79,8 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	theFrame.TitleBar:SetHeight(22)
 	theFrame.TitleBar:SetBackdrop({
 			bgFile = "Interface\\Tooltips\\UI-Tooltip-Background", tile = true, tileSize = 8,
-			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 12,			
-			insets = {left = 2, right = 2, top = 2, bottom = 2},			
+			edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 12,
+			insets = {left = 2, right = 2, top = 2, bottom = 2},
 		})
 	theFrame.TitleBar:SetBackdropColor(0,0,0,1) 
 	theFrame.TitleBar:SetBackdropBorderColor(1,1,1,1)
@@ -111,7 +111,7 @@ function Spy:CreateFrame(Name, Title, Height, Width, ShowFunc, HideFunc)
 	theFrame.CloseButton:SetHighlightTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Highlight.blp")
 	theFrame.CloseButton:SetWidth(20)
 	theFrame.CloseButton:SetHeight(20)
-	if not Spy.db.profile.InvertSpy then 	
+	if not Spy.db.profile.InvertSpy then
 		theFrame.CloseButton:SetPoint("TOPRIGHT", theFrame, "TOPRIGHT", -4, -12)
 	else
 		theFrame.CloseButton:SetPoint("BOTTOMRIGHT", theFrame, "BOTTOMRIGHT", -4, -19)

@@ -99,6 +99,12 @@ local function SetTooltip(tooltip, point)
         if (point.note and profile.show_note) then
             tooltip:AddLine("("..point.note..")")
         end
+        if (point.reputation) then
+            local name, _, standing, _, _, value = GetFactionInfoByID(point.reputation[1])
+            if standing < point.reputation[2] then
+                tooltip:AddLine(requires.."Reputation "..value.." / 31000 "..name, 1) -- red
+            end
+        end
     else
         tooltip:SetText(UNKNOWN)
     end

@@ -40,7 +40,7 @@ local cache = {
         level = {data = {}},
         class = {data = {}},
         guild = {data = {}},
-        wins = {data = {}},	
+        wins = {data = {}},
         loses = {data = {}},
 		time = {data = {}},
     },
@@ -106,11 +106,11 @@ function SpyData:AddPlayer(unit)  -- Delete
 end
 
 function SpyData:IsPlayer(name)  --??
-    return (SpyPerCharDB.PlayerData[name] and true or false)	
+    return (SpyPerCharDB.PlayerData[name] and true or false)
 end
 
 function SpyData:GetPlayer(name) --++
-    return SpyPerCharDB.PlayerData[name]	
+    return SpyPerCharDB.PlayerData[name]
 end
 
 function SpyData:SetPlayerKos(unit, value) --??
@@ -152,7 +152,7 @@ function SpyData:LogHostilePvpDeath(unit, session) --??
     session.dead = now
 
     -- add to win count if final attack was within 60 seconds
-    if Spy_db.pvp.outgoing[unit] and (Spy_db.pvp.outgoing[unit] > (now - 60)) then	
+    if Spy_db.pvp.outgoing[unit] and (Spy_db.pvp.outgoing[unit] > (now - 60)) then
         unit.wins = (unit.wins and (unit.wins + 1) or 1)
         Spy_db.pvp.outgoing[unit] = nil
         Spy_db.pvp.incoming[unit] = nil
@@ -165,8 +165,8 @@ function SpyData:LogMyPvpDeath()
 
     -- all hostiles that attacked within 60 seconds are credited with a win
     for unit, time in pairs(Spy_db.pvp.incoming) do
-        if time > (now - 60) then		
-            unit.loses = (unit.loses and (unit.loses + 1) or 1)			
+        if time > (now - 60) then
+            unit.loses = (unit.loses and (unit.loses + 1) or 1)
             Spy_db.pvp.outgoing[unit] = nil
             Spy_db.pvp.incoming[unit] = nil
         end
@@ -179,7 +179,7 @@ function SpyData:PurgePvpTimers()
 
     -- clean up other expired timers
     for unit, time in pairs(Spy_db.pvp.incoming) do
-        if time < (now - 60) then		
+        if time < (now - 60) then
             Spy_db.pvp.incoming[unit] = nil
         end
     end
@@ -197,10 +197,10 @@ do -- SpyData:SortPlayersByTime()
     end
 
     function SpyData:SortPlayersByTime()
-        local cache = cache.players.time.data		
+        local cache = cache.players.time.data
         local i = 1
 
-        for _, unit in pairs(SpyPerCharDB.PlayerData) do		
+        for _, unit in pairs(SpyPerCharDB.PlayerData) do
             cache[i] = unit
             i = i + 1
         end
@@ -214,17 +214,17 @@ do -- SpyData:GetPlayers() - Iterators
     local sorters = {
         ["name"] = function (a, b) return (a.name and a.name or "") < (b.name and b.name or "") end,
         ["level"] = function (a, b) return (a.level and (a.level > 0 and a.level or 255) or 0) > (b.level and (b.level > 0 and b.level or 255) or 0) end,
-        ["class"] = function (a, b) return (a.class and a.class or "zzzzzz") < (b.class and b.class or "zzzzzz") end,		
+        ["class"] = function (a, b) return (a.class and a.class or "zzzzzz") < (b.class and b.class or "zzzzzz") end,
         ["guild"] = function (a, b) return (a.guild and a.guild or "zzzzzz") < (b.guild and b.guild or "zzzzzz") end,
         ["wins"] = function (a, b) return (a.wins and a.wins or 0) > (b.wins and b.wins or 0) end,
         ["loses"] = function (a, b) return (a.loses and a.loses or 0) > (b.loses and b.loses or 0) end,
-        ["time"] = function (a, b) return (a.time and a.time or 0) > (b.time and b.time or 0) end,		
+        ["time"] = function (a, b) return (a.time and a.time or 0) > (b.time and b.time or 0) end,
     }
 
     local function sort(sortBy)
-        local cache = cache.players[sortBy].data		
+        local cache = cache.players[sortBy].data
         local i = 1
-        for _, unit in pairs(SpyPerCharDB.PlayerData) do		
+        for _, unit in pairs(SpyPerCharDB.PlayerData) do
             cache[i] = unit
             i = i + 1
         end
@@ -243,8 +243,8 @@ do -- SpyData:GetPlayers() - Iterators
     end
 
     function SpyData:GetPlayers(sortBy)
-        if not sortBy then sortBy = "time" end		
+        if not sortBy then sortBy = "time" end
         sort(sortBy)
-        return iterator, cache.players[sortBy].data, 0		
+        return iterator, cache.players[sortBy].data, 0
     end
 end

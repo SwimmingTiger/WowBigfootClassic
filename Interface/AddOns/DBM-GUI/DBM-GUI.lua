@@ -416,6 +416,9 @@ function DBM_GUI:CreateBossModPanel(mod)
 					end
 				elseif spellID:find("^ej") then
 					title, desc, _, icon = DBM:EJ_GetSectionInfo(spellID:gsub("ej", ""))
+				elseif spellID:find("^at") then
+					spellID = spellID:gsub("at", "")
+					_, title, _, _, _, _, _, desc, _, icon = GetAchievementInfo(spellID)
 				else
 					title = spellID
 				end
