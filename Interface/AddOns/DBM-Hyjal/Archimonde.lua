@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Archimonde", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120014830")
+mod:SetRevision("20220211113248")
 mod:SetCreatureID(17968)
 mod:SetEncounterID(622, 2472)
 mod:SetModelID(20939)
@@ -70,6 +70,7 @@ function mod:SPELL_CAST_START(args)
 		warnFear:Show()
 		timerFearCD:Start()
 	elseif args.spellId == 32014 then
-		self:BossTargetScanner(17968, "BurstTarget", 0.05, 10)
+		self:BossTargetScanner(17968, "BurstTarget", 0.05, 16)
+		self:ScheduleMethod(0.1, "BossTargetScanner", 17968, "BurstTarget", 0.05, 14)
 	end
 end
