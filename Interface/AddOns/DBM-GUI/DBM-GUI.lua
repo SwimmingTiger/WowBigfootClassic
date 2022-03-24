@@ -385,10 +385,10 @@ function DBM_GUI:CreateBossModPanel(mod)
 					elseif mod.dropdowns and mod.dropdowns[v] then
 						local dropdownOptions = {}
 						for _, val in ipairs(mod.dropdowns[v]) do
-							dropdownOptions[#dropdownOptions + 1] = {
+							tinsert(dropdownOptions, {
 								text	= mod.localization.options[val],
 								value	= val
-							}
+							})
 						end
 						catbutton = catpanel:CreateDropdown(mod.localization.options[v], dropdownOptions, mod, v, function(value)
 							mod.Options[v] = value

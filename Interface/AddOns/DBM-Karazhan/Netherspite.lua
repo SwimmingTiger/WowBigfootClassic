@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Netherspite", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220126211651")
 mod:SetCreatureID(15689)
 mod:SetEncounterID(659, 2451)
 mod:SetModelID(15363)
@@ -18,7 +18,7 @@ local warningBanish			= mod:NewAnnounce("warningBanish", 1, "136135")
 local warningBreathCast		= mod:NewCastAnnounce(38523, 2)
 local warningVoid			= mod:NewSpellAnnounce(37063, 4)
 
-local specWarnVoid			= mod:NewSpecialWarningGTFO(30533, nil, nil, nil, 1, 6)
+local specWarnVoid			= mod:NewSpecialWarningGTFO(37063, nil, nil, nil, 1, 6)
 
 local timerPortalPhase		= mod:NewTimer(61.5, "timerPortalPhase", "135743", nil, nil, 6)
 local timerBanishPhase		= mod:NewTimer(30, "timerBanishPhase", "136135", nil, nil, 6)
@@ -31,8 +31,8 @@ function mod:OnCombatStart(delay)
 	timerPortalPhase:Start(63.5-delay)
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
-			"SPELL_PERIODIC_DAMAGE 30533",
-			"SPELL_PERIODIC_MISSED 30533"
+			"SPELL_PERIODIC_DAMAGE 37063",
+			"SPELL_PERIODIC_MISSED 37063"
 		)
 	end
 end
@@ -55,7 +55,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
-	if spellId == 30533 and destGUID == UnitGUID("player") and self:AntiSpam() then
+	if spellId == 37063 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnVoid:Show(spellName)
 		specWarnVoid:Play("watchfeet")
 	end

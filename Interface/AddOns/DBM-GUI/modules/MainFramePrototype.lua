@@ -1,6 +1,8 @@
+local L = DBM_GUI_L
+
 local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 
-local select, ipairs, mfloor, mmax = select, pairs, math.floor, math.max
+local select, ipairs, mfloor, mmax, mmin = select, pairs, math.floor, math.max, math.min
 local CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal = CreateFrame, GameFontHighlightSmall, GameFontNormalSmall, GameFontNormal
 local DBM, DBM_GUI = DBM, DBM_GUI
 
@@ -115,6 +117,19 @@ local function resize(frame, first)
 								_G[child2:GetName() .. "BG"]:SetWidth(width - _G[child2:GetName() .. "Text"]:GetWidth() - 25)
 							end
 							lastObject = child2
+						elseif child2.mytype == "dropdown" then
+							if not child2.width then
+								local ddWidth = 120
+								local dropdownText, titleText = _G[child2:GetName() .. "Text"], _G[child2:GetName() .. "TitleText"]:GetText()
+								if titleText ~= L.FontType and titleText ~= L.FontStyle and titleText ~= L.FontShadow then
+									for _, v in ipairs(child2.values) do
+										dropdownText:SetText(v.text)
+										ddWidth = mmax(ddWidth, dropdownText:GetStringWidth() + 30)
+									end
+								end
+								dropdownText:SetText(child2.text)
+								UIDropDownMenu_SetWidth(child2, mmin(width - 55, ddWidth))
+							end
 						end
 						neededHeight = neededHeight + (child2.myheight or child2:GetHeight())
 					end

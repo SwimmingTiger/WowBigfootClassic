@@ -437,7 +437,7 @@ Spy_KOSReasonList = {
 }
 
 StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
-	preferredIndex=STATICPOPUPS_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
+	preferredIndex=STATICPOPUP_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
 	text = "輸入 %s 的即殺原因:",
 	button1 = "設定",
 	button2 = "取消",

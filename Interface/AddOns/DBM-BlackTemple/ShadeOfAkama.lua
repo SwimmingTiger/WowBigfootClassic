@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220120062612")
 mod:SetCreatureID(22841)
 mod:SetEncounterID(603, 2475)
 mod:SetModelID(21357)
@@ -17,6 +17,9 @@ mod:RegisterEvents(
 	"SPELL_AURA_REMOVED 34189"
 )
 
+--[[
+(source.type = "NPC" and source.firstSeen = timestamp) or (target.type = "NPC" and target.firstSeen = timestamp)
+--]]
 local warnPhase2		= mod:NewPhaseAnnounce(2)
 local warnDefender		= mod:NewAnnounce("warnAshtongueDefender", 2, 41180)
 local warnSorc			= mod:NewAnnounce("warnAshtongueSorcerer", 2, 40520)

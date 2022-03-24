@@ -438,7 +438,7 @@ Spy_KOSReasonList = {
 }
 
 StaticPopupDialogs["Spy_SetKOSReasonOther"] = {
-	preferredIndex=STATICPOPUPS_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
+	preferredIndex=STATICPOPUP_NUMDIALOGS,  -- http://forums.wowace.com/showthread.php?p=320956
 	text = "Enter the Kill On Sight reason for %s:",
 	button1 = "Set",
 	button2 = "Cancel",

@@ -792,8 +792,7 @@ function barPrototype:Update(elapsed)
 			end
 		end
 		if not enlargeEnabled and timerValue > enlargeTime then
-			local x = (barOptions.DesaturateValue * r) + (barOptions.DesaturateValue * g) + (barOptions.DesaturateValue * b)
-			r, g, b = x, x, x
+			r, g, b = barOptions.DesaturateValue * r, barOptions.DesaturateValue * g, barOptions.DesaturateValue * b
 		end
 		bar:SetStatusBarColor(r, g, b)
 		if sparkEnabled then

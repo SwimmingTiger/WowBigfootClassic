@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Najentus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220120022321")
 mod:SetCreatureID(22887)
 mod:SetEncounterID(601, 2473)
 mod:SetModelID(21174)
@@ -14,6 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 39837"
 )
 
+--ability.id = 39872 and (type = "applybuff" or type = "removebuff")
 local warnShield		= mod:NewSpellAnnounce(39872, 4)
 local warnShieldSoon	= mod:NewSoonAnnounce(39872, 10, 3)
 local warnSpine			= mod:NewTargetNoFilterAnnounce(39837, 3)
@@ -38,7 +39,7 @@ function mod:OnCombatStart(delay)
 	end
 	if self.Options.InfoFrame and not self:IsTrivial() then
 		DBM.InfoFrame:SetHeader(L.HealthInfo)
-		DBM.InfoFrame:Show(5, "health", 1800)
+		DBM.InfoFrame:Show(5, "health", 8500)--1800 on retail
 	end
 end
 

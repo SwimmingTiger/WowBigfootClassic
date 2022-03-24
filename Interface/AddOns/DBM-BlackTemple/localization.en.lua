@@ -140,7 +140,11 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	timerAura	= "Show timer for Prismatic Aura"
+	timerAura	= "Show timer for Prismatic Aura",
+	FAHelper	= "Set mod behavior for Fatal Attraction. Raid Leaders preference is used if they're using DBM",
+	North		= "Star is left/west, circle is right/east, diamond is up/north",--Default
+	South		= "Star is left/west, circle is right/east, diamond is down/south",
+	None		= "Arrows will not be shown, Infoframe will show numbers instead of directions"
 }
 
 ----------------------

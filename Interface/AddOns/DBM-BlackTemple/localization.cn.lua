@@ -1,6 +1,6 @@
 -- yleaf(yaroot@gmail.com)
 -- Mini Dragon(projecteurs@gmail.com)
--- Last update: 2017/07/18
+-- Last update: 2022/01/21
 
 if GetLocale() ~= "zhCN" then return end
 local L
@@ -15,7 +15,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	HealthInfo	= "Health Info"
+	HealthInfo	= "血量信息"
 }
 
 ----------------
@@ -28,25 +28,25 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s Phase",--Translate
+	WarnPhase		= "%s 阶段",
 }
 
 L:SetTimerLocalization{
-	TimerPhase		= "Next %s phase"--Translate
+	TimerPhase		= "下一次 %s 阶段"
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "Show warning for next phase",
-	TimerPhase		= "Show time for next phase",
-	KiteIcon		= "Set icon on Kite target"
+	WarnPhase		= "为下一次阶段显示警告",
+	TimerPhase		= "为下一次阶段显示计时器",
+	KiteIcon		= "为注视的目标设置标记"
 }
 
 L:SetMiscLocalization{
-	PhaseTank		= "愤怒地击打着地面！",--Check if Backwards
-	PhaseKite		= "地面崩裂了！",--Check if Backwards
+	PhaseTank		= "苏普雷姆斯愤怒地击打着地面！",
+	PhaseKite		= "地面崩裂了！",
 	ChangeTarget	= "锁定了一个新目标！",
-	Kite			= "Kite",--Translate
-	Tank			= "Tank"--Translate
+	Kite			= "风筝",
+	Tank			= "坦克"
 }
 
 -------------------------
@@ -68,11 +68,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerVengefulSpirit		= "Ghost : %s"--Translate
+	TimerVengefulSpirit		= "死亡之影 : %s"
 }
 
 L:SetOptionLocalization{
-	TimerVengefulSpirit		= "Show timer for Ghost durations"--Translate
+	TimerVengefulSpirit		= "为死亡之影显示持续时间"
 }
 
 L:SetMiscLocalization{
@@ -105,16 +105,16 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnMana		= "Show warning from zero mana in Phase 2",--Translate
-	TimerEnrage		= "Show timer for Enrage"--Translate
+	WarnMana		= "在第2阶段显示法力吸取警告",
+	TimerEnrage		= "显示法力吸取计时器"
 }
 
 L:SetMiscLocalization{
-	Suffering		= "Essence of Suffering",--Translate
-	Desire			= "Essence of Desire",--Translate
-	Anger			= "Essence of Anger",--Translate
-	Phase1End		= "I don't want to go back!",
-	Phase2End		= "I won't be far!"
+	Suffering		= "苦痛精华",
+	Desire			= "欲望精华",
+	Anger			= "愤怒精华",
+	Phase1End		= "我不想回去！",
+	Phase2End		= "我不会离开太远！"
 }
 
 -----------------------
@@ -131,7 +131,7 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	timerAura	= "Show timer for Prismatic Aura"
+	timerAura	= "为致命吸引显示计时器"
 }
 
 ----------------------
@@ -143,16 +143,12 @@ L:SetGeneralLocalization{
 	name = "伊利达雷议会"
 }
 
-L:SetGeneralLocalization{
-	name = "Illidari Council"
-}
-
 L:SetWarningLocalization{
-	Immune			= "Malande - %s immune for 15 sec"
+	Immune			= "玛兰德 - %s 免疫15秒"
 }
 
 L:SetOptionLocalization{
-	Immune			= "Show warning when Manalde becomes spell or melee immune"
+	Immune			= "当玛兰德法术和近战免疫时显示警告"
 }
 
 L:SetMiscLocalization{
@@ -174,21 +170,21 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnHuman		= "普通形态",
-	WarnDemon		= "恶魔形态"
+	WarnHuman		= "人形阶段",
+	WarnDemon		= "恶魔阶段"
 }
 
 L:SetTimerLocalization{
-	TimerNextHuman		= "下一个普通形态",
-	TimerNextDemon		= "下一个恶魔形态"
+	TimerNextHuman		= "下一次人形阶段",
+	TimerNextDemon		= "下一次恶魔阶段"
 }
 
 L:SetOptionLocalization{
-	WarnHuman		= "Show warning for 普通形态",
-	WarnDemon		= "Show warning for 恶魔形态",
-	TimerNextHuman	= "Show time for 下一个普通形态",
-	TimerNextDemon	= "Show time for 下一个恶魔形态",
-	RangeFrame		= "为阶段3和阶段4显示10码距离提示"
+	WarnHuman		= "为人形阶段显示警告",
+	WarnDemon		= "为恶魔阶段显示警告",
+	TimerNextHuman	= "显示下一次人形阶段计时器",
+	TimerNextDemon	= "显示下一次恶魔阶段计时器",
+	RangeFrame		= "为3阶段和4阶段显示10码距离提示"
 }
 
 L:SetMiscLocalization{

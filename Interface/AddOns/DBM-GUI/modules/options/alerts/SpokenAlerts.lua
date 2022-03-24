@@ -27,11 +27,11 @@ end, 180)
 CountSoundDropDown3:SetPoint("TOPLEFT", CountSoundDropDown, "TOPLEFT", 0, -45)
 
 local voices = DBM.Voices
-if not DBM.VoiceVersions[DBM.Options.ChosenVoicePack] then -- Sound pack is missing, add a custom entry of "missing"
-	table.insert(voices, { text = L.MissingVoicePack:format(DBM.Options.ChosenVoicePack), value = DBM.Options.ChosenVoicePack })
+if not DBM.VoiceVersions[DBM.Options.ChosenVoicePack2] then -- Sound pack is missing, add a custom entry of "missing"
+	table.insert(voices, { text = L.MissingVoicePack:format(DBM.Options.ChosenVoicePack2), value = DBM.Options.ChosenVoicePack2 })
 end
-local VoiceDropDown = spokenGeneralArea:CreateDropdown(L.VoicePackChoice, voices, "DBM", "ChosenVoicePack", function(value)
-	DBM.Options.ChosenVoicePack = value
+local VoiceDropDown = spokenGeneralArea:CreateDropdown(L.VoicePackChoice, voices, "DBM", "ChosenVoicePack2", function(value)
+	DBM.Options.ChosenVoicePack2 = value
 	DBM:CheckVoicePackVersion(value)
 end, 180)
 VoiceDropDown:SetPoint("TOPLEFT", CountSoundDropDown2, "TOPLEFT", 0, -45)

@@ -60,13 +60,13 @@ L:SetWarningLocalization{
 	WarnWaveSoon= "下一波敌人即将到来"
 }
 L:SetTimerLocalization{
-	TimerWave	= "Next wave"--Translate
+	TimerWave	= "下一波"
 }
 L:SetOptionLocalization{
-	WarnWave		= "Warn when a new wave is incoming",--Translate
-	WarnWaveSoon	= "Warn when a new wave is incoming soon",--Translate
-	DetailedWave	= "Detailed warning when a new wave is incoming (which mobs)",--Translate
-	TimerWave		= "Show a timer for next wave"--Translate
+	WarnWave		= "当新一波进攻来临时显示警告",
+	WarnWaveSoon	= "当新一波进攻即将到达发出警告",
+	DetailedWave	= "当新一波进攻来临时显示详细警告 (任何怪)",
+	TimerWave		= "显示下一步进攻来临计时器"--Translate
 }
 L:SetMiscLocalization{
 	HyjalZoneName	= "海加尔峰",

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Supremus", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220120022321")
 mod:SetCreatureID(22898)
 mod:SetEncounterID(602, 2474)
 mod:SetModelID(21145)
@@ -10,7 +10,7 @@ mod:SetUsedIcons(8)
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 41951",
+--	"SPELL_AURA_APPLIED 41951",
 	"RAID_BOSS_EMOTE"
 )
 
@@ -28,10 +28,8 @@ local berserkTimer		= mod:NewBerserkTimer(900)
 
 mod:AddBoolOption("KiteIcon", true)
 
---mod.vb.phase2 = false
 mod.vb.lastTarget = "None"
 
---[[
 local function ScanTarget(self)
 	local target, uId = self:GetBossTarget(22898)
 	if target then
@@ -50,7 +48,6 @@ local function ScanTarget(self)
 		end
 	end
 end
---]]
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)
@@ -71,6 +68,7 @@ function mod:OnCombatEnd()
 	end
 end
 
+--[[
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 41951 then
 		if self.vb.lastTarget ~= args.destName then
@@ -88,6 +86,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	end
 end
+--]]
 
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 40265 and destGUID == UnitGUID("player") and self:AntiSpam(4, 1) and not self:IsTrivial() then
@@ -104,8 +103,8 @@ function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.PhaseKite or msg:find(L.PhaseKite) then
 		warnPhase:Show(L.Kite)
 		timerPhase:Start(L.Tank)
-		--self:Unschedule(ScanTarget)
-		--self:Schedule(4, ScanTarget, self)
+		self:Unschedule(ScanTarget)
+		self:Schedule(4, ScanTarget, self)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
@@ -118,12 +117,12 @@ function mod:RAID_BOSS_EMOTE(msg)
 	elseif msg == L.PhaseTank or msg:find(L.PhaseTank) then
 		warnPhase:Show(L.Tank)
 		timerPhase:Start(L.Kite)
-		--self:Unschedule(ScanTarget)
+		self:Unschedule(ScanTarget)
 		if self.vb.lastTarget ~= "None" then
 			self:SetIcon(self.vb.lastTarget, 0)
 		end
-	--elseif msg == L.ChangeTarget or msg:find(L.ChangeTarget) then
-		--self:Unschedule(ScanTarget)
-		--self:Schedule(0.5, ScanTarget, self)
+	elseif msg == L.ChangeTarget or msg:find(L.ChangeTarget) then
+		self:Unschedule(ScanTarget)
+		self:Schedule(0.5, ScanTarget, self)
 	end
 end
