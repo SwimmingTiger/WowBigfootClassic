@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: GladiatorlosSA
 ## Title-zhCN: [大脚][集]竞技语音提示
 ## Title-zhTW: [大腳][集]競技語音提示

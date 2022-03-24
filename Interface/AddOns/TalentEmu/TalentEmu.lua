@@ -13,6 +13,8 @@ local L = NS.L;
 if not L then return; end
 
 local setfenv = setfenv;
+local rawset = rawset;
+local next = next;
 local _GlobalRef = {  };
 local _GlobalAssign = {  };
 function NS:BuildEnv(category)
@@ -3057,19 +3059,19 @@ NS:BuildEnv("emu");
 						end
 					end
 				end
-				if data[2] > 0 then
+				if data[3] > 0 then
 					local str;
-					if data[2] > 10000 then
-						local c = data[2] % 100;
-						local s = (data[2] % 10000 - c) / 100;
-						local g = (data[2] - s) / 10000;
+					if data[3] >= 10000 then
+						local c = data[3] % 100;
+						local s = (data[3] % 10000 - c) / 100;
+						local g = (data[3] - s) / 10000;
 						str = format("|cffffbf00%d|r|TInterface\\MoneyFrame\\UI-GoldIcon:12:12:0:0|t|cffffffff%02d|r|TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t|cffffaf7f%02d|r|TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", g, s, c);
-					elseif data[2] > 100 then
-						local c = data[2] % 100;
-						local s = (data[2] % 10000 - c) / 100;
+					elseif data[3] >= 100 then
+						local c = data[3] % 100;
+						local s = (data[3] % 10000 - c) / 100;
 						str = format("|cffffffff%d|r|TInterface\\MoneyFrame\\UI-SilverIcon:12:12:0:0|t|cffffaf7f%02d|r|TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", s, c);
 					else
-						str = format("|cffffaf7f%d|r|TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", data[2]);
+						str = format("|cffffaf7f%d|r|TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", data[3]);
 					end
 					GameTooltip:AddDoubleLine(L.TrainCost, str, 1, 1, 1, 1, 1, 1);
 				end

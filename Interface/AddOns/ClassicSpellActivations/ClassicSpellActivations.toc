@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: ClassicSpellActivations
 ## Notes: Shows you the shiny
 ## Author: d87

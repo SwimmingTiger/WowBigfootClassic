@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: [BF] MobHealth
 ## Title-zhCN: [大脚]目标信息
 ## Title-zhTW: [大腳]目標信息

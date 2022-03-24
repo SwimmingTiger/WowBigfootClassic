@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Version: 3.2.4
 ## Title: Omen3
 ## Title-zhCN: [大脚][集]仇恨统计

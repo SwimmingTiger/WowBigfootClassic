@@ -1,5 +1,4 @@
-## Interface: 20503
-#@non-debug@
+## Interface: 20504
 ## Title: Atlas |r|cFF0099FF[Burning Crusade]|r
 ## Title-deDE: Atlas |r|cFF0099FF[Burning Crusade]|r
 ## Title-ruRU: Atlas |r|cFF0099FF[Burning Crusade]|r

@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: MonkeyBuddy v2.11.0c
 ## Notes: Helps you configure your MonkeyMods.
 ## Author: Trentin, Jim-Bim

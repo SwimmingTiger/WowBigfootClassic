@@ -28,6 +28,8 @@ local _ = nil;
 
 
 local DropDownList1 = DropDownList1;
+local TOOLTIP_DEFAULT_BACKGROUND_COLOR = TOOLTIP_DEFAULT_BACKGROUND_COLOR or { r = 0.09, g = 0.09, b = 0.19, };
+local TOOLTIP_DEFAULT_COLOR = TOOLTIP_DEFAULT_COLOR or { r = 1.0, g = 1.0, b = 1.0, };
 local dropMenuBackdrop = {
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",	-- "Interface\\Buttons\\WHITE8X8";	-- "Interface\\Tooltips\\UI-Tooltip-Background",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",	-- "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -88,9 +90,9 @@ function func.create(menu, id, x, y)
 	local button = CreateFrame("BUTTON", nil, menu);
 	--button:SetFrameStrata("FULLSCREEN_DIALOG");
 	button:SetHeight(height);
-	--button:SetNormalTexture("Interface\\Buttons\\UI-StopButton");
-	--button:SetPushedTexture("Interface\\Buttons\\UI-StopButton");
-	button:SetHighlightTexture("Interface\\TargetingFrame\\UI-StatusBar");
+	--button:SetNormalTexture([[Interface\Buttons\UI-StopButton]]);
+	--button:SetPushedTexture([[Interface\Buttons\UI-StopButton]]);
+	button:SetHighlightTexture([[Interface\TargetingFrame\UI-StatusBar]]);
 	button:GetHighlightTexture():SetVertexColor(0.5, 0.5, 0.0, 0.75);
 	button:SetPoint("TOP", menu, x, y);
 	button:SetWidth(menu:GetWidth() - 2 * h_to_border);

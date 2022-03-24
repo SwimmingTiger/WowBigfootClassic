@@ -93,7 +93,8 @@ L.UIGroupingOptions			= "界面分组选项 (更改这些需要输入 /reload �
 L.GroupOptionsBySpell		= "按照技能分组 (只支持有效的模块)"
 L.GroupOptionsExcludeIcon	= "按照技能分组排除“设置标记图标”选项 (它们将像以前一样在“图标”类中显示)"
 L.AutoExpandSpellGroups		= "按照技能分组自动扩展选项"
---L.ShowSpellDescWhenExpanded	= "分组扩展时继续显示技能描述"
+--L.ShowSpellDescWhenExpanded	= "分组扩展时显示技能描述"
+L.NoDescription				= "此技能无描述说明"
 
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "其他功能"
@@ -117,14 +118,13 @@ L.RecordOnlyBosses			= "只记录团队BOSS数据 (不记录其他数据，使�
 L.LogOnlyNonTrivial			= "只记录团队Boss，而不记录随机团队/5人本/场景战役"
 --
 L.Area_3rdParty				= "第三方插件选项"
-L.oRA3AnnounceConsumables	= "在战斗开始时通告oRA3消耗品检查"
+L.oRA3AnnounceConsumables	= "在战斗开始时通报oRA3消耗品检查"
 L.Area_Invite				= "组队邀请选项"
 L.AutoAcceptFriendInvite	= "自动接受来自好友列表里的好友的组队邀请"
 L.AutoAcceptGuildInvite		= "自动接受同公会成员的组队邀请"
 L.Area_Advanced				= "高级选项"
-L.FakeBW					= "当检查Bigwig时，假装DBM就是Bigwig"
+L.FakeBW					= "当Bigwig启用检测时，假装DBM就是Bigwig"
 L.AITimer					= "DBM为没遇见过的战斗使用人工智能自动产生计时器(在初期的Beta或PTR的Boss测试非常有帮助)。此功能不会对多目标技能生效。"
-L.ExtendIcons				= "将团队标记图标API扩展到最多16个图标(而非8个)。重要：对没有安装自定义支持16个图标的'ui-raidtargetingicons.blp'材质文档的任何人这些图标都是不可见，在启用或禁用此功能后必须重载界面。(输入/reload 重载)"
 
 -- Panel: Profiles
 L.Panel_Profile				= "配置文件"
@@ -239,6 +239,7 @@ L.Area_VoiceSelection		= "语音选择"
 L.CountdownVoice			= "设置第一倒计时语音"
 L.CountdownVoice2			= "设置第二倒计时语音"
 L.CountdownVoice3			= "设置第三倒计时语音"
+L.PullVoice					= "设置开怪倒计时语音"
 L.VoicePackChoice			= "设置语音报警的语音包(快躲开！)"
 L.MissingVoicePack			= "缺少语音包 (%s)"
 L.Area_CountdownOptions		= "倒计时选项"

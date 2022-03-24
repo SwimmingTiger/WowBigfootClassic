@@ -1,4 +1,4 @@
-## Interface: 20503
+## Interface: 20504
 ## Title: Wargame (Disabled by packager)
 ## Title-zhCN: 战争游戏 (打包者停用)
 ## Title-zhTW: 戰爭遊戲 (打包者停用)

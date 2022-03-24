@@ -462,3 +462,34 @@ function ns.ApplyLeaderBtnClick(Btn, param)
     end
 
 end
+
+function ns.DataMake(allowCrossRealm)
+    ns.CERTIFICATION_MAP = {}
+
+    local function decode(v)
+        return v:gsub('..', function(x)
+            return string.char(tonumber(x, 16))
+        end)
+    end
+
+    local currentRealm
+    local function Realm(realm)
+        realm = decode(realm)
+        if allowCrossRealm or realm == GetRealmName() then
+            currentRealm = realm
+        else
+            currentRealm = nil
+        end
+    end
+
+    local function Name(name)
+        if not currentRealm then
+            return
+        end
+
+        name = decode(name)
+
+        ns.CERTIFICATION_MAP[format('%s-%s', name, currentRealm)] = true
+    end
+    setfenv(2, {R = Realm, N = Name})
+end

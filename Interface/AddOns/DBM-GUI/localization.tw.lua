@@ -88,6 +88,7 @@ L.GroupOptionsBySpell		= "按照技能分組 (只支持有效的模組)"
 L.GroupOptionsExcludeIcon	= "按照技能分組排除“設置標記圖示”選項 (它們將像以前一樣在“圖示”類中顯示)"
 L.AutoExpandSpellGroups		= "按照技能分組自動擴展選項"
 --L.ShowSpellDescWhenExpanded	= "分組擴展時繼續顯示技能描述"
+L.NoDescription				= "此技能無描述說明"
 
 -- Panel: Extra Features
 L.Panel_ExtraFeatures		= "額外功能"
@@ -118,7 +119,6 @@ L.AutoAcceptGuildInvite		= "自動接受來自公會成員的隊伍邀請"
 L.Area_Advanced				= "進階選項"
 L.FakeBW					= "假裝使用BigWigs版本檢查而不是用DBM版本(適合用在工會強制使用BigWigs時)"
 L.AITimer					= "DBM為從未遭遇的戰鬥使用內建的AI計時器來自動生成計時條(在初期Beta或PTR首次遭遇首領時之測試非常有幫助)。注意：這可能不能正確運作在有著相同技能的多重目標上。"
-L.ExtendIcons				= "將團隊標記圖示API擴展到最多16個圖示(而非8個)。重要：對沒有安裝自定義支援16個圖示的'ui-raidtargetingicons.blp'材質檔案的任何人這些圖示都不可見，在啟用或禁用此功能後必須重新載入UI。"
 
 -- Panel: Profiles
 L.Panel_Profile				= "配置檔"
@@ -233,10 +233,10 @@ L.Area_VoiceSelection		= "語音選擇"
 L.CountdownVoice			= "設置主要倒數計時語音"
 L.CountdownVoice2			= "設置次要倒數計時語音"
 L.CountdownVoice3			= "設置第三倒數計時語音"
+L.PullVoice					= "設置開怪計時器的語音"
 L.VoicePackChoice			= "設置語音警告的語音包"
 L.MissingVoicePack			= "缺少語音包 (%s)"
 L.Area_CountdownOptions		= "倒數選項"
---NEW OPTIONS INCOMING USING THESE
 L.Area_VoicePackReplace		= "語音包替換選項 (選擇那些語音包要啟用、靜音以及替換)"
 L.VPReplaceNote				= "注意: 語音包永遠不會更改或刪除警告聲音。\n當替換語音包時，只是被簡單地靜音。"
 L.ReplacesAnnounce			= "替換提示聲音 (注意: 語音包除了階段轉換以及小怪外很少使用)"

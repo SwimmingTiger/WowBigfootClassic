@@ -1,4 +1,4 @@
-﻿## Interface: 20503
+﻿## Interface: 20504
 ## Title: [BF] Cooldown
 ## Title-zhCN: [大脚]冷却增强
 ## Title-zhTW: [大腳]冷卻增強

@@ -1,6 +1,8 @@
 --[[--
 	ALA@163UI
 --]]--
+do return end
+
 local __version = 2;
 
 local _G = _G;
@@ -46,8 +48,7 @@ if (not select(2, GetAddOnInfo("!!!163ui!!!")) or not IsAddOnLoaded("!!!163ui!!!
 			-- 'UNITPOSITIONFRAME',
 			-- 'WORLDFRAME'
 	};
-	local _PatchVersion, _BuildNumber, _BuildDate, _TocVersion = GetBuildInfo();
-	if _TocVersion > 30000 then
+	if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
 		for _, _Type in next, {
 			'BROWSER',
 			'CHECKOUT',
