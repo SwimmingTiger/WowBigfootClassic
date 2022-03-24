@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Azgalor", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120014830")
+mod:SetRevision("20220131023314")
 mod:SetCreatureID(17842)
 mod:SetEncounterID(621, 2471)
 mod:SetModelID(18526)
@@ -21,8 +21,8 @@ ability.id = 31344 and type = "cast"
 local warnSilence		= mod:NewSpellAnnounce(31344, 3)
 local warnDoom			= mod:NewTargetNoFilterAnnounce(31347, 4)
 
-local specWarnFire		= mod:NewSpecialWarningMove(31340)
-local specWarnDoom		= mod:NewSpecialWarningYou(31347)
+local specWarnFire		= mod:NewSpecialWarningMove(31340, nil, nil, nil, 1, 2)
+local specWarnDoom		= mod:NewSpecialWarningYou(31347, nil, nil, nil, 1, 2)
 local yellDoom			= mod:NewShortFadesYell(31347)
 
 local timerDoom			= mod:NewTargetTimer(20, 31347, nil, nil, nil, 3)

@@ -26,7 +26,7 @@ local VictorySoundDropdown = eventSoundsGeneralArea:CreateDropdown(L.EventVictor
 	end
 end, 180)
 VictorySoundDropdown:SetPoint("TOPLEFT", eventSoundsGeneralArea.frame, "TOPLEFT", 0, -20)
-VictorySoundDropdown.myheight = 40
+VictorySoundDropdown.myheight = 0
 
 local VictorySoundDropdown2 = eventSoundsGeneralArea:CreateDropdown(L.EventWipeSound, DBM:GetDefeatSounds(), "DBM", "EventSoundWipe", function(value)
 	DBM.Options.EventSoundWipe = value
@@ -35,7 +35,6 @@ local VictorySoundDropdown2 = eventSoundsGeneralArea:CreateDropdown(L.EventWipeS
 	end
 end, 180)
 VictorySoundDropdown2:SetPoint("LEFT", VictorySoundDropdown, "RIGHT", 45, 0)
-VictorySoundDropdown2.myheight = 0
 
 local useCombined = DBM.Options.EventSoundMusicCombined
 local DungeonMusicDropDown = eventSoundsGeneralArea:CreateDropdown(L.EventDungeonMusic, useCombined and DBM:GetMusic() or DBM:GetDungeonMusic(), "DBM", "EventSoundDungeonBGM", function(value)
@@ -63,7 +62,6 @@ local DungeonMusicDropDown = eventSoundsGeneralArea:CreateDropdown(L.EventDungeo
 	end
 end, 180)
 DungeonMusicDropDown:SetPoint("TOPLEFT", VictorySoundDropdown, "TOPLEFT", 0, -45)
-DungeonMusicDropDown.myheight = 40
 
 local MusicDropDown = eventSoundsGeneralArea:CreateDropdown(L.EventEngageMusic, useCombined and DBM:GetMusic() or DBM:GetBattleMusic(), "DBM", "EventSoundMusic", function(value)
 	DBM.Options.EventSoundMusic = value
@@ -97,14 +95,12 @@ local PullTimerSoundDropdown = eventSoundsGeneralArea:CreateDropdown(L.EventEnga
 	DBM:PlaySoundFile(DBM.Options.EventSoundPullTimer)
 end, 180)
 PullTimerSoundDropdown:SetPoint("TOPLEFT", DungeonMusicDropDown, "TOPLEFT", 0, -45)
-PullTimerSoundDropdown.myheight = 50
 
 local EngageSoundDropdown = eventSoundsGeneralArea:CreateDropdown(L.EventEngageSound, Sounds, "DBM", "EventSoundEngage2", function(value)
 	DBM.Options.EventSoundEngage2 = value
 	DBM:PlaySoundFile(DBM.Options.EventSoundEngage2)
 end, 180)
 EngageSoundDropdown:SetPoint("LEFT", PullTimerSoundDropdown, "RIGHT", 45, 0)
-EngageSoundDropdown.myheight = 50
 
 local eventSoundsExtrasArea	= eventSoundsPanel:CreateArea(L.Area_EventSoundsExtras)
 eventSoundsExtrasArea:CreateCheckButton(L.EventMusicCombined, true, nil, "EventSoundMusicCombined")

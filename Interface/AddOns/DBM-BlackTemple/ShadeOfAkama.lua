@@ -1,10 +1,13 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120062612")
+mod:SetRevision("20220203200931")
 mod:SetCreatureID(22841)
 mod:SetEncounterID(603, 2475)
+--mod:DisableEEKillDetection()--EE always fires wipe
 mod:SetModelID(21357)
+mod:SetHotfixNoticeRev(20220130000000)
+mod:SetMinSyncRevision(20220130000000)
 
 mod:RegisterCombat("combat")
 mod:SetWipeTime(50)--Adds come about every 50 seconds, so require at least this long to wipe combat if they die instantly
@@ -32,6 +35,8 @@ local timerDefenderCD	= mod:NewTimer(25, "timerAshtongueDefender", 41180, nil, n
 local timerSorcCD		= mod:NewTimer(25, "timerAshtongueSorcerer", 40520, nil, nil, 1)
 
 mod.vb.AddsWestCount = 0
+mod.vb.sorcCount = 0
+mod.vb.defenderCount = 0
 
 local function addsWestLoop(self)
 	self.vb.AddsWestCount = self.vb.AddsWestCount + 1
@@ -56,20 +61,24 @@ local function addsEastLoop(self)
 end
 
 local function sorcLoop(self)
-	warnSorc:Show()
+	self.vb.sorcCount = self.vb.sorcCount + 1
+	warnSorc:Show(self.vb.sorcCount)
 	self:Schedule(25, sorcLoop, self)
-	timerSorcCD:Start(25)
+	timerSorcCD:Start(25, self.vb.sorcCount+1)
 end
 
 local function defenderLoop(self)
-	warnDefender:Show()
+	self.vb.defenderCount = self.vb.defenderCount + 1
+	warnDefender:Show(self.vb.defenderCount)
 	self:Schedule(30, defenderLoop, self)
-	timerDefenderCD:Start(30)
+	timerDefenderCD:Start(30, self.vb.defenderCount+1)
 end
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	self.vb.AddsWestCount = 0
+	self.vb.sorcCount = 0
+	self.vb.defenderCount = 0
 	self:RegisterShortTermEvents(
 		"SWING_DAMAGE",
 		"SWING_MISSED",

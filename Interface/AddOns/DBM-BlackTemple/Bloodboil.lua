@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Bloodboil", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120065515")
+mod:SetRevision("20220201050955")
 mod:SetCreatureID(22948)
 mod:SetEncounterID(605, 2477)
 mod:SetModelID(21443)
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 40508",
 	"SPELL_CAST_SUCCESS 42005",
 	"SPELL_AURA_APPLIED 42005 40481 40491 40604",
-	"SPELL_AURA_APPLIED_DOSE 40481",
+	"SPELL_AURA_APPLIED_DOSE 40481",--42005 not in combat log for DOSE
 	"SPELL_AURA_REFRESH 40481",
 	"SPELL_AURA_REMOVED 40604 40594"
 )
@@ -33,7 +33,8 @@ local warnRage			= mod:NewTargetAnnounce(40604, 4)
 local warnRageSoon		= mod:NewSoonAnnounce(40604, 3)
 local warnRageEnd		= mod:NewEndAnnounce(40604, 4)
 
-local specWarnBlood		= mod:NewSpecialWarningStack(42005, nil, 1, nil, nil, 1, 2)
+--local specWarnBlood		= mod:NewSpecialWarningStack(42005, nil, 1, nil, nil, 1, 2)
+local specWarnBlood		= mod:NewSpecialWarningYou(42005, nil, nil, nil, 1, 2)
 local specWarnRage		= mod:NewSpecialWarningYou(40604, nil, nil, nil, 1, 2)
 local yellRage			= mod:NewYell(40604)
 
@@ -82,7 +83,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if spellId == 42005 then
 		warnBlood:CombinedShow(0.8, args.destName)
 		if args:IsPlayer() then
-			specWarnBlood:Show(args.amount)
+			specWarnBlood:Show()--args.amount
 			specWarnBlood:Play("targetyou")
 		end
 	elseif spellId == 40481 then

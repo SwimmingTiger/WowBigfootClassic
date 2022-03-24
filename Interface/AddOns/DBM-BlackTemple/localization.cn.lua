@@ -1,6 +1,6 @@
 -- yleaf(yaroot@gmail.com)
 -- Mini Dragon(projecteurs@gmail.com)
--- Last update: 2022/01/21
+-- Last update: 2022/02/04
 
 if GetLocale() ~= "zhCN" then return end
 local L
@@ -28,7 +28,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetWarningLocalization{
-	WarnPhase		= "%s 阶段",
+	WarnPhase		= "%s 阶段"
 }
 
 L:SetTimerLocalization{
@@ -36,9 +36,9 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnPhase		= "为下一次阶段显示警告",
-	TimerPhase		= "为下一次阶段显示计时器",
-	KiteIcon		= "为注视的目标设置标记"
+	WarnPhase		= "警报：下一次阶段",
+	TimerPhase		= "计时条：下一次阶段",
+	KiteIcon		= "为凝视的目标设置标记"
 }
 
 L:SetMiscLocalization{
@@ -50,13 +50,30 @@ L:SetMiscLocalization{
 }
 
 -------------------------
---  Shape of Akama  --
+--  Shade of Akama  --
 -------------------------
 L = DBM:GetModLocalization("Akama")
 
 L:SetGeneralLocalization{
 	name = "阿卡玛之影"
 }
+
+L:SetWarningLocalization({
+	warnAshtongueDefender	= "灰舌防御者",
+	warnAshtongueSorcerer	= "灰舌巫师"
+})
+
+L:SetTimerLocalization({
+	timerAshtongueDefender	= "灰舌防御者: %s",
+	timerAshtongueSorcerer	= "灰舌巫师: %s"
+})
+
+L:SetOptionLocalization({
+	warnAshtongueDefender	= "警报：灰舌防御者",
+	warnAshtongueSorcerer	= "警报：灰舌巫师",
+	timerAshtongueDefender	= "计时条：灰舌防御者",
+	timerAshtongueSorcerer	= "计时条：灰舌巫师"
+})
 
 -------------------------
 --  Teron Gorefiend  --
@@ -68,14 +85,11 @@ L:SetGeneralLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerVengefulSpirit		= "死亡之影 : %s"
+	TimerVengefulSpirit		= "灵魂 : %s"
 }
 
 L:SetOptionLocalization{
-	TimerVengefulSpirit		= "为死亡之影显示持续时间"
-}
-
-L:SetMiscLocalization{
+	TimerVengefulSpirit		= "计时条：灵魂剩余时间"
 }
 
 ----------------------------
@@ -101,12 +115,12 @@ L:SetWarningLocalization{
 }
 
 L:SetTimerLocalization{
-	TimerMana		= "法力吸取"
+	TimerMana		= "法力为零"
 }
 
 L:SetOptionLocalization{
-	WarnMana		= "在第2阶段显示法力吸取警告",
-	TimerEnrage		= "显示法力吸取计时器"
+	WarnMana		= "警报：第2阶段零法力",
+	TimerMana		= "计时条：第2阶段法力值为 零 "
 }
 
 L:SetMiscLocalization{
@@ -131,7 +145,11 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	timerAura	= "为致命吸引显示计时器"
+	timerAura	= "计时条：棱彩光环",
+	FAHelper	= "为致命吸引设置跑位方案。团队领袖选择方案，前题都使用DBM。",
+	North		= "星星在左/西, 大饼在右/东, 菱形在上/北",
+	South		= "星星在左/西, 大饼在右/东, 菱形在下/南",
+	None		= "不会显示箭头, 信息框将显示数字而不是方向"
 }
 
 ----------------------
@@ -148,7 +166,7 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	Immune			= "当玛兰德法术和近战免疫时显示警告"
+	Immune			= "警报：玛兰德法术和物理近战免疫"
 }
 
 L:SetMiscLocalization{
@@ -180,10 +198,10 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnHuman		= "为人形阶段显示警告",
-	WarnDemon		= "为恶魔阶段显示警告",
-	TimerNextHuman	= "显示下一次人形阶段计时器",
-	TimerNextDemon	= "显示下一次恶魔阶段计时器",
+	WarnHuman		= "警报：人形阶段",
+	WarnDemon		= "警报：恶魔阶段",
+	TimerNextHuman	= "计时条：下一次人形阶段",
+	TimerNextDemon	= "计时条：下一次恶魔阶段",
 	RangeFrame		= "为3阶段和4阶段显示10码距离提示"
 }
 

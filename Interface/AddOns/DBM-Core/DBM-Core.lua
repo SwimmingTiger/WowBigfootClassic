@@ -66,18 +66,18 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20220127215752"),
+	Revision = parseCurseDate("20220208164937"),
 }
 -- The string that is shown as version
 if isRetail then
-	DBM.DisplayVersion = "9.1.26"
-	DBM.ReleaseRevision = releaseDate(2022, 1, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "9.1.28"
+	DBM.ReleaseRevision = releaseDate(2022, 2, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 elseif isClassic then
-	DBM.DisplayVersion = "1.14.11"
-	DBM.ReleaseRevision = releaseDate(2022, 1, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "1.14.13"
+	DBM.ReleaseRevision = releaseDate(2022, 2, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 elseif isBCC then
-	DBM.DisplayVersion = "2.5.25"
-	DBM.ReleaseRevision = releaseDate(2022, 1, 27) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "2.5.27"
+	DBM.ReleaseRevision = releaseDate(2022, 2, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 end
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -141,9 +141,15 @@ DBM.DefaultOptions = {
 	CountdownVoice = "Corsica",
 	CountdownVoice2 = "Kolt",
 	CountdownVoice3 = "Smooth",
-	ChosenVoicePack2 = "Yike",					--bf@178.com
-	VoiceOverSpecW2 = "DefaultOnly",
+	ChosenVoicePack2 = (GetLocale() == "zhCN" or GetLocale() == "zhTW") and "Yike" or "None",					--bf@178.com
+	VPReplacesAnnounce = true,
+	VPReplacesSA1 = true,
+	VPReplacesSA2 = true,
+	VPReplacesSA3 = true,
+	VPReplacesSA4 = true,
+	VPReplacesCustom = false,
 	AlwaysPlayVoice = false,
+	VPDontMuteSounds = false,
 	EventSoundVictory2 = "Interface\\AddOns\\DBM-Core\\sounds\\Victory\\SmoothMcGroove_Fanfare.ogg",
 	EventSoundWipe = "None",
 	EventSoundPullTimer = "None",
@@ -203,6 +209,10 @@ DBM.DefaultOptions = {
 	EnableModels = true,
 	GUIWidth = 800,
 	GUIHeight = 600,
+	GroupOptionsBySpell = true,
+	GroupOptionsExcludeIcon = false,
+	AutoExpandSpellGroups = not isRetail,
+	--ShowSpellDescWhenExpanded = false,
 	RangeFrameFrames = "radar",
 	RangeFrameUpdates = "Average",
 	RangeFramePoint = "CENTER",
@@ -322,7 +332,7 @@ DBM.DefaultOptions = {
 	ShowQueuePop = true,
 	HelpMessageVersion = 3,
 	MoviesSeen = {},
-	MovieFilter2 = "OnlyFight",
+	MovieFilter2 = "Never",
 	LastRevision = 0,
 	DebugMode = false,
 	DebugLevel = 1,
@@ -379,7 +389,7 @@ local currentSpecID, currentSpecName, currentSpecGroup, pformat, loadOptions, ch
 -- 0 variables
 local dbmToc, eeSyncReceived, cSyncReceived, showConstantReminder, updateNotificationDisplayed, difficultyModifier, LastGroupSize = 0, 0, 0, 0, 0, 0, 0
 local LastInstanceMapID = -1
-local SWFilterDisabed = 11
+local SWFilterDisabled = 12
 
 local fakeBWVersion, fakeBWHash
 if isRetail then
@@ -433,7 +443,7 @@ if isRetail then
 		[1205]={40, 3},[1448]={40, 3},[1228]={40, 3},--WoD Raids (yes, only 3 kekw)
 		[1712]={50, 3},[1520]={50, 3},[1530]={50, 3},[1676]={50, 3},[1648]={50, 3},--Legion Raids (Set to 50 because 45 tuning makes them difficult even at 50)
 		[1861]={50, 3},[2070]={50, 3},[2096]={50, 3},[2164]={50, 3},[2217]={50, 3},--BfA Raids
-		[2296]={60, 3},[2450]={60, 3},[2481]={60, 3},--Shadowlands Raids
+		[2296]={60, 3},[2450]={60, 3},[2481]={60, 3},--Shadowlands Raids (yes, only 3 kekw, seconded)
 		--Dungeons
 		[48]={30, 2},[230]={30, 2},[429]={30, 2},[389]={30, 2},[34]={30, 2},--Classic Dungeons
 		[540]={30, 2},[558]={30, 2},[556]={30, 2},[555]={30, 2},[542]={30, 2},[546]={30, 2},[545]={30, 2},[547]={30, 2},[553]={30, 2},[554]={30, 2},[552]={30, 2},[557]={30, 2},[269]={30, 2},[560]={30, 2},[543]={30, 2},[585]={30, 2},--BC Dungeons
@@ -525,6 +535,38 @@ local function removeEntry(t, val)
 		end
 	end
 	return existed
+end
+
+local function OrderedTable()
+	local nextkey, firstkey = {}, {}
+	nextkey[nextkey] = firstkey
+
+	local function onext(self, key)
+		while key ~= nil do
+			key = nextkey[key]
+			local val = self[key]
+			if val ~= nil then
+				return key, val
+			end
+		end
+	end
+
+	local selfmeta = firstkey
+	selfmeta.__nextkey = nextkey
+
+	function selfmeta:__newindex(key, val)
+		rawset(self, key, val)
+		if nextkey[key] == nil then
+			nextkey[nextkey[nextkey]] = key
+			nextkey[nextkey] = key
+		end
+	end
+
+	function selfmeta:__pairs() return
+		onext, self, firstkey
+	end
+
+	return setmetatable({}, selfmeta)
 end
 
 --Whisper/Whisper Sync filter function
@@ -1403,6 +1445,7 @@ do
 								type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
 								category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
 								statTypes		= GetAddOnMetadata(i, "X-DBM-StatTypes") or "",
+								oldOptions		= tonumber(GetAddOnMetadata(i, "X-DBM-OldOptions") or 0) == 1,
 								name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or CL.UNKNOWN,
 								mapId			= mapIdTable,
 								subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
@@ -5642,16 +5685,21 @@ end
 --Handle new spell name requesting with wrapper, to make api changes easier to handle
 --Keep an eye on C_SpellBook.GetSpellInfo, but don't use it YET as direction of existing GetSpellInfo isn't finalized yet
 function DBM:GetSpellInfo(spellId)
+	--I want this to fail, and fail loudly (ie get reported when mods are completely missing the spellId)
+	if not spellId or spellId == "" then
+		error("|cffff0000Invalid call to GetSpellInfo for spellId. spellId is missing! |r")
+	end
 	local name, rank, icon, castingTime, minRange, maxRange, returnedSpellId = GetSpellInfo(spellId)
+	--I want this for debug purposes to catch spellids that are removed from game/changed, but quietly to end user
 	if not returnedSpellId then--Bad request all together
 		if type(spellId) == "string" then
-			self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId.." as a string!")
+			self:Debug("|cffff0000Invalid call to GetSpellInfo for spellId: |r"..spellId.." as a string!")
 		else
 			if spellId > 4 then
 				if self.Options.BadIDAlert then
-					self:AddMsg("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId..". Please report this bug")
+					self:AddMsg("|cffff0000Invalid call to GetSpellInfo for spellId: |r"..spellId..". Please report this bug")
 				else
-					self:Debug("|cffff0000Invalid call to GetSpellInfo for spellID: |r"..spellId)
+					self:Debug("|cffff0000Invalid call to GetSpellInfo for spellId: |r"..spellId)
 				end
 			end
 		end
@@ -5663,10 +5711,10 @@ end
 function DBM:UnitAura(uId, spellInput, spellInput2, spellInput3, spellInput4, spellInput5)
 	if not uId then return end
 	for i = 1, 60 do
-		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitAura(uId, i)
+		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3 = UnitAura(uId, i)
 		if not spellName then return end
 		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId or spellInput5 == spellName or spellInput5 == spellId then
-			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3
+			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3
 		end
 	end
 end
@@ -5675,10 +5723,10 @@ end
 function DBM:UnitDebuff(uId, spellInput, spellInput2, spellInput3, spellInput4, spellInput5)
 	if not uId then return end
 	for i = 1, 60 do
-		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitDebuff(uId, i)
+		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3 = UnitDebuff(uId, i)
 		if not spellName then return end
 		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId or spellInput5 == spellName or spellInput5 == spellId then
-			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3
+			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3
 		end
 	end
 end
@@ -5687,10 +5735,10 @@ end
 function DBM:UnitBuff(uId, spellInput, spellInput2, spellInput3, spellInput4, spellInput5)
 	if not uId then return end
 	for i = 1, 60 do
-		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(uId, i)
+		local spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3 = UnitBuff(uId, i)
 		if not spellName then return end
 		if spellInput == spellName or spellInput == spellId or spellInput2 == spellName or spellInput2 == spellId or spellInput3 == spellName or spellInput3 == spellId or spellInput4 == spellName or spellInput4 == spellId or spellInput5 == spellName or spellInput5 == spellId then
-			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3
+			return spellName, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, castByPlayer, nameplateShowAll, timeMod, value1, value2, value3
 		end
 	end
 end
@@ -6119,7 +6167,9 @@ end
 function DBM:AddMsg(text, prefix)
 	local tag = prefix or (self.localization and self.localization.general.name) or L.DBM
 	local frame = DBM.Options.ChatFrame and _G[tostring(DBM.Options.ChatFrame)] or DEFAULT_CHAT_FRAME
-	frame = frame and frame:IsShown() and frame or DEFAULT_CHAT_FRAME
+	if not frame or not frame:IsShown() then
+		frame = DEFAULT_CHAT_FRAME
+	end
 	if prefix ~= false then
 		frame:AddMessage(("|cffff7d0a<|r|cffffd200%s|r|cffff7d0a>|r %s"):format(tostring(tag), tostring(text)), 0.41, 0.8, 0.94)
 	else
@@ -6373,7 +6423,9 @@ do
 				instanceId = instanceId,
 				revision = 0,
 				SyncThreshold = 8,
-				localization = self:GetModLocalization(name)
+				localization = self:GetModLocalization(name),
+				groupSpells = {},
+				groupOptions = OrderedTable(),
 			},
 			mt
 		)
@@ -6584,7 +6636,7 @@ end
 
 do
 	local isSeasonal
-	function bossModPrototype:IsSeasonal()
+	function DBM:IsSeasonal()
 		--Once set to true, we stop checking api an return cache
 		--But if not set true we keep checking api because the api (or buff) will return false if called too early and we don't want to cache that
 		if not isSeasonal then
@@ -6599,6 +6651,7 @@ do
 		end
 		return isSeasonal
 	end
+	bossModPrototype.IsSeasonal = DBM.IsSeasonal
 end
 
 --Pretty much ANYTHING that has a heroic mode
@@ -7642,7 +7695,7 @@ do
 				self.mod:AddMsg(text, nil)
 			end
 			if self.sound > 0 then
-				if self.sound > 1 and DBM.Options.ChosenVoicePack2 ~= "None" and not voiceSessionDisabled and self.sound <= SWFilterDisabed then return end
+				if self.sound > 1 and DBM.Options.ChosenVoicePack2 ~= "None" and DBM.Options.VPReplacesAnnounce and not voiceSessionDisabled and not DBM.Options.VPDontMuteSounds and self.sound <= SWFilterDisabled then return end
 				if not self.option or self.mod.Options[self.option.."SWSound"] ~= "None" then
 					DBM:PlaySoundFile(DBM.Options.RaidWarningSound, nil, true)--Validate true
 				end
@@ -7699,10 +7752,10 @@ do
 
 	function announcePrototype:Play(name, customPath)
 		local voice = DBM.Options.ChosenVoicePack2
-		if voiceSessionDisabled or voice == "None" then return end
+		if voiceSessionDisabled or voice == "None" or not DBM.Options.VPReplacesAnnounce then return end
 		local always = DBM.Options.AlwaysPlayVoice
 		if DBM.Options.DontShowTargetAnnouncements and (self.announceType == "target" or self.announceType == "targetcount") and not self.noFilter and not always then return end--don't show announces that are generic target announces
-		if (not DBM.Options.DontShowBossAnnounces and (not self.option or self.mod.Options[self.option]) or always) and self.sound <= SWFilterDisabed then
+		if (not DBM.Options.DontShowBossAnnounces and (not self.option or self.mod.Options[self.option]) or always) and self.sound <= SWFilterDisabled then
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
@@ -7712,19 +7765,19 @@ do
 	end
 
 	function announcePrototype:ScheduleVoice(t, ...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not DBM.Options.VPReplacesAnnounce then return end
 		DBMScheduler:Unschedule(self.Play, self.mod, self)--Allow ScheduleVoice to be used in same way as CombinedShow
 		return DBMScheduler:Schedule(t, self.Play, self.mod, self, ...)
 	end
 
 	--Object Permits scheduling voice multiple times for same object
 	function announcePrototype:ScheduleVoiceOverLap(t, ...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not DBM.Options.VPReplacesAnnounce then return end
 		return DBMScheduler:Schedule(t, self.Play, self.mod, self, ...)
 	end
 
 	function announcePrototype:CancelVoice(...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not DBM.Options.VPReplacesAnnounce then return end
 		return DBMScheduler:Unschedule(self.Play, self.mod, self, ...)
 	end
 
@@ -7821,10 +7874,10 @@ do
 		end
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, catType)
+			self:AddBoolOption(obj.option, optionDefault, catType, nil, nil, nil, spellId)
 		elseif not (optionName == false) then
 			obj.option = catType..spellId..announceType..(optionVersion or "")
-			self:AddBoolOption(obj.option, optionDefault, catType)
+			self:AddBoolOption(obj.option, optionDefault, catType, nil, nil, nil, spellId)
 			if noFilter and announceType == "target" then
 				self.localization.options[obj.option] = L.AUTO_ANNOUNCE_OPTIONS["targetNF"]:format(spellId)
 			else
@@ -7971,10 +8024,10 @@ do
 		)
 		if optionName then
 			obj.option = optionName
-			self:AddBoolOption(obj.option, optionDefault, "yell")
+			self:AddBoolOption(obj.option, optionDefault, "yell", nil, nil, nil, spellId)
 		elseif not (optionName == false) then
 			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
-			self:AddBoolOption(obj.option, optionDefault, "yell")
+			self:AddBoolOption(obj.option, optionDefault, "yell", nil, nil, nil, spellId)
 			self.localization.options[obj.option] = L.AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
 		end
 		return obj
@@ -8297,6 +8350,17 @@ do
 		return text, spellName
 	end
 
+	local function canVoiceReplace(self, soundId)
+		soundId = soundId or self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
+		local isVoicePackUsed
+		if type(soundId) == "number" then
+			isVoicePackUsed = DBM.Options["VPReplacesSA"..soundId]
+		else
+			isVoicePackUsed = DBM.Options.VPReplacesCustom
+		end
+		return isVoicePackUsed
+	end
+
 	local specTypeTable = {
 		["dispel"] = "dispel",
 		["interrupt"] = "interrupt",
@@ -8449,13 +8513,11 @@ do
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
 			--boolean: Whether or not this warning is a special warning (higher priority).
 			fireEvent("DBM_Announce", text, self.icon, self.type, self.spellId, self.mod.id, true)
-			if self.sound and not DBM.Options.DontPlaySpecialWarningSound then
+			if self.sound and not DBM.Options.DontPlaySpecialWarningSound and (not self.option or self.mod.Options[self.option.."SWSound"] ~= "None") then
 				local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 				if noteHasName and type(soundId) == "number" then soundId = noteHasName end--Change number to 5 if it's not a custom sound, else, do nothing with it
-				if self.hasVoice and DBM.Options.ChosenVoicePack2 ~= "None" and not voiceSessionDisabled and self.hasVoice <= SWFilterDisabed and (type(soundId) == "number" and soundId < 5 and DBM.Options.VoiceOverSpecW2 == "DefaultOnly" or DBM.Options.VoiceOverSpecW2 == "All") then return end
-				if not self.option or self.mod.Options[self.option.."SWSound"] ~= "None" then
-					DBM:PlaySpecialWarningSound(soundId or 1)
-				end
+				if self.hasVoice and DBM.Options.ChosenVoicePack2 ~= "None" and not voiceSessionDisabled and not DBM.Options.VPDontMuteSounds and canVoiceReplace(self, soundId) and self.hasVoice <= SWFilterDisabled then return end
+				DBM:PlaySpecialWarningSound(soundId or 1)
 			end
 		else
 			self.combinedcount = 0
@@ -8506,10 +8568,10 @@ do
 	function specialWarningPrototype:Play(name, customPath)
 		local always = DBM.Options.AlwaysPlayVoice
 		local voice = DBM.Options.ChosenVoicePack2
-		if voiceSessionDisabled or voice == "None" then return end
+		local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
+		if voiceSessionDisabled or voice == "None" or not canVoiceReplace(self, soundId) then return end
 		if self.mod:IsEasyDungeon() and self.mod.isTrashMod and DBM.Options.FilterTrashWarnings2 then return end
-		if ((not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabed then
-			local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
+		if ((not self.option or self.mod.Options[self.option]) or always) and self.hasVoice <= SWFilterDisabled then
 			--Filter tank specific voice alerts for non tanks if tank filter enabled
 			--But still allow AlwaysPlayVoice to play as well.
 			if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
@@ -8521,19 +8583,19 @@ do
 	end
 
 	function specialWarningPrototype:ScheduleVoice(t, ...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not canVoiceReplace(self) then return end
 		DBMScheduler:Unschedule(self.Play, self.mod, self)--Allow ScheduleVoice to be used in same way as CombinedShow
 		return DBMScheduler:Schedule(t, self.Play, self.mod, self, ...)
 	end
 
 	--Object Permits scheduling voice multiple times for same object
 	function specialWarningPrototype:ScheduleVoiceOverLap(t, ...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not canVoiceReplace(self) then return end
 		return DBMScheduler:Schedule(t, self.Play, self.mod, self, ...)
 	end
 
 	function specialWarningPrototype:CancelVoice(...)
-		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" then return end
+		if voiceSessionDisabled or DBM.Options.ChosenVoicePack2 == "None" or not canVoiceReplace(self) then return end
 		return DBMScheduler:Unschedule(self.Play, self.mod, self, ...)
 	end
 
@@ -8661,7 +8723,7 @@ do
 					catType = "announcerole"
 				end
 			end
-			self:AddSpecialWarningOption(obj.option, optionDefault, runSound, catType)
+			self:AddSpecialWarningOption(obj.option, optionDefault, runSound, catType, spellId)
 		end
 		obj.voiceOptionId = hasVoice and "Voice"..spellId or nil
 		tinsert(self.specwarns, obj)
@@ -8866,7 +8928,7 @@ do
 	end
 
 	do
-		local minVoicePackVersion = isRetail and 11 or 10
+		local minVoicePackVersion = isRetail and 12 or 10
 
 		function DBM:CheckVoicePackVersion(value)
 			local activeVP = self.Options.ChosenVoicePack2
@@ -8876,9 +8938,9 @@ do
 					if self.Options.ShowReminders then
 						self:AddMsg(L.VOICE_PACK_OUTDATED)
 					end
-					SWFilterDisabed = self.VoiceVersions[value]--Set disable to version on current voice pack
+					SWFilterDisabled = self.VoiceVersions[value]--Set disable to version on current voice pack
 				else
-					SWFilterDisabed = minVoicePackVersion
+					SWFilterDisabled = minVoicePackVersion
 				end
 			end
 		end
@@ -9039,9 +9101,9 @@ do
 			--Starting AI timer with anything above 3 indicarets it's a regular timer and to use shortest time in between two regular casts
 			if self.type == "ai" then--A learning timer
 				if not DBM.Options.AITimer then return end
-				if timer > 4 then--Normal behavior.
+				if timer > 5 then--Normal behavior.
 					local newPhase = false
-					for i = 1, 4 do
+					for i = 1, 5 do
 						--Check for any phase timers that are strings, if a string it means last cast of this ability was first case of a given stage
 						if self["phase"..i.."CastTimer"] and type(self["phase"..i.."CastTimer"]) == "string" then--This is first cast of spell, we need to generate self.firstPullTimer
 							self["phase"..i.."CastTimer"] = tonumber(self["phase"..i.."CastTimer"])
@@ -9052,7 +9114,7 @@ do
 					end
 					if self.lastCast and not newPhase then--We have a GetTime() on last cast and it's not affected by a phase change
 						local timeLastCast = GetTime() - self.lastCast--Get time between current cast and last cast
-						if timeLastCast > 4 then--Prevent infinite loop cpu hang. Plus anything shorter than 5 seconds doesn't need a timer
+						if timeLastCast > 5 then--Prevent infinite loop cpu hang. Plus anything shorter than 5 seconds doesn't need a timer
 							if not self.lowestSeenCast or (self.lowestSeenCast and self.lowestSeenCast > timeLastCast) then--Always use lowest seen cast for a timer
 								self.lowestSeenCast = timeLastCast
 								DBM:Debug("AI timer learned a new lowest timer of "..self.lowestSeenCast, 2)
@@ -9065,7 +9127,7 @@ do
 					else
 						return--Don't start the bogus timer shoved into timer field in the mod
 					end
-				else--AI timer passed with 4 or less is indicating phase change, with timer as phase number
+				else--AI timer passed with 5 or less is indicating phase change, with timer as phase number
 					if not isRetail then
 						timer = floor(timer)--Floor inprecise timers in classic because combat is mostly caused by PLAYER_REGEN in dungeons
 					end
@@ -9477,10 +9539,10 @@ do
 		end
 	end
 
-	function timerPrototype:AddOption(optionDefault, optionName, colorType, countdown)
+	function timerPrototype:AddOption(optionDefault, optionName, colorType, countdown, spellId)
 		if optionName ~= false then
 			self.option = optionName or self.id
-			self.mod:AddBoolOption(self.option, optionDefault, "timer", nil, colorType, countdown)
+			self.mod:AddBoolOption(self.option, optionDefault, "timer", nil, colorType, countdown, spellId)
 		end
 	end
 
@@ -9605,7 +9667,7 @@ do
 			},
 			mt
 		)
-		obj:AddOption(optionDefault, optionName, colorType, countdown)
+		obj:AddOption(optionDefault, optionName, colorType, countdown, spellId)
 		tinsert(self.timers, obj)
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
@@ -9825,7 +9887,7 @@ end
 ---------------
 --  Options  --
 ---------------
-function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, extraOptionTwo)
+function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, extraOptionTwo, spellId)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = (default == nil) or default
 	if cat == "timer" then
@@ -9840,6 +9902,9 @@ function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, e
 		self.Options[name.."TColor"] = extraOption or 0
 		self.Options[name.."CVoice"] = extraOptionTwo or 0
 	end
+	if spellId then
+		self:GroupSpells(spellId, name)
+	end
 	self:SetOptionCategory(name, cat)
 	if func then
 		self.optionFuncs = self.optionFuncs or {}
@@ -9847,7 +9912,7 @@ function bossModPrototype:AddBoolOption(name, default, cat, func, extraOption, e
 	end
 end
 
-function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, cat)
+function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, cat, spellId)
 	cat = cat or "misc"
 	self.DefaultOptions[name] = (default == nil) or default
 	self.DefaultOptions[name.."SWSound"] = defaultSound or 1
@@ -9858,6 +9923,9 @@ function bossModPrototype:AddSpecialWarningOption(name, default, defaultSound, c
 	self.Options[name] = (default == nil) or default
 	self.Options[name.."SWSound"] = defaultSound or 1
 	self.Options[name.."SWNote"] = true
+	if spellId then
+		self:GroupSpells(spellId, name)
+	end
 	self:SetOptionCategory(name, cat)
 end
 
@@ -9875,6 +9943,9 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, isHostile, ic
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
+	if not DBM.Options.GroupOptionsExcludeIcon then
+		self:GroupSpells(spellId, name)
+	end
 	self:SetOptionCategory(name, "icon")
 	if isHostile then
 		if not self.findFastestComputer then
@@ -9926,6 +9997,7 @@ function bossModPrototype:AddArrowOption(name, spellId, default, isRunTo)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
+	self:GroupSpells(spellId, name)
 	self:SetOptionCategory(name, "misc")
 	if isRunTo == 2 then
 		self.localization.options[name] = L.AUTO_ARROW_OPTION_TEXT:format(spellId)
@@ -9942,12 +10014,13 @@ function bossModPrototype:AddRangeFrameOption(range, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options["RangeFrame"] = (default == nil) or default
-	self:SetOptionCategory("RangeFrame", "misc")
 	if spellId then
+		self:GroupSpells(spellId, "RangeFrame")
 		self.localization.options["RangeFrame"] = L.AUTO_RANGE_OPTION_TEXT:format(range, spellId)
 	else
 		self.localization.options["RangeFrame"] = L.AUTO_RANGE_OPTION_TEXT_SHORT:format(range)
 	end
+	self:SetOptionCategory("RangeFrame", "misc")
 end
 
 function bossModPrototype:AddHudMapOption(name, spellId, default)
@@ -9956,12 +10029,13 @@ function bossModPrototype:AddHudMapOption(name, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
-	self:SetOptionCategory(name, "misc")
 	if spellId then
+		self:GroupSpells(spellId, name)
 		self.localization.options[name] = L.AUTO_HUD_OPTION_TEXT:format(spellId)
 	else
 		self.localization.options[name] = L.AUTO_HUD_OPTION_TEXT_MULTI
 	end
+	self:SetOptionCategory(name, "misc")
 end
 
 function bossModPrototype:AddNamePlateOption(name, spellId, default)
@@ -9973,6 +10047,7 @@ function bossModPrototype:AddNamePlateOption(name, spellId, default)
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options[name] = (default == nil) or default
+	self:GroupSpells(spellId, name)
 	self:SetOptionCategory(name, "nameplate")
 	self.localization.options[name] = L.AUTO_NAMEPLATE_OPTION_TEXT:format(spellId)
 end
@@ -9987,8 +10062,8 @@ function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion, op
 		default = self:GetRoleFlagValue(default)
 	end
 	self.Options["InfoFrame"..oVersion] = (default == nil) or default
-	self:SetOptionCategory("InfoFrame"..oVersion, "misc")
 	if spellId then
+		self:GroupSpells(spellId, "InfoFrame" .. oVersion)
 		if optionalThreshold then
 			self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT3:format(spellId, optionalThreshold)
 		else
@@ -9997,6 +10072,7 @@ function bossModPrototype:AddInfoFrameOption(spellId, default, optionVersion, op
 	else
 		self.localization.options["InfoFrame"..oVersion] = L.AUTO_INFO_FRAME_OPTION_TEXT2
 	end
+	self:SetOptionCategory("InfoFrame"..oVersion, "misc")
 end
 
 function bossModPrototype:AddReadyCheckOption(questId, default, maxLevel)
@@ -10043,13 +10119,22 @@ function bossModPrototype:AddOptionSpacer(cat)
 	end
 end
 
-function bossModPrototype:AddOptionLine(text, cat)
-	cat = cat or "misc"
-	if not self.optionCategories[cat] then
-		self.optionCategories[cat] = {}
-	end
-	if self.optionCategories[cat] then
-		tinsert(self.optionCategories[cat], {line = true, text = text})
+do
+	local lineCount = 1
+
+	function bossModPrototype:AddOptionLine(text, cat, forceIgnore)
+		if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and not forceIgnore then
+			self.groupOptions["line" .. lineCount] = text
+			lineCount = lineCount + 1
+		else
+			cat = cat or "misc"
+			if not self.optionCategories[cat] then
+				self.optionCategories[cat] = {}
+			end
+			if self.optionCategories[cat] then
+				tinsert(self.optionCategories[cat], {line = true, text = text})
+			end
+		end
 	end
 end
 
@@ -10078,7 +10163,7 @@ function bossModPrototype:AddIconLine(text)
 end
 
 function bossModPrototype:AddMiscLine(text)
-	return self:AddOptionLine(text, "misc")
+	return self:AddOptionLine(text, "misc", true)
 end
 
 function bossModPrototype:RemoveOption(name)
@@ -10094,17 +10179,44 @@ function bossModPrototype:RemoveOption(name)
 	end
 end
 
-function bossModPrototype:GroupSpells() end -- NOOP placeholder
+function bossModPrototype:GroupSpells(...)
+	local spells = {...}
+	local catSpell = tostring(tremove(spells, 1))
+	if not self.groupSpells[catSpell] then
+		self.groupSpells[catSpell] = {}
+	end
+	for _, spell in ipairs(spells) do
+		local sSpell = tostring(spell)
+		self.groupSpells[sSpell] = catSpell
+		if sSpell ~= catSpell and self.groupOptions[sSpell] then
+			if not self.groupOptions[catSpell] then
+				self.groupOptions[catSpell] = {}
+			end
+			for _, spell2 in ipairs(self.groupOptions[sSpell]) do
+				tinsert(self.groupOptions[catSpell], spell2)
+			end
+			self.groupOptions[sSpell] = nil
+		end
+	end
+end
 
 function bossModPrototype:SetOptionCategory(name, cat)
 	for _, options in pairs(self.optionCategories) do
 		removeEntry(options, name)
 	end
-	if not self.optionCategories[cat] then
-		self.optionCategories[cat] = {}
+	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (name:find("gtfo") or name:find("adds") or name:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
+		local sSpell = self.groupSpells[name]
+		if not self.groupOptions[sSpell] then
+			self.groupOptions[sSpell] = {}
+		end
+		tinsert(self.groupOptions[sSpell], name)
+	else
+		if not self.optionCategories[cat] then
+			self.optionCategories[cat] = {}
+		end
+		tinsert(self.optionCategories[cat], name)
+		tinsert(self.categorySort, cat)
 	end
-	tinsert(self.optionCategories[cat], name)
-	tinsert(self.categorySort, cat)
 end
 
 --------------

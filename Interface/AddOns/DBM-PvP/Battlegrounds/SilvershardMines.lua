@@ -4,7 +4,7 @@ end
 local mod	= DBM:NewMod("z727", "DBM-PvP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210519214524")
+mod:SetRevision("20220126115338")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",
@@ -41,7 +41,7 @@ do
 end
 
 local carts = {}
-local clearCartCache
+local ClearCartCache
 
 do
 	local tinsert = table.insert
@@ -54,7 +54,7 @@ do
 			cartCount = cartCount + 1
 			if cartCount % 2 == 1 then -- Event is fired twice, due to being fired both on neutral and faction.
 				cartRespawn:Start(nil, cartCount)
-				clearCartCache()
+				ClearCartCache()
 			end
 		elseif msg == L.Arrived or msg:find(L.Arrived) then
 			tinsert(carts, 1, {
@@ -102,7 +102,7 @@ do
 	local names = { "Top - Down", "Top - Up", "Middle", "Lava - Down", "Lava - Up" }
 	local cartTimer	= mod:NewTimer(9.5, "TimerCart", "136002") -- Interface\\icons\\spell_misc_hellifrepvphonorholdfavor.blp
 
-	local function isValidUpdate(dir1, dir2)
+	local function IsValidUpdate(dir1, dir2)
 		if dir1 == 0 or dir2 == 0 then
 			return false
 		end
@@ -116,15 +116,15 @@ do
 		return false
 	end
 
-	local function getDistance(x1, y1, x2, y2)
+	local function GetDistance(x1, y1, x2, y2)
 		return sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 	end
 
-	function clearCartCache()
+	function ClearCartCache()
 		local time = GetTime()
 		for i, cart in pairs(carts) do
 			if cart.dir ~= 0 and times[cart.dir] + cart.spawn + 2 > time then
-				if getDistance(cart.x, cart.y, caps[cart.dir].x, caps[cart.dir].y) < 3 then
+				if GetDistance(cart.x, cart.y, caps[cart.dir].x, caps[cart.dir].y) < 3 then
 					cartTimer:Stop(names[cart.dir])
 					tremove(carts, i)
 				end
@@ -132,12 +132,12 @@ do
 		end
 	end
 
-	local function pointToLineDist(a, b, x, y)
+	local function PointToLineDist(a, b, x, y)
 		return (a * x + b - y) / (sqrt(a ^ 2 + 1))
 	end
 
-	local function identifyCartCoord(x, y)
-		local dist1, dist2, dist3, dist4 = pointToLineDist(-2.126, -168.449, x, y), pointToLineDist(-0.513, 76.476, x, y), pointToLineDist(-0.555, 64.673, x, y), pointToLineDist(0.952, -12.176, x, y)
+	local function IdentifyCartCoord(x, y)
+		local dist1, dist2, dist3, dist4 = PointToLineDist(-2.126, -168.449, x, y), PointToLineDist(-0.513, 76.476, x, y), PointToLineDist(-0.555, 64.673, x, y), PointToLineDist(0.952, -12.176, x, y)
 		if dist1 < 0 and dist3 < 0 then
 			return dist4 > 0 and 5 or 4 -- Lava Up / Down
 		elseif dist1 > 0 and dist3 < 0 and dist2 < 0 then
@@ -147,7 +147,7 @@ do
 		end
 	end
 
-	local function identifyCart(cartNum)
+	local function IdentifyCart(cartNum)
 		local cart = carts[cartNum]
 		if not cart then
 			return
@@ -157,11 +157,11 @@ do
 			local x, y = GetBattlefieldVehicleInfo(d, 423)
 			x = x * 100
 			y = y * 100
-			local dist = getDistance(56.87, 47.117, x, y)
+			local dist = GetDistance(56.87, 47.117, x, y)
 			if dist < distance then
 				local used = false
 				for _, v in pairs(carts) do
-					if getDistance(x, y, v.x, v.y) < 2 then
+					if GetDistance(x, y, v.x, v.y) < 2 then
 						used = true
 						break
 					end
@@ -176,7 +176,7 @@ do
 			local x, y = GetBattlefieldVehicleInfo(closestID, 423)
 			cart.x		= x * 100
 			cart.y		= y * 100
-			cart.dir	= identifyCartCoord(cart.x, cart.y)
+			cart.dir	= IdentifyCartCoord(cart.x, cart.y)
 		end
 	end
 
@@ -190,7 +190,7 @@ do
 			cache[i] = {
 				x	= x,
 				y	= y,
-				dir	= identifyCartCoord(x, y),
+				dir	= IdentifyCartCoord(x, y),
 				c	= (vInfo.name:match("Red") and 0) or (vInfo.name:match("Blue") and 1) or -1
 			}
 		end
@@ -199,11 +199,11 @@ do
 		for _, newCart in pairs(cache) do
 			for i, cart in pairs(carts) do
 				if (cart.x == -1 or cart.y == -1) and cart.spawn + 1 < time then
-					identifyCart(i)
+					IdentifyCart(i)
 					if not cartTimer:IsStarted(names[cart.dir]) then -- Prevent duplicate cart timers.
 						cartTimer:Start(cart.spawn + times[cart.dir] - time, names[cart.dir])
 					end
-				elseif getDistance(newCart.x, newCart.y, cart.x, cart.y) < 1 and isValidUpdate(cart.dir, newCart.dir) then
+				elseif GetDistance(newCart.x, newCart.y, cart.x, cart.y) < 1 and IsValidUpdate(cart.dir, newCart.dir) then
 					if newCart.c ~= cart.c then
 						local name = names[cart.dir]
 						if newCart.c == 1 then

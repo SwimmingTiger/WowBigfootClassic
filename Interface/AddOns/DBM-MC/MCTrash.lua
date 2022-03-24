@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("MCTrash", "DBM-MC", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210401042132")
+mod:SetRevision("20220131033455")
 --mod:SetModelID(47785)
 mod:SetMinSyncRevision(20200710000000)--2020, 7, 10
 
@@ -62,7 +62,7 @@ do
 
 	function mod:OnSync(msg, startTime, sender)
 		--Sync recieved with start time and ours is currently not started
-		if msg == "MCStarted" and startTime and not self.vb.firstEngageTime then
+		if msg == "MCStarted" and sender and not self.vb.firstEngageTime then
 			self.vb.firstEngageTime = tonumber(startTime)
 			if self.Options.FastestClear2 and self.Options.SpeedClearTimer then
 				--Custom bar creation that's bound to core, not mod, so timer doesn't stop when mod stops it's own timers

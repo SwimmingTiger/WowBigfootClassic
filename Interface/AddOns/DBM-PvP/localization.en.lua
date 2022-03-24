@@ -13,7 +13,6 @@ L:SetTimerLocalization({
 	TimerCap		= "%s",
 	TimerFlag		= "Flag respawn",
 	TimerInvite		= "%s",
-	TimerRemaining	= "Remaining",
 	TimerWin		= "Victory in",
 	TimerStart		= "Starting in",
 	TimerShadow		= "Shadow Sight"
@@ -26,7 +25,6 @@ L:SetOptionLocalization({
 	TimerCap			= "Show capture timer",
 	TimerFlag			= "Show flag respawn timer",
 	TimerStart			= "Show timer till match start",
-	TimerRemaining		= "Show timer till match end",
 	TimerShadow			= "Show timer for Shadow Sight",
 	TimerWin			= "Show win timer",
 	ShowRelativeGameTime= "Fill win timer relative to BG start time (If disabled, bar just always looks full)"

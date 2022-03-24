@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Maiden", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220205083437")
 mod:SetCreatureID(16457)
 mod:SetEncounterID(654, 2446)
 mod:SetModelID(16198)
@@ -25,7 +25,7 @@ local timerRepentance		= mod:NewBuffActiveTimer(12.6, 29511, nil, nil, nil, 2)
 local timerRepentanceCD		= mod:NewCDTimer(29.1, 29511, nil, nil, nil, 6)--29.1-49
 local timerHolyFire			= mod:NewTargetTimer(12, 29522, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 
-mod:AddRangeFrameOption(10, 29522)
+mod:AddRangeFrameOption(10, 32445)
 
 function mod:OnCombatStart(delay)
 	timerRepentanceCD:Start(28-delay)--28-35

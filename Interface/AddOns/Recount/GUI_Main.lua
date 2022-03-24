@@ -650,6 +650,9 @@ function Recount:CreateMainWindow()
 			Recount:CancelTimer(Recount.MainWindow.timeid)
 			Recount.MainWindow.timeid = nil
 		end
+		if not UIParent:IsShown() then
+			return
+		end
 		Recount.db.profile.MainWindowVis = false
 	end)
 

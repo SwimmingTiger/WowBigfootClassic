@@ -18,7 +18,7 @@ tabFrame1:Hide()
 tabFrame1:SetFrameStrata("TOOLTIP")
 tabFrame1.offset = 0
 tabFrame1.backdropInfo = {
-	bgFile		= "Interface\\ChatFrame\\ChatFrameBackground", -- 130937
+	--bgFile		= "Interface\\ChatFrame\\ChatFrameBackground", -- 130937
 	edgeFile	= "Interface\\Tooltips\\UI-Tooltip-Border", -- 137057
 	tile		= true,
 	tileSize	= 16,

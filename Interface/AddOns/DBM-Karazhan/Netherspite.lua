@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Netherspite", "DBM-Karazhan")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220126211651")
+mod:SetRevision("20220202210525")
 mod:SetCreatureID(15689)
 mod:SetEncounterID(659, 2451)
 mod:SetModelID(15363)
@@ -31,8 +31,8 @@ function mod:OnCombatStart(delay)
 	timerPortalPhase:Start(63.5-delay)
 	if not self:IsTrivial() then
 		self:RegisterShortTermEvents(
-			"SPELL_PERIODIC_DAMAGE 37063",
-			"SPELL_PERIODIC_MISSED 37063"
+			"SPELL_PERIODIC_DAMAGE 28865",
+			"SPELL_PERIODIC_MISSED 28865"
 		)
 	end
 end
@@ -55,7 +55,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, spellName)
-	if spellId == 37063 and destGUID == UnitGUID("player") and self:AntiSpam() then
+	if spellId == 28865 and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnVoid:Show(spellName)
 		specWarnVoid:Play("watchfeet")
 	end

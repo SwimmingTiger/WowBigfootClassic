@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Vaelastrasz", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403075439")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(13020)
 mod:SetEncounterID(611)
 mod:SetModelID(13992)
@@ -102,7 +102,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 	end
 end
 
-function mod:OnSync(msg, targetName)
+function mod:OnSync(msg)
 	if msg == "PullRP" then
 		timerCombatStart:Start()
 	end

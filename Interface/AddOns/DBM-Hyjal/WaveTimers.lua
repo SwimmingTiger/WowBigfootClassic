@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HyjalWaveTimers", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220109074627")
+mod:SetRevision("20220131033455")
 
 mod:RegisterEvents(
 	"GOSSIP_SHOW",
@@ -72,8 +72,8 @@ function mod:UPDATE_UI_WIDGET(table)
 	self:WaveFunction(currentWave)
 end
 
-function mod:OnSync(msg, arg)
-	if msg == "boss" then
+function mod:OnSync(msg, arg, sender)
+	if msg == "boss" and sender then
 		boss = tonumber(arg)
 	end
 end

@@ -1,6 +1,6 @@
 if GetLocale() ~= "zhCN" then return end
 local L
---Last update: 2020/07/03 （重新整理）
+--Last update: 2022/01/31（重新整理）
 --------------------------
 --  General BG Options  --
 --------------------------
@@ -51,6 +51,19 @@ L:SetMiscLocalization({
 	ExprFlagReturn		= " (%w+) 的旗帜！被 (.+) 还到了它的基地中！",
 	Vulnerable1			= "旗帜携带者已变的容易受到攻击！",
 	Vulnerable2			= "旗帜携带者越来越容易受到攻击！"
+})
+
+----------------------
+--  Seething Shore  --
+----------------------
+L = DBM:GetModLocalization("z1803")
+
+L:SetTimerLocalization({
+	TimerSpawn		= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerSpawn	= "显示艾泽里特矿产计时器"
 })
 
 ----------------------

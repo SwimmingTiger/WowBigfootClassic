@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CThun", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210614184914")
+mod:SetRevision("20220131033455")
 mod:SetCreatureID(15589, 15727)
 mod:SetEncounterID(717)
 mod:SetHotfixNoticeRev(20200823000000)--2020, 8, 23
@@ -218,7 +218,7 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:OnSync(msg, spawnUid, pct)
+function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "Weakened" then
 		table.wipe(fleshTentacles)

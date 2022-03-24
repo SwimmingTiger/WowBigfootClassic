@@ -54,6 +54,23 @@ L:SetGeneralLocalization{
 	name = "阿卡瑪的黑暗面"
 }
 
+L:SetWarningLocalization({
+	warnAshtongueDefender	= "灰舌防衛者",
+	warnAshtongueSorcerer	= "灰舌巫士"
+})
+
+L:SetTimerLocalization({
+	timerAshtongueDefender	= "灰舌防衛者: %s",
+	timerAshtongueSorcerer	= "灰舌巫士: %s"
+})
+
+L:SetOptionLocalization({
+	warnAshtongueDefender	= "顯示灰舌防衛者的警告",
+	warnAshtongueSorcerer	= "顯示灰舌巫士的警告",
+	timerAshtongueDefender	= "顯示灰舌防衛者的計時器",
+	timerAshtongueSorcerer	= "顯示灰舌巫士的計時器"
+})
+
 -------------------------
 --  Teron Gorefiend  --
 -------------------------
@@ -106,8 +123,8 @@ L:SetMiscLocalization{
 	Suffering		= "受難精華",
 	Desire			= "慾望精華",
 	Anger			= "憤怒精華",
-	Phase1End		= "I don't want to go back!",
-	Phase2End		= "I won't be far!"
+	Phase1End		= "我才不想回去！",
+	Phase2End		= "我不會走遠！"
 }
 
 -----------------------
@@ -124,7 +141,11 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	timerAura	= "為稜石光環顯示計時器"
+	timerAura	= "為稜石光環顯示計時器",
+	FAHelper	= "設定致命的吸引力的模組行為。團長的設置會覆蓋全團DBM的設定",
+	North		= "星星為左/西，圈圈為右/東，鑽石為上/北",--Default
+	South		= "星星為左/西，圈圈為右/東，鑽石為下/南",
+	None		= "箭頭無法顯示，訊息框架將顯示數字而非方向"
 }
 
 ----------------------

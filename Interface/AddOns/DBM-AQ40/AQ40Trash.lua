@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("AQ40Trash", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210402014659")
+mod:SetRevision("20220131033455")
 mod:SetModelID(15347)-- Anubisath Sentinel
 mod:SetMinSyncRevision(20200810000000)--2020, 8, 10
 
@@ -170,7 +170,7 @@ do
 	function mod:OnSync(msg, timeOrEncounter, sender)
 		--Sync recieved with start time and ours is currently not started
 		--The reason this doesn't just check self.vb.firstEngageTime is nil, because it might not be if SendVariableInfo send it first
-		if msg == "AQ40Started" and timeOrEncounter and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) then
+		if msg == "AQ40Started" and sender and not DBT:GetBar(DBM_CORE_L.SPEED_CLEAR_TIMER_TEXT) then
 			if not self.vb.firstEngageTime then
 				self.vb.firstEngageTime = tonumber(timeOrEncounter)
 			end

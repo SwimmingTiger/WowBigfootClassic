@@ -10,7 +10,7 @@
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: BC
-## X-DBM-StatTypes: normal
+## X-DBM-StatTypes: normal25
 ## X-DBM-Mod-MapID: 564
 ## X-DBM-Mod-Sort: 1002
 ## X-DBM-Mod-MinCoreRevision: 16406
