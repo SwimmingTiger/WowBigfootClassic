@@ -5,10 +5,15 @@
 
 local Search = LibStub('CustomSearch-1.0')
 local Unfit = LibStub('Unfit-1.0')
-local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 19)
+local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 24)
 if Lib then
-	Lib.Scanner = LibItemSearchTooltipScanner or CreateFrame('GameTooltip', 'LibItemSearchTooltipScanner', UIParent, 'GameTooltipTemplate')
 	Lib.Filters = {}
+	Lib.Scanner = LibItemSearchTooltipScanner or CreateFrame('GameTooltip', 'LibItemSearchTooltipScanner', UIParent, 'GameTooltipTemplate')
+	Lib.Scanner:RegisterEvent('GET_ITEM_INFO_RECEIVED')
+	Lib.Scanner:SetScript('OnEvent', function()
+		Lib.Filters.tipPhrases.keywords[FOLLOWERLIST_LABEL_CHAMPIONS:lower()] = Lib:TooltipLine('item:147556', 2)
+		Lib.Filters.tipPhrases.keywords[GARRISON_FOLLOWERS:lower()] = Lib:TooltipLine('item:147556', 2)
+	end)
 else
 	return
 end
@@ -29,7 +34,7 @@ function Lib:TooltipPhrase(link, search)
 end
 
 function Lib:ForQuest(link)
-	return self:Tooltip(link, GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM):lower())
+	return self:Tooltip(link, GetItemClassInfo(Enum.ItemClass.Questitem):lower())
 end
 
 function Lib:IsReagent(link)
@@ -112,7 +117,7 @@ Lib.Filters.name = {
 	end,
 
 	match = function(self, item, _, search)
-		return Search:Find(search, C_Item.GetItemNameByID(item))
+		return Search:Find(search, C_Item.GetItemNameByID(item) or item:match('%[(.+)%]'))
 	end
 }
 
@@ -184,7 +189,7 @@ Lib.Filters.quality = {
 	end,
 
 	match = function(self, link, operator, num)
-		local quality = link:sub(1, 9) == 'battlepet' and tonumber(link:match('%d+:%d+:(%d+)')) or C_Item.GetItemQualityByID(link)
+		local quality = link:find('battlepet') and tonumber(link:match('%d+:%d+:(%d+)')) or C_Item.GetItemQualityByID(link)
 		return Search:Compare(operator, quality, num)
 	end,
 }
@@ -242,7 +247,7 @@ if C_ArtifactUI then
 	}
 end
 
-if C_AzeriteItem then
+if C_AzeriteItem and C_CurrencyInfo and C_CurrencyInfo.GetAzeriteCurrencyID then
 	Lib.Filters.azerite = {
 		keyword = C_CurrencyInfo.GetBasicCurrencyInfo(C_CurrencyInfo.GetAzeriteCurrencyID()).name:lower(),
 
@@ -322,12 +327,10 @@ Lib.Filters.tipPhrases = {
 	keywords = {
 		[ITEM_SOULBOUND:lower()] = ITEM_BIND_ON_PICKUP,
 		[QUESTS_LABEL:lower()] = ITEM_BIND_QUEST,
-		[GetItemClassInfo(LE_ITEM_CLASS_QUESTITEM):lower()] = ITEM_BIND_QUEST,
+		[GetItemClassInfo(Enum.ItemClass.Questitem):lower()] = ITEM_BIND_QUEST,
 		[PROFESSIONS_USED_IN_COOKING:lower()] = PROFESSIONS_USED_IN_COOKING,
+		[APPEARANCE_LABEL:lower()] = TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN,
 		[TOY:lower()] = TOY,
-
-		[FOLLOWERLIST_LABEL_CHAMPIONS:lower()] = Lib:TooltipLine('item:147556', 2),
-		[GARRISON_FOLLOWERS:lower()] = Lib:TooltipLine('item:147556', 2),
 
   	['bound'] = ITEM_BIND_ON_PICKUP,
   	['bop'] = ITEM_BIND_ON_PICKUP,
