@@ -70,7 +70,7 @@ L["The minimum opacity of nameplates for 'Nameplate Minimum Alpha Distance'"] = 
 L["Maximum Alpha"] = true
 L["The maximum opacity of nameplates for 'Nameplate Maximum Alpha Distance'"] = true -- Tooltip
 L["Minimum Alpha Distance"] = true
-L["The distance from the camera that nameplates will reach their minimum alpha"] = true -- Tooltip
+L["The distance from the max distance that nameplates will reach their minimum alpha"] = true -- Tooltip
 L["Maximum Alpha Distance"] = true
 L["The distance from the camera that nameplates will reach their maxmimum alpha"] = true -- Tooltip
 L["Horizontal Overlap"] = true
@@ -183,6 +183,7 @@ L["Friendly Status Text"] = true
 	L["Arena ID, Health, and Power"] = true
 L["Enemy Subtext"] = true
 L["Friendly Subtext"] = true
+L["Subtext color override (0 opacity = default colors)"] = true
 
 
 L["Additional settings"] = true
@@ -196,6 +197,7 @@ L["Additional settings"] = true
 	L["Show Subtext in Bar View"] = true -- Not in use?
 	L["Show Status Text on Target & Mouseover"] = true
 	L["Show Status Text on Active/Damaged Units"] = true
+	L["Prevent Friendly Nameplate Stacking *"] = true
 	L["Health Percent Precision"] = true
 
 	L["Use Custom Target Color"] = true
@@ -457,6 +459,7 @@ L["Mouseover Highlighting"] = true
 	L["Arrow(Sides)"] = true
 	L["Arrow(Right)"] = true
 	L["Arrow(Left)"] = true
+	L["Neon Arrow(Sides)"] = true
 
 ------------------------------
 -- Health
@@ -787,6 +790,7 @@ L["Helps ensure that everything is working as intended by enforcing certain CVar
 L["Display Scale Options"] = true
 L["Hides the aura widget when in 'Headline/Text-Only' mode"] = true
 L["When aura durations should start to display tenths of a second"] = true
+L["nameplate_no_stacking_friendly_tooltip"] = "This option also makes the nameplates clickthrough"
 
 
 -- Warnings about unfinished stuff

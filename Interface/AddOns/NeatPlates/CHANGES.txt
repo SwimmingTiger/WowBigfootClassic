@@ -1,12 +1,10 @@
-lightweight tag 08eb35624379a853ead41c46abece303e79b1307 2.5.2.3
-Author:	Luxocracy <Luxocracy@users.noreply.github.com>
-Date:	Mon Oct 18 22:04:20 2021 +0200
+lightweight tag bd55dcdfd6843b7c5b20e3d84475a15d41a9f7d3 2.5.3.3
+Author:	Luxocracy <luxor355@gmail.com>
+Date:	Thu Apr 21 18:34:03 2022 +0200
 
-commit 1401200e16123945a247182f6d033a4fb2a504a0
-Author: Luxocracy <Luxocracy@users.noreply.github.com>
-Date:   Mon Oct 18 22:04:08 2021 +0200
+commit 2325e953b469e965821b965fc15cf5fab6b64b39
+Author: Luxocracy <luxor355@gmail.com>
+Date:   Thu Apr 21 18:33:47 2022 +0200
 
-    Fix "who interrupted" not working since last update
-    
-    - Fix "who interrupted" not working since last update
+    Added new highlighting option "Neon Arrow(Sides)"
 

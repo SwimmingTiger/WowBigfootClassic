@@ -56,6 +56,7 @@ NeatPlatesHubDefaults = {
 
 	TextShowOnlyOnActive = false,
 
+	NameplateNoStackingFriendly = false,
 
 
 	StyleForceBarsOnTargets = false,
@@ -158,6 +159,8 @@ NeatPlatesHubDefaults = {
 
 	-- Color
 	---------------------------------------
+	EnemySubtextColor = {r = 0, g = 0, b = 0, a = 0.0},
+	FriendlySubtextColor = {r = 0, g = 0, b = 0, a = 0.0},
 	ColorHealthBarMode = 3,
 	ColorDangerGlowMode = 2,
 	TextNameColorMode = 1,
