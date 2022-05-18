@@ -1,4 +1,10 @@
 # Changelog
+## v2.44
+* adjust toc for AQ40 Season of Mastery
+
+## v2.43
+* adjust toc for Zul'Aman BCC
+
 ## v2.42
 * adjust toc for Hyjal/BT BCC
 
