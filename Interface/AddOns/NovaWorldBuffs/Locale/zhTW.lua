@@ -731,7 +731,7 @@ L["disableSoundsAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角�
 L["disableSoundsAllLevelsTitle"] = "所有級別角色關閉音效";
 L["disableSoundsAllLevelsDesc"] = "為 TBC 領域的所有級別的角色，關閉世界增益音效。";
 
-L["disableMiddleAboveMaxBuffLevelTitle"] = "64級以上關閉螢幕提示";
+L["disableMiddleAboveMaxBuffLevelTitle"] = "在64級以上關閉螢幕提示";
 L["disableMiddleAboveMaxBuffLevelDesc"] = "在於TCB領域時為63級以上角色，關閉世界增益螢幕提示。";
 
 L["disableMiddleAllLevelsTitle"] = "所有級別角色關閉螢幕提示";
@@ -767,12 +767,12 @@ L["Relentless Assault of Shattrath"] = "撒塔斯強襲精煉藥劑";
 L["Blinding Light of Shattrath"] = "撒塔斯盲目之光精煉藥劑";
 L["Mighty Restoration of Shattrath"] = "撒塔斯法力恢復精煉藥劑";
 L["Supreme Power of Shattrath"] = "撒塔斯炫彩驚奇精煉藥劑";
-L["Unstable Flask of the Beast"] = "Unstable Flask of the Beast";
-L["Unstable Flask of the Sorcerer"] = "Unstable Flask of the Sorcerer";
-L["Unstable Flask of the Bandit"] = "Unstable Flask of the Bandit";
-L["Unstable Flask of the Elder"] = "Unstable Flask of the Elder";
-L["Unstable Flask of the Physician"] = "Unstable Flask of the Physician";
-L["Unstable Flask of the Soldier"] = "Unstable Flask of the Soldier";
+L["Unstable Flask of the Beast"] = "野獸的不穩定精煉藥劑";
+L["Unstable Flask of the Sorcerer"] = "巫師的不穩定精煉藥劑";
+L["Unstable Flask of the Bandit"] = "強盜的不穩定精煉藥劑";
+L["Unstable Flask of the Elder"] = "長者的不穩定精煉藥劑";
+L["Unstable Flask of the Physician"] = "醫師的不穩定精煉藥劑";
+L["Unstable Flask of the Soldier"] = "士兵的不穩定精煉藥劑";
 
 L["Chronoboon Displacer"] = "時光祝福置換器";
 
@@ -815,3 +815,14 @@ L["terokkarMiddle10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，顯�
 
 L["showShatWorldmapMarkersTitle"] = "顯示每日副本";
 L["showShatWorldmapMarkersDesc"] = "在世界地圖上顯示每日副本?"; 
+L["disableBuffTimersMaxBuffLevelTitle"] = "64級以上關閉小地圖增益計時器";
+L["disableBuffTimersMaxBuffLevelDesc"] = "是否在64級以上角色的小地圖圖標上時隱藏世界增益計時器？你只會看到泰羅卡塔的計時器和每日任務等。";
+
+L["hideMinimapBuffTimersTitle"] = "關閉所有等級的小地圖增益計時器";
+L["hideMinimapBuffTimersDesc"] = "是否在所有角色的小地圖圖標上時隱藏世界增益計時器？你只會看到泰羅卡塔的計時器和每日任務等。";
+
+L["guildTerok10Title"] = "泰洛卡10分公會提醒";
+L["guildTerok10Desc"] = "在泰洛卡靈魂尖塔還剩 10 分鐘時，傳送公會訊息。";
+
+L["showShatWorldmapMarkersTerokTitle"] = "在薩塔斯世界地圖顯示泰洛卡計時器";
+L["showShatWorldmapMarkersTerokDesc"] = "是否在在薩塔斯世界地圖上顯示泰洛卡計時器圖標?";

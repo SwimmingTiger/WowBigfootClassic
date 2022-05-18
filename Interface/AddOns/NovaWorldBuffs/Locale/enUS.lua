@@ -806,7 +806,7 @@ L["guildLTitle"] = "Guild Layer Sharing";
 L["guildLDesc"] = "Share what layer you are on with your guild? You can see your guilds layer list with /wb guild";
 
 L["terokkarTimer"] = "Terokkar";
-L["terokkarWarning"] = "Terokkar Forest spirit towers reset in %s";
+L["terokkarWarning"] = "Terokkar Forest towers reset in %s";
 
 L["Nazgrel"] = "Nazgrel";
 L["Hellfire Citadel is ours"] = "Hellfire Citadel is ours";
@@ -821,5 +821,22 @@ L["terokkarChat10Desc"] = "Print a msg in chat when 10 minutes left on terokkar 
 L["terokkarMiddle10Title"] = "Terokkar 10 Minutes";
 L["terokkarMiddle10Desc"] = "Show a raid warning style msg in the middle of the screen when 10 minutes left on terokkar spirit towers.";
 
-L["showShatWorldmapMarkersTitle"] = "Shattrath Worldmap";
+L["showShatWorldmapMarkersTitle"] = "Dailies Shattrath Worldmap";
 L["showShatWorldmapMarkersDesc"] = "Show dungeon daily markers on the Shattrath world map?";
+
+L["disableBuffTimersMaxBuffLevelTitle"] = "Disable Minimap Buff Timers 64+";
+L["disableBuffTimersMaxBuffLevelDesc"] = "Hide world buff timers when you hover over the minimap icon for characters level 64+? You will only see the terokkar tower timers and dailies etc.";
+
+L["hideMinimapBuffTimersTitle"] = "Disable Minimap Buff Timers All Levels";
+L["hideMinimapBuffTimersDesc"] = "Hide world buff timers when you hover over the minimap icon for characters all levels? You will only see the terokkar tower timers and dailies etc.";
+
+L["guildTerok10Title"] = "Guild Chat Terokkar 10 Minutes";
+L["guildTerok10Desc"] = "Send a message to guild chat when there's 10 minutes left on terokkar towers?";
+
+L["showShatWorldmapMarkersTerokTitle"] = "Terokkar Shattrath Worldmap";
+L["showShatWorldmapMarkersTerokDesc"] = "Show terokkar tower markers on the Shattrath world map?";
+
+L["Completed PvP dailies"] = "Completed PvP dailies";
+L["Hellfire Towers"] = "Hellfire Towers";
+L["Terokkar Towers"] = "Terokkar Towers";
+L["Nagrand Halaa"] = "Nagrand Halaa";
