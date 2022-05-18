@@ -8,11 +8,10 @@
   Author:     Dioporc#2069   @Discord
               GianBzt#2855   @Battle.net
               Ffz            Human Mage @Gandling EU ----- currently unsubbed
-  Version:    3.1.2
+  Version:    3.1.2a
   Changes:    Check https://www.curseforge.com/wow/addons/personal-resource-display/ for detailed changelogs!
-              Added a separate option to toggle extended numeric values in the format of current/max. The default numeric values will only show current value
-              The "Opacity while OOC" slider now allows decimal values in steps of 0.5, from 0 to 0.6 for a total of 12 values
-  Minor Fix:  Fixed a typo in the class RGB's which resulted in a darker purplish tint for paladins
+              Replaced event UNIT_HEALTH with UNIT_HEALTH_FREQUENT to prevent delay in updating the bars values
+  Minor Fix:  
   Disclaimer: All the textures found inside the AddOn folder are taken/edited from the BlizzardInterfaceArt directory.
               I claim no credits to those.
 ]]
@@ -25,7 +24,7 @@ local addonNotes = GetAddOnMetadata("Personal Resource Display", "Notes")
 
 local personalResourceBarsEventFrame = CreateFrame("FRAME", "PRD_EventFrame")
 personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_UPDATE", "player")
-personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH", "player")
+personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
 personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
 personalResourceBarsEventFrame:RegisterEvent("ADDON_LOADED")
 personalResourceBarsEventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -83,7 +82,6 @@ local PRD_InterfaceSettingsTexture = "Interface\\AddOns\\Personal Resource Displ
 
 
 StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
-	preferredIndex = STATICPOPUP_NUMDIALOGS,
   text = "Syntax is: |cff3FD42A/prd <value>|r\nValue must be a number.\nDefault value is: |cff3FD42A"..personalResourceBarBaseTopPadding.."|r\nUse |cff3FD42A/prd reset|r to reset the frames.",
   button1 = OKAY,
   hideOnEscape = 1,
@@ -351,10 +349,10 @@ local function toggleHealthBar()
   PRD_personalHealthBar:SetShown(not PRD_settingsConfig.hideHealthBar)
 
   if not PRD_personalHealthBar:IsShown() then
-    personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH", "player")
+    personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH_FREQUENT", "player")
     personalResourceBarsEventFrame:UnregisterEvent("UNIT_MAXHEALTH", "player")
   else    
-    personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH", "player")
+    personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
     personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
   end
 end
@@ -883,7 +881,7 @@ local function PRD_preloadInterfaceOptionsFrame()
 end
 
 function PRD_onPlayerResourceChange(self, event, ...)
-  if (event == "UNIT_HEALTH") then
+  if (event == "UNIT_HEALTH_FREQUENT") then
     PRD_personalHealthBar:SetValue(getCurrentHealthBarValuePercentage())
     updatePercentageText()
   elseif (event == "UNIT_POWER_UPDATE") then
@@ -1107,14 +1105,14 @@ MinimapButton:SetScript("OnClick", function(self, button)
         PRD_personalManaBar:SetShown(false)
         PRD_personalHealthBar:SetShown(false)
         personalResourceBarsEventFrame:UnregisterEvent("UNIT_POWER_UPDATE", "player")
-        personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH", "player")
+        personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH_FREQUENT", "player")
         personalResourceBarsEventFrame:UnregisterEvent("UNIT_MAXHEALTH", "player")
         personalResourceBarsEventFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
       else
         PRD_personalHealthBar:SetShown(true)
         PRD_personalManaBar:SetShown(true)
         personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_UPDATE", "player")
-        personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH", "player")
+        personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
         personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
         personalResourceBarsEventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
       end
