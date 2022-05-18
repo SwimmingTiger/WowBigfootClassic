@@ -3,6 +3,7 @@
     <Include file="Encounter.xml"/>
     <Include file="Template.xml"/>
     <Include file="GoodLeader.xml"/>
+    <Include file="Quest.xml"/>
     <Include file="Main.xml"/>
     <Script file="ListView.lua"/>
     <Script file="CountdownButton.lua"/>
@@ -31,4 +32,7 @@
     <Script file="GradePanel.lua"/>
     <Script file="Announcement.lua"/>
     <Script file="MissionGuidance.lua"/>
+
+    <Script file="QuestItem.lua"/>
+    <Script file="QuestPanel.lua"/>
 </Ui>

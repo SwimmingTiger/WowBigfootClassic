@@ -177,8 +177,8 @@ L["Lava Surge Glow"] = true
 L["Lava Surge Glow Desc"] = "Lets the Lava Burst cooldown timer and action bar buttons containing Lava Burst glow if Lava Surge procs"
 L["Long Cooldowns"] = true
 L["Maelstrom Bar Height"] = true
-L["OOC Alpha"] = true
-L["OOC Alpha Desc"] = "Controls the opacity of the buttons out of combat, 0 = transparent, 1 = opaque"
+L["OOC Opacity"] = true
+L["OOC Opacity Desc"] = "Controls the opacity of the buttons out of combat, 0 = transparent, 1 = opaque"
 L["Show OmniCC counters"] = true
 L["Spells"] = true
 
@@ -215,4 +215,4 @@ L["Solo"] = true
 L["You cannot delete the default profile."] = true
 L["You need to enter a profile name first."] = true
 
-
+L["Rename"] = true

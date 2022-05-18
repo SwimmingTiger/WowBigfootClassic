@@ -222,9 +222,8 @@ function XiTimers:new(nroftimers, unclickable)
     self.button.StartMove = XiTimers.StartMoving
     self.button.StopMove = XiTimers.StopMoving
 	self.button:RegisterForDrag("LeftButton")
-	self.button.ShowTooltip = function() end
-	self.button.HideTooltip = function() end
 
+	XiTimers.HookTooltips(self.button)
     
 	table.insert(Timers, self)
 
@@ -956,4 +955,14 @@ function XiTimers.RemoveRangeCheck(self)
 			i = i - 1
 		end
 	end
+end
+
+function XiTimers.HookTooltips(button)
+	button:HookScript("OnEnter", function(self)
+	    if not self:GetAttribute("tooltip") then return end
+	    if self.tooltip then self.tooltip:Show() end
+	end)
+    button:HookScript("OnLeave", function(self)
+        if self.tooltip then self.tooltip:Hide() end
+    end)
 end

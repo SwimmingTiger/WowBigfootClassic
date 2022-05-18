@@ -1,4 +1,4 @@
-local MAJOR, MINOR = 'LibCommSocket-3.0', 3
+local MAJOR, MINOR = 'LibCommSocket-3.0', 4
 
 ---@class NSSocket
 ---@field contexts table<string, NSSocketContext>
@@ -171,6 +171,7 @@ function Lib:ConnectServer(target)
         return
     end
 
+    ctx.status = SOCKET_CONNECT
     ctx.rawTarget = formatTarget(target)
     ctx.connectKey = tostring(random(0x100000, 0xFFFFFF))
     ctx.timer = C_Timer.NewTicker(30, function()

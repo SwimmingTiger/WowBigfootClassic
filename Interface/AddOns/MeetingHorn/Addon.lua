@@ -7,6 +7,7 @@
 ---@field ApplicantItem MeetingHornUIApplicantItem
 ---@field Encounter MeetingHornUIEncounter
 ---@field Challenge MeetingHornUIChallenge
+
 ---@class ns
 ---@field UI UI
 ---@field Addon MeetingHorn
@@ -19,11 +20,15 @@
 ---@field Channel MeetingHornChannel
 ---@field ChallengeGroup MeetingHornChallengeGroup
 ---@field Challenge MeetingHornChallenge
+---@field ProtoBase ProtoBase
+---@field Quest Quest
+---@field QuestGroup QuestGroup
+---@field QuestServies QuestServies
 local ns = select(2, ...)
 
 local L = LibStub('AceLocale-3.0'):GetLocale('MeetingHorn', true)
 
----@class MeetingHorn
+---@class MeetingHorn: AceAddon-3.0, AceEvent-3.0, LibClass-2.0
 ---@field private MainPanel MeetingHornUIMainPanel
 local Addon = LibStub('AceAddon-3.0'):NewAddon('MeetingHorn', 'LibClass-2.0', 'AceEvent-3.0')
 ns.Addon = Addon

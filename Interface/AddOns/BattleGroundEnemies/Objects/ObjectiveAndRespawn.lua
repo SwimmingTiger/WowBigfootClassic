@@ -1,5 +1,5 @@
 local BattleGroundEnemies = BattleGroundEnemies
-local addonName, Data = ...
+local AddonName, Data = ...
 local GetTime = GetTime
 
 BattleGroundEnemies.Objects.ObjectiveAndRespawn = {}
@@ -7,7 +7,6 @@ BattleGroundEnemies.Objects.ObjectiveAndRespawn = {}
 
 function BattleGroundEnemies.Objects.ObjectiveAndRespawn.New(playerButton)
 	local ObjectiveAndRespawn = CreateFrame("Frame", nil, playerButton)
-	ObjectiveAndRespawn = CreateFrame("Frame", nil, playerButton)
 	ObjectiveAndRespawn:SetFrameLevel(playerButton:GetFrameLevel()+5)
 	
 	ObjectiveAndRespawn.Icon = ObjectiveAndRespawn:CreateTexture(nil, "BORDER")
@@ -26,7 +25,7 @@ function BattleGroundEnemies.Objects.ObjectiveAndRespawn.New(playerButton)
 	ObjectiveAndRespawn.Cooldown:Hide()
 	
 
-	ObjectiveAndRespawn.Cooldown:SetScript("OnHide", function() 
+	ObjectiveAndRespawn.Cooldown:SetScript("OnCooldownDone", function() 
 		ObjectiveAndRespawn:Reset()
 	end)
 	-- ObjectiveAndRespawn.Cooldown:SetScript("OnCooldownDone", function() 
@@ -49,7 +48,7 @@ function BattleGroundEnemies.Objects.ObjectiveAndRespawn.New(playerButton)
 	ObjectiveAndRespawn.Reset = function(self)	
 		self:Hide()
 		self.Icon:SetTexture()
-		self.AuraText:SetText("")
+		if self.AuraText:GetFont() then self.AuraText:SetText("") end
 		self.ActiveRespawnTimer = false
 	end
 	

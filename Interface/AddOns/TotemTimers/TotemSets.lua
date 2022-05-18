@@ -26,10 +26,8 @@ function TotemTimers.InitSetButtons()
                                                             [[ if button == "LeftButton" then
                                                                 control:ChildUpdate("toggle")
                                                             end ]])
-    ankh.HideTooltip = TotemTimers.HideTooltip
-    ankh.ShowTooltip = TotemTimers.SetTooltip
-    ankh:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip") ]])
-    ankh:SetAttribute("_onenter", [[ if self:GetAttribute("tooltip") then control:CallMethod("ShowTooltip") end ]])
+
+    ankh.tooltip = TotemTimers.Tooltips.SetAnchor:new(ankh)
     ankh:SetAttribute("_onattributechanged", [[ if name=="hide" then
                                                     control:ChildUpdate("show", false)
                                                     self:SetAttribute("open", false)
@@ -51,11 +49,12 @@ function TotemTimers.ProgramSetButtons()
             b = CreateFrame("Button", "TotemTimers_SetButton"..i, XiTimers.timers[5].button, "TotemTimers_SetButtonTemplate")
             b:SetAttribute("_childupdate-show", [[ if message and not self:GetAttribute("inactive") then self:Show() else self:Hide() end ]])
             b:SetAttribute("_childupdate-toggle", [[ if not self:GetAttribute("inactive") then if self:IsVisible() then self:Hide() else self:Show() end end ]])
-            b:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip")  ]]) 
-            b:SetAttribute("_onenter", [[ control:CallMethod("ShowTooltip") ]])
             b.nr = i
-            b.HideTooltip = TotemTimers.HideTooltip
-            b.ShowTooltip = TotemTimers.SetButtonTooltip
+
+            b.tooltip = TotemTimers.Tooltips.SetButton:new(b)
+            XiTimers.HookTooltips(b)
+            b:SetAttribute("tooltip", true)
+
             b:RegisterForClicks("LeftButtonUp", "RightButtonUp")
             b:SetParent(XiTimers.timers[5].button)
         end
@@ -97,15 +96,16 @@ function TotemTimers.SetButton_OnClick(self, button)
     if InCombatLockdown() then return end
     --XiTimers.timers[5].button:SetAttribute("hide", true)
     self:GetParent():Execute([[ owner:ChildUpdate("show", false) ]])
+
+    local set = TotemTimers.ActiveProfile.TotemSets[self.nr]
+    if not set then return end
+
 	if button == "RightButton" then
-		local popup = StaticPopup_Show("TOTEMTIMERS_DELETESET", self.nr)
+		local popup = StaticPopup_Show("TOTEMTIMERS_DELETESET", not set.name and self.nr or set.name)
 		popup.data = self.nr
     elseif button == "LeftButton" then
-        local set = TotemTimers.ActiveProfile.TotemSets[self.nr]
-        if set then 
-            for i=1,4 do
-                XiTimers.timers[i].button:SetAttribute("*spell1", set[XiTimers.timers[i].nr])
-            end            
+        for i=1,4 do
+            XiTimers.timers[i].button:SetAttribute("*spell1", set[XiTimers.timers[i].nr])
         end
         TotemTimers.UpdateSpellRanks()
 	end

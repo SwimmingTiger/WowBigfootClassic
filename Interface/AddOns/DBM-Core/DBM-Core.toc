@@ -18,6 +18,7 @@ Libs\LibLatency\LibLatency.lua
 Libs\LibDurability\LibDurability.lua
 Libs\LibDeflate\LibDeflate.lua
 Libs\LibSerialize\LibSerialize.lua
+Libs\LibSpecialization\LibSpecialization.lua
 
 localization.en.lua
 localization.cn.lua

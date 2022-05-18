@@ -219,9 +219,9 @@ function TotemTimers.CreateTrackers()
     end
     TotemTimers.SetNumWeaponTimers()
 
-    weapon.button.HideTooltip = TotemTimers.HideTooltip
     weapon.actionBar = TTActionBars:new(7, weapon.button, nil, TotemTimers_TrackerFrame, "weapontimer")
-    weapon.button.ShowTooltip = TotemTimers.WeaponButtonTooltip
+
+    weapon.button.tooltip = TotemTimers.Tooltips.WeaponTimer:new(weapon.button)
 
     weapon.button.SaveLastEnchant = function(self, name)
         if name == "spell1" then
@@ -440,14 +440,14 @@ function TotemTimers.SetWeaponTrackerSpells()
         weapon.actionBar:AddSpell(SpellNames[SpellIDs.FrostbrandWeapon])
     end
 
-    if AvailableTalents.DualWield then
+    --if AvailableTalents.DualWield then
         if AvailableSpells[SpellIDs.WindfuryWeapon] and AvailableSpells[SpellIDs.FlametongueWeapon] then
             weapon.actionBar:AddDoubleSpell(SpellNames[SpellIDs.WindfuryWeapon], SpellNames[SpellIDs.FlametongueWeapon])
         end
         if AvailableSpells[SpellIDs.WindfuryWeapon] and AvailableSpells[SpellIDs.FrostbrandWeapon] then
             weapon.actionBar:AddDoubleSpell(SpellNames[SpellIDs.WindfuryWeapon], SpellNames[SpellIDs.FrostbrandWeapon])
         end
-    end
+    --end
 end
 
 local mainMsg = ""

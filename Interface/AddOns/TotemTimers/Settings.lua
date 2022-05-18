@@ -17,12 +17,14 @@ local AvailableSpells = TotemTimers.AvailableSpells
 
 local LSM = LibStub:GetLibrary("LibSharedMedia-3.0", true)
 
-local TotemColors = {
-    [AIR_TOTEM_SLOT] = {0.7,0.7,1.0},
+--[[local TotemColors = {
+    --[AIR_TOTEM_SLOT] = {0.7,0.7,1.0},
+    [AIR_TOTEM_SLOT] = {1,1,1},
     [WATER_TOTEM_SLOT] = {0.4,0.4,1.0},
     [FIRE_TOTEM_SLOT] = {1.0,0.1,0.1},
     [EARTH_TOTEM_SLOT] = {0.7,0.5,0.3},
-}
+}]]
+local TotemColors = TotemTimers.ElementColors
 
 local SettingsFunctions
 
@@ -378,7 +380,7 @@ SettingsFunctions = {
     function(value, Timers)
         for i=1,#Timers do
             if value and i<5 then
-                Timers[i]:SetBarColor(TotemColors[Timers[i].nr][1], TotemColors[Timers[i].nr][2], TotemColors[Timers[i].nr][3],1)
+                Timers[i]:SetBarColor(TotemColors[Timers[i].nr].r, TotemColors[Timers[i].nr].g, TotemColors[Timers[i].nr].b,1)
             elseif i ~= 21 then
                 Timers[i]:SetBarColor(TotemTimers.ActiveProfile.TimerBarColor.r,TotemTimers.ActiveProfile.TimerBarColor.g,
                         TotemTimers.ActiveProfile.TimerBarColor.b,TotemTimers.ActiveProfile.TimerBarColor.a)
@@ -575,15 +577,23 @@ SettingsFunctions = {
         TTActionBars.bars[5]:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
     end,
 
-    --[[EnhanceCDsOOCAlpha =
+    OOCAlpha =
+        function(value, Timers)
+            for i = 1,8 do
+                Timers[i].OOCAlpha = value
+            end
+            XiTimers.invokeOOCFader()
+        end,
+
+    EnhanceCDsOOCAlpha =
         function(value)
-			local Timers = TotemTimers.EnhanceCDs
+            local Timers = TotemTimers.EnhanceCDs
             for i = 1,#Timers do
                 Timers[i].OOCAlpha = value
             end
-            TotemTimers.maelstrom:SetAlpha(value)
+            --TotemTimers.maelstrom:SetAlpha(value)
             XiTimers.invokeOOCFader()
-        end, --]]
+        end,
 
     TimersOnButtons =
     function(value, Timers)
@@ -723,15 +733,17 @@ SettingsFunctions = {
             end
         end,
         
-    --[[ HideEnhanceCDsOOC =
+    HideEnhanceCDsOOC =
         function(value)
 			local Timers = TotemTimers.EnhanceCDs
             for i = 1,#Timers do
                 Timers[i].HideOOC = value
 				Timers[i].button:SetAttribute("HideOOC", value)
             end
+            TotemTimers.FlameShockDuration.HideOOC = value
+            TotemTimers.FlameShockDuration.button:SetAttribute("HideOOC", value)
             TotemTimers.ConfigEnhanceCDs()
-        end, --]]
+        end,
         
         
     EarthShieldTargetName =
@@ -839,8 +851,8 @@ SettingsFunctions = {
                     bar.buttons[j].cooldown:SetAlpha(value)
                 end
             end
-        end
-        
+        end,
+
 }
 
 SettingsFunctions.ReverseBarBindings = SettingsFunctions.BarBindings

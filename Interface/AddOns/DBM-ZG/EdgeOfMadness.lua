@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("EdgeOfMadness", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210403082144")
+mod:SetRevision("20220511043833")
 mod:SetCreatureID(15083)
 mod:SetEncounterID(788)
 mod:RegisterCombat("combat")

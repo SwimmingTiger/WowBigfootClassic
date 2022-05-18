@@ -850,7 +850,7 @@ data["ArenaS3PvP"] = {
 				{ 6, 33727 }, -- Gladiator's Painsaw
 
 				{ 8, 33663 }, -- Gladiator's Bonegrinder
-				{ 9, 32014 }, -- Gladiator's Maul
+				--{ 9, 32014 }, -- Gladiator's Maul
 
 				{ 16, 33766 }, -- Gladiator's War Staff
 				{ 17, 34540 }, -- Vengeful Gladiator's Battle Staff
@@ -914,6 +914,17 @@ data["ArenaS3PvP"] = {
 				{ 2, 35320 }, -- Vindicator's Band of Subjugation
 				{ 3, 33918 }, -- Vindicator's Band of Salvation
 				{ 4, 33853 }, -- Vindicator's Band of Dominance
+			},
+		},
+		{
+			name = ALIL["Trinket"],
+			[NORMAL_DIFF] = {
+				{ 1, 35327 }, -- Alacrity
+				{ 2, 34579 }, --
+				{ 3, 34576 }, --
+				{ 4, 34577 }, --
+				{ 5, 34578 }, --
+				{ 6, 34580 }, --
 			},
 		},
 		{

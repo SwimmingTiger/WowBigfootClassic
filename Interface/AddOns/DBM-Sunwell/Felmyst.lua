@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Felmyst", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220517051252")
 mod:SetCreatureID(25038)
 mod:SetEncounterID(726, 2490)
 mod:SetModelID(22838)
@@ -18,8 +18,8 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
-local warnEncaps			= mod:NewTargetAnnounce(45665, 4)
-local warnVapor				= mod:NewTargetAnnounce(45402, 3)
+local warnEncaps			= mod:NewTargetNoFilterAnnounce(45665, 4)
+local warnVapor				= mod:NewTargetNoFilterAnnounce(45402, 3)
 local warnPhase				= mod:NewAnnounce("WarnPhase", 1, 31550)
 
 local specWarnGas			= mod:NewSpecialWarningSpell(45855, "Healer", nil, nil, 1, 2)
@@ -38,8 +38,8 @@ local timerPhase			= mod:NewTimer(60, "TimerPhase", 31550, nil, nil, 6)
 
 local berserkTimer			= mod:NewBerserkTimer(600)
 
-mod:AddBoolOption("EncapsIcon", true)
-mod:AddBoolOption("VaporIcon", true)
+mod:AddSetIconOption("EncapsIcon", 45665, true, false, {7})
+mod:AddSetIconOption("VaporIcon", 45402, true, false, {8})
 
 mod.vb.breathCounter = 0
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Twins", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20210813015935")
+mod:SetRevision("20220511043833")
 mod:SetCreatureID(25165, 25166)
 mod:SetEncounterID(727, 2491)
 mod:SetModelID(23334)
@@ -19,9 +19,9 @@ mod:RegisterEventsInCombat(
 )
 
 local warnBlade				= mod:NewSpellAnnounce(45248, 3)
-local warnBlow				= mod:NewTargetAnnounce(45256, 3)
-local warnConflag			= mod:NewTargetAnnounce(45333, 3)
-local warnNova				= mod:NewTargetAnnounce(45329, 3)
+local warnBlow				= mod:NewTargetNoFilterAnnounce(45256, 3)
+local warnConflag			= mod:NewTargetNoFilterAnnounce(45333, 3)
+local warnNova				= mod:NewTargetNoFilterAnnounce(45329, 3)
 
 local specWarnConflag		= mod:NewSpecialWarningYou(45333, nil, nil, nil, 1, 2)
 local yellConflag			= mod:NewYell(45333, nil, false)
@@ -40,9 +40,9 @@ local timerNova				= mod:NewCastTimer(3.5, 45329, nil, false, 2)
 
 local berserkTimer			= mod:NewBerserkTimer(360)
 
-mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("ConflagIcon", false)
-mod:AddBoolOption("NovaIcon", false)
+mod:AddRangeFrameOption(10, 45333)
+mod:AddSetIconOption("ConflagIcon", 45333, false, false, {8})
+mod:AddSetIconOption("NovaIcon", 45329, false, false, {7})
 
 function mod:OnCombatStart(delay)
 	berserkTimer:Start(-delay)

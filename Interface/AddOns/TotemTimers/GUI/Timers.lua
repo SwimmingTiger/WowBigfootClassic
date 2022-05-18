@@ -343,6 +343,14 @@ TotemTimers.options.args.timers = {
             set = function(info, val) TotemTimers.ActiveProfile.TwistingTimer = val  TotemTimers.ProcessSetting("TwistingTimer") end,
             get = function(info) return TotemTimers.ActiveProfile.TwistingTimer end,
         },
+        WindfuryDownrank = {
+            order = 43,
+            type = "toggle",
+            name = string.format(L["Downrank %s"], SpellNames[SpellIDs.Windfury]),
+            desc = string.format(L["Always use rank 1 for %s"], SpellNames[SpellIDs.Windfury]),
+            set = function(info, val) TotemTimers.ActiveProfile.WindfuryDownrank = val  TotemTimers.UpdateSpellRanks() end,
+            get = function(info) return TotemTimers.ActiveProfile.WindfuryDownrank end,
+        },
         --[[ RaidRange = {
             order = 40,
             type = "toggle",

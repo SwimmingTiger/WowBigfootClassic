@@ -63,6 +63,7 @@ addon.Spells = {
     [7744] = { type = BUFF_OFFENSIVE }, -- Will of the Forsaken
     [20549] = { type = CROWD_CONTROL }, -- War Stomp
     [20594] = { type = BUFF_OFFENSIVE }, -- Stoneform
+    [20572] = { type = BUFF_OFFENSIVE }, -- Blood Fury
 
     -- Other
 
@@ -301,6 +302,7 @@ addon.Spells = {
     [3034] = { type = ROOT }, -- Viper Sting
         [14279] = { parent = 3034 },
         [14280] = { parent = 3034 },
+        [27018] = { parent = 3034 },
     [34490] = { type = CROWD_CONTROL }, -- Silencing Shot
     [34471] = { type = IMMUNITY_SPELL }, -- The Beast Within
     [5384] = { type = BUFF_DEFENSIVE }, -- Feign Death

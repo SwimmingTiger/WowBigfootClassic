@@ -83,10 +83,8 @@ function TotemTimers.CreateTimers()
             end
             TotemTimers.UpdateMacro()
         end
-        tt.button.ShowTooltip = TotemTimers.timerTooltip
-        tt.button.HideTooltip = function(self)
-            GameTooltip:Hide()
-        end
+
+        tt.button.tooltip = TotemTimers.Tooltips.Totem:new(tt.button)
 
         tt.button:SetAttribute("_onattributechanged", [[ if name == "*spell1" then
                                                             control:CallMethod("UpdateMiniIconAndProfile")

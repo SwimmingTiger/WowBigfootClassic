@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kazrogal", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220120014830")
+mod:SetRevision("20220511043833")
 mod:SetCreatureID(17888)
 mod:SetEncounterID(620, 2470)
 mod:SetModelID(17886)

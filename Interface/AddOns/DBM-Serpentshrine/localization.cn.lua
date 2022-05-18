@@ -144,7 +144,7 @@ L:SetOptionLocalization{
 	WarnMurlocs		= "警报鱼人群",
 	SpecWarnMurlocs	= "鱼人群出现时显示特殊警报",
 	TimerMurlocs	= "显示鱼人群出现计时",
-	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(38049)
+	GraveIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TARGETS:format(38049)
 }
 
 L:SetMiscLocalization{

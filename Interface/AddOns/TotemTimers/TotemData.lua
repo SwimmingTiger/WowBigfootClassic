@@ -7,6 +7,13 @@ if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 TotemTimers = {}
 
+TotemTimers.ElementColors = {
+    [FIRE_TOTEM_SLOT] = CreateColorFromHexString("FFFF7500"),
+    [EARTH_TOTEM_SLOT] = CreateColorFromHexString("FFCBA57B"),
+    [WATER_TOTEM_SLOT] = CreateColor(0.4,0.4,1), --CreateColorFromHexString("FF76c7f3"),
+    [AIR_TOTEM_SLOT] = CreateColor(1,1,1),
+}
+
 
 TotemTimers.AvailableSpells = {}
 TotemTimers.AvailableSpellIDs = {}
@@ -115,11 +122,11 @@ TotemTimers.SpellIDs = {
 	
 }
 
-
 TotemTimers.SpellTextures = {}
 TotemTimers.SpellNames = {}
 TotemTimers.NameToSpellID = {}
 TotemTimers.TextureToSpellID = {}
+TotemTimers.RankedNameToSpellID = {}
 
 local SpellIDs = TotemTimers.SpellIDs
 local AvailableSpells = TotemTimers.AvailableSpells
@@ -127,6 +134,7 @@ local SpellNames = TotemTimers.SpellNames
 local SpellTextures = TotemTimers.SpellTextures
 local NameToSpellID = TotemTimers.NameToSpellID
 local TextureToSpellID = TotemTimers.TextureToSpellID
+local RankedNameToSpellID = TotemTimers.RankedNameToSpellID
 
 local gsub = gsub
 function TotemTimers.StripRank(spell)
@@ -149,12 +157,15 @@ for _, spellID in pairs(SpellIDs) do
     AvailableSpells[spellID] = IsPlayerSpell(spellID)
 end
 
+local WindfuryName = GetSpellInfo(SpellIDs.Windfury)
+
 -- get ranked spell names from spell book
 function TotemTimers.GetSpells()
     wipe(AvailableSpells)
     local index = 1
+    local windfuryFound = false
     while true do
-        local name, rank = GetSpellBookItemName(index, BOOKTYPE_SPELL)
+        local name, rank, rankedSpellID = GetSpellBookItemName(index, BOOKTYPE_SPELL)
         if not name then break end
         local spellID = NameToSpellID[name]
         if spellID then
@@ -163,6 +174,11 @@ function TotemTimers.GetSpells()
                  local rankedName = name.."("..rank..")"
                  NameToSpellID[rankedName] = spellID
                  SpellNames[spellID] = rankedName
+                 RankedNameToSpellID[rankedName] = rankedSpellID
+                 if not windfuryFound and name == WindfuryName then
+                    TotemTimers.WindfuryRank1 = rankedName
+                    windfuryFound = true
+                 end
             end
         end
         index = index + 1

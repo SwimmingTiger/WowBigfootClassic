@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("AQ40Trash", "DBM-AQ40", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220131033455")
+mod:SetRevision("20220511043833")
 mod:SetModelID(15347)-- Anubisath Sentinel
 mod:SetMinSyncRevision(20200810000000)--2020, 8, 10
 

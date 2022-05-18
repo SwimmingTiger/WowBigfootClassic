@@ -52,11 +52,15 @@ function TotemTimers.GetTalents()
 end
 
 local stripRank = TotemTimers.StripRank
+local WindfurySpellID = SpellIDs.Windfury
 
 local function UpdateSpellNameRank(spell)
     local spellNameWithoutRank = stripRank(spell)
     local spellID = NameToSpellID[spellNameWithoutRank]
     if spellID then
+        if spellID == WindfurySpellID and TotemTimers.ActiveProfile.WindfuryDownrank then
+            return TotemTimers.WindfuryRank1
+        end
         local newRankName = SpellNames[spellID]
         if newRankName then return newRankName end
     end

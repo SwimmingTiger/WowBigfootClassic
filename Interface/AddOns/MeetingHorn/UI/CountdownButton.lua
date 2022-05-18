@@ -1,4 +1,3 @@
-
 ---@type ns
 local ns = select(2, ...)
 
@@ -22,18 +21,45 @@ function CountdownButton:SetEnabled(flag)
     self:Update()
 end
 
+local function Update(obj)
+    if obj._countdownWidgets then
+        for i, widget in ipairs(obj._countdownWidgets) do
+            widget:Update()
+        end
+    else
+        obj:Update()
+    end
+end
+
 function CountdownButton:SetCountdown(duration)
-    if self._timer then
-        self._timer:Cancel()
+    local obj = self:GetCountdownObject()
+    if obj._timer then
+        obj._timer:Cancel()
     end
 
-    self._timer = C_Timer.NewTimer(duration, function()
-        self._timer = nil
-        self:Update()
+    obj._timer = C_Timer.NewTimer(duration, function()
+        obj._timer = nil
+        Update(obj)
     end)
-    self:Update()
+    C_Timer.After(0, function()
+        Update(obj)
+    end)
+end
+
+function CountdownButton:SetCountdownObject(obj)
+    if self._countdownObj then
+        tremove(self._countdownObj, self)
+    end
+    self._countdownObj = obj
+    obj._countdownWidgets = obj._countdownWidgets or {}
+    tinsert(obj._countdownWidgets, self)
+end
+
+function CountdownButton:GetCountdownObject()
+    return self._countdownObj or self
 end
 
 function CountdownButton:Update()
-    self:SuperCall('SetEnabled', not self._timer and self._enabled)
+    local obj = self:GetCountdownObject()
+    self:SuperCall('SetEnabled', not obj._timer and self._enabled)
 end

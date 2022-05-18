@@ -20,7 +20,7 @@ if not L then return end
 L["Air Button"] = true
 L["Cooldown"] = true
 L["Ctrl-Leftclick to remove weapon buffs"] = true
-L["Delete Set"] = "Delete Totem Set %u?"
+L["Delete Set"] = "Delete Totem Set %s?"
 L["Earth Button"] = true
 L["Fire Button"] = true
 L["Leftclick to cast %s"] = true

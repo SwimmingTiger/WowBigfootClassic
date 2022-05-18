@@ -23,7 +23,7 @@ if not L then return end
 L["Air Button"] = "空气图腾"
 L["Cooldown"] = "冷却"
 L["Ctrl-Leftclick to remove weapon buffs"] = "Ctrl-左键点击删除武器增益"
-L["Delete Set"] = "删除图腾设置 %u?"
+L["Delete Set"] = "删除图腾设置 %s?"
 L["Earth Button"] = "大地图腾"
 L["Fire Button"] = "火焰图腾"
 L["Leftclick to cast %s"] = "左键点击施放 %s"
