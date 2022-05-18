@@ -1,4 +1,4 @@
-## Interface: 90200
+## Interface: 11402
 ## Version: v9.2.2
 ## Title: BugSack
 ## Title-zhCN: BugSack 错误信息查看器
