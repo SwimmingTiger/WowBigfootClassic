@@ -26,8 +26,8 @@ function Addon:OnInitialize()
         profile = {
             reverse = false,
             console = true,
-            stackTogether = true,
             -- 老虎会游泳：防止背包内物品意外保存到银行
+            stackTogether = false,
             stackBankFull = false,
             applyLibItemSearch = false,
             ruleOptionWindow = {point = 'CENTER', width = 637, height = 637},
