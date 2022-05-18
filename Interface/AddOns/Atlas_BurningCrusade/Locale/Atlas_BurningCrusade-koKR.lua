@@ -1,10 +1,10 @@
--- $Id: Atlas_BurningCrusade-koKR.lua 50 2021-05-23 06:59:25Z arithmandar $
+-- $Id: Atlas_BurningCrusade-koKR.lua 55 2022-02-02 17:13:50Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
 	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert@gmail.com>
 	Copyright 2010 - Lothaer <lothayer@gmail.com>, Atlas Team
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -578,8 +578,7 @@ L["Watcher Jhang"] = "감시자 쟝"
 --[[ L["Watchkeeper Gargolmar"] = ""--]] 
 L["Weeder Greenthumb"] = "약초학자 그린썸"
 L["Windcaller Claw"] = "바람소환사 클로"
---[[Translation missing --]]
---[[ L["Wizard of Oz"] = ""--]] 
+L["Wizard of Oz"] = "오즈의 마법사"
 --[[Translation missing --]]
 --[[ L["Wrath-Scryer Soccothrates"] = ""--]] 
 L["Wravien <The Mage>"] = "레비엔 <마법사>"

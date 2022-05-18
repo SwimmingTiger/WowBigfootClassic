@@ -1,8 +1,8 @@
--- $Id: ClassicData.lua 51 2021-05-23 07:36:10Z arithmandar $
+-- $Id: Data-Classic.lua 59 2022-02-19 13:44:17Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -818,8 +818,7 @@ if WoWClassicTBC then
 			ATLAS_DDL_CONTINENT_OUTLAND,
 		},
 		[ATLAS_DDL_LEVEL] = {
-			ATLAS_DDL_LEVEL_60TO70,
-			ATLAS_DDL_LEVEL_70TO80,
+			ATLAS_DDL_LEVEL_10TO30,
 		},
 		[ATLAS_DDL_EXPANSION] = {
 			ATLAS_DDL_EXPANSION_BC,
@@ -898,7 +897,7 @@ if WoWClassicTBC then
 			},
 		},
 		[ATLAS_DDL_LEVEL] = {
-			[ATLAS_DDL_LEVEL_60TO70] = {
+			[ATLAS_DDL_LEVEL_10TO30] = {
 				"CL_AuchAuchenaiCrypts",		-- Burning Crusade
 				"CL_AuchindounEnt",		-- Burning Crusade
 				"CL_AuchManaTombs",		-- Burning Crusade
@@ -917,8 +916,6 @@ if WoWClassicTBC then
 				"CL_TempestKeepArcatraz",		-- Burning Crusade
 				"CL_TempestKeepBotanica",		-- Burning Crusade
 				"CL_TempestKeepMechanar",		-- Burning Crusade
-			},
-			[ATLAS_DDL_LEVEL_70TO80] = {
 				"CL_BlackTempleBasement",		-- Burning Crusade
 				"CL_BlackTempleStart",		-- Burning Crusade
 				"CL_BlackTempleTop",		-- Burning Crusade

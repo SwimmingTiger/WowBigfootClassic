@@ -1,10 +1,10 @@
--- $Id: Atlas.lua 368 2021-05-20 15:03:14Z arithmandar $
+-- $Id: Atlas.lua 374 2022-01-26 14:33:01Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
 	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -1816,7 +1816,7 @@ function addon:DungeonMinGearLevelToolTip(self)
 
 	if (checkInstanceHasGearLevel() or base.MinGearLevel) then
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
-		GameTooltip:SetBackdropColor(0, 0, 0, 1 * profile.options.frames.alpha)
+		GameTooltip.NineSlice:SetCenterColor(0, 0, 0, 1 * profile.options.frames.alpha)
 		GameTooltip:SetText(str, 1, 1, 1, nil, 1)
 		GameTooltip:AddLine(STAT_AVERAGE_ITEM_LEVEL_TOOLTIP)
 		GameTooltip:SetScale(profile.options.frames.boss_description_scale * profile.options.frames.scale)

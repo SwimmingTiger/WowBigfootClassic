@@ -1,10 +1,10 @@
--- $Id: AtlasFrame.lua 368 2021-05-20 15:03:14Z arithmandar $
+-- $Id: AtlasFrame.lua 374 2022-01-26 14:33:01Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
 	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -171,7 +171,7 @@ function AtlasEntry_OnUpdate(self)
 				if (str) then
 					GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
 					GameTooltip:SetBackdropBorderColor(0, 0, 0, 0)
-					GameTooltip:SetBackdropColor(0, 0, 0, 1)
+					GameTooltip.NineSlice:SetCenterColor(0, 0, 0, 1)
 					local colorCheck = string.sub(str, 1, 4)
 					if (colorCheck == "|cff") then
 						local color = string.sub(str, 1, 10)
@@ -185,7 +185,7 @@ function AtlasEntry_OnUpdate(self)
 		else
 			if (self.tooltiptitle) then
 				GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-				GameTooltip:SetBackdropColor(0, 0, 0, 1 * addon.db.profile.options.frames.alpha)
+				GameTooltip.NineSlice:SetCenterColor(0, 0, 0, 1 * addon.db.profile.options.frames.alpha)
 				GameTooltip:SetText(self.tooltiptitle, 1, 1, 1, 1)
 				if (self.tooltiptext) then 
 					GameTooltip:AddLine(self.tooltiptext, nil, nil, nil, 1) 

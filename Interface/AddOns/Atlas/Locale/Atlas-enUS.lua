@@ -1,10 +1,10 @@
--- $Id: Atlas-enUS.lua 368 2021-05-20 15:03:14Z arithmandar $
+-- $Id: Atlas-enUS.lua 384 2022-02-19 08:23:08Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
 	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -92,18 +92,25 @@ L["ATLAS_DDL_EXPANSION_WOTLK"] = "Wrath of the Lich King Instances"
 L["ATLAS_DDL_LEVEL"] = "Level"
 L["ATLAS_DDL_LEVEL_100PLUS"] = "Instances Level 100+"
 L["ATLAS_DDL_LEVEL_100TO110"] = "Instances Level 100-110"
+L["ATLAS_DDL_LEVEL_10TO30"] = "Instances Level 10-30"
 L["ATLAS_DDL_LEVEL_110PLUS"] = "Instances Level 110+"
 L["ATLAS_DDL_LEVEL_110TO120"] = "Instances Level 110-120"
 L["ATLAS_DDL_LEVEL_120PLUS"] = "Instances Level 120+"
 L["ATLAS_DDL_LEVEL_120TO130"] = "Instances Level 120-130"
 L["ATLAS_DDL_LEVEL_130PLUS"] = "Instances Level 130+"
+L["ATLAS_DDL_LEVEL_30TO35"] = "Instances Level 30-35"
+L["ATLAS_DDL_LEVEL_35TO40"] = "Instances Level 35-40"
+L["ATLAS_DDL_LEVEL_40TO45"] = "Instances Level 40-45"
+L["ATLAS_DDL_LEVEL_45TO50"] = "Instances Level 45-50"
 L["ATLAS_DDL_LEVEL_45TO60"] = "Instances Level 45-60"
+L["ATLAS_DDL_LEVEL_50TO60"] = "Instances Level 50-60"
 L["ATLAS_DDL_LEVEL_60PLUS"] = "Instances Level 60+"
 L["ATLAS_DDL_LEVEL_60TO70"] = "Instances Level 60-70"
 L["ATLAS_DDL_LEVEL_70TO80"] = "Instances Level 70-80"
 L["ATLAS_DDL_LEVEL_80TO85"] = "Instances Level 80-85"
 L["ATLAS_DDL_LEVEL_85TO90"] = "Instances Level 85-90"
 L["ATLAS_DDL_LEVEL_90TO100"] = "Instances Level 90-100"
+L["ATLAS_DDL_LEVEL_UNDER30"] = "Instances Under Level 30"
 L["ATLAS_DDL_LEVEL_UNDER45"] = "Instances Under Level 45"
 L["ATLAS_DDL_PARTYSIZE"] = "Party Size"
 L["ATLAS_DDL_PARTYSIZE_10"] = "Instances for 10 Players"

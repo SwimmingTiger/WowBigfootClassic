@@ -1,10 +1,10 @@
--- $Id: Atlas-zhTW.lua 368 2021-05-20 15:03:14Z arithmandar $
+-- $Id: Atlas-zhTW.lua 374 2022-01-26 14:33:01Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
 	Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 	Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -89,18 +89,25 @@ L["ATLAS_DDL_EXPANSION_WOTLK"] = "巫妖王之怒副本"
 L["ATLAS_DDL_LEVEL"] = "依等級分類"
 L["ATLAS_DDL_LEVEL_100PLUS"] = "副本等級大於 100"
 L["ATLAS_DDL_LEVEL_100TO110"] = "副本等級介於 100-110"
+L["ATLAS_DDL_LEVEL_10TO30"] = "副本等級介於 10-30"
 L["ATLAS_DDL_LEVEL_110PLUS"] = "副本等級大於 110"
 L["ATLAS_DDL_LEVEL_110TO120"] = "副本等級介於 110-120"
 L["ATLAS_DDL_LEVEL_120PLUS"] = "副本等級大於 120"
 L["ATLAS_DDL_LEVEL_120TO130"] = "副本等級介於 120-130"
 L["ATLAS_DDL_LEVEL_130PLUS"] = "副本等級大於 130"
+L["ATLAS_DDL_LEVEL_30TO35"] = "副本等級介於 30-35"
+L["ATLAS_DDL_LEVEL_35TO40"] = "副本等級介於 35-40"
+L["ATLAS_DDL_LEVEL_40TO45"] = "副本等級介於 40-45"
+L["ATLAS_DDL_LEVEL_45TO50"] = "副本等級介於 45-50"
 L["ATLAS_DDL_LEVEL_45TO60"] = "副本等級介於 45-60"
+L["ATLAS_DDL_LEVEL_50TO60"] = "副本等級介於 50-60"
 L["ATLAS_DDL_LEVEL_60PLUS"] = "副本等級大於 60"
 L["ATLAS_DDL_LEVEL_60TO70"] = "副本等級介於 60-70"
 L["ATLAS_DDL_LEVEL_70TO80"] = "副本等級介於 70-80"
 L["ATLAS_DDL_LEVEL_80TO85"] = "副本等級介於 80-85"
 L["ATLAS_DDL_LEVEL_85TO90"] = "副本等級介於 85-90"
 L["ATLAS_DDL_LEVEL_90TO100"] = "副本等級介於 90-100"
+L["ATLAS_DDL_LEVEL_UNDER30"] = "副本等級低於 30"
 L["ATLAS_DDL_LEVEL_UNDER45"] = "副本等級低於 45"
 L["ATLAS_DDL_PARTYSIZE"] = "依隊伍人數分類"
 L["ATLAS_DDL_PARTYSIZE_10"] = "10 人團隊副本"

@@ -1,8 +1,8 @@
--- $Id: Data.lua 73 2021-05-20 15:17:09Z arithmandar $
+-- $Id: Data.lua 81 2022-02-19 13:43:14Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
-	Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+	Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 	This file is part of Atlas.
 
@@ -78,7 +78,6 @@ if (WoWRetail) then
 		BlackrockMountainEnt = {
 			ZoneName = { BZ["Blackrock Mountain"]..ALC["L-Parenthesis"]..ALC["Entrance"]..ALC["R-Parenthesis"] },
 			Location = { BZ["Searing Gorge"]..ALC["Slash"]..BZ["Burning Steppes"] },
-			LevelRange = "49-100+",
 			MinLevel = "47",
 			PlayerLimit = { 5, 10, 25, 40},
 			Acronym = L["BRM"],
@@ -103,7 +102,6 @@ if (WoWRetail) then
 		BlackrockDepths = {
 			ZoneName = { BZ["Blackrock Mountain"]..ALC["Colon"]..BZ["Blackrock Depths"] },
 			Location = { BZ["Searing Gorge"]..ALC["Slash"]..BZ["Burning Steppes"] },
-			LevelRange = "49-56",
 			MinLevel = "47",
 			PlayerLimit = { 5 },
 			Acronym = L["BRD"],
@@ -309,7 +307,6 @@ if (WoWRetail) then
 		ScarletMonasteryEnt = {
 			ZoneName = { BZ["Scarlet Monastery"]..ALC["L-Parenthesis"]..ALC["Entrance"]..ALC["R-Parenthesis"] },
 			Location = { BZ["Tirisfal Glades"] },
-			LevelRange = "28-40 / 90",
 			MinLevel = "26",
 			PlayerLimit = { 5 },
 			Acronym = L["SM"],
@@ -491,7 +488,6 @@ if (WoWRetail) then
 		TheDeadminesEnt = {
 			ZoneName = { BZ["The Deadmines"]..ALC["L-Parenthesis"]..ALC["Entrance"]..ALC["R-Parenthesis"] },
 			Location = { BZ["Westfall"] },
-			LevelRange = "15-16 / 85",
 			MinLevel = "15",
 			PlayerLimit = { 5 },
 			Acronym = L["VC"],
@@ -679,7 +675,6 @@ if (WoWRetail) then
 		BlackfathomDeepsEnt = {
 			ZoneName = { BZ["Blackfathom Deeps"]..ALC["L-Parenthesis"]..ALC["Entrance"]..ALC["R-Parenthesis"] },
 			Location = { BZ["Ashenvale"] },
-			LevelRange = "22-25",
 			MinLevel = "20",
 			PlayerLimit = { 5 },
 			Acronym = L["BFD"],
@@ -825,7 +820,6 @@ if (WoWRetail) then
 		MaraudonEnt = {
 			ZoneName = { BZ["Maraudon"]..ALC["L-Parenthesis"]..ALC["Entrance"]..ALC["R-Parenthesis"] },
 			Location = { BZ["Desolace"] },
-			LevelRange = "32-39",
 			MinLevel = "30",
 			PlayerLimit = { 5 },
 			Acronym = L["Mara"],
@@ -844,7 +838,6 @@ if (WoWRetail) then
 		Maraudon = {
 			ZoneName = { BZ["Maraudon"] },
 			Location = { BZ["Desolace"] },
-			LevelRange = "32-39",
 			MinLevel = "30",
 			PlayerLimit = { 5 },
 			Acronym = L["Mara"],
@@ -1788,9 +1781,7 @@ if (WoWRetail) then
 			ATLAS_DDL_CONTINENT_KALIMDOR,
 		},
 		[ATLAS_DDL_LEVEL] = {
-			ATLAS_DDL_LEVEL_UNDER45,
-			ATLAS_DDL_LEVEL_45TO60,
-			ATLAS_DDL_LEVEL_60TO70,
+			ATLAS_DDL_LEVEL_10TO30,
 		},
 		[ATLAS_DDL_EXPANSION] = {
 			ATLAS_DDL_EXPANSION_OLD,
@@ -1885,7 +1876,7 @@ if (WoWRetail) then
 			},
 		},
 		[ATLAS_DDL_LEVEL] = {
-			[ATLAS_DDL_LEVEL_UNDER45] = {
+			[ATLAS_DDL_LEVEL_10TO30] = {
 				"BlackfathomDeeps",		-- Classic WoW
 				"BlackfathomDeepsEnt",		-- Classic WoW
 				"Gnomeregan",			-- Classic WoW
@@ -1906,8 +1897,6 @@ if (WoWRetail) then
 				"UldamanEnt",			-- Classic WoW
 				"WailingCaverns",		-- Classic WoW
 				"WailingCavernsEnt",		-- Classic WoW
-			},
-			[ATLAS_DDL_LEVEL_45TO60] = {
 				"BlackrockMountainEnt",		-- Classic WoW
 				"BlackrockDepths",		-- Classic WoW
 				"DireMaulEast",			-- Classic WoW
@@ -1922,8 +1911,6 @@ if (WoWRetail) then
 				"TheSunkenTemple",		-- Classic WoW
 				"TheSunkenTempleEnt",		-- Classic WoW
 				"ZulFarrak",			-- Classic WoW
-			},
-			[ATLAS_DDL_LEVEL_60TO70] = {
 				"BlackrockMountainEnt",		-- Classic WoW
 				"BlackwingLair",		-- Classic WoW
 				"MoltenCore",			-- Classic WoW

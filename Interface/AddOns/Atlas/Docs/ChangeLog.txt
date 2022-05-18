@@ -1,8 +1,8 @@
-$Id: ChangeLog.txt 370 2021-06-14 08:42:27Z arithmandar $
+$Id: ChangeLog.txt 392 2022-02-27 16:08:37Z arithmandar $
 Atlas, a World of Warcraft instance map browser
 Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
-Copyright 2011 ~ 2021 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
 
 ==============
 Known Issues:
@@ -14,6 +14,56 @@ Known Issues:
 ==============
 = Change Log =
 ==============
+
+v1.50.02 (Feb. 28, 2022)
+------------------------
+- Library update: LibUIDropDownMenu
+
+v1.50.01 (Feb. 23, 2022)
+------------------------
+- Library update: LibBabble-SubZone
+
+v1.50.00 (Feb. 23, 2022)
+------------------------
+- Toc update to support WoW 9.2.0
+
+v1.49.09 (Feb. 20, 2022)
+------------------------
+- Library update: LibBabble-SubZone
+
+v1.49.08 (Feb. 19, 2022)
+------------------------
+- Updated level section information
+
+v1.49.07 (Feb. 15, 2022)
+------------------------
+- Library update: LibUIDropDownMenu
+
+v1.49.06 (Feb. 10, 2022)
+------------------------
+- Library update: LibUIDropDownMenu
+
+v1.49.05 (Feb. 9, 2022)
+------------------------
+- Support multiple ToC
+- BCC ToC update to support WoW 2.5.3
+- Classic ToC update to support WoW 1.14.2
+
+v1.49.04 (Jan. 27, 2022)
+------------------------
+- Library update: LibUIDropDownMenu
+
+v1.49.03 (Jan. 26, 2022)
+------------------------
+- TOC update to support WoW 9.1.5
+- Fixed GameToolTip's backdrop setting issue
+
+v1.49.02 (Jun. 30, 2021)
+------------------------
+- TOC update to support WoW 9.1.0
+- Update AreaID table for retail; spilt files for each classic server
+- Library update: LibUIDropDownMenu
+- Library update: LibBabble-SubZone
 
 v1.49.01 (Jun. 14, 2021)
 ------------------------
