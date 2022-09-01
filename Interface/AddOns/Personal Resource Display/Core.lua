@@ -1031,8 +1031,8 @@ function PRD_onPlayerResourceChange(self, event, ...)
       -- ..percentage padding and scale
       PRD_healthPercentageFontString:SetPoint("LEFT", PRD_settingsConfig.percentagePadding, 1)
       PRD_manaPercentageFontString:SetPoint("LEFT", PRD_settingsConfig.percentagePadding, -1)
-      PRD_healthPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight, "OUTLINE")
-      PRD_manaPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight, "OUTLINE")
+      PRD_healthPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight or defaultTextHeight, "OUTLINE")
+      PRD_manaPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight or defaultTextHeight, "OUTLINE")
 
       -- ..and bar scale
       PRD_personalHealthBar:SetScale(PRD_settingsConfig.scale)
@@ -1062,7 +1062,7 @@ function PRD_onPlayerResourceChange(self, event, ...)
       percentageTextPadding_Slider:SetValue(PRD_settingsConfig.percentagePadding)
       _G[percentageTextPadding_Slider:GetName().."Text"]:SetText("Text placement: |cfffdf457"..math.floor((ceil(PRD_settingsConfig.percentagePadding - .5)*100)/100))
 
-      percentageTextScale_Slider:SetValue(PRD_settingsConfig.percentageTextHeight)
+      percentageTextScale_Slider:SetValue(PRD_settingsConfig.percentageTextHeight or defaultTextHeight)
       _G[percentageTextScale_Slider:GetName().."Text"]:SetText("Text scale: |cfffdf457"..math.floor((ceil(PRD_settingsConfig.percentageTextHeight - .5)*100)/100))
 
       percentageTextPadding_Slider:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue)
