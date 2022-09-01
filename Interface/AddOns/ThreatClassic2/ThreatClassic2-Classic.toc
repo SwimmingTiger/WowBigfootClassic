@@ -1,11 +1,11 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: ThreatClassic2
-## Notes: Simple threat meter for WoW Classic and TBCC.
+## Notes: Simple threat meter for WoW Classic, TBCC and WotlK.
 ## Author: Dennis-Florian Herr (dfherr)
 ## X-Curse-Project-ID: 355497
 ## X-WoWI-ID: 25966
 ## X-Wago-ID: pkNM1ONz
-## Version: 2.44
+## Version: 2.45
 ## SavedVariables: ThreatClassic2DB
 ## SavedVariablesPerCharacter: TC2_Options
 

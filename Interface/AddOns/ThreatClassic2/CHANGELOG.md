@@ -1,4 +1,10 @@
 # Changelog
+
+## v2.45
+* works in wotlk beta
+* update libaries
+* added media for my favorite bar style Minimalist
+
 ## v2.44
 * adjust toc for AQ40 Season of Mastery
 

@@ -1,0 +1,28 @@
+------------------------------------------------------------------------
+r122 | funkehdude | 2022-04-24 23:23:15 +0000 (Sun, 24 Apr 2022) | 1 line
+Changed paths:
+   M /trunk/LibSharedMedia-3.0.toc
+   A /trunk/LibSharedMedia-3.0_TBC.toc
+   A /trunk/LibSharedMedia-3.0_Vanilla.toc
+
+Setup multi toc support
+------------------------------------------------------------------------
+r121 | funkehdude | 2022-04-24 23:15:36 +0000 (Sun, 24 Apr 2022) | 1 line
+Changed paths:
+   M /trunk/LibSharedMedia-3.0.toc
+
+bump toc
+------------------------------------------------------------------------
+r120 | funkehdude | 2021-11-03 19:35:09 +0000 (Wed, 03 Nov 2021) | 1 line
+Changed paths:
+   M /trunk/LibSharedMedia-3.0.toc
+
+bump toc
+------------------------------------------------------------------------
+r119 | funkehdude | 2021-06-30 10:57:05 +0000 (Wed, 30 Jun 2021) | 1 line
+Changed paths:
+   M /trunk/LibSharedMedia-3.0.toc
+
+bump toc
+------------------------------------------------------------------------
+
