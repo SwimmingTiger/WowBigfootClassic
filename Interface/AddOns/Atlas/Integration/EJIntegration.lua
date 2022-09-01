@@ -1,4 +1,4 @@
--- $Id: EJIntegration.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: EJIntegration.lua 406 2022-08-21 07:17:30Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -33,17 +33,22 @@ local _G = getfenv(0)
 local pairs = _G.pairs
 local select = _G.select
 local tonumber = _G.tonumber
-local GameTooltip = GameTooltip
 -- Libraries
+local GameTooltip, GetBuildInfo = _G.GameTooltip, _G.GetBuildInfo
 
-local WoWClassicEra, WoWClassicTBC, WoWRetail
-local wowtocversion  = select(4, GetBuildInfo())
-if wowtocversion < 20000 then
+-- Determine WoW TOC Version
+local WoWClassicEra, WoWClassicTBC, WoWWOTLKC, WoWRetail
+local wowversion  = select(4, GetBuildInfo())
+if wowversion < 20000 then
 	WoWClassicEra = true
-elseif wowtocversion > 19999 and wowtocversion < 90000 then 
+elseif wowversion < 30000 then 
 	WoWClassicTBC = true
-else
+elseif wowversion < 40000 then 
+	WoWWOTLKC = true
+elseif wowversion > 90000 then
 	WoWRetail = true
+else
+	-- n/a
 end
 
 -- ----------------------------------------------------------------------------
@@ -71,33 +76,44 @@ end
 function addon:GetBossName(bossname, encounterID, creatureIndex, moduleName)
 	local LL
 	if (moduleName) then LL = LibStub("AceLocale-3.0"):GetLocale("Atlas_"..moduleName) end
-	if (encounterID and EJ_GetEncounterInfo) then
-		local _, encounter, iconImage
-		if (not creatureIndex) then
-			encounter = EJ_GetEncounterInfo(encounterID)
-			_, _, _, _, iconImage = EJ_GetCreatureInfo(1, encounterID)
-		else
-			-- id, name, description, displayInfo, iconImage = EJ_GetCreatureInfo(index[, encounterID])
-			_, encounter, _, _, iconImage = EJ_GetCreatureInfo(creatureIndex or 1, encounterID)
-		end
-
-		if (encounter == nil) then
-			if (bossname and BB[bossname]) then
-				bossname = BB[bossname]
-			elseif (bossname and L[bossname]) then
-				bossname = LL and LL[bossname] or bossname
+	
+	if (WoWRetail) then
+		if (encounterID and EJ_GetEncounterInfo) then
+			local _, encounter, iconImage
+			if (not creatureIndex) then
+				encounter = EJ_GetEncounterInfo(encounterID)
+				_, _, _, _, iconImage = EJ_GetCreatureInfo(1, encounterID)
 			else
-				--bossname = bossname
+				-- id, name, description, displayInfo, iconImage = EJ_GetCreatureInfo(index[, encounterID])
+				_, encounter, _, _, iconImage = EJ_GetCreatureInfo(creatureIndex or 1, encounterID)
 			end
+
+			if (encounter == nil) then
+				if (bossname and BB[bossname]) then
+					bossname = BB[bossname]
+				elseif (bossname and L[bossname]) then
+					bossname = LL and LL[bossname] or bossname
+				else
+					--bossname = bossname
+				end
+			else
+				bossname = iconImage and format("|T%d:0:2.5|t%s", iconImage, encounter) or encounter
+			end
+		elseif (bossname and L[bossname]) then
+			bossname = LL and LL[bossname] or bossname
+		elseif (bossname and BB[bossname]) then
+			bossname = BB[bossname]
 		else
-			bossname = iconImage and format("|T%d:0:2.5|t%s", iconImage, encounter) or encounter
+			--bossname = bossname
 		end
-	elseif (bossname and L[bossname]) then
-		bossname = LL and LL[bossname] or bossname
-	elseif (bossname and BB[bossname]) then
-		bossname = BB[bossname]
 	else
-		--bossname = bossname
+		if (bossname and BB[bossname]) then
+			bossname = BB[bossname]
+		elseif (bossname and L[bossname]) then
+			bossname = LL and LL[bossname] or bossname	
+		else
+			--bossname = bossname
+		end
 	end
 
 	return bossname
@@ -108,7 +124,8 @@ function Atlas_GetBossName(bossname, encounterID, creatureIndex)
 end
 
 function addon:AdventureJournalButton_OnClick(frame)
-	if (WoWClassicEra or WoWClassicTBC) then return end
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then return end
+	
 	local instanceID = frame.instanceID
 	local disabled = not C_AdventureJournal.CanBeShown()
 	if (disabled) then return end
@@ -132,7 +149,8 @@ function addon:AdventureJournalButton_OnClick(frame)
 end
 
 function addon:AdventureJournalButton_OnEnter(frame)
-	if (WoWClassicEra or WoWClassicTBC) then return end
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then return end
+	
 	local instanceID = frame.instanceID
 	if (not instanceID) then return end
 
@@ -160,7 +178,8 @@ function addon:AdventureJournalButton_OnEnter(frame)
 end
 
 function addon:AdventureJournal_EncounterButton_OnClick(instanceID, encounterID, keepAtlas)
-	if (WoWClassic) then return end
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then return end
+	
 	if (not instanceID or not encounterID) then return end
 	
 	local disabled = not C_AdventureJournal.CanBeShown()
@@ -187,7 +206,8 @@ function addon:AdventureJournal_EncounterButton_OnClick(instanceID, encounterID,
 end
 
 function addon:AdventureJournal_MapButton_OnClick(frame)
-	if (WoWClassic) then return end
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then return end
+	
 	local uiMapID = frame.mapID
 	local dungeonLevel = frame.dungeonLevel
 

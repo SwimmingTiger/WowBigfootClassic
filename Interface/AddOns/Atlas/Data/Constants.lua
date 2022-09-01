@@ -1,4 +1,4 @@
--- $Id: Constants.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: Constants.lua 400 2022-07-23 10:38:27Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -61,6 +61,7 @@ ATLAS_OLD_TYPE = false
 ATLAS_OLD_ZONE = false
 ATLAS_MAX_MENUITEMS = 30
 ATLAS_MODULE_MENUS = 0
+ATLAS_PLUGIN_MENUS = 0
 ATLAS_DROPDOWN_TYPES = {}
 
 ATLAS_GAMETOOLTIP_ORIGINAL_SCALE = GameTooltip:GetScale()
@@ -285,21 +286,21 @@ constants.deprecatedList = {
 	-- For example, name it as 2.09 instead of 2.9
 	-- Most recent (working) versions of known modules at time of release
 	-- Atlas Modules
-	{ "Atlas_BattleforAzeroth", 	"1.46.00", "r144" },
-	{ "Atlas_Legion",	 	"1.44.00", "r144" },
-	{ "Atlas_WarlordsofDraenor", 	"1.44.00", "r49" },
-	{ "Atlas_MistsofPandaria",	"1.44.00", "r29" },
-	{ "Atlas_Cataclysm", 		"1.44.00", "r31" },
-	{ "Atlas_WrathoftheLichKing", 	"1.44.00", "r38" },
-	{ "Atlas_BurningCrusade", 	"1.44.00", "r38" },
-	{ "Atlas_ClassicWoW", 		"1.44.00", "r31" },
+	{ "Atlas_BattleforAzeroth", 	"1.50.00", "r30" },
+	{ "Atlas_Legion",	 			"1.50.00", "r169" },
+	{ "Atlas_WarlordsofDraenor", 	"1.50.00", "r69" },
+	{ "Atlas_MistsofPandaria",		"1.50.00", "r49" },
+	{ "Atlas_Cataclysm", 			"1.50.00", "r51" },
+	{ "Atlas_WrathoftheLichKing", 	"1.50.00", "r58" },
+	{ "Atlas_BurningCrusade", 		"1.50.00", "r61" },
+	{ "Atlas_ClassicWoW", 			"1.50.00", "r83" },
 	-- Atlas Plugins
-	{ "Atlas_Battlegrounds", 	"1.44.00", "r1553" },
-	{ "Atlas_DungeonLocs", 		"1.44.00", "r48" },
-	{ "Atlas_OutdoorRaids", 	"1.44.00", "r50" },
-	{ "Atlas_Transportation", 	"1.44.00", "r97" },
-	{ "Atlas_Scenarios", 		"1.44.00", "r53" },
-	{ "Atlas_ClassOrderHalls",	"1.44.00", "r116" },
+	{ "Atlas_Battlegrounds", 		"1.50.00", "r1579" },
+	{ "Atlas_DungeonLocs", 			"1.50.00", "r75" },
+	{ "Atlas_OutdoorRaids", 		"1.50.00", "r74" },
+	{ "Atlas_Transportation", 		"1.50.00", "r144" },
+	{ "Atlas_Scenarios", 			"1.44.00", "r53" },
+	{ "Atlas_ClassOrderHalls",		"1.50.00", "r134" },
 	-- 3rd parties plugins
 	{ "AtlasQuest", 		"4.10.25" },
 	{ "Atlas_Arena", 		"1.07.02", "r80" },

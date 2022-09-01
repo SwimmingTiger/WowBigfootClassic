@@ -1,7 +1,7 @@
  --[[
-$Id: LibBabble-SubZone-3.0_esES.lua 242 2022-02-20 15:40:36Z arithmandar $
+$Id: LibBabble-SubZone-3.0_esES.lua 250 2022-07-23 02:56:32Z arithmandar $
 Name: LibBabble-SubZone-3.0
-Revision: $Rev: 242 $
+Revision: $Rev: 250 $
 Maintainers: arith
 Last updated by: $Author: arithmandar $
 Website: http://www.wowace.com/addons/libbabble-subzone-3-0/
@@ -769,6 +769,7 @@ lib:SetCurrentTranslations
 	["Brightwater Lake"] = "Lago Aguasclaras",
 	["Brightwood Grove"] = "Arboleda del Destello",
 	["Brill"] = "Rémol",
+	["Brill Inn"] = "Posada de Rémol",
 	["Brill Town Hall"] = "Concejo de Rémol",
 	["Brimstone Springs"] = "Manantial de Azufre",
 	["Brimstone Tower"] = "Torre dello Zolfo",
@@ -945,8 +946,8 @@ lib:SetCurrentTranslations
 	["Chamber of Fanatics"] = "Stanza dei Fanatici",
 	["Chamber of First Reflection"] = "Cámara del Primer Reflejo",
 	["Chamber of Harvesters"] = "Cámara de los Cosechadores",
-	["Chamber of Heart"] = "Cámara del Corazón",
 	["Chamber Of Heart"] = "Cámara del Corazón",
+	["Chamber of Heart"] = "Cámara del Corazón",
 	["Chamber of Incineration"] = "Stanza dell'Incenerimento",
 	["Chamber of Inner Calm"] = "Cámara de la Calma Interior",
 	["Chamber of Knowledge"] = "Cámara del Conocimiento",
@@ -1042,6 +1043,7 @@ lib:SetCurrentTranslations
 	["Classic Arathi Basin"] = "Cuenca de Arathi clásica",
 	["Classic Warsong Gulch"] = "Garganta Grito de Guerra clásica",
 	["Claw's Edge"] = "Filo de la Garra",
+	["Claytön's WoWEdit Land"] = "Claytön's WoWEdit Land",
 	["Clayt繹n's WoWEdit Land"] = "Claytön's WoWEdit Land",
 	["Cleansing of the Deep"] = "Limpieza de las Profundidades",
 	["Cleansing the Mother Tree"] = "Purificar el Árbol Madre",
@@ -1787,6 +1789,7 @@ lib:SetCurrentTranslations
 	["Engineering Works"] = "Bottega d'Ingegneria",
 	["Engineer's Respite"] = "Descanso del Ingeniero",
 	["Enigma Arena"] = "Arena Enigma",
+	["Enigma Crucible"] = "Crisol Enigma",
 	["Entryway of Time"] = "Umbral del Tiempo",
 	["Ephemeral Plains"] = "Llanuras Efímeras",
 	["Ephemeral Plains Alpha"] = "Alfa de las Llanuras Efímeras",
@@ -3917,8 +3920,8 @@ lib:SetCurrentTranslations
 	["Ogre Citadel"] = "Ciudadela Ogra",
 	["Ogre Mine"] = "Miniera degli Ogre",
 	["Ogre Ruins"] = "Ruinas Ogras",
-	["Ogri'La"] = "Ogri'la",
 	["Ogri'la"] = "Ogri'la",
+	["Ogri'La"] = "Ogri'la",
 	["Okril'lon Hold"] = "Bastión Okril'lon",
 	["Old Coast Path"] = "Vieja Senda de la Costa",
 	["Old Drust Road"] = "Viejo Camino Drust",
@@ -4468,6 +4471,7 @@ lib:SetCurrentTranslations
 	["Ruins of Drakgor"] = "Ruinas de Drakgor",
 	["Ruins of Drak'Zin"] = "Ruinas de Drak'Zin",
 	["Ruins of Eldarath "] = "Ruinas de Eldarath",
+	["Ruins of Eldarath"] = "Ruinas de Eldarath",
 	["Ruins of Eldra'nath"] = "Ruinas de Eldra'nath",
 	["Ruins of Eldre'thar"] = "Ruinas de Eldre'thar",
 	["Ruins of Elune'eth"] = "Ruinas de Elune'eth",
@@ -5206,8 +5210,8 @@ lib:SetCurrentTranslations
 	["Spire of War"] = "Aguja de Guerra",
 	["Spire Throne"] = "Trono Espiral",
 	["Spires of Arak"] = "Cumbres de Arak",
-	["Spires Of Ascension"] = "Agujas de Ascensión",
 	["Spires of Ascension"] = "Agujas de Ascensión",
+	["Spires Of Ascension"] = "Agujas de Ascensión",
 	["Spirit Den"] = "Cubil del Espíritu",
 	["Spirit Fields"] = "Campos de Espíritus",
 	["Spirit Glen"] = "Cañada de los Espíritus",
@@ -6457,7 +6461,7 @@ lib:SetCurrentTranslations
 	["The Nightmarsh"] = "Marisma de las Pesadillas",
 	["The Nightspire"] = "Guglia della Notte",
 	["The Nightwell"] = "Pozzo Oscuro",
-	["The North Coast"] = "La Costa Norte",
+	["The North Coast"] = "Costa Norte",
 	["The North Sea"] = "El Mar del Norte",
 	["The Nosebleeds"] = "La Hemorragia",
 	["The Noxious Glade"] = "El Claro Ponzoñoso",
@@ -7504,8 +7508,8 @@ lib:SetCurrentTranslations
 	["Verming Tunnels Micro"] = "Microtunnel dei Leproratti",
 	["Verrall Delta"] = "Delta del Verrall",
 	["Verrall River"] = "Río Verrall",
-	["Vestibule Of Eternity"] = "Vestíbulo de la Eternidad",
 	["Vestibule of Eternity"] = "Vestíbulo de la Eternidad",
+	["Vestibule Of Eternity"] = "Vestíbulo de la Eternidad",
 	["Vestibule of the Faithless"] = "Vestíbulo de los Infieles",
 	["Vestibule of the Silver Hand"] = "Vestibolo della Mano d'Argento",
 	["Victor's Point"] = "Paso del Invicto",
@@ -7518,7 +7522,7 @@ lib:SetCurrentTranslations
 	["Vindicaar"] = "Vindicaar",
 	["Vindicator's Rest"] = "El Reposo del Vindicador",
 	["Violet Citadel Balcony"] = "Balcón de la Ciudadela Violeta",
-	["Violet Hold"] = "El Bastión Violeta",
+	["Violet Hold"] = "Bastión Violeta",
 	["Violet Hold Entrance"] = "Entrada de El Bastión Violeta",
 	["Violet Rise"] = "El Alto Violeta",
 	["Violet Stand"] = "El Confín Violeta",

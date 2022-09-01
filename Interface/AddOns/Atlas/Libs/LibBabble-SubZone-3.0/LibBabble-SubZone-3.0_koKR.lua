@@ -1,7 +1,7 @@
  --[[
-$Id: LibBabble-SubZone-3.0_koKR.lua 242 2022-02-20 15:40:36Z arithmandar $
+$Id: LibBabble-SubZone-3.0_koKR.lua 250 2022-07-23 02:56:32Z arithmandar $
 Name: LibBabble-SubZone-3.0
-Revision: $Rev: 242 $
+Revision: $Rev: 250 $
 Maintainers: arith
 Last updated by: $Author: arithmandar $
 Website: http://www.wowace.com/addons/libbabble-subzone-3-0/
@@ -748,8 +748,8 @@ lib:SetCurrentTranslations
 	["Braxton Lodge"] = "브랙스턴 오두막",
 	["Brazie Farmstead"] = "브레이지 농장",
 	["Breaker's Crown"] = "파괴자의 왕관",
-	["Breath of Pa'ku"] = "파쿠의 숨결호",
 	["Breath Of Pa'ku"] = "파쿠의 숨결호",
+	["Breath of Pa'ku"] = "파쿠의 숨결호",
 	["Brennadam"] = "브렌나담",
 	["Brennadam Square"] = "브렌나담 광장",
 	["Brewmoon Festival"] = "맥주달 축제",
@@ -769,6 +769,7 @@ lib:SetCurrentTranslations
 	["Brightwater Lake"] = "청명 호수",
 	["Brightwood Grove"] = "밝은나무 숲",
 	["Brill"] = "브릴",
+	["Brill Inn"] = "브릴 여관",
 	["Brill Town Hall"] = "브릴 마을회관",
 	["Brimstone Springs"] = "유황불 연못",
 	["Brimstone Tower"] = "유황의 탑",
@@ -1041,6 +1042,7 @@ lib:SetCurrentTranslations
 	["Classic Arathi Basin"] = "클래식 아라시 분지",
 	["Classic Warsong Gulch"] = "클래식 전쟁노래 협곡",
 	["Claw's Edge"] = "발톱 벼랑",
+	["Claytön's WoWEdit Land"] = "클레이튼의 섬",
 	["Clayt繹n's WoWEdit Land"] = "클레이튼의 섬",
 	["Cleansing of the Deep"] = "심원의 정화",
 	["Cleansing the Mother Tree"] = "어머니 나무 정화",
@@ -1785,6 +1787,7 @@ lib:SetCurrentTranslations
 	["Engineering Works"] = "기계공학 작업장",
 	["Engineer's Respite"] = "기술자의 휴식처",
 	["Enigma Arena"] = "수수께끼 투기장",
+	["Enigma Crucible"] = "수수께끼 도가니",
 	["Entryway of Time"] = "시간의 진입로",
 	["Ephemeral Plains"] = "찰나의 터",
 	["Ephemeral Plains Alpha"] = "찰나의 터 알파",
@@ -3887,8 +3890,8 @@ lib:SetCurrentTranslations
 	["Ny'alotha"] = "나이알로사",
 	["Ny'alotha, the Waking City"] = "깨어난 도시 나이알로사",
 	["Nyell's Workshop"] = "나이엘의 작업장",
-	["NZoth"] = "느조스",
 	["Nzoth"] = "느조스",
+	["NZoth"] = "느조스",
 	["N'Zoth"] = "느조스",
 	["Oaken Assembly"] = "참나무 회합지",
 	["Oakheart"] = "나무심장",
@@ -4464,6 +4467,7 @@ lib:SetCurrentTranslations
 	["Ruins of Drakgor"] = "드락고르 폐허",
 	["Ruins of Drak'Zin"] = "드락진 폐허",
 	["Ruins of Eldarath "] = "엘다라스 폐허",
+	["Ruins of Eldarath"] = "엘다라스 폐허",
 	["Ruins of Eldra'nath"] = "엘드라나스 폐허",
 	["Ruins of Eldre'thar"] = "엘드레타르 폐허",
 	["Ruins of Elune'eth"] = "엘룬에스의 폐허",
@@ -4738,8 +4742,8 @@ lib:SetCurrentTranslations
 	["Sepulcher of Knowledge"] = "지식의 매장터",
 	["Sepulcher of the Abyss"] = "심연의 무덤",
 	["Sepulcher of the Dahazi"] = "다하지의 무덤",
-	["Sepulcher Of The First Ones"] = "태초의 존재의 매장터",
 	["Sepulcher of the First Ones"] = "태초의 존재의 매장터",
+	["Sepulcher Of The First Ones"] = "태초의 존재의 매장터",
 	["Sepulcher of the Sky"] = "하늘의 무덤",
 	["Sepulcher Overlook"] = "매장터 전망대, 제레스 모르티스",
 	["Seradane"] = "세라데인",
@@ -6377,7 +6381,7 @@ lib:SetCurrentTranslations
 	["The Lustrous Apse"] = "반짝이는 별실",
 	["The Lyceum"] = "리케이온",
 	["The Maclure Vineyards"] = "매클루어 포도밭",
-	["The Maelstrom"] = "소용돌이",
+	["The Maelstrom"] = "혼돈의 소용돌이",
 	["The Maelstrom - Heart of Azeroth"] = "소용돌이 - 아제로스의 심장",
 	["The Maelstrom Mercantile"] = "소용돌이 상업소",
 	["The Mage Hunter"] = "마법사 사냥꾼",
@@ -7130,13 +7134,13 @@ lib:SetCurrentTranslations
 	["Tirth's Haunt"] = "틸스의 거처",
 	["Titan Island"] = "티탄 섬",
 	["Tkashi Ruins"] = "트카시 폐허",
-	["To The Skies!"] = "하늘 높이!",
 	["To the Skies!"] = "하늘 높이!",
+	["To The Skies!"] = "하늘 높이!",
 	["Tol Barad"] = "톨 바라드",
 	["Tol Barad Peninsula"] = "톨 바라드 반도",
 	["Tol Dagor"] = "톨 다고르",
-	["Tol'Viron Arena"] = "톨비론 투기장",
 	["Tol'viron Arena"] = "톨비론 투기장",
+	["Tol'Viron Arena"] = "톨비론 투기장",
 	["Tomb Approach"] = "무덤 접근로",
 	["Tomb of Conquerors"] = "정복자의 무덤",
 	["Tomb of Lights"] = "빛의 무덤",

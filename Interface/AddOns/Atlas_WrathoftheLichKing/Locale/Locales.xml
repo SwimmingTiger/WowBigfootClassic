@@ -1,0 +1,13 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="Atlas_WrathoftheLichKing-enUS.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-ruRU.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-deDE.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-frFR.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-zhCN.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-esES.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-esMX.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-zhTW.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-ptBR.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-itIT.lua"/>
+	<Script file="Atlas_WrathoftheLichKing-koKR.lua"/>
+</Ui>

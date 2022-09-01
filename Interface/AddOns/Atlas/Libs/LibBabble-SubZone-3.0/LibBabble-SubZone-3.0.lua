@@ -1,7 +1,7 @@
 --[[
-$Id: LibBabble-SubZone-3.0.lua 242 2022-02-20 15:40:36Z arithmandar $
+$Id: LibBabble-SubZone-3.0.lua 250 2022-07-23 02:56:32Z arithmandar $
 Name: LibBabble-SubZone-3.0
-Revision: $Rev: 242 $
+Revision: $Rev: 250 $
 Maintainers: arith
 Last updated by: $Author: arithmandar $
 Website: http://www.wowace.com/addons/libbabble-subzone-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-SubZone-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 242 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 250 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local _, private = ...
@@ -778,6 +778,7 @@ lib:SetBaseTranslations
 	["Brightwater Lake"] = "Brightwater Lake",
 	["Brightwood Grove"] = "Brightwood Grove",
 	["Brill"] = "Brill",
+	["Brill Inn"] = "Brill Inn",
 	["Brill Town Hall"] = "Brill Town Hall",
 	["Brimstone Springs"] = "Brimstone Springs",
 	["Brimstone Tower"] = "Brimstone Tower",
@@ -1051,6 +1052,7 @@ lib:SetBaseTranslations
 	["Classic Arathi Basin"] = "Classic Arathi Basin",
 	["Classic Warsong Gulch"] = "Classic Warsong Gulch",
 	["Claw's Edge"] = "Claw's Edge",
+	["Claytön's WoWEdit Land"] = "Claytön's WoWEdit Land",
 	["Clayt繹n's WoWEdit Land"] = "Clayt繹n's WoWEdit Land",
 	["Cleansing of the Deep"] = "Cleansing of the Deep",
 	["Cleansing the Mother Tree"] = "Cleansing the Mother Tree",
@@ -1796,6 +1798,7 @@ lib:SetBaseTranslations
 	["Engineering Works"] = "Engineering Works",
 	["Engineer's Respite"] = "Engineer's Respite",
 	["Enigma Arena"] = "Enigma Arena",
+	["Enigma Crucible"] = "Enigma Crucible",
 	["Entryway of Time"] = "Entryway of Time",
 	["Ephemeral Plains"] = "Ephemeral Plains",
 	["Ephemeral Plains Alpha"] = "Ephemeral Plains Alpha",
@@ -3900,8 +3903,8 @@ lib:SetBaseTranslations
 	["Ny'alotha"] = "Ny'alotha",
 	["Ny'alotha, the Waking City"] = "Ny'alotha, the Waking City",
 	["Nyell's Workshop"] = "Nyell's Workshop",
-	["Nzoth"] = "Nzoth",
 	["NZoth"] = "NZoth",
+	["Nzoth"] = "Nzoth",
 	["N'Zoth"] = "N'Zoth",
 	["Oaken Assembly"] = "Oaken Assembly",
 	["Oakheart"] = "Oakheart",
@@ -4478,6 +4481,7 @@ lib:SetBaseTranslations
 	["Ruins of Drakgor"] = "Ruins of Drakgor",
 	["Ruins of Drak'Zin"] = "Ruins of Drak'Zin",
 	["Ruins of Eldarath "] = "Ruins of Eldarath ",
+	["Ruins of Eldarath"] = "Ruins of Eldarath",
 	["Ruins of Eldra'nath"] = "Ruins of Eldra'nath",
 	["Ruins of Eldre'thar"] = "Ruins of Eldre'thar",
 	["Ruins of Elune'eth"] = "Ruins of Elune'eth",
@@ -6163,8 +6167,8 @@ lib:SetBaseTranslations
 	["The Galvanized Grotto"] = "The Galvanized Grotto",
 	["The Gaping Chasm"] = "The Gaping Chasm",
 	["The Gate of Unending Cycles"] = "The Gate of Unending Cycles",
-	["The Gatehouse"] = "The Gatehouse",
 	["The Gatehouse "] = "The Gatehouse ",
+	["The Gatehouse"] = "The Gatehouse",
 	["The Gates of Tanaan"] = "The Gates of Tanaan",
 	["The Gauntlet"] = "The Gauntlet",
 	["The Geyser Fields"] = "The Geyser Fields",
@@ -7147,13 +7151,13 @@ lib:SetBaseTranslations
 	["Tirth's Haunt"] = "Tirth's Haunt",
 	["Titan Island"] = "Titan Island",
 	["Tkashi Ruins"] = "Tkashi Ruins",
-	["To The Skies!"] = "To The Skies!",
 	["To the Skies!"] = "To the Skies!",
+	["To The Skies!"] = "To The Skies!",
 	["Tol Barad"] = "Tol Barad",
 	["Tol Barad Peninsula"] = "Tol Barad Peninsula",
 	["Tol Dagor"] = "Tol Dagor",
-	["Tol'viron Arena"] = "Tol'viron Arena",
 	["Tol'Viron Arena"] = "Tol'Viron Arena",
+	["Tol'viron Arena"] = "Tol'viron Arena",
 	["Tomb Approach"] = "Tomb Approach",
 	["Tomb of Conquerors"] = "Tomb of Conquerors",
 	["Tomb of Lights"] = "Tomb of Lights",

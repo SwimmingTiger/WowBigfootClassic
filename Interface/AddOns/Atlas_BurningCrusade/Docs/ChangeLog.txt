@@ -1,0 +1,204 @@
+$Id: ChangeLog.txt 73 2022-08-22 16:04:24Z arithmandar $
+Atlas, a World of Warcraft instance map browser
+Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert@gmail.com>
+Copyright 2010 - Lothaer <lothayer@gmail.com>, Atlas Team
+Copyright 2011 ~ 2022 - Arith Hsu, Atlas Team <atlas.addon at gmail dot com>
+
+==============
+= Change Log =
+==============
+
+v1.51.02 (Aug. 23, 2022)
+------------------------
+- Release for WOLTKC
+- Added achievement info (only available for WOLTKC)
+
+v1.51.01 (Aug. 17, 2022)
+------------------------
+- Toc update to support WoW 9.2.7
+
+v1.51.00 (Jul. 23, 2022)
+------------------------
+- Added support for Wrath of the Lich King Classic (WoW 3.4.0)
+
+v1.50.03 (Jul. 18, 2022)
+------------------------
+- Retail ToC update to support WoW 9.2.5
+- Localization anmespace updated for BCC to add names for Zul'Aman and Caverns of Time Entrance
+
+v1.50.02 (Mar. 23, 2022)
+------------------------
+- Added maps: 
+  - Caverns of Time Entrance
+    - The Black Morass
+    - Hyjal Summit
+    - Old Hillsbrad Foothills
+  - Zul'Aman
+- Added dungeon level info
+- Update level range while select to show instance maps per level range
+
+v1.50.01 (Mar. 23, 2022)
+------------------------
+- BCC ToC update to support WoW 2.5.4
+
+v1.50.00 (Feb. 23, 2022)
+------------------------
+- Toc update to support WoW 9.2.0
+
+v1.49.04 (Feb. 19, 2022)
+------------------------
+- Update categorize by level's group criteria
+
+v1.49.03 (Feb. 10, 2022)
+------------------------
+- Support multiple ToC
+- BCC ToC update to support WoW 2.5.3
+
+v1.49.02 (Feb. 3, 2022)
+------------------------
+- ToC update to support WoW 9.1.5
+
+v1.49.01 (Jun. 30, 2021)
+------------------------
+- ToC update to support WoW 9.1.0
+
+v1.49.00 (May 23, 2021)
+------------------------
+- ToC update to support WoW 9.0.5
+- Added support for Classic TBC
+
+v1.48.00 (Oct. 18, 2020)
+------------------------
+- ToC update to support WoW 9.0.1
+- Update Atlas_GetBossName to load boss name from local locale files
+
+v1.47.00 (Jan. 20, 2020)
+------------------------
+- ToC update to support WoW 8.3.0
+
+v1.46.00 (Jan. 01, 2020)
+------------------------
+- ToC update to support WoW 8.2.5
+
+v1.45.00 (Sep. 04, 2019)
+------------------------
+- ToC update to support WoW 8.2.0
+
+v1.44.01 (Dec. 18, 2018)
+------------------------
+- ToC update to support WoW 8.1.0
+
+v1.44.00 (Aug. 09, 2018)
+------------------------
+- ToC update to support WoW 8.0.1
+- MapID convert to uiMapID
+
+v1.43.00 (Aug. 30, 2017)
+------------------------
+- ToC update to support WoW 7.3.0
+
+v1.42.01 (Jul. 06, 2017)
+------------------------
+- Change Atlas_GetBossName() to Atlas:GetBossName()
+- Enhanced sub-boss' presentation by calling Atlas:GetBossName()
+- Fixed wrong encounter ID in Karazhan
+
+v1.42.01 (Jun. 29, 2017)
+------------------------
+- Removed redundant map setting
+
+v1.42.00 (Jun. 29, 2017)
+------------------------
+- Updated to support Atlas 1.42.00
+
+v1.39.00 (Mar. 27, 2017)
+------------------------
+- Toc update to support WoW 7.2
+
+v1.38.01 (Mar. 24, 2017)
+------------------------
+- Karazhan entrance map revamped
+
+v1.38.00 (Mar. 16, 2017)
+------------------------
+- Translation update:
+  - Korean (netaras)
+
+v1.36.00 (Jan. 16, 2017)
+------------------------
+- Added to support quick map switching by clicking the Next or 
+  Previous map button
+- Added dungeon level info
+
+v1.35.01 (Nov. 15, 2016)
+------------------------
+- Corrected Maiden of Virtue's ID in Karazhan
+- Nightbane is no longer a major boss in Karazhan
+
+v1.35.00 (Oct. 27, 2016)
+------------------------
+- Toc update to support WoW 7.1.0
+
+v1.34.00 (Sep. 09, 2016)
+------------------------
+- Move main map data from core Atlas into individual module's DB
+
+v1.33.00 (Jul. 19, 2016)
+------------------------
+- Toc updated to support WoW Legion pre-patch (7.0.3)
+- Updated boss info for the following ones:
+  - Black Temple, Serpentshrine Cavern, Hyjal Summit, Gruul's Lair, Magtheridon's Lair, 
+    Karazhan, Sunwell Plateau, Tempest Keep
+
+v1.32.02 (May 11, 2016)
+-----------------------
+- Moved map db info from core Atlas to this module for better maintenance
+- Added maps' additional tooltips
+
+v1.32.01 (May 3, 2016)
+------------------------
+- Updated Serpentshrine Cavern map to add elevator point
+
+v1.32.00 (Jul. 13, 2015)
+------------------------
+- TOC update to support WoW 6.2
+
+v1.31.01 (Mar. 01, 2015)
+------------------------
+- TOC update to support WoW 6.1
+
+v1.31.00 (Nov. 10, 2014)
+-----------------------
+- Split entrance maps from Atlas core addon
+
+v1.30.00 (Oct. 15, 2014)
+-----------------------
+- TOC update to support WoW 6.0
+
+v1.26.00 (Sep. 09, 2013)
+-----------------------
+- TOC update to support WoW 5.4
+
+v1.25.00 (May 21, 2013)
+-----------------------
+- TOC update to support WoW 5.3
+
+v1.24.00 (Mar. 05, 2013)
+-----------------------
+- TOC update to support WoW 5.2
+
+v1.23.0 (Dec. 07, 2012)
+-----------------------
+- TOC update to support WoW 5.1
+
+v1.22.0 (Sep. 25, 2012)
+-----------------------
+- Update TOC to support WoW 5.0
+- Maps updated:
+    - Auchindoun: Auchenai Crypts
+    - Coilfang Reservoir: The Slave Pens
+- Entrance map now moved to core addon
+
+v1.21.0 (Nov. 29, 2011)
+-----------------------
+- Splitted from Atlas core addon

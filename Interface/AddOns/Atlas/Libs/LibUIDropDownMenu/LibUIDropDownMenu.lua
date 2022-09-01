@@ -1,4 +1,4 @@
--- $Id: LibUIDropDownMenu.lua 96 2022-02-27 16:04:56Z arithmandar $
+-- $Id: LibUIDropDownMenu.lua 100 2022-07-17 07:03:59Z arithmandar $
 -- ----------------------------------------------------------------------------
 -- Localized Lua globals.
 -- ----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ local GameTooltip_SetTitle, GameTooltip_AddInstructionLine, GameTooltip_AddNorma
 
 -- ----------------------------------------------------------------------------
 local MAJOR_VERSION = "LibUIDropDownMenu-4.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 96 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 100 $"):match("%d+"))
 
 
 local LibStub = _G.LibStub
@@ -368,26 +368,26 @@ end
 
 -- //////////////////////////////////////////////////////////////
 -- L_UIDropDownListTemplate
-local BACKDROP_DIALOG_DARK = {
-		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
-		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-		tile = true,
-		tileSize = 32,
-		edgeSize = 32,
-		insets = { left = 11, right = 12, top = 12, bottom = 9, },
-}
--- This has been removed from Backdrop.lua, so we added the definition here.
-local BACKDROP_TOOLTIP_16_16_5555 = {
-	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	tile = true,
-	tileEdge = true,
-	tileSize = 16,
-	edgeSize = 16,
-	insets = { left = 5, right = 5, top = 5, bottom = 5 },
-}
-
 local function creatre_DropDownList(name, parent)
+	-- This has been removed from Backdrop.lua, so we added the definition here.
+	local BACKDROP_DIALOG_DARK = {
+			bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
+			edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+			tile = true,
+			tileSize = 32,
+			edgeSize = 32,
+			insets = { left = 11, right = 12, top = 12, bottom = 9, },
+	}
+	local BACKDROP_TOOLTIP_16_16_5555 = {
+		bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+		tile = true,
+		tileEdge = true,
+		tileSize = 16,
+		edgeSize = 16,
+		insets = { left = 5, right = 5, top = 5, bottom = 5 },
+	}
+	
 	local f = _G[name] or CreateFrame("Button", name)
 	f:SetParent(parent or nil)
 	f:Hide()
@@ -406,7 +406,7 @@ local function creatre_DropDownList(name, parent)
 	fmb:SetBackdropColor(TOOLTIP_DEFAULT_BACKGROUND_COLOR.r, TOOLTIP_DEFAULT_BACKGROUND_COLOR.g, TOOLTIP_DEFAULT_BACKGROUND_COLOR.b)
 	f.MenuBackdrop = fmb
 	
-	f.Button1 = _G[name.."Button1"] or create_MenuButton(name.."Button1", f)
+	f.Button1 = _G[name.."Button1"] or create_MenuButton(name.."Button1", f) -- to replace the inherits of "UIDropDownMenuButtonTemplate"
 	f.Button1:SetID(1)
 	
 	f:SetScript("OnClick", function(self)
@@ -524,6 +524,7 @@ local function create_DropDownMenu(name, parent)
 	f.Icon:SetSize(16, 16)
 	f.Icon:SetPoint("LEFT", 30, 2)
 	
+	-- // UIDropDownMenuButtonScriptTemplate
 	f.Button = CreateFrame("Button", name.."Button", f)
 	f.Button:SetMotionScriptsWhileDisabled(true)
 	f.Button:SetSize(24, 24)
@@ -571,9 +572,9 @@ local function create_DropDownMenu(name, parent)
 	end)
 	f.Button:SetScript("OnMouseDown", function(self, button)
 		if self:IsEnabled() then
-		local parent = self:GetParent()
-		lib:ToggleDropDownMenu(nil, nil, parent)
-		PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+			local parent = self:GetParent()
+			lib:ToggleDropDownMenu(nil, nil, parent)
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 		end
 	end)
 	
@@ -922,7 +923,11 @@ function lib:UIDropDownMenu_AddButton(info, level)
 		-- Set icon
 		if ( info.icon or info.mouseOverIcon ) then
 			icon:SetSize(16,16);
-			icon:SetTexture(info.icon);
+			if(info.icon and C_Texture.GetAtlasInfo(info.icon)) then
+				icon:SetAtlas(info.icon);
+			else
+				icon:SetTexture(info.icon);
+			end
 			icon:ClearAllPoints();
 			icon:SetPoint("RIGHT", info.iconXOffset or 0, 0);
 
@@ -1714,7 +1719,13 @@ local function containsMouse()
 			result = true;
 		end
 	end
-
+	-- TeeloJubeithos: 
+	--   If the menu is open, and you click the button to close it, 
+	--   the Global Mouse Down triggers to close it, but then the MouseDown for the button triggers to open it back up again.
+	--   I fixed this by adding a filter to the global mouse down check, don't count it if the mouse is still over the DropDownMenu's Button
+	if L_UIDROPDOWNMENU_OPEN_MENU and L_UIDROPDOWNMENU_OPEN_MENU.Button:IsMouseOver() then
+		result = true;
+	end
 
 	return result;
 end

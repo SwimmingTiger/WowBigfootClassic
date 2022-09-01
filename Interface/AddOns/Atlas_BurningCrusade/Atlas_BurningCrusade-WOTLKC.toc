@@ -1,0 +1,31 @@
+## Interface: 30400
+#@non-debug@
+## Title: Atlas |r|cFF0099FF[Burning Crusade]|r
+## Title-deDE: Atlas |r|cFF0099FF[Burning Crusade]|r
+## Title-ruRU: Atlas |r|cFF0099FF[Burning Crusade]|r
+## Title-zhCN: Atlas |r|cFF0099FF[燃烧的远征]|r
+## Title-zhTW: |r|cFF0099FF[地圖]|rAtlas 燃燒的遠征
+## Notes: Burning Crusade Instances' Maps
+## Notes-deDE: Karten der Instanzen aus Burning Crusade
+## Notes-ruRU: Карты подземелий: Burning Crusade
+## Notes-zhCN: 燃烧的远征副本地图
+## Notes-zhTW: 燃燒的遠征副本地圖模組
+#@end-non-debug@
+#@debug@
+# ## Title: Atlas |r|cFF0099FF[Burning Crusade]|r
+# ## Title-zhTW: |r|cFF0099FF[地圖]|rAtlas 燃燒的遠征
+# ## Notes: Burning Crusade Dungeon Maps
+# ## Notes-zhTW: 燃燒的遠征副本地圖模組
+#@end-debug@
+## Version: v1.51.02
+## Author: arith, Dynaletik, dubcat
+## X-Date: 2022-08-22T16:04:24Z
+## X-Credits: Dan Gilbert, Lothaer
+## X-Email: atlas.addon at gmail.com
+## X-Website: http://www.atlasmod.com
+## X-Category: Map
+## RequiredDeps: Atlas
+
+Locale\Locales.xml
+Core\Core.lua
+Core\Data-WOLTKC.lua

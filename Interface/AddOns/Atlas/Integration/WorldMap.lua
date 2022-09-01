@@ -1,4 +1,4 @@
--- $Id: WorldMap.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: WorldMap.lua 404 2022-08-21 06:24:20Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -33,21 +33,28 @@ local _G = getfenv(0)
 local pairs, tonumber = _G.pairs, _G.tonumber
 -- Libraries
 local GameTooltip = _G.GameTooltip
+local GetBuildInfo = _G.GetBuildInfo
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
 local addon = LibStub("AceAddon-3.0"):GetAddon("Atlas")
 
-local WoWClassicEra, WoWClassicTBC, WoWRetail
-local wowtocversion  = select(4, GetBuildInfo())
-if wowtocversion < 20000 then
+-- Determine WoW TOC Version
+local WoWClassicEra, WoWClassicTBC, WoWWOTLKC, WoWRetail
+local wowversion  = select(4, GetBuildInfo())
+if wowversion < 20000 then
 	WoWClassicEra = true
-elseif wowtocversion > 19999 and wowtocversion < 90000 then 
+elseif wowversion < 30000 then 
 	WoWClassicTBC = true
-else
+elseif wowversion < 40000 then 
+	WoWWOTLKC = true
+elseif wowversion > 90000 then
 	WoWRetail = true
+else
+	-- n/a
 end
+
 local WorldMap = {}
 
 addon.WorldMap = WorldMap
@@ -63,9 +70,7 @@ local function createButton()
 	f:SetToplevel(true)
 	f:Hide()
 	f:ClearAllPoints()
-	if (WoWClassicEra or WoWClassicTBC) then
-		f:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -8, -70)
-	else
+	if (WoWRetail) then
 		f:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -38, -68)
 
 		f.Shadow = f:CreateTexture(name.."Shadow", "BACKGROUND")
@@ -73,6 +78,8 @@ local function createButton()
 		f.Shadow:SetPoint("TOPRIGHT", 4, 4)
 		f.Shadow:SetTexCoord(0, 1, 1, 0)
 		f.Shadow:SetDrawLayer("BACKGROUND", -1)
+	else
+		f:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -8, -70)
 	end
 
 	f.Background = f:CreateTexture(name.."Background", "BACKGROUND")

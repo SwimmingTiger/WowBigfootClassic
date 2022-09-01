@@ -1,4 +1,4 @@
-## Interface: 90200
+## Interface: 90207
 #@non-debug@
 ## Title: Atlas
 ## Title-deDE: Atlas
@@ -46,11 +46,11 @@
 # ## Notes-zhTW: Atlas 地圖集主程式
 #@end-debug@
 ## Author: arith, dubcat
-## Version: v1.50.02
+## Version: v1.51.06
 ## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, LibBabble-Boss-3.0, LibBabble-SubZone-3.0, LibBabble-Faction-3.0, LibDBIcon-1.0, LibDialog-1.0, LibUIDropDownMenu
 ## X-Category: Map
 ## X-Credits: Dan Gilbert, Lothaer, Dynaletik
-## X-Date: 2022-02-27T16:08:37Z
+## X-Date: 2022-08-30T17:55:24Z
 ## X-Donate: http://pledgie.com/campaigns/14729
 ## X-Email: atlas.addon at gmail dot com
 ## X-Feedback: http://www.atlasmod.com/phpBB3/

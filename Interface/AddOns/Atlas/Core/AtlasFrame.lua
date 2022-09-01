@@ -1,4 +1,4 @@
--- $Id: AtlasFrame.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: AtlasFrame.lua 400 2022-07-23 10:38:27Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -37,14 +37,19 @@ local string = _G.string
 local table = _G.table
 local getn, tinsert, tsort = table.getn, table.insert, table.sort
 
-local WoWClassicEra, WoWClassicTBC, WoWRetail
-local wowtocversion  = select(4, GetBuildInfo())
-if wowtocversion < 20000 then
+-- Determine WoW TOC Version
+local WoWClassicEra, WoWClassicTBC, WoWWOTLKC, WoWRetail
+local wowversion  = select(4, GetBuildInfo())
+if wowversion < 20000 then
 	WoWClassicEra = true
-elseif wowtocversion > 19999 and wowtocversion < 90000 then 
+elseif wowversion < 30000 then 
 	WoWClassicTBC = true
-else
+elseif wowversion < 40000 then 
+	WoWWOTLKC = true
+elseif wowversion > 90000 then
 	WoWRetail = true
+else
+	-- n/a
 end
 -- ----------------------------------------------------------------------------
 -- AddOn namespace

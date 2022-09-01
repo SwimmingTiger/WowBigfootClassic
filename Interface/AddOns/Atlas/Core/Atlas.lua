@@ -1,4 +1,4 @@
--- $Id: Atlas.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: Atlas.lua 412 2022-08-30 17:55:24Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -38,21 +38,27 @@ local strlen, strgfind = string.len, string.gfind
 local strtrim = strtrim
 local floor, fmod = math.floor, math.fmod
 local getn, tinsert, tsort = table.getn, table.insert, table.sort
-local GetAddOnInfo, GetAddOnEnableState, UnitLevel = _G.GetAddOnInfo, _G.GetAddOnEnableState, _G.UnitLevel
+local GetAddOnInfo, GetAddOnEnableState, UnitLevel, GetBuildInfo = _G.GetAddOnInfo, _G.GetAddOnEnableState, _G.UnitLevel, _G.GetBuildInfo
+local GetLFGDungeonInfo = _G.GetLFGDungeonInfo
 local hooksecurefunc = hooksecurefunc
 
-local WoWClassicEra, WoWClassicTBC, WoWRetail
-local wowtocversion  = select(4, GetBuildInfo())
-if wowtocversion < 20000 then
+-- Determine WoW TOC Version
+local WoWClassicEra, WoWClassicTBC, WoWWOTLKC, WoWRetail
+local wowversion  = select(4, GetBuildInfo())
+if wowversion < 20000 then
 	WoWClassicEra = true
-elseif wowtocversion > 19999 and wowtocversion < 90000 then 
+elseif wowversion < 30000 then 
 	WoWClassicTBC = true
-else
+elseif wowversion < 40000 then 
+	WoWWOTLKC = true
+elseif wowversion > 90000 then
 	WoWRetail = true
+else
+	-- n/a
 end
 
 local GetQuestGreenRange, UnitQuestTrivialLevelRange
-if (WoWClassicEra or WoWClassicTBC) then
+if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then
 	GetQuestGreenRange = _G.GetQuestGreenRange
 else
 	UnitQuestTrivialLevelRange = _G.UnitQuestTrivialLevelRange
@@ -173,6 +179,7 @@ function addon:RegisterPlugin(name, myCategory, myData, myNPCData)
 	end
 	
 	tinsert(ATLAS_PLUGIN_DATA, myData)
+	ATLAS_PLUGIN_MENUS = ATLAS_PLUGIN_MENUS + 1
 
 	if (myNPCData) then
 		for k, v in pairs(myNPCData) do
@@ -261,7 +268,7 @@ local function registerModule(moduleKey)
 			end
 		end
 	end
-	
+	ATLAS_MODULE_MENUS = ATLAS_MODULE_MENUS + 1
 	addon:PopulateDropdowns()
 	Atlas_Refresh()
 end
@@ -286,7 +293,7 @@ local function bossButtonCleanUp(button)
 end
 
 local function bossButtonUpdate(button, encounterID, instanceID, b_iconImage, moduleData)
-	if (WoWClassicEra or WoWClassicTBC) then 
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then 
 		return
 	end
 	
@@ -433,6 +440,7 @@ function Atlas_ScrollBar_Update()
 					local id = ATLAS_SCROLL_ID[lineplusoffset][1]
 					bossButtonUpdate(button, ATLAS_SCROLL_ID[lineplusoffset][1], ATLAS_SCROLL_ID[lineplusoffset][2], false, base.Module or base.ALModule)
 				elseif (type(ATLAS_SCROLL_ID[lineplusoffset][1]) == "string") then
+					-- handling achievement
 					local spos, epos = strfind(ATLAS_SCROLL_ID[lineplusoffset][1], "ac=")
 					if (spos) then
 						local achievementID = strsub(ATLAS_SCROLL_ID[lineplusoffset][1], epos+1)
@@ -544,7 +552,7 @@ function addon:PopulateDropdowns()
 
 			i = i + q + 1
 		end
-		ATLAS_MODULE_MENUS = i - 1
+		--ATLAS_MODULE_MENUS = i - 1
 	end
 	
 	if (ATLAS_PLUGIN_DATA) then
@@ -573,9 +581,14 @@ local function process_Deprecated()
 	for k, v in pairs(Deprecated_List) do
 		if ( addon:CheckAddonStatus(GetAddOnInfo(v[1])) ) then
 			local outdated = false
+			local compatibleVer
 			local currVer = GetAddOnMetadata(v[1], "Version")
-			if (v[3] and (strsub(currVer, 1, 1) == "r") and currVer < v[3]) then
-				outdated = true
+			if (v[3] and (strsub(currVer, 1, 1) == "r")) then
+				compatibleVer = tonumber(string.sub(v[3], 2))
+				currVer = tonumber(string.sub(currVer, 2))
+				if (currVer < compatibleVer) then
+					outdated = true
+				end
 			elseif (v[2] and (strsub(currVer, 1, 1) ~= "r") and currVer < v[2]) then
 				outdated = true
 			end
@@ -609,7 +622,6 @@ end
 -- Called when the Atlas frame is first loaded
 -- We CANNOT assume that data in other files is available yet!
 function Atlas_OnLoad(self)
-
 	process_Deprecated()
 
 	-- Register the Atlas frame for the following events
@@ -654,7 +666,8 @@ end
 
 -- Simple function to toggle the visibility of the Atlas frame
 function Atlas_Toggle()
-	if ATLAS_MODULE_MENUS == 0 and #ATLAS_PLUGIN_DATA == 0 then return end
+	addon:isModuleOrPluginLoaded()
+	if (ATLAS_MODULE_MENUS == 0 and ATLAS_PLUGIN_MENUS == 0) then return end
 	if (ATLAS_SMALLFRAME_SELECTED) then
 		if (AtlasFrameSmall:IsVisible()) then
 			HideUIPanel(AtlasFrameSmall)
@@ -724,7 +737,7 @@ function addon:GetDungeonDifficultyColor(minRecLevel)
 	end
 	
 	local greenLevel
-	if (WoWClassicEra or WoWClassicTBC) then
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then
 		greenLevel = GetQuestGreenRange()
 	else
 		greenLevel = UnitQuestTrivialLevelRange('player')
@@ -802,7 +815,7 @@ function addon:MapAddNPCButton()
 			if (info_x == nil) then info_x = -18; end
 			if (info_y == nil) then info_y = -18; end
 
-			if (info_id < 10000 and profile.options.frames.showBossPotrait) then
+			if (WoWRetail and info_id < 10000 and profile.options.frames.showBossPotrait) then
 				bossbutton = _G["AtlasMapBossButton"..bossindex]
 				if (not bossbutton) then
 					bossbutton = CreateFrame("Button", "AtlasMapBossButton"..bossindex, AtlasFrame, "AtlasFrameBossButtonTemplate")
@@ -937,7 +950,7 @@ function addon:MapAddNPCButtonLarge()
 			local info_y 		= t[i][6]
 			local info_colortag	= t[i][7]
 
-			if (info_id < 10000 and info_x and info_y and profile.options.frames.showBossPotrait) then
+			if (WoWRetail and info_id < 10000 and info_x and info_y and profile.options.frames.showBossPotrait) then
 				bossbutton = _G["AtlasMapBossButtonL"..bossindex]
 				if (not bossbutton) then
 					bossbutton = CreateFrame("Button", "AtlasMapBossButtonL"..bossindex, AtlasFrameLarge, "AtlasFrameBossButtonTemplate")
@@ -1525,7 +1538,7 @@ end
 -- The zoneID variable represents the internal name used for each map, ex: "BlackfathomDeeps"
 -- Also responsible for updating all the text when a map is changed
 function Atlas_Refresh(mapID)
-	if ATLAS_MODULE_MENUS == 0 and #ATLAS_PLUGIN_DATA == 0 then return end
+	if (ATLAS_MODULE_MENUS == 0 and ATLAS_PLUGIN_MENUS == 0) then return end
 	local zoneID
 	local cat = profile.options.dropdowns.module
 	local zone = profile.options.dropdowns.zone
@@ -1803,7 +1816,7 @@ function Atlas_AutoSelect()
 end
 
 function addon:DungeonMinGearLevelToolTip(self)
-	if (WoWClassicEra or WoWClassicTBC) then return end
+	if (WoWClassicEra or WoWClassicTBC or WoWWOTLKC) then return end
 	local currGearLevel = GetAverageItemLevel()
 	local str = format(ITEM_LEVEL, currGearLevel)
 
@@ -1887,7 +1900,7 @@ local function check_Modules()
 			tinsert(List, module)
 		end
 	end
-	if table.getn(List) > 0 then
+	if (table.getn(List) > 0) then
 		local textList = ""
 		for _, str in pairs(List) do
 			textList = textList.."\n"..str
@@ -1912,8 +1925,8 @@ local function check_Modules()
 	end
 end
 
-local function isModuleOrPluginLoaded()
-	if ATLAS_MODULE_MENUS == 0 and #ATLAS_PLUGIN_DATA == 0 then
+function addon:isModuleOrPluginLoaded()
+	if (ATLAS_MODULE_MENUS == 0 and ATLAS_PLUGIN_MENUS == 0) then
 		LibDialog:Register("NeedModuleOrPlugin", {
 			text = L["ATLAS_NO_MODULE_OR_PLUGIN"],
 			buttons = {
@@ -1936,7 +1949,6 @@ local function isModuleOrPluginLoaded()
 			tooltip:AddLine("|cffffffff"..L["ATLAS_TITLE"])
 			tooltip:AddLine(L["ATLAS_NO_MODULE_OR_PLUGIN"])
 		end
-		
 	end
 end
 
@@ -2011,7 +2023,6 @@ function addon:OnEnable()
 	for k, v in pairs(self.modules) do
 		registerModule(k)
 	end
-	isModuleOrPluginLoaded()
 end
 
 function addon:Refresh()

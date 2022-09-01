@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt 392 2022-02-27 16:08:37Z arithmandar $
+$Id: ChangeLog.txt 412 2022-08-30 17:55:24Z arithmandar $
 Atlas, a World of Warcraft instance map browser
 Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
@@ -14,6 +14,49 @@ Known Issues:
 ==============
 = Change Log =
 ==============
+
+v1.51.06 (Aug. 31, 2022)
+------------------------
+- Fixed error while checking if alpha build is outdated or not
+
+v1.51.05 (Aug. 30, 2022)
+------------------------
+- Fixed maps' POI tooltip info was missing due to previous fix's side effect
+
+v1.51.04 (Aug. 22, 2022)
+------------------------
+- Prevent from WOLTKC maps to have boss button
+
+v1.51.03 (Aug. 21, 2022)
+------------------------
+- Error fixing
+
+v1.51.02 (Aug. 21, 2022)
+------------------------
+- Fixed boss names' lookup while in classic server
+- Enhance achievement's handling to prevent from nil situation
+
+v1.51.01 (Aug. 17, 2022)
+------------------------
+- Toc update to support WoW 9.2.7
+
+v1.51.00 (Jul. 23, 2022)
+------------------------
+- Library update: LibUIDropDownMenu
+- Library update: LibBabble-SubZone
+- Retail ToC update to support WoW 9.2.5
+- Classic ToC update to support WoW 1.14.3
+- Added support for Wrath of the  Lich King Classic (WoW 3.4.0)
+- Updated retail's uiMapName to ID
+- Resolved when only plug-in is loaded, addon still throw warning message
+
+v1.50.04 (Mar. 23, 2022)
+------------------------
+- Update level range for ClassicEra / BCC
+
+v1.50.03 (Mar. 23, 2022)
+------------------------
+- BCC ToC update to support WoW 2.5.4
 
 v1.50.02 (Feb. 28, 2022)
 ------------------------

@@ -1,4 +1,4 @@
--- $Id: IngameLocales.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: IngameLocales.lua 400 2022-07-23 10:38:27Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -25,6 +25,9 @@
 --]]
 
 local setmetatable, rawget = setmetatable, rawget
+local _G = getfenv(0)
+local GetItemInfo = _G.GetItemInfo
+
 
 Atlas_IngameLocales = {
 	-- ######################################################################

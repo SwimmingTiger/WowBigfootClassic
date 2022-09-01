@@ -1,0 +1,88 @@
+## Interface: 30400
+#@non-debug@
+## Title: Atlas
+## Title-deDE: Atlas
+## Title-esES: Atlas
+## Title-esMX: Atlas
+## Title-frFR: Atlas
+## Title-koKR: Atlas
+## Title-ptBR: Atlas
+## Title-ruRU: Atlas
+## Title-zhCN: Atlas |cFF0099FF[主程序]|r
+## Title-zhTW: |r|cFF0099FF[地圖]|rAtlas 地圖集 |cFF0099FF[主程式]|r
+## Notes: Instance Map Browser
+## Notes-deDE: Instanzkarten-Browser
+## Notes-esES: Navegador de Mapas de Mazmorras
+## Notes-esMX: Navegador de Mapas de Mazmorras
+## Notes-frFR: Navigateur de cartes d'instances
+## Notes-koKR: 인스턴스 지도 탐색기
+## Notes-ptBR: Buscador de Mapas de Instância
+## Notes-ruRU: Обозреватель подземелий
+## Notes-zhCN: |cff00CC33副本地图浏览器|r
+## Notes-zhTW: |cff00CC33Atlas 地圖集主程式|r
+#@end-non-debug@
+#@debug@
+# ## Title: Atlas
+# ## Title-deDE: Atlas
+# ## Title-esES: Atlas
+# ## Title-esMX: Atlas
+# ## Title-frFR: Titre
+# ## Title-itIT: Atlas
+# ## Title-koKR: Atlas
+# ## Title-ptBR: Atlas
+# ## Title-ruRU: Atlas
+# ## Title-zhCN: Atlas |cFF0099FF[主程式]|r
+# ## Title-zhTW: |r|cFF0099FF[地圖]|rAtlas 地圖集 |cFF0099FF[主程式]|r
+# ## Notes: Instance Map Browser
+# ## Notes-deDE: Instanzkarten-Browser
+# ## Notes-esES: Navegador de Mapas de Mazmorras
+# ## Notes-esMX: Navegador de Mapas de Mazmorras
+# ## Notes-frFR: Navigateur de cartes d'instances
+# ## Notes-itIT: Instance Map Browser
+# ## Notes-koKR: 인스턴스 지도 탐색기
+# ## Notes-ptBR: Buscador de Mapas de Instância
+# ## Notes-ruRU: Обозреватель подземелий
+# ## Notes-zhCN: |cff00CC33副本地图浏览器|r
+# ## Notes-zhTW: Atlas 地圖集主程式
+#@end-debug@
+## Author: arith, dubcat
+## Version: v1.51.06
+## OptionalDeps: LibStub, CallbackHandler-1.0, Ace3, LibBabble-Boss-3.0, LibBabble-SubZone-3.0, LibBabble-Faction-3.0, LibDBIcon-1.0, LibDialog-1.0, LibUIDropDownMenu
+## X-Category: Map
+## X-Credits: Dan Gilbert, Lothaer, Dynaletik
+## X-Date: 2022-08-30T17:55:24Z
+## X-Donate: http://pledgie.com/campaigns/14729
+## X-Email: atlas.addon at gmail dot com
+## X-Feedback: http://www.atlasmod.com/phpBB3/
+## X-License: GPLv2
+## X-Localizations: enUS, deDE, esES, esMX, frFR, ruRU, zhTW, zhCN, ptBR, koKR
+## X-Website: http://www.atlasmod.com
+## SavedVariables: AtlasDB
+
+Data\Constants.lua
+Data\AreaIDs.lua
+Data\AreaIDs_ClassicEra.lua
+Data\AreaIDs_ClassicTBC.lua
+Libs\Libs.xml
+Locale\Locales.xml
+
+Core\FontsTemplates.xml
+Core\Templates.lua
+Core\Templates.xml
+Core\IngameLocales.lua
+
+# Core
+Core\Atlas.lua
+Core\AtlasFrame.lua
+Core\Atlas.xml
+Core\Config.lua
+
+Data\Maps_Association.lua
+Data\DropDownConfig.lua
+
+# Integration functions
+Integration\EJIntegration.lua
+Integration\EJLoot.xml
+Integration\WorldMap.lua
+Integration\Achievements.lua
+Integration\AtlasLootIntegration.lua
