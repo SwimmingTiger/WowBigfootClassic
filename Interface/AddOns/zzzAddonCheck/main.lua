@@ -348,6 +348,32 @@ Bagnon_Forever
 	end
 end
 
+function zzzAddonCheck_Init_Questie()
+    if Codex and Questie then
+        StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
+            text = [[
+检测到两个任务助手（ClassicCodex和Questie）同时启用。
+它们会互相影响，建议禁用ClassicCodex。点击“是”禁用。
+ClassicCodex目前缺少死亡骑士任务线和诺森德任务数据，推荐使用Questie。
+首次使用Questie需要几分钟才能在地图上显示出任务，请耐心等待。
+]],
+            button1 = YES,
+            button2 = NO,
+            OnAccept = function()
+                DisableAddOn("ClassicCodex-loader")
+                ReloadUI()
+            end,
+            showAlert = 1,
+            timeout = 0,
+            hideOnEscape = true,
+            whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
+        }
+        BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
+        return
+    end
+end
+
 function zzzAddonCheck_Init_aux()
     -- 给aux的鼠标提示开启金币图标显示
     local patchVersion = '2021-06-05-16'
@@ -380,6 +406,7 @@ local function LoaderEvents(frame, event, arg1)
     zzzAddonCheck_Init_tdPack2()
     zzzAddonCheck_Init_Combuctor()
     zzzAddonCheck_Init_aux()
+    zzzAddonCheck_Init_Questie()
 end
 
 local LoaderFrame = CreateFrame("FRAME")
