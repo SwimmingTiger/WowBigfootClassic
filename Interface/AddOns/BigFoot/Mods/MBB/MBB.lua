@@ -53,7 +53,7 @@ local ignored = {
 	["SexyMapZoneTextButton"] = true,
 	["LibDBIcon10_bfModelChange"] = true,
 	["LibDBIcon10_HandyNotes_NPCs"] = true,
-	["QuestieFrame"] = true,
+	["Questie"] = true,
 	["MessageClassifierBrowserIcon"] = true,
 }
 

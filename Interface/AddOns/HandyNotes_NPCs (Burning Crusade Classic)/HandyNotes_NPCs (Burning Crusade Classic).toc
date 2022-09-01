@@ -7,6 +7,8 @@
 ## SavedVariables: HandyNotes_NPCsBurningCrusadeClassicDB
 ## X-Revision: BigFoot
 
+## DefaultState: disabled
+
 libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
 
 locales\Locales.xml
