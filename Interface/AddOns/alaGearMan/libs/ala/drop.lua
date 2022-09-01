@@ -1,6 +1,20 @@
 ﻿--[[--
 	ALA@163UI
 --]]--
+--[=[
+	ALADROP = DropMenu.ShowMenu
+	ALADROP(parent, anchor, data, useMousePosition)
+	data
+			handler		(function)
+			elements[i]	(table)
+										handler		(function)optional
+										para		(table)for parameter
+										text		(string)
+										--info		(string)
+										show/hide
+										__onshow
+										__onhide
+]=]
 
 local __version = 7;
 
@@ -45,19 +59,7 @@ local uireimp = __ala_meta__.uireimp;
 	local MenuList = { total = 0, used = 0, prev = nil, };
 	local frameToMenu = setmetatable({  }, { __mode = 'k', });
 
---[=[
-	data
-			handler		(function)
-			elements[i]	(table)
-										handler		(function)optional
-										para		(table)for parameter
-										text		(string)
-										--info		(string)
-										show/hide
-										__onshow
-										__onhide
-]=]
--->		Creator
+-->			Creator
 	local MenuOnEvent = nil;
 	if isRetail then
 		function MenuOnEvent(Menu, event)
@@ -221,7 +223,7 @@ local uireimp = __ala_meta__.uireimp;
 		return Button;
 	end
 
--->		Method
+-->			Method
 	local function GetMenu(parent, anchor, useMousePosition)
 		local Menu = nil;
 		--[[if frameToMenu[parent] then

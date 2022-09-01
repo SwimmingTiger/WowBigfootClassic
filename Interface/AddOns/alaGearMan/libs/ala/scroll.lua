@@ -2,15 +2,16 @@
 	ALA@163UI
 --]]--
 --[[
+	ALASCR = ScrollList.CreateScrollFrame
 	scroll = ALASCR(parent, width, height, buttonHeight, funcToCreateButton(parent: ScrollFrame.ScrollChild, index, buttonHeight), functToSetButton(button, data_index))
 	scroll:SetNumValue(num)
-	scroll:HandleButtonByDataIndex(index, func, ...)		func(button, ...)
-	scroll:HandleButtonByRawIndex(index, func, ...)			func(button, ...)
-	scroll:CallButtonFuncByRawIndex(index, func, ...)		button:func(...)
-	scroll:CallButtonFuncByDataIndex(index, func, ...)		button:func(...)
+	scroll:HandleButtonByDataIndex(index, func, ...)			func(button, ...)
+	scroll:HandleButtonByRawIndex(index, func, ...)				func(button, ...)
+	scroll:CallButtonFuncByRawIndex(index, FuncName, ...)		button:func(...)
+	scroll:CallButtonFuncByDataIndex(index, FuncName, ...)		button:func(...)
 	button:GetDataIndex()
 ]]
-local __version = 3;
+local __version = 4;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -23,6 +24,7 @@ local __ala_meta__ = _G.__ala_meta__;
 	end
 	ScrollList = ScrollList or {  };
 	ScrollList.__minor = __version;
+	ScrollList._Created = ScrollList._Created or {  };
 -->
 
 -->			upvalue
@@ -50,7 +52,6 @@ local __ala_meta__ = _G.__ala_meta__;
 		local numValue = -1;
 
 		local sbWidth = 20;
-		local sfWidth = width - sbWidth;
 
 		scrollFrame:Show();
 		scrollFrame:EnableMouse(true);
@@ -268,11 +269,21 @@ local __ala_meta__ = _G.__ala_meta__;
 			scrollFrame:UpdateButtons();
 		end);
 
+		function scrollFrame:SetBarWidth(w)
+			sbWidth = w;
+			scrollBar:SetWidth(sbWidth);
+			thumb:SetSize(sbWidth - 2, 24);
+			scrollFrame:Update();
+		end
+
 		if width and height then
 			scrollFrame:SetSize(width, height);
 		end
 
 		scrollFrame:SetNumValue(0);
+
+		ScrollList._Created[scrollFrame] = __version;
+
 		return scrollFrame;
 	end
 
