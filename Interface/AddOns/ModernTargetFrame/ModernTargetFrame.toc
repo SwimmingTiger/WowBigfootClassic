@@ -1,17 +1,3 @@
-## Interface: 20504
-## Title: Modern TargetFrame v1.10.1
-## Version: 1.10.1
-## Author: SDPhantom
-
-## SavedVariables: ModernTargetFrame_Options
-
-## Notes: Re-implements TargetFrame features found in modern WoW
-
-# Core Files
-Localization.lua
-ModernTargetFrame.lua
-BCCHealthPatch.lua
-
-# Feature Modules - The order these load is the order they show in the options panel
-Classification.lua
-ThreatIndicators.lua
+## Title: |cffff1818Modern TargetFrame|r
+## Notes: This addon will not load due to client incompatability|nPlease remove it from your AddOn directory
+# This ToC file is depreciated and only exists to satisfy automated upload checks

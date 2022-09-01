@@ -1,4 +1,4 @@
-## Interface: 11403
+## Interface: 30400
 ## Title: Modern TargetFrame v1.11
 ## Version: 1.11
 ## Author: SDPhantom
@@ -10,8 +10,4 @@
 # Core Files
 Localization.lua
 ModernTargetFrame.lua
-
-# Feature Modules - The order these load is the order they show in the options panel
-StatusBarText.lua
-Classification.lua
-ThreatIndicators.lua
+BCCHealthPatch.lua

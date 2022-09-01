@@ -9,6 +9,11 @@ UnZip contents into the "Interface\AddOns" folder in your WoW instalation direct
 
 ===============================================================================
 Versions:
+v1.11 (2022-08-07)
+	-WotLK Classic support
+	-Classification & Threat modules disabled due to WotLK native implementation
+	-Health deobfuscation patch still in effect for friendly NPCs
+
 v1.10.1 (2021-05-22)
 	-Updated zhCN localization by 颜颜@莫格莱尼
 

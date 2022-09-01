@@ -19,20 +19,6 @@ AddOn.Options=AddOn.Options or {};
 local Defaults,Options=AddOn.Options,{};
 ModernTargetFrame_Options=Options;
 
-----------------------------------
---[[	Client Versioning	]]
-----------------------------------
---[[	WOW_PROJECT_ID contains either of the following constants
-	WOW_PROJECT_MAINLINE = 1		Modern WoW
-	WOW_PROJECT_CLASSIC = 2			Classic Vanilla
-	WOW_PROJECT_BURNING_CRUSADE_CLASSIC = 5	Classic Burning Crusade
---]]
-AddOn.IsModernClient=(WOW_PROJECT_ID==WOW_PROJECT_MAINLINE);
-AddOn.IsClassicClient=(WOW_PROJECT_ID~=WOW_PROJECT_MAINLINE);
-AddOn.IsVanillaClient=(WOW_PROJECT_ID==WOW_PROJECT_CLASSIC);
-AddOn.IsTBCClient=(WOW_PROJECT_ID==WOW_PROJECT_BURNING_CRUSADE_CLASSIC);
-AddOn.InterfaceVersion=select(4,GetBuildInfo());
-
 --------------------------
 --[[	Options Panel	]]
 --------------------------

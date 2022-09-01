@@ -59,7 +59,7 @@ local CreateThreatIndicator; do--	function CreateThreatIndicator(unitframe)
 
 --		Numerical Threat
 		local indicator=CreateFrame("Frame",nil,unitframe);
-		indicator:SetPoint("BOTTOM",unitframe,"TOP",-30,-18);
+		indicator:SetPoint("BOTTOM",unitframe,"TOP",-50,-22);
 		indicator:SetSize(49,18);
 		indicator:Hide();
 
