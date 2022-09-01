@@ -186,6 +186,7 @@ local bitclasses = {
     [64] = "SHAMAN",
     [128] = "MAGE",
     [256] = "WARLOCK",
+    [512] = "DEATHKNIGHT",
     [1024] = "DRUID"
 }
 
