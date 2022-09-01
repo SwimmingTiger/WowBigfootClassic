@@ -318,7 +318,7 @@ end
 --I've tried my best to keep the data short and only send the first few log entries at a time.
 --I will remove this log system if the rend drop is ever fixed so it can work like ony/nef and not send the yell msgs on every layer.
 function NWB:sendTimerLogData(distribution, entries)
-	if (not enableLogging or NWB.isTBC) then
+	if (not enableLogging or not NWB.isClassic) then
 		return;
 	end
 	if (logLayeredServersOnly and not NWB.isLayered) then
@@ -532,7 +532,7 @@ function NWB:requestData(distribution, target, prio)
 	data = NWB.serializer:Serialize(data);
 	NWB.lastDataSent = GetServerTime();
 	if (NWB:isClassicCheck()) then
-		NWB:sendComm(distribution, "requestData " .. version .. " " .. self.k() .. " " .. data, target, prio);
+		NWB:sendComm(distribution, "requestData " .. version .. " " .. data, target, prio);
 	else
 		NWB:requestSettings(distribution, target, prio);
 	end
@@ -614,30 +614,38 @@ function NWB:createData(distribution, noLogs)
 			data[k] = NWB.data[k];
 		end
 	end
-	if (NWB.isTBC and NWB.data.terokFaction and NWB.data.terokTowers and tonumber(NWB.data.terokTowers)
+	if ((NWB.isTBC or NWB.isWrathPrepatch) and NWB.data.terokFaction and NWB.data.terokTowers and tonumber(NWB.data.terokTowers)
 			and NWB.data.terokTowers > GetServerTime() and NWB.data.terokTowers < GetServerTime() + 20700) then
 		data.terokTowers = NWB.data.terokTowers;
 		data.terokTowersTime = NWB.data.terokTowersTime;
 		data.terokFaction = NWB.data.terokFaction;
 	end
+	if (NWB.isWrath and NWB.data.wintergrasp and tonumber(NWB.data.wintergrasp)
+			and NWB.data.wintergrasp > GetServerTime() and NWB.data.wintergrasp < GetServerTime() + 10860) then
+		data.wintergrasp = NWB.data.wintergrasp;
+		data.wintergraspTime = NWB.data.wintergraspTime;
+		--data.wintergraspFaction = NWB.data.wintergraspFaction;
+	end
 	--if (NWB.isTBC and NWB.data.hellfireRep and tonumber(NWB.data.hellfireRep) and NWB.data.hellfireRep > GetServerTime()
 	--		and NWB.data.hellfireRep < GetServerTime() + 23400) then
 	--	data.hellfireRep = NWB.data.hellfireRep;
 	--end
-	if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
-			and GetServerTime() - NWB.data.tbcHDT < 86400) then
-		data.tbcHD = NWB.data.tbcHD;
-		data.tbcHDT = NWB.data.tbcHDT;
-	end
-	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
-			and GetServerTime() - NWB.data.tbcDDT < 86400) then
-		data.tbcDD = NWB.data.tbcDD;
-		data.tbcDDT = NWB.data.tbcDDT;
-	end
-	if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
-			and GetServerTime() - NWB.data.tbcPDT < 86400) then
-		data.tbcPD = NWB.data.tbcPD;
-		data.tbcPDT = NWB.data.tbcPDT;
+	if (NWB.isTBC or NWB.isWrath) then
+		if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
+				and GetServerTime() - NWB.data.tbcHDT < 86400) then
+			data.tbcHD = NWB.data.tbcHD;
+			data.tbcHDT = NWB.data.tbcHDT;
+		end
+		if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
+				and GetServerTime() - NWB.data.tbcDDT < 86400) then
+			data.tbcDD = NWB.data.tbcDD;
+			data.tbcDDT = NWB.data.tbcDDT;
+		end
+		if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
+				and GetServerTime() - NWB.data.tbcPDT < 86400) then
+			data.tbcPD = NWB.data.tbcPD;
+			data.tbcPDT = NWB.data.tbcPDT;
+		end
 	end
 	if (distribution == "GUILD") then
 		--Include settings with timer data for guild.
@@ -645,7 +653,7 @@ function NWB:createData(distribution, noLogs)
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
-	if (enableLogging and not NWB.isTBC and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+	if (enableLogging and NWB.isClassic and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
 		local timerLog = NWB:createTimerLogData(distribution);
 		if (next(timerLog)) then
 			data.timerLog = timerLog;
@@ -672,7 +680,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type, forceLaye
 	if (not lastSendLayerMap[distribution]) then
 		lastSendLayerMap[distribution] = 0;
 	end
-	if (NWB.isTBC) then
+	if (not NWB.isClassic) then
 		noLogs = true;
 	end
 	--if (NWB.isTBC and firstLayeredYell and distribution == "YELL") then
@@ -806,7 +814,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type, forceLaye
 				end
 			end
 		end
-		if (NWB.isTBC and v.terokFaction and v.terokTowers and tonumber(v.terokTowers) and v.terokTowers > GetServerTime()
+		if ((NWB.isTBC or NWB.isWrathPrepatch) and v.terokFaction and v.terokTowers and tonumber(v.terokTowers) and v.terokTowers > GetServerTime()
 				and v.terokTowers < GetServerTime() + 21500 and (not type or type == "terokkar")) then
 			if (not data.layers) then
 				data.layers = {};
@@ -830,29 +838,31 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type, forceLaye
 			data.layers[layer].hellfireRep = v.hellfireRep;
 			foundTimer = true;
 		end]]
-		if (forceLayerMap or ((sendLayerMap and foundTimer) or not lastSendLayerMapID[layer]
-				or (lastSendLayerMapID[layer] and GetServerTime() - lastSendLayerMapID[layer] > 3600))) then
-			if (NWB.data.layers[layer].layerMap and next(NWB.data.layers[layer].layerMap)) then
-				--NWB:debug("sending layermap", layer);
-				lastSendLayerMap[distribution] = GetServerTime();
-				lastSendLayerMapID[layer] = GetServerTime();
-				if (not data.layers) then
-					data.layers = {};
+		if (type ~= "wintergrasp") then
+			if (forceLayerMap or ((sendLayerMap and foundTimer) or not lastSendLayerMapID[layer]
+					or (lastSendLayerMapID[layer] and GetServerTime() - lastSendLayerMapID[layer] > 3600))) then
+				if (NWB.data.layers[layer].layerMap and next(NWB.data.layers[layer].layerMap)) then
+					--NWB:debug("sending layermap", layer);
+					lastSendLayerMap[distribution] = GetServerTime();
+					lastSendLayerMapID[layer] = GetServerTime();
+					if (not data.layers) then
+						data.layers = {};
+					end
+					if (not data.layers[layer]) then
+						data.layers[layer] = {};
+					end
+					local count = 0;
+					for k, v in pairs(NWB.data.layers[layer].layerMap) do
+						count = count + 1;
+					end
+					--Incase anything goes wrong with arenas or other new zones etc in TBC, don't send large number of layer id's.
+					if (count < 70) then
+						--NWB:debug("sending layer map data", distribution);
+						data.layers[layer].layerMap = NWB.data.layers[layer].layerMap;
+					end
+					--Don't share created time for now.
+					data.layers[layer].layerMap.created = nil;
 				end
-				if (not data.layers[layer]) then
-					data.layers[layer] = {};
-				end
-				local count = 0;
-				for k, v in pairs(NWB.data.layers[layer].layerMap) do
-					count = count + 1;
-				end
-				--Incase anything goes wrong with arenas or other new zones etc in TBC, don't send large number of layer id's.
-				if (count < 70) then
-					--NWB:debug("sending layer map data", distribution);
-					data.layers[layer].layerMap = NWB.data.layers[layer].layerMap;
-				end
-				--Don't share created time for now.
-				data.layers[layer].layerMap.created = nil;
 			end
 		end
 		if (not foundTimer and NWB.data.layers[layer].lastSeenNPC
@@ -886,45 +896,57 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type, forceLaye
 			end]]
 		end
 	end
-	if (not NWB.layeredSongflowers) then
-		for k, v in pairs(NWB.songFlowers) do
-			--Add currently active songflower timers.
+	if (type ~= "wintergrasp") then
+		if (not NWB.layeredSongflowers) then
+			for k, v in pairs(NWB.songFlowers) do
+				--Add currently active songflower timers.
+				if (NWB.data[k] > GetServerTime() - 1500) then
+					data[k] = NWB.data[k];
+				end
+			end
+		end
+		--Tubers and dragons aren't shared in layered realms anymore, trying to cut down on data.
+		--They still work as personal timers for farming, which is really all they are good for anyway.
+		--[[for k, v in pairs(NWB.tubers) do
+			--Add currently active tuber timers.
 			if (NWB.data[k] > GetServerTime() - 1500) then
 				data[k] = NWB.data[k];
 			end
 		end
-	end
-	--Tubers and dragons aren't shared in layered realms anymore, trying to cut down on data.
-	--They still work as personal timers for farming, which is really all they are good for anyway.
-	--[[for k, v in pairs(NWB.tubers) do
-		--Add currently active tuber timers.
-		if (NWB.data[k] > GetServerTime() - 1500) then
-			data[k] = NWB.data[k];
+		for k, v in pairs(NWB.dragons) do
+			--Add currently active dragon timers.
+			if (NWB.data[k] > GetServerTime() - 1500) then
+				data[k] = NWB.data[k];
+			end
+		end]]
+		if (NWB.isTBC or NWB.isWrath) then
+			if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
+					and GetServerTime() - NWB.data.tbcDDT < 86400
+				and (not type or type == "heroicDailies")) then
+				data.tbcDD = NWB.data.tbcDD;
+				data.tbcDDT = NWB.data.tbcDDT;
+			end
+			if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
+					and GetServerTime() - NWB.data.tbcHDT < 86400
+				and (not type or type == "heroicDailies")) then
+				data.tbcHD = NWB.data.tbcHD;
+				data.tbcHDT = NWB.data.tbcHDT;
+			end
+			if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
+					and GetServerTime() - NWB.data.tbcPDT < 86400
+				and (not type or type == "pvpDailies")) then
+				data.tbcPD = NWB.data.tbcPD;
+				data.tbcPDT = NWB.data.tbcPDT;
+			end
 		end
 	end
-	for k, v in pairs(NWB.dragons) do
-		--Add currently active dragon timers.
-		if (NWB.data[k] > GetServerTime() - 1500) then
-			data[k] = NWB.data[k];
+	if (not type or type == "wintergrasp") then
+		if (NWB.isWrath and NWB.data.wintergrasp and tonumber(NWB.data.wintergrasp)
+				and NWB.data.wintergrasp > GetServerTime() and NWB.data.wintergrasp < GetServerTime() + 10860) then
+			data.wintergrasp = NWB.data.wintergrasp;
+			data.wintergraspTime = NWB.data.wintergraspTime;
+			data.wintergraspFaction = NWB.data.wintergraspFaction;
 		end
-	end]]
-	if (NWB.data.tbcDD and tonumber(NWB.data.tbcDD) and NWB.data.tbcDD > 0 and NWB.data.tbcDDT
-			and GetServerTime() - NWB.data.tbcDDT < 86400
-		and (not type or type == "tbcHeroicDailies")) then
-		data.tbcDD = NWB.data.tbcDD;
-		data.tbcDDT = NWB.data.tbcDDT;
-	end
-	if (NWB.data.tbcHD and tonumber(NWB.data.tbcHD) and NWB.data.tbcHD > 0 and NWB.data.tbcHDT
-			and GetServerTime() - NWB.data.tbcHDT < 86400
-		and (not type or type == "tbcHeroicDailies")) then
-		data.tbcHD = NWB.data.tbcHD;
-		data.tbcHDT = NWB.data.tbcHDT;
-	end
-	if (NWB.data.tbcPD and tonumber(NWB.data.tbcPD) and NWB.data.tbcPD > 0 and NWB.data.tbcPDT
-			and GetServerTime() - NWB.data.tbcPDT < 86400
-		and (not type or type == "tbcPvpDailies")) then
-		data.tbcPD = NWB.data.tbcPD;
-		data.tbcPDT = NWB.data.tbcPDT;
 	end
 	if (distribution == "GUILD" and not forceLayerMap) then
 		--Include settings with timer data for guild.
@@ -932,7 +954,7 @@ function NWB:createDataLayered(distribution, noLayerMap, noLogs, type, forceLaye
 		local me = UnitName("player") .. "-" .. GetNormalizedRealmName();
 		data[me] = settings[me];
 	end
-	if (enableLogging and not NWB.isTBC and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
+	if (enableLogging and NWB.isClassic and not noLogs and includeTimerLog and (not logLayeredServersOnly or NWB.isLayered)) then
 		local timerLog = NWB:createTimerLogData(distribution);
 		if (next(timerLog)) then
 			data.timerLog = timerLog;
@@ -947,7 +969,7 @@ end
 
 function NWB:createTimerLogData(distribution, entries)
 	local data = {};
-	if (NWB.isTBC) then
+	if (not NWB.isClassic) then
 		--No logs once TBC launches.
 		return data;
 	end
@@ -1082,7 +1104,7 @@ function NWB:createSettings(distribution)
 			["guild10"] = NWB.db.global.guild10,
 			["guild1"] = NWB.db.global.guild1,
 			["guildNpcWalking"] = NWB.db.global.guildNpcWalking,
-			["guildTerok10"] = NWB.db.global.guildTerok10,
+			["guildTerok10"] = NWB.db.global.guildTerok10, --Shared setting with wrath for wintergrasp.
 		};
 	end
 	--data['faction'] = NWB.faction;
@@ -1136,6 +1158,9 @@ NWB.validKeys = {
 	["terokTowers"] = true,
 	["terokTowersTime"] = true,
 	["terokFaction"] = true,
+	["wintergrasp"] = true,
+	["wintergraspTime"] = true,
+	["wintergraspFaction"] = true,
 	["hellfireRep"] = true,
 	["tbcHD"] = true,
 	["tbcHDT"] = true,
@@ -1502,10 +1527,34 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 							NWB.data[k] = 0;
 						end
 					end
-					if (k == "terokTowers" or k == "terokTowersTime") then
-						---Only works for debug version for now, we enable sending the data with this update.
-						---And enable receiving the data with the next update after testing and more people are sending.
-						
+					if (k == "wintergrasp" or k == "wintergraspTime") then
+						--Handle wintergrasp tower timers seperately so we can set timestamps that are older than current.
+						--We'll see if this timer drifsts like terokkar towers.
+						if (k ~= "wintergraspTime") then
+							if (not NWB.data.wintergraspTime) then
+								NWB.data.wintergraspTime = 0;
+							end
+							if (NWB.data[k] and v ~= 0 and data.wintergraspTime and data.wintergraspTime ~= 0
+									and data.wintergraspTime > NWB.data.wintergraspTime
+									and v > GetServerTime() and v < GetServerTime() + 10800
+									and v > NWB.data[k] - 1800) then
+								if (data.wintergraspTime > GetServerTime() - 21700
+										and data.wintergraspTime < GetServerTime() + 21700) then
+									if (data.terokFaction) then
+										NWB.data.terokFaction = data.terokFaction;
+									end
+									NWB.data[k] = v;
+									NWB.data.wintergraspTime = data.terokTowersTime;
+									if (GetServerTime() - lastHasNewData > 300) then
+										hasNewData = true;
+										lastHasNewData = GetServerTime();
+									end
+									hasNewTerok = true;
+								end
+							end
+						end
+					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
+					elseif (k == "terokTowers" or k == "terokTowersTime") then
 						--Handle terokkar tower timers seperately so we can set timestamps that are older than current.
 						--Tower cooldowns are unreliable and can drift +/- ~10mins.
 						--So we update if the time it was recorded at is newer even if the actual tower timer is older.
@@ -1534,7 +1583,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 						end
 					--Make sure the key exists, stop a lua error in old versions if we add a new timer type.
 					elseif (NWB.data[k] and v ~= 0 and v > NWB.data[k] and NWB:validateTimestamp(v, k) and k ~= "terokFaction"
-							and k ~= "tbcHD" and k ~= "tbcDD" and k ~= "tbcPD") then
+							and k ~= "wintergraspFaction" and k ~= "tbcHD" and k ~= "tbcDD" and k ~= "tbcPD") then
 						if ((NWB.isLayered and string.match(k, "flower") and (GetServerTime()) < 1500)
 							or (string.match(k, "flower") and v > (GetServerTime() + 1530))
 							or (string.match(k, "tuber") and v > (GetServerTime() + 1530))
@@ -1560,7 +1609,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								if (k == "tbcHDT") then
 									if (data.tbcHD and tonumber(data.tbcHD) and data.tbcHD > 0) then
 										--Old version bug it can come as 0.
-										if (tonumber(data.tbcHD) and data.tbcHD > 0) then
+										if (tonumber(data.tbcHD) and data.tbcHD > 0 and NWB:getHeroicDailyData(data.tbcHD)) then
 											NWB.data.tbcHD = data.tbcHD;
 											NWB.data.tbcHDT = data.tbcHDT;
 										end
@@ -1569,7 +1618,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								end
 								if (k == "tbcDDT") then
 									if (data.tbcDD and tonumber(data.tbcDD) and data.tbcDD > 0) then
-										if (tonumber(data.tbcDD) and data.tbcDD > 0) then
+										if (tonumber(data.tbcDD) and data.tbcDD > 0 and NWB:getDungeonDailyData(data.tbcDD)) then
 											NWB.data.tbcDD = data.tbcDD;
 											NWB.data.tbcDDT = data.tbcDDT;
 										end
@@ -1578,7 +1627,7 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								end
 								if (k == "tbcPDT") then
 									if (data.tbcPD and tonumber(data.tbcPD) and data.tbcPD > 0) then
-										if (tonumber(data.tbcPD) and data.tbcPD > 0) then
+										if (tonumber(data.tbcPD) and data.tbcPD > 0 and NWB:getPvpDailyData(data.tbcPD)) then
 											NWB.data.tbcPD = data.tbcPD;
 											NWB.data.tbcPDT = data.tbcPDT;
 										end
@@ -1587,8 +1636,8 @@ function NWB:receivedData(dataReceived, sender, distribution, elapsed)
 								end
 								if (not skip) then
 									NWB.data[k] = v;
-									if (not string.match(k, "terokTowers") and not string.match(k, "hellfireRep")
-											and not string.match(k, "tbcHDT")) then
+									if (not string.match(k, "terokTowers") and not string.match(k, "wintergrasp")
+											and not string.match(k, "hellfireRep") and not string.match(k, "tbcHDT")) then
 										hasNewData = true;
 									end
 									if (not NWB.isLayered) then
@@ -1846,6 +1895,9 @@ local shortKeys = {
 	["T"] = "tbcPDT",
 	["U"] = "terokTowersTime",
 	["V"] = "guildTerok10",
+	["W"] = "wintergrasp",
+	["X"] = "wintergraspFaction",
+	["Y"] = "wintergraspTime",
 	["f1"] = "flower1",
 	["f2"] = "flower2",
 	["f3"] = "flower3",
@@ -3358,7 +3410,7 @@ local lastSendData, lastSelfTimestamp = 0, 0;
 local timestampTemp, GetServerTimeTemp, controlTypeTemp, waitingTerok;
 local terokCache;
 function NWB:getTerokkarData()
-	if (not NWB.isTBC) then
+	if (not NWB.isTBC and not NWB.isWrathPrepatch) then
 		return;
 	end
 	if (NWB.isLayered and not NWB.lastTerokNPCID) then
@@ -3629,10 +3681,18 @@ end
 ---Terokkar Map Frames---
 ---===================---
 --Adapted from the org/stormwind markers so things might look a bit strange here.
+--Also reused some terokkar assets from TBC for new intergrasp timers, so naming schemes may look strange too.
 
-local terokkarMapMarkerTypes = {
-	["towers"] = {x = 87, y = 82, mapID = 1952, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
-};
+local terokkarMapMarkerTypes;
+if (NWB.isTBC) then
+	terokkarMapMarkerTypes = {
+		["towers"] = {x = 87, y = 82, mapID = 1952, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+	};
+elseif (NWB.isWrath) then
+	terokkarMapMarkerTypes = {
+		["towers"] = {x = 93, y = 84, mapID = 125, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+	};
+end
 
 --Update timers for worldmap when the map is open.
 function NWB:updateTerokkarMarkers(type, layer)
@@ -3650,18 +3710,34 @@ function NWB:updateTerokkarMarkers(type, layer)
 		end
 		_G[type .. layer .. "NWBTerokkarMap"].fsLayer:SetText("|cff00ff00[Layer " .. count.. "] |cFFB5E0E6(" .. layerZoneID .. ")");
 		if (NWB.data.layers[layer] and NWB.data.layers[layer]["terokTowers"]) then
-			time = NWB.data.layers[layer]["terokTowers"] - GetServerTime() or 0;
+			time = NWB:getTerokEndTime(NWB.data.layers[layer].terokTowers, NWB.data.layers[layer].terokTowersTime) - GetServerTime() or 0;
 		else
 			time = 0;
 		end
 		local timeString = L["noTimer"];
-		if (NWB.data.layers[layer] and _G[type .. layer .. "NWBTerokkarMap"] and time > 0) then
-			local endTime = NWB:getTerokEndTime(NWB.data.layers[layer].terokTowers, NWB.data.layers[layer].terokTowersTime);
-	    	timeString = NWB:getTimeString(endTime - GetServerTime(), true, "short") .. " (" .. NWB:getTimeFormat(endTime) .. ")";
-	    	if (NWB.data.layers[layer]["terokFaction"] == 2) then
-	    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
-	    	elseif (NWB.data.layers[layer]["terokFaction"] == 3) then
-	    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+		if (NWB.data.layers[layer] and _G[type .. layer .. "NWBTerokkarMap"]) then
+			if (NWB.db.global.showExpiredTimersTerok and time < 1 and time > -3599) then
+				time = time * -1;
+				local minutes = string.format("%02.f", math.floor(time / 60));
+			    local seconds = string.format("%02.f", math.floor(time - minutes * 60));
+				timeString = "|Cffff2500-" .. minutes .. ":" .. seconds .. " (expired)|r";
+				if (NWB.data.layers[layer]["terokFaction"] == 2) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+		    	elseif (NWB.data.layers[layer]["terokFaction"] == 3) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+		    	else
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+		    	end
+			elseif (time > 0) then
+				local endTime = NWB:getTerokEndTime(NWB.data.layers[layer].terokTowers, NWB.data.layers[layer].terokTowersTime);
+		    	timeString = NWB:getTimeString(endTime - GetServerTime(), true, "short") .. " (" .. NWB:getTimeFormat(endTime) .. ")";
+		    	if (NWB.data.layers[layer]["terokFaction"] == 2) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+		    	elseif (NWB.data.layers[layer]["terokFaction"] == 3) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+		    	else
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+		    	end
 	    	else
 	    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
 	    	end
@@ -3676,22 +3752,39 @@ function NWB:updateTerokkarMarkers(type, layer)
 	    end
 		return timeString;
 	else
+		_G[type .. "NWBTerokkarMap"].fsTitle:SetText("|cFFFFFF00Towers");
 		local timeString = L["noTimer"];
 		if (NWB.data["terokTowers"] and NWB.data["terokTowers"] - GetServerTime() > 0) then
-			time = NWB.data["terokTowers"] - GetServerTime() or 0;
+			time = NWB:getTerokEndTime(NWB.data.terokTowers, NWB.data.terokTowersTime) - GetServerTime() or 0;
 		else
 			time = 0;
 		end
-		if (NWB.data["terokTowers"] and _G[type .. "NWBTerokkarMap"] and time > 0) then
-			local endTime = NWB:getTerokEndTime(NWB.data.terokTowers, NWB.data.terokTowersTime);
-	    	timeString = NWB:getTimeString(endTime - GetServerTime(), true, "short") .. " (" .. NWB:getTimeFormat(endTime) .. ")";
-	    	if (NWB.data["terokFaction"] == 2) then
-	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
-	    	elseif (NWB.data["terokFaction"] == 3) then
-	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
-	    	else
-	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
-	    	end
+		if (NWB.data["terokTowers"] and _G[type .. "NWBTerokkarMap"]) then
+			if (NWB.db.global.showExpiredTimersTerok and time < 1 and time > -3599) then
+				time = time * -1;
+				local minutes = string.format("%02.f", math.floor(time / 60));
+			    local seconds = string.format("%02.f", math.floor(time - minutes * 60));
+				timeString = "|Cffff2500-" .. minutes .. ":" .. seconds .. " (expired)|r";
+				if (NWB.data.layers[layer]["terokFaction"] == 2) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+		    	elseif (NWB.data.layers[layer]["terokFaction"] == 3) then
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+		    	else
+		    		_G[type .. layer .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+		    	end
+			elseif (time > 0) then
+				local endTime = NWB:getTerokEndTime(NWB.data.terokTowers, NWB.data.terokTowersTime);
+		    	timeString = NWB:getTimeString(endTime - GetServerTime(), true, "short") .. " (" .. NWB:getTimeFormat(endTime) .. ")";
+		    	if (NWB.data["terokFaction"] == 2) then
+		    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+		    	elseif (NWB.data["terokFaction"] == 3) then
+		    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+		    	else
+		    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+		    	end
+		    else
+		    	_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+		    end
 	    else
 	    	_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
 	    end
@@ -3705,8 +3798,60 @@ function NWB:updateTerokkarMarkers(type, layer)
 	end
 end
 
+function NWB:updateWintergraspMarkers(type, layer)
+	--Seconds left.
+	local time = 0;
+	local timeString = L["noTimer"];
+	if (NWB.data.wintergrasp and NWB.data.wintergrasp - GetServerTime() > 0) then
+		time = NWB.data.wintergrasp - GetServerTime();
+	else
+		time = 0;
+	end
+	_G[type .. "NWBTerokkarMap"].fsTitle:SetText("|cFFFFFF00Wintergrasp");
+	if (NWB.data.wintergrasp and _G[type .. "NWBTerokkarMap"]) then
+		if (NWB.db.global.showExpiredTimersTerok and time < 1 and time > -3599) then
+			time = time * -1;
+			local minutes = string.format("%02.f", math.floor(time / 60));
+		    local seconds = string.format("%02.f", math.floor(time - minutes * 60));
+			timeString = "|Cffff2500-" .. minutes .. ":" .. seconds .. " (expired)|r";
+			if (NWB.data.wintergraspFaction == 2) then
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+	    	elseif (NWB.data.wintergraspFaction == 3) then
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+	    	else
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+	    	end
+		elseif (time > 0) then
+			local endTime = NWB.data.wintergrasp;
+	    	timeString = NWB:getTimeString(endTime - GetServerTime(), true, "short") .. " (" .. NWB:getTimeFormat(endTime) .. ")";
+	    	if (NWB.data.wintergraspFaction == 2) then
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\alliancetower.blp");
+	    	elseif (NWB.data.wintergraspFaction == 3) then
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\hordetower.blp");
+	    	else
+	    		_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+	    	end
+	    else
+	    	_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+	    end
+    else
+    	_G[type .. "NWBTerokkarMap"].texture:SetTexture("Interface\\worldstateframe\\neutraltower.blp");
+    end
+    if (timeString == L["noTimer"]) then
+    	_G[type .. "NWBTerokkarMap"].timerMsg = nil;
+    else
+    	local msg = NWB:getTimeString(time, true);
+    	_G[type .. "NWBTerokkarMap"].timerMsg = msg;
+    end
+	return timeString;
+end
+
 function NWB:createTerokkarMarkers()
-	if (NWB.isLayered) then
+	if (not terokkarMapMarkerTypes) then
+		return;
+	end
+	--Only layered for TBC and terokkar towers, wintergrasp isn't layered.
+	if (NWB.isLayered and (NWB.isTBC or NWB.isWrathPrepatch)) then
 		local count = 0;
 		for layer, data in NWB:pairsByKeys(NWB.data.layers) do
 			count = count + 1;
@@ -3726,6 +3871,9 @@ end
 
 local mapMarkers = {};
 function NWB:createTerokkarMarker(type, data, layer, count)
+	if (not NWB.isTBC and not NWB.isWrath) then
+		return;
+	end
 	if (layer) then
 		if (not _G[type .. layer .. "NWBTerokkarMap"]) then
 			--Worldmap marker.
@@ -3748,15 +3896,29 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			obj.timerFrame:SetWidth(54);
 			obj.timerFrame:SetHeight(24);
 			obj.lastUpdate = 0;
-			obj:SetScript("OnUpdate", function(self)
-				--Update timer when map is open.
-				if (GetServerTime() - obj.lastUpdate > 0) then
-					obj.lastUpdate = GetServerTime();
-					obj.timerFrame.fs:SetText(NWB:updateTerokkarMarkers(type, layer));
-					obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
-					obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
-				end
-			end)
+			if (NWB.isTBC) then
+				obj.resetType = L["Terokkar Towers"];
+				obj:SetScript("OnUpdate", function(self)
+					--Update timer when map is open.
+					if (GetServerTime() - obj.lastUpdate > 0) then
+						obj.lastUpdate = GetServerTime();
+						obj.timerFrame.fs:SetText(NWB:updateTerokkarMarkers(type, layer));
+						obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
+						obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
+					end
+				end)
+			elseif (NWB.isWrath) then
+				obj.resetType = L["Wintergrasp"];
+				obj:SetScript("OnUpdate", function(self)
+					--Update timer when map is open.
+					if (GetServerTime() - obj.lastUpdate > 0) then
+						obj.lastUpdate = GetServerTime();
+						obj.timerFrame.fs:SetText(NWB:updateWintergraspMarkers(type, layer));
+						obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
+						obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
+					end
+				end)
+			end
 			--Make it act like pin is the parent and not WorldMapFrame.
 			obj:SetScript("OnHide", function(self)
 				obj.timerFrame:Hide();
@@ -3767,6 +3929,9 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			obj.fsLayer = obj:CreateFontString(type .. layer .. "NWBTerokkarMapBuffCmdFS", "ARTWORK");
 			obj.fsLayer:SetPoint("TOP", 0, 38);
 			obj.fsLayer:SetFont(NWB.regionFont, 14);
+			obj.fsTitle = obj:CreateFontString(type .. layer .. "NWBTerokkarMapBuffCmdFSTitle", "ARTWORK");
+			obj.fsTitle:SetPoint("TOP", 0, 38);
+			obj.fsTitle:SetFont(NWB.regionFont, 14);
 			--[[obj:SetScript("OnMouseDown", function(self)
 				NWB:openBuffListFrame();
 			end)]]
@@ -3778,12 +3943,12 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 					if (button == "RightButton") then
 						if (GetServerTime() - obj.lastChatMsgSay > 5) then
 							obj.lastChatMsgSay = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "say");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "say");
 						end
 					else
 						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
 							obj.lastChatMsgGuild = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "guild");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "guild");
 						end
 					end
 				end
@@ -3793,12 +3958,12 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 					if (button == "RightButton") then
 						if (GetServerTime() - obj.lastChatMsgSay > 5) then
 							obj.lastChatMsgSay = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "say");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "say");
 						end
 					else
 						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
 							obj.lastChatMsgGuild = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "guild");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "guild");
 						end
 					end
 				end
@@ -3812,7 +3977,11 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			obj.tooltip.fs:SetPoint("CENTER", 0, 0);
 			obj.tooltip.fs:SetFont(NWB.regionFont, 14);
 			obj.tooltip.fs:SetJustifyH("LEFT")
-			obj.tooltip.fs:SetText("Terokkar Towers\n|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			if (NWB.isTBC) then
+				obj.tooltip.fs:SetText("Terokkar Towers\n|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			elseif (NWB.isWrath) then
+				obj.tooltip.fs:SetText("Wintergrasp\n|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			end
 			obj.tooltip:SetWidth(obj.tooltip.fs:GetStringWidth() + 0);
 			obj.tooltip:SetHeight(obj.tooltip.fs:GetStringHeight() + 12);
 			obj.tooltip:Hide();
@@ -3840,6 +4009,10 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			bg:SetAllPoints(obj);
 			obj.texture = bg;
 			obj:SetSize(20, 20);
+			obj.fsTitle = obj:CreateFontString(type .. "NWBTerokkarMapBuffCmdFSTitle", "ARTWORK");
+			obj.fsTitle:SetPoint("TOP", 0, 38);
+			obj.fsTitle:SetFont(NWB.regionFont, 14, "OUTLINE");
+			--obj.fsTitle:SetFontObject(NumberFont_Outline_Med);
 			--Timer frame that sits above the icon when an active timer is found.
 			obj.timerFrame = CreateFrame("Frame", type .. "TerokkarMapTimerFrame", WorldMapFrame, "TooltipBorderedFrameTemplate");
 			obj.timerFrame:SetPoint("CENTER", obj, "CENTER",  0, 22);
@@ -3851,15 +4024,29 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			obj.timerFrame:SetWidth(54);
 			obj.timerFrame:SetHeight(24);
 			obj.lastUpdate = 0;
-			obj:SetScript("OnUpdate", function(self)
-				--Update timer when map is open.
-				if (GetServerTime() - obj.lastUpdate > 0) then
-					obj.lastUpdate = GetServerTime();
-					obj.timerFrame.fs:SetText(NWB:updateTerokkarMarkers(type, layer));
-					obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
-					obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
-				end
-			end)
+			if (NWB.isTBC) then
+				obj.resetType = L["Terokkar Towers"];
+				obj:SetScript("OnUpdate", function(self)
+					--Update timer when map is open.
+					if (GetServerTime() - obj.lastUpdate > 0) then
+						obj.lastUpdate = GetServerTime();
+						obj.timerFrame.fs:SetText(NWB:updateTerokkarMarkers(type, layer));
+						obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
+						obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
+					end
+				end)
+			elseif (NWB.isWrath) then
+				obj.resetType = L["Wintergrasp"];
+				obj:SetScript("OnUpdate", function(self)
+					--Update timer when map is open.
+					if (GetServerTime() - obj.lastUpdate > 0) then
+						obj.lastUpdate = GetServerTime();
+						obj.timerFrame.fs:SetText(NWB:updateWintergraspMarkers(type, layer));
+						obj.timerFrame:SetWidth(obj.timerFrame.fs:GetStringWidth() + 18);
+						obj.timerFrame:SetHeight(obj.timerFrame.fs:GetStringHeight() + 12);
+					end
+				end)
+			end
 			--Make it act like pin is the parent and not WorldMapFrame.
 			obj:SetScript("OnHide", function(self)
 				obj.timerFrame:Hide();
@@ -3868,18 +4055,19 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 				obj.timerFrame:Show();
 			end)
 			mapMarkers[type .. "NWBTerokkarMap"] = true;
-			obj.lastChatMsg = 0;
+			obj.lastChatMsgSay = 0;
+			obj.lastChatMsgGuild = 0;
 			obj:SetScript("OnMouseDown", function(self, button)
 				if (IsShiftKeyDown() and obj.timerMsg) then
 					if (button == "RightButton") then
 						if (GetServerTime() - obj.lastChatMsgSay > 5) then
 							obj.lastChatMsgSay = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "say");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "say");
 						end
 					else
 						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
 							obj.lastChatMsgGuild = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "guild");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "guild");
 						end
 					end
 				end
@@ -3889,12 +4077,12 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 					if (button == "RightButton") then
 						if (GetServerTime() - obj.lastChatMsgSay > 5) then
 							obj.lastChatMsgSay = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "say");
+							SendChatMessage("[NWB]" .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "say");
 						end
 					else
 						if (GetServerTime() - obj.lastChatMsgGuild > 5) then
 							obj.lastChatMsgGuild = GetServerTime();
-							SendChatMessage("[NWB] Terokkar Towers reset in " .. obj.timerMsg .. ".", "guild");
+							SendChatMessage("[NWB] " .. obj.resetType .. " resets in " .. obj.timerMsg .. ".", "guild");
 						end
 					end
 				end
@@ -3908,7 +4096,11 @@ function NWB:createTerokkarMarker(type, data, layer, count)
 			obj.tooltip.fs:SetPoint("CENTER", 0, 0);
 			obj.tooltip.fs:SetFont(NWB.regionFont, 14);
 			obj.tooltip.fs:SetJustifyH("LEFT")
-			obj.tooltip.fs:SetText("|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			if (NWB.isTBC) then
+				obj.tooltip.fs:SetText("Terokkar Towers\n|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			elseif (NWB.isWrath) then
+				obj.tooltip.fs:SetText("Wintergrasp\n|CffDEDE42Shift Left-Click to send timers to guild chat.\nShift Right-Click to send timers to say.");
+			end
 			obj.tooltip:SetWidth(obj.tooltip.fs:GetStringWidth() + 18);
 			obj.tooltip:SetHeight(obj.tooltip.fs:GetStringHeight() + 12);
 			obj.tooltip:Hide();
@@ -3930,47 +4122,83 @@ end
 
 local hookWorldMap = true;
 function NWB:refreshTerokkarMarkers()
-	--If we're looking at the shat map.
-	if (NWB.db.global.showShatWorldmapMarkersTerok and WorldMapFrame and WorldMapFrame:GetMapID() == 1955) then
-		terokkarMapMarkerTypes = {
-			["towers"] = {x = 93, y = 75, mapID = 1955, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
-		};
-	else
-		terokkarMapMarkerTypes = {
-			["towers"] = {x = 87, y = 82, mapID = 1952, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
-		};
+	if (not NWB.isTBC and not NWB.isWrath) then
+		return;
 	end
-	if (WorldMapFrame and hookWorldMap) then
-		hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
-			NWB:refreshTerokkarMarkers();
-		end)
-		hookWorldMap = nil;
-	end
-	if (NWB.isLayered) then
-		local count = 0;
-		local offset = 0;
-		local foundLayers;
-		for layer, data in NWB:pairsByKeys(NWB.data.layers) do
-			for k, v in pairs(mapMarkers) do
-				--Remove all icons first so it fixes any layer changes or data reset after server restart etc.
-				NWB.dragonLibPins:RemoveWorldMapIcon(k, _G[k]);
-			end
+	if (NWB.isTBC or NWB.isWrathPrepatch) then
+		--If we're looking at the shat map.
+		if (NWB.db.global.showShatWorldmapMarkersTerok and WorldMapFrame and WorldMapFrame:GetMapID() == 1955) then
+			terokkarMapMarkerTypes = {
+				["towers"] = {x = 93, y = 75, mapID = 1955, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+			};
+		else
+			terokkarMapMarkerTypes = {
+				["towers"] = {x = 87, y = 82, mapID = 1952, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+			};
 		end
-		for layer, data in NWB:pairsByKeys(NWB.data.layers) do
-			foundLayers = true;
-			count = count + 1;
-			for k, v in pairs(terokkarMapMarkerTypes) do
-				--Change position to bottom corner of map so they can be stacked on top of each other for layered realms.
-				NWB.dragonLibPins:RemoveWorldMapIcon(k .. layer .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
-				if (NWB.db.global.showWorldMapMarkers and _G[k .. layer .. "NWBTerokkarMap"]) then
-					NWB.dragonLibPins:AddWorldMapIconMap(k .. layer .. "NWBTerokkarMap", _G[k .. layer .. "NWBTerokkarMap"], 
-							v.mapID, v.x / 100, (v.y + 9 + offset) / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+		if (WorldMapFrame and hookWorldMap) then
+			hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
+				NWB:refreshTerokkarMarkers();
+			end)
+			hookWorldMap = nil;
+		end
+	elseif (NWB.isWrath) then
+		--If we're looking at the dalaran map.
+		if (NWB.db.global.showShatWorldmapMarkersTerok and WorldMapFrame and WorldMapFrame:GetMapID() == 125) then
+			terokkarMapMarkerTypes = {
+				["towers"] = {x = 93, y = 84, mapID = 125, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+			};
+		else
+			terokkarMapMarkerTypes = {
+				["towers"] = {x = 93, y = 80, mapID = 123, icon = "Interface\\worldstateframe\\neutraltower.blp", name = L["rend"]},
+			};
+		end
+		if (WorldMapFrame and hookWorldMap) then
+			hooksecurefunc(WorldMapFrame, "OnMapChanged", function()
+				NWB:refreshTerokkarMarkers();
+			end)
+			hookWorldMap = nil;
+		end
+	end
+	if (NWB.isTBC or NWB.isWrathPrepatch) then
+		if (NWB.isLayered) then
+			local count = 0;
+			local offset = 0;
+			local foundLayers;
+			for layer, data in NWB:pairsByKeys(NWB.data.layers) do
+				for k, v in pairs(mapMarkers) do
+					--Remove all icons first so it fixes any layer changes or data reset after server restart etc.
+					NWB.dragonLibPins:RemoveWorldMapIcon(k, _G[k]);
 				end
 			end
-			offset = offset - 10;
-		end
-		--This will add layer icons and remove default non-layer icons when we go from having no timer info to got new layers timer info.
-		if (not foundLayers) then
+			for layer, data in NWB:pairsByKeys(NWB.data.layers) do
+				foundLayers = true;
+				count = count + 1;
+				for k, v in pairs(terokkarMapMarkerTypes) do
+					--Change position to bottom corner of map so they can be stacked on top of each other for layered realms.
+					NWB.dragonLibPins:RemoveWorldMapIcon(k .. layer .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
+					if (NWB.db.global.showWorldMapMarkers and _G[k .. layer .. "NWBTerokkarMap"]) then
+						NWB.dragonLibPins:AddWorldMapIconMap(k .. layer .. "NWBTerokkarMap", _G[k .. layer .. "NWBTerokkarMap"], 
+								v.mapID, v.x / 100, (v.y + 9 + offset) / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+					end
+				end
+				offset = offset - 10;
+			end
+			--This will add layer icons and remove default non-layer icons when we go from having no timer info to got new layers timer info.
+			if (not foundLayers) then
+				for k, v in pairs(terokkarMapMarkerTypes) do
+					NWB.dragonLibPins:RemoveWorldMapIcon(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
+					if (NWB.db.global.showWorldMapMarkers and _G[k .. "NWBTerokkarMap"]) then
+						NWB.dragonLibPins:AddWorldMapIconMap(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"], v.mapID,
+								v.x / 100, v.y / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+					end
+				end
+			else
+				for k, v in pairs(terokkarMapMarkerTypes) do
+					NWB.dragonLibPins:RemoveWorldMapIcon(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
+				end
+			end
+		else
 			for k, v in pairs(terokkarMapMarkerTypes) do
 				NWB.dragonLibPins:RemoveWorldMapIcon(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
 				if (NWB.db.global.showWorldMapMarkers and _G[k .. "NWBTerokkarMap"]) then
@@ -3978,12 +4206,8 @@ function NWB:refreshTerokkarMarkers()
 							v.x / 100, v.y / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
 				end
 			end
-		else
-			for k, v in pairs(terokkarMapMarkerTypes) do
-				NWB.dragonLibPins:RemoveWorldMapIcon(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
-			end
 		end
-	else
+	elseif (NWB.isWrath) then
 		for k, v in pairs(terokkarMapMarkerTypes) do
 			NWB.dragonLibPins:RemoveWorldMapIcon(k .. "NWBTerokkarMap", _G[k .. "NWBTerokkarMap"]);
 			if (NWB.db.global.showWorldMapMarkers and _G[k .. "NWBTerokkarMap"]) then
@@ -3994,297 +4218,537 @@ function NWB:refreshTerokkarMarkers()
 	end
 end
 
----===========---
----TBC Dailies---
----===========---
+---=======---
+---Dailies---
+---=======---
 
-NWB.tbcDungeonDailies = {
-	[11389] = {
-		id = 1,
-		name = "Wanted: Arcatraz Sentinels",
-		dungeon = "The Arcatraz",
-		abbrev = "Arc",
-		desc = "Nether-Stalker Mah'duun wants you to dismantle 5 Arcatraz Sentinels. Return to him in Shattrath's Lower City once "
-				.. "that has been accomplished in order to collect the bounty.",
-	},
-	[11371] = {
-		id = 2,
-		name = "Wanted: Coilfang Myrmidons",
-		dungeon = "The Steamvault",
-		abbrev = "SV",
-		desc = "Nether-Stalker Mah'duun has asked you to slay 14 Coilfang Myrmidons. Return to him in Shattrath's Lower "
-				.. "City once they all lie dead in order to collect the bounty.",
-	},
-	[11376] = {
-		id = 3,
-		name = "Wanted: Malicious Instructors",
-		dungeon = "Shadow Labyrinth",
-		abbrev = "SLabs",
-		desc = "Nether-Stalker Mah'duun wants you to kill 3 Malicious Instructors. Return to him in Shattrath's Lower City once "
-				.. "they all lie dead in order to collect the bounty.",
-	},
-	[11383] = {
-		id = 4,
-		name = "Wanted: Rift Lords",
-		dungeon = "Black Morass",
-		abbrev = "BM",
-		desc = "Nether-Stalker Mah'duun wants you to kill 4 Rift Lords. Return to him in Shattrath's Lower City once they all "
-				.. "lie dead in order to collect the bounty.",
-	},
-	[11364] = {
-		id = 5,
-		name = "Wanted: Shattered Hand Centurions",
-		dungeon = "Shattered Halls",
-		abbrev = "ShatH",
-		desc = "Nether-Stalker Mah'duun has tasked you with the deaths of 4 Shattered Hand Centurions. Return to him in Shattrath's "
-				.. "Lower City once they all lie dead in order to collect the bounty.",
-	},
-	[11500] = {
-		id = 6,
-		name = "Wanted: Sisters of Torment",
-		dungeon = "Magisters' Terrace",
-		abbrev = "MGT",
-		desc = "Nether-Stalker Mah'duun wants you to slay 4 Sisters of Torment. Return to him in Shattrath's Lower City once you "
-				.. "have done so in order to collect the bounty.",
-	},
-	[11385] = {
-		id = 7,
-		name = "Wanted: Sunseeker Channelers",
-		dungeon = "The Botanica",
-		abbrev = "Bot",
-		desc = "Nether-Stalker Mah'duun wants you to kill 6 Sunseeker Channelers. Return to him in Shattrath's Lower City once they "
-				.. "all lie dead in order to collect the bounty.",
-	},
-	[11387] = {
-		id = 8,
-		name = "Wanted: Tempest-Forge Destroyers",
-		dungeon = "The Mechanar",
-		abbrev = "Mech",
-		desc = "Nether-Stalker Mah'duun wants you to destroy 5 Tempest-Forge Destroyers. Return to him in Shattrath's Lower City "
-				.. "once they all lie dead in order to collect the bounty.",
-	},
-};
+if (NWB.isWrath and not NWB.isWrathPrepatch) then
+	NWB.dungeonDailies = {
+		[13243] = {
+			id = 1,
+			name = "Timear Foresees Infinite Agents in your Future!",
+			dungeon = "The Culling of Stratholme",
+			abbrev = "CoS",
+			desc = "Archmage Timear in Dalaran has foreseen that you must slay 4 Infinite Agents.",
+		},
+		[13244] = {
+			id = 2,
+			name = "Timear Foresees Titanium Vanguards in your Future!",
+			dungeon = "Halls of Lightning",
+			abbrev = "HoL",
+			desc = "Archmage Timear in Dalaran has foreseen that you must slay 7 Titanium Vanguards.",
+		},
+		[13240] = {
+			id = 3,
+			name = "Timear Foresees Centrifuge Constructs in your Future!",
+			dungeon = "The Oculus",
+			abbrev = "Ocu",
+			desc = "Archmage Timear in Dalaran has foreseen that you must destroy 10 Centrifuge Constructs.",
+		},
+		[13241] = {
+			id = 4,
+			name = "Timear Foresees Ymirjar Berserkers in your Future!",
+			dungeon = "Utgarde Pinnacle",
+			abbrev = "UP",
+			desc = "Archmage Timear in Dalaran wants you to slay 7 Ymirjar Berserkers.",
+		},
+	};
+	NWB.heroicDailies = {
+		[13248] = {
+			id = 1,
+			name = "Proof of Demise: King Ymiron",
+			dungeon = "Utgarde Pinnacle",
+			abbrev = "UP",
+			desc = "King Ymiron of Utgarde Pinnacle is the favored vrykul of the Lich King. That alone is reason enough to put an end to him.",
+		},
+		[13245] = {
+			id = 2,
+			name = "Proof of Demise: Ingvar the Plunderer",
+			dungeon = "Utgarde Keep",
+			abbrev = "UK",
+			desc = "I need you to assemble a group and lead them into Utgarde Keep. Therein, you are to find and slay Ingvar the Plunderer before he can lead his vrykul forces to sack the nearby Alliance and Horde towns.",
+		},
+		[13247] = {
+			id = 3,
+			name = "Proof of Demise: Ley-Guardian Eregos",
+			dungeon = "The Oculus",
+			abbrev = "Ocu",
+			desc = "Ley-Guardian Eregos is the protector of the conduit through which Malygos is funneling the magical power of Azeroth's ley lines. If he can be slain it will be a great blow to the enemy.",
+		},
+		[13251] = {
+			id = 4,
+			name = "Proof of Demise: Mal'Ganis",
+			dungeon = "The Culling of Stratholme",
+			abbrev = "CoS",
+			desc = "The mysterious beings of the Burning Legion called the dreadlords are also known racially as the Nathrezim. Little is known of their homeworld and even that is rumor.",
+		},
+		[13255] = {
+			id = 5,
+			name = "Proof of Demise: Herald Volazj",
+			dungeon = "Ahn'kahet: The Old Kingdom",
+			abbrev = "TOK",
+			desc = "The leader of the Old Gods' forces, Herald Volazj is one of the nightmarish beings known as The Faceless. Put an end to him and bring me his withered brain.",
+		},
+		[13246] = {
+			id = 6,
+			name = "Proof of Demise: Keristrasza",
+			dungeon = "The Nexus",
+			abbrev = "Nex",
+			desc = "You must go into the Nexus in Coldarra and put an end to her before she can be fully turned.",
+		},
+		[13254] = {
+			id = 7,
+			name = "Proof of Demise: Anub'arak",
+			dungeon = "Azjol-Nerub",
+			abbrev = "AN",
+			desc = "It's in the best interests of everyone if they are thrown into a state of disarray. Kill their former king, and major-domo to the Lich King, the crypt lord, Anub'arak.",
+		},
+		[13252] = {
+			id = 8,
+			name = "Proof of Demise: Sjonnir The Ironshaper",
+			dungeon = "Halls of Stone",
+			abbrev = "HoS",
+			desc = "Sjonnir The Ironshaper seems to know a great deal with regard to the curse. We have it on good authority that he is carrying a Titan disc of information upon him that could answer all of our questions.",
+		},
+		[13256] = {
+			id = 9,
+			name = "Proof of Demise: Cyanigosa",
+			dungeon = "The Violet Hold",
+			abbrev = "VH",
+			desc = "We're being invaded! The blue dragonflight has teleported into the Violet Hold and they're planning on breaking out from there into the rest of Dalaran!",
+		},
+		[13250] = {
+			id = 10,
+			name = "Proof of Demise: Gal'darah",
+			dungeon = "Gundrak",
+			abbrev = "Gun",
+			desc = "The Drakkari prophets of Zul'Drak have done the unthinkable: they've slain most of their gods to absorb their powers! The most dangerous of all is the High Prophet of Akali, Gal'darah.",
+		},
+		[13249] = {
+			id = 11,
+			name = "Proof of Demise: The Prophet Tharon'ja",
+			dungeon = "Drak'Tharon Keep",
+			abbrev = "DTK",
+			desc = "Drak'Tharon Keep once stood as a proud bastion of the Drakkari nation. Now it is nothing more than a stepping stone for the Lich King in his fight to put an end to Zul'Drak and steal the powers of the troll gods.",
+		},
+		[14199] = {
+			id = 12,
+			name = "Proof of Demise: The Black Knight",
+			dungeon = "Trial of the Champions",
+			abbrev = "ToC",
+			desc = "My counterpart, Archmage Timear, has asked me to warn you of something dire. Soon, you will be participating in the Trial of the Champions at the Argent Coliseum in Icecrown. You must beware of interference from one known only as the Black Knight.",
+		},
+		[13253] = {
+			id = 13,
+			name = "Proof of Demise: Loken",
+			dungeon = "Halls of Lightning",
+			abbrev = "HoL",
+			desc = "Within the Halls of Lightning, Loken is poised to put an end to our world. Need I say more.",
+		},
+	};
+elseif (NWB.isTBC or NWB.isWrathPrepatch) then
+	NWB.dungeonDailies = {
+		[11389] = {
+			id = 1,
+			name = "Wanted: Arcatraz Sentinels",
+			dungeon = "The Arcatraz",
+			abbrev = "Arc",
+			desc = "Nether-Stalker Mah'duun wants you to dismantle 5 Arcatraz Sentinels. Return to him in Shattrath's Lower City once "
+					.. "that has been accomplished in order to collect the bounty.",
+		},
+		[11371] = {
+			id = 2,
+			name = "Wanted: Coilfang Myrmidons",
+			dungeon = "The Steamvault",
+			abbrev = "SV",
+			desc = "Nether-Stalker Mah'duun has asked you to slay 14 Coilfang Myrmidons. Return to him in Shattrath's Lower "
+					.. "City once they all lie dead in order to collect the bounty.",
+		},
+		[11376] = {
+			id = 3,
+			name = "Wanted: Malicious Instructors",
+			dungeon = "Shadow Labyrinth",
+			abbrev = "SLabs",
+			desc = "Nether-Stalker Mah'duun wants you to kill 3 Malicious Instructors. Return to him in Shattrath's Lower City once "
+					.. "they all lie dead in order to collect the bounty.",
+		},
+		[11383] = {
+			id = 4,
+			name = "Wanted: Rift Lords",
+			dungeon = "Black Morass",
+			abbrev = "BM",
+			desc = "Nether-Stalker Mah'duun wants you to kill 4 Rift Lords. Return to him in Shattrath's Lower City once they all "
+					.. "lie dead in order to collect the bounty.",
+		},
+		[11364] = {
+			id = 5,
+			name = "Wanted: Shattered Hand Centurions",
+			dungeon = "Shattered Halls",
+			abbrev = "ShatH",
+			desc = "Nether-Stalker Mah'duun has tasked you with the deaths of 4 Shattered Hand Centurions. Return to him in Shattrath's "
+					.. "Lower City once they all lie dead in order to collect the bounty.",
+		},
+		[11500] = {
+			id = 6,
+			name = "Wanted: Sisters of Torment",
+			dungeon = "Magisters' Terrace",
+			abbrev = "MGT",
+			desc = "Nether-Stalker Mah'duun wants you to slay 4 Sisters of Torment. Return to him in Shattrath's Lower City once you "
+					.. "have done so in order to collect the bounty.",
+		},
+		[11385] = {
+			id = 7,
+			name = "Wanted: Sunseeker Channelers",
+			dungeon = "The Botanica",
+			abbrev = "Bot",
+			desc = "Nether-Stalker Mah'duun wants you to kill 6 Sunseeker Channelers. Return to him in Shattrath's Lower City once they "
+					.. "all lie dead in order to collect the bounty.",
+		},
+		[11387] = {
+			id = 8,
+			name = "Wanted: Tempest-Forge Destroyers",
+			dungeon = "The Mechanar",
+			abbrev = "Mech",
+			desc = "Nether-Stalker Mah'duun wants you to destroy 5 Tempest-Forge Destroyers. Return to him in Shattrath's Lower City "
+					.. "once they all lie dead in order to collect the bounty.",
+		},
+	};
+	NWB.heroicDailies = {
+		[11369] = {
+			id = 1,
+			name = "Wanted: A Black Stalker Egg",
+			dungeon = "The Underbog",
+			abbrev = "Bog",
+			desc = "Wind Trader Zhareem wants you to obtain a Black Stalker Egg. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11384] = {
+			id = 2,
+			name = "Wanted: A Warp Splinter Clipping",
+			dungeon = "The Botanica",
+			abbrev = "Bot",
+			desc = "Wind Trader Zhareem has asked you to obtain a Warp Splinter Clipping. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11382] = {
+			id = 3,
+			name = "Wanted: Aeonus's Hourglass",
+			dungeon = "Black Morass",
+			abbrev = "BM",
+			desc = "Wind Trader Zhareem has asked you to acquire Aeonus's Hourglass. Deliver it to him in Shattrath's Lower "
+					.. "City to collect the reward.",
+		},
+		[11363] = {
+			id = 4,
+			name = "Wanted: Bladefist's Seal",
+			dungeon = "The Shattered Halls",
+			abbrev = "ShatH",
+			desc = "Wind Trader Zhareem has asked you to obtain Bladefist's Seal. Deliver it to him in Shattrath's Lower "
+					.. "City to collect the reward.",
+		},
+		[11362] = {
+			id = 5,
+			name = "Wanted: Keli'dan's Feathered Stave",
+			dungeon = "The Blood Furnace",
+			abbrev = "BF",
+			desc = "Wind Trader Zhareem has asked you to obtain Keli'dan's Feathered Stave. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11375] = {
+			id = 6,
+			name = "Wanted: Murmur's Whisper",
+			dungeon = "Shadow Labyrinth",
+			abbrev = "SLabs",
+			desc = "Wind Trader Zhareem has asked you to obtain Murmur's Whisper. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11354] = {
+			id = 7,
+			name = "Wanted: Nazan's Riding Crop",
+			dungeon = "Hellfire Ramparts",
+			abbrev = "Ramps",
+			desc = "Wind Trader Zhareem has asked you to obtain Nazan's Riding Crop. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11386] = {
+			id = 8,
+			name = "Wanted: Pathaleon's Projector",
+			dungeon = "The Mechanar",
+			abbrev = "Mech",
+			desc = "Wind Trader Zhareem has asked you to acquire Pathaleon's Projector. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11373] = {
+			id = 9,
+			name = "Wanted: Shaffar's Wondrous Pendant",
+			dungeon = "Mana-Tombs",
+			abbrev = "MT",
+			desc = "Wind Trader Zhareem wants you to obtain Shaffar's Wondrous Amulet. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11378] = {
+			id = 10,
+			name = "Wanted: The Epoch Hunter's Head",
+			dungeon = "Old Hillsbrad Foothills",
+			abbrev = "OHB",
+			desc = "Wind Trader Zhareem has asked you to obtain the Epoch Hunter's Head. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11374] = {
+			id = 11,
+			name = "Wanted: The Exarch's Soul Gem",
+			dungeon = "Auchenai Crypts",
+			abbrev = "AC",
+			desc = "Wind Trader Zhareem has asked you to recover The Exarch's Soul Gem. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11372] = {
+			id = 12,
+			name = "Wanted: The Headfeathers of Ikiss",
+			dungeon = "Sethekk Halls",
+			abbrev = "Sethekk",
+			desc = "Wind Trader Zhareem has asked you to acquire The Headfeathers of Ikiss. Deliver them to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11368] = {
+			id = 13,
+			name = "Wanted: The Heart of Quagmirran",
+			dungeon = "The Slave Pens",
+			abbrev = "SP",
+			desc = "Wind Trader Zhareem has asked you to obtain The Heart of Quagmirran. Deliver it to him in Shattrath's Lower "
+					.. "City to collect the reward.",
+		},
+		[11388] = {
+			id = 14,
+			name = "Wanted: The Scroll of Skyriss",
+			dungeon = "The Arcatraz",
+			abbrev = "Arc",
+			desc = "Wind Trader Zhareem has asked you to obtain The Scroll of Skyriss. Deliver it to him in Shattrath's Lower "
+					.. "City to collect the reward.",
+		},
+		[11370] = {
+			id = 15,
+			name = "Wanted: The Warlord's Treatise",
+			dungeon = "The Steamvault",
+			abbrev = "SV",
+			desc = "Wind Trader Zhareem has asked you to acquire The Warlord's Treatise. Deliver it to him in Shattrath's "
+					.. "Lower City to collect the reward.",
+		},
+		[11499] = {
+			id = 16,
+			name = "WANTED: The Signet Ring of Prince Kael'thas",
+			dungeon = "Magisters' Terrace",
+			abbrev = "MGT",
+			desc = "Wind Trader Zhareem has asked you to obtain The Signet Ring of Prince Kael'thas. Deliver it to him in "
+					.. "Shattrath's Lower City to collect the reward.",
+		},
+	};
+end
 
-NWB.tbcHeroicDailies = {
-	[11369] = {
-		id = 1,
-		name = "Wanted: A Black Stalker Egg",
-		dungeon = "The Underbog",
-		abbrev = "Bog",
-		desc = "Wind Trader Zhareem wants you to obtain a Black Stalker Egg. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11384] = {
-		id = 2,
-		name = "Wanted: A Warp Splinter Clipping",
-		dungeon = "The Botanica",
-		abbrev = "Bot",
-		desc = "Wind Trader Zhareem has asked you to obtain a Warp Splinter Clipping. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11382] = {
-		id = 3,
-		name = "Wanted: Aeonus's Hourglass",
-		dungeon = "Black Morass",
-		abbrev = "BM",
-		desc = "Wind Trader Zhareem has asked you to acquire Aeonus's Hourglass. Deliver it to him in Shattrath's Lower "
-				.. "City to collect the reward.",
-	},
-	[11363] = {
-		id = 4,
-		name = "Wanted: Bladefist's Seal",
-		dungeon = "The Shattered Halls",
-		abbrev = "ShatH",
-		desc = "Wind Trader Zhareem has asked you to obtain Bladefist's Seal. Deliver it to him in Shattrath's Lower "
-				.. "City to collect the reward.",
-	},
-	[11362] = {
-		id = 5,
-		name = "Wanted: Keli'dan's Feathered Stave",
-		dungeon = "The Blood Furnace",
-		abbrev = "BF",
-		desc = "Wind Trader Zhareem has asked you to obtain Keli'dan's Feathered Stave. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11375] = {
-		id = 6,
-		name = "Wanted: Murmur's Whisper",
-		dungeon = "Shadow Labyrinth",
-		abbrev = "SLabs",
-		desc = "Wind Trader Zhareem has asked you to obtain Murmur's Whisper. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11354] = {
-		id = 7,
-		name = "Wanted: Nazan's Riding Crop",
-		dungeon = "Hellfire Ramparts",
-		abbrev = "Ramps",
-		desc = "Wind Trader Zhareem has asked you to obtain Nazan's Riding Crop. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11386] = {
-		id = 8,
-		name = "Wanted: Pathaleon's Projector",
-		dungeon = "The Mechanar",
-		abbrev = "Mech",
-		desc = "Wind Trader Zhareem has asked you to acquire Pathaleon's Projector. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11373] = {
-		id = 9,
-		name = "Wanted: Shaffar's Wondrous Pendant",
-		dungeon = "Mana-Tombs",
-		abbrev = "MT",
-		desc = "Wind Trader Zhareem wants you to obtain Shaffar's Wondrous Amulet. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11378] = {
-		id = 10,
-		name = "Wanted: The Epoch Hunter's Head",
-		dungeon = "Old Hillsbrad Foothills",
-		abbrev = "OHB",
-		desc = "Wind Trader Zhareem has asked you to obtain the Epoch Hunter's Head. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11374] = {
-		id = 11,
-		name = "Wanted: The Exarch's Soul Gem",
-		dungeon = "Auchenai Crypts",
-		abbrev = "AC",
-		desc = "Wind Trader Zhareem has asked you to recover The Exarch's Soul Gem. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11372] = {
-		id = 12,
-		name = "Wanted: The Headfeathers of Ikiss",
-		dungeon = "Sethekk Halls",
-		abbrev = "Sethekk",
-		desc = "Wind Trader Zhareem has asked you to acquire The Headfeathers of Ikiss. Deliver them to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11368] = {
-		id = 13,
-		name = "Wanted: The Heart of Quagmirran",
-		dungeon = "The Slave Pens",
-		abbrev = "SP",
-		desc = "Wind Trader Zhareem has asked you to obtain The Heart of Quagmirran. Deliver it to him in Shattrath's Lower "
-				.. "City to collect the reward.",
-	},
-	[11388] = {
-		id = 14,
-		name = "Wanted: The Scroll of Skyriss",
-		dungeon = "The Arcatraz",
-		abbrev = "Arc",
-		desc = "Wind Trader Zhareem has asked you to obtain The Scroll of Skyriss. Deliver it to him in Shattrath's Lower "
-				.. "City to collect the reward.",
-	},
-	[11370] = {
-		id = 15,
-		name = "Wanted: The Warlord's Treatise",
-		dungeon = "The Steamvault",
-		abbrev = "SV",
-		desc = "Wind Trader Zhareem has asked you to acquire The Warlord's Treatise. Deliver it to him in Shattrath's "
-				.. "Lower City to collect the reward.",
-	},
-	[11499] = {
-		id = 16,
-		name = "WANTED: The Signet Ring of Prince Kael'thas",
-		dungeon = "Magisters' Terrace",
-		abbrev = "MGT",
-		desc = "Wind Trader Zhareem has asked you to obtain The Signet Ring of Prince Kael'thas. Deliver it to him in "
-				.. "Shattrath's Lower City to collect the reward.",
-	},
-};
-
-NWB.tbcPvpDailies = {
+NWB.pvpDailies = {
 	--Horde.
 	[11342] = {
 		id = 1,
 		name = "Call to Arms: Warsong Gulch",
-		desc = "Win a Warsong Gulch battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+		desc = "Win a Warsong Gulch battleground match and return to a Horde Warbringer at any Horde capital city.",
 	},
 	[11339] = {
 		id = 2,
 		name = "Call to Arms: Arathi Basin",
-		desc = "Win an Arathi Basin battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+		desc = "Win an Arathi Basin battleground match and return to a Horde Warbringer at any Horde capital city.",
 	},
 	[11340] = {
 		id = 3,
 		name = "Call to Arms: Alterac Valley",
-		desc = "Win an Alterac Valley battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+		desc = "Win an Alterac Valley battleground match and return to a Horde Warbringer at any Horde capital city.",
 	},
 	[11341] = {
 		id = 4,
 		name = "Call to Arms: Eye of the Storm",
-		desc = "Win an Eye of the Storm battleground match and return to a Horde Warbringer at any Horde capital city or Shattrath.",
+		desc = "Win an Eye of the Storm battleground match and return to a Horde Warbringer at any Horde capital city.",
+	},
+	[13407] = {
+		id = 9,
+		name = "Call to Arms: Strand of the Ancients",
+		desc = "Win a Strand of the Ancients battleground match and return to an Horde Warbringer at any Horde capital city.",
+	},
+	[14164] = {
+		id = 10,
+		name = "Call to Arms: Isle of Conquest",
+		desc = "Win an Isle of Conquest battleground match and return to an Horde Warbringer at any Horde capital city.",
 	},
 	--Alliance.
 	[11338] = {
 		id = 5,
 		name = "Call to Arms: Warsong Gulch",
-		desc = "Win a Warsong Gulch battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+		desc = "Win a Warsong Gulch battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
 	},
 	[11335] = {
 		id = 6,
 		name = "Call to Arms: Arathi Basin",
-		desc = "Win an Arathi Basin battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+		desc = "Win an Arathi Basin battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
 	},
 	[11336] = {
 		id = 7,
 		name = "Call to Arms: Alterac Valley",
-		desc = "Win an Alterac Valley battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+		desc = "Win an Alterac Valley battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
 	},
 	[11337] = {
 		id = 8,
 		name = "Call to Arms: Eye of the Storm",
-		desc = "Win an Eye of the Storm battleground match and return to an Alliance Brigadier General at any Alliance capital city or Shattrath.",
+		desc = "Win an Eye of the Storm battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
+	},
+	[13405] = {
+		id = 11,
+		name = "Call to Arms: Strand of the Ancients",
+		desc = "Win a Strand of the Ancients battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
+	},
+	[14163] = {
+		id = 12,
+		name = "Call to Arms: Isle of Conquest",
+		desc = "Win an Isle of Conquest battleground match and return to an Alliance Brigadier General at any Alliance capital city.",
 	},
 };
+	
 --Update data with localized names.
-function NWB:populateTbcDailyData()
-	for k, v in pairs(NWB.tbcHeroicDailies) do
+function NWB:populateDailyData()
+	for k, v in pairs(NWB.heroicDailies) do
 		local name = C_QuestLog.GetQuestInfo(k);
 		if (name) then
-			NWB.tbcHeroicDailies[k].nameLocale = name;
+			NWB.heroicDailies[k].nameLocale = name;
 		end
 	end
-	for k, v in pairs(NWB.tbcDungeonDailies) do
+	for k, v in pairs(NWB.dungeonDailies) do
 		local name = C_QuestLog.GetQuestInfo(k);
 		if (name) then
-			NWB.tbcDungeonDailies[k].nameLocale = name;
+			name = string.gsub(name, "Timear Foresees ", "");
+			NWB.dungeonDailies[k].nameLocale = name;
 		end
 	end
-	for k, v in pairs(NWB.tbcPvpDailies) do
+	for k, v in pairs(NWB.pvpDailies) do
 		local name = C_QuestLog.GetQuestInfo(k);
 		if (name) then
-			NWB.tbcPvpDailies[k].nameLocale = name;
+			NWB.pvpDailies[k].nameLocale = name;
 		end
 	end
 end
 
-function NWB:getTbcDungeonDailyData(id)
-	for k, v in pairs(NWB.tbcDungeonDailies) do
+function NWB:getDungeonDailyData(id)
+	for k, v in pairs(NWB.dungeonDailies) do
 		if (v.id == id) then
 			return v;
 		end
 	end
 end
 
-function NWB:getTbcHeroicDailyData(id)
-	for k, v in pairs(NWB.tbcHeroicDailies) do
+function NWB:getHeroicDailyData(id)
+	for k, v in pairs(NWB.heroicDailies) do
 		if (v.id == id) then
 			return v;
 		end
 	end
 end
 
-function NWB:getTbcPvpDailyData(id)
-	for k, v in pairs(NWB.tbcPvpDailies) do
+function NWB:getPvpDailyData(id)
+	for k, v in pairs(NWB.pvpDailies) do
 		if (v.id == id) then
 			return v;
 		end
 	end
 end
+
+NWB.lastWgSendNPC = 0;
+function NWB:setWgTimerFromNPC(npcID)
+	if (npcID == "32170") then
+		local gossip = GetGossipText();
+		local hours, minutes, seconds;
+		if (string.match(gossip, "%d+:%d+:%d+")) then
+			--hours/minutes/seconds
+			local timeString = string.match(gossip, "%d+:%d+:%d+");
+			if (timeString) then
+				hours, minutes, seconds = string.split(":", timeString);
+			end
+		elseif (string.match(gossip, "%d+:%d+")) then
+			--minutes/seconds
+			local timeString = string.match(gossip, "%d+:%d+");
+			if (timeString) then
+				minutes, seconds = string.split(":", timeString);
+				hours = 0;
+			end
+		end
+		if (hours and minutes and seconds and tonumber(hours) and tonumber(minutes) and tonumber(seconds)) then
+			hours, minutes, seconds = tonumber(hours), tonumber(minutes), tonumber(seconds);
+			local secondsLeft = 0;
+			if (hours > 0) then
+				secondsLeft = secondsLeft + (hours * 3600);
+			end
+			if (minutes > 0) then
+				secondsLeft = secondsLeft + (minutes * 60);
+			end
+			if (minutes > 0) then
+				secondsLeft = secondsLeft + seconds;
+			end
+			if (secondsLeft > 0) then
+				local timestamp = GetServerTime() + secondsLeft;
+				NWB.data.wintergrasp = timestamp;
+				NWB.data.wintergraspTime = GetServerTime();
+				if (timestamp - GetServerTime() > 900) then
+					NWB.data.wintergrasp10 = true;
+				end
+				if (GetServerTime() - NWB.lastWgSendNPC > 10) then
+					NWB.lastWgSendNPC = GetServerTime();
+					NWB:sendData("YELL", nil, nil, true, true, "wintergrasp");
+					NWB:sendData("GUILD", nil, nil, true, true, "wintergrasp");
+				end
+				NWB:debug("Setting WG timer from NPC:", secondsLeft);
+			end
+		end
+	end
+end
+
+--[[local wgEvents = {
+	["UPDATE_BATTLEFIELD_SCORE"] = 0,
+	["UPDATE_BATTLEFIELD_STATUS"] = 0,
+};
+local wgEnded = CreateFrame("Frame");
+wgEnded:RegisterEvent("PLAYER_CONTROL_LOST");
+wgEnded:SetScript('OnEvent', function(self, event, ...)
+	if (event == "PLAYER_CONTROL_LOST" ) then
+		if (C_Map.GetBestMapForUnit("player") == 2104) then
+			wgEnded:RegisterEvent("UPDATE_BATTLEFIELD_SCORE");
+			wgEnded:RegisterEvent("UPDATE_BATTLEFIELD_STATUS");
+			wgEnded:RegisterEvent("UPDATE_ACTIVE_BATTLEFIELD");
+			--Only listen to these events for 2 seconds.
+			C_Timer.After(2, function()
+				wgEnded:UnregisterEvent("UPDATE_BATTLEFIELD_SCORE");
+				wgEnded:UnregisterEvent("UPDATE_BATTLEFIELD_STATUS");
+				wgEnded:UnregisterEvent("UPDATE_ACTIVE_BATTLEFIELD");
+			end)
+		end
+	elseif (event == "UPDATE_BATTLEFIELD_SCORE" ) then
+		wgEvents.UPDATE_BATTLEFIELD_SCORE = GetTime();
+	elseif (event == "UPDATE_BATTLEFIELD_STATUS" ) then
+		local id = ...;
+		NWB:debug(GetBattlefieldStatus(id));
+		wgEvents.UPDATE_BATTLEFIELD_STATUS = GetTime();
+	elseif (event == "UPDATE_ACTIVE_BATTLEFIELD" ) then
+		--Last event in the chain.
+		if (GetTime() - wgEvents.UPDATE_BATTLEFIELD_SCORE < 2 and GetTime() - wgEvents.UPDATE_BATTLEFIELD_STATUS < 2) then
+			NWB:debug("Wintergrasp ended?");
+		end
+	end
+end)]]
+
+--[[local f = CreateFrame("Frame");
+f:RegisterEvent("UPDATE_BATTLEFIELD_SCORE");
+f:SetScript('OnEvent', function(self, event, ...)
+	local _, _, zone = NWB.dragonLib:GetPlayerZonePosition();
+	if (C_Map.GetBestMapForUnit("player") == 2104) then
+		if (GetBattlefieldWinner()) then
+			--WG ended, stuff added here later.
+		end
+	end
+end)]]
 
 local f = CreateFrame("Frame");
 f:RegisterEvent("GOSSIP_SHOW");
@@ -4294,7 +4758,7 @@ local lastGossipOpen = 0;
 local lastGossipClosed = 0;
 local lastNpcID = 0;
 f:SetScript('OnEvent', function(self, event, ...)
-	if (not NWB.isTBC) then
+	if (NWB.isClassic) then
 		return;
 	end
 	if (event == "GOSSIP_SHOW") then
@@ -4308,139 +4772,146 @@ f:SetScript('OnEvent', function(self, event, ...)
 		end
 		lastNpcID = npcID;
 		lastGossipOpen = GetTime();
+		if (NWB.isWrath) then
+			if (npcID == "32170") then
+				NWB:setWgTimerFromNPC(npcID);
+			end
+		end
 	elseif (event == "QUEST_FINISHED") then
-		if (lastNpcID == "24370" or lastNpcID == "24369" or lastNpcID == "15350" or lastNpcID == "15351") then
+		--TBC and Wrath daily npcs.
+		if (lastNpcID == "24370" or lastNpcID == "24369" or lastNpcID == "15350" or lastNpcID == "15351"
+				 or lastNpcID == "20735" or lastNpcID == "31439") then
 			lastGossipClosed = GetTime();
 		end
 	elseif (event == "QUEST_ACCEPTED") then
 		local _, questID = ...;
 		--Only if quest is fromt NPC and not a shared quest.
-		if (lastNpcID == "24370" and GetTime() - lastGossipClosed < 2) then
+		if ((lastNpcID == "24370" or lastNpcID == "31439") and GetTime() - lastGossipClosed < 2) then
 			--Creature-0-4671-530-64-24370-0000646451
-			if (NWB.tbcDungeonDailies[questID]) then
-				--NWB:debug("got daily", NWB.tbcDungeonDailies[questID].name);
-				NWB.data.tbcDD = NWB.tbcDungeonDailies[questID].id;
+			if (NWB.dungeonDailies[questID]) then
+				--NWB:debug("got daily", NWB.dungeonDailies[questID].name);
+				NWB.data.tbcDD = NWB.dungeonDailies[questID].id;
 				NWB.data.tbcDDT = GetServerTime();
-				NWB:sendData("YELL", nil, nil, true, true, "tbcHeroicDailies");
-				NWB:sendData("GUILD", nil, nil, true, true, "tbcHeroicDailies");
+				NWB:sendData("YELL", nil, nil, true, true, "heroicDailies");
+				NWB:sendData("GUILD", nil, nil, true, true, "heroicDailies");
 			end
 		end
-		if (lastNpcID == "24369" and GetTime() - lastGossipClosed < 2) then
+		if ((lastNpcID == "24369" or lastNpcID == "20735") and GetTime() - lastGossipClosed < 2) then
 			--Wind Trader Zhareem Creature-0-4671-530-64-24369-0000646451
-			if (NWB.tbcHeroicDailies[questID]) then
-				--NWB:debug("got heroic daily", NWB.tbcHeroicDailies[questID].name);
-				NWB.data.tbcHD = NWB.tbcHeroicDailies[questID].id;
+			if (NWB.heroicDailies[questID]) then
+				--NWB:debug("got heroic daily", NWB.heroicDailies[questID].name);
+				NWB.data.tbcHD = NWB.heroicDailies[questID].id;
 				NWB.data.tbcHDT = GetServerTime();
-				NWB:sendData("YELL", nil, nil, true, true, "tbcHeroicDailies");
-				NWB:sendData("GUILD", nil, nil, true, true, "tbcHeroicDailies");
+				NWB:sendData("YELL", nil, nil, true, true, "heroicDailies");
+				NWB:sendData("GUILD", nil, nil, true, true, "heroicDailies");
 			end
 		end
 		if ((lastNpcID == "15350" or lastNpcID == "15351") and GetTime() - lastGossipClosed < 2) then
-			if (NWB.tbcPvpDailies[questID]) then
-				NWB:debug("got pvp daily", NWB.tbcPvpDailies[questID].name);
-				NWB.data.tbcPD = NWB.tbcPvpDailies[questID].id;
+			if (NWB.pvpDailies[questID]) then
+				--NWB:debug("got pvp daily", NWB.pvpDailies[questID].name);
+				NWB.data.tbcPD = NWB.pvpDailies[questID].id;
 				NWB.data.tbcPDT = GetServerTime();
-				NWB:sendData("YELL", nil, nil, true, true, "tbcPvpDailies");
-				NWB:sendData("GUILD", nil, nil, true, true, "tbcPvpDailies");
+				NWB:sendData("YELL", nil, nil, true, true, "pvpDailies");
+				NWB:sendData("GUILD", nil, nil, true, true, "pvpDailies");
 			end
 		end
 	end
 end)
 
 --Update timers for worldmap when the map is open.
-function NWB:updateShatDailyMarkers()
+function NWB:updateDailyMarkers()
 	if (NWB.db.global.showShatWorldmapMarkers) then
-		_G["NWBShatDailyMap"]:Show();
-		_G["NWBShatHeroicMap"]:Show();
-		if (_G["NWBShatDailyMap"] and NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
-			local questData = NWB:getTbcDungeonDailyData(NWB.data.tbcDD);
+		_G["NWBDailyMap"]:Show();
+		_G["NWBHeroicMap"]:Show();
+		if (_G["NWBDailyMap"] and NWB.data.tbcDD and NWB.data.tbcDDT and GetServerTime() - NWB.data.tbcDDT < 86400) then
+			local questData = NWB:getDungeonDailyData(NWB.data.tbcDD);
 			if (questData) then
 				local name = questData.nameLocale or questData.name;
-				_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
+				_G["NWBDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r "
 						.. name .. " (" .. questData.abbrev .. ")");
-				_G["NWBShatDailyMap"].textFrame:SetWidth(_G["NWBShatDailyMap"].textFrame.fs:GetStringWidth() + 18);
-				_G["NWBShatDailyMap"].textFrame:SetHeight(_G["NWBShatDailyMap"].textFrame.fs:GetStringHeight() + 12);
+				_G["NWBDailyMap"].textFrame:SetWidth(_G["NWBDailyMap"].textFrame.fs:GetStringWidth() + 18);
+				_G["NWBDailyMap"].textFrame:SetHeight(_G["NWBDailyMap"].textFrame.fs:GetStringHeight() + 12);
 				if (questData.desc and questData.desc ~= "") then
-					_G["NWBShatDailyMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
-					_G["NWBShatDailyMap"].tooltip:SetWidth(_G["NWBShatDailyMap"].tooltip.fs:GetStringWidth() + 18);
-					_G["NWBShatDailyMap"].tooltip:SetHeight(_G["NWBShatDailyMap"].tooltip.fs:GetStringHeight() + 12);
-					_G["NWBShatDailyMap"].tooltip.enable = true;
+					_G["NWBDailyMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
+					_G["NWBDailyMap"].tooltip:SetWidth(_G["NWBDailyMap"].tooltip.fs:GetStringWidth() + 18);
+					_G["NWBDailyMap"].tooltip:SetHeight(_G["NWBDailyMap"].tooltip.fs:GetStringHeight() + 12);
+					_G["NWBDailyMap"].tooltip.enable = true;
 				else
-					_G["NWBShatDailyMap"].tooltip.fs:SetText("");
-					_G["NWBShatDailyMap"].tooltip:SetWidth(1);
-					_G["NWBShatDailyMap"].tooltip:SetHeight(1);
-					_G["NWBShatDailyMap"].tooltip.enable = false;
+					_G["NWBDailyMap"].tooltip.fs:SetText("");
+					_G["NWBDailyMap"].tooltip:SetWidth(1);
+					_G["NWBDailyMap"].tooltip:SetHeight(1);
+					_G["NWBDailyMap"].tooltip.enable = false;
 				end
 			end
 		else
-			_G["NWBShatDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
-			_G["NWBShatDailyMap"].textFrame:SetWidth(_G["NWBShatDailyMap"].textFrame.fs:GetStringWidth() + 18);
-			_G["NWBShatDailyMap"].textFrame:SetHeight(_G["NWBShatDailyMap"].textFrame.fs:GetStringHeight() + 12);
-			_G["NWBShatDailyMap"].tooltip.fs:SetText("");
-			_G["NWBShatDailyMap"].tooltip:SetWidth(1);
-			_G["NWBShatDailyMap"].tooltip:SetHeight(1);
-			_G["NWBShatDailyMap"].tooltip.enable = false;
+			_G["NWBDailyMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cff00ff00N|r|cFF9CD6DE)|r Unknown.");
+			_G["NWBDailyMap"].textFrame:SetWidth(_G["NWBDailyMap"].textFrame.fs:GetStringWidth() + 18);
+			_G["NWBDailyMap"].textFrame:SetHeight(_G["NWBDailyMap"].textFrame.fs:GetStringHeight() + 12);
+			_G["NWBDailyMap"].tooltip.fs:SetText("");
+			_G["NWBDailyMap"].tooltip:SetWidth(1);
+			_G["NWBDailyMap"].tooltip:SetHeight(1);
+			_G["NWBDailyMap"].tooltip.enable = false;
 		end
-		if (_G["NWBShatHeroicMap"] and NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
-			local questData = NWB:getTbcHeroicDailyData(NWB.data.tbcHD);
+		if (_G["NWBHeroicMap"] and NWB.data.tbcHD and NWB.data.tbcHDT and GetServerTime() - NWB.data.tbcHDT < 86400) then
+			local questData = NWB:getHeroicDailyData(NWB.data.tbcHD);
 			if (questData) then
 				local name = questData.nameLocale or questData.name;
-				_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
+				_G["NWBHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r "
 						.. name .. " (" .. questData.abbrev .. ")");
-				_G["NWBShatHeroicMap"].textFrame:SetWidth(_G["NWBShatHeroicMap"].textFrame.fs:GetStringWidth() + 18);
-				_G["NWBShatHeroicMap"].textFrame:SetHeight(_G["NWBShatHeroicMap"].textFrame.fs:GetStringHeight() + 12);
+				_G["NWBHeroicMap"].textFrame:SetWidth(_G["NWBHeroicMap"].textFrame.fs:GetStringWidth() + 18);
+				_G["NWBHeroicMap"].textFrame:SetHeight(_G["NWBHeroicMap"].textFrame.fs:GetStringHeight() + 12);
 				if (questData.desc and questData.desc ~= "") then
-					_G["NWBShatHeroicMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
-					_G["NWBShatHeroicMap"].tooltip:SetWidth(_G["NWBShatHeroicMap"].tooltip.fs:GetStringWidth() + 18);
-					_G["NWBShatHeroicMap"].tooltip:SetHeight(_G["NWBShatHeroicMap"].tooltip.fs:GetStringHeight() + 12);
-					_G["NWBShatHeroicMap"].tooltip.enable = true;
+					_G["NWBHeroicMap"].tooltip.fs:SetText(NWB.prefixColor .. "NWB|r\n" .. "|cFF9CD6DE" .. NWB:addNewLineChars(questData.desc, 45));
+					_G["NWBHeroicMap"].tooltip:SetWidth(_G["NWBHeroicMap"].tooltip.fs:GetStringWidth() + 18);
+					_G["NWBHeroicMap"].tooltip:SetHeight(_G["NWBHeroicMap"].tooltip.fs:GetStringHeight() + 12);
+					_G["NWBHeroicMap"].tooltip.enable = true;
 				else
-					_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
-					_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
-					_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
-					_G["NWBShatHeroicMap"].tooltip.enable = false;
+					_G["NWBHeroicMap"].tooltip.fs:SetText("");
+					_G["NWBHeroicMap"].tooltip:SetWidth(1);
+					_G["NWBHeroicMap"].tooltip:SetHeight(1);
+					_G["NWBHeroicMap"].tooltip.enable = false;
 				end
 			end
 		else
-			_G["NWBShatHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
-			_G["NWBShatHeroicMap"].textFrame:SetWidth(_G["NWBShatHeroicMap"].textFrame.fs:GetStringWidth() + 18);
-			_G["NWBShatHeroicMap"].textFrame:SetHeight(_G["NWBShatHeroicMap"].textFrame.fs:GetStringHeight() + 12);
-			_G["NWBShatHeroicMap"].tooltip.fs:SetText("");
-			_G["NWBShatHeroicMap"].tooltip:SetWidth(1);
-			_G["NWBShatHeroicMap"].tooltip:SetHeight(1);
-			_G["NWBShatHeroicMap"].tooltip.enable = false;
+			_G["NWBHeroicMap"].textFrame.fs:SetText(NWB.chatColor .."|cFFFF6900Daily|r |cFF9CD6DE(|r|cFFFF2222H|r|cFF9CD6DE)|r Unknown.");
+			_G["NWBHeroicMap"].textFrame:SetWidth(_G["NWBHeroicMap"].textFrame.fs:GetStringWidth() + 18);
+			_G["NWBHeroicMap"].textFrame:SetHeight(_G["NWBHeroicMap"].textFrame.fs:GetStringHeight() + 12);
+			_G["NWBHeroicMap"].tooltip.fs:SetText("");
+			_G["NWBHeroicMap"].tooltip:SetWidth(1);
+			_G["NWBHeroicMap"].tooltip:SetHeight(1);
+			_G["NWBHeroicMap"].tooltip.enable = false;
 		end
 	else
-		_G["NWBShatDailyMap"]:Hide();
-		_G["NWBShatHeroicMap"]:Hide();
+		_G["NWBDailyMap"]:Hide();
+		_G["NWBHeroicMap"]:Hide();
 	end
 end
 
 function NWB:createShatDailyMarkers()
-	if (not _G["NWBShatDailyMap"]) then
-		local obj = CreateFrame("Frame", "NWBShatDailyMap", WorldMapFrame);
+	if (not _G["NWBDailyMap"]) then
+		local obj = CreateFrame("Frame", "NWBDailyMap", WorldMapFrame);
 		local bg = obj:CreateTexture(nil, "MEDIUM");
 		bg:SetTexture("Interface\\AddOns\\NovaWorldBuffs\\Media\\portalgreen");
 		bg:SetAllPoints(obj);
 		obj.texture = bg;
 		obj:SetSize(18, 18);
 		--Timer frame that sits above the icon when an active timer is found.
-		obj.textFrame = CreateFrame("Frame", "NWBShatDailyMapText", WorldMapFrame, "TooltipBorderedFrameTemplate");
+		obj.textFrame = CreateFrame("Frame", "NWBDailyMapText", WorldMapFrame, "TooltipBorderedFrameTemplate");
 		obj.textFrame:SetPoint("LEFT", obj, "RIGHT",  0, 0);
 		obj.textFrame:SetFrameStrata("FULLSCREEN");
 		obj.textFrame:SetFrameLevel(9);
-		obj.textFrame.fs = obj.textFrame:CreateFontString("NWBShatDailyMapText", "ARTWORK");
+		obj.textFrame.fs = obj.textFrame:CreateFontString("NWBDailyMapText", "ARTWORK");
 		obj.textFrame.fs:SetPoint("CENTER", 0, 0);
 		obj.textFrame.fs:SetFont(NWB.regionFont, 13);
 		obj.textFrame:SetWidth(54);
 		obj.textFrame:SetHeight(24);
 		--Worldmap tooltip.
-		obj.tooltip = CreateFrame("Frame", "NWBShatDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
+		obj.tooltip = CreateFrame("Frame", "NWBDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
 		obj.tooltip:SetPoint("BOTTOM", obj, "TOP", 0, 5);
 		--obj.tooltip:SetPoint("CENTER", obj, "CENTER", 0, -26);
 		obj.tooltip:SetFrameStrata("TOOLTIP");
 		obj.tooltip:SetFrameLevel(9999);
-		obj.tooltip.fs = obj.tooltip:CreateFontString("NWBShatDailyMapTextTooltipFS", "ARTWORK");
+		obj.tooltip.fs = obj.tooltip:CreateFontString("NWBDailyMapTextTooltipFS", "ARTWORK");
 		obj.tooltip.fs:SetPoint("CENTER", 0, 0);
 		obj.tooltip.fs:SetFont(NWB.regionFont, 14);
 		obj.tooltip.fs:SetJustifyH("LEFT")
@@ -4473,7 +4944,7 @@ function NWB:createShatDailyMarkers()
 			--Update timer when map is open.
 			if (GetServerTime() - obj.lastUpdate > 0) then
 				obj.lastUpdate = GetServerTime();
-				NWB:updateShatDailyMarkers();
+				NWB:updateDailyMarkers();
 			end
 		end)
 		--Make it act like pin is the parent and not WorldMapFrame.
@@ -4484,30 +4955,30 @@ function NWB:createShatDailyMarkers()
 			obj.textFrame:Show();
 		end)
 	end
-	if (not _G["NWBShatHeroicMap"]) then
-		local obj = CreateFrame("Frame", "NWBShatHeroicMap", WorldMapFrame);
+	if (not _G["NWBHeroicMap"]) then
+		local obj = CreateFrame("Frame", "NWBHeroicMap", WorldMapFrame);
 		local bg = obj:CreateTexture(nil, "MEDIUM");
 		bg:SetTexture("Interface\\AddOns\\NovaWorldBuffs\\Media\\portalred");
 		bg:SetAllPoints(obj);
 		obj.texture = bg;
 		obj:SetSize(18, 18);
 		--Timer frame that sits above the icon when an active timer is found.
-		obj.textFrame = CreateFrame("Frame", "NWBShatHeroicMapText", WorldMapFrame, "TooltipBorderedFrameTemplate");
+		obj.textFrame = CreateFrame("Frame", "NWBHeroicMapText", WorldMapFrame, "TooltipBorderedFrameTemplate");
 		obj.textFrame:SetPoint("LEFT", obj, "RIGHT",  0, 0);
 		obj.textFrame:SetFrameStrata("FULLSCREEN");
 		obj.textFrame:SetFrameLevel(9);
-		obj.textFrame.fs = obj.textFrame:CreateFontString("NWBShatHeroicMapText", "ARTWORK");
+		obj.textFrame.fs = obj.textFrame:CreateFontString("NWBHeroicMapText", "ARTWORK");
 		obj.textFrame.fs:SetPoint("CENTER", 0, 0);
 		obj.textFrame.fs:SetFont(NWB.regionFont, 13);
 		obj.textFrame:SetWidth(54);
 		obj.textFrame:SetHeight(24);
 		--Worldmap tooltip.
-		obj.tooltip = CreateFrame("Frame", "NWBShatDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
+		obj.tooltip = CreateFrame("Frame", "NWBDailyMapTextTooltip", WorldMapFrame, "TooltipBorderedFrameTemplate");
 		obj.tooltip:SetPoint("BOTTOM", obj, "TOP", 0, 5);
 		--obj.tooltip:SetPoint("CENTER", obj, "CENTER", 0, -26);
 		obj.tooltip:SetFrameStrata("TOOLTIP");
 		obj.tooltip:SetFrameLevel(9999);
-		obj.tooltip.fs = obj.tooltip:CreateFontString("NWBShatDailyMapTextTooltipFS", "ARTWORK");
+		obj.tooltip.fs = obj.tooltip:CreateFontString("NWBDailyMapTextTooltipFS", "ARTWORK");
 		obj.tooltip.fs:SetPoint("CENTER", 0, 0);
 		obj.tooltip.fs:SetFont(NWB.regionFont, 14);
 		obj.tooltip.fs:SetJustifyH("LEFT")
@@ -4541,7 +5012,7 @@ function NWB:createShatDailyMarkers()
 			--Update timer when map is open.
 			if (GetServerTime() - obj.lastUpdate > 0) then
 				obj.lastUpdate = GetServerTime();
-				NWB:updateShatDailyMarkers();
+				NWB:updateDailyMarkers();
 			end
 		end)]]
 		--Make it act like pin is the parent and not WorldMapFrame.
@@ -4552,8 +5023,15 @@ function NWB:createShatDailyMarkers()
 			obj.textFrame:Show();
 		end)
 	end
-	NWB.dragonLibPins:AddWorldMapIconMap("NWBShatDailyMap", _G["NWBShatDailyMap"], 
-			1955, 65 / 100, 92 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
-	NWB.dragonLibPins:AddWorldMapIconMap("NWBShatHeroicMap", _G["NWBShatHeroicMap"], 
-			1955, 65 / 100, 95 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+	if (NWB.isTBC or NWB.isWrathPrepatch) then
+		NWB.dragonLibPins:AddWorldMapIconMap("NWBDailyMap", _G["NWBDailyMap"], 
+				1955, 65 / 100, 92 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+		NWB.dragonLibPins:AddWorldMapIconMap("NWBHeroicMap", _G["NWBHeroicMap"], 
+				1955, 65 / 100, 95 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+	elseif (NWB.isWrath) then
+		NWB.dragonLibPins:AddWorldMapIconMap("NWBDailyMap", _G["NWBDailyMap"], 
+				125, 65 / 100, 94 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+		NWB.dragonLibPins:AddWorldMapIconMap("NWBHeroicMap", _G["NWBHeroicMap"], 
+				125, 65 / 100, 97 / 100, HBD_PINS_WORLDMAP_SHOW_PARENT);
+	end
 end

@@ -6,7 +6,7 @@ local addonName, addon = ...;
 local NWB = addon.a;
 --A list of layered realms, split up between classic era and TBC.
 function NWB:setRealmData()
-	if (NWB.isTBC) then --This needs changing to isTBC after tbc launches.
+	if (NWB.isTBC or NWB.isWrath) then --This needs changing to isTBC after tbc launches.
 		NWB.usRealms = {
 			["Arugal"] = true,
 			["Yojamba"] = true,

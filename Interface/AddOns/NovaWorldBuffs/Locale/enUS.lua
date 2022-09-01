@@ -730,7 +730,7 @@ L["Mind Control"] = "Mind Control";
 L["Gnomish Mind Control Cap"] = "Gnomish Mind Control Cap";
 
 
-L["tbcHeaderText"] = "The Burning Crusade Options";
+L["tbcHeaderText"] = "Expansion Options";
 L["tbcNoteText"] = "Note: All guild chat msgs are also disabled on TBC realms.";
 
 L["disableSoundsAboveMaxBuffLevelTitle"] = "Disable Sounds Above Level 64+";
@@ -821,8 +821,8 @@ L["terokkarChat10Desc"] = "Print a msg in chat when 10 minutes left on terokkar 
 L["terokkarMiddle10Title"] = "Terokkar 10 Minutes";
 L["terokkarMiddle10Desc"] = "Show a raid warning style msg in the middle of the screen when 10 minutes left on terokkar spirit towers.";
 
-L["showShatWorldmapMarkersTitle"] = "Dailies Shattrath Worldmap";
-L["showShatWorldmapMarkersDesc"] = "Show dungeon daily markers on the Shattrath world map?";
+L["showShatWorldmapMarkersTitle"] = "Dailies Worldmap";
+L["showShatWorldmapMarkersDesc"] = "Show dungeon daily markers on the Capital City world map?";
 
 L["disableBuffTimersMaxBuffLevelTitle"] = "Disable Minimap Buff Timers 64+";
 L["disableBuffTimersMaxBuffLevelDesc"] = "Hide world buff timers when you hover over the minimap icon for characters level 64+? You will only see the terokkar tower timers and dailies etc.";
@@ -830,13 +830,16 @@ L["disableBuffTimersMaxBuffLevelDesc"] = "Hide world buff timers when you hover 
 L["hideMinimapBuffTimersTitle"] = "Disable Minimap Buff Timers All Levels";
 L["hideMinimapBuffTimersDesc"] = "Hide world buff timers when you hover over the minimap icon for characters all levels? You will only see the terokkar tower timers and dailies etc.";
 
-L["guildTerok10Title"] = "Guild Chat Terokkar 10 Minutes";
-L["guildTerok10Desc"] = "Send a message to guild chat when there's 10 minutes left on terokkar towers?";
+L["guildTerok10Title"] = "Guild Terok/WG 10 Minutes";
+L["guildTerok10Desc"] = "Send a message to guild chat when there's 10 minutes left on terokkar towers if TBC or wintergrasp if wrath.";
 
-L["showShatWorldmapMarkersTerokTitle"] = "Terokkar Shattrath Worldmap";
-L["showShatWorldmapMarkersTerokDesc"] = "Show terokkar tower markers on the Shattrath world map?";
+L["showShatWorldmapMarkersTerokTitle"] = "Towers/Wintergrasp Worldmap";
+L["showShatWorldmapMarkersTerokDesc"] = "Show terokkar tower or wintergrasp markers on the Capitcal City world map?";
 
 L["Completed PvP dailies"] = "Completed PvP dailies";
 L["Hellfire Towers"] = "Hellfire Towers";
 L["Terokkar Towers"] = "Terokkar Towers";
 L["Nagrand Halaa"] = "Nagrand Halaa";
+
+L["wintergraspTimer"] = "Wintergrasp";
+L["wintergraspWarning"] = "Wintergrasp resets in %s";

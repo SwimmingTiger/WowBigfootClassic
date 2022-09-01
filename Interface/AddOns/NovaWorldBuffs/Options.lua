@@ -22,7 +22,7 @@ NWB.options = {
 		},
 		authorText = {
 			type = "description",
-			name = "|TInterface\\AddOns\\NovaWorldBuffs\\Media\\logo32:32:32:0:20|t |cFF9CD6DEby Novaspark-Arugal",
+			name = "|TInterface\\AddOns\\NovaWorldBuffs\\Media\\logo32:32:32:0:20|t |cFF9CD6DEby Novaspark-Arugal|r  |cFF00C800-|r  |cFFFFFF00For help or suggestions discord.gg/RTKMfTmkdj|r",
 			fontSize = "medium",
 			order = 2,
 		},
@@ -1311,7 +1311,7 @@ NWB.options = {
 };
 
 function NWB:loadSpecificOptions()
-	if (NWB.isTBC) then
+	if (not NWB.isClassic) then
 		NWB.options.args["tbcHeader"] = {
 			type = "description",
 			name = "|cFF50D050" .. L["tbcHeaderText"],
@@ -1453,14 +1453,14 @@ function NWB:loadSpecificOptions()
 			get = "getGuildTerok10",
 			set = "setGuildTerok10",
 		};
-		NWB.options.args["tbcNote"] = {
+		--[[NWB.options.args["tbcNote"] = {
 			type = "description",
 			name = "|cFF50D050" .. L["tbcNoteText"],
 			fontSize = "medium",
 			order = 30,
-		};
+		};]]
 	end
-	if (NWB.isTBC or NWB.realmsTBC) then
+	if (NWB.isWrath or NWB.isTBC or NWB.realmsTBC) then
 		NWB.optionDefaults.global.minimapIcon = {["minimapPos"] = 139, ["hide"] = false};
 	end
 	if (NWB.faction == "Alliance") then
@@ -1704,6 +1704,7 @@ NWB.optionDefaults = {
 		disableLogonAboveMaxBuffLevel = true,
 		disableLogonAllLevels = false,
 		guildTerok10 = 1,
+		showExpiredTimersTerok = true,
 	},
 };
 
@@ -2508,6 +2509,7 @@ end
 --Show expired timers.
 function NWB:setShowExpiredTimers(info, value)
 	self.db.global.showExpiredTimers = value;
+	self.db.global.showExpiredTimersTerok = value;
 end
 
 function NWB:getShowExpiredTimers(info)
@@ -3437,7 +3439,7 @@ end
 --Show world map Shat dailies marker.
 function NWB:setShowShatWorldmapMarkers(info, value)
 	self.db.global.showShatWorldmapMarkers = value;
-	NWB:updateShatDailyMarkers();
+	NWB:updateDailyMarkers();
 end
 
 function NWB:getShowShatWorldmapMarkers(info)
