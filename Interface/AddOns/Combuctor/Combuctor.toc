@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: Combuctor
 ## Author: Tuller & Jaliborc (João Cardoso)
 ## Notes: Single window displays for your inventory and bank

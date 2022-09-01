@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: FasterLooting
 ## Title-zhCN: 自动拾取加速
 ## Author: cannon

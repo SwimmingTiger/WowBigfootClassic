@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: Auctionator
 ## Version: 9.1.14
 ## Author: Borjamacare, plusmouse

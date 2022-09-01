@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: AutoInvite
 ## Title-zhCN: 密语自动邀请进组
 ## Notes: |cff00ff00AutoInvite|r

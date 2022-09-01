@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: ShowActionCount
 ## Version: 1.00
 ## Author: prozhong

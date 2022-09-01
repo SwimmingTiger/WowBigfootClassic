@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 
 ## Notes: ClassicCodex-db-enUS
 ## Title: ClassicCodex enUS data
