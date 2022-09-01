@@ -342,7 +342,7 @@ do
 		if DisplayingBlizzardPlate(plate) then
 			plate.UnitFrame:Show()
 			plate.extended:Hide()
-		else
+		elseif plate.UnitFrame then
 			plate.UnitFrame:Hide()
 		end
 	end
@@ -555,6 +555,7 @@ local function NameplateEventHandler(self, event, ...)
 
 	local unitid = ...
 	if event == "UNIT_HEALTH"
+	or event == "UNIT_HEALTH_FREQUENT"
 	or event == "UNIT_MAXHEALTH"
 	or event == "UNIT_POWER_UPDATE"
 	or event == "UNIT_LEVEL"
@@ -603,7 +604,6 @@ local function RegisterNameplateEvents(plate, unitid)
 	plate:SetScript("OnEvent", NameplateEventHandler);
 
 	-- Register Events
-	plate:RegisterUnitEvent("UNIT_HEALTH", unitid)
 	plate:RegisterUnitEvent("UNIT_MAXHEALTH", unitid)
 	plate:RegisterUnitEvent("UNIT_POWER_UPDATE", unitid)
 	plate:RegisterUnitEvent("UNIT_NAME_UPDATE", unitid)
@@ -620,8 +620,11 @@ local function RegisterNameplateEvents(plate, unitid)
 	plate:RegisterUnitEvent("UNIT_SPELLCAST_DELAYED", unitid)
 	plate:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_UPDATE", unitid)
 	if not NEATPLATES_IS_CLASSIC then
+		plate:RegisterUnitEvent("UNIT_HEALTH", unitid)
 		plate:RegisterUnitEvent("UNIT_SPELLCAST_INTERRUPTIBLE", unitid)
 		plate:RegisterUnitEvent("UNIT_SPELLCAST_NOT_INTERRUPTIBLE", unitid)
+	else
+		plate:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", unitid) -- Why is this a thing again in the classic client???
 	end
 end
 
