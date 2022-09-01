@@ -11,7 +11,6 @@ AL["/al mmb - Toggle MiniMapButton"] = "/al mmb - 切換顯示小地圖按鈕。
 AL["/al options - Open AtlasLoot Options window."] = "/al options - 打開副本戰利品查詢設定選項視窗。"
 AL["/al slash - Prints a list of all slash commands."] = "/al slash - 列出所有指令。"
 AL["/al togglebg - Toggle the background image on loottables."] = "/al togglebg - 切換顯示戰利品列表的背景圖。"
-AL["|cff00ff00L-Click:|r %s"] = "|cff00ff00左鍵:|r %s"
 AL["|cff00ff00Left-Click:|r %s"] = "|cff00ff00左鍵:|r %s"
 AL["|cff00ff00Left-Click:|r Show reagents."] = "|cff00ff00左鍵:|r 顯示材料。"
 AL["|cff00ff00Right-Click:|r Change Class"] = "|cff00ff00右鍵:|r 更改職業"

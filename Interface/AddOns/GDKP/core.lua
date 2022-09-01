@@ -41,18 +41,11 @@ local GDKP_REPORT_HEALER_SUBSIDE
 local GDKP_REPORT_AVE_PROFIT
 local GDKP_0b07d59d0644e66cb588eb8a9e79ad79 = {
     ["29434"] = true,
-    ["32229"] = true,
-    ["32230"] = true,
-    ["32228"] = true,
-    ["32227"] = true,
-    ["32249"] = true,
-    ["32231"] = true,
     ["32428"] = true,
     ["34664"] = true,
-    ["20725"] = true,
-    ["22449"] = true,
-    ["22448"] = true,
-    ["22450"] = true,
+    ["49426"] = true,
+    ["47241"] = true,
+    ["45624"] = true,
     ["30313"] = true,
     ["30318"] = true,
     ["30312"] = true,
@@ -61,18 +54,13 @@ local GDKP_0b07d59d0644e66cb588eb8a9e79ad79 = {
     ["30317"] = true,
     ["30311"] = true,
     ["30316"] = true,
+    ["20725"] = true,
+    ["22449"] = true,
+    ["22448"] = true,
+    ["22450"] = true,
     ["34057"] = true,
-    ["49426"] = true,
-    ["47241"] = true,
-    ["36928"] = true,
-    ["36934"] = true,
-    ["36931"] = true,
-    ["36919"] = true,
-    ["36922"] = true,
-    ["36925"] = true,
     ["34052"] = true,
-    ["34053"] = true,
-    ["45624"] = true
+    ["34053"] = true
 }
 if GetLocale() == "zhCN" then
     GDKP_TEXT_TITLE = "大脚金团助手"
@@ -300,10 +288,10 @@ local function GDKP_9f069b4b2abd8b59dd593eb05c0eb053()
 end
 local function GDKP_d46ced55976240072f56c23890a2fc3b(itemLink)
     local pattern = "|c%x+|Hitem:(%d+):%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+:%-?%d+|h%[(.+)%]|h|r"
-    return itemLink:match(pattern)
+    return GetItemInfoInstant(itemLink)
 end
 function GDKP_332126e2e82fafa6f5d15f912aba69c6(item)
-    local id = GDKP_d46ced55976240072f56c23890a2fc3b(item)
+    local id = tostring(GDKP_d46ced55976240072f56c23890a2fc3b(item))
     if not id then
         return
     end
@@ -1124,23 +1112,17 @@ end
 local GDKPLauncher =
     LDB:NewDataObject(
     "GDKP",
-    {
-        type = "launcher",
-        icon = "Interface\\Icons\\inv_misc_coin_17",
-        label = GDKP_TOGGLE_TEXT,
-        OnClick = function()
+    {type = "launcher", icon = "Interface\\Icons\\inv_misc_coin_17", label = GDKP_TOGGLE_TEXT, OnClick = function()
             if GDKPMainFrame:IsShown() then
                 HideGDKPPanel()
             else
                 GDKPMainFrame:SetClampedToScreen(true)
                 ShowGDKPPanel()
             end
-        end,
-        OnTooltipShow = function(tt)
+        end, OnTooltipShow = function(tt)
             tt:AddLine(GDKP_TEXT_TITLE)
             tt:AddLine(GDKP_TOGGLE_TEXT)
-        end
-    }
+        end}
 )
 local GDKPLDBIcon = LibStub("LibDBIcon-1.0", true)
 if not GDKPLDBIcon then

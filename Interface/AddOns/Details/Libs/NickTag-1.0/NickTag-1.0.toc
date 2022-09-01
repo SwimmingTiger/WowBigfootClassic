@@ -1,5 +1,0 @@
-## Interface: 90002
-## Title: NickTag-1.0
-## Notes: Standalone version of the NickTag library.
-
-NickTag-1.0.xml

@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## X-Min-Interface: 20501
 ## Version: 2.5.24
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outlands|r

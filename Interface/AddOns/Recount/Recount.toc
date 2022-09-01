@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Version: v2.5.3c
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
@@ -10,7 +10,8 @@
 ## SavedVariables: RecountDB
 ## SavedVariablesPerCharacter: RecountPerCharDB
 ## Dependencies: BigFoot
-## DefaultState: disabled
+## X-Revision: BigFoot
+### LoadOnDemand: 1
 
 Libs\LibDropDown-1.0\LibDropdown-1.0.lua
 Libs\LibGraph-2.0\LibGraph-2.0.lua

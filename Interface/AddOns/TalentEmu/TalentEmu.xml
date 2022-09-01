@@ -2,11 +2,20 @@
 ..\FrameXML\UI.xsd">
     <include file = "libs\libs.xml" />
 
-    <script file = "Locale\zhCN.lua" />
-    <script file = "Locale\zhTW.lua" />
-    <script file = "Locale\enUS.lua" />
-    <script file = "data-classic.lua" />
-    <script file = "data-bcc.lua" />
-    <script file = "TalentEmu.lua" />
+    <script file = "init.lua" />
+
+    <include file = "Locale\Locale.xml" />
+    <include file = "Data\Data.xml" />
+
+    <script file = "data.lua" />
+    <script file = "setting.lua" />
+    <script file = "method.lua" />
+    <script file = "ui.lua" />
+    <script file = "inspect.lua" />
+    <script file = "raidtool.lua" />
+    <script file = "external.lua" />
+    <script file = "comm.lua" />
+    <script file = "tooltip.lua" />
+    <script file = "misc.lua" />
 </Ui>
 

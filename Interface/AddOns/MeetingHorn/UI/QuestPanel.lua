@@ -68,6 +68,13 @@ function QuestPanel:OnShow()
     end
 
     if not ns.QuestServies:IsActive() then
+        ns.Addon.MainPanel.OutOfDate.Text:SetText('当前没有活动')
+        ns.Addon.MainPanel.OutOfDate:Show()
+        return
+    end
+
+    if not ns.QuestServies.questGroup then
+        ns.Addon.MainPanel.OutOfDate.Text('请更新至最新版本后参与活动')
         ns.Addon.MainPanel.OutOfDate:Show()
         return
     end
@@ -92,9 +99,10 @@ function QuestPanel:MEETINGHORN_QUEST_FETCHED()
     self:OnShow()
 
     local questGroup = ns.QuestServies.questGroup
-
-    self.Body.Time:SetFormattedText('活动时间：%s - %s', date('%Y/%m/%d %H:%M', questGroup.startTime),
-                                    date('%Y/%m/%d %H:%M', questGroup.endTime))
-    self.Quests:SetItemList(questGroup.quests)
-    self.Quests:Refresh()
+    if questGroup then
+        self.Body.Time:SetFormattedText('活动时间：%s - %s', date('%Y/%m/%d %H:%M', questGroup.startTime),
+                                        date('%Y/%m/%d %H:%M', questGroup.endTime))
+        self.Quests:SetItemList(questGroup.quests)
+        self.Quests:Refresh()
+    end
 end

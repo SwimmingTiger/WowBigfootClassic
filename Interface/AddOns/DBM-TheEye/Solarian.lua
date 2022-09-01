@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Solarian", "DBM-TheEye")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(18805)
 mod:SetEncounterID(732, 2466)
 mod:SetModelID(18239)

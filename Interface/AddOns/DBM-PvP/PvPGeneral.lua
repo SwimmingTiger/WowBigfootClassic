@@ -8,7 +8,7 @@ local isTBC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 
 local playerFaction = GetPlayerFactionGroup("player")
 
-mod:SetRevision("20220409210448")
+mod:SetRevision("20220812164210")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -16,7 +16,8 @@ mod:RegisterEvents(
 	"PLAYER_ENTERING_WORLD",
 	"PLAYER_DEAD",
 	"START_TIMER",
-	"AREA_POIS_UPDATED"
+	"AREA_POIS_UPDATED",
+	"CHAT_MSG_BG_SYSTEM_NEUTRAL"
 )
 
 mod:AddBoolOption("HideBossEmoteFrame", false)
@@ -61,8 +62,7 @@ local subscribedMapID, numObjectives, objectivesStore
 function mod:SubscribeAssault(mapID, objectsCount)
 	self:RegisterShortTermEvents(
 		"AREA_POIS_UPDATED",
-		"UPDATE_UI_WIDGET",
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
+		"UPDATE_UI_WIDGET"
 	)
 	subscribedMapID = mapID
 	objectivesStore = {}
@@ -73,8 +73,7 @@ end
 function mod:SubscribeFlags()
 	self:RegisterShortTermEvents(
 		"CHAT_MSG_BG_SYSTEM_ALLIANCE",
-		"CHAT_MSG_BG_SYSTEM_HORDE",
-		"CHAT_MSG_BG_SYSTEM_NEUTRAL"
+		"CHAT_MSG_BG_SYSTEM_HORDE"
 	)
 end
 
@@ -227,7 +226,7 @@ do
 		if not self.Options.TimerFlag then
 			return
 		end
-		if msg == L.ExprFlagCaptured or msg:match(L.ExprFlagCaptured) then
+		if msg == L.FlagCaptured or msg:match(L.FlagCaptured) then
 			flagTimer:Start()
 			if msg:find(FACTION_ALLIANCE) then
 				flagTimer:SetColor({r=0, g=0, b=1})
@@ -253,10 +252,12 @@ do
 	function mod:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)
 		if self.Options.TimerStart and msg == L.BgStart120 or msg:find(L.BgStart120) then
 			startTimer:Update(isClassic and 1.5 or 0, 120)
-		elseif self.Options.TimerStart and msg == L.BgStart60 or msg:find(L.BgStart60) then
+		elseif self.Options.TimerStart and msg == L.BgStart60 or msg:find(L.BgStart60) or msg == L.ArenaStart60 or msg:find(L.ArenaStart60) then
 			startTimer:Update(isClassic and 61.5 or 60, 120)
-		elseif self.Options.TimerStart and msg == L.BgStart30 or msg:find(L.BgStart30) then
+		elseif self.Options.TimerStart and msg == L.BgStart30 or msg:find(L.BgStart30) or msg == L.ArenaStart30 or msg:find(L.ArenaStart30) then
 			startTimer:Update(isClassic and 91.5 or 90, 120)
+		elseif self.Options.TimerStart and msg == L.ArenaStart15 or msg:find(L.ArenaStart15) then
+			startTimer:Update(isClassic and 106.5 or 105, 120)
 		elseif not isClassic and (msg == L.Vulnerable1 or msg == L.Vulnerable2 or msg:find(L.Vulnerable1) or msg:find(L.Vulnerable2)) then
 			vulnerableTimer:Start()
 		end

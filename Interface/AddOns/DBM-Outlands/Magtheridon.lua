@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Magtheridon", "DBM-Outlands")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(17257)
 mod:SetEncounterID(651, 2457)
 mod:SetModelID(18527)

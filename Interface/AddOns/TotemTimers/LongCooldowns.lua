@@ -1,8 +1,3 @@
--- Copyright © 2008-2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)

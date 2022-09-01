@@ -1,7 +1,7 @@
 --[[--
 	alex/ALA @ 163UI
 --]]--
-local __version = 2;
+local __version = 220808.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -11,25 +11,42 @@ if __ala_meta__.__minor ~= nil and __ala_meta__.__minor >= __version then
 end
 __ala_meta__.__minor = __version;
 
-local _;
 
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+local _patch_version, _build_number, _build_date, _toc_version = GetBuildInfo();
+
+if _toc_version < 20000 then
 	__ala_meta__.MAX_LEVEL = 60;
-elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+	__ala_meta__.BUILD = "CLASSIC";
+elseif _toc_version < 30000 then
 	__ala_meta__.MAX_LEVEL = 70;
+	__ala_meta__.BUILD = "BCC";
+elseif _toc_version < 40000 then
+	__ala_meta__.MAX_LEVEL = 80;
+	__ala_meta__.BUILD = "WRATH";
+elseif _toc_version > 90000 then
+	__ala_meta__.MAX_LEVEL = 60;
+	__ala_meta__.BUILD = "RETAIL";
 else
 	__ala_meta__.MAX_LEVEL = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
+	__ala_meta__.BUILD = "UNKNOWN";
 end
-_, __ala_meta__.CPlayerTAG = BNGetInfo();
-__ala_meta__.CPlayerGUID = UnitGUID('player');
-__ala_meta__.CPlayerName = UnitName('player');
-__ala_meta__.CRealmName = GetRealmName();
-__ala_meta__.CPlayerFullName = __ala_meta__.CPlayerName .. "-" .. __ala_meta__.CRealmName;
-__ala_meta__.CPlayerFullName_Len = #(__ala_meta__.CPlayerFullName);
-__ala_meta__.CPlayerFactionGroup = UnitFactionGroup('player');
-__ala_meta__.CPlayerClass = UnitClassBase('player');
-__ala_meta__.CPlayerClassUpper = strupper(__ala_meta__.CPlayerClass);
-__ala_meta__.CPlayerClassLower = strlower(__ala_meta__.CPlayerClass);
+-- if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+-- 	__ala_meta__.MAX_LEVEL = 60;
+-- elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+-- 	__ala_meta__.MAX_LEVEL = 70;
+-- else
+-- 	__ala_meta__.MAX_LEVEL = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
+-- end
+__ala_meta__.SELFBNTAG = select(2, BNGetInfo());
+__ala_meta__.SELFGUID = UnitGUID('player');
+__ala_meta__.SELFNAME = UnitName('player');
+__ala_meta__.SELFREALM = GetRealmName();
+__ala_meta__.SELFFULLNAME = __ala_meta__.SELFNAME .. "-" .. __ala_meta__.SELFREALM;
+__ala_meta__.SELFFULLNAME_LEN = #(__ala_meta__.SELFFULLNAME);
+__ala_meta__.SELFFACTION = UnitFactionGroup('player');
+__ala_meta__.SELFCLASS = UnitClassBase('player');
+__ala_meta__.SELFCLASSUPPER = strupper(__ala_meta__.SELFCLASS);
+__ala_meta__.SELFCLASSLOWER = strlower(__ala_meta__.SELFCLASS);
 
 
 local _, name, desc, loadable, reason, security, newversion = GetAddOnInfo("!!!!!DebugMe");

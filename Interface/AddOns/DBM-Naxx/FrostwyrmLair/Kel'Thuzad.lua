@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220816155700")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 --mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
@@ -14,54 +14,64 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 27808 27819 28410",
 	"SPELL_AURA_REMOVED 28410",
 	"SPELL_CAST_SUCCESS 27810 27819 27808",
-	"UNIT_HEALTH mouseover target",
+	"UNIT_HEALTH boss1",
 	"UNIT_TARGETABLE_CHANGED"
 )
 
---[[
-ability.id = 27810 or ability.id = 27819 or ability.id = 27808 and type = "cast"
- or (source.type = "NPC" and source.firstSeen = timestamp) or (target.type = "NPC" and target.firstSeen = timestamp)
---]]
+--Check if UNIT_TARGETABLE_CHANGED exists in classic wrath. It was a tech they didn't really use until WoD
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, "134321")
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
-local warnFissure			= mod:NewTargetAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
+local warnFissure			= mod:NewTargetNoFilterAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
 
 local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
+local yellManaBomb			= mod:NewShortYell(27819)
 local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
 local specWarnFissureYou	= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
 local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
-local yellManaBomb			= mod:NewShortYell(27819)
 local yellFissure			= mod:NewYell(27810)
 
---Fissure timer is 13-30 or something pretty wide, so no timer
-local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50 (still true in vanilla, kind of shitty variation too)
-local timerFrostBlastCD		= mod:NewCDTimer(33.5, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--33-46
-local timerfrostBlast		= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
+local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
+local timerFrostBlast		= mod:NewCDTimer(40.1, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (might be 33-46)
+local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 --local timerMCCD			= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
-local timerPhase2			= mod:NewTimer(330, "TimerPhase2", "136116", nil, nil, 6)
+local timerPhase2			= mod:NewTimer(225, "TimerPhase2", "136116", nil, nil, 6)
 
-mod:AddSetIconOption("SetIconOnMC2", 28410, false, false, {1, 2, 3, 4, 5})
+mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
-mod:AddSetIconOption("SetIconOnFrostTomb2", 27808, false, false, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(10, 27819)
 
 mod.vb.warnedAdds = false
-mod.vb.MCIcon1 = 1
-mod.vb.MCIcon2 = 5
+mod.vb.MCIcon = 1
 local frostBlastTargets = {}
+local chainsTargets = {}
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
+
+local function AnnounceChainsTargets(self)
+	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
+	table.wipe(chainsTargets)
+	self.vb.MCIcon = 1
+end
 
 local function AnnounceBlastTargets(self)
-	if self.Options.SetIconOnFrostTomb2 then
+	if self.Options.SpecWarn27808target then
+		specWarnBlast:Show(table.concat(frostBlastTargets, "< >"))
+		specWarnBlast:Play("healall")
+	else
+		warnBlastTargets:Show(table.concat(frostBlastTargets, "< >"))
+	end
+	blastTimer:Start(3.5)
+	if self.Options.SetIconOnFrostTomb then
 		for i = #frostBlastTargets, 1, -1 do
 			self:SetIcon(frostBlastTargets[i], 8 - i, 4.5)
 			frostBlastTargets[i] = nil
 		end
 	end
-	timerfrostBlast:Start(3.5)
 end
 
 local function RangeToggle(show)
@@ -74,15 +84,18 @@ end
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
+	table.wipe(chainsTargets)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
-	self.vb.MCIcon1 = 1
-	self.vb.MCIcon2 = 5
-	specwarnP2Soon:Schedule(320-delay)
+	self.vb.MCIcon = 1
+	specwarnP2Soon:Schedule(215-delay)
 	timerPhase2:Start()
-	warnPhase2:Schedule(330)
-	if self.Options.RangeFrame then
-		self:Schedule(330-delay, RangeToggle, true)
+	--Redundancy below here isn't needed on retail but may be on wrath classic
+	if not isRetail then
+		warnPhase2:Schedule(225)
+		if self.Options.RangeFrame then
+			self:Schedule(225-delay, RangeToggle, true)
+		end
 	end
 end
 
@@ -107,7 +120,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif args.spellId == 27819 then
 		timerManaBomb:Start()
 	elseif args.spellId == 27808 then
-		timerFrostBlastCD:Start()
+		timerFrostBlast:Start()
 	end
 end
 
@@ -116,12 +129,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		table.insert(frostBlastTargets, args.destName)
 		self:Unschedule(AnnounceBlastTargets)
 		self:Schedule(0.5, AnnounceBlastTargets, self)
-		if self.Options.SpecWarn27808target then
-			specWarnBlast:CombinedShow(0.5, args.destName)
-			specWarnBlast:ScheduleVoice(0.5, "healall")
-		else
-			warnBlastTargets:CombinedShow(0.5, args.destName)
-		end
 	elseif args.spellId == 27819 then -- Mana Bomb
 		if self.Options.SetIconOnManaBomb then
 			self:SetIcon(args.destName, 8, 5.5)
@@ -134,28 +141,27 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnMana:Show(args.destName)
 		end
 	elseif args.spellId == 28410 then -- Chains of Kel'Thuzad
+		chainsTargets[#chainsTargets + 1] = args.destName
 		if self:AntiSpam() then
-			self.vb.MCIcon1 = 1
-			self.vb.MCIcon2 = 5
+			timerMC:Start()
 			--timerMCCD:Start(60)--60 seconds?
 		end
-		if self.Options.SetIconOnMC2 then
-			local _, _, group = GetRaidRosterInfo(UnitInRaid(args.destName))
-			if group % 2 == 1 then
-				self:SetIcon(args.destName, self.vb.MCIcon1)
-				self.vb.MCIcon1 = self.vb.MCIcon1 + 1
-			else
-				self:SetIcon(args.destName, self.vb.MCIcon2)
-				self.vb.MCIcon2 = self.vb.MCIcon2 - 1
-			end
+		if self.Options.SetIconOnMC then
+			self:SetIcon(args.destName, self.vb.MCIcon)
 		end
-		warnChainsTargets:CombinedShow(1, args.destName)
+		self.vb.MCIcon = self.vb.MCIcon + 1
+		self:Unschedule(AnnounceChainsTargets)
+		if #chainsTargets >= 3 then
+			AnnounceChainsTargets(self)
+		else
+			self:Schedule(1.0, AnnounceChainsTargets, self)
+		end
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 28410 then
-		if self.Options.SetIconOnMC2 then
+		if self.Options.SetIconOnMC then
 			self:SetIcon(args.destName, 0)
 		end
 	end
@@ -168,7 +174,6 @@ function mod:UNIT_HEALTH(uId)
 	end
 end
 
---Classic probably won't have UNIT_TARGETABLE_CHANGED, so backups are in place
 function mod:UNIT_TARGETABLE_CHANGED()
 	if self.vb.phase == 1 then
 		self:Unschedule(RangeToggle)

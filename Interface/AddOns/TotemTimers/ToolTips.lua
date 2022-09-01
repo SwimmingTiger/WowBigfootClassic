@@ -1,8 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
@@ -18,33 +13,6 @@ local b = 1
 local ElementColors = TotemTimers.ElementColors
 
 local StripRank = TotemTimers.StripRank
-
-
---[=====[ function TotemTimers.timerTooltip(self)
-    --[===[ if false and self.timer and self.element and not IsModifierKeyDown() and TotemTimers.ActiveProfile.ShowRaidRangeTooltip then
-        if self.timer.timers[1] <= 0 then return end
-        local count = TotemTimers.GetOutOfRange(self.element)
-        if count <= 0 then return end
-        local missingBuffGUIDs, names, classes = TotemTimers.GetOutOfRangePlayers(self.element)
-        GameTooltip:ClearLines()
-        TotemTimers.PositionTooltip(self)
-        for guid,_ in pairs(missingBuffGUIDs) do
-            GameTooltip:AddLine(names[guid], RAID_CLASS_COLORS[classes[guid]].r, RAID_CLASS_COLORS[classes[guid]].g, RAID_CLASS_COLORS[classes[guid]].b)
-        end
-        GameTooltip:Show()
-    else --]===]
-
-    if self:GetAttribute("tooltip") then
-        local spell = self:GetAttribute("*spell1")
-		if spell and type(spell) == "string" then spell = TotemTimers.NameToSpellID[spell] end
-        if spell and spell > 0 then
-            TotemTimers.PositionTooltip(self)
-            SetTooltipSpellID(spell)
-        end
-    end
-end
---]=====]
-
 
 XiTimersTooltip = {}
 
@@ -137,7 +105,7 @@ function SetButtonTooltip:SetText()
         GameTooltip:AddLine(not set.name and "Set " .. self.button.nr or set.name, 1, 1, 1)
 
         for i=1,4 do
-           GameTooltip:AddLine(StripRank(set[i]), ElementColors[i].r, ElementColors[i].g, ElementColors[i].b)
+            GameTooltip:AddLine(SpellNames[set[i]], ElementColors[i].r, ElementColors[i].g, ElementColors[i].b)
         end
         GameTooltip:AddLine(" ")
     end
@@ -157,7 +125,7 @@ function WeaponTimerTooltip:SetText()
     local button = self.button
 
     for i = 1, 2 do
-        if button.timer.timers[i] > 0 then
+        if button.timer.timers[i] and button.timer.timers[i] > 0 then
             GameTooltip:AddLine(button.timer["enchant"..i])
         end
     end
@@ -166,7 +134,7 @@ function WeaponTimerTooltip:SetText()
 
     local spell = button:GetAttribute("spell1")
     if spell and not button:GetAttribute("doublespell1") then
-        GameTooltip:AddLine(format(L["Leftclick to cast %s"], StripRank(spell)),r,g,b,1)
+        GameTooltip:AddLine(format(L["Leftclick to cast %s"], SpellNames[spell]),r,g,b,1)
     else
         local ds = button:GetAttribute("ds")
         if ds then
@@ -181,7 +149,7 @@ function WeaponTimerTooltip:SetText()
     end
     local spell2 = button:GetAttribute("spell2")
     if spell2 then
-        GameTooltip:AddLine(format(L["Rightclick to cast %s"], StripRank(spell2)),r,g,b,1)
+        GameTooltip:AddLine(format(L["Rightclick to cast %s"], SpellNames[spell2]),r,g,b,1)
     end
     --[[s = self:GetAttribute("spell2")
     if s then GameTooltip:AddLine(format(L["Rightclick to cast %s"],s),r,g,b,1)

@@ -310,6 +310,13 @@ function addon:OnNewProfile(event, db, profile)
     self.bindings = db.profile.bindings
 end
 
+function addon:ImportBindings(importBindings)
+    self.db.profile.bindings = importBindings
+    self.bindings = self.db.profile.bindings
+    addon:Printf("Importing new bindings into current profile")
+    self:FireMessage("BINDINGS_CHANGED")
+end
+
 function addon:OnProfileChanged(event, db, newProfile)
     self.bindings = db.profile.bindings
     self:FireMessage("BINDINGS_CHANGED")

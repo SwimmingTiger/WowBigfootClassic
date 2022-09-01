@@ -17,6 +17,7 @@ L.OTabOptions				= "選項"
 L.OTabAbout					= "關於"
 
 L.TabCategory_OTHER			= "其它模組"
+L.TabCategory_AFFIXES		= "詞綴"
 
 L.BossModLoaded				= "%s狀態"
 L.BossModLoad_now 			= [[該模組尚未載入。
@@ -377,14 +378,16 @@ L.SpamBlockNoShowTgtAnnounce		= "不顯示目標的提示文字或播放警告�
 L.SpamBlockNoTrivialSpecWarnSound	= "如果相對你等級是不重要的內容則不要播放特別提示音效 (播放使用者選擇的標準提示音效替代)"
 
 L.Area_SpamFilter_SpecRoleFilters	= "特別提示類型過濾（控制DBM要怎麼做）"
-L.SpamSpecRoleDispel				= "過濾 '驅散/偷取' 警報"
-L.SpamSpecRoleInterrupt				= "過濾 '打斷' 警報"
-L.SpamSpecRoleDefensive				= "過濾 '減傷' 警報"
-L.SpamSpecRoleTaunt					= "過濾 '嘲諷' 警報"
-L.SpamSpecRoleSoak					= "過濾 '吸收' 警報"
-L.SpamSpecRoleStack					= "過濾 '疊加層數' 警報"
-L.SpamSpecRoleSwitch				= "過濾 '切換目標''小怪' 警報"
-L.SpamSpecRoleGTFO					= "過濾 '地面有害技能' 警報"
+L.SpamSpecInformationalOnly			= "從特別警告中刪除所有教學文字/口語警報 (需要重載UI)。警報仍顯示和播放聲音，但將是通用和非指示性"
+L.SpamSpecRoleDispel				= "完全過濾 '驅散' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleInterrupt				= "過濾 '打斷' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleDefensive				= "過濾 '減傷' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleTaunt					= "過濾 '嘲諷' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleSoak					= "過濾 '吸收' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleStack					= "過濾 '疊加層數' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleSwitch				= "過濾 '切換目標''小怪' 警報 (完全無文字或聲音)"
+L.SpamSpecRoleGTFO					= "過濾 '地面有害技能' 警報 (完全無文字或聲音)"
+
 
 L.Area_SpamFilter_SpecFeatures		= "特別提示功能切換"
 L.SpamBlockNoSpecWarnText			= "不顯示特別提示文字"
@@ -426,7 +429,7 @@ L.FilterInterrupts3			= "如果施法者不是你的目標/專注目標(總是)�
 L.FilterInterrupts4			= "永遠過濾中斷警告 (你不想看到它們的時候)"
 L.FilterInterruptNoteName	= "過濾可中斷技能的警告(與次數)，如果自訂註記警告沒有包含你的名字"
 L.FilterDispels				= "過濾可驅散技能如果你的驅散技正在冷卻中"
-L.FilterTrashWarnings		= "在普通與英雄地城過濾所有的小怪警告"
+L.FilterTrashWarnings		= "過濾所有小怪警告在普通與英雄以及過往版本的地城"
 
 L.Area_PullTimer			= "開怪、休息、戰鬥和自定義計時器過濾器選項"
 L.DontShowPTNoID			= "阻擋與你不同區域ID送出的開怪倒數計時條"

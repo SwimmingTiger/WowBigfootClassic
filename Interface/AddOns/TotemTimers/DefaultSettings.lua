@@ -1,8 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local SpellIDs = TotemTimers.SpellIDs
@@ -420,17 +415,13 @@ function TotemTimers.ExecuteProfile()
 end
 
 local SettingsConverters = {
-    [11.1] = function()
-        for k,profile in pairs(TotemTimers_Profiles) do
-            profile.TrackerStopPulse = profile.StopPulse
-        end
-        TotemTimers_GlobalSettings.Version = 11.2
-    end,
+    [11.0] = function() TotemTimers_GlobalSettings.Version = Version end,
+    [11.1] = function() TotemTimers_GlobalSettings.Version = Version end,
     [11.2] = function()
         for k,profile in pairs(TotemTimers_Profiles) do
             if profile.OOCAlpha == 0.4 then profile.OOCAlpha = 1 end
         end
-        TotemTimers_GlobalSettings.Version = 11.3
+        TotemTimers_GlobalSettings.Version = Version
     end,
 }
 
@@ -440,7 +431,7 @@ function TotemTimers.UpdateProfiles()
     if not TotemTimers_Profiles then TotemTimers_Profiles = {default={}} end
     
 	if not TotemTimers_GlobalSettings.Version or TotemTimers_GlobalSettings.Version < 11.0 then
-		DEFAULT_CHAT_FRAME:AddMessage("TotemTimers: Pre-11.0 or no saved settings found, loading defaults...")
+		DEFAULT_CHAT_FRAME:AddMessage("TotemTimers: Too old or no saved settings found, loading defaults...")
         TotemTimers_GlobalSettings = {}
 		TotemTimers.ResetAllProfiles()
 	elseif TotemTimers_GlobalSettings.Version ~= Version then
@@ -541,6 +532,8 @@ function TotemTimers.ResetProfilePositions(name)
     TotemTimers_Profiles[name].FramePositions = copy(TotemTimers.DefaultProfile.FramePositions)
     TotemTimers_Profiles[name].TimerPositions = copy(TotemTimers.DefaultProfile.TimerPositions)
     TotemTimers.ProcessSetting("FramePositions")
+    TotemTimers.OrderTimers()
+    TotemTimers.OrderTrackers()
 end
 
 function TotemTimers.CopyProfile(p1,p2)

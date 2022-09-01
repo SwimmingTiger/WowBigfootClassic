@@ -1,4 +1,4 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Title: [BF] AttackTimer
 ## Title-zhCN: [大脚]攻击计时
 ## Title-zhTW: [大腳]攻擊計時

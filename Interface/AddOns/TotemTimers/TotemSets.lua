@@ -1,8 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
@@ -19,7 +14,7 @@ local buttonlocations = {
 }
 
 function TotemTimers.InitSetButtons()
-    ankh = XiTimers.timers[5].button 
+    local ankh = TotemTimers.AnkhTracker.button
     ankh:SetScript("OnClick", TotemTimers.SetAnchor_OnClick)
     TotemTimers.ProgramSetButtons()
     ankh:WrapScript(XiTimers.timers[5].button, "OnClick",
@@ -39,6 +34,10 @@ function TotemTimers.InitSetButtons()
                                                     end
                                                 end]])
 end
+
+local StripRank = TotemTimers.StripRank
+local NameToSpellID = TotemTimers.NameToSpellID
+local RankToSpellID = TotemTimers.RankToSpellID
 
 function TotemTimers.ProgramSetButtons()
     local Sets = TotemTimers.ActiveProfile.TotemSets
@@ -62,6 +61,14 @@ function TotemTimers.ProgramSetButtons()
         b:SetPoint(buttonlocations[i][1], XiTimers.timers[5].button, buttonlocations[i][2])
         if Sets[i] then
             for k = 1,4 do
+                local spell = tonumber(Sets[i][k])
+                if not spell then
+                    spell = NameToSpellID[StripRank(Sets[i][k])]
+                    if spell then Sets[i][k] = spell end
+                end
+
+                Sets[i][k] = RankToSpellID[Sets[i][k]] or Sets[i][k]
+
                 local icon = _G[b:GetName().."Icon"..k]
                 if type(Sets[i][k]) == "string" or Sets[i][k] > 0 then
                     local _,_,texture = GetSpellInfo(Sets[i][k])				
@@ -84,6 +91,7 @@ function TotemTimers.SetAnchor_OnClick(self, button)
 		for i=1,4 do
             local nr = XiTimers.timers[i].nr
             local spell = XiTimers.timers[i].button:GetAttribute("*spell1")
+            spell = RankToSpellID[spell] or spell
             if not spell then spell = 0 end
 			set[nr] = spell
 		end

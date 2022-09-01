@@ -1,5 +1,6 @@
 local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
+local isDragonflight = DBM:GetTOC() >= 100000
 
 local L		= DBM_GUI_L
 local CL	= DBM_COMMON_L
@@ -235,7 +236,7 @@ function PanelPrototype:CreateLine(text)
 	end
 	line.myheight = 20
 	line.mytype = "line"
-	local linetext = line:CreateFontString(line:GetName() .. "Text", "ARTWORK", "GameFontNormal")
+	local linetext = line:CreateFontString("$parentText", "ARTWORK", "GameFontNormal")
 	linetext:SetPoint("TOPLEFT", line, "TOPLEFT")
 	linetext:SetJustifyH("LEFT")
 	linetext:SetHeight(18)
@@ -293,15 +294,22 @@ do
 		tinsert(sounds, { text = "Yogg Saron: Laugh", value = 15757 })
 	end
 
+	local function RGBPercToHex(r, g, b)
+		r = r <= 1 and r >= 0 and r or 0
+		g = g <= 1 and g >= 0 and g or 0
+		b = b <= 1 and b >= 0 and b or 0
+		return string.format("%02x%02x%02x", r*255, g*255, b*255)
+	end
+
 	local tcolors = {
-		{ text = L.CBTGeneric, value = 0 },
-		{ text = L.CBTAdd, value = 1 },
-		{ text = L.CBTAOE, value = 2 },
-		{ text = L.CBTTargeted, value = 3 },
-		{ text = L.CBTInterrupt, value = 4 },
-		{ text = L.CBTRole, value = 5 },
-		{ text = L.CBTPhase, value = 6 },
-		{ text = L.CBTImportant, value = 7 }
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorR or 1, DBT.Options.StartColorG or 1, DBT.Options.StartColorB or 1)..L.CBTGeneric.."|r", value = 0 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorAR or 1, DBT.Options.StartColorAG or 1, DBT.Options.StartColorAB or 1)..L.CBTAdd.."|r", value = 1 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorAER or 1, DBT.Options.StartColorAEG or 1, DBT.Options.StartColorAEB or 1)..L.CBTAOE.."|r", value = 2 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorDR or 1, DBT.Options.StartColorDG or 1, DBT.Options.StartColorDB or 1)..L.CBTTargeted.."|r", value = 3 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorIR or 1, DBT.Options.StartColorIG or 1, DBT.Options.StartColorIB or 1)..L.CBTInterrupt.."|r", value = 4 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorRR or 1, DBT.Options.StartColorRG or 1, DBT.Options.StartColorRB or 1)..L.CBTRole.."|r", value = 5 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorPR or 1, DBT.Options.StartColorPG or 1, DBT.Options.StartColorPB or 1)..L.CBTPhase.."|r", value = 6 },
+		{ text = "|cff"..RGBPercToHex(DBT.Options.StartColorUIR or 1, DBT.Options.StartColorUIG or 1, DBT.Options.StartColorUIB or 1)..L.CBTImportant.."|r", value = 7 }
 	}
 	local cvoice = MixinCountTable({
 		{ text = L.None, value = 0 },
@@ -378,7 +386,7 @@ do
 		local buttonText
 		if desc then -- Switch all checkbutton frame to SimpleHTML frame (auto wrap)
 			buttonText = CreateFrame("SimpleHTML", "$parentText", button)
-			buttonText:SetFontObject("GameFontNormal")
+			buttonText:SetFontObject("p", "GameFontNormal")
 			buttonText:SetHyperlinksEnabled(true)
 			buttonText:SetScript("OnHyperlinkEnter", function(self, data)
 				GameTooltip:SetOwner(self, "ANCHOR_NONE")
@@ -432,19 +440,19 @@ do
 			buttonText = button:CreateFontString("$parentText", "ARTWORK", "GameFontNormal")
 			buttonText:SetPoint("LEFT", button, "RIGHT", 0, 1)
 		end
-		buttonText.text = desc or CL.UNKNOWN
-		buttonText.widthPad = frame and frame:GetWidth() + frame2:GetWidth() or 0
-		buttonText:SetWidth(self.frame:GetWidth() - buttonText.widthPad)
+		button.textObj = buttonText
+		button.text = desc or CL.UNKNOWN
+		button.widthPad = frame and frame:GetWidth() + frame2:GetWidth() or 0
+		buttonText:SetWidth(self.frame:GetWidth() - button.widthPad)
 		if textLeft then
 			buttonText:ClearAllPoints()
 			buttonText:SetPoint("RIGHT", frame2 or frame or button, "LEFT")
-			buttonText:SetJustifyH("RIGHT")
+			buttonText:SetJustifyH("p", "RIGHT")
 		else
-			buttonText:SetJustifyH("LEFT")
+			buttonText:SetJustifyH("p", "LEFT")
 			buttonText:SetPoint("TOPLEFT", frame2 or frame or button, "TOPRIGHT", textPad or 0, -4)
-			button.myheight = mmax(buttonText:GetContentHeight() + 12, button.myheight)
 		end
-		buttonText:SetText(buttonText.text)
+		buttonText:SetText(button.text)
 		button.myheight = mmax(buttonText:GetContentHeight() + 12, 25)
 		if dbmvar and DBM.Options[dbmvar] ~= nil then
 			button:SetScript("OnShow", function(self)
@@ -476,11 +484,13 @@ do
 end
 
 function PanelPrototype:CreateArea(name)
-	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "BackdropTemplate,OptionsBoxTemplate")
+	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "TooltipBorderBackdropTemplate")
 	area.mytype = "area"
 	area:SetBackdropColor(0.15, 0.15, 0.15, 0.2)
 	area:SetBackdropBorderColor(0.4, 0.4, 0.4)
-	_G[area:GetName() .. "Title"]:SetText(parseDescription(name))
+	local title = area:CreateFontString("$parentTitle", "BACKGROUND", "GameFontHighlightSmall")
+	title:SetPoint("BOTTOMLEFT", area, "TOPLEFT", 5, 0)
+	title:SetText(parseDescription(name))
 	if select("#", self.frame:GetChildren()) == 1 then
 		area:SetPoint("TOPLEFT", self.frame, 5, -20)
 	else
@@ -496,7 +506,7 @@ function PanelPrototype:CreateArea(name)
 end
 
 function PanelPrototype:CreateAbility(titleText, icon)
-	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "BackdropTemplate,OptionsBoxTemplate")
+	local area = CreateFrame("Frame", "DBM_GUI_Option_" .. self:GetNewID(), self.frame, "TooltipBorderBackdropTemplate")
 	area.mytype = "ability"
 	area.hidden = not DBM.Options.AutoExpandSpellGroups
 	area:SetBackdropColor(0.15, 0.15, 0.15, 0.2)
@@ -506,7 +516,7 @@ function PanelPrototype:CreateAbility(titleText, icon)
 	else
 		area:SetPoint("TOPLEFT", select(-2, self.frame:GetChildren()) or self.frame, "BOTTOMLEFT", 0, -20)
 	end
-	local title = _G[area:GetName() .. "Title"]
+	local title = area:CreateFontString("$parentTitle", "BACKGROUND", "GameFontHighlightSmall")
 	if icon then
 		local markup = CreateTextureMarkup(icon, 0, 0, 16, 16, 0, 0, 0, 0, 0, 0)
 		title:SetText(markup .. titleText)
@@ -534,7 +544,9 @@ function PanelPrototype:CreateAbility(titleText, icon)
 		button.toggle:SetPushedTexture(area.hidden and 130836 or 130820) -- "Interface\\Buttons\\UI-PlusButton-DOWN", "Interface\\Buttons\\UI-MinusButton-DOWN"
 		_G["DBM_GUI_OptionsFrame"]:DisplayFrame(DBM_GUI.currentViewing)
 	end
-	button:RegisterForClicks(false)
+	if not isDragonflight then
+		button:RegisterForClicks('')
+	end
 	--
 	self:SetLastObj(area)
 	return setmetatable({

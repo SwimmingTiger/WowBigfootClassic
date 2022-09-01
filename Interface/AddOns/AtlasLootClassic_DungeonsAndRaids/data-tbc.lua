@@ -13,16 +13,18 @@ local format = string.format
 -- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
-if AtlasLoot:GetGameVersion() < 2 then return end
-local data = AtlasLoot.ItemDB:Add(addonname, 1, 2)
+if AtlasLoot:GameVersion_LT(AtlasLoot.BC_VERSION_NUM) then return end
+local data = AtlasLoot.ItemDB:Add(addonname, 2, AtlasLoot.BC_VERSION_NUM)
 
 local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 
-local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", 1, nil, true)
-local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", 2, nil, true)
-local RAID10_DIFF = data:AddDifficulty(AL["10 Raid"], "r10", 3)
-local RAID25_DIFF = data:AddDifficulty(AL["25 Raid"], "r25", 4)
+local NORMAL_DIFF = data:AddDifficulty("NORMAL", nil, nil, nil, true)
+local HEROIC_DIFF = data:AddDifficulty("HEROIC", nil, nil, nil, true)
+local RAID10_DIFF = data:AddDifficulty("10RAID")
+local RAID10H_DIFF = data:AddDifficulty("10RAIDH") -- just for sorting here :)
+local RAID25_DIFF = data:AddDifficulty("25RAID")
+local RAID25H_DIFF = data:AddDifficulty("25RAIDH") -- just for sorting here :)
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
 local SET_ITTYPE = data:AddItemTableType("Set", "Item")
@@ -2291,7 +2293,7 @@ data["MagistersTerrace"] = {
                 { 3, 34601 }, -- Shoulderplates of Everlasting Pain
                 { 4, 34604 }, -- Jaded Crystal Dagger
                 { 5, 34603 }, -- Distracting Blades
-                { 7, 35275 }, -- Orb of the Sin'dorei
+                { 16, 35275 }, -- Orb of the Sin'dorei
             }
         },
         { -- SMTVexallus
@@ -2314,7 +2316,7 @@ data["MagistersTerrace"] = {
                 { 3, 34605 }, -- Breastplate of Fierce Survival
                 { 4, 34606 }, -- Edge of Oppression
                 { 5, 34608 }, -- Rod of the Blazing Light
-                { 7, 35275 }, -- Orb of the Sin'dorei
+                { 16, 35275 }, -- Orb of the Sin'dorei
             }
         },
         { -- SMTDelrissa
@@ -2330,7 +2332,7 @@ data["MagistersTerrace"] = {
                 { 4, 34789 }, -- Bracers of Slaughter
                 { 5, 34790 }, -- Battle-mace of the High Priestess
                 { 6, 34783 }, -- Nightstrike
-                { 8, 35756 }, -- Formula: Enchant Cloak - Steelweave
+                { 16, 35756 }, -- Formula: Enchant Cloak - Steelweave
             },
             [HEROIC_DIFF] = {
                 { 1, 29434 }, -- Badge of Justice
@@ -2338,8 +2340,8 @@ data["MagistersTerrace"] = {
                 { 3, 34471 }, -- Vial of the Sunwell
                 { 4, 34470 }, -- Timbal's Focusing Crystal
                 { 5, 34472 }, -- Shard of Contempt
-                { 7, 35756 }, -- Formula: Enchant Cloak - Steelweave
-                { 8, 35275 }, -- Orb of the Sin'dorei
+                { 16, 35275 }, -- Orb of the Sin'dorei
+                { 18, 35756 }, -- Formula: Enchant Cloak - Steelweave
             }
         },
         { -- SMTKaelthas
@@ -2355,16 +2357,16 @@ data["MagistersTerrace"] = {
                 { 4, 34799 }, -- Hauberk of the War Bringer
                 { 5, 34807 }, -- Sunstrider Warboots
                 { 6, 34625 }, -- Kharmaa's Ring of Fate
-                { 8, 35311 }, -- Schematic: Mana Potion Injector
-                { 9, 35304 }, -- Design: Solid Star of Elune
-                { 11, 34157 }, -- Head of Kael'thas
-                { 16, 34793 }, -- Cord of Reconstruction
-                { 17, 34796 }, -- Robes of Summer Flame
-                { 18, 34795 }, -- Helm of Sanctification
-                { 19, 34798 }, -- Band of Celerity
-                { 20, 34794 }, -- Axe of Shattered Dreams
-                { 21, 34797 }, -- Sun-infused Focus Staff
-                { 22, 35504 }, -- Phoenix Hatchling
+                { 8, 34793 }, -- Cord of Reconstruction
+                { 9, 34796 }, -- Robes of Summer Flame
+                { 10, 34795 }, -- Helm of Sanctification
+                { 11, 34798 }, -- Band of Celerity
+                { 12, 34794 }, -- Axe of Shattered Dreams
+                { 13, 34797 }, -- Sun-infused Focus Staff
+                { 16, 35504 }, -- Phoenix Hatchling
+                { 18, 35311 }, -- Schematic: Mana Potion Injector
+                { 19, 35304 }, -- Design: Solid Star of Elune
+                { 21, 34157 }, -- Head of Kael'thas
             },
             [HEROIC_DIFF] = {
                 { 1, 29434 }, -- Badge of Justice

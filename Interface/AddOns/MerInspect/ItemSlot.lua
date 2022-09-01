@@ -4,6 +4,7 @@
 -------------------------------------
 
 local LibEvent = LibStub:GetLibrary("LibEvent.7000")
+local LibItemGem = LibStub:GetLibrary("LibItemGem.7000")
 local LibSchedule = LibStub:GetLibrary("LibSchedule.7000")
 local LibItemInfo = LibStub:GetLibrary("LibItemInfo.1000")
 
@@ -153,7 +154,7 @@ LibEvent:attachEvent("ADDON_LOADED", function(self, addonName)
     end
 end)
 
---[[
+--[[	bf@178.com
 ----------------------
 --  Chat ItemSlot  --
 ----------------------
@@ -181,7 +182,18 @@ local function ChatItemSlot(Hyperlink)
         slot = MOUNTS
     end
     if (slot) then
-        Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[("..slot.."):"..name.."]|h")
+        local gem = ""
+        local n, info = LibItemGem:GetItemGemInfo(link)
+        if (n > 0) then
+            -- gem = string.rep("|TInterface\\ItemSocketingFrame\\UI-EmptySocket-Prismatic:0|t", n)
+            for _, v in pairs(info) do
+                if v.color then
+                    gem = gem .. "|TInterface\\ItemSocketingFrame\\UI-EmptySocket-" .. v.color .. ":0|t"
+                end
+            end
+        end
+        if (quality == 6 and class == WEAPON) then gem = "" end
+        Hyperlink = Hyperlink:gsub("|h%[(.-)%]|h", "|h[("..slot.."):"..name.."]|h"..gem)
         Caches[Hyperlink] = Hyperlink
     end
     return Hyperlink

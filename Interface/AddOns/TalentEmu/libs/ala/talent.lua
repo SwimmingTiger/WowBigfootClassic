@@ -2,11 +2,15 @@
 	ALA@163UI
 --]]--
 
-local __version = 11;
+local __version = 220808.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
+
+if __ala_meta__.BUILD == "RETAIL" then
+	return;
+end
 
 -->			versioncheck
 	local __emulib = __ala_meta__.__emulib;
@@ -29,14 +33,13 @@ local __ala_meta__ = _G.__ala_meta__;
 	local type, tostring, tonumber = type, tostring, tonumber;
 	local tinsert, next, wipe = table.insert, next, wipe;
 	local floor = math.floor;
-	local strchar, strupper, strlower, strsplit, strsub, strfind, strrep = string.char, string.upper, string.lower, string.split, string.sub, string.find, string.rep;
+	local strchar, strupper, strlower, strsplit, strsub, strmatch, strfind, strrep = string.char, string.upper, string.lower, string.split, string.sub, string.match, string.find, string.rep;
 	local bit = bit;
-	local _ = nil;
 	local RegisterAddonMessagePrefix = C_ChatInfo ~= nil and C_ChatInfo.RegisterAddonMessagePrefix or RegisterAddonMessagePrefix;
 	local IsAddonMessagePrefixRegistered = C_ChatInfo ~= nil and C_ChatInfo.IsAddonMessagePrefixRegistered or IsAddonMessagePrefixRegistered;
 	local GetRegisteredAddonMessagePrefixes = C_ChatInfo ~= nil and C_ChatInfo.GetRegisteredAddonMessagePrefixes or GetRegisteredAddonMessagePrefixes;
 	local SendAddonMessage = C_ChatInfo ~= nil and C_ChatInfo.SendAddonMessage or SendAddonMessage;
-	local C_Timer_After = C_Timer.After;
+	local After = C_Timer.After;
 	local Ambiguate = Ambiguate;
 	local GetNumTalentTabs, GetNumTalents, GetTalentInfo = GetNumTalentTabs, GetNumTalents, GetTalentInfo;
 	local UnitLevel = UnitLevel;
@@ -62,6 +65,9 @@ local __ala_meta__ = _G.__ala_meta__;
 			__emulib.__debase64[__emulib.__base64[i]] = i;
 		end
 	__emulib.classList, __emulib.classHash = { "DRUID", "HUNTER", "MAGE", "PALADIN", "PRIEST", "ROGUE", "SHAMAN", "WARLOCK", "WARRIOR", }, {  };
+		if __ala_meta__.MAX_LEVEL >= 80 then
+			__emulib.classList[#__emulib.classList + 1] = "DEATHKNIGHT";
+		end
 		for index, class in next, __emulib.classList do
 			__emulib.classHash[class] = index;
 			__emulib.classHash[strupper(class)] = index;
@@ -69,10 +75,11 @@ local __ala_meta__ = _G.__ala_meta__;
 			__emulib.classHash[strupper(strsub(class, 1, 1)) .. strlower(strsub(class, 2))] = index;
 		end
 	--
-	__emulib.CPlayerClassIndex = __emulib.classHash[__ala_meta__.CPlayerClassUpper];
-	__emulib.CKnownAddOnPacks = {
+	__emulib.SELFCLASSINDEX = __emulib.classHash[__ala_meta__.SELFCLASSUPPER];
+	__emulib.KnownAddOnPacks = {
 		"BigFoot", "ElvUI", "Tukui", "!!!163UI!!!", "Duowan", "rLib", "NDui", "ShestakUI", "!!!EaseAddonController", "_ShiGuang",
 	};
+	__emulib.NumKnownAddOnPacks = #__emulib.KnownAddOnPacks;
 	__emulib.ADDON_MSG_CONTROL_CODE_LEN = 6;
 	__emulib.ADDON_PREFIX = "ATEADD";
 	__emulib.ADDON_MSG_QUERY_TALENTS = "_q_tal";
@@ -93,6 +100,9 @@ local __ala_meta__ = _G.__ala_meta__;
 	__emulib.ADDON_MSG_REPLY_EQUIPMENTS_2 = "_r_equ";
 	__emulib.ADDON_MSG_REPLY_ADDON_PACK_1 = "_reppk";
 
+	__emulib.TALENT_REPLY_THROTTLED_INTERVAL = 15;
+	__emulib.EQUIPMENT_REPLY_THROTTLED_INTERVAL = 1;
+
 -->		NetBuffer
 	local MAX_PER_SLICE = 21;
 	local MAX_PER_BLOCK = 210;
@@ -107,7 +117,7 @@ local __ala_meta__ = _G.__ala_meta__;
 	local function _BlockFlush()
 		BlockSent = MAX_PER_BLOCK;
 		if Top >= Pos then
-			C_Timer_After(LEN_BLOCK, _BlockFlush);
+			After(LEN_BLOCK, _BlockFlush);
 		else
 			isFlushBlockTimerIdle = true;
 		end
@@ -135,7 +145,7 @@ local __ala_meta__ = _G.__ala_meta__;
 		if SliceSent > 0 then
 			isFlushSliceTimerIdle = true;
 		else
-			C_Timer_After(LEN_SLICE, _SliceFlush);
+			After(LEN_SLICE, _SliceFlush);
 		end
 	end
 	--
@@ -150,31 +160,97 @@ local __ala_meta__ = _G.__ala_meta__;
 		end
 		if isFlushSliceTimerIdle then
 			isFlushSliceTimerIdle = false;
-			C_Timer_After(LEN_SLICE, _SliceFlush);
+			After(LEN_SLICE, _SliceFlush);
 		end
 		if isFlushBlockTimerIdle then
 			isFlushBlockTimerIdle = false;
-			C_Timer_After(LEN_BLOCK, _BlockFlush);
+			After(LEN_BLOCK, _BlockFlush);
 		end
 	end
 	_SliceFlush();
 -->		Talent
+	__emulib.TalentMap = {  };
+	function __emulib.GenerateTalentMap(class, inspect)
+		local Map = __emulib.TalentMap[class];
+		if Map == nil or Map.initialized == nil then
+			Map = { PMap = {  }, VMap = {  }, RMap = {  }, };
+			__emulib.TalentMap[class] = Map;
+		end
+		local PMap = Map.PMap;
+		local MaxTier = -1;
+		local NumSpecs = GetNumTalentTabs(inspect);
+		for SpecIndex = 1, NumSpecs do
+			local NumTalents = GetNumTalents(SpecIndex, inspect);
+			if NumTalents == nil then
+				return nil;
+			end
+			local PM = {  };
+			PMap[SpecIndex] = PM;
+			for TalentIndex = 1, NumTalents do
+				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(SpecIndex, TalentIndex, inspect);
+				if rank == nil then
+					return nil;
+				end
+				MaxTier = (tier > MaxTier) and tier or MaxTier;
+				PM[tier] = PM[tier] or {  };
+				PM[tier][column] = TalentIndex;
+			end
+		end
+		local VMap = Map.VMap;
+		local RMap = Map.RMap;
+		for SpecIndex = 1, NumSpecs do
+			local PM = PMap[SpecIndex];
+			local VM = {  };
+			local RM = {  };
+			local TalentSeq = 0;
+			VMap[SpecIndex] = VM;
+			RMap[SpecIndex] = RM;
+			for tier = 1, MaxTier do
+				local R = PM[tier];
+				if R ~= nil then
+					for col = 1, 4 do
+						local TalentIndex = R[col];
+						if TalentIndex ~= nil then
+							TalentSeq = TalentSeq + 1;
+							VM[TalentSeq] = TalentIndex;
+							RM[TalentIndex] = TalentSeq;
+						end
+					end
+				end
+			end
+		end
+		Map.initialized = true;
+		return Map;
+	end
 	--	return 			UPPER_CLASS, data, level
-	function __emulib.GetTalentData(inspect)
-		local data = "";
-		local len = 0;
-		local numTabs = GetNumTalentTabs(inspect);
-		if numTabs == nil then
+	function __emulib.GetTalentData(class, inspect)
+		local Map = __emulib.GenerateTalentMap(class, inspect);
+		if Map == nil then
 			return nil, 0;
 		end
-		for specIndex = 1, numTabs do
-			local numTalents = GetNumTalents(specIndex, inspect);
-			if numTalents == nil then
+		local VMap = Map.VMap;
+		local data = "";
+		local len = 0;
+		local NumSpecs = GetNumTalentTabs(inspect);
+		if NumSpecs == nil then
+			return nil, 0;
+		end
+		for SpecIndex = 1, NumSpecs do
+			local VM = VMap[SpecIndex];
+			if VM == nil then
 				return nil, 0;
 			end
-			len = len + numTalents;
-			for index = 1, numTalents do
-				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(specIndex, index, inspect);
+			local NumTalents = GetNumTalents(SpecIndex, inspect);
+			if NumTalents == nil then
+				return nil, 0;
+			end
+			len = len + NumTalents;
+			for TalentSeq = 1, NumTalents do
+				local TalentIndex = VM[TalentSeq];
+				if TalentIndex == nil then
+					return nil, 0;
+				end
+				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(SpecIndex, TalentIndex, inspect);
 				if rank == nil then
 					return nil, 0;
 				end
@@ -188,12 +264,12 @@ local __ala_meta__ = _G.__ala_meta__;
 	function __emulib.GetClass(code)
 		local __debase64 = __emulib.__debase64;
 		local classIndex = __debase64[strsub(code, 1, 1)];
-		if not classIndex then
+		if classIndex == nil then
 			_log_("DecodeTalent", 1, code);
 			return nil;
 		end
 		local class = __emulib.classList[classIndex];
-		if not class then
+		if class == nil then
 			_log_("DecodeTalent", 2, classIndex, code);
 			return nil;
 		end
@@ -201,16 +277,29 @@ local __ala_meta__ = _G.__ala_meta__;
 	end
 	--	arg			code, useCodeLevel
 	--	return		class, data, level
+	local RepeatedZero = setmetatable(
+		{
+			[0] = "",
+			[1] = "0",
+		},
+		{
+			__index = function(tbl, key)
+				local str = strrep("0", key);
+				tbl[key] = str;
+				return str;
+			end,
+		}
+	);
 	function __emulib.DecodeTalentData(code)
 		local data = "";
 		local __debase64 = __emulib.__debase64;
 		local classIndex = __debase64[strsub(code, 1, 1)];
-		if not classIndex then
+		if classIndex == nil then
 			_log_("DecodeTalent", 1, code);
 			return nil;
 		end
 		local class = __emulib.classList[classIndex];
-		if not class then
+		if class == nil then
 			_log_("DecodeTalent", 2, classIndex, code);
 			return nil;
 		end
@@ -228,7 +317,7 @@ local __ala_meta__ = _G.__ala_meta__;
 				--
 			elseif __debase64[c] then
 				raw = raw + __debase64[c] * magic;
-				magic = bit.lshift(magic, 6);
+				magic = magic * 64;	--	bit.lshift(magic, 6);
 				nChar = nChar + 1;
 			else
 				_log_("DecodeTalent", 4, c, index, code);
@@ -238,17 +327,18 @@ local __ala_meta__ = _G.__ala_meta__;
 				nChar = 0;
 				local n = 0;
 				while raw > 0 do
-					data = data .. raw % 6;
-					raw = floor(raw / 6);
+					local val = raw % 6;
+					data = data .. val;
+					raw = (raw - val) / 6;
 					n = n + 1;
 				end
 				if n < 11 then
-					data = data .. strrep("0", 11 - n);
+					data = data .. RepeatedZero[11 - n];
 				end
 			end
 		end
 
-		return class, data, __debase64[strsub(code, - 2, - 2)] + bit.lshift(__debase64[strsub(code, - 1, - 1)], 6);
+		return class, data, __debase64[strsub(code, - 2, - 2)] + __debase64[strsub(code, - 1, - 1)] * 64;
 	end
 	--	arg			classIndex, level, 'string', n1, n2, n3
 	--	arg			classIndex, level, {t1}, {t2}, {t3}, n1, n2, n3
@@ -264,50 +354,60 @@ local __ala_meta__ = _G.__ala_meta__;
 		end
 		len = len or #data;
 		local __base64 = __emulib.__base64;
-		level = level and tonumber(level) or __ala_meta__.MAX_LEVEL;
-		local pos = 0;
+		level = level ~= numPointsLowerTier and tonumber(level) or __ala_meta__.MAX_LEVEL;
+		local num = 0;
 		local raw = 0;
 		local magic = 1;
 		local mem = {  };
+		local pos = 0;
 		for index = 1, len do
 			local d = tonumber(data:sub(index, index));			--	table or string
-			if not d then
+			if d == nil then
 				_log_("EncodeTalentData", 1, classIndex, data, len);
 				return nil;
 			end
-			pos = pos + 1;
+			num = num + 1;
 			raw = raw + magic * d;
 			magic = magic * 6;
-			if pos >= 11 or index == len then
-				pos = 0;
+			if num >= 11 or index == len then
+				num = 0;
 				magic = 1;
 				local nChar = 0;
 				while raw > 0 do
-					tinsert(mem, __base64[bit.band(raw, 63)]);
-					raw = bit.rshift(raw, 6);
+					--	tinsert(mem, __base64[bit.band(raw, 63)]);
+					--	raw = bit.rshift(raw, 6);
+					local v1 = raw % 64;
+					pos = pos + 1;
+					mem[pos] = __base64[v1];
+					raw = (raw - v1) / 64;
 					nChar = nChar + 1;
 				end
 				if nChar < 5 then
-					tinsert(mem, ":");
+					pos = pos + 1;
+					mem[pos] = ":";
 				end
 			end
 		end
 
-		for i = #mem, 1, - 1 do
+		for i = pos, 1, - 1 do
 			if mem[i] == ":" then
 				mem[i] = nil;
+				pos = pos - 1;
 			else
 				break;
 			end
 		end
 		local code = __base64[classIndex];
-		for i = 1, #mem do
+		for i = 1, pos do
 			code = code .. mem[i];
 		end
 		if level < 64 then
 			code = code .. __base64[level] .. "0";
 		else
-			code = code .. __base64[bit.band(level, 63)] .. __base64[bit.rshift(level, 6)];
+			-- code = code .. __base64[bit.band(level, 63)] .. __base64[bit.rshift(level, 6)];
+			local v1 = level % 64;
+			local v2 = (level - v1) / 64;
+			code = code .. __base64[v1] .. __base64[v2];
 		end
 
 		return code, data;
@@ -337,7 +437,7 @@ local __ala_meta__ = _G.__ala_meta__;
 		return __emulib.EncodeTalentData(classIndex, level, data, len);
 	end
 	function __emulib.EncodePlayer()
-		return __emulib.EncodeTalentData(__emulib.CPlayerClassIndex, UnitLevel('player'), __emulib.GetTalentData());
+		return __emulib.EncodeTalentData(__emulib.SELFCLASSINDEX, UnitLevel('player'), __emulib.GetTalentData(__ala_meta__.SELFCLASSUPPER));
 	end
 	function __emulib.EncodeInspect(classIndex, level)
 		if type(classIndex) == 'string' then
@@ -347,7 +447,7 @@ local __ala_meta__ = _G.__ala_meta__;
 			_log_("EncodeFrameData", 2, classIndex);
 			return nil;
 		end
-		return __emulib.EncodeTalentData(classIndex, level, __emulib.GetTalentData(true));
+		return __emulib.EncodeTalentData(classIndex, level, __emulib.GetTalentData(__emulib.classList[classIndex], true));
 	end
 	--	arg			[mainFrame] or [class, data, level]
 	--	return		code
@@ -362,7 +462,9 @@ local __ala_meta__ = _G.__ala_meta__;
 	local GetAddOnInfo, IsAddOnLoaded, GetAddOnEnableState = GetAddOnInfo, IsAddOnLoaded, GetAddOnEnableState;
 	function __emulib.GetAddonPackData()
 		local S = "a";
-		for index, pack in next, __emulib.CKnownAddOnPacks do
+		local KnownAddOnPacks = __emulib.KnownAddOnPacks;
+		for index = 1, __emulib.NumKnownAddOnPacks do
+			local pack = KnownAddOnPacks[index];
 			if select(5, GetAddOnInfo(pack)) ~= "MISSING" then
 				local loaded, finished = IsAddOnLoaded(pack);
 				if loaded then
@@ -383,27 +485,31 @@ local __ala_meta__ = _G.__ala_meta__;
 		return S;
 	end
 	local ColorTable = {
-		["00"] = " |cffff0000",
-		["01"] = " |cffff7f00",
-		["10"] = " |cff007fff",
-		["11"] = " |cff00ff00",
+		["0"] = {
+			["0"] = " |cffff0000",
+			["1"] = " |cffff7f00",
+		},
+		["1"] = {
+			["0"] = " |cff007fff",
+			["1"] = " |cff00ff00",
+		},
 	};
 	function __emulib.DecodeAddonPackData(data, short)
 		if data ~= nil and data ~= "" and type(data) == 'string' then
 			local val = tonumber(data);
 			if val then
-				local CKnownAddOnPacks = __emulib.CKnownAddOnPacks;
+				local KnownAddOnPacks = __emulib.KnownAddOnPacks;
 				local got = false;
 				local info = "*";
-				local index = #CKnownAddOnPacks - 1;
+				local index = __emulib.NumKnownAddOnPacks - 1;
 				local magic = 2 ^ index;
 				while magic >= 1 do
 					if val >= magic then
 						got = true;
 						if short then
-							info = info .. " " .. (CKnownAddOnPacks[index + 1] or "???");
+							info = info .. " " .. (KnownAddOnPacks[index + 1] or "???");
 						else
-							info = info .. " " .. (CKnownAddOnPacks[index + 1] or "???") .. "-" .. index;
+							info = info .. " " .. (KnownAddOnPacks[index + 1] or "???") .. "-" .. index;
 						end
 						val = val - magic;
 					end
@@ -417,7 +523,7 @@ local __ala_meta__ = _G.__ala_meta__;
 				end
 			else
 				local meta = { strsplit("`", data) };
-				local CKnownAddOnPacks = __emulib.CKnownAddOnPacks;
+				local KnownAddOnPacks = __emulib.KnownAddOnPacks;
 				local got = false;
 				local info = "";
 				for i = 1, #meta do
@@ -428,9 +534,9 @@ local __ala_meta__ = _G.__ala_meta__;
 						if index ~= nil then
 							got = true;
 							if short then
-								info = info .. ColorTable[enabled .. loaded] .. (CKnownAddOnPacks[index] or "???") .. "|r";
+								info = info .. ColorTable[enabled][loaded] .. (KnownAddOnPacks[index] or "???") .. "|r";
 							else
-								info = info .. ColorTable[enabled .. loaded] .. (CKnownAddOnPacks[index] or "???") .. "-" .. index .. "|r";
+								info = info .. ColorTable[enabled][loaded] .. (KnownAddOnPacks[index] or "???") .. "-" .. index .. "|r";
 							end
 						end
 					end
@@ -444,25 +550,27 @@ local __ala_meta__ = _G.__ala_meta__;
 		end
 	end
 -->		Equipment
-	function __emulib.GetEquipmentData(data)
+	function __emulib.GetEquipmentData(data, unit)
 		if data == nil then
 			data = {  };
 		end
 		for slot = 0, 19 do
-			local link = GetInventoryItemLink('player', slot);
-			if link then
-				_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
+			local link = GetInventoryItemLink(unit or 'player', slot);
+			if link ~= nil then
+				data[slot] = strmatch(link, "\124H(item:[%-0-9:]+)\124h");
+			else
+				data[slot] = nil;
 			end
-			data[slot] = link;
 		end
 		return data;
 	end
-	function __emulib.EncodeEquipmentData(data, prefix, suffix)
+	function __emulib.EncodePlayerEquipmentData(data, prefix, suffix)
 		if data == nil then
 			data = {  };
 		else
 			wipe(data);
 		end
+		local pos = 0;
 		prefix = prefix or "";
 		suffix = suffix or "";
 		local lp = #prefix;
@@ -472,65 +580,41 @@ local __ala_meta__ = _G.__ala_meta__;
 		local len = 0;
 		local n = 0;
 		for slot = 0, 19 do
-			local sadd = GetInventoryItemLink('player', slot);
-			if sadd then
-				_, _, sadd = strfind(sadd, "\124H(item:[%-0-9:]+)\124h");
-			end
-			sadd = "+" .. slot .. "+" .. (sadd or "item:-1");
-			local ladd = #sadd;
-			if len + ladd < limit then
-				msg = msg .. sadd;
-				len = len + ladd;
-			else
-				tinsert(data, prefix .. msg .. suffix);
-				msg = sadd;
-				len = ladd;
-			end
-		end
-		if msg ~= "" then
-			tinsert(data, prefix .. msg .. suffix);
-		end
-		return data;
-	end
-	function __emulib.EncodeEquipmentData_2(data)
-		if data == nil then
-			data = {  };
-		else
-			wipe(data);
-		end
-		local msg = "";
-		local n = 0;
-		for slot = 0, 19 do
 			local link = GetInventoryItemLink('player', slot);
-			if link then
-				_, _, link = strfind(link, "\124H(item:[%-0-9:]+)\124h");
+			if link ~= nil then
+				link = "+" .. slot .. "+" .. (strmatch(link, "\124H(item:[%-0-9:]+)\124h") or "item:-1");
+			else
+				link = "+" .. slot .. "+item:-1";
 			end
-			link = link or "item:-1";
-			msg = msg .. "+" .. slot .. "+" .. link;
-			n = n + 1;
-			if n >= 4 then
-				n = 0;
-				tinsert(data, msg);
-				msg = "";
+			local ll = #link;
+			if len + ll < limit then
+				msg = msg .. link;
+				len = len + ll;
+			else
+				pos = pos + 1;
+				data[pos] = prefix .. msg .. suffix;
+				msg = link;
+				len = ll;
 			end
 		end
 		if msg ~= "" then
-			tinsert(data, msg);
+			pos = pos + 1;
+			data[pos] = prefix .. msg .. suffix;
 		end
 		return data;
 	end
 	function __emulib.DecodeEquipmentData(cache, code)
-		local start, slot, item = 1, nil, nil;
+		local p1, p2, slot, item = 1, 1, nil, nil;
 		cache.time_inv = time();
 		local got_data = false;
 		while true do
-			_, start, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", start);
-			if slot and item then
+			p1, p2, slot, item = strfind(code, "%+(%d+)%+(item:[%-0-9:]+)", p2);
+			if slot ~= nil and item ~= nil then
 				slot = tonumber(slot);
-				if slot and slot >= 0 and slot <= 19 then
-					local _, _, id = strfind(item, "item:([%-0-9]+)");
+				if slot ~= nil and slot >= 0 and slot <= 19 then
+					local id = strmatch(item, "item:([%-0-9]+)");
 					id = tonumber(id);
-					if id and id > 0 then
+					if id ~= nil and id > 0 then
 						GetItemInfo(id);
 						cache[slot] = item;
 					else
@@ -541,7 +625,7 @@ local __ala_meta__ = _G.__ala_meta__;
 			else
 				break;
 			end
-			if not start then
+			if p2 == nil then
 				break;
 			end
 		end
@@ -557,13 +641,13 @@ local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target,
 		if control_code == __emulib.ADDON_MSG_QUERY_TALENTS then
 			local now = time();
 			local prev = _TThrottle[name];
-			if prev ~= nil and now - prev <= 1 then
+			if prev ~= nil and now - prev <= __emulib.EQUIPMENT_REPLY_THROTTLED_INTERVAL then
 				return;
 			end
 			--
 			if channel == "INSTANCE_CHAT" then
 				local target = strsub(msg, __emulib.ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-				if target ~= __ala_meta__.CPlayerFullName then
+				if target ~= __ala_meta__.SELFFULLNAME then
 					return;
 				end
 			end
@@ -586,23 +670,23 @@ local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target,
 		elseif control_code == __emulib.ADDON_MSG_QUERY_EQUIPMENTS then
 			local now = time();
 			local prev = _EThrottle[name];
-			if prev ~= nil and now - prev <= 15 then
+			if prev ~= nil and now - prev <= __emulib.TALENT_REPLY_THROTTLED_INTERVAL then
 				return;
 			end
 			--
 			if channel == "INSTANCE_CHAT" then
 				local target = strsub(msg, __emulib.ADDON_MSG_CONTROL_CODE_LEN + 2, - 1);
-				if target ~= __ala_meta__.CPlayerFullName then
+				if target ~= __ala_meta__.SELFFULLNAME then
 					return;
 				end
 			end
 			_EThrottle[name] = now;
-			local data = __emulib.EncodeEquipmentData(nil, __emulib.ADDON_MSG_REPLY_EQUIPMENTS, channel == "INSTANCE_CHAT" and ("#" .. sender .. "-" .. __ala_meta__.CRealmName) or "");
+			local data = __emulib.EncodePlayerEquipmentData(nil, __emulib.ADDON_MSG_REPLY_EQUIPMENTS, channel == "INSTANCE_CHAT" and ("#" .. sender .. "-" .. __ala_meta__.SELFREALM) or "");
 			for _, msg in next, data do
 				_SendFunc(msg, channel, sender);
 			end
 		-- elseif control_code == __emulib.ADDON_MSG_QUERY_EQUIPMENTS_1 then
-		-- 	local data = __emulib.EncodeEquipmentData();
+		-- 	local data = __emulib.EncodePlayerEquipmentData();
 		-- 	for _, msg in next, data do
 		-- 		_SendFunc(__emulib.ADDON_MSG_REPLY_EQUIPMENTS_1 .. msg, "WHISPER", sender);
 		-- 	end
@@ -610,15 +694,16 @@ local function CHAT_MSG_ADDON(self, event, prefix, msg, channel, sender, target,
 	end
 end
 
-local function LOADING_SCREEN_DISABLED()
-	__emulib:UnregisterEvent("LOADING_SCREEN_DISABLED");
+local function PLAYER_LOGIN()
+	__emulib:UnregisterEvent("PLAYER_LOGIN");
 	if RegisterAddonMessagePrefix(__emulib.ADDON_PREFIX) then
 		__emulib:RegisterEvent("CHAT_MSG_ADDON");
 		__emulib:SetScript("OnEvent", CHAT_MSG_ADDON);
+		__emulib.GenerateTalentMap(__ala_meta__.SELFCLASSUPPER, false);
 	end
 end
-__emulib:RegisterEvent("LOADING_SCREEN_DISABLED");
-__emulib:SetScript("OnEvent", LOADING_SCREEN_DISABLED);
+__emulib:RegisterEvent("PLAYER_LOGIN");
+__emulib:SetScript("OnEvent", PLAYER_LOGIN);
 
 function __emulib:Halt()
 	__emulib:UnregisterAllEvents();

@@ -26,6 +26,7 @@ local FILTER_DATA = {
     -- https://wowpedia.fandom.com/wiki/Enum.InventoryType
     -- true = all classes are allowed
     itemEquipLoc = {
+        [""] = true,                        -- empty
         ["INVTYPE_NON_EQUIP"] = true,		-- Non-equippable
         ["INVTYPE_HEAD"] = true,				-- Head
         ["INVTYPE_NECK"] = true,				-- Neck
@@ -57,6 +58,7 @@ local FILTER_DATA = {
         ["INVTYPE_RELIC"] = C.SHAMAN + C.PALADIN + C.DRUID,			-- Relic
     },
     itemClass = {
+        [10] 			                    = true, -- Moneys
         [LE_ITEM_CLASS_CONSUMABLE] 			= true,
         [LE_ITEM_CLASS_CONTAINER] 			= true,
         [LE_ITEM_CLASS_WEAPON] 				= true,
@@ -73,6 +75,9 @@ local FILTER_DATA = {
         [LE_ITEM_CLASS_MISCELLANEOUS] 		= true,
     },
     itemSubClass = {
+        [10] = {
+            [0] = true, -- Money
+        },
         [LE_ITEM_CLASS_CONSUMABLE] = {
             [0] = true, -- Explosives and Devices
             [1] = true, -- Potion
@@ -99,14 +104,14 @@ local FILTER_DATA = {
             [10] = true, -- Cooking Bag
         },
         [LE_ITEM_CLASS_WEAPON] = {
-            [LE_ITEM_WEAPON_AXE1H] 		    = C.HUNTER + C.PALADIN + C.SHAMAN + C.WARRIOR, -- One-Handed Axes
-            [LE_ITEM_WEAPON_AXE2H] 		    = C.HUNTER + C.PALADIN + C.SHAMAN + C.WARRIOR, -- Two-Handed Axes
+            [LE_ITEM_WEAPON_AXE1H] 		    = C.HUNTER + C.PALADIN + C.SHAMAN + C.WARRIOR + C.DEATHKNIGHT + AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, C.ROGUE, 0), -- One-Handed Axes
+            [LE_ITEM_WEAPON_AXE2H] 		    = C.HUNTER + C.PALADIN + C.SHAMAN + C.WARRIOR + C.DEATHKNIGHT, -- Two-Handed Axes
             [LE_ITEM_WEAPON_BOWS] 		    = C.HUNTER + C.ROGUE + C.WARRIOR, -- Bows
             [LE_ITEM_WEAPON_GUNS] 		    = C.HUNTER + C.ROGUE + C.WARRIOR, -- Guns
-            [LE_ITEM_WEAPON_MACE1H] 		= C.DRUID + C.PALADIN + C.PRIEST + C.ROGUE + C.SHAMAN + C.WARRIOR, -- One-Handed Maces
-            [LE_ITEM_WEAPON_MACE2H] 		= C.DRUID + C.PALADIN + C.SHAMAN + C.WARRIOR, -- Two-Handed Maces
-            [LE_ITEM_WEAPON_POLEARM] 		= C.DRUID + C.HUNTER + C.PALADIN + C.WARRIOR, -- Polearms
-            [LE_ITEM_WEAPON_SWORD1H] 		= C.HUNTER + C.MAGE + C.PALADIN + C.ROGUE + C.WARLOCK + C.WARRIOR, -- One-Handed Swords
+            [LE_ITEM_WEAPON_MACE1H] 		= C.DRUID + C.PALADIN + C.PRIEST + C.ROGUE + C.SHAMAN + C.WARRIOR + C.DEATHKNIGHT, -- One-Handed Maces
+            [LE_ITEM_WEAPON_MACE2H] 		= C.DRUID + C.PALADIN + C.SHAMAN + C.WARRIOR + C.DEATHKNIGHT, -- Two-Handed Maces
+            [LE_ITEM_WEAPON_POLEARM] 		= C.DRUID + C.HUNTER + C.PALADIN + C.WARRIOR + C.DEATHKNIGHT, -- Polearms
+            [LE_ITEM_WEAPON_SWORD1H] 		= C.HUNTER + C.MAGE + C.PALADIN + C.ROGUE + C.WARLOCK + C.WARRIOR + C.DEATHKNIGHT, -- One-Handed Swords
             [LE_ITEM_WEAPON_SWORD2H] 		= C.HUNTER + C.PALADIN + C.WARRIOR, -- Two-Handed Swords
             [LE_ITEM_WEAPON_WARGLAIVE] 	    = true, -- Warglaives
             [LE_ITEM_WEAPON_STAFF] 		    = C.DRUID + C.MAGE + C.PRIEST + C.SHAMAN, -- Staves
@@ -136,7 +141,7 @@ local FILTER_DATA = {
             [LE_ITEM_ARMOR_CLOTH] 	    = C.PRIEST + C.MAGE + C.WARLOCK, -- Cloth
             [LE_ITEM_ARMOR_LEATHER] 	= C.DRUID + C.ROGUE, -- Leather
             [LE_ITEM_ARMOR_MAIL] 	    = C.HUNTER + C.SHAMAN, -- Mail
-            [LE_ITEM_ARMOR_PLATE] 	    = C.WARRIOR + C.PALADIN, -- Plate
+            [LE_ITEM_ARMOR_PLATE] 	    = C.WARRIOR + C.PALADIN + C.DEATHKNIGHT, -- Plate
             [LE_ITEM_ARMOR_COSMETIC]    = true, -- Cosmetic
             [LE_ITEM_ARMOR_SHIELD] 	    = C.WARRIOR + C.PALADIN + C.SHAMAN, -- Shields
             [LE_ITEM_ARMOR_LIBRAM] 	    = C.PALADIN, -- Librams
@@ -412,6 +417,10 @@ AtlasLoot.AtlasLootDBDefaults.profile.ClassFilter = {
     },
     ["DRUID"] = {
         ["*"] = true,
+    },
+    ["DEATHKNIGHT"] = {
+        ["*"] = true,
+        ["ITEM_MOD_INTELLECT_SHORT"] = false,
     },
 }
 

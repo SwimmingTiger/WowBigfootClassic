@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220816155700")
 mod:SetCreatureID(15928)
 mod:SetEncounterID(1120)
 mod:SetModelID(16137)
@@ -10,114 +10,117 @@ mod:RegisterCombat("combat_yell", L.Yell)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 28089",
-	"CHAT_MSG_MONSTER_EMOTE",
+	"RAID_BOSS_EMOTE",
 	"UNIT_AURA player"
 )
 
---TODO, UNIT_AURA might not work in classic? I didn't see any warnings on stream. May have to just do UnitDebuff() on self when cast finishes
-local warnShiftSoon			= mod:NewSoonAnnounce(28089, 5, 3)
+local warnShiftSoon			= mod:NewPreWarnAnnounce(28089, 5, 3)
 local warnShiftCasting		= mod:NewCastAnnounce(28089, 4)
-local warnChargeChanged		= mod:NewSpecialWarning("WarningChargeChanged")
-local warnChargeNotChanged	= mod:NewSpecialWarning("WarningChargeNotChanged", false)
 local warnThrow				= mod:NewSpellAnnounce(28338, 2)
 local warnThrowSoon			= mod:NewSoonAnnounce(28338, 1)
 
-local enrageTimer			= mod:NewBerserkTimer(300)
-local timerNextShift		= mod:NewCDTimer(25.9, 28089, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)--25.9-34
-local timerShiftCast		= mod:NewCastTimer(3, 28089, nil, nil, nil, 5)
-local timerThrow			= mod:NewCDTimer(20.6, 28338, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+local warnChargeChanged		= mod:NewSpecialWarning("WarningChargeChanged", nil, nil, nil, 3, 2, nil, nil, 28089)
+local warnChargeNotChanged	= mod:NewSpecialWarning("WarningChargeNotChanged", false, nil, nil, 1, 12, nil, nil, 28089)
+local yellShift				= mod:NewShortPosYell(28089, DBM_CORE_L.AUTO_YELL_CUSTOM_POSITION)
 
-mod:AddDropdownOption("ArrowsEnabled", {"Never", "TwoCamp", "ArrowsRightLeft", "ArrowsInverse"}, "ArrowsRightLeft", "misc")
+local enrageTimer			= mod:NewBerserkTimer(365)
+local timerNextShift		= mod:NewNextTimer(30, 28089, nil, nil, nil, 2, nil, DBM_COMMON_L.DEADLY_ICON)
+local timerShiftCast		= mod:NewCastTimer(3, 28089, nil, nil, nil, 2)
+local timerThrow			= mod:NewNextTimer(20.6, 28338, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)
+
+if not DBM.Options.GroupOptionsBySpell then
+	mod:AddMiscLine(DBM_CORE_L.OPTION_CATEGORY_DROPDOWNS)
+end
+mod:AddDropdownOption("AirowEnabled", {"Never", "TwoCamp", "ArrowsRightLeft", "ArrowsInverse"}, "Never", "misc", nil, 28089)
 
 local currentCharge
 local down = 0
-local lastShift = 0
+
+local function TankThrow(self)
+	if not self:IsInCombat() or self.vb.phase == 2 then
+		return
+	end
+	timerThrow:Start()
+	warnThrowSoon:Schedule(17.6)
+	self:Schedule(20.6, TankThrow, self)
+end
 
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	currentCharge = nil
 	down = 0
-	self:ScheduleMethod(40.6 - delay, "TankThrow")
+	self:Schedule(20.6 - delay, TankThrow, self)
 	timerThrow:Start(-delay)
-	warnThrowSoon:Schedule(37.6 - delay)
+	warnThrowSoon:Schedule(17.6 - delay)
 end
 
-function mod:OnCombatEnd(wipe, isSecondRun)
-	if wipe and not isSecondRun then
-		DBM:AddMsg("Arrow Options can be changed for this encounter. Mod supports 3 different strats. Choose one that matches your strat")
-	end
-end
-
-function mod:SPELL_CAST_START(args)
-	if args.spellId == 28089 then
-		self:SetStage(2)
-		timerNextShift:Start()
-		timerShiftCast:Start()
-		warnShiftCasting:Show()
-		warnShiftSoon:Schedule(20)
-		lastShift = GetTime()
-	end
-end
-
-function mod:UNIT_AURA()
-	if self.vb.phase ~=2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
-	local charge
-	local i = 1
-	while DBM:UnitDebuff("player", i) do
-		local _, icon, count = DBM:UnitDebuff("player", i)
-		if icon == "Interface\\Icons\\Spell_ChargeNegative" or icon == 135768 then--Not sure if classic will return data ID or path, so include both
-			if count > 1 then return end
-			charge = L.Charge1
-		elseif icon == "Interface\\Icons\\Spell_ChargePositive" or icon == 135769 then--Not sure if classic will return data ID or path, so include both
-			if count > 1 then return end
-			charge = L.Charge2
+do
+	local lastShift = 0
+	function mod:SPELL_CAST_START(args)
+		if args.spellId == 28089 then
+			self:SetStage(2)
+			timerNextShift:Start()
+			timerShiftCast:Start()
+			warnShiftCasting:Show()
+			warnShiftSoon:Schedule(25)
+			lastShift = GetTime()
 		end
-		i = i + 1
 	end
-	if charge then
-		lastShift = 0
-		--Did not Change
-		if charge == currentCharge then
-			warnChargeNotChanged:Show()
-			if self.Options.ArrowsEnabled == "ArrowsInverse" then
-				self:ShowLeftArrow()
-			elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
-				self:ShowRightArrow()
+
+	--SHIT SHOW, FIXME
+	function mod:UNIT_AURA()
+		if self.vb.phase ~=2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
+		local charge
+		local i = 1
+		while UnitDebuff("player", i) do
+		local _, icon, count, _, _, _, _, _, _, _, _, _, _, _, _, count2 = UnitDebuff("player", i)
+			if icon == "Interface\\Icons\\Spell_ChargeNegative" or icon == 135768 then--Not sure if classic will return data ID or path, so include both
+				if (count2 or count) > 1 then return end--Incorrect aura, it's stacking damage one
+				charge = L.Charge1
+				yellShift:Yell(7, "- -")
+			elseif icon == "Interface\\Icons\\Spell_ChargePositive" or icon == 135769 then--Not sure if classic will return data ID or path, so include both
+				if (count2 or count) > 1 then return end--Incorrect aura, it's stacking damage one
+				charge = L.Charge2
+				yellShift:Yell(6, "+ +")
 			end
-		--Changed
-		else
-			warnChargeChanged:Show(charge)
-			if self.Options.ArrowsEnabled == "ArrowsInverse" then
-				self:ShowRightArrow()
-			elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
-				self:ShowLeftArrow()
-			elseif self.Options.ArrowsEnabled == "TwoCamp" then
-				self:ShowUpArrow()
-			end
+			i = i + 1
 		end
-		currentCharge = charge
+		if charge then
+			lastShift = 0
+			if charge == currentCharge then
+				warnChargeNotChanged:Show()
+				warnChargeNotChanged:Play("dontmove")
+				if self.Options.ArrowsEnabled == "ArrowsInverse" then
+					self:ShowLeftArrow()
+				elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
+					self:ShowRightArrow()
+				end
+			else
+				warnChargeChanged:Show(charge)
+				warnChargeChanged:Play("stilldanger")
+				if self.Options.ArrowsEnabled == "ArrowsInverse" then
+					self:ShowRightArrow()
+				elseif self.Options.ArrowsEnabled == "ArrowsRightLeft" then
+					self:ShowLeftArrow()
+				elseif self.Options.ArrowsEnabled == "TwoCamp" then
+					self:ShowUpArrow()
+				end
+			end
+			currentCharge = charge
+		end
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_EMOTE(msg)
+function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Emote or msg == L.Emote2 then
 		down = down + 1
 		if down >= 2 then
-			self:UnscheduleMethod("TankThrow")
+			self:Unschedule(TankThrow)
 			timerThrow:Cancel()
 			warnThrowSoon:Cancel()
 			enrageTimer:Start()
 		end
 	end
-end
-
-function mod:TankThrow()
-	if not self:IsInCombat() or self.vb.phase == 2 then
-		return
-	end
-	timerThrow:Start()
-	warnThrowSoon:Schedule(37.6)
-	self:ScheduleMethod(40.6, "TankThrow")
 end
 
 local function arrowOnUpdate(self, elapsed)

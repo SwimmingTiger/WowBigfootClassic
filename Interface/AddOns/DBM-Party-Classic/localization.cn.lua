@@ -1210,7 +1210,7 @@ L:SetGeneralLocalization{
 }
 
 -----------------------------
---  Narub'enkan  --
+--  Nerub'enkan  --
 -----------------------------
 L = DBM:GetModLocalization(452)
 

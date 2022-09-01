@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
-local main= "2.5.4."
-local minor = "138"
+local main= "3.4.0."
+local minor = "151"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,61 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2022/09/01 (3.4.0.151)")
+	BigFootChangelog_ar("大脚插件","版本号同步至游戏版本。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/08/24 (2.5.4.150)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/08/08 (2.5.4.149)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.7.8)。")
+
+
+	BigFootChangelog_at("2022/08/03 (2.5.4.148)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/07/27 (2.5.4.147)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/07/26 (2.5.4.146)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/07/16 (2.5.4.145)")
+	BigFootChangelog_ar("首领报警","升级至最新版本(2.5.40)。")
+
+
+	BigFootChangelog_at("2022/07/07 (2.5.4.144)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+	BigFootChangelog_ar("金团助手","屏蔽列表更新。")
+
+
+	BigFootChangelog_at("2022/06/24 (2.5.4.143)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.7.5)。")
+
+
+	BigFootChangelog_at("2022/06/21 (2.5.4.142)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+	BigFootChangelog_ar("金团助手","修复不能正常屏蔽特定物品的问题。")
+
+
+	BigFootChangelog_at("2022/06/10 (2.5.4.141)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.7.4)。")
+
+
+	BigFootChangelog_at("2022/06/08 (2.5.4.140)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/05/26 (2.5.4.139)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.7.3)。")
+
 
 	BigFootChangelog_at("2022/05/18 (2.5.4.138)")
 	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
@@ -638,4 +693,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "56"
+BF_VERSION_CHECKSUM = "51"

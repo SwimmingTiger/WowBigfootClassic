@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Venoxis", "DBM-ZG", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(14507)
 mod:SetEncounterID(784)
 mod:SetHotfixNoticeRev(20200724000000)--2020, 7, 24

@@ -1,9 +1,6 @@
--- Copyright © 2008 - 2014 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
+
+local _, TotemTimers = ...
 
 local SpellNames = TotemTimers.SpellNames
 local SpellIDs = TotemTimers.SpellIDs

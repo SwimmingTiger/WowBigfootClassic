@@ -6,8 +6,14 @@ local LSM = LibStub("LibSharedMedia-3.0")
 LSM:Register("statusbar", "Aluminium", [[Interface\AddOns\NugRunning\statusbar.tga]])
 LSM:Register("font", "AlegreyaSans-Medium", [[Interface\AddOns\NugRunning\AlegreyaSans-Medium.ttf]],  GetLocale() ~= "enUS" and 15)
 
-local isClassic = select(4,GetBuildInfo()) <= 29999
-local UnitSpellHaste = isClassic and function() return 0 end or _G.UnitSpellHaste
+local apiLevel = math.floor(select(4,GetBuildInfo())/10000)
+local UnitSpellHaste = UnitSpellHaste
+if apiLevel <= 2 then UnitSpellHaste = function() return 0 end end
+if apiLevel == 3 then
+    local GetCombatRatingBonus = GetCombatRatingBonus
+    local CR_HASTE_SPELL = CR_HASTE_SPELL
+    UnitSpellHaste = function() return GetCombatRatingBonus(CR_HASTE_SPELL) end
+end
 
 local getStatusbar = function()
 	if not NugRunningConfig.overrideTexture then

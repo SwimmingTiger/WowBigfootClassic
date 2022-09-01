@@ -1,8 +1,31 @@
 ﻿--[[--
 	ALA@163UI
 --]]--
+--[=[
+	ALADROP = DropMenu.ShowMenu
+	ALADROP(parent, anchor, data, useMousePosition)
+	data
+			handler		(function)
+			__onshowprepend	[optional]
+			__onshowappend	[optional]
+			__onhide	[optional]
+			__buttononshow	[optional]
+			__buttononhide	[optional]
+			__buttononenter	[optional]
+			__buttononleave	[optional]
+			elements[i]	(table)[optional]
+										handler		(function)[optional]
+										para		(table)for parameter
+										text		(string)
+										--info		(string)
+										show/hide
+										__onshow	[optional]
+										__onhide	[optional]
+										__onenter	[optional]
+										__onleave	[optional]
+]=]
 
-local __version = 7;
+local __version = 220808.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -39,27 +62,16 @@ local uireimp = __ala_meta__.uireimp;
 	local MenuButtonToHBorder = 2;
 	local MenuButtonToVBorder = 2;
 
-	local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE;
-	local isBCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC;
+	local isRetail = __ala_meta__.BUILD == "RETAIL";
+	local isBCC = __ala_meta__.BUILD == "BCC";
+	local isWLK = __ala_meta__.BUILD == "WRATH";
 
 	local MenuList = { total = 0, used = 0, prev = nil, };
 	local frameToMenu = setmetatable({  }, { __mode = 'k', });
 
---[=[
-	data
-			handler		(function)
-			elements[i]	(table)
-										handler		(function)optional
-										para		(table)for parameter
-										text		(string)
-										--info		(string)
-										show/hide
-										__onshow
-										__onhide
-]=]
--->		Creator
+-->			Creator
 	local MenuOnEvent = nil;
-	if isRetail then
+	if isRetail or isWLK then
 		function MenuOnEvent(Menu, event)
 			if Menu.__flag == "show" then
 				Menu.__flag = nil;
@@ -143,7 +155,7 @@ local uireimp = __ala_meta__.uireimp;
 		Menu:SetScript("OnLeave", MenuOnLeave);
 		Menu:SetScript("OnShow", MenuOnShow);
 		Menu:SetScript("OnHide", MenuOnHide);
-		if isRetail then
+		if isRetail or isWLK then
 			Menu:RegisterEvent("GLOBAL_MOUSE_UP");
 		elseif isBCC then
 			Menu:RegisterEvent("PLAYER_STARTED_LOOKING");
@@ -151,7 +163,7 @@ local uireimp = __ala_meta__.uireimp;
 			Menu:RegisterEvent("PLAYER_STARTED_TURNING");
 			-- Menu:RegisterEvent("PLAYER_STOPPED_TURNING");
 		else
-			Menu:RegisterEvent("CURSOR_UPDATE");
+			Menu:RegisterEvent("CURSOR_CHANGED");
 		end
 		Menu.Buttons = {  };
 
@@ -170,9 +182,15 @@ local uireimp = __ala_meta__.uireimp;
 	end
 	local function MenuButtonOnEnter(Button)
 		MenuOnEnter(Button.Menu);
+		if Button.__onenter ~= nil then
+			return Button:__onenter(unpack(Button.para));
+		end
 	end
 	local function MenuButtonOnLeave(Button)
 		MenuOnLeave(Button.Menu);
+		if Button.__onleave ~= nil then
+			return Button:__onleave(unpack(Button.para));
+		end
 	end
 	local function MenuCloseOnClick(Button, Menu)
 		Menu:Hide();
@@ -221,7 +239,7 @@ local uireimp = __ala_meta__.uireimp;
 		return Button;
 	end
 
--->		Method
+-->			Method
 	local function GetMenu(parent, anchor, useMousePosition)
 		local Menu = nil;
 		--[[if frameToMenu[parent] then
@@ -286,7 +304,7 @@ local uireimp = __ala_meta__.uireimp;
 			Menu.__flag = nil;
 			return;
 		end
-		if type(data) ~= "table" or type(data.elements) ~= "table" then
+		if type(data) ~= "table" or (data[1] == nil and type(data.elements) ~= "table") then
 			return;
 		end
 		Menu = GetMenu(parent, anchor, useMousePosition);
@@ -298,7 +316,7 @@ local uireimp = __ala_meta__.uireimp;
 		end
 
 		local Buttons = Menu.Buttons;
-		local elements = data.elements;
+		local elements = data.elements or data;
 
 		local width = -1;
 		local numButtons = 0;
@@ -318,11 +336,14 @@ local uireimp = __ala_meta__.uireimp;
 				Button:Show();
 
 				Button.Text:SetText(ele.text);
-				local __onshow = ele.__onshow or elements.__onshowbuttons;
+				local __onshow = ele.__onshow or data.__buttononshow;
 				if __onshow ~= nil then
 					__onshow(Button, ele);
-					Button.__onhide = ele.__onhide or elements.__onhidebuttons or SetButton;
+					Button.__onhide = ele.__onhide or data.__buttononhide or SetButton;
 				end
+
+				Button.__onenter = ele.__onenter or data.__buttononenter or nil;
+				Button.__onleave = ele.__onleave or data.__buttononleave or nil;
 
 				local w = Button.Text:GetWidth();
 				if w > width then
@@ -383,7 +404,7 @@ DropMenu.ShowMenu = ShowMenu;
 
 function DropMenu:Halt()
 	for index = 1, MenuList.total do
-		-- MenuOnEvent(MenuList[index], isRetail and "GLOBAL_MOUSE_UP" or (isBCC and "PLAYER_STARTED_LOOKING" or "CURSOR_UPDATE"));
+		-- MenuOnEvent(MenuList[index], (isRetail or isWLK) and "GLOBAL_MOUSE_UP" or (isBCC and "PLAYER_STARTED_LOOKING" or "CURSOR_UPDATE"));
 		MenuList[index]:Hide();
 		MenuList[index]:SetScript("OnUpdate", nil);
 		MenuList[index]:UnregisterAllEvents();

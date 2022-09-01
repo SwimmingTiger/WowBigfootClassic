@@ -1,10 +1,10 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: TotemTimers
 ## Title-zhCN: [大脚][集]萨满图腾助手
 ## Title-zhTW: [大腳][集]薩滿圖騰助手
 ## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
-## Version: 2.2.2
+## Version: 3.0.0-beta1
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602
@@ -12,30 +12,34 @@
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
-#embeds.xml
-
-TotemData.lua
-
 localization\localization.lua
 localization\localization.cn.lua
 localization\localization.tw.lua
 
-Animation.lua
-Bindings.lua
 XiTimers.lua
 XiTimers.xml
+
+wrath\TotemData.lua
+TotemTimers.xml
+TotemTimers.lua
+
+Spells.lua
+
+Animation.lua
+Bindings.lua
 ToolTips.lua
 TotemSets.xml
 TotemSets.lua
 TTActionBars.lua
 DefaultSettings.lua
 Settings.lua
-Spells.lua
 SetupTimers.lua
 SetupTrackers.lua
+Ankh.lua
+Shield.lua
+EarthShield.lua
+Weapon.lua
 EnhanceCDs.lua
-TotemTimers.xml
-TotemTimers.lua
 Warnings.lua
 Masque.lua
 

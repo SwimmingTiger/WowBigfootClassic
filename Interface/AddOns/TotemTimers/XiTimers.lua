@@ -1,8 +1,3 @@
--- Copyright © 2008-2014 Xianghar
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
-
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 if not XiTimers then 

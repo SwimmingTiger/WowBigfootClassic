@@ -47,7 +47,7 @@ local INSTANCE_DATA = {
     [3606] = {projectId = 5, logo = 'Archimonde'}, -- 海加尔山
     [3959] = {projectId = 5, logo = 'Illidan Stormrage'}, -- 黑暗神庙
     [3805] = {projectId = 5, logo = 'Daakara'}, -- 祖阿曼
-    [4075] = {projectId = 5, logo = 'Kiljaeden'}, -- 太阳井
+    [4075] = {projectId = 5, logo = 'Kiljaeden', instanceName = '太阳之井'}, -- 太阳井
 }
 
 ns.INSTANCE_DATA = {}
@@ -471,7 +471,7 @@ function ns.ApplyLeaderBtnClick(Btn, param)
 end
 
 function ns.DataMake(allowCrossRealm)
-    ns.CERTIFICATION_MAP = {}
+    ns.CERTIFICATION_MAP = ns.CERTIFICATION_MAP or {}
 
     local function decode(v)
         return v:gsub('..', function(x)

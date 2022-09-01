@@ -47,8 +47,9 @@ ATLASLOOT_ITEM_BACKGROUND_ALPHA = 0.9
 -- ##############################
 
 -- GameVersion
-ALPrivate.IS_CLASSIC = AtlasLoot:GetGameVersion() == AtlasLoot.CLASSIC_VERSION_NUM
-ALPrivate.IS_BC = AtlasLoot:GetGameVersion() == AtlasLoot.BC_VERSION_NUM
+ALPrivate.IS_CLASSIC 	= AtlasLoot:GetGameVersion() == AtlasLoot.CLASSIC_VERSION_NUM
+ALPrivate.IS_BC 		= AtlasLoot:GetGameVersion() == AtlasLoot.BC_VERSION_NUM
+ALPrivate.IS_WOTLK 		= AtlasLoot:GetGameVersion() == AtlasLoot.WRATH_VERSION_NUM
 
 -- Account specific
 ALPrivate.ACCOUNT_LOCALE = GetLocale()
@@ -61,11 +62,15 @@ ALPrivate.ICONS_PATH = ICONS_PATH
 
 -- Mostly used in selection template
 ALPrivate.COIN_TEXTURE = {
-	GOLD 		= "Interface\\MoneyFrame\\UI-GoldIcon",
-	SILVER 		= "Interface\\MoneyFrame\\UI-SilverIcon",
-	COPPER		= "Interface\\MoneyFrame\\UI-CopperIcon",
-	AC 		= "Interface\\AchievementFrame\\UI-Achievement-TinyShield",
-	REPUTATION 	= "Interface\\Icons\\Achievement_Reputation_08",
+	GOLD 		= {	texture = "Interface\\MoneyFrame\\UI-GoldIcon" },
+	SILVER 		= {	texture = "Interface\\MoneyFrame\\UI-SilverIcon" },
+	COPPER		= {	texture = "Interface\\MoneyFrame\\UI-CopperIcon" },
+	AC 			= {	texture = "Interface\\AchievementFrame\\UI-Achievement-TinyShield", texCoord = {0, 0.625, 0, 0.625} },
+	REPUTATION 	= {	texture = "Interface\\Icons\\Achievement_Reputation_08" },
+
+	CLASSIC 	= {	texture = AtlasLoot.GAME_VERSION_TEXTURES[AtlasLoot.CLASSIC_VERSION_NUM], width = 2.0 },
+	BC		 	= {	texture = AtlasLoot.GAME_VERSION_TEXTURES[AtlasLoot.BC_VERSION_NUM], width = 2.0 },
+	WRATH	 	= {	texture = AtlasLoot.GAME_VERSION_TEXTURES[AtlasLoot.WRATH_VERSION_NUM], width = 2.0 },
 }
 
 -- Simple backdrop for SetBackdrop
@@ -91,7 +96,11 @@ ALPrivate.CLASS_ICON_PATH = {
 	MAGE 		= 	ICONS_PATH.."classicon_mage",
 	WARLOCK 	= 	ICONS_PATH.."classicon_warlock",
 	DRUID 		= 	ICONS_PATH.."classicon_druid",
+	DEATHKNIGHT	= 	ICONS_PATH.."classicon_deathknight",
 }
+-- CLASS_WARRIOR
+ALPrivate.CLASS_ICON_PATH_ITEM_DB = {}
+for k,v in pairs(ALPrivate.CLASS_ICON_PATH) do ALPrivate.CLASS_ICON_PATH_ITEM_DB[k] = "CLASS_"..k end
 
 ALPrivate.PRICE_ICON_REPLACE = {
 	["honor"] = UnitFactionGroup("player") == "Horde" and 136782 or 136781,
@@ -106,7 +115,7 @@ ALPrivate.CLASS_BITS = {
     HUNTER 			= 4,
     ROGUE 			= 8,
     PRIEST 			= 16,
-    --DEATHKNIGHT 	= 32,
+    DEATHKNIGHT 	= 32,
     SHAMAN 			= 64,
     MAGE 			= 128,
     WARLOCK 		= 256,
@@ -116,7 +125,13 @@ ALPrivate.CLASS_BITS = {
 }
 ALPrivate.CLASS_BIT_TO_CLASS = {}
 for k,v in pairs(ALPrivate.CLASS_BITS) do ALPrivate.CLASS_BIT_TO_CLASS[v] = k end
-ALPrivate.CLASS_SORT = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+
+if AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM) then
+	ALPrivate.CLASS_SORT = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "DEATHKNIGHT", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+else
+	ALPrivate.CLASS_SORT = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+end
+
 ALPrivate.CLASS_NAME_TO_ID = {}
 for classID = 1, #ALPrivate.CLASS_SORT do ALPrivate.CLASS_NAME_TO_ID[ALPrivate.CLASS_SORT[classID]] = classID end
 

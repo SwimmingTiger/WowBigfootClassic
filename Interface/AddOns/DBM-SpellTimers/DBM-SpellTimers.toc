@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FFSpell Timers|r
 ## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0冷却助手|r
 ## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0冷卻助手|r
@@ -10,7 +10,7 @@
 ## URL: http://www.deadlybossmods.com
 ## SavedVariables: DBM_SpellTimers_Settings
 ## X-Curse-Project-ID: 18712
-## Version: r137
+## Version: r139
 ## X-Revision: BigFoot
 
 localization.en.lua

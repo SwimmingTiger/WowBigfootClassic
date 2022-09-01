@@ -7,7 +7,7 @@
 		<Anchors>
 			<Anchor point="CENTER" relativePoint="CENTER">
 				<Offset>
-					<AbsDimension x="150" y="-50"/>
+					<AbsDimension x="140" y="-50"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -54,17 +54,17 @@
 	
 	<Frame name="DBMKalFrameTemplate" enableMouse="true" virtual="true" frameStrata="MEDIUM" topLevel="true">
 		<Size>
-			<AbsDimension x="130" y="20"/>
+			<AbsDimension x="140" y="20"/>
 		</Size>
 		<Frames>
 			<StatusBar name="$parentBar">
 				<Size>
-					<AbsDimension x="120" y="12"/>
+					<AbsDimension x="140" y="14"/>
 				</Size>
 				<Anchors>
 					<Anchor point="CENTER" relativePoint="CENTER">
 						<Offset>
-							<AbsDimension x="0" y="0"/>
+							<AbsDimension x="0" y="-2"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
@@ -110,12 +110,12 @@
 				<Frames>
 					<Button name="$parentBorder">
 						<Size>
-							<AbsDimension x="128" y="32"/>
+							<AbsDimension x="146" y="32"/>
 						</Size>
 						<Anchors>
 							<Anchor point="LEFT">
 								<Offset>
-									<AbsDimension x="-5" y="0"/>
+									<AbsDimension x="-3" y="0"/>
 								</Offset>
 							</Anchor>
 						</Anchors>

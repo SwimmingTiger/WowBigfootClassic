@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Ebonroc", "DBM-BWL", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220511043833")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(14601)
 mod:SetEncounterID(614)
 mod:SetModelID(6377)

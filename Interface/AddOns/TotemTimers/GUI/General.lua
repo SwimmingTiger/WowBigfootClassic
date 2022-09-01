@@ -1,7 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local nrfonts = 0
@@ -16,7 +12,7 @@ TotemTimers.options = {
     args = {
         general = {
             type = "group",
-            name = "general",
+            name = "General",
             args = {
                 version= {
                     order = 0,

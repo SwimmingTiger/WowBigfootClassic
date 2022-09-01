@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: Report &Feedback Assistant
 ## Title-zhCN: 举报反馈辅助
 ## Author: Netease
