@@ -113,7 +113,7 @@ function InitAvailableActivity()
         local activities = C_LFGList.GetAvailableActivities(v);
         local category = {categoryId = v, activities = {}}
         for k1, v1 in ipairs(activities) do
-            local name = C_LFGList.GetActivityInfo(v1);
+            local name = C_LFGList.GetActivityInfoTable(v1).fullName;
             local name1, name2
             local s, e = strfind(name, '-')
             if s then
