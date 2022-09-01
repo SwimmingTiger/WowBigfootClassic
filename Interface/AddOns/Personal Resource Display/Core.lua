@@ -2,16 +2,16 @@
 
   THANK YOU FOR TRYING THIS ADDON!
   
-  Mod:        Personal Resource Display
-  Descrption: Legion-style Health and Power bars located near the player. Supporting Mana, Rage and Energy.
+  Mod:        Personal Resource Display (MoP)
+  Descrption: Legion-style Health and Power bars located near the player. Supporting Mana, Rage, Focus, Runic Power and Energy.
               Shapeshifting from Druid also supported.
   Author:     Dioporc#2069   @Discord
               GianBzt#2855   @Battle.net
               Ffz            Human Mage @Gandling EU ----- currently unsubbed
-  Version:    3.1.2a
+  Version:    3.1.4
   Changes:    Check https://www.curseforge.com/wow/addons/personal-resource-display/ for detailed changelogs!
-              Replaced event UNIT_HEALTH with UNIT_HEALTH_FREQUENT to prevent delay in updating the bars values
-  Minor Fix:  
+              · Fixed one error that caused the 'Show Reverse Percentage' feature to stay active after checking the 'Numeric Values' and 'Extended Numeric Values' checkboxes
+              
   Disclaimer: All the textures found inside the AddOn folder are taken/edited from the BlizzardInterfaceArt directory.
               I claim no credits to those.
 ]]
@@ -23,7 +23,7 @@ local addonVersion = GetAddOnMetadata("Personal Resource Display", "Version")
 local addonNotes = GetAddOnMetadata("Personal Resource Display", "Notes")
 
 local personalResourceBarsEventFrame = CreateFrame("FRAME", "PRD_EventFrame")
-personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_UPDATE", "player")
+personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_FREQUENT", "player")
 personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
 personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
 personalResourceBarsEventFrame:RegisterEvent("ADDON_LOADED")
@@ -50,7 +50,8 @@ local classColors = {
   ["PRIEST"] = { ["r"] = 255/255, ["g"] = 255/255, ["b"] = 255/255 },
   ["SHAMAN"] = { ["r"] = 0/255, ["g"] = 112/255, ["b"] = 222/255 },
   ["ROGUE"] = { ["r"] = 255/255, ["g"] = 245/255, ["b"] = 105/255 },
-  ["PALADIN"] = { ["r"] = 245/255, ["g"] = 140/255, ["b"] = 186/255 }
+  ["PALADIN"] = { ["r"] = 245/255, ["g"] = 140/255, ["b"] = 186/255 },
+  ["MONK"] = { ["r"] = 0, ["g"] = 1, ["b"] = 0.4 } -- 0.6 in the blue channel didn't really feel monkish...
 }
 
 local function ExtractColorValueFromHex(str, index)
@@ -66,6 +67,8 @@ local minScale = 0.5
 local maxScale = 3
 local minWidth = 50
 local maxWidth = 250
+local minTextHeight = 4
+local maxTextHeight = 32
 local defaultPercentagePadding = -30
 local minPercentagePadding = -70
 local maxPercentagePadding = 300
@@ -74,11 +77,13 @@ local maxVerticalPosition = 400
 local minOpacityOOC = 0.0
 local maxOpacityOOC = 0.6
 local defaultOpacityOOC = 0.2
+local defaultTextHeight = 7
 local backgroundSettingsFrameOpacity = 0.2
 local playerMaxHealth
 local playerMaxHealthReady = false
 local PRD_MinimapTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_MinimapTexture"
 local PRD_InterfaceSettingsTexture = "Interface\\AddOns\\Personal Resource Display\\Textures\\PRD_InterfaceSettingsTexture"
+local currentSpecName
 
 
 StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
@@ -86,8 +91,9 @@ StaticPopupDialogs["PRD_WRONG_SYNTAX"] = {
   button1 = OKAY,
   hideOnEscape = 1,
   timeout = 0,
-  OnAccept = function(self, data) HideUIPanel(self) end
+  OnAccept = function(self, data) HideUIPanel(self) end,
 }
+
 
 local function PRD_round(num, decimals)
   return (("%%.%df"):format(decimals)):format(num)
@@ -110,7 +116,7 @@ local PRD_personalHealthBar = CreateFrame("StatusBar", "PRD_personalHealthBar", 
     -- PRD_personalHealthBar:SetStatusBarColor(0, 1, 0)
     -- Note: Contrarily to what the Doc says, default FillStyle is "CENTER"
     -- "STANDARD" mode requires MinMaxValues to be defined, and the current value (SetValue function) to be kept in between.
-    PRD_personalHealthBar:SetFillStyle("STANDARD")
+    PRD_personalHealthBar:SetOrientation("HORIZONTAL")
     PRD_personalHealthBar:SetMinMaxValues(0, 100)
 
 local PRD_personalManaBar = CreateFrame("StatusBar", "PRD_personalManaBar", UIParent, BackdropTemplateMixin and "BackdropTemplate")
@@ -118,7 +124,7 @@ local PRD_personalManaBar = CreateFrame("StatusBar", "PRD_personalManaBar", UIPa
     PRD_personalManaBar:SetHeight(personalResourceBarHeight) -- Same as HP bar
     PRD_personalManaBar:SetHitRectInsets(2, 2, 2, 2)
     -- PRD_personalManaBar:SetMovable(true)
-    PRD_personalManaBar:SetFillStyle("STANDARD")
+    PRD_personalManaBar:SetOrientation("HORIZONTAL")
     PRD_personalManaBar:SetMinMaxValues(0, 100)
 
 local PRD_personalHealthBarBorder = CreateFrame("Frame", "PRD_personalHealthBarBorder", PRD_personalHealthBar, BackdropTemplateMixin and "BackdropTemplate")
@@ -386,7 +392,6 @@ local function togglePercentage()
     PRD_settingsConfig.numericHealthValue = false
     _G["numericHealthValue_checkBox"]:SetChecked(false)
     _G["extendedNumericValues_checkBoxText"]:SetText("|cff8e8e8cExtended numeric values")
-    _G["extendedNumericValues_checkBox"]:SetEnabled(false)
   else
     -- can't use reference to table "set" as it is initiated later
     _G["showReversePercentage_checkBoxText"]:SetText("|cff8e8e8cUse reverse percentage")
@@ -405,6 +410,10 @@ local function toggleExtendedNumericValues()
   PRD_settingsConfig.extendedNumericValue = not PRD_settingsConfig.extendedNumericValue
 
   if PRD_settingsConfig.extendedNumericValue then
+
+    PRD_settingsConfig.showReversePercentage = false
+
+
     if PRD_settingsConfig.dynamicHealthColor or PRD_settingsConfig.classColorHealthBar then
       local r, g, b = PRD_personalHealthBar:GetStatusBarColor()
       PRD_healthPercentageFontString:SetText("|cff"..PRD_generateHexColor(r, g, b)..getCurrentHealthBarValueNumeric().."/"..UnitHealthMax("player"))
@@ -431,8 +440,11 @@ local function toggleNumericHealthValue()
   _G["extendedNumericValues_checkBox"]:SetEnabled(PRD_settingsConfig.numericHealthValue)
 
 
+  _G["showReversePercentage_checkBox"]:SetEnabled(showPercentage_checkBox:GetChecked())
+
   if PRD_settingsConfig.numericHealthValue then
     PRD_settingsConfig.showPercentage = false
+    PRD_settingsConfig.showReversePercentage = false
     _G["extendedNumericValues_checkBoxText"]:SetText("Extended numeric values")
     _G['percentageTextPadding_Slider']:Show()
     _G['percentageTextScale_Slider']:Show()
@@ -488,8 +500,10 @@ local function PRD_resetFramesToDefault()
   PRD_manaPercentageFontString:SetPoint("LEFT", defaultPercentagePadding, -1)
   percentageTextPadding_Slider:SetValue(defaultPercentagePadding)
   percentageTextScale_Slider:SetValue(1)
-  PRD_healthPercentageFontString:SetScale(1)
-  PRD_manaPercentageFontString:SetScale(1)
+  
+  PRD_healthPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", defaultTextHeight, "OUTLINE")
+  PRD_manaPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", defaultTextHeight, "OUTLINE")
+  percentageTextScale_Slider:SetValue(defaultTextHeight)
 end
 
 local function PRD_moveVertically(toValue)
@@ -510,7 +524,7 @@ end
 -- Settings code (in the client interface tab)
 local set = {}
   set.InterfaceOptions = CreateFrame("Frame", "PRD_InterfaceOptions", UIParent, BackdropTemplateMixin and "BackdropTemplate") --Parent frame for all the settings frames
-  set.InterfaceOptions.name = "PRD\n("..addonName..")"
+  set.InterfaceOptions.name = "PRD"
   set.InterfaceOptions:SetBackdrop({
     bgFile = PRD_InterfaceSettingsTexture,
     insets = { left = 5, right = 5, top = 3, bottom = 4 }
@@ -534,23 +548,29 @@ local set = {}
     -- we are passing 1, 5 or 7 as arg1
     PRD_settingsConfig.strataLevel = arg1
     -- then we store it in our config
-    PRD_personalManaBar:SetFrameStrata(frameStratas[arg1])
-    PRD_personalHealthBar:SetFrameStrata(frameStratas[arg1])
     PRD_personalManaBarBorder:SetFrameStrata(frameStratas[arg1])
     PRD_personalHealthBarBorder:SetFrameStrata(frameStratas[arg1])
+
+    PRD_personalManaBar:SetFrameStrata(frameStratas[arg1])
+    PRD_personalHealthBar:SetFrameStrata(frameStratas[arg1])
+    
+   --[[  PRD_healthPercentageFontString:SetFrameStrata(frameStratas[arg1+1])
+    PRD_manaPercentageFontString:SetFrameStrata(frameStratas[arg1+1]) ]]
     UIDropDownMenu_SetText(PRD_editStrataDropDown, frameStratas[arg1])
   end
 
   function PRD_DropDown_init(frame, level, menuList)
     local info = UIDropDownMenu_CreateInfo()
     info.func = PRD_DropDown_onClick
-    info.tooltipTitle = "Set the strata level of the PRD frames.\n|cffffcc00"..frameStratas[1]..":|r Below every other UI element. Only visible above the WorldFrame.\n|cffffcc00"..frameStratas[5]..":|r Above most of the UI elements of other AddOns and Blizzard interface, but not visible through fullscreen frames.\n|cffffcc00"..frameStratas[7]..":|r Above all other UI elements including fullscreen, such as the World Map."
+    info.tooltipTitle = "Set the strata level of the PRD frames."
+    info.tooltipOnButton = true
+    info.tooltipText = "|cffffffff"..frameStratas[1]..":|r Below every other UI element. Only visible above the WorldFrame.\n|cffffffff"..frameStratas[5]..":|r Above most of the UI elements of other AddOns and Blizzard interface, but not visible through fullscreen frames.\n|cffffcc00"
     info.text, info.arg1, info.checked = frameStratas[1], 1, (PRD_settingsConfig.strataLevel == 1)
     UIDropDownMenu_AddButton(info)
     info.text, info.arg1, info.checked = frameStratas[5], 5, (PRD_settingsConfig.strataLevel == 5)
     UIDropDownMenu_AddButton(info)
-    info.text, info.arg1, info.checked = frameStratas[7], 7, (PRD_settingsConfig.strataLevel == 7)
-    UIDropDownMenu_AddButton(info)
+    --[[ info.text, info.arg1, info.checked = frameStratas[7], 7, (PRD_settingsConfig.strataLevel == 7)
+    UIDropDownMenu_AddButton(info) ]]
   end
 
   local dropDown = CreateFrame("Frame", "PRD_editStrataDropDown", set.InterfaceOptions, "UIDropDownMenuTemplate")
@@ -596,7 +616,7 @@ local set = {}
         personalResourceBarsEventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
         personalResourceBarsEventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
         local playerIsInCombat = UnitAffectingCombat("player")
-        if playerIsInCombat == false then
+        if not playerIsInCombat then
           PRD_personalManaBar:SetAlpha(PRD_settingsConfig.opacityOOC)
           PRD_personalHealthBar:SetAlpha(PRD_settingsConfig.opacityOOC)
         end
@@ -672,35 +692,37 @@ local set = {}
     percentageTextPadding_Slider:Show()
 
   set.InterfaceOptions.percentageTextScale_Slider = CreateFrame("Slider", "percentageTextScale_Slider", set.InterfaceOptions, "OptionsSliderTemplate")
-    percentageTextScale_Slider:SetMinMaxValues(minScale, maxScale)
+    percentageTextScale_Slider:SetMinMaxValues(minTextHeight, maxTextHeight)
     percentageTextScale_Slider:SetOrientation("HORIZONTAL")
-    percentageTextScale_Slider:SetStepsPerPage(0.1)
-    percentageTextScale_Slider:SetValueStep(0.1)
+    percentageTextScale_Slider:SetStepsPerPage(1)
+    percentageTextScale_Slider:SetValueStep(1)
     percentageTextScale_Slider:SetObeyStepOnDrag(true)
     percentageTextScale_Slider:SetWidth(200)
     percentageTextScale_Slider:SetHeight(20)
     percentageTextScale_Slider:SetPoint("TOPLEFT", set.InterfaceOptions, "TOPLEFT", 335, -375);
-    percentageTextScale_Slider.tooltipText = "Control the font size of the percentage texts. Default value |cff66ff33(1)|r is highlighted with green."
-    _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText(minScale)
-    _G[percentageTextScale_Slider:GetName() .. 'High']:SetText(maxScale)
+    percentageTextScale_Slider.tooltipText = "Control the font size of the percentage texts. Default value |cff66ff33(7)|r is highlighted with green."
+    _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText("|cffff4d4d"..minTextHeight)
+    _G[percentageTextScale_Slider:GetName() .. 'High']:SetText("|cffff4d4d"..maxTextHeight)
     percentageTextScale_Slider:SetScript("OnValueChanged", function(self, value)
-      PRD_healthPercentageFontString:SetScale(value)
-      PRD_manaPercentageFontString:SetScale(value)
-      PRD_settingsConfig.percentageScale = value
+      PRD_healthPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", value, "OUTLINE")
+      PRD_manaPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", value, "OUTLINE")
+      PRD_settingsConfig.percentageTextHeight = value
 
       _G[percentageTextScale_Slider:GetName().."Text"]:SetText("Text scale: |cfffdf457"..PRD_round(value, 1))
 
-      if value == 1 then
-        _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText("|cff66ff33"..minScale)
-        _G[percentageTextScale_Slider:GetName() .. 'High']:SetText("|cff66ff33"..maxScale)
+      if value == 7 then
+        _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText("|cff66ff33"..minTextHeight)
+        _G[percentageTextScale_Slider:GetName() .. 'High']:SetText("|cff66ff33"..maxTextHeight)
       else
-        _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText(minScale)
-        _G[percentageTextScale_Slider:GetName() .. 'High']:SetText(maxScale)
+        _G[percentageTextScale_Slider:GetName() .. 'Low']:SetText(minTextHeight)
+        _G[percentageTextScale_Slider:GetName() .. 'High']:SetText(maxTextHeight)
       end
     end)
     percentageTextScale_Slider:RegisterForDrag("LeftButton")
     percentageTextScale_Slider:SetScript("OnDragStart", function(self, button) InterfaceOptionsFrame:SetAlpha(backgroundSettingsFrameOpacity) end)
-    percentageTextScale_Slider:SetScript("OnDragStop", function(self, button) InterfaceOptionsFrame:SetAlpha(1.0) end)
+    percentageTextScale_Slider:SetScript("OnDragStop", function(self, button) 
+      InterfaceOptionsFrame:SetAlpha(1.0)
+    end)
     percentageTextScale_Slider:Show()
   
   set.InterfaceOptions.scale_Slider = CreateFrame("Slider", "scale_Slider", set.InterfaceOptions, "OptionsSliderTemplate")
@@ -801,7 +823,7 @@ local set = {}
       _G[opacity_Slider:GetName() .. 'Text']:SetText("Opacity while OOC: |cfffdf457"..PRD_round(value, 2))
       PRD_settingsConfig.opacityOOC = value
       local playerIsInCombat = UnitAffectingCombat("player")
-        if playerIsInCombat == false and PRD_settingsConfig.hideInCombat then
+        if (not playerIsInCombat or playerIsInCombat == false) and PRD_settingsConfig.hideInCombat then
           PRD_personalManaBar:SetAlpha(PRD_settingsConfig.opacityOOC)
           PRD_personalHealthBar:SetAlpha(PRD_settingsConfig.opacityOOC)
         end
@@ -858,6 +880,12 @@ local function handleResourceBarType()
   elseif playerClass == "WARRIOR" then
     PRD_personalManaBar:SetStatusBarColor(1, 0, 0)
     manaPercentageTextColor = "ff1a1a"
+  elseif playerClass == "HUNTER" then
+    PRD_personalManaBar:SetStatusBarColor(0.8, 0.4, 0)
+    manaPercentageTextColor = "e65c00"
+  elseif playerClass == "DEATHKNIGHT" then
+    PRD_personalManaBar:SetStatusBarColor(0.168, 0.686, 1)
+    manaPercentageTextColor = "4dd2ff"
   else
     PRD_personalManaBar:SetStatusBarColor(0, 0.2, 1)
     manaPercentageTextColor = "66c2ff"
@@ -884,17 +912,19 @@ function PRD_onPlayerResourceChange(self, event, ...)
   if (event == "UNIT_HEALTH_FREQUENT") then
     PRD_personalHealthBar:SetValue(getCurrentHealthBarValuePercentage())
     updatePercentageText()
-  elseif (event == "UNIT_POWER_UPDATE") then
+  elseif (event == "UNIT_POWER_FREQUENT") then
     PRD_personalManaBar:SetValue(getCurrentManaBarValuePercentage())
     updatePercentageText()
   elseif (event == "UNIT_MAXHEALTH") then
     playerMaxHealthReady = true
     playerMaxHealth = UnitHealthMax("player")
   elseif (event == "UPDATE_SHAPESHIFT_FORM") then
+    -- NOTE: this entire block is unused as event UNIT_DISPLAYPOWER works way more efficiently.
+
     -- could actually do this part along with the handleResourceBarType() but I would keep that for login and this for druids only
     -- since Warriors stances are treated as shapeshifts too, I will only register for this event when the player is playing a druid.
     -- ported from my 5.4.8 original version
-    local formId = GetShapeshiftFormID()
+    --[[ local formId = GetShapeshiftFormID()
     if formId == 1 then
       -- should be Cat form
       PRD_personalManaBar:SetStatusBarColor(1, 1, 0)
@@ -906,13 +936,32 @@ function PRD_onPlayerResourceChange(self, event, ...)
     else
       PRD_personalManaBar:SetStatusBarColor(0, 0.2, 1)
       manaPercentageTextColor = "66c2ff"
-    end
+    end ]]
   elseif (event == "PLAYER_REGEN_DISABLED") then
     PRD_personalManaBar:SetAlpha(1.0)
     PRD_personalHealthBar:SetAlpha(1.0)
   elseif (event == "PLAYER_REGEN_ENABLED") then
     PRD_personalManaBar:SetAlpha(PRD_settingsConfig.opacityOOC)
     PRD_personalHealthBar:SetAlpha(PRD_settingsConfig.opacityOOC)
+  elseif (event == "UNIT_DISPLAYPOWER" or event == "PLAYER_SPECIALIZATION_CHANGED" or event == "ZONE_CHANGED_NEW_AREA") then
+    local powerType = UnitPowerType("player");
+    if powerType == 3 then 
+      -- energy
+      PRD_personalManaBar:SetStatusBarColor(1, 1, 0)
+      manaPercentageTextColor = "ffff00"
+    elseif powerType == 0 then
+      -- mana
+      PRD_personalManaBar:SetStatusBarColor(0, 0.2, 1)
+      manaPercentageTextColor = "66c2ff"
+    elseif powerType == 1 then
+      -- rage
+      PRD_personalManaBar:SetStatusBarColor(1, 0, 0)
+      manaPercentageTextColor = "ff1a1a"
+    else
+      print("Debug: something went wrong when trying to detect resource info (UNIT_DISPLAYPOWER)")
+    end
+    PRD_personalManaBar:SetValue(getCurrentManaBarValuePercentage())
+    updatePercentageText()
   elseif (event == "ADDON_LOADED") then
     -- In this phase we are also sure that SavedVars have been read and are stored in memory already.
     if select(1, ...) == "Personal Resource Display" then
@@ -925,7 +974,7 @@ function PRD_onPlayerResourceChange(self, event, ...)
         PRD_settingsConfig["hideInCombat"] = false
         PRD_settingsConfig["opacityOOC"] = defaultOpacityOOC
         PRD_settingsConfig["scale"] = 1
-        PRD_settingsConfig["percentageScale"] = 1
+        PRD_settingsConfig["percentageTextHeight"] = defaultTextHeight
         PRD_settingsConfig["percentagePadding"] = defaultPercentagePadding
         PRD_settingsConfig["width"] = personalResourceBarWidth
         PRD_settingsConfig["verticalPosition"] = personalResourceBarBaseTopPadding
@@ -982,8 +1031,8 @@ function PRD_onPlayerResourceChange(self, event, ...)
       -- ..percentage padding and scale
       PRD_healthPercentageFontString:SetPoint("LEFT", PRD_settingsConfig.percentagePadding, 1)
       PRD_manaPercentageFontString:SetPoint("LEFT", PRD_settingsConfig.percentagePadding, -1)
-      PRD_healthPercentageFontString:SetScale(PRD_settingsConfig.percentageScale)
-      PRD_manaPercentageFontString:SetScale(PRD_settingsConfig.percentageScale)
+      PRD_healthPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight, "OUTLINE")
+      PRD_manaPercentageFontString:SetFont("Fonts\\FRIZQT__.TTF", PRD_settingsConfig.percentageTextHeight, "OUTLINE")
 
       -- ..and bar scale
       PRD_personalHealthBar:SetScale(PRD_settingsConfig.scale)
@@ -994,7 +1043,7 @@ function PRD_onPlayerResourceChange(self, event, ...)
       PRD_personalHealthBarBorder:SetShown(PRD_settingsConfig.showBorder)
       PRD_personalManaBarBorder:SetShown(PRD_settingsConfig.showBorder)
       PRD_MinimapButton:SetShown(PRD_settingsConfig.showMinimap)
-      PRD_healthPercentageFontString:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue)
+      PRD_healthPercentageFontString:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue) --BROKEN IN 5.4.8
       PRD_manaPercentageFontString:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue)
 
       -- setting all the slider values according to SavedVars
@@ -1013,8 +1062,8 @@ function PRD_onPlayerResourceChange(self, event, ...)
       percentageTextPadding_Slider:SetValue(PRD_settingsConfig.percentagePadding)
       _G[percentageTextPadding_Slider:GetName().."Text"]:SetText("Text placement: |cfffdf457"..math.floor((ceil(PRD_settingsConfig.percentagePadding - .5)*100)/100))
 
-      percentageTextScale_Slider:SetValue(PRD_settingsConfig.percentageScale)
-      _G[percentageTextScale_Slider:GetName().."Text"]:SetText("Text scale: |cfffdf457"..math.floor((ceil(PRD_settingsConfig.percentageScale - .5)*100)/100))
+      percentageTextScale_Slider:SetValue(PRD_settingsConfig.percentageTextHeight)
+      _G[percentageTextScale_Slider:GetName().."Text"]:SetText("Text scale: |cfffdf457"..math.floor((ceil(PRD_settingsConfig.percentageTextHeight - .5)*100)/100))
 
       percentageTextPadding_Slider:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue)
       percentageTextScale_Slider:SetShown(PRD_settingsConfig.showPercentage or PRD_settingsConfig.numericHealthValue)
@@ -1064,15 +1113,24 @@ function PRD_onPlayerResourceChange(self, event, ...)
 
     -- PLAYER_ENTERING_WORLD is the only phase of the loading cycle in which the mana amount is already loaded.
     -- Anything prior to that will return NaN, and the bar will not fill up until /reloaded.
+
+    --currentSpecName = select(2, GetSpecializationInfo(GetSpecialization()));
     handleResourceBarType()
+    PRD_personalManaBar:SetValue(getCurrentManaBarValuePercentage())
+    PRD_personalHealthBar:SetValue(getCurrentHealthBarValuePercentage())
+    updatePercentageText()
   end
 end
 
 -- Procedural code
 -- also add widgets handlers here
-if playerClass == "DRUID" then
-  personalResourceBarsEventFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+if playerClass == "DRUID" or playerClass == "MONK" then
+  -- personalResourceBarsEventFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+  personalResourceBarsEventFrame:RegisterEvent("UNIT_DISPLAYPOWER")
+  personalResourceBarsEventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+  personalResourceBarsEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
+
 
 -- Adding scripts to UI
 personalResourceBarsEventFrame:SetScript("OnEvent", PRD_onPlayerResourceChange)
@@ -1104,14 +1162,14 @@ MinimapButton:SetScript("OnClick", function(self, button)
       if PRD_personalManaBar:IsShown() then
         PRD_personalManaBar:SetShown(false)
         PRD_personalHealthBar:SetShown(false)
-        personalResourceBarsEventFrame:UnregisterEvent("UNIT_POWER_UPDATE", "player")
+        personalResourceBarsEventFrame:UnregisterEvent("UNIT_POWER_FREQUENT_UPDATE", "player")
         personalResourceBarsEventFrame:UnregisterEvent("UNIT_HEALTH_FREQUENT", "player")
         personalResourceBarsEventFrame:UnregisterEvent("UNIT_MAXHEALTH", "player")
         personalResourceBarsEventFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
       else
         PRD_personalHealthBar:SetShown(true)
         PRD_personalManaBar:SetShown(true)
-        personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_UPDATE", "player")
+        personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_POWER_FREQUENT_UPDATE", "player")
         personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", "player")
         personalResourceBarsEventFrame:RegisterUnitEvent("UNIT_MAXHEALTH", "player")
         personalResourceBarsEventFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -1131,6 +1189,18 @@ MinimapButton:SetScript("OnDragStop", function(self) self:SetScript("OnUpdate", 
 -- no longer a function
 --createPersonalResourceDisplay() 
 
+--[[ function StaticPopup_OnClick(dialog, index)
+    if ( not dialog:IsShown() ) then
+		  return;
+	  end 
+	local popupName = dialog.which;
+  if (popupName == "PRD_WRONG_SYNTAX") then
+    if (index == 2) then
+      PRD_resetFramesToDefault()
+    end
+  end
+end ]]
+
 SLASH_PERSONALRESOURCEDISPLAY1 = "/prd"
 SlashCmdList["PERSONALRESOURCEDISPLAY"] = function(cmd)  
   if not cmd or cmd == "" then
@@ -1143,9 +1213,11 @@ SlashCmdList["PERSONALRESOURCEDISPLAY"] = function(cmd)
       StaticPopup_Show("PRD_WRONG_SYNTAX");
       return
     end
-    --PRD_personalHealthBar:SetPoint("CENTER", 0, newPadding)
-    --PRD_personalManaBar:SetPoint("CENTER", 0, newPadding-personalResourceBarHeight)
-    PRD_moveVertically(newPadding)
+    PRD_personalHealthBar:SetPoint("CENTER", 0, newPadding)
+    PRD_personalManaBar:SetPoint("CENTER", 0, newPadding-personalResourceBarHeight)
+    -- PRD_moveVertically(newPadding)
+
+    PRD_settingsConfig.verticalPosition = newPadding
   end
 end
 

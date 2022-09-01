@@ -1,8 +1,8 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: Personal Resource Display
 ## Author: |cff3FD42ADi|cffFFFFFFopo|cffF50E09rc|r 
-## Notes: Just a Legion-style personal resource display. Author: |cff3FD42ADi|cffFFFFFFopo|cffF50E09rc|r 
-## Version: 3.1.2a
+## Notes: Just a Legion-style personal resource display for Mists of Pandaria. Author: |cff3FD42ADi|cffFFFFFFopo|cffF50E09rc|r 
+## Version: 3.1.2
 ## SavedVariables: PRD_minimapButtonConfig, PRD_settingsConfig, PRD_logCount
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
