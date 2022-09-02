@@ -10,7 +10,6 @@ local DT = __private.DT;
 
 -->		upvalue
 	local hooksecurefunc = hooksecurefunc;
-	local type = type;
 	local UnitGUID, UnitName, UnitLevel, UnitClassBase = UnitGUID, UnitName, UnitLevel, UnitClassBase;
 	local CreateFrame = CreateFrame;
 	local _G = _G;
@@ -49,7 +48,7 @@ MT.BuildEnv('INSPECT');
 				local name = info[2];
 				local class = info[3];
 				local level = info[4];
-				local code, data = VT.__emulib.EncodeInspect(class, level);
+				local code, numGroup, activeGroup, data1, data2 = VT.__emulib.EncodeInspectTalentDataV2(class, level);
 				if code ~= nil then
 					local cache = VT.TQueryCache[name];
 					if cache == nil then
@@ -59,7 +58,7 @@ MT.BuildEnv('INSPECT');
 					cache.time_tal = MT.GetUnifiedTime();
 					cache.talent = code;
 					cache.class = class;
-					cache.data = data;
+					cache.data = { data1, data2, num = numGroup, active = activeGroup, };
 					cache.level = level;
 					VT.__emulib.GetEquipmentData(cache, unit);
 					MT._TriggerCallback("CALLBACK_DATA_RECV", name);
@@ -71,7 +70,7 @@ MT.BuildEnv('INSPECT');
 	end
 	MT.RegisterOnInit('INSPECT', function(LoggedIn)
 		local Driver = CreateFrame('FRAME', nil, UIParent);
-		Driver:RegisterEvent("CHAT_MSG_ADDON_LOGGED");
+		Driver:RegisterEvent("INSPECT_READY");
 		Driver:SetScript("OnEvent", OnEvent);
 		hooksecurefunc("NotifyInspect", function(unit)
 			local GUID = UnitGUID(unit);

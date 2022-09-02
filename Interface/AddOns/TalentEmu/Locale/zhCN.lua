@@ -39,7 +39,7 @@ L.ResetToSetButton = "重置到初始状态";
 L.ReadOnlyButton = "|cff00ff00点击|r设置";
 L.CloseButton = "关闭窗口";
 
-L.ClassButton = "\n|cff00ff00左键|r切换职业\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除保存的天赋";
+L.ClassButton = "\n|cff00ff00左键|r切换职业\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00子菜单中Shift+左键|r删除保存的天赋";
 L.InspectTargetButton = "观察目标天赋";
 L.SpellListButton = "技能列表窗口";
 L.SpellAvailable = "|cff00ff00技能可用|r";
@@ -51,7 +51,7 @@ L.ApplyTalentsButton_Notify = "确定应用当前天赋？";
 L.ApplyTalentsFinished = "天赋已应用";
 L.ImportButton = "导入字符串或wowhead/nfu/yxrank链接";
 L.ExportButton = "|cff00ff00左键|r导出字符串\n|cff00ff00右键|r导出到|cffff0000wowhead/nfu|r网页链接";
-L.SaveButton = "|cff00ff00左键|r保存天赋设置\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除天赋";
+L.SaveButton = "|cff00ff00左键|r保存天赋设置\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00ALT+右键|r加载其他角色天赋\n|cff00ff00子菜单中Shift+左键|r删除天赋";
 L.SendButton = "|cff00ff00左键|r发送天赋到聊天\n|cff00ff00右键|r查看最近聊天中的天赋";
 L.EquipmentFrameButton = "打开装备查看";
 
@@ -106,6 +106,9 @@ L.DATA = {
 	WARLOCK = "术士",
 	WARRIOR = "战士",
 
+	[398] = "鲜血",
+	[399] = "冰霜",
+	[400] = "邪恶",
 	[283] = "平衡",
 	[281] = "野性战斗",
 	[282] = "恢复",
@@ -199,3 +202,7 @@ L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."] = "数据错误:
 
 
 L.PopupQuery = "查询天赋";
+
+--	emulib
+L["WOW VERSION"] = "不是当前版本客户端的天赋";
+L["NO DECODER"] = "无法解析天赋数据";

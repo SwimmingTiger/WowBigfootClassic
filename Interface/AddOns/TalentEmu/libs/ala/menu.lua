@@ -28,7 +28,7 @@
 			}
 ]=]
 
-local __version = 220808.0;
+local __version = 220824.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -52,7 +52,6 @@ local uireimp = __ala_meta__.uireimp;
 
 -->			upvalue
 	local type = type;
-	local unpack = unpack;
 	local GetCursorPosition = GetCursorPosition;
 	local _ = nil;
 
@@ -148,7 +147,7 @@ local uireimp = __ala_meta__.uireimp;
 		uireimp._SetSimpleBackdrop(Menu, -1, 1, MenuBackdropColor[1], MenuBackdropColor[2], MenuBackdropColor[3], MenuBackdropColor[4], MenuBorderColor[1], MenuBorderColor[2], MenuBorderColor[3], MenuBorderColor[4]);
 	end
 	local function CreateMenu()
-		Menu = CreateFrame("BUTTON", nil, UIParent);
+		Menu = CreateFrame('BUTTON', nil, UIParent);
 		Menu:SetFrameStrata("FULLSCREEN_DIALOG");
 		Menu:SetClampedToScreen(true);
 		Menu:Hide();
@@ -166,7 +165,7 @@ local uireimp = __ala_meta__.uireimp;
 			Menu:RegisterEvent("PLAYER_STARTED_TURNING");
 			-- Menu:RegisterEvent("PLAYER_STOPPED_TURNING");
 		else
-			Menu:RegisterEvent("CURSOR_UPDATE");
+			Menu:RegisterEvent("CURSOR_CHANGED");
 		end
 		Menu.Buttons = {  };
 
@@ -195,7 +194,7 @@ local uireimp = __ala_meta__.uireimp;
 			return Button:__onleave(Button.Menu.param, Button.param);
 		end
 	end
-	local function MenuCloseOnClick(Button, Menu)
+	local function MenuCloseOnClick(Button, param, Menu)
 		Menu:Hide();
 	end
 	local function SetButton(Button)
@@ -224,7 +223,7 @@ local uireimp = __ala_meta__.uireimp;
 
 	end
 	local function CreateMenuButton(Menu, x, y)
-		local Button = CreateFrame("BUTTON", nil, Menu);
+		local Button = CreateFrame('BUTTON', nil, Menu);
 		Button:SetPoint("TOP", Menu, "TOP", x, y);
 
 		Button.HT = Button:CreateTexture(nil, "HIGHLIGHT");
@@ -243,7 +242,7 @@ local uireimp = __ala_meta__.uireimp;
 	end
 
 -->			Method
-	local function GetMenu(parent, anchor, useMousePosition)
+	local function GetMenu(parent, anchor, useMousePosition, sideJustified)
 		local Menu = nil;
 		--[[if frameToMenu[parent] then
 			Menu = frameToMenu[parent];
@@ -282,24 +281,44 @@ local uireimp = __ala_meta__.uireimp;
 			end
 		else
 			if anchor == "TOPRIGHT" then
-				Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				end
 			elseif anchor == "TOPLEFT" then
-				Menu:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMRIGHT", parent, "TOPRIGHT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", 0, 0);
+				end
 			elseif anchor == "BOTTOMRIGHT" then
-				Menu:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 0, 0);
+				else
+					Menu:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", 0, 0);
+				end
 			elseif anchor == "BOTTOMLEFT" then
-				Menu:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", 0, 0);
+				else
+					Menu:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", 0, 0);
+				end
 			elseif anchor == "TOP" then
-				Menu:SetPoint("BOTTOM", parent, "TOP", 0, 0);
+					Menu:SetPoint("BOTTOM", parent, "TOP", 0, 0);
 			elseif anchor == "BOTTOM" then
-				Menu:SetPoint("TOP", parent, "BOTTOM", 0, 0);
+					Menu:SetPoint("TOP", parent, "BOTTOM", 0, 0);
 			else
-				Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				end
 			end
 		end
 		return Menu;
 	end
-	local function ShowMenu(parent, anchor, data, param, useMousePosition)
+	local function ShowMenu(parent, anchor, data, param, useMousePosition, sideJustified)
 		local Menu = frameToMenu[parent];
 		if Menu ~= nil and Menu:IsShown() then
 			Menu:Hide();
@@ -310,7 +329,7 @@ local uireimp = __ala_meta__.uireimp;
 		if type(data) ~= "table" or data[1] == nil then
 			return;
 		end
-		Menu = GetMenu(parent, anchor, useMousePosition);
+		Menu = GetMenu(parent, anchor, useMousePosition, sideJustified);
 		Menu.meta = data;
 		Menu.handler = data.handler;
 		Menu.param = param;

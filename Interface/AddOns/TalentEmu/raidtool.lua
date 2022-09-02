@@ -9,7 +9,6 @@ local VT = __private.VT;
 local DT = __private.DT;
 
 --		upvalue
-	local type = type;
 	local next = next;
 	local wipe = table.wipe;
 	local strmatch, format = string.match, string.format;
@@ -21,6 +20,8 @@ local DT = __private.DT;
 	local UnitIsConnected = UnitIsConnected;
 	local IsInGroup = IsInGroup;
 	local IsInRaid = IsInRaid;
+	local CheckInteractDistance = CheckInteractDistance;
+	local CanInspect, NotifyInspect = CanInspect, NotifyInspect;
 	local GuildRoster = GuildRoster;
 	local GetNumGuildMembers = GetNumGuildMembers;
 	local GetGuildRosterInfo = GetGuildRosterInfo;
@@ -1475,7 +1476,7 @@ MT.BuildEnv('RAIDTOOL');
 	local function RaidNode_OnClick(Node)
 	end
 	local function CreateRaidNode(Parent, index, buttonHeight)
-		local Node = CreateFrame("BUTTON", nil, Parent);
+		local Node = CreateFrame('BUTTON', nil, Parent);
 		Node:SetHeight(buttonHeight);
 		VT.__uireimp._SetSimpleBackdrop(Node, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 		Node:SetHighlightTexture([[Interface\FriendsFrame\UI-FriendsFrame-HighlightBar]]);
@@ -1505,7 +1506,7 @@ MT.BuildEnv('RAIDTOOL');
 			SpecText:SetFont(TUISTYLE.RaidToolUIFont, TUISTYLE.RaidToolUIFontSize, TUISTYLE.RaidToolUIFontOutline);
 			SpecText:SetPoint("LEFT", SpecIcon, "RIGHT", 4, 0);
 			SpecText:SetJustifyH("LEFT");
-			SpecIcon.Label = SpecText;
+			SpecIcon.Name = SpecText;
 			Specs[TreeIndex] = SpecIcon;
 		end
 		Specs[1]:SetPoint("LEFT", Node, "LEFT", 160, 0);
@@ -1574,22 +1575,23 @@ MT.BuildEnv('RAIDTOOL');
 				Node.Icon:SetTexCoord(0.75, 1.00, 0.75, 1.00);
 			end
 			if class ~= nil and cache ~= nil then
-				if cache.data ~= nil then
-					local stats = { MT.CountTreePoints(cache.data, class) };
+				local data = cache.data;
+				if data ~= nil then
+					local stats = MT.CountTreePoints(data[data.active], class);
 					local Specs = Node.Specs;
 					local SpecList = DT.ClassSpec[class];
 					for TreeIndex = 1, 3 do
 						local SpecIcon = Specs[TreeIndex];
 						local SpecID = SpecList[TreeIndex];
 						SpecIcon:SetTexture(DT.TalentSpecIcon[SpecID] or TTEXTURESET.UNK);
-						SpecIcon.Label:SetText(stats[TreeIndex]);
+						SpecIcon.Name:SetText(stats[TreeIndex]);
 					end
 				else
 					local Specs = Node.Specs;
 					for TreeIndex = 1, 3 do
 						local SpecIcon = Specs[TreeIndex];
 						SpecIcon:SetTexture(TTEXTURESET.UNK);
-						SpecIcon.Label:SetText("*");
+						SpecIcon.Name:SetText("*");
 					end
 				end
 				local itemLevel1, itemLevel2, refresh_again = CalcItemLevel(class, cache);
@@ -1622,7 +1624,7 @@ MT.BuildEnv('RAIDTOOL');
 				for TreeIndex = 1, 3 do
 					local SpecIcon = Specs[TreeIndex];
 					SpecIcon:SetTexture(TTEXTURESET.UNK);
-					SpecIcon.Label:SetText("*");
+					SpecIcon.Name:SetText("*");
 				end
 				Node.ItemLevel:SetText(nil);
 				Node.MissItem:SetText(nil);
@@ -1677,7 +1679,7 @@ MT.BuildEnv('RAIDTOOL');
 				info[3] = online;
 				info[4] = nil;
 				if online then
-					MT.SendQueryRequest(name, nil, true, force_update);
+					MT.SendQueryRequest(name, nil, force_update, false);
 				end
 			end
 		end
@@ -1708,7 +1710,7 @@ MT.BuildEnv('RAIDTOOL');
 						info[3] = online;
 						info[4] = unit;
 						if online then
-							MT.SendQueryRequest(name, nil, true, force_update);
+							MT.SendQueryRequest(name, nil, force_update, false);
 						end
 					end
 				end
@@ -1732,7 +1734,7 @@ MT.BuildEnv('RAIDTOOL');
 						info[3] = online;
 						info[4] = unit;
 						if online then
-							MT.SendQueryRequest(name, nil, true, force_update);
+							MT.SendQueryRequest(name, nil, force_update, false);
 						end
 					end
 				end
@@ -1741,7 +1743,7 @@ MT.BuildEnv('RAIDTOOL');
 	end
 	local function CreateRaidToolUI()
 		--	Frame
-			local Frame = CreateFrame("FRAME", "ALA_RAID_TOOL_UI", UIParent);
+			local Frame = CreateFrame('FRAME', "ALA_RAID_TOOL_UI", UIParent);
 			UISpecialFrames[#UISpecialFrames + 1] = "ALA_RAID_TOOL_UI";
 			VT.__uireimp._SetSimpleBackdrop(Frame, 0, 1, 0.0, 0.0, 0.0, 0.75, 0.0, 0.0, 0.0, 1.0);
 			Frame:SetSize(TUISTYLE.RaidToolUIFrameXSize, TUISTYLE.RaidToolUIFrameYSize);
@@ -1777,7 +1779,7 @@ MT.BuildEnv('RAIDTOOL');
 			ScrollList:SetPoint("TOPRIGHT", -4, -24);
 			Frame.ScrollList = ScrollList;
 
-			local Close = CreateFrame("BUTTON", nil, Frame);
+			local Close = CreateFrame('BUTTON', nil, Frame);
 			Close:SetSize(16, 16);
 			Close:SetNormalTexture("interface\\buttons\\ui-stopbutton");
 			Close:SetPushedTexture("interface\\buttons\\ui-stopbutton");
@@ -1790,7 +1792,7 @@ MT.BuildEnv('RAIDTOOL');
 			end);
 			Frame.Close = Close;
 
-			local Refresh = CreateFrame("BUTTON", nil, Frame);
+			local Refresh = CreateFrame('BUTTON', nil, Frame);
 			Refresh:SetSize(16, 16);
 			Refresh:SetNormalTexture("interface\\buttons\\ui-refreshbutton");
 			Refresh:SetPushedTexture("interface\\buttons\\ui-refreshbutton");
@@ -1827,7 +1829,7 @@ MT.BuildEnv('RAIDTOOL');
 				Frame.LableBossMod = RaidToolLableBossMod;
 			--
 
-			local GuildList = CreateFrame("CHECKBUTTON", nil, Frame, "OptionsBaseCheckButtonTemplate");
+			local GuildList = CreateFrame('CHECKBUTTON', nil, Frame, "OptionsBaseCheckButtonTemplate");
 			GuildList:SetSize(16, 16);
 			GuildList:SetHitRectInsets(0, 0, 0, 0);
 			GuildList:ClearAllPoints();
@@ -1846,7 +1848,7 @@ MT.BuildEnv('RAIDTOOL');
 			local GuildListLabel = Frame:CreateFontString(nil, "ARTWORK");
 			GuildListLabel:SetFont(GameFontHighlight:GetFont(), 12, TUISTYLE.RaidToolUIFontOutline);
 			GuildListLabel:SetText(L.GuildList);
-			GuildList.Label = GuildListLabel;
+			GuildList.Name = GuildListLabel;
 			GuildListLabel:SetPoint("RIGHT", GuildList, "LEFT", 0, 0);
 		--	Script
 			MT._RegisterCallback("CALLBACK_DATA_RECV", function()
@@ -1888,7 +1890,7 @@ MT.BuildEnv('RAIDTOOL');
 				for index = 1, #RosterList do
 					local name = RosterList[index];
 					if VT.TQueryCache[name] == nil and RosterInfo[name][3] then
-						MT.SendQueryRequest(name, nil, true);
+						MT.SendQueryRequest(name, nil, false, false);
 						local unit = RosterInfo[name][4];
 						if unit and CheckInteractDistance(unit, 4) and CanInspect(unit) then
 							NotifyInspect(unit);

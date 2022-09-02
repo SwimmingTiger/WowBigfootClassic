@@ -10,7 +10,6 @@ local DT = __private.DT;
 
 --		upvalue
 	local hooksecurefunc = hooksecurefunc;
-	local type = type;
 	local strmatch, format = string.match, string.format;
 	local max = math.max;
 	local tonumber = tonumber;
@@ -40,31 +39,34 @@ MT.BuildEnv('TOOLTIP');
 		if cache ~= nil then
 			local data = cache.data;
 			local class = cache.class;
-			if data and class then
-				local line = "";
-				local stats = { MT.CountTreePoints(data, class) };
-				local SpecList = DT.ClassSpec[class];
-				local cap = -1;
-				if stats[1] ~= stats[2] or stats[1] ~= stats[3] then
-					cap = max(stats[1], stats[2], stats[3]);
-				end
-				for TreeIndex = 1, 3 do
-					local SpecID = SpecList[TreeIndex];
-					if cap == stats[TreeIndex] then
-						if VT.SET.talents_in_tip_icon then
-							line = line .. "|T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffff7f1f%2d|r  ", stats[TreeIndex]);
+			if data ~= nil and data.num ~= nil and class ~= nil then
+				for group = 1, data.num do
+					local line = group == data.active and "|cff00ff00>|r" or "|cff000000>|r";
+					local stats = MT.CountTreePoints(data[group], class);
+					local SpecList = DT.ClassSpec[class];
+					local cap = -1;
+					if stats[1] ~= stats[2] or stats[1] ~= stats[3] then
+						cap = max(stats[1], stats[2], stats[3]);
+					end
+					for TreeIndex = 1, 3 do
+						local SpecID = SpecList[TreeIndex];
+						if cap == stats[TreeIndex] then
+							if VT.SET.talents_in_tip_icon then
+								line = line .. "  |T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffff7f1f%2d|r", stats[TreeIndex]);
+							else
+								line = line .. "  |cffff7f1f" .. L.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
+							end
 						else
-							line = line .. "|cffff7f1f" .. L.DATA[SpecID] .. ":" .. stats[TreeIndex] .. "|r  ";
-						end
-					else
-						if VT.SET.talents_in_tip_icon then
-							line = line .. "|T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffffffff%2d|r  ", stats[TreeIndex]);
-						else
-							line = line .. "|cffbfbfff" .. L.DATA[SpecID] .. ":" .. stats[TreeIndex] .. "|r  ";
+							if VT.SET.talents_in_tip_icon then
+								line = line .. "  |T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffffffff%2d|r", stats[TreeIndex]);
+							else
+								line = line .. "  |cffbfbfff" .. L.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
+							end
 						end
 					end
+					line = line .. (group == data.active and "  |cff00ff00<|r" or "  |cff000000<|r");
+					Tip:AddLine(line);
 				end
-				Tip:AddLine(line);
 				if VT.SET.supreme and cache.pack ~= nil then
 					local info = VT.__emulib.DecodeAddonPackData(cache.pack, true);
 					if info ~= nil then
@@ -101,7 +103,7 @@ MT.BuildEnv('TOOLTIP');
 			local _, unit = Tip:GetUnit();
 			if unit ~= nil and UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == CT.SELFFACTION then
 				local name, realm = UnitName(unit);
-				MT.SendQueryRequest(name, realm, true, nil, nil, false);
+				MT.SendQueryRequest(name, realm, false, false, true, false);
 			end
 		end
 	end

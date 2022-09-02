@@ -1,7 +1,7 @@
 --[[--
 	alex/ALA @ 163UI
 --]]--
-local __version = 220808.0;
+local __version = 220824.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -14,6 +14,7 @@ __ala_meta__.__minor = __version;
 
 local _patch_version, _build_number, _build_date, _toc_version = GetBuildInfo();
 
+__ala_meta__.TOC_VERSION = _toc_version;
 if _toc_version < 20000 then
 	__ala_meta__.MAX_LEVEL = 60;
 	__ala_meta__.BUILD = "CLASSIC";
@@ -23,6 +24,18 @@ elseif _toc_version < 30000 then
 elseif _toc_version < 40000 then
 	__ala_meta__.MAX_LEVEL = 80;
 	__ala_meta__.BUILD = "WRATH";
+elseif _toc_version < 50000 then
+	__ala_meta__.MAX_LEVEL = 85;
+	__ala_meta__.BUILD = "CATA";
+elseif _toc_version < 60000 then
+	__ala_meta__.MAX_LEVEL = 90;
+	__ala_meta__.BUILD = "PANDARIA";
+elseif _toc_version < 70000 then
+	__ala_meta__.MAX_LEVEL = 100;
+	__ala_meta__.BUILD = "DRAENOR";
+elseif _toc_version < 80000 then
+	__ala_meta__.MAX_LEVEL = 110;
+	__ala_meta__.BUILD = "LEGION";
 elseif _toc_version > 90000 then
 	__ala_meta__.MAX_LEVEL = 60;
 	__ala_meta__.BUILD = "RETAIL";
@@ -44,10 +57,7 @@ __ala_meta__.SELFREALM = GetRealmName();
 __ala_meta__.SELFFULLNAME = __ala_meta__.SELFNAME .. "-" .. __ala_meta__.SELFREALM;
 __ala_meta__.SELFFULLNAME_LEN = #(__ala_meta__.SELFFULLNAME);
 __ala_meta__.SELFFACTION = UnitFactionGroup('player');
-__ala_meta__.SELFCLASS = UnitClassBase('player');
-__ala_meta__.SELFCLASSUPPER = strupper(__ala_meta__.SELFCLASS);
-__ala_meta__.SELFCLASSLOWER = strlower(__ala_meta__.SELFCLASS);
-
+__ala_meta__.SELFLCLASS, __ala_meta__.SELFCLASS = UnitClass('player');
 
 local _, name, desc, loadable, reason, security, newversion = GetAddOnInfo("!!!!!DebugMe");
 __ala_meta__.__SYNC = {
@@ -59,7 +69,7 @@ __ala_meta__.__SYNCREALTIME = name ~= nil;
 __ala_meta__.__SYNCONLOGIN = false;
 __ala_meta__.__SYNCONLOGOUT = false;
 
-
+do return end
 
 local unpack = unpack;
 local inext = ipairs({  });
@@ -350,10 +360,10 @@ local function dev()
 		end
 	end
 	local FirstLib = true;
-	for _, def in inext, _LibList, 0 do
+	for _, TalentDef in inext, _LibList, 0 do
 		local val = _G;
-		for index = 2, #def do
-			val = val[def[index]];
+		for index = 2, #TalentDef do
+			val = val[TalentDef[index]];
 			if val == nil then
 				break;
 			end
@@ -363,7 +373,7 @@ local function dev()
 				FirstLib = false;
 				DisplayPanel:AddMiddleLine("****|cffff00ffLibList|r****");
 			end
-			DisplayPanel:AddDoubleLine(def[1], "#|cffff7f00" .. val .. "|r");
+			DisplayPanel:AddDoubleLine(TalentDef[1], "#|cffff7f00" .. val .. "|r");
 		end
 	end
 	DisplayPanel:Render();

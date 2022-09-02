@@ -9,9 +9,9 @@ local VT = __private.VT;
 local DT = __private.DT;
 
 --		upvalue
-	local type = type;
-	local next, unpack = next, unpack;
+	local next = next;
 	local select = select;
+	local GetPlayerInfoByGUID = GetPlayerInfoByGUID;
 	local GetTalentInfo =GetTalentInfo;
 	local GetAddOnInfo, IsAddOnLoaded = GetAddOnInfo, IsAddOnLoaded;
 	local IsShiftKeyDown = IsShiftKeyDown;
@@ -20,9 +20,9 @@ local DT = __private.DT;
 	local ChatEdit_ChooseBoxForSend = ChatEdit_ChooseBoxForSend;
 	local PanelTemplates_GetSelectedTab = PanelTemplates_GetSelectedTab;
 	local UIParent = UIParent;
+	local RAID_CLASS_COLORS = RAID_CLASS_COLORS;
 
 -->
-	local alaPopup = _G.alaPopup;
 	local L = CT.L;
 
 -->		constant
@@ -37,37 +37,37 @@ MT.BuildEnv('MISC');
 	end
 	--	popup
 
-		alaPopup.add_meta("EMU_INSPECT", {
+		VT.__popuplib.add_meta("EMU_INSPECT", {
 			L.PopupQuery,
 			function(which, frame)
-				MT.SendQueryRequest(frame.name, frame.server, nil, true);
+				MT.SendQueryRequest(frame.name, frame.server, true, true);
 			end,
 		});
-		alaPopup.add_list("SELF", "EMU_INSPECT");
-		alaPopup.add_list("FRIEND", "EMU_INSPECT");
-		--alaPopup.add_list("FRIEND_OFFLINE", "EMU_INSPECT");
-		alaPopup.add_list("PLAYER", "EMU_INSPECT");
-		alaPopup.add_list("PARTY", "EMU_INSPECT");
-		alaPopup.add_list("RAID", "EMU_INSPECT");
-		alaPopup.add_list("RAID_PLAYER", "EMU_INSPECT");
-		alaPopup.add_list("CHAT_ROSTER", "EMU_INSPECT");
-		alaPopup.add_list("GUILD", "EMU_INSPECT");
-		alaPopup.add_list("_BRFF_SELF", "EMU_INSPECT");
-		alaPopup.add_list("_BRFF_PARTY", "EMU_INSPECT");
-		alaPopup.add_list("_BRFF_RAID_PLAYER", "EMU_INSPECT");
-		--	alaPopup.add_list("*", "EMU_INSPECT");
+		VT.__popuplib.add_list("SELF", "EMU_INSPECT");
+		VT.__popuplib.add_list("FRIEND", "EMU_INSPECT");
+		--VT.__popuplib.add_list("FRIEND_OFFLINE", "EMU_INSPECT");
+		VT.__popuplib.add_list("PLAYER", "EMU_INSPECT");
+		VT.__popuplib.add_list("PARTY", "EMU_INSPECT");
+		VT.__popuplib.add_list("RAID", "EMU_INSPECT");
+		VT.__popuplib.add_list("RAID_PLAYER", "EMU_INSPECT");
+		VT.__popuplib.add_list("CHAT_ROSTER", "EMU_INSPECT");
+		VT.__popuplib.add_list("GUILD", "EMU_INSPECT");
+		VT.__popuplib.add_list("_BRFF_SELF", "EMU_INSPECT");
+		VT.__popuplib.add_list("_BRFF_PARTY", "EMU_INSPECT");
+		VT.__popuplib.add_list("_BRFF_RAID_PLAYER", "EMU_INSPECT");
+		--	VT.__popuplib.add_list("*", "EMU_INSPECT");
 
 	--
-	do	--	TalentFrameCall
+	--	TalentFrameCall
 		local _TalentFrame = nil;
 		local Orig_TalentFrameTalent_OnClick = nil;
 		local function _TalentFrameTalent_OnClick(self, mouseButton)
 			if IsShiftKeyDown() then
-				local Map = VT.__emulib.GenerateTalentMap(CT.SELFCLASSUPPER, false);
+				local Map = VT.__emulib.GetTalentMap(CT.SELFCLASS);
 				if Map ~= nil then
 					local TreeIndex, TalentIndex = PanelTemplates_GetSelectedTab(_TalentFrame), self:GetID();
 					local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(TreeIndex, TalentIndex);
-					local SpellID = MT.QueryTalentSpellID(CT.SELFCLASSUPPER, TreeIndex, Map.RMap[TreeIndex][TalentIndex], rank);
+					local SpellID = MT.QueryTalentSpellID(CT.SELFCLASS, TreeIndex, Map.RMap[TreeIndex][TalentIndex], rank);
 					local link = MT.GetSpellLink(SpellID, name);
 					if link ~= nil then
 						local editBox = ChatEdit_ChooseBoxForSend();
@@ -83,6 +83,9 @@ MT.BuildEnv('MISC');
 		local TalentFrameTalents = {  };
 		local function HookTalentFrame(self, event, addon)
 			if addon == "Blizzard_TalentUI" then
+				self:UnregisterEvent("ADDON_LOADED");
+				self:SetScript("OnEvent", nil);
+
 				_TalentFrame = _G.TalentFrame or _G.PlayerTalentFrame;
 				Orig_TalentFrameTalent_OnClick = _G.TalentFrameTalent_OnClick or _G.PlayerTalentFrameTalent_OnClick;
 				if _G.TalentFrame ~= nil then
@@ -96,7 +99,7 @@ MT.BuildEnv('MISC');
 						end
 					end
 
-					local button = CreateFrame("BUTTON", nil, _TalentFrame, "UIPanelButtonTemplate");
+					local button = CreateFrame('BUTTON', nil, _TalentFrame, "UIPanelButtonTemplate");
 					button:SetSize(80, 20);
 					button:SetPoint("RIGHT", _G.TalentFrameCloseButton, "LEFT", -2, 0);
 					button:SetText(L.TalentFrameCallButtonString);
@@ -116,7 +119,7 @@ MT.BuildEnv('MISC');
 						end
 					end
 
-					local button = CreateFrame("BUTTON", nil, _TalentFrame, "UIPanelButtonTemplate");
+					local button = CreateFrame('BUTTON', nil, _TalentFrame, "UIPanelButtonTemplate");
 					button:SetSize(80, 20);
 					button:SetPoint("RIGHT", _G.PlayerTalentFrameCloseButton, "LEFT", -2, 0);
 					button:SetText(L.TalentFrameCallButtonString);
@@ -127,45 +130,61 @@ MT.BuildEnv('MISC');
 					_TalentFrame.__TalentEmuCall = button;
 					VT.__autostyle:AddReskinObject(button);
 				end
-
-				if self then
-					self:UnregisterAllEvents();
-					self:SetScript("OnEvent", nil);
-				end
 			end
 		end
 
 		if IsAddOnLoaded("Blizzard_TalentUI") then
 			HookTalentFrame(nil, nil, "Blizzard_TalentUI");
 		else
-			local f = CreateFrame("FRAME");
-			f:RegisterEvent("ADDON_LOADED");
-			f:SetScript("OnEvent", HookTalentFrame);
-			f = nil;
+			local Agent = CreateFrame('FRAME');
+			Agent:RegisterEvent("ADDON_LOADED");
+			Agent:SetScript("OnEvent", HookTalentFrame);
+			Agent = nil;
 		end
 
 		--GameTooltip:SetHyperlink("itemString" or "itemLink")
 		--GameTooltip:SetSpellBookItem(SpellBookID, BookType)
 		--GameTooltip:SetSpellByID(SpellID)
-	end
+	--
+
 	local ME = {
 		['\97\108\101\120\35\53\49\54\55\50\50'] = 1,
 		['\229\141\149\233\133\146\231\170\157\35\53\49\54\51\55'] = 1,
 		['\65\76\65\35\53\49\51\55\55'] = 1,
 	};
-	
 
+	local function _PerdiocGenerateTitle()
+		local halt = true;
+		for index = 1, VT.SaveButtonMenuAltDefinition.num do
+			local Def = VT.SaveButtonMenuAltDefinition[index];
+			if Def.text == nil then
+				local lClass, class, lRace, race, sex, name, realm = GetPlayerInfoByGUID(Def.param[1]);
+				if class ~= nil and name ~= nil then
+					Def.text = "|c" .. RAID_CLASS_COLORS[class].colorStr .. name .. "|r";
+				else
+					halt = false;
+				end
+			end
+		end
+		if halt then
+			MT._TimerHalt(_PerdiocGenerateTitle);
+		end
+	end
 	MT.RegisterOnInit('MISC', function(LoggedIn)
 	end);
 	MT.RegisterOnLogin('MISC', function(LoggedIn)
+		if DT.BUILD == "WRATH" then
+			local Map = VT.__emulib.GetTalentMap(CT.SELFCLASS);
+			VT.MAP[CT.SELFCLASS] = { VMap = Map.VMap, RMap = Map.RMap, };
+		end
+		--
 		local SET = VT.SET;
 		SET.supreme = not not ME[CT.BNTAG];
-		SET.credible = not not select(2, GetAddOnInfo('\33\33\33\49\54\51\85\73\33\33\33'));
 		if SET.supreme then
 			MT.SetConfig("inspect_pack", true);
 		end
-		CT.DefaultSetting.talents_in_tip = SET.credible;
-		VT.VAR[CT.SELFGUID] = VT.__emulib.GetEncodedPlayerTalentData();
+		--
+		VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2();
 		local Driver = CreateFrame('FRAME', nil, UIParent);
 		Driver:RegisterEvent("CONFIRM_TALENT_WIPE");
 		--	Fires when the user selects the "Yes, I do." confirmation prompt after speaking to a class trainer and choosing to unlearn their talents.
@@ -181,11 +200,26 @@ MT.BuildEnv('MISC');
 		--	Fires when spells in the spellbook change in any way. Can be trivial (e.g.: icon changes only), or substantial (e.g.: learning or unlearning spells/skills).
 		--	Payload	none
 		Driver:SetScript("OnEvent", function(Driver, event)
-			VT.VAR[CT.SELFGUID] = VT.__emulib.GetEncodedPlayerTalentData();
+			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2();
+			for index = 1, VT.SaveButtonMenuAltDefinition.num do
+				if VT.SaveButtonMenuAltDefinition[index].param[1] == CT.SELFGUID then
+					VT.SaveButtonMenuAltDefinition[index].param[2] = VT.VAR[CT.SELFGUID];
+				end
+			end
 		end);
+		for GUID, code in next, VT.VAR do
+			if GUID ~= "savedTalent" then
+				VT.SaveButtonMenuAltDefinition.num = VT.SaveButtonMenuAltDefinition.num + 1;
+				VT.SaveButtonMenuAltDefinition[VT.SaveButtonMenuAltDefinition.num] = {
+					param = { GUID, code, },
+				};
+			end
+		end
+		MT._TimerStart(_PerdiocGenerateTitle, 0.5);
 	end);
 
-do return end
+
+--[[
 	do	--	button_on_unitFrame
 		local function unitFrameButton_OnEvent(self, event)
 			if VT.SET.inspectButtonOnUnitFrame then
@@ -207,7 +241,7 @@ do return end
 			if not unitFrameName or unitFrameName == "" then
 				unitFrameName = "UNK" .. temp_unkFrame_id;
 			end
-			local unitFrameButton = CreateFrame("BUTTON", nil, UIParent);
+			local unitFrameButton = CreateFrame('BUTTON', nil, UIParent);
 			unitFrameButton:SetSize(60, 60);
 			unitFrameButton:Show();
 			unitFrameButton:SetAlpha(0.0);
@@ -239,10 +273,10 @@ do return end
 				if UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == CT.SELFFACTION then
 					local name, realm = UnitName(unit);
 					if name then
-						MT.SendQueryRequest(name, realm);
+						MT.SendQueryRequest(name, realm, false, true);
 					else
 						name, realm = strsplit("-", unit);
-						MT.SendQueryRequest(name, realm);
+						MT.SendQueryRequest(name, realm, false, true);
 					end
 				end		
 			end);
@@ -895,7 +929,7 @@ do return end
 						for i = 1, num_total do
 							local name, _, _, _, _, _, _, _, online = GetGuildRosterInfo(i);
 							if online then
-								tinsert(cache, MT.SendQueryRequest(name, nil, true));
+								tinsert(cache, MT.SendQueryRequest(name, nil, false, false));
 							end
 						end
 						timer = time();
@@ -918,7 +952,7 @@ do return end
 						for i = 1, MAX_RAID_MEMBERS do
 							local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i);
 							if name and online then
-								tinsert(cache, MT.SendQueryRequest(name, nil, true));
+								tinsert(cache, MT.SendQueryRequest(name, nil, false, false));
 							end
 						end
 						timer = time();
@@ -931,5 +965,6 @@ do return end
 		end
 		--
 	end
-	
+--]]
+
 -->
