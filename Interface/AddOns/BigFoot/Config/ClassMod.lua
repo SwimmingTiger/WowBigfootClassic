@@ -590,7 +590,7 @@ function ClassModConfigFunc()
 			ENABLE_RUNE_ENHANCE,
 			nil,
 			"EnableRuneFrame",
-			1,
+			0,
 			function (arg)
 				if (arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
