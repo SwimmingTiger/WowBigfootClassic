@@ -1127,7 +1127,7 @@ end
 if playerClass == "DRUID" or playerClass == "MONK" then
   -- personalResourceBarsEventFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
   personalResourceBarsEventFrame:RegisterEvent("UNIT_DISPLAYPOWER")
-  personalResourceBarsEventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+  --personalResourceBarsEventFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
   personalResourceBarsEventFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
