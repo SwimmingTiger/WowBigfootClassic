@@ -53,6 +53,7 @@ L["You have no bugs, yay!"] = "You have no bugs, yay!"
 L["You've received %d bugs from %s."] = "You've received %d bugs from %s."
 L.useMaster = "Use 'Master' sound channel"
 L.useMasterDesc = "Play the chosen error sound over the 'Master' sound channel instead of the default one."
+L.dumpLocals = "Dump local variables"
 
 local locale = GetLocale()
 if locale == "deDE" then
@@ -419,6 +420,7 @@ elseif locale == "zhCN" then
 	L["You've received %d bugs from %s."] = "你已接收到%d个错误从%s。"
 	L.useMaster = "使用“主”声道"
 	L.useMasterDesc = "通过“主”声道而不是默认声道播放所选的错误音效。"
+	L.dumpLocals = "转储本地变量"
 elseif locale == "zhTW" then
 	L["%d bugs have been sent to %s. He must have BugSack to be able to examine them."] = "%d個錯誤已經傳送給%s。他必須有BugSack來查看錯誤訊息。"
 	L.minimapHint = "|cffeda55f點擊|r開啟BugSack最後錯誤訊息。|cffeda55fShift-點擊|r重新載入使用者介面。 |cffeda55fRight-Click|r to open options."
@@ -471,6 +473,7 @@ elseif locale == "zhTW" then
 	L["You've received %d bugs from %s."] = "從%s收到%d個錯誤。"
 	--L.useMaster = "Use 'Master' sound channel"
 	--L.useMasterDesc = "Play the chosen error sound over the 'Master' sound channel instead of the default one."
+	L.dumpLocals = "轉儲本地變量"
 elseif locale == "ptBR" then
 	L["%d bugs have been sent to %s. He must have BugSack to be able to examine them."] = "%d falhas foram enviadas para %s. Ele deve ter o BugSack para poder examiná-las."
 	L.minimapHint = "|cffeda55fClique|r para abrir o BugSack com a última falha. |cffeda55fShift+Clique|r para recarregar a interface de usuário. |cffeda55fRight-Click|r to open options."

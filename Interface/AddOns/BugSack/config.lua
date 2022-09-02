@@ -130,6 +130,13 @@ frame:SetScript("OnShow", function(frame)
 	altWipe:SetChecked(addon.db.altwipe)
 	altWipe:SetPoint("LEFT", clear, "RIGHT", 10, 0)
 
+	local dumpLocals = newCheckbox(
+		L.dumpLocals,
+		L.dumpLocals,
+		function(self, value) addon.db.dumpLocals = value end)
+	dumpLocals:SetChecked(addon.db.dumpLocals)
+	dumpLocals:SetPoint("TOPLEFT", clear, "BOTTOMLEFT", 17, -25)
+
 	frame:SetScript("OnShow", nil)
 end)
 InterfaceOptions_AddCategory(frame)

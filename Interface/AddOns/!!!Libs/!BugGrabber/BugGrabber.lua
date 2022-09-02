@@ -357,11 +357,12 @@ do
 				for line in stack:gmatch("(.-)\n") do
 					tmp[#tmp+1] = findVersions(line)
 				end
-				local inCombat = IsEncounterInProgress() -- debuglocals can be slow sometimes (200ms+)
+				local dumpLocals = BugSack and BugSack.db and BugSack.db.dumpLocals
 				errorObject = {
 					message = sanitizedMessage,
 					stack = table.concat(tmp, "\n"),
-					locals = inCombat and "Skipped (In Encounter)" or debuglocals(3),
+					-- debuglocals can be slow sometimes (200ms+)
+					locals = dumpLocals and debuglocals(3) or nil,
 					session = addon:GetSessionId(),
 					time = date("%Y/%m/%d %H:%M:%S"),
 					counter = 1,
