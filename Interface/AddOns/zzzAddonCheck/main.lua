@@ -348,7 +348,7 @@ Bagnon_Forever
 	end
 end
 
-function zzzAddonCheck_Init_Questie()
+local function zzzAddonCheck_Init_Questie()
     if Codex and Questie then
         StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
             text = [[
@@ -374,7 +374,7 @@ ClassicCodex目前缺少死亡骑士任务线和诺森德任务数据，推荐�
     end
 end
 
-function zzzAddonCheck_Init_aux()
+local function zzzAddonCheck_Init_aux()
     -- 给aux的鼠标提示开启金币图标显示
     local patchVersion = '2021-06-05-16'
     if aux and aux.character and aux.auxPatchVersion ~= patchVersion then
@@ -384,6 +384,20 @@ function zzzAddonCheck_Init_aux()
             end
         end
         aux.auxPatchVersion = patchVersion
+    end
+end
+
+local function zzzAddonCheck_Init_TomTom()
+    -- 关闭TomTom的坐标模块
+    local patchVersion = '2022-09-02-12'
+    if TomTom and TomTom.db and TomTom.db.profile
+      and TomTom.db.profile.TomTomPatchVersion ~= patchVersion then
+        TomTom.db.profile.block.enable = false
+        TomTom.db.profile.mapcoords.playerenable = false
+        TomTom.db.profile.mapcoords.cursorenable = false
+        TomTom:ShowHideWorldCoords()
+        TomTom:ShowHideCoordBlock()
+        TomTom.db.profile.TomTomPatchVersion = patchVersion
     end
 end
 
@@ -407,6 +421,7 @@ local function LoaderEvents(frame, event, arg1)
     zzzAddonCheck_Init_Combuctor()
     zzzAddonCheck_Init_aux()
     zzzAddonCheck_Init_Questie()
+    zzzAddonCheck_Init_TomTom()
 end
 
 local LoaderFrame = CreateFrame("FRAME")
