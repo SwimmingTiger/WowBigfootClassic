@@ -88,15 +88,15 @@ local function __KillXperl()
 	
 		runeFrame.runes = {}
 		for i = 1, 6 do
-			RuneFrame_AddRune (runeFrame, _G["RuneButtonIndividual"..i])
+			RuneFrame_AddRune (runeFrame, _G["Rune"..i])
 
-			_G["XPerl_RuneButtonIndividual"..i].oriShow = _G["XPerl_RuneButtonIndividual"..i].oriShow or _G["XPerl_RuneButtonIndividual"..i].Show
-			_G["RuneButtonIndividual"..i].oriHide = _G["RuneButtonIndividual"..i].oriHide or _G["RuneButtonIndividual"..i].Hide
-			_G["XPerl_RuneButtonIndividual"..i]:Hide()
-			_G["RuneButtonIndividual"..i]:Show()			
+			_G["XPerl_Rune"..i].oriShow = _G["XPerl_Rune"..i].oriShow or _G["XPerl_Rune"..i].Show
+			_G["Rune"..i].oriHide = _G["Rune"..i].oriHide or _G["Rune"..i].Hide
+			_G["XPerl_Rune"..i]:Hide()
+			_G["Rune"..i]:Show()			
 
-			_G["XPerl_RuneButtonIndividual"..i].Show = function() end
-			_G["RuneButtonIndividual"..i].Hide = function() end
+			_G["XPerl_Rune"..i].Show = function() end
+			_G["Rune"..i].Hide = function() end
 		end
 	end
 end
@@ -105,12 +105,12 @@ local function __ReviveXperl()
 	if XPerl_Player then
 		runeFrame.runes = {}
 		for i = 1, 6 do
-			_G["XPerl_RuneButtonIndividual"..i].Show = _G["XPerl_RuneButtonIndividual"..i].oriShow or _G["XPerl_RuneButtonIndividual"..i].Show
-			_G["RuneButtonIndividual"..i].Hide = _G["RuneButtonIndividual"..i].oriHide or _G["RuneButtonIndividual"..i].Hide
+			_G["XPerl_Rune"..i].Show = _G["XPerl_Rune"..i].oriShow or _G["XPerl_Rune"..i].Show
+			_G["Rune"..i].Hide = _G["Rune"..i].oriHide or _G["Rune"..i].Hide
 
-			RuneFrame_AddRune (runeFrame, _G["XPerl_RuneButtonIndividual"..i])
+			RuneFrame_AddRune (runeFrame, _G["XPerl_Rune"..i])
 
-			_G["XPerl_RuneButtonIndividual"..i]:Show()
+			_G["XPerl_Rune"..i]:Show()
 
 		end
 	end
@@ -129,7 +129,7 @@ local function __AttachToHeader()
 	__KillXperl()
 	
 	runeFrameParent:Show()
-	bottomBar:SetMinMaxValues(0, UnitManaMax("player")) 
+	bottomBar:SetMinMaxValues(0, UnitPowerMax("player", SPELL_POWER_MANA)) 
 
 end
 
@@ -261,7 +261,7 @@ end
 
 local function showBottom()
 	for i = 1, 6 do
-		local runeButton = _G["RuneButtonIndividual"..i]
+		local runeButton = _G["Rune"..i]
 		runeButton:SetParent(bottomFrame)
 		runeButton:SetFrameStrata("BACKGROUND")
 		runeButton:RegisterForDrag("LeftButton")
@@ -269,13 +269,13 @@ local function showBottom()
 		runeButton:SetScript("OnDragStart",__OnHeaderDragStart)
 		runeButton:SetScript("OnDragStop",__OnHeaderDragStop)
 		runeButton:SetScript("OnMouseWheel",__OnHeaderMouseWheel)
-		_G["RuneButtonIndividual"..i]:SetFrameStrata("MEDIUM");
-		_G["RuneButtonIndividual"..i.."Border"]:Hide()
-		_G["RuneButtonIndividual"..i.."ShineTexture"]:SetWidth(30)
-		_G["RuneButtonIndividual"..i.."ShineTexture"]:SetHeight(17)
-		-- _G["RuneButtonIndividual"..i.."Cooldown"]:SetParent(bottomFrame)
-		_G["RuneButtonIndividual"..i.."Cooldown"]:SetWidth(16)
-		_G["RuneButtonIndividual"..i.."Cooldown"]:SetHeight(16)
+		_G["Rune"..i]:SetFrameStrata("MEDIUM");
+		_G["Rune"..i.."Border"]:Hide()
+		_G["Rune"..i.."ShineTexture"]:SetWidth(30)
+		_G["Rune"..i.."ShineTexture"]:SetHeight(17)
+		-- _G["Rune"..i.."Cooldown"]:SetParent(bottomFrame)
+		_G["Rune"..i.."Cooldown"]:SetWidth(16)
+		_G["Rune"..i.."Cooldown"]:SetHeight(16)
 	end
 	runeFrameParent:Show()
 	runeFrameParent:SetScale(db.scale)
@@ -284,18 +284,18 @@ end
 
 local function hideBottom()
 	for i = 1, 6 do
-		local runeButton = _G["RuneButtonIndividual"..i]
-		_G["RuneButtonIndividual"..i]:SetParent(runeFrame)
-		_G["RuneButtonIndividual"..i]:SetFrameStrata("BACKGROUND")
-		_G["RuneButtonIndividual"..i.."Border"]:Show()
+		local runeButton = _G["Rune"..i]
+		_G["Rune"..i]:SetParent(runeFrame)
+		_G["Rune"..i]:SetFrameStrata("BACKGROUND")
+		_G["Rune"..i.."Border"]:Show()
 		runeButton:SetScript("OnDragStart",function() end)
 		runeButton:SetScript("OnDragStop",function() end)
 		runeButton:SetScript("OnMouseWheel",function() end)
-		_G["RuneButtonIndividual"..i.."ShineTexture"]:SetWidth(60)
-		_G["RuneButtonIndividual"..i.."ShineTexture"]:SetHeight(35)
-		_G["RuneButtonIndividual"..i.."Cooldown"]:SetParent(_G["RuneButtonIndividual"..i])
-		_G["RuneButtonIndividual"..i.."Cooldown"]:SetWidth(15)
-		_G["RuneButtonIndividual"..i.."Cooldown"]:SetHeight(15)
+		_G["Rune"..i.."ShineTexture"]:SetWidth(60)
+		_G["Rune"..i.."ShineTexture"]:SetHeight(35)
+		_G["Rune"..i.."Cooldown"]:SetParent(_G["Rune"..i])
+		_G["Rune"..i.."Cooldown"]:SetWidth(15)
+		_G["Rune"..i.."Cooldown"]:SetHeight(15)
 	end
 	runeFrameParent:Hide()
 end
