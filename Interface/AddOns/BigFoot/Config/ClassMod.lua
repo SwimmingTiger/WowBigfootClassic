@@ -628,38 +628,6 @@ function ClassModConfigFunc()
 			end,
 			1
 		)
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			ENABLE_ATTACK_TIMER,
-			ENABLE_ATTACK_TIMER_TOOLTIP,
-			"EnableAttackTimer",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("AttackTimer")) then
-						BigFoot_LoadAddOn("AttackTimer");
-					end
-					if (BigFoot_IsAddOnLoaded("AttackTimer")) then
-						AttackTimer_Toggle(true);
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("AttackTimer")) then
-						AttackTimer_Toggle(false);
-					end
-				end
-			end
-		);
-		ModManagement_RegisterButton(
-			"BigFootClassMod",
-			AJUST_CAST_POSITION,
-			function ()
-				if (BigFoot_IsAddOnLoaded("AttackTimer")) then
-					AttackTimer_AjustPosition();
-				end
-			end,
-			nil,
-			1
-		);
 	end
 
 end
