@@ -401,6 +401,41 @@ local function zzzAddonCheck_Init_TomTom()
     end
 end
 
+local function zzzAddonCheck_Disable_AddOns()
+    local discardedAddOns = {
+        "ClassicAuraDurations",
+        "QuestLogEx",
+        "sArena"
+    }
+
+    local loaded = {}
+    for _, addon in ipairs(discardedAddOns) do
+        if IsAddOnLoaded(addon) then
+            table.insert(loaded, addon)
+        end
+    end
+    if #loaded > 0 then
+        StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
+            text = "以下插件已废弃，将为您自动禁用，\n您可将其从文件夹删除：\n"..table.concat(loaded, "\n"),
+            button1 = YES,
+            button2 = NO,
+            OnAccept = function()
+                for _, addon in ipairs(loaded) do
+                    DisableAddOn(addon)
+                end
+                ReloadUI()
+            end,
+            showAlert = 1,
+            timeout = 0,
+            hideOnEscape = true,
+            whileDead = true,
+            preferredIndex = STATICPOPUP_NUMDIALOGS,
+        }
+        BigFoot_DelayCall(function() StaticPopup_Show("RELOADUI_ZZZADDONCHECK") end, 1)
+        return
+    end
+end
+
 local function LoaderEvents(frame, event, arg1)
     frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
@@ -422,6 +457,7 @@ local function LoaderEvents(frame, event, arg1)
     zzzAddonCheck_Init_aux()
     zzzAddonCheck_Init_Questie()
     zzzAddonCheck_Init_TomTom()
+    zzzAddonCheck_Disable_AddOns()
 end
 
 local LoaderFrame = CreateFrame("FRAME")
