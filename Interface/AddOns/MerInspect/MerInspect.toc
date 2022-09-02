@@ -11,7 +11,7 @@
 ## SavedVariables: MerInspectDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
-### LoadOnDemand: 1
+## LoadOnDemand: 1
 
 libs\lib.xml
 
