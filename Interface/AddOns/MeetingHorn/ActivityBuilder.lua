@@ -78,7 +78,7 @@ local SHORT_NAMES = {
     [3606] = 'HS',
     [3959] = 'BT',
     [3805] = 'ZAM',
-    [4075] = 'SW'
+    [4075] = 'SW',
 }
 
 local SEARCH_MATCH = {['5H'] = {activityId = 'Dungeon', search = '英雄', input = '5H', name = '5H'}}
@@ -106,14 +106,14 @@ local function names(key, normalAndHero, isHero)
     return r
 end
 
-
 function InitAvailableActivity()
     local categories = C_LFGList.GetAvailableCategories();
     for k, v in ipairs(categories) do
         local activities = C_LFGList.GetAvailableActivities(v);
         local category = {categoryId = v, activities = {}}
         for k1, v1 in ipairs(activities) do
-            local name = C_LFGList.GetActivityInfoTable(v1).fullName;
+            local cfg = C_LFGList.GetActivityInfoTable(v1)
+            local name = cfg.fullName;
             local name1, name2
             local s, e = strfind(name, '-')
             if s then

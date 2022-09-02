@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "3.4.0."
-local minor = "151"
+local minor = "152"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,10 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2022/09/01 (3.4.0.152)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2022/09/01 (3.4.0.151)")
 	BigFootChangelog_ar("大脚插件","版本号同步至游戏版本。")
@@ -693,4 +697,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "51"
+BF_VERSION_CHECKSUM = "48"
