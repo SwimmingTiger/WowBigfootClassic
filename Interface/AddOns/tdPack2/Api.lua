@@ -158,14 +158,16 @@ function ns.GetItemFamily(itemId)
 end
 
 function ns.GetBagFamily(bag)
+    --[[@build<2@
     if bag == KEYRING_CONTAINER then
-        --[=[@classic@
         return 9
-        --@end-classic@]=]
-        --@non-classic@
-        return 256
-        --@end-non-classic@
     end
+    --@end-build<2@]]
+    -- @build>2@
+    if bag == KEYRING_CONTAINER then
+        return 256
+    end
+    --@end-build<2@]]
     return select(2, GetContainerNumFreeSlots(bag))
 end
 
@@ -230,17 +232,17 @@ function ns.PickupBagSlot(bag, slot)
     return PickupContainerItem(bag, slot)
 end
 
---[=[@classic@
+--[[@build<2@
 function ns.IsFamilyContains(bagFamily, itemFamily)
     return bagFamily == itemFamily
 end
---@end-classic@]=]
+--@end-build<2@]]
 
---@non-classic@
+-- @build>2@
 function ns.IsFamilyContains(bagFamily, itemFamily)
     return band(bagFamily, itemFamily) > 0
 end
---@end-non-classic@
+-- @end-build>2@
 
 function ns.GetClickToken(button, control, shift, alt)
     local key

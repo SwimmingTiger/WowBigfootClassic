@@ -114,25 +114,28 @@ local MOUNT = GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLAN
 
 ns.DEFAULT_SORTING_RULES = {
     HEARTHSTONE_ITEM_ID, -- 炉石
-    -- @bcc@
+    -- @build>2@
     184871, -- 黑暗之门
-    -- @end-bcc@
-    --[[@classic@
+    -- @end-build>2@
+    --[[@build<2@
     Tag('Mount', 132261), -- 坐骑
     Tag('Pet', 132598), -- 宠物
-    --@end-classic@]]
-    -- @bcc@
+    --@end-build<2@]]
+    -- @build>2@
     TypeOrTag(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, 132261), -- 坐骑
     TypeOrTag(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_COMPANION_PET, 132598), -- 宠物
-    -- @end-bcc@
+    -- @end-build>2@
     Group(L['Tools'], 134065, {
         5060, -- 潜行者工具
         9149, -- 点金石
-        -- @bcc@
+        -- @build>3@
+        40772, -- 侏儒军刀
+        -- @end-build>3@
+        -- @build>2@
         22463, -- 符文恒金棒
         22462, -- 符文精金棒
         22461, -- 符文魔铁棒
-        -- @end-bcc@
+        -- @end-build>2@
         16207, -- 符文奥金棒
         11145, -- 符文真银棒
         11130, -- 符文金棒
@@ -144,9 +147,12 @@ ns.DEFAULT_SORTING_RULES = {
         6219, -- 扳手
         10498, -- 侏儒微调器
         19727, -- 血镰刀
-        -- @bcc@
+        -- @build>2@
         20815, -- 珠宝制作工具
-        -- @end-bcc@
+        -- @end-build>2@
+        -- @build>3@
+        39505, -- 学者的书写工具
+        -- @end-build>3@
         4471, -- 燧石和火绒
         Weapon(LE_ITEM_WEAPON_FISHINGPOLE, 132932), -- 鱼竿
     }), --
@@ -159,7 +165,8 @@ ns.DEFAULT_SORTING_RULES = {
         Slot('INVTYPE_HOLDABLE', 134333), -- 副手物品
         Slot('INVTYPE_RANGED', 135498), -- 远程
         Slot('INVTYPE_RANGEDRIGHT', 135468), -- 远程
-        Slot('INVTYPE_THROWN', 132394), -- Weapon(LE_ITEM_WEAPON_GUNS, 135610), -- 枪
+        Slot('INVTYPE_THROWN', 132394), -- 投掷武器
+        -- Weapon(LE_ITEM_WEAPON_GUNS, 135610), -- 枪
         -- Weapon(LE_ITEM_WEAPON_CROSSBOW, 135533), -- 弩
         -- Weapon(LE_ITEM_WEAPON_THROWN, 135427), -- 投掷武器
         -- Weapon(LE_ITEM_WEAPON_WAND, 135473), -- 魔杖
@@ -185,15 +192,15 @@ ns.DEFAULT_SORTING_RULES = {
     Type(LE_ITEM_CLASS_QUIVER, 134407), -- 箭袋
     Type(LE_ITEM_CLASS_RECIPE, 134939), -- 配方
     Rule(CONSUMABLE, 134829, 'type:' .. CONSUMABLE .. ' & tip:!' .. QUEST .. ' & spell', {
-        --[[@classic@
+        --[[@build<2@
         TipLocale('CLASS', 132273), -- 职业
         Spell(746, 133685), -- 急救
         Spell(433, 133945), -- 进食
         Spell(430, 132794), -- 喝水
         Spell(439, 134830), -- 治疗药水
         Spell(438, 134851), -- 法力药水
-        --@end-classic@]]
-        -- @bcc@
+        --@end-build<2@]]
+        -- @build>2@
         Consumable(7, 133692), -- 绷带
         Consumable(3, 134742), -- 合剂
         Consumable(2, 134773), -- 药剂
@@ -220,11 +227,11 @@ ns.DEFAULT_SORTING_RULES = {
         }), -- 食物和饮料
         Consumable(6, 133604), -- 物品强化
         Group(GetSpellInfo(7620), 136245, {34861, 6533, 6532, 6530, 6529}),
-        -- @end-bcc@
+        -- @end-build>2@
     }), -- 消耗品
     Type(LE_ITEM_CLASS_TRADEGOODS, 132905, {
         TipLocale('CLASS', 132273), -- 职业
-        --[[@classic@
+        --[[@build<2@
         Tag('Cloth', 132903), -- 布
         Tag('Leather', 134256), -- 皮
         Tag('Metal & Stone', 133217), -- 金属和矿石
@@ -232,8 +239,8 @@ ns.DEFAULT_SORTING_RULES = {
         Tag('Herb', 134215), -- 草药
         Tag('Elemental', 135819), -- 元素
         Tag('Enchanting', 132864), -- 附魔
-        --@end-classic@]]
-        -- @bcc@
+        --@end-build<2@]]
+        -- @build>2@
         Trade(2, 133715), -- 爆炸物
         Trade(3, 134441), -- 装置
         Trade(1, 133025), -- 零件
@@ -246,9 +253,9 @@ ns.DEFAULT_SORTING_RULES = {
         Trade(12, 132864), -- 附魔
         Trade(4, 134379), -- 珠宝加工
         Trade(13, 132850), -- 原料
-        -- @end-bcc@
+        -- @end-build>2@
     }), -- 商品
-    -- @bcc@
+    -- @build>2@
     Type(LE_ITEM_CLASS_GEM, 133272, {
         SubType(LE_ITEM_CLASS_GEM, 0, 134083), -- 红
         SubType(LE_ITEM_CLASS_GEM, 2, 134114), -- 黄
@@ -260,11 +267,11 @@ ns.DEFAULT_SORTING_RULES = {
         SubType(LE_ITEM_CLASS_GEM, 6, 134098), -- 多彩
         SubType(LE_ITEM_CLASS_GEM, 7, 134087), -- 简易
     }), -- 珠宝
-    -- @end-bcc@
+    -- @end-build>2@
     Rule(MISC, 134237, 'type:!' .. QUEST .. ' & tip:!' .. QUEST, {
-        -- @bcc@
+        -- @build>2@
         Misc(LE_ITEM_MISCELLANEOUS_REAGENT, 133587), -- 材料
-        -- @end-bcc@
+        -- @end-build>2@
         Type(LE_ITEM_CLASS_CONSUMABLE, 134420), -- 消耗品
         Type(LE_ITEM_CLASS_MISCELLANEOUS, 134400), -- 其它
         Type(LE_ITEM_CLASS_KEY, 134237), -- 钥匙
@@ -276,7 +283,7 @@ ns.DEFAULT_SORTING_RULES = {
 }
 
 ns.DEFAULT_SAVING_RULES = { --
-    -- @bcc@
+    -- @build>2@
     16885, -- 重垃圾箱
     Trade(1, 133025), -- 零件
     Trade(5, 132903), -- 布料
@@ -289,5 +296,5 @@ ns.DEFAULT_SAVING_RULES = { --
     Trade(4, 134379), -- 珠宝加工
     Trade(13, 132850), -- 原料
     Type(LE_ITEM_CLASS_GEM, 133272),
-    -- @end-bcc@
+    -- @end-build>2@
 }
