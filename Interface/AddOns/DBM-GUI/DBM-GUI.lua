@@ -5,6 +5,8 @@ DBM_GUI = {
 	panels	= {}
 }
 
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
+
 local next, type, pairs, strsplit, tonumber, tostring, ipairs, tinsert, tsort, mfloor = next, type, pairs, strsplit, tonumber, tostring, ipairs, table.insert, table.sort, math.floor
 local CreateFrame, C_Timer, GetExpansionLevel, IsAddOnLoaded, GameFontNormal, GameFontNormalSmall, GameFontHighlight, GameFontHighlightSmall, ChatFontNormal, UIParent = CreateFrame, C_Timer, GetExpansionLevel, IsAddOnLoaded, GameFontNormal, GameFontNormalSmall, GameFontHighlight, GameFontHighlightSmall, ChatFontNormal, UIParent
 local RAID_DIFFICULTY1, RAID_DIFFICULTY2, RAID_DIFFICULTY3, RAID_DIFFICULTY4, PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY6, PLAYER_DIFFICULTY_TIMEWALKER, CHALLENGE_MODE, ALL, CLOSE, SPECIALIZATION = RAID_DIFFICULTY1, RAID_DIFFICULTY2, RAID_DIFFICULTY3, RAID_DIFFICULTY4, PLAYER_DIFFICULTY1, PLAYER_DIFFICULTY2, PLAYER_DIFFICULTY3, PLAYER_DIFFICULTY6, PLAYER_DIFFICULTY_TIMEWALKER, CHALLENGE_MODE, ALL, CLOSE, SPECIALIZATION
@@ -447,6 +449,27 @@ function DBM_GUI:CreateBossModPanel(mod)
 	end
 end
 
+local function GetSpecializationGroup()
+	if isRetail then
+		return GetSpecialization() or 1
+	else
+		local numTabs = GetNumTalentTabs()
+		local highestPointsSpent, currentSpecGroup = 0, 1
+		if MAX_TALENT_TABS then
+			for i=1, MAX_TALENT_TABS do
+				if ( i <= numTabs ) then
+					local _, _, pointsSpent = GetTalentTabInfo(i)
+					if pointsSpent > highestPointsSpent then
+						highestPointsSpent = pointsSpent
+						currentSpecGroup = i
+					end
+				end
+			end
+		end
+		return currentSpecGroup
+	end
+end
+
 do
 	local function CreateBossModTab(addon, panel, subtab)
 		if not panel then
@@ -548,7 +571,7 @@ do
 
 			-- Start import/export
 			local function actuallyImport(importTable)
-				local profileID = playerLevel > 9 and DBM_UseDualProfile and (GetSpecialization() or 1) or 0
+				local profileID = playerLevel > 9 and DBM_UseDualProfile and GetSpecializationGroup() or 0
 				for _, id in ipairs(DBM.ModLists[addon.modId]) do
 					_G[addon.modId:gsub("-", "") .. "_AllSavedVars"][playerName .. "-" .. realmName][id][profileID] = importTable[id]
 					DBM:GetModByName(id).Options = importTable[id]
@@ -561,7 +584,7 @@ do
 			test:SetPoint("TOPLEFT", 15, -10)
 			local exportProfile = importExportProfilesArea:CreateButton(L.ButtonExportProfile, 120, 20, function()
 				local exportProfile = {}
-				local profileID = playerLevel > 9 and DBM_UseDualProfile and (GetSpecialization() or 1) or 0
+				local profileID = playerLevel > 9 and DBM_UseDualProfile and GetSpecializationGroup() or 0
 				for _, id in ipairs(DBM.ModLists[addon.modId]) do
 					exportProfile[id] = _G[addon.modId:gsub("-", "") .. "_AllSavedVars"][playerName .. "-" .. realmName][id][profileID]
 				end
@@ -694,7 +717,7 @@ do
 					heroic		= mod.addon.minExpansion < 5 and RAID_DIFFICULTY3 or PLAYER_DIFFICULTY2,
 					heroic25	= RAID_DIFFICULTY4,
 					mythic		= PLAYER_DIFFICULTY6,
-					challenge	= mod.addon.minExpansion < 6 and CHALLENGE_MODE or (PLAYER_DIFFICULTY6 .. "+"),
+					challenge	= (mod.addon.minExpansion < 6 and not mod.upgradedMPlus) and CHALLENGE_MODE or (PLAYER_DIFFICULTY6 .. "+"),
 					timewalker	= PLAYER_DIFFICULTY_TIMEWALKER
 				}
 				if (mod.addon.type == "PARTY" or mod.addon.type == "SCENARIO") or -- Fixes dungeons being labled incorrectly
@@ -703,7 +726,6 @@ do
 					statTypes.normal = PLAYER_DIFFICULTY1
 					statTypes.heroic = PLAYER_DIFFICULTY2
 				end
-
 
 				local lastArea = 0
 
@@ -751,14 +773,14 @@ do
 	local category = {}
 	local subTabId = 0
 	local expansions = {
-		"CLASSIC", "BC", "WOTLK", "CATA", "MOP", "WOD", "LEG", "BFA", "SHADOWLANDS"
+		"CLASSIC", "BC", "WOTLK", "CATA", "MOP", "WOD", "LEG", "BFA", "SHADOWLANDS", "DRAGONFLIGHT"
 	}
 
 	function DBM_GUI:UpdateModList()
 		for _, addon in ipairs(DBM.AddOns) do
 			local cat = addon.category:upper()
 			if not category[cat] then
-				category[cat] = DBM_GUI:CreateNewPanel(_G["EXPANSION_NAME" .. (tIndexOf(expansions, cat) or 99) - 1] or L.TabCategory_OTHER, nil, cat == expansions[GetExpansionLevel() + 1])
+				category[cat] = DBM_GUI:CreateNewPanel(_G["EXPANSION_NAME" .. (tIndexOf(expansions, cat) or 99) - 1] or cat == "AFFIXES" and L.TabCategory_AFFIXES or L.TabCategory_OTHER, nil, cat == expansions[GetExpansionLevel() + 1])
 			end
 
 			if not addon.panel then

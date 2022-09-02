@@ -1,7 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers_GUI", true)
@@ -342,6 +338,14 @@ TotemTimers.options.args.timers = {
             desc = string.format(L["Shows twisting timer for %s"], SpellNames[SpellIDs.Windfury]),
             set = function(info, val) TotemTimers.ActiveProfile.TwistingTimer = val  TotemTimers.ProcessSetting("TwistingTimer") end,
             get = function(info) return TotemTimers.ActiveProfile.TwistingTimer end,
+        },
+        WindfuryDownrank = {
+            order = 43,
+            type = "toggle",
+            name = string.format(L["Downrank %s"], SpellNames[SpellIDs.Windfury]),
+            desc = string.format(L["Always use rank 1 for %s"], SpellNames[SpellIDs.Windfury]),
+            set = function(info, val) TotemTimers.ActiveProfile.WindfuryDownrank = val  TotemTimers.UpdateSpellRanks() end,
+            get = function(info) return TotemTimers.ActiveProfile.WindfuryDownrank end,
         },
         --[[ RaidRange = {
             order = 40,

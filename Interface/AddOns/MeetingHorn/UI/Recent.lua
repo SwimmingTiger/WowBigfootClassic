@@ -35,26 +35,27 @@ function Recent:Constructor()
     self.Members:SetColumnCount(3)
     self.Members:SetItemSpacing(3, 3)
     self.Members:SetCallback('OnItemFormatting', function(_, button, info)
-        button.Text:SetText(info.name)
+        button.Text:SetText(Ambiguate(info.name, 'none'))
         button.Text:SetTextColor(GetClassColor(info.class))
     end)
     self.Members:SetCallback('OnItemMenu', function(_, button, info)
+        local name = Ambiguate(info.name, 'none')
         ns.GUI:ToggleMenu(button, {
-            {text = RAID_CLASS_COLORS[info.class]:WrapTextInColorCode(info.name), isTitle = true}, {
+            {text = RAID_CLASS_COLORS[info.class]:WrapTextInColorCode(name), isTitle = true}, {
                 text = WHISPER,
                 func = function()
-                    ChatFrame_SendTell(info.name)
+                    ChatFrame_SendTell(name)
                 end,
             }, {
                 text = INVITE,
                 func = function()
-                    InviteToGroup(info.name)
+                    InviteToGroup(name)
                 end,
             }, {
 
                 text = ADD_FRIEND,
                 func = function()
-                    C_FriendList.AddFriend(info.name)
+                    C_FriendList.AddFriend(name)
                 end,
             }, {text = CANCEL},
         })

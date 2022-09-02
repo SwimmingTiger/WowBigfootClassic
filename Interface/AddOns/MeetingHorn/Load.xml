@@ -5,7 +5,7 @@
     <Script file="Addon.lua"/>
     <Script file="Data.lua"/>
     <Script file="Api.lua"/>
-    <Script file="AppData.lua"/>
+    <Include file="Data\Load.xml"/>
     <Script file="ActivityBuilder.lua"/>
     <Script file="Activities.lua"/>
     <Include file="Core\Core.xml"/>

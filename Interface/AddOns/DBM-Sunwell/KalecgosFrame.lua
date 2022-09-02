@@ -57,6 +57,7 @@ local function createBarFrame(name)
 		frame = frames[#frames]
 		frames[#frames] = nil
 		frame:Show()
+		_G[frame:GetName().."Bar"]:SetMinMaxValues(0, 60)
 	else
 		frame = CreateFrame("Frame", "DBMKalFrame"..fCounter, _G["DBMKalFrameDrag"], "DBMKalFrameTemplate")
 		fCounter = fCounter + 1
@@ -91,7 +92,24 @@ local function createBar(name)
 	return newEntry
 end
 
+local function createBarHealth(id, name)
+	local entry = createBar(name)
+	lastEntry.data.timer = nil
+	lastEntry.data.id = id
+
+	local bar = entry:GetBar()
+	local r, g, b = 0, 0.7, 0
+	bar:SetStatusBarColor(r, g, b)
+	bar:SetMinMaxValues(0, 100)
+	bar:SetValue(100)
+	_G[entry.data.frame:GetName().."BarCooldown"]:SetText("")
+	entry:SetPosition()
+end
+
 function barMethods:Update(elapsed)
+	if self.data.id then
+		return
+	end
 	local bar = _G[self.data.frame:GetName().."Bar"]
 	local cooldown = _G[self.data.frame:GetName().."BarCooldown"]
 	local spark = _G[self.data.frame:GetName().."BarSpark"]
@@ -144,6 +162,27 @@ function barMethods:GetSpark()
 	return _G[self.data.frame:GetName().."BarSpark"]
 end
 
+function Kal:UpdateHealth(id, percent)
+	local entry = firstEntry
+	while entry do
+		if entry.data.id == id then
+			local frame = entry.data.frame:GetName()
+			local bar = _G[frame.."Bar"]
+			local cooldown = _G[frame.."BarCooldown"]
+			local spark = _G[frame.."BarSpark"]
+
+			cooldown:SetText(percent)
+			bar:SetValue(percent)
+			spark:ClearAllPoints()
+			spark:SetPoint("CENTER", bar, "LEFT", ((bar:GetValue() / 100) * bar:GetWidth()), 0)
+			spark:Show()
+			return true
+		end
+		entry = entry:GetNext()
+	end
+end
+
+
 function Kal:CreateFrame()
 	_G["DBMKalFrameDragTitle"]:SetText(L.FrameTitle)
 	if firstEntry then
@@ -157,6 +196,8 @@ function Kal:CreateFrame()
 		firstEntry = nil
 		lastEntry = nil
 	end
+	createBarHealth(24850, L.name)
+	createBarHealth(24892, L.Demon)
 	_G["DBMKalFrameDrag"]:Show()
 	if self.Options.FramePoint then
 		_G["DBMKalFrameDrag"]:SetPoint(self.Options.FramePoint, nil, self.Options.FramePoint, self.Options.FrameX, self.Options.FrameY)

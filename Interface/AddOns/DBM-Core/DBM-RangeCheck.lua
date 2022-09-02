@@ -102,7 +102,7 @@ do
 			elseif apiRanges[checkrange] then -- Only query item range for requested active range if no item found for it
 				return CheckInteractDistance(uId, apiRanges[checkrange]) and checkrange or 1000
 			else
-				 return 1000 -- Just so it has a numeric value, even if it's unknown to protect from nil errors
+				return 1000 -- Just so it has a numeric value, even if it's unknown to protect from nil errors
 			end
 		else -- No range passed, this is being used by a getDistanceBetween function that needs to calculate precise distances of members of raid (well as precise as possible with a crappy api)
 			if isRetail and IsItemInRange(90175, uId) then return 4
@@ -500,6 +500,8 @@ local function createTextFrame()
 		end
 		textFrame.lines[i] = line
 	end
+
+	textFrame:Hide()
 end
 
 local function createRadarFrame()
@@ -587,18 +589,19 @@ do
 	local circleColor, rotation, pixelsperyard, activeDots, prevRange, prevThreshold, prevNumClosePlayer, prevclosestRange, prevColor, prevType = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 	local unitList = {}
 	local BLIP_TEX_COORDS = {
-		["WARRIOR"]		 = { 0, 0.125, 0, 0.25 },
-		["PALADIN"]		 = { 0.125, 0.25, 0, 0.25 },
-		["HUNTER"]		 = { 0.25, 0.375, 0, 0.25 },
-		["ROGUE"]		 = { 0.375, 0.5, 0, 0.25 },
-		["PRIEST"]		 = { 0.5, 0.625, 0, 0.25 },
-		["DEATHKNIGHT"]	 = { 0.625, 0.75, 0, 0.25 },
-		["SHAMAN"]		 = { 0.75, 0.875, 0, 0.25 },
-		["MAGE"]		 = { 0.875, 1, 0, 0.25 },
-		["WARLOCK"]		 = { 0, 0.125, 0.25, 0.5 },
-		["DRUID"]		 = { 0.25, 0.375, 0.25, 0.5 },
-		["MONK"]		 = { 0.125, 0.25, 0.25, 0.5 },
-		["DEMONHUNTER"]	 = { 0.375, 0.5, 0.25, 0.5 },
+		["WARRIOR"]		= { 0, 0.125, 0, 0.25 },
+		["PALADIN"]		= { 0.125, 0.25, 0, 0.25 },
+		["HUNTER"]		= { 0.25, 0.375, 0, 0.25 },
+		["ROGUE"]		= { 0.375, 0.5, 0, 0.25 },
+		["PRIEST"]		= { 0.5, 0.625, 0, 0.25 },
+		["DEATHKNIGHT"]	= { 0.625, 0.75, 0, 0.25 },
+		["SHAMAN"]		= { 0.75, 0.875, 0, 0.25 },
+		["MAGE"]		= { 0.875, 1, 0, 0.25 },
+		["WARLOCK"]		= { 0, 0.125, 0.25, 0.5 },
+		["DRUID"]		= { 0.25, 0.375, 0.25, 0.5 },
+		["MONK"]		= { 0.125, 0.25, 0.25, 0.5 },
+		["DEMONHUNTER"]	= { 0.375, 0.5, 0.25, 0.5 },
+		["EVOKER"]		= { 0, 0.125, 0, 0.25 }, -- Uses the same as WARRIOR, because that's what Blizzard is doing currently
 	}
 
 	local function setDot(id, sinTheta, cosTheta)
@@ -868,7 +871,7 @@ end
 local restoreRange, restoreFilter, restoreThreshold, restoreReverse
 
 function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse, hideTime, onlySummary)
-	if (DBM:GetNumRealGroupMembers() < 2 or DBM.Options.DontShowRangeFrame) and not forceshow then
+	if (DBM:GetNumRealGroupMembers() < 2 or DBM.Options.DontShowRangeFrame or DBM.Options.SpamSpecInformationalOnly) and not forceshow then
 		return
 	end
 	if type(range) == "function" then -- The first argument is optional

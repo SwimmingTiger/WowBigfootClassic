@@ -1,7 +1,3 @@
--- Copyright © 2008 - 2014 Xianghar
--- All Rights Reserved.
-
-
 --[[ Credits for localization go to
         Sayclub (koKR), StingerSoft (ruRU), a9012456 (zhTW),
         Sabre (zhCN), vanilla_snow (zhCN), tnt2ray (zhCN),
@@ -12,10 +8,24 @@
         BNSSNB (zhTW), cebolaassassina (ptBR)
 ]]
 
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
+local addon, TotemTimers = ...
+
+_G["TotemTimers"] = TotemTimers
+
 TotemTimers.timers = XiTimers
+
+TotemTimers.Modules = {}
+TotemTimers.SpellUpdaters = {}
+
+TotemTimers.ElementColors = {
+    [FIRE_TOTEM_SLOT] = CreateColorFromHexString("FFFF7500"),
+    [EARTH_TOTEM_SLOT] = CreateColorFromHexString("FFCBA57B"),
+    [WATER_TOTEM_SLOT] = CreateColor(0.4,0.4,1), --CreateColorFromHexString("FF76c7f3"),
+    [AIR_TOTEM_SLOT] = CreateColor(1,1,1),
+}
+
 
 local warnings = nil
 
@@ -84,16 +94,25 @@ function TotemTimers.SetupGlobals()
         TotemTimers.GetTalents()
 		TotemTimers.UpdateProfiles()
         TotemTimers.SelectActiveProfile()
+
+        for _,initFunction in pairs(TotemTimers.Modules) do
+            initFunction()
+        end
         
         
         local sink = LibStub("LibSink-2.0")
         if sink then
             sink.SetSinkStorage(TotemTimers,TotemTimers_GlobalSettings.Sink)
         end
-		TotemTimers.CreateTimers()
-		TotemTimers.CreateTrackers()
-        TotemTimers.SetWeaponTrackerSpells()
-        TotemTimers.CreateEnhanceCDs()
+		--TotemTimers.CreateTimers()
+		--TotemTimers.CreateTrackers()
+        --TotemTimers.SetWeaponTrackerSpells()
+
+        if TotemTimers.Init then
+            for k,v in pairs(Init) do v() end
+        end
+
+        --TotemTimers.CreateEnhanceCDs()
         -- TotemTimers.CreateCrowdControl()
 		-- TotemTimers.CreateLongCooldowns()
         
@@ -127,7 +146,7 @@ function TotemTimers.SetupGlobals()
         -- TotemTimersFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 
         --TotemTimers_UpdateRaid()
-		TotemTimers.InitMasque()
+		--TotemTimers.InitMasque()
 		-- TotemTimers.RangeFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
         -- TotemTimers.RangeFrame:Show()
         TotemTimers.SetCastButtonSpells()
@@ -144,7 +163,9 @@ function TotemTimers.SetupGlobals()
         TotemTimersFrame:SetScript("OnUpdate", XiTimers.UpdateTimers)
 		TotemTimersFrame:EnableMouse(false)
         XiTimers.InitWarnings(TotemTimers.ActiveProfile.Warnings)
-        TotemTimers.SetEarthShieldButtons()
+
+        if TotemTimers.CustomInit then TotemTimers.CustomInit() end
+
         -- TotemTimers.LayoutCrowdControl()
         --TotemTimers.ApplySkin()
         XiTimers.SaveFramePositions = TotemTimers.SaveFramePositions
@@ -401,6 +422,14 @@ function TotemTimers.UpdateMacro()
             local timer = timers[i]
             if timer.active and TotemTimers.ActiveProfile.IncludeInMacro[timer.nr] then
                 local spell = timer.button:GetAttribute("*spell1")
+
+                if (tonumber(spell)) then
+                    local spellName = GetSpellInfo(spell)
+                    local rank = GetSpellSubtext(spell)
+                    if rank then spellName = spellName .. '('..rank..')' end
+                    spell = spellName
+                end
+
                 if spell then
                     sequence = sequence .. spell..", "
                 end

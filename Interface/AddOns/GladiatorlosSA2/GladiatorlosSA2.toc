@@ -1,4 +1,4 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Title: GladiatorlosSA
 ## Title-zhCN: [大脚][集]竞技语音提示
 ## Title-zhTW: [大腳][集]競技語音提示
@@ -7,7 +7,7 @@
 ## Notes-zhTW: |cff00ff00GladiatorlosSA2|r|n|cffbc8f8f競技技能語音提示插件。|r
 ## Author: Abatorlos(of Spinebreaker), DuskAshes, superk521, zuhligan, Grit (Legion Update), Mini_Dragon, LordKuper
 ## SavedVariables: GladiatorlosSADB
-## Version: TBC-1.1
+## Version: TBC-1.2
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 ## LoadOnDemand: 1

@@ -1,4 +1,4 @@
----@type ns
+---@class ns
 local ADDON_NAME, ns = ...
 local L = ns.L
 
@@ -47,7 +47,7 @@ local INSTANCE_DATA = {
     [3606] = {projectId = 5, logo = 'Archimonde'}, -- 海加尔山
     [3959] = {projectId = 5, logo = 'Illidan Stormrage'}, -- 黑暗神庙
     [3805] = {projectId = 5, logo = 'Daakara'}, -- 祖阿曼
-    [4075] = {projectId = 5, logo = 'Kiljaeden'}, -- 太阳井
+    [4075] = {projectId = 5, logo = 'Kiljaeden', instanceName = '太阳之井'}, -- 太阳井
 }
 
 ns.INSTANCE_DATA = {}
@@ -393,7 +393,6 @@ end
 function ns.OpenUrlDialog(url)
     if not StaticPopupDialogs['MEETINGHORN_COPY_URL'] then
         StaticPopupDialogs['MEETINGHORN_COPY_URL'] = {
-			preferredIndex = STATICPOPUP_NUMDIALOGS,
             text = '请按<|cff00ff00Ctrl+C|r>复制网址到浏览器打开',
             button1 = OKAY,
             timeout = 0,
@@ -419,6 +418,14 @@ function ns.OpenUrlDialog(url)
 end
 
 function ns.GetAddonSource()
+    -- for line in gmatch(
+                    -- '\066\105\103\070\111\111\116\058\049\010\033\033\033\049\054\051\085\073\033\033\033\058\050\010\068\117\111\119\097\110\058\052\010\069\108\118\085\073\058\056',
+                    -- '[^\r\n]+') do
+        -- local n, v = line:match('^(.+):(%d+)$')
+        -- if IsAddOnLoaded(n) then
+            -- return tonumber(v)
+        -- end
+    -- end
     return 0
 end
 
@@ -464,7 +471,7 @@ function ns.ApplyLeaderBtnClick(Btn, param)
 end
 
 function ns.DataMake(allowCrossRealm)
-    ns.CERTIFICATION_MAP = {}
+    ns.CERTIFICATION_MAP = ns.CERTIFICATION_MAP or {}
 
     local function decode(v)
         return v:gsub('..', function(x)
@@ -492,4 +499,13 @@ function ns.DataMake(allowCrossRealm)
         ns.CERTIFICATION_MAP[format('%s-%s', name, currentRealm)] = true
     end
     setfenv(2, {R = Realm, N = Name})
+end
+
+function ns.FormatSummary(text, tbl)
+    return text:gsub('{{([%w_]+)}}', function(key)
+        if type(tbl[key]) == 'function' then
+            return tbl[key](tbl) or ''
+        end
+        return tbl[key] or ''
+    end)
 end

@@ -7,7 +7,7 @@ local fonts = SM:List("font")
 local _
 
 Spy = LibStub("AceAddon-3.0"):NewAddon("Spy", "AceConsole-3.0", "AceEvent-3.0", "AceComm-3.0", "AceTimer-3.0")
-Spy.Version = "2.0.6"
+Spy.Version = "3.0.0"
 Spy.DatabaseVersion = "1.1"
 Spy.Signature = "[Spy]"
 Spy.ButtonLimit = 15
@@ -115,7 +115,7 @@ Spy.options = {
 						Spy:ZoneChangedEvent()
 					end,
 				},
---[[				EnabledInWintergrasp = {
+				EnabledInWintergrasp = {
 					name = L["EnabledInWintergrasp"],
 					desc = L["EnabledInWintergraspDescription"],
 					type = "toggle",
@@ -128,7 +128,7 @@ Spy.options = {
 						Spy.db.profile.EnabledInWintergrasp = value
 						Spy:ZoneChangedEvent()
 					end,
-				},]]--
+				},
 				DisableWhenPVPUnflagged = {
 					name = L["DisableWhenPVPUnflagged"],
 					desc = L["DisableWhenPVPUnflaggedDescription"],
@@ -162,7 +162,7 @@ Spy.options = {
 						["The Salty Sailor Tavern"] = L["The Salty Sailor Tavern"],
 						["Shattrath City"] = L["Shattrath City"],
 						["Area 52"] = L["Area 52"],
---						["Dalaran"] = L["Dalaran"],
+						["Dalaran"] = L["Dalaran"],
 --						["Dalaran (Northrend)"] = L["Dalaran (Northrend)"],
 --						["Bogpaddle"] = L["Bogpaddle"],
 --						["The Vindicaar"] = L["The Vindicaar"],
@@ -1333,7 +1333,7 @@ local Default_Profile = {
 				["DRUID"] = { r = 1.00, g = 0.49, b = 0.04, a = 0.6 },
 				["SHAMAN"] = { r = 0.00, g = 0.44, b = 0.87, a = 0.6 },
 				["WARRIOR"] = { r = 0.78, g = 0.61, b = 0.43, a = 0.6 },
---				["DEATHKNIGHT"] = { r = 0.77, g = 0.12, b = 0.23, a = 0.6 },
+				["DEATHKNIGHT"] = { r = 0.77, g = 0.12, b = 0.23, a = 0.6 },
 --				["MONK"] = { r = 0.00, g = 1.00, b = 0.60, a = 0.6 },
 --				["DEMONHUNTER"] = { r = 0.64, g = 0.19, b = 0.79, a = 0.6 },
 				["PET"] = { r = 0.09, g = 0.61, b = 0.55, a = 0.6 },
@@ -1439,7 +1439,7 @@ local Default_Profile = {
 			["The Salty Sailor Tavern"] = false,
 			["Shattrath City"] = false,
 			["Area 52"] = false,
---			["Dalaran"] = false,
+			["Dalaran"] = false,
 --			["Dalaran (Northrend)"] = false,
 --			["Bogpaddle"] = false,
 --			["The Vindicaar"] = false,
@@ -1779,7 +1779,7 @@ function Spy:OnInitialize()
 		["SHAMAN"] = true,
 		["WARLOCK"] = true,
 		["WARRIOR"] = true,
---		["DEATHKNIGHT"] = true,
+		["DEATHKNIGHT"] = true,
 --		["MONK"] = true,
 --		["DEMONHUNTER"] = true
 	}
@@ -1847,7 +1847,7 @@ function Spy:OnInitialize()
 	Spy:ClampToScreen(Spy.db.profile.ClampToScreen)	
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", Spy.FilterNotInParty)
 	Spy.WoWBuildInfo = select(4, GetBuildInfo())
-	if Spy.WoWBuildInfo < 20000 or Spy.WoWBuildInfo > 30000 then
+	if Spy.WoWBuildInfo < 30000 or Spy.WoWBuildInfo > 40000 then
 		DEFAULT_CHAT_FRAME:AddMessage(L["VersionCheck"])
 	end
 end

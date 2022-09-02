@@ -1,4 +1,4 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Title: Bagnon_Forever
 ## Title-zhCN: [大脚][集]背包物品信息
 ## Title-zhTW: [大腳][集]背包物品信息

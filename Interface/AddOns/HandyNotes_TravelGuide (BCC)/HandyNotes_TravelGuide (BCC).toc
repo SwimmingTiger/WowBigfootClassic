@@ -1,13 +1,13 @@
-## Interface: 20504
+## Interface: 30400
 ## Title: HandyNotes: TravelGuide (BCC)
 ## Notes: Shows the boat and zeppelin locations on the World Map and the MiniMap.
 ## Notes-zhCN: 在世界地图和小地图上显示船和飞艇的位置.
 ## Author: Dathwada
-## Version: v3.3
+## Version: v3.4
 ## RequiredDeps: HandyNotes
 ## DefaultState: enabled
 ## SavedVariables: HandyNotes_TravelGuideBCCDB
-## X-Date: 2022-02-22
+## X-Date: 2022-05-31
 ## X-Category: Map
 ## X-Revision: BigFoot
 

@@ -202,7 +202,7 @@ L:SetMiscLocalization({
 L:SetOptionLocalization({
 	WarningChargeChanged	= "當你的極性改變時顯示特別警告",
 	WarningChargeNotChanged	= "當你的極性沒有改變時顯示特別警告",
-	ArrowsEnabled			= "顯示箭頭 (正常 \"二邊\" 站位打法)",
+	AirowEnabled			= "顯示箭頭 (正常 \"二邊\" 站位打法)",
 	ArrowsRightLeft			= "顯示左/右箭頭 給 \"四角\" 站位打法 (如果極性改變顯示左箭頭, 沒變顯示左箭頭)",
 	ArrowsInverse			= "顯示倒轉的 \"四角\" 站位打法 (如果極性改變顯示左箭頭, 沒變顯示右箭頭)"
 })
@@ -288,6 +288,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	WarningMarkSoon				= "為印記顯示預先警告",
+	WarningMarkNow				= "為印記顯示警告",
 	SpecialWarningMarkOnPlayer	= "當你印記堆疊多於四層時顯示特別警告"
 })
 
@@ -296,6 +297,7 @@ L:SetTimerLocalization({
 
 L:SetWarningLocalization({
 	WarningMarkSoon			= "3秒後印記 %d",
+	WarningMarkNow			= "印記:%d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
 })
 
@@ -320,9 +322,7 @@ L:SetOptionLocalization({
 	WarningAirPhaseNow	= "提示空中階段",
 	WarningLanded		= "提示地上階段",
 	TimerAir			= "為空中階段顯示計時器",
-	TimerLanding		= "為降落顯示計時器",
-	TimerIceBlast		= "為冰息術顯示計時器",
-	WarningDeepBreath	= "為冰息術顯示特別警告"
+	TimerLanding		= "為降落顯示計時器"
 })
 
 L:SetMiscLocalization({
@@ -332,14 +332,12 @@ L:SetMiscLocalization({
 L:SetWarningLocalization({
 	WarningAirPhaseSoon	= "10秒後 空中階段",
 	WarningAirPhaseNow	= "空中階段",
-	WarningLanded		= "薩菲隆降落了",
-	WarningDeepBreath	= "冰息術"
+	WarningLanded		= "薩菲隆降落了"
 })
 
 L:SetTimerLocalization({
 	TimerAir		= "空中階段",
-	TimerLanding	= "降落",
-	TimerIceBlast	= "冰息術"
+	TimerLanding	= "降落"
 })
 
 ------------------

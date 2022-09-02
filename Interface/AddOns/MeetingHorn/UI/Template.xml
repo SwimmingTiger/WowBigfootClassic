@@ -83,7 +83,7 @@
             </Anchors>
         </HighlightTexture>
     </Button>
-    <Button name="MeetingHornQuickTemplate" hidden="true" virtual="true">
+    <Button name="MeetingHornQuickTemplate" parentArray="quicks" hidden="true" virtual="true">
         <ButtonText name="$parentText" parentKey="Text"/>
         <NormalFont style="GameFontNormal"/>
         <HighlightFont style="GameFontHighlight"/>
@@ -327,7 +327,7 @@
             </Layer>
         </Layers>
     </Button>
-    
+
     <Button name="MeetingHornAcitivityButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
         <Size x="203" y="60"/>
         <Layers>

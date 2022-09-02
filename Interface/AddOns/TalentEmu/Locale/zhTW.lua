@@ -2,15 +2,18 @@
 	alex@0
 --]]--
 ----------------------------------------------------------------------------------------------------
-local ADDON, NS = ...;
-NS.L = NS.L or {  };
-local L = NS.L;
+local __addon, __private = ...;
+local MT = __private.MT;
+local CT = __private.CT;
+local VT = __private.VT;
+local DT = __private.DT;
+local L = CT.L;
 
 if GetLocale() ~= "zhTW" then return;end
 
 BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "新建仿真器";
 BINDING_NAME_ALARAIDTOOL_QUERY = "查看目標天賦";
-BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>天赋模拟器";
+BINDING_HEADER_ALATALENTEMU_HEADER = "<|cff00ff00alaTalentEmu|r>天赋模拟器";
 
 L.Locale = "zhTW";
 
@@ -19,54 +22,54 @@ L.OK = "OK";
 L.Cancel = "Cancel";
 L.Search = "搜索";
 L.Hide = "隐藏";
-L.curTabPointsLabel = "點數";
-L.curPointsTotal = "縂點數";
-L.curPointsRemaining = "剩餘";
-L.curPointsUsed = "已用";
-L.curPointsReqLevel = "等級";
-L.message = "信息: ";
+L.CurTreePointsLabel = "點數";
+L.CurPointsTotal = "縂點數";
+L.CurPointsRemaining = "剩餘";
+L.CurPointsUsed = "已用";
+L.CurPointsReqLevel = "等級";
+L.message = "聊天信息";
 L.me = "我";
 
-L.level_60 = "切换到60级天赋 |cffff0000自动重载插件|r";
-L.level_70 = "切换到70级天赋 |cffff0000自动重载插件|r";
-L.minimap_TRUE = "顯示小地圖圖標";
-L.minimap_FALSE = "隱藏小地圖圖標";
-L.resizable_border_TRUE = "拖動窗口邊緣改變大小";
-L.resizable_border_FALSE = "禁止拖動窗口邊緣改變大小";
-L.readOnly = "\124cffff0000只讀\124r";
-L.notReadOnly = "\124cff00ff00可編輯\124r";
-L.labelPointsChanged = "(\124cffff0000修改\124r)";
-L.resetButton = "重置本欄天賦";
-L.resetAllButton = "重置所有天賦";
-L.resetToSetButton = "重置到初始狀態";
-L.readOnlyButton = "\124cff00ff00點擊\124r設置";
-L.closeButton = "關閉窗體";
+L.ReadOnly = "|cffff0000只讀|r";
+L.NonReadOnly = "|cff00ff00可編輯|r";
+L.LabelPointsChanged = "(|cffff0000修改|r)";
+L.ResetButton = "重置本欄天賦";
+L.ResetAllButton = "重置所有天賦";
+L.ResetToSetButton = "重置到初始狀態";
+L.ReadOnlyButton = "|cff00ff00點擊|r設置";
+L.CloseButton = "關閉窗體";
 
-L.classTabButton = "\n\124cff00ff00左键\124r切换职业\n\124cff00ff00右键\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除保存的天赋";
-L.inspectTargetButton = "觀察目標天賦";
-L.spellTabButton = "技能列表窗口";
-L.spellAvailable = "\124cff00ff00技能可用\124r";
-L.spellNotAvailable = "\124cffff0000技能不可用\124r";
+L.ClassButton = "\n|cff00ff00左键|r切换职业\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除保存的天赋";
+L.InspectTargetButton = "觀察目標天賦";
+L.SpellListButton = "技能列表窗口";
+L.SpellAvailable = "|cff00ff00技能可用|r";
+L.SpellUnavailable = "|cffff0000技能不可用|r";
 L.TrainCost = "訓練費用 ";
-L.showAllSpell = "显示所有等级";
-L.applyTalentsButton = "應用當前天賦仿真";
-L.applyTalentsButton_Notify = "确定應用當前天賦吗？";
-L.applyTalentsFinished = "天賦已應用";
-L.importButton = "導入字符串或wowhead/nfu/yxrank链接";
-L.exportButton = "\124cff00ff00左键\124r导出字符串\n\124cff00ff00右鍵\124r导出到\124cffff0000wowhead/nfu/yxrank\124r网页链接";
-L.saveButton = "\124cff00ff00左键\124r保存天赋设置\n\124cff00ff00右鍵\124r加载已保存的天赋\n\124cff00ff00Shift+左键\124r删除天赋";
-L.sendButton = "\124cff00ff00左键\124r发送天赋到聊天\n\124cff00ff00右键\124r查看最近聊天中的天赋";
-L.equipmentButton = "打开装备查看";
+L.ShowAllSpell = "显示所有等级";
+L.ApplyTalentsButton = "應用當前天賦仿真";
+L.ApplyTalentsButton_Notify = "确定應用當前天賦吗？";
+L.ApplyTalentsFinished = "天賦已應用";
+L.ImportButton = "導入字符串或wowhead/nfu/yxrank链接";
+L.ExportButton = "|cff00ff00左键|r导出字符串\n|cff00ff00右鍵|r导出到|cffff0000wowhead/nfu|r网页链接";
+L.SaveButton = "|cff00ff00左键|r保存天赋设置\n|cff00ff00右鍵|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除天赋";
+L.SendButton = "|cff00ff00左键|r发送天赋到聊天\n|cff00ff00右键|r查看最近聊天中的天赋";
+L.EquipmentFrameButton = "打开装备查看";
 
 L.TalentFrameCallButton = "開啓ala天賦仿真器";
-L.TalentFrameCallButtonFontString = "仿真器";
-L.curRank = "當前等級";
-L.nextRank = "下一等級";
-L.maxRank = "最高等級";
-L.reqPoints = "%d/%d点%s";
+L.TalentFrameCallButtonString = "仿真器";
+L.CurRank = "當前等級";
+L.NextRank = "下一等級";
+L.MaxRank = "最高等級";
+L.ReqPoints = "%d/%d点%s";
 
-L.SetWinStyle_BLZ = "设置窗口为暴雪风格";
-L.SetWinStyle_ALA = "设置窗口为扁平化风格";
+L.AutoShowEquipmentFrame_TRUE = "自動顯示裝備列表";
+L.AutoShowEquipmentFrame_FALSE = "手動顯示裝備列表";
+L.Minimap_TRUE = "顯示小地圖圖標";
+L.Minimap_FALSE = "隱藏小地圖圖標";
+L.ResizableBorder_TRUE = "拖動窗口邊緣改變大小";
+L.ResizableBorder_FALSE = "禁止拖動窗口邊緣改變大小";
+L.SetWinStyle_BLZ = "設置窗口為暴雪風格";
+L.SetWinStyle_ALA = "設置窗口為扁平化風格";
 L.SetSingleFrame_True = "設置爲單個窗體顯示";
 L.SetSingleFrame_False = "設置爲多個窗體顯示";
 L.SetStyleAllTo1_ThisWin = "設置本窗體為三列顯示所有天賦";
@@ -79,66 +82,69 @@ L.TalentsInTip_TRUE = "在鼠標提示中顯示玩家天賦";
 L.TalentsInTip_FALSE = "不在鼠標提示中顯示玩家天賦";
 L.TalentsInTipIcon_TRUE = "鼠標提示中使用圖標表示天賦樹";
 L.TalentsInTipIcon_FALSE = "鼠標提示中使用文字表示天賦樹";
-L.inspectButtonOnUnitFrame_Enable = "开启观察按钮（按住alt/ctrl/shift键在目标头像上显示观察按钮）";
-L.inspectButtonOnUnitFrame_Disable = "关闭观察按钮";
-L.insepctALTKEY = "按住ALT键显示观察按钮";
-L.insepctCTRLKEY = "按住CTRL键显示观察按钮";
-L.insepctSHIFTKEY = "按住SHIFT键显示观察按钮";
+L.InspectButtonOnUnitFrame_TRUE = "開啓觀察按鈕（按住alt/ctrl/shift鍵在目標頭像上顯示觀察按鈕）";
+L.InspectButtonOnUnitFrame_FALSE = "關閉觀察按鈕";
+L.InsepctKey_ALT = "按住ALT鍵顯示觀察按鈕";
+L.InsepctKey_CTRLK = "按住CTRL鍵顯示觀察按鈕";
+L.InsepctKey_SHIFT = "按住SHIFT鍵顯示觀察按鈕";
 
-L.DBIcon_Text = "\124cff00ff00左鍵\124r新建仿真器\n\124cff00ff00右鍵\124r打開成員檢查";
-L.spellTabGTTSpellLevel = "技能等级: ";
-L.spellTabGTTReqLevel = "需要等级: ";
+L.DBIcon_Text = "|cff00ff00左鍵|r新建仿真器\n|cff00ff00右鍵|r打開成員檢查";
+L.SpellListFrameGTTSpellLevel = "技能等級: ";
+L.SpellListFrameGTTReqLevel = "需要等級: ";
 
 L.DATA = {
-	talent = "天赋",
+	talent = "天賦",
 
-	DRUID = "德鲁伊",
-	HUNTER = "猎人",
-	MAGE = "法爷",
-	PALADIN = "圣骑士",
-	PRIEST = "牧师",
-	ROGUE = "盗贼",
-	SHAMAN = "傻馒",
-	WARLOCK = "术士",
-	WARRIOR = "屌丝战",
+	DEATHKNIGHT = "死亡騎士",
+	DRUID = "德魯伊",
+	HUNTER = "獵人",
+	MAGE = "法師",
+	PALADIN = "聖騎士",
+	PRIEST = "牧師",
+	ROGUE = "盜賊",
+	SHAMAN = "薩滿",
+	WARLOCK = "術士",
+	WARRIOR = "戰士",
 
 	[283] = "平衡",
-	[281] = "野性战斗",
-	[282] = "恢复",
-	[361] = "野兽控制",
-	[363] = "射击",
+	[281] = "野性戰鬥",
+	[282] = "恢復",
+	[361] = "野獸控制",
+	[363] = "射擊",
 	[362] = "生存",
-	[81] = "奥术",
+	[81] = "奧術",
 	[41] = "火焰",
 	[61] = "冰霜",
-	[382] = "神圣",
-	[383] = "防护",
-	[381] = "惩戒",
+	[382] = "神聖",
+	[383] = "防護",
+	[381] = "懲戒",
 	[201] = "戒律",
-	[202] = "神圣",
+	[202] = "神聖",
 	[203] = "暗影",
-	[182] = "刺杀",
-	[181] = "战斗",
-	[183] = "敏锐",
+	[182] = "刺殺",
+	[181] = "戰鬥",
+	[183] = "敏銳",
 	[261] = "元素",
 	[263] = "增强",
-	[262] = "恢复",
+	[262] = "恢復",
 	[302] = "痛苦",
-	[303] = "恶魔学识",
-	[301] = "毁灭",
+	[303] = "惡魔學識",
+	[301] = "毀滅",
 	[161] = "武器",
 	[164] = "狂怒",
-	[163] = "防护",
+	[163] = "防護",
 
-	H = "\124cff00ff00Healer\124r",
-	D = "\124cffff0000DPS\124r",
-	T = "\124cffafafffTANK\124r",
-	P = "\124cffff0000PVP\124r",
-	E = "\124cffffff00PVE\124r",
+	H = "|cff00ff00Healer|r",
+	D = "|cffff0000DPS|r",
+	T = "|cffafafffTANK|r",
+	P = "|cffff0000PVP|r",
+	E = "|cffffff00PVE|r",
 
 };
 
 L.RACE = "种族";
+L["HUMAN|DWARF|NIGHTELF|GNOME|DRAENEI"] = "聯盟";
+L["ORC|SCOURGE|TAUREN|TROLL|BLOODELF"] = "部落";
 L["HUMAN"] = "人類";
 L["DWARF"] = "矮人";
 L["NIGHTELF"] = "暗夜精靈";
@@ -151,10 +157,10 @@ L["TROLL"] = "巨魔";
 L["BLOODELF"] = "血精靈";
 
 
-L.label_itemLevel = "裝等";
-L.label_missItem = "裝備";
-L.label_missEnchant = "附魔";
-L.label_DBM = "DBM版本";
+L.RaidToolLableItemLevel = "裝等";
+L.RaidToolLableMissItem = "裝備";
+L.RaidToolLableMissEnchant = "附魔";
+L.RaidToolLableBossMod = "DBM版本";
 L.guildList = "公會成員";
 
 L.SLOT = {
@@ -179,31 +185,17 @@ L.SLOT = {
 	[18] = "遠程",
 	[19] = "戰袍",
 };
-L.EMTPY_SLOT = "\124cffff0000未裝備\124r";
-L.MISS_ENCHANT = "\124cffff0000缺少附魔\124r";
+L.EMTPY_SLOT = "|cffff0000未裝備|r";
+L.MISS_ENCHANT = "|cffff0000缺少附魔|r";
 
 
 
 
+L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "無法應用天賦: 需要更多天賦點數";
+L["CANNOT APPLY : TALENTS IN CONFLICT."] = "無法應用天賦: 與當前天賦衝突";
+L["CANNOT APPLY : UNABLE TO GENERATE TALENT MAP."] = "無法應用天賦: 創建天賦映射表發生錯誤";
+L["CANNOT APPLY : TALENT MAP ERROR."] = "無法應用天賦: 讀取天賦映射表發生錯誤";
+L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."] = "數據錯誤: 與天賦面板的天賦數量不一致";
 
 
-L.POWERTYPE = {
-	[-2] = "health",
-	[0] = "mana",
-	[1] = "rage",
-	[2] = "focus",
-	[3] = "enery",
-};
-L.POWERPERCENT = "%d%% of %s";
-L.POWERPOINT = "%d %s";
-L.POWERPOINTPERSECOND = "%d %s per sec";
-L.RANGEYARD = "%d yrd";
-L.RANGEYARD2 = "%d to %d yrd";
-L.RANGE0 = "melee";
-L.CASTINGTIME = "%d sec cast";
-L.CASTINGTIMEINSTANT = "instant";
-L.CDSECOND = "%d sec cd";
-L.CDMINUTE = "%d min cd";
-
-L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "无法应用天赋: 需要更多天赋点数";
-L["CANNOT APPLY : TALENTS IN CONFLICT."] = "无法应用天赋: 跟当前天赋存在冲突";
+L.PopupQuery = "查詢天賦";

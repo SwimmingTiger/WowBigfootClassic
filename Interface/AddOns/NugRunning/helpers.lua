@@ -89,7 +89,7 @@ helpers.GetCP = function()
 end
 helpers.Glyph = function (gSpellID)
     for i = 1, GetNumGlyphSockets() do
-        if select(4,GetGlyphSocketInfo(i,GetActiveSpecGroup()) ) == gSpellID then return 1 end
+        if select(4,GetGlyphSocketInfo(i,GetActiveTalentGroup()) ) == gSpellID then return 1 end
     end
     return 0
 end

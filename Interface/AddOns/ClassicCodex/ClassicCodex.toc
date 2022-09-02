@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Notes: |cff00ff00ClassicCodex|r
 ## Title: ClassicCodex core
 ## Title-zhCN: ClassicCodex 任务助手 (核心)

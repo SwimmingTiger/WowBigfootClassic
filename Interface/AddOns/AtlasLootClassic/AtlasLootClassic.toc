@@ -1,6 +1,6 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Author: Lag
-## Version: v2.4.1-bcc
+## Version: v3.0.0-beta1
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -13,6 +13,7 @@
 ## X-License: GPL v2
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
+## X-WoWI-ID: 25185
 ## X-Wago-ID: RXKqzoGy
 ## Dependencies: !!!Libs
 ## X-Revision: BigFoot
@@ -64,6 +65,7 @@ Button\Faction_type.lua
 Button\Set_type.lua
 Button\Extra_Price_type.lua
 #Button\Extra_Quest_type.lua
+Button\Achievement_type.lua
 
 GUI\GUI.xml
 GUI\GUI.lua

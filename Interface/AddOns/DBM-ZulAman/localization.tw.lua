@@ -23,12 +23,12 @@ L:SetTimerLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnBear		= "Show warning for Bear form",--Translate
-	WarnBearSoon	= "Show pre-warning for Bear form",--Translate
-	WarnNormal		= "Show warning for Normal form",--Translate
-	WarnNormalSoon	= "Show pre-warning for Normal form",--Translate
-	TimerBear		= "Show timer for Bear form",--Translate
-	TimerNormal		= "Show timer for Normal form"--Translate
+	WarnBear		= "為熊階段顯示警告",
+	WarnBearSoon	= "為熊階段顯示預先警告",
+	WarnNormal		= "為普通階段顯示警告",
+	WarnNormalSoon	= "為普通階段顯示預先警告",
+	TimerBear		= "為熊階持續時間顯示計時器",
+	TimerNormal		= "為普通階段持續時間顯示計時器"
 }
 
 L:SetMiscLocalization{
@@ -65,7 +65,7 @@ L:SetMiscLocalization{
 L = DBM:GetModLocalization("Halazzi")
 
 L:SetGeneralLocalization{
-	name = "Халаззи"
+	name = "哈拉齊"
 }
 
 L:SetWarningLocalization{
@@ -74,8 +74,8 @@ L:SetWarningLocalization{
 }
 
 L:SetOptionLocalization{
-	WarnSpirit	= "Show warning for Spirit phase",--Translate
-	WarnNormal	= "Show warning for Normal phase"--Translate
+	WarnSpirit	= "為靈魂階段顯示警告",
+	WarnNormal	= "為普通階段顯示警告"
 }
 
 L:SetMiscLocalization{
@@ -93,7 +93,7 @@ L:SetGeneralLocalization{
 }
 
 L:SetMiscLocalization{
-	YellPull	= "Da shadow gonna fall on you...."--Translate
+	YellPull	= "陰影將會降臨在你們頭上....."
 }
 
 --------------

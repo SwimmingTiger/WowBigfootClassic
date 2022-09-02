@@ -6,7 +6,7 @@
  local LSM = LibStub("LibSharedMedia-3.0")
  local self, GSA, PlaySoundFile = GladiatorlosSA, GladiatorlosSA, PlaySoundFile
  local GSA_TEXT = "|cff69CCF0GladiatorlosSA2|r (|cffFFF569/gsa|r)"
- local GSA_VERSION = "|cffFF7D0A TBC-1.1 |r(|cff4DFF4D2.5.1 Burning Crusade (Classic)|r)"
+ local GSA_VERSION = "|cffFF7D0A TBC-1.2 |r(|cff4DFF4D2.5.3 Burning Crusade (Classic)|r)"
  local GSA_TEST_BRANCH = ""
  local GSA_AUTHOR = " "
  local gsadb
@@ -200,6 +200,7 @@ end
 	GladiatorlosSA:RegisterEvent("DUEL_REQUESTED")
 	GladiatorlosSA:RegisterEvent("DUEL_FINISHED")
 	GladiatorlosSA:RegisterEvent("CHAT_MSG_SYSTEM")
+	GladiatorlosSA:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 	if not GSA_LANGUAGE[gsadb.path] then gsadb.path = GSA_LOCALEPATH[GetLocale()] end
 	self.throttled = {}
 	self.smarter = 0
@@ -217,7 +218,7 @@ end
  function GladiatorlosSA:ArenaClass(id)
 	for i = 1 , 5 do
 		if id == UnitGUID("arena"..i) then
-			return select(2, UnitClass ("arena"..i))
+			return select(2, UnitClass("arena"..i))
 		end
 	end
  end
@@ -306,6 +307,16 @@ end
 	 print(sourceName,sourceGUID,destName,destGUID,destFlags,"|cffFF7D0A" .. event.. "|r",spellName,"|cffFF7D0A" .. spellID.. "|r")
 	 print("|cffff0000timestamp|r",timestamp,"|cffff0000event|r",event,"|cffff0000hideCaster|r",hideCaster,"|cffff0000sourceGUID|r",sourceGUID,"|cffff0000sourceName|r",sourceName,"|cffff0000sourceFlags|r",sourceFlags,"|cffff0000sourceFlags2|r",sourceFlags2,"|cffff0000destGUID|r",destGUID,"|cffff0000destName|r",destName,"|cffff0000destFlags|r",destFlags,"|cffff0000destFlags2|r",destFlags2,"|cffff0000spellID|r",spellID,"|cffff0000spellName|r",spellName)
  end
+ 
+ function GladiatorlosSA:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, castGUID, spellID)
+	if gsadb.class and spellID == 42292 then
+		local guid = UnitGUID(unitTarget)
+		local c = self:ArenaClass(guid)
+		if c then
+			self:PlaySound(c);
+		end
+	end
+end
 	
 
  function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
@@ -384,18 +395,7 @@ end
 		 self:PlaySpell("castStart", spellID, sourceGUID, destGUID)
 	 elseif (event == "SPELL_CAST_SUCCESS" and sourcetype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and (not gsadb.sonlyTF or sourceuid.target or sourceuid.focus) and not gsadb.castSuccess) then
 		 if self:Throttle(tostring(spellID).."default", 0.05) then return end
-		 if gsadb.class and playerCurrentZone == "arena" then
-			 if spellID == 42292 or spellID == 208683 or spellID == 195710 or spellID == 336126 then
-				 local c = self:ArenaClass(sourceGUID) -- PvP Trinket Class Callout
-				 if c then
-					 self:PlaySound(c);
-				 end
-			 else
-				 self:PlaySpell("castSuccess", spellID, sourceGUID, destGUID)
-			 end
-		 else
-			 self:PlaySpell("castSuccess", spellID, sourceGUID, destGUID)
-		 end
+		 self:PlaySpell("castSuccess", spellID, sourceGUID, destGUID)
 	 elseif (event == "SPELL_INTERRUPT" and desttype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and not gsadb.interrupt) then
 		 self:PlaySpell ("friendlyInterrupt", spellID, sourceGUID, destGUID)
 	 elseif (event == "SPELL_INTERRUPT" and (desttype[COMBATLOG_FILTER_FRIENDLY_UNITS] or desttype[COMBATLOG_FILTER_ME]) and not gsadb.interruptedfriendly) then
@@ -439,7 +439,7 @@ end
  	local _,currentZoneType = IsInInstance()
 
 	--if gsadb.drinking then--if uid:find("arena") and gsadb.drinking then 
-		if gsadb.drinking then
+		if UnitIsEnemy("player", uid) and gsadb.drinking then
 			if (AuraUtil.FindAuraByName("Drinking",uid) or AuraUtil.FindAuraByName("Food",uid) or AuraUtil.FindAuraByName("Refreshment",uid) or AuraUtil.FindAuraByName("Drink",uid)) and currentZoneType == "arena" then
 				if self:Throttle(tostring(104270) .. uid, 4) then return end
 			self:PlaySound("drinking")

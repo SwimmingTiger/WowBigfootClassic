@@ -14,6 +14,17 @@ local locale = GetLocale()
 local tooltip = CreateFrame("GameTooltip", "ClassicLibItemLevelTooltip1", UIParent, "GameTooltipTemplate")
 local unittip = CreateFrame("GameTooltip", "ClassicLibItemLevelTooltip2", UIParent, "GameTooltipTemplate")
 
+--物品是否已經本地化
+function lib:HasLocalCached(item)
+    if (not item or item == "" or item == "0") then return true end
+    if (tonumber(item)) then
+        return select(10, GetItemInfo(tonumber(item)))
+    else
+        local id, gem1, gem2, gem3 = string.match(item, "item:(%d+):[^:]*:(%d-):(%d-):(%d-):")
+        return self:HasLocalCached(id) and self:HasLocalCached(gem1) and self:HasLocalCached(gem2) and self:HasLocalCached(gem3)
+    end
+end
+
 --獲取物品绿字屬性 (中文用LibItemStats库)
 function lib:GetItemStats(link, stats)
     if (type(stats) == "table") then

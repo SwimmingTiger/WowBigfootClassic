@@ -1,6 +1,6 @@
 if not LOCALE_zhCN then return end
 
-local addonName, Data = ...
+local AddonName, Data = ...
 local L = Data.L;
 
 L["Allies"] = "友方"
@@ -46,6 +46,8 @@ L["BGSize_15"] = "1-15 名玩家"
 L["BGSize_15_Desc"] = "此设置适用于%s在每方1-15人的战场"
 L["BGSize_40"] = "16-40 名玩家"
 L["BGSize_40_Desc"] = "此设置适用于%s在每方16-40人的战场"
+L["BGSize_5"] = "竞技场"
+L["BGSize_5_Desc"] = "此设置适用于竞技场中的%s"
 L["BlizzlikeAuraFiltering"] = "使用暴雪团队框架过滤器"
 L["BorderThickness"] = "边框大小"
 L["BOTTOM"] = "下"
@@ -95,6 +97,7 @@ L["DebuffType_Filtering_Desc"] = "如果启用此选项，将只看到所选择�
 L["DisableArenaFrames"] = "禁用竞技场框架"
 L["DisableArenaFrames_Desc"] = "在战场中禁用竞技场框架，也适用于Sarena插件。"
 L["Disease"] = "疾病"
+L["DispellFilter"] = "按是否可驱散过滤"
 L["DisplayType"] = "显示类型"
 L["Downwards"] = "向下"
 L["DR_Disorient"] = "迷惑"
@@ -244,6 +247,8 @@ L["RoleIcon_Enabled_Desc"] = "启用时，会在血条上显示职责图标。"
 L["RoleIcon_Size_Desc"] = "职责图标的大小 (宽和高)"
 L["RoleIconSettings"] = "职责图标"
 L["RoleIconSettings_Desc"] = "血条上职责图标的设置"
+L["ShowDispellable"] = "显示可驱散的法术"
+L["ShowDispellable_Desc"] = "显示可以通过解除诅咒、净化术等等移除的%s"
 L["ShowMine"] = "只显示我的"
 L["ShowMine_Desc"] = "只显示我施放的%s"
 L["ShowNumbers"] = "显示数字"
@@ -255,6 +260,7 @@ L["ShowTooltips_Desc"] = "当你将鼠标移到饰品和光环图标上时显示
 L["Side"] = "方向"
 L["SideAtObject"] = "目标方向"
 L["Size"] = "大小"
+L["SourceFilter"] = "按照来源过滤"
 L["Spec_AuraDisplay_Enabled"] = "开启光环显示"
 L["Spec_AuraDisplay_Enabled_Desc"] = "启用此选项后，将会在专精图标上显示控制技能和打断技能图标（当控制技能在目标身上时）"
 L["Spec_Enabled"] = "开启专精"

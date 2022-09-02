@@ -83,6 +83,7 @@ L:SetMiscLocalization{
 	AnetheronGossip	= "We are ready for whatever Archimonde might send our way, Lady Proudmoore.",
 	KazrogalGossip	= "I am with you, Thrall.",
 	AzgalorGossip	= "We have nothing to fear.",
+	AzgalorGossipF	= "Not used in english, but needed by some languages like KR",
 	Ghoul			= "Ghouls",
 	Abomination		= "Abominations",
 	Necromancer		= "Necromancers",

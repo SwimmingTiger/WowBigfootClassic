@@ -5,7 +5,10 @@ local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 local L = DBM_CORE_L
 
 local LibStub = _G["LibStub"]
-local LibLatency, LibDurability = LibStub("LibLatency", true), LibStub("LibDurability", true)
+local LibLatency, LibDurability
+if LibStub then
+	LibLatency, LibDurability = LibStub("LibLatency", true), LibStub("LibDurability", true)
+end
 
 local function Pull(timer)
 	local LFGTankException = isRetail and IsPartyLFG() and UnitGroupRolesAssigned("player") == "TANK"--Tanks in LFG need to be able to send pull timer even if someone refuses to pass lead. LFG locks roles so no one can abuse this.
@@ -386,9 +389,11 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM.Options.DebugMode = not DBM.Options.DebugMode
 		DBM:AddMsg("Debug Message is " .. (DBM.Options.DebugMode and "ON" or "OFF"))
 		private:GetModule("DevTools"):OnDebugToggle()
+	elseif cmd:sub(1, 4) == "test" then
+		DBM:DemoMode()
 	elseif cmd:sub(1, 8) == "whereiam" or cmd:sub(1, 8) == "whereami" then
 		local x, y, _, map = UnitPosition("player")
-		local mapID = C_Map.GetBestMapForUnit("player")
+		local mapID = C_Map.GetBestMapForUnit("player") or "nil"
 		if DBM:HasMapRestrictions() then
 			DBM:AddMsg(("Location Information\nYou are at zone %u (%s).\nLocal Map ID %u (%s)"):format(map, GetRealZoneText(map), mapID, GetZoneText()))
 		else

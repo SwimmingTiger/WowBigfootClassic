@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Onyxia|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0奧妮克希亞|r
@@ -10,12 +10,12 @@
 ## SavedVariablesPerCharacter: DBMOnyxia_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: RAID
-## X-DBM-Mod-Category: Classic
-## X-DBM-StatTypes: normal
-## X-DBM-Mod-Sort: 1108
+## X-DBM-Mod-Category: WOTLK
+## X-DBM-StatTypes: normal,normal25
+## X-DBM-Mod-Sort: 904
 ## X-DBM-Mod-MapID: 249
-## X-DBM-Mod-MinCoreRevision: 12473
-## X-DBM-Mod-MinExpansion: 0
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 2
 ## X-Revision: BigFoot
 
 localization.en.lua

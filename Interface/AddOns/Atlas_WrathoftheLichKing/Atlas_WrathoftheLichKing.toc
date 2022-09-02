@@ -1,0 +1,12 @@
+## Interface: 30400
+## Title: Atlas |r|cFF0099FF[Wrath of the Lich King]|r
+## Title-zhCN: Atlas |r|cFF0099FF巫妖王之怒副本地图|r
+## Title-zhTW: Atlas |r|cFF0099FF巫妖王之怒副本地圖|r
+## Notes: |cff00ff00Atlas_WrathoftheLichKing|r
+## Version: v1.51.02
+## Author: arith, Dynaletik, dubcat
+## X-Email: atlas.addon at gmail dot com
+## X-Website: http://www.atlasmod.com
+## X-Category: Map
+## Dependencies: AtlasLootClassic
+## X-Revision: BigFoot

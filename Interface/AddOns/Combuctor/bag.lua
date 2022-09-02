@@ -123,7 +123,7 @@ function Bag:Set(parent, id)
 		self:Update()
 
 		self:RegisterEvent('ITEM_LOCK_CHANGED')
-		self:RegisterEvent('CURSOR_UPDATE')
+		self:RegisterEvent('CURSOR_CHANGED')
 		self:RegisterEvent('BAG_UPDATE')
 		self:RegisterEvent('PLAYERBANKSLOTS_CHANGED')
 
@@ -156,7 +156,7 @@ function Bag:OnEvent(event)
 	elseif not InvData:IsCachedBag(self:GetID(), self:GetParent():GetPlayer()) then
 		if event == 'ITEM_LOCK_CHANGED' then
 			self:UpdateLock()
-		elseif event == 'CURSOR_UPDATE' then
+		elseif event == 'CURSOR_CHANGED' then
 			self:UpdateCursor()
 		elseif event == 'BAG_UPDATE' or event == 'PLAYERBANKSLOTS_CHANGED' or event == 'REAGENTBANK_PURCHASED' then
 			self:Update()

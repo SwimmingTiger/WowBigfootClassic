@@ -1,10 +1,11 @@
-## Interface: 20504
+## Interface: 30400
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Zul'Aman|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0祖阿曼|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
-## SavedVariablesPerCharacter: DBMZulAman_SavedVars, DBMZulAman_SavedStats
+## SavedVariables: DBMZulAman_AllSavedVars
+## SavedVariablesPerCharacter: DBMZulAman_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Category: BC
 ## X-DBM-StatTypes: normal

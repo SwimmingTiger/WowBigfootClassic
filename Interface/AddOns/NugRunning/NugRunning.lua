@@ -23,7 +23,13 @@ local isBC = apiLevel == 2
 local isMainline = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE -- WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 -- local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
-local UnitSpellHaste = isClassic and function() return 0 end or _G.UnitSpellHaste
+local UnitSpellHaste = UnitSpellHaste
+if apiLevel <= 2 then UnitSpellHaste = function() return 0 end end
+if apiLevel == 3 then
+    local GetCombatRatingBonus = GetCombatRatingBonus
+    local CR_HASTE_SPELL = CR_HASTE_SPELL
+    UnitSpellHaste = function() return GetCombatRatingBonus(CR_HASTE_SPELL) end
+end
 local GetSpecialization = isClassic and function() return nil end or _G.GetSpecialization
 
 local NRunDB = nil

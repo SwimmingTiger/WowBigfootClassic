@@ -21,8 +21,7 @@ L:SetOptionLocalization{
 	ShowFrame			= "显示灵魂世界框体" ,
 	FrameClassColor		= "灵魂世界框体内使用职业颜色",
 	FrameUpwards		= "灵魂世界框体向上扩展",
-	FrameLocked			= "设置灵魂世界框体不可移动",
-	RangeFrame			= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 46021)
+	FrameLocked			= "设置灵魂世界框体不可移动"
 }
 
 L:SetMiscLocalization{
@@ -73,9 +72,7 @@ L:SetTimerLocalization{
 
 L:SetOptionLocalization{
 	WarnPhase		= "警报：下一阶段",
-	TimerPhase		= "计时条：下一阶段",
-	VaporIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45392),
-	EncapsIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45665)
+	TimerPhase		= "计时条：下一阶段"
 }
 
 L:SetMiscLocalization{
@@ -92,12 +89,6 @@ L = DBM:GetModLocalization("Twins")
 
 L:SetGeneralLocalization{
 	name = "艾瑞达双子"
-}
-
-L:SetOptionLocalization{
-	NovaIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45329),
-	ConflagIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45333),
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45333)
 }
 
 L:SetMiscLocalization{
@@ -166,9 +157,7 @@ L:SetOptionLocalization{
 	WarnBlueOrb		= "警报：蓝龙宝珠",
 	SpecWarnDarkOrb	= "特殊警报：护盾宝珠",
 	SpecWarnBlueOrb	= "特殊警报：蓝龙宝珠",
-	TimerBlueOrb	= "计时条：蓝龙宝珠",
-	RangeFrame		= DBM_CORE_L.AUTO_RANGE_OPTION_TEXT:format(10, 45641),
-	BloomIcon		= DBM_CORE_L.AUTO_ICONS_OPTION_TEXT:format(45641)
+	TimerBlueOrb	= "计时条：蓝龙宝珠"
 }
 
 L:SetMiscLocalization{

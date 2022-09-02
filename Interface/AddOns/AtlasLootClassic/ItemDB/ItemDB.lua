@@ -39,9 +39,23 @@ local contentList = {}
 ItemDB.contentMt = {
 	__index = ItemDB.ContentProto
 }
+-- clean nil boss entrys from DB
+-- WARNING: This breaks Sources addon
+local function CleanNilBossEntrys(oldTab)
+	local newItemTab = {}
+	for i = 1, #oldTab.items do
+		if oldTab.items[i] ~= nil then
+			newItemTab[#newItemTab + 1] = oldTab.items[i]
+		end
+	end
+	oldTab.items = newItemTab
+	return oldTab
+end
+
 ItemDB.mt = {
 	__newindex = function(t, k, v)
 		t.__atlaslootdata.contentCount = t.__atlaslootdata.contentCount + 1
+		-- v = CleanNilBossEntrys(v)
 		setmetatable(v, ItemDB.contentMt)
 		contentList[t.__atlaslootdata.addonName][t.__atlaslootdata.contentCount] = k
 		contentList[t.__atlaslootdata.addonName][k] = t.__atlaslootdata.contentCount
@@ -293,6 +307,13 @@ local difficultys = {}
 function ItemDB.Proto:AddDifficulty(dif, uniqueName, difficultyID, tierID, textIsHiddenInHeader)
 	assert(dif, "No 'dif' given.")
 
+	if dif and AtlasLoot.DIFFICULTY[dif] then
+		local difTab = AtlasLoot.DIFFICULTY[dif]
+		dif = difTab.loc
+		uniqueName = difTab.short
+		difficultyID = difTab.id
+	end
+
 	if not difficultys[self.__atlaslootdata.addonName] then
 		difficultys[self.__atlaslootdata.addonName] = {
 			counter = 0,
@@ -413,7 +434,7 @@ end
 function ItemDB.Proto:CheckForLink(dataID, boss, load)
 	assert(dataID, self[dataID], "dataID not found - "..dataID)
 	assert(boss, self[dataID].items[boss], "boss not found - "..boss)
-	if self[dataID].items[boss].link then
+	if self[dataID].items[boss] and self[dataID].items[boss].link then
 		local link = self[dataID].items[boss].link
 		if AtlasLoot.Loader:IsModuleLoaded(link[1]) then
 			assert(ItemDB.Storage[link[1]], "module "..link[1].." not found")
@@ -476,6 +497,7 @@ function ItemDB.ContentProto:GetName(raw)
 	if self.AreaID and not self.MapID then
 		self.MapID = self.AreaID
 	end
+	local name
 	local addEnd = ""
 	if not raw then
 		if AtlasLoot.db.showLvlRange and self.LevelRange then
@@ -490,22 +512,23 @@ function ItemDB.ContentProto:GetName(raw)
 		end
 	end
 	if self.name then
-		return self.name..addEnd
+		name = self.name..addEnd
 	elseif self.MapID then
-		if self.nameFormat then
-			return format(self.nameFormat, C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID)
-		else
-			return C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID
-		end
+		name = C_Map.GetAreaInfo(self.MapID)..addEnd or "MapID:"..self.MapID
 	elseif self.FactionID then
-		if self.nameFormat then
-			return format(self.nameFormat, AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd)
-		else
-			return AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd
-		end
+		name = AtlasLoot:Faction_GetFactionName(self.FactionID)..addEnd
+	elseif self.AchievementID then
+		name = select(2, GetAchievementInfo(self.AchievementID))
 	else
-		return UNKNOWN
+		name = UNKNOWN
 	end
+	if self.nameFormat then
+		name = format(self.nameFormat, name)
+	end
+	if self.NameColor and not raw then
+		name = format(self.NameColor, name)
+	end
+	return name
 end
 
 function ItemDB.ContentProto:GetInfo()
@@ -521,6 +544,7 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 	if raw and not self.items[index] then return end
 	assert(index and self.items[index], "index not found.")
 	index = self.items[index]
+	local name
 	local addStart, addEnd = "", ""
 	if not raw then
 		if AtlasLoot.db.ContentPhase.enableOnLootTable and not ContentPhase:IsActive(GetContentPhaseFromTable(index), index.gameVersion or self.gameVersion) then
@@ -543,24 +567,21 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 		end
 	end
 	if index.name then
-		if index.nameFormat then
-			return format(addStart..index.nameFormat, index.name..addEnd)
-		else
-			return addStart..index.name..addEnd
-		end
+		name = addStart..index.name..addEnd
 	elseif index.FactionID then
-		if index.nameFormat then
-			return format(addStart..index.nameFormat, GetFactionInfoByID(index.FactionID)..addEnd)
-		else
-			return addStart..GetFactionInfoByID(index.FactionID)..addEnd
-		end
+		name = addStart..GetFactionInfoByID(index.FactionID)..addEnd
 	elseif index.MapID then
-		if index.nameFormat then
-			return format(index.nameFormat, C_Map.GetAreaInfo(index.MapID)..addEnd or "MapID:"..index.MapID)
-		else
-			return C_Map.GetAreaInfo(index.MapID)..addEnd or "MapID:"..index.MapID
-		end
+		name = C_Map.GetAreaInfo(index.MapID)..addEnd or "MapID:"..index.MapID
+	elseif index.AchievementID then
+		name = select(2, GetAchievementInfo(index.AchievementID))
 	else
-		return UNKNOWN
+		name = UNKNOWN
 	end
+	if index.nameFormat then
+		name = format(index.nameFormat, name)
+	end
+	if index.NameColor and not raw then
+		name = format(index.NameColor, name)
+	end
+	return name
 end

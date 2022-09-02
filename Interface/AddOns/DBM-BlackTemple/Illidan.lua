@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Illidan", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(22917)
 mod:SetEncounterID(609, 2481)
 mod:SetModelID(21135)
@@ -45,7 +45,7 @@ local warnCaged				= mod:NewSpellAnnounce(40695, 3)
 
 local specWarnParasite		= mod:NewSpecialWarningYou(41917, nil, nil, nil, 1, 2)
 local yellParasiteFades		= mod:NewShortFadesYell(41917)
-local specWarnBarrage		= mod:NewSpecialWarningMoveAway(40585, nil, nil, nil, 1, 2)
+local specWarnBarrage		= mod:NewSpecialWarningYou(40585, nil, nil, nil, 1, 2)
 local specWarnShadowDemon	= mod:NewSpecialWarningSwitch(41117, "Dps", nil, nil, 3, 2)
 local specWarnGTFO			= mod:NewSpecialWarningGTFO(40841, nil, nil, nil, 1, 2)
 
@@ -124,8 +124,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerNextBarrage:Start()
 		if args:IsPlayer() then
 			specWarnBarrage:Show()
-			specWarnBarrage:Play("runout")
-			specWarnBarrage:ScheduleVoice(1, "keepmove")
+			specWarnBarrage:Play("targetyou")
 		else
 			warnBarrage:Show(args.destName)
 		end

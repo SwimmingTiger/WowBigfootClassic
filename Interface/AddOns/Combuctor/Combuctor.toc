@@ -1,4 +1,4 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Title: Combuctor
 ## Title-zhCN: [大脚][集]背包整合
 ## Title-zhTW: [大腳][集]背包整合

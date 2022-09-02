@@ -93,7 +93,7 @@ LibEvent:attachEvent("INSPECT_READY", function(this, guid)
     if (not data) then return end
     LibSchedule:AddTask({
         identity  = guid,
-        timer     = 0.5,
+        timer     = 0.6,
         elasped   = 0.8,
         expired   = GetTime() + 3,
         data      = data,

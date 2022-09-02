@@ -2,31 +2,44 @@
 -------------------------------------
 -- 物品寶石庫 Author: M
 -------------------------------------
-local MAJOR, MINOR = "LibItemGem.2000", 1
+
+local MAJOR, MINOR = "LibItemGem.7000", 1
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
 
-local SocketTexture = {
-    ["EMPTY_SOCKET_RED"] = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Red",
-    ["EMPTY_SOCKET_YELLOW"] = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Yellow",
-    ["EMPTY_SOCKET_BLUE"] = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Blue",
-    ["EMPTY_SOCKET_META"] = "Interface\\ItemSocketingFrame\\UI-EmptySocket-Meta",
-}
+local function GetGemColor(key)
+    local color
+    if (key == "EMPTY_SOCKET_YELLOW") then
+        color = "Yellow"
+    elseif (key == "EMPTY_SOCKET_RED") then
+        color = "Red"
+    elseif (key == "EMPTY_SOCKET_BLUE") then
+        color = "Blue"
+    elseif (key == "EMPTY_SOCKET_PRISMATIC") then
+        color = "Prismatic"
+    end
+    return color
+end
 
 function lib:GetItemGemInfo(ItemLink)
     local total, info = 0, {}
-    local stats = GetItemStats(ItemLink) or {}
+    local stats = GetItemStats(ItemLink)
     for key, num in pairs(stats) do
-        local socket = SocketTexture[key]
-        if socket then
+        if (string.find(key, "EMPTY_SOCKET_")) then
             for i = 1, num do
                 total = total + 1
-                table.insert(info, { name = _G[key] or EMPTY, link = nil, texture = socket})
+                table.insert(info, { name = _G[key] or EMPTY, link = nil, color = GetGemColor(key), })
             end
         end
     end
-
+    local quality = select(3, GetItemInfo(ItemLink))
+    if (quality == 6 and total > 0) then
+        total = 3
+        for i = 1, total-#info do
+            table.insert(info, { name = RELICSLOT or EMPTY, link = nil })
+        end
+    end
     local name, link
     for i = 1, 4 do
         name, link = GetItemGem(ItemLink, i)
@@ -39,5 +52,5 @@ function lib:GetItemGemInfo(ItemLink)
             end
         end
     end
-    return total, info
+    return total, info, quality
 end

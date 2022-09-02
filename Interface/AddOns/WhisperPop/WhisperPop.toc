@@ -1,4 +1,4 @@
-﻿## Interface: 20504
+﻿## Interface: 30400
 ## Title: WhisperPop
 ## Title-zhCN: [大脚][集]密语管理
 ## Title-zhTW: [大腳][集]密語管理

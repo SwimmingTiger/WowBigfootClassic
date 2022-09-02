@@ -16,16 +16,16 @@ setmetatable(L, { __index = function(_, k)
 end})
 
 local DefaultDB = {
-    version = VERSION,
-    ShowItemSlotString = false,             --物品部位文字
-    ShowItemBorder = false,                 --物品直角邊框
-    ShowCharacterItemSheet = true,          --玩家自己裝備列表
-    ShowCharacterItemStats = true,          --玩家自己屬性統計
-    ShowInspectAngularBorder = false,       --觀察面板直角邊框
-    ShowInspectColoredLabel = true,         --觀察面板顔色隨物品品質
-    ShowInspectItemSheet = true,            --顯示观察对象装备列表
-		ShowOwnFrameWhenInspecting = true,  --觀察同時顯示自己裝備列表
-		ShowItemStats = true,               --顯示裝備屬性統計
+	version = VERSION,
+	ShowItemSlotString = false,			--物品部位文字
+	ShowItemBorder = false,				--物品直角邊框
+	ShowCharacterItemSheet = true,		--玩家自己裝備列表
+	ShowCharacterItemStats = true,		--玩家自己屬性統計
+	ShowInspectAngularBorder = false,	--觀察面板直角邊框
+	ShowInspectColoredLabel = true,		--觀察面板顔色隨物品品質
+	ShowInspectItemSheet = true,		--顯示观察对象装备列表
+	ShowOwnFrameWhenInspecting = true,	--觀察同時顯示自己裝備列表
+	ShowItemStats = true,				--顯示裝備屬性統計
 }
 
 local options = {
@@ -134,11 +134,15 @@ local function CreateAnchorFrame(anchorkey, parent)
         end)
         frame[anchorPoint] = button
     end
-    local frame = CreateFrame("Frame", nil, parent.SubtypeFrame or parent, "ThinBorderTemplate")
+    local frame = CreateFrame("Frame", nil, parent.SubtypeFrame or parent, "ThinBorderTemplate,BackdropTemplate")
     frame.anchorkey = anchorkey
-    Mixin(frame, BackdropTemplateMixin)
-    frame:SetBackdrop(GameTooltip:GetBackdrop())
-    frame:SetBackdropColor(GameTooltip:GetBackdropColor())
+    frame:SetBackdrop({
+            bgFile   = "Interface\\Tooltips\\UI-Tooltip-Background",
+            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+            tile     = true, tileSize = 8, edgeSize = 16,
+            insets   = {left = 4, right = 4, top = 4, bottom = 4}
+    })
+    frame:SetBackdropColor(0, 0, 0, 0.7)
     frame:SetBackdropBorderColor(1, 1, 1, 0)
     frame:SetSize(80, 80)
     frame:SetPoint("TOPRIGHT", 100, -5)
@@ -197,18 +201,20 @@ frame.name = addon
 
 CreateCheckbox(options, frame, frame.title, 18, 9)
 
-LibEvent:attachEvent("VARIABLES_LOADED", function()
-    if (not MerInspectDB or not MerInspectDB.version) then
-        MerInspectDB = DefaultDB
-    elseif (MerInspectDB.version <= DefaultDB.version) then
-        MerInspectDB.version = DefaultDB.version
-        for k, v in pairs(DefaultDB) do
-            if (MerInspectDB[k] == nil) then
-                MerInspectDB[k] = v
-            end
-        end
-    end
-    InitCheckbox(frame)
+LibEvent:attachEvent("ADDON_LOADED", function(self, addonName)
+	if (addonName == "MerInspect") then
+		if (not MerInspectDB or not MerInspectDB.version) then
+			MerInspectDB = DefaultDB
+		elseif (MerInspectDB.version <= DefaultDB.version) then
+			MerInspectDB.version = DefaultDB.version
+			for k, v in pairs(DefaultDB) do
+				if (MerInspectDB[k] == nil) then
+					MerInspectDB[k] = v
+				end
+			end
+		end
+		InitCheckbox(frame)
+	end
 end)
 
 InterfaceOptions_AddCategory(frame)

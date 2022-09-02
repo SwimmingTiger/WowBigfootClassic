@@ -1,8 +1,3 @@
--- Copyright © 2008-2014 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers")
@@ -27,6 +22,7 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
     self.numspells = 0
     self.order = TTActionBars.numbars
     if self.order > 4 then self.order = 1 end
+
     
 	self.buttons = {}
 	for i=1,numbuttons do	
@@ -75,12 +71,11 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                     end
                                     control:CallMethod("OnShow")]])
 
-        parent:SetAttribute("_onenter", [[ control:CallMethod("ShowTooltip")
-                                              if self:GetAttribute("OpenMenu") == "mouseover" then
+        parent:SetAttribute("_onenter", [[ if self:GetAttribute("OpenMenu") == "mouseover" then
                                                   control:ChildUpdate("show", true)
                                               end ]])
 
-        parent:SetAttribute("_onleave", [[ owner:CallMethod("HideTooltip")
+        parent:SetAttribute("_onleave", [[
             if not self:IsUnderMouse(true) then
                 owner:ChildUpdate("show", false)
             end]])
@@ -92,24 +87,23 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                                    end
                                                  ]])
 
-        b:SetAttribute("_onhide", [[self:ClearBindings() self:GetParent():SetAttribute("open", false) control:CallMethod("HideTooltip")]])
-        b:SetAttribute("_onenter", [[ if self:GetAttribute("tooltip") then control:CallMethod("ShowTooltip") end]])
-        b:SetAttribute("_onleave", [[ control:CallMethod("HideTooltip") if not self:GetParent():IsUnderMouse(true) then self:GetParent():ChildUpdate("show", false) end]])
+        b:SetAttribute("_onhide", [[self:ClearBindings() self:GetParent():SetAttribute("open", false)]])
+        b:SetAttribute("_onleave", [[ if not self:GetParent():IsUnderMouse(true) then self:GetParent():ChildUpdate("show", false) end]])
         b.OnShow = function(self) end -- override if button should do additional stuff on show
         
 		b:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
 		b:SetAttribute("*type1", "spell")
         b:SetAttribute("*type2", nil)
+
+        XiTimers.HookTooltips(b)
 		
         if bartype ~= "weapontimer" then
-            b.ShowTooltip = TotemTimers.TotemTooltip
+            b.tooltip = TotemTimers.Tooltips.Totem:new(b)
         else
-            b.ShowTooltip = TotemTimers.WeaponBarTooltip
+            b.tooltip = TotemTimers.Tooltips.WeaponBar:new(b)
         end
 		
-        b.HideTooltip = function(self) GameTooltip:Hide() end
-        
-        b:SetAttribute("_onattributechanged", [[ if name=="inactive" then 
+        b:SetAttribute("_onattributechanged", [[ if name=="inactive" then
                                                      if not value and self:GetAttribute("alwaysshow") then
                                                          self:Show()
                                                      elseif value then

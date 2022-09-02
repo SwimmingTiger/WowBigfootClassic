@@ -1,6 +1,6 @@
 if not LOCALE_zhTW then return end
 
-local addonName, Data = ...
+local AddonName, Data = ...
 local L = Data.L;
 
 L["Allies"] = "友方"
@@ -46,6 +46,8 @@ L["BGSize_15"] = "1–15 名玩家"
 L["BGSize_15_Desc"] = "在每方 1-15 名玩家的戰場，設定會套用到%s。"
 L["BGSize_40"] = "16-40 名玩家"
 L["BGSize_40_Desc"] = "在每方 16-40 名玩家的戰場，設定會套用到%s。"
+L["BGSize_5"] = "競技場"
+L["BGSize_5_Desc"] = "在競技場，設定會套用到%s。"
 L["BlizzlikeAuraFiltering"] = "使用暴雪團隊框架過濾方式"
 L["BorderThickness"] = "外框粗細"
 L["BOTTOM"] = "下"
@@ -96,6 +98,7 @@ L["DebuffType_Filtering_Desc"] = "啟用時，只會看所選類型的減益效�
 L["DisableArenaFrames"] = "停用競技場框架"
 L["DisableArenaFrames_Desc"] = "在戰場中停用停用競技場框架，同樣適用於 sArena 插件。"
 L["Disease"] = "疾病"
+L["DispellFilter"] = "依據是否可驅散過濾"
 L["DisplayType"] = "顯示類型"
 L["Downwards"] = "向下"
 L["DR_Disorient"] = "暈眩"
@@ -245,6 +248,8 @@ L["RoleIcon_Enabled_Desc"] = "啟用時，會在血量條上顯示角色圖示�
 L["RoleIcon_Size_Desc"] = "角色圖示的大小 (寬和高)。"
 L["RoleIconSettings"] = "角色圖示"
 L["RoleIconSettings_Desc"] = "血量條上面的角色圖示設定。"
+L["ShowDispellable"] = "顯示可驅散的"
+L["ShowDispellable_Desc"] = "顯示我可以使用驅散、淨化...等移除的%s。"
 L["ShowMine"] = "顯示我的"
 L["ShowMine_Desc"] = "顯示我施放的%s。"
 L["ShowNumbers"] = "顯示數字"
@@ -256,6 +261,7 @@ L["ShowTooltips_Desc"] = "滑鼠指向飾品或光環圖示等物件時顯示滑
 L["Side"] = "方向"
 L["SideAtObject"] = "物件的方向"
 L["Size"] = "大小"
+L["SourceFilter"] = "依據來源過濾"
 L["Spec_AuraDisplay_Enabled"] = "顯示光環"
 L["Spec_AuraDisplay_Enabled_Desc"] = "啟用時，會顯示群體控場和斷法技能的圖示 (有啟用時)，取代專精圖示。"
 L["Spec_Enabled"] = "啟用專精"

@@ -5,4 +5,5 @@
 	<Include file="Libs\DRList-1.0\DRList-1.0.xml"/>
 	<Include file="Libs\LibPlayerSpells-1.0\lib.xml"/>
 	<Script file="Libs\LibChangelog\LibChangelog.lua"/>
+	<Script file="Libs\FlyPaper-2.0\LibFlyPaper-2.0.lua"/>
 </Ui>

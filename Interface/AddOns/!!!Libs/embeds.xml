@@ -37,7 +37,7 @@
 	<Script file="LibBossIDs-1.0\LibBossIDs-1.0.lua" /><!-- Recount,Skada -->
 	<Script file="LibChatAnims\LibChatAnims.lua"/><!-- 聊天框污染修复 -->
 	<Include file="HereBeDragons\widget.xml"/><!-- ClassicCodex,HandyNotes,TotemTimers -->
-	<Script file="LibButtonGlow-1.0\LibButtonGlow-1.0.lua"/><!-- Bartender4,EventAlertMod -->
+	<Script file="LibButtonGlow-1.0\LibButtonGlow-1.0.lua"/><!-- Bartender4,ClassicSpellActivations -->
 	<Include file="LibClassicDurations\LibClassicDurations.xml"/>
 
 	<!-- GoodLeader，MeetingHorn ，Wargame ~begin~ -->

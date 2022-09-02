@@ -10,4 +10,6 @@
     <Script file="Challenge.lua"/>
     <Script file="Grade.lua"/>
     <Script file="GoodLeader.lua"/>
+    <Script file="ProtoBase.lua"/>
+    <Include file="QuestServies\Quest.xml"/>
 </Ui>

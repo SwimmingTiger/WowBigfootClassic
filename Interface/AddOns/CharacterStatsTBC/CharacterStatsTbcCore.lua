@@ -115,14 +115,14 @@ function CSC_GetPlayerMissChances(unit, playerHitChance)
 	local missChanceVsNPC = 5;
 	local missChanceVsBoss = 8;
 	local missChanceVsPlayer = 5;
-	
+
 	local hitChance = playerHitChance;
 	local level = UnitLevel(unit);
-	local bossLevel = 73;
+	local bossLevel = 83;
 	local playerWeaponSkill = level * 5;
 	local bossDefense = bossLevel * 5;
 
-	-- Boss (level 73)
+	-- Boss (level 83)
 	if (bossDefense - playerWeaponSkill >= 11) then
 		missChanceVsBoss = 5 + (bossDefense - playerWeaponSkill) * 0.2;
 	end
@@ -144,7 +144,7 @@ end
 
 function CSC_GetPlayerCritCap(unit, ratingIndex)
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -152,9 +152,9 @@ function CSC_GetPlayerCritCap(unit, ratingIndex)
 	local hitRatingBonus = GetCombatRatingBonus(ratingIndex); -- hit rating in % (hit chance) (from gear sources, doesn't seem to include talents);
 	local totalHit = hitChance + hitRatingBonus;
 	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, totalHit);
-	
+
 	local playerWeaponSkill = UnitLevel(unit) * 5;
-	local bossDefense = 73 * 5;
+	local bossDefense = 83 * 5;
 	local critSuppression = 4.8;
 	local dodgeChance = 5 + (bossDefense - playerWeaponSkill) * 0,1;
 	local glancingChance = math.max(0, 6 + (bossDefense - playerWeaponSkill) * 1.2);
@@ -173,7 +173,7 @@ function CSC_GetAttackPowerFromArgentDawnItems(unit)
 	local trinketSecond = GetInventoryItemID(unit, INVSLOT_TRINKET2);
 
 	local apVsUndead = 0;
-	
+
 	if (g_ArgentDawnAPItems[chestId] ~= nil) then
 		apVsUndead = apVsUndead + g_ArgentDawnAPItems[chestId];
 	end
@@ -215,7 +215,7 @@ function CSC_GetSpellkPowerFromArgentDawnItems(unit)
 	local trinketSecond = GetInventoryItemID(unit, INVSLOT_TRINKET2);
 
 	local spVsUndead = 0;
-	
+
 	if (g_ArgentDawnSPItems[chestId] ~= nil) then
 		spVsUndead = spVsUndead + g_ArgentDawnSPItems[chestId];
 	end
@@ -288,7 +288,7 @@ end
 
 -- PRIMARY STATS --
 function CSC_PaperDollFrame_SetPrimaryStats(statFrames, unit)
-	
+
 	local statIndexTable = {
 		"STRENGTH",
 		"AGILITY",
@@ -299,7 +299,7 @@ function CSC_PaperDollFrame_SetPrimaryStats(statFrames, unit)
 
 	-- Fix for classic (NUM_STATS instead of NUM_STATS-1)
 	for i=1, NUM_STATS, 1 do
-		
+
 		local statIndex = i;
 		local frameText;
 		local stat;
@@ -308,14 +308,14 @@ function CSC_PaperDollFrame_SetPrimaryStats(statFrames, unit)
 		local negBuff;
 		stat, effectiveStat, posBuff, negBuff = UnitStat(unit, statIndex);
 		local statName = getglobal("SPELL_STAT"..statIndex.."_NAME");
-		
+
 		-- Set the tooltip text
 		local tooltipText = HIGHLIGHT_FONT_COLOR_CODE..statName.." ";
 
 		if ( ( posBuff == 0 ) and ( negBuff == 0 ) ) then
 			frameText = effectiveStat;
 			statFrames[statIndex].tooltip = tooltipText..effectiveStat..FONT_COLOR_CODE_CLOSE;
-		else 
+		else
 			tooltipText = tooltipText..effectiveStat;
 			if ( posBuff > 0 or negBuff < 0 ) then
 				tooltipText = tooltipText.." ("..(stat - posBuff - negBuff)..FONT_COLOR_CODE_CLOSE;
@@ -409,7 +409,7 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 
     local speed, offhandSpeed = CSC_GetAppropriateAttackSpeed(unit, category);
 	local minDamage, maxDamage, minOffHandDamage, maxOffHandDamage, physicalBonusPos, physicalBonusNeg, percentMod = CSC_GetAppropriateDamage(unit, category);
-	
+
 	-- sometimes this is wrongly reported as 0
 	if percentMod == nil or percentMod == 0 then
 		percentMod = 1;
@@ -425,31 +425,31 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 		minDamage = minDamage + bonusDmgMainHand;
 		maxDamage = maxDamage + bonusDmgMainHand;
 	end
-    
+
     local displayMin = max(floor(minDamage),1);
 	local displayMax = max(ceil(maxDamage),1);
-    
+
     minDamage = (minDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
 	maxDamage = (maxDamage / percentMod) - physicalBonusPos - physicalBonusNeg;
-	
+
     local baseDamage = (minDamage + maxDamage) * 0.5;
 	local fullDamage = (baseDamage + physicalBonusPos + physicalBonusNeg) * percentMod;
 	local totalBonus = (fullDamage - baseDamage);
 	local damagePerSecond = (max(fullDamage,1) / speed);
     local damageTooltip = max(floor(minDamage),1).." - "..max(ceil(maxDamage),1);
-    
+
     local colorPos = "|cff20ff20";
     local colorNeg = "|cffff2020";
-	
+
     -- epsilon check
 	if ( totalBonus < 0.1 and totalBonus > -0.1 ) then
 		totalBonus = 0.0;
     end
-    
+
     local damageText;
 
     if ( totalBonus == 0 ) then
-		if ( ( displayMin < 100 ) and ( displayMax < 100 ) ) then 
+		if ( ( displayMin < 100 ) and ( displayMax < 100 ) ) then
 			damageText = displayMin.." - "..displayMax;
 		else
 			damageText = displayMin.."-"..displayMax;
@@ -462,7 +462,7 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 		else
 			color = colorNeg;
 		end
-		if ( ( displayMin < 100 ) and ( displayMax < 100 ) ) then 
+		if ( ( displayMin < 100 ) and ( displayMax < 100 ) ) then
 			damageText = color..displayMin.." - "..displayMax.."|r";
 		else
 			damageText = color..displayMin.."-"..displayMax.."|r";
@@ -479,7 +479,7 @@ function CSC_PaperDollFrame_SetDamage(statFrame, unit, category)
 			damageTooltip = damageTooltip..colorNeg.." x"..floor(percentMod*100+0.5).."%|r";
 		end
     end
-    
+
     CSC_PaperDollFrame_SetLabelAndText(statFrame, DAMAGE, damageText, false);
 
     statFrame.damage = damageTooltip;
@@ -556,13 +556,13 @@ function CSC_PaperDollFrame_SetAttackBothHands(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetMeleeAttackPower(statFrame, unit)
-    
+
 	local base, posBuff, negBuff = UnitAttackPower(unit);
 
 	if (UISettingsCharacter.showStatsFromArgentDawnItems) then
 		posBuff = posBuff + g_APFromADItems;
 	end
-    
+
     local valueText, tooltipText = CSC_PaperDollFormatStat(MELEE_ATTACK_POWER, base, posBuff, negBuff);
     local valueNum = max(0, base + posBuff + negBuff);
     CSC_PaperDollFrame_SetLabelAndText(statFrame, ATTACK_POWER, valueText, false);
@@ -571,7 +571,7 @@ function CSC_PaperDollFrame_SetMeleeAttackPower(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetRangedAttackPower(statFrame, unit)
-	
+
 	if not IsRangedWeapon() then
 		CSC_PaperDollFrame_SetLabelAndText(statFrame, ATTACK_POWER, NOT_APPLICABLE, false);
 		return;
@@ -588,7 +588,7 @@ function CSC_PaperDollFrame_SetRangedAttackPower(statFrame, unit)
 	if (UISettingsCharacter.showStatsFromArgentDawnItems) then
 		posBuff = posBuff + g_APFromADItems;
 	end
-	
+
     local valueText, tooltipText = CSC_PaperDollFormatStat(RANGED_ATTACK_POWER, base, posBuff, negBuff);
     local valueNum = max(0, base + posBuff + negBuff);
     CSC_PaperDollFrame_SetLabelAndText(statFrame, ATTACK_POWER, valueText, false);
@@ -598,12 +598,12 @@ end
 
 -- SECONDARY STATS --
 function CSC_PaperDollFrame_SetCritChance(statFrame, unit)
-	
+
 	statFrame:SetScript("OnEnter", CSC_CharacterMeleeCritFrame_OnEnter)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
     end)
-	
+
 	local critChance = GetCritChance();
 
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, MELEE_CRIT_CHANCE, critChance, true);
@@ -636,7 +636,7 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
     end)
-	
+
 	local MAX_SPELL_SCHOOLS = 7;
 	local holySchool = 2;
 
@@ -658,7 +658,7 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 	if (unitClassId == CSC_PRIEST_CLASS_ID) then
 		local priestHolyCrit = CSC_GetPriestCritStatsFromTalents();
 		priestHolyCrit = priestHolyCrit + CSC_GetHolyCritFromBenediction(unit);
-		
+
 		if (priestHolyCrit > 0) then
 			statFrame.holyCrit = statFrame.holyCrit + priestHolyCrit;
 			-- set the new maximum
@@ -675,7 +675,7 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 		end
 	elseif (unitClassId == CSC_SHAMAN_CLASS_ID) then
 		statFrame.lightningCrit = statFrame.natureCrit;
-		
+
 		local callOfThunderCrit = CSC_GetShamanCallOfThunderCrit();
 		if callOfThunderCrit > 0 then
 			statFrame.lightningCrit = statFrame.lightningCrit + callOfThunderCrit;
@@ -697,14 +697,14 @@ function CSC_PaperDollFrame_SetSpellCritChance(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetHitChance(statFrame, unit)
-	
+
 	statFrame:SetScript("OnEnter", CSC_CharacterHitChanceFrame_OnEnter)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -734,7 +734,7 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 		if not hitChance then
 			hitChance = 0;
 		end
-		
+
 		ratingBonus = ratingBonus + hitChance;
 		rating = rating + (combatRatingMult*hitChance);
 	elseif ( ratingIndex == CR_HIT_SPELL ) then
@@ -751,7 +751,7 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 			local hitFromElementalPrecision = CSC_GetShamanHitFromElementalPrecision();
 			spellHitChance = spellHitChance + hitFromElementalPrecision;
 		end
-		
+
 		ratingBonus = ratingBonus + spellHitChance;
 		statFrame.spellHitGearTalents = ratingBonus;
 		rating = rating + (combatRatingMult*spellHitChance);
@@ -768,7 +768,7 @@ function CSC_PaperDollFrame_SetHitRating(statFrame, unit, ratingIndex)
 end
 
 function CSC_PaperDollFrame_SetExpertise(statFrame, unit)
-	
+
 	local expertise, offhandExpertise = GetExpertise();
 	local speed, offhandSpeed = UnitAttackSpeed(unit);
 	local text;
@@ -778,9 +778,9 @@ function CSC_PaperDollFrame_SetExpertise(statFrame, unit)
 		text = expertise;
 	end
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_EXPERTISE, text);
-	
+
 	statFrame.tooltip = HIGHLIGHT_FONT_COLOR_CODE..getglobal("COMBAT_RATING_NAME"..CR_EXPERTISE).." "..text..FONT_COLOR_CODE_CLOSE;
-	
+
 	local expertisePercent, offhandExpertisePercent = GetExpertisePercent();
 	expertisePercent = format("%.2f", expertisePercent);
 	if( offhandSpeed ) then
@@ -812,7 +812,7 @@ local function CSC_GetHitFromBiznicksAccurascope(unit)
 end
 
 function CSC_PaperDollFrame_SetRangedHitChance(statFrame, unit)
-	
+
 	if not IsRangedWeapon() then
 		CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_HIT_CHANCE, NOT_APPLICABLE, false);
 		return;
@@ -822,9 +822,9 @@ function CSC_PaperDollFrame_SetRangedHitChance(statFrame, unit)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -840,14 +840,14 @@ function CSC_PaperDollFrame_SetRangedHitChance(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetSpellHitChance(statFrame, unit)
-	
+
 	statFrame:SetScript("OnEnter", CSC_CharacterSpellHitChanceFrame_OnEnter)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
 
 	local hitChance = GetSpellHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -888,7 +888,7 @@ function CSC_PaperDollFrame_SetAttackSpeed(statFrame, unit)
 end
 
 function CSC_PaperDollFrame_SetRangedAttackSpeed(statFrame, unit)
-	
+
 	if not IsRangedWeapon() then
 		CSC_PaperDollFrame_SetLabelAndText(statFrame, WEAPON_SPEED, NOT_APPLICABLE, false);
 		return;
@@ -933,7 +933,7 @@ function CSC_PaperDollFrame_SetArmor(statFrame, unit)
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_ARMOR, valueText, false);
 	statFrame.tooltip = tooltipText;
 	statFrame.tooltip2 = format(DEFAULT_STATARMOR_TOOLTIP, armorReduction);
-	
+
 	local petBonus = ComputePetBonus("PET_BONUS_ARMOR", effectiveArmor );
 	if( petBonus > 0 ) then
 		statFrame.tooltip2 = statFrame.tooltip2 .. "\n" .. format(PET_BONUS_TOOLTIP_ARMOR, petBonus);
@@ -1025,7 +1025,7 @@ function CSC_GetBlockValue(unit)
 	local strStatIndex = 1;
 	local strength = select(2, UnitStat(unit, strStatIndex));
 	local blockValue = blockValueFromItems + (strength / 20);
-	
+
 	local requiredMightSetItems = 3;
 	if (equippedMightSetItems >= requiredMightSetItems) then
 		blockValue = blockValue + 30; -- Set bonus reached
@@ -1040,7 +1040,7 @@ function CSC_PaperDollFrame_SetBlock(statFrame, unit)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local blockChance = GetBlockChance();
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, STAT_BLOCK, blockChance, true);
 
@@ -1084,11 +1084,11 @@ local function CSC_GetMP5FromAuras()
 		if spellId then
 			if g_AuraIdToMp5[spellId] then
 				local auraMp5 = g_AuraIdToMp5[spellId];
-				
+
 				local unitClassId = select(3, UnitClass("player"));
 				if (unitClassId == CSC_PALADIN_CLASS_ID and CSC_IsBoWSpellId(spellId)) then
 					local improvedBoWModifier = CSC_GetPaladinImprovedBoWModifier();
-					
+
 					if (improvedBoWModifier > 0) then
 						auraMp5 = auraMp5 + auraMp5 * improvedBoWModifier;
 					end
@@ -1128,7 +1128,7 @@ function CSC_PaperDollFrame_SetManaRegen(statFrame, unit)
 
 	local regenWhenNotCastingText = BreakUpLargeNumbers(base);
 	local castingText = BreakUpLargeNumbers(casting);
-	
+
 	-- While Casting mana regen is most important to the player, so we display it as the main value
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, MANA_REGEN, castingText, false);
 	statFrame.mp5FromGear = BreakUpLargeNumbers(mp5FromGear);
@@ -1166,7 +1166,7 @@ end
 function CSC_SideFrame_SetMissChance(statFrame, unit, ratingIndex)
 	local playerLevel = UnitLevel(unit);
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -1176,7 +1176,7 @@ function CSC_SideFrame_SetMissChance(statFrame, unit, ratingIndex)
 	local missChanceVsNPC, missChanceVsBoss, missChanceVsPlayer, dwMissChanceVsNpc, dwMissChanceVsBoss, dwMissChanceVsPlayer = CSC_GetPlayerMissChances(unit, totalHit);
 
 	if (ratingIndex == CR_HIT_MELEE) then
-		statFrame.tooltip = format("攻击73级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss)..CSC_SYMBOL_TAB..format("(双持: %.2F%%)", dwMissChanceVsBoss);
+		statFrame.tooltip = format("攻击83级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss)..CSC_SYMBOL_TAB..format("(双持: %.2F%%)", dwMissChanceVsBoss);
 		local missChanceNPCLineOne = format("攻击%d级NPC时的未命中率:     %.2F%%", playerLevel, missChanceVsNPC);
 		local missChanceNPCLineTwo = format("(双持: %.2F%%)", dwMissChanceVsNpc);
 
@@ -1184,7 +1184,7 @@ function CSC_SideFrame_SetMissChance(statFrame, unit, ratingIndex)
 		local missChancePlayerLineTwo = format("(双持: %.2F%%)", dwMissChanceVsPlayer);
 		statFrame.tooltip2 = missChanceNPCLineOne..CSC_SYMBOL_TAB..missChanceNPCLineTwo.."\n"..missChancePlayerLineOne..CSC_SYMBOL_TAB..missChancePlayerLineTwo;
 	else
-		statFrame.tooltip = format("攻击73级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss);
+		statFrame.tooltip = format("攻击83级NPC/Boss时的未命中率: %.2F%%", missChanceVsBoss);
 		statFrame.tooltip2 = format("攻击%d级NPC时的未命中率: %.2F%%", playerLevel, missChanceVsNPC).."\n"..format("攻击%d级玩家时的未命中率: %.2F%%", playerLevel, missChanceVsPlayer);
 	end
 
@@ -1194,7 +1194,7 @@ end
 function CSC_SideFrame_SetCritCap(statFrame, unit, ratingIndex)
 	local critCap, dwCritCap = CSC_GetPlayerCritCap(unit, ratingIndex);
 
-	statFrame.tooltip = format("攻击73级NPC/Boss时的暴击上限: %.2F%%", critCap);
+	statFrame.tooltip = format("攻击83级NPC/Boss时的暴击上限: %.2F%%", critCap);
 	if (ratingIndex == CR_HIT_MELEE) then
 		local offhandItemId = GetInventoryItemID(unit, INVSLOT_OFFHAND);
 		if (offhandItemId) then
@@ -1207,14 +1207,14 @@ end
 
 -- Melee
 function CSC_SideFrame_SetMeleeHitChance(statFrame, unit)
-	
+
 	statFrame:SetScript("OnEnter", CSC_CharacterMeleeHitChanceSideFrame_OnEnter)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -1254,9 +1254,9 @@ function CSC_SideFrame_SetRangedHitChance(statFrame, unit)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local hitChance = GetHitModifier();
-	
+
 	if not hitChance then
 		hitChance = 0;
 	end
@@ -1300,7 +1300,7 @@ function CSC_SideFrame_SetSpellHitChance(statFrame, unit)
 	statFrame:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	
+
 	local spellHitChance = CSC_GetSpellHitModifier(unit);
 	if not spellHitChance then
 		spellHitChance = 0;
@@ -1370,16 +1370,16 @@ function CSC_SideFrame_SetChanceToBeCrittedBy70(statFrame, unit)
 		bonusFromTalents = select(5, GetTalentInfo(2, 16)); -- Survival of the Fittest
 	end
 
-    local critChance = (base + modifier)*0.04 + GetCombatRatingBonus(16) + bonusFromTalents; 
+    local critChance = (base + modifier)*0.04 + GetCombatRatingBonus(16) + bonusFromTalents;
 	local critChance70 = 19 - critChance;
 	local critChance70txt = format("%.2F%%", critChance70);
-	
+
     if critChance70 <= 0 then
 		critChance70txt = GREEN_FONT_COLOR_CODE..critChance70txt..FONT_COLOR_CODE_CLOSE;
 	elseif critChance70 > 0 then
         critChance70txt = RED_FONT_COLOR_CODE..critChance70txt..FONT_COLOR_CODE_CLOSE;
 	end
-	
+
 	statFrame.tooltip = "打70级怪的暴击率";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, "70级暴击率", critChance70txt, false);
 end
@@ -1396,15 +1396,15 @@ function CSC_SideFrame_SetChanceToBeCrittedBy73(statFrame, unit)
 	local critChance = (base + modifier)*0.04 + GetCombatRatingBonus(16) + bonusFromTalents;
 	local critChance73 = 19.6 - critChance;
 	local critChance73txt = format("%.2F%%", critChance73);
-	
+
     if critChance73 <= 0 then
 		critChance73txt = GREEN_FONT_COLOR_CODE..critChance73txt..FONT_COLOR_CODE_CLOSE;
 	elseif critChance73 > 0 then
         critChance73txt = RED_FONT_COLOR_CODE..critChance73txt..FONT_COLOR_CODE_CLOSE;
 	end
-	
-	statFrame.tooltip = "打73级怪的暴击率";
-	CSC_PaperDollFrame_SetLabelAndText(statFrame, "73级暴击率", critChance73txt, false);
+
+	statFrame.tooltip = "打83级怪的暴击率";
+	CSC_PaperDollFrame_SetLabelAndText(statFrame, "83级暴击率", critChance73txt, false);
 end
 
 function CSC_SideFrame_SetAvoidance(statFrame, unit)
@@ -1423,7 +1423,7 @@ function CSC_SideFrame_SetAvoidance(statFrame, unit)
     if avoidanceMissing > 0 then
         avoidanceMissingTxt = RED_FONT_COLOR_CODE..avoidanceMissingTxt..FONT_COLOR_CODE_CLOSE;
 	end
-	
+
 	statFrame.tooltip = "所需闪避";
 	statFrame.tooltip2 = format("需要 %.2F%% 闪避(未命中+躲闪+招架+格挡)以达到碾压下限 (%.2F%%).\n当前: %.F%%", avoidanceMissing, avoidanceCap, avoidanceCurrent);
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, "闪避上限", avoidanceMissingTxt, false);
@@ -1441,14 +1441,14 @@ function CSC_SideFrame_SetDefenseUncritableCap(statFrame, unit)
 	local critChance = (base + modifier)*0.04 + GetCombatRatingBonus(16) + bonusFromTalents;
 	local defCap73 = (19.6 - critChance)/0.04*2.4;
 	local defCap73txt = format("%.2F", defCap73);
-	
+
     if defCap73 <= 0 then
 		defCap73txt = GREEN_FONT_COLOR_CODE..defCap73txt..FONT_COLOR_CODE_CLOSE;
 	elseif defCap73 > 0 then
         defCap73txt = RED_FONT_COLOR_CODE..defCap73txt..FONT_COLOR_CODE_CLOSE;
 	end
 
-	statFrame.tooltip = "避免被73级怪暴击所需的防御等级";
+	statFrame.tooltip = "避免被83级怪暴击所需的防御等级";
 	statFrame.tooltip2 = "请同时考虑防御等级和韧性等级";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, "防御上限", defCap73txt, false);
 end
@@ -1472,7 +1472,7 @@ function CSC_SideFrame_SetResilienceUncritableCap(statFrame, unit)
         defCap73txt = RED_FONT_COLOR_CODE..defCap73txt..FONT_COLOR_CODE_CLOSE;
 	end
 
-	statFrame.tooltip = "避免被73级怪暴击所需的韧性等级";
+	statFrame.tooltip = "避免被83级怪暴击所需的韧性等级";
 	statFrame.tooltip2 = "请同时考虑防御等级和韧性等级";
 	CSC_PaperDollFrame_SetLabelAndText(statFrame, "韧性上限", defCap73txt, false);
 end

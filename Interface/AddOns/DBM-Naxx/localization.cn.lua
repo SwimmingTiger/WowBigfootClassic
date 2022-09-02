@@ -1,7 +1,7 @@
 -- author: callmejames @《凤凰之翼》 一区藏宝海湾
 -- commit by: yaroot <yaroot AT gmail.com>
--- Mini Dragon(projecteurs AT gmail.com) Brilla@《流浪者酒馆》-金色平原
--- Last update: 2020/11/13
+-- Mini Dragon(projecteurs AT gmail.com) Brilla@金色平原
+-- Last update: 2019/08/22
 
 if GetLocale() ~= "zhCN" then return end
 
@@ -47,7 +47,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull					= "跪下求饶吧，懦夫！"--Not actually pull trigger, but often said on pull
+	Pull					= "跪下求饶吧，诺夫！"--Not actually pull trigger, but often said on pull
 })
 ---------------
 --  Maexxna  --
@@ -83,7 +83,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Noth")
 
 L:SetGeneralLocalization({
-	name 					= "药剂师诺斯"
+	name 					= "瘟疫使者诺斯"
 })
 
 L:SetWarningLocalization({
@@ -105,7 +105,6 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	Pull				= "我要没收你的生命!", --TBD
-	AddsYell			= "起来吧，我的战士们！起来，再为主人尽忠一次！",
 	Adds				= "召唤出骷髅战士！",
 	AddsTwo				= "召唤出更多的骷髅！"
 })
@@ -225,8 +224,7 @@ L:SetMiscLocalization({
 L:SetOptionLocalization({
 	WarningChargeChanged		= "当你的极性改变时显示特别警报",
 	WarningChargeNotChanged		= "当你的极性没有改变时显示特别警报",
-	ArrowsEnabled			= "显示箭头 $spell:28089",
-	TwoCamp					= "显示箭头 (正常 \"两边\" 站位打法)",
+	AirowEnabled			= "显示箭头 (正常 \"两边\" 站位打法)",
 	ArrowsRightLeft			= "显示左/右箭头 给 \"四角\" 站位打法 (如果极性改变显示左箭头, 没变显示右箭头)",
 	ArrowsInverse			= "显示反转的 \"四角\" 站位打法 (如果极性改变显示右箭头, 没变显示左箭头)"
 })
@@ -312,6 +310,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	WarningMarkSoon			= "为印记显示提前警报",
+	WarningMarkNow			= "为印记显示警报",
 	SpecialWarningMarkOnPlayer	= "当你印记叠加多于四层时显示特别警报"
 })
 
@@ -320,12 +319,13 @@ L:SetTimerLocalization({
 
 L:SetWarningLocalization({
 	WarningMarkSoon			= "3秒后 印记 %d",
+	WarningMarkNow			= "印记 #%d",
 	SpecialWarningMarkOnPlayer	= "%s: %s"
 })
 
 L:SetMiscLocalization({
 	Korthazz			= "库尔塔兹领主",
-	Rivendare			= "大领主莫格莱尼",
+	Rivendare			= "瑞文戴尔男爵",
 	Blaumeux			= "女公爵布劳缪克丝",
 	Zeliek				= "瑟里耶克爵士"
 })
@@ -345,8 +345,6 @@ L:SetOptionLocalization({
 	WarningLanded			= "提示地上阶段",
 	TimerAir			= "为空中阶段显示计时条",
 	TimerLanding			= "为降落显示计时条",
-	TimerIceBlast			= "为冰霜吐息显示计时条",
-	WarningDeepBreath		= "为冰霜吐息显示特别警报",
 	WarningIceblock			= "当你中了冰箱时大喊"
 })
 
@@ -358,14 +356,12 @@ L:SetMiscLocalization({
 L:SetWarningLocalization({
 	WarningAirPhaseSoon		= "10秒后 空中阶段",
 	WarningAirPhaseNow		= "空中阶段",
-	WarningLanded			= "萨菲隆降落了",
-	WarningDeepBreath		= "冰霜吐息"
+	WarningLanded			= "萨菲隆降落了"
 })
 
 L:SetTimerLocalization({
 	TimerAir			= "空中阶段",
-	TimerLanding			= "降落",
-	TimerIceBlast			= "冰霜吐息"
+	TimerLanding			= "降落"
 })
 
 ------------------

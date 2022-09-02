@@ -74,8 +74,15 @@ function Browser:Constructor()
         self.Activity:SetValue(button.id)
     end
 
-    ---@param button Button
-    local function SetupQuickButton(button, mapIdOrName)
+    local index = 1
+    local function AllocQuick()
+        local button = self.quicks[index]
+        index = index + 1
+        return button
+    end
+
+    local function SetupQuickButton(mapIdOrName)
+        local button = AllocQuick()
         local id
         if type(mapIdOrName) == 'number' then
             mapIdOrName = C_Map.GetAreaInfo(mapIdOrName)
@@ -89,7 +96,8 @@ function Browser:Constructor()
         button.id = id
     end
     local forbidCallBack = false
-    local function SetupQuickButton2(button, name)
+    local function SetupQuickButton2(name)
+        local button = AllocQuick()
         local matchInfo = ns.GetMatchSearch(name) or {}
         button:SetText(matchInfo.name or name)
         button:SetWidth(button:GetTextWidth())
@@ -104,21 +112,25 @@ function Browser:Constructor()
     end
 
     --[=[@classic@
-    SetupQuickButton(self.Quick1, 2717)
-    SetupQuickButton(self.Quick2, 1977)
-    SetupQuickButton(self.Quick3, 2677)
-    SetupQuickButton(self.Quick4, 3429)
-    SetupQuickButton(self.Quick5, 3428)
-    SetupQuickButton(self.Quick6, 3456)
+    SetupQuickButton(2717)
+    SetupQuickButton(1977)
+    SetupQuickButton(2677)
+    SetupQuickButton(3429)
+    SetupQuickButton(3428)
+    SetupQuickButton(3456)
     --@end-classic@]=]
 
     -- @bcc@
-    SetupQuickButton(self.Quick1, 3607)
-    SetupQuickButton(self.Quick2, 3845)
-    SetupQuickButton2(self.Quick3, L['5H'])
-    SetupQuickButton(self.Quick4, 3457)
-    SetupQuickButton(self.Quick5, 3836)
-    SetupQuickButton(self.Quick6, 3923)
+    SetupQuickButton(4075)
+    SetupQuickButton(3959)
+    SetupQuickButton(3805)
+    SetupQuickButton(3606)
+    SetupQuickButton(3845)
+    SetupQuickButton(3607)
+    SetupQuickButton(3457)
+    SetupQuickButton(3923)
+    SetupQuickButton(3836)
+    SetupQuickButton2(L['5H'])
     -- @end-bcc@
 
     self.Activity:SetMenuTable(ns.ACTIVITY_FILTER_MENU)
@@ -212,7 +224,7 @@ function Browser:Constructor()
                 self.QRTooltip:Show()
             end)
         end
-        
+
         --[=[@classic@
         button.Instance:ClearAllPoints()
         button.Instance:SetPoint('RIGHT', button, 'LEFT', 155, 0)
@@ -289,7 +301,7 @@ function Browser:Constructor()
     self.Header5:SetWidth(290)
     --@end-classic@]=]
 
-    
+
 end
 
 function Browser:OnShow()

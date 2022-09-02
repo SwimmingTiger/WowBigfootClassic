@@ -1,4 +1,4 @@
-local addonName, Data = ...
+local AddonName, Data = ...
 local BattleGroundEnemies = BattleGroundEnemies
 local L = Data.L
 
@@ -6,7 +6,7 @@ local L = Data.L
 local CTimerNewTicker = C_Timer.NewTicker
 local SendAddonMessage = C_ChatInfo.SendAddonMessage
 
-local BGE_VERSION = "9.0.5.6"
+local BGE_VERSION = "9.2.0.5"
 local AddonPrefix = "BGE"
 local versionQueryString, versionResponseString = "Q^%s", "V^%s"
 local targetCallVolunteerQueryString = "TVQ^%s" -- wil be send to all the viewers to show if you are volunteering vor target calling
@@ -27,13 +27,13 @@ C_ChatInfo.RegisterAddonMessagePrefix(AddonPrefix)
 
 
 --[[
-    targetcallilng, thoughts:
-    The group leader can decice who the target caller will be
-    the addon then automatically marks the target of the target caller with a raid icon (can be choosen from the menu) via SetRaidTarget()
-    RAID_TARGET_UPDATE fires when a raid target changes. 
-    
-    
-    the addon then reacts to that and shows the icon on the playerbutton as well and notifies the player when the target changed. 
+	targetcallilng, thoughts:
+	The group leader can decice who the target caller will be
+	the addon then automatically marks the target of the target caller with a raid icon (can be choosen from the menu) via SetRaidTarget()
+	RAID_TARGET_UPDATE fires when a raid target changes. 
+	
+	
+	the addon then reacts to that and shows the icon on the playerbutton as well and notifies the player when the target changed. 
 ]]
 
 --[[ 
@@ -45,12 +45,12 @@ SLASH_BattleGroundEnemiesVersion1 = "/bgev"
 SLASH_BattleGroundEnemiesVersion2 = "/BGEV"
 SlashCmdList.BattleGroundEnemiesVersion = function()
 	if not IsInGroup() then
-        BattleGroundEnemies:Information(L.MyVersion, BGE_VERSION)
+		BattleGroundEnemies:Information(L.MyVersion, BGE_VERSION)
 		return
 	end
 
 	local function coloredNameVersion(playerDetails, version)
-        local coloredName = BattleGroundEnemies:GetColoredName(playerDetails)
+		local coloredName = BattleGroundEnemies:GetColoredName(playerDetails)
 		if version ~= "" then
 			version = ("|cFFCCCCCC(%s%s)|r"):format(version, "") 
 		end
@@ -58,50 +58,51 @@ SlashCmdList.BattleGroundEnemiesVersion = function()
 	end
 
 
-    local results = {
-        current = {},  --users of the current version
-        old = {},-- users of an old version
-        none = {} -- no BGE detected
-    }
-    local texts = {
-        current = L.CurrentVersion,
-        old = L.OldVersion,
-        none = L.NoVersion
-    }
+	local results = {
+		current = {},  --users of the current version
+		old = {},-- users of an old version
+		none = {} -- no BGE detected
+	}
+	local texts = {
+		current = L.CurrentVersion,
+		old = L.OldVersion,
+		none = L.NoVersion
+	}
 
 
-    --loop through all of the BattleGroundEnemies.Allies.groupMembers to find out which one of them send us their addon version
-    for name, details in pairs(BattleGroundEnemies.Allies.groupMembers) do
+	--loop through all of the BattleGroundEnemies.Allies.Players to find out which one of them send us their addon version
+	for allyName, allyButton in pairs(BattleGroundEnemies.Allies.Players) do
   
-        if versions[name] then
-            if versions[name] < highestVersion then
-                results.old[#results.old+1] = coloredNameVersion(details, versions[name])
-            else
-                results.current[#results.current+1] = coloredNameVersion(details, versions[name])  
-            end
-        else
-            results.none[#results.none+1] = coloredNameVersion(details, "")        
-        end
-    end
+		if versions[allyName] then
+			if versions[allyName] < highestVersion then
+				results.old[#results.old+1] = coloredNameVersion(allyButton, versions[allyName])
+			else
+				results.current[#results.current+1] = coloredNameVersion(allyButton, versions[allyName])  
+			end
+		else
+			results.none[#results.none+1] = coloredNameVersion(allyButton, "")        
+		end
+	end
 
-    for k,v in pairs(results) do
-        if #v> 0 then
-            BattleGroundEnemies:Information(texts[k]..":", unpack(v))
-        end
-    end
+	
+	for state, names in pairs(results) do
+		if #names> 0 then
+			BattleGroundEnemies:Information(texts[state]..":", table.concat(names, ", "))
+		end
+	end
 end
 
 local timers = {}
 --[[ 
   we use timers to broadcast information, we do this because it may happen that 
-many players request the same information in a shortm time due to
+many players request the same information in a short time due to
  ingame events like GROUP_ROSTER_UPDATE, this way we only send out the information 
 once when requested in a 3 second time frame, every new request resets the timer
  ]]
 
 
 function BattleGroundEnemies:QueryVersions(channel)
-    SendAddonMessage(AddonPrefix, versionQueryString, channel)
+	SendAddonMessage(AddonPrefix, versionQueryString, channel)
 end
 
 -- function BattleGroundEnemies:QueryTargetCallVolunteers(channel)
@@ -126,51 +127,82 @@ end
 --     end
 -- end
 
+--arguments are version tables. example: {"9", "2", ""0", "10"}
+--return true only when the first version is bigger than the second, return false when equal or smaller
+local function FirstGreaterThanSecond(firstVersion, secondVersion, index)
+	for i = index or 1, max(#firstVersion, #secondVersion) do
+		local firstVersionNumber = tonumber(firstVersion[i]) or 0
+		local secondVersionNumber = tonumber(secondVersion[i]) or 0
+
+		if firstVersionNumber > secondVersionNumber then
+			return true
+		elseif firstVersionNumber == secondVersionNumber then
+			--continue to compare the next table element
+			return FirstGreaterThanSecond(firstVersion, secondVersion, i + 1)
+		else
+			return false
+		end
+	end
+	return false --we checked both arrays, both versions are equal
+end
+
+local function IsFirstNewerThanSecond(versionString1, versionString2)
+	--versionString can be "9.2.0.10" for example, another player can have "9.2.0.9"
+	-- we cant make a simple comparison like "9.2.0.10" > "9.2.0.9" because this would result in false
+	
+	
+	local firstVersion = {strsplit(".", versionString1)}
+	local secondVersion = {strsplit(".", versionString2)}
+	return FirstGreaterThanSecond(firstVersion, secondVersion)
+end
+
+
+
 
 
 
 local wasInGroup = nil
 function BattleGroundEnemies:RequestEverythingFromGroupmembers()
-    
-    local groupType = (IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 3) or (IsInRaid() and 2) or (IsInGroup() and 1)
-    if (not wasInGroup and groupType) or (wasInGroup and groupType and wasInGroup ~= groupType) then
-        wasInGroup = groupType
-       -- local iWantToDoTargetcalling = self.db.profile.targetCallingVolunteer
-        local channel = groupType == 3 and "INSTANCE_CHAT" or "RAID"
-        --self:QueryTargetCallCaller(channel)
-        --self:QueryTargetCallVolunteers(channel)
-        self:QueryVersions(channel)
+	
+	local groupType = (IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and 3) or (IsInRaid() and 2) or (IsInGroup() and 1)
+	if (not wasInGroup and groupType) or (wasInGroup and groupType and wasInGroup ~= groupType) then
+		wasInGroup = groupType
+	   -- local iWantToDoTargetcalling = self.db.profile.targetCallingVolunteer
+		local channel = groupType == 3 and "INSTANCE_CHAT" or "RAID"
+		--self:QueryTargetCallCaller(channel)
+		--self:QueryTargetCallVolunteers(channel)
+		self:QueryVersions(channel)
 
-    elseif wasInGroup and not groupType then
-        wasInGroup = nil
-        versions = {}
-    end
+	elseif wasInGroup and not groupType then
+		wasInGroup = nil
+		versions = {}
+	end
 end
 
 function BattleGroundEnemies:UpdateVersions(sender, prefix, version)
-    if prefix == "Q" then
-        if timers.VersionCheck then timers.VersionCheck:Cancel() end
-        timers.VersionCheck = CTimerNewTicker(3, function() 
-            if IsInGroup() then
-                SendAddonMessage(AddonPrefix, versionResponseString, IsInGroup(2) and "INSTANCE_CHAT" or "RAID") -- LE_PARTY_CATEGORY_INSTANCE = 2
-            end
-            timers.VersionCheck = nil
-        end, 1)
-    end
-    if prefix == "V" or prefix == "Q" then -- V = version response, Q = version query
-        if version then
-            versions[sender] = version
-            if version > highestVersion then highestVersion = version end
+	if prefix == "Q" then
+		if timers.VersionCheck then timers.VersionCheck:Cancel() end
+		timers.VersionCheck = CTimerNewTicker(3, function() 
+			if IsInGroup() then
+				SendAddonMessage(AddonPrefix, versionResponseString, IsInGroup(2) and "INSTANCE_CHAT" or "RAID") -- LE_PARTY_CATEGORY_INSTANCE = 2
+			end
+			timers.VersionCheck = nil
+		end, 1)
+	end
+	if prefix == "V" or prefix == "Q" then -- V = version response, Q = version query
+		if version then
+			versions[sender] = version
+			if IsFirstNewerThanSecond(version, highestVersion) then highestVersion = version end
 
-            if version > BGE_VERSION then
-                if timers.outdatedTimer then timers.outdatedTimer:Cancel() end
-                timers.outdatedTimer = CTimerNewTicker(3, function() 
-                    BattleGroundEnemies:Information(L.NewVersionAvailable)
-                    timers.outdatedTimer = nil
-                end, 1)
-            end
-        end
-    end
+			if IsFirstNewerThanSecond(highestVersion, BGE_VERSION) then
+				if timers.outdatedTimer then timers.outdatedTimer:Cancel() end
+				timers.outdatedTimer = CTimerNewTicker(3, function() 
+					BattleGroundEnemies:OnetimeInformation(L.NewVersionAvailable..": ", highestVersion)
+					timers.outdatedTimer = nil
+				end, 1)
+			end
+		end
+	end
 end
 
 
@@ -202,11 +234,11 @@ end
 function BattleGroundEnemies:CHAT_MSG_ADDON(addonPrefix, message, channel, sender)  --the sender always contains the realm of the player, even when from same realm
 	if channel ~= "RAID" and channel ~= "PARTY" and channel ~= "INSTANCE_CHAT" or addonPrefix ~= AddonPrefix then return end
 	
-    local msgPrefix, msg = strsplit("^", message)
-    sender = Ambiguate(sender, "none")
-    if msgPrefix == "V" or msgPrefix == "Q" then
-        self:UpdateVersions(sender, msgPrefix, msg)
-    end
+	local msgPrefix, msg = strsplit("^", message)
+	sender = Ambiguate(sender, "none")
+	if msgPrefix == "V" or msgPrefix == "Q" then
+		-- self:UpdateVersions(sender, msgPrefix, msg)	bf@178.com
+	end
 end
 
 

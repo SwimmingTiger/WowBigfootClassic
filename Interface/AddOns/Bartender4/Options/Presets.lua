@@ -199,6 +199,8 @@ local function BuildBlizzardProfile()
 		end
 	end
 
+	local showKeyRing = KeyRingButton and GetCVarBool("showKeyring") or nil
+
 	Bartender4.db.profile.blizzardVehicle = true
 	Bartender4.db.profile.outofrange = "hotkey"
 	Bartender4.db.profile.focuscastmodifier = false
@@ -221,8 +223,14 @@ local function BuildBlizzardProfile()
 	if WoWClassic then
 		config = Bartender4.db:GetNamespace("BagBar").profile
 		config.onebag = false
-		config.padding = 5
-		SetBarLocation( config, "BOTTOM", 296, 41)
+		config.keyring = showKeyRing
+		if GetClassicExpansionLevel() >= 2 --[[Wrath]] then
+			config.padding = 4
+			SetBarLocation( config, "BOTTOM", 303, 42)
+		else
+			config.padding = 5
+			SetBarLocation( config, "BOTTOM", 272, 42)
+		end
 
 		config = Bartender4.db:GetNamespace("MicroMenu").profile
 		config.position.scale = 1.0
@@ -239,6 +247,11 @@ local function BuildBlizzardProfile()
 			config.enabled = true
 			Bartender4:GetModule("RepBar"):Enable()
 			SetBarLocation( config, "BOTTOM", -514, 61)
+		end
+
+		if HasMultiCastActionBar and HasMultiCastActionBar() then
+			config = Bartender4.db:GetNamespace("MultiCast").profile
+			config.enabled = true
 		end
 	else
 		config = Bartender4.db:GetNamespace("BagBar").profile
@@ -265,11 +278,18 @@ local function BuildBlizzardProfile()
 	SetBarLocation( config, "BOTTOM", -512, 47 )
 
 	config = Bartender4.db:GetNamespace("PetBar").profile
-	if GetNumShapeshiftForms() > 0 then
+	if GetNumShapeshiftForms() > 0 or HasMultiCastActionBar and HasMultiCastActionBar() then
 		SetBarLocation( config, "BOTTOM", -120, 143 + dy )
-		config = Bartender4.db:GetNamespace("StanceBar").profile
-		config.position.scale = 1.0
-		SetBarLocation( config, "BOTTOM", -460, 143 + dy )
+		if GetNumShapeshiftForms() > 0 then
+			config = Bartender4.db:GetNamespace("StanceBar").profile
+			config.position.scale = 1.0
+			SetBarLocation( config, "BOTTOM", -460, 143 + dy )
+		elseif HasMultiCastActionBar and HasMultiCastActionBar() then
+			config = Bartender4.db:GetNamespace("MultiCast").profile
+			config.position.scale = 1.0
+			Bartender4:GetModule("MultiCast"):Enable()
+			SetBarLocation( config, "BOTTOM", -460, 143 + dy )
+		end
 	else
 		SetBarLocation( config, "BOTTOM", -460, 143 + dy )
 	end

@@ -217,32 +217,32 @@ TotemTimers.options.args.messages = {
                         },
                     },
                 },
-                EarthShieldMsg = {
-                    order = 5,
+                WeaponMsg = {
+                    order = 6,
                     type = "group",
-                    name = L["EarthShield warnings"],
+                    name = L["Weapon buff warnings"],
                     args = {
                         enable = {
                             order = 0,
                             type = "toggle",
                             name = L["Enable"],
-                            set = function(info, val) TotemTimers.ActiveProfile.Warnings.EarthShield.enabled = val end,
-                            get = function(info) return TotemTimers.ActiveProfile.Warnings.EarthShield.enabled end,
+                            set = function(info, val) TotemTimers.ActiveProfile.Warnings.Weapon.enabled = val end,
+                            get = function(info) return TotemTimers.ActiveProfile.Warnings.Weapon.enabled end,
                         },
                         color =  {
                             order = 1,
                             type = "color",
                             name = L["Color"],
                             hasAlpha = false,
-                            set = function(info, r,g,b)
-                                TotemTimers.ActiveProfile.Warnings.EarthShield.r = r
-                                TotemTimers.ActiveProfile.Warnings.EarthShield.g = g
-                                TotemTimers.ActiveProfile.Warnings.EarthShield.b = b
+                            set = function(info, r,g,b, a)
+                                TotemTimers.ActiveProfile.Warnings.Weapon.r = r
+                                TotemTimers.ActiveProfile.Warnings.Weapon.g = g
+                                TotemTimers.ActiveProfile.Warnings.Weapon.b = b
                             end,
                             get = function(info)
-                                return TotemTimers.ActiveProfile.Warnings.EarthShield.r,
-                                       TotemTimers.ActiveProfile.Warnings.EarthShield.g,
-                                       TotemTimers.ActiveProfile.Warnings.EarthShield.b, 1
+                                return TotemTimers.ActiveProfile.Warnings.Weapon.r,
+                                TotemTimers.ActiveProfile.Warnings.Weapon.g,
+                                TotemTimers.ActiveProfile.Warnings.Weapon.b, 1
                             end,
                         },
                         sound = {
@@ -250,18 +250,19 @@ TotemTimers.options.args.messages = {
                             type = "select",
                             name = L["Sound"],
                             values = AceGUIWidgetLSMlists.sound,
-                            set = function(info, val) TotemTimers.ActiveProfile.Warnings.EarthShield.sound = val end,
-                            get = function(info) return TotemTimers.ActiveProfile.Warnings.EarthShield.sound end,
+                            set = function(info, val) TotemTimers.ActiveProfile.Warnings.Weapon.sound = val end,
+                            get = function(info) return TotemTimers.ActiveProfile.Warnings.Weapon.sound end,
                             dialogControl = "LSM30_Sound",
                         },
                         nosound = {
                             order = 3,
-                            type = "execute", 
+                            type = "execute",
                             name = L["No Sound"],
-                            func = function(info) TotemTimers.ActiveProfile.Warnings.EarthShield.sound = "" end,
+                            func = function(info) TotemTimers.ActiveProfile.Warnings.Weapon.sound = "" end,
                         },
                     },
                 },
+
                 --[[ MaelstromMsg = {
                     order = 7,
                     type = "group",
@@ -311,6 +312,54 @@ TotemTimers.options.args.messages = {
         },
     },
 }
+
+if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
+    TotemTimers.options.args.messages.args.Messages.args.EarthShieldMsg = {
+        order = 5,
+        type = "group",
+        name = L["EarthShield warnings"],
+        args = {
+            enable = {
+                order = 0,
+                type = "toggle",
+                name = L["Enable"],
+                set = function(info, val) TotemTimers.ActiveProfile.Warnings.EarthShield.enabled = val end,
+                get = function(info) return TotemTimers.ActiveProfile.Warnings.EarthShield.enabled end,
+            },
+            color =  {
+                order = 1,
+                type = "color",
+                name = L["Color"],
+                hasAlpha = false,
+                set = function(info, r,g,b)
+                    TotemTimers.ActiveProfile.Warnings.EarthShield.r = r
+                    TotemTimers.ActiveProfile.Warnings.EarthShield.g = g
+                    TotemTimers.ActiveProfile.Warnings.EarthShield.b = b
+                end,
+                get = function(info)
+                    return TotemTimers.ActiveProfile.Warnings.EarthShield.r,
+                    TotemTimers.ActiveProfile.Warnings.EarthShield.g,
+                    TotemTimers.ActiveProfile.Warnings.EarthShield.b, 1
+                end,
+            },
+            sound = {
+                order = 2,
+                type = "select",
+                name = L["Sound"],
+                values = AceGUIWidgetLSMlists.sound,
+                set = function(info, val) TotemTimers.ActiveProfile.Warnings.EarthShield.sound = val end,
+                get = function(info) return TotemTimers.ActiveProfile.Warnings.EarthShield.sound end,
+                dialogControl = "LSM30_Sound",
+            },
+            nosound = {
+                order = 3,
+                type = "execute",
+                name = L["No Sound"],
+                func = function(info) TotemTimers.ActiveProfile.Warnings.EarthShield.sound = "" end,
+            },
+        },
+    }
+end
 
 
 local ACD = LibStub("AceConfigDialog-3.0")

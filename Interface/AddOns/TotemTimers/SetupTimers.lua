@@ -1,8 +1,3 @@
--- Copyright © 2008 - 2012 Xianghar  <xian@zron.de>
--- All Rights Reserved.
--- This code is not to be modified or distributed without written permission by the author.
--- Current distribution permissions only include curse.com, wowinterface.com and their respective addon updaters
-
 if select(2, UnitClass("player")) ~= "SHAMAN" then
     return
 end
@@ -27,29 +22,13 @@ local AvailableTalents = TotemTimers.AvailableTalents
 
 
 
-local Cooldowns = {
-    [EARTH_TOTEM_SLOT] = {
-        SpellIDs.EarthBind,
-        SpellIDs.Stoneclaw,
-        SpellIDs.EarthElemental,
-    },
-    [WATER_TOTEM_SLOT] = {
-        SpellIDs.ManaTide,
-    },
-    [FIRE_TOTEM_SLOT] = {
-        SpellIDs.FireNova,
-        SpellIDs.FireElemental,
-    },
-    [AIR_TOTEM_SLOT] = {
-        SpellIDs.Grounding,
-    },
-}
+local Cooldowns = TotemTimers.TotemCooldowns
 
 local UpdatePartyRange
 local TotemUpdate
 
 
-function TotemTimers.CreateTimers()
+ function TotemTimers.SetupTimers()
     for e = 1, 4 do
         local tt = XiTimers:new(#Cooldowns[e] + 1)
 
@@ -73,8 +52,9 @@ function TotemTimers.CreateTimers()
             local spell = self:GetAttribute("*spell1")
             if spell and spell ~= 0 then
                 local _, _, texture = GetSpellInfo(self:GetAttribute("*spell1"))
+                local oldTexture = self.miniIcon:GetTexture()
                 self.miniIcon:SetTexture(texture)
-                if (not self.timer.timersRunning[1]) then
+                if (not self.timer.timersRunning[1] and texture ~= oldTexture) then
                     self.icons[1]:SetTexture(texture)
                 end
                 TotemTimers.TotemEvent(self, "SPELL_UPDATE_COOLDOWN", self.timer.nr)
@@ -83,10 +63,8 @@ function TotemTimers.CreateTimers()
             end
             TotemTimers.UpdateMacro()
         end
-        tt.button.ShowTooltip = TotemTimers.timerTooltip
-        tt.button.HideTooltip = function(self)
-            GameTooltip:Hide()
-        end
+
+        tt.button.tooltip = TotemTimers.Tooltips.Totem:new(tt.button)
 
         tt.button:SetAttribute("_onattributechanged", [[ if name == "*spell1" then
                                                             control:CallMethod("UpdateMiniIconAndProfile")
@@ -132,15 +110,23 @@ function TotemTimers.CreateTimers()
 
             local lastTotem = activeProfile.LastTotems[self.nr]
 
-            if not lastTotem or
-                    (not AvailableSpells[lastTotem] and not AvailableSpells[NameToSpellID[lastTotem]]
-                    and not AvailableSpells[NameToSpellID[TotemTimers.StripRank(lastTotem)]]) then
+            -- get rank 1 spell id of totem while spellbook is not loaded
+            -- get name of totem without rank and get spell id from that
+            if not tonumber(lastTotem) then
+                lastTotem = TotemTimers.StripRank(lastTotem)
+            else
+                lastTotem = GetSpellInfo(lastTotem)
+            end
+
+            lastTotem = NameToSpellID[lastTotem]
+
+            if not lastTotem or not AvailableSpells[lastTotem] then
                 --[[when switching specs this part gets executed several times, once for switching and then for each talent (because of events fired)
                     so totems from talents are sometimes not available at this point.
                     lasttotem is saved and restored if not nil so that talent totems aren't replaced when switching specs ]]
                 for k, v in pairs(TotemData) do
                     if AvailableSpells[k] and v.element == self.nr then
-                        self.button:SetAttribute("*spell1", SpellNames[k])
+                        self.button:SetAttribute("*spell1", k)
                         self.button.icon:SetTexture(GetSpellTexture(k))
                         break
                     end
@@ -239,6 +225,8 @@ function TotemTimers.CreateTimers()
     TotemTimers.CreateCastButtons()
 end
 
+table.insert(TotemTimers.Modules, TotemTimers.SetupTimers)
+
 local TotemicCall = TotemTimers.SpellIDs.TotemicCall
 
 TotemUpdate = function(self, ...)
@@ -314,23 +302,23 @@ function TotemTimers:TotemEvent(event, arg1, arg2, arg3, ...)
             end
         end
         if settings.ShowCooldowns then
-            for nr, spell in pairs(Cooldowns[self.timer.nr]) do
-                nr = nr + 1
+            for key, spell in pairs(Cooldowns[self.timer.nr]) do
+                local timerIndex = key + 1
                 if AvailableSpells[spell] then
                     local start, duration, enable = GetSpellCooldown(spell)
                     if not start and not duration then
-                        self.timer:stop(nr)
+                        self.timer:stop(timerIndex)
                         return
                     end
                     if duration == 0 then
-                        self.timer:Stop(nr)
+                        self.timer:Stop(timerIndex)
                     elseif duration > 2 then
                         --and self.timer.timers[nr]<=0 then  -- update running cooldown timers for Ele T12-2pc
-                        self.timer:Start(nr, start + duration - floor(GetTime()), duration)
-                        self.timer.timerBars[nr].icon:SetTexture(SpellTextures[spell])
+                        self.timer:Start(timerIndex, start + duration - floor(GetTime()), duration)
+                        self.timer.timerBars[timerIndex].icon:SetTexture(SpellTextures[spell])
                     end
-                elseif self.timer.timers[nr] > 0 then
-                    self.timer:Stop(nr)
+                elseif self.timer.timers[timerIndex] > 0 then
+                    self.timer:Stop(timerIndex)
                 end
             end
         else

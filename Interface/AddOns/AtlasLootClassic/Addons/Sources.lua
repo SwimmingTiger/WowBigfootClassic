@@ -10,18 +10,28 @@ local Tooltip = AtlasLoot.Tooltip
 local Droprate = AtlasLoot.Data.Droprate
 local Profession = AtlasLoot.Data.Profession
 local Recipe = AtlasLoot.Data.Recipe
+local VendorPrice = AtlasLoot.Data.VendorPrice
 
 -- lua
 local type = type
 local format = format
+local str_split = string.split
 
 -- WoW
+local GetCurrencyInfo, GetItemIcon = C_CurrencyInfo.GetCurrencyInfo, GetItemIcon
+
+-- AtlasLoot
+local PRICE_INFO = VendorPrice.GetPriceInfoList()
+local PRICE_ICON_REPLACE = ALPrivate.PRICE_ICON_REPLACE
+local DIFFICULTY = AtlasLoot.DIFFICULTY
+local TOKEN_NUMBER_DUMMY = AtlasLoot.Data.Token.GetTokenDummyNumberRange()
 
 
 -- locals
 local TT_F = "%s |cFF00ccff%s|r"
 local DUMMY_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local TEXTURE_ICON_F, TEXTURE_ICON_FN, ATLAS_ICON_F = "|T%s:0|t ", "|T%d:0|t ", "|A:%s:0:0|a "
+local TT_F_PRICE_T, TT_F_PRICE_TN = "|T%s:0|t|cFFffffff%s|r", "|T%d:0|t|cFFffffff%s|r"
 local RECIPE_ICON = format(TEXTURE_ICON_F, "134939")
 local ICON_TEXTURE = {
     [0]  = format(TEXTURE_ICON_F, DUMMY_ICON),	            -- UNKNOWN
@@ -66,6 +76,11 @@ local SOURCE_TYPES = {
 local SOURCE_DATA = {}
 local KEY_WEAK_MT = {__mode="k"}
 local AL_MODULE = "AtlasLootClassic_DungeonsAndRaids"
+local PRICE_STRING_SPLIT_OR = "-"
+local PRICE_STRING_SPLIT_AND = ":"
+local PRICE_DELIMITER = " |cFFffffff&|r  "
+local PRICE_INFO_TT_START = format(TT_F.."  ", ICON_TEXTURE[3], AL["Vendor"]..":")
+local DIFF_SPLIT_STRING = " / "
 
 local TooltipsHooked = false
 local TooltipCache, TooltipTextCache = {}
@@ -77,6 +92,7 @@ Sources.DbDefaults = {
     showProfRank = true,
     showRecipeSource = true,
     showLineBreak = true,
+    showVendorPrices = true,
     ["Sources"] = {
         ["*"] = true,
         [16] = false,
@@ -84,7 +100,7 @@ Sources.DbDefaults = {
 }
 
 --Sources.GlobalDbDefaults = {}
-local function BuildSource(ini, boss, typ, item, isHeroic)
+local function BuildSource(ini, boss, typ, item, diffID)
     if typ and typ > 3 then
         -- Profession
         local src = ""
@@ -131,8 +147,21 @@ local function BuildSource(ini, boss, typ, item, isHeroic)
             if type(npcID) == "table" then npcID = npcID[1] end
             dropRate = Droprate:GetData(npcID, item)
         end
-        if bossName and isHeroic then
-            bossName = bossName.." <"..AL["Heroic"]..">"
+        if bossName and diffID then
+            -- diff 0 means just heroic
+            if diffID == 0 then
+                bossName = bossName.." <"..DIFFICULTY.HEROIC.sourceLoc..">"
+            elseif type(diffID) == "table" then
+                local diffString
+                for i = 1, #diffID do
+                    diffString = i>1 and (diffString..DIFF_SPLIT_STRING..DIFFICULTY[diffID[i]].sourceLoc) or (DIFFICULTY[diffID[i]].sourceLoc)
+                end
+                if diffString then
+                    bossName = bossName.." <"..diffString..">"
+                end
+            else
+                bossName = bossName.." <"..DIFFICULTY[diffID].sourceLoc..">"
+            end
         end
         if iniName and bossName then
             if dropRate then
@@ -149,6 +178,66 @@ local function BuildSource(ini, boss, typ, item, isHeroic)
         end
     end
     return ""
+end
+
+local function GetPriceToolTipString(icon, value)
+    if type(icon) == "number" then
+        return format(TT_F_PRICE_TN, icon, value)
+    else
+        return format(TT_F_PRICE_T, icon, value)
+    end
+end
+
+local function GetPriceFormatString(priceList)
+    local fullString = PRICE_INFO_TT_START
+    for i = 1, #priceList, 2 do
+        local priceType, priceValue = priceList[i], priceList[i+1]
+        if i > 1 then fullString = fullString..PRICE_DELIMITER end
+
+        if PRICE_INFO[priceType] then
+            if PRICE_INFO[priceType].func then
+                fullString = fullString..PRICE_INFO[priceType].func(priceValue)
+            elseif PRICE_INFO[priceType].icon then
+                fullString = fullString..GetPriceToolTipString(PRICE_INFO[priceType].icon, priceValue)
+            elseif PRICE_INFO[priceType].currencyID then
+                local info = GetCurrencyInfo(PRICE_INFO[priceType].currencyID)
+                if info then
+                    fullString = fullString..GetPriceToolTipString(PRICE_ICON_REPLACE[priceType] or info.iconFileID, priceValue)
+                end
+            elseif PRICE_INFO[priceType].itemID then
+                PRICE_INFO[priceType].icon = GetItemIcon(PRICE_INFO[priceType].itemID)
+                fullString = fullString..GetPriceToolTipString(PRICE_INFO[priceType].icon, priceValue)
+            end
+        elseif tonumber(priceType) then
+            fullString = fullString..GetPriceToolTipString(GetItemIcon(priceType), priceValue)
+        end
+    end
+
+    return fullString ~= PRICE_INFO_TT_START and fullString or nil
+end
+
+local function GetTokenIcon(token)
+    if token >= TOKEN_NUMBER_DUMMY then
+        return ICON_TEXTURE[1]
+    else
+        return format(TEXTURE_ICON_FN, GetItemIcon(token))
+    end
+end
+
+local function BuildSourceFromItemData(item, destTable, itemData, sourceData, iconTexture)
+    if not item or not itemData[item] then return end
+    if type(itemData[item][1]) == "table" then
+        for i, data in ipairs(itemData[item]) do
+            if data[3] and Sources.db.Sources[data[3]] then
+                destTable[#destTable + 1] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or item, data[5]))
+            end
+        end
+    else
+        local data = itemData[item]
+        if data[3] and Sources.db.Sources[data[3]] then
+            destTable[#destTable + 1] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or item, data[5]))
+        end
+    end
 end
 
 local function OnTooltipSetItem_Hook(self)
@@ -168,39 +257,58 @@ local function OnTooltipSetItem_Hook(self)
         end
     end
 
-    if item and sourceData then
-        if TooltipTextCache[item] ~= false then
-            if not TooltipTextCache[item] then
-                local iconTexture, baseItem
-                if type(sourceData.ItemData[item]) == "number" then
-                    iconTexture = format(TEXTURE_ICON_FN, GetItemIcon(sourceData.ItemData[item]))
-                    baseItem = sourceData.ItemData[item]
-                end
-                TooltipTextCache[item] = {}
-                if type(sourceData.ItemData[baseItem or item][1]) == "table" then
-                    for i = 1, #sourceData.ItemData[baseItem or item] do
-                        local data = sourceData.ItemData[baseItem or item][i]
-                        if data[3] and Sources.db.Sources[data[3]] then
-                            TooltipTextCache[item][i] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or baseItem or item, data[5]))
-                        end
-                    end
-                else
-                    local data = sourceData.ItemData[baseItem or item]
-                    if data[3] and Sources.db.Sources[data[3]] then
-                        TooltipTextCache[item][1] = format(TT_F, iconTexture or ICON_TEXTURE[data[3] or 0], BuildSource(sourceData.AtlasLootIDs[data[1]], data[2], data[3], data[4] or baseItem or item, data[5]))
+    if item then
+        local newAdded
+        -- sources from loot tables
+        if sourceData and TooltipTextCache[item] ~= false and not TooltipTextCache[item] then
+            TooltipTextCache[item] = {}
+
+            -- token data
+            if type(sourceData.ItemData[item]) == "number" then
+                BuildSourceFromItemData(sourceData.ItemData[item], TooltipTextCache[item], sourceData.ItemData, sourceData, GetTokenIcon(sourceData.ItemData[item]))
+            else
+                if sourceData.ItemData[item][6] then
+                    for i, v in ipairs(sourceData.ItemData[item][6]) do
+                        BuildSourceFromItemData(v, TooltipTextCache[item], sourceData.ItemData, sourceData, GetTokenIcon(v))
                     end
                 end
-                if #TooltipTextCache[item] < 1 then
-                    TooltipTextCache[item] = false
-                end
+                BuildSourceFromItemData(item, TooltipTextCache[item], sourceData.ItemData, sourceData)
             end
-            if TooltipTextCache[item] then
-                if Sources.db.showLineBreak then
-                    self:AddLine(" ")
+
+
+            if #TooltipTextCache[item] < 1 then
+                TooltipTextCache[item] = false
+            end
+            newAdded = true
+        end
+
+        -- price sources
+        if Sources.db.showVendorPrices and (newAdded or not TooltipTextCache[item]) and VendorPrice.ItemHasVendorPrice(item) then
+            if not TooltipTextCache[item] then
+                TooltipTextCache[item] = {}
+            end
+            local priceString = VendorPrice.GetVendorPriceForItem(item)
+            -- split the price string into parts
+            local priceInfo = { str_split(PRICE_STRING_SPLIT_OR, priceString) }
+            if priceInfo[2] then
+                for i = 1, #priceInfo do
+                    priceInfo[i] = { str_split(PRICE_STRING_SPLIT_AND, priceInfo[i]) }
                 end
-                for i = 1, #TooltipTextCache[item] do
-                    self:AddLine(TooltipTextCache[item][i])
-                end
+            else
+                priceInfo = { { str_split(PRICE_STRING_SPLIT_AND, priceInfo[1]) } }
+            end
+
+            for priceSumCount = 1, #priceInfo do
+                TooltipTextCache[item][ #TooltipTextCache[item] + 1 ] = GetPriceFormatString(priceInfo[priceSumCount])
+            end
+        end
+
+        if TooltipTextCache[item] then
+            if Sources.db.showLineBreak then
+                self:AddLine(" ")
+            end
+            for i = 1, #TooltipTextCache[item] do
+                self:AddLine(TooltipTextCache[item][i])
             end
         end
     end

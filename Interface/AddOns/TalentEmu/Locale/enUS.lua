@@ -2,15 +2,18 @@
 	alex@0
 --]]--
 ----------------------------------------------------------------------------------------------------
-local ADDON, NS = ...;
-NS.L = NS.L or {  };
-local L = NS.L;
+local __addon, __private = ...;
+local MT = __private.MT;
+local CT = __private.CT;
+local VT = __private.VT;
+local DT = __private.DT;
+local L = CT.L;
 
 if L.Locale ~= nil and L.Locale ~= "" then return;end
 
 BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "Create a emulator.";
 BINDING_NAME_ALARAIDTOOL_QUERY = "Inspect target's talent.";
-BINDING_HEADER_ALATALENTEMU_HEADER = "<\124cff00ff00alaTalentEmu\124r>";
+BINDING_HEADER_ALATALENTEMU_HEADER = "<|cff00ff00alaTalentEmu|r>";
 
 L.Locale = "enUS";
 
@@ -19,52 +22,52 @@ L.OK = "OK";
 L.Cancel = "Cancel";
 L.Search = "Search";
 L.Hide = "Hide";
-L.curTabPointsLabel = "Points";
-L.curPointsTotal = "Total";
-L.curPointsRemaining = "Has";
-L.curPointsUsed = "Spent";
-L.curPointsReqLevel = "Lv";
-L.message = "MSG: ";
+L.CurTreePointsLabel = "Points";
+L.CurPointsTotal = "Total";
+L.CurPointsRemaining = "Has";
+L.CurPointsUsed = "Spent";
+L.CurPointsReqLevel = "Lv";
+L.message = "CHAT";
 L.me = "Me";
 
-L.readOnly = "\124cffff0000ReadOnly\124r";
-L.notReadOnly = "\124cff00ff00Editable\124r";
-L.labelPointsChanged = "(\124cffff0000Modified\124r)";
-L.resetButton = "Reset current tree";
-L.resetAllButton = "Reset all";
-L.resetToSetButton = "Reset to initial state";
-L.readOnlyButton = "\124cff00ff00RClick\124r to set";
-L.closeButton = "Close this win";
+L.ReadOnly = "|cffff0000ReadOnly|r";
+L.NonReadOnly = "|cff00ff00Editable|r";
+L.LabelPointsChanged = "(|cffff0000Modified|r)";
+L.ResetButton = "Reset current tree";
+L.ResetAllButton = "Reset all";
+L.ResetToSetButton = "Reset to initial state";
+L.ReadOnlyButton = "|cff00ff00RClick|r to set";
+L.CloseButton = "Close this win";
 
-L.classTabButton = "\n\124cff00ff00Left click\124r to toggle class.\n\124cff00ff00Right click\124r to load saved talents.\n\124cff00ff00Shift and Left-click\124r to del saved talent";
-L.inspectTargetButton = "Inspect target's talents.";
-L.spellTabButton = "Spell List Window";
-L.spellAvailable = "\124cff00ff00Available\124r";
-L.spellNotAvailable = "\124cffff0000Not Available\124r";
+L.ClassButton = "\n|cff00ff00Left click|r to toggle class.\n|cff00ff00Right click|r to load saved talents.\n|cff00ff00Shift and Left-click|r to del saved talent";
+L.InspectTargetButton = "Inspect target's talents.";
+L.SpellListButton = "Spell List Window";
+L.SpellAvailable = "|cff00ff00Available|r";
+L.SpellUnavailable = "|cffff0000Not Available|r";
 L.TrainCost = "Train Cost ";
-L.showAllSpell = "All ranks";
-L.applyTalentsButton = "Apply talents.";
-L.applyTalentsButton_Notify = "Apply these talents?";
-L.applyTalentsFinished = "Talents applied";
-L.importButton = "Import from string or wowhead/nfu/yxrank url.";
-L.exportButton = "\124cff00ff00Left click\124r to export string.\n\124cff00ff00Right click\124r to export to \124cffff0000wowhead/nfu/yxrank\124r url";
-L.saveButton = "\124cff00ff00Left click\124r to save talents.\n\124cff00ff00Right click\124r to load saved talents.\n\124cff00ff00Shift and Left-click\124r to del";
-L.sendButton = "\124cff00ff00Left click\124r to send talents to chat message\n\124cff00ff00Right click\124r to browse talents in chat.";
-L.equipmentButton = "Watch equipment";
+L.ShowAllSpell = "All ranks";
+L.ApplyTalentsButton = "Apply talents.";
+L.ApplyTalentsButton_Notify = "Apply these talents?";
+L.ApplyTalentsFinished = "Talents applied";
+L.ImportButton = "Import from string or wowhead/nfu/yxrank url.";
+L.ExportButton = "|cff00ff00Left click|r to export string.\n|cff00ff00Right click|r to export to |cffff0000wowhead/nfu|r url";
+L.SaveButton = "|cff00ff00Left click|r to save talents.\n|cff00ff00Right click|r to load saved talents.\n|cff00ff00Shift and Left-click|r to del";
+L.SendButton = "|cff00ff00Left click|r to send talents to chat message\n|cff00ff00Right click|r to browse talents in chat.";
+L.EquipmentFrameButton = "Watch equipment";
 
 L.TalentFrameCallButton = "Open TalentEmu.";
-L.TalentFrameCallButtonFontString = "Emu";
-L.curRank = "Current Rank";
-L.nextRank = "Next Rank";
-L.maxRank = "Top Rank";
-L.reqPoints = "%d/%d in %s";
+L.TalentFrameCallButtonString = "Emu";
+L.CurRank = "Current Rank";
+L.NextRank = "Next Rank";
+L.MaxRank = "Top Rank";
+L.ReqPoints = "%d/%d in %s";
 
-L.level_60 = "Lv60 Talents. |cffff0000And ReloadUI.|r";
-L.level_70 = "Lv70 Talents. |cffff0000And ReloadUI.|r";
-L.minimap_TRUE = "Show DBIcon";
-L.minimap_FALSE = "Hide DBIcon";
-L.resizable_border_TRUE = "Enable Draging border to resize";
-L.resizable_border_FALSE = "Disable dragging border to resize";
+L.AutoShowEquipmentFrame_TRUE = "Show Equipment List Automatically";
+L.AutoShowEquipmentFrame_FALSE = "Show Equipment List Manually";
+L.Minimap_TRUE = "Show DBIcon";
+L.Minimap_FALSE = "Hide DBIcon";
+L.ResizableBorder_TRUE = "Enable Draging border to resize";
+L.ResizableBorder_FALSE = "Disable dragging border to resize";
 L.SetWinStyle_BLZ = "Make it blz style";
 L.SetWinStyle_ALA = "Make it flat style";
 L.SetSingleFrame_True = "Single Window";
@@ -75,23 +78,24 @@ L.SetStyleAllTo1_AlsoSetShownWin = "Show three talent trees.(Also change opened 
 L.SetStyleAllTo1_LaterWin = "Show three talent trees.";
 L.SetStyleAllTo2_AlsoSetShownWin = "Show one talent tree.(Also change opened emu)";
 L.SetStyleAllTo2_LaterWin = "Show one talent tree.";
-L.inspectButtonOnUnitFrame_Enable = "Enable inspect button. (Holding alt/ctrl/shift to show a button at target's portrait)";
+L.InspectButtonOnUnitFrame_TRUE = "Enable inspect button. (Holding alt/ctrl/shift to show a button at target's portrait)";
 L.TalentsInTip_TRUE = "Show talents when mouseover players";
 L.TalentsInTip_FALSE = "Donot show talents when mouseover players";
 L.TalentsInTipIcon_TRUE = "Use texture of talents tree in tip";
 L.TalentsInTipIcon_FALSE = "Use name of talents tree in tip";
-L.inspectButtonOnUnitFrame_Disable = "Disable inspect button.";
-L.insepctALTKEY = "Holding alt to show the inspect button";
-L.insepctCTRLKEY = "Holding ctrl to show the inspect button";
-L.insepctSHIFTKEY = "Holding shift to show the inspect button";
+L.InspectButtonOnUnitFrame_FALSE = "Disable inspect button.";
+L.InsepctKey_ALT = "Holding alt to show the inspect button";
+L.InsepctKey_CTRLK = "Holding ctrl to show the inspect button";
+L.InsepctKey_SHIFT = "Holding shift to show the inspect button";
 
-L.DBIcon_Text = "\124cff00ff00Left click\124r to create a emulator\n\124cff00ff00Right click\124r to see group gear";
-L.spellTabGTTSpellLevel = "Spell level: ";
-L.spellTabGTTReqLevel = "Level: ";
+L.DBIcon_Text = "|cff00ff00Left click|r to create a emulator\n|cff00ff00Right click|r to see group gear";
+L.SpellListFrameGTTSpellLevel = "Spell level: ";
+L.SpellListFrameGTTReqLevel = "Level: ";
 
 L.DATA = {
 	talent = "talent",
 
+	DEATHKNIGHT = "deathknight",
 	DRUID = "druid",
 	HUNTER = "hunter",
 	MAGE = "mage",
@@ -130,11 +134,11 @@ L.DATA = {
 	[164] = "Fury",
 	[163] = "Protection",
 
-	H = "\124cff00ff00Healer\124r",
-	D = "\124cffff0000DPS\124r",
-	T = "\124cffafafffTANK\124r",
-	P = "\124cffff0000PVP\124r",
-	E = "\124cffffff00PVE\124r",
+	H = "|cff00ff00Healer|r",
+	D = "|cffff0000DPS|r",
+	T = "|cffafafffTANK|r",
+	P = "|cffff0000PVP|r",
+	E = "|cffffff00PVE|r",
 
 };
 
@@ -153,10 +157,10 @@ L["TROLL"] = "Troll";
 L["BLOODELF"] = "BloodElf";
 
 
-L.label_itemLevel = "ItemLv";
-L.label_missItem = "Items";
-L.label_missEnchant = "Encs";
-L.label_DBM = "Version of DBM";
+L.RaidToolLableItemLevel = "ItemLv";
+L.RaidToolLableMissItem = "Items";
+L.RaidToolLableMissEnchant = "Encs";
+L.RaidToolLableBossMod = "Version of DBM";
 L.guildList = "Guild Member";
 
 L.SLOT = {
@@ -181,31 +185,17 @@ L.SLOT = {
 	[18] = "Ranged",
 	[19] = "Tabard",
 };
-L.EMTPY_SLOT = "\124cffff0000Empty\124r";
-L.MISS_ENCHANT = "\124cffff0000Miss enchant\124r";
+L.EMTPY_SLOT = "|cffff0000Empty|r";
+L.MISS_ENCHANT = "|cffff0000Miss enchant|r";
 
 
 
-
-
-
-L.POWERTYPE = {
-	[-2] = "health",
-	[0] = "mana",
-	[1] = "rage",
-	[2] = "focus",
-	[3] = "enery",
-};
-L.POWERPERCENT = "%d%% of %s";
-L.POWERPOINT = "%d %s";
-L.POWERPOINTPERSECOND = "%d %s per sec";
-L.RANGEYARD = "%d yrd";
-L.RANGEYARD2 = "%d to %d yrd";
-L.RANGE0 = "melee";
-L.CASTINGTIME = "%d sec cast";
-L.CASTINGTIMEINSTANT = "instant";
-L.CDSECOND = "%d sec cd";
-L.CDMINUTE = "%d min cd";
 
 L["CANNOT APPLY : NEED MORE TALENT POINTS."] = "CANNOT APPLY : NEED MORE TALENT POINTS.";
 L["CANNOT APPLY : TALENTS IN CONFLICT."] = "CANNOT APPLY : TALENTS IN CONFLICT.";
+L["CANNOT APPLY : UNABLE TO GENERATE TALENT MAP."] = "CANNOT APPLY : UNABLE TO GENERATE TALENT MAP.";
+L["CANNOT APPLY : TALENT MAP ERROR."] = "CANNOT APPLY : TALENT MAP ERROR.";
+L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."] = "TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE.";
+
+
+L.PopupQuery = "Inspect";

@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30400
 ## Notes: Simple Map Mod
 ## Notes-zhCN: |cff00ff00Mapster|r|n|cffbc8f8f简单实用的地图模块。|r
 ## Notes-zhTW: |cff00ff00Mapster|r|n|cffbc8f8f簡單實用的地圖增強。|r
@@ -8,7 +8,7 @@
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
 ## X-Category: Map
-## Version: 1.9.6
+## Version: 1.9.7
 ## X-License: All rights reserved.
 ## X-Curse-Project-ID: 14376
 ## X-WoWI-ID: 8306

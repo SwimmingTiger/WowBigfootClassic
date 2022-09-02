@@ -1,4 +1,4 @@
-local addonName, Data = ...
+local AddonName, Data = ...
 local BattleGroundEnemies = BattleGroundEnemies
 
 local L = Data.L
@@ -7,8 +7,9 @@ local LibPlayerSpells = LibStub("LibPlayerSpells-1.0")
 
 local PlayerLevel = UnitLevel("player")
 
-local isRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
-local isTBCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+local IsTBCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
 local mathrandom = math.random
 local tinsert = table.insert
@@ -26,17 +27,22 @@ FakePlayersOnUpdateFrame:Hide()
 local function SetupTestmode()
 	do
 		local count = 1
-		for triggerSpellID, tinketNumber in pairs(Data.TriggerSpellIDToTrinketnumber) do
-			if GetSpellInfo(triggerSpellID) then
+		for triggerSpellID, trinketData in pairs(Data.TrinketData) do
+			if type(triggerSpellID) == "string" then   --support for classic, isClassic
 				randomTrinkets[count] = triggerSpellID
 				count = count + 1
+			else
+				if GetSpellInfo(triggerSpellID) then
+					randomTrinkets[count] = triggerSpellID
+					count = count + 1
+				end
 			end
 		end
 	end
 
 	do
 		local count = 1
-		for racialSpelliD, cd in pairs(Data.RacialSpellIDtoCooldown) do
+		for racialSpelliD, data in pairs(Data.RacialSpellIDtoCooldown) do
 			if GetSpellInfo(racialSpelliD) then
 				randomRacials[count] = racialSpelliD
 				count = count + 1
@@ -62,16 +68,17 @@ function BattleGroundEnemies:DisableTestMode()
 	FakePlayersOnUpdateFrame:Hide()
 	self:Hide()
 	self.TestmodeActive = false
+	self:GROUP_ROSTER_UPDATE() -- to build up the players with the real allies 
 end
 
 do
 	local counter
 	
-	function BattleGroundEnemies:FillFakePlayerData(amount, playerType, role)
+	function BattleGroundEnemies:FillFakePlayerData(BGSize, amount, playerType, role)
 		for i = 1, amount do
 	
 			local classTag, randomSpec, specName
-			if isTBCC then
+			if IsTBCC or isClassic then
 				classTag = Data.ClassList[mathrandom(1, #Data.ClassList)]
 			else
 				randomSpec = Data.RolesToSpec[role][mathrandom(1, #Data.RolesToSpec[role])]
@@ -79,47 +86,62 @@ do
 				specName = randomSpec.specName
 			end
 			
-			local name = L[playerType]..counter.."-Realm"..counter
+			local unitID, name
+			if BGSize == 5 then
+				if playerType == "Enemy" then
+					unitID = "arena"..counter 
+				else
+					if counter == 1 then
+						unitID = "player"
+					else
+						unitID = "party"..(counter -1)
+					end
+				end
+			else
+				name = L[playerType]..counter.."-Realm"..counter
+			end
+
+			name = unitID or name
+
+			
 			fakePlayers[name] = {
 				PlayerClass = classTag,
 				PlayerName = name,
 				PlayerSpecName = specName, --will be nil for TBCC
 				PlayerClassColor = RAID_CLASS_COLORS[classTag],
-				PlayerLevel = mathrandom(PlayerLevel - 5, PlayerLevel)
+				PlayerLevel = mathrandom(PlayerLevel - 5, PlayerLevel),
+				unit = unitID
 			}
 			counter = counter + 1
 		end
 	end
 	
 	function BattleGroundEnemies:FillData()
-		for number, playerType in pairs({self.Allies, self.Enemies}) do
+		for number, MainFrame in pairs({self.Allies, self.Enemies}) do
 			wipe(fakePlayers)
 		
-			playerType:RemoveAllPlayers()
-			
-		
-			
-			playerType:UpdatePlayerCount(self.BGSize)
-			
-			
-			
+			MainFrame:RemoveAllPlayers()
+			MainFrame:UpdatePlayerCount(self.BGSize)
+					
 			local healerAmount = mathrandom(1, 3)
 			local tankAmount = mathrandom(1, 2)
 			local damagerAmount = self.BGSize - healerAmount - tankAmount
 			
 			
 			counter = 1
-			BattleGroundEnemies:FillFakePlayerData(healerAmount, playerType.PlayerType == "Enemies" and "Enemy" or "Ally", "HEALER")
-			BattleGroundEnemies:FillFakePlayerData(tankAmount, playerType.PlayerType == "Enemies" and "Enemy" or "Ally", "TANK")
-			BattleGroundEnemies:FillFakePlayerData(damagerAmount, playerType.PlayerType == "Enemies" and "Enemy" or "Ally", "DAMAGER")
+			BattleGroundEnemies:FillFakePlayerData(self.BGSize, healerAmount, MainFrame.PlayerType == "Enemies" and "Enemy" or "Ally", "HEALER")
+			BattleGroundEnemies:FillFakePlayerData(self.BGSize, tankAmount, MainFrame.PlayerType == "Enemies" and "Enemy" or "Ally", "TANK")
+			BattleGroundEnemies:FillFakePlayerData(self.BGSize, damagerAmount, MainFrame.PlayerType == "Enemies" and "Enemy" or "Ally", "DAMAGER")
 			
 			for name, enemyDetails in pairs(fakePlayers) do
-				local playerButton = playerType:SetupButtonForNewPlayer(enemyDetails)
-				if not isTBCC then
+				for k,v in pairs(enemyDetails) do 
+				end
+				local playerButton = MainFrame:SetupButtonForNewPlayer(enemyDetails)
+				if not (IsTBCC or isClassic) then
 					playerButton.Covenant:DisplayCovenant(mathrandom(1, #Data.CovenantIcons))  
 				end
 			end
-			playerType:SortPlayers()
+			MainFrame:SortPlayers()
 		end
 	end
 
@@ -160,7 +182,6 @@ do
 		self:FillData()
 		
 		self:Show()
-		self:BGSizeCheck(self.BGSize)
 
 		FakePlayersOnUpdateFrame:Show()
 	end
@@ -231,12 +252,8 @@ do
 							-- trinket simulation
 							elseif number == 2 and playerButton.Trinket.Cooldown:GetCooldownDuration() == 0 then -- trinket used
 								local spellID = randomTrinkets[mathrandom(1, #randomTrinkets)] 
-								if spellID ~= 214027 then --adapted
-									if spellID == 196029 then--relentless
-										playerButton.Trinket:TrinketCheck(spellID, false)
-									else
-										playerButton.Trinket:TrinketCheck(spellID, true)
-									end
+								if spellID ~= 336135 then --adapted
+									playerButton.Trinket:TrinketCheck(spellID)
 								end
 							--racial simulation
 							elseif number == 3 and playerButton.Racial.Cooldown:GetCooldownDuration() == 0 then -- racial used
@@ -245,20 +262,21 @@ do
 								--self:Debug("Nummber4")
 								local dRCategory = Data.RandomDrCategory[mathrandom(1, #Data.RandomDrCategory)]
 								local spellID = Data.DrCategoryToSpell[dRCategory][mathrandom(1, #Data.DrCategoryToSpell[dRCategory])]
-								playerButton:AuraApplied(spellID, (GetSpellInfo(spellID)), "DEBUFF")
+
+								playerButton:AuraApplied(isClassic and 0 or spellID, isClassic and spellID or (GetSpellInfo(spellID)), UnitName("player"), "DEBUFF")
 							elseif number == 5 then --player got one of the players debuff's applied
 								--self:Debug("Nummber5")
 								local auraType, spellID
 								auraType = "DEBUFF"
 								if #harmfulPlayerSpells > 1 then
 									spellID = harmfulPlayerSpells[mathrandom(1, #harmfulPlayerSpells)]
-									playerButton:AuraApplied(spellID, (GetSpellInfo(spellID)), UnitName("player"), auraType)
+									playerButton:AuraApplied(isClassic and 0 or spellID, isClassic and spellID or (GetSpellInfo(spellID)), UnitName("player"), auraType)
 								end
 								
 								auraType = "BUFF"
 								if #helpfulPlayerSpells > 1 then
 									spellID = helpfulPlayerSpells[mathrandom(1, #helpfulPlayerSpells)]
-									playerButton:AuraApplied(spellID, (GetSpellInfo(spellID)), UnitName("player"), auraType)
+									playerButton:AuraApplied(isClassic and 0 or spellID, isClassic and spellID or (GetSpellInfo(spellID)), UnitName("player"), auraType)
 								end
 							elseif number == 6 then --power simulation
 								local power = mathrandom(0, 100)

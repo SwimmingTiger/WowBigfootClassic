@@ -10,6 +10,8 @@ local Faction = AtlasLoot.Button:AddType("Faction", "f")
 local AL = AtlasLoot.Locales
 local ClickHandler = AtlasLoot.ClickHandler
 
+local RGBToHex = AtlasLoot.RGBToHex
+
 --[[
 	-- rep info ("f1435rep3" = Unfriendly rep @ Shado-Pan Assault)
 	1. Hated
@@ -63,7 +65,7 @@ local FACTION_IMAGES = {
 	[609] = "Interface\\Icons\\ability_racial_ultravision",				--Cenarion Circle
 	[749] = "Interface\\Icons\\spell_shadow_demonbreath",				--Hydraxian Waterlords
 	[910] = "Interface\\Icons\\inv_misc_head_dragon_bronze",			--Brood of Nozdormu
---@version-bcc@
+
 	-- BC
 	[922] = "Interface\\Icons\\INV_Misc_Bandana_03", 					-- Tranquillien
 	[932] = "Interface\\Icons\\Spell_Holy_SealOfSalvation",				-- The Aldor
@@ -85,7 +87,6 @@ local FACTION_IMAGES = {
 	[1031] = "Interface\\Icons\\INV_Misc_Ribbon_01",					-- Sha'tari Skyguard
 	[1038] = "Interface\\Icons\\INV_DataCrystal01", 					-- Ogri'la
 	[1077] = "Interface\\Icons\\INV_Misc_Statue_04",					-- Shattered Sun Offensive
---@end-version-bcc@
 }
 
 -- Name fallbacks
@@ -109,13 +110,11 @@ local FACTION_KEY = {
 	[749] = "Hydraxian Waterlords",
 	[910] = "Brood of Nozdormu",
 	-- BC
---@version-bcc@
 	[922] = AL["Tranquillien"], -- Horde only
 	[941] = AL["The Mag'har"], -- Horde only
 	[946] = AL["Honor Hold"], -- Alli only
 	[947] = AL["Thrallmar"], -- Horde only
 	[978] = AL["Kurenai"], -- Alli only
---@end-version-bcc@
 }
 
 ClickHandler:Add(
@@ -140,14 +139,6 @@ local function GetLocRepStanding(id)
 	else
 		return PlayerSex==3 and _G["FACTION_STANDING_LABEL"..(id or 4).."_FEMALE"] or _G["FACTION_STANDING_LABEL"..(id or 4)]
 	end
-end
-
-local function RGBToHex(t)
-	local r,g,b = t.r*255,t.g*255,t.b*255
-	r = r <= 255 and r >= 0 and r or 0
-	g = g <= 255 and g >= 0 and g or 0
-	b = b <= 255 and b >= 0 and b or 0
-	return str_format("%02x%02x%02x", r, g, b)
 end
 
 -- TODO: Create faction data module?

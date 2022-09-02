@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("ZulJin", "DBM-ZulAman")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220116041726")
+mod:SetRevision("20220829192444")
 mod:SetCreatureID(23863)
 mod:SetEncounterID(1194, 2487)--Data says Daakara, but it's not daakara in TBC it's Zul'jin
 mod:SetZone()
@@ -9,12 +9,13 @@ mod:SetZone()
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_AURA_APPLIED 43093 43150 43213",
+	"SPELL_AURA_APPLIED 43093 43150 43213 17207",
 	"SPELL_CAST_SUCCESS 43095",
 	"CHAT_MSG_MONSTER_YELL"
 )
 
 local warnThrow			= mod:NewTargetNoFilterAnnounce(43093, 3, nil, "Tank|Healer")
+local warnWhirlWind		= mod:NewSpellAnnounce(17207, 3)
 local warnParalyze		= mod:NewSpellAnnounce(43095, 4)
 local warnParalyzeSoon	= mod:NewPreWarnAnnounce(43095, 5, 3)
 local warnClaw			= mod:NewTargetNoFilterAnnounce(43150, 3)
@@ -36,6 +37,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnClaw:Show(args.destName)
 	elseif args:IsSpellID(43213) then
 		warnFlame:Show()
+	elseif args:IsSpellID(17207) then
+		warnWhirlWind:Show()
 	end
 end
 
