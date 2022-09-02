@@ -13,6 +13,7 @@ local DT = __private.DT;
 	local type = type;
 	local next = next;
 	local select = select;
+	local concat = table.concat;
 	local strupper, strsub, format = string.upper, string.sub, string.format;
 	local max = math.max;
 	local tonumber = tonumber;
@@ -48,7 +49,7 @@ MT.BuildEnv('METHOD');
 				return nil;
 			end
 		end
-	elseif DT.BUILD == "BCC" then
+	elseif DT.BUILD == "BCC" or DT.BUILD == "WRATH" then
 		_G.ALA_GetSpellLink = _G.ALA_GetSpellLink or function(id, name)
 			--|cff71d5ff|Hspell:id|h[name]|h|r
 			name = name or GetSpellInfo(id);
@@ -96,7 +97,7 @@ MT.BuildEnv('METHOD');
 			end
 			stats[TreeIndex] = total;
 		end
-		return stats[1], stats[2], stats[3];
+		return stats;
 	end
 	function MT.GenerateTitle(class, stats, uncolored)
 		local SpecList = DT.ClassSpec[class];
@@ -123,34 +124,87 @@ MT.BuildEnv('METHOD');
 		end
 	end
 	function MT.GenerateTitleFromRawData(data, class, uncolored)
-		if type(data) == 'table' then
+		local Type = type(data);
+		if Type == 'table' then
 			local TreeFrames = data.TreeFrames;
 			return MT.GenerateTitle(data.class, { TreeFrames[1].TalentSet.Total, TreeFrames[2].TalentSet.Total, TreeFrames[3].TalentSet.Total, }, uncolored);
-		elseif type(data) == 'string' and type(class) == 'string' and DT.TalentDB[class] then
-			return MT.GenerateTitle(class, { MT.CountTreePoints(data, class) }, uncolored);
+		elseif Type == 'string' and type(class) == 'string' and DT.TalentDB[class] ~= nil then
+			return MT.GenerateTitle(class, MT.CountTreePoints(data, class), uncolored);
 		end
 	end
 	function MT.GenerateLink(title, class, code)
 		return "|Hemu:" .. code .. "|h|c" .. RAID_CLASS_COLORS[class].colorStr .. "[" .. title .. "]|r|h";
 	end
-	function MT.GetTreeNodeIndex(def)
-		return def[1] * DT.MAX_NUM_COL + def[2] + 1;
+	function MT.GetTreeNodeIndex(TalentDef)
+		return TalentDef[1] * DT.MAX_NUM_COL + TalentDef[2] + 1;
 	end
 
+	function MT.TalentConversion(class, level, numGroup, activeGroup, data1, data2)
+		if DT.BUILD ~= "WRATH" then
+			return class, level, numGroup, activeGroup, data1, data2;
+		end
+		local ClassTDB = DT.TalentDB[class];
+		local SpecList = DT.ClassSpec[class];
+		local Map = VT.__emulib.GetTalentMap(class) or VT.MAP[class] or (DT.TalentMap ~= nil and DT.TalentMap[class]) or nil;
+		if Map == nil then
+			local ofs = 0;
+			for SpecIndex = 1, 3 do
+				local TreeTDB = ClassTDB[SpecList[SpecIndex]];
+				local num = #TreeTDB;
+				for TalentSeq = 1, num do
+					local val = tonumber(strsub(data1, ofs + TalentSeq, ofs + TalentSeq)) or 0;
+					if val > TreeTDB[TalentSeq][4] then
+						return nil;
+					end
+				end
+				ofs = ofs + num;
+			end
+			return class, level, 1, 1, data1;
+		end
+		local conv = {  };
+		local pos = 0;
+		local VMap = Map.VMap;
+		local ofs = 0;
+		local len = #data1;
+		for SpecIndex = 1, 3 do
+			local TreeTDB = ClassTDB[SpecList[SpecIndex]];
+			local VM = VMap[SpecIndex];
+			local num = #VM;
+			for TalentSeq = 1, num do
+				local TalentIndex = VM[TalentSeq];
+				local val = tonumber(strsub(data1, ofs + TalentIndex, ofs + TalentIndex)) or 0;
+				if val > TreeTDB[TalentSeq][4] then
+					return class, level, 1, 1, data1;
+				end
+				pos = pos + 1;
+				conv[pos] = val;
+			end
+			ofs = ofs + num;
+		end
+		return class, level, 1, 1, concat(conv);
+	end
+	function MT.DecodeEmuLib(code)
+		local version, class, level, numGroup, activeGroup, data1, data2 = VT.__emulib.DecodeTalentData(code);
+		if version == "V1" and DT.BUILD == "WRATH" and class ~= nil then
+			return MT.TalentConversion(class, level, numGroup, activeGroup, data1, data2);
+		else
+			return class, level, numGroup, activeGroup, data1, data2;
+		end
+	end
 	--	arg			code, useCodeLevel
-	--	return		class, data, level
-	function MT.Decode(code, useCodeLevel)
+	--	return		class, level, data
+	function MT.Decode(code)
 		for media, codec in next, VT.ExternalCodec do
-			local class, data, level = codec.import(code);
+			local class, level, data = codec.import(code, codec);
 			if class ~= nil then
-				return class, data, level;
+				return class, level, 1, 1, data;
 			end
 		end
-		return VT.__emulib.DecodeTalentData(code, not useCodeLevel and DT.MAX_LEVEL)
+		return MT.DecodeEmuLib(code);
 	end
-	--	arg			[Frame] or [class, data, level]
+	--	arg			[Frame] or [class, level, data]
 	--	return		code
-	function MT.Encode(class, data, level)
+	function MT.Encode(class, level, data)
 		local TypeClass = type(class);
 		if TypeClass == 'table' then
 			local Frame = class;
@@ -161,13 +215,13 @@ MT.BuildEnv('METHOD');
 						type(TreeFrames[3]) == 'table' and type(TreeFrames[3].TalentSet) == 'table'
 				then
 				--
-				return VT.__emulib.EncodeFrameData(CT.ClassToIndex[Frame.class], Frame.level,
+				return VT.__emulib.EncodeFrameTalentDataV2(CT.ClassToIndex[Frame.class], Frame.level,
 							TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
 							#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
 						);
 				--
 			else
-				MT.Log("MT.Encoder", 1, 'table');
+				MT.Error("MT.Encoder", 1, "class", 'table');
 				return nil;
 			end
 		else
@@ -176,34 +230,34 @@ MT.BuildEnv('METHOD');
 				classIndex = class;
 				class = CT.IndexToClass[class];
 				if classIndex == nil then
-					MT.Log("MT.Encoder", 2, "class", class);
+					MT.Error("MT.Encoder", 2, "class", 'number', class);
 					return nil;
 				end
 			elseif TypeClass == 'string' then
 				classIndex = CT.ClassToIndex[class];
 				if classIndex == nil then
-					MT.Log("MT.Encoder", 2, "class", class);
+					MT.Error("MT.Encoder", 3, "class", 'string', class);
 					return nil;
 				end
 			else
-				MT.Log("MT.Encoder", 2, "class type", TypeClass);
+				MT.Error("MT.Encoder", 4, "class", TypeClass, class);
 				return nil;
 			end
 			local TypeData = type(data);
 			if TypeData == 'string' then
 				local ClassTDB = DT.TalentDB[class];
 				local SpecList = DT.ClassSpec[class];
-				return VT.__emulib.EncodeFrameData(classIndex, (level and tonumber(level)) or DT.MAX_LEVEL,
+				return VT.__emulib.EncodeFrameTalentDataV2(classIndex, (level ~= nil and tonumber(level)) or DT.MAX_LEVEL,
 							data,
 							#ClassTDB[SpecList[1]], #ClassTDB[SpecList[2]], #ClassTDB[SpecList[3]]);
 			elseif TypeData == 'table' and type(data[1]) == 'table' and type(data[2]) == 'table' and type(data[3]) == 'table' then
 				local ClassTDB = DT.TalentDB[class];
 				local SpecList = DT.ClassSpec[class];
-				return VT.__emulib.EncodeFrameData(classIndex, (level and tonumber(level)) or DT.MAX_LEVEL,
+				return VT.__emulib.EncodeFrameTalentDataV2(classIndex, (level ~= nil and tonumber(level)) or DT.MAX_LEVEL,
 							data[1], data[2], data[3],
 							#ClassTDB[SpecList[1]], #ClassTDB[SpecList[2]], #ClassTDB[SpecList[3]]);
 			else
-				MT.Log("MT.Encoder", 3, "data type", TypeData);
+				MT.Error("MT.Encoder", 5, "data type", TypeData);
 				return nil;
 			end
 		end
@@ -215,7 +269,7 @@ MT.BuildEnv('METHOD');
 		end
 	end
 	function MT.SetPack(name)
-		if VT.SET.inspect_pack then
+		if VT.SET.supreme then
 			MT.UI.IteratorFrames(IteratorFunc, name);
 		end
 	end
@@ -225,14 +279,16 @@ MT.BuildEnv('METHOD');
 			code = Frame;
 			Frame = nil;
 		end
-		local class, data, level = MT.Decode(code);
-		if class and data and level then
-			Frame = Frame or MT.UI.GetFrame();
-			if not MT.UI.FrameSetInfo(Frame, class, data, level) then
+		local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+		if class ~= nil then
+			Frame = Frame or MT.UI.GetFrame(VT.SET.singleFrame and 1 or nil);
+			if not MT.UI.FrameSetInfo(Frame, class, level, { data1, data2, num = numGroup, active = activeGroup, }) then
 				Frame:Hide();
 				return false;
 			end
 			return true;
+		elseif level ~= nil then
+			MT.Notice(L[level]);
 		end
 		return false;
 	end
@@ -261,12 +317,12 @@ MT.BuildEnv('METHOD');
 			if ClassTDB ~= nil then
 				local SpecID = DT.ClassSpec[class][TreeIndex];
 				if ClassTDB[SpecID] ~= nil then
-					local def = ClassTDB[SpecID][TalentSeq];
-					if def ~= nil then
+					local TalentDef = ClassTDB[SpecID][TalentSeq];
+					if TalentDef ~= nil then
 						if level == nil or level <= 0 or level > 5 then
 							level = 1;
 						end
-						return def[8][level];
+						return TalentDef[8][level];
 					end
 				end
 			end
@@ -289,18 +345,12 @@ MT.BuildEnv('METHOD');
 				if TreeIndex ~= nil then
 					local SpecID = SpecList[TreeIndex];
 					local TreeTDB = ClassTDB[SpecID];
-					if TreeTDB ~= nil then
-						for i = 1, #TreeTDB do
-							local def = TreeTDB[i];
-							local S = def[8];
-							for j = 1, 5 do
-								if S[j] ~= nil then
-									if S[j] == SpellID then
-										return class, TreeIndex, SpecID, i, def[1], def[2], j;
-									end
-								else
-									break;
-								end
+					for TalentSeq = 1, #TreeTDB do
+						local TalentDef = TreeTDB[TalentSeq];
+						local SpellIDs = TalentDef[8];
+						for j = 1, TalentDef[4] do
+							if SpellIDs[j] == SpellID then
+								return class, TreeIndex, SpecID, TalentSeq, TalentDef[1], TalentDef[2], j;
 							end
 						end
 					end
@@ -308,18 +358,12 @@ MT.BuildEnv('METHOD');
 					for TreeIndex = 1, 3 do
 						local SpecID = SpecList[TreeIndex];
 						local TreeTDB = ClassTDB[SpecID];
-						if TreeTDB ~= nil then
-							for i = 1, #TreeTDB do
-								local def = TreeTDB[i];
-								local S = def[8];
-								for j = 1, 5 do
-									if S[j] ~= nil then
-										if S[j] == SpellID then
-											return class, TreeIndex, SpecID, i, def[1], def[2], j;
-										end
-									else
-										break;
-									end
+						for TalentSeq = 1, #TreeTDB do
+							local TalentDef = TreeTDB[TalentSeq];
+							local SpellIDs = TalentDef[8];
+							for j = 1, TalentDef[4] do
+								if SpellIDs[j] == SpellID then
+									return class, TreeIndex, SpecID, TalentSeq, TalentDef[1], TalentDef[2], j;
 								end
 							end
 						end
@@ -333,16 +377,12 @@ MT.BuildEnv('METHOD');
 					for TreeIndex = 1, 3 do
 						local SpecID = SpecList[TreeIndex];
 						local TreeTDB = ClassTDB[SpecID];
-						for i = 1, #TreeTDB do
-							local def = TreeTDB[i];
-							local S = def[8];
-							for j = 1, 5 do
-								if S[j] ~= nil then
-									if S[j] == SpellID then
-										return C, TreeIndex, SpecID, i, def[1], def[2], j;
-									end
-								else
-									break;
+						for TalentSeq = 1, #TreeTDB do
+							local TalentDef = TreeTDB[TalentSeq];
+							local SpellIDs = TalentDef[8];
+							for j = 1, TalentDef[4] do
+								if SpellIDs[j] == SpellID then
+									return C, TreeIndex, SpecID, TalentSeq, TalentDef[1], TalentDef[2], j;
 								end
 							end
 						end
@@ -353,18 +393,14 @@ MT.BuildEnv('METHOD');
 		return nil;
 	end
 
-	function MT.CreateEmulator(Frame, class, data, level, readOnly, name, rule, style)
-		if VT.SET.singleFrame then
-			Frame = Frame or MT.UI.GetFrame(1);
-		else
-			Frame = Frame or MT.UI.GetFrame();
-		end
+	function MT.CreateEmulator(Frame, class, level, data, name, readOnly, rule, style)
+		Frame = Frame or MT.UI.GetFrame(VT.SET.singleFrame and 1 or nil);
 		MT.UI.FrameSetStyle(Frame, style or VT.SET.style);
 		Frame:Show();
 		if class == nil or class == "" then
-			class = CT.SELFCLASSUPPER;
+			class = CT.SELFCLASS;
 		end
-		if not MT.UI.FrameSetInfo(Frame, class, data, tonumber(level) or DT.MAX_LEVEL, readOnly, name, rule) then
+		if not MT.UI.FrameSetInfo(Frame, class, tonumber(level) or DT.MAX_LEVEL, data, nil, name, readOnly, rule) then
 			Frame:Hide();
 			return nil;
 		end
@@ -392,11 +428,11 @@ MT.BuildEnv('METHOD');
 		local VM = VT.ApplyingTalents.VMap[TreeIndex];
 		local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(TreeIndex, VM[TalentSeq]);
 		if TalentSet[TalentSeq] > rank then
-			local dep = TreeTDB[TalentSeq][11];
-			if dep ~= nil then
-				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(TreeIndex, VM[dep]);
-				if TalentSet[dep] > rank then
-					LearnTalent(TreeIndex, VM[dep]);
+			local DepTSeq = TreeTDB[TalentSeq][11];
+			if DepTSeq ~= nil then
+				local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(TreeIndex, VM[DepTSeq]);
+				if TalentSet[DepTSeq] > rank then
+					LearnTalent(TreeIndex, VM[DepTSeq]);
 					return true;
 				end
 			end
@@ -428,22 +464,22 @@ MT.BuildEnv('METHOD');
 		end
 		--
 		MT._TimerHalt(ApplyTalentsTicker);
-		MT.Error(L.ApplyTalentsFinished);
+		MT.Notice(L.ApplyTalentsFinished);
 		Frame.ApplyTalentsProgress:SetText(nil);
 		MT.UpdateApplyingTalentsStatus(nil);
 	end
 	function MT.ApplyTalents(Frame)
-		if CT.SELFCLASSUPPER == Frame.class then
+		if CT.SELFCLASS == Frame.class then
 			local TalentFrame_Update = _G.TalentFrame_Update;
 			if TalentFrame_Update ~= nil then
 				pcall(TalentFrame_Update);
 			end
 			if MT.GetPointsReqLevel(Frame.TotalUsedPoints) > UnitLevel('player') then
-				return MT.Error(L["CANNOT APPLY : NEED MORE TALENT POINTS."]);
+				return MT.Notice(L["CANNOT APPLY : NEED MORE TALENT POINTS."]);
 			end
-			local Map = VT.__emulib.GenerateTalentMap(CT.SELFCLASSUPPER, false);
+			local Map = VT.__emulib.GetTalentMap(CT.SELFCLASS);
 			if Map == nil then
-				return MT.Error(L["CANNOT APPLY : UNABLE TO GENERATE TALENT MAP."]);
+				return MT.Notice(L["CANNOT APPLY : UNABLE TO GENERATE TALENT MAP."]);
 			end
 			local VMap = Map.VMap;
 			local TreeFrames = Frame.TreeFrames;
@@ -454,22 +490,22 @@ MT.BuildEnv('METHOD');
 				local TreeFrame = TreeFrames[TreeIndex];
 				local TalentSet = TreeFrame.TalentSet;
 				local TreeTDB = TreeFrame.TreeTDB;
-				local num = #TreeTDB;
-				if num ~= GetNumTalents(TreeIndex, false) then
-					return MT.Error(L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."], CT.SELFCLASSUPPER, TreeIndex, num, GetNumTalents(TreeIndex, false));
+				local NumTalents = #TreeTDB;
+				if NumTalents ~= GetNumTalents(TreeIndex, false) then
+					return MT.Notice(L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."], CT.SELFCLASS, TreeIndex, NumTalents, GetNumTalents(TreeIndex, false));
 				end
-				for TalentSeq = 1, num do
+				for TalentSeq = 1, NumTalents do
 					local TalentIndex = VM[TalentSeq];
 					if TalentIndex == nil then
-						return MT.Error(L["CANNOT APPLY : TALENT MAP ERROR."]);
+						return MT.Notice(L["CANNOT APPLY : TALENT MAP ERROR."]);
 					end
 					local name, iconTexture, tier, column, rank, maxRank, isExceptional, available = GetTalentInfo(TreeIndex, TalentIndex);
 					if rank > TalentSet[TalentSeq] then
 						confilicted = true;
 						break;
 					end
-					local def = TreeTDB[TalentSeq];
-					if tier ~= def[1] + 1 or column ~= def[2] + 1 or maxRank ~= def[4] then
+					local TalentDef = TreeTDB[TalentSeq];
+					if tier ~= TalentDef[1] + 1 or column ~= TalentDef[2] + 1 or maxRank ~= TalentDef[4] then
 						confilicted = true;
 						break;
 					end
@@ -480,7 +516,7 @@ MT.BuildEnv('METHOD');
 				end
 			end
 			if confilicted then
-				return MT.Error(L["CANNOT APPLY : TALENTS IN CONFLICT."]);
+				return MT.Notice(L["CANNOT APPLY : TALENTS IN CONFLICT."]);
 			else
 				MT.UpdateApplyingTalentsStatus(Frame);
 				VT.ApplyingTalents.VMap = VMap;
@@ -638,6 +674,7 @@ MT.BuildEnv('METHOD');
 				text = L.TalentsInTipIcon_TRUE,
 			},
 		},
+		--[[
 		{
 			v = "inspectButtonOnUnitFrame",
 			[true] = {
@@ -682,6 +719,7 @@ MT.BuildEnv('METHOD');
 				text = L.InsepctKey_SHIFT,
 			},
 		},
+		--]]
 	};
 	local MenuDefinition = {
 		num = 0,
@@ -711,39 +749,78 @@ MT.BuildEnv('METHOD');
 	function MT.CALLBACK.OnTalentDataRecv(name, iscomm)
 		local cache = VT.TQueryCache[name];
 		if cache ~= nil then
-			if VT.QuerySent[name] then
+			local Tick = MT.GetUnifiedTime();
+			if VT.QuerySent[name] ~= nil and Tick - VT.QuerySent[name] <= CT.INSPECT_WAIT_TIME then
+				MT.Error("MT.CALLBACK.OnTalentDataRecv", cache.data.num);
 				local readOnly = false;
 				if name ~= CT.SELFNAME then
 					readOnly = true;
 				end
 				local Frames = MT.UI.FrameGetNameBinding(name);
-				if Frames ~= nil and Frames[1] - MT.GetUnifiedTime() <= CT.INSPECT_WAIT_TIME then
+				if Frames ~= nil and Frames[1] ~= nil then
 					local AnyShown = false;
-					for i = 2, #Frames do
+					for i = 1, #Frames do
 						if Frames[i]:IsShown() then
-							MT.UI.FrameSetInfo(Frames[i], cache.class, cache.data, DT.MAX_LEVEL, readOnly, name);
+							MT.UI.FrameSetInfo(Frames[i], cache.class, DT.MAX_LEVEL, cache.data, nil, name, readOnly);
 							AnyShown = true;
 						end
 					end
 					if not AnyShown then
-						MT.CreateEmulator(nil, cache.class, cache.data, DT.MAX_LEVEL, readOnly, name, false);
+						MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.data, name, readOnly, false);
 					end
 				else
-					MT.CreateEmulator(nil, cache.class, cache.data, DT.MAX_LEVEL, readOnly, name, false);
+					MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.data, name, readOnly, false);
 				end
 			end
 			VT.QuerySent[name] = nil;
 		end
 	end
-	function MT.CALLBACK.OnInventoryDataRecv(name, iscomm)
-		if not VT.SET.show_equipment then return; end
-		local Frames = MT.UI.FrameGetNameBinding(name);
-		if Frames ~= nil then
-			for i = 2, #Frames do
-				Frames[i].objects.EquipmentFrameButton:Show();
-				if iscomm and VT.SET.autoShowEquipmentFrame then
-					Frames[i].EquipmentFrameContainer:Show();
-					MT.UI.EquipmentFrameUpdate(Frames[i].EquipmentContainer, VT.TQueryCache[name]);
+	function MT.CALLBACK.OnGlyphDataRecv(name, iscomm, ascomm)
+		local cache = VT.TQueryCache[name];
+		if cache ~= nil and VT.SET.show_equipment then
+			local Frames = MT.UI.FrameGetNameBinding(name);
+			if Frames ~= nil and Frames[1] ~= nil then
+				local popup = (iscomm or ascomm) and VT.SET.autoShowEquipmentFrame;
+				MT.Error("EquipFrame", "CALLBACK-G", popup, iscomm, ascomm, VT.SET.autoShowEquipmentFrame);
+				if popup then
+					local T = VT.AutoShowEquipmentFrameOnComm[name];
+					if T ~= nil and MT.GetUnifiedTime() - T < 10 then
+						for i = 1, #Frames do
+							Frames[i].EquipmentFrameContainer:Show();
+						end
+					end
+					VT.AutoShowEquipmentFrameOnComm[name] = nil;
+				end
+				for i = 1, #Frames do
+					Frames[i].objects.EquipmentFrameButton:Show();
+					if Frames[i].EquipmentFrameContainer:IsShown() then
+						MT.UI.GlyphFrameUpdate(Frames[i].GlyphContainer, cache);
+					end
+				end
+			end
+		end
+	end
+	function MT.CALLBACK.OnInventoryDataRecv(name, iscomm, ascomm)
+		local cache = VT.TQueryCache[name];
+		if cache ~= nil and VT.SET.show_equipment then
+			local Frames = MT.UI.FrameGetNameBinding(name);
+			if Frames ~= nil and Frames[1] ~= nil then
+				local popup = (iscomm or ascomm) and VT.SET.autoShowEquipmentFrame;
+				MT.Error("EquipFrame", "CALLBACK-E", popup, iscomm, ascomm, VT.SET.autoShowEquipmentFrame);
+				if popup then
+					local T = VT.AutoShowEquipmentFrameOnComm[name];
+					if T ~= nil and MT.GetUnifiedTime() - T < 10 then
+						for i = 1, #Frames do
+							Frames[i].EquipmentFrameContainer:Show();
+						end
+					end
+					VT.AutoShowEquipmentFrameOnComm[name] = nil;
+				end
+				for i = 1, #Frames do
+					Frames[i].objects.EquipmentFrameButton:Show();
+					if Frames[i].EquipmentFrameContainer:IsShown() then
+						MT.UI.EquipmentFrameUpdate(Frames[i].EquipmentContainer, cache);
+					end
 				end
 			end
 		end

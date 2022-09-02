@@ -26,9 +26,6 @@ __ala_meta__.__raidlib = __raidlib;
 local GetNumSavedInstances, GetSavedInstanceInfo, GetSavedInstanceEncounterInfo = GetNumSavedInstances, GetSavedInstanceInfo, GetSavedInstanceEncounterInfo;
 
 local __raid_meta = {
-	ADDON_PREFIX = "RLTADD",
-	ADDON_MSG_QUERY_RAIDLOCK = "_q_rlk",
-	ADDON_MSG_REPLY_RAIDLOCK = "_r_rlk",
 	L = {
 		zhCN = {
 			ONY = "奥妮克希亚的巢穴",
@@ -242,6 +239,8 @@ local L2 = {
 	Gruul = 565,
 	SW = 580,
 	ZAM = 568,
+	--
+	NAXX = 533,
 };
 __raid_meta.esMX = __raid_meta.esES;
 local to = __raid_meta.L[GetLocale()] or __raid_meta.L['*'];

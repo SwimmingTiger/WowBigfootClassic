@@ -1,5 +1,5 @@
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
-local L = AceLocale:NewLocale("HandyNotes_TravelGuide (BCC)", "enUS", true, true)
+local L = AceLocale:NewLocale("HandyNotes_TravelGuide", "enUS", true, true)
 
 -- https://www.curseforge.com/members/dathwada
 if L then
@@ -7,7 +7,7 @@ if L then
 -----------------------------------------------CONFIG-----------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-L["config_plugin_name"] = "TravelGuide (BCC)"
+L["config_plugin_name"] = "TravelGuide"
 L["config_plugin_desc"] = "Shows the portal, zeppelin and boat locations on the World Map and the MiniMap."
 
 L["config_tab_general"] = "General"
@@ -69,6 +69,11 @@ L["handler_context_menu_addon_name"] = "HandyNotes: TravelGuide"
 L["handler_context_menu_add_tomtom"] = "Add to TomTom"
 L["handler_context_menu_hide_node"] = "Hide this node"
 
+--============================================TOOLTIPS============================================--
+
+L["handler_tooltip_data"] = "RETRIEVING DATA..."
+L["handler_tooltip_quest"] = "Unlocked with quest"
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------DATABASE----------------------------------------------
 ----------------------------------------------------------------------------------------------------
@@ -111,4 +116,20 @@ L["Shattrath Portal to Stormwind"] = true
 L["Shattrath Portal to Ironforge"] = true
 
 L["Shattrath Portal to Isle of Quel'Danas"] = true
+
+L["Portal to Stormwind"] = true
+L["Boat to Stormwind"] = true
+L["Portal to Orgrimmar"] = true
+L["Zeppelin to Thunder Bluff"] = true
+L["Portal to the Purple Parlor"] = true
+L["Boat to Howling Fjord"] = true
+L["Boat to Kamagua"] = true
+L["Zeppelin to Howling Fjord"] = true
+L["Boat to Borean Tundra"] = true
+L["Boat to Unu'Pe"] = true
+L["Zeppelin to Borean Tundra"] = true
+L["Boat to Moa'Ki Harbor"] = true
+L["Waygate to Sholazar Basin"] = true
+L["Waygate to Un'Goro Crater"] = true
+L["Portal to Blasted Lands"] = true
 end

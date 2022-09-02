@@ -5,7 +5,6 @@ if not AL then return end
 -- These localization strings are translated on Curseforge: https://www.curseforge.com/wow/addons/atlaslootclassic/localization
 -- PvP
 AL["|cff33ff99Rank:|r %s"] = "|cff33ff99等級:|r %s"
-AL["Arena"] = "競技場"
 AL["Battlegrounds"] = "戰場"
 AL["Class Sets"] = "職業套裝"
 AL["Honor"] = "榮譽"

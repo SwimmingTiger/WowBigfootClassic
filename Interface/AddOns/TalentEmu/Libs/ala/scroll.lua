@@ -48,9 +48,9 @@ local __ala_meta__ = _G.__ala_meta__;
 		width = width and max(width, def_inner_size) or def_inner_size;
 		height = height and max(height, def_inner_size) or def_inner_size;
 
-		local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
-		local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
-		local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
+		local scrollFrame = CreateFrame('SCROLLFRAME', nil, parent);
+		local scrollChild = CreateFrame('FRAME', nil, scrollFrame);
+		local scrollBar = CreateFrame('SLIDER', nil, scrollFrame);
 		local buttons = {};
 		local nButtonsShown = 0;
 		local ofsIndex = 0;

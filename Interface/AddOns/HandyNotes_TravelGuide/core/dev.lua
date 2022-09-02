@@ -46,7 +46,7 @@ local function devmode()
     SlashCmdList["TG"] = function(msg)
         InterfaceOptionsFrame_Show()
         InterfaceOptionsFrame_OpenToCategory('HandyNotes')
-        LibStub('AceConfigDialog-3.0'):SelectGroup('HandyNotes', 'plugins', 'TravelGuide (BCC)')
+        LibStub('AceConfigDialog-3.0'):SelectGroup('HandyNotes', 'plugins', 'TravelGuide')
     end
 
 end

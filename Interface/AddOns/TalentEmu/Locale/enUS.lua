@@ -11,8 +11,8 @@ local L = CT.L;
 
 if L.Locale ~= nil and L.Locale ~= "" then return;end
 
-BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "Create a emulator.";
-BINDING_NAME_ALARAIDTOOL_QUERY = "Inspect target's talent.";
+BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "Create a emulator";
+BINDING_NAME_ALARAIDTOOL_QUERY = "Inspect target's talent";
 BINDING_HEADER_ALATALENTEMU_HEADER = "<|cff00ff00alaTalentEmu|r>";
 
 L.Locale = "enUS";
@@ -36,26 +36,26 @@ L.LabelPointsChanged = "(|cffff0000Modified|r)";
 L.ResetButton = "Reset current tree";
 L.ResetAllButton = "Reset all";
 L.ResetToSetButton = "Reset to initial state";
-L.ReadOnlyButton = "|cff00ff00RClick|r to set";
+L.ReadOnlyButton = "|cff00ff00RClick|r Set";
 L.CloseButton = "Close this win";
 
-L.ClassButton = "\n|cff00ff00Left click|r to toggle class.\n|cff00ff00Right click|r to load saved talents.\n|cff00ff00Shift and Left-click|r to del saved talent";
-L.InspectTargetButton = "Inspect target's talents.";
+L.ClassButton = "\n|cff00ff00LeftClick|r Toggle class\n|cff00ff00RightClick|r Load saved talents\n|cff00ff00Shift and LeftClick in Menu|r Del saved talent";
+L.InspectTargetButton = "Inspect target's talents";
 L.SpellListButton = "Spell List Window";
 L.SpellAvailable = "|cff00ff00Available|r";
 L.SpellUnavailable = "|cffff0000Not Available|r";
 L.TrainCost = "Train Cost ";
 L.ShowAllSpell = "All ranks";
-L.ApplyTalentsButton = "Apply talents.";
+L.ApplyTalentsButton = "Apply talents";
 L.ApplyTalentsButton_Notify = "Apply these talents?";
 L.ApplyTalentsFinished = "Talents applied";
-L.ImportButton = "Import from string or wowhead/nfu/yxrank url.";
-L.ExportButton = "|cff00ff00Left click|r to export string.\n|cff00ff00Right click|r to export to |cffff0000wowhead/nfu|r url";
-L.SaveButton = "|cff00ff00Left click|r to save talents.\n|cff00ff00Right click|r to load saved talents.\n|cff00ff00Shift and Left-click|r to del";
-L.SendButton = "|cff00ff00Left click|r to send talents to chat message\n|cff00ff00Right click|r to browse talents in chat.";
+L.ImportButton = "Import from string or wowhead/nfu/yxrank url";
+L.ExportButton = "|cff00ff00LeftClick|r Export string\n|cff00ff00RightClick|r Export to |cffff0000wowhead/nfu|r url";
+L.SaveButton = "|cff00ff00LeftClick|r Save talents\n|cff00ff00RightClick|r Load saved talents\n|cff00ff00ALT+RightClick|rLoad talents of other characters\n|cff00ff00Shift and LeftClick in Menu|r Del";
+L.SendButton = "|cff00ff00LeftClick|r Send talents to chat message\n|cff00ff00RightClick|r Browse talents in chat";
 L.EquipmentFrameButton = "Watch equipment";
 
-L.TalentFrameCallButton = "Open TalentEmu.";
+L.TalentFrameCallButton = "Open TalentEmu";
 L.TalentFrameCallButtonString = "Emu";
 L.CurRank = "Current Rank";
 L.NextRank = "Next Rank";
@@ -72,23 +72,23 @@ L.SetWinStyle_BLZ = "Make it blz style";
 L.SetWinStyle_ALA = "Make it flat style";
 L.SetSingleFrame_True = "Single Window";
 L.SetSingleFrame_False = "Multiple Windows";
-L.SetStyleAllTo1_ThisWin = "Show three talent trees.";
-L.SetStyleAllTo2_ThisWin = "Show one talent tree.";
-L.SetStyleAllTo1_AlsoSetShownWin = "Show three talent trees.(Also change opened emu)";
-L.SetStyleAllTo1_LaterWin = "Show three talent trees.";
-L.SetStyleAllTo2_AlsoSetShownWin = "Show one talent tree.(Also change opened emu)";
-L.SetStyleAllTo2_LaterWin = "Show one talent tree.";
-L.InspectButtonOnUnitFrame_TRUE = "Enable inspect button. (Holding alt/ctrl/shift to show a button at target's portrait)";
-L.TalentsInTip_TRUE = "Show talents when mouseover players";
-L.TalentsInTip_FALSE = "Donot show talents when mouseover players";
+L.SetStyleAllTo1_ThisWin = "Three talent trees in this frame";
+L.SetStyleAllTo2_ThisWin = "Single talent tree in this frame";
+L.SetStyleAllTo1_AlsoSetShownWin = "Three talent trees in frames and set all the opened frames";
+L.SetStyleAllTo1_LaterWin = "Three talent trees in frames";
+L.SetStyleAllTo2_AlsoSetShownWin = "Singlee talent tree and set all the opened frames";
+L.SetStyleAllTo2_LaterWin = "Single talent tree in frames";
+L.InspectButtonOnUnitFrame_TRUE = "Enable inspect button (Holding alt/ctrl/shift to show a button at target's portrait)";
+L.TalentsInTip_TRUE = "Show talents in players' tip";
+L.TalentsInTip_FALSE = "Donot show talents in players' tip";
 L.TalentsInTipIcon_TRUE = "Use texture of talents tree in tip";
 L.TalentsInTipIcon_FALSE = "Use name of talents tree in tip";
-L.InspectButtonOnUnitFrame_FALSE = "Disable inspect button.";
+L.InspectButtonOnUnitFrame_FALSE = "Disable inspect button";
 L.InsepctKey_ALT = "Holding alt to show the inspect button";
 L.InsepctKey_CTRLK = "Holding ctrl to show the inspect button";
 L.InsepctKey_SHIFT = "Holding shift to show the inspect button";
 
-L.DBIcon_Text = "|cff00ff00Left click|r to create a emulator\n|cff00ff00Right click|r to see group gear";
+L.DBIcon_Text = "|cff00ff00LeftClick|r Create a emulator\n|cff00ff00RightClick|r Explorer group member";
 L.SpellListFrameGTTSpellLevel = "Spell level: ";
 L.SpellListFrameGTTReqLevel = "Level: ";
 
@@ -106,6 +106,9 @@ L.DATA = {
 	WARLOCK = "warlock",
 	WARRIOR = "warrior",
 
+	[398] = "Blood",
+	[399] = "Frost",
+	[400] = "Unholy",
 	[283] = "Balance",
 	[281] = "Feral",
 	[282] = "Restoration",
@@ -199,3 +202,7 @@ L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."] = "TalentDB Erro
 
 
 L.PopupQuery = "Inspect";
+
+--	emulib
+L["WOW VERSION"] = "The talents does not fit che client";
+L["NO DECODER"] = "Unable to decode talent data";

@@ -1,22 +1,19 @@
 --[[--
 	by ALA @ 163UI
 --]]--
-
-local _patch_version, _build_number, _build_date, _toc_version = GetBuildInfo();
-
-if _toc_version >= 20000 or _toc_version < 11400 then
-	return;
-end
--- if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
--- 	return;
--- end
-
-
+----------------------------------------------------------------------------------------------------
 local __addon, __private = ...;
 local MT = __private.MT;
 local CT = __private.CT;
 local VT = __private.VT;
 local DT = __private.DT;
+
+if CT.TOCVERSION >= 20000 or CT.TOCVERSION < 11400 then
+	return;
+end
+-- if WOW_PROJECT_ID ~= WOW_PROJECT_CLASSIC then
+-- 	return;
+-- end
 
 ----------------------------------------------------------------------------------------------------
 

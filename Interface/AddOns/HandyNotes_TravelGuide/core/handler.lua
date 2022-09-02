@@ -14,9 +14,37 @@ addon.constants = private.constants
 
 _G.HandyNotes_TravelGuide = addon
 
+local IsQuestCompleted = C_QuestLog.IsQuestFlaggedCompleted
+
+local MagePortalHorde  = private.constants.icon.MagePortalHorde
+
+----------------------------------------------------------------------------------------------------
+-----------------------------------------------LOCALS-----------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local RequiresQuest     = L["handler_tooltip_quest"]
+local RetrievindData    = L["handler_tooltip_data"]
+
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------FUNCTIONS---------------------------------------------
 ----------------------------------------------------------------------------------------------------
+
+-- returns true when all requirements are fulfilled
+local function ReqFulfilled(req, ...)
+    if (req.quest and not IsQuestCompleted(req.quest))
+    or (req.level and (UnitLevel("player") < req.level))
+    or (req.spell and not IsSpellKnown(req.spell))
+    then
+        return false
+    end
+
+    if (req.reputation) then
+        local _,_,standing = GetFactionInfoByID(req.reputation[1])
+        return standing >= req.reputation[2]
+    end
+
+	return true
+end
 
 -- workaround to prepare the multilabels with and without notes
 -- because the game displays the first line in 14px and
@@ -73,9 +101,14 @@ end
 
 local GetPointInfo = function(point)
     local icon
-    if point then
+
+    if (point) then
         local label = point.label or point.multilabel and table.concat(point.multilabel, "\n") or UNKNOWN
+        if (point.requirements and not ReqFulfilled(point.requirements)) then
+            icon = ((point.icon == "portal") and MagePortalHorde)
+        else
             icon = SetIcon(point)
+        end
         return label, icon, point.icon, point.scale, point.alpha
     end
 end
@@ -89,6 +122,7 @@ end
 ----------------------------------------------------------------------------------------------------
 
 local function SetTooltip(tooltip, point)
+    local pointreq = point.requirements
     if point then
         if (point.label) then
             tooltip:AddLine(point.label)
@@ -99,10 +133,25 @@ local function SetTooltip(tooltip, point)
         if (point.note and profile.show_note) then
             tooltip:AddLine("("..point.note..")")
         end
-        if (point.reputation) then
-            local name, _, standing, _, _, value = GetFactionInfoByID(point.reputation[1])
-            if standing < point.reputation[2] then
-                tooltip:AddLine(requires.."Reputation "..value.." / 31000 "..name, 1) -- red
+        if (pointreq) then
+            -- if (pointreq.level and UnitLevel("player") < pointreq.level) then
+            --     tooltip:AddLine(RequiresPlayerLvl..": "..pointreq.level, 1) -- red
+            -- end
+            if (pointreq.quest and not IsQuestCompleted(pointreq.quest)) then
+                if (C_QuestLog.GetQuestInfo(pointreq.quest) ~= nil) then
+                    tooltip:AddLine(RequiresQuest..": ["..C_QuestLog.GetQuestInfo(pointreq.quest).."] (ID: "..pointreq.quest..")",1,0,0)
+                else
+                    tooltip:AddLine(RetrievindData,1,0,1) -- pink
+                    C_Timer.After(1, function() addon:Refresh() end) -- Refresh
+                    -- print("refreshed")
+                end
+            end
+            if (pointreq.reputation) then
+                name, _, standing, _, _, value = GetFactionInfoByID(pointreq.reputation[1])
+                if (standing < pointreq.reputation[2]) then
+                    tooltip:AddLine(RequiresRep..": ",1) -- red
+                    GameTooltip_ShowProgressBar(GameTooltip, 0, 21000, value, name..": "..value.." / 21000")
+                end
             end
         end
     else

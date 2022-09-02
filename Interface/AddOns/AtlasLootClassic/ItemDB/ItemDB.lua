@@ -288,10 +288,9 @@ function ItemDB:GetNpcID_UNSAFE(addonName, contentName, boss)
 end
 
 function ItemDB:GetCorrespondingField(addonName, contentName, newGameVersion)
+	if not addonName or not contentName or not newGameVersion then return end
 	if ItemDB.Storage[addonName] and ItemDB.Storage[addonName][contentName] and ItemDB.Storage[addonName][contentName].CorrespondingFields then
-		return ItemDB.Storage[addonName][contentName].CorrespondingFields[newGameVersion] or contentName
-	else
-		return contentName
+		return ItemDB.Storage[addonName][contentName].CorrespondingFields[newGameVersion]
 	end
 end
 
@@ -525,7 +524,7 @@ function ItemDB.ContentProto:GetName(raw)
 	if self.nameFormat then
 		name = format(self.nameFormat, name)
 	end
-	if self.NameColor and not raw then
+	if self.NameColor and not raw and AtlasLoot.db.enableColorsInNames then
 		name = format(self.NameColor, name)
 	end
 	return name
@@ -580,7 +579,7 @@ function ItemDB.ContentProto:GetNameForItemTable(index, raw)
 	if index.nameFormat then
 		name = format(index.nameFormat, name)
 	end
-	if index.NameColor and not raw then
+	if index.NameColor and not raw and AtlasLoot.db.enableColorsInNames then
 		name = format(index.NameColor, name)
 	end
 	return name

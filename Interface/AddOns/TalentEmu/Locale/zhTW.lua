@@ -11,17 +11,17 @@ local L = CT.L;
 
 if GetLocale() ~= "zhTW" then return;end
 
-BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "新建仿真器";
+BINDING_NAME_ALARAIDTOOL_NEWWINDOW = "新建模擬器";
 BINDING_NAME_ALARAIDTOOL_QUERY = "查看目標天賦";
-BINDING_HEADER_ALATALENTEMU_HEADER = "<|cff00ff00alaTalentEmu|r>天赋模拟器";
+BINDING_HEADER_ALATALENTEMU_HEADER = "<|cff00ff00alaTalentEmu|r>天賦模拟器";
 
 L.Locale = "zhTW";
 
-L.Emu = "仿真器";
+L.Emu = "模擬器";
 L.OK = "OK";
 L.Cancel = "Cancel";
 L.Search = "搜索";
-L.Hide = "隐藏";
+L.Hide = "隱藏";
 L.CurTreePointsLabel = "點數";
 L.CurPointsTotal = "縂點數";
 L.CurPointsRemaining = "剩餘";
@@ -39,9 +39,9 @@ L.ResetToSetButton = "重置到初始狀態";
 L.ReadOnlyButton = "|cff00ff00點擊|r設置";
 L.CloseButton = "關閉窗體";
 
-L.ClassButton = "\n|cff00ff00左键|r切换职业\n|cff00ff00右键|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除保存的天赋";
+L.ClassButton = "\n|cff00ff00左鍵|r切換職業\n|cff00ff00右鍵|r加載保存的天賦\n|cff00ff00Shift+左鍵|r刪除保存的天賦";
 L.InspectTargetButton = "觀察目標天賦";
-L.SpellListButton = "技能列表窗口";
+L.SpellListButton = "技能列表窗體";
 L.SpellAvailable = "|cff00ff00技能可用|r";
 L.SpellUnavailable = "|cffff0000技能不可用|r";
 L.TrainCost = "訓練費用 ";
@@ -50,13 +50,13 @@ L.ApplyTalentsButton = "應用當前天賦仿真";
 L.ApplyTalentsButton_Notify = "确定應用當前天賦吗？";
 L.ApplyTalentsFinished = "天賦已應用";
 L.ImportButton = "導入字符串或wowhead/nfu/yxrank链接";
-L.ExportButton = "|cff00ff00左键|r导出字符串\n|cff00ff00右鍵|r导出到|cffff0000wowhead/nfu|r网页链接";
-L.SaveButton = "|cff00ff00左键|r保存天赋设置\n|cff00ff00右鍵|r加载已保存的天赋\n|cff00ff00Shift+左键|r删除天赋";
-L.SendButton = "|cff00ff00左键|r发送天赋到聊天\n|cff00ff00右键|r查看最近聊天中的天赋";
-L.EquipmentFrameButton = "打开装备查看";
+L.ExportButton = "|cff00ff00左鍵|r导出字符串\n|cff00ff00右鍵|r导出到|cffff0000wowhead/nfu|r网页链接";
+L.SaveButton = "|cff00ff00左鍵|r保存天賦设置\n|cff00ff00右鍵|r加載保存的天賦\n|cff00ff00ALT+右鍵|r加載其它角色天賦\n|cff00ff00子菜單中Shift+左鍵|r删除天賦";
+L.SendButton = "|cff00ff00左鍵|r发送天賦到聊天\n|cff00ff00右鍵|r查看最近聊天中的天賦";
+L.EquipmentFrameButton = "打開裝備查看";
 
-L.TalentFrameCallButton = "開啓ala天賦仿真器";
-L.TalentFrameCallButtonString = "仿真器";
+L.TalentFrameCallButton = "開啓ala天賦模擬器";
+L.TalentFrameCallButtonString = "模擬器";
 L.CurRank = "當前等級";
 L.NextRank = "下一等級";
 L.MaxRank = "最高等級";
@@ -88,7 +88,7 @@ L.InsepctKey_ALT = "按住ALT鍵顯示觀察按鈕";
 L.InsepctKey_CTRLK = "按住CTRL鍵顯示觀察按鈕";
 L.InsepctKey_SHIFT = "按住SHIFT鍵顯示觀察按鈕";
 
-L.DBIcon_Text = "|cff00ff00左鍵|r新建仿真器\n|cff00ff00右鍵|r打開成員檢查";
+L.DBIcon_Text = "|cff00ff00左鍵|r新建模擬器\n|cff00ff00右鍵|r打開成員檢查";
 L.SpellListFrameGTTSpellLevel = "技能等級: ";
 L.SpellListFrameGTTReqLevel = "需要等級: ";
 
@@ -106,6 +106,9 @@ L.DATA = {
 	WARLOCK = "術士",
 	WARRIOR = "戰士",
 
+	[398] = "鮮血",
+	[399] = "冰霜",
+	[400] = "邪惡",
 	[283] = "平衡",
 	[281] = "野性戰鬥",
 	[282] = "恢復",
@@ -199,3 +202,7 @@ L["TalentDB Error : DB SIZE IS NOT EQUAL TO TalentFrame SIZE."] = "數據錯誤:
 
 
 L.PopupQuery = "查詢天賦";
+
+--	emulib
+L["WOW VERSION"] = "不是當前版本客戶端的天賦";
+L["NO DECODER"] = "無法解析天賦數據";

@@ -1,6 +1,6 @@
 ﻿## Interface: 30400
 ## Author: Lag
-## Version: v3.0.0-beta1
+## Version: v3.0.0-beta2
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Dungeons and Raids]|r
