@@ -19,6 +19,9 @@ function ClassModConfigFunc()
 		ENABLE_ASPECT_BAR = "启用守护动作条";
 		ENABLE_ASPECT_BAR_TOOLTIP= "在经验条上方额外显示守护动作条";
 
+		ENABLE_RUNE_ENHANCE = "启用符文条增强";
+		UNLOCK_RUNEFRAME = "解锁符文条";
+
 		ENABLE_MISDIRECT = "误导提示";
 		ENABLE_MISDIRECT_TOOLTIP= "以喊话的方式提示误导";
 
@@ -71,6 +74,9 @@ function ClassModConfigFunc()
 		ENABLE_ASPECT_BAR = "啟用守護動作條";
 		ENABLE_ASPECT_BAR_TOOLTIP= "在經驗條上方額外顯示獵人守護動作條";
 
+		ENABLE_RUNE_ENHANCE = "啟用符文條增強";
+		UNLOCK_RUNEFRAME = "解锁符文條";
+
 		ENABLE_MISDIRECT = "誤導提示";
 		ENABLE_MISDIRECT_TOOLTIP= "以喊話的方式誤導提示";
 
@@ -112,6 +118,9 @@ function ClassModConfigFunc()
 		BIGFOOT_CLASS_MOD = "Class Assist";
 		ENABLE_AIMED_SHOT = "Enable Auto Shot Timer";
 		ENABLE_ASPECT_BAR = "Enable Aspect Bar";
+
+		ENABLE_RUNE_ENHANCE = "Enable Enhanced Rune Frame";
+		UNLOCK_RUNEFRAME = "Unlock Rune Frame";
 
 		ENABLE_MISDIRECT = "Yell when cast misdirect";
 		AJUST_CAST_POSITION = "Ajust position";
@@ -567,6 +576,89 @@ function ClassModConfigFunc()
 					end
 				end
 			end
+		);
+	end
+
+	if playerclass == "DEATHKNIGHT" and IsConfigurableAddOn("BFClassMods") then
+		ModManagement_RegisterMod(
+			"BigFootClassMod",
+			CLASS_MOD_PATH,
+			BIGFOOT_CLASS_MOD
+		);
+		ModManagement_RegisterCheckBox(
+			"BigFootClassMod",
+			ENABLE_RUNE_ENHANCE,
+			nil,
+			"EnableRuneFrame",
+			1,
+			function (arg)
+				if (arg == 1) then
+					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
+						BigFoot_LoadAddOn("BFClassMods");
+					end
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneFrame(true)
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneFrame(false)
+					end
+				end
+			end
+		);
+		ModManagement_RegisterCheckBox(
+			"BigFootClassMod",
+			UNLOCK_RUNEFRAME,
+			nil,
+			"UnlockRuneAnchorPoint",
+			1,
+			function (arg)
+				if (arg == 1) then
+					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
+						BigFoot_LoadAddOn("BFClassMods");
+					end
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneHeader(true)
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneHeader(false)
+					end
+				end
+			end,
+			1
+		)
+		ModManagement_RegisterCheckBox(
+			"BigFootClassMod",
+			ENABLE_ATTACK_TIMER,
+			ENABLE_ATTACK_TIMER_TOOLTIP,
+			"EnableAttackTimer",
+			1,
+			function (arg)
+				if (arg == 1) then
+					if (not BigFoot_IsAddOnLoaded("AttackTimer")) then
+						BigFoot_LoadAddOn("AttackTimer");
+					end
+					if (BigFoot_IsAddOnLoaded("AttackTimer")) then
+						AttackTimer_Toggle(true);
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("AttackTimer")) then
+						AttackTimer_Toggle(false);
+					end
+				end
+			end
+		);
+		ModManagement_RegisterButton(
+			"BigFootClassMod",
+			AJUST_CAST_POSITION,
+			function ()
+				if (BigFoot_IsAddOnLoaded("AttackTimer")) then
+					AttackTimer_AjustPosition();
+				end
+			end,
+			nil,
+			1
 		);
 	end
 
