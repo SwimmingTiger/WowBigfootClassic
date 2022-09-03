@@ -84,7 +84,7 @@ local SHORT_NAMES = {
 local SEARCH_MATCH = {['5H'] = {activityId = 'Dungeon', search = '英雄', input = '5H', name = '5H'}}
 local AVAILABLE_ACTIVITY = {}
 
-local PROJECTS = {[2] = {[2] = true}, [5] = {[2] = true, [5] = true}}
+local PROJECTS = {[2] = {[2] = true}, [5] = {[2] = true, [5] = true}, [11] = {[2] = true,[5] = true,[11] = true}}
 
 ---@class InstanceBuilder
 local InstanceBuilder = {projectId = nil, phase = nil}
