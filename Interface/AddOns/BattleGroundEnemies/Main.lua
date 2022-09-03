@@ -7,7 +7,7 @@ local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local LibChangelog = LibStub("LibChangelog")
 
 local IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
-local IsTBCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local IsTBCC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
 

@@ -125,7 +125,7 @@ end
 Lib.gameExpansion = ({
     [WOW_PROJECT_MAINLINE] = "retail",
     [WOW_PROJECT_CLASSIC] = "classic",
-    [WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5] = "tbc"
+    [WOW_PROJECT_WRATH_CLASSIC or 5] = "tbc"
 })[WOW_PROJECT_ID]
 
 -- How long it takes for a DR to expire, in seconds.
