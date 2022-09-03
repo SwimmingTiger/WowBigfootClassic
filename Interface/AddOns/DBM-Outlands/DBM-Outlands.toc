@@ -1,9 +1,13 @@
 ## Interface: 30400
 ## X-Min-Interface: 20501
-## Version: 2.5.24
+## X-Min-Interface-Wrath: 30400
+## Version: 1cfb739
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Outlands|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领(外域)|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0世界首领(外域)|r
+## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0아웃랜드|r
+## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Scherbenwelt|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0外域|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0外域|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Запределье|r
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
 ## SavedVariables: DBMOutlands_AllSavedVars
@@ -21,12 +25,14 @@
 ## X-Curse-Project-ID: 3358
 ## X-WoWI-ID: 8814
 ## X-Wago-ID: qv633o6b
-## X-Revision: BigFoot
 
 localization.en.lua
+localization.de.lua
+localization.es.lua
 localization.tw.lua
 localization.cn.lua
-
+localization.ru.lua
+localization.kr.lua
 Maulgar.lua
 Gruul.lua
 Magtheridon.lua
