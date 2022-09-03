@@ -1,7 +1,5 @@
 local addonName, addon = ...
 
-if WOW_PROJECT_ID ~= WOW_PROJECT_BURNING_CRUSADE_CLASSIC then return end
-
 local BUFF_DEFENSIVE = "buffs_defensive"
 local BUFF_OFFENSIVE = "buffs_offensive"
 local BUFF_OTHER = "buffs_other"
@@ -124,14 +122,6 @@ addon.Spells = {
     [15752] = { type = INTERRUPT, duration = 10 }, -- Linken's Boomerang Disarm
     [19244] = { type = INTERRUPT, duration = 5 }, -- Spell Lock - Rank 1 (Warlock)
         [19647] = { parent = 19244, duration = 6 }, -- Spell Lock - Rank 2 (Warlock)
-    [8042] = { type = INTERRUPT, duration = 2 }, -- Earth Shock (Shaman)
-        [8044] = { parent = 8042 },
-        [8045] = { parent = 8042 },
-        [8046] = { parent = 8042 },
-        [10412] = { parent = 8042 },
-        [10413] = { parent = 8042 },
-        [10414] = { parent = 8042 },
-        [25454] = { parent = 8042 },
     [13491] = { type = INTERRUPT, duration = 5 }, -- Iron Knuckles
     [16979] = { type = INTERRUPT, duration = 4 }, -- Feral Charge (Druid)
     [2139] = { type = INTERRUPT, duration = 8 }, -- Counterspell (Mage)
@@ -152,6 +142,7 @@ addon.Spells = {
 
     -- Death Knight
 
+    [45524] = { type = ROOT }, -- Chains of Ice
     [47476] = { type = CROWD_CONTROL, },  -- Strangulate
     [47481] = { type = CROWD_CONTROL, },  -- Gnaw
     [47484] = { type = BUFF_DEFENSIVE, }, -- Huddle (Ghoul)
@@ -167,7 +158,7 @@ addon.Spells = {
 
     -- WoTLK
     [20711] = { type = BUFF_DEFENSIVE, },  -- Spirit of Redemption
-    [47585] = { type = BUFF_DEFENSIVE, },  -- Dispersion
+    [47585] = { type = IMMUNITY, },  -- Dispersion
     [47788] = { type = BUFF_DEFENSIVE, },  -- Guardian Spirit
     [48066] = { type = BUFF_OTHER, }, -- Power Word: Shield
     [64044] = { type = CROWD_CONTROL, }, -- Psychic Horror (Horrify)
@@ -197,22 +188,14 @@ addon.Spells = {
         [10888] = { parent = 8122 },
         [10890] = { parent = 8122 },
     [10060] = { type = BUFF_OFFENSIVE }, -- Power Infusion
-    [15269] = { type = CROWD_CONTROL }, -- Blackout
     [15487] = { type = CROWD_CONTROL }, -- Silence
     [14892] = { type = BUFF_DEFENSIVE }, -- Inspiration
         [15362] = { parent = 14892 },
         [15363] = { parent = 14892 },
-    [2651] = { type = BUFF_DEFENSIVE }, -- Elune's Grace
     [6346] = { type = BUFF_DEFENSIVE }, -- Fear Ward
     [9484] = { type = CROWD_CONTROL }, -- Shackle Undead
         [9485] = { parent = 9484 },
         [10955] = { parent = 9484 },
-    [44041] = { type = ROOT }, -- Chastise
-        [44043] = { parent = 44041 },
-        [44044] = { parent = 44041 },
-        [44045] = { parent = 44041 },
-        [44046] = { parent = 44041 },
-        [44047] = { parent = 44041 },
     [27827] = { type = IMMUNITY }, -- Spirit of Redemption
     [33206] = { type = BUFF_DEFENSIVE }, -- Pain Suppression
     [14751] = { type = BUFF_DEFENSIVE }, -- Inner Focus
@@ -262,7 +245,9 @@ addon.Spells = {
         [47847] = { parent = 30283 },
     [43523] = { type = CROWD_CONTROL }, -- Unstable Affliction
         [31117] = { parent = 43523 },
-    [30300] = { type = IMMUNITY_SPELL }, -- Nether Protection
+    [30299] = { type = BUFF_DEFENSIVE }, -- Nether Protection
+        [30301] = { parent = 30299 },
+        [30302] = { parent = 30399 },
     [18708] = { type = BUFF_DEFENSIVE }, -- Fel Domination
     [32752] = { type = CROWD_CONTROL }, -- Summoning Disorientation
     [4511] = { type = IMMUNITY }, -- Phase Shift
@@ -352,15 +337,12 @@ addon.Spells = {
     [1513] = { type = CROWD_CONTROL }, -- Scare Beast
         [14326] = { parent = 1513 },
         [14327] = { parent = 1513 },
-    [19410] = { type = CROWD_CONTROL }, -- Concussive Shot Stun
-        [28445] = { parent = 19410 },
     [3045] = { type = BUFF_OFFENSIVE }, -- Rapid Fire
-    [19263] = { type = BUFF_DEFENSIVE }, -- Deterrence
+    [19263] = { type = IMMUNITY }, -- Deterrence
     [19574] = { type = BUFF_OFFENSIVE }, -- Bestial Wrath
     [3355] = { type = CROWD_CONTROL }, -- Freezing Trap
         [14308] = { parent = 3355 },
         [14309] = { parent = 3355 },
-    [19229] = { type = ROOT }, -- Wing Clip Root
     [19306] = { type = ROOT }, -- Counterattack Root
         [20909] = { parent = 19306 },
         [20910] = { parent = 19306 },
@@ -495,6 +477,8 @@ addon.Spells = {
         [6131] = { parent = 122 },
         [10230] = { parent = 122 },
         [27088] = { parent = 122 },
+        [42917] = { parent = 122 },
+        [55080] = { parent = 122 }, -- Shattered Barrier
     [12042] = { type = BUFF_OFFENSIVE }, -- Arcane Power
     [45438] = { type = IMMUNITY }, -- Ice Block
     [12051] = { type = BUFF_OFFENSIVE }, -- Evocation
