@@ -222,7 +222,7 @@ end
 
 function Mapster:HelpPlate_Show(plate, frame)
 	if frame == WorldMapFrame then
-		HelpPlate:SetScale(db.scale or 1)	--bf@178.com
+		HelpPlate:SetScale(db.scale)
 		HelpPlate.__Mapster = true
 	end
 end
