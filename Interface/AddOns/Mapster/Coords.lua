@@ -23,7 +23,7 @@ local db
 local defaults = {
 	profile = {
 		accuracy = 1,
-		fontSize = 11,
+		fontSize = 14,		-- bf@178.com
 	}
 }
 

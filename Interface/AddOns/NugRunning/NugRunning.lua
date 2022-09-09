@@ -164,7 +164,7 @@ local defaults = {
             point = "CENTER",
             parent = "UIParent",
             to = "CENTER",
-            x = 0,
+            x = 160,		-- bf@178.com
             y = 0,
         },
         secondary = {
@@ -1058,15 +1058,16 @@ function NugRunning.SetUnitAuraValues(self, timer, spellNameOrID, name, icon, co
                             timer:SetColor(helpers.GetGradientColor(opts.color2, opts.color, count/max))
                         end
                         timer:SetCharge(count)
-                    elseif not timer.timeless then
+                    elseif not timer.opts.timeless then
                         timer:SetCount(count)
 
-                        if duration == 0 then
+                        if duration <= 0 then
                             timer.timeless = true
                             timer:ToInfinite()
                             timer:UpdateMark()
                             NugRunning:ArrangeTimers()
                         else
+                            timer.timeless = false
                             timer.fixedoffset = timer.opts.fixedlen and duration - timer.opts.fixedlen or 0
                             local oldExpTime = timer.endTime
                             timer:SetTime(expirationTime - duration,expirationTime, timer.fixedoffset)

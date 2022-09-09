@@ -46,6 +46,47 @@ local function make_label(name, parent, template)
     return label
 end
 
+local function make_editbox_with_button(editName, buttonName, parent)
+    local editbox = CreateFrame("EditBox", editName, parent)
+    editbox:SetHeight(32)
+    editbox:SetWidth(200)
+    editbox:SetAutoFocus(false)
+    editbox:SetFontObject('GameFontHighlightSmall')
+    editbox.type = "editbox"
+
+    local left = editbox:CreateTexture(nil, "BACKGROUND")
+    left:SetWidth(8)
+    left:SetHeight(20)
+    left:SetPoint("LEFT", -5, 0)
+    left:SetTexture("Interface\\Common\\Common-Input-Border")
+    left:SetTexCoord(0, 0.0625, 0, 0.625)
+
+    local right = editbox:CreateTexture(nil, "BACKGROUND")
+    right:SetWidth(8)
+    right:SetHeight(20)
+    right:SetPoint("RIGHT", 0, 0)
+    right:SetTexture("Interface\\Common\\Common-Input-Border")
+    right:SetTexCoord(0.9375, 1, 0, 0.625)
+
+    local center = editbox:CreateTexture(nil, "BACKGROUND")
+    center:SetHeight(20)
+    center:SetPoint("RIGHT", right, "LEFT", 0, 0)
+    center:SetPoint("LEFT", left, "RIGHT", 0, 0)
+    center:SetTexture("Interface\\Common\\Common-Input-Border")
+    center:SetTexCoord(0.0625, 0.9375, 0, 0.625)
+
+    editbox:SetScript("OnEscapePressed", editbox.ClearFocus)
+    editbox:SetScript("OnEnterPressed", editbox.ClearFocus)
+    editbox:SetScript("OnEditFocusGained", editbox.HighlightText)
+
+    local button = CreateFrame("Button", buttonName, editbox, "UIPanelButtonTemplate")
+    button:Show()
+    button:SetHeight(22)
+    button:SetWidth(75)
+    button:SetPoint("LEFT", editbox, "RIGHT", 0, 0)
+    return editbox, button
+end
+
 function panel:CreateOptions()
     -- Ensure the panel isn't created twice (thanks haste)
     panel.initialized = true
@@ -109,6 +150,53 @@ function panel:CreateOptions()
 	self.stopcastingfix = make_checkbox("CliqueOptionsStopCastingFix", self)
     self.stopcastingfix.text:SetText(L["Attempt to fix the issue introduced in 4.3 with casting on dead targets"])
 
+    self.exportbindingslabel = make_label("CliqueOptionsExportBindingsLabel", self, "GameFontNormalSmall")
+    self.exportbindingslabel:SetText(L["Export bindings:"])
+    self.exportbindingseditbox, self.exportbindingsbutton = make_editbox_with_button("CliqueOptionsExportBindingsEditbox", "CliqueOptionsExportBindingsEditboxButton", self)
+
+    self.exportbindingsbutton:SetText(L["Generate"])
+    self.exportbindingsbutton:SetScript("OnClick", function(self, button)
+        local payload = addon:GetExportString()
+        local editbox = self:GetParent()
+        editbox:SetText(payload)
+        editbox:SetFocus()
+        editbox:HighlightText()
+    end)
+
+    self.importbindingslabel = make_label("CliqueOptionsImportBindingsLabel", self, "GameFontNormalSmall")
+    self.importbindingslabel:SetText(L["Import bindings:"])
+    local importEditbox, importButton = make_editbox_with_button("CliqueOptionsImportBindingsEditbox", "CliqueOptionsImportBindingsEditboxButton", self)
+    self.importbindingseditbox, self.importbindingsbutton = importEditbox, importButton
+    self.importbindingseditbox:SetScript("OnTextChanged", function(self, userInput)
+        importButton.validated = false
+        importButton:SetText(L["Validate"])
+    end)
+
+    self.importbindingsbutton.validated = false
+    self.importbindingsbutton:SetText(L["Validate"])
+    self.importbindingsbutton:SetScript("OnClick", function(self, button)
+        if self.validated then
+            if not InCombatLockdown() then
+                addon:ImportBindings(self.bindingData)
+            end
+            self:SetText(L["Success!"])
+            importEditbox:SetText("")
+        else
+            local editbox = self:GetParent()
+            local payload = editbox:GetText()
+
+            local bindingData = addon:DecodeExportString(payload)
+            if bindingData then
+                self:SetText(L["Import"])
+                self.validated = true
+                self.bindingData = bindingData
+            else
+                self:SetText(L["Invalid"])
+                self.validated = false
+            end
+        end
+    end)
+
     -- Collect and anchor the bits together
     table.insert(bits, self.updown)
     table.insert(bits, self.fastooc)
@@ -123,13 +211,25 @@ function panel:CreateOptions()
     table.insert(bits, self.profilelabel)
     table.insert(bits, self.profiledd)
 
+    table.insert(bits, self.exportbindingslabel)
+    table.insert(bits, self.exportbindingseditbox)
+
+    table.insert(bits, self.importbindingslabel)
+    table.insert(bits, self.importbindingseditbox)
+
     bits[1]:SetPoint("TOPLEFT", 5, -5)
 
     for i = 2, #bits, 1 do
         if bits[i].type == "label" then
-            bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", 5, -5)
+            if bits[i-1].type == "editbox" then
+                bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", -15, -5)
+            else
+                bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", 5, -5)
+            end
         elseif bits[i].type == "dropdown" then
             bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", -5, -5)
+        elseif bits[i].type == "editbox" then
+            bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", 15, -5)
         else
             bits[i]:SetPoint("TOPLEFT", bits[i-1], "BOTTOMLEFT", 0, -5)
         end

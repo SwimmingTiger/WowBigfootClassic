@@ -31,8 +31,8 @@ local PRICE_INFO_LIST = {
 	-- pvp
 	["honor"] = { currencyID = 1901 }, -- Honor
 	["arena"] = { currencyID = 1900 },  -- Arena
-	["honorH"] = { currencyID = 1901 }, -- Honor / Horde
-	["honorA"] = { currencyID = 1901 }, -- Honor / Alli
+	--["honorH"] = { currencyID = 1901 }, -- Honor / Horde
+	--["honorA"] = { currencyID = 1901 }, -- Honor / Alli
 	["pvpAlterac"] = { itemID = 20560 }, -- Alterac Valley Mark of Honor
 	["pvpWarsong"] = { itemID = 20558 }, -- Warsong Gulch Mark of Honor
 	["pvpArathi"] = { itemID = 20559 }, -- Arathi Basin Mark of Honor
@@ -40,6 +40,20 @@ local PRICE_INFO_LIST = {
 
     --- Wrath
     ["championsSeal"] = { currencyID = 241 }, -- Champion's Seal
+
+    ["EmblemOfHeroism"] = { currencyID = 101 }, -- Emblem of Heroism
+    ["EmblemOfValor"] = { currencyID = 102 }, -- Emblem of Valor
+    ["EmblemOfTriumph"] = { currencyID = 301 }, -- Emblem of Triumph
+    ["EmblemOfConquest"] = { currencyID = 221 }, -- Emblem of Conquest
+    ["EmblemOfFrost"] = { currencyID = 341 }, -- Emblem of Frost
+
+    ["cpvpAlterac"] = { currencyID = 121 }, -- Alterac Valley Mark of Honor
+	["cpvpWarsong"] = { currencyID = 125 }, -- Warsong Gulch Mark of Honor
+	["cpvpArathi"] = { currencyID = 122 }, -- Arathi Basin Mark of Honor
+	["cpvpEye"] = { currencyID = 123 }, -- Eye of the Storm Mark of Honor
+	["cpvpWintergrasp"] = { currencyID = 126 }, -- Wintergrasp Mark of Honor
+	["cpvpIsle"] = { currencyID = 321 }, -- Isle of Conquest Mark of Honor
+	["cpvpStrand"] = { currencyID = 124 }, -- Strand of the Ancients Mark of Honor
 }
 
 local VENDOR_PRICE_FORMAT = {}
@@ -52,40 +66,6 @@ for k, v in pairs(PRICE_INFO_LIST) do
             VENDOR_PRICE_FORMAT[currencyInfo.iconFileID] = k..":%d"
         end
     end
-end
-
-local VENDOR_LIST_I = {
-    -- # Badge of Justice
-    18525,
-    -- # PvP
-    -- Alliance
-    12784, 12785, 12783, 12781, 12782, 13217,
-    -- Horde
-    12794, 12795, 12793, 12796, 12792, 13219, 14581,
-    --- Arena
-    -- 20278, 27668>
-    23367, -- Grella <Skyguard Quartermaster>
-    18382, -- Mycah <Sporeggar Quartermaster> - glowcap
-    23428, -- Jho'nass <Ogri'la Quartermaster> - Apexis
-    19773, -- Spirit Sage Zran - spirit shards
-    20240, -- Trader Narasu <Kurenai Quartermaster> / Alli
-    17904, -- Fedryen Swiftspear <Cenarion Expedition Quartermaster>
-    20241, -- Horde
-    -- Warsong
-    14753, 14754, -- Illiyana Moonblaze <Silverwing Supply Officer> & Kelm Hargunth <Warsong Supply Officer>
-    -- Arathi
-    15127, 15126,
-    -- Arena
-    27668, 12777,
-    --Brewfest
-    24495, 23710,
-    -- ## Wrath
-    34772, -- The Sunreavers
-    34881, -- The Silver Covenant
-}
-local VENDOR_LIST = {}
-for i = 1, #VENDOR_LIST_I do
-    VENDOR_LIST[ VENDOR_LIST_I[i] ] = true
 end
 
 -- updated with script
@@ -2228,6 +2208,8 @@ end
 --################################
 -- Vendor scan
 --################################
+local VendorLockList = {}
+local SourcesAddon
 local UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant =
       UnitGUID, GetMerchantNumItems, GetMerchantItemID, GetMerchantItemCostInfo, GetMerchantItemCostItem, GetItemInfoInstant
 
@@ -2242,27 +2224,29 @@ function VendorPrice.ScanShownVendor()
     local targetGUID = UnitGUID("target")
     if not targetGUID then return end
     local npcID = GetNpcIDFromGuid(targetGUID)
-    if not npcID or not VENDOR_LIST[npcID] then return end
-    -- print("Vendor Scanned", npcID)
+    if not npcID or VendorLockList[npcID] then return end
+    if not SourcesAddon then SourcesAddon = AtlasLoot.Addons:GetAddon("Sources") end
 
-    for i = 1, GetMerchantNumItems() do
-        local vItemID = GetMerchantItemID(i)
+    for itemNum = 1, GetMerchantNumItems() do
+        local vItemID = GetMerchantItemID(itemNum)
         local itemCost = ""
-        for j = 1, GetMerchantItemCostInfo(i) do
-            local itemTexture, itemValue, itemLink, currencyName = GetMerchantItemCostItem(i, j)
+        for costNum = 1, GetMerchantItemCostInfo(itemNum) do
+            local itemTexture, itemValue, itemLink, currencyName = GetMerchantItemCostItem(itemNum, costNum)
             if itemLink then
-                local bItemID = GetItemInfoInstant(itemLink)
-                local fString
-                if VENDOR_PRICE_FORMAT[bItemID] then
-                    fString = VENDOR_PRICE_FORMAT[bItemID]
+                local costItemID = GetItemInfoInstant(itemLink)
+                local formatString
+                if VENDOR_PRICE_FORMAT[costItemID] then
+                    formatString = VENDOR_PRICE_FORMAT[costItemID]
                 elseif VENDOR_PRICE_FORMAT[itemTexture] then
-                    fString = VENDOR_PRICE_FORMAT[itemTexture]
+                    formatString = VENDOR_PRICE_FORMAT[itemTexture]
+                else
+                    break -- end here as there is a unknown currency
                 end
-                if fString then
+                if formatString then
                     if itemCost == "" then
-                        itemCost = format(fString, itemValue or 0)
+                        itemCost = format(formatString, itemValue or 0)
                     else
-                        itemCost = itemCost..":"..format(fString, itemValue or 0)
+                        itemCost = itemCost..":"..format(formatString, itemValue or 0)
                     end
                 end
             end
@@ -2271,7 +2255,12 @@ function VendorPrice.ScanShownVendor()
         if itemCost ~= "" then
             AtlasLoot.dbGlobal.VendorPrice[vItemID] = itemCost
         end
+        if SourcesAddon then
+            SourcesAddon:ItemSourcesUpdated(vItemID)
+        end
     end
+
+    VendorLockList[npcID] = true
 end
 
 VendorPrice.EventFrame = CreateFrame("FRAME")

@@ -3,7 +3,7 @@
 ## Title-zhCN: [大脚][集]一键施法
 ## Title-zhTW: [大腳][集]一鍵施法
 ## Author: Cladhaire
-## Version: v3.2.0
+## Version: v3.3.0
 ## Notes: |cffbc8f8fSimply powerful click-casting interface.|r
 ## Notes-zhCN: |cff00ff00Clique|r|n|cffbc8f8f简单而强大的点击施法工具。|r
 ## Notes-zhTW: |cff00ff00Clique|r|n|cffbc8f8f簡單而強大的點擊施法工具。|r

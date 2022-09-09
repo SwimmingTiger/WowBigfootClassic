@@ -2696,7 +2696,12 @@ MT.BuildEnv('UI');
 						end
 					end
 				else
-					MT.ImportCode(Frame, val[2]);
+					-- MT.ImportCode(Frame, val[2]);
+					local Tick = MT.GetUnifiedTime();
+					local name = val[3];
+					VT.QuerySent[name] = Tick;
+					VT.AutoShowEquipmentFrameOnComm[name] = Tick;
+					return VT.__emulib.CHAT_MSG_ADDON(VT.__emulib.CT.COMM_PREFIX, val[2], "WHISPER", name);
 				end
 			end,
 			num = 0,

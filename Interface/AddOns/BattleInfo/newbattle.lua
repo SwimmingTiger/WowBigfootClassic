@@ -153,7 +153,7 @@ end
 RegEvent("ADDON_LOADED", function()
     C_ChatInfo.RegisterAddonMessagePrefix("BATTLEINFO")
 
-    -- hooksecurefunc("BattlefieldFrame_Update", UpdateInstanceButtonText)
+    hooksecurefunc("BattlefieldFrame_UpdateStatus", UpdateInstanceButtonText)
 
     local joinqueuebtn
     do

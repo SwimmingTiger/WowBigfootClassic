@@ -40,11 +40,14 @@ end
 
 local function SetupSpellNames()
     BINDING_NAME_TOTEMTIMERSLIGHTNINGSHIELD = SpellNames[SpellIDs.LightningShield]      
-    BINDING_NAME_TOTEMTIMERSWATERSHIELD = SpellNames[SpellIDs.WaterShield]
-    BINDING_NAME_TOTEMTIMERSTOTEMICCALL = SpellNames[SpellIDs.TotemicCall]
+    BINDING_NAME_TOTEMTIMERSWATERSHIELD = SpellNames[SpellIDs.WaterShield] or "Water Shield"
+    BINDING_NAME_TOTEMTIMERSTOTEMICCALL = SpellNames[SpellIDs.TotemicCall] or "Totemic Recall"
     BINDING_NAME_TOTEMTIMERSEARTHSHOCK = SpellNames[SpellIDs.EarthShock]
 	BINDING_NAME_TOTEMTIMERSFLAMESHOCK = SpellNames[SpellIDs.FlameShock]
 	BINDING_NAME_TOTEMTIMERSFROSTSHOCK = SpellNames[SpellIDs.FrostShock]
+	BINDING_NAME_TOTEMTIMERSCALLOFELEMENTS = SpellNames[SpellIDs.CallOfElements] or "Call of the Elements"
+	BINDING_NAME_TOTEMTIMERSCALLOFANCESTORS = SpellNames[SpellIDs.CallofAncestors] or "Call of the Ancestors"
+	BINDING_NAME_TOTEMTIMERSCALLOFSPIRITS = SpellNames[SpellIDs.CallOfSpirits] or "Call of the Spirits"
 end
 
 local menubutton = "Button4"
@@ -95,6 +98,15 @@ local TotemTimers_Bindings = {
 	end,
 	["TOTEMTIMERSTOTEMICCALL"] = function(key)
 		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.TotemicCall])
+	end,
+	["TOTEMTIMERSCALLOFELEMENTS"] = function(key)
+		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.CallOfElements])
+	end,
+	["TOTEMTIMERSCALLOFANCESTORS"] = function(key)
+		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.CallOfAncestors])
+	end,
+	["TOTEMTIMERSCALLOFSPIRITS"] = function(key)
+		SetOverrideBindingSpell(TotemTimersFrame, false, key, SpellNames[SpellIDs.CallOfSpirits])
 	end,
 	["TOTEMTIMERSEARTHSHIELDLEFT"] = function(key)
 		SetOverrideBindingClick(TotemTimersFrame, false, key, buttonnames["es"])

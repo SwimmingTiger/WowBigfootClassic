@@ -57,11 +57,15 @@ local ITEM_COLOR = {
 
 function M:DisplayInvenrotyInfo(unit)
 	local unit = unit or "player";
+	self.tooltip2 = self.tooltip2 or CreateFrame("GameTooltip", "MerDurabilityTooltip", UIParent, "GameTooltipTemplate");
 	local button, count, c, m, p, hasItem, itemLink, repairCos, totalCos, quality, suffix, scan;
 	for i, v in ipairs(self.InventorySlots) do
 		suffix, scan = strsplit("|", v);
 		button = (unit == "player") and getglobal("Character" .. suffix) or getglobal("Inspect" .. suffix);
-		count = getglobal(button:GetName() .. "Count");
+		count = button.Count;
+		count:Hide()
+		button.durability = ""
+		button.border:Hide();
 		self.tooltip2:SetOwner(UIParent, "ANCHOR_NONE");
 		self.tooltip2:ClearLines();
 		hasItem, _, repairCos = self.tooltip2:SetInventoryItem(unit, button:GetID());
@@ -83,27 +87,14 @@ function M:DisplayInvenrotyInfo(unit)
 						count:SetTextColor(1, 0, 0);
 					end
 					count:Show()
-				else
-					button.durability=""
-					count:Hide()
 				end
-			else
-				button.durability=""
-				count:Hide()
-
 			end
 			-- 高亮边框
 			quality = select(3, GetItemInfo(itemLink));
 			if (type(quality) == "number" and quality > 1) then
 				button.border:SetVertexColor(ITEM_COLOR[quality].r, ITEM_COLOR[quality].g, ITEM_COLOR[quality].b);
 				button.border:Show();
-			else
-				button.border:Hide();
 			end
-		else
-			button.durability=""
-			count:Hide()
-			button.border:Hide();
 		end
 	end
 	if totalCos == 0 then
@@ -115,11 +106,11 @@ function M:DisplayInvenrotyInfo(unit)
 end
 
 function M:DisplayInspectPaperDollFrame()
-	local button, count, hasItem, itemLink, repairCos, quality, suffix, scan;
+	local button, hasItem, itemLink, repairCos, quality, suffix, scan;
 	for i, v in ipairs(self.InventorySlots) do
 		suffix, scan = strsplit("|", v);
 		button = getglobal("Inspect" .. suffix);
-		count = getglobal(button:GetName() .. "Count");
+		button.border:Hide();
 		self.tooltip2:SetOwner(UIParent, "ANCHOR_NONE");
 		self.tooltip2:ClearLines();
 		hasItem, _, repairCos = self.tooltip2:SetInventoryItem(InspectFrame.unit, button:GetID());
@@ -130,13 +121,7 @@ function M:DisplayInspectPaperDollFrame()
 			if (type(quality) == "number" and quality > 1) then
 				button.border:SetVertexColor(ITEM_COLOR[quality].r, ITEM_COLOR[quality].g, ITEM_COLOR[quality].b);
 				button.border:Show();
-			else
-				button.border:Hide();
 			end
-		else
-			button.durability = ""
-			count:Hide()
-			button.border:Hide();
 		end
 	end
 end
@@ -146,31 +131,35 @@ local function CreateBorder(name, v)
 	button.border = button:CreateTexture(button:GetName() .. "Border", "OVERLAY");
 	button.border:SetAllPoints(button:GetNormalTexture());
 	button.border:SetTexture("Interface\\AddOns\\MerInspect\\Border");
-	local count = getglobal(button:GetName() .. "Count");
+	local count = button.Count;
 	count:ClearAllPoints();
 	count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, 3);
-	button.border:Hide();
+end
+
+local function createRepairCostFrame()
+	if MerRepairMoneyFrame then return end
+	local s;
+	for k, v in pairs(M.InventorySlots) do
+		s = strsplit("|", v);
+		CreateBorder("Character", s);
+	end
+	M.moneyFrame = CreateFrame("Frame", "MerRepairMoneyFrame", PaperDollFrame, "SmallMoneyFrameTemplate");
+	M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 24);
+
+	M.moneyFrame.title = M.moneyFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal");
+	M.moneyFrame.title:SetPoint("BOTTOMLEFT", M.moneyFrame, "TOPLEFT", -2, 2);
+	M.moneyFrame.title:SetText(Repair_Cost);
+
+	M.moneyFrame:SetScript("OnShow", function(self)
+		MoneyFrame_SetType(self,"STATIC");
+	end);
 end
 
 M:Init{
 	name = "MerInspect",
 	func = function()
-		M.tooltip2 = CreateFrame("GameTooltip", "MerDurabilityTooltip", UIParent, "GameTooltipTemplate");
-		local s;
-		for k, v in pairs(M.InventorySlots) do
-			s = strsplit("|", v);
-			CreateBorder("Character", s);
-		end
-		M.moneyFrame = CreateFrame("Frame", "MerRepairMoneyFrame", PaperDollFrame, "SmallMoneyFrameTemplate");
-		M.moneyFrame:SetPoint("BOTTOMLEFT", CharacterAttributesFrame, "TOPLEFT", 4, 24);
-
-		M.moneyFrame:SetScript("OnShow", function(self)
-			MoneyFrame_SetType(self,"STATIC");
-		end);
-		M.moneyFrame.title = M.moneyFrame:CreateFontString(nil, "ARTWORK", "GameFontNormal");
-		M.moneyFrame.title:SetPoint("BOTTOMLEFT", M.moneyFrame, "TOPLEFT", -2, 2);
-		M.moneyFrame.title:SetText(Repair_Cost);
 		__Secure:HookScript(PaperDollFrame,"OnShow", function()
+			createRepairCostFrame()
 			M:DisplayInvenrotyInfo();
 		end);
 		hooksecurefunc("SetItemButtonCount",function(button,...)
@@ -180,7 +169,9 @@ M:Init{
 				getglobal(button:GetName().."Count"):Show()
 			end
 		end);
+		local inspectFrame_Load
 		hooksecurefunc("InspectUnit",function(unit)
+			if inspectFrame_Load then return end
 			local s;
 			for k, v in pairs(M.InventorySlots) do
 				s = strsplit("|", v);
@@ -189,13 +180,33 @@ M:Init{
 			__Secure:HookScript(InspectPaperDollFrame,"OnShow", function()
 				M:DisplayInspectPaperDollFrame();
 			end);
+			inspectFrame_Load = true
+		end);
+		hooksecurefunc("PaperDollItemSlotButton_OnEvent",function(self, event, ...)
+			if event == "BAG_UPDATE_COOLDOWN" then
+				M:DisplayInvenrotyInfo()		-- 如果不执行，耐久度的提示会被游戏本身update掉
+			end
+		end);
+		local LibEvent = LibStub:GetLibrary("LibEvent.7000")
+		__Secure:HookScript(GearManagerDialog,"OnShow", function()
+			if PaperDollFrame.inspectFrame then
+				PaperDollFrame.inspectFrame:Hide();
+			end
+			LibEvent:trigger("TogglePlayerStatsFrame", PaperDollFrame, false)
+		end);
+		__Secure:HookScript(GearManagerDialog,"OnHide", function()
+			if PaperDollFrame.inspectFrame then
+				PaperDollFrame.inspectFrame:Show();
+			end
+			LibEvent:trigger("TogglePlayerStatsFrame", PaperDollFrame, true)
 		end);
 	end
 };
 
 M:RegisterEvent("UNIT_INVENTORY_CHANGED");
 function M:UNIT_INVENTORY_CHANGED(unit)
-	if ((unit == "player" or unit == InspectFrame.unit)) then
+	if ((unit == "player" or unit == InspectFrame and InspectFrame.unit)) then
+		createRepairCostFrame()
 		self:DisplayInvenrotyInfo(unit);
 	end
 end

@@ -117,7 +117,7 @@ function TotemTimers.CreateEarthShieldTracker()
         end
     end)
 
-    TotemTimers.EarthShieldTracker = earthshield
+    TotemTimers.EarthShieldTracker = earthshieldTimer
     TotemTimers.SetEarthShieldButtons()
 
 end
@@ -200,9 +200,9 @@ function TotemTimers.SetEarthShieldMainTankList()
         local b = 0
         for i = 1, 40 do
             local unit = "raid" .. i
-            if UnitExists(unit) then
+            if b < 5 and UnitExists(unit) then
                 if GetPartyAssignment("MAINTANK", unit)
-                        --[[or UnitGroupRolesAssigned(unit) == "TANK")]] and b < 4 then
+                        or UnitGroupRolesAssigned(unit) == "TANK" then
                     b = b + 1
                     earthshieldTimer.actionBar:AddSpell(SpellNames[SpellIDs.EarthShield])
                     SetUnit(unit, earthshieldTimer.actionBar.buttons[b])
@@ -227,7 +227,7 @@ function TotemTimers.ChangeEarthShieldTarget()
     end
 end
 
-local EarthShieldSpellName = TotemTimers.StripRank(SpellNames[SpellIDs.EarthShield])
+local EarthShieldSpellName = SpellNames[SpellIDs.EarthShield]
 
 local ESChargesOnly = false
 

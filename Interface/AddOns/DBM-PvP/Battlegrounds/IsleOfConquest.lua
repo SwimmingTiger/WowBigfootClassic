@@ -1,9 +1,10 @@
-if WOW_PROJECT_ID ~= (WOW_PROJECT_MAINLINE or 1) then -- Added in WotLK
+local wowTOC = DBM:GetTOC()
+if WOW_PROJECT_ID ~= (WOW_PROJECT_MAINLINE or 1) or (WOW_PROJECT_ID == 5 and wowTOC >= 30000) then -- Added in WotLK
 	return
 end
 local mod	= DBM:NewMod("z628", "DBM-PvP")
 
-mod:SetRevision("20210519214524")
+mod:SetRevision("20220901170634")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",

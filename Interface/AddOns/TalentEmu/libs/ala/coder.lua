@@ -2,7 +2,7 @@
 	alex/ALA @ 163UI
 --]]--
 
-local __version = 8;
+local __version = 9;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -12,13 +12,44 @@ if __coder ~= nil and __coder.__minor >= __version then
 	return;
 end
 
+local ISRETAIL = __ala_meta__.TOC_VERSION >= 90000;
+local ISCLASSIC = __ala_meta__.TOC_VERSION < 20000;
+local ISBCC = __ala_meta__.TOC_VERSION >= 20000 and __ala_meta__.TOC_VERSION < 30000;
+local ISWLK = __ala_meta__.TOC_VERSION >= 30000 and __ala_meta__.TOC_VERSION < 90000;
 local DEVELOPER;
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+if ISRETAIL then
+	DEVELOPER = {
+		--	Mainline
+		["Player-962-0509AC92"] = "B",	--	"燃烧之刃.ALEX.WARRIOR",
+		["Player-962-04FEC839"] = "B",	--	"燃烧之刃.ALEX.MAGE",
+		["Player-962-0509E004"] = "B",	--	"燃烧之刃.ALEX.PALADIN",
+		["Player-962-0509E001"] = "B",	--	"燃烧之刃.ALEX.DRUID",
+		["Player-962-0509E049"] = "B",	--	"燃烧之刃.ALEX.PRIEST",
+		--
+		["Player-962-0509ACEF"] = "G",	--	"燃烧之刃.ANDREA.MAGE",
+		["Player-962-0508A77F"] = "G",	--	"燃烧之刃.ANDREA.DRUID",
+		["Player-962-0508A6CC"] = "G",	--	"燃烧之刃.ANDREA.SHAMAN",
+		["Player-962-0508ADA1"] = "G",	--	"燃烧之刃.ANDREA.HUNTER",
+		["Player-962-0508AD8B"] = "G",	--	"燃烧之刃.ANDREA.WARRIOR",
+		["Player-962-0508ADDC"] = "G",	--	"燃烧之刃.ANDREA.PRIEST",
+		["Player-962-0508AD43"] = "G",	--	"燃烧之刃.ANDREA.PALADIN",
+		["Player-962-0508AD11"] = "G",	--	"燃烧之刃.ANDREA.ROGUE",
+		["Player-962-04FF445B"] = "G",	--	"燃烧之刃.ANDREA.PALADIN-MINUS",
+		["Player-962-0509EA70"] = "G",	--	"燃烧之刃.ANDREA.PRIEST-MINUS",
+		--
+		["Player-962-05469808"] = "B",	--	"金色平原.ALEX.WARRIOR"
+		["Player-962-04FEC839"] = "B",	--	"金色平原.ALEX.MAGE"
+		--
+		["Player-962-0509ACEF"] = "G",	--	"金色平原.ANDREA.MAGE"
+		["Player-962-0508A6CC"] = "G",	--	"金色平原.ANDREA.SHAMAN"
+		-- ["Player-962-0509ADA1"] = "G",	--	"金色平原.ANDREA.DRUID"
+	};
+elseif ISCLASSIC then
 	DEVELOPER = {
 		--	Classic
 		["Player-5376-05B22FA4"] = "B",	--	"哈霍兰.ALEX.PALADIN"
 	};
-elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+else
 	DEVELOPER = {
 		--	BCC
 		["Player-4497-0388473F"] = "B",	--	"碧玉矿洞.ALEX.WARRIOR"
@@ -68,35 +99,6 @@ elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 		["Player-4791-02139522"] = "G",	--	"碧空之歌.ANDREA.MAGE"
 		["Player-4791-02139923"] = "G",	--	"碧空之歌.ANDREA.WARLOCK"
 	};
-elseif WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-	DEVELOPER = {
-		--	Mainline
-		["Player-962-0509AC92"] = "B",	--	"燃烧之刃.ALEX.WARRIOR",
-		["Player-962-04FEC839"] = "B",	--	"燃烧之刃.ALEX.MAGE",
-		["Player-962-0509E004"] = "B",	--	"燃烧之刃.ALEX.PALADIN",
-		["Player-962-0509E001"] = "B",	--	"燃烧之刃.ALEX.DRUID",
-		["Player-962-0509E049"] = "B",	--	"燃烧之刃.ALEX.PRIEST",
-		--
-		["Player-962-0509ACEF"] = "G",	--	"燃烧之刃.ANDREA.MAGE",
-		["Player-962-0508A77F"] = "G",	--	"燃烧之刃.ANDREA.DRUID",
-		["Player-962-0508A6CC"] = "G",	--	"燃烧之刃.ANDREA.SHAMAN",
-		["Player-962-0508ADA1"] = "G",	--	"燃烧之刃.ANDREA.HUNTER",
-		["Player-962-0508AD8B"] = "G",	--	"燃烧之刃.ANDREA.WARRIOR",
-		["Player-962-0508ADDC"] = "G",	--	"燃烧之刃.ANDREA.PRIEST",
-		["Player-962-0508AD43"] = "G",	--	"燃烧之刃.ANDREA.PALADIN",
-		["Player-962-0508AD11"] = "G",	--	"燃烧之刃.ANDREA.ROGUE",
-		["Player-962-04FF445B"] = "G",	--	"燃烧之刃.ANDREA.PALADIN-MINUS",
-		["Player-962-0509EA70"] = "G",	--	"燃烧之刃.ANDREA.PRIEST-MINUS",
-		--
-		["Player-962-05469808"] = "B",	--	"金色平原.ALEX.WARRIOR"
-		["Player-962-04FEC839"] = "B",	--	"金色平原.ALEX.MAGE"
-		--
-		["Player-962-0509ACEF"] = "G",	--	"金色平原.ANDREA.MAGE"
-		["Player-962-0508A6CC"] = "G",	--	"金色平原.ANDREA.SHAMAN"
-		-- ["Player-962-0509ADA1"] = "G",	--	"金色平原.ANDREA.DRUID"
-	};
-else
-	DEVELOPER = {  };
 end
 local TITLELIST = {
 	B = IsAddOnLoaded("!!!163UI!!!") and "网易有爱开发者" or "夜空中最亮的星",
@@ -104,7 +106,7 @@ local TITLELIST = {
 	D = "网易有爱开发者",
 };
 local FILELIST;
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+if ISCLASSIC then
 	FILELIST = {
 		--	file, z, x, y, alpha, rotate
 		["*"] = { "spells/creature_spellportal_blue.m2", 4, 0, 1, 1, 0.0, },
@@ -250,7 +252,7 @@ if __coder ~= nil then
 		);
 		_DelayAgent:RegisterEvent("LOADING_SCREEN_DISABLED");
 	end
-	if __coder.__minor <= 7 then
+	if __coder.__minor <= 8 then
 		_HashMap();
 	end
 	__coder.__minor = __version;
@@ -266,7 +268,7 @@ end
 local UnitGUID, UnitIsPlayer = UnitGUID, UnitIsPlayer;
 local GameTooltip = GameTooltip;
 local _Wrap = nil;
-local _showWrap = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE;
+local _showWrap = not ISRETAIL;
 
 
 local function _Wrap_OnUpdate(_F, elasped)

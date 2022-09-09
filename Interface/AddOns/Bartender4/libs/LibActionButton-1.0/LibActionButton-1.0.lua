@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 83
+local MINOR_VERSION = 84
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -42,6 +42,7 @@ local str_match, format, tinsert, tremove = string.match, format, tinsert, tremo
 
 local WoWClassic = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 local WoWBCC = (WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
+local WoWWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
 
 local KeyBound = LibStub("LibKeyBound-1.0", true)
 local CBH = LibStub("CallbackHandler-1.0")
@@ -680,13 +681,15 @@ function InitializeEventHandler()
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_CHARGES")
 	lib.eventFrame:RegisterEvent("SPELL_UPDATE_ICON")
 	if not WoWClassic and not WoWBCC then
-		lib.eventFrame:RegisterEvent("ARCHAEOLOGY_CLOSED")
+		if not WoWWrath then
+			lib.eventFrame:RegisterEvent("ARCHAEOLOGY_CLOSED")
+			lib.eventFrame:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
+			lib.eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
+			lib.eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
+		end
 		lib.eventFrame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 		lib.eventFrame:RegisterEvent("UNIT_EXITED_VEHICLE")
 		lib.eventFrame:RegisterEvent("COMPANION_UPDATE")
-		lib.eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_SHOW")
-		lib.eventFrame:RegisterEvent("SPELL_ACTIVATION_OVERLAY_GLOW_HIDE")
-		lib.eventFrame:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
 	end
 
 	-- With those two, do we still need the ACTIONBAR equivalents of them?
@@ -1175,7 +1178,7 @@ function UpdateUsable(self)
 		end
 	end
 
-	if not WoWClassic and not WoWBCC and self._state_type == "action" then
+	if not WoWClassic and not WoWBCC and not WoWWrath and self._state_type == "action" then
 		local isLevelLinkLocked = C_LevelLink.IsActionLocked(self._state_action)
 		if not self.icon:IsDesaturated() then
 			self.icon:SetDesaturated(isLevelLinkLocked)
@@ -1573,7 +1576,7 @@ if WoWClassic then
 	end
 end
 
-if WoWClassic or WoWBCC then
+if WoWClassic or WoWBCC or WoWWrath then
 	-- disable loss of control cooldown on classic
 	Action.GetLossOfControlCooldown = function(self) return 0,0 end
 end
@@ -1658,7 +1661,7 @@ Custom.GetSpellId              = function(self) return nil end
 Custom.RunCustom               = function(self, unit, button) return self._state_action.func(self, unit, button) end
 
 --- WoW Classic overrides
-if WoWClassic or WoWBCC then
+if WoWClassic or WoWBCC or WoWWrath then
 	UpdateOverlayGlow = function() end
 end
 

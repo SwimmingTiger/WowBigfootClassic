@@ -28,7 +28,7 @@ local uireimp = __ala_meta__.uireimp;
 
 -->			upvalue
 	local type = type;
-	local next = next;
+	local next, unpack = next, unpack;
 	local tremove = tremove;
 	local _ = nil;
 
@@ -69,7 +69,7 @@ local uireimp = __ala_meta__.uireimp;
 			end
 		end
 	end
-	local menu = CreateFrame("BUTTON", nil, DropDownList1);
+	local menu = CreateFrame('BUTTON', nil, DropDownList1);
 	menu:SetFrameStrata("FULLSCREEN_DIALOG");
 	menu:SetClampedToScreen(false);
 	menu:Show();
@@ -111,7 +111,7 @@ local uireimp = __ala_meta__.uireimp;
 		which = nil;
 	end
 	function func.create(menu, id, x, y)
-		local button = CreateFrame("BUTTON", nil, menu);
+		local button = CreateFrame('BUTTON', nil, menu);
 		--button:SetFrameStrata("FULLSCREEN_DIALOG");
 		button:SetHeight(height);
 		--button:SetNormalTexture([[Interface\Buttons\UI-StopButton]]);

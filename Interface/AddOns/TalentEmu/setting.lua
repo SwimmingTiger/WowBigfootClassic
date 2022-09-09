@@ -109,7 +109,8 @@ MT.BuildEnv('SETTING');
 		end
 		VT.LOOT = DB.loot;
 		MT.MergeGlobal(DB);
-
+	end);
+	MT.RegisterOnLogin('SETTING', function(LoggedIn)
 		local LibStub = _G.LibStub;
 		if LibStub ~= nil then
 			--	DBICON
@@ -171,9 +172,6 @@ MT.BuildEnv('SETTING');
 					});
 				end
 		end
-
-	end);
-	MT.RegisterOnLogin('SETTING', function(LoggedIn)
 	end);
 
 -->

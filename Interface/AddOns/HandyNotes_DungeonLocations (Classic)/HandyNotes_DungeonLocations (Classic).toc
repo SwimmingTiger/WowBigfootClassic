@@ -1,11 +1,11 @@
 ## Interface: 30400
 ## Title: HandyNotes: DungeonLocations (Classic)
-## Version: 1.05-bcc
+## Version: 1.06-classic
 ## Notes: Shows locations of dungeon and raid entrances
 ## Author: Cali
 ## RequiredDeps: HandyNotes
 ## SavedVariables: HandyNotes_DungeonLocationsClassicDB
 ## X-Revision: BigFoot
 
-locales\bcc\Locales.xml
-bcc.lua
+locales\wrath\Locales.xml
+wrath.lua

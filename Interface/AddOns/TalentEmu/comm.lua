@@ -138,7 +138,8 @@ MT.BuildEnv('COMM');
 		local name = strmatch(msg, pattern_ERR_CHAT_PLAYER_NOT_FOUND_S);
 		if name ~= nil then
 			name = Ambiguate(name, 'none');
-			if VT.PrevQueryRequestSentTime[name] ~= nil then
+			local T = VT.PrevQueryRequestSentTime[name];
+			if T ~= nil and MT.GetUnifiedTime() - T < 4.0 then
 				return true, msg, ...;
 			end
 		end
@@ -175,6 +176,9 @@ MT.BuildEnv('COMM');
 			end
 		end,
 		OnGlyph = function(name, code, version, Decoder, overheard)
+			if DT.BUILD ~= "WRATH" then
+				return;
+			end
 			local data1, data2 = Decoder(code);
 			if data1 == nil and data2 == nil then
 				-- MT.Error("No GlyphSet 1");

@@ -152,7 +152,7 @@ DBM.DefaultOptions = {
 	CountdownVoice2 = "Kolt",
 	CountdownVoice3 = "Smooth",
 	PullVoice = "Corsica",
-	ChosenVoicePack2 = (GetLocale() == "enUS" or GetLocale() == "enGB") and "VEM" or "None",
+	ChosenVoicePack2 = (GetLocale() == "zhCN" or GetLocale() == "zhTW") and "Yike" or "None",	--bf@178.com
 	VPReplacesAnnounce = true,
 	VPReplacesSA1 = true,
 	VPReplacesSA2 = true,
@@ -179,7 +179,7 @@ DBM.DefaultOptions = {
 	WarningAlphabetical = true,
 	WarningShortText = true,
 	StripServerName = true,
-	ShowAllVersions = true,
+	ShowAllVersions = false,					--bf@178.com	2
 	ShowReminders = true,
 	ShowPizzaMessage = true,
 	ShowEngageMessage = true,

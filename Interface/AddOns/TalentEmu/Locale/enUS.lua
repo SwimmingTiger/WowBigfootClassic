@@ -51,7 +51,7 @@ L.ApplyTalentsButton_Notify = "Apply these talents?";
 L.ApplyTalentsFinished = "Talents applied";
 L.ImportButton = "Import from string or wowhead/nfu/yxrank url";
 L.ExportButton = "|cff00ff00LeftClick|r Export string\n|cff00ff00RightClick|r Export to |cffff0000wowhead/nfu|r url";
-L.SaveButton = "|cff00ff00LeftClick|r Save talents\n|cff00ff00RightClick|r Load saved talents\n|cff00ff00ALT+RightClick|rLoad talents of other characters\n|cff00ff00Shift and LeftClick in Menu|r Del";
+L.SaveButton = "|cff00ff00LeftClick|r Save talents\n|cff00ff00RightClick|r Load saved talents\n|cff00ff00ALT+RightClick|rLoad talents/glyphs/equip of other characters\n|cff00ff00Shift and LeftClick in Menu|r Del";
 L.SendButton = "|cff00ff00LeftClick|r Send talents to chat message\n|cff00ff00RightClick|r Browse talents in chat";
 L.EquipmentFrameButton = "Watch equipment";
 

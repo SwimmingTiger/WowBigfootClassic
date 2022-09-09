@@ -15,9 +15,9 @@ locales.lua
 event.lua
 options.lua
 utils.lua
-quickjoin.lua
+#quickjoin.lua
+#newbattle.lua
 widgetbar.lua
-newbattle.lua
 auto.lua
 map.lua
 stat.lua

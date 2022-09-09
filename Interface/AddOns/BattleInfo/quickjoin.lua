@@ -55,7 +55,7 @@ RegEvent("ADDON_LOADED", function()
                 local z,c = BattlefieldListScrollFrame:GetVerticalScrollRange(), GetNumBattlefields()
                 BattlefieldListScrollFrame:SetVerticalScroll(z * idx / (c-9))
                 SetSelectedBattlefield(idx)
-                -- BattlefieldFrame_Update()
+                BattlefieldFrame_UpdateStatus()
             else
                 b = RED_FONT_COLOR:WrapTextInColorCode(b)
 

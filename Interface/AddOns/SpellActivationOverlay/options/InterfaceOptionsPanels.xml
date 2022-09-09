@@ -1,0 +1,119 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+  <Script file="InterfaceOptionsPanels.lua"/>
+
+  <Frame name="SpellActivationOverlayOptionsPanel" hidden="true" parent="InterfaceOptionsFramePanelContainer">
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString name="$parentTitle" text="DISPLAY_LABEL" inherits="GameFontNormalLarge" justifyH="LEFT" justifyV="TOP">
+          <Anchors>
+            <Anchor point="TOPLEFT">
+              <Offset>
+                <AbsDimension x="16" y="-16"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Slider name="$parentSpellAlertOpacitySlider" inherits="OptionsSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="24" y="-32"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnValueChanged>
+            value = math.floor(value * 100 + 0.5) / 100;
+            if (value ~= 0) then
+              value = math.max(0.5, value);
+            end
+            self.value = value;
+            self:SetValue(value);
+
+            if (self.ApplyValueToEngine) then
+              self:ApplyValueToEngine(value);
+            end
+            _G[self:GetParent():GetName().."SpellAlertTestButton"]:SetEnabled(value > 0);
+          </OnValueChanged>
+        </Scripts>
+      </Slider>
+      <Slider name="$parentSpellAlertScaleSlider" inherits="OptionsSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertOpacitySlider" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="-32"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnValueChanged>
+            if (self.ApplyValueToEngine) then
+              self:ApplyValueToEngine(value);
+            end
+          </OnValueChanged>
+        </Scripts>
+      </Slider>
+      <Slider name="$parentSpellAlertOffsetSlider" inherits="OptionsSliderTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertScaleSlider" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="0" y="-32"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnValueChanged>
+            if (self.ApplyValueToEngine) then
+              self:ApplyValueToEngine(value);
+            end
+          </OnValueChanged>
+        </Scripts>
+      </Slider>
+      <Button name="$parentSpellAlertTestButton" inherits="OptionsButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertOpacitySlider" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="32" y="2"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            if (not self.isTesting) then
+              self:StartTest();
+            else
+              self:StopTest();
+            end
+          </OnClick>
+          <OnHide>
+            self:StopTest();
+          </OnHide>
+        </Scripts>
+      </Button>
+      <CheckButton name="$parentGlowingButtons" inherits="InterfaceOptionsCheckButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertOffsetSlider" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="-24" y="-32"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <PostClick>
+            if (self.ApplyValueToEngine) then
+              self:ApplyValueToEngine(self:GetChecked());
+            end
+          </PostClick>
+        </Scripts>
+      </CheckButton>
+    </Frames>
+    <Scripts>
+      <OnLoad function="SpellActivationOverlayOptionsPanel_OnLoad"/>
+    </Scripts>
+  </Frame>
+
+</Ui>

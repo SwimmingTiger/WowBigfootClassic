@@ -1,62 +1,32 @@
 ## Interface: 30400
-## X-Min-Interface: 90207
-## X-Min-Interface-Classic: 11403
-## X-Min-Interface-BCC: 20504
-## X-Min-Interface-Wrath: 30400
-
+## X-Min-Interface: 30400
 ## Title:|cffffd200Deadly Boss Mods|r |cff69ccf0Core|r
-## Title-zhCN:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-ruRU:|cffffd200Deadly Boss Mods|r |cff69ccf0Ядро|r
-## Title-itIT:|cffffd200Deadly Boss Mods|r |cff69ccf0Base|r
-## Title-zhTW:|cffffd200Deadly Boss Mods|r |cff69ccf0核心|r
-## Title-koKR:|cffffd200Deadly Boss Mods|r |cff69ccf0핵심 모듈|r
-## Title-esES:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
-## Title-esMX:|cffffd200Deadly Boss Mods|r |cff69ccf0Núcleo|r
-## Title-frFR:|cffffd200Deadly Boss Mods|r |cff69ccf0Noyau|r
-## Notes: Deadly Boss Mods
+## Title-zhCN: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
+## Title-zhTW: |cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff0055FF核心|r
+## Notes: |cffbc8f8fDeadly Boss Mods.|r
+## Notes-zhCN: |cff00ff00DBM-Core|r|n|cffbc8f8f首领报警|r
+## Notes-zhTW: |cff00ff00DBM-Core|r|n|cffbc8f8f首領報警|r
 ## Dependencies: DBM-StatusBarTimers
-## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibChatAnims, LibDBIcon-1.0, LibDeflate, LibSerialize, LibSpecialization
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision
-## LoadOnDemand: 0
-## DefaultState: enabled
 ## Author: MysticalOS, QartemisT
-## Version: d87d644
+## Version: 99722e9
 ## X-Website: https://deadlybossmods.com
+## X-Revision: BigFoot
 
-Libs\LibStub\LibStub.lua
-Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-Libs\LibChatAnims\LibChatAnims.xml
-Libs\LibSharedMedia-3.0\lib.xml
-Libs\LibLatency\LibLatency.xml
-Libs\LibDurability\LibDurability.xml
-Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
-Libs\LibDBIcon-1.0\lib.xml
+Libs\LibLatency\LibLatency.lua
+Libs\LibDurability\LibDurability.lua
 Libs\LibDeflate\LibDeflate.lua
-Libs\LibSerialize\lib.xml
-Libs\LibSpecialization\LibSpecialization.xml
+Libs\LibSerialize\LibSerialize.lua
+Libs\LibSpecialization\LibSpecialization.lua
 
 localization.en.lua
-localization.br.lua
 localization.cn.lua
-localization.de.lua
-localization.es.lua
-localization.fr.lua
-localization.it.lua
-localization.kr.lua
-localization.ru.lua
 localization.tw.lua
 
 commonlocal.en.lua
 commonlocal.tw.lua
-commonlocal.br.lua
 commonlocal.cn.lua
-commonlocal.de.lua
-commonlocal.es.lua
-commonlocal.fr.lua
-commonlocal.it.lua
-commonlocal.kr.lua
-commonlocal.ru.lua
 
 # Pre-core modules
 modules\Modules.lua

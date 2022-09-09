@@ -87,6 +87,22 @@ local IngameLocales = {
 	["Skinning"] = GetSpellInfo(8618),
 	["Poisons"] = GetSpellInfo(2842),
 	["Jewelcrafting"] = GetSpellInfo(353970) or UNKNOWN,
+	["Inscription"] = GetSpellInfo(45357) or UNKNOWN,
+
+	-- sub Professions
+	["Armorsmith"] = GetSpellInfo(9788),
+	["Weaponsmith"] = GetSpellInfo(9787),
+	["Hammersmith"] = GetSpellInfo(17041),
+	["Axesmith"] = GetSpellInfo(17041),
+	["Swordsmith"] = GetSpellInfo(17039),
+	["Gnomish Engineer"] = GetSpellInfo(20220),
+
+	-- glyphs
+	["Minor Glyph"] = GLOBAL["MINOR_GLYPH"],
+	["Minor Glyphs"] = GLOBAL["MINOR_GLYPHS"],
+	["Major Glyph"] = GLOBAL["MAJOR_GLYPH"],
+	["Major Glyphs"] = GLOBAL["MAJOR_GLYPHS"],
+
 
 	-- ######################################################################
 	-- Months
@@ -170,6 +186,7 @@ local IngameLocales = {
 	["Hit (Melee)"] = GLOBAL["ITEM_MOD_HIT_MELEE_RATING_SHORT"],
 	["Dodge"] = GLOBAL["ITEM_MOD_DODGE_RATING_SHORT"],
 	["Attack Power"] = GLOBAL["ITEM_MOD_ATTACK_POWER_SHORT"],
+	["Armor Penetration Rating"] = GLOBAL["ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT"],
 
 	-- ######################################################################
 	-- Slots
@@ -233,12 +250,12 @@ local IngameLocales = {
 	-- ######################################################################
 	-- Gems
 	-- ######################################################################
-	["Socket Gems"]	 	= GLOBAL["SOCKETGLOBALEMS"],
-	["Gems"]			= GLOBAL["AUCTION_CATEGORYGLOBALEMS"],
-	["Meta"]	 		= GLOBAL["METAGLOBALEM"],
-	["Red"]	 			= GLOBAL["REDGLOBALEM"],
-	["Yellow"]	 		= GLOBAL["YELLOWGLOBALEM"],
-	["Blue"]	 		= GLOBAL["BLUEGLOBALEM"],
+	["Socket Gems"]	 	= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["SOCKET_GEMS"], GLOBAL["SOCKETGLOBALEMS"]),
+	["Gems"]			= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["AUCTION_CATEGORY_GEMS"], GLOBAL["AUCTION_CATEGORYGLOBALEMS"]),
+	["Meta"]	 		= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["META_GEM"], GLOBAL["METAGLOBALEM"]),
+	["Red"]	 			= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["RED_GEM"], GLOBAL["REDGLOBALEM"]),
+	["Yellow"]	 		= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["YELLOW_GEM"], GLOBAL["YELLOWGLOBALEM"]),
+	["Blue"]	 		= AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, GLOBAL["BLUE_GEM"], GLOBAL["BLUEGLOBALEM"]),
 	-- ######################################################################
 	-- Zones
 	-- ######################################################################
