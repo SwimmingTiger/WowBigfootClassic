@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "3.4.0."
-local minor = "152"
+local minor = "157"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,30 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2022/09/06 (3.4.0.157)")
+	BigFootChangelog_ar("大脚插件","添加技能触发提醒(SpellActivationOverlay)。")
+	BigFootChangelog_ar("大脚插件","修复一些已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/05 (3.4.0.156)")
+	BigFootChangelog_ar("大脚插件","修复一些已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/03 (3.4.0.155)")
+	BigFootChangelog_ar("集结号","临时修复无法正常使用的问题。")
+
+
+	BigFootChangelog_at("2022/09/03 (3.4.0.154)")
+	BigFootChangelog_ar("大脚插件","修复接口变更引起的部分问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/02 (3.4.0.153)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2022/09/01 (3.4.0.152)")
 	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
@@ -697,4 +721,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "48"
+BF_VERSION_CHECKSUM = "53"

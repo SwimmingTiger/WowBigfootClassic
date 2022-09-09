@@ -1,3 +1,4 @@
+if select(2, UnitClass("player")) ~= "DEATHKNIGHT" then return end
 local Addon = LibStub("AceAddon-3.0"):GetAddon("BFClassMod")
 if not Addon then return end
 
@@ -30,12 +31,12 @@ local default = {
 		lock = false,
 		x = 0,
 		y = -30,
-		scale = 1.8	
+		scale = 1.8
 	}
 }
 
 local oldPoint
-local powerText 
+local powerText
 
 local db = {}
 
@@ -54,7 +55,7 @@ local function __OnHeaderDragStart(frame)
 end
 
 local function __OnHeaderDragStop(frame)
-	runeFrameParent:StopMovingOrSizing() 
+	runeFrameParent:StopMovingOrSizing()
 	db.point,db.ref,db.refPoint,db.x,db.y = runeFrameParent:GetPoint(1)
 	if not db.ref then db.ref = UIParent end
 	db.ref = db.ref:GetName()
@@ -78,14 +79,9 @@ local function __OnHeaderClick()
 	 A:ToggleHeader(db.lock)
 end
 
---[[
-local function __InitPowerText()
-end
-]]
-
 local function __KillXperl()
 	if XPerl_Player then
-	
+
 		runeFrame.runes = {}
 		for i = 1, 6 do
 			RuneFrame_AddRune (runeFrame, _G["Rune"..i])
@@ -93,7 +89,7 @@ local function __KillXperl()
 			_G["XPerl_Rune"..i].oriShow = _G["XPerl_Rune"..i].oriShow or _G["XPerl_Rune"..i].Show
 			_G["Rune"..i].oriHide = _G["Rune"..i].oriHide or _G["Rune"..i].Hide
 			_G["XPerl_Rune"..i]:Hide()
-			_G["Rune"..i]:Show()			
+			_G["Rune"..i]:Show()
 
 			_G["XPerl_Rune"..i].Show = function() end
 			_G["Rune"..i].Hide = function() end
@@ -118,25 +114,25 @@ end
 
 local function __AttachToHeader()
 	oldPoint = oldPoint or {runeFrame:GetPoint(1)}
-	if not oldPoint[2] then 
+	if not oldPoint[2] then
 		oldPoint[2]= "UIParent";
 	end
-	-- runeFrame:SetScript("OnShow", nil) 
+	-- runeFrame:SetScript("OnShow", nil)
 	runeFrame:SetParent(runeFrameParent)
 	runeFrame:ClearAllPoints()
-	runeFrame:SetPoint("BOTTOMLEFT",runeFrameParent,"BOTTOMLEFT") 
+	runeFrame:SetPoint("BOTTOMLEFT",runeFrameParent,"BOTTOMLEFT")
 	runeFrame:Show()
 	__KillXperl()
-	
+
 	runeFrameParent:Show()
-	bottomBar:SetMinMaxValues(0, UnitPowerMax("player", SPELL_POWER_MANA)) 
+	bottomBar:SetMinMaxValues(0, UnitPowerMax("player", SPELL_POWER_MANA))
 
 end
 
 local function __DetachFromHeader()
 	runeFrame:SetParent(PlayerFrame)
 	runeFrame:ClearAllPoints()
-	runeFrame:SetPoint(unpack(oldPoint)) 
+	runeFrame:SetPoint(unpack(oldPoint))
 	runeFrame:SetScale(1)
 	__ReviveXperl()
 end
@@ -150,18 +146,17 @@ end
 function A:ToggleHeader(flag)
 	if flag then
 		db.lock = false
-		header.classIcon:SetDesaturated(false) 
+		header.classIcon:SetDesaturated(false)
 		header.classIcon:SetAlpha(1)
 	else
 		db.lock = true
-		header.classIcon:SetDesaturated(true) 
+		header.classIcon:SetDesaturated(true)
 		header.classIcon:SetAlpha(0.5)
 	end
-	BigFoot_SetModVariable("BigFootClassMod","UnlockRuneAnchorPoint",flag)
 end
 
 local function createBottom()
-	
+
 	runeFrameParent = CreateFrame("Frame","BFRuneFrame",UIParent)
 	runeFrameParent:Hide()
 	runeFrameParent:SetWidth(100)
@@ -169,7 +164,7 @@ local function createBottom()
 	runeFrameParent:SetMovable(true)
 	runeFrameParent:SetClampRectInsets(0, 25, -80, -20)
 	runeFrameParent:SetClampedToScreen(true)
-	
+
 	-- 背景面板
 	bottomFrame = CreateFrame("Button",runeFrameParent:GetName().."BottomFrame",runeFrameParent)
 	bottomFrame:SetWidth(197)
@@ -194,7 +189,7 @@ local function createBottom()
 	-- 背景阴影
 	bottomFrameBG = CreateFrame("Frame",runeFrameParent:GetName().."BottomFrameBG",runeFrameParent)
 	bottomFrameBG:SetWidth(120)
-	bottomFrameBG:SetHeight(25)	
+	bottomFrameBG:SetHeight(25)
 	bottomFrameBG:SetFrameStrata("LOW")
 	bottomFrameBG:SetPoint("TOPLEFT",runeFrameParent,"BOTTOMLEFT",2,10)
 	local bottomBG = bottomFrameBG:CreateTexture(bottomFrameBG:GetName().."BG")
@@ -202,8 +197,8 @@ local function createBottom()
 	bottomBG:SetAllPoints()
 	bottomBG:Show()
 	bottomFrameBG:SetAlpha(0.5)
-	bottomFrameBG:SetFrameLevel(0)	
-	
+	bottomFrameBG:SetFrameLevel(0)
+
 	-- 状态条
 	bottomBar =  CreateFrame("StatusBar",runeFrameParent:GetName().."BottomBar",runeFrameParent,"TextStatusBar")
 	bottomBar:SetPoint("TOPLEFT",runeFrameParent,"BOTTOMLEFT",13,0)
@@ -213,7 +208,7 @@ local function createBottom()
 	bottomBar:SetFrameLevel(1)
 	bottomBar:SetFrameStrata("LOW")
 	bottomBar:Show()
-	
+
 	-- 符文边框
 	runeBorder = CreateFrame("Frame",runeFrameParent:GetName().."RuneBorder",runeFrameParent)
 	runeBorder.texture = runeBorder:CreateTexture()
@@ -224,7 +219,7 @@ local function createBottom()
 	runeBorder:SetPoint("BOTTOMLEFT",runeFrameParent,"BOTTOMLEFT",-5,-25)
 	runeBorder:SetFrameLevel(6)
 	runeBorder:Show()
-	
+
 	-- 开关按钮
 	header = CreateFrame("Button","BFRuneHeader",runeFrameParent)
 	header.classIcon = header:CreateTexture(nil, "OVERLAY");
@@ -234,7 +229,7 @@ local function createBottom()
 	local coords = CLASS_BUTTONS.DEATHKNIGHT;
 	header.classIcon:SetTexCoord(coords[1],coords[2],coords[3],coords[4]);
 	header:SetWidth(13)
-	header:SetHeight(13)	
+	header:SetHeight(13)
 	header:SetFrameStrata("MEDIUM")
 	header:SetPoint("BOTTOMLEFT",runeFrameParent,"BOTTOMLEFT",0,-16)
 	header:RegisterForDrag("LeftButton")
@@ -247,7 +242,7 @@ local function createBottom()
 	header:SetScript("OnLeave",__OnHeaderLeave)
 	header:SetFrameLevel(6)
 	header:Show()
-	
+
 	--符能
 	powerText = runeFrameParent:CreateFontString("BFRunePowerText","OVERLAY","NumberFont_Outline_Med")
 	powerText:SetPoint("TOP",runeFrameParent,"BOTTOM",12,7)
@@ -279,7 +274,13 @@ local function showBottom()
 	end
 	runeFrameParent:Show()
 	runeFrameParent:SetScale(db.scale)
-	A:ToggleHeader(db.lock)
+	if db.lock then
+		header.classIcon:SetDesaturated(true)
+		header.classIcon:SetAlpha(0.5)
+	else
+		header.classIcon:SetDesaturated(false)
+		header.classIcon:SetAlpha(1)
+	end
 end
 
 local function hideBottom()
@@ -302,7 +303,7 @@ end
 
 function A:ACTIVE_TALENT_GROUP_CHANGED()
 	BigFoot_DelayCall(function()
-		bottomBar:SetMinMaxValues(0, UnitManaMax("player")) 
+		bottomBar:SetMinMaxValues(0, UnitManaMax("player"))
 	end,2)
 end
 
@@ -340,4 +341,3 @@ function A:OnDisable()
 	__DetachFromHeader()
 	hideBottom()
 end
-

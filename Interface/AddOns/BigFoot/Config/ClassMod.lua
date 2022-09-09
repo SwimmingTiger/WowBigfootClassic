@@ -20,8 +20,6 @@ function ClassModConfigFunc()
 		ENABLE_ASPECT_BAR_TOOLTIP= "在经验条上方额外显示守护动作条";
 
 		ENABLE_RUNE_ENHANCE = "启用符文条增强";
-		UNLOCK_RUNEFRAME = "解锁符文条";
-
 		ENABLE_MISDIRECT = "误导提示";
 		ENABLE_MISDIRECT_TOOLTIP= "以喊话的方式提示误导";
 
@@ -75,8 +73,6 @@ function ClassModConfigFunc()
 		ENABLE_ASPECT_BAR_TOOLTIP= "在經驗條上方額外顯示獵人守護動作條";
 
 		ENABLE_RUNE_ENHANCE = "啟用符文條增強";
-		UNLOCK_RUNEFRAME = "解锁符文條";
-
 		ENABLE_MISDIRECT = "誤導提示";
 		ENABLE_MISDIRECT_TOOLTIP= "以喊話的方式誤導提示";
 
@@ -118,9 +114,7 @@ function ClassModConfigFunc()
 		BIGFOOT_CLASS_MOD = "Class Assist";
 		ENABLE_AIMED_SHOT = "Enable Auto Shot Timer";
 		ENABLE_ASPECT_BAR = "Enable Aspect Bar";
-
 		ENABLE_RUNE_ENHANCE = "Enable Enhanced Rune Frame";
-		UNLOCK_RUNEFRAME = "Unlock Rune Frame";
 
 		ENABLE_MISDIRECT = "Yell when cast misdirect";
 		AJUST_CAST_POSITION = "Ajust position";
@@ -353,7 +347,6 @@ function ClassModConfigFunc()
 				end
 			end
 		);
-
 		ModManagement_RegisterSpinBox(
 			"BigFootClassMod",
 			Z_HAPPINESS_POINT,
@@ -405,6 +398,29 @@ function ClassModConfigFunc()
 		);
 	end
 
+	if playerclass == "DEATHKNIGHT" and IsConfigurableAddOn("BFClassMods") then
+		ModManagement_RegisterCheckBox(
+			"BigFootClassMod",
+			ENABLE_RUNE_ENHANCE,
+			nil,
+			"EnableRuneFrame",
+			1,
+			function (arg)
+				if (arg == 1) then
+					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
+						BigFoot_LoadAddOn("BFClassMods");
+					end
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneFrame(true)
+					end
+				else
+					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
+						ToggleRuneFrame(false)
+					end
+				end
+			end
+		);
+	end
 
 	if IsConfigurableAddOn("AttackTimer") then
 		ModManagement_RegisterCheckBox(
@@ -441,48 +457,6 @@ function ClassModConfigFunc()
 		);
 	end
 
-	if (playerclass == "MAGE" or playerclass == "WARLOCK") and IsConfigurableAddOn("BFClassMods") then
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			ENABLE_ASPECT_BAR,
-			ENABLE_ASPECT_BAR_TOOLTIP,
-			"EnableAspectBar",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleBFAspectBar(true)
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleBFAspectBar(false)
-					end
-				end
-			end	,
-			nil,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_DelayCall(function()
-								ToggleBFAspectBar(true)
-							end,
-							5)
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleBFAspectBar(false)
-					end
-				end
-			end
-		);
-	end
-
 	if ( (playerclass == "HUNTER" or playerclass == "WARRIOR" or playerclass == "DRUID" or playerclass == "MONK") and IsConfigurableAddOn("NewPowerBar")) then
 		local enableCheckBox,enableToolTip;
 		if playerclass == "HUNTER" then
@@ -515,121 +489,18 @@ function ClassModConfigFunc()
 						BigFoot_RequestReloadUI()
 					end
 				end
-			end,nil,
+			end,
+			nil,
 			function(arg)
 				if (arg == 1) then
 					if (not BigFoot_IsAddOnLoaded("NewPowerBar")) then
 						BigFoot_LoadAddOn("NewPowerBar");
 						BigFoot_RegistMoveFrame("NewPowerBarStructFrame")
 					end
-					if (BigFoot_IsAddOnLoaded("NewPowerBar")) then
-					end
 				end
 			end
 		);
 	end
-
-	if ( playerclass == "DRUID" and IsConfigurableAddOn("NewPowerBar")) then
-		local enableCheckBox,enableToolTip;
-		local f = CreateFrame'Frame';
-		f:RegisterEvent("UPDATE_SHAPESHIFT_FORM");
-
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			HIDE_ECLIPS_TRACKER,
-			nil,
-			"HideEclipsBar",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						EclipseBarFrame:Hide()
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						EclipseBarFrame:Show()
-					end
-				end
-			end,
-			1,
-			function(arg)
-				f:SetScript('OnEvent', function(self, event, ...)
-					if arg == 1 and EclipseBarFrame:IsShown() then
-						EclipseBarFrame:Hide()
-					end
-				end)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_DelayCall(function ()
-							EclipseBarFrame:Hide()
-						end,0.1)
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						EclipseBarFrame:Show()
-					end
-				end
-			end
-		);
-	end
-
-	if playerclass == "DEATHKNIGHT" and IsConfigurableAddOn("BFClassMods") then
-		ModManagement_RegisterMod(
-			"BigFootClassMod",
-			CLASS_MOD_PATH,
-			BIGFOOT_CLASS_MOD
-		);
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			ENABLE_RUNE_ENHANCE,
-			nil,
-			"EnableRuneFrame",
-			0,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleRuneFrame(true)
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleRuneFrame(false)
-					end
-				end
-			end
-		);
-		ModManagement_RegisterCheckBox(
-			"BigFootClassMod",
-			UNLOCK_RUNEFRAME,
-			nil,
-			"UnlockRuneAnchorPoint",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if (not BigFoot_IsAddOnLoaded("BFClassMods")) then
-						BigFoot_LoadAddOn("BFClassMods");
-					end
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleRuneHeader(true)
-					end
-				else
-					if (BigFoot_IsAddOnLoaded("BFClassMods")) then
-						ToggleRuneHeader(false)
-					end
-				end
-			end,
-			1
-		)
-	end
-
 end
 
 BigFoot_AddCollector(ClassModConfigFunc)

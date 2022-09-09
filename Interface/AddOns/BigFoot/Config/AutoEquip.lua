@@ -81,6 +81,9 @@ function AutoEquipConfigFunc()
 				function (__arg)
 					if (__arg == 1) then
 						if (not BigFoot_IsAddOnLoaded("AutoEquip")) then
+							if GetCVar("equipmentManager") ~= "1" then
+								SetCVar("equipmentManager",1);
+							end
 							BigFoot_LoadAddOn("AutoEquip");
 						end
 

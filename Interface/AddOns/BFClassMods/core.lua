@@ -26,12 +26,6 @@ function ToggleRuneFrame(flag)
 	end
 end
 
-function ToggleRuneHeader(flag)
-	local rune = A:GetModule("RuneFrame")
-	if not rune then return end
-	rune:ToggleHeader(flag)
-end
-
 function A:OnInitialize()
 end
 
