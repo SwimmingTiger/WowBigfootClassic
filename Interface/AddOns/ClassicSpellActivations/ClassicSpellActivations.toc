@@ -1,9 +1,0 @@
-## Interface: 30400
-## Title: ClassicSpellActivations
-## Notes: Shows you the shiny
-## Author: d87
-## X-WoWI-ID: 25000
-## X-Curse-Project-ID: 323802
-## X-Revision: BigFoot
-
-ClassicSpellActivations.lua
