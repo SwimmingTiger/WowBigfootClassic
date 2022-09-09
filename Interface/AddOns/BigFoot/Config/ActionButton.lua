@@ -149,18 +149,21 @@ function ActionButtonConfigFunc ()
 					"ShowRune",
 					0,
 					function (arg)
-						if (arg == 1) then
-							if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BigFoot_LoadAddOn("BFCooldown");
+						-- 老虎会游泳：添加延迟，以便符文条首先加载，修复开启符文条后选项不生效的问题
+						BigFoot_DelayCall(function()
+							if (arg == 1) then
+								if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
+									BigFoot_LoadAddOn("BFCooldown");
+								end
+								if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+									BFCooldown:ToggleSpecial(true)
+								end
+							else
+								if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+									BFCooldown:ToggleSpecial(false)
+								end
 							end
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(true)
-							end
-						else
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(false)
-							end
-						end
+						end, 1)
 					end
 				);
 			end
