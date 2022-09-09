@@ -24,10 +24,7 @@ function TotemTimers.CreateWeaponTracker()
         weapon.button.icons[2]:SetTexture(SpellTextures[TotemTimers.ActiveProfile.LastWeaponEnchant == 5 and SpellIDs.FlametongueWeapon or SpellIDs.FrostbrandWeapon])
     else
         if TotemTimers.ActiveProfile.LastWeaponEnchant then
-            local enchantID = tonumber(TotemTimers.ActiveProfile.LastWeaponEnchant)
-            if not enchantID then
-                enchantID = NameToSpellID[TotemTimers.StripRank(TotemTimers.ActiveProfile.LastWeaponEnchant)]
-            end
+            local enchantID = TotemTimers.GetBaseSpellID(TotemTimers.ActiveProfile.LastWeaponEnchant)
             local texture = GetSpellTexture(enchantID)
             weapon.button.icons[1]:SetTexture(texture)
             weapon.button.icons[2]:SetTexture(texture)
@@ -58,7 +55,7 @@ function TotemTimers.CreateWeaponTracker()
         if name == "spell1" then
             TotemTimers.ActiveProfile.LastWeaponEnchant = self:GetAttribute("spell1")
         elseif name == "spell2" or name == "spell3" then
-            TotemTimers.ActiveProfile.LastWeaponEnchant2 = self:GetAttribute("spell2") or elf:GetAttribute("spell3")
+            TotemTimers.ActiveProfile.LastWeaponEnchant2 = self:GetAttribute("spell2") or self:GetAttribute("spell3")
         elseif name == "doublespell2" then
             local ds2 = self:GetAttribute("doublespell2")
             if ds2 then
@@ -68,6 +65,10 @@ function TotemTimers.CreateWeaponTracker()
                     TotemTimers.ActiveProfile.LastWeaponEnchant = 6
                 end
             end
+        end
+        local spellType = name:sub(1, -2)
+        for i=1,2 do
+            if not self.timer.timersRunning[i] then self.icons[i]:SetTexture(GetSpellTexture(self:GetAttribute(spellType..i))) end
         end
     end
 
@@ -125,17 +126,11 @@ table.insert(TotemTimers.Modules, TotemTimers.CreateWeaponTracker)
 
 function TotemTimers.SetWeaponTrackerSpells()
     weapon.actionBar:ResetSpells()
-    if AvailableSpells[SpellIDs.WindfuryWeapon] then
-        weapon.actionBar:AddSpell(SpellNames[SpellIDs.WindfuryWeapon])
-    end
-    if AvailableSpells[SpellIDs.RockbiterWeapon] then
-        weapon.actionBar:AddSpell(SpellNames[SpellIDs.RockbiterWeapon])
-    end
-    if AvailableSpells[SpellIDs.FlametongueWeapon] then
-        weapon.actionBar:AddSpell(SpellNames[SpellIDs.FlametongueWeapon])
-    end
-    if AvailableSpells[SpellIDs.FrostbrandWeapon] then
-        weapon.actionBar:AddSpell(SpellNames[SpellIDs.FrostbrandWeapon])
+    for _,spellID in pairs({SpellIDs.WindfuryWeapon, SpellIDs.RockbiterWeapon,
+                SpellIDs.FlametongueWeapon, SpellIDs.FrostbrandWeapon, SpellIDs.EarthlivingWeapon}) do
+        if AvailableSpells[spellID] then
+            weapon.actionBar:AddSpell(spellID)
+        end
     end
 
     if AvailableTalents.DualWield then

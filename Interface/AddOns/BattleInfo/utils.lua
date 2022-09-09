@@ -13,7 +13,7 @@ FillLocalizedClassList(ADDONSELF.CLASS_LOC)
 local BattleZoneHelper = {}
 ADDONSELF.BattleZoneHelper = BattleZoneHelper
 
-BattleZoneHelper.IsBCC = (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_BURNING_CRUSADE_CLASSIC)
+BattleZoneHelper.IsBCC = (_G.WOW_PROJECT_ID == _G.WOW_PROJECT_WRATH_CLASSIC)
 
 BattleZoneHelper.MAPID_ALTERAC = 1459
 BattleZoneHelper.MAPNAME_ALTERAC = C_Map.GetMapInfo(BattleZoneHelper.MAPID_ALTERAC).name

@@ -762,6 +762,8 @@ local DirectionXMult = {
 	BOTTOM = 0,
     TOPRIGHT = -1,
     TOPLEFT = 1,
+    BOTTOMLEFT = 1,
+    BOTTOMRIGHT = -1,
 }
 
 local DirectionYMult = {
@@ -772,6 +774,8 @@ local DirectionYMult = {
 	BOTTOM = -1,
     TOPRIGHT = -1,
     TOPLEFT = -1,
+    BOTTOMRIGHT = -1,
+    BOTTOMLEFT = 0.5,
 }
 
 

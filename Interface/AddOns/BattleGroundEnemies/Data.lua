@@ -10,7 +10,7 @@ local GetSpellInfo = GetSpellInfo
 local GetSpellTexture = GetSpellTexture
 
 local IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
-local IsTBCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
+local IsTBCC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC
 local isClassic = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC
 
 Data.CyrillicToRomanian = { -- source Wikipedia: https://en.wikipedia.org/wiki/Romanization_of_Russian

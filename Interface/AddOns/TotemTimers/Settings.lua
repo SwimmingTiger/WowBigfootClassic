@@ -76,8 +76,15 @@ SettingsFunctions = {
 
     TimerSize = function(value, Timers)
         local v = value
+        local scale = v/36
+        if TotemTimers_MultiSpell and Timers[1].button:GetParent() == TotemTimers_MultiSpell then
+            scale = 1
+        end
         for e = 1, 4 do
-            Timers[e]:SetScale(v / 36)
+            Timers[e]:SetScale(scale)
+        end
+        if TotemTimers_MultiSpell then
+            TotemTimers_MultiSpell:SetScale(v / 36)
         end
     end,
 
@@ -196,6 +203,7 @@ SettingsFunctions = {
             Timers[8].button:SetAttribute("doublespell2", SpellNames[SpellIDs.FrostbrandWeapon])
             Timers[8].button:SetAttribute("ds", 1)
         else
+            if not GetSpellInfo(value) then value = SpellIDs.RockbiterWeapon end
             Timers[8].button:SetAttribute("type1", "spell")
             Timers[8].button:SetAttribute("spell1", value)
         end
@@ -209,22 +217,9 @@ SettingsFunctions = {
         if TotemTimers.ActiveProfile.WeaponMenuOnRightclick then
             type = "spell3"
         end
+        if not GetSpellInfo(value) then value = SpellIDs.RockbiterWeapon end
         Timers[8].button:SetAttribute(type, value)
     end,
-
-    ShieldLeftButton = function(value, Timers)
-        Timers[6].button:SetAttribute("*spell1", value)
-        Timers[6].manaCheck = value
-    end,
-
-    ShieldRightButton = function(value, Timers)
-        Timers[6].button:SetAttribute("*spell2", value)
-    end,
-
-    ShieldMiddleButton = function(value, Timers)
-        Timers[6].button:SetAttribute("*spell3", value)
-    end,
-
 
     Order = function(value, Timers)
         for i = 1, 4 do
@@ -248,6 +243,17 @@ SettingsFunctions = {
                 Timers[i].button:SetAttribute("*spell3", SpellIDs.TotemicCall)
             end
         end
+        if TotemTimers_MultiSpell then
+            if value and not TotemTimers.ActiveProfile.MenusAlwaysVisible then
+                TotemTimers_MultiSpell:SetAttribute("OpenMenu", "RightButton")
+                TotemTimers_MultiSpell:SetAttribute("*type2", nil)
+                TotemTimers_MultiSpell:SetAttribute("*spell2", nil)
+            else
+                TotemTimers_MultiSpell:SetAttribute("OpenMenu", "mouseover")
+                TotemTimers_MultiSpell:SetAttribute("*type2", "spell")
+                TotemTimers_MultiSpell:SetAttribute("*spell2", SpellIDs.TotemicCall)
+            end
+        end
     end,
 
     MenusAlwaysVisible = function(value, Timers)
@@ -258,6 +264,10 @@ SettingsFunctions = {
         end
         for i = 1, 4 do
             TTActionBars.bars[i]:SetAlwaysVisible(value)
+        end
+        if TotemTimers_MultiSpell then
+            if value then TotemTimers_MultiSpell:SetAttribute("OpenMenu", "always") end
+            TotemTimers_MultiSpell.actionBar:SetAlwaysVisible(value)
         end
     end,
 
@@ -430,7 +440,6 @@ SettingsFunctions = {
 
     WeaponBarDirection = function(value, Timers)
         TotemTimers.WeaponTracker.actionBar:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
-        --if #TTActionBars.bars > 5 then TotemTimers.ProcessSetting("MultiSpellBarDirection") end
     end,
 
     WeaponMenuOnRightclick = function(value, Timers)
@@ -640,6 +649,22 @@ SettingsFunctions.ReverseBarBindings = SettingsFunctions.BarBindings
 
 if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
 
+    SettingsFunctions.ShieldLeftButton = function(value, Timers)
+        value = TotemTimers.UpdateSpellRank(value)
+        Timers[6].button:SetAttribute("*spell1", value)
+        Timers[6].manaCheck = value
+    end
+
+    SettingsFunctions.ShieldRightButton = function(value, Timers)
+        value = TotemTimers.UpdateSpellRank(value)
+        Timers[6].button:SetAttribute("*spell2", value)
+    end
+
+    SettingsFunctions.ShieldMiddleButton = function(value, Timers)
+        value = TotemTimers.UpdateSpellRank(value)
+        Timers[6].button:SetAttribute("*spell3", value)
+    end
+
     SettingsFunctions.EarthShieldTracker = function(value, Timers)
         Timers[7].ActiveWhileHidden = TotemTimers.ActiveProfile.ActivateHiddenTimers and not value
         if (value or TotemTimers.ActiveProfile.ActivateHiddenTimers) and AvailableSpells[SpellIDs.EarthShield] then
@@ -663,7 +688,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
     end
 
     SettingsFunctions.ESMainTankMenuDirection = function(value, Timers)
-        TTActionBars.bars[5]:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
+        TotemTimers.EarthShieldTracker.actionBar:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
     end
 
 
@@ -816,6 +841,18 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
             TotemFrame:Show()
             TotemFrame:SetScript("OnShow", TotemFrameScript)
         end
+        if MultiCastActionBarFrame then
+            if value and TotemTimers.ActiveProfile.MultiCast then
+                MultiCastActionBarFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+                MultiCastActionBarFrame:UnregisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
+                MultiCastActionBarFrame:Hide()
+            end
+        end
     end
 
+    if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+        SettingsFunctions.MultiCast = function(value)
+            TotemTimers.MultiSpellActivate()
+        end
+    end
 end

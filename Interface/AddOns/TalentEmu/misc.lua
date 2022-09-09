@@ -83,8 +83,10 @@ MT.BuildEnv('MISC');
 		local TalentFrameTalents = {  };
 		local function HookTalentFrame(self, event, addon)
 			if addon == "Blizzard_TalentUI" then
-				self:UnregisterEvent("ADDON_LOADED");
-				self:SetScript("OnEvent", nil);
+				if self ~= nil then
+					self:UnregisterEvent("ADDON_LOADED");
+					self:SetScript("OnEvent", nil);
+				end
 
 				_TalentFrame = _G.TalentFrame or _G.PlayerTalentFrame;
 				Orig_TalentFrameTalent_OnClick = _G.TalentFrameTalent_OnClick or _G.PlayerTalentFrameTalent_OnClick;
@@ -153,6 +155,7 @@ MT.BuildEnv('MISC');
 		['\65\76\65\35\53\49\51\55\55'] = 1,
 	};
 
+	local trytimes = 0;
 	local function _PerdiocGenerateTitle()
 		local halt = true;
 		for index = 1, VT.SaveButtonMenuAltDefinition.num do
@@ -161,14 +164,29 @@ MT.BuildEnv('MISC');
 				local lClass, class, lRace, race, sex, name, realm = GetPlayerInfoByGUID(Def.param[1]);
 				if class ~= nil and name ~= nil then
 					Def.text = "|c" .. RAID_CLASS_COLORS[class].colorStr .. name .. "|r";
+					Def.param[3] = Def.text;
 				else
 					halt = false;
 				end
 			end
 		end
-		if halt then
+		trytimes = trytimes + 1;
+		if halt or trytimes > 10 then
 			MT._TimerHalt(_PerdiocGenerateTitle);
 		end
+	end
+	local function _StorePlayerData()
+		if DT.BUILD == "WRATH" then
+			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2() .. VT.__emulib.EncodePlayerGlyphDataV2() .. VT.__emulib.EncodePlayerEquipmentDataV2();
+		else
+			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2() .. VT.__emulib.EncodePlayerEquipmentDataV2();
+		end
+		for index = 1, VT.SaveButtonMenuAltDefinition.num do
+			if VT.SaveButtonMenuAltDefinition[index].param[1] == CT.SELFGUID then
+				VT.SaveButtonMenuAltDefinition[index].param[2] = VT.VAR[CT.SELFGUID];
+			end
+		end
+		MT.Error("StorePlayerData");
 	end
 	MT.RegisterOnInit('MISC', function(LoggedIn)
 	end);
@@ -184,7 +202,17 @@ MT.BuildEnv('MISC');
 			MT.SetConfig("inspect_pack", true);
 		end
 		--
-		VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2();
+		for GUID, code in next, VT.VAR do
+			if GUID ~= "savedTalent" then
+				VT.SaveButtonMenuAltDefinition.num = VT.SaveButtonMenuAltDefinition.num + 1;
+				VT.SaveButtonMenuAltDefinition[VT.SaveButtonMenuAltDefinition.num] = {
+					param = { GUID, code, },
+				};
+			end
+		end
+		MT._TimerStart(_PerdiocGenerateTitle, 0.5);
+		--
+		_StorePlayerData();
 		local Driver = CreateFrame('FRAME', nil, UIParent);
 		Driver:RegisterEvent("CONFIRM_TALENT_WIPE");
 		--	Fires when the user selects the "Yes, I do." confirmation prompt after speaking to a class trainer and choosing to unlearn their talents.
@@ -199,23 +227,16 @@ MT.BuildEnv('MISC');
 		--	SPELLS_CHANGED
 		--	Fires when spells in the spellbook change in any way. Can be trivial (e.g.: icon changes only), or substantial (e.g.: learning or unlearning spells/skills).
 		--	Payload	none
-		Driver:SetScript("OnEvent", function(Driver, event)
-			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2();
-			for index = 1, VT.SaveButtonMenuAltDefinition.num do
-				if VT.SaveButtonMenuAltDefinition[index].param[1] == CT.SELFGUID then
-					VT.SaveButtonMenuAltDefinition[index].param[2] = VT.VAR[CT.SELFGUID];
-				end
-			end
-		end);
-		for GUID, code in next, VT.VAR do
-			if GUID ~= "savedTalent" then
-				VT.SaveButtonMenuAltDefinition.num = VT.SaveButtonMenuAltDefinition.num + 1;
-				VT.SaveButtonMenuAltDefinition[VT.SaveButtonMenuAltDefinition.num] = {
-					param = { GUID, code, },
-				};
-			end
+		-- Driver:RegisterEvent("PLAYER_LOGOUT");
+		Driver:RegisterEvent("PLAYER_EQUIPMENT_CHANGED");
+		if DT.BUILD == "WRATH" then
+			Driver:RegisterEvent("GLYPH_ADDED");
+			Driver:RegisterEvent("GLYPH_REMOVED");
+			Driver:RegisterEvent("GLYPH_UPDATED");
 		end
-		MT._TimerStart(_PerdiocGenerateTitle, 0.5);
+		Driver:SetScript("OnEvent", function(Driver, event)
+			MT._TimerStart(_StorePlayerData, 0.1, 1);
+		end);
 	end);
 
 

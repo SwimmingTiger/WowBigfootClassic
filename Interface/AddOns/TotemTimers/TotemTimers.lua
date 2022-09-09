@@ -145,26 +145,17 @@ function TotemTimers.SetupGlobals()
         TotemTimersFrame:RegisterEvent("UPDATE_BINDINGS")
         -- TotemTimersFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
 
-        --TotemTimers_UpdateRaid()
-		--TotemTimers.InitMasque()
+		TotemTimers.InitMasque()
 		-- TotemTimers.RangeFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
         -- TotemTimers.RangeFrame:Show()
         TotemTimers.SetCastButtonSpells()
-        -- activate shield timer after reloading ui
-        if XiTimers.timers[6].active then
-            TotemTimers.ShieldEvent(XiTimers.timers[6].button, "", "player")
-        end  
 
-        --TotemTimers.OrderCDs("2")
-        --TotemTimers.OrderCDs("1")
         
         TotemTimers_OnEvent("PLAYER_ALIVE") -- simulate PLAYER_ALIVE event in case the ui is reloaded
         XiTimers.invokeOOCFader()
         TotemTimersFrame:SetScript("OnUpdate", XiTimers.UpdateTimers)
 		TotemTimersFrame:EnableMouse(false)
         XiTimers.InitWarnings(TotemTimers.ActiveProfile.Warnings)
-
-        if TotemTimers.CustomInit then TotemTimers.CustomInit() end
 
         -- TotemTimers.LayoutCrowdControl()
         --TotemTimers.ApplySkin()
@@ -174,7 +165,7 @@ function TotemTimers.SetupGlobals()
 	end
 	TotemTimers.UpdateMacro()
 	TotemTimers_IsSetUp = true
-    TotemTimersFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    --TotemTimersFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function TotemTimers_Slash(msg)

@@ -8,7 +8,7 @@
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
 ## X-Category: Map
-## Version: 1.9.7
+## Version: 1.9.8
 ## X-License: All rights reserved.
 ## X-Curse-Project-ID: 14376
 ## X-WoWI-ID: 8306
@@ -23,6 +23,6 @@ Config.lua
 Coords.lua
 # GroupIcons.lua
 # BattleMap.lua
-FogClearDataBCC.lua
+FogClearDataWrath.lua
 FogClear.lua
 Scaling.lua

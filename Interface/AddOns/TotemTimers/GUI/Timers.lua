@@ -44,44 +44,48 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.Timer_Clickthrough end,
         },
         h1 = {
-            order = 2,
+            order = 10,
             type = "header",
             name = "",
         },
         timer1 = {
-            order = 3,
+            order = 11,
             type = "select",
             name = L["Timer Button 1"],
+            width = 0.75,
             values = ElementValues,
             set = function(info, val) SetOrder(1, val) end,
             get = function(info) return TotemTimers.ActiveProfile.Order[1] end,
         },  
         timer2 = {
-            order = 3,
+            order = 12,
             type = "select",
             name = L["Timer Button 2"],
+            width = 0.75,
             values = ElementValues,
             set = function(info, val) SetOrder(2, val) end,
             get = function(info) return TotemTimers.ActiveProfile.Order[2] end,
         },
         timer3 = {
-            order = 4,
+            order = 13,
             type = "select",
             name = L["Timer Button 3"],
+            width = 0.75,
             values = ElementValues,
             set = function(info, val) SetOrder(3, val) end,
             get = function(info) return TotemTimers.ActiveProfile.Order[3] end,
         },
         timer4 = {
-            order = 5,
+            order = 14,
             type = "select",
             name = L["Timer Button 4"],
+            width = 0.75,
             values = ElementValues,
             set = function(info, val) SetOrder(4, val) end,
             get = function(info) return TotemTimers.ActiveProfile.Order[4] end,
         },
         arrange = {
-            order = 6,
+            order = 15,
             type = "select",
             name = L["Arrangement"],
             desc = L["Basic layout of the four timer buttons, loose lets you move them individually"],
@@ -100,6 +104,7 @@ TotemTimers.options.args.timers = {
                         for i=1,4 do
                             XiTimers.timers[i]:SetTimerBarPos(XiTimers.timers[i].timerBarPos, true)
                         end
+                        TotemTimers.PositionCastButtons()
                   end,
             get = function(info) return TotemTimers.ActiveProfile.Arrange end,
         },
@@ -116,7 +121,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimeStyle end,
         },]]
         timepos = {
-            order = 9,
+            order = 17,
             type = "select",
             name = L["Timer Bar Position"],
             desc = L["Timer Bar Position Desc"],
@@ -127,7 +132,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimerTimePos end,
         },
         menudirection = {
-            order = 7,
+            order = 18,
             type = "select",
             name = L["Totem menu direction"],
             desc = L["Totem menu direction desc"],
@@ -141,17 +146,18 @@ TotemTimers.options.args.timers = {
                         end
                      end,
             set = function(info, val)
-                        TotemTimers.ActiveProfile.CastBarDirection = val  TotemTimers.PositionCastButtons()
+                      TotemTimers.ActiveProfile.CastBarDirection = val
+                      TotemTimers.PositionCastButtons()
                   end,
             get = function(info) return TotemTimers.ActiveProfile.CastBarDirection end,
         },
         sizes = {
-            order = 10,
+            order = 20,
             type = "header",
             name = L["Scaling"],
         },
         timerSize = {
-            order = 11,
+            order = 21,
             type = "range",
             name = L["Button Size"],
             desc = L["Scales the timer buttons"],
@@ -165,7 +171,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimerSize end,
         },
         timerTimeHeight = {
-            order = 12,
+            order = 22,
             type = "range",
             name = L["Time Size"],
             desc = L["Sets the font size of time strings"],
@@ -178,7 +184,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimerTimeHeight end,
         },
         spacing = {
-            order = 13,
+            order = 23,
             type = "range",
             name = L["Spacing"] ,
             desc = L["Sets the space between timer buttons"],
@@ -191,7 +197,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimerSpacing end,
         },
         timeSpacing = {
-            order = 14,
+            order = 24,
             type = "range",
             name = L["Time Spacing"],
             desc = L["Sets the space between timer buttons and timer bars"],
@@ -204,7 +210,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TimerTimeSpacing end,
         },
         timerBarWidth = {
-            order = 15,
+            order = 25,
             type = "range",
             name = L["Timer Bar Width"],
             desc = L["Timer Bar Width Desc"],
@@ -217,7 +223,7 @@ TotemTimers.options.args.timers = {
             get = function(info) return TotemTimers.ActiveProfile.TotemTimerBarWidth end,
         },
         TotemMenuSpacing = {
-            order = 16,
+            order = 26,
             type = "range",
             name = L["Totem Menu Spacing"],
             desc = L["Totem Menu Spacing Desc"],
@@ -417,6 +423,21 @@ for i = 1,4 do
         width = 0.8,
         set = function(info, val) TotemTimers.ActiveProfile.IncludeInMacro[info.arg] = val TotemTimers.UpdateMacro() end,
         get = function(info) return TotemTimers.ActiveProfile.IncludeInMacro[info.arg] end,
+    }
+end
+
+if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+    TotemTimers.options.args.timers.args.multispell = {
+        order = 3,
+        type = "toggle",
+        name = L["Multicast Button"],
+        desc = L["Enables button for Call of Elements etc."],
+        set = function(info, val)
+            TotemTimers.ActiveProfile.MultiCast = val
+            TotemTimers.ProcessSetting("MultiCast")
+            TotemTimers.ProcessSetting("HideBlizzTimers")
+        end,
+        get = function(info) return TotemTimers.ActiveProfile.MultiCast end,
     }
 end
 

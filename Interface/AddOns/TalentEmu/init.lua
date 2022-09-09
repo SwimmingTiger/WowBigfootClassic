@@ -232,9 +232,9 @@ MT.BuildEnv('INIT');
 	VT.ExternalAddOn = {  };
 	VT.Frames = { num = 0, used = 0, };
 	VT.TQueryCache = {  };	--	[GUID] = { [addon] = { data, time, }, }
-	VT.QuerySent = {  };
+	VT.QuerySent = {  };					--	尝试发送带弹出界面请求的时间，无论是否真实发送
 	VT.NameBindingFrame = {  };
-	VT.PrevQueryRequestSentTime = {  };
+	VT.PrevQueryRequestSentTime = {  };		--	真实发送请求的时间
 	VT.ApplyingTalents = {  };
 	VT.AutoShowEquipmentFrameOnComm = {  };
 

@@ -1,0 +1,14 @@
+## Interface: 30400
+## Title: [BF] ClassMods
+## Title-zhCN: [大脚]死骑符文条
+## Title-zhTW: [大腳]DK符文條
+## Notes: |cff00ff00BFClassMods|r
+## Author: Terry@BF
+## Version: 1000
+## SavedVariables: BFRuneFrame_Config
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
+
+core.lua
+RuneFrame.lua

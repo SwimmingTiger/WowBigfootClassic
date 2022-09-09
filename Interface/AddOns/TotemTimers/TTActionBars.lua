@@ -50,8 +50,8 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
         b:SetNormalTexture(nil)
         b.icon:Show()
 
-		b:SetAttribute("_childupdate-show", [[if self:GetAttribute("alwaysshow") or self:GetAttribute("inactive") then return end
-                                               if message then 
+		b:SetAttribute("_childupdate-show", [[ if self:GetAttribute("alwaysshow") or self:GetAttribute("inactive") then return end
+                                               if message then
                                                    self:Show()
                                                else
                                                    self:Hide()
@@ -72,7 +72,7 @@ function TTActionBars:new(numbuttons, parent, secondanchor, directionanchor, bar
                                     control:CallMethod("OnShow")]])
 
         parent:SetAttribute("_onenter", [[ if self:GetAttribute("OpenMenu") == "mouseover" then
-                                                  control:ChildUpdate("show", true)
+                                                  self:ChildUpdate("show", true)
                                               end ]])
 
         parent:SetAttribute("_onleave", [[
@@ -249,10 +249,10 @@ function TTActionBars:AddDoubleSpell(spell1,spell2)
     if self.numspells >= self.numbuttons then return end
     self.numspells = self.numspells+1
     local button = self.buttons[self.numspells]
-    local _,_,texture = GetSpellInfo(spell1)
-    local _,_,texture2 = GetSpellInfo(spell2)
-	button:SetAttribute("doublespell1", spell1)
-    button:SetAttribute("doublespell2", spell2)
+    local spell1Name,_,texture = GetSpellInfo(spell1)
+    local spell2Name,_,texture2 = GetSpellInfo(spell2)
+	button:SetAttribute("doublespell1", spell1Name)
+    button:SetAttribute("doublespell2", spell2Name)
 	button:SetAttribute("inactive", false)
     button.icon:SetTexture(texture)
     button.icon2:SetTexture(texture2)

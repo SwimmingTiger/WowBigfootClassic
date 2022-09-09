@@ -76,6 +76,7 @@ TotemTimers.DefaultProfile = {
         IncludeInMacro = {[1] = true, [2] = true, [3] = true, [4] = true,},
         MacroReset = 15,
         TwistingTimer = false,
+        MultiCast = true,
         
     --Trackers
         TrackerArrange = "horizontal",
@@ -324,6 +325,7 @@ TotemTimers.DefaultProfile = {
             TotemTimers_CastBar4  = {"CENTER", nil, "CENTER", 50, -225}, 
             TotemTimers_CrowdControlFrame = {"CENTER", nil, "CENTER", -50, -50},
 			TotemTimers_LongCooldownsFrame = {"CENTER", nil, "CENTER", 150, -80},
+            TotemTimers_MultiSpellFrame = {"CENTER", nil, "CENTER", -300, -205},
         },
         
         TimerPositions = { 
@@ -479,6 +481,12 @@ function TotemTimers.UpdateProfiles()
 		
 		local totems = {} -- add missing totems to order if old settings exist
 		for i=1,4 do
+            --remove totems not available in new expansions, needs to go backwards in table because table.remove reduces keys
+            for t=#profile.TotemOrder[i],1,-1 do
+                if not TotemData[profile.TotemOrder[i][t]] then
+                    table.remove(profile.TotemOrder[i], t)
+                end
+            end
 			for t=1,#profile.TotemOrder[i] do
 				totems[profile.TotemOrder[i][t]] = true
 			end

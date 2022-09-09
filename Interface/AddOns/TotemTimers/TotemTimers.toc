@@ -4,11 +4,12 @@
 ## Title-zhTW: [大腳][集]薩滿圖騰助手
 ## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
-## Version: 3.0.0-beta1
+## Version: 3.0.4
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602
 ## X-WoWI-ID: 25223
+## X-Wago-ID: rkGrwANy
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
 
@@ -34,6 +35,7 @@ TTActionBars.lua
 DefaultSettings.lua
 Settings.lua
 SetupTimers.lua
+MultiSpell.lua
 SetupTrackers.lua
 Ankh.lua
 Shield.lua

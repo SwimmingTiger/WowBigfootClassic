@@ -58,9 +58,14 @@ local function larger(a,b)
 					BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
 					return;
 				end
+			elseif WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
+				if adt[i] ~= 3 or bdt[i] ~= 3 then
+					BigFoot_Config["BIGFOOT_VERSION_NEW"] = BIGFOOT_VERSION
+					return;
+				end
 			end
 		end
-		
+
 		if adt[i] > bdt[i] then return true end
 	end
 	return false

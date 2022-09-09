@@ -442,17 +442,18 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         type = "select",
         name = L["Leftclick"],
         values = function()
-            return { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                     [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                     [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+            return { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
+                     [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                     [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
             }
         end,
         set = function(info, val)
             TotemTimers.ActiveProfile.ShieldLeftButton = val
             TotemTimers.ProcessSetting("ShieldLeftButton")
+            TotemTimers.UpdateSpellRanks()
         end,
         get = function(info)
-            return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldLeftButton)
+            return TotemTimers.GetBaseSpellID(TotemTimers.ActiveProfile.ShieldLeftButton)
         end,
     }
 
@@ -460,16 +461,17 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         order = 3,
         type = "select",
         name = L["Rightclick"],
-        values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                   [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                   [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+        values = { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
+                   [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                   [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
         },
         set = function(info, val)
             TotemTimers.ActiveProfile.ShieldRightButton = val
             TotemTimers.ProcessSetting("ShieldRightButton")
+            TotemTimers.UpdateSpellRanks()
         end,
         get = function(info)
-            return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldRightButton)
+            return TotemTimers.GetBaseSpellID(TotemTimers.ActiveProfile.ShieldRightButton)
         end,
     }
 
@@ -477,16 +479,17 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         order = 4,
         type = "select",
         name = L["Middle Button"],
-        values = { [SpellNames[SpellIDs.LightningShield]] = SpellNames[SpellIDs.LightningShield],
-                   [SpellNames[SpellIDs.WaterShield]] = SpellNames[SpellIDs.WaterShield],
-                   [SpellNames[SpellIDs.TotemicCall]] = SpellNames[SpellIDs.TotemicCall],
+        values = { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
+                   [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                   [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
         },
         set = function(info, val)
             TotemTimers.ActiveProfile.ShieldMiddleButton = val
             TotemTimers.ProcessSetting("ShieldMiddleButton")
+            TotemTimers.UpdateSpellRanks()
         end,
         get = function(info)
-            return TotemTimers.UpdateSpellNameRank(TotemTimers.ActiveProfile.ShieldMiddleButton)
+            return TotemTimers.GetBaseSpellID(TotemTimers.ActiveProfile.ShieldMiddleButton)
         end,
     }
 end

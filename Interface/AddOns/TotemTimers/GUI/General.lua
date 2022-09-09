@@ -53,7 +53,16 @@ TotemTimers.options = {
                     order = 6,
                     type = "toggle",
                     name = L["Hide Blizzard Timers"],
-                    set = function(info, val) TotemTimers.ActiveProfile.HideBlizzTimers = val TotemTimers.ProcessSetting("HideBlizzTimers") end,
+                    set = function(info, val)
+                        print("TotemTimers: You might need to relog for the default totem bar to show/hide correctly")
+                        TotemTimers.ActiveProfile.HideBlizzTimers = val
+                        TotemTimers.ProcessSetting("HideBlizzTimers")
+                        if not val and LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+                            MultiCastActionBarFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+                            MultiCastActionBarFrame:RegisterEvent("UPDATE_MULTI_CAST_ACTIONBAR")
+                            MultiCastActionBarFrame:Show()
+                        end
+                    end,
                     get = function(info) return TotemTimers.ActiveProfile.HideBlizzTimers end,
                 },                  
                 --[[]hidedefaulttotembar = {

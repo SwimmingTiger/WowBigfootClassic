@@ -136,7 +136,6 @@ Spell( 30823 ,{ name = "Shamanistic Rage", group = "buffs", duration = 15, shine
 Spell({ 8056, 8058, 10472, 10473, 25464, 49235, 49236 }, { name = "Frost Shock", duration = 8, color = colors.LBLUE })
 Spell({ 8050, 8052, 8053, 10447, 10448, 25457, 29228, 49232, 49233 }, { name = "Flame Shock", duration = 12, color = colors.RED, ghost = true })
 Cooldown( 8042 ,{ name = "Shock", color = colors.TEAL3, ghost = 2, priority = 1, ghosteffect = "MAGICCAST", scale = 0.9 })
-Spell( 29063 ,{ name = "Focused Casting", shine = true, duration = 6, color = colors.PURPLE4, group = "buffs" })
 Spell( 16246 ,{ name = "Clearcasting", shine = true, duration = 15, color = colors.CHIM, group = "buffs" })
 Spell( 16166 ,{ name = "Elemental Mastery", shine = true, duration = 15, priority = 12, timeless = true, color = colors.DPURPLE })
 Spell( 16188 ,{ name = "Nature's Swiftness", shine = true, duration = 15, group = "buffs", priority = -12, timeless = true, color = colors.WOO2DARK })
@@ -397,6 +396,7 @@ Spell({ 9005, 9823, 9827, 27006 }, { name = "Pounce", _skipunitaura = true, prio
         return 2+brutal_impact
     end
 })
+Spell( 69369, { name = "Predator's Swiftness", duration = 10, priority = 4, group = "buffs", color = colors.LGREEN })
 Spell({ 9007, 9824, 9826 }, { name = "Pounce Bleed", duration = 18, priority = 4, color = colors.PINK3 })
 Spell({ 8921, 8924, 8925, 8926, 8927, 8928, 8929, 9833, 9834, 9835, 26987, 26988, 48462, 48463 }, { name = "Moonfire", priority = 5, ghost = true, color = colors.PURPLE, nameplates = true, duration = 12})
 Spell({ 1822, 1823, 1824, 9904, 27003, 48573, 48574 }, { name = "Rake", duration = 9, priority = 6, nameplates = true, ghost = true, color = colors.PINKIERED })
@@ -582,6 +582,8 @@ Spell({ 2818, 2819, 11353, 11354, 25349, 26968, 27187, 57969, 57970 },{ name = "
 
 Spell( 18425 ,{ name = "Silence", duration = 2, color = colors.PINK }) -- Improved Kick
 
+-- Spell( 58427 ,{ name = "Overkill", duration = 2, color = colors.PINK })
+
 -- Premedi doesn't work because UnitAura scan kills it
 -- Spell( 14183 ,{ name = "Premeditation", duration = 10, group = "buffs", color = colors.CURSE })
 Spell( 63848, { name = "Hunger For Blood", short = "Hunger", duration = 60, color = colors.ORANGE })
@@ -733,6 +735,8 @@ end
 if class == "DEATHKNIGHT" then
 Interrupt(47528, "Mind Freeze", 4)
 Spell({ 57330, 57623 }, { name = "Horn of Winter", ghost = 7, target = "player", scale_until = 20, priority = -300, effect = "BLOODBOIL", effecttime = 10, glowtime = 10, affiliation = "raid", color = colors.DPURPLE, duration = 120 })
+
+Spell( 49005  ,{ name = "Mark of Blood", duration = 20, group = "buffs", color = colors.LRED })
 
 Spell( 55095 ,{ name = "Frost Fever", ghost = true, color = colors.TEAL, priority = 9.1, maxtimers = 1, duration = 15, init = function(self)self.duration = 15 + Talent(49036)*3 end })
 Spell( 55078 ,{ name = "Blood Plague", ghost = true, color = colors.PURPLE, priority = 9, maxtimers = 1, duration = 15, init = function(self)self.duration = 15 + Talent(49036)*3 end })

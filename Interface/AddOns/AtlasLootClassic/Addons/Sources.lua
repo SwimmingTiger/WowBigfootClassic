@@ -29,6 +29,7 @@ local TOKEN_NUMBER_DUMMY = AtlasLoot.Data.Token.GetTokenDummyNumberRange()
 
 -- locals
 local TT_F = "%s |cFF00ccff%s|r"
+local WHITE_TEXT = "|cffffffff%s|r"
 local DUMMY_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local TEXTURE_ICON_F, TEXTURE_ICON_FN, ATLAS_ICON_F = "|T%s:0|t ", "|T%d:0|t ", "|A:%s:0:0|a "
 local TT_F_PRICE_T, TT_F_PRICE_TN = "|T%s:0|t|cFFffffff%s|r", "|T%d:0|t|cFFffffff%s|r"
@@ -52,6 +53,7 @@ local ICON_TEXTURE = {
     [15] = format(TEXTURE_ICON_F, GetSpellTexture(8618)),   -- Skinning
     [16] = format(TEXTURE_ICON_F, GetSpellTexture(2842)),   -- Rogue: Poisons
     [17] = format(TEXTURE_ICON_F, 134071),                  -- Jewelcrafting
+    [18] = format(TEXTURE_ICON_F, 237171),                  -- Inscription
 }
 local SOURCE_TYPES = {
     [0]  = UNKNOWN,	                    -- UNKNOWN
@@ -66,12 +68,13 @@ local SOURCE_TYPES = {
 	[9]  = ALIL["Cooking"],             -- Cooking
 	[10] = ALIL["Mining"],              -- Mining
 	[11] = ALIL["Tailoring"],           -- Tailoring
-	[12] = ALIL["Engineering"],          -- Engineering
+	[12] = ALIL["Engineering"],         -- Engineering
 	[13] = ALIL["Enchanting"],          -- Enchanting
 	[14] = ALIL["Fishing"],             -- Fishing
     [15] = ALIL["Skinning"],            -- Skinning
     [16] = ALIL["ROGUE"]..": "..ALIL["Poisons"],             -- Rogue: Poisons
     [17] = ALIL["Jewelcrafting"],       -- Jewelcrafting
+    [18] = ALIL["Inscription"],         -- Inscription
 }
 local SOURCE_DATA = {}
 local KEY_WEAK_MT = {__mode="k"}
@@ -303,6 +306,15 @@ local function OnTooltipSetItem_Hook(self)
             end
         end
 
+        if AtlasLoot.db.showIDsInTT and AtlasLoot.db.showIDsInTT_Global or AtlasLoot.db.showItemLvlInTT and AtlasLoot.db.showItemLvlInTT_Global then
+            local itemName, itemLink, itemQuality, itemLevel = GetItemInfo(item)
+            if AtlasLoot.db.showIDsInTT and AtlasLoot.db.showIDsInTT_Global then
+                self:AddDoubleLine(AL["ItemID:"], format(WHITE_TEXT, item))
+            end
+            if itemLevel and itemLevel > 0 and AtlasLoot.db.showItemLvlInTT and AtlasLoot.db.showItemLvlInTT_Global then
+                self:AddDoubleLine(AL["Item level:"], format(WHITE_TEXT, itemLevel))
+            end
+        end
         if TooltipTextCache[item] then
             if Sources.db.showLineBreak then
                 self:AddLine(" ")
@@ -352,6 +364,11 @@ end
 
 function Sources:GetSourceTypes()
     return SOURCE_TYPES
+end
+
+function Sources:ItemSourcesUpdated(itemID)
+    if not itemID then return end
+    TooltipTextCache[itemID] = nil
 end
 
 Sources:Finalize()

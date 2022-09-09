@@ -32,7 +32,7 @@ local TT_INFO_ENTRY = "|cFFCFCFCF%s:|r %s"
 
 local RIGHT_SELECTION_ENTRYS = {
 	DIFF_MAX = 4,
-	DIFF_MIN = 2,
+	DIFF_MIN = AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, 3, 2),
 	DIFF_DEFAULT = 2,
 	BOSS_MAX = 24,
 }
@@ -683,6 +683,7 @@ end
 -- DropDowns/Select
 -- ################################
 -- Called when the module is loaded
+local linkedContentLastBoss = nil
 LoadAtlasLootModule = function(abc)
 	local moduleList = AtlasLoot.ItemDB:GetModuleList(db.selected[1])
 	local moduleData = AtlasLoot.ItemDB:Get(db.selected[1])
@@ -698,6 +699,9 @@ LoadAtlasLootModule = function(abc)
 	if linkedContent then
 		db.selected[2] = linkedContent
 		foundDbValue = true
+		if GUI.frame.boss then
+			linkedContentLastBoss = GUI.frame.boss:GetSelected()
+		end
 	end
 	for i = 1, #moduleList do
 		content = moduleList[i]
@@ -812,6 +816,7 @@ local function SubCatSelectFunction(self, id, arg)
 	local moduleData = AtlasLoot.ItemDB:Get(db.selected[1])
 	local data = {}
 	local dataExtra
+	local selectedBoss
 
 	local tabVal
 	for i = 1, #moduleData[id].items do
@@ -837,6 +842,10 @@ local function SubCatSelectFunction(self, id, arg)
 					tt_text = tabVal.info-- or AtlasLoot.EncounterJournal:GetBossInfo(tabVal.EncounterJournalID)
 				}
 				if not data[#data].name then data[#data] = nil end
+				if linkedContentLastBoss and data[#data] and data[#data].name  == linkedContentLastBoss.name then
+					selectedBoss = i
+					linkedContentLastBoss = nil
+				end
 			end
 		end
 	end
@@ -846,9 +855,10 @@ local function SubCatSelectFunction(self, id, arg)
 	--if dataExtra then
 		GUI.frame.extra:SetData(dataExtra)
 	--end
-	db.selected[3] = data[1] and data[1].id or 1
-	GUI.frame.boss:SetData(data, db.selected[3])
+	linkedContentLastBoss = nil
 
+	db.selected[3] = selectedBoss or (data[1] and data[1].id or 1)
+	GUI.frame.boss:SetData(data, db.selected[3])
 end
 
 local function BossSelectFunction(self, id, arg)
@@ -864,8 +874,8 @@ local function BossSelectFunction(self, id, arg)
 		if moduleData[db.selected[2]].items[id][count] then
 			data[ #data+1 ] = {
 				id = count,
-				name = difficultys[count].name,
-				tt_title = difficultys[count].name
+				name = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name,
+				tt_title = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name
 			}
 			diffCount = diffCount + 1
 		end
@@ -889,8 +899,8 @@ local function ExtraSelectFunction(self, id, arg)
 		if moduleData[db.selected[2]].items[id][count] then
 			data[ #data+1 ] = {
 				id = count,
-				name = difficultys[count].name,
-				tt_title = difficultys[count].name
+				name = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name,
+				tt_title = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name
 			}
 			diffCount = diffCount + 1
 		end

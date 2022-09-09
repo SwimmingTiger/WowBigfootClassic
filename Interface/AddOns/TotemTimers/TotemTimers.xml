@@ -30,7 +30,14 @@
     <Anchors>
       <Anchor point="CENTER" relativePoint="CENTER"/>
     </Anchors>
-  </Frame>  
+  </Frame>
+
+    <Frame name="TotemTimers_MultiSpellFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
+        <Size x="1" y="1" />
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="CENTER"/>
+        </Anchors>
+    </Frame>
   
   <!-- <Frame name="TotemTimers_CrowdControlFrame" clampedToScreen="true" frameStrata="LOW" movable="true" enableMouse="true" hidden="true">
     <Size x="1" y="1" />

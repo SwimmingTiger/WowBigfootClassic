@@ -1,9 +1,15 @@
 <Bindings>
    <Binding name = "ALARAIDTOOL_NEWWINDOW" category = "ADDONS" description = "Toggle" header = "ALATALENTEMU_HEADER" >
-      ATEMU.Create();
+      __ala_meta__.emu.MT.CreateEmulator();
    </Binding>
    <Binding name = "ALARAIDTOOL_QUERY" category = "ADDONS" >
-      ATEMU.Query();
+      unit = unit or 'target';
+      if UnitIsPlayer('target') and UnitIsConnected('target') and UnitFactionGroup('target') == UnitFactionGroup('player') then
+         local name, realm = UnitName('target');
+         if name then
+            __ala_meta__.emu.MT.SendQueryRequest(name, realm, true, true);
+         end
+      end
    </Binding>
 
 </Bindings>

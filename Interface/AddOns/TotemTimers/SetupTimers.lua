@@ -2,6 +2,8 @@ if select(2, UnitClass("player")) ~= "SHAMAN" then
     return
 end
 
+local _, TotemTimers = ...
+
 local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
 
 local HBD = LibStub("HereBeDragons-2.0")
@@ -20,12 +22,24 @@ local AvailableSpells = TotemTimers.AvailableSpells
 local SpellTextures = TotemTimers.SpellTextures
 local AvailableTalents = TotemTimers.AvailableTalents
 
-
-
 local Cooldowns = TotemTimers.TotemCooldowns
 
 local UpdatePartyRange
 local TotemUpdate
+
+
+local MultiCastActions = {}
+TotemTimers.MultiCastActions = MultiCastActions
+if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+    for i=1,4 do
+        local index = SHAMAN_TOTEM_PRIORITIES[i];
+        MultiCastActions[index] =
+        { [SpellIDs.CallOfElements] = ActionButton_CalculateAction(_G["MultiCastActionButton"..index]),
+          [SpellIDs.CallOfAncestors] = ActionButton_CalculateAction(_G["MultiCastActionButton"..(index + 4)]),
+          [SpellIDs.CallOfSpirits] = ActionButton_CalculateAction(_G["MultiCastActionButton"..(index + 8)]) }
+    end
+end
+
 
 
  function TotemTimers.SetupTimers()
@@ -66,8 +80,14 @@ local TotemUpdate
 
         tt.button.tooltip = TotemTimers.Tooltips.Totem:new(tt.button)
 
-        tt.button:SetAttribute("_onattributechanged", [[ if name == "*spell1" then
+        tt.button:SetAttribute("_onattributechanged", [[ if name == "*spell1" then 
                                                             control:CallMethod("UpdateMiniIconAndProfile")
+															local mspell = self:GetAttribute("mspell")
+															if mspell then self:SetAttribute("mspell"..mspell, self:GetAttribute("*spell1")) end
+                                                         elseif name == "mspell" then
+															local mspell = self:GetAttribute("mspell")
+															self:ChildUpdate("mspell", self:GetAttribute("action"..mspell))
+															self:SetAttribute("*spell1", self:GetAttribute("mspell"..mspell) or 0)
                                                          elseif name == "state-invehicle" then
                                                             if value == "show" and self:GetAttribute("active") then
                                                                 self:Show()
@@ -80,6 +100,10 @@ local TotemUpdate
         tt.button:WrapScript(tt.button, "OnClick", [[ if button == "Button4" then
                                                           control:ChildUpdate("toggle")
                                                       end ]])
+        tt.button:SetAttribute("_childupdate-mspell", [[ self:SetAttribute("mspell", tostring(message))
+                                                         self:ChildUpdate("mspell", self:GetAttribute("action"..message))
+                                                         self:SetAttribute("*spell1", self:GetAttribute("mspell"..message) or 0)
+                                                      ]])
 
         tt.Activate = function(self)
             if self.active then return end
@@ -108,17 +132,8 @@ local TotemUpdate
                 end
             end
 
-            local lastTotem = activeProfile.LastTotems[self.nr]
+            local lastTotem = TotemTimers.GetBaseSpellID(activeProfile.LastTotems[self.nr])
 
-            -- get rank 1 spell id of totem while spellbook is not loaded
-            -- get name of totem without rank and get spell id from that
-            if not tonumber(lastTotem) then
-                lastTotem = TotemTimers.StripRank(lastTotem)
-            else
-                lastTotem = GetSpellInfo(lastTotem)
-            end
-
-            lastTotem = NameToSpellID[lastTotem]
 
             if not lastTotem or not AvailableSpells[lastTotem] then
                 --[[when switching specs this part gets executed several times, once for switching and then for each talent (because of events fired)
@@ -135,7 +150,7 @@ local TotemUpdate
                 activeProfile.LastTotems[self.nr] = lastTotem or activeProfile.LastTotems[self.nr]
             else
                 self.button:SetAttribute("*spell1", lastTotem)
-                self.button.icon:SetTexture(GetSpellTexture(TotemTimers.StripRank(lastTotem)))
+                self.button.icon:SetTexture(GetSpellTexture(lastTotem))
             end
         end
 
@@ -183,6 +198,15 @@ local TotemUpdate
                 self:SetAttribute("hide", true)
             end]]
         end)
+
+        if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+            for mspellID,action in pairs(MultiCastActions[e]) do
+                tt.button:SetAttribute("action"..mspellID, action)
+                local _,spell,_ = GetActionInfo(action)
+                tt.button:SetAttribute("mspell"..mspellID,spell)
+            end
+        end
+
 
         local frame = CreateFrame("Frame", nil, tt.button)
         frame:Show()
@@ -358,6 +382,11 @@ local ButtonPositions = {
     ["horizontal"] = { { "CENTER", 0, "CENTER" }, { "LEFT", 1, "RIGHT" }, { "LEFT", 1, "RIGHT" }, { "LEFT", 1, "RIGHT" } },
     ["vertical"] = { { "CENTER", 0, "CENTER" }, { "TOP", 1, "BOTTOM" }, { "TOP", 1, "BOTTOM" }, { "TOP", 1, "BOTTOM" } }
 }
+local MultiCastButtonPositions = {
+    ["box"] = { { "BOTTOMLEFT", 0, "RIGHT" }, { "LEFT", 1, "RIGHT" }, { "TOP", 2, "BOTTOM" }, { "LEFT", 1, "RIGHT" } },
+    ["horizontal"] = { { "LEFT", 1, "RIGHT" }, { "LEFT", 1, "RIGHT" }, { "LEFT", 1, "RIGHT" }, { "LEFT", 1, "RIGHT" } },
+    ["vertical"] = { { "TOP", 1, "BOTTOM" }, { "TOP", 1, "BOTTOM" }, { "TOP", 1, "BOTTOM" }, { "TOP", 1, "BOTTOM" } }
+}
 
 function TotemTimers.OrderTimers()
     if InCombatLockdown() then
@@ -371,16 +400,27 @@ function TotemTimers.OrderTimers()
     end
     local c = 0
     local pos = {}
+
+    local parentAnchor = TotemTimersFrame
+    local buttonPositions = ButtonPositions
+
+    if TotemTimers_MultiSpell and Settings.MultiCast then
+        parentAnchor = TotemTimers_MultiSpell
+        buttonPositions = MultiCastButtonPositions
+        TotemTimers_MultiSpell:SetPoint("CENTER", TotemTimersFrame, "CENTER")
+    end
+
+    local arrange = Settings.Arrange
+
     for e = 1, 4 do
         if Timers[e].active then
             c = c + 1
             Timers[e].actnr = c
-            local arrange = Settings.Arrange
             if arrange ~= "free" then
                 if c == 1 then
-                    Timers[e]:SetPoint(ButtonPositions[arrange][1][1], TotemTimersFrame, ButtonPositions[arrange][1][3])
+                    Timers[e]:SetPoint(buttonPositions[arrange][1][1], parentAnchor, buttonPositions[arrange][1][3])
                 else
-                    Timers[e]:Anchor(pos[c - ButtonPositions[arrange][c][2]], ButtonPositions[arrange][c][1])
+                    Timers[e]:Anchor(pos[c - buttonPositions[arrange][c][2]], buttonPositions[arrange][c][1])
                 end
                 Timers[e].savePos = false
             else
@@ -407,7 +447,8 @@ function TotemTimers.ChangeTotemOrder(self, _, _, totem1)
         return
     end
     --_, totem1 = GetSpellBookItemInfo(totem1, BOOKTYPE_SPELL)
-    local totem2 = self:GetAttribute("spellid")
+    totem1 = TotemTimers.GetBaseSpellID(totem1)
+    local totem2 = TotemTimers.GetBaseSpellID(self:GetAttribute("*spell1"))
     local nr = self:GetParent().element
     if nr and totem1 and totem2 and TotemData[totem1].element == TotemData[totem2].element then
         local Order = TotemTimers.ActiveProfile.TotemOrder[nr]
@@ -447,12 +488,18 @@ function TotemTimers.CreateCastButtons()
             button:SetAttribute("SpellIDs", TotemTimers.NameToSpellID)
 
             button:SetAttribute("_ondragstart", [[if IsShiftKeyDown() and self:GetAttribute("*spell1")~=0 then
-                                                                            return "spell", self:GetAttribute("spellid")
+                                                                            return "spell", self:GetAttribute("*spell1")
                                                                        else control:CallMethod("StartBarDrag") end]])
             button:SetAttribute("_onreceivedrag", [[ if kind == "spell" then
                                                                             control:CallMethod("ChangeTotemOrder", value, ...)
                                                                             return "clear"
                                                                        end]])
+            if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
+                button:SetAttribute("_childupdate-mspell", [[ self:SetAttribute("*action*", message) ]])
+                local multispell = TotemTimers.ActiveProfile.LastMultiCastSpell or SpellIDs.CallOfElements
+                button:SetAttribute("*action*", MultiCastActions[i][multispell])
+                button:SetAttribute("*type2", "multispell")
+            end
         end
     end
     TotemTimers.PositionCastButtons()
@@ -471,9 +518,12 @@ function TotemTimers.PositionCastButtons()
     for i = 1, 4 do
         TTActionBars.bars[i]:SetDirection(Profile.CastBarDirection, Profile.Arrange)
     end
+    if TotemTimers_MultiSpell then
+        TotemTimers_MultiSpell.actionBar:SetDirection(Profile.CastBarDirection, Profile.Arrange)
+    end
 
     -- and position totem cast buttons
-    local pos = Profile.CastButtonPosition
+   --[[ local pos = Profile.CastButtonPosition
     if Profile.Arrange == "horizontal" then
         if pos ~= "TOP" and pos ~= "BOTTOM" then
             local dir = TTActionBars.bars[1]:CalcDirection(Profile.CastBarDirection, Profile.Arrange)
@@ -492,7 +542,7 @@ function TotemTimers.PositionCastButtons()
                 pos = "LEFT"
             end
         end
-    end
+    end]]
 end
 
 function TotemTimers.SetCastButtonSpells()
@@ -505,7 +555,7 @@ function TotemTimers.SetCastButtonSpells()
                 table.insert(totems, v)
             end
         end
-        TTActionBars.bars[timer.nr]:SetSpells(totems, true)
+        TTActionBars.bars[timer.nr]:SetSpells(totems)
     end
 end
 

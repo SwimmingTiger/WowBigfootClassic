@@ -68,7 +68,6 @@ local function OnShow(self, ...)
 	end
 end
 
-
 local function OnMouseWheel(self, value, ...)
 	if IsControlKeyDown() then
 		local frameToMove = self.frameToMove
@@ -113,7 +112,7 @@ local function OnDragStop(self)
 	frameToMove:StopMovingOrSizing()
 	frameToMove.isMoving = false
 	if settings then
-			settings.point, settings.relativeTo, settings.relativePoint, settings.xOfs, settings.yOfs = frameToMove:GetPoint()
+		settings.point, settings.relativeTo, settings.relativePoint, settings.xOfs, settings.yOfs = frameToMove:GetPoint()
 	end
 end
 
@@ -147,6 +146,7 @@ local function SetMoveHandler(frameToMove, handler)
 	if not frameToMove then
 		return
 	end
+
 	if not handler then
 		handler = frameToMove
 	end
@@ -229,14 +229,16 @@ local function OnEvent(self, event, arg1, arg2)
 		db = BlizzMoveDB and BlizzMoveDB.version == defaultDB.version and BlizzMoveDB or defaultDB
 		BlizzMoveDB = db
 		--SetMoveHandler(frameToMove, handlerFrame)
-		SetMoveHandler(CharacterFrame,PaperDollFrame)
-		SetMoveHandler(CharacterFrame,TokenFrame)
-		SetMoveHandler(CharacterFrame,SkillFrame)
-		SetMoveHandler(CharacterFrame,ReputationFrame)
-		SetMoveHandler(CharacterFrame,PetPaperDollFrameCompanionFrame)
+		SetMoveHandler(CharacterFrame)
+		-- SetMoveHandler(CharacterFrame,PaperDollFrame)
+		-- SetMoveHandler(CharacterFrame,TokenFrame)
+		-- SetMoveHandler(CharacterFrame,SkillFrame)
+		-- SetMoveHandler(CharacterFrame,ReputationFrame)
+		-- SetMoveHandler(CharacterFrame,PetPaperDollFrameCompanionFrame)
 		SetMoveHandler(SpellBookFrame)
 		SetMoveHandler(FriendsFrame)
 		SetMoveHandler(RaidParentFrame)
+
 		if QuestLogFrame then
 			SetMoveHandler(QuestLogFrame)
 		end
@@ -321,12 +323,10 @@ local function OnEvent(self, event, arg1, arg2)
 	elseif arg1 == "Blizzard_Communities" then
 		SetMoveHandler(CommunitiesFrame);
 	end
-
 end
 
 frame:SetScript("OnEvent", OnEvent)
 frame:RegisterEvent("ADDON_LOADED")
-
 
 ----------------------------------------------------------
 -- User function to move/lock a frame with a handler
@@ -353,6 +353,7 @@ function BlizzMove:Toggle(handler)
 			lastParent = lastParent:GetParent()
 			i = i +1
 	end
+
 	if handler and frameToMove then
 		if handler:GetScript("OnDragStart") then
 			handler:SetScript("OnDragStart", nil)
@@ -361,7 +362,6 @@ function BlizzMove:Toggle(handler)
 			Print("Frame: ",frameToMove:GetName()," to move with handler ",handler:GetName())
 			SetMoveHandler(frameToMove, handler)
 		end
-
 	else
 		Print("Error parent not found.")
 	end

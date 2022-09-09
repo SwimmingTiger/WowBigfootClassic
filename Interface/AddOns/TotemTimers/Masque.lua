@@ -1,6 +1,6 @@
 ﻿if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
-local masque
+ masque = nil
 
 -- Returns the x and y scale of a button.
 local function GetScale(Button)
@@ -95,7 +95,7 @@ function TotemTimers.InitMasque()
 	if not LibStub then return end
 	masque = LibStub("Masque", true)
 	if masque then
-		local group = masque:Group("TotemTimers")
+		local group = masque:Group("TotemTimers", "Buttons")
 		for k,v in pairs(XiTimers.timers) do
             group:AddButton(v.button)
             group:AddButton(v.animation.button)
@@ -105,6 +105,7 @@ function TotemTimers.InitMasque()
                 group:AddButton(TTActionBars.bars[i].buttons[j])
             end
         end
+        if TotemTimers_MultiSpell then group:AddButton(TotemTimers_MultiSpell) end
         group:SetCallback(TotemTimers.SkinCallback)
         --masque:Register("TotemTimers", TotemTimers.SkinCallback,nil)
         group:ReSkin()

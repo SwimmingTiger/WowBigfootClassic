@@ -43,13 +43,6 @@ else
 	__ala_meta__.MAX_LEVEL = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
 	__ala_meta__.BUILD = "UNKNOWN";
 end
--- if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
--- 	__ala_meta__.MAX_LEVEL = 60;
--- elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
--- 	__ala_meta__.MAX_LEVEL = 70;
--- else
--- 	__ala_meta__.MAX_LEVEL = GetMaxLevelForExpansionLevel(GetExpansionLevel()) or 60;
--- end
 __ala_meta__.SELFBNTAG = select(2, BNGetInfo());
 __ala_meta__.SELFGUID = UnitGUID('player');
 __ala_meta__.SELFNAME = UnitName('player');
