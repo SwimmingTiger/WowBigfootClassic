@@ -369,7 +369,7 @@ function QuestieQuest:CompleteQuest(questId)
     QuestiePlayer.currentQuestlog[questId] = nil;
     -- Only quests that are daily quests or aren't repeatable should be marked complete,
     -- otherwise objectives for repeatable quests won't track correctly - #1433
-    Questie.db.char.complete[questId] = QuestieDB:IsDailyQuest(questId) or (not QuestieDB:IsRepeatable(questId));
+    Questie.db.char.complete[questId] = QuestieDB.IsDailyQuest(questId) or (not QuestieDB.IsRepeatable(questId));
 
     QuestieMap:UnloadQuestFrames(questId)
     if (QuestieMap.questIdFrames[questId]) then
@@ -415,7 +415,7 @@ function QuestieQuest:AbandonedQuest(questId)
         for k, _ in pairs(QuestieQuest.availableQuests) do
             ---@type Quest
             local availableQuest = QuestieDB:GetQuest(k)
-            if (not availableQuest) or (not QuestieDB:IsDoable(k)) then
+            if (not availableQuest) or (not QuestieDB.IsDoable(k)) then
                 QuestieMap:UnloadQuestFrames(k);
             end
         end
@@ -1246,13 +1246,13 @@ function _QuestieQuest:GetQuestIcon(quest)
 end
 
 function QuestieQuest:CalculateAndDrawAvailableQuestsIterative(callback)
-    Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest:CalculateAndDrawAvailableQuestsIterative] PlayerLevel =", QuestiePlayer:GetPlayerLevel())
+    Questie:Debug(Questie.DEBUG_INFO, "[QuestieQuest:CalculateAndDrawAvailableQuestsIterative] PlayerLevel =", QuestiePlayer.GetPlayerLevel())
 
     local data = QuestieDB.QuestPointers or QuestieDB.questData
     local index = next(data)
     local timer -- if you do local timer = C_Timer then "timer" cant be accessed inside
 
-    local playerLevel = QuestiePlayer:GetPlayerLevel()
+    local playerLevel = QuestiePlayer.GetPlayerLevel()
     local minLevel = playerLevel - GetQuestGreenRange("player")
     local maxLevel = playerLevel
 
@@ -1276,17 +1276,17 @@ function QuestieQuest:CalculateAndDrawAvailableQuestsIterative(callback)
                 --Check if we've already completed the quest and that it is not "manually" hidden and that the quest is not currently in the questlog.
                 if(
                     (not Questie.db.char.complete[questId]) and -- Don't show completed quests
-                    ((not QuestiePlayer.currentQuestlog[questId]) or QuestieDB:IsComplete(questId) == -1) and -- Don't show quests if they're already in the quest log
+                    ((not QuestiePlayer.currentQuestlog[questId]) or QuestieDB.IsComplete(questId) == -1) and -- Don't show quests if they're already in the quest log
                     (not QuestieCorrections.hiddenQuests[questId]) and -- Don't show blacklisted quests
-                    (showRepeatableQuests or (not QuestieDB:IsRepeatable(questId))) and  -- Show repeatable quests if the quest is repeatable and the option is enabled
-                    (showDungeonQuests or (not QuestieDB:IsDungeonQuest(questId))) and  -- Show dungeon quests only with the option enabled
-                    (showRaidQuests or (not QuestieDB:IsRaidQuest(questId))) and  -- Show Raid quests only with the option enabled
-                    (showPvPQuests or (not QuestieDB:IsPvPQuest(questId))) and -- Show PvP quests only with the option enabled
+                    (showRepeatableQuests or (not QuestieDB.IsRepeatable(questId))) and  -- Show repeatable quests if the quest is repeatable and the option is enabled
+                    (showDungeonQuests or (not QuestieDB.IsDungeonQuest(questId))) and  -- Show dungeon quests only with the option enabled
+                    (showRaidQuests or (not QuestieDB.IsRaidQuest(questId))) and  -- Show Raid quests only with the option enabled
+                    (showPvPQuests or (not QuestieDB.IsPvPQuest(questId))) and -- Show PvP quests only with the option enabled
                     (showAQWarEffortQuests or (not QuestieQuestBlacklist.AQWarEffortQuests[questId])) and -- Don't show AQ War Effort quests with the option enabled
                     ((not Questie.IsWotlk) or (not IsleOfQuelDanas.quests[Questie.db.global.isleOfQuelDanasPhase][questId]))
                 ) then
 
-                    if QuestieDB:IsLevelRequirementsFulfilled(questId, minLevel, maxLevel) and QuestieDB:IsDoable(questId) then
+                    if QuestieDB.IsLevelRequirementsFulfilled(questId, minLevel, maxLevel) and QuestieDB.IsDoable(questId) then
                         QuestieQuest.availableQuests[questId] = true
                         --If the quest is not drawn draw the quest, otherwise skip.
                         if (not QuestieMap.questIdFrames[questId]) then
@@ -1294,7 +1294,7 @@ function QuestieQuest:CalculateAndDrawAvailableQuestsIterative(callback)
                             local quest = QuestieDB:GetQuest(questId)
                             if (not quest.tagInfoWasCached) then
                                 Questie:Debug(Questie.DEBUG_SPAM, "Caching tag info for quest", questId)
-                                QuestieDB:GetQuestTagInfo(questId) -- cache to load in the tooltip
+                                QuestieDB.GetQuestTagInfo(questId) -- cache to load in the tooltip
                                 quest.tagInfoWasCached = true
                             end
                             --Draw a specific quest through the function
@@ -1334,7 +1334,7 @@ end
 
 function QuestieQuest:DrawDailyQuest(questId)
     local quest = QuestieDB:GetQuest(questId)
-    if QuestieDB:IsDoable(questId) then
+    if QuestieDB.IsDoable(questId) then
         _QuestieQuest:DrawAvailableQuest(quest)
     end
 end

@@ -16,8 +16,32 @@ function QuestieWotlkQuestFixes:Load()
     local sortKeys = QuestieDB.sortKeys
 
     return {
+        [4740] = {
+            [questKeys.requiredRaces] = raceIDs.ALL_ALLIANCE,
+        },
+        [7800] = {
+            [questKeys.preQuestSingle] = {},
+        },
+        [9648] = {
+            [questKeys.name] = "Maatparm Mushroom Menagerie",
+        },
+        [10173] = {
+            [questKeys.requiredSourceItems] = {},
+        },
         [10667] = {
             [questKeys.preQuestSingle] = {},
+        },
+        [10670] = {
+            [questKeys.preQuestSingle] = {},
+        },
+        [10702] = {
+            [questKeys.objectives] = {nil,nil,nil,nil,{{{21864,21878,21879,23020,21978},21978,},},},
+        },
+        [10703] = {
+            [questKeys.objectives] = {nil,nil,nil,nil,{{{21864,21878,21879,23020,21978},21978,},},},
+        },
+        [11531] = {
+            [questKeys.specialFlags] = 1,
         },
         [11153] = {
             [questKeys.extraObjectives] = {{{[zoneIDs.HOWLING_FJORD]={{28.1,42,2}}}, ICON_TYPE_EVENT, l10n("Wait for Harrowmeiser's zeppelin to dock"),}},
