@@ -191,17 +191,18 @@ end
 --- There are quests in TBC which have a quest level of -1. This indicates that the quest level is the
 --- same as the player level. This function should be used whenever accessing the quest or required level.
 ---@param questId number
----@return number, number @questLevel & requiredLevel
-function QuestieLib.GetTbcLevel(questId)
+---@param playerLevel number? ---@ PlayerLevel, if nil we fetch current level
+---@return number questLevel, number requiredLevel @questLevel & requiredLevel
+function QuestieLib.GetTbcLevel(questId, playerLevel)
     local questLevel, requiredLevel = QuestieDB.QueryQuestSingle(questId, "questLevel"), QuestieDB.QueryQuestSingle(questId, "requiredLevel")
     if (questLevel == -1) then
-        local playerLevel = QuestiePlayer.GetPlayerLevel();
-        if (requiredLevel > playerLevel) then
+        local level = playerLevel or QuestiePlayer.GetPlayerLevel();
+        if (requiredLevel > level) then
             questLevel = requiredLevel;
         else
-            questLevel = playerLevel;
+            questLevel = level;
             -- We also set the requiredLevel to the player level so the quest is not hidden without "show low level quests"
-            requiredLevel = playerLevel;
+            requiredLevel = level;
         end
     end
     return questLevel, requiredLevel;
@@ -534,6 +535,28 @@ function QuestieLib.tunpack(tbl)
     end
 
     return recursion(1)
+end
+
+---@alias TableWeakMode
+---| '"v"'        # Weak Value
+---| '"k"'        # Weak Key
+---| '"kv"'       # Weak Value and Weak Key
+---| '""'         # Regular table
+
+---* Memoize a function with a cache
+--! This does not support nil, never input nil into the table
+---@param func function
+---@param __mode TableWeakMode|nil
+---@return table
+function QuestieLib:TableMemoizeFunction(func, __mode)
+    return setmetatable({}, {
+        __index = function(self, k)
+            local v = func(self, k);
+            self[k] = v
+            return v;
+        end,
+        __mode = __mode or ""
+    });
 end
 
 
