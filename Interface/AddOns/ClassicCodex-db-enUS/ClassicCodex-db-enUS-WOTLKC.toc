@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 英語數據
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.5.1
+## Version: v1.5.2
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
@@ -15,6 +15,10 @@
 ## X-WoWI-ID: 25442
 
 # database enUS
+items.lua
+units.lua
+objects.lua
+quests.lua
 zones.lua
 professions.lua
 

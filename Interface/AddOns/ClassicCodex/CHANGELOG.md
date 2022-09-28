@@ -1,6 +1,8 @@
 # ClassicCodex core (Incompatible)
 
-## v1.5.1 (2022-09-28)
+## v1.5.2 (2022-09-28)
  
 
-- Questie patch: add missing extraObjectives for quest  
+- Packing script: Fix the packing path error  
+- Fix LUA error in the enUS locale  
+- remove unused TBC patches  

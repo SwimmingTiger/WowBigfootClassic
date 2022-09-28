@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 英語數據 (不兼容)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v1.5.1
+## Version: v1.5.2
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
