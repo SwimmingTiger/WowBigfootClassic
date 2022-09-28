@@ -1,31 +1,15 @@
 ## Interface: 30400
 
 ## Notes: ClassicCodex-db-enUS
-## Title: ClassicCodex enUS data
-## Title-zhCN: ClassicCodex 英语数据
-## Title-zhTW: ClassicCodex 英語數據
+## Title: ClassicCodex enUS data (Incompatible)
+## Title-zhCN: ClassicCodex 英语数据 (不兼容)
+## Title-zhTW: ClassicCodex 英語數據 (不兼容)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
-
-# database enUS
-items.lua
-units.lua
-objects.lua
-quests.lua
-zones.lua
-professions.lua
-
-# database enUS for TBC
-items-tbc.lua
-units-tbc.lua
-objects-tbc.lua
-quests-tbc.lua
-zones-tbc.lua
-professions-tbc.lua

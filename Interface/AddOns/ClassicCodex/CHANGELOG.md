@@ -1,8 +1,24 @@
-# ClassicCodex core
+# ClassicCodex core (Incompatible)
 
-## [v0.4.9](https://github.com/SwimmingTiger/ClassicCodex/tree/v0.4.9) (2021-08-06)
-[Full Changelog](https://github.com/SwimmingTiger/ClassicCodex/compare/v1.4.8a...v0.4.9) 
+## v1.5.0 (2022-09-28)
+ 
 
-- add missing object names  
-- Only one prompt message is displayed for each item with missing data  
-- add missing objects for TBC  
+- WOTLK version no longer loads some Classic Locales  
+- remove unused *-BCC.toc  
+- Questie patch: update to 7.2.3 (WotLK only)  
+    Fix missing killCreditObjective of quest.  
+- Update items DB for WotLK  
+    From https://github.com/Questie/Questie/blob/master/Database/Wotlk/wotlkItemDB.lua  
+- update zone map ids for WotLK  
+    From https://github.com/Questie/Questie/blob/master/Database/Zones/zoneTables.lua#L12  
+- remove objects-loc-wotlk.lua  
+- Temporarily suppress data loss warnings  
+- Questie patch: update to 7.2.2 (WotLK only)  
+- sync locales data from Questie 7.2.2  
+- add a script to sync Questie locales to ClassicCodex  
+- Questie patch: update to 7.1.0 (WotLK only)  
+- Modify packaging scripts to support WotLK  
+- Update .toc files for WotLK  
+- BigWigsMods-release.sh: set lua file unchanged  
+- BigWigsMods-release.sh: update to 33ebc9f  
+- Fix Lua Errors on WotLK  

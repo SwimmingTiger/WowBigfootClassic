@@ -1,35 +1,15 @@
 ## Interface: 30400
 
 ## Notes: ClassicCodex-db
-## Title: ClassicCodex database
-## Title-zhCN: ClassicCodex 数据库
-## Title-zhTW: ClassicCodex 數據庫
+## Title: ClassicCodex database (Incompatible)
+## Title-zhCN: ClassicCodex 数据库 (不兼容)
+## Title-zhTW: ClassicCodex 數據庫 (不兼容)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
-
-# database init
-init.lua
-
-# database index
-items.lua
-units.lua
-objects.lua
-refloot.lua
-quests.lua
-meta.lua
-exclude.lua
-
-# TBC database index
-items-tbc.lua
-units-tbc.lua
-objects-tbc.lua
-refloot-tbc.lua
-quests-tbc.lua
-meta-tbc.lua

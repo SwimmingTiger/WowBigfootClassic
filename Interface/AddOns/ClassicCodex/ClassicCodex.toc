@@ -1,34 +1,15 @@
 ## Interface: 30400
 
 ## Notes: ClassicCodex
-## Title: ClassicCodex core
-## Title-zhCN: ClassicCodex 任务助手 (核心)
-## Title-zhTW: ClassicCodex 任務助手 (核心)
+## Title: ClassicCodex core (Incompatible)
+## Title-zhCN: ClassicCodex 任务助手 (核心) (不兼容)
+## Title-zhTW: ClassicCodex 任務助手 (核心) (不兼容)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
-## SavedVariablesPerCharacter: CodexConfig, CodexHiddenQuests, CodexBrowserFavorites, CodexColors
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
-
-# locales
-locale\enUS.lua
-locale\esES.lua
-locale\esMX.lua
-locale\ruRU.lua
-locale\zhCN.lua
-locale\zhTW.lua
-
-# main
-command.lua
-config.lua
-core.lua
-database.lua
-map.lua
-quest.lua
-ui.lua
-browser.lua

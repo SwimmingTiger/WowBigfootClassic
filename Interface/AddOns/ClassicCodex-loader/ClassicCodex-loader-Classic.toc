@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 11403
 
 ## Notes: ClassicCodex-loader
 ## Title: ClassicCodex loader
@@ -6,13 +6,20 @@
 ## Title-zhTW: ClassicCodex 加载器
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
 
-## Dependencies: !!!Libs
-## DefaultState: disabled
+# libs
+lib\LibStub\LibStub.lua
+lib\CallbackHandler-1.0\CallbackHandler-1.0.xml
+lib\HereBeDragons\HereBeDragons-2.0.lua
+lib\HereBeDragons\HereBeDragons-Pins-2.0.lua
+lib\AceLocale-3.0\AceLocale-3.0.lua
+lib\AceGUI-3.0\AceGUI-3.0.xml
+lib\AceConsole-3.0\AceConsole-3.0.lua
+lib\AceConfig-3.0\AceConfig-3.0.xml
 
 # locales
 locale\enUS.lua

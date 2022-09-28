@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 11403
 
 ## Notes: ClassicCodex-db-enUS
 ## Title: ClassicCodex enUS data
@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 英語數據
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1

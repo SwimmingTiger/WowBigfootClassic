@@ -1,12 +1,12 @@
-## Interface: 11307
+## Interface: 11403
 
 ## Notes: ClassicCodex-patch
-## Title: ClassicCodex data patch for Classic
+## Title: ClassicCodex data patch
 ## Title-zhCN: ClassicCodex 数据补丁
 ## Title-zhTW: ClassicCodex 數據補丁
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1

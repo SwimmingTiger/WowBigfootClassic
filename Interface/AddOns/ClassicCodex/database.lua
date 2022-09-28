@@ -76,7 +76,7 @@ if not devMode then
         end
         if not CodexDB.missingReport[name][key] then
             CodexDB.missingReport[name][key] = true
-            print(notice:format(key).."\n"..L["Please send a report to the developer."])
+            --print(notice:format(key).."\n"..L["Please send a report to the developer."])
         end
     end
     local function reportLocalMissing(name, key, notice)
@@ -88,7 +88,7 @@ if not devMode then
         end
         if not CodexDB.missingReport[name][key] then
             CodexDB.missingReport[name][key] = true
-            print(notice)
+            --print(notice)
         end
         return notice
     end
@@ -186,7 +186,7 @@ local bitclasses = {
     [64] = "SHAMAN",
     [128] = "MAGE",
     [256] = "WARLOCK",
-    [512] = "DEATHKNIGHT",
+    [512] = "DEATHKNIGHT", -- FixMe: It may change in the future
     [1024] = "DRUID"
 }
 

@@ -316,7 +316,7 @@ end
 
 function CodexQuest:AddQuestLogIntegration()
     local dockFrame = QuestLogDetailScrollChildFrame
-    local dockTitle = QuestInfoDescriptionHeader
+    local dockTitle = QuestInfoDescriptionHeader or QuestLogDescriptionTitle
 
     dockTitle:SetHeight(dockTitle:GetHeight() + 30)
     dockTitle:SetJustifyV("BOTTOM")

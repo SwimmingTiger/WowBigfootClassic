@@ -1,12 +1,12 @@
 ## Interface: 30400
 
 ## Notes: ClassicCodex-patch
-## Title: ClassicCodex data patch for TBC
+## Title: ClassicCodex data patch
 ## Title-zhCN: ClassicCodex 数据补丁
 ## Title-zhTW: ClassicCodex 數據補丁
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
@@ -15,9 +15,6 @@
 ## X-WoWI-ID: 25442
 
 # database patches for Classic
-quests-questie-tbc.lua
-units-questie-tbc.lua
-units-wowhead-tbc.lua
-objects-questie-tbc.lua
-objects-loc-tbc.lua
-manual-patch-tbc.lua
+quests-questie-wotlk.lua
+units-questie-wotlk.lua
+objects-questie-wotlk.lua

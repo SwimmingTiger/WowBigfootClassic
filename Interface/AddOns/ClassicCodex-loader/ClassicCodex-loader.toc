@@ -1,23 +1,12 @@
 ## Interface: 30400
 
 ## Notes: ClassicCodex-loader
-## Title: ClassicCodex loader
-## Title-zhCN: ClassicCodex 加载器
-## Title-zhTW: ClassicCodex 加载器
+## Title: ClassicCodex loader (Incompatible)
+## Title-zhCN: ClassicCodex 加载器 (不兼容)
+## Title-zhTW: ClassicCodex 加载器 (不兼容)
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## X-Curse-Project-ID: 351302
 ## X-WoWI-ID: 25442
-
-## Dependencies: !!!Libs
-## DefaultState: disabled
-
-# locales
-locale\enUS.lua
-locale\zhCN.lua
-locale\zhTW.lua
-
-# loader
-loader.lua

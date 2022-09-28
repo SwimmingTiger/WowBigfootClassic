@@ -6,7 +6,7 @@
 ## Title-zhTW: ClassicCodex 數據庫
 
 ## Author: Pgarneau, Shagu, SwimmingTiger
-## Version: v0.4.9
+## Version: v1.5.0
 
 ## Dependencies: ClassicCodex-loader
 ## LoadOnDemand: 1
@@ -18,7 +18,6 @@
 init.lua
 
 # database index
-items.lua
 units.lua
 objects.lua
 refloot.lua
