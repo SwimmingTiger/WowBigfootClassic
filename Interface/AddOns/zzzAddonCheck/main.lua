@@ -352,14 +352,19 @@ local function zzzAddonCheck_Init_Questie()
     if Codex and Questie then
         StaticPopupDialogs["RELOADUI_ZZZADDONCHECK"] = {
             text = [[
-检测到两个任务助手（ClassicCodex和Questie）同时启用。
-它们会互相影响，建议禁用ClassicCodex。点击“是”禁用。
-ClassicCodex目前缺少死亡骑士任务线和诺森德任务数据，推荐使用Questie。
-首次使用Questie需要几分钟才能在地图上显示出任务，请耐心等待。
+检测到两个任务助手（ClassicCodex和Questie）同时启用,
+它们会互相影响，需要禁用其中一个。
+点击“是”禁用“Questie”，点击“否”禁用“ClassicCodex”。
+ClassicCodex已经添加死亡骑士任务线和诺森德任务数据，
+但未经充分测试，如有错误请在微信群里反馈。
 ]],
             button1 = YES,
             button2 = NO,
             OnAccept = function()
+                DisableAddOn("Questie")
+                ReloadUI()
+            end,
+            OnCancel = function()
                 DisableAddOn("ClassicCodex-loader")
                 ReloadUI()
             end,
