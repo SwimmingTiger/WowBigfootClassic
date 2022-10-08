@@ -84,7 +84,7 @@
         </HighlightTexture>
     </Button>
     <Button name="MeetingHornQuickTemplate" parentArray="quicks" hidden="true" virtual="true">
-        <ButtonText name="$parentText" parentKey="Text"/>
+        <ButtonText parentKey="Text"/>
         <NormalFont style="GameFontNormal"/>
         <HighlightFont style="GameFontHighlight"/>
         <DisabledFont style="GameFontDisable"/>
@@ -291,23 +291,17 @@
             <Color r="0.588" g="0.588" b="0.588" a="0.05"/>
         </HighlightTexture>
     </Button>
-    <Button name="MeetingHornActivityTooltipTemplate" inherits="BackdropTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
+    <Frame name="MeetingHornActivityTooltipTemplate" inherits="BackdropTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
         <Size x="215" y="215"/>
         <KeyValues>
             <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
         </KeyValues>
         <Frames>
-            <Button parentKey="Close" inherits="UIPanelCloseButtonNoScripts">
+            <Button parentKey="Close" inherits="UIPanelCloseButton">
                 <HitRectInsets left="6" right="6" top="6" bottom="6"/>
                 <Anchors>
                     <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-3" y="-3"/>
                 </Anchors>
-                <Scripts>
-                    <OnClick>
-                        local parent = self:GetParent()
-                        parent:Hide()
-                    </OnClick>
-                </Scripts>
             </Button>
             <Button parentKey="QRCode">
                 <Size x="152" y="152"/>
@@ -326,8 +320,40 @@
                 </FontString>
             </Layer>
         </Layers>
-    </Button>
-
+    </Frame>
+    <Frame name="MeetingHornImageFrameTemplate" inherits="BackdropTemplate" clampedToScreen="true" frameStrata="TOOLTIP" virtual="true">
+        <Size x="215" y="215"/>
+        <KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
+        <Frames>
+            <Button parentKey="Close" inherits="UIPanelCloseButton">
+                <HitRectInsets left="6" right="6" top="6" bottom="6"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-3" y="-3"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Image">
+                    <Size x="152" y="152"/>
+                    <Anchors>
+                        <Anchor point="TOP" y="-30"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontNormalSmall" wordwrap="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.Image" relativePoint="BOTTOMLEFT" x="-5" y="-5"/>
+                        <Anchor point="TOPRIGHT" relativeKey="$parent.Image" relativePoint="BOTTOMRIGHT" x="5" y="-5"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnHide method="Hide"/>
+        </Scripts>
+    </Frame>
     <Button name="MeetingHornAcitivityButtonTemplate" motionScriptsWhileDisabled="true" virtual="true">
         <Size x="203" y="60"/>
         <Layers>
@@ -679,10 +705,10 @@
                 <Scripts>
                     <OnShow>
                             self.Anim:Play()
-                            </OnShow>
+                    </OnShow>
                     <OnHide>
                             self.Anim:Stop()
-                            </OnHide>
+                    </OnHide>
                 </Scripts>
             </Frame>
         </Frames>
@@ -814,6 +840,20 @@
         </Frames>
     </Frame>
     <Frame name="MissionGuidanceTemplate" virtual="true" inherits="InsetFrameTemplate">
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="title2" text="点击对应链接查看当前游戏版本所有任务图文指引" inherits="GameFontHighlightLeft">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.MissionGuidanceScrollFrame" relativePoint="TOPLEFT" x="60" y="10"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="title1" text="巫妖王之怒任务链" inherits="PVPInfoTextFont">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativeKey="$parent.title2" relativePoint="TOPLEFT" x="0" y="10"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
         <Frames>
             <ScrollFrame parentKey="MissionGuidanceScrollFrame" inherits="UIPanelScrollFrameTemplate">
                 <Anchors>
@@ -822,20 +862,6 @@
                 </Anchors>
                 <ScrollChild>
                     <Frame parentKey="container">
-                        <Layers>
-                            <Layer level="ARTWORK">
-                                <FontString parentKey="title1" text="燃烧的远征任务链" inherits="PVPInfoTextFont">
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="5" y="-10"/>
-                                    </Anchors>
-                                </FontString>
-                                <FontString parentKey="title2" text="点击对应链接查看当前游戏版本所有任务图文指引" inherits="GameFontHighlightLeft">
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.title1" relativePoint="BOTTOMLEFT" y="-10"/>
-                                    </Anchors>
-                                </FontString>
-                            </Layer>
-                        </Layers>
                     </Frame>
                 </ScrollChild>
             </ScrollFrame>

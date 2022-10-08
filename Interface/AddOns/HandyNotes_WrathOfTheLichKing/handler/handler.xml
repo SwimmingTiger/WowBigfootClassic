@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<Script file="class.lua"/>
+<Script file="handler.lua"/>
+<Script file="conditions.lua"/>
+<Script file="config.lua"/>
+<Script file="overlay.lua"/>
+<Script file="routes.lua"/>
+
+</Ui>

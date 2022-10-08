@@ -10,133 +10,74 @@ local L = ns.L
 
 local linkData = {
     {
-        title = "联盟",
-        color = {0.011,0.635,0.913},
-        urls ={
-            {
-                t = "地狱火半岛任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/286781"
-            },
-            {
-                t = "赞加沼泽任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287201"
-            },
-            {
-                t = "泰罗卡森林任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287210"
-            },
-            {
-                t = "纳格兰任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287169"
-            },
-            {
-                t = "刀锋山任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287287"
-            },
-            {
-                t = "影月谷任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287379"
-            }
-          }
-    },
-    {
-        title = "部落",
-        color = {0.725,0.168,0.145},
+        title = '地图任务',
+        color = {0.011, 0.635, 0.913},
         urls = {
+            {t = '北风苔原任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000311711'},
+            {t = '嚎风峡湾任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000312437'},
+            {t = '龙骨荒野任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000311841'},
+            {t = '灰熊丘陵任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000312468'},
+            {t = '祖达克任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000312643'},
+            {t = '索拉查盆地任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000313194'},
+            {t = '风暴峭壁任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000312607'},
+            {t = '冰冠冰川任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000312446'},
+        },
+    }, {
+        title = '其他',
+        color = {0.411, 0.662, 0.025},
+        urls = {
+            {t = '死亡骑士新手任务链', u = 'https://www.battlenet.com.cn/support/zh/article/312761'},
+            {t = '神谕者/狂心氏族任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000313195'},
+            {t = '霍迪尔之子声望开启任务链', u = 'https://www.battlenet.com.cn/support/zh/article/312684'},
             {
-                t = "地狱火半岛任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/286760"
+                t = '黑锋骑士团声望开启任务链',
+                u = 'https://www.battlenet.com.cn/support/zh/article/000318507',
             },
+            {t = '团本永恒之眼激活BOSS任务', u = 'https://www.battlenet.com.cn/support/zh/article/000318513'},
             {
-                t = "赞加沼泽任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287171"
-            },
-            {
-                t = "泰罗卡森林任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287208"
-            },
-            {
-                t = "纳格兰任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287160"
-            },
-            {
-                t = "刀锋山任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287270"
-            },
-            {
-                t = "影月谷任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287384"
-            }
-          }
+                t = '瓦兰奈尔，远古王者之锤任务链',
+                u = 'https://www.battlenet.com.cn/support/zh/article/000318509',
+            }, {t = '冰冠冰川新三本任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000313192'},
+            {t = '橙斧：影之哀伤任务链', u = 'https://www.battlenet.com.cn/support/zh/article/000313191'},
+        },
+    }, {
+        title = '燃烧的远征任务链',
+        color = {1.0, 1.0, 1.0},
+        urls = {{t = '外域任务指南', u = 'https://www.battlenet.com.cn/support/zh/article/288288'}},
     },
-    {
-        title = "其他",
-        color = {0.411,0.662,0.025},
-        urls ={
-            {
-                t = "虚空风暴任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/287299"
-            },
-            {
-                t = "卡拉赞钥匙&夜之魇召唤任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/288167"
-            },
-            {
-                t = "禁魔监狱钥匙任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/288168"
-            },
-            {
-                t = "破碎大厅钥匙任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/288169"
-            },
-            {
-                t = "黑色沼泽开门任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/288170"
-            },
-            {
-                t = "灵翼龙任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/289596"
-            },
-            {
-                t = "奥格瑞拉任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/289646"
-            },
-            {
-                t = "纳鲁的勇士（毒蛇神殿、风暴要塞开门）任务链",
-                u = "https://www.battlenet.com.cn/support/zh/article/289732"
-            }
-          }
-    }
 }
 
 local MissionGuidance = ns.Addon:NewClass('UI.MissionGuidance', 'Frame')
 
 function MissionGuidance:Constructor()
 
-
     self.button = {}
     local container = self.MissionGuidanceScrollFrame.container
-    setmetatable(self.button, {__index = function (t, k)
-        local btn = CreateFrame("Button", nil, container)
-        local fontStr = btn:CreateFontString(nil, "ARTWORK", "GameFontHighlightLeft")
-        btn:SetFontString(fontStr)
-        fontStr:SetPoint("CENTER")
-        t[k] = btn
-        
-        btn:SetHighlightTexture([[Interface\Buttons\ui-silver-button-highlight]],"ADD")
-        local highlight = btn:GetHighlightTexture()
-        highlight:ClearAllPoints()
-        highlight:SetPoint("TOPLEFT", highlight:GetParent(),"BOTTOMLEFT", 0, 0)
-        highlight:SetPoint("BOTTOMRIGHT", highlight:GetParent(),"BOTTOMRIGHT", 0, -5)
-        return btn
-    end})
+    setmetatable(self.button, {
+        __index = function(t, k)
+            local btn = CreateFrame('Button', nil, container)
+            local fontStr = btn:CreateFontString(nil, 'ARTWORK', 'GameFontHighlightLeft')
+            btn:SetFontString(fontStr)
+            fontStr:SetPoint('CENTER')
+            t[k] = btn
+
+            btn:SetHighlightTexture([[Interface\Buttons\ui-silver-button-highlight]], 'ADD')
+            local highlight = btn:GetHighlightTexture()
+            highlight:ClearAllPoints()
+            highlight:SetPoint('TOPLEFT', highlight:GetParent(), 'BOTTOMLEFT', 0, 0)
+            highlight:SetPoint('BOTTOMRIGHT', highlight:GetParent(), 'BOTTOMRIGHT', 0, -5)
+            return btn
+        end,
+    })
 
     self.label = {}
-    setmetatable(self.label, {__index = function (t, k)
-        t[k] = container:CreateFontString(nil, "OVERLAY", "GameFontHighlightLeft")
-        return t[k]
-    end})
-    self:SetScript("OnShow", function()
+    setmetatable(self.label, {
+        __index = function(t, k)
+            t[k] = container:CreateFontString(nil, 'OVERLAY', 'GameFontHighlightLeft')
+            return t[k]
+        end,
+    })
+    self:SetScript('OnShow', function()
         ns.Stats:Send('TaskGuideClick')
     end)
     self:Refresh()
@@ -146,18 +87,19 @@ function MissionGuidance:Refresh()
     local data = linkData
     local container = self.MissionGuidanceScrollFrame.container
     local height = 56
-    local width = max(self.MissionGuidanceScrollFrame:GetWidth(), 783)
+    local width = max(self.MissionGuidanceScrollFrame:GetWidth() - 40, 783)
     local btnIndex = 0
     local off = -20
+
     for k, v in ipairs(data) do
         local label = self.label[k]
         local color = v.color
-        label:SetText(v.title..":")
+        label:SetText(v.title .. ':')
         if k == 1 then
-            label:SetPoint("TOPLEFT", container.title2, "BOTTOMLEFT", 0, -10)
+            label:SetPoint('TOPLEFT', 20, -20)
             height = height + 26
         else
-            label:SetPoint("TOPLEFT", self.label[k-1], "BOTTOMLEFT", 0, off)
+            label:SetPoint('TOPLEFT', self.label[k - 1], 'BOTTOMLEFT', 0, off)
             height = height - off + 16
             off = -20
         end
@@ -168,7 +110,7 @@ function MissionGuidance:Refresh()
             local btn = self.button[btnIndex]
             btn:ClearAllPoints()
             local fontStr = btn:GetFontString()
-            
+
             fontStr:SetText(v1.t)
             fontStr:SetTextColor(color[1], color[2], color[3])
             if w + btn:GetTextWidth() > width then
@@ -176,15 +118,15 @@ function MissionGuidance:Refresh()
                 h = h - 26
             end
             if w == 0 then
-                btn:SetPoint("TOPLEFT", label, "BOTTOMLEFT", w, h)
+                btn:SetPoint('TOPLEFT', label, 'BOTTOMLEFT', w, h)
                 off = off - 26
             else
-                btn:SetPoint("LEFT", self.button[btnIndex - 1], "RIGHT", 20, 0)
+                btn:SetPoint('LEFT', self.button[btnIndex - 1], 'RIGHT', 20, 0)
             end
             w = w + fontStr:GetStringWidth() + 20
-            btn:SetSize(fontStr:GetStringWidth(),16)
+            btn:SetSize(fontStr:GetStringWidth(), 16)
 
-            btn:SetScript("OnClick", function ()
+            btn:SetScript('OnClick', function()
                 ns.OpenUrlDialog(v1.u)
             end)
         end

@@ -9,6 +9,8 @@ local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 local error, select, pairs = error, select, pairs
 local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
+local WoWWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
+local WoW10 = select(4, GetBuildInfo()) >= 100000
 local SaveBindings = SaveBindings or AttemptToSaveBindings
 
 -- GLOBALS: LibStub, UnitHasVehicleUI, GetModifiedClick, SetModifiedClick, SaveBindings, GetCurrentBindingSet, InCombatLockdown
@@ -27,7 +29,7 @@ end
 
 local KB = LibStub("LibKeyBound-1.0")
 local LDBIcon = LibStub("LibDBIcon-1.0", true)
-local LibDualSpec = (not WoWClassic) and LibStub("LibDualSpec-1.0", true)
+local LibDualSpec = (not WoWClassic or WoWWrath) and LibStub("LibDualSpec-1.0", true)
 
 local function generateOptions()
 	Bartender4.options = {
@@ -109,10 +111,20 @@ local function generateOptions()
 								type = "toggle",
 								name = L["Toggle actions on key press instead of release"],
 								desc = L["Toggles actions immediately when you press the key, and not only on release. Note that draging actions will cause them to be cast in this mode."],
-								get = getFunc,
+								get = function(info)
+									if WoW10 then
+										return GetCVarBool("ActionButtonUseKeyDown")
+									else
+										return Bartender4.db.profile.onkeydown
+									end
+								end,
 								set = function(info, value)
-									Bartender4.db.profile.onkeydown = value
-									Bartender4.Bar:ForAll("UpdateButtonConfig")
+									if WoW10 then
+										SetCVar("ActionButtonUseKeyDown", value)
+									else
+										Bartender4.db.profile.onkeydown = value
+										Bartender4.Bar:ForAll("UpdateButtonConfig")
+									end
 								end,
 								width = "full",
 							},

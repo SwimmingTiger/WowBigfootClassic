@@ -37,12 +37,12 @@ MT.BuildEnv('TOOLTIP');
 	local function TipAddLine(Tip, _name)
 		local cache = VT.TQueryCache[_name];
 		if cache ~= nil then
-			local data = cache.data;
+			local TalData = cache.TalData;
 			local class = cache.class;
-			if data ~= nil and data.num ~= nil and class ~= nil then
-				for group = 1, data.num do
-					local line = group == data.active and "|cff00ff00>|r" or "|cff000000>|r";
-					local stats = MT.CountTreePoints(data[group], class);
+			if TalData ~= nil and TalData.num ~= nil and class ~= nil then
+				for group = 1, TalData.num do
+					local line = group == TalData.active and "|cff00ff00>|r" or "|cff000000>|r";
+					local stats = MT.CountTreePoints(TalData[group], class);
 					local SpecList = DT.ClassSpec[class];
 					local cap = -1;
 					if stats[1] ~= stats[2] or stats[1] ~= stats[3] then
@@ -64,11 +64,11 @@ MT.BuildEnv('TOOLTIP');
 							end
 						end
 					end
-					line = line .. (group == data.active and "  |cff00ff00<|r" or "  |cff000000<|r");
+					line = line .. (group == TalData.active and "  |cff00ff00<|r" or "  |cff000000<|r");
 					Tip:AddLine(line);
 				end
-				if VT.SET.supreme and cache.pack ~= nil then
-					local info = VT.__emulib.DecodeAddonPackData(cache.pack, true);
+				if VT.SET.supreme and cache.PakData[1] ~= nil then
+					local _, info = VT.__emulib.DecodeAddOnPackData(cache.PakData[1]);
 					if info ~= nil then
 						Tip:AddLine("|cffffffffPack|r: " .. info, 0.75, 1.0, 0.25);
 					end
@@ -103,7 +103,7 @@ MT.BuildEnv('TOOLTIP');
 			local _, unit = Tip:GetUnit();
 			if unit ~= nil and UnitIsPlayer(unit) and UnitIsConnected(unit) and UnitFactionGroup(unit) == CT.SELFFACTION then
 				local name, realm = UnitName(unit);
-				MT.SendQueryRequest(name, realm, false, false, true, false);
+				MT.SendQueryRequest(name, realm, false, false, true, false, false);
 			end
 		end
 	end

@@ -533,7 +533,7 @@ MT.BuildEnv('RAIDTOOL');
 	end
 	--
 	local _ItemTryTimes = {  };
-	local function CalcItemLevel(class, cache)
+	local function CalcItemLevel(class, EquData)
 		local slots = { 1, 2, 3, 5, 6, 7, 8,9, 10, 11, 12, 13, 14, 15, };
 		if class ~= "DRUID" and class ~= "PALADIN" and class ~= "SHAMAN" then
 			slots[#slots + 1] = 18;
@@ -546,7 +546,7 @@ MT.BuildEnv('RAIDTOOL');
 		local num1, num2 = 0, 0;
 		for index = 1, #slots do
 			local slot = slots[index];
-			local item = cache[slot];
+			local item = EquData[slot];
 			if item ~= nil and item ~= "" then
 				local _, _, _, level, _, _, _, _, loc = GetItemInfo(item);
 				if level ~= nil then
@@ -1384,12 +1384,12 @@ MT.BuildEnv('RAIDTOOL');
 			return false, false, link or item;
 		end
 	end
-	local function SummaryItems(class, cache)
-		if cache then
+	local function SummaryItems(class, EquData)
+		if EquData then
 			local missItems, missEnchants, items, enchants = 0, 0, 0, 0;
 			for slot = 1, 18 do
 				if slot ~= 4 then
-					local item = cache[slot];
+					local item = EquData[slot];
 					if item then
 						items = items + 1;
 						local enchantable, enchanted, link, str = GetEnchantInfo(class, slot, item);
@@ -1401,8 +1401,8 @@ MT.BuildEnv('RAIDTOOL');
 							end
 						end
 					else
-						if slot == 17 and cache[16] then
-							local _, _, _, _, _, _, _, _, loc = GetItemInfo(cache[16]);
+						if slot == 17 and EquData[16] then
+							local _, _, _, _, _, _, _, _, loc = GetItemInfo(EquData[16]);
 							if loc ~= "INVTYPE_2HWEAPON" then
 								missItems = missItems + 1;
 							end
@@ -1425,7 +1425,7 @@ MT.BuildEnv('RAIDTOOL');
 			local name = RosterList[data_index];
 			local class = RosterInfo[name][1];
 			local cache = VT.TQueryCache[name];
-			if class == nil and cache then
+			if class == nil and cache ~= nil then
 				class = cache.class;
 			end
 			if class then
@@ -1433,10 +1433,11 @@ MT.BuildEnv('RAIDTOOL');
 			else
 				GameTooltip:SetText(RosterList[data_index]);
 			end
-			if cache then
+			local EquData = cache ~= nil and cache.EquData;
+			if EquData ~= nil then
 				for slot = 1, 18 do
 					if slot ~= 4 then
-						local item = cache[slot];
+						local item = EquData[slot];
 						if item then
 							local enchantable, enchanted, link, str = GetEnchantInfo(class, slot, item);
 							if enchantable then
@@ -1449,8 +1450,8 @@ MT.BuildEnv('RAIDTOOL');
 								GameTooltip:AddLine(L.SLOT[slot] .. link);
 							end
 						else
-							if slot == 17 and cache[16] then
-								local _, _, _, _, _, _, _, _, loc = GetItemInfo(cache[16]);
+							if slot == 17 and EquData[16] then
+								local _, _, _, _, _, _, _, _, loc = GetItemInfo(EquData[16]);
 								if loc == "INVTYPE_2HWEAPON" then
 									GameTooltip:AddLine(L.SLOT[slot] .. "-");
 								else
@@ -1575,9 +1576,9 @@ MT.BuildEnv('RAIDTOOL');
 				Node.Icon:SetTexCoord(0.75, 1.00, 0.75, 1.00);
 			end
 			if class ~= nil and cache ~= nil then
-				local data = cache.data;
-				if data ~= nil then
-					local stats = MT.CountTreePoints(data[data.active], class);
+				local TalData = cache.TalData;
+				if TalData ~= nil then
+					local stats = MT.CountTreePoints(TalData[TalData.active], class);
 					local Specs = Node.Specs;
 					local SpecList = DT.ClassSpec[class];
 					for TreeIndex = 1, 3 do
@@ -1594,7 +1595,7 @@ MT.BuildEnv('RAIDTOOL');
 						SpecIcon.Name:SetText("*");
 					end
 				end
-				local itemLevel1, itemLevel2, refresh_again = CalcItemLevel(class, cache);
+				local itemLevel1, itemLevel2, refresh_again = CalcItemLevel(class, cache.EquData);
 				if itemLevel1 then
 					Node.ItemLevel:SetText(format("%.1f", itemLevel1));
 				else
@@ -1603,7 +1604,7 @@ MT.BuildEnv('RAIDTOOL');
 				if refresh_again then
 					MT._TimerStart(Node.Frame.UpdateScrollList, 0.2, 1);
 				end
-				local missItems, missEnchants, items, enchants = SummaryItems(class, cache);
+				local missItems, missEnchants, items, enchants = SummaryItems(class, cache.EquData);
 				if missItems then
 					if missItems > 0 then
 						Node.MissItem:SetText(" |cff00ff00" .. items .. "|r / |cffff0000-" .. missItems .. "|r");

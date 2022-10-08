@@ -6,6 +6,8 @@
 local _, Bartender4 = ...
 local Bar = Bartender4.Bar.prototype
 
+local WoW10 = select(4, GetBuildInfo()) >= 100000
+
 local setmetatable, tostring, pairs = setmetatable, tostring, pairs
 
 local ButtonBar = setmetatable({}, {__index = Bar})
@@ -151,8 +153,8 @@ end
 local math_floor = math.floor
 local math_ceil = math.ceil
 -- align the buttons and correct the size of the bar overlay frame
-ButtonBar.button_width = 36
-ButtonBar.button_height = 36
+ButtonBar.button_width = WoW10 and 45 or 36
+ButtonBar.button_height = WoW10 and 45 or 36
 function ButtonBar:UpdateButtonLayout()
 	local buttons = self.buttons
 	local pad = self:GetPadding()
@@ -174,7 +176,7 @@ function ButtonBar:UpdateButtonLayout()
 	local hpad = pad + (self.hpad_offset or 0)
 	local vpad = pad + (self.vpad_offset or 0)
 
-	self:SetSize((self.button_width + hpad) * ButtonPerRow - pad + 10, (self.button_height + vpad) * Rows - pad + 10)
+	self:SetSize((self.button_width + hpad) * ButtonPerRow - hpad + 8, (self.button_height + vpad) * Rows - vpad + 8)
 
 	local h1, h2, v1, v2
 	local xOff, yOff
@@ -212,7 +214,7 @@ function ButtonBar:UpdateButtonLayout()
 			buttons[i]:ClearSetPoint(v1 .. h1, buttons[i-ButtonPerRow], v2 .. h1, 0, -vpad)
 		-- align to the previous button
 		else
-			buttons[i]:ClearSetPoint("TOP" .. h1, buttons[i-1], "TOP" .. h2, hpad, 0)
+			buttons[i]:ClearSetPoint("TOP" .. h1, buttons[i-1], "TOP" .. h2, hpad, buttons[i].bt4_yoffset or 0)
 		end
 	end
 

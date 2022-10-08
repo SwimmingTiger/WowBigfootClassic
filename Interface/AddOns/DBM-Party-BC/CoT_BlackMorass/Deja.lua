@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(552, "DBM-Party-BC", 12, 255)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220829192444")
+mod:SetRevision("20220923022829")
 mod:SetCreatureID(17879)
 mod:SetEncounterID(1920)
 mod:SetModelID(20513)
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 
 local warnArcaneDischarge		= mod:NewSpellAnnounce(38539, 2)
 
-local specwarnTimeLapse			= mod:NewSpecialWarningDispel(31467, "Healer", nil, nil, 1, 2)
+local specwarnTimeLapse			= mod:NewSpecialWarningDispel(31467, "RemoveMagic", nil, 2, 1, 2)
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(38539, 31472) then

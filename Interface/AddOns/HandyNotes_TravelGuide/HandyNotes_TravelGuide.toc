@@ -3,7 +3,7 @@
 ## Notes: Shows the boat and zeppelin locations on the World Map and the MiniMap.
 ## Notes-zhCN: 在世界地图和小地图上显示船和飞艇的位置.
 ## Author: Dathwada
-## Version: v1
+## Version: v1.2
 ## RequiredDeps: HandyNotes
 ## SavedVariables: HandyNotes_TravelGuideBCCDB
 ## X-Category: Map

@@ -68,11 +68,17 @@ function QuestieWotlkItemFixes:Load()
         [33123] = {
             [itemKeys.npcDrops] = {},
         },
+        [33330] = {
+            [itemKeys.npcDrops] = {23954},
+        },
         [33348] = {
             [itemKeys.npcDrops] = {},
         },
         [33355] = {
             [itemKeys.npcDrops] = {},
+        },
+        [33558] = {
+            [itemKeys.npcDrops] = {23967},
         },
         [33628] = {
             [itemKeys.objectDrops] = {186659,186660,186661},
@@ -88,6 +94,9 @@ function QuestieWotlkItemFixes:Load()
         },
         [34123] = {
             [itemKeys.objectDrops] = {186946},
+        },
+        [34468] = {
+            [itemKeys.npcDrops] = {24914},
         },
         [34623] = {
             [itemKeys.npcDrops] = {25226},
@@ -110,6 +119,9 @@ function QuestieWotlkItemFixes:Load()
         [35126] = {
             [itemKeys.npcDrops] = {25841},
         },
+        [35276] = {
+            [itemKeys.npcDrops] = {25841},
+        },
         [35492] = {
             [itemKeys.npcDrops] = {},
         },
@@ -119,11 +131,23 @@ function QuestieWotlkItemFixes:Load()
         [35687] = {
             [itemKeys.objectDrops] = {188141},
         },
+        [35692] = {
+            [itemKeys.npcDrops] = {26200},
+        },
         [35701] = {
             [itemKeys.npcDrops] = {26219},
         },
+        [35726] = {
+            [itemKeys.npcDrops] = {},
+        },
+        [35782] = {
+            [itemKeys.npcDrops] = {},
+        },
         [35783] = {
             [itemKeys.npcDrops] = {26477},
+        },
+        [35795] = {
+            [itemKeys.npcDrops] = {},
         },
         [35802] = {
             [itemKeys.npcDrops] = {},
@@ -137,11 +161,27 @@ function QuestieWotlkItemFixes:Load()
         [36733] = {
             [itemKeys.objectDrops] = {188539},
         },
+        [36759] = {
+            [itemKeys.npcDrops] = {26608},
+        },
         [36765] = {
             [itemKeys.npcDrops] = {26809},
         },
+        [36768] = {
+            [itemKeys.npcDrops] = {26358,26359},
+        },
+        [36772] = {
+            [itemKeys.npcDrops] = {26359},
+            [itemKeys.objectDrops] = {190510},
+        },
         [36852] = {
             [itemKeys.npcDrops] = {},
+        },
+        [37136] = {
+            [itemKeys.npcDrops] = {},
+        },
+        [37303] = {
+            [itemKeys.objectDrops] = {188694},
         },
         [37359] = {
             [itemKeys.npcDrops] = {},
@@ -155,13 +195,34 @@ function QuestieWotlkItemFixes:Load()
         [37727] = {
             [itemKeys.npcDrops] = {},
         },
+        [38305] = {
+            [itemKeys.npcDrops] = {28006},
+        },
         [38326] = {
             [itemKeys.npcDrops] = {},
+        },
+        [38333] = {
+            [itemKeys.npcDrops] = {28162},
+        },
+        [38340] = {
+            [itemKeys.objectDrops] = {190459},
+        },
+        [38380] = {
+            [itemKeys.npcDrops] = {28202},
+        },
+        [38600] = {
+            [itemKeys.npcDrops] = {28389,28408},
         },
         [38631] = {
             [itemKeys.objectDrops] = {190557,191746,191747,191748,},
         },
+        [38687] = {
+            [itemKeys.npcDrops] = {29856},
+        },
         [39160] = {
+            [itemKeys.npcDrops] = {},
+        },
+        [39301] = {
             [itemKeys.npcDrops] = {},
         },
         [40731] = {
@@ -169,6 +230,22 @@ function QuestieWotlkItemFixes:Load()
         },
         [41399] = {
             [itemKeys.npcDrops] = {},
+        },
+        [42203] = {
+            [itemKeys.npcDrops] = {29380},
+            [itemKeys.startQuest] = 12979,
+        },
+        [42252] = {
+            [itemKeys.objectDrops] = {192124,192127},
+        },
+        [42423] = {
+            [itemKeys.npcDrops] = {29914,30163},
+        },
+        [42542] = {
+            [itemKeys.npcDrops] = {30260},
+        },
+        [42733] = {
+            [itemKeys.npcDrops] = {29562},
         },
     }
 end

@@ -1,12 +1,14 @@
 ﻿## Interface: 30400
 ## Title: Spy
-## Version: 3.0.0
+## Title-zhCN: [大脚][集]敌对玩家侦测
+## Version: 3.0.2
 ## Notes: Detects and alerts you to the presence of nearby enemy players.
-## Notes-zhCN: 检测并提醒您附近有敌方玩家。
-## Notes-zhTW: 偵測並警告你附近有敵方玩家出沒。
+## Notes-zhCN: |cff00ff00Spy|r|n|cffbc8f8f检测并提醒您附近有敌方玩家。|r
+## Notes-zhTW: |cff00ff00Spy|r|n|cffbc8f8f偵測並警告你附近有敵方玩家出沒。|r
 ## Creator: Immolation
 ## Author: Slipjack
 ## X-Credits-zhTW: Localization: Jaspy10
+## X-Credits-zhCN: Localization: Kidd8250
 ## SavedVariables: SpyDB
 ## SavedVariablesPerCharacter: SpyPerCharDB
 ## Dependencies: BigFoot

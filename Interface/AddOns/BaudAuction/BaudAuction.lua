@@ -489,88 +489,94 @@ ScanFrame:SetScript("OnUpdate", function(self)
 end);
 
 function BaudAuction_OnLoad(self)
-    for Key, _ in pairs(EventFuncs) do
-        self:RegisterEvent(Key);
-    end
-    self:SetScript("OnEvent", function(self,event, ...)
-        EventFuncs[event](self,...);
-    end);
+	for Key, _ in pairs(EventFuncs) do
+		self:RegisterEvent(Key);
+	end
+	self:SetScript("OnEvent", function(self,event, ...)
+		EventFuncs[event](self,...);
+	end);
 
-    AuctionFrameBrowse:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE");
+	AuctionFrameBrowse:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE");
 	local number_browse_to_display = NUM_BROWSE_TO_DISPLAY;
-    NUM_BROWSE_TO_DISPLAY = 0;
+	NUM_BROWSE_TO_DISPLAY = 0;
 
-    for _, Value in ipairs(HideBliz) do
-        Value:Hide();
-        hooksecurefunc(Value, "Show", function() Value:Hide() end);
-    end
+	for _, Value in ipairs(HideBliz) do
+		Value:Hide();
+		hooksecurefunc(Value, "Show", function() Value:Hide() end);
+	end
 
-    for Index = 1, number_browse_to_display do
-        getglobal("BrowseButton" .. Index):Hide();
-    end
+	AuctionFrameBrowse:HookScript("OnShow", function(self)
+		if BrowseNameSort and BrowseNameSort:IsShown() then
+			BrowseNameSort:Hide();
+		end
+	end)
 
-    ScrollBox = BaudAuctionBrowseScrollBox;
-    ScrollBox.Entries = 19;
-    ScrollBar = getglobal(ScrollBox:GetName() .. "ScrollBar");
-    Highlight = getglobal(ScrollBox:GetName() .. "Highlight");
+	for Index = 1, number_browse_to_display do
+		getglobal("BrowseButton" .. Index):Hide();
+	end
 
-    local Left = 22;
-    local Button, Btn_Text;
-    for Key, Value in ipairs(Columns) do
-        Button = CreateFrame("Button", self:GetName() .. "Col" .. Key, self, "AuctionSortButtonTemplate");
-        Value.Header = Button;
-        Btn_Text = getglobal(Button:GetName() .. "Text");
-        Btn_Text:ClearAllPoints();
-        Btn_Text:SetPoint("CENTER",2,0);
-        Btn_Text:SetText(Value.Name);
-        Button:SetID(Key);
-        Button:SetNormalTexture(nil);
-        Button:SetWidth(Value.Width);
-        Button:SetHeight(19);
-        Button:SetScript("OnClick", BaudAuctionColumn_OnClick);
-        Button:SetPoint("BOTTOMLEFT", ScrollBox, "TOPLEFT", Left,0);
-        Left = Left + Value.Width;
-    end
+	ScrollBox = BaudAuctionBrowseScrollBox;
+	ScrollBox.Entries = 19;
+	ScrollBar = getglobal(ScrollBox:GetName() .. "ScrollBar");
+	Highlight = getglobal(ScrollBox:GetName() .. "Highlight");
 
-    local function ChildClickFunc(self)
-        BaudAuctionBrowseEntry_OnClick(self:GetParent());
-    end
+	local Left = 22;
+	local Button, Btn_Text;
+	for Key, Value in ipairs(Columns) do
+		Button = CreateFrame("Button", self:GetName() .. "Col" .. Key, self, "AuctionSortButtonTemplate");
+		Value.Header = Button;
+		Btn_Text = getglobal(Button:GetName() .. "Text");
+		Btn_Text:ClearAllPoints();
+		Btn_Text:SetPoint("CENTER",2,0);
+		Btn_Text:SetText(Value.Name);
+		Button:SetID(Key);
+		Button:SetNormalTexture(nil);
+		Button:SetWidth(Value.Width);
+		Button:SetHeight(19);
+		Button:SetScript("OnClick", BaudAuctionColumn_OnClick);
+		Button:SetPoint("BOTTOMLEFT", ScrollBox, "TOPLEFT", Left,0);
+		Left = Left + Value.Width;
+	end
 
-    local Entry;
-    for Index = 1, ScrollBox.Entries do
-        Entry = CreateFrame("Button", ScrollBox:GetName() .. "Entry" .. Index, ScrollBox);
-        Entry:SetScript("OnClick", BaudAuctionBrowseEntry_OnClick);
-        Entry:SetHeight(16);
-        Entry:SetPoint("LEFT", 6, 0);
-        Entry:SetPoint("RIGHT", -6, 0);
-        Entry:SetPoint("TOP", 0, -3 - (Index - 1) * 16);
-        Entry:Hide();
-        Button = CreateFrame("Button", Entry:GetName() .. "Icon", Entry);
-        Button:SetPoint("LEFT");
-        Button:SetHeight(16);
-        Button:SetWidth(16);
-        Button:CreateTexture(Entry:GetName() .. "Texture", "ARTWORK"):SetAllPoints();
-        Button:EnableMouse(true);
-        Button:SetHitRectInsets(0, 0-Columns[1].Width, 0, 0);
-        Button:SetScript("OnEnter", BaudAuctionBrowseEntry_OnEnter);
-        Button:SetScript("OnLeave", BaudAuctionBrowseEntry_OnLeave);
-        Button:SetScript("OnClick", ChildClickFunc);
-        for Key, Value in ipairs(Columns) do
-            Text = Entry:CreateFontString(Entry:GetName() .. "Text" .. Key, "ARTWORK", (Key>4 and "GameFontWhiteSmall") or (Key>1 and "GameFontWhite") or "GameFontHighlight");
-            Text:SetPoint("TOP");
-            Text:SetPoint("BOTTOM");
-            Text:SetPoint("LEFT", Value.Header);
-            Text:SetPoint("RIGHT", Value.Header);
-            Text:SetJustifyH(Value.Align);
-            if Value.OnEnter then
-                local btn = CreateFrame("Button", nil, Entry)
-                btn:SetAllPoints(Text)
-                btn:SetScript("OnEnter", Value.OnEnter)
-                btn:SetScript("OnLeave", Value.OnLeave)
-                btn:SetScript("OnClick", ChildClickFunc)
-            end
-        end
-    end
+	local function ChildClickFunc(self)
+		BaudAuctionBrowseEntry_OnClick(self:GetParent());
+	end
+
+	local Entry;
+	for Index = 1, ScrollBox.Entries do
+		Entry = CreateFrame("Button", ScrollBox:GetName() .. "Entry" .. Index, ScrollBox);
+		Entry:SetScript("OnClick", BaudAuctionBrowseEntry_OnClick);
+		Entry:SetHeight(16);
+		Entry:SetPoint("LEFT", 6, 0);
+		Entry:SetPoint("RIGHT", -6, 0);
+		Entry:SetPoint("TOP", 0, -3 - (Index - 1) * 16);
+		Entry:Hide();
+		Button = CreateFrame("Button", Entry:GetName() .. "Icon", Entry);
+		Button:SetPoint("LEFT");
+		Button:SetHeight(16);
+		Button:SetWidth(16);
+		Button:CreateTexture(Entry:GetName() .. "Texture", "ARTWORK"):SetAllPoints();
+		Button:EnableMouse(true);
+		Button:SetHitRectInsets(0, 0-Columns[1].Width, 0, 0);
+		Button:SetScript("OnEnter", BaudAuctionBrowseEntry_OnEnter);
+		Button:SetScript("OnLeave", BaudAuctionBrowseEntry_OnLeave);
+		Button:SetScript("OnClick", ChildClickFunc);
+		for Key, Value in ipairs(Columns) do
+			Text = Entry:CreateFontString(Entry:GetName() .. "Text" .. Key, "ARTWORK", (Key>4 and "GameFontWhiteSmall") or (Key>1 and "GameFontWhite") or "GameFontHighlight");
+			Text:SetPoint("TOP");
+			Text:SetPoint("BOTTOM");
+			Text:SetPoint("LEFT", Value.Header);
+			Text:SetPoint("RIGHT", Value.Header);
+			Text:SetJustifyH(Value.Align);
+			if Value.OnEnter then
+				local btn = CreateFrame("Button", nil, Entry)
+				btn:SetAllPoints(Text)
+				btn:SetScript("OnEnter", Value.OnEnter)
+				btn:SetScript("OnLeave", Value.OnLeave)
+				btn:SetScript("OnClick", ChildClickFunc)
+			end
+		end
+	end
 end
 
 function BaudAuctionProgress_OnUpdate(self)

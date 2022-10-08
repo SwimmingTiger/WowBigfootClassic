@@ -4,7 +4,7 @@
 ## Title-zhTW: [大腳][集]薩滿圖騰助手
 ## Notes: |cff00ff00TotemTimers|r
 ## Author:  Xianghar
-## Version: 3.0.4
+## Version: 3.1.7
 ## SavedVariables: TotemTimers_GlobalSettings, TotemTimers_Profiles
 ## X-LoadOn-Class: Shaman
 ## X-Curse-Project-ID: 339602
@@ -42,6 +42,7 @@ Shield.lua
 EarthShield.lua
 Weapon.lua
 EnhanceCDs.lua
+LongCooldowns.lua
 Warnings.lua
 Masque.lua
 

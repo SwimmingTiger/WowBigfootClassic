@@ -78,9 +78,9 @@ function LFG:OnEnable()
     self:RegisterServer('SERVER_CONNECTED')
     self:RegisterServer('SNEWVERSION')
     self:RegisterServer('ANNOUNCEMENT')
-    --[[@classic@
+    --[=[@classic@
     self:RegisterServer('SWORLDBUFF')
-    --@end-classic@]]
+    --@end-classic@]=]
     self:RegisterServer('SNOTICE')
 
     self:RegisterChallenge('SGA', 'SGETACTIVITY')
@@ -415,6 +415,7 @@ function LFG:Search(path, activityId, modeId, search)
 
     if search then
         search = search:lower()
+        search = ns.PrepareSearch(search)
     end
 
     if activityId then
@@ -440,12 +441,14 @@ function LFG:Search(path, activityId, modeId, search)
 end
 
 function LFG:SERVER_CONNECTED()
-    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'), ns.GetAddonSource())
+    self:SendServer('SLOGIN', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'),
+                    ns.GetAddonSource())
     self:SendMessage('MEETINGHORN_SERVER_CONNECTED')
 
-    --[[@debug@
-    print('Connected', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'), ns.GetAddonSource())
-    --@end-debug@]]
+    --[=[@debug@
+    print('Connected', ns.ADDON_VERSION, ns.GetPlayerItemLevel(), UnitGUID('player'), UnitLevel('player'),
+          ns.GetAddonSource())
+    --@end-debug@]=]
 end
 
 function LFG:SNEWVERSION(_, version, url, changelog)
@@ -456,14 +459,14 @@ function LFG:SNOTICE(_, text)
     ns.SystemMessage(format('|cff00ffff集结号温馨提示|r: |cff47e53d%s|r', text))
 end
 
---[[@classic@
+--[=[@classic@
 function LFG:SWORLDBUFF(_, enable, data)
     if type(data) == 'table' then
         ns.WorldBuff:SetPos(data)
     end
     self:SendMessage('MEETINGHORN_WORLDBUFF_STATUS_CHANGED', enable)
 end
---@end-classic@]]
+--@end-classic@]=]
 
 ---- Challenge
 
@@ -473,9 +476,9 @@ function LFG:RegisterChallenge(event, method)
 
     self:RegisterServer(event, function(event, err, ...)
         if err and err > 0 then
-            --[[@debug@
+            --[=[@debug@
             print(event, err)
-            --@end-debug@]]
+            --@end-debug@]=]
             local errString = ns.errorString(err)
             if errString then
                 ns.Message(format('|cffff0000%s。|r', errString))
@@ -526,9 +529,9 @@ function LFG:SGETACTIVITY(_, activities, progress, moreActivities)
     tinsert(self.challengeGroups, challengeGroup)
 
     if moreActivities then
-        --[[@debug@
+        --[=[@debug@
         dump('moreActivities', moreActivities)
-        --@end-debug@]]
+        --@end-debug@]=]
         for i, v in ipairs(moreActivities) do
             table.insert(self.challengeGroups, ns.ChallengeGroup:New(v))
         end
@@ -558,9 +561,9 @@ function LFG:RequestChallengeProgress(id)
 end
 
 function LFG:SACTIVITYPROGRESS(_, id, progresses)
-    --[[@debug@
+    --[=[@debug@
     dump(progresses)
-    --@end-debug@]]
+    --@end-debug@]=]
     if type(progresses) == 'table' then
         local item = self:GetChallenge(id)
         if item then
@@ -739,7 +742,7 @@ function LFG:RAID_INSTANCE_WELCOME()
                instanceInfo.title, instanceId)
 end
 
-function LFG:ENCOUNTER_END(_, bossId, _, _, _, success)
+function LFG:ENCOUNTER_END(_, bossId, bossName, difficultyId, groupSize, success)
     if success == 1 then
         RequestRaidInfo()
 
@@ -758,7 +761,7 @@ function LFG:ENCOUNTER_END(_, bossId, _, _, _, success)
         C_Timer.After(5, function()
             local id = ns.GetRaidId(raidName)
             self:SendServer('SBK', raidName, id, bossId, timeDiff, leaderName, leaderGUID, looterName, looterGUID,
-                            ns.ADDON_VERSION, lootMethod)
+                            ns.ADDON_VERSION, lootMethod, difficultyId or -1, groupSize)
             self:SaveInstanceMembers(id)
         end)
     elseif self.youDead then
@@ -771,6 +774,7 @@ function LFG:ENCOUNTER_END(_, bossId, _, _, _, success)
     end
     self.youDead = nil
     self.currentBossId = nil
+    self:UnregisterEvent('COMBAT_LOG_EVENT_UNFILTERED')
 end
 
 function LFG:GetInstanceMembers(id)
@@ -889,7 +893,7 @@ function LFG:IsFilter(text)
     end
 end
 
---[[@classic@
+--[=[@classic@
 function LFG:WorldBuff(instanceId, npcId, spellId)
     ns.RandomCall(30, self.SendServer, self, 'SWB', instanceId, npcId, spellId, GetServerTime())
 end
@@ -897,8 +901,8 @@ end
 function LFG:KillWorldBuffNpc(instanceId, npcId)
     ns.RandomCall(30, self.SendServer, self, 'SKN', instanceId, npcId, GetServerTime())
 end
---@end-classic@]]
+--@end-classic@]=]
 
 function LFG:ANNOUNCEMENT(eventName, ...)
-    self:SendMessage("MEETINGHORN_ANNOUNCEMENT", ...)
+    self:SendMessage('MEETINGHORN_ANNOUNCEMENT', ...)
 end

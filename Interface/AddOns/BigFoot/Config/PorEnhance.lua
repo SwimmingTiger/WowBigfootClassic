@@ -57,51 +57,53 @@ function PorEnhanceConfigFunc()
 			{[3]=true}
 		)
 
-		ModManagement_RegisterCheckBox(
-			"PortraitEnhancement",
-			PORTRAIT_ENHANCEMENT_Enable_EasyFrames,
-			nil,
-			"EnableEasyFrames",
-			1,
-			function(arg)
-				if arg == 1 then
-					if not BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames") then
-						BigFoot_LoadAddOn("EasyFrames")
+		if IsConfigurableAddOn("EasyFrames") then
+			ModManagement_RegisterCheckBox(
+				"PortraitEnhancement",
+				PORTRAIT_ENHANCEMENT_Enable_EasyFrames,
+				nil,
+				"EnableEasyFrames",
+				1,
+				function(arg)
+					if arg == 1 then
+						if not BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames") then
+							BigFoot_LoadAddOn("EasyFrames")
+						end
+					else
+						if (BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames")) then
+							BigFoot_RequestReloadUI();
+						end
 					end
-				else
+				end,
+				nil,
+				function(arg)
+					if (arg == 1) then
+						if not BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames") then
+							BigFoot_LoadAddOn("EasyFrames")
+						end
+
+						if (BigFoot_IsAddOnLoaded("MobHealth") and BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames")) then
+							MobHealth_Toggle();
+						end
+					end
+				end
+			)
+
+			ModManagement_RegisterButton(
+				"PortraitEnhancement",
+				SETTINGS,
+				function()
 					if (BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames")) then
-						BigFoot_RequestReloadUI();
+						local EasyFrames = LibStub("AceAddon-3.0"):GetAddon("EasyFrames");
+						InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.Profiles)
+						InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.EasyFrames)
+						HideUIPanel(ModManagementFrame);
 					end
-				end
-			end,
-			nil,
-			function(arg)
-				if (arg == 1) then
-					if not BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames") then
-						BigFoot_LoadAddOn("EasyFrames")
-					end
-
-					if (BigFoot_IsAddOnLoaded("MobHealth") and BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames")) then
-						MobHealth_Toggle();
-					end
-				end
-			end
-		)
-
-		ModManagement_RegisterButton(
-			"PortraitEnhancement",
-			SETTINGS,
-			function()
-				if (BigFoot_IsAddOnLoadedFromBigFoot("EasyFrames")) then
-					local EasyFrames = LibStub("AceAddon-3.0"):GetAddon("EasyFrames");
-					InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.Profiles)
-					InterfaceOptionsFrame_OpenToCategory(EasyFrames.optFrames.EasyFrames)
-					HideUIPanel(ModManagementFrame);
-				end
-			end,
-			nil,
-			1
-		);
+				end,
+				nil,
+				1
+			);
+		end
 
 		ModManagement_RegisterCheckBox(
 			"PortraitEnhancement",

@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220816155700")
+mod:SetRevision("20221007015514")
 mod:SetCreatureID(15928)
 mod:SetEncounterID(1120)
 mod:SetModelID(16137)
@@ -55,7 +55,7 @@ function mod:OnCombatStart(delay)
 end
 
 do
-	local lastShift = 0
+	local lastShift
 	function mod:SPELL_CAST_START(args)
 		if args.spellId == 28089 then
 			self:SetStage(2)
@@ -69,11 +69,11 @@ do
 
 	--SHIT SHOW, FIXME
 	function mod:UNIT_AURA()
-		if self.vb.phase ~=2 or (GetTime() - lastShift) > 5 or (GetTime() - lastShift) < 3 then return end
+		if self.vb.phase ~= 2 or not lastShift or (GetTime() - lastShift) < 3 then return end
 		local charge
 		local i = 1
 		while UnitDebuff("player", i) do
-		local _, icon, count, _, _, _, _, _, _, _, _, _, _, _, _, count2 = UnitDebuff("player", i)
+			local _, icon, count, _, _, _, _, _, _, _, _, _, _, _, _, count2 = UnitDebuff("player", i)
 			if icon == "Interface\\Icons\\Spell_ChargeNegative" or icon == 135768 then--Not sure if classic will return data ID or path, so include both
 				if (count2 or count) > 1 then return end--Incorrect aura, it's stacking damage one
 				charge = L.Charge1
@@ -86,7 +86,7 @@ do
 			i = i + 1
 		end
 		if charge then
-			lastShift = 0
+			lastShift = nil
 			if charge == currentCharge then
 				warnChargeNotChanged:Show()
 				warnChargeNotChanged:Play("dontmove")

@@ -1,5 +1,6 @@
+local ADDON_NAME = ...
 ---@class ns
-local ADDON_NAME, ns = ...
+local ns = select(2, ...)
 local L = ns.L
 
 ---@class MeetingHornCategoryData
@@ -31,14 +32,25 @@ ns.ADDON_TAG = '<' .. L.ADDON_NAME .. '>'
 
 ns.APPLICANT_STATUS = {Normal = 1, Invited = 2, Declined = 3, Joined = 4}
 
+ns.PROJECT_DATA = { --
+    [2] = {maxLevel = 60, name = EXPANSION_NAME0, projects = {2}},
+    [5] = {maxLevel = 70, name = EXPANSION_NAME1, projects = {5, 2}},
+    [11] = {maxLevel = 80, name = EXPANSION_NAME2, projects = {11, 5, 2}},
+}
+
+ns.SEARCH_ALIAS = { --
+    ['5h'] = {'h', 'yx', '英雄', params = {comment = true}, ['英雄'] = {comment = true, name = true}},
+}
+
 local INSTANCE_DATA = {
     [2717] = {projectId = 2, logo = 'Ragnaros'}, -- 熔火之心
-    [2159] = {projectId = 2, logo = 'Onyxia'}, -- 奥妮克希亚的巢穴
+    -- [2159] = {projectId = 2, logo = 'Onyxia'}, -- 奥妮克希亚的巢穴
     [2677] = {projectId = 2, logo = 'Nefarian'}, -- 黑翼之巢
     [3428] = {projectId = 2, logo = 'CThun', instanceName = L['Ahn\'Qiraj Temple']}, -- 安其拉神殿
-    [3456] = {projectId = 2, logo = 'KelThuzad'}, -- 纳克萨玛斯
+    -- [3456] = {projectId = 2, logo = 'KelThuzad'}, -- 纳克萨玛斯
     [1977] = {projectId = 2, logo = 'Avatar of Hakkar'}, -- 祖尔格拉布
     [3429] = {projectId = 2, logo = 'Ossirian the Unscarred'}, -- 安其拉废墟
+    -- tbc
     [3457] = {projectId = 5, logo = 'Prince Malchezaar'}, -- 卡拉赞
     [3923] = {projectId = 5, logo = 'Gruul the Dragonkiller'}, -- 格鲁尔的巢穴
     [3836] = {projectId = 5, logo = 'Magtheridon'}, -- 玛瑟里顿的巢穴
@@ -48,6 +60,16 @@ local INSTANCE_DATA = {
     [3959] = {projectId = 5, logo = 'Illidan Stormrage'}, -- 黑暗神庙
     [3805] = {projectId = 5, logo = 'Daakara'}, -- 祖阿曼
     [4075] = {projectId = 5, logo = 'Kiljaeden', instanceName = '太阳之井'}, -- 太阳井
+    -- wlk
+    [3456] = {projectId = 11, logo = 'KelThuzad'}, -- 纳克萨玛斯
+    [4493] = {projectId = 11, logo = 1385765}, -- 黑曜石圣殿
+    [4500] = {projectId = 11, logo = 1385753}, -- 永恒之眼
+    [2159] = {projectId = 11, logo = 'Onyxia'}, -- 奥妮克希亚的巢穴
+    [4603] = {projectId = 11, logo = 1385767}, -- 阿尔卡冯的宝库
+    [4273] = {projectId = 11, logo = 1385774}, -- 奥杜尔
+    [4722] = {projectId = 11, logo = 607542}, -- 十字军的试炼
+    [4812] = {projectId = 11, logo = 607688}, -- 冰冠堡垒
+    [4987] = {projectId = 11, logo = 1385738}, -- 红玉圣殿
 }
 
 ns.INSTANCE_DATA = {}
@@ -56,7 +78,9 @@ ns.CURRENT_RELEASE_INSTANCES = {}
 for mapId, v in pairs(INSTANCE_DATA) do
     local name = C_Map.GetAreaInfo(mapId)
     if name then
-        v.logo = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-]] .. v.logo
+        if type(v.logo) == 'string' then
+            v.logo = [[Interface\ENCOUNTERJOURNAL\UI-EJ-BOSS-]] .. v.logo
+        end
         ns.INSTANCE_DATA[name] = v
 
         if v.projectId == WOW_PROJECT_ID then
@@ -78,7 +102,7 @@ function ns.GetInstanceLogo(mapName)
 end
 
 ns.GOODLEADER_INSTANCES = {
-    ---- classic
+    --[=[@classic@
     {projectId = 2, mapId = 2717, bossId = 672, image = 'moltencore'}, --
     {projectId = 2, mapId = 2159, bossId = 1084, image = 'onyxia'}, --
     {projectId = 2, mapId = 2677, bossId = 617, image = 'blackwinglair'}, --
@@ -90,7 +114,8 @@ ns.GOODLEADER_INSTANCES = {
     {projectId = 2, mapId = 3456, bossId = 1120, name = L['构造区'], image = 'naxxramas'}, --
     {projectId = 2, mapId = 1977, bossId = 793, image = 'zulgurub'}, --
     {projectId = 2, mapId = 3429, bossId = 723, image = 'ruinsofahnqiraj'}, --
-    ---- bcc
+    --@end-classic@]=]
+    --[=[@bcc@
     {projectId = 5, mapId = 3457, bossId = 661, image = 'Karazhan'}, -- 卡拉赞
     {projectId = 5, mapId = 3923, bossId = 650, image = 'GruulsLair'}, -- 格鲁尔的巢穴
     {projectId = 5, mapId = 3836, bossId = 651, image = 'MagtheridonsLair'}, -- 玛瑟里顿的巢穴
@@ -100,6 +125,18 @@ ns.GOODLEADER_INSTANCES = {
     {projectId = 5, mapId = 3959, bossId = 609, image = 'BlackTemple'}, -- 黑暗神庙
     {projectId = 5, mapId = 3805, bossId = 1189, image = 'ZulAman'}, -- 祖阿曼
     {projectId = 5, mapId = 4075, bossId = 729, image = 'SunwellPlateau'}, -- 太阳井
+    --@end-bcc@]=]
+    -- @lkc@
+    {projectId = 11, mapId = 3456, bossId = 1114, difficulties = {3, 4}, image = 'naxxramas'}, -- 纳克萨玛斯
+    {projectId = 11, mapId = 4493, bossId = 1090, difficulties = {3, 4}, image = 1396588}, -- 黑曜石圣殿
+    {projectId = 11, mapId = 4500, bossId = 1094, difficulties = {3, 4}, image = 1396581}, -- 永恒之眼
+    -- {projectId = 11, mapId = 4603, bossId = 0, image = 1396596}, -- 阿尔卡冯的宝库
+    {projectId = 11, mapId = 4273, bossId = 1143, difficulties = {3, 4}, image = 1396595}, -- -- 奥杜尔
+    {projectId = 11, mapId = 4722, bossId = 1085, difficulties = {3, 4, 5, 6}, image = 1396594}, -- -- 十字军的试炼
+    {projectId = 11, mapId = 2159, bossId = 1084, difficulties = {3, 4}, image = 'onyxia'}, -- -- 奥妮克希亚的巢穴
+    {projectId = 11, mapId = 4812, bossId = 1106, difficulties = {3, 4, 5, 6}, image = 1396583}, -- -- 冰冠堡垒
+    {projectId = 11, mapId = 4987, bossId = 1150, difficulties = {3, 4, 5, 6}, image = 1396590}, -- -- 红玉圣殿
+    -- @end-lkc@
 }
 
 local CLASS_INFO = FillLocalizedClassList {}
@@ -295,7 +332,15 @@ local function replace(x)
 end
 
 function ns.ParseRaidTag(text)
-    return (text:gsub('{([^{]+)}', replace))
+    return (text:gsub('{([^{]+)}', ''))
+end
+
+function ns.RemoveLink(text)
+    return (text:gsub('|H[^|]+|h([^|]+)|h', '%1'):gsub('|cff%x%x%x%x%x%x', ''):gsub('|r', ''))
+end
+
+function ns.PrepareComment(text)
+    return ns.ParseRaidTag(ns.RemoveLink(text))
 end
 
 function ns.FindAuraById(id, unit, filter)
@@ -361,6 +406,7 @@ local CLASS_ROLES = { --
     SHAMAN = {R('DAMAGER,MAGIC,RANGE'), R('DAMAGER,PHYSICAL,MELEE'), R('HEALER')},
     WARLOCK = {R('DAMAGER,MAGIC,RANGE')},
     WARRIOR = {R('DAMAGER,PHYSICAL,MELEE'), R('DAMAGER,PHYSICAL,MELEE'), R('TANK')},
+    DEATHKNIGHT = {R('TANK'), R('DAMAGER,PHYSICAL,MELEE'), R('DAMAGER,PHYSICAL,MELEE')},
 }
 
 local function GetCurrentRoles()
@@ -439,35 +485,36 @@ function ns.ListToMap(list)
     return map
 end
 
-function ns.ApplyLeaderBtnClick(Btn, param)
-    param = param or {}
-    local function OnBtnClick()
-        if not Btn.QRApplyLeaderTooltip then
-            Btn.QRApplyLeaderTooltip = CreateFrame('Frame', nil, Btn, 'MeetingHornActivityTooltipTemplate')
-            Btn.QRApplyLeaderTooltip:ClearAllPoints()
-            if param.point then
-                Btn.QRApplyLeaderTooltip:SetPoint(unpack(param.point))
-            else
-                Btn.QRApplyLeaderTooltip:SetPoint('BOTTOMLEFT', Btn, 'BOTTOMRIGHT', 20, -8)
-            end
-            local qrCode = Btn.QRApplyLeaderTooltip.QRCode:CreateTexture(nil, 'ARTWORK')
-            qrCode:SetAllPoints()
-            Btn.QRApplyLeaderTooltip.QRCode.texture = qrCode
-            Btn.QRApplyLeaderTooltip:Hide()
+do
+    local ImageFrame
+    local function ImageButtonOnClick(button)
+        if not ImageFrame then
+            ImageFrame = CreateFrame('Frame', nil, UIParent, 'MeetingHornImageFrameTemplate')
         end
-        Btn.QRApplyLeaderTooltip.Text:SetText(param.tip or '微信扫码 申请星团长')
-        Btn.QRApplyLeaderTooltip.QRCode.texture:SetTexture(param.qrTexture or
-                                                               'Interface/AddOns/MeetingHorn/Media/ApplyLeaderQR')
-        Btn.QRApplyLeaderTooltip:SetHeight(param.height or 215)
-        Btn.QRApplyLeaderTooltip:Show()
 
-    end
-    if param.clickTarget then
-        param.clickTarget:SetScript('OnClick', OnBtnClick)
-    else
-        Btn:SetScript('OnClick', OnBtnClick)
+        if ImageFrame.which == button and ImageFrame:IsVisible() then
+            ImageFrame.which = nil
+            ImageFrame:Hide()
+        else
+            local params = button.params
+            ImageFrame.which = button
+            ImageFrame.Text:SetText(params.summary)
+            ImageFrame.Image:SetTexture(params.texture)
+            ImageFrame:SetHeight(ImageFrame.Text:GetHeight() - 13 + 215)
+            ImageFrame:SetParent(button)
+            ImageFrame:ClearAllPoints()
+            ImageFrame:SetPoint(unpack(params.points))
+            ImageFrame:Show()
+        end
     end
 
+    function ns.ApplyImageButton(button, params)
+        if params.text then
+            button:SetText(params.text)
+        end
+        button.params = params
+        button:SetScript('OnClick', ImageButtonOnClick)
+    end
 end
 
 function ns.DataMake(allowCrossRealm)
@@ -508,4 +555,17 @@ function ns.FormatSummary(text, tbl)
         end
         return tbl[key] or ''
     end)
+end
+
+function ns.PrepareSearch(search)
+    if not search or search:trim() == '' then
+        return
+    end
+
+    local alias = ns.SEARCH_ALIAS[search]
+    if alias then
+        return alias
+    end
+
+    return search:lower()
 end

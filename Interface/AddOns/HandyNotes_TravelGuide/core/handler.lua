@@ -22,8 +22,9 @@ local MagePortalHorde  = private.constants.icon.MagePortalHorde
 -----------------------------------------------LOCALS-----------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-local RequiresQuest     = L["handler_tooltip_quest"]
 local RetrievindData    = L["handler_tooltip_data"]
+local RequiresQuest     = L["handler_tooltip_quest"]
+-- local RequiresRep    = L["handler_tooltip_rep"]
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------FUNCTIONS---------------------------------------------
@@ -146,13 +147,13 @@ local function SetTooltip(tooltip, point)
                     -- print("refreshed")
                 end
             end
-            if (pointreq.reputation) then
-                name, _, standing, _, _, value = GetFactionInfoByID(pointreq.reputation[1])
-                if (standing < pointreq.reputation[2]) then
-                    tooltip:AddLine(RequiresRep..": ",1) -- red
-                    GameTooltip_ShowProgressBar(GameTooltip, 0, 21000, value, name..": "..value.." / 21000")
-                end
-            end
+            -- if (pointreq.reputation) then
+            --     local name, _, standing, _, _, value = GetFactionInfoByID(pointreq.reputation[1])
+            --     if (standing < pointreq.reputation[2]) then
+            --         tooltip:AddLine(RequiresRep..": ",1) -- red
+            --         GameTooltip_ShowProgressBar(GameTooltip, 0, 21000, value, name..": "..value.." / 21000")
+            --     end
+            -- end
         end
     else
         tooltip:SetText(UNKNOWN)

@@ -79,10 +79,9 @@ function Encounter:Constructor()
     self:SetScript('OnShow', self.OnShow)
 
     self.LookFall:SetText('点击扫码查看副本掉落')
-    ns.ApplyLeaderBtnClick(self.LookFall, {
-        tip = '',
-        qrTexture = 'Interface/AddOns/MeetingHorn/Media/LookFall',
-        point = {'TOP', self.LookFall, 'BOTTOM', 0, -20},
+    ns.ApplyImageButton(self.LookFall, {
+        texture = 'Interface/AddOns/MeetingHorn/Media/LookFall',
+        points = {'TOP', self.LookFall, 'BOTTOM', 0, -20},
     })
 end
 

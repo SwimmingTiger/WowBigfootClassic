@@ -1,6 +1,25 @@
 if GetLocale() ~= "zhTW" then return end
 local L
 
+------------------------------
+--  The Crown Chemical Co.  --
+------------------------------
+L = DBM:GetModLocalization("d288")
+
+L:SetTimerLocalization({
+	HummelActive		= "胡默爾開始活動",
+	BaxterActive		= "巴克斯特開始活動",
+	FryeActive			= "弗萊伊開始活動"
+})
+
+L:SetOptionLocalization({
+	TrioActiveTimer		= "為藥劑師三人組開始活動顯示計時器"
+})
+
+L:SetMiscLocalization({
+	SayCombatStart		= "他們有告訴你我是誰還有我為什麼這麼做嗎?"
+})
+
 ----------------------------
 --  The Frost Lord Ahune  --
 ----------------------------

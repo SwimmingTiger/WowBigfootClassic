@@ -18,20 +18,46 @@ M('菜刀')
 M('传送')
 M('其它')
 
-C('Quest', L.CATEGORY_QUEST)
-C('Raid', L.CATEGORY_RAID)
-C('Dungeon', L.CATEGORY_DUNGEON)
+C('Quest', L.CATEGORY_QUEST, true)
+C('Raid', L.CATEGORY_RAID, true)
+C('Dungeon', L.CATEGORY_DUNGEON, true)
 C('Boss', L.CATEGORY_BOSS)
 C('PvP', L.CATEGORY_PVP)
-C('Recruit', L.CATEGORY_RECRUIT, L['CHANNEL: Recruit'], 150, 300, true)
-C('Port', L.CATEGORY_PORT, L['CHANNEL: Group'], 150, 300)
-C('Summon', L.CATEGORY_SUMMON, L['CHANNEL: Group'], 150, 300)
+C('Recruit', L.CATEGORY_RECRUIT, nil, L['CHANNEL: Recruit'], 150, 300, true)
+C('Port', L.CATEGORY_PORT, nil, L['CHANNEL: Group'], 150, 300)
+C('Summon', L.CATEGORY_SUMMON, nil, L['CHANNEL: Group'], 150, 300)
 C('Other', OTHER)
---[[@debug@
-C('Debug', 'Debug', 'MeetingHornDebug')
---@end-debug@]]
+--[=[@debug@
+C('Debug', 'Debug', nil, 'MeetingHornDebug')
+--@end-debug@]=]
 
 -- raid
+---- wlk
+P(11, 1):raid2(3456, 4) -- 纳克萨玛斯
+P(11, 1):raid2(3456, 3) -- 纳克萨玛斯
+P(11, 1):raid2(4493, 4) -- 黑曜石圣殿
+P(11, 1):raid2(4493, 3) -- 黑曜石圣殿
+P(11, 1):raid2(4500, 4) -- 永恒之眼
+P(11, 1):raid2(4500, 3) -- 永恒之眼
+P(11, 2):raid2(4603, 4) -- 阿尔卡冯的宝库
+P(11, 2):raid2(4603, 3) -- 阿尔卡冯的宝库
+P(11, 2):raid2(4273, 4) -- 奥杜尔
+P(11, 2):raid2(4273, 3) -- 奥杜尔
+P(11, 3):raid2(4722, 4) -- 十字军的试炼
+P(11, 3):raid2(4722, 6) -- 十字军的试炼
+P(11, 3):raid2(4722, 3) -- 十字军的试炼
+P(11, 3):raid2(4722, 5) -- 十字军的试炼
+P(11, 4):raid2(2159, 4) -- 奥妮克希亚的巢穴
+P(11, 4):raid2(2159, 3) -- 奥妮克希亚的巢穴
+P(11, 5):raid2(4812, 4) -- 冰冠堡垒
+P(11, 5):raid2(4812, 6) -- 冰冠堡垒
+P(11, 5):raid2(4812, 3) -- 冰冠堡垒
+P(11, 5):raid2(4812, 5) -- 冰冠堡垒
+P(11, 6):raid2(4987, 4) -- 红玉圣殿
+P(11, 6):raid2(4987, 6) -- 红玉圣殿
+P(11, 6):raid2(4987, 3) -- 红玉圣殿
+P(11, 6):raid2(4987, 5) -- 红玉圣殿
+
 ---- tbc
 P(5, 1):raid(3457, 10) -- 卡拉赞
 P(5, 1):raid(3923) -- 格鲁尔的巢穴
@@ -44,13 +70,50 @@ P(5, 3):raid(3805, 10) -- 祖阿曼
 P(5, 4):raid(4075) -- 太阳井
 ---- classic
 P(2):raid(2717) -- 熔火之心
-P(2):raid(2159) -- 奥妮克希亚的巢穴
+-- P(2):raid(2159) -- 奥妮克希亚的巢穴
 P(2):raid(2677) -- 黑翼之巢
 P(2):raid(3428) -- 安其拉神殿
-P(2):raid(3456) -- 纳克萨玛斯
+-- P(2):raid(3456) -- 纳克萨玛斯
 P(2):raid(1977, 20) -- 祖尔格拉布
 P(2):raid(3429, 20) -- 安其拉废墟
 -- 地下城
+---- wlk
+------ hero
+P(11, 1):hero(4265, 80) -- 魔枢
+P(11, 1):hero(4228, 80) -- 魔环
+P(11, 1):hero(206, 80) -- 乌特加德城堡
+P(11, 1):hero(1196, 80) -- 乌特加德之巅
+P(11, 1):hero(4277, 80) -- 艾卓-尼鲁布
+P(11, 1):hero(4494, 80) -- 安卡赫特：古代王国
+P(11, 1):hero(4196, 80) -- 达克萨隆要塞
+P(11, 1):hero(4416, 80) -- 古达克
+P(11, 1):hero(4264, 80) -- 岩石大厅
+P(11, 1):hero(4272, 80) -- 闪电大厅
+P(11, 1):hero(4415, 80) -- 紫罗兰监狱
+P(11, 1):hero(4100, 80) -- 净化斯坦索姆
+P(11, 3):hero(4723, 80) -- 冠军的试炼
+P(11, 5):hero(4809, 80) -- 灵魂洪炉
+P(11, 5):hero(4813, 80) -- 萨隆深渊
+P(11, 5):hero(4820, 80) -- 映像大厅
+
+------ normal
+P(11, 1):normal(4265, 71) -- 魔枢
+P(11, 1):normal(4228, 79) -- 魔环
+P(11, 1):normal(206, 69) -- 乌特加德城堡
+P(11, 1):normal(1196, 79) -- 乌特加德之巅
+P(11, 1):normal(4277, 72) -- 艾卓-尼鲁布
+P(11, 1):normal(4494, 73) -- 安卡赫特：古代王国
+P(11, 1):normal(4196, 74) -- 达克萨隆要塞
+P(11, 1):normal(4416, 76) -- 古达克
+P(11, 1):normal(4264, 77) -- 岩石大厅
+P(11, 1):normal(4272, 79) -- 闪电大厅
+P(11, 1):normal(4415, 75) -- 紫罗兰监狱
+P(11, 1):normal(4100, 79) -- 净化斯坦索姆
+P(11, 3):normal(4723, 79) -- 冠军的试炼
+P(11, 5):normal(4809, 79) -- 灵魂洪炉
+P(11, 5):normal(4813, 79) -- 萨隆深渊
+P(11, 5):normal(4820, 79) -- 映像大厅
+
 ---- tbc
 ------ hero
 P(5, 1):hero(3562, 70) -- 地狱火城墙
@@ -126,11 +189,23 @@ P(2):pvp(2597, 40) -- 奥特兰克山谷
 P(2):pvp(3277, 10) -- 战歌峡谷
 P(2):pvp(3358, 15) -- 阿拉希盆地
 P(5):pvp(3820, 15) -- 风暴之眼
+P(5):pvp(4384, 15) -- 远古海滩
+P(5):pvp(4710, 40) -- 征服之岛
 P(5):base(L['Arena (5v5)'], 'PvP', 70, 5)
 P(5):base(L['Arena (3v3)'], 'PvP', 70, 3)
 P(5):base(L['Arena (2v2)'], 'PvP', 70, 2)
 P(2):base(L['Wild PvP'], 'PvP') -- 野外PVP
 -- 任务
+---- wlk
+P(11):quest(210) -- 冰冠冰川
+P(11):quest(67) -- 风暴峭壁
+P(11):quest(66) -- 祖达克
+P(11):quest(3711) -- 索拉查盆地
+P(11):quest(2817) -- 晶歌森林
+P(11):quest(65) -- 龙骨荒野
+P(11):quest(394) -- 灰熊丘陵
+P(11):quest(495) -- 嚎风峡湾
+P(11):quest(3537) -- 北风苔原
 ---- tbc
 P(5, 4):quest(4080) -- 奎尔丹纳斯岛
 P(5, 1):quest(3520) -- 影月谷
@@ -192,8 +267,8 @@ P():base(L.CATEGORY_SUMMON, 'Summon', 20, nil, 'WARLOCK') --
 P():base(L.CATEGORY_RECRUIT, 'Recruit') --
 -- 其它
 P():base(OTHER, 'Other') --
---[[@debug@
+--[=[@debug@
 P():base('Debug', 'Debug')
---@end-debug@]]
+--@end-debug@]=]
 
 ns.Builder.End()

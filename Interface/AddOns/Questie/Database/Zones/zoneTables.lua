@@ -98,7 +98,6 @@ ZoneDB.private.areaIdToUiMapId = {
     [3433] = 1942, -- Ghostlands
     [3456] = 162, -- Naxxramas - Raid
     [3457] = 350, -- Karazhan - Raid
-    [3477] = 157, -- Azjol-Nerub - Dungeon?
     [3483] = 1944, -- Hellfire Peninsula
     [3487] = 1954, -- Silvermoon City
     [3518] = 1951, -- Nagrand
@@ -109,7 +108,7 @@ ZoneDB.private.areaIdToUiMapId = {
     [3523] = 1953, -- Netherstorm
     [3524] = 1943, -- Azuremyst Isle
     [3525] = 1950, -- Bloodmyst Isle
-    [3535] = 1950, -- The Shattered Halls - Dungeon
+    [3535] = 246, -- Hellfire Citadel - Dungeon This is hellfire citadel area in The Shattered halls, have to have it because mobs use this AreaId
     [3537] = 114, -- Borean Tundra
     [3557] = 1947, -- The Exodar
     [3562] = 347, -- Hellfire Ramparts - Dungeon
@@ -154,6 +153,7 @@ ZoneDB.private.areaIdToUiMapId = {
     [4493] = 155, -- The Obsidian Sanctum - Raid
     [4494] = 132, -- Ahn'kahet: The Old Kingdom - Dungeon
     [4500] = 141, -- The Eye of Eternity - Raid
+    [4560] = 126, -- The Underbelly - Sub zone of Dalaran
     [4603] = 156, -- Vault of Archavon - Raid
     [4710] = 169, -- Isle of Conquest - Battleground
     [4722] = 172, -- Trial of the Crusader - Raid
@@ -164,11 +164,12 @@ ZoneDB.private.areaIdToUiMapId = {
     [4813] = 184, -- Pit of Saron - Dungeon
     [4820] = 185, -- Halls of Reflection - Dungeon
     [4987] = 200, -- The Ruby Sanctum - Raid
-    [14284] = 114, -- Borean Tundra - Battleground
-    [14285] = 118, -- Icecrown - Battleground
-    [14286] = 119, -- Sholazar Basin - Battleground
-    [14287] = 115, -- Dragonblight - Battleground
-    [14288] = 123, -- Wintergrasp - Battleground
+    --- These should not be needed from my limited testing
+    -- [14284] = 114, -- Borean Tundra - Battleground
+    -- [14285] = 118, -- Icecrown - Battleground
+    -- [14286] = 119, -- Sholazar Basin - Battleground
+    -- [14287] = 115, -- Dragonblight - Battleground
+    -- [14288] = 123, -- Wintergrasp - Battleground
 }
 
 -- [areaId] = {"name", alternative areaId (a sub zone), parentId}
@@ -340,6 +341,7 @@ ZoneDB.private.dungeonParentZones = {
     [2577] = 2557,
 }
 
+--? If you want to add something overwrite the data after the table
 --! Generated table, add something manually here and i'll kill you //Logon
 
 ---@type table<AreaId, AreaId> table<SubAreaId, ParentAreaId>
@@ -2488,6 +2490,8 @@ ZoneDB.private.subZoneToParentZone = {
   [14340] = 14287, -- Coldwind Pass -> Dragonblight
   [14341] = 14287, -- Angrathar the Wrathgate -> Dragonblight
 }
+ZoneDB.private.subZoneToParentZone[3545] = 3483 -- Hellfire Citadel -> Hellfire Peninsula
+ZoneDB.private.subZoneToParentZone[3563] = 3483 -- Hellfire Citadel -> Hellfire Peninsula
 
 -- Different source of zoneIds
 -- These are not in use anymore but are quite helpful when fixing the database
@@ -2622,5 +2626,9 @@ ZoneDB.private.zoneIDs = {
     WINTERGRASP = 4197,
     THE_NEXUS = 4265,
     DALARAN = 4395,
+    THE_UNDERBELLY = 4560,
+    VIOLET_HOLD = 4415,
+    UTGARDE_KEEP = 206,
+    HALLS_OF_STONE = 4264,
     PLAGUELANDS_THE_SCARLET_ENCLAVE = 4298,
 }

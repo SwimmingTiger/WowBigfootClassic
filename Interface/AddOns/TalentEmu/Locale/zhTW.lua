@@ -27,7 +27,8 @@ L.CurPointsTotal = "縂點數";
 L.CurPointsRemaining = "剩餘";
 L.CurPointsUsed = "已用";
 L.CurPointsReqLevel = "等級";
-L.message = "聊天信息";
+L.message = "*聊天訊息";
+L.import = "導入";
 L.me = "我";
 
 L.ReadOnly = "|cffff0000只讀|r";
@@ -51,6 +52,7 @@ L.ApplyTalentsButton_Notify = "确定應用當前天賦吗？";
 L.ApplyTalentsFinished = "天賦已應用";
 L.ImportButton = "導入字符串或wowhead/nfu/yxrank链接";
 L.ExportButton = "|cff00ff00左鍵|r导出字符串\n|cff00ff00右鍵|r导出到|cffff0000wowhead/nfu|r网页链接";
+L.AllData = "天賦+雕紋+裝備";
 L.SaveButton = "|cff00ff00左鍵|r保存天賦设置\n|cff00ff00右鍵|r加載保存的天賦\n|cff00ff00ALT+右鍵|r加載其它角色天賦雕紋裝備\n|cff00ff00子菜單中Shift+左鍵|r删除天賦";
 L.SendButton = "|cff00ff00左鍵|r发送天賦到聊天\n|cff00ff00右鍵|r查看最近聊天中的天賦";
 L.EquipmentFrameButton = "打開裝備查看";

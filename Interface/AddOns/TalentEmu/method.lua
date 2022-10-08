@@ -183,7 +183,9 @@ MT.BuildEnv('METHOD');
 		end
 		return class, level, 1, 1, concat(conv);
 	end
-	function MT.DecodeEmuLib(code)
+	--	arg			code, useCodeLevel
+	--	return		class, level, data
+	function MT.DecodeTalent(code)
 		local version, class, level, numGroup, activeGroup, data1, data2 = VT.__emulib.DecodeTalentData(code);
 		if version == "V1" and DT.BUILD == "WRATH" and class ~= nil then
 			return MT.TalentConversion(class, level, numGroup, activeGroup, data1, data2);
@@ -191,20 +193,9 @@ MT.BuildEnv('METHOD');
 			return class, level, numGroup, activeGroup, data1, data2;
 		end
 	end
-	--	arg			code, useCodeLevel
-	--	return		class, level, data
-	function MT.Decode(code)
-		for media, codec in next, VT.ExternalCodec do
-			local class, level, data = codec.import(code, codec);
-			if class ~= nil then
-				return class, level, 1, 1, data;
-			end
-		end
-		return MT.DecodeEmuLib(code);
-	end
 	--	arg			[Frame] or [class, level, data]
 	--	return		code
-	function MT.Encode(class, level, data)
+	function MT.EncodeTalent(class, level, data)
 		local TypeClass = type(class);
 		if TypeClass == 'table' then
 			local Frame = class;
@@ -215,32 +206,66 @@ MT.BuildEnv('METHOD');
 						type(TreeFrames[3]) == 'table' and type(TreeFrames[3].TalentSet) == 'table'
 				then
 				--
-				return VT.__emulib.EncodeFrameTalentDataV2(CT.ClassToIndex[Frame.class], Frame.level,
-							TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
-							#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
-						);
+				local activeGroup = Frame.activeGroup;
+				local TalData = Frame.TalData;
+				if activeGroup ~= nil and TalData ~= nil and TalData.num ~= nil then
+					if TalData.num == 2 then
+						local T2 = activeGroup == 1 and TalData[2] or TalData[1];
+						if T2 ~= nil then
+							local D1, D2, D3, N1, N2, N3 = TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
+										#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
+							local T1 = {  };
+							local len = 0;
+							for index = 1, N1 do len = len + 1; T1[len] = D1[index] or 0; end
+							for index = 1, N2 do len = len + 1; T1[len] = D2[index] or 0; end
+							for index = 1, N3 do len = len + 1; T1[len] = D3[index] or 0; end
+							local code1, data1, lenc1, lend1 = VT.__emulib.EncodeTalentBlock(T1, len);
+							local code2, data2, lenc2, lend2 = VT.__emulib.EncodeTalentBlock(T2, #T2);
+							if activeGroup == 1 then
+							return VT.__emulib.MergeTalentCodeV2(DT.ClassToIndex[Frame.class], Frame.level, activeGroup, 2, T1, len, T2, #T2);
+							else
+							return VT.__emulib.MergeTalentCodeV2(DT.ClassToIndex[Frame.class], Frame.level, activeGroup, 2, T2, #T2, T1, len);
+							end
+						else
+							return VT.__emulib.EncodeFrameTalentDataV2(DT.ClassToIndex[Frame.class], Frame.level,
+										TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
+										#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
+									);
+						end
+					else
+							return VT.__emulib.EncodeFrameTalentDataV2(DT.ClassToIndex[Frame.class], Frame.level,
+										TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
+										#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
+									);
+					end
+				else
+							return VT.__emulib.EncodeFrameTalentDataV2(DT.ClassToIndex[Frame.class], Frame.level,
+										TreeFrames[1].TalentSet, TreeFrames[2].TalentSet, TreeFrames[3].TalentSet,
+										#TreeFrames[1].TreeTDB, #TreeFrames[2].TreeTDB, #TreeFrames[3].TreeTDB
+									);
+				end
 				--
 			else
-				MT.Error("MT.Encoder", 1, "class", 'table');
+				MT.Error("MT.EncodeTalent", 1, "class", 'table');
 				return nil;
 			end
 		else
 			local classIndex = nil;
 			if TypeClass == 'number' then
 				classIndex = class;
-				class = CT.IndexToClass[class];
+				class = DT.IndexToClass[class];
 				if classIndex == nil then
-					MT.Error("MT.Encoder", 2, "class", 'number', class);
+					MT.Error("MT.EncodeTalent", 2, "class", 'number', class);
 					return nil;
 				end
 			elseif TypeClass == 'string' then
-				classIndex = CT.ClassToIndex[class];
+				classIndex = DT.ClassToIndex[class];
 				if classIndex == nil then
-					MT.Error("MT.Encoder", 3, "class", 'string', class);
+					MT.Error("MT.EncodeTalent", 3, "class", 'string', class);
 					return nil;
 				end
 			else
-				MT.Error("MT.Encoder", 4, "class", TypeClass, class);
+				MT.Error("MT.EncodeTalent", 4, "class", TypeClass, class);
 				return nil;
 			end
 			local TypeData = type(data);
@@ -257,29 +282,52 @@ MT.BuildEnv('METHOD');
 							data[1], data[2], data[3],
 							#ClassTDB[SpecList[1]], #ClassTDB[SpecList[2]], #ClassTDB[SpecList[3]]);
 			else
-				MT.Error("MT.Encoder", 5, "data type", TypeData);
+				MT.Error("MT.EncodeTalent", 5, "data type", TypeData);
 				return nil;
 			end
 		end
 	end
+	function MT.EncodeGlyph(Frame)
+		local GlyphContainer = Frame.GlyphContainer;
+		if GlyphContainer ~= nil then
+			local GlyphNodes = GlyphContainer.GlyphNodes;
+			local data = {  };
+			for index = 1, 6 do
+				local Node = GlyphNodes[index];
+				if Node.SpellID ~= nil then
+					data[index] = { 1, Node.type, Node.SpellID, Node.Glyph:GetTexture(), };
+				end
+			end
+			return VT.__emulib.EncodeGlyphDataV2(1, 1, data);
+		end
+		return nil;
+	end
+	function MT.EncodeEquipment(Frame)
+		local EquipmentNodes = Frame.EquipmentContainer.EquipmentNodes;
+		local DataTable = {  };
+		for slot = 1, 19 do
+			DataTable[slot] = EquipmentNodes[slot].item;
+		end
+		return VT.__emulib.EncodeEquipmentDataV2(DataTable);
+	end
 
-	local function IteratorFunc(Frame, name)
+	local function SetPackIteratorFunc(Frame, name)
 		if Frame.name == name then
 			MT.UI.FrameSetName(Frame, name);
 		end
 	end
 	function MT.SetPack(name)
 		if VT.SET.supreme then
-			MT.UI.IteratorFrames(IteratorFunc, name);
+			MT.UI.IteratorFrames(SetPackIteratorFunc, name);
 		end
 	end
 
-	function MT.ImportCode(Frame, code, name)
+	function MT.ImportSimpleCode(Frame, code, name)
 		if type(Frame) == 'string' then
 			code = Frame;
 			Frame = nil;
 		end
-		local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+		local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 		if class ~= nil then
 			Frame = Frame or MT.UI.GetFrame(VT.SET.singleFrame and 1 or nil);
 			if not MT.UI.FrameSetInfo(Frame, class, level, { data1, data2, num = numGroup, active = activeGroup, }, nil, name) then
@@ -292,21 +340,57 @@ MT.BuildEnv('METHOD');
 		end
 		return false;
 	end
-	function MT.ExportCode(_1, _2, _3)
+	function MT.ExportSimpleCode(_1, _2, _3)
 		if not _1 then
 			return nil;
 		elseif type(_1) == 'number' then
 			if type(_2) == 'string' then
-				return MT.Encode(_1, _2, _3);
+				return MT.EncodeTalent(_1, _2, _3);
 			else
 				_1 = MT.UI.GetFrame(_1);
 				if not _1 then
 					return nil;
 				end
-				return MT.Encode(_1, _2, _3);
+				return MT.EncodeTalent(_1, _2, _3);
 			end
 		else
-			return MT.Encode(_1, _2, _3);
+			return MT.EncodeTalent(_1, _2, _3);
+		end
+	end
+	function MT.ImportCode(Frame, code, name)
+		local Tick = MT.GetUnifiedTime();
+		if name == nil then
+			VT.ImportIndex = VT.ImportIndex + 1;
+			name = "#" .. L.import .. "[" .. VT.ImportIndex .. "]";
+		end
+		VT.QuerySent[name] = Tick;
+		VT.AutoShowEquipmentFrameOnComm[name] = Tick;
+		VT.ImportTargetFrame[name] = { Frame, };
+		local verkey = strsub(code, 1, 1);
+		if verkey ~= "_" and verkey ~= "!" then
+			return MT._CommDistributor.OnTalent(name, code, "V1", VT.__emulib.DecodeTalentDataV1, false);
+		end
+		return VT.__emulib.CHAT_MSG_ADDON(VT.__emulib.CT.COMM_PREFIX, code, "WHISPER", name);
+	end
+	function MT.ExportCode(Frame)
+		if Frame == nil then
+			return nil;
+		end
+		local Type = type(Frame);
+		if Type == 'table' and Frame.GetObjectType ~= nil then
+			local T = MT.EncodeTalent(Frame);
+			local G = MT.EncodeGlyph(Frame);
+			local E = MT.EncodeEquipment(Frame);
+			if T ~= nil or E ~= nil or G ~= nil then
+				return (T or "") .. (G or "") .. (E or "");
+			end
+		else
+			if Type == 'table' then
+				Frame = Frame.name;
+				Type = 'string';
+			end
+			if Type == 'string' then
+			end
 		end
 	end
 
@@ -674,52 +758,6 @@ MT.BuildEnv('METHOD');
 				text = L.TalentsInTipIcon_TRUE,
 			},
 		},
-		--[[
-		{
-			v = "inspectButtonOnUnitFrame",
-			[true] = {
-				handler = function(Button)
-					VT.SET.inspectButtonOnUnitFrame = false;
-				end,
-				param = nil,
-				text = L.InspectButtonOnUnitFrame_FALSE,
-			},
-			[false] = {
-				handler = function(Button)
-					VT.SET.inspectButtonOnUnitFrame = true;
-				end,
-				param = nil,
-				text = L.InspectButtonOnUnitFrame_TRUE,
-			},
-		},
-		{
-			v = "inspectButtonKey",
-			ALT = {
-				handler = function(Button)
-					VT.SET.inspectButtonKey = "ALT";
-					MT.InspectButtonKeyFunc = IsAltKeyDown;
-				end,
-				param = nil,
-				text = L.InsepctKey_ALT,
-			},
-			CTRL = {
-				handler = function(Button)
-					VT.SET.inspectButtonKey = "CTRL";
-					MT.InspectButtonKeyFunc = IsControlKeyDown;
-				end,
-				param = nil,
-				text = L.InsepctKey_CTRLK,
-			},
-			SHIFT = {
-				handler = function(Button)
-					VT.SET.inspectButtonKey = "SHIFT";
-					MT.InspectButtonKeyFunc = IsShiftKeyDown;
-				end,
-				param =  nil,
-				text = L.InsepctKey_SHIFT,
-			},
-		},
-		--]]
 	};
 	local MenuDefinition = {
 		num = 0,
@@ -751,25 +789,25 @@ MT.BuildEnv('METHOD');
 		if cache ~= nil then
 			local Tick = MT.GetUnifiedTime();
 			if VT.QuerySent[name] ~= nil and Tick - VT.QuerySent[name] <= CT.INSPECT_WAIT_TIME then
-				MT.Error("MT.CALLBACK.OnTalentDataRecv", cache.data.num);
+				MT.Error("MT.CALLBACK.OnTalentDataRecv", cache.TalData.num);
 				local readOnly = false;
 				if name ~= CT.SELFNAME then
 					readOnly = true;
 				end
-				local Frames = MT.UI.FrameGetNameBinding(name);
+				local Frames = VT.ImportTargetFrame[name] or MT.UI.FrameGetNameBinding(name);
 				if Frames ~= nil and Frames[1] ~= nil then
 					local AnyShown = false;
 					for i = 1, #Frames do
 						if Frames[i]:IsShown() then
-							MT.UI.FrameSetInfo(Frames[i], cache.class, DT.MAX_LEVEL, cache.data, nil, name, readOnly);
+							MT.UI.FrameSetInfo(Frames[i], cache.class, DT.MAX_LEVEL, cache.TalData, nil, name, readOnly);
 							AnyShown = true;
 						end
 					end
 					if not AnyShown then
-						MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.data, name, readOnly, false);
+						MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.TalData, name, readOnly, false);
 					end
 				else
-					MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.data, name, readOnly, false);
+					MT.CreateEmulator(nil, cache.class, DT.MAX_LEVEL, cache.TalData, name, readOnly, false);
 				end
 			end
 			VT.QuerySent[name] = nil;
@@ -778,7 +816,7 @@ MT.BuildEnv('METHOD');
 	function MT.CALLBACK.OnGlyphDataRecv(name, iscomm, ascomm)
 		local cache = VT.TQueryCache[name];
 		if cache ~= nil and VT.SET.show_equipment then
-			local Frames = MT.UI.FrameGetNameBinding(name);
+			local Frames = VT.ImportTargetFrame[name] or MT.UI.FrameGetNameBinding(name);
 			if Frames ~= nil and Frames[1] ~= nil then
 				local popup = (iscomm or ascomm) and VT.SET.autoShowEquipmentFrame;
 				MT.Error("EquipFrame", "CALLBACK-G", popup, iscomm, ascomm, VT.SET.autoShowEquipmentFrame);
@@ -794,7 +832,7 @@ MT.BuildEnv('METHOD');
 				for i = 1, #Frames do
 					Frames[i].objects.EquipmentFrameButton:Show();
 					if Frames[i].EquipmentFrameContainer:IsShown() then
-						MT.UI.GlyphFrameUpdate(Frames[i].GlyphContainer, cache);
+						MT.UI.GlyphFrameUpdate(Frames[i].GlyphContainer, cache.GlyData);
 					end
 				end
 			end
@@ -803,7 +841,7 @@ MT.BuildEnv('METHOD');
 	function MT.CALLBACK.OnInventoryDataRecv(name, iscomm, ascomm)
 		local cache = VT.TQueryCache[name];
 		if cache ~= nil and VT.SET.show_equipment then
-			local Frames = MT.UI.FrameGetNameBinding(name);
+			local Frames = VT.ImportTargetFrame[name] or MT.UI.FrameGetNameBinding(name);
 			if Frames ~= nil and Frames[1] ~= nil then
 				local popup = (iscomm or ascomm) and VT.SET.autoShowEquipmentFrame;
 				MT.Error("EquipFrame", "CALLBACK-E", popup, iscomm, ascomm, VT.SET.autoShowEquipmentFrame);
@@ -819,7 +857,7 @@ MT.BuildEnv('METHOD');
 				for i = 1, #Frames do
 					Frames[i].objects.EquipmentFrameButton:Show();
 					if Frames[i].EquipmentFrameContainer:IsShown() then
-						MT.UI.EquipmentFrameUpdate(Frames[i].EquipmentContainer, cache);
+						MT.UI.EquipmentFrameUpdate(Frames[i].EquipmentContainer, cache.EquData);
 					end
 				end
 			end

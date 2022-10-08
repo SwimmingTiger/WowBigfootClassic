@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(636, "DBM-Party-WotLK", 13, 284)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220714081054")
+mod:SetRevision("20220920233058")
 mod:SetCreatureID(34928)
 --mod:SetEncounterID(2023)--DO NOT ENABLE. Confessor and Eadric are both flagged as same encounterid ("Argent Champion")
 --
@@ -44,13 +44,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 66620 then									-- Old Wounds
 		warnOldWounds:Show(args.destName)
 	elseif args.spellId == 66538 and args:IsDestTypePlayer() then	-- Holy Fire
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnHolyFire:Show(args.destName)
 			specwarnHolyFire:Play("helpdispel")
 		end
 		timerHolyFire:Show(args.destName)
 	elseif args.spellId == 66619 and args:IsDestTypePlayer() then			-- Shadows of the Past
-		if self:CheckDispelFilter() then
+		if self:CheckDispelFilter("magic") then
 			specwarnShadows:Show(args.destName)
 			specwarnShadows:Play("helpdispel")
 		end

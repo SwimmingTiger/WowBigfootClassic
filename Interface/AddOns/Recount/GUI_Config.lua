@@ -33,6 +33,7 @@ local GameTooltip = GameTooltip
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local WOW_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+local WOW_WRATHCLASSIC = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
 
 FillLocalizedClassList(BC, false) -- We are sexist here but not much of a choice, when there is no neutral
 
@@ -61,7 +62,7 @@ local EditableColors = {
 		"Total Bar",
 	},
 	["Class"] = {
-		WOW_RETAIL and "Deathknight" or nil,
+		(WOW_RETAIL or WOW_WRATHCLASSIC) and "Deathknight" or nil,
 		WOW_RETAIL and "Demonhunter" or nil,
 		"Druid",
 		"Hunter",

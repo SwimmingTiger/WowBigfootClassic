@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "3.4.0."
-local minor = "157"
+local minor = "167"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,52 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2022/10/08 (3.4.0.167)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+	BigFootChangelog_ar("技能触发","适配怀旧服。")
+	BigFootChangelog_ar("窗体移动","添加支持姿态栏与宠物栏。")
+
+
+	BigFootChangelog_at("2022/10/05 (3.4.0.166)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/30 (3.4.0.165)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/29 (3.4.0.164)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/27 (3.4.0.163)")
+	BigFootChangelog_ar("集结号","升级至最新版本(1.8.0)。")
+	BigFootChangelog_ar("任务百科","升级至最新版本(7.2.2)。")
+
+
+	BigFootChangelog_at("2022/09/27 (3.4.0.162)")
+	BigFootChangelog_ar("界面调整","修复一个已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/21 (3.4.0.161)")
+	BigFootChangelog_ar("大脚插件","更换新的任务助手(Questie)。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/15 (3.4.0.160)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/14 (3.4.0.159)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/09/09 (3.4.0.158)")
+	BigFootChangelog_ar("大脚插件","修复一些已知问题。")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2022/09/06 (3.4.0.157)")
 	BigFootChangelog_ar("大脚插件","添加技能触发提醒(SpellActivationOverlay)。")
@@ -721,4 +767,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "53"
+BF_VERSION_CHECKSUM = "54"

@@ -1,5 +1,7 @@
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
+local _, TotemTimers = ...
+
 local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 local SpellNames = TotemTimers.SpellNames
@@ -17,65 +19,33 @@ end
 
 local ShieldName = SpellNames[SpellIDs.LightningShield]
 
-local CDSpells = {
-    [2] = {
-        [1] = SpellIDs.StormStrike,
-        [2] = SpellIDs.FlameShock,
-        [3] = SpellIDs.EarthShock,
-        [4] = SpellIDs.Searing,
-    },
-    [1] = {
-        [1] = SpellIDs.ChainLightning,
-        [2] = SpellIDs.LightningBolt,
-        [3] = SpellIDs.FlameShock,
-        [4] = SpellIDs.EarthShock,
-    },
-    [3] = {
-        [1] = SpellIDs.FlameShock,
-        [2] = SpellIDs.EarthShock,
-    },
-}
-TotemTimers.EnhanceCDsSpells = CDSpells
+local CDSpells = TotemTimers.CombatCooldownSpells
 
 local FlameShockDuration = null
+local Maelstrom, MaelstromButton, MaelstromIcon
 
 
-local function GetSpecialization()
-    local pointsSpent = 0
-    local role = 0
-    for i=1,3 do
-        local _,_,points = GetTalentTabInfo(i)
-        if points > pointsSpent then
-            pointsSpent = points
-            role = i
-        end
-    end
-    return role
-end
 
-   
-local function ChangeCDOrder(self,spell)
---[[    if InCombatLockdown() then return end
+local function ChangeCDOrder(self, _, _, spell)
+    if InCombatLockdown() then return end
     if not spell then return end
-    local _,spell1 = GetSpellBookItemInfo(spell, "BOOKTYPE_SPELL")
-    local spell2 = self:GetAttribute("orderspell")    
-    if not spell2 or not spell1 then return end
-    local spellnum1, spellnum2 = nil,nil
-    for local i=1,num_CD_Spells[role] do
-        if CD_Spells[role][i] == spell1 then spellnum1 = i end
-        if CD_Spells[role][i] == spell2 then spellnum2 = i end        
+
+    local spell1 = TotemTimers.GetBaseSpellID(spell)
+    local spell2 = TotemTimers.GetBaseSpellID(self:GetAttribute("spell1"))
+
+    local orderIndex1, orderIndex2
+
+    for orderIndex, spellIndex in pairs(TotemTimers.ActiveProfile.EnhanceCDs_Order[TotemTimers.Specialization]) do
+        if CDSpells[role][spellIndex] == spell1 then orderIndex1 = orderIndex end
+        if CDSpells[role][spellIndex] == spell2 then orderIndex2 = orderIndex end
     end
-    if not spellnum1 or not spellnum2 then return end
-    local order1, order2 = nil
-    for i=1,#TotemTimers.ActiveProfile.EnhanceCDs_Order[role] do
-        if TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i] == spellnum1 then order1 = i end
-        if TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i] == spellnum2 then order2 = i end
+
+    if orderIndex1 and orderIndex2 then
+        TotemTimers.ActiveProfile.EnhanceCDs_Order[role][orderIndex1], TotemTimers.ActiveProfile.EnhanceCDs_Order[role][orderIndex2] =
+            TotemTimers.ActiveProfile.EnhanceCDs_Order[role][orderIndex2], TotemTimers.ActiveProfile.EnhanceCDs_Order[role][orderIndex1]
     end
-    if not order1 or not order2 then return end
-    TotemTimers.ActiveProfile.EnhanceCDs_Order[role][order1], TotemTimers.ActiveProfile.EnhanceCDs_Order[role][order2] =
-        TotemTimers.ActiveProfile.EnhanceCDs_Order[role][order2], TotemTimers.ActiveProfile.EnhanceCDs_Order[role][order1]
+
     TotemTimers.LayoutEnhanceCDs()
-    ]]
 end
    
 function TotemTimers.CreateEnhanceCDs()
@@ -87,6 +57,7 @@ function TotemTimers.CreateEnhanceCDs()
         cds[i].button.anchorframe = TotemTimers_EnhanceCDsFrame
         cds[i].button:SetAttribute("*type*", "spell")
         cds[i].reverseAlpha = true
+        cds[i].alpha = 0.7
         cds[i].button.icons[1]:SetAlpha(1)
         cds[i].button:SetScript("OnEvent", TotemTimers.EnhanceCDEvents)
         cds[i].button:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
@@ -97,7 +68,6 @@ function TotemTimers.CreateEnhanceCDs()
     FlameShockDuration.button:Disable()
     FlameShockDuration.button.icons[1]:SetVertexColor(1,1,1)
     FlameShockDuration.button.bar:SetStatusBarColor(1,0.2,0.2,0.8)
-    FlameShockDuration.button.bar:SetStatusBarColor(1,0.2,0.2,0.8)
 
     FlameShockDuration.button.icons[1]:SetTexture(SpellTextures[SpellIDs.FlameShock])
     FlameShockDuration.button.anchorframe = TotemTimers_EnhanceCDsFrame
@@ -105,7 +75,7 @@ function TotemTimers.CreateEnhanceCDs()
     FlameShockDuration.dontFlash = true
     FlameShockDuration.timeStyle = "sec"
     FlameShockDuration.button:SetAttribute("*type1", "spell")
-    FlameShockDuration.button:SetAttribute("*spell1", SpellNames[SpellIDs.FlameShock])
+    FlameShockDuration.button:SetAttribute("spell1", SpellNames[SpellIDs.FlameShock])
     FlameShockDuration.button.icons[1]:SetAlpha(1)
 	FlameShockDuration.rangeCheck = SpellNames[SpellIDs.FlameShock]
 	FlameShockDuration.manaCheck = SpellNames[SpellIDs.FlameShock]
@@ -116,14 +86,16 @@ function TotemTimers.CreateEnhanceCDs()
     FlameShockDuration.events[4] = "PLAYER_REGEN_DISABLED"
     FlameShockDuration.events[5] = "PLAYER_TARGET_CHANGED"
 	FlameShockDuration.forceBar = true
-    FlameShockDuration:SetTimerBarPos("RIGHT")
-    FlameShockDuration:SetTimeWidth(100)
+    FlameShockDuration.timerBarPos = nil
+    FlameShockDuration.timerBars[1]:ClearAllPoints()
+    FlameShockDuration.timerBars[1]:SetPoint("LEFT", FlameShockDuration.button, "LEFT")
+    FlameShockDuration.timerBars[1]:SetFrameStrata("LOW")
     FlameShockDuration:SetBarColor(1,0.5,0)
 	
 
     for i=1,#cds do
-        cds[i].button:SetAttribute("_ondragstart",[[if IsShiftKeyDown() and self:GetAttribute("orderspell")~=0 then
-                                                    return "spell", self:GetAttribute("orderspell")
+        cds[i].button:SetAttribute("_ondragstart",[[if IsShiftKeyDown() then
+                                                    return "spell", self:GetAttribute("spell1")
                                               else control:CallMethod("StartMove") end]])
         cds[i].button:SetAttribute("_onreceivedrag",[[ if kind == "spell" then
                                                    control:CallMethod("ChangeCDOrder", value, ...)
@@ -131,18 +103,111 @@ function TotemTimers.CreateEnhanceCDs()
                                               end]])
         cds[i].button.ChangeCDOrder = ChangeCDOrder
     end
+
+    if WOW_PROJECT_ID > WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+        Maelstrom = XiTimers:new(1)
+        TotemTimers.Maelstrom = Maelstrom
+
+        --Maelstrom.button:Disable()
+        Maelstrom.button.icons[1]:SetVertexColor(1,1,1)
+
+        Maelstrom.button.icons[1]:SetTexture(237584)
+        Maelstrom.button.anchorframe = TotemTimers_EnhanceCDsFrame
+        Maelstrom.dontAlpha = true
+        Maelstrom.dontFlash = true
+        Maelstrom.timeStyle = "sec"
+        Maelstrom.button:SetAttribute("*type*", "spell")
+        Maelstrom.button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        Maelstrom.button:SetAttribute("spell1", SpellIDs.LightningBolt)
+        Maelstrom.button:SetAttribute("spell2", SpellIDs.ChainLightning)
+        Maelstrom.button.icons[1]:SetAlpha(1)
+        Maelstrom.rangeCheck = SpellNames[SpellIDs.LightningBolt]
+        Maelstrom.manaCheck = SpellNames[SpellIDs.LightningBolt]
+        Maelstrom.button:SetScript("OnEvent", TotemTimers.MaelstromEvent)
+        Maelstrom.playerEvents[1] = "UNIT_AURA"
+        Maelstrom.forceBar = true
+        Maelstrom.timerBarPos = nil
+        Maelstrom.timerBars[1]:ClearAllPoints()
+        Maelstrom.timerBars[1]:SetPoint("LEFT", Maelstrom.button, "LEFT")
+        Maelstrom.timerBars[1]:SetFrameStrata("LOW")
+        Maelstrom:SetTimeWidth(100)
+        Maelstrom.timerBars[1]:SetStatusBarAtlas("_Shaman-MaelstromBar")
+        Maelstrom:SetBarColor(0.8,.8,1)
+        Maelstrom.timerBars[1].background:SetStatusBarAtlas("_Shaman-MaelstromBar")
+        Maelstrom.timerBars[1].time:Hide()
+        Maelstrom.button.icons[1]:SetAllPoints(Maelstrom.button)
+
+        Maelstrom.animation.icon:SetTexture("Interface/AddOns/TotemTimers/textures/maelstrom_weapon")
+        Maelstrom.animation.button:SetSize(72,36)
+
+
+        Maelstrom.Update = function() end
+        Maelstrom.Activate = function(self)
+            XiTimers.Activate(self)
+            TotemTimers.MaelstromEvent(self.button)
+        end
+
+
+        MaelstromButton = CreateFrame("Button", "TotemTimers_MaelstromBarButton", Maelstrom.button, "ActionButtonTemplate, SecureActionButtonTemplate")
+        TotemTimers.MaelstromButton = MaelstromButton
+
+        MaelstromButton:SetFrameLevel(Maelstrom.button:GetFrameLevel() + 10)
+        MaelstromButton:SetPoint("LEFT", Maelstrom.button, "LEFT")
+        MaelstromButton:SetSize(100, 17)
+        --MaelstromButton:SetAllPoints(Maelstrom.timerBars[1])
+        MaelstromButton:SetNormalTexture(nil)
+        MaelstromButton:SetHighlightTexture("Interface/AddOns/TotemTimers/textures/MaelstromHilight")
+        MaelstromButton:SetPushedTexture("Interface/AddOns/TotemTimers/textures/MaelstromPushed")
+        MaelstromButton:SetAttribute("*type*", "spell")
+        MaelstromButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        MaelstromButton:SetAttribute("spell1", SpellIDs.LightningBolt)
+        MaelstromButton:SetAttribute("spell2", SpellIDs.ChainLightning)
+        MaelstromButton.icon = TotemTimers_MaelstromBarButtonIcon
+
+        MaelstromIcon = CreateFrame("Frame", "TotemTimers_MaelstromIcon")
+        TotemTimers.MaelstromIcon = MaelstromIcon
+        Maelstrom.ChainOOCAlpha = TotemTimers.MaelstromIcon
+
+        MaelstromIcon.icon = MaelstromIcon:CreateTexture(nil, "ARTWORK")
+        MaelstromIcon.icon:SetAllPoints(MaelstromIcon)
+        MaelstromIcon:SetFrameLevel(Maelstrom.button:GetFrameLevel() + 2)
+
+        MaelstromIcon:ClearAllPoints()
+        MaelstromIcon:SetWidth(100)
+        MaelstromIcon:SetHeight(50)
+
+
+        for _, icon in pairs({MaelstromIcon.icon, Maelstrom.timerBars[1].time}) do
+            icon.AnimGroup = icon:CreateAnimationGroup()
+            icon.AnimGroup:SetLooping("REPEAT")
+            local scale = icon.AnimGroup:CreateAnimation("Scale")
+            scale:SetDuration(0.4)
+            scale:SetScale(1.05,1.05)
+            scale:SetOrder(1)
+            scale:SetSmoothing("IN_OUT")
+            scale = icon.AnimGroup:CreateAnimation("Scale")
+            scale:SetDuration(0.4)
+            scale:SetScale(0.95,0.95)
+            scale:SetOrder(2)
+            scale:SetSmoothing("IN_OUT")
+        end
+
+        Maelstrom.animation.AnchoredButton = MaelstromIcon
+    end
 end
 
 table.insert(TotemTimers.Modules, TotemTimers.CreateEnhanceCDs)
 
 function TotemTimers.ConfigEnhanceCDs() 
-    role = GetSpecialization()
+    role = TotemTimers.Specialization --GetSpecialization()
     if not role then role = 0 end
     
     for i=1,#cds do
         cds[i]:Deactivate()
     end
     FlameShockDuration:Deactivate()
+    if Maelstrom then Maelstrom:Deactivate() end
+    MaelstromIcon:Hide()
 
     if role == 0 or not TotemTimers.ActiveProfile.EnhanceCDs then return end
 
@@ -152,232 +217,185 @@ function TotemTimers.ConfigEnhanceCDs()
         local cd = cds[i]
         cd.button.cdspell = spell
         cd.button.icons[1]:SetTexture(SpellTextures[spell])
-        cd.button:SetAttribute("*spell1", SpellNames[spell])
+        cd.button:SetAttribute("spell1", spell)
         if spell == SpellIDs.FlameShock then
-            cd.button:SetAttribute("*spell2", SpellNames[SpellIDs.EarthShock])
-            cd.button:SetAttribute("*spell3", SpellNames[SpellIDs.FrostShock])
+            cd.button:SetAttribute("spell2", SpellIDs.EarthShock)
+            cd.button:SetAttribute("spell3", SpellIDs.FrostShock)
         elseif spell == SpellIDs.EarthShock then
-            cd.button:SetAttribute("*spell2", SpellNames[SpellIDs.FlameShock])
-            cd.button:SetAttribute("*spell2", SpellNames[SpellIDs.FrostShock])
+            cd.button:SetAttribute("spell2", SpellIDs.FlameShock)
+            cd.button:SetAttribute("spell2", SpellIDs.FrostShock)
         else
-		    cd.button:SetAttribute("*spell2", nil)
+		    cd.button:SetAttribute("spell2", nil)
 		end
-		cd.button:SetAttribute("*spell3", nil)
+		cd.button:SetAttribute("spell3", nil)
         cd.rangeCheck = SpellNames[CDSpells[role][i]]
         cd.manaCheck = SpellNames[CDSpells[role][i]]
         cd.Update = nil
         cd.prohibitCooldown = false
         cd.button:SetAttribute("orderspell", CDSpells[role][i])
 
+        cd.reverseAlpha = true
+        cd.Stop = nil
+
         cd.events = {"SPELL_UPDATE_COOLDOWN"}
         cd.playerEvents = {}
-        if spell == SpellIDs.FlameShock or spell == SpellIDs.EarthShock then
+
+        --cd.button.bar:SetStatusBarColor(0.6,0.6,1.0,0.5)
+
+        --[[if spell == SpellIDs.FlameShock or spell == SpellIDs.EarthShock then
             cd.button:SetScript("OnEvent", TotemTimers.ShockEvent)
             cd.playerEvents[1] = "UNIT_AURA"
+        else]]
+        if spell == SpellIDs.StormStrike then
+            cd.button:SetScript("OnEvent", TotemTimers.StormStrikeEvent)
+            cd.events[2] = "UNIT_AURA"
+            cd.events[3] = "PLAYER_TARGET_CHANGED"
+        elseif spell == SpellIDs.Searing or spell == SpellIDs.Magma then
+            cd.button:SetScript("OnEvent", TotemTimers.FireTotemEvent)
+            cd.events[2] = "PLAYER_TOTEM_UPDATE"
         else
             cd.button:SetScript("OnEvent", TotemTimers.EnhanceCDEvents)
         end
-		cd.reverseAlpha = true
-		cd.Stop = nil
-    end
-    
-    if role == 2 then
-        cds[1].button:SetScript("OnEvent", TotemTimers.StormStrikeEvent)
-        cds[1].events[2] = "UNIT_AURA"
-        cds[1].events[3] = "PLAYER_TARGET_CHANGED"
-        --Searing Totem Dur.
-        cds[4].button:SetScript("OnEvent", TotemTimers.SearingTotemEvent)
-		cds[4].button:SetAttribute("*spell2", SpellIDs.FireElemental)
-		cds[4].button:SetAttribute("*spell3", SpellIDs.Magma)
-        cds[4].events[2] = "PLAYER_TOTEM_UPDATE"
-		cds[4].Stop = TotemTimers.SearingTotemStop
     end
 
-    if AvailableSpells[SpellIDs.FlameShock] and TotemTimers.ActiveProfile.EnhanceCDsFlameShockDuration then
+    if AvailableSpells[SpellIDs.FlameShock] and TotemTimers.ActiveProfile.EnhanceCDsFlameShockDuration_Specialization[role] then
         FlameShockDuration:Activate()
     end
-    
+
+    if role == 2 and Maelstrom
+            and TotemTimers.AvailableTalents.Maelstrom and TotemTimers.ActiveProfile.EnhanceCDsMaelstrom
+        then Maelstrom:Activate()
+    end
+
     for i=1,#CDSpells[role] do
         if TotemTimers.ActiveProfile.EnhanceCDs_Spells[role][i] and AvailableSpells[CDSpells[role][TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i]]] then
             cds[i]:Activate()
         end
     end
+
 end
 
-local active_cds = {}
+local activeCDs = {}
 
 local function ConvertCoords(frame1, frame2)
     return frame1:GetEffectiveScale()/frame2:GetEffectiveScale()
 end
 
 
+local function SizeToWidthHeight(size)
+    size = min(3, size or 1)
+
+    local spacing = TotemTimers.ActiveProfile.CooldownSpacing
+    local height = 19 + (size-1) * 4
+
+    --button + bar = 3 normal buttons + spacing, 4 btn for size 2, 5 btn for size 3
+    local width = 108 + spacing * 2
+    width = width + (size-1) * (36 + spacing)
+
+    return width, height
+end
+
 function TotemTimers.LayoutEnhanceCDs()
-    wipe(active_cds)
+    wipe(activeCDs)
     if role == 0 then return end
 
     for i=1,#CDSpells[role] do
         if cds[TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i]].active then
-            table.insert(active_cds,cds[TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i]])
+            table.insert(activeCDs,cds[TotemTimers.ActiveProfile.EnhanceCDs_Order[role][i]])
         end
     end
-    for i=1,12 do 
+    for i=1,12 do
         cds[i]:ClearAnchors()
         cds[i].button:ClearAllPoints()
     end
     FlameShockDuration.button:ClearAllPoints()
+    if Maelstrom then Maelstrom.button:ClearAllPoints() end
 
-    local FlameShockAnchor = nil
+    local numActiveCDs = #activeCDs
 
-    local fsreltop = nil
-    local fsrelbottom = nil
-    if #active_cds == 0 then
-        return
-    elseif #active_cds == 1 then
-        active_cds[1].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[1].button
-    elseif #active_cds == 2 then
-        active_cds[1].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, "CENTER", -3, 0)
-        active_cds[2]:Anchor(active_cds[1], "LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[1].button
-    elseif #active_cds == 3 then
-        active_cds[2].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        fsreltop = active_cds[2].button
-        fsrelbottom = active_cds[2].button
-    elseif #active_cds == 4 then
-        active_cds[2].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, "CENTER", -3, 0)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        fsreltop = active_cds[2].button
-        fsrelbottom = active_cds[2].button
-    elseif #active_cds == 5 then
-        active_cds[1].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, "CENTER", -3, 0)
-        active_cds[2]:Anchor(active_cds[1], "LEFT")
-        active_cds[3]:Anchor(active_cds[1], "TOPRIGHT", "BOTTOM", true)
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[5]:Anchor(active_cds[4], "LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[4].button
-    elseif #active_cds == 6 then
-        active_cds[2].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        active_cds[5]:Anchor(active_cds[2], "TOP", "BOTTOM")
-        active_cds[4]:Anchor(active_cds[5],"RIGHT")
-        active_cds[6]:Anchor(active_cds[5],"LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[5].button
-    elseif #active_cds == 7 then
-        active_cds[2].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        active_cds[5]:Anchor(active_cds[2], "TOPRIGHT", "BOTTOM", true)
-        active_cds[4]:Anchor(active_cds[5], "RIGHT")
-        active_cds[6]:Anchor(active_cds[5], "LEFT")
-        active_cds[7]:Anchor(active_cds[6], "LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
-    elseif #active_cds == 8 then
-        active_cds[2].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, -3, 0)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[5]:Anchor(active_cds[1], "TOP", "BOTTOM")
-        active_cds[6]:Anchor(active_cds[2], "TOP", "BOTTOM")
-        active_cds[7]:Anchor(active_cds[3], "TOP", "BOTTOM")
-        active_cds[8]:Anchor(active_cds[4], "TOP", "BOTTOM")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
-    elseif #active_cds == 9 then
-        active_cds[2].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, -3, 0)
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[3]:Anchor(active_cds[2], "LEFT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[6]:Anchor(active_cds[2], "TOPRIGHT", "BOTTOM", true)
-        active_cds[5]:Anchor(active_cds[6], "RIGHT")
-        active_cds[7]:Anchor(active_cds[6], "LEFT")
-        active_cds[8]:Anchor(active_cds[7], "LEFT")
-        active_cds[9]:Anchor(active_cds[8], "LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
-    elseif #active_cds == 10 then
-        active_cds[3].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        active_cds[2]:Anchor(active_cds[3], "RIGHT")
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[5]:Anchor(active_cds[4], "LEFT")
-        active_cds[6]:Anchor(active_cds[1], "TOP", "BOTTOM")
-        active_cds[7]:Anchor(active_cds[2], "TOP", "BOTTOM")
-        active_cds[8]:Anchor(active_cds[3], "TOP", "BOTTOM")
-        active_cds[9]:Anchor(active_cds[4], "TOP", "BOTTOM")
-        active_cds[10]:Anchor(active_cds[5], "TOP", "BOTTOM")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
-    elseif #active_cds == 11 then
-        active_cds[3].button:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
-        active_cds[2]:Anchor(active_cds[3], "RIGHT")
-        active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[5]:Anchor(active_cds[4], "LEFT")
-        active_cds[6]:Anchor(active_cds[1], "TOPRIGHT", "BOTTOM", true)
-        active_cds[7]:Anchor(active_cds[6], "LEFT")
-        active_cds[8]:Anchor(active_cds[7], "LEFT")
-        active_cds[9]:Anchor(active_cds[8], "LEFT")
-        active_cds[10]:Anchor(active_cds[9], "LEFT")
-        active_cds[11]:Anchor(active_cds[10], "LEFT")
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
-	elseif #active_cds == 12 then
-	    active_cds[3].button:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, -3, 0)
-        active_cds[2]:Anchor(active_cds[3], "RIGHT")
-		active_cds[1]:Anchor(active_cds[2], "RIGHT")
-        active_cds[4]:Anchor(active_cds[3], "LEFT")
-        active_cds[5]:Anchor(active_cds[4], "LEFT")
-		active_cds[6]:Anchor(active_cds[5], "LEFT")
-		active_cds[7]:Anchor(active_cds[1], "TOP", "BOTTOM")
-        active_cds[8]:Anchor(active_cds[2], "TOP", "BOTTOM")
-        active_cds[9]:Anchor(active_cds[3], "TOP", "BOTTOM")
-        active_cds[10]:Anchor(active_cds[4], "TOP", "BOTTOM")
-        active_cds[11]:Anchor(active_cds[5], "TOP", "BOTTOM")
-		active_cds[12]:Anchor(active_cds[6], "TOP", "BOTTOM")
+    if numActiveCDs == 0 then return end
 
-        fsreltop = active_cds[1].button
-        fsrelbottom = active_cds[3].button
+    local topRow, bottomRow = numActiveCDs, 0
+
+    if numActiveCDs > 5 then
+        topRow = floor(numActiveCDs / 2)
+        bottomRow = ceil(numActiveCDs / 2)
     end
 
-    local fsrelbutton = fsrelbottom
-
-    local positions = {
-        [0] = { -- even amount of active cds
-            "BOTTOMRIGHT",
-            "TOPRIGHT",
-        },
-        [1] = { -- odd amount of active cds
-            "BOTTOM",
-            "TOP"
-        },
-    }
-
-    local position = positions[#active_cds % 2]
-
-    if not TotemTimers.ActiveProfile.FlameShockDurationOnTop then
-        position[1], position[2] = position[2], position[1]
+    local split = ceil(topRow / 2)
+    if topRow % 2 == 0 then
+        activeCDs[split]:SetPoint("RIGHT", TotemTimers_EnhanceCDsFrame, "CENTER", -3, 0)
+    else
+        activeCDs[split]:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame)
     end
 
-    local verticalDirection = TotemTimers.ActiveProfile.FlameShockDurationOnTop and 1 or -1
-    local verticalDistance = TotemTimers.ActiveProfile.CooldownSpacing * verticalDirection
-    if not TotemTimers.ActiveProfile.CDTimersOnButtons then
-        verticalDistance = verticalDistance + TotemTimers.ActiveProfile.EnhanceCDsTimeHeight * verticalDirection
+    for i=split-1, 1, -1 do
+        activeCDs[i]:Anchor(activeCDs[i+1], "RIGHT")
     end
-    local horizontalDistance = -50 --+TotemTimers.ActiveProfile.EnhanceCDsTimeHeight/2
-    if #active_cds % 2 == 0 then horizontalDistance = horizontalDistance + TotemTimers.ActiveProfile.EnhanceCDsTimeHeight/2 end
+    for i = split + 1, topRow do
+        activeCDs[i]:Anchor(activeCDs[i-1], "LEFT")
+    end
 
-    FlameShockDuration.button:SetPoint(position[1], fsrelbutton, position[2], horizontalDistance, verticalDistance)
+    local bottomSplit
+    if bottomRow > 0 then
+        bottomSplit = topRow + ceil(bottomRow / 2)
+        if bottomRow == topRow then
+            activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOP")
+        else
+            activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOPRIGHT", "BOTTOM", true)
+        end
+        for i=bottomSplit-1, topRow+1, -1 do
+            activeCDs[i]:Anchor(activeCDs[i+1], "RIGHT")
+        end
+        for i = bottomSplit + 1, numActiveCDs do
+            activeCDs[i]:Anchor(activeCDs[i-1], "LEFT")
+        end
+    end
 
+    local spacing = TotemTimers.ActiveProfile.CooldownSpacing
+
+    local width, height = SizeToWidthHeight(FlameShockDuration.size)
+
+    FlameShockDuration:SetTimeWidth(width)
+    FlameShockDuration:SetTimeHeight(height)
+    FlameShockDuration.button:SetSize(height, height)
+    FlameShockDuration.button.icons[1]:SetAllPoints(FlameShockDuration.button)
+
+    local fspoint, fsy = "BOTTOMLEFT", 0
+
+    if TotemTimers.ActiveProfile.FlameShockDurationOnTop then
+        fsy = 18 + spacing + activeCDs[1]:GetBorder("TOP")
+    else
+        fspoint = "TOPLEFT"
+        local border = spacing + activeCDs[1]:GetBorder("BOTTOM")
+        fsy = -18 - border
+        if bottomRow > 0 then
+            fsy = fsy - 36 - border
+        end
+    end
+
+    FlameShockDuration.button:SetPoint(fspoint, TotemTimers_EnhanceCDsFrame, "CENTER", -width / 2, fsy)
+
+
+    if Maelstrom then
+        local msWidth, msHeight = SizeToWidthHeight(Maelstrom.size)
+        Maelstrom:SetTimeWidth(msWidth)
+        Maelstrom:SetTimeHeight(msHeight)
+        Maelstrom.button:SetSize(msHeight, msHeight)
+        Maelstrom.button.icons[1]:SetAllPoints(Maelstrom.button)
+        MaelstromButton:SetSize(msWidth, msHeight)
+        MaelstromIcon:SetSize(msWidth * 0.75, msWidth * 0.75 / 2)
+
+        local msy = 18 + spacing + activeCDs[1]:GetBorder("TOP")
+
+        if FlameShockDuration.active and TotemTimers.ActiveProfile.FlameShockDurationOnTop then
+            msy = msy + spacing + height
+        end
+
+        Maelstrom.button:SetPoint("BOTTOMLEFT", TotemTimers_EnhanceCDsFrame, "CENTER", -msWidth / 2, msy)
+        MaelstromIcon:SetPoint("CENTER", TotemTimers_EnhanceCDsFrame, "CENTER", 0, msy)
+
+    end
 end
 
 function TotemTimers.ActivateEnhanceCDs()
@@ -390,6 +408,7 @@ function TotemTimers.DeactivateEnhanceCDs()
         v:Deactivate()
     end
     FlameShockDuration:Deactivate()
+    if Maelstrom then Maelstrom:Deactivate() end
 end
 
 function TotemTimers.EnhanceCDEvents(self, event, spell)
@@ -417,15 +436,13 @@ function TotemTimers.EnhanceCDEvents(self, event, spell)
 	end
 end
 
-local SearingIcon = SpellTextures[SpellIDs.Searing]
-local MagmaIcon = SpellTextures[SpellIDs.Magma]
-local FireElementalIcon = SpellTextures[SpellIDs.FireElemental]
-function TotemTimers.SearingTotemEvent(self,event,...)
+
+function TotemTimers.FireTotemEvent(self,event,...)
     local element = ...
     if event == "PLAYER_TOTEM_UPDATE" then
         if element == 1 then
             local _, totem, startTime, duration, icon = GetTotemInfo(1)
-            if (icon == SearingIcon or icon == MagmaIcon or icon == FireElementalIcon) and duration > 0 then
+            if icon == self.icon:GetTexture() and duration > 0 then
 				self.icon:SetTexture(icon)
                 self.timer:Start(1, duration)
             elseif self.timer.timers[1] > 0 then 
@@ -435,11 +452,6 @@ function TotemTimers.SearingTotemEvent(self,event,...)
     else
         -- TotemTimers.EnhanceCDEvents(self,event,...)
     end
-end
-
-function TotemTimers.SearingTotemStop(self, ...)
-	self.button.icon:SetTexture(SpellTextures[SpellIDs.Searing])
-	XiTimers.Stop(self, ...)
 end
 
 
@@ -540,13 +552,14 @@ end
 
 local Focused = 43339
 local ElementalFocus = 16164
+local ClearCasting = 16246
 local ShockBuffActive = {}
 function TotemTimers.ShockEvent(self, event, unit, ...)
     if event == "UNIT_AURA" and unit == "player" then
         for i = 1,40 do
             local name,_,_,_,duration,endtime,_,_,_,spellID = UnitBuff("player", i)
             if spellID then
-                if (spellID == Focused or spellID == ElementalFocus) then
+                if (spellID == Focused or spellID == ElementalFocus or spellID == ClearCasting) then
                     if not ShockBuffActive[self.timer.nr] then
                         ShockBuffActive[self.timer.nr] = true
                         ActionButton_ShowOverlayGlow(self)
@@ -563,5 +576,55 @@ function TotemTimers.ShockEvent(self, event, unit, ...)
         end
     else
         TotemTimers.EnhanceCDEvents(self, event, unit, ...)
+    end
+end
+
+local MaelstromName = GetSpellInfo(53817)
+local lastMaelstromCount = 0
+
+function TotemTimers.MaelstromEvent(self)
+    local _,_,count = AuraUtil.FindAuraByName(MaelstromName, "player", "HELPFUL")
+    local numberOnly = Maelstrom.NumberOnly
+    if not count then
+        Maelstrom:Stop(1)
+        Maelstrom.timerBars[1].time:SetText("")
+        Maelstrom.timerBars[1].time.AnimGroup:Stop()
+        ActionButton_HideOverlayGlow(TotemTimers.MaelstromButton)
+
+        if not numberOnly then
+            MaelstromIcon:Hide()
+            MaelstromIcon.icon:SetTexture(nil)
+            MaelstromIcon.icon.AnimGroup:Stop()
+        end
+    else
+        Maelstrom.timerBars[1].time:SetText(count)
+        Maelstrom:Start(1, count, 5)
+        Maelstrom:SetBarColor(.6 + count * .04, .6 + count * .04, .8 + count * .04)
+
+        local animate
+        if numberOnly then
+            MaelstromIcon:Hide()
+            MaelstromIcon.icon.AnimGroup:Stop()
+            animate = Maelstrom.timerBars[1].time
+        else
+            MaelstromIcon:Show()
+            MaelstromIcon.icon:SetTexture("Interface/AddOns/TotemTimers/textures/maelstrom_weapon"..(count < 5 and "_"..count or ""))
+            animate = MaelstromIcon.icon
+            ActionButton_HideOverlayGlow(TotemTimers.MaelstromButton)
+        end
+
+        if count < 5 then
+            animate.AnimGroup:Stop()
+        else
+            animate.AnimGroup:Play()
+            if lastMaelstromCount < count and Maelstrom.StopPulseOn5 then
+                Maelstrom.animation:Play()
+            end
+            if numberOnly then
+                ActionButton_ShowOverlayGlow(TotemTimers.MaelstromButton)
+            end
+        end
+
+        lastMaelstromCount = count
     end
 end

@@ -36,70 +36,74 @@ function SpellMonitorConfigFunc()
 			"296"
 		);
 
-		ModManagement_RegisterCheckBox(
-			"SpellMonitor",
-			SPELL_TRIGGER_ENABLE,
-			nil,
-			"EnableEventAlert",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if not BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod") then
-						BigFoot_LoadAddOn("EventAlertMod")
-					end
-					if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
-						EventAlert_Toggle(true)
-					end
-				else
-					if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
-						EventAlert_Toggle(false)
+		if IsConfigurableAddOn("EventAlertMod") then
+			ModManagement_RegisterCheckBox(
+				"SpellMonitor",
+				SPELL_TRIGGER_ENABLE,
+				nil,
+				"EnableEventAlert",
+				1,
+				function (arg)
+					if (arg == 1) then
+						if not BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod") then
+							BigFoot_LoadAddOn("EventAlertMod")
+						end
+						if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
+							EventAlert_Toggle(true)
+						end
+					else
+						if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
+							EventAlert_Toggle(false)
+						end
 					end
 				end
-			end
-		);
+			);
 
-		ModManagement_RegisterButton(
-			"SpellMonitor",
-			SPELL_TRIGGER_CONFIG,
-			function()
-				if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
-					if not EA_Options_Frame:IsVisible() then
-						EA_Options_Frame:Show();
-						HideUIPanel(ModManagementFrame);
+			ModManagement_RegisterButton(
+				"SpellMonitor",
+				SPELL_TRIGGER_CONFIG,
+				function()
+					if (BigFoot_IsAddOnLoadedFromBigFoot("EventAlertMod")) then
+						if not EA_Options_Frame:IsVisible() then
+							EA_Options_Frame:Show();
+							HideUIPanel(ModManagementFrame);
+						end
 					end
-				end
-			end,
-			nil,
-			1
-		);
-		
-		ModManagement_RegisterCheckBox(
-			"SpellMonitor",
-			BigDebuffs_ENABLE,
-			nil,
-			"EnableBigDebuffs",
-			1,
-			function (arg)
-				if (arg == 1) then
-					if not BigFoot_IsAddOnLoadedFromBigFoot("BigDebuffs") then
-						BigFoot_LoadAddOn("BigDebuffs")
-					end
-				end
-			end
-		);
+				end,
+				nil,
+				1
+			);
+		end
 
-		ModManagement_RegisterButton(
-			"SpellMonitor",
-			SPELL_TRIGGER_CONFIG,
-			function()
-				if (BigFoot_IsAddOnLoadedFromBigFoot("BigDebuffs")) then
-					InterfaceOptionsFrame_OpenToCategory("BigDebuffs")
-					InterfaceOptionsFrame_OpenToCategory("BigDebuffs")
+		if IsConfigurableAddOn("BigDebuffs") then
+			ModManagement_RegisterCheckBox(
+				"SpellMonitor",
+				BigDebuffs_ENABLE,
+				nil,
+				"EnableBigDebuffs",
+				1,
+				function (arg)
+					if (arg == 1) then
+						if not BigFoot_IsAddOnLoadedFromBigFoot("BigDebuffs") then
+							BigFoot_LoadAddOn("BigDebuffs")
+						end
+					end
 				end
-			end,
-			nil,
-			1
-		);
+			);
+
+			ModManagement_RegisterButton(
+				"SpellMonitor",
+				SPELL_TRIGGER_CONFIG,
+				function()
+					if (BigFoot_IsAddOnLoadedFromBigFoot("BigDebuffs")) then
+						InterfaceOptionsFrame_OpenToCategory("BigDebuffs")
+						InterfaceOptionsFrame_OpenToCategory("BigDebuffs")
+					end
+				end,
+				nil,
+				1
+			);
+		end
 
 		-- local defaultValue = GetCVarBool("displaySpellActivationOverlays") == 1 or 0;
 		-- ModManagement_RegisterCheckBox(

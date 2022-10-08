@@ -32,7 +32,7 @@ local TT_INFO_ENTRY = "|cFFCFCFCF%s:|r %s"
 
 local RIGHT_SELECTION_ENTRYS = {
 	DIFF_MAX = 4,
-	DIFF_MIN = AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, 3, 2),
+	DIFF_MIN = 2,
 	DIFF_DEFAULT = 2,
 	BOSS_MAX = 24,
 }
@@ -443,6 +443,21 @@ local function ClassFilterButton_OnClick(self, button)
 
 end
 
+local function ContentPhaseButton_Refresh(self)
+	self = self or GUI.frame.contentFrame.contentPhaseButton
+	if AtlasLoot.db.ContentPhase.enableOnItems then
+		self:SetAlpha(1.0)
+	else
+		self:SetAlpha(0.5)
+	end
+end
+
+local function ContentPhaseButton_OnClick(self, button)
+	AtlasLoot.db.ContentPhase.enableOnItems = not AtlasLoot.db.ContentPhase.enableOnItems
+	AtlasLoot.GUI.ItemFrame:Refresh(true)
+	ContentPhaseButton_Refresh(self)
+end
+
 -- GameVersion select
 local GAME_VERSION_TEXTURES = AtlasLoot.GAME_VERSION_TEXTURES
 
@@ -814,6 +829,7 @@ local function SubCatSelectFunction(self, id, arg)
 	db.selected[2] = id
 	db.selected[3] = 0
 	local moduleData = AtlasLoot.ItemDB:Get(db.selected[1])
+	local difficultys = moduleData:GetDifficultys()
 	local data = {}
 	local dataExtra
 	local selectedBoss
@@ -822,6 +838,18 @@ local function SubCatSelectFunction(self, id, arg)
 	for i = 1, #moduleData[id].items do
 		tabVal = moduleData[id].items[i]
 		if tabVal then
+			-- fix scaling jumps of diff list and get max number of user diffs
+			if not tabVal.__numDiffEntrys then
+				local counter = 0
+				for count = 1, #difficultys do
+					if tabVal[count] then
+						counter = counter + 1
+					end
+				end
+
+				moduleData[id].__numDiffEntrys = counter > (moduleData[id].__numDiffEntrys or 0) and counter or moduleData[id].__numDiffEntrys
+				tabVal.__numDiffEntrys = counter
+			end
 			moduleData:CheckForLink(id, i)
 			if tabVal.ExtraList then
 				if not dataExtra then dataExtra = {} end
@@ -870,18 +898,19 @@ local function BossSelectFunction(self, id, arg)
 	local difficultys = moduleData:GetDifficultys()
 	local data = {}
 	local diffCount = 0
+	local bossData = moduleData[db.selected[2]].items[id]
 	for count = 1, #difficultys do
-		if moduleData[db.selected[2]].items[id][count] then
+		if bossData[count] then
 			data[ #data+1 ] = {
 				id = count,
-				name = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name,
-				tt_title = moduleData[db.selected[2]].items[id][count].diffName or difficultys[count].name
+				name = bossData[count].diffName or difficultys[count].name,
+				tt_title = bossData[count].diffName or difficultys[count].name
 			}
 			diffCount = diffCount + 1
 		end
 	end
 
-	GUI:UpdateRightSelection(diffCount)
+	GUI:UpdateRightSelection(moduleData[db.selected[2]].__numDiffEntrys or diffCount)
 	GUI.frame.difficulty:SetData(data, moduleData:GetDifficulty(db.selected[2], db.selected[3], db.selected[4]))
 	--UpdateFrames()
 end
@@ -1254,6 +1283,20 @@ function GUI:Create()
 	frame.contentFrame.modelButton:SetScript("OnClick", ModelButtonOnClick)
 	frame.contentFrame.modelButton:Hide()
 
+	-- ContentPhase
+	frame.contentFrame.contentPhaseButton = CreateFrame("Button", frameName.."-contentPhaseButton")
+	frame.contentFrame.contentPhaseButton:SetParent(frame.contentFrame)
+	frame.contentFrame.contentPhaseButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+	frame.contentFrame.contentPhaseButton:SetWidth(25)
+	frame.contentFrame.contentPhaseButton:SetHeight(25)
+	frame.contentFrame.contentPhaseButton:SetPoint("RIGHT", frame.contentFrame.modelButton, "LEFT", -5, 0)
+	frame.contentFrame.contentPhaseButton:SetScript("OnClick", ContentPhaseButton_OnClick)
+	--frame.contentFrame.contentPhaseButton:SetScript("OnShow", ContentPhaseButton_OnShow)
+	--frame.contentFrame.contentPhaseButton:SetScript("OnEnter", ContentPhaseButton_OnEnter)
+	--frame.contentFrame.contentPhaseButton:SetScript("OnLeave", ContentPhaseButton_OnLeave)
+	frame.contentFrame.contentPhaseButton.mainButton = true
+	--frame.contentFrame.clasFilterButton:Hide()
+
 	--[[ AtlasMapButton
 	frame.contentFrame.AtlasMapButton = CreateFrame("Button", frameName.."-AtlasMapButton")
 	frame.contentFrame.AtlasMapButton:SetParent(frame.contentFrame)
@@ -1336,6 +1379,12 @@ function GUI:Create()
 	frame.contentFrame.clasFilterButton.texture = frame.contentFrame.clasFilterButton:CreateTexture(frameName.."-clasFilterButton-texture","ARTWORK")
 	frame.contentFrame.clasFilterButton.texture:SetAllPoints(frame.contentFrame.clasFilterButton)
 	--frame.contentFrame.clasFilterButton.texture:SetTexture(CLASS_ICON_PATH[PLAYER_CLASS_FN])
+
+	frame.contentFrame.contentPhaseButton.texture = frame.contentFrame.contentPhaseButton:CreateTexture(frameName.."-contentPhaseButton-texture","ARTWORK")
+	frame.contentFrame.contentPhaseButton.texture:SetAllPoints(frame.contentFrame.contentPhaseButton)
+	frame.contentFrame.contentPhaseButton.texture:SetTexture(AtlasLoot.Data.ContentPhase:GetActivePhaseTexture())
+
+	ContentPhaseButton_Refresh(frame.contentFrame.contentPhaseButton)
 
 	self.frame = frame
 
@@ -1435,6 +1484,10 @@ function GUI.RefreshVersionUpdate()
 	else
 		GUI.frame.titleFrame.newVersion:Hide()
 	end
+end
+
+function GUI.RefreshButtons()
+	ContentPhaseButton_Refresh()
 end
 
 -- ################################

@@ -28,7 +28,7 @@ MT.BuildEnv('EXTERNAL');
 -->		predef
 -->		EXTERNAL
 	VT.ExternalCodec.wowhead = {
-		import = function(url, codec)
+		ImportCode = function(url, codec)
 			local class, data = nil;
 			if DT.BUILD == "CLASSIC" then
 				--	https://cn.classic.wowhead.com/talent-calc/embed/warrior/05004-055001-55250110500001051
@@ -84,7 +84,7 @@ MT.BuildEnv('EXTERNAL');
 			end
 			return nil;
 		end,
-		export = function(Frame, codec)
+		ExportCode = function(Frame, codec)
 			local TreeFrames = Frame.TreeFrames;
 			local ClassTDB = DT.TalentDB[Frame.class];
 			local SpecList = DT.ClassSpec[Frame.class];
@@ -152,7 +152,7 @@ MT.BuildEnv('EXTERNAL');
 		end,
 	};
 	VT.ExternalCodec.nfu = {
-		import = function(url, codec)
+		ImportCode = function(url, codec)
 			local class, data = nil;
 			if DT.BUILD == "CLASSIC" then
 				--	http://www.nfuwow.com/talents/60/warrior/tal/0530500030200000000000000000000000054250110530001051
@@ -174,7 +174,7 @@ MT.BuildEnv('EXTERNAL');
 			end
 			return nil;
 		end,
-		export = function(Frame, codec)
+		ExportCode = function(Frame, codec)
 			local TreeFrames = Frame.TreeFrames;
 			local ClassTDB = DT.TalentDB[Frame.class];
 			local SpecList = DT.ClassSpec[Frame.class];
@@ -345,7 +345,7 @@ MT.BuildEnv('EXTERNAL');
 		},
 		--	encode[p1p2] = code
 		--	decode[code] = p1p2
-		import = function(url, codec)
+		ImportCode = function(url, codec)
 			local class, data = nil;
 			if DT.BUILD == "CLASSIC" then
 				class, data = strmatch(url, "60%.wowfan%.net/[e]*[n]*[/]*%?talent#(.)(.+)");
@@ -401,6 +401,9 @@ MT.BuildEnv('EXTERNAL');
 										dec = dec .. decode.short[v];
 									end
 									SpecIndex = SpecIndex + 1;
+									if SpecIndex >= 3 then
+										return class, DT.MAX_LEVEL, dec;
+									end
 									TreeTDB = ClassTDB[SpecList[SpecIndex]];
 									len = #TreeTDB;
 									pos = 0;
@@ -415,7 +418,7 @@ MT.BuildEnv('EXTERNAL');
 			end
 			return nil;
 		end,
-		export = function(Frame, codec)
+		ExportCode = function(Frame, codec)
 			local TreeFrames = Frame.TreeFrames;
 			local ClassTDB = DT.TalentDB[Frame.class];
 			local SpecList = DT.ClassSpec[Frame.class];
@@ -466,12 +469,16 @@ MT.BuildEnv('EXTERNAL');
 				if val == "" then
 					url = url .. "Z";
 				else
-					for index = 1, #val, 2 do
+					local num = #val;
+					for index = 1, num, 2 do
 						local pat = strsub(val, index, index + 1);
 						if encode[pat] == nil then
 							return nil;
 						end
 						url = url .. encode[pat];
+					end
+					if num < #sub then
+						url = url .. "Z";
 					end
 				end
 				--
@@ -563,20 +570,18 @@ MT.BuildEnv('EXTERNAL');
 				RegisterAddonMessagePrefix(prefix);
 			end
 		end
-		local pos = 0;
 		for media, codec in next, VT.ExternalCodec do
 			if codec.init ~= nil then
 				codec:init();
 			end
-			if codec.export ~= nil then
-				pos = pos + 1;
-				VT.ExportButtonMenuDefinition[pos] = {
+			if codec.ExportCode ~= nil then
+				VT.ExportButtonMenuDefinition.num = VT.ExportButtonMenuDefinition.num + 1;
+				VT.ExportButtonMenuDefinition[VT.ExportButtonMenuDefinition.num] = {
 					param = codec,
 					text = media,
 				};
 			end
 		end
-		VT.ExportButtonMenuDefinition.num = pos;
 	end);
 	MT.RegisterOnLogin('EXTERNAL', function(LoggedIn)
 	end);

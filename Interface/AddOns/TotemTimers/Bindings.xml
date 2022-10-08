@@ -7,10 +7,9 @@
 	<Binding name="TOTEMTIMERSAIRMENU" description="Open air totem menu" category="TotemTimers ">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSFIREMENU" description="Open fire totem menu" category="TotemTimers ">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSWATERMENU" description="Open water totem menu" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSMULTICAST" category="TotemTimers ">--[[dummy]]</Binding>
+	<Binding name="TOTEMTIMERSMULTICASTMENU" category="TotemTimers ">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSCLOSE" description="Close all menus" category="TotemTimers ">--[[dummy]]</Binding>
-	<Binding name="TOTEMTIMERSCALLOFELEMENTS" category="TotemTimers ">--[[dummy]]</Binding>
-	<Binding name="TOTEMTIMERSCALLOFANCESTORS" category="TotemTimers ">--[[dummy]]</Binding>
-	<Binding name="TOTEMTIMERSCALLOFSPIRITS" category="TotemTimers ">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSLIGHTNINGSHIELD" description="Lightning Shield" category="TotemTimers ">--[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSWATERSHIELD" category="TotemTimers "> --[[dummy]]</Binding>
 	<Binding name="TOTEMTIMERSTOTEMICCALL" category="TotemTimers ">--[[dummy]]</Binding>

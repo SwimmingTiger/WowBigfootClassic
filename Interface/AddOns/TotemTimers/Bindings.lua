@@ -16,10 +16,9 @@ BINDING_NAME_TOTEMTIMERSSET5 = "Set 5"
 BINDING_NAME_TOTEMTIMERSSET6 = "Set 6"
 BINDING_NAME_TOTEMTIMERSSET7 = "Set 7"
 BINDING_NAME_TOTEMTIMERSSET8 = "Set 8"
-BINDING_NAME_TOTEMTIMERSSTORMSTRIKE = "Stormstrike"
-BINDING_NAME_TOTEMTIMERSLAVALASH = "Lava Lash"
-BINDING_NAME_TOTEMTIMERSEARTHSHOCK = "Earth Shock"
 BINDING_NAME_TOTEMTIMERSCLOSE = "Close All Menus"
+BINDING_NAME_TOTEMTIMERSMULTICAST = "Active Multicast (Call of Elements etc.)"
+BINDING_NAME_TOTEMTIMERSMULTICASTMENU = "Open Multicast Menu"
 
 local _G = getfenv()
 
@@ -45,9 +44,6 @@ local function SetupSpellNames()
     BINDING_NAME_TOTEMTIMERSEARTHSHOCK = SpellNames[SpellIDs.EarthShock]
 	BINDING_NAME_TOTEMTIMERSFLAMESHOCK = SpellNames[SpellIDs.FlameShock]
 	BINDING_NAME_TOTEMTIMERSFROSTSHOCK = SpellNames[SpellIDs.FrostShock]
-	BINDING_NAME_TOTEMTIMERSCALLOFELEMENTS = SpellNames[SpellIDs.CallOfElements] or "Call of the Elements"
-	BINDING_NAME_TOTEMTIMERSCALLOFANCESTORS = SpellNames[SpellIDs.CallofAncestors] or "Call of the Ancestors"
-	BINDING_NAME_TOTEMTIMERSCALLOFSPIRITS = SpellNames[SpellIDs.CallOfSpirits] or "Call of the Spirits"
 end
 
 local menubutton = "Button4"
@@ -128,18 +124,6 @@ local TotemTimers_Bindings = {
         if TotemTimers.ActiveProfile.WeaponMenuOnRightclick then button = "MiddleButton" end
 		SetOverrideBindingClick(TotemTimersFrame, false, key, buttonnames["wp"], button)
 	end,
-	--[[["TOTEMTIMERSSTORMSTRIKE"] = function(key)
-		SetBindingClick(key, "XiTimers_Timer9")--TotemTimersFrame, false, key, "XiTimers_Timer9")
-        XiTimers.timers[9].button.hotkey:SetText(GetBindingText(key, "KEY_", 1))
-	end,
-	["TOTEMTIMERSLAVALASH"] = function(key)
-		SetOverrideBindingClick(TotemTimersFrame, false, key, "XiTimers_Timer10")
-        XiTimers.timers[10].button.hotkey:SetText(GetBindingText(key, "KEY_", 1))
-	end,
-	["TOTEMTIMERSEARTHSHOCK"] = function(key)
-		SetOverrideBindingClick(TotemTimersFrame, false, key, "XiTimers_Timer11")
-        XiTimers.timers[11].button.hotkey:SetText(GetBindingText(key, "KEY_", 1))
-	end,]]
 	["TOTEMTIMERSSET1"] = function(key)
 		SetOverrideBindingClick(TotemTimersFrame, false, key, "TotemTimers_SetButton1")
 	end,
@@ -167,6 +151,17 @@ local TotemTimers_Bindings = {
     ["TOTEMTIMERSCLOSE"] = function(key)
         SetOverrideBindingClick(TotemTimersFrame, false, key, "XiTimers_Timer1", "Button5")
     end,
+	["TOTEMTIMERSMULTICAST"] = function(key)
+		if WOW_PROJECT_ID > WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			SetOverrideBindingClick(TotemTimersFrame, false, key, "TotemTimers_MultiSpell")
+			TotemTimers_MultiSpellHotKey:SetText(GetBindingText(key, "KEY_", 1))
+		end
+	end,
+	["TOTEMTIMERSMULTICASTMENU"] = function(key)
+		if WOW_PROJECT_ID > WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			SetOverrideBindingClick(TotemTimersFrame, false, key, "TotemTimers_MultiSpell", menubutton)
+		end
+	end,
 }
 
 

@@ -57,7 +57,7 @@ function QuestieOptionsDefaults:Load()
             enableTooltipsQuestLevel = true,
             enableMapIcons = true,
             enableMiniMapIcons = true,
-            questieShutUp = false,
+            questieShutUp = true,	--bf@178.com
 
             -- TBC Isle of Quel'Danas
             isleOfQuelDanasPhase = 1,
@@ -67,7 +67,7 @@ function QuestieOptionsDefaults:Load()
             -- Tracker Settings Tab
             autoTrackQuests = true,
             trackerShowCompleteQuests = true,
-            collapseCompletedQuests = false,
+            collapseCompletedQuests = true,		--bf@178.com
             trackerShowQuestLevel = true,
             showBlizzardQuestTimer = false,
             hookTracking = true,

@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(640, "DBM-Party-WotLK", 10, 285)
 local L		= mod:GetLocalizedStrings()
 
 
-mod:SetRevision("20220724021612")
+mod:SetRevision("20221006190430")
 mod:SetCreatureID(23954)--23980 is no longer used like it was in wrath. Kept just to keep first death from ending fight early
 mod:SetMainBossID(23954)
 mod:SetEncounterID(2025)
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 42730 59735",
 	"SPELL_AURA_REMOVED 42730 59735",
 	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED boss1"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warningWoeStrike	= mod:NewTargetNoFilterAnnounce(42730, 2, nil, "RemoveCurse", 2)
@@ -66,6 +66,13 @@ end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, spellId)
 	if spellId == 42863 then -- Scourge Resurrection
+		self:SendSync("Stage2")
+	end
+end
+
+function mod:OnSync(event, arg)
+	if not self:IsInCombat() then return end
+	if event == "Stage2" then
 		self:SetStage(2)
 	end
 end

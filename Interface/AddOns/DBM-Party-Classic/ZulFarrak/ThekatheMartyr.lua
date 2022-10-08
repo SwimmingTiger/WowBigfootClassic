@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(485, "DBM-Party-Classic", 20, 241)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220829192444")
+mod:SetRevision("20220923022829")
 mod:SetCreatureID(7272)
 mod:SetEncounterID(596)
 
@@ -22,7 +22,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 8600 and args:IsDestTypePlayer() and self:CheckDispelFilter() then
+	if args.spellId == 8600 and args:IsDestTypePlayer() and self:CheckDispelFilter("disease") then
 		warningFeveredPlague:Show(args.destName)
 	end
 end

@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 
-mod:SetRevision("20220816155700")
+mod:SetRevision("20221007015514")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 --mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
@@ -22,7 +23,20 @@ mod:RegisterEventsInCombat(
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, "134321")
 local warnPhase2			= mod:NewPhaseAnnounce(2, 3)
 local warnBlastTargets		= mod:NewTargetAnnounce(27808, 2)
-local warnFissure			= mod:NewTargetNoFilterAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
+
+--Fissure needs custom code since blizzard went out of their way to break it in classic
+local warnFissure
+local specWarnFissureYou
+local specWarnFissureClose
+local yellFissure
+if isRetail then
+	warnFissure				= mod:NewTargetNoFilterAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
+	specWarnFissureYou		= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
+	specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
+	yellFissure				= mod:NewYell(27810)
+else
+	warnFissure				= mod:NewSpellAnnounce(27810, 4)
+end
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
 
@@ -30,9 +44,6 @@ local specwarnP2Soon		= mod:NewSpecialWarning("specwarnP2Soon")
 local specWarnManaBomb		= mod:NewSpecialWarningMoveAway(27819, nil, nil, nil, 1, 2)
 local yellManaBomb			= mod:NewShortYell(27819)
 local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1, 2)
-local specWarnFissureYou	= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
-local specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
-local yellFissure			= mod:NewYell(27810)
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
@@ -50,7 +61,6 @@ mod.vb.warnedAdds = false
 mod.vb.MCIcon = 1
 local frostBlastTargets = {}
 local chainsTargets = {}
-local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 
 local function AnnounceChainsTargets(self)
 	warnChainsTargets:Show(table.concat(chainsTargets, "< >"))
@@ -88,13 +98,13 @@ function mod:OnCombatStart(delay)
 	table.wipe(frostBlastTargets)
 	self.vb.warnedAdds = false
 	self.vb.MCIcon = 1
-	specwarnP2Soon:Schedule(215-delay)
+	specwarnP2Soon:Schedule(214-delay)
 	timerPhase2:Start()
 	--Redundancy below here isn't needed on retail but may be on wrath classic
 	if not isRetail then
-		warnPhase2:Schedule(225)
+		warnPhase2:Schedule(224)
 		if self.Options.RangeFrame then
-			self:Schedule(225-delay, RangeToggle, true)
+			self:Schedule(224-delay, RangeToggle, true)
 		end
 	end
 end
@@ -107,15 +117,19 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 27810 then
-		if args:IsPlayer() then
-			specWarnFissureYou:Show()
-			specWarnFissureYou:Play("targetyou")
-			yellFissure:Yell()
-		elseif self:CheckNearby(8, args.destName) then
-			specWarnFissureClose:Show(args.destName)
-			specWarnFissureClose:Play("watchfeet")
+		if isRetail then
+			if args:IsPlayer() then
+				specWarnFissureYou:Show()
+				specWarnFissureYou:Play("targetyou")
+				yellFissure:Yell()
+			elseif self:CheckNearby(8, args.destName) then
+				specWarnFissureClose:Show(args.destName)
+				specWarnFissureClose:Play("watchfeet")
+			else
+				warnFissure:Show(args.destName)
+			end
 		else
-			warnFissure:Show(args.destName)
+			warnFissure:Show()
 		end
 	elseif args.spellId == 27819 then
 		timerManaBomb:Start()

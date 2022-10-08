@@ -60,8 +60,8 @@ function GoodLeader:SERVER_CONNECT_TIMEOUT()
     self:SendMessage('GOODLEADER_CONNECT_TIMEOUT')
 end
 
-function GoodLeader:SGL(_, name, code, msg, activeness, itemPercent, raidData, scores, tags)
-    local user = self:GetUserCache(name)
+function GoodLeader:SGL(_, guid, code, msg, activeness, itemPercent, raidData, scores, tags)
+    local user = self:GetUserCache(guid)
 
     if code ~= 0 then
         user.code = code
@@ -69,8 +69,16 @@ function GoodLeader:SGL(_, name, code, msg, activeness, itemPercent, raidData, s
     else
         local raids = {}
 
-        for i, v in ipairs(raidData) do
-            raids[v[1]] = v[2]
+        -- for i, v in ipairs(raidData) do
+        --     raids[v[1]] = v[2]
+        -- end
+
+        for bossId, v in pairs(raidData) do
+            raids[bossId] = {}
+
+            for difficulty, count in pairs(v) do
+                raids[bossId][difficulty] = count
+            end
         end
 
         user.activeness = activeness
@@ -121,7 +129,7 @@ function GoodLeader:GROUP_ROSTER_UPDATE()
         end
     end
 
-    local user = self:GetUserCache(name)
+    local user = self:GetUserCache(guid)
     user.guild = guild
     user.guildCount = count
 end

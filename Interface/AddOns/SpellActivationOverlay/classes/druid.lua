@@ -168,6 +168,9 @@ local function customCLEU(self, ...)
 end
 
 local function registerClass(self)
+    -- Predatory Strikes, inspired by Predatory Swiftness
+    self:RegisterAura("predatory_strikes", 0, 69369, "predatory_swiftness", "Top", 1, 255, 255, 255, false);
+
     -- Track Eclipses with a custom CLEU function, so that eclipses can coexist with Omen of Clarity
     -- self:RegisterAura("eclipse_lunar", 0, lunarSpellID, "eclipse_moon", "Left", 1, 255, 255, 255, true);
     -- self:RegisterAura("eclipse_solar", 0, solarSpellID, "eclipse_sun", "Right (Flipped)", 1, 255, 255, 255, true);

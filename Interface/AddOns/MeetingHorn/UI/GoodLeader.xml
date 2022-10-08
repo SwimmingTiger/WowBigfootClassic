@@ -1,10 +1,7 @@
 <Ui xmlns:xsi="" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <Frame name="GoodLeaderRaidTemplate" virtual="true">
-        <KeyValues>
-            <KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_12_12_4444" type="global"/>
-        </KeyValues>
-        <Size x="90" y="62"/>
+    <Frame name="GoodLeaderRaidTemplate" inherits="TooltipBackdropTemplate" virtual="true">
+        <Size x="180" y="90"/>
         <Layers>
             <Layer level="BACKGROUND" textureSubLevel="1">
                 <Texture parentKey="Image">
@@ -15,14 +12,14 @@
                     <TexCoords left="0.05" right="0.63359375" top="0.05" bottom="0.6921875"/>
                 </Texture>
             </Layer>
-            <Layer level="OVERLAY">
+            <!-- <Layer level="OVERLAY">
                 <Texture parentKey="Mask" file="Interface\Tooltips\ui-tooltip-background">
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="2" y="-2"/>
-                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-2" y="-32"/>
+                        <Anchor point="TOPLEFT" x="3" y="-3"/>
+                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-3" y="-64"/>
                     </Anchors>
                 </Texture>
-            </Layer>
+            </Layer> -->
             <Layer level="ARTWORK">
                 <FontString parentKey="Name" inherits="GameFontHighlightSmallLeft">
                     <Anchors>
@@ -30,25 +27,21 @@
                         <Anchor point="TOPRIGHT" x="-7" y="-7"/>
                     </Anchors>
                 </FontString>
-                <FontString parentKey="CountLabel" inherits="GameFontHighlightSmallRight" text="VOICEMACRO_LABEL_CHARGE1">
+                <FontString parentKey="Count" inherits="GameFontHighlightSmallRight" text="0">
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
                     </Anchors>
                 </FontString>
-                <FontString parentKey="Count" inherits="GameFontHighlightLarge" text="0">
-                    <Anchors>
-                        <Anchor point="RIGHT" relativeKey="$parent.CountLabel" relativePoint="LEFT" x="0" y="0"/>
-                    </Anchors>
-                </FontString>
             </Layer>
         </Layers>
-        
         <Scripts>
             <OnLoad>
-                LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
-                self:SetBackdropBorderColor(0.5,0.5,0.5)
-                self.Mask:SetBlendMode('ADD')
-                self.Mask:SetGradientAlpha('VERTICAL',0,0,0,0,1,1,1,0.8)
+                self:SetBackdropBorderColor(1,1,1,0.5)
+                --self.Mask:SetBlendMode('ADD')
+                --self.Mask:SetGradientAlpha('VERTICAL',0,0,0,0,1,1,1,0.8)
+
+                --self.Count:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
+                --self.Name:SetFont(STANDARD_TEXT_FONT, 14, 'OUTLINE')
             </OnLoad>
         </Scripts>
     </Frame>
@@ -295,14 +288,9 @@
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">
-                                <FontString parentKey="ItemLevel" inherits="GameFontHighlightLeft">
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="20" y="-15"/>
-                                    </Anchors>
-                                </FontString>
                                 <FontString parentKey="Guild" inherits="GameFontHighlightLeft">
                                     <Anchors>
-                                        <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevel" relativePoint="BOTTOMLEFT" x="0" y="-13"/>
+                                        <Anchor point="TOPLEFT" x="20" y="-15"/>
                                     </Anchors>
                                 </FontString>
                             </Layer>
@@ -474,12 +462,11 @@
                     <OnClick function="HideParentPanel"/>
                 </Scripts>
             </Button>
-            <Frame parentKey="QrCodeFrame" hidden="true">
+            <Frame parentKey="QrCodeFrame" inherits="BackdropTemplate" hidden="true">
                 <Size x="189" y="189"/>
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
-                
                 <KeyValues>
                     <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
                     <KeyValue key="backdropColor" value="TOOLTIP_DEFAULT_BACKGROUND_COLOR" type="global"/>
@@ -493,11 +480,6 @@
                         </Anchors>
                     </Button>
                 </Frames>
-                <Scripts>
-                    <OnLoad>
-                        LibStub('tdGUI-1.0'):Embed(self, 'Backdrop')
-                    </OnLoad>
-                </Scripts>
             </Frame>
             <Button>
                 <Size x="48" y="48"/>

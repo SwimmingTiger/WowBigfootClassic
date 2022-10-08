@@ -32,15 +32,15 @@
         </Layer>
     </Layers>
 	<Frames>
-      <StatusBar name="$parentBar">
+      <StatusBar name="$parentBar" toplevel="true">
         <Size>
           <AbsDimension x="36" y="36"/>
         </Size>
         <Anchors>
           <Anchor point="CENTER" relativePoint="CENTER"/>
         </Anchors>
-		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/> 
-        <BarColor r="0.0" g="0.8" b="0.0" a="0.7"/>
+		<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+        <BarColor r="0.6" g="0.6" b="1.0" a="0.7"/>
         <Scripts>
           <OnLoad>
             self:SetMinMaxValues(0,5)

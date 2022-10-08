@@ -159,8 +159,8 @@ function QuestieMenu:OnLogin(forceRemove) -- toggle all icons
 
     if (not Questie.db.char.townsfolkConfig) then
         Questie.db.char.townsfolkConfig = {
-            ["Flight Master"] = true,
-            ["Mailbox"] = true,
+            -- ["Flight Master"] = true,	bf@178.com
+            -- ["Mailbox"] = true,		bf@178.com
             ["Meeting Stones"] = true
         }
     end
