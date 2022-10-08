@@ -2,7 +2,7 @@
 -- @Author : Dencer (tdaddon@163.com)
 -- @Link   : https://dengsir.github.io
 -- @Date   : 8/28/2019, 10:37:26 PM
-
+--
 ---@type ns
 local ns = select(2, ...)
 
@@ -19,25 +19,33 @@ local Bag = ns.Addon:NewClass('Bag')
 
 function Bag:Constructor(bagType)
     self.bags = ns.GetBags(bagType)
-    self.groups = {}
     self:InitGroups()
 end
 
 function Bag:InitGroups()
+    local groups = {}
     local initedFamilies = {}
     for _, bag in ipairs(self.bags) do
         local bagFamily = ns.GetBagFamily(bag)
+        if not bagFamily then
+            return
+        end
         if bagFamily and not initedFamilies[bagFamily] then
             initedFamilies[bagFamily] = true
 
             local group = Group:New(self, bagFamily)
             if bagFamily == 0 then
-                self.groups[0] = group
+                groups[0] = group
             else
-                tinsert(self.groups, group)
+                tinsert(groups, group)
             end
         end
     end
+    self.groups = groups
+end
+
+function Bag:IsReady()
+    return not not self.groups
 end
 
 function Bag:GetBags()

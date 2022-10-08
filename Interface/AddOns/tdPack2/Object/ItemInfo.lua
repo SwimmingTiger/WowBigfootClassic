@@ -37,9 +37,9 @@ function ItemInfo:Build()
         self.itemTypeId = itemTypeId
         self.itemSubTypeId = itemSubTypeId
         self.itemSetId = setId or 0
-        --[[@build<2@
+        --[=[@build<2@
         self.itemTag = ns.ITEM_TAG_SETS[self.itemId] or 'UNKNOWN'
-        --@end-build<2@]]
+        --@end-build<2@]=]
         self.itemFamily = ns.GetItemFamily(self.itemId) or 0
         self.itemEquippable = IsEquippableItem(self.itemId) or false
     else

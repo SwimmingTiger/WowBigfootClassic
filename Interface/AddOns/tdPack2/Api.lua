@@ -158,16 +158,32 @@ function ns.GetItemFamily(itemId)
 end
 
 function ns.GetBagFamily(bag)
-    --[[@build<2@
+    --[=[@build<2@
     if bag == KEYRING_CONTAINER then
         return 9
     end
-    --@end-build<2@]]
+    --@end-build<2@]=]
     -- @build>2@
     if bag == KEYRING_CONTAINER then
         return 256
     end
-    --@end-build<2@]]
+    --@end-build<2@]=]
+
+    -- 3.4 GetContainerNumFreeSlots 接口有bug，专业包可能取到0
+    if bag > 0 then
+        local invId = ContainerIDToInventoryID(bag)
+        local itemId = GetInventoryItemID('player', invId)
+        if itemId then
+            local itemFamily = GetItemFamily(itemId)
+            if itemFamily then
+                return itemFamily
+            end
+            return nil
+        else
+            return 0
+        end
+    end
+
     return select(2, GetContainerNumFreeSlots(bag))
 end
 
@@ -232,11 +248,11 @@ function ns.PickupBagSlot(bag, slot)
     return PickupContainerItem(bag, slot)
 end
 
---[[@build<2@
+--[=[@build<2@
 function ns.IsFamilyContains(bagFamily, itemFamily)
     return bagFamily == itemFamily
 end
---@end-build<2@]]
+--@end-build<2@]=]
 
 -- @build>2@
 function ns.IsFamilyContains(bagFamily, itemFamily)

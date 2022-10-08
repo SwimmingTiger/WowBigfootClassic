@@ -85,7 +85,7 @@ local function NewTag2(tag, ids)
     ns.ITEM_TAGS[tag] = ids
 end
 
---[[@build<2@
+--[=[@build<2@
 ---- TradeGoods
 NewTag('Cloth', {
     14342, 14256, 14341, 14227, 14048, 14047, 4338, 3182, 2592, 4306, 2589, 10285, 4339, 4337, 2320, 4305, 2321, 2997,
@@ -138,7 +138,7 @@ NewTag('Pet', {
     11026, 11110, 10360, 10392, 11027, 21309, 23015, 10393, 23002, 20371, 23083, 21305, 11903, 21168, 19054, 21301,
     19055, 23712, 22114, 10361, 20651, 18964, 22781, 18963, 18966, 18965, 18967,
 })
---@end-build<2@]]
+--@end-build<2@]=]
 -- @build>2@
 
 NewTag2(GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT), {

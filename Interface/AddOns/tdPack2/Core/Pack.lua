@@ -28,12 +28,13 @@ local UnitIsDead = UnitIsDead
 ---@alias STATUS number
 local STATUS = {
     FREE = 0, --
-    READY = 1, --
-    STACKING = 2, --
-    SAVING = 3, --
-    SORTING = 4, --
-    FINISH = 5, --
-    CANCEL = 6, --
+    PREPARE = 1,
+    READY = 2, --
+    STACKING = 3, --
+    SAVING = 4, --
+    SORTING = 5, --
+    FINISH = 6, --
+    CANCEL = 7, --
 }
 
 ---@class Pack: AceAddon-3.0, AceEvent-3.0, AceTimer-3.0
@@ -54,6 +55,7 @@ function Pack:OnInitialize()
         [STATUS.SAVING] = ns.Saving:New(),
         [STATUS.SORTING] = ns.Sorting:New(),
 
+        [STATUS.PREPARE] = self.Prepare,
         [STATUS.READY] = self.NextStep,
         [STATUS.FINISH] = self.Finish,
         [STATUS.CANCEL] = self.Cancel,
@@ -131,13 +133,7 @@ function Pack:Start(opts)
         self.bags[BAG_TYPE.BANK] = Bag:New(BAG_TYPE.BANK)
     end
 
-    if self:IsLocked() then
-        self:Stop()
-        self:Warning(L['Some slot is locked'])
-        return
-    end
-
-    self:SetStatus(STATUS.READY)
+    self:SetStatus(STATUS.PREPARE)
     self:ScheduleRepeatingTimer('OnIdle', 0.03)
 end
 
@@ -204,4 +200,19 @@ end
 
 function Pack:IsOptionSaving()
     return self.save and self.isBankOpened
+end
+
+function Pack:Prepare()
+    for _, bag in pairs(self.bags) do
+        if not bag:IsReady() then
+            bag:InitGroups()
+            return
+        end
+    end
+    if self:IsLocked() then
+        self:Stop()
+        self:Warning(L['Some slot is locked'])
+        return
+    end
+    self:NextStep()
 end

@@ -117,10 +117,10 @@ ns.DEFAULT_SORTING_RULES = {
     -- @build>2@
     184871, -- 黑暗之门
     -- @end-build>2@
-    --[[@build<2@
+    --[=[@build<2@
     Tag('Mount', 132261), -- 坐骑
     Tag('Pet', 132598), -- 宠物
-    --@end-build<2@]]
+    --@end-build<2@]=]
     -- @build>2@
     TypeOrTag(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT, 132261), -- 坐骑
     TypeOrTag(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_COMPANION_PET, 132598), -- 宠物
@@ -192,14 +192,14 @@ ns.DEFAULT_SORTING_RULES = {
     Type(LE_ITEM_CLASS_QUIVER, 134407), -- 箭袋
     Type(LE_ITEM_CLASS_RECIPE, 134939), -- 配方
     Rule(CONSUMABLE, 134829, 'type:' .. CONSUMABLE .. ' & tip:!' .. QUEST .. ' & spell', {
-        --[[@build<2@
+        --[=[@build<2@
         TipLocale('CLASS', 132273), -- 职业
         Spell(746, 133685), -- 急救
         Spell(433, 133945), -- 进食
         Spell(430, 132794), -- 喝水
         Spell(439, 134830), -- 治疗药水
         Spell(438, 134851), -- 法力药水
-        --@end-build<2@]]
+        --@end-build<2@]=]
         -- @build>2@
         Consumable(7, 133692), -- 绷带
         Consumable(3, 134742), -- 合剂
@@ -231,7 +231,7 @@ ns.DEFAULT_SORTING_RULES = {
     }), -- 消耗品
     Type(LE_ITEM_CLASS_TRADEGOODS, 132905, {
         TipLocale('CLASS', 132273), -- 职业
-        --[[@build<2@
+        --[=[@build<2@
         Tag('Cloth', 132903), -- 布
         Tag('Leather', 134256), -- 皮
         Tag('Metal & Stone', 133217), -- 金属和矿石
@@ -239,7 +239,7 @@ ns.DEFAULT_SORTING_RULES = {
         Tag('Herb', 134215), -- 草药
         Tag('Elemental', 135819), -- 元素
         Tag('Enchanting', 132864), -- 附魔
-        --@end-build<2@]]
+        --@end-build<2@]=]
         -- @build>2@
         Trade(2, 133715), -- 爆炸物
         Trade(3, 134441), -- 装置
