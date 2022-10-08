@@ -43,17 +43,17 @@
 					<Anchor point="BOTTOMRIGHT"/>
 				</Anchors>
 				<Animations>
-					<AnimationGroup name="$enteringCombatAnim" parentKey="combatAnimIn">
-						<Alpha fromAlpha="0.5" toAlpha="1" duration="0.1"/>
+					<AnimationGroup name="$parentEnteringCombatAnim" parentKey="combatAnimIn" setToFinalAlpha="true">
+						<Alpha order="1" duration="0.1" fromAlpha="0.5" toAlpha="1"/>
+						<Alpha order="2" duration="4.9" fromAlpha="1" toAlpha="1"/>
 						<Scripts>
 							<OnFinished function="SpellActivationOverlayFrame_OnFadeInFinished"/>
 						</Scripts>
 					</AnimationGroup>
-					<AnimationGroup name="$leavingCombatAnim" parentKey="combatAnimOut">
-						<Alpha fromAlpha="1" toAlpha="0.5" duration="0.2"/>
-						<Scripts>
-							<OnFinished function="SpellActivationOverlayFrame_OnFadeOutFinished"/>
-						</Scripts>
+					<AnimationGroup name="$parentLeavingCombatAnim" parentKey="combatAnimOut" setToFinalAlpha="true">
+						<Alpha order="1" duration="0.2"  fromAlpha="1"   toAlpha="0.5"/>
+						<Alpha order="2" duration="27.8" fromAlpha="0.5" toAlpha="0.5"/>
+						<Alpha order="3" duration="2"    fromAlpha="0.5" toAlpha="0"/>
 					</AnimationGroup>
 				</Animations>
 				<Scripts>

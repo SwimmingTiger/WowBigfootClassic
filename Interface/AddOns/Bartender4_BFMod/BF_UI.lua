@@ -3,10 +3,10 @@
 	All rights reserved to 178.com.
 	Instantiate unit frames
 ]]
+local _G = _G
 local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 local UnitFrames = Bartender4:NewModule("UnitFrames","AceEvent-3.0")
-local UnitBar,UnitBar_MT
-local _G = _G
+local UnitBar
 
 -- fetch upvalues
 local Bar = Bartender4.Bar.prototype
@@ -136,18 +136,18 @@ local defaults = {
 	}
 }
 
-UnitFrames.frames= {
+UnitFrames.frames = {
 	PlayerFrame,
 	TargetFrame,
 	FocusFrame,
 	BuffFrame,
-	MinimapCluster,
+	CastingBarFrame,
 	PartyMemberFrame1,
 	PartyMemberFrame2,
 	PartyMemberFrame3,
 	PartyMemberFrame4,
+	MinimapCluster,
 	-- WatchFrame,
-	CastingBarFrame
 }
 
 --option tables
@@ -155,7 +155,6 @@ UnitFrames.frames= {
 function UnitFrames:OnInitialize()
 	self.db = Bartender4.db:RegisterNamespace("UnitFrames", defaults)
 	UnitBar = Bartender4.UnitBar
-	-- UnitBar_MT = {__index = UnitBar}
 	self.bars = self.bars or {}
 end
 
@@ -201,7 +200,7 @@ function UnitFrames:OnEnable()
 			self.bars[i] = UnitBar:Create(frame,config,L[frame:GetName()])
 			self.bars[i]:Enable()
 		else
-			-- print(frame:GetName(),"Not Creat")
+			print(frame:GetName(),"Not Creat")
 		end
 	end
 

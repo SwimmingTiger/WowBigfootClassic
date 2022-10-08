@@ -1,6 +1,8 @@
 ## Interface: 30400
 ## Title: NugRunningOptions
+## Title-zhCN: [大脚][集]法术计时条菜单
 ## Notes: Options for NugRunning
+## Notes-zhCN: |cff00ff00NugRunningOptions|r
 ## Author: d87
 ## RequiredDeps: NugRunning
 ## LoadOnDemand: 1

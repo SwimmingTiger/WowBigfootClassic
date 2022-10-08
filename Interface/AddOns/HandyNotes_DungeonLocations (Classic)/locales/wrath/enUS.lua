@@ -1,5 +1,39 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes_DungeonLocations (Classic)", "enUS", true)
 
+-- Interface
+L["Allow right click to create waypoints with TomTom"] = true
+L["Continent Alpha"] = true
+L["Continent Scale"] = true
+L["Enable TomTom integration"] = true
+L["Filter Options"] = true
+L["Hide Instances"] = true
+L["Invert Lockout"] = true
+L["Lockout Alpha"] = true
+L["Lockout Gray Icon"] = true
+L["Lockout Options"] = true
+L["Lockout Tooltip"] = true
+L["Show dungeon locations on the map"] = true
+L["Show Dungeons"] = true
+L["Show icons on continent map"] = true
+L["Show lockout information on tooltips"] = true
+L["Show Mixed"] = true
+L["Show mixed (dungeons + raids) locations on the map"] = true
+L["Show on Continent"] = true
+L["Show raid locations on the map"] = true
+L["Show Raids"] = true
+L["The alpha of dungeons and raids that are locked to any extent"] = true
+L["The alpha of the icons shown on the continent map"] = true
+L["The alpha of the icons shown on the zone map"] = true
+L["The scale of the icons shown on the continent map"] = true
+L["The scale of the icons shown on the zone map"] = true
+L["These settings control the look and feel of the icon."] = true
+L["Turn mixed icons grey when ANY dungeon or raid listed is locked"] = true
+L["Use a different alpha for dungeons and raids that are locked to any extent"] = true
+L["Use gray icon for dungeons and raids that are locked to any extent"] = true
+L["Use Lockout Alpha"] = true
+L["Zone Alpha"] = true
+L["Zone Scale"] = true
+
 -- Instances
 L["Auchenai Crypts"] = true
 L["Black Temple"] = true
@@ -59,7 +93,7 @@ L["Zul'Aman"] = true
 L["Zul'Farrak"] = true
 L["Zul'Gurub"] = true
 
--- Wrath
+-- Northrend
 L["Utgarde Keep"] = true
 L["The Eye of Eternity"] = true
 L["Trial of the Crusader"] = true
@@ -84,37 +118,3 @@ L["The Obsidian Sanctum"] = true
 L["The Forge of Souls"] = true
 L["The Culling of Stratholme"] = true
 L["The Oculus"] = true
-
--- Interface
-L["Allow right click to create waypoints with TomTom"] = true
-L["Continent Alpha"] = true
-L["Continent Scale"] = true
-L["Enable TomTom integration"] = true
-L["Filter Options"] = true
-L["Hide Instances"] = true
-L["Invert Lockout"] = true
-L["Lockout Alpha"] = true
-L["Lockout Gray Icon"] = true
-L["Lockout Options"] = true
-L["Lockout Tooltip"] = true
-L["Show dungeon locations on the map"] = true
-L["Show Dungeons"] = true
-L["Show icons on continent map"] = true
-L["Show lockout information on tooltips"] = true
-L["Show Mixed"] = true
-L["Show mixed (dungeons + raids) locations on the map"] = true
-L["Show on Continent"] = true
-L["Show raid locations on the map"] = true
-L["Show Raids"] = true
-L["The alpha of dungeons and raids that are locked to any extent"] = true
-L["The alpha of the icons shown on the continent map"] = true
-L["The alpha of the icons shown on the zone map"] = true
-L["The scale of the icons shown on the continent map"] = true
-L["The scale of the icons shown on the zone map"] = true
-L["These settings control the look and feel of the icon."] = true
-L["Turn mixed icons grey when ANY dungeon or raid listed is locked"] = true
-L["Use a different alpha for dungeons and raids that are locked to any extent"] = true
-L["Use gray icon for dungeons and raids that are locked to any extent"] = true
-L["Use Lockout Alpha"] = true
-L["Zone Alpha"] = true
-L["Zone Scale"] = true

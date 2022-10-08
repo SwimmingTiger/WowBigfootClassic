@@ -138,29 +138,29 @@ function ActionButtonConfigFunc ()
 				-- end
 			-- );
 
-			if select(2,UnitClass('player') )=='DEATHKNIGHT' then
-				ModManagement_RegisterCheckBox(
-					"ActionButton",
-					BFCD_COOLDOWN_DK_CD,
-					BFCD_COOLDOWN_DK_CD_TOOLTIP,
-					"ShowRune",
-					0,
-					function (arg)
-						if (arg == 1) then
-							if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BigFoot_LoadAddOn("BFCooldown");
-							end
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(true)
-							end
-						else
-							if (BigFoot_IsAddOnLoaded("BFCooldown")) then
-								BFCooldown:ToggleSpecial(false)
-							end
-						end
-					end
-				);
-			end
+			-- if select(2,UnitClass('player') )=='DEATHKNIGHT' then
+				-- ModManagement_RegisterCheckBox(
+					-- "ActionButton",
+					-- BFCD_COOLDOWN_DK_CD,
+					-- BFCD_COOLDOWN_DK_CD_TOOLTIP,
+					-- "ShowRune",
+					-- 0,
+					-- function (arg)
+						-- if (arg == 1) then
+							-- if (not BigFoot_IsAddOnLoaded("BFCooldown")) then
+								-- BigFoot_LoadAddOn("BFCooldown");
+							-- end
+							-- if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+								-- BFCooldown:ToggleSpecial(true)
+							-- end
+						-- else
+							-- if (BigFoot_IsAddOnLoaded("BFCooldown")) then
+								-- BFCooldown:ToggleSpecial(false)
+							-- end
+						-- end
+					-- end
+				-- );
+			-- end
 
 			ModManagement_RegisterCheckBox(
 				"ActionButton",

@@ -1,0 +1,30 @@
+## Interface: 30400
+## X-Min-Interface: 80000
+## X-Min-Interface-Wrath: 30400
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Vault of Archavon|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0亞夏梵穹殿|r
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0阿尔卡冯的宝库|r
+## Author: Nitram/Tandanu/MysticalOS
+## LoadOnDemand: 1
+## RequiredDeps: DBM-Core
+## SavedVariables: DBMVoA_AllSavedVars
+## SavedVariablesPerCharacter: DBMVoA_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
+## X-DBM-Mod-Category: WotLK
+## X-DBM-StatTypes: normal,normal25
+## X-DBM-Mod-MapID: 624
+## X-DBM-Mod-Sort: 908
+## X-DBM-Mod-MinCoreRevision: 20200524142133
+## X-DBM-Mod-MinExpansion: 2
+## Version: bf28ce2
+## X-Revision: BigFoot
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+Archavon.lua
+Emalon.lua
+Koralon.lua
+Toravon.lua

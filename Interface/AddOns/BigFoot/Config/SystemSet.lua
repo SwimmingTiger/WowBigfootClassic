@@ -58,67 +58,67 @@ function SystemSetConfigFunc()
 		"EnableLoadLater",
 		0,
 		function (__arg)
-			if __arg ==1 then
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =0;
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 0;
 			else
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =1;
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 1;
 			end
 		end,
 		nil,
 		function(__arg)
-			if __arg ==1 then
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =0;
+			if __arg == 1 then
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 0;
 			else
-				BigFoot_SysTemSetTab.BigFoot_LoadBefore =1;
+				BigFoot_SysTemSetTab.BigFoot_LoadBefore = 1;
 			end
 		end
 	);
 
-	ModManagement_RegisterCheckBox(
-		"BF_System",
-		BF_oHwell_DoEmote_stand,
-		nil,
-		"Enable_oHwell_DoEmote",
-		1,
-		function (__arg)
-			if __arg == 1 then
-				BigFoot_SysTemSetTab.DoEmote_stand = true;
-			else
-				BigFoot_SysTemSetTab.DoEmote_stand = false;
-			end
-		end,
-		nil,
-		function(__arg)
-			if __arg == 1 then
-				BigFoot_SysTemSetTab.DoEmote_stand = true;
-			else
-				BigFoot_SysTemSetTab.DoEmote_stand = false;
-			end
-		end
-	);
+	-- ModManagement_RegisterCheckBox(
+		-- "BF_System",
+		-- BF_oHwell_DoEmote_stand,
+		-- nil,
+		-- "Enable_oHwell_DoEmote",
+		-- 1,
+		-- function (__arg)
+			-- if __arg == 1 then
+				-- BigFoot_SysTemSetTab.DoEmote_stand = true;
+			-- else
+				-- BigFoot_SysTemSetTab.DoEmote_stand = false;
+			-- end
+		-- end,
+		-- nil,
+		-- function(__arg)
+			-- if __arg == 1 then
+				-- BigFoot_SysTemSetTab.DoEmote_stand = true;
+			-- else
+				-- BigFoot_SysTemSetTab.DoEmote_stand = false;
+			-- end
+		-- end
+	-- );
 
-	ModManagement_RegisterCheckBox(
-		"BF_System",
-		BF_oHwell_Dismount,
-		nil,
-		"Enable_oHwell_Dismount",
-		1,
-		function (__arg)
-			if __arg == 1 then
-				BigFoot_SysTemSetTab.Dismount = true;
-			else
-				BigFoot_SysTemSetTab.Dismount = false;
-			end
-		end,
-		nil,
-		function(__arg)
-			if __arg == 1 then
-				BigFoot_SysTemSetTab.Dismount = true;
-			else
-				BigFoot_SysTemSetTab.Dismount = false;
-			end
-		end
-	);
+	-- ModManagement_RegisterCheckBox(
+		-- "BF_System",
+		-- BF_oHwell_Dismount,
+		-- nil,
+		-- "Enable_oHwell_Dismount",
+		-- 1,
+		-- function (__arg)
+			-- if __arg == 1 then
+				-- BigFoot_SysTemSetTab.Dismount = true;
+			-- else
+				-- BigFoot_SysTemSetTab.Dismount = false;
+			-- end
+		-- end,
+		-- nil,
+		-- function(__arg)
+			-- if __arg == 1 then
+				-- BigFoot_SysTemSetTab.Dismount = true;
+			-- else
+				-- BigFoot_SysTemSetTab.Dismount = false;
+			-- end
+		-- end
+	-- );
 
 	if (IsConfigurableAddOn("ErrorFilter")) then
 		ModManagement_RegisterCheckBox(

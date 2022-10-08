@@ -1,7 +1,0 @@
-<Bindings>
-	<Binding name="MONKEYBUDDY_OPEN" runOnUp="true" header="MONKEYBUDDY">
-		if (keystate == "down") then
-			MonkeyBuddy_ToggleDisplay();
-		end
-	</Binding>
-</Bindings>

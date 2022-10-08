@@ -25,7 +25,7 @@ __HealthBarColor[1] = { r = 1.0, g = 0.7, b = 0.2 };
 __HealthBarColor[2] = { r = 1.0, g = 0.0, b = 0.0 };
 
 local __ManaBarColor = {};
-__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- çº¯è“è‰²å¤ªæš—, çœ‹èµ·æ¥å¤ªè´¹åŠ›
+__ManaBarColor[0] = { r = 0.0, g = 1.0, b = 1.0 };	-- ´¿À¶É«Ì«°µ, ¿´ÆğÀ´Ì«·ÑÁ¦
 __ManaBarColor[1] = PowerBarColor["RAGE"];
 __ManaBarColor[2] = PowerBarColor["FOCUS"];
 __ManaBarColor[3] = PowerBarColor["ENERGY"];
@@ -61,7 +61,7 @@ local function __GetOnVehicleUnit(unit)
 end
 
 local function __UpdateUnit(unit)
-	if UnitUsingVehicle and UnitUsingVehicle(__GetRealUnit(unit)) then
+	if UnitUsingVehicle(__GetRealUnit(unit)) then
 		return __GetOnVehicleUnit(unit)
 	else
 		return __GetRealUnit(unit)
@@ -245,7 +245,7 @@ function InfoPaneClass.prototype:UnregisterAllEvents()
 	self.infoPane:UnregisterAllEvents()
 end
 
---å¼€å…³
+--¿ª¹Ø
 function InfoPaneClass.prototype:SwitchColorize(flag)
 	self.colorize = flag
 	__Enable_Colorize_HealthBar = flag
@@ -267,7 +267,7 @@ function InfoPaneClass.prototype:SwitchBarText(flag)
 	end
 end
 
---æŒ‡å®šä¿¡æ¯æ¡é’ˆå¯¹çš„å•ä½å’Œçˆ¶æ¡†ä½“
+--Ö¸¶¨ĞÅÏ¢ÌõÕë¶ÔµÄµ¥Î»ºÍ¸¸¿òÌå
 function InfoPaneClass.prototype:Create(infoType,parent,index)
 	self.infoPane = _G["TUF_"..infoType.."InfoPane"..(index or "")] or
 		CreateFrame("Frame",
@@ -309,12 +309,12 @@ function InfoPaneClass.prototype:Create(infoType,parent,index)
 
 	self.UNIT_DISPLAYPOWER = self.UpdateUnitManaType
 
-	-- self.UNIT_EXITED_VEHICLE = function()
-		-- self.unit = __UpdateUnit(self.unit)
-		-- self:UpdateUnitMana(self.unit)
-		-- self:UpdateUnitHealth(self.unit)
-		-- self:UpdateUnitManaType(self.unit)
-	-- end
+	self.UNIT_EXITED_VEHICLE = function()
+		self.unit = __UpdateUnit(self.unit)
+		self:UpdateUnitMana(self.unit)
+		self:UpdateUnitHealth(self.unit)
+		self:UpdateUnitManaType(self.unit)
+	end
 
 	self.GROUP_ROSTER_UPDATE = function()
 		self:UpdateUnitMana(self.unit)
@@ -322,12 +322,12 @@ function InfoPaneClass.prototype:Create(infoType,parent,index)
 		self:UpdateUnitManaType(self.unit)
 	end
 
-	-- self.UNIT_ENTERED_VEHICLE = function()
-		-- self.unit = __UpdateUnit(self.unit)
-		-- self:UpdateUnitMana(self.unit)
-		-- self:UpdateUnitHealth(self.unit)
-		-- self:UpdateUnitManaType(self.unit)
-	-- end
+	self.UNIT_ENTERED_VEHICLE = function()
+		self.unit = __UpdateUnit(self.unit)
+		self:UpdateUnitMana(self.unit)
+		self:UpdateUnitHealth(self.unit)
+		self:UpdateUnitManaType(self.unit)
+	end
 
 
 	self.infoPane:SetScript("OnEvent",function(pane,event,...)
@@ -366,8 +366,8 @@ function InfoPaneClass.prototype:Enable()
 	self:RegisterEvent("UNIT_MAXHEALTH");
 
 	self:RegisterEvent("UNIT_DISPLAYPOWER")
-	-- self:RegisterEvent("UNIT_ENTERED_VEHICLE");
-	-- self:RegisterEvent("UNIT_EXITED_VEHICLE");
+	self:RegisterEvent("UNIT_ENTERED_VEHICLE");
+	self:RegisterEvent("UNIT_EXITED_VEHICLE");
 
 	--- call all update functions once to get start value
 	self:UpdateUnitMana(self.unit)

@@ -101,8 +101,11 @@ function TotemTimers.InitMasque()
             group:AddButton(v.animation.button)
         end
         for i = 1,#TTActionBars.bars do
-            for j = 1,#TTActionBars.bars[i].buttons do
-                group:AddButton(TTActionBars.bars[i].buttons[j])
+            if TotemTimers.EarthShieldTracker
+                    and TotemTimers.EarthShieldTracker.actionBar ~= TTActionBars.bars[i] then
+                for j = 1,#TTActionBars.bars[i].buttons do
+                    group:AddButton(TTActionBars.bars[i].buttons[j])
+                end
             end
         end
         if TotemTimers_MultiSpell then group:AddButton(TotemTimers_MultiSpell) end

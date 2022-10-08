@@ -7,9 +7,9 @@ if not L then return end
 
 L[ [=["None" as modifier means its always active, and no modifier is required.
 
-Remember to enable Mouse-Over Casting for the individual bars, on the "State Configuration" tab, if you want it to be active for a specific bar.]=] ] = [=["无" 表示总是激活且不需要辅助键.
+Remember to enable Mouse-Over Casting for the individual bars, on the "State Configuration" tab, if you want it to be active for a specific bar.]=] ] = [=[“无” 表示总是激活且不需要辅助键。
 
-如果你想激活一个特定动作条,记得在单个动作条的"状态配置"标签里启用鼠标指向施法.]=]
+如果你想激活一个特定动作条，记得在单个动作条的“状态配置”标签里启用鼠标指向施法。]=]
 L["|cffff0000WARNING|cffffffff: Pressing the button will reset your complete profile! If you're not sure about this, create a new profile and use that to experiment."] = "|cffff0000警告|cffffffff：按下按钮将会重置你的全部配置文件！你如果不确定这些，创建一个新的配置文件并使用它来实验。"
 L["|cffffff00Click|r to toggle bar lock"] = "|cffffff00单击|r切换动作条锁定"
 L["|cffffff00Right-click|r to open the options menu"] = "|cffffff00右击|r打开选项菜单"
@@ -27,7 +27,7 @@ L["Bar %s"] = "动作条%s"
 L["Bar Options"] = "动作条选项"
 L["Bar Paging"] = "动作条切换"
 L["Bar Snapping"] = "动作条粘附"
-L["Bar Style & Layout"] = "动作条风格与布局"
+L["Bar Style & Layout"] = "动作条样式与布局"
 L["Bars"] = "动作条"
 L["Bars unlocked. Move them now and click Lock when you are done."] = "动作条已解锁。现在可以移动，完成后点击锁定。"
 L["Bartender4"] = "Bartender4"
@@ -54,6 +54,7 @@ L["Choose between the classic WoW layout and two variations"] = "在魔兽世界
 L["Choose the ending to the left"] = "选择左侧的结束"
 L["Choose the ending to the right"] = "选择右侧的结束"
 L["Classic"] = "经典"
+L["Classic interface"] = "经典"
 L["Click-Through"] = "点击穿越"
 L["Colors"] = "颜色"
 L["Configure  the Stance Bar"] = "配置姿态栏"
@@ -172,6 +173,8 @@ L["Lock all bars."] = "锁定所有动作条。"
 L["Lock the buttons."] = "锁定按钮。"
 L["Micro Menu"] = "微型主菜单"
 L["Minimap Icon"] = "小地图图标"
+L["Modern"] = "现代"
+L["Modern Blizzard interface"] = "暴雪现代用户界面"
 L["Modifier Based Switching"] = "修改基本切换"
 L["Mouse-Over Casting"] = "鼠标指向施法"
 L["Mouse-Over casting can be limited to be only active when a modifier key is being held down. You can configure the modifier in the global \"Bar\" Options."] = "鼠标指向施法仅限于在有辅助键被按下时才会激活. 你能在全局选项中设置辅助键."
@@ -188,6 +191,7 @@ L["Offset in Y direction (vertical) from the given anchor point."] = "Y 方向�
 L["Once open, simply hover the button you want to bind, and press the key you want to be bound to that button. The keyBound tooltip and on-screen status will inform you about already existing bindings to that button, and the success of your binding attempt."] = "一旦打开，只需悬停你要绑定按钮，并按下你要绑定的键到该按钮。该按键绑定提示和屏幕上的状态将告知你现有的绑定到该按钮，和你尝试绑定成功。"
 L["One action bar only"] = "只有一个动作条"
 L["One Bag"] = "单背包"
+L["One Bag, Show Reagents"] = "单背包，显示材料"
 L["Only show one Bag Button in the BagBar."] = "背包栏只显示一个背包。"
 L["Out of Mana Indicator"] = "低法力指示"
 L["Out of Range Indicator"] = "过远距离指示"
@@ -213,6 +217,7 @@ L["Self-Cast Modifier"] = "自身施法"
 L["SHIFT"] = "SHIFT"
 L["Show a Icon to open the config at the Minimap"] = "显示小地图配置图标"
 L["Show the keyring button."] = "显示钥匙链按钮。"
+L["Show the Reagent Bag in One Bag mode"] = "在单背包模式中显示材料"
 L["Smart Target selection"] = "智能选择目标"
 L["Specify the Color of the Out of Mana Indicator"] = "指定法力不足的指示颜色"
 L["Specify the Color of the Out of Range Indicator"] = "指定过远距离的指示颜色"
@@ -231,9 +236,11 @@ L["These options can automatically select a different target for your spell, bas
 L["This bar will be hidden once you enter combat."] = "此动作条进入战斗时将隐藏。"
 L["This bar will be hidden whenever you are not in combat."] = "此动作条脱离战斗时将隐藏。"
 L["Three bars stacked"] = "三个动作条堆叠"
+L["Three bars stacked (Classic)"] = "三条堆叠（经典）"
 L["Toggle actions on key press instead of release"] = "按下按键而不是释放时切换动作"
 L[ [=[Toggle Button Zoom
-For more style options you need to install Masque]=] ] = "切换按钮缩放如需更多风格选项，需要安装 Masque"
+For more style options you need to install Masque]=] ] = [=[切换按钮缩放
+如需更多样式选项，需要安装 Masque]=]
 L["Toggle the button grid."] = "切换空按钮。"
 L["Toggle the use of the modifier-based focus-cast functionality."] = "切换焦点施法功能。"
 L["Toggle the use of the modifier-based self-cast functionality."] = "切换自我施法功能。"
@@ -242,9 +249,11 @@ L["Toggles actions immediately when you press the key, and not only on release. 
 L["Totem Bar"] = "图腾条"
 L["Two action bars"] = "两个动作条"
 L["Two bars wide"] = "两个动作条宽度"
+L["Two bars wide (Classic)"] = "两条宽度（经典）"
 L["Up"] = "上"
 L["Use Blizzard Vehicle UI"] = "使用暴雪载具用户界面"
 L["Use Custom Condition"] = "使用自定义条件"
+L["Use three stacked action bars"] = "使用三个堆叠的动作条"
 L["Use twenty sections"] = "使用二十段"
 L["Vehicle Bar"] = "载具控制条"
 L["VehicleBar"] = "载具控制条"

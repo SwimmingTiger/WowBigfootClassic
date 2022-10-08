@@ -69,6 +69,17 @@ end
 TotemTimers.Tooltips = {}
 
 
+local SpellTooltip = XiTimersTooltip:new()
+TotemTimers.Tooltips.Spell = SpellTooltip
+
+function SpellTooltip:SetText()
+    local spell = self.button:GetAttribute("*spell1")
+    if not spell then return end
+
+    self:SetSpell(spell)
+end
+
+
 local TotemTooltip = XiTimersTooltip:new()
 TotemTimers.Tooltips.Totem = TotemTooltip
 
@@ -80,7 +91,22 @@ function TotemTooltip:SetText()
 
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(L["Leftclick to cast spell"],r,g,b,1)
-    GameTooltip:AddLine(L["Rightclick to assign totem to timer button"],r,g,b,1)
+    if self.button.timer then
+        if TotemTimers_MultiSpell and TotemTimers_MultiSpell.active then
+            local mspellID = TotemTimers_MultiSpell:GetAttribute("*spell1")
+            if mspellID then
+                local disabled = TotemTimers.ActiveProfile.DisabledMultiSpells[mspellID.."-"..self.button.timer.nr]
+                local message = L["Ctrl-Rightclick to disable totem for %s"]
+                if disabled then message = L["Ctrl-Rightclick to enable element for %s"] end
+
+                local mspell = GetSpellInfo(mspellID)
+                GameTooltip:AddLine(format(message, mspell),r,g,b,1)
+
+            end
+        end
+    else
+        GameTooltip:AddLine(L["Rightclick to assign totem to timer button"],r,g,b,1)
+    end
 end
 
 

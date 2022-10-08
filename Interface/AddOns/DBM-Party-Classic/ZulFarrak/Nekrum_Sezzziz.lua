@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(487, "DBM-Party-Classic", 20, 241)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220829192444")
+mod:SetRevision("20220923022829")
 mod:SetCreatureID(7796, 7275)--nekrum-gutchewer, shadowpriest-sezzziz
 --mod:SetEncounterID(598, 599)--Each boss has it's own encounter ID?
 
@@ -52,7 +52,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 8600 and args:IsDestTypePlayer() and self:CheckDispelFilter() then
+	if args.spellId == 8600 and args:IsDestTypePlayer() and self:CheckDispelFilter("disease") then
 		warningFeveredPlague:Show(args.destName)
 	end
 end

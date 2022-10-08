@@ -70,7 +70,7 @@ function TrinketMenu.InitOptions()
 		TrinketMenu_SubOptFrame:SetPoint("TOPLEFT", TrinketMenu_OptFrame, "TOPLEFT", 8, - 24)
 	end
 	TrinketMenu_OptColumnsSlider:SetValue(TrinketMenuOptions.Columns)
-	TrinketMenu_OptColumnsSliderText:SetText(TrinketMenuOptions.Columns.." trinkets")
+	TrinketMenu_OptColumnsSliderText:SetText(TrinketMenuOptions.Columns)
 	TrinketMenu_OptMainScaleSlider:SetValue(TrinketMenuPerOptions.MainScale)
 	TrinketMenu_OptMenuScaleSlider:SetValue(TrinketMenuPerOptions.MenuScale)
 	TrinketMenu.ReflectLock()

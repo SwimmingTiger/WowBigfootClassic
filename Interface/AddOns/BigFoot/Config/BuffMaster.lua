@@ -226,7 +226,7 @@ function BuffMasterConfigFunc()
 			BFCD_COOLDOWN_SHOW_OTHER,								-- text
 			BFCD_COOLDOWN_SHOW_OTHER_TOOLTIP,						-- tooltip
 			"BFCD_COOLDOWN_SHOW_OTHER",								-- variable
-			0,														-- default
+			1,														-- default
 			function (arg)
 				if (arg == 1) then
 					if (BigFoot_IsAddOnLoaded("BFCooldown")) then

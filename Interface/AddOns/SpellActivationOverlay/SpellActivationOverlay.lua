@@ -42,6 +42,7 @@ function SpellActivationOverlay_OnLoad(self)
 	self:RegisterEvent("PLAYER_REGEN_DISABLED");
 	self:RegisterEvent("SPELLS_CHANGED");
 	self:RegisterEvent("LEARNED_SPELL_IN_TAB");
+	self:RegisterEvent("LOADING_SCREEN_DISABLED");
 end
 
 function SpellActivationOverlay_OnChangeGeometry(self)
@@ -223,6 +224,12 @@ function SpellActivationOverlay_ShowOverlay(self, spellID, texturePath, position
 		overlay.pulse:Play();
 	end
 	overlay.pulse.autoPlay = autoPulse;
+
+	if ( not self.disableDimOutOfCombat and not InCombatLockdown() ) then
+		-- Simulate a short, fake in-combat mode, to make the spell alert more visible
+		self.combatAnimOut:Stop();
+		self.combatAnimIn:Play();
+	end
 end
 
 function SpellActivationOverlay_GetOverlay(self, spellID, position)
@@ -303,11 +310,13 @@ function SpellActivationOverlayTexture_OnFadeOutFinished(anim)
 end
 
 function SpellActivationOverlayFrame_OnFadeInFinished(anim)
-	local frame = anim:GetParent();
-	frame:SetAlpha(1);
-end
-
-function SpellActivationOverlayFrame_OnFadeOutFinished(anim)
-	local frame = anim:GetParent();
-	frame:SetAlpha(0.5);
+	if ( not InCombatLockdown() ) then
+		-- Fade-out immediately if not in combat
+		-- Although it may look counter-intuitive to be out-of-combat during an in-combat animation,
+		-- This may actually happen if the in-combat mode was forced to showcase out-of-combat procs e.g., healing-based procs
+		local frame = anim:GetParent();
+		if ( not frame.disableDimOutOfCombat ) then
+			frame.combatAnimOut:Play();
+		end
+	end
 end

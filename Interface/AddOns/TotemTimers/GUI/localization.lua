@@ -128,13 +128,13 @@ L["Ankh Tracker"] = true
 L["Ankh Tracker Desc"] = "Shows the remaining cooldown of your reincarnation ability as well as the number of ankhs in your bags. Also is used to save and load totem sets."
 L["Button 4"] = true
 L["EarthShieldDesc"] = "Shows the remaining Earth Shield time and charges. Can be used to cast Earth Shield."
-L["EarthShieldOptionsDesc"] = "If 'recast' is selected as option for a mouse button, the shield is cast on the last person it was cast out of combat or the person assigned by the RaidTotems addon. Default Usage: Target you ES target and cast the spell on it by rightclicking the button out of combat. Then you can target somebody else, but the ES will still be cast on the same person by leftclicking, even in combat."
+L["EarthShieldOptionsDesc"] = "If 'recast' is selected as option for a mouse button, the shield is cast on the last person it was cast out of combat. Default Usage: Target your ES target and cast the spell on it by rightclicking the button out of combat. Then you can target somebody else, but the ES will still be cast on the same person by leftclicking, even in combat."
 L["Earth Shield Tracker"] = true
 L["ES Charges only"] = "Charges only"
 L["ES Charges only desc"] = "Disables the time display and shows ES charges in its place|nChanges take effect the next time you cast ES"
 L["ES Main Tank Desc"] = "On mouseover shows a menu containing up to 4 main tanks of your raid/party"
 L["ES Main Tank menu"] = "Main Tank menu"
-L["esrecast"] = "recast (last target/RaidTotems)"
+L["esrecast"] = "recast (last target)"
 L["Leftclick"] = true
 L["Middle Button"] = true
 L["Rightclick"] = true
@@ -181,6 +181,7 @@ L["OOC Opacity"] = true
 L["OOC Opacity Desc"] = "Controls the opacity of the buttons out of combat, 0 = transparent, 1 = opaque"
 L["Show OmniCC counters"] = true
 L["Spells"] = true
+L["MaelstromNumberOnlyDesc"] = "Show number instead of lightning bolts"
 
 L["Arena"] = true
 L["Battleground"] = true

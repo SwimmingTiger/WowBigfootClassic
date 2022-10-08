@@ -21,6 +21,7 @@ Button.API = API
 local AL = AtlasLoot.Locales
 
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
+local DEFAULT_BACKGROUND_COLOR = {0.82, 0.82, 0.82, 0.4}
 
 -- lua
 local assert, type, tonumber, tostring = assert, type, tonumber, tostring
@@ -227,6 +228,12 @@ function Button:Create()
 	button:SetScript("OnClick", Button_OnClick)
 	button:SetScript("OnMouseWheel", Button_OnMouseWheel)
 
+	-- background
+	button.background = button:CreateTexture(buttonName.."_background", "BACKGROUND")
+	button.background:SetAllPoints(button)
+	button.background:SetColorTexture(unpack(DEFAULT_BACKGROUND_COLOR))
+	button.background:Hide()
+
 	-- highlight Background
 	button.highlightBg = button:CreateTexture(buttonName.."_highlightBg")
 	button.highlightBg:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
@@ -297,7 +304,7 @@ function Button:Create()
 	button.name:SetPoint("TOPLEFT", button.icon, "TOPRIGHT", 3, 0)
 	button.name:SetJustifyH("LEFT")
 	button.name:SetText("")
-	button.name:SetWidth(205)
+	button.name:SetWidth(230)
 	button.name:SetHeight(12)
 	button.name.Ori_SetText = button.name.SetText
 	button.name.SetText = Button_ForceSetText
@@ -307,7 +314,7 @@ function Button:Create()
 	button.extra:SetPoint("TOPLEFT", button.name, "BOTTOMLEFT", 0, -1)
 	button.extra:SetJustifyH("LEFT")
 	button.extra:SetText("")
-	button.extra:SetWidth(205)
+	button.extra:SetWidth(230)
 	button.extra:SetHeight(10)
 	button.extra:SetTextColor(1, 1, 1, 1)
 	button.extra.Ori_SetText = button.extra.SetText
@@ -650,6 +657,20 @@ function Proto:SetContentTable(tab, formatTab, setOnlySec)
 		else
 			self.factionIcon:Hide()
 		end
+	end
+
+	-- check if background is needed
+	if self.background and tab.setBackground then
+		if tab.setBackground == true then tab.setBackground = DEFAULT_BACKGROUND_COLOR end
+		if not tab.setBackground[4] then tab.setBackground[4] = DEFAULT_BACKGROUND_COLOR[4] end
+		if self.background.bgTable == tab.setBackground then
+			-- do nothing
+		else
+			self.background:SetColorTexture(unpack(tab.setBackground))
+		end
+		self.background:Show()
+	elseif self.background then
+		self.background:Hide()
 	end
 
 	-- amount setup

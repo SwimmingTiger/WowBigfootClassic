@@ -10,7 +10,6 @@ local DT = __private.DT;
 
 -->		upvalue
 	local strsub, strsplit, strmatch, gsub = string.sub, string.split, string.match, string.gsub;
-	local UnitInBattleground = UnitInBattleground;
 	local Ambiguate = Ambiguate;
 	local CreateFrame = CreateFrame;
 	local _G = _G;
@@ -32,7 +31,7 @@ MT.BuildEnv('COMM');
 -->		COMM
 	--
 	--	name, realm, force_update, popup, update_talent(nil means true), update_equipment(nil means true)
-	function MT.SendQueryRequest(name, realm, force_update, popup, update_talent, update_equipment)
+	function MT.SendQueryRequest(name, realm, force_update, popup, update_talent, update_glyph, update_equipment)
 		if name ~= nil then
 			local Tick = MT.GetUnifiedTime();
 			local shortname, r2 = strsplit("-", name);
@@ -47,31 +46,41 @@ MT.BuildEnv('COMM');
 			end
 			VT.QuerySent[name] = popup and Tick or VT.QuerySent[name] or nil;
 			VT.AutoShowEquipmentFrameOnComm[name] = popup and update_equipment ~= false and Tick or VT.AutoShowEquipmentFrameOnComm[name];
+			if name == CT.SELFNAME then
+				VT.PrevQueryRequestSentTime[name] = Tick;
+				local code = VT.VAR[CT.SELFGUID];
+				if code ~= nil then
+					return VT.__emulib.CHAT_MSG_ADDON(VT.__emulib.CT.COMM_PREFIX, code, "WHISPER", name);
+				end
+			end
+			-- if VT.__is_inbattleground then
+			-- 	local v = VT.TBattlegroundComm[name];
+			-- end
 			local ready = VT.PrevQueryRequestSentTime[name] == nil or (Tick - VT.PrevQueryRequestSentTime[name] > 0.1);
 			local cache = VT.TQueryCache[name];
 			local update_tal = update_talent ~= false and
 								ready and
 								(
 									cache == nil or
-									cache.time_tal == nil or
+									cache.TalData.Tick == nil or
 									(
-										(Tick - (cache.time_tal or -CT.DATA_VALIDITY) > CT.THROTTLE_TALENT_QUERY) and
+										(Tick - (cache.TalData.Tick or -CT.DATA_VALIDITY) > CT.THROTTLE_TALENT_QUERY) and
 										(
 											force_update or
-											(Tick - (cache.time_tal or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
+											(Tick - (cache.TalData.Tick or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
 										)
 									)
 								);
-			local update_gly = update_talent ~= false and
+			local update_gly = update_glyph ~= false and
 								ready and
 								(
 									cache == nil or
-									cache.time_gly == nil or
+									cache.GlyData.Tick == nil or
 									(
-										(Tick - (cache.time_gly or -CT.DATA_VALIDITY) > CT.THROTTLE_GLYPH_QUERY) and
+										(Tick - (cache.GlyData.Tick or -CT.DATA_VALIDITY) > CT.THROTTLE_GLYPH_QUERY) and
 										(
 											force_update or
-											(Tick - (cache.time_gly or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
+											(Tick - (cache.GlyData.Tick or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
 										)
 									)
 								);
@@ -79,12 +88,12 @@ MT.BuildEnv('COMM');
 								ready and
 								(
 									cache == nil or
-									cache.time_inv == nil or
+									cache.EquData.Tick == nil or
 									(
-										(Tick - (cache.time_inv or -CT.DATA_VALIDITY) > CT.THROTTLE_EQUIPMENT_QUERY) and
+										(Tick - (cache.EquData.Tick or -CT.DATA_VALIDITY) > CT.THROTTLE_EQUIPMENT_QUERY) and
 										(
 											force_update or
-											(Tick - (cache.time_inv or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
+											(Tick - (cache.EquData.Tick or -CT.DATA_VALIDITY) > CT.DATA_VALIDITY)
 										)
 									)
 								);
@@ -145,8 +154,8 @@ MT.BuildEnv('COMM');
 		end
 		return false, msg, ...;
 	end
-	local _CommDistributor = {
-		OnTalent = function(name, code, version, Decoder, overheard)
+	MT._CommDistributor = {
+		OnTalent = function(prefix, name, code, version, Decoder, overheard)
 			local class, level, numGroup, activeGroup, data1, data2 = Decoder(code);
 			if class ~= nil then
 				if version == "V1" and DT.BUILD == "WRATH" then
@@ -155,27 +164,31 @@ MT.BuildEnv('COMM');
 				local Tick = MT.GetUnifiedTime();
 				local cache = VT.TQueryCache[name];
 				if cache == nil then
-					cache = {  };
+					cache = { TalData = {  }, EquData = {  }, GlyData = {  }, PakData = {  }, };
 					VT.TQueryCache[name] = cache;
 				end
-				cache.time_tal = Tick;
 				cache.class = class;
 				cache.level = level;
-				cache.talent = code;
-				cache.data = { data1, data2, num = numGroup, active = activeGroup, };
+				local TalData = cache.TalData;
+				TalData[1] = data1;
+				TalData[2] = data2;
+				TalData.num = numGroup;
+				TalData.active = activeGroup;
+				TalData.code = code;
+				TalData.Tick = Tick;
 				if not overheard then
 					MT._TriggerCallback("CALLBACK_DATA_RECV", name);
 					MT._TriggerCallback("CALLBACK_TALENT_DATA_RECV", name, true);
-					if cache.time_inv ~= nil and Tick - cache.time_inv < CT.DATA_VALIDITY then
+					if cache.EquData.Tick ~= nil and Tick - cache.EquData.Tick < CT.DATA_VALIDITY then
 						MT._TriggerCallback("CALLBACK_INVENTORY_DATA_RECV", name, true);
 					end
-					if cache.time_gly ~= nil and Tick - cache.time_gly < CT.DATA_VALIDITY then
+					if cache.GlyData.Tick ~= nil and Tick - cache.GlyData.Tick < CT.DATA_VALIDITY then
 						MT._TriggerCallback("CALLBACK_GLYPH_DATA_RECV", name, true);
 					end
 				end
 			end
 		end,
-		OnGlyph = function(name, code, version, Decoder, overheard)
+		OnGlyph = function(prefix, name, code, version, Decoder, overheard)
 			if DT.BUILD ~= "WRATH" then
 				return;
 			end
@@ -188,68 +201,44 @@ MT.BuildEnv('COMM');
 			local Tick = MT.GetUnifiedTime();
 			local cache = VT.TQueryCache[name];
 			if cache == nil then
-				cache = {  };
+				cache = { TalData = {  }, EquData = {  }, GlyData = {  }, PakData = {  }, };
 				VT.TQueryCache[name] = cache;
 			end
-			cache.time_gly = Tick;
-			cache.glyph = { data1, data2, };
-			--[=[
-			if data1 ~= nil then
-				for index = 1, 6 do
-					local val = data1[index];
-					if val ~= nil then
-						MT.Error("GlyphSet 1: ", val[1], val[2], val[3], GetSpellLink(val[3]), val[4]);
-					else
-						MT.Error("GlyphSet 1: Empty");
-					end
-				end
-			else
-				MT.Error("No GlyphSet 1");
-			end
-			if data2 ~= nil then
-				for index = 1, 6 do
-					local val = data2[index];
-					if val ~= nil then
-						MT.Error("GlyphSet 1: ", val[1], val[2], val[3], val[4], GetSpellInfo(val[3]));
-					else
-						MT.Error("GlyphSet 1: Empty");
-					end
-				end
-			else
-				MT.Error("No GlyphSet 2");
-			end
-			--]=]
+			local GlyData = cache.GlyData;
+			GlyData[1] = data1;
+			GlyData[2] = data2;
+			GlyData.Tick = Tick;
 			if not overheard then
 				MT._TriggerCallback("CALLBACK_DATA_RECV", name);
 				MT._TriggerCallback("CALLBACK_GLYPH_DATA_RECV", name, true);
 			end
 		end,
-		OnEquipment = function(name, code, version, Decoder, overheard)
+		OnEquipment = function(prefix, name, code, version, Decoder, overheard)
 			-- #0#item:-1#1#item:123:::::#2#item:444:::::#3#item:-1
 			-- #(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)#(%d)#(item:[%-0-9:]+)
 			local cache = VT.TQueryCache[name];
 			if cache == nil then
-				cache = {  };
+				cache = { TalData = {  }, EquData = {  }, GlyData = {  }, PakData = {  }, };
 				VT.TQueryCache[name] = cache;
 			end
-			if Decoder(cache, code) then
-				local Tick = MT.GetUnifiedTime();
-				cache.time_inv = Tick;
+			local EquData = cache.EquData;
+			if Decoder(EquData, code) then
+				EquData.Tick = MT.GetUnifiedTime();
 				if not overheard then
 					MT._TriggerCallback("CALLBACK_DATA_RECV", name);
 					MT._TriggerCallback("CALLBACK_INVENTORY_DATA_RECV", name, true);
 				end
 			end
 		end,
-		OnAddOn = function(name, code, version, Decoder, overheard)
-			local Tick = MT.GetUnifiedTime();
+		OnAddOn = function(prefix, name, code, version, Decoder, overheard)
 			local cache = VT.TQueryCache[name];
 			if cache == nil then
-				cache = {  };
+				cache = { TalData = {  }, EquData = {  }, GlyData = {  }, PakData = {  }, };
 				VT.TQueryCache[name] = cache;
 			end
-			cache.time_pak = Tick;
-			cache.pack = code;
+			local PakData = cache.PakData;
+			PakData.Tick = MT.GetUnifiedTime();
+			PakData[1] = code;
 			MT.SetPack(name);
 			-- if VT.SET.inspect_pack then
 				-- NS.display_pack(code);
@@ -258,17 +247,17 @@ MT.BuildEnv('COMM');
 				MT._TriggerCallback("CALLBACK_DATA_RECV", name);
 			end
 		end,
-		OnPush = function(name, body, version, channel, zoneChannelID, isinform)
+		OnPush = function(prefix, name, body, version, channel, isinform)
 			local code, GUID, version = strsplit("#", body);
 			if code ~= nil and GUID ~= nil and version == nil then
-				local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+				local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 				if class ~= nil then
 					local title = MT.GenerateTitleFromRawData(data1, class, true);
 					if title ~= nil then
 						if isinform then
-							MT.SimulateChatMessage("WHISPER_INFORM", name, MT.GenerateLink(title, class, code), zoneChannelID, GUID);
+							MT.SimulateChatMessage("WHISPER_INFORM", name, MT.GenerateLink(title, class, code), GUID);
 						else
-							MT.SimulateChatMessage(channel, name, MT.GenerateLink(title, class, code), zoneChannelID, GUID);
+							MT.SimulateChatMessage(channel, name, MT.GenerateLink(title, class, code), GUID);
 							if _TempSavedCommTalents[code] == nil then
 								local text = MT.GenerateTitleFromRawData(data1, class);
 								_TempSavedCommTalents[code] = text;
@@ -279,7 +268,7 @@ MT.BuildEnv('COMM');
 								};
 							end
 							if channel == "WHISPER" then
-								VT.__emulib.PushTalentsInformV1(code .. "#" .. CT.SELFGUID, "WHISPER", name);
+								VT.__emulib.PushTalentsInformV1(prefix, code .. "#" .. CT.SELFGUID, "WHISPER", name);
 							end
 						end
 					end
@@ -301,16 +290,16 @@ MT.BuildEnv('COMM');
 	for i = 1, 10 do
 		_TChatFrames[i] = _G["ChatFrame" .. i];
 	end
-	function MT.SimulateChatMessage(channel, sender, msg, zoneChannelID, GUID)
+	function MT.SimulateChatMessage(channel, sender, msg, GUID)
 		for i = 1, 10 do
 			if _TChatFrames[i] ~= nil then
-				ChatFrame_MessageEventHandler(_TChatFrames[i], "CHAT_MSG_" .. channel, msg, sender, "", "", sender, "", zoneChannelID, 0, "", nil, 0, GUID, nil, false, false, false);
+				ChatFrame_MessageEventHandler(_TChatFrames[i], "CHAT_MSG_" .. channel, msg, sender, "", "", sender, "", 0, 0, "", nil, 0, GUID, nil, false, false, false);
 			end
 		end
 	end
 	function MT.SendTalents(Frame)
-		local code = MT.Encode(Frame);
-		local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+		local code = MT.EncodeTalent(Frame);
+		local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 		local title = MT.GenerateTitleFromRawData(data1, class, true);
 		if title ~= nil then
 			local link = MT.GenerateLink(title, class, code);
@@ -326,7 +315,7 @@ MT.BuildEnv('COMM');
 	ItemRefTooltip.SetHyperlink = function(Tip, link, ...)
 		local code = strmatch(link, "^emu:(.+)");
 		if code ~= nil then
-			local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+			local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 			if class ~= nil then
 				MT.CreateEmulator(nil, class, level, { data1, data2, num = numGroup, active = activeGroup, }, L.message, false, false);
 			end
@@ -337,7 +326,7 @@ MT.BuildEnv('COMM');
 	end
 	local _CurrentChannel, _CurrentTarget = nil;
 	local function ChatFilter_CHAT_Replacer(body, code)
-		local class, level, numGroup, activeGroup, data1, data2 = MT.Decode(code);
+		local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 		if class ~= nil then
 			local title = MT.GenerateTitleFromRawData(data1, class, true);
 			if title ~= nil then
@@ -414,7 +403,7 @@ MT.BuildEnv('COMM');
 	end
 
 	MT.RegisterOnInit('COMM', function(LoggedIn)
-		VT.__emulib.RegisterCommmDistributor(_CommDistributor);
+		VT.__emulib.RegisterCommmDistributor(MT._CommDistributor);
 		local Driver = CreateFrame('FRAME', nil, UIParent);
 		Driver:RegisterEvent("CHAT_MSG_ADDON");
 		Driver:RegisterEvent("CHAT_MSG_ADDON_LOGGED");

@@ -157,7 +157,8 @@ end
 
 local function registerClass(self)
     -- Fire Procs
-    self:RegisterAura("impact", 0, 64343, "impact", "Top", 1, 255, 255, 255, true, { (GetSpellInfo(2136)) });
+    self:RegisterAura("impact", 0, 64343, "lock_and_load", "Top", 1, 255, 255, 255, true, { (GetSpellInfo(2136)) });
+    self:RegisterAura("firestarter", 0, 54741, "impact", "Top", 0.8, 255, 255, 255, true, { (GetSpellInfo(2120)) }); -- May conflict with Impact location
     self:RegisterAura("hot_streak_full", 0, hotStreakSpellID, "hot_streak", "Left + Right (Flipped)", 1, 255, 255, 255, true, { (GetSpellInfo(11366)) });
     --self:RegisterAura("hot_streak_half", 0, heatingUpSpellID, "hot_streak", "Left + Right (Flipped)", 0.5, 255, 255, 255, false);
     -- Heating Up (spellID == 48107) doesn't exist in Wrath Classic, so we can't use the above aura

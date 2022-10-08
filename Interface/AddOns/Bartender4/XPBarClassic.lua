@@ -32,8 +32,6 @@ function XPBarMod:OnEnable()
 		self.bar.content = MainMenuExpBar
 		self.bar.content:SetParent(self.bar)
 		self.bar.content:SetFrameLevel(self.bar:GetFrameLevel() + 1)
-		-- 老虎会游泳：修复按需加载时不显示经验条
-		MainMenuExpBar:Show()
 	end
 	self:SecureHook("MainMenuBar_UpdateExperienceBars", "UpdateLayout")
 	self.bar:Enable()
@@ -88,8 +86,6 @@ function RepBarMod:OnEnable()
 		self.bar.content = ReputationWatchBar
 		self.bar.content:SetParent(self.bar)
 		self.bar.content:SetFrameLevel(self.bar:GetFrameLevel() + 1)
-		-- 老虎会游泳：修复按需加载时不显示声望条
-		ReputationWatchBar:Show()
 	end
 	self:SecureHook("MainMenuBar_UpdateExperienceBars", "UpdateLayout")
 	self.bar:Enable()

@@ -67,7 +67,8 @@ local function TotemTimers_OnEvent(self, event, ...)
 		else
 			TotemTimers.ChangedTalents()        
 		end --]]
-    elseif event == "SPELLS_CHANGED" then
+    elseif event == "SPELLS_CHANGED" or event == "CHARACTER_POINTS_CHANGED"
+            or event == "PLAYER_TALENT_UPDATE" then
         if InCombatLockdown() then
             updateAfterCombat = true
         else
@@ -140,10 +141,12 @@ function TotemTimers.SetupGlobals()
         TotemTimersFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
         TotemTimersFrame:RegisterEvent("ADDON_LOADED")
         TotemTimersFrame:RegisterEvent("CHARACTER_POINTS_CHANGED")
-		-- TotemTimersFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
         TotemTimersFrame:RegisterEvent("PLAYER_LOGOUT")
         TotemTimersFrame:RegisterEvent("UPDATE_BINDINGS")
         -- TotemTimersFrame:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+        if WOW_PROJECT_ID > WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+            TotemTimersFrame:RegisterEvent("PLAYER_TALENT_UPDATE")
+        end
 
 		TotemTimers.InitMasque()
 		-- TotemTimers.RangeFrame:RegisterEvent("GROUP_ROSTER_UPDATE")

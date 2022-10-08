@@ -41,7 +41,7 @@ end
 
 local function __UpdateFrameUnit()
 	for i = 1, MAX_PARTY_MEMBERS do
-		if UnitUsingVehicle and UnitUsingVehicle("party"..i) then
+		if UnitUsingVehicle("party"..i) then
 			BFSecureCall(frames[i].SetAttribute,frames[i],"unit", "partypet"..i.."target")
 		else
 			BFSecureCall(frames[i].SetAttribute,frames[i],"unit", "party"..i.."target")
@@ -135,8 +135,8 @@ end
 --hook functions and register frames on enabling module
 function TF:OnEnable()
 	self:Hook("PartyMemberFrame_OnUpdate",true)
-	-- self:RegisterEvent("UNIT_ENTERED_VEHICLE")
-	-- self:RegisterEvent("UNIT_EXITED_VEHICLE")
+	self:RegisterEvent("UNIT_ENTERED_VEHICLE")
+	self:RegisterEvent("UNIT_EXITED_VEHICLE")
 	__RegisterTargetFrames()
 
 end

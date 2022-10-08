@@ -1,5 +1,5 @@
 local MAJOR = "LibDropdown-1.0"
-local MINOR = 4
+local MINOR = 3
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
@@ -35,8 +35,6 @@ local GameTooltip_SetDefaultAnchor = GameTooltip_SetDefaultAnchor
 local HIGHLIGHT_FONT_COLOR = HIGHLIGHT_FONT_COLOR
 local NORMAL_FONT_COLOR = NORMAL_FONT_COLOR
 
-local WOW_BCC = WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC
-
 local framePool = lib.framePool or {}
 lib.framePool = framePool
 
@@ -59,8 +57,7 @@ local openMenu
 
 local noop = lib.noop or function() end
 lib.noop = noop
-
-local new, newHash, newSet, del
+local new, del = lib.new, lib.del
 if not lib.new then
 	local list = setmetatable({}, {__mode='k'})
 	function new(...)
@@ -89,27 +86,22 @@ if not lib.new then
 end
 new, del = lib.new, lib.del
 
-local backdropInfo = {
-	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	tile = true,
-	tileEdge = true,
-	tileSize = 16,
-	edgeSize = 16,
-	insets = { left = 4, right = 4, top = 4, bottom = 4 },
-}
-
 -- Make the frame match the tooltip
 local function InitializeFrame(frame)
-	frame:SetBackdrop(backdropInfo)
+	if TooltipBackdropTemplateMixin then
+		frame.layoutType = GameTooltip.layoutType
+		if GameTooltip.layoutType then
+			frame.NineSlice:SetCenterColor(GameTooltip.NineSlice:GetCenterColor())
+			frame.NineSlice:SetBorderColor(GameTooltip.NineSlice:GetBorderColor())
+		end
+	else
+		local backdrop = GameTooltip:GetBackdrop()
 
-	if backdropInfo then
-		if WOW_BCC then
+		frame:SetBackdrop(backdrop)
+
+		if backdrop then
 			frame:SetBackdropColor(GameTooltip:GetBackdropColor())
 			frame:SetBackdropBorderColor(GameTooltip:GetBackdropBorderColor())
-		else
-			frame:SetBackdropColor(GameTooltip.NineSlice:GetCenterColor())
-			frame:SetBackdropBorderColor(GameTooltip.NineSlice:GetBorderColor())
 		end
 	end
 	frame:SetScale(GameTooltip:GetScale())
@@ -327,7 +319,9 @@ end
 -- Pool methods
 local frameCount = 0
 function NewDropdownFrame()
-	local frame = CreateFrame("Frame", "LibDropdownFrame" .. frameCount, UIParent, BackdropTemplateMixin and "BackdropTemplate")
+	local template = (TooltipBackdropTemplateMixin and "TooltipBackdropTemplate") or (BackdropTemplateMixin and "BackdropTemplate")
+
+	local frame = CreateFrame("Frame", "LibDropdownFrame" .. frameCount, UIParent, template)
 	frameCount = frameCount + 1
 	frame:SetPoint("CENTER", UIParent, "CENTER")
 	frame:SetWidth(10)

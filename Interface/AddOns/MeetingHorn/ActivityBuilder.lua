@@ -3,7 +3,7 @@
 -- @Link   : https://dengsir.github.io
 -- @Date   : 5/14/2021, 6:09:47 PM
 --
----@type ns
+---@class ns
 local ns = select(2, ...)
 
 local L = ns.L
@@ -79,17 +79,29 @@ local SHORT_NAMES = {
     [3959] = 'BT',
     [3805] = 'ZAM',
     [4075] = 'SW',
+
+    [4722] = 'TOC',
+    [4812] = 'ICC',
+    [4273] = 'ULD',
+    [4603] = '宝库',
+    [4493] = 'OS',
+    [4987] = '红玉',
 }
 
 local SEARCH_MATCH = {['5H'] = {activityId = 'Dungeon', search = '英雄', input = '5H', name = '5H'}}
 local AVAILABLE_ACTIVITY = {}
 
-local PROJECTS = {[2] = {[2] = true}, [5] = {[2] = true, [5] = true}, [11] = {[2] = true,[5] = true,[11] = true}}
+local DIFFICULTY_GROUP_SIZE = { --
+    [3] = 10,
+    [4] = 25,
+    [5] = 10,
+    [6] = 25,
+}
 
 ---@class InstanceBuilder
 local InstanceBuilder = {projectId = nil, phase = nil}
 
-local function names(key, normalAndHero, isHero)
+local function names(key, difficultyName)
     local id = tonumber(key)
     local r
     if id then
@@ -98,10 +110,11 @@ local function names(key, normalAndHero, isHero)
         r = {L[key], SHORT_NAMES[key]}
     end
 
-    if normalAndHero then
-        for i, v in pairs(r) do
-            r[i] = v .. (isHero and '（英雄）' or '（普通）')
-        end
+    if difficultyName then
+        -- for i, v in ipairs(r) do
+        --     r[i] = format('%s（%s）', v, difficultyName)
+        -- end
+        r[1] = format('%s（%s）', r[1], difficultyName)
     end
     return r
 end
@@ -134,7 +147,7 @@ function InstanceBuilder:base(name, path, minLevel, members, class)
     if not name then
         return
     end
-    if self.projectId and not PROJECTS[WOW_PROJECT_ID][self.projectId] then
+    if self.projectId and self.projectId > WOW_PROJECT_ID then
         return
     end
 
@@ -164,23 +177,32 @@ function InstanceBuilder:base(name, path, minLevel, members, class)
     })
 
     ACTIVITY_IDS[name] = id
-    if shortName then
+    if shortName and self.projectId < 11 then
         ACTIVITY_IDS[shortName] = id
     end
 end
 
 function InstanceBuilder:raid(key, members)
-    local members = members or self.projectId == 2 and 40 or self.projectId == 5 and 25
-    local minLevel = self.projectId == 2 and 60 or self.projectId == 5 and 70
+    local members = members or self.projectId == 2 and 40 or 25
+    local minLevel = ns.PROJECT_DATA[self.projectId].maxLevel
     return self:base(names(key), 'Raid', minLevel, members)
 end
 
+function InstanceBuilder:raid2(key, difficultyId)
+    local difficultyName = GetDifficultyInfo(difficultyId):gsub('（', ''):gsub('）', '')
+    local members = DIFFICULTY_GROUP_SIZE[difficultyId]
+    local minLevel = ns.PROJECT_DATA[self.projectId].maxLevel
+    return self:base(names(key, difficultyName), 'Raid', minLevel, members)
+end
+
 function InstanceBuilder:normal(key, minLevel, members)
-    return self:base(names(key, true, false), 'Dungeon', minLevel, members or 5)
+    local difficultyName = GetDifficultyInfo(1)
+    return self:base(names(key, difficultyName), 'Dungeon', minLevel, members or 5)
 end
 
 function InstanceBuilder:hero(key, minLevel, members)
-    return self:base(names(key, true, true), 'Dungeon', minLevel, members or 5)
+    local difficultyName = GetDifficultyInfo(2)
+    return self:base(names(key, difficultyName), 'Dungeon', minLevel, members or 5)
 end
 
 function InstanceBuilder:dungeon(key, minLevel, members)
@@ -214,7 +236,7 @@ function Builder.M(name)
     MODE_IDS[name] = #MODE_LIST
 end
 
-function Builder.C(path, name, channel, interval, timeout, inCity)
+function Builder.C(path, name, useProject, channel, interval, timeout, inCity)
     if not channel then
         channel = {L['CHANNEL: Group'], '寻求组队'}
     end
@@ -237,6 +259,7 @@ function Builder.C(path, name, channel, interval, timeout, inCity)
         interval = interval or BASE_INTERVAL,
         timeout = timeout or BASE_TIMEOUT,
         inCity = inCity,
+        useProject = useProject,
     }
 
     tinsert(CATEGORY_LIST, category)
@@ -253,11 +276,12 @@ function Builder.End()
 
     ACTIVITY_LIST[0] = {path = 'Other', name = CHANNEL, interval = 30, timeout = 60, category = CATEGORY_DATA['Other']}
 
-    local function pick(path, isCreator)
+    local function pickPath(path, isCreator, projectId)
         local result = {}
-        local minLevel = 60
+        local minLevel = ns.PROJECT_DATA[WOW_PROJECT_ID].maxLevel
+
         for i, v in ipairs(ACTIVITY_LIST) do
-            if v.path == path then
+            if v.path == path and (not projectId or v.projectId == projectId) then
                 tinsert(result, {
                     text = v.name,
                     value = i,
@@ -290,9 +314,38 @@ function Builder.End()
         return result, minLevel
     end
 
+    local function pickProjects(path, isCreator)
+        local result = {}
+        local minLevel = ns.PROJECT_DATA[WOW_PROJECT_ID].maxLevel
+
+        for _, projectId in ipairs(ns.PROJECT_DATA[WOW_PROJECT_ID].projects) do
+            local menu, _minLevel = pickPath(path, isCreator, projectId)
+
+            tinsert(result, { --
+                text = ns.PROJECT_DATA[projectId].name,
+                hasArrow = true,
+                notClickable = true,
+                menuTable = menu,
+            })
+
+            minLevel = math.min(minLevel, _minLevel)
+        end
+        return result, minLevel
+    end
+
+    local function pick(path, useProject, isCreator)
+        if useProject then
+            return pickProjects(path, isCreator)
+        else
+            return pickPath(path, isCreator)
+        end
+    end
+
     for _, category in ipairs(CATEGORY_LIST) do
+        local children, minLevel
         local path = category.path
-        local children, minLevel = pick(path, true)
+        children, minLevel = pick(path, category.useProject, true)
+
         if #children > 1 then
             tinsert(ns.ACTIVITY_MENU, {
                 text = category.name,
@@ -304,10 +357,10 @@ function Builder.End()
                 menuTable = children,
             })
             tinsert(ns.ACTIVITY_FILTER_MENU,
-                    {text = category.name, hasArrow = true, value = path, menuTable = pick(path)})
+                    {text = category.name, hasArrow = true, value = path, menuTable = pick(path, category.useProject)})
         else
             tinsert(ns.ACTIVITY_MENU, children[1])
-            tinsert(ns.ACTIVITY_FILTER_MENU, pick(path)[1])
+            tinsert(ns.ACTIVITY_FILTER_MENU, pickPath(path)[1])
         end
     end
 
@@ -324,6 +377,14 @@ ns.Builder = Builder
 
 function ns.NameToId(name)
     return ACTIVITY_IDS[name]
+end
+
+function ns.MatchId(name)
+    for _, v in ipairs(ACTIVITY_LIST) do
+        if v.name:find(name, nil, true) then
+            return v.id
+        end
+    end
 end
 
 function ns.ModeToId(mode)
@@ -355,10 +416,6 @@ end
 ---@return MeetingHornCategoryData
 function ns.GetCategoryData(path)
     return CATEGORY_DATA[path]
-end
-
-function ns.GetMatchSearch(match)
-    return SEARCH_MATCH[match]
 end
 
 function ns.GetMatchAvailableActivity(activityId)

@@ -77,6 +77,17 @@ function SAO.COMBAT_LOG_EVENT_UNFILTERED(self, ...)
     end
 end
 
+-- Check if auras are still there after a loading screen
+-- This circumvents a limitation of the CLEU which may not trigger during a loading screen
+function SAO.LOADING_SCREEN_DISABLED(self, ...)
+    for spellID, stacks in pairs(self.ActiveOverlays) do
+        if (not self:FindPlayerAuraByID(spellID)) then
+            self:DeactivateOverlay(spellID);
+            self:RemoveGlow(spellID);
+        end
+    end
+end
+
 function SAO.SPELL_UPDATE_USABLE(self, ...)
     self:CheckAllCounterActions();
 end

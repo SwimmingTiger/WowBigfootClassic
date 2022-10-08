@@ -251,6 +251,12 @@ binder:SetScript("OnEvent", function()
     local LCG = LibStub("LibCustomGlow-1.0", true);
 
     local buttonUpdateFunc = function(libGlow, event, self)
+        if (self._state_type ~= "action") then
+            -- If button is not an "action", then GetSpellId is unusable
+            -- This happens for instance with vehicle buttons
+            -- They are probably not meant to glow, so it's simpler to just ignore them
+            return;
+        end
         if (not self.GetGlowID) then
             self.GetGlowID = self.GetSpellId;
         end

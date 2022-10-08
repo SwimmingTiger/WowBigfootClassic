@@ -304,6 +304,12 @@ function CoolLine:PLAYER_LOGIN()
 	self:SPELL_UPDATE_COOLDOWN()
 	self:SPELLS_CHANGED()
 
+	self:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
+	if UnitHasVehicleUI("player") then
+		self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
+		self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
+	end
+
 	-- IF WOW RETAIL THEN
 	if IS_WOW_Retail then
 		self:RegisterEvent("PET_BATTLE_OPENING_START")
@@ -312,12 +318,6 @@ function CoolLine:PLAYER_LOGIN()
 		self.PET_BATTLE_CLOSE = self.Show
 		if C_PetBattles.IsInBattle() then
 			self:Hide()
-		end
-
-		self:RegisterUnitEvent("UNIT_ENTERED_VEHICLE", "player")
-		if UnitHasVehicleUI("player") then
-			self:RegisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
-			self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
 		end
 	end
 	-- END WOW RETAIL

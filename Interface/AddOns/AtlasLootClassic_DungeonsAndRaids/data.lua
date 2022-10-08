@@ -642,17 +642,6 @@ data["ShadowfangKeep"] = {
 				{ 3,  3191 }, -- Arced War Axe
 			},
 		},
-		{ -- SFKSever
-			name = AL["Sever"],
-			npcID = 14682,
-			DisplayIDs = {{1061}},
-			AtlasMapBossID = 7,
-			ContentPhase = 6,
-			[NORMAL_DIFF] = {
-				{ 1,  23173 }, -- Abomination Skin Leggings
-				{ 2,  23171 }, -- The Axe of Severing
-			},
-		},
 		{ -- SFKOdotheBlindwatcher
 			name = AL["Odo the Blindwatcher"],
 			npcID = 4279,
@@ -737,6 +726,40 @@ data["ShadowfangKeep"] = {
 				{ 11, 1484 }, -- Witching Stave
 			},
 		},
+		{ -- SFKSever
+			name = AL["Sever"],
+			npcID = 14682,
+			DisplayIDs = {{1061}},
+			AtlasMapBossID = 7,
+			ContentPhase = 6,
+			specialType = "scourgeInvasion",
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  23173 }, -- Abomination Skin Leggings
+				{ 2,  23171 }, -- The Axe of Severing
+			},
+		},
+		AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, { -- SFKApothecaryH
+			name = AL["Apothecary Hummel <Crown Chemical Co.>"],
+			npcID = 36296,
+			Level = 83,
+			DisplayIDs = {{31167}},
+			AtlasMapBossID = 3,
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  51804 }, -- Winking Eye of Love
+				{ 2,  51805 }, -- Heartbreak Charm
+				{ 3,  51806 }, -- Shard of Pirouetting Happiness
+				{ 4,  51807 }, -- Sweet Perfume Broach
+				{ 5,  51808 }, -- Choker of the Pure Heart
+				{ 7,  49641 }, -- Faded Lovely Greeting Card
+				{ 8,  49715 }, -- Forever-Lovely Rose
+				{ 9,  50250 }, -- X-45 Heartbreaker
+				{ 10,  50446 }, -- Toxic Wasteling
+				{ 11,  50471 }, -- The Heartbreaker
+				{ 12,  50741 }, -- Vile Fumigator's Mask
+			},
+		}),
 		{ -- SFKJordansHammer
 			name = AL["Jordan's Smithing Hammer"],
 			ExtraList = true,
@@ -1013,6 +1036,8 @@ data["Gnomeregan"] = {
 				--{ 23, 4376 }, -- Flame Deflector
 				{ 19, 7742 }, -- Schematic: Gnomish Cloaking Device
 				--{ 26, 4397 }, -- Gnomish Cloaking Device
+				{ 20, 11828 }, -- Schematic: Pet Bombling
+				--{ 29, 11825 }, -- Pet Bombling
 			},
 		},
 		{ -- GnTrash
@@ -1029,6 +1054,8 @@ data["Gnomeregan"] = {
 				{ 8,  9486 }, -- Supercharger Battle Axe
 				{ 9,  9490 }, -- Gizmotron Megachopper
 				{ 11, 9489 }, -- Gyromatic Icemaker
+				{ 12, 11827 }, -- Schematic: Lil' Smoky
+				--{ 15, 11826 }, -- Lil' Smoky
 				{ 16, 9327 }, -- Security DELTA Data Access Card
 				{ 18, 7191 }, -- Fused Wiring
 				{ 19, 9308 }, -- Grime-Encrusted Object
@@ -1264,19 +1291,33 @@ data["ScarletMonasteryGraveyard"] = {
 				{ 14, 7730 }, -- Cobalt Crusher
 			},
 		},
-		AtlasLoot:GameVersion_GE(AtlasLoot.BC_VERSION_NUM, { -- SMHeadlessHorseman
+		{ -- SMScorn
+			name = AL["Scorn"],
+			npcID = 14693,
+			DisplayIDs = {{16197}},
+			AtlasMapBossID = 1,
+			ContentPhase = 6,
+			specialType = "scourgeInvasion",
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1, 23169 }, -- Scorn's Icy Choker
+				{ 2, 23170 }, -- The Frozen Clutch
+				{ 3, 23168 }, -- Scorn's Focal Dagger
+			},
+		},
+		AtlasLoot:GameVersion_GE(AtlasLoot.WRATH_VERSION_NUM, { -- SMHeadlessHorseman
 			name = AL["Headless Horseman"],
 			npcID = 23682,
-			Level = 70,
+			Level = 83,
 			DisplayIDs = {{22351}},
 			AtlasMapBossID = nil,
 			ExtraList = true,
 			[NORMAL_DIFF] = {
-				{ 1, 34075 }, -- Ring of Ghoulish Delight
-				{ 2, 34073 }, -- The Horseman's Signet Ring
-				{ 3, 34074 }, -- Witches Band
-				{ 5, 33808 }, -- The Horseman's Helm
-				{ 6, 38175 }, -- The Horseman's Blade
+				{ 1, 49121 }, -- Ring of Ghoulish Glee
+				{ 2, 49123 }, -- The Horseman's Seal
+				{ 3, 49124 }, -- Wicked Witch's Band
+				{ 5, 49126 }, -- The Horseman's Horrific Helm
+				{ 6, 49128 }, -- The Horseman's Baleful Blade
 				{ 8, 33292 }, -- Hallowed Helm
 				{ 10, 34068 }, -- Weighted Jack-o'-Lantern
 				{ 12, 33277 }, -- Tome of Thomas Thomson
@@ -1331,6 +1372,7 @@ data["ScarletMonasteryLibrary"] = {
 				{ 2,  7713 }, -- Illusionary Rod
 				{ 4,  7712 }, -- Mantle of Doan
 				{ 5,  7711 }, -- Robe of Doan
+				AtlasLoot:GameVersion_GE(AtlasLoot.BC_VERSION_NUM, { 16,  34227 }), -- Deadman's Hand
 			},
 		},
 		{ -- SMLTrash
@@ -3715,6 +3757,20 @@ data["DireMaulWest"] = {
 				{ 7,  18332 }, -- Libram of Rapidity
 			},
 		},
+		{ -- DMWRevanchion
+			name = AL["Revanchion"],
+			npcID = 14690,
+			DisplayIDs = {{14695}},
+			AtlasMapBossID = 2,
+			ContentPhase = 6,
+			specialType = "scourgeInvasion",
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1, 23127 }, -- Cloak of Revanchion
+				{ 2, 23129 }, -- Bracers of Mending
+				{ 3, 23128 }, -- The Shadow's Grasp
+			},
+		},
 		{ -- DMWShendralarProvisioner
 			name = AL["Shen'dralar Provisioner"],
 			npcID = 14371,
@@ -4381,6 +4437,20 @@ data["Scholomance"] = {
 				{ 29, 13920 }, -- Healthy Dragon Scale
 			},
 		},
+		{ -- SCHOLOLordB
+			name = AL["Lord Blackwood"],
+			npcID = 14695,
+			DisplayIDs = {{14699}},
+			AtlasMapBossID = 2,
+			ContentPhase = 6,
+			specialType = "scourgeInvasion",
+			ExtraList = true,
+			[NORMAL_DIFF] = {
+				{ 1,  23132 }, -- Lord Blackwood's Blade
+				{ 2,  23156 }, -- Blackwood's Thigh
+				{ 3,  23139 }, -- Lord Blackwood's Buckler
+			},
+		},
 		{ -- SCHOLOKormok
 			name = AL["Kormok"].." - "..format(AL["Tier %s Sets"], "0.5"),
 			npcID = 16118,
@@ -4830,13 +4900,14 @@ data["Stratholme"] = {
 			name = AL["Balzaphon"],
 			NameColor = GREEN,
 			ExtraList = true,
+			specialType = "scourgeInvasion",
 			npcID = 14684,
 			DisplayIDs = {{7919}},
 			AtlasMapBossID = 2,
 			ContentPhase = 6,
 			[NORMAL_DIFF] = {
-				{ 1,  23125 }, -- Chains of the Lich
-				{ 2,  23126 }, -- Waistband of Balzaphon
+				{ 1,  23126 }, -- Waistband of Balzaphon
+				{ 2,  23125 }, -- Chains of the Lich
 				{ 3,  23124 }, -- Staff of Balzaphon
 			},
 		},

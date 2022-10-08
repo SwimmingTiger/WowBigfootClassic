@@ -111,6 +111,9 @@ local function OnDragStop(self)
 	local settings = frameToMove.settings
 	frameToMove:StopMovingOrSizing()
 	frameToMove.isMoving = false
+	if frameToMove:GetName() == "PetActionBarFrame" then
+		 frameToMove:SetUserPlaced(false)
+	end
 	if settings then
 		settings.point, settings.relativeTo, settings.relativePoint, settings.xOfs, settings.yOfs = frameToMove:GetPoint()
 	end
@@ -154,8 +157,11 @@ local function SetMoveHandler(frameToMove, handler)
 	local settings = db[frameToMove:GetName()]
 	if not settings then
 		settings = defaultDB[frameToMove:GetName()] or {}
-		db[frameToMove:GetName()] = settings
+		if frameToMove:GetName() ~= "PetActionBarFrame" then
+			db[frameToMove:GetName()] = settings
+		end
 	end
+
 	frameToMove.settings = settings
 	handler.frameToMove = frameToMove
 
@@ -230,17 +236,29 @@ local function OnEvent(self, event, arg1, arg2)
 		BlizzMoveDB = db
 		--SetMoveHandler(frameToMove, handlerFrame)
 		SetMoveHandler(CharacterFrame)
-		-- SetMoveHandler(CharacterFrame,PaperDollFrame)
-		-- SetMoveHandler(CharacterFrame,TokenFrame)
-		-- SetMoveHandler(CharacterFrame,SkillFrame)
-		-- SetMoveHandler(CharacterFrame,ReputationFrame)
-		-- SetMoveHandler(CharacterFrame,PetPaperDollFrameCompanionFrame)
+		SetMoveHandler(CharacterFrame,PaperDollFrame)
+		SetMoveHandler(CharacterFrame,TokenFrame)
+		SetMoveHandler(CharacterFrame,SkillFrame)
+		SetMoveHandler(CharacterFrame,ReputationFrame)
+		SetMoveHandler(CharacterFrame,PetPaperDollFrameCompanionFrame)
 		SetMoveHandler(SpellBookFrame)
 		SetMoveHandler(FriendsFrame)
 		SetMoveHandler(RaidParentFrame)
 
 		if QuestLogFrame then
 			SetMoveHandler(QuestLogFrame)
+		end
+
+		if AuctionFrame then
+			SetMoveHandler(AuctionFrame)
+		end
+
+		if PetActionBarFrame then
+			SetMoveHandler(PetActionBarFrame)
+		end
+
+		if StanceBarFrame then
+			SetMoveHandler(StanceBarFrame,StanceButton1)
 		end
 
 		SetMoveHandler(GameMenuFrame)

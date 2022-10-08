@@ -4,15 +4,13 @@ local L		= mod:GetLocalizedStrings()
 local DBM = DBM
 local GetPlayerFactionGroup = GetPlayerFactionGroup or UnitFactionGroup -- Classic Compat fix
 
-local wowTOC = DBM:GetTOC()
 local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
-local isBCC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5) and wowTOC < 30000
-local isWrath = WOW_PROJECT_ID == (WOW_PROJECT_WRATH_CLASSIC or 11) or WOW_PROJECT_ID == 5 and wowTOC >= 30000
-
+local isBCC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
+local isWrath = WOW_PROJECT_ID == (WOW_PROJECT_WRATH_CLASSIC or 11)
 local playerFaction = GetPlayerFactionGroup("player")
 
-mod:SetRevision("20220902120410")
+mod:SetRevision("20220906165336")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -27,7 +25,7 @@ mod:RegisterEvents(
 mod:AddBoolOption("HideBossEmoteFrame", false)
 mod:AddBoolOption("AutoSpirit", false)
 mod:AddBoolOption("ShowRelativeGameTime", true)
-mod:AddBoolOption("ShowBasesToWin", false)
+--mod:AddBoolOption("ShowBasesToWin", false)
 
 do
 	local IsInInstance, RepopMe, GetSelfResurrectOptions = IsInInstance, RepopMe, C_DeathInfo.GetSelfResurrectOptions

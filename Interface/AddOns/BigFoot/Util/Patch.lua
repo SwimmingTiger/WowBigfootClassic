@@ -91,9 +91,3 @@ do
 
 	LoaderFrame:SetScript("OnEvent", LoaderEvents)
 end
-
--- 背包显示剩余格子数量(同步正式服设置)
-hooksecurefunc("MainMenuBarBackpackButton_UpdateFreeSlots", function(...)
-	MainMenuBarBackpackButtonCount:SetText(string.format("(%s)", MainMenuBarBackpackButton.freeSlots));
-end)
-

@@ -12,6 +12,7 @@ local function registerClass(self)
 
     -- Art of War
     self:RegisterAura("art_of_war", 0, 59578, "art_of_war", "Left + Right (Flipped)", 1, 255, 255, 255, true, { flashOfLight, exorcism });
+    self:RegisterAura("art_of_war_mini", 0, 53489, "art_of_war", "Left + Right (Flipped)", 0.6, 255, 255, 255, false, { flashOfLight, exorcism }); -- 1 point out of 2, displayed smaller, does not pulse
 
     -- Infusion of Light, 1/2 talent points
     self:RegisterAura("infusion_of_light_low", 0, 53672, "daybreak", "Left + Right (Flipped)", 1, 255, 255, 255, true, { flashOfLight, holyLight });

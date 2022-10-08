@@ -1,6 +1,6 @@
---------修改本地化。创建本地化为NewLocale 不是getLocale 这里可能是之前的笔误-------------------
+
 local L_zhCN = LibStub("AceLocale-3.0"):NewLocale("Bartender4", "zhCN")
-if L_zhCN then 
+if L_zhCN then
 	L_zhCN["Unit Frame"] = "单位框体"
 	L_zhCN["Enable the Unit Frame"] = "启用单位框体"
 	L_zhCN["Configure the Unit Frame"] = "配置单位框体"
@@ -20,7 +20,7 @@ if L_zhCN then
 end
 
 local L_zhTW = LibStub("AceLocale-3.0"):NewLocale("Bartender4", "zhTW")
-if L_zhTW then 
+if L_zhTW then
 	L_zhTW["Unit Frame"] = "單位框體"
 	L_zhTW["Enable the Unit Frame"] = "啟用單位框體"
 	L_zhTW["Configure the Unit Frame"] = "配置單位框體"

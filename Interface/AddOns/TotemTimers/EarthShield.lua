@@ -2,15 +2,19 @@ if select(2, UnitClass("player")) ~= "SHAMAN" then
     return
 end
 
+local _, TotemTimers = ...
+
 local SpellNames = TotemTimers.SpellNames
 local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 local AvailableSpells = TotemTimers.AvailableSpells
 
 local earthShieldTarget = UnitName("player")
-local earthShieldTargetGUID = nil
+local earthShieldTargetGUID = UnitGUID("player")
+
 
 local earthshieldTimer = nil
+
 local buttons = { "LeftButton", "RightButton", "MiddleButton", "Button4" }
 
 
@@ -200,7 +204,7 @@ function TotemTimers.SetEarthShieldMainTankList()
         local b = 0
         for i = 1, 40 do
             local unit = "raid" .. i
-            if b < 5 and UnitExists(unit) then
+            if b < 4 and UnitExists(unit) then
                 if GetPartyAssignment("MAINTANK", unit)
                         or UnitGroupRolesAssigned(unit) == "TANK" then
                     b = b + 1
@@ -269,9 +273,11 @@ local function checkESBuff(self)
     end
 end
 
-lastESCastGUID = nil
-lastESCastTarget = nil
-lastESCastUnitGUID = nil
+local lastESCastGUID = nil
+local lastESCastTarget = nil
+local lastESCastUnitGUID = nil
+local changeEarthShieldRecast = nil
+
 
 function TotemTimers.EarthShieldEvent(self, event, ...)
     if not AvailableSpells[SpellIDs.EarthShield] then
@@ -319,7 +325,7 @@ function TotemTimers.EarthShieldEvent(self, event, ...)
     elseif (event == "GROUP_ROSTER_UPDATE" or event == "PLAYER_ENTERING_WORLD") then
         if earthShieldRecast and earthShieldTarget then
             if InCombatLockdown() then
-                changeEarthShieldTarget = true
+                changeEarthShieldRecast = true
             else
                 TotemTimers.ChangeEarthShieldTarget()
             end
@@ -345,6 +351,9 @@ function TotemTimers.SetEarthShieldUpdate()
         earthshieldTimer.Update = nil
         earthshieldTimer.prohibitCooldown = false
         earthshieldTimer.timeStyle = "blizz"
+    end
+    if earthShieldTarget then
+        TotemTimers.EarthShieldEvent(earthshieldTimer.button, "UNIT_AURA", earthShieldTarget)
     end
 end
 

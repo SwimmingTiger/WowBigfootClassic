@@ -9,13 +9,13 @@
 ## SavedVariablesPerCharacter: DBMWorldEvents_SavedStats
 ## X-DBM-Mod: 1
 ## X-DBM-Mod-Type: OTHER
-## X-DBM-Mod-Category: BC
+## X-DBM-Mod-Category: WOTLK
 ## X-DBM-StatTypes: normal
 ## X-DBM-Mod-World-Boss: 1
 ## X-DBM-Mod-Name: World Events
 ## X-DBM-Mod-Name-zhTW: 世界事件
 ## X-DBM-Mod-Name-zhCN: 世界事件
-## X-DBM-Mod-MapID: 230,189,547
+## X-DBM-Mod-MapID: 230,189,33,547
 ## X-DBM-Mod-Sort: 1054
 ## X-DBM-Mod-MinCoreRevision: 12473
 ## X-Revision: BigFoot
@@ -24,6 +24,7 @@ localization.en.lua
 localization.tw.lua
 localization.cn.lua
 
+Holidays\ApothecaryTrio.lua
 Holidays\Ahune.lua
 Holidays\CorenDirebrew.lua
 Holidays\HeadlessHorseman.lua

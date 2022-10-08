@@ -350,6 +350,15 @@ data["BlacksmithingWrath"] = {
 				{ 10, 55834 },	-- Cobalt Bracers
 			},
 		},
+		{
+			name = AL["Enhancements"],
+			[NORMAL_DIFF] = {
+				{ 1, 55656 },	-- Eternal Belt Buckle
+				{ 3, 55641 },	-- Socket Gloves
+				{ 16, 62202 },	-- Titanium Plating
+				{ 18, 55628 },	-- Socket Bracer
+			}
+		},
 		{ -- Sets
 			name = AL["Sets"],
 			ExtraList = true,
@@ -410,6 +419,10 @@ data["EnchantingWrath"] = {
 				{ 7, 44500 },	-- Enchant Cloak - Superior Agility
 				{ 8, 44582 },	-- Enchant Cloak - Minor Power
 				{ 9, 60609 },	-- Enchant Cloak - Speed
+
+				{ 16, 60609 },	-- Enchant Cloak - Speed
+				{ 17, 44582 },	-- Enchant Cloak - Spell Piercing
+				{ 18, 60663 },	-- Enchant Cloak - Major Agility
 			}
 		},
 		{
@@ -579,6 +592,20 @@ data["EngineeringWrath"] = {
 			}
 		},
 		{
+			name = ALIL["Engineering"].." - "..AL["Enhancements"],
+			[NORMAL_DIFF] = {
+				{ 1, 54999 },	-- Hyperspeed Accelerators
+				{ 2, 54998 },	-- Hand-Mounted Pyro Rocket
+				{ 3, 63770 },	-- Reticulated Armor Webbing
+				{ 5, 55016 },	-- Nitro Boosts
+				{ 16, 54736 },	-- Personal Electromagnetic Pulse Generator
+				{ 17, 54793 },	-- Frag Belt
+				{ 19, 55002 },	-- Flexweave Underlay
+				{ 20, 63765 },	-- Springy Arachnoweave
+				{ 22, 67839 },	-- Mind Amplification Dish
+			}
+		},
+		{
 			name = AL["Misc"],
 			[NORMAL_DIFF] = {
 				{ 1,   [ATLASLOOT_IT_ALLIANCE] = { 60867 }, [ATLASLOOT_IT_HORDE] = { 60866 } }, -- Mekgineer's Chopper / Mechano-Hog
@@ -729,6 +756,9 @@ data["TailoringWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 56034 },	-- Master's Spellthread
 				{ 2, 56010 },	-- Azure Spellthread
+				{ 4, 55777 },	-- Schwertwallgarn
+				{ 5, 55642 },	-- Hell leuchtendes Garn
+				{ 6, 55769 },	-- Dunkel glühendes Garn
 				{ 16, 56039 },	-- Sanctified Spellthread
 				{ 17, 56008 },	-- Shining Spellthread
 			}
@@ -965,6 +995,12 @@ data["LeatherworkingWrath"] = {
 				{ 5, 50964 },	-- Jormungar Leg Armor
 				{ 6, 50966 },	-- Nerubian Leg Armor
 				{ 8, 50963 },	-- Heavy Borean Armor Kit
+
+				{ 10, 57683 },	-- Fur Lining - Attack Power
+				{ 11, 57691 },	-- Fur Lining - Spell Power
+
+				{ 25, 60584 },	-- Nerubian Leg Reinforcements
+				{ 26, 60583 },	-- Jormungar Leg Reinforcements
 			},
 		},
 		{
@@ -1117,16 +1153,19 @@ data["JewelcraftingWrath"] = {
 				{ 3, 66448 },	-- Delicate Cardinal Ruby
 				{ 4, 66453 },	-- Flashing Cardinal Ruby
 				{ 5, 66450 },	-- Precise Cardinal Ruby
-				{ 7, 53830 },	-- Bold Scarlet Ruby
-				{ 8, 53946 },	-- Runed Scarlet Ruby
-				{ 9, 53945 },	-- Delicate Scarlet Ruby
-				{ 10, 53949 },	-- Flashing Scarlet Ruby
-				{ 11, 53951 },	-- Precise Scarlet Ruby
+				{ 6, 66449 },	-- Bright Cardinal Ruby
+				{ 8, 53830 },	-- Bold Scarlet Ruby
+				{ 9, 53946 },	-- Runed Scarlet Ruby
+				{ 10, 53945 },	-- Delicate Scarlet Ruby
+				{ 11, 53949 },	-- Flashing Scarlet Ruby
+				{ 12, 53951 },	-- Precise Scarlet Ruby
+				{ 13, 53947 },	-- Bright Scarlet Ruby
 				{ 16, 53831 },	-- Bold Bloodstone
 				{ 17, 53834 },	-- Runed Bloodstone
 				{ 18, 53832 },	-- Delicate Bloodstone
 				{ 19, 53844 },	-- Flashing Bloodstone
 				{ 20, 54017 },	-- Precise Bloodstone
+				{ 21, 53835 },	-- Bright Bloodstone
 			}
 		},
 		{
@@ -1293,9 +1332,47 @@ data["JewelcraftingWrath"] = {
 			}
 		},
 		{
+			name = format(GEM_FORMAT1, ALIL["Prismatic"]),
+			[NORMAL_DIFF] = {
+				{ 1, 56530 }, -- Enchanted Pearl
+				{ 2, 56531 }, -- Enchanted Tear
+				{ 3, 68253 }, -- Nightmare Tear
+			}
+		},
+		{
+			name = AL["Raw Gems"],
+			TableType = NORMAL_ITTYPE,
+			[NORMAL_DIFF] = {
+				{ 1, 41334 }, --  Earthsiege Diamond
+				{ 2, 41266 }, --  Skyflare Diamond
+				{ 3, 36783 }, --  Northsea Pearl
+				{ 5, 36925 }, --  Majestic Zircon
+				{ 6, 36924 }, -- Sky Sapphire
+				{ 7, 36923 }, --  Chalcedony
+				{ 9, 36934 }, --  Eye of Zul
+				{ 10, 36933 }, --  Forest Emerald
+				{ 11, 36932 }, --  Dark Jade
+				{ 13, 36931 }, --  Ametrine
+				{ 14, 36930 }, --  Monarch Topaz
+				{ 15, 36929 }, --  Huge Citrine
+				{ 16, 42225 }, --  Dragon's Eye
+				{ 17, 36784 }, --  Siren's Tear
+				{ 20, 36928 }, --  Dreadstone
+				{ 21, 36927 }, --  Twilight Opal
+				{ 22, 36926 }, --  Shadow Crystal
+				{ 24, 36919 }, --  Cardinal Ruby
+				{ 25, 36918 }, --  Scarlet Ruby
+				{ 26, 36917 }, --  Bloodstone
+				{ 28, 36922 }, --  King's Amber
+				{ 29, 36921 }, --  Autumn's Glow
+				{ 30, 36920 }, --  Sun Crystal
+			}
+		},
+		{
 			name = AL["Misc"],
 			[NORMAL_DIFF] = {
 				{ 1, 62242 },	-- Icy Prism
+				{ 3, "i43297" },	-- Damaged Necklace
 				{ 16, 56208 },	-- Shadow Jade Focusing Lens
 				{ 17, 56206 },	-- Shadow Crystal Focusing Lens
 				{ 18, 56205 },	-- Dark Jade Focusing Lens
@@ -1785,16 +1862,18 @@ data["InscriptionWrath"] = {
 				{ 17, 56952 }, -- Glyph of Rake / 310
 				{ 18, 56957 }, -- Glyph of Shred / 260
 				{ 19, 64258 }, -- Glyph of Monsoon / 250
-				{ 20, 56956 }, -- Glyph of Rip / 200
-				{ 21, 56953 }, -- Glyph of Rebirth / 170
-				{ 22, 56948 }, -- Glyph of Insect Swarm / 150
-				{ 23, 56951 }, -- Glyph of Moonfire / 130
-				{ 24, 56945 }, -- Glyph of Healing Touch / 115
-				{ 25, 48121 }, -- Glyph of Entangling Roots / 100
-				{ 26, 67600 }, -- Glyph of Claw / 100
-				{ 27, 56961 }, -- Glyph of Maul / 90
-				{ 28, 56963 }, -- Glyph of Wrath / 85
-				{ 29, 56955 }, -- Glyph of Rejuvenation / 80
+				{ 20, 56959 }, -- Glyph of Starfire / 220
+				{ 21, 56956 }, -- Glyph of Rip / 200
+				{ 22, 56953 }, -- Glyph of Rebirth / 170
+				{ 23, 56948 }, -- Glyph of Insect Swarm / 150
+				{ 24, 56951 }, -- Glyph of Moonfire / 130
+				{ 25, 56945 }, -- Glyph of Healing Touch / 115
+				{ 26, 48121 }, -- Glyph of Entangling Roots / 100
+				{ 27, 67600 }, -- Glyph of Claw / 100
+				{ 28, 56961 }, -- Glyph of Maul / 90
+				{ 29, 56963 }, -- Glyph of Wrath / 85
+				{ 30, 56955 }, -- Glyph of Rejuvenation / 80
+
 			},
 			[MINOR_GLYPHS_DIFF] = {
 				{ 1, 58288 }, -- Glyph of Unburdened Rebirth / 105
@@ -1827,10 +1906,24 @@ data["InscriptionWrath"] = {
 			}
 		},
 		{
+			name = AL["Enhancements"],
+			[NORMAL_DIFF] = {
+				{ 1, 61117 },	-- Master's Inscription of the Axe
+				{ 2, 61119 },	-- Master's Inscription of the Pinnacle
+				{ 16, 61120 },	-- Master's Inscription of the Storm
+				{ 17, 61118 },	-- Master's Inscription of the Crag
+			},
+		},
+		{
 			name = AL["Misc"],
 			[NORMAL_DIFF] = {
 				{ 1, 59387 },	-- Certificate of Ownership
-				{ 16, 52739 },	-- Armor Vellum
+				{ 3, 52739 },	-- Armor Vellum
+				{ 4, 59499 },	-- Armor Vellum II
+				{ 5, 59500 },	-- Armor Vellum III
+				{ 18, 52840 },	-- Weapon Vellum
+				{ 19, 59488 },	-- Weapon Vellum II
+				{ 20, 59501 },	-- Weapon Vellum III
 			}
 		},
 	}
@@ -1938,6 +2031,16 @@ data["CookingWrath"] = {
 			},
 		},
 		{
+			name = ALIL["Spell Power"],
+			[NORMAL_DIFF] = {
+				{ 1, 45550 },	-- Shoveltusk Steak
+				{ 2, 45564 },	-- Smoked Salmon
+				{ 16, 45556 },	-- Tender Shoveltusk Steak
+				{ 17, 45568 },	-- Firecracker Salmon
+			},
+		},
+
+		{
 			name = ALIL["Attack Power"].." + "..ALIL["Spell Power"],
 			[NORMAL_DIFF] = {
 				{ 1, 58065 },	-- Dalaran Clam Chowder
@@ -1968,7 +2071,9 @@ data["CookingWrath"] = {
 			name = AL["Feast"],
 			[NORMAL_DIFF] = {
 				{ 1, 45554 },	-- Great Feast
+				{ 3, 58528 },   -- Small Feast
 				{ 16, 57423 },	-- Fish Feast
+				{ 18, 58527 },  -- Gigantic Feast
 			},
 		},
 		{
@@ -1993,7 +2098,11 @@ data["CookingWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 57438 },	-- Blackened Worg Steak
 				{ 2, 57443 },	-- Tracker Snacks
+				{ 4, 58523 },   -- Bad Clams
+				{ 5, 58521 },   -- Last Week's Mammoth
 				{ 16, 57435 },	-- Critter Bites
+				{ 19, 58525 },  -- Haunted Herring
+				{ 20, 58512 },  -- Tasty Cupcake
 			},
 		},
 	}
@@ -2011,6 +2120,74 @@ data["FirstAidWrath"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 45546 },	-- Heavy Frostweave Bandage
 				{ 2, 45545 },	-- Frostweave Bandage
+			}
+		},
+	}
+}
+
+data["FishingWrath"] = {
+	name = ALIL["Fishing"],
+	ContentType = PROF_SEC_CONTENT,
+	LoadDifficulty = NORMAL_DIFF,
+	TableType = NORMAL_ITTYPE,
+	CorrespondingFields = private.FISHING_LINK,
+	items = {
+		{
+			name = ALIL["Fishing"],
+			[NORMAL_DIFF] = {
+				{ 1, 6533 }, --  Aquadynamic Fish Attractor
+				{ 2, 34861 }, -- Sharpened Fish Hook
+				{ 3, 46006 }, -- Glow Worm
+				{ 4, 6532 }, --  Bright Baubles
+				{ 5, 7307 }, --  Flesh Eating Worm
+				{ 6, 6811 }, --  Aquadynamic Fish Lens
+				{ 7, 6530 }, --  Nightcrawlers
+				{ 16, 34109 }, -- Weather-Beaten Journal
+				{ 18, 19971 }, -- High Test Eternium Fishing Line
+				{ 19, 34836 }, -- Spun Truesilver Fishing Line
+				{ 27, 27532 }, -- Master Fishing - The Art of Angling
+				{ 28, 16082 }, -- Artisan Fishing - The Way of the Lure
+				{ 29, 16083 }, -- Expert Fishing - The Bass and You
+				{ 30, 46054 }, -- Journeyman Fishing - Fishing for Dummies
+			}
+		},
+		{
+			name = ALIL["Fishing Pole"],
+			[NORMAL_DIFF] = {
+				{ 1, 19970 }, -- Arcanite Fishing Pole
+				{ 2, 44050 }, -- Mastercraft Kalu'ak Fishing Pole
+				{ 3, 45992 }, -- Jeweled Fishing Pole
+				{ 4, 45991 }, -- Bone Fishing Pole
+				{ 5, 45858 }, -- Nat's Lucky Fishing Pole
+				{ 6, 19022 }, -- Nat Pagle's Extreme Angler FC-5000
+				{ 7, 25978 }, -- Seth's Graphite Fishing Pole
+				{ 8, 6367 }, -- Big Iron Fishing Pole
+				{ 9, 6366 }, -- Darkwood Fishing Pole
+				{ 10, 6365 }, -- Strong Fishing Pole
+				{ 11, 12225 }, -- Blump Family Fishing Pole
+				{ 12, 6256 }, -- Fishing Pole
+				{ 13, 45120 }, -- Basic Fishing Pole
+			}
+		},
+		{
+			name = AL["Fishes"],
+			[NORMAL_DIFF] = {
+				{ 1, 43572 }, -- Magic Eater
+				{ 2, 43571 }, -- Sewer Carp
+				{ 3, 43647 }, -- Shimmering Minnow
+				{ 4, 43652 }, -- Slippery Eel
+				{ 5, 43646 }, -- Fountain Goldfish
+				{ 6, 41812 }, -- Barrelhead Goby
+				{ 7, 41808 }, -- Bonescale Snapper
+				{ 8, 41805 }, -- Borean Man O' War
+				{ 9, 41807 }, -- Dragonfin Angelfish
+				{ 10, 41810 }, -- Fangtooth Herring
+				{ 11, 41809 }, -- Glacial Salmon
+				{ 12, 41802 }, -- Imperial Manta Ray
+				{ 13, 41806 }, -- Musselback Sculpin
+				{ 14, 41813 }, -- Nettlefish
+				{ 15, 41803 }, -- Rockfin Grouper
+				{ 16, 45907 }, -- Mostly-eaten Bonescale Snapper :D
 			}
 		},
 	}

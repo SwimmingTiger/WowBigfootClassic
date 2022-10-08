@@ -43,7 +43,9 @@ frame:HookScript("OnShow", function(self)
 
             local totems = {}
             for element = 1,4 do
-                totems[element] = TotemTimers.ElementColors[element]:WrapTextInColorCode(SpellNames[set[element]])
+                if set[element] then
+                    totems[element] = TotemTimers.ElementColors[element]:WrapTextInColorCode(SpellNames[set[element]])
+                end
             end
 
             table.insert(args, {

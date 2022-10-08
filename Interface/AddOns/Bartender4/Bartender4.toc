@@ -5,7 +5,7 @@
 ## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
 ## Notes-zhCN: |cff00ff00Bartender4|r
 ## Notes-zhTW: |cff00ff00Bartender4|r
-## Version: 4.11.5
+## Version: 4.12.0
 ## Author: Nevcairiel
 ## X-Email: h.leppkes at gmail dot com
 ## X-Category: Action Bars
@@ -26,6 +26,8 @@ locale\locale.xml
 
 ## Core ##
 Bartender4.lua
+HideBlizzard.lua
+HideBlizzardClassic.lua
 
 ## Prototypes ##
 Bar.lua
@@ -39,6 +41,7 @@ PetButton.lua
 ## Modules ##
 ActionBars.lua
 BagBar.lua
+BagBarClassic.lua
 PetBar.lua
 StanceBar.lua
 MicroMenu.lua
@@ -75,5 +78,9 @@ Options\XPBarClassic.lua
 
 Options\MultiCastBar.lua
 
+## XML
+ArtBarTemplates.xml
+
 ## Presets -- needs to be the last ##
 Options\Presets.lua
+Options\PresetsClassic.lua

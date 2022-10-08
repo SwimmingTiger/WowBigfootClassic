@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Tutenkash", "DBM-Party-Classic", 10)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220829192444")
+mod:SetRevision("20220923022829")
 mod:SetCreatureID(7355)
 --mod:SetEncounterID(585)
 
@@ -33,7 +33,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 12255 and self:CheckDispelFilter() then
+	if args.spellId == 12255 and self:CheckDispelFilter("curse") then
 		warningCurseofTut:Show(args.destName)
 	end
 end

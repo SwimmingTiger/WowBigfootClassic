@@ -112,6 +112,42 @@ local function HookInit()
 end
 AtlasLoot:AddInitFunc(HookInit)
 
+-- #############################
+-- Item ToolTip adds
+-- #############################
+local WHITE_TEXT = "|cffffffff%s|r"
+local TooltipCache = {}
+
+local function OnTooltipSetItem_Hook(self)
+    if self:IsForbidden() or not AtlasLoot.db.showTooltipInfoGlobal then return end
+    local _, item = self:GetItem()
+    if not item then return end
+	if not TooltipCache[item] then
+        TooltipCache[item] = tonumber(strmatch(item, "item:(%d+)"))
+    end
+
+    item = TooltipCache[item]
+
+    if item then
+		if AtlasLoot.db.showCompanionLearnedInfo and AtlasLoot.Data.Companion.IsCompanion(item) then
+			self:AddDoubleLine(AtlasLoot.Data.Companion.GetTypeName(item), AtlasLoot.Data.Companion.GetCollectedString(item))
+		end
+		if AtlasLoot.db.showIDsInTT then
+			self:AddDoubleLine(AL["ItemID:"], format(WHITE_TEXT, item))
+		end
+		if AtlasLoot.db.showItemLvlInTT then
+			local itemName, itemLink, itemQuality, itemLevel = GetItemInfo(item)
+			if itemLevel and itemLevel > 0 then
+				self:AddDoubleLine(AL["Item level:"], format(WHITE_TEXT, itemLevel))
+			end
+		end
+    end
+end
+Tooltip:AddHookFunction("OnTooltipSetItem", OnTooltipSetItem_Hook)
+
+-- #############################
+-- Own things
+-- #############################
 local PLAYER_GUID_REGISTER = {
 	--["Player-4463-003F795C"] = format(GOLD, "AtlasLoot Author"),
 	--["Player-4466-015209F9"] = format(GOLD, "AtlasLoot Author"),
@@ -135,6 +171,8 @@ local PLAYER_GUID_REGISTER = {
 	["Player-4440-025D610F"] = format("|T135349:0|t "..COLOR, "AtlasLoot Friend"), -- Tassy
 	["Player-4811-036E6228"] = format("|T135349:0|t "..COLOR, "AtlasLoot Friend"), -- Bal / Turana
 	["Player-4811-036A6EAE"] = format("|T135349:0|t "..COLOR, "AtlasLoot Friend"), -- Ref / Sinon
+	["Player-4453-045E4E4D"] = format("|T135349:0|t "..COLOR, "AtlasLoot Friend"), -- Max
+	["Player-4440-0376FFAC"] = format("|T135349:0|t "..COLOR, "AtlasLoot Friend"), -- Balendil / Nekarra
 }
 
 local function AddText(self)

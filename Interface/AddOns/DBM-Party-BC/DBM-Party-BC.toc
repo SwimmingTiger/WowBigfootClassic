@@ -1,8 +1,9 @@
 ## Interface: 30400
 ## X-Min-Interface: 20501
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Dungeons (BC)|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0隊伍首領-燃燒的遠征|r
-## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0队伍首领-燃烧的远征|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 地下城-燃燒的遠征
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 地下城-燃烧的远征
+## Notes:|cff00ff00DBM-Party-BC|r
 ## Author: Arta/MysticalOS
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -16,8 +17,8 @@
 ## X-DBM-Mod-SubCategories-zhTW: 地獄火壁壘,血熔爐,破碎大廳,奴隸監獄,深幽泥沼,蒸汽洞窟,奧奇奈地穴,法力墓地,塞司克大廳,暗影迷宮,逃離敦霍爾德,開啟黑暗之門,麥克納爾,波塔尼卡,亞克崔茲,博學者殿堂
 ## X-DBM-Mod-SubCategories-zhCN: 地狱火堡垒,鲜血熔炉,破碎大厅,奴隶围栏,幽暗沼泽,蒸汽地窖,奥金尼地穴,法力陵墓,赛泰克大厅,暗影迷宮,逃离敦霍尔德,开启黑暗之门,能源舰,生态船,禁魔监狱,博学者殿堂
 ## X-DBM-Mod-Name: Dungeons (BC)
-## X-DBM-Mod-Name-zhTW: 隊伍首領 (燃燒的遠征)
-## X-DBM-Mod-Name-zhCN: 队伍首领 (燃烧的远征)
+## X-DBM-Mod-Name-zhTW: 地下城 (燃燒的遠征)
+## X-DBM-Mod-Name-zhCN: 地下城 (燃烧的远征)
 ## X-DBM-Mod-Sort: 1015
 ## X-DBM-Mod-MapID: 540,558,556,555,542,546,545,547,553,554,552,557,269,560,543,585
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
@@ -25,6 +26,7 @@
 ## X-Revision: BigFoot
 
 localization.en.lua
+localization.cn.lua
 localization.tw.lua
 
 Hellfire_Ramp\Gargolmar.lua

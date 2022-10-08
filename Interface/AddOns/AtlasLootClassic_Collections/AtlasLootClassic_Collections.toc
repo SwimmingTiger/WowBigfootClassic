@@ -1,6 +1,6 @@
 ﻿## Interface: 30400
 ## Author: Lag
-## Version: v3.0.0-beta2
+## Version: v3.0.2
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFF0099FF[Collections]|r
@@ -10,10 +10,12 @@
 ## Notes-zhCN: 收藏物品资料库。
 ## Notes-zhTW: 收藏物品資料庫。
 ## X-Category: Map
-## X-License: GPL v2
 ## X-AtlasLootClassic-LootModule: 1
 ## X-Revision: BigFoot
 
 Locales\Locales.xml
 
+private.lua
 data.lua
+data-tbc.lua
+data-wrath.lua

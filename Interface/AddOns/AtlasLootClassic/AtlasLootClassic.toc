@@ -1,6 +1,6 @@
 ﻿## Interface: 30400
 ## Author: Lag
-## Version: v3.0.0-beta2
+## Version: v3.0.5
 ## SavedVariables: AtlasLootClassicDB
 ## Title: AtlasLootClassic |cFF22B14C[Core]|r
 ## Notes: Shows the possible loot from the bosses
@@ -10,8 +10,6 @@
 ## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等資訊。
 ## X-Credits: Daviesh, Lag, Arith, Cellelach, Asurn, Pernicus, Dynaletik and many others
 ## X-Category: Map
-## X-License: GPL v2
-## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 ## X-Curse-Project-ID: 326516
 ## X-WoWI-ID: 25185
 ## X-Wago-ID: RXKqzoGy
@@ -44,7 +42,7 @@ MiniMapButton.lua
 Data\Token.lua
 Data\Profession.lua
 Data\Recipe.lua
-Data\Mount.lua
+Data\Companion.lua
 Data\ContentPhase.lua
 Data\Droprate.lua
 Data\AutoSelect.lua

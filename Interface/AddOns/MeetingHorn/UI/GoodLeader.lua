@@ -11,6 +11,8 @@ function GoodLeader:Constructor(p)
 
     local function CreateInstance(i)
         local frame = CreateFrame('Frame', nil, self.Result.Raids, 'GoodLeaderRaidTemplate')
+        -- local font, size = frame.Count:GetFont()
+        -- frame.Count:SetFont(font, size, 'OUTLINE')
         self.instances[i] = frame
         return frame
     end
@@ -21,8 +23,13 @@ function GoodLeader:Constructor(p)
             local button = self.instances[index] or CreateInstance(index)
 
             button.Name:SetText(C_Map.GetAreaInfo(v.mapId) .. (v.name and '-' .. v.name or ''))
-            button.Image:SetTexture([[interface\encounterjournal\ui-ej-dungeonbutton-]] .. v.image)
+            if type(v.image) == 'string' then
+                button.Image:SetTexture([[interface\encounterjournal\ui-ej-dungeonbutton-]] .. v.image)
+            else
+                button.Image:SetTexture(v.image)
+            end
             button.bossId = v.bossId
+            button.difficulties = v.difficulties
             index = index + 1
         end
     end
@@ -61,7 +68,7 @@ function GoodLeader:Constructor(p)
     end)
 
     self.Result.Raids:SetScript('OnSizeChanged', function()
-        local spacing = 20
+        local spacing = 10
         local parentWidth = self.Result.Raids:GetWidth() - spacing * 2
         local width = parentWidth
         local x = 0
@@ -92,9 +99,12 @@ function GoodLeader:Constructor(p)
         self.Result.Raids:SetHeight((y + 1) * (buttonHeight + spacing) + 60)
     end)
 
-    local ApplyLeaderBtn = self.First.Header.ApplyLeaderBtn
-    ApplyLeaderBtn:SetText(L['申请星团长'])
-    ns.ApplyLeaderBtnClick(ApplyLeaderBtn)
+    ns.ApplyImageButton(self.First.Header.ApplyLeaderBtn, {
+        text = '申请星团长',
+        summary = '微信扫码 申请星团长',
+        texture = [[Interface/AddOns/MeetingHorn/Media/ApplyLeaderQR]],
+        points = {'BOTTOMLEFT', self.First.Header.ApplyLeaderBtn, 'BOTTOMRIGHT', 5, -25},
+    })
 
     self:SetScript('OnShow', self.OnShow)
     self:RegisterEvent('GROUP_ROSTER_UPDATE')
@@ -137,13 +147,17 @@ end
 
 function GoodLeader:UpdateButton()
     if ns.GoodLeader:IsServerLogon() then
+        -- @non-debug@
         if IsInRaid() or IsInGroup(LE_PARTY_CATEGORY_HOME) then
+            -- @end-non-debug@
             self.First.Header.Search:Enable()
             self.First.Header.Search:SetText(L['查询团长信息'])
+            -- @non-debug@
         else
             self.First.Header.Search:Disable()
             self.First.Header.Search:SetText(L['进入团队后查询'])
         end
+        -- @end-non-debug@
     else
         self.First.Header.Search:Disable()
         self.First.Header.Search:SetText(L['正在初始化'])
@@ -160,25 +174,42 @@ end
 
 function GoodLeader:GOODLEADER_LEADERINFO_UPDATE()
     local name, guid = ns.GetGroupLeader()
-    local user = ns.GoodLeader:GetUserCache(name)
+    local user = ns.GoodLeader:GetUserCache(guid)
 
     self.name = name
 
     local raids = user.raids
+    if not raids then
+        return
+    end
 
     for _, button in ipairs(self.instances) do
         if button then
-            button.Count:SetText(raids and raids[button.bossId] or 0)
+            -- button.Count:SetText(raids and raids[button.bossId] or 0)
+            local bossData = raids[button.bossId]
+            local sb = {}
+
+            for _, difficulty in ipairs(button.difficulties) do
+                local count = bossData and bossData[difficulty] or 0
+
+                if count > 0 then
+                    count = format('|cffffd100%d|r', count)
+                end
+
+                table.insert(sb, format('%s: %s次', GetDifficultyInfo(difficulty), count))
+            end
+
+            button.Count:SetText(table.concat(sb, '\n'))
         end
     end
 
-    if not user.itemPercent then
-        self.Result.Info.ItemLevel:SetFormattedText(
-            L['|cff808080物品等级：|r当前团长未安装星团长插件，需要自行查看。'])
-    else
-        self.Result.Info.ItemLevel:SetFormattedText(
-            L['|cff808080物品等级：|r当前团长的装备超过|cffffd100%s%%|r的玩家。'], user.itemPercent)
-    end
+    -- if not user.itemPercent then
+    --     self.Result.Info.ItemLevel:SetFormattedText(
+    --         L['|cff808080物品等级：|r当前团长未安装星团长插件，需要自行查看。'])
+    -- else
+    --     self.Result.Info.ItemLevel:SetFormattedText(
+    --         L['|cff808080物品等级：|r当前团长的装备超过|cffffd100%s%%|r的玩家。'], user.itemPercent)
+    -- end
 
     if user.guild then
         self.Result.Info.Guild:SetFormattedText(

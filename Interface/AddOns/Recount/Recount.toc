@@ -1,5 +1,5 @@
 ## Interface: 30400
-## Version: v2.5.3c
+## Version: v3.4.0a
 ## Title: Recount
 ## Title-zhCN: [大脚][集]伤害统计
 ## Title-zhTW: [大腳][集]傷害統計

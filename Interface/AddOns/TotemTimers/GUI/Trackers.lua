@@ -2,6 +2,8 @@ if select(2, UnitClass("player")) ~= "SHAMAN" then
     return
 end
 
+local _, TotemTimers = ...
+
 local SpellNames = TotemTimers.SpellNames
 local SpellIDs = TotemTimers.SpellIDs
 
@@ -296,7 +298,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             LeftButton = {
-                order = 2,
+                order = 10,
                 type = "select",
                 name = L["Leftclick"],
                 desc = L["EarthShieldOptionsDesc"],
@@ -316,7 +318,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             RightButton = {
-                order = 3,
+                order = 11,
                 type = "select",
                 name = L["Rightclick"],
                 desc = L["EarthShieldOptionsDesc"],
@@ -336,7 +338,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             MiddleButton = {
-                order = 4,
+                order = 12,
                 type = "select",
                 name = L["Middle Button"],
                 desc = L["EarthShieldOptionsDesc"],
@@ -356,7 +358,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             Button4 = {
-                order = 5,
+                order = 13,
                 type = "select",
                 name = L["Button 4"],
                 desc = L["EarthShieldOptionsDesc"],
@@ -376,7 +378,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             targetname = {
-                order = 10,
+                order = 3,
                 type = "toggle",
                 name = L["ES Target Name"],
                 set = function(info, val)
@@ -388,7 +390,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             chargesonly = {
-                order = 10,
+                order = 2,
                 type = "toggle",
                 name = L["ES Charges only"],
                 desc = L["ES Charges only desc"],
@@ -401,7 +403,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             maintankmenu = {
-                order = 11,
+                order = 4,
                 type = "toggle",
                 name = L["ES Main Tank Menu"],
                 desc = L["ES Main Tank Desc"],
@@ -414,7 +416,7 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
                 end,
             },
             menudirection = {
-                order = 12,
+                order = 20,
                 type = "select",
                 name = L["Menu Direction"],
                 values = function()
@@ -437,13 +439,28 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         },
     }
 
+    TotemTimers.options.args.trackers.args.individual.args.shield.args.EarthShieldOnSelf = {
+        order = 5,
+        type = "toggle",
+        name = format(L["Show %s on self"], SpellNames[SpellIDs.EarthShield]),
+        width = "full",
+        set = function(info, val)
+            TotemTimers.ActiveProfile.EarthShieldOnSelf = val
+            TotemTimers.ShieldEvent(TotemTimers.ShieldTracker.button, "UNIT_AURA", "player")
+        end,
+        get = function(info)
+            return TotemTimers.ActiveProfile.EarthShieldOnSelf
+        end,
+    }
+
     TotemTimers.options.args.trackers.args.individual.args.shield.args.LeftButton = {
-        order = 2,
+        order = 10,
         type = "select",
         name = L["Leftclick"],
         values = function()
             return { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
                      [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                     [SpellIDs.EarthShield] = SpellNames[SpellIDs.EarthShield],
                      [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
             }
         end,
@@ -458,11 +475,12 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
     }
 
     TotemTimers.options.args.trackers.args.individual.args.shield.args.RightButton = {
-        order = 3,
+        order = 11,
         type = "select",
         name = L["Rightclick"],
         values = { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
                    [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                   [SpellIDs.EarthShield] = SpellNames[SpellIDs.EarthShield],
                    [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
         },
         set = function(info, val)
@@ -476,16 +494,36 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
     }
 
     TotemTimers.options.args.trackers.args.individual.args.shield.args.MiddleButton = {
-        order = 4,
+        order = 12,
         type = "select",
         name = L["Middle Button"],
         values = { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
                    [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                   [SpellIDs.EarthShield] = SpellNames[SpellIDs.EarthShield],
                    [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
         },
         set = function(info, val)
             TotemTimers.ActiveProfile.ShieldMiddleButton = val
             TotemTimers.ProcessSetting("ShieldMiddleButton")
+            TotemTimers.UpdateSpellRanks()
+        end,
+        get = function(info)
+            return TotemTimers.GetBaseSpellID(TotemTimers.ActiveProfile.ShieldMiddleButton)
+        end,
+    }
+
+    TotemTimers.options.args.trackers.args.individual.args.shield.args.Button4 = {
+        order = 13,
+        type = "select",
+        name = L["Button 4"],
+        values = { [SpellIDs.LightningShield] = SpellNames[SpellIDs.LightningShield],
+                   [SpellIDs.WaterShield] = SpellNames[SpellIDs.WaterShield],
+                   [SpellIDs.EarthShield] = SpellNames[SpellIDs.EarthShield],
+                   [SpellIDs.TotemicCall] = SpellNames[SpellIDs.TotemicCall],
+        },
+        set = function(info, val)
+            TotemTimers.ActiveProfile.ShieldMiddleButton = val
+            TotemTimers.ProcessSetting("ShieldButton4")
             TotemTimers.UpdateSpellRanks()
         end,
         get = function(info)

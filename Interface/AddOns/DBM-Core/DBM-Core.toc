@@ -10,7 +10,7 @@
 ## SavedVariables: DBM_AllSavedOptions, DBM_MinimapIcon
 ## SavedVariablesPerCharacter: DBM_UsedProfile, DBM_UseDualProfile, DBM_CharSavedRevision
 ## Author: MysticalOS, QartemisT
-## Version: 99722e9
+## Version: 10690e0
 ## X-Website: https://deadlybossmods.com
 ## X-Revision: BigFoot
 
@@ -31,6 +31,7 @@ commonlocal.cn.lua
 # Pre-core modules
 modules\Modules.lua
 
+modules\SpecRole.lua
 modules\Scheduler.lua
 modules\DevTools.lua
 modules\Icons.lua
@@ -51,7 +52,6 @@ modules\Hyperlinks.lua
 modules\MinimapButton.lua
 modules\Notes.lua
 modules\Sounds.lua
-modules\SpecRole.lua
 modules\UpdateReminder.lua
 
 modules\objects\Localization.lua

@@ -1,231 +1,147 @@
-if select(2,UnitClass("player")) ~= "SHAMAN" then return end
+if select(2, UnitClass("player")) ~= "SHAMAN" then
+    return
+end
 
-local L = LibStub("AceLocale-3.0"):GetLocale("TotemTimers", true)
+local _, TotemTimers = ...
 
 local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 local SpellNames = TotemTimers.SpellNames
 local AvailableSpells = TotemTimers.AvailableSpells
-
+local LongCooldownSpells = TotemTimers.LongCooldownSpells
+local TextureToSpellID = TotemTimers.TextureToSpellID
+local NameToSpellID = TotemTimers.NameToSpellID
 
 local cds = {}
+TotemTimers.LongCooldowns = cds
 
-local player = UnitName("player")
-
-
--- spells: bloodlust, astral shift, spiritwalkers grace, ancestral guidance,
--- call of the elements, elemental mastery, ancestral swiftness, ascendance
-
-local CDEvent
-local BuffEvent
-local FeralSpiritEvent
-local FeralSpiritCDEvent
-
-
-local Ascendances = {SpellIDs.AscendanceElemental, SpellIDs.AscendanceEnhancement, SpellIDs.AscendanceRestoration}
-
-local function ConfigureTimer(nr, spell, altcdspell)
-	cds[nr].cdspell = spell
-	cds[nr].altcdspell = altcdspell
-	cds[nr].durationTimer.buffSpell = spell
-	cds[nr].button.icon:SetTexture(SpellTextures[spell])
-	cds[nr].durationTimer.button.icon:SetTexture(SpellTextures[spell])
-	cds[nr].durationTimer.button.buffSpellName = SpellNames[spell]
-	cds[nr].durationTimer.button.cooldown:SetAlpha(0.6)
-	cds[nr].button:SetAttribute("*type*", "spell")
-	if altcdspell then
-		spell = GetSpellInfo(altcdspell)
-	end
-	cds[nr].button:SetAttribute("*spell1", spell)	
+local function ConfigureTimer(timer, data)
+    timer.spell = data.spell
+    timer.buff = data.buff
+    timer.totem = data.totem
+    timer.element = data.element
+    timer.customOnEvent = nil
+    if data.customOnEvent then
+        timer.customOnEvent = TotemTimers[data.customOnEvent]
+    end
+    timer.events[1] = "SPELL_UPDATE_COOLDOWN"
+    timer.playerEvents = {}
+    if timer.buff then
+        timer.playerEvents[1] = "UNIT_AURA"
+    end
+    if timer.totem then
+        table.insert(timer.events, "PLAYER_TOTEM_UPDATE")
+    end
+    timer.button:SetAttribute("spell1", timer.spell)
+    timer.button.icon:SetTexture(SpellTextures[timer.spell])
 end
-
 
 function TotemTimers.CreateLongCooldowns()
 
-	for i = 1,8 do
-		cds[i] = XiTimers:new(1)
-		cds[i].durationTimer = XiTimers:new(1, true)
-		cds[i].durationTimer.cdTimer = cds[i]
-		cds[i].durationTimer.button:SetParent(cds[i].button)
-		cds[i].durationTimer.button:EnableMouse(false)
-		cds[i].button.anchorframe = TotemTimers_LongCooldownsFrame
-		cds[i].durationTimer.hideInactive = true
-		cds[i].durationTimer:SetPoint("CENTER", cds[i], "CENTER")
-		
-		cds[i].SetWidth = function(self, width)
-			XiTimers.SetWidth(self, width)
-			self.durationTimer:SetWidth(width)
-		end
-		cds[i].SetHeight = function(self, height)
-			XiTimers.SetHeight(self, height)
-			self.durationTimer:SetHeight(height)
-		end
-		cds[i].durationTimer:SetScale(2)
-		cds[i].durationTimer.button:SetFrameStrata("BACKGROUND")
-		
-		cds[i].button:SetScript("OnEvent", CDEvent)
-		cds[i].durationTimer.button:SetScript("OnEvent", BuffEvent)
-		
-		cds[i].durationTimer.maxAlpha = 0.2
-		
-		cds[i].button:RegisterForClicks("LeftButtonDown", "RightButtonDown", "MiddleButtonDown")
-		
-		cds[i].events[1] = "SPELL_UPDATE_COOLDOWN"
-		
-		cds[i].durationTimer.Activate = function(self)
-			self.button:RegisterUnitEvent("UNIT_AURA", "player")
-			XiTimers.Activate(self)
-		end
-		
-		cds[i].durationTimer.Deactivate = function(self)
-			self.button:UnregisterEvent("UNIT_AURA")
-			XiTimers.Deactivate(self)
-		end
-		
-		cds[i].durationTimer.showCooldown = true
-		cds[i].durationTimer.hideTime = true
-		cds[i].durationTimer.dontFlash = true
-		
-		cds[i].SetScale = function(self, scale)
-			XiTimers.SetScale(self, scale)
-			self.durationTimer:SetScale(scale*2)
-		end
-		
-	end
-	TotemTimers.LongCooldowns = cds
-	
-	if UnitFactionGroup("player") == "Alliance" then
-		ConfigureTimer(1, SpellIDs.Heroism)
-	else
-		ConfigureTimer(1, SpellIDs.Bloodlust)
-	end
-	ConfigureTimer(3, SpellIDs.SpiritwalkersGrace)
-	ConfigureTimer(7, SpellIDs.AstralShift)
-	ConfigureTimer(4, SpellIDs.AncestralGuidance)
-	ConfigureTimer(5, SpellIDs.CallOfElements)
-	ConfigureTimer(6, SpellIDs.ElementalMastery)
-	ConfigureTimer(2, SpellIDs.Ascendance)
-	ConfigureTimer(8, SpellIDs.FeralSpirit)
-	
+    for _, data in pairs(LongCooldownSpells) do
+        local timer = XiTimers:new(1)
+        table.insert(cds, timer)
 
-	cds[8].durationTimer.button:SetScript("OnEvent", FeralSpiritEvent)
-	cds[8].Update = FeralSpiritUpdate
-	cds[8].durationTimer.Activate = function(self)
-		self.button:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-		XiTimers.Activate(self)
-	end
-	cds[8].durationTimer.Deactivate = function(self)
-		self.button:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-		XiTimers.Deactivate(self)
-	end
-	
-	-- T15 Elemental 4pc, check Ascendance CD after every spellcast
-	cds[2].durationTimer.Activate = function(self)
-		self.button:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", "player")
-		XiTimers.Activate(self)
-	end
-	cds[2].durationTimer.Deactivate = function(self)
-		self.button:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-		XiTimers.Deactivate(self)
-	end
-	
-end
+        timer.button:SetScript("OnEvent", XiTimers.TimerEvent)
+        timer.button:RegisterForClicks("LeftButtonDown")
+        timer.button:SetAttribute("*type*", "spell")
+        timer.button.tooltip = TotemTimers.Tooltips.Spell:new(timer.button)
+        timer.button.anchorframe = TotemTimers_LongCooldownsFrame
 
+        timer.alpha = 0.7
+        timer:SetReverseAlpha(true)
 
-function TotemTimers.ActivateLongCooldowns(activate)
-	TotemTimers.ActiveProfile.LongCooldownSpells[SpellIDs.Heroism] = TotemTimers.ActiveProfile.LongCooldownSpells[SpellIDs.Bloodlust] --workaround for heroism
-	for i = 1,8 do
-			cds[i]:Deactivate()
-			cds[i].durationTimer:Deactivate()
-	end
-	if AvailableSpells[SpellIDs.ElementalMastery] then ConfigureTimer(6, SpellIDs.ElementalMastery) else ConfigureTimer(6, SpellIDs.AncestralSwiftness) end
-	local role = GetSpecialization()
-	ConfigureTimer(2, SpellIDs.Ascendance, Ascendances[role])
-		
-	if activate then
-		for i = 1,8 do
-			if TotemTimers.ActiveProfile.LongCooldownSpells[cds[i].cdspell] and AvailableSpells[cds[i].cdspell] then
-				cds[i]:Activate()
-				cds[i].durationTimer:Activate()
-			end
-		end
-	end
-	TotemTimers.LayoutLongCooldowns()
-end
+        ConfigureTimer(timer, data)
 
-local activecds = {}
-function TotemTimers.LayoutLongCooldowns()
-	wipe(activecds)
-	for i = 1,#cds do
-		cds[i]:ClearAnchors()
-	end
-	local point1, point2
-	if TotemTimers.ActiveProfile.LongCooldownsArrange ~= "vertical" then
-		point1 = "LEFT"
-		point2 = "RIGHT"
-	else
-		point1 = "TOP"
-		point2 = "BOTTOM"
-	end
-	for i=1,#cds do
-		if cds[i].active then tinsert(activecds,cds[i]) end
-	end
-	if #activecds > 0 then
-		activecds[1]:SetPoint("CENTER", TotemTimers_LongCooldownsFrame, "CENTER")
-	end
-	for i = 2,#activecds do
-		activecds[i]:Anchor(activecds[i-1], point1, point2)
-	end
-end
-
-CDEvent = function(self, event, unit, spell) 
-	local spell = self.timer.cdspell
-	if (self.timer.altcdspell) then spell = self.timer.altcdspell end
-	local start, duration, enable = GetSpellCooldown(spell)
-	if (not start and not duration) or (duration <= 1.5 and not InCombatLockdown()) then
-		self.timer:Stop(1)					
-	else
-		if duration == 0 then
-			self.timer:Stop(1)
-		elseif duration > 2 and self.timer.timers[1]<=0 then
-			self.timer:Start(1,start+duration-GetTime(),duration)
-		end
-		CooldownFrame_Set(self.cooldown, start, duration, enable)
-	end 
-end
-
-BuffEvent = function(self, event)
-	local name,_,_,count,_,duration,expiration = UnitBuff("player", self.buffSpellName)
-	if duration and duration > 0 then
-		self.timer:Start(1, expiration-GetTime(), duration)
-	elseif self.timer.timers[1] > 0 then
-		self.timer:Stop(1)
-		--self.timer.cdTimer.button:CDEvent()
-	end
-end
-
-local FeralSpiritName = SpellNames[SpellIDs.FeralSpirit]
-
-FeralSpiritEvent = function(self,event,unit, spell)
-    if spell == FeralSpiritName then
-        self.timer:Start(1,30)
+        timer.Activate = function(self)
+            XiTimers.Activate(self)
+            XiTimers.TimerEvent(timer.button, "SPELL_UPDATE_COOLDOWN")
+            XiTimers.TimerEvent(timer.button, "UNIT_AURA")
+            XiTimers.TimerEvent(timer.button, "PLAYER_TOTEM_UPDATE", timer.element)
+        end
     end
 end
 
-local updates = 0
-FeralSpiritUpdate = function(self, elapsed) 
-	if self.timers[1] > 0 then
-		updates = updates + 1
-		if updates > 5 then
-			updates = 0
-			local start, duration, enable = GetSpellCooldown(SpellIDs.FeralSpirit)
-			if (start and duration) then
-				self.timers[1] = start+duration-GetTime()
-			end
-			XiTimers.Update(self, 0)
-		else
-			XiTimers.Update(self, elapsed)
-		end
-	end	
+table.insert(TotemTimers.Modules, TotemTimers.CreateLongCooldowns)
+
+function TotemTimers.ActivateLongCooldowns(activate)
+    if activate then
+        for _, timer in pairs(cds) do
+            if AvailableSpells[timer.spell]
+                    and (TotemTimers.ActiveProfile.LongCooldownSpells[timer.spell]
+                    or TotemTimers.ActiveProfile.LongCooldownSpells[timer.spell] == nil)
+            then
+                timer:Activate()
+            else
+                timer:Deactivate()
+            end
+        end
+        TotemTimers.LayoutLongCooldowns()
+    else
+        for _, timer in pairs(cds) do
+            timer:Deactivate()
+        end
+    end
 end
+
+function TotemTimers.LayoutLongCooldowns()
+    local point1, point2
+    if TotemTimers.ActiveProfile.LongCooldownsArrange ~= "vertical" then
+        point1 = "LEFT"
+        point2 = "RIGHT"
+    else
+        point1 = "TOP"
+        point2 = "BOTTOM"
+    end
+
+    local lastTimer = nil
+    local first = true
+
+    for _, timer in pairs(cds) do
+        timer:ClearAnchors()
+        if timer.active then
+            if first then
+                timer:SetPoint("CENTER", TotemTimers_LongCooldownsFrame, "CENTER")
+                first = false
+            else
+                timer:Anchor(lastTimer, point1, point2)
+            end
+            lastTimer = timer
+        end
+    end
+end
+
+function TotemTimers.FeralSpiritEvent(self, event, ...)
+    if  event == "SPELL_UPDATE_COOLDOWN" or event == "ACTIONBAR_UPDATE_COOLDOWN" then
+        if (UnitExists("pet")) then
+            local start = GetSpellCooldown(self.timer.spell)
+            if start then
+                self.timer:StartBarTimer(start + 45 - GetTime(), 45)
+            end
+        else
+            self.timer:StopBarTimer()
+        end
+    end
+end
+
+function TotemTimers.CDTotemEvent(self, event, ...)
+    if event == "PLAYER_TOTEM_UPDATE" then
+        local element = ...
+
+        if self.timer.element == element then
+            local _, totemName, start, duration, icon = GetTotemInfo(element)
+            local totem = TextureToSpellID[icon]
+            if not totem then
+                totemName = string.gsub(totemName, "[IV]*$", "") -- strip spell rank from name
+                totem = NameToSpellID[totemName]
+            end
+            if totem == self.timer.spell and duration > 0 then
+                self.timer:StartBarTimer(start + duration - GetTime(), duration)
+            else
+                self.timer:StopBarTimer()
+            end
+        end
+    end
+end
+
 

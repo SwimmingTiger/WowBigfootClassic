@@ -218,7 +218,7 @@ local function toggleBag(bag,configBank,configBackPack)
 			end
 		end
 	elseif configBackPack == 1 then  --integrate for backpack only
-		if bag == -1 or bag > 4 then
+		if bag == -1 or bag == KEYRING_CONTAINER or bag > 4 then
 			ToggleBag_ORIG(bag)
 		else
 			Combuctor:Toggle(bag)

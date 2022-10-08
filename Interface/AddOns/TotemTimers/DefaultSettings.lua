@@ -1,5 +1,7 @@
 if select(2,UnitClass("player")) ~= "SHAMAN" then return end
 
+local _, TotemTimers = ...
+
 local SpellIDs = TotemTimers.SpellIDs
 local SpellNames = TotemTimers.SpellNames
 local Version = 11.3
@@ -77,6 +79,7 @@ TotemTimers.DefaultProfile = {
         MacroReset = 15,
         TwistingTimer = false,
         MultiCast = true,
+        DisabledMultiSpells = {},
         
     --Trackers
         TrackerArrange = "horizontal",
@@ -91,21 +94,23 @@ TotemTimers.DefaultProfile = {
         WeaponTracker = true,
         WeaponBarDirection = "auto",
         WeaponMenuOnRightclick = false,
-        LastWeaponEnchant = TotemTimers.SpellNames[TotemTimers.SpellIDs.RockbiterWeapon],
+        LastWeaponEnchant = TotemTimers.SpellIDs.RockbiterWeapon,
         EarthShieldTracker = true,
         EarthShieldLeftButton = "recast", 
         EarthShieldRightButton = "target",
         EarthShieldMiddleButton = "targettarget",
         EarthShieldButton4 = "player",
-        ShieldLeftButton = TotemTimers.SpellNames[TotemTimers.SpellIDs.LightningShield],
-        ShieldRightButton = TotemTimers.SpellNames[TotemTimers.SpellIDs.WaterShield],
-        ShieldMiddleButton = TotemTimers.SpellNames[TotemTimers.SpellIDs.TotemicCall],
+        ShieldLeftButton = SpellIDs.LightningShield,
+        ShieldRightButton = SpellIDs.WaterShield,
+        ShieldMiddleButton = SpellIDs.TotemicCall,
+        ShieldButton4 = SpellIDs.EarthShield,
         EarthShieldTargetName = true,
         ESMainTankMenu = true,
         ESMainTankMenuDirection = "auto",
         ESChargesOnly = false,
         Tracker_Clickthrough = false,
         ShieldChargesOnly = true,
+        EarthShieldOnSelf = false,
 
         
     --Warnings
@@ -294,25 +299,24 @@ TotemTimers.DefaultProfile = {
         FlameShockDurationOnTop = false,
         EnhanceCDsClickthrough = false,
         EnhanceCDsFlameShockDuration = true,
+        EnhanceCDsFlameShockDuration_Specialization = {true, true, true},
+        FlameShockDurationSize = 2,
+        FlameShockDurationStopPulse = false,
+        EnhanceCDsMaelstrom = true,
+        MaelstromSize = 2,
+        MaelstromStopPulse = false,
+        MaelstromNumberOnly = false,
         EnhanceCDsTotemTwisting = true,
+
 
         WindfuryDownrank = false,
 		
 		
-		-- LongCooldowns = true,
-		--[[ LongCooldownSpells = {
-			[SpellIDs.Bloodlust] = true,
-			[SpellIDs.Heroism] = true,
-			[SpellIDs.AstralShift] = true,
-			[SpellIDs.SpiritwalkersGrace] = true,
-			[SpellIDs.AncestralGuidance] = true,
-			[SpellIDs.CallOfElements] = true,
-			[SpellIDs.ElementalMastery] = true,
-			[SpellIDs.AncestralSwiftness] = true,
-			[SpellIDs.Ascendance] = true,
-			[SpellIDs.FeralSpirit] = true,
-		}, ]]
+		LongCooldowns = true,
+        LongCooldownSpells = {},
 		LongCooldownsArrange = "horizontal",
+        LongCooldownsStopPulse = false,
+
 		CooldownSpacing = 5,
     
         FramePositions = {
@@ -400,10 +404,10 @@ end
 
 function TotemTimers.SelectActiveProfile()
     local player = UnitName("player")
-    local specialization -- = GetSpecialization()
+    local specialization = TotemTimers.Specialization -- = GetSpecialization()
     if not specialization then specialization = 2 end
     local _,instance = IsInInstance()
-	if not instance then instance = "party" end
+	if not instance then instance = "none" end
     TotemTimers.ActiveProfile = TotemTimers_Profiles[TotemTimers_GlobalSettings.Profiles[player][specialization][instance]] or TotemTimers_Profiles.default
 end
 

@@ -29,7 +29,7 @@ function TotemTimers.CreateShieldTracker()
     end
     shield.button:SetAttribute("*type*", "spell")
     shield.button:SetAttribute("*unit*", "player")
-    shield.button:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
+    shield.button:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp", "Button4")
 
     if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         shield.button:SetAttribute("*spell1", SpellIDs.LightningShield)
@@ -56,9 +56,15 @@ table.insert(TotemTimers.Modules, TotemTimers.CreateShieldTracker)
 
 local ShieldChargesOnly = false
 
+
 local ShieldSpellNames = {}
 for k,v in pairs(TotemTimers.ShieldSpells) do
     ShieldSpellNames[SpellNames[v]] = true
+end
+
+local EarthShieldName = nil
+if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
+    EarthShieldName = SpellNames[SpellIDs.EarthShield]
 end
 
 function TotemTimers.ShieldEvent(self, event, unit)
@@ -73,7 +79,8 @@ function TotemTimers.ShieldEvent(self, event, unit)
         local hasBuff = false
         for i = 1, 40 do
             name, texture, count, _, duration, endtime = UnitBuff("player", i)
-            if ShieldSpellNames[name] then
+            if not name then break end
+            if ShieldSpellNames[name] and (name ~= EarthShieldName or TotemTimers.ActiveProfile.EarthShieldOnSelf) then
                 hasBuff = true
                 local timeleft = endtime - GetTime()
                 if name ~= self.shield

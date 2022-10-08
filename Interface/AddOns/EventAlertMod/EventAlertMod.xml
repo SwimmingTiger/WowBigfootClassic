@@ -1,0 +1,88 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="EventAlert_CreateFrames.lua" />
+	<script file="EventAlert_SpellArray.lua" />
+	<Script file="EventAlertMod.lua" />
+
+	<Frame name="EA_Main_Frame" visible="true" parent="UIParent" frameStrata="HIGH">
+		<Size>
+			<AbsDimension x="1" y="1" />
+		</Size>
+		<Scripts>
+			<OnLoad>
+				EventAlert_OnLoad(self);
+			</OnLoad>
+			<OnEvent>
+				EventAlert_OnEvent(self, event, ...);
+			</OnEvent>
+		</Scripts>
+	</Frame>
+	<Frame name="EA_Version_Frame" hidden="true" parent="UIParent" movable="true" frameStrata="HIGH" inherits="BackdropTemplate">
+		<Size>
+			<AbsDimension x="450" y="350" />
+		</Size>
+		<Anchors>
+			<Anchor relativepoint="CENTER" point="CENTER" />
+		</Anchors>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global"/>
+        </KeyValues>
+		<Frames>
+			<Button name="$parent_Okay" inherits="OptionsButtonTemplate" text="Okay">
+				<Size>
+					<AbsDimension x="75" y="21" />
+				</Size>
+				<Anchors>
+					<Anchor relativepoint="BOTTOM" point="CENTER">
+						<Offset>
+							<AbsDimension x="0" y="25" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					PlaySound(SOUNDKIT.GS_TITLE_OPTION_OK);
+					EA_Version_Frame:Hide();
+				</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+		<Layers>
+			<Layer>
+				<Texture name="$parent_Header" file="Interface\DialogFrame\UI-DialogBox-Header">
+					<Size>
+						<AbsDimension x="400" y="64" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="12" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parent_HeaderText" inherits="GameFontNormal" text="New EventAlertMod Version!">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parent_Header">
+							<Offset>
+								<AbsDimension x="0" y="-14" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnMouseDown>
+				if button == "LeftButton" then
+					self:StartMoving();
+				end
+			</OnMouseDown>
+			<OnMouseUp>
+				if button == "LeftButton" then
+					self:StopMovingOrSizing();
+				end
+			</OnMouseUp>
+		</Scripts>
+	</Frame>
+</Ui>

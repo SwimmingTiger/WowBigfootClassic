@@ -1,6 +1,6 @@
 ﻿## Interface: 30400
 ## Author: Lag
-## Version: v3.0.0-beta2
+## Version: v3.0.0
 ## Dependencies: AtlasLootClassic
 ## LoadOnDemand: 1
 ## Title: AtlasLootClassic |cFFFF0000[Data]|r
@@ -10,7 +10,6 @@
 ## Notes-zhCN: AtlasLoot 数据模块
 ## Notes-zhTW: 副本戰利品查詢的數據設定。
 ## X-Category: Map
-## X-License: GPL v2
 ## X-Revision: BigFoot
 
 core.lua

@@ -25,22 +25,22 @@ M.InventorySlots = {
 	"HeadSlot|d",
 	"NeckSlot|n",
 	"ShoulderSlot|d",
-	"BackSlot|n",
-	"ChestSlot|d",
 	"ShirtSlot|n",
-	"TabardSlot|n",
-	"WristSlot|d",
-	"HandsSlot|d",
+	"ChestSlot|d",
 	"WaistSlot|d",
 	"LegsSlot|d",
 	"FeetSlot|d",
+	"WristSlot|d",
+	"HandsSlot|d",
 	"Finger0Slot|n",
 	"Finger1Slot|n",
 	"Trinket0Slot|n",
 	"Trinket1Slot|n",
+	"BackSlot|n",
 	"MainHandSlot|d",
 	"SecondaryHandSlot|d",
 	"RangedSlot|d",
+	"TabardSlot|n",
 };
 
 local ITEM_COLOR = {
@@ -55,23 +55,22 @@ local ITEM_COLOR = {
 	[9] = { r = 1, g = 1, b = 0, a = 0.6 },
 };
 
-function M:DisplayInvenrotyInfo(unit)
-	local unit = unit or "player";
+function M:DisplayInvenrotyInfo()
 	self.tooltip2 = self.tooltip2 or CreateFrame("GameTooltip", "MerDurabilityTooltip", UIParent, "GameTooltipTemplate");
 	local button, count, c, m, p, hasItem, itemLink, repairCos, totalCos, quality, suffix, scan;
 	for i, v in ipairs(self.InventorySlots) do
 		suffix, scan = strsplit("|", v);
-		button = (unit == "player") and getglobal("Character" .. suffix) or getglobal("Inspect" .. suffix);
+		button = getglobal("Character" .. suffix)
 		count = button.Count;
 		count:Hide()
 		button.durability = ""
 		button.border:Hide();
 		self.tooltip2:SetOwner(UIParent, "ANCHOR_NONE");
 		self.tooltip2:ClearLines();
-		hasItem, _, repairCos = self.tooltip2:SetInventoryItem(unit, button:GetID());
+		hasItem, _, repairCos = self.tooltip2:SetInventoryItem("player", button:GetID());
 		itemLink = select(2, self.tooltip2:GetItem());
 		if (hasItem and  itemLink) then
-			if (unit == "player" and scan == "d") then
+			if scan == "d" then
 				-- 汇总修理费用
 				totalCos = (totalCos or 0) + repairCos;
 				c, m = GetInventoryItemDurability(button:GetID());
@@ -105,23 +104,18 @@ function M:DisplayInvenrotyInfo(unit)
 	end
 end
 
-function M:DisplayInspectPaperDollFrame()
-	local button, hasItem, itemLink, repairCos, quality, suffix, scan;
-	for i, v in ipairs(self.InventorySlots) do
-		suffix, scan = strsplit("|", v);
-		button = getglobal("Inspect" .. suffix);
-		button.border:Hide();
-		self.tooltip2:SetOwner(UIParent, "ANCHOR_NONE");
-		self.tooltip2:ClearLines();
-		hasItem, _, repairCos = self.tooltip2:SetInventoryItem(InspectFrame.unit, button:GetID());
-		itemLink = select(2, self.tooltip2:GetItem());
-		if (hasItem and itemLink) then
-			-- 高亮边框
-			quality = select(3, GetItemInfo(itemLink));
-			if (type(quality) == "number" and quality > 1) then
-				button.border:SetVertexColor(ITEM_COLOR[quality].r, ITEM_COLOR[quality].g, ITEM_COLOR[quality].b);
-				button.border:Show();
-			end
+function M:DisplayInspectPaperDollFrame(button)
+	if not button then return end
+	local unit = InspectFrame.unit;
+	local itemLink, quality;
+	button.border:Hide();
+	itemLink = GetInventoryItemLink(unit, button:GetID());
+	if (button.hasItem and itemLink) then
+		-- 高亮边框
+		quality = select(3, GetItemInfo(itemLink));
+		if (type(quality) == "number" and quality > 1) then
+			button.border:SetVertexColor(ITEM_COLOR[quality].r, ITEM_COLOR[quality].g, ITEM_COLOR[quality].b);
+			button.border:Show();
 		end
 	end
 end
@@ -158,15 +152,24 @@ end
 M:Init{
 	name = "MerInspect",
 	func = function()
+		M.tooltip2 = CreateFrame("GameTooltip", "MerDurabilityTooltip", UIParent, "GameTooltipTemplate");
 		__Secure:HookScript(PaperDollFrame,"OnShow", function()
 			createRepairCostFrame()
 			M:DisplayInvenrotyInfo();
 		end);
-		hooksecurefunc("SetItemButtonCount",function(button,...)
+		hooksecurefunc("SetItemButtonCount",function(button,...)	-- 防止耐久度的提示会被游戏本身update掉
 			if not button then return end
 			if button and button.durability then
 				getglobal(button:GetName().."Count"):SetText(button.durability)
 				getglobal(button:GetName().."Count"):Show()
+			end
+		end);
+		hooksecurefunc("PaperDollItemSlotButton_OnEvent",function(self, event, ...)
+			if ( event == "PLAYER_EQUIPMENT_CHANGED") then
+				local arg1 = ...;
+				if ( self:GetID() == arg1 ) then
+					M:DisplayInvenrotyInfo()
+				end
 			end
 		end);
 		local inspectFrame_Load
@@ -177,15 +180,10 @@ M:Init{
 				s = strsplit("|", v);
 				CreateBorder("Inspect", s);
 			end
-			__Secure:HookScript(InspectPaperDollFrame,"OnShow", function()
-				M:DisplayInspectPaperDollFrame();
+			hooksecurefunc("InspectPaperDollItemSlotButton_Update",function(button)
+				M:DisplayInspectPaperDollFrame(button);
 			end);
 			inspectFrame_Load = true
-		end);
-		hooksecurefunc("PaperDollItemSlotButton_OnEvent",function(self, event, ...)
-			if event == "BAG_UPDATE_COOLDOWN" then
-				M:DisplayInvenrotyInfo()		-- 如果不执行，耐久度的提示会被游戏本身update掉
-			end
 		end);
 		local LibEvent = LibStub:GetLibrary("LibEvent.7000")
 		__Secure:HookScript(GearManagerDialog,"OnShow", function()
@@ -202,11 +200,3 @@ M:Init{
 		end);
 	end
 };
-
-M:RegisterEvent("UNIT_INVENTORY_CHANGED");
-function M:UNIT_INVENTORY_CHANGED(unit)
-	if ((unit == "player" or unit == InspectFrame and InspectFrame.unit)) then
-		createRepairCostFrame()
-		self:DisplayInvenrotyInfo(unit);
-	end
-end

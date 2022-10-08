@@ -110,8 +110,13 @@ function TotemTimers.SetButton_OnClick(self, button)
             XiTimers.timers[i].button:SetAttribute("*spell1", spell)
 
             if LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE then
-                local mspell = XiTimers.timers[i].button:GetAttribute("mspell")
-                SetMultiCastSpell(XiTimers.timers[i].button:GetAttribute("action"..mspell), spell)
+                if TotemTimers_MultiSpell.active then
+                    local mspell = XiTimers.timers[i].button:GetAttribute("mspell")
+                    local disabled = XiTimers.timers[i].button:GetAttribute("mspelldisabled"..mspell)
+                    if not disabled then
+                        SetMultiCastSpell(XiTimers.timers[i].button:GetAttribute("action"..mspell), spell)
+                    end
+                end
             end
         end
 	end

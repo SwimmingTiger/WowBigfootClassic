@@ -77,10 +77,10 @@ function MobHealth_Display()
 	if MobHealth_ShowHealthPercent then
 		__healthPercOb:SetText(__healthText)
 		__healthPercFrame:Show()
-		-- TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-30,-22)
+		TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-30,-22)
 		__healthPercBG:SetVertexColor(TargetFrameNameBackground:GetVertexColor())
 	else
-		-- TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-50,-22)
+		TargetFrameNumericalThreat:SetPoint("BOTTOM","TargetFrame","TOP",-50,-22)
 		__healthPercFrame:Hide()
 	end
 

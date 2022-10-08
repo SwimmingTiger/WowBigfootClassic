@@ -111,6 +111,7 @@ data["AllianceVanguard"] = {
 				{ 1, "f1037rep8" },
 				{ 2, 44503 },	-- Schematic: Mekgineer's Chopper (p5 450)
 				{ 3, 44937 },	-- Plans: Titanium Plating (p2 450)
+				{ 17, 50372 },	-- Arcanum of the Savage Gladiator
 			},
 		},
 		{ -- Revered 7
@@ -154,7 +155,8 @@ data["ArgentCrusade"] = {
 				{ 4, 44244 },	-- Argent Skeleton Crusher
 				{ 5, 44245 },	-- Zombie Sweeper Shotgun
 				{ 6, 44214 },	-- Purifying Torch
-				{ 17, 41726 },	-- Design: Guardian's Twilight Opal (p12 390)
+				{ 17, 50369 },	-- Arcanum of the Stalwart Protector
+				{ 19, 41726 },	-- Design: Guardian's Twilight Opal (p12 390)
 			},
 		},
 		{ -- Honored 6
@@ -164,6 +166,7 @@ data["ArgentCrusade"] = {
 				{ 2, 44216 },	-- Cloak of Holy Extermination
 				{ 3, 44240 },	-- Special Issue Legplates
 				{ 4, 44239 },	-- Standard Issue Legguards
+				{ 17, 44139 },	-- Arcanum of the Fleeing Shadow
 			},
 		},
 		{ -- Friendly 5
@@ -231,6 +234,7 @@ data["HordeExpedition"] = {
 				{ 1, "f1052rep8" },
 				{ 2, 44502 },	-- Schematic: Mechano-Hog (p5 450)
 				{ 3, 44938 },	-- Plans: Titanium Plating (p2 450)
+				{ 17, 50373 },	-- Arcanum of the Savage Gladiator
 			},
 		},
 		{ -- Revered 7
@@ -274,6 +278,7 @@ data["KirinTor"] = {
 				{ 3, 44176 },	-- Girdle of the Warrior Magi
 				{ 4, 44173 },	-- Flameheart Spell Scalpel
 				{ 5, 44174 },	-- Stave of Shrouded Mysteries
+				{ 17, 50368 },	-- Arcanum of Burning Mysteries
 			},
 		},
 		{ -- Honored 6
@@ -284,6 +289,7 @@ data["KirinTor"] = {
 				{ 3, 44170 },	-- Helm of the Majestic Stag
 				{ 4, 44171 },	-- Spaulders of Grounded Lightning
 				{ 5, 44166 },	-- Lightblade Rivener
+				{ 17, 44141 },	-- Arcanum of the Flame's Soul
 			},
 		},
 		{ -- Friendly 5
@@ -316,22 +322,25 @@ data["KnightsoftheEbonBlade"] = {
 			name = ALIL["Revered"],
 			[NORMAL_DIFF] = {
 				{ 1, "f1098rep7" },
-				{ 2, 44242 },	-- Dark Soldier Cape
-				{ 3, 44243 },	-- Toxin-Tempered Sabatons
-				{ 4, 44241 },	-- Unholy Persuader
+				{ 2, 44256 },	-- Sterile Flesh-Handling Gloves
+				{ 3, 44258 },	-- Wound-Binder's Wristguards
+				{ 4, 44257 },	-- Spaulders of the Black Arrow
+				{ 5, 44250 },	-- Reaper of Dark Souls
+				{ 6, 44249 },	-- Runeblade of Demonstrable Power
+				{ 17, 50367 },	-- Arcanum of Torment
+				{ 19, 41721 },	-- Design: Deadly Monarch Topaz (p12 390)
+				{ 20, 42183 },	-- Pattern: Abyssal Bag (p8 435)
 			},
 		},
 		{ -- Honored 6
 			name = ALIL["Honored"],
 			[NORMAL_DIFF] = {
 				{ 1, "f1098rep6" },
-				{ 2, 44256 },	-- Sterile Flesh-Handling Gloves
-				{ 3, 44258 },	-- Wound-Binder's Wristguards
-				{ 4, 44257 },	-- Spaulders of the Black Arrow
-				{ 5, 44250 },	-- Reaper of Dark Souls
-				{ 6, 44249 },	-- Runeblade of Demonstrable Power
-				{ 17, 41721 },	-- Design: Deadly Monarch Topaz (p12 390)
-				{ 18, 42183 },	-- Pattern: Abyssal Bag (p8 435)
+				{ 2, 44242 },	-- Dark Soldier Cape
+				{ 3, 44243 },	-- Toxin-Tempered Sabatons
+				{ 4, 44241 },	-- Unholy Persuader
+				{ 17, 44512 },	-- Pattern: Nerubian Reinforced Quiver
+				{ 18, 44138 },	-- Arkanum des Giftzauberschutzes
 			},
 		},
 		{ -- Friendly 5
@@ -451,7 +460,8 @@ data["TheKaluak"] = {
 				{ 7, 44060 },	-- Cuttlefish Tooth Ringmail
 				{ 8, 44057 },	-- Ivory-Reinforced Chestguard
 				{ 9, 44058 },	-- Whalebone Carapace
-				{ 17, 41574 },	-- Design: Defender's Shadow Crystal (p12 350)
+				{ 17, 44511 },	-- Pattern: Dragonscale Ammo Pouch
+				{ 18, 41574 },	-- Design: Defender's Shadow Crystal (p12 350)
 			},
 		},
 		{ -- Friendly 5
@@ -623,6 +633,7 @@ data["TheWyrmrestAccord"] = {
 				{ 3, 44198 },	-- Breastplate of the Solemn Council
 				{ 4, 44201 },	-- Sabatons of Draconic Vigor
 				{ 5, 44199 },	-- Gavel of the Brewing Storm
+				{ 17, 44152 },	-- Arcanum of Blissful Mending
 			},
 		},
 		{ -- Honored 6
@@ -633,6 +644,7 @@ data["TheWyrmrestAccord"] = {
 				{ 3, 44196 },	-- Sash of the Wizened Wyrm
 				{ 4, 44197 },	-- Bracers of Accorded Courtesy
 				{ 5, 44187 },	-- Fang of Truth
+				{ 17, 44140 },	-- Arcanum of the Eclipsed Moon
 			},
 		},
 		{ -- Friendly 5

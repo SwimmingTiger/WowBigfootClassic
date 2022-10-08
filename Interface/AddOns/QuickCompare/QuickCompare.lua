@@ -58,6 +58,9 @@ end
 local function ChatFrame_OnHyperlinkEnter(self, linkData, link)
 	GameTooltip:SetOwner(self,"ANCHOR_TOPRIGHT");
 	if strfind(linkData,"^item") or strfind(linkData,"^enchant") or strfind(linkData,"^achievement") or strfind(linkData,"^quest") or strfind(linkData,"^spell") or strfind(linkData,"^instancelock") then
+		if strfind(linkData,"^questie") then
+			return;
+		end
 		GameTooltip:SetHyperlink(linkData);
 		GameTooltip:Show();
 		if strfind(linkData,"^item") or strfind(linkData,"^enchant") then

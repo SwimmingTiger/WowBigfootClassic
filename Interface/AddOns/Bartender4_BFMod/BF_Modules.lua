@@ -1,7 +1,7 @@
 --[[
 	Copyright (c) 2011, Terry Wang@BF
 	All rights reserved to 178.com.
-	Create unitbar templates following the BT4 style. 
+	Create unitbar templates following the BT4 style.
 ]]
 
 -- fetch upvalues
@@ -9,10 +9,12 @@ local Bar = Bartender4.Bar.prototype
 local UnitBar = setmetatable({}, {__index = Bar})
 local UnitBar_MT = {__index = UnitBar}
 
+local Sticky = LibStub("LibSimpleSticky-1.0")
+
 local defaults = Bartender4:Merge({
 	enabled = true,
 	padding = 0,
-}, Bartender4.Bar.defaults) 
+}, Bartender4.Bar.defaults)
 
 Bartender4.UnitBar = {}
 Bartender4.UnitBar.prototype = UnitBar
@@ -20,7 +22,19 @@ Bartender4.UnitBar.defaults = defaults
 
 local function barOnDragStart(self)
 	local parent = self:GetParent()
-	parent:StartMoving()
+
+	if Bartender4.db.profile.snapping then
+		local offset = 8 - (parent.config.padding or 0)
+		Sticky:StartMoving(parent, BF_snapBars or {}, offset, offset, offset, offset)
+	else
+		if parent:GetName() == "BT4BarPartyMemberFrame1" or parent:GetName() == "BT4BarMinimapCluster" then
+			Sticky:StartMoving(parent, BF_snapBars or {}, 0, 0, 0, 0)
+			self:SetBackdropBorderColor(0, 0, 0, 0)
+			parent.isMoving = true
+			return
+		end
+		parent:StartMoving()
+	end
 	self:SetBackdropBorderColor(0, 0, 0, 0)
 	parent.isMoving = true
 end
@@ -28,18 +42,25 @@ end
 local function barOnDragStop(self)
 	local parent = self:GetParent()
 	if parent.isMoving then
+		if Bartender4.db.profile.snapping then
+			Sticky:StopMoving(parent)
+		else
+			if parent:GetName() == "BT4BarPartyMemberFrame1" or parent:GetName() == "BT4BarMinimapCluster" then
+				Sticky:StopMoving(parent)
+				parent.isMoving = nil
+				return
+			end
+		end
 		parent:StopMovingOrSizing()
 		parent:SavePosition()
 		parent.isMoving = nil
 	end
 end
 
-
 function Bartender4.UnitBar:Create(frame, config, name)
 	local bar = setmetatable(Bartender4.Bar:Create(frame:GetName(), config, name), UnitBar_MT)
 	bar.content = frame
 	frame.bar = bar
-	frame:SetParent(bar)
 	frame:SetToplevel(false)
 	frame:SetMovable(true)
 	frame:SetUserPlaced(true)
@@ -47,15 +68,7 @@ function Bartender4.UnitBar:Create(frame, config, name)
 	bar:PerformLayout(config)
 	bar.overlay:SetScript("OnDragStart",barOnDragStart)
 	bar.overlay:SetScript("OnDragStop",barOnDragStop)
-	bar.overlay:HookScript("OnDragStop",barOnDragStop)
-	frame:HookScript("OnDragStart",function()
-		frame.bar.isMoving = true
-	end)
-	frame:HookScript("OnDragStop",function()
-		frame.bar:SetPoint("BOTTOMLEFT",UIParent,"BOTTOMLEFT",frame:GetCenter())
-		frame.bar:PerformLayout(config)
-	end)
-	frame:SetFrameLevel(bar:GetFrameLevel()+1)
+
 	return bar
 end
 
@@ -63,25 +76,24 @@ UnitBar.BT4BarType = "UnitBar"
 
 function UnitBar:ApplyConfig(config)
 	Bar.ApplyConfig(self, config)
-
 	self:PerformLayout(config)
 end
 
-local function DoNothing()
+local function doNothing()
 end
 
 function UnitBar:PerformLayout(config)
 	local content = self.content
-	
+
 	self.overlay:SetScript("OnShow",function(overlay)
 		overlay:SetSize(content:GetWidth()+config.padding*2, max(content:GetHeight()+config.padding*2,20))
 	end)
+
 	content:ClearAllPoints()
 	content:SetPoint("CENTER",self,"CENTER",0,0)
-	content.ClearAllPoints = DoNothing
-	content.SetAllPoints = DoNothing
-	content.SetPoint = DoNothing
-	content.GetBottom = function() return 0 end
+	content.ClearAllPoints = doNothing
+	content.SetAllPoints = doNothing
+	content.SetPoint = doNothing
 end
 
 function UnitBar:AnchorOverlay()
@@ -94,9 +106,6 @@ function UnitBar:SetSize(width,height)
 	self.overlay:SetHeight(height)
 end
 
-function UnitBar:SetClickThrough()	
-end
-
-function UnitBar:GetClickThrough()	
+function UnitBar:GetClickThrough()
 	return false
 end

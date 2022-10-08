@@ -52,15 +52,19 @@ MT.BuildEnv('INSPECT');
 				if code ~= nil then
 					local cache = VT.TQueryCache[name];
 					if cache == nil then
-						cache = {  };
+						cache = { TalData = {  }, EquData = {  }, GlyData = {  }, PakData = {  }, };
 						VT.TQueryCache[name] = cache;
 					end
-					cache.time_tal = MT.GetUnifiedTime();
-					cache.talent = code;
 					cache.class = class;
-					cache.data = { data1, data2, num = numGroup, active = activeGroup, };
 					cache.level = level;
-					VT.__emulib.GetEquipmentData(cache, unit);
+					local TalData = cache.TalData;
+					TalData[1] = data1;
+					TalData[2] = data2;
+					TalData.num = numGroup;
+					TalData.active = activeGroup;
+					TalData.code = code;
+					TalData.Tick = MT.GetUnifiedTime();
+					VT.__emulib.GetEquipmentData(cache.EquData, unit);
 					MT._TriggerCallback("CALLBACK_DATA_RECV", name);
 					MT._TriggerCallback("CALLBACK_TALENT_DATA_RECV", name, false);
 					MT._TriggerCallback("CALLBACK_INVENTORY_DATA_RECV", name, false);

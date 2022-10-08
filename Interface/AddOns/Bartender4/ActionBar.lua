@@ -8,6 +8,7 @@ local ActionBar = setmetatable({}, {__index = StateBar})
 Bartender4.ActionBar = ActionBar
 
 local LAB10 = LibStub("LibActionButton-1.0")
+local WoW10 = select(4, GetBuildInfo()) >= 100000
 
 local tonumber, format, min = tonumber, format, min
 
@@ -27,8 +28,21 @@ do
 	end
 end
 
+local function WoW10Migration(config)
+	-- migrate scale/padding to WoW 10.0 layout, as the action buttons increased in size
+	if config and not config.WoW10Layout and config.position.x then
+		config.position.scale = config.position.scale * 0.8
+		config.padding = config.padding / 0.8
+		config.WoW10Layout = true
+	end
+end
+
 -- Apply the specified config to the bar and refresh all settings
 function ActionBar:ApplyConfig(config)
+	if WoW10 then
+		WoW10Migration(config or self.config)
+	end
+
 	StateBar.ApplyConfig(self, config)
 
 	if not self.config.position.x then initialPosition(self) end
@@ -36,6 +50,15 @@ function ActionBar:ApplyConfig(config)
 	self:SetupSmartTarget()
 	self:UpdateButtons()
 	self:UpdateButtonConfig()
+end
+
+function ActionBar:SavePosition()
+	StateBar.SavePosition(self)
+
+	-- when we change a manual layout change, flag it for WoW10
+	if WoW10 then
+		self.config.WoW10Layout = true
+	end
 end
 
 function ActionBar:OnEvent(event, ...)

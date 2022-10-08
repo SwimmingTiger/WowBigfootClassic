@@ -50,7 +50,6 @@ AL["Show content phase indicator for loottables."] = "顯示戰利品列表的�
 AL["Show content phase indicator for sets."] = "顯示套裝的內容指示。"
 AL["Show drop rate if available."] = "顯示掉落率 (如果有的話)。"
 AL["Show favourite item icon in item tooltip"] = "最愛的物品在滑鼠提示中顯示圖示"
-AL["Show ID's in tooltip."] = "在滑鼠提示中顯示 ID。"
 AL["Show level range if available."] = "顯示等級範圍 (如果有的話)。"
 AL["Show listname in item tooltip"] = "在物品的滑鼠提示中顯示清單名稱"
 AL["Show minimap button."] = "顯示小地圖按鈕。"

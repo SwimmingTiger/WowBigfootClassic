@@ -40,6 +40,7 @@ local defaults = {
 local Sticky = LibStub("LibSimpleSticky-1.0")
 local LibWin = LibStub("LibWindow-1.1")
 local snapBars = { WorldFrame, UIParent }
+BF_snapBars = snapBars		--bf@178.com
 
 local barOnEnter, barOnLeave, barOnDragStart, barOnDragStop, barOnClick, barOnUpdateFunc, barOnAttributeChanged
 do
@@ -329,6 +330,10 @@ function Bar:SetSize(width, height)
 		self:SavePosition()
 		self.needSizeFix = nil
 	end
+end
+
+function Bar:GetSize()
+	return self.overlay:GetSize()
 end
 
 function Bar:GetConfigAlpha()

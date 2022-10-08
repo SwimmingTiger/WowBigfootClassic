@@ -107,13 +107,14 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
     self:SetLineId(lineId)
     self:UpdateTick()
     self:SetCertification(not not ns.CERTIFICATION_MAP[leaderFullName])
-    self:SetOurAddonCreate((channelName == L['CHANNEL: Group'] or channelName == L['CHANNEL: Recruit']) and data.path == "Raid")
+    self:SetOurAddonCreate((channelName == L['CHANNEL: Group'] or channelName == L['CHANNEL: Recruit']) and data.path ==
+                               'Raid')
     return true
 end
 
 function Activity:ToProto()
-    return format('%s.%s.%s.%s.%s.....%s', self:GetShortName(), self:GetComment(), ns.GetNumGroupMembers(),
-                  UnitLevel('player'), self.raidId or '', self:GetMode()) .. '@@'
+    return format('%s.%s.%s.%s.%s.....%s@@', self:GetName(), self:GetComment(), ns.GetNumGroupMembers(),
+                  UnitLevel('player'), self.raidId or '', self:GetMode())
 end
 
 function Activity:HaveProgress()
@@ -215,11 +216,49 @@ function Activity:IsActivity()
     return self.id ~= 0
 end
 
-local function Search(text, pattern)
+local function Match(text, pattern)
     if not text then
         return false
     end
     return text:find(pattern, nil, true)
+end
+
+local defaultParams = { --
+    name = true,
+    comment = true,
+    leader = true,
+}
+function Activity:MatchText(search, params)
+    if not search then
+        return true
+    end
+
+    local t = type(search)
+    if t == 'string' then
+        params = params or defaultParams
+        if params.name then
+            if Match(self.data.nameLower, search) or Match(self.data.shortNameLower, search) then
+                return true
+            end
+        end
+        if params.comment then
+            if Match(self.commentLower, search) then
+                return true
+            end
+        end
+        if params.leader then
+            if Match(self.leaderLower, search) then
+                return true
+            end
+        end
+    elseif t == 'table' then
+        for _, s in ipairs(search) do
+            if self:MatchText(s, search[s] or search.params) then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 function Activity:Match(path, activityId, modeId, search)
@@ -232,10 +271,11 @@ function Activity:Match(path, activityId, modeId, search)
     if modeId and modeId ~= self.modeId then
         return false
     end
-    if search and (not Search(self.data.nameLower, search) and not Search(self.data.shortNameLower, search) and
-        not Search(self.commentLower, search) and not Search(self.leaderLower, search)) then
+
+    if not self:MatchText(search) then
         return false
     end
+
     if ns.Addon.db.profile.options.activityfilter and ns.LFG:IsFilter(self.commentLower) then
         return false
     end
@@ -270,7 +310,7 @@ function Activity:SetLeader(leader)
 end
 
 function Activity:SetComment(comment)
-    self.comment = ns.ParseRaidTag(comment)
+    self.comment = ns.PrepareComment(comment)
     self.commentLower = self.comment:lower()
 end
 

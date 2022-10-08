@@ -3,7 +3,7 @@ if WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2) then -- Added in TBC
 end
 local mod	= DBM:NewMod("z566", "DBM-PvP")
 
-mod:SetRevision("20210519214524")
+mod:SetRevision("20220911171814")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"LOADING_SCREEN_DISABLED",
@@ -18,7 +18,7 @@ do
 			bgzone = true
 			local generalMod = DBM:GetModByName("PvPGeneral")
 			local assaultID
-			if WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+			if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then--TBC and Wrath classic
 				assaultID = 1956
 			elseif zoneID == 566 then
 				assaultID = 122

@@ -1,6 +1,8 @@
 ## Interface: 30400
 ## Title: NugRunning
+## Title-zhCN: [大脚][集]法术计时条
 ## Notes: Spelltimers
+## Notes-zhCN: |cff00ff00NugRunning|r
 ## Author: d87
 ## SavedVariablesPerCharacter: NRunDB_Char
 ## SavedVariables: NRunDB_Global, NugRunningConfigCustom
