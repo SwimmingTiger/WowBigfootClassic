@@ -1,7 +1,0 @@
-## Interface: 30400
-## Title: ShowActionCount
-## Version: 1.00
-## Author: prozhong
-## Notes: Monitor material count on action bar.
-## Notes-zhCN: 技能上显示材料数量。
-ShowActionCount.lua
