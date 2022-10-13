@@ -12,7 +12,7 @@ function ChatEnhanceConfigFunc()
 		Enable_ItemLinkLevel_TEXT = "启用装备等级提示";
 		Enable_ItemLinkLevel_TEXT_TOOLTIP= "提示优秀品质以上的装备等级及部位";
 
-		QuickCompare_AchievementEnable_Text= "启用成就对比";
+		QuickCompare_AchievementEnable_Text= "启用鼠标悬停对比";
 
 		PLAYER_LINK_ENABLE_TEXT = "启用链接增强";
 		PLAYER_LINK_ENABLE_TEXT_TOOLTIP= "增强聊天窗口中玩家姓名右键菜单";

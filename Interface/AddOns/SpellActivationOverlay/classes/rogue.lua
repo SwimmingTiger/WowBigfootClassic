@@ -25,7 +25,14 @@ local function registerClass(self)
     self:RegisterAura("riposte", 0, riposteSpellID, "bandits_guile", "Top (CW)", 1, 255, 255, 255, true, { riposteSpellID });
 end
 
+local function loadOptions(self)
+    local riposte = 14251;
+    self:AddOverlayOption(riposte, riposte);
+    self:AddGlowingOption(nil, riposte, riposte);
+end
+
 SAO.Class["ROGUE"] = {
     ["Register"] = registerClass,
+    ["LoadOptions"] = loadOptions,
     ["PLAYER_LOGIN"] = customLogin,
 }

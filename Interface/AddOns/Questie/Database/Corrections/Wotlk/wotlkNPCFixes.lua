@@ -194,6 +194,10 @@ function QuestieWotlkNpcFixes:Load()
         [29173] = {
             [npcKeys.waypoints] = {},
         },
+        [29456] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{19.74,47.93},},},
+            [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{20.03,47.56},{20.26,47.70},{20.32,47.93},{20.26,48.16},{20.03,48.30},{19.80,48.16},{19.74,47.93},{19.80,47.70},{20.03,47.56}}}},
+        },
         [29795] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
@@ -206,6 +210,10 @@ function QuestieWotlkNpcFixes:Load()
         },
         [29821] = {
             [npcKeys.spawns] = {[zoneIDs.ZUL_DRAK]={{32.50,63.37},},},
+        },
+        [29840] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{42.56,20.81},},},
+            [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{42.56,20.81},{42.80,20.02},{43.36,19.23},{44.32,18.80},{45.28,19.23},{45.84,20.02},{46.08,20.81},{46.15,21.54},{46.08,22.27},{45.84,23.06},{45.28,23.85},{44.32,24.28},{43.36,23.85},{42.80,23.06}}}},
         },
         [29872] = {
             [npcKeys.spawns] = {[zoneIDs.ZUL_DRAK]={{28.38,44.85},},},
@@ -239,6 +247,18 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{64.4,55.6},{61.2,46.8},{58.8,41},{57.6,37.4},{55.8,37.8},{56.6,43.4},{58.6,47.2},{61.2,53.6},{62.8,57.4},{64.4,55.6}}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
+        [30315] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{45,49}}},
+        },
+        [30316] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{64,47}}},
+        },
+        [30317] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{52,56}}},
+        },
+        [30318] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{53,42}}},
+        },
         [30344] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.4,55.6}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{64.4,55.6},{61.2,46.8},{58.8,41},{57.6,37.4},{55.8,37.8},{56.6,43.4},{58.6,47.2},{61.2,53.6},{62.8,57.4},{64.4,55.6}}}},
@@ -251,6 +271,10 @@ function QuestieWotlkNpcFixes:Load()
         },
         [30382] = {
             [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{39.4,56.4},},},
+        },
+        [30750] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{26.16,62.28}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [30824] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},

@@ -27552,30 +27552,6 @@ t[7089] = {
 	teaches = L["Azure Silk Cloak"],
 	learnedAt = 175,
 }
-t[21815] = {
-	name = L["Love Token"],
-	quality = 1,
-	icon = "inv_valentinescard01",
-	buyPrice = 10,
-	sellPrice = 0,
-	reqLevel = 0,
-}
-t[21829] = {
-	name = L["Perfume Bottle"],
-	quality = 1,
-	icon = "inv_valentineperfumebottle",
-	buyPrice = 100,
-	sellPrice = 25,
-	reqLevel = 0,
-}
-t[21833] = {
-	name = L["Cologne Bottle"],
-	quality = 1,
-	icon = "inv_valentinecolognebottle",
-	buyPrice = 100,
-	sellPrice = 25,
-	reqLevel = 0,
-}
 t[10684] = {
 	name = L["Colossal Parachute"],
 	quality = 1,
@@ -51234,6 +51210,574 @@ t[40359] = {
 	buyPrice = 0,
 	sellPrice = 425,
 	reqLevel = 65,
+}
+t[44091] = {
+	name = L["Sharpened Scarlet Kris"],
+	quality = 7,
+	icon = "inv_weapon_shortblade_03",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44092] = {
+	name = L["Reforged Truesilver Champion"],
+	quality = 7,
+	icon = "inv_sword_19",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44093] = {
+	name = L["Upgraded Dwarven Hand Cannon"],
+	quality = 7,
+	icon = "inv_weapon_rifle_09",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44094] = {
+	name = L["The Blessed Hammer of Grace"],
+	quality = 7,
+	icon = "inv_hammer_07",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44095] = {
+	name = L["Grand Staff of Jordan"],
+	quality = 7,
+	icon = "inv_staff_13",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44096] = {
+	name = L["Battleworn Thrash Blade"],
+	quality = 7,
+	icon = "inv_sword_36",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44098] = {
+	name = L["Inherited Insignia of the Alliance"],
+	quality = 7,
+	icon = "inv_jewelry_trinketpvp_01",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44099] = {
+	name = L["Strengthened Stockade Pauldrons"],
+	quality = 7,
+	icon = "inv_shoulder_20",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44100] = {
+	name = L["Pristine Lightforge Spaulders"],
+	quality = 7,
+	icon = "inv_shoulder_10",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44101] = {
+	name = L["Prized Beastmaster's Mantle"],
+	quality = 7,
+	icon = "inv_shoulder_10",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44102] = {
+	name = L["Aged Pauldrons of The Five Thunders"],
+	quality = 7,
+	icon = "inv_shoulder_29",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44103] = {
+	name = L["Exceptional Stormshroud Shoulders"],
+	quality = 7,
+	icon = "inv_shoulder_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44105] = {
+	name = L["Lasting Feralheart Spaulders"],
+	quality = 7,
+	icon = "inv_shoulder_01",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44107] = {
+	name = L["Exquisite Sunderseer Mantle"],
+	quality = 7,
+	icon = "inv_shoulder_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44891] = {
+	name = L["Titan-Forged Boots of Dominance"],
+	quality = 4,
+	icon = "inv_boots_cloth_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44892] = {
+	name = L["Titan-Forged Boots of Salvation"],
+	quality = 4,
+	icon = "inv_boots_cloth_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44893] = {
+	name = L["Titan-Forged Boots of Triumph"],
+	quality = 4,
+	icon = "inv_boots_cloth_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44894] = {
+	name = L["Titan-Forged Greaves of Salvation"],
+	quality = 4,
+	icon = "inv_boots_plate_08",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44895] = {
+	name = L["Titan-Forged Greaves of Triumph"],
+	quality = 4,
+	icon = "inv_boots_plate_01",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44896] = {
+	name = L["Titan-Forged Sabatons of Dominance"],
+	quality = 4,
+	icon = "inv_boots_plate_09",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44897] = {
+	name = L["Titan-Forged Sabatons of Salvation"],
+	quality = 4,
+	icon = "inv_boots_plate_09",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44898] = {
+	name = L["Titan-Forged Sabatons of Triumph"],
+	quality = 4,
+	icon = "inv_boots_plate_09",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44899] = {
+	name = L["Titan-Forged Slippers of Dominance"],
+	quality = 4,
+	icon = "inv_boots_cloth_12",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44900] = {
+	name = L["Titan-Forged Slippers of Salvation"],
+	quality = 4,
+	icon = "inv_boots_cloth_12",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44901] = {
+	name = L["Titan-Forged Plate Headcover of Salvation"],
+	quality = 4,
+	icon = "inv_helmet_134",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44902] = {
+	name = L["Titan-Forged Plate Helm of Triumph"],
+	quality = 4,
+	icon = "inv_helmet_134",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44903] = {
+	name = L["Titan-Forged Chain Helm of Triumph"],
+	quality = 4,
+	icon = "inv_helmet_138",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44904] = {
+	name = L["Titan-Forged Mail Helm of Dominance"],
+	quality = 4,
+	icon = "inv_helmet_138",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44905] = {
+	name = L["Titan-Forged Ringmail Helm of Salvation"],
+	quality = 4,
+	icon = "inv_helmet_138",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44906] = {
+	name = L["Titan-Forged Leather Helm of Salvation"],
+	quality = 4,
+	icon = "inv_helmet_141",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44907] = {
+	name = L["Titan-Forged Leather Helm of Dominance"],
+	quality = 4,
+	icon = "inv_helmet_141",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44908] = {
+	name = L["Titan-Forged Leather Helm of Triumph"],
+	quality = 4,
+	icon = "inv_helmet_141",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44909] = {
+	name = L["Titan-Forged Hood of Salvation"],
+	quality = 4,
+	icon = "inv_helmet_136",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44910] = {
+	name = L["Titan-Forged Hood of Dominance"],
+	quality = 4,
+	icon = "inv_helmet_136",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44912] = {
+	name = L["Flow of Knowledge"],
+	quality = 4,
+	icon = "spell_arcane_arcanetorrent",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[44914] = {
+	name = L["Anvil of Titans"],
+	quality = 4,
+	icon = "trade_blacksmithing",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 80,
+}
+t[41727] = {
+	name = L["Design: Mystic Autumn's Glow"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41728] = {
+	name = L["Design: Stormy Sky Sapphire"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41730] = {
+	name = L["Design: Durable Monarch Topaz"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41732] = {
+	name = L["Design: Empowered Monarch Topaz"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41733] = {
+	name = L["Design: Lucent Monarch Topaz"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41734] = {
+	name = L["Design: Resplendent Monarch Topaz"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41735] = {
+	name = L["Design: Shattered Forest Emerald"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41736] = {
+	name = L["Design: Tense Forest Emerald"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41737] = {
+	name = L["Design: Turbid Forest Emerald"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41738] = {
+	name = L["Design: Steady Forest Emerald"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41739] = {
+	name = L["Design: Opaque Forest Emerald"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41740] = {
+	name = L["Design: Mysterious Twilight Opal"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41742] = {
+	name = L["Design: Enigmatic Skyflare Diamond"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41743] = {
+	name = L["Design: Forlorn Skyflare Diamond"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[41744] = {
+	name = L["Design: Impassive Skyflare Diamond"],
+	quality = 3,
+	icon = "inv_scroll_05",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44066] = {
+	name = L["Kharmaa's Grace"],
+	quality = 4,
+	icon = "inv_jewelcrafting_gem_26",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44076] = {
+	name = L["Swift Starflare Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_icediamond_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44078] = {
+	name = L["Tireless Starflare Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_icediamond_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44081] = {
+	name = L["Enigmatic Starflare Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_icediamond_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44082] = {
+	name = L["Impassive Starflare Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_icediamond_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44084] = {
+	name = L["Forlorn Starflare Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_icediamond_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44087] = {
+	name = L["Persistent Earthshatter Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_shadowspirit_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44088] = {
+	name = L["Powerful Earthshatter Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_shadowspirit_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44089] = {
+	name = L["Trenchant Earthshatter Diamond"],
+	quality = 3,
+	icon = "inv_jewelcrafting_shadowspirit_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[43956] = {
+	name = L["Reins of the Black War Mammoth"],
+	quality = 4,
+	icon = "ability_mount_mammoth_black",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 40,
+}
+t[44115] = {
+	name = L["Wintergrasp Commendation"],
+	quality = 7,
+	icon = "spell_frost_wizardmark",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44077] = {
+	name = L["Reins of the Black War Mammoth"],
+	quality = 4,
+	icon = "ability_mount_mammoth_black",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 40,
+}
+t[44097] = {
+	name = L["Inherited Insignia of the Horde"],
+	quality = 7,
+	icon = "inv_jewelry_trinketpvp_02",
+	buyPrice = 0,
+	sellPrice = 0,
+	reqLevel = 0,
+}
+t[44499] = {
+	name = L["Salvaged Iron Golem Parts"],
+	quality = 1,
+	icon = "inv_misc_enggizmos_19",
+	buyPrice = 30000000,
+	sellPrice = 30000,
+	reqLevel = 0,
+}
+t[44500] = {
+	name = L["Elementium-plated Exhaust Pipe"],
+	quality = 1,
+	icon = "inv_gizmo_pipe_02",
+	buyPrice = 15000000,
+	sellPrice = 150000,
+	reqLevel = 0,
+}
+t[44501] = {
+	name = L["Goblin-machined Piston"],
+	quality = 1,
+	icon = "inv_rod_platinum",
+	buyPrice = 10000000,
+	sellPrice = 100000,
+	reqLevel = 0,
+}
+t[34841] = {
+	name = L["Salvaged Scrap Metal"],
+	quality = 0,
+	icon = "inv_misc_gear_08",
+	buyPrice = 16000,
+	sellPrice = 4000,
+	reqLevel = 0,
+}
+t[35691] = {
+	name = L["Ruined Metal Parts"],
+	quality = 0,
+	icon = "inv_misc_wartornscrap_plate",
+	buyPrice = 950,
+	sellPrice = 237,
+	reqLevel = 0,
+}
+t[41729] = {
+	name = L["Stewed Drakeflesh"],
+	quality = 1,
+	icon = "inv_misc_food_115_condorsoup",
+	buyPrice = 16000,
+	sellPrice = 800,
+	reqLevel = 75,
+}
+t[41731] = {
+	name = L["Yeti Milk"],
+	quality = 1,
+	icon = "inv_drink_milk_05",
+	buyPrice = 11000,
+	sellPrice = 550,
+	reqLevel = 75,
 }
 t[2555] = {
 	name = L["true"],

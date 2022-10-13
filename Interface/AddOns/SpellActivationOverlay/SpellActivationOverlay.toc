@@ -1,12 +1,12 @@
 ## Interface: 30400
-## Title: SpellActivationOverlay |cffa2f3ff0.6.5|r
+## Title: SpellActivationOverlay |cffa2f3ff0.7.0|r
 ## Title-zhCN: [大脚][集]技能触发提醒
 ## Title-zhTW: [大腳][集]技能觸發提醒
 ## Notes: Mimic Spell Activation Overlays from Retail
 ## Notes-zhCN: |cff00ff00SpellActivationOverlay|r
 ## Notes-zhTW: |cff00ff00SpellActivationOverlay|r
 ## Author: Vinny
-## Version: 0.6.5
+## Version: 0.7.0
 ## SavedVariables: SpellActivationOverlayDB
 ## Dependencies: BigFoot
 ## X-Revision: BigFoot
@@ -33,10 +33,14 @@ classes\shaman.lua
 classes\warlock.lua
 classes\warrior.lua
 
+options\defaults.lua
 options\db.lua
 options\variables.lua
 options\InterfaceOptionsPanels.lua
 options\InterfaceOptionsPanels.xml
+options\classoptions.lua
+options\glowoptions.lua
+options\overlayoptions.lua
 
 SpellActivationOverlay.lua
 SpellActivationOverlay.xml

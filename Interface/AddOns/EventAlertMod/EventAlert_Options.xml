@@ -458,7 +458,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			<Button name="$parent_ToggleGroupEvents" inherits="OptionsButtonTemplate" text="">
+			<!-- <Button name="$parent_ToggleGroupEvents" inherits="OptionsButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="180" y="21" />
 				</Size>
@@ -478,7 +478,7 @@
 						EventAlert_Options_ToggleGroupEventsFrame();
 					</OnClick>
 				</Scripts>
-			</Button>
+			</Button>  -->
 			<Button name="$parent_Okay" inherits="OptionsButtonTemplate" text="">
 				<Size>
 					<AbsDimension x="75" y="21" />

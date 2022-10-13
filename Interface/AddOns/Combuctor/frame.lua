@@ -345,7 +345,7 @@ end
 function InventoryFrame:OnPortraitEnter(portrait)
 	GameTooltip:SetOwner(portrait, 'ANCHOR_RIGHT')
 	GameTooltip:SetText(self:GetPlayer(), 1, 1, 1)
-	GameTooltip:AddLine(L.SwitchChar)
+	-- GameTooltip:AddLine(L.SwitchChar)
 	GameTooltip:Show()
 end
 

@@ -38,6 +38,10 @@
               self:ApplyValueToEngine(value);
             end
             _G[self:GetParent():GetName().."SpellAlertTestButton"]:SetEnabled(value > 0);
+            for _, checkbox in ipairs(_G[self:GetParent():GetName()].additionalCheckboxes and _G[self:GetParent():GetName()].additionalCheckboxes.alert or {}) do
+              checkbox:SetEnabled(value > 0);
+              checkbox:ApplyParentEnabling();
+            end
           </OnValueChanged>
         </Scripts>
       </Slider>
@@ -77,7 +81,7 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertOpacitySlider" relativePoint="TOPRIGHT">
             <Offset>
-              <AbsDimension x="32" y="2"/>
+              <AbsDimension x="24" y="2"/>
             </Offset>
           </Anchor>
         </Anchors>
@@ -111,7 +115,21 @@
         </Scripts>
       </CheckButton>
     </Frames>
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString name="$parentSpellAlertLabel" text="Spell Alerts" inherits="GameFontHighlight" justifyH="LEFT" justifyV="TOP">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parentSpellAlertTestButton" relativePoint="TOPRIGHT">
+              <Offset>
+                <AbsDimension x="24" y="10"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Scripts>
+      <OnShow function="SpellActivationOverlayOptionsPanel_OnShow"/>
       <OnLoad function="SpellActivationOverlayOptionsPanel_OnLoad"/>
     </Scripts>
   </Frame>

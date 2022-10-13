@@ -58,6 +58,7 @@ end
 
 local function OnShow(self, ...)
 	local settings = self.settings
+	settings.relativeTo = settings.relativeTo or "UIParent"
 	if settings and settings.point and settings.save then
 		self:ClearAllPoints()
 		self:SetPoint(settings.point,settings.relativeTo, settings.relativePoint, settings.xOfs,settings.yOfs)
@@ -104,6 +105,10 @@ local function OnDragStart(self)
 	end
 	frameToMove:StartMoving()
 	frameToMove.isMoving = true
+	if frameToMove:GetName() == "PetActionBarFrame" then
+		frameToMove:ClearAllPoints()
+		frameToMove.settings = {}
+	end
 end
 
 local function OnDragStop(self)
@@ -111,11 +116,11 @@ local function OnDragStop(self)
 	local settings = frameToMove.settings
 	frameToMove:StopMovingOrSizing()
 	frameToMove.isMoving = false
-	if frameToMove:GetName() == "PetActionBarFrame" then
-		 frameToMove:SetUserPlaced(false)
-	end
 	if settings then
 		settings.point, settings.relativeTo, settings.relativePoint, settings.xOfs, settings.yOfs = frameToMove:GetPoint()
+	end
+	if frameToMove:GetName() == "PetActionBarFrame" then
+		frameToMove:SetUserPlaced(false)
 	end
 end
 
@@ -176,15 +181,26 @@ local function SetMoveHandler(frameToMove, handler)
 	handler:SetScript("OnDragStart", OnDragStart)
 	handler:SetScript("OnDragStop", OnDragStop)
 
-	--override frame position according to settings when shown
-	frameToMove:HookScript("OnShow", OnShow)
+	if frameToMove:GetName() ~= "PetActionBarFrame" then
+		--override frame position according to settings when shown
+		frameToMove:HookScript("OnShow", OnShow)
 
-	--hook OnMouseUp
-	handler:HookScript("OnMouseUp", OnMouseUp)
+		--hook OnMouseUp
+		handler:HookScript("OnMouseUp", OnMouseUp)
 
-	--hook Scroll for setting scale
-	handler:EnableMouseWheel(true)
-	handler:HookScript("OnMouseWheel",OnMouseWheel)
+		--hook Scroll for setting scale
+		handler:EnableMouseWheel(true)
+		handler:HookScript("OnMouseWheel",OnMouseWheel)
+	else
+		frameToMove:HookScript("OnUpdate", function(self)
+			local settings = self.settings
+			if settings and settings.point then
+				settings.relativeTo = settings.relativeTo or "UIParent"
+				self:ClearAllPoints()
+				self:SetPoint(settings.point,settings.relativeTo, settings.relativePoint, settings.xOfs,settings.yOfs)
+			end
+		end)
+	end
 end
 
 local function resetDB()

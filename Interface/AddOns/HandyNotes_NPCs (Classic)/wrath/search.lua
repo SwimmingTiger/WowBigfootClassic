@@ -213,7 +213,7 @@ function Search:OnInitialize()
 	window.footer.rtext = window.footer:CreateFontString(nil, 'OVERLAY')
 	window.footer.rtext:SetFont(LSM:Fetch("font", Main.db.profile.search.footer.font), Main.db.profile.search.footer.fontsize)
 	window.footer.rtext:SetPoint("RIGHT")
-	window.footer.rtext:SetText("HandyNotes_NPCs (TBC Classic) by Cali")
+	window.footer.rtext:SetText("HandyNotes: NPCs (Classic) by Cali")
 	window.footer:SetWidth(window.footer.rtext:GetStringWidth())
 	
 	local f = CreateFrame("ScrollFrame", nil, window, "FauxScrollFrameTemplate")

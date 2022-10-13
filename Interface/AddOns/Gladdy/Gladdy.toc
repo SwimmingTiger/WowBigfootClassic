@@ -1,0 +1,51 @@
+## Interface: 30400
+## Title: Gladdy - WotLK
+## Title-zhCN: [大脚][集]竞技场助手
+## Title-zhTW: [大腳][集]競技場助手
+## Version: 2.22-Release
+## Notes: The most powerful arena AddOn for WoW 3.4.0
+## Notes-zhCN: |cff00ff00Gladdy|r
+## Notes-zhTW: |cff00ff00Gladdy|r
+## Author: XiconQoo, DnB_Junkee, Knall
+## X-Email: contact me on discord Knall#1751
+## X-Curse-Project-ID: 482332
+## X-WoWI-ID: 26350
+## SavedVariables: GladdyXZ
+## Dependencies: !!!Libs
+## X-Revision: BigFoot
+
+embeds.xml
+
+Gladdy.lua
+Lang.lua
+Util.lua
+Frame.lua
+Options.lua
+Constants_shared.lua
+Constants_Wrath.lua
+ImportStrings.lua
+
+Modules\Announcements.lua
+Modules\Healthbar.lua
+Modules\Powerbar.lua
+Modules\Auras.lua
+Modules\Castbar.lua
+Modules\Classicon.lua
+Modules\Clicks.lua
+Modules\Diminishings.lua
+Modules\Highlight.lua
+Modules\TotemPlates.lua
+Modules\TotemPulse.lua
+Modules\Trinket.lua
+Modules\Racial.lua
+Modules\Cooldowns.lua
+Modules\ArenaCountDown.lua
+Modules\BuffsDebuffs.lua
+Modules\VersionCheck.lua
+Modules\XiconProfiles.lua
+Modules\Pets.lua
+Modules\ExportImport.lua
+Modules\CombatIndicator.lua
+Modules\RangeCheck.lua
+Modules\ShadowsightTimer.lua
+EventListener.lua

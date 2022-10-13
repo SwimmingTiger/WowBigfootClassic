@@ -174,8 +174,81 @@ local function registerClass(self)
     self:RegisterAura("missile_barrage", 0, 44401, "arcane_missiles", "Left + Right (Flipped)", 1, 255, 255, 255, true, { (GetSpellInfo(5143)) });
 end
 
+local function loadOptions(self)
+    local missileBarrageBuff = 44401;
+    local missileBarrageTalent = 44404;
+
+    local heatingUpBuff = heatingUpSpellID; -- Not really a buff
+    local hotStreakBuff = hotStreakSpellID;
+    local hotStreakTalent = 44445;
+
+    local firestarterBuff = 54741;
+    local firestarterTalent = 44442;
+
+    local impactBuff = 64343;
+    local impactTalent = 11103;
+
+    local brainFreezeBuff = 57761;
+    local brainFreezeTalent = 44546;
+
+    local fingersOfFrostBuff = 74396;
+    local fingersOfFrostTalent = 44543;
+
+    local arcaneMissiles = 5143;
+    local pyroblast = 11366;
+    local flamestrike = 2120;
+    local fireBlast = 2136;
+    local fireball = 133;
+    local frostfireBolt = 44614;
+
+    local heatingUpDetails;
+    local locale = GetLocale();
+    if (locale == "deDE") then
+        heatingUpDetails = "Aufwärmen";
+    elseif (locale == "frFR") then
+        heatingUpDetails = "Réchauffement";
+    elseif (locale == "esES" or locale == "esMX") then
+        heatingUpDetails = "Calentamiento"; -- Always use esES because esMX isn't on Wowhead
+    elseif (locale == "ruRU") then
+        heatingUpDetails = "Разогрев";
+    elseif (locale == "itIT") then
+        heatingUpDetails = "Riscaldamento";
+    elseif (locale == "ptBR") then
+        heatingUpDetails = "Aquecendo";
+    elseif (locale == "frFR") then
+        heatingUpDetails = "Réchauffement";
+    elseif (locale == "koKR") then
+        heatingUpDetails = "열기";
+    elseif (locale == "zhCN" or locale == "zhTW") then
+        heatingUpDetails = "热力迸发"; -- Always use zhCN because zhTW isn't on Wowhead
+    else
+        heatingUpDetails = "Heating Up";
+    end
+
+    -- local spellName, _, spellIcon = GetSpellInfo(pyroblast);
+    -- local hotStreakDetails = string.format(LFG_READY_CHECK_PLAYER_IS_READY, "|T"..spellIcon..":0|t "..spellName):gsub("%.", "");
+    local hotStreakDetails = LOC_TYPE_FULL;
+
+    self:AddOverlayOption(missileBarrageTalent, missileBarrageBuff);
+    self:AddOverlayOption(hotStreakTalent, heatingUpBuff, 0, heatingUpDetails);
+    self:AddOverlayOption(hotStreakTalent, hotStreakBuff, 0, hotStreakDetails);
+    self:AddOverlayOption(firestarterTalent, firestarterBuff);
+    self:AddOverlayOption(impactTalent, impactBuff);
+    self:AddOverlayOption(fingersOfFrostTalent, fingersOfFrostBuff, 0); -- any stacks
+    self:AddOverlayOption(brainFreezeTalent, brainFreezeBuff);
+
+    self:AddGlowingOption(missileBarrageTalent, missileBarrageBuff, arcaneMissiles);
+    self:AddGlowingOption(hotStreakTalent, hotStreakBuff, pyroblast);
+    self:AddGlowingOption(firestarterTalent, firestarterBuff, flamestrike);
+    self:AddGlowingOption(impactTalent, impactBuff, fireBlast);
+    self:AddGlowingOption(brainFreezeTalent, brainFreezeBuff, fireball);
+    self:AddGlowingOption(brainFreezeTalent, brainFreezeBuff, frostfireBolt);
+    -- self:AddGlowingOption(fingersOfFrostTalent, fingersOfFrostBuff, ...); -- Maybe add spell options for Fingers of Frost
+end
+
 SAO.Class["MAGE"] = {
     ["Register"] = registerClass,
+    ["LoadOptions"] = loadOptions,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = customCLEU,
     ["PLAYER_LOGIN"] = customLogin,
 }

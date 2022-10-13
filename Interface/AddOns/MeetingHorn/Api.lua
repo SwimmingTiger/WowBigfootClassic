@@ -128,14 +128,14 @@ ns.GOODLEADER_INSTANCES = {
     --@end-bcc@]=]
     -- @lkc@
     {projectId = 11, mapId = 3456, bossId = 1114, difficulties = {3, 4}, image = 'naxxramas'}, -- 纳克萨玛斯
-    {projectId = 11, mapId = 4493, bossId = 1090, difficulties = {3, 4}, image = 1396588}, -- 黑曜石圣殿
-    {projectId = 11, mapId = 4500, bossId = 1094, difficulties = {3, 4}, image = 1396581}, -- 永恒之眼
+    {projectId = 11, mapId = 4493, bossId = 742, difficulties = {3, 4}, image = 1396588}, -- 黑曜石圣殿
+    {projectId = 11, mapId = 4500, bossId = 734, difficulties = {3, 4}, image = 1396581}, -- 永恒之眼
     -- {projectId = 11, mapId = 4603, bossId = 0, image = 1396596}, -- 阿尔卡冯的宝库
-    {projectId = 11, mapId = 4273, bossId = 1143, difficulties = {3, 4}, image = 1396595}, -- -- 奥杜尔
-    {projectId = 11, mapId = 4722, bossId = 1085, difficulties = {3, 4, 5, 6}, image = 1396594}, -- -- 十字军的试炼
+    {projectId = 11, mapId = 4273, bossId = 756, difficulties = {3, 4}, image = 1396595}, -- -- 奥杜尔
+    {projectId = 11, mapId = 4722, bossId = 645, difficulties = {3, 4, 5, 6}, image = 1396594}, -- -- 十字军的试炼
     {projectId = 11, mapId = 2159, bossId = 1084, difficulties = {3, 4}, image = 'onyxia'}, -- -- 奥妮克希亚的巢穴
-    {projectId = 11, mapId = 4812, bossId = 1106, difficulties = {3, 4, 5, 6}, image = 1396583}, -- -- 冰冠堡垒
-    {projectId = 11, mapId = 4987, bossId = 1150, difficulties = {3, 4, 5, 6}, image = 1396590}, -- -- 红玉圣殿
+    {projectId = 11, mapId = 4812, bossId = 856, difficulties = {3, 4, 5, 6}, image = 1396583}, -- -- 冰冠堡垒
+    {projectId = 11, mapId = 4987, bossId = 887, difficulties = {3, 4, 5, 6}, image = 1396590}, -- -- 红玉圣殿
     -- @end-lkc@
 }
 

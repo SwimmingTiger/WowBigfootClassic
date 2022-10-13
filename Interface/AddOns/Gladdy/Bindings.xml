@@ -1,0 +1,31 @@
+<Bindings>
+    <Binding name="GLADDYBUTTON1_LEFT" header="GLADDY" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON2_LEFT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON3_LEFT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON4_LEFT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON5_LEFT" Category="Gladdy"/>
+
+    <Binding name="GLADDYBUTTON1_RIGHT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON2_RIGHT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON3_RIGHT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON4_RIGHT" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON5_RIGHT" Category="Gladdy"/>
+
+    <Binding name="GLADDYBUTTON1_MIDDLE" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON2_MIDDLE" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON3_MIDDLE" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON4_MIDDLE" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON5_MIDDLE" Category="Gladdy"/>
+
+    <Binding name="GLADDYBUTTON1_BUTTON4" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON2_BUTTON4" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON3_BUTTON4" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON4_BUTTON4" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON5_BUTTON4" Category="Gladdy"/>
+
+    <Binding name="GLADDYBUTTON1_BUTTON5" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON2_BUTTON5" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON3_BUTTON5" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON4_BUTTON5" Category="Gladdy"/>
+    <Binding name="GLADDYBUTTON5_BUTTON5" Category="Gladdy"/>
+</Bindings>

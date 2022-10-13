@@ -62,7 +62,7 @@ function EventAlert_Options_ToggleIconOptionsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 0);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	end
 end
 
@@ -91,7 +91,7 @@ function EventAlert_Options_ToggleClassEventsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 0);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	end
 end
 
@@ -115,7 +115,7 @@ function EventAlert_Options_ToggleOtherEventsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 1);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 0);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	end
 end
 
@@ -139,7 +139,7 @@ function EventAlert_Options_ToggleTargetEventsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 1);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 0);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	end
 end
 
@@ -163,7 +163,7 @@ function EventAlert_Options_ToggleSCDEventsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 1);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	end
 end
 
@@ -172,7 +172,7 @@ function EventAlert_Options_ToggleGroupEventsFrame()
 	EA_GroupEventSetting_Frame:Hide();
 	if EA_Group_Events_Frame:IsVisible() then
 		EA_Group_Events_Frame:Hide();
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 0);
 	else
 		if EA_Icon_Options_Frame:IsVisible() then EA_Icon_Options_Frame:Hide(); end
 		if EA_Class_Events_Frame:IsVisible() then EA_Class_Events_Frame:Hide(); end
@@ -187,7 +187,7 @@ function EventAlert_Options_ToggleGroupEventsFrame()
 		EAFun_SetButtonState(EA_Options_Frame_ToggleOtherEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleTargetEvents, 0);
 		EAFun_SetButtonState(EA_Options_Frame_ToggleSCDEvents, 0);
-		EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 1);
+		-- EAFun_SetButtonState(EA_Options_Frame_ToggleGroupEvents, 1);
 	end
 end
 
@@ -213,7 +213,7 @@ function EventAlert_Options_CloseAnchorFrames()
 		EA_Options_Frame_ToggleOtherEvents:SetButtonState("NORMAL", false);
 		EA_Options_Frame_ToggleTargetEvents:SetButtonState("NORMAL", false);
 		EA_Options_Frame_ToggleSCDEvents:SetButtonState("NORMAL", false);
-		EA_Options_Frame_ToggleGroupEvents:SetButtonState("NORMAL", false);
+		-- EA_Options_Frame_ToggleGroupEvents:SetButtonState("NORMAL", false);
 		for iGroupID = 1, iGroupCnt do
 			eaf = _G[FrameNamePrefix..iGroupID];
 			if eaf~=nil then eaf:Hide() end;

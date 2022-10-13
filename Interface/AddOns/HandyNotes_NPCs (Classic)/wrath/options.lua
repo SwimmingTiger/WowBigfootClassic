@@ -7,6 +7,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_NPCs (Classic)")
 
 function Addon:OnInitialize()
 	local Search = Main:GetModule("Search")
+	local RecipeTracker = Main:GetModule("AltRecipes")
 	self.db = Main.db
 	local options = {
 		type = "group",
@@ -68,6 +69,14 @@ function Addon:OnInitialize()
 						type = "execute",
 						order = 10,
 						func = function() self.db.profile.button.x = -40 self.db.profile.button.y = -30 Main.button:ClearAllPoints() Main.button:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", self.db.profile.button.x, self.db.profile.button.y)end,
+					},
+					altList = {
+						name = L["Remove Alt from Recipe Tracker"],
+						order = 30,
+						width = "full",
+						type = "select",
+						values = function() local alts = { } for k,v in pairs(RecipeTracker.db.realm) do alts[k] = k end return alts end,
+						set = function(info, value) RecipeTracker.db.realm[value] = nil self:Print("Deleted", value) end,
 					},
 				},
 			},
