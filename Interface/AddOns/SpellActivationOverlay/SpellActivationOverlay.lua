@@ -17,14 +17,15 @@ function SpellActivationOverlay_OnLoad(self)
 	self.scale = 1;
 	SpellActivationOverlay_OnChangeGeometry(self);
 
-	local class = SAO.Class[select(2, UnitClass("player"))];
+	local className, classFile, classId = UnitClass("player");
+	local class = SAO.Class[classFile];
 	if class then
-		class.Register(SAO);
+		class.Intrinsics = { className, classFile, classId };
 		SAO.CurrentClass = class;
 
-		-- Keys of the class other than "Register" are expected to be event names
+		-- Keys of the class other than "Intrinsics", "Register" and "LoadOptions" are expected to be event names
 		for key, _ in pairs(class) do
-			if (key ~= "Register") then
+			if (key ~= "Intrinsics" and key ~= "Register" and key ~= "LoadOptions") then
 				self:RegisterEvent(key);
 			end
 		end
@@ -149,7 +150,8 @@ end
 
 function SpellActivationOverlay_ShowOverlay(self, spellID, texturePath, position, scale, r, g, b, vFlip, hFlip, cw, autoPulse, forcePulsePlay)
 	if (SpellActivationOverlayDB and SpellActivationOverlayDB.alert and not SpellActivationOverlayDB.alert.enabled) then
-		return
+		-- Last chance to quit displaying the overlay, if the main overlay flag is disabled
+		return;
 	end
 
 	local overlay = SpellActivationOverlay_GetOverlay(self, spellID, position);

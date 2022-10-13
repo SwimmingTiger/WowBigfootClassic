@@ -1,89 +1,78 @@
-﻿if LibDebug then LibDebug() end
+﻿
 -- Prevent tainting global _.
 local _
 local _G = _G
 
-
 local function CopyTable(SrcTable)
-	local TarTable = {}
-	local type = type
-	local pairs = pairs
+	local TarTable = {};
 	for sKey, sValue in pairs(SrcTable) do
 		if type(sValue) == "table" then
-			TarTable[sKey] = {}
-			TarTable[sKey] = CopyTable(sValue)
+			TarTable[sKey] = {};
+			TarTable[sKey] = CopyTable(sValue);
 		else
-			TarTable[sKey] = sValue
+			TarTable[sKey] = sValue;
 		end
 	end
-	return TarTable
+	return TarTable;
 end
 
 function EventAlert_LoadClassSpellArray(ItemType)
-	--if EA_Items[EA_playerClass] == nil then EA_Items[EA_playerClass] = {} end
-	--if EA_AltItems[EA_playerClass] == nil then EA_AltItems[EA_playerClass] = {} end
-	--if EA_Items[EA_CLASS_OTHER] == nil then EA_Items[EA_CLASS_OTHER] = {} end
-	--if EA_TarItems[EA_playerClass] == nil then EA_TarItems[EA_playerClass] = {} end
-	--if EA_ScdItems[EA_playerClass] == nil then EA_ScdItems[EA_playerClass] = {} end
-	--if EA_GrpItems[EA_playerClass] == nil then EA_GrpItems[EA_playerClass] = {} end
-
 	if (ItemType == 1) or (ItemType == 9 and EA_Items[EA_playerClass] == nil) then
-		EA_Items[EA_playerClass] = {}
+		EA_Items[EA_playerClass] = {};
 		for i, v in pairsByKeys(EADef_Items[EA_playerClass]["ITEMS"]) do
-			i = tonumber(i)
-			if EA_Items[EA_playerClass][i] == nil then EA_Items[EA_playerClass][i] = v end
-			if GetSpellInfo(i) == nil then EA_Items[EA_playerClass][i] = nil end
+			i = tonumber(i);
+			if EA_Items[EA_playerClass][i] == nil then EA_Items[EA_playerClass][i] = v end;
+			if GetSpellInfo(i) == nil then EA_Items[EA_playerClass][i] = nil end;
 		end
 	end
 	if (ItemType == 2) or (ItemType == 9 and EA_AltItems[EA_playerClass] == nil) then
-		EA_AltItems[EA_playerClass] = {}
+		EA_AltItems[EA_playerClass] = {};
 		for i, v in pairsByKeys(EADef_Items[EA_playerClass]["ALTITEMS"]) do
-			i = tonumber(i)
-			if EA_AltItems[EA_playerClass][i] == nil then EA_AltItems[EA_playerClass][i] = v end
-			if GetSpellInfo(i) == nil then EA_AltItems[EA_playerClass][i] = nil end
+			i = tonumber(i);
+			if EA_AltItems[EA_playerClass][i] == nil then EA_AltItems[EA_playerClass][i] = v end;
+			if GetSpellInfo(i) == nil then EA_AltItems[EA_playerClass][i] = nil end;
 		end
 	end
 	if (ItemType == 3) or (ItemType == 9 and EA_Items[EA_CLASS_OTHER] == nil) then
-		EA_Items[EA_CLASS_OTHER] = {}
+		EA_Items[EA_CLASS_OTHER] = {};
 		for i, v in pairsByKeys(EADef_Items[EA_CLASS_OTHER]) do
-			i = tonumber(i)
-			if EA_Items[EA_CLASS_OTHER][i] == nil then EA_Items[EA_CLASS_OTHER][i] = v  end
-			if GetSpellInfo(i) == nil then EA_Items[EA_CLASS_OTHER][i] = nil end
+			i = tonumber(i);
+			if EA_Items[EA_CLASS_OTHER][i] == nil then EA_Items[EA_CLASS_OTHER][i] = v  end;
+			if GetSpellInfo(i) == nil then EA_Items[EA_CLASS_OTHER][i] = nil end;
 		end
 	end
 	if (ItemType == 4) or (ItemType == 9 and EA_TarItems[EA_playerClass] == nil) then
-		EA_TarItems[EA_playerClass] = {}
+		EA_TarItems[EA_playerClass] = {};
 		for i, v in pairsByKeys(EADef_Items[EA_playerClass]["TARITEMS"]) do
-			i = tonumber(i)
-			if EA_TarItems[EA_playerClass][i] == nil then EA_TarItems[EA_playerClass][i] = v end
-			if GetSpellInfo(i) == nil then EA_TarItems[EA_playerClass][i] = nil end
+			i = tonumber(i);
+			if EA_TarItems[EA_playerClass][i] == nil then EA_TarItems[EA_playerClass][i] = v end;
+			if GetSpellInfo(i) == nil then EA_TarItems[EA_playerClass][i] = nil end;
 		end
 	end
 	if (ItemType == 5) or (ItemType == 9 and EA_ScdItems[EA_playerClass] == nil) then
-		EA_ScdItems[EA_playerClass] = {}
+		EA_ScdItems[EA_playerClass] = {};
 		for i, v in pairsByKeys(EADef_Items[EA_playerClass]["SCDITEMS"]) do
-			i = tonumber(i)
-			if EA_ScdItems[EA_playerClass][i] == nil then EA_ScdItems[EA_playerClass][i] = v end
-			if GetSpellInfo(i) == nil then EA_ScdItems[EA_playerClass][i] = nil end
+			i = tonumber(i);
+			if EA_ScdItems[EA_playerClass][i] == nil then EA_ScdItems[EA_playerClass][i] = v end;
+			if GetSpellInfo(i) == nil then EA_ScdItems[EA_playerClass][i] = nil end;
 		end
 	end
 	if (ItemType == 6) or (ItemType == 9 and EA_GrpItems[EA_playerClass] == nil) then
-		EA_GrpItems[EA_playerClass] = {}
-		local iGroupCnts = 0
-		--if (#EA_GrpItems[EA_playerClass] ~= nil) then iGroupCnts = #EA_GrpItems[EA_playerClass] end
+		EA_GrpItems[EA_playerClass] = {};
+		local iGroupCnts = 0;
+		--if (#EA_GrpItems[EA_playerClass] ~= nil) then iGroupCnts = #EA_GrpItems[EA_playerClass] end;
 		for i, v in pairsByKeys(EADef_Items[EA_playerClass]["GRPITEMS"]) do
-			i = tonumber(i)
-			if EA_GrpItems[EA_playerClass][iGroupCnts+i] == nil then EA_GrpItems[EA_playerClass][iGroupCnts+i] = {} end
-			-- EA_GrpItems[EA_playerClass][iGroupCnts+i] = v
-			EA_GrpItems[EA_playerClass][iGroupCnts+i] = CopyTable(v)
+			i = tonumber(i);
+			if EA_GrpItems[EA_playerClass][iGroupCnts+i] == nil then EA_GrpItems[EA_playerClass][iGroupCnts+i] = {} end;
+			-- EA_GrpItems[EA_playerClass][iGroupCnts+i] = v;
+			EA_GrpItems[EA_playerClass][iGroupCnts+i] = CopyTable(v);
 		end
 	end
 end
 
-
 function EventAlert_LoadSpellArray()
 
-	EADef_Items = {}
+	EADef_Items = {};
 
 --------------------------------------------------------------------------------
 -- Death Knight / 死亡騎士
@@ -93,7 +82,7 @@ function EventAlert_LoadSpellArray()
 		["ITEMS"] = {
 			[48707] = {enable=true,self=true},   	-- 反魔法護罩
 			[48792] = {enable=true,self=true},   	-- 冰錮堅韌
-			[49039] = {enable=true,self=true},   	-- 巫妖之軀			
+			[49039] = {enable=true,self=true},   	-- 巫妖之軀
 			[51124] = {enable=true,self=true},   	-- 殺戮酷刑
 			[57330] = {enable=true,self=true},   	-- 凜冬號角
 			[59052] = {enable=true,self=true},   	-- 凝霜
@@ -107,16 +96,16 @@ function EventAlert_LoadSpellArray()
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
-			
+
 		},
 		-- Target Alert / 目標提醒區
 		["TARITEMS"] = {
 			[55095] = {enable=true, self=true,},    -- 冰霜熱疫
-			[55078] = {enable=true, self=true,},    -- 血魄瘟疫		
+			[55078] = {enable=true, self=true,},    -- 血魄瘟疫
 			[194310] = {enable=true, self=true,},    -- 膿瘡傷口
 			[191587] = {enable=true, self=true,},    -- 惡性瘟疫
 			[206940] = {enable=true, self=true,},    -- 血魄印記
-			
+
 			},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -156,75 +145,11 @@ function EventAlert_LoadSpellArray()
 			[221699] = {enable=true},		-- 血魄轉化
 			[55090] = {enable=true},		-- 天譴打擊
 			[47541] = {enable=true},		-- 死亡纏繞
-			
-			
+
+
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				-- ActiveTalentGroup=1,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 57330,	-- 57330 凜冬號角
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 玩家身上沒有凜風號角、並且凜冬號角不在CD中
-										SubCheckAndOp = true,		-- 編號1的邏輯運算可以無視
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "player",		-- 檢測對象，為"玩家"
-										CheckAuraNotExist = 57330,	-- 檢測"凜冬號角"Buff是否"不存在"
-										CheckCD = 57330,		-- 檢測"凜冬號角"技能是否"CD中"
-									},
-									[2] = {	-- 並且(true)，身上沒有戰士的力量怒吼(不檢查此技能之CD)
-										SubCheckAndOp = true,		-- true:並且, false:或者
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "player",		-- 檢測對象，為"玩家"
-										CheckAuraNotExist = 6673, 	-- 檢測"力量怒吼"Buff是否"不存在"
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[2] = {
-				enable=false,
-				LocX = 80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=1,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 49222,	-- 49222 駭骨之盾
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "player",
-										CheckAuraNotExist = 49222,
-										CheckCD = 49222,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
 		},
 	}
 
@@ -248,27 +173,27 @@ function EventAlert_LoadSpellArray()
 			[135700] = {enable=true,},   -- 節能施法(野性專精)
 			[137452] = {enable=true,},   -- 獸性位移
 			[158792] = {enable=true,},   -- 粉碎(守護專精)
-			[145152] = {enable=true,},   -- 血爪(野性專精)			
-			[164545] = {enable=true,},   -- 日之活化			
-			[164547] = {enable=true,},   -- 月之活化			
+			[145152] = {enable=true,},   -- 血爪(野性專精)
+			[164545] = {enable=true,},   -- 日之活化
+			[164547] = {enable=true,},   -- 月之活化
 			[192081] = {enable=true,},   -- 鋼鐵毛皮
 			[194223] = {enable=true,},   -- 星穹連線
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
 		},
 		-- Target Alert / 目標提醒區
-		["TARITEMS"] = {			
-			
+		["TARITEMS"] = {
+
 			[774] = {enable=true, self=true,},      -- 回春術
 			[1079] = {enable=true, self=true,},     -- Rip / 撕扯
 			[1822] = {enable=true, self=true,},     -- Rake / 掃擊
 			[5570] = {enable=true, self=true,},     -- Insect Swarm / 蟲群
-			[8921] = {enable=true, self=true,},     -- Moonfire / 月火術		
-			[33763] = {enable=true, self=true,},    -- 生命之花						
+			[8921] = {enable=true, self=true,},     -- Moonfire / 月火術
+			[33763] = {enable=true, self=true,},    -- 生命之花
 			[93402] = {enable=true, self=true,},    -- Moonfire / 日炎術
-			
+
 			[155625] = {enable=true, self=true,},	-- 月火術(月之鼓舞)
 			[164812] = {enable=true, self=true,},	-- 月火術(月能)(平衡專精)
 			[164815] = {enable=true, self=true,},	-- 日炎術(日能)(平衡專精)
@@ -276,7 +201,7 @@ function EventAlert_LoadSpellArray()
 			[155722] = {enable=true, self=true,},	-- 掃擊
 			[197637] = {enable=true, self=true,},	-- 星之活化
 			[202347] = {enable=true, self=true,},	-- 星光閃焰
-			
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -285,12 +210,12 @@ function EventAlert_LoadSpellArray()
 			[29166] = {enable=true,},   -- 啟動
 			[48438] = {enable=true,},   -- 野性痊癒
 			[78674] = {enable=true,},   -- 星湧術
-			
+
 			[5215] = {enable=true,},   	-- 潛行
 			[6807] = {enable=true,},   	-- 槌擊
 			[22812] = {enable=true,},   -- 樹皮術
 			[22842] = {enable=true,},   -- 狂暴恢復
-			[33917] = {enable=true,},   -- 割碎			
+			[33917] = {enable=true,},   -- 割碎
 			[52610] = {enable=true,},   -- 兇蠻咆哮
 			[61336] = {enable=true,},   -- 求生本能
 			[77758] = {enable=true,},   -- 痛擊
@@ -305,308 +230,11 @@ function EventAlert_LoadSpellArray()
 			[192081] = {enable=true,},   	-- 鋼鐵毛皮
 			[192083] = {enable=true,},   	-- 厄索印記
 			[194223] = {enable=true,},   	-- 星穹連線
-			[202028] = {enable=true,},   	-- 兇蠻刈殺("刈"音同"意") 
+			[202028] = {enable=true,},   	-- 兇蠻刈殺("刈"音同"意")
 			[204066] = {enable=true,},   	-- 月之光
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=1,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 5217,	-- 5217 猛虎之怒
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 3,
-										PowerType = "ENERGY",
-										CheckCD = 5217,
-										PowerCompType = 2,
-										PowerLessThanValue = 40,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[2] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 48438,	-- 48438 野性癒合
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 48438,
-										PowerCompType = 4,
-										PowerLessThanValue = 5000,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[3] = {
-				enable=false,
-				LocX = 80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 29166,	-- 29166 啟動
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 29166,
-										PowerCompType = 2,
-										PowerLessThanPercent = 80,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[4] = {
-				enable=false,
-				LocX = -80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 18562,	-- 18562 迅愈
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 18562,
-										PowerCompType = 4,
-										PowerLessThanValue = 1700,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			-- 1.割碎 2.無割裂，補割裂 3.有割裂無粉碎，補粉碎 4.痛擊 5.揮擊
-			[5] = {
-				enable=false,
-				LocX = -80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=1,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 33878,	-- 割碎
-						Checks = {
-							[1] = {
-								CheckAndOp = true,	-- 可無視
-								SubChecks = {
-									[1] = {	-- 玩家怒氣滿15以上，並且割碎不在CD中
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_POWER_UPDATE",	-- 事件別，屬於"能量異動類"
-										UnitType = "player",		-- 檢測對象，為"玩家"
-										PowerTypeNum = 1, 		-- 能量類型編號(1:怒氣)
-										PowerType = "RAGE",		-- 能量類型, 可無視
-										CheckCD = 33878,		-- 檢測"割碎"技能是否"CD中"
-										PowerCompType = 4,		-- 能量, true:小於等於, false:大於等於
-										PowerLessThanValue = 15,	-- 15
-									},
-								},
-							},
-						},
-					},
-					[2] = {
-						SpellIconID = 33745,	-- 割裂
-						Checks = {
-							[1] = {
-								CheckAndOp = true,	-- 可無視
-								SubChecks = {
-									[1] = {	-- 玩家怒氣滿15以上，並且割裂不在CD中
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_POWER_UPDATE",       -- 事件別，屬於"能量異動類"
-										UnitType = "player",            -- 檢測對象，為"玩家"
-										PowerTypeNum = 1,               -- 能量類型編號(1:怒氣)
-										PowerType = "RAGE",             -- 能量類型, 可無視
-										CheckCD = 33745,                -- 檢測"割裂"技能是否"CD中"
-										PowerCompType = 4,          -- 能量, true:小於等於, false:大於等於
-										PowerLessThanValue = 15,        -- 15
-									},
-								},
-							},
-							[2] = {
-								CheckAndOp = true,	-- true:並且, false:或者
-								SubChecks = {
-									[1] = {	-- 目標身上無割裂
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "target",		-- 檢測對象，為"目標"
-										CastByPlayer = true,		-- true:只檢測玩家施放的
-										CheckAuraNotExist = 33745,	-- 檢測"割裂"DeBuff是否"不存在"
-									},
-									[2] = {	-- 或者(false)，目標身上割裂小於等於2層堆疊
-										SubCheckAndOp = false,		-- true:並且, false:或者
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "target",		-- 檢測對象，為"目標"
-										CheckAuraExist = 33745,		-- 檢測"割裂"DeBuff是否"存在"
-										CastByPlayer = true,		-- true:只檢測玩家施放的
-										StackCompType = 2,		-- 堆疊層數, true:小於等於, false:大於等於
-										StackLessThanValue = 2,		-- 2層
-									},
-									[3] = {	-- 或者(false)，目標身上割裂剩餘時間，小於等於3秒
-										SubCheckAndOp = false,		-- true:並且, false:或者
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "target",		-- 檢測對象，為"目標"
-										CheckAuraExist = 33745,		-- 檢測"割裂"DeBuff是否"存在"
-										CastByPlayer = true,		-- true:只檢測玩家施放的
-										TimeCompType = 2,		-- 剩餘時間, true:小於等於, false:大於等於
-										TimeLessThanValue = 3,		-- 3秒
-									},
-								},
-							},
-						},
-					},
-					[3] = {
-						SpellIconID = 80313,	-- 粉碎
-						Checks = {
-							[1] = {
-								CheckAndOp = true,	-- 可無視
-								SubChecks = {
-									[1] = {	-- 玩家怒氣滿15以上，並且粉碎不在CD中
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_POWER_UPDATE",       -- 事件別，屬於"能量異動類"
-										UnitType = "player",            -- 檢測對象，為"玩家"
-										PowerTypeNum = 1,               -- 能量類型編號(1:怒氣)
-										PowerType = "RAGE",             -- 能量類型, 可無視
-										CheckCD = 80313,                -- 檢測"割碎"技能是否"CD中"
-										PowerCompType = 4,          -- 能量, true:小於等於, false:大於等於
-										PowerLessThanValue = 15,        -- 15
-									},
-									[2] = {	-- 並且(true)，目標身上有玩家施放的割裂Debuff
-										SubCheckAndOp = true,		-- true:並且, false:或者
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "target",		-- 檢測對象，為"目標"
-										CastByPlayer = true,		-- true:只檢測玩家施放的
-										CheckAuraExist = 33745,		-- 檢測"割裂"DeBuff是否"存在"
-									},
-								},
-							},
-							[2] = {
-								CheckAndOp = true,	-- true:並且, false:或者
-								SubChecks = {
-									[1] = {	-- 玩家身上的粉碎Buff剩餘時間，小於等於3秒
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "player",		-- 檢測對象，為"玩家"
-										CheckAuraExist = 80951,		-- 檢測"粉碎"Buff是否"存在"
-										TimeCompType = 2,		-- 剩餘時間, true:小於等於, false:大於等於
-										TimeLessThanValue = 3,		-- 3秒
-									},
-									[2] = {	-- 或者(false)，玩家身上沒有粉碎Buff
-										SubCheckAndOp = false,		-- true:並且, false:或者
-										EventType = "UNIT_AURA",	-- 事件別，屬於"AURA異動類"
-										UnitType = "player",		-- 檢測對象，為"玩家"
-										CheckAuraNotExist = 80951,	-- 檢測"粉碎"Buff是否"不存在"
-									},
-								},
-							},
-						},
-					},
-					[4] = {
-						SpellIconID = 77758,	-- 痛擊
-						Checks = {
-							[1] = {
-								CheckAndOp = true,	-- 可無視
-								SubChecks = {
-									[1] = {	-- 玩家怒氣滿25以上，並且痛擊不在CD中
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_POWER_UPDATE",       -- 事件別，屬於"能量異動類"
-										UnitType = "player",            -- 檢測對象，為"玩家"
-										PowerTypeNum = 1,               -- 能量類型編號(1:怒氣)
-										PowerType = "RAGE",             -- 能量類型, 可無視
-										CheckCD = 77758,                -- 檢測"痛擊"技能是否"CD中"
-										PowerCompType = 4,          -- 能量, true:小於等於, false:大於等於
-										PowerLessThanValue = 25,        -- 25
-									},
-								},
-							},
-						},
-					},
-					[5] = {
-						SpellIconID = 779,	-- 揮擊
-						Checks = {
-							[1] = {
-								CheckAndOp = true,	-- 可無視
-								SubChecks = {
-									[1] = {	-- 玩家怒氣滿25以上，並且揮擊不在CD中
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_POWER_UPDATE",       -- 事件別，屬於"能量異動類"
-										UnitType = "player",            -- 檢測對象，為"玩家"
-										PowerTypeNum = 1,               -- 能量類型編號(1:怒氣)
-										PowerType = "RAGE",             -- 能量類型, 可無視
-										CheckCD = 779,                  -- 檢測"揮擊"技能是否"CD中"
-										PowerCompType = 4,          -- 能量, true:小於等於, false:大於等於
-										PowerLessThanValue = 15,        -- 15
-									},
-								},
-							},
-						},
-					},
-				},
-			},
 		},
 	}
 
@@ -630,26 +258,26 @@ function EventAlert_LoadSpellArray()
 			[193530] = {enable=true,},   -- 野性守護
 			[217200] = {enable=true,},   -- 凶暴狂亂
 			[186257] = {enable=true,},   -- 野性守護
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
-			
+
 		},
 		-- Target Alert / 目標提醒區
 		["TARITEMS"] = {
 			[5116] = {enable=true,self=true,},   	-- 震盪射擊
-			[54680] = {enable=true,self=true,},   	-- 暴猛撕咬(奇特技能)			
+			[54680] = {enable=true,self=true,},   	-- 暴猛撕咬(奇特技能)
 			[131894] = {enable=true,self=false,},   -- 黑鴉獵殺
 			[132951] = {enable=true,self=false,},   -- 照明彈
 			[117405] = {enable=true,self=false,},   -- 禁錮射擊
-			
-			
+
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
-		["SCDITEMS"] = {			
+		["SCDITEMS"] = {
 			[17253] = {enable=true,},     -- 撕咬(基礎攻擊)
-			[16827] = {enable=true,},     -- 爪擊(基礎攻擊)			
+			[16827] = {enable=true,},     -- 爪擊(基礎攻擊)
 			[61684] = {enable=true,},     -- 突進(寵物)
 			[54644] = {enable=true,},     -- 冰息術(奇美拉)
 			[92380] = {enable=true,},     -- 霜暴之息(奇美拉)
@@ -666,8 +294,8 @@ function EventAlert_LoadSpellArray()
 			[19574] = {enable=true,},     -- 狂野怒火
 			[193530] = {enable=true,},     -- 野性守護
 			[186257] = {enable=true,},     -- 獵豹守護
-			
-			
+
+
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
@@ -714,702 +342,6 @@ function EventAlert_LoadSpellArray()
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -400,
-			["LocX"] = 130,
-			["ActiveTalentGroup"] = 3,
-			["GroupResult"] = false,
-			["GroupIndex"] = 1,
-			["IconSize"] = 130,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 1698699,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["SubCheckResult"] = false,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 199844,
-									["StackCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["StackCompType"] = 4,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 190446,
-									["SubCheckResult"] = false,
-								}, -- [2]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = true,
-						}, -- [1]
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["SubCheckResult"] = false,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 199844,
-									["StackCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["StackCompType"] = 4,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 198121,
-									["SubCheckResult"] = false,
-								}, -- [2]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = false,
-						}, -- [2]
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["SubCheckResult"] = false,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 199844,
-									["StackCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_POWER_UPDATE",
-									["SubCheckResult"] = true,
-									["PowerType"] = "MANA",
-									["UnitType"] = "player",
-									["PowerLessThanValue"] = 0,
-									["PowerTypeNum"] = 0,
-									["CheckCD"] = 157997,
-									["PowerCompType"] = 4,
-								}, -- [2]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = false,
-						}, -- [3]
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 2,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["SubCheckResult"] = false,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 199844,
-									["StackCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["SubCheckResult"] = false,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["StackCompType"] = 4,
-									["UnitType"] = "target",
-									["CheckAuraExist"] = 33395,
-									["TimeLessThanValue"] = 2,
-								}, -- [2]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = false,
-						}, -- [4]
-					},
-					["SpellResult"] = false,
-					["SpellIconID"] = 199786,
-					["SpellName"] = "冰川長槍",
-				}, -- [1]
-			},
-			["IconPoint"] = "TOP",
-			["IconRelatePoint"] = "TOP",
-		}, -- [1]
-		{
-			["IconAlpha"] = 0.7,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -350,
-			["GroupResult"] = false,
-			["LocX"] = -80,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 2,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135855,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 1,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 1,
-									["SubCheckResult"] = true,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 205473,
-									["StackCompType"] = 4,
-								}, -- [1]
-							},
-							["CheckResult"] = true,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 205473,
-					["SpellName"] = "冰柱",
-				}, -- [1]
-			},
-			["IconSize"] = 40,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [2]
-		{
-			["IconAlpha"] = 0.7,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -350,
-			["GroupResult"] = false,
-			["LocX"] = -40,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 3,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135855,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["StackCompType"] = 4,
-									["SubCheckResult"] = true,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 2,
-									["UnitType"] = "player",
-									["EventType"] = "UNIT_AURA",
-									["CheckAuraExist"] = 205473,
-									["TimeLessThanValue"] = 1,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 205473,
-					["SpellName"] = "冰柱",
-				}, -- [1]
-			},
-			["IconSize"] = 40,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [3]
-		{
-			["IconAlpha"] = 0.7,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -350,
-			["GroupResult"] = false,
-			["LocX"] = 0,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 4,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135855,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["StackCompType"] = 4,
-									["SubCheckResult"] = true,
-									["TimeCompType"] = 4,
-									["UnitType"] = "player",
-									["StackLessThanValue"] = 3,
-									["EventType"] = "UNIT_AURA",
-									["CheckAuraExist"] = 205473,
-									["TimeLessThanValue"] = 1,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 205473,
-					["SpellName"] = "冰柱",
-				}, -- [1]
-			},
-			["IconSize"] = 40,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [4]
-		{
-			["IconAlpha"] = 0.7,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -350,
-			["GroupResult"] = false,
-			["LocX"] = 40,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 5,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135855,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["SubCheckResult"] = true,
-									["TimeCompType"] = 4,
-									["UnitType"] = "player",
-									["StackLessThanValue"] = 4,
-									["StackCompType"] = 4,
-									["CheckAuraExist"] = 205473,
-									["TimeLessThanValue"] = 1,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 205473,
-					["SpellName"] = "冰柱",
-				}, -- [1]
-			},
-			["IconSize"] = 40,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [5]
-		{
-			["IconAlpha"] = 0.7,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -350,
-			["GroupResult"] = false,
-			["LocX"] = 80,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 6,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135855,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 1,
-									["TimeCompType"] = 4,
-									["StackLessThanValue"] = 5,
-									["SubCheckResult"] = true,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 205473,
-									["StackCompType"] = 4,
-								}, -- [1]
-							},
-							["CheckResult"] = true,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 205473,
-					["SpellName"] = "冰柱",
-				}, -- [1]
-			},
-			["IconSize"] = 40,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [6]
-		{
-			["IconAlpha"] = 0.407895202636719,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -400,
-			["LocX"] = 0,
-			["GroupResult"] = false,
-			["GroupIndex"] = 7,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 135857,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_POWER_UPDATE",
-									["SubCheckResult"] = true,
-									["PowerType"] = "MANA",
-									["UnitType"] = "player",
-									["PowerLessThanValue"] = 2500,
-									["PowerTypeNum"] = 0,
-									["CheckCD"] = 190356,
-									["PowerCompType"] = 4,
-								}, -- [1]
-							},
-							["CheckResult"] = true,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 190356,
-					["SpellName"] = "暴風雪",
-				}, -- [1]
-			},
-			["IconSize"] = 130,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [7]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = 17.6666660308838,
-			["LocX"] = -127.111190795898,
-			["ActiveTalentGroup"] = 3,
-			["GroupResult"] = false,
-			["IconPoint"] = "CENTER",
-			["IconSize"] = 130,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 2126034,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["SubCheckResult"] = false,
-									["TimeCompType"] = 4,
-									["UnitType"] = "target",
-									["TimeLessThanValue"] = 2,
-									["CheckCD"] = 153595,
-									["StackLessThanValue"] = 0,
-									["CheckAuraExist"] = 228600,
-									["StackCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckAndOp"] = false,
-									["EventType"] = "UNIT_AURA",
-									["SubCheckResult"] = false,
-									["TimeCompType"] = 4,
-									["UnitType"] = "target",
-									["TimeLessThanValue"] = 2,
-									["CheckCD"] = 153595,
-									["StackLessThanValue"] = 0,
-									["CheckAuraExist"] = 198121,
-									["StackCompType"] = 4,
-								}, -- [2]
-								{
-									["SubCheckAndOp"] = false,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 1,
-									["TimeCompType"] = 4,
-									["UnitType"] = "player",
-									["StackCompType"] = 4,
-									["StackLessThanValue"] = 0,
-									["CheckCD"] = 153595,
-									["CheckAuraExist"] = 190446,
-									["SubCheckResult"] = false,
-								}, -- [3]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = false,
-					["SpellIconID"] = 153595,
-					["SpellName"] = "彗星風暴",
-				}, -- [1]
-			},
-			["GroupIndex"] = 8,
-			["IconRelatePoint"] = "CENTER",
-		}, -- [8]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -400,
-			["GroupResult"] = false,
-			["LocX"] = 260,
-			["GroupIndex"] = 9,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 1033909,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_POWER_UPDATE",
-									["SubCheckResult"] = false,
-									["PowerType"] = "MANA",
-									["UnitType"] = "player",
-									["PowerLessThanValue"] = 0,
-									["PowerTypeNum"] = 0,
-									["CheckCD"] = 157997,
-									["PowerCompType"] = 4,
-								}, -- [1]
-								{
-									["SubCheckResult"] = false,
-									["UnitType"] = "target",
-									["CheckCD"] = 157997,
-									["CheckAuraNotExist"] = 157997,
-									["EventType"] = "UNIT_AURA",
-									["SubCheckAndOp"] = false,
-								}, -- [2]
-							},
-							["CheckResult"] = false,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = false,
-					["SpellIconID"] = 157997,
-					["SpellName"] = "寒冰新星",
-				}, -- [1]
-			},
-			["HideOnLostTarget"] = true,
-			["IconSize"] = 130,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "Top",
-			["IconRelatePoint"] = "Top",
-		}, -- [9]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -91.6113204956055,
-			["GroupResult"] = false,
-			["LocX"] = 321.777770996094,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 10,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 236219,
-					["Checks"] = {
-						{
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 0,
-									["TimeCompType"] = 7,
-									["StackLessThanValue"] = 1,
-									["SubCheckResult"] = true,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 116267,
-									["StackCompType"] = 4,
-								}, -- [1]
-							},
-							["CheckResult"] = true,
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 116267,
-					["SpellName"] = "咒法之流",
-				}, -- [1]
-			},
-			["IconSize"] = 60.555549621582,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "CENTER",
-			["IconRelatePoint"] = "CENTER",
-		}, -- [10]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -8.05568027496338,
-			["GroupResult"] = false,
-			["LocX"] = 321.776275634766,
-			["ActiveTalentGroup"] = 3,
-			["GroupIndex"] = 11,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 236219,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 0,
-									["TimeCompType"] = 7,
-									["StackLessThanValue"] = 2,
-									["StackCompType"] = 4,
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 116267,
-									["SubCheckResult"] = true,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 116267,
-					["SpellName"] = "咒法之流",
-				}, -- [1]
-			},
-			["IconSize"] = 60.555549621582,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "CENTER",
-			["IconRelatePoint"] = "CENTER",
-		}, -- [11]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = 75.038459777832,
-			["LocX"] = 322.666320800781,
-			["GroupResult"] = false,
-			["GroupIndex"] = 12,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 236219,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["StackCompType"] = 4,
-									["TimeLessThanValue"] = 0,
-									["TimeCompType"] = 7,
-									["StackLessThanValue"] = 3,
-									["EventType"] = "UNIT_AURA",
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 116267,
-									["SubCheckResult"] = true,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 116267,
-					["SpellName"] = "咒法之流",
-				}, -- [1]
-			},
-			["IconSize"] = 59.700813293457,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "CENTER",
-			["IconRelatePoint"] = "CENTER",
-		}, -- [12]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = 159.483062744141,
-			["LocX"] = 322.666900634766,
-			["GroupResult"] = false,
-			["GroupIndex"] = 13,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 236219,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["EventType"] = "UNIT_AURA",
-									["TimeLessThanValue"] = 0,
-									["TimeCompType"] = 7,
-									["UnitType"] = "player",
-									["StackCompType"] = 4,
-									["StackLessThanValue"] = 4,
-									["CheckAuraExist"] = 116267,
-									["SubCheckResult"] = true,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 116267,
-					["SpellName"] = "咒法之流",
-				}, -- [1]
-			},
-			["IconSize"] = 59.700740814209,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "CENTER",
-			["IconRelatePoint"] = "CENTER",
-		}, -- [13]
-		{
-			["IconAlpha"] = 0.5,
-			["GroupIconID"] = 0,
-			["enable"] = true,
-			["LocY"] = -209.777725219727,
-			["LocX"] = 325.333892822266,
-			["GroupResult"] = false,
-			["GroupIndex"] = 14,
-			["Spells"] = {
-				{
-					["SpellIconPath"] = 236219,
-					["Checks"] = {
-						{
-							["CheckResult"] = true,
-							["SubChecks"] = {
-								{
-									["SubCheckAndOp"] = true,
-									["StackCompType"] = 4,
-									["TimeLessThanValue"] = 0,
-									["TimeCompType"] = 7,
-									["StackLessThanValue"] = 5,
-									["EventType"] = "UNIT_AURA",
-									["UnitType"] = "player",
-									["CheckAuraExist"] = 116267,
-									["SubCheckResult"] = true,
-								}, -- [1]
-							},
-							["CheckAndOp"] = true,
-						}, -- [1]
-					},
-					["SpellResult"] = true,
-					["SpellIconID"] = 116267,
-					["SpellName"] = "咒法之流",
-				}, -- [1]
-			},
-			["IconSize"] = 59.700813293457,
-			["HideOnLeaveCombat"] = true,
-			["IconPoint"] = "TOP",
-			["IconRelatePoint"] = "TOP",
-		}, -- [14]
 		},
 	}
 
@@ -1451,7 +383,7 @@ function EventAlert_LoadSpellArray()
 			[81326] = {enable=true, self=false},	-- 物理易傷
 			[110300] = {enable=true, self=true,},	-- 罪之重擔
 			[114163] = {enable=true, self=true,},	-- 永恆之火
-			[114916] = {enable=true, self=true,},	-- 死刑宣判			
+			[114916] = {enable=true, self=true,},	-- 死刑宣判
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -1469,196 +401,6 @@ function EventAlert_LoadSpellArray()
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 85673,	-- 85673 榮耀聖言
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 9,
-										PowerType = "HOLY_POWER",
-										CheckCD = 85673,
-										PowerCompType = 4,
-										PowerLessThanValue = 3,
-									},
-									[2] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_HEALTH",
-										UnitType = "target",
-										HealthCompType = 2,
-										HealthLessThanPercent = 80,
-									},
-								},
-							},
-						},
-					},
-					[2] = {
-						SpellIconID = 85222,	-- 85222 黎明曙光(手電筒)
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 9,
-										PowerType = "HOLY_POWER",
-										CheckCD = 85222,
-										PowerCompType = 4,
-										PowerLessThanValue = 3,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[2] = {
-				["enable"] = false,
-				["LocX"] = 0,
-				["LocY"] = -200,
-				["IconSize"] = 80,
-				["IconAlpha"] = 0.5,
-				["IconPoint"] = "Top",
-				["IconRelatePoint"] = "Top",
-				["ActiveTalentGroup"] = 1,
-				["HideOnLostTarget"] = true,
-				["Spells"] = {
-					[1] = {
-						["SpellIconID"] = 24275,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["HealthLessThanPercent"] = 20,
-										["UnitType"] = "target",
-										["CheckCD"] = 24275,
-										["SubCheckResult"] = false,
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_HEALTH",
-										["HealthCompType"] = 1,
-									}, -- [1]
-								},
-							}, -- [1]
-						},
-					}, -- [1]
-					[2] = {
-						["SpellIconID"] = 879,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckResult"] = false,
-										["UnitType"] = "player",
-										["SubCheckAndOp"] = true,
-										["CheckCD"] = 879,
-										["CheckAuraExist"] = 59578,
-										["EventType"] = "UNIT_AURA",
-									}, -- [1]
-								},
-							}, -- [1]
-						},
-					}, -- [2]
-					[3] = {
-						["SpellIconID"] = 85256,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["PowerType"] = "HOLY_POWER",
-										["UnitType"] = "player",
-										["PowerLessThanValue"] = 3,
-										["CheckCD"] = 85256,
-										["PowerTypeNum"] = 9,
-										["EventType"] = "UNIT_POWER_UPDATE",
-										["PowerCompType"] = 4,
-									}, -- [1]
-									[2] = {
-										["SubCheckResult"] = false,
-										["UnitType"] = "player",
-										["SubCheckAndOp"] = false,
-										["CheckCD"] = 85256,
-										["CheckAuraExist"] = 90174,
-										["EventType"] = "UNIT_AURA",
-									}, -- [2]
-								},
-							}, -- [1]
-						},
-					}, -- [3]
-					[4] = {
-						["SpellIconID"] = 20271,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_POWER_UPDATE",
-										["SubCheckResult"] = false,
-										["PowerType"] = "MANA",
-										["UnitType"] = "player",
-										["PowerLessThanValue"] = 90,
-										["PowerTypeNum"] = 0,
-										["CheckCD"] = 20271,
-										["PowerCompType"] = 4,
-									}, -- [1]
-								},
-							}, -- [1]
-						},
-					}, -- [4]
-					[5] = {
-						["SpellIconID"] = 35395,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_POWER_UPDATE",
-										["SubCheckResult"] = false,
-										["PowerType"] = "HOLY_POWER",
-										["UnitType"] = "player",
-										["PowerLessThanValue"] = 3,
-										["PowerTypeNum"] = 9,
-										["CheckCD"] = 35395,
-										["PowerCompType"] = 1,
-									}, -- [1]
-									[2] = {
-										["SubCheckAndOp"] = false,
-										["EventType"] = "UNIT_POWER_UPDATE",
-										["SubCheckResult"] = false,
-										["PowerType"] = "MANA",
-										["UnitType"] = "player",
-										["PowerLessThanValue"] = 100,
-										["PowerTypeNum"] = 0,
-										["CheckCD"] = 35395,
-										["PowerCompType"] = 4,
-									}, -- [2]
-								},
-							}, -- [1]
-						},
-					}, -- [5]
-				},
-			}, -- [2]
 		},
 	}
 
@@ -1671,7 +413,7 @@ function EventAlert_LoadSpellArray()
 		["ITEMS"] = {
 			[17] = {enable=true,},      			-- 真言術:盾
 			[6788] = {enable=true,},    			-- 虛弱靈魂
-			[47585] = {enable=true,},  			 	-- 影散			
+			[47585] = {enable=true,},  			 	-- 影散
 			[81782] = {enable=true,},   			-- 真言術:壁
 			[87160] = {enable=true,overgrow=3},		-- 黑暗奔騰
 			[124430] = {enable=true,},   			-- 幽暗洞察
@@ -1679,7 +421,7 @@ function EventAlert_LoadSpellArray()
 			[197937] = {enable=true,},   			-- 瘋狂殘念
 			[205372] = {enable=true,overgrow=5},   	-- 虛無射線
 			overgr
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
@@ -1693,12 +435,12 @@ function EventAlert_LoadSpellArray()
 			[34914] = {enable=true, self=true,},    -- Vampiric Touch / 吸血之觸
 			[47753] = {enable=true, self=true,},    -- 神禦之盾
 			[217673] = {enable=true, self=true,overgrow=3},    -- 神禦之盾
-			
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
 			[17] = {enable=true,},      -- 真言術:盾
-			[10060] = {enable=true,},   -- 注入能量			
+			[10060] = {enable=true,},   -- 注入能量
 			[32379] = {enable=true,},   -- 暗言術:死
 			[33206] = {enable=true,},   -- 痛苦鎮壓
 			[34433] = {enable=true,},   -- 暗影惡魔
@@ -1719,233 +461,11 @@ function EventAlert_LoadSpellArray()
 			[32375] = {enable=true,},   -- 群體驅散
 			[205369] = {enable=true,},   -- 心靈炸彈
 			[15286] = {enable=true,},   -- 吸血鬼的擁抱
-			
-			
+
+
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				-- ActiveTalentGroup=1,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 34433,	-- 34433 暗影惡魔
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 34433,
-										PowerCompType = 2,
-										PowerLessThanPercent = 70,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[2] = {
-				enable=false,
-				LocX = 80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 32379,	-- 32379 暗言術: 死
-						Checks = {
-							[1] = {	-- 目標血量小於等於25%、並且暗言術:死不在CD中。
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 目標血量小於等於25%、並且暗言術:死不在CD中。
-										SubCheckAndOp = true,		-- 可無視
-										EventType = "UNIT_HEALTH",	-- 事件別，屬於"血量異動類"
-										UnitType = "target",		-- 檢測對象，為"目標"
-										CheckCD = 32379,		-- 檢測"暗言術: 死"技能是否"CD中"
-										HealthCompType = 2,		-- 血量, true:小於等於, false:大於等於
-										HealthLessThanPercent = 25,	-- 25%
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			[3] = {
-				enable=false,
-				LocX = -80,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 8092,	-- 8092 心靈震爆
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 心爆未CD，且MP夠
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 8092,
-										PowerCompType = 4,
-										PowerLessThanValue = 3500,
-									},
-									[2] = {	-- 且 黑球存在
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "player",
-										CheckAuraExist = 77487,
-									},
-								},
-							},
-							[2] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 紅球剩3秒
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "player",
-										CheckAuraExist = 95799,
-										TimeCompType = 2,
-										TimeLessThanValue = 3,
-									},
-									[2] = {	-- 或 紅球不存在
-										SubCheckAndOp = false,
-										EventType = "UNIT_AURA",
-										UnitType = "player",
-										CheckAuraNotExist = 95799,
-									},
-									[3] = {	-- 或 黑球x3
-										SubCheckAndOp = false,
-										EventType = "UNIT_AURA",
-										UnitType = "player",
-										CheckAuraExist = 77487,
-										StackCompType = 4,
-										StackLessThanValue = 3,
-									},
-								},
-							},
-						},
-					},
-					[2] = {
-						SpellIconID = 34914,	-- 34914 吸血之觸
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 吸血之觸未CD，且MP夠
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 34914,
-										PowerCompType = 4,
-										PowerLessThanValue = 3300,
-									},
-								},
-							},
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {	-- 吸血之觸剩2秒
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "target",
-										CastByPlayer = true,
-										CheckAuraExist = 34914,
-										TimeCompType = 2,
-										TimeLessThanValue = 2,
-									},
-									[2] = {	-- 或 目標身上 無 吸血之觸
-										SubCheckAndOp = false,
-										EventType = "UNIT_AURA",
-										UnitType = "target",
-										CastByPlayer = true,
-										CheckAuraNotExist = 34914,
-									},
-								},
-							},
-						},
-					},
-					[3] = {
-						SpellIconID = 589,	-- 589 暗言術:痛
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 589,
-										PowerCompType = 4,
-										PowerLessThanValue = 4100,
-									},
-									[2] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "target",
-										CastByPlayer = true,
-										CheckAuraNotExist = 589,
-									},
-								},
-							},
-						},
-					},
-					[4] = {
-						SpellIconID = 2944,	-- 2944 噬靈瘟疫
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 0,
-										PowerType = "MANA",
-										CheckCD = 2944,
-										PowerCompType = 4,
-										PowerLessThanValue = 4800,
-									},
-									[2] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_AURA",
-										UnitType = "target",
-										CastByPlayer = true,
-										CheckAuraNotExist = 2944,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
 		},
 	}
 
@@ -1965,13 +485,13 @@ function EventAlert_LoadSpellArray()
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
-			
+
 		},
 		-- Target Alert / 目標提醒區
 		["TARITEMS"] = {
 			[1943] = {enable=true, self=true,},     -- 割裂
 			[84617] = {enable=true, self=true,},    -- 揭底之擊
-			
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -1980,45 +500,6 @@ function EventAlert_LoadSpellArray()
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				enable=false,
-				LocX = 0,
-				LocY = -200,
-				IconSize = 80,
-				IconAlpha = 0.5,
-				IconPoint = "Top",
-				IconRelatePoint = "Top",
-				--ActiveTalentGroup=2,	-- nil for all, 1 for primary, 2 for secondary
-				Spells = {
-					[1] = {
-						SpellIconID = 53,	-- 53 背刺
-						Checks = {
-							[1] = {
-								CheckAndOp = true,
-								SubChecks = {
-									[1] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_POWER_UPDATE",
-										UnitType = "player",
-										PowerTypeNum = 3,
-										PowerType = "ENERGY",
-										CheckCD = 53,
-										PowerCompType = 4,
-										PowerLessThanValue = 40,
-									},
-									[2] = {
-										SubCheckAndOp = true,
-										EventType = "UNIT_HEALTH",
-										UnitType = "target",
-										HealthCompType = 2,
-										HealthLessThanPercent = 35,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
 		},
 	}
 
@@ -2030,8 +511,8 @@ function EventAlert_LoadSpellArray()
 		-- Primary Alert / 本職業提醒區
 		["ITEMS"] = {
 			[192106] = {enable=true,},	-- 閃電之盾
-			[16166] = {enable=true,},	-- 精通元素						
-			[53390] = {enable=true,},	-- 治療之潮			
+			[16166] = {enable=true,},	-- 精通元素
+			[53390] = {enable=true,},	-- 治療之潮
 			[73685] = {enable=true,},	-- 釋放大地生命
 			[79206] = {enable=true,},	-- 靈行者之賜
 			[105763] = {enable=true,},	-- 心靈激勵 (法力之潮)
@@ -2045,22 +526,22 @@ function EventAlert_LoadSpellArray()
 			[196834] = {enable=true,},	-- 冰封打擊
 			[201898] = {enable=true,},	-- 風之歌
 			[215864] = {enable=true,},	-- 時雨
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
 		},
 		-- Target Alert / 目標提醒區
 		["TARITEMS"] = {
-			
+
 			[51514] = {enable=true, self=true,},	-- 妖術
-			
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
-			[16166] = {enable=true,},	-- 精通元素			
+			[16166] = {enable=true,},	-- 精通元素
 			[51505] = {enable=true,},	-- 熔岩爆發
-			[61295] = {enable=true,},	-- 激流			
+			[61295] = {enable=true,},	-- 激流
 			[73920] = {enable=true,},	-- 治癒之雨
 			[79206] = {enable=true,},	-- 靈行者之賜
 			[98008] = {enable=true,},	-- 靈魂連結圖騰
@@ -2082,161 +563,11 @@ function EventAlert_LoadSpellArray()
 			[193796] = {enable=true,},	-- 火舌打擊
 			[196834] = {enable=true,},	-- 冰封打擊
 			[215864] = {enable=true,},	-- 時雨
-			
+
 
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
-			[1] = {
-				["enable"] = false,
-				["LocX"] = 0,
-				["LocY"] = -200,
-				["IconSize"] = 80,
-				["IconAlpha"] = 0.5,
-				["IconPoint"] = "Top",
-				["IconRelatePoint"] = "Top",
-				["ActiveTalentGroup"] = 2,
-				["HideOnLeaveCombat"] = true,
-				["Spells"] = {
-					[1] = {
-						["SpellIconID"] = 51505,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_POWER_UPDATE",
-										["UnitType"] = "player",
-										["PowerTypeNum"] = 0,
-										["PowerType"] = "MANA",
-										["CheckCD"] = 51505,
-										["PowerCompType"] = 4,
-										["PowerLessThanValue"] = 380,
-									}, -- [1]
-								},
-							}, -- [1]
-						},
-					}, -- [1]
-					[2] = {
-						["SpellIconID"] = 8050,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "target",
-										["CheckCD"] = 8050,
-										["CheckAuraNotExist"] = 8050,
-										["CastByPlayer"] = true,
-									}, -- [1]
-									[2] = {
-										["SubCheckAndOp"] = false,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "target",
-										["CastByPlayer"] = true,
-										["CheckAuraExist"] = 8050,
-										["CheckCD"] = 8050,
-										["TimeCompType"] = 2,
-										["TimeLessThanValue"] = 5,
-									}, -- [2]
-								},
-							}, -- [1]
-						},
-					}, -- [2]
-					[3] = {
-						["SpellIconID"] = 8042,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "target",
-										["CheckCD"] = 8042,
-										["CastByPlayer"] = true,
-										["CheckAuraExist"] = 8050,
-										["TimeCompType"] = 5,
-										["TimeLessThanValue"] = 5,
-									}, -- [1]
-									[2] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "player",
-										["CheckAuraExist"] = 324,
-										["StackCompType"] = 4,
-										["StackLessThanValue"] = 9,
-									}, -- [2]
-								},
-							}, -- [1]
-							[2] = {
-								["CheckAndOp"] = false,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "target",
-										["CheckCD"] = 8042,
-										["CastByPlayer"] = true,
-										["CheckAuraExist"] = 8050,
-										["TimeCompType"] = 3,
-										["TimeLessThanValue"] = 5,
-									}, -- [1]
-									[2] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "player",
-										["CheckAuraExist"] = 324,
-										["StackCompType"] = 4,
-										["StackLessThanValue"] = 7,
-									}, -- [2]
-								},
-							}, -- [2]
-						},
-					}, -- [3]
-				},
-			}, -- [1]
-			[2] = {
-				["enable"] = false,
-				["LocX"] = 0,
-				["LocY"] = -200,
-				["IconSize"] = 80,
-				["IconAlpha"] = 0.5,
-				["IconPoint"] = "Top",
-				["IconRelatePoint"] = "Top",
-				["ActiveTalentGroup"] = 2,
-				["Spells"] = {
-					[1] = {
-						["SpellIconID"] = 324,
-						["Checks"] = {
-							[1] = {
-								["CheckAndOp"] = true,
-								["SubChecks"] = {
-									[1] = {
-										["SubCheckAndOp"] = true,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "player",
-										["CheckCD"] = 324,
-										["CheckAuraExist"] = 324,
-										["CastByPlayer"] = true,
-										["TimeCompType"] = 1,
-										["TimeLessThanValue"] = 60,
-									}, -- [1]
-									[2] = {
-										["SubCheckAndOp"] = false,
-										["EventType"] = "UNIT_AURA",
-										["UnitType"] = "player",
-										["CheckAuraNotExist"] = 324,
-									}, -- [2]
-								},
-							}, -- [1]
-						},
-					}, -- [1]
-				},
-			}, -- [2]
 		},
 	}
 
@@ -2273,7 +604,7 @@ function EventAlert_LoadSpellArray()
 			[48181] = {enable=true, self=true,},    -- 蝕魂術
 			[50796] = {enable=true, self=true,},    -- 混沌箭
 			[80240] = {enable=true, self=true,},    -- 浩劫災厄
-			[86000] = {enable=true, self=true,},    -- 古爾丹詛咒			
+			[86000] = {enable=true, self=true,},    -- 古爾丹詛咒
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -2299,7 +630,7 @@ function EventAlert_LoadSpellArray()
 			[215572] = {enable=true,self=true},					--飛沫戰狂
 			[46924] = {enable=true,self=true},					--劍刃風暴
 			[107574] = {enable=true,self=true},					--巨像化身
-			[184364] = {enable=true,self=true},					--狂怒恢復		
+			[184364] = {enable=true,self=true},					--狂怒恢復
 			[85739] = {enable=true,self=true},					--削骨斬肉
 			[118038] = {enable=true,self=true},					--劍下亡魂
 			[207982] = {enable=true,self=true,overgrow=3},		--集中怒氣
@@ -2308,7 +639,7 @@ function EventAlert_LoadSpellArray()
 			[125565] = {enable=true,self=true},					--挫志怒吼
 			[871] = {enable=true,self=true},					--盾牆
 			[202164] = {enable=true,self=true},					--英勇躍擊+70%跑速
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
@@ -2318,7 +649,7 @@ function EventAlert_LoadSpellArray()
 			[5246] = {enable=true, self=false},				-- 破膽怒吼
 			[12323] = {enable=true, self=true},    			-- 刺耳怒吼
 			[132169] = {enable=true,self=false},    		-- 暴風怒擲
-			[132168] = {enable=true,self=false},    		-- 震攝波		
+			[132168] = {enable=true,self=false},    		-- 震攝波
 			[113344] = {enable=true,self=true},    			-- 浴血
 			[46924] = {enable=true,self=false},    			-- 劍刃風暴
 			[118038] = {enable=true,self=false},			--劍下亡魂
@@ -2331,8 +662,8 @@ function EventAlert_LoadSpellArray()
 			[23920] = {enable=true,self=false},				--法術反射
 			[871] = {enable=true,self=false},				--盾牆
 			[12975] = {enable=true,self=false},				--破釜沉舟
-			
-			
+
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -2340,7 +671,7 @@ function EventAlert_LoadSpellArray()
 			[12292] = {enable=true},    	--浴血
 			[18499] = {enable=true},    	--狂暴之怒
 			[107574] = {enable=true},    	--巨像化身
-			[184367] = {enable=true},    	--暴怒	
+			[184367] = {enable=true},    	--暴怒
 			[46924] = {enable=true},    	--劍刃風暴
 			[100] = {enable=true},    		--衝鋒
 			[6544] = {enable=true},    		--英勇躍擊
@@ -2371,7 +702,7 @@ function EventAlert_LoadSpellArray()
 			[207982] = {enable=true},		--集中怒氣(武戰致死打擊增傷)
 			[204488] = {enable=true},		--集中怒氣(防戰盾牌猛擊增傷)
 			[12975] = {enable=true},		--破釜沉舟
-			
+
 		},
 		-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
@@ -2385,20 +716,20 @@ function EventAlert_LoadSpellArray()
 	EADef_Items[EA_CLASS_MONK] = {
 		-- Primary Alert / 本職業提醒區
 		["ITEMS"] = {
-			[115175] = {enable=true,},   -- 舒和之霧			
+			[115175] = {enable=true,},   -- 舒和之霧
 			[119611] = {enable=true,},   -- 回生迷霧
 			[120954] = {enable=true,},   -- 石形絕釀
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
 		},
 		-- Target Alert / 目標提醒區
-		["TARITEMS"] = {			
+		["TARITEMS"] = {
 			[115078] = {enable=true, self=true,},   -- 點穴
 			[115175] = {enable=true, self=true,},   -- 舒和之霧
 			[119611] = {enable=true, self=true,},   -- 回生迷霧
-			
+
 		},
 		-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -2434,13 +765,13 @@ function EventAlert_LoadSpellArray()
 		["ITEMS"] = {
 			[163073] = {enable=true,self=true},	--惡魔之魂
 			[188501] = {enable=true},				--靈視
-			
+
 		},
 		-- Alternate Alert / 本職業額外提醒區
 		["ALTITEMS"] = {
 		},
 		-- Target Alert / 目標提醒區
-		["TARITEMS"] = {						
+		["TARITEMS"] = {
 		},
 	-- Spell Cooldown Alert / 本職業技能CD區
 		["SCDITEMS"] = {
@@ -2460,7 +791,7 @@ function EventAlert_LoadSpellArray()
 			[204596] = {enable=true},				--
 			[207684] = {enable=true},				--
 			[218256] = {enable=true},				--
-			
+
 		},
 	-- GroupEvent Alert / 本職業條件技能區
 		["GRPITEMS"] = {
@@ -2492,7 +823,7 @@ function EventAlert_LoadSpellArray()
 		[146555] = {["enable"] = true,["name"] = "憤怒之鼓",self=false},
 		[215864] = {["enable"] = true,["name"] = "時雨",self=false},
 		[159234] = {enable=true,self=true},  	-- 自身BUFF:雷霆王印記
-		[186265] = {enable=true,self=false,},   -- 目標BUFF:巨龜守護 
+		[186265] = {enable=true,self=false,},   -- 目標BUFF:巨龜守護
 		[48707] = {enable=true,self=false,},   	-- 目標BUFF:反魔法護罩
 		[163505] = {enable=true,self=false,},  	-- 目標DEBUFF:掃擊(昏迷4秒)
 		[127797] = {enable=true, self=false,},	-- 目標DEBUFF:厄索之旋
@@ -2503,9 +834,9 @@ function EventAlert_LoadSpellArray()
 		[82691] = {enable=true,self=false},  	-- 目標DEBUFF:霜之環
 		[28271] = {enable=true,self=false},  	-- 目標DEBUFF:變形術
 		[228600] = {enable=true,self=false},  	-- 目標DEBUFF:冰川長槍
-		
+
 	}
-	
+
 
 
 end

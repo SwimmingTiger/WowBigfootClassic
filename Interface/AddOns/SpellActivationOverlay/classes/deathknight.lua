@@ -12,6 +12,28 @@ local function registerClass(self)
     self:RegisterCounter("rune_strike"); -- Must match name from above call
 end
 
+local function loadOptions(self)
+    local runeStrike = 56815;
+    self:AddGlowingOption(nil, runeStrike, runeStrike);
+
+    local rimeBuff = 59052;
+    local rimeTalent = 49188;
+    local killingMachineBuff = 51124;
+    local killingMachineTalent = 51130;
+    local icyTouch = 45477;
+    local frostStrike = 49143;
+    local howlingBlast = 49184;
+
+    self:AddOverlayOption(rimeTalent, rimeBuff);
+    self:AddOverlayOption(killingMachineTalent, killingMachineBuff);
+
+    self:AddGlowingOption(rimeTalent, rimeBuff, howlingBlast);
+    self:AddGlowingOption(killingMachineTalent, killingMachineBuff, howlingBlast);
+    self:AddGlowingOption(killingMachineTalent, killingMachineBuff, icyTouch);
+    self:AddGlowingOption(killingMachineTalent, killingMachineBuff, frostStrike);
+end
+
 SAO.Class["DEATHKNIGHT"] = {
     ["Register"] = registerClass,
+    ["LoadOptions"] = loadOptions,
 }

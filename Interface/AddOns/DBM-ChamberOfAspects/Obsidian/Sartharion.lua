@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 
 mod.statTypes = "normal,normal25"
 
-mod:SetRevision("20221007015514")
+mod:SetRevision("20221010034753")
 mod:SetCreatureID(28860)
 mod:SetEncounterID(1090)
 mod:SetModelID(27035)
@@ -110,7 +110,7 @@ function mod:OnCombatEnd(wipe)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-    if args:IsSpellID(57579, 59127) then
+    if args:IsSpellID(57579, 59127) and self:AntiSpam(3, 1) then
         warnShadowFissure:Show()
         warnShadowFissure:Play("watchstep")
         timerShadowFissure:Start()

@@ -1,34 +1,23 @@
-﻿## Interface: 30400
+## Interface: 30400
 ## Title: EventAlertMod
-## Title-zhTW: EventAlertMod 法術監控觸發提示
-## Title-zhCN: EventAlertMod 法术监控触发提示
-## Title-zhKR: EventAlertMod 맞춤법 모니터링 트리거 프롬프트
-## Author: ziyuefan(死鬥)
-## Version: TBC2.5.1_2021.06.25
-## Notes: To notice or warning the specific Spells/Skills in large icon for the player. Command: /eam opt. By |cff69ccf0ACDACD@TW-REALM|r
-## Notes-zhTW: 監控的法術觸發時, 以大型法術圖示來提示玩家, 法術設定指令:/eam opt. 指令說明:/eam help.
-## Notes-zhCN: 监控的法术触发时, 以大型法术图示来提示玩家, 法术设定指令:/eam opt. 指令说明:/eam help.
-## Notes-zhKR: 모니터링 된 주문이 발동되면 플레이어에게 큰 주문 아이콘이 표시됩니다. 주문 설정 명령 : / eam opt. 명령 설명 : / eam help.
-## Notes-enUS: To notice or warning the specific Spells/Skills in large icon for the player. Command: /eam opt. By |cff69ccf0ACDACD@TW-REALM|r
-## DefaultState: Disabled
-## LoadOnDemand: 0
-## OptionalDeps: LibStub
-## RequiredDeps: !Lib_ZYF
-## SavedVariables: EA_Config,EA_Position,EA_Items,EA_AltItems,EA_TarItems,EA_ScdItems,EA_GrpItems,EA_Pos
+## Title-zhCN: [大脚][集]技能触发
+## Title-zhTW: [大腳][集]技能觸發
+## Notes: |cffbc8f8fConvenient to set any spell you want to monitor.|r
+## Notes-zhCN: |cff00ff00EventAlertMod|r|n|cffbc8f8f方便快捷的设置你想监视的任何法术。|r
+## Notes-zhTW: |cff00ff00EventAlertMod|r|n|cffbc8f8f方便快捷的設置你想監視的任何法術。|r
+## Author: 死鬥,Ever@BF
+## Version: 8.0.1
+## SavedVariables: EA_Config, EA_Position, EA_Items, EA_AltItems, EA_TarItems, EA_ScdItems, EA_GrpItems, EA_Pos
+## Dependencies: BigFoot
+## X-Revision: BigFoot
+## LoadOnDemand: 1
 
-## Load Libs 
-embeds.xml
+localization.comm.lua
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
 
-## language files
-locale\localization.comm.lua
-locale\localization.tw.lua
-locale\localization.en.lua
-locale\localization.cn.lua
-locale\localization.kr.lua
-
-## Main
 EventAlertMod.xml
-
 EventAlert_Options.xml
 EventAlert_IconOptions.xml
 EventAlert_ClassAlerts.xml

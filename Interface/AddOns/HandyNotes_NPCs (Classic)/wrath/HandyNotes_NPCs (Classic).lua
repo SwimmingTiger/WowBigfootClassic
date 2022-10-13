@@ -97,17 +97,34 @@ function pluginHandler:OnEnter(uiMapId, coord)
 		tooltip:SmartAnchorTo(self)
 		tooltip:Show()
 	else
-		local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
-		if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
-			tooltip:SetOwner(self, "ANCHOR_LEFT")
-		else
-			tooltip:SetOwner(self, "ANCHOR_RIGHT")
-		end
+		--local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+		local tooltip = LibQTip:Acquire("HandyNotes_NPCs", 1, "LEFT")
+		self.tooltip = tooltip
+		--if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
+		--	tooltip:SetOwner(self, "ANCHOR_LEFT")
+		--else
+		--	tooltip:SetOwner(self, "ANCHOR_RIGHT")
+		--end
 
 		if (not nodeData.name) then return end
-		tooltip:AddLine(nodeData.name)
+		tooltip:AddHeader(nodeData.name)
+		tooltip:SetLineTextColor(1, 0, 0.6, 0.1, 1)
 		if (nodeData.description) then
 			tooltip:AddLine(nodeData.description, 0, 0.6, 0.1)
+		end
+		if nodeData.category == "spirithealers" then
+			local f = nodeData.faction
+			tooltip:AddLine(f)
+			if f == "Horde" then
+				tooltip:SetLineTextColor(2, 1, 0, 0, 1)
+			elseif f == "Alliance" then
+				tooltip:SetLineTextColor(2, 0, 0, 1, 1)
+			end
+		end
+		if nodeData.category == "flightmasters" then
+			if nodeData["fpName"] then
+				tooltip:AddLine(nodeData["fpName"])
+			end
 		end
 		if nodeData.subcategories and nodeData.subcategories["weaponmaster"] then
 			if nodeData.npcID and data["weaponmasters"][nodeData.npcID] then
@@ -117,8 +134,8 @@ function pluginHandler:OnEnter(uiMapId, coord)
 				end
 			end
 		end
+		tooltip:SmartAnchorTo(self)
 		tooltip:Show()
-		return
 	end
 end
 
@@ -151,7 +168,7 @@ do
 			if value then
 				-- "Do you think God stays in heaven because he, too, lives in fear of what he's created here on earth?"
 				if db.show then
-				if (value.faction == faction or value.faction == "Neutral") then
+				if (value.faction == faction or value.faction == "Neutral" or value.category == "spirithealers") then
 				if not (value.category == "battlemasters") or db.showBattlemasters then
 				if not (value.category == "flightmasters") or db.showFlightMasters and (not value.classes or value.classes[class]) then
 				if not (value.category == "guildmasters") or db.showGuildMasters then

@@ -1,6 +1,0 @@
-## Interface: 70200
-## Title: LibDebug
-## Notes: This library is to make debugging AddOns a little easier.
-## Version: 1.5.1 70200
-
-LibDebug.xml

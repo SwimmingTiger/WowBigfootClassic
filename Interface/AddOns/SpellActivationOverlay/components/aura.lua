@@ -37,7 +37,7 @@ function SAO.RegisterAura(self, name, stacks, spellID, texture, positions, scale
     self:RegisterGlowIDs(glowIDs);
 
     -- Apply aura immediately, if found
-    local exists, _, count = select(3, self:FindPlayerAuraByID(spellID));
+    local exists, _, count = self:FindPlayerAuraByID(spellID);
     if (exists and (stacks == 0 or stacks == count)) then
         self:ActivateOverlay(count, select(3,unpack(aura)));
         self:AddGlow(spellID, select(11,unpack(aura)));

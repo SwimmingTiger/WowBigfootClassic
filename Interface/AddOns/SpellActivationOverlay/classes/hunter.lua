@@ -14,18 +14,9 @@ local function registerClass(self)
     -- Improved Steady Shot, formerly Master Marksman
     self:RegisterAura("improved_steady_shot", 0, 53220, "master_marksman", "Top", 1, 255, 255, 255, true, issGlowNames);
 
-    -- Lock and Load, option 1: display something on top if there is at least one charge
-    -- Advantage: easier to see
-    -- Disadvantages: doesn't show the number of charges, may conflict with Improved Steady Shot
+    -- Lock and Load: display something on top if there is at least one charge
     self:RegisterAura("lock_and_load_1", 1, 56453, "lock_and_load", "Top", 1, 255, 255, 255, true, lalGlowNames);
     self:RegisterAura("lock_and_load_2", 2, 56453, "lock_and_load", "Top", 1, 255, 255, 255, true, lalGlowNames);
-
-    -- Lock and Load, option 2: display the first charge on top-left and second charge on top-right
-    -- Advantages: displays two charges, doesn't conflict with Improved Steady Shot
-    -- Disadvantage: weird place to put them (smaller, away from the center)
-    -- self:RegisterAura("lock_and_load", 1, 56453, "lock_and_load", "TopLeft", 1, 255, 255, 255, true, lalGlowNames);
-    -- self:RegisterAura("lock_and_load_2left", 2, 56453, "lock_and_load", "TopLeft", 1, 255, 255, 255, true, lalGlowNames);
-    -- self:RegisterAura("lock_and_load_2right", 2, 56453, "lock_and_load", "TopRight", 1, 255, 255, 255, true, lalGlowNames);
 
     -- Counterattack, registered as both aura and counter, but only used as counter
     self:RegisterAura("counterattack", 0, counterattack, nil, "", 0, 0, 0, 0, false, { (GetSpellInfo(counterattack)) });
@@ -36,6 +27,33 @@ local function registerClass(self)
     self:RegisterCounter("kill_shot");
 end
 
+local function loadOptions(self)
+    local killShot = 53351;
+    local counterattack = 19306;
+    local aimedShot = 19434;
+    local arcaneShot = 3044;
+    local chimeraShot = 53209;
+    local explosiveShot = 53301;
+
+    local improvedSteadyShotBuff = 53220;
+    local improvedSteadyShotTalent = 53221;
+
+    local lockAndLoadBuff = 56453;
+    local lockAndLoadTalent = 56342;
+
+    self:AddOverlayOption(improvedSteadyShotTalent, improvedSteadyShotBuff);
+    self:AddOverlayOption(lockAndLoadTalent, lockAndLoadBuff, 0); -- any stacks
+
+    self:AddGlowingOption(nil, killShot, killShot);
+    self:AddGlowingOption(nil, counterattack, counterattack);
+    self:AddGlowingOption(improvedSteadyShotTalent, improvedSteadyShotBuff, aimedShot);
+    self:AddGlowingOption(improvedSteadyShotTalent, improvedSteadyShotBuff, arcaneShot);
+    self:AddGlowingOption(improvedSteadyShotTalent, improvedSteadyShotBuff, chimeraShot);
+    self:AddGlowingOption(lockAndLoadTalent, lockAndLoadBuff, arcaneShot);
+    self:AddGlowingOption(lockAndLoadTalent, lockAndLoadBuff, explosiveShot);
+end
+
 SAO.Class["HUNTER"] = {
     ["Register"] = registerClass,
+    ["LoadOptions"] = loadOptions,
 }

@@ -5,7 +5,7 @@ local AddonName, SAO = ...
 SAO.ActivableCountersByName = {};
 SAO.ActivableCountersBySpellID = {};
 
--- List of spell IDs currently
+-- List of spell IDs currently activated
 -- key = spellID, value = true
 SAO.ActivatedCounters = {};
 
@@ -61,6 +61,7 @@ function SAO.CheckCounterAction(self, spellID, auraID, talent)
         -- Unknown aura. Should never happen.
         return;
     end
+    local auraSpellID = aura[3];
 
     local isCounterUsable, notEnoughPower = IsUsableSpell(spellID);
 
@@ -83,12 +84,12 @@ function SAO.CheckCounterAction(self, spellID, auraID, talent)
         -- Counter triggered but not shown yet: just do it!
         self.ActivatedCounters[spellID] = true;
         self:ActivateOverlay(select(2, unpack(aura)));
-        self:AddGlow(spellID, {spellID}); -- Same spell ID, because there is no 'aura'
+        self:AddGlow(auraSpellID, {spellID});
     elseif (self.ActivatedCounters[spellID] and not counterMustBeActivated) then
         -- Counter not triggered but still shown: hide it
         self.ActivatedCounters[spellID] = nil;
-        self:DeactivateOverlay(spellID);
-        self:RemoveGlow(spellID);
+        self:DeactivateOverlay(auraSpellID);
+        self:RemoveGlow(auraSpellID);
     end
 
     if (isCounterUsable and start > 0) then

@@ -13,7 +13,7 @@ local SpellIDs = TotemTimers.SpellIDs
 local SpellTextures = TotemTimers.SpellTextures
 
 function TotemTimers.CreateMultiCastButtons()
-    mb = CreateFrame("CheckButton", "TotemTimers_MultiSpell", UIParent, "ActionButtonTemplate, SecureActionButtonTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerAttributeTemplate")
+    mb = CreateFrame("Button", "TotemTimers_MultiSpell", UIParent, "ActionButtonTemplate, SecureActionButtonTemplate, SecureHandlerEnterLeaveTemplate, SecureHandlerAttributeTemplate")
     XiTimers.AddSpecialActionBarDriver(mb)
     mb:SetWidth(36)
     mb:SetHeight(36)
@@ -164,7 +164,8 @@ function TotemTimers.SetMultiCastConfig()
     end
     for i = 1, 4 do
         local actions = TotemTimers.MultiCastActions[XiTimers.timers[i].nr]
-        local button = XiTimers.timers[i].button
+        local timer = XiTimers.timers[i]
+        local button = timer.button
 
         for mspell, action in pairs(actions) do
 
@@ -177,13 +178,10 @@ function TotemTimers.SetMultiCastConfig()
                 SetMultiCastSpell(action, nil)
             else
                 local _, spellID = GetActionInfo(action)
+                spellID = TotemTimers.SanitizeTotem(spellID, timer)
                 if spellID then
                     XiTimers.timers[i].button:SetAttribute("mspell" .. mspell, spellID)
-                else
-                    spellID = button:GetAttribute("*spell1")
-                    if spellID then
-                        SetMultiCastSpell(action, spellID)
-                    end
+                    SetMultiCastSpell(action, spellID)
                 end
             end
         end

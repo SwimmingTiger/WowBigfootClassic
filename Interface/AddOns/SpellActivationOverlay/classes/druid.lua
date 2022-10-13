@@ -66,17 +66,25 @@ local function updateSAOs(self)
     local lunarTexture = "eclipse_moon";
     local solarTexture = "eclipse_sun";
 
-    if (lunarCache) then
+    local omenOptions = self:GetOverlayOptions(omenSpellID);
+    local lunarOptions = self:GetOverlayOptions(lunarSpellID);
+    local solarOptions = self:GetOverlayOptions(solarSpellID);
+
+    local mayActivateOmen = clarityCache and (not omenOptions or type(omenOptions[0]) == "nil" or omenOptions[0]);
+    local mustActivateLunar = lunarCache and (not lunarOptions or type(lunarOptions[0]) == "nil" or lunarOptions[0]);
+    local mustActivateSolar = solarCache and (not solarOptions or type(solarOptions[0]) == "nil" or solarOptions[0]);
+
+    if (mustActivateLunar) then
         -- Lunar Eclipse
         updateLeftSAO (self, lunarTexture); -- Left is always Lunar Eclipse
-        updateRightSAO(self, clarityCache and omenTexture or ''); -- Right is either Omen or nothing
-    elseif (solarCache) then
+        updateRightSAO(self, mayActivateOmen and omenTexture or ''); -- Right is either Omen or nothing
+    elseif (mustActivateSolar) then
         -- Solar Eclipse
-        updateLeftSAO (self, clarityCache and omenTexture or ''); -- Left is either Omen or nothing
+        updateLeftSAO (self, mayActivateOmen and omenTexture or ''); -- Left is either Omen or nothing
         updateRightSAO(self, solarTexture); -- Right is always Solar Eclipse
     else
         -- No Eclipse: either both SAOs are Omen of Clarity, or both are nothing
-        if (clarityCache) then
+        if (mayActivateOmen) then
             updateLeftSAO (self, omenTexture);
             updateRightSAO(self, omenTexture);
         else
@@ -168,9 +176,6 @@ local function customCLEU(self, ...)
 end
 
 local function registerClass(self)
-    -- Predatory Strikes, inspired by Predatory Swiftness
-    self:RegisterAura("predatory_strikes", 0, 69369, "predatory_swiftness", "Top", 1, 255, 255, 255, false);
-
     -- Track Eclipses with a custom CLEU function, so that eclipses can coexist with Omen of Clarity
     -- self:RegisterAura("eclipse_lunar", 0, lunarSpellID, "eclipse_moon", "Left", 1, 255, 255, 255, true);
     -- self:RegisterAura("eclipse_solar", 0, solarSpellID, "eclipse_sun", "Right (Flipped)", 1, 255, 255, 255, true);
@@ -182,10 +187,73 @@ local function registerClass(self)
     local starfire = GetSpellInfo(2912);
     local wrath = GetSpellInfo(5176);
     self:RegisterGlowIDs({ starfire, wrath });
+
+    -- Predatory Strikes, inspired by Predatory Swiftness
+    local regrowth = GetSpellInfo(8936);
+    local healingTouch = GetSpellInfo(5185);
+    local nourish = GetSpellInfo(50464);
+    local rebirth = GetSpellInfo(20484);
+    -- local wrath = GetSpellInfo(5176);
+    local entanglingRoots = GetSpellInfo(339);
+    local cyclone = GetSpellInfo(33786);
+    local hibernate = GetSpellInfo(2637);
+    local predatoryStrikesSpells = {
+        regrowth,
+        healingTouch,
+        nourish,
+        rebirth,
+        wrath,
+        entanglingRoots,
+        cyclone,
+        hibernate,
+    }
+    self:RegisterAura("predatory_strikes", 0, 69369, "predatory_swiftness", "Top", 1, 255, 255, 255, true, predatoryStrikesSpells);
+end
+
+local function loadOptions(self)
+    local starfire = 2912;
+    local wrath = 5176;
+
+    -- Predatory Strikes candidates
+    local regrowth = 8936;
+    local healingTouch = 5185;
+    local nourish = 50464;
+    local rebirth = 20484;
+    -- local wrath = 5176;
+    local entanglingRoots = 339;
+    local cyclone = 33786;
+    local hibernate = 2637;
+
+    local omenOfClarityTalent = 16864;
+--    local eclipseTalent = 48516;
+    -- Cheat with fake talents, to tell explicitly which type of eclipse is involved
+    -- Otherwise the player would always see a generic "Eclipse" text
+    local lunarEclipseTalent = lunarSpellID; -- Not really a talent
+    local solarEclipseTalent = solarSpellID; -- Not really a talent
+
+    local predatoryStrikesTalent = 16972;
+    local predatoryStrikesBuff = 69369;
+
+    self:AddOverlayOption(omenOfClarityTalent, omenSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(lunarEclipseTalent, lunarSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(solarEclipseTalent, solarSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(predatoryStrikesTalent, predatoryStrikesBuff);
+
+    self:AddGlowingOption(lunarEclipseTalent, starfire, starfire);
+    self:AddGlowingOption(solarEclipseTalent, wrath, wrath);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, regrowth);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, healingTouch);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, nourish);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, rebirth);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, wrath);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, entanglingRoots);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, cyclone);
+    self:AddGlowingOption(predatoryStrikesTalent, predatoryStrikesBuff, hibernate);
 end
 
 SAO.Class["DRUID"] = {
     ["Register"] = registerClass,
+    ["LoadOptions"] = loadOptions,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = customCLEU,
     ["UPDATE_SHAPESHIFT_FORM"] = updateShapeshift,
     ["PLAYER_ENTERING_WORLD"] = customLoad,

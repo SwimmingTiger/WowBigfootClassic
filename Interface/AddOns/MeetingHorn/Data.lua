@@ -19,23 +19,21 @@ expanded = false,
 desc = '战斗开始后，每隔一段时间BOSS会释放出一簇虫群，使BOSS移动速度降低并对附近玩家造成伤害且伤害会叠加，BOSS移动过程中范围内玩家无法施法，持续20秒。',
 },
 {
-expanded = false,
-noCollapse = false,
 title = '召唤地穴卫士',
+noCollapse = false,
+expanded = false,
 desc = 'BOSS在释放虫群风暴同时会召唤一只地穴卫士（精英怪）。',
 },
 {
-expanded = false,
-noCollapse = false,
 title = '召唤甲虫',
+noCollapse = false,
+expanded = false,
 desc = '随机从地穴卫士尸体或玩家的尸体上召唤出甲虫。',
 },
 },
 desc = '阿努布雷坎会释放虫群风暴，期间会使范围内玩家受到大量伤害，但是BOSS移动速度会降低，需要主T在虫群风暴期间拉着BOSS跑，直到技能结束。',
 },
 zone = 1,
-name = '阿努布雷坎',
-icon = '1378964',
 summary = {
 children = {
 {
@@ -61,6 +59,8 @@ desc = '1.    战斗开始后在场地中间分散站位治疗。\n2.    治疗�
 },
 desc = '阿努布雷坎整场战斗远程远离BOSS输出，优先击杀小怪，近战虫群风暴时远离BOSS，治疗需要在虫群时最远距离治疗坦克，确保不会被沉默，所有人分散站位躲开地刺范围。',
 },
+icon = '1378964',
+name = '阿努布雷坎',
 },
 [1108] = {
 bossId = 1108,
@@ -90,6 +90,8 @@ desc = '1.    主T将BOSS拉至门口位置，副T一起制造仇恨。主T身�
 desc = '格拉斯战斗除了拉BOSS的两位坦克不断替换外，风筝小僵尸的也需要在残杀之前控制好小僵尸，残杀后治疗优先加满坦克，输出们优先击杀小僵尸。',
 },
 zone = 4,
+name = '格拉斯',
+icon = '1378977',
 abilities = {
 children = {
 {
@@ -123,8 +125,6 @@ desc = '每隔一段时间，会把BOSS房间内任何玩家和小怪的血量�
 },
 desc = '格拉斯战斗开始后，房间井口附近会不断刷新小僵尸，在残杀后，小僵尸会无视仇恨走向BOSS，BOSS会吞噬靠近自己的僵尸，每吞噬一只恢复BOSS 5%的血量。',
 },
-icon = '1378977',
-name = '格拉斯',
 },
 [1109] = {
 bossId = 1109,
@@ -154,12 +154,12 @@ desc = '1.    优先击杀骑兵和死亡骑士，亡灵小怪出现后法师冰
 desc = '收割者戈提克战斗开始，所有人都站在面对BOSS的左边房间，击杀完所有小怪之后中间的门开启，法师和骑士控制右边房间冲出来的亡灵怪，控制好之后A掉即可。',
 },
 zone = 3,
+name = '收割者戈提克',
+icon = '1378979',
 abilities = {
 children = {
 {
 title = '左边房间',
-expanded = true,
-noCollapse = false,
 children = {
 {
 title = '冷酷的学徒',
@@ -211,17 +211,15 @@ desc = '每3秒对所有附近玩家造成暗影伤害。',
 },
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '小怪只会刷新在3个平台上',
 },
 {
 title = '右边房间',
-expanded = true,
-noCollapse = false,
 children = {
 {
 title = '鬼灵学徒',
-expanded = false,
-noCollapse = false,
 children = {
 {
 spell = '27989',
@@ -238,12 +236,12 @@ expanded = false,
 desc = '恐惧范围内的玩家，持续4秒。',
 },
 },
+noCollapse = false,
+expanded = false,
 desc = '由冷酷的学徒复活而来',
 },
 {
 title = '鬼灵死亡骑士',
-expanded = false,
-noCollapse = false,
 children = {
 {
 spell = '56408',
@@ -253,12 +251,12 @@ expanded = false,
 desc = '对周围玩家造成物理伤害。',
 },
 },
+noCollapse = false,
+expanded = false,
 desc = '由冷酷的死亡骑士复活而来',
 },
 {
 title = '鬼灵骑兵',
-expanded = false,
-noCollapse = false,
 children = {
 {
 spell = '55606',
@@ -275,12 +273,12 @@ expanded = false,
 desc = '从目标身上吸取生命值转移给施法者。',
 },
 },
+noCollapse = false,
+expanded = false,
 desc = '由冷酷的骑兵复活而来，会形成鬼灵骑兵和鬼灵战马2种',
 },
 {
 title = '鬼灵战马',
-expanded = false,
-noCollapse = false,
 children = {
 {
 spell = '27993',
@@ -290,9 +288,13 @@ expanded = false,
 desc = '对周围玩家造成物理伤害且降低移动速度。',
 },
 },
+noCollapse = false,
+expanded = false,
 desc = '由冷酷的骑兵复活而来，会形成鬼灵骑兵和鬼灵战马2种',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '会在随机骨堆上复活三种小怪的灵魂形态',
 },
 {
@@ -326,8 +328,6 @@ desc = 'BOSS每隔30秒会在左右两个房间内传送。',
 },
 desc = '收割者戈提克自身难度不大，这场战斗主要是需要处理好BOSS下楼前的小怪。BOSS房间被分割为两部分，战斗开始中间门会关闭，变成2个独立的区域，在面对BOSS的左边房间被击杀的小怪会在右边房间复活。小怪被击杀完之后BOSS下楼，会并在两个房间内传送。',
 },
-icon = '1378979',
-name = '收割者戈提克',
 },
 [1110] = {
 bossId = 1110,
@@ -357,6 +357,8 @@ desc = '1.    战斗开始后分散站位，躲好火雨，治疗好中毒箭的
 desc = '黑女巫法琳娜的战斗10人和25人模式有所区别，10人模式下无法精神控制小怪，在BOSS附近击杀小怪即可解除狂乱状态；25人模式下需要精神控制小怪自爆之后解除BOSS的狂乱状态。',
 },
 zone = 1,
+name = '黑女巫法琳娜',
+icon = '1378980',
 abilities = {
 children = {
 {
@@ -383,8 +385,6 @@ desc = 'BOSS攻击速度提高50%，对玩家造成的伤害提高。10人模式
 },
 desc = '黑女巫法琳娜身边有2个追随者和4个膜拜者，膜拜者是解除BOSS狂乱状态的关键，10人模式下击杀膜拜者即可解除BOSS狂乱效果，25人模式下需要控制膜拜者，使用黑女巫的拥抱技能，让膜拜者自爆解除。战斗期间BOSS还会释放群体毒箭和火雨。',
 },
-icon = '1378980',
-name = '黑女巫法琳娜',
 },
 [1111] = {
 bossId = 1111,
@@ -414,6 +414,8 @@ desc = '1.    主T开怪后将BOSS拉至墙边，一旦BOSS脚下生成毒云就
 desc = '格罗布鲁斯战斗开始后需要主T拉着BOSS在场地上不断移动来使得近战和T躲开毒云，其他人可集中站位，中注射玩家需要跑离大团，到角落去释放注射产生的毒云。',
 },
 zone = 4,
+name = '格罗布鲁斯',
+icon = '1378981',
 abilities = {
 children = {
 {
@@ -440,8 +442,6 @@ desc = '随机对一名玩家注射毒素，毒素为疾病，持续10秒，可�
 },
 desc = '格罗布鲁斯战斗是一场移动战，BOSS会不断在脚下出现毒云，且随机注射一个玩家，该玩家需要及时跑开全团，否则注射时间到了或者被驱散后，该玩家脚下也会出现毒云。',
 },
-icon = '1378981',
-name = '格罗布鲁斯',
 },
 [1112] = {
 bossId = 1112,
@@ -471,8 +471,6 @@ desc = '1.    一阶段在台子上集合站位输出BOSS。二阶段需要和�
 desc = '肮脏的希尔盖战斗10人和25人模式有所区别，10人在一阶段期间不需要跑动，25人模式的一阶段会喷发熔岩，需要坦克拉动BOSS跑位躲避。二阶段则是两种模式一样，所有人一起跑动躲避熔岩。',
 },
 zone = 2,
-name = '肮脏的希尔盖',
-icon = '1378984',
 abilities = {
 children = {
 {
@@ -505,6 +503,8 @@ title = '一阶段',
 },
 {
 title = '二阶段',
+expanded = true,
+noCollapse = false,
 children = {
 {
 spell = '29350',
@@ -521,13 +521,13 @@ expanded = false,
 desc = '地面以固定规律喷射熔岩，接触到熔岩的玩家将受到大量自然伤害，二阶段喷射节奏加快。',
 },
 },
-noCollapse = false,
-expanded = true,
 desc = '90秒后，BOSS回到平台，释放瘟疫之云。',
 },
 },
 desc = '肮脏的希尔盖整体分为两个阶段，一阶段时BOSS可移动，10人模式下地面不会喷射熔岩，25人模式下地面会以固定规律喷射熔岩。二阶段BOSS在台子上释放技能无法靠近，台子下的地面会喷射熔岩，需要全团所有人一起跑动避开。二阶段结束后会回到一阶段，两阶段循环直至BOSS倒下。',
 },
+icon = '1378984',
+name = '肮脏的希尔盖',
 },
 [1113] = {
 bossId = 1113,
@@ -558,8 +558,6 @@ desc = '对当前目标释放，造成大量物理伤害并使其防御值降低
 desc = '教官拉苏维奥斯物理攻击非常强力，玩家无法坦克，需要控制死亡骑士学员，依靠学员的白骨屏障和嘲讽技能拉住BOSS，治疗在加好全团的血量之外也要注意当前的学员的血量。',
 },
 zone = 3,
-name = '教官拉苏维奥斯',
-icon = '1378988',
 summary = {
 children = {
 {
@@ -585,6 +583,8 @@ desc = '1.    集中站在楼梯上输出BOSS。',
 },
 desc = '教官拉苏维奥斯战斗开始后，10人模式下，需要操作场地上的控制水晶控制BOSS边上的死亡骑士学员（学员拥有白骨屏障和嘲讽技能），让学员开白骨屏障去坦BOSS。而25人模式下就需要牧师精神控制死亡骑士学员去坦克。',
 },
+icon = '1378988',
+name = '教官拉苏维奥斯',
 },
 [1114] = {
 bossId = 1114,
@@ -592,34 +592,32 @@ abilities = {
 children = {
 {
 title = 'P1',
-expanded = true,
-noCollapse = false,
 children = {
 {
-title = '骷髅',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '骷髅',
 desc = '接触人群会自爆释放暗影冲击，对所有目标造成大量暗影伤害。',
 },
 {
-title = '女妖',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '女妖',
 desc = '靠近目标会造成大量暗影伤害，且具有击退效果。',
 },
 {
-title = '憎恶',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '憎恶',
 desc = '对近战释放仇恨打击，对目标释放重伤，降低10%治疗效果，可叠加。',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '不断召唤3种小怪',
 },
 {
 title = 'P2',
-expanded = true,
-noCollapse = false,
 children = {
 {
 spell = '28478',
@@ -664,18 +662,22 @@ expanded = false,
 desc = '随机控制1-3名玩家，被控制玩家体型变大，伤害和治疗能力增加。',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '开始输出BOSS',
 },
 {
-title = 'P3',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = 'P3',
 desc = '克尔苏加德血量降低至45%后进入P3，会刷新寒冰皇冠卫士。BOSS技能和P2一样。',
 },
 },
 desc = '克尔苏加德整场战斗分为三个阶段，P1期间BOSS不参与战斗，不断召唤小怪。P2阶段后小怪不再刷新，开始输出BOSS，在BOSS血量降至45%时进入P3阶段，该阶段会召唤寒冰皇冠卫士。',
 },
 zone = 5,
+name = '克尔苏加德',
+icon = '1378989',
 summary = {
 children = {
 {
@@ -701,8 +703,6 @@ desc = 'P1：拉住憎恶仇恨，远离女妖和骷髅。\nP2：主T在场地�
 },
 desc = '克尔苏加德战斗开始时需要所有人站在场地中间输出小怪，进入P2阶段后，近战需要分堆站位，远程分散站位，确保不会在中冰霜冲击时连累太多人，战斗过程中躲避好脚下出现的暗影裂隙；进入P3后，副T拉住出现的小怪，其他人继续输出BOSS。',
 },
-icon = '1378989',
-name = '克尔苏加德',
 },
 [1115] = {
 bossId = 1115,
@@ -732,6 +732,8 @@ desc = '1.    战斗开始主T将BOSS拉在房间中间，拉住仇恨即可，�
 desc = '洛欧塞布战斗开始后需要治疗们注意死灵光环的倒数计时，消失后有3秒时间将全团血量补满，然后光环会再次出现开始倒数，如此不断的循环，其余时间都需要帮助输出。近战和远程输出都需要轮流吃孢子，确保输出伤害和仇恨。',
 },
 zone = 2,
+name = '洛欧塞布',
+icon = '1378991',
 abilities = {
 children = {
 {
@@ -765,8 +767,6 @@ desc = '每隔30秒释放一次，对所有人在6秒内造成大量伤害，结
 },
 desc = '洛欧塞布战斗开始之后会有治疗量降低100%的光环，持续17秒后停止3秒，一直循环至战斗结束，只有在停止的3秒时间内才能治疗。BOSS每隔一段时间还会释放厄运和死亡之花，均会造成全团伤害。',
 },
-icon = '1378991',
-name = '洛欧塞布',
 },
 [1116] = {
 bossId = 1116,
@@ -796,6 +796,8 @@ desc = '1.    进入战斗后站在BOSS背后输出，若被弹至墙角包裹�
 desc = '迈克斯纳战斗期间需要分配玩家解救被蛛网包裹的人，在蛛网束缚全团前给T上好所有持续性治疗技能，结束后第一时间治疗主T，确保T的存活，召唤出的小蜘蛛也需要第一时间清理。',
 },
 zone = 1,
+name = '迈克斯纳',
+icon = '1378994',
 abilities = {
 children = {
 {
@@ -836,8 +838,6 @@ desc = 'BOSS血量30%后会狂乱，使BOSS攻击速度提高50%，伤害提高�
 },
 desc = '迈克斯纳整场战斗在蛛网上进行，BOSS会随机点名玩家在墙角被蛛网包裹住，需要打破蛛网解救队友，每隔一段时间BOSS会蛛网喷射束缚全团，期间不能进行任何动作，BOSS还会召唤小蜘蛛，需要及时清理。',
 },
-icon = '1378994',
-name = '迈克斯纳',
 },
 [1117] = {
 bossId = 1117,
@@ -859,16 +859,18 @@ expanded = false,
 desc = '1.    主T开怪，将BOSS拉在房间正中间，BOSS瞬移后和从阳台上下来时，都需要主T及时拉住仇恨。副T站在人群外，等待拉住召唤出的小怪。\n2.    BOSS上平台后，召唤出的小怪需要T拉出人群后等待击杀。',
 },
 {
-expanded = false,
-role = 'RANGE',
 children = {
 },
+role = 'RANGE',
+expanded = false,
 desc = '1.    集中站位，优先击杀召唤出的精英怪。\n2.    小怪击杀完之后再输出BOSS，BOSS瞬移时停止输出，等T拉住仇恨之后再输出。BOSS第二次上墙后优先控制击杀天灾卫士（奥爆法系怪）。\n3.    法师第一时间驱散BOSS释放的群体诅咒。',
 },
 },
 desc = '药剂师诺斯的战斗需要主T在BOSS瞬移后及时拉住仇恨，并且在召唤小怪后和副T一起拉住小怪的仇恨，全团需要在BOSS第三次上平台前击杀BOSS，第三次BOSS下来就会狂暴灭团。',
 },
 zone = 2,
+name = '瘟疫使者诺斯',
+icon = '1379004',
 abilities = {
 children = {
 {
@@ -893,22 +895,20 @@ expanded = false,
 desc = 'BOSS瞬移时对近战范围内玩家释放，降低玩家移动速度和攻击速度，可驱散。',
 },
 {
-title = '召唤骷髅战士',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '召唤骷髅战士',
 desc = '每隔30秒，BOSS会从房间的骨堆上召唤天灾战士（精英小怪）。',
 },
 {
-title = '上平台',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '上平台',
 desc = '每隔一段时间BOSS会上到阳台上，无法被攻击，期间会在骨堆上召唤更多的精英小怪，每一次上墙召唤的小怪都比上一次更多，时间到达BOSS将会瞬移回房间正中位置。第一次召唤4个天灾勇士，第二次召唤4个天灾勇士+2个天灾卫士，第三次召唤与第二次相似。',
 },
 },
 desc = '药剂师诺斯战斗开始后会瞬移清空仇恨，期间还会释放群体残废，在战斗过程中会召唤精英小怪。每隔一段时间BOSS还会传送到墙上的阳台上召唤更多的精英小怪，期间无法被攻击。BOSS会在传送三次后进入狂暴状态，造成灭团伤害。',
 },
-icon = '1379004',
-name = '瘟疫使者诺斯',
 },
 [1118] = {
 bossId = 1118,
@@ -938,8 +938,6 @@ desc = '1.    主T开怪，确保第一个进入BOSS仇恨列表，副T确保血
 desc = '帕奇维克伤害很高，对坦克和治疗的压力都很大，坦克会吃到巨量的伤害，需要治疗们安排好治疗循环，另外对DPS的要求也很大，是一场输出竞赛。',
 },
 zone = 4,
-name = '帕奇维克',
-icon = '1379005',
 abilities = {
 children = {
 {
@@ -959,6 +957,8 @@ desc = '当帕奇维克血量降低至5%后，攻击速度提升100%。',
 },
 desc = '帕奇维克伤害是纯物理伤害，伤害非常的高，需要坦克轮流承担伤害。BOSS战斗开始后规定时间内没有击杀，BOSS就会狂暴，造成足以秒杀的伤害。',
 },
+icon = '1379005',
+name = '帕奇维克',
 },
 [1119] = {
 bossId = 1119,
@@ -979,10 +979,10 @@ desc = '每2秒造成冰霜伤害。',
 {
 spell = '28542',
 title = '生命吸取',
-expanded = false,
-noCollapse = false,
 children = {
 },
+noCollapse = false,
+expanded = false,
 desc = '对随机玩家释放诅咒，每3秒造成大量暗影伤害且恢复BOSS血量，可驱散。',
 },
 {
@@ -1040,6 +1040,8 @@ desc = '对玩家造成足够秒杀的冰霜伤害，可在冰块后躲避。',
 desc = '萨菲隆战斗分为两个阶段，开始时为地面阶段，每隔60秒，BOSS进入空中阶段，会数次将随机一名玩家冻成冰块，且对冰块周围玩家造成大量的冰霜伤害。冰冻结束后，BOSS对场地正中间释放冰霜吐息，需要在冰块后躲避伤害，否则会被秒杀，吐息结束后BOSS回到地面阶段，两阶段循环直至BOSS倒下。',
 },
 zone = 5,
+name = '萨菲隆',
+icon = '1379010',
 summary = {
 children = {
 {
@@ -1065,91 +1067,11 @@ desc = '1.    萨菲隆只需要主T，开打后将BOSS拉在原地，且BOSS背
 },
 desc = '萨菲隆战斗地面阶段需要所有人躲避好暴风雪，空中阶段时需要所有人分散站位，避免被点名成冰块的人炸伤，在冰霜吐息出现后尽快躲到冰块后面避免被秒杀。',
 },
-icon = '1379010',
-name = '萨菲隆',
 },
 [1120] = {
 bossId = 1120,
 name = '塔迪乌斯',
 zone = 4,
-summary = {
-children = {
-{
-role = 'HEALER',
-expanded = false,
-children = {
-{
-title = '小BOSS阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    按照分配前往2个小BOSS平台治疗。\n2.    T被交换位置时，及时切换目标，治疗BOSS的当前T。',
-},
-{
-title = '塔迪乌斯阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活。\n2.    根据指挥分配看好T和自身队伍血量。\n3.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。\n4.    注意：电荷变换时打断读条，第一时间换位。',
-},
-},
-},
-{
-role = 'MELEE',
-expanded = false,
-children = {
-{
-title = '小BOSS阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    按照分配前往两个小平台输出。\n2.    注意小BOSS血量，确保费尔根和斯塔拉格同时死亡。',
-},
-{
-title = '塔迪乌斯阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活，激活后输出BOSS。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。',
-},
-},
-},
-{
-role = 'RANGE',
-expanded = false,
-children = {
-{
-title = '小BOSS阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    按照分配前往两个小平台输出。\n2.    注意小BOSS血量，确保费尔根和斯塔拉格同时死亡。',
-},
-{
-title = '塔迪乌斯阶段',
-noCollapse = false,
-expanded = false,
-footDesc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活，激活后输出BOSS。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。\n3.    注意：电荷变换时打断读条，第一时间换位。',
-},
-},
-},
-{
-role = 'TANK',
-expanded = false,
-children = {
-{
-title = '小BOSS阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    每个平台一个T，拉好当前小BOSS仇恨。\n2.    被抛至另一平台后迅速拉好当前BOSS，循环直至小BOSS被同时击杀。',
-},
-{
-title = '塔迪乌斯阶段',
-noCollapse = false,
-expanded = false,
-desc = '1.    跳上BOSS所在平台后，主T站在BOSS前方等待BOSS激活后拉住仇恨。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。',
-},
-},
-},
-},
-desc = '塔迪乌斯战斗开始后需要先击杀两个平台上的小BOSS，小BOSS需要同时击杀，否则会再次复活，击杀之后跳至BOSS所在平台开启BOSS战。战斗期间BOSS释放电荷时注意自身的电荷属性，同一种电荷的站在一起会增加攻击力，而不同电荷的站一起会受到伤害。',
-},
-icon = '1379019',
 abilities = {
 children = {
 {
@@ -1225,6 +1147,84 @@ desc = '当BOSS近战范围内没有可攻击目标时会释放此技能，每�
 },
 desc = '塔迪乌斯战斗分为2个阶段，第一阶段需要先同时击杀两边小平台的小boss斯塔拉格和费尔根，第二阶段需要跳至BOSS所在平台等待BOSS激活，BOSS每隔一段时间会释放电荷，所有人需要查看身上的电荷正负极，根据指挥分配位置和其他同一种电荷的站在一起。6分钟内没有击杀则BOSS狂暴。',
 },
+icon = '1379019',
+summary = {
+children = {
+{
+role = 'HEALER',
+expanded = false,
+children = {
+{
+expanded = false,
+noCollapse = false,
+title = '小BOSS阶段',
+desc = '1.    按照分配前往2个小BOSS平台治疗。\n2.    T被交换位置时，及时切换目标，治疗BOSS的当前T。',
+},
+{
+expanded = false,
+noCollapse = false,
+title = '塔迪乌斯阶段',
+desc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活。\n2.    根据指挥分配看好T和自身队伍血量。\n3.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。\n4.    注意：电荷变换时打断读条，第一时间换位。',
+},
+},
+},
+{
+role = 'MELEE',
+expanded = false,
+children = {
+{
+expanded = false,
+noCollapse = false,
+title = '小BOSS阶段',
+desc = '1.    按照分配前往两个小平台输出。\n2.    注意小BOSS血量，确保费尔根和斯塔拉格同时死亡。',
+},
+{
+expanded = false,
+noCollapse = false,
+title = '塔迪乌斯阶段',
+desc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活，激活后输出BOSS。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。',
+},
+},
+},
+{
+role = 'RANGE',
+expanded = false,
+children = {
+{
+expanded = false,
+noCollapse = false,
+title = '小BOSS阶段',
+desc = '1.    按照分配前往两个小平台输出。\n2.    注意小BOSS血量，确保费尔根和斯塔拉格同时死亡。',
+},
+{
+expanded = false,
+noCollapse = false,
+title = '塔迪乌斯阶段',
+footDesc = '1.    跳上BOSS所在平台后，和主T站在一起等待BOSS激活，激活后输出BOSS。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。\n3.    注意：电荷变换时打断读条，第一时间换位。',
+},
+},
+},
+{
+role = 'TANK',
+expanded = false,
+children = {
+{
+expanded = false,
+noCollapse = false,
+title = '小BOSS阶段',
+desc = '1.    每个平台一个T，拉好当前小BOSS仇恨。\n2.    被抛至另一平台后迅速拉好当前BOSS，循环直至小BOSS被同时击杀。',
+},
+{
+expanded = false,
+noCollapse = false,
+title = '塔迪乌斯阶段',
+desc = '1.    跳上BOSS所在平台后，主T站在BOSS前方等待BOSS激活后拉住仇恨。\n2.    BOSS释放电荷时第一时间查看身上电荷标记，然后按照指挥分配和其他同一种电荷（加号或者减号）的人一起站在BOSS侧面。每一次电荷变换均要注意，电荷仍旧为正极或者负极就原地不动，若正极变为负极，或者负极变为正极，就跑至BOSS对面，确保和所有同样电荷玩家站在一起。循环直至BOSS倒下。',
+},
+},
+},
+},
+desc = '塔迪乌斯战斗开始后需要先击杀两个平台上的小BOSS，小BOSS需要同时击杀，否则会再次复活，击杀之后跳至BOSS所在平台开启BOSS战。战斗期间BOSS释放电荷时注意自身的电荷属性，同一种电荷的站在一起会增加攻击力，而不同电荷的站一起会受到伤害。',
+},
 },
 [1121] = {
 bossId = 1121,
@@ -1232,8 +1232,6 @@ abilities = {
 children = {
 {
 title = '瑞文戴尔男爵',
-expanded = true,
-noCollapse = false,
 children = {
 {
 spell = '28882',
@@ -1250,12 +1248,12 @@ expanded = false,
 desc = '对光环范围内玩家造成伤害并留下印记，叠加的印记层数越多所受伤害越大。',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '激活后会跑向大门右侧的角落',
 },
 {
 title = '库尔塔兹领主',
-expanded = true,
-noCollapse = false,
 children = {
 {
 spell = '57467',
@@ -1272,20 +1270,20 @@ expanded = false,
 desc = '对光环范围内玩家造成伤害并留下印记，叠加的印记层数越多所受伤害越大。',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '激活后会跑向大门左侧的角落',
 },
 {
 title = '瑟里耶克爵士',
-expanded = true,
-noCollapse = false,
 children = {
 {
 spell = '28883',
 title = '神圣愤怒',
-expanded = false,
-noCollapse = false,
 children = {
 },
+noCollapse = false,
+expanded = false,
 desc = '对第一个目标射出神圣箭矢，随后会在目标和其身旁玩家间弹跳，造成神圣伤害，每次跳跃提高50%伤害。',
 },
 {
@@ -1310,12 +1308,12 @@ expanded = false,
 desc = '对光环范围内玩家造成伤害并留下印记，叠加的印记层数越多所受伤害越大。',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '激活后会跑向远离大门的右边角落',
 },
 {
 title = '女公爵布劳缪克丝',
-expanded = true,
-noCollapse = false,
 children = {
 {
 spell = '57374',
@@ -1346,12 +1344,16 @@ expanded = false,
 desc = '如女公爵布劳缪克丝无法攻击到任何玩家，对所有目标造成大量暗影伤害',
 },
 },
+noCollapse = false,
+expanded = true,
 desc = '激活后会跑向远离大门的左边角落',
 },
 },
 desc = '天启四骑士有4个BOSS，分别是瑞文戴尔男爵、库尔塔兹领主、瑟里耶克爵士、女公爵布劳缪克丝，4个BOSS都有各自的光环印记和独特技能，相同光环印记可叠加，层数越高受到的伤害越多，每个BOSS的印记互不干涉。开战后BOSS会自动跑向房间的四个角落。',
 },
 zone = 3,
+name = '天启四骑士',
+icon = '1385732',
 summary = {
 children = {
 {
@@ -1377,8 +1379,6 @@ desc = '1.    10人模式下需要主T拉住库尔塔兹领主和瑞文戴尔男
 },
 desc = '天启四骑士开场后需要大团优先击杀库尔塔兹领主，然后再去输出瑞文戴尔男爵，两个BOSS杀完之后再击杀剩余两个，注意一种印记叠加过高之后就需要切换到另一个BOSS处输出。瑟里耶克爵士和女公爵布劳缪克丝前期只需要他们的光环范围内有人，在光环叠加过高之后换位置去另一个BOSS范围内，待光环消除之后再更换回来即可。',
 },
-icon = '1385732',
-name = '天启四骑士',
 },
 [1094] = {
 bossId = 1094,
@@ -1527,6 +1527,8 @@ expanded = true,
 },
 desc = '整个永恒之眼副本只有玛里苟斯一个BOSS，整场战斗分为3个阶段。第一阶段在场地正中间，BOSS血量降低至50%的血量会进入第二阶段，玛里苟斯进入无法攻击状态，场地内出现站在飞盘上的小怪，在击杀完所有小怪后进入第三阶段，场地会被摧毁，全员骑龙，且使用龙的技能作战。',
 },
+name = '玛里苟斯',
+icon = '1385753',
 summary = {
 children = {
 {
@@ -1540,10 +1542,10 @@ expanded = false,
 desc = 'P1：在BOSS侧面输出BOSS，在力量火花靠近BOSS时优先击杀能量火花。在漩涡结束后立即离开BOSS龙头方向。\nP2：优先击杀地面上的小怪，然后登录小怪留下的圆盘，操作圆盘飞上去击杀远程小怪。在地面时，注意进入蓝龙盾内躲避BOSS的深呼吸和远程小怪的技能，盾范围缩小后及时更换位置。\nP3：失去自身职业技能，全部使用坐骑龙的技能，按照指挥安排进行治疗或者输出。负责输出的可以按两下1技能，然后就按2技能叠加伤害，血少的按4技能回血。负责治疗的可以按两下3技能，再按4技能，所有人中点名技能了按5减伤。躲好BOSS放出的秘法球。',
 },
 {
-expanded = false,
-role = 'RANGE',
 children = {
 },
+role = 'RANGE',
+expanded = false,
 desc = 'P1：在BOSS侧面输出BOSS，优先击杀能量火花。火花死亡后地面会留下一个光环，站在上面可以增加伤害。在漩涡结束后立即离开BOSS龙头方向。\nP2：优先击杀地面上的小怪，然后再输出远程小怪，在蓝龙盾内躲避BOSS的深呼吸和远程小怪的技能，盾范围缩小后及时更换位置。\nP3：失去自身职业技能，全部使用坐骑龙的技能，按照指挥安排进行治疗或者输出。负责输出的可以按两下1技能，然后就按2技能叠加伤害，血少的按4技能回血。负责治疗的可以按两下3技能，再按4技能，所有人中点名技能了按5减伤。躲好BOSS放出的秘法球。',
 },
 {
@@ -1554,7 +1556,108 @@ desc = 'P1：主T将BOSS拉在中间，漩涡下地后立即拉住BOSS，避免�
 },
 desc = '玛里苟斯战斗分为三阶段，一阶段在场地正中间开打，BOSS会飞到空中释放漩涡，还会召唤火花，一旦火花被BOSS吸收掉就会提升BOSS攻击力。BOSS血量降低至50%的血量会进入第二阶段，场面上出现站在飞盘上的小怪，清理完之后进入第三阶段，场地会被摧毁，全员骑龙，失去自身的职业技能，使用龙的技能作战。',
 },
+},
+[1126] = {
+bossId = 1126,
+summary = {
+children = {
+{
+role = 'MELEE',
+expanded = false,
+desc = '1.    战斗开始全力输出BOSS，若边上有人中了岩石碎片技能，赶紧远离中技能的人。\n2.    远离重压跳跃后产生的云雾。',
+},
+{
+role = 'HEALER',
+expanded = false,
+desc = '1.    分散站位治疗全团，特别是注意中岩石碎片和重压跳跃技能的人。主T在被穿刺时也需要照顾好两个坦克的血量。\n2.    若边上有人中了岩石碎片技能，赶紧远离中技能的人。\n3.    远离重压跳跃后产生的云雾。',
+},
+{
+role = 'RANGE',
+expanded = false,
+desc = '1.    分散站位输出BOSS，若边上有人中了岩石碎片技能，赶紧远离中技能的人。\n2.    远离重压跳跃后产生的云雾。',
+},
+{
+role = 'TANK',
+expanded = false,
+desc = '1.    主T拉住BOSS，在BOSS施放重压跳跃时主T要跑向BOSS拉住仇恨。\n2.    在主T被穿刺时需要副T嘲讽，接手BOSS。',
+},
+},
+desc = '岩石看守者阿尔卡冯的战斗需要所有人躲避岩石碎片技能，且在边上人被重压跳跃后赶紧跑开，避免受到窒息云雾的伤害。副T在主T被穿刺的时候要及时拉住BOSS仇恨。',
+},
+name = ' 岩石看守者阿尔卡冯',
+icon = '1385715',
+abilities = {
+children = {
+{
+spell = '58678',
+title = '岩石碎片',
+noCollapse = false,
+expanded = false,
+desc = '随机对一个玩家快速的发射石片，造成大量物理伤害，同时也会对目标周围的人造成伤害。',
+},
+{
+spell = '58960',
+title = '重压跳跃',
+noCollapse = false,
+expanded = false,
+desc = '随机对一个玩家进行跳跃攻击，造成大量物理伤害并击退 ，会在地面上留下一片窒息云雾。',
+},
+{
+spell = '58965',
+title = '窒息云雾',
+noCollapse = false,
+expanded = false,
+desc = '重压跳跃后地面留下一片云雾，云雾内的玩家会受到持续性的自然伤害，并使命中降低50%。',
+},
+{
+spell = '58663',
+title = '践踏',
+noCollapse = false,
+expanded = false,
+desc = '使所有玩家眩晕，并造成大量的物理伤害。',
+},
+{
+spell = '58978',
+title = '穿刺',
+noCollapse = false,
+expanded = false,
+desc = '践踏后的连续技能，对当前目标使用，造成大量物理伤害，并将该目标捏在手上使其数秒内无法行动，且会暂时移除仇恨。',
+},
+},
+desc = '岩石看守者阿尔卡冯战斗开始后，会对随机目标发射岩石碎片，重压跳跃之后会留下云雾，都需要及时躲避，BOSS践踏技能后，还需要副T接手，BOSS会在战斗开始5分钟后狂暴。',
+},
+},
+[772] = {
+bossId = 772,
+abilities = {
+desc = '岩石看守者阿尔卡冯战斗开始后，会对随机目标发射岩石碎片，重压跳跃之后会留下云雾，都需要及时躲避，BOSS践踏技能后，还需要副T接手，BOSS会在战斗开始5分钟后狂暴。',
+},
+name = ' 岩石看守者阿尔卡冯',
+summary = {
+desc = '岩石看守者阿尔卡冯的战斗需要所有人躲避岩石碎片技能，且在边上人被重压跳跃后赶紧跑开，避免受到窒息云雾的伤害。副T在主T被穿刺的时候要及时拉住BOSS仇恨。',
+},
+icon = '1385715',
+},
+[742] = {
+bossId = 742,
+abilities = {
+desc = '黑曜石圣殿只有萨塔里奥一个BOSS，在面对他之前要先清理周围的小怪，还有他的三条暮光幼龙“维斯匹隆”、“塔尼布隆”和“沙德隆”。BOSS萨塔里奥战斗开始后会从两边的熔岩内不断召唤熔岩元素，每隔一段时间还会召唤熔岩墙扫过战斗区域，随机释放的火雨也是需要注意的。',
+},
+name = '萨塔里奥',
+summary = {
+desc = '黑曜石圣殿内的三个暮光幼龙可以选择性击杀，每保留一个幼龙副本难度会增加且BOSS多一件装备掉落。在BOSS战时BOSS会召唤未被击杀的暮光龙，且每条龙在场地上被击杀时都会导致BOSS攻击增加。BOSS战时需要大团在场地侧面输出，躲避出现的所有技能。',
+},
+icon = '1385765',
+},
+[734] = {
+bossId = 734,
+abilities = {
+desc = '整个永恒之眼副本只有玛里苟斯一个BOSS，整场战斗分为3个阶段。第一阶段在场地正中间，BOSS血量降低至50%的血量会进入第二阶段，玛里苟斯进入无法攻击状态，场地内出现站在飞盘上的小怪，在击杀完所有小怪后进入第三阶段，场地会被摧毁，全员骑龙，且使用龙的技能作战。',
+},
 name = '玛里苟斯',
+summary = {
+desc = '玛里苟斯战斗分为三阶段，一阶段在场地正中间开打，BOSS会飞到空中释放漩涡，还会召唤火花，一旦火花被BOSS吸收掉就会提升BOSS攻击力。BOSS血量降低至50%的血量会进入第二阶段，场面上出现站在飞盘上的小怪，清理完之后进入第三阶段，场地会被摧毁，全员骑龙，失去自身的职业技能，使用龙的技能作战。',
+},
 icon = '1385753',
 },
 [1090] = {
@@ -1585,21 +1688,21 @@ expanded = true,
 {
 children = {
 {
-title = '维斯匹隆技能',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '维斯匹隆技能',
 desc = '战斗开始后会开启暮光之门，门外会增加所有人受到的伤害，同时进行攻击都会反弹一部分暗影伤害，需要进入暗影门后杀死里面的暮光信徒暗影门才会消失。',
 },
 {
-title = '塔尼布隆技能',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '塔尼布隆技能',
 desc = '战斗开始后会开启暮光之门，门内有正在孵化的龙蛋，数秒后会在门外孵化出来一些精英幼龙攻击目标，可进门摧毁龙蛋打断孵化。',
 },
 {
-title = '沙德隆技能',
-noCollapse = false,
 expanded = false,
+noCollapse = false,
+title = '沙德隆技能',
 desc = '战斗开始后会开启暮光之门，沙德隆会得到一个buff，增加造成的伤害同时减少受到的伤害，进入暗影门后杀死里面的小怪这个BUFF就会消失。',
 },
 },
@@ -1652,6 +1755,8 @@ expanded = true,
 },
 desc = '黑曜石圣殿只有萨塔里奥一个BOSS，在面对他之前要先清理周围的小怪，还有他的三条暮光幼龙“维斯匹隆”、“塔尼布隆”和“沙德隆”。BOSS萨塔里奥战斗开始后会从两边的熔岩内不断召唤熔岩元素，每隔一段时间还会召唤熔岩墙扫过战斗区域，随机释放的火雨也是需要注意的。',
 },
+name = '萨塔里奥',
+icon = '1385765',
 summary = {
 children = {
 {
@@ -1677,32 +1782,30 @@ desc = '1.    萨塔里奥战斗基本为火焰伤害，需要T身上拥有一�
 },
 desc = '黑曜石圣殿内的三个暮光幼龙可以选择性击杀，每保留一个幼龙副本难度会增加且BOSS多一件装备掉落。在BOSS战时BOSS会召唤未被击杀的暮光龙，且每条龙在场地上被击杀时都会导致BOSS攻击增加。BOSS战时需要大团在场地侧面输出，躲避出现的所有技能。',
 },
-name = '萨塔里奥',
-icon = '1385765',
 },
 }
 local ENCOUNTER_INSTANCES = {
 [533] = {
 zones = {
 {
-text = '蜘蛛区',
 zone = 1,
+text = '蜘蛛区',
 },
 {
-text = '瘟疫区',
 zone = 2,
+text = '瘟疫区',
 },
 {
-text = '军事区',
 zone = 3,
+text = '军事区',
 },
 {
-text = '构造区',
 zone = 4,
+text = '构造区',
 },
 {
-zone = 5,
 text = '冰龙区',
+zone = 5,
 },
 },
 bosses = {
@@ -1729,7 +1832,7 @@ instanceId = 533,
 zones = {
 },
 bosses = {
-ENCOUNTER_BOSSES[1094],
+ENCOUNTER_BOSSES[734],
 },
 title = '永恒之眼',
 instanceId = 616,
@@ -1738,18 +1841,28 @@ instanceId = 616,
 zones = {
 },
 bosses = {
-ENCOUNTER_BOSSES[1090],
+ENCOUNTER_BOSSES[742],
 },
 title = '黑曜石圣殿',
 instanceId = 615,
+},
+[624] = {
+bosses = {
+ENCOUNTER_BOSSES[772],
+},
+zones = {
+},
+title = '阿尔卡冯的宝库',
+instanceId = 624,
 },
 }
 local ENCOUNTER_DATA = {
 ENCOUNTER_INSTANCES[533],
 ENCOUNTER_INSTANCES[615],
 ENCOUNTER_INSTANCES[616],
+ENCOUNTER_INSTANCES[624],
 }
-ns.DEFAULT_ENCOUNTER_INSTANCE_ID = 616
+ns.DEFAULT_ENCOUNTER_INSTANCE_ID = 624
 ns.ENCOUNTER_BOSSES = ENCOUNTER_BOSSES
 ns.ENCOUNTER_INSTANCES = ENCOUNTER_INSTANCES
 ns.ENCOUNTER_DATA = ENCOUNTER_DATA

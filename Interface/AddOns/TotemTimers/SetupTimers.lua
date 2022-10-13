@@ -587,6 +587,34 @@ function TotemTimers.SetCastButtonSpells()
     end
 end
 
+-- makes sure, totems assigned to timer buttons are available spells
+-- replaces totem with first in menu in necessary
+local function SanitizeTotem(spellID, timer)
+    local newSpellID = nil
+    if not spellID then
+        return timer.actionBar.buttons[1]:GetAttribute("*spell1")
+    else
+        local baseSpellID = TotemTimers.GetBaseSpellID(spellID)
+        if not AvailableSpells[baseSpellID] then
+            return timer.actionBar.buttons[1]:GetAttribute("*spell1")
+        end
+    end
+    return TotemTimers.UpdateSpellRank(spellID)
+end
+TotemTimers.SanitizeTotem = SanitizeTotem
+
+local function SanitizeActiveTotems()
+    for i = 1,4 do
+        local timer = XiTimers.timers[i]
+        local spellID = timer.button:GetAttribute("*spell1")
+        local newSpellID = SanitizeTotem(spellID, timer)
+        if spellID ~= newSpellID then
+            timer.button:SetAttribute("*spell1", newSpellID)
+        end
+    end
+end
+table.insert(TotemTimers.SpellUpdaters, SanitizeActiveTotems)
+
 local partyGUIDs = {}
 
 local TotemWeaponEnchants = TotemTimers.TotemWeaponEnchants
