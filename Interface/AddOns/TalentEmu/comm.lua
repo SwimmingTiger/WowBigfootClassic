@@ -21,7 +21,7 @@ local DT = __private.DT;
 	local ChatFrame2 = ChatFrame2;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->
@@ -99,7 +99,7 @@ MT.BuildEnv('COMM');
 								);
 			if update_tal or update_gly or update_inv then
 				--[[
-				MT.Error(
+				MT.Debug(
 					"MT.SendQueryRequest",
 					name,
 					force_update == false and "0" or "1",
@@ -158,7 +158,7 @@ MT.BuildEnv('COMM');
 		OnTalent = function(prefix, name, code, version, Decoder, overheard)
 			local class, level, numGroup, activeGroup, data1, data2 = Decoder(code);
 			if class ~= nil then
-				if version == "V1" and DT.BUILD == "WRATH" then
+				if version == "V1" and CT.BUILD == "WRATH" then
 					class, level, numGroup, activeGroup, data1, data2 = MT.TalentConversion(class, level, numGroup, activeGroup, data1, data2);
 				end
 				local Tick = MT.GetUnifiedTime();
@@ -189,13 +189,13 @@ MT.BuildEnv('COMM');
 			end
 		end,
 		OnGlyph = function(prefix, name, code, version, Decoder, overheard)
-			if DT.BUILD ~= "WRATH" then
+			if CT.BUILD ~= "WRATH" then
 				return;
 			end
 			local data1, data2 = Decoder(code);
 			if data1 == nil and data2 == nil then
-				-- MT.Error("No GlyphSet 1");
-				-- MT.Error("No GlyphSet 2");
+				-- MT.Debug("No GlyphSet 1");
+				-- MT.Debug("No GlyphSet 2");
 				return;
 			end
 			local Tick = MT.GetUnifiedTime();
@@ -317,7 +317,7 @@ MT.BuildEnv('COMM');
 		if code ~= nil then
 			local class, level, numGroup, activeGroup, data1, data2 = MT.DecodeTalent(code);
 			if class ~= nil then
-				MT.CreateEmulator(nil, class, level, { data1, data2, num = numGroup, active = activeGroup, }, L.message, false, false);
+				MT.CreateEmulator(nil, class, level, { data1, data2, num = numGroup, active = activeGroup, }, l10n.message, false, false);
 			end
 			return true;
 		else

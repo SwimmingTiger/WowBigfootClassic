@@ -137,7 +137,7 @@ SettingsFunctions = {
         end
     end,
 
-    TrackerTimeSpacfing = function(value, Timers)
+    TrackerTimeSpacing = function(value, Timers)
         for e = TRACKER_START, TRACKER_END do
             Timers[e]:SetTimeSpacing(value)
         end
@@ -199,7 +199,7 @@ SettingsFunctions = {
             value = select(7, GetSpellInfo(value))
         end
 
-        if value >= 5 and value <= 7 then
+        if value and value >= 5 and value <= 7 then
             local ds1 = value == 7 and SpellIDs.FlametongueWeapon or SpellIDs.WindfuryWeapon
             local ds2 = value == 6 and SpellIDs.FrostbrandWeapon or SpellIDs.FlametongueWeapon
 
@@ -730,11 +730,11 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         TotemTimers.EarthShieldTracker.actionBar:SetDirection(value, TotemTimers.ActiveProfile.TrackerArrange)
     end
 
-    SettingsFunctions.EnhanceCDs = function(value)
-        if value then
-            TotemTimers.ActivateEnhanceCDs()
-        else
-            TotemTimers.DeactivateEnhanceCDs()
+    SettingsFunctions.CooldownSpacing = function(value, Timers)
+        for _, t in pairs({ TotemTimers.EnhanceCDs, TotemTimers.LongCooldowns }) do
+            for k, v in pairs(t) do
+                v:SetSpacing(value)
+            end
         end
     end
 
@@ -865,11 +865,11 @@ if WOW_PROJECT_ID > WOW_PROJECT_CLASSIC then
         end
     end
 
-    SettingsFunctions.CooldownSpacing = function(value, Timers)
-        for _, t in pairs({ TotemTimers.EnhanceCDs, TotemTimers.LongCooldowns }) do
-            for k, v in pairs(t) do
-                v:SetSpacing(value)
-            end
+    SettingsFunctions.EnhanceCDs = function(value)
+        if value then
+            TotemTimers.ActivateEnhanceCDs()
+        else
+            TotemTimers.DeactivateEnhanceCDs()
         end
     end
 

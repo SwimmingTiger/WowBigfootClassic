@@ -17,7 +17,7 @@ local DT = __private.DT;
 	local SlashCmdList = SlashCmdList;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 	CT.DefaultSetting = {
@@ -100,10 +100,10 @@ MT.BuildEnv('SETTING');
 		VT.DB = DB;
 		VT.SET = setmetatable(DB.set, { __index = CT.DefaultSetting, });
 		VT.VAR = DB.var;
-		if DT.BUILD == "WRATH" then
+		if CT.BUILD == "WRATH" then
 			DB.map = DB.map or {  };
-			DB.map[DT.BUILD] = DB.map[DT.BUILD] or {  };
-			VT.MAP = DB.map[DT.BUILD];
+			DB.map[CT.BUILD] = DB.map[CT.BUILD] or {  };
+			VT.MAP = DB.map[CT.BUILD];
 		else
 			DB.map = nil;
 		end
@@ -120,11 +120,11 @@ MT.BuildEnv('SETTING');
 					{
 						icon = CT.TEXTUREICON,
 						OnClick = DBIcon_OnClick,
-						text = L.DBIcon_Text,
+						text = l10n.DBIcon_Text,
 						OnTooltipShow = function(tt)
 								tt:AddLine("TalentEmu");
 								tt:AddLine(" ");
-								tt:AddLine(L.DBIcon_Text);
+								tt:AddLine(l10n.DBIcon_Text);
 								tt:Show();
 							end
 					},
@@ -163,8 +163,8 @@ MT.BuildEnv('SETTING');
 						OnTooltipShow = function(tt)
 							tt:AddLine("TalentEmu");
 							tt:AddLine(" ");
-							tt:AddLine(L.DBIcon_Text);
-							-- for _, text in next, L.TooltipLines do
+							tt:AddLine(l10n.DBIcon_Text);
+							-- for _, text in next, l10n.TooltipLines do
 							-- 	tt:AddLine(text);
 							-- end
 							tt:Show();

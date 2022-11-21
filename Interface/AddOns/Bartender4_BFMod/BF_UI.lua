@@ -15,7 +15,7 @@ Bartender4Features = {}
 local Bar = Bartender4.Bar.prototype
 
 local ufdefault ={
-	["PlayerFrame"] = Bartender4:Merge({
+	["PlayerFrame"] = Bartender4.Util:Merge({
 		enabled = true,
 		position={
 			y = -66,
@@ -23,7 +23,7 @@ local ufdefault ={
 			point="TOPLEFT"
 		},
 	}, Bartender4.UnitBar.defaults),
-	["TargetFrame"] = Bartender4:Merge({
+	["TargetFrame"] = Bartender4.Util:Merge({
 		enabled = true,
 		position={
 			y = -66,
@@ -31,7 +31,7 @@ local ufdefault ={
 			point="TOPLEFT"
 		},
 	}, Bartender4.UnitBar.defaults),
-	["FocusFrame"] = Bartender4:Merge({
+	["FocusFrame"] = Bartender4.Util:Merge({
 		enabled = true,
 		position={
 			x = -344,
@@ -39,7 +39,7 @@ local ufdefault ={
 			point="CENTER"
 		},
 	}, Bartender4.UnitBar.defaults),
-	["BuffFrame"] = Bartender4:Merge({
+	["BuffFrame"] = Bartender4.Util:Merge({
 		enabled = true,
 		position={
 			x = -248,
@@ -48,7 +48,7 @@ local ufdefault ={
 		},
 
 	}, Bartender4.UnitBar.defaults),
-	["MinimapCluster"] = Bartender4:Merge({
+	["MinimapCluster"] = Bartender4.Util:Merge({
 		enabled = true,
 		position={
 			x = -108,
@@ -58,7 +58,7 @@ local ufdefault ={
 		padding =10,
 	}, Bartender4.UnitBar.defaults),
 	-------为什么队伍1-4 的默认设置为false，现在改为默认加载---------------------------------
-	["PartyMemberFrame1"] = Bartender4:Merge({
+	["PartyMemberFrame1"] = Bartender4.Util:Merge({
 		enabled = true,
 		paddding =3,
 		position={
@@ -68,7 +68,7 @@ local ufdefault ={
 		},
 
 	}, Bartender4.UnitBar.defaults),
-	["PartyMemberFrame2"] = Bartender4:Merge({
+	["PartyMemberFrame2"] = Bartender4.Util:Merge({
 		enabled = true,
 		paddding =3,
 		position={
@@ -78,7 +78,7 @@ local ufdefault ={
 		},
 
 	}, Bartender4.UnitBar.defaults),
-	["PartyMemberFrame3"] = Bartender4:Merge({
+	["PartyMemberFrame3"] = Bartender4.Util:Merge({
 		enabled = true,
 		paddding =3,
 		position={
@@ -88,7 +88,7 @@ local ufdefault ={
 		},
 
 	}, Bartender4.UnitBar.defaults),
-	["PartyMemberFrame4"] = Bartender4:Merge({
+	["PartyMemberFrame4"] = Bartender4.Util:Merge({
 		enabled = true,
 		paddding =3,
 		position={
@@ -98,7 +98,7 @@ local ufdefault ={
 		},
 
 	}, Bartender4.UnitBar.defaults),
-	-- ["WatchFrame"] = Bartender4:Merge({
+	-- ["WatchFrame"] = Bartender4.Util:Merge({
 		-- enabled = true,
 		-- paddding =5,
 		-- position={
@@ -107,7 +107,7 @@ local ufdefault ={
 			-- point="RIGHT"
 		-- },
 	-- }, Bartender4.UnitBar.defaults),
-	["CastingBarFrame"] = Bartender4:Merge({
+	["CastingBarFrame"] = Bartender4.Util:Merge({
 		enabled = true,
 		paddding =10,
 		position={

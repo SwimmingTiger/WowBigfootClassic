@@ -295,6 +295,7 @@ local function SizeToWidthHeight(size)
     return width, height
 end
 
+local x = 0
 function TotemTimers.LayoutEnhanceCDs()
     wipe(activeCDs)
     if role == 0 then return end
@@ -342,7 +343,11 @@ function TotemTimers.LayoutEnhanceCDs()
         if bottomRow == topRow then
             activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOP")
         else
-            activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOPRIGHT", "BOTTOM", true)
+            if topRow %2 == 0 then
+                activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOPLEFT", "BOTTOM", true)
+            else
+                activeCDs[bottomSplit]:Anchor(activeCDs[split], "TOPRIGHT", "BOTTOM", true)
+            end
         end
         for i=bottomSplit-1, topRow+1, -1 do
             activeCDs[i]:Anchor(activeCDs[i+1], "RIGHT")

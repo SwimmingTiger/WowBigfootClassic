@@ -47,8 +47,8 @@ local function loadOptions(self)
     local threeStacks = string.format(STACKS, 3);
 
     self:AddOverlayOption(surgeOfLightTalent, surgeOfLightBuff);
-    self:AddOverlayOption(serendipityTalent, serendipityBuff3, 0, oneOrTwoStacks);
-    self:AddOverlayOption(serendipityTalent, serendipityBuff3, 3);
+    self:AddOverlayOption(serendipityTalent, serendipityBuff3, 0, oneOrTwoStacks, nil, 2); -- setup any stacks, test with 2 stacks
+    self:AddOverlayOption(serendipityTalent, serendipityBuff3, 3); -- setup 3 stacks
 
     self:AddGlowingOption(surgeOfLightTalent, surgeOfLightBuff, smite);
     self:AddGlowingOption(surgeOfLightTalent, surgeOfLightBuff, flashHeal);

@@ -6,7 +6,7 @@
 ## Author: d87
 ## SavedVariablesPerCharacter: NRunDB_Char
 ## SavedVariables: NRunDB_Global, NugRunningConfigCustom
-## Version: 9.2.3
+## Version: 10.0.1
 ## X-WoWI-ID: 10440
 ## X-Curse-Project-ID: 27470
 ## X-Wago-ID: vEGPo5K1

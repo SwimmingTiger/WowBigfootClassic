@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Loatheb", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010034753")
+mod:SetRevision("20221102181724")
 mod:SetCreatureID(16011)
 mod:SetEncounterID(1115)
 mod:SetModelID(16110)
@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
-local warnSporeNow			= mod:NewSpellAnnounce(29234, 2, "134530")
+local warnSporeNow			= mod:NewCountAnnounce(29234, 2, "134530")
 local warnSporeSoon			= mod:NewSoonAnnounce(29234, 1, "134530")
 local warnDoomNow			= mod:NewSpellAnnounce(29204, 3)
 local warnRemoveCurse		= mod:NewSpellAnnounce(30281, 3)
@@ -49,7 +49,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 29234 then
 		self.vb.sporeCounter = self.vb.sporeCounter + 1
 		timerSpore:Start(self.vb.sporeTimer, self.vb.sporeCounter+1)
-		warnSporeNow:Show()
+		warnSporeNow:Show(self.vb.sporeCounter)
 		warnSporeSoon:Schedule(self.vb.sporeTimer - 5)
 	elseif args:IsSpellID(29204, 55052) then
 		self.vb.doomCounter = self.vb.doomCounter + 1

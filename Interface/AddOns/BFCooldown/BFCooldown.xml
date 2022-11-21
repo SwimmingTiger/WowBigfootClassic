@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 	<Script file="BFCooldown.lua"/>
-	<Frame name="BFCDSpellFrameTemplate" frameStrat="MEDIUM" parent="UIParent" hidden="true" virtual="true">
+	<Frame name="BFCDSpellFrameTemplate" frameStrata="MEDIUM" parent="UIParent" hidden="true" virtual="true">
 		<Size>
 			<AbsDimension x="180" y="32"/>
 		</Size>

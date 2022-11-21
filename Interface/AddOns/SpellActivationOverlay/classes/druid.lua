@@ -22,6 +22,8 @@ local glowingStarfire = false;
 local leftFakeSpellID  = 0xD001D001;
 local rightFakeSpellID = 0xD001D002;
 
+local naturesGraceVariants; -- Lazy init in lazyCreateNaturesGraceVariants()
+
 local function isFeral(self)
     local shapeshift = GetShapeshiftForm()
     return (shapeshift == 1) or (shapeshift == 3);
@@ -175,13 +177,27 @@ local function customCLEU(self, ...)
     end
 end
 
+local function lazyCreateNaturesGraceVariants(self)
+    if (naturesGraceVariants) then
+        return;
+    end
+
+    naturesGraceVariants = self:CreateTextureVariants(16886, 0, {
+        self:TextureVariantValue("serendipity", true),
+        self:TextureVariantValue("fury_of_stormrage", true),
+    });
+end
+
 local function registerClass(self)
     -- Track Eclipses with a custom CLEU function, so that eclipses can coexist with Omen of Clarity
     -- self:RegisterAura("eclipse_lunar", 0, lunarSpellID, "eclipse_moon", "Left", 1, 255, 255, 255, true);
     -- self:RegisterAura("eclipse_solar", 0, solarSpellID, "eclipse_sun", "Right (Flipped)", 1, 255, 255, 255, true);
+    self:RegisterAura("eclipse_lunar", 0, lunarSpellID+1000000, "eclipse_moon", "Left", 1, 255, 255, 255, true); -- Fake spell ID, for option testing
+    self:RegisterAura("eclipse_solar", 0, solarSpellID+1000000, "eclipse_sun", "Right (Flipped)", 1, 255, 255, 255, true); -- Fake spell ID, for option testing
 
     -- Track Omen of Clarity with a custom CLEU function, to be able to switch between feral and non-feral texture
     -- self:RegisterAura("omen_of_clarity", 0, 16870, "natures_grace", "Left + Right (Flipped)", 1, 255, 255, 255, true);
+    self:RegisterAura("omen_of_clarity", 0, 16870+1000000, "natures_grace", "Left + Right (Flipped)", 1, 255, 255, 255, true); -- Fake spell ID, for option testing
 
     -- Register glow IDs for glowing buttons, namely Starfire and Wrath
     local starfire = GetSpellInfo(2912);
@@ -208,6 +224,10 @@ local function registerClass(self)
         hibernate,
     }
     self:RegisterAura("predatory_strikes", 0, 69369, "predatory_swiftness", "Top", 1, 255, 255, 255, true, predatoryStrikesSpells);
+
+    -- Nature's Grace
+    lazyCreateNaturesGraceVariants(self);
+    self:RegisterAura("natures_grace", 0, 16886, naturesGraceVariants.textureFunc, "Top", 1, 255, 255, 255, true);
 end
 
 local function loadOptions(self)
@@ -234,9 +254,16 @@ local function loadOptions(self)
     local predatoryStrikesTalent = 16972;
     local predatoryStrikesBuff = 69369;
 
-    self:AddOverlayOption(omenOfClarityTalent, omenSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
-    self:AddOverlayOption(lunarEclipseTalent, lunarSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
-    self:AddOverlayOption(solarEclipseTalent, solarSpellID); -- Spell ID not used by ActivateOverlay like typical overlays
+    local naturesGraceTalent = 61346;
+    local naturesGraceBuff = 16886;
+
+    -- Nature's Grace variants
+    lazyCreateNaturesGraceVariants(self);
+
+    self:AddOverlayOption(omenOfClarityTalent, omenSpellID, 0, nil, nil, nil,  omenSpellID+1000000); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(lunarEclipseTalent, lunarSpellID, 0, nil, nil, nil, lunarSpellID+1000000); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(solarEclipseTalent, solarSpellID, 0, nil, nil, nil, solarSpellID+1000000); -- Spell ID not used by ActivateOverlay like typical overlays
+    self:AddOverlayOption(naturesGraceTalent, naturesGraceBuff, 0, nil, naturesGraceVariants);
     self:AddOverlayOption(predatoryStrikesTalent, predatoryStrikesBuff);
 
     self:AddGlowingOption(lunarEclipseTalent, starfire, starfire);

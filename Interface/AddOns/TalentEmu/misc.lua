@@ -23,7 +23,7 @@ local DT = __private.DT;
 	local RAID_CLASS_COLORS = RAID_CLASS_COLORS;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->
@@ -38,7 +38,7 @@ MT.BuildEnv('MISC');
 	--	popup
 
 		VT.__popuplib.add_meta("EMU_INSPECT", {
-			L.PopupQuery,
+			l10n.PopupQuery,
 			function(which, frame)
 				MT.SendQueryRequest(frame.name, frame.server, true, true);
 			end,
@@ -104,11 +104,11 @@ MT.BuildEnv('MISC');
 					local button = CreateFrame('BUTTON', nil, _TalentFrame, "UIPanelButtonTemplate");
 					button:SetSize(80, 20);
 					button:SetPoint("RIGHT", _G.TalentFrameCloseButton, "LEFT", -2, 0);
-					button:SetText(L.TalentFrameCallButtonString);
+					button:SetText(l10n.TalentFrameCallButtonString);
 					button:SetScript("OnClick", function() MT.CreateEmulator(); end);
 					button:SetScript("OnEnter", MT.GeneralOnEnter);
 					button:SetScript("OnLeave", MT.GeneralOnLeave);
-					button.information = L.TalentFrameCallButton;
+					button.information = l10n.TalentFrameCallButton;
 					_TalentFrame.__TalentEmuCall = button;
 				elseif _G.PlayerTalentFrame ~= nil then
 					for i = 1, 999 do
@@ -124,11 +124,11 @@ MT.BuildEnv('MISC');
 					local button = CreateFrame('BUTTON', nil, _TalentFrame, "UIPanelButtonTemplate");
 					button:SetSize(80, 20);
 					button:SetPoint("RIGHT", _G.PlayerTalentFrameCloseButton, "LEFT", -2, 0);
-					button:SetText(L.TalentFrameCallButtonString);
+					button:SetText(l10n.TalentFrameCallButtonString);
 					button:SetScript("OnClick", function() MT.CreateEmulator(); end);
 					button:SetScript("OnEnter", MT.GeneralOnEnter);
 					button:SetScript("OnLeave", MT.GeneralOnLeave);
-					button.information = L.TalentFrameCallButton;
+					button.information = l10n.TalentFrameCallButton;
 					_TalentFrame.__TalentEmuCall = button;
 					VT.__autostyle:AddReskinObject(button);
 				end
@@ -176,7 +176,7 @@ MT.BuildEnv('MISC');
 		end
 	end
 	local function _StorePlayerData()
-		if DT.BUILD == "WRATH" then
+		if CT.BUILD == "WRATH" then
 			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2() .. VT.__emulib.EncodePlayerGlyphDataV2() .. VT.__emulib.EncodePlayerEquipmentDataV2();
 		else
 			VT.VAR[CT.SELFGUID] = VT.__emulib.EncodePlayerTalentDataV2() .. VT.__emulib.EncodePlayerEquipmentDataV2();
@@ -186,12 +186,12 @@ MT.BuildEnv('MISC');
 				VT.SaveButtonMenuAltDefinition[index].param[2] = VT.VAR[CT.SELFGUID];
 			end
 		end
-		MT.Error("StorePlayerData");
+		MT.Debug("StorePlayerData");
 	end
 	MT.RegisterOnInit('MISC', function(LoggedIn)
 	end);
 	MT.RegisterOnLogin('MISC', function(LoggedIn)
-		if DT.BUILD == "WRATH" then
+		if CT.BUILD == "WRATH" then
 			local Map = VT.__emulib.GetTalentMap(CT.SELFCLASS);
 			VT.MAP[CT.SELFCLASS] = { VMap = Map.VMap, RMap = Map.RMap, };
 		end
@@ -227,9 +227,10 @@ MT.BuildEnv('MISC');
 		--	SPELLS_CHANGED
 		--	Fires when spells in the spellbook change in any way. Can be trivial (e.g.: icon changes only), or substantial (e.g.: learning or unlearning spells/skills).
 		--	Payload	none
-		-- Driver:RegisterEvent("PLAYER_LOGOUT");
 		Driver:RegisterEvent("PLAYER_EQUIPMENT_CHANGED");
-		if DT.BUILD == "WRATH" then
+		Driver:RegisterUnitEvent("UNIT_INVENTORY_CHANGED", 'player');
+		-- Driver:RegisterEvent("PLAYER_LOGOUT");
+		if CT.BUILD == "WRATH" then
 			Driver:RegisterEvent("GLYPH_ADDED");
 			Driver:RegisterEvent("GLYPH_REMOVED");
 			Driver:RegisterEvent("GLYPH_UPDATED");

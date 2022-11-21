@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HyjalWaveTimers", "DBM-Hyjal")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 
 mod:RegisterEvents(
 	"GOSSIP_SHOW",

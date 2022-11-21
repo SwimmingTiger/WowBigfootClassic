@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("StratWaves", "DBM-Party-WotLK", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220724032315")
+mod:SetRevision("20221013055519")
 
 mod:RegisterEvents(
 	"UPDATE_UI_WIDGET",
@@ -66,7 +66,7 @@ end
 
 function mod:UPDATE_UI_WIDGET(table)
 	local id = table.widgetID
-	if id ~= 541 then return end
+	if id ~= 541 and id ~= 3870 then return end
 	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
 	local text = widgetInfo.text
 	if not text then return end

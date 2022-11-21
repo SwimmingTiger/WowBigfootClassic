@@ -187,9 +187,13 @@ do
 		input:SetMultiLine(true)
 		input:EnableMouse(true)
 		input:SetAutoFocus(false)
-		input:SetMaxBytes(nil)
-		input:SetScript("OnMouseUp", input.HighlightText)
-		input:SetScript("OnEscapePressed", input.ClearFocus)
+		input:SetMaxBytes(0)
+		input:SetScript("OnMouseUp", function(self)
+			self:HighlightText()
+		end)
+		input:SetScript("OnEscapePressed", function(self)
+			self:ClearFocus()
+		end)
 		input:HighlightText()
 		input:SetFocus()
 		scrollFrame:SetScrollChild(input)
@@ -767,7 +771,6 @@ do
 				end
 			end
 		end
-		_G["DBM_GUI_OptionsFrame"]:DisplayFrame(panel.frame)
 	end
 
 	local category = {}
@@ -799,6 +802,7 @@ do
 							self:Hide()
 							self.headline:Hide()
 							CreateBossModTab(self.modid, self.modid.panel)
+							_G["DBM_GUI_OptionsFrame"]:DisplayFrame(self.modid.panel.frame)
 						end
 					end)
 					button:SetPoint("CENTER", 0, -20)

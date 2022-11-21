@@ -106,7 +106,7 @@ function Activity:Update(proto, leader, guid, channelName, lineId)
     self:SetMembers(members)
     self:SetLineId(lineId)
     self:UpdateTick()
-    self:SetCertification(not not ns.CERTIFICATION_MAP[leaderFullName])
+    self:SetCertificationLevel(ns.CERTIFICATION_MAP[leaderFullName])
     self:SetOurAddonCreate((channelName == L['CHANNEL: Group'] or channelName == L['CHANNEL: Recruit']) and data.path ==
                                'Raid')
     return true
@@ -343,12 +343,12 @@ function Activity:GetLeaderPlayerLocation()
     end
 end
 
-function Activity:IsCertification()
-    return self.isCertification
+function Activity:GetCertificationLevel()
+    return self.certificationLevel
 end
 
-function Activity:SetCertification(isCertification)
-    self.isCertification = isCertification
+function Activity:SetCertificationLevel(level)
+    self.certificationLevel = level
 end
 
 function Activity:SetOurAddonCreate(isOurAddonCreate)

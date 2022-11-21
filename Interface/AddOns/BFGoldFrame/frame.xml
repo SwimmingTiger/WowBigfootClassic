@@ -146,8 +146,8 @@
 			</Button>
 		</Frames>
 		<Animations>
-			<AnimationGroup name="$parentAnimGroupExp" looping="NONE" smoothing ="IN_OUT">
-				<Animation startDelay="0.1" duration="0.2" maxFramerate="180">
+			<AnimationGroup name="$parentAnimGroupExp" looping="NONE">
+				<Animation startDelay="0.1" duration="0.2">
 					<Scripts>
 						<OnLoad>
 							self.regionParent = self:GetRegionParent();
@@ -174,8 +174,8 @@
 					</Scripts>
 				</Animation>
 			</AnimationGroup>
-			<AnimationGroup name="$parentAnimGroupCol" looping="NONE" smoothing ="IN_OUT">
-				<Animation  startDelay="0.1" duration="0.2" maxFramerate="180">
+			<AnimationGroup name="$parentAnimGroupCol" looping="NONE">
+				<Animation  startDelay="0.1" duration="0.2">
 					<Scripts>
 						<OnLoad>
 							self.regionParent = self:GetRegionParent();

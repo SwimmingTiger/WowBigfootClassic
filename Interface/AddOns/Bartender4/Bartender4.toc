@@ -5,12 +5,11 @@
 ## Notes: |cffbc8f8fSimple and Advanced combined - Bartender4 ActionBar AddOn.|r
 ## Notes-zhCN: |cff00ff00Bartender4|r
 ## Notes-zhTW: |cff00ff00Bartender4|r
-## Version: 4.12.0
+## Version: 4.13.5
 ## Author: Nevcairiel
 ## X-Email: h.leppkes at gmail dot com
 ## X-Category: Action Bars
 ## X-Website: http://www.wowace.com/addons/bartender4/
-## X-License: All rights reserved.
 ## X-Curse-Project-ID: 13501
 ## X-WoWI-ID: 11190
 ## SavedVariables: Bartender4DB

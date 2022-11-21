@@ -256,8 +256,12 @@ function me:CreateRealtimeWindow(who, tracking, ending) -- Elsia: This function 
 
 	theFrame:SetResizable(true)
 
-	theFrame:SetMinResize(150, 64)
-	theFrame:SetMaxResize(400, 432)
+	if theFrame.SetResizeBounds then
+		theFrame:SetResizeBounds(150, 64, 400, 432)
+	else
+		theFrame:SetMinResize(150, 64)
+		theFrame:SetMaxResize(400, 432)
+	end
 
 	theFrame:SetScript("OnSizeChanged", function(this)
 		if (this.isResizing) then

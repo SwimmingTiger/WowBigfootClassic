@@ -42,7 +42,7 @@ local function loadOptions(self)
     local lockAndLoadTalent = 56342;
 
     self:AddOverlayOption(improvedSteadyShotTalent, improvedSteadyShotBuff);
-    self:AddOverlayOption(lockAndLoadTalent, lockAndLoadBuff, 0); -- any stacks
+    self:AddOverlayOption(lockAndLoadTalent, lockAndLoadBuff, 0, nil, nil, 2); -- setup any stacks, test with 2 stacks
 
     self:AddGlowingOption(nil, killShot, killShot);
     self:AddGlowingOption(nil, counterattack, counterattack);

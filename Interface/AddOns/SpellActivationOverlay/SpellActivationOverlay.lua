@@ -322,3 +322,55 @@ function SpellActivationOverlayFrame_OnFadeInFinished(anim)
 		end
 	end
 end
+
+function SpellActivationOverlayFrame_SetForceAlpha1(enabled)
+	local self = SpellActivationOverlayFrame;
+	if (enabled) then
+		if (not self.disableDimOutOfCombat) then
+			self.disableDimOutOfCombat = 1;
+			self.combatAnimOut:Stop();	--In case we're in the process of animating this out.
+			self:SetAlpha(1);
+		else
+			-- Set last digit
+			self.disableDimOutOfCombat = self.disableDimOutOfCombat-self.disableDimOutOfCombat%10+1;
+		end
+	else
+		if (self.disableDimOutOfCombat) then
+			-- Reset last digit
+			self.disableDimOutOfCombat = self.disableDimOutOfCombat-self.disableDimOutOfCombat%10;
+
+			if (self.disableDimOutOfCombat == 0) then
+				self.disableDimOutOfCombat = nil;
+				if (not InCombatLockdown()) then
+					self.combatAnimOut:Play();
+				end
+			end
+		end
+	end
+end
+
+function SpellActivationOverlayFrame_SetForceAlpha2(enabled)
+	local self = SpellActivationOverlayFrame;
+	if (enabled) then
+		if (not self.disableDimOutOfCombat) then
+			self.disableDimOutOfCombat = 10;
+			self.combatAnimOut:Stop();	--In case we're in the process of animating this out.
+			self:SetAlpha(1);
+		else
+			-- Set second-to-last digit
+			self.disableDimOutOfCombat = self.disableDimOutOfCombat%10+10;
+		end
+	else
+		if (self.disableDimOutOfCombat) then
+			-- Reset second-to-last digit
+			self.disableDimOutOfCombat = self.disableDimOutOfCombat%10;
+
+			if (self.disableDimOutOfCombat == 0) then
+				self.disableDimOutOfCombat = nil;
+				if (not InCombatLockdown()) then
+					self.combatAnimOut:Play();
+				end
+			end
+		end
+	end
+end

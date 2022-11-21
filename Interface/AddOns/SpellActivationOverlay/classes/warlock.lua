@@ -71,7 +71,7 @@ local function loadOptions(self)
 
     self:AddOverlayOption(nightfallTalent, nightfallBuff --[[, 0, akaShadowTrance]]);
     self:AddOverlayOption(backlashTalent, backlashBuff);
-    self:AddOverlayOption(moltenCoreTalent, moltenCoreBuff3, 0); -- any stacks
+    self:AddOverlayOption(moltenCoreTalent, moltenCoreBuff3, 0, nil, nil, 3); -- setup any stacks, test with 3 stacks
     self:AddOverlayOption(decimationTalent, decimationBuff2);
     self:AddOverlayOption(empoweredImpTalent, empoweredImpBuff);
 

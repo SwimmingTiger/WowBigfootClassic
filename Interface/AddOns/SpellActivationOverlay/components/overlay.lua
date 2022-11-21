@@ -58,6 +58,11 @@ function SAO.ActivateOverlay(self, stacks, spellID, texture, positions, scale, r
             forcePulsePlay = false;
         end
 
+        -- Fetch texture from functor if needed
+        if (type(texture) == 'function') then
+            texture = texture(self);
+        end
+
         -- Actually show the overlay(s)
         self.ShowAllOverlays(self.Frame, spellID, texture, positions, scale, r, g, b, autoPulse, forcePulsePlay);
     end

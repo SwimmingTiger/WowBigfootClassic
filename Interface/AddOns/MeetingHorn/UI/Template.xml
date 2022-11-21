@@ -142,9 +142,9 @@
             <Layer level="ARTWORK">
                 <Texture parentKey="Icon" file="Interface\AddOns\MeetingHorn\Media\certification_icon" hidden="true">
                     <Anchors>
-                        <Anchor point="LEFT" x="8" y="0"/>
+                        <Anchor point="LEFT" x="0" y="0"/>
                     </Anchors>
-                    <Size x="52" y="52"/>
+                    <Size x="104" y="26"/>
                 </Texture>
                 <FontString parentKey="Name" wordwrap="false" inherits="GameFontNormalSmallLeft">
                     <!-- <Size x="145" /> -->

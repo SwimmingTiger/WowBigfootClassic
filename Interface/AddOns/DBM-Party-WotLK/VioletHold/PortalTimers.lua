@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("PortalTimers", "DBM-Party-WotLK", 12)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220713234849")
+mod:SetRevision("20221012010902")
 mod:SetCreatureID(30658)
 
 mod:RegisterEvents(
@@ -23,7 +23,7 @@ local lastWave = 0
 
 function mod:UPDATE_UI_WIDGET(table)
 	local id = table.widgetID
-	if id ~= 566 then return end
+	if id ~= 566 and id ~= 3895 then return end
 	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
 	local text = widgetInfo.text
 	if not text then return end
@@ -55,8 +55,8 @@ function mod:UNIT_DIED(args)
 	local z = mod:GetCIDFromGUID(args.destGUID)
 	if z == 29266 or z == 29312 or z == 29313 or z == 29314 or z == 29315 or z == 29316  		-- bosses
 	or z == 32226 or z == 32230 or z == 32231 or z == 32234 or z == 32235 or z == 32237 then 	-- boss spirits (in case you wipe)
-		timerPortalIn:Start(20, lastWave + 1)
-		warningPortalSoon:Schedule(15)
+		timerPortalIn:Start(self:IsClassic() and 30 or 20, lastWave + 1)
+		warningPortalSoon:Schedule(self:IsClassic() and 25 or 15)
 	end
 end
 

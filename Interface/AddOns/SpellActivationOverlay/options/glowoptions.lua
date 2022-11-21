@@ -45,7 +45,16 @@ function SAO.AddGlowingOption(self, talentID, spellID, glowID, talentSubText, sp
         end
     end
 
-    self:AddOption("glow", spellID, glowID, applyTextFunc, { frame = SpellActivationOverlayOptionsPanelGlowingButtons, xOffset = 16, yOffset = 2 });
+    local testFunc = function(start)
+        local fakeOffset = 42000000;
+        if (start) then
+            self:AddGlow(fakeOffset+spellID, { GetSpellInfo(glowID) });
+        else
+            self:RemoveGlow(fakeOffset+spellID);
+        end
+    end
+
+    self:AddOption("glow", spellID, glowID, nil, applyTextFunc, testFunc, { frame = SpellActivationOverlayOptionsPanelGlowingButtons, xOffset = 16, yOffset = 2 });
 end
 
 function SAO.AddGlowingLink(self, srcOption, dstOption)

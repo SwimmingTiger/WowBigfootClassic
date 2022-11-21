@@ -100,7 +100,7 @@ function NugRunningNameplates:CreateNameplateTimer(frame)
     bar:SetSize(w,h)
     f.bar = bar
 
-    local bg = f:CreateTexture("BACKGROUND", nil, -5)
+    local bg = f:CreateTexture(nil, "BACKGROUND", nil, -5)
     bg:SetTexture(texture)
     bg:SetAllPoints(bar)
     bar.bg = bg

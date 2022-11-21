@@ -19,13 +19,12 @@ local _G = _G
 local next, pairs, setmetatable = next, pairs, setmetatable
 local table_insert, table_remove = table.insert, table.remove
 
-local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
-
 -- create prototype information
 local BagBar = setmetatable({}, {__index = ButtonBar})
 
-local defaults = { profile = Bartender4:Merge({
+local defaults = { profile = Bartender4.Util:Merge({
 	enabled = true,
+	verticalAlignment = "CENTER",
 	keyring = true,
 	onebag = false,
 	onebagreagents = true,
@@ -43,7 +42,7 @@ local noopFunc = function() end
 
 function BagBarMod:OnEnable()
 	if not self.bar then
-		self.bar = setmetatable(Bartender4.ButtonBar:Create("BagBar", self.db.profile, L["Bag Bar"], true), {__index = BagBar})
+		self.bar = setmetatable(Bartender4.ButtonBar:Create("BagBar", self.db.profile, L["Bag Bar"]), {__index = BagBar})
 
 		CharacterReagentBag0Slot.SetBarExpanded = noopFunc
 		CharacterBag3Slot.SetBarExpanded = noopFunc
@@ -77,11 +76,23 @@ local function clearSetPoint(btn, ...)
 	btn:SetPoint(...)
 end
 
+local function MasqueButtonType(button)
+	if button == CharacterReagentBag0Slot then
+		return "ReagentBag"
+	elseif button == MainMenuBarBackpackButton then
+		return "Backpack"
+	else
+		return "BagSlot"
+	end
+end
+
 BagBar.button_width = 30
 BagBar.button_height = 30
 BagBarMod.button_count = 6
 function BagBar:FeedButtons()
 	local count = 1
+	local group = self.MasqueGroup
+
 	if self.buttons then
 		while next(self.buttons) do
 			local btn = table_remove(self.buttons)
@@ -89,10 +100,9 @@ function BagBar:FeedButtons()
 			btn:SetParent(UIParent)
 			btn:ClearSetPoint("CENTER")
 
-			--[[if btn.MasqueButtonData then
-				local group = self.MasqueGroup
+			if group and btn.MasqueButtonData then
 				group:RemoveButton(btn)
-			end]]
+			end
 		end
 	else
 		self.buttons = {}
@@ -108,28 +118,25 @@ function BagBar:FeedButtons()
 		table_insert(self.buttons, CharacterBag2Slot)
 		table_insert(self.buttons, CharacterBag1Slot)
 		table_insert(self.buttons, CharacterBag0Slot)
+
 		count = count + 4
 	end
 
 	table_insert(self.buttons, MainMenuBarBackpackButton)
-	if #self.buttons > 1 then
-		MainMenuBarBackpackButton.bt4_yoffset = 10
-	end
 
 	for i,v in pairs(self.buttons) do
 		v:SetParent(self)
 		v:Show()
 
-		--[[if Masque then
-			local group = self.MasqueGroup
+		if group then
 			if not v.MasqueButtonData then
 				v.MasqueButtonData = {
 					Button = v,
 					Icon = v.icon
 				}
 			end
-			group:AddButton(v, v.MasqueButtonData, "Item")
-		end]]
+			group:AddButton(v, v.MasqueButtonData, MasqueButtonType(v))
+		end
 
 		v.ClearSetPoint = clearSetPoint
 	end

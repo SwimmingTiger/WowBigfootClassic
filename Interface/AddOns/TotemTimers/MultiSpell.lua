@@ -174,16 +174,19 @@ function TotemTimers.SetMultiCastConfig()
             local disabled = TotemTimers.ActiveProfile.DisabledMultiSpells[TotemTimers.Specialization .. mspell .. XiTimers.timers[i].nr]
             button:SetAttribute("mspelldisabled" .. mspell, disabled)
 
+            local spellID, sanitizedSpellID
+
             if disabled then
                 SetMultiCastSpell(action, nil)
             else
-                local _, spellID = GetActionInfo(action)
-                spellID = TotemTimers.SanitizeTotem(spellID, timer)
-                if spellID then
-                    XiTimers.timers[i].button:SetAttribute("mspell" .. mspell, spellID)
-                    SetMultiCastSpell(action, spellID)
+                _, spellID = GetActionInfo(action)
+                sanitizedSpellID = TotemTimers.SanitizeTotem(spellID, timer)
+                if sanitizedSpellID then
+                    XiTimers.timers[i].button:SetAttribute("mspell" .. mspell, sanitizedSpellID)
+                    SetMultiCastSpell(action, sanitizedSpellID)
                 end
             end
+            TotemTimers.AddDebug("ms: "..mspell.." - "..action.." - "..tostring(spellID or nil).." - "..tostring(sanitizedSpellID or nil))
         end
     end
     mb:UpdateTexture()

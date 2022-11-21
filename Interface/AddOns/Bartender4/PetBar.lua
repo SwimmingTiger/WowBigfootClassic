@@ -11,7 +11,8 @@ local PetBarMod = Bartender4:NewModule("PetBar", "AceEvent-3.0")
 local ActionBars = Bartender4:GetModule("ActionBars")
 local ButtonBar = Bartender4.ButtonBar.prototype
 
-local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
+local WoWRetail = (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE)
+local WoWWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
 
 local setmetatable, select = setmetatable, select
 
@@ -20,7 +21,7 @@ local setmetatable, select = setmetatable, select
 -- create prototype information
 local PetBar = setmetatable({}, {__index = ButtonBar})
 
-local defaults = { profile = Bartender4:Merge({
+local defaults = { profile = Bartender4.Util:Merge({
 	enabled = true,
 	hidehotkey = true,
 	showgrid = false,
@@ -52,19 +53,20 @@ function PetBarMod:OnEnable()
 	self.bar:RegisterEvent("PLAYER_CONTROL_LOST")
 	self.bar:RegisterEvent("PLAYER_CONTROL_GAINED")
 	self.bar:RegisterEvent("PLAYER_FARSIGHT_FOCUS_CHANGED")
-	self.bar:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
-	self.bar:RegisterEvent("PLAYER_TARGET_CHANGED")
 	self.bar:RegisterEvent("UNIT_PET")
 	self.bar:RegisterEvent("UNIT_FLAGS")
-	self.bar:RegisterEvent("UNIT_AURA")
 	self.bar:RegisterEvent("PET_BAR_UPDATE")
 	self.bar:RegisterEvent("PET_BAR_UPDATE_COOLDOWN")
 	self.bar:RegisterEvent("PET_BAR_UPDATE_USABLE")
+	self.bar:RegisterEvent("PET_UI_UPDATE")
+	self.bar:RegisterEvent("PLAYER_TARGET_CHANGED")
+	if WoWRetail or WoWWrath then
+		self.bar:RegisterEvent("UPDATE_VEHICLE_ACTIONBAR")
+	end
+	self.bar:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
+	self.bar:RegisterUnitEvent("UNIT_AURA", "pet")
 	self.bar:RegisterEvent("PET_BAR_SHOWGRID")
 	self.bar:RegisterEvent("PET_BAR_HIDEGRID")
-	if not WoWClassic then
-		self.bar:RegisterEvent("PET_SPECIALIZATION_CHANGED")
-	end
 
 	self:ApplyConfig()
 	self:ToggleOptions()
@@ -96,6 +98,17 @@ function PetBarMod:SetGrid(grid)
 	self.bar:ForAll("HideGrid")
 end
 
+function PetBarMod:SetHideBorder(state)
+	if state ~= nil then
+		self.db.profile.hideborder = state
+	end
+	self.bar:ForAll("Update")
+end
+
+function PetBarMod:GetHideBorder()
+	return self.db.profile.hideborder
+end
+
 function PetBarMod:ApplyConfig()
 	if not self:IsEnabled() then return end
 	self.bar:ApplyConfig(self.db.profile)
@@ -105,20 +118,25 @@ end
 PetBar.button_width = 30
 PetBar.button_height = 30
 function PetBar:OnEvent(event, arg1)
-	if event == "PET_BAR_UPDATE" or event == "PET_BAR_UPDATE_USABLE" or event == "PET_SPECIALIZATION_CHANGED" or
-		(event == "UNIT_PET" and arg1 == "player") or
-		((event == "UNIT_FLAGS" or event == "UNIT_AURA") and arg1 == "pet") or
-		event == "PLAYER_CONTROL_LOST" or event == "PLAYER_CONTROL_GAINED" or event == "PLAYER_FARSIGHT_FOCUS_CHANGED" or
-		event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_MOUNT_DISPLAY_CHANGED"
-	then
+	if ( event == "PET_BAR_UPDATE" or (event == "UNIT_PET" and arg1 == "player") or event == "PET_UI_UPDATE" or event == "UPDATE_VEHICLE_ACTIONBAR") then
 		self:ForAll("Update")
-	elseif event == "PET_BAR_UPDATE_COOLDOWN" then
+	elseif ( event == "PLAYER_CONTROL_LOST" or event == "PLAYER_CONTROL_GAINED" or event == "PLAYER_FARSIGHT_FOCUS_CHANGED" or event == "PET_BAR_UPDATE_USABLE" or event == "PLAYER_TARGET_CHANGED" or event == "PLAYER_MOUNT_DISPLAY_CHANGED" ) then
+		self:ForAll("Update")
+	elseif ( (event == "UNIT_FLAGS") or (event == "UNIT_AURA") ) then
+		if arg1 == "pet" then
+			self:ForAll("Update")
+		end
+	elseif ( event =="PET_BAR_UPDATE_COOLDOWN" ) then
 		self:ForAll("UpdateCooldown")
 	elseif event == "PET_BAR_SHOWGRID" then
 		self:ForAll("ShowGrid")
 	elseif event == "PET_BAR_HIDEGRID" then
 		self:ForAll("HideGrid")
 	end
+end
+
+function PetBar:UpdateButtonConfig()
+	self:ForAll("Update")
 end
 
 function PetBar:ApplyConfig(config)

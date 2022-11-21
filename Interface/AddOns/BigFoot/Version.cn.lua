@@ -1,6 +1,6 @@
 if GetLocale()~='zhCN' then return end
 local main= "3.4.0."
-local minor = "169"
+local minor = "174"
 BIGFOOT_VERSION = "zhCN"..main..minor;
 
 function GetMinorVersion()
@@ -8,6 +8,26 @@ function GetMinorVersion()
 end
 
 BigFootChangelog_ah();
+
+	BigFootChangelog_at("2022/11/10 (3.4.0.174)")
+	BigFootChangelog_ar("首领报警","修复旧世副本模块丢失的问题。")
+
+
+	BigFootChangelog_at("2022/11/09 (3.4.0.173)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/10/27 (3.4.0.172)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
+
+	BigFootChangelog_at("2022/10/19 (3.4.0.171)")
+	BigFootChangelog_ar("首领报警","升级至最新版本(3.4.17)。")
+
+
+	BigFootChangelog_at("2022/10/17 (3.4.0.170)")
+	BigFootChangelog_ar("大脚插件","同步更新整合类插件。")
+
 
 	BigFootChangelog_at("2022/10/13 (3.4.0.169)")
 	BigFootChangelog_ar("更换插件","竞技助手(Gladdy)。")
@@ -776,4 +796,4 @@ BigFootChangelog_ah();
 BigFootChangelog_af();
 
 
-BF_VERSION_CHECKSUM = "56"
+BF_VERSION_CHECKSUM = "52"

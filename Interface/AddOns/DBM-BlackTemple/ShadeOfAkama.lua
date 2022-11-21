@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Akama", "DBM-BlackTemple")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 mod:SetCreatureID(22841)
 mod:SetEncounterID(603, 2475)
 --mod:DisableEEKillDetection()--EE always fires wipe

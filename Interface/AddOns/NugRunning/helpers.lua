@@ -136,7 +136,7 @@ helpers.Cooldown = function(id, opts)
     if type(id) == "table" then id = id[1] end
     if opts then
         opts.localname = GetSpellInfo(id)
-        if not opts.localname then print("nrun: misssing spell #"..id) return end
+        if not opts.localname and IsTestBuild() then print("nrun: misssing spell #"..id) return end
     end
     NugRunningConfig.cooldowns[id] = opts
 end
@@ -173,7 +173,7 @@ helpers.Cast = function(id, opts)
 
     if opts then
         opts.localname = GetSpellInfo(id)
-        if not opts.localname then print("nrun: misssing spell #"..id) return end
+        if not opts.localname and IsTestBuild() then print("nrun: misssing spell #"..id) return end
     end
     NugRunningConfig.casts[id] = opts
 end
@@ -182,7 +182,7 @@ end
 helpers.Activation = function(id, opts)
     if opts then
         opts.localname = GetSpellInfo(id)
-        if not opts.localname then print("nrun: misssing spell #"..id) return end
+        if not opts.localname and IsTestBuild() then print("nrun: misssing spell #"..id) return end
     end
     NugRunningConfig.activations[id] = opts
 end

@@ -189,7 +189,13 @@ function Browser:Constructor()
         --@end-classic@]=]
 
         -- @lkc@
-        button.Icon:SetShown(item:IsCertification())
+        if item:GetCertificationLevel() then
+            button.Icon:SetTexture(string.format([[Interface\AddOns\MeetingHorn\Media\certification_icon_%d]],
+                                                 item:GetCertificationLevel()))
+            button.Icon:SetShown(true)
+        else
+            button.Icon:SetShown(false)
+        end
         button.Comment:SetWidth(item:IsActivity() and 250 or 320)
         -- @end-lkc@
         local members = item:GetMembers()
@@ -364,8 +370,13 @@ function Browser:Sort()
     local sortCall = function()
         sort(self.ActivityList:GetItemList(), function(a, b)
             -- @lkc@
-            if a:IsCertification() ~= b:IsCertification() then
-                return a:IsCertification()
+            local acl, bcl = a:GetCertificationLevel(), b:GetCertificationLevel()
+            if acl or bcl then
+                if acl and bcl then
+                    return acl > bcl
+                else
+                    return acl
+                end
             end
             if not self.sortId then
                 return false
@@ -496,33 +507,14 @@ function Browser:CreateActivityMenu(activity)
                 end
             end,
         }, {isSeparator = true}, {text = REPORT_PLAYER, isTitle = true}, {
-            text = REPORT_SPAMMING,
+            text = REPORT_CHAT,
             func = function()
-                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_SPAM, activity:GetLeader(),
-                                                 activity:GetLeaderPlayerLocation())
-                ns.GUI:CloseMenu()
-            end,
-        }, {
-            text = REPORT_BAD_LANGUAGE,
-            func = function()
-                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_LANGUAGE, activity:GetLeader(),
-                                                 activity:GetLeaderPlayerLocation())
-                ns.GUI:CloseMenu()
-            end,
-        }, {
-            text = REPORT_BAD_NAME,
-            func = function()
-                PlayerReportFrame:InitiateReport(PLAYER_REPORT_TYPE_BAD_PLAYER_NAME, activity:GetLeader(),
-                                                 activity:GetLeaderPlayerLocation())
-                ns.GUI:CloseMenu()
-            end,
-        }, {
-            text = REPORT_CHEATING,
-            func = function()
-                HelpFrame_ShowReportCheatingDialog(activity:GetLeaderPlayerLocation())
+                local reportInfo = ReportInfo:CreateReportInfoFromType(Enum.ReportType.Chat)
+                local leader = activity:GetLeader()
+                print(leader)
+                ReportFrame:InitiateReport(reportInfo, leader, activity:GetLeaderPlayerLocation())
                 ns.GUI:CloseMenu()
             end,
         }, {isSeparator = true}, {text = CANCEL},
     }
 end
-

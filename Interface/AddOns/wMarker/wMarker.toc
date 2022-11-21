@@ -18,4 +18,3 @@ Localization\zhTW.lua
 
 wMarker.lua
 config.lua
-Bindings.xml

@@ -22,6 +22,7 @@ function VehicleBarMod:SetupOptions()
 			get = function() return self.db.profile.enabled end,
 			set = "ToggleModule",
 			handler = self,
+			width = "full",
 		}
 		self.optionobject:AddElement("general", "enabled", enabled)
 
@@ -39,8 +40,8 @@ function VehicleBarMod:SetupOptions()
 		self.options = {
 			order = 30,
 			type = "group",
-			name = L["VehicleBar"],
-			desc = L["Configure the VehicleBar"],
+			name = L["Vehicle Bar"],
+			desc = L["The Vehicle Bar contains the \"Leave Vehicle\" button"],
 			childGroups = "tab",
 			disabled = function(info) return Bartender4.db.profile.blizzardVehicle end,	--bf@178.com
 		}

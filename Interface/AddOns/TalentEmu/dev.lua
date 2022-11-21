@@ -10,7 +10,7 @@ local DT = __private.DT;
 
 --		upvalue
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->

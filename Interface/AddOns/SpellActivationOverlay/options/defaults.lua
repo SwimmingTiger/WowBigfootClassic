@@ -36,6 +36,9 @@ SAO.defaults = {
                 [48517] = { -- Eclipse (Solar)
                     [0] = true,
                 },
+                [16886] = { -- Nature's Grace
+                    [0] = false,
+                },
                 [69369] = { -- Predatory Strikes
                     [0] = true,
                 },
@@ -88,6 +91,9 @@ SAO.defaults = {
         },
         ["MAGE"] = {
             alert = {
+                [12536] = { -- Arcane Concentration
+                    [0] = false,
+                },
                 [44401] = { -- Missile Barrage
                     [0] = true,
                 },
@@ -194,6 +200,9 @@ SAO.defaults = {
                     [5] = true, -- 5 stacks
                     [0] = true, -- any stacks but 5
                 },
+                [53390] = { -- Tidal Waves
+                    [0] = false, -- any stacks
+                },
             },
             glow = {
                 [53817] = { -- Maelstorm Weapon
@@ -203,6 +212,10 @@ SAO.defaults = {
                     [331]   = false, -- Healing Wave
                     [1064]  = false, -- Chain Heal
                     [51514] = false, -- Hex
+                },
+                [53390] = { -- Tidal Waves
+                    [8004] = false, -- lesser Healing Wave
+                    [331]  = false, -- Healing Wave
                 },
             },
         },

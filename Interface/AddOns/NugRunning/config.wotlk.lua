@@ -46,6 +46,7 @@ Interrupt(19647, "Spell Lock", 8) -- Rank 2
 Spell( 24259 ,{ name = "Silence", duration = 3, color = colors.PINK }) -- Spell Lock Silence
 
 Spell( 63321, { name = "Life Tap", duration = 40, shinerefres = true, group = "buffs", color = colors.PURPLE })
+Spell({ 54274, 54276, 54277 }, { name = "Backdraft", duration = 15, shine = true, group = "buffs", priority = -4, shinerefresh = true, color = colors.PURPLE3, scale = 0.7 })
 
 local normalize_dots_to = nil--26
 
@@ -439,6 +440,7 @@ Spell( 55342 ,{ name = "Mirror Image", duration = 30, group = "buffs" })
 EventTimer({ event = "SPELL_CAST_SUCCESS", spellID = 55342, name = "Mirror Image", duration = 30, group = "buffs", color = colors.GOLD })
 Spell( 36032 ,{ name = "Arcane Blast", color = colors.REJUV, charged = true, maxcharge = 4, priority = 10.1, scale = 0.7, duration = 8, timeless = true })
 -- Cooldown( 44425 ,{ name = "Arcane Barrage", color = colors.PINK3 })
+Spell( 44401 ,{ name = "Missile Barrage", priority = 12, duration = 15, effect = "FIRESHOT", scale = 1, glowtime = 15, shine = true, shinerefresh = true, color = colors.PINK })
 
 Spell( 66, { name = "Invisibility Fade", duration = 3, color = colors.LBLUE })
 Spell( 32612, { name = "Invisibility", duration = 20 })

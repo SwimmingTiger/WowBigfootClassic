@@ -10,7 +10,7 @@ local isBCC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 local isWrath = WOW_PROJECT_ID == (WOW_PROJECT_WRATH_CLASSIC or 11)
 local playerFaction = GetPlayerFactionGroup("player")
 
-mod:SetRevision("20220906165336")
+mod:SetRevision("20220919212406")
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 mod:RegisterEvents(
 	"ZONE_CHANGED_NEW_AREA",
@@ -172,6 +172,7 @@ do
 			healthScan:Cancel()
 			healthScan = nil
 		end
+		trackedUnitsCount = 0
 		twipe(trackedUnits)
 		twipe(syncTrackedUnits)
 		self:UnregisterShortTermEvents()

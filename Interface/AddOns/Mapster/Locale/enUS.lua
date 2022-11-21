@@ -26,6 +26,7 @@ L["Font Size"] = true
 L["Font Size on the normal map."] = true
 L["Hide Map Button"] = true
 L["Mapster allows you to control various aspects of your World Map. You can change the style of the map, control the plugins that extend the map with new functionality, and configure different profiles for every of your characters."] = true
+L["NOTE: Currently unavailable in WoW 10.x since it can break the map."] = true
 L["Overlay Color"] = true
 L["Player"] = true
 L["PlayerArrow Scale"] = true

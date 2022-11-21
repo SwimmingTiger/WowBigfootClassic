@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00HandyNotes|r|n|cffbc8f8f使用Alt+鼠标右键快速标记|r
 ## Notes-zhTW: |cff00ff00HandyNotes|r
 ## Author: Xinhuan
-## Version: v1.6.8
+## Version: v1.6.12
 ## X-Category: Map
 ## X-eMail: xinhuan @ gmail DOT com
 ## X-Curse-Project-ID: 14154

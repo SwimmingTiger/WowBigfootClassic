@@ -825,7 +825,7 @@ end
 -- updates the positions of all frames anchored to this timer
 function XiTimers:Reanchor()
 	for _, anchor in pairs(self.anchors) do
-		self:SetPoint(anchor.point, anchor.timer, anchor.relpoint)
+		self:SetPoint(anchor.point, anchor.timer, anchor.relpoint, anchor.halfspace)
 	end
 	for _, anchorchild in pairs(self.anchorchilds) do
 		anchorchild:Reanchor()

@@ -1,0 +1,16 @@
+## Interface: 30400
+## Title: RangeDisplay Options
+## Title-zhCN: [大脚][集]距离显示_设置
+## Title-zhTW: [大腳][集]距離顯示_设置
+## Author: mitch0
+## Version: v5.0.3
+## Notes: Configuration options for RangeDisplay
+## Notes-zhCN: |cff00ff00RangeDisplay_Options|r
+## Notes-zhTW: |cff00ff00RangeDisplay_Options|r
+## Dependencies: RangeDisplay
+## LoadOnDemand: 1
+## X-RelSite-WoWI: 7297
+## X-Revision: BigFoot
+
+localizations.lua
+Options.lua

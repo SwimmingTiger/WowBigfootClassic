@@ -308,7 +308,9 @@ function NugRunning.PLAYER_LOGIN(self,event,arg1)
     -- NugRunning:RegisterEvent("PLAYER_TALENT_UPDATE")
     -- NugRunning.PLAYER_TALENT_UPDATE = NugRunning.ReInitSpells
     NugRunning.CHARACTER_POINTS_CHANGED = NugRunning.ReInitSpells
+    NugRunning.SPELLS_CHANGED = NugRunning.ReInitSpells
     NugRunning:RegisterEvent("CHARACTER_POINTS_CHANGED")
+    NugRunning:RegisterEvent("SPELLS_CHANGED")
     NugRunning:RegisterUnitEvent("UNIT_POWER_UPDATE", "player")
 
     NugRunning:ReInitSpells()
@@ -1857,7 +1859,7 @@ NugRunning.Commands = {
     end,
     ["totems"] = function()
         NRunDB.totems = not NRunDB.totems
-        print("Totems turned "..(NRunDB.swapTarget and "on" or "off")..". Will take effect after /reload")
+        print("Totems turned "..(NRunDB.totems and "on" or "off")..". Will take effect after /reload")
     end,
     ["nameplates"] = function()
         NRunDB.nameplates = not NRunDB.nameplates

@@ -2102,7 +2102,7 @@ function Recount:CreateDetailWindow()
 	DeathMode.OutgoingText:SetPoint("LEFT", DeathMode.Outgoing, "RIGHT", 2, 0)
 	Recount:AddFontString(DeathMode.OutgoingText)
 
-	DeathMode.ShowDeathGraph = CreateFrame("Button", nil, DeathMode, "OptionsButtonTemplate")
+	DeathMode.ShowDeathGraph = CreateFrame("Button", nil, DeathMode, "UIPanelButtonTemplate")
 	DeathMode.ShowDeathGraph:SetWidth(110)
 	DeathMode.ShowDeathGraph:SetHeight(24)
 	DeathMode.ShowDeathGraph:SetPoint("BOTTOMRIGHT", DeathMode, "BOTTOMRIGHT", -4, 4)

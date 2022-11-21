@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Leotheras", "DBM-Serpentshrine")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 mod:SetCreatureID(21215)
 mod:SetEncounterID(625, 2460)
 mod:SetModelID(20514)

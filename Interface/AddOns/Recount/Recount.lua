@@ -11,7 +11,7 @@ local FilterSize	= 20
 local RampUp		= 5
 local RampDown		= 10
 
-Recount.Version = tonumber(string.sub("$Revision: 1602 $", 12, -3))
+Recount.Version = tonumber(string.sub("$Revision: 1603 $", 12, -3))
 
 local _G = _G
 local abs = abs
@@ -415,7 +415,9 @@ Recount.consoleOptions = {
 			type = 'execute',
 			func = function()
 				-- Resike: Throws an error in AceConfigDialog if clicked twice.
-				InterfaceOptionsFrame:Hide()
+				if not WOW_RETAIL then
+					InterfaceOptionsFrame:Hide()
+				end
 				AceConfigDialog:SetDefaultSize("Recount", 500, 550)
 				AceConfigDialog:Open("Recount")
 			end

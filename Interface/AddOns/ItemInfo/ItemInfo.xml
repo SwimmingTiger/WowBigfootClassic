@@ -5,7 +5,7 @@
 			<AbsDimension x="128" y="13"/>
 		</Size>
 		<Frames>
-			<Button name="$parentCopperButton">
+			<Button name="$parentCopperButton" parentKey="CopperButton">
 				<Size>
 					<AbsDimension x="32" y="13"/>
 				</Size>
@@ -25,7 +25,7 @@
 					</Anchors>
 					<TexCoords left="0.5" right="0.75" top="0" bottom="1"/>
 				</NormalTexture>
-				<ButtonText name="$parentText">
+				<ButtonText name="$parentText" parentKey="Text">
 					<Anchors>
 						<Anchor point="RIGHT">
 							<Offset>
@@ -39,7 +39,7 @@
 					<AbsDimension x="0" y="0"/>
 				</PushedTextOffset>
 			</Button>
-			<Button name="$parentSilverButton">
+			<Button name="$parentSilverButton" parentKey="SilverButton">
 				<Size>
 					<AbsDimension x="32" y="13"/>
 				</Size>
@@ -49,7 +49,7 @@
 							<AbsDimension x="-4" y="0"/>
 						</Offset>
 					</Anchor>
-				</Anchors>				
+				</Anchors>
 				<NormalTexture file="Interface\MoneyFrame\UI-MoneyIcons">
 					<Size>
 						<AbsDimension x="13" y="13"/>
@@ -59,7 +59,7 @@
 					</Anchors>
 					<TexCoords left="0.25" right="0.5" top="0" bottom="1"/>
 				</NormalTexture>
-				<ButtonText name="$parentText">
+				<ButtonText name="$parentText" parentKey="Text">
 					<Anchors>
 						<Anchor point="RIGHT">
 							<Offset>
@@ -73,7 +73,7 @@
 					<AbsDimension x="0" y="0"/>
 				</PushedTextOffset>
 			</Button>
-			<Button name="$parentGoldButton">
+			<Button name="$parentGoldButton" parentKey="GoldButton">
 				<Size>
 					<AbsDimension x="32" y="13"/>
 				</Size>
@@ -83,7 +83,7 @@
 							<AbsDimension x="-4" y="0"/>
 						</Offset>
 					</Anchor>
-				</Anchors>				
+				</Anchors>
 				<NormalTexture file="Interface\MoneyFrame\UI-MoneyIcons">
 					<Size>
 						<AbsDimension x="13" y="13"/>
@@ -93,7 +93,7 @@
 					</Anchors>
 					<TexCoords left="0" right="0.25" top="0" bottom="1"/>
 				</NormalTexture>
-				<ButtonText name="$parentText">
+				<ButtonText name="$parentText" parentKey="Text">
 					<Anchors>
 						<Anchor point="RIGHT">
 							<Offset>

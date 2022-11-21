@@ -20,7 +20,6 @@ local DT = {  }; __private.DT = DT;		--	data
 	local tremove = table.remove;
 	local strrep = string.rep;
 	local IsLoggedIn =IsLoggedIn;
-	local After = C_Timer.After;
 	local UnitInBattleground = UnitInBattleground;
 	local GetBestMapForUnit = C_Map.GetBestMapForUnit;
 	local CreateFrame = CreateFrame;
@@ -29,6 +28,7 @@ local DT = {  }; __private.DT = DT;		--	data
 -->
 	local __ala_meta__ = _G.__ala_meta__;
 	__ala_meta__.emu = __private;
+	VT.__super = __ala_meta__;
 	VT.__uireimp = __ala_meta__.uireimp;
 	VT.__emulib = __ala_meta__.__emulib;
 	VT.__autostyle = __ala_meta__.autostyle;
@@ -101,6 +101,14 @@ local DT = {  }; __private.DT = DT;		--	data
 	CT.SELFFULLNAME = CT.SELFNAME .. "-" .. CT.SELFREALM;
 	CT.SELFFACTION = UnitFactionGroup('player');
 	CT.CLIENTVERSION, CT.BUILDNUMBER, CT.BUILDDATE, CT.TOCVERSION = GetBuildInfo();
+	if CT.TOCVERSION < 20000 then
+		CT.BUILD = "CLASSIC";
+	elseif CT.TOCVERSION < 30000 then
+		CT.BUILD = "BCC";
+	elseif CT.TOCVERSION < 40000 then
+		CT.BUILD = "WRATH";
+	else
+	end
 	CT.ADDONVERSION = GetAddOnMetadata(__addon, "version");
 	CT.MEDIAPATH =  [[Interface\AddOns\]] .. __addon .. [[\Media\]];
 	CT.TEXTUREPATH =  CT.MEDIAPATH .. [[Textures\]];
@@ -111,7 +119,7 @@ local DT = {  }; __private.DT = DT;		--	data
 	CT.DATA_VALIDITY = 30;
 	CT.TOOLTIP_UPDATE_DELAY = 0.02;
 	CT.INSPECT_WAIT_TIME = 10;
-	CT.L = {  };
+	CT.l10n = {  };
 
 	CT.TEXTUREICON = CT.TEXTUREPATH .. [[ICON]];
 	CT.TEXTUREUNK = [[Interface\Icons\Inv_Misc_QuestionMark]];
@@ -143,14 +151,21 @@ local DT = {  }; __private.DT = DT;		--	data
 MT.BuildEnv('INIT');
 -->		predef
 	MT.GetUnifiedTime = _G.GetTimePreciseSec;
-	function MT.ErrorDev(...)
-		print(date('|cff00ff00%H:%M:%S|r'), ...);
+
+	MT.Print = print;
+	function MT.Error(...)
+		MT.Print(date('|cff00ff00%H:%M:%S|r'), ...);
 	end
-	function MT.ErrorRelease(...)
+	function MT.DebugDev(...)
+		MT.Print(date('|cff00ff00%H:%M:%S|r'), ...);
+	end
+	function MT.DebugRelease(...)
 	end
 	function MT.Notice(...)
-		print(date('|cffff0000%H:%M:%S|r'), ...);
+		MT.Print(date('|cffff0000%H:%M:%S|r'), ...);
 	end
+
+	MT.After = _G.C_Timer.After;
 	local _TimerPrivate = {  };		--	[callback] = { periodic, int, running, halting, limit, };
 	function MT._TimerStart(callback, int, limit)
 		if callback ~= nil and type(callback) == 'function' then
@@ -161,11 +176,11 @@ MT.BuildEnv('INIT');
 						if P[4] then
 							P[3] = false;
 						elseif P[5] == nil then
-							After(P[2], P[1]);
+							MT.After(P[2], P[1]);
 							callback();
 						elseif P[5] > 1 then
 							P[5] = P[5] - 1;
-							After(P[2], P[1]);
+							MT.After(P[2], P[1]);
 							callback();
 						elseif P[5] > 0 then
 							P[3] = false;
@@ -180,13 +195,13 @@ MT.BuildEnv('INIT');
 					[5] = limit,
 				};
 				_TimerPrivate[callback] = P;
-				return After(P[2], P[1]);
+				return MT.After(P[2], P[1]);
 			elseif not P[3] then
 				P[2] = int or 1.0;
 				P[3] = true;
 				P[4] = false;
 				P[5] = limit;
-				return After(P[2], P[1]);
+				return MT.After(P[2], P[1]);
 			else
 				P[2] = int or P[2];
 				P[4] = false;
@@ -327,12 +342,13 @@ MT.BuildEnv('INIT');
 	VT.__is_loggedin = IsLoggedIn();
 	VT.__is_inbattleground = UnitInBattleground('player');
 	VT.__player_map = GetBestMapForUnit('player');
+	VT.__support_gem = CT.TOCVERSION >= 20000;
 	VT.__support_glyph = CT.TOCVERSION >= 30000;
 
 	if CT.BNTAG == "\97\108\101\120\35\53\49\54\55\50\50" or CT.BNTAG == "ALEX#125620" or CT.BNTAG == "Sanjeev#1289" then
-		MT.Error = MT.ErrorDev;
+		MT.Debug = MT.DebugDev;
 	else
-		MT.Error = MT.ErrorRelease;
+		MT.Debug = MT.DebugRelease;
 	end
 	VT.ImportIndex = 0;
 

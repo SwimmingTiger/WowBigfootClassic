@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Maulgar", "DBM-Outlands")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 mod:SetCreatureID(18831, 18832, 18834, 18835, 18836)
 mod:SetEncounterID(649, 2455)
 mod:SetModelID(18649)

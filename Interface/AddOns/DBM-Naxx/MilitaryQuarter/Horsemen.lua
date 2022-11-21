@@ -1,7 +1,8 @@
 local mod	= DBM:NewMod("Horsemen", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
+local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 
-mod:SetRevision("20221010034753")
+mod:SetRevision("20221102181724")
 mod:SetCreatureID(16063, 16064, 16065, 30549)
 mod:SetEncounterID(1121)
 mod:SetModelID(10729)
@@ -21,13 +22,21 @@ mod:RegisterEventsInCombat(
 --TODO, verify stuff migrated from naxx 40
 local warnMarkSoon				= mod:NewAnnounce("WarningMarkSoon", 1, 28835, false, nil, nil, 28835)
 local warnMeteor				= mod:NewSpellAnnounce(57467, 4)
-local warnVoidZone				= mod:NewTargetNoFilterAnnounce(28863, 3)--Only warns for nearby targets, to reduce spam
 local warnHolyWrath				= mod:NewTargetNoFilterAnnounce(28883, 3, nil, false)
 local warnBoneBarrier			= mod:NewTargetNoFilterAnnounce(29061, 2)
 
 local specWarnMarkOnPlayer		= mod:NewSpecialWarning("SpecialWarningMarkOnPlayer", nil, nil, nil, 1, 6, nil, nil, 28835)
-local specWarnVoidZone			= mod:NewSpecialWarningYou(28863, nil, nil, nil, 1, 2)
-local yellVoidZone				= mod:NewYell(28863)
+
+local warnVoidZone
+local specWarnVoidZone
+local yellVoidZone
+if isRetail then
+	warnVoidZone				= mod:NewTargetNoFilterAnnounce(28863, 3)--Only warns for nearby targets, to reduce spam
+	specWarnVoidZone			= mod:NewSpecialWarningYou(28863, nil, nil, nil, 1, 2)
+	yellVoidZone				= mod:NewYell(28863)
+else
+	warnVoidZone				= mod:NewSpellAnnounce(28863, 4, nil, nil, nil, nil, nil, 2)
+end
 
 local timerMarkCD				= mod:NewTimer(12.9, "timerMark", 28835, nil, nil, 3)
 --local timerMarkCD				= mod:NewCDTimer(12, 28835, nil, nil, nil, 3)
@@ -52,18 +61,25 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(28832, 28833, 28834, 28835) and self:AntiSpam(5) then
+	if args:IsSpellID(28832, 28833, 28834, 28835) and self:AntiSpam(5, 1) then
 		self.vb.markCount = self.vb.markCount + 1
 		timerMarkCD:Start(nil, self.vb.markCount+1)
 		warnMarkSoon:Schedule(7)
 	elseif args.spellId == 28863 then
 --		timerVoidZoneCD:Start()
-		if args:IsPlayer() then
-			specWarnVoidZone:Show()
-			specWarnVoidZone:Play("targetyou")
-			yellVoidZone:Yell()
-		elseif self:CheckNearby(12, args.destName) then
-			warnVoidZone:Show(args.destName)
+		if isRetail then
+			if args:IsPlayer() then
+				specWarnVoidZone:Show()
+				specWarnVoidZone:Play("targetyou")
+				yellVoidZone:Yell()
+			elseif self:CheckNearby(12, args.destName) then
+				warnVoidZone:Show(args.destName)
+			end
+		else
+			if self:AntiSpam(3, 2) then--Have to antispam this way since can't by distance in classic
+				warnVoidZone:Show()
+				warnVoidZone:Play("watchstep")
+			end
 		end
 	elseif args.spellId == 28883 then
 		warnHolyWrath:Show(args.destName)

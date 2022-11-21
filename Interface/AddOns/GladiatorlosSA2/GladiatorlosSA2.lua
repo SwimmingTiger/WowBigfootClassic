@@ -6,7 +6,7 @@
  local LSM = LibStub("LibSharedMedia-3.0")
  local self, GSA, PlaySoundFile = GladiatorlosSA, GladiatorlosSA, PlaySoundFile
  local GSA_TEXT = "|cff69CCF0GladiatorlosSA2|r (|cffFFF569/gsa|r)"
- local GSA_VERSION = "|cffFF7D0A TBC-1.2 |r(|cff4DFF4D2.5.3 Burning Crusade (Classic)|r)"
+ local GSA_VERSION = "|cffFF7D0A Wrath-1.4 |r(|cff4DFF4D3.4.0 Wrath of the Lich King (Classic)|r)"
  local GSA_TEST_BRANCH = ""
  local GSA_AUTHOR = " "
  local gsadb
@@ -309,7 +309,7 @@ end
  end
  
  function GladiatorlosSA:UNIT_SPELLCAST_SUCCEEDED(event, unitTarget, castGUID, spellID)
-	if gsadb.class and spellID == 42292 then
+	if gsadb.class and (spellID == 42292 or spellID == 59752) then
 		local guid = UnitGUID(unitTarget)
 		local c = self:ArenaClass(guid)
 		if c then

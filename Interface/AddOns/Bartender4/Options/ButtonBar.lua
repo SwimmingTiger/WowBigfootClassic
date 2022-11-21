@@ -29,6 +29,7 @@ do
 		macrotext = "HideMacroText",
 		hotkey = "HideHotkey",
 		equipped = "HideEquipped",
+		border = "HideBorder",
 		vgrowth = "VGrowth",
 		hgrowth = "HGrowth",
 	}
@@ -73,15 +74,6 @@ function ButtonBar:GetOptionObject()
 			softMin = -10, softMax = 20, bigStep = 1,
 			set = optSetter,
 			get = optGetter,
-		},
-		zoom = {
-			order = 59,
-			name = L["Zoom"],
-			type = "toggle",
-			desc = L["Toggle Button Zoom\nFor more style options you need to install Masque"],
-			get = optGetter,
-			set = optSetter,
-			hidden = function() return LibStub("Masque", true) and true or false end,
 		},
 		rows = {
 			order = 70,
@@ -132,12 +124,21 @@ function ButtonBar:GetOptionObject()
 			get = optGetter,
 		},
 		equipped = {
-			order = 82,
+			order = 83,
 			type = "toggle",
 			name = L["Hide Equipped Border"],
 			desc = L["Hide the inner border indicating the equipped status on the buttons of this bar."],
 			set = optSetter,
 			get = optGetter,
+		},
+		zoom = {
+			order = 85,
+			name = L["Zoom"],
+			type = "toggle",
+			desc = L["Toggle Button Zoom\nFor more style options you need to install Masque"],
+			get = optGetter,
+			set = optSetter,
+			hidden = function() return LibStub("Masque", true) and true or false end,
 		},
 	}
 	obj:AddElementGroup("general", otbl_general)

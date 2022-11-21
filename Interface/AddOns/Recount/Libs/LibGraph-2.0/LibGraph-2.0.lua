@@ -13,13 +13,15 @@ Description: Allows for easy creation of graphs
 local major = "LibGraph-2.0"
 local minor = 90000 + tonumber(("$Revision: 58 $"):match("(%d+)"))
 
+local WOW_RETAIL = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
+
 
 --Search for just Addon\\ at the front since the interface part often gets trimmed
 --Do this before anything else, so if it errors, any existing loaded copy of LibGraph-2.0
 --doesn't get modified with a newer revision (this one)
 local TextureDirectory
 do
-	local path = string.match(debugstack(1, 1, 0), "AddOns\\(.+)LibGraph%-2%.0%.lua")
+	local path = WOW_RETAIL and string.match(debugstack(1, 1, 1), "AddOns/(.+)LibGraph%-2%.0%.lua") or string.match(debugstack(1, 1, 0), "AddOns\\(.+)LibGraph%-2%.0%.lua")
 	if path then
 		TextureDirectory = "Interface\\AddOns\\"..path
 	else
@@ -163,7 +165,11 @@ function lib:CreateGraphRealtime(name, parent, relative, relativeTo, offsetX, of
 		bar:GetStatusBarTexture():SetVertTile(false)
 
 		local t = bar:GetStatusBarTexture()
-		t:SetGradientAlpha("VERTICAL", 0.2, 0.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0)
+		if WOW_RETAIL then
+			t:SetGradient("VERTICAL", CreateColor(0.2, 0.0, 0.0, 0.5), CreateColor(1.0, 0.0, 0.0, 1.0))
+		else
+			t:SetGradientAlpha("VERTICAL", 0.2, 0.0, 0.0, 0.5, 1.0, 0.0, 0.0, 1.0)
+		end
 
 		bar:Show()
 		tinsert(graph.Bars, bar)
@@ -243,7 +249,7 @@ local function SetupGraphLineFunctions(graph)
 
 	graph.SetLineTexture = GraphFunctions.SetLineTexture
 	graph.SetBorderSize = GraphFunctions.SetBorderSize
-	
+
 	graph.LockXMin = GraphFunctions.LockXMin
 	graph.LockXMax = GraphFunctions.LockXMax
 	graph.LockYMin = GraphFunctions.LockYMin
@@ -491,7 +497,7 @@ function GraphFunctions:SetAutoscaleYAxis(scale)
 	self.AutoScale = scale
 end
 
---SetBarColors - 
+--SetBarColors -
 function GraphFunctions:SetBarColors(BotColor, TopColor)
 	local Temp
 	if BotColor.r then
@@ -504,7 +510,11 @@ function GraphFunctions:SetBarColors(BotColor, TopColor)
 	end
 	for i = 1, self.BarNum do
 		local t = self.Bars[i]:GetStatusBarTexture()
-		t:SetGradientAlpha("VERTICAL", BotColor[1], BotColor[2], BotColor[3], BotColor[4], TopColor[1], TopColor[2], TopColor[3], TopColor[4])
+		if WOW_RETAIL then
+			t:SetGradient("VERTICAL", CreateColor(BotColor[1], BotColor[2], BotColor[3], BotColor[4]), CreateColor(TopColor[1], TopColor[2], TopColor[3], TopColor[4]))
+		else
+			t:SetGradientAlpha("VERTICAL", BotColor[1], BotColor[2], BotColor[3], BotColor[4], TopColor[1], TopColor[2], TopColor[3], TopColor[4])
+		end
 	end
 end
 
@@ -529,7 +539,11 @@ function GraphFunctions:RealtimeSetColors(BotColor, TopColor)
 	self.BarColorBot = BotColor
 	self.BarColorTop = TopColor
 	for _, v in pairs(self.Bars) do
-		v:GetStatusBarTexture():SetGradientAlpha("VERTICAL", self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4], self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4])
+		if WOW_RETAIL then
+			v:GetStatusBarTexture():SetGradient("VERTICAL", CreateColor(self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4]), CreateColor(self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4]))
+		else
+			v:GetStatusBarTexture():SetGradientAlpha("VERTICAL", self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4], self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4])
+		end
 	end
 end
 
@@ -555,7 +569,11 @@ function GraphFunctions:RealtimeSetWidth(Width)
 			bar:GetStatusBarTexture():SetVertTile(false)
 
 			local t = bar:GetStatusBarTexture()
-			t:SetGradientAlpha("VERTICAL", self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4], self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4])
+			if WOW_RETAIL then
+				t:SetGradient("VERTICAL", CreateColor(self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4]), CreateColor(self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4]))
+			else
+				t:SetGradientAlpha("VERTICAL", self.BarColorBot[1], self.BarColorBot[2], self.BarColorBot[3], self.BarColorBot[4], self.BarColorTop[1], self.BarColorTop[2], self.BarColorTop[3], self.BarColorTop[4])
+			end
 
 			tinsert(self.Bars, bar)
 		else
@@ -632,7 +650,7 @@ function GraphFunctions:SetUpdateLimit(Time)
 	self.LimitUpdates = Time
 end
 
-function GraphFunctions:SetDecay(decay) 
+function GraphFunctions:SetDecay(decay)
 	self.DecaySet = decay
 	self.Decay = math_pow(self.DecaySet, self.BarWidth)
 	self.ExpNorm = 1 / (1 - self.Decay) / 0.95 --Actually a finite geometric series (divide 0.96 instead of 1 since seems doesn't quite work right)
@@ -681,11 +699,11 @@ function GraphFunctions:AddDataSeries(points, color, n2, linetexture)
 	end
 
 	if linetexture then
-		if not linetexture:find ("\\") and not linetexture:find ("//") then 
+		if not linetexture:find ("\\") and not linetexture:find ("//") then
 			linetexture = TextureDirectory..linetexture
 		end
 	end
-	
+
 	tinsert(self.Data,{Points = data; Color = color; LineTexture=linetexture})
 
 	self.NeedsUpdate = true
@@ -1214,7 +1232,7 @@ end
 
 
 -------------------------------------------------------------------------------
---Grid & Axis Drawing Functions 
+--Grid & Axis Drawing Functions
 -------------------------------------------------------------------------------
 
 function GraphFunctions:SetAxisDrawing(xaxis, yaxis)
@@ -1293,21 +1311,21 @@ function GraphFunctions:SetLineTexture(texture)
 	end
 
 	--> full path
-	if (texture:find ("\\") or texture:find ("//")) then 
+	if (texture:find ("\\") or texture:find ("//")) then
 		self.CustomLine = texture
 	--> using an image inside lib-graph folder
-	else 
+	else
 		self.CustomLine = TextureDirectory..texture
 	end
 end
 
 function GraphFunctions:SetBorderSize(border, size)
 	border = string.lower (border)
-	
+
 	if (type (size) ~= "number") then
 		return assert (false, "Parameter 2 for SetBorderSize must be a number")
 	end
-	
+
 	if (border == "left") then
 		self.CustomLeftBorder = size
 		return true
@@ -1321,7 +1339,7 @@ function GraphFunctions:SetBorderSize(border, size)
 		self.CustomBottomBorder = size
 		return true
 	end
-	
+
 	return assert (false, "Usage: GraphObject:SetBorderSize (LEFT RIGHT TOP BOTTOM, SIZE)")
 end
 
@@ -1712,7 +1730,7 @@ function GraphFunctions:RefreshLineGraph()
 				self.XMin = MinX - XBorder
 			end
 		end
-		
+
 		if not self.LockOnXMax then
 			if (self.CustomRightBorder) then
 				self.XMax = MaxX + self.CustomRightBorder --> custom size of right border
@@ -1720,7 +1738,7 @@ function GraphFunctions:RefreshLineGraph()
 				self.XMax = MaxX + XBorder
 			end
 		end
-		
+
 		if not self.LockOnYMin then
 			if (self.CustomBottomBorder) then
 				self.YMin = MinY + self.CustomBottomBorder --> custom size of bottom border
@@ -1728,7 +1746,7 @@ function GraphFunctions:RefreshLineGraph()
 				self.YMin = MinY - YBorder
 			end
 		end
-		
+
 		if not self.LockOnYMax then
 			if (self.CustomTopBorder) then
 				self.YMax = MaxY + self.CustomTopBorder --> custom size of top border
@@ -1747,7 +1765,7 @@ function GraphFunctions:RefreshLineGraph()
 	for k1, series in pairs(self.Data) do
 		local LastPoint
 		LastPoint = nil
-		
+
 		for k2, point in pairs(series.Points) do
 			if LastPoint then
 				local TPoint = {x = point[1]; y = point[2]}
@@ -1900,7 +1918,7 @@ function lib:DrawLine(C, sx, sy, ex, ey, w, color, layer, linetexture)
 	end
 
 	local T = tremove(C.GraphLib_Lines) or C:CreateTexture(nil, "ARTWORK")
-	
+
 	if linetexture then --> this data series texture
 		T:SetTexture(linetexture)
 	elseif C.CustomLine then --> overall chart texture
@@ -1908,7 +1926,7 @@ function lib:DrawLine(C, sx, sy, ex, ey, w, color, layer, linetexture)
 	else --> no texture assigned, use default
 		T:SetTexture(TextureDirectory.."line")
 	end
-	
+
 	tinsert(C.GraphLib_Lines_Used, T)
 
 	T:SetDrawLayer(layer or "ARTWORK")

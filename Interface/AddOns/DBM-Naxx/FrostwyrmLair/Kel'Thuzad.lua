@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 
-mod:SetRevision("20221010034753")
+mod:SetRevision("20221102181724")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 --mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
@@ -30,12 +30,12 @@ local specWarnFissureYou
 local specWarnFissureClose
 local yellFissure
 if isRetail then
-	warnFissure				= mod:NewTargetNoFilterAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
+	warnFissure				= mod:NewTargetNoFilterAnnounce(27810, 4)
 	specWarnFissureYou		= mod:NewSpecialWarningYou(27810, nil, nil, nil, 3, 2)
-	specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 2)
+	specWarnFissureClose	= mod:NewSpecialWarningClose(27810, nil, nil, nil, 2, 8)
 	yellFissure				= mod:NewYell(27810)
 else
-	warnFissure				= mod:NewSpellAnnounce(27810, 4)
+	warnFissure				= mod:NewSpellAnnounce(27810, 4, nil, nil, nil, nil, nil, 2)
 end
 local warnMana				= mod:NewTargetAnnounce(27819, 2)
 local warnChainsTargets		= mod:NewTargetNoFilterAnnounce(28410, 4)
@@ -47,14 +47,14 @@ local specWarnBlast			= mod:NewSpecialWarningTarget(27808, "Healer", nil, nil, 1
 
 local blastTimer			= mod:NewBuffActiveTimer(4, 27808, nil, nil, nil, 5, nil, DBM_COMMON_L.HEALER_ICON)
 local timerManaBomb			= mod:NewCDTimer(20, 27819, nil, nil, nil, 3)--20-50
-local timerFrostBlast		= mod:NewCDTimer(40.1, 27808, nil, nil, nil, 3, nil, DBM_COMMON_L.DEADLY_ICON)--40-46 (might be 33-46)
+local timerFrostBlast		= mod:NewCDTimer(35, 27808, nil, false, 2, 3, nil, DBM_COMMON_L.DEADLY_ICON)--35-77.7
 local timerMC				= mod:NewBuffActiveTimer(20, 28410, nil, nil, nil, 3)
 --local timerMCCD			= mod:NewCDTimer(90, 28410, nil, nil, nil, 3)--actually 60 second cdish but its easier to do it this way for the first one.
 local timerPhase2			= mod:NewTimer(225, "TimerPhase2", "136116", nil, nil, 6)
 
 mod:AddSetIconOption("SetIconOnMC", 28410, true, false, {1, 2, 3})
 mod:AddSetIconOption("SetIconOnManaBomb", 27819, false, false, {8})
-mod:AddSetIconOption("SetIconOnFrostTomb", 28169, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
+mod:AddSetIconOption("SetIconOnFrostTomb", 27808, true, false, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddRangeFrameOption(10, 27819)
 
 mod.vb.warnedAdds = false
@@ -127,9 +127,11 @@ function mod:SPELL_CAST_SUCCESS(args)
 				specWarnFissureClose:Play("watchfeet")
 			else
 				warnFissure:Show(args.destName)
+				warnFissure:Play("watchstep")
 			end
 		else
 			warnFissure:Show()
+			warnFissure:Play("watchstep")
 		end
 	elseif args.spellId == 27819 then
 		timerManaBomb:Start()

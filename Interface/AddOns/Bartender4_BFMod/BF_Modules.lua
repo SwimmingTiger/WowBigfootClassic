@@ -11,7 +11,7 @@ local UnitBar_MT = {__index = UnitBar}
 
 local Sticky = LibStub("LibSimpleSticky-1.0")
 
-local defaults = Bartender4:Merge({
+local defaults = Bartender4.Util:Merge({
 	enabled = true,
 	padding = 0,
 }, Bartender4.Bar.defaults)

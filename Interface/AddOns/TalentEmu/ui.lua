@@ -24,7 +24,6 @@ local DT = __private.DT;
 	local IsControlKeyDown = IsControlKeyDown;
 	local IsAltKeyDown = IsAltKeyDown;
 	local IsShiftKeyDown = IsShiftKeyDown;
-	local After = C_Timer.After;
 	local CreateFrame = CreateFrame;
 	local GetMouseFocus = GetMouseFocus;
 	local GetCursorPosition = GetCursorPosition;
@@ -44,7 +43,7 @@ local DT = __private.DT;
 	local MAJOR_GLYPH, MINOR_GLYPH = MAJOR_GLYPH, MINOR_GLYPH;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 	local TUISTYLE = {
@@ -91,12 +90,11 @@ local DT = __private.DT;
 		SpellListFrameYToBottom = 32,
 		SpellListNodeHeight = 24;
 
-		EquipmentFrameXSize = 280;
-		EquipmentNodeSize = 32;
+		EquipmentFrameXSize = CT.BUILD == "CLASSIC" and 280 or 340;
+		EquipmentNodeSize = 38;
 		EquipmentNodeGap = 6;
-		EquipmentNodeArmorWeaponGap = 16;
 		EquipmentNodeXToBorder = 8;
-		EquipmentNodeYToBorder = 16;
+		EquipmentNodeYToBorder = 8;
 		EquipmentNodeTextGap = 4;
 
 		GlyphFrameSize = 200,
@@ -303,23 +301,23 @@ MT.BuildEnv('UI');
 				for TreeIndex = 1, 3 do
 					wipe(TreeFrames[TreeIndex].TalentChanged);
 				end
-				if name ~= L.message then
+				if name ~= l10n.message then
 					MT.UI.FrameSetBinding(Frame, name);
 					if cache == nil or cache.EquData.Tick == nil then
 						Frame.objects.EquipmentFrameButton:Hide();
 						Frame.EquipmentFrameContainer:Hide();
-						MT.Error("EquipFrame", "MT.UI.FrameSetName Hide");
+						MT.Debug("EquipFrame", "MT.UI.FrameSetName Hide");
 					else
 						Frame.objects.EquipmentFrameButton:Show();
 					end
 				else
 					Frame.objects.EquipmentFrameButton:Hide();
 					Frame.EquipmentFrameContainer:Hide();
-					MT.Error("EquipFrame", "MT.UI.FrameSetName Hide");
+					MT.Debug("EquipFrame", "MT.UI.FrameSetName Hide");
 				end
 			else
 				local objects = Frame.objects;
-				objects.Name:SetText(L.Emu);
+				objects.Name:SetText(l10n.Emu);
 				objects.PackLabel:Hide();
 				objects.ResetToEmuButton:Hide();
 				objects.ResetToSetButton:Hide();
@@ -333,7 +331,7 @@ MT.BuildEnv('UI');
 				MT.UI.FrameReleaseBinding(Frame);
 				Frame.objects.EquipmentFrameButton:Hide();
 				Frame.EquipmentFrameContainer:Hide();
-				MT.Error("EquipFrame", "MT.UI.FrameSetName Hide");
+				MT.Debug("EquipFrame", "MT.UI.FrameSetName Hide");
 			end
 		end
 		function MT.UI.FrameSetLevel(Frame, level)				--	LEVEL CHANGED HERE ONLY
@@ -361,7 +359,7 @@ MT.BuildEnv('UI');
 					local Type = type(class);
 					if Type == 'number' then
 						if DT.IndexToClass[class] == nil then
-							MT.Error("MT.UI.FrameSetClass", 1, "class", "number", class);
+							MT.Debug("MT.UI.FrameSetClass", 1, "class", "number", class);
 							return false;
 						end
 						class = DT.IndexToClass[class];
@@ -370,17 +368,17 @@ MT.BuildEnv('UI');
 						Type = type(class);
 						if Type == 'number' then
 							if DT.IndexToClass[class] == nil then
-								MT.Error("MT.UI.FrameSetClass", 2, "class", "table", "number", class);
+								MT.Debug("MT.UI.FrameSetClass", 2, "class", "table", "number", class);
 								return false;
 							end
 							class = DT.IndexToClass[class];
 						elseif Type ~= 'string' then
-							MT.Error("MT.UI.FrameSetClass", 3, "class", "table", Type, class);
+							MT.Debug("MT.UI.FrameSetClass", 3, "class", "table", Type, class);
 							return false;
 						else
 							class = strupper(class);
 							if DT.ClassToIndex[class] == nil then
-								MT.Error("MT.UI.FrameSetClass", 4, "class", "table", "string", class);
+								MT.Debug("MT.UI.FrameSetClass", 4, "class", "table", "string", class);
 								return false;
 							end
 						end
@@ -391,25 +389,25 @@ MT.BuildEnv('UI');
 							if index ~= nil then
 								class = DT.IndexToClass[index];
 								if class == nil then
-									MT.Error("MT.UI.FrameSetClass", 5, "class", "string", index);
+									MT.Debug("MT.UI.FrameSetClass", 5, "class", "string", index);
 									return false;
 								end
 							end
 						end
 					else
-						MT.Error("MT.UI.FrameSetClass", 6, "class", Type);
+						MT.Debug("MT.UI.FrameSetClass", 6, "class", Type);
 						return false;
 					end
 				--
 
 				local SpecList = DT.ClassSpec[class];
 				if SpecList == nil then
-					MT.Error("MT.UI.FrameSetClass", 7, class, "SpecList == nil");
+					MT.Debug("MT.UI.FrameSetClass", 7, class, "SpecList == nil");
 					return false;
 				end
 				local ClassTDB = DT.TalentDB[class];
 				if ClassTDB == nil then
-					MT.Error("MT.UI.FrameSetClass", 8, class, "ClassTDB == nil");
+					MT.Debug("MT.UI.FrameSetClass", 8, class, "ClassTDB == nil");
 					return false;
 				end
 				local TreeFrames = Frame.TreeFrames;
@@ -426,14 +424,14 @@ MT.BuildEnv('UI');
 					if SpecTexture ~= nil then
 						TreeButton:SetNormalTexture(SpecTexture);
 						TreeButton:SetPushedTexture(SpecTexture);
-						TreeButton.information = L.DATA[SpecID];
-						TreeButton.Title:SetText(L.DATA[SpecID]);
+						TreeButton.information = l10n.DATA[SpecID];
+						TreeButton.Title:SetText(l10n.DATA[SpecID]);
 					else
 						TreeButton:SetNormalTexture(TTEXTURESET.UNK);
 						TreeButton:SetPushedTexture(TTEXTURESET.UNK);
 					end
 					TreeFrame.BG:SetTexture(DT.SpecBG[SpecID]);
-					TreeFrame.TreeLabel:SetText(L.DATA[SpecID]);
+					TreeFrame.TreeLabel:SetText(l10n.DATA[SpecID]);
 					for TalentSeq = 1, #TreeTDB do
 						local TalentDef = TreeTDB[TalentSeq];
 						local Node = TreeNodes[TalentDef[10]];
@@ -504,15 +502,15 @@ MT.BuildEnv('UI');
 			else
 				--	check point value
 					if not Frame.initialized then
-						MT.Error("MT.UI.FrameSetTalent", 1, "not initialized");
+						MT.Debug("MT.UI.FrameSetTalent", 1, "not initialized");
 						return false;
 					end
 					if type(TalData) ~= 'table' then
-						MT.Error("MT.UI.FrameSetTalent", 2, type(TalData));
+						MT.Debug("MT.UI.FrameSetTalent", 2, type(TalData));
 						return false;
 					end
 					if TalData[1] ~= "" and tonumber(TalData[1]) == nil then
-						MT.Error("MT.UI.FrameSetTalent", 3, TalData);
+						MT.Debug("MT.UI.FrameSetTalent", 3, TalData);
 						return false;
 					end
 				--
@@ -556,9 +554,9 @@ MT.BuildEnv('UI');
 							if pts > 0 then
 								local ret = MT.UI.TreeNodeChangePoint(TreeNodes[TalentDef[10]], pts);
 								if ret < 0 then
-									MT.Error("MT.UI.FrameSetTalent", 4, ret, "tab", TreeIndex, "tier", TalentDef[1], "col", TalentDef[2], "maxPoints", TalentDef[4], "set", val, TalentDef, pos);
+									MT.Debug("MT.UI.FrameSetTalent", 4, ret, "tab", TreeIndex, "tier", TalentDef[1], "col", TalentDef[2], "maxPoints", TalentDef[4], "set", val, TalentDef, pos);
 								elseif ret > 0 then
-									MT.Error("MT.UI.FrameSetTalent", 5, ret, "tab", TreeIndex, "tier", TalentDef[1], "col", TalentDef[2], "maxPoints", TalentDef[4], "set", val, TalentDef, pos);
+									MT.Debug("MT.UI.FrameSetTalent", 5, ret, "tab", TreeIndex, "tier", TalentDef[1], "col", TalentDef[2], "maxPoints", TalentDef[4], "set", val, TalentDef, pos);
 								end
 							end
 						end
@@ -1008,9 +1006,9 @@ MT.BuildEnv('UI');
 				if should_show then
 					objects.ResetToSetButton:Show();
 					if Frame.label ~= nil then
-						objects.Label:SetText(Frame.label .. L.LabelPointsChanged);
+						objects.Label:SetText(Frame.label .. l10n.LabelPointsChanged);
 					else
-						objects.Name:SetText(Frame.name .. L.LabelPointsChanged);
+						objects.Name:SetText(Frame.name .. l10n.LabelPointsChanged);
 					end
 				else
 					objects.ResetToSetButton:Hide();
@@ -1439,7 +1437,7 @@ MT.BuildEnv('UI');
 				Tooltip2FooterLeft:Hide();
 				Tooltip2FooterRight:Hide();
 
-				Tooltip1LabelLeft:SetText(L.NextRank);
+				Tooltip1LabelLeft:SetText(l10n.NextRank);
 				if Node.active then
 					Tooltip1LabelLeft:SetTextColor(TUISTYLE.IconToolTipNextRankColor[1], TUISTYLE.IconToolTipNextRankColor[2], TUISTYLE.IconToolTipNextRankColor[3], TUISTYLE.IconToolTipNextRankColor[4]);
 					Tooltip1LabelRight:Hide();
@@ -1448,7 +1446,7 @@ MT.BuildEnv('UI');
 					if reqPts > pts then
 						Tooltip1LabelRight:SetTextColor(TUISTYLE.IconToolTipNextRankDisabledColor[1], TUISTYLE.IconToolTipNextRankDisabledColor[2], TUISTYLE.IconToolTipNextRankDisabledColor[3], TUISTYLE.IconToolTipNextRankDisabledColor[4]);
 						Tooltip1LabelRight:Show();
-						Tooltip1LabelRight:SetText(format(L.ReqPoints, pts, reqPts, L.DATA[SpecID]));
+						Tooltip1LabelRight:SetText(format(l10n.ReqPoints, pts, reqPts, l10n.DATA[SpecID]));
 					end
 				end
 
@@ -1470,7 +1468,7 @@ MT.BuildEnv('UI');
 				Tooltip2FooterLeft:Hide();
 				Tooltip2FooterRight:Hide();
 
-				Tooltip1LabelLeft:SetText(L.maxRMaxRanknk);
+				Tooltip1LabelLeft:SetText(l10n.maxRMaxRanknk);
 				Tooltip1LabelLeft:SetTextColor(TUISTYLE.IconToolTipMaxRankColor[1], TUISTYLE.IconToolTipMaxRankColor[2], TUISTYLE.IconToolTipMaxRankColor[3], TUISTYLE.IconToolTipMaxRankColor[4]);
 				Tooltip1LabelRight:Hide();
 
@@ -1492,7 +1490,7 @@ MT.BuildEnv('UI');
 				Tooltip2FooterLeft:Show();
 				Tooltip2FooterRight:Show();
 
-				Tooltip1LabelLeft:SetText(L.CurRank);
+				Tooltip1LabelLeft:SetText(l10n.CurRank);
 				Tooltip1LabelLeft:SetTextColor(TUISTYLE.IconToolTipCurRankColor[1], TUISTYLE.IconToolTipCurRankColor[2], TUISTYLE.IconToolTipCurRankColor[3], TUISTYLE.IconToolTipCurRankColor[4]);
 
 				Tooltip1:SetOwner(TooltipFrame, "ANCHOR_NONE");
@@ -1501,7 +1499,7 @@ MT.BuildEnv('UI');
 				Tooltip1FooterRight:SetText(tostring(spellTable[CurRank]));
 				Tooltip1:SetAlpha(0.0);
 
-				Tooltip2LabelLeft:SetText(L.NextRank);
+				Tooltip2LabelLeft:SetText(l10n.NextRank);
 				if Node.active then
 					Tooltip2LabelLeft:SetTextColor(TUISTYLE.IconToolTipNextRankColor[1], TUISTYLE.IconToolTipNextRankColor[2], TUISTYLE.IconToolTipNextRankColor[3], TUISTYLE.IconToolTipNextRankColor[4]);
 					Tooltip1LabelRight:Hide();
@@ -1605,7 +1603,9 @@ MT.BuildEnv('UI');
 		local function EquipmentFrameDelayUpdate()
 			for EquipmentContainer, EquData in next, EquipmentFrameDelayUpdateList do
 				EquipmentFrameDelayUpdateList[EquipmentContainer] = nil;
-				MT.UI.EquipmentFrameUpdate(EquipmentContainer, EquData);
+				if EquipmentContainer.Frame:IsShown() then
+					MT.UI.EquipmentFrameUpdate(EquipmentContainer, EquData);
+				end
 			end
 		end
 		function MT.UI.EquipmentFrameUpdate(EquipmentContainer, EquData)
@@ -1616,7 +1616,7 @@ MT.BuildEnv('UI');
 				local item = EquData[slot];
 				Node.item = item;
 				if item ~= nil then
-					local name, link, quality, _, _, _, _, _, _, texture = GetItemInfo(item);
+					local name, link, quality, level, _, _, _, _, _, texture = GetItemInfo(item);
 					if link ~= nil then
 						link = gsub(link, "item[%-0-9:]+", item);
 						Node:SetNormalTexture(texture);
@@ -1624,20 +1624,38 @@ MT.BuildEnv('UI');
 						local r, g, b = color.r, color.g, color.b;
 						Node.Glow:SetVertexColor(r, g, b);
 						Node.Glow:Show();
+						Node.ILvl:SetVertexColor(r, g, b);
+						Node.ILvl:SetText(level);
 						Node.Name:SetVertexColor(r, g, b);
 						Node.Name:SetText(name);
+						local enchantable, enchanted, link, level, loc, estr = MT.GetEnchantInfo(CT.SELFLCLASS, slot, item);
+						if enchantable then
+							Node.Ench:SetText(enchanted and estr or l10n.MISS_ENCHANT);
+						else
+							Node.Ench:SetText("");
+						end
+						if VT.__support_gem then
+							local A, T, M, R, Y, B, gstr = MT.ScanGemInfo(item, true);
+							Node.Gem:SetText(gstr);
+						end
 						Node.link = link;
 					else
 						Node:SetNormalTexture(TTEXTURESET.EQUIPMENT_EMPTY[Node.slot]);
 						Node.Glow:Hide();
+						Node.ILvl:SetText("");
 						Node.Name:SetText("");
+						Node.Ench:SetText("");
+						Node.Gem:SetText("");
 						Node.link = nil;
 						recache = true;
 					end
 				else
 					Node:SetNormalTexture(TTEXTURESET.EQUIPMENT_EMPTY[Node.slot]);
 					Node.Glow:Hide();
+					Node.ILvl:SetText("");
 					Node.Name:SetText("");
+					Node.Ench:SetText("");
+					Node.Gem:SetText("");
 					Node.link = nil;
 				end
 			end
@@ -1828,23 +1846,23 @@ MT.BuildEnv('UI');
 			local data = Node.list[index];
 			GameTooltip:SetSpellByID(data[2]);
 			GameTooltip:Show();
-			After(0.1, function()
+			MT.After(0.1, function()
 				if select(2, GameTooltip:GetSpell()) ~= data[2] then
 					return;
 				end
 				if data[5] and data[1] > 0 then
-					GameTooltip:AddDoubleLine(L.SpellListFrameGTTSpellLevel .. data[5], L.SpellListFrameGTTReqLevel .. data[1], 1.0, 0.75, 0.5, 1.0, 0.75, 0.5);
+					GameTooltip:AddDoubleLine(l10n.SpellListFrameGTTSpellLevel .. data[5], l10n.SpellListFrameGTTReqLevel .. data[1], 1.0, 0.75, 0.5, 1.0, 0.75, 0.5);
 				elseif data[5] then
-					GameTooltip:AddLine(L.SpellListFrameGTTSpellLevel .. data[5], 1.0, 0.75, 0.5);
+					GameTooltip:AddLine(l10n.SpellListFrameGTTSpellLevel .. data[5], 1.0, 0.75, 0.5);
 				elseif data[1] > 0 then
-					GameTooltip:AddLine(L.SpellListFrameGTTReqLevel .. data[1], 1.0, 0.75, 0.5);
+					GameTooltip:AddLine(l10n.SpellListFrameGTTReqLevel .. data[1], 1.0, 0.75, 0.5);
 				end
 				if CT.SELFCLASS == Node.list.class then
 					if not data[6] then
 						if FindSpellBookSlotBySpellID(data[2]) then
-							GameTooltip:AddLine(L.SpellAvailable);
+							GameTooltip:AddLine(l10n.SpellAvailable);
 						else
-							GameTooltip:AddLine(L.SpellUnavailable);
+							GameTooltip:AddLine(l10n.SpellUnavailable);
 						end
 					end
 				end
@@ -1862,14 +1880,14 @@ MT.BuildEnv('UI');
 					else
 						str = format("|cffffaf7f%d|r|TInterface\\MoneyFrame\\UI-CopperIcon:12:12:0:0|t", data[3]);
 					end
-					GameTooltip:AddDoubleLine(L.TrainCost, str, 1, 1, 1, 1, 1, 1);
+					GameTooltip:AddDoubleLine(l10n.TrainCost, str, 1, 1, 1, 1, 1, 1);
 				end
 				if data.race then
 					local str = nil;
 					for _, v in next, { strsplit("|", data.race) } do
-						str = str == nil and (L[v] or v) or (str .. ", " .. (L[v] or v));
+						str = str == nil and (l10n[v] or v) or (str .. ", " .. (l10n[v] or v));
 					end
-					GameTooltip:AddLine(L.RACE .. ": " .. str, 1.0, 0.5, 0.25);
+					GameTooltip:AddLine(l10n.RACE .. ": " .. str, 1.0, 0.5, 0.25);
 				end
 				GameTooltip:Show();
 			end);
@@ -2029,7 +2047,7 @@ MT.BuildEnv('UI');
 			SearchEditNote:SetFont(GameFontNormal:GetFont(), 12);
 			SearchEditNote:SetTextColor(1.0, 1.0, 1.0, 0.5);
 			SearchEditNote:SetPoint("LEFT", 4, 0);
-			SearchEditNote:SetText(L.Search);
+			SearchEditNote:SetText(l10n.Search);
 			SearchEditNote:Show();
 			SearchEdit.Note = SearchEditNote;
 			local SearchEditCancel = CreateFrame('BUTTON', nil, SearchEdit);
@@ -2058,7 +2076,7 @@ MT.BuildEnv('UI');
 			SearchEditOKText:SetFont(GameFontHighlight:GetFont(), 12);
 			SearchEditOKText:SetTextColor(1.0, 1.0, 1.0, 0.5);
 			SearchEditOKText:SetPoint("CENTER");
-			SearchEditOKText:SetText(L["OK"]);
+			SearchEditOKText:SetText(l10n["OK"]);
 			SearchEditOK.Text = SearchEditOKText;
 			SearchEditOK:SetFontString(SearchEditOKText);
 			SearchEditOK:SetPushedTextOffset(1, -1);
@@ -2087,7 +2105,7 @@ MT.BuildEnv('UI');
 
 			local ShowAllSpellLabel = SpellListFrame:CreateFontString(nil, "ARTWORK");
 			ShowAllSpellLabel:SetFont(GameFontHighlight:GetFont(), 10, TUISTYLE.FrameFontOutline);
-			ShowAllSpellLabel:SetText(L.ShowAllSpell);
+			ShowAllSpellLabel:SetText(l10n.ShowAllSpell);
 			ShowAllSpell.Name = ShowAllSpellLabel;
 			ShowAllSpellLabel:SetPoint("RIGHT", ShowAllSpell, "LEFT", 0, 0);
 
@@ -2105,7 +2123,7 @@ MT.BuildEnv('UI');
 			CloseLabel:SetFont(GameFontHighlight:GetFont(), 12);
 			CloseLabel:SetTextColor(1.0, 1.0, 1.0, 0.5);
 			CloseLabel:SetPoint("CENTER");
-			CloseLabel:SetText(L["Hide"]);
+			CloseLabel:SetText(l10n["Hide"]);
 			Close:SetFontString(CloseLabel);
 			Close:SetPushedTextOffset(1, -1);
 			Close.SpellListFrame = SpellListFrame;
@@ -2167,7 +2185,7 @@ MT.BuildEnv('UI');
 			EquipmentFrameContainer:SetPoint("TOPRIGHT", Frame, "TOPLEFT", 0, 0);
 			EquipmentFrameContainer:SetPoint("BOTTOMRIGHT", Frame, "BOTTOMLEFT", 0, 0);
 			EquipmentFrameContainer:SetWidth(TUISTYLE.EquipmentFrameXSize);
-			VT.__uireimp._SetSimpleBackdrop(EquipmentFrameContainer, 0, 1, 0.0, 0.0, 0.0, 0.9, 0.0, 0.0, 0.0, 1.0);
+			VT.__uireimp._SetSimpleBackdrop(EquipmentFrameContainer, 0, 1, 0.0, 0.0, 0.0, 0.95, 0.0, 0.0, 0.0, 1.0);
 			EquipmentFrameContainer:Hide();
 			local EquipmentFrame = CreateFrame('FRAME', nil, EquipmentFrameContainer);
 			EquipmentFrame:SetWidth(TUISTYLE.EquipmentFrameXSize);
@@ -2208,9 +2226,22 @@ MT.BuildEnv('UI');
 				Glow:Show();
 				Node.Glow = Glow;
 
+				local ILvl = Node:CreateFontString(nil, "OVERLAY");
+				ILvl:SetFont(GameFontNormal:GetFont(), 13, "OUTLINE");
+				ILvl:SetPoint("BOTTOMRIGHT", Node, "BOTTOMRIGHT", 0, 2);
+				Node.ILvl = ILvl;
+
 				local Name = Node:CreateFontString(nil, "OVERLAY");
 				Name:SetFont(GameFontNormal:GetFont(), 13);
 				Node.Name = Name;
+
+				local Ench = Node:CreateFontString(nil, "OVERLAY");
+				Ench:SetFont(GameFontNormal:GetFont(), 13);
+				Node.Ench = Ench;
+
+				local Gem = Node:CreateFontString(nil, "OVERLAY");
+				Gem:SetFont(GameFontNormal:GetFont(), 13);
+				Node.Gem = Gem;
 
 				Node.EquipmentFrame = EquipmentFrame;
 				Node.slot = slot;
@@ -2223,21 +2254,29 @@ MT.BuildEnv('UI');
 				local Node = EquipmentNodes[slot];
 				Node:SetPoint("TOPLEFT", TUISTYLE.EquipmentNodeXToBorder, -TUISTYLE.EquipmentNodeYToBorder - (TUISTYLE.EquipmentNodeSize + TUISTYLE.EquipmentNodeGap) * (index - 1));
 				Node.Name:SetPoint("TOPLEFT", Node, "TOPRIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
+				Node.Ench:SetPoint("LEFT", Node, "RIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
+				Node.Gem:SetPoint("BOTTOMLEFT", Node, "BOTTOMRIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
 			end
 			for index, slot in next, R do
 				local Node = EquipmentNodes[slot];
 				Node:SetPoint("TOPRIGHT", -TUISTYLE.EquipmentNodeXToBorder, -TUISTYLE.EquipmentNodeYToBorder - (TUISTYLE.EquipmentNodeSize + TUISTYLE.EquipmentNodeGap) * (index - 1));
 				Node.Name:SetPoint("BOTTOMRIGHT", Node, "BOTTOMLEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
+				Node.Ench:SetPoint("RIGHT", Node, "LEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
+				Node.Gem:SetPoint("TOPRIGHT", Node, "TOPLEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
 			end
 			for index, slot in next, B do
 				local Node = EquipmentNodes[slot];
 				Node:SetPoint("BOTTOM",
 					((index - 1) % 2 - 0.5) * (TUISTYLE.EquipmentNodeSize + TUISTYLE.EquipmentNodeGap),
-					(2 - floor((index - 1) / 2)) * (TUISTYLE.EquipmentNodeSize + TUISTYLE.EquipmentNodeGap) - TUISTYLE.EquipmentNodeGap);
+					(1 - floor((index - 1) / 2)) * (TUISTYLE.EquipmentNodeSize + TUISTYLE.EquipmentNodeGap) + TUISTYLE.EquipmentNodeYToBorder);
 				if (index - 1) % 2 == 0 then
-					Node.Name:SetPoint("RIGHT", Node, "LEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Name:SetPoint("TOPRIGHT", Node, "TOPLEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Ench:SetPoint("RIGHT", Node, "LEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Gem:SetPoint("BOTTOMRIGHT", Node, "BOTTOMLEFT", -TUISTYLE.EquipmentNodeTextGap, 0);
 				else
-					Node.Name:SetPoint("LEFT", Node, "RIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Name:SetPoint("TOPLEFT", Node, "TOPRIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Ench:SetPoint("LEFT", Node, "RIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
+					Node.Gem:SetPoint("BOTTOMLEFT", Node, "BOTTOMRIGHT", TUISTYLE.EquipmentNodeTextGap, 0);
 				end
 			end
 			EquipmentFrame:SetScript("OnShow", EquipmentFrame_OnShow);
@@ -2533,7 +2572,7 @@ MT.BuildEnv('UI');
 				ResetButton:SetScript("OnClick", TreeFrameResetButton_OnClick);
 				ResetButton:SetScript("OnEnter", MT.GeneralOnEnter);
 				ResetButton:SetScript("OnLeave", MT.GeneralOnLeave);
-				ResetButton.information = L.ResetButton;
+				ResetButton.information = l10n.ResetButton;
 				TreeFrame.ResetButton = ResetButton;
 				ResetButton.TreeFrame = TreeFrame;
 
@@ -2600,7 +2639,7 @@ MT.BuildEnv('UI');
 			MT.UI.FrameSetInfo(Frame, class, level, TalData, activeGroup, name, readOnly, rule);
 			if ShowEquip then
 				Frame.EquipmentFrameContainer:Show();
-				MT.Error("EquipFrame", "ResetToSet Show");
+				MT.Debug("EquipFrame", "ResetToSet Show");
 			end
 			MT.CALLBACK.OnInventoryDataRecv(name);
 			self:Hide();
@@ -2613,7 +2652,7 @@ MT.BuildEnv('UI');
 				MT.UI.FrameSetInfo(Frame, class, level, TalData, val, name, readOnly, rule);
 				if ShowEquip then
 					Frame.EquipmentFrameContainer:Show();
-					MT.Error("EquipFrame", "TalentGroupSelect Show");
+					MT.Debug("EquipFrame", "TalentGroupSelect Show");
 				end
 				return MT.CALLBACK.OnInventoryDataRecv(name);
 			end,
@@ -2650,7 +2689,7 @@ MT.BuildEnv('UI');
 					VT.VAR.savedTalent[val[1]] = nil;
 				else
 					VT.ImportIndex = VT.ImportIndex + 1;
-					MT.ImportCode(Frame, val[2], "#" .. L.import .. "[" .. VT.ImportIndex .. "] " .. val[1]);
+					MT.ImportCode(Frame, val[2], "#" .. l10n.import .. "[" .. VT.ImportIndex .. "] " .. val[1]);
 				end
 			end,
 			num = 0,
@@ -2692,9 +2731,9 @@ MT.BuildEnv('UI');
 			MT.UI.SpellListFrameToggle(self.Frame);
 		end
 		StaticPopupDialogs["TalentEmu_ApplyTalents"] = {
-			text = L.ApplyTalentsButton_Notify,
-			button1 = L.OK,
-			button2 = L.Cancel,
+			text = l10n.ApplyTalentsButton_Notify,
+			button1 = l10n.OK,
+			button2 = l10n.Cancel,
 			--	OnShow = function(self) end,
 			OnAccept = function(self, Frame)
 				MT.ApplyTalents(Frame);
@@ -2744,7 +2783,7 @@ MT.BuildEnv('UI');
 			num = 1,
 			[1] = {
 				param = MT,
-				text = L.AllData,
+				text = l10n.AllData,
 			},
 		};
 		local function ExportButton_OnClick(self, button)
@@ -2777,7 +2816,7 @@ MT.BuildEnv('UI');
 					VT.VAR.savedTalent[val[1]] = nil;
 				else
 					VT.ImportIndex = VT.ImportIndex + 1;
-					MT.ImportCode(Frame, val[2], "#" .. L.import .. "[" .. VT.ImportIndex .. "] " .. val[1]);
+					MT.ImportCode(Frame, val[2], "#" .. l10n.import .. "[" .. VT.ImportIndex .. "] " .. val[1]);
 				end
 			end,
 			num = 0,
@@ -2794,7 +2833,7 @@ MT.BuildEnv('UI');
 					end
 				else
 					VT.ImportIndex = VT.ImportIndex + 1;
-					MT.ImportCode(Frame, val[2], "#" .. L.import .. "[" .. VT.ImportIndex .. "] " .. val[3]);
+					MT.ImportCode(Frame, val[2], "#" .. l10n.import .. "[" .. VT.ImportIndex .. "] " .. val[3]);
 				end
 			end,
 			num = 0,
@@ -2848,7 +2887,7 @@ MT.BuildEnv('UI');
 		};
 		VT.SendButtonMenuDefinition = {
 			handler = function(button, Frame, val)
-				return MT.CreateEmulator(Frame, val[1], val[2], val[3], L.message, false, false);
+				return MT.CreateEmulator(Frame, val[1], val[2], val[3], l10n.message, false, false);
 			end,
 			num = 0,
 		};
@@ -2877,11 +2916,11 @@ MT.BuildEnv('UI');
 						local class, level, data = codec.ImportCode(code, codec);
 						if class ~= nil then
 							VT.ImportIndex = VT.ImportIndex + 1;
-							return MT.UI.FrameSetInfo(self.Frame, class, level, { data, nil, num = 1, active = 1, }, 1, "#" .. L.import .. "[" .. VT.ImportIndex .. "]");
+							return MT.UI.FrameSetInfo(self.Frame, class, level, { data, nil, num = 1, active = 1, }, 1, "#" .. l10n.import .. "[" .. VT.ImportIndex .. "]");
 						end
 					end
 					VT.ImportIndex = VT.ImportIndex + 1;
-					return MT.ImportCode(self.Frame, code, "#" .. L.import .. "[" .. VT.ImportIndex .. "]");
+					return MT.ImportCode(self.Frame, code, "#" .. l10n.import .. "[" .. VT.ImportIndex .. "]");
 				end
 			elseif Type == "save" then
 				local title = self:GetText();
@@ -2947,7 +2986,7 @@ MT.BuildEnv('UI');
 				ReadOnlyButton:SetScript("OnEnter", MT.GeneralOnEnter);
 				ReadOnlyButton:SetScript("OnLeave", MT.GeneralOnLeave);
 				ReadOnlyButton.Frame = Frame;
-				ReadOnlyButton.information = L.ReadOnlyButton;
+				ReadOnlyButton.information = l10n.ReadOnlyButton;
 				objects.ReadOnlyButton = ReadOnlyButton;
 
 				local CloseButton = CreateFrame('BUTTON', nil, Header);
@@ -2967,12 +3006,12 @@ MT.BuildEnv('UI');
 				CloseButton:SetScript("OnEnter", MT.GeneralOnEnter);
 				CloseButton:SetScript("OnLeave", MT.GeneralOnLeave);
 				CloseButton.Frame = Frame;
-				CloseButton.information = L.CloseButton;
+				CloseButton.information = l10n.CloseButton;
 				objects.CloseButton = CloseButton;
 
 				local Name = Header:CreateFontString(nil, "ARTWORK");
 				Name:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeMid, TUISTYLE.FrameFontOutline);
-				Name:SetText(L.Emu);
+				Name:SetText(l10n.Emu);
 				Name:SetPoint("CENTER", Header, "CENTER", 0, 0);
 				Name.Points1 = { "CENTER", Header, "CENTER", 0, 0, };
 				Name.Points2 = { "BOTTOM", Header, "TOP", 0, 4, };
@@ -2992,7 +3031,7 @@ MT.BuildEnv('UI');
 				ResetToEmuButton:SetScript("OnEnter", MT.GeneralOnEnter);
 				ResetToEmuButton:SetScript("OnLeave", MT.GeneralOnLeave);
 				ResetToEmuButton.Frame = Frame;
-				ResetToEmuButton.information = L.ResetToEmuButton;
+				ResetToEmuButton.information = l10n.ResetToEmuButton;
 				objects.ResetToEmuButton = ResetToEmuButton;
 
 				local PackLabel = Header:CreateFontString(nil, "ARTWORK");
@@ -3022,7 +3061,7 @@ MT.BuildEnv('UI');
 				ResetToSetButton:SetScript("OnEnter", MT.GeneralOnEnter);
 				ResetToSetButton:SetScript("OnLeave", MT.GeneralOnLeave);
 				ResetToSetButton.Frame = Frame;
-				ResetToSetButton.information = L.ResetToSetButton;
+				ResetToSetButton.information = l10n.ResetToSetButton;
 				objects.ResetToSetButton = ResetToSetButton;
 
 				local TalentGroupSelect = CreateFrame('BUTTON', nil, Header);
@@ -3039,7 +3078,7 @@ MT.BuildEnv('UI');
 				TalentGroupSelect:SetScript("OnLeave", MT.GeneralOnLeave);
 				TalentGroupSelect:Hide();
 				TalentGroupSelect.Frame = Frame;
-				TalentGroupSelect.information = L.TalentGroupSelect;
+				TalentGroupSelect.information = l10n.TalentGroupSelect;
 				objects.TalentGroupSelect = TalentGroupSelect;
 			--	</Header>
 
@@ -3059,12 +3098,12 @@ MT.BuildEnv('UI');
 					ResetAllButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					ResetAllButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					ResetAllButton.Frame = Frame;
-					ResetAllButton.information = L.ResetAllButton;
+					ResetAllButton.information = l10n.ResetAllButton;
 					objects.ResetAllButton = ResetAllButton;
 
 					local CurPointsRemainingLabel = Frame:CreateFontString(nil, "ARTWORK");
 					CurPointsRemainingLabel:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeSmall, TUISTYLE.FrameFontOutline);
-					CurPointsRemainingLabel:SetText(L.CurPointsRemaining);
+					CurPointsRemainingLabel:SetText(l10n.CurPointsRemaining);
 					CurPointsRemainingLabel:SetPoint("CENTER", Frame, "BOTTOM", -15, TUISTYLE.FrameFooterYSize * 0.5);
 					local CurPointsRemaining = Frame:CreateFontString(nil, "ARTWORK");
 					CurPointsRemaining:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeMid, TUISTYLE.FrameFontOutline);
@@ -3079,14 +3118,14 @@ MT.BuildEnv('UI');
 					CurPointsUsed:SetPoint("RIGHT", CurPointsRemainingLabel, "LEFT", -8, 0);
 					local CurPointsUsedLabel = Frame:CreateFontString(nil, "ARTWORK");
 					CurPointsUsedLabel:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeMid, TUISTYLE.FrameFontOutline);
-					CurPointsUsedLabel:SetText(L.CurPointsUsed);
+					CurPointsUsedLabel:SetText(l10n.CurPointsUsed);
 					CurPointsUsedLabel:SetPoint("RIGHT", CurPointsUsed, "LEFT", -2, 0);
 					CurPointsUsedLabel:SetTextColor(0.5, 1.0, 0.5, 1.0);
 					CurPointsUsed:SetTextColor(0.5, 1.0, 0.5, 1.0);
 
 					local CurPointsReqLevelLabel = Frame:CreateFontString(nil, "ARTWORK");
 					CurPointsReqLevelLabel:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeMid, TUISTYLE.FrameFontOutline);
-					CurPointsReqLevelLabel:SetText(L.CurPointsReqLevel);
+					CurPointsReqLevelLabel:SetText(l10n.CurPointsReqLevel);
 					CurPointsReqLevelLabel:SetPoint("LEFT", CurPointsRemaining, "RIGHT", 8, 0);
 					local CurPointsReqLevel = Frame:CreateFontString(nil, "ARTWORK");
 					CurPointsReqLevel:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeMid, TUISTYLE.FrameFontOutline);
@@ -3187,7 +3226,7 @@ MT.BuildEnv('UI');
 						ClassButton.id = index;
 						ClassButton.class = class;
 						ClassButton.Frame = Frame;
-						ClassButton.information = "|c" .. RAID_CLASS_COLORS[class].colorStr .. L.DATA[class] .. "|r" .. L.ClassButton;
+						ClassButton.information = "|c" .. RAID_CLASS_COLORS[class].colorStr .. l10n.DATA[class] .. "|r" .. l10n.ClassButton;
 						ClassButtons[index] = ClassButton;
 					end
 					Frame.ClassButtons = ClassButtons;
@@ -3222,7 +3261,7 @@ MT.BuildEnv('UI');
 					SpellListButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					SpellListButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					SpellListButton.Frame = Frame;
-					SpellListButton.information = L.SpellListButton;
+					SpellListButton.information = l10n.SpellListButton;
 					Frame.SpellListButton = SpellListButton;
 
 					local ApplyTalentsButton = CreateFrame('BUTTON', nil, SideAnchorBottom);
@@ -3239,7 +3278,7 @@ MT.BuildEnv('UI');
 					ApplyTalentsButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					ApplyTalentsButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					ApplyTalentsButton.Frame = Frame;
-					ApplyTalentsButton.information = L.ApplyTalentsButton;
+					ApplyTalentsButton.information = l10n.ApplyTalentsButton;
 					Frame.ApplyTalentsButton = ApplyTalentsButton;
 					local ApplyTalentsButtonProgress = ApplyTalentsButton:CreateFontString(nil, "ARTWORK");
 					ApplyTalentsButtonProgress:SetFont(TUISTYLE.FrameFont, TUISTYLE.FrameFontSizeSmall, TUISTYLE.FrameFontOutline);
@@ -3281,7 +3320,7 @@ MT.BuildEnv('UI');
 					EditBoxOKButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					EditBoxOKButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					EditBoxOKButton.EditBox = EditBox;
-					EditBoxOKButton.information = L.EditBoxOKButton;
+					EditBoxOKButton.information = l10n.EditBoxOKButton;
 					EditBox.OKButton = EditBoxOKButton;
 
 					local ImportButton = CreateFrame('BUTTON', nil, SideAnchorBottom);
@@ -3299,7 +3338,7 @@ MT.BuildEnv('UI');
 					ImportButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					ImportButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					ImportButton.Frame = Frame;
-					ImportButton.information = L.ImportButton;
+					ImportButton.information = l10n.ImportButton;
 					Frame.ImportButton = ImportButton;
 
 					local ExportButton = CreateFrame('BUTTON', nil, SideAnchorBottom);
@@ -3317,7 +3356,7 @@ MT.BuildEnv('UI');
 					ExportButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					ExportButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					ExportButton.Frame = Frame;
-					ExportButton.information = L.ExportButton;
+					ExportButton.information = l10n.ExportButton;
 					Frame.ExportButton = ExportButton;
 
 					local SaveButton = CreateFrame('BUTTON', nil, SideAnchorBottom);
@@ -3333,7 +3372,7 @@ MT.BuildEnv('UI');
 					SaveButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					SaveButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					SaveButton.Frame = Frame;
-					SaveButton.information = L.SaveButton;
+					SaveButton.information = l10n.SaveButton;
 					Frame.SaveButton = SaveButton;
 
 					local SendButton = CreateFrame('BUTTON', nil, SideAnchorBottom);
@@ -3349,7 +3388,7 @@ MT.BuildEnv('UI');
 					SendButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					SendButton:SetScript("OnLeave", MT.GeneralOnLeave);
 					SendButton.Frame = Frame;
-					SendButton.information = L.SendButton;
+					SendButton.information = l10n.SendButton;
 					Frame.SendButton = SendButton;
 				--
 
@@ -3367,7 +3406,7 @@ MT.BuildEnv('UI');
 					EquipmentFrameButton:SetScript("OnClick", EquipmentFrameButton_OnClick);
 					EquipmentFrameButton:SetScript("OnEnter", MT.GeneralOnEnter);
 					EquipmentFrameButton:SetScript("OnLeave", MT.GeneralOnLeave);
-					EquipmentFrameButton.information = L.EquipmentFrameButton;
+					EquipmentFrameButton.information = l10n.EquipmentFrameButton;
 					EquipmentFrameButton.Frame = Frame;
 					Frame.objects.EquipmentFrameButton = EquipmentFrameButton;
 				--
@@ -3611,7 +3650,7 @@ MT.BuildEnv('UI');
 			if Frames.used == 1 then
 				MT.UI.SetFrameID(Frames[1], 1);
 			elseif Frames.used > 1 then
-				MT.Error("Emu Warn >> RelAllButOne", "USED NEQ 1, IS", Frames.used);
+				MT.Debug("Emu Warn >> RelAllButOne", "USED NEQ 1, IS", Frames.used);
 			end
 		end
 		function MT.UI.IsAllFramesSameStyle()
@@ -3748,7 +3787,7 @@ MT.BuildEnv('UI');
 		TUISTYLE.FrameYSizeDefault_Style1 = TUISTYLE.TreeFrameYSize + TUISTYLE.TreeFrameYToBorder * 2 + TUISTYLE.FrameHeaderYSize + TUISTYLE.FrameFooterYSize;
 		TUISTYLE.FrameXSizeDefault_Style2 = TUISTYLE.TreeFrameXSizeSingle + TUISTYLE.TreeFrameXToBorder * 2;
 		TUISTYLE.FrameYSizeDefault_Style2 = TUISTYLE.TreeFrameYSize + TUISTYLE.TreeFrameYToBorder * 2 + TUISTYLE.FrameHeaderYSize + TUISTYLE.FrameFooterYSize;
-		TUISTYLE.EquipmentContainerYSize = TUISTYLE.EquipmentNodeYToBorder + TUISTYLE.EquipmentNodeSize * 10 + TUISTYLE.EquipmentNodeGap * 11 + TUISTYLE.EquipmentNodeArmorWeaponGap + TUISTYLE.EquipmentNodeYToBorder;
+		TUISTYLE.EquipmentContainerYSize = TUISTYLE.EquipmentNodeYToBorder + TUISTYLE.EquipmentNodeSize * 10 + TUISTYLE.EquipmentNodeGap * 11 + TUISTYLE.EquipmentNodeYToBorder;
 		VT.TooltipFrame = MT.UI.CreateTooltipFrame();
 	end);
 	MT.RegisterOnLogin('UI', function(LoggedIn)

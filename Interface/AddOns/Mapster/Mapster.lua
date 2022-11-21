@@ -9,6 +9,7 @@ local LibWindow = LibStub("LibWindow-1.1")
 local L = LibStub("AceLocale-3.0"):GetLocale("Mapster")
 
 local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
+local WoWRetail = (WOW_PROJECT_ID == WOW_PROJECT_MAINLINE)
 
 local defaults = {
 	profile = {
@@ -50,11 +51,30 @@ function Mapster:OnInitialize()
 	self:SetupOptions()
 end
 
+local function purgeKey(t, k)
+	t[k] = nil
+	local c = 42
+	repeat
+		if t[c] == nil then
+			t[c] = nil
+		end
+		c = c + 1
+	until issecurevariable(t, k)
+end
+
+local function FaderOnUpdate(frame, elapsed)
+	Mapster:WorldMapFrameOnUpdate(elapsed)
+end
+
+local FaderFrame = CreateFrame("Frame", nil, WorldMapFrame)
+FaderFrame:Hide()
+FaderFrame:SetScript("OnUpdate", FaderOnUpdate)
+
 function Mapster:OnEnable()
 	LibWindow.RegisterConfig(WorldMapFrame, db)
 
 	-- remove from UI panel system
-	UIPanelWindows["WorldMapFrame"] = nil
+	purgeKey(UIPanelWindows, "WorldMapFrame")
 	WorldMapFrame:SetAttribute("UIPanelLayout-area", nil)
 	WorldMapFrame:SetAttribute("UIPanelLayout-enabled", false)
 
@@ -70,15 +90,18 @@ function Mapster:OnEnable()
 	end
 
 	-- hook Show events for fading
-	self:HookScript(WorldMapFrame, "OnShow", "WorldMapFrame_OnShow")
+	self:SecureHookScript(WorldMapFrame, "OnShow", "WorldMapFrame_OnShow")
 
 	-- hooks for scale
-	if HelpPlate_Show then
-		self:SecureHook("HelpPlate_Show")
-		self:SecureHook("HelpPlate_Hide")
-		self:SecureHook("HelpPlate_Button_AnimGroup_Show_OnFinished")
+	-- XXX: disabled on retail due to taint
+	if not WoWRetail then
+		if HelpPlate_Show then
+			self:SecureHook("HelpPlate_Show")
+			self:SecureHook("HelpPlate_Hide")
+			self:SecureHook("HelpPlate_Button_AnimGroup_Show_OnFinished")
+		end
+		self:RawHook(WorldMapFrame.ScrollContainer, "GetCursorPosition", "WorldMapFrame_ScrollContainer_GetCursorPosition", true)
 	end
-	self:RawHook(WorldMapFrame.ScrollContainer, "GetCursorPosition", "WorldMapFrame_ScrollContainer_GetCursorPosition", true)
 
 	-- hook into EJ icons
 	self:SecureHook(EncounterJournalPinMixin, "OnAcquired", "EncounterJournalPin_OnAcquired")
@@ -168,6 +191,21 @@ function Mapster:Refresh()
 	end
 end
 
+function Mapster:SetFadeAlpha()
+	if GetCVarBool("mapFade") then
+		FaderFrame:Show()
+	else
+		FaderFrame:Hide()
+	end
+end
+
+function Mapster:WorldMapFrameOnUpdate(elapsed)
+	local fadeOut = IsPlayerMoving() and (GetCVarBool("mapFade") and not WorldMapFrame:IsMouseOver())
+	local alpha = DeltaLerp(WorldMapFrame:GetAlpha(), fadeOut and db.fadealpha or 1.0, 0.2, elapsed)
+	if alpha >= 0.98 then alpha = 1.0 end
+	WorldMapFrame:SetAlpha(alpha)
+end
+
 function WorldMapFrameStartMoving(frame)
 	if not WorldMapFrame:IsMaximized() then
 		WorldMapFrame:StartMoving()
@@ -183,20 +221,22 @@ end
 
 function Mapster:SetPosition()
 	if not WorldMapFrame:IsMaximized() then
+		-- override scale back to 1.0 for retail fix
+		if WoWRetail then
+			db.scale = 1.0
+		end
 		LibWindow.RestorePosition(WorldMapFrame)
 	end
 end
 
-function Mapster:SetFadeAlpha()
-	PlayerMovementFrameFader.RemoveFrame(WorldMapFrame)
-	PlayerMovementFrameFader.AddDeferredFrame(WorldMapFrame, db.fadealpha, 1.0, .5, function() return GetCVarBool("mapFade") and not WorldMapFrame:IsMouseOver() end)
-end
-
 function Mapster:WorldMapFrame_OnShow()
-	self:SetFadeAlpha()
+	PlayerMovementFrameFader.RemoveFrame(WorldMapFrame)
 end
 
 function Mapster:SetScale(force)
+	-- disabled on retail due to map taint
+	if WoWRetail then return end
+
 	if WorldMapFrame:IsMaximized() and WorldMapFrame:GetScale() ~= 1 then
 		WorldMapFrame:SetScale(1)
 	elseif not WorldMapFrame:IsMaximized() and (WorldMapFrame:GetScale() ~= db.scale or force) then

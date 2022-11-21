@@ -25,7 +25,7 @@ local DT = __private.DT;
 	local RAID_CLASS_COLORS = RAID_CLASS_COLORS;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->
@@ -54,13 +54,13 @@ MT.BuildEnv('TOOLTIP');
 							if VT.SET.talents_in_tip_icon then
 								line = line .. "  |T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffff7f1f%2d|r", stats[TreeIndex]);
 							else
-								line = line .. "  |cffff7f1f" .. L.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
+								line = line .. "  |cffff7f1f" .. l10n.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
 							end
 						else
 							if VT.SET.talents_in_tip_icon then
 								line = line .. "  |T" .. (DT.TalentSpecIcon[SpecID] or CT.TEXTUREUNK) .. format(":16|t |cffffffff%2d|r", stats[TreeIndex]);
 							else
-								line = line .. "  |cffbfbfff" .. L.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
+								line = line .. "  |cffbfbfff" .. l10n.DATA[SpecID] .. format(":%2d|r", stats[TreeIndex]);
 							end
 						end
 					end
@@ -112,7 +112,7 @@ MT.BuildEnv('TOOLTIP');
 		local class, TreeIndex, SpecID, TalentSeq, row, col, rank = MT.QueryTalentInfoBySpellID(SpellID);
 		if class ~= nil then
 			local color = RAID_CLASS_COLORS[class];
-			self:AddDoubleLine(L.DATA.talent, L.DATA[class] .. "-" .. L.DATA[SpecID] .. " R" .. (row + 1) .. "-C" .. (col + 1) .. "-L" .. rank, 1.0, 1.0, 1.0, color.r, color.g, color.b);
+			self:AddDoubleLine(l10n.DATA.talent, l10n.DATA[class] .. "-" .. l10n.DATA[SpecID] .. " R" .. (row + 1) .. "-C" .. (col + 1) .. "-L" .. rank, 1.0, 1.0, 1.0, color.r, color.g, color.b);
 			self:Show();
 		end
 	end

@@ -8,6 +8,7 @@ local ActionBar = setmetatable({}, {__index = StateBar})
 Bartender4.ActionBar = ActionBar
 
 local LAB10 = LibStub("LibActionButton-1.0")
+local LSM = LibStub("LibSharedMedia-3.0")
 local WoW10 = select(4, GetBuildInfo()) >= 100000
 
 local tonumber, format, min = tonumber, format, min
@@ -78,9 +79,21 @@ function ActionBar:OnEvent(event, ...)
 	StateBar.OnEvent(self, event, ...)
 end
 
+local function updateTextElementConfig(buttonConfig, config)
+	buttonConfig.font.font = LSM:Fetch("font", config.font, true)
+	buttonConfig.font.size = config.fontSize
+	buttonConfig.font.flags = config.fontFlags
+	buttonConfig.color = config.fontColor
+	buttonConfig.position.anchor = config.textAnchor
+	buttonConfig.position.relAnchor = config.textAnchor
+	buttonConfig.position.offsetX = config.textOffsetX
+	buttonConfig.position.offsetY = config.textOffsetY
+	buttonConfig.justifyH = config.textJustifyH
+end
+
 function ActionBar:UpdateButtonConfig()
 	StateBar.UpdateButtonConfig(self)
-	if not self.buttonConfig then self.buttonConfig = { colors = { range = {}, mana = {} }, hideElements = {} } end
+	if not self.buttonConfig then self.buttonConfig = { colors = { range = {}, mana = {} }, hideElements = {}, text = { hotkey = { font = {}, position = {} }, count = { font = {}, position = {} }, macro = { font = {}, position = {} } } } end
 	self.buttonConfig.outOfRangeColoring = Bartender4.db.profile.outofrange
 	self.buttonConfig.tooltip = Bartender4.db.profile.tooltip
 	self.buttonConfig.colors.range[1], self.buttonConfig.colors.range[2], self.buttonConfig.colors.range[3] = Bartender4.db.profile.colors.range.r, Bartender4.db.profile.colors.range.g, Bartender4.db.profile.colors.range.b
@@ -89,14 +102,21 @@ function ActionBar:UpdateButtonConfig()
 	self.buttonConfig.hideElements.macro = self.config.hidemacrotext and true or false
 	self.buttonConfig.hideElements.hotkey = self.config.hidehotkey and true or false
 	self.buttonConfig.hideElements.equipped = self.config.hideequipped and true or false
+	self.buttonConfig.hideElements.border = (self.config.hideborder or self.config.skin.Zoom) and true or false
 
 	self.buttonConfig.showGrid = self.config.showgrid
 	self.buttonConfig.clickOnDown = Bartender4.db.profile.onkeydown
 	self.buttonConfig.flyoutDirection = self.config.flyoutDirection
 
-	if tonumber(self.id) == 1 then
+	self.buttonConfig.keyBoundClickButton = "Keybind"
+
+	updateTextElementConfig(self.buttonConfig.text.hotkey, self.config.elements.hotkey)
+	updateTextElementConfig(self.buttonConfig.text.count, self.config.elements.count)
+	updateTextElementConfig(self.buttonConfig.text.macro, self.config.elements.macro)
+
+	if self.bindingmapping then
 		for i, button in self:GetAll() do
-			self.buttonConfig.keyBoundTarget = format("ACTIONBUTTON%d", i)
+			self.buttonConfig.keyBoundTarget = self.bindingmapping:format(i)
 			button:UpdateConfig(self.buttonConfig)
 		end
 	else
@@ -108,6 +128,7 @@ function ActionBar:UpdateButtonConfig()
 	self:UpdateSelfCast()
 	-- button lock
 	self:ForAll("SetAttribute", "buttonlock", Bartender4.db.profile.buttonlock)
+	self:ForAll("SetAttribute", "unlockedpreventdrag", true)
 	-- update state
 	self:ForAll("UpdateState")
 end
@@ -207,7 +228,7 @@ local customExitButton = {
 	func = function(button)
 		VehicleExit()
 	end,
-	texture = "Interface\\Icons\\Spell_Shadow_SacrificialShield",
+	texture = "Interface\\AddOns\\Bartender4\\Artwork\\LeaveVehicle.tga", --"Interface\\Icons\\Spell_Shadow_SacrificialShield",
 	tooltip = LEAVE_VEHICLE,
 }
 
@@ -221,15 +242,15 @@ function ActionBar:UpdateButtons(numbuttons, offset)
 
 	local buttons = self.buttons or {}
 
-	local updateStartValue = #buttons + 1
-	if self.currentButtonOffset ~= self.config.buttonOffset then
-		updateStartValue = 1
-	end
-
 	if offset then
 		self.config.buttonOffset = min(offset, 11)
 	else
 		offset = min(self.config.buttonOffset, 11)
+	end
+
+	local updateStartValue = #buttons + 1
+	if self.currentButtonOffset ~= offset then
+		updateStartValue = 1
 	end
 
 	local updateBindings = (numbuttons > #buttons)
@@ -240,7 +261,7 @@ function ActionBar:UpdateButtons(numbuttons, offset)
 			buttons[i] = LAB10:CreateButton(absid, format("BT4Button%d", absid), self, nil)
 		end
 		local offsetid = (i + offset - 1) % 12 + 1
-		for k = 1,14 do
+		for k = 1,18 do
 			buttons[i]:SetState(k, "action", (k - 1) * 12 + offsetid)
 		end
 		buttons[i]:SetState(0, "action", (self.id - 1) * 12 + offsetid)
@@ -252,8 +273,14 @@ function ActionBar:UpdateButtons(numbuttons, offset)
 		self:SetupSmartButton(buttons[i])
 
 		if i == 12 then
-			buttons[i]:SetState(11, "custom", customExitButton)
-			buttons[i]:SetState(12, "custom", customExitButton)
+			if WoW10 then
+				buttons[i]:SetState(16, "custom", customExitButton)
+				buttons[i]:SetState(17, "custom", customExitButton)
+				buttons[i]:SetState(18, "custom", customExitButton)
+			else
+				buttons[i]:SetState(11, "custom", customExitButton)
+				buttons[i]:SetState(12, "custom", customExitButton)
+			end
 		end
 	end
 
@@ -338,5 +365,77 @@ function ActionBar:SetFlyoutDirection(state)
 	if state ~= nil then
 		self.config.flyoutDirection = state
 	end
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleFont(element)
+	return self.config.elements[element].font
+end
+
+function ActionBar:SetStyleFont(element, font)
+	self.config.elements[element].font = font
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleFontSize(element)
+	return self.config.elements[element].fontSize
+end
+
+function ActionBar:SetStyleFontSize(element, size)
+	self.config.elements[element].fontSize = size
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleFontFlags(element)
+	return self.config.elements[element].fontFlags
+end
+
+function ActionBar:SetStyleFontFlags(element, flags)
+	self.config.elements[element].fontFlags = flags
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleFontColor(element)
+	return unpack(self.config.elements[element].fontColor)
+end
+
+function ActionBar:SetStyleFontColor(element, r, g, b)
+	self.config.elements[element].fontColor = {r, g, b}
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleTextAnchor(element)
+	return self.config.elements[element].textAnchor
+end
+
+function ActionBar:SetStyleTextAnchor(element, anchor)
+	self.config.elements[element].textAnchor = anchor
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleTextOffsetX(element)
+	return self.config.elements[element].textOffsetX
+end
+
+function ActionBar:SetStyleTextOffsetX(element, offset)
+	self.config.elements[element].textOffsetX = offset
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleTextOffsetY(element)
+	return self.config.elements[element].textOffsetY
+end
+
+function ActionBar:SetStyleTextOffsetY(element, offset)
+	self.config.elements[element].textOffsetY = offset
+	self:UpdateButtonConfig()
+end
+
+function ActionBar:GetStyleTextJustifyH(element)
+	return self.config.elements[element].textJustifyH
+end
+
+function ActionBar:SetStyleTextJustifyH(element, justify)
+	self.config.elements[element].textJustifyH = justify
 	self:UpdateButtonConfig()
 end

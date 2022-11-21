@@ -4,7 +4,7 @@ function MobInfoConfigFunc()
 		MOD_MOB_HEALTH_TITLE = {"目标信息", "guaiwuxinxi"};
 
 		MOB_HEALTH_ENABLE_TEXT = "开启目标生命";
-		MOB_HEALTH_ENABLE_TEXT_TOOLTIP = "与简易头像框体冲突,可能导致无效";
+		MOB_HEALTH_ENABLE_TEXT_TOOLTIP = "设置目标生命及魔法值的显示模式";
 
 		MOB_HEALTH_SHOW_HEALTH_PPT = "生命值";
 		MOB_HEALTH_SHOW_HEALTH_PPT_TOOLTIP = "显示目标生命值";

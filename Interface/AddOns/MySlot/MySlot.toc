@@ -6,7 +6,7 @@
 ## Notes-zhCN: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以帮助你在账号之间共享配置。反馈：farmer1992@gmail.com|r
 ## Notes-zhTW: |cff00ff00MySlot|r|n|cffbc8f8fMyslot可以跨帳號綁定技能與按鍵設置。反饋通道：farmer1992@gmail.com|r
 ## Author: Boshi Lian(farmer1992@gmail.com)
-## Version: v5.8.1-v3.4.0
+## Version: v5.8.2-v3.4.0
 ## SavedVariables: MyslotExports,MySlot_SavedDb
 ## SavedVariablesPerCharacter: MyslotSettings
 ## Dependencies: BigFoot

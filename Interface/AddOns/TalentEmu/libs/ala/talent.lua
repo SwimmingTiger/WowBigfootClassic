@@ -2,7 +2,7 @@
 	ALA@163UI
 --]]--
 
-local __version = 220912.0;
+local __version = 221018.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -832,7 +832,8 @@ end
 			_log_("EncodeFrameTalentDataV2", "type(classIndex)", TypeClassIndex, classIndex);
 			return nil;
 		end
-		level = level ~= nil and tonumber(level) or MAX_LEVEL;
+		level = level ~= nil and tonumber(level) or -1;
+		level = level <= 0 and MAX_LEVEL or level;
 		local LvLow = level % 64;
 		local LvHigh = (level - LvLow) / 64;
 		local numGroup = GetNumTalentGroups(true, false);
@@ -853,6 +854,27 @@ end
 		else
 			local code1, data1, lenc1, lend1 = __emulib.EncodeTalentBlock(__emulib.GetTalentData(__classList[classIndex], true, 1));
 			local code2, data2, lenc2, lend2 = __emulib.EncodeTalentBlock(__emulib.GetTalentData(__classList[classIndex], true, 2));
+			-- if __base64[classIndex] == nil then
+			-- 	print("classIndex =", classIndex, __base64[classIndex]);
+			-- end
+			-- if __base64[LvLow] == nil then
+			-- 	print("LvLow =", LvLow, __base64[LvLow], level);
+			-- end
+			-- if __base64[LvHigh] == nil then
+			-- 	print("LvHigh =", LvHigh, __base64[LvHigh], level);
+			-- end
+			-- if __base64[numGroup] == nil then
+			-- 	print("numGroup =", numGroup, __base64[numGroup]);
+			-- end
+			-- if __base64[activeGroup] == nil then
+			-- 	print("activeGroup =", activeGroup, __base64[activeGroup]);
+			-- end
+			-- if __base64[lenc1 or 0] == nil then
+			-- 	print("lenc1 =", lenc1, code1);
+			-- end
+			-- if __base64[lenc2 or 0] == nil then
+			-- 	print("lenc2 =", lenc2, code2);
+			-- end
 			return
 					COMM_TALENT_PREFIX ..
 					__base64[classIndex] ..

@@ -8,6 +8,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("Bartender4")
 local MicroMenuMod = Bartender4:NewModule("MicroMenu", "AceHook-3.0", "AceEvent-3.0")
 
 -- fetch upvalues
+local Bar = Bartender4.Bar.prototype
 local ButtonBar = Bartender4.ButtonBar.prototype
 
 local pairs, setmetatable, table_insert = pairs, setmetatable, table.insert
@@ -37,7 +38,7 @@ local BT_MICRO_BUTTONS = WoWClassic and CopyTable(MICRO_BUTTONS) or
 -- create prototype information
 local MicroMenuBar = setmetatable({}, {__index = ButtonBar})
 
-local defaults = { profile = Bartender4:Merge({
+local defaults = { profile = Bartender4.Util:Merge({
 	enabled = true,
 	vertical = false,
 	visibility = {
@@ -184,5 +185,64 @@ if HelpMicroButton and StoreMicroButton then
 			HelpMicroButton:Hide()
 			HelpMicroButton:ClearAllPoints()
 		end
+	end
+end
+
+if WoW10 and QueueStatusButton then
+	local QueueStatusMod = Bartender4:NewModule("QueueStatusButtonBar", "AceHook-3.0")
+
+	-- create prototype information
+	local QueueStatusBar = setmetatable({}, {__index = Bar})
+
+	local queuedefaults = { profile = Bartender4.Util:Merge({
+		enabled = true,
+		visibility = {
+			possess = false,
+		},
+		position = {
+			x = -315,
+			y = 150,
+			point = "BOTTOMRIGHT",
+		},
+	}, Bartender4.Bar.defaults) }
+
+	function QueueStatusMod:OnInitialize()
+		self.db = Bartender4.db:RegisterNamespace("QueueStatus", queuedefaults)
+		self:SetEnabledState(self.db.profile.enabled)
+	end
+
+	function QueueStatusMod:OnEnable()
+		if not self.bar then
+			self.bar = setmetatable(Bartender4.Bar:Create("QueueStatus", self.db.profile, L["Queue Status"], 1), {__index = QueueStatusBar})
+			self.bar:SetSize(45, 45)
+			self.bar.content = QueueStatusButton
+			self.bar.content:SetParent(self.bar)
+		end
+		self.bar:Enable()
+		self:ToggleOptions()
+		self:ApplyConfig()
+	end
+
+	function QueueStatusMod:ApplyConfig()
+		self.bar:ApplyConfig(self.db.profile)
+	end
+
+	function QueueStatusMod:UpdateLayout()
+		self.bar:PerformLayout()
+	end
+
+	function QueueStatusBar:ApplyConfig(config)
+		Bar.ApplyConfig(self, config)
+
+		self:PerformLayout()
+	end
+
+	QueueStatusBar.width = 45
+	QueueStatusBar.height = 45
+
+	function QueueStatusBar:PerformLayout()
+		local bar = self.content
+		bar:ClearAllPoints()
+		bar:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
 	end
 end

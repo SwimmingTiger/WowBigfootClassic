@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("HoRWaveTimer", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision("20220724032315")
+mod:SetRevision("20221013055519")
 mod:SetCreatureID(30658)
 
 mod:RegisterEvents(
@@ -23,7 +23,7 @@ local FalricDead = false
 
 function mod:UPDATE_UI_WIDGET(table)
 	local id = table.widgetID
-	if id ~= 592 then return end
+	if id ~= 592 and id ~= 3921 then return end
 	local widgetInfo = C_UIWidgetManager.GetIconAndTextWidgetVisualizationInfo(id)
 	local text = widgetInfo.text
 	if not text then return end

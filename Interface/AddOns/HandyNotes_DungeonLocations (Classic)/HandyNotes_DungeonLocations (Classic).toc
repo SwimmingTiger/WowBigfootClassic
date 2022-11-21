@@ -1,6 +1,6 @@
 ## Interface: 30400
 ## Title: HandyNotes: DungeonLocations (Classic)
-## Version: 1.07
+## Version: 1.07a
 ## Notes: Shows locations of dungeon and raid entrances
 ## Author: Cali
 ## X-Curse-Project-ID: 323067

@@ -27,6 +27,7 @@ do
 	end
 end
 
+local s_HookedKeyBound, s_KeyBoundHookShowBTOptions
 local KB = LibStub("LibKeyBound-1.0")
 local LDBIcon = LibStub("LibDBIcon-1.0", true)
 local LibDualSpec = (not WoWClassic or WoWWrath) and LibStub("LibDualSpec-1.0", true)
@@ -52,11 +53,14 @@ local function generateOptions()
 				order = 2,
 				type = "toggle",
 				name = L["Button Lock"],
-				desc = L["Lock the buttons."],
+				desc = L["Lock the button contents from being dragged off. When locked, actions can still be dragged by holding Shift."] .. "\n\n" .. L["NOTE: When the buttons are unlocked, actions will always trigger on key release, instead of key press."],
 				get = function() return Bartender4.db.profile.buttonlock end,
 				set = function(info, value)
 					Bartender4.db.profile.buttonlock = value
 					Bartender4.Bar:ForAll("ForAll", "SetAttribute", "buttonlock", value)
+					if not value then
+						Bartender4:Print(L["Buttons are unlocked. While unlocked, actions will always execute on key release, instead of key press."])
+					end
 				end,
 			},
 			minimapIcon = {
@@ -76,12 +80,19 @@ local function generateOptions()
 				func = function()
 					KB:Toggle()
 					AceConfigDialog:Close("Bartender4")
+
+					if KeyboundDialog and not s_HookedKeyBound then
+						KeyboundDialog:HookScript("OnHide", function() if s_KeyBoundHookShowBTOptions then AceConfigDialog:Open("Bartender4") s_KeyBoundHookShowBTOptions = nil end end)
+						s_HookedKeyBound = true
+					end
+
+					s_KeyBoundHookShowBTOptions = true
 				end,
 			},
 			bars = {
 				order = 20,
 				type = "group",
-				name = L["Bars"],
+				name = L["Action Bars"],
 				args = {
 					options = {
 						type = "group",
@@ -110,7 +121,7 @@ local function generateOptions()
 								order = 2,
 								type = "toggle",
 								name = L["Toggle actions on key press instead of release"],
-								desc = L["Toggles actions immediately when you press the key, and not only on release. Note that draging actions will cause them to be cast in this mode."],
+								desc = L["Toggles actions immediately when you press the key, and not only on release. Note that the buttons need to be locked for actions to run on key press."],
 								get = function(info)
 									if WoW10 then
 										return GetCVarBool("ActionButtonUseKeyDown")
@@ -273,25 +284,23 @@ local function generateOptions()
 					},
 				},
 			},
+			uibars = {
+				order = 20,
+				type = "group",
+				name = L["UI Bars"],
+				desc = L["Bars for Action Bar related UI elements"],
+				args = {
+				},
+			},
 			faq = {
 				name = L["FAQ"],
 				desc = L["Frequently Asked Questions"],
 				type = "group",
 				order = 1000,
 				args = {
-					line1 = {
-						type = "description",
-						name = "|cffffd200" .. L["I just installed Bartender4, but my keybindings do not show up on the buttons/do not work."] .. "|r",
-						order = 1,
-					},
-					line2 = {
-						type = "description",
-						name = L["Bartender4 only converts the bindings of Bar1 to be directly usable, all other Bars will have to be re-bound to the Bartender4 keys. A direct indicator if your key-bindings are setup correctly is the hotkey display on the buttons. If the key-bindings shows correctly on your button, everything should work fine as well."],
-						order = 2,
-					},
 					line3 = {
 						type = "description",
-						name = "|cffffd200" .. L["How do I change the Bartender4 Keybindings then?"] .. "|r",
+						name = "|cffffd200" .. L["How do I change the Bartender4 Keybindings?"] .. "|r",
 						order = 3,
 					},
 					line4 = {
@@ -316,12 +325,12 @@ local function generateOptions()
 					},
 					line8 = {
 						type = "description",
-						name = L["You can report bugs or give suggestions at the discussion forums at |cffffff78http://forums.wowace.com/showthread.php?t=12513|r or check the project page at |cffffff78http://www.wowace.com/addons/bartender4/|r"],
+						name = L["You can report bugs or give suggestions on the project page at |cffffff78https://www.wowace.com/projects/bartender4|r or on GitHub at |cffffff78https://github.com/Nevcairiel/Bartender4|r"],
 						order = 8,
 					},
 					line9 = {
 						type = "description",
-						name = "\n" .. L["Alternatively, you can also find us on |cffffff78irc://irc.freenode.org/wowace|r"] .. "\n",
+						name = "\n" .. L["Alternatively, you can also find us on the |cffffff78WoWUIDev Discord|r"] .. "\n",
 						order = 9,
 					},
 					line10 = {
@@ -336,7 +345,7 @@ local function generateOptions()
 					},
 					line12= {
 						type = "description",
-						name = L["Bartender4 was written by Nevcairiel of EU-Antonidas. He will accept cookies as compensation for his hard work!"],
+						name = L["Bartender4 was written by Nevcairiel of EU-Zirkel des Cenarius. He will accept cookies as compensation for his hard work!"],
 						order = 12,
 					},
 				},
@@ -377,7 +386,14 @@ end
 
 function Bartender4:SetupOptions()
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("Bartender4", getOptions)
-	AceConfigDialog:SetDefaultSize("Bartender4", 680, 560)
+
+	-- set default size
+	AceConfigDialog:SetDefaultSize("Bartender4", 680, 600)
+
+	-- expand both bar sections
+	AceConfigDialog:GetStatusTable("Bartender4").groups = { groups = { bars = true, uibars = true } }
+
+	-- setup slash commands
 	self:RegisterChatCommand( "bt", "ChatCommand")
 	self:RegisterChatCommand( "bt4", "ChatCommand")
 	self:RegisterChatCommand( "bartender", "ChatCommand")
@@ -392,6 +408,13 @@ function Bartender4:RegisterModuleOptions(key, table)
 end
 
 function Bartender4:RegisterBarOptions(id, table)
+	if not self.options then
+		error("Options table has not been created yet, respond to the callback!", 2)
+	end
+	self.options.args.uibars.args[id] = table
+end
+
+function Bartender4:RegisterActionBarOptions(id, table)
 	if not self.options then
 		error("Options table has not been created yet, respond to the callback!", 2)
 	end

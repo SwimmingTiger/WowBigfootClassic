@@ -53,6 +53,9 @@ end
 function TimerBar.SetCount(self,amount)
     if not amount then return end
     if self.opts.stackcolor then
+        local tbl = self.opts.stackcolor
+        local color = tbl[amount]
+        if not color then color = tbl[#tbl] end
         self:SetColor(unpack(self.opts.stackcolor[amount]))
     end
     if self.opts.glowstack then
@@ -503,7 +506,7 @@ NugRunning.ConstructTimerBar = function(width, height)
     ic:SetWidth(height)
     ic:SetHeight(height)
     ic:SetFrameLevel(1)
-    local ict = ic:CreateTexture(nil,"ARTWORK",0)
+    local ict = ic:CreateTexture(nil,"ARTWORK", nil, 0)
     ict:SetTexCoord(.1, .9, .1, .9)
     ict:SetAllPoints(ic)
     f.icon = ict

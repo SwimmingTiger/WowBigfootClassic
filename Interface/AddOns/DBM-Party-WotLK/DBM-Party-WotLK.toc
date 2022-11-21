@@ -23,9 +23,7 @@
 ## X-DBM-Mod-MapID: 619,601,595,600,604,602,599,576,578,574,575,608,658,632,668,650
 ## X-DBM-Mod-MinCoreRevision: 20200524142133
 ## X-DBM-Mod-MinExpansion: 2
-## X-Curse-Project-ID: 314994
-## X-WoWI-ID: 24904
-## Version: 3.4.12
+## Version: 3.4.19
 ## X-Revision: BigFoot
 
 localization.en.lua

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brutallus", "DBM-Sunwell")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 mod:SetCreatureID(24882)
 mod:SetEncounterID(725, 2489)
 mod:DisableESCombatDetection()--ES fires for the RP event that has nothing to do with engaging boss

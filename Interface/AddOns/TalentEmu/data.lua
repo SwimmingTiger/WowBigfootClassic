@@ -15,7 +15,7 @@ local DT = __private.DT;
 	local _G = _G;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->
@@ -46,7 +46,7 @@ MT.BuildEnv('DATA');
 							end
 						end
 						if TalentDef[11] == nil then
-							MT.Error("Data.OnInit.ProcDB", 1, "req of ", TalentDef[1], TalentDef[2], TalentDef[5], TalentDef[6], "missing");
+							MT.Debug("Data.OnInit.ProcDB", 1, "req of ", TalentDef[1], TalentDef[2], TalentDef[5], TalentDef[6], "missing");
 						end
 					end
 				end

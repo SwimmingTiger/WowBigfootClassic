@@ -20,7 +20,7 @@ local DT = __private.DT;
 	local _G = _G;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->
@@ -30,15 +30,15 @@ MT.BuildEnv('EXTERNAL');
 	VT.ExternalCodec.wowhead = {
 		ImportCode = function(url, codec)
 			local class, data = nil;
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				--	https://cn.classic.wowhead.com/talent-calc/embed/warrior/05004-055001-55250110500001051
 				--	https://cn.classic.wowhead.com/talent-calc/warrior/05004-055001-55250110500001051
 				--	https://classic.wowhead.com/talent-calc/embed/warrior/05004-055001-55250110500001051
 				--	https://classic.wowhead.com/talent-calc/warrior/05004-055001-55250110500001051
 				class, data = strmatch(url, "classic%.wowhead%.com/talent%-calc.*/([^/]+)/([0-9%-]+)");
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				class, data = strmatch(url, "tbc%.wowhead%.com/talent%-calc.*/([^/]+)/([0-9%-]+)");
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				--	https://www.wowhead.com/wotlk/talent-calc/death-knight/23050005-32005350352203012300033101351
 				--	https://www.wowhead.com/wotlk/talent-calc/death-knight/-32002350352203012300033101351-230200305003
 				--	https://www.wowhead.com/wotlk/cn/talent-calc/death-knight/23050005-32005350352203012300033101351
@@ -125,19 +125,19 @@ MT.BuildEnv('EXTERNAL');
 			elseif CT.LOCALE == "koKR" then
 				LOC = "ko";
 			end
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				if LOC == nil then
 					return "classic.wowhead.com/talent-calc/" .. strlower(Frame.class) .. "/" .. data;
 				else
 					return LOC .. ".classic.wowhead.com/talent-calc/" .. strlower(Frame.class) .. "/" .. data;
 				end
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				if LOC == nil then
 					return "tbc.wowhead.com/talent-calc/" .. strlower(Frame.class) .. "/" .. data;
 				else
 					return LOC .. ".tbc.wowhead.com/talent-calc/" .. strlower(Frame.class) .. "/" .. data;
 				end
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				local class = strlower(Frame.class);
 				if class == "deathknight" then
 					class = "death-knight";
@@ -154,13 +154,13 @@ MT.BuildEnv('EXTERNAL');
 	VT.ExternalCodec.nfu = {
 		ImportCode = function(url, codec)
 			local class, data = nil;
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				--	http://www.nfuwow.com/talents/60/warrior/tal/0530500030200000000000000000000000054250110530001051
 				class, data = strmatch(url, "nfuwow%.com/talents/60/([^/]+)/tal/(%d+)");
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				--	http://www.nfuwow.com/talents/warrior/index.html?350003013020000000000000000000000000000000000055511033010103531331
 				class, data = strmatch(url, "nfuwow%.com/talents/([^/]+)/index.html%?(%d+)");
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				--	http://www.nfuwow.com/talents/80/deathknight/index.html?0000000000000000000000000000320023503522030123000331013512300000000000000000000000000000
 				class, data = strmatch(url, "nfuwow%.com/talents/80/([^/]+)/index.html%?(%d+)");
 			else
@@ -185,11 +185,11 @@ MT.BuildEnv('EXTERNAL');
 					data = data .. TalentSet[TreeIndex];
 				end
 			end
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				return "www.nfuwow.com/talents/60/" .. strlower(Frame.class) .. "/tal/" .. data;
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				return "www.nfuwow.com/talents/" .. strlower(Frame.class) .. "/index.html?" .. data;
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				return "www.nfuwow.com/talents/80/" .. strlower(Frame.class) .. "/index.html?" .. data;
 			end
 			return nil;
@@ -347,9 +347,9 @@ MT.BuildEnv('EXTERNAL');
 		--	decode[code] = p1p2
 		ImportCode = function(url, codec)
 			local class, data = nil;
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				class, data = strmatch(url, "60%.wowfan%.net/[e]*[n]*[/]*%?talent#(.)(.+)");
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				--	https://70.wowfan.net/talent/index.html?cn&druid&51402201050313520105110000000000000000000000000000000000000000
 				class, data = strmatch(url, "70%.wowfan%.net/talent/index%.html%?[ce]n&([a-z]+)&(%d+)");
 				if class ~= nil and data ~= nil then
@@ -359,7 +359,7 @@ MT.BuildEnv('EXTERNAL');
 					end
 				end
 				return nil;
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				class, data = strmatch(url, "80%.wowfan%.net/[e]*[n]*[/]*%?talent#(.)(.+)");
 			else
 				return nil;
@@ -423,13 +423,13 @@ MT.BuildEnv('EXTERNAL');
 			local ClassTDB = DT.TalentDB[Frame.class];
 			local SpecList = DT.ClassSpec[Frame.class];
 			local url = nil;
-			if DT.BUILD == "CLASSIC" then
+			if CT.BUILD == "CLASSIC" then
 				if CT.LOCALE == "zhCN" or CT.LOCALE == "zhTW" then
 					url = "60.wowfan.net/?talent#";
 				else
 					url = "60.wowfan.net/en/?talent#";
 				end
-			elseif DT.BUILD == "BCC" then
+			elseif CT.BUILD == "BCC" then
 				local data = "";
 				for TreeIndex = 1, 3 do
 					local TalentSet = TreeFrames[TreeIndex].TalentSet;
@@ -442,7 +442,7 @@ MT.BuildEnv('EXTERNAL');
 				else
 					return "70.wowfan.net/talent/index.html?en&" .. strlower(Frame.class) .. "&" .. data;
 				end
-			elseif DT.BUILD == "WRATH" then
+			elseif CT.BUILD == "WRATH" then
 				if CT.LOCALE == "zhCN" or CT.LOCALE == "zhTW" then
 					url = "80.wowfan.net/?talent#";
 				else

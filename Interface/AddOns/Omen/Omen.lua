@@ -1769,6 +1769,47 @@ function Omen:UpdateBars()
 	OmenUpdateBarsThrotleFrame:Show()
 end
 
+--add by °¡Á¨Ë»¹¾-À×µÂ
+local function isBear() --ÅÐ¶Ïµ±Ç°µÂÂ³ÒÀÍæ¼ÒÊÇ·ñÐÜÐÎÌ¬
+	local is = false
+	local buffs, i = { }, 1
+	local buff = UnitBuff("player", i)
+	while buff do
+		if buff == "¾ÞÐÜÐÎÌ¬" or buff == "ÐÜÐÎÌ¬" then
+			is = true
+		end
+		buffs[#buffs + 1] = buff
+		i = i + 1
+		buff = UnitBuff("player", i)
+	end;
+	return is
+	
+end
+
+local function isTank() --ÅÐ¶Ïµ±Ç°Íæ¼ÒÊÇ·ñTankÖ°Òµ
+	local is = false
+	--ZST »ÙÃð´ò»÷
+	local tZsName, tZsId, _, _, tZsRank, tZsMaxRank= GetTalentInfo(3,22)
+	--DT ÁÑÉË
+	local tDName, tDId, _, _, tDRank, tDMaxRank= GetTalentInfo(2,21)
+	--QST ÉñÊ¥Ö®¶Ü
+	local tQsName, tQsId, _, _, tQsRank, tQsMaxRank= GetTalentInfo(2,19)
+	if tZsId == 135291 and tZsRank > 0 then
+		is = true
+	end
+	if tDId == 132135 and tDRank > 0 then
+		is = isBear()
+	end
+	if tQsId == 135880 and tQsRank > 0 then
+		is = true
+	end
+	return is
+end
+
+
+
+
+
 local queried = false
 function Omen:UpdateBarsReal()
 	if db.Autocollapse and db.CollapseHide then
@@ -2048,7 +2089,8 @@ function Omen:UpdateBarsReal()
 		end
 		local t = db.Warnings
 		if lastWarn.mobGUID == mobGUID and myThreatPercent >= t.Threshold and t.Threshold > lastWarn.threatpercent then
-			if not WoWClassic and (not t.DisableWhileTanking or not (GetSpecialization() and select(5, GetSpecializationInfo(GetSpecialization())) == "TANK")) then
+			--if not WoWClassic and (not t.DisableWhileTanking or not (GetSpecialization() and select(5, GetSpecializationInfo(GetSpecialization())) == "TANK")) then
+			if not isTank() then
 				self:Warn(t.Sound, t.Flash, t.Shake, t.Message and L["Passed %s%% of %s's threat!"]:format(t.Threshold, guidNameLookup[lastWarn.tankGUID]))
 			end
 		end

@@ -13,12 +13,13 @@ local setmetatable, tostring, pairs = setmetatable, tostring, pairs
 local ButtonBar = setmetatable({}, {__index = Bar})
 local ButtonBar_MT = {__index = ButtonBar}
 
-local defaults = Bartender4:Merge({
+local defaults = Bartender4.Util:Merge({
 	padding = 2,
 	rows = 1,
 	hidemacrotext = false,
 	hidehotkey = false,
 	hideequipped = false,
+	hideborder = false,
 	skin = {
 		Zoom = false,
 	},
@@ -34,7 +35,7 @@ function Bartender4.ButtonBar:Create(id, config, name, noSkinning)
 	local bar = setmetatable(Bartender4.Bar:Create(id, config, name), ButtonBar_MT)
 
 	if Masque and not noSkinning then
-		bar.MasqueGroup = Masque:Group("Bartender4", tostring(id))
+		bar.MasqueGroup = Masque:Group("Bartender4", name, tostring(id))
 	end
 
 	return bar
@@ -85,6 +86,7 @@ end
 
 function ButtonBar:SetZoom(zoom)
 	self.config.skin.Zoom = zoom
+	self:UpdateButtonConfig()
 	self:UpdateButtonLayout()
 end
 
@@ -119,6 +121,17 @@ end
 
 function ButtonBar:GetHideEquipped()
 	return self.config.hideequipped
+end
+
+function ButtonBar:SetHideBorder(state)
+	if state ~= nil then
+		self.config.hideborder = state
+	end
+	self:UpdateButtonConfig()
+end
+
+function ButtonBar:GetHideBorder()
+	return self.config.hideborder
 end
 
 function ButtonBar:SetHGrowth(value)
@@ -203,6 +216,17 @@ function ButtonBar:UpdateButtonLayout()
 		vpad = -vpad
 	end
 
+	local valign = "TOP"
+	-- variable in-row button alignment
+	if self.config.verticalAlignment then
+		if self.config.verticalAlignment == "CENTER" then
+			valign = ""
+		elseif self.config.verticalAlignment == "BOTTOM" then
+			valign = "BOTTOM"
+		end
+		-- otherwise, top
+	end
+
 	-- anchor button 1
 	local anchor = self:GetAnchor()
 	buttons[1]:ClearSetPoint(anchor, self, anchor, xOff - (self.hpad_offset or 0), yOff - (self.vpad_offset or 0))
@@ -214,7 +238,7 @@ function ButtonBar:UpdateButtonLayout()
 			buttons[i]:ClearSetPoint(v1 .. h1, buttons[i-ButtonPerRow], v2 .. h1, 0, -vpad)
 		-- align to the previous button
 		else
-			buttons[i]:ClearSetPoint("TOP" .. h1, buttons[i-1], "TOP" .. h2, hpad, buttons[i].bt4_yoffset or 0)
+			buttons[i]:ClearSetPoint(valign .. h1, buttons[i-1], valign .. h2, hpad, 0)
 		end
 	end
 

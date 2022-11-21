@@ -661,8 +661,13 @@ function Recount:CreateMainWindow()
 	local theFrame = Recount.MainWindow
 
 	theFrame:SetResizable(true)
-	theFrame:SetMinResize(140, 63)
-	theFrame:SetMaxResize(500, 520)
+
+	if theFrame.SetResizeBounds then
+		theFrame:SetResizeBounds(140, 63, 500, 520)
+	else
+		theFrame:SetMinResize(140, 63)
+		theFrame:SetMaxResize(500, 520)
+	end
 
 	theFrame.SaveMainWindowPosition = Recount.SaveMainWindowPosition
 

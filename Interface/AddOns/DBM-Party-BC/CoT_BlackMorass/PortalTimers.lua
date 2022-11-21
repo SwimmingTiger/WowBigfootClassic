@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("PT", "DBM-Party-BC", 12)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221010035226")
+mod:SetRevision("20221029204055")
 
 mod:RegisterEvents(
 	"UPDATE_UI_WIDGET",

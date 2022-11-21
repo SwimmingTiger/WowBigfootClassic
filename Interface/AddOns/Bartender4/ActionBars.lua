@@ -10,17 +10,54 @@ local select, ipairs, pairs, tostring, tonumber, min, setmetatable = select, ipa
 
 local WoWClassic = (WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE)
 local WoWWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
+local WoW10 = select(4, GetBuildInfo()) >= 100000
+
+local LSM = LibStub("LibSharedMedia-3.0")
 
 -- GLOBALS: UnitClass, InCombatLockdown, GetBindingKey, ClearOverrideBindings, SetOverrideBindingClick
 
 local abdefaults = {
-	['**'] = Bartender4:Merge({
+	['**'] = Bartender4.Util:Merge({
 		enabled = true,
 		buttons = 12,
 		buttonOffset = 0,
 		hidemacrotext = false,
 		showgrid = false,
 		flyoutDirection = "UP",
+		elements = {
+			['**'] = {
+				font = "Arial Narrow",
+				fontSize = 13,
+				fontFlags = "OUTLINE",
+				fontColor = {1, 1, 1},
+				textAnchor = "CENTER",
+				textOffsetX = 0,
+				textOffsetY = 0,
+				textJustifyH = "CENTER",
+			},
+			hotkey = {
+				fontSize = WoW10 and 16 or 13,
+				fontColor = {0.9, 0.9, 0.9},
+				textAnchor = "TOPRIGHT",
+				textOffsetX = -2,
+				textOffsetY = -4,
+				textJustifyH = "RIGHT",
+			},
+			count = {
+				fontSize = WoW10 and 19 or 16,
+				textAnchor = "BOTTOMRIGHT",
+				textOffsetX = -2,
+				textOffsetY = 4,
+				textJustifyH = "RIGHT",
+			},
+			macro = {
+				font = "Friz Quadrata TT",
+				fontSize = WoW10 and 11 or 10,
+				textAnchor = "BOTTOM",
+				textOffsetX = 0,
+				textOffsetY = 2,
+			},
+		},
 	}, Bartender4.StateBar.defaults),
 	[1] = {
 		states = {
@@ -32,6 +69,7 @@ local abdefaults = {
 				ROGUE = WoWWrath and { stealth = 7, shadowdance = 8 } or { stealth = 7 },
 				WARRIOR = WoWClassic and { battle = 7, def = 8, berserker = 9 } or nil,
 				PRIEST = WoWClassic and { shadowform = 7 } or nil,
+				EVOKER = { soar = 7 },
 			},
 		},
 		visibility = {
@@ -51,7 +89,31 @@ local abdefaults = {
 	[10] = {
 		enabled = false,
 	},
+	[13] = {
+		enabled = false,
+	},
+	[14] = {
+		enabled = false,
+	},
+	[15] = {
+		enabled = false,
+	},
 }
+
+local LIST_ACTIONBARS = WoW10 and { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, 14, 15 } or { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
+BT4ActionBars.LIST_ACTIONBARS = LIST_ACTIONBARS
+
+local BINDING_MAPPINGS = {
+	[1] = "ACTIONBUTTON%d",
+	[3] = "MULTIACTIONBAR3BUTTON%d",
+	[4] = "MULTIACTIONBAR4BUTTON%d",
+	[5] = "MULTIACTIONBAR2BUTTON%d",
+	[6] = "MULTIACTIONBAR1BUTTON%d",
+	[13] = "MULTIACTIONBAR5BUTTON%d",
+	[14] = "MULTIACTIONBAR6BUTTON%d",
+	[15] = "MULTIACTIONBAR7BUTTON%d",
+}
+
 
 local defaults = {
 	profile = {
@@ -75,10 +137,10 @@ function BT4ActionBars:OnEnable()
 		self.playerclass = select(2, UnitClass("player"))
 		self.actionbars = {}
 
-		for i=1,10 do
+		for _, i in ipairs(LIST_ACTIONBARS) do
 			local config = self.db.profile.actionbars[i]
 			if config.enabled then
-				self.actionbars[i] = self:Create(i, config)
+				self.actionbars[i] = self:Create(i, config, BINDING_MAPPINGS[i])
 			else
 				self:CreateBarOption(i, self.disabledoptions)
 			end
@@ -89,6 +151,16 @@ function BT4ActionBars:OnEnable()
 
 	self:RegisterEvent("UPDATE_BINDINGS", "ReassignBindings")
 	self:ReassignBindings()
+
+	LSM.RegisterCallback(self, "LibSharedMedia_Registered", function(mtype, key)
+		if mtype == "font" then
+			for k, bar in pairs(self.actionbars) do
+				if bar.config.elements.hotkey.font == key or bar.config.elements.count.font == key or bar.config.elements.macro.font == key then
+					bar:UpdateButtonConfig()
+				end
+			end
+		end
+	end)
 end
 
 function BT4ActionBars:SetupOptions()
@@ -116,7 +188,7 @@ function BT4ActionBars:SetupOptions()
 		}
 
 		-- iterate over bars and create their option tables
-		for i=1,10 do
+		for _, i in ipairs(LIST_ACTIONBARS) do
 			local config = self.db.profile.actionbars[i]
 			if config.enabled then
 				self:CreateBarOption(i)
@@ -129,7 +201,7 @@ end
 
 -- Applys the config in the current profile to all active Bars
 function BT4ActionBars:ApplyConfig()
-	for i=1,10 do
+	for _, i in ipairs(LIST_ACTIONBARS) do
 		local config = self.db.profile.actionbars[i]
 		-- make sure the bar has its current config object if it exists already
 		if self.actionbars[i] then
@@ -156,27 +228,88 @@ function BT4ActionBars:UpdateButtons(force)
 	end
 end
 
+local function MigrateKeybindBindings(target, ...)
+	local needSaving = false
+	for k=1, select('#', ...) do
+		local key = select(k, ...)
+		if key and key ~= "" then
+			SetBindingClick(key, target, "Keybind")
+			needSaving = true
+		end
+	end
+	return needSaving
+end
+
+local s_inReassignBindings = false
 function BT4ActionBars:ReassignBindings()
-	if InCombatLockdown() then return end
-	if not self.actionbars or not self.actionbars[1] then return end
-	local frame = self.actionbars[1]
-	ClearOverrideBindings(frame)
-	for i = 1,min(#frame.buttons, 12) do
-		local button, real_button = ("ACTIONBUTTON%d"):format(i), ("BT4Button%d"):format(i)
-		for k=1, select('#', GetBindingKey(button)) do
-			local key = select(k, GetBindingKey(button))
-			if key and key ~= "" then
-				SetOverrideBindingClick(frame, false, key, real_button)
+	if InCombatLockdown() or s_inReassignBindings then return end
+	s_inReassignBindings = true
+
+	if self.actionbars then
+		for id, mapping in pairs(BINDING_MAPPINGS) do
+			local frame = self.actionbars[id]
+			if frame then
+				ClearOverrideBindings(frame)
+				for i = 1,min(#frame.buttons, 12) do
+					local button, real_button = mapping:format(i), frame.buttons[i]:GetName()
+					for k=1, select('#', GetBindingKey(button)) do
+						local key = select(k, GetBindingKey(button))
+						if key and key ~= "" then
+							SetOverrideBindingClick(frame, false, key, real_button, "Keybind")
+						end
+					end
+				end
 			end
 		end
 	end
+
+	-- re-assign bindings from LeftButton to Keybind buttons
+	local needSaving = false
+	for i = 1,180 do
+		local button = ("BT4Button%d"):format(i)
+		local clickbutton = ("CLICK %s:LeftButton"):format(button)
+		if MigrateKeybindBindings(button, GetBindingKey(clickbutton)) then
+			needSaving = true
+		end
+	end
+
+	if needSaving then
+		SaveBindings(GetCurrentBindingSet())
+	end
+
+	s_inReassignBindings = false
+end
+
+BT4ActionBars.BLIZZARD_BAR_MAP = {
+	[6] = 2,
+	[5] = 3,
+	[3] = 4,
+	[4] = 5,
+	[13] = 6,
+	[14] = 7,
+	[15] = 8,
+}
+
+function BT4ActionBars:GetBarName(id)
+	if WoW10 then
+		local barID = tonumber(id)
+		if barID == 7 or barID == 8 or barID == 9 or barID == 10 then
+			return (L["Class Bar %d"]):format(barID - 6)
+		elseif self.BLIZZARD_BAR_MAP[barID] then
+			return (L["Bar %s"]):format(tostring(self.BLIZZARD_BAR_MAP[barID]))
+		elseif barID == 2 then
+			return L["Bonus Action Bar"]
+		end
+	end
+	return (L["Bar %s"]):format(id)
 end
 
 -- Creates a new bar object based on the id and the specified config
-function BT4ActionBars:Create(id, config)
+function BT4ActionBars:Create(id, config, bindingmapping)
 	id = tostring(id)
-	local bar = setmetatable(Bartender4.StateBar:Create(id, config, (L["Bar %s"]):format(id)), ActionBar_MT)
+	local bar = setmetatable(Bartender4.StateBar:Create(id, config, self:GetBarName(id)), ActionBar_MT)
 	bar.module = self
+	bar.bindingmapping = bindingmapping
 
 	bar:SetScript("OnEvent", bar.OnEvent)
 	if not WoWClassic then
@@ -209,7 +342,7 @@ function BT4ActionBars:EnableBar(id)
 	local config = self.db.profile.actionbars[id]
 	config.enabled = true
 	if not bar then
-		bar = self:Create(id, config)
+		bar = self:Create(id, config, BINDING_MAPPINGS[id])
 		self.actionbars[id] = bar
 	else
 		bar.disabled = nil

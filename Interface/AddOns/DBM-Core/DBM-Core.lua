@@ -31,6 +31,7 @@ local isRetail = WOW_PROJECT_ID == (WOW_PROJECT_MAINLINE or 1)
 local isClassic = WOW_PROJECT_ID == (WOW_PROJECT_CLASSIC or 2)
 local isBCC = WOW_PROJECT_ID == (WOW_PROJECT_BURNING_CRUSADE_CLASSIC or 5)
 local isWrath = WOW_PROJECT_ID == (WOW_PROJECT_WRATH_CLASSIC or 11)
+--local isCata = WOW_PROJECT_ID == (WOW_PROJECT_CATA_CLASSIC or 99)
 
 local DBMPrefix = isRetail and "D4" or isClassic and "D4C" or isBCC and "D4BC" or isWrath and "D4WC"
 private.DBMPrefix = DBMPrefix
@@ -69,27 +70,27 @@ local function showRealDate(curseDate)
 end
 
 DBM = {
-	Revision = parseCurseDate("20221011050504"),
+	Revision = parseCurseDate("20221108192530"),
 }
 
 local fakeBWVersion, fakeBWHash
 local bwVersionResponseString = "V^%d^%s"
 -- The string that is shown as version
 if isRetail then
-	DBM.DisplayVersion = "9.2.37 alpha"
-	DBM.ReleaseRevision = releaseDate(2022, 10, 6) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "10.0.1"
+	DBM.ReleaseRevision = releaseDate(2022, 11, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 	fakeBWVersion, fakeBWHash = 243, "d58ab26"
 elseif isClassic then
-	DBM.DisplayVersion = "1.14.27 alpha"
-	DBM.ReleaseRevision = releaseDate(2022, 8, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "1.14.27"
+	DBM.ReleaseRevision = releaseDate(2022, 11, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 	fakeBWVersion, fakeBWHash = 41, "287b8dd"
 elseif isBCC then
 	DBM.DisplayVersion = "2.6.0 alpha"--When TBC returns (and it will one day). It'll probably be game version 2.6
 	DBM.ReleaseRevision = releaseDate(2022, 8, 1) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 	fakeBWVersion, fakeBWHash = 41, "287b8dd"
 elseif isWrath then
-	DBM.DisplayVersion = "3.4.16"
-	DBM.ReleaseRevision = releaseDate(2022, 10, 11) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
+	DBM.DisplayVersion = "3.4.19"
+	DBM.ReleaseRevision = releaseDate(2022, 11, 8) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 	fakeBWVersion, fakeBWHash = 41, "287b8dd"
 end
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
@@ -426,6 +427,7 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 	"DBM-Azeroth-BfA",--renamed to DBM-BfA
 	"DBM-BattlefieldBarrens",--Apparently people are still running this
 	"DBM-RaidLeadTools", -- Killed plugin
+	"DBM-Party-Classic", -- Renamed to DBM-Party-Vanilla
 }
 if isRetail then
 	table.insert(bannedMods, "DBM-ZulAman") -- Part of Cataclysm party mods
@@ -5026,7 +5028,7 @@ do
 					mod:OnCombatStart(delay or 0, startEvent == "PLAYER_REGEN_DISABLED_AND_MESSAGE" or startEvent == "SPELL_CAST_SUCCESS" or startEvent == "MONSTER_MESSAGE", startEvent == "ENCOUNTER_START")
 				end
 				--send "C" sync
-				if not synced then
+				if not synced and not mod.soloChallenge then
 					sendSync("C", (delay or 0).."\t"..modId.."\t"..(mod.revision or 0).."\t"..startHp.."\t"..tostring(self.Revision).."\t"..(mod.hotfixNoticeRev or 0).."\t"..event)
 				end
 				if UnitIsGroupLeader("player") then
@@ -5587,6 +5589,7 @@ do
 		["WARLOCK"] = 1454,
 		["MONK"] = 1450,
 		["DEMONHUNTER"] = 1456,
+		["EVOKER"] = 1465,
 	}
 
 	function DBM:SetCurrentSpecInfo()
@@ -5850,7 +5853,7 @@ end
 --Future proofing EJ_GetSectionInfo compat layer to make it easier updatable.
 function DBM:EJ_GetSectionInfo(sectionID)
 	if not isRetail then
-		return "EJ_GetSectionInfo"
+		return "EJ_GetSectionInfo not supported on Classic, please report this message and boss"
 	end
 	local info = EJ_GetSectionInfo(sectionID)
 	if not info then
@@ -8751,6 +8754,7 @@ do
 		["switch"] = "spell",
 		["switchcount"] = "count",
 --		["adds"] = "spell",
+--		["addscount"] = "spell",
 --		["addscustom"] = "spell",
 		["targetchange"] = "target",
 		["gtfo"] = "spell",
@@ -8831,6 +8835,7 @@ do
 		["switch"] = "switch",
 		["switchcount"] = "switch",
 		["adds"] = "switch",
+		["addscount"] = "switch",
 		["addscustom"] = "switch",
 		["targetchange"] = "switch",
 		["gtfo"] = "gtfo",
@@ -8962,9 +8967,9 @@ do
 			--Icon: Texture path/id for icon
 			--Type: Announce type
 			----Types: spell, ends, fades, soon, bait, dispel, interrupt, interruptcount, you, youcount, youpos, soakpos, target, targetcount, defensive, taunt, close, move, keepmove, stopmove,
-			----gtfo, dodge, dodgecount, dodgeloc, moveaway, moveawaycount, moveto, soak, jump, run, cast, lookaway, reflect, count, sooncount, stack, switch, switchcount, adds, addscustom, targetchange, prewarn
+			----gtfo, dodge, dodgecount, dodgeloc, moveaway, moveawaycount, moveto, soak, jump, run, cast, lookaway, reflect, count, sooncount, stack, switch, switchcount, adds, addscount, addscustom, targetchange, prewarn
 			------General Target Messages (but since it's a special warning, it applies to you in some way): target, targetcount
-			------Fight Changes (Stages, adds, boss buff/debuff, etc): adds, addscustom, targetchange, switch, switchcount, ends
+			------Fight Changes (Stages, adds, boss buff/debuff, etc): adds, addscount, addscustom, targetchange, switch, switchcount, ends
 			------General (can really apply to anything): spell, count, soon, sooncount, prewarn
 			------Personal/Role (Applies to you, or your job): Everything Else
 			--SpellId: Raw spell or encounter journal Id if available.
@@ -9036,6 +9041,7 @@ do
 --		["switch"] = "spell",
 --		["switchcount"] = "count",
 		["adds"] = "mobsoon",--Remaps sound to say mobs incoming only, not to kill them or cc them or anything else.
+		["addscount"] = "mobsoon",
 		["addscustom"] = "mobsoon",--Remaps sound to say mobs incoming only, not to kill them or cc them or anything else.
 --		["targetchange"] = "target",
 --		["gtfo"] = "spell",
@@ -9395,6 +9401,10 @@ do
 		return newSpecialWarning(self, "adds", spellId, nil, optionDefault, ...)
 	end
 
+	function bossModPrototype:NewSpecialWarningAddsCount(spellId, optionDefault, ...)
+		return newSpecialWarning(self, "addscount", spellId, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningAddsCustom(spellId, optionDefault, ...)
 		return newSpecialWarning(self, "addscustom", spellId, nil, optionDefault, ...)
 	end
@@ -9433,7 +9443,7 @@ do
 	end
 
 	do
-		local minVoicePackVersion = isRetail and 12 or 10
+		local minVoicePackVersion = isRetail and 13 or 10
 
 		function DBM:CheckVoicePackVersion(value)
 			local activeVP = self.Options.ChosenVoicePack2
@@ -10508,6 +10518,10 @@ function bossModPrototype:AddSetIconOption(name, spellId, default, iconType, ico
 		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_ALPHA:format(spellId) or self.localization.options[name]
 	elseif iconType == 7 then
 		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_ROSTER:format(spellId) or self.localization.options[name]
+	elseif iconType == 8 then
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_TANK_A:format(spellId) or self.localization.options[name]
+	elseif iconType == 9 then
+		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS_TANK_R:format(spellId) or self.localization.options[name]
 	else--Type 0 (Generic for targets)
 		self.localization.options[name] = spellId and L.AUTO_ICONS_OPTION_TARGETS:format(spellId) or self.localization.options[name]
 	end
@@ -10759,7 +10773,7 @@ function bossModPrototype:SetOptionCategory(name, cat, optionType)
 	for _, options in pairs(self.optionCategories) do
 		removeEntry(options, name)
 	end
-	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (optionType == "gtfo" or optionType == "adds" or optionType == "addscustom" or optionType:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
+	if self.addon and not self.addon.oldOptions and DBM.Options.GroupOptionsBySpell and self.groupSpells[name] and not (optionType == "gtfo" or optionType == "adds" or optionType == "addscount" or optionType == "addscustom" or optionType:find("stage") or cat == "icon" and DBM.Options.GroupOptionsExcludeIcon) then
 		local sSpell = self.groupSpells[name]
 		if not self.groupOptions[sSpell] then
 			self.groupOptions[sSpell] = {}
@@ -11088,6 +11102,14 @@ do
 
 	function bossModPrototype:SetIcon(...)
 		return iconsModule:SetIcon(self, ...)
+	end
+
+	function bossModPrototype:SetIconByTable(...)
+		return iconsModule:SetIconByTable(self, ...)
+	end
+
+	function bossModPrototype:SetUnsortedIcon(...)
+		return iconsModule:SetUnsortedIcon(self, ...)
 	end
 
 	--Backwards compat for old mods using this method, which is now merged into SetSortedIcon

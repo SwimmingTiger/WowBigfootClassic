@@ -899,6 +899,7 @@ function TrinketMenu.OnTooltip(self, line1, line2)
 	if TrinketMenuOptions.ShowTooltips == "ON" then
 		TrinketMenu.AnchorTooltip(self)
 		if line1 then
+			GameTooltip:SetOwner(self,"TOP")
 			GameTooltip:AddLine(line1)
 			GameTooltip:AddLine(line2, .8, .8, .8, 1)
 			GameTooltip:Show()

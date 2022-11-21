@@ -3,7 +3,7 @@
 ## Title-zhCN: [大脚][集]战场目标助手
 ## Title-zhTW: [大腳][集]戰場目標助手
 ## Notes:|cff00ff00BattleGroundEnemies|r
-## Version: 9.2.0.11
+## Version: 10.0.0.3
 ## Author: Bullsei
 ## SavedVariables: BattleGroundEnemiesDB
 ## X-Curse-Project-ID: 274066
@@ -13,9 +13,7 @@
 
 embeds.xml
 
-Locales\enUS.lua
-Locales\zhCN.lua
-Locales\zhTW.lua
+Locales.lua
 
 Data.lua
 Defaults.lua
@@ -23,12 +21,26 @@ Main.lua
 Messaging.lua
 TargetCall.lua
 Changelog.lua
+ImportExport.lua
 
-Objects\Auracontainer.lua
+Objects\ContainerTemplate.lua
+Objects\Auracontainer2.lua
+Objects\CastBar.lua
+Objects\CombatIndicator.lua
+Objects\Covenant.lua
 Objects\DR.lua
+Objects\HealthBar.lua
+Objects\HighestActivePriority.lua
+Objects\Level.lua
+Objects\Name.lua
 Objects\ObjectiveAndRespawn.lua
+Objects\Power.lua
 Objects\Racial.lua
+Objects\RaidTargetIcon.lua
+Objects\Role.lua
+Objects\SpecAndClass.lua
+Objects\TargetIndicatorNumeric.lua
+Objects\TargetIndicatorSymbolic.lua
 Objects\Trinket.lua
 
-Testmode.lua
 Options.lua

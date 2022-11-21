@@ -346,6 +346,7 @@ TotemTimers.CombatCooldownSpells = {
         SpellIDs.WindShear,
         SpellIDs.Searing,
         SpellIDs.Magma,
+        SpellIDs.ChainLightning,
     },
     [1] = {
         SpellIDs.FlameShock,

@@ -16,7 +16,7 @@ local DT = __private.DT;
 	local UIParent = UIParent;
 
 -->
-	local L = CT.L;
+	local l10n = CT.l10n;
 
 -->		constant
 -->

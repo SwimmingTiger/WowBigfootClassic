@@ -19,7 +19,7 @@ local WoWWrath = (WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC)
 local StateBar = setmetatable({}, {__index = ButtonBar})
 local StateBar_MT = {__index = StateBar}
 
-local defaults = Bartender4:Merge({
+local defaults = Bartender4.Util:Merge({
 	autoassist = false,
 	states = {
 		enabled = false,
@@ -132,6 +132,10 @@ DefaultStanceMap = setmetatable({}, { __index = function(t,k)
 	elseif k == "ROGUE" then
 		newT = {
 			{ id = "stealth", name = GetSpellInfo(1784), index = 1 },
+		}
+	elseif k == "EVOKER" then
+		newT = {
+			{ id = "soar", name = GetSpellInfo(369536), index = 1 },
 		}
 	end
 	rawset(t, k, newT)

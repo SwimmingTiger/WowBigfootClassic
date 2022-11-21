@@ -152,6 +152,9 @@ end
 M:Init{
 	name = "MerInspect",
 	func = function()
+		if not InspectTalentFrameSpentPoints then
+			InspectTalentFrameSpentPoints = CreateFrame("Frame")
+		end
 		M.tooltip2 = CreateFrame("GameTooltip", "MerDurabilityTooltip", UIParent, "GameTooltipTemplate");
 		__Secure:HookScript(PaperDollFrame,"OnShow", function()
 			createRepairCostFrame()

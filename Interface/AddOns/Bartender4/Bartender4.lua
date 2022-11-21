@@ -29,7 +29,7 @@ local type, pairs, hooksecurefunc = type, pairs, hooksecurefunc
 local defaults = {
 	profile = {
 		tooltip = "enabled",
-		buttonlock = false,
+		buttonlock = true,
 		outofrange = "button",
 		colors = { range = { r = 0.8, g = 0.1, b = 0.1 }, mana = { r = 0.5, g = 0.5, b = 1.0 } },
 		selfcastmodifier = true,
@@ -77,10 +77,12 @@ function Bartender4:OnInitialize()
 
 	BINDING_HEADER_Bartender4 = "Bartender4"
 	BINDING_NAME_BTTOGGLEACTIONBARLOCK = BINDING_NAME_TOGGLEACTIONBARLOCK
-	for i=1,10 do
-		_G[("BINDING_HEADER_BT4BLANK%d"):format(i)] = L["Bar %s"]:format(i)
+	local ActionBarsMod = Bartender4:GetModule("ActionBars")
+	for _, i in ipairs(ActionBarsMod.LIST_ACTIONBARS) do
+		local name = ActionBarsMod:GetBarName(i)
+		_G[("BINDING_HEADER_BT4BLANK%d"):format(i)] = name
 		for k=1,12 do
-			_G[("BINDING_NAME_CLICK BT4Button%d:LeftButton"):format(((i-1)*12)+k)] = ("%s %s"):format(L["Bar %s"]:format(i), L["Button %s"]:format(k))
+			_G[("BINDING_NAME_CLICK BT4Button%d:Keybind"):format(((i-1)*12)+k)] = ("%s %s"):format(name, L["Button %s"]:format(k))
 		end
 	end
 	BINDING_HEADER_BT4PET = L["Pet Bar"]
@@ -136,7 +138,7 @@ function Bartender4:RegisterPetBattleDriver()
 		self.petBattleController:SetAttribute("_onstate-petbattle", [[
 			if newstate == "petbattle" then
 				for i=1,6 do
-					local button, vbutton = ("CLICK BT4Button%d:LeftButton"):format(i), ("ACTIONBUTTON%d"):format(i)
+					local button, vbutton = ("CLICK BT4Button%d:Keybind"):format(i), ("ACTIONBUTTON%d"):format(i)
 					for k=1,select("#", GetBindingKey(button)) do
 						local key = select(k, GetBindingKey(button))
 						self:SetBinding(true, key, vbutton)
@@ -175,7 +177,7 @@ function Bartender4:UpdateBlizzardVehicle()
 				end
 				if newstate == "vehicle" then
 					for i=1,6 do
-						local button, vbutton = ("CLICK BT4Button%d:LeftButton"):format(i), ("OverrideActionBarButton%d"):format(i)
+						local button, vbutton = ("CLICK BT4Button%d:Keybind"):format(i), ("OverrideActionBarButton%d"):format(i)
 						for k=1,select("#", GetBindingKey(button)) do
 							local key = select(k, GetBindingKey(button))
 							self:SetBindingClick(true, key, vbutton)
@@ -324,7 +326,19 @@ function Bartender4:Lock()
 	end
 end
 
-function Bartender4:Merge(target, source)
+Bartender4.Util = {}
+function Bartender4.Util:PurgeKey(t, k)
+	t[k] = nil
+	local c = 42
+	repeat
+		if t[c] == nil then
+			t[c] = nil
+		end
+		c = c + 1
+	until issecurevariable(t, k)
+end
+
+function Bartender4.Util:Merge(target, source)
 	if type(target) ~= "table" then target = {} end
 	for k,v in pairs(source) do
 		if type(v) == "table" then

@@ -25,8 +25,20 @@ function BagBarMod:SetupOptions()
 			get = function() return self.db.profile.enabled end,
 			set = "ToggleModule",
 			handler = self,
+			width = "full",
 		}
 		self.optionobject:AddElement("general", "enabled", enabled)
+
+		local verticalAlignment = {
+			type = "select",
+			order = 79,
+			name = L["Vertical Button Alignment"],
+			desc = L["Vertical button alignment for this bar."],
+			get = function() return self.db.profile.verticalAlignment end,
+			set = function(info, state) self.db.profile.verticalAlignment = state; self.bar:UpdateButtonLayout() end,
+			values = { TOP = L["TOP"], CENTER = L["CENTER"], BOTTOM = L["BOTTOM"] },
+		}
+		self.optionobject:AddElement("general", "verticalAlignment", verticalAlignment)
 
 		local onebag = {
 			type = "toggle",
@@ -78,7 +90,7 @@ function BagBarMod:SetupOptions()
 			order = 30,
 			type = "group",
 			name = L["Bag Bar"],
-			desc = L["Configure the Bag Bar"],
+			desc = L["Manages the Backpack and all the extra bags"],
 			childGroups = "tab",
 		}
 		Bartender4:RegisterBarOptions("BagBar", self.options)

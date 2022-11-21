@@ -828,11 +828,17 @@ nodes[1445] = { -- Dustwallow
 	}, -- Onyxia's Lair
 }
 nodes[1423] = { -- EasternPlaguelands
-	[30851700] = { --
+	[27081092] = { --
 		name = L["Stratholme"],
 		type = "Dungeon",
 	}, -- Stratholme World 52902870
 	--[39002600] = { -- Naxxramas		name = L["Naxxramas"],		type = "Raid",	}, Fairly sure this is gone now
+}
+nodes[1415] = { -- Stratholme
+	[52902867] = { --
+		name = L["Stratholme"],
+		type = "Dungeon",
+	}, -- Stratholme World 52902870
 }
 nodes[1444] = { -- Feralas
 	 [77063695] = {

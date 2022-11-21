@@ -170,7 +170,7 @@ function me:CreateReportWindow()
 	theFrame.ReportTitle:SetText(L["Report To"])
 	Recount:AddFontString(theFrame.ReportTitle)
 
-	theFrame.ReportButton = CreateFrame("Button", nil, theFrame, "OptionsButtonTemplate")
+	theFrame.ReportButton = CreateFrame("Button", nil, theFrame, "UIPanelButtonTemplate")
 	theFrame.ReportButton:SetWidth(90)
 	theFrame.ReportButton:SetHeight(24)
 	theFrame.ReportButton:SetPoint("BOTTOM", theFrame, "BOTTOM", 0, 4)

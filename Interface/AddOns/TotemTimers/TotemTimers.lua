@@ -253,6 +253,7 @@ debugframe:AddChild(debugframe.editbox)
 
 function TotemTimers.ShowDebug()
 	local text = ""
+    text = text .. DebugText .."|n"
 	text = text.."Settings:|n"
 	for k,v in pairsByKeys(TotemTimers.ActiveProfile) do
 		text = text..'    ["'..k..'"] = '

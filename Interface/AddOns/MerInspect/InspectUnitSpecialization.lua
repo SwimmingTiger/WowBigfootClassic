@@ -10,10 +10,16 @@ local LibEvent = LibStub:GetLibrary("LibEvent.7000")
 local function GetInspectTalentInfo(unit)
     if (not GetTalentTabInfo) then return end
     local isInspect = (unit ~= "player")
+    -- 获取当前 天赋 分组
+    local talentGroup=GetActiveTalentGroup(isInspect,false);
     local _, name, point, name1, name2, name3, point1, point2, point3
-	name1, _, point1 = GetTalentTabInfo(1, isInspect)
-	name2, _, point2 = GetTalentTabInfo(2, isInspect)
-	name3, _, point3 = GetTalentTabInfo(3, isInspect)
+    --返回 名字，素材，总点数，背景图片
+    --入参 天赋页，是否目标，是否宠物，第几天赋（双天赋）
+	name1, _, point1 = GetTalentTabInfo(1, isInspect,false,talentGroup)
+	name2, _, point2 = GetTalentTabInfo(2, isInspect,false,talentGroup)
+	name3, _, point3 = GetTalentTabInfo(3, isInspect,false,talentGroup)
+
+    
 	point = max(point1, point2, point3)
 	if point == point1 then
 		name = name1

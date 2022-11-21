@@ -527,6 +527,7 @@ function ns.DataMake(allowCrossRealm)
     end
 
     local currentRealm
+    local currentLevel
     local function Realm(realm)
         realm = decode(realm)
         if allowCrossRealm or realm == GetRealmName() then
@@ -534,18 +535,23 @@ function ns.DataMake(allowCrossRealm)
         else
             currentRealm = nil
         end
+        currentLevel = nil
     end
 
     local function Name(name)
         if not currentRealm then
-            return
+            return nop
         end
 
         name = decode(name)
-
-        ns.CERTIFICATION_MAP[format('%s-%s', name, currentRealm)] = true
+        ns.CERTIFICATION_MAP[format('%s-%s', name, currentRealm)] = currentLevel
     end
-    setfenv(2, {R = Realm, N = Name})
+
+    local function Level(level)
+        currentLevel = level
+    end
+
+    setfenv(2, {R = Realm, N = Name, L = Level})
 end
 
 function ns.FormatSummary(text, tbl)

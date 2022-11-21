@@ -1,5 +1,7 @@
 local AddonName, SAO = ...
 
+local clearcastingVariants; -- Lazy init in lazyCreateClearcastingVariants()
+
 local hotStreakSpellID = 48108;
 local heatingUpSpellID = 48107; -- Does not exist in Wrath Classic
 
@@ -155,12 +157,26 @@ local function customLogin(self, ...)
     end
 end
 
+local function lazyCreateClearcastingVariants(self)
+    if (clearcastingVariants) then
+        return;
+    end
+
+    local weakText = PET_BATTLE_COMBAT_LOG_DAMAGE_WEAK:gsub("[ ()]","");
+    local strongText = PET_BATTLE_COMBAT_LOG_DAMAGE_STRONG:gsub("[ ()]","");
+
+    clearcastingVariants = self:CreateTextureVariants(12536, 0, {
+        self:TextureVariantValue("genericarc_05", false, weakText),
+        self:TextureVariantValue("genericarc_02", false, strongText),
+    });
+end
+
 local function registerClass(self)
     -- Fire Procs
     self:RegisterAura("impact", 0, 64343, "lock_and_load", "Top", 1, 255, 255, 255, true, { (GetSpellInfo(2136)) });
     self:RegisterAura("firestarter", 0, 54741, "impact", "Top", 0.8, 255, 255, 255, true, { (GetSpellInfo(2120)) }); -- May conflict with Impact location
     self:RegisterAura("hot_streak_full", 0, hotStreakSpellID, "hot_streak", "Left + Right (Flipped)", 1, 255, 255, 255, true, { (GetSpellInfo(11366)) });
-    --self:RegisterAura("hot_streak_half", 0, heatingUpSpellID, "hot_streak", "Left + Right (Flipped)", 0.5, 255, 255, 255, false);
+    self:RegisterAura("hot_streak_half", 0, heatingUpSpellID, "hot_streak", "Left + Right (Flipped)", 0.5, 255, 255, 255, false); -- Does not exist, but define it for option testing
     -- Heating Up (spellID == 48107) doesn't exist in Wrath Classic, so we can't use the above aura
     -- Instead, we track Fire Blast, Fireball, Living Bomb and Scorch non-periodic critical strikes
     -- Please look at HotStreakHandler and customCLEU for more information
@@ -172,9 +188,16 @@ local function registerClass(self)
 
     -- Arcane Procs
     self:RegisterAura("missile_barrage", 0, 44401, "arcane_missiles", "Left + Right (Flipped)", 1, 255, 255, 255, true, { (GetSpellInfo(5143)) });
+
+    lazyCreateClearcastingVariants(self);
+    self:RegisterAura("clearcasting", 0, 12536, clearcastingVariants.textureFunc, "Left + Right (Flipped)", 1.5, 192, 192, 192, false);
 end
 
 local function loadOptions(self)
+--    local clearcastingTalent = 11213; -- Real talent
+    local clearcastingTalent = 12536; -- Use buff instead of talent because everyone knows the buff name
+    local clearcastingBuff = 12536;
+
     local missileBarrageBuff = 44401;
     local missileBarrageTalent = 44404;
 
@@ -229,12 +252,16 @@ local function loadOptions(self)
     -- local hotStreakDetails = string.format(LFG_READY_CHECK_PLAYER_IS_READY, "|T"..spellIcon..":0|t "..spellName):gsub("%.", "");
     local hotStreakDetails = LOC_TYPE_FULL;
 
+    -- Clearcasting variants
+    lazyCreateClearcastingVariants(self);
+
+    self:AddOverlayOption(clearcastingTalent, clearcastingBuff, 0, nil, clearcastingVariants);
     self:AddOverlayOption(missileBarrageTalent, missileBarrageBuff);
     self:AddOverlayOption(hotStreakTalent, heatingUpBuff, 0, heatingUpDetails);
     self:AddOverlayOption(hotStreakTalent, hotStreakBuff, 0, hotStreakDetails);
     self:AddOverlayOption(firestarterTalent, firestarterBuff);
     self:AddOverlayOption(impactTalent, impactBuff);
-    self:AddOverlayOption(fingersOfFrostTalent, fingersOfFrostBuff, 0); -- any stacks
+    self:AddOverlayOption(fingersOfFrostTalent, fingersOfFrostBuff, 0, nil, nil, 2); -- setup any stacks, test with 2 stacks
     self:AddOverlayOption(brainFreezeTalent, brainFreezeBuff);
 
     self:AddGlowingOption(missileBarrageTalent, missileBarrageBuff, arcaneMissiles);

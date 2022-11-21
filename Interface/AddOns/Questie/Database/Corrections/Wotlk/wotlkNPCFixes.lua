@@ -12,6 +12,9 @@ function QuestieWotlkNpcFixes:Load()
     local npcFlags = QuestieDB.npcFlags
 
     return {
+        [3996] = {
+            [npcKeys.spawns] = {[zoneIDs.ASHENVALE] = {{35.77,49.1}}},
+        },
         [15351] = {
             [npcKeys.spawns] = {
                 [zoneIDs.IRONFORGE]={{70.41,91.10}},
@@ -30,8 +33,14 @@ function QuestieWotlkNpcFixes:Load()
         [17977] = {
             [npcKeys.spawns] = {[zoneIDs.THE_BOTANICA]={{-1,-1}}},
         },
+        [11886] = {
+            [npcKeys.spawns] = {[zoneIDs.EASTERN_PLAGUELANDS] = {{24.8,79.8}}},
+        },
         [19220] = {
             [npcKeys.spawns] = {[zoneIDs.THE_MECHANAR]={{-1,-1}}},
+        },
+        [19481] = {
+            [npcKeys.spawns] = {[zoneIDs.NETHERSTORM]={{58.34,86.4}}},
         },
         [23763] = {
             [npcKeys.spawns] = {
@@ -40,21 +49,61 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
         },
         [23954] = {
-          [npcKeys.spawns] = {[zoneIDs.UTGARDE_KEEP]={{-1,-1},}},
-          [npcKeys.zoneID] = zoneIDs.UTGARDE_KEEP,
+            [npcKeys.spawns] = {[zoneIDs.UTGARDE_KEEP]={{-1,-1},}},
+            [npcKeys.zoneID] = zoneIDs.UTGARDE_KEEP,
+        },
+        [24028] = { --"Talu Frosthoof", "Bowyer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24031] = { --"Camp Winterhoof Brave"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24032] = { --"Celea Frozenmane", "Wind Rider Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24033] = { --"Bori Wintertotem", "Innkeeper"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [24060] = {
             [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{45.2,27.3}}},
         },
+        [24067] = { --"Mahana Frosthoof", "Stable Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [24120] = {
             [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{86.7,59.2}}},
+        },
+        [24123] = { --"Nokoma Snowseer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24127] = { --"Ahota Whitefrost"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24129] = { --"Chieftain Ashtotem"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [24130] = {
             [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{45.2,27.3}}},
         },
+        [24135] = { --"Greatmother Ankha"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [24137] = {
             [npcKeys.spawns] = {[zoneIDs.UTGARDE_KEEP]={{-1,-1},}},
             [npcKeys.zoneID] = zoneIDs.UTGARDE_KEEP,
+        },
+        [24142] = { --"Camp Winterhoof Wind Rider"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [24170] = {
             [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{39.2,50.2},}},
@@ -62,11 +111,59 @@ function QuestieWotlkNpcFixes:Load()
         [24173] = {
             [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{52.4,3.9},}},
         },
+        [24186] = { --"Sage Mistwalker"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24195] = { --"Winterhoof Longrunner"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24209] = { --"Longrunner Skycloud"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24211] = { --"Freed Winterhoof Longrunner"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24213] = {
+            [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{55.00,57.43}}},
+            [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
+        },
+        [24214] = {
+            [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{55.00,57.43}}},
+            [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
+        },
+        [24215] = {
+            [npcKeys.spawns] = {[zoneIDs.HOWLING_FJORD]={{55.00,57.43}}},
+            [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
+        },
+        [24234] = { --"Junat the Wanderer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24236] = { --"Wind Tamer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24256] = { --"Wind Tamer Kagan"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [24329] = {
             [npcKeys.spawns] = {
                 [zoneIDs.HOWLING_FJORD] = {{72,26.4},{70.3,27.3},{68.7,28.1},{66.5,24.9},{69.7,21.5},{72.6,19.9},{73.6,23.1}},
             },
             [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
+        },
+        [24362] = { --"Longrunner Pembe"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24390] = { --"Sage Edan"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [24440] = {
             [npcKeys.spawns] = {
@@ -78,22 +175,115 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{45.01,17.41}}},
             [npcKeys.zoneID] = zoneIDs.DUROTAR,
         },
+        [24702] = { --"Greatfather Mahan"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24703] = { --"Chieftain Wintergale"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24706] = { --"Durm Icehide"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24709] = { --"Sage Aeire"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24730] = { --"Wind Tamer Barah"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [24733] = { --"Snow Tracker Junek"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [24910] = {
             [npcKeys.spawns] = {
-                [zoneIDs.HOWLING_FJORD] = {{38.1, 74.8}},
+                [zoneIDs.HOWLING_FJORD] = {{37.19,74.79}},
             },
+            [npcKeys.waypoints] = {[zoneIDs.HOWLING_FJORD]={{{37.19,74.79},{37.22,74.80},{37.28,74.80},{37.36,74.81},{37.46,74.83},{37.58,74.87},{37.71,74.94},{37.82,75.07},{37.90,75.24},{37.93,75.46},{37.92,75.71},{37.88,76.01},{37.82,76.37},{37.84,76.74},{37.93,77.01},{38.02,77.33},{38.11,77.69},{38.22,78.10},{38.34,78.53},{38.50,79.00},{38.69,79.48},{38.91,79.90},{39.12,80.21},{39.38,80.50},{39.67,80.78},{39.98,81.05},{40.30,81.31},{40.62,81.56},{40.94,81.78},{41.24,82.00},{41.52,82.19},{41.81,82.38},{42.17,82.62},{42.50,82.83},{42.82,83.00},{43.13,83.14},{43.42,83.24},{43.70,83.31},{44.06,83.36},{44.43,83.35},{44.79,83.27},{45.11,83.16},{45.42,83.03},{45.75,82.79},{45.95,82.35},{46.03,81.83},{46.03,81.30},{46.02,80.80},{45.92,80.33},{45.74,79.89},{45.53,79.48},{45.31,79.12},{45.06,78.73},{44.88,78.28},{44.75,77.81},{44.65,77.29},{43.16,77.68},{43.13,77.68},{43.10,77.69},{43.05,77.69},{42.98,77.68},{42.90,77.67},{42.80,77.64},{42.69,77.60},{42.56,77.54},{42.41,77.45},{42.24,77.34},{42.07,77.21},{41.89,77.06},{41.73,76.91},{41.59,76.77},{41.47,76.64},{41.37,76.53},{41.29,76.43},{41.22,76.34},{41.16,76.28},{41.12,76.23},{41.09,76.19},{41.08,76.17},{41.04,76.12},{41.01,76.08},{40.95,76.03},{40.89,75.96},{40.81,75.88},{40.71,75.78},{40.60,75.67},{40.49,75.54},{40.36,75.40},{40.24,75.25},{40.13,75.10},{40.03,74.97},{39.95,74.85},{39.88,74.74},{39.83,74.65},{39.78,74.57},{39.74,74.51},{39.72,74.47},{39.70,74.44},{39.67,74.41},{39.64,74.36},{39.60,74.29},{39.55,74.20},{39.49,74.10},{39.42,73.97},{39.35,73.81},{39.29,73.62},{39.22,73.41},{39.16,73.18},{39.11,72.97},{39.07,72.78},{39.04,72.61},{39.01,72.47},{38.98,72.35},{38.97,72.25},{38.95,72.18},{38.94,72.13},{38.93,72.11},{38.92,72.08},{38.91,72.04},{38.88,71.97},{38.85,71.87},{38.82,71.75},{38.78,71.61},{38.75,71.43},{38.71,71.22},{38.66,70.99},{38.62,70.72},{38.57,70.45},{38.53,70.21},{38.49,69.99},{38.46,69.81},{38.43,69.66},{38.41,69.53},{38.39,69.42},{38.38,69.34},{38.37,69.28},{38.37,69.25},{38.36,69.23},{38.36,69.19},{38.34,69.13},{38.31,69.05},{38.28,68.95},{38.24,68.82},{38.19,68.67},{38.13,68.50},{38.07,68.31},{37.99,68.11},{37.89,67.89},{37.78,67.66},{37.62,67.43},{37.45,67.28},{37.25,67.19},{37.01,67.13},{36.74,67.11},{36.44,67.13},{36.12,67.20},{35.77,67.35},{35.50,67.56},{35.23,67.84},{34.94,68.16},{34.65,68.51},{34.37,68.87},{34.10,69.25},{33.86,69.61},{33.64,69.96},{33.48,70.36},{33.43,70.83},{33.48,71.32},{33.60,71.82},{33.77,72.30},{33.97,72.75},{34.20,73.17},{34.42,73.53},{34.61,73.87},{34.83,74.16},{35.08,74.36},{35.34,74.50},{35.60,74.60},{35.84,74.66},{36.07,74.71},{36.27,74.75},{36.44,74.78},{36.60,74.80},{36.73,74.81},{36.83,74.82},{36.93,74.83},{37.00,74.82},{37.06,74.82},{37.11,74.81},{37.15,74.80},{37.17,74.79}}}},
             [npcKeys.zoneID] = zoneIDs.HOWLING_FJORD,
+        },
+        [25335] = { --"Longrunner Proudhoof"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [25455] = {
             [npcKeys.spawns] = {[zoneIDs.BOREAN_TUNDRA] = {{50.25,9.66},},},
             [npcKeys.zoneID] = zoneIDs.BOREAN_TUNDRA,
         },
+        [25516] = { --"Snow Tracker Grumm"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [25602] = { --"Greatmother Taiga"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [25604] = { --"Sage Highmesa"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [25658] = { --"Longrunner Bristlehorn"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [25794] = {
             [npcKeys.spawns] = {[zoneIDs.BOREAN_TUNDRA] = {{70.3,36.7},},},
             [npcKeys.zoneID] = zoneIDs.BOREAN_TUNDRA,
         },
+        [25978] = { --"Ambassador Talonga"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [25982] = { --"Sage Earth and Sky"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [25983] = { --"Dorain Frosthoof", "Apprentice Wind Tamer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26104] = { --"Iron Eyes"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26156] = { --"Wartook Iceborn"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26157] = { --"Taunka'le Brave"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26158] = { --"Mother Tauranook"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26159] = { --"Taunka'le Evacuee"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [26170] = {
             [npcKeys.spawns] = {[zoneIDs.BOREAN_TUNDRA] = {{84.8,41.68},},},
+        },
+        [26179] = { --"Taunka'le Refugee"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26184] = { --"Taunka'le Refugee"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26488] = { --"Taunka Pack Kodo"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26584] = { --"Sage Paluna"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [26633] = {
             [npcKeys.spawns] = {
@@ -107,12 +297,92 @@ function QuestieWotlkNpcFixes:Load()
             },
             [npcKeys.zoneID] = zoneIDs.DRAGONBLIGHT,
         },
-        [26935] = {
-            [npcKeys.waypoints] = {},
+        [26680] = { --"Aiyan Coldwind", "Innkeeper"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26697] = { --"Tewah Chillmane", "Leather Armor Merchant"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26707] = { --"Litoko Icetotem", "Armor Merchant"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26709] = { --"Pahu Frosthoof", "Innkeeper"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26718] = { --"Trader Alorn", "General Goods"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26720] = { --"Danook Stormwhisper", "Trade Goods"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26721] = { --"Halona Stormwhisper", "Stable Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [26723] = {
             [npcKeys.spawns] = {[zoneIDs.THE_NEXUS] = {{-1,-1}}},
             [npcKeys.zoneID] = zoneIDs.THE_NEXUS,
+        },
+        [26725] = { --"Wind Tamer Oril"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26766] = { --"Brave Storming Sky"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26790] = { --"Taunka'le Longrunner"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26810] = { --"Roanauk Icemist", "High Chieftain of the Taunka"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26847] = { --"Omu Spiritbreeze", "Wind Rider Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26853] = { --"Makki Wintergale", "Wind Rider Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26935] = {
+            [npcKeys.waypoints] = {},
+        },
+        [26936] = { --"Chaska Frosthoof", "General Goods"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26939] = { --"Koro the Wanderer", "Trade Goods"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26944] = { --"Soulok Stormfury", "Stable Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26950] = { --"Sanut Swiftspear", "Reagents and Poisons"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26986] = { --"Tiponi Stormwhisper", "Grand Master Skinning Trainer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [26996] = { --"Awan Iceborn", "Grand Master Leatherworker"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [27126] = { --"Camp Oneqwah Brave"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [27199] = {
             [npcKeys.spawns] = {[zoneIDs.GRIZZLY_HILLS]={{71.41,23.78}}},
@@ -121,6 +391,10 @@ function QuestieWotlkNpcFixes:Load()
         [27216] = {
             [npcKeys.spawns] = {[zoneIDs.DUROTAR]={{45.25,17.33}}},
             [npcKeys.zoneID] = zoneIDs.DUROTAR,
+        },
+        [27221] = { --"Tormak the Scarred", "Camp Oneqwah Chieftain"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [27315] = {
             [npcKeys.spawns] = {
@@ -185,21 +459,55 @@ function QuestieWotlkNpcFixes:Load()
         [28148] = {
             [npcKeys.spawns] = {},
         },
+        [28314] = { --"Longrunner Nanik"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [28358] = {
             [npcKeys.spawns] = {[zoneIDs.SHOLAZAR_BASIN]={{57.4,52.2},{58.4,53.8},},},
+        },
+        [28587] = {
+            [npcKeys.spawns] = {
+                [zoneIDs.HALLS_OF_LIGHTNING]={{76.53,38.28},{-1,-1}},
+            },
         },
         [28912] = {
             [npcKeys.waypoints] = {},
         },
+        [28923] = {
+            [npcKeys.spawns] = {
+                [zoneIDs.HALLS_OF_LIGHTNING]={{72.53,44.71},{-1,-1}},
+            },
+        },
         [29173] = {
             [npcKeys.waypoints] = {},
+        },
+        [29301] = { --"Camp Winterhoof Wayfarer"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
         },
         [29456] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{19.74,47.93},},},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{20.03,47.56},{20.26,47.70},{20.32,47.93},{20.26,48.16},{20.03,48.30},{19.80,48.16},{19.74,47.93},{19.80,47.70},{20.03,47.56}}}},
         },
+        [29503] = {
+            [npcKeys.waypoints] = {[zoneIDs.STORM_PEAKS] = {{{77.4,62.8},{77.2,63.8},{76.15,63.9}}}},
+        },
+        [29563] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{54.79,60.36}}},
+        },
+        [29595] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{63.24,62.52},{61.48,61.4},{63.0,60.41},{63.84,58.29},{62.76,60.93},{65.35,62.54},{59.82,60.46},{61.29,59.34},{57.85,61.98},{59.23,59.01},{58.58,60.81},},},
+        },
+        [29597] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{60.55,60.22},{57.78,62.32},{60.8,58.67},{60.74,61.13},{59.01,61.85},{59.66,60.87},{58.57,62.99},{59.88,59.07},{58.15,63.85},{58.58,59.45},{56.69,64.95},{56.85,63.18},},},
+        },
+        [29762] = { --"Hyeyoung Parka", "Wind Rider Master"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
         [29795] = {
-            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.78,28.41}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
@@ -219,9 +527,36 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.ZUL_DRAK]={{28.38,44.85},},},
             [npcKeys.waypoints] = {[zoneIDs.ZUL_DRAK]={{{28.38,46.85},{29.79,46.26},{30.38,44.85},{29.79,43.44},{28.38,42.85},{26.97,43.44},{26.38,44.85},{26.97,46.26},{28.38,46.85}}}},
         },
+        [29875] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{43.4,74.2},{44.4,73.8},{45.2,74},{45.4,74.8},{45.8,73},{45.8,75.4},{46.4,74},{46.4,76.2},{46.4,78.4},{46.4,78.8},{46.6,74},{46.6,78.8},{46.8,74.6},{46.8,77.4},{46.8,77.6},{47,72.4},{47,72.6},{47.4,76.2},{47.6,78.8},{48.2,74},{48.2,76.6},{48.4,75},{48.4,75.6},{48.6,77.2},{48.8,79.4},{48.8,79.8},{49,76.4},}},
+            [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        },
         [29895] = {
             [npcKeys.spawns] = {[zoneIDs.ZUL_DRAK]={{16.43,66.79}}},
             [npcKeys.waypoints] = {[zoneIDs.ZUL_DRAK]={{{16.69,66.78},{18.68,66.8},{20.72,66.61},{21.98,66.82},{23.67,66.65},{25.18,66.75},{26.62,66.96},{28.6,66.48},{31.82,66.66},{30.45,66.6},{28.49,66.53},{25.93,66.93},{24.48,66.73},{22.76,66.75},{21.01,66.6},{18.55,66.86},{16.7,66.75},{16.31,66.75},{13.9,67.32},{13.45,67.33},{12.76,66.96},{13.45,66.28},{13.87,66.26},{16.07,66.7}}}},
+        },
+        [29968] = { --"Hapanu Coldwind", "Poisons & Reagents"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [29969] = { --"Ontak", "Blacksmithing Supplies"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [29970] = { --"Danho Farcloud", "General Goods"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [29971] = { --"Wabada Whiteflower", "Innkeeper"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [29973] = { --"Tunka'lo Brave"
+            [npcKeys.friendlyToFaction] = "H",
+            [npcKeys.factionID] = 1064,
+        },
+        [29999] = {
+            [npcKeys.spawns] = {},
         },
         [30222] = {
             [npcKeys.spawns] = {},
@@ -229,9 +564,24 @@ function QuestieWotlkNpcFixes:Load()
         [30082] = {
             [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{38.2,61.6},},},
         },
+        [30120] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{76.8,63},{77,62.2},{77.6,62.6},}},
+            [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        },
+        [30163] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{68.4,58},{68.6,60},{68.6,63.2},{69.2,57},{69.4,58.8},{69.6,59},{69.6,61.2},{70,60.2},{70.2,57.4},{70.2,58.4},{70.2,62.4},{70.6,59.4},{70.6,59.6},{70.8,56.8},{70.8,58.4},{70.8,61.2},{71.8,62.8},{72.4,62.2},{72.6,62.2},}},
+            [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        },
+        [30208] = {
+            [npcKeys.spawns] = {},
+        },
         [30210] = {
             [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{64.21,59.21},},},
             [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        },
+        [30236] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{85.2,75.8},{85.8,76.6},{85.8,78},{86,74.8},},},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [30295] = {
             [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{56.3,51.4},},},
@@ -272,18 +622,45 @@ function QuestieWotlkNpcFixes:Load()
         [30382] = {
             [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{39.4,56.4},},},
         },
+        [30390] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{71.37,48.79}}},
+            [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        },
+        [30469] = {
+            [npcKeys.spawns] = {[zoneIDs.STORM_PEAKS] = {{48.52,54.36}}},
+        },
+        [30575] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{84.2,75.6},{84.4,75},{84.6,76.8},{85,76.2},{85,77.6},{85.2,73.4},{85.2,74.6},{85.4,74},{85.6,73.8},{85.6,78.4},{86.4,76.6},},},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [30593] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{83.4,72.8},{83.8,73.4},{84,74.4},{84.2,75.4},{84.2,75.8},{84.6,73},{84.8,78.6},{84.8,79.6},{85,74.2},{85,76.2},{85.4,74.8},{85.4,76.8},{85.4,78},{85.6,74.2},{85.6,75},{85.6,76.6},{85.8,79.8},{86,78.8},{86.2,75.6},{86.8,75},},},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [30696] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{29.4,61.4},{29.6,61.6},{30.4,60.8},{30.8,61.8},{31.2,60.2},{31.2,61.2},{31.2,63.2},{31.2,65},{31.2,66.8},{31.4,58.4},{31.4,58.6},{31.4,63.6},{31.4,66.4},{31.4,67.6},{31.4,69.4},{31.4,70},{31.6,58.4},{31.6,58.8},{31.6,60.4},{31.6,60.6},{31.6,66.4},{31.6,67.2},{31.6,68},{31.8,68.8},{32,64.4},{32,64.6},{32,70},{32,70.6},{32.6,69.2},{32.8,70.2},{33.2,70.6},{33.4,65.8},{33.4,67.6},{33.8,69.6},{34,68.4},{34.2,69},{34.8,69.2},{34.8,70.4},{35,70.6},{35.2,71.8},{35.4,66.2},{35.4,66.6},{35.6,72},{35.8,70.2},{36.2,66},{36.2,67.6},{36.2,71},{36.4,65.4},{36.4,66.8},{36.6,65.4},{36.6,65.8},{36.6,67},{36.8,67.8},{37,71.2},{37.2,71.6},{37.4,70.4},{37.6,70.4},{37.6,70.8}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [30698] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{29.8,61.6}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
         [30750] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{26.16,62.28}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [30824] = {
-            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.78,28.41}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [30825] = {
-            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.78,28.41}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [30944] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{54.15,71.18}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [31134] = {
@@ -295,8 +672,12 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [31261] = {
-            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.78,28.41}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31306] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{29.8,61.2}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [31440] = {
@@ -306,9 +687,33 @@ function QuestieWotlkNpcFixes:Load()
         [31648] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{54,43}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
-          },
+        },
         [31839] = {
             [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{54,36.6}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31191] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{30.9,29.3}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31222] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{30.9,29.3}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31237] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{53.8,86.9}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31242] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{30.9,29.3}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31271] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{30.9,29.3}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [31277] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{30.9,29.3}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [32195] = {
@@ -328,8 +733,16 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [32301] = {
-            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.5,52.9}}},
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{64.78,28.41}}},
             [npcKeys.waypoints] = {[zoneIDs.ICECROWN]={{{68.5,52.9},{69.8,49.4},{69.8,43.8},{69.6,37.8},{68.8,28.2},{67,26.4},{64.8,28.4},{61.6,31},{60.3,34.4},{62.6,41.4},{66.6,51},{68.5,52.9}}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [32370] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.05,51.83}}},
+            [npcKeys.zoneID] = zoneIDs.ICECROWN,
+        },
+        [32408] = {
+            [npcKeys.spawns] = {[zoneIDs.ICECROWN]={{68.02,51.59}}},
             [npcKeys.zoneID] = zoneIDs.ICECROWN,
         },
         [32430] = {
@@ -352,6 +765,15 @@ function QuestieWotlkNpcFixes:Load()
             [npcKeys.spawns] = {[zoneIDs.DALARAN] = {{52.5,66.5}},},
             [npcKeys.zoneID] = zoneIDs.DALARAN,
         },
+
+        -- Below are fake IDs to show specific quest starts/ends only at one specific location even though the
+        -- corresponding real NPC has multiple spawns (e.g. "The Kessel Run" requires you to run to Azure Watch even
+        -- though "Exarch Menelaous" also spawns at Bloodmyst Isle)
+
+        [80000] = {
+            [npcKeys.name] = "Lorehammer attuned",
+            [npcKeys.zoneID] = zoneIDs.STORM_PEAKS,
+        }
     }
 end
 

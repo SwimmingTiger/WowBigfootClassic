@@ -293,7 +293,7 @@ if class == "PRIEST" then
 
 -- [[ COVENANTS ]]
 Spell( 325013 ,{ --[[Kyrian]] name = "Boon of the Ascended", group = "buffs", priority = -7, duration = 10, color = colors.PINK3 })
-Spell( 323673 ,{ --[[Venthyr]] name = "Mindgames", duration = 5, color = colors.LRED })
+Spell( 375901 ,{ --[[Venthyr]] name = "Mindgames", duration = 5, color = colors.LRED })
 Spell( 325203 ,{ --[[Necrolord]] name = "Unholy Transfusion", duration = 15, maxtimers = 1, ghost = 2, color = colors.TEAL3 })
 Spell( 327661 ,{ --[[Night Fae]] name = "Fae Guardians", group = "buffs", priority = -7, duration = 20, ghost = 2, color = colors.PINK3 })
 
@@ -353,7 +353,6 @@ Cooldown( 10060, { name = "Power Infusion", color = colors.DBROWN, scale_until =
 -- Spell( 205372, { name = "Void Ray", duration = 6, group = "buffs", priority = -20, scale = 0.5, color = colors.PINK3 })
 Spell( 194249 ,{ name = "Voidform", duration = 1, arrow = colors.REJUV, priority = -20, scale = 0.8, group = "buffs", shine = true, color = colors.PINK3 })
 Cooldown( 228260 ,{ name = "Voidform", color = colors.REJUV, scale_until = 10, shine = true, ghost = 7, ghosteffect = "JUDGEMENT", priority = -20 })
-Spell( 319952 ,{ name = "Surrender to Madness", short = "STM", duration = 25, arrow = colors.CURSE, priority = -21, group = "buffs", shine = true, color = colors.PURPLE4, target = "player" })
 
 -- Spell( 47753 ,{ name = "Divine Aegis", duration = 12 })
 
@@ -518,7 +517,6 @@ Cooldown( 212283 ,{ name = "Symbols", ghost = 5, ghosteffect = "AEGWYNN", color 
 
 Spell( 1833  ,{ name = "Cheap Shot", duration = 4, color = colors.LRED })
 Spell( 408   ,{ name = "Kidney Shot", shine = true, duration = function() return 1+GetCP() end, color = colors.LRED })
-Spell( 199804   ,{ name = "Between the Eyes", shine = true, duration = function() return GetCP() end, color = colors.LRED })
 Spell( 1776  ,{ name = "Gouge", color = colors.PINK, duration = 4 })
 Spell( 2094  ,{ name = "Blind",duration = 60, pvpduration = 8, color = {0.20, 0.80, 0.2} })
 
@@ -625,7 +623,6 @@ Spell( 23920 ,{ name = "Spell Reflect", color = colors.LBLUE, group = "buffs", a
 
 Spell( 213858 ,{ name = "Battle Trance", color = colors.LGREEN, group = "buffs", duration = 18, shine = true })
 Spell( 199261 ,{ name = "Death Wish", color = colors.PINKIERED, group = "buffs", duration = 15, shine = true, shinerefresh = true, priority = -100, arrow = colors.PINKIERED, glow2time = 3 })
--- Spell( 262232 ,{ name = "War Machine", priority = -1, color = colors.RED2, shine = true, shinerefresh = true, duration = 10, group = "buffs" })
 
 Spell( 85739 ,{ name = "Whirlwind", short = "", glowtime = 20, group = "buffs", priority = -100503, color = colors.TEAL2, shine = true, scale = 0.8, duration = 20, charged = true, maxcharge = 2,
     init = function(self)
@@ -738,7 +735,7 @@ EventTimer({ spellID = 100130, event = "SPELL_CAST_SUCCESS", priority = 12, name
 -- Spell( 60503 ,{ name = "Overpower", priority = 9, overlay = {0,7, 0.3}, fixedlen = 9, shinerefresh = true, shine = true, color = colors.PINKIERED, duration = 12 }) -- Taste for blood --removed
 
 Cooldown( 23881, { name = "Bloodthirst", fixedlen = 9, tick = 1.5, tickshine = true, overlay = {"tick", "end"}, short = "", priority = 10, check_known = true, ghost = true,  color = colors.CURSE })
-Cooldown( 85288, { name = "Raging Blow", fixedlen = 9, short = "", priority = 9, ghost = true,  color = colors.PINKIERED, stackcolor = { colors.RED2, colors.PINKIERED } })
+Cooldown( 85288, { name = "Raging Blow", fixedlen = 9, short = "", priority = 9, ghost = true,  color = colors.PINKIERED, stackcolor = { colors.RED2, colors.RED2, colors.PINKIERED } })
 Activation( 85288, { for_cd = true, effect = "SLICENDICE", ghost = 3})
 Cooldown( 118000 ,{ name = "Dragon Roar", fixedlen = 9, ghost = 3, priority = 7, ghost = true, scale = 0.8, color = colors.DBROWN, scale_until = 10 })
 Cooldown( 315720 ,{ name = "Onslaught", fixedlen = 9, priority = 8, ghost = true, color = colors.PINK })
