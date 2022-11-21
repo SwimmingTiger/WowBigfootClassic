@@ -1,3 +1,0 @@
-## Title: |cffff1818Modern TargetFrame|r
-## Notes: This addon will not load due to client incompatability|nPlease remove it from your AddOn directory
-# This ToC file is depreciated and only exists to satisfy automated upload checks
