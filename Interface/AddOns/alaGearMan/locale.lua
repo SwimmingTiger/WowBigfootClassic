@@ -9,6 +9,7 @@ local ADDON, NS = ...;
 local L = setmetatable({  }, { __newindex = function(t, k, v) rawset(t, k, (v == true) and k or v); end});
 local LOCALE = GetLocale();
 if LOCALE == 'zhCN' then
+	L["UseBLZEquipmentManager"] = "3.40版本客户端自带装备管理器，ESC-界面-特色-启用装备管理器";
 	L["INVENTORY_IS_FULL"] = "背包已满！";
 	L["IN_COMBAT"] = "战斗状态中无法换装！";
 	L["BE_DEAD"] = "你已经死亡！";
@@ -19,6 +20,8 @@ if LOCALE == 'zhCN' then
 	L["Save"] = "保存";
 	L["Equip"] = "装备";
 	L["Style"] = "风格";
+	L["UseMacro"] = "自动创建宏";
+	L["UseMacro_false"] = "不自动创建宏";
 	L["useBar"] = "显示按钮";
 	L["useBar_false"] = "隐藏按钮";
 	L["Style_TC"] = "文字+图标风格";
@@ -79,6 +82,7 @@ if LOCALE == 'zhCN' then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "套装9";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "一键脱光";
 elseif LOCALE == 'zhTW' then
+	L["UseBLZEquipmentManager"] = "3.40版本客户端自带装备管理器，ESC-界面-特色-启用装备管理器";
 	L["INVENTORY_IS_FULL"] = "背包已滿！";
 	L["IN_COMBAT"] = "戰鬥狀態中無法換裝！";
 	L["BE_DEAD"] = "你已經死亡！";
@@ -89,6 +93,8 @@ elseif LOCALE == 'zhTW' then
 	L["Save"] = "保存";
 	L["Equip"] = "裝備";
 	L["Style"] = "風格";
+	L["UseMacro"] = "自動創建宏";
+	L["UseMacro_false"] = "不自動創建宏";
 	L["useBar"] = "顯示按鈕";
 	L["useBar_false"] = "隱藏按鈕";
 	L["Style_TC"] = "文字+圖標風格";
@@ -149,6 +155,7 @@ elseif LOCALE == 'zhTW' then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "套裝9";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "一鍵脫光";
 elseif LOCALE == "ruRU" then
+	L["UseBLZEquipmentManager"] = "The built-in GearManager could be enabled by step  ESC-Inteface-Features";
 	L["INVENTORY_IS_FULL"] = "Инвентарь полон";
 	L["IN_COMBAT"] = "Не может измениться в бою!";
 	L["BE_DEAD"] = "You are DIED!";
@@ -159,6 +166,8 @@ elseif LOCALE == "ruRU" then
 	L["Save"] = "Сохранить";
 	L["Equip"] = "Экипировка";
 	L["Style"] = "Стиль";
+	L["UseMacro"] = "Auto Create Macro";
+	L["UseMacro_false"] = "Donot Create Macro";
 	L["useBar"] = "Show buttons";
 	L["useBar_false"] = "Hide Buttons";
 	L["Style_TC"] = "Стиль текста и значков";
@@ -219,6 +228,7 @@ elseif LOCALE == "ruRU" then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "The 9th outfit";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "Снять все снаряжение";
 elseif LOCALE == "koKR" then
+	L["UseBLZEquipmentManager"] = "The built-in GearManager could be enabled by step  ESC-Inteface-Features";
 	L["INVENTORY_IS_FULL"] = "가방이 꽉 찼습니다.";
 	L["IN_COMBAT"] = "전투중!";
 	L["BE_DEAD"] = "당신은 죽었습니다.!";
@@ -229,6 +239,8 @@ elseif LOCALE == "koKR" then
 	L["Save"] = "저장";
 	L["Equip"] = "착용";
 	L["Style"] = "모양";
+	L["UseMacro"] = "Auto Create Macro";
+	L["UseMacro_false"] = "Donot Create Macro";
 	L["useBar"] = "버튼 표시";
 	L["useBar_false"] = "버튼 숨기기";
 	L["Style_TC"] = "글자 & 아이콘";
@@ -289,6 +301,7 @@ elseif LOCALE == "koKR" then
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_9 = "9번";
 	_G.BINDING_NAME_ALAGEARMAN_QUICK_X = "장비벗기";		
 else
+	L["UseBLZEquipmentManager"] = "The built-in GearManager could be enabled by step  ESC-Inteface-Features";
 	L["INVENTORY_IS_FULL"] = "Inventory is full";
 	L["IN_COMBAT"] = "In Combat";
 	L["BE_DEAD"] = "You are DIED!";
@@ -299,6 +312,8 @@ else
 	L["Save"] = true;
 	L["Equip"] = true;
 	L["Style"] = true;
+	L["UseMacro"] = "Auto Create Macro";
+	L["UseMacro_false"] = "Donot Create Macro";
 	L["useBar"] = "Show buttons";
 	L["useBar_false"] = "Hide Buttons";
 	L["Style_TC"] = "Text & Texture";

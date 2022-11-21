@@ -13,6 +13,7 @@
 	<!-- <script file = "fix.lua" /> -->
 	<script file = "coder.lua" />
 	<script file = "comm.lua" />
+	<script file = "menu.lua" />
 	<script file = "drop.lua" />
 	<script file = "popup.lua" />
 	<!-- <script file = "instlock.lua" /> -->

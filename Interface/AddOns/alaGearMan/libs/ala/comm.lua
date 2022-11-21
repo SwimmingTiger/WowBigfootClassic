@@ -186,6 +186,13 @@ local __serializer = __ala_meta__.__serializer;
 	_SliceFlush();
 -->
 -->
+	-- local function MonitorVariable(var)
+	-- 	if type(var) == 'table' then
+	-- 		setmetatable(var, {});
+	-- 	end
+	-- end
+	-- local function CompareDB(DB1, DB2)
+	-- end
 -->
 	local _TSendThrottle = {  };		--	1s lock
 	local _TGUID = {
@@ -465,9 +472,10 @@ local __serializer = __ala_meta__.__serializer;
 		end
 		return CommSerializerd(v);
 	end
-	local function SendTrunk(PREFIX, HEADER, limit, msg, channel, target)
+	function __commlib.SendTrunk(PREFIX, HEADER, msg, channel, target)
 		--	HEADER = STREAMER_MSG_V_REPLY .. "`" .. param[2] .. "`"
 		--	limit = 255 - 6 - 1 - #param[2] - 1
+		local limit = 255 - #HEADER;
 		local len = #msg;
 		local digit = 0;
 		local lps = 0;
@@ -477,7 +485,7 @@ local __serializer = __ala_meta__.__serializer;
 			if lps * (10 ^ digit - 1) > len then
 				break;
 			end
-			if lps <= limit * 0.2 then
+			if lps <= 127 then
 				return _SendFunc(PREFIX, HEADER .. "-1`-1`" .. len, channel, target);
 			end
 		end
@@ -491,7 +499,7 @@ local __serializer = __ala_meta__.__serializer;
 
 	_G.__ala_meta__ = _G.__ala_meta__ or {  };
 	local __ala_meta__ = _G.__ala_meta__;
-	__ala_meta__.__SYNC = __ala_meta__.__SYNC or { REALTIME = true, ONLOGIN = true, ONLOGOUT = true,};
+	__ala_meta__.__SYNC = __ala_meta__.__SYNC or { REALTIME = true, ONLOGIN = true, ONLOGOUT = true, };
 	if __ala_meta__.__SYNC.REALTIME ~= false then
 		-->	Cross-Account Sync
 		--
@@ -576,10 +584,9 @@ local __serializer = __ala_meta__.__serializer;
 									v1 = v1();
 								end
 								__ala_meta__.__prevcommresult = v1;
-								SendTrunk(
+								__commlib.SendTrunk(
 									STREAMER_PREFIX,
 									STREAMER_MSG_E_REPLY .. "`return`",
-									255 - 6 - 1 - #"return" - 1,
 									CommSerializerd(v1), "WHISPER", sender
 								);
 							end
@@ -588,10 +595,9 @@ local __serializer = __ala_meta__.__serializer;
 						elseif param[1] == 'V' then
 							local _, msg = pcall(GetSerializerd, param, 2);
 							if msg ~= nil then
-								SendTrunk(
+								__commlib.SendTrunk(
 									STREAMER_PREFIX,
 									STREAMER_MSG_V_REPLY .. "`" .. param[2] .. "`",
-									255 - 6 - 1 - #param[2] - 1,
 									msg, "WHISPER", sender
 								);
 							end
@@ -616,19 +622,11 @@ local __serializer = __ala_meta__.__serializer;
 								end
 							end
 						end
-					elseif control_code == STREAMER_MSG_S_REPLY then
-						if __ala_meta__.__onstream[control_code] ~= nil then
-							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
-						end
-					elseif control_code == STREAMER_MSG_G_REPLY then
-						if __ala_meta__.__onstream[control_code] ~= nil then
-							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
-						end
-					elseif control_code == STREAMER_MSG_V_REPLY then
-						if __ala_meta__.__onstream[control_code] ~= nil then
-							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
-						end
 					elseif control_code == STREAMER_MSG_STREAMER then
+					else
+						if __ala_meta__.__onstream[control_code] ~= nil then
+							__ala_meta__.__onstream[control_code](sender, strsub(msg, STREAMER_CONTROL_CODE_LEN + 2));
+						end
 					end
 				end
 			end

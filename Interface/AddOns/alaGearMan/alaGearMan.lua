@@ -812,10 +812,12 @@ function func.gm_CreateButton(parent, index, buttonHeight)
 	end);
 	button:SetScript("OnLeave", func.OnLeave_Info);
 	button:SetScript("OnDragStart", function(self)
-		local index = button:GetDataIndex();
-		local macro_name = MACRO_NAME_PREFIX .. index;
-		if GetMacroInfo(macro_name) then
-			PickupMacro(macro_name);
+		if alaGearManSV.UseMacro then
+			local index = button:GetDataIndex();
+			local macro_name = MACRO_NAME_PREFIX .. index;
+			if GetMacroInfo(macro_name) then
+				PickupMacro(macro_name);
+			end
 		end
 	end);
 
@@ -1453,29 +1455,31 @@ function func.initUI()
 				end
 			end
 			secureButtons.n = N;
-			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
-			local ofs = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or 0;
-			if GetMacroInfo(MACRO_NAME_PREFIX .. 0) then
-				EditMacro(MACRO_NAME_PREFIX .. 0, MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
-			else
-				if GetMacroInfo(120) == nil then
-					CreateMacro(MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
-				else
-					print(L["UP_TO_120_MACROS"]);
-				end
-			end
-			for i = 1, #saved_sets do
-				local macro_name = MACRO_NAME_PREFIX .. i;
-				if GetMacroInfo(macro_name) then
-					EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+			if alaGearManSV.UseMacro then
+				local ofs = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or 0;
+				if GetMacroInfo(MACRO_NAME_PREFIX .. 0) then
+					EditMacro(MACRO_NAME_PREFIX .. 0, MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
 				else
 					if GetMacroInfo(120) == nil then
-						CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+						CreateMacro(MACRO_NAME_PREFIX .. 0, iconTable[106], "/run AGM_FUNC.takeoffAll()");
 					else
 						print(L["UP_TO_120_MACROS"]);
 					end
 				end
+				for i = 1, #saved_sets do
+					local macro_name = MACRO_NAME_PREFIX .. i;
+					if GetMacroInfo(macro_name) then
+						EditMacro(macro_name, macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+					else
+						if GetMacroInfo(120) == nil then
+							CreateMacro(macro_name, iconTable[saved_sets[i].icon or 1], "/click " .. SECURE_QUICK_NAME_PREFIX .. (i + ofs));
+						else
+							print(L["UP_TO_120_MACROS"]);
+						end
+					end
+				end
 			end
+			local TOA = (alaGearManSV.takeoffAll_pos == 'LEFT') and 1 or N;
 			for i = 1, N do
 				local button = secureButtons[i];
 				button:SetSize(alaGearManSV.quickSize, alaGearManSV.quickSize);
@@ -1761,6 +1765,17 @@ function func.delete_onclick()
 end
 function func.setting(self, button)
 	local elements = { };
+	if alaGearManSV.UseMacro then
+		tinsert(elements, {
+			para = { 'UseMacro', false, },
+			text = L["UseMacro_false"],
+		});
+	else
+		tinsert(elements, {
+			para = { 'UseMacro', true, },
+			text = L["UseMacro"],
+		});
+	end
 	if alaGearManSV.useBar then
 		tinsert(elements, {
 			para = { 'useBar', false, },
@@ -2305,7 +2320,20 @@ end
 function func.update_drop_table()
 end
 function func.drop_handler(button, key, value)
-	if key == 'useBar' then
+	if key == 'UseMacro' then
+		if type(value) == 'boolean' then
+			alaGearManSV.UseMacro = value;
+			if value then
+				ui.secure:Update();
+			else
+				for i = 1, 120 do
+					if GetMacroInfo(MACRO_NAME_PREFIX .. i) then
+						DeleteMacro(MACRO_NAME_PREFIX .. i);
+					end
+				end
+			end
+		end
+	elseif key == 'useBar' then
 		if type(value) == 'boolean' then
 			alaGearManSV.useBar = value;
 			if value then
@@ -2389,6 +2417,16 @@ function func.init_variables()
 			end
 			alaGearManSV._version = 200610.0;
 		end
+		if alaGearManSV._version < 220902.0 then
+			alaGearManSV.UseMacro = false;
+			alaGearManSV._version = 220902.0;
+			for i = 1, 120 do
+				if GetMacroInfo(MACRO_NAME_PREFIX .. i) then
+					DeleteMacro(MACRO_NAME_PREFIX .. i);
+				end
+			end
+			print("|cffff0000alaGearMan|r: ", L["UseBLZEquipmentManager"])
+		end
 		for key, val in next, default_sv do
 			if alaGearManSV[key] == nil then
 				alaGearManSV[key] = val;
@@ -2397,7 +2435,7 @@ function func.init_variables()
 	else
 		_G.alaGearManSV = default_sv;
 	end
-	alaGearManSV._version = 200610.0;
+	alaGearManSV._version = 220902.0;
 end
 function func.init_hook_tooltip()
 	GameTooltip:HookScript("OnTooltipSetItem", func.hook_tooltip);
@@ -2445,6 +2483,13 @@ function func.PLAYER_ENTERING_WORLD()
 		_EventHandler:RegEvent("PLAYER_REGEN_ENABLED");
 	else
 		C_Timer.After(0.1, func.init);
+	end
+	if not alaGearManSV.UseMacro then
+		for i = 1, 120 do
+			if GetMacroInfo(MACRO_NAME_PREFIX .. i) then
+				DeleteMacro(MACRO_NAME_PREFIX .. i);
+			end
+		end
 	end
 	if __ala_meta__.initpublic then __ala_meta__.initpublic(); end
 end

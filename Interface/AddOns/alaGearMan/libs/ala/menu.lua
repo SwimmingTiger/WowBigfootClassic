@@ -2,20 +2,22 @@
 	ALA@163UI
 --]]--
 --[=[
-	ALADROP = DropMenu.ShowMenu
-	ALADROP(parent, anchor, data, useMousePosition)
+	ALAMENU = __menulib.ShowMenu
+	ALAMENU(parent, anchor, data, param, useMousePosition)
 	data
 			handler		(function)
+			param		(any)
+			num			(number)
 			__onshowprepend	[optional]
 			__onshowappend	[optional]
-			__onhide	[optional]
+			__onhide		[optional]
 			__buttononshow	[optional]
 			__buttononhide	[optional]
 			__buttononenter	[optional]
 			__buttononleave	[optional]
-			elements[i]	(table)[optional]
+			[]{
 										handler		(function)[optional]
-										para		(table)for parameter
+										param		(any)parameter
 										text		(string)
 										--info		(string)
 										show/hide
@@ -23,25 +25,26 @@
 										__onhide	[optional]
 										__onenter	[optional]
 										__onleave	[optional]
+			}
 ]=]
 
-local __version = 220808.0;
+local __version = 220824.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
 local __ala_meta__ = _G.__ala_meta__;
 
 -->			versioncheck
-	local DropMenu = _G.alaDropMenu;
-	if DropMenu ~= nil and DropMenu.__minor ~= nil and DropMenu.__minor >= __version then
+	local __menulib = __ala_meta__.__menulib;
+	if __menulib ~= nil and __menulib.__minor ~= nil and __menulib.__minor >= __version then
 		return;
-	elseif DropMenu == nil or DropMenu.Halt == nil then
-		DropMenu = {  };
-		_G.alaDropMenu = DropMenu;
+	elseif __menulib == nil or __menulib.Halt == nil then
+		__menulib = {  };
+		__ala_meta__.__menulib = __menulib;
 	else
-		DropMenu:Halt();
+		__menulib:Halt();
 	end
-	DropMenu.__minor = __version;
+	__menulib.__minor = __version;
 
 -->
 local uireimp = __ala_meta__.uireimp;
@@ -49,7 +52,6 @@ local uireimp = __ala_meta__.uireimp;
 
 -->			upvalue
 	local type = type;
-	local unpack = unpack;
 	local GetCursorPosition = GetCursorPosition;
 	local _ = nil;
 
@@ -134,11 +136,11 @@ local uireimp = __ala_meta__.uireimp;
 		for index = 1, Menu.__numbuttons do
 			local Button = Buttons[index];
 			if Button.__onhide ~= nil then
-				Button:__onhide(Button.meta);
+				Button:__onhide(Menu.param, Button.param);
 			end
 		end
 		if Menu.__onhide ~= nil then
-			Menu:__onhide();
+			Menu:__onhide(Menu.param);
 		end
 	end
 	local function SetMenu(Menu)
@@ -173,26 +175,26 @@ local uireimp = __ala_meta__.uireimp;
 	end
 
 	local function MenuButtonOnClick(Button, button)
-		if Button.handler then
-			Button.handler(button, unpack(Button.para));
+		if Button.handler ~= nil then
+			Button.handler(button, Button.Menu.param, Button.param);
 		else
-			Button.Menu.handler(button, unpack(Button.para));
+			Button.Menu.handler(button, Button.Menu.param, Button.param);
 		end
 		Button.Menu:Hide();
 	end
 	local function MenuButtonOnEnter(Button)
 		MenuOnEnter(Button.Menu);
 		if Button.__onenter ~= nil then
-			return Button:__onenter(unpack(Button.para));
+			return Button:__onenter(Button.Menu.param, Button.param);
 		end
 	end
 	local function MenuButtonOnLeave(Button)
 		MenuOnLeave(Button.Menu);
 		if Button.__onleave ~= nil then
-			return Button:__onleave(unpack(Button.para));
+			return Button:__onleave(Button.Menu.param, Button.param);
 		end
 	end
-	local function MenuCloseOnClick(Button, Menu)
+	local function MenuCloseOnClick(Button, param, Menu)
 		Menu:Hide();
 	end
 	local function SetButton(Button)
@@ -240,7 +242,7 @@ local uireimp = __ala_meta__.uireimp;
 	end
 
 -->			Method
-	local function GetMenu(parent, anchor, useMousePosition)
+	local function GetMenu(parent, anchor, useMousePosition, sideJustified)
 		local Menu = nil;
 		--[[if frameToMenu[parent] then
 			Menu = frameToMenu[parent];
@@ -279,24 +281,44 @@ local uireimp = __ala_meta__.uireimp;
 			end
 		else
 			if anchor == "TOPRIGHT" then
-				Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				end
 			elseif anchor == "TOPLEFT" then
-				Menu:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMRIGHT", parent, "TOPRIGHT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", 0, 0);
+				end
 			elseif anchor == "BOTTOMRIGHT" then
-				Menu:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("TOPLEFT", parent, "BOTTOMLEFT", 0, 0);
+				else
+					Menu:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", 0, 0);
+				end
 			elseif anchor == "BOTTOMLEFT" then
-				Menu:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("TOPRIGHT", parent, "BOTTOMRIGHT", 0, 0);
+				else
+					Menu:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", 0, 0);
+				end
 			elseif anchor == "TOP" then
-				Menu:SetPoint("BOTTOM", parent, "TOP", 0, 0);
+					Menu:SetPoint("BOTTOM", parent, "TOP", 0, 0);
 			elseif anchor == "BOTTOM" then
-				Menu:SetPoint("TOP", parent, "BOTTOM", 0, 0);
+					Menu:SetPoint("TOP", parent, "BOTTOM", 0, 0);
 			else
-				Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				if sideJustified then
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPLEFT", 0, 0);
+				else
+					Menu:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", 0, 0);
+				end
 			end
 		end
 		return Menu;
 	end
-	local function ShowMenu(parent, anchor, data, useMousePosition)
+	local function ShowMenu(parent, anchor, data, param, useMousePosition, sideJustified)
 		local Menu = frameToMenu[parent];
 		if Menu ~= nil and Menu:IsShown() then
 			Menu:Hide();
@@ -304,24 +326,26 @@ local uireimp = __ala_meta__.uireimp;
 			Menu.__flag = nil;
 			return;
 		end
-		if type(data) ~= "table" or (data[1] == nil and type(data.elements) ~= "table") then
+		if type(data) ~= "table" or data[1] == nil then
 			return;
 		end
-		Menu = GetMenu(parent, anchor, useMousePosition);
+		Menu = GetMenu(parent, anchor, useMousePosition, sideJustified);
+		Menu.meta = data;
 		Menu.handler = data.handler;
+		Menu.param = param;
 
 		if data.__onshowprepend ~= nil then
-			data.__onshowprepend(Menu);
+			data.__onshowprepend(Menu, param);
 			Menu.__onhide = data.__onhide or SetMenu;
 		end
 
 		local Buttons = Menu.Buttons;
-		local elements = data.elements or data;
+		local num = data.num or #data;
 
 		local width = -1;
 		local numButtons = 0;
-		for i = 1, #elements do
-			local ele = elements[i];
+		for i = 1, num do
+			local ele = data[i];
 			if ele.show ~= false and not ele.hide then
 				numButtons = numButtons + 1;
 				local Button = Buttons[numButtons];
@@ -332,13 +356,13 @@ local uireimp = __ala_meta__.uireimp;
 
 				Button.meta = ele;
 				Button.handler = ele.handler;
-				Button.para = ele.para;
+				Button.param = ele.param;
 				Button:Show();
 
 				Button.Text:SetText(ele.text);
 				local __onshow = ele.__onshow or data.__buttononshow;
 				if __onshow ~= nil then
-					__onshow(Button, ele);
+					__onshow(Button, param, ele.param);
 					Button.__onhide = ele.__onhide or data.__buttononhide or SetButton;
 				end
 
@@ -358,7 +382,7 @@ local uireimp = __ala_meta__.uireimp;
 			Buttons[numButtons] = Button;
 		end
 		Button.handler = MenuCloseOnClick;
-		Button.para = { Menu, };
+		Button.param = Menu;
 		Button:Show();
 		Button.Text:SetText("close");
 		local w = Button.Text:GetWidth();
@@ -381,7 +405,7 @@ local uireimp = __ala_meta__.uireimp;
 		Menu:SetHeight(MenuButtonHeight * numButtons + MenuButtonInterval * (numButtons - 1) + MenuButtonToVBorder * 2);
 
 		if data.__onshowappend ~= nil then
-			data.__onshowappend(Menu);
+			data.__onshowappend(Menu, param);
 			Menu.__onhide = data.__onhide or SetMenu;
 		end
 
@@ -399,10 +423,10 @@ local uireimp = __ala_meta__.uireimp;
 -- end
 -- C_Timer.NewTicker(0.2, Update);
 
-DropMenu.ShowMenu = ShowMenu;
--- DropMenu.HideMenu = HideMenu;
+__menulib.ShowMenu = ShowMenu;
+-- __menulib.HideMenu = HideMenu;
 
-function DropMenu:Halt()
+function __menulib:Halt()
 	for index = 1, MenuList.total do
 		-- MenuOnEvent(MenuList[index], (isRetail or isWLK) and "GLOBAL_MOUSE_UP" or (isBCC and "PLAYER_STARTED_LOOKING" or "CURSOR_UPDATE"));
 		MenuList[index]:Hide();
@@ -413,4 +437,4 @@ function DropMenu:Halt()
 	end
 end
 
-_G["ALADROP"] = ShowMenu;
+_G["ALAMENU"] = ShowMenu;

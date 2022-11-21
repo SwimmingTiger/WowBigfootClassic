@@ -21,6 +21,11 @@ local __ala_meta__ = _G.__ala_meta__;
 	local ScrollList = _G.alaScrollList;
 	if ScrollList ~= nil and ScrollList.__minor ~= nil and ScrollList.__minor >= __version then
 		return;
+	elseif ScrollList == nil or ScrollList.Halt == nil then
+		ScrollList = {  };
+		_G.alaScrollList = ScrollList;
+	else
+		ScrollList:Halt();
 	end
 	ScrollList = ScrollList or {  };
 	ScrollList.__minor = __version;
@@ -43,9 +48,9 @@ local __ala_meta__ = _G.__ala_meta__;
 		width = width and max(width, def_inner_size) or def_inner_size;
 		height = height and max(height, def_inner_size) or def_inner_size;
 
-		local scrollFrame = CreateFrame("SCROLLFRAME", nil, parent);
-		local scrollChild = CreateFrame("FRAME", nil, scrollFrame);
-		local scrollBar = CreateFrame("SLIDER", nil, scrollFrame);
+		local scrollFrame = CreateFrame('SCROLLFRAME', nil, parent);
+		local scrollChild = CreateFrame('FRAME', nil, scrollFrame);
+		local scrollBar = CreateFrame('SLIDER', nil, scrollFrame);
 		local buttons = {};
 		local nButtonsShown = 0;
 		local ofsIndex = 0;
@@ -289,6 +294,5 @@ local __ala_meta__ = _G.__ala_meta__;
 
 -->
 
-_G.alaScrollList = ScrollList;
 _G["ALASCR"] = ScrollList.CreateScrollFrame;
 

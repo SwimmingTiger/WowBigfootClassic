@@ -2,7 +2,7 @@
 	alex/ALA @ 163UI
 --]]--
 
-local __version = 8;
+local __version = 220908.0;
 
 local _G = _G;
 _G.__ala_meta__ = _G.__ala_meta__ or {  };
@@ -12,34 +12,68 @@ if __coder ~= nil and __coder.__minor >= __version then
 	return;
 end
 
+local ISRETAIL = __ala_meta__.TOC_VERSION >= 90000;
+local ISCLASSIC = __ala_meta__.TOC_VERSION < 20000;
+local ISBCC = __ala_meta__.TOC_VERSION >= 20000 and __ala_meta__.TOC_VERSION < 30000;
+local ISWLK = __ala_meta__.TOC_VERSION >= 30000 and __ala_meta__.TOC_VERSION < 90000;
 local DEVELOPER;
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+if ISRETAIL then
+	DEVELOPER = {
+		--	Mainline
+		["Player-962-0509AC92"] = "B",	--	"燃烧之刃.ALEX.WARRIOR",
+		["Player-962-04FEC839"] = "B",	--	"燃烧之刃.ALEX.MAGE",
+		["Player-962-0509E004"] = "B",	--	"燃烧之刃.ALEX.PALADIN",
+		["Player-962-0509E001"] = "B",	--	"燃烧之刃.ALEX.DRUID",
+		["Player-962-0509E049"] = "B",	--	"燃烧之刃.ALEX.PRIEST",
+		--
+		["Player-962-0509ACEF"] = "G",	--	"燃烧之刃.ANDREA.MAGE",
+		["Player-962-0508A77F"] = "G",	--	"燃烧之刃.ANDREA.DRUID",
+		["Player-962-0508A6CC"] = "G",	--	"燃烧之刃.ANDREA.SHAMAN",
+		["Player-962-0508ADA1"] = "G",	--	"燃烧之刃.ANDREA.HUNTER",
+		["Player-962-0508AD8B"] = "G",	--	"燃烧之刃.ANDREA.WARRIOR",
+		["Player-962-0508ADDC"] = "G",	--	"燃烧之刃.ANDREA.PRIEST",
+		["Player-962-0508AD43"] = "G",	--	"燃烧之刃.ANDREA.PALADIN",
+		["Player-962-0508AD11"] = "G",	--	"燃烧之刃.ANDREA.ROGUE",
+		["Player-962-04FF445B"] = "G",	--	"燃烧之刃.ANDREA.PALADIN-MINUS",
+		["Player-962-0509EA70"] = "G",	--	"燃烧之刃.ANDREA.PRIEST-MINUS",
+		--
+		["Player-962-05469808"] = "B",	--	"金色平原.ALEX.WARRIOR"
+		["Player-962-04FEC839"] = "B",	--	"金色平原.ALEX.MAGE"
+		--
+		["Player-962-0509ACEF"] = "G",	--	"金色平原.ANDREA.MAGE"
+		["Player-962-0508A6CC"] = "G",	--	"金色平原.ANDREA.SHAMAN"
+		-- ["Player-962-0509ADA1"] = "G",	--	"金色平原.ANDREA.DRUID"
+	};
+elseif ISCLASSIC then
 	DEVELOPER = {
 		--	Classic
 		["Player-5376-05B22FA4"] = "B",	--	"哈霍兰.ALEX.PALADIN"
 	};
-elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
+else
 	DEVELOPER = {
 		--	BCC
 		["Player-4497-0388473F"] = "B",	--	"碧玉矿洞.ALEX.WARRIOR"
 		["Player-4497-038D0E9A"] = "B",	--	"碧玉矿洞.ALEX.PALADIN"
+		["Player-4497-0507173B"] = "B",	--	"碧玉矿洞.ALEX.DEATHKNIGHT"
 		["Player-4497-0392FA91"] = "B",	--	"碧玉矿洞.ALEX.MAGE"
 		["Player-4497-038E14E4"] = "B",	--	"碧玉矿洞.ALEX.SHAMAN"
 		["Player-4497-03F0D909"] = "B",	--	"碧玉矿洞.ALEX.HUNTER"
 		["Player-4497-039DEE62"] = "B",	--	"碧玉矿洞.ALEX.DRUID"
 		["Player-4497-040FF31B"] = "B",	--	"碧玉矿洞.ALEX.WARLOCK"
 		["Player-4497-04105E08"] = "B",	--	"碧玉矿洞.ALEX.ROGUE"
-		["Player-4497-039DF9BC"] = "B",	--	"碧玉矿洞.ALEX.PRIEST.MINOR"
+		["Player-4497-039DF9BC"] = "B",	--	"碧玉矿洞.ALEX.PRIEST"
 		--
 		["Player-4497-03985947"] = "G",	--	"碧玉矿洞.ANDREA.PRIEST"
 		["Player-4497-03871A80"] = "G",	--	"碧玉矿洞.ANDREA.SHAMAN"
 		["Player-4497-0395C790"] = "G",	--	"碧玉矿洞.ANDREA.HUNTER"
+		["Player-4497-04FE92E9"] = "G",	--	"碧玉矿洞.ANDREA.DEATHKNIGHT"
 		["Player-4497-03C3B443"] = "G",	--	"碧玉矿洞.ANDREA.MAGE"
 		["Player-4497-040C3C57"] = "G",	--	"碧玉矿洞.ANDREA.PALADIN"
-		["Player-4497-03F6B362"] = "G",	--	"碧玉矿洞.ANDREA.DRUID"
-		["Player-4497-04102EFE"] = "G",	--	"碧玉矿洞.ANDREA.WARRIOR"
 		["Player-4497-04102FBE"] = "G",	--	"碧玉矿洞.ANDREA.WARLOCK"
+		["Player-4497-0516E2C2"] = "G",	--	"碧玉矿洞.ANDREA.WARRIOR"
 		["Player-4497-0410343D"] = "G",	--	"碧玉矿洞.ANDREA.ROGUE"
+		["Player-4497-03F6B362"] = "G",	--	"碧玉矿洞.ANDREA.DRUID"
+		["Player-4497-04102EFE"] = "G",	--	"碧玉矿洞.ANDREA.WARRIOR.MINOR"
 		["Player-4497-03B5A603"] = "G",	--	"碧玉矿洞.ANDREA.MAGE.MINOR"
 		--
 		["Player-4497-03FC5121"] = "D",	--	"碧玉矿洞.ALA.MAGE.HORDE"
@@ -68,43 +102,14 @@ elseif WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
 		["Player-4791-02139522"] = "G",	--	"碧空之歌.ANDREA.MAGE"
 		["Player-4791-02139923"] = "G",	--	"碧空之歌.ANDREA.WARLOCK"
 	};
-elseif WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-	DEVELOPER = {
-		--	Mainline
-		["Player-962-0509AC92"] = "B",	--	"燃烧之刃.ALEX.WARRIOR",
-		["Player-962-04FEC839"] = "B",	--	"燃烧之刃.ALEX.MAGE",
-		["Player-962-0509E004"] = "B",	--	"燃烧之刃.ALEX.PALADIN",
-		["Player-962-0509E001"] = "B",	--	"燃烧之刃.ALEX.DRUID",
-		["Player-962-0509E049"] = "B",	--	"燃烧之刃.ALEX.PRIEST",
-		--
-		["Player-962-0509ACEF"] = "G",	--	"燃烧之刃.ANDREA.MAGE",
-		["Player-962-0508A77F"] = "G",	--	"燃烧之刃.ANDREA.DRUID",
-		["Player-962-0508A6CC"] = "G",	--	"燃烧之刃.ANDREA.SHAMAN",
-		["Player-962-0508ADA1"] = "G",	--	"燃烧之刃.ANDREA.HUNTER",
-		["Player-962-0508AD8B"] = "G",	--	"燃烧之刃.ANDREA.WARRIOR",
-		["Player-962-0508ADDC"] = "G",	--	"燃烧之刃.ANDREA.PRIEST",
-		["Player-962-0508AD43"] = "G",	--	"燃烧之刃.ANDREA.PALADIN",
-		["Player-962-0508AD11"] = "G",	--	"燃烧之刃.ANDREA.ROGUE",
-		["Player-962-04FF445B"] = "G",	--	"燃烧之刃.ANDREA.PALADIN-MINUS",
-		["Player-962-0509EA70"] = "G",	--	"燃烧之刃.ANDREA.PRIEST-MINUS",
-		--
-		["Player-962-05469808"] = "B",	--	"金色平原.ALEX.WARRIOR"
-		["Player-962-04FEC839"] = "B",	--	"金色平原.ALEX.MAGE"
-		--
-		["Player-962-0509ACEF"] = "G",	--	"金色平原.ANDREA.MAGE"
-		["Player-962-0508A6CC"] = "G",	--	"金色平原.ANDREA.SHAMAN"
-		-- ["Player-962-0509ADA1"] = "G",	--	"金色平原.ANDREA.DRUID"
-	};
-else
-	DEVELOPER = {  };
 end
 local TITLELIST = {
-	B = IsAddOnLoaded("!!!163UI!!!") and "网易有爱开发者" or "夜空中最亮的星",
-	G = IsAddOnLoaded("!!!163UI!!!") and "网易有爱开发者" or "宇宙无敌兔姐姐",
+	B = --[[IsAddOnLoaded("!!!163UI!!!") and "网易有爱开发者" or ]]"夜空中最亮的星",
+	G = --[[IsAddOnLoaded("!!!163UI!!!") and "网易有爱开发者" or ]]"宇宙无敌兔姐姐",
 	D = "网易有爱开发者",
 };
 local FILELIST;
-if WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+if ISCLASSIC then
 	FILELIST = {
 		--	file, z, x, y, alpha, rotate
 		["*"] = { "spells/creature_spellportal_blue.m2", 4, 0, 1, 1, 0.0, },
@@ -169,6 +174,7 @@ local DATA = {
 	["Player-4497-03FC5121"] = "\230\140\135\233\151\180\230\156\157\229\164\149\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-038D0E9A"] = "\233\148\164\229\173\144\229\145\188\232\132\184\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-0393B39E"] = "\78\101\116\101\97\115\101\117\105\45\231\162\167\231\142\137\231\159\191\230\180\158",
+	["Player-4497-0507173B"] = "\229\139\135\230\149\162\231\154\132\229\164\167\231\129\176\231\139\188",
 	["Player-4497-04102EFE"] = "\232\131\161\232\144\157\229\141\156\232\131\150\232\131\150\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-040FF486"] = "\233\170\145\230\176\143\233\133\139\233\149\191\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-040F5394"] = "\230\136\152\230\176\143\233\133\139\233\149\191\45\231\162\167\231\142\137\231\159\191\230\180\158",
@@ -183,11 +189,13 @@ local DATA = {
 	["Player-4497-03F6B362"] = "\229\143\152\229\175\140\229\143\152\230\188\130\228\186\174\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-0388473F"] = "\231\139\161\231\140\190\231\154\132\229\164\167\231\129\176\231\139\188\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-04102FBE"] = "\232\131\161\232\144\157\229\141\156\231\152\166\231\152\166\45\231\162\167\231\142\137\231\159\191\230\180\158",
+	["Player-4497-0516E2C2"] = "\228\184\142\229\144\155\228\188\180\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-0410343D"] = "\232\131\161\232\144\157\229\141\156\230\138\177\230\138\177\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-03871A80"] = "\230\156\186\230\153\186\231\154\132\229\176\143\231\153\189\229\133\148\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-962-0509ACEF"] = "\231\129\172\231\173\177\233\155\133\228\184\182\45\233\135\145\232\137\178\229\185\179\229\142\159",
 	["Player-962-0509AC92"] = "\231\129\172\228\185\157\230\186\170\228\184\182\45\233\135\145\232\137\178\229\185\179\229\142\159",
 	["Player-4497-0395C790"] = "\230\136\191\228\184\156\229\174\182\231\154\132\229\133\148\229\173\144\45\231\162\167\231\142\137\231\159\191\230\180\158",
+	["Player-4497-04FE92E9"] = "\229\139\135\230\149\162\231\154\132\229\176\143\231\153\189\229\133\148",
 	["Player-4497-040C3C57"] = "\231\139\161\231\140\190\231\154\132\229\176\143\231\153\189\229\133\148\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-4497-039DF9BC"] = "\86\111\105\100\45\231\162\167\231\142\137\231\159\191\230\180\158",
 	["Player-962-0509EA70"] = "\232\144\140\232\144\140\232\148\172\232\143\156\229\140\133\45\233\135\145\232\137\178\229\185\179\229\142\159",
@@ -250,7 +258,7 @@ if __coder ~= nil then
 		);
 		_DelayAgent:RegisterEvent("LOADING_SCREEN_DISABLED");
 	end
-	if __coder.__minor <= 7 then
+	if __coder.__minor <= 8 then
 		_HashMap();
 	end
 	__coder.__minor = __version;
@@ -266,7 +274,7 @@ end
 local UnitGUID, UnitIsPlayer = UnitGUID, UnitIsPlayer;
 local GameTooltip = GameTooltip;
 local _Wrap = nil;
-local _showWrap = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE;
+local _showWrap = not ISRETAIL;
 
 
 local function _Wrap_OnUpdate(_F, elasped)
