@@ -81,12 +81,14 @@ L["SORT_BANK_DESC"] = "Pack bank desc"
 L["SORT_DESC"] = "Pack desc"
 L["Sorting rules"] = true
 L["Tools"] = true
+L["Transporter"] = true
 L["UPDATE_RULES_CONFIRM"] = [=[The current version of tdPack2 updates a large number of rules. Do you want to reset the rules to the default settings?
 
 Help to choose:
 1. I know what this prompt is saying: choose for yourself
 2. I don’t know how to choose: Accept
 ]=]
+L["Usuable"] = true
 
 
 --[=[@debug@
@@ -174,6 +176,8 @@ L.COMMENT_CLASS = 'Class items'
 L.KEYWORD_CLASS = 'Classes'
 
 L.Tools = true
+L.Transporter = true
+L.Usuable = true
 
 L['ITEM_TAG: Cloth'] = 'Cloth'
 L['ITEM_TAG: Leather'] = 'Leather'

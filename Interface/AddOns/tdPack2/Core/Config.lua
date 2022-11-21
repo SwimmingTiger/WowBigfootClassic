@@ -113,9 +113,35 @@ local TRADEGOODS = GetItemClassInfo(LE_ITEM_CLASS_TRADEGOODS) -- 商品
 local MOUNT = GetItemSubClassInfo(LE_ITEM_CLASS_MISCELLANEOUS, LE_ITEM_MISCELLANEOUS_MOUNT)
 
 ns.DEFAULT_SORTING_RULES = {
+    --[=[@build<2@
     HEARTHSTONE_ITEM_ID, -- 炉石
+    --@end-build<2@]=]
     -- @build>2@
-    184871, -- 黑暗之门
+    Group(L['Transporter'], 134414, {
+        HEARTHSTONE_ITEM_ID, -- 炉石
+        184871, -- 黑暗之门
+        44315, -- 召回卷轴 III
+        44314, -- 召回卷轴 II
+        37118, -- 召回卷轴 I
+        -- @build>3@
+        48933, -- 虫洞生成器：诺森德
+        -- @end-build>3@
+        30544, -- 超级安全传送器：托什雷的基地
+        30542, -- 空间撕裂器 - 52区
+        18986, -- 安全传送器：加基森
+        18984, -- 空间撕裂器 - 永望镇
+        37863, -- 烈酒的遥控器
+    }), --
+    Group(L['Usuable'], 294476, {
+        -- @build>3@
+        23821, -- 气阀微粒提取器
+        40768, -- 随身邮箱
+        49040, -- 基维斯
+        40769, -- 废物贩卖机器人制造器
+        -- @end-build>3@
+        34113, -- 战地修理机器人110G
+        18232, -- 修理机器人74A型
+    }), --
     -- @end-build>2@
     --[=[@build<2@
     Tag('Mount', 132261), -- 坐骑
@@ -127,9 +153,17 @@ ns.DEFAULT_SORTING_RULES = {
     -- @end-build>2@
     Group(L['Tools'], 134065, {
         5060, -- 潜行者工具
+        -- @build>3@
+        46978, -- 大地之环图腾
+        -- @end-build>3@
+        5175, -- 大地图腾
+        5177, -- 水之图腾
+        5176, -- 火焰图腾
+        5178, -- 空气图腾
         9149, -- 点金石
         -- @build>3@
         40772, -- 侏儒军刀
+        44452, -- 符文泰坦神铁棒
         -- @end-build>3@
         -- @build>2@
         22463, -- 符文恒金棒
@@ -153,7 +187,9 @@ ns.DEFAULT_SORTING_RULES = {
         -- @build>3@
         39505, -- 学者的书写工具
         -- @end-build>3@
+        --[=[@build<3@
         4471, -- 燧石和火绒
+        --@end-build<3@]=]
         Weapon(LE_ITEM_WEAPON_FISHINGPOLE, 132932), -- 鱼竿
     }), --
     Rule(EQUIPSET_EQUIP, 132722, 'equip', {
@@ -209,6 +245,8 @@ ns.DEFAULT_SORTING_RULES = {
         Consumable(1, 134729), -- 药水
         Consumable(4, 134937), -- 卷轴
         Consumable(5, 133953, {
+            43015, -- 鱼
+            34753, -- 猪
             Spell(44166, 134051), -- 恢复体能
             SpellId(33262, 134034, SPELL_STAT2_NAME), -- 敏捷
             SpellId(33255, 134016, SPELL_STAT1_NAME), -- 力量

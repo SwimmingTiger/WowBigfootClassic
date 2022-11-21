@@ -88,6 +88,8 @@ L.COMMENT_CLASS = '职业物品'
 L.KEYWORD_CLASS = '职业：'
 
 L.Tools = '工具'
+L.Transporter = '传送器'
+L.Usuable = '常用'
 
 L['ITEM_TAG: Cloth'] = '布'
 L['ITEM_TAG: Leather'] = '皮'

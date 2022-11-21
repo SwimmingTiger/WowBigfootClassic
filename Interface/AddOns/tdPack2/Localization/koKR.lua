@@ -79,5 +79,9 @@ L["SORT_DESC"] = "내림차순 정리"
 L["Sorting rules"] = "정리 규칙"
 L["Tools"] = "도구"
 --[[Translation missing --]]
+--[[ L["Transporter"] = ""--]] 
+--[[Translation missing --]]
 --[[ L["UPDATE_RULES_CONFIRM"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Usuable"] = ""--]] 
 

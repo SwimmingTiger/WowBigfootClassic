@@ -57,8 +57,8 @@ end
 
 function RuleView:OnShow()
     self:RegisterEvent('GET_ITEM_INFO_RECEIVED', 'Refresh')
-    self:RegisterEvent('CURSOR_UPDATE')
-    self:CURSOR_UPDATE()
+    self:RegisterEvent('CURSOR_CHANGED')
+    self:CURSOR_CHANGED()
 end
 
 function RuleView:OnHide()
@@ -66,7 +66,7 @@ function RuleView:OnHide()
     StaticPopup_Hide('TDPACK2_DELETE_RULES', self)
 end
 
-function RuleView:CURSOR_UPDATE()
+function RuleView:CURSOR_CHANGED()
     local cursorType, itemId, itemLink = GetCursorInfo()
     if cursorType == 'item' then
         self:StartCursorCatching(itemId)

@@ -149,5 +149,9 @@ if not L then return end
 --[[Translation missing --]]
 --[[ L["Tools"] = ""--]] 
 --[[Translation missing --]]
+--[[ L["Transporter"] = ""--]] 
+--[[Translation missing --]]
 --[[ L["UPDATE_RULES_CONFIRM"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Usuable"] = ""--]] 
 

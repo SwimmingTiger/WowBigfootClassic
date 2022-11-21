@@ -79,5 +79,9 @@ L["SORT_DESC"] = "逆序整理背包"
 L["Sorting rules"] = "排序規則"
 L["Tools"] = "工具"
 --[[Translation missing --]]
+--[[ L["Transporter"] = ""--]] 
+--[[Translation missing --]]
 --[[ L["UPDATE_RULES_CONFIRM"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Usuable"] = ""--]] 
 
