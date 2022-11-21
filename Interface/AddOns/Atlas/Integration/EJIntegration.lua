@@ -1,4 +1,4 @@
--- $Id: EJIntegration.lua 406 2022-08-21 07:17:30Z arithmandar $
+-- $Id: EJIntegration.lua 425 2022-11-20 02:14:21Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -54,7 +54,7 @@ end
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
-local FOLDER_NAME, private = ...
+local _, private = ...
 local LibStub = _G.LibStub
 local addon = LibStub("AceAddon-3.0"):GetAddon(private.addon_name)
 local L = LibStub("AceLocale-3.0"):GetLocale(private.addon_name)
@@ -227,63 +227,64 @@ function addon:AdventureJournal_MapButton_OnClick(frame)
 --	end
 end
 
-local function autoSelect_from_EncounterJournal()
-	local instanceID = EncounterJournal.instanceID
-	
-	if (not instanceID) then
-		return
-	end
-
-	for type_k, type_v in pairs(ATLAS_DROPDOWNS) do
-		for zone_k, zone_v in pairs(type_v) do
-			if (AtlasMaps[zone_v].JournalInstanceID and tonumber(AtlasMaps[zone_v].JournalInstanceID) == instanceID) then
-				Atlas.db.profile.options.dropdowns.module = type_k
-				Atlas.db.profile.options.dropdowns.zone = zone_k
-				Atlas_Refresh()
-				return
-			end
-		end
-	end
-end
-
--- Encounter Journal's button bidding
-local function toggleFromEncounterJournal_OnClick(self)
-	autoSelect_from_EncounterJournal()
-	ToggleFrame(EncounterJournal)
-	Atlas_Toggle()
-end
-
-local function toggleFromEncounterJournal_OnShow(self)
-	local ElvUI = select(4, GetAddOnInfo("ElvUI"))
-
-	if (not ElvUI) then return end
-	local ElvUI_BZSkin = false
-
-	if (ElvUI and ElvPrivateDB) then
-		local profileKey
-		if ElvPrivateDB.profileKeys then
-			profileKey = ElvPrivateDB.profileKeys[UnitName("player")..' - '..GetRealmName()]
-		end
-
-		if profileKey and ElvPrivateDB.profiles and ElvPrivateDB.profiles[profileKey] then
-			if (ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["enable"] and ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["encounterjournal"]) then
-				ElvUI_BZSkin = true
-			end
-		end
-	end
-	
-	if (ElvUI_BZSkin) then
-		local button = _G["AtlasToggleFromEncounterJournal"]
-		if (button) then
-			button:SetNormalTexture("Interface\\WorldMap\\WorldMap-Icon")
-			button:SetWidth(16)
-			button:SetHeight(16)
-			button:SetPoint("TOPRIGHT", EncounterJournalCloseButton, -28, -6, "TOPRIGHT") 
-		end
-	end
-end
-
+-- Added Atlas button to Encounter Journal
 function addon:EncounterJournal_Binding()
+	local function autoSelect_from_EncounterJournal()
+		local instanceID = EncounterJournal.instanceID
+		
+		if (not instanceID) then
+			return
+		end
+
+		for type_k, type_v in pairs(ATLAS_DROPDOWNS) do
+			for zone_k, zone_v in pairs(type_v) do
+				if (AtlasMaps[zone_v].JournalInstanceID and tonumber(AtlasMaps[zone_v].JournalInstanceID) == instanceID) then
+					Atlas.db.profile.options.dropdowns.module = type_k
+					Atlas.db.profile.options.dropdowns.zone = zone_k
+					Atlas_Refresh()
+					return
+				end
+			end
+		end
+	end
+
+	-- Encounter Journal's button bidding
+	local function toggleFromEncounterJournal_OnClick(self)
+		autoSelect_from_EncounterJournal()
+		ToggleFrame(EncounterJournal)
+		Atlas_Toggle()
+	end
+
+	local function toggleFromEncounterJournal_OnShow(self)
+		local ElvUI = select(4, GetAddOnInfo("ElvUI"))
+
+		if (not ElvUI) then return end
+		local ElvUI_BZSkin = false
+
+		if (ElvUI and ElvPrivateDB) then
+			local profileKey
+			if ElvPrivateDB.profileKeys then
+				profileKey = ElvPrivateDB.profileKeys[UnitName("player")..' - '..GetRealmName()]
+			end
+
+			if profileKey and ElvPrivateDB.profiles and ElvPrivateDB.profiles[profileKey] then
+				if (ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["enable"] and ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["encounterjournal"]) then
+					ElvUI_BZSkin = true
+				end
+			end
+		end
+		
+		if (ElvUI_BZSkin) then
+			local button = _G["AtlasToggleFromEncounterJournal"]
+			if (button) then
+				button:SetNormalTexture("Interface\\WorldMap\\WorldMap-Icon")
+				button:SetWidth(16)
+				button:SetHeight(16)
+				button:SetPoint("TOPRIGHT", EncounterJournalCloseButton, -28, -6, "TOPRIGHT") 
+			end
+		end
+	end
+
 	local button = _G["AtlasToggleFromEncounterJournal"]
 	if (not button) then
 		button = CreateFrame("Button","AtlasToggleFromEncounterJournal", EncounterJournal)

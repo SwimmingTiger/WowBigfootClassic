@@ -1,4 +1,4 @@
-<!-- $Id: Templates.xml 374 2022-01-26 14:33:01Z arithmandar $ -->
+<!-- $Id: Templates.xml 415 2022-11-04 07:04:01Z arithmandar $ -->
 <!--
 
 	Atlas, a World of Warcraft instance map browser
@@ -33,7 +33,7 @@
 		</Size>
 		<Layers>
 			<Layer level="OVERLAY">
-				<FontString name="$parent_Text" parentKey="Text" inherits="GameFontHighlight" wraponspaces="false" justifyH="LEFT">
+				<FontString name="$parent_Text" parentKey="Text" inherits="GameFontHighlight" nonspacewrap="true" justifyH="LEFT">
 					<Size>
 						<AbsDimension x="440" y="15" />
 					</Size>
@@ -110,22 +110,25 @@
 
 	<!-- Atlas Frame Button Templates -->
 	<Button name="AtlasFrameCloseButtonTemplate" inherits="UIPanelCloseButton" virtual="true">
+		<Size>
+			<AbsDimension x="20" y="20"/>
+		</Size>
 		<Anchors>
 			<Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT">
 				<Offset>
-					<AbsDimension x="5" y="-7"/>
+					<AbsDimension x="-2" y="-14"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
 	</Button>
 	<Button name="AtlasFrameLockButtonTemplate" virtual="true">
 		<Size>
-			<AbsDimension x="32" y="32"/>
+			<AbsDimension x="36" y="36"/>
 		</Size>
 		<Anchors>
 			<Anchor point="RIGHT" relativeTo="$parentCloseButton" relativePoint="LEFT">
 				<Offset>
-					<AbsDimension x="10" y="0"/>
+					<AbsDimension x="6" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>
@@ -465,12 +468,14 @@
 						<Anchor point="TOPLEFT" x="0" y="0"/>
 					</Anchors>
 				</Texture>
+				<!--
 				<HighlightTexture name="$parentTaxiImageHightlight" parentKey="TaxiHighlight" alphaMode="ADD" setAllPoints="true">
 					<Size x="20" y="20"/>
 					<Anchors>
 						<Anchor point="TOPLEFT"/>
 					</Anchors>
 				</HighlightTexture>
+				-->
 				<Texture name="$parentLImage" parentKey="LetterImage">
 					<Size x="20" y="20"/>
 					<Anchors>

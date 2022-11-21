@@ -1,4 +1,4 @@
--- $Id: WorldMap.lua 404 2022-08-21 06:24:20Z arithmandar $
+-- $Id: WorldMap.lua 423 2022-11-19 07:32:44Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -32,12 +32,12 @@
 local _G = getfenv(0)
 local pairs, tonumber = _G.pairs, _G.tonumber
 -- Libraries
-local GameTooltip = _G.GameTooltip
 local GetBuildInfo = _G.GetBuildInfo
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
+local LibStub = _G.LibStub
 local addon = LibStub("AceAddon-3.0"):GetAddon("Atlas")
 
 -- Determine WoW TOC Version
@@ -60,72 +60,13 @@ local WorldMap = {}
 addon.WorldMap = WorldMap
 
 local function createButton()
-	local name = "AtlasToggleFromWorldMap"
-	local f = _G[name]
-	if not f then f = CreateFrame("Button", "AtlasToggleFromWorldMap", WorldMapFrame) end
-	
-	f:SetWidth(32)
-	f:SetHeight(32)
-	f:SetFrameLevel(10)
-	f:SetToplevel(true)
-	f:Hide()
-	f:ClearAllPoints()
-	if (WoWRetail) then
-		f:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -38, -68)
-
-		f.Shadow = f:CreateTexture(name.."Shadow", "BACKGROUND")
-		f.Shadow:SetAtlas("MapCornerShadow-Right", true)
-		f.Shadow:SetPoint("TOPRIGHT", 4, 4)
-		f.Shadow:SetTexCoord(0, 1, 1, 0)
-		f.Shadow:SetDrawLayer("BACKGROUND", -1)
-	else
-		f:SetPoint("TOPRIGHT", WorldMapFrame, "TOPRIGHT", -8, -70)
-	end
-
-	f.Background = f:CreateTexture(name.."Background", "BACKGROUND")
-	f.Background:SetTexture("Interface\\Minimap\\UI-Minimap-Background")
-	f.Background:SetSize(25, 25)
-	f.Background:SetPoint("TOPLEFT", 2, -4)
-	f.Background:SetVertexColor(1, 1, 1, 1)
-	
-	f.Icon = f:CreateTexture(name.."Icon", "ARTWORK")
-	f.Icon:SetTexture("Interface\\WorldMap\\WorldMap-Icon")
-	f.Icon:SetSize(20, 20)
-	f.Icon:SetPoint("TOPLEFT", 6, -6)
-
-	f.Border = f:CreateTexture(name.."Border", "ARTWORK")
-	f.Border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
-	f.Border:SetSize(54, 54)
-	f.Border:SetPoint("TOPLEFT")
-	
-	local highlightTexture = f:CreateTexture(nil, "HIGHLIGHT")
-	highlightTexture:SetTexture("Interface\\Buttons\\UI-Common-MouseHilight")
-	highlightTexture:SetBlendMode("ADD")
-	highlightTexture:SetAllPoints()
-	highlightTexture:SetSize(48, 48)
-	highlightTexture:SetPoint("CENTER")
-	f:SetHighlightTexture(highlightTexture)
-	
-	f:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-		GameTooltip:SetText(ATLAS_CLICK_TO_OPEN, nil, nil, nil, nil, 1)
-	end)
-	f:SetScript("OnLeave", function(self)
-		GameTooltip:Hide()
-	end)
-	f:SetScript("OnClick", function(self)
-		WorldMap.Button_OnClick(self)
-	end)
+	local KButtons = LibStub("Krowi_WorldMapButtons-1.4")
+	WorldMap.Button = KButtons:Add("AtlasWorldMapButtonTemplate", "BUTTON")
 end
 
-local function autoSelect()
-	--local mapID = C_Map.GetBestMapForUnit("player")
-	local mapID = WorldMapFrame:GetMapID()
+function addon:WorldMapButtonSelectMap()
+	local mapID = WorldMapFrame:GetMapID() or 0
 	local profile = addon.db.profile
-	
-	if (not mapID) then
-		return
-	end
 
 	for type_k, type_v in pairs(ATLAS_DROPDOWNS) do
 		for zone_k, zone_v in pairs(type_v) do
@@ -144,12 +85,6 @@ local function autoSelect()
 			end
 		end
 	end
-end
-
-function WorldMap.Button_OnClick(self)
-	autoSelect()
-	ToggleFrame(WorldMapFrame)
-	addon:Toggle()
 end
 
 do

@@ -1,0 +1,39 @@
+## Interface: 30400
+## Author: Lag
+## Version: v3.0.7
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+
+## Title: AtlasLootClassic |cFF0099FF[Factions]|r
+## Title-deDE: AtlasLootClassic |cFF0099FF[Fraktionen]|r
+## Title-esES: AtlasLootClassic |cFF0099FF[Facciones]|r
+## Title-esMX: AtlasLootClassic |cFF0099FF[Facciones]|r
+## Title-frFR: AtlasLoot Classic |cFF0099FF[Factions]|r
+## Title-itIT: AtlasLootClassic |cFF0099FF[Factions]|r
+## Title-koKR: AtlasLoot 클래식 |cFF0099FF[진영]|r
+## Title-ptBR: AtlasLootClassic |cFF0099FF[Facções]|r
+## Title-ruRU: AtlasLootClassic |cFF0099FF[Фракции]|r
+## Title-zhCN: AtlasLoot经典版 |cFF0099FF[阵营]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF0099FF[陣營]|r
+## Notes: AtlasLoot loot tables from Factions
+## Notes-deDE: AtlasLoot Beuteverzeichnis der Fraktionen
+## Notes-esES: AtlasLoot tablas de botín de Facciones
+## Notes-esMX: AtlasLoot tablas de botín de Facciones
+## Notes-frFR: Tables de butin des factions
+## Notes-itIT: AtlasLoot loot tables from Factions
+## Notes-koKR: 진영의 AtlasLoot 전리품 테이블
+## Notes-ptBR: Tabelas de saque AtlasLoot das Facções
+## Notes-ruRU: Таблицы добычи AtlasLoot для фракций.
+## Notes-zhCN: AtlasLoot 阵营掉落列表
+## Notes-zhTW: 陣營物品資料庫。
+
+## X-Category: Map
+## X-License: GPL v2
+
+## X-AtlasLootClassic-LootModule: 1
+
+Locales\Locales.xml
+
+data.lua
+data-tbc.lua
+data-wrath.lua

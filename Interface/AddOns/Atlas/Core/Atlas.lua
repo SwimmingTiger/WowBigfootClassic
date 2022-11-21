@@ -1,4 +1,4 @@
--- $Id: Atlas.lua 412 2022-08-30 17:55:24Z arithmandar $
+-- $Id: Atlas.lua 425 2022-11-20 02:14:21Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -643,7 +643,8 @@ function Atlas_OnEvent(self, event, ...)
 	if (event=="ADDON_LOADED" and (arg1=="Atlas" or arg1=="Blizzard_EncounterJournal")) then
 		--Blizzard_EncounterJournal
 		if (IsAddOnLoaded("Blizzard_EncounterJournal") and IsAddOnLoaded("Atlas")) then
-			addon:EncounterJournal_Binding()
+			-- Added Atlas button to Encounter Journal
+			--addon:EncounterJournal_Binding()
 		end
 	end
 
@@ -888,7 +889,7 @@ function addon:MapAddNPCButton()
 			-- Disable the set text unless one day we want the text to be added dynamatically
 			-- Or, enable it for debugging purpose
 --[[
-			local f_text = button:CreateFontString(button:GetName().."_Text", "MEDIUM", "NumberFont_Outline_Huge")
+			local f_text = button:CreateFontString(button:GetName().."_Text", "OVERLAY", "NumberFont_Outline_Huge")
 			f_text:SetPoint("CENTER", button, "CENTER", 0, 0)
 			f_text:SetText(info_mark)
 ]]
@@ -1018,7 +1019,7 @@ function addon:MapAddNPCButtonLarge()
 						info_colortag == "Purple" or
 						info_colortag == "Blue") then
 						if (not text) then
-							text = button:CreateFontString(button:GetName().."_Text", "MEDIUM", "AtlasSystemFont_Large_Outline_Thick")
+							text = button:CreateFontString(button:GetName().."_Text", "OVERLAY", "AtlasSystemFont_Large_Outline_Thick")
 						end
 						text:SetPoint("CENTER", button, "CENTER", 0, 0)
 						text:SetText(info_mark)
@@ -1038,7 +1039,7 @@ function addon:MapAddNPCButtonLarge()
 						info_colortag == "MONK" or
 						info_colortag == "DEMONHUNTER") then
 						if (not text) then
-							text = button:CreateFontString(button:GetName().."_Text", "MEDIUM", "AtlasSystemFont_Large_Outline_Thick")
+							text = button:CreateFontString(button:GetName().."_Text", "OVERLAY", "AtlasSystemFont_Large_Outline_Thick")
 						end
 						local color = RAID_CLASS_COLORS[info_colortag]
 						text:SetPoint("CENTER", button, "CENTER", 0, 0)
@@ -1995,9 +1996,9 @@ local function initialization()
 	
 	check_Modules()
 	if (profile.options.worldMapButton) then
-		AtlasToggleFromWorldMap:Show()
+		addon.WorldMap.Button:Show()
 	else
-		AtlasToggleFromWorldMap:Hide()
+		addon.WorldMap.Button:Hide()
 	end
 end
 
@@ -2040,8 +2041,8 @@ function addon:Refresh()
 	AtlasFrameLarge:SetClampedToScreen(profile.options.frames.clamp)
 	AtlasFrameSmall:SetClampedToScreen(profile.options.frames.clamp)
 	if (profile.options.worldMapButton) then
-		AtlasToggleFromWorldMap:Show()
+		addon.WorldMap.Button:Show()
 	else
-		AtlasToggleFromWorldMap:Hide()
+		addon.WorldMap.Button:Hide()
 	end
 end

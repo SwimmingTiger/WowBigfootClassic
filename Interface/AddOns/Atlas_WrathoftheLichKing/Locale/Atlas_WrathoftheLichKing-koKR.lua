@@ -28,80 +28,52 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("Atlas_WrathoftheLichKing", "koKR", false);
 
 if L then
---[[Translation missing --]]
---[[ L["Ahn'kahet Brazier"] = ""--]] 
---[[Translation missing --]]
---[[ L["AK, Kahet"] = ""--]] 
---[[Translation missing --]]
---[[ L["Ambrose Boltspark"] = ""--]] 
---[[Translation missing --]]
---[[ L["AN, Nerub"] = ""--]] 
---[[Translation missing --]]
---[[ L["Archivum Console"] = ""--]] 
---[[Translation missing --]]
---[[ L["Archmage Elandra <Kirin Tor>"] = ""--]] 
---[[Translation missing --]]
---[[ L["Archmage Koreln <Kirin Tor>"] = ""--]] 
---[[Translation missing --]]
---[[ L["Belgaristrasz"] = ""--]] 
+L["Ahn'kahet Brazier"] = "안카헤트 화로"
+L["AK, Kahet"] = "안카"
+L["Ambrose Boltspark"] = "암브로스 볼트스파크"
+L["AN, Nerub"] = "아졸"
+L["Archivum Console"] = "고대 기록관 조작대"
+L["Archmage Elandra <Kirin Tor>"] = "대마법사 엘란드라 <키린 토>"
+L["Archmage Koreln <Kirin Tor>"] = "대마법사 콜레른 <키린 토>"
+L["Belgaristrasz"] = "벨가리스트라즈"
 --[[Translation missing --]]
 --[[ L["Berinand's Research"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Black Dragonflight Chamber"] = ""--]] 
---[[Translation missing --]]
---[[ L["Brann Bronzebeard"] = ""--]] 
---[[Translation missing --]]
---[[ L["Brigg Smallshanks"] = ""--]] 
---[[Translation missing --]]
---[[ L["Cache of Eregos"] = ""--]] 
+L["Brann Bronzebeard"] = "브란 브론즈비어드"
+L["Brigg Smallshanks"] = "브릭 스몰섕크"
+L["Cache of Eregos"] = "에레고스의 보관함"
 --[[Translation missing --]]
 --[[ L["Cavern Entrance"] = ""--]] 
---[[Translation missing --]]
---[[ L["Centrifuge Construct"] = ""--]] 
+L["Centrifuge Construct"] = "원심력 피조물"
 --[[Translation missing --]]
 --[[ L["Champ"] = ""--]] 
---[[Translation missing --]]
---[[ L["Chester Copperpot <General & Trade Supplies>"] = ""--]] 
+L["Chester Copperpot <General & Trade Supplies>"] = "체스터 코퍼포트 <일용품 및 직업용품 상인>"
 --[[Translation missing --]]
 --[[ L["Chromie"] = ""--]] 
---[[Translation missing --]]
---[[ L["Chronicler Bah'Kini"] = ""--]] 
---[[Translation missing --]]
---[[ L["Colosos"] = ""--]] 
+L["Chronicler Bah'Kini"] = "기록가 바키니"
+L["Colosos"] = "콜로소스"
 --[[Translation missing --]]
 --[[ L["CoT-Strat"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Crus"] = ""--]] 
---[[Translation missing --]]
---[[ L["Crusaders' Coliseum"] = ""--]] 
---[[Translation missing --]]
---[[ L["Dark Ranger Kalira"] = ""--]] 
---[[Translation missing --]]
---[[ L["Dark Ranger Loralen"] = ""--]] 
---[[Translation missing --]]
---[[ L["Dark Ranger Marrah"] = ""--]] 
---[[Translation missing --]]
---[[ L["Defender Mordun"] = ""--]] 
+L["Crusaders' Coliseum"] = "십자군 원형경기장"
+L["Dark Ranger Kalira"] = "어둠 순찰자 칼리라"
+L["Dark Ranger Loralen"] = "어둠 순찰자 로랄렌"
+L["Dark Ranger Marrah"] = "어둠 순찰자 마라"
+L["Defender Mordun"] = "수호병 모르둔"
 --[[Translation missing --]]
 --[[ L["Drakuru's Brazier"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["DTK"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Chogan'gada"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Igasho"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Jarten"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Kilias"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Nurgen"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Ohanzee"] = ""--]] 
---[[Translation missing --]]
---[[ L["Elder Yurauk"] = ""--]] 
---[[Translation missing --]]
---[[ L["Eternos"] = ""--]] 
+L["Elder Chogan'gada"] = "장로 초간가다"
+L["Elder Igasho"] = "장로 이가쇼"
+L["Elder Jarten"] = "장로 자르텐"
+L["Elder Kilias"] = "장로 키리아스"
+L["Elder Nurgen"] = "장로 누르겐"
+L["Elder Ohanzee"] = "장로 오한지"
+L["Elder Yurauk"] = "장로 유라우크"
+L["Eternos"] = "이터노스"
 --[[Translation missing --]]
 --[[ L["FH1"] = ""--]] 
 --[[Translation missing --]]
@@ -114,52 +86,36 @@ if L then
 --[[ L["From previous map"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Frostwyrm Lair"] = ""--]] 
---[[Translation missing --]]
---[[ L["Gorkun Ironskull"] = ""--]] 
+L["Gorkun Ironskull"] = "고르쿤 아이언스컬"
 --[[Translation missing --]]
 --[[ L["Guardian of Time"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Gun"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Heroic: Trial of the Grand Crusader"] = ""--]] 
---[[Translation missing --]]
---[[ L["HoL"] = ""--]] 
+L["HoL"] = "번전"
 --[[Translation missing --]]
 --[[ L["HoR"] = ""--]] 
---[[Translation missing --]]
---[[ L["HoS"] = ""--]] 
---[[Translation missing --]]
---[[ L["IC"] = ""--]] 
+L["HoS"] = "돌전"
+L["IC"] = "얼왕"
 --[[Translation missing --]]
 --[[ L["Image of Argent Confessor Paletress"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Image of Drakuru"] = ""--]] 
---[[Translation missing --]]
---[[ L["Jaelyne Evensong"] = ""--]] 
---[[Translation missing --]]
---[[ L["Kaldir Ironbane"] = ""--]] 
+L["Jaelyne Evensong"] = "제일린 이븐송"
+L["Kaldir Ironbane"] = "칼디르 아이언베인"
 --[[Translation missing --]]
 --[[ L["Kurzel"] = ""--]] 
---[[Translation missing --]]
---[[ L["Lady Jaina Proudmoore"] = ""--]] 
---[[Translation missing --]]
---[[ L["Lady Sylvanas Windrunner <Banshee Queen>"] = ""--]] 
---[[Translation missing --]]
---[[ L["Lana Stouthammer"] = ""--]] 
---[[Translation missing --]]
---[[ L["Lieutenant Sinclari"] = ""--]] 
---[[Translation missing --]]
---[[ L["Marshal Jacob Alerius"] = ""--]] 
---[[Translation missing --]]
---[[ L["Martin Victus"] = ""--]] 
---[[Translation missing --]]
---[[ L["Mr. Bigglesworth"] = ""--]] 
---[[Translation missing --]]
---[[ L["Nax"] = ""--]] 
---[[Translation missing --]]
---[[ L["Nex, Nexus"] = ""--]] 
---[[Translation missing --]]
---[[ L["Ocu"] = ""--]] 
+L["Lady Jaina Proudmoore"] = "여군주 제이나 프라우드무어"
+L["Lady Sylvanas Windrunner <Banshee Queen>"] = "여군주 실바나스 윈드러너 <밴시 여왕>"
+L["Lana Stouthammer"] = "라나 스타우트해머"
+L["Lieutenant Sinclari"] = "부관 신클래리"
+L["Marshal Jacob Alerius"] = "작전사령관 제이콥 알레리우스"
+L["Martin Victus"] = "마틴 빅투스"
+L["Mr. Bigglesworth"] = "비글스워스 씨"
+L["Nax"] = "낙스"
+L["Nex, Nexus"] = "마탑"
+L["Ocu"] = "마눈"
 --[[Translation missing --]]
 --[[ L["Ony"] = ""--]] 
 --[[Translation missing --]]
@@ -168,52 +124,40 @@ if L then
 --[[ L["PoS"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Precious"] = ""--]] 
---[[Translation missing --]]
---[[ L["Prospector Doren"] = ""--]] 
---[[Translation missing --]]
---[[ L["Reclaimer A'zak"] = ""--]] 
+L["Prospector Doren"] = "발굴조사단장 도렌"
+L["Reclaimer A'zak"] = "되찾는 자 아자크"
 --[[Translation missing --]]
 --[[ L["Red Dragonflight Chamber"] = ""--]] 
---[[Translation missing --]]
---[[ L["Rimefang"] = ""--]] 
+L["Rimefang"] = "서릿발송곳니"
 --[[Translation missing --]]
 --[[ L["RS"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Scourge Invasion Points"] = ""--]] 
---[[Translation missing --]]
---[[ L["Seer Ixit"] = ""--]] 
---[[Translation missing --]]
---[[ L["Shavalius the Fancy <Flight Master>"] = ""--]] 
+L["Seer Ixit"] = "예언자 익시트"
+L["Shavalius the Fancy <Flight Master>"] = "몽상가 샤발리우스 <비행 조련사>"
 --[[Translation missing --]]
 --[[ L["Sif"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Sindragosa's Lair"] = ""--]] 
---[[Translation missing --]]
---[[ L["Sister Svalna"] = ""--]] 
---[[Translation missing --]]
---[[ L["Slosh <Food & Drink>"] = ""--]] 
---[[Translation missing --]]
---[[ L["Spinestalker"] = ""--]] 
+L["Sister Svalna"] = "성녀 스발나"
+L["Slosh <Food & Drink>"] = "술고래 <식료품 상인>"
+L["Spinestalker"] = "가시그림자"
 --[[Translation missing --]]
 --[[ L["Stinky"] = ""--]] 
---[[Translation missing --]]
---[[ L["Stormherald Eljrrin"] = ""--]] 
+L["Stormherald Eljrrin"] = "폭풍전령 엘리린"
 --[[Translation missing --]]
 --[[ L["Teleporter to Middle"] = ""--]] 
---[[Translation missing --]]
---[[ L["TEoE"] = ""--]] 
+L["TEoE"] = "영눈"
 --[[Translation missing --]]
 --[[ L["The Captain's Chest"] = ""--]] 
---[[Translation missing --]]
---[[ L["The Culling of Stratholme"] = ""--]] 
+L["The Culling of Stratholme"] = "옛 스트라솔름"
 --[[Translation missing --]]
 --[[ L["The Keepers"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["The Siege"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["To next map"] = ""--]] 
---[[Translation missing --]]
---[[ L["Tol'mar"] = ""--]] 
+L["Tol'mar"] = "톨마르"
 --[[Translation missing --]]
 --[[ L["Tower of Flame"] = ""--]] 
 --[[Translation missing --]]
@@ -222,29 +166,20 @@ if L then
 --[[ L["Tower of Life"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Tower of Storms"] = ""--]] 
---[[Translation missing --]]
---[[ L["Tribunal Chest"] = ""--]] 
+L["Tribunal Chest"] = "심판장 궤짝"
 --[[Translation missing --]]
 --[[ L["UK, Keep"] = ""--]] 
---[[Translation missing --]]
---[[ L["Uldu"] = ""--]] 
+L["Uldu"] = "울두"
 --[[Translation missing --]]
 --[[ L["UP, Pinn"] = ""--]] 
 --[[Translation missing --]]
 --[[ L["Upper Spire"] = ""--]] 
---[[Translation missing --]]
---[[ L["Verdisa"] = ""--]] 
---[[Translation missing --]]
---[[ L["VH"] = ""--]] 
---[[Translation missing --]]
---[[ L["VoA"] = ""--]] 
---[[Translation missing --]]
---[[ L["Warmage Kaitlyn"] = ""--]] 
---[[Translation missing --]]
---[[ L["Watcher Gashra"] = ""--]] 
---[[Translation missing --]]
---[[ L["Watcher Narjil"] = ""--]] 
---[[Translation missing --]]
---[[ L["Watcher Silthik"] = ""--]] 
+L["Verdisa"] = "베르디사"
+L["VH"] = "보요"
+L["VoA"] = "아카본"
+L["Warmage Kaitlyn"] = "전쟁마법사 케이틀린"
+L["Watcher Gashra"] = "감시자 가쉬라"
+L["Watcher Narjil"] = "감시자 나르질"
+L["Watcher Silthik"] = "감시자 실리시크"
 
 end

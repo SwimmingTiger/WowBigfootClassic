@@ -1,0 +1,50 @@
+## Interface: 20504
+## Author: Lag
+## Version: v3.0.7
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+
+## Title: AtlasLoot Classic |cFF22B14C[Options]|r
+## Title-deDE: AtlasLootClassic |cFF22B14C[Optionen]|r
+## Title-esES: AtlasLoot Classic |cFF22B14C[Opciones]|r
+## Title-esMX: AtlasLoot Classic |cFF22B14C[Opciones]|r
+## Title-frFR: AtlasLoot Classic |cFF22B14C[Options]|r
+## Title-itIT: AtlasLoot Classic |cFF22B14C[Options]|r
+## Title-koKR: AtlasLoot 클래식 |cFF22B14C[옵션]|r
+## Title-ptBR: AtlasLoot Classic |cFF22B14C[Opções]|r
+## Title-ruRU: AtlasLoot Classic |cFF22B14C[Настройки]|r
+## Title-zhCN: AtlasLoot经典版 |cFF22B14C[选项]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF22B14C[設定選項]|r
+## Notes: AtlasLoot options module
+## Notes-deDE: AtlasLoot Optionen
+## Notes-esES: AtlasLoot módulo de opciones
+## Notes-esMX: AtlasLoot módulo de opciones
+## Notes-frFR: Module des options
+## Notes-itIT: AtlasLoot options module
+## Notes-koKR: AtlasLoot 설정 모듈
+## Notes-ptBR: Módulo de opções de AtlasLoot
+## Notes-ruRU: Настройки модулей AtlasLoot
+## Notes-zhCN: AtlasLoot t选项模块
+## Notes-zhTW: 副本戰利品查詢的選項設定。
+
+## X-Category: Map
+## X-License: GPL v2
+
+embeds.xml
+
+Locales\constants.cn.lua
+Locales\constants.de.lua
+Locales\constants.es.lua
+Locales\constants.fr.lua
+Locales\constants.it.lua
+Locales\constants.kr.lua
+Locales\constants.mx.lua
+Locales\constants.pt.lua
+Locales\constants.ru.lua
+Locales\constants.tw.lua
+
+Core.lua
+Main.lua
+Windows.lua
+MiniMapButton.lua
+Addons.lua

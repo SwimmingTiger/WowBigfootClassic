@@ -1,0 +1,39 @@
+## Interface: 20504
+## Author: Lag
+## Version: v3.0.7
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+
+## Title: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-deDE: AtlasLootClassic |cFF0099FF[Berufe]|r
+## Title-esES: AtlasLootClassic |cFF0099FF[Fabricados]|r
+## Title-esMX: AtlasLootClassic |cFF0099FF[Fabricados]|r
+## Title-frFR: AtlasLoot Classic |cFF0099FF[Artisanat]|r
+## Title-itIT: AtlasLootClassic |cFF0099FF[Crafting]|r
+## Title-koKR: AtlasLoot 클래식 |cFF0099FF[전문 기술]|r
+## Title-ptBR: AtlasLootClassic |cFF0099FF[Fazer]|r
+## Title-ruRU: AtlasLootClassic |cFF0099FF[Профессии]|r
+## Title-zhCN: AtlasLoot经典版 |cFF0099FF[制造品]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFF0099FF[專業製作]|r
+## Notes: AtlasLoot loot tables of Crafting Items
+## Notes-deDE: AtlasLoot Beuteverzeichnis der Berufe
+## Notes-esES: AtlasLoot tablas de botín de Fabricados
+## Notes-esMX: AtlasLoot tablas de botín de Fabricados
+## Notes-frFR: Tables de butin des objets d'artisanat
+## Notes-itIT: AtlasLoot loot tables of Crafting Items
+## Notes-koKR: 전문 기술 아이템의 AtlasLoot 전리품 테이블
+## Notes-ptBR: Tabelas de saque de manufaturados de AtlasLoot
+## Notes-ruRU: Таблицы добычи AtlasLoot для профессий.
+## Notes-zhCN: AtlasLoot专业制作物品列表
+## Notes-zhTW: 專業技能物品資料庫。
+
+## X-Category: Map
+## X-License: GPL v2
+
+## X-AtlasLootClassic-LootModule: 1
+
+Locales\Locales.xml
+
+private.lua
+data.lua
+data-tbc.lua

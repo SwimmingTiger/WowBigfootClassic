@@ -17,9 +17,9 @@
 # ## Notes: Burning Crusade Dungeon Maps
 # ## Notes-zhTW: 燃燒的遠征副本地圖模組
 #@end-debug@
-## Version: v1.51.02
+## Version: v1.52.01
 ## Author: arith, Dynaletik, dubcat
-## X-Date: 2022-08-22T16:04:24Z
+## X-Date: 2022-11-19T7:34:47Z
 ## X-Credits: Dan Gilbert, Lothaer
 ## X-Email: atlas.addon at gmail.com
 ## X-Website: http://www.atlasmod.com

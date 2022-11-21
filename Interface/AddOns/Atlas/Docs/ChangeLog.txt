@@ -1,4 +1,4 @@
-$Id: ChangeLog.txt 412 2022-08-30 17:55:24Z arithmandar $
+$Id: ChangeLog.txt 425 2022-11-20 02:14:21Z arithmandar $
 Atlas, a World of Warcraft instance map browser
 Copyright 2005 ~ 2010 - Dan Gilbert <dan.b.gilbert at gmail dot com>
 Copyright 2010 - Lothaer <lothayer at gmail dot com>, Atlas Team
@@ -14,6 +14,26 @@ Known Issues:
 ==============
 = Change Log =
 ==============
+
+v1.52.03 (Nov. 20, 2022)
+------------------------
+- Library update: LibBabble-SubZone
+- Remove Atlas button from Adventure Journal
+
+v1.52.02 (Nov. 19, 2022)
+------------------------
+- Toc update to support WoW 10.0.2
+- Library update: LibBabble-SubZone
+
+v1.52.01 (Nov. 12, 2022)
+------------------------
+- Migrate WorldMap Atlas button to use Krowi_WorldMapButtons
+
+v1.52.00 (Nov. 06, 2022)
+------------------------
+- Dragonflight implementation
+- Temporary disable the achievement's linking feature as it's not working at the moment
+- Toc update to support WoW 10.0.0
 
 v1.51.06 (Aug. 31, 2022)
 ------------------------

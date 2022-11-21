@@ -1,4 +1,4 @@
--- $Id: Config.lua 374 2022-01-26 14:33:01Z arithmandar $
+-- $Id: Config.lua 419 2022-11-12 07:24:19Z arithmandar $
 --[[
 
 	Atlas, a World of Warcraft instance map browser
@@ -265,9 +265,9 @@ local function getOptions()
 									set = function(info, value)
 										addon.db.profile.options.worldMapButton = value
 										if (addon.db.profile.options.worldMapButton) then
-											AtlasToggleFromWorldMap:Show()
+											addon.WorldMap.Button:Show()
 										else
-											AtlasToggleFromWorldMap:Hide()
+											addon.WorldMap.Button:Hide()
 										end
 									end,
 								},
@@ -360,7 +360,9 @@ local function openOptions()
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.Profiles)
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.Profiles) -- yes, run twice to force the tre get expanded
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.General)
-	InterfaceOptionsFrame:Raise()
+	if InterfaceOptionsFrame then
+		InterfaceOptionsFrame:Raise()
+	end
 end
 
 function addon:OpenOptions() 

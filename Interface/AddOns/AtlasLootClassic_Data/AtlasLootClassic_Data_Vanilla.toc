@@ -1,0 +1,37 @@
+## Interface: 11403
+## Author: Lag
+## Version: v3.0.7
+## Dependencies: AtlasLootClassic
+## LoadOnDemand: 1
+
+## Title: AtlasLootClassic |cFFFF0000[Data]|r
+## Title-deDE: AtlasLootClassic |cFFFF0000[Daten]|r
+## Title-esES: AtlasLootClassic |cFFFF0000[Datos]|r
+## Title-esMX: AtlasLootClassic |cFFFF0000[Datos]|r
+## Title-frFR: AtlasLoot Classic |cFFFF0000[Données]|r
+## Title-itIT: AtlasLootClassic |cFFFF0000[Data]|r
+## Title-koKR: AtlasLoot 클래식 |cFFFF0000[데이터]|r
+## Title-ptBR: AtlasLootClassic |cFFFF0000[Dada]|r
+## Title-ruRU: AtlasLootClassic |cFFFF0000[Data]|r
+## Title-zhCN: AtlasLoot经典版 |cFFFF0000[数据]|r
+## Title-zhTW: 副本戰利品查詢經典版 |cFFFF0000[數據]|r
+## Notes: AtlasLoot data module
+## Notes-deDE: AtlasLoot Datenmodul
+## Notes-esES: AtlasLoot módulo de datos
+## Notes-esMX: AtlasLoot módulo de datos
+## Notes-frFR: Module de données
+## Notes-itIT: AtlasLoot data module
+## Notes-koKR: AtlasLoot 데이터 모듈
+## Notes-ptBR: Módulo de dados de AtlasLoot
+## Notes-ruRU: Модуль данных AtlasLoot
+## Notes-zhCN: AtlasLoot 数据模块
+## Notes-zhTW: 副本戰利品查詢的數據設定。
+
+## X-Category: Map
+## X-License: GPL v2
+
+core.lua
+
+locales.lua
+items.lua
+source.lua

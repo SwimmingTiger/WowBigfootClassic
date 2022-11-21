@@ -27,9 +27,9 @@
 # ## Notes: Classic WoW Dungeon Maps
 # ## Notes-zhTW: 艾澤拉斯副本地圖模組
 #@end-debug@
-## Version: v1.51.02
+## Version: v1.52.01
 ## Author: arith, Dynaletik, dubcat
-## X-Date: 2022-08-22T16:06:40Z
+## X-Date: 2022-11-19T7:36:45Z
 ## X-Credits: Dan Gilbert, Lothaer
 ## X-Email: atlas.addon at gmail dot com
 ## X-Website: http://www.atlasmod.com

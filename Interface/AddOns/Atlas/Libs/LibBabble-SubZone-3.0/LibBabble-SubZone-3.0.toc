@@ -1,4 +1,4 @@
-﻿## Interface: 90207
+﻿## Interface: 100002
 ## LoadOnDemand: 1
 ## Title: Lib: Babble-SubZone-3.0
 ## Title-frFR: Lib: Babble-SubZone-3.0

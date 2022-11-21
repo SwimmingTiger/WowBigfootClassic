@@ -1,4 +1,4 @@
-## Interface: 90207
+## Interface: 100002
 #@non-debug@
 ## Title: Atlas |r|cFF0099FF[Wrath of the Lich King]|r
 ## Title-deDE: Atlas |r|cFF0099FF[Wrath of the Lich King]|r
@@ -17,9 +17,9 @@
 # ## Notes: Wrath of the Lich King Dungeon Maps
 # ## Notes-zhTW: 巫妖王之怒副本地圖模組
 #@end-debug@
-## Version: v1.51.02
+## Version: v1.52.01
 ## Author: arith, Dynaletik, dubcat
-## X-Date: 2022-08-22T15:29:57Z
+## X-Date: 2022-11-19T7:40:55Z
 ## X-Credits: Dan Gilbert, Lothaer
 ## X-Email: atlas.addon at gmail dot com
 ## X-Website: http://www.atlasmod.com
