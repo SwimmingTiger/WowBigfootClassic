@@ -51,7 +51,7 @@ local t = {
 	['DRUID'] = {
 		["POWER"] = Enum.PowerType.ComboPoints,
 		["all"] = { ["w"] = 80, ["h"] = 20 },
-		["5"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 5}, -- all, since you can cat all the time :P
+		["5"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 4}, -- all, since you can cat all the time :P
 		["6"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 9}, -- all, since you can cat all the time :P
 	},
 
@@ -59,7 +59,7 @@ local t = {
 		["POWER"] = Enum.PowerType.ComboPoints,
 		["all"] = { ["w"] = 80, ["h"] = 20 },
 		["5"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 4}, -- all, since you can combo all the time :P
-		["6"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 8}, -- all, since you can combo all the time :P
+		["6"] = { ["w"] = 80, ["h"] = 20, ["l"] = 0.5, ["r"] = 0.625, ["o"] = 9}, -- all, since you can combo all the time :P
 		["OVERLAY"] = {
 			["amount"] = 4,
 			["off"] = {
@@ -371,28 +371,28 @@ local function CreateSparkAnimation(parent)
 
 	spark:SetAlpha(0)
 
-	-- Spark Animation
-	spark.Anim = spark:CreateAnimationGroup()
-	spark.fadeIn = spark.Anim:CreateAnimation("Alpha")
-	spark.fadeIn:SetFromAlpha(0)
-	spark.fadeIn:SetToAlpha(1)
-	spark.fadeIn:SetDuration(0.2)
-	spark.fadeIn:SetOrder(1)
-	spark.scaleIn = spark.Anim:CreateAnimation("Scale")
-	spark.scaleIn:SetFromScale(0.6,0.6)
-	spark.scaleIn:SetToScale(1,1)
-	spark.scaleIn:SetDuration(0.25)
-	spark.scaleIn:SetOrder(1)
-	spark.scaleOut = spark.Anim:CreateAnimation("Scale")
-	spark.scaleOut:SetFromScale(1,1)
-	spark.scaleOut:SetToScale(0.1,0.1)
-	spark.scaleOut:SetDuration(0.3)
-	spark.scaleOut:SetOrder(2)
-	spark.fadeOut = spark.Anim:CreateAnimation("Alpha")
-	spark.fadeOut:SetFromAlpha(1)
-	spark.fadeOut:SetToAlpha(0)
-	spark.fadeOut:SetDuration(0.1)
-	spark.fadeOut:SetOrder(3)
+	-- -- Spark Animation
+	-- spark.Anim = spark:CreateAnimationGroup()
+	-- spark.fadeIn = spark.Anim:CreateAnimation("Alpha")
+	-- spark.fadeIn:SetFromAlpha(0)
+	-- spark.fadeIn:SetToAlpha(1)
+	-- spark.fadeIn:SetDuration(0.2)
+	-- spark.fadeIn:SetOrder(1)
+	-- spark.scaleIn = spark.Anim:CreateAnimation("Scale")
+	-- spark.scaleIn:SetFromScale(0.6,0.6)
+	-- spark.scaleIn:SetToScale(1,1)
+	-- spark.scaleIn:SetDuration(0.25)
+	-- spark.scaleIn:SetOrder(1)
+	-- spark.scaleOut = spark.Anim:CreateAnimation("Scale")
+	-- spark.scaleOut:SetFromScale(1,1)
+	-- spark.scaleOut:SetToScale(0.1,0.1)
+	-- spark.scaleOut:SetDuration(0.3)
+	-- spark.scaleOut:SetOrder(2)
+	-- spark.fadeOut = spark.Anim:CreateAnimation("Alpha")
+	-- spark.fadeOut:SetFromAlpha(1)
+	-- spark.fadeOut:SetToAlpha(0)
+	-- spark.fadeOut:SetDuration(0.1)
+	-- spark.fadeOut:SetOrder(3)
 
 	return spark
 end

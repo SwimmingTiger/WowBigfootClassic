@@ -16,6 +16,15 @@ copytable = function(original)
 	return duplicate
 end
 
+local tableContains = function(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+
 NeatPlatesUtility.Colors = {
 	white = "|cFFFFFFFF",
 	yellow = "|cffffff00",
@@ -188,6 +197,7 @@ end
 
 NeatPlatesUtility.abbrevNumber = valueToString
 NeatPlatesUtility.copyTable = copytable
+NeatPlatesUtility.contains = tableContains
 NeatPlatesUtility.mergeTable = mergetable
 NeatPlatesUtility.updateTable = updatetable
 NeatPlatesUtility.HexToRGB = HexToRGB
@@ -345,25 +355,24 @@ local function GetUnitQuestInfo(unit)
 
     	if line > 1 then
 	    	local tooltipText, r, g, b = GetTooltipLineText( line )
-	      local questColor = (b == 0 and r > 0.99 and g > 0.82) -- Note: Quest Name Heading is colored Yellow. (As well as the player on that quest as of 8.2.5)
+	    	local questColor = (r > 0.99 and g > 0.81 and b == 0) -- Note: Quest Name Heading is colored Yellow. (As well as the player on that quest as of 8.2.5)
+			if questColor then
+				questName = tooltipText
+				questList[questName] = questList[questName] or {}
+			elseif questName and objectiveCount > 0 then
+						questList[questName][tooltipText] = questCompleted[#questCompleted+1 - objectiveCount]	-- Quest objective completed?
+						questList[questName]["texture"] = textureIds
 
-	      if questColor then
-	      	questName = tooltipText
-	      	questList[questName] = questList[questName] or {}
-	      elseif questName and objectiveCount > 0 then
-					questList[questName][tooltipText] = questCompleted[#questCompleted+1 - objectiveCount]	-- Quest objective completed?
-					questList[questName]["texture"] = textureIds
-
-					-- Old method for checking quest completion as backup
-					--if questList[questName][tooltipText] == nil then
-					--	local questProgress, questTotal = string.match(tooltipText, "([0-9]+)\/([0-9]+)")
-					--	questProgress = tonumber(questProgress)
-					--	questTotal = tonumber(questTotal)
-					-- 	questList[questName][tooltipText] = not (not (questProgress and questTotal) or (questProgress and questTotal and questProgress < questTotal))
-					-- end
-	      	objectiveCount = objectiveCount - 1 -- Decrease objective Count
-	      end
-      end
+						-- Old method for checking quest completion as backup
+						--if questList[questName][tooltipText] == nil then
+						--	local questProgress, questTotal = string.match(tooltipText, "([0-9]+)\/([0-9]+)")
+						--	questProgress = tonumber(questProgress)
+						--	questTotal = tonumber(questTotal)
+						-- 	questList[questName][tooltipText] = not (not (questProgress and questTotal) or (questProgress and questTotal and questProgress < questTotal))
+						-- end
+				objectiveCount = objectiveCount - 1 -- Decrease objective Count
+			end
+		end
 	  end
 
 	  if questList[UnitName("player")] then
@@ -719,7 +728,7 @@ local function CreateSliderFrame(self, reference, parent, label, val, minval, ma
 	EditBox:SetPoint("BOTTOM", 0, -10)
 	EditBox:SetHeight(5)
 	EditBox:SetWidth(50)
-	EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "NONE")
+	EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "")
 	EditBox:SetAutoFocus(false)
 	EditBox:SetJustifyH("CENTER")
 	EditBox:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
@@ -1105,7 +1114,7 @@ local function CreateEditBox(name, width, height, parent, anchorFrame, ...)
 	EditBox:SetMultiLine(true)
 
 	EditBox:SetFrameLevel(frame:GetFrameLevel()+1)
-	EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "NONE")
+	EditBox:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "")
 
 	EditBox:SetText("")
 	EditBox:SetAutoFocus(false)
@@ -1165,7 +1174,7 @@ local function CreateTipBox(self, name, text, parent, ...)
 	frame.Text = frame:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
 	frame.Text:SetTextColor(255/255, 105/255, 6/255)
 	frame.Text:SetAllPoints()
-	frame.Text:SetFont(NeatPlatesLocalizedFont, 12)
+	frame.Text:SetFont(NeatPlatesLocalizedFont, 12, "")
 	frame.Text:SetText(L["Tip"])
 
 	frame.tooltipText = text
@@ -1279,7 +1288,7 @@ local function CreateScrollList(parent, name, lists, buttonFunc, width, height)
 		-- Create Label
 		if list.label then
 			local label = _G[name..k.."_label"] or child:CreateFontString(name..k.."_label", "OVERLAY")
-			label:SetFont(NeatPlatesLocalizedFont or "Interface\\Addons\\NeatPlates\\Media\\DefaultFont.ttf", 18)
+			label:SetFont(NeatPlatesLocalizedFont or "Interface\\Addons\\NeatPlates\\Media\\DefaultFont.ttf", 18, "")
 			label:SetTextColor(255/255, 105/255, 6/255)
 			label:SetText(list.label)
 
@@ -1601,7 +1610,7 @@ local function CreateAuraManagement(self, objectName, parent, width, height)
 	frame.AuraName:SetHeight(25)
 	frame.AuraName:SetPoint("TOPLEFT", frame.AuraNameLabel, "BOTTOMLEFT", 4, -2)
 	frame.AuraName:SetAutoFocus(false)
-	frame.AuraName:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "NONE")
+	frame.AuraName:SetFont(NeatPlatesLocalizedInputFont or "Fonts\\FRIZQT__.TTF", 11, "")
 	frame.AuraName:SetFrameStrata("DIALOG")
 	frame.AuraName.objectName = "name"
 	frame.AuraName:SetScript("OnTextChanged", function() frame.OnValueChanged(frame.AuraName) end)
@@ -1785,6 +1794,19 @@ end
 
 NeatPlatesUtility.CreateTargetFrame = CreateTargetFrame
 
+-- Custom Class Colors
+local function SetupClassColors()
+	if CUSTOM_CLASS_COLORS then
+		NEATPLATES_CLASS_COLORS = CUSTOM_CLASS_COLORS
+	elseif NeatPlatesSettings.ClassColors then
+		NEATPLATES_CLASS_COLORS = NeatPlatesSettings.ClassColors
+	end
+
+	NeatPlatesSettings.ClassColors = NEATPLATES_CLASS_COLORS
+end
+
+NeatPlatesUtility.SetupClassColors = SetupClassColors
+
 ----------------------
 -- Call In() - Registers a callback, which hides the specified frame in X seconds
 ----------------------
@@ -1836,7 +1858,7 @@ do
 	local fixed = false
 
 	local function OpenInterfacePanel(panel)
-		if not fixed then
+		if not Settings and not fixed then
 
 			local panelName = panel.name
 			if not panelName then return end
@@ -1852,7 +1874,13 @@ do
 			fixed = true
 		end
 
-		InterfaceOptionsFrame_OpenToCategory(panel)
+		if Settings then
+			local category = Settings.GetCategory("NeatPlates")
+			category.expanded = true
+			Settings.OpenToCategory(panel.name)
+		else
+			InterfaceOptionsFrame_OpenToCategory(panel)
+		end
 	end
 
 	NeatPlatesUtility.OpenInterfacePanel = OpenInterfacePanel

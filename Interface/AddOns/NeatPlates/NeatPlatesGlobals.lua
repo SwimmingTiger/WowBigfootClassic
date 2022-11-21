@@ -6,3 +6,9 @@ local wowversion, wowbuild, wowdate, wowtocversion = GetBuildInfo()
 if wowtocversion and (wowtocversion > 90000 or (NEATPLATES_IS_CLASSIC and wowtocversion >= 11400)) then
 	NeatPlatesBackdrop = "BackdropTemplate"
 end
+
+-- Fill CUSTOM_CLASS_COLORS with the default colors
+NEATPLATES_CLASS_COLORS = {}
+for class, color in pairs(RAID_CLASS_COLORS) do
+	NEATPLATES_CLASS_COLORS[class] = {r = color.r, g = color.g, b = color.b}
+end

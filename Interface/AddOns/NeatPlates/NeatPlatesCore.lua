@@ -30,7 +30,6 @@ local SetNamePlateFriendlySize = function(x,y)
 	C_NamePlate.SetNamePlateFriendlySize(x,y)
 end
 local SetNamePlateEnemySize = C_NamePlate.SetNamePlateEnemySize
-local RaidClassColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 
 -- Internal Data
 local Plates, PlatesVisible, PlatesFading, GUID = {}, {}, {}, {}	         	-- Plate Lists
@@ -224,6 +223,9 @@ local ForEachPlate
 
 -- Show Custom NeatPlates target frame
 local ShowEmulatedTargetPlate = false
+
+-- Store players faction
+local PlayerFaction = UnitFactionGroup("player")
 
 local function IsEmulatedFrame(guid)
 	if NeatPlatesTarget and NeatPlatesTarget.unitGUID == guid then return NeatPlatesTarget else return end
@@ -871,6 +873,23 @@ do
 		end
 	end
 
+	local function GetReactionByUnit(unit)
+		local reaction = UnitReaction("player", unit.unitid)
+		local isEnemy = UnitExists(unit.unitid) and UnitIsEnemy("player", unit.unitid)
+
+		if reaction == 4 then
+			return "NEUTRAL"
+		elseif isEnemy then
+			return "HOSTILE"
+		elseif reaction < 4 then
+			return "HOSTILE"
+		elseif reaction > 4 then
+			return "FRIENDLY"
+		end
+
+		return nil
+	end
+
 
 	local EliteReference = {
 		["elite"] = true,
@@ -911,7 +930,7 @@ do
 		unit.isMini = classification == "minus"
 		--unit.isPet = UnitIsOtherPlayersPet(unitid)
 		--unit.isPet = ("Pet" == strsplit("-", UnitGUID(unitid)))
-		unit.isPet = ParseGUID(UnitGUID(unitid)) == "Pet"
+		unit.isPet = ParseGUID(UnitGUID(unitid)) == "Pet" or UnitIsOtherPlayersPet(unitid)
 
 		if UnitIsPlayer(unitid) then
 			_, unit.class = UnitClass(unitid)
@@ -959,9 +978,11 @@ do
 
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
 		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue) or "HOSTILE"
+		-- unit.reaction = GetReactionByUnit(unit) or "HOSTILE"
 
 		unit.health = UnitHealth(unitid) or 0
-		unit.healthmax = UnitHealthMax(unitid) or 1
+		unit.healthmax = UnitHealthMax(unitid) or 0
+		if unit.healthmax == 0 then unit.healthmax = 1 end
 
 		local powerType = UnitPowerType(unitid) or 0
 		unit.power = UnitPower(unitid, powerType) or 0
@@ -1362,7 +1383,7 @@ do
 		end
 
 		-- Set 'notInterruptible' to false, Because we cannot tell if it's interruptible or not in classic
-		if NEATPLATES_IS_CLASSIC then notInterruptible = false end
+		if NEATPLATES_IS_CLASSIC_ERA or NEATPLATES_IS_CLASSIC_TBC then notInterruptible = false end
 
 		unit.isCasting = true
 		unit.interrupted = false
@@ -1421,11 +1442,11 @@ do
 
 			if sourceGUID and sourceGUID ~= "" and ShowIntWhoCast then
 				local _, engClass = GetPlayerInfoByGUID(sourceGUID)
-				if RaidClassColors[engClass] then color = RaidClassColors[engClass].colorStr end
+				if NEATPLATES_CLASS_COLORS[engClass] then color = ConvertRGBtoColorString(NEATPLATES_CLASS_COLORS[engClass]) end
 			end
 
 			if sourceName and color then
-				spellString = eventText.." |c"..color.."("..sourceName..")"
+				spellString = eventText.." "..color.."("..sourceName..")"
 			else
 				spellString = eventText
 			end
@@ -1526,7 +1547,7 @@ do
 				targetname = "|cFFFF1100"..">> "..L["You"].." <<" or ""	-- Red '>> You <<' instead of character name
 			elseif UnitIsPlayer(targetof) then
 				local targetclass = select(2, UnitClass(targetof))
-				targetname = ConvertRGBtoColorString(RaidClassColors[targetclass])..targetname or ""
+				targetname = ConvertRGBtoColorString(NEATPLATES_CLASS_COLORS[targetclass])..targetname or ""
 			end
 			plate.extended.visual.spelltarget:SetText(targetname)
 		end
